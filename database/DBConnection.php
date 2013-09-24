@@ -24,6 +24,26 @@ class DBConnection {
 	}
 	
 	public function getConnectionList() { return $this->connections; }
+	public function addConnection($user,$conn) {
+		$this->connections[$user]=array($conn,1);
+	}
+	
+	public function deleteConnection($conn) {
+		foreach ($this->connections as $user => $data) {
+			if ($data[0]==null) continue;
+			if ($data[0]!==$conn) continue;
+			if ($data[1]>0) $data[1]--;
+			// arriving zero means close
+			if ($data[1]==0) {
+				$res = $conn->close();
+				$data[0]=null;
+				$this->connections[$user]=null;
+				return $res;
+			}
+		}
+		// arriving here means connection not found
+		return FALSE;
+	}
 	
 	public static function getConnection($user,$pass) {
 		// obtiene una instancia del singleton
@@ -40,30 +60,18 @@ class DBConnection {
 		$instances[$user][0]=null;
 		$res = new mysqli(DBHOST,$user,$pass,DBNAME);
 		if (!$res->connect_error) {
-			$instances[$user][1]++;
-			$instances[$user][0]=$res;
+			$myDBConnection->addConnection($user,$res);
 		}
-		return $instances[$user][0];
+		return $res;
 	}
 	
 	public static function removeConnection($conn) {
 		// obtiene una instancia del singleton
 		$myDBConnection= self::getInstance();
-		$instances= $myDBConnection->getConnectionList();
-		foreach ($instances as $item) {
-			if ($item[0]==null) continue;
-			if ($item[0]!==$conn) continue;
-			if ($item[1]>0) $item[1]--;
-			// arriving zero means close
-			if ($item[1]==0) {
-				$res = $conn->close();
-				$item[0]=null;
-				return $res;	
-			}
-		}
-		// arriving here means connection not found
-		return FALSE;
+		return $myDBConnection->deleteConnection($conn);
 	}
+	
+
 }
 
 ?>

@@ -19,14 +19,14 @@ if (!$conn) die("connection error");
 $rs=$conn->query($querystr);
 ?>
 <!--  Cabecera de la tabla -->
-<th>
+<tr>
 <?php
 	$fields=$rs->fetch_fields();
 	foreach($fields as $field) {
-		printf("<td>%s</td>",$field->name);
+		printf("<th>%s</th>",$field->name);
 	}
 ?>
-</th>
+</tr>
 <!--  Contenido de la tabla -->
 <?php
 	while($row = $rs->fetch_array() ){
