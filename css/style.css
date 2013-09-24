@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* CSS Document */
+
+/***** Datos de la cabecera ******/
+#header {
+    background-image: url('../icons/header_bg.jpg');
+}
+#header p {
+    color: #ccc;
+    padding-left: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 32pt;
+    font-style: italic;
+    font-weight: bold;
+    display: table-cell;
+    line-height: 150pt;
+}
+/***** Datos del menu lateral *****/
+#menu ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    width: 200px;
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+}
+#menu ul li {
+    background-color: #888;
+    color: #fff;
+}
+#menu ul li a {
+    background-color: #00f;
+    color: #ccc;
+    text-decoration: none;
+    display: block;
+    padding: 10px 10px 10px 20px;
+}
+#menu ul li a:hover {
+    background: #ff0;
+    border-left: 10px solid #333;
+    color: #000;
+}
+border-left: 10px solid #00f;
+
+/********** Datos del area de trabajo ************/
+#right {
+    list-style-type: none;
+    margin-left: 200px;
+    padding: 0px;
+    width: 800px;
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+}

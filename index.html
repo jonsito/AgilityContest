@@ -2,99 +2,41 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en_US" xml:lang="en_US">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Hola mundo</title>
-        <link href="css/style.css" rel="stylesheet" type="text/css" />
-        <script src="lib/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8" ></script>
-        <script src="api/ErrorHandler.js" type="text/javascript" charset="utf-8" > </script>
-        <script src="api/Tools.js" type="text/javascript" charset="utf-8" > </script>
-        <script src="api/Debug.js" type="text/javascript" charset="utf-8" > </script>
-        <script src="api/MessageBuilder.js" type="text/javascript" charset="utf-8" > </script>
-        <script src="api/MessageObject.js" type="text/javascript" charset="utf-8" > </script>
-        <script src="api/CommManager.js" type="text/javascript" charset="utf-8" > </script>
-        <script src="api/ConnectionManager.js" type="text/javascript" charset="utf-8" > </script>
-        <script src="api/ModuleManager.js" type="text/javascript" charset="utf-8" > </script>
-    	<script type="text/javascript">
-    	var myConnection;
-    	
-    	function scan(){
-    		var ipaddr=$("#form input[name=ipaddr]").val();
-    		myConnection=getConnection("UDP",ipaddr,3000);
-    		myConnection.open();
-    		myConnection.setEnabled(true);
-    		$("#cabecera").text("Modulos encontrados en: "+ipaddr);
-    		for (var i=1;i<15;i++) {
-    			// need to use closures to assure index persistence in async callbacks
-    			(function (index) {
-        			myConnection.getID(0,index,function(error,result){
-        				if (error==SUCCESS)
-            				$("#slot_"+index).text("Slot "+index+": "+result.data);
-        				else
-        					$("#slot_"+index).text("Slot "+index+": ");
-        			});
-    			}(i));
-        	}
-    	}
-    	
-    	function console_send() {
-    		console.log("console.send");
-    		var cmd=$("#form input[name=command]").val();
-    		if (myConnection===null) {
-    			alert("No connection established");
-    			return false;
-    		}
-    		myConnection=getNetworkInterface("UDP",ipaddr,3000);
-    		myConnection.open();
-    		myConnection.setEnabled(true);
-    		myConnection.rawCmd(cmd, function(error,result) {
-    			if(error==SUCCESS)
-    	    		$("#form input[name=response]").val(result.data);
-    			else
-    	    		$("#form input[name=response]").val(result);
-    		});
-    	}
-    	
-    	function empty() {
-    		// TODO: revise what's happennig
-    		// avoid reload page
-    	}
-    	
-    	</script>
-    </head>
-    <body>
-    	<p1 id="cabecera">Prueba</p1>
-    	<p>
-            <a href="ui/mainpanel.html">UI PANEL</a>
-    	Enter host or IP address
-    	<form id="form" method="GET" action="javascript:empty();">
-    	<input type="text" name="ipaddr" onchange="void scan()"/>
-    	</form>
-    	</p>
-    	<p>
-    	<form id="console" method="GET" action javascript:console_send()>
-    	Command to send: <input id="command" type="text" name="command"/>
-    	<input type="button" name="Send" value="Send"/><br />
-    	Response: <input id="response" type="text" response" maxlength="512" disabled="disabled"></input>
-    	</form>
-    	</p>
-    	<ul>
-    	<li id="slot_1">Slot 01: </li>
-    	<li id="slot_2">Slot 02: </li>
-    	<li id="slot_3">Slot 03: </li>
-    	<li id="slot_4">Slot 04: </li>
-    	<li id="slot_5">Slot 05: </li>
-    	<li id="slot_6">Slot 06: </li>
-    	<li id="slot_7">Slot 07: </li>
-    	<li id="slot_8">Slot 08: </li>
-    	<li id="slot_9">Slot 09: </li>
-    	<li id="slot_10">Slot 10: </li>
-    	<li id="slot_11">Slot 11: </li>
-    	<li id="slot_12">Slot 12: </li>
-    	<li id="slot_13">Slot 13: </li>
-    	<li id="slot_14">Slot 14: </li>
-    	</ul>
-    	<p id="result">Respuestas:</p>
-    	<p id="errors">Errores:</p>
-    </body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>El diario de "La Cachorrera"</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script src="lib/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8" > </script>
+</head>
+<body>
+<div id="header">
+ <p> El diario de "La Cachorrera" </p>
+</div>
+<div id="menu">
+<ul>
+<li>BASE DE DATOS
+	<ul>
+	<li><a href="clubes.php">Clubes</a></li>
+	<li><a href="guias.php">Guías</a></li>
+	<li><a href="perros.php">Perros</a></li>
+	<li><a href="jueces.php">Jueces</a></li>
+	</ul>
+</li>
+<li>PRUEBAS
+	<ul>
+	<li><a href="alta_pruebas.php">Creacion de pruebas</a></li>
+	<li><a href="edicion_pruebas.php">Edición. Inscripciones</a></li>
+	<li><a href="desarrollo_pruebas.php">Desarrollo de la prueba</a></li>
+	</ul>
+</li>
+<li>CONSULTAS
+	<li><a href="resultados.php">Resultados</a></li>
+	<li><a href="estadisticas">Estadisticas</a></li>
+</li>
+</ul>
+</div>
+<div id="right">
+<p>Hola mundo</p>
+</div>
+</body>
 </html> 

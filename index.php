@@ -1,6 +1,8 @@
 <html>
 <head>
 <title>Test</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script src="lib/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8" ></script>
 </head>
 <body>
 <table border="1">
@@ -14,7 +16,7 @@ ORDER BY Club, Categoria, Nombre
 ";
 
 require ("./database/DBConnection.php");
-$conn=DBConnection::getConnection("agility_guest","guest@cachorrera");
+$conn=DBConnection::openConnection("agility_guest","guest@cachorrera");
 if (!$conn) die("connection error");
 $rs=$conn->query($querystr);
 ?>
@@ -38,7 +40,7 @@ $rs=$conn->query($querystr);
 	}
 	// finally close connection
 	$rs->free();
-	DBConnection::removeConnection($conn);
+	DBConnection::closeConnection($conn);
 ?>
 </table>
 </body>

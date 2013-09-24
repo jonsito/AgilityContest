@@ -45,7 +45,7 @@ class DBConnection {
 		return FALSE;
 	}
 	
-	public static function getConnection($user,$pass) {
+	public static function openConnection($user,$pass) {
 		// obtiene una instancia del singleton
 		$myDBConnection= self::getInstance();
 		$instances= $myDBConnection->getConnectionList();
@@ -65,7 +65,7 @@ class DBConnection {
 		return $res;
 	}
 	
-	public static function removeConnection($conn) {
+	public static function closeConnection($conn) {
 		// obtiene una instancia del singleton
 		$myDBConnection= self::getInstance();
 		return $myDBConnection->deleteConnection($conn);
