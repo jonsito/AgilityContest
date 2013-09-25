@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Test</title>
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<script src="lib/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8" ></script>
-</head>
-<body>
+<script language="javascript">
+        $('#Header_Operation').html('<p>Gesti&oacute;n de Perros</p>');
+</script>
 <h1>Listado de perros por club y categor&iacute;a </h1>
-<table border="1" width="100%">
 <?php
 $querystr=
 "
@@ -22,7 +16,10 @@ $conn=DBConnection::openConnection("agility_guest","guest@cachorrera");
 if (!$conn) die("connection error");
 $rs=$conn->query($querystr);
 ?>
+<!--  Declaracion de la tabla -->
+<table border="1"  style="width: 100%;" >
 <!--  Cabecera de la tabla -->
+<thead>
 <tr>
 <?php
 	$fields=$rs->fetch_fields();
@@ -31,7 +28,9 @@ $rs=$conn->query($querystr);
 	}
 ?>
 </tr>
+</thead>
 <!--  Contenido de la tabla -->
+<tbody style="height: 100px; overflow-y: scroll;">
 <?php
 	while($row = $rs->fetch_array() ){
 		printf("<tr>\n");
@@ -44,6 +43,5 @@ $rs=$conn->query($querystr);
 	$rs->free();
 	DBConnection::closeConnection($conn);
 ?>
+</tbody>
 </table>
-</body>
-</html>

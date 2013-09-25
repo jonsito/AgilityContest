@@ -6,12 +6,14 @@
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <script src="lib/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="lib/jquery-easyui-1.3.4.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="lib/loadContents.js" type="text/javascript" charset="utf-8" > </script>
 </head>
-<body>
+<body onLoad="javascript:loadContents('#contenido','lorenipsum.html');">
 
 <!-- CABECERA -->
 <div id="header">
 	<p> El diario de "La Cachorrera" </p>
+	<span id="Header_Operation"></span>
 </div>
 
 <!-- LOGO -->
@@ -24,33 +26,31 @@
 <ul>
 <li>BASE DE DATOS
 	<ul>
-	<li><a target="contenido" href="clubes.php">Clubes</a></li>
-	<li><a target="contenido" href="guias.php">Gu&iacute;as</a></li>
-	<li><a target="contenido" href="perros.php">Perros</a></li>
-	<li><a target="contenido" href="jueces.php">Jueces</a></li>
+	<li><a href="javascript:loadContents('#contenido','clubes.php');">Clubes</a></li>
+	<li><a href="javascript:loadContents('#contenido','guias.php');">Gu&iacute;as</a></li>
+	<li><a href="javascript:loadContents('#contenido','perros.php');">Perros</a></li>
+	<li><a href="javascript:loadContents('#contenido','jueces.php');">Jueces</a></li>
 	</ul>
 </li>
 <li>PRUEBAS
 	<ul>
-	<li><a target="contenido" href="alta_pruebas.php">Creaci&oacute;n de pruebas</a></li>
-	<li><a target="contenido" href="edicion_pruebas.php">Edici&oacute;n. Inscripciones</a></li>
-	<li><a target="contenido" href="desarrollo_pruebas.php">Desarrollo de la prueba</a></li>
+	<li><a href="javascript:loadContents('#contenido','alta_pruebas.php');">Creaci&oacute;n de pruebas</a></li>
+	<li><a href="javascript:loadContents('#contenido','edicion_pruebas.php');">Edici&oacute;n. Inscripciones</a></li>
+	<li><a href="javascript:loadContents('#contenido','desarrollo_pruebas.php');">Desarrollo de la prueba</a></li>
 	</ul>
 </li>
 <li>CONSULTAS
 	<ul>
-	<li><a target="contenido" href="resultados.php">Resultados</a></li>
-	<li><a target="contenido" href="estadisticas">Estad&iacute;sticas</a></li>
+	<li><a href="javascript:loadContents('#contenido','resultados.php');">Resultados</a></li>
+	<li><a href="javascript:loadContents('#contenido','estadisticas.php');">Estad&iacute;sticas</a></li>
 	</ul>
 </li>
 </ul>
 </div>
 	
-<!--  CUERPO PRINCIPAL DE LA PAGINA -->
+<!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 <div id="content">
-<iframe name="contenido" frameborder="0" src="test2.html">
-<p>El navegador no soporta iframes<br /> deber&iacute;as actualizarte</p>
-</iframe>
+<span id="contenido"></span>
 </div>
 
 </body>

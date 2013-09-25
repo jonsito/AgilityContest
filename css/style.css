@@ -1,6 +1,8 @@
 @charset "utf-8";
 /* CSS Document */
 body {
+	width: 1024px;
+	height: 768px;
 	background: #00f;
 }
 
@@ -28,6 +30,9 @@ body {
     display: table-cell;
 }
 
+#header span p {
+	font-size: 24pt;
+}
 /***** Datos del menu lateral *****/
 #sidebar {
 	position: fixed;
@@ -65,10 +70,10 @@ body {
 /* marcador div del contenido. fija posicion */
 #content {
 	/* border-style: inset; */
-	position: fixed;
-	top: 150px;
+	position: absolute;
+	top: 120px;
 	left: 200px;
-	margin-right: 10px;
+	margin-left: 20px;
 }
 /* iframe que se ira recargando */
 #contenido {
