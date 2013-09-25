@@ -67,13 +67,9 @@ body {
 	/* border-style: inset; */
 	position: fixed;
 	top: 150px;
-	left: 210px;
-	margin-left: 10px;
+	left: 200px;
+	margin-right: 10px;
 }
 /* iframe que se ira recargando */
-#contenido { /*
-	width: 804px;
-	height: 618px;
-	*/
-	scrolling: no;
+#contenido {
 }

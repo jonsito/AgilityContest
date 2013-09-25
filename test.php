@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <title>Test</title>
@@ -6,7 +7,7 @@
 </head>
 <body>
 <h1>Listado de perros por club y categor&iacute;a </h1>
-<table border="1">
+<table border="1" width="100%">
 <?php
 $querystr=
 "
