@@ -5,6 +5,7 @@
 <script src="lib/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8" ></script>
 </head>
 <body>
+<h1>Listado de perros por club y categor&iacute;a </h1>
 <table border="1">
 <?php
 $querystr=

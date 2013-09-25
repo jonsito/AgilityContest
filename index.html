@@ -8,6 +8,7 @@
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <script src="lib/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="lib/jquery-easyui-1.3.4.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="lib/loadContents.js" type="text/javascript" charset="utf-8" > </script>
 </head>
 <body>
 
@@ -18,7 +19,7 @@
 
 <!-- LOGO -->
 <div id="logo">
-	<p><img src="icons/logo_welpe.jpg" width="200" alt="logo welpe" /></p>
+	<p><img src="icons/logo_welpe.jpg" height="120" alt="logo welpe" /></p>
 </div>
 
 <!-- MENU LATERAL -->
@@ -26,23 +27,23 @@
 <ul>
 <li>BASE DE DATOS
 	<ul>
-	<li><a href="clubes.php">Clubes</a></li>
-	<li><a href="guias.php">Guías</a></li>
-	<li><a href="perros.php">Perros</a></li>
-	<li><a href="jueces.php">Jueces</a></li>
+	<li><a target="contenido" href="clubes.php">Clubes</a></li>
+	<li><a target="contenido" href="guias.php">Gu&iacute;as</a></li>
+	<li><a target="contenido" href="perros.php">Perros</a></li>
+	<li><a target="contenido" href="jueces.php">Jueces</a></li>
 	</ul>
 </li>
 <li>PRUEBAS
 	<ul>
-	<li><a href="alta_pruebas.php">Creacion de pruebas</a></li>
-	<li><a href="edicion_pruebas.php">Edición. Inscripciones</a></li>
-	<li><a href="desarrollo_pruebas.php">Desarrollo de la prueba</a></li>
+	<li><a target="contenido" href="alta_pruebas.php">Creaci&oacute;n de pruebas</a></li>
+	<li><a target="contenido" href="edicion_pruebas.php">Edici&oacute;n. Inscripciones</a></li>
+	<li><a target="contenido" href="desarrollo_pruebas.php">Desarrollo de la prueba</a></li>
 	</ul>
 </li>
 <li>CONSULTAS
 	<ul>
-	<li><a href="resultados.php">Resultados</a></li>
-	<li><a href="estadisticas">Estadisticas</a></li>
+	<li><a target="contenido" href="resultados.php">Resultados</a></li>
+	<li><a target="contenido" href="estadisticas">Estad&iacute;sticas</a></li>
 	</ul>
 </li>
 </ul>
@@ -50,7 +51,9 @@
 	
 <!--  CUERPO PRINCIPAL DE LA PAGINA -->
 <div id="content">
-<p>Hola mundo</p>
+<iframe name="contenido" src="test.php" width="804" height="618">
+<p>El navegador no soporta iframes<br /> deber&iacute;as actualizarte</p>
+</iframe>
 </div>
 
 </body>

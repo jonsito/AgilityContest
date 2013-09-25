@@ -8,7 +8,7 @@ body {
 #logo {
 	position: fixed;
     top: 0px;
-    right: 0px;
+    right: 10px;
 }
 
 
@@ -37,6 +37,7 @@ body {
 }
 
 #sidebar ul {
+	border: line;
     list-style-type: none;
     margin: 0px;
     padding: 0px;
@@ -60,18 +61,19 @@ body {
     color: #000;
 }
 
-border-left: 10px solid #00f;
-
 /********** Datos del area de trabajo ************/
+/* marcador div del contenido. fija posicion */
 #content {
+	/* border-style: inset; */
 	position: fixed;
 	top: 150px;
-	left: 250px;
+	left: 210px;
+	margin-left: 10px;
 }
-
-#content p {
-    font-family: Arial, sans-serif;
-    font-size: 32pt;
-    font-style: italic;
-    font-weight: bold;
+/* iframe que se ira recargando */
+#contenido { /*
+	width: 804px;
+	height: 618px;
+	*/
+	scrolling: no;
 }
