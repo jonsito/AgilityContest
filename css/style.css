@@ -1,10 +1,23 @@
 @charset "utf-8";
 /* CSS Document */
+body {
+	background: #00f;
+}
 
 /***** Datos de la cabecera ******/
-#header {
-    background-image: url('../icons/header_bg.jpg');
+#logo {
+	position: fixed;
+    top: 0px;
+    right: 0px;
 }
+
+
+#header {
+	position: fixed;
+	top: 50px;
+	left: 10px;
+}
+
 #header p {
     color: #ccc;
     padding-left: 20px;
@@ -13,13 +26,14 @@
     font-style: italic;
     font-weight: bold;
     display: table-cell;
-    line-height: 150pt;
 }
 
 /***** Datos del menu lateral *****/
 #sidebar {
-	float: left;
-	width: 15%;
+	position: fixed;
+	top: 150px;
+	left: 10px;
+	width: 200px;
 }
 
 #sidebar ul {
@@ -50,11 +64,9 @@ border-left: 10px solid #00f;
 
 /********** Datos del area de trabajo ************/
 #content {
-	margin-left: 15%;
-    position: relative;
-    width: 824px;
-    background-image: url('../icons/blue_bg.png');
-	background-repeat:repeat-y;
+	position: fixed;
+	top: 150px;
+	left: 250px;
 }
 
 #content p {
