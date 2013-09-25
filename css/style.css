@@ -15,39 +15,51 @@
     display: table-cell;
     line-height: 150pt;
 }
+
 /***** Datos del menu lateral *****/
-#menu ul {
+#sidebar {
+	float: left;
+	width: 15%;
+}
+
+#sidebar ul {
     list-style-type: none;
     margin: 0px;
     padding: 0px;
-    width: 200px;
     font-family: Arial, sans-serif;
     font-size: 11pt;
 }
-#menu ul li {
+#sidebar ul li {
     background-color: #888;
     color: #fff;
 }
-#menu ul li a {
+#sidebar ul li a {
     background-color: #00f;
     color: #ccc;
     text-decoration: none;
     display: block;
     padding: 10px 10px 10px 20px;
 }
-#menu ul li a:hover {
+#sidebar ul li a:hover {
     background: #ff0;
     border-left: 10px solid #333;
     color: #000;
 }
+
 border-left: 10px solid #00f;
 
 /********** Datos del area de trabajo ************/
-#right {
-    list-style-type: none;
-    margin-left: 200px;
-    padding: 0px;
-    width: 800px;
+#content {
+	margin-left: 15%;
+    position: relative;
+    width: 824px;
+    background-image: url('../icons/blue_bg.png');
+	background-repeat:repeat-y;
+}
+
+#content p {
     font-family: Arial, sans-serif;
-    font-size: 11pt;
+    font-size: 32pt;
+    font-style: italic;
+    font-weight: bold;
 }
