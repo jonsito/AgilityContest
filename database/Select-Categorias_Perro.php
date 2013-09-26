@@ -1,6 +1,6 @@
 <!--  Lista de categorias de un perro en un combobox -->
 <?php
-require ("../database/DBConnection.php");
+require ("/database/DBConnection.php");
 
 function getSelect_Categorias_Perro($default) {
 	$querystr="SELECT * FROM Categorias_Perro";

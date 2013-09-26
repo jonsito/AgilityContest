@@ -1,47 +1,79 @@
 <script language="javascript">
         $('#Header_Operation').html('<p>Gesti&oacute;n de Perros</p>');
 </script>
-<h1>Listado de perros por club y categor&iacute;a </h1>
-<?php
-$querystr=
-"
-SELECT Perros.Dorsal, Perros.Nombre, Perros.Categoria, Perros.Grado, Perros.Guia, Guias.Club 
-FROM Perros,Guias
-WHERE ( Perros.Guia = Guias.Nombre )
-ORDER BY Club, Categoria, Nombre
-";
 
-require ("./database/DBConnection.php");
-$conn=DBConnection::openConnection("agility_guest","guest@cachorrera");
-if (!$conn) die("connection error");
-$rs=$conn->query($querystr);
-?>
-<!--  Declaracion de la tabla -->
-<table border="1"  style="width: 100%;" >
-<!--  Cabecera de la tabla -->
-<thead>
-<tr>
-<?php
-	$fields=$rs->fetch_fields();
-	foreach($fields as $field) {
-		printf("<th>%s</th>",$field->name);
-	}
-?>
-</tr>
-</thead>
-<!--  Contenido de la tabla -->
-<tbody style="height: 100px; overflow-y: scroll;">
-<?php
-	while($row = $rs->fetch_array() ){
-		printf("<tr>\n");
-		foreach($fields as $field) {
-			printf("<td>%s</td>",$row[$field->name]);
-		}
-		printf("</tr>\n");
-	}
-	// finally close connection
-	$rs->free();
-	DBConnection::closeConnection($conn);
-?>
-</tbody>
-</table>
+	<!-- CABECERA -->
+    <h2>Gesti&oacute;n de datos de Perros</h2>
+    
+    <!-- INFORMACION ADICIONAL -->
+    <div class="demo-info" style="margin-bottom:10px">
+        <div class="demo-tip icon-tip">&nbsp;</div>
+        <div>Selecciona con el rat&oacute;n las acciones a realizar en la barra de tareas</div>
+    </div>
+    
+    <!-- DECLARACION DE LA TABLA -->
+    <table id="dg" title="the dogs" class="easyui-datagrid" style="width:700px;height:250px"
+            url="get_users.php"
+            toolbar="#toolbar" pagination="true"
+            rownumbers="true" fitColumns="true" singleSelect="true">
+        <thead>
+            <tr>
+                <th field="Dorsal" width="5">Dorsal</th>
+                <th field="Nombre" width="20">Nombre</th>
+                <th field="Raza" width="50">Raza</th>
+                <th field="LOE/RRC" width="10">LOE / RRC</th>
+                <th field="Licencia" width="10">Licencia</th>
+                <th field="Categoria" width="5">Categor&iacute;a</th>
+                <th field="Grado" width="5">Grado</th>
+                <th field="Guia" width="50">Nombre del Gu&iacute;a</th>
+            </tr>
+        </thead>
+    </table>
+    
+    <!-- BARRA DE TAREAS -->
+    <div id="toolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">Remove User</a>
+    </div>
+    
+    <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE PERROS -->
+    <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+            closed="true" buttons="#dlg-buttons">
+        <div class="ftitle">User Information</div>
+        <form id="fm" method="post" novalidate>
+            <div class="fitem">
+                <label>Nombre:</label>
+                <input name="Nombre" class="easyui-validatebox" required="true">
+            </div>
+            <div class="fitem">
+                <label>Raza:</label>
+                <input name="Raza">
+            </div>
+            <div class="fitem">
+                <label>Num LOE/RRC:</label>
+                <input name="LOE/RRC">
+            </div>
+            <div class="fitem">
+                <label>Num Licencia:</label>
+                <input name="Licencia">
+            </div>
+            <div class="fitem">
+                <label>Categor&iacute;a:</label>
+                <?php include("database/Select-Categorias_Perro.php")?>
+            </div>
+            <div class="fitem">
+                <label>Grado:</label>
+                <?php include("database/Select-Grados_Perro.php")?>
+            </div>
+            <div class="fitem">
+                <label>Nombre del Gu&iacute;a:</label>
+                <input name="Guia">
+            </div>
+        </form>
+    </div>
+    <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Save</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+    </div>
