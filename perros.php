@@ -112,6 +112,12 @@
         $('#perros-dialog').dialog();
         $('#perros-guia').combogrid();
         
+        // on double click fireup editor dialog
+        $('#perros-datagrid').datagrid({
+            onDblClickRow:function() { 
+                editDog();
+        	}
+        });
         // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
         $('#perros-datagrid').datagrid({
             rowStyler:function(index,row) { 
