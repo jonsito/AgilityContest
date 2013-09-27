@@ -6,7 +6,7 @@ var dogurl;
 function newDog(){
 	$('#dlg').dialog('open').dialog('setTitle','Nuevo perro');
 	$('#fm').form('clear');
-	dogurl = 'save_dog.php';
+	dogurl = 'database/json/save_dog.php';
 }
 
 /**
@@ -17,7 +17,7 @@ function editDog(){
     if (row){
         $('#dlg').dialog('open').dialog('setTitle','Modificar datos del perro');
         $('#fm').form('load',row);
-        dogurl = 'update_dog.php?id='+row.id;
+        dogurl = 'database/json/update_dog.php?id='+row.id;
     }
 }
 
@@ -53,7 +53,7 @@ function destroyDog(){
     if (row){
         $.messager.confirm('Confirm','Borrar datos del perro. ¿Seguro?',function(r){
             if (r){
-                $.post('destroy_dog.php',{id:row.id},function(result){
+                $.post('database/json/destroy_dog.php',{id:row.id},function(result){
                     if (result.success){
                         $('#dg').datagrid('reload');    // reload the dog data
                     } else {

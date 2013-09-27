@@ -3,28 +3,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>El diario de "La Cachorrera"</title>
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/datagrid.css" rel="stylesheet" type="text/css" />
-<script src="lib/jquery-1.10.2.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="lib/jquery-easyui-1.3.4.min.js" type="text/javascript" charset="utf-8" > </script>
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/datagrid.css" />
+<link rel="stylesheet" type="text/css" href="lib/jquery-easyui-1.3.4/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="lib/jquery-easyui-1.3.4/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="lib/jquery-easyui-1.3.4/demo/demo.css" />
+<script src="lib/jquery-1.10.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="lib/jquery-easyui-1.3.4/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="scripts/loadContents.js" type="text/javascript" charset="utf-8" > </script>
 <script src="scripts/perros.js" type="text/javascript" charset="utf-8" > </script>
 </head>
 <body onLoad="javascript:loadContents('#contenido','lorenipsum.html');">
 
 <!-- CABECERA -->
-<div id="header">
+<div id="myheader">
 	<p> El diario de "La Cachorrera" </p>
 	<span id="Header_Operation"></span>
 </div>
 
 <!-- LOGO -->
-<div id="logo">
+<div id="mylogo">
 	<p><img src="icons/logo_welpe.jpg" height="120" alt="logo welpe" /></p>
 </div>
 
 <!-- MENU LATERAL -->
-<div id="sidebar">
+<div id="mysidebar">
 <ul>
 <li>BASE DE DATOS
 	<ul>
@@ -51,7 +54,7 @@
 </div>
 	
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
-<div id="content">
+<div id="mycontent">
 <span id="contenido"></span>
 </div>
 

@@ -1,6 +1,4 @@
-<script language="javascript">
-        $('#Header_Operation').html('<p>Gesti&oacute;n de Perros</p>');
-</script>
+<!-- TABLA DE jquery-easyui para listar y editar la BBDD DE PERROS -->
 
 	<!-- CABECERA -->
     <h2>Gesti&oacute;n de datos de Perros</h2>
@@ -12,35 +10,41 @@
     </div>
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="dg" title="the dogs" class="easyui-datagrid" style="width:700px;height:250px"
-            url="get_users.php"
-            toolbar="#toolbar" pagination="true"
-            rownumbers="true" fitColumns="true" singleSelect="true">
+    <table id="dg" 
+    	title="The dogs" 
+    	class="easyui-datagrid" 
+    	style="width:800px;height:250px"
+    	url="database/json/get_dogs.php"
+    	toolbar="#toolbar"
+    	pagination="true"
+    	rownumbers="true"
+    	fitColumns="true"
+    	singleSelect="true">
         <thead>
             <tr>
-                <th field="Dorsal" width="5">Dorsal</th>
-                <th field="Nombre" width="20">Nombre</th>
+                <th field="Dorsal" width="5 align="right" sortable="true">Dorsal</th>
+                <th field="Nombre" width="20" sortable="true">Nombre</th>
                 <th field="Raza" width="50">Raza</th>
-                <th field="LOE/RRC" width="10">LOE / RRC</th>
-                <th field="Licencia" width="10">Licencia</th>
+                <th field="LOE/RRC" width="15" sortable="true">LOE/RRC</th>
+                <th field="Licencia" width="10" sortable="true">Licencia</th>
                 <th field="Categoria" width="5">Categor&iacute;a</th>
                 <th field="Grado" width="5">Grado</th>
-                <th field="Guia" width="50">Nombre del Gu&iacute;a</th>
+                <th field="Guia" width="75" sortable="true">Nombre del Gu&iacute;a</th>
             </tr>
         </thead>
     </table>
     
     <!-- BARRA DE TAREAS -->
     <div id="toolbar">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">Remove User</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newDog()">Nuevo Perro</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDog()">Editar Perro</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyDog()">Borrar Perro</a>
     </div>
     
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE PERROS -->
-    <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+    <div id="dlg" class="easyui-dialog" style="width:500px;height:280px;padding:10px 20px"
             closed="true" buttons="#dlg-buttons">
-        <div class="ftitle">User Information</div>
+        <div class="ftitle">Dog Information</div>
         <form id="fm" method="post" novalidate>
             <div class="fitem">
                 <label>Nombre:</label>
@@ -74,6 +78,10 @@
     </div>
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     <div id="dlg-buttons">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Save</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Save</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
     </div>
+    
+    <script language="javascript">
+        $('#Header_Operation').html('<p>Gesti&oacute;n de Perros</p>');
+	</script>

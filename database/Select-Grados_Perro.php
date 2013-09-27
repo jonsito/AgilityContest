@@ -1,6 +1,6 @@
 <!--  Lista de grados de un perro en un combobox -->
 <?php
-require ("../database/DBConnection.php");
+require_once ("database/DBConnection.php");
 
 function getSelect_Grados_Perro($default) {
 	$querystr="SELECT * FROM Grados_Perro";
@@ -20,6 +20,6 @@ function getSelect_Grados_Perro($default) {
 	$rs->free();
 	DBConnection::closeConnection($conn);
 }
-
-getSelect_Grados_Perro($_GET["Grado"]);
+$grado=(isset($_GET["Grado"]))?$_GET["Grado"]:"";
+getSelect_Grados_Perro($grado);
 ?>

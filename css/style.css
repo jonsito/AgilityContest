@@ -7,20 +7,20 @@ body {
 }
 
 /***** Datos de la cabecera ******/
-#logo {
+#mylogo {
 	position: fixed;
     top: 0px;
     right: 10px;
 }
 
 
-#header {
+#myheader {
 	position: fixed;
 	top: 50px;
 	left: 10px;
 }
 
-#header p {
+#myheader p {
     color: #ccc;
     padding-left: 20px;
     font-family: Arial, sans-serif;
@@ -30,18 +30,18 @@ body {
     display: table-cell;
 }
 
-#header span p {
+#myheader span p {
 	font-size: 24pt;
 }
 /***** Datos del menu lateral *****/
-#sidebar {
+#mysidebar {
 	position: fixed;
 	top: 150px;
 	left: 10px;
 	width: 200px;
 }
 
-#sidebar ul {
+#mysidebar ul {
 	border: line;
     list-style-type: none;
     margin: 0px;
@@ -49,18 +49,18 @@ body {
     font-family: Arial, sans-serif;
     font-size: 11pt;
 }
-#sidebar ul li {
+#mysidebar ul li {
     background-color: #888;
     color: #fff;
 }
-#sidebar ul li a {
+#mysidebar ul li a {
     background-color: #00f;
     color: #ccc;
     text-decoration: none;
     display: block;
     padding: 10px 10px 10px 20px;
 }
-#sidebar ul li a:hover {
+#mysidebar ul li a:hover {
     background: #ff0;
     border-left: 10px solid #333;
     color: #000;
@@ -68,13 +68,10 @@ body {
 
 /********** Datos del area de trabajo ************/
 /* marcador div del contenido. fija posicion */
-#content {
+#mycontent {
 	/* border-style: inset; */
 	position: absolute;
-	top: 120px;
+	top: 150px;
 	left: 200px;
 	margin-left: 20px;
-}
-/* iframe que se ira recargando */
-#contenido {
 }
