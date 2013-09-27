@@ -23,7 +23,7 @@
                 <th field="Dorsal" width="5" align="right" sortable="true">Dorsal</th>
                 <th field="Nombre" width="10" sortable="true">Nombre</th>
                 <th field="Raza" width="15">Raza</th>
-                <th field="LOE/RRC" width="10" sortable="true" align="right">LOE/RRC</th>
+                <th field="LOE_RRC" width="10" sortable="true" align="right">LOE / RRC</th>
                 <th field="Licencia" width="10" sortable="true" align="right">Lic.</th>
                 <th field="Categoria" width="5" align="center">Cat.</th>
                 <th field="Grado" width="5" align="center">Grado</th>

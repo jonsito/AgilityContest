@@ -335,7 +335,7 @@ CREATE TABLE `Perros` (
   `Dorsal` int(4) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(255) DEFAULT NULL,
   `Raza` varchar(255) DEFAULT NULL,
-  `LOE/RRC` varchar(255) DEFAULT NULL,
+  `LOE_RRC` varchar(255) DEFAULT NULL,
   `Licencia` varchar(255) DEFAULT NULL,
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
   `Guia` varchar(255) DEFAULT NULL,
