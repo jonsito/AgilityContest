@@ -10,7 +10,7 @@ function getSelect_Categorias_Perro($default) {
 	// execute query
 	$rs=$conn->query($querystr);
 	// compose result
-	printf ("<select name=\"Categoria\">\n");
+	printf ("<select name=\"Categoria\" class=\"easyui-combobox\">\n");
 	while($row = $rs->fetch_array() ){
 		$selected=($row["Categoria"]===$default)?"selected":"";
 		printf("<option value=\"%s\" %s>%s</td>\n",$row["Categoria"],$selected,$row["Observaciones"]);

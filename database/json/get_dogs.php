@@ -3,17 +3,19 @@
 	// evaluate offset and row count for query
 	$page = isset($_POST['page']) ? intval($_POST['page']) : 1;
 	$rows = isset($_POST['rows']) ? intval($_POST['rows']) : 10;
+	$sort = isset($_POST['sort']) ? strval($_POST['sort']) : 'Dorsal';
+	$order = isset($_POST['order']) ? strval($_POST['order']) : 'ASC';
 	$offset = ($page-1)*$rows;
 	$result = array();
 	// connect database
 	$conn=DBConnection::openConnection("agility_guest","guest@cachorrera");
 	if (!$conn) die("connection error");
 	// execute first query to know how many elements
-	$rs=$conn->query("select count(*) from Perros");
-	$row=$rs->fetch_row();
+	$rs=$conn->query("SELECT count(*) FROM Perros");
+	$row=$rs->fetch_array();
 	$result["total"] = $row[0];
 	// second query to retrieve $rows starting at $offset
-	$rs=$conn->query("select * from Perros limit $offset,$rows");
+	$rs=$conn->query("SELECT * FROM Perros ORDER BY $sort $order LIMIT $offset,$rows");
 	// retrieve result into an array
 	$items = array();
 	while($row = $rs->fetch_array()){
