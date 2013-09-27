@@ -3,4 +3,6 @@
  * @param id tag to replace DOM contents
  * @param page URL where to retrieve HTML data
  */
-function loadContents(id,page) { $(id).load(page); }
+function loadContents(id,page) { 
+	$(id).load(page);
+}

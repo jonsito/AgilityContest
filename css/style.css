@@ -70,7 +70,7 @@ body {
 /* marcador div del contenido. fija posicion */
 #mycontent {
 	/* border-style: inset; */
-	position: absolute;
+	position: fixed;
 	top: 150px;
 	left: 200px;
 	margin-left: 20px;

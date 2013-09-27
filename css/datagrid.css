@@ -18,3 +18,10 @@
     display:inline-block;
     width:80px;
 }
+
+.datagrid-row-over td{
+	background:#D0E5F5;
+}
+.datagrid-row-selected td{
+	background:#FBEC88;
+}

@@ -16,7 +16,12 @@
 	$rs=$conn->query("select * from Perros limit $offset,$rows");
 	// retrieve result into an array
 	$items = array();
-	while($row = $rs->fetch_object()){
+	while($row = $rs->fetch_array()){
+		// utf8 encode on needed fields
+		$row["Nombre"]=utf8_encode($row["Nombre"]);
+		$row["Raza"]=utf8_encode($row["Raza"]);
+		$row["Guia"]=utf8_encode($row["Guia"]);
+		// store data into result array
 		array_push($items, $row);
 	}
 	$result["rows"] = $items;
