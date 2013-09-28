@@ -3,6 +3,7 @@
 	require_once("../DBConnection.php");
 	
 	function insertJuez ($conn) {
+		$msg=""; // default: no errors
 		do_log("insertJuez:: enter");
 		// componemos un prepared statement
 		$sql ="INSERT INTO Jueces (Nombre,Direccion1,Direccion2,Telefono,Internacional,Practicas,Email,Observaciones)
@@ -10,8 +11,9 @@
 		$stmt=$conn->prepare($sql);
 		$res=$stmt->bind_param('ssssiiss',$nombre,$direccion1,$direccion2,$telefono,$internacional,$practicas,$email,$observaciones);
 		if (!$res) {
-			do_log("insertJuez::prepare() failed $conn->error");
-			return FALSE;
+			$msg="insertJuez::prepare() failed $conn->error";
+			do_log($msg);
+			return $msg;
 		}
 		
 		// iniciamos los valores, chequeando su existencia
@@ -29,14 +31,17 @@
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		do_log("insertJuez:: insertadas $stmt->affected_rows filas");
-		if (!$res) do_log("inzertJuez:: Error: $conn->error");
+		if (!$res) {
+			$msg="insertJuez:: Error: $conn->error";
+			do_log($msg);
+		}
 		do_log("inzertJuez:: execute resulted: $res");
-		
 		$stmt->close();
-		return $res;
+		return $msg; // return error message (in case of)
 	}
 	
 	function updateJuez($conn) {
+		$msg="";
 		do_log("updateJuez:: enter");
 		
 		// componemos un prepared statement
@@ -44,13 +49,15 @@
 		       WHERE ( Nombre=? )";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
-			do_log("updateJuez::prepare() failed $conn->error");
-			return FALSE;
+			$msg="updateJuez::prepare() failed $conn->error";
+			do_log($msg);
+			return $msg;
 		}
 		$res=$stmt->bind_param('ssssiisss',$nombre,$direccion1,$direccion2,$telefono,$internacional,$practicas,$email,$observaciones,$viejo);
 		if (!$res) {
-			do_log("update::bind() failed $conn->error");
-			return FALSE;
+			$msg="update::bind() failed $conn->error";
+			do_log($msg);
+			return $msg;
 		}
 		
 		// iniciamos los valores, chequeando su existencia
@@ -70,70 +77,63 @@
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		do_log("updateJuez:: actualizadas $stmt->affected_rows filas");
-		if (!$res) do_log("updateJuez:: Error: $conn->error");
+		if (!$res) {
+			$msg="updateJuez:: Error: $conn->error";
+			do_log($msg);
+		}
 		do_log("updateJuez::execute() resulted: $res");
 		$stmt->close();
-		return $res;
+		return $msg;
 	}
 	
 	function deleteJuez($conn,$ID) {
+		$msg="";
 		do_log("deleteJuez:: enter");
 		$str="DELETE FROM Jueces WHERE ( Nombre='$ID' )";
 		$res= $conn->query($str);
-		if (!$res) do_log("deleteJuez:: Error: $conn->error");
+		if (!$res) {
+			$msg="deleteJuez:: Error: $conn->error";
+			do_log($msg);
+		}
 		else do_log("deleteJuez:: execute() resulted: $res");
-		return $res;
+		return $msg;
 	}
 
 	// connect database
 	$conn=DBConnection::openConnection("agility_operator","operator@cachorrera");
 	if (!$conn) {
-		$str='juezFunctions() cannot contact database.';
-		do_log($str);
-		echo json_encode(array('msg'=>$str));
+		$msg='juezFunctions() cannot contact database.';
+		do_log($msg);
+		echo json_encode(array('errorMsg'=>$msg));
 		return;
 	}
 	
 	if (! isset($_GET['operation'])) {
 		$str='Call juezFunctions() with no operation declared.';
 		do_log($str);
-		echo json_encode(array('msg'=>$str));
+		echo json_encode(array('errorMsg'=>$str));
 		DBConnection::closeConnection($conn);
 		return;
 	}
 	$oper = $_GET['operation'];
 	if($oper==='insert') {
 		$result=insertJuez($conn);
-		if ($result) 	echo json_encode(array('success'=>true));
-		else {
-			$str='juezFunctions(insert) Some errors occured.';
-			echo json_encode(array('msg'=>$str));
-		}
-		DBConnection::closeConnection($conn);
-		return;	
+		if ($result==="") 	echo json_encode(array('success'=>true));
+		else				echo json_encode(array('errorMsg'=>$result));
 	}
-	if($oper==='update') {
+	else if($oper==='update') {
 		$result= updateJuez($conn);
-		if ($result) 	echo json_encode(array('success'=>true));
-		else {
-			$str='juezFunctions(update) Some errors occured.';
-			do_log($str);
-			echo json_encode(array('msg'=>$str));
-		}
-		DBConnection::closeConnection($conn);
-		return;
+		if ($result==="") 	echo json_encode(array('success'=>true));
+		else				echo json_encode(array('errorMsg'=>$result));
 	}
-	if($oper==='delete') {
+	else if($oper==='delete') {
 		$result= deleteJuez($conn,strval($_GET['Nombre']));
-		if ($result) 	echo json_encode(array('success'=>true));
-		else {
-			$str='juezFunctions(delete) Some errors occured.';
-			echo json_encode(array('msg'=>$str));
-		}
-		DBConnection::closeConnection($conn);
-		return;
+		if ($result==="") 	echo json_encode(array('success'=>true));
+		else 				echo json_encode(array('errorMsg'=>$result));
+	} else {
+		$result="Call to juezFunctions() Invalid operation requested: $oper";
+		do_log($result);
+		echo json_encode(array('errorMsg'=>$result));
 	}
-	do_log("Invalid operation requested: $oper");
 	DBConnection::closeConnection($conn);
-	echo json_encode(array('msg'=>'Invalid operation in juezFunctions() call'));
 ?>

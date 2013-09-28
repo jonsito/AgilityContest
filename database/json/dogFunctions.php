@@ -3,6 +3,7 @@
 	require_once("../DBConnection.php");
 	
 	function insertDog ($conn) {
+		$msg=""; // default: no errors
 		do_log("insertDog:: enter");
 		// componemos un prepared statement
 		$sql ="INSERT INTO Perros (Nombre,Raza,LOE_RRC,Licencia,Categoria,Grado,Guia)
@@ -10,8 +11,9 @@
 		$stmt=$conn->prepare($sql);
 		$res=$stmt->bind_param('sssssss',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia);
 		if (!$res) {
-			do_log("insertDog::prepare() failed $conn->error");
-			return FALSE;
+			$msg="insertDog::prepare() failed $conn->error";
+			do_log($msg);
+			return $msg;
 		}
 		
 		// iniciamos los valores, chequeando su existencia
@@ -27,14 +29,18 @@
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		do_log("insertadas $stmt->affected_rows filas");
-		if (!$res) do_log("Error: $conn->error");
-		do_log("execute resulted: $res");
+		if (!$res) {
+			$msg="insertDog:: Error: $conn->error";
+			do_log($msg);
+		}
+		else  do_log("execute resulted: $res");
 		
 		$stmt->close();
-		return $res;
+		return $msg;
 	}
 	
 	function updateDog($conn,$id) {
+		$msg="";
 		do_log("updateDog:: enter");
 		
 		// componemos un prepared statement
@@ -42,13 +48,15 @@
 		       WHERE ( Dorsal=? )";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
-			do_log("updateDog::prepare() failed $conn->error");
-			return FALSE;
+			$msg="updateDog::prepare() failed $conn->error";
+			do_log($msg);
+			return $msg;
 		}
 		$res=$stmt->bind_param('sssssssi',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia,$dorsal);
 		if (!$res) {
-			do_log("updateDog::bind() failed $conn->error");
-			return FALSE;
+			$msg="updateDog::bind() failed $conn->error";
+			do_log($msg);
+			return $msg;
 		}
 		
 		// iniciamos los valores, chequeando su existencia
@@ -66,18 +74,23 @@
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		do_log("updateDog:: actualizadas $stmt->affected_rows filas");
-		if (!$res) do_log("updateDog:: Error: $conn->error");
-		do_log("updateDog::execute() resulted: $res");
+		if (!$res) {
+			$msg="updateDog:: Error: $conn->error";
+			do_log($msg);
+		} else do_log("updateDog::execute() resulted: $res");
 		$stmt->close();
-		return $res;
+		return $msg;
 	}
 	
 	function deleteDog($conn,$dorsal) {
+		$msg="";
 		do_log("deleteDog:: enter");
 		$res= $conn->query("DELETE FROM Perros WHERE (Dorsal=$dorsal)");
-		if (!$res) do_log("deleteDog:: Error: $conn->error");
-		else do_log("deleteDog:: execute() resulted: $res");
-		return $res;
+		if (!$res) {
+			$msg="deleteDog:: Error: $conn->error";
+			do_log($msg);
+		} else do_log("deleteDog:: execute() resulted: $res");
+		return $msg;
 	}
 
 	// connect database
@@ -85,57 +98,44 @@
 	if (!$conn) {
 		$str='dogFunctions() cannot contact database.';
 		do_log($str);
-		echo json_encode(array('msg'=>$str));
+		echo json_encode(array('errorMsg'=>$str));
 		return;
 	}
 	
 	if (! isset($_GET['operation'])) {
 		$str='Call dogFunctions() with no operation declared.';
 		do_log($str);
-		echo json_encode(array('msg'=>$str));
+		echo json_encode(array('errorMsg'=>$str));
 		DBConnection::closeConnection($conn);
 		return;
 	}
 	$oper = $_GET['operation'];
-	if($oper==='insert') {
-		$result=insertDog($conn);
-		if ($result) 	echo json_encode(array('success'=>true));
-		else {
-			$str='dogFunctions(insert) Some errors occured.';
-			echo json_encode(array('msg'=>$str));
-		}
-		DBConnection::closeConnection($conn);
-		return;	
-	}
-	if (! isset($_GET['Dorsal'])) {
+	if ( ($oper!=='insert') && (! isset($_GET['Dorsal'])) ) {
 		$str="Call dogFunctions(update/delete) without pkey declared.";
 		do_log($str);
-		echo json_encode(array('msg'=>$str));
+		echo json_encode(array('errorMsg'=>$str));
 		DBConnection::closeConnection($conn);
 		return;
 	}
-	if($oper==='update') {
+	if($oper==='insert') {
+		$result=insertDog($conn);
+		if ($result==="") 	echo json_encode(array('success'=>true));
+		else 				echo json_encode(array('errorMsg'=>$result));
+	}
+	else if($oper==='update') {
 		$result= updateDog($conn,intval($_GET['Dorsal']));
-		if ($result) 	echo json_encode(array('success'=>true));
-		else {
-			$str='dogFunctions(update) Some errors occured.';
-			do_log($str);
-			echo json_encode(array('msg'=>$str));
-		}
-		DBConnection::closeConnection($conn);
-		return;
+		if ($result==="") 	echo json_encode(array('success'=>true));
+		else 				echo json_encode(array('errorMsg'=>$result));
 	}
-	if($oper==='delete') {
+	else if($oper==='delete') {
 		$result= deleteDog($conn,$_GET['Dorsal']);
-		if ($result) 	echo json_encode(array('success'=>true));
-		else {
-			$str='dogFunctions(delete) Some errors occured.';
-			echo json_encode(array('msg'=>$str));
-		}
-		DBConnection::closeConnection($conn);
-		return;
+		if ($result==="") 	echo json_encode(array('success'=>true));
+		else				echo json_encode(array('msg'=>$result));
 	}
-	do_log("Invalid operation requested: $oper");
+	else {
+		$result="dogFunctions:: Invalid operation requested: $oper";
+		do_log($result);
+		json_encode(array('errorMsg'=>$result));
+	}
 	DBConnection::closeConnection($conn);
-	echo json_encode(array('msg'=>'Invalid operation in dogFunctions() call'));
 ?>
