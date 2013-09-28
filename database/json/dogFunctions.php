@@ -1,19 +1,16 @@
 <?php
+	require_once("../logging.php");
 	require_once("../DBConnection.php");
-	ini_set("log_errors",1);
-	ini_set("error_log","/tmp/json.log");
-	
-	function do_log($str) { error_log($str); }
 	
 	function insertDog ($conn) {
-		do_log("insert:: enter");
+		do_log("insertDog:: enter");
 		// componemos un prepared statement
 		$sql ="INSERT INTO Perros (Nombre,Raza,LOE_RRC,Licencia,Categoria,Grado,Guia)
 			   VALUES(?,?,?,?,?,?,?)";
 		$stmt=$conn->prepare($sql);
 		$res=$stmt->bind_param('sssssss',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia);
 		if (!$res) {
-			do_log("insert::prepare() failed $conn->error");
+			do_log("insertDog::prepare() failed $conn->error");
 			return FALSE;
 		}
 		
@@ -25,12 +22,12 @@
 		$categoria = (isset($_REQUEST['Categoria']))?$_REQUEST['Categoria']:null;
 		$grado = (isset($_REQUEST['Grado']))?$_REQUEST['Grado']:null;
 		$guia = (isset($_REQUEST['Guia']))?$_REQUEST['Guia']:null;
-		do_log("insert:: retrieved data from client");
+		do_log("insertDog:: retrieved data from client");
 		do_log("Nombre: $nombre Raza: $raza LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		do_log("insertadas $stmt->affected_rows filas");
-		do_log("Error: $conn->error");
+		if (!$res) do_log("Error: $conn->error");
 		do_log("execute resulted: $res");
 		
 		$stmt->close();
@@ -38,19 +35,19 @@
 	}
 	
 	function updateDog($conn,$id) {
-		do_log("update:: enter");
+		do_log("updateDog:: enter");
 		
 		// componemos un prepared statement
 		$sql ="UPDATE Perros SET Nombre=? , Raza=? , LOE_RRC=? , Licencia=? , Categoria=? , Grado=? , Guia=?
 		       WHERE ( Dorsal=? )";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
-			do_log("update::prepare() failed $conn->error");
+			do_log("updateDog::prepare() failed $conn->error");
 			return FALSE;
 		}
 		$res=$stmt->bind_param('sssssssi',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia,$dorsal);
 		if (!$res) {
-			do_log("update::bind() failed $conn->error");
+			do_log("updateDog::bind() failed $conn->error");
 			return FALSE;
 		}
 		
@@ -64,23 +61,23 @@
 		$guia = (isset($_REQUEST['Guia']))?strval($_REQUEST['Guia']):null;
 		$dorsal = $id;
 
-		do_log("update:: retrieved data from client");
+		do_log("updateDog:: retrieved data from client");
 		do_log("Dorsal: $dorsal Nombre: $nombre Raza: $raza LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		do_log("update:: actualizadas $stmt->affected_rows filas");
-		do_log("update:: Error: $conn->error");
-		do_log("update::execute() resulted: $res");
+		do_log("updateDog:: actualizadas $stmt->affected_rows filas");
+		if (!$res) do_log("updateDog:: Error: $conn->error");
+		do_log("updateDog::execute() resulted: $res");
 		$stmt->close();
 		return $res;
 	}
 	
 	function deleteDog($conn,$dorsal) {
-		do_log("delete:: enter");
-		return $conn->query("DELETE FROM Perros WHERE (Dorsal=$dorsal)");
-		do_log("delete:: actualizadas $stmt->affected_rows filas");
-		do_log("delete:: Error: $conn->error");
-		do_log("delete:: execute() resulted: $res");
+		do_log("deleteDog:: enter");
+		$res= $conn->query("DELETE FROM Perros WHERE (Dorsal=$dorsal)");
+		if (!$res) do_log("deleteDog:: Error: $conn->error");
+		else do_log("deleteDog:: execute() resulted: $res");
+		return $res;
 	}
 
 	// connect database
