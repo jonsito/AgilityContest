@@ -11,7 +11,7 @@
     <table id="perros-datagrid" 
     	title="Gesti&oacute;n de datos de Perros" 
     	class="easyui-datagrid" 
-    	style="width:800px;height:375px"
+    	style="width:800px;height:400px"
     	url="database/json/get_dogs.php"
     	toolbar="#perros-toolbar"
     	pagination="true"
@@ -43,21 +43,22 @@
     <div id="perros-dialog" class="easyui-dialog" style="width:500px;height:375px;padding:10px 20px"
             closed="true" buttons="#perros-dlg-buttons">
         <div class="ftitle">Informaci&oacute;n del perro</div>
-        <form id="fm" method="post" novalidate>
+        <form id="perros-form" method="get" novalidate>
             <div class="fitem">
                 <label for="Nombre">Nombre:</label>
                 <input name="Nombre" class="easyui-validatebox" required="true">
+                <input name="Dorsal" type="hidden"> <!-- hide dorsal, as only used for edit and is readonly -->
             </div>
             <div class="fitem">
                 <label for="Raza">Raza:</label>
                 <input name="Raza">
             </div>
             <div class="fitem">
-                <label for="LOE/RRC">Num LOE/RRC:</label>
-                <input name="LOE/RRC">
+                <label for="LOE_RRC">Num. LOE / RRC:</label>
+                <input name="LOE_RRC">
             </div>
             <div class="fitem">
-                <label for="Licencia">Num Licencia:</label>
+                <label for="Licencia">Num. Licencia:</label>
                 <input name="Licencia">
             </div>
             <div class="fitem">
@@ -93,7 +94,7 @@
     </div>
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     <div id="perros-dlg-buttons">
-        <a id="perros-okBtn" href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveUser()">Guardar</a>
+        <a id="perros-okBtn" href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveDog()">Guardar</a>
         <a id="perros-cancelBtn" href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#perros-dialog').dialog('close')">Cancelar</a>
     </div>
     
@@ -111,6 +112,7 @@
         $('#perros-cancelBtn').linkbutton();
         $('#perros-dialog').dialog();
         $('#perros-guia').combogrid();
+        $('#perros-form').form();
         
         // on double click fireup editor dialog
         $('#perros-datagrid').datagrid({

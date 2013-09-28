@@ -333,7 +333,7 @@ DROP TABLE IF EXISTS `Perros`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Perros` (
   `Dorsal` int(4) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(255) DEFAULT NULL,
+  `Nombre` varchar(255) NOT NULL,
   `Raza` varchar(255) DEFAULT NULL,
   `LOE_RRC` varchar(255) DEFAULT NULL,
   `Licencia` varchar(255) DEFAULT NULL,
