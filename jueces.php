@@ -17,10 +17,10 @@
         <a id="jueces-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyJuez()">Borrar Juez</a>
     </div>
     
-    <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE PERROS -->
+    <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE JUECES -->
     <div id="jueces-dialog" class="easyui-dialog" style="width:450px;height:450px;padding:10px 20px"
             closed="true" buttons="#jueces-dlg-buttons">
-        <div class="ftitle">Informaci&oacute;n del perro</div>
+        <div class="ftitle">Informaci&oacute;n del juez</div>
         <form id="jueces-form" method="get" novalidate>
             <div class="fitem">
                 <label for="Nombre">Nombre:</label>
@@ -75,7 +75,7 @@
         
         // tell jquery to convert declared elements to jquery easyui Objects
         
-        // datos de la tabla de perros
+        // datos de la tabla de jueces
         // - tabla
         $('#jueces-datagrid').datagrid({
         	title: 'Gesti&oacute;n de datos de Jueces',
@@ -107,17 +107,47 @@
         }); 
         // - botones de la toolbar de la tabla
         $('#jueces-newBtn').linkbutton(); // nuevo juez
+        $('#jueces-newBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Dar de alta un nuevo juez en la BBDD</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
         $('#jueces-editBtn').linkbutton(); // editar juez
-        $('#jueces-delBtn').linkbutton(); // borrar juez
+        $('#jueces-editBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Modificar los datos del juez seleccionado</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
+        $('#jueces-delBtn').linkbutton(); // borrar juez 
+        $('#jueces-delBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Eliminar el juez seleccionado de la BBDD</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
         
-        // datos del formulario de nuevo/edit perros
+        // datos del formulario de nuevo/edit jueces
         // - declaracion del formulario
         $('#jueces-form').form();
         // - botones
-        $('#jueces-okBtn').linkbutton();
-        $('#jueces-cancelBtn').linkbutton();
-        $('#jueces-dialog').dialog();
+        $('#jueces-okBtn').linkbutton();   
+        $('#jueces-okBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Aceptar datos y actualizar la BBDD</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
+        $('#jueces-cancelBtn').linkbutton();   
+        $('#jueces-cancelBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Cancelar edicion. Cerrar ventana</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
         // campos del formulario
+        $('#jueces-dialog').dialog();
         // $('#jueces-Practicas').checkbox(); // checkboxes doesn't exist in easyui ?
         // $('#jueces-Internacional').checkbox(); // checkboxes doesn't exist in easyui ?
         $('#jueces-Nombre').validatebox({

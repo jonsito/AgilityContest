@@ -109,18 +109,48 @@
             }
         }); 
         // - botones de la toolbar de la tabla
-        $('#perros-newBtn').linkbutton(); // nuevo perro
-        $('#perros-editBtn').linkbutton(); // editar perro
-        $('#perros-delBtn').linkbutton(); // borrar perro
+        $('#perros-newBtn').linkbutton(); // nuevo perro       
+        $('#perros-newBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Dar de alta un nuevo perro en la BBDD</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
+        $('#perros-editBtn').linkbutton(); // editar perro      
+        $('#perros-editBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Modificar los datos del perro seleccionado</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
+        $('#perros-delBtn').linkbutton(); // borrar perro     
+        $('#perros-delBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Eliminar el perro seleccionado de la BBDD</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
         
         // datos del formulario de nuevo/edit perros
         // - declaracion del formulario
         $('#perros-form').form();
         // - botones
-        $('#perros-okBtn').linkbutton();
-        $('#perros-cancelBtn').linkbutton();
-        $('#perros-dialog').dialog();
+        $('#perros-okBtn').linkbutton();    
+        $('#perros-okBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Aceptar datos y actualizar la BBDD</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
+        $('#perros-cancelBtn').linkbutton();    
+        $('#perros-cancelBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Cancelar edicion. Cerrar ventana</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
         // campos del formulario
+        $('#perros-dialog').dialog();
         $('#perros-Nombre').validatebox({
             required: true,
             validType: 'length[1,255]'

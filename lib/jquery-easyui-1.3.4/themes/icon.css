@@ -52,6 +52,12 @@
 .icon-tip{
 	background:url('icons/tip.png') no-repeat center center;
 }
+.icon-dog{
+	background:url('icons/dog.png') no-repeat center center;
+}
+.icon-users{
+	background:url('icons/users.png') no-repeat center center;
+}
 
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;
