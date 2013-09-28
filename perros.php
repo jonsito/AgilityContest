@@ -63,11 +63,27 @@
             </div>
             <div class="fitem">
                 <label for="Categoria">Categor&iacute;a:</label>
-                <?php include("database/Select-Categorias_Perro.php")?>
+                <select id="perros-Categorias_Perro" name="Categoria" class="easyui-combobox" style="width:155px"
+                	data-options="
+            			panelHeight: 100,
+                		valueField:'Categoria',
+                		textField:'Observaciones',
+                		method: 'get',
+                		mode: 'remote',
+                		url:'database/json/enumerate_Categorias_Perro.php'
+                	"/>
             </div>
             <div class="fitem">
                 <label for="Grado">Grado:</label>
-                <?php include("database/Select-Grados_Perro.php")?>
+                <select id="perros-Grados_Perro" name="Grado" class="easyui-combobox" style="width:155px"
+                	data-options="
+            			panelHeight: 100,
+                		valueField:'Grado',
+                		textField:'Comentarios',
+                		method: 'get',
+                		mode: 'remote',
+                		url:'database/json/enumerate_Grados_Perro.php'
+                	"/>
             </div>
             <div class="fitem">
                 <label for="Guia">Nombre del Gu&iacute;a:</label>
@@ -87,8 +103,7 @@
             			multiple: false,
             			fitColumns: true,
             			selectOnNavigation: false
-                ">
-                </select>
+                "/>
             </div>
         </form>
     </div>
@@ -111,6 +126,8 @@
         $('#perros-okBtn').linkbutton();
         $('#perros-cancelBtn').linkbutton();
         $('#perros-dialog').dialog();
+        $('#perros-Grados_Perro').combobox();
+        $('#perros-Categorias_Perro').combobox();
         $('#perros-guia').combogrid();
         $('#perros-form').form();
         

@@ -1,14 +1,20 @@
 <?php
 	require_once("../DBConnection.php");
+	ini_set("log_errors",1);
+	ini_set("error_log","/tmp/json.log");
+	
 	
 	function insert ($conn) {
-		
+		error_log("enter insert");
 		// componemos un prepared statement
 		$sql ="INSERT INTO Perros (Nombre,Raza,LOE_RRC,Licencia,Categoria,Grado,Guia)
 			   VALUES(?,?,?,?,?,?,?)";
 		$stmt=$conn->prepare($sql);
 		$res=$stmt->bind_param('sssssss',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia);
-		if (!$res) return FALSE;
+		if (!$res) {
+			error_log("prepare() failed");
+			return FALSE;
+		}
 		
 		// iniciamos los valores, chequeando su existencia
 		$nombre = $_REQUEST['Nombre'];
@@ -18,9 +24,14 @@
 		$categoria = (isset($_REQUEST['Categoria']))?$_REQUEST['Categoria']:null;
 		$grado = (isset($_REQUEST['Grado']))?$_REQUEST['Grado']:null;
 		$guia = (isset($_REQUEST['Guia']))?$_REQUEST['Guia']:null;
-		
+		error_log("retrieved data from client");
+		error_log("Nombre: $nombre Raza: $raza LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
+		error_log("insertadas $stmt->affected_rows filas");
+		error_log("Error: $conn->error");
+		error_log("execute resulted: $res");
+		
 		$stmt->close();
 		return $res;
 	}
