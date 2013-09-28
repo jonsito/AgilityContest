@@ -18,8 +18,8 @@ function editJuez(){
         $('#jueces-dialog').dialog('open').dialog('setTitle','Modificar datos del juez');
         $('#jueces-form').form('load',row);
         // take care on int-to-bool translation for checkboxes
-        $('#jueces-Internacional').attr('checked',(row.Internacional==1)?true:false);
-        $('#jueces-Practicas').attr('checked',(row.Practicas==1)?true:false);
+        $('#jueces-Internacional').prop('checked',(row.Internacional==1)?true:false);
+        $('#jueces-Practicas').prop('checked',(row.Practicas==1)?true:false);
         // save old juez name in "Viejo" hidden form input to allow change juez name
         $('#jueces-Viejo').val( $('#jueces-Nombre').val());
         operation='update';
