@@ -55,7 +55,7 @@ function destroyDog(){
     if (row){
         $.messager.confirm('Confirm','Borrar datos del perro. ¿Seguro?',function(r){
             if (r){
-                $.get('database/json/dogFunctions.php',{operation:'delete',id:row.Dorsal},function(result){
+                $.get('database/json/dogFunctions.php',{operation:'delete',Dorsal:row.Dorsal},function(result){
                     if (result.success){
                         $('#perros-datagrid').datagrid('reload');    // reload the dog data
                     } else {

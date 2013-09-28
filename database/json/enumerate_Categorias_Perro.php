@@ -18,6 +18,7 @@
 		// utf8 encode data
 		$row["Categoria"] = utf8_encode( $row["Categoria"] );
 		$row["Observaciones"]   = utf8_encode( $row["Observaciones"]   );
+		if ($row["Categoria"]==='-') { $row["selected"]=true; $row[2]=true;}
 		// and store into result array
 		array_push($items, $row);
 	}

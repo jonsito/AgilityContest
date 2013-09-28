@@ -18,6 +18,7 @@
 		// utf8 encode data
 		$row["Grado"] = utf8_encode( $row["Grado"] );
 		$row["Comentarios"]   = utf8_encode( $row["Comentarios"]   );
+		if ($row["Grado"]==='-') $row["selected"]=true;
 		// and store into result array
 		array_push($items, $row);
 	}

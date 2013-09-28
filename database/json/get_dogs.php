@@ -1,10 +1,10 @@
 <?php
 	require_once("../DBConnection.php");
 	// evaluate offset and row count for query
-	$page = isset($_POST['page']) ? intval($_POST['page']) : 1;
-	$rows = isset($_POST['rows']) ? intval($_POST['rows']) : 10;
-	$sort = isset($_POST['sort']) ? strval($_POST['sort']) : 'Dorsal';
-	$order = isset($_POST['order']) ? strval($_POST['order']) : 'ASC';
+	$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+	$rows = isset($_GET['rows']) ? intval($_GET['rows']) : 10;
+	$sort = isset($_GET['sort']) ? strval($_GET['sort']) : 'Dorsal';
+	$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
 	$offset = ($page-1)*$rows;
 	$result = array();
 	// connect database
