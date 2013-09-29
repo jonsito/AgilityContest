@@ -5,20 +5,20 @@ var operation;
  *@param index: indice que ocupa el club en la entrada principal
  *@param club: nombre del club
  */
-function addPerroToGuia(index,club) {
-	alert('TODO:<br/> Index'+index+'<br/>Asignar perros a '+club);
+function addGuiaToClub(index,club) {
+	alert('TODO:<br/> Index'+index+'<br/>Asignar gu&iacute;as al '+club);
 }
 
 /**
  * Quita la asignacion del guia marcado al club indicado
  */
-function delPerroFromGuia(index,club) {
+function delGuiaFromClub(index,club) {
     var row = $('#clubes-guia-datagrid-'+index).datagrid('getSelected');
     if (!row) return;
 
     $.messager.confirm('Confirm',"Borrar asignacion del gu&iacute;a '"+row.Nombre+"' al club '"+club+"' ¿Seguro?'",function(r){
         if (r){
-            $.get('database/clubFunctions.php',{operation:'orphan',Nombre:row.Nombre},function(result){
+            $.get('database/clubFunctions.php',{'operation':'orphan','Nombre':row.Nombre},function(result){
                 if (result.success){
                     $('#clubes-guia-datagrid-'+index).datagrid('reload');    // reload the guia data
                 } else {

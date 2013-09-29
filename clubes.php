@@ -8,12 +8,12 @@
         <a id="clubes-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newClub()">Nuevo club</a>
         <a id="clubes-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editClub()">Editar club</a>
         <a id="clubes-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyClub()">Borrar club</a>
-        <input id="clubes-search" type="text" onchange="doSearchGuia()"/> 
+        <input id="clubes-search" type="text" onchange="doSearchClub()"/> 
         <a id="clubes-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchClub()">Buscar</a>
     </div>
     
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE GUIAS -->
-    <div id="clubes-dialog" class="easyui-dialog" style="width:450px;height:550px;padding:10px 20px"
+    <div id="clubes-dialog" class="easyui-dialog" style="width:600px;height:500px;padding:10px 20px"
             closed="true" buttons="#clubes-dlg-buttons">
         <div class="ftitle">Informaci&oacute;n del club</div>
         <form id="clubes-form" method="get" novalidate>
@@ -29,35 +29,35 @@
             </div>
             <div class="fitem">
                 <label for="Direccion1">Direcci&oacute;n 1</label>
-                <input id="clubes-Direccion1" class="easyui-validatebox" name="Direccion1" type="text" style="width:400px/>
+                <input id="clubes-Direccion1" class="easyui-validatebox" name="Direccion1" type="text" style="width:350px"/>
             </div>
             <div class="fitem">
                 <label for="Direccion2">Direcci&oacute;n 2</label>
-                <input id="clubes-Direccion2" class="easyui-validatebox" name="Direccion2" type="text" style="width:350px/>
+                <input id="clubes-Direccion2" class="easyui-validatebox" name="Direccion2" type="text" style="width:350px"/>
             </div>
             <div class="fitem">
                 <label for="Provincia">Provincia</label>
-                <input id="clubes-Provincia" class="easyui-validatebox" name="Provincia" type="text" style="width:200px/>
+                <select id="clubes-Provincia" name="Provincia" class="easyui-combogrid" style="width:200px" required="true" />
             </div>
             <div class="fitem">
                 <label for="Contacto1">Contacto 1</label>
-                <input id="clubes-Contacto1" class="easyui-validatebox" name="Contacto1" type="text" style="width:350px/>
+                <input id="clubes-Contacto1" class="easyui-validatebox" name="Contacto1" type="text" style="width:350px"/>
             </div>
             <div class="fitem">
                 <label for="Contacto2">Contacto 2</label>
-                <input id="clubes-Contacto2" class="easyui-validatebox" name="Contacto2" type="text" style="width:350px/>
+                <input id="clubes-Contacto2" class="easyui-validatebox" name="Contacto2" type="text" style="width:350px"/>
             </div>
             <div class="fitem">
                 <label for="Contacto3">Contacto 3</label>
-                <input id="clubes-Contacto3" class="easyui-validatebox" name="Contacto3" type="text" style="width:350px/>
+                <input id="clubes-Contacto3" class="easyui-validatebox" name="Contacto3" type="text" style="width:350px"/>
             </div>
             <div class="fitem">
                 <label for="GPS">Coordenadas GPS</label>
-                <input id="clubes-GPS" class="easyui-validatebox" name="GPS" type="text" style="width:300px/>
+                <input id="clubes-GPS" class="easyui-validatebox" name="GPS" type="text" style="width:300px"/>
             </div>
             <div class="fitem">
                 <label for="Web">P&aacute;gina Web</label>
-                <input id="clubes-Web" class="easyui-validatebox" name="Web" type="text" style="width:300px/>
+                <input id="clubes-Web" class="easyui-validatebox" name="Web" type="text" style="width:300px"/>
             </div>
             <div class="fitem">
                 <label for="Email">Correo electr&oacute;nico:</label>
@@ -65,15 +65,15 @@
             </div>
             <div class="fitem">
                 <label for="Facebook">Cuenta de Facebook:</label>
-                <input id="clubes-Facebook" class="easyui-validatebox" name="Facebook" type="text" style="width:300px/>
+                <input id="clubes-Facebook" class="easyui-validatebox" name="Facebook" type="text" style="width:300px"/>
             </div>
             <div class="fitem">
                 <label for="Google">Cuenta de Google+:</label>
-                <input id="clubes-Google" class="easyui-validatebox" name="Google" type="text" style="width:300px/>
+                <input id="clubes-Google" class="easyui-validatebox" name="Google" type="text" style="width:300px"/>
             </div>
             <div class="fitem">
                 <label for="Twitter">Cuenta de Twitter:</label>
-                <input id="clubes-Twitter" class="easyui-validatebox" name="Twitter" type="text" style="width:300px/>
+                <input id="clubes-Twitter" class="easyui-validatebox" name="Twitter" type="text" style="width:300px"/>
             </div>
             <!---
             TODO: learn on how to handle images
@@ -84,7 +84,7 @@
             --->
             <div class="fitem">
                 <label for="Observaciones">Observaciones:</label>
-                <input id="clubes-Observaciones" name="Observaciones" type="textarea" style="height:50px;width:300px";/>
+                <input id="clubes-Observaciones" name="Observaciones" type="textarea" style="height:50px;width:300px"/>
             </div>
             <div class="fitem">
                 <label for="Baja">Baja del club:</label>
@@ -107,7 +107,7 @@
         
         // tell jquery to convert declared elements to jquery easyui Objects
         
-        // datos de la tabla de guias
+        // datos de la tabla de clubes
         // - tabla
         $('#clubes-datagrid').datagrid({
         	title: 'Gesti&oacute;n de datos de Clubes',
@@ -122,8 +122,8 @@
             columns: [[
                	    { field:'Nombre',		width:10, sortable:true,	title: 'Nombre:'},
             		{ field:'Direccion1',	width:15, sortable:true,	title: 'Direcci&oacute;n 1:' },
-            		{ field:'Direccion2',	width:15, sortable:false,	title: 'Direcci&oacute;n 2' },
-            		{ field:'Provincia',	width:5, sortable:false,   title: 'Provincia' },
+            		{ field:'Direccion2',	width:10, sortable:false,	title: 'Direcci&oacute;n 2' },
+            		{ field:'Provincia',	width:7, sortable:false,   title: 'Provincia' },
             		{ field:'Contacto1',	width:10, sortable:false,   title: 'Contacto 1' },
             		{ field:'Contacto2',	width:5, sortable:true,    title: 'Contacto 2' },
             		{ field:'Contacto3',	width:5, sortable:true,    title: 'Contacto 3' },
@@ -143,9 +143,9 @@
             },
         	// on double click fireup editor dialog
             onDblClickRow:function() { 
-                editGuia();
+                editClub();
             },        
-            // especificamos un formateador especial para desplegar la tabla de perros por guia
+            // especificamos un formateador especial para desplegar la tabla de guias por club
             detailFormatter:function(index,row){
                 return '<div style="padding:2px"><table id="clubes-guia-datagrid-' + index + '"></table></div>';
             },
@@ -154,7 +154,7 @@
             	// - sub tabla de guias inscritos en un club
             	$('#clubes-guia-datagrid-'+index).datagrid({
             		title: 'Gu&iacute;as inscritos en el club '+row.Nombre,
-            		url: 'database/enumerate_GuiasByClub.php?Club='+row.Nombre,
+            		url: 'database/select_GuiasByClub.php?Club='+row.Nombre,
             		method: 'get',
             		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
             		toolbar:  [{
@@ -257,7 +257,23 @@
             content: '<span style="color:#000">Anular operaci&oacute;n. Cerrar ventana</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
-        
+        $('#clubes-Provincia').combogrid({
+			panelWidth: 300,
+			panelHeight: 200,
+			idField: 'Provincia',
+			textField: 'Provincia',
+			url: 'database/enumerate_Provincias.php',
+			method: 'get',
+			mode: 'remote',
+			required: true,
+			columns: [[
+    			{field:'Provincia',title:'Provincia',width:20,align:'right'},
+    			{field:'Comunidad',title:'Comunidad Autonoma',width:40,align:'right'},
+			]],
+			multiple: false,
+			fitColumns: true,
+			selectOnNavigation: false
+        });
         // campos del formulario
         $('#clubes-dialog').dialog();
         $('#clubes-Nombre').validatebox({

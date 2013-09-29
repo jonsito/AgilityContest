@@ -96,7 +96,7 @@
             	// - sub tabla de perros asignados a un guia
             	$('#guias-dog-datagrid-'+index).datagrid({
             		title: 'Perros registrados a nombre de '+row.Nombre,
-            		url: 'database/enumerate_PerrosByGuia.php?Guia='+row.Nombre,
+            		url: 'database/select_PerrosByGuia.php?Guia='+row.Nombre,
             		method: 'get',
             		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
             		toolbar:  [{
