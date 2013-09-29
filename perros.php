@@ -15,7 +15,9 @@
         <a id="perros-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newDog()">Nuevo Perro</a>
         <a id="perros-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDog()">Editar Perro</a>
         <a id="perros-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyDog()">Borrar Perro</a>
-    </div>
+        <input id="perros-search" type="text" onchange="doSearchPerro()"/> 
+        <a id="perros-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchPerro()">Buscar</a>
+        </div>
     
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE PERROS -->
     <div id="perros-dialog" class="easyui-dialog" style="width:500px;height:375px;padding:10px 20px"
@@ -97,7 +99,8 @@
             	{ field:'Licencia', width:10, sortable:true, align: 'right', title: 'Lic.' },
             	{ field:'Categoria',width:5,                 align:'center', title: 'Cat.' },
             	{ field:'Grado',    width:5,                 align:'center', title: 'Grado' },
-                { field:'Guia',     width:40, sortable:true,                 title: 'Nombre del Gu&iacute;a'}
+                { field:'Guia',     width:25, sortable:true,                 title: 'Nombre del Gu&iacute;a'},
+                { field:'Club',     width:15, sortable:true,                 title: 'Club'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:function(index,row) { 
@@ -130,6 +133,8 @@
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
+
+        $('#perros-searchBtn').linkbutton(); // buscar perro
         
         // datos del formulario de nuevo/edit perros
         // - declaracion del formulario

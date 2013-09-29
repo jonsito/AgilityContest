@@ -1,6 +1,18 @@
 var operation;
 
 /**
+ * Recalcula el formulario anyadiendo parametros de busqueda
+ */
+function doSearchPerro() {
+	// reload data adding search criteria
+    $('#perros-datagrid').datagrid('load',{
+        where: $('#perros-search').val()
+    });
+    // clear search textbox
+    $('#perros-search').val('');
+}
+
+/**
  * Open "New Dog dialog"
  */
 function newDog(){

@@ -8,7 +8,7 @@
         <a id="guias-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newGuia()">Nuevo Gu&iacute;a</a>
         <a id="guias-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editGuia()">Editar Gu&iacute;a</a>
         <a id="guias-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyGuia()">Borrar gu&iacute;a</a>
-        <input id="guias-search" type="text"/> 
+        <input id="guias-search" type="text" onchange="doSearchGuia()"/> 
         <a id="guias-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchGuia()">Buscar</a>
     </div>
     
@@ -37,7 +37,7 @@
             </div>
             <div class="fitem">
                 <label for="Club">Club:</label>
-                <select id="guias-Clubes" name="Guia" class="easyui-combogrid" style="width:250px"/>
+                <select id="guias-Clubes" name="Club" class="easyui-combogrid" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="Observaciones">Observaciones:</label>

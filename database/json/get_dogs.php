@@ -1,10 +1,14 @@
 <?php
 	require_once("../DBConnection.php");
+	require_once("../logging.php");
 	// evaluate offset and row count for query
 	$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 	$rows = isset($_GET['rows']) ? intval($_GET['rows']) : 10;
 	$sort = isset($_GET['sort']) ? strval($_GET['sort']) : 'Dorsal';
 	$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
+	$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
+	$where = ' ';
+	if ($search!=='') $where="AND ( (Perros.Nombre LIKE '$search%') OR ( Guia LIKE '$search%') OR (Guias.Club LIKE '$search%') )";  
 	$offset = ($page-1)*$rows;
 	$result = array();
 	// connect database
@@ -15,7 +19,19 @@
 	$row=$rs->fetch_array();
 	$result["total"] = $row[0];
 	// second query to retrieve $rows starting at $offset
-	$rs=$conn->query("SELECT * FROM Perros ORDER BY $sort $order LIMIT $offset,$rows");
+	$str="SELECT Dorsal,Perros.Nombre,Raza,LOE_RRC,Licencia,Categoria,Guia,Grado,Club
+			FROM Perros,Guias
+			WHERE ( Perros.Guia = Guias.Nombre) $where 
+			ORDER BY $sort $order LIMIT $offset,$rows";
+	do_log("get_dogs:: query string is $str");
+	$rs=$conn->query($str);
+	if (!$rs) {
+		$err="get_dogs::query() error $conn->error";
+		do_log($err);
+		echo json_encode(array('errorMsg'=>$err));
+		DBConnection::closeConnection($conn);
+		return;
+	} 
 	// retrieve result into an array
 	$items = array();
 	while($row = $rs->fetch_array()){
