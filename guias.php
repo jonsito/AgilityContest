@@ -8,7 +8,8 @@
         <a id="guias-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newGuia()">Nuevo Gu&iacute;a</a>
         <a id="guias-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editGuia()">Editar Gu&iacute;a</a>
         <a id="guias-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyGuia()">Borrar gu&iacute;a</a>
-        <a id="guias-perrosBtn" href="#" class="easyui-linkbutton" iconCls="icon-dog" plain="true" onclick="perrosGuia()">Perros</a>
+        <input id="guias-search" type="text"/> 
+        <a id="guias-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchGuia()">Buscar</a>
     </div>
     
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE GUIAS -->
@@ -44,16 +45,18 @@
             </div>
         </form>
     </div>
+    
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     <div id="guias-dlg-buttons">
         <a id="guias-okBtn" href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveGuia()">Guardar</a>
         <a id="guias-cancelBtn" href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#guias-dialog').dialog('close')">Cancelar</a>
     </div>
+
     
     <script language="javascript">
     
     	// set up operation header content
-        $('#Header_Operation').html('<p>Gesti&oacute;n de Gu&iacute;a</p>');
+        $('#Header_Operation').html('<p>Gesti&oacute;n de Base de Datos de Gu&iacute;as</p>');
         
         // tell jquery to convert declared elements to jquery easyui Objects
         
@@ -68,6 +71,7 @@
             rownumbers: true,
             fitColumns: true,
             singleSelect: true,
+            view: detailview,
             columns: [[
             	{ field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
             	{ field:'Telefono',		width:15, sortable:true,	title: 'Tel&eacute;fono' },
@@ -82,8 +86,62 @@
         	// on double click fireup editor dialog
             onDblClickRow:function() { 
                 editGuia();
+            },        
+            // especificamos un formateador especial para desplegar la tabla de perros por guia
+            detailFormatter:function(index,row){
+                return '<div style="padding:2px"><table id="guias-dog-datagrid-' + index + '"></table></div>';
+            },
+            
+            onExpandRow: function(index,row){
+            	// - sub tabla de perros asignados a un guia
+            	$('#guias-dog-datagrid-'+index).datagrid({
+            		title: 'Perros asignados al Gu&iacute;a',
+            		url: 'database/json/enumerate_PerrosByGuia.php?Guia='+row.Nombre,
+            		method: 'get',
+            		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
+            		toolbar:  [{
+                		text: 'Borrar perro',
+                		plain: true,
+            			iconCls: 'icon-remove',
+            			handler: function(){delPerroFromGuia();}
+            		},'-',{
+                		text: 'A&ntilde;adir perro',
+                		plain: true,
+            			iconCls: 'icon-dog',
+            			handler: function(){addPerroToGuia(row.Nombre);}
+            		}],
+           		    pagination: false,
+            	    rownumbers: false,
+            	    fitColumns: true,
+            	    singleSelect: true,
+            	    loadMsg: '',
+            	    height: 'auto',
+            	    columns: [[
+                	    { field:'Dorsal',	width:15, sortable:true,	title: 'Dorsal'},
+                		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
+                		{ field:'Categoria',width:15, sortable:false,	title: 'Cat.' },
+                		{ field:'Grado',	width:25, sortable:false,   title: 'Grado' },
+                		{ field:'Raza',		width:25, sortable:false,   title: 'Raza' },
+                		{ field:'LOE_RRC',	width:25, sortable:true,    title: 'LOE / RRC' },
+                		{ field:'Licencia',	width:25, sortable:true,    title: 'Licencia' }
+                	]],
+                	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+                	rowStyler:function(index,row) { 
+                	    return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+                	},
+                    onResize:function(){
+                        $('#guias-datagrid').datagrid('fixDetailRowHeight',index);
+                    },
+                    onLoadSuccess:function(){
+                        setTimeout(function(){
+                            $('#guias-datagrid').datagrid('fixDetailRowHeight',index);
+                        },0);
+                    }
+            	});
+            	$('#guias-datagrid').datagrid('fixDetailRowHeight',index);
             }
-        }); 
+        });
+         
         // - botones de la toolbar de la tabla
         $('#guias-newBtn').linkbutton(); // nuevo guia        
         $('#guias-newBtn').tooltip({
@@ -104,12 +162,24 @@
             content: '<span style="color:#000">Borrar el gu&iacute;a seleccionado de la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
-        $('#guias-perrosBtn').linkbutton(); // lista de perros del guia
-        $('#guias-perrosBtn').tooltip({
+
+        $('#guias-searchBtn').linkbutton(); // buscar datos del guia
+
+        // botones de los sub-formularios
+        $('#guias-addPerroBtn').linkbutton(); // lista de perros del guia
+        $('#guias-addPerroBtn').tooltip({
             position: 'top',
-            content: '<span style="color:#000">Ver/Modificar los perros del gu&iacute;a seleccionado</span>',
+            content: '<span style="color:#000">Asignar un nuevo perro al guia</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+        });        
+        $('#guias-delPerroBtn').linkbutton(); // lista de perros del guia
+        $('#guias-delPerroBtn').tooltip({
+            position: 'top',
+            content: '<span style="color:#000">Eliminar asignaci&oacute;n del perro al gu&iacute;a</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
+
+        
         // datos del formulario de nuevo/edit guia
         // - declaracion del formulario
         $('#guias-form').form();
@@ -156,4 +226,6 @@
 			fitColumns: true,
 			selectOnNavigation: false
         });
+
+ 
 	</script>

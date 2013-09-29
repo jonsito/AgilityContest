@@ -5,6 +5,9 @@
 	$rows = isset($_GET['rows']) ? intval($_GET['rows']) : 10;
 	$sort = isset($_GET['sort']) ? strval($_GET['sort']) : 'Nombre';
 	$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
+	$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
+	$where = '';
+	if ($search!=='') $where=" WHERE ( (Nombre LIKE '$search%') OR ( Club LIKE '$search%') ) ";  
 	$offset = ($page-1)*$rows;
 	$result = array();
 	// connect database
@@ -15,7 +18,7 @@
 	$row=$rs->fetch_array();
 	$result["total"] = $row[0];
 	// second query to retrieve $rows starting at $offset
-	$rs=$conn->query("SELECT * FROM Guias ORDER BY $sort $order LIMIT $offset,$rows");
+	$rs=$conn->query("SELECT * FROM Guias $where ORDER BY $sort $order LIMIT $offset,$rows");
 	// retrieve result into an array
 	$items = array();
 	while($row = $rs->fetch_array()){

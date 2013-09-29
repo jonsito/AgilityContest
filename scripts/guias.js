@@ -1,6 +1,17 @@
 var operation;
 
 /**
+ * Recalcula el formulario anyadiendo parametros de busqueda
+ */
+function doSearchGuia() {
+	// reload data adding search criteria
+    $('#guias-datagrid').datagrid('load',{
+        where: $('#guias-search').val()
+    });
+    // clear search textbox
+    $('#guias-search').val('');
+}
+/**
  * Open "Guia dialog"
  */
 function newGuia(){
