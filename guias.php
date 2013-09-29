@@ -64,7 +64,7 @@
         // - tabla
         $('#guias-datagrid').datagrid({
         	title: 'Gesti&oacute;n de datos de Gu&iacute;as',
-        	url: 'database/json/get_guias.php',
+        	url: 'database/get_guias.php',
         	method: 'get',
             toolbar: '#guias-toolbar',
             pagination: true,
@@ -96,7 +96,7 @@
             	// - sub tabla de perros asignados a un guia
             	$('#guias-dog-datagrid-'+index).datagrid({
             		title: 'Perros registrados a nombre de '+row.Nombre,
-            		url: 'database/json/enumerate_PerrosByGuia.php?Guia='+row.Nombre,
+            		url: 'database/enumerate_PerrosByGuia.php?Guia='+row.Nombre,
             		method: 'get',
             		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
             		toolbar:  [{
@@ -164,7 +164,12 @@
         });
 
         $('#guias-searchBtn').linkbutton(); // buscar datos del guia
-
+        $('#guias-searchBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Buscar entradas que contengan el texto indicado</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
         // botones de los sub-formularios
         $('#guias-addPerroBtn').linkbutton(); // lista de perros del guia
         $('#guias-addPerroBtn').tooltip({
@@ -214,7 +219,7 @@
 			panelHeight: 200,
 			idField: 'Nombre',
 			textField: 'Nombre',
-			url: 'database/json/enumerate_Clubes.php',
+			url: 'database/enumerate_Clubes.php',
 			method: 'get',
 			mode: 'remote',
 			required: true,

@@ -1,6 +1,6 @@
 <?php
-	require_once("../DBConnection.php");
-	require_once("../logging.php");
+	require_once("logging.php");
+	require_once("DBConnection.php");
 	// evaluate offset and row count for query
 	$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 	$rows = isset($_GET['rows']) ? intval($_GET['rows']) : 10;
@@ -8,7 +8,7 @@
 	$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
 	$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
 	$where = ' ';
-	if ($search!=='') $where="AND ( (Perros.Nombre LIKE '$search%') OR ( Guia LIKE '$search%') OR (Guias.Club LIKE '$search%') )";  
+	if ($search!=='') $where="AND ( (Perros.Nombre LIKE '%$search%') OR ( Guia LIKE '%$search%') OR (Guias.Club LIKE '%$search%') )";  
 	$offset = ($page-1)*$rows;
 	$result = array();
 	// connect database

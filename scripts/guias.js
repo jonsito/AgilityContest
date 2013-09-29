@@ -17,7 +17,7 @@ function delPerroFromGuia(index,guia) {
 
     $.messager.confirm('Confirm',"Borrar asignacion del perro '"+row.Nombre+"' al guia '"+guia+"' ¿Seguro?'",function(r){
         if (r){
-            $.get('database/json/handlerFunctions.php',{operation:'orphan',Dorsal:row.Dorsal},function(result){
+            $.get('database/handlerFunctions.php',{operation:'orphan',Dorsal:row.Dorsal},function(result){
                 if (result.success){
                     $('#guias-dog-datagrid-'+index).datagrid('reload');    // reload the guia data
                 } else {
@@ -30,6 +30,7 @@ function delPerroFromGuia(index,guia) {
         }
     });
 }
+
 /**
  * Recalcula el formulario anyadiendo parametros de busqueda
  */
@@ -42,6 +43,7 @@ function doSearchGuia() {
     // hey, this fire up again onChangeEvent :-(
     // $('#guias-search').val('');
 }
+
 /**
  * Open "Guia dialog"
  */
@@ -70,7 +72,7 @@ function editGuia(){
 function saveGuia(){
     // do normal submit
     $('#guias-form').form('submit',{
-        url: 'database/json/handlerFunctions.php',
+        url: 'database/handlerFunctions.php',
         method: 'get',
         onSubmit: function(param){
         	param.operation=operation;
@@ -99,7 +101,7 @@ function destroyGuia(){
     if (!row) return;
     $.messager.confirm('Confirm','Borrar datos del guia. ¿Seguro?',function(r){
         if (r){
-            $.get('database/json/handlerFunctions.php',{operation:'delete',Nombre:row.Nombre},function(result){
+            $.get('database/handlerFunctions.php',{operation:'delete',Nombre:row.Nombre},function(result){
                 if (result.success){
                     $('#guias-datagrid').datagrid('reload');    // reload the guia data
                 } else {

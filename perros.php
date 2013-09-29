@@ -84,7 +84,7 @@
         // - tabla
         $('#perros-datagrid').datagrid({
         	title: 'Gesti&oacute;n de datos de Perros',
-        	url: 'database/json/get_dogs.php',
+        	url: 'database/get_dogs.php',
         	method: 'get',
             toolbar: '#perros-toolbar',
             pagination: true,
@@ -135,7 +135,12 @@
     	});
 
         $('#perros-searchBtn').linkbutton(); // buscar perro
-        
+        $('#perros-searchBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Buscar entradas que contengan el texto dado</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
         // datos del formulario de nuevo/edit perros
         // - declaracion del formulario
         $('#perros-form').form();
@@ -166,7 +171,7 @@
         	textField:'Comentarios',
         	method: 'get',
         	mode: 'remote',
-        	url:'database/json/enumerate_Grados_Perro.php',
+        	url:'database/enumerate_Grados_Perro.php',
         	// TODO: this should work. study why doesn't
     		onLoadSuccess: function(data){
     			for(var i=0; i<data.length; i++){
@@ -185,14 +190,14 @@
     		textField:'Observaciones',
     		method: 'get',
     		mode: 'remote',
-    		url:'database/json/enumerate_Categorias_Perro.php'
+    		url:'database/enumerate_Categorias_Perro.php'
         });
         $('#perros-Guia').combogrid({
 			panelWidth: 350,
 			panelHeight: 200,
 			idField: 'Nombre',
 			textField: 'Nombre',
-			url: 'database/json/enumerate_GuiasClub.php',
+			url: 'database/enumerate_GuiasClub.php',
 			method: 'get',
 			mode: 'remote',
 			required: true,

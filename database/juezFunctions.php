@@ -1,6 +1,6 @@
 <?php
-	require_once("../logging.php");
-	require_once("../DBConnection.php");
+	require_once("logging.php");
+	require_once("DBConnection.php");
 	
 	function insertJuez ($conn) {
 		$msg=""; // default: no errors

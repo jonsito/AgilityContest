@@ -39,7 +39,7 @@ function editDog(){
  */
 function saveDog(){
     $('#perros-form').form('submit',{
-        url: 'database/json/dogFunctions.php',
+        url: 'database/dogFunctions.php',
         method: 'get',
         onSubmit: function(param){
         	param.operation=operation;
@@ -68,7 +68,7 @@ function destroyDog(){
     if (row){
         $.messager.confirm('Confirm','Borrar datos del perro. ¿Seguro?',function(r){
             if (r){
-                $.get('database/json/dogFunctions.php',{operation:'delete',Dorsal:row.Dorsal},function(result){
+                $.get('database/dogFunctions.php',{operation:'delete',Dorsal:row.Dorsal},function(result){
                     if (result.success){
                         $('#perros-datagrid').datagrid('reload');    // reload the dog data
                     } else {

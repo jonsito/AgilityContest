@@ -1,6 +1,18 @@
 var operation;
 
 /**
+ * Recalcula el formulario anyadiendo parametros de busqueda
+ */
+function doSearchJuez() {
+	// reload data adding search criteria
+    $('#jueces-datagrid').datagrid('load',{
+        where: $('#jueces-search').val()
+    });
+    // clear search textbox
+    // hey, this fire up again onChangeEvent :-(
+    // $('#guias-search').val('');
+}
+/**
  * Open "Juez dialog"
  */
 function newJuez(){
@@ -35,7 +47,7 @@ function saveJuez(){
     $('#jueces-Practicas').val( $('#jueces-Practicas').is(':checked')?'1':'0');
     // do normal submit
     $('#jueces-form').form('submit',{
-        url: 'database/json/juezFunctions.php',
+        url: 'database/juezFunctions.php',
         method: 'get',
         onSubmit: function(param){
         	param.operation=operation;
@@ -64,7 +76,7 @@ function destroyJuez(){
     if (row){
         $.messager.confirm('Confirm','Borrar datos del juez. ¿Seguro?',function(r){
             if (r){
-                $.get('database/json/juezFunctions.php',{operation:'delete',Nombre:row.Nombre},function(result){
+                $.get('database/juezFunctions.php',{operation:'delete',Nombre:row.Nombre},function(result){
                     if (result.success){
                         $('#jueces-datagrid').datagrid('reload');    // reload the juez data
                     } else {

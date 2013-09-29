@@ -1,5 +1,5 @@
 <?php
-	require_once("../DBConnection.php");
+	require_once("DBConnection.php");
 	// evaluate offset and row count for query
 	$like = isset($_GET['q']) ? " WHERE Nombre LIKE '".$_GET['q']."%'" : "";
 	$result = array();

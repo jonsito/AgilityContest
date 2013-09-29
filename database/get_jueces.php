@@ -1,5 +1,5 @@
 <?php
-	require_once("../DBConnection.php");
+	require_once("DBConnection.php");
 	// evaluate offset and row count for query
 	$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 	$rows = isset($_GET['rows']) ? intval($_GET['rows']) : 10;
@@ -7,26 +7,27 @@
 	$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
 	$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
 	$where = '';
-	if ($search!=='') $where=" WHERE ( (Nombre LIKE '$search%') OR ( Club LIKE '$search%') ) ";  
+	if ($search!=='') $where=" WHERE ( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') ) ";
 	$offset = ($page-1)*$rows;
 	$result = array();
 	// connect database
 	$conn=DBConnection::openConnection("agility_guest","guest@cachorrera");
 	if (!$conn) die("connection error");
 	// execute first query to know how many elements
-	$rs=$conn->query("SELECT count(*) FROM Guias $where");
+	$rs=$conn->query("SELECT count(*) FROM Jueces $where");
 	$row=$rs->fetch_array();
 	$result["total"] = $row[0];
 	// second query to retrieve $rows starting at $offset
-	$rs=$conn->query("SELECT * FROM Guias $where ORDER BY $sort $order LIMIT $offset,$rows");
+	$rs=$conn->query("SELECT * FROM Jueces $where ORDER BY $sort $order LIMIT $offset,$rows");
 	// retrieve result into an array
 	$items = array();
 	while($row = $rs->fetch_array()){
 		// utf8 encode on needed fields
 		// $row["Nombre"]=utf8_encode($row["Nombre"]);
+		// $row["Direccion1"]=utf8_encode($row["Direccion1"]);
+		// $row["Direccion2"]=utf8_encode($row["Direccion2"]);
 		// $row["Telefono"]=utf8_encode($row["Telefono"]);
 		// $row["Email"]=utf8_encode($row["Email"]);
-		// $row["Club"]=utf8_encode($row["Club"]);
 		// $row["Observaciones"]=utf8_encode($row["Observaciones"]);
 		// store data into result array
 		array_push($items, $row);

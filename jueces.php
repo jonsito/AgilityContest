@@ -15,6 +15,8 @@
         <a id="jueces-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newJuez()">Nuevo Juez</a>
         <a id="jueces-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editJuez()">Editar Juez</a>
         <a id="jueces-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyJuez()">Borrar Juez</a>
+        <input id="jueces-search" type="text" onchange="doSearchJuez()"/> 
+        <a id="jueces-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchJuez()">Buscar</a>
     </div>
     
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE JUECES -->
@@ -79,7 +81,7 @@
         // - tabla
         $('#jueces-datagrid').datagrid({
         	title: 'Gesti&oacute;n de datos de Jueces',
-        	url: 'database/json/get_jueces.php',
+        	url: 'database/get_jueces.php',
         	method: 'get',
             toolbar: '#jueces-toolbar',
             pagination: true,
@@ -124,6 +126,13 @@
         $('#jueces-delBtn').tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Eliminar el juez seleccionado de la BBDD</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});        
+    	$('#jueces-searchBtn').linkbutton(); // borrar juez 
+        $('#jueces-searchBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Buscar entradas que contengan el texto dado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
