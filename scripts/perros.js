@@ -9,7 +9,8 @@ function doSearchPerro() {
         where: $('#perros-search').val()
     });
     // clear search textbox
-    $('#perros-search').val('');
+    // hey, this fire up again onChangeEvent :-(
+    // $('#perros-search').val('');
 }
 
 /**

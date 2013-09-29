@@ -14,7 +14,7 @@
 	$conn=DBConnection::openConnection("agility_guest","guest@cachorrera");
 	if (!$conn) die("connection error");
 	// execute first query to know how many elements
-	$rs=$conn->query("SELECT count(*) FROM Guias");
+	$rs=$conn->query("SELECT count(*) FROM Guias $where");
 	$row=$rs->fetch_array();
 	$result["total"] = $row[0];
 	// second query to retrieve $rows starting at $offset

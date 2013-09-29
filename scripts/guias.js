@@ -1,6 +1,36 @@
 var operation;
 
 /**
+ * Abre el formulario para anyadir perros a un guia
+ *@param index: indice que ocupa el guia en la entrada principal
+ *@param guia: nombre del guia
+ */
+function addPerroToGuia(index,guia) {
+	alert('TODO:<br/> Index'+index+'<br/>Asignar perros a '+guia);
+}
+/**
+ * Quita la asignacion del perro marcado al guia indicado
+ */
+function delPerroFromGuia(index,guia) {
+    var row = $('#guias-dog-datagrid-'+index).datagrid('getSelected');
+    if (!row) return;
+
+    $.messager.confirm('Confirm',"Borrar asignacion del perro '"+row.Nombre+"' al guia '"+guia+"' ¿Seguro?'",function(r){
+        if (r){
+            $.get('database/json/handlerFunctions.php',{operation:'orphan',Dorsal:row.Dorsal},function(result){
+                if (result.success){
+                    $('#guias-dog-datagrid-'+index).datagrid('reload');    // reload the guia data
+                } else {
+                    $.messager.show({    // show error message
+                        title: 'Error',
+                        msg: result.errorMsg
+                    });
+                }
+            },'json');
+        }
+    });
+}
+/**
  * Recalcula el formulario anyadiendo parametros de busqueda
  */
 function doSearchGuia() {
@@ -9,7 +39,8 @@ function doSearchGuia() {
         where: $('#guias-search').val()
     });
     // clear search textbox
-    $('#guias-search').val('');
+    // hey, this fire up again onChangeEvent :-(
+    // $('#guias-search').val('');
 }
 /**
  * Open "Guia dialog"
@@ -25,13 +56,12 @@ function newGuia(){
  */
 function editGuia(){
     var row = $('#guias-datagrid').datagrid('getSelected');
-    if (row){
-        $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del gu&iacute;a');
-        $('#guias-form').form('load',row);
-        // save old guia name in "Viejo" hidden form input to allow change guia name
-        $('#guias-Viejo').val( $('#guias-Nombre').val());
-        operation='update';
-    }
+    if (!row) return;
+    $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del gu&iacute;a');
+    $('#guias-form').form('load',row);
+    // save old guia name in "Viejo" hidden form input to allow change guia name
+    $('#guias-Viejo').val( $('#guias-Nombre').val());
+    operation='update';
 }
 
 /**
@@ -66,20 +96,19 @@ function saveGuia(){
  */
 function destroyGuia(){
     var row = $('#guias-datagrid').datagrid('getSelected');
-    if (row){
-        $.messager.confirm('Confirm','Borrar datos del guia. ¿Seguro?',function(r){
-            if (r){
-                $.get('database/json/handlerFunctions.php',{operation:'delete',Nombre:row.Nombre},function(result){
-                    if (result.success){
-                        $('#guias-datagrid').datagrid('reload');    // reload the guia data
-                    } else {
-                        $.messager.show({    // show error message
-                            title: 'Error',
-                            msg: result.errorMsg
-                        });
-                    }
-                },'json');
-            }
-        });
-    }
+    if (!row) return;
+    $.messager.confirm('Confirm','Borrar datos del guia. ¿Seguro?',function(r){
+        if (r){
+            $.get('database/json/handlerFunctions.php',{operation:'delete',Nombre:row.Nombre},function(result){
+                if (result.success){
+                    $('#guias-datagrid').datagrid('reload');    // reload the guia data
+                } else {
+                    $.messager.show({    // show error message
+                        title: 'Error',
+                        msg: result.errorMsg
+                    });
+                }
+            },'json');
+        }
+    });
 }

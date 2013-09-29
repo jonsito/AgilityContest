@@ -95,7 +95,7 @@
             onExpandRow: function(index,row){
             	// - sub tabla de perros asignados a un guia
             	$('#guias-dog-datagrid-'+index).datagrid({
-            		title: 'Perros asignados al Gu&iacute;a',
+            		title: 'Perros registrados a nombre de '+row.Nombre,
             		url: 'database/json/enumerate_PerrosByGuia.php?Guia='+row.Nombre,
             		method: 'get',
             		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
@@ -103,12 +103,12 @@
                 		text: 'Borrar perro',
                 		plain: true,
             			iconCls: 'icon-remove',
-            			handler: function(){delPerroFromGuia();}
+            			handler: function(){delPerroFromGuia(index,row.Nombre);}
             		},'-',{
                 		text: 'A&ntilde;adir perro',
                 		plain: true,
             			iconCls: 'icon-dog',
-            			handler: function(){addPerroToGuia(row.Nombre);}
+            			handler: function(){addPerroToGuia(index,row.Nombre);}
             		}],
            		    pagination: false,
             	    rownumbers: false,

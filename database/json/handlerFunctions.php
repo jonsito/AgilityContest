@@ -82,12 +82,23 @@
 		do_log("deleteGuia:: enter");
 		$res= $conn->query("DELETE FROM Guias WHERE (Nombre='$nombre')");
 		if (!$res) {
-			$msg="deleteGuia:: Error: $conn->error";
+			$msg="deleteGuia::query(delete) Error: $conn->error";
 			do_log($msg);
 		} else do_log("deleteGuia:: execute() resulted: $res");
 		return $msg;
 	}
 
+	function orphanPerroFromGuia($conn,$dorsal) {
+		$msg="";
+		do_log("orphanPerroFromGuia:: enter");
+		$res= $conn->query("UPDATE Perros SET Guia=' Sin Asignar' WHERE (Dorsal='$dorsal')");
+		if (!$res) {
+			$msg="orphanPerroFromGuia::query(delete) Error: $conn->error";
+			do_log($msg);
+		} else do_log("deleteGuia:: execute() resulted: $res");
+		return $msg;
+	}
+	
 	// connect database
 	$conn=DBConnection::openConnection("agility_operator","operator@cachorrera");
 	if (!$conn) {
@@ -117,6 +128,11 @@
 	}
 	else if($oper==='delete') {
 		$result= deleteGuia($conn,strval($_GET['Nombre']));
+		if ($result==="") 	echo json_encode(array('success'=>true));
+		else				echo json_encode(array('msg'=>$result));
+	}
+	else if($oper==='orphan') {
+		$result= orphanPerroFromGuia($conn,intval($_GET['Dorsal']));
 		if ($result==="") 	echo json_encode(array('success'=>true));
 		else				echo json_encode(array('msg'=>$result));
 	}
