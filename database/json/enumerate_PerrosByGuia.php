@@ -22,13 +22,13 @@
 	$items = array();
 	while($row = $rs->fetch_array()){
 		// utf8 encode data
-		$row["Dorsal"]    =utf8_encode( $row["Dorsal"] );
-		$row["Nombre"]    =utf8_encode( $row["Nombre"]   );
-		$row["Categoria"] =utf8_encode( $row["Categoria"] );
-		$row["Grado"]     =utf8_encode( $row["Grado"]   );
-		$row["Raza"]      =utf8_encode( $row["Raza"]   );
-		$row["LOE_RRC"]   =utf8_encode( $row["LOE_RRC"]   );
-		$row["Licencia"]  =utf8_encode( $row["Licencia"]   );
+		// $row["Dorsal"]    =utf8_encode( $row["Dorsal"] );
+		// $row["Nombre"]    =utf8_encode( $row["Nombre"]   );
+		// $row["Categoria"] =utf8_encode( $row["Categoria"] );
+		// $row["Grado"]     =utf8_encode( $row["Grado"]   );
+		// $row["Raza"]      =utf8_encode( $row["Raza"]   );
+		// $row["LOE_RRC"]   =utf8_encode( $row["LOE_RRC"]   );
+		// $row["Licencia"]  =utf8_encode( $row["Licencia"]   );
 		// and store into result array
 		array_push($items, $row);
 	}

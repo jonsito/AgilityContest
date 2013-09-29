@@ -20,12 +20,12 @@
 	$items = array();
 	while($row = $rs->fetch_array()){
 		// utf8 encode on needed fields
-		$row["Nombre"]=utf8_encode($row["Nombre"]);
-		$row["Direccion1"]=utf8_encode($row["Direccion1"]);
-		$row["Direccion2"]=utf8_encode($row["Direccion2"]);
-		$row["Telefono"]=utf8_encode($row["Telefono"]);
-		$row["email"]=utf8_encode($row["email"]);
-		$row["Observaciones"]=utf8_encode($row["Observaciones"]);
+		// $row["Nombre"]=utf8_encode($row["Nombre"]);
+		// $row["Direccion1"]=utf8_encode($row["Direccion1"]);
+		// $row["Direccion2"]=utf8_encode($row["Direccion2"]);
+		// $row["Telefono"]=utf8_encode($row["Telefono"]);
+		// $row["Email"]=utf8_encode($row["Email"]);
+		// $row["Observaciones"]=utf8_encode($row["Observaciones"]);
 		// store data into result array
 		array_push($items, $row);
 	}

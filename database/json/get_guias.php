@@ -23,11 +23,11 @@
 	$items = array();
 	while($row = $rs->fetch_array()){
 		// utf8 encode on needed fields
-		$row["Nombre"]=utf8_encode($row["Nombre"]);
-		$row["Telefono"]=utf8_encode($row["Telefono"]);
-		$row["Email"]=utf8_encode($row["Email"]);
-		$row["Club"]=utf8_encode($row["Club"]);
-		$row["Observaciones"]=utf8_encode($row["Observaciones"]);
+		// $row["Nombre"]=utf8_encode($row["Nombre"]);
+		// $row["Telefono"]=utf8_encode($row["Telefono"]);
+		// $row["Email"]=utf8_encode($row["Email"]);
+		// $row["Club"]=utf8_encode($row["Club"]);
+		// $row["Observaciones"]=utf8_encode($row["Observaciones"]);
 		// store data into result array
 		array_push($items, $row);
 	}

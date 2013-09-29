@@ -16,8 +16,8 @@
 	$items = array();
 	while($row = $rs->fetch_array()){
 		// utf8 encode data
-		$row["Nombre"] =utf8_encode( $row["Nombre"] );
-		$row["Provincia"]   =utf8_encode( $row["Provincia"]   );
+		// $row["Nombre"] =utf8_encode( $row["Nombre"] );
+		// $row["Provincia"]   =utf8_encode( $row["Provincia"]   );
 		// and store into result array
 		array_push($items, $row);
 	}
