@@ -62,6 +62,7 @@ class DBConnection {
 		if (!$res->connect_error) {
 			$myDBConnection->addConnection($user,$res);
 		}
+		$res->query("SET NAMES 'utf8'");
 		return $res;
 	}
 	
