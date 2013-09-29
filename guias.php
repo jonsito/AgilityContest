@@ -12,7 +12,7 @@
     </div>
     
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE GUIAS -->
-    <div id="guias-dialog" class="easyui-dialog" style="width:450px;height:450px;padding:10px 20px"
+    <div id="guias-dialog" class="easyui-dialog" style="width:450px;height:350px;padding:10px 20px"
             closed="true" buttons="#guias-dlg-buttons">
         <div class="ftitle">Informaci&oacute;n del guia</div>
         <form id="guias-form" method="get" novalidate>
@@ -23,24 +23,20 @@
                 	type="text" 
                 	class="easyui-validatebox" 
                 	required="true"
-                	style="width:250px" />
+                	style="width:300px" />
                 <input id="guias-Viejo" name="Viejo" type="hidden" /> <!-- used to allow operator change guia's name -->
-            </div>
-            <div class="fitem">
-                <label for="Telefono">Tel&eacute;fono:</label>
-                <input id="guias-Telefono" class="easyui-validatebox" name="Telefono" type="text" />
             </div>
             <div class="fitem">
                 <label for="Email">Correo electr&oacute;nico:</label>
                 <input id="guias-Email" name="Email" class="easyui-validatebox" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
+                <label for="Telefono">Tel&eacute;fono:</label>
+                <input id="guias-Telefono" class="easyui-validatebox" name="Telefono" type="text" />
+            </div>
+            <div class="fitem">
                 <label for="Club">Club:</label>
-                <select id="guias-Club" 
-                		name="Club" 
-                		class="easyui-combobox" 
-                		style="width:155px"
-                		required="true" />
+                <select id="guias-Clubes" name="Guia" class="easyui-combogrid" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="Observaciones">Observaciones:</label>
@@ -142,5 +138,22 @@
         $('#guias-Email').validatebox({
             required: false,
             validType: 'email'
+        });
+        $('#guias-Clubes').combogrid({
+			panelWidth: 350,
+			panelHeight: 200,
+			idField: 'Nombre',
+			textField: 'Nombre',
+			url: 'database/json/enumerate_Clubes.php',
+			method: 'get',
+			mode: 'remote',
+			required: true,
+			columns: [[
+    			{field:'Nombre',title:'Nombre del club',width:80,align:'right'},
+    			{field:'Provincia',title:'Provincia',width:40,align:'right'},
+			]],
+			multiple: false,
+			fitColumns: true,
+			selectOnNavigation: false
         });
 	</script>
