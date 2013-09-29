@@ -17,7 +17,7 @@ function delPerroFromGuia(index,guia) {
 
     $.messager.confirm('Confirm',"Borrar asignacion del perro '"+row.Nombre+"' al guia '"+guia+"' ¿Seguro?'",function(r){
         if (r){
-            $.get('database/handlerFunctions.php',{operation:'orphan',Dorsal:row.Dorsal},function(result){
+            $.get('database/guiaFunctions.php',{operation:'orphan',Dorsal:row.Dorsal},function(result){
                 if (result.success){
                     $('#guias-dog-datagrid-'+index).datagrid('reload');    // reload the guia data
                 } else {
@@ -61,6 +61,8 @@ function editGuia(){
     if (!row) return;
     $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del gu&iacute;a');
     $('#guias-form').form('load',row);
+    // take care on int-to-bool translation for checkboxes
+    $('#guias-Baja').prop('checked',(row.Baja==1)?true:false);
     // save old guia name in "Viejo" hidden form input to allow change guia name
     $('#guias-Viejo').val( $('#guias-Nombre').val());
     operation='update';
@@ -70,9 +72,11 @@ function editGuia(){
  * Ask for commit new/edit guia to server
  */
 function saveGuia(){
+	// take care on bool-to-int translation from checkboxes to database
+    $('#guias-Baja').val( $('#guias-Baja').is(':checked')?'1':'0');
     // do normal submit
     $('#guias-form').form('submit',{
-        url: 'database/handlerFunctions.php',
+        url: 'database/guiaFunctions.php',
         method: 'get',
         onSubmit: function(param){
         	param.operation=operation;
@@ -101,7 +105,7 @@ function destroyGuia(){
     if (!row) return;
     $.messager.confirm('Confirm','Borrar datos del guia. ¿Seguro?',function(r){
         if (r){
-            $.get('database/handlerFunctions.php',{operation:'delete',Nombre:row.Nombre},function(result){
+            $.get('database/guiaFunctions.php',{operation:'delete',Nombre:row.Nombre},function(result){
                 if (result.success){
                     $('#guias-datagrid').datagrid('reload');    // reload the guia data
                 } else {

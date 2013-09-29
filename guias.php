@@ -204,8 +204,6 @@
         
         // campos del formulario
         $('#guias-dialog').dialog();
-        // $('#guias-Practicas').checkbox(); // checkboxes doesn't exist in easyui ?
-        // $('#guias-Internacional').checkbox(); // checkboxes doesn't exist in easyui ?
         $('#guias-Nombre').validatebox({
             required: true,
             validType: 'length[1,255]'

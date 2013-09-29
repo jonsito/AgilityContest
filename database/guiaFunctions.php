@@ -102,14 +102,14 @@
 	// connect database
 	$conn=DBConnection::openConnection("agility_operator","operator@cachorrera");
 	if (!$conn) {
-		$str='handlerFunctions() cannot contact database.';
+		$str='guiaFunctions() cannot contact database.';
 		do_log($str);
 		echo json_encode(array('errorMsg'=>$str));
 		return;
 	}
 	
 	if (! isset($_GET['operation'])) {
-		$str='Call handlerFunctions() with no operation declared.';
+		$str='Call guiaFunctions() with no operation declared.';
 		do_log($str);
 		echo json_encode(array('errorMsg'=>$str));
 		DBConnection::closeConnection($conn);
@@ -137,7 +137,7 @@
 		else				echo json_encode(array('msg'=>$result));
 	}
 	else {
-		$result="handlerFunctions:: Invalid operation requested: $oper";
+		$result="guiaFunctions:: Invalid operation requested: $oper";
 		do_log($result);
 		json_encode(array('errorMsg'=>$result));
 	}
