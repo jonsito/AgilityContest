@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 29-09-2013 a las 12:12:14
+-- Tiempo de generación: 30-09-2013 a las 00:49:10
 -- Versión del servidor: 5.5.32-0ubuntu0.13.04.1
 -- Versión de PHP: 5.4.9-4ubuntu2.3
 
@@ -11,7 +11,7 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
-SET NAMES = "utf8";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -21,15 +21,17 @@ SET NAMES = "utf8";
 --
 -- Base de datos: `agility`
 --
-USE agility;
+CREATE DATABASE IF NOT EXISTS `agility` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `agility`;
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Categorias_Perro`
 --
--- Creación: 19-09-2013 a las 16:16:27
+-- Creación: 29-09-2013 a las 11:01:59
 --
+
 DROP TABLE IF EXISTS `Categorias_Perro`;
 CREATE TABLE IF NOT EXISTS `Categorias_Perro` (
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
@@ -52,23 +54,23 @@ INSERT INTO `Categorias_Perro` (`Categoria`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `Clubes`
 --
--- Creación: 19-09-2013 a las 16:34:49
+-- Creación: 29-09-2013 a las 18:14:19
 --
 
 DROP TABLE IF EXISTS `Clubes`;
 CREATE TABLE IF NOT EXISTS `Clubes` (
   `Nombre` varchar(255) NOT NULL DEFAULT '',
-  `Dirección 1` varchar(255) DEFAULT NULL,
-  `Direccion 2` varchar(255) DEFAULT NULL,
+  `Direccion1` varchar(255) DEFAULT NULL,
+  `Direccion2` varchar(255) DEFAULT NULL,
   `Provincia` varchar(32) DEFAULT NULL,
-  `Contacto 1` varchar(255) DEFAULT NULL,
-  `Contacto 2` varchar(255) DEFAULT NULL,
-  `Contacto 3` varchar(255) DEFAULT NULL,
+  `Contacto1` varchar(255) DEFAULT NULL,
+  `Contacto2` varchar(255) DEFAULT NULL,
+  `Contacto3` varchar(255) DEFAULT NULL,
   `GPS` varchar(255) DEFAULT NULL,
   `Web` varchar(255) DEFAULT NULL,
-  `Correo-e` varchar(255) DEFAULT NULL,
+  `Email` varchar(255) DEFAULT NULL,
   `Facebook` varchar(255) DEFAULT NULL,
-  `Google+` varchar(255) DEFAULT NULL,
+  `Google` varchar(255) DEFAULT NULL,
   `Twitter` varchar(255) DEFAULT NULL,
   `Logo` mediumblob,
   `Observaciones` varchar(255) DEFAULT NULL,
@@ -87,11 +89,10 @@ CREATE TABLE IF NOT EXISTS `Clubes` (
 -- Volcado de datos para la tabla `Clubes`
 --
 
-INSERT INTO `Clubes` (`Nombre`, `Dirección 1`, `Direccion 2`, `Provincia`, `Contacto 1`, `Contacto 2`, `Contacto 3`, `GPS`, `Web`, `Correo-e`, `Facebook`, `Google+`, `Twitter`, `Logo`, `Observaciones`, `Baja`) VALUES
+INSERT INTO `Clubes` (`Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `Contacto1`, `Contacto2`, `Contacto3`, `GPS`, `Web`, `Email`, `Facebook`, `Google`, `Twitter`, `Logo`, `Observaciones`, `Baja`) VALUES
 (' Sin asignar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NO BORRAR ESTA ENTRADA. SE USARA PARA AQUELLOS GUIAS QUE NO TENGAN CLUB ASIGNADO', 1),
 ('ACADE', 'Salvadas, 41, 2º C', '15705 Santiago de Compostela', 'Coruña, A', '+ 34 620 29 58 31', '+ 34 881 93 95 5', NULL, NULL, 'http://www.asociacionacade.com/', 'asociacioncansdeportistas@gmail.com', NULL, NULL, NULL, NULL, NULL, 0),
 ('Agilcan', 'Paseo de los Olivos 10', '28330 San Martin de la Vega', 'Madrid', '634 417 893', '918 946 096', '659 146 878', NULL, 'http://www.agilcan.es/', 'info@agilcan.es', NULL, NULL, NULL, NULL, NULL, 0),
-('Apata', NULL, NULL, 'Madrid', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
 ('Badalona', NULL, NULL, 'Barcelona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
 ('Baix Llobregat', NULL, NULL, 'Barcelona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
 ('Campo de Gibraltar', NULL, NULL, 'Cádiz', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
@@ -99,6 +100,7 @@ INSERT INTO `Clubes` (`Nombre`, `Dirección 1`, `Direccion 2`, `Provincia`, `Con
 ('Canic', NULL, NULL, 'Barcelona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
 ('Canino Algecireño', NULL, NULL, 'Cádiz', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
 ('Castellón', NULL, NULL, 'Castellón/Castelló', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+('Cinco Huesos', 'Paseo de los Pozos, Km. 1,2', '28813 Torres de la Alameda', 'Madrid', '+ 34 91 832 83 00 ', '+ 34 691 77 75 24 ', '', '', 'http://www.cincohuesos.com/', 'cincohuesos@gmail.com', '', '', '', NULL, 'Antiguo club "Apata"', 0),
 ('Ciudad de Antequera', NULL, NULL, 'Málaga', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
 ('Ciutat Comtal', NULL, NULL, 'Barcelona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
 ('Cornella', NULL, NULL, 'Barcelona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
@@ -154,8 +156,9 @@ INSERT INTO `Clubes` (`Nombre`, `Dirección 1`, `Direccion 2`, `Provincia`, `Con
 --
 -- Estructura de tabla para la tabla `Equipos`
 --
--- Creación: 19-09-2013 a las 16:47:20
+-- Creación: 29-09-2013 a las 11:02:01
 --
+
 DROP TABLE IF EXISTS `Equipos`;
 CREATE TABLE IF NOT EXISTS `Equipos` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
@@ -177,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `Equipos` (
 --
 -- Estructura de tabla para la tabla `Grados_Perro`
 --
--- Creación: 19-09-2013 a las 16:02:06
+-- Creación: 29-09-2013 a las 11:01:59
 --
 
 DROP TABLE IF EXISTS `Grados_Perro`;
@@ -206,8 +209,9 @@ INSERT INTO `Grados_Perro` (`Grado`, `Comentarios`) VALUES
 --
 -- Estructura de tabla para la tabla `Guias`
 --
--- Creación: 28-09-2013 a las 22:13:03
+-- Creación: 29-09-2013 a las 11:02:02
 --
+
 DROP TABLE IF EXISTS `Guias`;
 CREATE TABLE IF NOT EXISTS `Guias` (
   `Nombre` varchar(255) NOT NULL,
@@ -231,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `Guias` (
 --
 
 INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VALUES
-(' Sin guia', NULL, NULL, NULL, 'NO BORRAR. Valor por defecto cuando un perro se define por primera vez'),
+(' Sin asignar', '', '', ' Sin asignar', 'NO BORRAR. Valor por defecto cuando un perro se define por primera vez'),
 ('Aaron Laro', NULL, NULL, 'Cubas', NULL),
 ('Adoración Morales', NULL, NULL, 'La Dama', NULL),
 ('Adrian Díaz', NULL, NULL, 'El Hechizo del Border C.', NULL),
@@ -272,7 +276,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Antonio Carmona', NULL, NULL, 'Cornella', NULL),
 ('Antonio Fernández', NULL, NULL, 'Correcan', NULL),
 ('Antonio López', NULL, NULL, 'Junior', NULL),
-('Antonio Molina', NULL, NULL, 'Apata', NULL),
+('Antonio Molina', NULL, NULL, 'Cinco Huesos', NULL),
 ('Antonio Ojeda', NULL, NULL, 'Castellón', NULL),
 ('Arabia Vidal', NULL, NULL, 'Vilcan', NULL),
 ('Araceli Montero', NULL, NULL, 'Badalona', NULL),
@@ -345,7 +349,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Fermin Gil', NULL, NULL, 'L''Horta Nord', NULL),
 ('Fernando Benet', NULL, NULL, 'Zampican', NULL),
 ('Francisco Aguilera', NULL, NULL, 'Ciudad de Antequera', NULL),
-('Francisco de la Cruz', NULL, NULL, 'Apata', NULL),
+('Francisco de la Cruz', NULL, NULL, 'Cinco Huesos', NULL),
 ('Francisco Esteban', NULL, NULL, 'Costa Blanca', NULL),
 ('Francisco Javier Jaen', NULL, NULL, 'Deporcan', NULL),
 ('Francisco Javier Luque', NULL, NULL, 'Parque del Alamillo', NULL),
@@ -365,14 +369,14 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Iban Cubedo', NULL, NULL, 'Costa Blanca', NULL),
 ('Imanol López', NULL, NULL, 'L''Almozara', NULL),
 ('Inmaculada Rubio', NULL, NULL, 'Eslon', NULL),
-('Irene Artacho', NULL, NULL, 'Apata', NULL),
+('Irene Artacho', NULL, NULL, 'Cinco Huesos', NULL),
 ('Isabel Gómez', NULL, NULL, 'Depordog', NULL),
 ('Isabel Rodríguez', NULL, NULL, 'Valles Club Cani', NULL),
 ('Isidoro Vázquez', NULL, NULL, 'Cubas', NULL),
 ('Ismael Pérez', NULL, NULL, 'Canic', NULL),
 ('Israel Fernández', NULL, NULL, 'Vallgorguina', NULL),
 ('Iván Pardo', NULL, NULL, 'Lealcan', NULL),
-('Iván San Antonio', NULL, NULL, 'Apata', NULL),
+('Iván San Antonio', NULL, NULL, 'Cinco Huesos', NULL),
 ('Iván Sánchez', NULL, NULL, 'La Princesa', NULL),
 ('Jacqueline Holemans', NULL, NULL, 'Santa Quiteria', NULL),
 ('Jaime Gamir', NULL, NULL, 'Baix Llobregat', NULL),
@@ -518,7 +522,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Paulino Iranzo', NULL, NULL, 'Pican', NULL),
 ('Pedro Delgado', NULL, NULL, 'Mi Perro 10', NULL),
 ('Pedro Jesús Tazón', NULL, NULL, 'Parbayon Cantabria', NULL),
-('pepe', '1234', 'pepe@pepe.com', NULL, 'qwert'),
+('pepe', '', '', ' Sin Asignar', ''),
 ('Pilar Collado', NULL, NULL, 'Parbayon Cantabria', NULL),
 ('Pilar Matesanz', NULL, NULL, 'W.E.L.P.E.', NULL),
 ('Pilar Rodríguez', NULL, NULL, 'Parbayon Cantabria', NULL),
@@ -538,7 +542,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Ricardo Martínez', NULL, NULL, 'Depordog', NULL),
 ('Ricardo Santolaya', NULL, NULL, 'L''Almozara', NULL),
 ('Roberto Castro', NULL, NULL, 'Eslon', NULL),
-('Roberto Iñigo', NULL, NULL, 'Apata', NULL),
+('Roberto Iñigo', NULL, NULL, 'Cinco Huesos', NULL),
 ('Roberto Reina', NULL, NULL, 'La Princesa', NULL),
 ('Rocio Hermelo', NULL, NULL, 'Tercans', NULL),
 ('Rocio Santos', NULL, NULL, 'Parque del Alamillo', NULL),
@@ -587,8 +591,9 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 --
 -- Estructura de tabla para la tabla `Inscripciones`
 --
--- Creación: 19-09-2013 a las 16:46:58
+-- Creación: 29-09-2013 a las 11:02:02
 --
+
 DROP TABLE IF EXISTS `Inscripciones`;
 CREATE TABLE IF NOT EXISTS `Inscripciones` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
@@ -618,8 +623,9 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
 --
 -- Estructura de tabla para la tabla `Jornadas`
 --
--- Creación: 19-09-2013 a las 16:36:00
+-- Creación: 29-09-2013 a las 11:02:03
 --
+
 DROP TABLE IF EXISTS `Jornadas`;
 CREATE TABLE IF NOT EXISTS `Jornadas` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
@@ -655,8 +661,9 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
 --
 -- Estructura de tabla para la tabla `Jueces`
 --
--- Creación: 28-09-2013 a las 16:58:10
+-- Creación: 29-09-2013 a las 11:02:00
 --
+
 DROP TABLE IF EXISTS `Jueces`;
 CREATE TABLE IF NOT EXISTS `Jueces` (
   `Nombre` varchar(255) NOT NULL,
@@ -705,8 +712,9 @@ INSERT INTO `Jueces` (`Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `Interna
 --
 -- Estructura de tabla para la tabla `Mangas`
 --
--- Creación: 19-09-2013 a las 16:41:14
+-- Creación: 29-09-2013 a las 11:02:03
 --
+
 DROP TABLE IF EXISTS `Mangas`;
 CREATE TABLE IF NOT EXISTS `Mangas` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
@@ -745,7 +753,7 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
 --
 -- Estructura Stand-in para la vista `PerroGuiaClub`
 --
-DROP TABLE IF EXISTS `PerroGuiaClub`;
+DROP VIEW IF EXISTS `PerroGuiaClub`;
 CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 `Dorsal` int(4)
 ,`Nombre` varchar(255)
@@ -759,8 +767,9 @@ CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 --
 -- Estructura de tabla para la tabla `Perros`
 --
--- Creación: 28-09-2013 a las 10:43:45
+-- Creación: 29-09-2013 a las 13:56:17
 --
+
 DROP TABLE IF EXISTS `Perros`;
 CREATE TABLE IF NOT EXISTS `Perros` (
   `Dorsal` int(4) NOT NULL AUTO_INCREMENT,
@@ -779,12 +788,12 @@ CREATE TABLE IF NOT EXISTS `Perros` (
 
 --
 -- RELACIONES PARA LA TABLA `Perros`:
+--   `Guia`
+--       `Guias` -> `Nombre`
 --   `Categoria`
 --       `Categorias_Perro` -> `Categoria`
 --   `Grado`
 --       `Grados_Perro` -> `Grado`
---   `Guia`
---       `Guias` -> `Nombre`
 --
 
 --
@@ -794,7 +803,7 @@ CREATE TABLE IF NOT EXISTS `Perros` (
 INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`, `Guia`, `Grado`) VALUES
 (10, 'Yuma', 'P.B.Malinoise', '1936256', 'A330', 'L', 'Juan Miguel Cifuentes', 'GIII'),
 (11, 'Hannibal', NULL, '1764520', 'A090', 'L', 'Tomás Pérez', '-'),
-(12, 'Ardi', NULL, '79097', '729', 'L', 'Paloma Faci', '-'),
+(12, 'Ardi', '', '79097', '729', 'L', 'Paloma Faci', '-'),
 (13, 'William', NULL, '1667920', '920', 'L', 'Jenny Funcke', '-'),
 (14, 'Xonny', NULL, '1317156', '622', 'L', 'Cesar Losada', '-'),
 (15, 'Indiana Jones', NULL, '1720531', '987', 'L', 'Juan Francisco Pelegrin', '-'),
@@ -1149,8 +1158,9 @@ INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Catego
 --
 -- Estructura de tabla para la tabla `Provincias`
 --
--- Creación: 19-09-2013 a las 16:02:07
+-- Creación: 29-09-2013 a las 11:02:00
 --
+
 DROP TABLE IF EXISTS `Provincias`;
 CREATE TABLE IF NOT EXISTS `Provincias` (
   `Provincia` varchar(32) NOT NULL DEFAULT '',
@@ -1223,8 +1233,9 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 --
 -- Estructura de tabla para la tabla `Pruebas`
 --
--- Creación: 19-09-2013 a las 16:35:14
+-- Creación: 29-09-2013 a las 11:02:04
 --
+
 DROP TABLE IF EXISTS `Pruebas`;
 CREATE TABLE IF NOT EXISTS `Pruebas` (
   `Nombre` varchar(255) NOT NULL,
@@ -1256,8 +1267,9 @@ INSERT INTO `Pruebas` (`Nombre`, `Club`, `Ubicación`, `Triptico`, `Cartel`, `Ob
 --
 -- Estructura de tabla para la tabla `Resultados`
 --
--- Creación: 19-09-2013 a las 16:55:28
+-- Creación: 29-09-2013 a las 11:02:04
 --
+
 DROP TABLE IF EXISTS `Resultados`;
 CREATE TABLE IF NOT EXISTS `Resultados` (
   `Orden de Salida` int(4) DEFAULT NULL,
@@ -1288,8 +1300,9 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 --
 -- Estructura de tabla para la tabla `Tipo_Manga`
 --
--- Creación: 19-09-2013 a las 16:02:08
+-- Creación: 29-09-2013 a las 11:02:01
 --
+
 DROP TABLE IF EXISTS `Tipo_Manga`;
 CREATE TABLE IF NOT EXISTS `Tipo_Manga` (
   `Tipo` varchar(16) NOT NULL DEFAULT '',
@@ -1372,9 +1385,9 @@ ALTER TABLE `Mangas`
 -- Filtros para la tabla `Perros`
 --
 ALTER TABLE `Perros`
+  ADD CONSTRAINT `Perros_ibfk_3` FOREIGN KEY (`Guia`) REFERENCES `Guias` (`Nombre`) ON UPDATE CASCADE,
   ADD CONSTRAINT `Perros_ibfk_1` FOREIGN KEY (`Categoria`) REFERENCES `Categorias_Perro` (`Categoria`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Perros_ibfk_2` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Perros_ibfk_3` FOREIGN KEY (`Guia`) REFERENCES `Guias` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `Perros_ibfk_2` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Pruebas`

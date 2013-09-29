@@ -8,7 +8,7 @@
     -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="perros-datagrid" class="easyui-datagrid" style="width:800px;height:400px" />
+    <table id="perros-datagrid" class="easyui-datagrid" style="width:800px;height:600px" />
     
     <!-- BARRA DE TAREAS -->
     <div id="perros-toolbar">
