@@ -172,6 +172,7 @@
             	    rownumbers: false,
             	    fitColumns: true,
             	    singleSelect: true,
+                    view: detailview,
             	    loadMsg: 'Cargando lista de guias....',
             	    height: 'auto',
             	    columns: [[
@@ -192,7 +193,53 @@
                             $('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
                         },0);
                     },
-
+                    
+					/* start of clubes-guias-dog subtable */
+                    
+                    // especificamos un formateador especial para desplegar la tabla de perros por guia
+                    detailFormatter:function(index,row){
+                        return '<div style="padding:5px"><table class="easyui-datagrid" id="guias-dog-datagrid-' + index + '"></table></div>';
+                    },
+                    
+                    onExpandRow: function(guiaindex,row){
+                    	// - sub tabla de perros asignados a un guia
+                    	$('#guias-dog-datagrid-'+guiaindex).datagrid({
+                    		title: 'Perros registrados a nombre de '+row.Nombre,
+                    		url: 'database/select_PerrosByGuia.php?Guia='+row.Nombre,
+                    		method: 'get',
+                   		    pagination: false,
+                    	    rownumbers: false,
+                    	    fitColumns: true,
+                    	    singleSelect: true,
+                    	    loadMsg: '',
+                    	    height: 'auto',
+                    	    columns: [[
+                        	    { field:'Dorsal',	width:15, sortable:true,	title: 'Dorsal'},
+                        		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
+                        		{ field:'Categoria',width:15, sortable:false,	title: 'Cat.' },
+                        		{ field:'Grado',	width:25, sortable:false,   title: 'Grado' },
+                        		{ field:'Raza',		width:25, sortable:false,   title: 'Raza' },
+                        		{ field:'LOE_RRC',	width:25, sortable:true,    title: 'LOE / RRC' },
+                        		{ field:'Licencia',	width:25, sortable:true,    title: 'Licencia' }
+                        	]],
+                        	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+                        	rowStyler:function(index,row) { 
+                        	    return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+                        	},
+                            onResize:function(){
+                                $('#clubes-guias-datagrid-'+index).datagrid('fixDetailRowHeight',index+guiaindex);
+                            },
+                            onLoadSuccess:function(){
+                                setTimeout(function(){
+                                    $('#clubes-guias-datagrid-'+index).datagrid('fixDetailRowHeight',index+guiaindex);
+                                },0);
+                            } 
+                    	}); // end of guias-dog-datagrid
+                    	$('#clubes-guias-datagrid-'+index).datagrid('fixDetailRowHeight',index+guiaindex);
+                    } // end of onExpandRow
+                    
+ 				/* end of clubes-guias-dog subtable */
+                    
             	}); // end of '#clubes-guias-datagrid' declaration
             	$('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
             } // end of "onExpand" 
