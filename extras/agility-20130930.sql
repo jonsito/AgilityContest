@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.7deb0ubuntu1ppa1
+-- version 4.0.5deb1.raring~ppa.1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 30-09-2013 a las 15:48:26
--- Versión del servidor: 5.5.32-0ubuntu0.12.04.1
--- Versión de PHP: 5.3.10-1ubuntu3.8
+-- Tiempo de generación: 30-09-2013 a las 00:49:10
+-- Versión del servidor: 5.5.32-0ubuntu0.13.04.1
+-- Versión de PHP: 5.4.9-4ubuntu2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,7 +29,7 @@ USE `agility`;
 --
 -- Estructura de tabla para la tabla `Categorias_Perro`
 --
--- Creación: 30-09-2013 a las 06:07:31
+-- Creación: 29-09-2013 a las 11:01:59
 --
 
 DROP TABLE IF EXISTS `Categorias_Perro`;
@@ -54,7 +54,7 @@ INSERT INTO `Categorias_Perro` (`Categoria`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `Clubes`
 --
--- Creación: 30-09-2013 a las 06:07:33
+-- Creación: 29-09-2013 a las 18:14:19
 --
 
 DROP TABLE IF EXISTS `Clubes`;
@@ -156,7 +156,7 @@ INSERT INTO `Clubes` (`Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `Contac
 --
 -- Estructura de tabla para la tabla `Equipos`
 --
--- Creación: 30-09-2013 a las 06:07:33
+-- Creación: 29-09-2013 a las 11:02:01
 --
 
 DROP TABLE IF EXISTS `Equipos`;
@@ -180,7 +180,7 @@ CREATE TABLE IF NOT EXISTS `Equipos` (
 --
 -- Estructura de tabla para la tabla `Grados_Perro`
 --
--- Creación: 30-09-2013 a las 06:07:32
+-- Creación: 29-09-2013 a las 11:01:59
 --
 
 DROP TABLE IF EXISTS `Grados_Perro`;
@@ -209,7 +209,7 @@ INSERT INTO `Grados_Perro` (`Grado`, `Comentarios`) VALUES
 --
 -- Estructura de tabla para la tabla `Guias`
 --
--- Creación: 30-09-2013 a las 06:07:33
+-- Creación: 29-09-2013 a las 11:02:02
 --
 
 DROP TABLE IF EXISTS `Guias`;
@@ -591,7 +591,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 --
 -- Estructura de tabla para la tabla `Inscripciones`
 --
--- Creación: 30-09-2013 a las 06:07:34
+-- Creación: 29-09-2013 a las 11:02:02
 --
 
 DROP TABLE IF EXISTS `Inscripciones`;
@@ -612,10 +612,10 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
 -- RELACIONES PARA LA TABLA `Inscripciones`:
 --   `Dorsal`
 --       `Perros` -> `Dorsal`
---   `Equipo`
---       `Equipos` -> `ID`
 --   `Jornada`
 --       `Jornadas` -> `ID`
+--   `Equipo`
+--       `Equipos` -> `ID`
 --
 
 -- --------------------------------------------------------
@@ -623,7 +623,7 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
 --
 -- Estructura de tabla para la tabla `Jornadas`
 --
--- Creación: 30-09-2013 a las 12:45:56
+-- Creación: 29-09-2013 a las 11:02:03
 --
 
 DROP TABLE IF EXISTS `Jornadas`;
@@ -633,17 +633,17 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
   `Fecha` date NOT NULL,
   `Hora` time NOT NULL,
   `Observaciones` varchar(255) DEFAULT NULL,
-  `A1GI` tinyint(1) NOT NULL DEFAULT '1',
-  `A2GI` tinyint(1) NOT NULL DEFAULT '1',
-  `AGII` tinyint(1) NOT NULL DEFAULT '1',
-  `JGII` tinyint(1) NOT NULL DEFAULT '1',
-  `AGIII` tinyint(1) NOT NULL DEFAULT '1',
-  `JGIII` tinyint(1) NOT NULL DEFAULT '1',
-  `AEq` tinyint(1) NOT NULL DEFAULT '0',
-  `JEq` tinyint(1) NOT NULL DEFAULT '0',
-  `PreA` tinyint(1) NOT NULL DEFAULT '0',
+  `Agility-1 GI` tinyint(1) NOT NULL DEFAULT '1',
+  `Agility-2 GI` tinyint(1) NOT NULL DEFAULT '1',
+  `Agility GII` tinyint(1) NOT NULL DEFAULT '1',
+  `Jumping GII` tinyint(1) NOT NULL DEFAULT '1',
+  `Agility GIII` tinyint(1) NOT NULL DEFAULT '1',
+  `Jumping GIII` tinyint(1) NOT NULL DEFAULT '1',
+  `Agility Equipos` tinyint(1) NOT NULL DEFAULT '0',
+  `Jumping Equipos` tinyint(1) NOT NULL DEFAULT '0',
+  `Pre-Agility` tinyint(1) NOT NULL DEFAULT '0',
   `K.O.` tinyint(1) NOT NULL DEFAULT '0',
-  `Show` tinyint(1) NOT NULL DEFAULT '0',
+  `Exhibición` tinyint(1) NOT NULL DEFAULT '0',
   `Otras` tinyint(1) NOT NULL DEFAULT '0',
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
@@ -661,7 +661,7 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
 --
 -- Estructura de tabla para la tabla `Jueces`
 --
--- Creación: 30-09-2013 a las 06:07:32
+-- Creación: 29-09-2013 a las 11:02:00
 --
 
 DROP TABLE IF EXISTS `Jueces`;
@@ -712,7 +712,7 @@ INSERT INTO `Jueces` (`Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `Interna
 --
 -- Estructura de tabla para la tabla `Mangas`
 --
--- Creación: 30-09-2013 a las 06:07:34
+-- Creación: 29-09-2013 a las 11:02:03
 --
 
 DROP TABLE IF EXISTS `Mangas`;
@@ -738,14 +738,14 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
 
 --
 -- RELACIONES PARA LA TABLA `Mangas`:
---   `Jornada`
---       `Jornadas` -> `ID`
---   `Juez Practicas`
---       `Jueces` -> `Nombre`
---   `Juez Titular`
---       `Jueces` -> `Nombre`
 --   `Tipo`
 --       `Tipo_Manga` -> `Tipo`
+--   `Juez Titular`
+--       `Jueces` -> `Nombre`
+--   `Juez Practicas`
+--       `Jueces` -> `Nombre`
+--   `Jornada`
+--       `Jornadas` -> `ID`
 --
 
 -- --------------------------------------------------------
@@ -767,7 +767,7 @@ CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 --
 -- Estructura de tabla para la tabla `Perros`
 --
--- Creación: 30-09-2013 a las 06:07:34
+-- Creación: 29-09-2013 a las 13:56:17
 --
 
 DROP TABLE IF EXISTS `Perros`;
@@ -788,12 +788,12 @@ CREATE TABLE IF NOT EXISTS `Perros` (
 
 --
 -- RELACIONES PARA LA TABLA `Perros`:
+--   `Guia`
+--       `Guias` -> `Nombre`
 --   `Categoria`
 --       `Categorias_Perro` -> `Categoria`
 --   `Grado`
 --       `Grados_Perro` -> `Grado`
---   `Guia`
---       `Guias` -> `Nombre`
 --
 
 --
@@ -1158,7 +1158,7 @@ INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Catego
 --
 -- Estructura de tabla para la tabla `Provincias`
 --
--- Creación: 30-09-2013 a las 06:07:32
+-- Creación: 29-09-2013 a las 11:02:00
 --
 
 DROP TABLE IF EXISTS `Provincias`;
@@ -1233,7 +1233,7 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 --
 -- Estructura de tabla para la tabla `Pruebas`
 --
--- Creación: 30-09-2013 a las 06:07:35
+-- Creación: 29-09-2013 a las 11:02:04
 --
 
 DROP TABLE IF EXISTS `Pruebas`;
@@ -1267,7 +1267,7 @@ INSERT INTO `Pruebas` (`Nombre`, `Club`, `Ubicación`, `Triptico`, `Cartel`, `Ob
 --
 -- Estructura de tabla para la tabla `Resultados`
 --
--- Creación: 30-09-2013 a las 06:07:35
+-- Creación: 29-09-2013 a las 11:02:04
 --
 
 DROP TABLE IF EXISTS `Resultados`;
@@ -1300,7 +1300,7 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 --
 -- Estructura de tabla para la tabla `Tipo_Manga`
 --
--- Creación: 30-09-2013 a las 06:07:33
+-- Creación: 29-09-2013 a las 11:02:01
 --
 
 DROP TABLE IF EXISTS `Tipo_Manga`;
