@@ -3,7 +3,7 @@
 	require_once("DBConnection.php");
 	// evaluate offset and row count for query
 	$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-	$rows = isset($_GET['rows']) ? intval($_GET['rows']) : 10;
+	$rows = isset($_GET['rows']) ? intval($_GET['rows']) : 20;
 	$sort = isset($_GET['sort']) ? strval($_GET['sort']) : 'Dorsal';
 	$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
 	$search =  isset($_GET['where']) ? strval($_GET['where']) : '';

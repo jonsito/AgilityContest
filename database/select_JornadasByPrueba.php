@@ -9,15 +9,15 @@
 	$conn=DBConnection::openConnection("agility_guest","guest@cachorrera");
 	if (!$conn) die("connection error");
 	// execute first query to know how many elements
-	$guia=strval($_GET['Guia']);
-	$str="SELECT count(*) FROM Perros WHERE ( Guia = '$guia' )";
-	do_log("select_PerrosByGuia::(count) $str");
+	$prueba=strval($_GET['Prueba']);
+	$str="SELECT count(*) FROM Jornadas WHERE ( Prueba = '$prueba' )";
+	do_log("select_JornadasByPrueba::(count) $str");
 	$rs=$conn->query($str);
 	$row=$rs->fetch_row();
 	$result["total"] = $row[0];
-	if($result["total"]>0) {
-		$str="SELECT * FROM Perros WHERE ( Guia ='$guia' ) ORDER BY Nombre ASC";
-		do_log("select_PerrosByGuia::(select) $str");
+	if ($result["total"]>0) {
+		$str="SELECT * FROM Jornadas WHERE ( Prueba = '$prueba' ) ORDER BY Nombre ASC";
+		do_log("select_JornadasByPrueba::(select) $str");
 		$rs=$conn->query($str);
 		// retrieve result into an array
 		while($row = $rs->fetch_array()){

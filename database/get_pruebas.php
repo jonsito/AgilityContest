@@ -7,18 +7,18 @@
 	$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
 	$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
 	$where = '';
-	if ($search!=='') $where=" WHERE ( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') ) ";
+	if ($search!=='') $where=" WHERE ( (Nombre LIKE '%$search%') OR ( Club LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) ";  
 	$offset = ($page-1)*$rows;
 	$result = array();
 	// connect database
 	$conn=DBConnection::openConnection("agility_guest","guest@cachorrera");
 	if (!$conn) die("connection error");
 	// execute first query to know how many elements
-	$rs=$conn->query("SELECT count(*) FROM Jueces $where");
+	$rs=$conn->query("SELECT count(*) FROM Pruebas $where");
 	$row=$rs->fetch_array();
 	$result["total"] = $row[0];
 	// second query to retrieve $rows starting at $offset
-	$rs=$conn->query("SELECT * FROM Jueces $where ORDER BY $sort $order LIMIT $offset,$rows");
+	$rs=$conn->query("SELECT * FROM Pruebas $where ORDER BY $sort $order LIMIT $offset,$rows");
 	// retrieve result into an array
 	$items = array();
 	while($row = $rs->fetch_array()){
