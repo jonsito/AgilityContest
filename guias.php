@@ -136,11 +136,11 @@
                         setTimeout(function(){
                             $('#guias-datagrid').datagrid('fixDetailRowHeight',index);
                         },0);
-                    }
-            	});
+                    } 
+            	}); // end of guias-dog-datagrid
             	$('#guias-datagrid').datagrid('fixDetailRowHeight',index);
-            }
-        });
+            } // end of onExpandRow
+        }); // end of guias-datagrid
          
         // - botones de la toolbar de la tabla
         $('#guias-newBtn').linkbutton(); // nuevo guia        

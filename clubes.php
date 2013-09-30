@@ -101,7 +101,7 @@
 
     
     <script language="javascript">
-    
+
     	// set up operation header content
         $('#Header_Operation').html('<p>Gesti&oacute;n de Base de Datos de Clubes</p>');
         
@@ -147,12 +147,12 @@
             },        
             // especificamos un formateador especial para desplegar la tabla de guias por club
             detailFormatter:function(index,row){
-                return '<div style="padding:2px"><table id="clubes-guia-datagrid-' + index + '"></table></div>';
+                return '<div style="padding:2px"><table class="easyui-datagrid" id="clubes-guias-datagrid-' + index + '"></table></div>';
             },
             
             onExpandRow: function(index,row){
             	// - sub tabla de guias inscritos en un club
-            	$('#clubes-guia-datagrid-'+index).datagrid({
+            	$('#clubes-guias-datagrid-'+index).datagrid({
             		title: 'Gu&iacute;as inscritos en el club '+row.Nombre,
             		url: 'database/select_GuiasByClub.php?Club='+row.Nombre,
             		method: 'get',
@@ -172,7 +172,7 @@
             	    rownumbers: false,
             	    fitColumns: true,
             	    singleSelect: true,
-            	    loadMsg: '',
+            	    loadMsg: 'Cargando lista de guias....',
             	    height: 'auto',
             	    columns: [[
             	          { field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
@@ -191,11 +191,12 @@
                         setTimeout(function(){
                             $('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
                         },0);
-                    }
-            	});
+                    },
+
+            	}); // end of '#clubes-guias-datagrid' declaration
             	$('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
-            }
-        });
+            } // end of "onExpand" 
+        }); // end of '#clubes-datagrid' declaration
          
         // - botones de la toolbar de la tabla
         $('#clubes-newBtn').linkbutton(); // nuevo club        
