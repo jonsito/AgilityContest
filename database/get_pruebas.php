@@ -17,7 +17,7 @@
 			(Nombre LIKE '%$search%') OR ( Club LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) 
 			) ";
 	} else {
-		if ($closed!=0) $where = " WHERE ( Cerrada = 0 ) ";
+		if ($closed==0) $where = " WHERE ( Cerrada = 0 ) ";
 		else $where="";
 	}
 	$offset = ($page-1)*$rows;

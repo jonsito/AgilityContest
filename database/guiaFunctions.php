@@ -17,11 +17,11 @@
 		}
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre = $_REQUEST['Nombre'];
-		$telefono = (isset($_REQUEST['Telefono']))?$_REQUEST['Telefono']:null;
-		$email = (isset($_REQUEST['Email']))?$_REQUEST['Email']:null;
-		$club = (isset($_REQUEST['Club']))?$_REQUEST['Club']:null;
-		$observaciones = (isset($_REQUEST['Observaciones']))?$_REQUEST['Observaciones']:null;
+		$nombre = strval($_REQUEST['Nombre']);
+		$telefono = (isset($_REQUEST['Telefono']))?strval($_REQUEST['Telefono']):null;
+		$email = (isset($_REQUEST['Email']))?strval($_REQUEST['Email']):null;
+		$club = (isset($_REQUEST['Club']))?strval($_REQUEST['Club']):null;
+		$observaciones = (isset($_REQUEST['Observaciones']))?strval($_REQUEST['Observaciones']):null;
 		do_log("insertGuia:: retrieved data from client");
 		do_log("Nombre: $nombre Telefono: $telefono Club: $club Observaciones: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
@@ -57,12 +57,12 @@
 		}
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre = $_REQUEST['Nombre']; // pkey cannot be null
+		$nombre = strval($_REQUEST['Nombre']); // pkey cannot be null
 		$viejo = strval($_REQUEST['Viejo']);
-		$telefono = (isset($_REQUEST['Telefono']))?$_REQUEST['Telefono']:null;
-		$email = (isset($_REQUEST['Email']))?$_REQUEST['Email']:null;
-		$club = (isset($_REQUEST['Club']))?$_REQUEST['Club']:null;
-		$observaciones = (isset($_REQUEST['Observaciones']))?$_REQUEST['Observaciones']:null;
+		$telefono = (isset($_REQUEST['Telefono']))?strval($_REQUEST['Telefono']):null;
+		$email = (isset($_REQUEST['Email']))?strval($_REQUEST['Email']):null;
+		$club = (isset($_REQUEST['Club']))?strval($_REQUEST['Club']):null;
+		$observaciones = (isset($_REQUEST['Observaciones']))?strval($_REQUEST['Observaciones']):null;
 
 		do_log("updateGuia:: retrieved data from client");
 		do_log("Nombre: $nombre Telefono: $telefono Club: $club Observaciones: $observaciones");
@@ -80,18 +80,26 @@
 	function deleteGuia($conn,$nombre) {
 		$msg="";
 		do_log("deleteGuia:: enter");
+		// fase 1: desasignamos los perros de este guia
+		$res= $conn->query("UPDATE Perros SET GUIA='-- Sin asignar --' WHERE ( Guia='$nombre')");
+		if (!$res) {
+			$msg="deleteGuia::unassign dogs() Error: $conn->error";
+			do_log($msg);
+			return $msg;
+		} else do_log("deleteGuia:: unassign dogs() resulted: $res");
+		// fase 2: borramos el guia de la base de datos
 		$res= $conn->query("DELETE FROM Guias WHERE (Nombre='$nombre')");
 		if (!$res) {
 			$msg="deleteGuia::query(delete) Error: $conn->error";
 			do_log($msg);
-		} else do_log("deleteGuia:: execute() resulted: $res");
+		} else do_log("deleteGuia:: remove handler() resulted: $res");
 		return $msg;
 	}
 
 	function orphanPerroFromGuia($conn,$dorsal) {
 		$msg="";
 		do_log("orphanPerroFromGuia:: enter");
-		$res= $conn->query("UPDATE Perros SET Guia=' Sin Asignar' WHERE (Dorsal='$dorsal')");
+		$res= $conn->query("UPDATE Perros SET Guia='-- Sin asignar --' WHERE (Dorsal='$dorsal')");
 		if (!$res) {
 			$msg="orphanPerroFromGuia::query(delete) Error: $conn->error";
 			do_log($msg);

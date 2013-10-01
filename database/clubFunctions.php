@@ -106,18 +106,26 @@
 	function deleteClub($conn,$nombre) {
 		$msg="";
 		do_log("deleteClub:: enter");
+		// fase 1: desasignar guias del club
+		$res= $conn->query("UPDATE Guias SET Club='-- Sin asignar --'  WHERE (Club='$nombre')");
+		if (!$res) {
+			$msg="deleteClub::unassign handlers() Error: $conn->error";
+			do_log($msg);
+			return $msg;
+		} else do_log("deleteClub:: unassing handlers() resulted: $res");
+		// fase 2: borrar el club de la BBDD
 		$res= $conn->query("DELETE FROM Clubes WHERE (Nombre='$nombre')");
 		if (!$res) {
 			$msg="deleteClub::query(delete) Error: $conn->error";
 			do_log($msg);
-		} else do_log("deleteClub:: execute() resulted: $res");
+		} else do_log("deleteClub:: remove club() resulted: $res");
 		return $msg;
 	}
 
 	function orphanGuiaFromClub($conn,$guia) {
 		$msg="";
 		do_log("orphanGuiaFromClub::($guia) enter");
-		$res= $conn->query("UPDATE Guias SET Club=' Sin Asignar' WHERE ( Nombre='$guia' )");
+		$res= $conn->query("UPDATE Guias SET Club='-- Sin asignar --' WHERE ( Nombre='$guia' )");
 		if (!$res) {
 			$msg="orphanGuiaFromClub::query(delete) Error: $conn->error";
 			do_log($msg);
