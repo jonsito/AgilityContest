@@ -1,12 +1,14 @@
 <?php
 	require_once("DBConnection.php");
+	require_once("logging.php");
+	do_log("get_pruebas():: enter");
 	// evaluate offset and row count for query
 	$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 	$rows = isset($_GET['rows']) ? intval($_GET['rows']) : 20;
 	$sort = isset($_GET['sort']) ? strval($_GET['sort']) : 'Nombre';
 	$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
 	$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
-	$closed = isset($_GET['cerrada'])? intval($_GET['where']) : 0;
+	$closed = isset($_GET['cerrada'])? intval($_GET['cerrada']) : 0;
 	$where = '';
 	if ($search!=='') {
 		if ($closed==0)" WHERE (
@@ -27,10 +29,26 @@
 	if (!$conn) die("connection error");
 	// execute first query to know how many elements
 	$rs=$conn->query("SELECT count(*) FROM Pruebas $where");
+	if (!$rs) {
+		$err="get_pruebas::select( count * ) error $conn->error";
+		do_log($err);
+		echo json_encode(array('errorMsg'=>$err));
+		DBConnection::closeConnection($conn);
+		return;
+	}
 	$row=$rs->fetch_array();
 	$result["total"] = $row[0];
 	// second query to retrieve $rows starting at $offset
-	$rs=$conn->query("SELECT * FROM Pruebas $where ORDER BY $sort $order LIMIT $offset,$rows");
+	$str="SELECT * FROM Pruebas $where ORDER BY $sort $order LIMIT $offset,$rows";
+	$rs=$conn->query($str);
+	if (!$rs) {
+		$err="get_pruebas::select query() error $conn->error";
+		do_log($err);
+		do_log("Select query was:\n$str");
+		echo json_encode(array('errorMsg'=>$err));
+		DBConnection::closeConnection($conn);
+		return;
+	}
 	// retrieve result into an array
 	$items = array();
 	while($row = $rs->fetch_array()){

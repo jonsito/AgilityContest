@@ -16,6 +16,13 @@
 	if (!$conn) die("connection error");
 	// execute first query to know how many elements
 	$rs=$conn->query("SELECT count(*) FROM Perros,Guias WHERE ( Perros.Guia = Guias.Nombre) $where");
+	if (!$rs) {
+		$err="get_dogs::query(count *) error $conn->error";
+		do_log($err);
+		echo json_encode(array('errorMsg'=>$err));
+		DBConnection::closeConnection($conn);
+		return;
+	}
 	$row=$rs->fetch_array();
 	$result["total"] = $row[0];
 	// second query to retrieve $rows starting at $offset

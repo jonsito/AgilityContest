@@ -88,7 +88,7 @@
                 { field:'Triptico',		width:12, sortable:true,	title: 'URL del Tr&iacute;ptico'},
                 { field:'Cartel',		width:12, sortable:true,	title: 'URL del Cartel'},
                 { field:'Observaciones',width:10,					title: 'Observaciones'},
-                { field:'Cerrada',		width:6, sortable:true,		title: 'Cerrada'}
+                { field:'Cerrada',		width:6, sortable:true,		align: 'center', title: 'Cerrada'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:function(index,row) { 
@@ -246,8 +246,8 @@
         $('#pruebas-Club').combogrid({
 			panelWidth: 350,
 			panelHeight: 200,
-			idField: 'Club',
-			textField: 'Club',
+			idField: 'Nombre',
+			textField: 'Nombre',
 			url: 'database/enumerate_Clubes.php',
 			method: 'get',
 			mode: 'remote',

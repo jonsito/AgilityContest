@@ -64,7 +64,7 @@ function editPrueba(){
     $('#pruebas-dialog').dialog('open').dialog('setTitle','Modificar datos de la prueba');
     $('#pruebas-form').form('load',row);
     // take care on int-to-bool translation for checkboxes
-    $('#pruebas-Baja').prop('checked',(row.Baja==1)?true:false);
+    $('#pruebas-Cerrada').prop('checked',(row.Cerrada==1)?true:false);
     // save old guia name in "Viejo" hidden form input to allow change guia name
     $('#pruebas-Viejo').val( $('#pruebas-Nombre').val());
     operation='update';

@@ -8,10 +8,15 @@
 		// componemos un prepared statement
 		$sql ="INSERT INTO Pruebas (Nombre,Club,Ubicacion,Triptico,Cartel,Observaciones,Cerrada)
 			   VALUES(?,?,?,?,?,?,?)";
-		$stmt=$conn->prepare($sql);
+		$stmt=$conn->prepare($sql);		
+		if (!$stmt) {
+			$msg="insertPrueba::prepare() failed $conn->error";
+			do_log($msg);
+			return $msg;
+		}
 		$res=$stmt->bind_param('ssssssi',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$cerrada);
 		if (!$res) {
-			$msg="insertPrueba::prepare() failed $conn->error";
+			$msg="insertPrueba::bind() failed $conn->error";
 			do_log($msg);
 			return $msg;
 		}
@@ -46,7 +51,7 @@
 		
 		// componemos un prepared statement
 		$sql ="UPDATE Pruebas 
-				SET Nombre=? , Club=? , Ubicacion=? , Triptico=? , Cartel=?, Observaciones=? Cerrada=? 
+				SET Nombre=? , Club=? , Ubicacion=? , Triptico=? , Cartel=?, Observaciones=?, Cerrada=? 
 				WHERE ( Nombre=? )";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
@@ -54,7 +59,7 @@
 			do_log($msg);
 			return $msg;
 		}
-		$res=$stmt->bind_param('ssssssis',$nombre,$telefono,$email,$club,$observaciones,$viejo);
+		$res=$stmt->bind_param('ssssssis',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$cerrada,$viejo);
 		if (!$res) {
 			$msg="updatePrueba::bind() failed $conn->error";
 			do_log($msg);
