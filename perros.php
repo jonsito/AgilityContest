@@ -8,7 +8,7 @@
     -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="perros-datagrid" class="easyui-datagrid" style="width:800px;height:600px" />
+    <table id="perros-datagrid" class="easyui-datagrid" ></table>
     
     <!-- BARRA DE TAREAS -->
     <div id="perros-toolbar">
@@ -73,7 +73,7 @@
         <a id="perros-cancelBtn" href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#perros-dialog').dialog('close')">Cancelar</a>
     </div>
     
-    <script language="javascript">
+    <script type="text/javascript">
     
     	// set up operation header content
         $('#Header_Operation').html('<p>Gesti&oacute;n de Perros</p>');

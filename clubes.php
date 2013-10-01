@@ -1,7 +1,7 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE CLUBES -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="clubes-datagrid" class="easyui-datagrid" style="width:900px;height:600px" />
+    <table id="clubes-datagrid" class="easyui-datagrid"></table>
     
     <!-- BARRA DE TAREAS -->
     <div id="clubes-toolbar">

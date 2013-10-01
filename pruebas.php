@@ -1,7 +1,7 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE Pruebas -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="pruebas-datagrid" class="easyui-datagrid" style="width:900px;height:600px" />
+    <table id="pruebas-datagrid" class="easyui-datagrid"></table>
     
     <!-- BARRA DE TAREAS -->
     <div id="pruebas-toolbar">
@@ -62,7 +62,7 @@
     </div>
 
      <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE JORNADAS -->
-    <div id="jornadas-dialog" class="easyui-dialog" style="width:350px;height:550px;padding:10px 20px"
+    <div id="jornadas-dialog" class="easyui-dialog" style="width:350px;height:575px;padding:10px 20px"
             closed="true" buttons="#jornadas-dlg-buttons">
         <div class="ftitle">Informaci&oacute;n de la Jornada</div>
         <form id="jornadas-form" method="get" novalidate>
@@ -75,8 +75,8 @@
                 <input id="jornadas-Hora" name="Hora" class="easyui-timespinner" style="width:250px"/>
             </div>
             <div class="fitem">
-                <label for="Observaciones">Observaciones:</label>
-                <input id="jornadas-Observaciones" name="Observaciones" type="textarea" style="height:50px;width:250px";/>
+                <label for="Observaciones">Denominaci&oacute;n:</label>
+                <input id="jornadas-Observaciones" name="Observaciones" type="textarea" style="height:50px;width:250px"/>
             </div>
             <div class="fitem">
             	<label style="width:250px">Mangas a realizar:</label>
@@ -132,7 +132,7 @@
         <a id="jornadas-cancelBtn" href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#jornadas-dialog').dialog('close')">Cancelar</a>
     </div>
     
-    <script language="javascript">
+    <script type="text/javascript">
     
     	// set up operation header content
         $('#Header_Operation').html('<p>Creaci&oacute;n y edici&oacute;n de pruebas</p>');
@@ -152,13 +152,13 @@
             singleSelect: true,
             view: detailview,
             columns: [[
-            	{ field:'Nombre',		width:20, sortable:true,	title: 'Denominacion:' },
-            	{ field:'Club',			width:12, sortable:true,	title: 'Club organizador' },
-            	{ field:'Ubicacion',	width:22, sortable:true,    title: 'Lugar de la prueba' },
-                { field:'Triptico',		width:12, sortable:true,	title: 'URL del Tr&iacute;ptico'},
-                { field:'Cartel',		width:12, sortable:true,	title: 'URL del Cartel'},
-                { field:'Observaciones',width:10,					title: 'Observaciones'},
-                { field:'Cerrada',		width:6, sortable:true,		align: 'center', title: 'Cerrada'}
+            	{ field:'Nombre',		width:20, sortable:true,	title: 'Nombre de la prueba:' },
+            	{ field:'Club',			width:15, sortable:true,	title: 'Club organizador' },
+            	{ field:'Ubicacion',	width:20, sortable:true,    title: 'Lugar de celebraci&oacute;n' },
+                { field:'Triptico',		width:10, sortable:true,	title: 'URL del Tr&iacute;ptico'},
+                { field:'Cartel',		width:10, sortable:true,	title: 'URL del Cartel'},
+                { field:'Observaciones',width:15,					title: 'Observaciones'},
+                { field:'Cerrada',		width:10, sortable:true,		align: 'center', title: 'Cerrada'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:function(index,row) { 
@@ -204,9 +204,9 @@
             	    height: 'auto',
             	    columns: [[
                 	    { field:'ID',			width:4, sortable:true,		align:'center', title: 'ID'},
+                		{ field:'Observaciones',width:20, sortable:false,   title: 'Denominaci&oacute;n' },
                 		{ field:'Fecha',		width:12, sortable:true,	title: 'Fecha:' },
                 		{ field:'Hora',			width:10, sortable:false,	title: 'Hora.' },
-                		{ field:'Observaciones',width:20, sortable:false,   title: 'Observaciones' },
                 		{ field:'Grado1',		width:6, sortable:false,   align:'center', title: 'G-I   ' },
                 		{ field:'Grado2',		width:6, sortable:false,   align:'center', title: 'G-II  ' },
                 		{ field:'Grado3',		width:6, sortable:false,   align:'center', title: 'G-III ' },

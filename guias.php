@@ -1,7 +1,7 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE GUIAS -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="guias-datagrid" class="easyui-datagrid" style="width:800px;height:600px" />
+    <table id="guias-datagrid" class="easyui-datagrid"></table>
     
     <!-- BARRA DE TAREAS -->
     <div id="guias-toolbar">

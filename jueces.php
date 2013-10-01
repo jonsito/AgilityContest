@@ -8,7 +8,7 @@
     -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="jueces-datagrid" class="easyui-datagrid" style="width:800px;height:600px" />
+    <table id="jueces-datagrid" class="easyui-datagrid"></table>
     
     <!-- BARRA DE TAREAS -->
     <div id="jueces-toolbar">
