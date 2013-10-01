@@ -3,11 +3,13 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 01-10-2013 a las 15:39:22
+-- Tiempo de generación: 30-09-2013 a las 15:48:26
 -- Versión del servidor: 5.5.32-0ubuntu0.12.04.1
 -- Versión de PHP: 5.3.10-1ubuntu3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -88,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `Clubes` (
 --
 
 INSERT INTO `Clubes` (`Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `Contacto1`, `Contacto2`, `Contacto3`, `GPS`, `Web`, `Email`, `Facebook`, `Google`, `Twitter`, `Logo`, `Observaciones`, `Baja`) VALUES
-('-- Sin asignar --', '', '', 'Madrid', '', '', '', '', '', '', '', '', '', NULL, 'NO BORRAR ESTA ENTRADA. SE USARA PARA AQUELLOS GUIAS QUE NO TENGAN CLUB ASIGNADO', 0),
+(' Sin asignar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'NO BORRAR ESTA ENTRADA. SE USARA PARA AQUELLOS GUIAS QUE NO TENGAN CLUB ASIGNADO', 1),
 ('ACADE', 'Salvadas, 41, 2º C', '15705 Santiago de Compostela', 'Coruña, A', '+ 34 620 29 58 31', '+ 34 881 93 95 5', NULL, NULL, 'http://www.asociacionacade.com/', 'asociacioncansdeportistas@gmail.com', NULL, NULL, NULL, NULL, NULL, 0),
 ('Agilcan', 'Paseo de los Olivos 10', '28330 San Martin de la Vega', 'Madrid', '634 417 893', '918 946 096', '659 146 878', NULL, 'http://www.agilcan.es/', 'info@agilcan.es', NULL, NULL, NULL, NULL, NULL, 0),
 ('Badalona', NULL, NULL, 'Barcelona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
@@ -233,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `Guias` (
 --
 
 INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VALUES
-('-- Sin asignar --', '', '', '-- Sin asignar --', 'NO BORRAR. Valor por defecto cuando un perro se define por primera vez'),
+(' Sin asignar', '', '', ' Sin asignar', 'NO BORRAR. Valor por defecto cuando un perro se define por primera vez'),
 ('Aaron Laro', NULL, NULL, 'Cubas', NULL),
 ('Adoración Morales', NULL, NULL, 'La Dama', NULL),
 ('Adrian Díaz', NULL, NULL, 'El Hechizo del Border C.', NULL),
@@ -520,7 +522,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Paulino Iranzo', NULL, NULL, 'Pican', NULL),
 ('Pedro Delgado', NULL, NULL, 'Mi Perro 10', NULL),
 ('Pedro Jesús Tazón', NULL, NULL, 'Parbayon Cantabria', NULL),
-('pepe', '', '', '-- Sin asignar --', ''),
+('pepe', '', '', ' Sin Asignar', ''),
 ('Pilar Collado', NULL, NULL, 'Parbayon Cantabria', NULL),
 ('Pilar Matesanz', NULL, NULL, 'W.E.L.P.E.', NULL),
 ('Pilar Rodríguez', NULL, NULL, 'Parbayon Cantabria', NULL),
@@ -621,7 +623,7 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
 --
 -- Estructura de tabla para la tabla `Jornadas`
 --
--- Creación: 01-10-2013 a las 05:53:51
+-- Creación: 30-09-2013 a las 12:45:56
 --
 
 DROP TABLE IF EXISTS `Jornadas`;
@@ -631,32 +633,28 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
   `Fecha` date NOT NULL,
   `Hora` time NOT NULL,
   `Observaciones` varchar(255) DEFAULT NULL,
-  `Grado1` tinyint(1) NOT NULL DEFAULT '1',
-  `Grado2` tinyint(1) NOT NULL DEFAULT '1',
-  `Grado3` tinyint(1) NOT NULL DEFAULT '1',
-  `Equipos` tinyint(1) NOT NULL DEFAULT '0',
-  `PreAgility` tinyint(1) NOT NULL DEFAULT '1',
+  `A1GI` tinyint(1) NOT NULL DEFAULT '1',
+  `A2GI` tinyint(1) NOT NULL DEFAULT '1',
+  `AGII` tinyint(1) NOT NULL DEFAULT '1',
+  `JGII` tinyint(1) NOT NULL DEFAULT '1',
+  `AGIII` tinyint(1) NOT NULL DEFAULT '1',
+  `JGIII` tinyint(1) NOT NULL DEFAULT '1',
+  `AEq` tinyint(1) NOT NULL DEFAULT '0',
+  `JEq` tinyint(1) NOT NULL DEFAULT '0',
+  `PreA` tinyint(1) NOT NULL DEFAULT '0',
   `K.O.` tinyint(1) NOT NULL DEFAULT '0',
   `Show` tinyint(1) NOT NULL DEFAULT '0',
   `Otras` tinyint(1) NOT NULL DEFAULT '0',
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `Prueba` (`Prueba`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- RELACIONES PARA LA TABLA `Jornadas`:
 --   `Prueba`
 --       `Pruebas` -> `Nombre`
 --
-
---
--- Volcado de datos para la tabla `Jornadas`
---
-
-INSERT INTO `Jornadas` (`ID`, `Prueba`, `Fecha`, `Hora`, `Observaciones`, `Grado1`, `Grado2`, `Grado3`, `Equipos`, `PreAgility`, `K.O.`, `Show`, `Otras`, `Cerrada`) VALUES
-(3, 'test', '2013-10-05', '15:00:00', 'Sabado', 1, 1, 1, 0, 1, 0, 0, 0, 0),
-(4, 'test', '2013-10-06', '09:00:00', 'domingo', 1, 1, 1, 0, 1, 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -714,41 +712,28 @@ INSERT INTO `Jueces` (`Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `Interna
 --
 -- Estructura de tabla para la tabla `Mangas`
 --
--- Creación: 01-10-2013 a las 07:23:35
+-- Creación: 30-09-2013 a las 06:07:34
 --
 
 DROP TABLE IF EXISTS `Mangas`;
 CREATE TABLE IF NOT EXISTS `Mangas` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
   `Jornada` int(4) NOT NULL,
-  `M1_Tipo` varchar(16) DEFAULT NULL,
-  `M1_Distancia` int(4) NOT NULL DEFAULT '0',
-  `M1_Obstaculos` int(4) NOT NULL DEFAULT '0',
-  `M1_Velocidad` double DEFAULT NULL,
-  `M1_TRS` int(4) DEFAULT NULL,
-  `M1_TRM` int(11) DEFAULT NULL,
-  `M1_Juez1` varchar(255) DEFAULT NULL,
-  `M1_Juez2` varchar(255) DEFAULT NULL,
-  `M1_Observaciones` varchar(255) DEFAULT NULL,
-  `M1_Cerrada` tinyint(1) NOT NULL DEFAULT '0',
-  `M2_Tipo` varchar(16) DEFAULT NULL,
-  `M2_Distancia` int(4) NOT NULL DEFAULT '0',
-  `M2_Obstaculos` int(4) NOT NULL DEFAULT '0',
-  `M2_Velocidad` double DEFAULT NULL,
-  `M2_TRS` int(4) DEFAULT NULL,
-  `M2_TRM` int(4) DEFAULT NULL,
-  `M2_Juez1` varchar(255) DEFAULT NULL,
-  `M2_Juez2` varchar(255) DEFAULT NULL,
-  `M2_Observaciones` varchar(255) DEFAULT NULL,
-  `M2_Cerrada` tinyint(1) NOT NULL DEFAULT '0',
+  `Tipo` varchar(16) NOT NULL,
+  `Distancia` int(4) NOT NULL,
+  `Obstaculos` int(4) NOT NULL,
+  `Velocidad` double DEFAULT NULL,
+  `TRS` int(4) DEFAULT NULL,
+  `TRM` int(11) DEFAULT NULL,
+  `Juez Titular` varchar(255) NOT NULL,
+  `Juez Practicas` varchar(255) DEFAULT NULL,
+  `Observaciones` varchar(255) DEFAULT NULL,
+  `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
-  KEY `Tipo` (`M1_Tipo`),
-  KEY `Juez Titular` (`M1_Juez1`),
-  KEY `Juez Practicas` (`M1_Juez2`),
-  KEY `Jornada` (`Jornada`),
-  KEY `Mangas_ibfk_5_idx` (`M2_Juez1`),
-  KEY `Mangas_ibfk_6_idx` (`M2_Juez2`),
-  KEY `Mangas_ibfk_7_idx` (`M2_Tipo`)
+  KEY `Tipo` (`Tipo`),
+  KEY `Juez Titular` (`Juez Titular`),
+  KEY `Juez Practicas` (`Juez Practicas`),
+  KEY `Jornada` (`Jornada`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
@@ -760,18 +745,6 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
 --   `Juez Titular`
 --       `Jueces` -> `Nombre`
 --   `Tipo`
---       `Tipo_Manga` -> `Tipo`
---   `M1_Tipo`
---       `Tipo_Manga` -> `Tipo`
---   `M1_Juez1`
---       `Jueces` -> `Nombre`
---   `M1_Juez2`
---       `Jueces` -> `Nombre`
---   `M2_Juez1`
---       `Jueces` -> `Nombre`
---   `M2_Juez2`
---       `Jueces` -> `Nombre`
---   `M2_Tipo`
 --       `Tipo_Manga` -> `Tipo`
 --
 
@@ -1260,14 +1233,14 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 --
 -- Estructura de tabla para la tabla `Pruebas`
 --
--- Creación: 01-10-2013 a las 10:23:24
+-- Creación: 30-09-2013 a las 06:07:35
 --
 
 DROP TABLE IF EXISTS `Pruebas`;
 CREATE TABLE IF NOT EXISTS `Pruebas` (
   `Nombre` varchar(255) NOT NULL,
   `Club` varchar(255) NOT NULL,
-  `Ubicacion` varchar(255) DEFAULT NULL,
+  `Ubicación` varchar(255) DEFAULT NULL,
   `Triptico` longblob,
   `Cartel` longblob,
   `Observaciones` varchar(255) DEFAULT NULL,
@@ -1286,8 +1259,7 @@ CREATE TABLE IF NOT EXISTS `Pruebas` (
 -- Volcado de datos para la tabla `Pruebas`
 --
 
-INSERT INTO `Pruebas` (`Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`, `Observaciones`, `Cerrada`) VALUES
-('-- Sin asignar --', '-- Sin asignar --', 'Somewhere over the rainbow...', '', '', 'NO BORRAR ESTA ENTRADA. SE USARA PARA AQUELLAS JORNADAS QUE NO TENGAN PRUEBA ASIGNADA', 1),
+INSERT INTO `Pruebas` (`Nombre`, `Club`, `Ubicación`, `Triptico`, `Cartel`, `Observaciones`, `Cerrada`) VALUES
 ('test', 'W.E.L.P.E.', 'Polideportivo "La Canaleja"', NULL, NULL, 'Esto es una prueba', 0);
 
 -- --------------------------------------------------------
@@ -1295,33 +1267,22 @@ INSERT INTO `Pruebas` (`Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`, `Obs
 --
 -- Estructura de tabla para la tabla `Resultados`
 --
--- Creación: 01-10-2013 a las 06:40:05
+-- Creación: 30-09-2013 a las 06:07:35
 --
 
 DROP TABLE IF EXISTS `Resultados`;
 CREATE TABLE IF NOT EXISTS `Resultados` (
-  `Manga` int(4) NOT NULL,
+  `Orden de Salida` int(4) DEFAULT NULL,
   `Dorsal` int(4) NOT NULL,
-  `M1_Orden` int(4) NOT NULL DEFAULT '0',
-  `M1_Entrada` timestamp NULL DEFAULT NULL,
-  `M1_Comienzo` timestamp NULL DEFAULT NULL,
-  `M1_Faltas` int(4) NOT NULL DEFAULT '0',
-  `M1_Rehuses` int(4) NOT NULL DEFAULT '0',
-  `M1_Tocados` int(4) NOT NULL DEFAULT '0',
-  `M1_Eliminado` tinyint(1) NOT NULL DEFAULT '0',
-  `M1_No presentado` tinyint(1) NOT NULL DEFAULT '0',
-  `M1_Tiempo` double NOT NULL DEFAULT '0',
-  `M1_Observaciones` varchar(255) DEFAULT NULL,
-  `M2_Orden` int(4) NOT NULL DEFAULT '0',
-  `M2_Entrada` timestamp NULL DEFAULT NULL,
-  `M2_Comienzo` timestamp NULL DEFAULT NULL,
-  `M2_Faltas` int(4) NOT NULL DEFAULT '0',
-  `M2_Rehuses` int(4) NOT NULL DEFAULT '0',
-  `M2_Tocados` int(4) NOT NULL DEFAULT '0',
-  `M2_Eliminado` tinyint(1) NOT NULL DEFAULT '0',
-  `M2_NoPresentado` tinyint(4) NOT NULL DEFAULT '0',
-  `M2_Tiempo` double NOT NULL DEFAULT '0',
-  `M2_Observaciones` varchar(255) DEFAULT NULL,
+  `Entrada a pista` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Faltas` int(4) NOT NULL DEFAULT '0',
+  `Rehuses` int(4) NOT NULL DEFAULT '0',
+  `Tocados` int(4) NOT NULL DEFAULT '0',
+  `Eliminado` tinyint(1) NOT NULL DEFAULT '0',
+  `No presentado` tinyint(1) NOT NULL DEFAULT '0',
+  `Tiempo` double DEFAULT NULL,
+  `Observaciones` varchar(255) DEFAULT NULL,
+  `Manga` int(4) NOT NULL,
   KEY `Dorsal` (`Dorsal`),
   KEY `Manga` (`Manga`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1415,13 +1376,10 @@ ALTER TABLE `Jornadas`
 -- Filtros para la tabla `Mangas`
 --
 ALTER TABLE `Mangas`
-  ADD CONSTRAINT `Mangas_ibfk_1` FOREIGN KEY (`M1_Tipo`) REFERENCES `Tipo_Manga` (`Tipo`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_2` FOREIGN KEY (`M1_Juez1`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`M1_Juez2`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_5` FOREIGN KEY (`M2_Juez1`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_6` FOREIGN KEY (`M2_Juez2`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_7` FOREIGN KEY (`M2_Tipo`) REFERENCES `Tipo_Manga` (`Tipo`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `Mangas_ibfk_1` FOREIGN KEY (`Tipo`) REFERENCES `Tipo_Manga` (`Tipo`),
+  ADD CONSTRAINT `Mangas_ibfk_2` FOREIGN KEY (`Juez Titular`) REFERENCES `Jueces` (`Nombre`),
+  ADD CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`Juez Practicas`) REFERENCES `Jueces` (`Nombre`),
+  ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`);
 
 --
 -- Filtros para la tabla `Perros`
@@ -1441,8 +1399,9 @@ ALTER TABLE `Pruebas`
 -- Filtros para la tabla `Resultados`
 --
 ALTER TABLE `Resultados`
-  ADD CONSTRAINT `Resultados_ibfk_1` FOREIGN KEY (`Dorsal`) REFERENCES `Perros` (`Dorsal`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Mangas` (`ID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `Resultados_ibfk_1` FOREIGN KEY (`Dorsal`) REFERENCES `Perros` (`Dorsal`),
+  ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Mangas` (`ID`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
