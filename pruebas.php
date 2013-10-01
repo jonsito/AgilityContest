@@ -1,7 +1,7 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE Pruebas -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="pruebas-datagrid" class="easyui-datagrid" style="width:800px;height:600px" />
+    <table id="pruebas-datagrid" class="easyui-datagrid" style="width:900px;height:600px" />
     
     <!-- BARRA DE TAREAS -->
     <div id="pruebas-toolbar">
@@ -100,12 +100,12 @@
             },        
             // especificamos un formateador especial para desplegar la tabla de perros por prueba
             detailFormatter:function(index,row){
-                return '<div style="padding:2px"><table id="pruebas-dog-datagrid-' + index + '"></table></div>';
+                return '<div style="padding:2px"><table id="pruebas-jornada-datagrid-' + index + '"></table></div>';
             },
             
             onExpandRow: function(index,row){
-            	// - sub tabla de Joirnadas asignadass a una prueba
-            	$('#pruebas-dog-datagrid-'+index).datagrid({
+            	// - sub tabla de Jornadas asignadass a una prueba
+            	$('#pruebas-jornada-datagrid-'+index).datagrid({
             		title: 'Jornadas de que consta la prueba '+row.Nombre,
             		url: 'database/select_JornadasByPrueba.php?Prueba='+row.Nombre,
             		method: 'get',
@@ -114,12 +114,17 @@
                 		text: 'Borrar jornada',
                 		plain: true,
             			iconCls: 'icon-remove',
-            			handler: function(){delJornadaFromPrueba(index,row.Nombre);}
-            		},'-',{
+            			handler: function(){delJornadaFromPrueba(index,row);}
+            		},{
+                    	text: 'Editar jornada',
+                    	plain: true,
+                		iconCls: 'icon-edit',
+               			handler: function(){editJornadaFromPrueba(index,row);}
+            		},{
                 		text: 'A&ntilde;adir jornada',
                 		plain: true,
             			iconCls: 'icon-flag',
-            			handler: function(){addJornadaToPrueba(index,row.Nombre);}
+            			handler: function(){addJornadaToPrueba(row);}
             		}],
            		    pagination: false,
             	    rownumbers: false,
@@ -128,22 +133,19 @@
             	    loadMsg: '',
             	    height: 'auto',
             	    columns: [[
-                	    { field:'ID',		width:4, sortable:true,	align:'center', title: 'ID'},
-                		{ field:'Fecha',	width:7, sortable:true,	title: 'Fecha:' },
-                		{ field:'Hora',		width:7, sortable:false,	title: 'Hora.' },
-                		{ field:'Observaciones',width:12, sortable:false,   title: 'Observaciones' },
-                		{ field:'A1GI',		width:6, sortable:false,   align:'center', title: 'Ag1GI' },
-                		{ field:'A2GI',		width:6, sortable:false,   align:'center', title: 'Ag2GI ' },
-                		{ field:'AGII',		width:6, sortable:false,   align:'center', title: 'AgGII ' },
-                		{ field:'JGII',		width:6, sortable:false,   align:'center', title: 'JpGII ' },
-                		{ field:'AGIII',	width:6, sortable:false,   align:'center', title: 'AgGIII' },
-                		{ field:'JGIII',	width:6, sortable:false,   align:'center', title: 'JpGIII' },
-                		{ field:'AEq',		width:6, sortable:false,   align:'center', title: 'A Eq. ' },
-                		{ field:'JEq',		width:6, sortable:false,   align:'center', title: 'J Eq. ' },
-                		{ field:'PreA',		width:6, sortable:false,   align:'center', title: 'PreAg ' },
-                		{ field:'K.O.',		width:6, sortable:false,   align:'center', title: 'K.O.  ' },
-                		{ field:'Show',		width:6, sortable:false,   align:'center', title: 'Exhib.' },
-                		{ field:'Otras',	width:6, sortable:false,   align:'center', title: 'Otras ' },
+                	    { field:'ID',			width:4, sortable:true,		align:'center', title: 'ID'},
+                		{ field:'Fecha',		width:12, sortable:true,	title: 'Fecha:' },
+                		{ field:'Hora',			width:10, sortable:false,	title: 'Hora.' },
+                		{ field:'Observaciones',width:20, sortable:false,   title: 'Observaciones' },
+                		{ field:'Grado1',		width:6, sortable:false,   align:'center', title: 'G-I   ' },
+                		{ field:'Grado2',		width:6, sortable:false,   align:'center', title: 'G-II  ' },
+                		{ field:'Grado3',		width:6, sortable:false,   align:'center', title: 'G-III ' },
+                		{ field:'Equipos',		width:6, sortable:false,   align:'center', title: 'Eq.   ' },
+                		{ field:'PreAgility',	width:6, sortable:false,   align:'center', title: 'Pre.  ' },
+                		{ field:'K.O.',			width:6, sortable:false,   align:'center', title: 'K.O.  ' },
+                		{ field:'Show',			width:6, sortable:false,   align:'center', title: 'Show. ' },
+                		{ field:'Otras',		width:6, sortable:false,   align:'center', title: 'Otras ' },
+                		{ field:'Cerrada',		width:6, sortable:false,   align:'center', title: 'Cerrada' }
                 	]],
                 	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
                 	rowStyler:function(index,row) { 
@@ -157,7 +159,7 @@
                             $('#pruebas-datagrid').datagrid('fixDetailRowHeight',index);
                         },0);
                     } 
-            	}); // end of pruebas-dog-datagrid
+            	}); // end of pruebas-jornada-datagrid
             	$('#pruebas-datagrid').datagrid('fixDetailRowHeight',index);
             } // end of onExpandRow
         }); // end of pruebas-datagrid
