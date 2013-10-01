@@ -19,7 +19,7 @@
         <div class="ftitle">Informaci&oacute;n de la prueba</div>
         <form id="pruebas-form" method="get" novalidate>
             <div class="fitem">
-                <label for="Nombre">Denominaci&oacute;n de la prueba:</label>
+                <label for="Nombre" style="width:250px">Denominaci&oacute;n de la prueba:</label>
                 <input id="pruebas-Nombre" 
                 	name="Nombre" 
                 	type="text" 
@@ -48,6 +48,7 @@
                 <label for="Observaciones">Observaciones:</label>
                 <input id="pruebas-Observaciones" name="Observaciones" type="textarea" style="height:50px;width:250px";/>
             </div>
+            <div class="fitem"><hr/></div>
             <div class="fitem">
                 <label for="Cerrada">Prueba Cerrada:</label>
                 <input id="pruebas-Cerrada" name="Cerrada" class="easyui-checkbox" type="checkbox" />
@@ -62,10 +63,17 @@
     </div>
 
      <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE JORNADAS -->
-    <div id="jornadas-dialog" class="easyui-dialog" style="width:350px;height:575px;padding:10px 20px"
+    <div id="jornadas-dialog" class="easyui-dialog" style="width:350px;height:550px;padding:10px 20px"
             closed="true" buttons="#jornadas-dlg-buttons">
         <div class="ftitle">Informaci&oacute;n de la Jornada</div>
         <form id="jornadas-form" method="get" novalidate>
+            <div class="fitem">
+                <label for="Nombre" style="width:250px">Nombre / Comentarios:</label>
+                <input id="jornadas-Nombre" name="Nombre" type="text" class="easyui-validatebox" style="width:250px"/>
+            </div>
+        	<div class="fitem>
+        		<input type="hidden" name=Jornada/>
+        	</div>
             <div class="fitem">
                 <label for="Fecha">Fecha</label>
                 <select id="jornadas-Fecha" name="Fecha" class="easyui-datebox" style="width:250px"/>
@@ -75,25 +83,21 @@
                 <input id="jornadas-Hora" name="Hora" class="easyui-timespinner" style="width:250px"/>
             </div>
             <div class="fitem">
-                <label for="Observaciones">Denominaci&oacute;n:</label>
-                <input id="jornadas-Observaciones" name="Observaciones" type="textarea" style="height:50px;width:250px"/>
-            </div>
-            <div class="fitem">
             	<label style="width:250px">Mangas a realizar:</label>
             </div>
             <div class="fitem">
                 <label for="Grado1" style="width:200px" >Grado 1</label>
-                <input id="jornadas-Grado1" name="Grado1" class="easyui-checkbox" type="checkbox" />
+                <input id="jornadas-Grado1" name="Grado1" class="easyui-checkbox" type="checkbox" checked="checked" value="1"/>
             </div>
             
             <div class="fitem">
                 <label for="Grado2" style="width:200px" >Grado 2</label>
-                <input id="jornadas-Grado2" name="Grado2" class="easyui-checkbox" type="checkbox" />
+                <input id="jornadas-Grado2" name="Grado2" class="easyui-checkbox" type="checkbox" checked="checked" value="1"/>
             </div>
             
             <div class="fitem">
                 <label for="Grado3" style="width:200px" >Grado 3</label>
-                <input id="jornadas-Grado3" name="Grado3" class="easyui-checkbox" type="checkbox" />
+                <input id="jornadas-Grado3" name="Grado3" class="easyui-checkbox" type="checkbox" checked="checked" value="1"/>
             </div>
             
             <div class="fitem">
@@ -103,7 +107,7 @@
             
             <div class="fitem">
                 <label for="PreAgility" style="width:200px" >Pre-Agility</label>
-                <input id="jornadas-PreAgility" name="PreAgility" class="easyui-checkbox" type="checkbox" />
+                <input id="jornadas-PreAgility" name="PreAgility" class="easyui-checkbox" type="checkbox" checked="checked" value="1"/>
             </div>
             
             <div class="fitem">
@@ -118,7 +122,7 @@
                 <label for="Otras" style="width:200px" >Otras (no especificada)</label>
                 <input id="jornadas-Otras" name="Otras" class="easyui-checkbox" type="checkbox" />
             </div>
-            <div><hr/></div>
+            <div class="fitem"><hr/></div>
             <div class="fitem">
                 <label for="Cerrada" style="width:200px" >Cerrar jornada</label>
                 <input id="jornadas-Cerrada" name="Cerrada" class="easyui-checkbox" type="checkbox" />
@@ -204,7 +208,7 @@
             	    height: 'auto',
             	    columns: [[
                 	    { field:'ID',			width:4, sortable:true,		align:'center', title: 'ID'},
-                		{ field:'Observaciones',width:20, sortable:false,   title: 'Denominaci&oacute;n' },
+                		{ field:'Nombre',		width:20, sortable:false,   title: 'Nombre/Comentario' },
                 		{ field:'Fecha',		width:12, sortable:true,	title: 'Fecha:' },
                 		{ field:'Hora',			width:10, sortable:false,	title: 'Hora.' },
                 		{ field:'Grado1',		width:6, sortable:false,   align:'center', title: 'G-I   ' },
@@ -340,8 +344,14 @@
         $('#jornadas-Fecha').datebox({ required: true });
         var c= $('#jornadas-Fecha').datebox('calendar');
         c.calendar({ firstDay:1 });
-        $('#jornadas-Hora').timespinner();
-        
+        $('#jornadas-Hora').timespinner({
+            required: true
+        });
+
+        $('#jornadas-Nombre').validatebox({
+            required: true,
+            validType: 'length[1,255]'
+        });
         // - botones del formulario de jornadas
         $('#jornadas-okBtn').linkbutton();        
         $('#jornadas-okBtn').tooltip({
