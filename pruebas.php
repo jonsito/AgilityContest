@@ -10,38 +10,47 @@
         <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyPrueba()">Borrar prueba</a>
         <input id="pruebas-search" type="text" onchange="doSearchPrueba()"/> 
         <a id="pruebas-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchPrueba()">Buscar</a>
+        <input id="pruebas-openBox" href="#" type="checkbox" value='1' class="easyui-checkbox" onclick="doSearchPrueba()">Incl. Cerradas</input>
     </div>
     
     <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE PRUEBAS -->
-    <div id="pruebas-dialog" class="easyui-dialog" style="width:450px;height:350px;padding:10px 20px"
+    <div id="pruebas-dialog" class="easyui-dialog" style="width:400px;height:450px;padding:10px 20px"
             closed="true" buttons="#pruebas-dlg-buttons">
         <div class="ftitle">Informaci&oacute;n de la prueba</div>
         <form id="pruebas-form" method="get" novalidate>
             <div class="fitem">
-                <label for="Nombre">Nombre:</label>
+                <label for="Nombre">Denominaci&oacute;n de la prueba:</label>
                 <input id="pruebas-Nombre" 
                 	name="Nombre" 
                 	type="text" 
                 	class="easyui-validatebox" 
                 	required="true"
-                	style="width:300px" />
+                	style="width:325px" />
                 <input id="pruebas-Viejo" name="Viejo" type="hidden" /> <!-- used to allow operator change prueba's name -->
             </div>
             <div class="fitem">
-                <label for="Email">Correo electr&oacute;nico:</label>
-                <input id="pruebas-Email" name="Email" class="easyui-validatebox" type="text" style="width:250px"/>
-            </div>
-            <div class="fitem">
-                <label for="Telefono">Tel&eacute;fono:</label>
-                <input id="pruebas-Telefono" class="easyui-validatebox" name="Telefono" type="text" />
-            </div>
-            <div class="fitem">
                 <label for="Club">Club:</label>
-                <select id="pruebas-Clubes" name="Club" class="easyui-combogrid" style="width:250px"/>
+                <select id="pruebas-Club" name="Club" class="easyui-combogrid" style="width:250px"/>
+            </div>
+            <div class="fitem">
+                <label for="Ubicacion">Lugar de realizaci&oacute;n</label>
+                <input id="pruebas-Ubicacion" name="Ubicacion" type="text" style="width:250px"/>
+            </div>
+            <div class="fitem">
+                <label for="Triptico">URL del tr&iacute;ptico</label>
+                <input id="pruebas-Triptico" name="Triptico" class="easyui-validatebox" type="text" style="width:250px"/>
+            </div>
+            <div class="fitem">
+                <label for="Cartel">URL del cartel</label>
+                <input id="pruebas-Cartel" name="Cartel" class="easyui-validatebox" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="Observaciones">Observaciones:</label>
-                <input id="pruebas-Observaciones" name="Observaciones" type="textarea" style="height:50px;width:300px";/>
+                <input id="pruebas-Observaciones" name="Observaciones" type="textarea" style="height:50px;width:250px";/>
+            </div>
+            <div class="fitem">
+                <label for="Cerrada">Prueba Cerrada:</label>
+                <input id="pruebas-Cerrada" name="Cerrada" class="easyui-checkbox" type="checkbox" />
             </div>
         </form>
     </div>
@@ -181,6 +190,13 @@
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
+        // $('#pruebas-openBox').checkbox(); /* no checkbox defined in easyui */
+        $('#pruebas-openBox').tooltip({
+            position: 'top',
+            content: '<span style="color:#000">Incluir en el listado las pruebas finalizadas</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+        });
+        
         // botones de los sub-formularios
         $('#pruebas-addJornadaBtn').linkbutton(); // anyadir de jornadas de la prueba
         $('#pruebas-addJornadaBtn').tooltip({

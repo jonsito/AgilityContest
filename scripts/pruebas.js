@@ -37,7 +37,8 @@ function delJornadaFromPrueba(index,prueba) {
 function doSearchPrueba() {
 	// reload data adding search criteria
     $('#pruebas-datagrid').datagrid('load',{
-        where: $('#pruebas-search').val()
+        where: $('#pruebas-search').val(),
+        cerrada: $('#pruebas-openBox').val()
     });
     // clear search textbox
     // hey, this fire up again onChangeEvent :-(

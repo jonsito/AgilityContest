@@ -6,8 +6,20 @@
 	$sort = isset($_GET['sort']) ? strval($_GET['sort']) : 'Nombre';
 	$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
 	$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
+	$closed = isset($_GET['cerrada'])? intval($_GET['where']) : 0;
 	$where = '';
-	if ($search!=='') $where=" WHERE ( (Nombre LIKE '%$search%') OR ( Club LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) ";  
+	if ($search!=='') {
+		if ($closed==0)" WHERE (
+			( (Nombre LIKE '%$search%') OR ( Club LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) 
+			AND ( Cerrada = 0 )
+			) ";
+		else $where= " WHERE ( 
+			(Nombre LIKE '%$search%') OR ( Club LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) 
+			) ";
+	} else {
+		if ($closed!=0) $where = " WHERE ( Cerrada = 0 ) ";
+		else $where="";
+	}
 	$offset = ($page-1)*$rows;
 	$result = array();
 	// connect database
