@@ -5,7 +5,9 @@ var operation;
  *@param prueba objeto que contiene los datos de la prueba
  */
 function addJornadaToPrueba(prueba) {
-	alert('TODO:<br/> Crear una nueva jornada para la prueba'+prueba.Nombre);
+	$('#jornadas-dialog').dialog('open').dialog('setTitle','A&ntilde;adir jornada a la prueba '+prueba.Nombre);
+	$('#jornadas-form').form('clear');
+	// TODO: declare url, methods and so
 }
 
 /**
