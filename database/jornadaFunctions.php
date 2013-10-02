@@ -23,8 +23,9 @@
 		}
 		
 		// iniciamos los valores, chequeando su existencia
+		$id = (isset($_REQUEST['ID']))?intval($_REQUEST['ID']):0; // primary key not null
 		$prueba = strval($_REQUEST['Prueba']); // foreign key not null
-		$nombre = strval($_REQUEST['Nombre']); 
+		$nombre = (isset($_REQUEST['Nombre']))?strval($_REQUEST['Nombre']):null;  // Name or comment for jornada
 		$fecha = strval($_REQUEST['Fecha']); // not null
 		$hora = strval($_REQUEST['Hora']); //not null
 		$grado1 = (isset($_REQUEST['Grado1']))?intval($_REQUEST['Grado1']):0;
@@ -77,16 +78,20 @@
 		}
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre = strval($_REQUEST['Nombre']); // unique not null pkey
-		$viejo = strval($_REQUEST['Viejo']);
-		$club = strval($_REQUEST['Club']); // not null
-		$ubicacion = (isset($_REQUEST['Ubicacion']))?strval($_REQUEST['Ubicacion']):null;
-		$triptico = (isset($_REQUEST['Triptico']))?strval($_REQUEST['Triptico']):null;
-		$cartel = (isset($_REQUEST['Cartel']))?strval($_REQUEST['Cartel']):null;
-		$observaciones = (isset($_REQUEST['Observaciones']))?strval($_REQUEST['Observaciones']):null;
+		$id = (isset($_REQUEST['ID']))?intval($_REQUEST['ID']):0; // primary key not null
+		$prueba = strval($_REQUEST['Prueba']); // foreign key not null
+		$nombre = (isset($_REQUEST['Nombre']))?strval($_REQUEST['Nombre']):null;  // Name or comment for jornada
+		$fecha = strval($_REQUEST['Fecha']); // not null
+		$hora = strval($_REQUEST['Hora']); //not null
+		$grado1 = (isset($_REQUEST['Grado1']))?intval($_REQUEST['Grado1']):0;
+		$grado2 = (isset($_REQUEST['Grado2']))?intval($_REQUEST['Grado2']):0;
+		$grado3 = (isset($_REQUEST['Grado3']))?intval($_REQUEST['Grado3']):0;
+		$equipos = (isset($_REQUEST['Equipos']))?intval($_REQUEST['Equipos']):0;
+		$preagility = (isset($_REQUEST['PreAgility']))?intval($_REQUEST['PreAgility']):0;
+		$ko = (isset($_REQUEST['KO']))?intval($_REQUEST['KO']):0;
+		$exhibicion = (isset($_REQUEST['Exhibicion']))?intval($_REQUEST['Exhibicion']):0;
+		$otras = (isset($_REQUEST['Otras']))?intval($_REQUEST['Otras']):0;
 		$cerrada = (isset($_REQUEST['Cerrada']))?intval($_REQUEST['Cerrada']):0;
-		do_log("updateJornada:: retrieved data from client");
-		do_log("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
@@ -99,9 +104,10 @@
 		return $msg;
 	}
 	
-	function deleteJornada($conn,$id) {
+	function deleteJornada($conn) {
 		$msg="";
 		do_log("deleteJornada:: enter");
+		$id = (isset($_REQUEST['ID']))?intval($_REQUEST['ID']):0; // primary key not null
 		$res= $conn->query("DELETE FROM Jornadas WHERE (ID='$id')");
 		if (!$res) {
 			$msg="deleteJornada::query(delete) Error: $conn->error";
@@ -138,7 +144,7 @@
 		else 				echo json_encode(array('errorMsg'=>$result));
 	}
 	else if($oper==='delete') {
-		$result= deleteJornada($conn,strval($_GET['Nombre']));
+		$result= deleteJornada($conn);
 		if ($result==="") 	echo json_encode(array('success'=>true));
 		else				echo json_encode(array('msg'=>$result));
 	}

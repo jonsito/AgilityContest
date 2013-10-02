@@ -85,6 +85,7 @@
             	    loadMsg: '',
             	    height: 'auto',
             	    columns: [[
+            	        { field:'Prueba',		hidden:true },
                 	    { field:'ID',			width:4, sortable:true,		align:'center', title: 'ID'},
                 		{ field:'Nombre',		width:20, sortable:false,   title: 'Nombre/Comentario' },
                 		{ field:'Fecha',		width:12, sortable:true,	title: 'Fecha:' },

@@ -7,11 +7,13 @@
                 <label for="Nombre" style="width:250px">Nombre / Comentarios:</label>
                 <input id="jornadas-Nombre" name="Nombre" type="text" class="easyui-validatebox" style="width:250px"/>
             </div>
-        	<div class="fitem>
-        		<!-- nombre de la prueba asociada al formulario -->
-        		<input id="jornadas-Prueba" type="hidden" name="Prueba"/>
-        		<!-- Operacion a realizar con el formulario -->
-        		<input id="jornadas-Operation" type="hidden" name="Operation"/>
+        	<div class="fitem">
+				<!-- nombre de la prueba asociada al formulario -->
+				<input id="jornadas-Prueba" type="hidden" name="Prueba"/>
+				<!-- ID de jornada; usado para updates y deletes -->
+				<input id="jornadas-ID" type="hidden" name="ID"/> 
+				<!-- Operacion a realizar con el formulario -->
+				<input id="jornadas-Operation" type="hidden" name="Operation"/>
         	</div>
             <div class="fitem">
                 <label for="Fecha">Fecha</label>
