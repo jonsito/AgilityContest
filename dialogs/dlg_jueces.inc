@@ -1,0 +1,84 @@
+
+    <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE JUECES -->
+    <div id="jueces-dialog" class="easyui-dialog" style="width:450px;height:450px;padding:10px 20px"
+            closed="true" buttons="#jueces-dlg-buttons">
+        <div class="ftitle">Informaci&oacute;n del juez</div>
+        <form id="jueces-form" method="get" novalidate>
+            <div class="fitem">
+                <label for="Nombre">Nombre:</label>
+                <input id="jueces-Nombre" 
+                	name="Nombre" 
+                	type="text" 
+                	class="easyui-validatebox" 
+                	required="true"
+                	style="width:250px" />
+                <input id="jueces-Viejo" name="Viejo" type="hidden" /> <!-- used to allow operator change juez name -->
+            </div>
+            <div class="fitem">
+                <label for="Direccion1">Direccion 1:</label>
+                <input id="jueces-Direccion1" class="easyui-validatebox" name="Direccion1" type="text" style="width:250px" />
+            </div>
+            <div class="fitem">
+                <label for="Direccion2">Direccion 2:</label>
+                <input id="jueces-Direccion2" class="easyui-validatebox" name="Direccion2" type="text" style="width:250px" />
+            </div>
+            <div class="fitem">
+                <label for="Telefono">Tel&eacute;fono:</label>
+                <input id="jueces-Telefono" class="easyui-validatebox" name="Telefono" type="text" />
+            </div>
+            <div class="fitem">
+                <label for="Internacional">Juez internacional:</label>
+                <input id="jueces-Internacional" name="Internacional" class="easyui-checkbox" type="checkbox" />
+            </div>
+            <div class="fitem">
+                <label for="Practicas">Juez en pr&aacute;cticas:</label>
+                <input id="jueces-Practicas" name="Practicas" class="easyui-checkbox" type="checkbox" />
+            </div>
+            <div class="fitem">
+                <label for="Email">Correo electr&oacute;nico:</label>
+                <input id="jueces-Email" name="Email" class="easyui-validatebox" type="text" style="width:250px"/>
+            </div>
+            <div class="fitem">
+                <label for="Observaciones">Observaciones:</label>
+                <input id="jueces-Observaciones" name="Observaciones" type="textarea" style="height:50px;width:300px";/>
+            </div>
+        </form>
+    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+    	<div id="jueces-dlg-buttons">
+    	    <a id="jueces-okBtn" href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveJuez()">Guardar</a>
+    	    <a id="jueces-cancelBtn" href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#jueces-dialog').dialog('close')">Cancelar</a>
+    	</div>
+    </div>
+    
+	<script type="text/javascript">
+        // datos del formulario de nuevo/edit jueces
+        // - declaracion del formulario
+        $('#jueces-form').form();
+        // - botones
+        $('#jueces-okBtn').linkbutton();   
+        $('#jueces-okBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Aceptar datos y actualizar la BBDD</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
+        $('#jueces-cancelBtn').linkbutton();   
+        $('#jueces-cancelBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Cancelar edicion. Cerrar ventana</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
+        // campos del formulario
+        $('#jueces-dialog').dialog();
+        // $('#jueces-Practicas').checkbox(); // checkboxes doesn't exist in easyui ?
+        // $('#jueces-Internacional').checkbox(); // checkboxes doesn't exist in easyui ?
+        $('#jueces-Nombre').validatebox({
+            required: true,
+            validType: 'length[1,255]'
+        });
+        $('#jueces-Email').validatebox({
+            required: false,
+            validType: 'email'
+        });
+        </script>
