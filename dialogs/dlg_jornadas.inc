@@ -14,6 +14,8 @@
 				<input id="jornadas-ID" type="hidden" name="ID"/> 
 				<!-- Operacion a realizar con el formulario -->
 				<input id="jornadas-Operation" type="hidden" name="Operation"/>
+				<!-- Indice a la prueba seleccionada en el formulario -->
+				<input id="jornadas-PruebaIndex" type="hidden" name="PruebaIndex"/>
         	</div>
             <div class="fitem">
                 <label for="Fecha">Fecha</label>

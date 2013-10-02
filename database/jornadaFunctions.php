@@ -61,15 +61,15 @@
 		// componemos un prepared statement
 		$sql ="UPDATE Jornadas 
 				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, Grado1=?, Grado2=?, Grado3=?, 
-					Equipos=?, PreAgility=?, KO=?, Exhibicion=?, Otras=?, Cerrada=?)
-				WHERE ( ID=? )";
+					Equipos=?, PreAgility=?, KO=?, Exhibicion=?, Otras=?, Cerrada=?
+				WHERE ( ID=? );";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
 			$msg="updateJornada::prepare() failed $conn->error";
 			do_log($msg);
 			return $msg;
 		}
-		$res=$stmt->bind_param('ssssiiiiiiiiii',
+		$res=$stmt->bind_param('sssiiiiiiiiiii',
 				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras,$cerrada,$id);
 		if (!$res) {
 			$msg="updateJornada::bind() failed $conn->error";
@@ -79,7 +79,7 @@
 		
 		// iniciamos los valores, chequeando su existencia
 		$id = (isset($_REQUEST['ID']))?intval($_REQUEST['ID']):0; // primary key not null
-		$prueba = strval($_REQUEST['Prueba']); // foreign key not null
+		$prueba = strval($_REQUEST['Prueba']); // foreign key not null -----SHOULDN'T CHANGE ANYWAY----
 		$nombre = (isset($_REQUEST['Nombre']))?strval($_REQUEST['Nombre']):null;  // Name or comment for jornada
 		$fecha = strval($_REQUEST['Fecha']); // not null
 		$hora = strval($_REQUEST['Hora']); //not null

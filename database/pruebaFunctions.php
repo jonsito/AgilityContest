@@ -99,18 +99,6 @@
 		} else do_log("deletePrueba:: execute() resulted: $res");
 		return $msg;
 	}
-
-	// LAS JORNADAS NO SE BORRAN: se asignan a una prueba "generica" ya finalizada
-	function orphanJornadaFromPrueba($conn,$id) {
-		$msg="";
-		do_log("orphanJornadaFromPrueba:: enter");
-		$res= $conn->query("UPDATE Jornada SET Prueba='-- Sin asignar --' WHERE (ID='$id')");
-		if (!$res) {
-			$msg="orphanJornadaFromPrueba::query(delete) Error: $conn->error";
-			do_log($msg);
-		} else do_log("orphanJornadaFromPrueba:: execute() resulted: $res");
-		return $msg;
-	}
 	
 	// connect database
 	$conn=DBConnection::openConnection("agility_operator","operator@cachorrera");
@@ -141,11 +129,6 @@
 	}
 	else if($oper==='delete') {
 		$result= deletePrueba($conn,strval($_GET['Nombre']));
-		if ($result==="") 	echo json_encode(array('success'=>true));
-		else				echo json_encode(array('msg'=>$result));
-	}
-	else if($oper==='orphan') {
-		$result= orphanJornadaFromPrueba($conn,intval($_GET['ID']));
 		if ($result==="") 	echo json_encode(array('success'=>true));
 		else				echo json_encode(array('msg'=>$result));
 	}

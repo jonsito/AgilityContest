@@ -55,28 +55,28 @@
                 return '<div style="padding:2px"><table id="pruebas-jornada-datagrid-' + index + '"></table></div>';
             },
             
-            onExpandRow: function(index,row){
+            onExpandRow: function(prueba_index,prueba_data){
             	// - sub tabla de Jornadas asignadass a una prueba
-            	$('#pruebas-jornada-datagrid-'+index).datagrid({
-            		title: 'Jornadas de que consta la prueba '+row.Nombre,
-            		url: 'database/select_JornadasByPrueba.php?Prueba='+row.Nombre,
+            	$('#pruebas-jornada-datagrid-'+prueba_index).datagrid({
+            		title: 'Jornadas de que consta la prueba '+prueba_data.Nombre,
+            		url: 'database/select_JornadasByPrueba.php?Prueba='+prueba_data.Nombre,
             		method: 'get',
             		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
             		toolbar:  [{
                 		text: 'A&ntilde;adir jornada',
                 		plain: true,
             			iconCls: 'icon-flag',
-            			handler: function(){addJornadaToPrueba(row);}
+            			handler: function(){addJornadaToPrueba(prueba_index,prueba_data);}
             		},{
                     	text: 'Editar jornada',
                     	plain: true,
                 		iconCls: 'icon-edit',
-               			handler: function(){editJornadaFromPrueba(index,row);}
+               			handler: function(){editJornadaFromPrueba(prueba_index,prueba_data);}
             		},{
                 		text: 'Borrar jornada',
                 		plain: true,
             			iconCls: 'icon-remove',
-            			handler: function(){delJornadaFromPrueba(index,row);}
+            			handler: function(){delJornadaFromPrueba(prueba_index,prueba_data);}
             		}],
            		    pagination: false,
             	    rownumbers: false,
@@ -104,16 +104,20 @@
                 	rowStyler:function(index,row) { 
                 	    return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
                 	},
+                	// on double click fireup editor dialog
+                    onDblClickRow:function(jornada_index,jornada_data) { 
+                        editJornadaFromPrueba(prueba_index,prueba_data);
+                    },
                     onResize:function(){
-                        $('#pruebas-datagrid').datagrid('fixDetailRowHeight',index);
+                        $('#pruebas-datagrid').datagrid('fixDetailRowHeight',prueba_index);
                     },
                     onLoadSuccess:function(){
                         setTimeout(function(){
-                            $('#pruebas-datagrid').datagrid('fixDetailRowHeight',index);
+                            $('#pruebas-datagrid').datagrid('fixDetailRowHeight',prueba_index);
                         },0);
                     } 
             	}); // end of pruebas-jornada-datagrid
-            	$('#pruebas-datagrid').datagrid('fixDetailRowHeight',index);
+            	$('#pruebas-datagrid').datagrid('fixDetailRowHeight',prueba_index);
             } // end of onExpandRow
         }); // end of pruebas-datagrid
          
