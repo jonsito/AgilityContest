@@ -13,6 +13,7 @@
                 	required="true"
                 	style="width:350px" />
                 <input id="clubes-Viejo" name="Viejo" type="hidden" /> <!-- used to allow operator change guia's name -->
+                <input id="clubes-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
                 <label for="Direccion1">Direcci&oacute;n 1</label>

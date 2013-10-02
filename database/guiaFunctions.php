@@ -116,14 +116,14 @@
 		return;
 	}
 	
-	if (! isset($_GET['operation'])) {
+	if (! isset($_GET['Operation'])) {
 		$str='Call guiaFunctions() with no operation declared.';
 		do_log($str);
 		echo json_encode(array('errorMsg'=>$str));
 		DBConnection::closeConnection($conn);
 		return;
 	}
-	$oper = $_GET['operation'];
+	$oper = $_GET['Operation'];
 	if($oper==='insert') {
 		$result=insertGuia($conn);
 		if ($result==="") 	echo json_encode(array('success'=>true));

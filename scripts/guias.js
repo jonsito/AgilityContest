@@ -1,5 +1,3 @@
-var operation;
-
 /**
  * Abre el formulario para anyadir perros a un guia
  *@param index: indice que ocupa el guia en la entrada principal
@@ -17,7 +15,7 @@ function delPerroFromGuia(index,guia) {
 
     $.messager.confirm('Confirm',"Borrar asignacion del perro '"+row.Nombre+"' al guia '"+guia+"' ¿Seguro?'",function(r){
         if (r){
-            $.get('database/guiaFunctions.php',{operation:'orphan',Dorsal:row.Dorsal},function(result){
+            $.get('database/guiaFunctions.php',{Operation:'orphan',Dorsal:row.Dorsal},function(result){
                 if (result.success){
                     $('#guias-dog-datagrid-'+index).datagrid('reload');    // reload the guia data
                 } else {
@@ -39,9 +37,6 @@ function doSearchGuia() {
     $('#guias-datagrid').datagrid('load',{
         where: $('#guias-search').val()
     });
-    // clear search textbox
-    // hey, this fire up again onChangeEvent :-(
-    // $('#guias-search').val('');
 }
 
 /**
@@ -50,7 +45,7 @@ function doSearchGuia() {
 function newGuia(){
 	$('#guias-dialog').dialog('open').dialog('setTitle','Nuevo g&uiacute;a');
 	$('#guias-form').form('clear');
-	operation='insert';
+	$('#guias-Operation').val('insert');
 }
 
 /**
@@ -65,7 +60,7 @@ function editGuia(){
     $('#guias-Baja').prop('checked',(row.Baja==1)?true:false);
     // save old guia name in "Viejo" hidden form input to allow change guia name
     $('#guias-Viejo').val( $('#guias-Nombre').val());
-    operation='update';
+	$('#guias-Operation').val('update');
 }
 
 /**
@@ -79,7 +74,6 @@ function saveGuia(){
         url: 'database/guiaFunctions.php',
         method: 'get',
         onSubmit: function(param){
-        	param.operation=operation;
             return $(this).form('validate');
         },
         success: function(result){
@@ -105,7 +99,7 @@ function destroyGuia(){
     if (!row) return;
     $.messager.confirm('Confirm','Borrar datos del guia. ¿Seguro?',function(r){
         if (r){
-            $.get('database/guiaFunctions.php',{operation:'delete',Nombre:row.Nombre},function(result){
+            $.get('database/guiaFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
                 if (result.success){
                     $('#guias-datagrid').datagrid('reload');    // reload the guia data
                 } else {

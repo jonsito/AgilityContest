@@ -64,41 +64,6 @@ function savePrueba(){
 }
 
 /**
- * Ask for commit new/edit jornada to server
- */
-function saveJornada(){
-	// take care on bool-to-int translation from checkboxes to database
-    $('#jornadas-Grado1').val( $('#jornadas-Grado1').is(':checked')?'1':'0');
-    $('#jornadas-Grado2').val( $('#jornadas-Grado2').is(':checked')?'1':'0');
-    $('#jornadas-Grado3').val( $('#jornadas-Grado3').is(':checked')?'1':'0');
-    $('#jornadas-Equipos').val( $('#jornadas-Equipos').is(':checked')?'1':'0');
-    $('#jornadas-PreAgility').val( $('#jornadas-PreAgility').is(':checked')?'1':'0');
-    $('#jornadas-KO').val( $('#jornadas-KO').is(':checked')?'1':'0');
-    $('#jornadas-Exhibicion').val( $('#jornadas-Exhibicion').is(':checked')?'1':'0');
-    $('#jornadas-Otras').val( $('#jornadas-Otras').is(':checked')?'1':'0');
-    $('#jornadas-Cerrada').val( $('#jornadas-Cerrada').is(':checked')?'1':'0');
-    // do normal submit
-    $('#jornadas-form').form('submit',{
-        url: 'database/jornadaFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(result){
-            var result = eval('('+result+')');
-            if (result.errorMsg){
-                $.messager.show({
-                    title: 'Error',
-                    msg: result.errorMsg
-                });
-            } else {
-                $('#jornadas-dialog').dialog('close');        // close the dialog
-                $('#jornadas-datagrid').datagrid('reload');    // reload the prueba data
-            }
-        }
-    });
-}
-/**
  * Delete Prueba data
  */
 function destroyPrueba(){

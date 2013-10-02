@@ -1,5 +1,3 @@
-var operation;
-
 /**
  * Recalcula el formulario anyadiendo parametros de busqueda
  */
@@ -17,8 +15,8 @@ function doSearchJuez() {
  */
 function newJuez(){
 	$('#jueces-dialog').dialog('open').dialog('setTitle','Nuevo juez');
-	$('#jueces-form').form('clear');
-	operation='insert';
+	$('#jueces-form').form('clear');	
+	$('#jueces-Operation').val('insert');
 }
 
 /**
@@ -34,7 +32,7 @@ function editJuez(){
         $('#jueces-Practicas').prop('checked',(row.Practicas==1)?true:false);
         // save old juez name in "Viejo" hidden form input to allow change juez name
         $('#jueces-Viejo').val( $('#jueces-Nombre').val());
-        operation='update';
+    	$('#jueces-Operation').val('update');
     }
 }
 
@@ -50,7 +48,6 @@ function saveJuez(){
         url: 'database/juezFunctions.php',
         method: 'get',
         onSubmit: function(param){
-        	param.operation=operation;
             return $(this).form('validate');
         },
         success: function(result){
@@ -76,7 +73,7 @@ function destroyJuez(){
     if (row){
         $.messager.confirm('Confirm','Borrar datos del juez. ¿Seguro?',function(r){
             if (r){
-                $.get('database/juezFunctions.php',{operation:'delete',Nombre:row.Nombre},function(result){
+                $.get('database/juezFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
                     if (result.success){
                         $('#jueces-datagrid').datagrid('reload');    // reload the juez data
                     } else {

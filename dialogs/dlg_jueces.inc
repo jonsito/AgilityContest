@@ -13,6 +13,7 @@
                 	required="true"
                 	style="width:250px" />
                 <input id="jueces-Viejo" name="Viejo" type="hidden" /> <!-- used to allow operator change juez name -->
+                <input id="jueces-Operation" name="Operation" type="hidden" /> <!-- to store insert/update/delete operation -->
             </div>
             <div class="fitem">
                 <label for="Direccion1">Direccion 1:</label>

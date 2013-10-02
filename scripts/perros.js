@@ -1,4 +1,3 @@
-var operation;
 
 /**
  * Recalcula el formulario anyadiendo parametros de busqueda
@@ -8,9 +7,6 @@ function doSearchPerro() {
     $('#perros-datagrid').datagrid('load',{
         where: $('#perros-search').val()
     });
-    // clear search textbox
-    // hey, this fire up again onChangeEvent :-(
-    // $('#perros-search').val('');
 }
 
 /**
@@ -19,7 +15,7 @@ function doSearchPerro() {
 function newDog(){
 	$('#perros-dialog').dialog('open').dialog('setTitle','Nuevo perro');
 	$('#perros-form').form('clear');
-	operation='insert';
+	$('#perros-Operation').val('insert');
 }
 
 /**
@@ -30,7 +26,7 @@ function editDog(){
     if (row){
         $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro');
         $('#perros-form').form('load',row);
-        operation='update';
+    	$('#perros-Operation').val('update');
     }
 }
 
@@ -42,7 +38,6 @@ function saveDog(){
         url: 'database/dogFunctions.php',
         method: 'get',
         onSubmit: function(param){
-        	param.operation=operation;
             return $(this).form('validate');
         },
         success: function(result){
@@ -68,7 +63,7 @@ function destroyDog(){
     if (row){
         $.messager.confirm('Confirm','Borrar datos del perro. ¿Seguro?',function(r){
             if (r){
-                $.get('database/dogFunctions.php',{operation:'delete',Dorsal:row.Dorsal},function(result){
+                $.get('database/dogFunctions.php',{Operation:'delete',Dorsal:row.Dorsal},function(result){
                     if (result.success){
                         $('#perros-datagrid').datagrid('reload');    // reload the dog data
                     } else {

@@ -1,5 +1,3 @@
-var operation;
-
 /**
  * Abre el formulario para anyadir guias a un club
  *@param index: indice que ocupa el club en la entrada principal
@@ -18,7 +16,7 @@ function delGuiaFromClub(index,club) {
 
     $.messager.confirm('Confirm',"Borrar asignacion del gu&iacute;a '"+row.Nombre+"' al club '"+club+"' ¿Seguro?'",function(r){
         if (r){
-            $.get('database/clubFunctions.php',{'operation':'orphan','Nombre':row.Nombre},function(result){
+            $.get('database/clubFunctions.php',{'Operation':'orphan','Nombre':row.Nombre},function(result){
                 if (result.success){
                     $('#clubes-guia-datagrid-'+index).datagrid('reload');    // reload the guia data
                 } else {
@@ -40,9 +38,6 @@ function doSearchClub() {
     $('#clubes-datagrid').datagrid('load',{
         where: $('#clubes-search').val()
     });
-    // clear search textbox
-    // hey, this fire up again onChangeEvent :-(
-    // $('#clubes-search').val('');
 }
 
 /**
@@ -51,7 +46,7 @@ function doSearchClub() {
 function newClub(){
 	$('#clubes-dialog').dialog('open').dialog('setTitle','Nuevo club');
 	$('#clubes-form').form('clear');
-	operation='insert';
+	$('#clubbes-Operation').val('insert');
 }
 
 /**
@@ -64,7 +59,7 @@ function editClub(){
     $('#clubes-form').form('load',row);
     // save old club name in "Viejo" hidden form input to allow change guia name
     $('#clubes-Viejo').val( $('#clubes-Nombre').val());
-    operation='update';
+	$('#clubbes-Operation').val('update');
 }
 
 /**
@@ -76,7 +71,6 @@ function saveClub(){
         url: 'database/clubFunctions.php',
         method: 'get',
         onSubmit: function(param){
-        	param.operation=operation;
             return $(this).form('validate');
         },
         success: function(result){
@@ -102,7 +96,7 @@ function destroyClub(){
     if (!row) return;
     $.messager.confirm('Confirm','Borrar datos del club. ¿Seguro?',function(r){
         if (r){
-            $.get('database/clubFunctions.php',{operation:'delete',Nombre:row.Nombre},function(result){
+            $.get('database/clubFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
                 if (result.success){
                     $('#clubes-datagrid').datagrid('reload');    // reload the guia data
                 } else {

@@ -12,6 +12,7 @@
                 	class="easyui-validatebox" 
                 	required="true"/>
                 <input name="Dorsal" type="hidden" /> <!-- hide dorsal, as only used for edit and is readonly -->
+                <input id="perros-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
                 <label for="Raza">Raza:</label>

@@ -11,7 +11,7 @@
         		<!-- nombre de la prueba asociada al formulario -->
         		<input id="jornadas-Prueba" type="hidden" name="Prueba"/>
         		<!-- Operacion a realizar con el formulario -->
-        		<input id="jornadas-Operacion" type="hidden" name="Operacion"/>
+        		<input id="jornadas-Operation" type="hidden" name="Operation"/>
         	</div>
             <div class="fitem">
                 <label for="Fecha">Fecha</label>
