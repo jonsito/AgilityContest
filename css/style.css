@@ -30,6 +30,11 @@ body {
     display: table-cell;
 }
 
+#myheader p a:link {  text-decoration:none;color:#00ff00;}      /* unvisited link */
+#myheader p a:visited { text-decoration:none;color:#00ff00;}  /* visited link */
+#myheader p a:hover { text-decoration:none;color:#00ff00;}  /* mouse over link */
+#myheader p a:active { text-decoration:none;color:#00ff00;}  /* selected link */
+
 #myheader span p {
 	font-size: 24pt;
 	color: #ccc;
@@ -78,4 +83,10 @@ body {
 	width: 874px;
 	height: 678px;
 	margin-left: 20px;
+}
+
+img.mainpage{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
