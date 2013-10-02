@@ -125,14 +125,14 @@ function savePrueba(){
 /**
  * Ask for commit new/edit jornada to server
  */
-function savePrueba(){
+function saveJornada(){
 	// take care on bool-to-int translation from checkboxes to database
     $('#jornadas-Grado1').val( $('#jornadas-Grado1').is(':checked')?'1':'0');
     $('#jornadas-Grado2').val( $('#jornadas-Grado2').is(':checked')?'1':'0');
     $('#jornadas-Grado3').val( $('#jornadas-Grado3').is(':checked')?'1':'0');
     $('#jornadas-Equipos').val( $('#jornadas-Equipos').is(':checked')?'1':'0');
     $('#jornadas-PreAgility').val( $('#jornadas-PreAgility').is(':checked')?'1':'0');
-    $('#jornadas-K.O.').val( $('#jornadas-K.O.').is(':checked')?'1':'0');
+    $('#jornadas-KO').val( $('#jornadas-KO').is(':checked')?'1':'0');
     $('#jornadas-Show').val( $('#jornadas-Show').is(':checked')?'1':'0');
     $('#jornadas-Otras').val( $('#jornadas-Otras').is(':checked')?'1':'0');
     $('#jornadas-Cerrada').val( $('#jornadas-Cerrada').is(':checked')?'1':'0');
@@ -164,7 +164,8 @@ function savePrueba(){
 function destroyPrueba(){
     var row = $('#pruebas-datagrid').datagrid('getSelected');
     if (!row) return;
-    $.messager.confirm('Confirm','Borrar datos de la prueba ¿Seguro?',function(r){
+    $.messager.confirm('Confirm',
+    		"<p>Importante:</p><p>Si decide borrar la prueba <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta</p><p>Desea realmente borrar la prueba seleccionada?</p>",function(r){
         if (r){
             $.get('database/pruebaFunctions.php',{operation:'delete',Nombre:row.Nombre},function(result){
                 if (result.success){

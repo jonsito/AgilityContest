@@ -111,8 +111,8 @@
             </div>
             
             <div class="fitem">
-                <label for="K.O." style="width:200px" >Prueba K.O.</label>
-                <input id="jornadas-K.O." name="K.O." class="easyui-checkbox" type="checkbox" />
+                <label for="KO" style="width:200px" >Prueba K.O.</label>
+                <input id="jornadas-KO" name="KO" class="easyui-checkbox" type="checkbox" />
             </div>
             <div class="fitem">
                 <label for="Exhibicion" style="width:200px" >Manga de Exhibici&oacute;n</label>
@@ -172,7 +172,7 @@
             onDblClickRow:function() { 
                 editPrueba();
             },        
-            // especificamos un formateador especial para desplegar la tabla de perros por prueba
+            // especificamos un formateador especial para desplegar la tabla de jornadas por prueba
             detailFormatter:function(index,row){
                 return '<div style="padding:2px"><table id="pruebas-jornada-datagrid-' + index + '"></table></div>';
             },
@@ -216,7 +216,7 @@
                 		{ field:'Grado3',		width:6, sortable:false,   align:'center', title: 'G-III ' },
                 		{ field:'Equipos',		width:6, sortable:false,   align:'center', title: 'Eq.   ' },
                 		{ field:'PreAgility',	width:6, sortable:false,   align:'center', title: 'Pre.  ' },
-                		{ field:'K.O.',			width:6, sortable:false,   align:'center', title: 'K.O.  ' },
+                		{ field:'KO',			width:6, sortable:false,   align:'center', title: 'K.O.  ' },
                 		{ field:'Show',			width:6, sortable:false,   align:'center', title: 'Show. ' },
                 		{ field:'Otras',		width:6, sortable:false,   align:'center', title: 'Otras ' },
                 		{ field:'Cerrada',		width:6, sortable:false,   align:'center', title: 'Cerrada' }
@@ -295,7 +295,7 @@
         $('#pruebas-okBtn').linkbutton();        
         $('#pruebas-okBtn').tooltip({
             position: 'top',
-            content: '<span style="color:#000">Aceptar datos y registrarlos en la BBDD</span>',
+            content: '<span style="color:#000">Aceptar datos. Registrar prueba en la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
         $('#pruebas-cancelBtn').linkbutton();        

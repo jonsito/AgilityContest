@@ -6,7 +6,7 @@
 		$msg=""; // default: no errors
 		do_log("insertJornada:: enter");
 		// componemos un prepared statement
-		$sql ="INSERT INTO Jornadas (Prueba,Nombre,Fecha,Hora,Grado1,Grado2,Grado3,Equipos,PreAgility,K.O.,Show,Otras,Cerrada)
+		$sql ="INSERT INTO Jornadas (Prueba,Nombre,Fecha,Hora,Grado1,Grado2,Grado3,Equipos,PreAgility,KO,Show,Otras,Cerrada)
 			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$conn->prepare($sql);		
 		if (!$stmt) {
@@ -32,7 +32,7 @@
 		$grado3 = (isset($_REQUEST['Grado3']))?intval($_REQUEST['Grado3']):0;
 		$equipos = (isset($_REQUEST['Equipos']))?intval($_REQUEST['Equipos']):0;
 		$preagility = (isset($_REQUEST['PreAgility']))?intval($_REQUEST['PreAgility']):0;
-		$ko = (isset($_REQUEST['K.O.']))?intval($_REQUEST['K.O.']):0;
+		$ko = (isset($_REQUEST['KO']))?intval($_REQUEST['KO']):0;
 		$show = (isset($_REQUEST['Show']))?intval($_REQUEST['Show']):0;
 		$otras = (isset($_REQUEST['Otras']))?intval($_REQUEST['Otras']):0;
 		$cerrada = (isset($_REQUEST['Cerrada']))?intval($_REQUEST['Cerrada']):0;
@@ -60,7 +60,7 @@
 		// componemos un prepared statement
 		$sql ="UPDATE Jornadas 
 				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, Grado1=?, Grado2=?, Grado3=?, 
-					Equipos=?, PreAgility=?, K.O.=?, Show=?, Otras=?, Cerrada=?)
+					Equipos=?, PreAgility=?, KO=?, Show=?, Otras=?, Cerrada=?)
 				WHERE ( ID=? )";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
