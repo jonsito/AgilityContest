@@ -21,8 +21,6 @@
     	// set up operation header content
         $('#Header_Operation').html('<p>Creaci&oacute;n y edici&oacute;n de pruebas</p>');
         
-        // tell jquery to convert declared elements to jquery easyui Objects
-        
         // datos de la tabla de pruebas
         // - tabla
         $('#pruebas-datagrid').datagrid({
@@ -65,20 +63,20 @@
             		method: 'get',
             		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
             		toolbar:  [{
-                		text: 'Borrar jornada',
+                		text: 'A&ntilde;adir jornada',
                 		plain: true,
-            			iconCls: 'icon-remove',
-            			handler: function(){delJornadaFromPrueba(index,row);}
+            			iconCls: 'icon-flag',
+            			handler: function(){addJornadaToPrueba(row);}
             		},{
                     	text: 'Editar jornada',
                     	plain: true,
                 		iconCls: 'icon-edit',
                			handler: function(){editJornadaFromPrueba(index,row);}
             		},{
-                		text: 'A&ntilde;adir jornada',
+                		text: 'Borrar jornada',
                 		plain: true,
-            			iconCls: 'icon-flag',
-            			handler: function(){addJornadaToPrueba(row);}
+            			iconCls: 'icon-remove',
+            			handler: function(){delJornadaFromPrueba(index,row);}
             		}],
            		    pagination: false,
             	    rownumbers: false,
@@ -97,7 +95,7 @@
                 		{ field:'Equipos',		width:6, sortable:false,   align:'center', title: 'Eq.   ' },
                 		{ field:'PreAgility',	width:6, sortable:false,   align:'center', title: 'Pre.  ' },
                 		{ field:'KO',			width:6, sortable:false,   align:'center', title: 'K.O.  ' },
-                		{ field:'Show',			width:6, sortable:false,   align:'center', title: 'Show. ' },
+                		{ field:'Exhibicion',	width:6, sortable:false,   align:'center', title: 'Show  ' },
                 		{ field:'Otras',		width:6, sortable:false,   align:'center', title: 'Otras ' },
                 		{ field:'Cerrada',		width:6, sortable:false,   align:'center', title: 'Cerrada' }
                 	]],

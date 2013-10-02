@@ -13,6 +13,7 @@
                 	required="true"
                 	style="width:325px" />
                 <input id="pruebas-Viejo" name="Viejo" type="hidden" /> <!-- used to allow operator change prueba's name -->
+                <input id="pruebas-Operation" name="Operation" type="hidden" /> <!-- used to store operation type -->
             </div>
             <div class="fitem">
                 <label for="Club">Club:</label>

@@ -8,7 +8,10 @@
                 <input id="jornadas-Nombre" name="Nombre" type="text" class="easyui-validatebox" style="width:250px"/>
             </div>
         	<div class="fitem>
-        		<input type="hidden" name=Jornada/>
+        		<!-- nombre de la prueba asociada al formulario -->
+        		<input id="jornadas-Prueba" type="hidden" name="Prueba"/>
+        		<!-- Operacion a realizar con el formulario -->
+        		<input id="jornadas-Operacion" type="hidden" name="Operacion"/>
         	</div>
             <div class="fitem">
                 <label for="Fecha">Fecha</label>

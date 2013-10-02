@@ -6,8 +6,8 @@
 		$msg=""; // default: no errors
 		do_log("insertJornada:: enter");
 		// componemos un prepared statement
-		$sql ="INSERT INTO Jornadas (Prueba,Nombre,Fecha,Hora,Grado1,Grado2,Grado3,Equipos,PreAgility,KO,Show,Otras,Cerrada)
-			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		$sql ="INSERT INTO Jornadas (Prueba,Nombre,Fecha,Hora,Grado1,Grado2,Grado3,Equipos,PreAgility,KO,Exhibicion,Otras,Cerrada)
+			   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		$stmt=$conn->prepare($sql);		
 		if (!$stmt) {
 			$msg="insertJornada::prepare() failed $conn->error";
@@ -15,7 +15,7 @@
 			return $msg;
 		}
 		$res=$stmt->bind_param('ssssiiiiiiiii',
-				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$show,$otras,$cerrada);
+				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras,$cerrada);
 		if (!$res) {
 			$msg="insertJornada::bind() failed $conn->error";
 			do_log($msg);
@@ -33,7 +33,7 @@
 		$equipos = (isset($_REQUEST['Equipos']))?intval($_REQUEST['Equipos']):0;
 		$preagility = (isset($_REQUEST['PreAgility']))?intval($_REQUEST['PreAgility']):0;
 		$ko = (isset($_REQUEST['KO']))?intval($_REQUEST['KO']):0;
-		$show = (isset($_REQUEST['Show']))?intval($_REQUEST['Show']):0;
+		$exhibicion = (isset($_REQUEST['Exhibicion']))?intval($_REQUEST['Exhibicion']):0;
 		$otras = (isset($_REQUEST['Otras']))?intval($_REQUEST['Otras']):0;
 		$cerrada = (isset($_REQUEST['Cerrada']))?intval($_REQUEST['Cerrada']):0;
 		
@@ -60,7 +60,7 @@
 		// componemos un prepared statement
 		$sql ="UPDATE Jornadas 
 				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, Grado1=?, Grado2=?, Grado3=?, 
-					Equipos=?, PreAgility=?, KO=?, Show=?, Otras=?, Cerrada=?)
+					Equipos=?, PreAgility=?, KO=?, Exhibicion=?, Otras=?, Cerrada=?)
 				WHERE ( ID=? )";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
@@ -69,7 +69,7 @@
 			return $msg;
 		}
 		$res=$stmt->bind_param('ssssiiiiiiiiii',
-				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$show,$otras,$cerrada,$id);
+				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras,$cerrada,$id);
 		if (!$res) {
 			$msg="updateJornada::bind() failed $conn->error";
 			do_log($msg);
