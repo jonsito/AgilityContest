@@ -86,8 +86,32 @@
     $('#jornadas-form').form();
 
     // fechas
-    $('#jornadas-Fecha').datebox({ required: true });
+    $('#jornadas-Fecha').datebox({ 
+        required: true,
+        formatter: function(date) {
+            		var y = date.getFullYear();
+            		var m = date.getMonth()+1;
+            		var d = date.getDate();
+            		return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+        		},
+        parser:  function (s) {
+            		if (!s) return new Date();
+            		var ss = (s.split('-'));
+            		var y = parseInt(ss[0],10);
+            		var m = parseInt(ss[1],10);
+            		var d = parseInt(ss[2],10);
+            		if (!isNaN(y) && !isNaN(m) && !isNaN(d)){
+            		    return new Date(y,m-1,d);
+            		} else {
+            		    return new Date();
+            		}
+        		}
+    });
     $('#jornadas-Fecha').datebox('calendar').calendar({ firstDay:1 });
+    $('#jornadas-Fecha').datebox('options').keyHandler.query = function(q) {
+    	if (q.indexOf('-') >= 0) { q = replaceAll(q, '-', '/');	}
+    	$(this).datebox('setValue', q);
+    }
     // hora
     $('#jornadas-Hora').timespinner({
         required: true

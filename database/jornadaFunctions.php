@@ -26,7 +26,7 @@
 		$id = (isset($_REQUEST['ID']))?intval($_REQUEST['ID']):0; // primary key not null
 		$prueba = strval($_REQUEST['Prueba']); // foreign key not null
 		$nombre = (isset($_REQUEST['Nombre']))?strval($_REQUEST['Nombre']):null;  // Name or comment for jornada
-		$fecha = strval($_REQUEST['Fecha']); // not null
+		$fecha = str_replace("/","-",strval($_REQUEST['Fecha'])); // mysql requires format YYYY-MM-DD
 		$hora = strval($_REQUEST['Hora']); //not null
 		$grado1 = (isset($_REQUEST['Grado1']))?intval($_REQUEST['Grado1']):0;
 		$grado2 = (isset($_REQUEST['Grado2']))?intval($_REQUEST['Grado2']):0;
@@ -39,7 +39,7 @@
 		$cerrada = (isset($_REQUEST['Cerrada']))?intval($_REQUEST['Cerrada']):0;
 		
 		do_log("insertJornada:: retrieved data from web client");
-		do_log("Prueba: $prueba Nombre: $nombre Fecha: $fecha");
+		do_log("insertJornada: ID: $id Prueba: $prueba Nombre: $nombre Fecha: $fecha Hora: $hora");
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
@@ -69,7 +69,7 @@
 			do_log($msg);
 			return $msg;
 		}
-		$res=$stmt->bind_param('sssiiiiiiiiiii',
+		$res=$stmt->bind_param('ssssiiiiiiiiii',
 				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras,$cerrada,$id);
 		if (!$res) {
 			$msg="updateJornada::bind() failed $conn->error";
@@ -81,7 +81,7 @@
 		$id = (isset($_REQUEST['ID']))?intval($_REQUEST['ID']):0; // primary key not null
 		$prueba = strval($_REQUEST['Prueba']); // foreign key not null -----SHOULDN'T CHANGE ANYWAY----
 		$nombre = (isset($_REQUEST['Nombre']))?strval($_REQUEST['Nombre']):null;  // Name or comment for jornada
-		$fecha = strval($_REQUEST['Fecha']); // not null
+		$fecha = str_replace("/","-",strval($_REQUEST['Fecha'])); // mysql requires format YYYY-MM-DD
 		$hora = strval($_REQUEST['Hora']); //not null
 		$grado1 = (isset($_REQUEST['Grado1']))?intval($_REQUEST['Grado1']):0;
 		$grado2 = (isset($_REQUEST['Grado2']))?intval($_REQUEST['Grado2']):0;
@@ -93,6 +93,8 @@
 		$otras = (isset($_REQUEST['Otras']))?intval($_REQUEST['Otras']):0;
 		$cerrada = (isset($_REQUEST['Cerrada']))?intval($_REQUEST['Cerrada']):0;
 		
+		do_log("updateJornada:: retrieved data from web client");
+		do_log("updateJornada: ID: $id Prueba: $prueba Nombre: $nombre Fecha: $fecha Hora: $hora");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		do_log("updateJornada:: actualizadas $stmt->affected_rows filas");
@@ -108,11 +110,18 @@
 		$msg="";
 		do_log("deleteJornada:: enter");
 		$id = (isset($_REQUEST['ID']))?intval($_REQUEST['ID']):0; // primary key not null
-		$res= $conn->query("DELETE FROM Jornadas WHERE (ID='$id')");
+		// si la jornada esta cerrada en lugar de borrarla la movemos a "-- Sin asignar --"
+		$res= $conn->query("UPDATE Jornadas SET Prueba='-- Sin asignar --' WHERE ( (ID=$id) AND (Cerrada=1) );");
+		if (!$res) {
+			$msg="deleteJornada::query(update) Error: $conn->error";
+			do_log($msg);
+		} else do_log("deleteJornada:: query(update) resulted: $res");
+		// si la jornada no está cerrada, directamente la borramos
+		$res= $conn->query("DELETE FROM Jornadas WHERE ( (ID=$id) AND (Cerrada=0) );");
 		if (!$res) {
 			$msg="deleteJornada::query(delete) Error: $conn->error";
 			do_log($msg);
-		} else do_log("deleteJornada:: execute() resulted: $res");
+		} else do_log("deleteJornada:: query(delete) resulted: $res");
 		return $msg;
 	}
 	

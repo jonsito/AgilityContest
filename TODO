@@ -2,5 +2,7 @@
 - implement addGuiaToClub()
 - solve expand grid rendering issues
 - add "pagado" field to inscripciones
-
+DONE - Do not delete "closed" jornadas; just move to "-- Sin Asignar --" Prueba
+DONE- AddJornadaToPrueba no pone bien la fecha
+- after insert/update/delete jornadasbyprueba no actualiza contenido
 - More and more... 

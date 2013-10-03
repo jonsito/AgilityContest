@@ -30,8 +30,17 @@ function editJornadaFromPrueba(index,prueba) {
     // todo ok: abrimos ventana de dialogo
     $('#jornadas-dialog').dialog('open').dialog('setTitle','Modificar datos de la jornada');
     $('#jornadas-form').form('load',row);
+    // fix date value value into datebox
     // take care on int-to-bool translation for checkboxes
-    $('#jornada-Cerrada').prop('checked',(row.Cerrada==1)?true:false);
+    $('#jornadas-Grado1').prop('checked',(row.Grado1==1)?true:false);
+    $('#jornadas-Grado2').prop('checked',(row.Grado2==1)?true:false);
+    $('#jornadas-Grado3').prop('checked',(row.Grado3==1)?true:false);
+    $('#jornadas-Equipos').prop('checked',(row.Equipos==1)?true:false);
+    $('#jornadas-PreAgility').prop('checked',(row.PreAgility==1)?true:false);
+    $('#jornadas-KO').prop('checked',(row.KO==1)?true:false);
+    $('#jornadas-Exhibicion').prop('checked',(row.Exhibicion==1)?true:false);
+    $('#jornadas-Otras').prop('checked',(row.Otras==1)?true:false);
+    $('#jornadas-Cerrada').prop('checked',(row.Cerrada==1)?true:false);
 	$('#jornadas-Prueba').val(prueba.Nombre);
 	$('#jornadas-Operation').val('update');
 	$('#jornadas-PruebaIndex').val(index);
@@ -55,7 +64,7 @@ function delJornadaFromPrueba(index,prueba) {
         if (r){
             $.get('database/jornadaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
-                    $('#pruebas-jornada-datagrid-'+index).datagrid('reload');    // reload the pruebas data
+                    $('#pruebas-jornadas-datagrid-'+index).datagrid('reload');    // reload the pruebas data
                 } else {
                     $.messager.show({    // show error message
                         title: 'Error',
@@ -81,6 +90,7 @@ function saveJornada(){
     $('#jornadas-Exhibicion').val( $('#jornadas-Exhibicion').is(':checked')?'1':'0');
     $('#jornadas-Otras').val( $('#jornadas-Otras').is(':checked')?'1':'0');
     $('#jornadas-Cerrada').val( $('#jornadas-Cerrada').is(':checked')?'1':'0');
+    // handle fecha
     // do normal submit
     $('#jornadas-form').form('submit',{
         url: 'database/jornadaFunctions.php',

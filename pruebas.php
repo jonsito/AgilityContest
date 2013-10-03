@@ -32,6 +32,7 @@
             rownumbers: true,
             fitColumns: true,
             singleSelect: true,
+            height: 'auto',
             view: detailview,
             columns: [[
             	{ field:'Nombre',		width:20, sortable:true,	title: 'Nombre de la prueba:' },
@@ -85,7 +86,7 @@
             	    loadMsg: '',
             	    height: 'auto',
             	    columns: [[
-            	        { field:'Prueba',		hidden:true },
+                	    { field:'Prueba',		hidden:true }, // nombre de la prueba
                 	    { field:'ID',			width:4, sortable:true,		align:'center', title: 'ID'},
                 		{ field:'Nombre',		width:20, sortable:false,   title: 'Nombre/Comentario' },
                 		{ field:'Fecha',		width:12, sortable:true,	title: 'Fecha:' },
@@ -109,14 +110,20 @@
                         editJornadaFromPrueba(prueba_index,prueba_data);
                     },
                     onResize:function(){
-                        $('#pruebas-datagrid').datagrid('fixDetailRowHeight',prueba_index);
+                    	var idx=$('#jornadas-PruebaIndex').val();
+                        $('#pruebas-jornada-datagrid-'+idx).datagrid('fixDetailRowHeight',idx);
+                        $('#pruebas-datagrid').datagrid('fixDetailRowHeight',idx);
                     },
                     onLoadSuccess:function(){
                         setTimeout(function(){
+                        	var idx=$('#jornadas-PruebaIndex').val();
+                            $('#pruebas-jornada-datagrid-'+idx).datagrid('fixDetailRowHeight',idx);
                             $('#pruebas-datagrid').datagrid('fixDetailRowHeight',prueba_index);
                         },0);
                     } 
             	}); // end of pruebas-jornada-datagrid
+            	var idx=$('#jornadas-PruebaIndex').val();
+                $('#pruebas-jornada-datagrid-'+idx).datagrid('fixDetailRowHeight',idx);
             	$('#pruebas-datagrid').datagrid('fixDetailRowHeight',prueba_index);
             } // end of onExpandRow
         }); // end of pruebas-datagrid
