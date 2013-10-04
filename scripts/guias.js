@@ -4,7 +4,7 @@
  *@param guia: nombre del guia
  */
 function addPerroToGuia(guia) {
-	$('#perros-dialog').dialog('open').dialog('setTitle','Asignar nuevo perro a '+guia.Nombre);
+	$('#perros-dialog').dialog('open').dialog('setTitle','Crear un nuevo perro y asignarlo a '+guia.Nombre);
 	$('#perros-form').form('clear'); // erase form
 	$('#perros-Guia').combogrid({ 'value': guia.Nombre} ); 
 	$('#perros-Guia').combogrid({ 'readonly': true }); // mark guia as read-only
