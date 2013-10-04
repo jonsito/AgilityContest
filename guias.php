@@ -13,6 +13,7 @@
     </div>
     
 	<?php include_once("dialogs/dlg_guias.inc"); ?>
+	<?php include_once("dialogs/dlg_perros.inc"); ?>
     
     <script type="text/javascript">
     

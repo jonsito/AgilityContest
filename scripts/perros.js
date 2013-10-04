@@ -15,6 +15,7 @@ function doSearchPerro() {
 function newDog(){
 	$('#perros-dialog').dialog('open').dialog('setTitle','Nuevo perro');
 	$('#perros-form').form('clear');
+	$('#perros-Guia').combogrid({ 'readonly': false }); // mark guia as read-only
 	$('#perros-Operation').val('insert');
 }
 
@@ -23,11 +24,11 @@ function newDog(){
  */
 function editDog(){
     var row = $('#perros-datagrid').datagrid('getSelected');
-    if (row){
-        $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro');
-        $('#perros-form').form('load',row);
-    	$('#perros-Operation').val('update');
-    }
+    if (!row) return;
+    $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro');
+    $('#perros-form').form('load',row);
+	$('#perros-Guia').combogrid({ 'readonly': false }); // mark guia as read-only
+    $('#perros-Operation').val('update');
 }
 
 /**
@@ -48,8 +49,10 @@ function saveDog(){
                     msg: result.errorMsg
                 });
             } else {
-                $('#perros-dialog').dialog('close');        // close the dialog
+            	var guia=$('#perros-Guia').combogrid('getValue');
                 $('#perros-datagrid').datagrid('reload');    // reload the dog data
+                $('#perrosbyguia-datagrid-'+replaceAll(' ','_',guia)).datagrid('reload',{Guia:guia});    // reload the dog data inside guias menu, if any
+                $('#perros-dialog').dialog('close');        // close the dialog
             }
         }
     });

@@ -4,15 +4,26 @@
  *@param guia: nombre del guia
  */
 function addPerroToGuia(guia) {
-	alert('TODO: Asignar perros a '+guia);
+	$('#perros-dialog').dialog('open').dialog('setTitle','Asignar nuevo perro a '+guia.Nombre);
+	$('#perros-form').form('clear'); // erase form
+	$('#perros-Guia').combogrid({ 'value': guia.Nombre} ); 
+	$('#perros-Guia').combogrid({ 'readonly': true }); // mark guia as read-only
+	$('#perros-Operation').val('insert');
 }
+
 /**
 * Abre el formulario para anyadir perros a un guia
 *@param index: indice que ocupa el guia en la entrada principal
 *@param guia: nombre del guia
 */
 function editPerroFromGuia(guia) {
-	alert('TODO: Editar perro del '+guia);
+    var row = $('#perrosbyguia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('getSelected');
+    if (!row) return; // no dog selected
+    $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro asignado a '+guia.Nombre);
+    $('#perros-form').form('load',row);
+	$('#perros-Guia').combogrid({ 'value': guia.Nombre} ); 
+	$('#perros-Guia').combogrid({ 'readonly': true }); // mark guia as read-only
+    $('#perros-Operation').val('update');
 }
 
 /**

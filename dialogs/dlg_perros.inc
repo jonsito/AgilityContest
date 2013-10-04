@@ -32,7 +32,7 @@
                 		name="Categoria" 
                 		class="easyui-combobox" 
                 		style="width:155px"
-                		required="true" />
+                		required="true" ></select>
             </div>
             <div class="fitem">
                 <label for="Grado">Grado:</label>
@@ -40,11 +40,11 @@
                 		name="Grado" 
                 		class="easyui-combobox" 
                 		style="width:155px"
-                		required="true" />
+                		required="true" ></select>
             </div>
             <div class="fitem">
                 <label for="Guia">Nombre del Gu&iacute;a:</label>
-                <select id="perros-Guia" name="Guia" class="easyui-combogrid" style="width:300px"/>
+                <select id="perros-Guia" name="Guia" class="easyui-combogrid" style="width:300px"></select>
             </div>
         </form>
     	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
