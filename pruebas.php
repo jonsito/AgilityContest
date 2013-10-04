@@ -52,7 +52,7 @@
         	onDblClickRow:function() { editPrueba(); },
             // especificamos un formateador especial para desplegar la tabla de jornadas por prueba
             detailFormatter:function(index,row){
-                return '<div style="padding:2px"><table id="jornadas-datagrid-' + row.Nombre + '"/></div>';
+                return '<div style="padding:2px"><table id="jornadas-datagrid-' + replaceAll(' ','_',row.Nombre) + '"/></div>';
             },
             onExpandRow: function(index,row) { showJornadasByPrueba(index,row); }
             
@@ -92,7 +92,7 @@
 
         // ------------- submenu de jornadas asociadas a una prueba --------------------- //
         function showJornadasByPrueba (index,prueba) {
-            $('#jornadas-datagrid-'+prueba.Nombre).datagrid({
+            $('#jornadas-datagrid-'+replaceAll(' ','_',prueba.Nombre)).datagrid({
         		title: 'Jornadas de que consta la prueba '+prueba.Nombre,
         		// url: 'database/select_JornadasByPrueba.php?Prueba='+prueba.Nombre,
         		url: 'database/select_JornadasByPrueba.php',
@@ -119,7 +119,7 @@
         	    rownumbers: false,
         	    fitColumns: true,
         	    singleSelect: true,
-        	    loadMsg: '',
+        	    loadMsg: 'Loading list of journeys',
         	    height: 'auto',
         	    columns: [[
             	    { field:'Prueba',		hidden:true }, // nombre de la prueba

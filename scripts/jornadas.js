@@ -17,7 +17,7 @@ function addJornadaToPrueba(prueba) {
  */
 function editJornadaFromPrueba(prueba) {
 	// obtenemos datos de la JORNADA seleccionada
-    var row = $('#jornadas-datagrid-'+prueba.Nombre).datagrid('getSelected');
+    var row = $('#jornadas-datagrid-'+replaceAll(' ','_',prueba.Nombre)).datagrid('getSelected');
     if (!row) return; // no hay ninguna jornada seleccionada. retornar
     if (row.Cerrada==true) { // no permitir la edicion de pruebas cerradas
         $.messager.show({    
@@ -50,7 +50,7 @@ function editJornadaFromPrueba(prueba) {
  *@prueba objeto que contiene los datos de la prueba
  */
 function delJornadaFromPrueba(prueba) {
-    var row = $('#jornadas-datagrid-'+prueba.Nombre).datagrid('getSelected');
+    var row = $('#jornadas-datagrid-'+replaceAll(' ','_',prueba.Nombre)).datagrid('getSelected');
     if (!row) return; // no row selected
     if (prueba.Cerrada==true) {
         $.messager.show({    // show error message
@@ -62,7 +62,7 @@ function delJornadaFromPrueba(prueba) {
         if (r){
             $.get('database/jornadaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
-                    $('#jornadas-datagrid-'+prueba.Nombre).datagrid('reload');    // reload the pruebas data
+                    $('#jornadas-datagrid-'+replaceAll(' ','_',prueba.Nombre)).datagrid('reload');    // reload the pruebas data
                 } else {
                     $.messager.show({    // show error message
                         title: 'Error',
@@ -106,7 +106,7 @@ function saveJornada(){
             } else {
             	var prueba=$('#jornadas-Prueba').val();
                 $('#jornadas-dialog').dialog('close');        // close the dialog
-                $('#jornadas-datagrid-'+prueba).datagrid('reload',{Prueba: prueba});    // reload the prueba data
+                $('#jornadas-datagrid-'+replaceAll(' ','_',prueba)).datagrid('reload',{Prueba: prueba});    // reload the prueba data
             }
         }
     });

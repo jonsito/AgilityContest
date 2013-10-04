@@ -1,19 +1,20 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE GUIAS -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="guias-datagrid" class="easyui-datagrid">    <!-- BARRA DE TAREAS -->
-    	<div id="guias-toolbar">
-    	    <a id="guias-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newGuia()">Nuevo Gu&iacute;a</a>
-    	    <a id="guias-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editGuia()">Editar Gu&iacute;a</a>
-    	    <a id="guias-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyGuia()">Borrar gu&iacute;a</a>
-    	    <input id="guias-search" type="text" onchange="doSearchGuia()"/> 
-    	    <a id="guias-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchGuia()">Buscar</a>
-    	</div>
+    <table id="guias-datagrid" class="easyui-datagrid">
     </table>
+    <!-- BARRA DE TAREAS -->
+    <div id="guias-toolbar">
+        <a id="guias-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newGuia()">Nuevo Gu&iacute;a</a>
+        <a id="guias-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editGuia()">Editar Gu&iacute;a</a>
+        <a id="guias-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyGuia()">Borrar gu&iacute;a</a>
+        <input id="guias-search" type="text" onchange="doSearchGuia()"/> 
+        <a id="guias-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchGuia()">Buscar</a>
+    </div>
     
 	<?php include_once("dialogs/dlg_guias.inc"); ?>
     
-    <script language="javascript">
+    <script type="text/javascript">
     
     	// set up operation header content
         $('#Header_Operation').html('<p>Gesti&oacute;n de Base de Datos de Gu&iacute;as</p>');
@@ -28,10 +29,12 @@
         	method: 'get',
             toolbar: '#guias-toolbar',
             pagination: true,
-            rownumbers: true,
-            fitColumns: true,
+            rownumbers: false,
             singleSelect: true,
+            fitColumns: true,
+            expansible: true,
             view: detailview,
+            height: 'auto',
             columns: [[
             	{ field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
             	{ field:'Telefono',		width:15, sortable:true,	title: 'Tel&eacute;fono' },
@@ -40,68 +43,21 @@
                 { field:'Observaciones',width:15,					title: 'Observaciones'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-            rowStyler:function(index,row) { 
-                return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+            rowStyler:function(idx,row) { 
+                return ((idx&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
             },
         	// on double click fireup editor dialog
             onDblClickRow:function() { 
                 editGuia();
             },        
             // especificamos un formateador especial para desplegar la tabla de perros por guia
-            detailFormatter:function(index,row){
-                return '<div style="padding:2px"><table id="guias-dog-datagrid-' + index + '"></table></div>';
+            detailFormatter:function(idx,row){
+                return '<div style="padding:2px"><table id="perrosbyguia-datagrid-' + replaceAll(' ','_',row.Nombre) + '"></table></div>';
             },
-            
-            onExpandRow: function(index,row){
-            	// - sub tabla de perros asignados a un guia
-            	$('#guias-dog-datagrid-'+index).datagrid({
-            		title: 'Perros registrados a nombre de '+row.Nombre,
-            		url: 'database/select_PerrosByGuia.php?Guia='+row.Nombre,
-            		method: 'get',
-            		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
-            		toolbar:  [{
-                		text: 'Borrar perro',
-                		plain: true,
-            			iconCls: 'icon-remove',
-            			handler: function(){delPerroFromGuia(index,row.Nombre);}
-            		},'-',{
-                		text: 'A&ntilde;adir perro',
-                		plain: true,
-            			iconCls: 'icon-dog',
-            			handler: function(){addPerroToGuia(index,row.Nombre);}
-            		}],
-           		    pagination: false,
-            	    rownumbers: false,
-            	    fitColumns: true,
-            	    singleSelect: true,
-            	    loadMsg: '',
-            	    height: 'auto',
-            	    columns: [[
-                	    { field:'Dorsal',	width:15, sortable:true,	title: 'Dorsal'},
-                		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
-                		{ field:'Categoria',width:15, sortable:false,	title: 'Cat.' },
-                		{ field:'Grado',	width:25, sortable:false,   title: 'Grado' },
-                		{ field:'Raza',		width:25, sortable:false,   title: 'Raza' },
-                		{ field:'LOE_RRC',	width:25, sortable:true,    title: 'LOE / RRC' },
-                		{ field:'Licencia',	width:25, sortable:true,    title: 'Licencia' }
-                	]],
-                	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-                	rowStyler:function(index,row) { 
-                	    return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-                	},
-                    onResize:function(){
-                        $('#guias-datagrid').datagrid('fixDetailRowHeight',index);
-                    },
-                    onLoadSuccess:function(){
-                        setTimeout(function(){
-                            $('#guias-datagrid').datagrid('fixDetailRowHeight',index);
-                        },0);
-                    } 
-            	}); // end of guias-dog-datagrid
-            	$('#guias-datagrid').datagrid('fixDetailRowHeight',index);
-            } // end of onExpandRow
+            onExpandRow: function(idx,row) { showPerrosByGuia(idx,row); },
+
         }); // end of guias-datagrid
-         
+        
         // - botones de la toolbar de la tabla
         $('#guias-newBtn').linkbutton(); // nuevo guia        
         $('#guias-newBtn').tooltip({
@@ -143,4 +99,64 @@
             content: '<span style="color:#000">Eliminar asignaci&oacute;n del perro al gu&iacute;a</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
+
+		// mostrar los perros asociados a un guia
+        function showPerrosByGuia(index,guia){
+        	// - sub tabla de perros asignados a un guia
+        	$('#perrosbyguia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid({
+        		title: 'Perros registrados a nombre de '+guia.Nombre,
+        		url: 'database/select_PerrosByGuia.php',
+        		queryParams: { Guia: guia.Nombre },
+        		method: 'get',
+        		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
+        		toolbar:  [{
+            		text: 'Borrar perro',
+            		plain: true,
+        			iconCls: 'icon-remove',
+        			handler: function(){delPerroFromGuia(guia);}
+        		},{
+                	text: 'Editar datos',
+                	plain: true,
+            		iconCls: 'icon-edit',
+           			handler: function(){editPerroFromGuia(guia);}
+        		},{
+            		text: 'A&ntilde;adir perro',
+            		plain: true,
+        			iconCls: 'icon-dog',
+        			handler: function(){addPerroToGuia(guia);}
+        		}],
+       		    pagination: false,
+        	    rownumbers: false,
+        	    fitColumns: true,
+        	    singleSelect: true,
+        	    loadMsg: 'Loading list of dogs',
+        	    height: 'auto',
+        	    columns: [[
+            	    { field:'Dorsal',	width:15, sortable:true,	title: 'Dorsal'},
+            		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
+            		{ field:'Categoria',width:15, sortable:false,	title: 'Cat.' },
+            		{ field:'Grado',	width:25, sortable:false,   title: 'Grado' },
+            		{ field:'Raza',		width:25, sortable:false,   title: 'Raza' },
+            		{ field:'LOE_RRC',	width:25, sortable:true,    title: 'LOE / RRC' },
+            		{ field:'Licencia',	width:25, sortable:true,    title: 'Licencia' }
+            	]],
+            	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+            	rowStyler:function(idx,row) { 
+            	    return ((idx&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+            	},
+            	// on double click fireup editor dialog
+                onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
+                    editPerroFromGuia(guia);
+                },
+                onResize:function(){
+                    $('#guias-datagrid').datagrid('fixDetailRowHeight',index);
+                },
+                onLoadSuccess:function(){
+                    setTimeout(function(){
+                        $('#guias-datagrid').datagrid('fixDetailRowHeight',index);
+                    },0);
+                } 
+        	}); // end of perrosbyguia-datagrid-Nombre_del_Guia
+        	$('#guias-datagrid').datagrid('fixDetailRowHeight',index);
+        } // end of onExpandRow
 	</script>
