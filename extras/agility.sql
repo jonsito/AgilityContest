@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 02-10-2013 a las 15:22:24
+-- Tiempo de generación: 04-10-2013 a las 14:07:12
 -- Versión del servidor: 5.5.32-0ubuntu0.12.04.1
 -- Versión de PHP: 5.3.10-1ubuntu3.8
 
@@ -591,7 +591,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 --
 -- Estructura de tabla para la tabla `Inscripciones`
 --
--- Creación: 02-10-2013 a las 07:07:57
+-- Creación: 04-10-2013 a las 12:06:26
 --
 
 DROP TABLE IF EXISTS `Inscripciones`;
@@ -602,6 +602,7 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
   `Celo` tinyint(1) NOT NULL DEFAULT '0',
   `Observaciones` varchar(255) DEFAULT NULL,
   `Equipo` int(4) DEFAULT NULL,
+  `Pagado` int(4) NOT NULL DEFAULT '12',
   PRIMARY KEY (`ID`),
   KEY `Dorsal` (`Dorsal`),
   KEY `Jornada` (`Jornada`),
@@ -644,7 +645,7 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `Prueba` (`Prueba`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
 
 --
 -- RELACIONES PARA LA TABLA `Jornadas`:
@@ -657,9 +658,13 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
 --
 
 INSERT INTO `Jornadas` (`ID`, `Prueba`, `Nombre`, `Fecha`, `Hora`, `Grado1`, `Grado2`, `Grado3`, `Equipos`, `PreAgility`, `KO`, `Exhibicion`, `Otras`, `Cerrada`) VALUES
-(3, 'test', '', '2013-10-05', '15:00:00', 1, 1, 1, 0, 1, 0, 0, 0, 0),
+(3, 'test', 'test3 holamundo', '2001-02-03', '00:00:15', 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (4, 'test', '', '2013-10-06', '09:00:00', 1, 1, 1, 0, 1, 0, 0, 0, 1),
-(10, 'test2', 'sabado', '0000-00-00', '23:00:00', 1, 1, 1, 0, 1, 0, 0, 0, 0);
+(10, 'test2', 'sabado', '2013-10-03', '00:01:00', 1, 1, 1, 1, 1, 1, 1, 1, 0),
+(12, 'test2', 'undostrescuatro', '2013-11-01', '12:34:00', 1, 0, 1, 0, 0, 0, 1, 0, 0),
+(13, '-- Sin asignar --', 'test3', '0000-00-00', '00:00:23', 1, 0, 1, 0, 1, 0, 1, 0, 1),
+(16, 'test', 'sabado', '2013-10-01', '23:00:00', 1, 1, 0, 0, 0, 0, 0, 0, 0),
+(17, 'test', 'domingo2', '2013-10-04', '23:00:00', 0, 0, 0, 1, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1291,8 +1296,9 @@ CREATE TABLE IF NOT EXISTS `Pruebas` (
 
 INSERT INTO `Pruebas` (`Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`, `Observaciones`, `Cerrada`) VALUES
 ('-- Sin asignar --', '-- Sin asignar --', 'Somewhere over the rainbow...', '', '', 'NO BORRAR ESTA ENTRADA. SE USARA PARA AQUELLAS JORNADAS QUE NO TENGAN PRUEBA ASIGNADA', 1),
-('test', 'W.E.L.P.E.', 'Polideportivo "La Canaleja"', NULL, NULL, 'Esto es una prueba', 0),
-('test2', 'Agilcan', 'San Martin de la Vega', '', '', 'pepe', 0);
+('test', 'W.E.L.P.E.', 'Polideportivo "La Canaleja"', '', '', 'Esto es una prueba', 0),
+('test2', 'Agilcan', 'San Martin de la Vega', '', '', 'pepe', 0),
+('test3', 'Camu', '', '', '', '', 0);
 
 -- --------------------------------------------------------
 
