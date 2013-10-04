@@ -3,10 +3,11 @@
  * Recalcula el formulario de pruebas anyadiendo parametros de busqueda
  */
 function doSearchPrueba() {
+	var includeClosed= $('#pruebas-openBox').is(':checked')?'1':'0'
 	// reload data adding search criteria
     $('#pruebas-datagrid').datagrid('load',{
         where: $('#pruebas-search').val(),
-        cerrada: $('#pruebas-openBox').val()
+        closed: includeClosed
     });
 }
 

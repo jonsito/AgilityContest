@@ -2,13 +2,12 @@
  * Abre el formulario para jornadas a una prueba
  *@param prueba objeto que contiene los datos de la prueba
  */
-function addJornadaToPrueba(index,prueba) {
+function addJornadaToPrueba(prueba) {
 	myPrueba=prueba;
 	$('#jornadas-dialog').dialog('open').dialog('setTitle','A&ntilde;adir jornada a la prueba '+prueba.Nombre);
 	$('#jornadas-form').form('clear');
 	$('#jornadas-Prueba').val(prueba.Nombre);
 	$('#jornadas-Operation').val('insert');
-	$('#jornadas-PruebaIndex').val(index);
 }
 
 /**
@@ -16,9 +15,9 @@ function addJornadaToPrueba(index,prueba) {
  *@param index: indice que ocupa el guia en la entrada principal
  *@param prueba objeto que contiene los datos de la prueba
  */
-function editJornadaFromPrueba(index,prueba) {
-	// obtenemos datos de la jo	RNADA seleccionada
-    var row = $('#pruebas-jornada-datagrid-'+index).datagrid('getSelected');
+function editJornadaFromPrueba(prueba) {
+	// obtenemos datos de la JORNADA seleccionada
+    var row = $('#jornadas-datagrid-'+prueba.Nombre).datagrid('getSelected');
     if (!row) return; // no hay ninguna jornada seleccionada. retornar
     if (row.Cerrada==true) { // no permitir la edicion de pruebas cerradas
         $.messager.show({    
@@ -43,7 +42,6 @@ function editJornadaFromPrueba(index,prueba) {
     $('#jornadas-Cerrada').prop('checked',(row.Cerrada==1)?true:false);
 	$('#jornadas-Prueba').val(prueba.Nombre);
 	$('#jornadas-Operation').val('update');
-	$('#jornadas-PruebaIndex').val(index);
 }
 
 /**
@@ -51,8 +49,8 @@ function editJornadaFromPrueba(index,prueba) {
  *@param indice de la fila (jornada) afectada
  *@prueba objeto que contiene los datos de la prueba
  */
-function delJornadaFromPrueba(index,prueba) {
-    var row = $('#pruebas-jornada-datagrid-'+index).datagrid('getSelected');
+function delJornadaFromPrueba(prueba) {
+    var row = $('#jornadas-datagrid-'+prueba.Nombre).datagrid('getSelected');
     if (!row) return; // no row selected
     if (prueba.Cerrada==true) {
         $.messager.show({    // show error message
@@ -64,7 +62,7 @@ function delJornadaFromPrueba(index,prueba) {
         if (r){
             $.get('database/jornadaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
-                    $('#pruebas-jornadas-datagrid-'+index).datagrid('reload');    // reload the pruebas data
+                    $('#jornadas-datagrid-'+prueba.Nombre).datagrid('reload');    // reload the pruebas data
                 } else {
                     $.messager.show({    // show error message
                         title: 'Error',
@@ -106,9 +104,9 @@ function saveJornada(){
                     msg: result.errorMsg
                 });
             } else {
-            	var index=$('#jornadas-PruebaIndex').val();
+            	var prueba=$('#jornadas-Prueba').val();
                 $('#jornadas-dialog').dialog('close');        // close the dialog
-                $('#pruebas-jornada-datagrid'+index).datagrid('reload');    // reload the prueba data
+                $('#jornadas-datagrid-'+prueba).datagrid('reload',{Prueba: prueba});    // reload the prueba data
             }
         }
     });

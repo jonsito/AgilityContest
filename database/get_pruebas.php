@@ -8,7 +8,8 @@
 	$sort = isset($_GET['sort']) ? strval($_GET['sort']) : 'Nombre';
 	$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
 	$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
-	$closed = isset($_GET['cerrada'])? intval($_GET['cerrada']) : 0;
+	do_log("closed is: ".$_GET['closed']);
+	$closed = isset($_GET['closed'])? intval($_GET['closed']) : 0;
 	$where = '';
 	if ($search!=='') {
 		if ($closed==0)" WHERE (
@@ -40,6 +41,7 @@
 	$result["total"] = $row[0];
 	// second query to retrieve $rows starting at $offset
 	$str="SELECT * FROM Pruebas $where ORDER BY $sort $order LIMIT $offset,$rows";
+	do_log("get_pruebas() query is: \n$str");
 	$rs=$conn->query($str);
 	if (!$rs) {
 		$err="get_pruebas::select query() error $conn->error";

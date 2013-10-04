@@ -109,7 +109,7 @@
     });
     $('#jornadas-Fecha').datebox('calendar').calendar({ firstDay:1 });
     $('#jornadas-Fecha').datebox('options').keyHandler.query = function(q) {
-    	if (q.indexOf('-') >= 0) { q = replaceAll(q, '-', '/');	}
+    	if (q.indexOf('-') >= 0) { q = replaceAll('-', '/',q);	}
     	$(this).datebox('setValue', q);
     }
     // hora
