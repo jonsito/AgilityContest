@@ -1,21 +1,20 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE CLUBES -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="clubes-datagrid" class="easyui-datagrid">     
+    <table id="clubes-datagrid" class="easyui-datagrid"></table>
 	<!-- BARRA DE TAREAS -->
-    	<div id="clubes-toolbar">
-    	    <a id="clubes-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newClub()">Nuevo club</a>
-    	    <a id="clubes-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editClub()">Editar club</a>
-    	    <a id="clubes-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyClub()">Borrar club</a>
-    	    <input id="clubes-search" type="text" onchange="doSearchClub()"/> 
-    	    <a id="clubes-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchClub()">Buscar</a>
-    	</div>   	
-    </table>
+    <div id="clubes-toolbar">
+        <a id="clubes-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newClub()">Nuevo club</a>
+        <a id="clubes-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editClub()">Editar club</a>
+        <a id="clubes-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyClub()">Borrar club</a>
+        <input id="clubes-search" type="text" onchange="doSearchClub()"/> 
+        <a id="clubes-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchClub()">Buscar</a>
+    </div>   
 
     <?php include_once("dialogs/dlg_clubes.inc")?>
 
     
-    <script language="javascript">
+    <script type="text/javascript">
 
     	// set up operation header content
         $('#Header_Operation').html('<p>Gesti&oacute;n de Base de Datos de Clubes</p>');

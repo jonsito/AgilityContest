@@ -12,6 +12,13 @@
         <a id="guias-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchGuia()">Buscar</a>
     </div>
     
+    <!-- BARRA DE TAREAS DEL SUBMENU-->
+    <div id="perrosbyguia-toolbar">
+        <a id="perrosbyguia-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-dog" plain="true" onclick="addPerroToGuia(guia)">Nuevo perrp</a>
+        <a id="perrosbyguia-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="EditPerroFromGuia(guia)">Editar perro</a>
+        <a id="perrosbyguia-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="delPerroFromGuia(guia)">Borrar perro</a>
+    </div>
+    
 	<?php include_once("dialogs/dlg_guias.inc"); ?>
 	<?php include_once("dialogs/dlg_perros.inc"); ?>
     
@@ -87,19 +94,8 @@
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        // botones de los sub-formularios
-        $('#guias-addPerroBtn').linkbutton(); // lista de perros del guia
-        $('#guias-addPerroBtn').tooltip({
-            position: 'top',
-            content: '<span style="color:#000">Asignar un nuevo perro al guia</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-        });        
-        $('#guias-delPerroBtn').linkbutton(); // lista de perros del guia
-        $('#guias-delPerroBtn').tooltip({
-            position: 'top',
-            content: '<span style="color:#000">Eliminar asignaci&oacute;n del perro al gu&iacute;a</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-        });
+    	
+
 
 		// mostrar los perros asociados a un guia
         function showPerrosByGuia(index,guia){
@@ -110,22 +106,23 @@
         		queryParams: { Guia: guia.Nombre },
         		method: 'get',
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
-        		toolbar:  [{
-            		text: 'Borrar perro',
-            		plain: true,
-        			iconCls: 'icon-remove',
-        			handler: function(){delPerroFromGuia(guia);}
-        		},{
-                	text: 'Editar datos',
-                	plain: true,
-            		iconCls: 'icon-edit',
-           			handler: function(){editPerroFromGuia(guia);}
-        		},{
-            		text: 'A&ntilde;adir perro',
-            		plain: true,
-        			iconCls: 'icon-dog',
-        			handler: function(){addPerroToGuia(guia);}
-        		}],
+        		// toolbar: '#perrosbyguia-toolbar', 
+				toolbar:  [{
+					text: 'Borrar perro',
+					plain: true,
+					iconCls: 'icon-remove',
+					handler: function(){delPerroFromGuia(guia);}
+				},{
+					text: 'Editar datos',
+					plain: true,
+					iconCls: 'icon-edit',
+					handler: function(){editPerroFromGuia(guia);}
+				},{
+					text: 'A&ntilde;adir perro',
+					plain: true,
+					iconCls: 'icon-dog',
+					handler: function(){addPerroToGuia(guia);}
+				}],
        		    pagination: false,
         	    rownumbers: false,
         	    fitColumns: true,
@@ -159,5 +156,25 @@
                 } 
         	}); // end of perrosbyguia-datagrid-Nombre_del_Guia
         	$('#guias-datagrid').datagrid('fixDetailRowHeight',index);
+
+            // botones de los sub-formularios
+            $('#perrosbyguia-newBtn').linkbutton(); // anyadir nuevo perro al guia
+            $('#perrosbyguia-newBtn').tooltip({
+                position: 'top',
+                content: '<span style="color:#000">Asignar un nuevo perro al guia</span>',
+            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+            });     
+            $('#perrosbyguia-delBtn').linkbutton(); // desasignar perro al guia
+            $('#perrosbyguia-delBtn').tooltip({
+                position: 'top',
+                content: '<span style="color:#000">Eliminar asignaci&oacute;n del perro al gu&iacute;a</span>',
+            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+            });        
+            $('#perrosbyguia-editBtn').linkbutton(); // editar datos del perro asignado al guia
+            $('#perrosbyguia-editBtn').tooltip({
+                position: 'top',
+                content: '<span style="color:#000">Editar los datos del perro asignado</span>',
+            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+            });
         } // end of onExpandRow
 	</script>
