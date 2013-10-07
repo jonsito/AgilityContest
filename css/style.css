@@ -13,7 +13,6 @@ body {
     right: 10px;
 }
 
-
 #myheader {
 	position: fixed;
 	top: 10px;
@@ -38,16 +37,16 @@ body {
 #myheader span p {
 	font-size: 24pt;
 	color: #ccc;
+	padding-left: 250px;
 }
 
 /***** Datos del menu lateral *****/
 #mysidebar {
 	position: fixed;
-	top: 100px;
+	top: 60px;
 	left: 10px;
-	width: 150px;
+	width: 185px;
 }
-
 #mysidebar ul {
 	border: line;
     list-style-type: none;
@@ -79,10 +78,10 @@ body {
 	/* border-style: inset; */
 	position: fixed;
 	top: 100px;
-	left: 150px;
-	width: 874px;
+	left: 25px;
+	width: 950px;
 	height: 500px;
-	margin-left: 20px;
+	z-index: -1;
 }
 
 img.mainpage{

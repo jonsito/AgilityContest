@@ -3,7 +3,8 @@
  * @param id tag to replace DOM contents
  * @param page URL where to retrieve HTML data
  */
-function loadContents(id,page) { 
+function loadContents(id,page) {
+	$('#mymenu').panel('collapse');
 	$(id).load(page);
 }
 

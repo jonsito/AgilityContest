@@ -29,11 +29,14 @@
 
 <!-- LOGO -->
 <div id="mylogo">
-	<p><img src="icons/logo_welpe.jpg" height="120" alt="logo welpe" /></p>
+	<p><img src="icons/logo_welpe.jpg" height="80" alt="logo welpe" /></p>
 </div>
 
 <!-- MENU LATERAL -->
-<div id="mysidebar">
+<div id=mysidebar>
+
+<div id="mymenu" class="easyui-panel" title="Men&uacute; de Operaciones"
+	data-options="border:true,closable:false,collapsible:true,collapsed:true">
 <ul>
 <li>BASE DE DATOS
 	<ul>
@@ -59,7 +62,7 @@
 <li>HERRAMIENTAS
 	<ul>
 	<li> <a target="phpMyAdmin" href="/phpmyadmin">phpMyAdmin</a></li>
-	<li> <a href="javascript:loadContents('#contenido','backup.php')">Importar/Exportar Datos</a></li>
+	<li> <a href="javascript:loadContents('#contenido','backup.php')">Importar/Exportar</a></li>
 	<li> <a href="javascript:loadContents('#contenido','backup.php')">Administraci&oacute;n</a></li>
 	</ul>
 </li>
@@ -79,6 +82,12 @@
 </span>
 </div>
 
+</div>
+<script type="text/javascript">
+// expand/collapse menu on mouse enter/exit
+$('#mymenu').mouseenter(function(){$('#mymenu').panel('expand');})
+$('#mymenu').mouseleave(function(){$('#mymenu').panel('collapse');})
+</script>
 </body>
 
 </html> 
