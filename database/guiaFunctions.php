@@ -145,7 +145,7 @@
 		else				echo json_encode(array('msg'=>$result));
 	}
 	else {
-		$result="guiaFunctions:: Invalid operation requested: $oper";
+		$result="guiaFunctions:: Invalid operation requested: '$oper'";
 		do_log($result);
 		json_encode(array('errorMsg'=>$result));
 	}

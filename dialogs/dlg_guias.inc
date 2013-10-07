@@ -12,7 +12,7 @@
                 	required="true"
                 	style="width:300px" />
                 <input id="guias-Viejo" name="Viejo" type="hidden" /> <!-- used to allow operator change guia's name -->
-                <input id="clubes-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
+                <input id="guias-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
                 <label for="Email">Correo electr&oacute;nico:</label>
@@ -24,7 +24,7 @@
             </div>
             <div class="fitem">
                 <label for="Club">Club:</label>
-                <select id="guias-Clubes" name="Club" class="easyui-combogrid" style="width:250px"/>
+                <select id="guias-Club" name="Club" class="easyui-combogrid" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="Observaciones">Observaciones:</label>
@@ -66,7 +66,7 @@
             required: false,
             validType: 'email'
         });
-        $('#guias-Clubes').combogrid({
+        $('#guias-Club').combogrid({
 			panelWidth: 350,
 			panelHeight: 200,
 			idField: 'Nombre',

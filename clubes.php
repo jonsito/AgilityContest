@@ -12,8 +12,9 @@
     </div>   
 
     <?php include_once("dialogs/dlg_clubes.inc")?>
+    <?php include_once("dialogs/dlg_guias.inc")?>
+    <?php include_once("dialogs/dlg_perros.inc")?>
 
-    
     <script type="text/javascript">
 
     	// set up operation header content
@@ -105,19 +106,19 @@
             		text: 'A&ntilde;adir gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-users',
-        			handler: function(){addGuiaToClub(index,guia.Nombre);}
+        			handler: function(){addGuiaToClub(club);}
         		},{
             		id: 'guiasByClub-editBtn',
             		text: 'Editar gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-edit',
-        			handler: function(){addGuiaToClub(index,guia.Nombre);}
+        			handler: function(){editGuiaFromClub(club);}
         		},{
             		id: 'guiasByClub-delBtn',
             		text: 'Borrar gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-remove',
-        			handler: function(){delGuiaFromClub(index,guia.Nombre);}
+        			handler: function(){delGuiaFromClub(club);}
         		}],
        		    pagination: false,
         	    rownumbers: false,
@@ -144,10 +145,13 @@
                         $('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
                     },0);
                 },
-                
+            	// on double click fireup editor dialog
+                onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
+                    editGuiaFromClub(club);
+                },
                 // especificamos un formateador especial para desplegar la tabla de perros por guia
                 detailFormatter:function(index,guia){
-                    return '<div style="padding:5px"><table class="easyui-datagrid" id="perrosbyguiabyclub-datagrid-' + replaceAll(' ','_',guia.Nombre) + '"></table></div>';
+                    return '<div style="padding:5px"><table class="easyui-datagrid" id="perrosByGuia-datagrid-' + replaceAll(' ','_',guia.Nombre) + '"></table></div>';
                 },
                 
                 onExpandRow: function(idx,guia) { showPerrosByGuiaByClub(idx,guia); },
@@ -178,7 +182,7 @@
 		// mostrar los perros asociados a un guia
         function showPerrosByGuiaByClub(index,guia){
         	// - sub tabla de perros asignados a un guia
-        	$('#perrosbyguiabyclub-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid({
+        	$('#perrosByGuia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid({
         		title: 'Perros registrados a nombre de '+guia.Nombre,
         		url: 'database/select_PerrosByGuia.php',
         		queryParams: { Guia: guia.Nombre },
@@ -186,19 +190,19 @@
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		// toolbar: '#perrosbyguia-toolbar', 
 				toolbar:  [{
-					id: 'perrosbyguiabyclub-newBtn',
+					id: 'perrosByGuia-newBtn',
 					text: 'A&ntilde;adir perro',
 					plain: true,
 					iconCls: 'icon-dog',
 					handler: function(){addPerroToGuia(guia);},
 				},{
-					id: 'perrosbyguiabyclub-editBtn',
+					id: 'perrosByGuia-editBtn',
 					text: 'Editar datos',
 					plain: true,
 					iconCls: 'icon-edit',
 					handler: function(){editPerroFromGuia(guia);}
 				},{
-					id: 'perrosbyguiabyclub-delBtn',
+					id: 'perrosByGuia-delBtn',
 					text: 'Borrar perro',
 					plain: true,
 					iconCls: 'icon-remove',
@@ -239,17 +243,17 @@
         	$('#guias-datagrid').datagrid('fixDetailRowHeight',index);
 
             // botones de los sub-formularios
-            $('#perrosbyguiabyclub-newBtn').linkbutton().tooltip({ // anyadir nuevo perro al guia
+            $('#perrosByGuia-newBtn').linkbutton().tooltip({ // anyadir nuevo perro al guia
                 position: 'top',
                 content: '<span style="color:#000">Asignar un nuevo perro al guia</span>',
             	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
             });     
-            $('#perrosbyguiabyclub-delBtn').linkbutton().tooltip({ // desasignar perro al guia
+            $('#perrosByGuia-delBtn').linkbutton().tooltip({ // desasignar perro al guia
                 position: 'top',
                 content: '<span style="color:#000">Eliminar asignaci&oacute;n del perro al gu&iacute;a</span>',
             	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
             });        
-            $('#perrosbyguiabyclub-editBtn').linkbutton().tooltip({ // editar datos del perro asignado al guia
+            $('#perrosByGuia-editBtn').linkbutton().tooltip({ // editar datos del perro asignado al guia
                 position: 'top',
                 content: '<span style="color:#000">Editar los datos del perro asignado</span>',
             	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}

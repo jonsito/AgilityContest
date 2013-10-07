@@ -1,6 +1,7 @@
 DONE - implement addPerroToGuia() and editPerroFromGuia()
-- implement addGuiaToClub() editGuiaFromClub()
+DONE- implement addGuiaToClub() editGuiaFromClub()
 - solve expand grid rendering issues
+- collapse dog subform before delete guia
 DONE - add "pagado" field to inscripciones
 DONE - Do not delete "closed" jornadas; just move to "-- Sin Asignar --" Prueba
 DONE - AddJornadaToPrueba no pone bien la fecha

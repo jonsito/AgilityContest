@@ -17,8 +17,9 @@ function addPerroToGuia(guia) {
 *@param guia: nombre del guia
 */
 function editPerroFromGuia(guia) {
-    var row = $('#perrosbyguia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('getSelected');
-    if (!row) return; // no dog selected
+	// try to locate which dog has been selected 
+    var row = $('#perrosByGuia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('getSelected');
+    if (!row) return; // no way to know which dog is selected
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro asignado a '+guia.Nombre);
     $('#perros-form').form('load',row);
 	$('#perros-Guia').combogrid({ 'value': guia.Nombre} ); 
@@ -30,14 +31,13 @@ function editPerroFromGuia(guia) {
  * Quita la asignacion del perro marcado al guia indicado
  */
 function delPerroFromGuia(guia) {
-    var row = $('#perrosbyguia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('getSelected');
+    var row = $('#perrosByGuia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('getSelected');
     if (!row) return;
-
     $.messager.confirm('Confirm',"Borrar asignacion del perro '"+row.Nombre+"' al guia '"+guia.Nombre+"' ¿Seguro?'",function(r){
         if (r){
             $.get('database/guiaFunctions.php',{Operation:'orphan',Dorsal:row.Dorsal},function(result){
                 if (result.success){
-                    $('#perrosbyguia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('reload');    // reload the guia data
+                    $('#perrosByGuia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('reload');    // reload the guia data
                 } else {
                     $.messager.show({    // show error message
                         title: 'Error',
