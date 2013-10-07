@@ -100,16 +100,19 @@
         		method: 'get',
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		toolbar:  [{
+        			id: 'jornadasbyprueba-newBtn',
             		text: 'A&ntilde;adir jornada',
             		plain: true,
         			iconCls: 'icon-flag',
         			handler: function(){addJornadaToPrueba(prueba);}
         		},{
+        			id: 'jornadasbyprueba-editBtn',
                 	text: 'Editar jornada',
                 	plain: true,
             		iconCls: 'icon-edit',
            			handler: function(){editJornadaFromPrueba(prueba);}
         		},{
+        			id: 'jornadasbyprueba-delBtn',
             		text: 'Borrar jornada',
             		plain: true,
         			iconCls: 'icon-remove',
@@ -155,6 +158,23 @@
                 } 
         	}); // end of pruebas-jornada-datagrid
         	$('#pruebas-datagrid').datagrid('fixDetailRowHeight',index);
+        	
+            // botones de los sub-formularios
+            $('#jornadasbyprueba-newBtn').linkbutton().tooltip({ // anyadir nueva jornada a la prueba
+                position: 'top',
+                content: '<span style="color:#000">Agregar una nueva jornada a la prueba</span>',
+            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+            });     
+            $('#jornadasbyprueba-delBtn').linkbutton().tooltip({ // eliminar la jornada
+                position: 'top',
+                content: '<span style="color:#000">Borrar la jornada seleccionada de la prueba</span>',
+            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+            });        
+            $('#jornadasbyprueba-editBtn').linkbutton().tooltip({ // editar datos de la jornada
+                position: 'top',
+                content: '<span style="color:#000">Editar los datos la jornada seleccionada</span>',
+            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+            });
         };
         
 	</script>
