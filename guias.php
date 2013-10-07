@@ -163,5 +163,5 @@
                 content: '<span style="color:#000">Editar los datos del perro asignado</span>',
             	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
             });
-        } // end of onExpandRow
+        } // end of showPerrosByGuia
 	</script>
