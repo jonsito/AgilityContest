@@ -371,7 +371,7 @@ function doSearchJuez() {
 }
 
 /**
- * Open "Juez dialog"
+ * Open "New Juez dialog"
  */
 function newJuez(){
 	$('#jueces-dialog').dialog('open').dialog('setTitle','Nuevo juez');
@@ -397,7 +397,7 @@ function editJuez(){
 }
 
 /**
- * Ask for commit new/edit juez to server
+ * Call json to Ask for commit new/edit juez to server
  */
 function saveJuez(){
 	// take care on bool-to-int translation from checkboxes to database
@@ -426,7 +426,7 @@ function saveJuez(){
 }
 
 /**
- * Delete juez data
+ * Delete juez data in bbdd
  */
 function destroyJuez(){
     var row = $('#jueces-datagrid').datagrid('getSelected');
@@ -488,7 +488,7 @@ function editPrueba(){
 }
 
 /**
- * Ask for commit new/edit prueba to server
+ * Ask json routines for add/edit a prueba into BBDD
  */
 function savePrueba(){
 	// take care on bool-to-int translation from checkboxes to database
@@ -516,7 +516,7 @@ function savePrueba(){
 }
 
 /**
- * Delete Prueba data
+ * Delete data related with a prueba in BBDD
  */
 function destroyPrueba(){
     var row = $('#pruebas-datagrid').datagrid('getSelected');
@@ -539,6 +539,7 @@ function destroyPrueba(){
 }
 
 // ***** gestion de jornadas	*********************************************************
+
 /**
  * Abre el formulario para jornadas a una prueba
  *@param prueba objeto que contiene los datos de la prueba
@@ -553,7 +554,6 @@ function addJornadaToPrueba(prueba) {
 
 /**
  * Edita la jornada seleccionada
- *@param index: indice que ocupa el guia en la entrada principal
  *@param prueba objeto que contiene los datos de la prueba
  */
 function editJornadaFromPrueba(prueba) {
@@ -587,7 +587,6 @@ function editJornadaFromPrueba(prueba) {
 
 /**
  * Quita la asignacion de la jornada indicada a la prueba asignada
- *@param indice de la fila (jornada) afectada
  *@prueba objeto que contiene los datos de la prueba
  */
 function delJornadaFromPrueba(prueba) {
@@ -652,4 +651,6 @@ function saveJornada(){
         }
     });
 }
+
+
 // ***** gestion de inscripciones	*****************************************************
