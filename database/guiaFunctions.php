@@ -7,7 +7,7 @@
 		do_log("insertGuia:: enter");
 		// componemos un prepared statement
 		$sql ="INSERT INTO Guias (Nombre,Telefono,Email,Club,Observaciones)
-			   VALUES('?','?','?','?','?')";
+			   VALUES(?,?,?,?,?)";
 		$stmt=$conn->prepare($sql);
 		$res=$stmt->bind_param('sssss',$nombre,$telefono,$email,$club,$observaciones);
 		if (!$res) {

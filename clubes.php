@@ -62,7 +62,7 @@
             },        
             // especificamos un formateador especial para desplegar la tabla de guias por club
             detailFormatter:function(index,club){
-                return '<div style="padding:2px"><table class="easyui-datagrid" id="guiasByClub-datagrid-' + replaceAll(' ','_',club.Nombre) + '"></table></div>';
+                return '<div style="padding:2px"><table class="easyui-datagrid" id="guias-datagrid-' + replaceAll(' ','_',club.Nombre) + '"></table></div>';
             },
 
             onExpandRow: function(idx,club) { showGuiasByClub(idx,club); },
@@ -96,14 +96,14 @@
     	
         function showGuiasByClub(index,club){
         	// - sub tabla de guias inscritos en un club
-        	$('#guiasByClub-datagrid-'+replaceAll(' ','_',club.Nombre)).datagrid({
+        	$('#guias-datagrid-'+replaceAll(' ','_',club.Nombre)).datagrid({
         		title: 'Gu&iacute;as inscritos en el club '+club.Nombre,
         		url: 'database/select_GuiasByClub.php?Club='+club.Nombre,
         		method: 'get',
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		toolbar: [{
             		id: 'guiasByClub-newBtn',
-            		text: 'A&ntilde;adir gu&iacute;a',
+            		text: 'Nuevo gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-users',
         			handler: function(){addGuiaToClub(club);}
@@ -151,7 +151,7 @@
                 },
                 // especificamos un formateador especial para desplegar la tabla de perros por guia
                 detailFormatter:function(index,guia){
-                    return '<div style="padding:5px"><table class="easyui-datagrid" id="perrosByGuia-datagrid-' + replaceAll(' ','_',guia.Nombre) + '"></table></div>';
+                    return '<div style="padding:5px"><table class="easyui-datagrid" id="perros-datagrid-' + replaceAll(' ','_',guia.Nombre) + '"></table></div>';
                 },
                 
                 onExpandRow: function(idx,guia) { showPerrosByGuiaByClub(idx,guia); },
@@ -163,7 +163,7 @@
             //** botones del subformulario guiasByClub
             $('#guiasByClub-newBtn').linkbutton().tooltip({ // anyadir entrada a lalista de guias del club
                 position: 'top',
-                content: '<span style="color:#000">Asignar un nuevo gu&iacute;a al club seleccionado</span>',
+                content: '<span style="color:#000">Crear un nuevo gu&iacute;a y asignarlo al club seleccionado</span>',
             	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
             });          
             $('#guiasByClub-editBtn').linkbutton().tooltip({ // eliminar entrada lista de guias del club
@@ -182,7 +182,7 @@
 		// mostrar los perros asociados a un guia
         function showPerrosByGuiaByClub(index,guia){
         	// - sub tabla de perros asignados a un guia
-        	$('#perrosByGuia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid({
+        	$('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid({
         		title: 'Perros registrados a nombre de '+guia.Nombre,
         		url: 'database/select_PerrosByGuia.php',
         		queryParams: { Guia: guia.Nombre },

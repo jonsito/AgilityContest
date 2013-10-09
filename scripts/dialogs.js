@@ -68,7 +68,7 @@ function saveClub(){
 function destroyClub(){
     var row = $('#clubes-datagrid').datagrid('getSelected');
     if (!row) return;
-    $.messager.confirm('Confirm','Borrar datos del club. ¿Seguro?',function(r){
+    $.messager.confirm('Confirm','Borrar el club "'+row.Nombre+'" de la base de datos ¿Seguro?',function(r){
         if (r){
             $.get('database/clubFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
                 if (result.success){
@@ -87,57 +87,6 @@ function destroyClub(){
 // ***** gestion de guias		*********************************************************
 
 /**
- * Abre el formulario para anyadir guias a un club
- *@param club: nombre del club
- */
-function addGuiaToClub(club) {
-	$('#guias-dialog').dialog('open').dialog('setTitle','Declarar un nuevo gu&iacute;a y asignarlo al club '+club.Nombre);
-	$('#guias-form').form('clear'); // erase form
-	$('#guias-Club').combogrid({ 'value': club.Nombre} ); 
-	$('#guias-Club').combogrid({ 'readonly': true }); // mark guia as read-only
-	$('#guias-Operation').val('insert');
-}
-
-/**
- * Abre el formulario de edicion de guias para cambiar los datos de un guia preasignado a un club
- * @param club
- */
-function editGuiaFromClub(club) {
-    var row = $('#guiasByClub-datagrid-'+replaceAll(' ','_',club.Nombre)).datagrid('getSelected');
-    if (!row) return; // no guia selected
-    $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre);
-    $('#guias-form').form('load',row);
-    $('#guias-Viejo').val( $('#guias-Nombre').val()); // set up old name in case of change
-	$('#guias-Club').combogrid({ 'value': club.Nombre} ); 
-	$('#guias-Club').combogrid({ 'readonly': true }); // mark guia as read-only
-    $('#guias-Operation').val('update');
-}
-
-/**
- * Quita la asignacion del guia marcado al club indicado
- *@param club datos del club
- */
-function delGuiaFromClub(club) {
-    var row = $('#guiasByClub-datagrid-'+replaceAll(' ','_',club.Nombre)).datagrid('getSelected');
-    if (!row) return;
-
-    $.messager.confirm('Confirm',"Borrar asignacion del gu&iacute;a '"+row.Nombre+"' al club '"+club.Nombre+"' ¿Seguro?'",function(r){
-        if (r){
-            $.get('database/clubFunctions.php',{'Operation':'orphan','Nombre':row.Nombre},function(result){
-                if (result.success){
-                    $('#guiasByCLub-datagrid-'+replaceAll(' ','_',club.Nombre)).datagrid('reload');    // reload the guia data
-                } else {
-                    $.messager.show({    // show error message
-                        title: 'Error',
-                        msg: result.errorMsg
-                    });
-                }
-            },'json');
-        }
-    });
-}
-
-/**
  * Recalcula la tabla de guias anyadiendo parametros de busqueda
  */
 function doSearchGuia() {
@@ -148,12 +97,44 @@ function doSearchGuia() {
 }
 
 /**
+ * Abre el formulario para anyadir guias a un club
+ *@param club: nombre del club
+ */
+function addGuiaToClub(club) {
+	var parent = '-' + replaceAll(' ','_',club.Nombre)
+	$('#guias-dialog').dialog('open').dialog('setTitle','Declarar un nuevo gu&iacute;a y asignarlo al club '+club.Nombre);
+	$('#guias-form').form('clear'); // erase form
+	$('#guias-Club').combogrid({ 'value': club.Nombre} );
+	$('#guias-Operation').val('insert');
+	$('#guias-Parent').val(parent);
+}
+
+/**
  * Abre el dialogo para crear un nuevo guia
  */
 function newGuia(){
 	$('#guias-dialog').dialog('open').dialog('setTitle','Nuevo g&uiacute;a');
 	$('#guias-form').form('clear');
 	$('#guias-Operation').val('insert');
+	$('#guias-Parent').val('');
+}
+
+/**
+ * Abre el formulario de edicion de guias para cambiar los datos de un guia preasignado a un club
+ * @param club
+ */
+function editGuiaFromClub(club) {
+	var parent = '-' + replaceAll(' ','_',club.Nombre);
+    var row = $('#guias-datagrid'+parent).datagrid('getSelected');
+    if (!row) return; // no guia selected
+    $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre);
+    $('#guias-form').form('load',row);
+    // save old guia name in "Viejo" hidden form input to allow change guia name
+    $('#guias-Viejo').val( $('#guias-Nombre').val()); // set up old name in case of change
+    // set default value for "club"
+	$('#guias-Club').combogrid({ 'value': club.Nombre} ); 
+    $('#guias-Parent').val(parent);
+    $('#guias-Operation').val('update');
 }
 
 /**
@@ -161,12 +142,13 @@ function newGuia(){
  */
 function editGuia(){
     var row = $('#guias-datagrid').datagrid('getSelected');
-    if (!row) return;
+    if (!row) return;// no guia selected
     $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del gu&iacute;a');
-    $('#guias-form').form('load',row);
+    $('#guias-form').form('load',row); // load row data into form
     // save old guia name in "Viejo" hidden form input to allow change guia name
     $('#guias-Viejo').val( $('#guias-Nombre').val());
-	$('#guias-Operation').val('update');
+	$('#guias-Parent').val(''); // no parent, just in "guias" menu
+	$('#guias-Operation').val('update'); // operation is change data
 }
 
 /**
@@ -190,8 +172,8 @@ function saveGuia(){
                     msg: result.errorMsg
                 });
             } else {
-                $('#guias-datagrid').datagrid('reload');    // reload the guia data
-                $('#guiasByClub-datagrid-'+club).datagrid('reload');
+            	var parent=$('#guias-Parent').val();
+                $('#guias-datagrid'+parent).datagrid('reload');    // reload the guia data
                 $('#guias-dialog').dialog('close');        // close the dialog
             }
         }
@@ -199,18 +181,42 @@ function saveGuia(){
 }
 
 /**
- * Borra de la BBDD los datos del guia seleccionado
+ * Borra de la BBDD los datos del guia seleccionado. 
+ * Invocada desde el menu de guias
  */
 function destroyGuia(){
     var row = $('#guias-datagrid').datagrid('getSelected');
     if (!row) return;
-	var club=replaceAll(' ','_',row.Club);
     $.messager.confirm('Confirm','Borrar datos del guia. '+ row.Nombre+'¿Seguro?',function(r){
         if (r){
             $.get('database/guiaFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
                 if (result.success){
                     $('#guias-datagrid').datagrid('reload');    // reload the guia data
-                    $('#guiasByClub-datagrid-'+club).datagrid('reload'); // if so reload club's inner guia data
+                } else {
+                    $.messager.show({    // show error message
+                        title: 'Error',
+                        msg: result.errorMsg
+                    });
+                }
+            },'json');
+        }
+    });
+}
+
+/**
+ * Quita la asignacion del guia marcado al club indicado
+ * Invocada desde el menu de clubes
+ *@param club datos del club
+ */
+function delGuiaFromClub(club) {
+    var row = $('#guias-datagrid-'+replaceAll(' ','_',club.Nombre)).datagrid('getSelected');
+    if (!row) return;
+
+    $.messager.confirm('Confirm',"Borrar asignacion del gu&iacute;a '"+row.Nombre+"' al club '"+club.Nombre+"' ¿Seguro?'",function(r){
+        if (r){
+            $.get('database/clubFunctions.php',{'Operation':'orphan','Nombre':row.Nombre},function(result){
+                if (result.success){
+                    $('#guias-datagrid-'+replaceAll(' ','_',club.Nombre)).datagrid('reload');    // reload the guia data
                 } else {
                     $.messager.show({    // show error message
                         title: 'Error',
@@ -223,55 +229,6 @@ function destroyGuia(){
 }
 
 // ***** gestion de perros		*********************************************************
-
-/**
- * Abre el formulario para anyadir perros a un guia
- *@param guia: nombre del guia
- */
-function addPerroToGuia(guia) {
-	$('#perros-dialog').dialog('open').dialog('setTitle','Crear un nuevo perro y asignarlo a '+guia.Nombre);
-	$('#perros-form').form('clear'); // erase form
-	$('#perros-Guia').combogrid({ 'value': guia.Nombre} ); 
-	$('#perros-Guia').combogrid({ 'readonly': true }); // mark guia as read-only
-	$('#perros-Operation').val('insert');
-}
-
-/**
-* Abre el formulario para anyadir perros a un guia
-*@param guia: nombre del guia
-*/
-function editPerroFromGuia(guia) {
-	// try to locate which dog has been selected 
-    var row = $('#perrosByGuia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('getSelected');
-    if (!row) return; // no way to know which dog is selected
-    $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro asignado a '+guia.Nombre);
-    $('#perros-form').form('load',row);
-	$('#perros-Guia').combogrid({ 'value': guia.Nombre} ); 
-	$('#perros-Guia').combogrid({ 'readonly': true }); // mark guia as read-only
-    $('#perros-Operation').val('update');
-}
-
-/**
- * Quita la asignacion del perro marcado al guia indicado
- */
-function delPerroFromGuia(guia) {
-    var row = $('#perrosByGuia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('getSelected');
-    if (!row) return;
-    $.messager.confirm('Confirm',"Borrar asignacion del perro '"+row.Nombre+"' al guia '"+guia.Nombre+"' ¿Seguro?'",function(r){
-        if (r){
-            $.get('database/guiaFunctions.php',{Operation:'orphan',Dorsal:row.Dorsal},function(result){
-                if (result.success){
-                    $('#perrosByGuia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('reload');    // reload the guia data
-                } else {
-                    $.messager.show({    // show error message
-                        title: 'Error',
-                        msg: result.errorMsg
-                    });
-                }
-            },'json');
-        }
-    });
-}
 
 /**
  * Recalcula la lista de perros anyadiendo parametros de busqueda
@@ -288,9 +245,21 @@ function doSearchPerro() {
  */
 function newDog(){
 	$('#perros-dialog').dialog('open').dialog('setTitle','Nuevo perro');
-	$('#perros-form').form('clear');
-	$('#perros-Guia').combogrid({ 'readonly': false }); // mark guia as read-only
+	$('#perros-form').form('clear'); // start with an empty form
 	$('#perros-Operation').val('insert');
+	$('#perros-Parent').val(''); // no parent datagrid
+}
+/**
+ * Abre el formulario para anyadir perros a un guia
+ *@param guia: nombre del guia
+ */
+function addPerroToGuia(guia) {
+	$('#perros-dialog').dialog('open').dialog('setTitle','Crear un nuevo perro y asignarlo a '+guia.Nombre);
+	$('#perros-form').form('clear'); // start with an empty form
+	// set up default guia
+	$('#perros-Guia').combogrid({ 'value': guia.Nombre} ); 
+	$('#perros-Operation').val('insert');
+	$('#perros-Parent').val('-'+replaceAll(' ','_',guia.Nombre));
 }
 
 /**
@@ -300,9 +269,25 @@ function editDog(){
     var row = $('#perros-datagrid').datagrid('getSelected');
     if (!row) return;
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro');
-    $('#perros-form').form('load',row);
-	$('#perros-Guia').combogrid({ 'readonly': false }); // mark guia as read-only
-    $('#perros-Operation').val('update');
+    $('#perros-form').form('load',row);// load form with row data
+	$('#perros-Parent').val(''); // no parent datagrid
+    $('#perros-Operation').val('update'); // mark "update" operation
+}
+
+/**
+* Abre el formulario para anyadir perros a un guia
+*@param guia: nombre del guia
+*/
+function editPerroFromGuia(guia) {
+	var parent = '-'+replaceAll(' ','_',guia.Nombre);
+	// try to locate which dog has been selected 
+    var row = $('#perros-datagrid'+parent).datagrid('getSelected');
+    if (!row) return; // no way to know which dog is selected
+    $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro asignado a '+guia.Nombre);
+    $('#perros-form').form('load',row);	// load form with row data
+	$('#perros-Guia').combogrid({ 'value': guia.Nombre} );  // set up default "guia" value
+	$('#perros-Parent').val(parent); // store parent datagrid suffix
+    $('#perros-Operation').val('update'); // mark "update" operation
 }
 
 /**
@@ -323,11 +308,32 @@ function saveDog(){
                     msg: result.errorMsg
                 });
             } else {
-            	var guia=$('#perros-Guia').combogrid('getValue');
-                $('#perros-datagrid').datagrid('reload');    // reload the dog data
-                $('#perrosbyguia-datagrid-'+replaceAll(' ','_',guia)).datagrid('reload',{Guia:guia});    // reload the dog data inside guias menu, if any
+            	var parent=$('#perros-Parent').val();
+                $('#perros-datagrid'+parent).datagrid('reload');    // reload the dog data
                 $('#perros-dialog').dialog('close');        // close the dialog
             }
+        }
+    });
+}
+
+/**
+ * Quita la asignacion del perro marcado al guia indicado
+ */
+function delPerroFromGuia(guia) {
+    var row = $('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('getSelected');
+    if (!row) return;
+    $.messager.confirm('Confirm',"Borrar asignacion del perro '"+row.Nombre+"' al guia '"+guia.Nombre+"' ¿Seguro?'",function(r){
+        if (r){
+            $.get('database/guiaFunctions.php',{Operation:'orphan',Dorsal:row.Dorsal},function(result){
+                if (result.success){
+                    $('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('reload');    // reload the guia data
+                } else {
+                    $.messager.show({    // show error message
+                        title: 'Error',
+                        msg: result.errorMsg
+                    });
+                }
+            },'json');
         }
     });
 }
@@ -338,7 +344,7 @@ function saveDog(){
 function destroyDog(){
     var row = $('#perros-datagrid').datagrid('getSelected');
     if (row){
-        $.messager.confirm('Confirm','Borrar datos del perro. ¿Seguro?',function(r){
+        $.messager.confirm('Confirm','Borrar el perro "'+ row.Nombre+'" de la base de datos. ¿Seguro?',function(r){
             if (r){
                 $.get('database/dogFunctions.php',{Operation:'delete',Dorsal:row.Dorsal},function(result){
                     if (result.success){

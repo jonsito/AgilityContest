@@ -12,6 +12,7 @@
                 	required="true"
                 	style="width:300px" />
                 <input id="guias-Viejo" name="Viejo" type="hidden" /> <!-- used to allow operator change guia's name -->
+                <input id="guias-Parent" name="Parent" type="hidden" /> <!-- used to store parent datagrid -->
                 <input id="guias-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
             </div>
             <div class="fitem">

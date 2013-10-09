@@ -53,7 +53,7 @@
             },        
             // especificamos un formateador especial para desplegar la tabla de perros por guia
             detailFormatter:function(idx,row){
-                return '<div style="padding:2px"><table id="perrosbyguia-datagrid-' + replaceAll(' ','_',row.Nombre) + '"></table></div>';
+                return '<div style="padding:2px"><table id="perros-datagrid-' + replaceAll(' ','_',row.Nombre) + '"></table></div>';
             },
             onExpandRow: function(idx,row) { showPerrosByGuia(idx,row); },
 
@@ -87,7 +87,7 @@
 		// mostrar los perros asociados a un guia
         function showPerrosByGuia(index,guia){
         	// - sub tabla de perros asignados a un guia
-        	$('#perrosbyguia-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid({
+        	$('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid({
         		title: 'Perros registrados a nombre de '+guia.Nombre,
         		url: 'database/select_PerrosByGuia.php',
         		queryParams: { Guia: guia.Nombre },
@@ -95,11 +95,11 @@
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		// toolbar: '#perrosbyguia-toolbar', 
 				toolbar:  [{
-					id: 'perrosbyguia-delBtn',
-					text: 'Borrar perro',
+					id: 'perrosbyguia-newBtn',
+					text: 'A&ntilde;adir perro',
 					plain: true,
-					iconCls: 'icon-remove',
-					handler: function(){delPerroFromGuia(guia);}
+					iconCls: 'icon-dog',
+					handler: function(){addPerroToGuia(guia);},
 				},{
 					id: 'perrosbyguia-editBtn',
 					text: 'Editar datos',
@@ -107,11 +107,11 @@
 					iconCls: 'icon-edit',
 					handler: function(){editPerroFromGuia(guia);}
 				},{
-					id: 'perrosbyguia-newBtn',
-					text: 'A&ntilde;adir perro',
+					id: 'perrosbyguia-delBtn',
+					text: 'Borrar perro',
 					plain: true,
-					iconCls: 'icon-dog',
-					handler: function(){addPerroToGuia(guia);},
+					iconCls: 'icon-remove',
+					handler: function(){delPerroFromGuia(guia);}
 				}],
        		    pagination: false,
         	    rownumbers: false,

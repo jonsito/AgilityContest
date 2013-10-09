@@ -11,7 +11,8 @@
                 	type="text" 
                 	class="easyui-validatebox" 
                 	required="true"/>
-                <input name="Dorsal" type="hidden" /> <!-- hide dorsal, as only used for edit and is readonly -->
+                <input id="perros-Dorsal" name="Dorsal" type="hidden" /> <!-- hide dorsal, as only used for edit and is readonly -->
+                <input id="perros-Parent" name="Parent" type="hidden" /> <!-- used to store parent datagrid if any -->
                 <input id="perros-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
