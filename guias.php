@@ -112,6 +112,12 @@
 					plain: true,
 					iconCls: 'icon-remove',
 					handler: function(){delPerroFromGuia(guia);}
+				},{
+					id: 'perrosbyguia-assignBtn',
+					text: 'Reasignar perro',
+					plain: true,
+					iconCls: 'icon-edit',
+					handler: function(){assignPerroToGuia(guia);}
 				}],
        		    pagination: false,
         	    rownumbers: false,
@@ -161,6 +167,11 @@
             $('#perrosbyguia-editBtn').linkbutton().tooltip({ // editar datos del perro asignado al guia
                 position: 'top',
                 content: '<span style="color:#000">Editar los datos del perro asignado</span>',
+            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+            });
+            $('#perrosbyguia-assignBtn').linkbutton().tooltip({ // asignar un perro de la bbdd a este guia
+                position: 'top',
+                content: '<span style="color:#000">Reasignar un perro existente a este gu&iacute;a</span>',
             	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
             });
         } // end of showPerrosByGuia

@@ -249,6 +249,7 @@ function newDog(){
 	$('#perros-Operation').val('insert');
 	$('#perros-Parent').val(''); // no parent datagrid
 }
+
 /**
  * Abre el formulario para anyadir perros a un guia
  *@param guia: nombre del guia
@@ -262,6 +263,18 @@ function addPerroToGuia(guia) {
 	$('#perros-Parent').val('-'+replaceAll(' ','_',guia.Nombre));
 }
 
+/**
+ * Abre el formulario para anyadir perros a un guia
+ *@param guia: nombre del guia
+ */
+function assignPerroToGuia(guia) {
+	$('#perros-dialog').dialog('open').dialog('setTitle','Crear un nuevo perro y asignarlo a '+guia.Nombre);
+	$('#perros-form').form('clear'); // start with an empty form
+	// set up default guia
+	$('#perros-Guia').combogrid({ 'value': guia.Nombre} ); 
+	$('#perros-Operation').val('insert');
+	$('#perros-Parent').val('-'+replaceAll(' ','_',guia.Nombre));
+}
 /**
  * Abre el dialogo para editar datos de un perro ya existente
  */
