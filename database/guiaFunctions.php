@@ -7,7 +7,7 @@
 		do_log("insertGuia:: enter");
 		// componemos un prepared statement
 		$sql ="INSERT INTO Guias (Nombre,Telefono,Email,Club,Observaciones)
-			   VALUES(?,?,?,?,?)";
+			   VALUES('?','?','?','?','?')";
 		$stmt=$conn->prepare($sql);
 		$res=$stmt->bind_param('sssss',$nombre,$telefono,$email,$club,$observaciones);
 		if (!$res) {
@@ -23,7 +23,7 @@
 		$club = (isset($_REQUEST['Club']))?strval($_REQUEST['Club']):null;
 		$observaciones = (isset($_REQUEST['Observaciones']))?strval($_REQUEST['Observaciones']):null;
 		do_log("insertGuia:: retrieved data from client");
-		do_log("Nombre: $nombre Telefono: $telefono Club: $club Observaciones: $observaciones");
+		do_log("Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		do_log("insertadas $stmt->affected_rows filas");
@@ -65,7 +65,7 @@
 		$observaciones = (isset($_REQUEST['Observaciones']))?strval($_REQUEST['Observaciones']):null;
 
 		do_log("updateGuia:: retrieved data from client");
-		do_log("Nombre: $nombre Telefono: $telefono Club: $club Observaciones: $observaciones");
+		do_log("Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		do_log("updateGuia:: actualizadas $stmt->affected_rows filas");
