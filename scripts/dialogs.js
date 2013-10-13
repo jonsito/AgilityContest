@@ -100,13 +100,14 @@ function doSearchGuia() {
  * Abre el formulario para anyadir guias a un club
  *@param club: nombre del club
  */
-function addGuiaToClub(club) {
-	var parent = '-' + replaceAll(' ','_',club.Nombre)
-	$('#guias-dialog').dialog('open').dialog('setTitle','Declarar un nuevo gu&iacute;a y asignarlo al club '+club.Nombre);
-	$('#guias-form').form('clear'); // erase form
-	$('#guias-Club').combogrid({ 'value': club.Nombre} );
-	$('#guias-Operation').val('insert');
-	$('#guias-Parent').val(parent);
+function assignGuiaToClub(club) {
+	$('#chguias-dialog').dialog('open').dialog('setTitle','Asignar/Registrar un gu&iacute;a');
+	$('#chguias-form').form('clear'); // erase form
+	$('#chguias-title').text('Reasignar/Declarar un guia como perteneciente al club '+club.Nombre);
+	$('#chguias-Club').combogrid({ 'value': club.Nombre} );
+	$('#chguias-newClub').val(club.Nombre );
+	$('#chguias-Operation').val('insert');
+	$('#chguias-Parent').val('-' + replaceAll(' ','_',club.Nombre));
 }
 
 /**
@@ -155,8 +156,39 @@ function editGuia(){
  * Invoca a json para añadir/editar los datos del guia seleccionado en el formulario
  * Ask for commit new/edit guia to server
  */
+function assignGuia(){
+	$('#chguias-Viejo').val($('#chguias-Search').combogrid('getValue'));
+	$('#chguias-Club').val($('#chguias-newClub').val());
+	alert('Club: '+$('#chguias-Club').val());
+    // do normal submit
+    $('#chguias-form').form('submit',{
+        url: 'database/guiaFunctions.php',
+        method: 'get',
+        onSubmit: function(param){
+            return $(this).form('validate');
+        },
+        success: function(result){
+            var result = eval('('+result+')');
+            if (result.errorMsg){
+                $.messager.show({
+                    title: 'Error',
+                    msg: result.errorMsg
+                });
+            } else {
+            	var parent=$('#chguias-Parent').val();
+                $('#guias-datagrid'+parent).datagrid('reload');    // reload the guia data
+                $('#chguias-Search').combogrid({ 'value' : ''});        // clear search form
+                $('#chguias-dialog').dialog('close');        // close the dialog
+            }
+        }
+    });
+}
+
+/**
+ * Invoca a json para añadir/editar los datos del guia seleccionado en el formulario
+ * Ask for commit new/edit guia to server
+ */
 function saveGuia(){
-	var club=replaceAll(' ','_',$('#guias-Club').combobox('getValue'));
     // do normal submit
     $('#guias-form').form('submit',{
         url: 'database/guiaFunctions.php',
@@ -315,6 +347,7 @@ function assignDog() {
             } else {
             	var parent=$('#chperros-Parent').val();
                 $('#perros-datagrid'+parent).datagrid('reload');    // reload the dog data
+            	$('#chperros-Search').combogrid({ 'value': '' } );  // clear search field
                 $('#chperros-dialog').dialog('close');        // close the dialog
             }
         }

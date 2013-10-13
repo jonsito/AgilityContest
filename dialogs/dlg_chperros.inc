@@ -3,7 +3,7 @@
     <div id="chperros-dialog" class="easyui-dialog" style="width:500px;height:375px;padding:10px 20px"
             closed="true" buttons="#chperros-dlg-buttons">
         <div id="chperros-title" class="ftitle">Reasignaci&oacute;n de un perro</div>
-        <form id="chperros-search">
+        <form id="chperros-header">
         	<div class="fitem">
                 <label for="Search">Buscar: </label>
                 <select id="chperros-Search" name="Search" class="easyui-combogrid" style="width:250px"/>&nbsp;

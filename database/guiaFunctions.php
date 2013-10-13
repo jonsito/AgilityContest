@@ -65,7 +65,7 @@
 		$observaciones = (isset($_REQUEST['Observaciones']))?strval($_REQUEST['Observaciones']):null;
 
 		do_log("updateGuia:: retrieved data from client");
-		do_log("Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
+		do_log("Viejo: $viejo Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		do_log("updateGuia:: actualizadas $stmt->affected_rows filas");

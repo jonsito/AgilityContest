@@ -13,7 +13,9 @@
 
     <?php include_once("dialogs/dlg_clubes.inc")?>
     <?php include_once("dialogs/dlg_guias.inc")?>
+    <?php include_once("dialogs/dlg_chguias.inc")?>
     <?php include_once("dialogs/dlg_perros.inc")?>
+    <?php include_once("dialogs/dlg_chperros.inc")?>
 
     <script type="text/javascript">
 
@@ -62,7 +64,7 @@
             },        
             // especificamos un formateador especial para desplegar la tabla de guias por club
             detailFormatter:function(index,club){
-                return '<div style="padding:2px"><table class="easyui-datagrid" id="guias-datagrid-' + replaceAll(' ','_',club.Nombre) + '"></table></div>';
+                return '<div style="padding:2px"><table class="easyui-datagrid"	id="guias-datagrid-' + replaceAll(' ','_',club.Nombre) + '"></table></div>';
             },
 
             onExpandRow: function(idx,club) { showGuiasByClub(idx,club); },
@@ -103,10 +105,10 @@
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		toolbar: [{
             		id: 'guiasByClub-newBtn',
-            		text: 'Nuevo gu&iacute;a',
+            		text: 'Asociar gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-users',
-        			handler: function(){addGuiaToClub(club);}
+        			handler: function(){assignGuiaToClub(club);}
         		},{
             		id: 'guiasByClub-editBtn',
             		text: 'Editar gu&iacute;a',
@@ -115,7 +117,7 @@
         			handler: function(){editGuiaFromClub(club);}
         		},{
             		id: 'guiasByClub-delBtn',
-            		text: 'Borrar gu&iacute;a',
+            		text: 'Des-asociar gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-remove',
         			handler: function(){delGuiaFromClub(club);}
@@ -163,12 +165,12 @@
             //** botones del subformulario guiasByClub
             $('#guiasByClub-newBtn').linkbutton().tooltip({ // anyadir entrada a lalista de guias del club
                 position: 'top',
-                content: '<span style="color:#000">Crear un nuevo gu&iacute;a y asignarlo al club seleccionado</span>',
+                content: '<span style="color:#000">Asociar/Crear nuevo guia en el club seleccionado</span>',
             	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
             });          
             $('#guiasByClub-editBtn').linkbutton().tooltip({ // eliminar entrada lista de guias del club
                 position: 'top',
-                content: '<span style="color:#000">Eliminar asignaci&oacute;n del gu&iacute;a seleccionado al club</span>',
+                content: '<span style="color:#000">Editar datos del gu&iacute;a seleccionado del club</span>',
             	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
             });      
             $('#guiasByClub-delBtn').linkbutton().tooltip({ // eliminar entrada lista de guias del club

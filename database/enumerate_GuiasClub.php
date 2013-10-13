@@ -1,7 +1,7 @@
 <?php
 	require_once("DBConnection.php");
 	// evaluate offset and row count for query
-	$like = isset($_GET['q']) ? " WHERE Nombre LIKE '".$_GET['q']."%'" : "";
+	$like = isset($_GET['q']) ? " WHERE ( (Nombre LIKE '".$_GET['q']."%') OR (Club LIKE '".$_GET['q']."%'))" : "";
 	$result = array();
 	// connect database
 	$conn=DBConnection::openConnection("agility_guest","guest@cachorrera");

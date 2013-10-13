@@ -9,4 +9,6 @@ DONE - after insert/update/delete jornadasbyprueba no actualiza contenido
 - En prueba por equipos no permitir pruebas adicionales
 - En prueba K.O. no permitir pruebas adicionales
 - Documentacion
-- More and more... 
+- More and more...
+- 
+- editPerroFromGuia() must leave guia as readonly
