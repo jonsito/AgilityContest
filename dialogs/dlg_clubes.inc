@@ -1,7 +1,6 @@
  
-    <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE GUIAS -->
-    <div id="clubes-dialog" class="easyui-dialog" style="width:550px;height:600px;padding:10px 20px"
-            closed="true" buttons="#clubes-dlg-buttons">
+    <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE CLUBES -->
+    <div id="clubes-dialog" class="easyui-dialog" style="width:550px;height:600px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del club</div>
         <form id="clubes-form" method="get" novalidate>
             <div class="fitem">
@@ -10,7 +9,6 @@
                 	name="Nombre" 
                 	type="text" 
                 	class="easyui-validatebox" 
-                	required="true"
                 	style="width:350px" />
                 <input id="clubes-Viejo" name="Viejo" type="hidden" /> <!-- used to allow operator change guia's name -->
                 <input id="clubes-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
@@ -25,7 +23,7 @@
             </div>
             <div class="fitem">
                 <label for="Provincia">Provincia</label>
-                <select id="clubes-Provincia" name="Provincia" class="easyui-combogrid" style="width:200px" required="true" />
+                <select id="clubes-Provincia" name="Provincia" class="easyui-combogrid" style="width:200px"></select>
             </div>
             <div class="fitem">
                 <label for="Contacto1">Contacto 1</label>
@@ -72,7 +70,7 @@
             --->
             <div class="fitem">
                 <label for="Observaciones">Observaciones:</label>
-                <input id="clubes-Observaciones" name="Observaciones" type="textarea" style="height:50px;width:300px"/>
+                <textarea id="clubes-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
             </div>
             <div class="fitem">
                 <label for="Baja">Baja del club:</label>
@@ -82,8 +80,8 @@
         
     	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     	<div id="clubes-dlg-buttons">
-    	    <a id="clubes-okBtn" href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveClub()">Guardar</a>
-    	    <a id="clubes-cancelBtn" href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#clubes-dialog').dialog('close')">Cancelar</a>
+    	    <a id="clubes-okBtn" href="#" class="easyui-linkbutton"  onclick="saveClub()">Guardar</a>
+    	    <a id="clubes-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#clubes-dialog').dialog('close')">Cancelar</a>
     	</div>
     </div>
     
@@ -92,14 +90,12 @@
         // - declaracion del formulario
         $('#clubes-form').form();
         // - botones
-        $('#clubes-okBtn').linkbutton();        
-        $('#clubes-okBtn').tooltip({
+        $('#clubes-okBtn').linkbutton( {iconCls: 'icon-ok' } ).tooltip({
             position: 'top',
             content: '<span style="color:#000">Aceptar datos y registrarlos en la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
-        $('#clubes-cancelBtn').linkbutton();        
-        $('#clubes-cancelBtn').tooltip({
+        $('#clubes-cancelBtn').linkbutton( {iconCls: 'icon-cancel' } ).tooltip({
             position: 'top',
             content: '<span style="color:#000">Anular operaci&oacute;n. Cerrar ventana</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
@@ -122,7 +118,10 @@
 			selectOnNavigation: false
         });
         // campos del formulario
-        $('#clubes-dialog').dialog();
+        $('#clubes-dialog').dialog({
+			closed: true,
+			buttons: '#clubes-dlg-buttons'
+        });
         $('#clubes-Nombre').validatebox({
             required: true,
             validType: 'length[1,255]'

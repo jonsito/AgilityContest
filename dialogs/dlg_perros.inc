@@ -1,7 +1,6 @@
 
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE PERROS -->
-    <div id="perros-dialog" class="easyui-dialog" style="width:500px;height:375px;padding:10px 20px"
-            closed="true" buttons="#perros-dlg-buttons">
+    <div id="perros-dialog" class="easyui-dialog" style="width:500px;height:375px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del perro</div>
         <form id="perros-form" method="get" novalidate>
             <div class="fitem">
@@ -9,8 +8,7 @@
                 <input id="perros-Nombre" 
                 	name="Nombre" 
                 	type="text" 
-                	class="easyui-validatebox" 
-                	required="true"/>
+                	class="easyui-validatebox"/>
                 <input id="perros-Dorsal" name="Dorsal" type="hidden" /> <!-- hide dorsal, as only used for edit and is readonly -->
                 <input id="perros-Parent" name="Parent" type="hidden" /> <!-- used to store parent datagrid if any -->
                 <input id="perros-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
@@ -32,16 +30,14 @@
                 <select id="perros-Categorias_Perro" 
                 		name="Categoria" 
                 		class="easyui-combobox" 
-                		style="width:155px"
-                		required="true" ></select>
+                		style="width:155px"></select>
             </div>
             <div class="fitem">
                 <label for="Grado">Grado:</label>
                 <select id="perros-Grados_Perro" 
                 		name="Grado" 
                 		class="easyui-combobox" 
-                		style="width:155px"
-                		required="true" ></select>
+                		style="width:155px"></select>
             </div>
             <div class="fitem">
                 <label for="Guia">Nombre del Gu&iacute;a:</label>
@@ -50,8 +46,8 @@
         </form>
     	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     	<div id="perros-dlg-buttons">
-    	    <a id="perros-okBtn" href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveDog()">Guardar</a>
-    	    <a id="perros-cancelBtn" href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#perros-dialog').dialog('close')">Cancelar</a>
+    	    <a id="perros-okBtn" href="#" class="easyui-linkbutton" onclick="saveDog()">Guardar</a>
+    	    <a id="perros-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#perros-dialog').dialog('close')">Cancelar</a>
     	</div>
     </div>
 
@@ -61,22 +57,23 @@
     // - declaracion del formulario
     $('#perros-form').form();
     // - botones
-    $('#perros-okBtn').linkbutton();    
-    $('#perros-okBtn').tooltip({
+    $('#perros-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
     	position: 'top',
     	content: '<span style="color:#000">Aceptar datos y actualizar la BBDD</span>',
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
     	}
 	});
-    $('#perros-cancelBtn').linkbutton();    
-    $('#perros-cancelBtn').tooltip({
+    $('#perros-cancelBtn').linkbutton({iconCls:'icon-cancel'}).tooltip({
     	position: 'top',
     	content: '<span style="color:#000">Cancelar edicion. Cerrar ventana</span>',
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
     	}
 	});
     // campos del formulario
-    $('#perros-dialog').dialog();
+    $('#perros-dialog').dialog({
+        closed:true,
+        buttons:'#perros-dlg-buttons'
+    });
     $('#perros-Nombre').validatebox({
         required: true,
         validType: 'length[1,255]'

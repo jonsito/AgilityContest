@@ -1,4 +1,4 @@
-<script language="javascript">
+<script type="text/javascript">
         $('#Header_Operation').html('<p>Visualizaci&oacute;n en tiempo real. Paneles informativos</p>');
 </script>
 <h1>Loren Ipsum dolor sit amet</h1>

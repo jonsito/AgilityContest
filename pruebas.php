@@ -1,17 +1,16 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE Pruebas -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="pruebas-datagrid" class="easyui-datagrid">     
+    <table id="pruebas-datagrid" class="easyui-datagrid"></table>     
     	<!-- BARRA DE TAREAS -->
     	<div id="pruebas-toolbar">
-    	    <a id="pruebas-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newPrueba()">Nueva prueba</a>
-    	    <a id="pruebas-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editPrueba()">Editar prueba</a>
-    	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyPrueba()">Borrar prueba</a>
+    	    <a id="pruebas-newBtn" href="#" class="easyui-linkbutton" onclick="newPrueba()">Nueva prueba</a>
+    	    <a id="pruebas-editBtn" href="#" class="easyui-linkbutton" onclick="editPrueba()">Editar prueba</a>
+    	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" onclick="destroyPrueba()">Borrar prueba</a>
     	    <input id="pruebas-search" type="text" onchange="doSearchPrueba()"/> 
-    	    <a id="pruebas-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchPrueba()">Buscar</a>
-    	    <input id="pruebas-openBox" href="#" type="checkbox" value='1' class="easyui-checkbox" onclick="doSearchPrueba()">Incl. Cerradas</input>
+    	    <a id="pruebas-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchPrueba()">Buscar</a>
+    	    <input id="pruebas-openBox" type="checkbox" value='1' class="easyui-checkbox" onclick="doSearchPrueba()"/>Incl. Cerradas
     	</div>
-    </table>
     
  	<?php include_once("dialogs/dlg_pruebas.inc");?>
  	<?php include_once("dialogs/dlg_jornadas.inc");?>
@@ -59,24 +58,24 @@
         }); // end of pruebas-datagrid
          
         // - botones  y tooltips de la tabla
-        $('#pruebas-newBtn').linkbutton().tooltip({ // nueva prueba
+        $('#pruebas-newBtn').linkbutton({iconCls:'icon-add',plain:true }).tooltip({ // nueva prueba
         	position: 'top',
         	content: '<span style="color:#000">Dar de alta una nueva prueba</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#pruebas-editBtn').linkbutton().tooltip({ // etditar prueba
+        $('#pruebas-editBtn').linkbutton({iconCls:'icon-edit',plain:true }).tooltip({ // etditar prueba
         	position: 'top',
         	content: '<span style="color:#000">Editar los datos de la prueba seleccionada</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     	});
-        $('#pruebas-delBtn').linkbutton().tooltip({ // borrar prueba
+        $('#pruebas-delBtn').linkbutton({iconCls:'icon-remove',plain:true }).tooltip({ // borrar prueba
             position: 'top',
             content: '<span style="color:#000">Eliminar la prueba seleccionada</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
 
-        $('#pruebas-searchBtn').linkbutton().tooltip({ // buscar prueba
+        $('#pruebas-searchBtn').linkbutton({iconCls:'icon-search',plain:true }).tooltip({ // buscar prueba
         	position: 'top',
         	content: '<span style="color:#000">Buscar pruebas coincidentes con el texto indicado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});

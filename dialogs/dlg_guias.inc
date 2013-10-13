@@ -1,6 +1,5 @@
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE GUIAS -->
-    <div id="guias-dialog" class="easyui-dialog" style="width:450px;height:350px;padding:10px 20px"
-            closed="true" buttons="#guias-dlg-buttons">
+    <div id="guias-dialog" class="easyui-dialog" style="width:450px;height:350px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del guia</div>
         <form id="guias-form" method="get" novalidate>
             <div class="fitem">
@@ -9,7 +8,6 @@
                 	name="Nombre" 
                 	type="text" 
                 	class="easyui-validatebox" 
-                	required="true"
                 	style="width:300px" />
                 <input id="guias-Viejo" name="Viejo" type="hidden" /> <!-- used to allow operator change guia's name -->
                 <input id="guias-Parent" name="Parent" type="hidden" /> <!-- used to store parent datagrid -->
@@ -25,17 +23,17 @@
             </div>
             <div class="fitem">
                 <label for="Club">Club:</label>
-                <select id="guias-Club" name="Club" class="easyui-combogrid" style="width:250px"/>
+                <select id="guias-Club" name="Club" class="easyui-combogrid" style="width:250px"></select>
             </div>
             <div class="fitem">
                 <label for="Observaciones">Observaciones:</label>
-                <input id="guias-Observaciones" name="Observaciones" type="textarea" style="height:50px;width:300px";/>
+                <textarea id="guias-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
             </div>
         </form>
     	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     	<div id="guias-dlg-buttons">
-    	    <a id="guias-okBtn" href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveGuia()">Guardar</a>
-    	    <a id="guias-cancelBtn" href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#guias-dialog').dialog('close')">Cancelar</a>
+    	    <a id="guias-okBtn" href="#" class="easyui-linkbutton" onclick="saveGuia()">Guardar</a>
+    	    <a id="guias-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#guias-dialog').dialog('close')">Cancelar</a>
     	</div>
     </div>
 
@@ -44,21 +42,22 @@
         // - declaracion del formulario
         $('#guias-form').form();
         // - botones
-        $('#guias-okBtn').linkbutton();        
-        $('#guias-okBtn').tooltip({
+        $('#guias-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
             position: 'top',
             content: '<span style="color:#000">Aceptar datos y registrarlos en la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
-        $('#guias-cancelBtn').linkbutton();        
-        $('#guias-cancelBtn').tooltip({
+        $('#guias-cancelBtn').linkbutton({iconCls:'icon-cancel'}).tooltip({
             position: 'top',
             content: '<span style="color:#000">Anular operaci&oacute;n. Cerrar ventana</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
         
         // campos del formulario
-        $('#guias-dialog').dialog();
+        $('#guias-dialog').dialog({
+            closed:true,
+            buttons: '#guias-dlg-buttons'
+        });
         $('#guias-Nombre').validatebox({
             required: true,
             validType: 'length[1,255]'

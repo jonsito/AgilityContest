@@ -5,11 +5,11 @@
     </table>
     <!-- BARRA DE TAREAS -->
     <div id="guias-toolbar">
-        <a id="guias-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newGuia()">Nuevo Gu&iacute;a</a>
-        <a id="guias-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editGuia()">Editar Gu&iacute;a</a>
-        <a id="guias-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyGuia()">Borrar gu&iacute;a</a>
+        <a id="guias-newBtn" href="#" class="easyui-linkbutton" onclick="newGuia()">Nuevo Gu&iacute;a</a>
+        <a id="guias-editBtn" href="#" class="easyui-linkbutton" onclick="editGuia()">Editar Gu&iacute;a</a>
+        <a id="guias-delBtn" href="#" class="easyui-linkbutton" onclick="destroyGuia()">Borrar gu&iacute;a</a>
         <input id="guias-search" type="text" onchange="doSearchGuia()"/> 
-        <a id="guias-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchGuia()">Buscar</a>
+        <a id="guias-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchGuia()">Buscar</a>
     </div>
     
 	<?php include_once("dialogs/dlg_guias.inc"); ?>
@@ -61,24 +61,24 @@
         }); // end of guias-datagrid
         
         // - botones de la toolbar de la tabla
-        $('#guias-newBtn').linkbutton().tooltip({ // nuevo guia 
+        $('#guias-newBtn').linkbutton({iconCls:'icon-add',plain:true}).tooltip({ // nuevo guia 
         	position: 'top',
         	content: '<span style="color:#000">Dar de alta un nuevo gu&iacute;a en la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#guias-editBtn').linkbutton().tooltip({ // editar guia  
+        $('#guias-editBtn').linkbutton({iconCls:'icon-edit',plain:true}).tooltip({ // editar guia  
         	position: 'top',
         	content: '<span style="color:#000">Editar los datos del gu&iacute;a seleccionado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     	});
-        $('#guias-delBtn').linkbutton().tooltip({ // borrar guia
+        $('#guias-delBtn').linkbutton({iconCls:'icon-remove',plain:true}).tooltip({ // borrar guia
             position: 'top',
             content: '<span style="color:#000">Borrar el gu&iacute;a seleccionado de la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
 
-        $('#guias-searchBtn').linkbutton().tooltip({ // buscar datos del guia
+        $('#guias-searchBtn').linkbutton({iconCls:'icon-search',plain:true}).tooltip({ // buscar datos del guia
         	position: 'top',
         	content: '<span style="color:#000">Buscar entradas que contengan el texto indicado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});

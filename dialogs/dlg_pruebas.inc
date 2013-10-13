@@ -1,7 +1,6 @@
 
    <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE PRUEBAS -->
-    <div id="pruebas-dialog" class="easyui-dialog" style="width:400px;height:450px;padding:10px 20px"
-            closed="true" buttons="#pruebas-dlg-buttons">
+    <div id="pruebas-dialog" class="easyui-dialog" style="width:400px;height:450px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n de la prueba</div>
         <form id="pruebas-form" method="get" novalidate>
             <div class="fitem">
@@ -10,14 +9,13 @@
                 	name="Nombre" 
                 	type="text" 
                 	class="easyui-validatebox" 
-                	required="true"
                 	style="width:325px" />
                 <input id="pruebas-Viejo" name="Viejo" type="hidden" /> <!-- used to allow operator change prueba's name -->
                 <input id="pruebas-Operation" name="Operation" type="hidden" /> <!-- used to store operation type -->
             </div>
             <div class="fitem">
                 <label for="Club">Club:</label>
-                <select id="pruebas-Club" name="Club" class="easyui-combogrid" style="width:250px"/>
+                <select id="pruebas-Club" name="Club" class="easyui-combogrid" style="width:250px"></select>
             </div>
             <div class="fitem">
                 <label for="Ubicacion">Lugar de realizaci&oacute;n</label>
@@ -33,7 +31,7 @@
             </div>
             <div class="fitem">
                 <label for="Observaciones">Observaciones:</label>
-                <input id="pruebas-Observaciones" name="Observaciones" type="textarea" style="height:50px;width:250px";/>
+                <textarea id="pruebas-Observaciones" name="Observaciones" style="height:50px;width:250px"></textarea>
             </div>
             <div class="fitem"><hr/></div>
             <div class="fitem">
@@ -44,8 +42,8 @@
     
 		<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 		<div id="pruebas-dlg-buttons">
-        	<a id="pruebas-okBtn" href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="savePrueba()">Guardar</a>
-        	<a id="pruebas-cancelBtn" href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#pruebas-dialog').dialog('close')">Cancelar</a>
+        	<a id="pruebas-okBtn" href="#" class="easyui-linkbutton" onclick="savePrueba()">Guardar</a>
+        	<a id="pruebas-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#pruebas-dialog').dialog('close')">Cancelar</a>
     	</div>
     </div>
 
@@ -54,21 +52,22 @@
     // - declaracion del formulario
     $('#pruebas-form').form();
     // - botones
-    $('#pruebas-okBtn').linkbutton();        
-    $('#pruebas-okBtn').tooltip({
+    $('#pruebas-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
         position: 'top',
         content: '<span style="color:#000">Aceptar datos. Registrar prueba en la BBDD</span>',
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     });
-    $('#pruebas-cancelBtn').linkbutton();        
-    $('#pruebas-cancelBtn').tooltip({
+    $('#pruebas-cancelBtn').linkbutton({iconCls:'icon-cancel'}).tooltip({
         position: 'top',
         content: '<span style="color:#000">Anular operaci&oacute;n. Cerrar ventana</span>',
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     });
     
     // campos del formulario
-    $('#pruebas-dialog').dialog();
+    $('#pruebas-dialog').dialog({
+        closed:true,
+        buttons:'#pruebas-dlg-buttons'
+    });
     $('#pruebas-Nombre').validatebox({
         required: true,
         validType: 'length[1,255]'

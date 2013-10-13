@@ -9,15 +9,15 @@
     
     <!-- DECLARACION DE LA TABLA -->
     <table id="perros-datagrid" class="easyui-datagrid" >
-        <!-- BARRA DE TAREAS -->
-    	<div id="perros-toolbar">
-    	    <a id="perros-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newDog()">Nuevo Perro</a>
-    	    <a id="perros-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editDog()">Editar Perro</a>
-    	    <a id="perros-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyDog()">Borrar Perro</a>
-    	    <input id="perros-search" type="text" onchange="doSearchPerro()"/> 
-    	    <a id="perros-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchPerro()">Buscar</a>
-    	</div>
     </table>
+    <!-- BARRA DE TAREAS -->
+    <div id="perros-toolbar">
+    	<a id="perros-newBtn" href="#" class="easyui-linkbutton" onclick="newDog()">Nuevo Perro</a>
+    	<a id="perros-editBtn" href="#" class="easyui-linkbutton" onclick="editDog()">Editar Perro</a>
+    	<a id="perros-delBtn" href="#" class="easyui-linkbutton" onclick="destroyDog()">Borrar Perro</a>
+    	<input id="perros-search" type="text" onchange="doSearchPerro()"/> 
+    	<a id="perros-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchPerro()">Buscar</a>
+    </div>
     
 	<?php include_once("dialogs/dlg_perros.inc"); ?>
     
@@ -60,21 +60,21 @@
             }
         }); 
         // - botones de la toolbar de la tabla
-        $('#perros-newBtn').linkbutton(); // nuevo perro       
+        $('#perros-newBtn').linkbutton({plain:true,iconCls:'icon-add'}); // nuevo perro       
         $('#perros-newBtn').tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Dar de alta un nuevo perro en la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#perros-editBtn').linkbutton(); // editar perro      
+        $('#perros-editBtn').linkbutton({plain:true,iconCls:'icon-edit'}); // editar perro      
         $('#perros-editBtn').tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Modificar los datos del perro seleccionado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#perros-delBtn').linkbutton(); // borrar perro     
+        $('#perros-delBtn').linkbutton({plain:true,iconCls:'icon-remove'}); // borrar perro     
         $('#perros-delBtn').tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Eliminar el perro seleccionado de la BBDD</span>',
@@ -82,7 +82,7 @@
         	}
     	});
 
-        $('#perros-searchBtn').linkbutton(); // buscar perro
+        $('#perros-searchBtn').linkbutton({plain:true,iconCls:'icon-search'} ); // buscar perro
         $('#perros-searchBtn').tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Buscar entradas que contengan el texto dado</span>',

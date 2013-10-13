@@ -4,11 +4,11 @@
     <table id="clubes-datagrid" class="easyui-datagrid"></table>
 	<!-- BARRA DE TAREAS -->
     <div id="clubes-toolbar">
-        <a id="clubes-newBtn" href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newClub()">Nuevo club</a>
-        <a id="clubes-editBtn" href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editClub()">Editar club</a>
-        <a id="clubes-delBtn" href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyClub()">Borrar club</a>
+        <a id="clubes-newBtn" href="#" class="easyui-linkbutton" onclick="newClub()">Nuevo club</a>
+        <a id="clubes-editBtn" href="#" class="easyui-linkbutton" onclick="editClub()">Editar club</a>
+        <a id="clubes-delBtn" href="#" class="easyui-linkbutton" onclick="destroyClub()">Borrar club</a>
         <input id="clubes-search" type="text" onchange="doSearchClub()"/> 
-        <a id="clubes-searchBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-search" onclick="doSearchClub()">Buscar</a>
+        <a id="clubes-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchClub()">Buscar</a>
     </div>   
 
     <?php include_once("dialogs/dlg_clubes.inc")?>
@@ -73,23 +73,23 @@
         }); // end of '#clubes-datagrid' declaration
          
         // - botones de la toolbar de la tabla
-        $('#clubes-newBtn').linkbutton().tooltip({ // nuevo club        
+        $('#clubes-newBtn').linkbutton({iconCls:'icon-add',plain:true}).tooltip({ // nuevo club        
         	position: 'top',
         	content: '<span style="color:#000">Dar de alta un nuevo club en la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#clubes-editBtn').linkbutton().tooltip({ // editar club   
+        $('#clubes-editBtn').linkbutton({iconCls:'icon-edit',plain:true}).tooltip({ // editar club   
         	position: 'top',
         	content: '<span style="color:#000">Editar los datos del club seleccionado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     	});
-        $('#clubes-delBtn').linkbutton().tooltip({ // borrar club
+        $('#clubes-delBtn').linkbutton({iconCls:'icon-remove',plain:true}).tooltip({ // borrar club
             position: 'top',
             content: '<span style="color:#000">Borrar el club seleccionado de la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
-        $('#clubes-searchBtn').linkbutton().tooltip({ // buscar clubes que coincidan
+        $('#clubes-searchBtn').linkbutton({iconCls:'icon-search',plain:true}).tooltip({ // buscar clubes que coincidan
         	position: 'top',
         	content: '<span style="color:#000">Buscar entradas que contengan el texto indicado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});

@@ -1,4 +1,4 @@
-<script language="javascript">
+<script type="text/javascript">
         $('#Header_Operation').html('<p>Al final de la prueba</p>');
 </script>
 <h1>Loren Ipsum dolor sit amet</h1>

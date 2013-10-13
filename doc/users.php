@@ -1,4 +1,4 @@
-<script language="javascript">
+<script type="text/javascript">
         $('#Header_Operation').html('<p>Tipos de usuario. Gesti&oacute;n y administraci&oacute;n</p>');
 </script>
 <h1>Loren Ipsum dolor sit amet</h1>

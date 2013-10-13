@@ -1,6 +1,5 @@
      <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE JORNADAS -->
-    <div id="jornadas-dialog" class="easyui-dialog" style="width:350px;height:550px;padding:10px 20px"
-            closed="true" buttons="#jornadas-dlg-buttons">
+    <div id="jornadas-dialog" class="easyui-dialog" style="width:350px;height:550px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n de la Jornada</div>
         <form id="jornadas-form" method="get" novalidate>
             <div class="fitem">
@@ -19,7 +18,7 @@
         	</div>
             <div class="fitem">
                 <label for="Fecha">Fecha</label>
-                <select id="jornadas-Fecha" name="Fecha" class="easyui-datebox" style="width:250px"/>
+                <select id="jornadas-Fecha" name="Fecha" class="easyui-datebox" style="width:250px"></select>
             </div>
             <div class="fitem">
                 <label for="Hora">Hora</label>
@@ -74,14 +73,17 @@
             
 		<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 		<div id="jornadas-dlg-buttons">
-			<a id="jornadas-okBtn" href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveJornada()">Guardar</a>
-			<a id="jornadas-cancelBtn" href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#jornadas-dialog').dialog('close')">Cancelar</a>
+			<a id="jornadas-okBtn" href="#" class="easyui-linkbutton" onclick="saveJornada()">Guardar</a>
+			<a id="jornadas-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#jornadas-dialog').dialog('close')">Cancelar</a>
 		</div>
     </div>
     
     <script type="text/javascript">
     // datos del formulario de nuevo/edit jornada
-    $('#jornadas-dialog').dialog();
+    $('#jornadas-dialog').dialog({
+        closed:true,
+        buttons:'#jornadas-dlg-buttons'
+    });
     // - declaracion del formulario
     $('#jornadas-form').form();
 
@@ -111,7 +113,7 @@
     $('#jornadas-Fecha').datebox('options').keyHandler.query = function(q) {
     	if (q.indexOf('-') >= 0) { q = replaceAll('-', '/',q);	}
     	$(this).datebox('setValue', q);
-    }
+    };
     // hora
     $('#jornadas-Hora').timespinner({
         required: true
@@ -122,15 +124,13 @@
         validType: 'length[1,255]'
     });
     // - boton de "Aceptar"
-    $('#jornadas-okBtn').linkbutton();        
-    $('#jornadas-okBtn').tooltip({
+    $('#jornadas-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
         position: 'top',
         content: '<span style="color:#000">Registrar la entrada en la Base de Datos</span>',
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     });
     // - boton de "Cancelar"
-    $('#jornadas-cancelBtn').linkbutton();        
-    $('#jornadas-cancelBtn').tooltip({
+    $('#jornadas-cancelBtn').linkbutton({iconCls:'icon-cancel'}).tooltip({
         position: 'top',
         content: '<span style="color:#000">Cancelar la operaci&oacute;n. Cerrar ventana</span>',
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}

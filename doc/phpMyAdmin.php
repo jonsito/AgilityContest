@@ -1,4 +1,4 @@
-<script language="javascript">
+<script type="text/javascript">
         $('#Header_Operation').html('<p>Acceso directo a la consola de gesti&oacute;n de la BBDD</p>');
 </script>
 <h1>Loren Ipsum dolor sit amet</h1>
