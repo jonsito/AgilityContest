@@ -1,4 +1,3 @@
-
     <!-- FORMULARIO DE REASIGNACION DE UN PERRO-->
     <div id="chperros-dialog" class="easyui-dialog" style="width:500px;height:375px;padding:10px 20px">
         <div id="chperros-title" class="ftitle">Reasignaci&oacute;n de un perro</div>
@@ -13,7 +12,6 @@
         </form>
         <hr/>
         <form id="chperros-form" method="get" novalidate>
-
             <div class="fitem">
                 <label for="Nombre">Nombre:</label>
                 <input id="chperros-Nombre" name="Nombre" class="easyui-validatebox" />

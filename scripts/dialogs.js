@@ -104,8 +104,8 @@ function assignGuiaToClub(club) {
 	$('#chguias-dialog').dialog('open').dialog('setTitle','Asignar/Registrar un gu&iacute;a');
 	$('#chguias-form').form('clear'); // erase form
 	$('#chguias-title').text('Reasignar/Declarar un guia como perteneciente al club '+club.Nombre);
-	$('#chguias-Club').combogrid({ 'value': club.Nombre} );
-	$('#chguias-newClub').val(club.Nombre );
+	$('#chguias-Club').val(club.Nombre);
+	$('#chguias-newClub').val(club.Nombre);
 	$('#chguias-Operation').val('insert');
 	$('#chguias-Parent').val('-' + replaceAll(' ','_',club.Nombre));
 }
@@ -133,7 +133,7 @@ function editGuiaFromClub(club) {
     // save old guia name in "Viejo" hidden form input to allow change guia name
     $('#guias-Viejo').val( $('#guias-Nombre').val()); // set up old name in case of change
     // set default value for "club"
-	$('#guias-Club').combogrid({ 'value': club.Nombre} ); 
+	$('#guias-Club').val(club.Nombre); 
     $('#guias-Parent').val(parent);
     $('#guias-Operation').val('update');
 }
@@ -159,7 +159,6 @@ function editGuia(){
 function assignGuia(){
 	$('#chguias-Viejo').val($('#chguias-Search').combogrid('getValue'));
 	$('#chguias-Club').val($('#chguias-newClub').val());
-	alert('Club: '+$('#chguias-Club').val());
     // do normal submit
     $('#chguias-form').form('submit',{
         url: 'database/guiaFunctions.php',
