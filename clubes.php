@@ -191,10 +191,10 @@
         		// toolbar: '#perrosbyguia-toolbar', 
 				toolbar:  [{
 					id: 'perrosByGuia-newBtn',
-					text: 'A&ntilde;adir perro',
+					text: 'Asignar perro',
 					plain: true,
 					iconCls: 'icon-dog',
-					handler: function(){addPerroToGuia(guia);},
+					handler: function(){assignPerroToGuia(guia);},
 				},{
 					id: 'perrosByGuia-editBtn',
 					text: 'Editar datos',
@@ -203,7 +203,7 @@
 					handler: function(){editPerroFromGuia(guia);}
 				},{
 					id: 'perrosByGuia-delBtn',
-					text: 'Borrar perro',
+					text: 'Desasignar perro',
 					plain: true,
 					iconCls: 'icon-remove',
 					handler: function(){delPerroFromGuia(guia);}

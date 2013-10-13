@@ -251,42 +251,20 @@ function newDog(){
 }
 
 /**
- * Abre el formulario para anyadir perros a un guia
+ * Abre el formulario para anyadir/asignar perros a un guia
  *@param guia: nombre del guia
  */
-function addPerroToGuia_old(guia) {
-	$('#perros-dialog').dialog('open').dialog('setTitle','Crear un nuevo perro y asignarlo a '+guia.Nombre);
-	$('#perros-form').form('clear'); // start with an empty form
-	// set up default guia
-	$('#perros-Guia').combogrid({ 'value': guia.Nombre} ); 
-	$('#perros-Operation').val('insert');
-	$('#perros-Parent').val('-'+replaceAll(' ','_',guia.Nombre));
-}
-
-function addPerroToGuia(guia) {
+function assignPerroToGuia(guia) {
 	$('#chperros-dialog').dialog('open').dialog('setTitle',"Reasignar / Declarar perro");
 	$('#chperros-form').form('clear'); // start with an empty form
 	$('#chperros-title').text('Buscar perro / Declarar un nuevo perro y asignarlo a '+guia.Nombre); // start with an empty form
 	// set up default guia
 	$('#chperros-newGuia').val(guia.Nombre);
-	$('#chperros-Guia').combogrid({ 'value': guia.Nombre} );
-	$('#chperros-Guia').combogrid({ 'readonly': true} ); 
+	$('#chperros-Guia').val(guia.Nombre);
 	$('#chperros-Operation').val('insert');
 	$('#chperros-Parent').val('-'+replaceAll(' ','_',guia.Nombre));
 }
 
-/**
- * Abre el formulario para anyadir perros a un guia
- *@param guia: nombre del guia
- */
-function assignPerroToGuia(guia) {
-	$('#perros-dialog').dialog('open').dialog('setTitle','Crear un nuevo perro y asignarlo a '+guia.Nombre);
-	$('#perros-form').form('clear'); // start with an empty form
-	// set up default guia
-	$('#perros-Guia').combogrid({ 'value': guia.Nombre} ); 
-	$('#perros-Operation').val('insert');
-	$('#perros-Parent').val('-'+replaceAll(' ','_',guia.Nombre));
-}
 /**
  * Abre el dialogo para editar datos de un perro ya existente
  */
