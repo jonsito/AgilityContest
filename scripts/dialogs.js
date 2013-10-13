@@ -254,13 +254,25 @@ function newDog(){
  * Abre el formulario para anyadir perros a un guia
  *@param guia: nombre del guia
  */
-function addPerroToGuia(guia) {
+function addPerroToGuia_old(guia) {
 	$('#perros-dialog').dialog('open').dialog('setTitle','Crear un nuevo perro y asignarlo a '+guia.Nombre);
 	$('#perros-form').form('clear'); // start with an empty form
 	// set up default guia
 	$('#perros-Guia').combogrid({ 'value': guia.Nombre} ); 
 	$('#perros-Operation').val('insert');
 	$('#perros-Parent').val('-'+replaceAll(' ','_',guia.Nombre));
+}
+
+function addPerroToGuia(guia) {
+	$('#chperros-dialog').dialog('open').dialog('setTitle',"Reasignar / Declarar perro");
+	$('#chperros-form').form('clear'); // start with an empty form
+	$('#chperros-title').text('Buscar perro / Declarar un nuevo perro y asignarlo a '+guia.Nombre); // start with an empty form
+	// set up default guia
+	$('#chperros-newGuia').val(guia.Nombre);
+	$('#chperros-Guia').combogrid({ 'value': guia.Nombre} );
+	$('#chperros-Guia').combogrid({ 'readonly': true} ); 
+	$('#chperros-Operation').val('insert');
+	$('#chperros-Parent').val('-'+replaceAll(' ','_',guia.Nombre));
 }
 
 /**
@@ -303,6 +315,33 @@ function editPerroFromGuia(guia) {
     $('#perros-Operation').val('update'); // mark "update" operation
 }
 
+/** 
+ * Actualiza los datos de un perro pre-asignado a un guia
+ */
+function assignDog() {
+	// set up guia
+	$('#chperros-Guia').val($('#chperros-newGuia').val());
+    $('#chperros-form').form('submit',{
+        url: 'database/dogFunctions.php',
+        method: 'get',
+        onSubmit: function(param){
+            return $(this).form('validate');
+        },
+        success: function(result){
+            var result = eval('('+result+')');
+            if (result.errorMsg){
+                $.messager.show({
+                    title: 'Error',
+                    msg: result.errorMsg
+                });
+            } else {
+            	var parent=$('#chperros-Parent').val();
+                $('#perros-datagrid'+parent).datagrid('reload');    // reload the dog data
+                $('#chperros-dialog').dialog('close');        // close the dialog
+            }
+        }
+    });
+}
 /**
  * Ejecuta la peticion json para anyadir/editar un perro
  */
