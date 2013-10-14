@@ -1,7 +1,7 @@
 <!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->
 <div id="selprueba-window" class="easyui-window" style="position:relative,width:500px;height:150px;padding:20px 20px">
 	<div id="selprueba-Layout" class="easyui-layout" fit="true">
-		<div id="selprueba-Content" region="north" border="true">
+		<div id="selprueba-Content" region="center" border="true">
 			<form id="selprueba-Prueba">
         		<div class="fitem">
             		<label for="Search">Buscar:</label>
@@ -30,6 +30,7 @@ $('#selprueba-window').window({
 });
 
 $('#selprueba-form').form();
+$('#selprueba-layout').layout();
 
 $('#selprueba-okBtn').linkbutton({ iconCls: 'icon-ok' }).tooltip({
 	position: 'top',
