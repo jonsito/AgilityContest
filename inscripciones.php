@@ -19,4 +19,4 @@ $('#selprueba-window').window('open');
 
 </script>
 
-<img class="mainpage" src="images/foto_klein.jpg" alt="Klein" width="800" heigt="400" align="center"/>
+<img class="mainpage" src="images/foto_klein.jpg" alt="Klein" width="800" height="400" align="middle"/>

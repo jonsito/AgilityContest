@@ -16,14 +16,14 @@ function replaceAll(find,replace,from) {
 }
 
 /**
-* Object to store working data
+* Object to store working data primary keys
 */
 var workingData = new Object({
-	perro: 0,
-	guia: '',
-	club: '',
-	juez: '',
-	prueba: '',
-	jornada: 0,
-	manga: 0
+	perro: 0, // Dorsal del perro en edicion
+	guia: '', // nombre del guia en edicion
+	club: '', // nombre del club activo
+	juez: '', // nombre del juez activo
+	prueba: 0, // ID de la prueba en curso
+	jornada: 0, // ID de la jornada en curso
+	manga: 0 // ID de la manga en curso
 });

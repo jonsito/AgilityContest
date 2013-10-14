@@ -2,22 +2,29 @@
 
 <div id="inscripciones_info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
 <div id="inscripciones_infolayout" class="easyui-layout" style="height:180px">
-	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px">
-		<p>Denominacion: <span id="inscripciones-pnombre"></span></p>
-		<p>Club Organizador: <span id="inscripciones-pclub"></span></p>
-		<p>Observaciones: <span id="inscripciones-pcomments"></span></p>
+	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:350px;padding:10px">
+		<form id="inscripciones_pruebas" method="get">
+		<input type="hidden" name="ID"/>
+		<input type="hidden" name="Ubicacion"/>
+		<input type="hidden" name="Triptico"/>
+		<input type="hidden" name="Cartel"/>
+		<input type="hidden" name="Cerrada"/>	
+		<p>
+		<label for="Nombre" style="font-weight:bold">Denominaci&oacute;n:</label>
+		<input id="inscripciones-pnombre" type="text" name="Nombre" disabled="disabled" />
+		</p>
+		<p>
+		<label for="Club" style="font-weight:bold">Club Organizador:</label>
+		<input id="inscripciones-pclub" type="text" name="Club" disabled="disabled"/>
+		</p>
+		<p>
+		<label for="Observaciones" style="font-weight:bold">Observaciones:</label>
+		<input id="inscripciones-pcomments" type="text" name="Observaciones" disabled="disabled"/>
+		</p>
+		</form>
 	</div>
-	<div data-options="region:'center',title:'Lista de jornadas de la prueba'" style="width:500px">
-		<ol>
-			<li><span id="j1">-- No definida --</span></li>
-			<li><span id="j2">-- No definida --</span></li>
-			<li><span id="j3">-- No definida --</span></li>
-			<li><span id="j4">-- No definida --</span></li>
-			<li><span id="j5">-- No definida --</span></li>
-			<li><span id="j6">-- No definida --</span></li>
-			<li><span id="j7">-- No definida --</span></li>
-			<li><span id="j8">-- No definida --</span></li>
-		</ol>
+	<div data-options="region:'center',title:'Lista de jornadas de la prueba'" style="width:450px">
+		<table id="inscripciones_jornadas"class="easyui-datagrid"></table>
 	</div>
 </div> <!-- informacion de layout -->
 </div> <!-- panel de informacion -->
@@ -26,7 +33,7 @@
 <table id="inscripciones-datagrid" class="inscripciones-datagrid" ></table>
     <!-- BARRA DE TAREAS -->
     <div id="inscripciones-toolbar">
-    	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton" onclick="newDog()">Nueva inscripci&oacute;</a>
+    	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton" onclick="newDog()">Nueva inscripci&oacute;n</a>
     	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton" onclick="editDog()">Editar Registro</a>
     	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton" onclick="destroyDog()">Borrar inscripci&oacute;n</a>
     	<input id="inscripciones-search" type="text" onchange="doSearchPerro()"/> 
@@ -45,7 +52,34 @@ $('#inscripciones_info').panel({
 	collapsed:true
 });
 $('#inscripciones_infolayout').layout();
-
+$('#inscripciones_pruebas').form('load','database/get_pruebaByID.php?ID='+workingData.prueba);
+$('#inscripciones_jornadas').datagrid({
+	url: 'database/select_JornadasByPrueba.php?ID='+workingData.prueba,
+	method: 'get',
+    pagination: false,
+    rownumbers: false,
+    fitColumns: true,
+    columns:[[
+            { field:'ID',			hidden:true }, // ID de la jornada
+      	    { field:'Prueba',		hidden:true }, // ID de la prueba
+      	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
+      		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre/Comentario' },
+      		{ field:'Fecha',		width:20, sortable:false,	align:'right', title: 'Fecha:' },
+      		{ field:'Hora',			width:15, sortable:false,	align:'right', title: 'Hora.' },
+      		{ field:'Grado1',		width:7, sortable:false,	align:'center', title: 'G-I   ' },
+      		{ field:'Grado2',		width:7, sortable:false,	align:'center', title: 'G-II  ' },
+      		{ field:'Grado3',		width:7, sortable:false,	align:'center', title: 'G-III ' },
+      		{ field:'Equipos',		width:7, sortable:false,	align:'center', title: 'Eq.   ' },
+      		{ field:'PreAgility',	width:7, sortable:false,	align:'center', title: 'Pre.  ' },
+      		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.  ' },
+      		{ field:'Exhibicion',	width:7, sortable:false,	align:'center', title: 'Show  ' },
+      		{ field:'Otras',		width:7, sortable:false,	align:'center', title: 'Otras ' },
+      		{ field:'Cerrada',		width:7, sortable:false,	align:'center', title: 'Cerrada' }
+    ]],
+    rowStyler:function(index,row) { // colorize rows
+        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+    }
+});
 // datos de la tabla de inscripciones
 // - tabla
 $('#inscripciones-datagrid').datagrid({
