@@ -11,4 +11,6 @@ DONE - after insert/update/delete jornadasbyprueba no actualiza contenido
 - Documentacion
 - More and more...
 - 
-- editPerroFromGuia() must leave guia as readonly
+- assignDogToGuia() must leave dog as readonly
+- assignGuiaToClub() must leave guia as readonly
+- warn on change dog/handler name on reassign

@@ -29,40 +29,47 @@
             </div>
             <div class="fitem">
                 <label for="Grado1" style="width:200px" >Grado 1</label>
-                <input id="jornadas-Grado1" name="Grado1" class="easyui-checkbox" type="checkbox" checked="checked" value="1"/>
+                <input id="jornadas-Grado1" name="Grado1" class="easyui-checkbox" 
+                type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado1')"/>
             </div>
             
             <div class="fitem">
                 <label for="Grado2" style="width:200px" >Grado 2</label>
-                <input id="jornadas-Grado2" name="Grado2" class="easyui-checkbox" type="checkbox" checked="checked" value="1"/>
+                <input id="jornadas-Grado2" name="Grado2" class="easyui-checkbox" 
+                type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado2')"/>
             </div>
             
             <div class="fitem">
                 <label for="Grado3" style="width:200px" >Grado 3</label>
-                <input id="jornadas-Grado3" name="Grado3" class="easyui-checkbox" type="checkbox" checked="checked" value="1"/>
+                <input id="jornadas-Grado3" name="Grado3" class="easyui-checkbox" 
+                type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado3')"/>
             </div>
             
             <div class="fitem">
                 <label for="Equipos" style="width:200px" >Manga por Equipos</label>
-                <input id="jornadas-Equipos" name="Equipos" class="easyui-checkbox" type="checkbox" />
+                <input id="jornadas-Equipos" name="Equipos" class="easyui-checkbox" 
+                type="checkbox" onClick="setEquipos()"/>
             </div>
             
             <div class="fitem">
                 <label for="PreAgility" style="width:200px" >Pre-Agility</label>
-                <input id="jornadas-PreAgility" name="PreAgility" class="easyui-checkbox" type="checkbox" checked="checked" value="1"/>
+                <input id="jornadas-PreAgility" name="PreAgility" class="easyui-checkbox" 
+                type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-PreAgility')"/>
             </div>
             
             <div class="fitem">
                 <label for="KO" style="width:200px" >Prueba K.O.</label>
-                <input id="jornadas-KO" name="KO" class="easyui-checkbox" type="checkbox" />
+                <input id="jornadas-KO" name="KO" class="easyui-checkbox" type="checkbox" onClick="setKO();"/>
             </div>
             <div class="fitem">
                 <label for="Exhibicion" style="width:200px" >Manga de Exhibici&oacute;n</label>
-                <input id="jornadas-Exhibicion" name="Exhibicion" class="easyui-checkbox" type="checkbox" />
+                <input id="jornadas-Exhibicion" name="Exhibicion" class="easyui-checkbox" 
+                type="checkbox"  onClick="checkPrueba('#jornadas-Exhibicion')"/>
             </div>
             <div class="fitem">
                 <label for="Otras" style="width:200px" >Otras (no especificada)</label>
-                <input id="jornadas-Otras" name="Otras" class="easyui-checkbox" type="checkbox" />
+                <input id="jornadas-Otras" name="Otras" class="easyui-checkbox" 
+                type="checkbox"  onClick="checkPrueba('#jornadas-Otras')"/>
             </div>
             <div class="fitem"><hr/></div>
             <div class="fitem">

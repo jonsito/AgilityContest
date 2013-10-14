@@ -157,7 +157,7 @@ function editGuia(){
  * Ask for commit new/edit guia to server
  */
 function assignGuia(){
-	$('#chguias-Viejo').val($('#chguias-Search').combogrid('getValue'));
+	// $('#chguias-Viejo').val($('#chguias-Search').combogrid('getValue'));
 	$('#chguias-Club').val($('#chguias-newClub').val());
     // do normal submit
     $('#chguias-form').form('submit',{
@@ -720,5 +720,54 @@ function saveJornada(){
     });
 }
 
+/**
+ * No permitir activacion de una prueba si hay declarada una prueba ko o una de equipos
+ */
+function checkPrueba(id) {
+	var count=0;
+	count += $('#jornadas-Equipos').is(':checked')?1:0;
+	count += $('#jornadas-KO').is(':checked')?1:0;
+	if (count==0) return;
+	$.messager.alert('Error','No se pueden declarar pruebas adicionales en una jornada KO o por Equipos','error');
+	$(id).prop('checked',false);
+}
+
+/**
+ * En el caso de una prueba KO debe ser la unica prueba de la jornada
+ */
+function setKO() {
+	var count=0;
+	var KO=$('#jornadas-KO').val( $('#jornadas-KO').is(':checked')?1:0);
+	if (KO==0) return;
+	count += $('#jornadas-Grado1').is(':checked')?1:0;
+	count += $('#jornadas-Grado2').is(':checked')?1:0;
+	count += $('#jornadas-Grado3').is(':checked')?1:0;
+	count += $('#jornadas-PreAgility').is(':checked')?1:0;
+	count += $('#jornadas-Equipos').is(':checked')?1:0;
+	count += $('#jornadas-Exhibicion').is(':checked')?1:0;
+	count += $('#jornadas-Otras').is(':checked')?1:0;
+	if (count==0) return; // everything ok
+	$.messager.alert('Error','Una prueba KO debe ser declarada en una jornada independiente','error');
+	$('#jornadas-KO').prop('checked',false);
+}
+
+/**
+ * En el caso de una prueba por equipos debe ser la unica prueba de la jornada
+ */
+function setEquipos() {
+	var count=0;
+	var KO=$('#jornadas-KO').val( $('#jornadas-KO').is(':checked')?1:0);
+	if (KO==0) return;
+	count += $('#jornadas-Grado1').is(':checked')?1:0;
+	count += $('#jornadas-Grado2').is(':checked')?1:0;
+	count += $('#jornadas-Grado3').is(':checked')?1:0;
+	count += $('#jornadas-PreAgility').is(':checked')?1:0;
+	count += $('#jornadas-KO').is(':checked')?1:0;
+	count += $('#jornadas-Exhibicion').is(':checked')?1:0;
+	count += $('#jornadas-Otras').is(':checked')?1:0;
+	if (count==0) return; // everything ok
+	$.messager.alert('Error','Una prueba por equipos debe ser declarada en una jornada independiente','error');
+	$('#jornadas-Equipos').prop('checked',false);
+}
 
 // ***** gestion de inscripciones	*****************************************************
