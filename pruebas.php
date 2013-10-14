@@ -35,6 +35,7 @@
             view: detailview,
             height: 'auto',
             columns: [[
+                { field:'ID', hidden:true }, // primary key
             	{ field:'Nombre',		width:20,	sortable:true,	title:'Nombre de la prueba:' },
             	{ field:'Club',			width:15,	sortable:true,	title:'Club organizador' },
             	{ field:'Ubicacion',	width:20,					title:'Lugar de celebraci&oacute;n' },
@@ -51,7 +52,7 @@
         	onDblClickRow:function() { editPrueba(); },
             // especificamos un formateador especial para desplegar la tabla de jornadas por prueba
             detailFormatter:function(index,row){
-                return '<div style="padding:2px"><table id="jornadas-datagrid-' + replaceAll(' ','_',row.Nombre) + '"/></div>';
+                return '<div style="padding:2px"><table id="jornadas-datagrid-' + row.ID + '"/></div>';
             },
             onExpandRow: function(index,row) { showJornadasByPrueba(index,row); }
             
@@ -64,7 +65,7 @@
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#pruebas-editBtn').linkbutton({iconCls:'icon-edit',plain:true }).tooltip({ // etditar prueba
+        $('#pruebas-editBtn').linkbutton({iconCls:'icon-edit',plain:true }).tooltip({ // editar prueba
         	position: 'top',
         	content: '<span style="color:#000">Editar los datos de la prueba seleccionada</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
@@ -91,31 +92,20 @@
 
         // ------------- submenu de jornadas asociadas a una prueba --------------------- //
         function showJornadasByPrueba (index,prueba) {
-            $('#jornadas-datagrid-'+replaceAll(' ','_',prueba.Nombre)).datagrid({
+            $('#jornadas-datagrid-'+prueba.ID).datagrid({
         		title: 'Jornadas de que consta la prueba '+prueba.Nombre,
-        		// url: 'database/select_JornadasByPrueba.php?Prueba='+prueba.Nombre,
         		url: 'database/select_JornadasByPrueba.php',
-        		queryParams: { Prueba: prueba.Nombre },
+        		queryParams: { ID: prueba.ID },
         		method: 'get',
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
+        		// por defecto, cada prueba tiene asociadas 8 jornadas que se crean automaticamente
+        		// por consiguiente desde la aplicacion no se deben poder anyadir ni borrar jornadas
         		toolbar:  [{
-        			id: 'jornadasbyprueba-newBtn',
-            		text: 'A&ntilde;adir jornada',
-            		plain: true,
-        			iconCls: 'icon-flag',
-        			handler: function(){addJornadaToPrueba(prueba);}
-        		},{
         			id: 'jornadasbyprueba-editBtn',
                 	text: 'Editar jornada',
                 	plain: true,
             		iconCls: 'icon-edit',
            			handler: function(){editJornadaFromPrueba(prueba);}
-        		},{
-        			id: 'jornadasbyprueba-delBtn',
-            		text: 'Borrar jornada',
-            		plain: true,
-        			iconCls: 'icon-remove',
-        			handler: function(){delJornadaFromPrueba(prueba);}
         		}],
        		    pagination: false,
         	    rownumbers: false,
@@ -124,8 +114,9 @@
         	    loadMsg: 'Loading list of journeys',
         	    height: 'auto',
         	    columns: [[
-            	    { field:'Prueba',		hidden:true }, // nombre de la prueba
-            	    { field:'ID',			width:4, sortable:true,		align:'center', title: 'ID'},
+                   	{ field:'ID',			hidden:true }, // ID de la jornada
+            	    { field:'Prueba',		hidden:true }, // ID de la prueba
+            	    { field:'Numero',		width:4, sortable:true,		align:'center', title: '#'},
             		{ field:'Nombre',		width:20, sortable:false,   title: 'Nombre/Comentario' },
             		{ field:'Fecha',		width:12, sortable:true,	title: 'Fecha:' },
             		{ field:'Hora',			width:10, sortable:false,	title: 'Hora.' },
@@ -159,16 +150,6 @@
         	$('#pruebas-datagrid').datagrid('fixDetailRowHeight',index);
         	
             // botones de los sub-formularios
-            $('#jornadasbyprueba-newBtn').linkbutton().tooltip({ // anyadir nueva jornada a la prueba
-                position: 'top',
-                content: '<span style="color:#000">Agregar una nueva jornada a la prueba</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });     
-            $('#jornadasbyprueba-delBtn').linkbutton().tooltip({ // eliminar la jornada
-                position: 'top',
-                content: '<span style="color:#000">Borrar la jornada seleccionada de la prueba</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });        
             $('#jornadasbyprueba-editBtn').linkbutton().tooltip({ // editar datos de la jornada
                 position: 'top',
                 content: '<span style="color:#000">Editar los datos la jornada seleccionada</span>',

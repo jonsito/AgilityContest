@@ -14,7 +14,7 @@
 			do_log($msg);
 			return $msg;
 		}
-		$res=$stmt->bind_param('ssssiiiiiiiii',
+		$res=$stmt->bind_param('isssiiiiiiiii',
 				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras,$cerrada);
 		if (!$res) {
 			$msg="insertJornada::bind() failed $conn->error";
@@ -24,7 +24,7 @@
 		
 		// iniciamos los valores, chequeando su existencia
 		$id = (isset($_REQUEST['ID']))?intval($_REQUEST['ID']):0; // primary key not null
-		$prueba = strval($_REQUEST['Prueba']); // foreign key not null
+		$prueba = intval($_REQUEST['Prueba']); // foreign key not null
 		$nombre = (isset($_REQUEST['Nombre']))?strval($_REQUEST['Nombre']):null;  // Name or comment for jornada
 		$fecha = str_replace("/","-",strval($_REQUEST['Fecha'])); // mysql requires format YYYY-MM-DD
 		$hora = strval($_REQUEST['Hora']); //not null
@@ -69,7 +69,7 @@
 			do_log($msg);
 			return $msg;
 		}
-		$res=$stmt->bind_param('ssssiiiiiiiiii',
+		$res=$stmt->bind_param('isssiiiiiiiiii',
 				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras,$cerrada,$id);
 		if (!$res) {
 			$msg="updateJornada::bind() failed $conn->error";
@@ -79,7 +79,7 @@
 		
 		// iniciamos los valores, chequeando su existencia
 		$id = (isset($_REQUEST['ID']))?intval($_REQUEST['ID']):0; // primary key not null
-		$prueba = strval($_REQUEST['Prueba']); // foreign key not null -----SHOULDN'T CHANGE ANYWAY----
+		$prueba = intval($_REQUEST['Prueba']); // foreign key not null 
 		$nombre = (isset($_REQUEST['Nombre']))?strval($_REQUEST['Nombre']):null;  // Name or comment for jornada
 		$fecha = str_replace("/","-",strval($_REQUEST['Fecha'])); // mysql requires format YYYY-MM-DD
 		$hora = strval($_REQUEST['Hora']); //not null

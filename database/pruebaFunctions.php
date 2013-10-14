@@ -2,6 +2,29 @@
 	require_once("logging.php");
 	require_once("DBConnection.php");
 	
+	/*
+	 * Cada prueba lleva asociada 8 jornadas, que se crean automaticamente al crear la prueba
+	 */
+	function insertJornadas($conn,$nombre) {
+		// fase 1: averiguar el ID de la prueba que tiene el nombre dado
+		$sql="SELECT ID FROM Pruebas WHERE (Nombre='$nombre')";
+		$rs=$conn->query($sql);
+		$row=$rs->fetch_array();
+		$id = $row[0];
+		do_log("El id de la prueba $nombre es $id");
+		// fase 2: insertar 8 jornadas numeradas de 1 a 8
+		for ($n=1;$n<9;$n++) { 
+			$sql ="INSERT INTO Jornadas (Prueba,Numero,Nombre,Fecha,Hora) VALUES ($id,$n,'Jornada $n','2013-01-01','00:00:00')";
+			$res=$conn->query($sql);
+			if (!$res) {
+				$msg="insertPrueba::insertJornada($n) failed $conn->error";
+				do_log($msg);
+				return $msg;
+			}
+		}
+		return "";
+	}
+	
 	function insertPrueba ($conn) {
 		$msg=""; // default: no errors
 		do_log("insertPrueba:: enter");
@@ -40,8 +63,8 @@
 			do_log($msg);
 		}
 		else  do_log("execute resulted: $res");
-		
 		$stmt->close();
+		$msg=insertJornadas($conn,$nombre);
 		return $msg;
 	}
 	
@@ -52,14 +75,14 @@
 		// componemos un prepared statement
 		$sql ="UPDATE Pruebas 
 				SET Nombre=? , Club=? , Ubicacion=? , Triptico=? , Cartel=?, Observaciones=?, Cerrada=? 
-				WHERE ( Nombre=? )";
+				WHERE ( ID=? )";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
 			$msg="updatePrueba::prepare() failed $conn->error";
 			do_log($msg);
 			return $msg;
 		}
-		$res=$stmt->bind_param('ssssssis',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$cerrada,$viejo);
+		$res=$stmt->bind_param('ssssssii',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$cerrada,$id);
 		if (!$res) {
 			$msg="updatePrueba::bind() failed $conn->error";
 			do_log($msg);
@@ -67,8 +90,8 @@
 		}
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre = strval($_REQUEST['Nombre']); // unique not null pkey
-		$viejo = strval($_REQUEST['Viejo']);
+		$nombre = strval($_REQUEST['Nombre']); // not null
+		$id = strval($_REQUEST['ID']); // primary key
 		$club = strval($_REQUEST['Club']); // not null
 		$ubicacion = (isset($_REQUEST['Ubicacion']))?strval($_REQUEST['Ubicacion']):null;
 		$triptico = (isset($_REQUEST['Triptico']))?strval($_REQUEST['Triptico']):null;
@@ -89,10 +112,10 @@
 		return $msg;
 	}
 	
-	function deletePrueba($conn,$nombre) {
+	function deletePrueba($conn,$id) {
 		$msg="";
 		do_log("deletePrueba:: enter");
-		$res= $conn->query("DELETE FROM Pruebas WHERE (Nombre='$nombre')");
+		$res= $conn->query("DELETE FROM Pruebas WHERE (ID=$id)");
 		if (!$res) {
 			$msg="deletePrueba::query(delete) Error: $conn->error";
 			do_log($msg);
@@ -128,7 +151,7 @@
 		else 				echo json_encode(array('errorMsg'=>$result));
 	}
 	else if($oper==='delete') {
-		$result= deletePrueba($conn,strval($_GET['Nombre']));
+		$result= deletePrueba($conn,intval($_GET['ID']));
 		if ($result==="") 	echo json_encode(array('success'=>true));
 		else				echo json_encode(array('msg'=>$result));
 	}

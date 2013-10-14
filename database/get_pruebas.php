@@ -8,7 +8,6 @@
 	$sort = isset($_GET['sort']) ? strval($_GET['sort']) : 'Nombre';
 	$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
 	$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
-	do_log("closed is: ".$_GET['closed']);
 	$closed = isset($_GET['closed'])? intval($_GET['closed']) : 0;
 	$where = '';
 	if ($search!=='') {

@@ -7,7 +7,7 @@
                 <input id="jornadas-Nombre" name="Nombre" type="text" class="easyui-validatebox" style="width:250px"/>
             </div>
         	<div class="fitem">
-				<!-- nombre de la prueba asociada al formulario -->
+				<!-- ID de la prueba asociada al formulario -->
 				<input id="jornadas-Prueba" type="hidden" name="Prueba"/>
 				<!-- ID de jornada; usado para updates y deletes -->
 				<input id="jornadas-ID" type="hidden" name="ID"/> 

@@ -10,7 +10,7 @@
                 	type="text" 
                 	class="easyui-validatebox" 
                 	style="width:325px" />
-                <input id="pruebas-Viejo" name="Viejo" type="hidden" /> <!-- used to allow operator change prueba's name -->
+                <input id="pruebas-ID" name="ID" type="hidden" /> <!-- primary key -->
                 <input id="pruebas-Operation" name="Operation" type="hidden" /> <!-- used to store operation type -->
             </div>
             <div class="fitem">
