@@ -631,8 +631,7 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
 DROP TABLE IF EXISTS `Jornadas`;
 CREATE TABLE IF NOT EXISTS `Jornadas` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
-  `Prueba` int(4) NOT NULL,
-  `Numero` int(4) NOT NULL,
+  `Prueba` varchar(255) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Fecha` date NOT NULL,
   `Hora` time NOT NULL,
@@ -652,7 +651,7 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
 --
 -- RELACIONES PARA LA TABLA `Jornadas`:
 --   `Prueba`
---       `Pruebas` -> `ID`
+--       `Pruebas` -> `Nombre`
 --
 
 -- --------------------------------------------------------
@@ -1258,7 +1257,6 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 
 DROP TABLE IF EXISTS `Pruebas`;
 CREATE TABLE IF NOT EXISTS `Pruebas` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(255) NOT NULL,
   `Club` varchar(255) NOT NULL,
   `Ubicacion` varchar(255) DEFAULT NULL,
@@ -1266,7 +1264,7 @@ CREATE TABLE IF NOT EXISTS `Pruebas` (
   `Cartel` longblob,
   `Observaciones` varchar(255) DEFAULT NULL,
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`Nombre`),
   KEY `Club` (`Club`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1281,7 +1279,7 @@ CREATE TABLE IF NOT EXISTS `Pruebas` (
 --
 
 INSERT INTO `Pruebas` (`Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`, `Observaciones`, `Cerrada`) VALUES
-(1,'-- Sin asignar --', '-- Sin asignar --', 'Somewhere over the rainbow...', '', '', 'NO BORRAR ESTA ENTRADA. SE USARA PARA AQUELLAS JORNADAS QUE NO TENGAN PRUEBA ASIGNADA', 1);
+('-- Sin asignar --', '-- Sin asignar --', 'Somewhere over the rainbow...', '', '', 'NO BORRAR ESTA ENTRADA. SE USARA PARA AQUELLAS JORNADAS QUE NO TENGAN PRUEBA ASIGNADA', 1);
 
 -- --------------------------------------------------------
 
@@ -1402,7 +1400,7 @@ ALTER TABLE `Inscripciones`
 -- Filtros para la tabla `Jornadas`
 --
 ALTER TABLE `Jornadas`
-  ADD CONSTRAINT `Jornadas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`);
+  ADD CONSTRAINT `Jornadas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`Nombre`);
 
 --
 -- Filtros para la tabla `Mangas`
