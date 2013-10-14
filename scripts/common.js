@@ -14,3 +14,16 @@ function loadContents(id,page) {
 function replaceAll(find,replace,from) {
 	return from.replace(new RegExp(find, 'g'), replace);
 }
+
+/**
+* Object to store working data
+*/
+var workingData = new Object({
+	perro: 0,
+	guia: '',
+	club: '',
+	juez: '',
+	prueba: '',
+	jornada: 0,
+	manga: 0
+});
