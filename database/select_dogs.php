@@ -17,7 +17,7 @@
 	// execute first query to know how many elements
 	$rs=$conn->query("SELECT count(*) FROM Perros,Guias WHERE ( Perros.Guia = Guias.Nombre) $where");
 	if (!$rs) {
-		$err="get_dogs::query(count *) error $conn->error";
+		$err="select_dogs::query(count *) error $conn->error";
 		do_log($err);
 		echo json_encode(array('errorMsg'=>$err));
 		DBConnection::closeConnection($conn);
@@ -30,10 +30,10 @@
 			FROM Perros,Guias
 			WHERE ( Perros.Guia = Guias.Nombre) $where 
 			ORDER BY $sort $order LIMIT $offset,$rows";
-	do_log("get_dogs:: query string is $str");
+	do_log("select_dogs:: query string is $str");
 	$rs=$conn->query($str);
 	if (!$rs) {
-		$err="get_dogs::query() error $conn->error";
+		$err="select_dogs::query() error $conn->error";
 		do_log($err);
 		echo json_encode(array('errorMsg'=>$err));
 		DBConnection::closeConnection($conn);

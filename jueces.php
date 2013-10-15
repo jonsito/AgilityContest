@@ -23,7 +23,7 @@
         // - tabla
         $('#jueces-datagrid').datagrid({
         	title: 'Gesti&oacute;n de datos de Jueces',
-        	url: 'database/get_jueces.php',
+        	url: 'database/select_jueces.php',
         	method: 'get',
             toolbar: '#jueces-toolbar',
             pagination: true,

@@ -28,7 +28,7 @@
         // - tabla
         $('#clubes-datagrid').datagrid({
         	title: 'Gesti&oacute;n de datos de Clubes',
-        	url: 'database/get_clubes.php',
+        	url: 'database/select_clubes.php',
         	method: 'get',
             toolbar: '#clubes-toolbar',
             pagination: true,

@@ -24,7 +24,7 @@
         // - tabla
         $('#pruebas-datagrid').datagrid({
         	title: 'Gesti&oacute;n de datos de pruebas',
-        	url: 'database/get_pruebas.php',
+        	url: 'database/select_pruebas.php',
         	method: 'get',
             toolbar: '#pruebas-toolbar',
             pagination: true,

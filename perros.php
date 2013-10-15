@@ -32,7 +32,7 @@
         // - tabla
         $('#perros-datagrid').datagrid({
         	title: 'Gesti&oacute;n de datos de Perros',
-        	url: 'database/get_dogs.php',
+        	url: 'database/select_dogs.php',
         	method: 'get',
             toolbar: '#perros-toolbar',
             pagination: true,

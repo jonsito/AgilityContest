@@ -84,7 +84,7 @@ $('#inscripciones_jornadas').datagrid({
 // - tabla
 $('#inscripciones-datagrid').datagrid({
 	title: 'Gesti&oacute;n de datos de inscripciones',
-	url: 'database/get_dogs.php',
+	url: 'database/select_dogs.php',
 	method: 'get',
     toolbar: '#inscripciones-toolbar',
     pagination: true,
