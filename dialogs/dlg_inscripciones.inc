@@ -1,23 +1,35 @@
 
    <!-- FORMULARIO DE NUEVA INSCRIPCION -->
-    <div id="inscripciones-dialog" class="easyui-dialog" style="width:640px;height:350px;padding:10px 20px">
+    <div id="inscripciones-dialog" class="easyui-dialog" style="width:725px;height:375px;padding:10px 20px">
         <div class="ftitle">Datos de la Inscripci&oacute;n</div>
-        <form id="inscripciones-data" method="get" novalidate>
-            <div class="fitem">
-                <label for="Dorsal">Participante:</label>
-                <input type="hidden" name="Dorsal"/>
-                <select id="inscripciones-search" name="Search" class="easyui-combogrid" style="width:250px"></select>
-            </div>
-            <div>
-            <input id="inscripciones-Dorsal" type="hidden" name="Dorsal" disabled="disabled"/>
-            Nombre: <input id="inscripciones-Nombre" name="Nombre" disabled="disabled" />&nbsp;
-            Categoria: <input id="inscripciones-Categoria" name="Categoria" disabled="disabled"/>&nbsp;
-            Grado: <inpur id="inscripciones-Grado" name="Grado" disabled="disabled" />&nbsp;
-            Gu&iacute;a: <input id="inscripciones-Guia" name="Guia" disabled="disabled" />&nbsp;
-            Club: <input id="inscripciones-Club" name="Club" disabled="disabled" />&nbsp;
-        </form>
+        <div class="fitem">
+            <form name="inscripciones-buscar" method="get">
+            <label for="Participante">Participante:</label>
+            <select id="inscripciones-Participante" name="Participante" class="easyui-combogrid" style="width:250px"></select>
+            </form>
+        </div>
+        <div class="fitem">
+        	<form id="inscripciones-data" method="get" novalidate="novalidate">
+            	<input id="inscripciones-Dorsal" type="hidden" name="Dorsal"/>
+        		<label for="Nombre">Nombre:</label>
+            	<input id="inscripciones-Nombre" name="Nombre" type="text" size="20" disabled="disabled" />
+            	<label for="Licencia">Licencia: </label>
+            	<input id="inscripciones-Licencia" name="Licencia" type="text" size="5" disabled="disabled" />
+            	<label for="Categoria">Categoria: </label>
+            	<input id="inscripciones-Categoria" name="Categoria" type="text" size="1" disabled="disabled"/>
+            	<label for="Grado">Grado: </label>
+            	<input id="inscripciones-Grado" name="Grado" type="text" size="1" disabled="disabled" /><br />
+            	<label for="Guia">Gu&iacute;a: </label>
+           		<input id="inscripciones-Guia" name="Guia" type="text" disabled="disabled" />
+           		<label for="Club"> Club: </label>
+           		<input id="inscripciones-Club" name="Club" type="text" disabled="disabled" /><br />
+        	</form>
+        </div>
+        
         <form id="inscripciones-form" method="get" novalidate>
-            Celo: <input id="inscripciones-Celo" name="Celo" class="easyui-checkbox" type="checkbox" />
+        	<div class="fitem">
+            	<label for="Celo">Celo:</label>
+            	<input id="inscripciones-Celo" name="Celo" class="easyui-checkbox" type="checkbox" />
             </div>
             <div class="fitem">
                 <label for="Observaciones">Observaciones: </label>
@@ -29,56 +41,65 @@
             </div>
             <div class="fitem">
                 <label for="Pagado">Pagado: </label>
-                <input id="inscripciones-Pagado" name="Pagado" class="easyui-validatebox" type="text" style="width:50px">&euro;</input>
+                <input id="inscripciones-Pagado" name="Pagado" class="easyui-validatebox" type="text" size="3" style="width:50px;text-align:right;padding-right:5px">&euro;</input>
             </div>
-            <div>Jornadas</div>
+            <div>Jornadas:</div>
             <div class="fitem">
-                <label for="J1">J1</label>
-                <input id="inscripciones-J1" name="J1" class="easyui-checkbox" type="checkbox" />
-                <label for="J2">J2</label>
-                <input id="inscripciones-J2" name="J2" class="easyui-checkbox" type="checkbox" />
-                <label for="J3">J3</label>
-                <input id="inscripciones-J3" name="J3" class="easyui-checkbox" type="checkbox" />
-                <label for="J4">J4</label>
-                <input id="inscripciones-J4" name="J4" class="easyui-checkbox" type="checkbox" />
-                <label for="J5">J5</label>
-                <input id="inscripciones-J5" name="J5" class="easyui-checkbox" type="checkbox" />
-                <label for="J6">J6</label>
-                <input id="inscripciones-J6" name="J6" class="easyui-checkbox" type="checkbox" />
-                <label for="J7">J7</label>
-                <input id="inscripciones-J7" name="J7" class="easyui-checkbox" type="checkbox" />
-                <label for="J8">J8</label>
-                <input id="inscripciones-J8" name="J8" class="easyui-checkbox" type="checkbox" />
+                <label for="J1"><input id="inscripciones-J1" name="J1" class="easyui-checkbox" type="checkbox" />J1</label>
+                <label for="J2"><input id="inscripciones-J2" name="J2" class="easyui-checkbox" type="checkbox" />J2</label>
+                <label for="J3"><input id="inscripciones-J3" name="J3" class="easyui-checkbox" type="checkbox" />J3</label>
+                <label for="J4"><input id="inscripciones-J4" name="J4" class="easyui-checkbox" type="checkbox" />J4</label>
+                <label for="J5"><input id="inscripciones-J5" name="J5" class="easyui-checkbox" type="checkbox" />J5</label>
+                <label for="J6"><input id="inscripciones-J6" name="J6" class="easyui-checkbox" type="checkbox" />J6</label>
+                <label for="J7"><input id="inscripciones-J7" name="J7" class="easyui-checkbox" type="checkbox" />J7</label>
+                <label for="J8"><input id="inscripciones-J8" name="J8" class="easyui-checkbox" type="checkbox" />J8</label>
             </div>
         </form>
     
 		<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 		<div id="inscripciones-dlg-buttons">        	
-			<a id="inscripciones-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#inscripciones-dialog').dialog('close')">Cerrar</a>
+			<a id="inscripciones-cancelBtn" href="#" class="easyui-linkbutton" >Cerrar</a>
         	<a id="inscripciones-okBtn" href="#" class="easyui-linkbutton" onclick="saveInscripcion()">Inscribir</a>
-        	<a id="inscripciones-clearBtn" href="#" class="easyui-linkbutton" onclick="clearForm()">Limpiar</a>
+        	<a id="inscripciones-clearBtn" href="#" class="easyui-linkbutton"">Limpiar</a>
     	</div>
     </div>
 
     <script type="text/javascript">
     // datos del formulario de nuevo/edit prueba
+    $('#inscripciones-dialog').dialog();
     // - declaracion del formulario
+    $('#inscripciones-buscar').form();
+    $('#inscripciones-data').form();
     $('#inscripciones-form').form();
+    
     // - botones
     $('#inscripciones-okBtn').linkbutton({iconCls:'icon-save'}).tooltip({
         position: 'top',
         content: '<span style="color:#000">Aceptar datos. Inscribir perro en la prueba</span>',
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     });
-    $('#inscripciones-cancelBtn').linkbutton({iconCls:'icon-undo'}).tooltip({
+    $('#inscripciones-cancelBtn').linkbutton({iconCls:'icon-cancel'}).tooltip({
         position: 'top',
         content: '<span style="color:#000">Cerrar formulario de inscripciones</span>',
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     });
-    $('#inscripciones-clearBtn').linkbutton({iconCls:'icon-back'}).tooltip({
+    $('#inscripciones-cancelBtn').bind('click',function() {
+        $('#inscripciones-buscar').form('clear'); 
+        $('#inscripciones-data').form('clear'); 
+        $('#inscripciones-form').form('clear'); 
+        $('#inscripciones-Participante').combogrid({ 'setValue' : '' });
+        $('#inscripciones-dialog').dialog('close');
+    });
+    $('#inscripciones-clearBtn').linkbutton({iconCls:'icon-undo'}).tooltip({
         position: 'top',
         content: '<span style="color:#000">Limpiar formulario</span>',
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+    });
+    $('#inscripciones-clearBtn').bind('click',function() {
+        $('#inscripciones-buscar').form('clear'); 
+        $('#inscripciones-data').form('clear'); 
+        $('#inscripciones-form').form('clear'); 
+        $('#inscripciones-Participante').combogrid({ 'setValue' : '' });
     });
     
     // campos del formulario
@@ -86,10 +107,10 @@
         closed:true,
         buttons:'#inscripciones-dlg-buttons'
     });
-    $('#inscripciones-Dorsal').combogrid({
+    $('#inscripciones-Participante').combogrid({
 		panelWidth: 350,
 		panelHeight: 200,
-		idField: 'Nombre',
+		idField: 'Dorsal',
 		textField: 'Nombre',
 		url: 'database/enumerate_Perros.php',
 		method: 'get',

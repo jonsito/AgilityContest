@@ -17,3 +17,5 @@ DONE - En prueba K.O. no permitir pruebas adicionales
 - Handle club logos
 - Prueba's Triptico & cartel should be URL's instead of blobs
 - Limitar a ¿ocho? jornadas el contenido de una prueba
+- No permitir desasignar perros del guia "-- Sin Asignar --"
+- Cerrar ventanas abiertas al cambiar de menu

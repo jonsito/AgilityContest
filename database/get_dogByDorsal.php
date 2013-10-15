@@ -7,7 +7,7 @@
 	$conn=DBConnection::openConnection("agility_guest","guest@cachorrera");
 	if (!$conn) die("connection error");
 	// second query to retrieve $rows starting at $offset
-	$str="SELECT * FROM Perros WHERE ( Dorsal = $dorsal )";
+	$str="SELECT * FROM PerroGuiaClub WHERE ( Dorsal = $dorsal )";
 	do_log("get_dogsByDorsal:: query string is $str");
 	$rs=$conn->query($str);
 	if (!$rs) {
