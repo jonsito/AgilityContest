@@ -1,6 +1,7 @@
 <!-- PANEL INFORMATIVO SOBRE LA PRUEBA Y JORNADAS ASOCIADAS -->
 
 <?php include_once("dialogs/dlg_jornadas.inc");?>
+<?php include_once("dialogs/dlg_inscripciones.inc");?>
  	
 <div id="inscripciones_info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
 <div id="inscripciones_infolayout" class="easyui-layout" style="height:180px">

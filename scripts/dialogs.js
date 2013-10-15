@@ -791,7 +791,10 @@ function reloadInscripcion() {
 }
 
 function newInscripcion() {
-	// TODO
+	$('#inscripciones-dialog').dialog('open').dialog('setTitle','Inscripci&oacute;n de nuevos participantes');
+	$('#inscripciones-form').form('clear');
+	$('#inscripciones-data').form('clear');
+	$('#inscripciones-Operation').val('insert');
 }
 
 function editInscripcion() {
