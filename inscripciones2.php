@@ -2,7 +2,7 @@
 
 <div id="inscripciones_info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
 <div id="inscripciones_infolayout" class="easyui-layout" style="height:180px">
-	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:350px;padding:10px">
+	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px">
 		<form id="inscripciones_pruebas" method="get">
 		<input type="hidden" name="ID"/>
 		<input type="hidden" name="Ubicacion"/>
@@ -23,7 +23,7 @@
 		</p>
 		</form>
 	</div>
-	<div data-options="region:'center',title:'Lista de jornadas de la prueba'" style="width:450px">
+	<div data-options="region:'center',title:'Lista de jornadas de la prueba'" style="width:500px">
 		<table id="inscripciones_jornadas"class="easyui-datagrid"></table>
 	</div>
 </div> <!-- informacion de layout -->
@@ -84,7 +84,7 @@ $('#inscripciones_jornadas').datagrid({
 // - tabla
 $('#inscripciones-datagrid').datagrid({
 	title: 'Gesti&oacute;n de datos de inscripciones',
-	url: 'database/select_dogs.php',
+	url: 'database/select_InscritosByPrueba.php?ID='+workingData.prueba,
 	method: 'get',
     toolbar: '#inscripciones-toolbar',
     pagination: true,
@@ -92,7 +92,6 @@ $('#inscripciones-datagrid').datagrid({
     fitColumns: true,
     singleSelect: true,
     columns: [[
-        { field:'ID', 	hidden:true },  // primary key. not really needed (index: dorsal)
         { field:'Dorsal', hidden:true }, // dog ID
         { field:'Equipo', hidden:true }, // only used on Team contests
         { field:'Pagado', hidden:true }, // to store if handler paid :-)
