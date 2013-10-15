@@ -613,7 +613,6 @@ function destroyPrueba(){
  *@param prueba objeto que contiene los datos de la prueba
  */
 function addJornadaToPrueba(prueba) {
-	myPrueba=prueba;
 	$('#jornadas-dialog').dialog('open').dialog('setTitle','A&ntilde;adir jornada a la prueba '+prueba.Nombre);
 	$('#jornadas-form').form('clear');
 	$('#jornadas-Prueba').val(prueba.ID);
@@ -622,11 +621,13 @@ function addJornadaToPrueba(prueba) {
 
 /**
  * Edita la jornada seleccionada
- *@param prueba objeto que contiene los datos de la prueba
+ *@param pruebaID objeto que contiene los datos de la prueba
+ *@param datagridID identificador del datagrid del que se toman los datos
  */
-function editJornadaFromPrueba(prueba) {
+function editJornadaFromPrueba(pruebaID,datagridID) {
 	// obtenemos datos de la JORNADA seleccionada
-    var row = $('#jornadas-datagrid-'+prueba.ID).datagrid('getSelected');
+	var row= $(datagridID).datagrid('getSelected');
+    // var row = $('#jornadas-datagrid-'+prueba.ID).datagrid('getSelected');
     if (!row) return; // no hay ninguna jornada seleccionada. retornar
     if (row.Cerrada==true) { // no permitir la edicion de pruebas cerradas
         $.messager.show({    
@@ -649,7 +650,7 @@ function editJornadaFromPrueba(prueba) {
     $('#jornadas-Exhibicion').prop('checked',(row.Exhibicion==1)?true:false);
     $('#jornadas-Otras').prop('checked',(row.Otras==1)?true:false);
     $('#jornadas-Cerrada').prop('checked',(row.Cerrada==1)?true:false);
-	$('#jornadas-Prueba').val(prueba.ID);
+	$('#jornadas-Prueba').val(pruebaID);
 	$('#jornadas-Operation').val('update');
 }
 
@@ -657,8 +658,9 @@ function editJornadaFromPrueba(prueba) {
  * Quita la asignacion de la jornada indicada a la prueba asignada
  *@prueba objeto que contiene los datos de la prueba
  */
-function delJornadaFromPrueba(prueba) {
-    var row = $('#jornadas-datagrid-'+prueba.ID).datagrid('getSelected');
+function delJornadaFromPrueba(prueba,datagridID) {
+	var row= $(datagridID).datagrid('getSelected');
+    // var row = $('#jornadas-datagrid-'+prueba.ID).datagrid('getSelected');
     if (!row) return; // no row selected
     if (prueba.Cerrada==true) {
         $.messager.show({    // show error message
@@ -670,7 +672,8 @@ function delJornadaFromPrueba(prueba) {
         if (r){
             $.get('database/jornadaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
-                    $('#jornadas-datagrid-'+prueba.ID).datagrid('reload');    // reload the pruebas data
+                    $(datagridID).datagrid('reload');    // reload the pruebas data
+                    // $('#jornadas-datagrid-'+prueba.ID).datagrid('reload');    // reload the pruebas data
                 } else {
                     $.messager.show({    // show error message
                         title: 'Error',
@@ -715,6 +718,7 @@ function saveJornada(){
             	var id=$('#jornadas-Prueba').val();
                 $('#jornadas-dialog').dialog('close');        // close the dialog
                 $('#jornadas-datagrid-'+id).datagrid('reload',{ID: id});    // reload the prueba data
+                $('#inscripciones_jornadas').datagrid('reload');    // reload the prueba data
             }
         }
     });

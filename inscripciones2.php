@@ -1,5 +1,7 @@
 <!-- PANEL INFORMATIVO SOBRE LA PRUEBA Y JORNADAS ASOCIADAS -->
 
+<?php include_once("dialogs/dlg_jornadas.inc");?>
+ 	
 <div id="inscripciones_info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
 <div id="inscripciones_infolayout" class="easyui-layout" style="height:180px">
 	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px">
@@ -24,7 +26,7 @@
 		</form>
 	</div>
 	<div data-options="region:'center',title:'Lista de jornadas de la prueba'" style="width:500px">
-		<table id="inscripciones_jornadas"class="easyui-datagrid"></table>
+		<table id="inscripciones_jornadas" class="easyui-datagrid"></table>
 	</div>
 </div> <!-- informacion de layout -->
 </div> <!-- panel de informacion -->
@@ -63,6 +65,7 @@ $('#inscripciones_jornadas').datagrid({
     pagination: false,
     rownumbers: false,
     fitColumns: true,
+    singleSelect: true,
     columns:[[
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Prueba',		hidden:true }, // ID de la prueba
@@ -82,8 +85,13 @@ $('#inscripciones_jornadas').datagrid({
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-    }
+    },
+	// on double click fireup editor dialog
+	onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
+    	editJornadaFromPrueba(workingData.prueba,'#inscripciones_jornadas');
+	}
 });
+
 // datos de la tabla de inscripciones
 // - tabla
 $('#inscripciones-datagrid').datagrid({

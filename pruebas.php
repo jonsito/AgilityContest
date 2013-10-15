@@ -92,7 +92,8 @@
 
         // ------------- submenu de jornadas asociadas a una prueba --------------------- //
         function showJornadasByPrueba (index,prueba) {
-            $('#jornadas-datagrid-'+prueba.ID).datagrid({
+            var datagridID='#jornadas-datagrid-'+prueba.ID;
+            $(datagridID).datagrid({
         		title: 'Jornadas de que consta la prueba '+prueba.Nombre,
         		url: 'database/select_JornadasByPrueba.php',
         		queryParams: { ID: prueba.ID },
@@ -105,7 +106,7 @@
                 	text: 'Editar jornada',
                 	plain: true,
             		iconCls: 'icon-edit',
-           			handler: function(){editJornadaFromPrueba(prueba);}
+           			handler: function(){editJornadaFromPrueba(prueba.ID,datagridID);}
         		}],
        		    pagination: false,
         	    rownumbers: false,
@@ -136,7 +137,7 @@
             	},
             	// on double click fireup editor dialog
                 onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-                    editJornadaFromPrueba(prueba);
+                    editJornadaFromPrueba(prueba.ID,datagridID);
                 },
                 onResize:function(){
                     $('#pruebas-datagrid').datagrid('fixDetailRowHeight',index);
