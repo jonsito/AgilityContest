@@ -835,8 +835,8 @@ function destroyInscripcion() {
 	if (!row) return;
 	$.messager.confirm('Confirm',
 			"<p>Importante:</p>" +
-			"<p>Si decide borrar la inscripcion <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta</p>" +
-			"<p>Desea realmente borrar la inscripción seleccionada?</p>",function(r){
+			"<p>Si decide borrar la inscripcion <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta.<br />" +
+			"Desea realmente borrar la inscripción seleccionada?</p>",function(r){
 		if (r){
 			$.get('database/inscripcionFunctions.php',{Operation:'delete',Dorsal:row.Dorsal,ID:workingData.prueba},function(result){
 				if (result.success){
@@ -849,7 +849,7 @@ function destroyInscripcion() {
 				}
 			},'json');
 		}
-	});
+	}).window({width:475});
 }
 
 function printInscripciones() {
