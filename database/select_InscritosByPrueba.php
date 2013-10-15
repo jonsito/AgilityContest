@@ -10,7 +10,7 @@
 	$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
 	$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
 	$extra = ')';
-	if ($search!=='') $extra=" AND ( (Nombre LIKE '%$search%') OR ( Club LIKE '%$search%') OR ( Guia LIKE '%$search%' )) ";
+	if ($search!=='') $extra=" AND ( (PerroGuiaClub.Nombre LIKE '%$search%') OR ( Club LIKE '%$search%') OR ( Guia LIKE '%$search%' ) ) )";
 	$offset = ($page-1)*$rows;
 	// connect database
 	$conn=DBConnection::openConnection("agility_guest","guest@cachorrera");

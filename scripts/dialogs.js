@@ -771,3 +771,28 @@ function setEquipos() {
 }
 
 // ***** gestion de inscripciones	*****************************************************
+
+function doSearchInscripcion() {
+	// reload data adding search criteria
+    $('#inscripciones-datagrid').datagrid('load',{
+        where: $('#inscripciones-search').val()
+    });
+}
+
+function reloadInscripcion() {
+	// clear search field and reload
+	$('#inscripciones-search').val('');
+	doSearchInscripcion();
+}
+
+function newInscripcion() {
+	
+}
+
+function editInscripcion() {
+	
+}
+
+function destroyInscripcion() {
+	
+}

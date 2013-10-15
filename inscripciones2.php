@@ -31,13 +31,17 @@
 
 <!-- DECLARACION DE LA TABLA DE INSCRIPCIONES -->
 <table id="inscripciones-datagrid" class="inscripciones-datagrid" ></table>
+	<!-- botones de la cabecera -->
+	<div id="inscripciones-tools">
+    	<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadInscripcion()">Nueva inscripci&oacute;n</a>
+	</div>
     <!-- BARRA DE TAREAS -->
     <div id="inscripciones-toolbar">
-    	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton" onclick="newDog()">Nueva inscripci&oacute;n</a>
-    	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton" onclick="editDog()">Editar Registro</a>
-    	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton" onclick="destroyDog()">Borrar inscripci&oacute;n</a>
-    	<input id="inscripciones-search" type="text" onchange="doSearchPerro()"/> 
-    	<a id="inscripciones-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchPerro()">Buscar</a>
+    	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton" onclick="newInscripcion()">Nueva inscripci&oacute;n</a>
+    	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton" onclick="ediInscripcion()">Editar Registro</a>
+    	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton" onclick="destroyInscripcion()">Borrar inscripci&oacute;n</a>
+    	<input id="inscripciones-search" type="text" onchange="doSearchInscripcion()"/> 
+    	<a id="inscripciones-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchInscripcion()">Buscar</a>
     </div>
 
     
@@ -86,6 +90,7 @@ $('#inscripciones-datagrid').datagrid({
 	title: 'Gesti&oacute;n de datos de inscripciones',
 	url: 'database/select_InscritosByPrueba.php?ID='+workingData.prueba,
 	method: 'get',
+	tools: '#inscripciones-tools',
     toolbar: '#inscripciones-toolbar',
     pagination: true,
     rownumbers: false,
@@ -119,7 +124,15 @@ $('#inscripciones-datagrid').datagrid({
     onDblClickRow:function() { 
         editDog();
     }
-}); 
+});
+// - botones de la cabecera de la tabla
+$('#inscripciones-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // nueva inscricion 
+$('#inscripciones-reloadBtn').tooltip({
+	position: 'top',
+	content: '<span style="color:#000">Refrescar la lista de inscripciones</span>',
+	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+	}
+});
 // - botones de la toolbar de la tabla
 $('#inscripciones-newBtn').linkbutton({plain:true,iconCls:'icon-add'}); // nueva inscricion 
 $('#inscripciones-newBtn').tooltip({
