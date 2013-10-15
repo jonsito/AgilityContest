@@ -33,19 +33,21 @@
 
 <!-- DECLARACION DE LA TABLA DE INSCRIPCIONES -->
 <table id="inscripciones-datagrid" class="inscripciones-datagrid" ></table>
-	<!-- botones de la cabecera -->
-	<div id="inscripciones-tools">
-    	<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadInscripcion()">Nueva inscripci&oacute;n</a>
-	</div>
     <!-- BARRA DE TAREAS -->
     <div id="inscripciones-toolbar">
+    	<span style="float:left">
     	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton" onclick="newInscripcion()">Nueva inscripci&oacute;n</a>
     	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton" onclick="ediInscripcion()">Editar Registro</a>
     	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton" onclick="destroyInscripcion()">Borrar inscripci&oacute;n</a>
     	<input id="inscripciones-search" type="text" onchange="doSearchInscripcion()"/> 
     	<a id="inscripciones-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchInscripcion()">Buscar</a>
+    	</span>
+    	<span style="float:right">
+    	<!-- estos elementos deben estar alineados a la derecha -->
+    	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton" onclick="printInscripciones()">Imprimir</a>
+	   	<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadInscripcion()">Refrescar</a>
+	   	</span>
     </div>
-
     
 <script type="text/javascript">
 // cabecera de la pagina
@@ -98,7 +100,6 @@ $('#inscripciones-datagrid').datagrid({
 	title: 'Gesti&oacute;n de datos de inscripciones',
 	url: 'database/select_InscritosByPrueba.php?ID='+workingData.prueba,
 	method: 'get',
-	tools: '#inscripciones-tools',
     toolbar: '#inscripciones-toolbar',
     pagination: true,
     rownumbers: false,
@@ -138,6 +139,13 @@ $('#inscripciones-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); //
 $('#inscripciones-reloadBtn').tooltip({
 	position: 'top',
 	content: '<span style="color:#000">Refrescar la lista de inscripciones</span>',
+	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+	}
+});
+$('#inscripciones-printBtn').linkbutton({plain:true,iconCls:'icon-print'}); // imprimir listado 
+$('#inscripciones-printBtn').tooltip({
+	position: 'top',
+	content: '<span style="color:#000">Imprimir la lista de inscripciones</span>',
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
 });
