@@ -41,7 +41,7 @@
             </div>
             <div class="fitem">
                 <label for="Pagado">Pagado: </label>
-                <input id="inscripciones-Pagado" name="Pagado" class="easyui-validatebox" type="text" size="3" style="width:50px;text-align:right;padding-right:5px">&euro;</input>
+                <input id="inscripciones-Pagado" name="Pagado" class="easyui-validatebox" type="text" size="3" style="width:50px;text-align:right;padding-right:5px"/>&euro;
             </div>
             <div>Jornadas:</div>
             <div class="fitem">
@@ -60,13 +60,16 @@
 		<div id="inscripciones-dlg-buttons">        	
 			<a id="inscripciones-cancelBtn" href="#" class="easyui-linkbutton" >Cerrar</a>
         	<a id="inscripciones-okBtn" href="#" class="easyui-linkbutton" onclick="saveInscripcion()">Inscribir</a>
-        	<a id="inscripciones-clearBtn" href="#" class="easyui-linkbutton"">Limpiar</a>
+        	<a id="inscripciones-clearBtn" href="#" class="easyui-linkbutton">Limpiar</a>
     	</div>
     </div>
 
     <script type="text/javascript">
     // datos del formulario de nuevo/edit prueba
-    $('#inscripciones-dialog').dialog();
+    $('#inscripciones-dialog').dialog({
+        closed:true,
+        buttons:'#inscripciones-dlg-buttons'
+    });
     // - declaracion del formulario
     $('#inscripciones-buscar').form();
     $('#inscripciones-data').form();
@@ -103,10 +106,7 @@
     });
     
     // campos del formulario
-    $('#inscripciones-dialog').dialog({
-        closed:true,
-        buttons:'#inscripciones-dlg-buttons'
-    });
+
     $('#inscripciones-Participante').combogrid({
 		panelWidth: 350,
 		panelHeight: 200,

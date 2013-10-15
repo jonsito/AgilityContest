@@ -2,6 +2,7 @@
 
 <?php include_once("dialogs/dlg_jornadas.inc");?>
 <?php include_once("dialogs/dlg_inscripciones.inc");?>
+<?php include_once("dialogs/dlg_chinscripciones.inc");?>
  	
 <div id="inscripciones_info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
 <div id="inscripciones_infolayout" class="easyui-layout" style="height:180px">
@@ -38,7 +39,7 @@
     <div id="inscripciones-toolbar">
     	<span style="float:left">
     	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton" onclick="newInscripcion()">Nueva inscripci&oacute;n</a>
-    	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton" onclick="ediInscripcion()">Editar Registro</a>
+    	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton" onclick="editInscripcion()">Editar Registro</a>
     	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton" onclick="destroyInscripcion()">Borrar inscripci&oacute;n</a>
     	<input id="inscripciones-search" type="text" onchange="doSearchInscripcion()"/> 
     	<a id="inscripciones-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchInscripcion()">Buscar</a>
@@ -132,7 +133,7 @@ $('#inscripciones-datagrid').datagrid({
     },
 	// on double click fireup editor dialog
     onDblClickRow:function() { 
-        editDog();
+        editInscripcion();
     }
 });
 // - botones de la cabecera de la tabla

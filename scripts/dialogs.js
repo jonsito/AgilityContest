@@ -791,6 +791,9 @@ function reloadInscripcion() {
 }
 
 function newInscripcion() {
+	// cerramos dialogo de modificacion de inscripcion
+	$('#chinscripciones-dialog').dialog('close');
+	// abrimos dialogo de nueva inscripcion
 	$('#inscripciones-dialog').dialog('open').dialog('setTitle','Inscripci&oacute;n de nuevos participantes');
 	$('#inscripciones-form').form('clear');
 	$('#inscripciones-data').form('clear');
@@ -798,13 +801,57 @@ function newInscripcion() {
 }
 
 function editInscripcion() {
-	// TODO
+	// obtenemos datos de la inscripcion seleccionada
+	var row= $('#inscripciones-datagrid').datagrid('getSelected');
+    if (!row) return; // no hay ninguna inscripcion seleccionada. retornar
+	// cerramos dialogo de nueva inscripcion
+    $('#inscripciones-buscar').form('clear'); 
+    $('#inscripciones-data').form('clear'); 
+    $('#inscripciones-form').form('clear'); 
+    $('#inscripciones-Participante').combogrid({ 'setValue' : '' });
+    $('#inscripciones-dialog').dialog('close');
+	// abrimos dialogo de edicion de inscripcion
+	$('#chinscripciones-dialog').dialog('open').dialog('setTitle','Modificar datos de inscripci&oacute;n');
+	// rellenamos formulario de datos del perro
+	$('#chinscripciones-data').form('load','database/get_dogByDorsal.php?Dorsal='+row.Dorsal);
+	// rellenamos formulario de la inscripcion
+	$('#chinscripciones-form').form('load',row);
+	// ajustamos checkboxes (un cb tiene "value" and "checked" como propiedades, y el 'load' solo toca "value")
+	$('#chinscripciones-J1').prop('checked',row.J1);
+	$('#chinscripciones-J2').prop('checked',row.J2);
+	$('#chinscripciones-J3').prop('checked',row.J3);
+	$('#chinscripciones-J4').prop('checked',row.J4);
+	$('#chinscripciones-J5').prop('checked',row.J5);
+	$('#chinscripciones-J6').prop('checked',row.J6);
+	$('#chinscripciones-J7').prop('checked',row.J7);
+	$('#chinscripciones-J8').prop('checked',row.J8);
 }
 
+/**
+ * Delete data related with an inscription in BBDD
+ */
 function destroyInscripcion() {
-	// TODO
+	var row = $('#inscripciones-datagrid').datagrid('getSelected');
+	if (!row) return;
+	$.messager.confirm('Confirm',
+			"<p>Importante:</p>" +
+			"<p>Si decide borrar la inscripcion <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta</p>" +
+			"<p>Desea realmente borrar la inscripción seleccionada?</p>",function(r){
+		if (r){
+			$.get('database/inscripcionFunctions.php',{Operation:'delete',Dorsal:row.Dorsal,ID:workingData.prueba},function(result){
+				if (result.success){
+					$('#inscripciones-datagrid').datagrid('reload');    // reload the prueba data
+				} else {
+					$.messager.show({    // show error message
+						title: 'Error',
+						msg: result.errorMsg
+					});
+				}
+			},'json');
+		}
+	});
 }
 
-function printInscriptiones() {
+function printInscripciones() {
 	// TODO
 }
