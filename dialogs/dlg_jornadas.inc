@@ -48,7 +48,7 @@
             <div class="fitem">
                 <label for="Equipos" style="width:200px" >Manga por Equipos</label>
                 <input id="jornadas-Equipos" name="Equipos" class="easyui-checkbox" 
-                type="checkbox" onClick="setEquipos()"/>
+                type="checkbox" value="1" onClick="setEquipos()"/>
             </div>
             
             <div class="fitem">
@@ -59,22 +59,22 @@
             
             <div class="fitem">
                 <label for="KO" style="width:200px" >Prueba K.O.</label>
-                <input id="jornadas-KO" name="KO" class="easyui-checkbox" type="checkbox" onClick="setKO();"/>
+                <input id="jornadas-KO" name="KO" class="easyui-checkbox" type="checkbox" value="1" onClick="setKO();"/>
             </div>
             <div class="fitem">
                 <label for="Exhibicion" style="width:200px" >Manga de Exhibici&oacute;n</label>
                 <input id="jornadas-Exhibicion" name="Exhibicion" class="easyui-checkbox" 
-                type="checkbox"  onClick="checkPrueba('#jornadas-Exhibicion')"/>
+                type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Exhibicion')"/>
             </div>
             <div class="fitem">
                 <label for="Otras" style="width:200px" >Otras (no especificada)</label>
                 <input id="jornadas-Otras" name="Otras" class="easyui-checkbox" 
-                type="checkbox"  onClick="checkPrueba('#jornadas-Otras')"/>
+                type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Otras')"/>
             </div>
             <div class="fitem"><hr/></div>
             <div class="fitem">
                 <label for="Cerrada" style="width:200px" >Cerrar jornada</label>
-                <input id="jornadas-Cerrada" name="Cerrada" class="easyui-checkbox" type="checkbox" />
+                <input id="jornadas-Cerrada" name="Cerrada" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
         </form>
             

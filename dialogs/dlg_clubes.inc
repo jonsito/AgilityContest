@@ -74,7 +74,7 @@
             </div>
             <div class="fitem">
                 <label for="Baja">Baja del club:</label>
-                <input id="clubes-Baja" name="Baja" class="easyui-checkbox" type="checkbox" />
+                <input id="clubes-Baja" name="Baja" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
         </form>    
         

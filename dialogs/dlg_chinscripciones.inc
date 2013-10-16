@@ -23,7 +23,7 @@
         <form id="chinscripciones-form" method="get" novalidate>
         	<div class="fitem">
             	<label for="Celo">Celo:</label>
-            	<input id="chinscripciones-Celo" name="Celo" class="easyui-checkbox" type="checkbox" />
+            	<input id="chinscripciones-Celo" name="Celo" class="easyui-checkbox" type="checkbox" value="1"/>
             </div>
             <div class="fitem">
                 <label for="Observaciones">Observaciones: </label>
@@ -39,14 +39,14 @@
             </div>
             <div>Jornadas:</div>
             <div class="fitem">
-                <label for="J1"><input id="chinscripciones-J1" name="J1" class="easyui-checkbox" type="checkbox" />J1</label>
-                <label for="J2"><input id="chinscripciones-J2" name="J2" class="easyui-checkbox" type="checkbox" />J2</label>
-                <label for="J3"><input id="chinscripciones-J3" name="J3" class="easyui-checkbox" type="checkbox" />J3</label>
-                <label for="J4"><input id="chinscripciones-J4" name="J4" class="easyui-checkbox" type="checkbox" />J4</label>
-                <label for="J5"><input id="chinscripciones-J5" name="J5" class="easyui-checkbox" type="checkbox" />J5</label>
-                <label for="J6"><input id="chinscripciones-J6" name="J6" class="easyui-checkbox" type="checkbox" />J6</label>
-                <label for="J7"><input id="chinscripciones-J7" name="J7" class="easyui-checkbox" type="checkbox" />J7</label>
-                <label for="J8"><input id="chinscripciones-J8" name="J8" class="easyui-checkbox" type="checkbox" />J8</label>
+                <label for="J1"><input id="chinscripciones-J1" name="J1" class="easyui-checkbox" type="checkbox" value="1" />J1</label>
+                <label for="J2"><input id="chinscripciones-J2" name="J2" class="easyui-checkbox" type="checkbox" value="1" />J2</label>
+                <label for="J3"><input id="chinscripciones-J3" name="J3" class="easyui-checkbox" type="checkbox" value="1" />J3</label>
+                <label for="J4"><input id="chinscripciones-J4" name="J4" class="easyui-checkbox" type="checkbox" value="1" />J4</label>
+                <label for="J5"><input id="chinscripciones-J5" name="J5" class="easyui-checkbox" type="checkbox" value="1" />J5</label>
+                <label for="J6"><input id="chinscripciones-J6" name="J6" class="easyui-checkbox" type="checkbox" value="1" />J6</label>
+                <label for="J7"><input id="chinscripciones-J7" name="J7" class="easyui-checkbox" type="checkbox" value="1" />J7</label>
+                <label for="J8"><input id="chinscripciones-J8" name="J8" class="easyui-checkbox" type="checkbox" value="1" />J8</label>
             </div>
         </form>
     

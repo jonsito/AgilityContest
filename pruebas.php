@@ -9,7 +9,7 @@
     	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" onclick="destroyPrueba()">Borrar prueba</a>
     	    <input id="pruebas-search" type="text" onchange="doSearchPrueba()"/> 
     	    <a id="pruebas-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchPrueba()">Buscar</a>
-    	    <input id="pruebas-openBox" type="checkbox" value='1' class="easyui-checkbox" onclick="doSearchPrueba()"/>Incl. Cerradas
+    	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox" onclick="doSearchPrueba()"/>Incl. Cerradas
     	</div>
     
  	<?php include_once("dialogs/dlg_pruebas.inc");?>
@@ -82,7 +82,6 @@
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        // $('#pruebas-openBox').checkbox(); /* no checkbox defined in easyui */
         $('#pruebas-openBox').tooltip({ 
             position: 'top',
             content: '<span style="color:#000">Incluir en el listado las pruebas finalizadas</span>',

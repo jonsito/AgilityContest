@@ -36,7 +36,7 @@
             <div class="fitem"><hr/></div>
             <div class="fitem">
                 <label for="Cerrada">Prueba Cerrada:</label>
-                <input id="pruebas-Cerrada" name="Cerrada" class="easyui-checkbox" type="checkbox" />
+                <input id="pruebas-Cerrada" name="Cerrada" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
         </form>
     

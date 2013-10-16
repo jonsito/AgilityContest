@@ -26,11 +26,11 @@
             </div>
             <div class="fitem">
                 <label for="Internacional">Juez internacional:</label>
-                <input id="jueces-Internacional" name="Internacional" class="easyui-checkbox" type="checkbox" />
+                <input id="jueces-Internacional" name="Internacional" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
             <div class="fitem">
                 <label for="Practicas">Juez en pr&aacute;cticas:</label>
-                <input id="jueces-Practicas" name="Practicas" class="easyui-checkbox" type="checkbox" />
+                <input id="jueces-Practicas" name="Practicas" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
             <div class="fitem">
                 <label for="Email">Correo electr&oacute;nico:</label>
@@ -70,8 +70,6 @@
             closed:true,
             buttons:'#jueces-dlg-buttons'
         });
-        // $('#jueces-Practicas').checkbox(); // checkboxes doesn't exist in easyui ?
-        // $('#jueces-Internacional').checkbox(); // checkboxes doesn't exist in easyui ?
         $('#jueces-Nombre').validatebox({
             required: true,
             validType: 'length[1,255]'
