@@ -23,7 +23,7 @@
 		  			AND ( Inscripciones.Jornada = Jornadas.ID ) 
 		  			AND ( Prueba= $id ) 
 				$extra "; // a single ')' or name search criterion
-	// do_log("select_InscritosByPrueba() query string is \n$str");
+	do_log("select_InscritosByPrueba() query string is \n$str");
 	$rs=$conn->query($str);
 	if (!$rs) {
 		$err="select_InscritosByPrueba::select( ) error $conn->error";

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.8deb0ubuntu1ppa1
+-- version 4.0.5deb1.raring~ppa.1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 16-10-2013 a las 14:59:46
--- Versión del servidor: 5.5.32-0ubuntu0.12.04.1
--- Versión de PHP: 5.3.10-1ubuntu3.8
+-- Tiempo de generación: 17-10-2013 a las 00:01:48
+-- Versión del servidor: 5.5.32-0ubuntu0.13.04.1
+-- Versión de PHP: 5.4.9-4ubuntu2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,7 +29,7 @@ USE `agility`;
 --
 -- Estructura de tabla para la tabla `Categorias_Perro`
 --
--- Creación: 15-10-2013 a las 12:55:29
+-- Creación: 16-10-2013 a las 17:25:24
 --
 
 DROP TABLE IF EXISTS `Categorias_Perro`;
@@ -54,7 +54,7 @@ INSERT INTO `Categorias_Perro` (`Categoria`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `Clubes`
 --
--- Creación: 15-10-2013 a las 12:55:30
+-- Creación: 16-10-2013 a las 17:25:27
 --
 
 DROP TABLE IF EXISTS `Clubes`;
@@ -156,7 +156,7 @@ INSERT INTO `Clubes` (`Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `Contac
 --
 -- Estructura de tabla para la tabla `Equipos`
 --
--- Creación: 15-10-2013 a las 12:55:31
+-- Creación: 16-10-2013 a las 17:25:27
 --
 
 DROP TABLE IF EXISTS `Equipos`;
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `Equipos` (
   `Observaciones` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Prueba` (`Prueba`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- RELACIONES PARA LA TABLA `Equipos`:
@@ -180,14 +180,16 @@ CREATE TABLE IF NOT EXISTS `Equipos` (
 --
 
 INSERT INTO `Equipos` (`ID`, `Prueba`, `Nombre`, `Observaciones`) VALUES
-(1, 1, '-- Sin asignar --', 'NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA PRUEBA 1');
+(1, 1, '-- Sin asignar --', 'NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA PRUEBA 1'),
+(10, 2, '-- Sin asignar --', 'NO BORRAR: EQUIPO POR DEFECTO PARA LA PRUEBA 2'),
+(11, 3, '-- Sin asignar --', 'NO BORRAR: EQUIPO POR DEFECTO PARA LA PRUEBA 3');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Grados_Perro`
 --
--- Creación: 15-10-2013 a las 12:55:29
+-- Creación: 16-10-2013 a las 17:25:25
 --
 
 DROP TABLE IF EXISTS `Grados_Perro`;
@@ -216,7 +218,7 @@ INSERT INTO `Grados_Perro` (`Grado`, `Comentarios`) VALUES
 --
 -- Estructura de tabla para la tabla `Guias`
 --
--- Creación: 15-10-2013 a las 12:55:31
+-- Creación: 16-10-2013 a las 17:25:28
 --
 
 DROP TABLE IF EXISTS `Guias`;
@@ -321,6 +323,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Daniel Luna', NULL, NULL, 'Junior', NULL),
 ('Daniel Menéndez', NULL, NULL, 'El Hechizo del Border C.', NULL),
 ('David Alique', NULL, NULL, 'Deporcan', NULL),
+('David Escribano', '', '', 'Cubas', ''),
 ('David Ferrer', NULL, NULL, 'Badalona', NULL),
 ('David Flix', NULL, NULL, 'Santa Quiteria', NULL),
 ('David Gonzalbo', NULL, NULL, 'El Hechizo del Border C.', NULL),
@@ -355,6 +358,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Eva Vázquez', NULL, NULL, 'L''Almozara', NULL),
 ('Fermin Gil', NULL, NULL, 'L''Horta Nord', NULL),
 ('Fernando Benet', NULL, NULL, 'Zampican', NULL),
+('Fernando Bibián', '', '', 'Agilcan', ''),
 ('Francisco Aguilera', NULL, NULL, 'Ciudad de Antequera', NULL),
 ('Francisco de la Cruz', NULL, NULL, 'Cinco Huesos', NULL),
 ('Francisco Esteban', NULL, NULL, 'Costa Blanca', NULL),
@@ -400,9 +404,10 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Jerónimo Martínez', NULL, NULL, 'Star Can', NULL),
 ('Jesús Crespo', NULL, NULL, 'Mi Perro 10', NULL),
 ('Jesús Cuellar', NULL, NULL, 'Eslon', NULL),
+('Jesús Gómez', '', '', 'Agilcan', ''),
 ('Jesús Manuel Romero', NULL, NULL, 'Palaciego', NULL),
 ('Joan Wenceslao Pastor', NULL, NULL, 'Valles Club Cani', NULL),
-('Joaquín Andres', NULL, NULL, 'Agilcan', NULL),
+('Joaquín Andrés', '', '', 'Agilcan', ''),
 ('Jonathan Guillen', NULL, NULL, 'Vilcan', NULL),
 ('Jordi Boix', NULL, NULL, 'Canic', NULL),
 ('Jordi Gómez', NULL, NULL, 'Canic', NULL),
@@ -449,11 +454,13 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Juan José Espadas', NULL, NULL, 'Canic', NULL),
 ('Juan Luis Colmano', NULL, NULL, 'L''Almozara', NULL),
 ('Juan Manuel Caballo', NULL, NULL, 'L''Horta Nord', NULL),
+('Juan Martín de las Blancas', '', '', 'Cubas', ''),
 ('Juan Miguel Cifuentes', NULL, NULL, 'L''Horta Nord', NULL),
 ('Juan Pablo Díaz', NULL, NULL, 'Cubas', NULL),
 ('Juan Pedro Martínez', NULL, NULL, 'Castellón', NULL),
 ('Juan Solanes', NULL, NULL, 'Vilcan', NULL),
 ('Judith Cortes', NULL, NULL, 'L''Almozara', NULL),
+('Judith Franco', '', '', 'Cinco Huesos', ''),
 ('Judith Herms', NULL, NULL, 'Ciutat Comtal', NULL),
 ('Julia Faci', NULL, NULL, 'L''Almozara', NULL),
 ('Julia Morugova', NULL, NULL, 'El Nogueral', NULL),
@@ -541,6 +548,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Rafael García', NULL, NULL, 'Vila-Real', NULL),
 ('Rafael Torregrosa', NULL, NULL, 'Costa Blanca', NULL),
 ('Ramón Arribas', NULL, NULL, 'Pura Vida', NULL),
+('Ramón García', '', '', 'Cinco Huesos', ''),
 ('Raquel Frago', NULL, NULL, 'La Ribera', NULL),
 ('Raquel Garrido', NULL, NULL, 'Cubas', NULL),
 ('Raúl Sánchez', NULL, NULL, 'Cubas', NULL),
@@ -586,6 +594,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Verónica Ibañez', NULL, NULL, 'Ciudad de Antequera', NULL),
 ('Verónica Rodríguez', NULL, NULL, 'La Princesa', NULL),
 ('Vicente Cambra', NULL, NULL, 'La Manada', NULL),
+('Vicente Martín', '', '', 'Agilcan', ''),
 ('Vicente Micó', NULL, NULL, 'Villena', NULL),
 ('Vicente Villalba', NULL, NULL, 'L''Horta Nord', NULL),
 ('Victor García', NULL, NULL, 'Marvi', NULL),
@@ -599,7 +608,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 --
 -- Estructura de tabla para la tabla `Inscripciones`
 --
--- Creación: 15-10-2013 a las 12:55:31
+-- Creación: 16-10-2013 a las 17:25:28
 --
 
 DROP TABLE IF EXISTS `Inscripciones`;
@@ -615,16 +624,16 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
   KEY `Dorsal` (`Dorsal`),
   KEY `Jornada` (`Jornada`),
   KEY `Equipo` (`Equipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=49 ;
 
 --
 -- RELACIONES PARA LA TABLA `Inscripciones`:
 --   `Dorsal`
 --       `Perros` -> `Dorsal`
---   `Equipo`
---       `Equipos` -> `ID`
 --   `Jornada`
 --       `Jornadas` -> `ID`
+--   `Equipo`
+--       `Equipos` -> `ID`
 --
 
 --
@@ -632,17 +641,54 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
 --
 
 INSERT INTO `Inscripciones` (`ID`, `Jornada`, `Dorsal`, `Celo`, `Observaciones`, `Equipo`, `Pagado`) VALUES
-(1, 1, 10, 0, NULL, NULL, 12),
+(1, 1, 10, 0, '', 10, 12),
 (3, 2, 12, 0, NULL, NULL, 12),
-(5, 1, 563, 0, 'Test', NULL, 24),
-(6, 3, 563, 0, 'Test', NULL, 24);
+(5, 1, 563, 0, 'Test', 10, 24),
+(6, 3, 563, 0, 'Test', 10, 24),
+(12, 1, 569, 0, 'test', NULL, 12),
+(13, 3, 569, 0, 'test', NULL, 12),
+(14, 4, 569, 0, 'test', NULL, 12),
+(15, 9, 572, 0, '', 11, 12),
+(16, 9, 573, 0, '', 11, 12),
+(17, 9, 574, 0, '', 11, 24),
+(18, 10, 574, 0, '', 11, 24),
+(19, 9, 575, 0, '', 11, 24),
+(20, 10, 575, 0, '', 11, 24),
+(21, 9, 227, 0, '', 11, 24),
+(22, 10, 227, 0, '', 11, 24),
+(23, 10, 576, 0, '', 11, 12),
+(24, 10, 500, 0, '', 11, 12),
+(25, 9, 577, 0, '', 11, 24),
+(26, 10, 577, 0, '', 11, 24),
+(27, 9, 578, 0, '', 11, 24),
+(28, 10, 578, 0, '', 11, 24),
+(29, 9, 579, 0, '', 11, 12),
+(30, 9, 18, 0, '', 11, 12),
+(31, 10, 580, 0, '', 11, 12),
+(32, 9, 33, 0, '', 11, 24),
+(33, 10, 33, 0, '', 11, 24),
+(34, 10, 479, 0, '', 11, 12),
+(35, 9, 88, 0, '', 11, 24),
+(36, 10, 88, 0, '', 11, 24),
+(37, 9, 26, 0, '', 11, 24),
+(38, 10, 26, 0, '', 11, 24),
+(39, 9, 581, 0, '', 11, 24),
+(40, 10, 581, 0, '', 11, 24),
+(41, 9, 582, 0, '', 11, 24),
+(42, 10, 582, 0, '', 11, 24),
+(43, 9, 583, 0, '', 11, 24),
+(44, 10, 583, 0, '', 11, 24),
+(45, 9, 584, 0, '', 11, 24),
+(46, 10, 584, 0, '', 11, 24),
+(47, 9, 585, 0, '', 11, 24),
+(48, 10, 585, 0, '', 11, 24);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Jornadas`
 --
--- Creación: 15-10-2013 a las 12:55:31
+-- Creación: 16-10-2013 a las 17:25:28
 --
 
 DROP TABLE IF EXISTS `Jornadas`;
@@ -664,7 +710,7 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `Prueba` (`Prueba`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- RELACIONES PARA LA TABLA `Jornadas`:
@@ -684,14 +730,22 @@ INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Gr
 (5, 2, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (6, 2, 6, '-- Sin asignar --', '2013-01-01', '00:00:00', 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (7, 2, 7, '-- Sin asignar --', '2013-01-01', '00:00:00', 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(8, 2, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 0, 0, 0, 0, 1, 0, 0, 0, 0);
+(8, 2, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 0, 0, 0, 0, 1, 0, 0, 0, 0),
+(9, 3, 1, 'Sabado', '2013-10-19', '15:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0),
+(10, 3, 2, 'Domingo', '2013-10-20', '08:30:00', 1, 1, 1, 0, 0, 0, 0, 0, 0),
+(11, 3, 3, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 1, 0, 0, 0, 0),
+(12, 3, 4, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 1, 0, 0, 0, 0),
+(13, 3, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 1, 0, 0, 0, 0),
+(14, 3, 6, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 1, 0, 0, 0, 0),
+(15, 3, 7, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 1, 0, 0, 0, 0),
+(16, 3, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Jueces`
 --
--- Creación: 15-10-2013 a las 12:55:29
+-- Creación: 16-10-2013 a las 17:25:25
 --
 
 DROP TABLE IF EXISTS `Jueces`;
@@ -742,7 +796,7 @@ INSERT INTO `Jueces` (`Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `Interna
 --
 -- Estructura de tabla para la tabla `Mangas`
 --
--- Creación: 15-10-2013 a las 12:55:32
+-- Creación: 16-10-2013 a las 17:25:29
 --
 
 DROP TABLE IF EXISTS `Mangas`;
@@ -781,20 +835,14 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
 
 --
 -- RELACIONES PARA LA TABLA `Mangas`:
---   `Jornada`
---       `Jornadas` -> `ID`
---   `Juez Practicas`
---       `Jueces` -> `Nombre`
---   `Juez Titular`
---       `Jueces` -> `Nombre`
---   `Tipo`
---       `Tipo_Manga` -> `Tipo`
 --   `M1_Tipo`
 --       `Tipo_Manga` -> `Tipo`
 --   `M1_Juez1`
 --       `Jueces` -> `Nombre`
 --   `M1_Juez2`
 --       `Jueces` -> `Nombre`
+--   `Jornada`
+--       `Jornadas` -> `ID`
 --   `M2_Juez1`
 --       `Jueces` -> `Nombre`
 --   `M2_Juez2`
@@ -825,7 +873,7 @@ CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 --
 -- Estructura de tabla para la tabla `Perros`
 --
--- Creación: 15-10-2013 a las 12:55:32
+-- Creación: 16-10-2013 a las 17:25:29
 --
 
 DROP TABLE IF EXISTS `Perros`;
@@ -842,7 +890,7 @@ CREATE TABLE IF NOT EXISTS `Perros` (
   KEY `Perros_ibfk_3` (`Guia`),
   KEY `Perros_ibfk_1` (`Categoria`),
   KEY `Perros_ibfk_2` (`Grado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=572 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=586 ;
 
 --
 -- RELACIONES PARA LA TABLA `Perros`:
@@ -867,7 +915,7 @@ INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Catego
 (15, 'Indiana Jones', NULL, '1720531', '987', 'L', 'Juan Francisco Pelegrin', '-'),
 (16, 'Thelma', NULL, '1515702', '824', 'L', 'Ricardo Santolaya', '-'),
 (17, 'Boss', NULL, '1528991', '797', 'L', 'Oscar Muñiz', '-'),
-(18, 'Lee', NULL, '95245', 'A084', 'L', 'Antonio Molina', '-'),
+(18, 'Lee', '', '95245', 'A084', 'L', 'Antonio Molina', 'GIII'),
 (19, 'Chinouk', NULL, '1390419', '724', 'L', 'Michael Volkert', '-'),
 (20, 'Angie', NULL, '1370168', '691', 'L', 'Antonio Molina', '-'),
 (21, 'Burundi', NULL, '1874262', 'A310', 'L', 'Elena Chinchilla', '-'),
@@ -875,13 +923,13 @@ INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Catego
 (23, 'Napa', NULL, '1975832', 'A401', 'L', 'Paloma Faci', '-'),
 (24, 'Gon', NULL, '1725855', 'A024', 'L', 'Manuel Santomé', '-'),
 (25, 'Valerie', NULL, '1467667', '786', 'L', 'Manel Martínez', '-'),
-(26, 'Woman', NULL, '1866186', 'A206', 'L', 'Javier Mora', '-'),
+(26, 'Woman', '', '1866186', 'A206', 'L', 'Javier Mora', 'GIII'),
 (27, 'Baloo', NULL, '86974', '991', 'L', 'Pilar Collado', '-'),
 (28, 'Piter Winers', NULL, '100338', 'A188', 'L', 'José Guix', '-'),
 (29, 'Lula', NULL, '1891977', 'A344', 'L', 'Angel Puertolas', '-'),
 (30, 'Karen', NULL, '1970258', 'A427', 'L', 'Amparo Roig', '-'),
 (31, 'Runa', NULL, '112361', 'A347', 'L', 'Alex Olivera', '-'),
-(33, 'Chiruca', NULL, '1635759', '986', 'L', 'Antonio Fernández', '-'),
+(33, 'Chiruca', '', '1635759', '986', 'L', 'Antonio Fernández', 'GII'),
 (35, 'Moss', NULL, '113891', 'A391', 'L', 'Roberto Iñigo', '-'),
 (36, 'Nena', NULL, '1521753', '930', 'L', 'Julia Faci', '-'),
 (38, 'Deby', NULL, '101610', 'A147', 'L', 'Cesar Losada', '-'),
@@ -928,7 +976,7 @@ INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Catego
 (85, 'Fito', NULL, '127473', 'A529', 'L', 'Luis Miguel Rodrigo', '-'),
 (86, 'Visente', NULL, '116863', 'A359', 'L', 'Paulino Iranzo', '-'),
 (87, 'Maia', NULL, '1780846', 'A132', 'L', 'Arcadio Nohales', '-'),
-(88, 'Mecha', NULL, '129549', 'A558', 'L', 'José Antonio Encinas', '-'),
+(88, 'Mecha', '', '129549', 'A558', 'L', 'José Antonio Encinas', 'GIII'),
 (89, 'Ari', NULL, '1893230', 'A301', 'L', 'Anna Aguilella', '-'),
 (90, 'Aslan', NULL, '1970223', 'A457', 'L', 'Iban Cubedo', '-'),
 (91, 'Mambo', NULL, '1392048', '753', 'L', 'Eduard Giralt', '-'),
@@ -1024,7 +1072,7 @@ INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Catego
 (222, 'Hana', NULL, 'No tiene', '1526', 'L', 'Rocio Santos', '-'),
 (223, 'Liss', NULL, '86748', '961', 'L', 'José Carlos Iglesias', '-'),
 (224, 'Tara', NULL, '123013', 'A442', 'L', 'Jerónimo Martínez', '-'),
-(227, 'Onis', '', '1478689', 'A498', 'L', 'José Antonio Vega', '-'),
+(227, 'Onis', '', '1478689', 'A498', 'L', 'José Antonio Vega', 'GII'),
 (228, 'Qumba', NULL, '2007589', 'A546', 'L', 'Juan José Espadas', '-'),
 (229, 'Jotave', NULL, '1962366', 'A407', 'L', 'Juan Manuel Caballo', '-'),
 (230, 'Kora', NULL, '124215', 'A585', 'L', 'Juan Manuel Caballo', '-'),
@@ -1166,7 +1214,7 @@ INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Catego
 (475, 'Rufo', NULL, '123178', 'A435', 'S', 'José Peris', '-'),
 (477, 'Sira', NULL, '106345', 'A168', 'S', 'David Ferrer', '-'),
 (478, 'Nit', NULL, '112007', 'A208', 'S', 'Montserrat Calvet', '-'),
-(479, 'Xira', NULL, '124731', 'A424', 'S', 'Sergio Ruiz', '-'),
+(479, 'Xira', '', '124731', 'A424', 'S', 'Sergio Ruiz', 'GIII'),
 (482, 'Che Guevara', NULL, '112448', 'A230', 'S', 'Julia Morugova', '-'),
 (484, 'Enzo', NULL, '117909', 'A444', 'S', 'Miriam García', '-'),
 (485, 'Nuca', NULL, '109471', 'A181', 'S', 'Iván Pardo', '-'),
@@ -1180,7 +1228,7 @@ INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Catego
 (496, 'Bengel', 'Schnnauzer', '1433208', '760', 'S', 'Mario Rodríguez', 'GII'),
 (497, 'Nei', NULL, '1400011', '770', 'S', 'Isabel Rodríguez', '-'),
 (498, 'Tess', NULL, '102439', 'A245', 'S', 'Jaume Fernández', '-'),
-(500, 'Lia', NULL, '132000', 'A588', 'S', 'Irene Artacho', '-'),
+(500, 'Lia', 'Mestizo', '132000', 'A588', 'S', 'Irene Artacho', 'GII'),
 (504, 'Taca', NULL, '128455', 'A589', 'S', 'Ana Mateu', '-'),
 (505, 'Miche', NULL, '1706141', 'A097', 'S', 'Manuel Lara', '-'),
 (506, 'Manin', NULL, '104120', 'A100', 'S', 'Rocio Hermelo', '-'),
@@ -1211,14 +1259,28 @@ INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Catego
 (564, 'Flai', 'Fox Terrier Wire', '0129738', '', 'M', 'Juan Antonio Martinez', 'P.A.'),
 (567, 'Donna', 'Border Collie', '', '', 'L', 'Ricardo Benito', 'GI'),
 (569, 'fito', 'mestizo', '', '', '-', '-- Sin asignar --', '-'),
-(571, 'paco', '', '', '', '-', '-- Sin asignar --', '-');
+(571, 'paco', '', '', '', '-', '-- Sin asignar --', '-'),
+(572, 'Akela', 'Border Collie', '', '', 'L', 'Fernando Bibián', 'GI'),
+(573, 'Toska', 'Border Collie', '', '', 'L', 'Jesús Gómez', 'GI'),
+(574, 'Sira', 'P.B.Malinoise', '', 'A-584', 'L', 'Joaquín Andrés', 'GII'),
+(575, 'Duna', 'P. Aleman', '', 'A-586', 'L', 'Vicente Martín', 'GII'),
+(576, 'Olivia', 'Schnauzer', '', '', 'S', 'Judith Franco', 'GI'),
+(577, 'Kyle', 'Schnauzer', '', 'A-539', 'M', 'Iván San Antonio', 'GII'),
+(578, 'Kara', 'Border Collie', '', 'A-541', 'L', 'Ramón García', 'GII'),
+(579, 'Tibet', 'Border Collie', '', '', 'L', 'Antonio Molina', 'GII'),
+(580, 'Beltxa', 'Schnauzer', '', 'A-622', 'S', 'Sergio Ruiz', 'GII'),
+(581, 'Yeni', 'Border Collie', '', '', 'L', 'José Luis Romero', 'GI'),
+(582, 'Danah', 'P. Australiano', '', '', 'L', 'Juan Martín de las Blancas', 'GI'),
+(583, 'Net', 'P. Australiano', '', '', 'L', 'Isidoro Vázquez', 'GI'),
+(584, 'Sira', 'Boxer', '', '', 'L', 'David Escribano', 'GI'),
+(585, 'Maggie', 'Mestizo', '', '', 'S', 'Raúl Sánchez', 'GII');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Provincias`
 --
--- Creación: 15-10-2013 a las 12:55:30
+-- Creación: 16-10-2013 a las 17:25:26
 --
 
 DROP TABLE IF EXISTS `Provincias`;
@@ -1293,7 +1355,7 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 --
 -- Estructura de tabla para la tabla `Pruebas`
 --
--- Creación: 15-10-2013 a las 12:55:32
+-- Creación: 16-10-2013 a las 17:25:30
 --
 
 DROP TABLE IF EXISTS `Pruebas`;
@@ -1308,7 +1370,7 @@ CREATE TABLE IF NOT EXISTS `Pruebas` (
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `Club` (`Club`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- RELACIONES PARA LA TABLA `Pruebas`:
@@ -1322,14 +1384,15 @@ CREATE TABLE IF NOT EXISTS `Pruebas` (
 
 INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`, `Observaciones`, `Cerrada`) VALUES
 (1, '-- Sin asignar --', '-- Sin asignar --', 'Somewhere over the rainbow...', '', '', 'NO BORRAR ESTA ENTRADA. SE USARA PARA AQUELLAS JORNADAS QUE NO TENGAN PRUEBA ASIGNADA', 1),
-(2, 'WELPE 26-27 Octubre', 'W.E.L.P.E.', 'Instalaciones del Club. "La Canaleja"', '', '', '', 0);
+(2, 'WELPE 26-27 Octubre', 'W.E.L.P.E.', 'Instalaciones del Club. "La Canaleja"', '', '', '', 0),
+(3, 'Pruebas 46 y 47 del Club Agility Eslon', 'Eslon', 'Instalaciones del club', 0x687474703a2f2f6167696c69747965736c6f6e2e636f6d2f70727565626173525343452f7072756562614f637431332f486f6a615f496e7363726970635f525343455f4f6374323031332e706466, '', '', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Resultados`
 --
--- Creación: 15-10-2013 a las 12:55:32
+-- Creación: 16-10-2013 a las 17:25:30
 --
 
 DROP TABLE IF EXISTS `Resultados`;
@@ -1373,7 +1436,7 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 --
 -- Estructura de tabla para la tabla `Tipo_Manga`
 --
--- Creación: 15-10-2013 a las 12:55:30
+-- Creación: 16-10-2013 a las 17:25:26
 --
 
 DROP TABLE IF EXISTS `Tipo_Manga`;
