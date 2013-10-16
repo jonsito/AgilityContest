@@ -791,16 +791,35 @@ function reloadInscripcion() {
 }
 
 function newInscripcion() {
+	var cerrada=false;
 	// cerramos dialogo de modificacion de inscripcion
 	$('#chinscripciones-dialog').dialog('close');
 	// abrimos dialogo de nueva inscripcion
 	$('#inscripciones-dialog').dialog('open').dialog('setTitle','Inscripci&oacute;n de nuevos participantes');
 	$('#inscripciones-form').form('clear');
 	$('#inscripciones-data').form('clear');
-	$('#inscripciones-Operation').val('insert');
+	// disable those ones that belongs to closed journeys
+	// disable those ones that belongs to closed journeys
+	cerrada= ($('#jornada_cerrada-1').text()=='1')?true:false;
+	$('#inscripciones-J1').prop('disabled',cerrada);
+	cerrada= ($('#jornada_cerrada-2').text()=='1')?true:false;
+	$('#inscripciones-J2').prop('disabled',cerrada);
+	cerrada= ($('#jornada_cerrada-3').text()=='1')?true:false;
+	$('#inscripciones-J3').prop('disabled',cerrada);
+	cerrada= ($('#jornada_cerrada-4').text()=='1')?true:false;
+	$('#inscripciones-J4').prop('disabled',cerrada);
+	cerrada= ($('#jornada_cerrada-5').text()=='1')?true:false;
+	$('#inscripciones-J5').prop('disabled',cerrrada);
+	cerrada= ($('#jornada_cerrada-6').text()=='1')?true:false;
+	$('#inscripciones-J6').prop('disabled',cerrada);
+	cerrada= ($('#jornada_cerrada-7').text()=='1')?true:false;
+	$('#inscripciones-J7').prop('disabled',cerrada);
+	cerrada= ($('#jornada_cerrada-8').text()=='1')?true:false;
+	$('#inscripciones-J8').prop('disabled',cerrada);
 }
 
 function editInscripcion() {
+	var cerrada=false;
 	// obtenemos datos de la inscripcion seleccionada
 	var row= $('#inscripciones-datagrid').datagrid('getSelected');
     if (!row) return; // no hay ninguna inscripcion seleccionada. retornar
@@ -817,6 +836,16 @@ function editInscripcion() {
 	// rellenamos formulario de la inscripcion
 	$('#chinscripciones-form').form('load',row);
 	// ajustamos checkboxes (un cb tiene "value" and "checked" como propiedades, y el 'load' solo toca "value")
+	// store original values
+	$('#chinscripciones-oldJ1').val(row.J1);
+	$('#chinscripciones-oldJ2').val(row.J2);
+	$('#chinscripciones-oldJ3').val(row.J3);
+	$('#chinscripciones-oldJ4').val(row.J4);
+	$('#chinscripciones-oldJ5').val(row.J5);
+	$('#chinscripciones-oldJ6').val(row.J6);
+	$('#chinscripciones-oldJ7').val(row.J7);
+	$('#chinscripciones-oldJ8').val(row.J8);
+	// set up checked status
 	$('#chinscripciones-J1').prop('checked',row.J1);
 	$('#chinscripciones-J2').prop('checked',row.J2);
 	$('#chinscripciones-J3').prop('checked',row.J3);
@@ -825,6 +854,23 @@ function editInscripcion() {
 	$('#chinscripciones-J6').prop('checked',row.J6);
 	$('#chinscripciones-J7').prop('checked',row.J7);
 	$('#chinscripciones-J8').prop('checked',row.J8);
+	// disable those ones that belongs to closed journeys
+	cerrada= ($('#jornada_cerrada-1').text()=='1')?true:false;
+	$('#chinscripciones-J1').prop('disabled',cerrada);
+	cerrada= ($('#jornada_cerrada-2').text()=='1')?true:false;
+	$('#chinscripciones-J2').prop('disabled',cerrada);
+	cerrada= ($('#jornada_cerrada-3').text()=='1')?true:false;
+	$('#chinscripciones-J3').prop('disabled',cerrada);
+	cerrada= ($('#jornada_cerrada-4').text()=='1')?true:false;
+	$('#chinscripciones-J4').prop('disabled',cerrada);
+	cerrada= ($('#jornada_cerrada-5').text()=='1')?true:false;
+	$('#chinscripciones-J5').prop('disabled',cerrada);
+	cerrada= ($('#jornada_cerrada-6').text()=='1')?true:false;
+	$('#chinscripciones-J6').prop('disabled',cerrada);
+	cerrada= ($('#jornada_cerrada-7').text()=='1')?true:false;
+	$('#chinscripciones-J7').prop('disabled',cerrada);
+	cerrada= ($('#jornada_cerrada-8').text()=='1')?true:false;
+	$('#chinscripciones-J8').prop('disabled',cerrada);
 }
 
 /**

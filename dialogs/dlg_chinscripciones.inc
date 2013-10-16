@@ -39,6 +39,16 @@
             </div>
             <div>Jornadas:</div>
             <div class="fitem">
+            	<!-- these fields stores original values -->
+            	<input id="chinscripciones-oldJ1" name="oldJ1" value="0" type="hidden"/>
+            	<input id="chinscripciones-oldJ2" name="oldJ2" value="0" type="hidden"/>
+            	<input id="chinscripciones-oldJ3" name="oldJ3" value="0" type="hidden"/>
+            	<input id="chinscripciones-oldJ4" name="oldJ4" value="0" type="hidden"/>
+            	<input id="chinscripciones-oldJ5" name="oldJ5" value="0" type="hidden"/>
+            	<input id="chinscripciones-oldJ6" name="oldJ6" value="0" type="hidden"/>
+            	<input id="chinscripciones-oldJ7" name="oldJ7" value="0" type="hidden"/>
+            	<input id="chinscripciones-oldJ8" name="oldJ8" value="0" type="hidden"/>
+            	<!-- visible fields -->
                 <label for="J1"><input id="chinscripciones-J1" name="J1" class="easyui-checkbox" type="checkbox" value="1" />J1</label>
                 <label for="J2"><input id="chinscripciones-J2" name="J2" class="easyui-checkbox" type="checkbox" value="1" />J2</label>
                 <label for="J3"><input id="chinscripciones-J3" name="J3" class="easyui-checkbox" type="checkbox" value="1" />J3</label>

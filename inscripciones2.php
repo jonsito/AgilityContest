@@ -85,7 +85,7 @@ $('#inscripciones_jornadas').datagrid({
       		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.  ' },
       		{ field:'Exhibicion',	width:7, sortable:false,	align:'center', title: 'Show  ' },
       		{ field:'Otras',		width:7, sortable:false,	align:'center', title: 'Otras ' },
-      		{ field:'Cerrada',		width:7, sortable:false,	align:'center', title: 'Cerrada' }
+      		{ field:'Cerrada',		width:7, sortable:false,	align:'center', title: 'Cerrada', formatter:identificaJornada }
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
@@ -95,7 +95,11 @@ $('#inscripciones_jornadas').datagrid({
     	editJornadaFromPrueba(workingData.prueba,'#inscripciones_jornadas');
 	}
 });
-
+// esta funcion anyade un id al campo de jornada de manera que sea identificable
+function identificaJornada(val,row,index) {
+	var id=index+1
+	return '<span id="jornada_cerrada-'+id+'" >'+val+'</span>';
+}
 // datos de la tabla de inscripciones
 // - tabla
 $('#inscripciones-datagrid').datagrid({
@@ -182,7 +186,4 @@ $('#inscripciones-searchBtn').tooltip({
 	}
 });
 
-// cargamos datos de la prueba
-// cargamos datos de las jornadas de la prueba
-// cargamos formulario de inscripcion
 </script>
