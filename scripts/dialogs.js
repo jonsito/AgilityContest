@@ -884,17 +884,24 @@ function deleteInscripcion() {
 			"<p>Si decide borrar la inscripcion <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta.<br />" +
 			"Desea realmente borrar la inscripción seleccionada?</p>",function(r){
 		if (r){
-			$.get('database/inscripcionFunctions.php',{Operation:'delete',Dorsal:row.Dorsal,ID:workingData.prueba},function(result){
-				if (result.success){
-					$('#inscripciones-datagrid').datagrid('reload');    // reload the prueba data
-				} else {
-					$.messager.show({    // show error message
-						title: 'Error',
-						msg: result.errorMsg
-					});
-				}
-			},'json');
-		}
+			$.get('database/inscripcionFunctions.php',{
+					Operation:'delete',
+					Dorsal:row.Dorsal,
+					ID:workingData.prueba,
+					J1:$('#jornada_cerrada-1').text(),
+					J2:$('#jornada_cerrada-2').text(),
+					J3:$('#jornada_cerrada-3').text(),
+					J4:$('#jornada_cerrada-4').text(),
+					J5:$('#jornada_cerrada-5').text(),
+					J6:$('#jornada_cerrada-6').text(),
+					J7:$('#jornada_cerrada-7').text(),
+					J8:$('#jornada_cerrada-8').text()
+					},
+				function(result){
+					if (result.success) $('#inscripciones-datagrid').datagrid('reload');    // reload the prueba data
+					else $.messager.show({ title: 'Error',msg: result.errorMsg });
+				},'json');
+		} // if (r)
 	}).window({width:475});
 }
 

@@ -75,13 +75,29 @@
 	}
 	
 	/**
-	 * Borra una inscripcion existente
+	 * Borra una inscripcion existente EXCEPTO si la jornada esta cerrada
+	 * 
 	 * @param MySQLConnection $conn
 	 * @param array(jornadasID) $id
 	 * @param Dorsal del perro $dorsal
 	 */	
 	function deleteInscripcion($conn,$jornadas,$dorsal) {
 		do_log("inscriptionFunctions::delete() enter");
+		for ($n=1;$n<9;$n++) {
+			$idjornada=$jornadas[$n];
+			$cerrada=intval($_REQUEST["J$n"]);
+			if ($cerrada!=0) {
+				do_log("inscriptionFunctions::delete() skip delete Dorsal $dorsal on closed Jornada $idjornada");
+				continue;
+			}
+			$sql="DELETE FROM Inscripciones where ( (Dorsal=$dorsal) AND (Jornada=$idjornada))";
+			$res=$conn->query($sql);
+			if (!$res) {
+				$msg="inscriptionFunctions::delete() execute query failed :".$conn->error;
+				do_log($msg);
+				return $msg;
+			}
+		}
 		return "";
 	}
 	
