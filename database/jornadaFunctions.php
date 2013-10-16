@@ -49,7 +49,11 @@
 			do_log($msg);
 		}
 		else  do_log("execute resulted: $res");
-		
+		// retrieve jornadasID and use it to create a default group
+		// TODO
+		$jornadaid=$conn->insert_id;
+		$conn->query("INSERT INTO Equipos (Jornada,Nombre,Observaciones) 
+				VALUES ($jornadaid,'-- Sin asignar --','NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA JORNADA $jornadaid')");
 		$stmt->close();
 		return $msg;
 	}

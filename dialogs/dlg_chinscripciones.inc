@@ -44,7 +44,16 @@
             </div>
             <div>Jornadas:</div>
             <div class="fitem">
-            	<!-- these fields stores original values -->
+            	<!-- tell about jornada's closed status  -->
+            	<input id="chinscripciones-c1" name="c1" value="0" type="hidden"/>
+            	<input id="chinscripciones-c2" name="c2" value="0" type="hidden"/>
+            	<input id="chinscripciones-c3" name="c3" value="0" type="hidden"/>
+            	<input id="chinscripciones-c4" name="c4" value="0" type="hidden"/>
+            	<input id="chinscripciones-c5" name="c5" value="0" type="hidden"/>
+            	<input id="chinscripciones-c6" name="c6" value="0" type="hidden"/>
+            	<input id="chinscripciones-c7" name="c7" value="0" type="hidden"/>
+            	<input id="chinscripciones-c8" name="c8" value="0" type="hidden"/>
+            	<!-- these fields stores original inscription values -->
             	<input id="chinscripciones-oldJ1" name="oldJ1" value="0" type="hidden"/>
             	<input id="chinscripciones-oldJ2" name="oldJ2" value="0" type="hidden"/>
             	<input id="chinscripciones-oldJ3" name="oldJ3" value="0" type="hidden"/>
@@ -53,7 +62,7 @@
             	<input id="chinscripciones-oldJ6" name="oldJ6" value="0" type="hidden"/>
             	<input id="chinscripciones-oldJ7" name="oldJ7" value="0" type="hidden"/>
             	<input id="chinscripciones-oldJ8" name="oldJ8" value="0" type="hidden"/>
-            	<!-- visible fields -->
+            	<!-- visible fields new inscription values-->
                 <label for="J1"><input id="chinscripciones-J1" name="J1" class="easyui-checkbox" type="checkbox" value="1" />J1</label>
                 <label for="J2"><input id="chinscripciones-J2" name="J2" class="easyui-checkbox" type="checkbox" value="1" />J2</label>
                 <label for="J3"><input id="chinscripciones-J3" name="J3" class="easyui-checkbox" type="checkbox" value="1" />J3</label>

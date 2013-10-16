@@ -70,7 +70,48 @@
 	 * @param Dorsal del perro $dorsal
 	 */	
 	function updateInscripcion ($conn,$jornadas,$dorsal) {
+		$sql="";
 		do_log("inscriptionFunctions::update() enter");
+		// iterate on every jornadas
+		for ($n=1;$n<9;$n++) {
+			$idjornada=$jornadas[$n];
+			$cerrada=intval($_REQUEST["c$n"]);
+			if ($cerrada!=0) {
+				do_log("inscriptionFunctions::updateInscription() skip update Dorsal $dorsal on closed Jornada $idjornada");
+				continue;
+			}
+			$celo=(isset($_REQUEST['Celo']))?intval($_REQUEST['Celo']):0;
+			$observaciones=(isset($_REQUEST['Observaciones']))?strval($_REQUEST['Observaciones']):"";
+			$pagado=(isset($_REQUEST['Pagado']))?intval($_REQUEST['Pagado']):0;
+			$equipo=(isset($_REQUEST['Equipo']))?intval($_REQUEST['Equipo']):'NULL';
+			// jornada is not cerrada check for inscription changes
+			$old=(isset($_REQUEST["oldJ$n"]))?intval($_REQUEST["oldJ$n"]):0;
+			$new=(isset($_REQUEST["J$n"]))?intval($_REQUEST["J$n"]):0;
+			do_log("inscriptionFunctions::updateInscription() old:$old new:$new");
+			if ( ($old==0) && ($new==0) ) {
+				do_log("inscriptionFunctions::updateInscription() Dorsal $dorsal has no inscription in Jornada $idjornada");
+				continue; // no inscription
+			}
+			if ( ($old==0) && ($new!=0) ) { // new inscription
+				$sql="INSERT INTO Inscripciones ( Jornada , Dorsal , Celo , Observaciones , Equipo , Pagado )
+				VALUES ($idjornada,$dorsal,$celo,'$observaciones',$equipo,$pagado)";
+			}
+			if ( ($old!=0) && ($new==0) ) { // remove inscription
+				$sql="DELETE FROM Inscripciones where ( (Dorsal=$dorsal) AND (Jornada=$idjornada))";
+			}
+			if ( ($old!=0) && ($new!=0) ) { // already subscribed: just update data
+				$sql="UPDATE Inscripciones 
+						SET Celo=$celo , Observaciones='$observaciones' , Equipo=$equipo , Pagado=$pagado
+						WHERE ( (Dorsal=$dorsal) AND (Jornada=$idjornada))";
+			}
+			do_log("inscriptionFunctions::updateInscription() executing query \n$sql");
+			$res=$conn->query($sql);
+			if (!$res) {
+				$msg="inscriptionFunctions::update::executeQuery() Error: $conn->error";
+				do_log($msg);
+				return $msg;
+			}
+		}
 		return "";
 	}
 	

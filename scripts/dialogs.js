@@ -855,21 +855,30 @@ function editInscripcion() {
 	$('#chinscripciones-J7').prop('checked',row.J7);
 	$('#chinscripciones-J8').prop('checked',row.J8);
 	// disable those ones that belongs to closed journeys
+	// store cerrada status into form
 	cerrada= ($('#jornada_cerrada-1').text()=='1')?true:false;
+	$('#chinscripciones-c1').val($('#jornada_cerrada-1').text());
 	$('#chinscripciones-J1').prop('disabled',cerrada);
 	cerrada= ($('#jornada_cerrada-2').text()=='1')?true:false;
+	$('#chinscripciones-c2').val($('#jornada_cerrada-2').text());
 	$('#chinscripciones-J2').prop('disabled',cerrada);
 	cerrada= ($('#jornada_cerrada-3').text()=='1')?true:false;
+	$('#chinscripciones-c3').val($('#jornada_cerrada-3').text());
 	$('#chinscripciones-J3').prop('disabled',cerrada);
 	cerrada= ($('#jornada_cerrada-4').text()=='1')?true:false;
+	$('#chinscripciones-c4').val($('#jornada_cerrada-4').text());
 	$('#chinscripciones-J4').prop('disabled',cerrada);
 	cerrada= ($('#jornada_cerrada-5').text()=='1')?true:false;
+	$('#chinscripciones-c5').val($('#jornada_cerrada-5').text());
 	$('#chinscripciones-J5').prop('disabled',cerrada);
 	cerrada= ($('#jornada_cerrada-6').text()=='1')?true:false;
+	$('#chinscripciones-c6').val($('#jornada_cerrada-6').text());
 	$('#chinscripciones-J6').prop('disabled',cerrada);
 	cerrada= ($('#jornada_cerrada-7').text()=='1')?true:false;
+	$('#chinscripciones-c7').val($('#jornada_cerrada-7').text());
 	$('#chinscripciones-J7').prop('disabled',cerrada);
 	cerrada= ($('#jornada_cerrada-8').text()=='1')?true:false;
+	$('#chinscripciones-c8').val($('#jornada_cerrada-8').text());
 	$('#chinscripciones-J8').prop('disabled',cerrada);
 }
 
