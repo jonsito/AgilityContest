@@ -12,6 +12,7 @@
     	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox" onclick="doSearchPrueba()"/>Incl. Cerradas
     	</div>
     
+ 	<?php include_once("dialogs/dlg_clubes.inc");?>
  	<?php include_once("dialogs/dlg_pruebas.inc");?>
  	<?php include_once("dialogs/dlg_jornadas.inc");?>
 

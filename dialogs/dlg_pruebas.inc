@@ -1,10 +1,10 @@
 
    <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE PRUEBAS -->
-    <div id="pruebas-dialog" class="easyui-dialog" style="width:400px;height:450px;padding:10px 20px">
+    <div id="pruebas-dialog" class="easyui-dialog" style="width:475px;height:425px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n de la prueba</div>
         <form id="pruebas-form" method="get" novalidate>
             <div class="fitem">
-                <label for="Nombre" style="width:250px">Denominaci&oacute;n de la prueba:</label>
+                <label for="Nombre" style="width:300px">Denominaci&oacute;n de la prueba:</label>
                 <input id="pruebas-Nombre" 
                 	name="Nombre" 
                 	type="text" 
@@ -15,7 +15,8 @@
             </div>
             <div class="fitem">
                 <label for="Club">Club:</label>
-                <select id="pruebas-Club" name="Club" class="easyui-combogrid" style="width:250px"></select>
+                <select id="pruebas-Club" name="Club" class="easyui-combogrid" style="width:200px"></select>
+                <a id="pruebas-newClubBtn" href="#" class="easyui-linkbutton" style="float:right">Nuevo Club</a>
             </div>
             <div class="fitem">
                 <label for="Ubicacion">Lugar de realizaci&oacute;n</label>
@@ -61,6 +62,15 @@
         position: 'top',
         content: '<span style="color:#000">Anular operaci&oacute;n. Cerrar ventana</span>',
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+    });
+    $('#pruebas-newClubBtn').linkbutton({iconCls:'icon-flag'}).tooltip({
+        position: 'top',
+        content: '<span style="color:#000">Registrar un nuevo club en la BBDD</span>',
+    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+    });
+    $('#pruebas-newClubBtn').bind('click',function() {
+        $('#pruebas-Club').combogrid({ 'setValue' : '' });
+        newClub();
     });
     
     // campos del formulario

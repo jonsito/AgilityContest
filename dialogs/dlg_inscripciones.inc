@@ -1,11 +1,12 @@
 
    <!-- FORMULARIO DE NUEVA INSCRIPCION -->
-    <div id="inscripciones-dialog" class="easyui-dialog" style="width:725px;height:375px;padding:10px 20px">
+    <div id="inscripciones-dialog" class="easyui-dialog" style="width:750px;height:375px;padding:10px 20px">
         <div class="ftitle">Datos de la Inscripci&oacute;n</div>
         <div class="fitem">
             <form name="inscripciones-buscar" method="get">
             <label for="Participante">Participante:</label>
             <select id="inscripciones-Participante" name="Participante" class="easyui-combogrid" style="width:250px"></select>
+            <a id="inscripciones-newDogBtn" href="#" class="easyui-linkbutton" style="float:right">Nuevo Perro</a>
             </form>
         </div>
         <div class="fitem">
@@ -110,6 +111,18 @@
         $('#inscripciones-Participante').combogrid({ 'setValue' : '' });
     });
     
+    $('#inscripciones-newDogBtn').linkbutton({iconCls:'icon-dog'}).tooltip({
+        position: 'top',
+        content: '<span style="color:#000">Dar de alta un nuevo perro</span>',
+    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+    });
+    $('#inscripciones-newDogBtn').bind('click',function() {
+        $('#inscripciones-buscar').form('clear'); 
+        $('#inscripciones-data').form('clear'); 
+        $('#inscripciones-form').form('clear'); 
+        $('#inscripciones-Participante').combogrid({ 'setValue' : '' });
+        newDog();
+    });
     // campos del formulario
 
     $('#inscripciones-Participante').combogrid({

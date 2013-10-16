@@ -20,6 +20,8 @@
     </div>
     
 	<?php include_once("dialogs/dlg_perros.inc"); ?>
+	<?php include_once("dialogs/dlg_guias.inc");?>
+	<?php include_once("dialogs/dlg_clubes.inc");?>
     
     <script type="text/javascript">
     

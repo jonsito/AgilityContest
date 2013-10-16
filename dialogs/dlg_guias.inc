@@ -1,5 +1,5 @@
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE GUIAS -->
-    <div id="guias-dialog" class="easyui-dialog" style="width:450px;height:350px;padding:10px 20px">
+    <div id="guias-dialog" class="easyui-dialog" style="width:475px;height:350px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del guia</div>
         <form id="guias-form" method="get" novalidate>
             <div class="fitem">
@@ -23,7 +23,8 @@
             </div>
             <div class="fitem">
                 <label for="Club">Club:</label>
-                <select id="guias-Club" name="Club" class="easyui-combogrid" style="width:250px"></select>
+                <select id="guias-Club" name="Club" class="easyui-combogrid" style="width:200px"></select>
+            	<a id="guias-newClubBtn" href="#" class="easyui-linkbutton" style="float:right">Nuevo Club</a>
             </div>
             <div class="fitem">
                 <label for="Observaciones">Observaciones:</label>
@@ -51,6 +52,15 @@
             position: 'top',
             content: '<span style="color:#000">Anular operaci&oacute;n. Cerrar ventana</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+        });
+        $('#guias-newClubBtn').linkbutton({iconCls:'icon-flag'}).tooltip({
+            position: 'top',
+            content: '<span style="color:#000">Registrar nuevo club</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+        });
+        $('#guias-newClubBtn').bind('click',function() {
+            $('#guias-Club').combogrid({ 'setValue' : '' });
+            newClub();
         });
         
         // campos del formulario

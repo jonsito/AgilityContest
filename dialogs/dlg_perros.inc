@@ -1,6 +1,6 @@
 
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE PERROS -->
-    <div id="perros-dialog" class="easyui-dialog" style="width:500px;height:375px;padding:10px 20px">
+    <div id="perros-dialog" class="easyui-dialog" style="width:500px;height:350px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del perro</div>
         <form id="perros-form" method="get" novalidate>
             <div class="fitem">
@@ -40,8 +40,9 @@
                 		style="width:155px"></select>
             </div>
             <div class="fitem">
-                <label for="Guia">Nombre del Gu&iacute;a:</label>
-                <select id="perros-Guia" name="Guia" class="easyui-combogrid" style="width:300px"></select>
+                <label for="Guia">Gu&iacute;a:</label>
+                <select id="perros-Guia" name="Guia" class="easyui-combogrid" style="width:225px"></select>
+            	<a id="perros-newGuiaBtn" href="#" class="easyui-linkbutton" style="float:right">Nuevo Gu&iacute;a</a>
             </div>
         </form>
     	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
@@ -69,6 +70,16 @@
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
     	}
 	});
+    $('#perros-newGuiaBtn').linkbutton({iconCls:'icon-users'}).tooltip({
+    	position: 'top',
+    	content: '<span style="color:#000">Registrar nuevo gu&iacute;a</span>',
+    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+    	}
+	});
+    $('#perros-newGuiaBtn').bind('click',function() {
+        $('#perros-Guia').combogrid({ 'setValue' : '' });
+        newGuia();
+    });
     // campos del formulario
     $('#perros-dialog').dialog({
         closed:true,
