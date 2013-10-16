@@ -32,7 +32,6 @@
         	<input id="inscripciones-fPruebaID" type="hidden" name="ID"/>
         	<input id="inscripciones-fOperation" type="hidden" name="Operation"/>
         	<!-- "standard" data fields -->
-        	<input type="hidden" name="Dorsal"/>
         	<div class="fitem">
             	<label for="Celo">Celo:</label>
             	<input id="inscripciones-Celo" name="Celo" class="easyui-checkbox" type="checkbox" value="1" />
@@ -65,7 +64,7 @@
 		<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 		<div id="inscripciones-dlg-buttons">        	
 			<a id="inscripciones-cancelBtn" href="#" class="easyui-linkbutton" >Cerrar</a>
-        	<a id="inscripciones-okBtn" href="#" class="easyui-linkbutton" onclick="saveInscripcion()">Inscribir</a>
+        	<a id="inscripciones-okBtn" href="#" class="easyui-linkbutton" onclick="insertInscripcion()">Inscribir</a>
         	<a id="inscripciones-clearBtn" href="#" class="easyui-linkbutton">Limpiar</a>
     	</div>
     </div>

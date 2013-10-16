@@ -809,7 +809,7 @@ function newInscripcion() {
 	cerrada= ($('#jornada_cerrada-4').text()=='1')?true:false;
 	$('#inscripciones-J4').prop('disabled',cerrada);
 	cerrada= ($('#jornada_cerrada-5').text()=='1')?true:false;
-	$('#inscripciones-J5').prop('disabled',cerrrada);
+	$('#inscripciones-J5').prop('disabled',cerrada);
 	cerrada= ($('#jornada_cerrada-6').text()=='1')?true:false;
 	$('#inscripciones-J6').prop('disabled',cerrada);
 	cerrada= ($('#jornada_cerrada-7').text()=='1')?true:false;
@@ -876,7 +876,7 @@ function editInscripcion() {
 /**
  * Delete data related with an inscription in BBDD
  */
-function destroyInscripcion() {
+function deleteInscripcion() {
 	var row = $('#inscripciones-datagrid').datagrid('getSelected');
 	if (!row) return;
 	$.messager.confirm('Confirm',
@@ -961,5 +961,5 @@ function updateInscripcion(){
 }
 
 function printInscripciones() {
-	$.fileDownload('database/inscripcionFunctions.php?Operation=print&ID='+workingData.prueba);
+	$.fileDownload('database/inscripcionFunctions.php?Operation=print&Dorsal=&ID='+workingData.prueba);
 }

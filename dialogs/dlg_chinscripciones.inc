@@ -68,7 +68,7 @@
 		<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 		<div id="chinscripciones-dlg-buttons">        	
 			<a id="chinscripciones-cancelBtn" href="#" class="easyui-linkbutton" >Cerrar</a>
-        	<a id="chinscripciones-okBtn" href="#" class="easyui-linkbutton" onclick="saveInscripcion()">Modificar</a>
+        	<a id="chinscripciones-okBtn" href="#" class="easyui-linkbutton" onclick="updateInscripcion()">Modificar</a>
     	</div>
     </div>
 

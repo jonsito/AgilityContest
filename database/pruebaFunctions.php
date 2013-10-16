@@ -14,7 +14,7 @@
 		do_log("El id de la prueba $nombre es $id");
 		// fase 2: insertar 8 jornadas numeradas de 1 a 8
 		for ($n=1;$n<9;$n++) { 
-			$sql ="INSERT INTO Jornadas (Prueba,Numero,Nombre,Fecha,Hora) VALUES ($id,$n,'Jornada $n','2013-01-01','00:00:00')";
+			$sql ="INSERT INTO Jornadas (Prueba,Numero,Nombre,Fecha,Hora) VALUES ($id,$n,'-- Sin asignar --','2013-01-01','00:00:00')";
 			$res=$conn->query($sql);
 			if (!$res) {
 				$msg="insertPrueba::insertJornada($n) failed $conn->error";

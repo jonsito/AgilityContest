@@ -40,7 +40,7 @@
     	<span style="float:left">
     	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton" onclick="newInscripcion()">Nueva inscripci&oacute;n</a>
     	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton" onclick="editInscripcion()">Editar Registro</a>
-    	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton" onclick="destroyInscripcion()">Borrar inscripci&oacute;n</a>
+    	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton" onclick="deleteInscripcion()">Borrar inscripci&oacute;n</a>
     	<input id="inscripciones-search" type="text" onchange="doSearchInscripcion()"/> 
     	<a id="inscripciones-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchInscripcion()">Buscar</a>
     	</span>
