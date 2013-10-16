@@ -21,6 +21,11 @@
         </div>
         
         <form id="chinscripciones-form" method="get" novalidate>
+        	<!-- these two fields need to be filled before commit -->
+        	<input id="chinscripciones-fDorsal" type="hidden" name="Dorsal"/>
+        	<input id="chinscripciones-fPruebaID" type="hidden" name="ID"/>
+        	<input id="chinscripciones-fOperation" type="hidden" name="Operation"/>
+        	<!-- "standard" data fields -->
         	<div class="fitem">
             	<label for="Celo">Celo:</label>
             	<input id="chinscripciones-Celo" name="Celo" class="easyui-checkbox" type="checkbox" value="1"/>

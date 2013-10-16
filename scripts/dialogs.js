@@ -898,6 +898,68 @@ function destroyInscripcion() {
 	}).window({width:475});
 }
 
+/**
+ * Ask for commit new inscripcion to server
+ */
+function insertInscripcion(){
+	// fill needed data to be sent
+	$('#inscripciones-fDorsal').val($('#inscripciones-Dorsal').val());
+	$('#inscripciones-fPruebaID').val(workingData.prueba);
+	$('#inscripciones-fOperation').val('insert');
+    // do normal submit
+    $('#inscripciones-form').form('submit',{
+        url: 'database/inscripcionFunctions.php',
+        method: 'get',
+        onSubmit: function(param){ // nothing to validate, but...
+            return $(this).form('validate');
+        },
+        success: function(result){
+            var result = eval('('+result+')');
+            if (result.errorMsg){
+                $.messager.show({
+                    title: 'Error',
+                    msg: result.errorMsg
+                });
+            } else {
+                $('#inscripciones-dialog').dialog('close');        // close the dialog
+                // notice that some of these items may fail if dialog is not deployed. just ignore
+                $('#inscripciones-datagrid').datagrid('reload');    // reload the inscripciones table
+            }
+        }
+    });
+}
+
+/**
+ * Ask for submit inscription changes to server
+ */
+function updateInscripcion(){
+	// fill needed data to be sent
+	$('#chinscripciones-fDorsal').val($('#chinscripciones-Dorsal').val());
+	$('#chinscripciones-fPruebaID').val(workingData.prueba);
+	$('#chinscripciones-fOperation').val('update');
+    // do normal submit
+    $('#chinscripciones-form').form('submit',{
+        url: 'database/inscripcionFunctions.php',
+        method: 'get',
+        onSubmit: function(param){ // nothing to validate, but...
+            return $(this).form('validate');
+        },
+        success: function(result){
+            var result = eval('('+result+')');
+            if (result.errorMsg){
+                $.messager.show({
+                    title: 'Error',
+                    msg: result.errorMsg
+                });
+            } else {
+                $('#chinscripciones-dialog').dialog('close');        // close the dialog
+                // notice that some of these items may fail if dialog is not deployed. just ignore
+                $('#chinscripciones-datagrid').datagrid('reload');    // reload the inscripciones table
+            }
+        }
+    });
+}
+
 function printInscripciones() {
-	// TODO
+	$.fileDownload('database/inscripcionFunctions.php?Operation=print&ID='+workingData.prueba);
 }

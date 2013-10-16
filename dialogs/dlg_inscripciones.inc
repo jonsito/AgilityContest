@@ -27,6 +27,12 @@
         </div>
         
         <form id="inscripciones-form" method="get" novalidate>
+        	<!-- these two fields need to be filled before commit -->
+        	<input id="inscripciones-fDorsal" type="hidden" name="Dorsal"/>
+        	<input id="inscripciones-fPruebaID" type="hidden" name="ID"/>
+        	<input id="inscripciones-fOperation" type="hidden" name="Operation"/>
+        	<!-- "standard" data fields -->
+        	<input type="hidden" name="Dorsal"/>
         	<div class="fitem">
             	<label for="Celo">Celo:</label>
             	<input id="inscripciones-Celo" name="Celo" class="easyui-checkbox" type="checkbox" value="1" />
