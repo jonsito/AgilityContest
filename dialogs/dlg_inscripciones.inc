@@ -42,7 +42,7 @@
             </div>
             <div class="fitem">
                 <label for="Equipo">Equipo: </label>
-                <input id="inscripciones-Equipo" name="Equipo" class="easyui-validatebox" type="text" style="width:200px"/>
+                <select id="inscripciones-Equipo" name="Equipo" class="easyui-combogrid" style="width:200px"></select>
             </div>
             <div class="fitem">
                 <label for="Pagado">Pagado: </label>
@@ -120,6 +120,7 @@
 		url: 'database/enumerate_Perros.php',
 		method: 'get',
 		mode: 'remote',
+		required: true,
 		columns: [[
 			{field:'Dorsal',hidden:'true'},
 			{field:'Nombre',title:'Perro',width:20,align:'right'},
@@ -138,5 +139,24 @@
 	        $('#inscripciones-data').form('load','database/get_dogByDorsal.php?Dorsal='+dorsal); // load form with json retrieved data
 		}
 	});
-
+	
+    $('#inscripciones-Equipo').combogrid({
+		panelWidth: 350,
+		panelHeight: 100,
+		idField: 'Dorsal',
+		textField: 'Nombre',
+		url: 'database/enumerate_EquiposByPrueba.php?ID='+workingData.prueba,
+		method: 'get',
+		mode: 'remote',
+		required: true,
+		columns: [[
+			{field:'ID',hidden:'true'},
+			{field:'Nombre',title:'Nombre',width:25,align:'right'},
+			{field:'Observaciones',title:'Observaciones',width:75,align:'right'}
+		]],
+		multiple: false,
+		fitColumns: true,
+		singleSelect: true,
+		selectOnNavigation: false
+    }); 
     </script>

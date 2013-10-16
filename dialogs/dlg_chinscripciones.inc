@@ -36,7 +36,7 @@
             </div>
             <div class="fitem">
                 <label for="Equipo">Equipo: </label>
-                <input id="chinscripciones-Equipo" name="Equipo" class="easyui-validatebox" type="text" style="width:200px"/>
+                <select id="chinscripciones-Equipo" name="Equipo" class="easyui-datagrid" style="width:200px"></select>
             </div>
             <div class="fitem">
                 <label for="Pagado">Pagado: </label>
@@ -111,5 +111,24 @@
         closed:true,
         buttons:'#chinscripciones-dlg-buttons'
     });
-
+    
+    $('#chinscripciones-Equipo').combogrid({
+		panelWidth: 350,
+		panelHeight: 100,
+		idField: 'Dorsal',
+		textField: 'Nombre',
+		url: 'database/enumerate_EquiposByPrueba.php?ID='+workingData.prueba,
+		method: 'get',
+		mode: 'remote',
+		required: true,
+		columns: [[
+			{field:'ID',hidden:'true'},
+			{field:'Nombre',title:'Nombre',width:25,align:'right'},
+			{field:'Observaciones',title:'Observaciones',width:75,align:'right'}
+		]],
+		multiple: false,
+		fitColumns: true,
+		singleSelect: true,
+		selectOnNavigation: false
+    });
     </script>

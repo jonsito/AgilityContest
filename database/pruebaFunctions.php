@@ -2,29 +2,6 @@
 	require_once("logging.php");
 	require_once("DBConnection.php");
 	
-	/*
-	 * Cada prueba lleva asociada 8 jornadas, que se crean automaticamente al crear la prueba
-	 */
-	function insertJornadas($conn,$nombre) {
-		// fase 1: averiguar el ID de la prueba que tiene el nombre dado
-		$sql="SELECT ID FROM Pruebas WHERE (Nombre='$nombre')";
-		$rs=$conn->query($sql);
-		$row=$rs->fetch_array();
-		$id = $row[0];
-		do_log("El id de la prueba $nombre es $id");
-		// fase 2: insertar 8 jornadas numeradas de 1 a 8
-		for ($n=1;$n<9;$n++) { 
-			$sql ="INSERT INTO Jornadas (Prueba,Numero,Nombre,Fecha,Hora) VALUES ($id,$n,'-- Sin asignar --','2013-01-01','00:00:00')";
-			$res=$conn->query($sql);
-			if (!$res) {
-				$msg="insertPrueba::insertJornada($n) failed $conn->error";
-				do_log($msg);
-				return $msg;
-			}
-		}
-		return "";
-	}
-	
 	function insertPrueba ($conn) {
 		$msg=""; // default: no errors
 		do_log("insertPrueba:: enter");
@@ -57,15 +34,38 @@
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		do_log("insertadas $stmt->affected_rows filas");
 		if (!$res) {
 			$msg="insertPrueba:: Error: $conn->error";
 			do_log($msg);
+			return $msg;
 		}
-		else  do_log("execute resulted: $res");
+		
+		// retrieve PruebaID on newly create prueba
+		$pruebaid=$conn->insert_id;
 		$stmt->close();
-		$msg=insertJornadas($conn,$nombre);
-		return $msg;
+		
+		// create default 'Equipos' entry for this contest
+		$res=$conn->query("INSERT INTO Equipos (Prueba,Nombre,Observaciones)
+				VALUES ($pruebaid,'-- Sin asignar --','NO BORRAR: EQUIPO POR DEFECTO PARA LA PRUEBA $pruebaid')");
+		if (!$res) {
+			$msg="insertPrueba::insertEquipo() failed: $conn->error";
+			do_log($msg);
+			return $msg;
+		}
+		
+		// create eight journeys per contest
+		for ($n=1;$n<9;$n++) {
+			$sql ="INSERT INTO Jornadas (Prueba,Numero,Nombre,Fecha,Hora) 
+					VALUES ($pruebaid,$n,'-- Sin asignar --','2013-01-01','00:00:00')";
+			$res=$conn->query($sql);
+			if (!$res) {
+				$msg="insertPrueba::insertJornada($n) failed $conn->error";
+				do_log($msg);
+				return $msg;
+			}
+		}
+		// arriving here means everything ok. notify success
+		return "";
 	}
 	
 	function updatePrueba($conn) {
