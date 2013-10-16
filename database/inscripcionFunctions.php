@@ -39,7 +39,7 @@
 		$perro=$dorsal;
 		$celo=(isset($_REQUEST['Celo']))?intval($_REQUEST['Celo']):0;
 		$observaciones=(isset($_REQUEST['Observaciones']))?strval($_REQUEST['Observaciones']):"";
-		$equipo=null; // TODO: write team handling
+		$equipo=(isset($_REQUEST['Equipo']))?intval($_REQUEST['Equipo']):'NULL'; // if not set defaults to null
 		$pagado=(isset($_REQUEST['Pagado']))?intval($_REQUEST['Pagado']):0;
 		// inscribimos en cada una de las jornadas solicitadas
 		for ($numero=1;$numero<9;$numero++) {

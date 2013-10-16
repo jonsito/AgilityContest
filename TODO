@@ -21,3 +21,4 @@ DONE - Limitar a ¿ocho? jornadas el contenido de una prueba
 - ventana de aviso "No se podrán modificar..." al marcar una jornada como cerrada
 - Añadir boton de "nuevo perro/guia/club en los formularios con combogrid, para no tener que cerrar
   todo e ir al menu correspondiente
+- Al registrar inscripción, asignar el equipo default al perro

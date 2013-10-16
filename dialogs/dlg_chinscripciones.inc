@@ -115,7 +115,7 @@
     $('#chinscripciones-Equipo').combogrid({
 		panelWidth: 350,
 		panelHeight: 100,
-		idField: 'Dorsal',
+		idField: 'ID',
 		textField: 'Nombre',
 		url: 'database/enumerate_EquiposByPrueba.php?ID='+workingData.prueba,
 		method: 'get',
