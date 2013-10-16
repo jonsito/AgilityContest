@@ -162,32 +162,25 @@ INSERT INTO `Clubes` (`Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `Contac
 DROP TABLE IF EXISTS `Equipos`;
 CREATE TABLE IF NOT EXISTS `Equipos` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
-  `Jornada` int(4) NOT NULL,
+  `Prueba` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Observaciones` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `Jornada` (`Jornada`)
+  KEY `Prueba` (`Prueba`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- RELACIONES PARA LA TABLA `Equipos`:
---   `Jornada`
---       `Jornadas` -> `ID`
+--   `Prueba`
+--       `Pruebas` -> `ID`
 --
 
 --
 -- Volcado de datos para la tabla `Equipos`
 --
 
-INSERT INTO `Equipos` (`ID`, `Jornada`, `Nombre`, `Observaciones`) VALUES
-(1, 1, '-- Sin asignar --', 'NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA JORNADA 1'),
-(2, 2, '-- Sin asignar --', 'NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA JORNADA 2'),
-(3, 3, '-- Sin asignar --', 'NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA JORNADA 3'),
-(5, 4, '-- Sin asignar --', 'NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA JORNADA 4'),
-(6, 5, '-- Sin asignar --', 'NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA JORNADA 5'),
-(7, 6, '-- Sin asignar --', 'NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA JORNADA 6'),
-(8, 7, '-- Sin asignar --', 'NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA JORNADA 7'),
-(9, 8, '-- Sin asignar --', 'NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA JORNADA 8');
+INSERT INTO `Equipos` (`ID`, `Prueba`, `Nombre`, `Observaciones`) VALUES
+(1, 1, '-- Sin asignar --', 'NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA PRUEBA 1');
 
 -- --------------------------------------------------------
 
@@ -1430,7 +1423,7 @@ ALTER TABLE `Clubes`
 -- Filtros para la tabla `Equipos`
 --
 ALTER TABLE `Equipos`
-  ADD CONSTRAINT `Equipos_ibfk_1` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`);
+  ADD CONSTRAINT `Equipos_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`);
 
 --
 -- Filtros para la tabla `Guias`
