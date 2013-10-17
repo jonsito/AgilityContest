@@ -22,7 +22,7 @@
 		  WHERE ( ( Inscripciones.Dorsal = PerroGuiaClub.Dorsal) 
 		  			AND ( Inscripciones.Jornada = Jornadas.ID ) 
 		  			AND ( Prueba= $id ) 
-				$extra "; // a single ')' or name search criterion
+				$extra ORDER BY $sort $order"; // a single ')' or name search criterion
 	do_log("select_InscritosByPrueba() query string is \n$str");
 	$rs=$conn->query($str);
 	if (!$rs) {
@@ -70,7 +70,18 @@
 	DBConnection::closeConnection($conn);
 	// OK: compose result to be returned
 	$items=array();
-	foreach($dorsales as $item) array_push($items,$item);
+	$index=0;
+	foreach($dorsales as $key => $item) {
+		if ($index<$offset) {
+			$index++;
+			continue;
+		}
+		if (($index-$offset)>=$rows) {
+			break;
+		}
+		array_push($items,$item);
+		$index++;
+	}
 	$result['total']=$count; // number of rows retrieved
 	$result['rows']=$items;
 	// and return json encoded $result variable

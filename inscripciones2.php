@@ -37,7 +37,7 @@
 </div> <!-- panel de informacion -->
 
 <!-- DECLARACION DE LA TABLA DE INSCRIPCIONES -->
-<table id="inscripciones-datagrid" class="inscripciones-datagrid" style="height:600px"></table>
+<table id="inscripciones-datagrid" class="inscripciones-datagrid"></table>
     <!-- BARRA DE TAREAS -->
     <div id="inscripciones-toolbar">
     	<span style="float:left">
@@ -110,8 +110,8 @@ $('#inscripciones-datagrid').datagrid({
 	url: 'database/select_InscritosByPrueba.php?ID='+workingData.prueba,
 	method: 'get',
     toolbar: '#inscripciones-toolbar',
-    pagination: false, // TODO: fix
-    rownumbers: false,
+    pagination: true,
+    rownumbers: true,
     fitColumns: true,
     singleSelect: true,
     columns: [[

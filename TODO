@@ -23,8 +23,8 @@ DONE - Añadir boton de "nuevo perro/guia/club en los formularios con combogrid,
   todo e ir al menu correspondiente
 - Al registrar inscripción, asignar el equipo default al perro
 - Crear dialogo de new/edit/delete equipos. Avisar si se intenta desplegar en una prueba sin jornada por equipos
-- La ordenacion por columnas en el datagrid de inscripciones no funciona
+DONE - La ordenacion por columnas en el datagrid de inscripciones no funciona
 - Ajustar automaticamente el campo "pagado" en función del numero de jornadas inscritas
-- Datagrid de inscripciones no pagina correctamente (presenta todos en lugar de 10 en 10.
-  hay que manejar correctamente los campos page,row y offset en la respuesta evaluada, no en la query SQL
+DONE - Datagrid de inscripciones no pagina correctamente (presenta todos en lugar de 10 en 10.
+DONE  hay que manejar correctamente los campos page,row y offset en la respuesta evaluada, no en la query SQL
   
