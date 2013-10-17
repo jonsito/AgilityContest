@@ -47,7 +47,7 @@ $('#selprueba-cancelBtn').linkbutton({ iconCls: 'icon-cancel' }).tooltip({
 });
 
 $('#selprueba-Search').combogrid({
-	panelWidth: 350,
+	panelWidth: 450,
 	panelHeight: 100,
 	idField: 'ID',
 	textField: 'Nombre',
@@ -56,9 +56,9 @@ $('#selprueba-Search').combogrid({
 	mode: 'remote',
 	columns: [[
 	    {field:'ID',hidden:true},
-		{field:'Nombre',title:'Nombre',width:30,align:'right'},
+		{field:'Nombre',title:'Nombre',width:50,align:'right'},
 		{field:'Club',title:'Club',width:20,align:'right'},
-		{field:'Observaciones',title:'Observaciones.',width:50,align:'right'}
+		{field:'Observaciones',title:'Observaciones.',width:30,align:'right'}
 	]],
 	multiple: false,
 	fitColumns: true,

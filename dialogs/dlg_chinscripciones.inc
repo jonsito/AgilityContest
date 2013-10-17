@@ -1,6 +1,6 @@
 
    <!-- FORMULARIO DE MODIFICACION DE UNA INSCRIPCION -->
-    <div id="chinscripciones-dialog" class="easyui-dialog" style="width:725px;height:350px;padding:10px 20px">
+    <div id="chinscripciones-dialog" class="easyui-dialog" style="width:725px;height:325px;padding:10px 20px">
         <div class="ftitle">Datos de la Inscripci&oacute;n</div>
         <div class="fitem">
         	<form id="chinscripciones-data" method="get" novalidate="novalidate">
@@ -31,16 +31,8 @@
             	<input id="chinscripciones-Celo" name="Celo" class="easyui-checkbox" type="checkbox" value="1"/>
             </div>
             <div class="fitem">
-                <label for="Observaciones">Observaciones: </label>
-                <input id="chinscripciones-Observaciones" name="Observaciones" type="text" style="width:250px"/>
-            </div>
-            <div class="fitem">
                 <label for="Equipo">Equipo: </label>
                 <select id="chinscripciones-Equipo" name="Equipo" class="easyui-datagrid" style="width:200px"></select>
-            </div>
-            <div class="fitem">
-                <label for="Pagado">Pagado: </label>
-                <input id="chinscripciones-Pagado" name="Pagado" class="easyui-validatebox" type="text" size="3" style="width:50px;text-align:right;padding-right:5px"/>&euro;
             </div>
             <div>Jornadas:</div>
             <div class="fitem">
@@ -63,14 +55,23 @@
             	<input id="chinscripciones-oldJ7" name="oldJ7" value="0" type="hidden"/>
             	<input id="chinscripciones-oldJ8" name="oldJ8" value="0" type="hidden"/>
             	<!-- visible fields new inscription values-->
-                <label for="J1"><input id="chinscripciones-J1" name="J1" class="easyui-checkbox" type="checkbox" value="1" />J1</label>
-                <label for="J2"><input id="chinscripciones-J2" name="J2" class="easyui-checkbox" type="checkbox" value="1" />J2</label>
-                <label for="J3"><input id="chinscripciones-J3" name="J3" class="easyui-checkbox" type="checkbox" value="1" />J3</label>
-                <label for="J4"><input id="chinscripciones-J4" name="J4" class="easyui-checkbox" type="checkbox" value="1" />J4</label>
-                <label for="J5"><input id="chinscripciones-J5" name="J5" class="easyui-checkbox" type="checkbox" value="1" />J5</label>
-                <label for="J6"><input id="chinscripciones-J6" name="J6" class="easyui-checkbox" type="checkbox" value="1" />J6</label>
-                <label for="J7"><input id="chinscripciones-J7" name="J7" class="easyui-checkbox" type="checkbox" value="1" />J7</label>
-                <label for="J8"><input id="chinscripciones-J8" name="J8" class="easyui-checkbox" type="checkbox" value="1" />J8</label>
+                <label for="J1"><input id="chinscripciones-J1" name="J1" class="easyui-checkbox" type="checkbox" value="1" onclick="chdoMoney(this);"/>J1</label>
+                <label for="J2"><input id="chinscripciones-J2" name="J2" class="easyui-checkbox" type="checkbox" value="1" onclick="chdoMoney(this);"/>J2</label>
+                <label for="J3"><input id="chinscripciones-J3" name="J3" class="easyui-checkbox" type="checkbox" value="1" onclick="chdoMoney(this);"/>J3</label>
+                <label for="J4"><input id="chinscripciones-J4" name="J4" class="easyui-checkbox" type="checkbox" value="1" onclick="chdoMoney(this);"/>J4</label>
+                <label for="J5"><input id="chinscripciones-J5" name="J5" class="easyui-checkbox" type="checkbox" value="1" onclick="chdoMoney(this);"/>J5</label>
+                <label for="J6"><input id="chinscripciones-J6" name="J6" class="easyui-checkbox" type="checkbox" value="1" onclick="chdoMoney(this);"/>J6</label>
+                <label for="J7"><input id="chinscripciones-J7" name="J7" class="easyui-checkbox" type="checkbox" value="1" onclick="chdoMoney(this);"/>J7</label>
+                <label for="J8"><input id="chinscripciones-J8" name="J8" class="easyui-checkbox" type="checkbox" value="1" onclick="chdoMoney(this);"/>J8</label>
+            </div>
+            <div><hr /></div>
+            <div class="fitem">
+                <label for="Pagado">Pagado: </label>
+                <input id="chinscripciones-Pagado" name="Pagado" class="easyui-validatebox" type="text" size="3" style="width:50px;text-align:right;padding-right:5px"/>&euro;
+				<span style="float:right">               
+                <label for="Observaciones">Observaciones: </label>
+                <input id="chinscripciones-Observaciones" name="Observaciones" type="text" style="width:250px"/>
+                </span>
             </div>
         </form>
     
@@ -131,4 +132,11 @@
 		singleSelect: true,
 		selectOnNavigation: false
     });
+
+    // reevaluate "paid" field according number of subscriptions
+    function chdoMoney(checkbox) {
+        var money=Number($('#inscripciones-Pagado').val());
+        if (checkbox.checked) $('#inscripciones-Pagado').val(money+12);
+        else $('#inscripciones-Pagado').val(money-12);
+    }
     </script>

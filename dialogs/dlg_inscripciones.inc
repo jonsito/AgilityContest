@@ -1,6 +1,6 @@
 
    <!-- FORMULARIO DE NUEVA INSCRIPCION -->
-    <div id="inscripciones-dialog" class="easyui-dialog" style="width:750px;height:375px;padding:10px 20px">
+    <div id="inscripciones-dialog" class="easyui-dialog" style="width:750px;height:350px;padding:10px 20px">
         <div class="ftitle">Datos de la Inscripci&oacute;n</div>
         <div class="fitem">
             <form name="inscripciones-buscar" method="get">
@@ -38,27 +38,28 @@
             	<input id="inscripciones-Celo" name="Celo" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
             <div class="fitem">
-                <label for="Observaciones">Observaciones: </label>
-                <input id="inscripciones-Observaciones" name="Observaciones" type="text" style="width:250px"/>
-            </div>
-            <div class="fitem">
                 <label for="Equipo">Equipo: </label>
                 <select id="inscripciones-Equipo" name="Equipo" class="easyui-combogrid" style="width:200px"></select>
             </div>
+            <div>Jornadas:</div>
+            <div class="fitem">
+                <label for="J1"><input id="inscripciones-J1" name="J1" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>J1</label>
+                <label for="J2"><input id="inscripciones-J2" name="J2" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>J2</label>
+                <label for="J3"><input id="inscripciones-J3" name="J3" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>J3</label>
+                <label for="J4"><input id="inscripciones-J4" name="J4" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>J4</label>
+                <label for="J5"><input id="inscripciones-J5" name="J5" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>J5</label>
+                <label for="J6"><input id="inscripciones-J6" name="J6" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>J6</label>
+                <label for="J7"><input id="inscripciones-J7" name="J7" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>J7</label>
+                <label for="J8"><input id="inscripciones-J8" name="J8" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>J8</label>
+            </div>
+           <div><hr /></div>
             <div class="fitem">
                 <label for="Pagado">Pagado: </label>
                 <input id="inscripciones-Pagado" name="Pagado" class="easyui-validatebox" type="text" size="3" style="width:50px;text-align:right;padding-right:5px"/>&euro;
-            </div>
-            <div>Jornadas:</div>
-            <div class="fitem">
-                <label for="J1"><input id="inscripciones-J1" name="J1" class="easyui-checkbox" type="checkbox" value="1" />J1</label>
-                <label for="J2"><input id="inscripciones-J2" name="J2" class="easyui-checkbox" type="checkbox" value="1" />J2</label>
-                <label for="J3"><input id="inscripciones-J3" name="J3" class="easyui-checkbox" type="checkbox" value="1" />J3</label>
-                <label for="J4"><input id="inscripciones-J4" name="J4" class="easyui-checkbox" type="checkbox" value="1" />J4</label>
-                <label for="J5"><input id="inscripciones-J5" name="J5" class="easyui-checkbox" type="checkbox" value="1" />J5</label>
-                <label for="J6"><input id="inscripciones-J6" name="J6" class="easyui-checkbox" type="checkbox" value="1" />J6</label>
-                <label for="J7"><input id="inscripciones-J7" name="J7" class="easyui-checkbox" type="checkbox" value="1" />J7</label>
-                <label for="J8"><input id="inscripciones-J8" name="J8" class="easyui-checkbox" type="checkbox" value="1" />J8</label>
+                <span style="float:right">
+                <label for="Observaciones">Observaciones: </label>
+                <input id="inscripciones-Observaciones" name="Observaciones" type="text" style="width:250px"/>
+                </span>
             </div>
         </form>
     
@@ -97,6 +98,7 @@
         $('#inscripciones-data').form('clear'); 
         $('#inscripciones-form').form('clear'); 
         $('#inscripciones-Participante').combogrid({ 'setValue' : '' });
+        $('#inscripciones-Equipo').combogrid({ 'setValue' : '-- Sin asignar --' });
         $('#inscripciones-dialog').dialog('close');
     });
     $('#inscripciones-clearBtn').linkbutton({iconCls:'icon-undo'}).tooltip({
@@ -109,6 +111,7 @@
         $('#inscripciones-data').form('clear'); 
         $('#inscripciones-form').form('clear'); 
         $('#inscripciones-Participante').combogrid({ 'setValue' : '' });
+        $('#inscripciones-Equipo').combogrid({ 'setValue' : '-- Sin asignar --' });
     });
     
     $('#inscripciones-newDogBtn').linkbutton({iconCls:'icon-dog'}).tooltip({
@@ -149,7 +152,11 @@
 		onSelect: function(index,row) {
 			var dorsal=row.Dorsal;
 			if (!dorsal) return;
-	        $('#inscripciones-data').form('load','database/get_dogByDorsal.php?Dorsal='+dorsal); // load form with json retrieved data
+			// load form with json retrieved data
+	        $('#inscripciones-data').form('load','database/get_dogByDorsal.php?Dorsal='+dorsal);
+	        // and set default Team and money
+	        $('#inscripciones-Equipo').combogrid('setValue','-- Sin asignar --'); 
+	        $('#inscripciones-Pagado').val(0); 
 		}
 	});
 	
@@ -172,4 +179,10 @@
 		singleSelect: true,
 		selectOnNavigation: false
     }); 
+
+    function doMoney(checkbox) {
+        var money=Number($('#inscripciones-Pagado').val());
+        if (checkbox.checked) $('#inscripciones-Pagado').val(money+12);
+        else $('#inscripciones-Pagado').val(money-12);
+    }
     </script>
