@@ -141,17 +141,7 @@
 		}
 		return "";
 	}
-	
-	/**
-	 * genera un pdf ordenado por club, categoria y nombre con una pagina por cada jornada
-	 * @param MySQLConnection $conn
-	 * @param array(jornadasID) $id
-	 */
-	function printInscripciones($conn,$jornadas) {
-		do_log("inscriptionFunctions::insert() enter");
-		return "";
-	}
-	
+		
 	// connect database
 	$conn=DBConnection::openConnection("agility_operator","operator@cachorrera");
 	if (!$conn) {
@@ -207,11 +197,6 @@
 	}
 	else if($oper==='delete') {
 		$result= deleteInscripcion($conn,$jornadas,$dorsal);
-		if ($result==="") 	echo json_encode(array('success'=>true));
-		else				echo json_encode(array('msg'=>$result));
-	}	
-	else if($oper==='print') {
-		$result= printInscripciones($conn,$jornadas);
 		if ($result==="") 	echo json_encode(array('success'=>true));
 		else				echo json_encode(array('msg'=>$result));
 	}

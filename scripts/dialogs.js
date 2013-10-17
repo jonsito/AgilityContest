@@ -977,5 +977,5 @@ function updateInscripcion(){
 }
 
 function printInscripciones() {
-	$.fileDownload('database/inscripcionFunctions.php?Operation=print&Dorsal=&ID='+workingData.prueba);
+	$.fileDownload('pdf/print_InscritosByPrueba.php?Prueba='+workingData.prueba);
 }

@@ -9,7 +9,7 @@ $('#Header_Operation').html('<p>Competicion - Selecci&oacute;n de Prueba y Jorna
 
 $('#seljornada-window').window({
 	onClose: function () {
-		var page=(workingData.jornada!==0)?'competicion2.php':'main.php';
+		var page=(workingData.jornada!=0)?'competicion2.php':'main.php';
 		loadContents('#contenido',page);
 	} 
 });
@@ -18,4 +18,4 @@ $('#seljornada-window').window('open');
 
 </script>
 
-<img class="mainpage" src="images/foto_klein.jpg" alt="Klein" width="800" height="400" align="middle"/>
+<img class="mainpage" src="images/foto_dama.jpg" alt="Klein" width="800" height="400" align="middle"/>
