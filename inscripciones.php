@@ -10,8 +10,8 @@ $('#Header_Operation').html('<p>Inscripciones - Selecci&oacute;n de prueba</p>')
 
 $('#selprueba-window').window({
 	onClose: function () {
-		// TODO: check if prueba exists before opening form
-		loadContents('#contenido','inscripciones2.php')
+		var page=(workingData.prueba!=0)?'inscripciones2.php':'main.php';
+		loadContents('#contenido',page);
 	} 
 });
 

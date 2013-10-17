@@ -9,7 +9,6 @@
         		</div>
 			</form>
 		</div> <!-- contenido -->
-		<div region="center" border="false">&nbsp;</div>
 		<div id="selprueba-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
     	    <a id="selprueba-okBtn" href="#" class="easyui-linkbutton" onclick="acceptSelectPrueba()">Aceptar</a>
     	    <a id="selprueba-cancelBtn" href="#" class="easyui-linkbutton" onclick="cancelSelectPrueba()">Cancelar</a>
@@ -54,6 +53,7 @@ $('#selprueba-Search').combogrid({
 	url: 'database/enumerate_PruebasAbiertas.php',
 	method: 'get',
 	mode: 'remote',
+	required: true,
 	columns: [[
 	    {field:'ID',hidden:true},
 		{field:'Nombre',title:'Nombre',width:50,align:'right'},
