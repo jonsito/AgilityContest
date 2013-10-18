@@ -11,7 +11,7 @@
 	do_log("get_guiaByNombre:: query string is $str");
 	$rs=$conn->query($str);
 	if (!$rs) {
-		$err="get_guiaByNombre::query() error $conn->error";
+		$err="get_guiaByNombre::query() error ".$conn->error;
 		do_log($err);
 		echo json_encode(array('errorMsg'=>$err));
 		DBConnection::closeConnection($conn);

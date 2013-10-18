@@ -30,7 +30,7 @@
 	// execute first query to know how many elements
 	$rs=$conn->query("SELECT count(*) FROM Pruebas $where");
 	if (!$rs) {
-		$err="get_pruebas::select( count * ) error $conn->error";
+		$err="get_pruebas::select( count * ) error ".$conn->error;
 		do_log($err);
 		echo json_encode(array('errorMsg'=>$err));
 		DBConnection::closeConnection($conn);
@@ -43,7 +43,7 @@
 	do_log("get_pruebas() query is: \n$str");
 	$rs=$conn->query($str);
 	if (!$rs) {
-		$err="get_pruebas::select query() error $conn->error";
+		$err="get_pruebas::select query() error ".$conn->error;
 		do_log($err);
 		do_log("Select query was:\n$str");
 		echo json_encode(array('errorMsg'=>$err));

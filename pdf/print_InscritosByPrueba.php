@@ -25,7 +25,7 @@ function queryDB($prueba) {
 				ORDER BY Club, Categoria, Grado";
 	$rs=$conn->query($str);
 	if (!$rs) {
-		$err="select_InscritosByPrueba::select( ) error $conn->error";
+		$err="select_InscritosByPrueba::select( ) error ".$conn->error;
 		do_log($err);
 		DBConnection::closeConnection($conn);
 		return null;

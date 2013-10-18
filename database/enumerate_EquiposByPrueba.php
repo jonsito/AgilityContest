@@ -20,7 +20,7 @@
 	do_log("enumerate_equipos::query() $str");
 	$rs=$conn->query($str);
 	if (!$rs) {
-		$str="enumerate_equipos::query() failed: $conn->error";
+		$str="enumerate_equipos::query() failed: ".$conn->error;
 		do_log($str);
 		DBConnection::closeConnection($conn);
 		return json_encode(array('errorMsg'=>$str));

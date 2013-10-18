@@ -15,7 +15,7 @@
 	do_log("select_JornadasByPrueba::(count) $str");
 	$rs=$conn->query($str);
 	if (!$rs) {
-		$err="select_jornadasByPruebas::select() error $conn->error";
+		$err="select_jornadasByPruebas::select() error ".$conn->error;
 		do_log($err);
 		do_log("Query was:\n$str");
 		DBConnection::closeConnection($conn);

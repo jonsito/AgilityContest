@@ -26,7 +26,7 @@
 	do_log("select_InscritosByPrueba() query string is \n$str");
 	$rs=$conn->query($str);
 	if (!$rs) {
-		$err="select_InscritosByPrueba::select( ) error $conn->error";
+		$err="select_InscritosByPrueba::select( ) error ".$conn->error;
 		do_log($err);
 		echo json_encode(array('errorMsg'=>$err));
 		DBConnection::closeConnection($conn);
