@@ -18,7 +18,7 @@
 	// do_log("enumerate_jornadasAbiertasByPrueba::(count) $str");
 	$rs=$conn->query($str);
 	if (!$rs) {
-		$err="enumerate_jornadasAbiertasByPruebas::select(count) error $conn->error";
+		$err="enumerate_jornadasAbiertasByPruebas::select(count) error ".$conn->error;
 		do_log($err);
 		do_log("Query was:\n$str");
 		DBConnection::closeConnection($conn);

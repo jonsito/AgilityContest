@@ -16,7 +16,7 @@
 	do_log("enumerate_provincias::query() $str");
 	$rs=$conn->query($str);
 	if (!$rs) {
-		$str="enumerate_provincias::query() failed: $conn->error";
+		$str="enumerate_provincias::query() failed: ".$conn->error;
 		do_log($str);
 		DBConnection::closeConnection($conn);
 		return json_encode(array('errorMsg'=>$str));

@@ -25,13 +25,13 @@
 				VALUES (?,?,?,?,?,?)";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
-			$msg="insertInscripcion::prepare() failed $conn->error";
+			$msg="insertInscripcion::prepare() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
 		$res=$stmt->bind_param('iiisii',$jornada,$perro,$celo,$observaciones,$equipo,$pagado);
 		if (!$res) {
-			$msg="inscripcionFunctions::insert().bind() failed $conn->error";
+			$msg="inscripcionFunctions::insert().bind() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -52,7 +52,7 @@
 			do_log("insertInscripcion::executeQuery() Jornada $numero: ID: $jornada Dorsal $dorsal");
 			$res=$stmt->execute();
 			if (!$res) {
-				$msg="insertInscripcion::executeQuery() Error: $conn->error";
+				$msg="insertInscripcion::executeQuery() Error: ".$conn->error;
 				do_log($msg);
 				$stmt->close();
 				return $msg;
@@ -107,7 +107,7 @@
 			do_log("inscriptionFunctions::updateInscription() executing query \n$sql");
 			$res=$conn->query($sql);
 			if (!$res) {
-				$msg="inscriptionFunctions::update::executeQuery() Error: $conn->error";
+				$msg="inscriptionFunctions::update::executeQuery() Error: ".$conn->error;
 				do_log($msg);
 				return $msg;
 			}
@@ -173,7 +173,7 @@
 	$jornadas=array(); 
 	$rs=$conn->query("SELECT ID,Numero FROM Jornadas WHERE (Prueba=$id)");
 	if (!$rs) {
-		$str='inscripcionFunctions::getJornadasID() failed: $conn->error';
+		$str="inscripcionFunctions::getJornadasID() failed: ".$conn->error;
 		do_log($str);
 		echo json_encode(array('errorMsg'=>$str));
 		DBConnection::closeConnection($conn);
