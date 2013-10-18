@@ -11,7 +11,7 @@
 		$stmt=$conn->prepare($sql);
 		$res=$stmt->bind_param('sssssss',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia);
 		if (!$res) {
-			$msg="insertDog::prepare() failed $conn->error";
+			$msg="insertDog::prepare() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -30,7 +30,7 @@
 		$res=$stmt->execute();
 		do_log("insertadas $stmt->affected_rows filas");
 		if (!$res) {
-			$msg="insertDog:: Error: $conn->error";
+			$msg="insertDog:: Error: ".$conn->error;
 			do_log($msg);
 		}
 		else  do_log("execute resulted: $res");
@@ -48,13 +48,13 @@
 		       WHERE ( Dorsal=? )";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
-			$msg="updateDog::prepare() failed $conn->error";
+			$msg="updateDog::prepare() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
 		$res=$stmt->bind_param('sssssssi',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia,$dorsal);
 		if (!$res) {
-			$msg="updateDog::bind() failed $conn->error";
+			$msg="updateDog::bind() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -75,7 +75,7 @@
 		$res=$stmt->execute();
 		do_log("updateDog:: actualizadas $stmt->affected_rows filas");
 		if (!$res) {
-			$msg="updateDog:: Error: $conn->error";
+			$msg="updateDog:: Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("updateDog::execute() resulted: $res");
 		$stmt->close();
@@ -87,7 +87,7 @@
 		do_log("deleteDog:: enter");
 		$res= $conn->query("DELETE FROM Perros WHERE (Dorsal=$dorsal)");
 		if (!$res) {
-			$msg="deleteDog:: Error: $conn->error";
+			$msg="deleteDog:: Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("deleteDog:: execute() resulted: $res");
 		return $msg;

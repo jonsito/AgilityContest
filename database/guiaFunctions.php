@@ -11,7 +11,7 @@
 		$stmt=$conn->prepare($sql);
 		$res=$stmt->bind_param('sssss',$nombre,$telefono,$email,$club,$observaciones);
 		if (!$res) {
-			$msg="insertGuia::prepare() failed $conn->error";
+			$msg="insertGuia::prepare() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -28,7 +28,7 @@
 		$res=$stmt->execute();
 		do_log("insertadas $stmt->affected_rows filas");
 		if (!$res) {
-			$msg="insertGuia:: Error: $conn->error";
+			$msg="insertGuia:: Error: ".$conn->error;
 			do_log($msg);
 		}
 		else  do_log("execute resulted: $res");
@@ -45,13 +45,13 @@
 		$sql ="UPDATE Guias SET Nombre=? , Telefono=? , Email=? , Club=? , Observaciones=? WHERE ( Nombre=? )";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
-			$msg="updateGuia::prepare() failed $conn->error";
+			$msg="updateGuia::prepare() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
 		$res=$stmt->bind_param('ssssss',$nombre,$telefono,$email,$club,$observaciones,$viejo);
 		if (!$res) {
-			$msg="updateGuia::bind() failed $conn->error";
+			$msg="updateGuia::bind() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -70,7 +70,7 @@
 		$res=$stmt->execute();
 		do_log("updateGuia:: actualizadas $stmt->affected_rows filas");
 		if (!$res) {
-			$msg="updateGuia:: Error: $conn->error";
+			$msg="updateGuia:: Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("updateGuia::execute() resulted: $res");
 		$stmt->close();
@@ -83,14 +83,14 @@
 		// fase 1: desasignamos los perros de este guia
 		$res= $conn->query("UPDATE Perros SET GUIA='-- Sin asignar --' WHERE ( Guia='$nombre')");
 		if (!$res) {
-			$msg="deleteGuia::unassign dogs() Error: $conn->error";
+			$msg="deleteGuia::unassign dogs() Error: ".$conn->error;
 			do_log($msg);
 			return $msg;
 		} else do_log("deleteGuia:: unassign dogs() resulted: $res");
 		// fase 2: borramos el guia de la base de datos
 		$res= $conn->query("DELETE FROM Guias WHERE (Nombre='$nombre')");
 		if (!$res) {
-			$msg="deleteGuia::query(delete) Error: $conn->error";
+			$msg="deleteGuia::query(delete) Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("deleteGuia:: remove handler() resulted: $res");
 		return $msg;
@@ -101,7 +101,7 @@
 		do_log("orphanPerroFromGuia:: enter");
 		$res= $conn->query("UPDATE Perros SET Guia='-- Sin asignar --' WHERE (Dorsal='$dorsal')");
 		if (!$res) {
-			$msg="orphanPerroFromGuia::query(delete) Error: $conn->error";
+			$msg="orphanPerroFromGuia::query(delete) Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("deleteGuia:: execute() resulted: $res");
 		return $msg;

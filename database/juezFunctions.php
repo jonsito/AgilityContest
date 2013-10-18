@@ -11,7 +11,7 @@
 		$stmt=$conn->prepare($sql);
 		$res=$stmt->bind_param('ssssiiss',$nombre,$direccion1,$direccion2,$telefono,$internacional,$practicas,$email,$observaciones);
 		if (!$res) {
-			$msg="insertJuez::prepare() failed $conn->error";
+			$msg="insertJuez::prepare() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -32,7 +32,7 @@
 		$res=$stmt->execute();
 		do_log("insertJuez:: insertadas $stmt->affected_rows filas");
 		if (!$res) {
-			$msg="insertJuez:: Error: $conn->error";
+			$msg="insertJuez:: Error: ".$conn->error;
 			do_log($msg);
 		}
 		do_log("inzertJuez:: execute resulted: $res");
@@ -49,13 +49,13 @@
 		       WHERE ( Nombre=? )";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
-			$msg="updateJuez::prepare() failed $conn->error";
+			$msg="updateJuez::prepare() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
 		$res=$stmt->bind_param('ssssiisss',$nombre,$direccion1,$direccion2,$telefono,$internacional,$practicas,$email,$observaciones,$viejo);
 		if (!$res) {
-			$msg="update::bind() failed $conn->error";
+			$msg="update::bind() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -78,7 +78,7 @@
 		$res=$stmt->execute();
 		do_log("updateJuez:: actualizadas $stmt->affected_rows filas");
 		if (!$res) {
-			$msg="updateJuez:: Error: $conn->error";
+			$msg="updateJuez:: Error: ".$conn->error;
 			do_log($msg);
 		}
 		do_log("updateJuez::execute() resulted: $res");
@@ -92,7 +92,7 @@
 		$str="DELETE FROM Jueces WHERE ( Nombre='$ID' )";
 		$res= $conn->query($str);
 		if (!$res) {
-			$msg="deleteJuez:: Error: $conn->error";
+			$msg="deleteJuez:: Error: ".$conn->error;
 			do_log($msg);
 		}
 		else do_log("deleteJuez:: execute() resulted: $res");

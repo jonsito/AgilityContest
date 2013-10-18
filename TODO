@@ -28,3 +28,4 @@ DONE -  Ajustar automaticamente el campo "pagado" en función del numero de jorn
 DONE - Datagrid de inscripciones no pagina correctamente (presenta todos en lugar de 10 en 10.
 DONE   hay que manejar correctamente los campos page,row y offset en la respuesta evaluada, no en la query SQL
 - En dlg_selectPrueba y dlg_selectJornada, no permitir en los combogrid valores que no existan
+- Cambiar los nombres de algunos campos de la DB, cambiando "ID" por "xxxID" para que sean más descriptivos 

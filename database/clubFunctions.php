@@ -13,7 +13,7 @@
 		$res=$stmt->bind_param('sssssssssssssss',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,
 				$web,$email,$facebook,$google,$twitter,$observaciones,$baja);
 		if (!$res) {
-			$msg="insertClub::prepare() failed $conn->error";
+			$msg="insertClub::prepare() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -40,7 +40,7 @@
 		$res=$stmt->execute();
 		do_log("insertadas $stmt->affected_rows filas");
 		if (!$res) {
-			$msg="insertClub:: Error: $conn->error";
+			$msg="insertClub:: Error: ".$conn->error;
 			do_log($msg);
 		}
 		else  do_log("execute resulted: $res");
@@ -61,14 +61,14 @@
 				WHERE ( Nombre=? )";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
-			$msg="updateClub::prepare() failed $conn->error";
+			$msg="updateClub::prepare() failed ".$conn->error;
 			do_log($msg);
 			return $msg;	
 		}
 		$res=$stmt->bind_param('ssssssssssssssis',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,
 				$web,$email,$facebook,$google,$twitter,$observaciones,$baja,$viejo);
 		if (!$res) {
-			$msg="updateClub::bind() failed $conn->error";
+			$msg="updateClub::bind() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -96,7 +96,7 @@
 		$res=$stmt->execute();
 		do_log("updateClub:: actualizadas $stmt->affected_rows filas");
 		if (!$res) {
-			$msg="updateClub:: Error: $conn->error";
+			$msg="updateClub:: Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("updateClub::execute() resulted: $res");
 		$stmt->close();
@@ -109,14 +109,14 @@
 		// fase 1: desasignar guias del club
 		$res= $conn->query("UPDATE Guias SET Club='-- Sin asignar --'  WHERE (Club='$nombre')");
 		if (!$res) {
-			$msg="deleteClub::unassign handlers() Error: $conn->error";
+			$msg="deleteClub::unassign handlers() Error: ".$conn->error;
 			do_log($msg);
 			return $msg;
 		} else do_log("deleteClub:: unassing handlers() resulted: $res");
 		// fase 2: borrar el club de la BBDD
 		$res= $conn->query("DELETE FROM Clubes WHERE (Nombre='$nombre')");
 		if (!$res) {
-			$msg="deleteClub::query(delete) Error: $conn->error";
+			$msg="deleteClub::query(delete) Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("deleteClub:: remove club() resulted: $res");
 		return $msg;
@@ -127,7 +127,7 @@
 		do_log("orphanGuiaFromClub::($guia) enter");
 		$res= $conn->query("UPDATE Guias SET Club='-- Sin asignar --' WHERE ( Nombre='$guia' )");
 		if (!$res) {
-			$msg="orphanGuiaFromClub::query(delete) Error: $conn->error";
+			$msg="orphanGuiaFromClub::query(delete) Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("orphanGuiaFromClub:: execute() resulted: $res");
 		return $msg;

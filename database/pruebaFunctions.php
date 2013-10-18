@@ -10,13 +10,13 @@
 			   VALUES(?,?,?,?,?,?,?)";
 		$stmt=$conn->prepare($sql);		
 		if (!$stmt) {
-			$msg="insertPrueba::prepare() failed $conn->error";
+			$msg="insertPrueba::prepare() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
 		$res=$stmt->bind_param('ssssssi',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$cerrada);
 		if (!$res) {
-			$msg="insertPrueba::bind() failed $conn->error";
+			$msg="insertPrueba::bind() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -35,7 +35,7 @@
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) {
-			$msg="insertPrueba:: Error: $conn->error";
+			$msg="insertPrueba:: Error: ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -48,7 +48,7 @@
 		$res=$conn->query("INSERT INTO Equipos (Prueba,Nombre,Observaciones)
 				VALUES ($pruebaid,'-- Sin asignar --','NO BORRAR: EQUIPO POR DEFECTO PARA LA PRUEBA $pruebaid')");
 		if (!$res) {
-			$msg="insertPrueba::insertEquipo() failed: $conn->error";
+			$msg="insertPrueba::insertEquipo() failed: ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -59,7 +59,7 @@
 					VALUES ($pruebaid,$n,'-- Sin asignar --','2013-01-01','00:00:00')";
 			$res=$conn->query($sql);
 			if (!$res) {
-				$msg="insertPrueba::insertJornada($n) failed $conn->error";
+				$msg="insertPrueba::insertJornada($n) failed ".$conn->error;
 				do_log($msg);
 				return $msg;
 			}
@@ -78,13 +78,13 @@
 				WHERE ( ID=? )";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
-			$msg="updatePrueba::prepare() failed $conn->error";
+			$msg="updatePrueba::prepare() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
 		$res=$stmt->bind_param('ssssssii',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$cerrada,$id);
 		if (!$res) {
-			$msg="updatePrueba::bind() failed $conn->error";
+			$msg="updatePrueba::bind() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -105,7 +105,7 @@
 		$res=$stmt->execute();
 		do_log("updatePrueba:: actualizadas $stmt->affected_rows filas");
 		if (!$res) {
-			$msg="updatePrueba:: Error: $conn->error";
+			$msg="updatePrueba:: Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("updatePrueba::execute() resulted: $res");
 		$stmt->close();
@@ -117,7 +117,7 @@
 		do_log("deletePrueba:: enter");
 		$res= $conn->query("DELETE FROM Pruebas WHERE (ID=$id)");
 		if (!$res) {
-			$msg="deletePrueba::query(delete) Error: $conn->error";
+			$msg="deletePrueba::query(delete) Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("deletePrueba:: execute() resulted: $res");
 		return $msg;

@@ -10,14 +10,14 @@
 			   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		$stmt=$conn->prepare($sql);		
 		if (!$stmt) {
-			$msg="insertJornada::prepare() failed $conn->error";
+			$msg="insertJornada::prepare() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
 		$res=$stmt->bind_param('isssiiiiiiiii',
 				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras,$cerrada);
 		if (!$res) {
-			$msg="insertJornada::bind() failed $conn->error";
+			$msg="insertJornada::bind() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -45,7 +45,7 @@
 		$res=$stmt->execute();
 		do_log("insertadas $stmt->affected_rows filas");
 		if (!$res) {
-			$msg="insertJornada:: Error: $conn->error";
+			$msg="insertJornada:: Error: ".$conn->error;
 			do_log($msg);
 		}
 		else  do_log("execute resulted: $res");
@@ -69,14 +69,14 @@
 				WHERE ( ID=? );";
 		$stmt=$conn->prepare($sql);
 		if (!$stmt) {
-			$msg="updateJornada::prepare() failed $conn->error";
+			$msg="updateJornada::prepare() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
 		$res=$stmt->bind_param('isssiiiiiiiiii',
 				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras,$cerrada,$id);
 		if (!$res) {
-			$msg="updateJornada::bind() failed $conn->error";
+			$msg="updateJornada::bind() failed ".$conn->error;
 			do_log($msg);
 			return $msg;
 		}
@@ -103,7 +103,7 @@
 		$res=$stmt->execute();
 		do_log("updateJornada:: actualizadas $stmt->affected_rows filas");
 		if (!$res) {
-			$msg="updateJornada:: Error: $conn->error";
+			$msg="updateJornada:: Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("updateJornada::execute() resulted: $res");
 		$stmt->close();
@@ -117,13 +117,13 @@
 		// si la jornada esta cerrada en lugar de borrarla la movemos a "-- Sin asignar --"
 		$res= $conn->query("UPDATE Jornadas SET Prueba='-- Sin asignar --' WHERE ( (ID=$id) AND (Cerrada=1) );");
 		if (!$res) {
-			$msg="deleteJornada::query(update) Error: $conn->error";
+			$msg="deleteJornada::query(update) Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("deleteJornada:: query(update) resulted: $res");
 		// si la jornada no está cerrada, directamente la borramos
 		$res= $conn->query("DELETE FROM Jornadas WHERE ( (ID=$id) AND (Cerrada=0) );");
 		if (!$res) {
-			$msg="deleteJornada::query(delete) Error: $conn->error";
+			$msg="deleteJornada::query(delete) Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("deleteJornada:: query(delete) resulted: $res");
 		return $msg;

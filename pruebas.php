@@ -96,7 +96,7 @@
             $(datagridID).datagrid({
         		title: 'Jornadas de que consta la prueba '+prueba.Nombre,
         		url: 'database/select_JornadasByPrueba.php',
-        		queryParams: { ID: prueba.ID },
+        		queryParams: { Prueba: prueba.ID },
         		method: 'get',
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		// por defecto, cada prueba tiene asociadas 8 jornadas que se crean automaticamente
