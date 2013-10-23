@@ -67,12 +67,21 @@ $('#selprueba-Search').combogrid({
 });
 
 function acceptSelectPrueba() {
-	workingData.prueba=$('#selprueba-Search').combogrid('getValue');	
+	// si no hay ninguna prueba valida seleccionada aborta
+	var p=$('#selprueba-Search').combogrid('grid').datagrid('getSelected');
+	if (p==null) {
+		// indica error
+		$.messager.alert("Error","Debe indicar una prueba v&aacute;lida","error");
+		return;
+	} 
+	workingData.prueba=$('#selprueba-Search').combogrid('getValue');
+	$('#selprueba-Search').combogrid('setValue','');
 	$('#selprueba-window').window('close');	
 }
 
 function cancelSelectPrueba() {
 	workingData.prueba='';
+	$('#selprueba-Search').combogrid('setValue','');
 	$('#selprueba-window').window('close');
 }
 </script>

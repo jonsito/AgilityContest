@@ -108,6 +108,14 @@ $('#seljornada-Jornada').combogrid({
 });
 
 function acceptSelectJornada() {
+	// si prueba invalida cancelamos operacion
+	var p=$('#selprueba-Search').combogrid('grid').datagrid('getSelected');
+	var j=$('#seljornada-Search').combogrid('grid').datagrid('getSelected');
+	if ( (p==null) || (j==null) ) {
+		// indica error
+		$.messager.aler("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
+		return;
+	}
 	workingData.prueba=$('#seljornada-Prueba').combogrid('getValue');	
 	workingData.jornada=$('#seljornada-Jornada').combogrid('getValue');	
 	$('#seljornada-window').window('close');	
@@ -116,6 +124,8 @@ function acceptSelectJornada() {
 function cancelSelectJornada() {
 	workingData.prueba='';
 	workingData.jornada='';
+	$('#seljornada-Prueba').combogrid('setValue','');
+	$('#seljornada-Jornada').combogrid('setValue','');
 	$('#seljornada-window').window('close');
 }
 </script>
