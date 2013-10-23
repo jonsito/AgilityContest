@@ -1,5 +1,5 @@
 <script type="text/javascript">
-        $('#Header_Operation').html('<p>Desarrollo de la prueba</p>');
+        $('#Header_Operation').html('<p>Desarrollo de la jornada</p>');
 </script>
 <h1>Loren Ipsum dolor sit amet</h1>
 <p>

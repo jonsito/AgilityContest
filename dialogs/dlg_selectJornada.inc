@@ -109,15 +109,17 @@ $('#seljornada-Jornada').combogrid({
 
 function acceptSelectJornada() {
 	// si prueba invalida cancelamos operacion
-	var p=$('#selprueba-Search').combogrid('grid').datagrid('getSelected');
-	var j=$('#seljornada-Search').combogrid('grid').datagrid('getSelected');
+	var p=$('#seljornada-Prueba').combogrid('grid').datagrid('getSelected');
+	var j=$('#seljornada-Jornada').combogrid('grid').datagrid('getSelected');
 	if ( (p==null) || (j==null) ) {
 		// indica error
 		$.messager.aler("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
 		return;
 	}
-	workingData.prueba=$('#seljornada-Prueba').combogrid('getValue');	
-	workingData.jornada=$('#seljornada-Jornada').combogrid('getValue');	
+	$('#seljornada-Prueba').combogrid('setValue','');
+	$('#seljornada-Jornada').combogrid('setValue','');
+	workingData.prueba=p.ID;
+	workingData.jornada=j.ID;
 	$('#seljornada-window').window('close');	
 }
 
