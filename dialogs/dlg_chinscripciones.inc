@@ -1,6 +1,6 @@
 
    <!-- FORMULARIO DE MODIFICACION DE UNA INSCRIPCION -->
-    <div id="chinscripciones-dialog" class="easyui-dialog" style="width:725px;height:325px;padding:10px 20px">
+    <div id="chinscripciones-dialog" class="easyui-dialog" style="width:725px;height:350px;padding:10px 20px">
         <div class="ftitle">Datos de la Inscripci&oacute;n</div>
         <div class="fitem">
         	<form id="chinscripciones-data" method="get" novalidate="novalidate">
