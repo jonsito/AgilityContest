@@ -803,52 +803,34 @@ DROP TABLE IF EXISTS `Mangas`;
 CREATE TABLE IF NOT EXISTS `Mangas` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
   `Jornada` int(4) NOT NULL,
-  `M1_Tipo` varchar(16) DEFAULT NULL,
-  `M1_Distancia` int(4) NOT NULL DEFAULT '0',
-  `M1_Obstaculos` int(4) NOT NULL DEFAULT '0',
-  `M1_Velocidad` double DEFAULT NULL,
-  `M1_TRS` int(4) DEFAULT NULL,
-  `M1_TRM` int(11) DEFAULT NULL,
-  `M1_Juez1` varchar(255) DEFAULT NULL,
-  `M1_Juez2` varchar(255) DEFAULT NULL,
-  `M1_Observaciones` varchar(255) DEFAULT NULL,
-  `M1_Cerrada` tinyint(1) NOT NULL DEFAULT '0',
-  `M2_Tipo` varchar(16) DEFAULT NULL,
-  `M2_Distancia` int(4) NOT NULL DEFAULT '0',
-  `M2_Obstaculos` int(4) NOT NULL DEFAULT '0',
-  `M2_Velocidad` double DEFAULT NULL,
-  `M2_TRS` int(4) DEFAULT NULL,
-  `M2_TRM` int(4) DEFAULT NULL,
-  `M2_Juez1` varchar(255) DEFAULT NULL,
-  `M2_Juez2` varchar(255) DEFAULT NULL,
-  `M2_Observaciones` varchar(255) DEFAULT NULL,
-  `M2_Cerrada` tinyint(1) NOT NULL DEFAULT '0',
+  `Tipo` varchar(16) DEFAULT NULL,
+  `Distancia` int(4) NOT NULL DEFAULT '0',
+  `Obstaculos` int(4) NOT NULL DEFAULT '0',
+  `Velocidad` double DEFAULT NULL,
+  `TRS` int(4) DEFAULT NULL,
+  `TRM` int(11) DEFAULT NULL,
+  `Juez1` varchar(255) DEFAULT NULL,
+  `Juez2` varchar(255) DEFAULT NULL,
+  `Observaciones` varchar(255) DEFAULT NULL,
+  `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
+  `Orden_Salida` TEXT NULL DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `Tipo` (`M1_Tipo`),
-  KEY `Juez Titular` (`M1_Juez1`),
-  KEY `Juez Practicas` (`M1_Juez2`),
-  KEY `Jornada` (`Jornada`),
-  KEY `Mangas_ibfk_5_idx` (`M2_Juez1`),
-  KEY `Mangas_ibfk_6_idx` (`M2_Juez2`),
-  KEY `Mangas_ibfk_7_idx` (`M2_Tipo`)
+  KEY `Tipo` (`Tipo`),
+  KEY `Juez Titular` (`Juez1`),
+  KEY `Juez Practicas` (`Juez2`),
+  KEY `Jornada` (`Jornada`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- RELACIONES PARA LA TABLA `Mangas`:
---   `M1_Tipo`
+--   `Tipo`
 --       `Tipo_Manga` -> `Tipo`
---   `M1_Juez1`
+--   `Juez1`
 --       `Jueces` -> `Nombre`
---   `M1_Juez2`
+--   `Juez2`
 --       `Jueces` -> `Nombre`
 --   `Jornada`
 --       `Jornadas` -> `ID`
---   `M2_Juez1`
---       `Jueces` -> `Nombre`
---   `M2_Juez2`
---       `Jueces` -> `Nombre`
---   `M2_Tipo`
---       `Tipo_Manga` -> `Tipo`
 --
 
 -- --------------------------------------------------------
@@ -1399,26 +1381,16 @@ DROP TABLE IF EXISTS `Resultados`;
 CREATE TABLE IF NOT EXISTS `Resultados` (
   `Manga` int(4) NOT NULL,
   `Dorsal` int(4) NOT NULL,
-  `M1_Orden` int(4) NOT NULL DEFAULT '0',
-  `M1_Entrada` timestamp NULL DEFAULT NULL,
-  `M1_Comienzo` timestamp NULL DEFAULT NULL,
-  `M1_Faltas` int(4) NOT NULL DEFAULT '0',
-  `M1_Rehuses` int(4) NOT NULL DEFAULT '0',
-  `M1_Tocados` int(4) NOT NULL DEFAULT '0',
-  `M1_Eliminado` tinyint(1) NOT NULL DEFAULT '0',
-  `M1_No presentado` tinyint(1) NOT NULL DEFAULT '0',
-  `M1_Tiempo` double NOT NULL DEFAULT '0',
-  `M1_Observaciones` varchar(255) DEFAULT NULL,
-  `M2_Orden` int(4) NOT NULL DEFAULT '0',
-  `M2_Entrada` timestamp NULL DEFAULT NULL,
-  `M2_Comienzo` timestamp NULL DEFAULT NULL,
-  `M2_Faltas` int(4) NOT NULL DEFAULT '0',
-  `M2_Rehuses` int(4) NOT NULL DEFAULT '0',
-  `M2_Tocados` int(4) NOT NULL DEFAULT '0',
-  `M2_Eliminado` tinyint(1) NOT NULL DEFAULT '0',
-  `M2_NoPresentado` tinyint(4) NOT NULL DEFAULT '0',
-  `M2_Tiempo` double NOT NULL DEFAULT '0',
-  `M2_Observaciones` varchar(255) DEFAULT NULL,
+  `Orden` int(4) NOT NULL DEFAULT '0',
+  `Entrada` timestamp NULL DEFAULT NULL,
+  `Comienzo` timestamp NULL DEFAULT NULL,
+  `Faltas` int(4) NOT NULL DEFAULT '0',
+  `Rehuses` int(4) NOT NULL DEFAULT '0',
+  `Tocados` int(4) NOT NULL DEFAULT '0',
+  `Eliminado` tinyint(1) NOT NULL DEFAULT '0',
+  `No presentado` tinyint(1) NOT NULL DEFAULT '0',
+  `Tiempo` double NOT NULL DEFAULT '0',
+  `Observaciones` varchar(255) DEFAULT NULL,
   KEY `Dorsal` (`Dorsal`),
   KEY `Manga` (`Manga`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1512,13 +1484,10 @@ ALTER TABLE `Jornadas`
 -- Filtros para la tabla `Mangas`
 --
 ALTER TABLE `Mangas`
-  ADD CONSTRAINT `Mangas_ibfk_1` FOREIGN KEY (`M1_Tipo`) REFERENCES `Tipo_Manga` (`Tipo`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_2` FOREIGN KEY (`M1_Juez1`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`M1_Juez2`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_5` FOREIGN KEY (`M2_Juez1`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_6` FOREIGN KEY (`M2_Juez2`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_7` FOREIGN KEY (`M2_Tipo`) REFERENCES `Tipo_Manga` (`Tipo`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `Mangas_ibfk_1` FOREIGN KEY (`Tipo`) REFERENCES `Tipo_Manga` (`Tipo`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Mangas_ibfk_2` FOREIGN KEY (`Juez1`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`Juez2`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Perros`
