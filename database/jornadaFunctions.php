@@ -2,6 +2,76 @@
 	require_once("logging.php");
 	require_once("DBConnection.php");
 	
+	/*********** creacion / borrado de mangas asociadas a una jornada *************/
+	function create_manga($conn,$jornada,$tipo) {
+		// si la manga existe no hacer nada; si no existe crear manga
+		$str="SELECT count(*) AS 'result' FROM Mangas WHERE ( Jornada = $jornada ) AND  ( Tipo = '".$tipo."' )";
+		$rs=$conn->query($str);
+		if (!$rs) {
+			$str="inscripcionFunctions::create_manga( select_count(*) , $jornada , $tipo ) failed: ".$conn->error;
+			do_log($str);
+			return;
+		}
+		$row=$rs->fetch_row();
+		if ($row[0]!=0) return; // manga already created
+		$rs->free();
+		$str="INSERT INTO Mangas ( Jornada , Tipo ) VALUES ($jornada,'".$tipo."')";
+		$rs=$conn->query($str);
+		if (!$rs) {
+			$str="inscripcionFunctions::create_manga( insert , $jornada , $tipo ) failed: ".$conn->error;
+			do_log($str);
+		}
+		return;
+	}
+	
+	function delete_manga($conn,$jornada,$tipo) {
+		// si la manga existe, borrarla; si no existe, no hacer nada
+		$str="DELETE FROM Mangas WHERE ( Jornada = $jornada ) AND  ( Tipo = '".$tipo."' )";
+		$rs=$conn->query($str);
+		if (!$rs) {
+			$str="inscripcionFunctions::delete_manga( $jornada , $tipo ) failed: ".$conn->error;
+			do_log($str);
+		}
+		return;
+	}
+	
+	function declare_mangas($conn,$id,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras) {
+		if ($grado1) {
+			create_manga($conn,$id,'Agility-1 GI');
+			create_manga($conn,$id,'Agility-2 GI');
+		} else {
+			create_manga($conn,$id,'Agility-1 GI');
+			create_manga($conn,$id,'Agility-2 GI');
+		}
+		if ($grado2) {
+			create_manga($conn,$id,'Agility GII');
+			create_manga($conn,$id,'Jumping GII');
+		} else {
+			delete_manga($conn,$id,'Agility GII');
+			delete_manga($conn,$id,'Jumping GII');
+		}
+		if ($grado3) {
+			create_manga($conn,$id,'Agility GIII');
+			create_manga($conn,$id,'Jumping GIII');
+		} else {
+			delete_manga($conn,$id,'Agility GIII');
+			delete_manga($conn,$id,'Jumping GIII');
+		}
+		if ($equipos) {
+			create_manga($conn,$id,'Agility Equipos');
+			create_manga($conn,$id,'Jumping Equipos');
+		} else {
+			delete_manga($conn,$id,'Agility Equipos');
+			delete_manga($conn,$id,'Jumping Equipos');
+		}
+		if ($preagility) { create_manga($conn,$id,'Pre-Agility'); } else { delete_manga($conn,$id,'Pre-Agility'); }
+		if ($exhibicion) { create_manga($conn,$id,'Exhibicion'); } else { delete_manga($conn,$id,'Exhibicion'); }
+		// TODO: Decidir que se hace con las mangas 'otras'
+		// TODO: las mangas KO hay que crearlas dinamicamente en funcion del numero de participantes
+	}
+	
+	/******************* Creacion de jornadas ****************/
+	
 	function insertJornada ($conn) {
 		$msg=""; // default: no errors
 		do_log("insertJornada:: enter");
@@ -44,19 +114,26 @@
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		do_log("insertadas $stmt->affected_rows filas");
+		$stmt->close();
 		if (!$res) {
 			$msg="insertJornada:: Error: ".$conn->error;
 			do_log($msg);
 		}
 		else  do_log("execute resulted: $res");
-		// retrieve jornadasID and use it to create a default group
-		// TODO
+		// retrieve ID on last created jornada
 		$jornadaid=$conn->insert_id;
-		$conn->query("INSERT INTO Equipos (Jornada,Nombre,Observaciones) 
+		// if not closed ( an stupid thing create a closed jornada, but.... ) create mangas and default team
+		if (!$cerrada) {
+			// creamos las mangas asociadas a esta jornada
+			declare_mangas($conn,$jornadaid,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras);
+			// create a default team for this jornada
+			$conn->query("INSERT INTO Equipos (Jornada,Nombre,Observaciones) 
 				VALUES ($jornadaid,'-- Sin asignar --','NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA JORNADA $jornadaid')");
-		$stmt->close();
+		};
 		return $msg;
 	}
+	
+	/************************ modificacion de jornadas ***********************/
 	
 	function updateJornada($conn) {
 		$msg="";
@@ -107,20 +184,27 @@
 			do_log($msg);
 		} else do_log("updateJornada::execute() resulted: $res");
 		$stmt->close();
+		if (!$cerrada) {
+			declare_mangas($conn,$id,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras);
+		}
 		return $msg;
 	}
+	
+	/************************* borrado de jornadas ************************/
 	
 	function deleteJornada($conn) {
 		$msg="";
 		do_log("deleteJornada:: enter");
 		$id = (isset($_REQUEST['ID']))?intval($_REQUEST['ID']):0; // primary key not null
 		// si la jornada esta cerrada en lugar de borrarla la movemos a "-- Sin asignar --"
+		// con esto evitamos borrar mangas y resultados ya fijos
 		$res= $conn->query("UPDATE Jornadas SET Prueba='-- Sin asignar --' WHERE ( (ID=$id) AND (Cerrada=1) );");
 		if (!$res) {
 			$msg="deleteJornada::query(update) Error: ".$conn->error;
 			do_log($msg);
 		} else do_log("deleteJornada:: query(update) resulted: $res");
 		// si la jornada no está cerrada, directamente la borramos
+		// recuerda que las mangas y resultados asociados se borran por la "foreign key"
 		$res= $conn->query("DELETE FROM Jornadas WHERE ( (ID=$id) AND (Cerrada=0) );");
 		if (!$res) {
 			$msg="deleteJornada::query(delete) Error: ".$conn->error;
@@ -128,6 +212,8 @@
 		} else do_log("deleteJornada:: query(delete) resulted: $res");
 		return $msg;
 	}
+	
+	/***************** programa principal **************/
 	
 	// connect database
 	$conn=DBConnection::openConnection("agility_operator","operator@cachorrera");

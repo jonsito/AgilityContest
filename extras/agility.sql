@@ -803,7 +803,7 @@ DROP TABLE IF EXISTS `Mangas`;
 CREATE TABLE IF NOT EXISTS `Mangas` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
   `Jornada` int(4) NOT NULL,
-  `Tipo` varchar(16) DEFAULT NULL,
+  `Tipo` varchar(16) NOT NULL DEFAULT 'Otras',
   `Distancia` int(4) NOT NULL DEFAULT '0',
   `Obstaculos` int(4) NOT NULL DEFAULT '0',
   `Velocidad` double DEFAULT NULL,
@@ -1471,7 +1471,7 @@ ALTER TABLE `Guias`
 --
 ALTER TABLE `Inscripciones`
   ADD CONSTRAINT `Inscripciones_ibfk_1` FOREIGN KEY (`Dorsal`) REFERENCES `Perros` (`Dorsal`),
-  ADD CONSTRAINT `Inscripciones_ibfk_2` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`),
+  ADD CONSTRAINT `Inscripciones_ibfk_2` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE,
   ADD CONSTRAINT `Inscripciones_ibfk_3` FOREIGN KEY (`Equipo`) REFERENCES `Equipos` (`ID`);
 
 --
@@ -1487,7 +1487,7 @@ ALTER TABLE `Mangas`
   ADD CONSTRAINT `Mangas_ibfk_1` FOREIGN KEY (`Tipo`) REFERENCES `Tipo_Manga` (`Tipo`) ON UPDATE CASCADE,
   ADD CONSTRAINT `Mangas_ibfk_2` FOREIGN KEY (`Juez1`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`Juez2`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Perros`
@@ -1507,8 +1507,8 @@ ALTER TABLE `Pruebas`
 -- Filtros para la tabla `Resultados`
 --
 ALTER TABLE `Resultados`
-  ADD CONSTRAINT `Resultados_ibfk_1` FOREIGN KEY (`Dorsal`) REFERENCES `Perros` (`Dorsal`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Mangas` (`ID`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `Resultados_ibfk_1` FOREIGN KEY (`Dorsal`) REFERENCES `Perros` (`Dorsal`) ON UPDATE CASCADE ON DELETE CASCADE,
+  ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Mangas` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

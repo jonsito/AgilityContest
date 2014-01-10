@@ -55,7 +55,9 @@
             detailFormatter:function(index,row){
                 return '<div style="padding:2px"><table id="jornadas-datagrid-' + row.ID + '"/></div>';
             },
-            onExpandRow: function(index,row) { showJornadasByPrueba(index,row); }
+            onExpandRow: function(index,row) {
+                if (row.ID!=0) showJornadasByPrueba(index,row); 
+            }
             
         }); // end of pruebas-datagrid
          
