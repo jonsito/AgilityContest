@@ -45,10 +45,12 @@
     </div>
     
 <script type="text/javascript">
-        $('#Header_Operation').html('<p>Desarrollo de la jornada</p>');
+// cargamos nombre de la jornada y de la prueba
+$('#Header_Operation').html('<p>Desarrollo de la prueba</p>');
 
 // declaracion de cada elemento grafico
 $('#competicion_info').panel({
+	title:workingData.nombrePrueba+' -- '+workingData.nombreJornada,
 	border:true,
 	closable:false,
 	collapsible:true,
@@ -79,10 +81,20 @@ $('#competicion-listamangas').datagrid({
     columns:[[
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Tipo',			hidden:true }, // ID de la prueba
-      	    { field:'Descripcion',	width:40, sortable:false, align:'right'},
+      	    { field:'Descripcion',	width:50, sortable:false, align:'right'},
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+    },
+    onSelect: function (index,row) {
+        if (index<0) { // no manga selected
+            // TODO: clear panels
+            return; 
+        }
+        // guardamos el id y el nombre de la manga
+        workingData.manga=row.ID;
+        workingData.nombreManga=row.Descripcion;
+        // load lateral panel with manga data
     }
 });
 

@@ -116,10 +116,14 @@ function acceptSelectJornada() {
 		$.messager.aler("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
 		return;
 	}
+	// clear selection to make sure next time gets empty
 	$('#seljornada-Prueba').combogrid('setValue','');
 	$('#seljornada-Jornada').combogrid('setValue','');
+	// store selected data into global structure
 	workingData.prueba=p.ID;
+	workingData.nombrePrueba=p.Nombre;
 	workingData.jornada=j.ID;
+	workingData.nombreJornada=j.Nombre;
 	$('#seljornada-window').window('close');	
 }
 
