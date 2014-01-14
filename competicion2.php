@@ -7,11 +7,11 @@
 <!-- PANEL INFORMATIVO SOBRE LA MANGAS DE ESTA JORNADA -->
 <div id="competicion_info" class="easyui-panel" title="Informaci&oacute;n de la jornada de competici&oacute;n">
 <div id="competicion_infolayout" class="easyui-layout" style="height:180px">
-	<div data-options="region:'west',title:'Mangas de la jornada',split:true,collapsed:false" style="width:300px;padding:10px">
-		<table id="competicion_listamangas" class="easyui-datagrid"></table>
+	<div data-options="region:'west',title:'Mangas de la jornada',split:true,collapsed:false" style="width:200px">
+		<table id="competicion-listamangas" class="easyui-datagrid"></table>
 	</div>
-	<div data-options="region:'center',title:'Datos de la manga'" style="width:500px">
-		<table id="competicion_datosmanga" class="easyui-datagrid"></table>
+	<div data-options="region:'center',title:'Datos de la manga'" style="width:600px">
+		<table id="competicion-datosmanga" class="easyui-datagrid"></table>
 	</div>
 </div> <!-- informacion de layout -->
 </div> <!-- panel de informacion -->
@@ -68,6 +68,24 @@ $('#competicion_resultados').panel({
 	collapsed:true
 });
 
+$('#competicion-listamangas').datagrid({
+	url: 'database/select_MangasByJornada.php?Jornada='+workingData.jornada,
+	method: 'get',
+    pagination: false,
+    rownumbers: false,
+    fitColumns: true,
+    singleSelect: true,
+    showHeader: false,
+    columns:[[
+            { field:'ID',			hidden:true }, // ID de la jornada
+      	    { field:'Tipo',			hidden:true }, // ID de la prueba
+      	    { field:'Descripcion',	width:40, sortable:false, align:'right'},
+    ]],
+    rowStyler:function(index,row) { // colorize rows
+        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+    }
+});
+
 $('#competicion-orden-datagrid').datagrid({
 	url: 'database/select_JornadasByPrueba.php?Prueba='+workingData.prueba,
 	method: 'get',
@@ -114,14 +132,14 @@ $('#competicion-orden-reloadBtn').tooltip({
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
 });
-$('#competicion-orden-randomBtn').linkbutton({plain:true,iconCls:'icon-add'}); // nueva inscricion 
+$('#competicion-orden-randomBtn').linkbutton({plain:true,iconCls:'icon-dice'}); // nueva inscricion 
 $('#competicion-orden-randomBtn').tooltip({
 	position: 'top',
 	content: '<span style="color:#000">Generar un nuevo orden de salida aleatorio</span>',
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
 });
-$('#competicion-orden-saveBtn').linkbutton({plain:true,iconCls:'icon-filesave'}); // editar inscripcion      
+$('#competicion-orden-saveBtn').linkbutton({plain:true,iconCls:'icon-save'}); // editar inscripcion      
 $('#competicion-orden-saveBtn').tooltip({
 	position: 'top',
 	content: '<span style="color:#000">Guardar orden de salida en base de datos</span>',
