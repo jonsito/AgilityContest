@@ -21,6 +21,13 @@
 			$str="inscripcionFunctions::create_manga( insert , $jornada , $tipo ) failed: ".$conn->error;
 			do_log($str);
 		}
+		// crear entrada de TRS/TRM asociada a la manga
+		$id=$rs->insert_id; // retrieve jornada id
+		$str="INSERT INTO Tiempos_Manga ( Manga ) VALUES ( $id )";
+		if (!$rs) {
+			$str="inscripcionFunctions::create_manga( insert , $jornada , $tipo ) failed: ".$conn->error;
+			do_log($str);
+		}
 		return;
 	}
 	

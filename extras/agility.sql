@@ -803,7 +803,7 @@ DROP TABLE IF EXISTS `Mangas`;
 CREATE TABLE IF NOT EXISTS `Mangas` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
   `Jornada` int(4) NOT NULL,
-  `Tipo` varchar(16) DEFAULT NULL,
+  `Tipo` varchar(16) NOT NULL DEFAULT 'Otras',
   `Distancia` int(4) NOT NULL DEFAULT '0',
   `Obstaculos` int(4) NOT NULL DEFAULT '0',
   `Juez1` varchar(255) DEFAULT NULL,
