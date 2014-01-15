@@ -11,7 +11,9 @@
 		<table id="competicion-listamangas" class="easyui-datagrid"></table>
 	</div>
 	<div data-options="region:'center',title:'Datos de la manga'" style="width:600px;">
+		<font size="11"> <!--  take care on some stupid browsers -->
 		<span id="competicion-datosmanga" class="c_competicion-datosmanga"></span>
+		</font>
 	</div> <!-- datos de la manga -->
 </div> <!-- informacion de layout -->
 </div> <!-- panel de informacion -->
