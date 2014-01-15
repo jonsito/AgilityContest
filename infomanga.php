@@ -1,6 +1,6 @@
 <!-- Formulario que contiene los datos de una manga -->
 
-<form id="competicion-formdatosmanga">
+<form id="competicion-formdatosmanga" method="get">
 	<input type="hidden" id="dmanga_Manga" name="Manga"/>
 	<table id="competicion-tabladatosmanga">
 		<tr> <!-- fila 0: datos de los jueces -->
@@ -16,15 +16,15 @@
 		<tr> <!-- fila 1 tipos de recorrido -->
 			<td colspan="2">Recorridos: </td>
 			<td colspan="3">
-				<input type="radio" id="dmanga_Recorrido_0" name="Recorrido" value="0" onClick="setRecorridos();"/>
+				<input type="radio" id="dmanga_Recorrido_0" name="Recorrido" value="0" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_0">Recorrido com&uacute;n</label>
 			</td>
 			<td colspan="3">
-				<input type="radio" id="dmanga_Recorrido_1" name="Recorrido" value="1" onClick="setRecorridos();"/>
+				<input type="radio" id="dmanga_Recorrido_1" name="Recorrido" value="1" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_1">Std / Mini-Midi</label>
 			</td>
 			<td colspan="3">
-				<input type="radio" id="dmanga_Recorrido_2" name="Recorrido" value="2" onClick="setRecorridos();"/>
+				<input type="radio" id="dmanga_Recorrido_2" name="Recorrido" value="2" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_2">Std / Midi / Mini</label>
 			</td>
 		</tr>
@@ -37,8 +37,8 @@
 		</tr>
 		<tr> <!-- fila 3: recorrido comun datos standard -->
 			<td>Standard</td>
-			<td><input type="text" id="dmanga_DistL" name="Dist_L" size="4" value="0" onChange="setRecorridos();"/></td>
-			<td><input type="text" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_DistL" name="Dist_L" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<!-- datos para TRS standard -->
 			<td colspan="2"> 
 				<select id="dmanga_TRS_L_Tipo" name="TRS_L_Tipo">
@@ -56,7 +56,7 @@
 			</td>
 			<!-- datos para TRM standard -->
 			<td>
-				<select id="dmanga_TRM_L_Tipo" name="TRS_M_Tipo">
+				<select id="dmanga_TRM_L_Tipo" name="TRM_L_Tipo">
 				<option value="0" selected="selected">TRM Fijo</option>
 				<option value="1">TRS + </option>
 				</select>
@@ -71,8 +71,8 @@
 		</tr>
 		<tr> <!-- fila 4: recorrido std / mini+midi datos midi -->
 			<td>Medium</td>
-			<td><input type="text" id="dmanga_DistM" name="Dist_M" size="4" value="0" onChange="setRecorridos();"/></td>
-			<td><input type="text" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_DistM" name="Dist_M" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<!-- datos para TRS medium -->
 			<td colspan="2"> 
 				<select id="dmanga_TRS_M_Tipo" name="TRS_M_Tipo">
@@ -91,7 +91,7 @@
 			</td>
 			<!-- datos para TRM medium -->
 			<td>
-				<select id="dmanga_TRM_M_Tipo" name="TRS_M_Tipo">
+				<select id="dmanga_TRM_M_Tipo" name="TRM_M_Tipo">
 				<option value="0" selected="selected">TRM Fijo</option>
 				<option value="1">TRS + </option>
 				</select>
@@ -106,8 +106,8 @@
 		</tr>
 		<tr> <!-- fila 5: recorrido std / mini / midi + datos mini -->
 			<td>Small</td>
-			<td><input type="text" id="dmanga_DistS" name="Dist_S" size="4" value="0" onChange="setRecorridos();"/></td>
-			<td><input type="text" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_DistS" name="Dist_S" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<!-- datos para TRS small -->
 			<td colspan="2"> 
 				<select id="dmanga_TRS_S_Tipo" name="TRS_S_Tipo">
@@ -127,7 +127,7 @@
 			</td>
 			<!-- datos para TRM small -->
 			<td>
-				<select id="dmanga_TRM_S_Tipo" name="TRS_S_Tipo">
+				<select id="dmanga_TRM_S_Tipo" name="TRM_S_Tipo">
 				<option value="0" selected="selected">TRM Fijo</option>
 				<option value="1">TRS + </option>
 				</select>
@@ -161,40 +161,6 @@
 	</table>
 </form>
 <script type="text/javascript">
-
-function setRecorridos() {
-	var val=$("input:radio[name=Recorrido]:checked").val(); 
-	switch (val) {
-	case '0':
-		var distl=$('#dmanga_DistL').val();
-		var obstl=$('#dmanga_ObstL').val();
-		$('#dmanga_DistM').attr('disabled',true);
-		$('#dmanga_DistM').val(distl);
-		$('#dmanga_ObstM').attr('disabled',true);
-		$('#dmanga_ObstM').val(obstl);
-		$('#dmanga_DistS').attr('disabled',true);
-		$('#dmanga_DistS').val(distl);
-		$('#dmanga_ObstS').attr('disabled',true);
-		$('#dmanga_ObstS').val(obstl);
-		break;
-	case '1':
-		var distm=$('#dmanga_DistM').val();
-		var obstm=$('#dmanga_ObstM').val();
-		$('#dmanga_DistM').removeAttr('disabled');
-		$('#dmanga_ObstM').removeAttr('disabled');
-		$('#dmanga_DistS').attr('disabled',true);
-		$('#dmanga_DistS').val(distm);
-		$('#dmanga_ObstS').attr('disabled',true);
-		$('#dmanga_ObstS').val(obstm);
-		break;
-	case '2':
-		$('#dmanga_DistM').removeAttr('disabled');
-		$('#dmanga_ObstM').removeAttr('disabled');
-		$('#dmanga_DistS').removeAttr('disabled');
-		$('#dmanga_ObstS').removeAttr('disabled');
-		break;
-	}
-}
 
 $('#dmanga_Juez1').combogrid({
 	panelWidth: 400,
@@ -230,5 +196,15 @@ $('#dmanga_Juez2').combogrid({
 	multiple: false,
 	fitColumns: true,
 	selectOnNavigation: false
+});
+
+$('#competicion-formdatosmanga').form({
+	url: 'database/update_mangaByID.php',
+	onSubmit: function(param) {
+		param.ID=workingData.manga;
+		return true; // to continue submitting
+	},
+	onLoadSuccess: function(data) { dmanga_setRecorridos(); },
+	onLoadError: function() { alert('error en carga de datos de manga');}
 });
 </script>

@@ -90,19 +90,22 @@ $('#competicion-listamangas').datagrid({
     onSelect: function (index,row) {
         if (index<0) { // no manga selected
             $('#competicion-datosmanga').html("");
-            // TODO: clear panels
+            // TODO: clear & collapse panels
             return; 
         }
         // guardamos el id y el nombre de la manga
         workingData.manga=row.ID;
         workingData.nombreManga=row.Descripcion;
-        // load lateral panel with manga data
-        loadContents('#competicion-datosmanga',"infomanga.php");
-        // set up manga data panel name
-        $('#competicion_infolayout').layout('panel','center').panel('setTitle','Datos de la manga --- '+workingData.nombreManga);
-        // cargamos panel de orden de salida
+        // cannot use loadcontents, because need to execute commands, _after_ html document load success
+        $('#competicion-datosmanga').load("infomanga.php", function() {
+            // cargamos el panel lateral con la informacion de la manga
+        	$('#competicion_infolayout').layout('panel','center').panel('setTitle','Datos de la manga -- '+workingData.nombreManga);
+ 	        $('#competicion-formdatosmanga').form('load','database/get_mangaByID.php?ID='+workingData.manga);
+        });
+        // cargamos y desplegamos panel de orden de salida
         // TODO: write
-        // cargamos panel de resultados
+        
+        // cargamos (sin desplegar) panel de resultados
         // TODO: write
     }
 });
