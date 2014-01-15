@@ -5,9 +5,13 @@
 	<table id="competicion-tabladatosmanga">
 		<tr> <!-- fila 0: datos de los jueces -->
 			<td>Juez 1:</td>
-			<td colspan="4"><input id="dmanga_Juez1" type="text" name="Juez1"></td>
+			<td colspan="4">
+				<select id="dmanga_Juez1" name="Juez1" class="easyui-combogrid" style="width:200px"></select>
+			</td>
 			<td>Juez 2:</td>
-			<td colspan="4"><input id="dmanga_Juez2" type="text" name="Juez2"></td>
+			<td colspan="4">
+				<select id="dmanga_Juez2" name="Juez2" class="easyui-combogrid" style="width:200px"></select>
+			</td>
 		</tr>
 		<tr> <!-- fila 1 tipos de recorrido -->
 			<td colspan="2">Recorridos: </td>
@@ -138,7 +142,7 @@
 		</tr>
 		<tr> <!-- fila 6: observaciones -->
 			<td colspan="2">Observaciones</td>
-			<td colspan="11"><input type="text" id="dmanga_Observaciones" name="Observaciones" size="70" value=""/></td>
+			<td colspan="11"><input type="text" id="dmanga_Observaciones" name="Observaciones" size="75" value=""/></td>
 		</tr>
 		<tr> <!-- fila 7: manga cerrada. botones reset y save -->
 			<td colspan="2">
@@ -191,4 +195,40 @@ function setRecorridos() {
 		break;
 	}
 }
+
+$('#dmanga_Juez1').combogrid({
+	panelWidth: 400,
+	panelHeight: 150,
+	idField: 'Nombre',
+	textField: 'Nombre',
+	url: 'database/enumerate_Jueces.php',
+	method: 'get',
+	mode: 'remote',
+	required: false,
+	columns: [[
+		{field:'Nombre',title:'Nombre del juez',width:70,align:'right'},
+		{field:'Email',title:'E-mail',width:50,align:'right'},
+	]],
+	multiple: false,
+	fitColumns: true,
+	selectOnNavigation: false
+});
+
+$('#dmanga_Juez2').combogrid({
+	panelWidth: 400,
+	panelHeight: 150,
+	idField: 'Nombre',
+	textField: 'Nombre',
+	url: 'database/enumerate_Jueces.php',
+	method: 'get',
+	mode: 'remote',
+	required: false,
+	columns: [[
+		{field:'Nombre',title:'Nombre del juez',width:70,align:'right'},
+		{field:'Email',title:'E-mail',width:50,align:'right'},
+	]],
+	multiple: false,
+	fitColumns: true,
+	selectOnNavigation: false
+});
 </script>

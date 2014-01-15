@@ -5,11 +5,11 @@
 			<div id="seljornada-Content" region="north" border="true">
         		<div class="fitem">
             		<label for="Prueba">Selecciona Prueba:</label>
-            		<select id="seljornada-Prueba" name="Prueba" class="easyui-combogrid" style="width:200px">&nbsp;</select>
+            		<select id="seljornada-Prueba" name="Prueba" class="easyui-combogrid" style="width:200px"></select>
         		</div>        		
         		<div class="fitem">
             		<label for="Jornada">Selecciona Jornada:</label>
-            		<select id="seljornada-Jornada" name="Jornada" class="easyui-combogrid" style="width:200px">&nbsp;</select>
+            		<select id="seljornada-Jornada" name="Jornada" class="easyui-combogrid" style="width:200px"></select>
         		</div>
 			</div> <!-- contenido -->
 		</form>
