@@ -6,7 +6,7 @@
  	
 <!-- PANEL INFORMATIVO SOBRE LA MANGAS DE ESTA JORNADA -->
 <div id="competicion_info" class="easyui-panel" title="Informaci&oacute;n de la jornada de competici&oacute;n">
-<div id="competicion_infolayout" class="easyui-layout" style="height:180px">
+<div id="competicion_infolayout" class="easyui-layout" style="height:200px">
 	<div data-options="region:'west',title:'Mangas de la jornada',split:true,collapsed:false" style="width:200px">
 		<table id="competicion-listamangas" class="easyui-datagrid"></table>
 	</div>

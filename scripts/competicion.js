@@ -61,7 +61,6 @@ function reload_manga(id) {
  * @param {Integer} id Identificador de la manga
  */
 function save_manga(id) {
-	alert("hola");
 	$('#competicion-formdatosmanga').form('submit', {
 		url: 'database/update_Manga.php',
 		onSubmit: function(param) {

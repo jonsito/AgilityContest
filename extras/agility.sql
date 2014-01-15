@@ -1460,26 +1460,28 @@ DROP TABLE IF EXISTS `Tipo_Manga`;
 CREATE TABLE IF NOT EXISTS `Tipo_Manga` (
   `Tipo` varchar(16) NOT NULL DEFAULT '',
   `Descripcion` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`Tipo`)
+  `Grado` varchar(255) NOT NULL DEFAULT '-',
+  PRIMARY KEY (`Tipo`),
+  KEY `Grado` (`Grado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `Tipo_Manga`
 --
 
-INSERT INTO `Tipo_Manga` (`Tipo`, `Descripcion`) VALUES
-('Agility Equipos', 'Agility por Equipos'),
-('Agility GII', 'Agility Grado II'),
-('Agility GIII', 'Agility Grado III'),
-('Agility-1 GI ', 'Agility Grado I Manga 1'),
-('Agility-2 GI', 'Agility Grado I Manga 2'),
-('Exhibición', 'Ronda de Exhibición'),
-('Jumping Equipos', 'Jumping por Equipos'),
-('Jumping GII', 'Jumping Grado II'),
-('Jumping GIII', 'Jumping Grado III'),
-('K.O.', 'Ronda K.O.'),
-('Otras', 'Manga sin tipo definido'),
-('Pre-Agility', 'Ronda de Pre-Agility');
+INSERT INTO `Tipo_Manga` (`Tipo`, `Descripcion`, `Grado`) VALUES
+('Agility Equipos',	'Agility por Equipos',	'-'),
+('Agility GII',		'Agility Grado II',		'GII'),
+('Agility GIII',	'Agility Grado III',	'GIII'),
+('Agility-1 GI ',	'Agility Grado I Manga 1', 'GI'),
+('Agility-2 GI',	'Agility Grado I Manga 2', 'GI'),
+('Exhibición',		'Ronda de Exhibición',	'-'),
+('Jumping Equipos',	'Jumping por Equipos',	'-'),
+('Jumping GII',		'Jumping Grado II',		'GII'),
+('Jumping GIII',	'Jumping Grado III',	'GIII'),
+('K.O.',			'Ronda K.O.',			'-'),
+('Otras',			'Manga sin tipo definido', '-'),
+('Pre-Agility',		'Ronda de Pre-Agility',	'P.A.');
 
 -- --------------------------------------------------------
 
@@ -1488,7 +1490,17 @@ INSERT INTO `Tipo_Manga` (`Tipo`, `Descripcion`) VALUES
 --
 DROP TABLE IF EXISTS `PerroGuiaClub`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` AS select `Perros`.`Dorsal` AS `Dorsal`,`Perros`.`Nombre` AS `Nombre`,`Perros`.`Raza` AS `Raza`,`Perros`.`Licencia` AS `Licencia`,`Perros`.`LOE_RRC` AS `LOE_RRC`,`Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Perros`.`Guia` AS `Guia`,`Guias`.`Club` AS `Club` from (`Perros` join `Guias`) where (`Perros`.`Guia` = `Guias`.`Nombre`) order by `Guias`.`Club`,`Perros`.`Categoria`,`Perros`.`Nombre`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` AS 
+	SELECT `Perros`.`Dorsal` AS `Dorsal`,`Perros`.`Nombre` AS `Nombre`,`Perros`.`Raza` AS `Raza`,`Perros`.`Licencia` AS `Licencia`,`Perros`.`LOE_RRC` AS `LOE_RRC`,`Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Perros`.`Guia` AS `Guia`,`Guias`.`Club` AS `Club` from (`Perros` join `Guias`) where (`Perros`.`Guia` = `Guias`.`Nombre`) order by `Guias`.`Club`,`Perros`.`Categoria`,`Perros`.`Nombre`;
+
+--
+-- Estructura para la vista `InscritosJornada`
+--
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `InscritosJornada` AS
+	SELECT `Inscripciones`.`Dorsal` AS `Dorsal`, `Inscripciones`.`Jornada` AS `Jornada`, `Inscripciones`.`Celo` AS `Celo`,  `Inscripciones`.`Observaciones` AS `Observaciones`,
+	`Perros`.`Nombre` AS `Nombre`, `Perros`.`Licencia` AS `Licencia`, `Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Perros`.`Guia` AS `Guia`,
+	`Guias`.`Club` AS `Club` from (`Inscripciones` join `Perros` join `Guias`) 
+	where (`Inscripciones`.`Dorsal` = `Perros`.`Dorsal`) AND (`Perros`.`Guia` = `Guias`.`Nombre`);
 
 --
 -- Restricciones para tablas volcadas
@@ -1534,6 +1546,12 @@ ALTER TABLE `Mangas`
   ADD CONSTRAINT `Mangas_ibfk_2` FOREIGN KEY (`Juez1`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`Juez2`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+--
+-- Filtros para la tabla `Tipo_Manga`
+--
+
+ALTER TABLE `Tipo_Manga`
+  ADD CONSTRAINT `Tipo_Manga_ibfk_1` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Perros`
