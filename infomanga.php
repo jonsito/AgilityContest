@@ -1,7 +1,7 @@
 <!-- Formulario que contiene los datos de una manga -->
 
 <form id="competicion-formdatosmanga" method="get">
-	<input type="hidden" id="dmanga_Manga" name="Manga"/>
+	<input type="hidden" id="dmanga_Manga" name="ID"/>
 	<table id="competicion-tabladatosmanga">
 		<tr> <!-- fila 0: datos de los jueces -->
 			<td>Juez 1:</td>
@@ -151,11 +151,11 @@
 			</td>
 			<td colspan="3">&nbsp;</td>
 			<td>
-				<input type="button" id="dmanga_Restaurar" name="Restaurar" value="Restaurar">
+				<input type="button" id="dmanga_Restaurar" name="Restaurar" value="Restaurar" onclick="reload_manga(workingData.manga);"/>
 			</td>
 			<td colspan="2">&nbsp;</td>
 			<td>
-				<input type="button" id="dmanga_Guardar" name="Guardar" value="Guardar">
+				<input type="button" id="dmanga_Guardar" name="Guardar" value="Guardar" onclick="save_manga(workingData.manga);"/>
 			</td>
 		</tr>
 	</table>
@@ -199,11 +199,6 @@ $('#dmanga_Juez2').combogrid({
 });
 
 $('#competicion-formdatosmanga').form({
-	url: 'database/update_mangaByID.php',
-	onSubmit: function(param) {
-		param.ID=workingData.manga;
-		return true; // to continue submitting
-	},
 	onLoadSuccess: function(data) { dmanga_setRecorridos(); },
 	onLoadError: function() { alert('error en carga de datos de manga');}
 });
