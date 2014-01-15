@@ -37,8 +37,8 @@
 		</tr>
 		<tr> <!-- fila 3: recorrido comun datos standard -->
 			<td>Standard</td>
-			<td><input type="text" id="dmanga_DistL" name="DistanciaL" size="4" value="0" onChange="setRecorridos();"/></td>
-			<td><input type="text" id="dmanga_ObstL" name="ObstaculosL" size="4" value="0" onChange="setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_DistL" name="Dist_L" size="4" value="0" onChange="setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="setRecorridos();"/></td>
 			<!-- datos para TRS standard -->
 			<td colspan="2"> 
 				<select id="dmanga_TRS_L_Tipo" name="TRS_L_Tipo">
@@ -71,8 +71,8 @@
 		</tr>
 		<tr> <!-- fila 4: recorrido std / mini+midi datos midi -->
 			<td>Medium</td>
-			<td><input type="text" id="dmanga_DistM" name="DistanciaM" size="4" value="0" onChange="setRecorridos();"/></td>
-			<td><input type="text" id="dmanga_ObstM" name="ObstaculosM" size="4" value="0" onChange="setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_DistM" name="Dist_M" size="4" value="0" onChange="setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="setRecorridos();"/></td>
 			<!-- datos para TRS medium -->
 			<td colspan="2"> 
 				<select id="dmanga_TRS_M_Tipo" name="TRS_M_Tipo">
@@ -106,8 +106,8 @@
 		</tr>
 		<tr> <!-- fila 5: recorrido std / mini / midi + datos mini -->
 			<td>Small</td>
-			<td><input type="text" id="dmanga_DistS" name="DistanciaS" size="4" value="0" onChange="setRecorridos();"/></td>
-			<td><input type="text" id="dmanga_ObstS" name="ObstaculosS" size="4" value="0" onChange="setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_DistS" name="Dist_S" size="4" value="0" onChange="setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="setRecorridos();"/></td>
 			<!-- datos para TRS small -->
 			<td colspan="2"> 
 				<select id="dmanga_TRS_S_Tipo" name="TRS_S_Tipo">

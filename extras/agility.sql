@@ -804,13 +804,36 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
   `Jornada` int(4) NOT NULL,
   `Tipo` varchar(16) NOT NULL DEFAULT 'Otras',
-  `Distancia` int(4) NOT NULL DEFAULT '0',
-  `Obstaculos` int(4) NOT NULL DEFAULT '0',
-  `Juez1` varchar(255) DEFAULT NULL,
-  `Juez2` varchar(255) DEFAULT NULL,
-  `Observaciones` varchar(255) DEFAULT NULL,
-  `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
-  `Orden_Salida` text DEFAULT NULL,
+  `Recorrido`		int(4) NOT NULL DEFAULT '0', -- 0:LMS -- 1:L+MS -- 2:L+M+S
+  `Dist_L`			int(4) NOT NULL DEFAULT '0',
+  `Obst_L`			int(4) NOT NULL DEFAULT '0',
+  `Dist_M`			int(4) NOT NULL DEFAULT '0',
+  `Obst_M`			int(4) NOT NULL DEFAULT '0',
+  `Dist_S`			int(4) NOT NULL DEFAULT '0',
+  `Obst_S`			int(4) NOT NULL DEFAULT '0',
+  `TRS_L_Tipo` 		int(4) NOT NULL DEFAULT '0',
+  `TRS_L_Factor` 	int(4) NOT NULL DEFAULT '0',
+  `TRS_L_Unit` 		varchar(1) NOT NULL DEFAULT 's',
+  `TRM_L_Tipo` 		int(4) NOT NULL DEFAULT '0',
+  `TRM_L_Factor` 	int(4) NOT NULL DEFAULT '50',
+  `TRM_L_Unit`		varchar(1) NOT NULL DEFAULT '%',
+  `TRS_M_Tipo`		int(4) NOT NULL DEFAULT '0',
+  `TRS_M_Factor`	int(4) NOT NULL DEFAULT '0',
+  `TRS_M_Unit`		varchar(1) NOT NULL DEFAULT 's',
+  `TRM_M_Tipo`		int(4) NOT NULL DEFAULT '0',
+  `TRM_M_Factor`	int(4) NOT NULL DEFAULT '50',
+  `TRM_M_Unit`		varchar(1) NOT NULL DEFAULT '%',
+  `TRS_S_Tipo`		int(4) NOT NULL DEFAULT '0',
+  `TRS_S_Factor`	int(4) NOT NULL DEFAULT '0',
+  `TRS_S_Unit`		varchar(1) NOT NULL DEFAULT 's',
+  `TRM_S_Tipo`		int(4) NOT NULL DEFAULT '0',
+  `TRM_S_Factor`	int(4) NOT NULL DEFAULT '50',
+  `TRM_S_Unit`		varchar(1) NOT NULL DEFAULT '%',
+  `Juez1`			varchar(255) DEFAULT NULL,
+  `Juez2`			varchar(255) DEFAULT NULL,
+  `Observaciones`	varchar(255) DEFAULT NULL,
+  `Cerrada`			tinyint(1) NOT NULL DEFAULT '0',
+  `Orden_Salida`	text DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Tipo` (`Tipo`),
   KEY `Juez Titular` (`Juez1`),
@@ -834,26 +857,26 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
 -- Volcado de datos para la tabla `Mangas`
 --
 
-INSERT INTO `Mangas` (`ID`, `Jornada`, `Tipo`, `Distancia`, `Obstaculos`, `Juez1`, `Juez2`, `Observaciones`, `Cerrada`, `Orden_Salida`) VALUES
-(1, 9, 'Agility-1 GI',  0, 0, NULL, NULL, NULL, 0, NULL),
-(2, 9, 'Agility-2 GI',  0, 0, NULL, NULL, NULL, 0, NULL),
-(3, 9, 'Agility GII',   0, 0, NULL, NULL, NULL, 0, NULL),
-(4, 9, 'Jumping GII',   0, 0, NULL, NULL, NULL, 0, NULL),
-(5, 9, 'Agility GIII',  0, 0, NULL, NULL, NULL, 0, NULL),
-(6, 9, 'Jumping GIII',  0, 0, NULL, NULL, NULL, 0, NULL),
-(8, 10, 'Agility-1 GI', 0, 0, NULL, NULL, NULL, 0, NULL),
-(9, 10, 'Agility-2 GI', 0, 0, NULL, NULL, NULL, 0, NULL),
-(10, 10, 'Agility GII', 0, 0, NULL, NULL, NULL, 0, NULL),
-(11, 10, 'Jumping GII', 0, 0, NULL, NULL, NULL, 0, NULL),
-(12, 10, 'Agility GIII', 0, 0, NULL, NULL, NULL, 0, NULL),
-(13, 10, 'Jumping GIII', 0, 0, NULL, NULL, NULL, 0, NULL),
-(16, 1, 'Agility-1 GI', 0, 0, NULL, NULL, NULL, 0, NULL),
-(17, 1, 'Agility-2 GI', 0, 0, NULL, NULL, NULL, 0, NULL),
-(18, 1, 'Agility GII',  0, 0, NULL, NULL, NULL, 0, NULL),
-(19, 1, 'Jumping GII',  0, 0, NULL, NULL, NULL, 0, NULL),
-(20, 1, 'Agility GIII', 0, 0, NULL, NULL, NULL, 0, NULL),
-(21, 1, 'Jumping GIII', 0, 0, NULL, NULL, NULL, 0, NULL),
-(24, 9, 'Pre-Agility',  0, 0, NULL, NULL, NULL, 0, NULL);
+INSERT INTO `Mangas` (`ID`, `Jornada`, `Tipo`, `Juez1`, `Juez2`, `Observaciones`, `Cerrada`, `Orden_Salida`) VALUES
+(1, 9, 'Agility-1 GI',  NULL, NULL, NULL, 0, NULL),
+(2, 9, 'Agility-2 GI',  NULL, NULL, NULL, 0, NULL),
+(3, 9, 'Agility GII',   NULL, NULL, NULL, 0, NULL),
+(4, 9, 'Jumping GII',   NULL, NULL, NULL, 0, NULL),
+(5, 9, 'Agility GIII',  NULL, NULL, NULL, 0, NULL),
+(6, 9, 'Jumping GIII',  NULL, NULL, NULL, 0, NULL),
+(8, 10, 'Agility-1 GI', NULL, NULL, NULL, 0, NULL),
+(9, 10, 'Agility-2 GI', NULL, NULL, NULL, 0, NULL),
+(10, 10, 'Agility GII', NULL, NULL, NULL, 0, NULL),
+(11, 10, 'Jumping GII', NULL, NULL, NULL, 0, NULL),
+(12, 10, 'Agility GIII', NULL, NULL, NULL, 0, NULL),
+(13, 10, 'Jumping GIII', NULL, NULL, NULL, 0, NULL),
+(16, 1, 'Agility-1 GI', NULL, NULL, NULL, 0, NULL),
+(17, 1, 'Agility-2 GI', NULL, NULL, NULL, 0, NULL),
+(18, 1, 'Agility GII',  NULL, NULL, NULL, 0, NULL),
+(19, 1, 'Jumping GII',  NULL, NULL, NULL, 0, NULL),
+(20, 1, 'Agility GIII', NULL, NULL, NULL, 0, NULL),
+(21, 1, 'Jumping GIII', NULL, NULL, NULL, 0, NULL),
+(24, 9, 'Pre-Agility',  NULL, NULL, NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -1424,41 +1447,6 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 --   `Manga`
 --       `Mangas` -> `ID`
 --
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Tiempos_Manga`
---
--- Creación: 13-01-2014 a las 08:57:25
---
-
-DROP TABLE IF EXISTS `Tiempos_Manga`;
-CREATE TABLE IF NOT EXISTS `Tiempos_Manga` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
-  `Manga` int(4) NOT NULL,
-  `TRS_L_Tipo` int(4) NOT NULL DEFAULT '0',
-  `TRS_L_Factor` int(4) NOT NULL DEFAULT '0',
-  `TRS_L_Unit` varchar(1) NOT NULL DEFAULT 's',
-  `TRM_L_Tipo` int(4) NOT NULL DEFAULT '0',
-  `TRM_L_Factor` int(4) NOT NULL DEFAULT '50',
-  `TRM_L_Unit` varchar(1) NOT NULL DEFAULT '%',
-  `TRS_M_Tipo` int(4) NOT NULL DEFAULT '0',
-  `TRS_M_Factor` int(4) NOT NULL DEFAULT '0',
-  `TRS_M_Unit` varchar(1) NOT NULL DEFAULT 's',
-  `TRM_M_Tipo` int(4) NOT NULL DEFAULT '0',
-  `TRM_M_Factor` int(4) NOT NULL DEFAULT '50',
-  `TRM_M_Unit` varchar(1) NOT NULL DEFAULT '%',
-  `TRS_S_Tipo` int(4) NOT NULL DEFAULT '0',
-  `TRS_S_Factor` int(4) NOT NULL DEFAULT '0',
-  `TRS_S_Unit` varchar(1) NOT NULL DEFAULT 's',
-  `TRM_S_Tipo` int(4) NOT NULL DEFAULT '0',
-  `TRM_S_Factor` int(4) NOT NULL DEFAULT '50',
-  `TRM_S_Unit` varchar(1) NOT NULL DEFAULT '%',
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `Manga` (`Manga`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tiempos asociados a cada manga' AUTO_INCREMENT=1 ;
-
 -- --------------------------------------------------------
 
 --
@@ -1545,11 +1533,6 @@ ALTER TABLE `Mangas`
   ADD CONSTRAINT `Mangas_ibfk_2` FOREIGN KEY (`Juez1`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`Juez2`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `Tiempos_Manga`
-ALTER TABLE `Tiempos_Manga`
-  ADD CONSTRAINT `Tiempos_Manga_ibfk_1` FOREIGN KEY (`Manga`) REFERENCES `Mangas` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Perros`
