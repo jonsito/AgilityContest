@@ -1,8 +1,8 @@
 <!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->
 <div id="seljornada-window" class="easyui-window" style="position:relative,width:500px;height:200px;padding:20px 20px">
-	<div id="seljornada-Layout" class="easyui-layout" fit="true">
+	<div id="seljornada-Layout" class="easyui-layout" data-options="fit:'true'">
 		<form id="seljornada-Selection">
-			<div id="seljornada-Content" region="north" border="true">
+			<div id="seljornada-Content" data-options="region:'north',border:'true'">
         		<div class="fitem">
             		<label for="Prueba">Selecciona Prueba:</label>
             		<select id="seljornada-Prueba" name="Prueba" class="easyui-combogrid" style="width:200px"></select>
@@ -13,7 +13,7 @@
         		</div>
 			</div> <!-- contenido -->
 		</form>
-		<div region="center"></div>
+		<div data-options="region:'center'"></div>
 		<div id="seljornada-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
     	    <a id="seljornada-okBtn" href="#" class="easyui-linkbutton" onclick="acceptSelectJornada()">Aceptar</a>
     	    <a id="seljornada-cancelBtn" href="#" class="easyui-linkbutton" onclick="cancelSelectJornada()">Cancelar</a>

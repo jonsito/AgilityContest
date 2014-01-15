@@ -1,7 +1,7 @@
 <!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->
 <div id="selprueba-window" class="easyui-window" style="position:relative,width:500px;height:150px;padding:20px 20px">
-	<div id="selprueba-Layout" class="easyui-layout" fit="true">
-		<div id="selprueba-Content" region="center" border="true">
+	<div id="selprueba-Layout" class="easyui-layout" data-options="fit:true'">
+		<div id="selprueba-Content" data-options="region:'center',border:'true'">
 			<form id="selprueba-Prueba">
         		<div class="fitem">
             		<label for="Search">Buscar:</label>
