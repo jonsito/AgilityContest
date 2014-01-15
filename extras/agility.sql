@@ -767,6 +767,7 @@ CREATE TABLE IF NOT EXISTS `Jueces` (
 --
 
 INSERT INTO `Jueces` (`Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `Internacional`, `Practicas`, `Email`, `Observaciones`) VALUES
+('-- Sin asignar --', NULL, NULL, '--- -- -- --', 0, 0, 'nobody@nomail.com', 'NO BORRAR: Asignacion de juez por defecto'),
 ('Beltrán Bustamante, Ana', 'Camí del Camp, 23', '03460 Beneixama (Alicante)', '639 67 86 09', 0, 1, 'sadda_874@hotmail.com', NULL),
 ('Boix Balaguer, Josep', 'Sant Pere, 10', '08392 San Andreu de Llavaneres (Barcelona)', ' 93 792 76 55', 1, 0, 'josep@agilitycanic.cat', NULL),
 ('Conde Delgado, Gregorio', NULL, NULL, ' 93 389 35 83 / 619 39 39 28', 1, 0, 'gconde@xtec.cat', NULL),
@@ -829,8 +830,8 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
   `TRM_S_Tipo`		int(4) NOT NULL DEFAULT '1',
   `TRM_S_Factor`	int(4) NOT NULL DEFAULT '50',
   `TRM_S_Unit`		varchar(1) NOT NULL DEFAULT '%',
-  `Juez1`			varchar(255) DEFAULT NULL,
-  `Juez2`			varchar(255) DEFAULT NULL,
+  `Juez1`			varchar(255) DEFAULT '-- Sin asignar --',
+  `Juez2`			varchar(255) DEFAULT '-- Sin asignar --',
   `Observaciones`	varchar(255) DEFAULT NULL,
   `Cerrada`			tinyint(1) NOT NULL DEFAULT '0',
   `Orden_Salida`	text DEFAULT NULL,
@@ -857,26 +858,26 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
 -- Volcado de datos para la tabla `Mangas`
 --
 
-INSERT INTO `Mangas` (`ID`, `Jornada`, `Tipo`, `Juez1`, `Juez2`, `Observaciones`, `Cerrada`, `Orden_Salida`) VALUES
-(1, 9, 'Agility-1 GI',  NULL, NULL, NULL, 0, NULL),
-(2, 9, 'Agility-2 GI',  NULL, NULL, NULL, 0, NULL),
-(3, 9, 'Agility GII',   NULL, NULL, NULL, 0, NULL),
-(4, 9, 'Jumping GII',   NULL, NULL, NULL, 0, NULL),
-(5, 9, 'Agility GIII',  NULL, NULL, NULL, 0, NULL),
-(6, 9, 'Jumping GIII',  NULL, NULL, NULL, 0, NULL),
-(8, 10, 'Agility-1 GI', NULL, NULL, NULL, 0, NULL),
-(9, 10, 'Agility-2 GI', NULL, NULL, NULL, 0, NULL),
-(10, 10, 'Agility GII', NULL, NULL, NULL, 0, NULL),
-(11, 10, 'Jumping GII', NULL, NULL, NULL, 0, NULL),
-(12, 10, 'Agility GIII', NULL, NULL, NULL, 0, NULL),
-(13, 10, 'Jumping GIII', NULL, NULL, NULL, 0, NULL),
-(16, 1, 'Agility-1 GI', NULL, NULL, NULL, 0, NULL),
-(17, 1, 'Agility-2 GI', NULL, NULL, NULL, 0, NULL),
-(18, 1, 'Agility GII',  NULL, NULL, NULL, 0, NULL),
-(19, 1, 'Jumping GII',  NULL, NULL, NULL, 0, NULL),
-(20, 1, 'Agility GIII', NULL, NULL, NULL, 0, NULL),
-(21, 1, 'Jumping GIII', NULL, NULL, NULL, 0, NULL),
-(24, 9, 'Pre-Agility',  NULL, NULL, NULL, 0, NULL);
+INSERT INTO `Mangas` (`ID`, `Jornada`, `Tipo`, `Observaciones`, `Cerrada`, `Orden_Salida`) VALUES
+(1, 9, 'Agility-1 GI',  NULL, 0, NULL),
+(2, 9, 'Agility-2 GI',  NULL, 0, NULL),
+(3, 9, 'Agility GII',   NULL, 0, NULL),
+(4, 9, 'Jumping GII',   NULL, 0, NULL),
+(5, 9, 'Agility GIII',  NULL, 0, NULL),
+(6, 9, 'Jumping GIII',  NULL, 0, NULL),
+(8, 10, 'Agility-1 GI', NULL, 0, NULL),
+(9, 10, 'Agility-2 GI', NULL, 0, NULL),
+(10, 10, 'Agility GII', NULL, 0, NULL),
+(11, 10, 'Jumping GII', NULL, 0, NULL),
+(12, 10, 'Agility GIII', NULL, 0, NULL),
+(13, 10, 'Jumping GIII', NULL, 0, NULL),
+(16, 1, 'Agility-1 GI', NULL, 0, NULL),
+(17, 1, 'Agility-2 GI', NULL, 0, NULL),
+(18, 1, 'Agility GII',  NULL, 0, NULL),
+(19, 1, 'Jumping GII',  NULL, 0, NULL),
+(20, 1, 'Agility GIII', NULL, 0, NULL),
+(21, 1, 'Jumping GIII', NULL, 0, NULL),
+(24, 9, 'Pre-Agility',  NULL, 0, NULL);
 
 -- --------------------------------------------------------
 
