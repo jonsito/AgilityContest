@@ -128,6 +128,6 @@ if (!$res) {
 }
 do_log("update_Manga::execute() resulted: $res");
 $stmt->close();
-$conn->close();
+DBConnection::closeConnection($conn);
 return $msg;
 ?>

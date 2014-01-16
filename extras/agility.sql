@@ -1491,16 +1491,39 @@ INSERT INTO `Tipo_Manga` (`Tipo`, `Descripcion`, `Grado`) VALUES
 DROP TABLE IF EXISTS `PerroGuiaClub`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` AS 
-	SELECT `Perros`.`Dorsal` AS `Dorsal`,`Perros`.`Nombre` AS `Nombre`,`Perros`.`Raza` AS `Raza`,`Perros`.`Licencia` AS `Licencia`,`Perros`.`LOE_RRC` AS `LOE_RRC`,`Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Perros`.`Guia` AS `Guia`,`Guias`.`Club` AS `Club` from (`Perros` join `Guias`) where (`Perros`.`Guia` = `Guias`.`Nombre`) order by `Guias`.`Club`,`Perros`.`Categoria`,`Perros`.`Nombre`;
+	SELECT 
+		`Perros`.`Dorsal` AS `Dorsal`,
+		`Perros`.`Nombre` AS `Nombre`,
+		`Perros`.`Raza` AS `Raza`,
+		`Perros`.`Licencia` AS `Licencia`,
+		`Perros`.`LOE_RRC` AS `LOE_RRC`,
+		`Perros`.`Categoria` AS `Categoria`,
+		`Perros`.`Grado` AS `Grado`,
+		`Perros`.`Guia` AS `Guia`,
+		`Guias`.`Club` AS `Club`
+	FROM (`Perros` JOIN `Guias`) 
+	WHERE (`Perros`.`Guia` = `Guias`.`Nombre`) 
+	ORDER BY `Guias`.`Club`,`Perros`.`Categoria`,`Perros`.`Nombre`;
 
 --
 -- Estructura para la vista `InscritosJornada`
 --
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `InscritosJornada` AS
-	SELECT `Inscripciones`.`Dorsal` AS `Dorsal`, `Inscripciones`.`Jornada` AS `Jornada`, `Inscripciones`.`Celo` AS `Celo`,  `Inscripciones`.`Observaciones` AS `Observaciones`,
-	`Perros`.`Nombre` AS `Nombre`, `Perros`.`Licencia` AS `Licencia`, `Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Perros`.`Guia` AS `Guia`,
-	`Guias`.`Club` AS `Club` from (`Inscripciones` join `Perros` join `Guias`) 
-	where (`Inscripciones`.`Dorsal` = `Perros`.`Dorsal`) AND (`Perros`.`Guia` = `Guias`.`Nombre`);
+	SELECT 
+		`Inscripciones`.`Dorsal` AS `Dorsal`,
+		`Inscripciones`.`Equipo` AS `Equipo`,
+		`Inscripciones`.`Jornada` AS `Jornada`,
+		`Inscripciones`.`Celo` AS `Celo`,
+		`Inscripciones`.`Observaciones` AS `Observaciones`,
+		`Perros`.`Nombre` AS `Nombre`,
+		`Perros`.`Licencia` AS `Licencia`,
+		`Perros`.`Categoria` AS `Categoria`,
+		`Perros`.`Grado` AS `Grado`,
+		`Perros`.`Guia` AS `Guia`,
+		`Guias`.`Club` AS `Club`,
+		RAND() AS `Orden`
+	FROM (`Inscripciones` JOIN `Perros` JOIN `Guias`) 
+	WHERE (`Inscripciones`.`Dorsal` = `Perros`.`Dorsal`) AND (`Perros`.`Guia` = `Guias`.`Nombre`);
 
 --
 -- Restricciones para tablas volcadas

@@ -20,7 +20,7 @@
 
 <!-- DECLARACION DEL ORDEN DE SALIDA DE CADA MANGA -->
 <div id="competicion_ordensalida" class="easyui-panel" title="Orden de salida de los participantes en la manga">
-<table id="competicion-orden-datagrid" class="competicion-orden-datagrid"></table>
+<table id="competicion-orden-datagrid" class="easyui-datagrid"></table>
     <!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
     <div id="competicion-orden-toolbar">
     	<span style="float:left">
@@ -93,6 +93,8 @@ $('#competicion-listamangas').datagrid({
         if (index<0) { // no manga selected
             $('#competicion-datosmanga').html("");
             // TODO: clear & collapse panels
+        	workingData.manga=-1;
+        	workingData.nombreManga="";
             return; 
         }
         // guardamos el id y el nombre de la manga
@@ -106,29 +108,42 @@ $('#competicion-listamangas').datagrid({
         });
         // cargamos y desplegamos panel de orden de salida
         // TODO: write
-        
+        $('#competicion-orden-datagrid').datagrid(
+                'load',
+                { 'Jornada': workingData.jornada , 'Manga': workingData.manga , 'Orden': false ,  'Operacion': 'random' }
+             );
         // cargamos (sin desplegar) panel de resultados
         // TODO: write
     }
 });
 
 $('#competicion-orden-datagrid').datagrid({
-	url: 'database/select_JornadasByPrueba.php?Prueba='+workingData.prueba,
+	url: 'database/ordensalida.php',
+    queryParams: {
+        Jornada: workingData.jornada,
+        Manga: workingData.manga,
+        Orden: false,
+        Operacion: 'random'
+    },
 	method: 'get',
     pagination: false,
-    rownumbers: false,
+    rownumbers: true,
     fitColumns: true,
     singleSelect: true,
     toolbar: '#competicion-orden-toolbar',
     columns:[[
-            { field:'ID',			hidden:true }, // ID de la jornada
-      	    { field:'Prueba',		hidden:true }, // ID de la prueba
-      	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-      		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre/Comentario' },
+      	    { field:'Nombre',		width:10, sortable:false,	align:'left',  title: 'Nombre'},
+      		{ field:'Licencia',		width:5 , sortable:false,   align:'right', title: 'Lic.' },
+      		{ field:'Categoria',	width:2 , sortable:false,   align:'center', title: 'Cat.' },
+      		{ field:'Guia',			width:20, sortable:false,   align:'right', title: 'Guia' },
+      		{ field:'Club',		    width:15, sortable:false,   align:'right', title: 'Club' },
+      		{ field:'Celo',		    width:5 , sortable:false,   align:'right', title: 'Celo' },
+      		{ field:'Observaciones',width:40, sortable:false,   align:'right', title: 'Observaciones' }
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-    }
+    },
+    onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; } // do not load if no manga selected
 });
 
 $('#competicion-resultados-datagrid').datagrid({
