@@ -1,29 +1,53 @@
 
    <!-- FORMULARIO DE NUEVA INSCRIPCION -->
-    <div id="inscripciones-dialog" class="easyui-dialog" style="width:750px;height:350px;padding:10px 20px">
+    <div id="inscripciones-dialog" class="easyui-dialog" style="width:750px;height:360px;padding:10px 20px">
         <div class="ftitle">Datos de la Inscripci&oacute;n</div>
         <div class="fitem">
             <form name="inscripciones-buscar" method="get">
             <label for="Participante">Participante:</label>
-            <select id="inscripciones-Participante" name="Participante" class="easyui-combogrid" style="width:250px"></select>
+            <select id="inscripciones-Participante" name="Participante" class="easyui-combogrid" style="width:250px" value=""></select>
             <a id="inscripciones-newDogBtn" href="#" class="easyui-linkbutton" style="float:right">Nuevo Perro</a>
             </form>
         </div>
         <div class="fitem">
         	<form id="inscripciones-data" method="get" novalidate="novalidate">
-            	<input id="inscripciones-Dorsal" type="hidden" name="Dorsal"/>
-        		<label for="Nombre">Nombre:</label>
-            	<input id="inscripciones-Nombre" name="Nombre" type="text" size="20" disabled="disabled" />
-            	<label for="Licencia">Licencia: </label>
-            	<input id="inscripciones-Licencia" name="Licencia" type="text" size="5" disabled="disabled" />
-            	<label for="Categoria">Categoria: </label>
-            	<input id="inscripciones-Categoria" name="Categoria" type="text" size="1" disabled="disabled"/>
-            	<label for="Grado">Grado: </label>
-            	<input id="inscripciones-Grado" name="Grado" type="text" size="1" disabled="disabled" /><br />
-            	<label for="Guia">Gu&iacute;a: </label>
-           		<input id="inscripciones-Guia" name="Guia" type="text" disabled="disabled" />
-           		<label for="Club"> Club: </label>
-           		<input id="inscripciones-Club" name="Club" type="text" disabled="disabled" /><br />
+        		<table>
+        		<tr>
+        			<td colspan="4">
+            		<input id="inscripciones-Dorsal" type="hidden" name="Dorsal"/>
+        			<label for="Nombre">Nombre:</label>
+            		<input id="inscripciones-Nombre" name="Nombre" type="text" size="20" disabled="disabled" />
+        			</td>
+        		</tr>
+        		<tr>
+        			<td colspan="2">
+            		<label for="Licencia">Licencia: </label>
+            		<input id="inscripciones-Licencia" name="Licencia" type="text" size="4" disabled="disabled" />
+        			</td>
+        			<td colspan="2">
+            		<label for="Categoria">Categoria: </label>
+            		<input id="inscripciones-Categoria" name="Categoria" type="text" size="1" disabled="disabled"/>
+        			</td>
+        			<td colspan="2">
+            		<label for="Grado">Grado: </label>
+            		<input id="inscripciones-Grado" name="Grado" type="text" size="1" disabled="disabled" />
+        			</td>
+        			<td>&nbsp;</td>
+        			<td>
+        			<a id="inscripciones-editDogBtn" href="#" class="easyui-linkbutton" style="float:right">Editar</a>
+        			</td>
+        		</tr>
+        		<tr>
+        			<td colspan="4">
+            		<label for="Guia">Gu&iacute;a: </label>
+           			<input id="inscripciones-Guia" name="Guia" type="text" disabled="disabled" />
+        			</td>
+        			<td colspan="4">
+           			<label for="Club"> Club: </label>
+           			<input id="inscripciones-Club" name="Club" type="text" disabled="disabled" /><br />
+        			</td>
+        		</tr>
+        		</table>
         	</form>
         </div>
         
@@ -126,6 +150,16 @@
         $('#inscripciones-Participante').combogrid({ 'setValue' : '' });
         newDog();
     });
+
+    $('#inscripciones-editDogBtn').linkbutton({iconCls:'icon-edit'}).tooltip({
+        position: 'top',
+        content: '<span style="color:#000">Modificar los datos del perro</span>',
+    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+    });
+    $('#inscripciones-editDogBtn').bind('click',function() {
+        editDog();
+    });
+    
     // campos del formulario
 
     $('#inscripciones-Participante').combogrid({

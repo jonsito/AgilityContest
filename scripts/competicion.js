@@ -51,9 +51,21 @@ function dmanga_setRecorridos() {
  * @param id identificador de la manga
  */
 function reload_manga(id) {
-     $('#competicion-formdatosmanga').form('load','database/get_mangaByID.php?ID='+id);
+	// ventana de datos
+    $('#competicion-formdatosmanga').form('load','database/get_mangaByID.php?ID='+id);
 }
 
+function reload_ordenSalida(id) {
+    $('#competicion-orden-datagrid').datagrid(
+            'load',
+            { 
+            	Jornada: workingData.jornada , 
+            	Manga: workingData.manga , 
+            	Orden: false ,  
+            	Operacion: 'getData' 
+            }
+    );
+}
 /**
  * Guarda las modificaciones a los datos de una manga
  * Notese que esto no debería modificar ni los datos del
@@ -68,4 +80,21 @@ function save_manga(id) {
 			return true; // to continue submitting
 		}
 	});
+}
+
+// genera un nuevo orden aleatorio
+function randomOrdenSalida() {
+	$.ajax({
+		type:'GET',
+		url:"database/ordensalida.php",
+		dataType:'json',
+		data: { 
+			Jornada: workingData.jornada,
+			Manga: workingData.manga,
+			Orden: false,
+			Operacion: 'random'
+			}
+		}).done( function(msg) {
+			reload_ordenSalida(workingData.manga);
+		});
 }

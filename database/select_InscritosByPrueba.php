@@ -23,7 +23,7 @@
 		  			AND ( Inscripciones.Jornada = Jornadas.ID ) 
 		  			AND ( Prueba= $id ) 
 				$extra ORDER BY $sort $order"; // a single ')' or name search criterion
-	do_log("select_InscritosByPrueba() query string is \n$str");
+	// do_log("select_InscritosByPrueba() query string is \n$str");
 	$rs=$conn->query($str);
 	if (!$rs) {
 		$err="select_InscritosByPrueba::select( ) error ".$conn->error;
@@ -38,7 +38,7 @@
 	$count = 0;
 	$dorsales = array();
 	while($row = $rs->fetch_array()){
-		do_log("select_InscritosByPrueba::select() examine dorsal ".$row['Dorsal']);
+		// do_log("select_InscritosByPrueba::select() examine dorsal ".$row['Dorsal']);
 		if (!isset($dorsales[$row['Dorsal']])) {
 			$count++;
 			$dorsales[$row['Dorsal']]= array(

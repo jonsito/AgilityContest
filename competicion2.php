@@ -24,7 +24,7 @@
     <!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
     <div id="competicion-orden-toolbar">
     	<span style="float:left">
-    	<a id="competicion-orden-randomBtn" href="#" class="easyui-linkbutton" onclick="newOrdenSalida()">Aleatorio</a>
+    	<a id="competicion-orden-randomBtn" href="#" class="easyui-linkbutton" onclick="randomOrdenSalida()">Aleatorio</a>
     	<a id="competicion-orden-saveBtn" href="#" class="easyui-linkbutton" onclick="saveOrdenSalida()">Guardar</a>
     	<a id="competicion-orden-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadOrdenSalida()">Actualizar</a>
     	</span>
@@ -107,11 +107,7 @@ $('#competicion-listamangas').datagrid({
  	        $('#competicion-formdatosmanga').form('load','database/get_mangaByID.php?ID='+workingData.manga);
         });
         // cargamos y desplegamos panel de orden de salida
-        // TODO: write
-        $('#competicion-orden-datagrid').datagrid(
-                'load',
-                { 'Jornada': workingData.jornada , 'Manga': workingData.manga , 'Orden': false ,  'Operacion': 'getData' }
-             );
+        reload_ordenSalida(workingData.manga);
         // cargamos (sin desplegar) panel de resultados
         // TODO: write
     }
@@ -125,6 +121,7 @@ $('#competicion-orden-datagrid').datagrid({
         Orden: false,
         Operacion: 'getData'
     },
+	height: 250, // fix height to let srollbar work ( as parent panel has no predefined size )
 	method: 'get',
     pagination: false,
     rownumbers: true,
@@ -132,23 +129,25 @@ $('#competicion-orden-datagrid').datagrid({
     singleSelect: true,
     toolbar: '#competicion-orden-toolbar',
     columns:[[
-      	    { field:'Nombre',		width:10, sortable:false,	align:'left',  title: 'Nombre'},
+      	    { field:'Nombre',		width:15, sortable:false,	align:'left',  title: 'Nombre'},
       		{ field:'Licencia',		width:5 , sortable:false,   align:'right', title: 'Lic.' },
-      		{ field:'Categoria',	width:2 , sortable:false,   align:'center', title: 'Cat.' },
-      		{ field:'Guia',			width:20, sortable:false,   align:'right', title: 'Guia' },
-      		{ field:'Club',		    width:15, sortable:false,   align:'right', title: 'Club' },
+      		{ field:'Categoria',	width:5 , sortable:false,   align:'center', title: 'Cat.' },
+      		{ field:'Guia',			width:25, sortable:false,   align:'right', title: 'Guia' },
+      		{ field:'Club',		    width:20, sortable:false,   align:'right', title: 'Club' },
       		{ field:'Celo',		    width:5 , sortable:false,   align:'right', title: 'Celo' },
-      		{ field:'Observaciones',width:40, sortable:false,   align:'right', title: 'Observaciones' }
+      		{ field:'Observaciones',width:25, sortable:false,   align:'right', title: 'Observaciones' }
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
     },
-    onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; } // do not load if no manga selected
+    onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
+    loadMsg: "Actualizando orden de salida..."
 });
 
 $('#competicion-resultados-datagrid').datagrid({
 	url: 'database/select_JornadasByPrueba.php?Prueba='+workingData.prueba,
 	method: 'get',
+	height: 350,
     pagination: false,
     rownumbers: false,
     fitColumns: true,

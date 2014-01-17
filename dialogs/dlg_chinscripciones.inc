@@ -4,19 +4,43 @@
         <div class="ftitle">Datos de la Inscripci&oacute;n</div>
         <div class="fitem">
         	<form id="chinscripciones-data" method="get" novalidate="novalidate">
-            	<input id="chinscripciones-Dorsal" type="hidden" name="Dorsal"/>
-        		<label for="Nombre">Nombre:</label>
-            	<input id="chinscripciones-Nombre" name="Nombre" type="text" size="20" disabled="disabled" />
-            	<label for="Licencia">Licencia: </label>
-            	<input id="chinscripciones-Licencia" name="Licencia" type="text" size="5" disabled="disabled" />
-            	<label for="Categoria">Categoria: </label>
-            	<input id="chinscripciones-Categoria" name="Categoria" type="text" size="1" disabled="disabled"/>
-            	<label for="Grado">Grado: </label>
-            	<input id="chinscripciones-Grado" name="Grado" type="text" size="1" disabled="disabled" /><br />
-            	<label for="Guia">Gu&iacute;a: </label>
-           		<input id="chinscripciones-Guia" name="Guia" type="text" disabled="disabled" />
-           		<label for="Club"> Club: </label>
-           		<input id="chinscripciones-Club" name="Club" type="text" disabled="disabled" /><br />
+        		<table>
+        		<tr>
+        			<td colspan="4">
+            		<input id="chinscripciones-Dorsal" type="hidden" name="Dorsal"/>
+        			<label for="Nombre">Nombre:</label>
+            		<input id="chinscripciones-Nombre" name="Nombre" type="text" size="20" disabled="disabled" />
+        			</td>
+        		</tr>
+        		<tr>
+        			<td colspan="2">
+            		<label for="Licencia">Licencia: </label>
+            		<input id="chinscripciones-Licencia" name="Licencia" type="text" size="4" disabled="disabled" />
+        			</td>
+        			<td colspan="2">
+            		<label for="Categoria">Categoria: </label>
+            		<input id="chinscripciones-Categoria" name="Categoria" type="text" size="1" disabled="disabled"/>
+        			</td>
+        			<td colspan="2">
+            		<label for="Grado">Grado: </label>
+            		<input id="chinscripciones-Grado" name="Grado" type="text" size="1" disabled="disabled" />
+        			</td>
+        			<td>&nbsp;</td>
+        			<td>
+        			<a id="chinscripciones-editDogBtn" href="#" class="easyui-linkbutton" style="float:right">Editar</a>
+        			</td>
+        		</tr>
+        		<tr>
+        			<td colspan="4">
+            		<label for="Guia">Gu&iacute;a: </label>
+           			<input id="chinscripciones-Guia" name="Guia" type="text" disabled="disabled" />
+        			</td>
+        			<td colspan="4">
+           			<label for="Club"> Club: </label>
+           			<input id="chinscripciones-Club" name="Club" type="text" disabled="disabled" /><br />
+        			</td>
+        		</tr>
+        		</table>
         	</form>
         </div>
         
@@ -139,4 +163,14 @@
         if (checkbox.checked) $('#inscripciones-Pagado').val(money+12);
         else $('#inscripciones-Pagado').val(money-12);
     }
+
+	// modificacion de los datos del perro
+    $('#chinscripciones-editDogBtn').linkbutton({iconCls:'icon-edit'}).tooltip({
+        position: 'top',
+        content: '<span style="color:#000">Modificar los datos del perro</span>',
+    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+    });
+    $('#chinscripciones-editDogBtn').bind('click',function() {
+        editDog();
+    });
     </script>

@@ -76,8 +76,9 @@ function setOrden($conn,$manga,$orden) {
  */
 function insertIntoList($ordensalida,$dorsal,$cat,$celo) {
 	global $tags_lms, $tags_sml;
+	do_log("inserting dorsal:$dorsal cat:$cat celo:$celo");
 	// en funcion del orden declaramos el tag a buscar
-	$tag= (strpos($ordensalida,"BEGIN_LMS")!==false)?$tags_lms:$tags_sml; 
+	$tag= (strpos($ordensalida,"BEGIN_LMS")===false)?$tags_sml:$tags_lms; 
 	// lo borramos para evitar una posible doble insercion
 	$str=",".$dorsal.",";
 	$nuevoorden=str_replace($str , "," , $ordensalida);
@@ -102,7 +103,7 @@ function getData($conn,$jornada,$manga) {
 	$ordensalida=getOrden($conn,$manga);
 	if ($ordensalida==="") { // no hay orden predefinido
 		// TODO: comprobamos si estamos en la segunda manga y usamos resultados como orden de salida
-		$ordensalida=random($conn,$jornada,$manga,false,false); // default is LMS
+		$ordensalida=random($conn,$jornada,$manga,true,false); // default is LMS
 	}
 	do_log("ordensalida::getData() El orden de salida actual es $ordensalida");
 	// ok tenemos orden de salida. vamos a convertirla en un array asociativo
@@ -126,8 +127,9 @@ function getData($conn,$jornada,$manga) {
 		if ( ($grado!=="-") && ($grado!==$row->Grado) ) continue;
 		$idx=array_search($row->Dorsal,$registrados);
 		// si dorsal en lista se inserta; si no esta en lista implica error de consistencia
-		if ( $idx !== false ) $registrados[$idx]=$row;
-		else do_log("ordensalida::getLista() El dorsal ".$row->Dorsal." esta inscrito pero no aparece en el orden de salida");
+		if ( $idx === false )
+			do_log("ordensalida::getLista() El dorsal ".$row->Dorsal." esta inscrito pero no aparece en el orden de salida");
+		else $registrados[$idx]=$row;
 	}
 	$rs1->free();
 	// as DB Connection is no loger needed, close it
@@ -140,6 +142,7 @@ function getData($conn,$jornada,$manga) {
 		// si es un objeto anyadimos el dorsal
 		if (is_object($item)) {
 			array_push($data,$item);
+			do_log("push:".$item->Dorsal." count:$count");
 			$count++;
 			continue;
 		}
@@ -165,15 +168,15 @@ function getData($conn,$jornada,$manga) {
  * @param {mysqli-connection} conn Conexion con la base de datos
  * @param {int} jornada ID de jornada
  * @param {int} manga ID de manga
- * @param {boolean} orden false->large-medium-small  true->small-medium-large
+ * @param {boolean} lms true->large-medium-small  false->small-medium-large
  * @param {boolean} exit_on_close on success cierra conexion y retorna respuesta json
  */
-function random($conn,$jornada,$manga,$orden,$exit_on_close) {
+function random($conn,$jornada,$manga,$lms,$exit_on_close) {
 	global $default_lms, $default_sml;	// fase 0: establecemos los string iniciales en base al orden especificado
 	do_log("ordensalida::random() Enter");
-	$asc=" ASC";
-	$ordensalida=$default_lms;
-	if ($orden) { $asc=" DESC";	$ordensalida=$default_sml; }
+	$asc=" DESC";
+	$ordensalida=$default_sml;
+	if ($lms) { $asc=" ASC";	$ordensalida=$default_lms; }
 	
 	// fase 1: obtener los perros inscritos en la jornada
 	$sql1="SELECT * FROM InscritosJornada WHERE ( Jornada=$jornada ) ORDER BY Categoria $asc , Celo ASC, Equipo, Orden";

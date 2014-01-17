@@ -796,6 +796,7 @@ function newInscripcion() {
 	$('#chinscripciones-dialog').dialog('close');
 	// abrimos dialogo de nueva inscripcion
 	$('#inscripciones-dialog').dialog('open').dialog('setTitle','Inscripci&oacute;n de nuevos participantes');
+	$('#inscripciones-Participante').combogrid('clear'); // clear form is not enought for an easyui component
 	$('#inscripciones-form').form('clear');
 	$('#inscripciones-data').form('clear');
 	// disable those ones that belongs to closed journeys
