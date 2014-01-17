@@ -834,7 +834,7 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
   `Juez2`			varchar(255) DEFAULT '-- Sin asignar --',
   `Observaciones`	varchar(255) DEFAULT NULL,
   `Cerrada`			tinyint(1) NOT NULL DEFAULT '0',
-  `Orden_Salida`	text DEFAULT NULL,
+  `Orden_Salida`	text NOT NULL DEFAULT '',
   PRIMARY KEY (`ID`),
   KEY `Tipo` (`Tipo`),
   KEY `Juez Titular` (`Juez1`),

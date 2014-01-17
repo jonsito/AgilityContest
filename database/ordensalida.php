@@ -3,6 +3,21 @@
 require_once("logging.php");
 require_once("DBConnection.php");
 
+// tablas utilizadas para componer e insertar los dorsales en el string de orden de salida
+$default_lms="BEGIN_LMS,TAG_-0,TAG_-1,TAG_L0,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,END_LMS";
+$default_sml="BEGIN_SML,TAG_S0,TAG_S1,TAG_M0,TAG_M1,TAG_L0,TAG_L1,TAG_-0,TAG_-1,END_SML";
+
+$tags_lms=array( // orden LargeMediumSmall
+		'-0' => 'TAG_-1', '-1' => 'TAG_L0',
+		'L0' => 'TAG_L1', 'L1' => 'TAG_M0',
+		'M0' => 'TAG_M1', 'M1' => 'TAG_S0',
+		'S0' => 'TAG_S1', 'S1' => 'END_LMS' );
+$tags_sml=array( // Orden SmallMediumLarge
+		'S0' => 'TAG_S1', 'S1' => 'TAG_M0',
+		'M0' => 'TAG_M1', 'M1' => 'TAG_L0',
+		'L0' => 'TAG_L1', 'L1' => 'TAG_S-0',
+		'-0' => 'TAG_-1', '-1' => 'END_SML' );
+
 /* boolval is only supported in PHP > 5.3 */
 if( ! function_exists('boolval')) {
 	function boolval($var)	{
@@ -10,17 +25,29 @@ if( ! function_exists('boolval')) {
 	}
 }
 
+/* tell jquery error and exit */
+function exit_error($conn,$operation,$message) {
+	$msg="ordensalida::$operation Error: $message";
+	do_log($msg);
+	echo json_encode(array('errorMsg'=>$msg));
+	DBConnection::closeConnection($conn);
+	exit(0);
+}
+
+/* tell jquery success and exit */
+function exit_ok($conn,$operation) {
+	$msg="ordensalida::$operation Success";
+	do_log($msg);
+	echo json_encode(array('success'=>true));
+	DBConnection::closeConnection($conn);
+	exit(0);
+}
+
 /* execute query */
 function execute($conn,$query) {
 	do_log("ordensalida::query() ".$query);
 	$rs=$conn->query($query);
-	if ($rs===false) {
-		$msg="ordensalida::query() Error: ".$conn->error;
-		do_log($msg);
-		echo json_encode(array('errorMsg'=>$msg));
-		DBConnection::closeConnection($conn);
-		exit(0);
-	}
+	if ($rs===false) exit_error($conn,"execute()",$conn->error); 
 	return $rs;
 }
 
@@ -28,8 +55,8 @@ function execute($conn,$query) {
 function getOrden($conn,$manga) {
 	$sql="SELECT Orden_Salida FROM Mangas WHERE ( ID=$manga )";
 	$rs=execute($conn,$sql);
-	$row=$rs->fetch_row();
-	$result=$row['Orden'];
+	$row=$rs->fetch_object();
+	$result=$row->Orden_Salida;
 	$rs->free();
 	if ($result===null) return "";
 	return $result;
@@ -43,6 +70,25 @@ function setOrden($conn,$manga,$orden) {
 }
 
 /**
+ *  coge el string con el orden de salida e inserta un elemento al final de su grupo
+ *  Porsiaca lo intenta borrar previamente
+ *  @return nueva lista
+ */
+function insertIntoList($ordensalida,$dorsal,$cat,$celo) {
+	global $tags_lms, $tags_sml;
+	// en funcion del orden declaramos el tag a buscar
+	$tag= (strpos($ordensalida,"BEGIN_LMS")!==false)?$tags_lms:$tags_sml; 
+	// lo borramos para evitar una posible doble insercion
+	$str=",".$dorsal.",";
+	$nuevoorden=str_replace($str , "," , $ordensalida);
+	// componemos el tag que hay que insertar
+	$myTag = $dorsal . "," . $tag[$cat.$celo];
+	// y lo insertamos en lugar que corresponde
+	$result=str_replace($tag[$cat.$celo], $myTag, $nuevoorden);
+	return $result;
+}
+
+/**
  * Obtiene la lista (actualizada) de perros de una manga
  *
  * @param {mysqli-connection} conn Conexion con la base de datos
@@ -50,19 +96,20 @@ function setOrden($conn,$manga,$orden) {
  * @param {int} $manga ID de manga
  * @param {boolean} $orden false->large-medium-small  true->small-medium-large
  */
-function getLista($conn,$jornada,$manga) {
+function getData($conn,$jornada,$manga) {
+	do_log("ordensalida::getData() Enter");
 	// fase 0: vemos si ya hay una lista definida
 	$ordensalida=getOrden($conn,$manga);
 	if ($ordensalida==="") { // no hay orden predefinido
 		// TODO: comprobamos si estamos en la segunda manga y usamos resultados como orden de salida
-		$ordensalida=random($conn,$jornada,$manga,$orden);
+		$ordensalida=random($conn,$jornada,$manga,false,false); // default is LMS
 	}
-
+	do_log("ordensalida::getData() El orden de salida actual es $ordensalida");
 	// ok tenemos orden de salida. vamos a convertirla en un array asociativo
 	$registrados=explode(",",$ordensalida);
 
 	// fase 1: obtener los perros inscritos en la jornada
-	$asc=($orden)?" DESC":" ASC";
+	$asc=(strpos($ordensalida,"BEGIN_LMS")===false)?" DESC":" ASC";
 	$sql1="SELECT * FROM InscritosJornada WHERE ( Jornada=$jornada ) ORDER BY Categoria $asc , Celo ASC, Equipo, Orden";
 	$rs1=execute($conn,$sql1);
 	// fase 2: obtener las categorias de perros que debemos aceptar
@@ -90,16 +137,19 @@ function getLista($conn,$jornada,$manga) {
 	$count=0;
 	$data=array();
 	foreach($registrados as $item) {
-		// si es un tag, lo anyadimos
-		if (is_string($item)) {
-			if (strstr($item,"TAG_")===false) { // dorsal no registrado: error
-				do_log("ordensalida::getLista() El dorsal $item esta en el orden de salida, pero no esta inscrito");
-			}
-		}
 		// si es un objeto anyadimos el dorsal
 		if (is_object($item)) {
 			array_push($data,$item);
 			$count++;
+			continue;
+		}
+		// si es un string vemos si es un tag o un "hueco"
+		if (is_string($item)) {
+			if (strpos($item,"BEGIN_")!==false) continue;
+			if (strpos($item,"END_")!==false) continue;
+			if (strpos($item,"TAG_")!==false) continue;
+			// dorsal no registrado: error
+			do_log("ordensalida::getLista() El dorsal $item esta en el orden de salida, pero no esta inscrito");
 		}
 	}
 	// finally encode result and send to client
@@ -116,17 +166,19 @@ function getLista($conn,$jornada,$manga) {
  * @param {int} jornada ID de jornada
  * @param {int} manga ID de manga
  * @param {boolean} orden false->large-medium-small  true->small-medium-large
+ * @param {boolean} exit_on_close on success cierra conexion y retorna respuesta json
  */
-function random($conn,$jornada,$manga,$orden) {
+function random($conn,$jornada,$manga,$orden,$exit_on_close) {
+	global $default_lms, $default_sml;	// fase 0: establecemos los string iniciales en base al orden especificado
+	do_log("ordensalida::random() Enter");
 	$asc=" ASC";
-	$tags=array("TAG_BEGIN","TAG_-0","TAG_-1","TAG_L0","TAG_L1","TAG_M0","TAG_M1","TAG_S0","TAG_S1","TAG_END");
-	if ($orden) {
-		$asc=" DESC";
-		$tags=array("TAG_BEGIN","TAG_S0","TAG_S1","TAG_M0","TAG_M1","TAG_L0","TAG_L1","TAG_-0","TAG_-1","TAG_END");
-	}
+	$ordensalida=$default_lms;
+	if ($orden) { $asc=" DESC";	$ordensalida=$default_sml; }
+	
 	// fase 1: obtener los perros inscritos en la jornada
 	$sql1="SELECT * FROM InscritosJornada WHERE ( Jornada=$jornada ) ORDER BY Categoria $asc , Celo ASC, Equipo, Orden";
 	$rs1=execute($conn,$sql1);
+	
 	// fase 2: obtener las categorias de perros que debemos aceptar
 	$sql2="SELECT Grado FROM Mangas,Tipo_Manga WHERE (Mangas.Tipo=Tipo_Manga.Tipo) AND ( ID=$manga )";
 	$rs2=execute($conn,$sql2);
@@ -135,26 +187,21 @@ function random($conn,$jornada,$manga,$orden) {
 	$grado= $obj2->Grado;
 	
 	// fase 3: generar la lista de perros "ordenada" al azar
-	$tagindex=0;
-	$ordensalida=$tags[$tagindex++]; // "begin" mark
-	$count=0;
 	while($row = $rs1->fetch_object()){
 		// only add to list when grado is '-' (Any) or grado matches requested
 		if ( ($grado!=="-") && ($grado!==$row->Grado) ) continue;
 		// elaborate ordensalida
-		$mytag="TAG_" . $row->Categoria . $row->Celo;
-		while ($mytag!==$tags[$tagindex]) $ordensalida = $ordensalida . "," . $tags[$tagindex++];
-		$ordensalida = $ordensalida . "," . $row->Dorsal;
+		$ordensalida = insertIntoList($ordensalida,$row->Dorsal,$row->Categoria,$row->Celo);
 	}
-	// anyadimos los tags que queden en la lista
-	while (isset($tags[$tagindex])) $ordensalida = $ordensalida.",".$tags[$tagindex++];
 	$rs1->free();
+	
 	// fase 4: almacenar el orden de salida en los datos de la manga
 	setOrden($conn,$manga,$ordensalida);
+	
 	// fase 5: limpieza y retorno de resultados
-	DBConnection::closeConnection($conn);
-	echo json_encode(array('success'=>true));
-	return 0;
+	if($exit_on_close===true) exit_ok($conn,"random()");
+	do_log("ordensalida::random() Succcess (no return)");
+	return $ordensalida;
 }
 
 
@@ -168,13 +215,21 @@ function random($conn,$jornada,$manga,$orden) {
  * @param unknown $dorsal ID de dorsal
  */
 function remove($conn,$jornada,$manga,$dorsal){
-	// TODO: si el dorsal esta inscrito damos error
-	
-	// recuperamos el orden de salida
+	// fase: vemos si el perro esta inscrito
+	$sql="SELECT count (*) FROM InscritosJornada WHERE ( Jornada=$jornada ) AND ( Dorsal=$dorsal)";
+	$rs=execute($conn,$sql);
+	$row=$rs->fetch_row();
+	$inscrito=$row[0];
+	$rs->free();
+	// fase 2: si el dorsal esta inscrito damos error ( no se deberia borrar )
+	if ($inscrito!=0) exit_error($conn,"remove()","El dorsal $dorsal no se puede borrar: figura inscrito en la jornada");	
+	// recuperamos el orden de salida y borramos el perro indicado
 	$ordensalida=getOrden($conn,$manga);
 	$str=",".$dorsal.",";
 	$nuevoorden=str_replace($str , "," , $ordensalida);
+	// guardamos nuevo orden de salida y retornamos
 	setOrden($conn,$manga,$nuevoorden);
+	exit_ok($conn,"remove()");
 }
 
 /**
@@ -190,12 +245,31 @@ function remove($conn,$jornada,$manga,$dorsal){
  * @param unknown $dorsal ID de dorsal
  */
 function insert($conn,$jornada,$manga,$dorsal) {
-	// TODO: write
-	// si el dorsal no esta inscrito da error
-	// recuperamos orden de salida y adivinamos si el orden es LMS o SML
+	// si el dorsal no esta inscrito en la jornada da error
+	$sql="SELECT * FROM InscritosJornada WHERE ( Jornada=$jornada ) AND ( Dorsal=$dorsal)";
+	$rs=execute($conn,$sql);
+	$perro=$rs->fetch_object();
+	$rs->free();
+	if ($perro===null) {
+		exit_error($conn,"insert()","El perro con dorsal $dorsal no figura inscrito en la jornada $jornada");
+	}
+	// si la categoria del perro no es la correcta, indicamos error
+	$sql2="SELECT Grado FROM Mangas,Tipo_Manga WHERE (Mangas.Tipo=Tipo_Manga.Tipo) AND ( ID=$manga )";
+	$rs2=execute($conn,$sql2);
+	$obj2=$rs2->fetch_object();
+	$rs2->free();
+	$grado= $obj2->Grado;
+	if ( ($grado !== '-') && ($grado !== $perro->grado) ) {
+		exit_error($conn,"insert()","El grado del dorsal $dorsal ($perro->grado) no es compatible con el grado de la manga ($grado) ");
+	}
+	// recuperamos orden de salida
+	$ordensalida=getOrden($conn,$manga);
 	// obtener datos de categoria y celo para obtener el tag a buscar
-	// substituimos ",tag" por ",dorsal,tag"
+	$ordensalida=insertIntoList($ordensalida,$perro->Dorsal,$perro->Categoria,$perro->Celo);
 	// actualizamos orden de salida
+	setOrden($conn,$manga,$ordensalida);
+	// cerramos y salimos
+	exit_ok($conn,"insert()");
 }
 
 /**
@@ -219,9 +293,12 @@ function swap($conn,$jornada,$manga,$dorsal1,$dorsal2) {
 	// si encontramos str2 lo substituimos por str1
 	else if (strpos($ordensalida,$str2)!==false) $nuevoorden=str_replace($str2,$str1,$ordensalida);
 	// si no encontramos ninguno de los dos lo dejamos como estaba
-	else $nuevoorden=$ordensalida;
+	else {
+		exit_error($conn,"swap()","los dorsales $dorsal1 y $dorsal2 no estan consecutivos");
+	}
 	// actualizamos orden de salida
 	setOrden($conn,$manga,$nuevoorden);
+	exit_ok($conn,"swap()");
 }
 
 /**
@@ -264,10 +341,10 @@ if (($j<0)||($m<0)) {
 }
 $oper=strval($_REQUEST['Operacion']);
 // call operation$oper = strval($_REQUEST['Operation']);
-if ($oper==='random') return random($conn,$j,$m,$o);
+if ($oper==='random') return random($conn,$j,$m,$o,true);
 if ($oper==='remove') return remove($conn,$j,$m,$d);
 if ($oper==='insert') return insert($conn,$j,$m,$d);
-if ($oper==='swap') 	return swap($conn,$j,$m,$d,$d2);
+if ($oper==='swap')   return swap($conn,$j,$m,$d,$d2);
 if ($oper==='reverse') return reverse($conn,$j,$m);
 if ($oper==='getData') return getData($conn,$j,$m);
 

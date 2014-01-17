@@ -110,7 +110,7 @@ $('#competicion-listamangas').datagrid({
         // TODO: write
         $('#competicion-orden-datagrid').datagrid(
                 'load',
-                { 'Jornada': workingData.jornada , 'Manga': workingData.manga , 'Orden': false ,  'Operacion': 'random' }
+                { 'Jornada': workingData.jornada , 'Manga': workingData.manga , 'Orden': false ,  'Operacion': 'getData' }
              );
         // cargamos (sin desplegar) panel de resultados
         // TODO: write
@@ -123,7 +123,7 @@ $('#competicion-orden-datagrid').datagrid({
         Jornada: workingData.jornada,
         Manga: workingData.manga,
         Orden: false,
-        Operacion: 'random'
+        Operacion: 'getData'
     },
 	method: 'get',
     pagination: false,
