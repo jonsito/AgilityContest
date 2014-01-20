@@ -1,12 +1,8 @@
-
-<?php include_once("dialogs/dlg_perros.inc");?>
-<?php include_once("dialogs/dlg_guias.inc");?>
-<?php include_once("dialogs/dlg_clubes.inc");?>
-<?php include_once("dialogs/dlg_jornadas.inc");?>
+<?php include_once("dialogs/dlg_competicion.inc");?>
  	
 <!-- PANEL INFORMATIVO SOBRE LA MANGAS DE ESTA JORNADA -->
 <div id="competicion_info" class="easyui-panel" title="Informaci&oacute;n de la jornada de competici&oacute;n">
-<div id="competicion_infolayout" class="easyui-layout" style="height:200px">
+<div id="competicion_infolayout" class="easyui-layout" style="height:300px">
 	<div data-options="region:'west',title:'Mangas de la jornada',split:true,collapsed:false" style="width:200px">
 		<table id="competicion-listamangas" class="easyui-datagrid"></table>
 	</div>
@@ -18,30 +14,7 @@
 </div> <!-- informacion de layout -->
 </div> <!-- panel de informacion -->
 
-<!-- DECLARACION DEL ORDEN DE SALIDA DE CADA MANGA -->
-<table id="competicion-orden-datagrid" class="easyui-datagrid" style="height:250px"></table>
-<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
-<table id="competicion-resultados-datagrid" class="easyui-datagrid"></table>
 
-<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
-<div id="competicion-orden-toolbar">
- 	<span style="float:left">
-	   	<a id="competicion-orden-randomBtn" href="#" class="easyui-linkbutton" onclick="randomOrdenSalida()">Aleatorio</a>
-	   	<a id="competicion-orden-saveBtn" href="#" class="easyui-linkbutton" onclick="saveOrdenSalida()">Guardar</a>
-	   	<a id="competicion-orden-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadOrdenSalida()">Actualizar</a>
-    	</span>
-    	<span style="float:right">
-    	<!-- estos elementos deben estar alineados a la derecha -->
-    	<a id="competicion-orden-printBtn" href="#" class="easyui-linkbutton" onclick="printOrdenSalida()">Imprimir</a>
-	</span>
-</div>
-
-<!-- BARRA DE TAREAS DE TABLA DE RESULTADOS-->
-<div id="competicion-resultados-toolbar">
-   	<span style="float:right">
-    	<a id="competicion-resultados-printBtn" href="#" class="easyui-linkbutton" onclick="printResultados()">Imprimir</a>
-   	</span>
-</div>
     
 <script type="text/javascript">
 // cargamos nombre de la jornada y de la prueba
@@ -61,14 +34,14 @@ $('#competicion-listamangas').datagrid({
 	url: 'database/select_MangasByJornada.php?Jornada='+workingData.jornada,
 	method: 'get',
     pagination: false,
-    rownumbers: false,
+    rownumbers: true,
     fitColumns: true,
     singleSelect: true,
     showHeader: false,
     columns:[[
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Tipo',			hidden:true }, // ID de la prueba
-      	    { field:'Descripcion',	width:50, sortable:false, align:'right'},
+      	    { field:'Descripcion',	width:70, sortable:false, align:'right'},
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
@@ -90,115 +63,11 @@ $('#competicion-listamangas').datagrid({
         	$('#competicion_infolayout').layout('panel','center').panel('setTitle','Datos de la manga -- '+workingData.nombreManga);
  	        $('#competicion-formdatosmanga').form('load','database/get_mangaByID.php?ID='+workingData.manga);
         });
-        // cargamos y desplegamos panel de orden de salida
-        reload_ordenSalida(workingData.manga);
-        // cargamos (sin desplegar) panel de resultados
-        // TODO: write
+    },
+    onDblClickRow: function (index,row) {
+        competicionDialog();
     }
 });
 
-$('#competicion-orden-datagrid').datagrid({
-	// propiedades del panel asociado
-	title:'Orden de salida de los participantes en la manga',
-	border: false,
-	closable: false,
-	collapsible: true,
-	collapsed: false,
-	// propiedades del datagrid
-	url: 'database/ordensalida.php',
-    queryParams: {
-        Jornada: workingData.jornada,
-        Manga: workingData.manga,
-        Orden: false,
-        Operacion: 'getData'
-    },
-	method: 'get',
-    pagination: false,
-    rownumbers: true,
-    fitColumns: true,
-    singleSelect: true,
-    pageSize:10,
-    toolbar: '#competicion-orden-toolbar',
-    columns:[[
-      	    { field:'Nombre',		width:20, sortable:false,	align:'left',  title: 'Nombre'},
-      		{ field:'Licencia',		width:10 , sortable:false,   align:'right', title: 'Lic.' },
-      		{ field:'Categoria',	width:5 , sortable:false,   align:'center', title: 'Cat.' },
-      		{ field:'Guia',			width:35, sortable:false,   align:'right', title: 'Guia' },
-      		{ field:'Club',		    width:20, sortable:false,   align:'right', title: 'Club' },
-      		{ field:'Celo',		    width:5 , sortable:false,   align:'right', title: 'Celo' },
-      		{ field:'Observaciones',width:45, sortable:false,   align:'right', title: 'Observaciones' }
-    ]],
-    rowStyler:function(index,row) { // colorize rows
-        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-    },
-    onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
-    loadMsg: "Actualizando orden de salida...",
-});
-
-$('#competicion-resultados-datagrid').datagrid({
-	// datos del panel asociado
-	title:'Introducci&oacute;n de resultados de cada participante',
-	border:true,
-	closable:false,
-	collapsible:true,
-	collapsed:true,
-	// datos del datagrid
-	url: 'database/select_JornadasByPrueba.php?Prueba='+workingData.prueba,
-	method: 'get',
-	height: 350,
-    pagination: false,
-    rownumbers: false,
-    fitColumns: true,
-    singleSelect: true,
-    toolbar: '#competicion-resultados-toolbar',
-    columns:[[
-            { field:'ID',			hidden:true }, // ID de la jornada
-      	    { field:'Prueba',		hidden:true }, // ID de la prueba
-      	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-      		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre/Comentario' },
-    ]],
-    rowStyler:function(index,row) { // colorize rows
-        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-    }
-});
-
-//- botones del panel de orden de mangas
-$('#competicion-orden-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // nueva inscricion 
-$('#competicion-orden-reloadBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Actualizar el orden de salida desde base de datos</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#competicion-orden-randomBtn').linkbutton({plain:true,iconCls:'icon-dice'}); // nueva inscricion 
-$('#competicion-orden-randomBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Generar un nuevo orden de salida aleatorio</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#competicion-orden-saveBtn').linkbutton({plain:true,iconCls:'icon-save'}); // editar inscripcion      
-$('#competicion-orden-saveBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Guardar orden de salida en base de datos</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#competicion-orden-printBtn').linkbutton({plain:true,iconCls:'icon-print'}); // imprimir listado 
-$('#competicion-orden-printBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Imprimir el orden de salida</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-
-// botones del panel de resultados
-$('#competicion-resultados-printBtn').linkbutton({plain:true,iconCls:'icon-print'}); // imprimir listado 
-$('#competicion-resultados-printBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Imprimir resultados de la manga</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
 </script>
     

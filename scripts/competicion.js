@@ -55,7 +55,7 @@ function reload_manga(id) {
     $('#competicion-formdatosmanga').form('load','database/get_mangaByID.php?ID='+id);
 }
 
-function reload_ordenSalida(id) {
+function reload_ordenSalida() {
     $('#competicion-orden-datagrid').datagrid(
             'load',
             { 
@@ -95,6 +95,18 @@ function randomOrdenSalida() {
 			Operacion: 'random'
 			}
 		}).done( function(msg) {
-			reload_ordenSalida(workingData.manga);
+			reload_ordenSalida();
 		});
+}
+
+function competicionDialog() {
+	// obtenemos datos de la manga seleccionada
+	var row= $('#competicion-listamangas').datagrid('getSelected');
+    if (!row) return; // no hay ninguna manga seleccionada. retornar
+    var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
+    // abrimos ventana de dialogo
+    $('#competicion-window').dialog('open').window('setTitle',title);
+    // cargamos ventana de orden de salida
+    reload_ordenSalida();
+    // cargamos ventana de resultados
 }
