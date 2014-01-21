@@ -69,13 +69,14 @@ $('#competicion-orden-datagrid').datagrid({
     pageSize:10,
     toolbar: '#competicion-orden-toolbar',
     columns:[[
-      	    { field:'Nombre',		width:20, sortable:false,	align:'left',  title: 'Nombre'},
-      		{ field:'Licencia',		width:10 , sortable:false,   align:'right', title: 'Lic.' },
-      		{ field:'Categoria',	width:5 , sortable:false,   align:'center', title: 'Cat.' },
-      		{ field:'Guia',			width:35, sortable:false,   align:'right', title: 'Guia' },
-      		{ field:'Club',		    width:20, sortable:false,   align:'right', title: 'Club' },
-      		{ field:'Celo',		    width:5 , sortable:false,   align:'right', title: 'Celo' },
-      		{ field:'Observaciones',width:45, sortable:false,   align:'right', title: 'Observaciones' }
+        	{ field:'Dorsal',		hidden:true },
+          	{ field:'Nombre',		width:20, sortable:false,	align:'left',  title: 'Nombre'},
+      		{ field:'Licencia',		width:15, sortable:false,   align:'right', title: 'Lic.' },
+      		{ field:'Categoria',	width:10, sortable:false,   align:'center', title: 'Cat.' },
+      		{ field:'Guia',			width:40, sortable:false,   align:'right', title: 'Guia' },
+      		{ field:'Club',		    width:30, sortable:false,   align:'right', title: 'Club' },
+      		{ field:'Celo',		    width:10, sortable:false,   align:'right', title: 'Celo' },
+      		{ field:'Observaciones',width:30, sortable:false,   align:'right', title: 'Observaciones' }
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';

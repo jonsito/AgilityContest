@@ -47,7 +47,8 @@ INSERT INTO `Categorias_Perro` (`Categoria`, `Observaciones`) VALUES
 ('-', 'Sin especificar'),
 ('L', 'Large - Standard'),
 ('M', 'Medium - Midi'),
-('S', 'Small - Mini');
+('S', 'Small - Mini'),
+('T', 'Tiny - Enano');
 
 -- --------------------------------------------------------
 
