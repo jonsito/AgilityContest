@@ -44,11 +44,29 @@
 		// inscribimos en cada una de las jornadas solicitadas
 		for ($numero=1;$numero<9;$numero++) {
 			// vemos si pide inscribirse
-			$inscrito=(isset($_REQUEST["J$numero"]))?1:0;
-			if (!$inscrito) continue;
+			$solicita=(isset($_REQUEST["J$numero"]))?1:0;
+			if (!$solicita) continue;
+			
 			// obtenemos el JornadaID
 			$jornada=$jornadas[$numero];
-			// hacemos la inscripcion
+			
+			// vamos a ver si esta ya inscrito. Para ello lo que haremos sera intentar un update,
+			// y ver si se ha tocado alguna fila
+			$sql2="UPDATE Inscripciones
+				SET Celo=$celo , Observaciones='$observaciones' , Equipo=$equipo , Pagado=$pagado
+				WHERE ( (Dorsal=$dorsal) AND (Jornada=$jornada))";
+			$rs=$conn->query($sql2);
+			if ($rs===false) { // error en query
+				echo json_encode(array('errorMsg'=>$conn->error));
+				DBConnection::closeConnection($conn);
+				exit(0);
+			}
+			if ($conn->affected_rows != 0) { // ya estaba inscrito
+				do_log("El dorsal $dorsal ya esta inscrito en la jornada $jornada. Realizando update");
+				return "";
+			}
+			
+			// si no esta inscrito, vamos a hacer la inscripcion
 			do_log("insertInscripcion::executeQuery() Jornada $numero: ID: $jornada Dorsal $dorsal");
 			$res=$stmt->execute();
 			if (!$res) {
@@ -104,7 +122,7 @@
 						SET Celo=$celo , Observaciones='$observaciones' , Equipo=$equipo , Pagado=$pagado
 						WHERE ( (Dorsal=$dorsal) AND (Jornada=$idjornada))";
 			}
-			do_log("inscriptionFunctions::updateInscription() executing query \n$sql");
+			do_log("inscriptionFunctions::updateInscription() executing query: \n$sql");
 			$res=$conn->query($sql);
 			if (!$res) {
 				$msg="inscriptionFunctions::update::executeQuery() Error: ".$conn->error;

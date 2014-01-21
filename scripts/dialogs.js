@@ -46,8 +46,8 @@ function saveClub(){
         onSubmit: function(param){
             return $(this).form('validate');
         },
-        success: function(result){
-            var result = eval('('+result+')');
+        success: function(res){
+            var result = eval('('+res+')');
             if (result.errorMsg){
                 $.messager.show({
                     title: 'Error',
@@ -166,8 +166,8 @@ function assignGuia(){
         onSubmit: function(param){
             return $(this).form('validate');
         },
-        success: function(result){
-            var result = eval('('+result+')');
+        success: function(res){
+            var result = eval('('+res+')');
             if (result.errorMsg){
                 $.messager.show({
                     title: 'Error',
@@ -195,8 +195,8 @@ function saveGuia(){
         onSubmit: function(param){
             return $(this).form('validate');
         },
-        success: function(result){
-            var result = eval('('+result+')');
+        success: function(res){
+            var result = eval('('+res+')');
             if (result.errorMsg){
                 $.messager.show({
                     title: 'Error',
@@ -309,6 +309,16 @@ function editDog(){
 }
 
 /**
+ * Abre el dialogo para editar datos de un perro ya existente desde el menu de inscripciones
+ */
+function editInscribedDog(){
+	var dorsal= $('#inscripciones-Dorsal').val();
+    $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro a inscribir');
+    $('#perros-form').form('load','database/get_dogByDorsal.php?Dorsal='+dorsal);// load form with row data
+	$('#perros-Parent').val(''); // no parent datagrid
+    $('#perros-Operation').val('update'); // mark "update" operation
+}
+/**
 * Abre el formulario para anyadir perros a un guia
 *@param guia: nombre del guia
 */
@@ -336,8 +346,8 @@ function assignDog() {
         onSubmit: function(param){
             return $(this).form('validate');
         },
-        success: function(result){
-            var result = eval('('+result+')');
+        success: function(res){
+            var result = eval('('+res+')');
             if (result.errorMsg){
                 $.messager.show({
                     title: 'Error',
@@ -356,14 +366,15 @@ function assignDog() {
  * Ejecuta la peticion json para anyadir/editar un perro
  */
 function saveDog(){
+	var dorsal=$('#perros-Dorsal').val();
     $('#perros-form').form('submit',{
         url: 'database/dogFunctions.php',
         method: 'get',
         onSubmit: function(param){
             return $(this).form('validate');
         },
-        success: function(result){
-            var result = eval('('+result+')');
+        success: function(res){
+            var result = eval('('+res+')');
             if (result.errorMsg){
                 $.messager.show({
                     title: 'Error',
@@ -371,8 +382,13 @@ function saveDog(){
                 });
             } else {
             	var parent=$('#perros-Parent').val();
-                $('#perros-datagrid'+parent).datagrid('reload');    // reload the dog data
-                $('#perros-dialog').dialog('close');        // close the dialog
+            	// reload the dog data on datagrid (if any)
+                $('#perros-datagrid'+parent).datagrid('reload');
+                // reload the dog data from inscripciones (if any)
+    	        $('#inscripciones-data').form('load','database/get_dogByDorsal.php?Dorsal='+dorsal);
+    	        alert("hola");
+    	        // close the dialog
+                $('#perros-dialog').dialog('close');   
             }
         }
     });
@@ -478,8 +494,8 @@ function saveJuez(){
         onSubmit: function(param){
             return $(this).form('validate');
         },
-        success: function(result){
-            var result = eval('('+result+')');
+        success: function(res){
+            var result = eval('('+res+')');
             if (result.errorMsg){
                 $.messager.show({
                     title: 'Error',
@@ -522,7 +538,7 @@ function destroyJuez(){
  * Recalcula el formulario de pruebas anyadiendo parametros de busqueda
  */
 function doSearchPrueba() {
-	var includeClosed= $('#pruebas-openBox').is(':checked')?'1':'0'
+	var includeClosed= $('#pruebas-openBox').is(':checked')?'1':'0';
 	// reload data adding search criteria
     $('#pruebas-datagrid').datagrid('load',{
         where: $('#pruebas-search').val(),
@@ -568,8 +584,8 @@ function savePrueba(){
         onSubmit: function(param){
             return $(this).form('validate');
         },
-        success: function(result){
-            var result = eval('('+result+')');
+        success: function(res){
+            var result = eval('('+res+')');
             if (result.errorMsg){
                 $.messager.show({
                     title: 'Error',
@@ -707,8 +723,8 @@ function saveJornada(){
         onSubmit: function(param){
             return $(this).form('validate');
         },
-        success: function(result){
-            var result = eval('('+result+')');
+        success: function(res){
+            var result = eval('('+res+')');
             if (result.errorMsg){
                 $.messager.show({
                     title: 'Error',
@@ -930,8 +946,8 @@ function insertInscripcion(){
         onSubmit: function(param){ // nothing to validate, but...
             return $(this).form('validate');
         },
-        success: function(result){
-            var result = eval('('+result+')');
+        success: function(res){
+            var result = eval('('+res+')');
             if (result.errorMsg){
                 $.messager.show({
                     title: 'Error',
@@ -961,8 +977,8 @@ function updateInscripcion(){
         onSubmit: function(param){ // nothing to validate, but...
             return $(this).form('validate');
         },
-        success: function(result){
-            var result = eval('('+result+')');
+        success: function(res){
+            var result = eval('('+res+')');
             if (result.errorMsg){
                 $.messager.show({
                     title: 'Error',

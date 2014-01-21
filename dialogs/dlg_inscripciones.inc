@@ -11,6 +11,8 @@
         </div>
         <div class="fitem">
         	<form id="inscripciones-data" method="get" novalidate="novalidate">
+                <input id="inscripciones-LOE_RRC" name="LOE_RRC" type="hidden" />
+                <input id="inscripciones-Raza" name="Raza" type="hidden" />
         		<table>
         		<tr>
         			<td colspan="4">
@@ -157,7 +159,7 @@
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     });
     $('#inscripciones-editDogBtn').bind('click',function() {
-        editDog();
+        editInscribedDog();
     });
     
     // campos del formulario
