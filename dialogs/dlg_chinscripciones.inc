@@ -171,6 +171,6 @@
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     });
     $('#chinscripciones-editDogBtn').bind('click',function() {
-        editDog();
+        editInscribedDog(1);
     });
     </script>

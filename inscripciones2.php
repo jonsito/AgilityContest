@@ -8,7 +8,7 @@
 <?php include_once("dialogs/dlg_chinscripciones.inc");?>
  	
 <div id="inscripciones_info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
-<div id="inscripciones_infolayout" class="easyui-layout" style="height:180px">
+<div id="inscripciones_infolayout" class="easyui-layout" style="height:220px">
 	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px">
 		<form id="inscripciones_pruebas" method="get">
 		<input type="hidden" name="ID"/>
@@ -76,19 +76,19 @@ $('#inscripciones_jornadas').datagrid({
     columns:[[
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Prueba',		hidden:true }, // ID de la prueba
-      	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-      		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre/Comentario' },
-      		{ field:'Fecha',		width:20, sortable:false,	align:'right', title: 'Fecha:' },
-      		{ field:'Hora',			width:15, sortable:false,	align:'right', title: 'Hora.' },
-      		{ field:'Grado1',		width:7, sortable:false,	align:'center', title: 'G-I   ' },
-      		{ field:'Grado2',		width:7, sortable:false,	align:'center', title: 'G-II  ' },
-      		{ field:'Grado3',		width:7, sortable:false,	align:'center', title: 'G-III ' },
-      		{ field:'Equipos',		width:7, sortable:false,	align:'center', title: 'Eq.   ' },
-      		{ field:'PreAgility',	width:7, sortable:false,	align:'center', title: 'Pre.  ' },
-      		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.  ' },
-      		{ field:'Exhibicion',	width:7, sortable:false,	align:'center', title: 'Show  ' },
-      		{ field:'Otras',		width:7, sortable:false,	align:'center', title: 'Otras ' },
-      		{ field:'Cerrada',		width:7, sortable:false,	align:'center', title: 'Cerrada', formatter:identificaJornada }
+      	    { field:'Numero',		width:10, sortable:false,	align:'center', title: '#'},
+      		{ field:'Nombre',		width:70, sortable:false,   align:'right', title: 'Nombre/Comentario' },
+      		{ field:'Fecha',		width:40, sortable:false,	align:'right', title: 'Fecha:' },
+      		{ field:'Hora',			width:30, sortable:false,	align:'right', title: 'Hora.' },
+      		{ field:'Grado1',		width:15, sortable:false,	align:'center', title: 'G-I   ' },
+      		{ field:'Grado2',		width:15, sortable:false,	align:'center', title: 'G-II  ' },
+      		{ field:'Grado3',		width:15, sortable:false,	align:'center', title: 'G-III ' },
+      		{ field:'Equipos',		width:15, sortable:false,	align:'center', title: 'Eq.   ' },
+      		{ field:'PreAgility',	width:15, sortable:false,	align:'center', title: 'Pre.  ' },
+      		{ field:'KO',			width:15, sortable:false,	align:'center', title: 'K.O.  ' },
+      		{ field:'Exhibicion',	width:15, sortable:false,	align:'center', title: 'Show  ' },
+      		{ field:'Otras',		width:15, sortable:false,	align:'center', title: 'Otras ' },
+      		{ field:'Cerrada',		width:20, sortable:false,	align:'center', title: 'Cerrada', formatter:identificaJornada }
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';

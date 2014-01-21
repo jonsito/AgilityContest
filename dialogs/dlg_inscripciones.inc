@@ -159,7 +159,7 @@
     	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     });
     $('#inscripciones-editDogBtn').bind('click',function() {
-        editInscribedDog();
+        editInscribedDog(0);
     });
     
     // campos del formulario

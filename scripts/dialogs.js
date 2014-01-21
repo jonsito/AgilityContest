@@ -310,9 +310,12 @@ function editDog(){
 
 /**
  * Abre el dialogo para editar datos de un perro ya existente desde el menu de inscripciones
+ * @param {integer} mode 0:newInscripcion 1:editInscripcion
  */
-function editInscribedDog(){
-	var dorsal= $('#inscripciones-Dorsal').val();
+function editInscribedDog(mode){
+	var dorsal=0;
+	if (mode==0) dorsal= $('#inscripciones-Dorsal').val();
+	else dorsal= $('#chinscripciones-Dorsal').val();
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro a inscribir');
     $('#perros-form').form('load','database/get_dogByDorsal.php?Dorsal='+dorsal);// load form with row data
 	$('#perros-Parent').val(''); // no parent datagrid
@@ -386,7 +389,7 @@ function saveDog(){
                 $('#perros-datagrid'+parent).datagrid('reload');
                 // reload the dog data from inscripciones (if any)
     	        $('#inscripciones-data').form('load','database/get_dogByDorsal.php?Dorsal='+dorsal);
-    	        alert("hola");
+    	        $('#chinscripciones-data').form('load','database/get_dogByDorsal.php?Dorsal='+dorsal);
     	        // close the dialog
                 $('#perros-dialog').dialog('close');   
             }
