@@ -2,9 +2,9 @@
  	
 <!-- PANEL INFORMATIVO SOBRE LA MANGAS DE ESTA JORNADA -->
 <div id="competicion_info" class="easyui-panel" title="Informaci&oacute;n de la jornada de competici&oacute;n">
-<div id="competicion_infolayout" class="easyui-layout" style="height:300px">
+<div id="competicion_infolayout" class="easyui-layout" style="height:250px">
 	<div data-options="region:'west',title:'Mangas de la jornada',split:true,collapsed:false" style="width:200px">
-		<table id="competicion-listamangas" class="easyui-datagrid"></table>
+		<table id="competicion-listamangas" class="easyui-datagrid" style="padding:10px 20px"></table>
 	</div>
 	<div data-options="region:'center',title:'Datos de la manga'" style="width:600px;">
 		<font size="11"> <!--  take care on some stupid browsers -->
@@ -14,6 +14,12 @@
 </div> <!-- informacion de layout -->
 </div> <!-- panel de informacion -->
 
+<!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
+<div id="competicion-listamanga-toolbar">
+   	<span style="float:left">
+    	<a id="competicion-displaydialogBtn" href="#" class="easyui-linkbutton" onclick="competicionDialog();">Edici&oacute;n</a>
+	</span>
+</div>
 
     
 <script type="text/javascript">
@@ -38,6 +44,7 @@ $('#competicion-listamangas').datagrid({
     fitColumns: true,
     singleSelect: true,
     showHeader: false,
+    toolbar: '#competicion-listamanga-toolbar',
     columns:[[
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Tipo',			hidden:true }, // ID de la prueba
@@ -64,10 +71,15 @@ $('#competicion-listamangas').datagrid({
  	        $('#competicion-formdatosmanga').form('load','database/get_mangaByID.php?ID='+workingData.manga);
         });
     },
-    onDblClickRow: function (index,row) {
-        competicionDialog();
-    }
 });
 
+//- boton de despliegue de la ventana de ordenSalida/resultados
+$('#competicion-displaydialogBtn').linkbutton({plain:true,iconCls:'icon-table'}); // nueva inscricion 
+$('#competicion-displaydialogBtn').tooltip({
+	position: 'right',
+	content: '<span style="color:#000">Editar el Orden de salida y/o Resultados</span>',
+	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+	}
+});
 </script>
     
