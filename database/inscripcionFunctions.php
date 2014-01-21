@@ -17,7 +17,7 @@
 	 * TODO: detectar si un perro esta ya inscrito antes de hacer nueva inscripcion
 	 * mediante un "unique index (pruebaID,Numero,Dorsal)"
 	 */
-	function insertInscripcion($conn,$jornadas,$dorsal) {
+	function insertInscripcion($conn,$pruebaid,$jornadas,$dorsal) {
 		do_log("inscriptionFunctions::insert() enter");
 		$msg="";
 		// generamos un prepared statement
@@ -39,8 +39,18 @@
 		$perro=$dorsal;
 		$celo=(isset($_REQUEST['Celo']))?intval($_REQUEST['Celo']):0;
 		$observaciones=(isset($_REQUEST['Observaciones']))?strval($_REQUEST['Observaciones']):"";
-		$equipo=(isset($_REQUEST['Equipo']))?intval($_REQUEST['Equipo']):'NULL'; // if not set defaults to null
+		$equipo=(isset($_REQUEST['Equipo']))?intval($_REQUEST['Equipo']):'0'; // if not set defaults to null
 		$pagado=(isset($_REQUEST['Pagado']))?intval($_REQUEST['Pagado']):0;
+		
+		// si el ID de equipo es cero, buscamos el equipo por defecto para la prueba solicitada
+		if ($equipo==0) {
+			do_log("insertInscripcion() no equipo selected on prueba $pruebaid, using default");
+			$sql="SELECT ID FROM Equipos WHERE ( Prueba = $pruebaid ) AND ( Nombre = '-- Sin asignar --' )";
+			$rs=$conn->query($sql);
+			$row=$rs->fetch_row();
+			$equipo = $row[0];
+			$rs->free();
+		}
 		// inscribimos en cada una de las jornadas solicitadas
 		for ($numero=1;$numero<9;$numero++) {
 			// vemos si pide inscribirse
@@ -184,12 +194,12 @@
 		return;
 	}
 	$oper = $_REQUEST['Operation'];
-	$id = $_REQUEST['ID'];
+	$pruebaid = $_REQUEST['ID'];
 	$dorsal = (isset($_REQUEST['Dorsal']))?$_GET['Dorsal']:'';
 	
 	// obtenemos los id de las 8 jornadas asociadas a la prueba
 	$jornadas=array(); 
-	$rs=$conn->query("SELECT ID,Numero FROM Jornadas WHERE (Prueba=$id)");
+	$rs=$conn->query("SELECT ID,Numero FROM Jornadas WHERE (Prueba=$pruebaid)");
 	if (!$rs) {
 		$str="inscripcionFunctions::getJornadasID() failed: ".$conn->error;
 		do_log($str);
@@ -204,7 +214,7 @@
 		$rs->free();
 	}
 	if($oper==='insert') {
-		$result=insertInscripcion($conn,$jornadas,$dorsal);
+		$result=insertInscripcion($conn,$pruebaid,$jornadas,$dorsal);
 		if ($result==="") 	echo json_encode(array('success'=>true));
 		else 				echo json_encode(array('errorMsg'=>$result));
 	}

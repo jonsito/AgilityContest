@@ -163,7 +163,27 @@
     });
     
     // campos del formulario
-
+	
+    $('#inscripciones-Equipo').combogrid({
+		panelWidth: 350,
+		panelHeight: 100,
+		idField: 'ID',
+		textField: 'Nombre',
+		url: 'database/enumerate_EquiposByPrueba.php?ID='+workingData.prueba,
+		method: 'get',
+		mode: 'remote',
+		required: true,
+		columns: [[
+			{field:'ID',hidden:'true'},
+			{field:'Nombre',title:'Nombre',width:25,align:'right'},
+			{field:'Observaciones',title:'Observaciones',width:75,align:'right'}
+		]],
+		multiple: false,
+		fitColumns: true,
+		singleSelect: true,
+		selectOnNavigation: false
+    }); 
+    
     $('#inscripciones-Participante').combogrid({
 		panelWidth: 350,
 		panelHeight: 200,
@@ -195,26 +215,6 @@
 	        $('#inscripciones-Pagado').val(0); 
 		}
 	});
-	
-    $('#inscripciones-Equipo').combogrid({
-		panelWidth: 350,
-		panelHeight: 100,
-		idField: 'ID',
-		textField: 'Nombre',
-		url: 'database/enumerate_EquiposByPrueba.php?ID='+workingData.prueba,
-		method: 'get',
-		mode: 'remote',
-		required: true,
-		columns: [[
-			{field:'ID',hidden:'true'},
-			{field:'Nombre',title:'Nombre',width:25,align:'right'},
-			{field:'Observaciones',title:'Observaciones',width:75,align:'right'}
-		]],
-		multiple: false,
-		fitColumns: true,
-		singleSelect: true,
-		selectOnNavigation: false
-    }); 
 
     function doMoney(checkbox) {
         var money=Number($('#inscripciones-Pagado').val());
