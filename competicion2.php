@@ -31,7 +31,7 @@ $('#competicion_info').panel({
 	title:workingData.nombrePrueba+' -- '+workingData.nombreJornada,
 	border:true,
 	closable:false,
-	collapsible:true,
+	collapsible:false,
 	collapsed:false
 });
 $('#competicion_infolayout').layout();
@@ -40,15 +40,15 @@ $('#competicion-listamangas').datagrid({
 	url: 'database/select_MangasByJornada.php?Jornada='+workingData.jornada,
 	method: 'get',
     pagination: false,
-    rownumbers: true,
+    rownumbers: false,
     fitColumns: true,
     singleSelect: true,
     showHeader: false,
     toolbar: '#competicion-listamanga-toolbar',
     columns:[[
             { field:'ID',			hidden:true }, // ID de la jornada
-      	    { field:'Tipo',			hidden:true }, // ID de la prueba
-      	    { field:'Descripcion',	width:70, sortable:false, align:'right'},
+      	    { field:'Tipo',			hidden:true }, // Tipo de manga
+      	    { field:'Descripcion',	width:120, sortable:false, align:'right'}, // texto del tipo de manga
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';

@@ -1,6 +1,38 @@
 <?php
 	require_once("logging.php");
 	require_once("DBConnection.php");
+
+	/**
+	 * actualiza el orden de salida si es necesario
+	 * @param unknown $conn
+	 * @param unknown $prueba
+	 * @param unknown $jornada
+	 * @param unknown $dorsal
+	 * @param unknown $mode 0:insert 1:update 2:delete
+	 */
+	function updateOrdenSalida($conn,$prueba,$jornada,$dorsal,$categoria,$celo,$mode) {
+		// buscamos la lista de mangas que tiene la jornada
+		$str="SELECT ID, Mangas.Tipo AS Tipo, Tipo_Manga.Descripcion AS Descripcion
+		FROM Mangas,Tipo_Manga
+		WHERE ( ( Jornada = $jornada ) AND ( Mangas.Tipo = Tipo_Manga.Tipo) )
+		ORDER BY Descripcion ASC";
+		do_log("select_MangasByJornada::(select) $str");
+		$rs=$conn->query($str);
+		// retrieve result into an array
+		while($row = $rs->fetch_array()){
+			$mangaid=$row->ID;
+			$mangaTipo=$row->Tipo;
+			// vemos si la categoria de la manga es compatible con el perro
+			// si la categoria no es compatible, intentamos eliminar el perro de la manga
+			
+			// si la categoria es compatible compatible: obtenemos el orden de salida
+			// TODO:
+			// si el orden es nulo, quiere decir manga no iniciada. no hace falta hacer nada
+			// TODO:
+			// si orden no nulo, vemos que hay que hacer
+			// TODO: 
+		}
+	}
 	
 	/*
 	 * Cada prueba lleva asociada 8 jornadas, que se crean automaticamente al crear la prueba
