@@ -71,8 +71,8 @@ class DBConnection {
 		$myDBConnection= self::getInstance();
 		return $myDBConnection->deleteConnection($conn);
 	}
-	
 
 }
+
 
 ?>

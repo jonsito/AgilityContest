@@ -54,7 +54,7 @@ $('#competicion-orden-datagrid').datagrid({
 	collapsible: false,
 	collapsed: false,
 	// propiedades del datagrid
-	url: 'database/ordensalida.php',
+	url: 'database/ordenSalidaFunctions.php',
     queryParams: {
         Jornada: workingData.jornada,
         Manga: workingData.manga,

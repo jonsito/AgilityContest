@@ -86,7 +86,7 @@ function save_manga(id) {
 function randomOrdenSalida() {
 	$.ajax({
 		type:'GET',
-		url:"database/ordensalida.php",
+		url:"database/ordenSalidaFunctions.php",
 		dataType:'json',
 		data: { 
 			Jornada: workingData.jornada,
