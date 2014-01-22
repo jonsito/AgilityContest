@@ -1,7 +1,8 @@
 <?php
+	require_once("tools.php");
 	require_once("logging.php");
 	require_once("DBConnection.php");
-
+	require_once("OrdenSalida.php");
 	/**
 	 * actualiza el orden de salida si es necesario
 	 * @param unknown $conn
@@ -10,27 +11,54 @@
 	 * @param unknown $dorsal
 	 * @param unknown $mode 0:insert 1:update 2:delete
 	 */
-	function updateOrdenSalida($conn,$prueba,$jornada,$dorsal,$categoria,$celo,$mode) {
+	function updateOrdenSalida($conn,$jornada,$dorsal,$celo,$mode) {
+		// obtenemos datos del perro
+		$str="SELECT * from PerroGuiaClub WHERE (Dorsal=$dorsal)";
+		do_log("inscriptionFunctions::updateOrdenSalida() $str");
+		$rs2=$conn->query($str);
+		if ($rs2===false) { // no deberia ocurrir
+			$msg=$conn->error;
+			do_log("inscriptionFunctions::updateOrdenSalida() Error: $msg");
+			echo json_encode(array('errorMsg'=>$msg));
+			DBConnection::closeConnection($conn);
+			exit(0);
+		}
+		$perro=$rs2->fetch_object();
+		
 		// buscamos la lista de mangas que tiene la jornada
-		$str="SELECT ID, Mangas.Tipo AS Tipo, Tipo_Manga.Descripcion AS Descripcion
+		$str2="SELECT ID, Tipo_Manga.Grado AS Grado
 		FROM Mangas,Tipo_Manga
 		WHERE ( ( Jornada = $jornada ) AND ( Mangas.Tipo = Tipo_Manga.Tipo) )
 		ORDER BY Descripcion ASC";
-		do_log("select_MangasByJornada::(select) $str");
-		$rs=$conn->query($str);
+		do_log("inscriptionFunctions::updateOrdenSalida() $str2");
+		$rs=$conn->query($str2);
 		// retrieve result into an array
 		while($row = $rs->fetch_array()){
 			$mangaid=$row->ID;
-			$mangaTipo=$row->Tipo;
-			// vemos si la categoria de la manga es compatible con el perro
-			// si la categoria no es compatible, intentamos eliminar el perro de la manga
+			$mangagrado=$row->Grado;
 			
+			// obtenemos un manejador de ordenes de salida
+			$os=new OrdenSalida($conn,"inscriptionFunctions");
+			// si la categoria no es compatible, intentamos eliminar el perro de la manga
+			if (($mangagrado !== '-') && ($mangagrado !== $perro->Grado)) {
+				do_log("El grado del dorsal $dorsal ($perro->Grado) no es compatible con el grado de la manga ($mangagrado) " );
+				$os->remove($jornada,$mangaid,$dorsal);
+				continue;
+			}		
 			// si la categoria es compatible compatible: obtenemos el orden de salida
-			// TODO:
-			// si el orden es nulo, quiere decir manga no iniciada. no hace falta hacer nada
-			// TODO:
-			// si orden no nulo, vemos que hay que hacer
-			// TODO: 
+			$orden=$os->getOrden($mangaid);
+			// si el orden es nulo, quiere decir manga no iniciada -> no hace falta hacer nada
+			if ($orden==="") continue;
+			// si orden no nulo, vemos que hay que hacer con el perro
+			if ($mode == 0) { // insert
+				$os->insert($jornada,$manga,$dorsal);
+			}
+			if ($mode==1) { // update 
+				$os->insert($jornada,$manga,$dorsal); 
+			}
+			if ($mode==2) { // delete
+				$os->remove($jornada,$manga,$dorsal);
+			}
 		}
 	}
 	
@@ -45,9 +73,6 @@
 	 * @param MySQLConnection $conn
 	 * @param array(jornadasID) $jornadas
 	 * @param Dorsal del perro $dorsal
-	 * 
-	 * TODO: detectar si un perro esta ya inscrito antes de hacer nueva inscripcion
-	 * mediante un "unique index (pruebaID,Numero,Dorsal)"
 	 */
 	function insertInscripcion($conn,$pruebaid,$jornadas,$dorsal) {
 		do_log("inscriptionFunctions::insert() enter");
@@ -105,6 +130,7 @@
 			}
 			if ($conn->affected_rows != 0) { // ya estaba inscrito
 				do_log("El dorsal $dorsal ya esta inscrito en la jornada $jornada. Realizando update");
+				updateOrdenSalida($conn,$jornada,$dorsal,$celo,1 /*update*/);
 				return "";
 			}
 			
@@ -117,6 +143,7 @@
 				$stmt->close();
 				return $msg;
 			}
+			updateOrdenSalida($conn,$jornada,$dorsal,$celo,0 /* insert */);
 		}
 		// all right: close prepared statement and return ok
 		$stmt->close();
@@ -152,17 +179,20 @@
 				do_log("inscriptionFunctions::updateInscription() Dorsal $dorsal has no inscription in Jornada $idjornada");
 				continue; // no inscription
 			}
+			$oper=0;
 			if ( ($old==0) && ($new!=0) ) { // new inscription
 				$sql="INSERT INTO Inscripciones ( Jornada , Dorsal , Celo , Observaciones , Equipo , Pagado )
 				VALUES ($idjornada,$dorsal,$celo,'$observaciones',$equipo,$pagado)";
 			}
 			if ( ($old!=0) && ($new==0) ) { // remove inscription
 				$sql="DELETE FROM Inscripciones where ( (Dorsal=$dorsal) AND (Jornada=$idjornada))";
+				$oper=2;
 			}
 			if ( ($old!=0) && ($new!=0) ) { // already subscribed: just update data
 				$sql="UPDATE Inscripciones 
 						SET Celo=$celo , Observaciones='$observaciones' , Equipo=$equipo , Pagado=$pagado
 						WHERE ( (Dorsal=$dorsal) AND (Jornada=$idjornada))";
+				$oper=3;
 			}
 			do_log("inscriptionFunctions::updateInscription() executing query: \n$sql");
 			$res=$conn->query($sql);
@@ -171,6 +201,7 @@
 				do_log($msg);
 				return $msg;
 			}
+			updateOrdenSalida($conn,$idjornada,$dorsal,$celo,$oper);
 		}
 		return "";
 	}
@@ -198,6 +229,7 @@
 				do_log($msg);
 				return $msg;
 			}
+			updateOrdenSalida($conn,$idjornada,$dorsal,0,2 /*remove*/);
 		}
 		return "";
 	}

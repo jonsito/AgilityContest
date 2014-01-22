@@ -239,16 +239,17 @@ class OrdenSalida {
 	 * @return {string} nuevo orden de salida
 	 */
 	function remove($jornada, $manga, $dorsal) {
+		// TODO: si el dorsal esta inscrito y la manga es compatible damos error ( no se deberia borrar )
+		/*
 		// fase: vemos si el perro esta inscrito
 		$sql = "SELECT count (*) FROM InscritosJornada WHERE ( Jornada=$jornada ) AND ( Dorsal=$dorsal)";
 		$rs = $this->execute ( "remove()", $sql );
 		$row = $rs->fetch_row ();
 		$inscrito = $row [0];
 		$rs->free ();
-		// fase 2: si el dorsal esta inscrito damos error ( no se deberia borrar )
-		if ($inscrito != 0)
-			$this->exit_error ( "remove()", "El dorsal $dorsal no se puede borrar: figura inscrito en la jornada" );
-			// recuperamos el orden de salida y borramos el perro indicado
+		*/
+		
+		// recuperamos el orden de salida y borramos el perro indicado
 		$ordensalida = getOrden ( $manga );
 		$str = "," . $dorsal . ",";
 		$nuevoorden = str_replace ( $str, ",", $ordensalida );
