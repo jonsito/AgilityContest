@@ -33,7 +33,7 @@
 		do_log("inscriptionFunctions::updateOrdenSalida() $str2");
 		$rs=$conn->query($str2);
 		// retrieve result into an array
-		while($row = $rs->fetch_array()){
+		while($row = $rs->fetch_object()){
 			$mangaid=$row->ID;
 			$mangagrado=$row->Grado;
 			
@@ -51,13 +51,13 @@
 			if ($orden==="") continue;
 			// si orden no nulo, vemos que hay que hacer con el perro
 			if ($mode == 0) { // insert
-				$os->insert($jornada,$manga,$dorsal);
+				$os->insert($jornada,$mangaid,$dorsal);
 			}
 			if ($mode==1) { // update 
-				$os->insert($jornada,$manga,$dorsal); 
+				$os->insert($jornada,$mangaid,$dorsal); 
 			}
 			if ($mode==2) { // delete
-				$os->remove($jornada,$manga,$dorsal);
+				$os->remove($jornada,$mangaid,$dorsal);
 			}
 		}
 	}

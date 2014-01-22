@@ -100,7 +100,7 @@ $trs_s_factor = (isset($_REQUEST['TRS_S_Factor']))?intval($_REQUEST['TRS_S_Facto
 // factor TRM
 $trm_l_factor = (isset($_REQUEST['TRM_L_Factor']))?intval($_REQUEST['TRM_L_Factor']):0;
 $trm_m_factor = (isset($_REQUEST['TRM_M_Factor']))?intval($_REQUEST['TRM_M_Factor']):0;
-$trm_s_factor = (isset($_REQUEST['TRM_S_Factor']))?intval($_REQUEST['TRM_s_Factor']):0;
+$trm_s_factor = (isset($_REQUEST['TRM_S_Factor']))?intval($_REQUEST['TRM_S_Factor']):0;
 // Unidad TRS
 $trs_l_unit = (isset($_REQUEST['TRS_L_Unit']))?strval($_REQUEST['TRS_L_Unit']):"s";
 $trs_m_unit = (isset($_REQUEST['TRS_M_Unit']))?strval($_REQUEST['TRS_M_Unit']):"s";

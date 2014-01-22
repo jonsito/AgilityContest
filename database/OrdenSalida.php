@@ -250,11 +250,11 @@ class OrdenSalida {
 		*/
 		
 		// recuperamos el orden de salida y borramos el perro indicado
-		$ordensalida = getOrden ( $manga );
+		$ordensalida = $this->getOrden ( $manga );
 		$str = "," . $dorsal . ",";
 		$nuevoorden = str_replace ( $str, ",", $ordensalida );
 		// guardamos nuevo orden de salida y retornamos
-		setOrden ( $manga, $nuevoorden );
+		$this->setOrden ( $manga, $nuevoorden );
 		$this->exit_ok ( "remove()" );
 		return $nuevoorden;
 	}

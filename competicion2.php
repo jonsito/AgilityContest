@@ -57,7 +57,7 @@ $('#competicion-listamangas').datagrid({
         if (index<0) { // no manga selected
             $('#competicion-datosmanga').html("");
             // TODO: clear & collapse panels
-        	workingData.manga=-1;
+        	workingData.manga=0;
         	workingData.nombreManga="";
             return; 
         }
@@ -70,6 +70,9 @@ $('#competicion-listamangas').datagrid({
         	$('#competicion_infolayout').layout('panel','center').panel('setTitle','Datos de la manga -- '+workingData.nombreManga);
  	        $('#competicion-formdatosmanga').form('load','database/get_mangaByID.php?ID='+workingData.manga);
         });
+        // refresh orden de salida
+        reloadOrdenSalida();
+        // refresh orden de competicion
     },
 });
 

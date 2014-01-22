@@ -55,13 +55,14 @@ function reload_manga(id) {
     $('#competicion-formdatosmanga').form('load','database/get_mangaByID.php?ID='+id);
 }
 
-function reload_ordenSalida() {
+function reloadOrdenSalida() {
+	if (workingData.jornada==0) return;
+	if (workingData.manga==0) return;
     $('#competicion-orden-datagrid').datagrid(
             'load',
             { 
             	Jornada: workingData.jornada , 
             	Manga: workingData.manga , 
-            	Orden: false ,  
             	Operacion: 'getData' 
             }
     );
@@ -84,6 +85,8 @@ function save_manga(id) {
 
 // genera un nuevo orden aleatorio
 function randomOrdenSalida() {
+	if (workingData.jornada==0) return;
+	if (workingData.manga==0) return;
 	$.ajax({
 		type:'GET',
 		url:"database/ordenSalidaFunctions.php",
@@ -91,11 +94,10 @@ function randomOrdenSalida() {
 		data: { 
 			Jornada: workingData.jornada,
 			Manga: workingData.manga,
-			Orden: false,
 			Operacion: 'random'
 			}
 		}).done( function(msg) {
-			reload_ordenSalida();
+			reloadOrdenSalida();
 		});
 }
 
