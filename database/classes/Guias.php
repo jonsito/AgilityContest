@@ -161,7 +161,7 @@ class Guias {
 		$result = array();
 		
 		// execute first query to know how many elements
-		$rs=$conn->query("SELECT count(*) FROM Guias $where");
+		$rs=$this->conn->query("SELECT count(*) FROM Guias $where");
 		if ($rs===false) {
 			$this->errormsg="select( count(*) ) error: ".$this->conn->error;
 			return null;
@@ -171,7 +171,7 @@ class Guias {
 		$result["total"] = $row[0];
 		
 		// second query to retrieve $rows starting at $offset
-		$rs=$conn->query("SELECT * FROM Guias $where ORDER BY $sort $order LIMIT $offset,$rows");
+		$rs=$this->conn->query("SELECT * FROM Guias $where ORDER BY $sort $order LIMIT $offset,$rows");
 		if ($rs===false) {
 			$this->errormsg="select( ) error: ".$this->conn->error;
 			return null;
@@ -188,7 +188,7 @@ class Guias {
 		return $result;
 	}
 	
-	function enumerate() { // like select but add a search key
+	function enumerate() { // like select but do not provide indexed block query
 
 		do_log("enumerateGuias():: enter");
 		
@@ -208,7 +208,7 @@ class Guias {
 		$result["total"] = $row[0];
 		
 		// second query to retrieve $rows starting at $offset
-		$rs=$conn->query("SELECT Nombre,Club FROM Guias ".$like." ORDER BY Club,Nombre");
+		$rs=$this->conn->query("SELECT Nombre,Club FROM Guias ".$like." ORDER BY Club,Nombre");
 		if ($rs===false) {
 			$this->errormsg="select( * ) error: ".$this->conn->error;
 			return null;
@@ -225,7 +225,11 @@ class Guias {
 		return $result;
 	}
 	
-	
+	/** 
+	 * Enumerate by club (exact match)
+	 * @param {string} $club Club name (key search) 
+	 * @return result on success; null on error
+	 */
 	function selectByClub($club) {
 		do_log("selectGuiasByClub() enter");
 		if ($club===null){
@@ -264,6 +268,11 @@ class Guias {
 		return result;
 	}
 	
+	/**
+	 * Select a (single) entry that matches with provided handler name
+	 * @param {string} $nombre handler's name
+	 * @return result on success; null on error
+	 */
 	function selectByNombre($nombre) {
 		do_log("selectGuiaByNombre:: enter");
 		if ($nombre===null) {

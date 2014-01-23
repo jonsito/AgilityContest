@@ -5,7 +5,7 @@
 	
 	try {
 		$result=null;
-		$guias= new Clubes("guiaFunctions");
+		$guias= new Guias("guiaFunctions");
 		$operation=http_request("Operation","s",null);
 		if ($operation===null) throw new Exception("Call to guiaFunctions without 'Operation' requested");
 		switch ($operation) {
