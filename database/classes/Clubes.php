@@ -159,27 +159,6 @@ class Clubes {
 	}
 	
 	/**
-	 * remove a handler from provided club
-	 * @param unknown $guia
-	 * @return "" on success ; null on error
-	 */
-	function orphan($guia) {
-		if ($guia===null) {
-			$this->errormsg="orphanClub:: no handler name provided";
-			return null;
-		}
-		do_log("orphanGuiaFromClub::($guia) enter");
-		$res= $this->conn->query("UPDATE Guias SET Club='-- Sin asignar --' WHERE ( Nombre='$guia' )");
-		if (!$res) {
-			$this->errormsg="orphanGuiaFromClub::query(delete) Error: ".$this->conn->error;
-			do_log($msg);
-			return null;
-		} 
-		do_log("orphanGuiaFromClub:: exit OK");
-		return "";
-	}
-	
-	/**
 	 * retrieve all clubes from table, according sort, search and limit requested
 	 */
 	function select() {

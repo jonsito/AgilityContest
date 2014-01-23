@@ -140,6 +140,25 @@ class Dogs {
 	}
 	
 	/**
+	 * Desasigna el guia al perro indicado
+	 * @param {integer} $dorsal dorsal id
+	 * @return "" on success; otherwise null
+	 */
+	function orphan ($dorsal) {
+		do_log("orphanPerroFromGuia:: enter");
+		if ($dorsal===null) {
+			$this->errormsg="orphanPerroFromGuia:: no dorsal provided";
+			return null;
+		}
+		$res= $this->conn->query("UPDATE Perros SET Guia='-- Sin asignar --' WHERE (Dorsal='$dorsal')");
+		if (!$res) {
+			$this->errormsg="orphanPerroFromGuia::query(delete) Error: ".$this->conn->error;
+			return null;
+		}
+		do_log("orphanPerroFromGuia:: exit OK");
+		return "";
+	}
+	/**
 	 * Enumerate all dogs that matches requested criteria and order
 	 * @return null on error, else requested data
 	 */
@@ -285,7 +304,7 @@ class Dogs {
 		}
 		// retrieve result into an array
 		$result = array();
-		while($row = $rs->fetch_array()){
+		while($row = $rs->fetch_array()){ // should be only one item
 			$row['Operation']='update'; // dirty trick to ensure that form operation is rewritten on loadform
 			array_push($result, $row);
 		}

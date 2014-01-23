@@ -13,6 +13,7 @@ try {
 		case "insert": $result=$perros->insert(); break;
 		case "update": $result=$perros->update(http_request("Dorsal","i",0)); break;
 		case "delete": $result=$perros->delete(http_request("Dorsal","i",0)); break;
+		case "orphan": $result=$perros->orphan(http_request("Dorsal","i",0)); break; // unassign from handler
 		case "select": $result=$perros->select(); break; // list with order, index, count and where
 		case "enumerate": $result=$perros->enumerate(); break; // list with where
 		case "getbyguia": $result=$perros->selectByGuia(http_request("Guia","s",null)); break;

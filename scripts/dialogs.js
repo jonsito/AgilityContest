@@ -245,7 +245,7 @@ function delGuiaFromClub(club) {
 
     $.messager.confirm('Confirm',"Borrar asignacion del gu&iacute;a '"+row.Nombre+"' al club '"+club.Nombre+"' ¿Seguro?'",function(r){
         if (r){
-            $.get('database/clubFunctions.php',{'Operation':'orphan','Nombre':row.Nombre},function(result){
+            $.get('database/guiaFunctions.php',{'Operation':'orphan','Nombre':row.Nombre},function(result){
                 if (result.success){
                     $('#guias-datagrid-'+replaceAll(' ','_',club.Nombre)).datagrid('reload');    // reload the guia data
                 } else {
@@ -406,7 +406,7 @@ function delPerroFromGuia(guia) {
     if (!row) return;
     $.messager.confirm('Confirm',"Borrar asignacion del perro '"+row.Nombre+"' al guia '"+guia.Nombre+"' ¿Seguro?'",function(r){
         if (r){
-            $.get('database/guiaFunctions.php',{Operation:'orphan',Dorsal:row.Dorsal},function(result){
+            $.get('database/dogFunctions.php',{Operation:'orphan',Dorsal:row.Dorsal},function(result){
                 if (result.success){
                     $('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('reload');    // reload the guia data
                 } else {

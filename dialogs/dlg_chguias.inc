@@ -99,7 +99,7 @@
     		onSelect: function(index,row) {
     			var nombre=row.Nombre;
     			if (!nombre) return;
-    	        $('#chguias-form').form('load','database/get_guiaByNombre.php?Nombre='+nombre); // load form with json retrieved data
+    	        $('#chguias-form').form('load','database/guiaFunctions.php?Operation=getbyname&Nombre='+nombre); // load form with json retrieved data
     			$('#chguias-Club').val($('#chguias-newClub').val()); // restore "Club" field
     			$('#chguias-Viejo').val(nombre);
     		}

@@ -100,7 +100,7 @@
         	// - sub tabla de guias inscritos en un club
         	$('#guias-datagrid-'+replaceAll(' ','_',club.Nombre)).datagrid({
         		title: 'Gu&iacute;as inscritos en el club '+club.Nombre,
-        		url: 'database/select_GuiasByClub.php?Club='+club.Nombre,
+        		url: 'database/guiaFunctions.php?Operation=getbyclub&Club='+club.Nombre,
         		method: 'get',
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		toolbar: [{

@@ -28,7 +28,7 @@
         // - tabla
         $('#guias-datagrid').datagrid({
         	title: 'Gesti&oacute;n de datos de Gu&iacute;as',
-        	url: 'database/select_guias.php',
+        	url: 'database/guiaFunctions.php?Operation=select',
         	method: 'get',
             toolbar: '#guias-toolbar',
             pagination: true,
