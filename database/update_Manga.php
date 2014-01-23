@@ -1,7 +1,7 @@
 <?php
 // mandatory includes :-)
 require_once("logging.php");
-require_once("DBConnection.php");
+require_once("classes/DBConnection.php");
 
 // connect database
 $conn=DBConnection::openConnection("agility_operator","operator@cachorrera");

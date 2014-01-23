@@ -1,5 +1,5 @@
 <?php
-	require_once("DBConnection.php");
+	require_once("classes/DBConnection.php");
 	require_once("logging.php");
 	// evaluate offset and row count for query
 	$like = isset($_GET['q']) ? " WHERE Provincia LIKE '".$_GET['q']."%'" : "";

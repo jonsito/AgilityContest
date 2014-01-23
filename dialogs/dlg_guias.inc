@@ -81,7 +81,7 @@
 			panelHeight: 200,
 			idField: 'Nombre',
 			textField: 'Nombre',
-			url: 'database/enumerate_Clubes.php',
+			url: 'database/clubFunctions.php?Operation=enumerate',
 			method: 'get',
 			mode: 'remote',
 			required: true,

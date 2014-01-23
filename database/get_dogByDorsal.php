@@ -1,6 +1,6 @@
 <?php
 	require_once("logging.php");
-	require_once("DBConnection.php");
+	require_once("classes/DBConnection.php");
 	// evaluate offset and row count for query
 	$dorsal = isset($_GET['Dorsal']) ? intval($_GET['Dorsal']) : 0;
 	// connect database

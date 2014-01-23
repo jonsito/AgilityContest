@@ -1,6 +1,6 @@
 <?php
 	require_once("logging.php");
-	require_once("DBConnection.php");
+	require_once("classes/DBConnection.php");
 	
 	function insertGuia ($conn) {
 		$msg=""; // default: no errors

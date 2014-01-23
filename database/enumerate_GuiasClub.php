@@ -1,5 +1,5 @@
 <?php
-	require_once("DBConnection.php");
+	require_once("classes/DBConnection.php");
 	// evaluate search terms
 	$like = isset($_GET['q']) ? " WHERE ( (Nombre LIKE '".$_GET['q']."%') OR (Club LIKE '".$_GET['q']."%'))" : "";
 	$result = array();

@@ -1,7 +1,7 @@
 <?php
 	// retrieve the list of dogs owned by given guia
 	require_once("logging.php");
-	require_once("DBConnection.php");
+	require_once("classes/DBConnection.php");
 	do_log("enumerate_JornadasAbiertasByPrueba::enter()");
 	$result = array();
 	$items = array();

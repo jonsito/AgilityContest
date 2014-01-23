@@ -2,8 +2,8 @@
 /** mandatory requires for database and logging */
 require_once("tools.php");
 require_once("logging.php");
-require_once("DBConnection.php");
-require_once("OrdenSalida.php");
+require_once("classes/DBConnection.php");
+require_once("classes/OrdenSalida.php");
 
 $file="ordenSalidaFunctions";
 

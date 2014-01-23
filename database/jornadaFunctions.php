@@ -1,6 +1,6 @@
 <?php
 	require_once("logging.php");
-	require_once("DBConnection.php");
+	require_once("classes/DBConnection.php");
 	
 	/*********** creacion / borrado de mangas asociadas a una jornada *************/
 	function create_manga($conn,$jornada,$tipo) {

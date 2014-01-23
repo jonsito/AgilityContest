@@ -1,5 +1,5 @@
 <?php
-	require_once("DBConnection.php");
+	require_once("classes/DBConnection.php");
 	require_once("logging.php");
 	do_log("select_InscritosByPrueba():: enter");
 	// evaluate offset and row count for query

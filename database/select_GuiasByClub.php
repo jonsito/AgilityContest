@@ -1,7 +1,7 @@
 <?php
 	// retrieve the list of dogs owned by given guia
 	require_once("logging.php");
-	require_once("DBConnection.php");
+	require_once("classes/DBConnection.php");
 	// evaluate offset and row count for query
 	$result = array();
 	$items = array();

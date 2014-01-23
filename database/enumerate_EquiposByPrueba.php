@@ -1,5 +1,5 @@
 <?php
-	require_once("DBConnection.php");
+	require_once("classes/DBConnection.php");
 	require_once("logging.php");
 	// retrieve prueba ID
 	$id=intval($_REQUEST['ID']); // PruebaID

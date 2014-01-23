@@ -1,5 +1,5 @@
 <?php
-	require_once("DBConnection.php");
+	require_once("classes/DBConnection.php");
 	// evaluate offset and row count for query
 	$like= "";
 	if (isset($_GET['q'])) {
