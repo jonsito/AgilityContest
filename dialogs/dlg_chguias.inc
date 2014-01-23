@@ -85,7 +85,7 @@
     		panelHeight: 200,
     		idField: 'Nombre',
     		textField: 'Nombre',
-    		url: 'database/enumerate_GuiasClub.php',
+    		url: 'database/guiaFunctions.php?Operation=enumerate',
     		method: 'get',
     		mode: 'remote',
     		columns: [[

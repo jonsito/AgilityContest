@@ -188,8 +188,41 @@ class Guias {
 		return $result;
 	}
 	
-	function enumerate() {
-		return "";
+	function enumerate() { // like select but add a search key
+
+		do_log("enumerateGuias():: enter");
+		
+		// evaluate search string
+		$q=http_request("q","s",null);
+		$like =  ($q===null) ? "" : " WHERE ( ( Nombre LIKE '%$q%' ) OR ( Club LIKE '%$q%' ) )";
+		
+		$result = array();
+		// execute first query to know how many elements
+		$rs=$this->conn->query("SELECT count(*) FROM Guias ".$like);
+		if ($rs===false) {
+			$this->errormsg="select( count (*) ) error: ".$this->conn->error;
+			return null;
+		}
+		$row=$rs->fetch_row();
+		$rs->free();
+		$result["total"] = $row[0];
+		
+		// second query to retrieve $rows starting at $offset
+		$rs=$conn->query("SELECT Nombre,Club FROM Guias ".$like." ORDER BY Club,Nombre");
+		if ($rs===false) {
+			$this->errormsg="select( * ) error: ".$this->conn->error;
+			return null;
+		}
+		// retrieve result into an array
+		$items = array();
+		while($row = $rs->fetch_array()){
+			array_push($items, $row);
+		}
+		$result["rows"] = $items;
+		// disconnect from database and return
+		$rs->free();
+		do_log("enumerateGuias():: exit");
+		return $result;
 	}
 	
 	
@@ -230,10 +263,7 @@ class Guias {
 		$result["rows"] = $items;
 		return result;
 	}
-
-	function search() { // same as select but add search criteria
 	
-	}
 	function selectByNombre($nombre) {
 		do_log("selectGuiaByNombre:: enter");
 		if ($nombre===null) {
