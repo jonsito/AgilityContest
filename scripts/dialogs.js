@@ -317,7 +317,7 @@ function editInscribedDog(mode){
 	if (mode==0) dorsal= $('#inscripciones-Dorsal').val();
 	else dorsal= $('#chinscripciones-Dorsal').val();
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro a inscribir');
-    $('#perros-form').form('load','database/get_dogByDorsal.php?Dorsal='+dorsal);// load form with row data
+    $('#perros-form').form('load','database/dogFunctions.php?Operation=getbydorsal&Dorsal='+dorsal);// load form with row data
 	$('#perros-Parent').val(''); // no parent datagrid
     $('#perros-Operation').val('update'); // mark "update" operation
 }
@@ -385,11 +385,12 @@ function saveDog(){
                 });
             } else {
             	var parent=$('#perros-Parent').val();
+            	var url='database/dogFunctions.php=Operation=getbydorsal&Dorsal='+dorsal;
             	// reload the dog data on datagrid (if any)
                 $('#perros-datagrid'+parent).datagrid('reload');
                 // reload the dog data from inscripciones (if any)
-    	        $('#inscripciones-data').form('load','database/get_dogByDorsal.php?Dorsal='+dorsal);
-    	        $('#chinscripciones-data').form('load','database/get_dogByDorsal.php?Dorsal='+dorsal);
+    	        $('#inscripciones-data').form('load',url);
+    	        $('#chinscripciones-data').form('load',url);
     	        // close the dialog
                 $('#perros-dialog').dialog('close');   
             }
@@ -852,7 +853,7 @@ function editInscripcion() {
 	// abrimos dialogo de edicion de inscripcion
 	$('#chinscripciones-dialog').dialog('open').dialog('setTitle','Modificar datos de inscripci&oacute;n');
 	// rellenamos formulario de datos del perro
-	$('#chinscripciones-data').form('load','database/get_dogByDorsal.php?Dorsal='+row.Dorsal);
+	$('#chinscripciones-data').form('load','database/dogFunctions.php?Operation=getbydorsal&Dorsal='+row.Dorsal);
 	// rellenamos formulario de la inscripcion
 	$('#chinscripciones-form').form('load',row);
 	// ajustamos checkboxes (un cb tiene "value" and "checked" como propiedades, y el 'load' solo toca "value")

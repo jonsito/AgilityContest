@@ -11,8 +11,8 @@
 		switch ($operation) {
 			case "insert": $result=$clubes->insert(); break;
 			case "update": $result=$clubes->update(); break;
-			case "delete": $result=$clubes->delete(http_request("Nombre",s,null)); break;
-			case "orphan": $result=$clubes->orphan(http_request("Nombre",s,null)); break;
+			case "delete": $result=$clubes->delete(http_request("Nombre","s",null)); break;
+			case "orphan": $result=$clubes->orphan(http_request("Nombre","s",null)); break;
 			case "select": $result=$clubes->select(); break;
 			case "enumerate": $result=$clubes->enumerate(); break;
 			default: throw new Exception("clubFunctions:: invalid operation: $operation provided");

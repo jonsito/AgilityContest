@@ -34,7 +34,7 @@
         // - tabla
         $('#perros-datagrid').datagrid({
         	title: 'Gesti&oacute;n de datos de Perros',
-        	url: 'database/select_dogs.php',
+        	url: 'database/dogFunctions.php?Operation=select',
         	method: 'get',
             toolbar: '#perros-toolbar',
             pagination: true,
@@ -42,15 +42,15 @@
             fitColumns: true,
             singleSelect: true,
             columns: [[
-            	{ field:'Dorsal',   width:5,  sortable:true, align: 'right', title: 'Dorsal' },
-            	{ field:'Nombre',   width:10, sortable:true,                 title: 'Nombre' },
-            	{ field:'Raza',     width:15,                                title: 'Raza' },
-            	{ field:'LOE_RRC',  width:10, sortable:true, align: 'right', title: 'LOE / RRC' },
+            	{ field:'Dorsal',   width:10,  sortable:true, align: 'right', title: 'Dorsal' },
+            	{ field:'Nombre',   width:30, sortable:true,  align: 'right', title: 'Nombre' },
+            	{ field:'Raza',     width:25,                align: 'right', title: 'Raza' },
+            	{ field:'LOE_RRC',  width:15, sortable:true, align: 'right', title: 'LOE / RRC' },
             	{ field:'Licencia', width:10, sortable:true, align: 'right', title: 'Lic.' },
             	{ field:'Categoria',width:5,                 align:'center', title: 'Cat.' },
-            	{ field:'Grado',    width:5,                 align:'center', title: 'Grado' },
-                { field:'Guia',     width:25, sortable:true,                 title: 'Nombre del Gu&iacute;a'},
-                { field:'Club',     width:15, sortable:true,                 title: 'Club'}
+            	{ field:'Grado',    width:7,                 align:'center', title: 'Grado' },
+                { field:'Guia',     width:45, sortable:true,                 title: 'Nombre del Gu&iacute;a'},
+                { field:'Club',     width:35, sortable:true,                 title: 'Club'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:function(index,row) { 

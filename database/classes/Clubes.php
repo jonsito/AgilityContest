@@ -40,6 +40,10 @@ class Clubes {
 				Web,Email,Facebook,Google,Twitter,Observaciones,Baja)
 			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
+		if (!$stmt) {
+			$this->errormsg="insertClub::prepare() failed ".$this->conn->error;
+			return null;
+		}
 		$res=$stmt->bind_param('sssssssssssssss',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,
 				$web,$email,$facebook,$google,$twitter,$observaciones,$baja);
 		if (!$res) {
@@ -67,13 +71,13 @@ class Clubes {
 		do_log("Nombre: $nombre Direccion1: $direccion1 Contacto1: $contacto1 Observaciones: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
+		$stmt->close();
 		if (!$res) {
 			$this->errormsg="insertClub:: Error: ".$this->conn->error;
 			return null;
 		}
 		// do_log("insertadas $stmt->affected_rows filas");
 		do_log("insertClub:: exit ok");
-		$stmt->close();
 		return ""; // return ok
 	}
 	
@@ -127,7 +131,6 @@ class Clubes {
 			$this->errormsg="updateClub:: Error: ".$this->conn->error;
 			return null;
 		}
-		//_log("updateClub:: actualizadas $stmt->affected_rows filas");
 		do_log("updateClub:: exit ok");
 		$stmt->close();
 		return "";
@@ -191,6 +194,7 @@ class Clubes {
 		if ($search!=='') $where=" WHERE ( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') OR ( Facebook LIKE '%$search%') ) ";
 		$offset = ($page-1)*$rows;
 		$result = array();
+		
 		// execute first query to know how many elements
 		$rs=$this->conn->query("SELECT count(*) FROM Clubes $where");
 		if ($rs===false) {
@@ -227,8 +231,9 @@ class Clubes {
 		// evaluate offset and row count for query
 		$q=http_request("q","s",null);
 		$like =  ($q===null) ? "" : " WHERE Nombre LIKE '%".$q."%'";
-		$result = array();
+		
 		// execute first query to know how many elements
+		$result = array();
 		$rs=$this->conn->query("SELECT count(*) FROM Clubes ".$like);
 		if ($rs===false) {
 			$this->errormsg="select( count* ) error: ".$this->conn->error;

@@ -91,8 +91,8 @@
         	// - sub tabla de perros asignados a un guia
         	$('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid({
         		title: 'Perros registrados a nombre de '+guia.Nombre,
-        		url: 'database/select_PerrosByGuia.php',
-        		queryParams: { Guia: guia.Nombre },
+        		url: 'database/dogFunctions.php',
+        		queryParams: { Operation: 'getbyguia', Guia: guia.Nombre },
         		method: 'get',
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		// toolbar: '#perrosbyguia-toolbar', 

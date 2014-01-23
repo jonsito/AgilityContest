@@ -189,7 +189,7 @@
 		panelHeight: 200,
 		idField: 'Dorsal',
 		textField: 'Nombre',
-		url: 'database/enumerate_Perros.php',
+		url: 'database/dogFunctions.php?Operation=enumerate',
 		method: 'get',
 		mode: 'remote',
 		required: true,
@@ -209,7 +209,7 @@
 			var dorsal=row.Dorsal;
 			if (!dorsal) return;
 			// load form with json retrieved data
-	        $('#inscripciones-data').form('load','database/get_dogByDorsal.php?Dorsal='+dorsal);
+	        $('#inscripciones-data').form('load','database/dogFunctions.php?Operation=getbydorsal&Dorsal='+dorsal);
 	        // and set default Team and money
 	        $('#inscripciones-Equipo').combogrid('setValue','-- Sin asignar --'); 
 	        $('#inscripciones-Pagado').val(0); 

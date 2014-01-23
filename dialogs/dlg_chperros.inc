@@ -93,7 +93,7 @@
 		panelHeight: 200,
 		idField: 'Nombre',
 		textField: 'Nombre',
-		url: 'database/enumerate_Perros.php',
+		url: 'database/dogFunctions.php?Operation=enumerate',
 		method: 'get',
 		mode: 'remote',
 		columns: [[
@@ -111,7 +111,7 @@
 		onSelect: function(index,row) {
 			var dorsal=row.Dorsal;
 			if (!dorsal) return;
-	        $('#chperros-form').form('load','database/get_dogByDorsal.php?Dorsal='+dorsal); // load form with json retrieved data
+	        $('#chperros-form').form('load','database/dogFunctions.php?Operation=getbydorsal&Dorsal='+dorsal); // load form with json retrieved data
 		}
 	});
     $('#chperros-Nombre').validatebox({
