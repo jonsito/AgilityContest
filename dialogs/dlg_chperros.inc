@@ -125,7 +125,7 @@
     	method: 'get',
     	mode: 'remote',
 		required: true,
-    	url:'database/enumerate_Grados_Perro.php',
+    	url:'database/dogFunctions.php?Operation=grados',
     	// TODO: this should work. study why doesn't
 		onLoadSuccess: function(data){
 			for(var i=0; i<data.length; i++){
@@ -145,6 +145,6 @@
 		method: 'get',
 		mode: 'remote',
 		required: true,
-		url:'database/enumerate_Categorias_Perro.php'
+		url:'database/dogFunctions.php?Operation=categorias'
     });
     </script>

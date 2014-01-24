@@ -313,6 +313,72 @@ class Dogs {
 		do_log("selectByDorsal:: exit");
 		return $result;
 	}
+	
+	/**
+	 * Enumerate categorias ( std, small, medium, tiny 
+	 * Notice that this is not a combogrid, just combobox, so dont result count
+	 * @return null on error; result on success
+	 */
+	function categoriasPerro() {
+		do_log("categoriasPerro:: enter");
+		// evaluate offset and row count for query
+		$q=http_request("q","s",null);
+		$like =  ($q===null) ? "" : " WHERE Categoria LIKE '%".$q."%'";
+	
+		// query to retrieve table data
+		$sql="SELECT Categoria,Observaciones FROM Categorias_Perro ".$like." ORDER BY Categoria";
+		do_log("query string is $sql");
+		$rs=$this->conn->query($sql);
+		if ($rs===false) {
+			$this->errormsg="select( Categoria,Observaciones ) error: ".$this->conn->error;
+			return null;
+		}
+		// retrieve result into an array
+		$result = array();
+		while($row = $rs->fetch_array()){
+			// add a default state for comobobox
+			if ($row["Categoria"]==='-') { $row["selected"]=true; $row[2]=true;}
+			// and store into result array
+			array_push($result, $row);
+		}
+		// clean and return
+		$rs->free();
+		do_log("categoriasPerro:: exit OK");
+		return $result;
+	}
+	
+	/**
+	 * Enumerate grados 
+	 * @return null on error; result on success
+	 * Notice that this is not a combogrid, just combobox, so dont result count
+	 */
+	function gradosPerro() {
+		do_log("gradosPerro:: enter");
+		// evaluate offset and row count for query
+		$q=http_request("q","s",null);
+		$like =  ($q===null) ? "" : " WHERE Grado LIKE '%".$q."%'";
+
+		// query to retrieve table data
+		$sql="SELECT Grado,Comentarios FROM Grados_Perro ".$like." ORDER BY Grado";
+		do_log("query string is: $sql");
+		$rs=$this->conn->query($sql);
+		if ($rs===false) {
+			$this->errormsg="select( Grado,Comentarios ) error: ".$this->conn->error;
+			return null;
+		}
+		// retrieve result into an array
+		$result = array();
+		while($row = $rs->fetch_array()){
+			// add a default state for comobobox
+			if ($row["Grado"]==='-') { $row["selected"]=true; $row[2]=true;}
+			// and store into result array
+			array_push($result, $row);
+		}
+		// clean and return
+		$rs->free();
+		do_log("gradosPerro:: exit OK");
+		return $result;
+	}
 }
 	
 ?>

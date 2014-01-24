@@ -65,7 +65,7 @@ $('#inscripciones_info').panel({
 	collapsed:true
 });
 $('#inscripciones_infolayout').layout();
-$('#inscripciones_pruebas').form('load','database/get_pruebaByID.php?ID='+workingData.prueba);
+$('#inscripciones_pruebas').form('load','database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
 $('#inscripciones_jornadas').datagrid({
 	url: 'database/select_JornadasByPrueba.php?Prueba='+workingData.prueba,
 	method: 'get',

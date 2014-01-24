@@ -95,11 +95,13 @@
     	textField:'Comentarios',
     	method: 'get',
     	mode: 'remote',
-    	url:'database/enumerate_Grados_Perro.php',
+    	url:'database/dogFunctions.php?Operation=grados',
     	// TODO: this should work. study why doesn't
 		onLoadSuccess: function(data){
-			for(var i=0; i<data.length; i++){
+			alert(JSON.stringify(data));
+			for(var i=0; i<data.length(); i++){
 				var row = data[i];
+				alert("Data[Grado]: "+data[i].Grado);
 				// the row with 'selected' property set to true will be acted as the selected row
 				if (row.selected){  
     				// alert('selected value is: '+row.Grado);
@@ -114,7 +116,7 @@
 		textField:'Observaciones',
 		method: 'get',
 		mode: 'remote',
-		url:'database/enumerate_Categorias_Perro.php'
+		url:'database/dogFunctions.php?Operation=categorias'
     });
     $('#perros-Guia').combogrid({
 		panelWidth: 350,

@@ -15,9 +15,11 @@ try {
 		case "delete": $result=$perros->delete(http_request("Dorsal","i",0)); break;
 		case "orphan": $result=$perros->orphan(http_request("Dorsal","i",0)); break; // unassign from handler
 		case "select": $result=$perros->select(); break; // list with order, index, count and where
-		case "enumerate": $result=$perros->enumerate(); break; // list with where
-		case "getbyguia": $result=$perros->selectByGuia(http_request("Guia","s",null)); break;
-		case "getbydorsal": $result=$perros->selectByDorsal(http_request("Dorsal","i",0)); break;
+		case "enumerate":	$result=$perros->enumerate(); break; // list with where
+		case "getbyguia":	$result=$perros->selectByGuia(http_request("Guia","s",null)); break;
+		case "getbydorsal":	$result=$perros->selectByDorsal(http_request("Dorsal","i",0)); break;
+		case "categorias":	$result=$perros->categoriasPerro(); break;
+		case "grados":		$result=$perros->gradosPerro(); break;
 		default: throw new Exception("dogFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) throw new Exception($perros->errormsg);
