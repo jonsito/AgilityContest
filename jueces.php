@@ -23,22 +23,22 @@
         // - tabla
         $('#jueces-datagrid').datagrid({
         	title: 'Gesti&oacute;n de datos de Jueces',
-        	url: 'database/select_jueces.php',
+        	url: 'database/juezFunctions.php?Operation=select',
         	method: 'get',
             toolbar: '#jueces-toolbar',
             pagination: true,
-            rownumbers: true,
+            rownumbers: false,
             fitColumns: true,
             singleSelect: true,
             columns: [[
-            	{ field:'Nombre',		width:20, sortable:true,	title: 'Nombre:' },
-            	{ field:'Direccion1',	width:12,					title: 'Direcci&oacute;n 1:' },
-            	{ field:'Direccion2',	width:12,                   title: 'Direcci&oacute;n 2' },
-            	{ field:'Telefono',		width:11, sortable:true,	title: 'Tel&eacute;fono' },
+            	{ field:'Nombre',		width:40, sortable:true,	title: 'Nombre:' },
+            	{ field:'Direccion1',	width:30,					title: 'Direcci&oacute;n 1:' },
+            	{ field:'Direccion2',	width:30,                   title: 'Direcci&oacute;n 2' },
+            	{ field:'Telefono',		width:20, sortable:true,	title: 'Tel&eacute;fono' },
             	{ field:'Internacional',width:5, align:'center',	title: 'Int.' 	},
             	{ field:'Practicas',	width:5, align:'center',	title: 'Pract.' },
-            	{ field:'Email',		width:18, sortable:true,    title: 'Correo Electr&oacute;nico' },
-                { field:'Observaciones',width:15,					title: 'Observaciones'}
+            	{ field:'Email',		width:30, sortable:true,    title: 'Correo Electr&oacute;nico' },
+                { field:'Observaciones',width:20,					title: 'Observaciones'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:function(index,row) { 

@@ -209,7 +209,7 @@ class Dogs {
 	function enumerate() {
 		do_log("enumerateDogs():: enter");
 		
-		// evaluate offset and row count for query
+		// evaluate search criteria for query
 		$q=http_request("q","s",null);
 		$like =  ($q===null) ? "" : " WHERE ( ( Nombre LIKE '%$q%' ) OR ( Guia LIKE '%$q%' ) OR ( Club LIKE '%$q%' ) )";
 
