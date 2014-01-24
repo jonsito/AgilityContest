@@ -50,7 +50,7 @@ $('#selprueba-Search').combogrid({
 	panelHeight: 100,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: 'database/enumerate_PruebasAbiertas.php',
+	url: 'database/pruebaFunctions.php?Operation=enumerate',
 	method: 'get',
 	mode: 'remote',
 	required: true,
