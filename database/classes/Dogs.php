@@ -337,7 +337,9 @@ class Dogs {
 		$result = array();
 		while($row = $rs->fetch_array()){
 			// add a default state for comobobox
-			if ($row["Categoria"]==='-') { $row["selected"]=true; $row[2]=true;}
+			if ($row["Categoria"]==='-') 
+				{ $row["selected"]=1; $row[2]=1;}
+			else { $row["selected"]=0; $row[2]=0;}
 			// and store into result array
 			array_push($result, $row);
 		}
@@ -370,7 +372,9 @@ class Dogs {
 		$result = array();
 		while($row = $rs->fetch_array()){
 			// add a default state for comobobox
-			if ($row["Grado"]==='-') { $row["selected"]=true; $row[2]=true;}
+			if ($row["Grado"]==='-') 
+				{ $row["selected"]=1; $row[2]=1;}
+			else { $row["selected"]=0; $row[2]=0;}
 			// and store into result array
 			array_push($result, $row);
 		}

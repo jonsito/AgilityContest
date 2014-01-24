@@ -98,12 +98,10 @@
     	url:'database/dogFunctions.php?Operation=grados',
     	// TODO: this should work. study why doesn't
 		onLoadSuccess: function(data){
-			alert(JSON.stringify(data));
-			for(var i=0; i<data.length(); i++){
+			for(var i=0; i<data.length; i++){
 				var row = data[i];
-				alert("Data[Grado]: "+data[i].Grado);
 				// the row with 'selected' property set to true will be acted as the selected row
-				if (row.selected){  
+				if (row.selected==1){  
     				// alert('selected value is: '+row.Grado);
 					$(this).combobox('setValue',row.Grado);
 				}
