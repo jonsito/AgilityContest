@@ -3,76 +3,27 @@
 	require_once("classes/DBConnection.php");
 	
 	/*********** creacion / borrado de mangas asociadas a una jornada *************/
-	function create_manga($conn,$jornada,$tipo) {
-		// si la manga existe no hacer nada; si no existe crear manga
-		$str="SELECT count(*) AS 'result' FROM Mangas WHERE ( Jornada = $jornada ) AND  ( Tipo = '".$tipo."' )";
-		$rs=$conn->query($str);
-		if (!$rs) {
-			$str="inscripcionFunctions::create_manga( select_count(*) , $jornada , $tipo ) failed: ".$conn->error;
-			do_log($str);
-			return;
-		}
-		$row=$rs->fetch_row();
-		if ($row[0]!=0) return; // manga already created
-		$rs->free();
-		$str="INSERT INTO Mangas ( Jornada , Tipo ) VALUES ($jornada,'".$tipo."')";
-		$rs=$conn->query($str);
-		if (!$rs) {
-			$str="inscripcionFunctions::create_manga( insert , $jornada , $tipo ) failed: ".$conn->error;
-			do_log($str);
-		}
-		// crear entrada de TRS/TRM asociada a la manga
-		$id=$rs->insert_id; // retrieve jornada id
-		$str="INSERT INTO Tiempos_Manga ( Manga ) VALUES ( $id )";
-		if (!$rs) {
-			$str="inscripcionFunctions::create_manga( insert , $jornada , $tipo ) failed: ".$conn->error;
-			do_log($str);
-		}
-		return;
-	}
-	
-	function delete_manga($conn,$jornada,$tipo) {
-		// si la manga existe, borrarla; si no existe, no hacer nada
-		$str="DELETE FROM Mangas WHERE ( Jornada = $jornada ) AND  ( Tipo = '".$tipo."' )";
-		$rs=$conn->query($str);
-		if (!$rs) {
-			$str="inscripcionFunctions::delete_manga( $jornada , $tipo ) failed: ".$conn->error;
-			do_log($str);
-		}
-		return;
-	}
-	
 	function declare_mangas($conn,$id,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras) {
-		if ($grado1) {
-			create_manga($conn,$id,'Agility-1 GI');
-			create_manga($conn,$id,'Agility-2 GI');
-		} else {
-			create_manga($conn,$id,'Agility-1 GI');
-			create_manga($conn,$id,'Agility-2 GI');
-		}
-		if ($grado2) {
-			create_manga($conn,$id,'Agility GII');
-			create_manga($conn,$id,'Jumping GII');
-		} else {
-			delete_manga($conn,$id,'Agility GII');
-			delete_manga($conn,$id,'Jumping GII');
-		}
-		if ($grado3) {
-			create_manga($conn,$id,'Agility GIII');
-			create_manga($conn,$id,'Jumping GIII');
-		} else {
-			delete_manga($conn,$id,'Agility GIII');
-			delete_manga($conn,$id,'Jumping GIII');
-		}
-		if ($equipos) {
-			create_manga($conn,$id,'Agility Equipos');
-			create_manga($conn,$id,'Jumping Equipos');
-		} else {
-			delete_manga($conn,$id,'Agility Equipos');
-			delete_manga($conn,$id,'Jumping Equipos');
-		}
-		if ($preagility) { create_manga($conn,$id,'Pre-Agility'); } else { delete_manga($conn,$id,'Pre-Agility'); }
-		if ($exhibicion) { create_manga($conn,$id,'Exhibicion'); } else { delete_manga($conn,$id,'Exhibicion'); }
+		$mangas =new Mangas($id);	
+		
+		if ($grado1) { 	$mangas->insert('Agility-1 GI','GI'); $mangas->insert('Agility-2 GI','GI');		} 
+		else { $mangas->delete('Agility-1 GI');	$mangas->delete('Agility-2 GI'); }
+		
+		if ($grado2) { $mangas->insert('Agility GII','GII'); $mangas->insert('Jumping GII','GII'); } 
+		else { $mangas->delete('Agility GII'); $mangas->delete('Jumping GII'); }
+		
+		if ($grado3) { $mangas->insert('Agility GIII','GIII'); $mangas->insert('Jumping GIII','GIII'); } 
+		else { $mangas->delete('Agility GIII');	$mangas->delete('Jumping GIII'); }
+		
+		if ($equipos) {	$mangas->insert('Agility Equipos','-');	$mangas->insert('Jumping Equipos','-');	} 
+		else { $mangas->delete('Agility Equipos');	$mangas->delete('Jumping Equipos');	}
+		
+		if ($preagility) { $mangas->insert('Pre-Agility','P.A.'); } 
+		else { $mangas->delete('Pre-Agility'); }
+		
+		if ($exhibicion) { $mangas->insert('Exhibicion','-');} 
+		else { $mangas->delete('Exhibicion'); }
+		
 		// TODO: Decidir que se hace con las mangas 'otras'
 		// TODO: las mangas KO hay que crearlas dinamicamente en funcion del numero de participantes
 	}

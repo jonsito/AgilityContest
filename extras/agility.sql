@@ -806,6 +806,7 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
   `Jornada` int(4) NOT NULL,
   `Tipo` varchar(16) NOT NULL DEFAULT 'Otras',
+  `Grado` varchar(16) NOT NULL DEFAULT '-', 
   `Recorrido`		int(4) NOT NULL DEFAULT '0', -- 0:LMS -- 1:L+MS -- 2:L+M+S
   `Dist_L`			int(4) NOT NULL DEFAULT '0',
   `Obst_L`			int(4) NOT NULL DEFAULT '0',
@@ -837,10 +838,11 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
   `Cerrada`			tinyint(1) NOT NULL DEFAULT '0',
   `Orden_Salida`	text NOT NULL DEFAULT '',
   PRIMARY KEY (`ID`),
-  KEY `Tipo` (`Tipo`),
-  KEY `Juez Titular` (`Juez1`),
-  KEY `Juez Practicas` (`Juez2`),
-  KEY `Jornada` (`Jornada`)
+  KEY `Mangas_Tipo` (`Tipo`),
+  KEY `Mangas_Juez Titular` (`Juez1`),
+  KEY `Mangas_Juez Practicas` (`Juez2`),
+  KEY `Mangas_Jornada` (`Jornada`),
+  KEY `Mangas_Grado` (`Grado`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
 
 --
@@ -1569,7 +1571,8 @@ ALTER TABLE `Mangas`
   ADD CONSTRAINT `Mangas_ibfk_1` FOREIGN KEY (`Tipo`) REFERENCES `Tipo_Manga` (`Tipo`) ON UPDATE CASCADE,
   ADD CONSTRAINT `Mangas_ibfk_2` FOREIGN KEY (`Juez1`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`Juez2`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Mangas_ibfk_5` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE;
 --
 -- Filtros para la tabla `Tipo_Manga`
 --
