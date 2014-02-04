@@ -275,6 +275,45 @@ class Pruebas {
 		return $result;
 	}
 	
+	function equiposByPrueba($id) {
+		do_log("pruebas::equiposByPrueba() enter");
+		if ($id==0) {
+			$this->errormsg="pruebas::selectEquiposByPrueba() Error: invalid prueba ID";
+			return null;
+		}
+		$q=http_request("q","s","");
+		$like="";
+		if ($q!=="") $like=" AND ( ( Nombre LIKE '%$q%' ) OR ( Observaciones LIKE '%$q%' ) )";
+		
+		$result = array();
+		// execute first query to know how many elements
+		$rs=$this->conn->query("SELECT count(*) FROM Equipos WHERE ( Prueba = $id )".$like);
+		if (!$rs) {
+			$this->errormsg="pruebas::selectEquiposByPrueba() select(count(*)) Error: ".$this->conn->error;
+			return null;
+		}
+		$row=$rs->fetch_row();
+		$result["total"] = $row[0];
+		$rs->free();
+		// second query to retrieve $rows starting at $offset
+		$str="SELECT * FROM Equipos WHERE ( Prueba = $id )".$like." ORDER BY Nombre ASC";
+		do_log("pruebas::selectEquiposByPrueba() query string: $str");
+		$rs=$this->conn->query($str);
+		if (!$rs) {
+			$this->errormsg="pruebas::selectEquiposByPrueba() select(*) Error: ".$this->conn->error;
+			return null;
+		}
+		// retrieve result into an array
+		$items = array();
+		while($row = $rs->fetch_array()){
+			array_push($items, $row);
+		}
+		$result["rows"] = $items;
+		// disconnect from database
+		$rs->free();
+		do_log("pruebas::selectEquiposByPrueba() exit OK");
+		return $result;
+	}
 }
 
 ?>

@@ -169,7 +169,7 @@
 		panelHeight: 100,
 		idField: 'ID',
 		textField: 'Nombre',
-		url: 'database/enumerate_EquiposByPrueba.php?ID='+workingData.prueba,
+		url: 'database/pruebaFunctions.php?Operation=equipos&ID='+workingData.prueba,
 		method: 'get',
 		mode: 'remote',
 		required: true,
