@@ -1,6 +1,7 @@
 <?php
 
 require_once("DBConnection.php");
+require_once("Mangas.php");
 
 class Jornadas {
 	protected $conn;
@@ -225,19 +226,14 @@ class Jornadas {
 	
 	/**
 	 * select all jornadas related to provided prueba 
-	 * @param {integer} $prueba prueba ID
 	 * @return unknown
 	 */
-	function selectByPrueba($prueba) {
+	function selectByPrueba() {
 		do_log("jornada::selectByPrueba() enter");
-		if ($prueba<=0) {
-			$this->errormsg="jornada::selectByPrueba() Error: invalid prueba ID";
-			return null;
-		}
 		$result = array();
 		$items = array();
 		
-		$str="SELECT count(*) FROM Jornadas WHERE ( Prueba = $prueba )";
+		$str="SELECT count(*) FROM Jornadas WHERE ( Prueba = ".$this->prueba." )";
 		$rs=$this->conn->query($str);
 		if (!$rs) {
 			$this->errormsg="jornadas::selectByPrueba() select( count(*) ) Error: ".$this->conn->error;
@@ -247,7 +243,7 @@ class Jornadas {
 		$result["total"] = $row[0];
 		$rs->free();
 		if ($result["total"]>0) {
-			$str="SELECT * FROM Jornadas WHERE ( Prueba = $prueba ) ORDER BY Numero ASC";
+			$str="SELECT * FROM Jornadas WHERE ( Prueba = ".$this->prueba." ) ORDER BY Numero ASC";
 			do_log("select_JornadasByPrueba::(select) $str");
 			$rs=$this->conn->query($str);
 			if (!$rs){
@@ -267,10 +263,9 @@ class Jornadas {
 	
 	/**
 	 * search all jornadas related to provided prueba that matches provided criteria 
-	 * @param {integer} $prueba prueba ID
 	 * @return unknown
 	 */
-	function searchByPrueba($prueba) {
+	function searchByPrueba() {
 		do_log("jornada::searchByPrueba() enter");
 		
 		$result = array();
@@ -280,7 +275,7 @@ class Jornadas {
 		$like=")";
 		if ($q!=="") $like = " AND ( (Nombre LIKE '%$q%') OR (Numero LIKE '%$q%') ) )";
 		
-		$str="SELECT count(*) FROM Jornadas WHERE ( ( Prueba = $prueba ) AND ( Cerrada=0) $like";
+		$str="SELECT count(*) FROM Jornadas WHERE ( ( Prueba = ".$this->prueba." ) AND ( Cerrada=0) $like";
 		// do_log("enumerate_jornadasAbiertasByPrueba::(count) $str");
 		$rs=$this->conn->query($str);
 		if (!$rs) {
@@ -291,7 +286,7 @@ class Jornadas {
 		$result["total"] = $row[0];
 		$rs->free();
 		if ($result["total"]>0) {
-			$str="SELECT * FROM Jornadas WHERE ( ( Prueba = $prueba ) AND ( Cerrada=0 ) $like ORDER BY Numero ASC";
+			$str="SELECT * FROM Jornadas WHERE ( ( Prueba = ".$this->prueba." ) AND ( Cerrada=0 ) $like ORDER BY Numero ASC";
 			// do_log("enumerate_jornadasAbiertasByPrueba::(select) $str");
 			$rs=$this->conn->query($str);
 			if (!$rs) {
