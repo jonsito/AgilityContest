@@ -81,7 +81,7 @@ $('#seljornada-Jornada').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: 'database/enumerate_J_AbiertasByPrueba.php',
+	url: 'database/jornadaFunctions.php',
 	method: 'get',
 	mode: 'remote',
 	required: true,
@@ -104,7 +104,7 @@ $('#seljornada-Jornada').combogrid({
 		{ field:'Exhibicion',	width:7, sortable:false,	align:'center', title: 'Show  ' },
 		{ field:'Otras',		width:7, sortable:false,	align:'center', title: 'Otras ' }
 	]],
-	onBeforeLoad: function(param) { param.Prueba=workingData.prueba; return true; }
+	onBeforeLoad: function(param) { param.Operation='enumerate', param.Prueba=workingData.prueba; return true; }
 });
 
 function acceptSelectJornada() {

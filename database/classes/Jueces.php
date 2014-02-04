@@ -38,7 +38,7 @@ class Jueces {
 		// componemos un prepared statement
 		$sql ="INSERT INTO Jueces (Nombre,Direccion1,Direccion2,Telefono,Internacional,Practicas,Email,Observaciones)
 			   VALUES(?,?,?,?,?,?,?,?)";
-		$stmt=$conn->prepare($sql);
+		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) {
 			$this->errormsg="insertDog::prepare() failed ".$this->conn->error;
 			return null;
@@ -78,7 +78,7 @@ class Jueces {
 		// componemos un prepared statement
 		$sql ="UPDATE Jueces SET Nombre=? , Direccion1=? , Direccion2=? , Telefono=? , Internacional=? , Practicas=? , Email=? , Observaciones=?
 		       WHERE ( Nombre=? )";
-		$stmt=$conn->prepare($sql);
+		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) {
 			$this->errormsg="juezFunctions::updateJuez() prepare() failed ".$this->conn->error;
 			return null;
@@ -126,7 +126,7 @@ class Jueces {
 			return null;
 		}
 		$str="DELETE FROM Jueces WHERE ( Nombre='$juez' )";
-		$res= $conn->query($str);
+		$res= $this->conn->query($str);
 		if (!$res) {
 			$this->errormsg="juezFunctions::deleteJuez() Error: ".$this->conn->error;
 			return null;

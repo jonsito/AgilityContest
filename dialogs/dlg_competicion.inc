@@ -93,7 +93,7 @@ $('#competicion-resultados-datagrid').datagrid({
 	collapsible:false,
 	collapsed:false,
 	// datos del datagrid
-	url: 'database/select_JornadasByPrueba.php?Prueba='+workingData.prueba,
+	url: 'database/jornadaFunctions.php?Operation=select&Prueba='+workingData.prueba,
 	method: 'get',
     pagination: false,
     rownumbers: false,

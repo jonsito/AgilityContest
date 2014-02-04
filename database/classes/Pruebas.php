@@ -69,7 +69,7 @@ class Pruebas {
 		$stmt->close();
 		
 		// create default 'Equipos' entry for this contest
-		$res=$conn->query("INSERT INTO Equipos (Prueba,Nombre,Observaciones)
+		$res=$this->conn->query("INSERT INTO Equipos (Prueba,Nombre,Observaciones)
 				VALUES ($pruebaid,'-- Sin asignar --','NO BORRAR: PRUEBA $pruebaid' - Equipo por defecto )");
 		if (!$res) {
 			$this->errormsg="insertPrueba::insertEquipo() failed: ".$this->conn->error;

@@ -42,7 +42,7 @@ class Guias {
 		}
 		$res=$stmt->bind_param('sssss',$nombre,$telefono,$email,$club,$observaciones);
 		if (!$res) {
-			$msg="insertGuia::prepare() failed ".$conn->error;
+			$msg="insertGuia::prepare() failed ".$this->conn->error;
 			return null;
 		}
 		
@@ -117,7 +117,7 @@ class Guias {
 			return null;
 		}
 		// fase 2: borramos el guia de la base de datos
-		$res= $conn->query("DELETE FROM Guias WHERE (Nombre='$nombre')");
+		$res= $this->conn->query("DELETE FROM Guias WHERE (Nombre='$nombre')");
 		if (!$res) {
 			$this->errormsg="deleteGuia::query(delete) Error: ".$this->conn->error;
 			do_log($msg);
@@ -253,7 +253,7 @@ class Guias {
 		$rs->free();
 		$str="SELECT * FROM Guias WHERE ( Club ='$club' ) ORDER BY Nombre ASC";
 		do_log("select_GuiasByClub::(select) $str");
-		$rs=$conn->query($str);
+		$rs=$this->conn->query($str);
 		if ($rs===false) {
 			$this->errormsg="selectGuiasByClub( ) error: ".$this->conn->error;
 			return null;
