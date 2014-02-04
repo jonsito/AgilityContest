@@ -105,7 +105,7 @@
 			panelHeight: 200,
 			idField: 'Provincia',
 			textField: 'Provincia',
-			url: 'database/enumerate_Provincias.php',
+			url: 'database/enumerate_Provincias.php?Operation=select',
 			method: 'get',
 			mode: 'remote',
 			required: true,
