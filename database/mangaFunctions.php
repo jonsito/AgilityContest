@@ -12,10 +12,10 @@ try {
 	if ($operation===null) throw new Exception("Call to mangaFunctions without 'Operation' requested");
 	switch ($operation) {
 		// no direct "insert", as created/destroyed from jornadaFunctions
-		case "update": $result=$mangas->update(http_request("MangaID","i",0)); break;
+		case "update": $result=$mangas->update(http_request("Manga","i",0)); break;
 		// no direct delete as created/destroyed from jornadaFunctions
-		case "select": $result=$mangas->selectByJornada(); break; // list with order, index, count and where
-		case "getbyid":	$result=$perros->selectByID(http_request("MangaID","i",0)); break; // list with where
+		case "enumerate": $result=$mangas->selectByJornada(http_request("Jornada","i",0)); break; 
+		case "getbyid":	$result=$mangas->selectByID(http_request("Manga","i",0)); break; 
 		default: throw new Exception("mangaFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) throw new Exception($mangas->errormsg);

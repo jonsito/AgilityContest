@@ -37,7 +37,7 @@ $('#competicion_info').panel({
 $('#competicion_infolayout').layout();
 
 $('#competicion-listamangas').datagrid({
-	url: 'database/select_MangasByJornada.php?Jornada='+workingData.jornada,
+	url: 'database/mangaFunctions.php?Operation=enumerate&Jornada='+workingData.jornada,
 	method: 'get',
     pagination: false,
     rownumbers: false,
@@ -66,9 +66,10 @@ $('#competicion-listamangas').datagrid({
         workingData.nombreManga=row.Descripcion;
         // cannot use loadcontents, because need to execute commands, _after_ html document load success
         $('#competicion-datosmanga').load("infomanga.php", function() {
-            // cargamos el panel lateral con la informacion de la manga
+            // titulo del panel lateral con la informacion de la manga
         	$('#competicion_infolayout').layout('panel','center').panel('setTitle','Datos de la manga -- '+workingData.nombreManga);
- 	        $('#competicion-formdatosmanga').form('load','database/get_mangaByID.php?ID='+workingData.manga);
+        	// datos del panel lateral con informacion de la manga
+        	reload_manga(workingData.manga);
         });
         // refresh orden de salida
         reloadOrdenSalida();

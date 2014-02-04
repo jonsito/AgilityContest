@@ -225,7 +225,7 @@ class Pruebas {
 
 		$result = array();
 		// execute first query to know how many elements
-		$rs=$conn->query("SELECT count(*) FROM Pruebas WHERE ( Cerrada=0 ) $like");
+		$rs=$this->conn->query("SELECT count(*) FROM Pruebas WHERE ( Cerrada=0 ) $like");
 		if (!$rs){
 			$this->errormsg="select ( count(*) ) failed: ".$this->conn->error;
 			return null;
@@ -234,7 +234,7 @@ class Pruebas {
 		$result["total"] = $row[0];
 		
 		// second query to retrieve $rows starting at $offset
-		$rs=$conn->query("SELECT * FROM Pruebas WHERE (Cerrada=0) $like ORDER BY Nombre ASC");
+		$rs=$this->conn->query("SELECT * FROM Pruebas WHERE (Cerrada=0) $like ORDER BY Nombre ASC");
 		if (!$rs){
 			$this->errormsg="select ( * ) failed: ".$this->conn->error;
 			return null;

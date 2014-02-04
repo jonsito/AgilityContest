@@ -4,7 +4,7 @@
 	
 	/*********** creacion / borrado de mangas asociadas a una jornada *************/
 	function declare_mangas($conn,$id,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras) {
-		$mangas =new Mangas($id);	
+		$mangas =new Mangas("jornadaFunctions",$id);	
 		
 		if ($grado1) { 	$mangas->insert('Agility-1 GI','GI'); $mangas->insert('Agility-2 GI','GI');		} 
 		else { $mangas->delete('Agility-1 GI');	$mangas->delete('Agility-2 GI'); }

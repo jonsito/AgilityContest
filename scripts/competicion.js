@@ -52,7 +52,8 @@ function dmanga_setRecorridos() {
  */
 function reload_manga(id) {
 	// ventana de datos
-    $('#competicion-formdatosmanga').form('load','database/get_mangaByID.php?ID='+id);
+	var url='database/mangaFunctions.php?Operation=getbyid&Jornada='+workingData.jornada+"&Manga="+id;
+    $('#competicion-formdatosmanga').form('load',url);
 }
 
 function reloadOrdenSalida() {
@@ -75,9 +76,11 @@ function reloadOrdenSalida() {
  */
 function save_manga(id) {
 	$('#competicion-formdatosmanga').form('submit', {
-		url: 'database/update_Manga.php',
+		url: 'database/mangaFunctions.php',
 		onSubmit: function(param) {
-			param.ID=id;
+			param.Operation='update';
+			param.Jornada=workingData.jornada;
+			param.Manga=id;
 			return true; // to continue submitting
 		}
 	});
