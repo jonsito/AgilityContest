@@ -22,7 +22,7 @@ class OrdenSalida {
 	
 	protected $conn;
 	protected $file;
-	protected $errormsg;
+	public $errormsg;
 	
 	/**
 	 * Constructor
@@ -139,7 +139,7 @@ class OrdenSalida {
 		if (!$rs1) return $this->error($this->conn->error);
 		
 		// fase 2: obtener las categorias de perros que debemos aceptar
-		$sql2 = "SELECT Grado FROM Mangas,Tipo_Manga WHERE (Mangas.Tipo=Tipo_Manga.Tipo) AND ( ID=$manga )";
+		$sql2 = "SELECT Tipo_Manga.Grado FROM Mangas,Tipo_Manga WHERE (Mangas.Tipo=Tipo_Manga.Tipo) AND ( ID=$manga )";
 		$rs2 = $this->conn->query( $sql2 );
 		if (!$rs2) return $this->error($this->conn->error);
 		$obj2 = $rs2->fetch_object();

@@ -92,12 +92,11 @@ function randomOrdenSalida() {
 	if (workingData.manga==0) return;
 	$.ajax({
 		type:'GET',
-		url:"database/ordenSalidaFunctions.php",
+		url:"database/ordenSalidaFunctions.php?Operation=random",
 		dataType:'json',
 		data: { 
 			Jornada: workingData.jornada,
-			Manga: workingData.manga,
-			Operacion: 'random'
+			Manga: workingData.manga
 			}
 		}).done( function(msg) {
 			reloadOrdenSalida();

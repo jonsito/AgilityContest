@@ -9,7 +9,7 @@ $file="ordenSalidaFunctions";
 
 try {
 	$result=null;
-	$os=new OrdenSalida("ordenSalidaFunctions");
+	$os=new OrdenSalida($file);
 	// retrieve variables
 	$operation=http_request("Operation","s",null);
 	if ($operation===null) 
