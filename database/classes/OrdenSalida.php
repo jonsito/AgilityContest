@@ -19,25 +19,38 @@ class OrdenSalida {
 			'T0' => 'TAG_T1',
 			'T1' => 'END' 
 	);
+	
 	protected $conn;
 	protected $file;
 	protected $errormsg;
-	protected $result;
 	
-	// constructor
-	function __construct($c, $f) {
-		$this->conn = $c;
+	/**
+	 * Constructor
+	 * @param {string} $f "filename" identifier of who is using this class
+	 * @throws Exception
+	 */
+	function __construct($f) {
 		$this->file = $f;
 		$this->errormsg='';
-		$this->result=null;
+		$this->conn=DBConnection::openConnection("agility_operator","operator@cachorrera");
+		if (!$this->conn) {
+			$this->errormsg="$file::construct() cannot contact database";
+			throw new Exception($this->errormsg);
+		}
 	}
-
+	
+	/**
+	 * Destructor
+	 * Just disconnect from database
+	 */
+	function  __destruct() {
+		DBConnection::closeConnection($this->conn);
+	}
 	/* tell jquery error and exit */
 	private function exit_error($operation,$message) {
 		$msg="$this->file::$operation Error: $message";
 		do_log($msg);
 		echo json_encode(array('errorMsg'=>$msg));
-		DBConnection::closeConnection($this->conn);
 		exit(0);
 	}
 	
@@ -46,7 +59,6 @@ class OrdenSalida {
 		$msg="$this->file::$operation Success";
 		do_log($msg);
 		echo json_encode(array('success'=>true));
-		DBConnection::closeConnection($this->conn);
 		exit(0);
 	}
 	
@@ -54,7 +66,7 @@ class OrdenSalida {
 	private function execute($operation,$query) {
 		do_log("$this->file::$operation::query() ".$query);
 		$rs=$this->conn->query($query);
-		if ($rs===false)
+		if (!$rs)
 			$this->exit_error("execute()",$this->conn->error);
 		return $rs;
 	}

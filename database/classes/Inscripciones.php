@@ -89,7 +89,7 @@ class Inscripciones {
 			$mangagrado=$row->Grado;
 			
 			// obtenemos un manejador de ordenes de salida
-			$os=new OrdenSalida($conn,"inscriptionFunctions");
+			$os=new OrdenSalida($this->conn,"inscriptionFunctions");
 			// si la categoria no es compatible, intentamos eliminar el perro de la manga
 			if (($mangagrado !== '-') && ($mangagrado !== $perro->Grado)) {
 				do_log("Grado del dorsal ".$dorsal." (".$perro->Grado.") no compatible con grado de manga (".$mangagrado.") " );
@@ -168,7 +168,7 @@ class Inscripciones {
 				}
 				if ($this->conn->affected_rows != 0) { // ya estaba inscrito
 					do_log("inscripcion::doit(update) Dorsal $dorsal already registered in Jornada #$numero ($jornada)");
-					$res=updateOrdenSalida($jornada,$dorsal,$celo,1 /*update*/);
+					$res=$this->updateOrdenSalida($jornada,$dorsal,$celo,1 /*update*/);
 					if ($res===null) {
 						$this->errormsg="inscripcion::doit(update) updateOrdenSalida Error: ".$this->errormsg;
 						return null;
@@ -185,7 +185,7 @@ class Inscripciones {
 					$this->errormsg="inscripcion::doit(insert) Error: ".$this->conn->error;
 					return null;
 				}
-				$res=updateOrdenSalida($jornada,$dorsal,$celo,0 /* insert */);
+				$res=$this->updateOrdenSalida($jornada,$dorsal,$celo,0 /* insert */);
 				if ($res===null) {
 					$this->errormsg="inscripcion::doit(insert) updateOrdenSalida Error: ".$this->errormsg;
 					return null;
@@ -200,7 +200,7 @@ class Inscripciones {
 					$this->errormsg="inscripcion::doit(delete) Error: ".$this->conn->error;
 					return null;
 				}
-				$res=updateOrdenSalida($jornada,$dorsal,$celo,0 /* insert */);
+				$res=$this->updateOrdenSalida($jornada,$dorsal,$celo,0 /* insert */);
 				if ($res===null) {
 					$this->errormsg="inscripcion::doit(delete) updateOrdenSalida Error: ".$this->errormsg;
 					return null;
@@ -236,7 +236,7 @@ class Inscripciones {
 				$this->errormsg="inscription::remove() execute query failed :".$this->conn->error;
 				return null;
 			}
-			$res=updateOrdenSalida($jornada,$dorsal,0,2 /*remove*/);
+			$res=$this->updateOrdenSalida($jornada,$dorsal,0,2 /*remove*/);
 			if ($res===null) {
 				$this->errormsg="inscripcion::remove() updateOrdenSalida Error: ".$this->errormsg;
 				return null;

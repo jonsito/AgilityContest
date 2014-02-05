@@ -285,29 +285,28 @@ class Dogs {
 	
 	/** 
 	 * Obtiene los datos del perro con el dorsal indicado
+	 * Usado para rellenar formularios:  formid.form('load',url);
 	 * @param {integer} $dorsal dog primary key
-	 * @return "" on success; otherwise null
+	 * @return null on error; array() with data on success
 	 */
 	function selectByDorsal($dorsal){
 		do_log("selectByDorsal:: enter");
 		if ($dorsal==0) {
-			$this->errormsg="selectDogsByDorsal: No dorsal specified";
+			$this->errormsg="selectByDorsal: No dorsal specified";
 			return null;
 		}
 		// second query to retrieve $rows starting at $offset
 		$str="SELECT * FROM PerroGuiaClub WHERE ( Dorsal = $dorsal )";
-		do_log("get_dogsByDorsal:: query string is $str");
+		// do_log("get_dogsByDorsal:: query string is $str");
 		$rs=$this->conn->query($str);
 		if (!$rs) {
-			$this->errormsg="get_dogsByDorsal::query() error ".$this->conn->error;
+			$this->errormsg="selectByDorsal::query() error ".$this->conn->error;
 			return null;
 		}
 		// retrieve result into an array
-		$result = array();
-		while($row = $rs->fetch_array()){ // should be only one item
-			$row['Operation']='update'; // dirty trick to ensure that form operation is rewritten on loadform
-			array_push($result, $row);
-		}
+		$result =$rs->fetch_array(); // should be only one item
+		$result['Operation']='update'; // dirty trick to ensure that form operation is rewritten on loadform
+
 		// free resources and return result
 		$rs->free();
 		do_log("selectByDorsal:: exit");

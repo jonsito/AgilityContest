@@ -915,7 +915,7 @@ function deleteInscripcion() {
 			"Desea realmente borrar la inscripción seleccionada?</p>",function(r){
 		if (r){
 			$.get('database/inscripcionFunctions.php',{
-					Operation:'delete',
+					Operation:'remove',
 					Dorsal:row.Dorsal,
 					ID:workingData.prueba,
 					J1:$('#jornada_cerrada-1').text(),
@@ -942,7 +942,7 @@ function insertInscripcion(){
 	// fill needed data to be sent
 	$('#inscripciones-fDorsal').val($('#inscripciones-Dorsal').val());
 	$('#inscripciones-fPruebaID').val(workingData.prueba);
-	$('#inscripciones-fOperation').val('insert');
+	$('#inscripciones-fOperation').val('doit');
     // do normal submit
     $('#inscripciones-form').form('submit',{
         url: 'database/inscripcionFunctions.php',
@@ -973,7 +973,7 @@ function updateInscripcion(){
 	// fill needed data to be sent
 	$('#chinscripciones-fDorsal').val($('#chinscripciones-Dorsal').val());
 	$('#chinscripciones-fPruebaID').val(workingData.prueba);
-	$('#chinscripciones-fOperation').val('update');
+	$('#chinscripciones-fOperation').val('doit');
     // do normal submit
     $('#chinscripciones-form').form('submit',{
         url: 'database/inscripcionFunctions.php',
