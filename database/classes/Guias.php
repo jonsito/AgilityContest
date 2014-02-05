@@ -30,7 +30,7 @@ class Guias {
 	}
 	
 	function insert() {
-		do_log("insertGuia:: enter");
+		log_enter($this->file);
 		
 		// componemos un prepared statement
 		$sql ="INSERT INTO Guias (Nombre,Telefono,Email,Club,Observaciones)
@@ -62,12 +62,12 @@ class Guias {
 			$this->errormsg="insertGuia:: Error: ".$this->conn->error;
 			return null;
 		}
-		do_log("insertGuia:: exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	
 	function update() {
-		do_log("updateGuia:: enter");
+		log_enter($this->file);
 		
 		// componemos un prepared statement
 		$sql ="UPDATE Guias SET Nombre=? , Telefono=? , Email=? , Club=? , Observaciones=? WHERE ( Nombre=? )";
@@ -100,12 +100,12 @@ class Guias {
 			$this->errormsg="updateGuia:: Error: ".$this->conn->error;
 			return null;
 		}
-		do_log("updateGuia:: exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	
 	function delete($nombre) {
-		do_log("deleteGuia:: enter");
+		log_enter($this->file);
 		if ($nombre===null) {
 			$this->errormsg="deleteGuia:: no guia name provided";
 			return null;
@@ -122,7 +122,7 @@ class Guias {
 			$this->errormsg="deleteGuia::query(delete) Error: ".$this->conn->error;
 			do_log($msg);
 		} 
-		do_log("deleteGuia:: exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	
@@ -136,19 +136,19 @@ class Guias {
 			$this->errormsg="orphanClub:: no handler name provided";
 			return null;
 		}
-		do_log("orphanGuiaFromClub::($guia) enter");
+		log_enter($this->file);
 		$res= $this->conn->query("UPDATE Guias SET Club='-- Sin asignar --' WHERE ( Nombre='$guia' )");
 		if (!$res) {
 			$this->errormsg="orphanGuiaFromClub::query(delete) Error: ".$this->conn->error;
 			do_log($msg);
 			return null;
 		}
-		do_log("orphanGuiaFromClub:: exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	
 	function select() {
-		do_log("SelectGuias:: enter");
+		log_enter($this->file);
 		// evaluate offset and row count for query
 		$page= http_request("page","i",1);
 		$rows= http_request("rows","i",20);
@@ -184,13 +184,13 @@ class Guias {
 		$result["rows"] = $items;
 		// disconnect from database and return composed array
 		$rs->free();
-		do_log("selectGuias:: exit OK");
+		log_exit($this->file);
 		return $result;
 	}
 	
 	function enumerate() { // like select but do not provide indexed block query
 
-		do_log("enumerateGuias():: enter");
+		log_enter($this->file);
 		
 		// evaluate search string
 		$q=http_request("q","s",null);
@@ -221,7 +221,7 @@ class Guias {
 		$result["rows"] = $items;
 		// disconnect from database and return
 		$rs->free();
-		do_log("enumerateGuias():: exit");
+		log_exit($this->file);
 		return $result;
 	}
 	
@@ -231,7 +231,7 @@ class Guias {
 	 * @return result on success; null on error
 	 */
 	function selectByClub($club) {
-		do_log("selectGuiasByClub() enter");
+		log_enter($this->file);
 		if ($club===null){
 			$this->errormsg="selectGuiasByClub() Error: no club provided";
 			return null;
@@ -274,7 +274,7 @@ class Guias {
 	 * @return result on success; null on error
 	 */
 	function selectByNombre($nombre) {
-		do_log("selectGuiaByNombre:: enter");
+		log_enter($this->file);
 		if ($nombre===null) {
 			$this->errormsg="selectGuiaByNombre: No name specified";
 			return null;
@@ -295,7 +295,7 @@ class Guias {
 		}
 		// disconnect from database
 		$rs->free();
-		do_log("selectGuiaByNombre:: exit");
+		log_exit($this->file);
 		return $result;
 	}
 }

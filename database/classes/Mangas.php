@@ -38,7 +38,7 @@ class Mangas {
 	}
 	
 	function insert($tipo,$grado) {
-		do_log("insertMangas:: enter");
+		log_enter($this->file);
 		// si la manga existe no hacer nada; si no existe crear manga
 		$str="SELECT count(*) AS 'result' FROM Mangas WHERE ( Jornada = ".$this->jornada." ) AND  ( Tipo = '".$tipo."' )";
 		$rs=$this->conn->query($str);
@@ -57,12 +57,12 @@ class Mangas {
 			$str="mangas::insert (".$this->jornada." , '".$tipo.", ".$grado." ) Error: ".$this->conn->error;
 			return null;
 		}
-		do_log("insertMangas:: exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	
 	function update($mangaid) {
-		do_log("updateMangas:: enter");
+		log_enter($this->file);
 		if ($mangaid <=0) {
 			$this->errormsg="updateManga() invalid manga ID";
 			return null;
@@ -162,7 +162,7 @@ class Mangas {
 		}
 		do_log("update_Manga:: actualizadas $stmt->affected_rows filas");
 		$stmt->close();
-		do_log("updateMangas:: exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	
@@ -171,7 +171,7 @@ class Mangas {
 	 * @return "" on success; null on error
 	 */
 	function delete($tipo) {
-		do_log("deleteManga:: enter");
+		log_enter($this->file);
 		if ($tipo===null) {
 			$this->errormsg="deleteManga:: invalid parameter 'tipo'";
 			return null;
@@ -183,7 +183,7 @@ class Mangas {
 			$this->errormsg="inscripcionFunctions::delete_manga( ".$this->jornada." , ".$tipo." ) failed: ".$this->conn->error;
 			return null;
 		}
-		do_log("deleteManga:: exit success");
+		log_exit($this->file);
 		return "";
 	}
 	
@@ -193,7 +193,7 @@ class Mangas {
 	 * @return null on error, data on success
 	 */
 	function selectByID($id) {
-		do_log("selectMangaByID:: enter");
+		log_enter($this->file);
 		if ($id<=0) {
 			$this->errormsg="selectMangaByID:: invalid Manga ID";
 			return null;
@@ -214,7 +214,7 @@ class Mangas {
 		$result = $rs->fetch_object();  // should only be one element
 		// disconnect from database
 		$rs->free();
-		do_log("selectMangaByID:: exit OK");
+		log_exit($this->file);
 		return $result;
 	}
 	
@@ -223,7 +223,7 @@ class Mangas {
 	 * @return null on error, result on success
 	 */
 	function selectByJornada() {
-		do_log("selectMangasByJornada:: enter");
+		log_enter($this->file);
 		$result = array();
 		$items = array();
 		
@@ -254,7 +254,7 @@ class Mangas {
 			$rs->free();
 		}
 		$result["rows"] = $items;
-		do_log("selectMangasByJornada:: exit OK");
+		log_exit($this->file);
 		return $result;
 	}
 }

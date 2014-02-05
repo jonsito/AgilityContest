@@ -34,7 +34,7 @@ class Jueces {
 	 * @return {string} "" if ok; null on error
 	 */
 	function insert() {
-		do_log("insertJuez:: enter");
+		log_enter($this->file);
 		// componemos un prepared statement
 		$sql ="INSERT INTO Jueces (Nombre,Direccion1,Direccion2,Telefono,Internacional,Practicas,Email,Observaciones)
 			   VALUES(?,?,?,?,?,?,?,?)";
@@ -69,12 +69,12 @@ class Jueces {
 			return null;
 		}
 		$stmt->close();
-		do_log("inzertJuez:: exit OK");
+		log_exit($this->file);
 		return ""; 
 	}
 	
 	function update() {
-		do_log("juezFunctions::updateJuez() enter");
+		log_enter($this->file);
 		// componemos un prepared statement
 		$sql ="UPDATE Jueces SET Nombre=? , Direccion1=? , Direccion2=? , Telefono=? , Internacional=? , Practicas=? , Email=? , Observaciones=?
 		       WHERE ( Nombre=? )";
@@ -110,7 +110,7 @@ class Jueces {
 			return null;
 		}
 		$stmt->close();
-		do_log("juezFunctions::updateJuez() exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	
@@ -120,7 +120,7 @@ class Jueces {
 	 * @return "" on success ; otherwise null
 	 */
 	function delete($juez) {
-		do_log("juezFunctions::deleteJuez() enter");
+		log_enter($this->file);
 		if ($juez==='-- Sin asignar --') {
 			$this->errormsg="juezFunctions::deleteJuez() Ignore deletion of default value";
 			return null;
@@ -131,12 +131,12 @@ class Jueces {
 			$this->errormsg="juezFunctions::deleteJuez() Error: ".$this->conn->error;
 			return null;
 		}
-		do_log("juezFunctions::deleteJuez() execute() exit OK");
+		log_exit($this->file);
 		return "";
 	} 
 	
 	function select() {
-		do_log("selectJueces:: enter");
+		log_enter($this->file);
 		// evaluate offset and row count for query
 		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 		$rows = isset($_GET['rows']) ? intval($_GET['rows']) : 20;
@@ -173,12 +173,12 @@ class Jueces {
 		$result["rows"] = $items;
 		// clean and return
 		$rs->free();
-		do_log("selectJueces:: exit OK");
+		log_exit($this->file);
 		return $result;
 	}
 	
 	function enumerate() { // like select but do not perform offset/rows operation
-		do_log("enumerateJueces:: enter");
+		log_enter($this->file);
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
 		$like =  ($q===null) ? "" : " WHERE Nombre LIKE '%".$q."%'";
@@ -208,7 +208,7 @@ class Jueces {
 		$result["rows"] = $items;
 		// clean and return
 		$rs->free();
-		do_log("enumerateJueces:: exit OK");
+		log_exit($this->file);
 		return $result;
 	}
 }

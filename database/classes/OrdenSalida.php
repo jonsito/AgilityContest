@@ -46,31 +46,17 @@ class OrdenSalida {
 	function  __destruct() {
 		DBConnection::closeConnection($this->conn);
 	}
-	/* tell jquery error and exit */
-	private function exit_error($operation,$message) {
-		$msg="$this->file::$operation Error: $message";
-		do_log($msg);
-		echo json_encode(array('errorMsg'=>$msg));
-		exit(0);
+
+	function error($msg) {
+		$parent=debug_backtrace()[1]['function'];
+		$this->errormsg=$this->file."::".$parent."() Error: ".$msg;
+		return null;
 	}
 	
-	/* tell jquery success and exit */
-	private function exit_ok($operation) {
-		$msg="$this->file::$operation Success";
-		do_log($msg);
-		echo json_encode(array('success'=>true));
-		exit(0);
+	function log($msg) {
+		$parent=debug_backtrace()[1]['function'];
+		do_log($this->file."::".$parent."() : ".$msg);
 	}
-	
-	/* execute query */
-	private function execute($operation,$query) {
-		do_log("$this->file::$operation::query() ".$query);
-		$rs=$this->conn->query($query);
-		if (!$rs)
-			$this->exit_error("execute()",$this->conn->error);
-		return $rs;
-	}
-	
 	
 	/**
 	 * Retrieve Mangas.Orden_Salida
@@ -78,34 +64,32 @@ class OrdenSalida {
 	 * @return {string} orden de salida. o "" si vacio
 	 */
 	function getOrden($manga) {
+		log_enter($this->file);
 		$sql = "SELECT Orden_Salida FROM Mangas WHERE ( ID=$manga )";
-		$rs = $this->execute ( "getOrden()", $sql );
+		$rs = $this->conn->query ( $sql );
+		if (!$rs) return $this->error($this->conn->error);
 		$row = $rs->fetch_object ();
 		$result = $row->Orden_Salida;
 		$rs->free ();
-		if ($result === null)
-			return "";
-		return $result;
+		log_exit($this->file);
+		return ($result===null)?"":$result;
 	}
 	
 	/**
 	 * Update Mangas.Orden_Salida with new value
-	 * @param unknown $manga
-	 * @param unknown $orden
-	 * @return {string} "" if success; die on error
+	 * @param {integer} $manga manga ID
+	 * @param {string} $orden new ordensalida
+	 * @return {string} "" if success; null on error
 	 */
 	function setOrden($manga, $orden) {
+		log_enter($this->file);
 		$sql = "UPDATE Mangas SET Orden_Salida = '" . $orden . "' WHERE ( ID=$manga )";
-		$rs = $this->execute ( "setOrden()", $sql );
+		$rs = $this->conn->query ($sql);
 		// do not call $rs->free() as no resultset returned
+		if (!$rs) return $this->error($this->conn->error);
+		log_exit($this->file);
 		return "";
 	}
-	
-	/**
-	 /**
-	  * 
-	 * @return nueva lista
-	 */
 	
 	/**
 	 * coge el string con el orden de salida e inserta un elemento al final de su grupo
@@ -117,7 +101,8 @@ class OrdenSalida {
 	 * @return {string} nuevo orden de salida
 	 */
 	function insertIntoList($ordensalida, $dorsal, $cat, $celo) {
-		do_log ( "inserting dorsal:$dorsal cat:$cat celo:$celo" );
+		log_enter($this->file);
+		$this->log("inserting dorsal:$dorsal cat:$cat celo:$celo" );
 		// lo borramos para evitar una posible doble insercion
 		$str = "," . $dorsal . ",";
 		$nuevoorden = str_replace ( $str, ",", $ordensalida );
@@ -125,6 +110,7 @@ class OrdenSalida {
 		$myTag = $dorsal . "," . $this->tags_orden [$cat . $celo];
 		// y lo insertamos en lugar que corresponde
 		$result = str_replace ( $this->tags_orden [$cat . $celo], $myTag, $nuevoorden );
+		log_exit($this->file);
 		return $result;
 	}
 	
@@ -136,24 +122,27 @@ class OrdenSalida {
 	 * @return array[count,[data]] array ordenado segun ordensalida de datos de perros de una manga 
 	 */
 	function getData($jornada, $manga) {
-		do_log ( "ordensalida::getData() Enter" );
+		log_enter($this->file);
 		// fase 0: vemos si ya hay una lista definida
 		$ordensalida = $this->getOrden ( $manga );
 		if ($ordensalida === "") { // no hay orden predefinido
 		    // TODO: comprobamos si estamos en la segunda manga y usamos resultados como orden de salida
 			$ordensalida = $this-> random ( $jornada, $manga, false );
 		}
-		do_log ( "ordensalida::getData() El orden de salida actual es $ordensalida" );
+		$this->log("El orden de salida actual es $ordensalida" );
 		// ok tenemos orden de salida. vamos a convertirla en un array asociativo
 		$registrados = explode ( ",", $ordensalida );
 		
 		// fase 1: obtener los perros inscritos en la jornada
 		$sql1 = "SELECT * FROM InscritosJornada WHERE ( Jornada=$jornada ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden";
-		$rs1 = $this->execute ( "getData()", $sql1 );
+		$rs1 = $this->conn->query ( $sql1 );
+		if (!$rs1) return $this->error($this->conn->error);
+		
 		// fase 2: obtener las categorias de perros que debemos aceptar
 		$sql2 = "SELECT Grado FROM Mangas,Tipo_Manga WHERE (Mangas.Tipo=Tipo_Manga.Tipo) AND ( ID=$manga )";
-		$rs2 = $this->execute ( "getData()", $sql2 );
-		$obj2 = $rs2->fetch_object ();
+		$rs2 = $this->conn->query( $sql2 );
+		if (!$rs2) return $this->error($this->conn->error);
+		$obj2 = $rs2->fetch_object();
 		$rs2->free ();
 		$grado = $obj2->Grado;
 		
@@ -166,11 +155,11 @@ class OrdenSalida {
 			$idx = array_search ( $row->Dorsal, $registrados );
 			// si dorsal en lista se inserta; si no esta en lista implica error de consistencia
 			if ($idx === false)
-				do_log ( "ordensalida::getData() El dorsal " . $row->Dorsal . " esta inscrito pero no aparece en el orden de salida" );
+				$this->log("El dorsal " . $row->Dorsal . " esta inscrito pero no aparece en el orden de salida" );
 			else
 				$registrados [$idx] = $row;
 		}
-		$rs1->free ();
+		$rs1->free();
 		
 		// fase 4: construimos la tabla de resultados
 		$count = 0;
@@ -179,7 +168,7 @@ class OrdenSalida {
 			// si es un objeto anyadimos el dorsal
 			if (is_object ( $item )) {
 				array_push ( $data, $item );
-				do_log ( "push:" . $item->Dorsal . " count:$count" );
+				$this->log("push:" . $item->Dorsal . " count:$count" );
 				$count ++;
 				continue;
 			}
@@ -189,14 +178,14 @@ class OrdenSalida {
 				if (strpos ( $item, "END" ) !== false) continue;
 				if (strpos ( $item, "TAG_" ) !== false)	continue;
 					// dorsal no registrado: error
-				do_log ( "OrdenSalida::getLista() El dorsal $item esta en el orden de salida, pero no esta inscrito" );
+				$this->log("OrdenSalida::getLista() El dorsal $item esta en el orden de salida, pero no esta inscrito" );
 			}
 		}
 		// finally encode result and send to client
 		$result = array ();
 		$result ["total"] = $count;
 		$result ["rows"] = $data;
-		echo json_encode ( $result );
+		log_exit($this->file);
 		return $result;
 	}
 	
@@ -204,20 +193,21 @@ class OrdenSalida {
 	 * Reordena el orden de salida de una manga al azar
 	 * @param  	{int} $jornada ID de jornada
 	 * @param	{int} $manga ID de manga
-	 * @param  	{boolean} $exit_on_close if true on success cierra conexion y retorna respuesta json
 	 * @return {string} nuevo orden de salida
 	 */
-	function random($jornada, $manga, $exit_on_close) {
+	function random($jornada, $manga) {
+		log_enter($this->file);
 		// fase 0: establecemos los string iniciales en base al orden especificado
-		do_log ( "ordensalida::random() Enter" );
 		$ordensalida = $this->default_orden;
 		// fase 1: obtener los perros inscritos en la jornada
 		$sql1 = "SELECT * FROM InscritosJornada WHERE ( Jornada=$jornada ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden";
-		$rs1 = $this->execute ( "random()", $sql1 );
+		$rs1 = $this->conn->query ($sql1 );
+		if (!$rs1) return $this->error($this->conn->error);
 		
 		// fase 2: obtener las categorias de perros que debemos aceptar
 		$sql2 = "SELECT Grado FROM Mangas,Tipo_Manga WHERE (Mangas.Tipo=Tipo_Manga.Tipo) AND ( ID=$manga )";
-		$rs2 = $this->execute ( "random()", $sql2 );
+		$rs2 = $this->conn->query ($sql2 );
+		if (!$rs2) return $this->error($this->conn->error);
 		$obj2 = $rs2->fetch_object ();
 		$rs2->free ();
 		$grado = $obj2->Grado;
@@ -236,9 +226,7 @@ class OrdenSalida {
 		$this->setOrden ( $manga, $ordensalida );
 		
 		// fase 5: limpieza y retorno de resultados
-		if ($exit_on_close === true)
-			$this->exit_ok ( "random()" );
-		do_log ( "ordensalida::random() Succcess (no return)" );
+		log_exit($this->file);
 		return $ordensalida;
 	}
 	
@@ -251,11 +239,12 @@ class OrdenSalida {
 	 * @return {string} nuevo orden de salida
 	 */
 	function remove($jornada, $manga, $dorsal) {
+		log_enter($this->file);
 		// TODO: si el dorsal esta inscrito y la manga es compatible damos error ( no se deberia borrar )
 		/*
 		// fase: vemos si el perro esta inscrito
 		$sql = "SELECT count (*) FROM InscritosJornada WHERE ( Jornada=$jornada ) AND ( Dorsal=$dorsal)";
-		$rs = $this->execute ( "remove()", $sql );
+		$rs = $this->conn->query ( "remove()", $sql );
 		$row = $rs->fetch_row ();
 		$inscrito = $row [0];
 		$rs->free ();
@@ -267,7 +256,7 @@ class OrdenSalida {
 		$nuevoorden = str_replace ( $str, ",", $ordensalida );
 		// guardamos nuevo orden de salida y retornamos
 		$this->setOrden ( $manga, $nuevoorden );
-		$this->exit_ok ( "remove()" );
+		log_exit($this->file);
 		return $nuevoorden;
 	}
 	
@@ -283,22 +272,26 @@ class OrdenSalida {
 	 * @return {string} nuevo orden de salida
 	 */
 	function insert($jornada, $manga, $dorsal) {
+		log_enter($this->file);
 		// si el dorsal no esta inscrito en la jornada da error
 		$sql = "SELECT * FROM InscritosJornada WHERE ( Jornada=$jornada ) AND ( Dorsal=$dorsal)";
-		$rs = $this->execute ( "insert()", $sql );
+		$rs = $this->conn->query($sql );
+		if (!$rs) return $this->error($this->conn->error);
 		$perro = $rs->fetch_object ();
 		$rs->free ();
 		if ($perro === null) {
-			$this->exit_error ( "insert()", "El perro con dorsal $dorsal no figura inscrito en la jornada $jornada" );
+			return $this->error("El perro con dorsal $dorsal no figura inscrito en la jornada $jornada" );
 		}
+		
 		// si la categoria del perro no es la correcta, indicamos error
 		$sql2 = "SELECT Grado FROM Mangas,Tipo_Manga WHERE (Mangas.Tipo=Tipo_Manga.Tipo) AND ( ID=$manga )";
-		$rs2 = $this->execute ( "insert()", $sql2 );
+		$rs2 = $this->conn->query( $sql2 );
+		if (!$rs2) return $this->error($this->conn->error);
 		$obj2 = $rs2->fetch_object ();
 		$rs2->free ();
 		$grado = $obj2->Grado;
 		if (($grado !== '-') && ($grado !== $perro->grado)) {
-			$this->exit_error ( "insert()", "El grado del dorsal $dorsal ($perro->grado) no es compatible con el grado de la manga ($grado) " );
+			return $this->error("El grado del dorsal $dorsal ($perro->grado) no es compatible con el grado de la manga ($grado) " );
 		}
 		// recuperamos orden de salida
 		$ordensalida = getOrden ( $manga );
@@ -307,7 +300,7 @@ class OrdenSalida {
 		// actualizamos orden de salida
 		setOrden ( $manga, $ordensalida );
 		// cerramos y salimos
-		$this->exit_ok ( "insert()" );
+		log_exit($this->file);
 		return $ordensalida;
 	}
 	
@@ -320,26 +313,27 @@ class OrdenSalida {
 	 * @return {string} nuevo orden de salida
 	 */
 	function swap($jornada, $manga, $dorsal1, $dorsal2) {
+		log_enter($this->file);
 		// componemos strings
 		$str1 = "," . $dorsal1 . "," . $dorsal2 . ",";
 		$str2 = "," . $dorsal2 . "," . $dorsal1 . ",";
 		// recuperamos el orden de salida
 		$ordensalida = getOrden ( $manga );
-		if ($ordensalida === "")
-			return;
+		if ($ordensalida === "") $nuevoorden=""; // no change
 			// si encontramos str1 lo substituimos por str2
-		if (strpos ( $ordensalida, $str1 ) !== false)
+		else if (strpos ( $ordensalida, $str1 ) !== false)
 			$nuevoorden = str_replace ( $str1, $str2, $ordensalida );
 			// si encontramos str2 lo substituimos por str1
 		else if (strpos ( $ordensalida, $str2 ) !== false)
 			$nuevoorden = str_replace ( $str2, $str1, $ordensalida );
 			// si no encontramos ninguno de los dos lo dejamos como estaba
 		else {
-			$this->exit_error ( "swap()", "los dorsales $dorsal1 y $dorsal2 no estan consecutivos" );
+			$this->error("Los dorsales $dorsal1 y $dorsal2 no estan consecutivos" );
+			$nuevoorden=$ordensalida;
 		}
 		// actualizamos orden de salida
 		setOrden ( $manga, $nuevoorden );
-		$this->exit_ok ( "swap()" );
+		log_exit($this->file);
 		return $nuevoorden;
 	}
 } // class

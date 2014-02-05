@@ -34,7 +34,7 @@ class Dogs {
 	 * @return {string} "" if ok; null on error
 	 */
 	function insert() {
-		do_log("insertDog:: enter");
+		log_enter($this->file);
 		// componemos un prepared statement
 		$sql ="INSERT INTO Perros (Nombre,Raza,LOE_RRC,Licencia,Categoria,Grado,Guia)
 			   VALUES(?,?,?,?,?,?,?)";
@@ -66,7 +66,7 @@ class Dogs {
 			return null;
 		}
 		//do_log("insertadas $stmt->affected_rows filas");
-		do_log("insertDog:: exit OK");
+		log_exit($this->file);
 		return "";
 		
 	}
@@ -77,7 +77,7 @@ class Dogs {
 	 * @return "" on success; null on error
 	 */
 	function update($dorsal) {
-		do_log("updateDog:: enter");
+		log_enter($this->file);
 		if ($dorsal==0) {
 			$stmt->close();
 			$this->errormsg="updateDog:: no dorsal provided for update";
@@ -114,7 +114,7 @@ class Dogs {
 			$this->errormsg="updateDog:: Error: ".$this->conn->error;
 			return null;
 		} 
-		do_log("updateDog:: exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	
@@ -124,7 +124,7 @@ class Dogs {
 	 * @return "" on success ; otherwise null
 	 */
 	function delete($dorsal) {
-		do_log("deleteDog:: enter");
+		log_enter($this->file);
 		if ($dorsal==0) {
 			$stmt->close();
 			$this->errormsg="deleteDog:: no dorsal provided for deletion";
@@ -135,7 +135,7 @@ class Dogs {
 			$this->errormsg="deleteDog:: Error: ".$this->conn->error;
 			return null;
 		} 
-		do_log("deleteDog:: exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	
@@ -145,7 +145,7 @@ class Dogs {
 	 * @return "" on success; otherwise null
 	 */
 	function orphan ($dorsal) {
-		do_log("orphanPerroFromGuia:: enter");
+		log_enter($this->file);
 		if ($dorsal===null) {
 			$this->errormsg="orphanPerroFromGuia:: no dorsal provided";
 			return null;
@@ -155,7 +155,7 @@ class Dogs {
 			$this->errormsg="orphanPerroFromGuia::query(delete) Error: ".$this->conn->error;
 			return null;
 		}
-		do_log("orphanPerroFromGuia:: exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	/**
@@ -207,7 +207,7 @@ class Dogs {
 	 * @return NULL|multitype:multitype: unknown
 	 */
 	function enumerate() {
-		do_log("enumerateDogs():: enter");
+		log_enter($this->file);
 		
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
@@ -236,7 +236,7 @@ class Dogs {
 		}
 		$result["rows"] = $items;
 		// return composed array
-		do_log("enumerateDogs():: exit");
+		log_exit($this->file);
 		$rs->free();
 		return $result;
 	}
@@ -246,7 +246,7 @@ class Dogs {
 	 * @param {string} $guia Nombre del guia
 	 */
 	function selectByGuia($guia) {
-		do_log("selectDogsByGuia::enter");
+		log_enter($this->file);
 		if ($guia===null) {
 			$this->errormsg="selectDogsByGuia: No guia specified";
 			return null;
@@ -279,7 +279,7 @@ class Dogs {
 		// free resources and return
 		$rs->free();
 		$result["rows"] = $items;
-		do_log("selectDogsByGuia::exit");
+		log_exit($this->file);
 		return $result;
 	}
 	
@@ -290,7 +290,7 @@ class Dogs {
 	 * @return null on error; array() with data on success
 	 */
 	function selectByDorsal($dorsal){
-		do_log("selectByDorsal:: enter");
+		log_enter($this->file);
 		if ($dorsal==0) {
 			$this->errormsg="selectByDorsal: No dorsal specified";
 			return null;
@@ -309,7 +309,7 @@ class Dogs {
 
 		// free resources and return result
 		$rs->free();
-		do_log("selectByDorsal:: exit");
+		log_exit($this->file);
 		return $result;
 	}
 	
@@ -319,7 +319,7 @@ class Dogs {
 	 * @return null on error; result on success
 	 */
 	function categoriasPerro() {
-		do_log("categoriasPerro:: enter");
+		log_enter($this->file);
 		// evaluate offset and row count for query
 		$q=http_request("q","s",null);
 		$like =  ($q===null) ? "" : " WHERE Categoria LIKE '%".$q."%'";
@@ -344,7 +344,7 @@ class Dogs {
 		}
 		// clean and return
 		$rs->free();
-		do_log("categoriasPerro:: exit OK");
+		log_exit($this->file);
 		return $result;
 	}
 	
@@ -354,7 +354,7 @@ class Dogs {
 	 * Notice that this is not a combogrid, just combobox, so dont result count
 	 */
 	function gradosPerro() {
-		do_log("gradosPerro:: enter");
+		log_enter($this->file);
 		// evaluate offset and row count for query
 		$q=http_request("q","s",null);
 		$like =  ($q===null) ? "" : " WHERE Grado LIKE '%".$q."%'";
@@ -379,7 +379,7 @@ class Dogs {
 		}
 		// clean and return
 		$rs->free();
-		do_log("gradosPerro:: exit OK");
+		log_exit($this->file);
 		return $result;
 	}
 }

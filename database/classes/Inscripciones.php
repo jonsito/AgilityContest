@@ -117,7 +117,7 @@ class Inscripciones {
 	 * @return empty string if ok; else null
 	 */
 	function doit() {
-		do_log("inscripcion::doit() enter");
+		log_enter($this->file);
 
 		// variables comunes a todas las jornadas
 		$dorsal=http_request("Dorsal","i",0);
@@ -209,7 +209,7 @@ class Inscripciones {
 			
 		}
 		// all right return ok
-		do_log("inscripcion::doit() exit ok");
+		log_exit($this->file);
 		return ""; // return ok
 	}
 	
@@ -218,7 +218,7 @@ class Inscripciones {
 	 * @return {string} "" on success; null on error
 	 */
 	function remove() {
-		do_log("inscripcion::delete() enter");
+		log_enter($this->file);
 		$dorsal=http_request("Dorsal","i",0);
 		if ($dorsal==0) {
 			$this->errormsg="inscripcion::remove() Error: invalid Dorsal ID ";
@@ -242,7 +242,7 @@ class Inscripciones {
 				return null;
 			}
 		} // for every jornada on provided prueba
-		do_log("inscripcion::delete() exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	
@@ -250,7 +250,7 @@ class Inscripciones {
 	 * retrieve all inscriptions of stored prueba
 	 */
 	function select() {
-		do_log("inscripcion::select() enter");
+		log_enter($this->file);
 		
 		// evaluate offset and row count for query
 		$id = $this->prueba;
@@ -319,7 +319,7 @@ class Inscripciones {
 		$result['total']=$count; // number of rows retrieved
 		$result['rows']=$items;
 		// and return json encoded $result variable
-		do_log("inscripcion::select():: exit OK");
+		log_exit($this->file);
 		return $result;
 	}
 	

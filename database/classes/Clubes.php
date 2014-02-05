@@ -34,7 +34,7 @@ class Clubes {
 	 * @return empty string if ok; else null
 	 */
 	function insert() {
-		do_log("insertClub:: enter");
+		log_enter($this->file);
 		// componemos un prepared statement
 		$sql ="INSERT INTO Clubes (Nombre,Direccion1,Direccion2,Provincia,Contacto1,Contacto2,Contacto3,GPS,
 				Web,Email,Facebook,Google,Twitter,Observaciones,Baja)
@@ -77,7 +77,7 @@ class Clubes {
 			return null;
 		}
 		// do_log("insertadas $stmt->affected_rows filas");
-		do_log("insertClub:: exit ok");
+		log_exit($this->file);
 		return ""; // return ok
 	}
 	
@@ -86,7 +86,7 @@ class Clubes {
 	 * @return string "" empty if ok; null on error
 	 */
 	function update() {
-		do_log("updateClub:: enter");
+		log_enter($this->file);
 		
 		// componemos un prepared statement
 		$sql ="UPDATE Clubes
@@ -131,17 +131,17 @@ class Clubes {
 			$this->errormsg="updateClub:: Error: ".$this->conn->error;
 			return null;
 		}
-		do_log("updateClub:: exit ok");
+		log_exit($this->file);
 		$stmt->close();
 		return "";
 	}
 	
 	function delete($nombre) {
+		log_enter($this->file);
 		if ($nombre===null) {
 			$this->errormsg="deleteClub:: no club name provided";
 			return null;
 		}
-		do_log("deleteClub($nombre):: enter");
 		// fase 1: desasignar guias del club
 		$res= $this->conn->query("UPDATE Guias SET Club='-- Sin asignar --'  WHERE (Club='$nombre')");
 		if (!$res) {
@@ -154,7 +154,7 @@ class Clubes {
 			$this->errormsg="deleteClub::query(delete) Error: ".$this->conn->error;
 			return null;
 		}
-		do_log("deleteClub():: exit");
+		log_exit($this->file);
 		return "";
 	}
 	
@@ -162,7 +162,7 @@ class Clubes {
 	 * retrieve all clubes from table, according sort, search and limit requested
 	 */
 	function select() {
-		do_log("selectClubs() enter");
+		log_enter($this->file);
 		// evaluate offset and row count for query
 		$page= http_request("page","i",1);
 		$rows= http_request("rows","i",20);
@@ -197,7 +197,7 @@ class Clubes {
 		$result["rows"] = $items;
 		$rs->free();
 		// return composed array
-		do_log("selectClubs():: exit");
+		log_exit($this->file);
 		return $result;
 	}
 	
@@ -206,7 +206,7 @@ class Clubes {
 	 * return data if success; null on error
 	 */
 	function enumerate() {
-		do_log("enumerateClubs():: enter");
+		log_enter($this->file);
 		// evaluate offset and row count for query
 		$q=http_request("q","s",null);
 		$like =  ($q===null) ? "" : " WHERE Nombre LIKE '%".$q."%'";
@@ -238,7 +238,7 @@ class Clubes {
 		}
 		$result["rows"] = $items;
 		// return composed array
-		do_log("enumerateClubs():: exit");
+		log_exit($this->file);
 		$rs->free();
 		return $result;
 	}

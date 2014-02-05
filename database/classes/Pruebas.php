@@ -31,7 +31,7 @@ class Pruebas {
 	}
 	
 	function insert() {
-		do_log("insertPrueba:: enter");
+		log_enter($this->file);
 		// componemos un prepared statement
 		$sql ="INSERT INTO Pruebas (Nombre,Club,Ubicacion,Triptico,Cartel,Observaciones,Cerrada)
 			   VALUES(?,?,?,?,?,?,?)";
@@ -87,12 +87,12 @@ class Pruebas {
 			}
 		}
 		// arriving here means everything ok. notify success
-		do_log("insertPrueba:: exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	
 	function update() {
-		do_log("updatePrueba:: enter");
+		log_enter($this->file);
 		
 		// componemos un prepared statement
 		$sql ="UPDATE Pruebas
@@ -128,7 +128,7 @@ class Pruebas {
 			$this->errormsg="updatePrueba:: Error: ".$this->conn->error;
 			return null;
 		} 
-		do_log("updatePrueba:: exit OK");
+		log_exit($this->file);
 		$stmt->close();
 		return "";
 	}
@@ -139,7 +139,7 @@ class Pruebas {
 	 * @return string
 	 */
 	function delete($id) {
-		do_log("deletePrueba:: enter");
+		log_enter($this->file);
 		if ($id==0) {
 			$this->errormsg="deletePrueba:: no valid prueba ID provided for deletion";
 			return null;
@@ -154,12 +154,12 @@ class Pruebas {
 			$this->errormsg="deletePrueba:: cannot delete prueba $id marked as 'closed'";
 			return null;
 		}
-		do_log("deletePrueba:: exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	
 	function select() {
-		do_log("selectPuebas():: enter");
+		log_enter($this->file);
 		// evaluate offset and row count for query
 		$page= http_request("page","i",1);
 		$rows= http_request("rows","i",20);
@@ -209,7 +209,7 @@ class Pruebas {
 		$result["rows"] = $items;
 		// clean and return
 		$rs->free();
-		do_log("selectPruebas:: exit OK");
+		log_exit($this->file);
 		return $result;
 	}
 	
@@ -217,7 +217,7 @@ class Pruebas {
 	 * lista de pruebas abiertas
 	 */
 	function enumerate() {
-		do_log("enumeratePruebas:: enter");
+		log_enter($this->file);
 
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
@@ -247,7 +247,7 @@ class Pruebas {
 		$result["rows"] = $items;
 		// clean and return
 		$rs->free();
-		do_log("enumeratePruebas:: exit OK");
+		log_exit($this->file);
 		return $result;
 	}
 	
@@ -257,7 +257,7 @@ class Pruebas {
 	 * @return null on error, associative array on success
 	 */
 	function selectByID($id) {
-		do_log("selectPruebaByID:: enter");
+		log_enter($this->file);
 		if ($id==0) {
 			$this->errormsg="selectPruebaByID: invalid prueba ID";
 			return null;
@@ -273,12 +273,12 @@ class Pruebas {
 		$result = $rs->fetch_array();  // should only be one element
 		$rs->free();
 		// clean and return ok
-		do_log("selectPruebaByID:: exit OK");
+		log_exit($this->file);
 		return $result;
 	}
 	
 	function selectEquiposByPrueba($id) {
-		do_log("pruebas::equiposByPrueba() enter");
+		log_enter($this->file);
 		if ($id==0) {
 			$this->errormsg="pruebas::selectEquiposByPrueba() Error: invalid prueba ID";
 			return null;
@@ -313,7 +313,7 @@ class Pruebas {
 		$result["rows"] = $items;
 		// disconnect from database
 		$rs->free();
-		do_log("pruebas::selectEquiposByPrueba() exit OK");
+		log_exit($this->file);
 		return $result;
 	}
 }

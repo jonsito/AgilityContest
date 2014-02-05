@@ -77,7 +77,7 @@ class Jornadas {
 	 * @return {string} "" if ok; null on error
 	 */
 	function insert() {
-		do_log("jornadas::insert():: enter");
+		log_enter($this->file);
 		
 		// componemos un prepared statement
 		$sql ="INSERT INTO Jornadas (Prueba,Nombre,Fecha,Hora,Grado1,Grado2,Grado3,Equipos,PreAgility,KO,Exhibicion,Otras,Cerrada)
@@ -131,12 +131,12 @@ class Jornadas {
 					VALUES ($jornadaid,'-- Sin asignar --','NO BORRAR: USADO COMO GRUPO POR DEFECTO PARA LA JORNADA $jornadaid')");
 			do_log("jornadas::insert() declare default team for jornadaid $jornadaid");
 		};
-		do_log("jornadas::insert() exit OK");
+		log_exit($this->file);
 		return ""; 
 	}
 	
 	function update($jornadaid) {
-		do_log("jornadas::update() enter");
+		log_enter($this->file);
 		if ($jornadaid<=0) {
 			$this->errormsg="jornada::update() Error: invalid jornada ID";
 			return null;
@@ -187,7 +187,7 @@ class Jornadas {
 		if (!$cerrada) {
 			$this->declare_mangas($id,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras);
 		}
-		do_log("jornadas::update() exit OK");
+		log_exit($this->file);
 		return "";
 	}
 	
@@ -197,7 +197,7 @@ class Jornadas {
 	 * @return "" on success ; otherwise null
 	 */
 	function delete($jornadaid) {
-		do_log("jornada::delete() enter");
+		log_enter($this->file);
 		if ($jornadaid<=0) {
 			$this->errormsg="jornada::delete() Error: invalid jornada ID";
 			return null;
@@ -220,8 +220,8 @@ class Jornadas {
 			return null;
 		} 
 		// do_log("deleteJornada:: query(delete) resulted: $res");
-		
-		do_log("jornada::delete() exit OK");
+
+		log_exit($this->file);
 	} 
 	
 	/**
@@ -229,7 +229,7 @@ class Jornadas {
 	 * @return unknown
 	 */
 	function selectByPrueba() {
-		do_log("jornada::selectByPrueba() enter");
+		log_enter($this->file);
 		$result = array();
 		$items = array();
 		
@@ -257,7 +257,7 @@ class Jornadas {
 			$rs->free();
 		}
 		$result["rows"] = $items;
-		do_log("jornada::selectByPrueba() exit OK");
+		log_exit($this->file);
 		return $result;
 	}	
 	
@@ -266,7 +266,7 @@ class Jornadas {
 	 * @return unknown
 	 */
 	function searchByPrueba() {
-		do_log("jornada::searchByPrueba() enter");
+		log_enter($this->file);
 		
 		$result = array();
 		$items = array();
@@ -300,7 +300,7 @@ class Jornadas {
 			$rs->free();
 		}
 		$result["rows"] = $items;
-		do_log("jornada::searchByPrueba() exit OK");
+		log_exit($this->file);
 		return $result;
 	}
 }
