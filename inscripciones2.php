@@ -107,7 +107,7 @@ function identificaJornada(val,row,index) {
 // - tabla
 $('#inscripciones-datagrid').datagrid({
 	title: 'Gesti&oacute;n de datos de inscripciones',
-	url: 'database/select_InscritosByPrueba.php?ID='+workingData.prueba,
+	url: 'database/inscripcionFunctions.php?Operation=select&ID='+workingData.prueba,
 	method: 'get',
     toolbar: '#inscripciones-toolbar',
     pagination: true,

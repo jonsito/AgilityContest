@@ -18,8 +18,8 @@ class Inscripciones {
 	 * @throws Exception if cannot contact database or invalid prueba/jornada ID
 	 */
 	function __construct($file,$prueba) {
-		if ($prueba<=0 || $jornada<=0 ) {
-			$this->errormsg="$file::construct() invalid prueba:$prueba or jornada:$jornada ID";
+		if ( $prueba<=0 ) {
+			$this->errormsg="$file::construct() invalid prueba:$prueba ID";
 			throw new Exception($this->errormsg);
 		}
 		// connect database
@@ -247,11 +247,78 @@ class Inscripciones {
 	}
 	
 	/**
-	 * retrieve all inscriptions
+	 * retrieve all inscriptions of stored prueba
 	 */
 	function select() {
 		do_log("inscripcion::select() enter");
 		
+		// evaluate offset and row count for query
+		$id = $this->prueba;
+		$page = http_request("page","i",1); 
+		$rows = http_request("rows","i",20);
+		$sort = http_request("sort","s","Club");
+		$order = http_request("order","s","ASC"); 
+		$search =  http_request("where","s","");
+		$extra = ')';
+		if ($search!=='') $extra=" AND ( (PerroGuiaClub.Nombre LIKE '%$search%') OR ( Club LIKE '%$search%') OR ( Guia LIKE '%$search%' ) ) )";
+		$offset = ($page-1)*$rows;
+		
+		// FASE 1: obtener lista de perros inscritos con sus datos
+		$str="SELECT Numero , Inscripciones.Dorsal AS Dorsal , PerroGuiaClub.Nombre AS Nombre,
+			Categoria , Grado , Celo , Guia , Club , Equipo , Observaciones , Pagado
+			FROM Inscripciones,PerroGuiaClub,Jornadas
+			WHERE ( ( Inscripciones.Dorsal = PerroGuiaClub.Dorsal)
+			AND ( Inscripciones.Jornada = Jornadas.ID )
+			AND ( Prueba= $id )
+			$extra ORDER BY $sort $order"; // a single ')' or name search criterion
+		// do_log("inscripcion::select() query string is \n$str");
+		$rs=$this->conn->query($str);
+		if (!$rs) {
+			$this->errormsg="inscripcion::select() Error: ".$this->conn->error;
+			return null;
+		}
+		
+		// Fase 2: la tabla de resultados a devolver
+		$result = array(); // result { total(numberofrows), data(arrayofrows)
+		$count = 0;
+		$dorsales = array();
+		while($row = $rs->fetch_array()){
+			// do_log("inscripcion::select() examine dorsal ".$row['Dorsal']);
+			if (!isset($dorsales[$row['Dorsal']])) {
+				$count++;
+				$dorsales[$row['Dorsal']]= array(
+					'Dorsal' => $row['Dorsal'],
+					'Nombre' => $row['Nombre'],
+					'Categoria' => $row['Categoria'],
+					'Grado' => $row['Grado'],
+					'Celo' => $row['Celo'],
+					'Guia' => $row['Guia'],
+					'Club' => $row['Club'],
+					'Equipo' => $row['Equipo'],
+					'Observaciones' => $row['Observaciones'],
+					'Pagado' => $row['Pagado'],
+					'J1' => 0, 'J2' => 0, 'J3' => 0, 'J4' => 0, 'J5' => 0, 'J6' => 0, 'J7' => 0,'J8' => 0
+				);
+			} // create row if not exists
+			// store wich jornada is subscribed into array
+			$jornada=$row['Numero'];
+			$dorsales[$row['Dorsal']]["J$jornada"]=1;
+		}
+		$rs->free();
+		$items=array();
+		$index=0;
+		foreach($dorsales as $key => $item) {
+			if ($index<$offset) { // not yet on requested rows
+				$index++;
+				continue;
+			}
+			if (($index-$offset)>=$rows) break; // we already have enought rows
+			array_push($items,$item);
+			$index++;
+		}
+		$result['total']=$count; // number of rows retrieved
+		$result['rows']=$items;
+		// and return json encoded $result variable
 		do_log("inscripcion::select():: exit OK");
 		return $result;
 	}

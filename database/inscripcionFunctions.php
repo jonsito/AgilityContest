@@ -7,11 +7,12 @@
 		$result=null;
 		$inscripciones= new Inscripciones("inscripcionFunctions",http_request("ID","i",0));
 		$operation=http_request("Operation","s",null);
-		if ($operation===null) throw new Exception("Call to clubFunctions without 'Operation' requested");
+		if ($operation===null) throw new Exception("Call to inscripcionFunctions without 'Operation' requested");
 		switch ($operation) {
 			case "doit": $result=$inscripciones->doit(); break;
 			case "remove": $result=$inscripciones->remove(); break;
-			default: throw new Exception("clubFunctions:: invalid operation: $operation provided");
+			case "select": $result=$inscripciones->select(); break;
+			default: throw new Exception("inscripcionFunctions:: invalid operation: $operation provided");
 		}
 		if ($result===null) throw new Exception($inscripciones->errormsg);
 		if ($result==="") echo json_encode(array('success'=>true));
