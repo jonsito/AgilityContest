@@ -275,7 +275,7 @@ class Pruebas {
 		return $result;
 	}
 	
-	function equiposByPrueba($id) {
+	function selectEquiposByPrueba($id) {
 		do_log("pruebas::equiposByPrueba() enter");
 		if ($id==0) {
 			$this->errormsg="pruebas::selectEquiposByPrueba() Error: invalid prueba ID";
