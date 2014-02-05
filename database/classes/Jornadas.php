@@ -185,7 +185,7 @@ class Jornadas {
 		do_log("jornadas::update() actualizadas $stmt->affected_rows filas");
 		$stmt->close();
 		if (!$cerrada) {
-			declare_mangas($id,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras);
+			$this->declare_mangas($id,$grado1,$grado2,$grado3,$equipos,$preagility,$ko,$exhibicion,$otras);
 		}
 		do_log("jornadas::update() exit OK");
 		return "";

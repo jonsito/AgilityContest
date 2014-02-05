@@ -40,23 +40,24 @@ class Mangas {
 	function insert($tipo,$grado) {
 		do_log("insertMangas:: enter");
 		// si la manga existe no hacer nada; si no existe crear manga
-		$str="SELECT count(*) AS 'result' FROM Mangas WHERE ( Jornada = $jornada ) AND  ( Tipo = '".$tipo."' )";
+		$str="SELECT count(*) AS 'result' FROM Mangas WHERE ( Jornada = ".$this->jornada." ) AND  ( Tipo = '".$tipo."' )";
 		$rs=$this->conn->query($str);
 		if (!$rs) {
 			$this->errormsg="insertManga( select_count(*) , ".$this->jornada." , ".$tipo." ) failed: ".$this->conn->error;
 			return null;
 		}
 		if ($rs->num_rows > 0) {
-			do_log("insertMangas:: Manga already exists. return");
+			do_log("mangas::insert() Jornada:".$this->jornada." Manga: $tipo already exists. exit OK");
 			return "";
 		}
 		$rs->free();
-		$str="INSERT INTO Mangas ( Jornada , Tipo, Grado ) VALUES (".$this->$jornada.",'".$tipo."','".$grado."')";
+		$str="INSERT INTO Mangas ( Jornada , Tipo, Grado ) VALUES (".$this->jornada.",'".$tipo."','".$grado."')";
 		$rs=$this->conn->query($str);
 		if (!$rs) {
-			$str="inscripcionFunctions::create_manga( insert , ".$jornada." , '".$tipo.", ".$grado." ) failed: ".$this->conn->error;
+			$str="mangas::insert (".$this->jornada." , '".$tipo.", ".$grado." ) Error: ".$this->conn->error;
 			return null;
 		}
+		do_log("insertMangas:: exit OK");
 		return "";
 	}
 	
@@ -166,7 +167,7 @@ class Mangas {
 	}
 	
 	/**
-	 * Delete a Manga from jornada $jornada when tipo is $tipo
+	 * Delete a Manga from jornada $this->jornada when tipo is $tipo
 	 * @return "" on success; null on error
 	 */
 	function delete($tipo) {

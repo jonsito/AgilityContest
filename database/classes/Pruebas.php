@@ -251,6 +251,11 @@ class Pruebas {
 		return $result;
 	}
 	
+	/**
+	 * Retrieve data on requested prueba id
+	 * @param {integer} $id prueba ID
+	 * @return null on error, associative array on success
+	 */
 	function selectByID($id) {
 		do_log("selectPruebaByID:: enter");
 		if ($id==0) {
@@ -258,20 +263,17 @@ class Pruebas {
 			return null;
 		}
 		$str="SELECT * FROM Pruebas WHERE ( ID = '$id' )";
-		do_log("get_pruebaByID:: query string is $str");
+		// do_log("get_pruebaByID:: query string is $str");
 		$rs=$this->conn->query($str);
 		if (!$rs) {
 			$this->errormsg="selectPruebaByID::query() error ".$this->conn->error;
 			return null;
 		}
 		// retrieve result into an array
-		$result = array();
-		while($row = $rs->fetch_array()){ // should only be one element
-			array_push($result, $row);
-		}
+		$result = $rs->fetch_array();  // should only be one element
+		$rs->free();
 		// clean and return ok
 		do_log("selectPruebaByID:: exit OK");
-		$rs->free();
 		return $result;
 	}
 	
