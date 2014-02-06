@@ -1,12 +1,10 @@
 <?php
-require_once("DBConnection.php");
+require_once("DBObject.php");
 require_once("Jornadas.php");
 require_once("OrdenSalida.php"); // to insert/remove inscriptions from mangas
 
-class Inscripciones {
-	protected $conn;
-	protected $file;
-	public $errormsg; // should be public to access to from caller
+class Inscripciones extends DBObject {
+	
 	protected $prueba;
 	protected $jornadas; // array of jornadas for this prueba
 	
@@ -14,22 +12,15 @@ class Inscripciones {
 	 * Constructor
 	 * @param {string} $file caller for this object
 	 * @param {integer} $prueba Prueba ID
-	 * @param {integer} $jornada Jornada ID
 	 * @throws Exception if cannot contact database or invalid prueba/jornada ID
 	 */
 	function __construct($file,$prueba) {
+		parent::__construct($file);
 		if ( $prueba<=0 ) {
 			$this->errormsg="$file::construct() invalid prueba:$prueba ID";
 			throw new Exception($this->errormsg);
 		}
-		// connect database
-		$this->file=$file;
 		$this->prueba=$prueba;
-		$this->conn=DBConnection::openConnection("agility_operator","operator@cachorrera");
-		if (!$this->conn) {
-			$this->errormsg="$file::construct() cannot contact database";
-			throw new Exception($this->errormsg);
-		}
 		// obtenemos la lista de jornadas asociadas a esta prueba
 		$j=new Jornadas("inscripciones",$prueba);
 		$res=$j->selectByPrueba();
@@ -42,14 +33,6 @@ class Inscripciones {
 			$this->jornadas[$item["Numero"]]=$item;
 		} 
 	}
-	
-	/**
-	 * Destructor
-	 * Just disconnect from database
-	 */
-	function  __destruct() {
-		DBConnection::closeConnection($this->conn);
-	}
 
 	/**
 	 * Actualiza el orden de salida si es necesario
@@ -61,14 +44,11 @@ class Inscripciones {
 	 * @return "" on success; null on error
 	 */
 	function updateOrdenSalida($jornada,$dorsal,$celo,$mode) {
+		$this->myLogger->enter();
 		// obtenemos datos del perro
 		$str="SELECT * from PerroGuiaClub WHERE (Dorsal=$dorsal)";
-		do_log("inscripcion::updateOrdenSalida() $str");
-		$rs=$this->conn->query($str);
-		if ($rs===false) { // no deberia ocurrir
-			$this->errormsg="inscripcion::updateOrdenSalida() getDogData() Error".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error); 
 		$perro=$rs->fetch_object();
 		$rs->free();
 	
@@ -77,22 +57,19 @@ class Inscripciones {
 		FROM Mangas,Tipo_Manga
 		WHERE ( ( Jornada = $jornada ) AND ( Mangas.Tipo = Tipo_Manga.Tipo) )
 		ORDER BY Descripcion ASC";
-		do_log("inscriptionFunctions::updateOrdenSalida() $str");
-		$rs=$this->conn->query($str);
-		if(!$rs) {
-			$this->errormsg="inscripcion::updateOrdenSalida() getListaMangas() Error".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query($str);
+		if(!$rs) return $this->error($this->conn->error); 
 		// retrieve result into an array
 		while($row = $rs->fetch_object()){
 			$mangaid=$row->ID;
 			$mangagrado=$row->Grado;
 			
 			// obtenemos un manejador de ordenes de salida
-			$os=new OrdenSalida($this->conn,"inscriptionFunctions");
+			$os=new OrdenSalida("inscriptionFunctions");
 			// si la categoria no es compatible, intentamos eliminar el perro de la manga
 			if (($mangagrado !== '-') && ($mangagrado !== $perro->Grado)) {
-				do_log("Grado del dorsal ".$dorsal." (".$perro->Grado.") no compatible con grado de manga (".$mangagrado.") " );
+				$this->myLogger->debug("Grado del dorsal ".$dorsal." (".$perro->Grado.") no compatible con grado de manga (".$mangagrado.") " );
+
 				$os->remove($jornada,$mangaid,$dorsal);
 				continue;
 			}
@@ -108,6 +85,7 @@ class Inscripciones {
 			}
 		}
 		$rs->free();
+		$this->myLogger->leave();
 		return "";
 	}
 	
@@ -117,14 +95,11 @@ class Inscripciones {
 	 * @return empty string if ok; else null
 	 */
 	function doit() {
-		log_enter($this->file);
+		$this->myLogger->enter();
 
 		// variables comunes a todas las jornadas
 		$dorsal=http_request("Dorsal","i",0);
-		if ($dorsal==0) {
-			$this->errormsg="inscripcion::doit() Error: invalid Dorsal ID ";
-			return null;	
-		}
+		if ($dorsal==0) return $this->error("Invalid Dorsal ID"); 
 		$celo=http_request("Celo","i",0);
 		$observaciones=http_request("Observaciones","s","");
 		$equipo=http_request("Equipo","i",0);
@@ -132,13 +107,10 @@ class Inscripciones {
 		
 		// si el ID de equipo es cero, buscamos el equipo por defecto para la prueba solicitada
 		if ($equipo==0) {
-			do_log("insertInscripcion() no equipo selected on prueba ".$this->prueba."; get default");
+			$this->myLogger->info("No equipo selected on prueba ".$this->prueba."; get default");
 			$sql="SELECT ID FROM Equipos WHERE ( Prueba = ".$this->prueba." ) AND ( Nombre = '-- Sin asignar --' )";
-			$rs=$this->conn->query($sql);		
-			if (!$rs) {
-				$this->errormsg="inscripcion::doit() cannot get default team: ".$this->conn->error;
-				return null;	
-			}
+			$rs=$this->query($sql);		
+			if (!$rs) return $this->error($this->conn->error);
 			$row=$rs->fetch_row();
 			$equipo = $row[0];
 			$rs->free();
@@ -147,7 +119,7 @@ class Inscripciones {
 		for ($numero=1;$numero<9;$numero++) {
 			// si la jornada esta cerrada no se hace nada
 			if ($this->jornadas[$numero]["Cerrada"]!=0) {
-				do_log("inscripcion::doit() la jornada $numero esta cerrada");
+				$this->myLogger->info("La jornada $numero esta cerrada");
 				continue;
 			}
 			// obtenemos el JornadaID
@@ -160,56 +132,37 @@ class Inscripciones {
 				$sql="UPDATE Inscripciones
 					SET Celo=$celo , Observaciones='$observaciones' , Equipo=$equipo , Pagado=$pagado
 					WHERE ( (Dorsal=$dorsal) AND (Jornada=$jornada))";
-				do_log("inscription::doit(update) trying to update Dorsal $dorsal from Jornada #$numero: ($jornada)");
-				$rs=$this->conn->query($sql);
-				if (!$rs) { // error en query
-					$this->errormsg="inscripcion::doit(update) check already Error: ".$this->conn->error;
-					return null;
-				}
+				$rs=$this->query($sql);
+				if (!$rs) return $this->error($this->conn->error); 
 				if ($this->conn->affected_rows != 0) { // ya estaba inscrito
-					do_log("inscripcion::doit(update) Dorsal $dorsal already registered in Jornada #$numero ($jornada)");
+					$this->myLogger->info("Dorsal $dorsal already registered in Jornada #$numero ($jornada)");
 					$res=$this->updateOrdenSalida($jornada,$dorsal,$celo,1 /*update*/);
-					if ($res===null) {
-						$this->errormsg="inscripcion::doit(update) updateOrdenSalida Error: ".$this->errormsg;
-						return null;
-					}
+					if ($res===null) return $this->error($this->errormsg);
 					continue; // go to next jornada
 				}
 					
 				// si no esta inscrito, vamos a hacer la inscripcion
 				$sql="INSERT INTO Inscripciones ( Jornada , Dorsal , Celo , Observaciones , Equipo , Pagado )
 					VALUES ($jornada,$dorsal,$celo,'$observaciones',$equipo,$pagado)";
-				do_log("inscription::doit(insert) insert into Jornada $numero: ID: $jornada Dorsal $dorsal");
-				$rs=$this->conn->query($sql);
-				if (!$rs) {
-					$this->errormsg="inscripcion::doit(insert) Error: ".$this->conn->error;
-					return null;
-				}
+				$this->myLogger->debug("Insert into Jornada $numero: ID: $jornada Dorsal $dorsal");
+				$rs=$this->query($sql);
+				if (!$rs) return $this->error($this->conn->error);
 				$res=$this->updateOrdenSalida($jornada,$dorsal,$celo,0 /* insert */);
-				if ($res===null) {
-					$this->errormsg="inscripcion::doit(insert) updateOrdenSalida Error: ".$this->errormsg;
-					return null;
-				}
+				if ($res===null) return $this->error($this->errormsg); 
 				
 			} else {
 				// no solicita inscripcion: borrar datos
 				$sql="DELETE FROM Inscripciones where ( (Dorsal=$dorsal) AND (Jornada=$jornada))";
-				do_log("inscription::doit(delete) Delete from Jornada $numero: ID: $jornada Dorsal $dorsal");
-				$rs=$this->conn->query($sql);
-				if (!$rs) {
-					$this->errormsg="inscripcion::doit(delete) Error: ".$this->conn->error;
-					return null;
-				}
+				$this->myLogger->debug("Delete from Jornada $numero: ID: $jornada Dorsal $dorsal");
+				$rs=$this->query($sql);
+				if (!$rs) return $this->error($this->conn->error);
 				$res=$this->updateOrdenSalida($jornada,$dorsal,$celo,0 /* insert */);
-				if ($res===null) {
-					$this->errormsg="inscripcion::doit(delete) updateOrdenSalida Error: ".$this->errormsg;
-					return null;
-				}
+				if ($res===null) return $this->error($this->errormsg);
 			}
 			
 		}
 		// all right return ok
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return ""; // return ok
 	}
 	
@@ -218,31 +171,22 @@ class Inscripciones {
 	 * @return {string} "" on success; null on error
 	 */
 	function remove() {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		$dorsal=http_request("Dorsal","i",0);
-		if ($dorsal==0) {
-			$this->errormsg="inscripcion::remove() Error: invalid Dorsal ID ";
-			return null;
-		}
+		if ($dorsal==0) return $this->error("Invalid Dorsal ID"); 
 		for ($n=1;$n<9;$n++) {
 			$jornada=$this->jornadas[$n]["ID"];
 			if ($this->jornadas[$n]["Cerrada"]!=0) {
-				do_log("inscripcion::remove() skip delete Dorsal $dorsal on closed Jornada $jornada");
+				$this->myLogger->info("Skip delete Dorsal $dorsal on closed Jornada $jornada");
 				continue;
 			}
 			$sql="DELETE FROM Inscripciones where ( (Dorsal=$dorsal) AND (Jornada=$jornada))";
-			$res=$this->conn->query($sql);
-			if (!$res) {
-				$this->errormsg="inscription::remove() execute query failed :".$this->conn->error;
-				return null;
-			}
+			$res=$this->query($sql);
+			if (!$res) return $this->error($this->conn->error); 
 			$res=$this->updateOrdenSalida($jornada,$dorsal,0,2 /*remove*/);
-			if ($res===null) {
-				$this->errormsg="inscripcion::remove() updateOrdenSalida Error: ".$this->errormsg;
-				return null;
-			}
+			if ($res===null) $this->conn->error($this->errormsg);
 		} // for every jornada on provided prueba
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return "";
 	}
 	
@@ -250,7 +194,7 @@ class Inscripciones {
 	 * retrieve all inscriptions of stored prueba
 	 */
 	function select() {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		
 		// evaluate offset and row count for query
 		$id = $this->prueba;
@@ -271,19 +215,14 @@ class Inscripciones {
 			AND ( Inscripciones.Jornada = Jornadas.ID )
 			AND ( Prueba= $id )
 			$extra ORDER BY $sort $order"; // a single ')' or name search criterion
-		// do_log("inscripcion::select() query string is \n$str");
-		$rs=$this->conn->query($str);
-		if (!$rs) {
-			$this->errormsg="inscripcion::select() Error: ".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error); 
 		
 		// Fase 2: la tabla de resultados a devolver
 		$result = array(); // result { total(numberofrows), data(arrayofrows)
 		$count = 0;
 		$dorsales = array();
 		while($row = $rs->fetch_array()){
-			// do_log("inscripcion::select() examine dorsal ".$row['Dorsal']);
 			if (!isset($dorsales[$row['Dorsal']])) {
 				$count++;
 				$dorsales[$row['Dorsal']]= array(
@@ -319,7 +258,7 @@ class Inscripciones {
 		$result['total']=$count; // number of rows retrieved
 		$result['rows']=$items;
 		// and return json encoded $result variable
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return $result;
 	}
 	

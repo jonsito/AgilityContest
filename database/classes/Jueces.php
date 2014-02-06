@@ -1,53 +1,22 @@
 <?php
 
-require_once("DBConnection.php");
+require_once("DBObject.php");
 
-class Jueces {
-	protected $conn;
-	protected $file;
-	public $errormsg; // should be public to access to from caller
-
-	/**
-	 * Constructor
-	 * @param {string} $file caller for this object
-	 * @throws Exception if cannot contact database
-	 */
-	function __construct($file) {
-		// connect database
-		$this->file=$file;
-		$this->conn=DBConnection::openConnection("agility_operator","operator@cachorrera");
-		if (!$this->conn) {
-			$this->errormsg="$file::construct() cannot contact database";
-			throw new Exception($this->errormsg);
-		}
-	}
-
-	/**
-	 * Destructor
-	 * Just disconnect from database
-	 */
-	function  __destruct() {
-		DBConnection::closeConnection($this->conn);
-	}
+class Jueces extends DBObject {
+	
 	/**
 	 * Insert a new juez into database
 	 * @return {string} "" if ok; null on error
 	 */
 	function insert() {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		// componemos un prepared statement
 		$sql ="INSERT INTO Jueces (Nombre,Direccion1,Direccion2,Telefono,Internacional,Practicas,Email,Observaciones)
 			   VALUES(?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
-		if (!$stmt) {
-			$this->errormsg="insertDog::prepare() failed ".$this->conn->error;
-			return null;
-		}
+		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('ssssiiss',$nombre,$direccion1,$direccion2,$telefono,$internacional,$practicas,$email,$observaciones);
-		if (!$res) {
-			$this->errormsg="insertJuez::prepare() failed ".$this->conn->error;
-			return null;
-		}
+		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
 		$nombre =		http_request("Nombre","s",null); // pkey not null
@@ -59,35 +28,24 @@ class Jueces {
 		$email =		http_request("Email","s",null); // not null
 		$observaciones=	http_request("Observaciones","s",null);
 		
-		do_log("insertJuez:: retrieved data from client");
-		do_log("Nombre: $nombre Dir1: $direccion1 Dir2: $Direccion2 Tel: $telefono");
-		do_log("I: $internacional P: $practicas Email: $email Obs: $observaciones");
+		$this->myLogger->debug("Nombre: $nombre Dir1: $direccion1 Dir2: $Direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) {
-			$this->errormsg="insertJuez:: Error: ".$this->conn->error;
-			return null;
-		}
+		if (!$res) return $this->error($this->conn->error);
 		$stmt->close();
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return ""; 
 	}
 	
 	function update() {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		// componemos un prepared statement
 		$sql ="UPDATE Jueces SET Nombre=? , Direccion1=? , Direccion2=? , Telefono=? , Internacional=? , Practicas=? , Email=? , Observaciones=?
 		       WHERE ( Nombre=? )";
 		$stmt=$this->conn->prepare($sql);
-		if (!$stmt) {
-			$this->errormsg="juezFunctions::updateJuez() prepare() failed ".$this->conn->error;
-			return null;
-		}
+		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('ssssiisss',$nombre,$direccion1,$direccion2,$telefono,$internacional,$practicas,$email,$observaciones,$viejo);
-		if (!$res) {
-			$this->errormsg="juezFunctions::updateJuez() bind() failed ".$this->conn->error;
-			return null;
-		}
+		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
 		$nombre =		http_request("Nombre","s",null); // pkey not null
@@ -99,18 +57,13 @@ class Jueces {
 		$practicas =	http_request("Practicas","i",0);
 		$email =		http_request("Email","s",null); // not null
 		$observaciones=	http_request("Observaciones","s",null);
+		$this->myLogger->debug("N.Viejo: $viejo N.nuevo: $nombre Dir1: $direccion1 Dir2: $direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
 		
-		do_log("juezFunctions::updateJuez() retrieved data from client");
-		do_log("N.Viejo: $viejo N.nuevo: $nombre Dir1: $direccion1 Dir2: $direccion2 Tel: $telefono");
-		do_log("I: $internacional P: $practicas Email: $email Obs: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) {
-			$this->errormsg="juezFunctions::updateJuez() Error: ".$this->conn->error;
-			return null;
-		}
+		if (!$res) return $this->error($this->conn->error);
 		$stmt->close();
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return "";
 	}
 	
@@ -120,23 +73,17 @@ class Jueces {
 	 * @return "" on success ; otherwise null
 	 */
 	function delete($juez) {
-		log_enter($this->file);
-		if ($juez==='-- Sin asignar --') {
-			$this->errormsg="juezFunctions::deleteJuez() Ignore deletion of default value";
-			return null;
-		}
+		$this->myLogger->enter();
+		if ($juez==='-- Sin asignar --') return $this->error("Cannot delete default juez"); 
 		$str="DELETE FROM Jueces WHERE ( Nombre='$juez' )";
-		$res= $this->conn->query($str);
-		if (!$res) {
-			$this->errormsg="juezFunctions::deleteJuez() Error: ".$this->conn->error;
-			return null;
-		}
-		log_exit($this->file);
+		$res= $this->query($str);
+		if (!$res) return $this->error($this->conn->error);
+		$this->myLogger->leave();
 		return "";
 	} 
 	
 	function select() {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		// evaluate offset and row count for query
 		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 		$rows = isset($_GET['rows']) ? intval($_GET['rows']) : 20;
@@ -149,22 +96,15 @@ class Jueces {
 		$result = array();
 		
 		// execute first query to know how many elements
-		$rs=$this->conn->query("SELECT count(*) FROM Jueces $where");
-		if (!$rs){
-			$this->errormsg="select ( count(*) ) failed: ".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query("SELECT count(*) FROM Jueces $where");
+		if (!$rs) return $this->error($this->conn->error);
 		$row=$rs->fetch_array();
 		$result["total"] = $row[0];
 		
 		// second query to retrieve $rows starting at $offset
 		$str="SELECT * FROM Jueces $where ORDER BY $sort $order LIMIT $offset,$rows";
-		do_log("select_jueces:: query string is $str");
-		$rs=$this->conn->query($str);
-		if (!$rs){
-			$this->errormsg="select ( * ) failed: ".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
 		$items = array();
 		while($row = $rs->fetch_array()){
@@ -173,33 +113,27 @@ class Jueces {
 		$result["rows"] = $items;
 		// clean and return
 		$rs->free();
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return $result;
 	}
 	
 	function enumerate() { // like select but do not perform offset/rows operation
-		log_enter($this->file);
+		$this->myLogger->enter();
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
 		$like =  ($q===null) ? "" : " WHERE Nombre LIKE '%".$q."%'";
 		
 		// execute first query to know how many elements
-		$rs=$this->conn->query("SELECT count(*) FROM Jueces ".$like);
-		if (!$rs){
-			$this->errormsg="select ( count(*) ) failed: ".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query("SELECT count(*) FROM Jueces ".$like);
+		if (!$rs) return $this->error($this->conn->error);
 		$row=$rs->fetch_row();
 		$result["total"] = $row[0];
 		
 		// second query to retrieve $rows starting at $offset
 		$str="SELECT * FROM Jueces ".$like." ORDER BY Nombre ASC";
-		do_log("enumerate_jueces::query() $str");
-		$rs=$this->conn->query($str);
-		if (!$rs) {
-			$this->errormsg="enumerate_jueces::query() failed: ".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		
 		// retrieve result into an array
 		$items = array();
 		while($row = $rs->fetch_array()){
@@ -208,7 +142,7 @@ class Jueces {
 		$result["rows"] = $items;
 		// clean and return
 		$rs->free();
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return $result;
 	}
 }

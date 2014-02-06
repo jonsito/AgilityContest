@@ -1,72 +1,46 @@
 <?php
 
-require_once("DBConnection.php");
+require_once("DBObject.php");
 
-class Mangas {
-	protected $conn;
-	protected $file;
+class Mangas extends DBObject {
 	protected $jornada;
-	public $errormsg; // should be public to access to from caller
-
+	
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
-	 * @param {string} $tipo jornada type
+	 * @param {string} $jornada jornada ID
 	 * @throws Exception if cannot contact database or invalid jornada ID
 	 */
 	function __construct($file,$jornada) {
-		// connect database
-		$this->file=$file;		
+		parent::__construct($file);
 		if ($jornada<=0) {
 			$this->errormsg="Manga::Construct invalid jornada ID";
 			throw new Exception($this->errormsg);
 		}
 		$this->jornada=$jornada;
-		$this->conn=DBConnection::openConnection("agility_operator","operator@cachorrera");
-		if (!$this->conn) {
-			$this->errormsg="$file::construct() cannot contact database";
-			throw new Exception($this->errormsg);
-		}
-	}
-
-	/**
-	 * Destructor
-	 * Just disconnect from database
-	 */
-	function  __destruct() {
-		DBConnection::closeConnection($this->conn);
 	}
 	
 	function insert($tipo,$grado) {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		// si la manga existe no hacer nada; si no existe crear manga
 		$str="SELECT count(*) AS 'result' FROM Mangas WHERE ( Jornada = ".$this->jornada." ) AND  ( Tipo = '".$tipo."' )";
-		$rs=$this->conn->query($str);
-		if (!$rs) {
-			$this->errormsg="insertManga( select_count(*) , ".$this->jornada." , ".$tipo." ) failed: ".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error); 
 		if ($rs->num_rows > 0) {
-			do_log("mangas::insert() Jornada:".$this->jornada." Manga: $tipo already exists. exit OK");
+			$this->myLogger->info("Jornada:".$this->jornada." Manga: $tipo already exists. exit OK");
 			return "";
 		}
 		$rs->free();
 		$str="INSERT INTO Mangas ( Jornada , Tipo, Grado ) VALUES (".$this->jornada.",'".$tipo."','".$grado."')";
-		$rs=$this->conn->query($str);
-		if (!$rs) {
-			$str="mangas::insert (".$this->jornada." , '".$tipo.", ".$grado." ) Error: ".$this->conn->error;
-			return null;
-		}
-		log_exit($this->file);
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error); 
+		$this->myLogger->leave();
 		return "";
 	}
 	
 	function update($mangaid) {
-		log_enter($this->file);
-		if ($mangaid <=0) {
-			$this->errormsg="updateManga() invalid manga ID";
-			return null;
-		}
+		$this->myLogger->enter();
+		if ($mangaid <=0) return $this->error("Invalid Manga ID"); 
 		// preparamos la query SQL
 		$sql= "UPDATE Mangas SET
  			Recorrido=? ,
@@ -79,10 +53,7 @@ class Mangas {
 			WHERE (ID=?)";
 		
 		$stmt=$this->conn->prepare($sql);
-		if (!$stmt) {
-			$this->errormsg="update_Manga::prepare() failed ".$this->conn->error;
-			return null;
-		}
+		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param(
 				'iiiiiiiiisiisiisiisiisiissssii',
 				$recorrido,
@@ -92,10 +63,7 @@ class Mangas {
 				$trs_s_tipo,	$trs_s_factor,	$trs_s_unit,	$trm_s_tipo,	$trm_s_factor,	$trm_s_unit,// TRS y TRM Small
 				$juez1, 		$juez2, 		$observaciones,	$cerrada,		$id		
 		);
-		if (!$res) {
-			$this->errormsg="update_Manga::bind() failed ".$this->conn->error;
-			return null;
-		}
+		if (!$res) return $this->error($this->conn->error); 
 		
 		// retrieve http request variables
 		/*
@@ -153,16 +121,11 @@ class Mangas {
 		$cerrada = http_request("Cerrada","i",0);
 		
 		// ejecutamos el query
-		do_log("update_Manga:: retrieved data from client");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) {
-			$this->errormsg="update_Manga:: Error: ".$this->conn->error;
-			return null;
-		}
-		do_log("update_Manga:: actualizadas $stmt->affected_rows filas");
+		if (!$res) return $this->error($this->conn->error); 
 		$stmt->close();
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return "";
 	}
 	
@@ -171,19 +134,13 @@ class Mangas {
 	 * @return "" on success; null on error
 	 */
 	function delete($tipo) {
-		log_enter($this->file);
-		if ($tipo===null) {
-			$this->errormsg="deleteManga:: invalid parameter 'tipo'";
-			return null;
-		}
+		$this->myLogger->enter();
+		if ($tipo===null) return $this->error("Invalid value for 'Tipo'"); 
 		// si la manga existe, borrarla; si no existe, no hacer nada
 		$str="DELETE FROM Mangas WHERE ( Jornada = ".$this->jornada." ) AND  ( Tipo = '".$tipo."' )";
-		$rs=$this->conn->query($str);
-		if (!$rs) {
-			$this->errormsg="inscripcionFunctions::delete_manga( ".$this->jornada." , ".$tipo." ) failed: ".$this->conn->error;
-			return null;
-		}
-		log_exit($this->file);
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error); 
+		$this->myLogger->leave();
 		return "";
 	}
 	
@@ -193,28 +150,18 @@ class Mangas {
 	 * @return null on error, data on success
 	 */
 	function selectByID($id) {
-		log_enter($this->file);
-		if ($id<=0) {
-			$this->errormsg="selectMangaByID:: invalid Manga ID";
-			return null;
-		}
+		$this->myLogger->enter();
+		if ($id<=0) return $this->error("Invalid Manga ID"); 
 		// second query to retrieve $rows starting at $offset
 		$str="SELECT * FROM Mangas WHERE ( ID = $id )";
-		do_log("Executing query: $str");
-		$rs=$this->conn->query($str);
-		if (!$rs) {
-			$this->errormsg="selectMangaByID::query() error ".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error); 
 		// retrieve result into an array
-		if ($rs->num_rows==0) {
-			$this->errormsg = "selectMangaByID::query() error: no rows found";
-			return null;
-		}
+		if ($rs->num_rows==0) return $this->error("No manga(s) found"); 
 		$result = $rs->fetch_object();  // should only be one element
 		// disconnect from database
 		$rs->free();
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return $result;
 	}
 	
@@ -223,30 +170,24 @@ class Mangas {
 	 * @return null on error, result on success
 	 */
 	function selectByJornada() {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		$result = array();
 		$items = array();
 		
 		$str="SELECT count(*) FROM Mangas WHERE ( Jornada = ".$this->jornada." )";
-		$rs=$this->conn->query($str);
-		if (!$rs) {
-			$this->errormsg="selectMangasByJornada(count(*)): Error".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error); 
 		$row=$rs->fetch_row();
 		$rs->free();
 		$result["total"] = $row[0];
+		
 		if($result["total"]>0) {
 			$str="SELECT ID, Mangas.Tipo AS Tipo, Tipo_Manga.Descripcion AS Descripcion
 			FROM Mangas,Tipo_Manga
 			WHERE ( ( Jornada = ".$this->jornada." ) AND ( Mangas.Tipo = Tipo_Manga.Tipo) )
 			ORDER BY Descripcion ASC";
-			// do_log("select_MangasByJornada::(select) $str");
-			$rs=$this->conn->query($str);
-			if (!$rs) {
-				$this->errormsg="selectMangasByJornada(): Error".$this->conn->error;
-				return null;
-			}
+			$rs=$this->query($str);
+			if (!$rs) return $this->error($this->conn->error); 
 			// retrieve result into an array
 			while($row = $rs->fetch_array()) {
 				array_push($items, $row); 
@@ -254,7 +195,7 @@ class Mangas {
 			$rs->free();
 		}
 		$result["rows"] = $items;
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return $result;
 	}
 }

@@ -1,55 +1,25 @@
 <?php
-	require_once("DBConnection.php");
+	require_once("DBObject.php");
 
-class Clubes {
-	protected $conn;
-	protected $file;
-	public $errormsg; // should be public to access to from caller
-	
-	/**
-	 * Constructor
-	 * @param {string} $file caller for this object
-	 * @throws Exception if cannot contact database
-	 */
-	function __construct($file) {
-		// connect database
-		$this->file=$file;
-		$this->conn=DBConnection::openConnection("agility_operator","operator@cachorrera");
-		if (!$this->conn) {
-			$this->errormsg="$file::construct() cannot contact database";
-			throw new Exception($this->errormsg);
-		}
-	}
-	
-	/**
-	 * Destructor
-	 * Just disconnect from database
-	 */
-	function  __destruct() {
-		DBConnection::closeConnection($this->conn);
-	}
+class Clubes extends DBObject {
+
+	/* use parent constructor and destructors */
 	
 	/**
 	 * insert a new club into database
 	 * @return empty string if ok; else null
 	 */
 	function insert() {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		// componemos un prepared statement
 		$sql ="INSERT INTO Clubes (Nombre,Direccion1,Direccion2,Provincia,Contacto1,Contacto2,Contacto3,GPS,
 				Web,Email,Facebook,Google,Twitter,Observaciones,Baja)
 			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
-		if (!$stmt) {
-			$this->errormsg="insertClub::prepare() failed ".$this->conn->error;
-			return null;
-		}
+		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('sssssssssssssss',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,
 				$web,$email,$facebook,$google,$twitter,$observaciones,$baja);
-		if (!$res) {
-			$this->errormsg="insertClub::prepare() failed ".$this->conn->error;
-			return null;
-		}
+		if (!$res)  return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
 		$nombre 	= http_request("Nombre","s",null);
@@ -67,17 +37,12 @@ class Clubes {
 		$twitter	= http_request('Twitter',"s",null);
 		$observaciones = http_request('Observaciones',"s",null);
 		$baja		= http_request('Baja',"i",0);
-		do_log("insertClub:: retrieved data from client");
-		do_log("Nombre: $nombre Direccion1: $direccion1 Contacto1: $contacto1 Observaciones: $observaciones");
+		$this->myLogger->debug("Nombre: $nombre Direccion1: $direccion1 Contacto1: $contacto1 Observaciones: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		$stmt->close();
-		if (!$res) {
-			$this->errormsg="insertClub:: Error: ".$this->conn->error;
-			return null;
-		}
-		// do_log("insertadas $stmt->affected_rows filas");
-		log_exit($this->file);
+		if (!$res) return $this->error($this->conn->error);
+		$this->myLogger->leave();
 		return ""; // return ok
 	}
 	
@@ -86,7 +51,7 @@ class Clubes {
 	 * @return string "" empty if ok; null on error
 	 */
 	function update() {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		
 		// componemos un prepared statement
 		$sql ="UPDATE Clubes
@@ -95,16 +60,10 @@ class Clubes {
 				Email=? , Facebook=? , Google=? , Twitter=? , Observaciones=? , Baja=?
 				WHERE ( Nombre=? )";
 		$stmt=$this->conn->prepare($sql);
-		if (!$stmt) {
-			$this->errormsg="updateClub::prepare() failed ".$this->conn->error;
-			return null;
-		}
+		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('ssssssssssssssis',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,
 				$web,$email,$facebook,$google,$twitter,$observaciones,$baja,$viejo);
-		if (!$res) {
-			$this->errormsg="updateClub::bind() failed ".$this->conn->error;
-			return null;
-		}
+		if (!$res) return $this->error($this->conn->error);
 		// iniciamos los valores, chequeando su existencia
 		$nombre 	= http_request("Nombre","s",null);
 		$viejo		= http_request("Viejo","s",null);
@@ -123,38 +82,25 @@ class Clubes {
 		$observaciones = http_request('Observaciones',"s",null);
 		$baja		= http_request('Baja',"i",0);
 		
-		do_log("updateClub:: retrieved data from client");
-		do_log("Nombre: $nombre Direccion1: $direccion1 Contacto1: $contacto1 Observaciones: $observaciones");
+		$this->myLogger->debug("Nombre: $nombre Direccion1: $direccion1 Contacto1: $contacto1 Observaciones: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) {
-			$this->errormsg="updateClub:: Error: ".$this->conn->error;
-			return null;
-		}
-		log_exit($this->file);
+		if (!$res) return $this->error($this->conn->error);
+		$this->myLogger->leave();
 		$stmt->close();
 		return "";
 	}
 	
 	function delete($nombre) {
-		log_enter($this->file);
-		if ($nombre===null) {
-			$this->errormsg="deleteClub:: no club name provided";
-			return null;
-		}
+		$this->myLogger->enter();
+		if ($nombre===null)  return $this->error("No club name provided");
 		// fase 1: desasignar guias del club
-		$res= $this->conn->query("UPDATE Guias SET Club='-- Sin asignar --'  WHERE (Club='$nombre')");
-		if (!$res) {
-			$this->errormsg="deleteClub::unassign handlers() Error: ".$this->conn->error;
-			return null;
-		} 
+		$res= $this->query("UPDATE Guias SET Club='-- Sin asignar --'  WHERE (Club='$nombre')");
+		if (!$res) return $this->error($this->conn->error);
 		// fase 2: borrar el club de la BBDD
-		$res= $this->conn->query("DELETE FROM Clubes WHERE (Nombre='$nombre')");
-		if (!$res) {
-			$this->errormsg="deleteClub::query(delete) Error: ".$this->conn->error;
-			return null;
-		}
-		log_exit($this->file);
+		$res= $this->query("DELETE FROM Clubes WHERE (Nombre='$nombre')");
+		if (!$res) return $this->error($this->conn->error);
+		$this->myLogger->leave();
 		return "";
 	}
 	
@@ -162,7 +108,7 @@ class Clubes {
 	 * retrieve all clubes from table, according sort, search and limit requested
 	 */
 	function select() {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		// evaluate offset and row count for query
 		$page= http_request("page","i",1);
 		$rows= http_request("rows","i",20);
@@ -175,20 +121,15 @@ class Clubes {
 		$result = array();
 		
 		// execute first query to know how many elements
-		$rs=$this->conn->query("SELECT count(*) FROM Clubes $where");
-		if ($rs===false) {
-			$this->errormsg="select()::count error: ".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query("SELECT count(*) FROM Clubes $where");
+		if (!$rs)  return $this->error($this->conn->error);
 		$row=$rs->fetch_array();
 		$rs->free();
 		$result["total"] = $row[0];
+		
 		// second query to retrieve $rows starting at $offset
-		$rs=$this->conn->query("SELECT * FROM Clubes $where ORDER BY $sort $order LIMIT $offset,$rows");
-		if ($rs===false) {
-			$this->errormsg="select() error: ".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query("SELECT * FROM Clubes $where ORDER BY $sort $order LIMIT $offset,$rows");
+		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
 		$items = array();
 		while($row = $rs->fetch_array()){
@@ -197,7 +138,7 @@ class Clubes {
 		$result["rows"] = $items;
 		$rs->free();
 		// return composed array
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return $result;
 	}
 	
@@ -206,27 +147,23 @@ class Clubes {
 	 * return data if success; null on error
 	 */
 	function enumerate() {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		// evaluate offset and row count for query
 		$q=http_request("q","s",null);
 		$like =  ($q===null) ? "" : " WHERE Nombre LIKE '%".$q."%'";
 		
 		// execute first query to know how many elements
 		$result = array();
-		$rs=$this->conn->query("SELECT count(*) FROM Clubes ".$like);
-		if ($rs===false) {
-			$this->errormsg="select( count* ) error: ".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query("SELECT count(*) FROM Clubes ".$like);
+		if (!$rs)  return $this->error($this->conn->error);
 		$row=$rs->fetch_row();
 		$result["total"] = $row[0];
 		$rs->free();
+		
 		// second query to retrieve $rows starting at $offset
-		$rs=$this->conn->query("SELECT Nombre,Provincia FROM Clubes ".$like." ORDER BY Nombre ASC");
-		if ($rs===false) {
-			$this->errormsg="select() error: ".$this->conn->error;
-			return null;
-		}
+		$rs=$this->query("SELECT Nombre,Provincia FROM Clubes ".$like." ORDER BY Nombre ASC");
+		if (!$rs) return $this->error($this->conn->error);
+		
 		// retrieve result into an array
 		$items = array();
 		while($row = $rs->fetch_array()){
@@ -238,7 +175,7 @@ class Clubes {
 		}
 		$result["rows"] = $items;
 		// return composed array
-		log_exit($this->file);
+		$this->myLogger->leave();
 		$rs->free();
 		return $result;
 	}

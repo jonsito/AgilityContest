@@ -1,9 +1,7 @@
 <?php
-/** mandatory requires for database and logging */
-require_once ("logging.php");
-require_once ("DBConnection.php");
+require_once("DBObject.php");
 
-class OrdenSalida {
+class OrdenSalida extends DBObject {
 	
 	// tablas utilizadas para componer e insertar los dorsales en el string de orden de salida
 	protected $default_orden = "BEGIN,TAG_-0,TAG_-1,TAG_L0,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END";
@@ -19,44 +17,8 @@ class OrdenSalida {
 			'T0' => 'TAG_T1',
 			'T1' => 'END' 
 	);
-	
-	protected $conn;
-	protected $file;
-	public $errormsg;
-	
-	/**
-	 * Constructor
-	 * @param {string} $f "filename" identifier of who is using this class
-	 * @throws Exception
-	 */
-	function __construct($f) {
-		$this->file = $f;
-		$this->errormsg='';
-		$this->conn=DBConnection::openConnection("agility_operator","operator@cachorrera");
-		if (!$this->conn) {
-			$this->errormsg="$file::construct() cannot contact database";
-			throw new Exception($this->errormsg);
-		}
-	}
-	
-	/**
-	 * Destructor
-	 * Just disconnect from database
-	 */
-	function  __destruct() {
-		DBConnection::closeConnection($this->conn);
-	}
 
-	function error($msg) {
-		$parent=debug_backtrace()[1]['function'];
-		$this->errormsg=$this->file."::".$parent."() Error: ".$msg;
-		return null;
-	}
-	
-	function log($msg) {
-		$parent=debug_backtrace()[1]['function'];
-		do_log($this->file."::".$parent."() : ".$msg);
-	}
+	/* use parent constructor and destructor */
 	
 	/**
 	 * Retrieve Mangas.Orden_Salida
@@ -64,14 +26,14 @@ class OrdenSalida {
 	 * @return {string} orden de salida. o "" si vacio
 	 */
 	function getOrden($manga) {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		$sql = "SELECT Orden_Salida FROM Mangas WHERE ( ID=$manga )";
-		$rs = $this->conn->query ( $sql );
+		$rs = $this->query ( $sql );
 		if (!$rs) return $this->error($this->conn->error);
 		$row = $rs->fetch_object ();
 		$result = $row->Orden_Salida;
 		$rs->free ();
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return ($result===null)?"":$result;
 	}
 	
@@ -82,12 +44,12 @@ class OrdenSalida {
 	 * @return {string} "" if success; null on error
 	 */
 	function setOrden($manga, $orden) {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		$sql = "UPDATE Mangas SET Orden_Salida = '" . $orden . "' WHERE ( ID=$manga )";
-		$rs = $this->conn->query ($sql);
+		$rs = $this->query ($sql);
 		// do not call $rs->free() as no resultset returned
 		if (!$rs) return $this->error($this->conn->error);
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return "";
 	}
 	
@@ -101,8 +63,8 @@ class OrdenSalida {
 	 * @return {string} nuevo orden de salida
 	 */
 	function insertIntoList($ordensalida, $dorsal, $cat, $celo) {
-		log_enter($this->file);
-		$this->log("inserting dorsal:$dorsal cat:$cat celo:$celo" );
+		$this->myLogger->enter();
+		$this->myLogger->debug("inserting dorsal:$dorsal cat:$cat celo:$celo" );
 		// lo borramos para evitar una posible doble insercion
 		$str = "," . $dorsal . ",";
 		$nuevoorden = str_replace ( $str, ",", $ordensalida );
@@ -110,7 +72,7 @@ class OrdenSalida {
 		$myTag = $dorsal . "," . $this->tags_orden [$cat . $celo];
 		// y lo insertamos en lugar que corresponde
 		$result = str_replace ( $this->tags_orden [$cat . $celo], $myTag, $nuevoorden );
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return $result;
 	}
 	
@@ -122,25 +84,25 @@ class OrdenSalida {
 	 * @return array[count,[data]] array ordenado segun ordensalida de datos de perros de una manga 
 	 */
 	function getData($jornada, $manga) {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		// fase 0: vemos si ya hay una lista definida
 		$ordensalida = $this->getOrden ( $manga );
 		if ($ordensalida === "") { // no hay orden predefinido
 		    // TODO: comprobamos si estamos en la segunda manga y usamos resultados como orden de salida
 			$ordensalida = $this-> random ( $jornada, $manga, false );
 		}
-		$this->log("El orden de salida actual es $ordensalida" );
+		$this->myLogger->debug("El orden de salida actual es $ordensalida" );
 		// ok tenemos orden de salida. vamos a convertirla en un array asociativo
 		$registrados = explode ( ",", $ordensalida );
 		
 		// fase 1: obtener los perros inscritos en la jornada
 		$sql1 = "SELECT * FROM InscritosJornada WHERE ( Jornada=$jornada ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden";
-		$rs1 = $this->conn->query ( $sql1 );
+		$rs1 = $this->query ( $sql1 );
 		if (!$rs1) return $this->error($this->conn->error);
 		
 		// fase 2: obtener las categorias de perros que debemos aceptar
 		$sql2 = "SELECT Tipo_Manga.Grado FROM Mangas,Tipo_Manga WHERE (Mangas.Tipo=Tipo_Manga.Tipo) AND ( ID=$manga )";
-		$rs2 = $this->conn->query( $sql2 );
+		$rs2 = $this->query( $sql2 );
 		if (!$rs2) return $this->error($this->conn->error);
 		$obj2 = $rs2->fetch_object();
 		$rs2->free ();
@@ -155,7 +117,7 @@ class OrdenSalida {
 			$idx = array_search ( $row->Dorsal, $registrados );
 			// si dorsal en lista se inserta; si no esta en lista implica error de consistencia
 			if ($idx === false)
-				$this->log("El dorsal " . $row->Dorsal . " esta inscrito pero no aparece en el orden de salida" );
+				$this->myLogger->notice("El dorsal " . $row->Dorsal . " esta inscrito pero no aparece en el orden de salida" );
 			else
 				$registrados [$idx] = $row;
 		}
@@ -168,7 +130,7 @@ class OrdenSalida {
 			// si es un objeto anyadimos el dorsal
 			if (is_object ( $item )) {
 				array_push ( $data, $item );
-				$this->log("push:" . $item->Dorsal . " count:$count" );
+				$this->myLogger->debug("push:" . $item->Dorsal . " count:$count" );
 				$count ++;
 				continue;
 			}
@@ -178,14 +140,14 @@ class OrdenSalida {
 				if (strpos ( $item, "END" ) !== false) continue;
 				if (strpos ( $item, "TAG_" ) !== false)	continue;
 					// dorsal no registrado: error
-				$this->log("OrdenSalida::getLista() El dorsal $item esta en el orden de salida, pero no esta inscrito" );
+				$this->myLogger->notice("El dorsal $item esta en el orden de salida, pero no esta inscrito" );
 			}
 		}
 		// finally encode result and send to client
 		$result = array ();
 		$result ["total"] = $count;
 		$result ["rows"] = $data;
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return $result;
 	}
 	
@@ -196,17 +158,17 @@ class OrdenSalida {
 	 * @return {string} nuevo orden de salida
 	 */
 	function random($jornada, $manga) {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		// fase 0: establecemos los string iniciales en base al orden especificado
 		$ordensalida = $this->default_orden;
 		// fase 1: obtener los perros inscritos en la jornada
 		$sql1 = "SELECT * FROM InscritosJornada WHERE ( Jornada=$jornada ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden";
-		$rs1 = $this->conn->query ($sql1 );
+		$rs1 = $this->query ($sql1 );
 		if (!$rs1) return $this->error($this->conn->error);
 		
 		// fase 2: obtener las categorias de perros que debemos aceptar
 		$sql2 = "SELECT Grado FROM Mangas,Tipo_Manga WHERE (Mangas.Tipo=Tipo_Manga.Tipo) AND ( ID=$manga )";
-		$rs2 = $this->conn->query ($sql2 );
+		$rs2 = $this->query ($sql2 );
 		if (!$rs2) return $this->error($this->conn->error);
 		$obj2 = $rs2->fetch_object ();
 		$rs2->free ();
@@ -226,7 +188,7 @@ class OrdenSalida {
 		$this->setOrden ( $manga, $ordensalida );
 		
 		// fase 5: limpieza y retorno de resultados
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return $ordensalida;
 	}
 	
@@ -239,24 +201,24 @@ class OrdenSalida {
 	 * @return {string} nuevo orden de salida
 	 */
 	function remove($jornada, $manga, $dorsal) {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		// TODO: si el dorsal esta inscrito y la manga es compatible damos error ( no se deberia borrar )
 		/*
 		// fase: vemos si el perro esta inscrito
 		$sql = "SELECT count (*) FROM InscritosJornada WHERE ( Jornada=$jornada ) AND ( Dorsal=$dorsal)";
-		$rs = $this->conn->query ( "remove()", $sql );
+		$rs = $this->query ( $sql );
 		$row = $rs->fetch_row ();
 		$inscrito = $row [0];
 		$rs->free ();
 		*/
-		
+
 		// recuperamos el orden de salida y borramos el perro indicado
 		$ordensalida = $this->getOrden ( $manga );
 		$str = "," . $dorsal . ",";
 		$nuevoorden = str_replace ( $str, ",", $ordensalida );
 		// guardamos nuevo orden de salida y retornamos
 		$this->setOrden ( $manga, $nuevoorden );
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return $nuevoorden;
 	}
 	
@@ -272,10 +234,10 @@ class OrdenSalida {
 	 * @return {string} nuevo orden de salida
 	 */
 	function insert($jornada, $manga, $dorsal) {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		// si el dorsal no esta inscrito en la jornada da error
 		$sql = "SELECT * FROM InscritosJornada WHERE ( Jornada=$jornada ) AND ( Dorsal=$dorsal)";
-		$rs = $this->conn->query($sql );
+		$rs = $this->query($sql );
 		if (!$rs) return $this->error($this->conn->error);
 		$perro = $rs->fetch_object ();
 		$rs->free ();
@@ -285,7 +247,7 @@ class OrdenSalida {
 		
 		// si la categoria del perro no es la correcta, indicamos error
 		$sql2 = "SELECT Grado FROM Mangas,Tipo_Manga WHERE (Mangas.Tipo=Tipo_Manga.Tipo) AND ( ID=$manga )";
-		$rs2 = $this->conn->query( $sql2 );
+		$rs2 = $this->query( $sql2 );
 		if (!$rs2) return $this->error($this->conn->error);
 		$obj2 = $rs2->fetch_object ();
 		$rs2->free ();
@@ -300,7 +262,7 @@ class OrdenSalida {
 		// actualizamos orden de salida
 		setOrden ( $manga, $ordensalida );
 		// cerramos y salimos
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return $ordensalida;
 	}
 	
@@ -313,7 +275,7 @@ class OrdenSalida {
 	 * @return {string} nuevo orden de salida
 	 */
 	function swap($jornada, $manga, $dorsal1, $dorsal2) {
-		log_enter($this->file);
+		$this->myLogger->enter();
 		// componemos strings
 		$str1 = "," . $dorsal1 . "," . $dorsal2 . ",";
 		$str2 = "," . $dorsal2 . "," . $dorsal1 . ",";
@@ -333,7 +295,7 @@ class OrdenSalida {
 		}
 		// actualizamos orden de salida
 		setOrden ( $manga, $nuevoorden );
-		log_exit($this->file);
+		$this->myLogger->leave();
 		return $nuevoorden;
 	}
 } // class
