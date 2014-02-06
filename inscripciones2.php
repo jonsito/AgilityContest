@@ -159,12 +159,16 @@ $('#inscripciones-printBtn').tooltip({
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
 });
-$('#inscripciones-printBtn').on("click", "a.easyui-linkbutton", function () {
-    $.fileDownload($(this).prop('href'), {
-    	data: { Prueba: workingData.prueba},
-        preparingMessageHtml: "We are preparing your report, please wait...",
-        failMessageHtml: "There was a problem generating your report, please try again."
-    });
+$('#inscripciones-printBtn').on("click", function () {
+	$.fileDownload(
+		'pdf/print_InscritosByPrueba.php',
+		{
+			httpMethod: 'GET',
+			data: { Prueba: workingData.prueba},
+	        preparingMessageHtml: "We are preparing your report, please wait...",
+	        failMessageHtml: "There was a problem generating your report, please try again."
+		}
+	);
     return false; //this is critical to stop the click event which will trigger a normal file download!
 });
 

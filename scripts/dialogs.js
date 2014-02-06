@@ -958,9 +958,11 @@ function insertInscripcion(){
                     msg: result.errorMsg
                 });
             } else {
-                $('#inscripciones-dialog').dialog('close');        // close the dialog
                 // notice that some of these items may fail if dialog is not deployed. just ignore
-                $('#inscripciones-datagrid').datagrid('reload');    // reload the inscripciones table
+                $('#inscripciones-dialog').dialog('close');        // close the dialog
+                $('#inscripciones-datagrid').datagrid('reload',{ // reload the inscripciones table
+                    where: $('#inscripciones-search').val()
+                });
             }
         }
     });
@@ -991,24 +993,9 @@ function updateInscripcion(){
             } else {
                 $('#chinscripciones-dialog').dialog('close');        // close the dialog
                 // notice that some of these items may fail if dialog is not deployed. just ignore
-                $('#chinscripciones-datagrid').datagrid('reload');    // reload the inscripciones table
+                $('#inscripciones-datagrid').datagrid('reload');    // reload the inscripciones table
             }
         }
     });
 }
 
-function printInscripciones() {
-	$.fileDownload('pdf/print_InscritosByPrueba.php?Prueba='+workingData.prueba);
-	/*
-	$.fileDownload(
-		'pdf/print_InscritosByPrueba.php',
-		{
-			httpMethod: 'GET',
-			data: { Prueba: workingData.prueba},
-	        preparingMessageHtml: "We are preparing your report, please wait...",
-	        failMessageHtml: "There was a problem generating your report, please try again."
-		}
-	);
-	*/
-	return false;
-}
