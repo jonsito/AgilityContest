@@ -79,9 +79,14 @@ class Inscripciones extends DBObject {
 			if ($orden==="") continue;
 			// si orden no nulo, vemos que hay que hacer con el perro
 			switch($mode) {
-				case 0: $os->insert($jornada,$mangaid,$dorsal); break;
-				case 1: $os->update($jornada,$mangaid,$dorsal); break;
-				case 2: $os->remove($jornada,$mangaid,$dorsal); break;
+				case 0: $os->insert($jornada,$mangaid,$dorsal); 
+					break;
+				case 1: // remove and insert to make sure changes are properly reflected
+						$os->remove($jornada,$mangaid,$dorsal);
+						$os->insert($jornada,$mangaid,$dorsal); 
+					break;
+				case 2: $os->remove($jornada,$mangaid,$dorsal);
+					break;
 			}
 		}
 		$rs->free();
@@ -156,7 +161,7 @@ class Inscripciones extends DBObject {
 				$this->myLogger->debug("Delete from Jornada $numero: ID: $jornada Dorsal $dorsal");
 				$rs=$this->query($sql);
 				if (!$rs) return $this->error($this->conn->error);
-				$res=$this->updateOrdenSalida($jornada,$dorsal,$celo,0 /* insert */);
+				$res=$this->updateOrdenSalida($jornada,$dorsal,$celo,2 /* remove */);
 				if ($res===null) return $this->error($this->errormsg);
 			}
 			
