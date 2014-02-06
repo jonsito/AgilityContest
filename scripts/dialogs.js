@@ -999,4 +999,16 @@ function updateInscripcion(){
 
 function printInscripciones() {
 	$.fileDownload('pdf/print_InscritosByPrueba.php?Prueba='+workingData.prueba);
+	/*
+	$.fileDownload(
+		'pdf/print_InscritosByPrueba.php',
+		{
+			httpMethod: 'GET',
+			data: { Prueba: workingData.prueba},
+	        preparingMessageHtml: "We are preparing your report, please wait...",
+	        failMessageHtml: "There was a problem generating your report, please try again."
+		}
+	);
+	*/
+	return false;
 }

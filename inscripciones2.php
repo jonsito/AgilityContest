@@ -49,7 +49,7 @@
     	</span>
     	<span style="float:right">
     	<!-- estos elementos deben estar alineados a la derecha -->
-    	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton" onclick="printInscripciones()">Imprimir</a>
+    	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton">Imprimir</a>
 	   	<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadInscripcion()">Refrescar</a>
 	   	</span>
     </div>
@@ -151,6 +151,7 @@ $('#inscripciones-reloadBtn').tooltip({
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
 });
+
 $('#inscripciones-printBtn').linkbutton({plain:true,iconCls:'icon-print'}); // imprimir listado 
 $('#inscripciones-printBtn').tooltip({
 	position: 'top',
@@ -158,6 +159,15 @@ $('#inscripciones-printBtn').tooltip({
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
 });
+$('#inscripciones-printBtn').on("click", "a.easyui-linkbutton", function () {
+    $.fileDownload($(this).prop('href'), {
+    	data: { Prueba: workingData.prueba},
+        preparingMessageHtml: "We are preparing your report, please wait...",
+        failMessageHtml: "There was a problem generating your report, please try again."
+    });
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+});
+
 // - botones de la toolbar de la tabla
 $('#inscripciones-newBtn').linkbutton({plain:true,iconCls:'icon-add'}); // nueva inscricion 
 $('#inscripciones-newBtn').tooltip({

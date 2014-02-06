@@ -1,7 +1,7 @@
 <?php
 /** mandatory requires for database and logging */
-require_once ("logging.php");
-require_once ("DBConnection.php");
+require_once (__DIR__."/../logging.php");
+require_once (__DIR__."/DBConnection.php");
 
 class DBObject {
 	protected $conn;
