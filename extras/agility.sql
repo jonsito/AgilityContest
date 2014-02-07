@@ -1572,6 +1572,8 @@ ALTER TABLE `Inscripciones`
   ADD CONSTRAINT `Inscripciones_ibfk_2` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`),
   ADD CONSTRAINT `Inscripciones_ibfk_3` FOREIGN KEY (`Equipo`) REFERENCES `Equipos` (`ID`);
 
+CREATE UNIQUE INDEX `Inscripciones_dj` ON `Inscripciones` ( `Jornada` , `Dorsal` );
+
 --
 -- Filtros para la tabla `Jornadas`
 --
