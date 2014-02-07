@@ -327,6 +327,24 @@ class OrdenSalida extends DBObject {
 		return $this->setOrden($idmanga,$ordensalida);
 	}
 	
+	function dragAndDrop($jornada,$manga,$from,$to,$where) {
+		$this->myLogger->enter();
+		if ( ($manga<=0) || ($from<=0) || ($to<=0)) {
+			return $this->error("dnd: either Manga:$manga or SrcDorsal:$from or DestDorsal:$to are invalid");
+		}
+		// recuperamos el orden de salida
+		$ordensalida = $this->getOrden ( $manga );
+		// extraemos "from" de donde este
+		$str = ",$from,";
+		$ordensalida = str_replace ( $str , "," , $ordensalida );
+		$str1 = ",$to,";
+		$str2 = ($where==0)? ",$from,$to," : ",$to,$from,";
+		$ordensalida = str_replace( $str1 , $str2 , $ordensalida );
+		$this->setOrden($manga,$ordensalida);	
+		$this->myLogger->leave();
+		return "";
+	}
+	
 	/**
 	 * Intercambia el orden de dos dorsales siempre que esten consecutivos
 	 * @param {integer} $jornada ID de jornada
@@ -341,7 +359,7 @@ class OrdenSalida extends DBObject {
 		$str1 = "," . $dorsal1 . "," . $dorsal2 . ",";
 		$str2 = "," . $dorsal2 . "," . $dorsal1 . ",";
 		// recuperamos el orden de salida
-		$ordensalida = getOrden ( $manga );
+		$ordensalida = $this->getOrden ( $manga );
 		if ($ordensalida === "") $nuevoorden=""; // no change
 			// si encontramos str1 lo substituimos por str2
 		else if (strpos ( $ordensalida, $str1 ) !== false)

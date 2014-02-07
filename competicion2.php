@@ -17,7 +17,7 @@
 <!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
 <div id="competicion-listamanga-toolbar">
    	<span style="float:left">
-    	<a id="competicion-displaydialogBtn" href="#" class="easyui-linkbutton" onclick="competicionDialog();">Edici&oacute;n</a>
+    	<a id="competicion-displaydialogBtn" href="#" class="easyui-linkbutton" onclick="competicionDialog();">Competici&oacute;n</a>
 	</span>
 </div>
 
@@ -74,7 +74,7 @@ $('#competicion-listamangas').datagrid({
         // refresh orden de salida
         reloadOrdenSalida();
         // refresh orden de competicion
-    },
+    }
 });
 
 //- boton de despliegue de la ventana de ordenSalida/resultados

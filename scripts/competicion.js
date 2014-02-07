@@ -97,10 +97,31 @@ function randomOrdenSalida() {
 		data: { 
 			Jornada: workingData.jornada,
 			Manga: workingData.manga
-			}
-		}).done( function(msg) {
-			reloadOrdenSalida();
-		});
+		}
+	}).done( function(msg) {
+		reloadOrdenSalida();
+	});
+}
+
+// reajusta el orden de salida 
+// poniendo el dorsal "from" delante (where==0) o detras (where==1) del dorsal "to"
+function dragAndDrop(from,to,where) {
+	if (workingData.jornada==0) return;
+	if (workingData.manga==0) return;
+	$.ajax({
+		type:'GET',
+		url:"database/ordenSalidaFunctions.php?Operation=dnd",
+		dataType:'json',
+		data: { 
+			Jornada: workingData.jornada,
+			Manga: workingData.manga,
+			From: from,
+			To: to,
+			Where: where
+		}
+	}).done( function(msg) {
+		reloadOrdenSalida();
+	});
 }
 
 function competicionDialog() {
@@ -111,6 +132,6 @@ function competicionDialog() {
     // abrimos ventana de dialogo
     $('#competicion-window').dialog('open').window('setTitle',title);
     // cargamos ventana de orden de salida
-    reload_ordenSalida();
+    reloadOrdenSalida();
     // cargamos ventana de resultados
 }

@@ -15,7 +15,7 @@ class Jornadas extends DBObject {
 	 */
 	function __construct($file,$prueba) {
 		parent::__construct($file);
-		if ($prueba<=0){
+		if ($prueba<0){
 			$this->errormsg="$file::construct() invalid prueba ID";
 			throw new Exception($this->errormsg);
 		}

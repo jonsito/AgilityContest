@@ -71,7 +71,7 @@ $('#competicion-orden-datagrid').datagrid({
           	{ field:'Nombre',		width:20, sortable:false,	align:'left',  title: 'Nombre'},
       		{ field:'Licencia',		width:15, sortable:false,   align:'right', title: 'Lic.' },
       		{ field:'Categoria',	width:10, sortable:false,   align:'center', title: 'Cat.' },
-      		{ field:'Guia',			width:40, sortable:false,   align:'right', title: 'Guia' },
+      		{ field:'Guia',			width:50, sortable:false,   align:'right', title: 'Guia' },
       		{ field:'Club',		    width:30, sortable:false,   align:'right', title: 'Club' },
       		{ field:'Celo',		    width:10, sortable:false,   align:'right', title: 'Celo' },
       		{ field:'Observaciones',width:30, sortable:false,   align:'right', title: 'Observaciones' }
@@ -81,6 +81,17 @@ $('#competicion-orden-datagrid').datagrid({
     },
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
     loadMsg: "Actualizando orden de salida...",
+    onLoadSuccess: function() {
+    	$(this).datagrid('enableDnd');
+    },
+    onDragEnter: function(dst,src) {
+        var from=src.Categoria+src.Celo;
+        var to=dst.Categoria+dst.Celo;
+        return (from==to)?true:false;
+    },
+    onDrop: function(dst,src,updown) {
+        dragAndDrop(src.Dorsal,dst.Dorsal,(updown==='top')?0:1);
+    }
 });
 
 $('#competicion-resultados-datagrid').datagrid({
