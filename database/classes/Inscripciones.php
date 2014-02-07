@@ -53,10 +53,7 @@ class Inscripciones extends DBObject {
 		$rs->free();
 	
 		// buscamos la lista de mangas que tiene la jornada
-		$str="SELECT ID, Tipo_Manga.Grado AS Grado
-		FROM Mangas,Tipo_Manga
-		WHERE ( ( Jornada = $jornada ) AND ( Mangas.Tipo = Tipo_Manga.Tipo) )
-		ORDER BY Descripcion ASC";
+		$str="SELECT ID, Grado FROM Mangas	WHERE ( Jornada = $jornada ) ORDER BY Descripcion ASC";
 		$rs=$this->query($str);
 		if(!$rs) return $this->error($this->conn->error); 
 		// retrieve result into an array
