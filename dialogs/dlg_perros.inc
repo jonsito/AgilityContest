@@ -1,6 +1,6 @@
 
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE PERROS -->
-    <div id="perros-dialog" class="easyui-dialog" style="width:500px;height:350px;padding:10px 20px">
+    <div id="perros-dialog" class="easyui-dialog" style="width:550px;height:400px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del perro</div>
         <form id="perros-form" method="get" novalidate>
             <div class="fitem">

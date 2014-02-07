@@ -385,7 +385,7 @@ function saveDog(){
                 });
             } else {
             	var parent=$('#perros-Parent').val();
-            	var url='database/dogFunctions.php=Operation=getbydorsal&Dorsal='+dorsal;
+            	var url='database/dogFunctions.php?Operation=getbydorsal&Dorsal='+dorsal;
             	// reload the dog data on datagrid (if any)
                 $('#perros-datagrid'+parent).datagrid('reload');
                 // reload the dog data from inscripciones (if any)
@@ -928,8 +928,13 @@ function deleteInscripcion() {
 					J8:$('#jornada_cerrada-8').text()
 					},
 				function(result){
-					if (result.success) $('#inscripciones-datagrid').datagrid('reload');    // reload the prueba data
-					else $.messager.show({ title: 'Error',msg: result.errorMsg });
+					if (result.success) {
+						$('#inscripciones-datagrid').datagrid('reload',{ // reload the inscripciones table
+							where: $('#inscripciones-search').val()
+						});
+					} else {
+						$.messager.show({ title: 'Error',msg: result.errorMsg });
+					}
 				},'json');
 		} // if (r)
 	}).window({width:475});
@@ -938,7 +943,21 @@ function deleteInscripcion() {
 /**
  * Ask for commit new inscripcion to server
  */
-function insertInscripcion(){
+function insertInscripcion() {
+	// if no jornada selected warn
+	var count=0;
+	if ( $('#inscripciones-J1').prop('checked')) count++;
+	if ( $('#inscripciones-J2').prop('checked')) count++;
+	if ( $('#inscripciones-J3').prop('checked')) count++;
+	if ( $('#inscripciones-J4').prop('checked')) count++;
+	if ( $('#inscripciones-J5').prop('checked')) count++;
+	if ( $('#inscripciones-J6').prop('checked')) count++;
+	if ( $('#inscripciones-J7').prop('checked')) count++;
+	if ( $('#inscripciones-J8').prop('checked')) count++;
+	if (count==0) {
+		$.messager.alert("Error","!No ha seleccionado ninguna jornada!","warning");
+		return;
+	}
 	// fill needed data to be sent
 	$('#inscripciones-fDorsal').val($('#inscripciones-Dorsal').val());
 	$('#inscripciones-fPruebaID').val(workingData.prueba);
@@ -972,6 +991,20 @@ function insertInscripcion(){
  * Ask for submit inscription changes to server
  */
 function updateInscripcion(){
+	// if no jornada selected warn
+	var count=0;
+	if ( $('#chinscripciones-J1').prop('checked')) count++;
+	if ( $('#chinscripciones-J2').prop('checked')) count++;
+	if ( $('#chinscripciones-J3').prop('checked')) count++;
+	if ( $('#chinscripciones-J4').prop('checked')) count++;
+	if ( $('#chinscripciones-J5').prop('checked')) count++;
+	if ( $('#chinscripciones-J6').prop('checked')) count++;
+	if ( $('#chinscripciones-J7').prop('checked')) count++;
+	if ( $('#chinscripciones-J8').prop('checked')) count++;
+	if (count==0) {
+		$.messager.alert("Error","!No ha seleccionado ninguna jornada!","warning");
+		return;
+	}
 	// fill needed data to be sent
 	$('#chinscripciones-fDorsal').val($('#chinscripciones-Dorsal').val());
 	$('#chinscripciones-fPruebaID').val(workingData.prueba);
@@ -993,7 +1026,9 @@ function updateInscripcion(){
             } else {
                 $('#chinscripciones-dialog').dialog('close');        // close the dialog
                 // notice that some of these items may fail if dialog is not deployed. just ignore
-                $('#inscripciones-datagrid').datagrid('reload');    // reload the inscripciones table
+                $('#inscripciones-datagrid').datagrid('reload',{ // reload the inscripciones table
+                    where: $('#inscripciones-search').val()
+                });
             }
         }
     });

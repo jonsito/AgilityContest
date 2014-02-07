@@ -1,11 +1,11 @@
 
    <!-- FORMULARIO DE NUEVA INSCRIPCION -->
-    <div id="inscripciones-dialog" class="easyui-dialog" style="width:750px;height:360px;padding:10px 20px">
+    <div id="inscripciones-dialog" class="easyui-dialog" style="width:750px;height:400px;padding:10px 20px">
         <div class="ftitle">Datos de la Inscripci&oacute;n</div>
         <div class="fitem">
             <form name="inscripciones-buscar" method="get">
             <label for="Participante">Participante:</label>
-            <select id="inscripciones-Participante" name="Participante" class="easyui-combogrid" style="width:250px" value=""></select>
+            <select id="inscripciones-Participante" name="Participante" class="easyui-combogrid" style="width:250px"></select>
             <a id="inscripciones-newDogBtn" href="#" class="easyui-linkbutton" style="float:right">Nuevo Perro</a>
             </form>
         </div>
@@ -91,7 +91,7 @@
     
 		<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 		<div id="inscripciones-dlg-buttons">        	
-			<a id="inscripciones-cancelBtn" href="#" class="easyui-linkbutton" >Cerrar</a>
+			<a id="inscripciones-cancelBtn" href="#" class="easyui-linkbutton" >Cancelar</a>
         	<a id="inscripciones-okBtn" href="#" class="easyui-linkbutton" onclick="insertInscripcion()">Inscribir</a>
         	<a id="inscripciones-clearBtn" href="#" class="easyui-linkbutton">Limpiar</a>
     	</div>
