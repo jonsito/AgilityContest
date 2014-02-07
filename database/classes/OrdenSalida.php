@@ -251,7 +251,7 @@ class OrdenSalida extends DBObject {
 	 */
 	function handle($idjornada,$idmanga,$dorsal) {
 		$this->myLogger->enter();
-		
+		$this->myLogger->trace("--------------- before datos jornada ---------------- ");
 		// obtenemos datos de jornada, manga y perro
 		$sql = "SELECT * FROM Jornadas WHERE ( ID=$idjornada )";
 		$rs = $this->query( $sql );
@@ -260,7 +260,8 @@ class OrdenSalida extends DBObject {
 		$rs->free ();
 		if (!$jornada) return $this->error("No hay datos registrados de la jornada $idjornada");
 		if ($jornada->Cerrada==1) return $this->error("No se puede modificar una jornada cerrada");
-		
+
+		$this->myLogger->trace("--------------- before datos manga ---------------- ");
 		$sql = "SELECT * FROM Mangas WHERE ( ID=$idmanga )";
 		$rs = $this->query( $sql );
 		if (!$rs) return $this->error($this->conn->error);
@@ -268,20 +269,26 @@ class OrdenSalida extends DBObject {
 		$rs->free ();
 		if (!$manga) return $this->error("No hay datos registrados de la manga $idmanga");
 		if ($manga->Cerrada==1) return $this->error("No se puede modificar una manga cerrada");
-		
+
+		$this->myLogger->trace("--------------- before datos perro ---------------- ");
 		// si el perro no esta inscrito en esta jornada retornamos error
 		$sql = "SELECT * FROM InscritosJornada WHERE ( Jornada=$idjornada ) AND ( Dorsal=$dorsal)";
 		$rs = $this->query ($sql );
 		if (!$rs) return $this->error($this->conn->error);
 		$perro = $rs->fetch_object();
 		$rs->free ();
-		if (!$perro) return $this->error("El perro $dorsal no figura inscrito en la jornada $jornada");
-		
+		if (!$perro) return $this->error("El perro $dorsal no figura inscrito en la jornada $idjornada");
+
+		$this->myLogger->trace("--------------- before check empty order ---------------- ");
 		// si el orden de salida esta vacio, generamos uno aleatorio y retornamos
 		$ordensalida= $manga->Orden_Salida;
 		if (!$ordensalida) return $this->error("Cannot retrieve ordensalida for manga $idmanga");
-		if ($ordensalida==="") return $this->random($idjornada,$idmanga);
-		
+		if ($ordensalida==="") {
+			$this->myLogger->info("La manga $idmanga no tiene predefinido orden de salida. Generando orden aleatorio");
+			return $this->random($idjornada,$idmanga);
+		}
+
+		$this->myLogger->trace("--------------- before check grado ---------------- ");
 		// si el perro esta inscrito en la jornada, pero la manga no es compatible, lo borramos de la manga
 		if ($perro->Grado != $manga->Grado) {
 			if ($manga->Grado!=="-") {
@@ -292,13 +299,16 @@ class OrdenSalida extends DBObject {
 			}
 		}
 		// si llegamos hasta aqui hay que inscribir al perro en la manga
-		
+
+		$this->myLogger->trace("--------------- before if not in list ---------------- ");
 		// si no esta inscrito en la manga, lo inscribimos
 		if ( strpos($ordensalida,',$dorsal,')===false) {
 			$nuevoorden=$this->insertIntoList($ordensalida, $dorsal, $perro->Categoria, $perro->Celo);
 			$this->myLogger->leave();
 			return $this->setOrden($idmanga,$nuevoorden);
 		}
+
+		$this->myLogger->trace("--------------- before check correct in list ---------------- ");
 		// si esta inscrito en la manga, vemos si esta en el sitio correcto (cat,celo)
 		$bien=$this->verify($ordensalida,dorsal, $perro->Categoria, $perro->Celo);
 		if ($bien) {

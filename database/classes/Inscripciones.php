@@ -42,18 +42,19 @@ class Inscripciones extends DBObject {
 	 * @param {integer} $celo
 	 * @return "" on success; null on error
 	 */
-	function updateOrdenSalida($jornada,$dorsal,$celo) {
+	function updateOrdenSalida($jornada,$dorsal) {
 		$this->myLogger->enter();
 		// obtenemos un manejador de ordenes de salida
-		$os=new OrdenSalida("inscriptionFunctions");
+		$os=new OrdenSalida("inscripciones::ordensalida");
 	
 		// buscamos la lista de mangas que tiene la jornada
-		$str="SELECT ID FROM Mangas	WHERE ( Jornada = $jornada ) ORDER BY Descripcion ASC";
+		$str="SELECT ID FROM Mangas	WHERE ( Jornada = $jornada ) ORDER BY Tipo ASC";
 		$rs=$this->query($str);
 		if(!$rs) return $this->error($this->conn->error); 
 		// retrieve result into an array
 		while($row = $rs->fetch_object()){
-			$mangaid=$row->ID;
+			$manga=$row->ID;
+			$this->myLogger->debug("Ajustando el orden de salida jornada:$jornada manga:$manga dorsal:$dorsal");
 			$os->handle($jornada,$manga,$dorsal);
 		}
 		$rs->free();
@@ -108,7 +109,7 @@ class Inscripciones extends DBObject {
 				if (!$rs) return $this->error($this->conn->error); 
 				if ($this->conn->affected_rows != 0) { // ya estaba inscrito
 					$this->myLogger->info("Dorsal $dorsal already registered in Jornada #$numero ($jornada)");
-					$res=$this->updateOrdenSalida($jornada,$dorsal,$celo);
+					$res=$this->updateOrdenSalida($jornada,$dorsal);
 					if ($res===null) return $this->error($this->errormsg);
 					continue; // go to next jornada
 				}
@@ -116,19 +117,19 @@ class Inscripciones extends DBObject {
 				// si no esta inscrito, vamos a hacer la inscripcion
 				$sql="INSERT INTO Inscripciones ( Jornada , Dorsal , Celo , Observaciones , Equipo , Pagado )
 					VALUES ($jornada,$dorsal,$celo,'$observaciones',$equipo,$pagado)";
-				$this->myLogger->debug("Insert into Jornada $numero: ID: $jornada Dorsal $dorsal");
+				$this->myLogger->debug("Hacer inscripcion en Jornada:$numero ID:$jornada Dorsal:$dorsal");
 				$rs=$this->query($sql);
 				if (!$rs) return $this->error($this->conn->error);
-				$res=$this->updateOrdenSalida($jornada,$dorsal,$celo);
+				$res=$this->updateOrdenSalida($jornada,$dorsal);
 				if ($res===null) return $this->error($this->errormsg); 
 				
 			} else {
 				// no solicita inscripcion: borrar datos
 				$sql="DELETE FROM Inscripciones where ( (Dorsal=$dorsal) AND (Jornada=$jornada))";
-				$this->myLogger->debug("Delete from Jornada $numero: ID: $jornada Dorsal $dorsal");
+				$this->myLogger->debug("Borrar inscripcion en Jornada:$numero ID:$jornada Dorsal:$dorsal");
 				$rs=$this->query($sql);
 				if (!$rs) return $this->error($this->conn->error);
-				$res=$this->updateOrdenSalida($jornada,$dorsal,$celo);
+				$res=$this->updateOrdenSalida($jornada,$dorsal);
 				if ($res===null) return $this->error($this->errormsg);
 			}
 			
@@ -155,7 +156,7 @@ class Inscripciones extends DBObject {
 			$sql="DELETE FROM Inscripciones where ( (Dorsal=$dorsal) AND (Jornada=$jornada))";
 			$res=$this->query($sql);
 			if (!$res) return $this->error($this->conn->error); 
-			$res=$this->updateOrdenSalida($jornada,$dorsal,0);
+			$res=$this->updateOrdenSalida($jornada,$dorsal);
 			if ($res===null) $this->conn->error($this->errormsg);
 		} // for every jornada on provided prueba
 		$this->myLogger->leave();

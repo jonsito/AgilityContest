@@ -39,9 +39,16 @@ class Logger {
 	function alert($msg) { return $this->log(LEVEL_ALERT,$msg); }
 	function panic($msg) { die ($this->log(LEVEL_PANIC,$msg)); }
 
-	function query($msg) { return $this->log(LEVEL_INFO,"Query:\n".$msg); }
 	function enter() { return ($this->log(LEVEL_TRACE,"Enter")); }
 	function leave() { return ($this->log(LEVEL_TRACE,"Leave")); }
+
+	function query($msg) {
+		if ($this->level<=LEVEL_INFO) return;
+		$trace=debug_backtrace();
+		$str="QUERY ".$this->basename."::".$trace[2]['function']."() :\n".$msg;
+		error_log($str);
+		return $str;
+	}
 }
 
 function do_log($str) { 
