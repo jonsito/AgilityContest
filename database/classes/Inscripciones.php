@@ -40,51 +40,21 @@ class Inscripciones extends DBObject {
 	 * @param {integer} $jornada
 	 * @param {integer} $dorsal
 	 * @param {integer} $celo
-	 * @param {integer} $mode 0:insert 1:update 2:delete
 	 * @return "" on success; null on error
 	 */
-	function updateOrdenSalida($jornada,$dorsal,$celo,$mode) {
+	function updateOrdenSalida($jornada,$dorsal,$celo) {
 		$this->myLogger->enter();
-		// obtenemos datos del perro
-		$str="SELECT * from PerroGuiaClub WHERE (Dorsal=$dorsal)";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error); 
-		$perro=$rs->fetch_object();
-		$rs->free();
+		// obtenemos un manejador de ordenes de salida
+		$os=new OrdenSalida("inscriptionFunctions");
 	
 		// buscamos la lista de mangas que tiene la jornada
-		$str="SELECT ID, Grado FROM Mangas	WHERE ( Jornada = $jornada ) ORDER BY Descripcion ASC";
+		$str="SELECT ID FROM Mangas	WHERE ( Jornada = $jornada ) ORDER BY Descripcion ASC";
 		$rs=$this->query($str);
 		if(!$rs) return $this->error($this->conn->error); 
 		// retrieve result into an array
 		while($row = $rs->fetch_object()){
 			$mangaid=$row->ID;
-			$mangagrado=$row->Grado;
-			
-			// obtenemos un manejador de ordenes de salida
-			$os=new OrdenSalida("inscriptionFunctions");
-			// si la categoria no es compatible, intentamos eliminar el perro de la manga
-			if (($mangagrado !== '-') && ($mangagrado !== $perro->Grado)) {
-				$this->myLogger->debug("Grado del dorsal ".$dorsal." (".$perro->Grado.") no compatible con grado de manga (".$mangagrado.") " );
-
-				$os->remove($jornada,$mangaid,$dorsal);
-				continue;
-			}
-			// si la categoria es compatible compatible: obtenemos el orden de salida
-			$orden=$os->getOrden($mangaid);
-			// si el orden es nulo, quiere decir manga no iniciada -> no hace falta hacer nada
-			if ($orden==="") continue;
-			// si orden no nulo, vemos que hay que hacer con el perro
-			switch($mode) {
-				case 0: $os->insert($jornada,$mangaid,$dorsal); 
-					break;
-				case 1: // remove and insert to make sure changes are properly reflected
-						$os->remove($jornada,$mangaid,$dorsal);
-						$os->insert($jornada,$mangaid,$dorsal); 
-					break;
-				case 2: $os->remove($jornada,$mangaid,$dorsal);
-					break;
-			}
+			$os->handle($jornada,$manga,$dorsal);
 		}
 		$rs->free();
 		$this->myLogger->leave();
@@ -138,7 +108,7 @@ class Inscripciones extends DBObject {
 				if (!$rs) return $this->error($this->conn->error); 
 				if ($this->conn->affected_rows != 0) { // ya estaba inscrito
 					$this->myLogger->info("Dorsal $dorsal already registered in Jornada #$numero ($jornada)");
-					$res=$this->updateOrdenSalida($jornada,$dorsal,$celo,1 /*update*/);
+					$res=$this->updateOrdenSalida($jornada,$dorsal,$celo);
 					if ($res===null) return $this->error($this->errormsg);
 					continue; // go to next jornada
 				}
@@ -149,7 +119,7 @@ class Inscripciones extends DBObject {
 				$this->myLogger->debug("Insert into Jornada $numero: ID: $jornada Dorsal $dorsal");
 				$rs=$this->query($sql);
 				if (!$rs) return $this->error($this->conn->error);
-				$res=$this->updateOrdenSalida($jornada,$dorsal,$celo,0 /* insert */);
+				$res=$this->updateOrdenSalida($jornada,$dorsal,$celo);
 				if ($res===null) return $this->error($this->errormsg); 
 				
 			} else {
@@ -158,7 +128,7 @@ class Inscripciones extends DBObject {
 				$this->myLogger->debug("Delete from Jornada $numero: ID: $jornada Dorsal $dorsal");
 				$rs=$this->query($sql);
 				if (!$rs) return $this->error($this->conn->error);
-				$res=$this->updateOrdenSalida($jornada,$dorsal,$celo,2 /* remove */);
+				$res=$this->updateOrdenSalida($jornada,$dorsal,$celo);
 				if ($res===null) return $this->error($this->errormsg);
 			}
 			
@@ -185,7 +155,7 @@ class Inscripciones extends DBObject {
 			$sql="DELETE FROM Inscripciones where ( (Dorsal=$dorsal) AND (Jornada=$jornada))";
 			$res=$this->query($sql);
 			if (!$res) return $this->error($this->conn->error); 
-			$res=$this->updateOrdenSalida($jornada,$dorsal,0,2 /*remove*/);
+			$res=$this->updateOrdenSalida($jornada,$dorsal,0);
 			if ($res===null) $this->conn->error($this->errormsg);
 		} // for every jornada on provided prueba
 		$this->myLogger->leave();

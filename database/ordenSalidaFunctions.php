@@ -17,14 +17,11 @@ try {
 	$j = http_request("Jornada","i",0);
 	$m = http_request("Manga","i",0);
 	$d = http_request("Dorsal","i",0);
-	$d2 = http_request("Dorsal2","i",0);
 	if (($j<=0)||($m<=0)) 
 		throw new Exception("Call to ordenSalidaFunctions with Invalid Jornada $j or manga $m ID");
 	switch ($operation) {
 		case "random":	$result = $os->random($j,$m,true); break;
-		case "remove":	$result = $os->remove($j,$m,$d); break;
-		case "insert":	$result = $os->insert($j,$m,$d); break;
-		case "swap":	$result = $os->swap($j,$m,$d,$d2); break;
+		case "handle":	$result = $os->handle($j,$m,$d); break;
 		case "getData":	$result = $os->getData($j,$m); break;
 	}
 	// result may contain null (error),  "" success, or (any) data

@@ -23,7 +23,7 @@ class OrdenSalida extends DBObject {
 	/**
 	 * Retrieve Mangas.Orden_Salida
 	 * @param unknown $manga
-	 * @return {string} orden de salida. o "" si vacio
+	 * @return {string} orden de salida. "" si vacio; null on error
 	 */
 	function getOrden($manga) {
 		$this->myLogger->enter();
@@ -56,7 +56,7 @@ class OrdenSalida extends DBObject {
 	/**
 	 * coge el string con el orden de salida e inserta un elemento al final de su grupo
 	 * Porsiaca lo intenta borrar previamente
-	 * @param {string} $ordensalida 
+	 * @param {string} $ordensalida Orden de salida actual
 	 * @param {integer} $dorsal
 	 * @param {string[1]} $cat
 	 * @param {integer[1]} $celo
@@ -74,6 +74,56 @@ class OrdenSalida extends DBObject {
 		$result = str_replace ( $this->tags_orden [$cat . $celo], $myTag, $nuevoorden );
 		$this->myLogger->leave();
 		return $result;
+	}
+	
+	/**
+	 * Elimina un dorsal del orden de salida indicao
+	 * @param {string} $ordensalida orden de salida actual
+	 * @param {integer} $dorsal
+	 * @return {string} nuevo orden de salida
+	 */
+	function removeFromList($ordensalida,$dorsal) {
+		$this->myLogger->enter();
+		$str = "," . $dorsal . ",";
+		$nuevoorden = str_replace ( $str, ",", $ordensalida );
+		$this->myLogger->leave();
+		return $nuevoorden;
+	}
+	
+	/**
+	 * Comprueba si el perro esta bien insertado
+	 * @param unknown $ordensalida
+	 * @param unknown $dorsal
+	 * @param unknown $cat
+	 * @param unknown $celo
+	 * @return true o false
+	 */
+	function verify($ordensalida, $dorsal, $cat, $celo) {
+		$this->myLogger->enter();
+		// si no esta insertado indica error
+		if (strpos($ordensalida,',$dorsal,')===false) return false;
+		$tag="$cat$celo";
+		$from="";$to="";
+		switch($tag) {
+			case "-0": $from="TAG_-0"; $to="TAG_-1"; break;
+			case "-1": $from="TAG_-1"; $to="TAG_L0"; break;
+			case "L0": $from="TAG_L0"; $to="TAG_L1"; break;
+			case "L1": $from="TAG_L1"; $to="TAG_M0"; break;
+			case "M0": $from="TAG_M0"; $to="TAG_M1"; break;
+			case "M1": $from="TAG_M1"; $to="TAG_S0"; break;
+			case "S0": $from="TAG_S0"; $to="TAG_S1"; break;
+			case "S1": $from="TAG_S1"; $to="TAG_T0"; break;
+			case "T0": $from="TAG_T0"; $to="TAG_T1"; break;
+			case "T1": $from="TAG_T1"; $to="END"; break;
+			default:
+				$this->myLogger->error("Invalid Categoria/Celo values ($cat,$celo) $for dorsal $dorsal");
+				return false;
+		}
+		$f=strpos($ordensalida,$from);
+		$l=strpos($ordensalida,$to)-f;
+		$str=substr($ordensalida,f,l);
+		$this->myLogger->leave();
+		return (strpos($str,',$dorsal,')===false)?false:true;
 	}
 	
 	/**
@@ -101,7 +151,7 @@ class OrdenSalida extends DBObject {
 		if (!$rs1) return $this->error($this->conn->error);
 		
 		// fase 2: obtener las categorias de perros que debemos aceptar
-		$sql2 = "SELECT Tipo_Manga.Grado FROM Mangas,Tipo_Manga WHERE (Mangas.Tipo=Tipo_Manga.Tipo) AND ( ID=$manga )";
+		$sql2 = "SELECT Grado FROM Mangas WHERE ( ID=$manga )";
 		$rs2 = $this->query( $sql2 );
 		if (!$rs2) return $this->error($this->conn->error);
 		$obj2 = $rs2->fetch_object();
@@ -167,7 +217,7 @@ class OrdenSalida extends DBObject {
 		if (!$rs1) return $this->error($this->conn->error);
 		
 		// fase 2: obtener las categorias de perros que debemos aceptar
-		$sql2 = "SELECT Grado FROM Mangas,Tipo_Manga WHERE (Mangas.Tipo=Tipo_Manga.Tipo) AND ( ID=$manga )";
+		$sql2 = "SELECT Grado FROM Mangas WHERE ( ID=$manga )";
 		$rs2 = $this->query ($sql2 );
 		if (!$rs2) return $this->error($this->conn->error);
 		$obj2 = $rs2->fetch_object ();
@@ -193,77 +243,75 @@ class OrdenSalida extends DBObject {
 	}
 	
 	/**
-	 * Elimina un dorsal del orden de salida
-	 * si esta inscrito indica error y devuelve lista actual
-	 * @param {integer} $jornada ID de jornada
-	 * @param {integer} $manga ID de manga
-	 * @param {integer} $dorsal ID de dorsal
-	 * @return {string} nuevo orden de salida
+	 * Inserta/actualiza/elimina un perro del orden de salida
+	 * @param {integer} $idjornada ID de jornada
+	 * @param {integer} $idmanga ID de manga
+	 * @param {integer} $dorsal Dorsal
+	 * @return {string} null on error, "" on success
 	 */
-	function remove($jornada, $manga, $dorsal) {
+	function handle($idjornada,$idmanga,$dorsal) {
 		$this->myLogger->enter();
-		// TODO: si el dorsal esta inscrito y la manga es compatible damos error ( no se deberia borrar )
-		/*
-		// fase: vemos si el perro esta inscrito
-		$sql = "SELECT count (*) FROM InscritosJornada WHERE ( Jornada=$jornada ) AND ( Dorsal=$dorsal)";
-		$rs = $this->query ( $sql );
-		$row = $rs->fetch_row ();
-		$inscrito = $row [0];
-		$rs->free ();
-		*/
-
-		// recuperamos el orden de salida y borramos el perro indicado
-		$ordensalida = $this->getOrden ( $manga );
-		$str = "," . $dorsal . ",";
-		$nuevoorden = str_replace ( $str, ",", $ordensalida );
-		// guardamos nuevo orden de salida y retornamos
-		$this->setOrden ( $manga, $nuevoorden );
-		$this->myLogger->leave();
-		return $nuevoorden;
-	}
-	
-	/**
-	 * Inserta un perro en la lista al final de su categoria
-	 *
-	 * Comprueba que el dorsal esta inscrito; si no, devuelve lista actual
-	 * Si esta ya en la lista lo saca de donde esta
-	 * Inserta el dorsal en el ultimo puesto de los perros de su misma categoria/celo	 
-	 * @param {integer} $jornada ID de jornada
-	 * @param {integer} $manga ID de manga
-	 * @param {integer} $dorsal ID de dorsal
-	 * @return {string} nuevo orden de salida
-	 */
-	function insert($jornada, $manga, $dorsal) {
-		$this->myLogger->enter();
-		// si el dorsal no esta inscrito en la jornada da error
-		$sql = "SELECT * FROM InscritosJornada WHERE ( Jornada=$jornada ) AND ( Dorsal=$dorsal)";
-		$rs = $this->query($sql );
-		if (!$rs) return $this->error($this->conn->error);
-		$perro = $rs->fetch_object ();
-		$rs->free ();
-		if ($perro === null) {
-			return $this->error("El perro con dorsal $dorsal no figura inscrito en la jornada $jornada" );
-		}
 		
-		// si la categoria del perro no es la correcta, indicamos error
-		$sql2 = "SELECT Grado FROM Mangas,Tipo_Manga WHERE (Mangas.Tipo=Tipo_Manga.Tipo) AND ( ID=$manga )";
-		$rs2 = $this->query( $sql2 );
-		if (!$rs2) return $this->error($this->conn->error);
-		$obj2 = $rs2->fetch_object ();
-		$rs2->free ();
-		$grado = $obj2->Grado;
-		if (($grado !== '-') && ($grado !== $perro->grado)) {
-			return $this->error("El grado del dorsal $dorsal ($perro->grado) no es compatible con el grado de la manga ($grado) " );
+		// obtenemos datos de jornada, manga y perro
+		$sql = "SELECT * FROM Jornadas WHERE ( ID=$idjornada )";
+		$rs = $this->query( $sql );
+		if (!$rs) return $this->error($this->conn->error);
+		$jornada = $rs->fetch_object();
+		$rs->free ();
+		if (!$jornada) return $this->error("No hay datos registrados de la jornada $idjornada");
+		if ($jornada->Cerrada==1) return $this->error("No se puede modificar una jornada cerrada");
+		
+		$sql = "SELECT * FROM Mangas WHERE ( ID=$idmanga )";
+		$rs = $this->query( $sql );
+		if (!$rs) return $this->error($this->conn->error);
+		$manga = $rs->fetch_object();
+		$rs->free ();
+		if (!$manga) return $this->error("No hay datos registrados de la manga $idmanga");
+		if ($manga->Cerrada==1) return $this->error("No se puede modificar una manga cerrada");
+		
+		// si el perro no esta inscrito en esta jornada retornamos error
+		$sql = "SELECT * FROM InscritosJornada WHERE ( Jornada=$idjornada ) AND ( Dorsal=$dorsal)";
+		$rs = $this->query ($sql );
+		if (!$rs) return $this->error($this->conn->error);
+		$perro = $rs->fetch_object();
+		$rs->free ();
+		if (!$perro) return $this->error("El perro $dorsal no figura inscrito en la jornada $jornada");
+		
+		// si el orden de salida esta vacio, generamos uno aleatorio y retornamos
+		$ordensalida= $manga->Orden_Salida;
+		if (!$ordensalida) return $this->error("Cannot retrieve ordensalida for manga $idmanga");
+		if ($ordensalida==="") return $this->random($idjornada,$idmanga);
+		
+		// si el perro esta inscrito en la jornada, pero la manga no es compatible, lo borramos de la manga
+		if ($perro->Grado != $manga->Grado) {
+			if ($manga->Grado!=="-") {
+				$this->myLogger->info("El perro con dorsal $dorsal no puede competir en la manga $idmanga");
+				$ordensalida=$this->removeFromList($ordensalida,$dorsal);
+				$this->myLogger->leave();
+				return $this->setOrden($idmanga,$ordensalida);
+			}
 		}
-		// recuperamos orden de salida
-		$ordensalida = getOrden ( $manga );
-		// obtener datos de categoria y celo para obtener el tag a buscar
-		$ordensalida = insertIntoList ( $ordensalida, $perro->Dorsal, $perro->Categoria, $perro->Celo );
-		// actualizamos orden de salida
-		setOrden ( $manga, $ordensalida );
-		// cerramos y salimos
+		// si llegamos hasta aqui hay que inscribir al perro en la manga
+		
+		// si no esta inscrito en la manga, lo inscribimos
+		if ( strpos($ordensalida,',$dorsal,')===false) {
+			$nuevoorden=$this->insertIntoList($ordensalida, $dorsal, $perro->Categoria, $perro->Celo);
+			$this->myLogger->leave();
+			return $this->setOrden($idmanga,$nuevoorden);
+		}
+		// si esta inscrito en la manga, vemos si esta en el sitio correcto (cat,celo)
+		$bien=$this->verify($ordensalida,dorsal, $perro->Categoria, $perro->Celo);
+		if ($bien) {
+			// si esta bien inscrito, no hacemos nada
+			$this->myLogger->info("El perro $dorsal ya esta BIEN inscrito en la manga $idmanga");
+		} else {
+			// si esta mal inscrito lo borramos y reinsertamos en el sitio correcto
+			$this->myLogger->info("El perro $dorsal esta MAL inscrito en la manga $idmanga . Corregimos");
+			$nuevoorden=$this->removeFromList($ordensalida,$dorsal);
+			$ordensalida=$this->insertIntoList($ordensalida, $dorsal, $perro->Categoria, $perro->Celo);
+		}
 		$this->myLogger->leave();
-		return $ordensalida;
+		return $this->setOrden($idmanga,$ordensalida);
 	}
 	
 	/**
