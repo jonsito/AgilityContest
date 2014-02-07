@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.6deb0ubuntu1ppa1
+-- version 4.0.6deb1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 07-02-2014 a las 08:58:12
--- Versión del servidor: 5.5.35-0ubuntu0.12.04.2
--- Versión de PHP: 5.3.10-1ubuntu3.9
+-- Tiempo de generación: 07-02-2014 a las 23:29:12
+-- Versión del servidor: 5.5.35-0ubuntu0.13.10.2
+-- Versión de PHP: 5.5.3-1ubuntu2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,7 +29,7 @@ USE `agility`;
 --
 -- Estructura de tabla para la tabla `Categorias_Perro`
 --
--- Creación: 29-01-2014 a las 07:16:54
+-- Creación: 07-02-2014 a las 14:23:34
 --
 
 DROP TABLE IF EXISTS `Categorias_Perro`;
@@ -55,7 +55,7 @@ INSERT INTO `Categorias_Perro` (`Categoria`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `Clubes`
 --
--- Creación: 29-01-2014 a las 07:16:54
+-- Creación: 07-02-2014 a las 14:23:37
 --
 
 DROP TABLE IF EXISTS `Clubes`;
@@ -157,7 +157,7 @@ INSERT INTO `Clubes` (`Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `Contac
 --
 -- Estructura de tabla para la tabla `Equipos`
 --
--- Creación: 29-01-2014 a las 07:16:54
+-- Creación: 07-02-2014 a las 14:23:37
 --
 
 DROP TABLE IF EXISTS `Equipos`;
@@ -190,7 +190,7 @@ INSERT INTO `Equipos` (`ID`, `Prueba`, `Nombre`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `Grados_Perro`
 --
--- Creación: 29-01-2014 a las 07:16:54
+-- Creación: 07-02-2014 a las 14:23:35
 --
 
 DROP TABLE IF EXISTS `Grados_Perro`;
@@ -219,7 +219,7 @@ INSERT INTO `Grados_Perro` (`Grado`, `Comentarios`) VALUES
 --
 -- Estructura de tabla para la tabla `Guias`
 --
--- Creación: 29-01-2014 a las 07:16:54
+-- Creación: 07-02-2014 a las 14:23:38
 --
 
 DROP TABLE IF EXISTS `Guias`;
@@ -609,7 +609,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 --
 -- Estructura de tabla para la tabla `Inscripciones`
 --
--- Creación: 29-01-2014 a las 07:16:54
+-- Creación: 07-02-2014 a las 17:38:39
 --
 
 DROP TABLE IF EXISTS `Inscripciones`;
@@ -622,10 +622,11 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
   `Equipo` int(4) DEFAULT NULL,
   `Pagado` int(4) NOT NULL DEFAULT '12',
   PRIMARY KEY (`ID`),
+  UNIQUE KEY `Inscripciones_dj` (`Jornada`,`Dorsal`),
   KEY `Dorsal` (`Dorsal`),
   KEY `Jornada` (`Jornada`),
   KEY `Equipo` (`Equipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=107 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=128 ;
 
 --
 -- RELACIONES PARA LA TABLA `Inscripciones`:
@@ -643,12 +644,12 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
 
 INSERT INTO `Inscripciones` (`ID`, `Jornada`, `Dorsal`, `Celo`, `Observaciones`, `Equipo`, `Pagado`) VALUES
 (1, 1, 10, 0, '', 10, 12),
-(3, 2, 12, 0, NULL, NULL, 12),
+(3, 2, 12, 0, '', 10, 12),
 (5, 1, 563, 0, 'Test', 10, 24),
 (6, 3, 563, 0, 'Test', 10, 24),
-(12, 1, 569, 0, 'test', NULL, 12),
-(13, 3, 569, 0, 'test', NULL, 12),
-(14, 4, 569, 0, 'test', NULL, 12),
+(12, 1, 569, 0, 'test', 11, 12),
+(13, 3, 569, 0, 'test', 11, 12),
+(14, 4, 569, 0, 'test', 11, 12),
 (15, 9, 572, 0, '', 11, 12),
 (16, 9, 573, 0, '', 11, 12),
 (17, 9, 574, 0, '', 11, 24),
@@ -657,7 +658,6 @@ INSERT INTO `Inscripciones` (`ID`, `Jornada`, `Dorsal`, `Celo`, `Observaciones`,
 (21, 9, 227, 0, '', 11, 24),
 (22, 10, 227, 0, '', 11, 24),
 (23, 10, 576, 0, '', 11, 12),
-(24, 10, 500, 0, '', 11, 12),
 (25, 9, 577, 0, '', 11, 24),
 (26, 10, 577, 0, '', 11, 24),
 (27, 9, 578, 0, '', 11, 24),
@@ -693,7 +693,14 @@ INSERT INTO `Inscripciones` (`ID`, `Jornada`, `Dorsal`, `Celo`, `Observaciones`,
 (72, 10, 579, 0, '', 11, 12),
 (74, 9, 563, 0, '', 11, 24),
 (75, 10, 563, 0, '', 11, 24),
-(106, 9, 569, 0, '', 11, 12);
+(108, 9, 564, 0, '', 11, 24),
+(109, 10, 564, 0, '', 11, 24),
+(122, 9, 569, 0, '', 11, 24),
+(123, 10, 569, 0, '', 11, 24),
+(124, 9, 500, 0, '', 11, 12),
+(125, 9, 558, 0, '', 11, 12),
+(126, 9, 496, 0, '', 11, 12),
+(127, 9, 467, 0, '', 11, 12);
 
 -- --------------------------------------------------------
 
@@ -720,7 +727,7 @@ CREATE TABLE IF NOT EXISTS `InscritosJornada` (
 --
 -- Estructura de tabla para la tabla `Jornadas`
 --
--- Creación: 29-01-2014 a las 07:16:54
+-- Creación: 07-02-2014 a las 14:23:38
 --
 
 DROP TABLE IF EXISTS `Jornadas`;
@@ -777,7 +784,7 @@ INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Gr
 --
 -- Estructura de tabla para la tabla `Jueces`
 --
--- Creación: 29-01-2014 a las 07:16:54
+-- Creación: 07-02-2014 a las 14:23:35
 --
 
 DROP TABLE IF EXISTS `Jueces`;
@@ -829,7 +836,7 @@ INSERT INTO `Jueces` (`Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `Interna
 --
 -- Estructura de tabla para la tabla `Mangas`
 --
--- Creación: 07-02-2014 a las 07:21:44
+-- Creación: 07-02-2014 a las 14:23:39
 --
 
 DROP TABLE IF EXISTS `Mangas`;
@@ -880,6 +887,8 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
 -- RELACIONES PARA LA TABLA `Mangas`:
 --   `Tipo`
 --       `Tipo_Manga` -> `Tipo`
+--   `Grado`
+--       `Grados_Perro` -> `Grado`
 --   `Juez1`
 --       `Jueces` -> `Nombre`
 --   `Juez2`
@@ -895,9 +904,9 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
 INSERT INTO `Mangas` (`ID`, `Jornada`, `Tipo`, `Grado`, `Recorrido`, `Dist_L`, `Obst_L`, `Dist_M`, `Obst_M`, `Dist_S`, `Obst_S`, `TRS_L_Tipo`, `TRS_L_Factor`, `TRS_L_Unit`, `TRM_L_Tipo`, `TRM_L_Factor`, `TRM_L_Unit`, `TRS_M_Tipo`, `TRS_M_Factor`, `TRS_M_Unit`, `TRM_M_Tipo`, `TRM_M_Factor`, `TRM_M_Unit`, `TRS_S_Tipo`, `TRS_S_Factor`, `TRS_S_Unit`, `TRM_S_Tipo`, `TRM_S_Factor`, `TRM_S_Unit`, `Juez1`, `Juez2`, `Observaciones`, `Cerrada`, `Orden_Salida`) VALUES
 (1, 9, 'Agility-1 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 'Beltrán Bustamante, Ana', '-- Sin asignar --', 'esto es una prueba', 0, ''),
 (2, 9, 'Agility-2 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
-(3, 9, 'Agility GII', 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(3, 9, 'Agility GII', 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, 'BEGIN,TAG_-0,TAG_-1,TAG_L0,227,579,574,578,558,33,TAG_L1,575,TAG_M0,563,404,577,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END'),
 (4, 9, 'Jumping GII', 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
-(5, 9, 'Agility GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(5, 9, 'Agility GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, 'BEGIN,TAG_-0,TAG_-1,TAG_L0,26,88,18,569,TAG_L1,TAG_M0,399,TAG_M1,TAG_S0,467,TAG_S1,TAG_T0,TAG_T1,END'),
 (6, 9, 'Jumping GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', '', 0, ''),
 (8, 10, 'Agility-1 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
 (9, 10, 'Agility-2 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
@@ -935,7 +944,7 @@ CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 --
 -- Estructura de tabla para la tabla `Perros`
 --
--- Creación: 29-01-2014 a las 07:16:54
+-- Creación: 07-02-2014 a las 14:23:39
 --
 
 DROP TABLE IF EXISTS `Perros`;
@@ -1268,7 +1277,7 @@ INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Catego
 (464, 'Noa', NULL, '1926077', 'A526', 'M', 'Pilar Rodríguez', '-'),
 (465, 'Magia', NULL, '2032179', 'A528', 'S', 'Carmen Briceño', '-'),
 (466, 'Saroa', NULL, '1789456', 'A149', 'S', 'Yolanda Torres', '-'),
-(467, 'Melendi', NULL, '1842276', 'A164', 'S', 'Luis Luque', '-'),
+(467, 'Melendi', '', '1842276', 'A164', 'S', 'Luis Luque', 'GIII'),
 (468, 'Mims', NULL, '102903', 'A279', 'S', 'Agustin Centelles', '-'),
 (469, 'Hancock', NULL, '131702', 'A609', 'S', 'Miguel Angel Soriano', '-'),
 (473, 'Tris', NULL, '119441', 'A398', 'S', 'Rocio Hermelo', '-'),
@@ -1318,9 +1327,9 @@ INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Catego
 (558, 'Aker', 'P.B. Malinoise', '1553051', 'A397', 'L', 'Francisco Javier Jaen', 'GII'),
 (559, 'Akira', NULL, '125877', 'A455', 'L', 'José Moreno', 'GII'),
 (563, 'Dama', 'Fox Terrier Wire', '0131204', 'A641', 'M', 'Juan Antonio Martinez', 'GII'),
-(564, 'Flai', 'Fox Terrier Wire', '0129738', '', 'M', 'Juan Antonio Martinez', 'P.A.'),
+(564, 'Flai', 'Fox Terrier Wire', '0129738', 'en tramite', 'M', 'Juan Antonio Martinez', 'GII'),
 (567, 'Donna', 'Border Collie', '', '', 'L', 'Ricardo Benito', 'GI'),
-(569, 'fito', 'mestizo', '', '', 'L', 'pepe', 'GII'),
+(569, 'fito', 'mestizo', '', '', 'L', 'pepe', 'GIII'),
 (571, 'paco', '', '', '', '-', '-- Sin asignar --', '-'),
 (572, 'Akela', 'Border Collie', '', '', 'L', 'Fernando Bibián', 'GI'),
 (573, 'Toska', 'Border Collie', '', '', 'L', 'Jesús Gómez', 'GI'),
@@ -1342,7 +1351,7 @@ INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Catego
 --
 -- Estructura de tabla para la tabla `Provincias`
 --
--- Creación: 29-01-2014 a las 07:16:54
+-- Creación: 07-02-2014 a las 14:23:36
 --
 
 DROP TABLE IF EXISTS `Provincias`;
@@ -1417,7 +1426,7 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 --
 -- Estructura de tabla para la tabla `Pruebas`
 --
--- Creación: 29-01-2014 a las 07:16:54
+-- Creación: 07-02-2014 a las 14:23:40
 --
 
 DROP TABLE IF EXISTS `Pruebas`;
@@ -1454,7 +1463,7 @@ INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`
 --
 -- Estructura de tabla para la tabla `Resultados`
 --
--- Creación: 29-01-2014 a las 07:16:54
+-- Creación: 07-02-2014 a las 14:23:40
 --
 
 DROP TABLE IF EXISTS `Resultados`;
@@ -1488,7 +1497,7 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 --
 -- Estructura de tabla para la tabla `Tipo_Manga`
 --
--- Creación: 07-02-2014 a las 07:18:33
+-- Creación: 07-02-2014 a las 14:23:40
 --
 
 DROP TABLE IF EXISTS `Tipo_Manga`;
@@ -1572,8 +1581,6 @@ ALTER TABLE `Inscripciones`
   ADD CONSTRAINT `Inscripciones_ibfk_2` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`),
   ADD CONSTRAINT `Inscripciones_ibfk_3` FOREIGN KEY (`Equipo`) REFERENCES `Equipos` (`ID`);
 
-CREATE UNIQUE INDEX `Inscripciones_dj` ON `Inscripciones` ( `Jornada` , `Dorsal` );
-
 --
 -- Filtros para la tabla `Jornadas`
 --
@@ -1615,7 +1622,7 @@ ALTER TABLE `Resultados`
 -- Filtros para la tabla `Tipo_Manga`
 --
 ALTER TABLE `Tipo_Manga`
-  ADD CONSTRAINT `Tipo_Manga_ibfk_1` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON UPDATE CASCADE ON DELETE CASCADE;
+  ADD CONSTRAINT `Tipo_Manga_ibfk_1` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

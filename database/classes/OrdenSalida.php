@@ -180,7 +180,7 @@ class OrdenSalida extends DBObject {
 			// si es un objeto anyadimos el dorsal
 			if (is_object ( $item )) {
 				array_push ( $data, $item );
-				$this->myLogger->debug("push:" . $item->Dorsal . " count:$count" );
+				// $this->myLogger->debug("push:" . $item->Dorsal . " count:$count" );
 				$count ++;
 				continue;
 			}
