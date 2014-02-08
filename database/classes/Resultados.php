@@ -61,9 +61,9 @@ class Resultados extends DBObject {
 		if (!$perro) return $this->error("No information on Dorsal: $dorsal");
 		
 		// phase 2: insert into resultados. On duplicate ($manga,$dorsal) key an error will occur
-		$str="INSERT INTO Resultados ( Manga , Dorsal , Licencia , Categoria , Grado , Guia , Club ) VALUES ("
-				.$this->manga. 		"," 	.$perro->Dorsal.	",'"	.$perro->Licencia.	"','"
-				.$perro->Categoria. "','" 	.$perro->Grado.		"','"	.$perro->Guia.		"','"	.$perro->club .	"')";
+		$str="INSERT INTO Resultados ( Manga , Nombre , Dorsal , Licencia , Categoria , Grado , Guia , Club ) VALUES ("
+				.$this->manga.		",'"	.$perro->Nombre. 	"'," 	.$perro->Dorsal.	",'"	.$perro->Licencia.	"','"
+				.$perro->Categoria. "','" 	.$perro->Grado.		"','"	.$perro->Guia.		"','"	.$perro->Club .	"')";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
@@ -142,19 +142,21 @@ class Resultados extends DBObject {
 		$this->myLogger->enter();
 		
 		// fase 1: obtenemos el orden de salida
-		$os=new OrdenSalida();
+		$os=new OrdenSalida("Competicion");
 		$orden=$os->getOrden($this->manga);
 		if ($orden==="") {
 			// si no hay orden de salida predefinido, genera uno al azar
 			$this->myLogger->notice("There is no OrdenSalida predefined for manga:".$this->manga);
 			$orden= $os->random($this->jornada,$this->manga);
 		}
-		$lista = explode ( ",", $ordensalida );
+		$this->myLogger->debug("El orden de salida es: \n$orden");
+		$lista = explode ( ",", $orden );
 		
-		// fase 2: obtenemos todos los resultados de esta manga y los guardamos
+		// fase 2: obtenemos todos los resultados de esta manga 
 		$str="SELECT * FROM Resultados WHERE (Manga=".$this->manga.")";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
+		// y los guardamos en un array indexado por el dorsal
 		$data=array();
 		while($row=$rs->fetch_array()) $data[$row["Dorsal"]]=$row;
 		$rs->free();
@@ -162,14 +164,14 @@ class Resultados extends DBObject {
 		// fase 3 componemos el resultado siguiendo el orden de salida
 		$items=array();
 		$count=0;
-		foreach ($orden as $dorsal) {
+		foreach ($lista as $dorsal) {
 			// ignore separators
 			if (strpos ( $dorsal, "BEGIN" ) !== false) continue;
 			if (strpos ( $dorsal, "END" ) !== false) continue;
 			if (strpos ( $dorsal, "TAG_" ) !== false)	continue;
 			if (!isset($data[$dorsal])){
 				// THIS SHOULD NEVER OCCURS. IT'S ONLY FOR TESTING
-				$this->myLogger->warning("No Results for dorsal:$dorsal. Creating default one");
+				$this->myLogger->warn("No Results for dorsal:$dorsal. Creating default one");
 				$this->insert($dorsal);
 				$data[$dorsal]=$this->select($dorsal);
 			}

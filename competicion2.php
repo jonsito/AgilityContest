@@ -1,8 +1,9 @@
+<?php include_once("dialogs/dlg_ordensalida.inc");?>
 <?php include_once("dialogs/dlg_competicion.inc");?>
  	
 <!-- PANEL INFORMATIVO SOBRE LA MANGAS DE ESTA JORNADA -->
 <div id="competicion_info" class="easyui-panel" title="Informaci&oacute;n de la jornada de competici&oacute;n">
-<div id="competicion_infolayout" class="easyui-layout" style="height:250px">
+<div id="competicion_infolayout" class="easyui-layout" style="height:400px">
 	<div data-options="region:'west',title:'Mangas de la jornada',split:true,collapsed:false" style="width:200px">
 		<table id="competicion-listamangas" class="easyui-datagrid" style="padding:10px 20px"></table>
 	</div>
@@ -17,7 +18,8 @@
 <!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
 <div id="competicion-listamanga-toolbar">
    	<span style="float:left">
-    	<a id="competicion-displaydialogBtn" href="#" class="easyui-linkbutton" onclick="competicionDialog();">Competici&oacute;n</a>
+    	<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton" onclick="ordensalidaDialog();">Orden de salida</a>
+    	<a id="competicion-competicionBtn" href="#" class="easyui-linkbutton" onclick="competicionDialog();">Competici&oacute;n</a>
 	</span>
 </div>
 
@@ -77,11 +79,19 @@ $('#competicion-listamangas').datagrid({
     }
 });
 
-//- boton de despliegue de la ventana de ordenSalida/resultados
-$('#competicion-displaydialogBtn').linkbutton({plain:true,iconCls:'icon-table'}); // nueva inscricion 
-$('#competicion-displaydialogBtn').tooltip({
+//- boton de despliegue de la ventana de orden de Salida
+$('#competicion-ordensalidaBtn').linkbutton({plain:true,iconCls:'icon-table'}); // nueva inscricion 
+$('#competicion-ordensalidaBtn').tooltip({
 	position: 'right',
-	content: '<span style="color:#000">Editar el Orden de salida y/o Resultados</span>',
+	content: '<span style="color:#000">Editar el Orden de salida</span>',
+	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+	}
+});
+//- boton de despliegue de la ventana de competicion
+$('#competicion-competicionBtn').linkbutton({plain:true,iconCls:'icon-table'}); // nueva inscricion 
+$('#competicion-competicionBtn').tooltip({
+	position: 'right',
+	content: '<span style="color:#000">Editar resultados de la competici&oacute;n</span>',
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
 });

@@ -59,15 +59,29 @@ function reload_manga(id) {
 function reloadOrdenSalida() {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
-    $('#competicion-orden-datagrid').datagrid(
+    $('#ordensalida-datagrid').datagrid(
             'load',
             { 
             	Jornada: workingData.jornada , 
             	Manga: workingData.manga , 
-            	Operacion: 'getData' 
+            	Operation: 'getData' 
             }
     );
 }
+
+function reloadCompeticion() {
+	if (workingData.jornada==0) return;
+	if (workingData.manga==0) return;
+    $('#competicion-datagrid').datagrid(
+            'load',
+            { 
+            	Jornada: workingData.jornada , 
+            	Manga: workingData.manga , 
+            	Operation: 'enumerate' 
+            }
+    );
+}
+
 /**
  * Guarda las modificaciones a los datos de una manga
  * Notese que esto no debería modificar ni los datos del
@@ -124,6 +138,18 @@ function dragAndDrop(from,to,where) {
 	});
 }
 
+function ordensalidaDialog() {
+	// obtenemos datos de la manga seleccionada
+	var row= $('#competicion-listamangas').datagrid('getSelected');
+    if (!row) return; // no hay ninguna manga seleccionada. retornar
+    var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
+    // abrimos ventana de dialogo
+    $('#ordensalida-window').dialog('open').window('setTitle',title);
+    // cargamos ventana de orden de salida
+    reloadOrdenSalida();
+    // cargamos ventana de resultados
+}
+
 function competicionDialog() {
 	// obtenemos datos de la manga seleccionada
 	var row= $('#competicion-listamangas').datagrid('getSelected');
@@ -131,7 +157,6 @@ function competicionDialog() {
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
     // abrimos ventana de dialogo
     $('#competicion-window').dialog('open').window('setTitle',title);
-    // cargamos ventana de orden de salida
-    reloadOrdenSalida();
-    // cargamos ventana de resultados
+    // cargamos ventana de competicion
+    reloadCompeticion();
 }
