@@ -953,9 +953,9 @@ CREATE TABLE IF NOT EXISTS `Perros` (
   `Nombre` varchar(255) NOT NULL,
   `Raza` varchar(255) DEFAULT NULL,
   `LOE_RRC` varchar(255) DEFAULT NULL,
-  `Licencia` varchar(255) DEFAULT NULL,
+  `Licencia` varchar(255) DEFAULT '--------',
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
-  `Guia` varchar(255) DEFAULT 'Sin guia',
+  `Guia` varchar(255) DEFAULT '-- Sin asignar --',
   `Grado` varchar(16) DEFAULT '-',
   PRIMARY KEY (`Dorsal`),
   KEY `Perros_ibfk_3` (`Guia`),
@@ -1468,20 +1468,27 @@ INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`
 
 DROP TABLE IF EXISTS `Resultados`;
 CREATE TABLE IF NOT EXISTS `Resultados` (
+  -- Datos identificativos
   `Manga` int(4) NOT NULL,
   `Dorsal` int(4) NOT NULL,
-  `Orden` int(4) NOT NULL DEFAULT '0',
-  `Entrada` timestamp NULL DEFAULT NULL,
-  `Comienzo` timestamp NULL DEFAULT NULL,
+  -- Datos del participante
+  `Nombre` varchar(255) NOT NULL,
+  `Licencia` varchar(255) NOT NULL DEFAULT '--------',
+  `Categoria` varchar(1) NOT NULL DEFAULT '-',
+  `Grado` varchar(16) NOT NULL DEFAULT '-',
+  `Guia` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
+  `Club` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
+  -- Resultados
+  `Entrada` timestamp NOT NULL DEFAULT '2014-01-01 00:00:00.000000',
+  `Comienzo` timestamp NOT NULL DEFAULT '2014-01-01 00:00:00.000000',
   `Faltas` int(4) NOT NULL DEFAULT '0',
   `Rehuses` int(4) NOT NULL DEFAULT '0',
   `Tocados` int(4) NOT NULL DEFAULT '0',
   `Eliminado` tinyint(1) NOT NULL DEFAULT '0',
   `No presentado` tinyint(1) NOT NULL DEFAULT '0',
   `Tiempo` double NOT NULL DEFAULT '0',
-  `Observaciones` varchar(255) DEFAULT NULL,
-  KEY `Dorsal` (`Dorsal`),
-  KEY `Manga` (`Manga`)
+  `Observaciones` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY `Resultados_md` (`Manga`,`Dorsal`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
