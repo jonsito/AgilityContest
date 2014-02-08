@@ -207,18 +207,16 @@ class Dogs extends DBObject {
 	 */
 	function selectByDorsal($dorsal){
 		$this->myLogger->enter();
-		if ($dorsal==0) {
-			$this->errormsg="selectByDorsal: No dorsal specified";
-			return null;
-		}
+		if ($dorsal<=0) return $this->error("No Dorsal specified"); 
+		
 		// second query to retrieve $rows starting at $offset
 		$str="SELECT * FROM PerroGuiaClub WHERE ( Dorsal = $dorsal )";
 		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error); 
+		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
 		$result =$rs->fetch_array(); // should be only one item
 		$result['Operation']='update'; // dirty trick to ensure that form operation is rewritten on loadform
-
+		
 		// free resources and return result
 		$rs->free();
 		$this->myLogger->leave();
