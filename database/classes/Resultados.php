@@ -128,7 +128,7 @@ class Resultados extends DBObject {
 		else $str= substr($str,1); // skip initial ','
 		// efectuamos el update
 		$sql="UPDATE Resultados SET $str WHERE (Dorsal=$dorsal) AND (Manga=".$this->manga.")";
-		$rs=$this->query($str);
+		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";

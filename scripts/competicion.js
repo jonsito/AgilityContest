@@ -46,6 +46,24 @@ function dmanga_setRecorridos() {
 }
 
 /**
+ * Guarda las modificaciones a los datos de una manga
+ * Notese que esto no debería modificar ni los datos del
+ * orden de salida ni resultados de la competicion
+ * @param {Integer} id Identificador de la manga
+ */
+function save_manga(id) {
+	$('#competicion-formdatosmanga').form('submit', {
+		url: 'database/mangaFunctions.php',
+		onSubmit: function(param) {
+			param.Operation='update';
+			param.Jornada=workingData.jornada;
+			param.Manga=id;
+			return true; // to continue submitting
+		}
+	});
+}
+
+/**
  * Recarga los datos asociados a una manga
  * Restaura ventana de informacion, orden de salida y competicion
  * @param id identificador de la manga
@@ -82,20 +100,29 @@ function reloadCompeticion() {
     );
 }
 
-/**
- * Guarda las modificaciones a los datos de una manga
- * Notese que esto no debería modificar ni los datos del
- * orden de salida ni resultados de la competicion
- * @param {Integer} id Identificador de la manga
- */
-function save_manga(id) {
-	$('#competicion-formdatosmanga').form('submit', {
-		url: 'database/mangaFunctions.php',
-		onSubmit: function(param) {
-			param.Operation='update';
-			param.Jornada=workingData.jornada;
-			param.Manga=id;
-			return true; // to continue submitting
+function saveCompeticionData(data) {
+	$.ajax({
+		type:'GET',
+		url:"database/resultadosFunctions.php",
+		dataType:'json',
+		data: {
+			Operation:	'update',
+			Prueba:		workingData.prueba,
+			Jornada:	workingData.jornada,
+			Manga:		workingData.manga,
+			Dorsal: 	data['Dorsal'],
+			Licencia:	data['Licencia'],
+			Nombre:		data['Nombre'],
+			Guia:		data['Guia'],
+			Club:		data['Club'],
+			Categoria:	data['Categoria'],
+			Tocados:	data['Tocados'],
+			Faltas:		data['Faltas'],
+			Rehuses:	data['Rehuses'],
+			Tiempo:		data['Tiempo'],
+			Eliminado:	data['Eliminado'],
+			NoPresentado:	data['NoPresentado'],
+			Observaciones:	data['Observaciones']
 		}
 	});
 }

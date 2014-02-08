@@ -98,7 +98,8 @@ function endEditing(){
 	if ($('#competicion-datagrid').datagrid('validateRow', editIndex)) {
 		$('#competicion-datagrid').datagrid('endEdit', editIndex);
 		// TODO: obtener y grabar los datos de la fila que se estaba editando
-		// saveCompeticion();
+		var data=$('#competicion-datagrid').datagrid('getRows')[editIndex];
+		saveCompeticionData(data);
 		editIndex = undefined;
 		return true;
 	} else {
