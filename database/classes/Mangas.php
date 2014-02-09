@@ -198,6 +198,133 @@ class Mangas extends DBObject {
 		$this->myLogger->leave();
 		return $result;
 	}
+	
+	/**
+	 * Evalua el TRS y TRM para cada categoria asociados a la manga indicada
+	 * @param {integer} $manga ID de la manga
+	 * @param {array} $tiempos Tres mejores tiempos de cada categoria array[$categoria][0,1,2]
+	 * @return {array} datos[$categoria]['Dist','TRS','TRM']; null on error
+	 */
+	function datosTRS($manga,$tiempos) {
+		$this->myLogger->enter();
+
+		// preparamos el array con el resultado
+		$result=array();
+		$result["-"]=array();$result["L"]=array();$result["M"]=array();$result["S"]=array();$result["T"]=array();
+		foreach ( array("-","L","M","S","T") as $c ) { 
+			$result[$c]['Distancia']=0; $result[$c]['Obstaculos']=0 ;$result[$c]['TRS']=0;$result[$c]['TRM']=0; 
+		}
+		// obtenemos los datos de la manga
+		$manga=$this->selectByID($manga);
+		if (!$manga) return $this->error($this->errormsg);
+		// distancias y obstáculos (necesaria para el calculo de la velocidad
+		$result['L']['Dist']=$manga->Dist_L; $result['L']['Obstaculos']=$manga->Obst_L;
+		$result['M']['Dist']=$manga->Dist_M; $result['M']['Obstaculos']=$manga->Obst_M;
+		$result['S']['Dist']=$manga->Dist_S; $result['S']['Obstaculos']=$manga->Obst_S;
+		
+		// Calculo del TRS para standard
+		switch ($manga->TRS_L_Tipo) {
+			case 0: // tiempo fijo
+				$result['L']['TRS']=$manga->TRS_L_Factor;
+				break;
+			case 1: // mejor tiempo 
+				if ($manga->$TRS_L_Unit==="s") $result['L']['TRS']=$tiempos['L'][0] + $manga->TRS_L_Factor; // ( + X segundos )
+				else $result['L']['TRS']=$tiempos['L'][0] * ( (100+$manga->TRS_L_Factor) / 100) ; // (+ X por ciento)
+				break;
+			case 2: // media de los tres mejores tiempos
+				$media=($tiempos['L'][0]+$tiempos['L'][1]+$tiempos['L'][2]) / 3;
+				if ($manga->$TRS_L_Unit==="s") $result['L']['TRS']=$media + $manga->TRS_L_Factor; // ( + X segundos )
+				else $result['L']['TRS'] = $media * ( (100+$manga->TRS_L_Factor) / 100) ; // (+ X por ciento)
+				break;
+		}
+		$result['L']['TRS'] = ceil( $result['L']['TRS'] ); // redondeamos hacia arriba el TRS de Standard
+		
+		// Calculo del TRS para Medium
+		switch ($manga->TRS_M_Tipo) {
+			case 0: // tiempo fijo
+				$result['M']['TRS']=$manga->TRS_M_Factor;
+				break;
+			case 1: // mejor tiempo
+				if ($manga->$TRS_M_Unit==="s") $result['M']['TRS']=$tiempos['M'][0] + $manga->TRS_M_Factor; // ( + X segundos )
+				else $result['M']['TRS']=$tiempos['M'][0] * ( (100+$manga->TRS_M_Factor) / 100) ; // (+ X por ciento)
+				break;
+			case 2: // media de los tres mejores tiempos
+				$media=($tiempos['M'][0]+$tiempos['M'][1]+$tiempos['M'][2]) / 3;
+				if ($manga->$TRS_M_Unit==="s") $result['M']['TRS']=$media + $manga->TRS_M_Factor; // ( + X segundos )
+				else $result['M']['TRS'] = $media * ( (100+$manga->TRS_M_Factor) / 100) ; // (+ X por ciento)
+				break;
+			case 3: // Referencia de tiempo el TRS de Standard
+				if ($manga->$TRS_M_Unit==="s") $result['M']['TRS']=$result['L']['TRS'] + $manga->TRS_M_Factor; // ( + X segundos )
+				else $result['M']['TRS'] = $result['L']['TRS'] * ( (100+$manga->TRS_M_Factor) / 100) ; // (+ X por ciento)
+				break;
+		}
+		$result['M']['TRS'] = ceil( $result['M']['TRS'] ); // redondeamos hacia arriba el TRS de Midi
+
+		// Calculo del TRS para Small
+		switch ($manga->TRS_S_Tipo) {
+			case 0: // tiempo fijo
+				$result['S']['TRS']=$manga->TRS_S_Factor;
+				break;
+			case 1: // mejor tiempo
+				if ($manga->$TRS_S_Unit==="s") $result['S']['TRS']=$tiempos['S'][0] + $manga->TRS_S_Factor; // ( + X segundos )
+				else $result['S']['TRS']=$tiempos['S'][0] * ( (100+$manga->TRS_S_Factor) / 100) ; // (+ X por ciento)
+				break;
+			case 2: // media de los tres mejores tiempos
+				$media=($tiempos['S'][0]+$tiempos['S'][1]+$tiempos['S'][2]) / 3;
+				if ($manga->$TRS_S_Unit==="s") $result['S']['TRS']=$media + $manga->TRS_S_Factor; // ( + X segundos )
+				else $result['S']['TRS'] = $media * ( (100+$manga->TRS_S_Factor) / 100) ; // (+ X por ciento)
+				break;
+			case 3: // Referencia de tiempo el TRS de Standard
+				if ($manga->$TRS_S_Unit==="s") $result['S']['TRS']=$result['L']['TRS'] + $manga->TRS_S_Factor; // ( + X segundos )
+				else $result['S']['TRS'] = $result['L']['TRS'] * ( (100+$manga->TRS_S_Factor) / 100) ; // (+ X por ciento)
+				break;
+			case 4: // Referencia de tiempo el TRS de Midi
+				if ($manga->$TRS_S_Unit==="s") $result['S']['TRS']=$result['M']['TRS'] + $manga->TRS_S_Factor; // ( + X segundos )
+				else $result['S']['TRS'] = $result['M']['TRS'] * ( (100+$manga->TRS_S_Factor) / 100) ; // (+ X por ciento)
+				break;
+		}
+		$result['S']['TRS'] = ceil( $result['S']['TRS'] ); // redondeamos hacia arriba el TRS de Midi
+
+		// Calculo del TRM para Standard
+		switch($manga->TRM_L_Tipo) {
+			case 0: // TRM Fijo
+				$result['L']['TRM']=$manga->TRM_L_Factor;
+				break;
+			case 1: // TRS + (segs o porcentaje)
+				if ($manga->$TRM_L_Unit==="s") $result['L']['TRM']=$result['L']['TRS'] + $manga->TRM_L_Factor; // ( + X segundos )
+				else $result['L']['TRM'] = $result['L']['TRS'] * ( (100+$manga->TRM_L_Factor) / 100) ; // (+ X por ciento)
+				break;
+		}
+		$result['L']['TRM'] = ceil( $result['L']['TRM'] ); // redondeamos hacia arriba el TRM de Standard
+
+		// Calculo del TRM para Midi
+		switch($manga->TRM_M_Tipo) {
+			case 0: // TRM Fijo
+				$result['M']['TRM']=$manga->TRM_M_Factor;
+				break;
+			case 1: // TRS + (segs o porcentaje)
+				if ($manga->$TRM_M_Unit==="s") $result['M']['TRM']=$result['M']['TRS'] + $manga->TRM_M_Factor; // ( + X segundos )
+				else $result['M']['TRM'] = $result['M']['TRS'] * ( (100+$manga->TRM_M_Factor) / 100) ; // (+ X por ciento)
+				break;
+		}
+		$result['M']['TRM'] = ceil( $result['M']['TRM'] ); // redondeamos hacia arriba el TRM de Standard
+
+		// Calculo del TRM para Small
+		switch($manga->TRM_S_Tipo) {
+			case 0: // TRM Fijo
+				$result['S']['TRM']=$manga->TRM_S_Factor;
+				break;
+			case 1: // TRS + (segs o porcentaje)
+				if ($manga->$TRM_S_Unit==="s") $result['S']['TRM']=$result['S']['TRS'] + $manga->TRM_S_Factor; // ( + X segundos )
+				else $result['S']['TRM'] = $result['S']['TRS'] * ( (100+$manga->TRM_S_Factor) / 100) ; // (+ X por ciento)
+				break;
+		}
+		$result['S']['TRM'] = ceil( $result['S']['TRM'] ); // redondeamos hacia arriba el TRM de Standard
+		
+		$this->myLogger->leave();
+		
+		return $result; // NOTICE: this IS NOT datagrid expected return format
+	}
 }
 
 ?>

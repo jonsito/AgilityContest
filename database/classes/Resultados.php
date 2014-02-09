@@ -194,33 +194,63 @@ class Resultados extends DBObject {
 	 */
 	function resultados($cat) {
 		$this->myLogger->enter();
-		// fase 1: obtenemos todos los resultados de esta manga pre-ordenados sin tener en cuenta el TRS
+		
+		// FASE 1: obtenemos todos los resultados de esta manga pre-ordenados sin tener en cuenta el TRS
 		$str="SELECT * , ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS Penalizacion
 			FROM Resultados WHERE ( Manga =".$this->manga." )
 			ORDER BY Categoria ASC , Penalizacion ASC , Tiempo ASC ";	
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// y los guardamos en un array indexado por el dorsal
-		$data=array();
-		$count=0;
-		while($row=$rs->fetch_array()) {
+		// guardando los tres mejores tiempos de cada categoria
+		$data=array();	// almacen de datos leidos desde la base de datos
+		$count=0;		// orden de clasificacion en funcion de la categoria
+		
+		// preparamos el almacen de los tres mejores tiempos de cada categoria
+		$tiempos=array();	
+		$tiempos["-"]=array();$tiempos["L"]=array();$tiempos["M"]=array();$tiempos["S"]=array();$tiempos["T"]=array();
+		foreach ( array("-","L","M","S","T") as $c ) { $tiempos[$c][0]=0;$tiempos[$c][1]=0;$tiempos[$c][2]=0; }
+
+		// analizamos el resultado de la bbdd y guardamos los tres mejores tiempos de cada categoria en $tiempos
+		$lastCategoria="*";
+		while($row = $rs->fetch_array()) {
+			if ( $row['Categoria'] !== $lastCategoria ) { 
+				$count=0;
+				$lastCategoria=$row['Categoria'];
+			}
+			if ($count<3) $tiempos[$lastCategoria][$count]=$row['Tiempo'];
+			$row["Orden"]=$count+1;
+			array_push($data,$row);
 			$count++;
+		}
+		$rs->free();
+		
+		// FASE 2: obtenemos el TRS y evaluamos puntuacion y calificacion
+		$t1=$data[0]['Tiempo'];
+		$t2=$data[1]['Tiempo'];
+		$t3=$data[2]['Tiempo']; // tres mejores tiempos
+		$mng= new Manga("Resultados.php",$this->jornada);
+		$datos_trs= $mng->datos_TRS($this->manga,$tiempos);
+		
+		// FASE 3: revisamos el array evaluando penalizacion y calificacion 
+		foreach($data as $index => $row) {
 			$puntos=$row['Penalizacion'];
-			$row["Orden"]=$count;
 			if ($puntos>=200) $row['Calificacion']="No Presentado";
 			else if ($puntos>=100) $row['Calificacion']="Eliminado";
 			else if ($puntos>=26) $row['Calificacion']="No Clasificado";
 			else if ($puntos>=16) $row['Calificacion']="Bien";
 			else if ($puntos>=6) $row['Calificacion']="Muy Bien";
 			else $row['Calificacion']="Excelente";
-			array_push($data,$row);
+			if ($tiempo==0) $row['Velocidad']="-";
+			else $row['Velocidad']=$manga["Dist_".$row['Categoria']]/$tiempo;
 		}
-		$rs->free();
+		
+		// FASE 4: reordenamos el array con los datos finales
+		
+		// FASE 5: retornamos datos en formato datagrid
 		$result=array();
 		$result['total']=$count;
 		$result['rows']=$data;
-		// fase dos: calculo del TRS para cada categoria
-		// TODO: write
 		$this->myLogger->leave();
 		return $result;
 	}
