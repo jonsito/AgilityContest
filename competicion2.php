@@ -1,5 +1,6 @@
 <?php include_once("dialogs/dlg_ordensalida.inc");?>
 <?php include_once("dialogs/dlg_competicion.inc");?>
+<?php include_once("dialogs/dlg_resultadosManga.inc");?>
  	
 <!-- PANEL INFORMATIVO SOBRE LA MANGAS DE ESTA JORNADA -->
 <div id="competicion_info" class="easyui-panel" title="Informaci&oacute;n de la jornada de competici&oacute;n">
@@ -18,8 +19,12 @@
 <!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
 <div id="competicion-listamanga-toolbar">
    	<span style="float:left">
-    	<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton" onclick="ordensalidaDialog();">Orden de salida</a>
-    	<a id="competicion-competicionBtn" href="#" class="easyui-linkbutton" onclick="competicionDialog();">Competici&oacute;n</a>
+    	<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton" 
+    		onclick="competicionDialog('ordensalida');">Orden de salida</a>
+    	<a id="competicion-competicionBtn" href="#" class="easyui-linkbutton" 
+    		onclick="competicionDialog('competicion');">Entrada de datos</a>
+    	<a id="competicion-resultmangaBtn" href="#" class="easyui-linkbutton" 
+    		onclick="competicionDialog('resultadosmanga');">Resultados de la manga</a>
 	</span>
 </div>
 
@@ -80,10 +85,10 @@ $('#competicion-listamangas').datagrid({
 });
 
 //- boton de despliegue de la ventana de orden de Salida
-$('#competicion-ordensalidaBtn').linkbutton({plain:true,iconCls:'icon-table'}); // nueva inscricion 
+$('#competicion-ordensalidaBtn').linkbutton({plain:true,iconCls:'icon-order'}); // nueva inscricion 
 $('#competicion-ordensalidaBtn').tooltip({
 	position: 'right',
-	content: '<span style="color:#000">Editar el Orden de salida</span>',
+	content: '<span style="color:#000">Ver/Editar el Orden de salida de la manga</span>',
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
 });
@@ -91,7 +96,15 @@ $('#competicion-ordensalidaBtn').tooltip({
 $('#competicion-competicionBtn').linkbutton({plain:true,iconCls:'icon-table'}); // nueva inscricion 
 $('#competicion-competicionBtn').tooltip({
 	position: 'right',
-	content: '<span style="color:#000">Editar resultados de la competici&oacute;n</span>',
+	content: '<span style="color:#000">Insertar datos de los recorridos de la manga</span>',
+	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+	}
+});
+//- boton de despliegue de la ventana de competicion
+$('#competicion-resultmangaBtn').linkbutton({plain:true,iconCls:'icon-endflag'}); // nueva inscricion 
+$('#competicion-resultmangaBtn').tooltip({
+	position: 'right',
+	content: '<span style="color:#000">Ver los resultados parciales de la manga</span>',
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
 });

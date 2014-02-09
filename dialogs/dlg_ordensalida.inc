@@ -6,6 +6,7 @@
 	<div id="ordensalida-toolbar">
  		<span style="float:left">
 		   	<a id="ordensalida-randomBtn" href="#" class="easyui-linkbutton" onclick="randomOrdenSalida()">Aleatorio</a>
+		   	<a id="ordensalida-resultBtn" href="#" class="easyui-linkbutton" onclick="resultOrdenSalida()">Manga anterior</a>
 		   	<a id="ordensalida-saveBtn" href="#" class="easyui-linkbutton" onclick="saveOrdenSalida()">Guardar</a>
 		   	<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadOrdenSalida()">Actualizar</a>
     		</span>
@@ -87,6 +88,13 @@ $('#ordensalida-randomBtn').linkbutton({plain:true,iconCls:'icon-dice'}); // nue
 $('#ordensalida-randomBtn').tooltip({
 	position: 'top',
 	content: '<span style="color:#000">Generar un nuevo orden de salida aleatorio</span>',
+	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+	}
+});
+$('#ordensalida-resultBtn').linkbutton({plain:true,iconCls:'icon-updown'}); // nueva inscricion 
+$('#ordensalida-resultBtn').tooltip({
+	position: 'top',
+	content: '<span style="color:#000">Orden de salida inverso a resultados de primera manga</span>',
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
 });

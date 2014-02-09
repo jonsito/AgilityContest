@@ -194,7 +194,35 @@ class Resultados extends DBObject {
 	 */
 	function resultados($cat) {
 		$this->myLogger->enter();
+		// fase 1: obtenemos todos los resultados de esta manga pre-ordenados sin tener en cuenta el TRS
+		$str="SELECT * , ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS Penalizacion
+			FROM Resultados WHERE ( Manga =".$this->manga." )
+			ORDER BY Categoria ASC , Penalizacion ASC , Tiempo ASC ";	
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		// y los guardamos en un array indexado por el dorsal
+		$data=array();
+		$count=0;
+		while($row=$rs->fetch_array()) {
+			$count++;
+			$puntos=$row['Penalizacion'];
+			$row["Orden"]=$count;
+			if ($puntos>=200) $row['Calificacion']="No Presentado";
+			else if ($puntos>=100) $row['Calificacion']="Eliminado";
+			else if ($puntos>=26) $row['Calificacion']="No Clasificado";
+			else if ($puntos>=16) $row['Calificacion']="Bien";
+			else if ($puntos>=6) $row['Calificacion']="Muy Bien";
+			else $row['Calificacion']="Excelente";
+			array_push($data,$row);
+		}
+		$rs->free();
+		$result=array();
+		$result['total']=$count;
+		$result['rows']=$data;
+		// fase dos: calculo del TRS para cada categoria
+		// TODO: write
 		$this->myLogger->leave();
+		return $result;
 	}
 }
 ?>

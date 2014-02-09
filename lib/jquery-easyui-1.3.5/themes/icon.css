@@ -70,6 +70,15 @@
 .icon-table{
 	background:url('icons/table.png') no-repeat center center;
 }
+.icon-endflag{
+	background:url('icons/endflag.png') no-repeat center center;
+}
+.icon-order{
+	background:url('icons/order.png') no-repeat center center;
+}
+.icon-updown{
+	background:url('icons/updown.png') no-repeat center center;
+}
 
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;

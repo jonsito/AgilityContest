@@ -100,6 +100,19 @@ function reloadCompeticion() {
     );
 }
 
+function reloadResultadosManga(cat) {
+	if (workingData.jornada==0) return;
+	if (workingData.manga==0) return;
+    $('#resultadosmanga-datagrid').datagrid(
+            'load',
+            { 
+            	Jornada: workingData.jornada , 
+            	Manga: workingData.manga , 
+            	Operation: 'resultados',
+            	Categorias: cat
+            }
+    );
+}
 function saveCompeticionData(data) {
 	$.ajax({
 		type:'GET',
@@ -165,25 +178,31 @@ function dragAndDrop(from,to,where) {
 	});
 }
 
-function ordensalidaDialog() {
+/**
+ * Abre la ventana de competicion requerida 'ordensalida','competicion','resultadosmanga'
+ * @param name
+ */
+function competicionDialog(name) {
 	// obtenemos datos de la manga seleccionada
 	var row= $('#competicion-listamangas').datagrid('getSelected');
     if (!row) return; // no hay ninguna manga seleccionada. retornar
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
-    // abrimos ventana de dialogo
-    $('#ordensalida-window').dialog('open').window('setTitle',title);
-    // cargamos ventana de orden de salida
-    reloadOrdenSalida();
-    // cargamos ventana de resultados
-}
-
-function competicionDialog() {
-	// obtenemos datos de la manga seleccionada
-	var row= $('#competicion-listamangas').datagrid('getSelected');
-    if (!row) return; // no hay ninguna manga seleccionada. retornar
-    var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
-    // abrimos ventana de dialogo
-    $('#competicion-window').dialog('open').window('setTitle',title);
-    // cargamos ventana de competicion
-    reloadCompeticion();
+    if (name==='ordensalida') {
+        // abrimos ventana de dialogo
+        $('#ordensalida-window').dialog('open').window('setTitle',"Orden de Salida: "+title);
+        // cargamos ventana de orden de salida
+        reloadOrdenSalida();
+    }
+    if (name==='competicion') {
+        // abrimos ventana de dialogo
+        $('#competicion-window').dialog('open').window('setTitle',"Entrada de datos: "+title);
+        // cargamos ventana de orden de salida
+        reloadCompeticion();
+    }
+    if (name==='resultadosmanga') {
+        // abrimos ventana de dialogo
+        $('#resultadosmanga-window').dialog('open').window('setTitle',"Resultados de la manga: "+title);
+        // cargamos ventana de orden de salida
+        reloadResultadosManga('LMS');
+    }
 }
