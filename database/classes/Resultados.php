@@ -233,7 +233,15 @@ class Resultados extends DBObject {
 		$datos_trs= $mng->datos_TRS($this->manga,$tiempos);
 		
 		// FASE 3: revisamos el array evaluando penalizacion y calificacion 
+		// y lo reindexamos en un nuevo array  generando un indice en funcion del orden
+		$data2=array();
 		foreach($data as $index => $row) {
+			// reevaluamos la penalizacion en funcion del TRS
+			$trs=$datos_trs[$row['Categoria']]['TRS'];
+			// si el tiempo es nulo, asumimos Elim o NC
+			if ($row['Tiempo']!=0 && $row['Tiempo']>$trs) {
+				$row['Penalizacion'] = $row['Penalizacion']+ $row->Tiempo - $trs;
+			}
 			$puntos=$row['Penalizacion'];
 			if ($puntos>=200) $row['Calificacion']="No Presentado";
 			else if ($puntos>=100) $row['Calificacion']="Eliminado";
@@ -242,15 +250,29 @@ class Resultados extends DBObject {
 			else if ($puntos>=6) $row['Calificacion']="Muy Bien";
 			else $row['Calificacion']="Excelente";
 			if ($tiempo==0) $row['Velocidad']="-";
-			else $row['Velocidad']=$manga["Dist_".$row['Categoria']]/$tiempo;
+			else $row['Velocidad']=$datos_trs[$row['Categoria']]['Dist']/$tiempo;
+			
+			// para garantizar que nuevo el array esta ordenado, vamos a crear un indice
+			// basado en 10000*puntos+tiempo. 
+			// Para separar categorias, sumaremos un offset de 1000000 a cada una
+			switch ($row['Categoria']) {
+				case "-": $data2[			10000*$puntos+100*$row['Tiempo']]=$row; break;
+				case "L": $data2[1000000 +	10000*$puntos+100*$row['Tiempo']]=$row; break;
+				case "M": $data2[2000000 +	10000*$puntos+100*$row['Tiempo']]=$row; break;
+				case "S": $data2[3000000 +	10000*$puntos+100*$row['Tiempo']]=$row; break;
+				case "T": $data2[4000000 +	10000*$puntos+100*$row['Tiempo']]=$row; break;
+			}
+			
 		}
-		
-		// FASE 4: reordenamos el array con los datos finales
+		// FASE 4 Ordenamos el segundo array
+		ksort($data2);
+		// preparamos el resultado a devolver
 		
 		// FASE 5: retornamos datos en formato datagrid
 		$result=array();
-		$result['total']=$count;
-		$result['rows']=$data;
+		$result['total']=count($data2);
+		$result['rows']=$data2;
+		// $result['datos_trs']=$datos_trs;
 		$this->myLogger->leave();
 		return $result;
 	}
