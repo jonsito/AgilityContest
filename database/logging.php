@@ -55,14 +55,9 @@ function do_log($str) {
 	error_log($str); 
 }
 
-/*
-function exceptions_error_handler($severity, $message, $filename, $lineno) { 
-    var_dump(debug_backtrace());
-}
-set_error_handler('exceptions_error_handler');
-*/
-
+date_default_timezone_set("Europe/Madrid");
+ini_set('display_errors', 1);
 ini_set("log_errors",1);
-ini_set("error_log","/tmp/json.log");
+ini_set("error_log","../logs/trace.log");
 
 ?>

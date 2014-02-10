@@ -115,27 +115,29 @@ class Resultados extends DBObject {
 		if ($dorsal<=0) return $this->error("No Dorsal specified");
 		if ($this->cerrada!=0) return $this->error("Manga ".$this->manga." is closed");
 		// buscamos la lista de parametros a actualizar
-		$str="";
-		if (isset($_REQUEST["Entrada"]))		$str .= ", Entrada='" 	. strval($_REQUEST["Entrada"]) . "'";
-		if (isset($_REQUEST["Comienzo"]))		$str .= ", Comienzo='"	. strval($_REQUEST["Comienzo"]) . "'";
-		if (isset($_REQUEST["Faltas"]))			$str .= ", Faltas=" 	. intval($_REQUEST["Faltas"]) . "";
-		if (isset($_REQUEST["Rehuses"]))		$str .= ", Rehuses="	. intval($_REQUEST["Rehuses"]) . "";
-		if (isset($_REQUEST["Tocados"]))		$str .= ", Tocados="	. intval($_REQUEST["Tocados"]) . "";
-		if (isset($_REQUEST["Eliminado"]))		$str .= ", Eliminado="	. intval($_REQUEST["Eliminado"]) . "";
-		if (isset($_REQUEST["NoPresentado"])) 	$str .= ", NoPresentado=".intval($_REQUEST["NoPresentado"]) . "";
-		if (isset($_REQUEST["Tiempo"]))			$str .= ", Tiempo="		. doubleval($_REQUEST["Tiempo"]) . "";
-		// TODO: si ( Eliminado!=0 ) set Tiempo=0, set NoPresentado=0
-		// TODO: si ( Tiempo==0 && Eliminado==0) set NoPresentado=1
-		// TODO: si ( NoPresentado!=0) Set Tiempo=0, set Eliminado=0
-		$np=http_request("NoPresentado","i",0);
-		$elim=http_request("Eliminado","i",0);
+		$entrada=http_request("Entrada","s",date("Y-m-d H:i:s"));
+		$comienzo=http_request("Comienzo","s",date("Y-m-d H:i:s"));
+		$faltas=http_request("Faltas","i",0);
+		$rehuses=http_request("Rehuses","i",0);
+		$tocados=http_request("Tocados","i",0);
+		$nopresentado=http_request("NoPresentado","i",0);
+		$eliminado=http_request("Eliminado","i",0);
 		$tiempo=http_request("Tiempo","d",0.0);
-		
-		if (isset($_REQUEST["Observaciones"]))	$str .= ", Observaciones='" . strval($_REQUEST["Observaciones"]) . "'";
-		if ($str==="") return $this->error("No resultados to update for Dorsal:$dorsal on Manga:".$this->manga);
-		else $str= substr($str,1); // skip initial ','
+		$observaciones=http_request("Observaciones","s","");
+		// comprobamos la coherencia de los datos recibidos y ajustamos
+		if ($rehuses>=3) { $tiempo=0; $eliminado=1; $nopresentado=0;}
+		if ($eliminado==1) { $tiempo=0; $nopresentado=0; }
+		if ($nopresentado==1) { $tiempo=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0;}
+		if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; }
+		if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
+		$observaciones="hola mundo";
 		// efectuamos el update
-		$sql="UPDATE Resultados SET $str WHERE (Dorsal=$dorsal) AND (Manga=".$this->manga.")";
+		$sql="UPDATE Resultados 
+			SET Entrada='$entrada' , Comienzo='$comienzo' , 
+				Faltas=$faltas , Rehuses=$rehuses , Tocados=$tocados ,
+				NoPresentado=$nopresentado , Eliminado=$eliminado , 
+				Tiempo=$tiempo , Observaciones='$observaciones' 
+			WHERE (Dorsal=$dorsal) AND (Manga=".$this->manga.")";
 		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();

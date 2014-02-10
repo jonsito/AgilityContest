@@ -137,6 +137,7 @@ function saveCompeticionData(data) {
 			NoPresentado:	data['NoPresentado'],
 			Observaciones:	data['Observaciones']
 		}
+		// TODO: reload affected row with real data from database
 	});
 }
 
