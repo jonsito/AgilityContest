@@ -14,7 +14,7 @@
     <div id="perros-toolbar">
     	<a id="perros-newBtn" href="#" class="easyui-linkbutton" onclick="newDog()">Nuevo Perro</a>
     	<a id="perros-editBtn" href="#" class="easyui-linkbutton" onclick="editDog()">Editar Perro</a>
-    	<a id="perros-delBtn" href="#" class="easyui-linkbutton" onclick="destroyDog()">Borrar Perro</a>
+    	<a id="perros-delBtn" href="#" class="easyui-linkbutton" onclick="deleteDog()">Borrar Perro</a>
     	<input id="perros-search" type="text" onchange="doSearchPerro()"/> 
     	<a id="perros-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchPerro()">Buscar</a>
     </div>
@@ -60,7 +60,71 @@
             onDblClickRow:function() { 
                 editDog();
             }
-        }); 
+        });
+        // activa teclas up/down para navegar por el panel
+        $('#perros-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
+            function selectRow(t,up){
+            	var count = t.datagrid('getRows').length;    // row count
+            	var selected = t.datagrid('getSelected');
+            	if (selected){
+                	var index = t.datagrid('getRowIndex', selected);
+                	index = index + (up ? -1 : 1);
+                	if (index < 0) index = 0;
+                	if (index >= count) index = count - 1;
+                	t.datagrid('clearSelections');
+                	t.datagrid('selectRow', index);
+            	} else {
+                	t.datagrid('selectRow', (up ? count-1 : 0));
+            	}
+        	}
+			function selectPage(t,offset) {
+				var p=t.datagrid('getPager').pagination('options');
+				var curPage=p.pageNumber;
+				var lastPage=1+parseInt(p.total/p.pageSize);
+				if (offset==-2) curPage=1;
+				if (offset==2) curPage=lastPage;
+				if ((offset==-1) && (curPage>1)) curPage=curPage-1;
+				if ((offset==1) && (curPage<lastPage)) curPage=curPage+1;
+            	t.datagrid('clearSelections');
+            	p.pageNumber=curPage;
+            	t.datagrid('options').pageNumber=curPage;
+            	t.datagrid('reload', {
+                	where: $('#perros-search').val(),
+                	onloadSuccess: function(data) {
+                		t.datagrid('getPager').pagination('refresh',{pageNumber:curPage});
+                		}
+                	});
+			}
+        	var t = $('#perros-datagrid');
+            switch(e.keyCode){
+                case 38:    // up
+                    selectRow(t,true); return false;
+                case 40:    // down
+                    selectRow(t,false); return false;
+                case 13: // enter (open edit window)
+                    editDog(); return false;
+                case 9: // tab
+                    // if (e.shiftkey) return false; // shift+Tab
+                    return false;
+                case 45: // Insert
+                    newDog(); return false;
+                case 46: // Supr
+                    deleteDog(); return false;
+                case 33: // Re pag.
+                    selectPage(t,-1); return false;
+                case 34: // Av pag
+                    selectPage(t,1); return false;
+                case 35: // Fin
+                    selectPage(t,2); return false;
+                case 36: // Inicio
+                    selectPage(t,-2); return false;
+                case 16: // Shift
+                case 17: // Ctrl
+                case 18: // Alt
+                case 27: // Esc
+                    return false;
+            }
+		});
         // - botones de la toolbar de la tabla
         $('#perros-newBtn').linkbutton({plain:true,iconCls:'icon-add'}); // nuevo perro       
         $('#perros-newBtn').tooltip({

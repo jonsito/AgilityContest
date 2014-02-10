@@ -423,7 +423,7 @@ function delPerroFromGuia(guia) {
 /**
  * Borra el perro seleccionado de la base de datos
  */
-function destroyDog(){
+function deleteDog(){
     var row = $('#perros-datagrid').datagrid('getSelected');
     if (row){
         $.messager.confirm('Confirm','Borrar el perro "'+ row.Nombre+'" de la base de datos. ¿Seguro?',function(r){
