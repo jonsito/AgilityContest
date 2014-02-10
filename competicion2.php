@@ -63,7 +63,6 @@ $('#competicion-listamangas').datagrid({
     onSelect: function (index,row) {
         if (index<0) { // no manga selected
             $('#competicion-datosmanga').html("");
-            // TODO: clear & collapse panels
         	workingData.manga=0;
         	workingData.nombreManga="";
             return; 
@@ -78,9 +77,10 @@ $('#competicion-listamangas').datagrid({
         	// datos del panel lateral con informacion de la manga
         	reload_manga(workingData.manga);
         });
-        // refresh orden de salida
+        // refresh orden de salida/competicion/resultados
         reloadOrdenSalida();
-        // refresh orden de competicion
+        reloadCompeticion();
+        reloadResultadosManga('LMS');
     }
 });
 

@@ -63,8 +63,9 @@ $('#ordensalida-datagrid').datagrid({
     },
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
     loadMsg: "Actualizando orden de salida...",
-    onLoadSuccess: function() {
+    onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes) and enable drag and drop
     	$(this).datagrid('enableDnd');
+		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
     },
     onDragEnter: function(dst,src) {
         var from=src.Categoria+src.Celo;
@@ -74,6 +75,12 @@ $('#ordensalida-datagrid').datagrid({
     onDrop: function(dst,src,updown) {
         dragAndDrop(src.Dorsal,dst.Dorsal,(updown==='top')?0:1);
     }
+});
+
+// Activa tecla ESC (escape) para cerrar ventana
+$('#ordensalida-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
+	if (e.keyCode==27) $('#ordensalida-window').window('close'); 
+	return false;
 });
 
 //- botones del panel de orden de mangas

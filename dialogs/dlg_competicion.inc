@@ -54,41 +54,20 @@ $('#competicion-datagrid').datagrid({
         { field:'Guia',			width:50, align:'right', title: 'Guia' },
         { field:'Club',			width:30, align:'right', title: 'Club' },
       	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
-      	{ field:'Faltas',		width:15, align:'right', title: 'Faltas',	
-          	editor:'numberbox',
-      		formatter: function(value, row, index){ return '<span title=\"Faltas\" class=\"easyui-tooltip\">'+value+'</span>';}
-        },
-      	{ field:'Rehuses',		width:15, align:'right', title: 'Rehuses',
-          	editor:'numberbox', 
-      		formatter: function(value, row, index){ return '<span title=\"Rehuses\" class=\"easyui-tooltip\">'+value+'</span>';}
-        },
-      	{ field:'Tocados',		width:15, align:'right', title: 'Tocados',
-          	editor:'numberbox', 
-      		formatter: function(value, row, index){ return '<span title=\"Tocados\" class=\"easyui-tooltip\">'+value+'</span>';}
-        },
-      	{ field:'Tiempo',		width:20, align:'right', title: 'Tiempo',
-          	editor:{type:'numberbox',options:{precision:2}},
-  			formatter: function(value, row, index){ return '<span title=\"Tiempo\" class=\"easyui-tooltip\">'+value+'</span>';}
-      	}, 
-      	{ field:'Eliminado',	width:10, align:'center',title: 'Elim.',
-          	editor:{type:'checkbox',options:{on:1,off:0}},
-      		formatter: function(value, row, index){ return '<span title=\"Eliminado\" class=\"easyui-tooltip\">'+value+'</span>';} 
-      	},
-      	{ field:'NoPresentado',	width:10, align:'center',title: 'N.P.',
-          	editor:{type:'checkbox',options:{on:1,off:0}},
-      		formatter: function(value, row, index){ return '<span title=\"No presentado\" class=\"easyui-tooltip\">'+value+'</span>';} 
-      	},		
-      	{ field:'Observaciones',width:30, align:'left',	 title: 'Observaciones', 
-          	editor:'text',
-      		formatter: function(value, row, index){ return '<span title=\"Observaciones\" class=\"easyui-tooltip\">'+value+'</span>';} 
-        }
+      	{ field:'Faltas',		width:15, align:'right', title: 'Faltas',	editor:'numberbox' },
+      	{ field:'Rehuses',		width:15, align:'right', title: 'Rehuses',	editor:'numberbox', },
+      	{ field:'Tocados',		width:15, align:'right', title: 'Tocados',	editor:'numberbox' },
+      	{ field:'Tiempo',		width:20, align:'right', title: 'Tiempo',	editor:{type:'numberbox',options:{precision:2}}	}, 
+      	{ field:'Eliminado',	width:10, align:'center',title: 'Elim.',	editor:{type:'checkbox',options:{on:1,off:0}}	},
+      	{ field:'NoPresentado',	width:10, align:'center',title: 'N.P.',		editor:{type:'checkbox',options:{on:1,off:0}}	},		
+      	{ field:'Observaciones',width:30, align:'left',	 title: 'Observaciones',	editor:'text'  }
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
     },
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
 	onLoadSuccess:function(){ 
-		$(this).datagrid('getPanel').find('.easyui-tooltip').tooltip({showDelay: 500});
+		$(this).datagrid('getPanel').find('.editcell-tooltip').tooltip({showDelay: 500});
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 	},
     loadMsg: "Actualizando datos de competicion ...",
@@ -130,7 +109,7 @@ $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0
 });
 
 function endEditing(){
-	if (editIndex == undefined){return true}
+	if (editIndex == undefined){return true; }
 	if ($('#competicion-datagrid').datagrid('validateRow', editIndex)) {
 		$('#competicion-datagrid').datagrid('endEdit', editIndex);
 		// TODO: obtener y grabar los datos de la fila que se estaba editando

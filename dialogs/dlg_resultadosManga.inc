@@ -68,7 +68,16 @@ $('#resultadosmanga-datagrid').datagrid({
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
     },
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
-    loadMsg: "Actualizando resultados de la manga ..."
+    loadMsg: "Actualizando resultados de la manga ...",
+    onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes)
+    	$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+    }
+});
+
+//Activa tecla ESC (escape) para cerrar ventana
+$('#resultadosmanga-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
+	if (e.keyCode==27) $('#resultadosmanga-window').window('close'); 
+	return false;
 });
 
 //- botones del panel de resultados de la manga
