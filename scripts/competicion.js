@@ -14,33 +14,33 @@ function dmanga_setRecorridos() {
 	case '0': // recorrido comun para std, mini y midi
 		var distl=$('#dmanga_DistL').val();
 		var obstl=$('#dmanga_ObstL').val();
-		$('#dmanga_DistM').attr('disabled',true);
+		$('#dmanga_DistM').attr('readonly',true);
 		$('#dmanga_DistM').val(distl);
-		$('#dmanga_ObstM').attr('disabled',true);
+		$('#dmanga_ObstM').attr('readonly',true);
 		$('#dmanga_ObstM').val(obstl);
-		$('#dmanga_DistS').attr('disabled',true);
+		$('#dmanga_DistS').attr('readonly',true);
 		$('#dmanga_DistS').val(distl);
-		$('#dmanga_ObstS').attr('disabled',true);
+		$('#dmanga_ObstS').attr('readonly',true);
 		$('#dmanga_ObstS').val(obstl);
 		break;
 	case '1': // un recorrido para std y otro para mini-midi
 		var distm=$('#dmanga_DistM').val();
 		var obstm=$('#dmanga_ObstM').val();
-		$('#dmanga_DistM').removeAttr('disabled');
-		$('#dmanga_ObstM').removeAttr('disabled');
-		$('#dmanga_DistS').attr('disabled',true);
+		$('#dmanga_DistM').removeAttr('readonly');
+		$('#dmanga_ObstM').removeAttr('readonly');
+		$('#dmanga_DistS').attr('readonly',true);
 		$('#dmanga_DistS').val(distm);
-		$('#dmanga_ObstS').attr('disabled',true);
+		$('#dmanga_ObstS').attr('readonly',true);
 		$('#dmanga_ObstS').val(obstm);
 		// set TRS relative to Midi TRS
 		$('#dmanga_TRS_S_Tipo').val(4); 
 		$('#dmanga_TRS_S_Factor').val(0);
 		break;
 	case '2': // recorridos separados para cada categoria
-		$('#dmanga_DistM').removeAttr('disabled');
-		$('#dmanga_ObstM').removeAttr('disabled');
-		$('#dmanga_DistS').removeAttr('disabled');
-		$('#dmanga_ObstS').removeAttr('disabled');
+		$('#dmanga_DistM').removeAttr('readonly');
+		$('#dmanga_ObstM').removeAttr('readonly');
+		$('#dmanga_DistS').removeAttr('readonly');
+		$('#dmanga_ObstS').removeAttr('readonly');
 		break;
 	}
 }

@@ -1,6 +1,7 @@
 <?php
 require_once("DBObject.php");
 require_once("OrdenSalida.php");
+require_once("Mangas.php");
 
 class Resultados extends DBObject {
 	protected $manga;
@@ -229,8 +230,8 @@ class Resultados extends DBObject {
 		$t1=$data[0]['Tiempo'];
 		$t2=$data[1]['Tiempo'];
 		$t3=$data[2]['Tiempo']; // tres mejores tiempos
-		$mng= new Manga("Resultados.php",$this->jornada);
-		$datos_trs= $mng->datos_TRS($this->manga,$tiempos);
+		$mng= new Mangas("Resultados.php",$this->jornada);
+		$datos_trs= $mng->datosTRS($this->manga,$tiempos);
 		
 		// FASE 3: revisamos el array evaluando penalizacion y calificacion 
 		// y lo reindexamos en un nuevo array  generando un indice en funcion del orden
@@ -240,8 +241,14 @@ class Resultados extends DBObject {
 			$trs=$datos_trs[$row['Categoria']]['TRS'];
 			// si el tiempo es nulo, asumimos Elim o NC
 			if ($row['Tiempo']!=0 && $row['Tiempo']>$trs) {
-				$row['Penalizacion'] = $row['Penalizacion']+ $row->Tiempo - $trs;
+				$row['Penalizacion'] = $row['Penalizacion']+ $row['Tiempo'] - $trs;
 			}
+			// Comprobamos si nos hemos pasado del TRM
+			if ($row['Tiempo']>$datos_trs[$row['Categoria']]['TRM']) {
+				$row['Penalizacion']=100;
+				// $row['Comentarios'] .= " - TRM excedido";
+			}
+			// evaluamos calificacion
 			$puntos=$row['Penalizacion'];
 			if ($puntos>=200) $row['Calificacion']="No Presentado";
 			else if ($puntos>=100) $row['Calificacion']="Eliminado";
@@ -249,8 +256,9 @@ class Resultados extends DBObject {
 			else if ($puntos>=16) $row['Calificacion']="Bien";
 			else if ($puntos>=6) $row['Calificacion']="Muy Bien";
 			else $row['Calificacion']="Excelente";
-			if ($tiempo==0) $row['Velocidad']="-";
-			else $row['Velocidad']=$datos_trs[$row['Categoria']]['Dist']/$tiempo;
+			// evaluamos velocidad
+			if ($row['Tiempo']==0) $row['Velocidad']="-";
+			else $row['Velocidad']=$datos_trs[$row['Categoria']]['Dist']/$row['Tiempo'];
 			
 			// para garantizar que nuevo el array esta ordenado, vamos a crear un indice
 			// basado en 10000*puntos+tiempo. 
@@ -264,14 +272,13 @@ class Resultados extends DBObject {
 			}
 			
 		}
-		// FASE 4 Ordenamos el segundo array
+		// FASE 4 Ordenamos el segundo array y retornamos datos en formato datagrid
 		ksort($data2);
-		// preparamos el resultado a devolver
-		
-		// FASE 5: retornamos datos en formato datagrid
+		$data3=array();
+		foreach($data2 as $row) { array_push($data3,$row); }
 		$result=array();
-		$result['total']=count($data2);
-		$result['rows']=$data2;
+		$result['total']=count($data3);
+		$result['rows']=$data3;
 		// $result['datos_trs']=$datos_trs;
 		$this->myLogger->leave();
 		return $result;
