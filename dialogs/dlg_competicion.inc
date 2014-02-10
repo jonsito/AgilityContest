@@ -62,12 +62,11 @@ $('#competicion-datagrid').datagrid({
       	{ field:'NoPresentado',	width:10, align:'center',title: 'N.P.',		editor:{type:'checkbox',options:{on:1,off:0}}	},		
       	{ field:'Observaciones',width:30, align:'left',	 title: 'Observaciones',	editor:'text'  }
     ]],
-    rowStyler:function(index,row) { // colorize rows
+    rowStyler:function(index,row) { // colorize rows. Equivalent to "striped: true", but better look&feel
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
     },
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
 	onLoadSuccess:function(){ 
-		$(this).datagrid('getPanel').find('.editcell-tooltip').tooltip({showDelay: 500});
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 	},
     loadMsg: "Actualizando datos de competicion ...",
