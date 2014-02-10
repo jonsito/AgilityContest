@@ -124,6 +124,13 @@ class Resultados extends DBObject {
 		if (isset($_REQUEST["Eliminado"]))		$str .= ", Eliminado="	. intval($_REQUEST["Eliminado"]) . "";
 		if (isset($_REQUEST["NoPresentado"])) 	$str .= ", NoPresentado=".intval($_REQUEST["NoPresentado"]) . "";
 		if (isset($_REQUEST["Tiempo"]))			$str .= ", Tiempo="		. doubleval($_REQUEST["Tiempo"]) . "";
+		// TODO: si ( Eliminado!=0 ) set Tiempo=0, set NoPresentado=0
+		// TODO: si ( Tiempo==0 && Eliminado==0) set NoPresentado=1
+		// TODO: si ( NoPresentado!=0) Set Tiempo=0, set Eliminado=0
+		$np=http_request("NoPresentado","i",0);
+		$elim=http_request("Eliminado","i",0);
+		$tiempo=http_request("Tiempo","d",0.0);
+		
 		if (isset($_REQUEST["Observaciones"]))	$str .= ", Observaciones='" . strval($_REQUEST["Observaciones"]) . "'";
 		if ($str==="") return $this->error("No resultados to update for Dorsal:$dorsal on Manga:".$this->manga);
 		else $str= substr($str,1); // skip initial ','

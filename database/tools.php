@@ -31,6 +31,7 @@ function http_request($name,$type,$default) {
 		case "i": return isset($_REQUEST[$name])?intval($_REQUEST[$name]):$default;
 		case "s": return isset($_REQUEST[$name])?strval($_REQUEST[$name]):$default;
 		case "b": return isset($_REQUEST[$name])?boolval($_REQUEST[$name]):$default;
+		case "d": return isset($_REQUEST[$name])?doubleval($_REQUEST[$name]):$default;
 	}
 	do_log("request() invalid type:$type requested"); 
 	return null; 

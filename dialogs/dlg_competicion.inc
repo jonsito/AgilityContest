@@ -87,12 +87,48 @@ $('#competicion-datagrid').datagrid({
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
     },
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
-	onLoadSuccess:function(){ $(this).datagrid('getPanel').find('.easyui-tooltip').tooltip({showDelay: 500}); },
+	onLoadSuccess:function(){ 
+		$(this).datagrid('getPanel').find('.easyui-tooltip').tooltip({showDelay: 500});
+		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+	},
     loadMsg: "Actualizando datos de competicion ...",
     onClickRow: onClickRow // start edit
 });
 
 var editIndex = undefined;
+
+//activa teclas up/down para navegar por el panel de gestion de jornadas
+$('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
+    function selectRow(t,up){
+    	var count = t.datagrid('getRows').length;    // row count
+    	var selected = t.datagrid('getSelected');
+    	if (selected){
+        	var index = t.datagrid('getRowIndex', selected);
+        	index = index + (up ? -1 : 1);
+        	if (index < 0) index = 0;
+        	if (index >= count) index = count - 1;
+        	t.datagrid('clearSelections');
+        	t.datagrid('selectRow', index);
+    	} else {
+        	t.datagrid('selectRow', (up ? count-1 : 0));
+    	}
+	}
+	var t = $('#competicion-datagrid');
+    switch(e.keyCode){
+    case 38:	/* Up */	if (editIndex===undefined) selectRow(t,true); return false;
+    case 40:    /* Down */	if (editIndex===undefined) selectRow(t,false); return false;
+    case 13:	/* Enter */ 
+        if (editIndex!==undefined) {
+            endEditing(); // si estamos editando: finalizamos edicion
+            selectRow(t,false); // ponemos el indice en la siguiente fila
+        } 
+        // abrimos edicion
+        onClickRow(t.datagrid('getRowIndex', t.datagrid('getSelected')));// no estamos editando: pasamos a editar
+        return false;
+    case 27:	/* Escape */ $('#competicion-window').window('close'); return false;
+    }
+});
+
 function endEditing(){
 	if (editIndex == undefined){return true}
 	if ($('#competicion-datagrid').datagrid('validateRow', editIndex)) {
