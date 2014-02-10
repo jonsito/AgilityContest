@@ -7,7 +7,7 @@
     <div id="guias-toolbar">
         <a id="guias-newBtn" href="#" class="easyui-linkbutton" onclick="newGuia()">Nuevo Gu&iacute;a</a>
         <a id="guias-editBtn" href="#" class="easyui-linkbutton" onclick="editGuia()">Editar Gu&iacute;a</a>
-        <a id="guias-delBtn" href="#" class="easyui-linkbutton" onclick="destroyGuia()">Borrar gu&iacute;a</a>
+        <a id="guias-delBtn" href="#" class="easyui-linkbutton" onclick="deleteGuia()">Borrar gu&iacute;a</a>
         <input id="guias-search" type="text" onchange="doSearchGuia()"/> 
         <a id="guias-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchGuia()">Buscar</a>
     </div>
@@ -60,7 +60,62 @@
             onExpandRow: function(idx,row) { showPerrosByGuia(idx,row); },
 
         }); // end of guias-datagrid
-        
+
+        // activa teclas up/down para navegar por el panel
+        $('#guias-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
+            function selectRow(t,up){
+            	var count = t.datagrid('getRows').length;    // row count
+            	var selected = t.datagrid('getSelected');
+            	if (selected){
+                	var index = t.datagrid('getRowIndex', selected);
+                	index = index + (up ? -1 : 1);
+                	if (index < 0) index = 0;
+                	if (index >= count) index = count - 1;
+                	t.datagrid('clearSelections');
+                	t.datagrid('selectRow', index);
+            	} else {
+                	t.datagrid('selectRow', (up ? count-1 : 0));
+            	}
+        	}
+			function selectPage(t,offset) {
+				var p=t.datagrid('getPager').pagination('options');
+				var curPage=p.pageNumber;
+				var lastPage=1+parseInt(p.total/p.pageSize);
+				if (offset==-2) curPage=1;
+				if (offset==2) curPage=lastPage;
+				if ((offset==-1) && (curPage>1)) curPage=curPage-1;
+				if ((offset==1) && (curPage<lastPage)) curPage=curPage+1;
+            	t.datagrid('clearSelections');
+            	p.pageNumber=curPage;
+            	t.datagrid('options').pageNumber=curPage;
+            	t.datagrid('reload', {
+                	where: $('#guias-search').val(),
+                	onloadSuccess: function(data) {
+                		t.datagrid('getPager').pagination('refresh',{pageNumber:curPage});
+                	}
+                });
+			}
+        	var t = $('#guias-datagrid');
+            switch(e.keyCode){
+            case 38:	/* Up */	selectRow(t,true); return false;
+            case 40:    /* Down */	selectRow(t,false); return false;
+            case 13:	/* Enter */	editGuia(); return false;
+            case 45:	/* Insert */ newGuia(); return false;
+            case 46:	/* Supr */	deleteGuia(); return false;
+            case 33:	/* Re Pag */ selectPage(t,-1); return false;
+            case 34:	/* Av Pag */ selectPage(t,1); return false;
+            case 35:	/* Fin */    selectPage(t,2); return false;
+            case 36:	/* Inicio */ selectPage(t,-2); return false;
+            case 9: 	/* Tab */
+                // if (e.shiftkey) return false; // shift+Tab
+                return false;
+            case 16:	/* Shift */
+            case 17:	/* Ctrl */
+            case 18:	/* Alt */
+            case 27:	/* Esc */
+                return false;
+            }
+		});
         // - botones de la toolbar de la tabla
         $('#guias-newBtn').linkbutton({iconCls:'icon-add',plain:true}).tooltip({ // nuevo guia 
         	position: 'top',

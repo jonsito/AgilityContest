@@ -110,6 +110,7 @@
     // datos del formulario de nuevo/edit prueba
     $('#chinscripciones-dialog').dialog({
             closed:true,
+            /* TODO: this doesn't work :-( */ onClose: function() { $('#inscripciones-datagrid').datagrid().focus(); },
             buttons:'#chinscripciones-dlg-buttons'
     });
     // - declaracion del formulario

@@ -92,37 +92,28 @@
                 	where: $('#perros-search').val(),
                 	onloadSuccess: function(data) {
                 		t.datagrid('getPager').pagination('refresh',{pageNumber:curPage});
-                		}
-                	});
+                	}
+                });
 			}
         	var t = $('#perros-datagrid');
             switch(e.keyCode){
-                case 38:    // up
-                    selectRow(t,true); return false;
-                case 40:    // down
-                    selectRow(t,false); return false;
-                case 13: // enter (open edit window)
-                    editDog(); return false;
-                case 9: // tab
-                    // if (e.shiftkey) return false; // shift+Tab
-                    return false;
-                case 45: // Insert
-                    newDog(); return false;
-                case 46: // Supr
-                    deleteDog(); return false;
-                case 33: // Re pag.
-                    selectPage(t,-1); return false;
-                case 34: // Av pag
-                    selectPage(t,1); return false;
-                case 35: // Fin
-                    selectPage(t,2); return false;
-                case 36: // Inicio
-                    selectPage(t,-2); return false;
-                case 16: // Shift
-                case 17: // Ctrl
-                case 18: // Alt
-                case 27: // Esc
-                    return false;
+            case 38:	/* Up */	selectRow(t,true); return false;
+            case 40:    /* Down */	selectRow(t,false); return false;
+            case 13:	/* Enter */	editDog(); return false;
+            case 45:	/* Insert */ newDog(); return false;
+            case 46:	/* Supr */	deleteDog(); return false;
+            case 33:	/* Re Pag */ selectPage(t,-1); return false;
+            case 34:	/* Av Pag */ selectPage(t,1); return false;
+            case 35:	/* Fin */    selectPage(t,2); return false;
+            case 36:	/* Inicio */ selectPage(t,-2); return false;
+            case 9: 	/* Tab */
+                // if (e.shiftkey) return false; // shift+Tab
+                return false;
+            case 16:	/* Shift */
+            case 17:	/* Ctrl */
+            case 18:	/* Alt */
+            case 27:	/* Esc */
+                return false;
             }
 		});
         // - botones de la toolbar de la tabla

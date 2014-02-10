@@ -65,7 +65,7 @@ function saveClub(){
  * Pide confirmacion para borrar un club de la base de datos
  * En caso afirmativo lo borra
  */
-function destroyClub(){
+function deleteClub(){
     var row = $('#clubes-datagrid').datagrid('getSelected');
     if (!row) return;
     $.messager.confirm('Confirm','Borrar el club "'+row.Nombre+'" de la base de datos ¿Seguro?',function(r){
@@ -215,10 +215,10 @@ function saveGuia(){
  * Borra de la BBDD los datos del guia seleccionado. 
  * Invocada desde el menu de guias
  */
-function destroyGuia(){
+function deleteGuia(){
     var row = $('#guias-datagrid').datagrid('getSelected');
     if (!row) return;
-    $.messager.confirm('Confirm','Borrar datos del guia. '+ row.Nombre+'¿Seguro?',function(r){
+    $.messager.confirm('Confirm','Borrar datos del guia: '+ row.Nombre+'\n¿Seguro?',function(r){
         if (r){
             $.get('database/guiaFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
                 if (result.success){
@@ -426,7 +426,7 @@ function delPerroFromGuia(guia) {
 function deleteDog(){
     var row = $('#perros-datagrid').datagrid('getSelected');
     if (row){
-        $.messager.confirm('Confirm','Borrar el perro "'+ row.Nombre+'" de la base de datos. ¿Seguro?',function(r){
+        $.messager.confirm('Confirm','Borrar el perro: "'+ row.Nombre+'" de la base de datos.\n¿Seguro?',function(r){
             if (r){
                 $.get('database/dogFunctions.php',{Operation:'delete',Dorsal:row.Dorsal},function(result){
                     if (result.success){
@@ -516,10 +516,10 @@ function saveJuez(){
 /**
  * Delete juez data in bbdd
  */
-function destroyJuez(){
+function deleteJuez(){
     var row = $('#jueces-datagrid').datagrid('getSelected');
     if (row){
-        $.messager.confirm('Confirm','Borrar datos del juez. ¿Seguro?',function(r){
+        $.messager.confirm('Confirm','Borrar datos del juez:'+row.Nombre+'\n ¿Seguro?',function(r){
             if (r){
                 $.get('database/juezFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
                     if (result.success){
@@ -606,7 +606,7 @@ function savePrueba(){
 /**
  * Delete data related with a prueba in BBDD
  */
-function destroyPrueba(){
+function deletePrueba(){
     var row = $('#pruebas-datagrid').datagrid('getSelected');
     if (!row) return;
     $.messager.confirm('Confirm',

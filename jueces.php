@@ -6,7 +6,7 @@
     <div id="jueces-toolbar">
     	<a id="jueces-newBtn" href="#" class="easyui-linkbutton" onclick="newJuez()">Nuevo Juez</a>
     	<a id="jueces-editBtn" href="#" class="easyui-linkbutton" onclick="editJuez()">Editar Juez</a>
-    	<a id="jueces-delBtn" href="#" class="easyui-linkbutton" onclick="destroyJuez()">Borrar Juez</a>
+    	<a id="jueces-delBtn" href="#" class="easyui-linkbutton" onclick="deleteJuez()">Borrar Juez</a>
     	<input id="jueces-search" type="text" onchange="doSearchJuez()"/> 
     	<a id="jueces-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchJuez()">Buscar</a>
     </div>
@@ -48,7 +48,62 @@
             onDblClickRow:function() { 
                 editJuez();
             }
-        }); 
+        });
+        // activa teclas up/down para navegar por el panel
+        $('#jueces-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
+            function selectRow(t,up){
+            	var count = t.datagrid('getRows').length;    // row count
+            	var selected = t.datagrid('getSelected');
+            	if (selected){
+                	var index = t.datagrid('getRowIndex', selected);
+                	index = index + (up ? -1 : 1);
+                	if (index < 0) index = 0;
+                	if (index >= count) index = count - 1;
+                	t.datagrid('clearSelections');
+                	t.datagrid('selectRow', index);
+            	} else {
+                	t.datagrid('selectRow', (up ? count-1 : 0));
+            	}
+        	}
+			function selectPage(t,offset) {
+				var p=t.datagrid('getPager').pagination('options');
+				var curPage=p.pageNumber;
+				var lastPage=1+parseInt(p.total/p.pageSize);
+				if (offset==-2) curPage=1;
+				if (offset==2) curPage=lastPage;
+				if ((offset==-1) && (curPage>1)) curPage=curPage-1;
+				if ((offset==1) && (curPage<lastPage)) curPage=curPage+1;
+            	t.datagrid('clearSelections');
+            	p.pageNumber=curPage;
+            	t.datagrid('options').pageNumber=curPage;
+            	t.datagrid('reload', {
+                	where: $('#jueces-search').val(),
+                	onloadSuccess: function(data) {
+                		t.datagrid('getPager').pagination('refresh',{pageNumber:curPage});
+                	}
+                });
+			}
+        	var t = $('#jueces-datagrid');
+            switch(e.keyCode){
+                case 38:	/* Up */	selectRow(t,true); return false;
+                case 40:    /* Down */	selectRow(t,false); return false;
+                case 13:	/* Enter */	editJuez(); return false;
+                case 45:	/* Insert */ newJuez(); return false;
+                case 46:	/* Supr */	deleteJuez(); return false;
+                case 33:	/* Re Pag */ selectPage(t,-1); return false;
+                case 34:	/* Av Pag */ selectPage(t,1); return false;
+                case 35:	/* Fin */    selectPage(t,2); return false;
+                case 36:	/* Inicio */ selectPage(t,-2); return false;
+                case 9: 	/* Tab */
+                    // if (e.shiftkey) return false; // shift+Tab
+                    return false;
+                case 16:	/* Shift */
+                case 17:	/* Ctrl */
+                case 18:	/* Alt */
+                case 27:	/* Esc */
+                    return false;
+            }
+		});
         // - botones de la toolbar de la tabla
         $('#jueces-newBtn').linkbutton({iconCls:'icon-add',plain:true }); // nuevo juez
         $('#jueces-newBtn').tooltip({

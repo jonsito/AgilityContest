@@ -6,7 +6,7 @@
     	<div id="pruebas-toolbar">
     	    <a id="pruebas-newBtn" href="#" class="easyui-linkbutton" onclick="newPrueba()">Nueva prueba</a>
     	    <a id="pruebas-editBtn" href="#" class="easyui-linkbutton" onclick="editPrueba()">Editar prueba</a>
-    	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" onclick="destroyPrueba()">Borrar prueba</a>
+    	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" onclick="deletePrueba()">Borrar prueba</a>
     	    <input id="pruebas-search" type="text" onchange="doSearchPrueba()"/> 
     	    <a id="pruebas-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchPrueba()">Buscar</a>
     	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox" onclick="doSearchPrueba()"/>Incl. Cerradas
@@ -43,7 +43,7 @@
                 { field:'Triptico',		width:10,					title:'URL del Tr&iacute;ptico'},
                 { field:'Cartel',		width:10,					title:'URL del Cartel'},
                 { field:'Observaciones',width:15,					title:'Observaciones'},
-                { field:'Cerrada',		width:10,					title:'Cerrada', align: 'center'}
+                { field:'Cerrada',		width:7,					title:'Cerrada', align: 'center'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:function(index,row) { 
@@ -60,7 +60,64 @@
             }
             
         }); // end of pruebas-datagrid
-         
+        
+     	// activa teclas up/down para navegar por el panel
+        $('#pruebas-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
+            function selectRow(t,up){
+            	var count = t.datagrid('getRows').length;    // row count
+            	var selected = t.datagrid('getSelected');
+            	if (selected){
+                	var index = t.datagrid('getRowIndex', selected);
+                	index = index + (up ? -1 : 1);
+                	if (index < 0) index = 0;
+                	if (index >= count) index = count - 1;
+                	t.datagrid('clearSelections');
+                	t.datagrid('selectRow', index);
+            	} else {
+                	t.datagrid('selectRow', (up ? count-1 : 0));
+            	}
+        	}
+			function selectPage(t,offset) {
+				var p=t.datagrid('getPager').pagination('options');
+				var curPage=p.pageNumber;
+				var lastPage=1+parseInt(p.total/p.pageSize);
+				if (offset==-2) curPage=1;
+				if (offset==2) curPage=lastPage;
+				if ((offset==-1) && (curPage>1)) curPage=curPage-1;
+				if ((offset==1) && (curPage<lastPage)) curPage=curPage+1;
+            	t.datagrid('clearSelections');
+            	p.pageNumber=curPage;
+            	t.datagrid('options').pageNumber=curPage;
+            	t.datagrid('reload',{
+            		where: $('#pruebas-search').val(),
+                    closed: $('#pruebas-openBox').is(':checked')?'1':'0',
+                    onLoadSuccess: function(data){
+                    	t.datagrid('getPager').pagination('refresh',{pageNumber:curPage});
+                    }
+            	});
+			}
+        	var t = $('#pruebas-datagrid');
+            switch(e.keyCode){
+            case 38:	/* Up */	selectRow(t,true); return false;
+            case 40:    /* Down */	selectRow(t,false); return false;
+            case 13:	/* Enter */	editClub(); return false;
+            case 45:	/* Insert */ newClub(); return false;
+            case 46:	/* Supr */	deleteClub(); return false;
+            case 33:	/* Re Pag */ selectPage(t,-1); return false;
+            case 34:	/* Av Pag */ selectPage(t,1); return false;
+            case 35:	/* Fin */    selectPage(t,2); return false;
+            case 36:	/* Inicio */ selectPage(t,-2); return false;
+            case 9: 	/* Tab */
+                // if (e.shiftkey) return false; // shift+Tab
+                return false;
+            case 16:	/* Shift */
+            case 17:	/* Ctrl */
+            case 18:	/* Alt */
+            case 27:	/* Esc */
+                return false;
+            }
+		}); 
+		 
         // - botones  y tooltips de la tabla
         $('#pruebas-newBtn').linkbutton({iconCls:'icon-add',plain:true }).tooltip({ // nueva prueba
         	position: 'top',
