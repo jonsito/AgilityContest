@@ -113,7 +113,7 @@ function reloadResultadosManga(cat) {
             }
     );
 }
-function saveCompeticionData(data) {
+function saveCompeticionData(idx,data) {
 	$.ajax({
 		type:'GET',
 		url:"database/resultadosFunctions.php",
@@ -136,8 +136,11 @@ function saveCompeticionData(data) {
 			Eliminado:	data['Eliminado'],
 			NoPresentado:	data['NoPresentado'],
 			Observaciones:	data['Observaciones']
+		},
+		success: function(dat) {
+			if (dat.Manga!=workingData.manga) return; // window changed
+			$('#competicion-datagrid').datagrid('updateRow',{index: idx,row: dat});
 		}
-		// TODO: reload affected row with real data from database
 	});
 }
 

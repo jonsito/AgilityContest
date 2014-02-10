@@ -135,7 +135,7 @@ function endEditing(){
 		$('#competicion-datagrid').datagrid('endEdit', editIndex);
 		// TODO: obtener y grabar los datos de la fila que se estaba editando
 		var data=$('#competicion-datagrid').datagrid('getRows')[editIndex];
-		saveCompeticionData(data);
+		saveCompeticionData(editIndex,data);
 		editIndex = undefined;
 		return true;
 	} else {

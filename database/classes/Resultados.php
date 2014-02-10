@@ -80,7 +80,7 @@ class Resultados extends DBObject {
 		$this->myLogger->enter();
 		if ($dorsal<=0) return $this->error("No Dorsal specified");
 		if ($this->cerrada!=0) return $this->error("Manga ".$this->manga." is closed");
-		$str="DELETE * FROM Resultados WHERE ( Dorsal = $dorsal )";
+		$str="DELETE * FROM Resultados WHERE ( Dorsal = $dorsal ) AND ( Manga=".$this->manga.")";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
@@ -95,7 +95,7 @@ class Resultados extends DBObject {
 	function select($dorsal) {
 		$this->myLogger->enter();
 		if ($dorsal<=0) return $this->error("No Dorsal specified");
-		$str="SELECT * FROM Resultados WHERE ( Dorsal = $dorsal )";
+		$str="SELECT * FROM Resultados WHERE ( Dorsal = $dorsal ) AND ( Manga=".$this->manga.")";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$row=$rs->fetch_array();
@@ -108,7 +108,7 @@ class Resultados extends DBObject {
 	/**
 	 * Actualiza los resultados de la manga para el dorsal indicado
 	 * @param {integer} $dorsal
-	 * @return "" on success; null on error
+	 * @return datos actualizados desde la DB; null on error
 	 */
 	function update($dorsal) {
 		$this->myLogger->enter();
@@ -127,10 +127,9 @@ class Resultados extends DBObject {
 		// comprobamos la coherencia de los datos recibidos y ajustamos
 		if ($rehuses>=3) { $tiempo=0; $eliminado=1; $nopresentado=0;}
 		if ($eliminado==1) { $tiempo=0; $nopresentado=0; }
-		if ($nopresentado==1) { $tiempo=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0;}
-		if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; }
+		if ($nopresentado==1) { $tiempo=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0; }
+		if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; $faltas=0; $rehuses=0; $tocados=0; }
 		if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
-		$observaciones="hola mundo";
 		// efectuamos el update
 		$sql="UPDATE Resultados 
 			SET Entrada='$entrada' , Comienzo='$comienzo' , 
@@ -141,7 +140,7 @@ class Resultados extends DBObject {
 		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
-		return "";
+		return $this->select($dorsal);
 	}
 	
 	/**
