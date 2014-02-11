@@ -79,6 +79,12 @@
 .icon-updown{
 	background:url('icons/updown.png') no-repeat center center;
 }
+.icon-whistle{
+	background:url('icons/whistle.png') no-repeat center center;
+}
+.icon-trash{
+	background:url('icons/trash.png') no-repeat center center;
+}
 
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;

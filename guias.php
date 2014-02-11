@@ -27,6 +27,13 @@
         // datos de la tabla de guias
         // - tabla
         $('#guias-datagrid').datagrid({
+        	// propiedades del panel padre asociado
+        	fit: false,
+        	border: false,
+        	closable: false,
+        	collapsible: false,
+            expansible: false,
+        	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Gu&iacute;as',
         	url: 'database/guiaFunctions.php?Operation=select',
         	method: 'get',
@@ -35,7 +42,6 @@
             rownumbers: false,
             singleSelect: true,
             fitColumns: true,
-            expansible: true,
             view: detailview,
             height: 'auto',
             columns: [[
@@ -117,7 +123,7 @@
             }
 		});
         // - botones de la toolbar de la tabla
-        $('#guias-newBtn').linkbutton({iconCls:'icon-add',plain:true}).tooltip({ // nuevo guia 
+        $('#guias-newBtn').linkbutton({iconCls:'icon-users',plain:true}).tooltip({ // nuevo guia 
         	position: 'top',
         	content: '<span style="color:#000">Dar de alta un nuevo gu&iacute;a en la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
@@ -128,7 +134,7 @@
         	content: '<span style="color:#000">Editar los datos del gu&iacute;a seleccionado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     	});
-        $('#guias-delBtn').linkbutton({iconCls:'icon-remove',plain:true}).tooltip({ // borrar guia
+        $('#guias-delBtn').linkbutton({iconCls:'icon-trash',plain:true}).tooltip({ // borrar guia
             position: 'top',
             content: '<span style="color:#000">Borrar el gu&iacute;a seleccionado de la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
@@ -167,7 +173,7 @@
 					id: 'perrosbyguia-delBtn',
 					text: 'Desasignar perro',
 					plain: true,
-					iconCls: 'icon-remove',
+					iconCls: 'icon-trash',
 					handler: function(){delPerroFromGuia(guia);}
 				}],
        		    pagination: false,

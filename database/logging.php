@@ -56,8 +56,10 @@ function do_log($str) {
 }
 
 date_default_timezone_set("Europe/Madrid");
-ini_set('display_errors', 1);
+// ini_set('display_errors', 1); /* dont send errors to http response */
 ini_set("log_errors",1);
 ini_set("error_log","../logs/trace.log");
 
+apache_setenv('no-gzip', 1);
+ini_set('zlib.output_compression', 0);
 ?>

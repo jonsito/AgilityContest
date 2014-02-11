@@ -67,8 +67,13 @@
     	});
         // campos del formulario
         $('#jueces-dialog').dialog({
-            closed:true,
-            buttons:'#jueces-dlg-buttons'
+            closed: true,
+            buttons: '#jueces-dlg-buttons',
+            iconCls: 'icon-whistle'
+        });
+        $('#jueces-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+        	if (e.keyCode == 27){ $('#jueces-dialog').dialog('close');
+        	}
         });
         $('#jueces-Nombre').validatebox({
             required: true,

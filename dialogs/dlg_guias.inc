@@ -66,7 +66,12 @@
         // campos del formulario
         $('#guias-dialog').dialog({
             closed:true,
-            buttons: '#guias-dlg-buttons'
+            buttons: '#guias-dlg-buttons',
+            iconCls: 'icon-users'
+        });
+        $('#guias-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+        	if (e.keyCode == 27){ $('#guias-dialog').dialog('close');
+        	}
         });
         $('#guias-Nombre').validatebox({
             required: true,

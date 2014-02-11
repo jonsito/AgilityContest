@@ -120,7 +120,12 @@
         // campos del formulario
         $('#clubes-dialog').dialog({
 			closed: true,
-			buttons: '#clubes-dlg-buttons'
+			buttons: '#clubes-dlg-buttons',
+			iconCls: 'icon-flag'
+        });
+        $('#clubes-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+        	if (e.keyCode == 27){ $('#clubes-dialog').dialog('close');
+        	}
         });
         $('#clubes-Nombre').validatebox({
             required: true,

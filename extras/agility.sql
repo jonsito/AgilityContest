@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.6deb1
+-- version 4.1.7deb0ubuntu1ppa1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 08-02-2014 a las 22:24:50
--- Versión del servidor: 5.5.35-0ubuntu0.13.10.2
--- Versión de PHP: 5.5.3-1ubuntu2.1
+-- Tiempo de generación: 11-02-2014 a las 15:19:46
+-- Versión del servidor: 5.5.35-0ubuntu0.12.04.2
+-- Versión de PHP: 5.3.10-1ubuntu3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,7 +29,7 @@ USE `agility`;
 --
 -- Estructura de tabla para la tabla `Categorias_Perro`
 --
--- Creación: 08-02-2014 a las 09:59:00
+-- Creación: 10-02-2014 a las 07:08:02
 --
 
 DROP TABLE IF EXISTS `Categorias_Perro`;
@@ -55,7 +55,7 @@ INSERT INTO `Categorias_Perro` (`Categoria`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `Clubes`
 --
--- Creación: 08-02-2014 a las 09:59:03
+-- Creación: 10-02-2014 a las 07:08:04
 --
 
 DROP TABLE IF EXISTS `Clubes`;
@@ -157,7 +157,7 @@ INSERT INTO `Clubes` (`Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `Contac
 --
 -- Estructura de tabla para la tabla `Equipos`
 --
--- Creación: 08-02-2014 a las 09:59:04
+-- Creación: 10-02-2014 a las 07:08:05
 --
 
 DROP TABLE IF EXISTS `Equipos`;
@@ -190,7 +190,7 @@ INSERT INTO `Equipos` (`ID`, `Prueba`, `Nombre`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `Grados_Perro`
 --
--- Creación: 08-02-2014 a las 09:59:01
+-- Creación: 10-02-2014 a las 07:08:03
 --
 
 DROP TABLE IF EXISTS `Grados_Perro`;
@@ -219,7 +219,7 @@ INSERT INTO `Grados_Perro` (`Grado`, `Comentarios`) VALUES
 --
 -- Estructura de tabla para la tabla `Guias`
 --
--- Creación: 08-02-2014 a las 09:59:04
+-- Creación: 10-02-2014 a las 07:08:05
 --
 
 DROP TABLE IF EXISTS `Guias`;
@@ -609,7 +609,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 --
 -- Estructura de tabla para la tabla `Inscripciones`
 --
--- Creación: 08-02-2014 a las 09:59:04
+-- Creación: 10-02-2014 a las 07:08:05
 --
 
 DROP TABLE IF EXISTS `Inscripciones`;
@@ -727,7 +727,7 @@ CREATE TABLE IF NOT EXISTS `InscritosJornada` (
 --
 -- Estructura de tabla para la tabla `Jornadas`
 --
--- Creación: 08-02-2014 a las 09:59:05
+-- Creación: 10-02-2014 a las 07:08:05
 --
 
 DROP TABLE IF EXISTS `Jornadas`;
@@ -784,7 +784,7 @@ INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Gr
 --
 -- Estructura de tabla para la tabla `Jueces`
 --
--- Creación: 08-02-2014 a las 09:59:02
+-- Creación: 10-02-2014 a las 07:08:03
 --
 
 DROP TABLE IF EXISTS `Jueces`;
@@ -836,7 +836,7 @@ INSERT INTO `Jueces` (`Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `Interna
 --
 -- Estructura de tabla para la tabla `Mangas`
 --
--- Creación: 08-02-2014 a las 09:59:05
+-- Creación: 10-02-2014 a las 07:08:06
 --
 
 DROP TABLE IF EXISTS `Mangas`;
@@ -904,7 +904,7 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
 INSERT INTO `Mangas` (`ID`, `Jornada`, `Tipo`, `Grado`, `Recorrido`, `Dist_L`, `Obst_L`, `Dist_M`, `Obst_M`, `Dist_S`, `Obst_S`, `TRS_L_Tipo`, `TRS_L_Factor`, `TRS_L_Unit`, `TRM_L_Tipo`, `TRM_L_Factor`, `TRM_L_Unit`, `TRS_M_Tipo`, `TRS_M_Factor`, `TRS_M_Unit`, `TRM_M_Tipo`, `TRM_M_Factor`, `TRM_M_Unit`, `TRS_S_Tipo`, `TRS_S_Factor`, `TRS_S_Unit`, `TRM_S_Tipo`, `TRM_S_Factor`, `TRM_S_Unit`, `Juez1`, `Juez2`, `Observaciones`, `Cerrada`, `Orden_Salida`) VALUES
 (1, 9, 'Agility-1 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 'Beltrán Bustamante, Ana', '-- Sin asignar --', 'esto es una prueba', 0, 'BEGIN,TAG_-0,TAG_-1,TAG_L0,582,572,581,583,573,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
 (2, 9, 'Agility-2 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
-(3, 9, 'Agility GII', 'GII', 1, 165, 21, 150, 20, 0, 0, 2, 15, '%', 1, 50, '%', 0, 45, 's', 1, 40, 's', 4, 0, 's', 1, 40, 's', 'Beltrán Bustamante, Ana', '-- Sin asignar --', 'Primera manga. ', 0, 'BEGIN,TAG_-0,TAG_-1,TAG_L0,558,574,33,579,578,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END'),
+(3, 9, 'Agility GII', 'GII', 1, 165, 21, 150, 20, 0, 0, 2, 15, '%', 1, 50, '%', 0, 45, 's', 1, 40, 's', 4, 0, 's', 1, 40, 's', 'Beltrán Bustamante, Ana', '-- Sin asignar --', 'Primera manga. ', 0, 'BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END'),
 (4, 9, 'Jumping GII', 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
 (5, 9, 'Agility GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, 'BEGIN,TAG_-0,TAG_-1,TAG_L0,26,88,18,569,TAG_L1,TAG_M0,399,TAG_M1,TAG_S0,467,TAG_S1,TAG_T0,TAG_T1,END'),
 (6, 9, 'Jumping GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', '', 0, ''),
@@ -944,7 +944,7 @@ CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 --
 -- Estructura de tabla para la tabla `Perros`
 --
--- Creación: 08-02-2014 a las 09:59:06
+-- Creación: 10-02-2014 a las 07:08:06
 --
 
 DROP TABLE IF EXISTS `Perros`;
@@ -1351,7 +1351,7 @@ INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Catego
 --
 -- Estructura de tabla para la tabla `Provincias`
 --
--- Creación: 08-02-2014 a las 09:59:02
+-- Creación: 10-02-2014 a las 07:08:04
 --
 
 DROP TABLE IF EXISTS `Provincias`;
@@ -1426,7 +1426,7 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 --
 -- Estructura de tabla para la tabla `Pruebas`
 --
--- Creación: 08-02-2014 a las 09:59:06
+-- Creación: 10-02-2014 a las 07:08:06
 --
 
 DROP TABLE IF EXISTS `Pruebas`;
@@ -1463,7 +1463,7 @@ INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`
 --
 -- Estructura de tabla para la tabla `Resultados`
 --
--- Creación: 08-02-2014 a las 11:12:42
+-- Creación: 10-02-2014 a las 07:08:06
 --
 
 DROP TABLE IF EXISTS `Resultados`;
@@ -1502,29 +1502,29 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 --
 
 INSERT INTO `Resultados` (`Manga`, `Dorsal`, `Nombre`, `Licencia`, `Categoria`, `Grado`, `Guia`, `Club`, `Entrada`, `Comienzo`, `Faltas`, `Rehuses`, `Tocados`, `Eliminado`, `NoPresentado`, `Tiempo`, `Observaciones`) VALUES
-(3, 33, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández', 'Correcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 48.3, ''),
-(3, 227, 'Onis', 'A498', 'L', 'GII', 'José Antonio Vega', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
-(3, 384, 'Duna', '953', 'M', 'GII', 'Francisco Esteban', 'Costa Blanca', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
-(3, 404, 'Jolie', '808', 'M', 'GII', 'Celeste Zarzosa', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
-(3, 414, 'Luna', 'A240', 'M', 'GII', 'Paula Rello', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
-(3, 496, 'Bengel', '760', 'S', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
-(3, 500, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
-(3, 558, 'Aker', 'A397', 'L', 'GII', 'Francisco Javier Jaen', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 1, 2, 0, 0, 0, 56.76, 'test'),
-(3, 563, 'Dama', 'A641', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
-(3, 564, 'Flai', 'en tramite', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
-(3, 574, 'Sira', 'A-584', 'L', 'GII', 'Joaquín Andrés', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 1, 0, 0, 0, 47.99, ''),
-(3, 575, 'Duna', 'A-586', 'L', 'GII', 'Vicente Martín', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
-(3, 577, 'Kyle', 'A-539', 'M', 'GII', 'Iván San Antonio', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
-(3, 578, 'Kara', 'A-541', 'L', 'GII', 'Ramón García', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
-(3, 579, 'Tibet', '', 'L', 'GII', 'Antonio Molina', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 1, 0, 0, 0, 0, 49.01, ''),
-(3, 585, 'Maggie', '', 'S', 'GII', 'Raúl Sánchez', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '');
+(3, 33, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández', 'Correcan', '2014-02-11 14:08:29', '2014-02-11 14:08:29', 0, 0, 0, 0, 0, 48.3, ''),
+(3, 227, 'Onis', 'A498', 'L', 'GII', 'José Antonio Vega', 'Agilcan', '2014-02-11 14:11:41', '2014-02-11 14:11:41', 0, 3, 0, 1, 0, 0, ''),
+(3, 384, 'Duna', '953', 'M', 'GII', 'Francisco Esteban', 'Costa Blanca', '2014-02-11 14:09:16', '2014-02-11 14:09:16', 0, 0, 0, 0, 1, 0, ''),
+(3, 404, 'Jolie', '808', 'M', 'GII', 'Celeste Zarzosa', 'La Princesa', '2014-02-11 14:09:05', '2014-02-11 14:09:05', 0, 0, 0, 0, 1, 0, ''),
+(3, 414, 'Luna', 'A240', 'M', 'GII', 'Paula Rello', 'Cubas', '2014-02-11 14:11:31', '2014-02-11 14:11:31', 0, 0, 0, 1, 0, 0, ''),
+(3, 496, 'Bengel', '760', 'S', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 1, 0, ''),
+(3, 500, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 1, 0, ''),
+(3, 558, 'Aker', 'A397', 'L', 'GII', 'Francisco Javier Jaen', 'Deporcan', '2014-02-11 11:58:01', '2014-02-11 11:58:01', 1, 2, 0, 0, 0, 56.76, 'test'),
+(3, 563, 'Dama', 'A641', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-02-11 14:08:56', '2014-02-11 14:08:56', 0, 0, 0, 0, 0, 35.02, '!Viva yo!'),
+(3, 564, 'Flai', 'en tramite', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-02-11 14:11:29', '2014-02-11 14:11:29', 1, 0, 0, 0, 0, 37.45, 'Esas zonasss'),
+(3, 574, 'Sira', 'A-584', 'L', 'GII', 'Joaquín Andrés', 'Agilcan', '2014-02-11 14:08:26', '2014-02-11 14:08:26', 0, 1, 0, 0, 0, 47.99, ''),
+(3, 575, 'Duna', 'A-586', 'L', 'GII', 'Vicente Martín', 'Agilcan', '2014-02-11 11:58:12', '2014-02-11 11:58:12', 0, 0, 0, 0, 0, 3, ''),
+(3, 577, 'Kyle', 'A-539', 'M', 'GII', 'Iván San Antonio', 'Cinco Huesos', '2014-02-11 11:58:13', '2014-02-11 11:58:13', 0, 0, 0, 0, 0, 3.56, ''),
+(3, 578, 'Kara', 'A-541', 'L', 'GII', 'Ramón García', 'Cinco Huesos', '2014-02-11 11:58:10', '2014-02-11 11:58:10', 0, 0, 0, 0, 0, 1, ''),
+(3, 579, 'Tibet', '', 'L', 'GII', 'Antonio Molina', 'Cinco Huesos', '2014-02-11 11:58:07', '2014-02-11 11:58:07', 1, 0, 0, 0, 0, 49.01, ''),
+(3, 585, 'Maggie', '', 'S', 'GII', 'Raúl Sánchez', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 1, 0, '');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Tipo_Manga`
 --
--- Creación: 08-02-2014 a las 09:59:07
+-- Creación: 10-02-2014 a las 07:08:07
 --
 
 DROP TABLE IF EXISTS `Tipo_Manga`;

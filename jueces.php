@@ -22,7 +22,15 @@
         // datos de la tabla de jueces
         // - tabla
         $('#jueces-datagrid').datagrid({
+            // datos del panel padre asociado
+        	fit: false,
+        	border: false,
+        	closable: false,
+        	collapsible: false,
+            expansible: false,
+        	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Jueces',
+        	// datos de la conexion ajax
         	url: 'database/juezFunctions.php?Operation=select',
         	method: 'get',
             toolbar: '#jueces-toolbar',
@@ -32,13 +40,13 @@
             singleSelect: true,
             columns: [[
             	{ field:'Nombre',		width:40, sortable:true,	title: 'Nombre:' },
-            	{ field:'Direccion1',	width:30,					title: 'Direcci&oacute;n 1:' },
-            	{ field:'Direccion2',	width:30,                   title: 'Direcci&oacute;n 2' },
+            	{ field:'Direccion1',	width:35,					title: 'Direcci&oacute;n 1:' },
+            	{ field:'Direccion2',	width:35,                   title: 'Direcci&oacute;n 2' },
             	{ field:'Telefono',		width:20, sortable:true,	title: 'Tel&eacute;fono' },
-            	{ field:'Internacional',width:5, align:'center',	title: 'Int.' 	},
-            	{ field:'Practicas',	width:5, align:'center',	title: 'Pract.' },
-            	{ field:'Email',		width:30, sortable:true,    title: 'Correo Electr&oacute;nico' },
-                { field:'Observaciones',width:20,					title: 'Observaciones'}
+            	{ field:'Internacional',width:10, align:'center',	title: 'Int.' 	},
+            	{ field:'Practicas',	width:10, align:'center',	title: 'Pract.' },
+            	{ field:'Email',		width:35, sortable:true,   align:'right', title: 'Correo Electr&oacute;nico' },
+                { field:'Observaciones',width:30,					title: 'Observaciones'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:function(index,row) { 
@@ -105,7 +113,7 @@
             }
 		});
         // - botones de la toolbar de la tabla
-        $('#jueces-newBtn').linkbutton({iconCls:'icon-add',plain:true }); // nuevo juez
+        $('#jueces-newBtn').linkbutton({iconCls:'icon-whistle',plain:true }); // nuevo juez
         $('#jueces-newBtn').tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Dar de alta un nuevo juez en la BBDD</span>',
@@ -119,7 +127,7 @@
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#jueces-delBtn').linkbutton({iconCls:'icon-remove',plain:true }); // borrar juez 
+        $('#jueces-delBtn').linkbutton({iconCls:'icon-trash',plain:true }); // borrar juez 
         $('#jueces-delBtn').tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Eliminar el juez seleccionado de la BBDD</span>',

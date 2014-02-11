@@ -33,6 +33,13 @@
         // datos de la tabla de perros
         // - tabla
         $('#perros-datagrid').datagrid({
+        	// propiedades del panel padre asociado
+        	fit: false,
+        	border: false,
+        	closable: false,
+        	collapsible: false,
+            expansible: false,
+        	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Perros',
         	url: 'database/dogFunctions.php?Operation=select',
         	method: 'get',
@@ -45,11 +52,11 @@
             	{ field:'Dorsal',   width:10,  sortable:true, align: 'right', title: 'Dorsal' },
             	{ field:'Nombre',   width:30, sortable:true,  align: 'right', title: 'Nombre' },
             	{ field:'Raza',     width:25,                align: 'right', title: 'Raza' },
-            	{ field:'LOE_RRC',  width:15, sortable:true, align: 'right', title: 'LOE / RRC' },
-            	{ field:'Licencia', width:10, sortable:true, align: 'right', title: 'Lic.' },
-            	{ field:'Categoria',width:5,                 align:'center', title: 'Cat.' },
-            	{ field:'Grado',    width:7,                 align:'center', title: 'Grado' },
-                { field:'Guia',     width:45, sortable:true,                 title: 'Nombre del Gu&iacute;a'},
+            	{ field:'LOE_RRC',  width:20, sortable:true, align: 'right', title: 'LOE / RRC' },
+            	{ field:'Licencia', width:15, sortable:true, align: 'right', title: 'Lic.' },
+            	{ field:'Categoria',width:10,                 align:'center', title: 'Cat.' },
+            	{ field:'Grado',    width:10,                 align:'center', title: 'Grado' },
+                { field:'Guia',     width:50, sortable:true,                 title: 'Nombre del Gu&iacute;a'},
                 { field:'Club',     width:35, sortable:true,                 title: 'Club'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
@@ -131,7 +138,7 @@
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#perros-delBtn').linkbutton({plain:true,iconCls:'icon-remove'}); // borrar perro     
+        $('#perros-delBtn').linkbutton({plain:true,iconCls:'icon-trash'}); // borrar perro     
         $('#perros-delBtn').tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Eliminar el perro seleccionado de la BBDD</span>',

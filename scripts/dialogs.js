@@ -114,7 +114,7 @@ function assignGuiaToClub(club) {
  * Abre el dialogo para crear un nuevo guia
  */
 function newGuia(){
-	$('#guias-dialog').dialog('open').dialog('setTitle','Nuevo g&iacute;a');
+	$('#guias-dialog').dialog('open').dialog('setTitle','Nuevo gu&iacute;a');
 	$('#guias-form').form('clear');
 	$('#guias-Operation').val('insert');
 	$('#guias-Parent').val('');

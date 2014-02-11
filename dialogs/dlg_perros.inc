@@ -83,7 +83,12 @@
     // campos del formulario
     $('#perros-dialog').dialog({
         closed:true,
-        buttons:'#perros-dlg-buttons'
+        buttons:'#perros-dlg-buttons',
+        iconCls: 'icon-dog'
+    });
+    $('#perros-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+    	if (e.keyCode == 27){ $('#perros-dialog').dialog('close');
+    	}
     });
     $('#perros-Nombre').validatebox({
         required: true,

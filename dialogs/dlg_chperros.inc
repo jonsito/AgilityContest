@@ -86,7 +86,12 @@
     // campos del formulario
     $('#chperros-dialog').dialog({
     	closed: true,
-    	buttons: '#chperros-dlg-buttons'
+    	buttons: '#chperros-dlg-buttons',
+        iconCls: 'icon-dog'
+    });
+    $('#chperros-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+    	if (e.keyCode == 27){ $('#chperros-dialog').dialog('close');
+    	}
     });
     $('#chperros-Search').combogrid({
 		panelWidth: 350,

@@ -70,7 +70,12 @@
         // campos del formulario
         $('#chguias-dialog').dialog( {
                 closed: true,
-                buttons: '#chguias-dlg-buttons'
+                buttons: '#chguias-dlg-buttons',
+                iconCls: 'icon-users'
+        });
+        $('#chguias-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+        	if (e.keyCode == 27){ $('#chguias-dialog').dialog('close');
+        	}
         });
         $('#chguias-Nombre').validatebox({
             required: true,

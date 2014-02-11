@@ -1,7 +1,5 @@
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="competicion-window" class="easyui-window" style="width:800px;height:400px;padding:10px 10px">
-	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
-	<table id="competicion-datagrid" class="easyui-datagrid"></table>
+<div id="competicion-window" class="easyui-window" style="width:800px;height:450px;padding:20px 10px 20px 10px">
 	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 	<div id="competicion-toolbar">
  		<span style="float:left">
@@ -13,6 +11,8 @@
     		<a id="competicion-printBtn" href="#" class="easyui-linkbutton" onclick="printCompeticion()">Imprimir</a>
 		</span>
 	</div>
+	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
+	<table id="competicion-datagrid" class="easyui-datagrid"></table>
 </div>
 
 <script type="text/javascript">
@@ -21,31 +21,32 @@ $('#competicion-window').window({
 	collapsible:	false,
 	minimizable:	false,
 	maximizable:	false,
-	resizable:		true,
+	resizable:		false,
+	iconCls:		'icon-table',
 	closed:			true,
 	modal:			true
 });
 
 $('#competicion-datagrid').datagrid({
 	// propiedades del panel asociado
-	noheader: true,
+	fit: true,
 	border: false,
 	closable: false,
 	collapsible: false,
 	collapsed: false,
 	// propiedades del datagrid
+	method: 'get',
 	url: 'database/resultadosFunctions.php?Operation=enumerate',
     queryParams: {
         Jornada: workingData.jornada,
         Manga: workingData.manga
     },
-	method: 'get',
+    loadMsg: "Actualizando datos de competicion ...",
     pagination: false,
     rownumbers: true,
     fitColumns: true,
     singleSelect: true,
-    pageSize:10,
-    toolbar: '#competicion-toolbar',
+    // toolbar: '#competicion-toolbar',
     columns:[[
         { field:'Manga',		hidden:true },
         { field:'Dorsal',		hidden:true },
@@ -69,7 +70,6 @@ $('#competicion-datagrid').datagrid({
 	onLoadSuccess:function(){ 
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 	},
-    loadMsg: "Actualizando datos de competicion ...",
     onClickRow: onClickRow // start edit
 });
 

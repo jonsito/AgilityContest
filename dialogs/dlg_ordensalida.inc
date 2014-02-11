@@ -1,7 +1,5 @@
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="ordensalida-window" class="easyui-window" style="width:800px;height:500px;padding:10px 20px">
-	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
-	<table id="ordensalida-datagrid" class="easyui-datagrid"></table>
+<div id="ordensalida-window" class="easyui-window" style="width:800px;height:450px;padding:15px 10px 20px 10px">
 	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 	<div id="ordensalida-toolbar">
  		<span style="float:left">
@@ -15,6 +13,8 @@
     		<a id="ordensalida-printBtn" href="#" class="easyui-linkbutton" onclick="printOrdenSalida()">Imprimir</a>
 		</span>
 	</div>
+	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
+	<table id="ordensalida-datagrid" class="easyui-datagrid"></table>
 </div>
 
 <script type="text/javascript">
@@ -23,31 +23,32 @@ $('#ordensalida-window').window({
 	collapsible:	false,
 	minimizable:	false,
 	maximizable:	false,
-	resizable:		true,
+	resizable:		false,
+	iconCls:		'icon-order',
 	closed:			true,
 	modal:			true
 });
 
 $('#ordensalida-datagrid').datagrid({
 	// propiedades del panel asociado
-	noheader: true,
+	fit: true,
 	border: false,
 	closable: false,
 	collapsible: false,
 	collapsed: false,
+	method: 'get',
 	// propiedades del datagrid
 	url: 'database/ordenSalidaFunctions.php?Operation=getData',
     queryParams: {
         Jornada: workingData.jornada,
         Manga: workingData.manga
     },
-	method: 'get',
+    loadMsg: "Actualizando orden de salida...",
     pagination: false,
     rownumbers: true,
     fitColumns: true,
     singleSelect: true,
-    pageSize:10,
-    toolbar: '#ordensalida-toolbar',
+    // toolbar: '#ordensalida-toolbar',
     columns:[[
         	{ field:'Dorsal',		hidden:true },
           	{ field:'Nombre',		width:20, sortable:false,	align:'left',  title: 'Nombre'},
@@ -62,7 +63,6 @@ $('#ordensalida-datagrid').datagrid({
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
     },
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
-    loadMsg: "Actualizando orden de salida...",
     onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes) and enable drag and drop
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();

@@ -27,6 +27,13 @@
         // datos de la tabla de clubes
         // - tabla
         $('#clubes-datagrid').datagrid({
+        	// propiedades del panel padre asociado
+        	fit: false,
+        	border: false,
+        	closable: false,
+        	collapsible: false,
+            expansible: false,
+        	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Clubes',
         	url: 'database/clubFunctions.php?Operation=select',
         	method: 'get',
@@ -66,10 +73,7 @@
             detailFormatter:function(index,club){
                 return '<div style="padding:2px"><table class="easyui-datagrid"	id="guias-datagrid-' + replaceAll(' ','_',club.Nombre) + '"></table></div>';
             },
-
-            onExpandRow: function(idx,club) { showGuiasByClub(idx,club); },
-            
-
+            onExpandRow: function(idx,club) { showGuiasByClub(idx,club); }
         }); // end of '#clubes-datagrid' declaration
 
         // activa teclas up/down para navegar por el panel
@@ -129,7 +133,7 @@
 		}); 
 		
         // - botones de la toolbar de la tabla
-        $('#clubes-newBtn').linkbutton({iconCls:'icon-add',plain:true}).tooltip({ // nuevo club        
+        $('#clubes-newBtn').linkbutton({iconCls:'icon-flag',plain:true}).tooltip({ // nuevo club        
         	position: 'top',
         	content: '<span style="color:#000">Dar de alta un nuevo club en la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
@@ -140,7 +144,7 @@
         	content: '<span style="color:#000">Editar los datos del club seleccionado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     	});
-        $('#clubes-delBtn').linkbutton({iconCls:'icon-remove',plain:true}).tooltip({ // borrar club
+        $('#clubes-delBtn').linkbutton({iconCls:'icon-trash',plain:true}).tooltip({ // borrar club
             position: 'top',
             content: '<span style="color:#000">Borrar el club seleccionado de la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}

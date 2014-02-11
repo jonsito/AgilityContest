@@ -193,19 +193,19 @@ function competicionDialog(name) {
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
     if (name==='ordensalida') {
         // abrimos ventana de dialogo
-        $('#ordensalida-window').dialog('open').window('setTitle',"Orden de Salida: "+title);
+        $('#ordensalida-window').dialog('open').window('setTitle'," Orden de Salida: "+title);
         // cargamos ventana de orden de salida
         reloadOrdenSalida();
     }
     if (name==='competicion') {
         // abrimos ventana de dialogo
-        $('#competicion-window').dialog('open').window('setTitle',"Entrada de datos: "+title);
+        $('#competicion-window').dialog('open').window('setTitle'," Entrada de datos: "+title);
         // cargamos ventana de orden de salida
         reloadCompeticion();
     }
     if (name==='resultadosmanga') {
         // abrimos ventana de dialogo
-        $('#resultadosmanga-window').dialog('open').window('setTitle',"Resultados de la manga: "+title);
+        $('#resultadosmanga-window').dialog('open').window('setTitle'," Resultados de la manga: "+title);
         // cargamos ventana de orden de salida
         reloadResultadosManga('LMS');
     }
