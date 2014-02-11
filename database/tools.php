@@ -36,4 +36,15 @@ function http_request($name,$type,$default) {
 	do_log("request() invalid type:$type requested"); 
 	return null; 
 }
+
+/**
+ * Generate a random password of "n" characters
+ * @param number $chars Number of characters. Default to 8
+ * @return requested password
+ */
+function random_password($chars = 8) {
+   $letters = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+   return substr(str_shuffle($letters), 0, $chars);
+}
+
 ?>
