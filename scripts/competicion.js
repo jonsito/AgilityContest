@@ -100,7 +100,7 @@ function reloadCompeticion() {
     );
 }
 
-function reloadResultadosManga(cat) {
+function reloadResultadosManga() {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
     $('#resultadosmanga-datagrid').datagrid(
@@ -108,8 +108,7 @@ function reloadResultadosManga(cat) {
             { 
             	Jornada: workingData.jornada , 
             	Manga: workingData.manga , 
-            	Operation: 'resultados',
-            	Categorias: cat
+            	Operation: 'parcial'
             }
     );
 }
@@ -207,6 +206,6 @@ function competicionDialog(name) {
         // abrimos ventana de dialogo
         $('#resultadosmanga-window').dialog('open').window('setTitle'," Resultados de la manga: "+title);
         // cargamos ventana de orden de salida
-        reloadResultadosManga('LMS');
+        reloadResultadosManga();
     }
 }

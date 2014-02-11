@@ -1,1303 +1,1159 @@
-[11-Feb-2014 13:11:31 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:11:31 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:11:31 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:11:31 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:11:31 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:11:31 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:11:31 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:11:31 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:11:31 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:11:31 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:11:31 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:11:31 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:11:31 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:11:31 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:11:31 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:11:31 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:11:31 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:11:31 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:11:31 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:11:31 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:11:31 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:11:31 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:11:31 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:16:32 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:16:32 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:16:32 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:16:32 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:16:32 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:16:32 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:16:32 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:16:32 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:16:32 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:16:32 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:16:32 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:16:32 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:16:32 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:16:32 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:16:32 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:16:32 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:16:32 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:16:32 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:16:32 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:16:32 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:16:32 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:16:32 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:16:32 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:18:15 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:18:15 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:18:15 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:18:15 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:18:15 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:18:15 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:18:15 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:18:15 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:18:15 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:18:15 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:18:15 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:18:15 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:18:15 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:18:15 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:18:15 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:18:15 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:18:15 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:18:15 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:18:15 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:18:15 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:18:15 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:18:15 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:18:15 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:21:48 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:21:48 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:21:48 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:21:48 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:21:48 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:21:48 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:21:48 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:21:48 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:21:48 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:21:48 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:21:48 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:21:48 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:21:48 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:21:48 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:21:48 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:21:48 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:21:48 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:21:48 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:21:48 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:21:48 UTC] TRACE dogFunctions::enumerate() : Enter
-[11-Feb-2014 13:21:48 UTC] QUERY dogFunctions::enumerate() :
-SELECT count(*) FROM PerroGuiaClub 
-[11-Feb-2014 13:21:48 UTC] QUERY dogFunctions::enumerate() :
-SELECT * FROM PerroGuiaClub  ORDER BY Club,Guia,Nombre
-[11-Feb-2014 13:21:48 UTC] TRACE guiaFunctions::select() : Enter
-[11-Feb-2014 13:21:48 UTC] QUERY guiaFunctions::select() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:21:48 UTC] QUERY guiaFunctions::select() :
-SELECT * FROM Guias  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:21:48 UTC] TRACE guiaFunctions::select() : Leave
-[11-Feb-2014 13:21:48 UTC] TRACE dogFunctions::enumerate() : Leave
-[11-Feb-2014 13:21:53 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:21:53 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:21:53 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:21:53 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:21:53 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:21:53 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:21:53 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:21:53 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:21:53 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:21:53 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:21:53 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:21:53 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:21:53 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:21:53 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:21:53 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:21:53 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:21:53 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:21:53 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:21:54 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:21:54 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:21:54 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:21:54 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:21:54 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:24:01 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:24:01 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:24:01 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:24:01 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:24:01 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:24:01 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:24:01 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:24:01 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:24:01 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:24:01 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:24:01 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:24:01 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:24:01 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:24:01 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:24:01 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:24:01 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:24:01 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:24:01 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:24:01 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:24:01 UTC] TRACE dogFunctions::enumerate() : Enter
-[11-Feb-2014 13:24:01 UTC] QUERY dogFunctions::enumerate() :
-SELECT count(*) FROM PerroGuiaClub 
-[11-Feb-2014 13:24:01 UTC] QUERY dogFunctions::enumerate() :
-SELECT * FROM PerroGuiaClub  ORDER BY Club,Guia,Nombre
-[11-Feb-2014 13:24:01 UTC] TRACE dogFunctions::enumerate() : Leave
-[11-Feb-2014 13:24:01 UTC] TRACE clubFunctions::select() : Enter
-[11-Feb-2014 13:24:01 UTC] QUERY clubFunctions::select() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:24:01 UTC] QUERY clubFunctions::select() :
-SELECT * FROM Clubes  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:24:01 UTC] TRACE clubFunctions::select() : Leave
-[11-Feb-2014 13:26:17 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:26:17 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:26:17 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:26:17 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:26:17 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:26:17 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:26:17 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:26:17 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:26:17 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:26:17 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:26:17 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:26:17 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:26:17 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:26:17 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:26:17 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:26:17 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:26:17 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:26:17 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:26:17 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:26:17 UTC] TRACE dogFunctions::enumerate() : Enter
-[11-Feb-2014 13:26:17 UTC] QUERY dogFunctions::enumerate() :
-SELECT count(*) FROM PerroGuiaClub 
-[11-Feb-2014 13:26:17 UTC] QUERY dogFunctions::enumerate() :
-SELECT * FROM PerroGuiaClub  ORDER BY Club,Guia,Nombre
-[11-Feb-2014 13:26:17 UTC] TRACE dogFunctions::enumerate() : Leave
-[11-Feb-2014 13:26:17 UTC] TRACE guiaFunctions::select() : Enter
-[11-Feb-2014 13:26:17 UTC] QUERY guiaFunctions::select() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:26:17 UTC] QUERY guiaFunctions::select() :
-SELECT * FROM Guias  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:26:17 UTC] TRACE guiaFunctions::select() : Leave
-[11-Feb-2014 13:26:31 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:26:31 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:26:31 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:26:31 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:26:31 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:26:31 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:26:31 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:26:31 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:26:31 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:26:31 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:26:31 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:26:31 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:26:31 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:26:31 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:26:31 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:26:31 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:26:31 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:26:31 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:26:31 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:26:31 UTC] TRACE dogFunctions::enumerate() : Enter
-[11-Feb-2014 13:26:31 UTC] QUERY dogFunctions::enumerate() :
-SELECT count(*) FROM PerroGuiaClub 
-[11-Feb-2014 13:26:31 UTC] QUERY dogFunctions::enumerate() :
-SELECT * FROM PerroGuiaClub  ORDER BY Club,Guia,Nombre
-[11-Feb-2014 13:26:31 UTC] TRACE dogFunctions::enumerate() : Leave
-[11-Feb-2014 13:26:31 UTC] TRACE clubFunctions::select() : Enter
-[11-Feb-2014 13:26:31 UTC] QUERY clubFunctions::select() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:26:31 UTC] QUERY clubFunctions::select() :
-SELECT * FROM Clubes  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:26:31 UTC] TRACE clubFunctions::select() : Leave
-[11-Feb-2014 13:26:34 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:26:34 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:26:34 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:26:34 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:26:34 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:26:34 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:26:34 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:26:34 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:26:34 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:26:34 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:26:35 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:26:35 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:26:35 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:26:35 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:26:35 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:26:35 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:26:35 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:26:35 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:26:35 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:26:35 UTC] TRACE dogFunctions::enumerate() : Enter
-[11-Feb-2014 13:26:35 UTC] QUERY dogFunctions::enumerate() :
-SELECT count(*) FROM PerroGuiaClub 
-[11-Feb-2014 13:26:35 UTC] QUERY dogFunctions::enumerate() :
-SELECT * FROM PerroGuiaClub  ORDER BY Club,Guia,Nombre
-[11-Feb-2014 13:26:35 UTC] TRACE dogFunctions::enumerate() : Leave
-[11-Feb-2014 13:26:35 UTC] TRACE guiaFunctions::select() : Enter
-[11-Feb-2014 13:26:35 UTC] QUERY guiaFunctions::select() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:26:35 UTC] QUERY guiaFunctions::select() :
-SELECT * FROM Guias  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:26:35 UTC] TRACE guiaFunctions::select() : Leave
-[11-Feb-2014 13:26:37 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:26:37 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:26:37 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:26:37 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:26:37 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:26:37 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:26:37 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:26:37 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:26:37 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:26:37 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:26:37 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:26:37 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:26:37 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:26:37 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:26:37 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:26:37 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:26:37 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:26:37 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:26:37 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:26:37 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:26:37 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:26:37 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:26:37 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:26:40 UTC] TRACE juezFunctions::select() : Enter
-[11-Feb-2014 13:26:40 UTC] QUERY juezFunctions::select() :
+[11-Feb-2014 22:31:17 Europe/Madrid] QUERY resultadosFunctions::__construct() :
+SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE resultadosFunctions::enumerate() : Enter
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE Competicion::getOrden() : Enter
+[11-Feb-2014 22:31:17 Europe/Madrid] QUERY Competicion::getOrden() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE Competicion::getOrden() : Leave
+[11-Feb-2014 22:31:17 Europe/Madrid] DEBUG resultadosFunctions::enumerate() : El orden de salida es: 
+BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
+[11-Feb-2014 22:31:17 Europe/Madrid] QUERY resultadosFunctions::enumerate() :
+SELECT * FROM Resultados WHERE (Manga=3)
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE resultadosFunctions::enumerate() : Leave
+[11-Feb-2014 22:31:17 Europe/Madrid] PHP Fatal error:  Class 'Pruebas' not found in /home/jantonio/work/agility/git-localrepo/agility/database/clasificacionesFunctions.php on line 8
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE ordenSalidaFunctions::getData() : Enter
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE ordenSalidaFunctions::getOrden() : Enter
+[11-Feb-2014 22:31:17 Europe/Madrid] QUERY ordenSalidaFunctions::getOrden() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE ordenSalidaFunctions::getOrden() : Leave
+[11-Feb-2014 22:31:17 Europe/Madrid] DEBUG ordenSalidaFunctions::getData() : El orden de salida actual es BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
+[11-Feb-2014 22:31:17 Europe/Madrid] QUERY ordenSalidaFunctions::getData() :
+SELECT * FROM InscritosJornada WHERE ( Jornada=9 ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden
+[11-Feb-2014 22:31:17 Europe/Madrid] QUERY ordenSalidaFunctions::getData() :
+SELECT Grado FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE ordenSalidaFunctions::getData() : Leave
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE mangaFunctions::selectByID() : Enter
+[11-Feb-2014 22:31:17 Europe/Madrid] QUERY mangaFunctions::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE mangaFunctions::selectByID() : Leave
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE juezFunctions::enumerate() : Enter
+[11-Feb-2014 22:31:17 Europe/Madrid] QUERY juezFunctions::enumerate() :
 SELECT count(*) FROM Jueces 
-[11-Feb-2014 13:26:40 UTC] QUERY juezFunctions::select() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:26:40 UTC] TRACE juezFunctions::select() : Leave
-[11-Feb-2014 13:27:17 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:27:17 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:27:17 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:27:17 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:27:17 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:27:17 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:27:17 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:27:17 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:27:17 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:27:17 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:27:18 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:27:18 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:27:18 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:27:18 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:27:18 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:27:18 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:27:18 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:27:18 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:27:18 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:27:18 UTC] TRACE dogFunctions::enumerate() : Enter
-[11-Feb-2014 13:27:18 UTC] QUERY dogFunctions::enumerate() :
-SELECT count(*) FROM PerroGuiaClub 
-[11-Feb-2014 13:27:18 UTC] QUERY dogFunctions::enumerate() :
-SELECT * FROM PerroGuiaClub  ORDER BY Club,Guia,Nombre
-[11-Feb-2014 13:27:18 UTC] TRACE dogFunctions::enumerate() : Leave
-[11-Feb-2014 13:27:18 UTC] TRACE clubFunctions::select() : Enter
-[11-Feb-2014 13:27:18 UTC] QUERY clubFunctions::select() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:27:18 UTC] QUERY clubFunctions::select() :
-SELECT * FROM Clubes  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:27:18 UTC] TRACE clubFunctions::select() : Leave
-[11-Feb-2014 13:28:05 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:28:05 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:28:05 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:28:05 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:28:05 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:28:05 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:28:05 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:28:05 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:28:05 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:28:05 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:28:05 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:28:05 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:28:05 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:28:05 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:28:05 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:28:05 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:28:05 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:28:05 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:28:05 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:28:05 UTC] TRACE dogFunctions::enumerate() : Enter
-[11-Feb-2014 13:28:05 UTC] QUERY dogFunctions::enumerate() :
-SELECT count(*) FROM PerroGuiaClub 
-[11-Feb-2014 13:28:05 UTC] QUERY dogFunctions::enumerate() :
-SELECT * FROM PerroGuiaClub  ORDER BY Club,Guia,Nombre
-[11-Feb-2014 13:28:05 UTC] TRACE dogFunctions::enumerate() : Leave
-[11-Feb-2014 13:28:05 UTC] TRACE clubFunctions::select() : Enter
-[11-Feb-2014 13:28:05 UTC] QUERY clubFunctions::select() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:28:05 UTC] QUERY clubFunctions::select() :
-SELECT * FROM Clubes  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:28:05 UTC] TRACE clubFunctions::select() : Leave
-[11-Feb-2014 13:28:08 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:28:08 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:28:08 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:28:08 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:28:08 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:28:08 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:28:08 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:28:08 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:28:08 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:28:08 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:28:09 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:28:09 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:28:09 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:28:09 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:28:09 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:28:09 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:28:09 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:28:09 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:28:09 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:28:09 UTC] TRACE dogFunctions::enumerate() : Enter
-[11-Feb-2014 13:28:09 UTC] QUERY dogFunctions::enumerate() :
-SELECT count(*) FROM PerroGuiaClub 
-[11-Feb-2014 13:28:09 UTC] QUERY dogFunctions::enumerate() :
-SELECT * FROM PerroGuiaClub  ORDER BY Club,Guia,Nombre
-[11-Feb-2014 13:28:09 UTC] TRACE dogFunctions::enumerate() : Leave
-[11-Feb-2014 13:28:09 UTC] TRACE guiaFunctions::select() : Enter
-[11-Feb-2014 13:28:09 UTC] QUERY guiaFunctions::select() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:28:09 UTC] QUERY guiaFunctions::select() :
-SELECT * FROM Guias  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:28:09 UTC] TRACE guiaFunctions::select() : Leave
-[11-Feb-2014 13:28:11 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:28:11 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:28:11 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:28:11 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:28:11 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:28:11 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:28:11 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:28:11 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:28:11 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:28:11 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:28:11 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:28:11 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:28:11 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:28:11 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:28:11 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:28:11 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:28:11 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:28:11 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:28:11 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:28:11 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:28:11 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:28:11 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:28:11 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:28:14 UTC] TRACE juezFunctions::select() : Enter
-[11-Feb-2014 13:28:14 UTC] QUERY juezFunctions::select() :
+[11-Feb-2014 22:31:17 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT * FROM Jueces  ORDER BY Nombre ASC
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE juezFunctions::enumerate() : Leave
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE juezFunctions::enumerate() : Enter
+[11-Feb-2014 22:31:17 Europe/Madrid] QUERY juezFunctions::enumerate() :
 SELECT count(*) FROM Jueces 
-[11-Feb-2014 13:28:14 UTC] QUERY juezFunctions::select() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:28:14 UTC] TRACE juezFunctions::select() : Leave
-[11-Feb-2014 13:28:44 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:28:44 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:28:44 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:28:44 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:28:44 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:28:44 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:28:44 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:28:44 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:28:44 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:28:44 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:28:45 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:28:45 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:28:45 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:28:45 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:28:45 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:28:45 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:28:45 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:28:45 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:28:45 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:28:45 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:28:45 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:28:45 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:28:45 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:29:52 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:52 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:52 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 10,10
-[11-Feb-2014 13:29:52 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 10,10
-[11-Feb-2014 13:29:52 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:52 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:52 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 20,10
-[11-Feb-2014 13:29:52 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 20,10
-[11-Feb-2014 13:29:53 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:53 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:53 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 30,10
-[11-Feb-2014 13:29:53 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 30,10
-[11-Feb-2014 13:29:53 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:53 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:53 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 40,10
-[11-Feb-2014 13:29:53 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 40,10
-[11-Feb-2014 13:29:53 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:53 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:53 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 50,10
-[11-Feb-2014 13:29:53 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 50,10
-[11-Feb-2014 13:29:53 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:53 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:53 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 60,10
-[11-Feb-2014 13:29:53 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 60,10
-[11-Feb-2014 13:29:54 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:54 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:54 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 70,10
-[11-Feb-2014 13:29:54 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 70,10
-[11-Feb-2014 13:29:54 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:54 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:54 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 80,10
-[11-Feb-2014 13:29:54 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 80,10
-[11-Feb-2014 13:29:54 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:54 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:54 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 90,10
-[11-Feb-2014 13:29:54 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 90,10
-[11-Feb-2014 13:29:54 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:54 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:54 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 100,10
-[11-Feb-2014 13:29:54 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 100,10
-[11-Feb-2014 13:29:55 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:55 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:55 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 110,10
-[11-Feb-2014 13:29:55 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 110,10
-[11-Feb-2014 13:29:55 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:55 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:55 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 120,10
-[11-Feb-2014 13:29:55 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 120,10
-[11-Feb-2014 13:29:55 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:55 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:55 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 130,10
-[11-Feb-2014 13:29:55 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 130,10
-[11-Feb-2014 13:29:56 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:56 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:56 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 140,10
-[11-Feb-2014 13:29:56 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 140,10
-[11-Feb-2014 13:29:56 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:56 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:56 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 150,10
-[11-Feb-2014 13:29:56 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 150,10
-[11-Feb-2014 13:29:57 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:57 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:57 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 160,10
-[11-Feb-2014 13:29:57 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 160,10
-[11-Feb-2014 13:29:57 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:57 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:57 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 170,10
-[11-Feb-2014 13:29:57 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 170,10
-[11-Feb-2014 13:29:58 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:58 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:58 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 180,10
-[11-Feb-2014 13:29:58 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 180,10
-[11-Feb-2014 13:29:59 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:59 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:59 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 190,10
-[11-Feb-2014 13:29:59 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 190,10
-[11-Feb-2014 13:29:59 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:29:59 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:29:59 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 200,10
-[11-Feb-2014 13:29:59 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 200,10
-[11-Feb-2014 13:30:00 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:30:00 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:30:00 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 210,10
-[11-Feb-2014 13:30:00 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 210,10
-[11-Feb-2014 13:30:00 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:30:00 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:30:00 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 220,10
-[11-Feb-2014 13:30:00 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 220,10
-[11-Feb-2014 13:30:00 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:30:00 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:30:00 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 230,10
-[11-Feb-2014 13:30:00 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 230,10
-[11-Feb-2014 13:30:01 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:30:01 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:30:01 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 240,10
-[11-Feb-2014 13:30:01 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 240,10
-[11-Feb-2014 13:30:01 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:30:01 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:30:01 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 250,10
-[11-Feb-2014 13:30:01 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 250,10
-[11-Feb-2014 13:30:46 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:30:46 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:30:46 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:30:46 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:30:46 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:30:46 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:30:46 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:30:46 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:30:46 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:30:46 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:30:46 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:30:46 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:30:46 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:30:46 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:30:46 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:30:46 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:30:46 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:30:46 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:30:46 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:30:46 UTC] QUERY dogFunctions::select() :
-SELECT count(*) FROM PerroGuiaClub  
-[11-Feb-2014 13:30:46 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:30:46 UTC] QUERY dogFunctions::() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:30:46 UTC] QUERY dogFunctions::select() :
-SELECT * FROM PerroGuiaClub   ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:31:27 UTC] TRACE juezFunctions::select() : Enter
-[11-Feb-2014 13:31:27 UTC] QUERY juezFunctions::select() :
-SELECT count(*) FROM Jueces 
-[11-Feb-2014 13:31:27 UTC] QUERY juezFunctions::select() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:31:27 UTC] TRACE juezFunctions::select() : Leave
-[11-Feb-2014 13:33:18 UTC] TRACE juezFunctions::select() : Enter
-[11-Feb-2014 13:33:18 UTC] QUERY juezFunctions::select() :
-SELECT count(*) FROM Jueces 
-[11-Feb-2014 13:33:18 UTC] QUERY juezFunctions::select() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:33:18 UTC] TRACE juezFunctions::select() : Leave
-[11-Feb-2014 13:38:12 UTC] TRACE juezFunctions::select() : Enter
-[11-Feb-2014 13:38:12 UTC] QUERY juezFunctions::select() :
-SELECT count(*) FROM Jueces 
-[11-Feb-2014 13:38:12 UTC] QUERY juezFunctions::select() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:38:12 UTC] TRACE juezFunctions::select() : Leave
-[11-Feb-2014 13:40:55 UTC] TRACE juezFunctions::select() : Enter
-[11-Feb-2014 13:40:55 UTC] QUERY juezFunctions::select() :
-SELECT count(*) FROM Jueces 
-[11-Feb-2014 13:40:55 UTC] QUERY juezFunctions::select() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:40:55 UTC] TRACE juezFunctions::select() : Leave
-[11-Feb-2014 13:41:05 UTC] TRACE juezFunctions::select() : Enter
-[11-Feb-2014 13:41:05 UTC] QUERY juezFunctions::select() :
-SELECT count(*) FROM Jueces 
-[11-Feb-2014 13:41:05 UTC] QUERY juezFunctions::select() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:41:05 UTC] TRACE juezFunctions::select() : Leave
-[11-Feb-2014 13:41:44 UTC] TRACE juezFunctions::select() : Enter
-[11-Feb-2014 13:41:44 UTC] QUERY juezFunctions::select() :
-SELECT count(*) FROM Jueces 
-[11-Feb-2014 13:41:44 UTC] QUERY juezFunctions::select() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:41:44 UTC] TRACE juezFunctions::select() : Leave
-[11-Feb-2014 13:46:09 UTC] TRACE juezFunctions::select() : Enter
-[11-Feb-2014 13:46:09 UTC] QUERY juezFunctions::select() :
-SELECT count(*) FROM Jueces 
-[11-Feb-2014 13:46:09 UTC] QUERY juezFunctions::select() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:46:09 UTC] TRACE juezFunctions::select() : Leave
-[11-Feb-2014 13:47:31 UTC] TRACE juezFunctions::select() : Enter
-[11-Feb-2014 13:47:31 UTC] QUERY juezFunctions::select() :
-SELECT count(*) FROM Jueces 
-[11-Feb-2014 13:47:31 UTC] QUERY juezFunctions::select() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:47:31 UTC] TRACE juezFunctions::select() : Leave
-[11-Feb-2014 13:47:37 UTC] TRACE juezFunctions::select() : Enter
-[11-Feb-2014 13:47:37 UTC] QUERY juezFunctions::select() :
-SELECT count(*) FROM Jueces 
-[11-Feb-2014 13:47:37 UTC] QUERY juezFunctions::select() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:47:37 UTC] TRACE juezFunctions::select() : Leave
-[11-Feb-2014 13:49:05 UTC] TRACE juezFunctions::select() : Enter
-[11-Feb-2014 13:49:05 UTC] QUERY juezFunctions::select() :
-SELECT count(*) FROM Jueces 
-[11-Feb-2014 13:49:05 UTC] QUERY juezFunctions::select() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:49:05 UTC] TRACE juezFunctions::select() : Leave
-[11-Feb-2014 13:56:00 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:56:00 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:56:00 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:56:00 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:56:00 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:56:00 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:56:00 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:56:00 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:56:00 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:56:00 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:56:00 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:56:00 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:56:00 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:56:00 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:56:00 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:56:00 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:56:00 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:56:00 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:56:00 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:56:00 UTC] TRACE dogFunctions::enumerate() : Enter
-[11-Feb-2014 13:56:00 UTC] QUERY dogFunctions::enumerate() :
-SELECT count(*) FROM PerroGuiaClub 
-[11-Feb-2014 13:56:00 UTC] QUERY dogFunctions::enumerate() :
-SELECT * FROM PerroGuiaClub  ORDER BY Club,Guia,Nombre
-[11-Feb-2014 13:56:00 UTC] TRACE clubFunctions::select() : Enter
-[11-Feb-2014 13:56:00 UTC] QUERY clubFunctions::select() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:56:00 UTC] QUERY clubFunctions::select() :
-SELECT * FROM Clubes  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:56:00 UTC] TRACE clubFunctions::select() : Leave
-[11-Feb-2014 13:56:00 UTC] TRACE dogFunctions::enumerate() : Leave
-[11-Feb-2014 13:56:00 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:56:00 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:56:00 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:56:00 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:56:00 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:56:00 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:56:00 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:56:00 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:56:00 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:56:00 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:56:00 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:56:00 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:56:00 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:56:00 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:56:22 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:56:22 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:56:22 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:56:22 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:56:22 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:56:22 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:56:22 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:56:22 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:56:22 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:56:22 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:56:22 UTC] enumerate_provincias::query() SELECT * FROM Provincias  ORDER BY Provincia ASC
-[11-Feb-2014 13:56:22 UTC] TRACE clubFunctions::enumerate() : Enter
-[11-Feb-2014 13:56:22 UTC] QUERY clubFunctions::enumerate() :
-SELECT count(*) FROM Clubes 
-[11-Feb-2014 13:56:22 UTC] QUERY clubFunctions::enumerate() :
-SELECT Nombre,Provincia FROM Clubes  ORDER BY Nombre ASC
-[11-Feb-2014 13:56:22 UTC] TRACE guiaFunctions::enumerate() : Enter
-[11-Feb-2014 13:56:22 UTC] QUERY guiaFunctions::enumerate() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:56:22 UTC] TRACE clubFunctions::enumerate() : Leave
-[11-Feb-2014 13:56:22 UTC] QUERY guiaFunctions::enumerate() :
-SELECT Nombre,Club FROM Guias  ORDER BY Club,Nombre
-[11-Feb-2014 13:56:22 UTC] TRACE guiaFunctions::enumerate() : Leave
-[11-Feb-2014 13:56:22 UTC] TRACE guiaFunctions::select() : Enter
-[11-Feb-2014 13:56:22 UTC] TRACE dogFunctions::enumerate() : Enter
-[11-Feb-2014 13:56:22 UTC] QUERY guiaFunctions::select() :
-SELECT count(*) FROM Guias 
-[11-Feb-2014 13:56:22 UTC] QUERY dogFunctions::enumerate() :
-SELECT count(*) FROM PerroGuiaClub 
-[11-Feb-2014 13:56:22 UTC] QUERY guiaFunctions::select() :
-SELECT * FROM Guias  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:56:22 UTC] QUERY dogFunctions::enumerate() :
-SELECT * FROM PerroGuiaClub  ORDER BY Club,Guia,Nombre
-[11-Feb-2014 13:56:22 UTC] TRACE guiaFunctions::select() : Leave
-[11-Feb-2014 13:56:22 UTC] TRACE dogFunctions::enumerate() : Leave
-[11-Feb-2014 13:56:23 UTC] TRACE dogFunctions::gradosPerro() : Enter
-[11-Feb-2014 13:56:23 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:56:23 UTC] QUERY dogFunctions::() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:56:23 UTC] QUERY dogFunctions::gradosPerro() :
-SELECT Grado,Comentarios FROM Grados_Perro  ORDER BY Grado
-[11-Feb-2014 13:56:23 UTC] TRACE dogFunctions::gradosPerro() : Leave
-[11-Feb-2014 13:56:23 UTC] TRACE dogFunctions::categoriasPerro() : Enter
-[11-Feb-2014 13:56:23 UTC] PHP Notice:  Undefined offset: 2 in /home/jantonio/work/agility/git-localrepo/database/logging.php on line 48
-[11-Feb-2014 13:56:23 UTC] QUERY dogFunctions::() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:56:23 UTC] QUERY dogFunctions::categoriasPerro() :
-SELECT Categoria,Observaciones FROM Categorias_Perro  ORDER BY Categoria
-[11-Feb-2014 13:56:23 UTC] TRACE dogFunctions::categoriasPerro() : Leave
-[11-Feb-2014 13:56:41 UTC] TRACE dogFunctions::selectByGuia() : Enter
-[11-Feb-2014 13:56:41 UTC] QUERY dogFunctions::selectByGuia() :
-SELECT count(*) FROM Perros WHERE ( Guia = '-- Sin asignar --' )
-[11-Feb-2014 13:56:41 UTC] QUERY dogFunctions::selectByGuia() :
-SELECT * FROM Perros WHERE ( Guia ='-- Sin asignar --' ) ORDER BY Nombre ASC
-[11-Feb-2014 13:56:41 UTC] TRACE dogFunctions::selectByGuia() : Leave
-[11-Feb-2014 13:57:18 UTC] TRACE juezFunctions::select() : Enter
-[11-Feb-2014 13:57:18 UTC] QUERY juezFunctions::select() :
-SELECT count(*) FROM Jueces 
-[11-Feb-2014 13:57:18 UTC] QUERY juezFunctions::select() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC LIMIT 0,10
-[11-Feb-2014 13:57:18 UTC] TRACE juezFunctions::select() : Leave
-[11-Feb-2014 14:07:36 UTC] TRACE pruebaFunctions::enumerate() : Enter
-[11-Feb-2014 14:07:36 UTC] QUERY pruebaFunctions::enumerate() :
+[11-Feb-2014 22:31:17 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT * FROM Jueces  ORDER BY Nombre ASC
+[11-Feb-2014 22:31:17 Europe/Madrid] TRACE juezFunctions::enumerate() : Leave
+[11-Feb-2014 22:31:20 Europe/Madrid] PHP Fatal error:  Class 'Pruebas' not found in /home/jantonio/work/agility/git-localrepo/agility/database/clasificacionesFunctions.php on line 8
+[11-Feb-2014 22:31:51 Europe/Madrid] clasificacionesFunctions:: invalid operation: resultados provided
+[11-Feb-2014 22:34:25 Europe/Madrid] TRACE pruebaFunctions::enumerate() : Enter
+[11-Feb-2014 22:34:25 Europe/Madrid] QUERY pruebaFunctions::enumerate() :
 SELECT count(*) FROM Pruebas WHERE ( Cerrada=0 ) 
-[11-Feb-2014 14:07:36 UTC] QUERY pruebaFunctions::enumerate() :
+[11-Feb-2014 22:34:25 Europe/Madrid] QUERY pruebaFunctions::enumerate() :
 SELECT * FROM Pruebas WHERE (Cerrada=0)  ORDER BY Nombre ASC
-[11-Feb-2014 14:07:36 UTC] TRACE pruebaFunctions::enumerate() : Leave
-[11-Feb-2014 14:07:36 UTC] TRACE jornadaFunctions::searchByPrueba() : Enter
-[11-Feb-2014 14:07:36 UTC] QUERY jornadaFunctions::searchByPrueba() :
+[11-Feb-2014 22:34:25 Europe/Madrid] TRACE pruebaFunctions::enumerate() : Leave
+[11-Feb-2014 22:34:25 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 22:34:25 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
 SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 0 ) AND ( Cerrada=0) )
-[11-Feb-2014 14:07:36 UTC] TRACE jornadaFunctions::searchByPrueba() : Leave
-[11-Feb-2014 14:07:38 UTC] TRACE jornadaFunctions::searchByPrueba() : Enter
-[11-Feb-2014 14:07:38 UTC] QUERY jornadaFunctions::searchByPrueba() :
+[11-Feb-2014 22:34:25 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 22:34:27 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 22:34:27 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
 SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 3 ) AND ( Cerrada=0) )
-[11-Feb-2014 14:07:38 UTC] QUERY jornadaFunctions::searchByPrueba() :
+[11-Feb-2014 22:34:27 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
 SELECT * FROM Jornadas WHERE ( ( Prueba = 3 ) AND ( Cerrada=0 ) ) ORDER BY Numero ASC
-[11-Feb-2014 14:07:38 UTC] TRACE jornadaFunctions::searchByPrueba() : Leave
-[11-Feb-2014 14:07:41 UTC] TRACE jornadaFunctions::searchByPrueba() : Enter
-[11-Feb-2014 14:07:41 UTC] QUERY jornadaFunctions::searchByPrueba() :
+[11-Feb-2014 22:34:27 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 22:34:29 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 22:34:29 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
 SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 0 ) AND ( Cerrada=0) )
-[11-Feb-2014 14:07:41 UTC] TRACE jornadaFunctions::searchByPrueba() : Leave
-[11-Feb-2014 14:07:41 UTC] TRACE mangaFunctions::selectByJornada() : Enter
-[11-Feb-2014 14:07:41 UTC] QUERY mangaFunctions::selectByJornada() :
+[11-Feb-2014 22:34:29 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 22:34:30 Europe/Madrid] TRACE mangaFunctions::selectByJornada() : Enter
+[11-Feb-2014 22:34:30 Europe/Madrid] QUERY mangaFunctions::selectByJornada() :
 SELECT count(*) FROM Mangas WHERE ( Jornada = 9 )
-[11-Feb-2014 14:07:41 UTC] QUERY mangaFunctions::selectByJornada() :
+[11-Feb-2014 22:34:30 Europe/Madrid] QUERY mangaFunctions::selectByJornada() :
 SELECT ID, Mangas.Tipo AS Tipo, Tipo_Manga.Descripcion AS Descripcion
 			FROM Mangas,Tipo_Manga
 			WHERE ( ( Jornada = 9 ) AND ( Mangas.Tipo = Tipo_Manga.Tipo) )
 			ORDER BY Descripcion ASC
-[11-Feb-2014 14:07:41 UTC] TRACE mangaFunctions::selectByJornada() : Leave
-[11-Feb-2014 14:07:44 UTC] TRACE ordenSalidaFunctions::getData() : Enter
-[11-Feb-2014 14:07:44 UTC] TRACE ordenSalidaFunctions::getOrden() : Enter
-[11-Feb-2014 14:07:44 UTC] QUERY ordenSalidaFunctions::getOrden() :
+[11-Feb-2014 22:34:30 Europe/Madrid] TRACE mangaFunctions::selectByJornada() : Leave
+[11-Feb-2014 22:34:34 Europe/Madrid] TRACE ordenSalidaFunctions::getData() : Enter
+[11-Feb-2014 22:34:34 Europe/Madrid] TRACE ordenSalidaFunctions::getOrden() : Enter
+[11-Feb-2014 22:34:34 Europe/Madrid] QUERY ordenSalidaFunctions::getOrden() :
 SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
-[11-Feb-2014 14:07:44 UTC] TRACE ordenSalidaFunctions::getOrden() : Leave
-[11-Feb-2014 14:07:44 UTC] DEBUG ordenSalidaFunctions::getData() : El orden de salida actual es BEGIN,TAG_-0,TAG_-1,TAG_L0,558,574,33,579,578,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
-[11-Feb-2014 14:07:44 UTC] QUERY ordenSalidaFunctions::getData() :
+[11-Feb-2014 22:34:34 Europe/Madrid] TRACE ordenSalidaFunctions::getOrden() : Leave
+[11-Feb-2014 22:34:34 Europe/Madrid] DEBUG ordenSalidaFunctions::getData() : El orden de salida actual es BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
+[11-Feb-2014 22:34:34 Europe/Madrid] QUERY ordenSalidaFunctions::getData() :
 SELECT * FROM InscritosJornada WHERE ( Jornada=9 ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden
-[11-Feb-2014 14:07:44 UTC] QUERY ordenSalidaFunctions::getData() :
+[11-Feb-2014 22:34:34 Europe/Madrid] QUERY resultadosFunctions::__construct() :
+SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
+[11-Feb-2014 22:34:34 Europe/Madrid] QUERY ordenSalidaFunctions::getData() :
 SELECT Grado FROM Mangas WHERE ( ID=3 )
-[11-Feb-2014 14:07:44 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:07:44 UTC] TRACE ordenSalidaFunctions::getData() : Leave
-[11-Feb-2014 14:07:44 UTC] TRACE resultadosFunctions::enumerate() : Enter
-[11-Feb-2014 14:07:44 UTC] TRACE Competicion::getOrden() : Enter
-[11-Feb-2014 14:07:44 UTC] QUERY Competicion::getOrden() :
+[11-Feb-2014 22:34:34 Europe/Madrid] TRACE resultadosFunctions::enumerate() : Enter
+[11-Feb-2014 22:34:34 Europe/Madrid] TRACE ordenSalidaFunctions::getData() : Leave
+[11-Feb-2014 22:34:34 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 22:34:34 Europe/Madrid] TRACE Competicion::getOrden() : Enter
+[11-Feb-2014 22:34:34 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE 3_SEk0hFj6 (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 22:34:34 Europe/Madrid] QUERY Competicion::getOrden() :
 SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
-[11-Feb-2014 14:07:44 UTC] TRACE Competicion::getOrden() : Leave
-[11-Feb-2014 14:07:44 UTC] DEBUG resultadosFunctions::enumerate() : El orden de salida es: 
-BEGIN,TAG_-0,TAG_-1,TAG_L0,558,574,33,579,578,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
-[11-Feb-2014 14:07:44 UTC] QUERY resultadosFunctions::enumerate() :
-SELECT * FROM Resultados WHERE (Manga=3)
-[11-Feb-2014 14:07:44 UTC] TRACE resultadosFunctions::enumerate() : Leave
-[11-Feb-2014 14:07:44 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:07:44 UTC] TRACE resultadosFunctions::resultados() : Enter
-[11-Feb-2014 14:07:44 UTC] QUERY resultadosFunctions::resultados() :
-SELECT * , ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS Penalizacion
-			FROM Resultados WHERE ( Manga =3 )
-			ORDER BY Categoria ASC , Penalizacion ASC , Tiempo ASC 
-[11-Feb-2014 14:07:44 UTC] TRACE Resultados.php::datosTRS() : Enter
-[11-Feb-2014 14:07:44 UTC] TRACE Resultados.php::selectByID() : Enter
-[11-Feb-2014 14:07:44 UTC] QUERY Resultados.php::selectByID() :
-SELECT * FROM Mangas WHERE ( ID = 3 )
-[11-Feb-2014 14:07:44 UTC] TRACE Resultados.php::selectByID() : Leave
-[11-Feb-2014 14:07:44 UTC] TRACE Resultados.php::datosTRS() : Leave
-[11-Feb-2014 14:07:44 UTC] TRACE resultadosFunctions::resultados() : Leave
-[11-Feb-2014 14:07:44 UTC] TRACE mangaFunctions::selectByID() : Enter
-[11-Feb-2014 14:07:44 UTC] QUERY mangaFunctions::selectByID() :
-SELECT * FROM Mangas WHERE ( ID = 3 )
-[11-Feb-2014 14:07:44 UTC] TRACE mangaFunctions::selectByID() : Leave
-[11-Feb-2014 14:07:45 UTC] TRACE juezFunctions::enumerate() : Enter
-[11-Feb-2014 14:07:45 UTC] QUERY juezFunctions::enumerate() :
-SELECT count(*) FROM Jueces 
-[11-Feb-2014 14:07:45 UTC] QUERY juezFunctions::enumerate() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC
-[11-Feb-2014 14:07:45 UTC] TRACE juezFunctions::enumerate() : Leave
-[11-Feb-2014 14:07:45 UTC] TRACE juezFunctions::enumerate() : Enter
-[11-Feb-2014 14:07:45 UTC] QUERY juezFunctions::enumerate() :
-SELECT count(*) FROM Jueces 
-[11-Feb-2014 14:07:45 UTC] QUERY juezFunctions::enumerate() :
-SELECT * FROM Jueces  ORDER BY Nombre ASC
-[11-Feb-2014 14:07:45 UTC] TRACE juezFunctions::enumerate() : Leave
-[11-Feb-2014 14:07:47 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:07:47 UTC] TRACE resultadosFunctions::enumerate() : Enter
-[11-Feb-2014 14:07:47 UTC] TRACE Competicion::getOrden() : Enter
-[11-Feb-2014 14:07:47 UTC] QUERY Competicion::getOrden() :
-SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
-[11-Feb-2014 14:07:47 UTC] TRACE Competicion::getOrden() : Leave
-[11-Feb-2014 14:07:47 UTC] DEBUG resultadosFunctions::enumerate() : El orden de salida es: 
-BEGIN,TAG_-0,TAG_-1,TAG_L0,558,574,33,579,578,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
-[11-Feb-2014 14:07:47 UTC] QUERY resultadosFunctions::enumerate() :
-SELECT * FROM Resultados WHERE (Manga=3)
-[11-Feb-2014 14:07:47 UTC] TRACE resultadosFunctions::enumerate() : Leave
-[11-Feb-2014 14:08:26 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:08:26 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:08:26 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:08:26' , Comienzo='2014-02-11 15:08:26' , 
-				Faltas=0 , Rehuses=1 , Tocados=0 ,
-				NoPresentado=0 , Eliminado=0 , 
-				Tiempo=47.99 , Observaciones='' 
-			WHERE (Dorsal=574) AND (Manga=3)
-[11-Feb-2014 14:08:26 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:08:26 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:08:26 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 574 ) AND ( Manga=3)
-[11-Feb-2014 14:08:26 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:08:29 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:08:29 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:08:29 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:08:29' , Comienzo='2014-02-11 15:08:29' , 
-				Faltas=0 , Rehuses=0 , Tocados=0 ,
-				NoPresentado=0 , Eliminado=0 , 
-				Tiempo=48.3 , Observaciones='' 
-			WHERE (Dorsal=33) AND (Manga=3)
-[11-Feb-2014 14:08:29 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:08:29 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:08:29 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 33 ) AND ( Manga=3)
-[11-Feb-2014 14:08:29 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:08:56 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:08:56 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:08:56 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:08:56' , Comienzo='2014-02-11 15:08:56' , 
-				Faltas=0 , Rehuses=0 , Tocados=0 ,
-				NoPresentado=0 , Eliminado=0 , 
-				Tiempo=35.02 , Observaciones='!Viva yo!' 
-			WHERE (Dorsal=563) AND (Manga=3)
-[11-Feb-2014 14:08:56 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:08:56 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:08:56 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 563 ) AND ( Manga=3)
-[11-Feb-2014 14:08:56 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:09:05 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:09:05 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:09:05 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:09:05' , Comienzo='2014-02-11 15:09:05' , 
-				Faltas=0 , Rehuses=0 , Tocados=0 ,
-				NoPresentado=1 , Eliminado=0 , 
-				Tiempo=0 , Observaciones='' 
-			WHERE (Dorsal=404) AND (Manga=3)
-[11-Feb-2014 14:09:05 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:09:05 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:09:05 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 404 ) AND ( Manga=3)
-[11-Feb-2014 14:09:05 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:09:09 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:09:09 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:09:09 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:09:09' , Comienzo='2014-02-11 15:09:09' , 
-				Faltas=0 , Rehuses=0 , Tocados=0 ,
-				NoPresentado=0 , Eliminado=1 , 
-				Tiempo=0 , Observaciones='' 
-			WHERE (Dorsal=414) AND (Manga=3)
-[11-Feb-2014 14:09:09 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:09:09 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:09:09 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 414 ) AND ( Manga=3)
-[11-Feb-2014 14:09:09 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:09:16 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:09:16 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:09:16 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:09:16' , Comienzo='2014-02-11 15:09:16' , 
-				Faltas=0 , Rehuses=0 , Tocados=0 ,
-				NoPresentado=1 , Eliminado=0 , 
-				Tiempo=0 , Observaciones='' 
-			WHERE (Dorsal=384) AND (Manga=3)
-[11-Feb-2014 14:09:16 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:09:16 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:09:16 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 384 ) AND ( Manga=3)
-[11-Feb-2014 14:09:16 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:09:26 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:09:26 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:09:26 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:09:26' , Comienzo='2014-02-11 15:09:26' , 
-				Faltas=0 , Rehuses=0 , Tocados=0 ,
-				NoPresentado=0 , Eliminado=1 , 
-				Tiempo=0 , Observaciones='' 
-			WHERE (Dorsal=564) AND (Manga=3)
-[11-Feb-2014 14:09:26 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:09:26 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:09:26 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 564 ) AND ( Manga=3)
-[11-Feb-2014 14:09:26 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:09:29 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:09:29 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:09:29 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:09:29' , Comienzo='2014-02-11 15:09:29' , 
-				Faltas=0 , Rehuses=0 , Tocados=0 ,
-				NoPresentado=0 , Eliminado=1 , 
-				Tiempo=0 , Observaciones='' 
-			WHERE (Dorsal=414) AND (Manga=3)
-[11-Feb-2014 14:09:29 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:09:29 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:09:29 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 414 ) AND ( Manga=3)
-[11-Feb-2014 14:09:29 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:09:45 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:09:45 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:09:45 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:09:45' , Comienzo='2014-02-11 15:09:45' , 
-				Faltas=1 , Rehuses=0 , Tocados=0 ,
-				NoPresentado=0 , Eliminado=0 , 
-				Tiempo=37.45 , Observaciones='' 
-			WHERE (Dorsal=564) AND (Manga=3)
-[11-Feb-2014 14:09:45 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:09:45 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:09:45 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 564 ) AND ( Manga=3)
-[11-Feb-2014 14:09:45 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:09:54 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:09:54 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:09:54 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:09:54' , Comienzo='2014-02-11 15:09:54' , 
-				Faltas=0 , Rehuses=0 , Tocados=0 ,
-				NoPresentado=0 , Eliminado=1 , 
-				Tiempo=0 , Observaciones='' 
-			WHERE (Dorsal=414) AND (Manga=3)
-[11-Feb-2014 14:09:54 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:09:54 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:09:54 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 414 ) AND ( Manga=3)
-[11-Feb-2014 14:09:54 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:11:23 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:11:23 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:11:23 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:11:23' , Comienzo='2014-02-11 15:11:23' , 
-				Faltas=0 , Rehuses=0 , Tocados=0 ,
-				NoPresentado=0 , Eliminado=0 , 
-				Tiempo=2 , Observaciones='' 
-			WHERE (Dorsal=227) AND (Manga=3)
-[11-Feb-2014 14:11:23 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:11:23 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:11:23 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 227 ) AND ( Manga=3)
-[11-Feb-2014 14:11:23 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:11:29 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:11:29 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:11:29 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:11:29' , Comienzo='2014-02-11 15:11:29' , 
-				Faltas=1 , Rehuses=0 , Tocados=0 ,
-				NoPresentado=0 , Eliminado=0 , 
-				Tiempo=37.45 , Observaciones='Esas zonasss' 
-			WHERE (Dorsal=564) AND (Manga=3)
-[11-Feb-2014 14:11:29 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:11:29 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:11:29 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 564 ) AND ( Manga=3)
-[11-Feb-2014 14:11:29 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:11:31 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:11:31 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:11:31 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:11:31' , Comienzo='2014-02-11 15:11:31' , 
-				Faltas=0 , Rehuses=0 , Tocados=0 ,
-				NoPresentado=0 , Eliminado=1 , 
-				Tiempo=0 , Observaciones='' 
-			WHERE (Dorsal=414) AND (Manga=3)
-[11-Feb-2014 14:11:31 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:11:31 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:11:31 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 414 ) AND ( Manga=3)
-[11-Feb-2014 14:11:31 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:11:41 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:11:41 UTC] TRACE resultadosFunctions::update() : Enter
-[11-Feb-2014 14:11:41 UTC] QUERY resultadosFunctions::update() :
-UPDATE Resultados 
-			SET Entrada='2014-02-11 15:11:41' , Comienzo='2014-02-11 15:11:41' , 
-				Faltas=0 , Rehuses=3 , Tocados=0 ,
-				NoPresentado=0 , Eliminado=1 , 
-				Tiempo=0 , Observaciones='' 
-			WHERE (Dorsal=227) AND (Manga=3)
-[11-Feb-2014 14:11:41 UTC] TRACE resultadosFunctions::update() : Leave
-[11-Feb-2014 14:11:41 UTC] TRACE resultadosFunctions::select() : Enter
-[11-Feb-2014 14:11:41 UTC] QUERY resultadosFunctions::select() :
-SELECT * FROM Resultados WHERE ( Dorsal = 227 ) AND ( Manga=3)
-[11-Feb-2014 14:11:41 UTC] TRACE resultadosFunctions::select() : Leave
-[11-Feb-2014 14:17:25 UTC] TRACE ordenSalidaFunctions::getData() : Enter
-[11-Feb-2014 14:17:25 UTC] TRACE ordenSalidaFunctions::getOrden() : Enter
-[11-Feb-2014 14:17:25 UTC] QUERY ordenSalidaFunctions::getOrden() :
-SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
-[11-Feb-2014 14:17:25 UTC] TRACE ordenSalidaFunctions::getOrden() : Leave
-[11-Feb-2014 14:17:25 UTC] DEBUG ordenSalidaFunctions::getData() : El orden de salida actual es BEGIN,TAG_-0,TAG_-1,TAG_L0,558,574,33,579,578,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
-[11-Feb-2014 14:17:25 UTC] QUERY ordenSalidaFunctions::getData() :
-SELECT * FROM InscritosJornada WHERE ( Jornada=9 ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden
-[11-Feb-2014 14:17:25 UTC] QUERY ordenSalidaFunctions::getData() :
-SELECT Grado FROM Mangas WHERE ( ID=3 )
-[11-Feb-2014 14:17:25 UTC] TRACE ordenSalidaFunctions::getData() : Leave
-[11-Feb-2014 14:17:39 UTC] TRACE ordenSalidaFunctions::dragAndDrop() : Enter
-[11-Feb-2014 14:17:39 UTC] TRACE ordenSalidaFunctions::getOrden() : Enter
-[11-Feb-2014 14:17:39 UTC] QUERY ordenSalidaFunctions::getOrden() :
-SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
-[11-Feb-2014 14:17:39 UTC] TRACE ordenSalidaFunctions::getOrden() : Leave
-[11-Feb-2014 14:17:39 UTC] TRACE ordenSalidaFunctions::setOrden() : Enter
-[11-Feb-2014 14:17:39 UTC] QUERY ordenSalidaFunctions::setOrden() :
-UPDATE Mangas SET Orden_Salida = 'BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END' WHERE ( ID=3 )
-[11-Feb-2014 14:17:39 UTC] TRACE ordenSalidaFunctions::setOrden() : Leave
-[11-Feb-2014 14:17:39 UTC] TRACE ordenSalidaFunctions::dragAndDrop() : Leave
-[11-Feb-2014 14:17:39 UTC] TRACE ordenSalidaFunctions::getData() : Enter
-[11-Feb-2014 14:17:39 UTC] TRACE ordenSalidaFunctions::getOrden() : Enter
-[11-Feb-2014 14:17:39 UTC] QUERY ordenSalidaFunctions::getOrden() :
-SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
-[11-Feb-2014 14:17:39 UTC] TRACE ordenSalidaFunctions::getOrden() : Leave
-[11-Feb-2014 14:17:39 UTC] DEBUG ordenSalidaFunctions::getData() : El orden de salida actual es BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
-[11-Feb-2014 14:17:39 UTC] QUERY ordenSalidaFunctions::getData() :
-SELECT * FROM InscritosJornada WHERE ( Jornada=9 ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden
-[11-Feb-2014 14:17:39 UTC] QUERY ordenSalidaFunctions::getData() :
-SELECT Grado FROM Mangas WHERE ( ID=3 )
-[11-Feb-2014 14:17:39 UTC] TRACE ordenSalidaFunctions::getData() : Leave
-[11-Feb-2014 14:17:47 UTC] QUERY resultadosFunctions::__construct() :
-SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
-[11-Feb-2014 14:17:47 UTC] TRACE resultadosFunctions::enumerate() : Enter
-[11-Feb-2014 14:17:47 UTC] TRACE Competicion::getOrden() : Enter
-[11-Feb-2014 14:17:47 UTC] QUERY Competicion::getOrden() :
-SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
-[11-Feb-2014 14:17:47 UTC] TRACE Competicion::getOrden() : Leave
-[11-Feb-2014 14:17:47 UTC] DEBUG resultadosFunctions::enumerate() : El orden de salida es: 
+[11-Feb-2014 22:34:34 Europe/Madrid] TRACE Competicion::getOrden() : Leave
+[11-Feb-2014 22:34:34 Europe/Madrid] DEBUG resultadosFunctions::enumerate() : El orden de salida es: 
 BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
-[11-Feb-2014 14:17:47 UTC] QUERY resultadosFunctions::enumerate() :
+[11-Feb-2014 22:34:34 Europe/Madrid] QUERY resultadosFunctions::enumerate() :
 SELECT * FROM Resultados WHERE (Manga=3)
-[11-Feb-2014 14:17:47 UTC] TRACE resultadosFunctions::enumerate() : Leave
+[11-Feb-2014 22:34:34 Europe/Madrid] TRACE resultadosFunctions::enumerate() : Leave
+[11-Feb-2014 22:34:34 Europe/Madrid] TRACE mangaFunctions::selectByID() : Enter
+[11-Feb-2014 22:34:34 Europe/Madrid] QUERY mangaFunctions::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 22:34:34 Europe/Madrid] TRACE mangaFunctions::selectByID() : Leave
+[11-Feb-2014 22:34:34 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO 3_SEk0hFj6 (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Clasificaciones WHERE ( Manga = )
+[11-Feb-2014 22:34:34 Europe/Madrid] clasificacionesFunctions::parcial() Error at /home/jantonio/work/agility/git-localrepo/agility/database/clasificacionesFunctions.php:14:
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 3
+[11-Feb-2014 22:34:35 Europe/Madrid] TRACE juezFunctions::enumerate() : Enter
+[11-Feb-2014 22:34:35 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT count(*) FROM Jueces 
+[11-Feb-2014 22:34:35 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT * FROM Jueces  ORDER BY Nombre ASC
+[11-Feb-2014 22:34:35 Europe/Madrid] TRACE juezFunctions::enumerate() : Leave
+[11-Feb-2014 22:34:35 Europe/Madrid] TRACE juezFunctions::enumerate() : Enter
+[11-Feb-2014 22:34:35 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT count(*) FROM Jueces 
+[11-Feb-2014 22:34:35 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT * FROM Jueces  ORDER BY Nombre ASC
+[11-Feb-2014 22:34:35 Europe/Madrid] TRACE juezFunctions::enumerate() : Leave
+[11-Feb-2014 22:34:41 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 22:34:41 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE 3_A4Yiyjcr (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 22:34:41 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO 3_A4Yiyjcr (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Clasificaciones WHERE ( Manga = )
+[11-Feb-2014 22:34:41 Europe/Madrid] clasificacionesFunctions::parcial() Error at /home/jantonio/work/agility/git-localrepo/agility/database/clasificacionesFunctions.php:14:
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 3
+[11-Feb-2014 22:36:43 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 22:36:43 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_PKEuNxLf (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 22:36:43 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_PKEuNxLf (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Clasificaciones WHERE ( Manga =3 )
+[11-Feb-2014 22:36:43 Europe/Madrid] clasificacionesFunctions::parcial() Error at /home/jantonio/work/agility/git-localrepo/agility/database/clasificacionesFunctions.php:14:
+Table 'agility.Clasificaciones' doesn't exist
+[11-Feb-2014 22:37:18 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 22:37:18 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_TqrHXDMj (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 22:37:18 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_TqrHXDMj (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 22:37:18 Europe/Madrid] clasificacionesFunctions::parcial() Error at /home/jantonio/work/agility/git-localrepo/agility/database/clasificacionesFunctions.php:14:
+FUNCTION agility.Tiempo does not exist
+[11-Feb-2014 22:41:17 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 22:41:17 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_fFl72SPy (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 22:41:17 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_fFl72SPy (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 22:41:17 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_fFl72SPy ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 22:41:17 Europe/Madrid] PHP Fatal error:  Cannot use object of type stdClass as array in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 82
+[11-Feb-2014 22:44:26 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 22:44:26 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_07pjKNz3 (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 22:44:26 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_07pjKNz3 (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 22:44:26 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_07pjKNz3 ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 22:44:26 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 22:44:26 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 22:44:26 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 22:44:26 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 22:44:26 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 22:44:26 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 22:44:26 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 22:44:26 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 22:44:26 Europe/Madrid] clasificacionesFunctions::parcial() Error at /home/jantonio/work/agility/git-localrepo/agility/database/clasificacionesFunctions.php:14:
+You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Calificacion='?' WHERE ( Dorsal=? )' at line 1
+[11-Feb-2014 22:45:09 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 22:45:09 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_6CkJcMHR (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 22:45:09 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_6CkJcMHR (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 22:45:09 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_6CkJcMHR ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 22:45:09 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 22:45:09 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 22:45:09 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 22:45:09 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 22:45:09 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 22:45:09 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 22:45:09 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 22:45:09 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 22:45:09 Europe/Madrid] PHP Warning:  mysqli_stmt::bind_param(): Number of variables doesn't match number of parameters in prepared statement in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 98
+[11-Feb-2014 22:45:09 Europe/Madrid] clasificacionesFunctions::parcial() Error at /home/jantonio/work/agility/git-localrepo/agility/database/clasificacionesFunctions.php:14:
+
+[11-Feb-2014 22:49:11 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 22:49:11 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_Xb64Wv1L (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 22:49:12 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_Xb64Wv1L (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 22:49:12 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_Xb64Wv1L ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 22:49:12 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 22:49:12 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 22:49:12 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 22:49:12 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 22:49:12 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 22:49:12 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 22:49:12 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 22:49:12 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 22:49:12 Europe/Madrid] PHP Warning:  mysqli_stmt::bind_param(): Number of variables doesn't match number of parameters in prepared statement in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 98
+[11-Feb-2014 22:49:12 Europe/Madrid] clasificacionesFunctions::parcial() Error at /home/jantonio/work/agility/git-localrepo/agility/database/clasificacionesFunctions.php:14:
+
+[11-Feb-2014 22:54:27 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 22:54:27 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_Zspyti85 (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 22:54:27 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_Zspyti85 (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 22:54:27 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_Zspyti85 ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 22:54:27 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 22:54:27 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 22:54:27 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 22:54:27 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 22:54:27 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 22:54:27 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 22:54:27 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 22:54:27 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 22:54:27 Europe/Madrid] PHP Fatal error:  Cannot use object of type stdClass as array in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 102
+[11-Feb-2014 22:56:43 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 22:56:43 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_Xpt7ZP6V (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 22:56:43 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_Xpt7ZP6V (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 22:56:43 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_Xpt7ZP6V ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 22:56:43 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 22:56:43 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 22:56:43 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 22:56:43 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 22:56:43 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 22:56:43 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 22:56:43 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 22:56:43 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 22:56:44 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_Xpt7ZP6V
+				WHERE ( Resultados.Dorsal = Manga_3_Xpt7ZP6V.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 22:56:44 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:01:56 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 23:01:56 Europe/Madrid] TRACE pruebaFunctions::enumerate() : Enter
+[11-Feb-2014 23:01:56 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 0 ) AND ( Cerrada=0) )
+[11-Feb-2014 23:01:56 Europe/Madrid] QUERY pruebaFunctions::enumerate() :
+SELECT count(*) FROM Pruebas WHERE ( Cerrada=0 ) 
+[11-Feb-2014 23:01:56 Europe/Madrid] QUERY pruebaFunctions::enumerate() :
+SELECT * FROM Pruebas WHERE (Cerrada=0)  ORDER BY Nombre ASC
+[11-Feb-2014 23:01:56 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 23:01:56 Europe/Madrid] TRACE pruebaFunctions::enumerate() : Leave
+[11-Feb-2014 23:01:58 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 23:01:58 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 3 ) AND ( Cerrada=0) )
+[11-Feb-2014 23:01:58 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT * FROM Jornadas WHERE ( ( Prueba = 3 ) AND ( Cerrada=0 ) ) ORDER BY Numero ASC
+[11-Feb-2014 23:01:58 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 23:02:01 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 23:02:01 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 0 ) AND ( Cerrada=0) )
+[11-Feb-2014 23:02:01 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 23:02:01 Europe/Madrid] TRACE mangaFunctions::selectByJornada() : Enter
+[11-Feb-2014 23:02:01 Europe/Madrid] QUERY mangaFunctions::selectByJornada() :
+SELECT count(*) FROM Mangas WHERE ( Jornada = 9 )
+[11-Feb-2014 23:02:01 Europe/Madrid] QUERY mangaFunctions::selectByJornada() :
+SELECT ID, Mangas.Tipo AS Tipo, Tipo_Manga.Descripcion AS Descripcion
+			FROM Mangas,Tipo_Manga
+			WHERE ( ( Jornada = 9 ) AND ( Mangas.Tipo = Tipo_Manga.Tipo) )
+			ORDER BY Descripcion ASC
+[11-Feb-2014 23:02:01 Europe/Madrid] TRACE mangaFunctions::selectByJornada() : Leave
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE ordenSalidaFunctions::getData() : Enter
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY resultadosFunctions::__construct() :
+SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE ordenSalidaFunctions::getOrden() : Enter
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY ordenSalidaFunctions::getOrden() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE resultadosFunctions::enumerate() : Enter
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE ordenSalidaFunctions::getOrden() : Leave
+[11-Feb-2014 23:02:04 Europe/Madrid] DEBUG ordenSalidaFunctions::getData() : El orden de salida actual es BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY ordenSalidaFunctions::getData() :
+SELECT * FROM InscritosJornada WHERE ( Jornada=9 ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_JnvwUZh8 (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE Competicion::getOrden() : Enter
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY Competicion::getOrden() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE Competicion::getOrden() : Leave
+[11-Feb-2014 23:02:04 Europe/Madrid] DEBUG resultadosFunctions::enumerate() : El orden de salida es: 
+BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY resultadosFunctions::enumerate() :
+SELECT * FROM Resultados WHERE (Manga=3)
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY ordenSalidaFunctions::getData() :
+SELECT Grado FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE resultadosFunctions::enumerate() : Leave
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE ordenSalidaFunctions::getData() : Leave
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE mangaFunctions::selectByID() : Enter
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY mangaFunctions::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE mangaFunctions::selectByID() : Leave
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_JnvwUZh8 (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_JnvwUZh8 ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE juezFunctions::enumerate() : Enter
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT count(*) FROM Jueces 
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT * FROM Jueces  ORDER BY Nombre ASC
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE juezFunctions::enumerate() : Leave
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE juezFunctions::enumerate() : Enter
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT count(*) FROM Jueces 
+[11-Feb-2014 23:02:04 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT * FROM Jueces  ORDER BY Nombre ASC
+[11-Feb-2014 23:02:04 Europe/Madrid] TRACE juezFunctions::enumerate() : Leave
+[11-Feb-2014 23:02:05 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_JnvwUZh8
+				WHERE ( Resultados.Dorsal = Manga_3_JnvwUZh8.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:02:05 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:02:06 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:02:06 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_0fO1SejI (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:02:06 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_0fO1SejI (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:02:06 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_0fO1SejI ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:02:06 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:02:06 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:02:06 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:02:06 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:02:06 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:02:06 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:02:06 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:02:06 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:02:07 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_0fO1SejI
+				WHERE ( Resultados.Dorsal = Manga_3_0fO1SejI.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:02:07 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:12:36 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:12:36 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_OwRFSDAg (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:12:36 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_OwRFSDAg (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:12:36 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_OwRFSDAg ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:12:36 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:12:36 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:12:36 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:12:36 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:12:36 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:12:36 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:12:36 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:12:36 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:12:37 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_OwRFSDAg
+				WHERE ( Resultados.Dorsal = Manga_3_OwRFSDAg.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:12:37 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:12:47 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 23:12:47 Europe/Madrid] TRACE pruebaFunctions::enumerate() : Enter
+[11-Feb-2014 23:12:47 Europe/Madrid] QUERY pruebaFunctions::enumerate() :
+SELECT count(*) FROM Pruebas WHERE ( Cerrada=0 ) 
+[11-Feb-2014 23:12:47 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 0 ) AND ( Cerrada=0) )
+[11-Feb-2014 23:12:47 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 23:12:47 Europe/Madrid] QUERY pruebaFunctions::enumerate() :
+SELECT * FROM Pruebas WHERE (Cerrada=0)  ORDER BY Nombre ASC
+[11-Feb-2014 23:12:47 Europe/Madrid] TRACE pruebaFunctions::enumerate() : Leave
+[11-Feb-2014 23:12:49 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 23:12:49 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 3 ) AND ( Cerrada=0) )
+[11-Feb-2014 23:12:49 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT * FROM Jornadas WHERE ( ( Prueba = 3 ) AND ( Cerrada=0 ) ) ORDER BY Numero ASC
+[11-Feb-2014 23:12:49 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 23:12:51 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 23:12:51 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 0 ) AND ( Cerrada=0) )
+[11-Feb-2014 23:12:51 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 23:12:51 Europe/Madrid] TRACE mangaFunctions::selectByJornada() : Enter
+[11-Feb-2014 23:12:51 Europe/Madrid] QUERY mangaFunctions::selectByJornada() :
+SELECT count(*) FROM Mangas WHERE ( Jornada = 9 )
+[11-Feb-2014 23:12:51 Europe/Madrid] QUERY mangaFunctions::selectByJornada() :
+SELECT ID, Mangas.Tipo AS Tipo, Tipo_Manga.Descripcion AS Descripcion
+			FROM Mangas,Tipo_Manga
+			WHERE ( ( Jornada = 9 ) AND ( Mangas.Tipo = Tipo_Manga.Tipo) )
+			ORDER BY Descripcion ASC
+[11-Feb-2014 23:12:51 Europe/Madrid] TRACE mangaFunctions::selectByJornada() : Leave
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE ordenSalidaFunctions::getData() : Enter
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY resultadosFunctions::__construct() :
+SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE ordenSalidaFunctions::getOrden() : Enter
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY ordenSalidaFunctions::getOrden() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE ordenSalidaFunctions::getOrden() : Leave
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE resultadosFunctions::enumerate() : Enter
+[11-Feb-2014 23:12:53 Europe/Madrid] DEBUG ordenSalidaFunctions::getData() : El orden de salida actual es BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY ordenSalidaFunctions::getData() :
+SELECT * FROM InscritosJornada WHERE ( Jornada=9 ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE Competicion::getOrden() : Enter
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY Competicion::getOrden() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_Hnbr9Zv7 (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE Competicion::getOrden() : Leave
+[11-Feb-2014 23:12:53 Europe/Madrid] DEBUG resultadosFunctions::enumerate() : El orden de salida es: 
+BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY resultadosFunctions::enumerate() :
+SELECT * FROM Resultados WHERE (Manga=3)
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE resultadosFunctions::enumerate() : Leave
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY ordenSalidaFunctions::getData() :
+SELECT Grado FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE ordenSalidaFunctions::getData() : Leave
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE mangaFunctions::selectByID() : Enter
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY mangaFunctions::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE mangaFunctions::selectByID() : Leave
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_Hnbr9Zv7 (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_Hnbr9Zv7 ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE juezFunctions::enumerate() : Enter
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT count(*) FROM Jueces 
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT * FROM Jueces  ORDER BY Nombre ASC
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE juezFunctions::enumerate() : Leave
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE juezFunctions::enumerate() : Enter
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT count(*) FROM Jueces 
+[11-Feb-2014 23:12:53 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT * FROM Jueces  ORDER BY Nombre ASC
+[11-Feb-2014 23:12:53 Europe/Madrid] TRACE juezFunctions::enumerate() : Leave
+[11-Feb-2014 23:12:54 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_Hnbr9Zv7
+				WHERE ( Resultados.Dorsal = Manga_3_Hnbr9Zv7.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:12:54 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:12:55 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:12:55 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_6nurDp5O (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:12:56 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_6nurDp5O (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:12:56 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_6nurDp5O ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:12:56 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:12:56 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:12:56 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:12:56 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:12:56 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:12:56 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:12:56 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:12:56 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:12:56 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_6nurDp5O
+				WHERE ( Resultados.Dorsal = Manga_3_6nurDp5O.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:12:56 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:13:27 Europe/Madrid] TRACE pruebaFunctions::enumerate() : Enter
+[11-Feb-2014 23:13:27 Europe/Madrid] QUERY pruebaFunctions::enumerate() :
+SELECT count(*) FROM Pruebas WHERE ( Cerrada=0 ) 
+[11-Feb-2014 23:13:27 Europe/Madrid] QUERY pruebaFunctions::enumerate() :
+SELECT * FROM Pruebas WHERE (Cerrada=0)  ORDER BY Nombre ASC
+[11-Feb-2014 23:13:27 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 23:13:27 Europe/Madrid] TRACE pruebaFunctions::enumerate() : Leave
+[11-Feb-2014 23:13:27 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 0 ) AND ( Cerrada=0) )
+[11-Feb-2014 23:13:27 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 23:13:29 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 23:13:29 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 3 ) AND ( Cerrada=0) )
+[11-Feb-2014 23:13:29 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT * FROM Jornadas WHERE ( ( Prueba = 3 ) AND ( Cerrada=0 ) ) ORDER BY Numero ASC
+[11-Feb-2014 23:13:29 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 23:13:31 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 23:13:31 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 0 ) AND ( Cerrada=0) )
+[11-Feb-2014 23:13:31 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 23:13:31 Europe/Madrid] TRACE mangaFunctions::selectByJornada() : Enter
+[11-Feb-2014 23:13:31 Europe/Madrid] QUERY mangaFunctions::selectByJornada() :
+SELECT count(*) FROM Mangas WHERE ( Jornada = 9 )
+[11-Feb-2014 23:13:31 Europe/Madrid] QUERY mangaFunctions::selectByJornada() :
+SELECT ID, Mangas.Tipo AS Tipo, Tipo_Manga.Descripcion AS Descripcion
+			FROM Mangas,Tipo_Manga
+			WHERE ( ( Jornada = 9 ) AND ( Mangas.Tipo = Tipo_Manga.Tipo) )
+			ORDER BY Descripcion ASC
+[11-Feb-2014 23:13:31 Europe/Madrid] TRACE mangaFunctions::selectByJornada() : Leave
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY resultadosFunctions::__construct() :
+SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE ordenSalidaFunctions::getData() : Enter
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE ordenSalidaFunctions::getOrden() : Enter
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_pLJO1Rnz (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY ordenSalidaFunctions::getOrden() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE resultadosFunctions::enumerate() : Enter
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE ordenSalidaFunctions::getOrden() : Leave
+[11-Feb-2014 23:13:32 Europe/Madrid] DEBUG ordenSalidaFunctions::getData() : El orden de salida actual es BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY ordenSalidaFunctions::getData() :
+SELECT * FROM InscritosJornada WHERE ( Jornada=9 ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE Competicion::getOrden() : Enter
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY Competicion::getOrden() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE Competicion::getOrden() : Leave
+[11-Feb-2014 23:13:32 Europe/Madrid] DEBUG resultadosFunctions::enumerate() : El orden de salida es: 
+BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY resultadosFunctions::enumerate() :
+SELECT * FROM Resultados WHERE (Manga=3)
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY ordenSalidaFunctions::getData() :
+SELECT Grado FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE resultadosFunctions::enumerate() : Leave
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE ordenSalidaFunctions::getData() : Leave
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE mangaFunctions::selectByID() : Enter
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY mangaFunctions::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE mangaFunctions::selectByID() : Leave
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_pLJO1Rnz (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_pLJO1Rnz ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE juezFunctions::enumerate() : Enter
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT count(*) FROM Jueces 
+[11-Feb-2014 23:13:32 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT * FROM Jueces  ORDER BY Nombre ASC
+[11-Feb-2014 23:13:32 Europe/Madrid] TRACE juezFunctions::enumerate() : Leave
+[11-Feb-2014 23:13:33 Europe/Madrid] TRACE juezFunctions::enumerate() : Enter
+[11-Feb-2014 23:13:33 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT count(*) FROM Jueces 
+[11-Feb-2014 23:13:33 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT * FROM Jueces  ORDER BY Nombre ASC
+[11-Feb-2014 23:13:33 Europe/Madrid] TRACE juezFunctions::enumerate() : Leave
+[11-Feb-2014 23:13:33 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_pLJO1Rnz
+				WHERE ( Resultados.Dorsal = Manga_3_pLJO1Rnz.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:13:33 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:13:35 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:13:35 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_1FxQSeCJ (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:13:35 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_1FxQSeCJ (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:13:35 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_1FxQSeCJ ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:13:35 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:13:35 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:13:35 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:13:35 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:13:35 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:13:35 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:13:35 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:13:35 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:13:35 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_1FxQSeCJ
+				WHERE ( Resultados.Dorsal = Manga_3_1FxQSeCJ.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:13:35 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:16:20 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:16:20 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_t76A8enR (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:16:20 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_t76A8enR (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:16:20 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_t76A8enR ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:16:20 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:16:20 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:16:20 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:16:20 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:16:20 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:16:20 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:16:20 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:16:20 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:16:21 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_t76A8enR
+				WHERE ( Resultados.Dorsal = Manga_3_t76A8enR.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:16:21 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:17:11 Europe/Madrid] TRACE pruebaFunctions::enumerate() : Enter
+[11-Feb-2014 23:17:11 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 23:17:11 Europe/Madrid] QUERY pruebaFunctions::enumerate() :
+SELECT count(*) FROM Pruebas WHERE ( Cerrada=0 ) 
+[11-Feb-2014 23:17:11 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 0 ) AND ( Cerrada=0) )
+[11-Feb-2014 23:17:11 Europe/Madrid] QUERY pruebaFunctions::enumerate() :
+SELECT * FROM Pruebas WHERE (Cerrada=0)  ORDER BY Nombre ASC
+[11-Feb-2014 23:17:11 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 23:17:11 Europe/Madrid] TRACE pruebaFunctions::enumerate() : Leave
+[11-Feb-2014 23:17:13 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 23:17:13 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 3 ) AND ( Cerrada=0) )
+[11-Feb-2014 23:17:13 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT * FROM Jornadas WHERE ( ( Prueba = 3 ) AND ( Cerrada=0 ) ) ORDER BY Numero ASC
+[11-Feb-2014 23:17:13 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 23:17:15 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Enter
+[11-Feb-2014 23:17:15 Europe/Madrid] QUERY jornadaFunctions::searchByPrueba() :
+SELECT count(*) FROM Jornadas WHERE ( ( Prueba = 0 ) AND ( Cerrada=0) )
+[11-Feb-2014 23:17:15 Europe/Madrid] TRACE jornadaFunctions::searchByPrueba() : Leave
+[11-Feb-2014 23:17:16 Europe/Madrid] TRACE mangaFunctions::selectByJornada() : Enter
+[11-Feb-2014 23:17:16 Europe/Madrid] QUERY mangaFunctions::selectByJornada() :
+SELECT count(*) FROM Mangas WHERE ( Jornada = 9 )
+[11-Feb-2014 23:17:16 Europe/Madrid] QUERY mangaFunctions::selectByJornada() :
+SELECT ID, Mangas.Tipo AS Tipo, Tipo_Manga.Descripcion AS Descripcion
+			FROM Mangas,Tipo_Manga
+			WHERE ( ( Jornada = 9 ) AND ( Mangas.Tipo = Tipo_Manga.Tipo) )
+			ORDER BY Descripcion ASC
+[11-Feb-2014 23:17:16 Europe/Madrid] TRACE mangaFunctions::selectByJornada() : Leave
+[11-Feb-2014 23:17:17 Europe/Madrid] TRACE ordenSalidaFunctions::getData() : Enter
+[11-Feb-2014 23:17:17 Europe/Madrid] TRACE ordenSalidaFunctions::getOrden() : Enter
+[11-Feb-2014 23:17:17 Europe/Madrid] QUERY ordenSalidaFunctions::getOrden() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 23:17:17 Europe/Madrid] TRACE ordenSalidaFunctions::getOrden() : Leave
+[11-Feb-2014 23:17:17 Europe/Madrid] DEBUG ordenSalidaFunctions::getData() : El orden de salida actual es BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
+[11-Feb-2014 23:17:17 Europe/Madrid] QUERY ordenSalidaFunctions::getData() :
+SELECT * FROM InscritosJornada WHERE ( Jornada=9 ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden
+[11-Feb-2014 23:17:17 Europe/Madrid] QUERY resultadosFunctions::__construct() :
+SELECT Jornada,Cerrada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:17:17 Europe/Madrid] TRACE resultadosFunctions::enumerate() : Enter
+[11-Feb-2014 23:17:17 Europe/Madrid] TRACE Competicion::getOrden() : Enter
+[11-Feb-2014 23:17:17 Europe/Madrid] QUERY Competicion::getOrden() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 23:17:17 Europe/Madrid] TRACE Competicion::getOrden() : Leave
+[11-Feb-2014 23:17:17 Europe/Madrid] DEBUG resultadosFunctions::enumerate() : El orden de salida es: 
+BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END
+[11-Feb-2014 23:17:17 Europe/Madrid] QUERY resultadosFunctions::enumerate() :
+SELECT * FROM Resultados WHERE (Manga=3)
+[11-Feb-2014 23:17:17 Europe/Madrid] TRACE resultadosFunctions::enumerate() : Leave
+[11-Feb-2014 23:17:17 Europe/Madrid] QUERY ordenSalidaFunctions::getData() :
+SELECT Grado FROM Mangas WHERE ( ID=3 )
+[11-Feb-2014 23:17:17 Europe/Madrid] TRACE ordenSalidaFunctions::getData() : Leave
+[11-Feb-2014 23:17:17 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:17:17 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_PZYnRO6I (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:17:18 Europe/Madrid] TRACE mangaFunctions::selectByID() : Enter
+[11-Feb-2014 23:17:18 Europe/Madrid] QUERY mangaFunctions::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:17:18 Europe/Madrid] TRACE mangaFunctions::selectByID() : Leave
+[11-Feb-2014 23:17:18 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_PZYnRO6I (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:17:18 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_PZYnRO6I ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:17:18 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:17:18 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:17:18 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:17:18 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:17:18 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:17:18 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:17:18 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:17:18 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:17:18 Europe/Madrid] TRACE juezFunctions::enumerate() : Enter
+[11-Feb-2014 23:17:18 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT count(*) FROM Jueces 
+[11-Feb-2014 23:17:18 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT * FROM Jueces  ORDER BY Nombre ASC
+[11-Feb-2014 23:17:18 Europe/Madrid] TRACE juezFunctions::enumerate() : Leave
+[11-Feb-2014 23:17:18 Europe/Madrid] TRACE juezFunctions::enumerate() : Enter
+[11-Feb-2014 23:17:18 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT count(*) FROM Jueces 
+[11-Feb-2014 23:17:18 Europe/Madrid] QUERY juezFunctions::enumerate() :
+SELECT * FROM Jueces  ORDER BY Nombre ASC
+[11-Feb-2014 23:17:18 Europe/Madrid] TRACE juezFunctions::enumerate() : Leave
+[11-Feb-2014 23:17:18 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_PZYnRO6I
+				WHERE ( Resultados.Dorsal = Manga_3_PZYnRO6I.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:17:18 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:17:19 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:17:19 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_DbtUCFNK (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:17:19 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_DbtUCFNK (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:17:19 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_DbtUCFNK ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:17:19 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:17:19 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:17:19 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:17:19 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:17:19 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:17:19 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:17:19 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:17:19 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:17:20 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_DbtUCFNK
+				WHERE ( Resultados.Dorsal = Manga_3_DbtUCFNK.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:17:20 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:23:55 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:23:55 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_G2C680Eh (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:23:55 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_G2C680Eh (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:23:55 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_G2C680Eh ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:23:55 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:23:55 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:23:55 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:23:55 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:23:55 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:23:55 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:23:55 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:23:55 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:23:55 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:55 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:55 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:55 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:55 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:55 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:55 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:55 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:55 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:56 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:56 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:56 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:56 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:56 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:56 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:56 Europe/Madrid] PHP Notice:  Undefined property: stdClass::$velocidad in /home/jantonio/work/agility/git-localrepo/agility/database/classes/Clasificaciones.php on line 112
+[11-Feb-2014 23:23:56 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_G2C680Eh
+				WHERE ( Resultados.Dorsal = Manga_3_G2C680Eh.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:23:56 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:24:31 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:24:31 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_Io4UQ1g0 (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:24:31 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_Io4UQ1g0 (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:24:31 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_Io4UQ1g0 ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:24:31 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:24:31 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:24:31 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:24:31 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:24:31 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:24:31 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:24:31 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:24:31 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:24:32 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_Io4UQ1g0
+				WHERE ( Resultados.Dorsal = Manga_3_Io4UQ1g0.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:24:32 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:26:53 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:26:53 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_Bp7QaNiS (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:26:53 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_Bp7QaNiS (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:26:53 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_Bp7QaNiS ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:26:53 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:26:53 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:26:53 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:26:53 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:26:53 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:26:53 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:26:53 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:26:53 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:26:54 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_Bp7QaNiS
+				WHERE ( Resultados.Dorsal = Manga_3_Bp7QaNiS.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:26:54 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave
+[11-Feb-2014 23:27:24 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Enter
+[11-Feb-2014 23:27:24 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+CREATE TEMPORARY TABLE Manga_3_hVkCETc4 (
+			`Dorsal` int(4) NOT NULL,
+			`Categoria` varchar(1) NOT NULL DEFAULT '-',
+			`PRecorrido` double NOT NULL DEFAULT '0',
+			`PTiempo` double NOT NULL DEFAULT '0',
+			`Tiempo` double NOT NULL DEFAULT '0',
+			`Velocidad` double NOT NULL DEFAULT '0',
+			`Puntos` double NOT NULL DEFAULT '0',
+			`Calificacion` varchar(16) DEFAULT NULL,
+			PRIMARY KEY ( `Dorsal` )
+		)
+[11-Feb-2014 23:27:24 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+INSERT INTO Manga_3_hVkCETc4 (Dorsal,Categoria,Tiempo,PRecorrido) 
+			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
+			FROM Resultados WHERE ( Manga =3 )
+[11-Feb-2014 23:27:24 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT * FROM Manga_3_hVkCETc4 ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC 
+[11-Feb-2014 23:27:24 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:27:24 Europe/Madrid] QUERY clasificacionesFunctions::getJornada() :
+SELECT Jornada FROM Mangas WHERE ID=3
+[11-Feb-2014 23:27:24 Europe/Madrid] TRACE clasificacionesFunctions::getJornada() : Leave
+[11-Feb-2014 23:27:24 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Enter
+[11-Feb-2014 23:27:24 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Enter
+[11-Feb-2014 23:27:24 Europe/Madrid] QUERY Clasificaciones.php::selectByID() :
+SELECT * FROM Mangas WHERE ( ID = 3 )
+[11-Feb-2014 23:27:24 Europe/Madrid] TRACE Clasificaciones.php::selectByID() : Leave
+[11-Feb-2014 23:27:24 Europe/Madrid] TRACE Clasificaciones.php::datosTRS() : Leave
+[11-Feb-2014 23:27:25 Europe/Madrid] QUERY clasificacionesFunctions::parcial() :
+SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				FROM Resultados,Manga_3_hVkCETc4
+				WHERE ( Resultados.Dorsal = Manga_3_hVkCETc4.Dorsal )
+				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC
+[11-Feb-2014 23:27:25 Europe/Madrid] TRACE clasificacionesFunctions::parcial() : Leave

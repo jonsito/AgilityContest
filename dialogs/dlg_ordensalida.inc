@@ -36,8 +36,8 @@ $('#ordensalida-datagrid').datagrid({
 	closable: false,
 	collapsible: false,
 	collapsed: false,
-	method: 'get',
 	// propiedades del datagrid
+	method: 'get',
 	url: 'database/ordenSalidaFunctions.php?Operation=getData',
     queryParams: {
         Jornada: workingData.jornada,
