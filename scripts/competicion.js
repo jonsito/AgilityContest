@@ -144,16 +144,17 @@ function saveCompeticionData(idx,data) {
 }
 
 // genera un nuevo orden aleatorio
-function randomOrdenSalida() {
+function evalOrdenSalida(mode) {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
 	$.ajax({
 		type:'GET',
-		url:"database/ordenSalidaFunctions.php?Operation=random",
+		url:"database/ordenSalidaFunctions.php",
 		dataType:'json',
 		data: { 
 			Jornada: workingData.jornada,
-			Manga: workingData.manga
+			Manga: workingData.manga,
+			Operation: mode
 		}
 	}).done( function(msg) {
 		reloadOrdenSalida();

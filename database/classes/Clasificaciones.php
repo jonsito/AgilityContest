@@ -25,14 +25,13 @@ class Clasificaciones extends DBObject {
 	}
 
 	/**
-	 * Presenta los Clasificaciones parciales de la manga indicada
-	 * @param {integer} $cat lista de categorias. eg ("L", "MS" "LMS" "-" )
-	 * @return null on error; else array en formato easyui datagrid
+	 * Calcula los Clasificaciones parciales de la manga indicada
+	 * @param {integer} $manga Manga ID
+	 * @return null on error; "" on success
 	 */
-	function parcial($manga) {
+	function clasificacion($tablename,$manga) {
 		$this->myLogger->enter();
 		// FASE 0: creamos una tabla temporal en la que ir almacenando los diversos resultados parciales
-		$tablename="Manga_".$manga."_".random_password(8);
 		$str="CREATE TEMPORARY TABLE $tablename (
 			`Dorsal` int(4) NOT NULL,
 			`Categoria` varchar(1) NOT NULL DEFAULT '-',
@@ -81,7 +80,7 @@ class Clasificaciones extends DBObject {
 			array_push($data,$row);
 		}
 		$rs->free();
-		
+		$this->myLogger->info("Fase 2. numero de filas: ".count($data));
 		// FASE 3: obtenemos el TRS y evaluamos puntuacion y calificacion
 		$jornada= $this->getJornada($manga);
 		if (!$jornada) return null; // error log already done
@@ -134,13 +133,26 @@ class Clasificaciones extends DBObject {
 			if (!$res) return $this->error($this->conn->error); 
 		}
 		$stmt->close(); // cerramos el prepared statement
-		
-		// FASE 5: Finalmente hacemos un query en base a un join de la tabla de resultados 
+		$this->myLogger->leave();
+		return ""; // retornamos OK
+	}
+	
+	/**
+	 * Presenta los Clasificaciones parciales de la manga indicada
+	 * @param {integer} $manga Manga ID
+	 * @return null on error; on success result in easyui datagrid compatible format
+	 */
+	function parcial($manga) {
+		$this->myLogger->enter();
+		// Fase 1: generamos la clasificacion
+		$tablename="Manga_".$manga."_".random_password(8);
+		$res=$this->clasificacion($tablename,$manga);
+		// FASE 2: hacemos un query en base a un join de la tabla de resultados 
 		// y la de calificaciones ordenado por categoria/puntos/tiempo
 		$str= "SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
 				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
 				FROM Resultados,$tablename
-				WHERE ( Resultados.Dorsal = $tablename.Dorsal )
+				WHERE ( Resultados.Dorsal = $tablename.Dorsal ) AND (Manga=$manga)
 				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -157,6 +169,35 @@ class Clasificaciones extends DBObject {
 			$item['Puesto']=$puesto++;
 			array_push($rows,$item);
 		}
+		$rs->free();
+		$result=array();
+		$result['total']=count($rows);
+		$result['rows']=$rows;
+		$this->myLogger->leave();
+		return $result;
+	}
+	
+	/**
+	 * Calcula el orden de una manga en funcion del resultado
+	 * @param unknown $manga
+	 * @return multitype:multitype: NULL
+	 */
+	function reverseOrden($manga) {
+		$this->myLogger->enter();
+		// Fase 1: generamos la clasificacion
+		$tablename="Manga_".$manga."_".random_password(8);
+		$res=$this->clasificacion($tablename,$manga);
+		// FASE 2: hacemos un query en base a un join de la tabla de resultados
+		// y la de calificaciones ordenado por categoria/celo/puntos/tiempo
+		$str= "SELECT Resultados.Dorsal AS Dorsal, Resultados.Categoria AS Categoria, Celo, Resultados.Tiempo AS Tiempo, Puntos
+		FROM Resultados,$tablename
+		WHERE ( Resultados.Dorsal = $tablename.Dorsal ) AND (Manga=$manga);
+		ORDER BY Categoria ASC, Celo ASC, Puntos DESC, Tiempo DESC";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		// y devolvemos el resultado
+		$rows=array();
+		while ($item=$rs->fetch_array()) array_push($rows,$item);
 		$rs->free();
 		$result=array();
 		$result['total']=count($rows);

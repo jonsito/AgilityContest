@@ -124,7 +124,7 @@
             }
 		});
         // - botones de la toolbar de la tabla
-        $('#perros-newBtn').linkbutton({plain:true,iconCls:'icon-add'}); // nuevo perro       
+        $('#perros-newBtn').linkbutton({plain:true,iconCls:'icon-dog'}); // nuevo perro       
         $('#perros-newBtn').tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Dar de alta un nuevo perro en la BBDD</span>',

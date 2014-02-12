@@ -3,8 +3,8 @@
 	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 	<div id="ordensalida-toolbar">
  		<span style="float:left">
-		   	<a id="ordensalida-randomBtn" href="#" class="easyui-linkbutton" onclick="randomOrdenSalida()">Aleatorio</a>
-		   	<a id="ordensalida-resultBtn" href="#" class="easyui-linkbutton" onclick="resultOrdenSalida()">Manga anterior</a>
+		   	<a id="ordensalida-randomBtn" href="#" class="easyui-linkbutton" onclick="evalOrdenSalida('random')">Aleatorio</a>
+		   	<a id="ordensalida-resultBtn" href="#" class="easyui-linkbutton" onclick="evalOrdenSalida('reverse')">Manga anterior</a>
 		   	<a id="ordensalida-saveBtn" href="#" class="easyui-linkbutton" onclick="saveOrdenSalida()">Guardar</a>
 		   	<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadOrdenSalida()">Actualizar</a>
     		</span>

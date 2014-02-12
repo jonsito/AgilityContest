@@ -1,5 +1,7 @@
 <?php
 require_once("DBObject.php");
+require_once("Resultados.php");
+require_once("Clasificaciones.php");
 
 class OrdenSalida extends DBObject {
 	
@@ -243,6 +245,49 @@ class OrdenSalida extends DBObject {
 	}
 	
 	/**
+	 * Calcula el orden de salida de una manga en funcion del orden inverso al resultado de su manga "hermana"
+	 * @param {integer} $jornada ID De Jornada
+	 * @param {integer} $manga ID De la manga de la que hay que calcular el orden de salida
+	 * @return {string} nuevo orden de salida; null on error
+	 */
+	function reverse($jornada,$manga) {
+		$this->myLogger->enter();
+		// fase 1: buscamos la "manga hermana"
+		$str="SELECT Grado FROM Mangas WHERE (Jornada=$jornada) AND (ID=$manga)";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		$obj=$rs->fetch_object();
+		$rs->free();
+		if (!$obj) return $this->error("No manga found with ID=$manga");
+		$grado=$obj->Grado;
+		$str="Select * FROM Mangas WHERE (Jornada=$jornada) AND (Grado='$grado') AND (ID!=$manga)";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		$manga2=$rs->fetch_object();
+		$rs->free();
+		if (!$manga2) return $this->error("No manga found with with same 'Grado' as ID=$manga");
+		$mangaid=$manga2->ID;
+	
+		// fase 2: evaluamos resultados
+		// nos aseguramos de que la manga tiene la tabla de resultados asociada
+		$r=new Resultados("OrdenSalida::Reverse",$mangaid);
+		$r->enumerate();
+		if (!$r) return null;
+		$r=new Clasificaciones("OrdenSalida::Reverse");
+		$orden=$r->reverseOrden($mangaid);
+		if (!$orden) return null;
+		
+		// fase 3: componemos el orden de salida en base a los resultados obtenidos
+		$ordensalida=$this->default_orden;
+		foreach ($orden as $item) {
+			$ordensalida=$this->insertIntoList($ordensalida,$item['Dorsal'],$item['Categoria'],$item['Celo']);
+		}
+		$this->setOrden($mangaid,$ordensalida);
+		$this->myLogger->leave();
+		return $ordensalida;
+	}
+	
+	/**
 	 * Inserta/actualiza/elimina un perro del orden de salida
 	 * @param {integer} $idjornada ID de jornada
 	 * @param {integer} $idmanga ID de manga
@@ -344,39 +389,7 @@ class OrdenSalida extends DBObject {
 		$this->myLogger->leave();
 		return "";
 	}
-	
-	/**
-	 * Intercambia el orden de dos dorsales siempre que esten consecutivos
-	 * @param {integer} $jornada ID de jornada
-	 * @param {integer} $manga ID de manga
-	 * @param {integer} $dorsal1 Dorsal del primer perro
-	 * @param {integer} $dorsal2 Dorsal del segundo perro
-	 * @return {string} nuevo orden de salida
-	 */
-	function swap($jornada, $manga, $dorsal1, $dorsal2) {
-		$this->myLogger->enter();
-		// componemos strings
-		$str1 = "," . $dorsal1 . "," . $dorsal2 . ",";
-		$str2 = "," . $dorsal2 . "," . $dorsal1 . ",";
-		// recuperamos el orden de salida
-		$ordensalida = $this->getOrden ( $manga );
-		if ($ordensalida === "") $nuevoorden=""; // no change
-			// si encontramos str1 lo substituimos por str2
-		else if (strpos ( $ordensalida, $str1 ) !== false)
-			$nuevoorden = str_replace ( $str1, $str2, $ordensalida );
-			// si encontramos str2 lo substituimos por str1
-		else if (strpos ( $ordensalida, $str2 ) !== false)
-			$nuevoorden = str_replace ( $str2, $str1, $ordensalida );
-			// si no encontramos ninguno de los dos lo dejamos como estaba
-		else {
-			$this->error("Los dorsales $dorsal1 y $dorsal2 no estan consecutivos" );
-			$nuevoorden=$ordensalida;
-		}
-		// actualizamos orden de salida
-		setOrden ( $manga, $nuevoorden );
-		$this->myLogger->leave();
-		return $nuevoorden;
-	}
+
 } // class
 
 ?>

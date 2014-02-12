@@ -17,13 +17,15 @@ try {
 	$j = http_request("Jornada","i",0);
 	$m = http_request("Manga","i",0);
 	$d = http_request("Dorsal","i",0);
+	// los siguiente campos se usan para drag and drop
 	$f = http_request("From","i",0);
 	$t = http_request("To","i",0);
 	$w = http_request("Where","i",0);
 	if (($j<=0)||($m<=0)) 
 		throw new Exception("Call to ordenSalidaFunctions with Invalid Jornada $j or manga $m ID");
 	switch ($operation) {
-		case "random":	$result = $os->random($j,$m,true); break;
+		case "random":	$result = $os->random($j,$m); break;
+		case "reverse":	$result = $os->reverse($j,$m); break;
 		case "handle":	$result = $os->handle($j,$m,$d); break;
 		case "getData":	$result = $os->getData($j,$m); break;
 		case "dnd":	$result = $os->dragAndDrop($j,$m,$f,$t,$w); break;

@@ -16,7 +16,6 @@ try {
 		case "delete": $result=$resultados->delete($dorsal); break;
 		case "select": $result=$resultados->select($dorsal); break;
 		case "enumerate": $result=$resultados->enumerate(); break;
-		case "resultados": $result=$resultados->resultados(http_request("Categorias","s","LMS")); break;
 		default: throw new Exception("resultadosFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) throw new Exception($resultados->errormsg);
