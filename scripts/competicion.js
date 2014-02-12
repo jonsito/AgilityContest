@@ -52,6 +52,10 @@ function dmanga_setRecorridos() {
  * @param {Integer} id Identificador de la manga
  */
 function save_manga(id) {
+	$("#competicion-formdatosmanga").bind('ajax:complete', function() {
+		// on submit success, reload results
+		reloadResultadosManga();
+	});
 	$('#competicion-formdatosmanga').form('submit', {
 		url: 'database/mangaFunctions.php',
 		onSubmit: function(param) {
@@ -112,6 +116,7 @@ function reloadResultadosManga() {
             }
     );
 }
+
 function saveCompeticionData(idx,data) {
 	$.ajax({
 		type:'GET',
@@ -189,8 +194,14 @@ function dragAndDrop(from,to,where) {
 function competicionDialog(name) {
 	// obtenemos datos de la manga seleccionada
 	var row= $('#competicion-listamangas').datagrid('getSelected');
-    if (!row) return; // no hay ninguna manga seleccionada. retornar
+    if (!row) {
+    	$.messager.alert('Error','No hay ninguna manga seleccionada','info');
+    	return; // no hay ninguna manga seleccionada. retornar
+    }
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
+    $('#ordensalida-window').dialog('close');
+    $('#competicion-window').dialog('close');
+    $('#resultadosmanga-window').dialog('close');
     if (name==='ordensalida') {
         // abrimos ventana de dialogo
         $('#ordensalida-window').dialog('open').window('setTitle'," Orden de Salida: "+title);

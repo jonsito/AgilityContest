@@ -26,7 +26,7 @@ $('#ordensalida-window').window({
 	resizable:		false,
 	iconCls:		'icon-order',
 	closed:			true,
-	modal:			true
+	modal:			false
 });
 
 $('#ordensalida-datagrid').datagrid({

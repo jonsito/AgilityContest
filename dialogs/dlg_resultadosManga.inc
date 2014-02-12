@@ -23,7 +23,7 @@ $('#resultadosmanga-window').window({
 	resizable:		false,
 	iconCls:		'icon-flagend',
 	closed:			true,
-	modal:			true
+	modal:			false
 });
 
 $('#resultadosmanga-datagrid').datagrid({
