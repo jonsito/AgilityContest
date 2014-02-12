@@ -31,7 +31,7 @@ class DBObject {
 	 * Just disconnect from database
 	 */
 	function  __destruct() {
-		DBConnection::closeConnection($this->conn);
+		// DBConnection::closeConnection($this->conn);
 	}
 	
 	function error($msg) {

@@ -47,6 +47,7 @@ class Clasificaciones extends DBObject {
 		if (!$rs) return $this->error($this->conn->error);
 		
 		// FASE 1: hacemos un calculo de las penalizaciones por recorrido
+
 		$str="INSERT INTO $tablename (Dorsal,Categoria,Tiempo,PRecorrido) 
 			SELECT Dorsal,Categoria,Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
 			FROM Resultados WHERE ( Manga =$manga )";
@@ -80,10 +81,10 @@ class Clasificaciones extends DBObject {
 			array_push($data,$row);
 		}
 		$rs->free();
-		$this->myLogger->info("Fase 2. numero de filas: ".count($data));
+		
 		// FASE 3: obtenemos el TRS y evaluamos puntuacion y calificacion
 		$jornada= $this->getJornada($manga);
-		if (!$jornada) return null; // error log already done
+		if (!$jornada) return $this->error("Cannot find jornada for manga: $manga"); // error log already done
 		$mng= new Mangas("Clasificaciones.php",$jornada);
 		$datos_trs= $mng->datosTRS($manga,$tiempos);
 		
@@ -97,6 +98,7 @@ class Clasificaciones extends DBObject {
 		$res=$stmt->bind_param('dddsi',$pt,$p,$v,$c,$d);
 		if (!$res) return $this->error($this->conn->error); 
 		foreach($data as $row) {
+			// $this->myLogger->trace("before fase 4: ".print_r($row,true));
 			// reevaluamos la penalizacion y obtenemos puntos en funcion del TRS
 			$trs=$datos_trs[$row->Categoria]['TRS'];
 			$trm=$datos_trs[$row->Categoria]['TRM'];
@@ -108,6 +110,7 @@ class Clasificaciones extends DBObject {
 			if ($row->Tiempo==0) $row->Velocidad=0;
 			else $row->Velocidad = $datos_trs[$row->Categoria]['Dist'] / $row->Tiempo;
 			$row->Velocidad=number_format($row->Velocidad,1);
+			$row->Puntos=number_format($row->Puntos,2);
 			// evaluamos calificacion
 			if ($row->Puntos==0)	$row->Calificacion = "Excelente (p)";
 			if ($row->Puntos>0)		$row->Calificacion = "Excelente";
@@ -129,7 +132,9 @@ class Clasificaciones extends DBObject {
 			$v=$row->Velocidad;
 			$c=$row->Calificacion;
 			$d=$row->Dorsal;	
+			// $this->myLogger->trace("after fase 4: ".print_r($row,true));
 			$res=$stmt->execute();
+			// $this->myLogger->trace("update clasificacion on Dorsal: $d");
 			if (!$res) return $this->error($this->conn->error); 
 		}
 		$stmt->close(); // cerramos el prepared statement
@@ -147,6 +152,7 @@ class Clasificaciones extends DBObject {
 		// Fase 1: generamos la clasificacion
 		$tablename="Manga_".$manga."_".random_password(8);
 		$res=$this->clasificacion($tablename,$manga);
+		if (!$res) return $this->error("parcial::clasificacion returned null");
 		// FASE 2: hacemos un query en base a un join de la tabla de resultados 
 		// y la de calificaciones ordenado por categoria/puntos/tiempo
 		$str= "SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
@@ -187,12 +193,15 @@ class Clasificaciones extends DBObject {
 		// Fase 1: generamos la clasificacion
 		$tablename="Manga_".$manga."_".random_password(8);
 		$res=$this->clasificacion($tablename,$manga);
+		if (!$res) return $this->error("reverse::clasificacion returned null");
 		// FASE 2: hacemos un query en base a un join de la tabla de resultados
 		// y la de calificaciones ordenado por categoria/celo/puntos/tiempo
-		$str= "SELECT Resultados.Dorsal AS Dorsal, Resultados.Categoria AS Categoria, Celo, Resultados.Tiempo AS Tiempo, Puntos
-		FROM Resultados,$tablename
-		WHERE ( Resultados.Dorsal = $tablename.Dorsal ) AND (Manga=$manga);
-		ORDER BY Categoria ASC, Celo ASC, Puntos DESC, Tiempo DESC";
+		
+		// TODO: buscar la forma de insertar el campo "celo" en alguna de las tablas
+		$str= "SELECT Manga, Resultados.Dorsal AS Dorsal, Resultados.Categoria AS Categoria, Celo, Resultados.Tiempo AS Tiempo, Puntos
+			FROM Resultados,$tablename
+			WHERE ( Resultados.Dorsal = $tablename.Dorsal ) AND (Manga=$manga)
+			ORDER BY Categoria ASC, Celo ASC, Puntos DESC, Tiempo DESC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// y devolvemos el resultado

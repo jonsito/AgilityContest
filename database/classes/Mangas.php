@@ -328,7 +328,12 @@ class Mangas extends DBObject {
 				break;
 		}
 		$result['S']['TRM'] = ceil( $result['S']['TRM'] ); // redondeamos hacia arriba el TRM de Standard
-		
+		$str="Datos de TRS/TRM:
+				
+Standard - Dist:".$result["L"]["Dist"]." Obst: ".$result["L"]["Obst"]." TRS:".$result["L"]["TRS"]." TRM:".$result["L"]["TRM"]."
+Medium   - Dist:".$result["M"]["Dist"]." Obst: ".$result["M"]["Obst"]." TRS:".$result["M"]["TRS"]." TRM:".$result["M"]["TRM"]."
+Small    - Dist:".$result["S"]["Dist"]." Obst: ".$result["S"]["Obst"]." TRS:".$result["S"]["TRS"]." TRM:".$result["S"]["TRM"];
+		$this->myLogger->info($str);		
 		$this->myLogger->leave();
 		// $this->myLogger->trace(print_r($result,true));
 		return $result; // NOTICE: this IS NOT datagrid expected return format

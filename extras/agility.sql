@@ -1482,7 +1482,7 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
   `Rehuses` int(4) NOT NULL DEFAULT '0',
   `Tocados` int(4) NOT NULL DEFAULT '0',
   `Eliminado` tinyint(1) NOT NULL DEFAULT '0',
-  `NoPresentado` tinyint(1) NOT NULL DEFAULT '0',
+  `NoPresentado` tinyint(1) NOT NULL DEFAULT '1',
   `Tiempo` double NOT NULL DEFAULT '0',
   `Observaciones` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`Manga`,`Dorsal`),

@@ -272,14 +272,21 @@ class OrdenSalida extends DBObject {
 		// nos aseguramos de que la manga tiene la tabla de resultados asociada
 		$r=new Resultados("OrdenSalida::Reverse",$mangaid);
 		$r->enumerate();
-		if (!$r) return null;
+		if (!$r) {
+			$this->myLoger->error("OrdenSalida::reverse::enumerate $mangaid failed");
+			return null;
+		}
 		$r=new Clasificaciones("OrdenSalida::Reverse");
 		$orden=$r->reverseOrden($mangaid);
-		if (!$orden) return null;
-		
+		if (!$orden) {
+			$this->myLogger->error("OrdenSalida::reverse::orden $mangaid failed");
+			return null;
+		}
+
 		// fase 3: componemos el orden de salida en base a los resultados obtenidos
 		$ordensalida=$this->default_orden;
-		foreach ($orden as $item) {
+		foreach ($orden['rows'] as $item) {
+			// $this->myLogger->trace("parsing row:".$item['Dorsal']);
 			$ordensalida=$this->insertIntoList($ordensalida,$item['Dorsal'],$item['Categoria'],$item['Celo']);
 		}
 		$this->setOrden($mangaid,$ordensalida);

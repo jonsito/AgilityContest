@@ -125,7 +125,9 @@ class Resultados extends DBObject {
 		$tiempo=http_request("Tiempo","d",0.0);
 		$observaciones=http_request("Observaciones","s","");
 		// comprobamos la coherencia de los datos recibidos y ajustamos
+		// NOTA: el orden de estas comprobaciones es MUY importante
 		if ($rehuses>=3) { $tiempo=0; $eliminado=1; $nopresentado=0;}
+		if ($tiempo>0) {$nopresentado=0;}
 		if ($eliminado==1) { $tiempo=0; $nopresentado=0; }
 		if ($nopresentado==1) { $tiempo=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0; }
 		if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; $faltas=0; $rehuses=0; $tocados=0; }
@@ -179,7 +181,6 @@ class Resultados extends DBObject {
 			if (strpos ( $dorsal, "END" ) !== false) continue;
 			if (strpos ( $dorsal, "TAG_" ) !== false)	continue;
 			if (!isset($data[$dorsal])){
-				// THIS SHOULD NEVER OCCURS. IT'S ONLY FOR TESTING
 				$this->myLogger->warn("No Results for dorsal:$dorsal. Creating default one");
 				$this->insert($dorsal);
 				$data[$dorsal]=$this->select($dorsal);
