@@ -53,7 +53,7 @@ class Clasificaciones extends DBObject {
 			FROM Resultados WHERE ( Manga =$manga )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
-		
+	
 		// Fase 2: extraemos los tres mejores tiempos de cada categoria
 		$str="SELECT * FROM $tablename ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC ";
 		$rs=$this->query($str);
@@ -90,14 +90,14 @@ class Clasificaciones extends DBObject {
 		
 		// FASE 4: revisamos el array evaluando penalizacion y calificacion 
 		// y lo reinsertamos en la tabla temporal		
-		
+	
 		// componemos un prepared statement
 		$sql ="UPDATE $tablename SET PTiempo=? , Puntos=? ,Velocidad=?, Calificacion=? WHERE ( Dorsal=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('dddsi',$pt,$p,$v,$c,$d);
 		if (!$res) return $this->error($this->conn->error); 
-		foreach($data as $row) {
+		foreach($data as $row) {	
 			// $this->myLogger->trace("before fase 4: ".print_r($row,true));
 			// reevaluamos la penalizacion y obtenemos puntos en funcion del TRS
 			$trs=$datos_trs[$row->Categoria]['TRS'];
@@ -152,7 +152,7 @@ class Clasificaciones extends DBObject {
 		// Fase 1: generamos la clasificacion
 		$tablename="Manga_".$manga."_".random_password(8);
 		$res=$this->clasificacion($tablename,$manga);
-		if (!$res) return $this->error("parcial::clasificacion returned null");
+		if ($res===null) return $this->error("parcial::clasificacion returned null");
 		// FASE 2: hacemos un query en base a un join de la tabla de resultados 
 		// y la de calificaciones ordenado por categoria/puntos/tiempo
 		$str= "SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
@@ -193,7 +193,7 @@ class Clasificaciones extends DBObject {
 		// Fase 1: generamos la clasificacion
 		$tablename="Manga_".$manga."_".random_password(8);
 		$res=$this->clasificacion($tablename,$manga);
-		if (!$res) return $this->error("reverse::clasificacion returned null");
+		if ($res===null) return $this->error("reverse::clasificacion returned null");
 		// FASE 2: hacemos un query en base a un join de la tabla de resultados
 		// y la de calificaciones ordenado por categoria/celo/puntos/tiempo
 		
@@ -201,7 +201,7 @@ class Clasificaciones extends DBObject {
 		$str= "SELECT Manga, Resultados.Dorsal AS Dorsal, Resultados.Categoria AS Categoria, Resultados.Tiempo AS Tiempo, Puntos
 			FROM Resultados,$tablename
 			WHERE ( Resultados.Dorsal = $tablename.Dorsal ) AND (Manga=$manga)
-			ORDER BY Categoria ASC, Celo ASC, Puntos DESC, Tiempo DESC";
+			ORDER BY Categoria ASC, Puntos DESC, Tiempo DESC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// y devolvemos el resultado

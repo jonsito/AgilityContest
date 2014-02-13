@@ -66,7 +66,7 @@ class OrdenSalida extends DBObject {
 	 */
 	function insertIntoList($ordensalida, $dorsal, $cat, $celo) {
 		$this->myLogger->enter();
-		$this->myLogger->debug("inserting dorsal:$dorsal cat:$cat celo:$celo" );
+		// $this->myLogger->debug("inserting dorsal:$dorsal cat:$cat celo:$celo" );
 		// lo borramos para evitar una posible doble insercion
 		$str = "," . $dorsal . ",";
 		$nuevoorden = str_replace ( $str, ",", $ordensalida );
@@ -140,7 +140,6 @@ class OrdenSalida extends DBObject {
 		// fase 0: vemos si ya hay una lista definida
 		$ordensalida = $this->getOrden ( $manga );
 		if ($ordensalida === "") { // no hay orden predefinido
-		    // TODO: comprobamos si estamos en la segunda manga y usamos resultados como orden de salida
 			$ordensalida = $this-> random ( $jornada, $manga, false );
 		}
 		$this->myLogger->debug("El orden de salida actual es $ordensalida" );
@@ -303,7 +302,7 @@ class OrdenSalida extends DBObject {
 			// $this->myLogger->trace("parsing row:".$item['Dorsal']);
 			$ordensalida=$this->insertIntoList($ordensalida,$item['Dorsal'],$item['Categoria'],$celo[$item['Dorsal']]);
 		}
-		$this->setOrden($mangaid,$ordensalida);
+		$this->setOrden($manga,$ordensalida);
 		$this->myLogger->trace("El orden de salida original era:\n$obj->Orden_Salida");
 		$this->myLogger->trace("El orden de salida nuevo es:\n$ordensalida");
 		return $ordensalida;

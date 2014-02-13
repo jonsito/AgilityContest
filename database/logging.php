@@ -25,7 +25,7 @@ class Logger {
 	function log($level,$msg) {
 		if ($level>$this->level) return;
 		$trace=debug_backtrace();
-		$str=Logger::$levels[$level]." ".$this->basename."::".$trace[2]['function']."() : ".$msg;
+		$str=Logger::$levels[$level]." ".$trace[2]['file']."::".$trace[2]['line']."::".$trace[2]['function']."() : ".$msg;
 		error_log($str);
 		return $str;
 	}

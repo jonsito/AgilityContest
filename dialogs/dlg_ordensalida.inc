@@ -51,6 +51,7 @@ $('#ordensalida-datagrid').datagrid({
     // toolbar: '#ordensalida-toolbar',
     columns:[[
         	{ field:'Dorsal',		hidden:true },
+          	// { field:'Dorsal',		width:10, sortable:false,	align:'left',  title: 'Dorsal'},
           	{ field:'Nombre',		width:20, sortable:false,	align:'left',  title: 'Nombre'},
       		{ field:'Licencia',		width:15, sortable:false,   align:'right', title: 'Lic.' },
       		{ field:'Categoria',	width:10, sortable:false,   align:'center', title: 'Cat.' },
