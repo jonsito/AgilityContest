@@ -198,7 +198,7 @@ class Clasificaciones extends DBObject {
 		// y la de calificaciones ordenado por categoria/celo/puntos/tiempo
 		
 		// TODO: buscar la forma de insertar el campo "celo" en alguna de las tablas
-		$str= "SELECT Manga, Resultados.Dorsal AS Dorsal, Resultados.Categoria AS Categoria, Celo, Resultados.Tiempo AS Tiempo, Puntos
+		$str= "SELECT Manga, Resultados.Dorsal AS Dorsal, Resultados.Categoria AS Categoria, Resultados.Tiempo AS Tiempo, Puntos
 			FROM Resultados,$tablename
 			WHERE ( Resultados.Dorsal = $tablename.Dorsal ) AND (Manga=$manga)
 			ORDER BY Categoria ASC, Celo ASC, Puntos DESC, Tiempo DESC";

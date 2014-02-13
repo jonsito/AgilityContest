@@ -253,7 +253,7 @@ class OrdenSalida extends DBObject {
 	function reverse($jornada,$manga) {
 		$this->myLogger->enter();
 		// fase 1: buscamos la "manga hermana"
-		$str="SELECT Grado FROM Mangas WHERE (Jornada=$jornada) AND (ID=$manga)";
+		$str="SELECT Grado,Orden_Salida FROM Mangas WHERE (Jornada=$jornada) AND (ID=$manga)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$obj=$rs->fetch_object();
@@ -282,16 +282,32 @@ class OrdenSalida extends DBObject {
 			$this->myLogger->error("OrdenSalida::reverse::orden $mangaid failed");
 			return null;
 		}
-
-		// fase 3: componemos el orden de salida en base a los resultados obtenidos
+		
+		// fase 3: como la tabla de resultados no contiene informacion sobre el celo
+		// y para ahorrar consultas a la DB, vamos a sacar dicha información del orden actual
+		$registrados = explode ( ",", $obj->Orden_Salida);
+		$celo=array();
+		$lastCelo=0;
+		foreach($registrados as $dorsal) {
+			switch($dorsal) {
+				case "BEGIN": continue;
+				case "END": continue;
+				case "TAG_-0": case "TAG_L0": case "TAG_M0": case "TAG_S0": case "TAG_T0": $lastCelo=0; break;
+				case "TAG_-1": case "TAG_L1": case "TAG_M1": case "TAG_S1": case "TAG_T1": $lastCelo=1; break;
+				default: $celo[$dorsal]=$lastCelo;
+			}
+		}
+		// fase 4: componemos el orden de salida en base a los resultados obtenidos
 		$ordensalida=$this->default_orden;
 		foreach ($orden['rows'] as $item) {
 			// $this->myLogger->trace("parsing row:".$item['Dorsal']);
-			$ordensalida=$this->insertIntoList($ordensalida,$item['Dorsal'],$item['Categoria'],$item['Celo']);
+			$ordensalida=$this->insertIntoList($ordensalida,$item['Dorsal'],$item['Categoria'],$celo[$item['Dorsal']]);
 		}
 		$this->setOrden($mangaid,$ordensalida);
-		$this->myLogger->leave();
+		$this->myLogger->trace("El orden de salida original era:\n$obj->Orden_Salida");
+		$this->myLogger->trace("El orden de salida nuevo es:\n$ordensalida");
 		return $ordensalida;
+		$this->myLogger->leave();
 	}
 	
 	/**
