@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/datagrid.css" />
+<link rel="stylesheet" type="text/css" href="lib/jquery-easyui-1.3.5/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="lib/jquery-easyui-1.3.5/themes/icon.css" />
+<script src="lib/jquery-1.10.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="lib/jquery-easyui-1.3.5/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="lib/jquery-easyui-1.3.5/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="scripts/common.js" type="text/javascript" charset="utf-8" > </script>
+<title>Manual de usuario</title>
+</head>
+<body><!-- CABECERA -->
+<div id="myheader">
+	<p> <a href="/agility/manual.html">El diario de La Cachorrera. Manual del Usuario</a> </p>
+	<span id="Header_Operation"></span>
+</div>
+
+<!-- LOGO -->
+<div id="mylogo">
+	<p><img src="icons/logo_welpe.jpg" height="120" alt="logo welpe" /></p>
+</div>
+
+<!-- MENU LATERAL -->
+<div id="mysidebar">
+
+<div id="mymenu" class="easyui-panel" title="Indice"
+	data-options="border:true,closable:false,collapsible:true,collapsed:true">
+<ul>
+<li>INTRODUCCI&Oacute;N
+	<ul>
+	<li><a href="javascript:loadContents('#contenido','doc/overview.php');">Primer contacto</a></li>
+	<li><a href="javascript:loadContents('#contenido','doc/install.php');">Instalaci&oacute;n</a></li>
+	</ul>
+</li>
+<li>LA BASE DE DATOS
+	<ul>
+	<li><a href="javascript:loadContents('#contenido','doc/database.php');">La base de Datos</a></li>
+	<li><a href="javascript:loadContents('#contenido','doc/operaciones.php');">Operaciones</a></li>
+	<li><a href="javascript:loadContents('#contenido','doc/backup.php');">Importar/Exportar</a></li>
+	<li><a href="javascript:loadContents('#contenido','doc/phpMyAdmin.php');">Acceso directo</a></li>
+	</ul>
+</li>
+<li>PREPARATIVOS
+	<ul>
+	<li><a href="javascript:loadContents('#contenido','doc/prueba.php');">Nueva prueba</a></li>
+	<li><a href="javascript:loadContents('#contenido','doc/inscripciones.php');">Inscripciones</a></li>
+	<li><a href="javascript:loadContents('#contenido','doc/salida.php');">Orden de salida</a></li>
+	</ul>
+</li>
+<li>EN COMPETICI&Oacute;N
+	<ul>
+	<li> <a href="javascript:loadContents('#contenido','doc/storedata.php')">Grabando datos</a></li>
+	<li> <a href="javascript:loadContents('#contenido','doc/resultados.php')">Calificaciones</a></li>
+	<li> <a href="javascript:loadContents('#contenido','doc/informes.php')">Listados. Informes</a></li>
+	<li> <a href="javascript:loadContents('#contenido','doc/final.php')">Finalizaci&oacute;n</a></li>
+	</ul>
+</li>
+<li> AVANZADAS
+	<ul>
+	<li> <a href="javascript:loadContents('#contenido','doc/users.php')">Usuarios</a></li>
+	<li> <a href="javascript:loadContents('#contenido','doc/consola.php')">Asistente del juez</a></li>
+	<li> <a href="javascript:loadContents('#contenido','doc/realtime.php')">Panel informativo</a></li>
+	<li> <a href="javascript:loadContents('#contenido','doc/chrono.php')">Cronometraje</a></li>
+	</ul>
+</ul>
+</div> <!-- mymenu -->
+</div> <!-- mysidebar -->
+	
+<!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
+<div id="mycontent">
+<span id="contenido">
+<img class="mainpage" src="images/equipo_welpe.jpg" alt="El equipo de W.E.L.P.E."/>
+</span>
+</div>
+
+<script type="text/javascript">
+// expand/collapse menu on mouse enter/exit
+$('#mymenu').mouseenter(function(){$('#mymenu').panel('expand');})
+$('#mymenu').mouseleave(function(){$('#mymenu').panel('collapse');})
+</script>
+</body>
+</html>
