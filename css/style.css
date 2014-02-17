@@ -1,0 +1,106 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+	width: 1024px;
+	height: 768px;
+	background: #00f;
+}
+
+/***** Datos de la cabecera ******/
+#mylogo {
+	position: fixed;
+    top: 0px;
+    right: 10px;
+}
+
+#myheader {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+}
+
+#myheader p {
+	color: #0f0;
+    padding-left: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 28pt;
+    font-style: italic;
+    font-weight: bold;
+    display: table-cell;
+}
+
+#myheader p a:link {  text-decoration:none;color:#00ff00; }      /* unvisited link */
+#myheader p a:visited { text-decoration:none;color:#00ff00; }  /* visited link */
+#myheader p a:hover { text-decoration:none;color:#00ff00; }  /* mouse over link */
+#myheader p a:active { text-decoration:none;color:#00ff00; }  /* selected link */
+
+#myheader span p {
+	font-size: 24pt;
+	color: #ccc;
+	padding-left: 250px;
+}
+
+/***** Datos del menu lateral *****/
+#mysidebar {
+	position: fixed;
+	top: 60px;
+	left: 10px;
+	width: 185px;
+	z-index: 1;
+}
+
+#mysidebar ul {
+	border: line;
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+}
+
+#mysidebar ul li {
+    background-color: #888;
+    color: #fff;
+}
+
+#mysidebar ul li a {
+    background-color: #00f;
+    color: #ccc;
+    text-decoration: none;
+    display: block;
+    padding: 5px 5px 5px 15px;
+}
+
+#mysidebar ul li a:hover {
+    background: #ff0;
+    border-left: 10px solid #333;
+    color: #000;
+}
+
+/********** Datos del area de trabajo ************/
+/* marcador div del contenido. fija posicion */
+#mycontent {
+	/* border-style: inset; */
+	position: fixed;
+	top: 100px;
+	left: 25px;
+	width: 950px;
+	height: 500px;
+}
+
+img.mainpage{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/**** tamanyo de los select del formulario de datos de la manga manga */
+.c_competicion-datosmanga {
+	font-size: 11px;
+}
+.c_competicion-datosmanga input {
+	font-size: 11px;
+}
+.c_competicion-datosmanga select {
+	font-size: 11px;
+}
