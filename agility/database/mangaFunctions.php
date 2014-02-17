@@ -9,13 +9,15 @@ try {
 	$jornada=http_request("Jornada","i",0);
 	$mangas= new Mangas("mangaFunctions",$jornada);
 	$operation=http_request("Operation","s",null);
+	$manga=http_request("Manga","i",0);
 	if ($operation===null) throw new Exception("Call to mangaFunctions without 'Operation' requested");
 	switch ($operation) {
 		// no direct "insert", as created/destroyed from jornadaFunctions
-		case "update": $result=$mangas->update(http_request("Manga","i",0)); break;
+		case "update": $result=$mangas->update($manga); break;
 		// no direct delete as created/destroyed from jornadaFunctions
 		case "enumerate": $result=$mangas->selectByJornada(http_request("Jornada","i",0)); break; 
-		case "getbyid":	$result=$mangas->selectByID(http_request("Manga","i",0)); break; 
+		case "getbyid":	$result=$mangas->selectByID($manga); break; 
+		case "getTRS":	$result=$mangas->getTRS($manga); break; 
 		default: throw new Exception("mangaFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) throw new Exception($mangas->errormsg);

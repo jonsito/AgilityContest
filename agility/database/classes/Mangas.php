@@ -328,15 +328,60 @@ class Mangas extends DBObject {
 				break;
 		}
 		$result['S']['TRM'] = ceil( $result['S']['TRM'] ); // redondeamos hacia arriba el TRM de Standard
-		$str="Datos de TRS/TRM:
+		
+		// Calculo de la velocidad
+		$result["L"]["Vel"] = number_format( $result["L"]["Dist"] / $result["L"]["TRS"], 2);
+		$result["M"]["Vel"] = number_format( $result["M"]["Dist"] / $result["M"]["TRS"], 2);
+		$result["S"]["Vel"] = number_format( $result["S"]["Dist"] / $result["S"]["TRS"], 2);
 				
-Standard - Dist:".$result["L"]["Dist"]." Obst: ".$result["L"]["Obst"]." TRS:".$result["L"]["TRS"]." TRM:".$result["L"]["TRM"]."
-Medium   - Dist:".$result["M"]["Dist"]." Obst: ".$result["M"]["Obst"]." TRS:".$result["M"]["TRS"]." TRM:".$result["M"]["TRM"]."
-Small    - Dist:".$result["S"]["Dist"]." Obst: ".$result["S"]["Obst"]." TRS:".$result["S"]["TRS"]." TRM:".$result["S"]["TRM"];
-		$this->myLogger->info($str);		
 		$this->myLogger->leave();
 		// $this->myLogger->trace(print_r($result,true));
 		return $result; // NOTICE: this IS NOT datagrid expected return format
+	}
+	
+	function getTRS($manga) {
+		$this->myLogger->enter();
+		// extraemos los tres mejores tiempos de cada categoria
+		$str="SELECT Categoria, Tiempo, ( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido 
+		FROM Resultados
+		WHERE ( Manga = $manga ) 
+		ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC ";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		
+		$count=0;		// orden de clasificacion en funcion de la categoria
+		// preparamos el almacen de los tres mejores tiempos de cada categoria
+		$tiempos=array();
+		$tiempos["-"]=array();
+		$tiempos["L"]=array();
+		$tiempos["M"]=array();
+		$tiempos["S"]=array();
+		$tiempos["T"]=array();
+		foreach ( array("-","L","M","S","T") as $c ) { $tiempos[$c][0]=0;$tiempos[$c][1]=0;$tiempos[$c][2]=0; }
+		
+		// analizamos el resultado de la bbdd y guardamos los tres mejores tiempos de cada categoria en $tiempos
+		$lastCategoria="*";
+		$data=array();
+		while($row = $rs->fetch_object()) {
+			if ( $row->Categoria !== $lastCategoria ) {
+				$count=0;
+				$lastCategoria=$row->Categoria;
+			}
+			if ($count<3) $tiempos[$lastCategoria][$count++]=$row->Tiempo;
+			array_push($data,$row);
+		}
+		$rs->free();
+		$d= $this->datosTRS($manga,$tiempos);
+		$this->myLogger->enter();
+		$res=array();
+		// reformulamos el resultado para que tenga forma de un form de jquery
+		// TODO: handle "Tiny" and "Any" Categories
+		$res["DIST_L"]=	strval($d["L"]["Dist"]); $res["DIST_M"]=strval($d["M"]["Dist"]);$res["DIST_S"]=strval($d["S"]["Dist"]);
+		$res["OBST_L"]=strval($d["L"]["Obst"]); $res["OBST_M"]=strval($d["M"]["Obst"]);	$res["OBST_S"]=strval($d["S"]["Obst"]);
+		$res["TRS_L"]=strval($d["L"]["TRS"]);	$res["TRS_M"]=strval($d["M"]["TRS"]);	$res["TRS_S"]=strval($d["S"]["TRS"]);
+		$res["TRM_L"]=strval($d["L"]["TRM"]);	$res["TRM_M"]=strval($d["M"]["TRM"]);	$res["TRM_S"]=strval($d["S"]["TRM"]);
+		$res["VEL_L"]=strval($d["L"]["Vel"]);	$res["VEL_M"]=strval($d["M"]["Vel"]);	$res["VEL_S"]=strval($d["S"]["Vel"]);
+		return $res;
 	}
 }
 
