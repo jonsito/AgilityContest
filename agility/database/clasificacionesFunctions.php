@@ -11,8 +11,8 @@ try {
 	$manga1=http_request("Manga","i",0);
 	$manga2=http_request("Manga2","i",0);
 	switch ($operation) {
-		case "parcial": $result=$clasificaciones->parcial($manga1); break;
-		case "final": $result=$clasificaciones->final($manga1,$manga2); break;
+		case "parcial": $result=$clasificaciones->clasificacionParcial($manga1); break;
+		case "final": $result=$clasificaciones->clasificacionFinal($manga1,$manga2); break;
 		default: throw new Exception("clasificacionesFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) throw new Exception($clasificaciones->errormsg);

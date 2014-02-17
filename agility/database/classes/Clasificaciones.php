@@ -39,7 +39,7 @@ class Clasificaciones extends DBObject {
 			`PTiempo` double NOT NULL DEFAULT '0',
 			`Tiempo` double NOT NULL DEFAULT '0',
 			`Velocidad` double NOT NULL DEFAULT '0',
-			`Puntos` double NOT NULL DEFAULT '0',
+			`Penalizacion` double NOT NULL DEFAULT '0',
 			`Calificacion` varchar(16) DEFAULT NULL,
 			PRIMARY KEY ( `Dorsal` )
 		)";
@@ -92,43 +92,43 @@ class Clasificaciones extends DBObject {
 		// y lo reinsertamos en la tabla temporal		
 	
 		// componemos un prepared statement
-		$sql ="UPDATE $tablename SET PTiempo=? , Puntos=? ,Velocidad=?, Calificacion=? WHERE ( Dorsal=? )";
+		$sql ="UPDATE $tablename SET PTiempo=? , Penalizacion=? ,Velocidad=?, Calificacion=? WHERE ( Dorsal=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('dddsi',$pt,$p,$v,$c,$d);
 		if (!$res) return $this->error($this->conn->error); 
 		foreach($data as $row) {	
 			// $this->myLogger->trace("before fase 4: ".print_r($row,true));
-			// reevaluamos la penalizacion y obtenemos puntos en funcion del TRS
+			// reevaluamos la penalizacion y obtenemos penalizacion en funcion del TRS
 			$trs=$datos_trs[$row->Categoria]['TRS'];
 			$trm=$datos_trs[$row->Categoria]['TRM'];
-			// si tiempo > TRM  Puntos==100; eliminado
-			if ($row->Tiempo<$trs) { $row->PTiempo=0; $row->Puntos=$row->PRecorrido; }
-			if ($row->Tiempo>=$trs) { $row->PTiempo=$row->Tiempo-$trs; $row->Puntos=$row->PRecorrido+$row->PTiempo; }
-			if ($row->Tiempo>$trm) { $row->PTiempo=100; $row->Puntos=100; } // eliminado por superar el TRM
+			// si tiempo > TRM  Penalizacion==100; eliminado
+			if ($row->Tiempo<$trs) { $row->PTiempo=0; $row->Penalizacion=$row->PRecorrido; }
+			if ($row->Tiempo>=$trs) { $row->PTiempo=$row->Tiempo-$trs; $row->Penalizacion=$row->PRecorrido+$row->PTiempo; }
+			if ($row->Tiempo>$trm) { $row->PTiempo=100; $row->Penalizacion=100; } // eliminado por superar el TRM
 			// evaluamos velocidad y ajustamos a un decimal
 			if ($row->Tiempo==0) $row->Velocidad=0;
 			else $row->Velocidad = $datos_trs[$row->Categoria]['Dist'] / $row->Tiempo;
 			$row->Velocidad=number_format($row->Velocidad,1);
-			$row->Puntos=number_format($row->Puntos,2);
+			$row->Penalizacion=number_format($row->Penalizacion,2);
 			// evaluamos calificacion
-			if ($row->Puntos==0)	$row->Calificacion = "Excelente (p)";
-			if ($row->Puntos>0)		$row->Calificacion = "Excelente";
-			if ($row->Puntos>=6)	$row->Calificacion = "Muy Bien";
-			if ($row->Puntos>=16)	$row->Calificacion = "Bien";
-			if ($row->Puntos>=26)	$row->Calificacion = "No Clasificado";
-			if (($row->Puntos>=100) && ($row->Puntos<200)){
-				$row->Puntos=100;
+			if ($row->Penalizacion==0)	$row->Calificacion = "Excelente (p)";
+			if ($row->Penalizacion>0)		$row->Calificacion = "Excelente";
+			if ($row->Penalizacion>=6)	$row->Calificacion = "Muy Bien";
+			if ($row->Penalizacion>=16)	$row->Calificacion = "Bien";
+			if ($row->Penalizacion>=26)	$row->Calificacion = "No Clasificado";
+			if (($row->Penalizacion>=100) && ($row->Penalizacion<200)){
+				$row->Penalizacion=100;
 				$row->Calificacion = "Eliminado";
 			}
-			if ($row->Puntos>=200)	{
-				$row->puntos=200;
+			if ($row->Penalizacion>=200)	{
+				$row->penalizacion=200;
 				$row->Calificacion = "No Presentado";
 			}
 			
 			// y ejecutamos el update en la tabla temporal
 			$pt=$row->PTiempo;
-			$p=$row->Puntos;
+			$p=$row->Penalizacion;
 			$v=$row->Velocidad;
 			$c=$row->Calificacion;
 			$d=$row->Dorsal;	
@@ -147,19 +147,19 @@ class Clasificaciones extends DBObject {
 	 * @param {integer} $manga Manga ID
 	 * @return null on error; on success result in easyui datagrid compatible format
 	 */
-	function parcial($manga) {
+	function clasificacionParcial($manga) {
 		$this->myLogger->enter();
 		// Fase 1: generamos la clasificacion
 		$tablename="Manga_".$manga."_".random_password(8);
 		$res=$this->clasificacion($tablename,$manga);
 		if ($res===null) return $this->error("parcial::clasificacion returned null");
 		// FASE 2: hacemos un query en base a un join de la tabla de resultados 
-		// y la de calificaciones ordenado por categoria/puntos/tiempo
+		// y la de calificaciones ordenado por categoria/penalizacion/tiempo
 		$str= "SELECT Manga, Resultados.Dorsal AS Dorsal, Nombre, Licencia, Resultados.Categoria AS Categoria, Guia, Club,
-				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Puntos, Calificacion
+				Faltas, Rehuses, Tocados, Resultados.Tiempo AS Tiempo, Velocidad, Penalizacion, Calificacion
 				FROM Resultados,$tablename
 				WHERE ( Resultados.Dorsal = $tablename.Dorsal ) AND (Manga=$manga)
-				ORDER BY Categoria ASC, Puntos ASC, Tiempo ASC";
+				ORDER BY Categoria ASC, Penalizacion ASC, Tiempo ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// y devolvemos el resultado
@@ -171,7 +171,7 @@ class Clasificaciones extends DBObject {
 				$lastCategoria=$item['Categoria'];
 				$puesto=1;
 			}
-			// TODO: puesto debe ser el mismo si mismos puntos y tiempo
+			// TODO: puesto debe ser el mismo si mismos penalizacion y tiempo
 			$item['Puesto']=$puesto++;
 			array_push($rows,$item);
 		}
@@ -195,13 +195,13 @@ class Clasificaciones extends DBObject {
 		$res=$this->clasificacion($tablename,$manga);
 		if ($res===null) return $this->error("reverse::clasificacion returned null");
 		// FASE 2: hacemos un query en base a un join de la tabla de resultados
-		// y la de calificaciones ordenado por categoria/celo/puntos/tiempo
+		// y la de calificaciones ordenado por categoria/celo/penalizacion/tiempo
 		
 		// TODO: buscar la forma de insertar el campo "celo" en alguna de las tablas
-		$str= "SELECT Manga, Resultados.Dorsal AS Dorsal, Resultados.Categoria AS Categoria, Resultados.Tiempo AS Tiempo, Puntos
+		$str= "SELECT Manga, Resultados.Dorsal AS Dorsal, Resultados.Categoria AS Categoria, Resultados.Tiempo AS Tiempo, Penalizacion
 			FROM Resultados,$tablename
 			WHERE ( Resultados.Dorsal = $tablename.Dorsal ) AND (Manga=$manga)
-			ORDER BY Categoria ASC, Puntos DESC, Tiempo DESC";
+			ORDER BY Categoria ASC, Penalizacion DESC, Tiempo DESC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// y devolvemos el resultado
@@ -213,6 +213,19 @@ class Clasificaciones extends DBObject {
 		$result['rows']=$rows;
 		$this->myLogger->leave();
 		return $result;
+	}
+	
+	function clasificacionFinal($manga1,$manga2) {
+		$this->myLogger->enter();
+		// Fase 1: generamos la clasificacion de cada manga
+		$tablename1="Manga_".$manga1."_".random_password(8);
+		$res=$this->clasificacion($tablename1,$manga1);
+		if ($res===null) return $this->error("final::clasificacionParcial() on manga $manga1 returned null");
+		$tablename2="Manga_".$manga2."_".random_password(8);
+		$res=$this->clasificacion($tablename1,$manga2);
+		if ($res===null) return $this->error("final::clasificacionParcial() on manga $manga2 returned null");
+
+		$this->myLogger->leave();
 	}
 }
 ?>

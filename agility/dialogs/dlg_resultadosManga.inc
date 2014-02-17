@@ -62,7 +62,7 @@ $('#resultadosmanga-datagrid').datagrid({
       	{ field:'Tocados',		width:10, align:'center', title: 'Tocados'},
       	{ field:'Tiempo',		width:15, align:'right', title: 'Tiempo'},
       	{ field:'Velocidad',	width:10, align:'right', title: 'Vel.'},
-      	{ field:'Puntos',		width:15, align:'right', title: 'Ptos.'}, 
+      	{ field:'Penalizacion',		width:15, align:'right', title: 'Penal.'}, 
       	{ field:'Calificacion',	width:25, align:'center',title: 'Calificacion'}
     ]],
     rowStyler:function(index,row) { // colorize rows
