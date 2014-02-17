@@ -115,6 +115,8 @@ function reloadResultadosManga() {
             	Operation: 'parcial'
             }
     );
+    $('#resultadosmanga-trs-form').form(
+    		'load',"database/mangaFunctions.php?Operation=getTRS&Jornada="+workingData.jornada+"&Manga="+workingData.manga);
 }
 
 function saveCompeticionData(idx,data) {

@@ -1,20 +1,52 @@
 <!--  dialogo de presentacion de resultados parciales de una manga -->
-<div id="resultadosmanga-window" class="easyui-window" style="width:800px;height:450px;padding:10px 10px 20px 10px">
+<div id="resultadosmanga-window" class="easyui-window" style="width:800px;height:450px;padding:0px 10px 100px 10px">
 	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 	<div id="resultadosmanga-toolbar">
- 		<span style="float:left">
+ 		<span style="float:right">
 		   	<a id="resultadosmanga-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadResultadosManga()">Actualizar</a>
-    		</span>
-    		<span style="float:right">
-    		<!-- estos elementos deben estar alineados a la derecha -->
+		   	<br />
     		<a id="resultadosmanga-printBtn" href="#" class="easyui-linkbutton" onclick="printResultadosManga()">Imprimir</a>
 		</span>
 	</div>
-	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
+	<!-- TABLA DE DATOS DE TRS Y TRM DE LA MANGA -->
+	<div id="resultadosmanga-trs">
+		<span style="float:left">
+		<form id="resultadosmanga-trs-form" method="get">
+			<table>
+				<tr>
+					<th>Large</th>
+					<td>Distancia <input type="text" size=4" class="trstrm" readonly="readonly" name="DIST_L"></td>
+					<td>Obst&aacute;culos <input type="text" size=4" class="trstrm" readonly="readonly" name="OBST_L"></td>
+					<td>TRS <input type="text" size=4" class="trstrm" readonly="readonly" name="TRS_L"></td>
+					<td>TRM <input type="text" size=4" class="trstrm" readonly="readonly" name="TRM_L"></td>
+					<td>Vel. <input type="text" size=4" class="trstrm" readonly="readonly" name="VEL_L"></td>
+				</tr>
+				<tr>
+					<th>Medium</th>
+					<td>Distancia <input type="text" size=4" class="trstrm" readonly="readonly" name="DIST_M"></td>
+					<td>Obst&aacute;culos <input type="text" size=4" class="trstrm" readonly="readonly" name="OBST_M"></td>
+					<td>TRS <input type="text" size=4" class="trstrm" readonly="readonly" name="TRS_M"></td>
+					<td>TRM <input type="text" size=4" class="trstrm" readonly="readonly" name="TRM_M"></td>
+					<td>Vel. <input type="text" size=4" class="trstrm" readonly="readonly" name="VEL_M"></td>
+				</tr>
+				<tr>
+					<th>Small</th>
+					<td>Distancia <input type="text" size=4" class="trstrm" readonly="readonly" name="DIST_S"></td>
+					<td>Obst&aacute;culos <input type="text" size=4" class="trstrm" readonly="readonly" name="OBST_S"></td>
+					<td>TRS <input type="text" size=4" class="trstrm" readonly="readonly" name="TRS_S"></td>
+					<td>TRM <input type="text" size=4" class="trstrm" readonly="readonly" name="TRM_S"></td>
+					<td>Vel. <input type="text" size=4" class="trstrm" readonly="readonly" name="VEL_S"></td>
+				</tr>
+			</table>
+		</form>
+		</span>
+	</div>
+	<!-- TABLA DE PRESENTACION DE RESULTADOS DE CADA MANGA -->
 	<table id="resultadosmanga-datagrid" class="easyui-datagrid"></table>
 </div>
 
 <script type="text/javascript">
+
 
 $('#resultadosmanga-window').window({
 	collapsible:	false,

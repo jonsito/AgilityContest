@@ -1,5 +1,5 @@
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="ordensalida-window" class="easyui-window" style="width:800px;height:450px;padding:15px 10px 20px 10px">
+<div id="ordensalida-window" class="easyui-window" style="width:800px;height:450px;padding:0px 10px 40px 10px">
 	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 	<div id="ordensalida-toolbar">
  		<span style="float:left">
