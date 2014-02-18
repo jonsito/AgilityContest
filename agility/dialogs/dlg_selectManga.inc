@@ -137,19 +137,23 @@ function acceptSelectManga() {
 	// si prueba invalida cancelamos operacion
 	var p=$('#selmanga-Prueba').combogrid('grid').datagrid('getSelected');
 	var j=$('#selmanga-Jornada').combogrid('grid').datagrid('getSelected');
+	var m=$('#selmanga-Ronda').combogrid('grid').datagrid('getSelected');
 	if ( (p==null) || (j==null) ) {
 		// indica error
-		$.messager.aler("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
+		$.messager.alert("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
 		return;
 	}
 	// clear selection to make sure next time gets empty
 	$('#selmanga-Prueba').combogrid('setValue','');
 	$('#selmanga-Jornada').combogrid('setValue','');
+	$('#selmanga-Ronda').combogrid('setValue','');
 	// store selected data into global structure
 	workingData.prueba=p.ID;
 	workingData.nombrePrueba=p.Nombre;
 	workingData.jornada=j.ID;
 	workingData.nombreJornada=j.Nombre;
+	workingData.manga=m.Manga1;
+	workingData.manga2=m.Manga2;
 	$('#selmanga-window').window('close');	
 }
 
@@ -159,6 +163,7 @@ function cancelSelectManga() {
 	workingData.jornada=0;
 	workingData.nombreJornada="";
 	workingData.manga=0;
+	workingData.manga2=0;
 	$('#selmanga-Prueba').combogrid('setValue','');
 	$('#selmanga-Jornada').combogrid('setValue','');
 	$('#selmanga-Ronda').combogrid('setValue','');
