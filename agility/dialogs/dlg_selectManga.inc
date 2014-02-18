@@ -104,7 +104,7 @@ $('#selmanga-Jornada').combogrid({
 	onChange:function(value){
 		workingData.Jornada=Number(value);
 		var g = $('#selmanga-Manga').combogrid('grid');
-		g.datagrid('load',{Jornada:value,});
+		g.datagrid('load',{ID:value});
 	}
 });
 

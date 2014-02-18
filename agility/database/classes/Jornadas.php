@@ -244,15 +244,19 @@ class Jornadas extends DBObject {
 	 * Obtiene el ID de la manga de tipo $tipo asociada a la jornada $jornada
 	 * @param {integer} $jornada
 	 * @param {string} $tipo
+	 * @return manga id ; 0 if not found; null on error
 	 */
 	function fetchManga($jornada,$tipo) {
 		$this->myLogger->enter();
-		$str="SELECT * FROM Mangas WHERE (Jornada=$jornada) AND (Tipo='$tipo)";
+		$str="SELECT * FROM Mangas WHERE (Jornada=$jornada) AND (Tipo='$tipo')";
 		$rs= $this->query($str);
 		if (!$rs) return $this->conn->error;
 		$row=$rs->fetch_row();
-		if (!$row) return $this->error("No result for Manga $tipo in Jornada $jornada");
 		$rs->free();
+		if (!$row) {
+			$this->myLogger->error("No result for Manga $tipo in Jornada $jornada");
+			return 0;
+		}
 		$this->myLogger->leave();
 		return $row->ID;
 	}
@@ -263,13 +267,19 @@ class Jornadas extends DBObject {
 	 */
 	function roundsByJornada($jornadaid) {
 		$this->myLogger->enter();
-		if ($jornadaid<=0) return $this->error("ID de jornada no valido");
+		// on start, no jornada id is provided, so don't throw error
+		if ($jornadaid<=0) {
+			$result=array();
+			$result['total']=0;
+			$result['rows']=array();
+			return $result;
+		}
 		$str="SELECT * FROM Jornadas WHERE ID=$jornadaid";
 		$rs=$this->query($str);
 		if (!$rs)  return $this->error($this->conn->error);
 		// retrieve result into an array
 		$data=array();
-		while($row = $rs->fetch_array()){
+		while($row = $rs->fetch_object()){
 			$ronda=null;
 			$manga1=0;
 			$manga2=0;
@@ -318,7 +328,7 @@ class Jornadas extends DBObject {
 		}
 		$rs->free();
 		$result=array();
-		$result['count']=count($data);
+		$result['total']=count($data);
 		$result['rows']=$data;
 		$this->myLogger->leave();
 		return $result;
