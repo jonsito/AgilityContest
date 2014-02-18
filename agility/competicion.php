@@ -18,4 +18,4 @@ $('#seljornada-window').window('open');
 
 </script>
 
-<img class="mainpage" src="images/foto_dama.jpg" alt="Klein" width="800" height="400" align="middle"/>
+<img class="mainpage" src="images/foto_dama.jpg" alt="Dama" width="800" height="400" align="middle"/>
