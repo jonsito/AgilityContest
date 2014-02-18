@@ -121,14 +121,16 @@ $('#selmanga-Ronda').combogrid({
 	fitColumns: true,
 	singleSelect: true,
 	columns: [[
-	    { field:'ID',			hidden:true }, // ID de la jornada
-	    { field:'Prueba',		hidden:true }, // ID de la prueba
-	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre/Comentario' },
-		{ field:'Fecha',		width:20, sortable:false,	align:'right', title: 'Fecha:' },
-		{ field:'Hora',			width:15, sortable:false,	align:'right', title: 'Hora.' }
+	    { field:'Manga1',			hidden:true }, // ID de la jornada
+	    { field:'Manga2',		hidden:true }, // ID de la prueba
+		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre' }
 	]],
-	onBeforeLoad: function(param) { param.Operation='enumerate', param.Prueba=workingData.prueba; return true; }
+	onBeforeLoad: function(param) { 
+		param.Operation='rounds', 
+		param.Prueba=workingData.prueba; 
+		param.ID=workingData.jornada; 
+		return true;
+	}
 });
 
 function acceptSelectManga() {

@@ -239,5 +239,89 @@ class Jornadas extends DBObject {
 		$this->myLogger->leave();
 		return $result;
 	}
+	
+	/**
+	 * Obtiene el ID de la manga de tipo $tipo asociada a la jornada $jornada
+	 * @param {integer} $jornada
+	 * @param {string} $tipo
+	 */
+	function fetchManga($jornada,$tipo) {
+		$this->myLogger->enter();
+		$str="SELECT * FROM Mangas WHERE (Jornada=$jornada) AND (Tipo='$tipo)";
+		$rs= $this->query($str);
+		if (!$rs) return $this->conn->error;
+		$row=$rs->fetch_row();
+		if (!$row) return $this->error("No result for Manga $tipo in Jornada $jornada");
+		$rs->free();
+		$this->myLogger->leave();
+		return $row->ID;
+	}
+	/**
+	 * Devuelve una lista de las rondas de que consta esta jornada (GI,GII,GIII, PreAgility..)
+	 * @param unknown $jornadaid ID de jornada
+	 * @return null on error, result in combogrid format "info,idManga1,idmanga2"
+	 */
+	function roundsByJornada($jornadaid) {
+		$this->myLogger->enter();
+		if ($jornadaid<=0) return $this->error("ID de jornada no valido");
+		$str="SELECT * FROM Jornadas WHERE ID=$jornadaid";
+		$rs=$this->query($str);
+		if (!$rs)  return $this->error($this->conn->error);
+		// retrieve result into an array
+		$data=array();
+		while($row = $rs->fetch_array()){
+			$ronda=null;
+			$manga1=0;
+			$manga2=0;
+			if ($row->Grado1!=0) {
+				$ronda="Ronda de Grado I";
+				$manga1= $this->fetchManga($jornadaid,'Agility-1 GI');
+				$manga2= $this->fetchManga($jornadaid,'Agility-2 GI');
+			}
+			if ($row->Grado2!=0) {
+				$ronda="Ronda de Grado II";
+				$manga1= $this->fetchManga($jornadaid,'Agility GII');
+				$manga2= $this->fetchManga($jornadaid,'Jumping GII');
+			}
+			if ($row->Grado3!=0) {
+				$ronda="Ronda de Grado III";
+				$manga1= $this->fetchManga($jornadaid,'Agility GIII');
+				$manga2= $this->fetchManga($jornadaid,'Jumping GIII');
+			}
+			if ($row->PreAgility!=0) {
+				$ronda="Manga de Pre-Agility";
+				$manga1= $this->fetchManga($jornadaid,'Pre-Agility');
+				$manga2= 0;
+			}
+			if ($row->Equipos!=0) {
+				$ronda="Competicion por equipos";
+				$manga1= $this->fetchManga($jornadaid,'Agility Equipos');
+				$manga2= $this->fetchManga($jornadaid,'Jumping Equipos');
+			}
+			if ($row->KO!=0) {
+				$ronda="Ronda K.O.";
+				$manga1= $this->fetchManga($jornadaid,'K.O.');
+				$manga2= 0;
+			}
+			if ($row->Exhibicion!=0) {
+				$ronda="Manga de Exhibicion";
+				$manga1= $this->fetchManga($jornadaid,'Exhibición');
+				$manga2= 0;
+			}			
+			if ($row->Otras!=0) {
+				$ronda="Otras (sin definir)";
+				$manga1= $this->fetchManga($jornadaid,'Otras');
+				$manga2= 0;
+			}
+			if ($ronda===null) continue;
+			array_push($data,array("Nombre" => $ronda, "Manga1" => $manga1, "Manga2" => $manga2));
+		}
+		$rs->free();
+		$result=array();
+		$result['count']=count($data);
+		$result['rows']=$data;
+		$this->myLogger->leave();
+		return $result;
+	}
 }
 ?>
