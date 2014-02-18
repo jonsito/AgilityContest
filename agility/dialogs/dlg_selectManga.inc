@@ -102,15 +102,15 @@ $('#selmanga-Jornada').combogrid({
 	]],
 	onBeforeLoad: function(param) { param.Operation='enumerate', param.Prueba=workingData.prueba; return true; },
 	onChange:function(value){
-		workingData.Jornada=Number(value);
-		var g = $('#selmanga-Manga').combogrid('grid');
-		g.datagrid('load',{ID:value});
+		workingData.jornada=Number(value);
+		var g = $('#selmanga-Ronda').combogrid('grid');
+		g.datagrid('load');
 	}
 });
 
 $('#selmanga-Ronda').combogrid({
-	panelWidth: 500,
-	panelHeight: 150,
+	panelWidth: 200,
+	panelHeight: 100,
 	idField: 'ID',
 	textField: 'Nombre',
 	url: 'database/jornadaFunctions.php',
@@ -161,7 +161,7 @@ function cancelSelectManga() {
 	workingData.manga=0;
 	$('#selmanga-Prueba').combogrid('setValue','');
 	$('#selmanga-Jornada').combogrid('setValue','');
-	$('#selmanga-Manga').combogrid('setValue','');
+	$('#selmanga-Ronda').combogrid('setValue','');
 	$('#selmanga-window').window('close');
 }
 </script>

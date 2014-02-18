@@ -251,12 +251,13 @@ class Jornadas extends DBObject {
 		$str="SELECT * FROM Mangas WHERE (Jornada=$jornada) AND (Tipo='$tipo')";
 		$rs= $this->query($str);
 		if (!$rs) return $this->conn->error;
-		$row=$rs->fetch_row();
+		$row=$rs->fetch_object();
 		$rs->free();
 		if (!$row) {
 			$this->myLogger->error("No result for Manga $tipo in Jornada $jornada");
 			return 0;
 		}
+		$this->myLogger->debug("$str retorna ".$row->ID);
 		$this->myLogger->leave();
 		return $row->ID;
 	}
@@ -272,59 +273,55 @@ class Jornadas extends DBObject {
 			$result=array();
 			$result['total']=0;
 			$result['rows']=array();
+			$this->myLogger->notice("jornada ID is 0: return");
 			return $result;
 		}
-		$str="SELECT * FROM Jornadas WHERE ID=$jornadaid";
+		$str="SELECT * FROM Jornadas WHERE (ID=$jornadaid)";
 		$rs=$this->query($str);
 		if (!$rs)  return $this->error($this->conn->error);
 		// retrieve result into an array
 		$data=array();
-		while($row = $rs->fetch_object()){
-			$ronda=null;
-			$manga1=0;
-			$manga2=0;
-			if ($row->Grado1!=0) {
-				$ronda="Ronda de Grado I";
-				$manga1= $this->fetchManga($jornadaid,'Agility-1 GI');
-				$manga2= $this->fetchManga($jornadaid,'Agility-2 GI');
-			}
-			if ($row->Grado2!=0) {
-				$ronda="Ronda de Grado II";
-				$manga1= $this->fetchManga($jornadaid,'Agility GII');
-				$manga2= $this->fetchManga($jornadaid,'Jumping GII');
-			}
-			if ($row->Grado3!=0) {
-				$ronda="Ronda de Grado III";
-				$manga1= $this->fetchManga($jornadaid,'Agility GIII');
-				$manga2= $this->fetchManga($jornadaid,'Jumping GIII');
-			}
-			if ($row->PreAgility!=0) {
-				$ronda="Manga de Pre-Agility";
-				$manga1= $this->fetchManga($jornadaid,'Pre-Agility');
-				$manga2= 0;
-			}
-			if ($row->Equipos!=0) {
-				$ronda="Competicion por equipos";
-				$manga1= $this->fetchManga($jornadaid,'Agility Equipos');
-				$manga2= $this->fetchManga($jornadaid,'Jumping Equipos');
-			}
-			if ($row->KO!=0) {
-				$ronda="Ronda K.O.";
-				$manga1= $this->fetchManga($jornadaid,'K.O.');
-				$manga2= 0;
-			}
-			if ($row->Exhibicion!=0) {
-				$ronda="Manga de Exhibicion";
-				$manga1= $this->fetchManga($jornadaid,'Exhibición');
-				$manga2= 0;
-			}			
-			if ($row->Otras!=0) {
-				$ronda="Otras (sin definir)";
-				$manga1= $this->fetchManga($jornadaid,'Otras');
-				$manga2= 0;
-			}
-			if ($ronda===null) continue;
-			array_push($data,array("Nombre" => $ronda, "Manga1" => $manga1, "Manga2" => $manga2));
+		$row = $rs->fetch_object();
+		if (!$row) return $this->error("No Jornadas with ID=$jornadaid");
+		if ($row->Grado1!=0) {
+			$manga1= $this->fetchManga($jornadaid,'Agility-1 GI');
+			$manga2= $this->fetchManga($jornadaid,'Agility-2 GI');
+			array_push($data,array("Nombre" => "Ronda de Grado I", "Manga1" => $manga1, "Manga2" => $manga2));
+		}
+		if ($row->Grado2!=0) {
+			$manga1= $this->fetchManga($jornadaid,'Agility GII');
+			$manga2= $this->fetchManga($jornadaid,'Jumping GII');
+			array_push($data,array("Nombre" => "Ronda de Grado II", "Manga1" => $manga1, "Manga2" => $manga2));
+		}
+		if ($row->Grado3!=0) {
+			$manga1= $this->fetchManga($jornadaid,'Agility GIII');
+			$manga2= $this->fetchManga($jornadaid,'Jumping GIII');
+			array_push($data,array("Nombre" => "Ronda de Grado III", "Manga1" => $manga1, "Manga2" => $manga2));
+		}
+		if ($row->PreAgility!=0) {
+			$manga1= $this->fetchManga($jornadaid,'Pre-Agility');
+			$manga2= 0;
+			array_push($data,array("Nombre" => "Manga de Pre-Agility", "Manga1" => $manga1, "Manga2" => $manga2));
+		}
+		if ($row->Equipos!=0) {
+			$manga1= $this->fetchManga($jornadaid,'Agility Equipos');
+			$manga2= $this->fetchManga($jornadaid,'Jumping Equipos');
+			array_push($data,array("Nombre" => "Competicion por equipos", "Manga1" => $manga1, "Manga2" => $manga2));
+		}
+		if ($row->KO!=0) {
+			$manga1= $this->fetchManga($jornadaid,'K.O.');
+			$manga2= 0;
+			array_push($data,array("Nombre" => "Ronda K.O.", "Manga1" => $manga1, "Manga2" => $manga2));
+		}
+		if ($row->Exhibicion!=0) {
+			$manga1= $this->fetchManga($jornadaid,'Exhibición');
+			$manga2= 0;
+			array_push($data,array("Nombre" => "Manga de Exhibicion", "Manga1" => $manga1, "Manga2" => $manga2));
+		}			
+		if ($row->Otras!=0) {
+			$manga1= $this->fetchManga($jornadaid,'Otras');
+			$manga2= 0;
+			array_push($data,array("Nombre" => "Otras (sin definir)", "Manga1" => $manga1, "Manga2" => $manga2));
 		}
 		$rs->free();
 		$result=array();
