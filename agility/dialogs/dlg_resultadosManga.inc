@@ -10,7 +10,7 @@
 	</div>
 	<!-- TABLA DE DATOS DE TRS Y TRM DE LA MANGA -->
 	<div id="resultadosmanga-trs">
-		<span style="float:left">
+		<span style="float:left;">
 		<form id="resultadosmanga-trs-form" method="get">
 			<table>
 				<tr>

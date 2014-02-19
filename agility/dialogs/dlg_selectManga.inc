@@ -73,15 +73,16 @@ $('#selmanga-Prueba').combogrid({
 		{field:'Club',title:'Club',width:20,align:'right'},
 		{field:'Observaciones',title:'Observaciones.',width:30,align:'right'}
 	]],
-	onChange:function(value){
-		workingData.prueba=Number(value);
+	onSelect:function(index,row) {
+		workingData.prueba=row.ID;
+		workingData.datosPrueba=row;
 		var g = $('#selmanga-Jornada').combogrid('grid');
-		g.datagrid('load',{Prueba:value});
+		g.datagrid('load',{ Prueba : workingData.datosPrueba.ID } );
 	}
 });
 
 $('#selmanga-Jornada').combogrid({
-	panelWidth: 500,
+	panelWidth: 400,
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
@@ -96,13 +97,18 @@ $('#selmanga-Jornada').combogrid({
 	    { field:'ID',			hidden:true }, // ID de la jornada
 	    { field:'Prueba',		hidden:true }, // ID de la prueba
 	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre/Comentario' },
+		{ field:'Nombre',		width:30, sortable:false,   align:'right', title: 'Nombre/Comentario' },
 		{ field:'Fecha',		width:20, sortable:false,	align:'right', title: 'Fecha:' },
 		{ field:'Hora',			width:15, sortable:false,	align:'right', title: 'Hora.' }
 	]],
-	onBeforeLoad: function(param) { param.Operation='enumerate', param.Prueba=workingData.prueba; return true; },
-	onChange:function(value){
-		workingData.jornada=Number(value);
+	onBeforeLoad: function(param) { 
+		param.Operation='enumerate'; 
+		param.Prueba=workingData.prueba; 
+		return true; 
+	},
+	onSelect:function(index,row) {
+		workingData.jornada=row.ID;
+		workingData.datosJornada=row;
 		var g = $('#selmanga-Ronda').combogrid('grid');
 		g.datagrid('load');
 	}
@@ -121,8 +127,16 @@ $('#selmanga-Ronda').combogrid({
 	fitColumns: true,
 	singleSelect: true,
 	columns: [[
-	    { field:'Manga1',			hidden:true }, // ID de la jornada
-	    { field:'Manga2',		hidden:true }, // ID de la prueba
+	   	{ field:'Manga1',			hidden:true }, // ID de la manga1
+		{ field:'Manga2',			hidden:true }, // ID de la manga2
+		{ field:'Nombre1',			hidden:true }, // Tipo de la manga1
+		{ field:'Nombre2',			hidden:true }, // ITipo de la manga2
+		{ field:'Juez11',			hidden:true }, // jueces manga 1
+		{ field:'Juez12',			hidden:true }, 
+		{ field:'Juez21',			hidden:true }, // jueces manga 2
+		{ field:'Juez22',			hidden:true }, 
+		{ field:'Observaciones1',	hidden:true }, // Observaciones
+		{ field:'Observaciones2',	hidden:true },
 		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre' }
 	]],
 	onBeforeLoad: function(param) { 
@@ -130,6 +144,9 @@ $('#selmanga-Ronda').combogrid({
 		param.Prueba=workingData.prueba; 
 		param.ID=workingData.jornada; 
 		return true;
+	},	
+	onSelect:function(index,row) {
+		workingData.datosRonda=row;
 	}
 });
 

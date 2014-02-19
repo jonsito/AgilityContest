@@ -25,5 +25,9 @@ var workingData = new Object({
 	juez: '', // nombre del juez activo
 	prueba: 0, // ID de la prueba en curso
 	jornada: 0, // ID de la jornada en curso
-	manga: 0 // ID de la manga en curso
+	manga: 0, // ID de la manga en curso
+	manga2: 0, // ID de la segunda manga para el calculo de resultados
+	datosPrueba: new Object(), // last selected prueba data
+	datosJornada: new Object(), // last selected jornada data
+	datosRonda: new Object() // last selected ronda (grade, manga1, manga2)
 });

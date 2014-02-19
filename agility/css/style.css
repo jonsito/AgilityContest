@@ -112,3 +112,14 @@ img.mainpage{
 	font-size: 9px;
 	border: none;
 }
+
+.result_forms {
+	font-size: 11px;
+}
+.result_forms input {
+	font-size: 11px;
+	border: none;
+}
+.result_forms label {
+	font-weight:bold;
+}
