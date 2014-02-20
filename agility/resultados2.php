@@ -1,6 +1,6 @@
 <!-- CLASIFICACIONES DE PRUEBA/JORNADA/RONDA -->
 <div id="resultados-info" class="easyui-panel" title="Informacion de la Ronda">
-<div id="resultados-infolayout" class="easyui-layout" style="height:225px">
+<div id="resultados-infolayout" class="easyui-layout" style="height:200px;">
 	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px;font-size:9px">
 		<form class="result_forms" id="resultados-info-prueba" method="get">
 		<table>
@@ -104,21 +104,22 @@
 </div> <!-- panel de informacion -->
 
 <div id="resultados-data" class="easyui-panel" title="Clasificaciones">
-	<div id="resultados-datatabs" class="easyui-tabs">
+	<div id="resultados-datatabs" class="easyui-tabs" style="height:325px;padding:0px 0px 10px 0px;">
 		<div title="Manga 1" data-options="closable:false">
-		&nbsp;
+			<table id="resultados-manga1-datagrid" class="easyui-datagrid" style="padding:10px 20px"></table>
 		</div>
 		<div title="Manga 2" data-options="closable:false">
-		&nbsp;
+			<table id="resultados-manga2-datagrid" class="easyui-datagrid" style="padding:10px 20px"></table>
 		</div>
 		<div title="Conjunta" data-options="closable:false">
-		&nbsp;
+			<table id="resultados-conjunta-datagrid" class="easyui-datagrid" style="padding:10px 20px"></table>
 		</div>
 	</div>
 </div>
+
 <div id="resultados-toolbar">
 	<form id="resultados-cat-form" class="result_forms">
-	<select>
+	<select id="resultados-cat-form-select">
 		<option value="0">Large</option>
 		<option value="1">Medium</option>
 		<option value="2">Small</option>
@@ -130,6 +131,7 @@
     <a id="resultados-printBtn" href="#" class="easyui-linkbutton" onclick="">Imprimir</a>
 	</form>
 </div>
+
 <script type="text/javascript">
 
 //cabecera de la pagina
@@ -210,5 +212,141 @@ $('#resultados-printBtn').tooltip({
 	content: '<span style="color:#000">Imprimir los resultados</span>',
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
+});
+
+// declaracion de las diversas tablas de resultados
+$('#resultados-manga1-datagrid').datagrid({
+	// propiedades del panel asociado
+	fit: true,
+	border: false,
+	closable: false,
+	collapsible: false,
+	collapsed: false,
+	// propiedades del datagrid
+	method: 'get',
+	url: 'database/clasificacionesFunctions.php',
+    queryParams: {
+        Jornada: workingData.jornada,
+        Manga: workingData.manga,
+        Operation: 'parcial',
+        Orden: $('#resultados-cat-form-select').val()
+    },
+    loadMsg: "Actualizando resultados de la manga 1 ....",
+    pagination: false,
+    rownumbers: false,
+    fitColumns: true,
+    singleSelect: true,
+    // toolbar: '#resultadosmanga-toolbar',
+    columns:[[
+        { field:'Manga',		hidden:true },
+        { field:'Dorsal',		hidden:true },
+        // { field:'Dorsal',		width:10, align:'left',  title: 'Dorsal'},
+      	{ field:'Licencia',		hidden:true },
+        { field:'Puesto',		width:10, align:'left',  title: 'Puesto'},
+        { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
+        { field:'Guia',			width:40, align:'right', title: 'Guia' },
+        { field:'Club',			width:25, align:'right', title: 'Club' },
+      	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
+      	{ field:'Faltas',		width:10, align:'center', title: 'Faltas'},
+      	{ field:'Rehuses',		width:10, align:'center', title: 'Rehuses'},
+      	{ field:'Tocados',		width:10, align:'center', title: 'Tocados'},
+      	{ field:'Tiempo',		width:15, align:'right', title: 'Tiempo'},
+      	{ field:'Velocidad',	width:10, align:'right', title: 'Vel.'},
+      	{ field:'Penalizacion',	width:15, align:'right', title: 'Penal.'}, 
+      	{ field:'Calificacion',	width:25, align:'center',title: 'Calificacion'}
+    ]],
+    rowStyler:function(index,row) { // colorize rows
+        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+    },
+    onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; } // do not load if no manga selected
+});
+
+$('#resultados-manga2-datagrid').datagrid({
+	// propiedades del panel asociado
+	fit: true,
+	border: false,
+	closable: false,
+	collapsible: false,
+	collapsed: false,
+	// propiedades del datagrid
+	method: 'get',
+	url: 'database/clasificacionesFunctions.php',
+    queryParams: {
+        Jornada: workingData.jornada,
+        Manga: workingData.manga2,
+        Operation: 'parcial',
+        Orden: $('#resultados-cat-form-select').val()
+    },
+    loadMsg: "Actualizando resultados de la manga 2 ....",
+    pagination: false,
+    rownumbers: false,
+    fitColumns: true,
+    singleSelect: true,
+    columns:[[
+        { field:'Manga',		hidden:true },
+        { field:'Dorsal',		hidden:true },
+        // { field:'Dorsal',		width:10, align:'left',  title: 'Dorsal'},
+      	{ field:'Licencia',		hidden:true },
+        { field:'Puesto',		width:10, align:'left',  title: 'Puesto'},
+        { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
+        { field:'Guia',			width:40, align:'right', title: 'Guia' },
+        { field:'Club',			width:25, align:'right', title: 'Club' },
+      	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
+      	{ field:'Faltas',		width:10, align:'center', title: 'Faltas'},
+      	{ field:'Rehuses',		width:10, align:'center', title: 'Rehuses'},
+      	{ field:'Tocados',		width:10, align:'center', title: 'Tocados'},
+      	{ field:'Tiempo',		width:15, align:'right', title: 'Tiempo'},
+      	{ field:'Velocidad',	width:10, align:'right', title: 'Vel.'},
+      	{ field:'Penalizacion',	width:15, align:'right', title: 'Penal.'}, 
+      	{ field:'Calificacion',	width:25, align:'center',title: 'Calificacion'}
+    ]],
+    rowStyler:function(index,row) { // colorize rows
+        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+    },
+    onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; } // do not load if no manga selected
+});
+
+$('#resultados-conjunta-datagrid').datagrid({
+	// propiedades del panel asociado
+	fit: true,
+	border: false,
+	closable: false,
+	collapsible: false,
+	collapsed: false,
+	// propiedades del datagrid
+	method: 'get',
+	url: 'database/clasificacionesFunctions.php',
+    queryParams: {
+        Jornada: workingData.jornada,
+        Manga: workingData.manga,
+        Manga2: workingData.manga2,
+        Operation: 'final',
+        Orden: $('#resultados-cat-form-select').val()
+    },
+    loadMsg: "Actualizando resultados de la clasificacion conjunta ....",
+    pagination: false,
+    rownumbers: false,
+    fitColumns: true,
+    singleSelect: true,
+    // toolbar: '#resultadosmanga-toolbar',
+    columns:[[
+        { field:'Manga',		hidden:true },
+        { field:'Dorsal',		hidden:true },
+        // { field:'Dorsal',		width:10, align:'left',  title: 'Dorsal'},
+      	{ field:'Licencia',		hidden:true },
+        { field:'Puesto',		width:10, align:'left',  title: 'Puesto'},
+        { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
+        { field:'Guia',			width:40, align:'right', title: 'Guia' },
+        { field:'Club',			width:25, align:'right', title: 'Club' },
+      	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' }
+    ]],
+    rowStyler:function(index,row) { // colorize rows
+        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+    },
+    onBeforeLoad: function(param) { // do not load if no manga selected
+        if (workingData.manga<=0) return false;
+        if (workingData.manga2<=0) return false;
+        return true;
+    }
 });
 </script>

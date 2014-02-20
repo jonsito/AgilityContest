@@ -341,13 +341,13 @@ class Clasificaciones extends DBObject {
 	function clasificacionFinal($manga1,$manga2) {
 		$this->myLogger->enter();
 		// Fase 1: generamos la clasificacion de cada manga
-		$tablename1="Manga_".$manga1."_".$manga2."_".random_password(8);
-		$res=$this->clasificacion($tablename1,$manga1,$manga2);
+		$tablename="Manga_".$manga1."_".$manga2."_".random_password(8);
+		$res=$this->clasificacion($tablename,$manga1,$manga2);
 		if ($res===null) return $this->error("final::clasificacionFinal() on mangas $manga1 & $manga2 returned null");
 		
 		$str="SELECT * , (Penalizacion+Penalizacion2) AS PFinal, (Tiempo+Tiempo2) AS TFinal
 			FROM $tablename
-			ORDER BY Categoria ASC PFinal DESC, TFinal DESC";
+			ORDER BY Categoria ASC, PFinal DESC, TFinal DESC";
 
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
