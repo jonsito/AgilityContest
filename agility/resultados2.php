@@ -112,7 +112,44 @@
 			<table id="resultados-manga2-datagrid" class="easyui-datagrid" style="padding:10px 20px"></table>
 		</div>
 		<div title="Conjunta" data-options="closable:false">
-			<table id="resultados-conjunta-datagrid" class="easyui-datagrid" style="padding:10px 20px"></table>
+			<table id="resultados-conjunta-datagrid" class="easyui-datagrid" style="padding:10px 20px">
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th colspan="4">Participante</th>
+						<th colspan="7">Manga 1</th>
+						<th colspan="7">Manga 2</th>
+						<th colspan="3">Conjunta</th>
+					</tr>
+					<tr>
+        				<th data-options="field:'Puesto',		width:10,	align:'left'">Puesto</th>
+						<th data-options="field:'Nombre',		width:20,	align:'left'">Nombre</th>
+        				<th data-options="field:'Guia',			width:40,	align:'right'">Guia</th>
+        				<th data-options="field:'Club',			width:25,	align:'right'">Club</th>
+      					<th data-options="field:'Categoria',	width:7,	align:'center'">Cat.</th>
+
+        				<th data-options="field:'Faltas',		width:5,	align:'right'">F</th>
+        				<th data-options="field:'Tocados',		width:5,	align:'right'">T</th>
+        				<th data-options="field:'Rehuses',		width:5,	align:'right'">R</th>
+        				<th data-options="field:'Tiempo',		width:15,	align:'right'">Tmp</th>
+        				<th data-options="field:'Velocidad',	width:10,	align:'right'">Vel</th>
+        				<th data-options="field:'Penalizacion',	width:15,	align:'right'">Penal</th>
+        				<th data-options="field:'Calificacion',	width:12,	align:'center'">Calif</th>
+        
+        				<th data-options="field:'Faltas2',		width:5,	align:'right'">F</th>
+        				<th data-options="field:'Tocados2',		width:5,	align:'right'">T</th>
+        				<th data-options="field:'Rehuses2',		width:5,	align:'right'">R</th>
+        				<th data-options="field:'Tiempo2',		width:15,	align:'right'">Tmp</th>
+        				<th data-options="field:'Velocidad2',	width:10,	align:'right'">Vel</th>
+        				<th data-options="field:'Penalizacion2',width:15,	align:'right'">Penal</th>
+        				<th data-options="field:'Calificacion2',width:12,	align:'center'">Calif</th>
+        
+				        <th data-options="field:'TFinal',		width:15,	align:'right'">Tiempo</th>
+        				<th data-options="field:'PFinal',		width:10,	align:'right'">Penaliz</th>
+        				<th data-options="field:'Puntos',		width:10,	align:'center'">Puntos</th>
+					</tr>
+				</thead>
+			</table>
 		</div>
 	</div>
 </div>
@@ -126,7 +163,7 @@
 		<option value="3">Medium + Small</option>
 		<option value="4">Large + Medium + Small</option>
 	</select>
-    <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" onclick="">Refrescar</a>
+    <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" onclick="reloadClasificacion();">Refrescar</a>
     <a id="resultados-labelsBtn" href="#" class="easyui-linkbutton" onclick="">Etiquetas</a>
     <a id="resultados-printBtn" href="#" class="easyui-linkbutton" onclick="">Imprimir</a>
 	</form>
@@ -328,18 +365,6 @@ $('#resultados-conjunta-datagrid').datagrid({
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
-    // toolbar: '#resultadosmanga-toolbar',
-    columns:[[
-        { field:'Manga',		hidden:true },
-        { field:'Dorsal',		hidden:true },
-        // { field:'Dorsal',		width:10, align:'left',  title: 'Dorsal'},
-      	{ field:'Licencia',		hidden:true },
-        { field:'Puesto',		width:10, align:'left',  title: 'Puesto'},
-        { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
-        { field:'Guia',			width:40, align:'right', title: 'Guia' },
-        { field:'Club',			width:25, align:'right', title: 'Club' },
-      	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' }
-    ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
     },

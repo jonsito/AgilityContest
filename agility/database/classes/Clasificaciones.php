@@ -30,6 +30,7 @@ class Clasificaciones extends DBObject {
 	 * @return null on error; "" on success
 	 */
 	function clasificacion($tablename,$manga1,$manga2=0) {
+		$cfinal=($manga2==0)?false:true;
 		$this->myLogger->enter();
 		// FASE 0: creamos una tabla temporal en la que ir almacenando los diversos resultados parciales
 		$str="CREATE TEMPORARY TABLE $tablename (
@@ -132,18 +133,18 @@ class Clasificaciones extends DBObject {
 			$row->Velocidad=number_format($row->Velocidad,1);
 			$row->Penalizacion=number_format($row->Penalizacion,2);
 			// evaluamos calificacion
-			if ($row->Penalizacion==0)	$row->Calificacion = "Excelente (p)";
-			if ($row->Penalizacion>0)	$row->Calificacion = "Excelente";
-			if ($row->Penalizacion>=6)	$row->Calificacion = "Muy Bien";
-			if ($row->Penalizacion>=16)	$row->Calificacion = "Bien";
-			if ($row->Penalizacion>=26)	$row->Calificacion = "No Clasificado";
+			if ($row->Penalizacion==0)	$row->Calificacion = ($cfinal)?"EX P":" Excelente (p)";
+			if ($row->Penalizacion>0)	$row->Calificacion = ($cfinal)?"EX":"Excelente";
+			if ($row->Penalizacion>=6)	$row->Calificacion = ($cfinal)?"MB":"Muy Bien";
+			if ($row->Penalizacion>=16)	$row->Calificacion = ($cfinal)?"BU":"Bueno";
+			if ($row->Penalizacion>=26)	$row->Calificacion = ($cfinal)?"N.C.":"No Clasificado";
 			if (($row->Penalizacion>=100) && ($row->Penalizacion<200)){
 				$row->Penalizacion=100;
-				$row->Calificacion = "Eliminado";
+				$row->Calificacion = ($cfinal)?"Elim":"Eliminado";
 			}
 			if ($row->Penalizacion>=200)	{
 				$row->penalizacion=200;
-				$row->Calificacion = "No Presentado";
+				$row->Calificacion = ($cfinal)?"N.P.":"No Presentado";
 			}
 			
 			// y ejecutamos el update en la tabla temporal
@@ -239,20 +240,22 @@ class Clasificaciones extends DBObject {
 			$row->Velocidad2=number_format($row->Velocidad2,1);
 			$row->Penalizacion2=number_format($row->Penalizacion2,2);
 			// evaluamos calificacion
-			if ($row->Penalizacion2==0)		$row->Calificacion2 = "Excelente (p)";
-			if ($row->Penalizacion2>0)		$row->Calificacion2 = "Excelente";
-			if ($row->Penalizacion2>=6)		$row->Calificacion2 = "Muy Bien";
-			if ($row->Penalizacion2>=16)	$row->Calificacion2 = "Bien";
-			if ($row->Penalizacion2>=26)	$row->Calificacion2 = "No Clasificado";
+
+			// evaluamos calificacion
+			if ($row->Penalizacion2==0)	$row->Calificacion2 = ($cfinal)?"EX P":" Excelente (p)";
+			if ($row->Penalizacion2>0)	$row->Calificacion2 = ($cfinal)?"EX":"Excelente";
+			if ($row->Penalizacion2>=6)	$row->Calificacion2 = ($cfinal)?"MB":"Muy Bien";
+			if ($row->Penalizacion2>=16)	$row->Calificacion2 = ($cfinal)?"BU":"Bueno";
+			if ($row->Penalizacion2>=26)	$row->Calificacion2 = ($cfinal)?"N.C.":"No Clasificado";
 			if (($row->Penalizacion2>=100) && ($row->Penalizacion2<200)){
 				$row->Penalizacion2=100;
-				$row->Calificacion2 = "Eliminado";
+				$row->Calificacion2 = ($cfinal)?"Elim":"Eliminado";
 			}
 			if ($row->Penalizacion2>=200)	{
 				$row->penalizacion2=200;
-				$row->Calificacion2 = "No Presentado";
+				$row->Calificacion2 = ($cfinal)?"N.P.":"No Presentado";
 			}
-				
+			
 			// y ejecutamos el update en la tabla temporal
 			$pt=$row->PTiempo2;
 			$p=$row->Penalizacion2;
@@ -347,13 +350,25 @@ class Clasificaciones extends DBObject {
 		
 		$str="SELECT * , (Penalizacion+Penalizacion2) AS PFinal, (Tiempo+Tiempo2) AS TFinal
 			FROM $tablename
-			ORDER BY Categoria ASC, PFinal DESC, TFinal DESC";
+			ORDER BY Categoria ASC, PFinal ASC, TFinal ASC";
 
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
+
 		// y devolvemos el resultado
+		$lastCategoria="*";
+		$puesto=1;
 		$rows=array();
-		while ($item=$rs->fetch_array()) array_push($rows,$item);
+		while ($item=$rs->fetch_array()) {
+			if ($lastCategoria!==$item['Categoria']) {
+				$lastCategoria=$item['Categoria'];
+				$puesto=1;
+			}
+			// TODO: puesto debe ser el mismo si mismos penalizacion y tiempo
+			$item['Puesto']=$puesto++;
+			$item['Puntos']= ($item['PFinal']==0)?"P":"";
+			array_push($rows,$item);
+		}
 		$rs->free();
 		$result=array();
 		$result['total']=count($rows);

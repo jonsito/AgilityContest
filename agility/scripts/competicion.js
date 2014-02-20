@@ -223,3 +223,9 @@ function competicionDialog(name) {
         reloadResultadosManga();
     }
 }
+
+function reloadClasificacion() {
+	$('#resultados-manga1-datagrid').datagrid('reload');
+	$('#resultados-manga2-datagrid').datagrid('reload');
+	$('#resultados-conjunta-datagrid').datagrid('reload');
+}
