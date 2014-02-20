@@ -270,47 +270,7 @@ class Clasificaciones extends DBObject {
 		$stmt->close(); // cerramos el prepared statement
 		return ""; // retornamos OK
 	}
-	
-	/**
-	 * Presenta los Clasificaciones parciales de la manga indicada
-	 * @param {integer} $manga Manga ID
-	 * @return null on error; on success result in easyui datagrid compatible format
-	 */
-	function clasificacionParcial($manga) {
-		$this->myLogger->enter();
-		// Fase 1: generamos la clasificacion
-		$tablename="Manga_".$manga."_".random_password(8);
-		$res=$this->clasificacion($tablename,$manga);
-		if ($res===null) return $this->error("parcial::clasificacion returned null");
-		// FASE 2: hacemos un query en base a un join de la tabla de resultados 
-		// y la de calificaciones ordenado por categoria/penalizacion/tiempo
-		$str= "SELECT $manga AS Manga, Dorsal, Nombre, Licencia, Categoria, Guia, Club,
-				Faltas, Rehuses, Tocados, Tiempo, Velocidad, Penalizacion, Calificacion
-				FROM $tablename
-				ORDER BY Categoria ASC, Penalizacion ASC, Tiempo ASC";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		// y devolvemos el resultado
-		$lastCategoria="*";
-		$puesto=1;
-		$rows=array();
-		while ($item=$rs->fetch_array()) {
-			if ($lastCategoria!==$item['Categoria']) {
-				$lastCategoria=$item['Categoria'];
-				$puesto=1;
-			}
-			// TODO: puesto debe ser el mismo si mismos penalizacion y tiempo
-			$item['Puesto']=$puesto++;
-			array_push($rows,$item);
-		}
-		$rs->free();
-		$result=array();
-		$result['total']=count($rows);
-		$result['rows']=$rows;
-		$this->myLogger->leave();
-		return $result;
-	}
-	
+
 	/**
 	 * Calcula el orden de una manga en funcion del resultado
 	 * @param unknown $manga
@@ -324,52 +284,191 @@ class Clasificaciones extends DBObject {
 		if ($res===null) return $this->error("reverse::clasificacion returned null");
 		// FASE 2: hacemos un query en base a un join de la tabla de resultados
 		// y la de calificaciones ordenado por categoria/celo/penalizacion/tiempo
-		
+	
 		$str= "SELECT $manga AS Manga, Dorsal, Categoria, Tiempo, Penalizacion
-			FROM Resultados,$tablename
-			ORDER BY Categoria ASC, Penalizacion DESC, Tiempo DESC";
+		FROM $tablename
+		ORDER BY Categoria ASC, Penalizacion DESC, Tiempo DESC";
 		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		// y devolvemos el resultado
+		if (!$rs) {
+		$this->error("-------------error");
+				return $this->error($this->conn->error);
+		}
+				// y devolvemos el resultado
+				$rows=array();
+				while ($item=$rs->fetch_array()) array_push($rows,$item);
+				$rs->free();
+				$result=array();
+				$result['total']=count($rows);
+				$result['rows']=$rows;
+				$this->myLogger->leave();
+				return $result;
+	}
+	
+	/**
+	 * Presenta los Clasificaciones parciales de la manga indicada
+	 * @param {integer} $manga Manga ID
+	 * @param {string} $cat 0:Todas 1:Large 2:Midi 3:Small 4:Midi+Small 5:Large+Midi+Small
+	 * @return null on error; on success result in easyui datagrid compatible format
+	 */
+	function clasificacionParcial($manga,$cat="0") {
+		$this->myLogger->enter();
+		// Fase 1: generamos la clasificacion
+		$tablename="Manga_".$manga."_".random_password(8);
+		$res=$this->clasificacion($tablename,$manga);
+		if ($res===null) return $this->error("parcial::clasificacion returned null");
+		// FASE 2: hacemos un query en base a un join de la tabla de resultados 
+		// y la de calificaciones ordenado por categoria/penalizacion/tiempo
 		$rows=array();
-		while ($item=$rs->fetch_array()) array_push($rows,$item);
-		$rs->free();
+		if ($cat==="0") { // select every categorias in a separate order
+			$str= "SELECT $manga AS Manga, Dorsal, Nombre, Licencia, Categoria, Guia, Club,
+				Faltas, Rehuses, Tocados, Tiempo, Velocidad, Penalizacion, Calificacion
+				FROM $tablename
+				ORDER BY Categoria ASC, Penalizacion ASC, Tiempo ASC";
+			$rs=$this->query($str);
+			if (!$rs) return $this->error($this->conn->error);
+			// y devolvemos el resultado
+			$lastCategoria="*";
+			$puesto=1;
+			while ($item=$rs->fetch_array()) {
+				if ($lastCategoria!==$item['Categoria']) {
+					$lastCategoria=$item['Categoria'];
+					$puesto=1;
+				}
+				// TODO: puesto debe ser el mismo si mismos penalizacion y tiempo
+				$item['Puesto']=$puesto++;
+				array_push($rows,$item);
+			}
+			$rs->free();
+		} else {
+			switch($cat) {
+			case "1": // Only enumerate Large
+				$str= "SELECT $manga AS Manga, Dorsal, Nombre, Licencia, Categoria, Guia, Club,
+					Faltas, Rehuses, Tocados, Tiempo, Velocidad, Penalizacion, Calificacion
+					FROM $tablename WHERE ( Categoria = 'L' )
+					ORDER BY Penalizacion ASC, Tiempo ASC";
+				break;
+			case "2": // Only enumerate Medium
+				$str= "SELECT $manga AS Manga, Dorsal, Nombre, Licencia, Categoria, Guia, Club,
+					Faltas, Rehuses, Tocados, Tiempo, Velocidad, Penalizacion, Calificacion
+					FROM $tablename WHERE ( Categoria = 'M' )
+					ORDER BY Penalizacion ASC, Tiempo ASC";
+				break;
+			case "3": // Only enumerate Small
+				$str= "SELECT $manga AS Manga, Dorsal, Nombre, Licencia, Categoria, Guia, Club,
+					Faltas, Rehuses, Tocados, Tiempo, Velocidad, Penalizacion, Calificacion
+					FROM $tablename WHERE ( Categoria = 'S' )
+					ORDER BY Penalizacion ASC, Tiempo ASC";
+				break;
+			case "4": // Enumerate Medium+Small
+				$str= "SELECT $manga AS Manga, Dorsal, Nombre, Licencia, Categoria, Guia, Club,
+					Faltas, Rehuses, Tocados, Tiempo, Velocidad, Penalizacion, Calificacion
+					FROM $tablename WHERE ( Categoria = 'M' ) OR ( Categoria = 'S' )
+					ORDER BY Penalizacion ASC, Tiempo ASC";
+				break;
+			case "5": // Enumerate Large+Medium+Small
+				$str= "SELECT $manga AS Manga, Dorsal, Nombre, Licencia, Categoria, Guia, Club,
+					Faltas, Rehuses, Tocados, Tiempo, Velocidad, Penalizacion, Calificacion
+					FROM $tablename 
+					ORDER BY Penalizacion ASC, Tiempo ASC";
+				break;
+			default: return $this->error("Invalid sort category: $cat");
+			}
+			// efectuamos el query
+			$rs=$this->query($str);
+			if (!$rs) return $this->error($this->conn->error);
+			// y devolvemos el resultado
+			$puesto=1;
+			while ($item=$rs->fetch_array()) {
+				// TODO: puesto debe ser el mismo si mismos penalizacion y tiempo
+				$item['Puesto']=$puesto++;
+				array_push($rows,$item);
+			}
+			$rs->free();	
+		}
 		$result=array();
 		$result['total']=count($rows);
 		$result['rows']=$rows;
 		$this->myLogger->leave();
 		return $result;
 	}
-	
-	function clasificacionFinal($manga1,$manga2) {
+
+	/**
+	 * Presenta los Clasificaciones parciales de la manga indicada
+	 * @param {integer} $manga1 Manga 1 ID
+	 * @param {integer} $manga2 Manga 2 ID
+	 * @param {string} $cat 0:Todas 1:Large 2:Midi 3:Small 4:Midi+Small 5:Large+Midi+Small
+	 * @return null on error; on success result in easyui datagrid compatible format
+	 */
+	function clasificacionFinal($manga1,$manga2,$cat="0") {
 		$this->myLogger->enter();
 		// Fase 1: generamos la clasificacion de cada manga
 		$tablename="Manga_".$manga1."_".$manga2."_".random_password(8);
 		$res=$this->clasificacion($tablename,$manga1,$manga2);
 		if ($res===null) return $this->error("final::clasificacionFinal() on mangas $manga1 & $manga2 returned null");
-		
-		$str="SELECT * , (Penalizacion+Penalizacion2) AS PFinal, (Tiempo+Tiempo2) AS TFinal
+		$rows=array();
+		if ($cat==="0") {
+			// efectuamos el query
+			$str="SELECT * , (Penalizacion+Penalizacion2) AS PFinal, (Tiempo+Tiempo2) AS TFinal
 			FROM $tablename
 			ORDER BY Categoria ASC, PFinal ASC, TFinal ASC";
-
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-
-		// y devolvemos el resultado
-		$lastCategoria="*";
-		$puesto=1;
-		$rows=array();
-		while ($item=$rs->fetch_array()) {
-			if ($lastCategoria!==$item['Categoria']) {
-				$lastCategoria=$item['Categoria'];
-				$puesto=1;
+			$rs=$this->query($str);
+			if (!$rs) return $this->error($this->conn->error);
+			// y devolvemos el resultado separando por categorias
+			$lastCategoria="*";
+			$puesto=1;
+			while ($item=$rs->fetch_array()) {
+				if ($lastCategoria!==$item['Categoria']) {
+					$lastCategoria=$item['Categoria'];
+					$puesto=1;
+				}
+				// TODO: puesto debe ser el mismo si mismos penalizacion y tiempo
+				$item['Puesto']=$puesto++;
+				$item['Puntos']= ($item['PFinal']==0)?"P":"";
+				array_push($rows,$item);
 			}
-			// TODO: puesto debe ser el mismo si mismos penalizacion y tiempo
-			$item['Puesto']=$puesto++;
-			$item['Puntos']= ($item['PFinal']==0)?"P":"";
-			array_push($rows,$item);
-		}
-		$rs->free();
+			$rs->free();
+		} else {
+			switch($cat){
+				case "1": // Large
+					$str="SELECT * , (Penalizacion+Penalizacion2) AS PFinal, (Tiempo+Tiempo2) AS TFinal
+					FROM $tablename WHERE ( Categoria = 'L' )
+					ORDER BY PFinal ASC, TFinal ASC";
+					break;
+				case "2": // Medium
+					$str="SELECT * , (Penalizacion+Penalizacion2) AS PFinal, (Tiempo+Tiempo2) AS TFinal
+					FROM $tablename WHERE ( Categoria = 'M' )
+					ORDER BY PFinal ASC, TFinal ASC";
+					break;
+				case "3": // Small
+					$str="SELECT * , (Penalizacion+Penalizacion2) AS PFinal, (Tiempo+Tiempo2) AS TFinal
+					FROM $tablename WHERE ( Categoria = 'S' )
+					ORDER BY PFinal ASC, TFinal ASC";
+					break;
+				case "4": // Medium+Small
+					$str="SELECT * , (Penalizacion+Penalizacion2) AS PFinal, (Tiempo+Tiempo2) AS TFinal
+					FROM $tablename WHERE ( Categoria = 'M' ) OR ( Categoria = 'S' )
+					ORDER BY PFinal ASC, TFinal ASC";
+					break;
+				case "5": // Large+Medium+Small
+					$str="SELECT * , (Penalizacion+Penalizacion2) AS PFinal, (Tiempo+Tiempo2) AS TFinal
+					FROM $tablename
+					ORDER BY PFinal ASC, TFinal ASC";
+					break;
+				default: return $this->error("Invalid sort category: $cat");	
+			}
+			// efectuamos el query
+			$rs=$this->query($str);
+			if (!$rs) return $this->error($this->conn->error);
+			// y devolvemos el resultado separando por categorias
+			$puesto=1;
+			while ($item=$rs->fetch_array()) {
+				// TODO: puesto debe ser el mismo si mismos penalizacion y tiempo
+				$item['Puesto']=$puesto++;
+				$item['Puntos']= ($item['PFinal']==0)?"P":"";
+				array_push($rows,$item);
+			}
+			$rs->free();
+		} // else
 		$result=array();
 		$result['total']=count($rows);
 		$result['rows']=$rows;

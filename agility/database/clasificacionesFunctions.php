@@ -10,9 +10,10 @@ try {
 	if ($operation===null) throw new Exception("Call to clasificacionesFunctions without 'Operation' requested");
 	$manga1=http_request("Manga","i",0);
 	$manga2=http_request("Manga2","i",0);
+	$categorias=http_request("Categorias","s","0");
 	switch ($operation) {
-		case "parcial": $result=$clasificaciones->clasificacionParcial($manga1); break;
-		case "final": $result=$clasificaciones->clasificacionFinal($manga1,$manga2); break;
+		case "parcial": $result=$clasificaciones->clasificacionParcial($manga1,$categorias); break;
+		case "final": $result=$clasificaciones->clasificacionFinal($manga1,$manga2,$categorias); break;
 		default: throw new Exception("clasificacionesFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) throw new Exception($clasificaciones->errormsg);

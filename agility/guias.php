@@ -1,7 +1,7 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE GUIAS -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="guias-datagrid" class="easyui-datagrid">
+    <table id="guias-datagrid" class="easyui-datagrid" style="width:975px;">
     </table>
     <!-- BARRA DE TAREAS -->
     <div id="guias-toolbar">
@@ -23,7 +23,6 @@
         $('#Header_Operation').html('<p>Gesti&oacute;n de Base de Datos de Gu&iacute;as</p>');
         
         // tell jquery to convert declared elements to jquery easyui Objects
-        
         // datos de la tabla de guias
         // - tabla
         $('#guias-datagrid').datagrid({
@@ -152,6 +151,12 @@
         	// - sub tabla de perros asignados a un guia
         	$('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid({
         		title: 'Perros registrados a nombre de '+guia.Nombre,
+       		    pagination: false,
+        	    rownumbers: false,
+        	    fitColumns: true,
+        	    singleSelect: true,
+        	    loadMsg: 'Loading list of dogs',
+        	    height: 'auto',
         		url: 'database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.Nombre },
         		method: 'get',
@@ -176,12 +181,6 @@
 					iconCls: 'icon-trash',
 					handler: function(){delPerroFromGuia(guia);}
 				}],
-       		    pagination: false,
-        	    rownumbers: false,
-        	    fitColumns: true,
-        	    singleSelect: true,
-        	    loadMsg: 'Loading list of dogs',
-        	    height: 'auto',
         	    columns: [[
             	    { field:'Dorsal',	width:15, sortable:true,	title: 'Dorsal'},
             		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },

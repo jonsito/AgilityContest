@@ -156,12 +156,14 @@
 
 <div id="resultados-toolbar">
 	<form id="resultados-cat-form" class="result_forms">
-	<select id="resultados-cat-form-select">
-		<option value="0">Large</option>
-		<option value="1">Medium</option>
-		<option value="2">Small</option>
-		<option value="3">Medium + Small</option>
-		<option value="4">Large + Medium + Small</option>
+	<label for="resultados-cat-select">Categoria:</label>
+	<select id="resultados-cat-form-select" name="resultados-cat-select" onChange="reloadClasificacion();">
+		<option value="0" selected="selected">-- Todas --</option>
+		<option value="1">Large</option>
+		<option value="2">Medium</option>
+		<option value="3">Small</option>
+		<option value="4">Medium + Small</option>
+		<option value="5">Large + Medium + Small</option>
 	</select>
     <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" onclick="reloadClasificacion();">Refrescar</a>
     <a id="resultados-labelsBtn" href="#" class="easyui-linkbutton" onclick="">Etiquetas</a>
@@ -266,7 +268,7 @@ $('#resultados-manga1-datagrid').datagrid({
         Jornada: workingData.jornada,
         Manga: workingData.manga,
         Operation: 'parcial',
-        Orden: $('#resultados-cat-form-select').val()
+        Categorias: $('#resultados-cat-form-select').val()
     },
     loadMsg: "Actualizando resultados de la manga 1 ....",
     pagination: false,
@@ -295,7 +297,11 @@ $('#resultados-manga1-datagrid').datagrid({
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
     },
-    onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; } // do not load if no manga selected
+    onBeforeLoad: function(param) {
+        param.Categorias=$('#resultados-cat-form-select').val();
+        // do not load if no manga selected
+        return (workingData.manga<=0)?false:true; 
+    } 
 });
 
 $('#resultados-manga2-datagrid').datagrid({
@@ -312,7 +318,7 @@ $('#resultados-manga2-datagrid').datagrid({
         Jornada: workingData.jornada,
         Manga: workingData.manga2,
         Operation: 'parcial',
-        Orden: $('#resultados-cat-form-select').val()
+        Categorias: $('#resultados-cat-form-select').val()
     },
     loadMsg: "Actualizando resultados de la manga 2 ....",
     pagination: false,
@@ -340,7 +346,11 @@ $('#resultados-manga2-datagrid').datagrid({
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
     },
-    onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; } // do not load if no manga selected
+    onBeforeLoad: function(param) {
+        param.Categorias=$('#resultados-cat-form-select').val();
+        // do not load if no manga selected
+        return (workingData.manga<=0)?false:true; 
+    } 
 });
 
 $('#resultados-conjunta-datagrid').datagrid({
@@ -358,7 +368,7 @@ $('#resultados-conjunta-datagrid').datagrid({
         Manga: workingData.manga,
         Manga2: workingData.manga2,
         Operation: 'final',
-        Orden: $('#resultados-cat-form-select').val()
+        Categorias: $('#resultados-cat-form-select').val()
     },
     loadMsg: "Actualizando resultados de la clasificacion conjunta ....",
     pagination: false,
@@ -371,6 +381,7 @@ $('#resultados-conjunta-datagrid').datagrid({
     onBeforeLoad: function(param) { // do not load if no manga selected
         if (workingData.manga<=0) return false;
         if (workingData.manga2<=0) return false;
+        param.Categorias=$('#resultados-cat-form-select').val();
         return true;
     }
 });

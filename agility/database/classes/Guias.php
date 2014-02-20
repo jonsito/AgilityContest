@@ -179,7 +179,7 @@ class Guias extends DBObject {
 		// clean environment and return
 		$rs->free();
 		$result["rows"] = $items;
-		return result;
+		return $result;
 	}
 	
 	/**

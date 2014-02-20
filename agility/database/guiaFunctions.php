@@ -15,7 +15,7 @@
 			case "orphan": $result=$guias->orphan(http_request("Nombre","s",0)); break; // unassing from club
 			case "select": $result=$guias->select(); break; // select *
 			case "enumerate": $result=$guias->enumerate(); break; // block select
-			case "getbyclub": $result=$guias->selectByClub(http_request("Nombre","s",null)); break;
+			case "getbyclub": $result=$guias->selectByClub(http_request("Club","s",null)); break;
 			case "getbyname": $result=$guias->selectByNombre(http_request("Nombre","s",null)); break;
 			default: throw new Exception("guiaFunctions:: invalid operation: $operation provided");
 		}
