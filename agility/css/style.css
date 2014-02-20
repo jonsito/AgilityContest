@@ -123,3 +123,6 @@ img.mainpage{
 .result_forms label {
 	font-weight:bold;
 }
+.result_forms select {
+	font-size: 11px;
+}

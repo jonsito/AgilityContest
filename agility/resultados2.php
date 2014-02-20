@@ -1,12 +1,12 @@
 <!-- CLASIFICACIONES DE PRUEBA/JORNADA/RONDA -->
-<div id="resultados-info" class="easyui-panel" title="Clasificaciones">
+<div id="resultados-info" class="easyui-panel" title="Informacion de la Ronda">
 <div id="resultados-infolayout" class="easyui-layout" style="height:225px">
 	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px;font-size:9px">
 		<form class="result_forms" id="resultados-info-prueba" method="get">
 		<table>
 		<tr>
 		<td colspan="2"><label for="Nombre">Denominaci&oacute;n:</label><br />
-		<input id="resultados-info-nombre" type="text" class="result_forms" readonly="readonly" name="Nombre" size="35"/></td>
+		<input id="resultados-info-nombre" type="text" class="result_forms" readonly="readonly" name="Nombre" size="30"/></td>
 		</tr>
 		<tr>
 		<td><label for="Club">Club Organizador:</label></td>
@@ -103,6 +103,33 @@
 </div> <!-- informacion de layout -->
 </div> <!-- panel de informacion -->
 
+<div id="resultados-data" class="easyui-panel" title="Clasificaciones">
+	<div id="resultados-datatabs" class="easyui-tabs">
+		<div title="Manga 1" data-options="closable:false">
+		&nbsp;
+		</div>
+		<div title="Manga 2" data-options="closable:false">
+		&nbsp;
+		</div>
+		<div title="Conjunta" data-options="closable:false">
+		&nbsp;
+		</div>
+	</div>
+</div>
+<div id="resultados-toolbar">
+	<form id="resultados-cat-form" class="result_forms">
+	<select>
+		<option value="0">Large</option>
+		<option value="1">Medium</option>
+		<option value="2">Small</option>
+		<option value="3">Medium + Small</option>
+		<option value="4">Large + Medium + Small</option>
+	</select>
+    <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" onclick="">Refrescar</a>
+    <a id="resultados-labelsBtn" href="#" class="easyui-linkbutton" onclick="">Etiquetas</a>
+    <a id="resultados-printBtn" href="#" class="easyui-linkbutton" onclick="">Imprimir</a>
+	</form>
+</div>
 <script type="text/javascript">
 
 //cabecera de la pagina
@@ -114,7 +141,19 @@ $('#resultados-info').panel({
 	collapsible:true,
 	collapsed:false
 });
+$('#resultados-data').panel({
+	border:		true,
+	closable:	false,
+	collapsible:false,
+	collapsed:	false,
+});
+// preserve space for combobox
+// $('#resultados-data').panel('header').css('height',30);
+
 $('#resultados-infolayout').layout();
+$('#resultados-datatabs').tabs({
+	tools:'#resultados-toolbar'
+});
 $('#resultados-info-prueba').form('load',{
 	Nombre:	workingData.datosPrueba.Nombre,
 	Club:	workingData.datosPrueba.Club,
@@ -149,4 +188,27 @@ $('#resultados-manga2-trs-form').form(
 		'load',
 		"database/mangaFunctions.php?Operation=getTRS&Jornada="+workingData.jornada+"&Manga="+workingData.datosRonda.Manga2
 		);
+
+// botones de la tabla de resultados
+$('#resultados-refreshBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // recargar
+$('#resultados-refreshBtn').tooltip({
+	position: 'top',
+	content: '<span style="color:#000">Actualizar la tabla de resultados</span>',
+	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+	}
+});
+$('#resultados-labelsBtn').linkbutton({plain:true,iconCls:'icon-table'}); // etiquetas
+$('#resultados-labelsBtn').tooltip({
+	position: 'top',
+	content: '<span style="color:#000">Generar patron CSV para componer etiquetas</span>',
+	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+	}
+});
+$('#resultados-printBtn').linkbutton({plain:true,iconCls:'icon-print'}); // imprimir
+$('#resultados-printBtn').tooltip({
+	position: 'top',
+	content: '<span style="color:#000">Imprimir los resultados</span>',
+	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+	}
+});
 </script>
