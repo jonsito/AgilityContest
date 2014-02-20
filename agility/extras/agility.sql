@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-02-2014 a las 15:19:46
+-- Tiempo de generación: 20-02-2014 a las 15:21:09
 -- Versión del servidor: 5.5.35-0ubuntu0.12.04.2
 -- Versión de PHP: 5.3.10-1ubuntu3.9
 
@@ -902,11 +902,11 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
 --
 
 INSERT INTO `Mangas` (`ID`, `Jornada`, `Tipo`, `Grado`, `Recorrido`, `Dist_L`, `Obst_L`, `Dist_M`, `Obst_M`, `Dist_S`, `Obst_S`, `TRS_L_Tipo`, `TRS_L_Factor`, `TRS_L_Unit`, `TRM_L_Tipo`, `TRM_L_Factor`, `TRM_L_Unit`, `TRS_M_Tipo`, `TRS_M_Factor`, `TRS_M_Unit`, `TRM_M_Tipo`, `TRM_M_Factor`, `TRM_M_Unit`, `TRS_S_Tipo`, `TRS_S_Factor`, `TRS_S_Unit`, `TRM_S_Tipo`, `TRM_S_Factor`, `TRM_S_Unit`, `Juez1`, `Juez2`, `Observaciones`, `Cerrada`, `Orden_Salida`) VALUES
-(1, 9, 'Agility-1 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 'Beltrán Bustamante, Ana', '-- Sin asignar --', 'esto es una prueba', 0, 'BEGIN,TAG_-0,TAG_-1,TAG_L0,582,572,581,583,573,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
+(1, 9, 'Agility-1 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 'Beltrán Bustamante, Ana', '-- Sin asignar --', 'esto es una prueba', 0, ''),
 (2, 9, 'Agility-2 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
-(3, 9, 'Agility GII', 'GII', 1, 165, 21, 150, 20, 0, 0, 2, 15, '%', 1, 50, '%', 0, 45, 's', 1, 40, 's', 4, 0, 's', 1, 40, 's', 'Beltrán Bustamante, Ana', '-- Sin asignar --', 'Primera manga. ', 0, 'BEGIN,TAG_-0,TAG_-1,TAG_L0,578,558,574,33,579,227,TAG_L1,575,TAG_M0,577,563,404,564,414,TAG_M1,384,TAG_S0,496,585,500,TAG_S1,TAG_T0,TAG_T1,END'),
-(4, 9, 'Jumping GII', 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
-(5, 9, 'Agility GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, 'BEGIN,TAG_-0,TAG_-1,TAG_L0,26,88,18,569,TAG_L1,TAG_M0,399,TAG_M1,TAG_S0,467,TAG_S1,TAG_T0,TAG_T1,END'),
+(3, 9, 'Agility GII', 'GII', 0, 165, 21, 165, 21, 165, 21, 2, 15, '%', 1, 50, '%', 3, 2, 's', 1, 40, 's', 3, 2, 's', 1, 40, 's', 'Beltrán Bustamante, Ana', '-- Sin asignar --', 'Primera manga. ', 0, 'BEGIN,TAG_-0,TAG_-1,TAG_L0,33,579,227,574,578,558,TAG_L1,575,TAG_M0,563,564,577,414,404,TAG_M1,384,TAG_S0,496,500,585,TAG_S1,TAG_T0,TAG_T1,END'),
+(4, 9, 'Jumping GII', 'GII', 0, 165, 19, 165, 19, 165, 19, 2, 15, '%', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', '', 0, 'BEGIN,TAG_-0,TAG_-1,TAG_L0,227,574,579,558,33,578,TAG_L1,575,TAG_M0,563,414,404,577,564,TAG_M1,384,TAG_S0,500,496,585,TAG_S1,TAG_T0,TAG_T1,END'),
+(5, 9, 'Agility GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
 (6, 9, 'Jumping GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', '', 0, ''),
 (8, 10, 'Agility-1 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
 (9, 10, 'Agility-2 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
@@ -1482,7 +1482,7 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
   `Rehuses` int(4) NOT NULL DEFAULT '0',
   `Tocados` int(4) NOT NULL DEFAULT '0',
   `Eliminado` tinyint(1) NOT NULL DEFAULT '0',
-  `NoPresentado` tinyint(1) NOT NULL DEFAULT '1',
+  `NoPresentado` tinyint(1) NOT NULL DEFAULT '0',
   `Tiempo` double NOT NULL DEFAULT '0',
   `Observaciones` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`Manga`,`Dorsal`),
@@ -1502,22 +1502,38 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 --
 
 INSERT INTO `Resultados` (`Manga`, `Dorsal`, `Nombre`, `Licencia`, `Categoria`, `Grado`, `Guia`, `Club`, `Entrada`, `Comienzo`, `Faltas`, `Rehuses`, `Tocados`, `Eliminado`, `NoPresentado`, `Tiempo`, `Observaciones`) VALUES
-(3, 33, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández', 'Correcan', '2014-02-11 14:08:29', '2014-02-11 14:08:29', 0, 0, 0, 0, 0, 48.3, ''),
-(3, 227, 'Onis', 'A498', 'L', 'GII', 'José Antonio Vega', 'Agilcan', '2014-02-11 14:11:41', '2014-02-11 14:11:41', 0, 3, 0, 1, 0, 0, ''),
-(3, 384, 'Duna', '953', 'M', 'GII', 'Francisco Esteban', 'Costa Blanca', '2014-02-11 14:09:16', '2014-02-11 14:09:16', 0, 0, 0, 0, 1, 0, ''),
-(3, 404, 'Jolie', '808', 'M', 'GII', 'Celeste Zarzosa', 'La Princesa', '2014-02-11 14:09:05', '2014-02-11 14:09:05', 0, 0, 0, 0, 1, 0, ''),
-(3, 414, 'Luna', 'A240', 'M', 'GII', 'Paula Rello', 'Cubas', '2014-02-11 14:11:31', '2014-02-11 14:11:31', 0, 0, 0, 1, 0, 0, ''),
-(3, 496, 'Bengel', '760', 'S', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 1, 0, ''),
-(3, 500, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 1, 0, ''),
-(3, 558, 'Aker', 'A397', 'L', 'GII', 'Francisco Javier Jaen', 'Deporcan', '2014-02-11 11:58:01', '2014-02-11 11:58:01', 1, 2, 0, 0, 0, 56.76, 'test'),
-(3, 563, 'Dama', 'A641', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-02-11 14:08:56', '2014-02-11 14:08:56', 0, 0, 0, 0, 0, 35.02, '!Viva yo!'),
-(3, 564, 'Flai', 'en tramite', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-02-11 14:11:29', '2014-02-11 14:11:29', 1, 0, 0, 0, 0, 37.45, 'Esas zonasss'),
-(3, 574, 'Sira', 'A-584', 'L', 'GII', 'Joaquín Andrés', 'Agilcan', '2014-02-11 14:08:26', '2014-02-11 14:08:26', 0, 1, 0, 0, 0, 47.99, ''),
-(3, 575, 'Duna', 'A-586', 'L', 'GII', 'Vicente Martín', 'Agilcan', '2014-02-11 11:58:12', '2014-02-11 11:58:12', 0, 0, 0, 0, 0, 3, ''),
-(3, 577, 'Kyle', 'A-539', 'M', 'GII', 'Iván San Antonio', 'Cinco Huesos', '2014-02-11 11:58:13', '2014-02-11 11:58:13', 0, 0, 0, 0, 0, 3.56, ''),
-(3, 578, 'Kara', 'A-541', 'L', 'GII', 'Ramón García', 'Cinco Huesos', '2014-02-11 11:58:10', '2014-02-11 11:58:10', 0, 0, 0, 0, 0, 1, ''),
-(3, 579, 'Tibet', '', 'L', 'GII', 'Antonio Molina', 'Cinco Huesos', '2014-02-11 11:58:07', '2014-02-11 11:58:07', 1, 0, 0, 0, 0, 49.01, ''),
-(3, 585, 'Maggie', '', 'S', 'GII', 'Raúl Sánchez', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 1, 0, '');
+(3, 33, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández', 'Correcan', '2014-02-20 14:07:57', '2014-02-20 14:07:57', 0, 0, 0, 0, 0, 49.12, ''),
+(3, 227, 'Onis', 'A498', 'L', 'GII', 'José Antonio Vega', 'Agilcan', '2014-02-13 07:49:53', '2014-02-13 07:49:53', 0, 0, 0, 0, 0, 40, ''),
+(3, 384, 'Duna', '953', 'M', 'GII', 'Francisco Esteban', 'Costa Blanca', '2014-02-20 14:07:06', '2014-02-20 14:07:06', 0, 0, 0, 1, 0, 0, ''),
+(3, 404, 'Jolie', '808', 'M', 'GII', 'Celeste Zarzosa', 'La Princesa', '2014-02-20 14:06:57', '2014-02-20 14:06:57', 0, 0, 0, 0, 0, 49.2, ''),
+(3, 414, 'Luna', 'A240', 'M', 'GII', 'Paula Rello', 'Cubas', '2014-02-13 07:49:12', '2014-02-13 07:49:12', 0, 2, 0, 0, 0, 40, ''),
+(3, 496, 'Bengel', '760', 'S', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-02-13 07:49:32', '2014-02-13 07:49:32', 0, 0, 0, 0, 0, 42, ''),
+(3, 500, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2014-02-13 07:49:37', '2014-02-13 07:49:37', 0, 0, 0, 0, 0, 43, ''),
+(3, 558, 'Aker', 'A397', 'L', 'GII', 'Francisco Javier Jaen', 'Deporcan', '2014-02-13 07:47:43', '2014-02-13 07:47:43', 0, 0, 0, 0, 0, 43, ''),
+(3, 563, 'Dama', 'A641', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-02-20 14:07:16', '2014-02-20 14:07:16', 0, 0, 0, 0, 0, 45, ''),
+(3, 564, 'Flai', 'en tramite', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-02-13 07:49:02', '2014-02-13 07:49:02', 1, 0, 0, 0, 0, 45, ''),
+(3, 574, 'Sira', 'A-584', 'L', 'GII', 'Joaquín Andrés', 'Agilcan', '2014-02-20 14:08:20', '2014-02-20 14:08:20', 1, 0, 0, 0, 0, 49.5, ''),
+(3, 575, 'Duna', 'A-586', 'L', 'GII', 'Vicente Martín', 'Agilcan', '2014-02-20 14:07:14', '2014-02-20 14:07:14', 0, 0, 0, 0, 0, 50.32, ''),
+(3, 577, 'Kyle', 'A-539', 'M', 'GII', 'Iván San Antonio', 'Cinco Huesos', '2014-02-13 07:49:05', '2014-02-13 07:49:05', 0, 0, 0, 0, 0, 10, ''),
+(3, 578, 'Kara', 'A-541', 'L', 'GII', 'Ramón García', 'Cinco Huesos', '2014-02-20 14:08:22', '2014-02-20 14:08:22', 0, 0, 0, 0, 0, 42, ''),
+(3, 579, 'Tibet', '', 'L', 'GII', 'Antonio Molina', 'Cinco Huesos', '2014-02-20 14:08:04', '2014-02-20 14:08:04', 0, 0, 0, 0, 0, 42.3, ''),
+(3, 585, 'Maggie', '', 'S', 'GII', 'Raúl Sánchez', 'Cubas', '2014-02-13 07:49:41', '2014-02-13 07:49:41', 0, 0, 0, 0, 1, 0, ''),
+(4, 33, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández', 'Correcan', '2014-02-20 14:11:39', '2014-02-20 14:11:39', 0, 0, 0, 0, 0, 49.5, ''),
+(4, 227, 'Onis', 'A498', 'L', 'GII', 'José Antonio Vega', 'Agilcan', '2014-02-20 14:10:37', '2014-02-20 14:10:37', 0, 0, 0, 0, 0, 35.1, ''),
+(4, 384, 'Duna', '953', 'M', 'GII', 'Francisco Esteban', 'Costa Blanca', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 404, 'Jolie', '808', 'M', 'GII', 'Celeste Zarzosa', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 414, 'Luna', 'A240', 'M', 'GII', 'Paula Rello', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 496, 'Bengel', '760', 'S', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 500, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 558, 'Aker', 'A397', 'L', 'GII', 'Francisco Javier Jaen', 'Deporcan', '2014-02-20 14:11:37', '2014-02-20 14:11:37', 0, 0, 0, 0, 0, 43.3, ''),
+(4, 563, 'Dama', 'A641', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-02-20 14:10:30', '2014-02-20 14:10:30', 0, 0, 0, 0, 1, 0, ''),
+(4, 564, 'Flai', 'en tramite', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 574, 'Sira', 'A-584', 'L', 'GII', 'Joaquín Andrés', 'Agilcan', '2014-02-20 14:10:40', '2014-02-20 14:10:40', 0, 0, 0, 0, 0, 36.2, ''),
+(4, 575, 'Duna', 'A-586', 'L', 'GII', 'Vicente Martín', 'Agilcan', '2014-02-20 14:09:50', '2014-02-20 14:09:50', 0, 0, 0, 0, 0, 51.7, ''),
+(4, 577, 'Kyle', 'A-539', 'M', 'GII', 'Iván San Antonio', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 578, 'Kara', 'A-541', 'L', 'GII', 'Ramón García', 'Cinco Huesos', '2014-02-20 14:09:46', '2014-02-20 14:09:46', 0, 0, 0, 0, 0, 50.6, ''),
+(4, 579, 'Tibet', '', 'L', 'GII', 'Antonio Molina', 'Cinco Huesos', '2014-02-20 14:10:45', '2014-02-20 14:10:45', 0, 0, 0, 0, 0, 37.3, ''),
+(4, 585, 'Maggie', '', 'S', 'GII', 'Raúl Sánchez', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '');
 
 -- --------------------------------------------------------
 
