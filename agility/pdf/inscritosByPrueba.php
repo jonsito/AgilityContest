@@ -20,6 +20,13 @@ class PDF extends FPDF {
 	protected $inscritos;
 	protected $myLogger;
 
+	// geometria de las celdas
+	protected $cellHeader
+					=array('Dorsal','Nombre','Guía','Club','Cat.','Grado','Celo','Sab.','Dom.','Observaciones');
+	protected $pos	=array(  10,       25,     40,   30,    10,     10,     10,  10,  10,  30 );
+	protected $align=array(  'R',      'R',    'R',  'R',   'C',    'L',    'C', 'C', 'C', 'L');
+	protected $fmt	=array(  'i',      's',    's',  's',   's',    's',    'b', 'b', 'b', 's');
+	
 	/**
 	 * Constructor
 	 * @param {integer} $prueba Prueba ID
@@ -74,52 +81,58 @@ class PDF extends FPDF {
 		$this->myLogger->leave();
 	}
 	
+	function writeTableHeader() {
+		$this->myLogger->enter();
+		// Colores, ancho de línea y fuente en negrita de la cabecera de tabla
+		$this->SetFillColor(0,0,255); // azul
+		$this->SetTextColor(255,255,255); // blanco
+		$this->SetFont('Arial','B',9); // bold 9px
+		for($i=0;$i<count($this->cellHeader);$i++) {
+			// en la cabecera texto siempre centrado
+			$this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
+		}
+		// Restauración de colores y fuentes
+		$this->SetFillColor(224,235,255); // azul merle
+		$this->SetTextColor(0,0,0); // negro
+		$this->SetFont(''); // remove bold
+		$this->Ln();
+		$this->myLogger->leave();
+	}
+	
 	// Tabla coloreada
 	function composeTable() {
 		$this->myLogger->enter();
-		// geometria de las celdas
-		$cellHeader  
-		    =array('Dorsal','Nombre','Guía','Club','Cat.','Grado','Celo','Sab.', 'Dom.', 'Observaciones');
-		$pos=array(  10,       25,     40,   30,    10,     10,     10,  10,  10,  30 );
-		$align=array('R',      'R',    'R',  'R',   'C',    'L',    'C', 'C', 'C', 'L');
-		$fmt=array(  'i',      's',    's',  's',   's',    's',    'b', 'b', 'b', 's');
 		
-		// Colores, ancho de línea y fuente en negrita
-		$this->SetFillColor(0,0,255);
-		$this->SetTextColor(255);
 		$this->SetDrawColor(128,0,0);
 		$this->SetLineWidth(.3);
-		$this->SetFont('','B',9);
 		
-		for($i=0;$i<count($cellHeader);$i++) {
-			// en la cabecera texto siempre centrado
-			$this->Cell($pos[$i],7,$cellHeader[$i],1,0,'C',true);
-		}
-		$this->Ln();
-		// Restauración de colores y fuentes
-		$this->SetFillColor(224,235,255);
-		$this->SetTextColor(0);
-		$this->SetFont('');
 		// Datos
 		$fill = false;
+		$rowcount=0;
 		foreach($this->inscritos as $row) {
-			$this->myLogger->info("Datosd del perro: ".$row['Nombre']);
+			if( ($rowcount%35) == 0 ) { // assume 35 rows per page ( rowWidth = 7mmts )
+				if ($rowcount>0) 
+					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
+				$this->addPage();
+				$this->writeTableHeader();
+			} 
 			// $this->cell( width, height, data, borders, where, align, fill)
-			$this->Cell($pos[0],7,$row['Dorsal'],	'LR',0,$align[0],$fill);
-			$this->Cell($pos[1],7,$row['Nombre'],	'LR',0,$align[1],$fill);
-			$this->Cell($pos[2],7,$row['Guia'],		'LR',0,$align[2],$fill);
-			$this->Cell($pos[3],7,$row['Club'],		'LR',0,$align[3],$fill);
-			$this->Cell($pos[4],7,$row['Categoria'],'LR',0,$align[4],$fill);
-			$this->Cell($pos[5],7,$row['Grado'],	'LR',0,$align[5],$fill);
-			$this->Cell($pos[6],7,$row['Celo'],		'LR',0,$align[6],$fill);
-			$this->Cell($pos[7],7,$row['J1'],		'LR',0,$align[7],$fill);
-			$this->Cell($pos[8],7,$row['J2'],		'LR',0,$align[8],$fill);
-			$this->Cell($pos[9],7,$row['Observaciones'],'LR',0,$align[9],$fill);
+			$this->Cell($this->pos[0],7,$row['Dorsal'],	'LR',0,$this->align[0],$fill);
+			$this->Cell($this->pos[1],7,$row['Nombre'],	'LR',0,$this->align[1],$fill);
+			$this->Cell($this->pos[2],7,$row['Guia'],	'LR',0,$this->align[2],$fill);
+			$this->Cell($this->pos[3],7,$row['Club'],	'LR',0,$this->align[3],$fill);
+			$this->Cell($this->pos[4],7,$row['Categoria'],'LR',0,$this->align[4],$fill);
+			$this->Cell($this->pos[5],7,$row['Grado'],	'LR',0,$this->align[5],$fill);
+			$this->Cell($this->pos[6],7,$row['Celo'],	'LR',0,$this->align[6],$fill);
+			$this->Cell($this->pos[7],7,$row['J1'],		'LR',0,$this->align[7],$fill);
+			$this->Cell($this->pos[8],7,$row['J2'],		'LR',0,$this->align[8],$fill);
+			$this->Cell($this->pos[9],7,$row['Observaciones'],'LR',0,$this->align[9],$fill);
 			$this->Ln();
-			$fill = !$fill;
+			$fill = ! $fill;
+			$rowcount++;
 		}
 		// Línea de cierre
-		$this->Cell(array_sum($pos),0,'','T');
+		$this->Cell(array_sum($this->pos),0,'','T');
 		$this->myLogger->leave();
 	}
 }
@@ -139,7 +152,6 @@ try {
 // Creamos generador de documento
 $pdf = new PDF($datosPrueba,$inscritos);
 $pdf->AliasNbPages();
-$pdf->AddPage();
 $pdf->composeTable();
 $pdf->Output("inscritosByPrueba.pdf","D"); // "D" means open download dialog
 ?>
