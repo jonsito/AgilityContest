@@ -27,10 +27,10 @@ class PDF extends FPDF {
 
 	// geometria de las celdas
 	protected $cellHeader
-					=array('Orden','Nombre','Lic.','Guía','Club','Celo','Observaciones');
-	protected $pos	=array(  10,       30,     15,    50,   30,     10,    40);
-	protected $align=array(  'R',      'L',    'C',   'R',  'R',    'C',   'R');
-	protected $fmt	=array(  'i',      's',    's',   's',  's',    'b',   's');
+					=array('Orden','Nombre','Lic.','Guía','Club','Celo');
+	protected $pos	=array(  15,       35,     20,    60,   40,     20);
+	protected $align=array(  'C',      'L',    'C',   'R',  'R',    'C');
+	protected $fmt	=array(  'i',      's',    's',   's',  's',    'b');
 	protected $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
@@ -73,7 +73,7 @@ class PDF extends FPDF {
 		// pintamos "listado de participantes en un recuadro"
 		$this->SetFont('Arial','B',20); // Arial bold 20
 		$this->Cell(50); // primer cuarto de la linea
-		$this->Cell(100,10,"Orden de Salida",1,0,'C',false);// Nombre de la prueba centrado
+		$this->Cell(100,10,"Introducción de Datos",1,0,'C',false);// Nombre de la prueba centrado
 		$this->Ln(); // Salto de línea
 		
 		// pintamos "identificacion de la manga"
@@ -117,6 +117,44 @@ class PDF extends FPDF {
 		$this->myLogger->leave();
 	}
 	
+	function writeTableCell($rowcount,$row) {
+		$this->myLogger->trace("imprimiendo datos del dorsal: ".$row->Dorsal);
+		// cada celda tiene una cabecera con los datos del participante
+		$this->SetFillColor(0,0,255); // azul
+		$this->SetDrawColor(0,0,0); // negro para los recuadros
+		$this->SetTextColor(255,255,255); // blanco
+		$this->SetFont('Arial','B',20); // bold 9px
+		$this->Cell($this->pos[0],10,$rowcount+1,	'LR',0,$this->align[0],true); // display order
+		$this->SetFont('Arial','B',12); // bold 9px
+		$this->Cell($this->pos[1],10,$row->Nombre,	'LR',0,$this->align[1],true);
+		$this->Cell($this->pos[2],10,$row->Licencia,	'LR',0,$this->align[2],true);
+		$this->Cell($this->pos[3],10,$row->Guia,		'LR',0,$this->align[3],true);
+		$this->Cell($this->pos[4],10,$row->Club,		'LR',0,$this->align[4],true);
+		$this->Cell($this->pos[5],10,($row->Celo!=0)?"Celo":"",'LR',0,$this->align[5],true);
+		$this->Cell($this->pos[6],10,$row->Observaciones,'LR',0,$this->align[6],true);
+		// Restauración de colores y fuentes
+		$this->SetFillColor(224,235,255); // azul merle
+		$this->SetTextColor(0,0,0); // negro
+		$this->Ln();
+		// datos de Faltas, Tocados y Rehuses
+		$this->Cell(20,10,"Faltas",1,0,'L',false);
+		for ($i=1;$i<=10;$i++) $this->Cell(10,10,$i,1,0,'C',(($i&0x01)==0)?false:true);
+		$this->Cell(10); $this->Cell(20,10,"F: ",1,0,'L',false);
+		$this->Cell(40,10,"Tiempo: ",'LTR',0,'C',true);
+		$this->Ln();
+		$this->Cell(20,10,"Tocados",1,0,'L',false);
+		for ($i=1;$i<=10;$i++) $this->Cell(10,10,$i,1,0,'C',(($i&0x01)==0)?false:true);
+		$this->Cell(10); $this->Cell(20,10,"T: ",1,0,'L',false);
+		$this->Cell(40,10,"",'LR',0,'C',true);
+		$this->Ln();
+		$this->Cell(20,10,"Rehúses",1,0,'L',false);
+		for ($i=1;$i<=3;$i++) $this->Cell(10,10,$i,1,0,'C',(($i&0x01)==0)?false:true);
+		$this->Cell(10); $this->Cell(30,10,"Elim. ",1,0,'L',false); $this->Cell(30,10,"N.P. ",1,0,'L',false);
+		$this->Cell(10); $this->Cell(20,10,"R: ",1,0,'L',false);
+		$this->Cell(40,10,"",'LBR',0,'C',true);
+		$this->Ln(17);
+	}
+	
 	// Tabla coloreada
 	function composeTable() {
 		$this->myLogger->enter();
@@ -125,31 +163,20 @@ class PDF extends FPDF {
 		$this->SetLineWidth(.3);
 		
 		// Datos
-		$fill = false;
 		$rowcount=0;
 		foreach($this->orden as $row) {
 			// if change in categoria, reset orden counter and force page change
 			if ($row->Categoria !== $this->categoria) {
+				$this->myLogger->trace("Nueva categoria es: ".$row->Categoria);
 				$this->categoria = $row->Categoria;
-				$this->Cell(array_sum($this->pos),0,'','T'); // forzamos linea de cierre
+				$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre de categoria
 				$rowcount=0;
 			}
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			if( ($rowcount%35) == 0 ) { // assume 35 rows per page ( rowWidth = 7mmts )
-				if ($rowcount>0) 
-					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre en cambio de pagina
+			if( ($rowcount%5) == 0 ) { // assume 5 entries per page 
 				$this->addPage();
-				$this->writeTableHeader();
 			}
-			$this->Cell($this->pos[0],7,$rowcount+1,	'LR',0,$this->align[0],$fill); // display order
-			$this->Cell($this->pos[1],7,$row->Nombre,	'LR',0,$this->align[1],$fill);
-			$this->Cell($this->pos[2],7,$row->Licencia,	'LR',0,$this->align[2],$fill);
-			$this->Cell($this->pos[3],7,$row->Guia,		'LR',0,$this->align[3],$fill);
-			$this->Cell($this->pos[4],7,$row->Club,		'LR',0,$this->align[4],$fill);
-			$this->Cell($this->pos[5],7,$row->Celo,		'LR',0,$this->align[5],$fill);
-			$this->Cell($this->pos[6],7,$row->Observaciones,'LR',0,$this->align[6],$fill);
-			$this->Ln();
-			$fill = ! $fill;
+			$this->writeTableCell($rowcount,$row);
 			$rowcount++;
 		}
 		// Línea de cierre

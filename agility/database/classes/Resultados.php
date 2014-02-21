@@ -175,18 +175,24 @@ class Resultados extends DBObject {
 		// fase 3 componemos el resultado siguiendo el orden de salida
 		$items=array();
 		$count=0;
+		$celo=0;
 		foreach ($lista as $dorsal) {
-			// ignore separators
-			if (strpos ( $dorsal, "BEGIN" ) !== false) continue;
-			if (strpos ( $dorsal, "END" ) !== false) continue;
-			if (strpos ( $dorsal, "TAG_" ) !== false)	continue;
-			if (!isset($data[$dorsal])){
-				$this->myLogger->warn("No Results for dorsal:$dorsal. Creating default one");
-				$this->insert($dorsal);
-				$data[$dorsal]=$this->select($dorsal);
+			switch($dorsal) {
+				// separadores
+				case "BEGIN": case END: continue;
+				case "TAG_-0": case "TAG_L0": case "TAG_M0": case "TAG_S0": case "TAG_T0": $celo=0; continue;
+				case "TAG_-1": case "TAG_L1": case "TAG_M1": case "TAG_S1": case "TAG_T1": $celo=1; continue;
+				default: // dorsales
+					if (!isset($data[$dorsal])) {
+						$this->myLogger->warn("No Results for dorsal:$dorsal. Creating default one");
+						$this->insert($dorsal);
+						$data[$dorsal]=$this->select($dorsal);
+					}
+					$data[$dorsal]['Celo']=$celo;
+					array_push($items,$data[$dorsal]);
+					$count++;
+					break;
 			}
-			array_push($items,$data[$dorsal]);
-			$count++;
 		}
 		$result = array();
 		$result["total"] = $count;
