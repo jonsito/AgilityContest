@@ -22,10 +22,10 @@ class PDF extends FPDF {
 
 	// geometria de las celdas
 	protected $cellHeader
-					=array('Dorsal','Nombre','Guía','Club','Cat.','Grado','Celo','Sab.','Dom.','Observaciones');
-	protected $pos	=array(  10,       25,     40,   30,    10,     10,     10,  10,  10,  30 );
-	protected $align=array(  'R',      'R',    'R',  'R',   'C',    'L',    'C', 'C', 'C', 'L');
-	protected $fmt	=array(  'i',      's',    's',  's',   's',    's',    'b', 'b', 'b', 's');
+					=array('Dorsal','Nombre','Lic.','Guía','Club','Cat.','Grado','Celo','Observaciones','Sab.','Dom.');
+	protected $pos	=array(  10,       20,     10,    40,   30,    10,     10,     10,    30,    10,    10 );
+	protected $align=array(  'R',      'L',    'C',   'R',  'R',   'C',    'L',    'C',   'R',   'C',   'C');
+	protected $fmt	=array(  'i',      's',    's',   's',  's',   's',    's',    'b',   's',   'b',   'b');
 	
 	/**
 	 * Constructor
@@ -86,7 +86,7 @@ class PDF extends FPDF {
 		// Colores, ancho de línea y fuente en negrita de la cabecera de tabla
 		$this->SetFillColor(0,0,255); // azul
 		$this->SetTextColor(255,255,255); // blanco
-		$this->SetFont('Arial','B',9); // bold 9px
+		$this->SetFont('Arial','B',8); // bold 9px
 		for($i=0;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
 			$this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
@@ -110,23 +110,25 @@ class PDF extends FPDF {
 		$fill = false;
 		$rowcount=0;
 		foreach($this->inscritos as $row) {
+			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			if( ($rowcount%35) == 0 ) { // assume 35 rows per page ( rowWidth = 7mmts )
 				if ($rowcount>0) 
 					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
 				$this->addPage();
 				$this->writeTableHeader();
 			} 
-			// $this->cell( width, height, data, borders, where, align, fill)
-			$this->Cell($this->pos[0],7,$row['Dorsal'],	'LR',0,$this->align[0],$fill);
-			$this->Cell($this->pos[1],7,$row['Nombre'],	'LR',0,$this->align[1],$fill);
-			$this->Cell($this->pos[2],7,$row['Guia'],	'LR',0,$this->align[2],$fill);
-			$this->Cell($this->pos[3],7,$row['Club'],	'LR',0,$this->align[3],$fill);
-			$this->Cell($this->pos[4],7,$row['Categoria'],'LR',0,$this->align[4],$fill);
-			$this->Cell($this->pos[5],7,$row['Grado'],	'LR',0,$this->align[5],$fill);
-			$this->Cell($this->pos[6],7,$row['Celo'],	'LR',0,$this->align[6],$fill);
-			$this->Cell($this->pos[7],7,$row['J1'],		'LR',0,$this->align[7],$fill);
-			$this->Cell($this->pos[8],7,$row['J2'],		'LR',0,$this->align[8],$fill);
-			$this->Cell($this->pos[9],7,$row['Observaciones'],'LR',0,$this->align[9],$fill);
+			// $this->Cell($this->pos[0],7,$row['Dorsal'],	'LR',0,$this->align[0],$fill);
+			$this->Cell($this->pos[0],7,$rowcount+1,	'LR',0,		$this->align[0],$fill); // display order instead of dorsal
+			$this->Cell($this->pos[1],7,$row['Nombre'],	'LR',0,		$this->align[1],$fill);
+			$this->Cell($this->pos[2],7,$row['Licencia'],'LR',0,	$this->align[2],$fill);
+			$this->Cell($this->pos[3],7,$row['Guia'],	'LR',0,		$this->align[3],$fill);
+			$this->Cell($this->pos[4],7,$row['Club'],	'LR',0,		$this->align[4],$fill);
+			$this->Cell($this->pos[5],7,$row['Categoria'],'LR',0,	$this->align[5],$fill);
+			$this->Cell($this->pos[6],7,$row['Grado'],	'LR',0,		$this->align[6],$fill);
+			$this->Cell($this->pos[7],7,$row['Celo'],	'LR',0,		$this->align[7],$fill);
+			$this->Cell($this->pos[8],7,$row['Observaciones'],'LR',0,$this->align[9],$fill);
+			$this->Cell($this->pos[9],7,$row['J1'],		'LR',0,		$this->align[9],$fill);
+			$this->Cell($this->pos[10],7,$row['J2'],		'LR',0,	$this->align[10],$fill);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;

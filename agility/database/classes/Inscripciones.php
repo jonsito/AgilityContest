@@ -226,7 +226,7 @@ class Inscripciones extends DBObject {
 		// evaluate offset and row count for query
 		$id = $this->prueba;
 		// FASE 1: obtener lista de perros inscritos con sus datos
-		$str="SELECT Numero , Inscripciones.Dorsal AS Dorsal , PerroGuiaClub.Nombre AS Nombre,
+		$str="SELECT Numero , Inscripciones.Dorsal AS Dorsal , PerroGuiaClub.Nombre AS Nombre,Licencia,
 		Categoria , Grado , Celo , Guia , Club , Equipo , Observaciones , Pagado
 		FROM Inscripciones,PerroGuiaClub,Jornadas
 		WHERE ( ( Inscripciones.Dorsal = PerroGuiaClub.Dorsal)
@@ -246,6 +246,7 @@ class Inscripciones extends DBObject {
 				$dorsales[$row['Dorsal']]= array(
 						'Dorsal' => $row['Dorsal'],
 						'Nombre' => $row['Nombre'],
+						'Licencia' => $row['Licencia'],
 						'Categoria' => $row['Categoria'],
 						'Grado' => $row['Grado'],
 						'Celo' => $row['Celo'],
