@@ -12,6 +12,7 @@
 			case "doit": $result=$inscripciones->doit(); break;
 			case "remove": $result=$inscripciones->remove(); break;
 			case "select": $result=$inscripciones->select(); break;
+			case "print": $result=$inscripciones->inscritos(); break;
 			default: throw new Exception("inscripcionFunctions:: invalid operation: $operation provided");
 		}
 		if ($result===null) throw new Exception($inscripciones->errormsg);

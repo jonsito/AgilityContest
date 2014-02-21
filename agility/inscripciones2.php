@@ -244,7 +244,7 @@ $('#inscripciones-printBtn').tooltip({
 });
 $('#inscripciones-printBtn').on("click", function () {
 	$.fileDownload(
-		'pdf/print_InscritosByPrueba.php',
+		'pdf/inscritosByPrueba.php',
 		{
 			httpMethod: 'GET',
 			data: { Prueba: workingData.prueba},
