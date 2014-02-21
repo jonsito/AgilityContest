@@ -10,7 +10,7 @@
     		</span>
     		<span style="float:right">
     		<!-- estos elementos deben estar alineados a la derecha -->
-    		<a id="ordensalida-printBtn" href="#" class="easyui-linkbutton" onclick="printOrdenSalida()">Imprimir</a>
+    		<a id="ordensalida-printBtn" href="#" class="easyui-linkbutton">Imprimir</a>
 		</span>
 	</div>
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
@@ -120,5 +120,20 @@ $('#ordensalida-printBtn').tooltip({
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
 });
-
+$('#ordensalida-printBtn').on("click", function () {
+	$.fileDownload(
+		'pdf/ordenDeSalida.php',
+		{
+			httpMethod: 'GET',
+			data: { 
+				Prueba: workingData.prueba,
+				Jornada: workingData.jornada,
+				Manga: workingData.manga
+			},
+	        preparingMessageHtml: "We are preparing your report, please wait...",
+	        failMessageHtml: "There was a problem generating your report, please try again."
+		}
+	);
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+});
 </script>

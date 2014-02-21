@@ -175,6 +175,22 @@ class Jornadas extends DBObject {
 		$this->myLogger->leave();
 	} 
 	
+	function selectByID($id) {
+		$this->myLogger->enter();
+		if ($id<=0) return $this->error("Invalid Jornada ID");
+		// second query to retrieve $rows starting at $offset
+		$str="SELECT * FROM Jornadas WHERE ( ID = $id )";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		// retrieve result into an array
+		if ($rs->num_rows==0) return $this->error("No jornada(s) found");
+		$result = $rs->fetch_object();  // should only be one element
+		// disconnect from database
+		$rs->free();
+		$this->myLogger->leave();
+		return $result;
+	}
+	
 	/**
 	 * select all jornadas related to provided prueba 
 	 * @return unknown
