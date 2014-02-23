@@ -129,13 +129,17 @@ function editGuiaFromClub(club) {
     var row = $('#guias-datagrid'+parent).datagrid('getSelected');
     if (!row) return; // no guia selected
     $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre);
+    $('#guias-form').form({
+    	onLoadSuccess: function(data) {
+    	    // save old guia name in "Viejo" hidden form input to allow change guia name
+    	    $('#guias-Viejo').val( $('#guias-Nombre').val()); // set up old name in case of change
+    	    // set default value for "club"
+    		$('#guias-Club').val(club.Nombre); 
+    	    $('#guias-Parent').val(parent);
+    	    $('#guias-Operation').val('update');
+    	}
+    });
     $('#guias-form').form('load',row);
-    // save old guia name in "Viejo" hidden form input to allow change guia name
-    $('#guias-Viejo').val( $('#guias-Nombre').val()); // set up old name in case of change
-    // set default value for "club"
-	$('#guias-Club').val(club.Nombre); 
-    $('#guias-Parent').val(parent);
-    $('#guias-Operation').val('update');
 }
 
 /**
@@ -145,11 +149,15 @@ function editGuia(){
     var row = $('#guias-datagrid').datagrid('getSelected');
     if (!row) return;// no guia selected
     $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del gu&iacute;a');
+    $('#guias-form').form({
+    	onLoadSuccess: function(data) {
+    	    // save old guia name in "Viejo" hidden form input to allow change guia name
+    	    $('#guias-Viejo').val( $('#guias-Nombre').val());
+    		$('#guias-Parent').val(''); // no parent, just in "guias" menu
+    		$('#guias-Operation').val('update'); // operation is change data
+    	}
+    });
     $('#guias-form').form('load',row); // load row data into form
-    // save old guia name in "Viejo" hidden form input to allow change guia name
-    $('#guias-Viejo').val( $('#guias-Nombre').val());
-	$('#guias-Parent').val(''); // no parent, just in "guias" menu
-	$('#guias-Operation').val('update'); // operation is change data
 }
 
 /**
@@ -303,9 +311,13 @@ function editDog(){
     var row = $('#perros-datagrid').datagrid('getSelected');
     if (!row) return;
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro');
+    $('#perros-form').form({
+    	onLoadSuccess: function(data) {
+    		$('#perros-Parent').val(''); // no parent datagrid
+    	    $('#perros-Operation').val('update'); // mark "update" operation
+    	}
+    });
     $('#perros-form').form('load',row);// load form with row data
-	$('#perros-Parent').val(''); // no parent datagrid
-    $('#perros-Operation').val('update'); // mark "update" operation
 }
 
 /**
@@ -318,8 +330,12 @@ function editInscribedDog(mode){
 	else dorsal= $('#chinscripciones-Dorsal').val();
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro a inscribir');
     $('#perros-form').form('load','database/dogFunctions.php?Operation=getbydorsal&Dorsal='+dorsal);// load form with row data
-	$('#perros-Parent').val(''); // no parent datagrid
-    $('#perros-Operation').val('update'); // mark "update" operation
+    $('#perros-form').form({
+    	onLoadSuccess: function(data) {
+    		$('#perros-Parent').val(''); // no parent datagrid
+    	    $('#perros-Operation').val('update'); // mark "update" operation
+    	}
+    });
 }
 /**
 * Abre el formulario para anyadir perros a un guia
@@ -332,9 +348,13 @@ function editPerroFromGuia(guia) {
     if (!row) return; // no way to know which dog is selected
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro asignado a '+guia.Nombre);
     $('#perros-form').form('load',row);	// load form with row data
-	$('#perros-Guia').combogrid({ 'value': guia.Nombre} );  // set up default "guia" value
-	$('#perros-Parent').val(parent); // store parent datagrid suffix
-    $('#perros-Operation').val('update'); // mark "update" operation
+    $('#perros-form').form({
+    	onLoadSuccess: function(data) {
+    		$('#perros-Guia').combogrid({ 'value': guia.Nombre} );  // set up default "guia" value
+    		$('#perros-Parent').val(parent); // store parent datagrid suffix
+    	    $('#perros-Operation').val('update'); // mark "update" operation
+    	}
+    });
 }
 
 /** 
@@ -474,13 +494,17 @@ function editJuez(){
     var row = $('#jueces-datagrid').datagrid('getSelected');
     if (row){
         $('#jueces-dialog').dialog('open').dialog('setTitle','Modificar datos del juez');
+        $('#jueces-form').form({
+        	onLoadSuccess: function(data){
+                // take care on int-to-bool translation for checkboxes
+                $('#jueces-Internacional').prop('checked',(row.Internacional==1)?true:false);
+                $('#jueces-Practicas').prop('checked',(row.Practicas==1)?true:false);
+                // save old juez name in "Viejo" hidden form input to allow change juez name
+                $('#jueces-Viejo').val( $('#jueces-Nombre').val());
+            	$('#jueces-Operation').val('update');
+        	}
+        });
         $('#jueces-form').form('load',row);
-        // take care on int-to-bool translation for checkboxes
-        $('#jueces-Internacional').prop('checked',(row.Internacional==1)?true:false);
-        $('#jueces-Practicas').prop('checked',(row.Practicas==1)?true:false);
-        // save old juez name in "Viejo" hidden form input to allow change juez name
-        $('#jueces-Viejo').val( $('#jueces-Nombre').val());
-    	$('#jueces-Operation').val('update');
     }
 }
 
@@ -567,12 +591,17 @@ function editPrueba(){
     if (!row) return; // no prueba selected
     
     $('#pruebas-dialog').dialog('open').dialog('setTitle','Modificar datos de la prueba');
+    $('#pruebas-form').form({
+    	onLoadSuccess: function(data) {
+            // take care on int-to-bool translation for checkboxes
+            $('#pruebas-Cerrada').prop('checked',(row.Cerrada==1)?true:false);
+            // save old guia name in "Viejo" hidden form input to allow change guia name
+            $('#pruebas-Viejo').val( $('#pruebas-Nombre').val());
+        	$('#pruebas-Operation').val('update');
+    	}
+    });
     $('#pruebas-form').form('load',row);
-    // take care on int-to-bool translation for checkboxes
-    $('#pruebas-Cerrada').prop('checked',(row.Cerrada==1)?true:false);
-    // save old guia name in "Viejo" hidden form input to allow change guia name
-    $('#pruebas-Viejo').val( $('#pruebas-Nombre').val());
-	$('#pruebas-Operation').val('update');
+    // load fires "onLoadSucces" event, handled in form declaration
 }
 
 /**
@@ -612,7 +641,7 @@ function deletePrueba(){
     $.messager.confirm('Confirm',
     		"<p>Importante:</p><p>Si decide borrar la prueba <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta</p><p>Desea realmente borrar la prueba seleccionada?</p>",function(r){
         if (r){
-            $.get('database/pruebaFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
+            $.get('database/pruebaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
                     $('#pruebas-datagrid').datagrid('reload');    // reload the prueba data
                 } else {
@@ -658,20 +687,24 @@ function editJornadaFromPrueba(pruebaID,datagridID) {
     }
     // todo ok: abrimos ventana de dialogo
     $('#jornadas-dialog').dialog('open').dialog('setTitle','Modificar datos de la jornada');
+    $('#jornadas-form').form({
+    	onLoadSuccess: function(data) {
+            // take care on int-to-bool translation for checkboxes
+            $('#jornadas-Grado1').prop('checked',(row.Grado1==1)?true:false);
+            $('#jornadas-Grado2').prop('checked',(row.Grado2==1)?true:false);
+            $('#jornadas-Grado3').prop('checked',(row.Grado3==1)?true:false);
+            $('#jornadas-Equipos').prop('checked',(row.Equipos==1)?true:false);
+            $('#jornadas-PreAgility').prop('checked',(row.PreAgility==1)?true:false);
+            $('#jornadas-KO').prop('checked',(row.KO==1)?true:false);
+            $('#jornadas-Exhibicion').prop('checked',(row.Exhibicion==1)?true:false);
+            $('#jornadas-Otras').prop('checked',(row.Otras==1)?true:false);
+            $('#jornadas-Cerrada').prop('checked',(row.Cerrada==1)?true:false);
+        	$('#jornadas-Prueba').val(pruebaID);
+        	$('#jornadas-Operation').val('update');
+    	}
+    });
     $('#jornadas-form').form('load',row);
-    // fix date value value into datebox
-    // take care on int-to-bool translation for checkboxes
-    $('#jornadas-Grado1').prop('checked',(row.Grado1==1)?true:false);
-    $('#jornadas-Grado2').prop('checked',(row.Grado2==1)?true:false);
-    $('#jornadas-Grado3').prop('checked',(row.Grado3==1)?true:false);
-    $('#jornadas-Equipos').prop('checked',(row.Equipos==1)?true:false);
-    $('#jornadas-PreAgility').prop('checked',(row.PreAgility==1)?true:false);
-    $('#jornadas-KO').prop('checked',(row.KO==1)?true:false);
-    $('#jornadas-Exhibicion').prop('checked',(row.Exhibicion==1)?true:false);
-    $('#jornadas-Otras').prop('checked',(row.Otras==1)?true:false);
-    $('#jornadas-Cerrada').prop('checked',(row.Cerrada==1)?true:false);
-	$('#jornadas-Prueba').val(pruebaID);
-	$('#jornadas-Operation').val('update');
+    // fix date and checkboxes value into datebox in "onLoadSuccess" event declaration
 }
 
 /**

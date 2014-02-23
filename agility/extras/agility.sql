@@ -1608,7 +1608,7 @@ ALTER TABLE `Clubes`
 -- Filtros para la tabla `Equipos`
 --
 ALTER TABLE `Equipos`
-  ADD CONSTRAINT `Equipos_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`);
+  ADD CONSTRAINT `Equipos_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Guias`
@@ -1628,7 +1628,7 @@ ALTER TABLE `Inscripciones`
 -- Filtros para la tabla `Jornadas`
 --
 ALTER TABLE `Jornadas`
-  ADD CONSTRAINT `Jornadas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`);
+  ADD CONSTRAINT `Jornadas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `Mangas`

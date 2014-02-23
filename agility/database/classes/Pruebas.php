@@ -33,8 +33,9 @@ class Pruebas extends DBObject {
 		$stmt->close();
 		
 		// create default 'Equipos' entry for this contest
-		$res=$this->query("INSERT INTO Equipos (Prueba,Nombre,Observaciones)
-				VALUES ($pruebaid,'-- Sin asignar --','NO BORRAR: PRUEBA $pruebaid' - Equipo por defecto )");
+		$str="INSERT INTO Equipos (Prueba,Nombre,Observaciones)
+				VALUES ($pruebaid,'-- Sin asignar --','NO BORRAR: PRUEBA $pruebaid - Equipo por defecto' )";
+		$res=$this->query($str);
 		if (!$res) return $this->error($this->conn->error);
 		
 		// create eight journeys per contest
@@ -88,7 +89,7 @@ class Pruebas extends DBObject {
 	function delete($id) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Prueba ID");
-		$res= $this->query("DELETE FROM Pruebas WHERE (ID=$id) AND (Cerrada!=0) ");
+		$res= $this->query("DELETE FROM Pruebas WHERE (ID=$id) AND (Cerrada=0) ");
 		if (!$res) return $this->error($this->conn->error);
 		// if affected rows == 0 implica prueba cerrada: notify error
 		if ($this->conn->affected_rows==0) 
