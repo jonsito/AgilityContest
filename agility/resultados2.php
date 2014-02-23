@@ -385,4 +385,49 @@ $('#resultados-conjunta-datagrid').datagrid({
         return true;
     }
 });
+
+// boton de impresion pulsado
+$('#resultados-printBtn').on("click", function () {
+	// vemos cual es el panel activo
+	var tab = $('#resultados-datatabs').tabs('getSelected');
+	var index = $('#resultados-datatabs').tabs('getTabIndex',tab);
+	$.fileDownload(
+		'pdf/clasificaciones.php',
+		{
+			httpMethod: 'GET',
+			data: { 
+		        Prueba: workingData.prueba,
+		        Jornada: workingData.jornada,
+		        Manga: workingData.manga,
+		        Manga2: workingData.manga2,
+		        Operation: index, // 0:manga1, 1:manga2, 2:final, 3:etiquetas
+		        Categorias: $('#resultados-cat-form-select').val()
+			},
+	        preparingMessageHtml: "Generando PDF con clasificaciones. Por favor, espere...",
+	        failMessageHtml: "Ha habido problemas en la generacion del informe\n. Por favor, intentelo de nuevo."
+		}
+	);
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+});
+
+//boton de etiquetas pulsado
+$('#resultados-labelsBtn').on("click", function () {
+	$.fileDownload(
+		'pdf/clasificaciones.php',
+		{
+			httpMethod: 'GET',
+			data: { 
+		        Prueba: workingData.prueba,
+		        Jornada: workingData.jornada,
+		        Manga: workingData.manga,
+		        Manga2: workingData.manga2,
+		        Operation: 3, // 0:manga1, 1:manga2, 2:final, 3:etiquetas
+		        Categorias: $('#resultados-cat-form-select').val()
+			},
+	        preparingMessageHtml: "Generando ficheros de clasificaciones. Por favor, espere...",
+	        failMessageHtml: "Ha habido problemas en la generacion del informe\n. Por favor, intentelo de nuevo."
+		}
+	);
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+});
 </script>
