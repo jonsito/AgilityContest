@@ -1,5 +1,5 @@
     <!-- FORMULARIO DE REASIGNACION DE GUIAS -->
-    <div id="chguias-dialog" class="easyui-dialog" style="width:500px;height:350px;padding:10px 20px">
+    <div id="chguias-dialog" class="easyui-dialog" style="width:550px;height:350px;padding:10px 20px">
         <div id="chguias-title" class="ftitle">Reasignaci&oacute;n de un guia</div>
         <form id="chguias-header">
         	<div class="fitem">

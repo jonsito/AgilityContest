@@ -1,5 +1,5 @@
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE GUIAS -->
-    <div id="guias-dialog" class="easyui-dialog" style="width:475px;height:350px;padding:10px 20px">
+    <div id="guias-dialog" class="easyui-dialog" style="width:500px;height:350px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del guia</div>
         <form id="guias-form" method="get" novalidate>
             <div class="fitem">
@@ -27,7 +27,7 @@
             	<a id="guias-newClubBtn" href="#" class="easyui-linkbutton" style="float:right">Nuevo Club</a>
             </div>
             <div class="fitem">
-                <label for="Observaciones">Observaciones:</label>
+                <label for="Observaciones">Comentarios:</label>
                 <textarea id="guias-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
             </div>
         </form>
