@@ -185,7 +185,8 @@
     }); 
     
     $('#inscripciones-Participante').combogrid({
-		panelWidth: 350,
+        fit:true,
+		panelWidth: 600,
 		panelHeight: 200,
 		idField: 'Dorsal',
 		textField: 'Nombre',
@@ -200,8 +201,17 @@
 			{field:'Grado',title:'Grado',width:10,align:'center'},
 			{field:'Guia',title:'Guia',width:40,align:'right'},
 			{field:'Club',title:'Club',width:20,align:'right'},
+			{field:'Celo',title:'Celo',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
+			{field:'J1',title:'J1',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
+			{field:'J2',title:'J2',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
+			{field:'J2',title:'J3',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
+			{field:'J4',title:'J4',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
+			{field:'J5',title:'J5',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
+			{field:'J6',title:'J6',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
+			{field:'J7',title:'J7',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
+			{field:'J8',title:'J8',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
 		]],
-		multiple: false,
+		multiple: true,
 		fitColumns: true,
 		singleSelect: true,
 		selectOnNavigation: false ,
@@ -213,6 +223,14 @@
 	        // and set default Team and money
 	        $('#inscripciones-Equipo').combogrid('setValue','-- Sin asignar --'); 
 	        $('#inscripciones-Pagado').val(0); 
+		},
+		editIndex: -1,
+		onClickRow: function(index) {
+			if (this.editIndex!=index) {
+				if (this.editIndex!=-1) $('#inscripciones-Participante').combogrid('endEdit',index);
+			}
+			this.editIndex=index;
+			$('#inscripciones-Participante').combogrid('beginEdit',index);
 		}
 	});
 

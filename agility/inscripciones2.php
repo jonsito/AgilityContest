@@ -8,7 +8,7 @@
 <?php include_once("dialogs/dlg_chinscripciones.inc");?>
  	
 <div id="inscripciones_info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
-<div id="inscripciones_infolayout" class="easyui-layout" style="height:220px">
+<div id="inscripciones_infolayout" class="easyui-layout" style="height:175px">
 	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px">
 		<form id="inscripciones_pruebas" method="get">
 		<input type="hidden" name="ID"/>
@@ -67,12 +67,19 @@ $('#inscripciones_info').panel({
 $('#inscripciones_infolayout').layout();
 $('#inscripciones_pruebas').form('load','database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
 $('#inscripciones_jornadas').datagrid({
-	url: 'database/jornadaFunctions.php?Operation=select&Prueba='+workingData.prueba,
-	method: 'get',
+	// propiedades del panel asociado
+	fit: true,
+	border: false,
+	closable: false,
+	collapsible: false,
+	collapsed: false,
+	// propiedades especificas del datagrid
     pagination: false,
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
+	url: 'database/jornadaFunctions.php?Operation=select&Prueba='+workingData.prueba,
+	method: 'get',
     columns:[[
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Prueba',		hidden:true }, // ID de la prueba

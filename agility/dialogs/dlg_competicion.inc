@@ -73,7 +73,7 @@ $('#competicion-datagrid').datagrid({
     onClickRow: onClickRow // start edit
 });
 
-var editIndex = undefined;
+var competicion_editIndex = undefined;
 
 //activa teclas up/down para navegar por el panel de gestion de jornadas
 $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
@@ -93,10 +93,10 @@ $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0
 	}
 	var t = $('#competicion-datagrid');
     switch(e.keyCode){
-    case 38:	/* Up */	if (editIndex===undefined) selectRow(t,true); return false;
-    case 40:    /* Down */	if (editIndex===undefined) selectRow(t,false); return false;
+    case 38:	/* Up */	if (competicion_editIndex===undefined) selectRow(t,true); return false;
+    case 40:    /* Down */	if (competicion_editIndex===undefined) selectRow(t,false); return false;
     case 13:	/* Enter */ 
-        if (editIndex!==undefined) {
+        if (competicion_editIndex!==undefined) {
             endEditing(); // si estamos editando: finalizamos edicion
             selectRow(t,false); // ponemos el indice en la siguiente fila
         } 
@@ -108,13 +108,13 @@ $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0
 });
 
 function endEditing(){
-	if (editIndex == undefined){return true; }
-	if ($('#competicion-datagrid').datagrid('validateRow', editIndex)) {
-		$('#competicion-datagrid').datagrid('endEdit', editIndex);
+	if (competicion_editIndex == undefined){return true; }
+	if ($('#competicion-datagrid').datagrid('validateRow', competicion_editIndex)) {
+		$('#competicion-datagrid').datagrid('endEdit', competicion_editIndex);
 		// TODO: obtener y grabar los datos de la fila que se estaba editando
-		var data=$('#competicion-datagrid').datagrid('getRows')[editIndex];
-		saveCompeticionData(editIndex,data);
-		editIndex = undefined;
+		var data=$('#competicion-datagrid').datagrid('getRows')[competicion_editIndex];
+		saveCompeticionData(competicion_editIndex,data);
+		competicion_editIndex = undefined;
 		return true;
 	} else {
 		return false;
@@ -122,12 +122,12 @@ function endEditing(){
 }
 
 function onClickRow(index){
-	if (editIndex != index){
+	if (competicion_editIndex != index){
 		if (endEditing()){
 			$('#competicion-datagrid').datagrid('selectRow', index).datagrid('beginEdit', index);
-			editIndex = index;
+			competicion_editIndex = index;
 		} else {
-			$('#competicion-datagrid').datagrid('selectRow', editIndex);
+			$('#competicion-datagrid').datagrid('selectRow', competicion_editIndex);
 		}
 	}
 }
