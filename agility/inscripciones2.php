@@ -35,12 +35,9 @@
 	</div>
 </div> 
 </div> 
-<div id="inscripciones-list" class="easyui-panel" style="height:450px">
-	<!-- DECLARACION DE LA TABLA DE INSCRIPCIONES -->
-	<table id="inscripciones-datagrid" class="easyui-datagrid" style="padding:0px 0px 20px 0px;"></table>
-</div>
-    <!-- BARRA DE TAREAS -->
-    <div id="inscripciones-toolbar">
+	
+	<!-- BARRA DE TAREAS -->
+    <div id="inscripciones-toolbar" style="padding:10px 10px 30px 10px;">
     	<span style="float:left">
     	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton" onclick="newInscripcion()">Nueva inscripci&oacute;n</a>
     	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton" onclick="editInscripcion()">Editar Registro</a>
@@ -54,6 +51,11 @@
 	   	<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadInscripcion()">Refrescar</a>
 	   	</span>
     </div>
+  
+<div id="inscripciones-list" class="easyui-panel" style="width:auto;height:400px;">  
+	<!-- DECLARACION DE LA TABLA DE INSCRIPCIONES -->
+	<table id="inscripciones-datagrid" class="easyui-datagrid" ></table>
+</div>
 
 <script type="text/javascript">
 // cabecera de la pagina
@@ -84,7 +86,7 @@ $('#inscripciones-jornadas').datagrid({
 	collapsed: false,
 	// propiedades especificas del datagrid
     pagination: false,
-    rownumbers: true,
+    rownumbers: false,
     fitColumns: true,
     singleSelect: true,
 	url: 'database/jornadaFunctions.php?Operation=select&Prueba='+workingData.prueba,
@@ -173,7 +175,7 @@ $('#inscripciones-datagrid').datagrid({
     	{ field:'Guia',		width:23, sortable:true, align: 'right',	title: 'Guia' },
     	{ field:'Club',		width:18, sortable:true, align: 'right',	title: 'Club' },
     	{ field:'Observaciones',width:15,            title: 'Observaciones' },
-    	{ field:'Celo',		width:4,  lign:'center', title: 'Celo' },
+    	{ field:'Celo',		width:4, align:'center', title: 'Celo' },
         { field:'J1',		width:4, align:'center', title: 'J1'},
         { field:'J2',		width:4, align:'center', title: 'J2'},
         { field:'J3',		width:4, align:'center', title: 'J3'},

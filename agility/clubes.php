@@ -277,7 +277,7 @@
         	    loadMsg: 'Loading list of dogs',
         	    height: 'auto',
         	    columns: [[
-            	    { field:'IDPerro',	width:15, sortable:true,	title: 'IDPerro'},
+            	    { field:'IDPerro',	width:15, sortable:true,	title: 'ID'},
             		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
             		{ field:'Categoria',width:15, sortable:false,	title: 'Cat.' },
             		{ field:'Grado',	width:25, sortable:false,   title: 'Grado' },

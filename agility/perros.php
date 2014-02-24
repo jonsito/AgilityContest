@@ -49,7 +49,7 @@
             fitColumns: true,
             singleSelect: true,
             columns: [[
-            	{ field:'IDPerro',   width:10,  sortable:true, align: 'right', title: 'IDPerro' },
+            	{ field:'IDPerro',   width:10,  sortable:true, align: 'right', title: 'ID' },
             	{ field:'Nombre',   width:30, sortable:true,  align: 'right', title: 'Nombre' },
             	{ field:'Raza',     width:25,                align: 'right', title: 'Raza' },
             	{ field:'LOE_RRC',  width:20, sortable:true, align: 'right', title: 'LOE / RRC' },
