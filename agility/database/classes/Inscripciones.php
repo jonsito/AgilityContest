@@ -176,11 +176,11 @@ class Inscripciones extends DBObject {
 		// Fase 2: la tabla de resultados a devolver
 		$result = array(); // result { total(numberofrows), data(arrayofrows)
 		$count = 0;
-		$idperroes = array();
+		$idperros = array();
 		while($row = $rs->fetch_array()){
-			if (!isset($idperroes[$row['IDPerro']])) {
+			if (!isset($idperros[$row['IDPerro']])) {
 				$count++;
-				$idperroes[$row['IDPerro']]= array(
+				$idperros[$row['IDPerro']]= array(
 					'IDPerro' => $row['IDPerro'],
 					'Nombre' => $row['Nombre'],
 					'Categoria' => $row['Categoria'],
@@ -196,12 +196,12 @@ class Inscripciones extends DBObject {
 			} // create row if not exists
 			// store wich jornada is subscribed into array
 			$jornada=$row['Numero'];
-			$idperroes[$row['IDPerro']]["J$jornada"]=1;
+			$idperros[$row['IDPerro']]["J$jornada"]=1;
 		}
 		$rs->free();
 		$items=array();
 		$index=0;
-		foreach($idperroes as $key => $item) {
+		foreach($idperros as $key => $item) {
 			if ($index<$offset) { // not yet on requested rows
 				$index++;
 				continue;
@@ -225,9 +225,8 @@ class Inscripciones extends DBObject {
 	
 		// evaluate offset and row count for query
 		$id = $this->prueba;
-		$sort = http_request("sort","s","Club");
-		$order = http_request("order","s","ASC");
 		$search =  http_request("where","s","");
+		// $extra= a single ')' or name search criterion
 		$extra = ')';
 		if ($search!=='') $extra=" AND ( (PerroGuiaClub.Nombre LIKE '%$search%') 
 				OR ( Club LIKE '%$search%') OR ( Guia LIKE '%$search%' ) ) )";
@@ -239,18 +238,18 @@ class Inscripciones extends DBObject {
 		WHERE ( ( Inscripciones.IDPerro = PerroGuiaClub.IDPerro)
 		AND ( Inscripciones.Jornada = Jornadas.ID )
 		AND ( Prueba= $id )
-		$extra ORDER BY $sort $order"; // a single ')' or name search criterion
+		$extra ORDER BY Club ASC, Categoria ASC, Grado ASC, Nombre ASC"; 
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 	
 		// Fase 2: la tabla de resultados a devolver
 		$result = array(); // result { total(numberofrows), data(arrayofrows)
 		$count = 0;
-		$idperroes = array();
+		$idperros = array();
 		while($row = $rs->fetch_array()){
-			if (!isset($idperroes[$row['IDPerro']])) {
+			if (!isset($idperros[$row['IDPerro']])) {
 				$count++;
-				$idperroes[$row['IDPerro']]= array(
+				$idperros[$row['IDPerro']]= array(
 						'IDPerro' => $row['IDPerro'],
 						'Nombre' => $row['Nombre'],
 						'Categoria' => $row['Categoria'],
@@ -266,12 +265,12 @@ class Inscripciones extends DBObject {
 			} // create row if not exists
 			// store wich jornada is subscribed into array
 			$jornada=$row['Numero'];
-			$idperroes[$row['IDPerro']]["J$jornada"]=1;
+			$idperros[$row['IDPerro']]["J$jornada"]=1;
 		}
 		$rs->free();
 		$items=array();
 		$index=0;
-		foreach($idperroes as $key => $item) array_push($items,$item);
+		foreach($idperros as $key => $item) array_push($items,$item);
 		$result['total']=$count; // number of rows retrieved
 		$result['rows']=$items;
 		// and return json encoded $result variable
@@ -300,11 +299,11 @@ class Inscripciones extends DBObject {
 		// Fase 2: la tabla de resultados a devolver
 		$result = array(); // result { total(numberofrows), data(arrayofrows) }
 		$count = 0;
-		$idperroes = array();
+		$idperros = array();
 		while($row = $rs->fetch_array()){
-			if (!isset($idperroes[$row['IDPerro']])) {
+			if (!isset($idperros[$row['IDPerro']])) {
 				$count++;
-				$idperroes[$row['IDPerro']]= array(
+				$idperros[$row['IDPerro']]= array(
 						'IDPerro' => $row['IDPerro'],
 						'Nombre' => $row['Nombre'],
 						'Licencia' => $row['Licencia'],
@@ -321,11 +320,11 @@ class Inscripciones extends DBObject {
 			} // create row if not exists
 			// store wich jornada is subscribed into array
 			$jornada=$row['Numero'];
-			$idperroes[$row['IDPerro']]["J$jornada"]=1;
+			$idperros[$row['IDPerro']]["J$jornada"]=1;
 		}
 		$rs->free();
 		$items=array();
-		foreach($idperroes as $key => $item) array_push($items,$item);
+		foreach($idperros as $key => $item) array_push($items,$item);
 		$result['total']=count($items); // number of rows retrieved
 		$result['rows']=$items;
 		// and return json encoded $result variable

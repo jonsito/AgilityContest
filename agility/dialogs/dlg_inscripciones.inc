@@ -4,7 +4,7 @@
         <div class="ftitle">Datos de la Inscripci&oacute;n</div>
         <div class="fitem">
             <form name="inscripciones-buscar" method="get">
-            <label for="Participante">Participante:</label>
+            <label for="Participante">Participante(s):</label>
             <select id="inscripciones-Participante" name="Participante" class="easyui-combogrid" style="width:250px"></select>
             <a id="inscripciones-newDogBtn" href="#" class="easyui-linkbutton" style="float:right">Nuevo Perro</a>
             </form>
@@ -24,15 +24,15 @@
         		<tr>
         			<td colspan="2">
             		<label for="Licencia">Licencia: </label>
-            		<input id="inscripciones-Licencia" name="Licencia" type="text" size="4" disabled="disabled" />
+            		<input id="inscripciones-Licencia" name="Licencia" type="text" size="5" disabled="disabled" />
         			</td>
         			<td colspan="2">
             		<label for="Categoria">Categoria: </label>
-            		<input id="inscripciones-Categoria" name="Categoria" type="text" size="1" disabled="disabled"/>
+            		<input id="inscripciones-Categoria" name="Categoria" type="text" size="3" disabled="disabled"/>
         			</td>
         			<td colspan="2">
             		<label for="Grado">Grado: </label>
-            		<input id="inscripciones-Grado" name="Grado" type="text" size="1" disabled="disabled" />
+            		<input id="inscripciones-Grado" name="Grado" type="text" size="3" disabled="disabled" />
         			</td>
         			<td>&nbsp;</td>
         			<td>
@@ -172,7 +172,7 @@
 		url: 'database/pruebaFunctions.php?Operation=equipos&ID='+workingData.prueba,
 		method: 'get',
 		mode: 'remote',
-		required: true,
+		required: false,
 		columns: [[
 			{field:'ID',hidden:'true'},
 			{field:'Nombre',title:'Nombre',width:25,align:'right'},
@@ -186,34 +186,26 @@
     
     $('#inscripciones-Participante').combogrid({
         fit:true,
-		panelWidth: 600,
+        delay: 500, // dont search on every keystroke
+		panelWidth: 640,
 		panelHeight: 200,
 		idField: 'IDPerro',
 		textField: 'Nombre',
 		url: 'database/dogFunctions.php?Operation=enumerate',
 		method: 'get',
 		mode: 'remote',
-		required: true,
+		required: false,
 		columns: [[
 			{field:'IDPerro',hidden:'true'},
 			{field:'Nombre',title:'Perro',width:20,align:'right'},
 			{field:'Categoria',title:'Cat.',width:10,align:'center'},
 			{field:'Grado',title:'Grado',width:10,align:'center'},
 			{field:'Guia',title:'Guia',width:40,align:'right'},
-			{field:'Club',title:'Club',width:20,align:'right'},
-			{field:'Celo',title:'Celo',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
-			{field:'J1',title:'J1',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
-			{field:'J2',title:'J2',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
-			{field:'J2',title:'J3',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
-			{field:'J4',title:'J4',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
-			{field:'J5',title:'J5',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
-			{field:'J6',title:'J6',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
-			{field:'J7',title:'J7',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
-			{field:'J8',title:'J8',width:10,align:'center',editor:{type:'checkbox',options:{on:1,off:0}}},
+			{field:'Club',title:'Club',width:20,align:'right'}
 		]],
 		multiple: true,
 		fitColumns: true,
-		singleSelect: true,
+		singleSelect: false,
 		selectOnNavigation: false ,
 		onSelect: function(index,row) {
 			var idperro=row.IDPerro;
@@ -223,14 +215,6 @@
 	        // and set default Team and money
 	        $('#inscripciones-Equipo').combogrid('setValue','-- Sin asignar --'); 
 	        $('#inscripciones-Pagado').val(0); 
-		},
-		editIndex: -1,
-		onClickRow: function(index) {
-			if (this.editIndex!=index) {
-				if (this.editIndex!=-1) $('#inscripciones-Participante').combogrid('endEdit',index);
-			}
-			this.editIndex=index;
-			$('#inscripciones-Participante').combogrid('beginEdit',index);
 		}
 	});
 

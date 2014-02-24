@@ -37,7 +37,7 @@
 </div> 
 	
 	<!-- BARRA DE TAREAS -->
-    <div id="inscripciones-toolbar" style="padding:10px 10px 30px 10px;">
+    <div id="inscripciones-toolbar" style="padding:10px 10px 40px 10px;">
     	<span style="float:left">
     	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton" onclick="newInscripcion()">Nueva inscripci&oacute;n</a>
     	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton" onclick="editInscripcion()">Editar Registro</a>
@@ -162,6 +162,8 @@ $('#inscripciones-datagrid').datagrid({
     rownumbers: true,
     fitColumns: true,
     singleSelect: true,
+    multiSort: true,
+    remoteSort: false,
 	url: 'database/inscripcionFunctions.php?Operation=select&ID='+workingData.prueba,
 	method: 'get',
     toolbar: '#inscripciones-toolbar',

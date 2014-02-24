@@ -976,33 +976,28 @@ function insertInscripcion() {
 		$.messager.alert("Error","!No ha seleccionado ninguna jornada!","warning");
 		return;
 	}
-	// fill needed data to be sent
-	$('#inscripciones-fIDPerro').val($('#inscripciones-IDPerro').val());
-	$('#inscripciones-fPruebaID').val(workingData.prueba);
-	$('#inscripciones-fOperation').val('doit');
-    // do normal submit
-    $('#inscripciones-form').form('submit',{
-        url: 'database/inscripcionFunctions.php',
-        method: 'get',
-        onSubmit: function(param){ // nothing to validate, but...
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
-            if (result.errorMsg){
-                $.messager.show({
-                    title: 'Error',
-                    msg: result.errorMsg
-                });
-            } else {
-                // notice that some of these items may fail if dialog is not deployed. just ignore
-                $('#inscripciones-dialog').dialog('close');        // close the dialog
-                $('#inscripciones-datagrid').datagrid('reload',{ // reload the inscripciones table
-                    where: $('#inscripciones-search').val()
-                });
-            }
-        }
-    });
+	var g=$('#inscripciones-Participante').combogrid('grid');
+	$.each( g.datagrid('getSelections'), function(index,row) {
+		$.ajax({
+			type:'GET',
+			url:"database/inscripcionFunctions.php",
+			dataType:'json',
+			data: {
+				ID: workingData.prueba,
+				Operation: 'doit',
+				IDPerro: row.IDPerro
+			}
+		});
+	});
+    // notice that some of these items may fail if dialog is not deployed. just ignore
+	// foreach finished, clean, close and refresh
+	$('#inscripciones-Participante').combogrid('grid').datagrid('clearSelections');
+    // close the dialog
+    $('#inscripciones-dialog').dialog('close');
+    // reload the inscripciones table
+	$('#inscripciones-datagrid').datagrid('reload',{
+		where: $('#inscripciones-search').val()
+	});
 }
 
 /**
