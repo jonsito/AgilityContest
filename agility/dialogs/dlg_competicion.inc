@@ -49,7 +49,7 @@ $('#competicion-datagrid').datagrid({
     // toolbar: '#competicion-toolbar',
     columns:[[
         { field:'Manga',		hidden:true },
-        { field:'Dorsal',		hidden:true },
+        { field:'IDPerro',		hidden:true },
       	{ field:'Licencia',		hidden:true },
         { field:'Nombre',		width:20, align:'left',  title: 'Nombre'},
         { field:'Guia',			width:50, align:'right', title: 'Guia' },

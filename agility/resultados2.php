@@ -278,8 +278,8 @@ $('#resultados-manga1-datagrid').datagrid({
     // toolbar: '#resultadosmanga-toolbar',
     columns:[[
         { field:'Manga',		hidden:true },
-        { field:'Dorsal',		hidden:true },
-        // { field:'Dorsal',		width:10, align:'left',  title: 'Dorsal'},
+        { field:'IDPerro',		hidden:true },
+        // { field:'IDPerro',		width:10, align:'left',  title: 'IDPerro'},
       	{ field:'Licencia',		hidden:true },
         { field:'Puesto',		width:10, align:'left',  title: 'Puesto'},
         { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
@@ -327,8 +327,8 @@ $('#resultados-manga2-datagrid').datagrid({
     singleSelect: true,
     columns:[[
         { field:'Manga',		hidden:true },
-        { field:'Dorsal',		hidden:true },
-        // { field:'Dorsal',		width:10, align:'left',  title: 'Dorsal'},
+        { field:'IDPerro',		hidden:true },
+        // { field:'IDPerro',		width:10, align:'left',  title: 'IDPerro'},
       	{ field:'Licencia',		hidden:true },
         { field:'Puesto',		width:10, align:'left',  title: 'Puesto'},
         { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},

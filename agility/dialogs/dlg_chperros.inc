@@ -15,7 +15,7 @@
             <div class="fitem">
                 <label for="Nombre">Nombre:</label>
                 <input id="chperros-Nombre" name="Nombre" class="easyui-validatebox" />
-                <input id="chperros-Dorsal" name="Dorsal" type="hidden" /> <!-- hide dorsal, as only used for edit and is readonly -->
+                <input id="chperros-IDPerro" name="IDPerro" type="hidden" /> <!-- hide idperro, as only used for edit and is readonly -->
                 <input id="chperros-Operation" name="Operation" type="hidden" value="insert"/> <!-- inser/update/delete -->
                 <input id="chperros-Guia" name="Guia" type="hidden" /> <!-- name of the guia -->
             </div>
@@ -102,7 +102,7 @@
 		method: 'get',
 		mode: 'remote',
 		columns: [[
-			{field:'Dorsal',hidden:'true'},
+			{field:'IDPerro',hidden:'true'},
 			{field:'Nombre',title:'Perro',width:20,align:'right'},
 			{field:'Categoria',title:'Cat.',width:10,align:'center'},
 			{field:'Grado',title:'Grado',width:10,align:'center'},
@@ -114,9 +114,9 @@
 		singleSelect: true,
 		selectOnNavigation: false ,
 		onSelect: function(index,row) {
-			var dorsal=row.Dorsal;
-			if (!dorsal) return;
-	        $('#chperros-form').form('load','database/dogFunctions.php?Operation=getbydorsal&Dorsal='+dorsal); // load form with json retrieved data
+			var idperro=row.IDPerro;
+			if (!idperro) return;
+	        $('#chperros-form').form('load','database/dogFunctions.php?Operation=getbyidperro&IDPerro='+idperro); // load form with json retrieved data
 		}
 	});
     $('#chperros-Nombre').validatebox({

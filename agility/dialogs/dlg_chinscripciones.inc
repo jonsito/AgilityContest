@@ -7,7 +7,7 @@
         		<table>
         		<tr>
         			<td colspan="4">
-            		<input id="chinscripciones-Dorsal" type="hidden" name="Dorsal"/>
+            		<input id="chinscripciones-IDPerro" type="hidden" name="IDPerro"/>
         			<label for="Nombre">Nombre:</label>
             		<input id="chinscripciones-Nombre" name="Nombre" type="text" size="20" disabled="disabled" />
         			</td>
@@ -46,7 +46,7 @@
         
         <form id="chinscripciones-form" method="get" novalidate>
         	<!-- these two fields need to be filled before commit -->
-        	<input id="chinscripciones-fDorsal" type="hidden" name="Dorsal"/>
+        	<input id="chinscripciones-fIDPerro" type="hidden" name="IDPerro"/>
         	<input id="chinscripciones-fPruebaID" type="hidden" name="ID"/>
         	<input id="chinscripciones-fOperation" type="hidden" name="Operation"/>
         	<!-- "standard" data fields -->

@@ -19,7 +19,7 @@ function replaceAll(find,replace,from) {
 * Object to store working data primary keys
 */
 var workingData = new Object({
-	perro: 0, // Dorsal del perro en edicion
+	perro: 0, // IDPerro del perro en edicion
 	guia: '', // nombre del guia en edicion
 	club: '', // nombre del club activo
 	juez: '', // nombre del juez activo

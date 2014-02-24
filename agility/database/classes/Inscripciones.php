@@ -37,11 +37,11 @@ class Inscripciones extends DBObject {
 	/**
 	 * Actualiza el orden de salida si es necesario
 	 * @param {integer} $jornada
-	 * @param {integer} $dorsal
+	 * @param {integer} $idperro
 	 * @param {integer} $celo
 	 * @return "" on success; null on error
 	 */
-	function updateOrdenSalida($jornada,$dorsal) {
+	function updateOrdenSalida($jornada,$idperro) {
 		$this->myLogger->enter();
 		// obtenemos un manejador de ordenes de salida
 		$os=new OrdenSalida("inscripciones::ordensalida");
@@ -53,8 +53,8 @@ class Inscripciones extends DBObject {
 		// retrieve result into an array
 		while($row = $rs->fetch_object()){
 			$manga=$row->ID;
-			$this->myLogger->debug("Ajustando el orden de salida jornada:$jornada manga:$manga dorsal:$dorsal");
-			$os->handle($jornada,$manga,$dorsal);
+			$this->myLogger->debug("Ajustando el orden de salida jornada:$jornada manga:$manga idperro:$idperro");
+			$os->handle($jornada,$manga,$idperro);
 		}
 		$rs->free();
 		$this->myLogger->leave();
@@ -69,8 +69,8 @@ class Inscripciones extends DBObject {
 		$this->myLogger->enter();
 
 		// variables comunes a todas las jornadas
-		$dorsal=http_request("Dorsal","i",0);
-		if ($dorsal==0) return $this->error("Invalid Dorsal ID"); 
+		$idperro=http_request("IDPerro","i",0);
+		if ($idperro==0) return $this->error("Invalid IDPerro ID"); 
 		$celo=http_request("Celo","i",0);
 		$observaciones=http_request("Observaciones","s","");
 		$equipo=http_request("Equipo","i",0);
@@ -99,21 +99,21 @@ class Inscripciones extends DBObject {
 			$solicita=http_request("J$numero","i",0);
 			if ($solicita) {
 				// vamos a ver si esta ya inscrito. 
-				$this->myLogger->debug("Insert/Update inscripcion Jornada:$numero ID:$jornada Dorsal:$dorsal");
+				$this->myLogger->debug("Insert/Update inscripcion Jornada:$numero ID:$jornada IDPerro:$idperro");
 				// usamos una sentencia "replace" que equivala a "insert of update if exists"
-				$sql="REPLACE INTO Inscripciones ( Jornada , Dorsal , Celo , Observaciones , Equipo , Pagado )
-					VALUES ( $jornada , $dorsal, $celo , '$observaciones' , $equipo , $pagado )";
+				$sql="REPLACE INTO Inscripciones ( Jornada , IDPerro , Celo , Observaciones , Equipo , Pagado )
+					VALUES ( $jornada , $idperro, $celo , '$observaciones' , $equipo , $pagado )";
 				$rs=$this->query($sql);
 				if (!$rs) return $this->error($this->conn->error);
 			} else {
 				// no solicita inscripcion: borrar datos
-				$this->myLogger->debug("Borrar inscripcion Jornada:$numero ID:$jornada Dorsal:$dorsal");
-				$sql="DELETE FROM Inscripciones where ( (Dorsal=$dorsal) AND (Jornada=$jornada))";
+				$this->myLogger->debug("Borrar inscripcion Jornada:$numero ID:$jornada IDPerro:$idperro");
+				$sql="DELETE FROM Inscripciones where ( (IDPerro=$idperro) AND (Jornada=$jornada))";
 				$rs=$this->query($sql);
 				if (!$rs) return $this->error($this->conn->error);
 			}
 			// actualizamos el orden de salida
-			$res=$this->updateOrdenSalida($jornada,$dorsal);
+			$res=$this->updateOrdenSalida($jornada,$idperro);
 			if ($res===null) return $this->error($this->errormsg);
 		}
 		// all right return ok
@@ -122,23 +122,23 @@ class Inscripciones extends DBObject {
 	}
 	
 	/**
-	 * Remove all inscriptions of Dorsal in non-closed jornadas from provided prueba 
+	 * Remove all inscriptions of IDPerro in non-closed jornadas from provided prueba 
 	 * @return {string} "" on success; null on error
 	 */
 	function remove() {
 		$this->myLogger->enter();
-		$dorsal=http_request("Dorsal","i",0);
-		if ($dorsal==0) return $this->error("Invalid Dorsal ID"); 
+		$idperro=http_request("IDPerro","i",0);
+		if ($idperro==0) return $this->error("Invalid IDPerro ID"); 
 		for ($n=1;$n<9;$n++) {
 			$jornada=$this->jornadas[$n]["ID"];
 			if ($this->jornadas[$n]["Cerrada"]!=0) {
-				$this->myLogger->info("Skip delete Dorsal $dorsal on closed Jornada $jornada");
+				$this->myLogger->info("Skip delete IDPerro $idperro on closed Jornada $jornada");
 				continue;
 			}
-			$sql="DELETE FROM Inscripciones where ( (Dorsal=$dorsal) AND (Jornada=$jornada))";
+			$sql="DELETE FROM Inscripciones where ( (IDPerro=$idperro) AND (Jornada=$jornada))";
 			$res=$this->query($sql);
 			if (!$res) return $this->error($this->conn->error); 
-			$res=$this->updateOrdenSalida($jornada,$dorsal);
+			$res=$this->updateOrdenSalida($jornada,$idperro);
 			if ($res===null) $this->conn->error($this->errormsg);
 		} // for every jornada on provided prueba
 		$this->myLogger->leave();
@@ -163,10 +163,10 @@ class Inscripciones extends DBObject {
 		$offset = ($page-1)*$rows;
 		
 		// FASE 1: obtener lista de perros inscritos con sus datos
-		$str="SELECT Numero , Inscripciones.Dorsal AS Dorsal , PerroGuiaClub.Nombre AS Nombre,
+		$str="SELECT Numero , Inscripciones.IDPerro AS IDPerro , PerroGuiaClub.Nombre AS Nombre,
 			Categoria , Grado , Celo , Guia , Club , Equipo , Observaciones , Pagado
 			FROM Inscripciones,PerroGuiaClub,Jornadas
-			WHERE ( ( Inscripciones.Dorsal = PerroGuiaClub.Dorsal)
+			WHERE ( ( Inscripciones.IDPerro = PerroGuiaClub.IDPerro)
 			AND ( Inscripciones.Jornada = Jornadas.ID )
 			AND ( Prueba= $id )
 			$extra ORDER BY $sort $order"; // a single ')' or name search criterion
@@ -176,12 +176,12 @@ class Inscripciones extends DBObject {
 		// Fase 2: la tabla de resultados a devolver
 		$result = array(); // result { total(numberofrows), data(arrayofrows)
 		$count = 0;
-		$dorsales = array();
+		$idperroes = array();
 		while($row = $rs->fetch_array()){
-			if (!isset($dorsales[$row['Dorsal']])) {
+			if (!isset($idperroes[$row['IDPerro']])) {
 				$count++;
-				$dorsales[$row['Dorsal']]= array(
-					'Dorsal' => $row['Dorsal'],
+				$idperroes[$row['IDPerro']]= array(
+					'IDPerro' => $row['IDPerro'],
 					'Nombre' => $row['Nombre'],
 					'Categoria' => $row['Categoria'],
 					'Grado' => $row['Grado'],
@@ -196,12 +196,12 @@ class Inscripciones extends DBObject {
 			} // create row if not exists
 			// store wich jornada is subscribed into array
 			$jornada=$row['Numero'];
-			$dorsales[$row['Dorsal']]["J$jornada"]=1;
+			$idperroes[$row['IDPerro']]["J$jornada"]=1;
 		}
 		$rs->free();
 		$items=array();
 		$index=0;
-		foreach($dorsales as $key => $item) {
+		foreach($idperroes as $key => $item) {
 			if ($index<$offset) { // not yet on requested rows
 				$index++;
 				continue;
@@ -233,10 +233,10 @@ class Inscripciones extends DBObject {
 				OR ( Club LIKE '%$search%') OR ( Guia LIKE '%$search%' ) ) )";
 
 		// FASE 1: obtener lista de perros inscritos con sus datos
-		$str="SELECT Numero , Inscripciones.Dorsal AS Dorsal , PerroGuiaClub.Nombre AS Nombre,
+		$str="SELECT Numero , Inscripciones.IDPerro AS IDPerro , PerroGuiaClub.Nombre AS Nombre,
 		Categoria , Grado , Celo , Guia , Club , Equipo , Observaciones , Pagado
 		FROM Inscripciones,PerroGuiaClub,Jornadas
-		WHERE ( ( Inscripciones.Dorsal = PerroGuiaClub.Dorsal)
+		WHERE ( ( Inscripciones.IDPerro = PerroGuiaClub.IDPerro)
 		AND ( Inscripciones.Jornada = Jornadas.ID )
 		AND ( Prueba= $id )
 		$extra ORDER BY $sort $order"; // a single ')' or name search criterion
@@ -246,12 +246,12 @@ class Inscripciones extends DBObject {
 		// Fase 2: la tabla de resultados a devolver
 		$result = array(); // result { total(numberofrows), data(arrayofrows)
 		$count = 0;
-		$dorsales = array();
+		$idperroes = array();
 		while($row = $rs->fetch_array()){
-			if (!isset($dorsales[$row['Dorsal']])) {
+			if (!isset($idperroes[$row['IDPerro']])) {
 				$count++;
-				$dorsales[$row['Dorsal']]= array(
-						'Dorsal' => $row['Dorsal'],
+				$idperroes[$row['IDPerro']]= array(
+						'IDPerro' => $row['IDPerro'],
 						'Nombre' => $row['Nombre'],
 						'Categoria' => $row['Categoria'],
 						'Grado' => $row['Grado'],
@@ -266,12 +266,12 @@ class Inscripciones extends DBObject {
 			} // create row if not exists
 			// store wich jornada is subscribed into array
 			$jornada=$row['Numero'];
-			$dorsales[$row['Dorsal']]["J$jornada"]=1;
+			$idperroes[$row['IDPerro']]["J$jornada"]=1;
 		}
 		$rs->free();
 		$items=array();
 		$index=0;
-		foreach($dorsales as $key => $item) array_push($items,$item);
+		foreach($idperroes as $key => $item) array_push($items,$item);
 		$result['total']=$count; // number of rows retrieved
 		$result['rows']=$items;
 		// and return json encoded $result variable
@@ -287,10 +287,10 @@ class Inscripciones extends DBObject {
 		// evaluate offset and row count for query
 		$id = $this->prueba;
 		// FASE 1: obtener lista de perros inscritos con sus datos
-		$str="SELECT Numero , Inscripciones.Dorsal AS Dorsal , PerroGuiaClub.Nombre AS Nombre,Licencia,
+		$str="SELECT Numero , Inscripciones.IDPerro AS IDPerro , PerroGuiaClub.Nombre AS Nombre,Licencia,
 		Categoria , Grado , Celo , Guia , Club , Equipo , Observaciones , Pagado
 		FROM Inscripciones,PerroGuiaClub,Jornadas
-		WHERE ( ( Inscripciones.Dorsal = PerroGuiaClub.Dorsal)
+		WHERE ( ( Inscripciones.IDPerro = PerroGuiaClub.IDPerro)
 			AND ( Inscripciones.Jornada = Jornadas.ID )
 			AND ( Prueba= $id ) )
 		ORDER BY Club ASC, Categoria ASC";
@@ -300,12 +300,12 @@ class Inscripciones extends DBObject {
 		// Fase 2: la tabla de resultados a devolver
 		$result = array(); // result { total(numberofrows), data(arrayofrows) }
 		$count = 0;
-		$dorsales = array();
+		$idperroes = array();
 		while($row = $rs->fetch_array()){
-			if (!isset($dorsales[$row['Dorsal']])) {
+			if (!isset($idperroes[$row['IDPerro']])) {
 				$count++;
-				$dorsales[$row['Dorsal']]= array(
-						'Dorsal' => $row['Dorsal'],
+				$idperroes[$row['IDPerro']]= array(
+						'IDPerro' => $row['IDPerro'],
 						'Nombre' => $row['Nombre'],
 						'Licencia' => $row['Licencia'],
 						'Categoria' => $row['Categoria'],
@@ -321,11 +321,11 @@ class Inscripciones extends DBObject {
 			} // create row if not exists
 			// store wich jornada is subscribed into array
 			$jornada=$row['Numero'];
-			$dorsales[$row['Dorsal']]["J$jornada"]=1;
+			$idperroes[$row['IDPerro']]["J$jornada"]=1;
 		}
 		$rs->free();
 		$items=array();
-		foreach($dorsales as $key => $item) array_push($items,$item);
+		foreach($idperroes as $key => $item) array_push($items,$item);
 		$result['total']=count($items); // number of rows retrieved
 		$result['rows']=$items;
 		// and return json encoded $result variable

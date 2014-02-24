@@ -164,7 +164,7 @@ $('#inscripciones-datagrid').datagrid({
 	method: 'get',
     toolbar: '#inscripciones-toolbar',
     columns: [[
-        { field:'Dorsal', hidden:true }, // dog ID
+        { field:'IDPerro', hidden:true }, // dog ID
         { field:'Equipo', hidden:true }, // only used on Team contests
         { field:'Pagado', hidden:true }, // to store if handler paid :-)
     	{ field:'Nombre',	width:10, sortable:true, align: 'right',	title: 'Nombre' },

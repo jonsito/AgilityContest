@@ -16,7 +16,7 @@
         		<table>
         		<tr>
         			<td colspan="4">
-            		<input id="inscripciones-Dorsal" type="hidden" name="Dorsal"/>
+            		<input id="inscripciones-IDPerro" type="hidden" name="IDPerro"/>
         			<label for="Nombre">Nombre:</label>
             		<input id="inscripciones-Nombre" name="Nombre" type="text" size="20" disabled="disabled" />
         			</td>
@@ -55,7 +55,7 @@
         
         <form id="inscripciones-form" method="get" novalidate>
         	<!-- these two fields need to be filled before commit -->
-        	<input id="inscripciones-fDorsal" type="hidden" name="Dorsal"/>
+        	<input id="inscripciones-fIDPerro" type="hidden" name="IDPerro"/>
         	<input id="inscripciones-fPruebaID" type="hidden" name="ID"/>
         	<input id="inscripciones-fOperation" type="hidden" name="Operation"/>
         	<!-- "standard" data fields -->
@@ -188,14 +188,14 @@
         fit:true,
 		panelWidth: 600,
 		panelHeight: 200,
-		idField: 'Dorsal',
+		idField: 'IDPerro',
 		textField: 'Nombre',
 		url: 'database/dogFunctions.php?Operation=enumerate',
 		method: 'get',
 		mode: 'remote',
 		required: true,
 		columns: [[
-			{field:'Dorsal',hidden:'true'},
+			{field:'IDPerro',hidden:'true'},
 			{field:'Nombre',title:'Perro',width:20,align:'right'},
 			{field:'Categoria',title:'Cat.',width:10,align:'center'},
 			{field:'Grado',title:'Grado',width:10,align:'center'},
@@ -216,10 +216,10 @@
 		singleSelect: true,
 		selectOnNavigation: false ,
 		onSelect: function(index,row) {
-			var dorsal=row.Dorsal;
-			if (!dorsal) return;
+			var idperro=row.IDPerro;
+			if (!idperro) return;
 			// load form with json retrieved data
-	        $('#inscripciones-data').form('load','database/dogFunctions.php?Operation=getbydorsal&Dorsal='+dorsal);
+	        $('#inscripciones-data').form('load','database/dogFunctions.php?Operation=getbyidperro&IDPerro='+idperro);
 	        // and set default Team and money
 	        $('#inscripciones-Equipo').combogrid('setValue','-- Sin asignar --'); 
 	        $('#inscripciones-Pagado').val(0); 

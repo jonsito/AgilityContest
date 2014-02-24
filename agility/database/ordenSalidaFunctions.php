@@ -16,7 +16,7 @@ try {
 		throw new Exception("Call to ordenSalidaFunctions without 'Operation' requested");
 	$j = http_request("Jornada","i",0);
 	$m = http_request("Manga","i",0);
-	$d = http_request("Dorsal","i",0);
+	$d = http_request("IDPerro","i",0);
 	// los siguiente campos se usan para drag and drop
 	$f = http_request("From","i",0);
 	$t = http_request("To","i",0);

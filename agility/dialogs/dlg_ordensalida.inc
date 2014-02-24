@@ -50,8 +50,8 @@ $('#ordensalida-datagrid').datagrid({
     singleSelect: true,
     // toolbar: '#ordensalida-toolbar',
     columns:[[
-        	{ field:'Dorsal',		hidden:true },
-          	// { field:'Dorsal',		width:10, sortable:false,	align:'left',  title: 'Dorsal'},
+        	{ field:'IDPerro',		hidden:true },
+          	// { field:'IDPerro',		width:10, sortable:false,	align:'left',  title: 'IDPerro'},
           	{ field:'Nombre',		width:20, sortable:false,	align:'left',  title: 'Nombre'},
       		{ field:'Licencia',		width:15, sortable:false,   align:'right', title: 'Lic.' },
       		{ field:'Categoria',	width:10, sortable:false,   align:'center', title: 'Cat.' },
@@ -74,7 +74,7 @@ $('#ordensalida-datagrid').datagrid({
         return (from==to)?true:false;
     },
     onDrop: function(dst,src,updown) {
-        dragAndDrop(src.Dorsal,dst.Dorsal,(updown==='top')?0:1);
+        dragAndDrop(src.IDPerro,dst.IDPerro,(updown==='top')?0:1);
     }
 });
 

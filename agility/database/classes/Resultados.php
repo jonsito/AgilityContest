@@ -45,25 +45,25 @@ class Resultados extends DBObject {
 	/**
 	 * Inserta perro en la lista de resultados de la manga
 	 * los datos del perro se toman de la tabla perroguiaclub
-	 * @param {integer} $dorsal
+	 * @param {integer} $idperro
 	 * @return "" on success; null on error
 	 */
-	function insert($dorsal) {
+	function insert($idperro) {
 		$this->myLogger->enter();
-		if ($dorsal<=0) return $this->error("No dorsal specified");
+		if ($idperro<=0) return $this->error("No idperro specified");
 		if ($this->cerrada!=0) return $this->error("Manga ".$this->manga." is closed");
 		
 		// phase 1: retrieve dog data
-		$str="SELECT * FROM PerroGuiaClub WHERE ( Dorsal = $dorsal )";
+		$str="SELECT * FROM PerroGuiaClub WHERE ( IDPerro = $idperro )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$perro =$rs->fetch_object(); // should be only one item
 		$rs->free();
-		if (!$perro) return $this->error("No information on Dorsal: $dorsal");
+		if (!$perro) return $this->error("No information on IDPerro: $idperro");
 		
-		// phase 2: insert into resultados. On duplicate ($manga,$dorsal) key an error will occur
-		$str="INSERT INTO Resultados ( Manga , Nombre , Dorsal , Licencia , Categoria , Grado , Guia , Club ) VALUES ("
-				.$this->manga.		",'"	.$perro->Nombre. 	"'," 	.$perro->Dorsal.	",'"	.$perro->Licencia.	"','"
+		// phase 2: insert into resultados. On duplicate ($manga,$idperro) key an error will occur
+		$str="INSERT INTO Resultados ( Manga , Nombre , IDPerro , Licencia , Categoria , Grado , Guia , Club ) VALUES ("
+				.$this->manga.		",'"	.$perro->Nombre. 	"'," 	.$perro->IDPerro.	",'"	.$perro->Licencia.	"','"
 				.$perro->Categoria. "','" 	.$perro->Grado.		"','"	.$perro->Guia.		"','"	.$perro->Club .	"')";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -72,15 +72,15 @@ class Resultados extends DBObject {
 	}
 	
 	/**
-	 * Borra el dorsal de la lista de resultados de la manga
-	 * @param {integer} $dorsal
+	 * Borra el idperro de la lista de resultados de la manga
+	 * @param {integer} $idperro
 	 * @return "" on success; null on error
 	 */
-	function delete($dorsal) {
+	function delete($idperro) {
 		$this->myLogger->enter();
-		if ($dorsal<=0) return $this->error("No Dorsal specified");
+		if ($idperro<=0) return $this->error("No IDPerro specified");
 		if ($this->cerrada!=0) return $this->error("Manga ".$this->manga." is closed");
-		$str="DELETE * FROM Resultados WHERE ( Dorsal = $dorsal ) AND ( Manga=".$this->manga.")";
+		$str="DELETE * FROM Resultados WHERE ( IDPerro = $idperro ) AND ( Manga=".$this->manga.")";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
@@ -88,31 +88,31 @@ class Resultados extends DBObject {
 	}
 	
 	/**
-	 * selecciona los datos del dorsal indicado desde la lista de resultados de la manga
-	 * @param {integer} $dorsal
+	 * selecciona los datos del idperro indicado desde la lista de resultados de la manga
+	 * @param {integer} $idperro
 	 * @return {array} [key=>value,...] on success; null on error
 	 */
-	function select($dorsal) {
+	function select($idperro) {
 		$this->myLogger->enter();
-		if ($dorsal<=0) return $this->error("No Dorsal specified");
-		$str="SELECT * FROM Resultados WHERE ( Dorsal = $dorsal ) AND ( Manga=".$this->manga.")";
+		if ($idperro<=0) return $this->error("No IDPerro specified");
+		$str="SELECT * FROM Resultados WHERE ( IDPerro = $idperro ) AND ( Manga=".$this->manga.")";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$row=$rs->fetch_array();
 		$rs->free();
-		if(!$row) return $this->error("No Results for Dorsal:$dorsal on Manga:".$this->manga);
+		if(!$row) return $this->error("No Results for IDPerro:$idperro on Manga:".$this->manga);
 		$this->myLogger->leave();
 		return $row;
 	}
 	
 	/**
-	 * Actualiza los resultados de la manga para el dorsal indicado
-	 * @param {integer} $dorsal
+	 * Actualiza los resultados de la manga para el idperro indicado
+	 * @param {integer} $idperro
 	 * @return datos actualizados desde la DB; null on error
 	 */
-	function update($dorsal) {
+	function update($idperro) {
 		$this->myLogger->enter();
-		if ($dorsal<=0) return $this->error("No Dorsal specified");
+		if ($idperro<=0) return $this->error("No IDPerro specified");
 		if ($this->cerrada!=0) return $this->error("Manga ".$this->manga." is closed");
 		// buscamos la lista de parametros a actualizar
 		$entrada=http_request("Entrada","s",date("Y-m-d H:i:s"));
@@ -138,11 +138,11 @@ class Resultados extends DBObject {
 				Faltas=$faltas , Rehuses=$rehuses , Tocados=$tocados ,
 				NoPresentado=$nopresentado , Eliminado=$eliminado , 
 				Tiempo=$tiempo , Observaciones='$observaciones' 
-			WHERE (Dorsal=$dorsal) AND (Manga=".$this->manga.")";
+			WHERE (IDPerro=$idperro) AND (Manga=".$this->manga.")";
 		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
-		return $this->select($dorsal);
+		return $this->select($idperro);
 	}
 	
 	/**
@@ -167,29 +167,29 @@ class Resultados extends DBObject {
 		$str="SELECT * FROM Resultados WHERE (Manga=".$this->manga.")";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
-		// y los guardamos en un array indexado por el dorsal
+		// y los guardamos en un array indexado por el idperro
 		$data=array();
-		while($row=$rs->fetch_array()) $data[$row["Dorsal"]]=$row;
+		while($row=$rs->fetch_array()) $data[$row["IDPerro"]]=$row;
 		$rs->free();
 		
 		// fase 3 componemos el resultado siguiendo el orden de salida
 		$items=array();
 		$count=0;
 		$celo=0;
-		foreach ($lista as $dorsal) {
-			switch($dorsal) {
+		foreach ($lista as $idperro) {
+			switch($idperro) {
 				// separadores
 				case "BEGIN": case END: continue;
 				case "TAG_-0": case "TAG_L0": case "TAG_M0": case "TAG_S0": case "TAG_T0": $celo=0; continue;
 				case "TAG_-1": case "TAG_L1": case "TAG_M1": case "TAG_S1": case "TAG_T1": $celo=1; continue;
-				default: // dorsales
-					if (!isset($data[$dorsal])) {
-						$this->myLogger->warn("No Results for dorsal:$dorsal. Creating default one");
-						$this->insert($dorsal);
-						$data[$dorsal]=$this->select($dorsal);
+				default: // idperroes
+					if (!isset($data[$idperro])) {
+						$this->myLogger->warn("No Results for idperro:$idperro. Creating default one");
+						$this->insert($idperro);
+						$data[$idperro]=$this->select($idperro);
 					}
-					$data[$dorsal]['Celo']=$celo;
-					array_push($items,$data[$dorsal]);
+					$data[$idperro]['Celo']=$celo;
+					array_push($items,$data[$idperro]);
 					$count++;
 					break;
 			}

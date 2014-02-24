@@ -312,11 +312,11 @@ function editDog(){
  * @param {integer} mode 0:newInscripcion 1:editInscripcion
  */
 function editInscribedDog(mode){
-	var dorsal=0;
-	if (mode==0) dorsal= $('#inscripciones-Dorsal').val();
-	else dorsal= $('#chinscripciones-Dorsal').val();
+	var idperro=0;
+	if (mode==0) idperro= $('#inscripciones-IDPerro').val();
+	else idperro= $('#chinscripciones-IDPerro').val();
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro a inscribir');
-    $('#perros-form').form('load','database/dogFunctions.php?Operation=getbydorsal&Dorsal='+dorsal);// load form with row data
+    $('#perros-form').form('load','database/dogFunctions.php?Operation=getbyidperro&IDPerro='+idperro);// load form with row data
     $('#perros-form').form({
     	onLoadSuccess: function(data) {
     		$('#perros-Parent').val(''); // no parent datagrid
@@ -380,7 +380,7 @@ function assignDog() {
  * Ejecuta la peticion json para anyadir/editar un perro
  */
 function saveDog(){
-	var dorsal=$('#perros-Dorsal').val();
+	var idperro=$('#perros-IDPerro').val();
     $('#perros-form').form('submit',{
         url: 'database/dogFunctions.php',
         method: 'get',
@@ -396,7 +396,7 @@ function saveDog(){
                 });
             } else {
             	var parent=$('#perros-Parent').val();
-            	var url='database/dogFunctions.php?Operation=getbydorsal&Dorsal='+dorsal;
+            	var url='database/dogFunctions.php?Operation=getbyidperro&IDPerro='+idperro;
             	// reload the dog data on datagrid (if any)
                 $('#perros-datagrid'+parent).datagrid('reload');
                 // reload the dog data from inscripciones (if any)
@@ -417,7 +417,7 @@ function delPerroFromGuia(guia) {
     if (!row) return;
     $.messager.confirm('Confirm',"Borrar asignacion del perro '"+row.Nombre+"' al guia '"+guia.Nombre+"' ¿Seguro?'",function(r){
         if (r){
-            $.get('database/dogFunctions.php',{Operation:'orphan',Dorsal:row.Dorsal},function(result){
+            $.get('database/dogFunctions.php',{Operation:'orphan',IDPerro:row.IDPerro},function(result){
                 if (result.success){
                     $('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('reload');    // reload the guia data
                 } else {
@@ -439,7 +439,7 @@ function deleteDog(){
     if (row){
         $.messager.confirm('Confirm','Borrar el perro: "'+ row.Nombre+'" de la base de datos.\n¿Seguro?',function(r){
             if (r){
-                $.get('database/dogFunctions.php',{Operation:'delete',Dorsal:row.Dorsal},function(result){
+                $.get('database/dogFunctions.php',{Operation:'delete',IDPerro:row.IDPerro},function(result){
                     if (result.success){
                         $('#perros-datagrid').datagrid('reload');    // reload the dog data
                     } else {
@@ -871,7 +871,7 @@ function editInscripcion() {
 	// abrimos dialogo de edicion de inscripcion
 	$('#chinscripciones-dialog').dialog('open').dialog('setTitle','Modificar datos de inscripci&oacute;n');
 	// rellenamos formulario de datos del perro
-	$('#chinscripciones-data').form('load','database/dogFunctions.php?Operation=getbydorsal&Dorsal='+row.Dorsal);
+	$('#chinscripciones-data').form('load','database/dogFunctions.php?Operation=getbyidperro&IDPerro='+row.IDPerro);
 	// rellenamos formulario de la inscripcion
 	$('#chinscripciones-form').form('load',row);
 	// ajustamos checkboxes (un cb tiene "value" and "checked" como propiedades, y el 'load' solo toca "value")
@@ -934,7 +934,7 @@ function deleteInscripcion() {
 		if (r){
 			$.get('database/inscripcionFunctions.php',{
 					Operation:'remove',
-					Dorsal:row.Dorsal,
+					IDPerro:row.IDPerro,
 					ID:workingData.prueba,
 					J1:$('#jornada_cerrada-1').text(),
 					J2:$('#jornada_cerrada-2').text(),
@@ -977,7 +977,7 @@ function insertInscripcion() {
 		return;
 	}
 	// fill needed data to be sent
-	$('#inscripciones-fDorsal').val($('#inscripciones-Dorsal').val());
+	$('#inscripciones-fIDPerro').val($('#inscripciones-IDPerro').val());
 	$('#inscripciones-fPruebaID').val(workingData.prueba);
 	$('#inscripciones-fOperation').val('doit');
     // do normal submit
@@ -1024,7 +1024,7 @@ function updateInscripcion(){
 		return;
 	}
 	// fill needed data to be sent
-	$('#chinscripciones-fDorsal').val($('#chinscripciones-Dorsal').val());
+	$('#chinscripciones-fIDPerro').val($('#chinscripciones-IDPerro').val());
 	$('#chinscripciones-fPruebaID').val(workingData.prueba);
 	$('#chinscripciones-fOperation').val('doit');
     // do normal submit

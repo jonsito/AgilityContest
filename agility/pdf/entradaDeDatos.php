@@ -118,7 +118,7 @@ class PDF extends FPDF {
 	}
 	
 	function writeTableCell($rowcount,$row) {
-		$this->myLogger->trace("imprimiendo datos del dorsal: ".$row->Dorsal);
+		$this->myLogger->trace("imprimiendo datos del idperro: ".$row->IDPerro);
 		// cada celda tiene una cabecera con los datos del participante
 		$this->SetFillColor(0,0,255); // azul
 		$this->SetDrawColor(0,0,0); // negro para los recuadros

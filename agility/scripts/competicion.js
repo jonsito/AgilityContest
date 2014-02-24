@@ -129,7 +129,7 @@ function saveCompeticionData(idx,data) {
 			Prueba:		workingData.prueba,
 			Jornada:	workingData.jornada,
 			Manga:		workingData.manga,
-			Dorsal: 	data['Dorsal'],
+			IDPerro: 	data['IDPerro'],
 			Licencia:	data['Licencia'],
 			Nombre:		data['Nombre'],
 			Guia:		data['Guia'],
@@ -169,7 +169,7 @@ function evalOrdenSalida(mode) {
 }
 
 // reajusta el orden de salida 
-// poniendo el dorsal "from" delante (where==0) o detras (where==1) del dorsal "to"
+// poniendo el idperro "from" delante (where==0) o detras (where==1) del idperro "to"
 function dragAndDrop(from,to,where) {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;

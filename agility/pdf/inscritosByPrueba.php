@@ -22,7 +22,7 @@ class PDF extends FPDF {
 
 	// geometria de las celdas
 	protected $cellHeader
-					=array('Dorsal','Nombre','Lic.','Guía','Club','Cat.','Grado','Celo','Observaciones','Sab.','Dom.');
+					=array('IDPerro','Nombre','Lic.','Guía','Club','Cat.','Grado','Celo','Observaciones','Sab.','Dom.');
 	protected $pos	=array(  10,       20,     10,    40,   30,    10,     10,     10,    30,    10,    10 );
 	protected $align=array(  'R',      'L',    'C',   'R',  'R',   'C',    'L',    'C',   'R',   'C',   'C');
 	protected $fmt	=array(  'i',      's',    's',   's',  's',   's',    's',    'b',   's',   'b',   'b');
@@ -117,8 +117,8 @@ class PDF extends FPDF {
 				$this->addPage();
 				$this->writeTableHeader();
 			} 
-			// $this->Cell($this->pos[0],7,$row['Dorsal'],	'LR',0,$this->align[0],$fill);
-			$this->Cell($this->pos[0],7,$rowcount+1,	'LR',0,		$this->align[0],$fill); // display order instead of dorsal
+			// $this->Cell($this->pos[0],7,$row['IDPerro'],	'LR',0,$this->align[0],$fill);
+			$this->Cell($this->pos[0],7,$rowcount+1,	'LR',0,		$this->align[0],$fill); // display order instead of idperro
 			$this->Cell($this->pos[1],7,$row['Nombre'],	'LR',0,		$this->align[1],$fill);
 			$this->Cell($this->pos[2],7,$row['Licencia'],'LR',0,	$this->align[2],$fill);
 			$this->Cell($this->pos[3],7,$row['Guia'],	'LR',0,		$this->align[3],$fill);

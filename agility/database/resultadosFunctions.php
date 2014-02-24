@@ -7,14 +7,14 @@ try {
 	$result=null;
 	$operation=http_request("Operation","s",null);
 	$mangaID=http_request("Manga","i",0);
-	$dorsal=http_request("Dorsal","i",0);
+	$idperro=http_request("IDPerro","i",0);
 	if ($operation===null) throw new Exception("Call to resultadosFunction without 'Operation' requested");
 	$resultados= new Resultados("resultadosFunctions",$mangaID);
 	switch ($operation) {
-		case "insert": $result=$resultados->insert($dorsal); break;
-		case "update": $result=$resultados->update($dorsal); break;
-		case "delete": $result=$resultados->delete($dorsal); break;
-		case "select": $result=$resultados->select($dorsal); break;
+		case "insert": $result=$resultados->insert($idperro); break;
+		case "update": $result=$resultados->update($idperro); break;
+		case "delete": $result=$resultados->delete($idperro); break;
+		case "select": $result=$resultados->select($idperro); break;
 		case "enumerate": $result=$resultados->enumerate(); break;
 		default: throw new Exception("resultadosFunctions:: invalid operation: $operation provided");
 	}

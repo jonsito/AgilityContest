@@ -37,18 +37,18 @@ class Dogs extends DBObject {
 	
 	/**
 	 * Update data for provided dog ID
-	 * @param {integer} $dorsal dog id primary key
+	 * @param {integer} $idperro dog id primary key
 	 * @return "" on success; null on error
 	 */
-	function update($dorsal) {
+	function update($idperro) {
 		$this->myLogger->enter();
-		if ($dorsal===null) return $this->error("No dorsal provided"); 
+		if ($idperro===null) return $this->error("No idperro provided"); 
 		// componemos un prepared statement
 		$sql ="UPDATE Perros SET Nombre=? , Raza=? , LOE_RRC=? , Licencia=? , Categoria=? , Grado=? , Guia=?
-		       WHERE ( Dorsal=? )";
+		       WHERE ( IDPerro=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('sssssssi',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia,$dorsal);
+		$res=$stmt->bind_param('sssssssi',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia,$idperro);
 		if (!$res) return $this->error($this->conn->error);
 
 		// iniciamos los valores, chequeando su existencia
@@ -60,7 +60,7 @@ class Dogs extends DBObject {
 		$grado =	http_request("Grado","s",null);
 		$guia =		http_request("Guia","s",null);
 
-		$this->myLogger->info("Dorsal: $dorsal Nombre: $nombre Raza: $raza LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
+		$this->myLogger->info("IDPerro: $idperro Nombre: $nombre Raza: $raza LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		$stmt->close();
@@ -70,14 +70,14 @@ class Dogs extends DBObject {
 	}
 	
 	/**
-	 * Delete dog with provided dorsal
-	 * @param {integer} $dorsal dog primary key
+	 * Delete dog with provided idperro
+	 * @param {integer} $idperro dog primary key
 	 * @return "" on success ; otherwise null
 	 */
-	function delete($dorsal) {
+	function delete($idperro) {
 		$this->myLogger->enter();
-		if ($dorsal===null) return $this->error("No dorsal provided"); 
-		$rs= $this->query("DELETE FROM Perros WHERE (Dorsal=$dorsal)");
+		if ($idperro===null) return $this->error("No idperro provided"); 
+		$rs= $this->query("DELETE FROM Perros WHERE (IDPerro=$idperro)");
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -85,13 +85,13 @@ class Dogs extends DBObject {
 	
 	/**
 	 * Desasigna el guia al perro indicado
-	 * @param {integer} $dorsal dorsal id
+	 * @param {integer} $idperro idperro id
 	 * @return "" on success; otherwise null
 	 */
-	function orphan ($dorsal) {
+	function orphan ($idperro) {
 		$this->myLogger->enter();
-		if ($dorsal===null) return $this->error("No dorsal provided"); 
-		$rs= $this->query("UPDATE Perros SET Guia='-- Sin asignar --' WHERE (Dorsal='$dorsal')");
+		if ($idperro===null) return $this->error("No idperro provided"); 
+		$rs= $this->query("UPDATE Perros SET Guia='-- Sin asignar --' WHERE (IDPerro='$idperro')");
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -200,17 +200,17 @@ class Dogs extends DBObject {
 	}
 	
 	/** 
-	 * Obtiene los datos del perro con el dorsal indicado
+	 * Obtiene los datos del perro con el idperro indicado
 	 * Usado para rellenar formularios:  formid.form('load',url);
-	 * @param {integer} $dorsal dog primary key
+	 * @param {integer} $idperro dog primary key
 	 * @return null on error; array() with data on success
 	 */
-	function selectByDorsal($dorsal){
+	function selectByIDPerro($idperro){
 		$this->myLogger->enter();
-		if ($dorsal<=0) return $this->error("No Dorsal specified"); 
+		if ($idperro<=0) return $this->error("No IDPerro specified"); 
 		
 		// second query to retrieve $rows starting at $offset
-		$str="SELECT * FROM PerroGuiaClub WHERE ( Dorsal = $dorsal )";
+		$str="SELECT * FROM PerroGuiaClub WHERE ( IDPerro = $idperro )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array

@@ -616,22 +616,22 @@ DROP TABLE IF EXISTS `Inscripciones`;
 CREATE TABLE IF NOT EXISTS `Inscripciones` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
   `Jornada` int(4) NOT NULL,
-  `Dorsal` int(4) NOT NULL,
+  `IDPerro` int(4) NOT NULL,
   `Celo` tinyint(1) NOT NULL DEFAULT '0',
   `Observaciones` varchar(255) DEFAULT NULL,
   `Equipo` int(4) DEFAULT NULL,
   `Pagado` int(4) NOT NULL DEFAULT '12',
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `Inscripciones_dj` (`Jornada`,`Dorsal`),
-  KEY `Dorsal` (`Dorsal`),
+  UNIQUE KEY `Inscripciones_dj` (`Jornada`,`IDPerro`),
+  KEY `IDPerro` (`IDPerro`),
   KEY `Jornada` (`Jornada`),
   KEY `Equipo` (`Equipo`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=128 ;
 
 --
 -- RELACIONES PARA LA TABLA `Inscripciones`:
---   `Dorsal`
---       `Perros` -> `Dorsal`
+--   `IDPerro`
+--       `Perros` -> `IDPerro`
 --   `Jornada`
 --       `Jornadas` -> `ID`
 --   `Equipo`
@@ -642,7 +642,7 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
 -- Volcado de datos para la tabla `Inscripciones`
 --
 
-INSERT INTO `Inscripciones` (`ID`, `Jornada`, `Dorsal`, `Celo`, `Observaciones`, `Equipo`, `Pagado`) VALUES
+INSERT INTO `Inscripciones` (`ID`, `Jornada`, `IDPerro`, `Celo`, `Observaciones`, `Equipo`, `Pagado`) VALUES
 (1, 1, 10, 0, '', 10, 12),
 (3, 2, 12, 0, '', 10, 12),
 (5, 1, 563, 0, 'Test', 10, 24),
@@ -709,7 +709,7 @@ INSERT INTO `Inscripciones` (`ID`, `Jornada`, `Dorsal`, `Celo`, `Observaciones`,
 --
 DROP VIEW IF EXISTS `InscritosJornada`;
 CREATE TABLE IF NOT EXISTS `InscritosJornada` (
-`Dorsal` int(4)
+`IDPerro` int(4)
 ,`Equipo` int(4)
 ,`Jornada` int(4)
 ,`Celo` tinyint(1)
@@ -929,7 +929,7 @@ INSERT INTO `Mangas` (`ID`, `Jornada`, `Tipo`, `Grado`, `Recorrido`, `Dist_L`, `
 --
 DROP VIEW IF EXISTS `PerroGuiaClub`;
 CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
-`Dorsal` int(4)
+`IDPerro` int(4)
 ,`Nombre` varchar(255)
 ,`Raza` varchar(255)
 ,`Licencia` varchar(255)
@@ -949,7 +949,7 @@ CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 
 DROP TABLE IF EXISTS `Perros`;
 CREATE TABLE IF NOT EXISTS `Perros` (
-  `Dorsal` int(4) NOT NULL AUTO_INCREMENT,
+  `IDPerro` int(4) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(255) NOT NULL,
   `Raza` varchar(255) DEFAULT NULL,
   `LOE_RRC` varchar(255) DEFAULT NULL,
@@ -957,7 +957,7 @@ CREATE TABLE IF NOT EXISTS `Perros` (
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
   `Guia` varchar(255) DEFAULT '-- Sin asignar --',
   `Grado` varchar(16) DEFAULT '-',
-  PRIMARY KEY (`Dorsal`),
+  PRIMARY KEY (`IDPerro`),
   KEY `Perros_ibfk_3` (`Guia`),
   KEY `Perros_ibfk_1` (`Categoria`),
   KEY `Perros_ibfk_2` (`Grado`)
@@ -977,7 +977,7 @@ CREATE TABLE IF NOT EXISTS `Perros` (
 -- Volcado de datos para la tabla `Perros`
 --
 
-INSERT INTO `Perros` (`Dorsal`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`, `Guia`, `Grado`) VALUES
+INSERT INTO `Perros` (`IDPerro`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`, `Guia`, `Grado`) VALUES
 (10, 'Yuma', 'P.B.Malinoise', '1936256', 'A330', 'L', 'Juan Miguel Cifuentes', 'GIII'),
 (11, 'Hannibal', NULL, '1764520', 'A090', 'L', 'Tomás Pérez', '-'),
 (12, 'Ardi', '', '79097', '729', 'L', 'Paloma Faci', '-'),
@@ -1469,7 +1469,7 @@ INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`
 DROP TABLE IF EXISTS `Resultados`;
 CREATE TABLE IF NOT EXISTS `Resultados` (
   `Manga` int(4) NOT NULL,
-  `Dorsal` int(4) NOT NULL,
+  `IDPerro` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Licencia` varchar(255) NOT NULL DEFAULT '--------',
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
@@ -1485,14 +1485,14 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
   `NoPresentado` tinyint(1) NOT NULL DEFAULT '0',
   `Tiempo` double NOT NULL DEFAULT '0',
   `Observaciones` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`Manga`,`Dorsal`),
-  KEY `Resultados_ibfk_1` (`Dorsal`)
+  PRIMARY KEY (`Manga`,`IDPerro`),
+  KEY `Resultados_ibfk_1` (`IDPerro`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `Resultados`:
---   `Dorsal`
---       `Perros` -> `Dorsal`
+--   `IDPerro`
+--       `Perros` -> `IDPerro`
 --   `Manga`
 --       `Mangas` -> `ID`
 --
@@ -1501,7 +1501,7 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 -- Volcado de datos para la tabla `Resultados`
 --
 
-INSERT INTO `Resultados` (`Manga`, `Dorsal`, `Nombre`, `Licencia`, `Categoria`, `Grado`, `Guia`, `Club`, `Entrada`, `Comienzo`, `Faltas`, `Rehuses`, `Tocados`, `Eliminado`, `NoPresentado`, `Tiempo`, `Observaciones`) VALUES
+INSERT INTO `Resultados` (`Manga`, `IDPerro`, `Nombre`, `Licencia`, `Categoria`, `Grado`, `Guia`, `Club`, `Entrada`, `Comienzo`, `Faltas`, `Rehuses`, `Tocados`, `Eliminado`, `NoPresentado`, `Tiempo`, `Observaciones`) VALUES
 (3, 33, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández', 'Correcan', '2014-02-20 14:07:57', '2014-02-20 14:07:57', 0, 0, 0, 0, 0, 49.12, ''),
 (3, 227, 'Onis', 'A498', 'L', 'GII', 'José Antonio Vega', 'Agilcan', '2014-02-13 07:49:53', '2014-02-13 07:49:53', 0, 0, 0, 0, 0, 40, ''),
 (3, 384, 'Duna', '953', 'M', 'GII', 'Francisco Esteban', 'Costa Blanca', '2014-02-20 14:07:06', '2014-02-20 14:07:06', 0, 0, 0, 1, 0, 0, ''),
@@ -1583,7 +1583,7 @@ INSERT INTO `Tipo_Manga` (`Tipo`, `Descripcion`, `Grado`) VALUES
 --
 DROP TABLE IF EXISTS `InscritosJornada`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `InscritosJornada` AS select `Inscripciones`.`Dorsal` AS `Dorsal`,`Inscripciones`.`Equipo` AS `Equipo`,`Inscripciones`.`Jornada` AS `Jornada`,`Inscripciones`.`Celo` AS `Celo`,`Inscripciones`.`Observaciones` AS `Observaciones`,`Perros`.`Nombre` AS `Nombre`,`Perros`.`Licencia` AS `Licencia`,`Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Perros`.`Guia` AS `Guia`,`Guias`.`Club` AS `Club`,rand() AS `Orden` from ((`Inscripciones` join `Perros`) join `Guias`) where ((`Inscripciones`.`Dorsal` = `Perros`.`Dorsal`) and (`Perros`.`Guia` = `Guias`.`Nombre`));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `InscritosJornada` AS select `Inscripciones`.`IDPerro` AS `IDPerro`,`Inscripciones`.`Equipo` AS `Equipo`,`Inscripciones`.`Jornada` AS `Jornada`,`Inscripciones`.`Celo` AS `Celo`,`Inscripciones`.`Observaciones` AS `Observaciones`,`Perros`.`Nombre` AS `Nombre`,`Perros`.`Licencia` AS `Licencia`,`Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Perros`.`Guia` AS `Guia`,`Guias`.`Club` AS `Club`,rand() AS `Orden` from ((`Inscripciones` join `Perros`) join `Guias`) where ((`Inscripciones`.`IDPerro` = `Perros`.`IDPerro`) and (`Perros`.`Guia` = `Guias`.`Nombre`));
 
 -- --------------------------------------------------------
 
@@ -1592,7 +1592,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `PerroGuiaClub`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` AS select `Perros`.`Dorsal` AS `Dorsal`,`Perros`.`Nombre` AS `Nombre`,`Perros`.`Raza` AS `Raza`,`Perros`.`Licencia` AS `Licencia`,`Perros`.`LOE_RRC` AS `LOE_RRC`,`Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Perros`.`Guia` AS `Guia`,`Guias`.`Club` AS `Club` from (`Perros` join `Guias`) where (`Perros`.`Guia` = `Guias`.`Nombre`) order by `Guias`.`Club`,`Perros`.`Categoria`,`Perros`.`Nombre`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` AS select `Perros`.`IDPerro` AS `IDPerro`,`Perros`.`Nombre` AS `Nombre`,`Perros`.`Raza` AS `Raza`,`Perros`.`Licencia` AS `Licencia`,`Perros`.`LOE_RRC` AS `LOE_RRC`,`Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Perros`.`Guia` AS `Guia`,`Guias`.`Club` AS `Club` from (`Perros` join `Guias`) where (`Perros`.`Guia` = `Guias`.`Nombre`) order by `Guias`.`Club`,`Perros`.`Categoria`,`Perros`.`Nombre`;
 
 --
 -- Restricciones para tablas volcadas
@@ -1620,7 +1620,7 @@ ALTER TABLE `Guias`
 -- Filtros para la tabla `Inscripciones`
 --
 ALTER TABLE `Inscripciones`
-  ADD CONSTRAINT `Inscripciones_ibfk_1` FOREIGN KEY (`Dorsal`) REFERENCES `Perros` (`Dorsal`),
+  ADD CONSTRAINT `Inscripciones_ibfk_1` FOREIGN KEY (`IDPerro`) REFERENCES `Perros` (`IDPerro`),
   ADD CONSTRAINT `Inscripciones_ibfk_2` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`),
   ADD CONSTRAINT `Inscripciones_ibfk_3` FOREIGN KEY (`Equipo`) REFERENCES `Equipos` (`ID`);
 
@@ -1658,7 +1658,7 @@ ALTER TABLE `Pruebas`
 -- Filtros para la tabla `Resultados`
 --
 ALTER TABLE `Resultados`
-  ADD CONSTRAINT `Resultados_ibfk_1` FOREIGN KEY (`Dorsal`) REFERENCES `Perros` (`Dorsal`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Resultados_ibfk_1` FOREIGN KEY (`IDPerro`) REFERENCES `Perros` (`IDPerro`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Mangas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
