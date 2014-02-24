@@ -6,11 +6,11 @@
 <?php include_once("dialogs/dlg_jornadas.inc");?>
 <?php include_once("dialogs/dlg_inscripciones.inc");?>
 <?php include_once("dialogs/dlg_chinscripciones.inc");?>
- 	
-<div id="inscripciones_info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
-<div id="inscripciones_infolayout" class="easyui-layout" style="height:175px">
+
+<div id="inscripciones-info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
+<div id="inscripciones-infolayout" class="easyui-layout" style="height:150px">
 	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px">
-		<form id="inscripciones_pruebas" method="get">
+		<form id="inscripciones-pruebas" method="get">
 		<input type="hidden" name="ID"/>
 		<input type="hidden" name="Ubicacion"/>
 		<input type="hidden" name="Triptico"/>
@@ -31,13 +31,14 @@
 		</form>
 	</div>
 	<div data-options="region:'center',title:'Lista de jornadas de la prueba'" style="width:500px">
-		<table id="inscripciones_jornadas" class="easyui-datagrid"></table>
+		<table id="inscripciones-jornadas" class="easyui-datagrid"></table>
 	</div>
-</div> <!-- informacion de layout -->
-</div> <!-- panel de informacion -->
-
-<!-- DECLARACION DE LA TABLA DE INSCRIPCIONES -->
-<table id="inscripciones-datagrid" class="inscripciones-datagrid"></table>
+</div> 
+</div> 
+<div id="inscripciones-list" class="easyui-panel" style="height:450px">
+	<!-- DECLARACION DE LA TABLA DE INSCRIPCIONES -->
+	<table id="inscripciones-datagrid" class="easyui-datagrid" style="padding:0px 0px 20px 0px;"></table>
+</div>
     <!-- BARRA DE TAREAS -->
     <div id="inscripciones-toolbar">
     	<span style="float:left">
@@ -53,29 +54,37 @@
 	   	<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadInscripcion()">Refrescar</a>
 	   	</span>
     </div>
-    
+
 <script type="text/javascript">
 // cabecera de la pagina
 $('#Header_Operation').html('<p>Inscripciones - Formulario de registro</p>');
 // inicializamos formularios
-$('#inscripciones_info').panel({
+$('#inscripciones-info').panel({
 	border:true,
 	closable:false,
 	collapsible:true,
 	collapsed:true
 });
-$('#inscripciones_infolayout').layout();
-$('#inscripciones_pruebas').form('load','database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
-$('#inscripciones_jornadas').datagrid({
+
+$('#inscripciones-list').panel({
+	noHeader:	true,
+	border:		true,
+	closable:	false,
+	collapsible:false,
+	collapsed:	false,
+});
+$('#inscripciones-infolayout').layout();
+$('#inscripciones-pruebas').form('load','database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
+$('#inscripciones-jornadas').datagrid({
 	// propiedades del panel asociado
 	fit: true,
 	border: false,
 	closable: false,
-	collapsible: false,
+	collapsible: true,
 	collapsed: false,
 	// propiedades especificas del datagrid
     pagination: false,
-    rownumbers: false,
+    rownumbers: true,
     fitColumns: true,
     singleSelect: true,
 	url: 'database/jornadaFunctions.php?Operation=select&Prueba='+workingData.prueba,
@@ -102,12 +111,12 @@ $('#inscripciones_jornadas').datagrid({
     },
 	// on double click fireup editor dialog
 	onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-    	editJornadaFromPrueba(workingData.prueba,'#inscripciones_jornadas');
+    	editJornadaFromPrueba(workingData.prueba,'#inscripciones-jornadas');
 	}
 });
 
 //activa teclas up/down para navegar por el panel de gestion de jornadas
-$('#inscripciones_jornadas').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
+$('#inscripciones-jornadas').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
     function selectRow(t,up){
     	var count = t.datagrid('getRows').length;    // row count
     	var selected = t.datagrid('getSelected');
@@ -122,11 +131,11 @@ $('#inscripciones_jornadas').datagrid('getPanel').panel('panel').attr('tabindex'
         	t.datagrid('selectRow', (up ? count-1 : 0));
     	}
 	}
-	var t = $('#inscripciones_jornadas');
+	var t = $('#inscripciones-jornadas');
     switch(e.keyCode){
     case 38:	/* Up */	selectRow(t,true); return false;
     case 40:    /* Down */	selectRow(t,false); return false;
-    case 13:	/* Enter */	editJornadaFromPrueba(workingData.prueba,'#inscripciones_jornadas');; return false;
+    case 13:	/* Enter */	editJornadaFromPrueba(workingData.prueba,'#inscripciones-jornadas');; return false;
     }
 });
 
@@ -139,14 +148,21 @@ function identificaJornada(val,row,index) {
 // datos de la tabla de inscripciones
 // - tabla
 $('#inscripciones-datagrid').datagrid({
-	title: 'Gesti&oacute;n de datos de inscripciones',
-	url: 'database/inscripcionFunctions.php?Operation=select&ID='+workingData.prueba,
-	method: 'get',
-    toolbar: '#inscripciones-toolbar',
-    pagination: true,
+	title: 'Listado de inscritos en la prueba',
+	// propiedades del panel asociado
+	fit: true,
+	border: false,
+	closable: false,
+	collapsible: false,
+	collapsed: false,
+	// propiedades especificas del datagrid
+    pagination: false,
     rownumbers: true,
     fitColumns: true,
     singleSelect: true,
+	url: 'database/inscripcionFunctions.php?Operation=select&ID='+workingData.prueba,
+	method: 'get',
+    toolbar: '#inscripciones-toolbar',
     columns: [[
         { field:'Dorsal', hidden:true }, // dog ID
         { field:'Equipo', hidden:true }, // only used on Team contests

@@ -757,7 +757,7 @@ function saveJornada(){
                 $('#jornadas-dialog').dialog('close');        // close the dialog
                 // notice that some of these items may fail if dialog is not deployed. just ignore
                 $('#jornadas-datagrid-'+id).datagrid('reload',{ Prueba:id , Operation:'enumerate' }); // reload the prueba data
-                $('#inscripciones_jornadas').datagrid('reload');    // reload the prueba data
+                $('#inscripciones-jornadas').datagrid('reload');    // reload the prueba data
             }
         }
     });
