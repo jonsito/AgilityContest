@@ -164,7 +164,7 @@ $('#inscripciones-datagrid').datagrid({
     singleSelect: true,
     multiSort: true,
     remoteSort: false,
-	url: 'database/inscripcionFunctions.php?Operation=select&ID='+workingData.prueba,
+	url: 'database/inscripcionFunctions.php?Operation=inscritos&ID='+workingData.prueba,
 	method: 'get',
     toolbar: '#inscripciones-toolbar',
     columns: [[
