@@ -815,48 +815,6 @@ function setEquipos() {
 
 // ***** gestion de inscripciones	*****************************************************
 
-function doSearchInscripcion() {
-	// reload data adding search criteria
-    $('#inscripciones-datagrid').datagrid('load',{
-        where: $('#inscripciones-search').val()
-    });
-}
-
-function reloadInscripcion() {
-	// clear search field and reload
-	$('#inscripciones-search').val('');
-	doSearchInscripcion();
-}
-
-function newInscripcion() {
-	var cerrada=false;
-	// cerramos dialogo de modificacion de inscripcion
-	$('#chinscripciones-dialog').dialog('close');
-	// abrimos dialogo de nueva inscripcion
-	$('#inscripciones-dialog').dialog('open').dialog('setTitle','Inscripci&oacute;n de nuevos participantes');
-	$('#inscripciones-Participante').combogrid('clear'); // clear form is not enought for an easyui component
-	$('#inscripciones-form').form('clear');
-	$('#inscripciones-data').form('clear');
-	// disable those ones that belongs to closed journeys
-	// disable those ones that belongs to closed journeys
-	cerrada= ($('#jornada_cerrada-1').text()=='1')?true:false;
-	$('#inscripciones-J1').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-2').text()=='1')?true:false;
-	$('#inscripciones-J2').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-3').text()=='1')?true:false;
-	$('#inscripciones-J3').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-4').text()=='1')?true:false;
-	$('#inscripciones-J4').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-5').text()=='1')?true:false;
-	$('#inscripciones-J5').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-6').text()=='1')?true:false;
-	$('#inscripciones-J6').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-7').text()=='1')?true:false;
-	$('#inscripciones-J7').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-8').text()=='1')?true:false;
-	$('#inscripciones-J8').prop('disabled',cerrada);
-}
-
 function editInscripcion() {
 	var cerrada=false;
 	// obtenemos datos de la inscripcion seleccionada
@@ -962,21 +920,7 @@ function deleteInscripcion() {
  * Ask for commit new inscripcion to server
  */
 function insertInscripcion() {
-	// if no jornada selected warn
-	var count=0;
-	if ( $('#inscripciones-J1').prop('checked')) count++;
-	if ( $('#inscripciones-J2').prop('checked')) count++;
-	if ( $('#inscripciones-J3').prop('checked')) count++;
-	if ( $('#inscripciones-J4').prop('checked')) count++;
-	if ( $('#inscripciones-J5').prop('checked')) count++;
-	if ( $('#inscripciones-J6').prop('checked')) count++;
-	if ( $('#inscripciones-J7').prop('checked')) count++;
-	if ( $('#inscripciones-J8').prop('checked')) count++;
-	if (count==0) {
-		$.messager.alert("Error","!No ha seleccionado ninguna jornada!","warning");
-		return;
-	}
-	var g=$('#inscripciones-Participante').combogrid('grid');
+	var g=$('#inscripciones-newGrid').combogrid('grid');
 	$.each( g.datagrid('getSelections'), function(index,row) {
 		$.ajax({
 			type:'GET',
@@ -991,13 +935,9 @@ function insertInscripcion() {
 	});
     // notice that some of these items may fail if dialog is not deployed. just ignore
 	// foreach finished, clean, close and refresh
-	$('#inscripciones-Participante').combogrid('grid').datagrid('clearSelections');
-    // close the dialog
-    $('#inscripciones-dialog').dialog('close');
+	$('#inscripciones-newGrid').combogrid('grid').datagrid('clearSelections');
     // reload the inscripciones table
-	$('#inscripciones-datagrid').datagrid('reload',{
-		where: $('#inscripciones-search').val()
-	});
+	$('#inscripciones-datagrid').datagrid('reload');
 }
 
 /**
@@ -1039,9 +979,7 @@ function updateInscripcion(){
             } else {
                 $('#chinscripciones-dialog').dialog('close');        // close the dialog
                 // notice that some of these items may fail if dialog is not deployed. just ignore
-                $('#inscripciones-datagrid').datagrid('reload',{ // reload the inscripciones table
-                    where: $('#inscripciones-search').val()
-                });
+                $('#inscripciones-datagrid').datagrid('reload'); // reload the inscripciones table
             }
         }
     });

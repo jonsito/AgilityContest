@@ -39,16 +39,15 @@
 	<!-- BARRA DE TAREAS -->
     <div id="inscripciones-toolbar" style="padding:10px 10px 40px 10px;">
     	<span style="float:left">
-    	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton" onclick="newInscripcion()">Nueva inscripci&oacute;n</a>
+    	<select id="inscripciones-newGrid" class="easyui-combogrid" style="width:150px"/>
+    	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton" onclick="insertInscripcion()">Inscribir</a>
     	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton" onclick="editInscripcion()">Editar Registro</a>
     	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton" onclick="deleteInscripcion()">Borrar inscripci&oacute;n</a>
-    	<input id="inscripciones-search" type="text" onchange="doSearchInscripcion()"/> 
-    	<a id="inscripciones-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchInscripcion()">Buscar</a>
-    	</span>
+     	</span>
     	<span style="float:right">
     	<!-- estos elementos deben estar alineados a la derecha -->
     	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton">Imprimir</a>
-	   	<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadInscripcion()">Refrescar</a>
+	   	<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton" onclick="$('#inscripciones-datagrid').datagrid('reload');">Refrescar</a>
 	   	</span>
     </div>
   
@@ -143,8 +142,7 @@ $('#inscripciones-jornadas').datagrid('getPanel').panel('panel').attr('tabindex'
 
 // esta funcion anyade un id al campo de jornada de manera que sea identificable
 function identificaJornada(val,row,index) {
-	var id=index+1
-	return '<span id="jornada_cerrada-'+id+'" >'+val+'</span>';
+	return '<span id="jornada_cerrada-'+parseInt(index+1)+'" >'+val+'</span>';
 }
 
 // datos de la tabla de inscripciones
@@ -282,11 +280,39 @@ $('#inscripciones-printBtn').on("click", function () {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 });
 
+// combogrid de inscripcion de participantes
+$('#inscripciones-newGrid').combogrid({
+    fit:true,
+    delay: 250, // dont search on every keystroke
+	panelWidth: 400,
+	panelHeight: 150,
+	idField: 'IDPerro',
+	textField: 'Nombre',
+	url: 'database/inscripcionFunctions.php?Operation=noinscritos&ID='+workingData.prueba,
+	method: 'get',
+	mode: 'remote',
+	required: false,
+	value: '-- Selección --',
+	columns: [[
+		{field:'IDPerro',hidden:'true'},
+		{field:'Nombre',title:'Perro',width:20,align:'right'},
+		{field:'Categoria',title:'Cat.',width:10,align:'center'},
+		{field:'Grado',title:'Grado',width:10,align:'center'},
+		{field:'Guia',title:'Guia',width:40,align:'right'},
+		{field:'Club',title:'Club',width:20,align:'right'}
+	]],
+	multiple: true,
+	fitColumns: true,
+	singleSelect: false,
+	selectOnNavigation: false,
+	onHidePanel: function() {$('#inscripciones-newGrid').combogrid('reset'); }
+});
+
 // - botones de la toolbar de la tabla
-$('#inscripciones-newBtn').linkbutton({plain:true,iconCls:'icon-add'}); // nueva inscricion 
+$('#inscripciones-newBtn').linkbutton({plain:true,iconCls:'icon-add'}); // insertar inscripcion      
 $('#inscripciones-newBtn').tooltip({
 	position: 'top',
-	content: '<span style="color:#000">Registrar una nueva inscripcion</span>',
+	content: '<span style="color:#000">Inscribir el/los perro(s) seleccionados</span>',
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
 });

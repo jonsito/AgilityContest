@@ -7,6 +7,7 @@ class Inscripciones extends DBObject {
 	
 	protected $prueba;
 	protected $jornadas; // array of jornadas for this prueba
+	protected $declaradas; // declare if a jornada has flag "-- Sin asignar --"
 	
 	/**
 	 * Constructor
@@ -29,8 +30,10 @@ class Inscripciones extends DBObject {
 			throw new Exception($this->errormsg);
 		}
 		$this->jornadas=array();
+		$this->declaradas=array();
 		foreach($res["rows"] as $item) { 
 			$this->jornadas[$item["Numero"]]=$item;
+			$this->declaradas[$item["Numero"]]=($item["Nombre"]!=="-- Sin asignar --")?1:0;
 		} 
 	}
 
@@ -95,8 +98,8 @@ class Inscripciones extends DBObject {
 			}
 			// obtenemos el JornadaID
 			$jornada=$this->jornadas[$numero]["ID"];
-			// vemos si pide inscribirse en esta jornada
-			$solicita=http_request("J$numero","i",0);
+			// vemos si pide inscribirse en esta jornada. Si no lo pide, se mira si inscribir por defecto
+			$solicita=http_request("J$numero","i",$this->declaradas[$numero]);
 			if ($solicita) {
 				// vamos a ver si esta ya inscrito. 
 				$this->myLogger->debug("Insert/Update inscripcion Jornada:$numero ID:$jornada IDPerro:$idperro");
@@ -221,13 +224,32 @@ class Inscripciones extends DBObject {
 	 * retrieve all dogs that has no inscitpion on this prueba
 	 */
 	function noinscritos() {
+		$this->myLogger->enter();
+		
+		$search =  http_request("q","s","");
+		$extra = '';
+		if ($search!=='') $extra=" AND ( (PerroGuiaClub.Nombre LIKE '%$search%')
+		OR ( Club LIKE '%$search%') OR ( Guia LIKE '%$search%' ) )";
+		
 		// !toma ya con la query :-) 
 		$str="SELECT * FROM PerroGuiaClub
-				WHERE IDPerro NOT IN  
+				WHERE ( IDPerro NOT IN  
 					( SELECT DISTINCT IDPerro FROM Inscripciones,Jornadas 
 					WHERE (Inscripciones.Jornada=Jornadas.ID) AND (Jornadas.Prueba=".$this->prueba.")
-					GROUP BY IDPerro)
+					GROUP BY IDPerro) ) $extra
 				ORDER BY Club ASC, Categoria ASC, Grado ASC, Nombre ASC";
+
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		
+		// Fase 2: la tabla de resultados a devolver
+		$data = array(); // result { total(numberofrows), data(arrayofrows)
+		$count = 0;
+		$idperros = array();
+		while($row = $rs->fetch_array()) array_push($data,$row);
+		$result=array('total'=>count($data), 'rows'=>$data);
+		$this->myLogger->leave();
+		return $result;
 	}
 	
 	/**
