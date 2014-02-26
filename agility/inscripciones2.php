@@ -292,7 +292,7 @@ $('#inscripciones-newGrid').combogrid({
 	method: 'get',
 	mode: 'remote',
 	required: false,
-	value: '-- Selección --',
+	value: '- Nuevas inscripciones -',
 	columns: [[
 		{field:'IDPerro',hidden:'true'},
 		{field:'Nombre',title:'Perro',width:20,align:'right'},
@@ -305,7 +305,10 @@ $('#inscripciones-newGrid').combogrid({
 	fitColumns: true,
 	singleSelect: false,
 	selectOnNavigation: false,
-	onHidePanel: function() {$('#inscripciones-newGrid').combogrid('reset'); }
+	onHidePanel: function() {
+		$('#inscripciones-newGrid').combogrid('reset'); 
+		// $('#inscripciones-newGrid').combogrid('load'); 
+	}
 });
 
 // - botones de la toolbar de la tabla
