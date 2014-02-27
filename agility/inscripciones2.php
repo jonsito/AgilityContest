@@ -56,6 +56,11 @@
 	<table id="inscripciones-datagrid" class="easyui-datagrid" ></table>
 </div>
 
+<div id="inscripciones-progresswindow" class="easyui-window">
+	<p id="inscripciones-progresslabel" style="align:center">Inscribiendo a:</p>
+	<div id="inscripciones-progressbar" class="easyui-progressbar" style="align:center;"></div>
+</div> 
+
 <script type="text/javascript">
 // cabecera de la pagina
 $('#Header_Operation').html('<p>Inscripciones - Formulario de registro</p>');
@@ -90,6 +95,7 @@ $('#inscripciones-jornadas').datagrid({
     singleSelect: true,
 	url: 'database/jornadaFunctions.php?Operation=select&Prueba='+workingData.prueba,
 	method: 'get',
+	loadMsg: 'Actualizando datos de las jornadas...',
     columns:[[
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Prueba',		hidden:true }, // ID de la prueba
@@ -164,6 +170,7 @@ $('#inscripciones-datagrid').datagrid({
     remoteSort: false,
 	url: 'database/inscripcionFunctions.php?Operation=inscritos&ID='+workingData.prueba,
 	method: 'get',
+	loadMsg: 'Actualizando datos de inscripciones....',
     toolbar: '#inscripciones-toolbar',
     columns: [[
         { field:'IDPerro', hidden:true }, // dog ID
@@ -304,11 +311,7 @@ $('#inscripciones-newGrid').combogrid({
 	multiple: true,
 	fitColumns: true,
 	singleSelect: false,
-	selectOnNavigation: false,
-	onHidePanel: function() {
-		$('#inscripciones-newGrid').combogrid('reset'); 
-		// $('#inscripciones-newGrid').combogrid('load'); 
-	}
+	selectOnNavigation: false
 });
 
 // - botones de la toolbar de la tabla
@@ -340,6 +343,23 @@ $('#inscripciones-searchBtn').tooltip({
 	content: '<span style="color:#000">Buscar entradas que contengan el texto dado</span>',
 	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
 	}
+});
+
+// ventana de progreso de las inscripciones
+$('#inscripciones-progresswindow').window({
+	 width:450,
+	 height:200,
+	 modal:true,
+	 collapsable:false,
+	 minimizable:false,
+	 maximizable:false,
+	 closable:false,
+	 closed:true
+});
+
+$('#inscripciones-progressbar').progressbar({
+	width: 300,
+    value: 0
 });
 
 </script>

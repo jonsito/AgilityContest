@@ -921,8 +921,17 @@ function deleteInscripcion() {
  */
 function insertInscripcion() {
 	var g=$('#inscripciones-newGrid').combogrid('grid');
-	$.each( g.datagrid('getSelections'), function(index,row) {
+	var selectedRows= g.datagrid('getSelections');
+	var count=1;
+	var size=selectedRows.length;
+	$('#inscripciones-progresswindow').window('open');
+	$.each(selectedRows, function(index,row) {
+		$('#inscripciones-progressbar').progressbar('setValue',count*(100/size));
+		$('#inscripciones-progresslabel').text("Inscribiendo a: "+row.Nombre);
 		$.ajax({
+	        async: false,
+	        cache: false,
+	        timeout: 10000, // 10 segundos
 			type:'GET',
 			url:"database/inscripcionFunctions.php",
 			dataType:'json',
@@ -932,7 +941,9 @@ function insertInscripcion() {
 				IDPerro: row.IDPerro
 			}
 		});
+		count++;
 	});
+	$('#inscripciones-progresswindow').window('close');
     // notice that some of these items may fail if dialog is not deployed. just ignore
 	// foreach finished, clean, close and refresh
 	$('#inscripciones-newGrid').combogrid('grid').datagrid('clearSelections');
