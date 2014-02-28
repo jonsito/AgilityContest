@@ -4,11 +4,16 @@
     <table id="clubes-datagrid" class="easyui-datagrid"></table>
 	<!-- BARRA DE TAREAS -->
     <div id="clubes-toolbar">
-        <a id="clubes-newBtn" href="#" class="easyui-linkbutton" onclick="newClub()">Nuevo club</a>
-        <a id="clubes-editBtn" href="#" class="easyui-linkbutton" onclick="editClub()">Editar club</a>
-        <a id="clubes-delBtn" href="#" class="easyui-linkbutton" onclick="deleteClub()">Borrar club</a>
-        <input id="clubes-search" type="text" onchange="doSearchClub()"/> 
-        <a id="clubes-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchClub()">Buscar</a>
+    
+    	<span style="float:left;">
+    		<a id="clubes-newBtn" href="#" class="easyui-linkbutton" onclick="newClub($('#clubes-search').val())">Nuevo Club</a>
+    		<a id="clubes-editBtn" href="#" class="easyui-linkbutton" onclick="editClub()">Editar Club</a>
+    		<a id="clubes-delBtn" href="#" class="easyui-linkbutton" onclick="deleteClub()">Borrar Club</a>
+    		<input id="clubes-search" type="text" value="----- Buscar -----" class="search_textfield"/>
+    	</span>
+    	<span style="float:right;">
+    		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"">Actualizar</a>
+    	</span>
     </div>   
 
     <?php include_once("dialogs/dlg_clubes.inc")?>
@@ -115,7 +120,7 @@
             case 38:	/* Up */	selectRow(t,true); return false;
             case 40:    /* Down */	selectRow(t,false); return false;
             case 13:	/* Enter */	editClub(); return false;
-            case 45:	/* Insert */ newClub(); return false;
+            case 45:	/* Insert */ newClub($('#clubes-search').val()); return false;
             case 46:	/* Supr */	deleteClub(); return false;
             case 33:	/* Re Pag */ selectPage(t,-1); return false;
             case 34:	/* Av Pag */ selectPage(t,1); return false;
@@ -149,12 +154,32 @@
             content: '<span style="color:#000">Borrar el club seleccionado de la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
-        $('#clubes-searchBtn').linkbutton({iconCls:'icon-search',plain:true}).tooltip({ // buscar clubes que coincidan
+        $('#clubes-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // actualizar tabla
+        $('#clubes-reloadBtn').tooltip({
         	position: 'top',
-        	content: '<span style="color:#000">Buscar entradas que contengan el texto indicado</span>',
+        	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
+    	$('#clubes-reloadBtn').on("click", function () {
+        	// clear selection and reload table
+    		$('#clubes-search').val('----- Buscar -----');
+            $('#clubes-datagrid').datagrid('load',{ where: '' });
+    	});
+        $("#clubes-search").keydown(function(event){
+            if(event.keyCode != 13) return;
+          	// reload data adding search criteria
+            $('#clubes-datagrid').datagrid('load',{
+                where: $('#clubes-search').val()
+            });
+        });
+        $('#clubes-search').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Buscar entradas que contengan el texto dado</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
+        
     	
         function showGuiasByClub(index,club){
         	// - sub tabla de guias inscritos en un club

@@ -60,7 +60,7 @@
         });
         $('#guias-newClubBtn').bind('click',function() {
             $('#guias-Club').combogrid({ 'setValue' : '' });
-            newClub();
+            newClub( $('#guias-Club').combogrid('getText') );
         });
         
         // campos del formulario

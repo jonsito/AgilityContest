@@ -15,9 +15,10 @@ function doSearchClub() {
 /**
  * Abre el dialogo para crear un nuevo club
  */
-function newClub(){
+function newClub(def){
 	$('#clubes-dialog').dialog('open').dialog('setTitle','Nuevo club');
 	$('#clubes-form').form('clear');
+	if (!strpos(def,"Buscar")) $('#clubes-Nombre').val(def);
 	$('#clubes-Operation').val('insert');
 }
 
@@ -67,34 +68,26 @@ function saveClub(){
  */
 function deleteClub(){
     var row = $('#clubes-datagrid').datagrid('getSelected');
-    if (!row) return;
+    if (!row) {
+    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Club!","warning");
+    	return; // no way to know which dog is selected
+    }
     $.messager.confirm('Confirm','Borrar el club "'+row.Nombre+'" de la base de datos ¿Seguro?',function(r){
-        if (r){
-            $.get('database/clubFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
-                if (result.success){
-                    $('#clubes-datagrid').datagrid('reload');    // reload the guia data
-                } else {
-                    $.messager.show({    // show error message
-                        title: 'Error',
-                        msg: result.errorMsg
-                    });
-                }
-            },'json');
-        }
+        if (!r) return;
+        $.get('database/clubFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
+            if (result.success){
+                $('#clubes-datagrid').datagrid('reload');    // reload the guia data
+            } else {
+                $.messager.show({    // show error message
+                    title: 'Error',
+                    msg: result.errorMsg
+                });
+            }
+        },'json');
     });
 }
 
 // ***** gestion de guias		*********************************************************
-
-/**
- * Recalcula la tabla de guias anyadiendo parametros de busqueda
- */
-function doSearchGuia() {
-	// reload data adding search criteria
-    $('#guias-datagrid').datagrid('load',{
-        where: $('#guias-search').val()
-    });
-}
 
 /**
  * Abre el formulario para anyadir guias a un club
@@ -129,7 +122,10 @@ function newGuia(def){
 function editGuiaFromClub(club) {
 	var parent = '-' + replaceAll(' ','_',club.Nombre);
     var row = $('#guias-datagrid'+parent).datagrid('getSelected');
-    if (!row) return; // no guia selected
+    if (!row) {
+    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Guia!","warning");
+    	return; // no way to know which guia is selected
+    }
     $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre);
     // add extra needed parameters to dialog
     row.Club=club.Nombre;
@@ -458,24 +454,13 @@ function deleteDog(){
 //***** gestion de jueces		*********************************************************
 
 /**
- * Recalcula la tabla de jueces anyadiendo parametros de busqueda
- */
-function doSearchJuez() {
-	// reload data adding search criteria
-    $('#jueces-datagrid').datagrid('load',{
-        where: $('#jueces-search').val()
-    });
-    // clear search textbox
-    // hey, this fire up again onChangeEvent :-(
-    // $('#guias-search').val('');
-}
-
-/**
  * Open "New Juez dialog"
+ * @param {string} def default value to insert into Nombre 
  */
-function newJuez(){
+function newJuez(def){
 	$('#jueces-dialog').dialog('open').dialog('setTitle','Nuevo juez');
-	$('#jueces-form').form('clear');	
+	$('#jueces-form').form('clear');
+	if (!strpos(def,"Buscar")) $('#jueces-Nombre').val(def);
 	$('#jueces-Operation').val('insert');
 }
 
@@ -483,21 +468,24 @@ function newJuez(){
  * Open "Edit Juez" dialog
  */
 function editJuez(){
+	if ($('#jueces-search').is(":focus")) return; // on enter key in search input ignore
     var row = $('#jueces-datagrid').datagrid('getSelected');
-    if (row){
-        $('#jueces-dialog').dialog('open').dialog('setTitle','Modificar datos del juez');
-        $('#jueces-form').form({
-        	onLoadSuccess: function(data){
-                // take care on int-to-bool translation for checkboxes
-                $('#jueces-Internacional').prop('checked',(row.Internacional==1)?true:false);
-                $('#jueces-Practicas').prop('checked',(row.Practicas==1)?true:false);
-                // save old juez name in "Viejo" hidden form input to allow change juez name
-                $('#jueces-Viejo').val( $('#jueces-Nombre').val());
-            	$('#jueces-Operation').val('update');
-        	}
-        });
-        $('#jueces-form').form('load',row);
+    if (!row) {
+    	$.messager.alert("Edit Error:","!No ha seleccionado ningún Juez!","warning");
+    	return; // no way to know which dog is selected
     }
+    $('#jueces-dialog').dialog('open').dialog('setTitle','Modificar datos del juez');
+    $('#jueces-form').form({
+      	onLoadSuccess: function(data){
+            // take care on int-to-bool translation for checkboxes
+            $('#jueces-Internacional').prop('checked',(row.Internacional==1)?true:false);
+            $('#jueces-Practicas').prop('checked',(row.Practicas==1)?true:false);
+            // save old juez name in "Viejo" hidden form input to allow change juez name
+            $('#jueces-Viejo').val( $('#jueces-Nombre').val());
+        	$('#jueces-Operation').val('update');
+       	}
+    });
+    $('#jueces-form').form('load',row);
 }
 
 /**
@@ -534,22 +522,21 @@ function saveJuez(){
  */
 function deleteJuez(){
     var row = $('#jueces-datagrid').datagrid('getSelected');
-    if (row){
-        $.messager.confirm('Confirm','Borrar datos del juez:'+row.Nombre+'\n ¿Seguro?',function(r){
-            if (r){
-                $.get('database/juezFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
-                    if (result.success){
-                        $('#jueces-datagrid').datagrid('reload');    // reload the juez data
-                    } else {
-                        $.messager.show({    // show error message
-                            title: 'Error',
-                            msg: result.errorMsg
-                        });
-                    }
-                },'json');
-            }
-        });
+    if (!row) {
+    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Juez!","info");
+    	return; // no way to know which juez is selected
     }
+    $.messager.confirm('Confirm','Borrar datos del juez:'+row.Nombre+'\n ¿Seguro?',function(r){
+      	if (!r) return;
+        $.get('database/juezFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
+            if (result.success){
+                $('#jueces-datagrid').datagrid('reload');    // reload the juez data
+            } else {
+            	// show error message
+                $.messager.show({title: 'Error',msg: result.errorMsg});
+            }
+        },'json');
+    });
 }
 
 //***** gestion de pruebas		*********************************************************

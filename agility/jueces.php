@@ -4,11 +4,15 @@
     <table id="jueces-datagrid" class="easyui-datagrid">  </table>
     <!-- BARRA DE TAREAS DE LA TABLA DE JUECES -->
     <div id="jueces-toolbar">
-    	<a id="jueces-newBtn" href="#" class="easyui-linkbutton" onclick="newJuez()">Nuevo Juez</a>
-    	<a id="jueces-editBtn" href="#" class="easyui-linkbutton" onclick="editJuez()">Editar Juez</a>
-    	<a id="jueces-delBtn" href="#" class="easyui-linkbutton" onclick="deleteJuez()">Borrar Juez</a>
-    	<input id="jueces-search" type="text" onchange="doSearchJuez()"/> 
-    	<a id="jueces-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchJuez()">Buscar</a>
+    	<span style="float:left;">
+    		<a id="jueces-newBtn" href="#" class="easyui-linkbutton" onclick="newJuez($('#jueces-search').val())">Nuevo Juez</a>
+    		<a id="jueces-editBtn" href="#" class="easyui-linkbutton" onclick="editJuez()">Editar Juez</a>
+    		<a id="jueces-delBtn" href="#" class="easyui-linkbutton" onclick="deletJuez()">Borrar Juez</a>
+    		<input id="jueces-search" type="text" value="----- Buscar -----" class="search_textfield"/>
+    	</span>
+    	<span style="float:right;">
+    		<a id="jueces-reloadBtn" href="#" class="easyui-linkbutton"">Actualizar</a>
+    	</span>
     </div>
 	<?php include_once("dialogs/dlg_jueces.inc")?>
     
@@ -96,7 +100,7 @@
                 case 38:	/* Up */	selectRow(t,true); return false;
                 case 40:    /* Down */	selectRow(t,false); return false;
                 case 13:	/* Enter */	editJuez(); return false;
-                case 45:	/* Insert */ newJuez(); return false;
+                case 45:	/* Insert */ newJuez(('#jueces-search').val()); return false;
                 case 46:	/* Supr */	deleteJuez(); return false;
                 case 33:	/* Re Pag */ selectPage(t,-1); return false;
                 case 34:	/* Av Pag */ selectPage(t,1); return false;
@@ -133,9 +137,27 @@
         	content: '<span style="color:#000">Eliminar el juez seleccionado de la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
-    	});        
-    	$('#jueces-searchBtn').linkbutton({iconCls:'icon-search',plain:true }); // buscar juez 
-        $('#jueces-searchBtn').tooltip({
+    	}); 
+        $('#jueces-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // borrar perro     
+        $('#jueces-reloadBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
+    	$('#jueces-reloadBtn').on("click", function () {
+        	// clear selection and reload table
+    		$('#jueces-search').val('---- Buscar -----');
+            $('#jueces-datagrid').datagrid('load',{ where: '' });
+    	});
+        $("#jueces-search").keydown(function(event){
+            if(event.keyCode != 13) return;
+          	// reload data adding search criteria
+            $('#jueces-datagrid').datagrid('load',{
+                where: $('#jueces-search').val()
+            });
+        });
+        $('#jueces-search').tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Buscar entradas que contengan el texto dado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
