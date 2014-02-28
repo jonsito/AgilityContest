@@ -14,8 +14,14 @@ class Clasificaciones extends DBObject {
 	function getJornada($manga) {
 		$this->myLogger->leave();
 		// obtenemos el id de jornada y vemos si la manga esta cerrada
-		$str="SELECT Jornada FROM Mangas WHERE ID=$manga";
-		$rs=$this->query($str);
+		$str="SELECT Jornada FROM Mangas WHERE (ID=?)";
+		$stmt=$this->conn->prepare($str);
+		$stmt->bin_param('i',$id);
+		$id=$manga;
+		$stmt->execute();
+		$rs=$stmt->get_result();
+		$stmt->close();
+		
 		if (!$rs) return $this->errormsg("Cannot retrieve data for manga $manga");
 		$row=$rs->fetch_object();
 		$rs->free();
@@ -71,9 +77,16 @@ class Clasificaciones extends DBObject {
 		$str="INSERT INTO $tablename (IDPerro,Nombre,Licencia,Categoria,Guia,Club,Faltas,Tocados,Rehuses,Tiempo,PRecorrido) 
 			SELECT IDPerro,Nombre,Licencia,Categoria,Guia,Club,Faltas,Tocados,Rehuses,Tiempo, 
 			( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
-			FROM Resultados WHERE ( Manga =$manga1 )";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
+			FROM Resultados WHERE ( Manga=? )";
+
+		$stmt=$this->conn->prepare($str);
+		$stmt->bin_param('i',$id);
+		$id=$manga1;
+		$stmt->execute();
+		$rs=$stmt->get_result();
+		if (!$rs) return $this->error($stmt->error);
+		$stmt->close();
+		
 		
 		// Fase 2: extraemos los tres mejores tiempos de cada categoria
 		$str="SELECT * FROM $tablename ORDER BY Categoria ASC , PRecorrido ASC , Tiempo ASC ";
