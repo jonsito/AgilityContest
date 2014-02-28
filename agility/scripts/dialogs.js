@@ -260,21 +260,13 @@ function delGuiaFromClub(club) {
 // ***** gestion de perros		*********************************************************
 
 /**
- * Recalcula la lista de perros anyadiendo parametros de busqueda
- */
-function doSearchPerro() {
-	// reload data adding search criteria
-    $('#perros-datagrid').datagrid('load',{
-        where: $('#perros-search').val()
-    });
-}
-
-/**
  * Abre el dialogo para insertar datos de un nuevo perro
+ * @param def nombre por defecto que se asigna al perro en el formulario
  */
-function newDog(){
+function newDog(def){
 	$('#perros-dialog').dialog('open').dialog('setTitle','Nuevo perro');
 	$('#perros-form').form('clear'); // start with an empty form
+	if (!strpos(def,"Buscar")) $('#perros-Nombre').val(def);
 	$('#perros-Operation').val('insert');
 	$('#perros-Parent').val(''); // no parent datagrid
 }

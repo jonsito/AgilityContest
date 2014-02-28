@@ -12,11 +12,10 @@
     </table>
     <!-- BARRA DE TAREAS -->
     <div id="perros-toolbar">
-    	<a id="perros-newBtn" href="#" class="easyui-linkbutton" onclick="newDog()">Nuevo Perro</a>
+    	<a id="perros-newBtn" href="#" class="easyui-linkbutton" onclick="newDog($('#perros-search').val())">Nuevo Perro</a>
     	<a id="perros-editBtn" href="#" class="easyui-linkbutton" onclick="editDog()">Editar Perro</a>
     	<a id="perros-delBtn" href="#" class="easyui-linkbutton" onclick="deleteDog()">Borrar Perro</a>
-    	<input id="perros-search" type="text" onchange="doSearchPerro()"/> 
-    	<a id="perros-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchPerro()">Buscar</a>
+    	<input id="perros-search" type="text" value="----- Buscar -----" class="search_textfield"/>
     </div>
     
 	<?php include_once("dialogs/dlg_perros.inc"); ?>
@@ -145,9 +144,15 @@
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-
-        $('#perros-searchBtn').linkbutton({plain:true,iconCls:'icon-search'} ); // buscar perro
-        $('#perros-searchBtn').tooltip({
+    	
+        $("#perros-search").keydown(function(event){
+            if(event.keyCode != 13) return;
+          	// reload data adding search criteria
+            $('#perros-datagrid').datagrid('load',{
+                where: $('#perros-search').val()
+            });
+        });
+        $('#perros-search').tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Buscar entradas que contengan el texto dado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});

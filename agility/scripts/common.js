@@ -9,10 +9,22 @@ function loadContents(id,page) {
 }
 
 /**
- * Poor's man implementation of php's replaceAll
+ * Poor's man javascript implementation of php's replaceAll()
  */
 function replaceAll(find,replace,from) {
 	return from.replace(new RegExp(find, 'g'), replace);
+}
+
+/**
+ * Poor's man javascript implementation of php's strpos()
+ * @param {string} pajar
+ * @param {string} aguja
+ * @param {integer} offset
+ * @returns
+ */
+function strpos (pajar, aguja, offset) {
+	var i = (pajar + '').indexOf(aguja, (offset || 0));
+	return i === -1 ? false : i;
 }
 
 /**
