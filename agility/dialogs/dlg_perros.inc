@@ -78,7 +78,7 @@
 	});
     $('#perros-newGuiaBtn').bind('click',function() {
         $('#perros-Guia').combogrid({ 'setValue' : '' });
-        newGuia();
+        newGuia($('#perros-Guia').combogrid('getText'));
     });
     // campos del formulario
     $('#perros-dialog').dialog({
