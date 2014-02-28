@@ -291,7 +291,10 @@ function assignPerroToGuia(guia) {
  */
 function editDog(){
     var row = $('#perros-datagrid').datagrid('getSelected');
-    if (!row) return;
+    if (!row) {
+    	$.messager.alert("Edit Error:","!No ha seleccionado ningún perro!","warning");
+    	return; // no way to know which dog is selected
+    }
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro');
     // add extra required data to form dialog
     row.Parent='';
@@ -430,19 +433,18 @@ function deleteDog(){
     var row = $('#perros-datagrid').datagrid('getSelected');
     if (row){
         $.messager.confirm('Confirm','Borrar el perro: "'+ row.Nombre+'" de la base de datos.\n¿Seguro?',function(r){
-            if (r){
-                $.get('database/dogFunctions.php',{Operation:'delete',IDPerro:row.IDPerro},function(result){
-                    if (result.success){
-                        $('#perros-datagrid').datagrid('reload');    // reload the dog data
-                    } else {
-                        $.messager.show({    // show error message
-                            title: 'Error',
-                            msg: result.errorMsg
-                        });
-                    }
-                },'json');
-            }
+        	if (!r) return;
+            $.get('database/dogFunctions.php',{Operation:'delete',IDPerro:row.IDPerro},function(result){
+                if (result.success){
+                    $('#perros-datagrid').datagrid('reload');    // reload the dog data
+                } else { // show error message
+                    $.messager.show({ title: 'Error',  msg: result.errorMsg });
+                }
+            },'json');
         });
+    } else {
+    	$.messager.alert("Delete Error:","!No ha seleccionado ningún perro!","info");
+    	return; // no way to know which dog is selected
     }
 }
 

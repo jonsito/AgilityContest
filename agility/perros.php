@@ -106,7 +106,7 @@
             case 38:	/* Up */	selectRow(t,true); return false;
             case 40:    /* Down */	selectRow(t,false); return false;
             case 13:	/* Enter */	editDog(); return false;
-            case 45:	/* Insert */ newDog(); return false;
+            case 45:	/* Insert */ newDog($('#perros-search').val()); return false;
             case 46:	/* Supr */	deleteDog(); return false;
             case 33:	/* Re Pag */ selectPage(t,-1); return false;
             case 34:	/* Av Pag */ selectPage(t,1); return false;
