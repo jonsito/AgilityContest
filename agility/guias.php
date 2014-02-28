@@ -5,11 +5,15 @@
     </table>
     <!-- BARRA DE TAREAS -->
     <div id="guias-toolbar">
-        <a id="guias-newBtn" href="#" class="easyui-linkbutton" onclick="newGuia()">Nuevo Gu&iacute;a</a>
-        <a id="guias-editBtn" href="#" class="easyui-linkbutton" onclick="editGuia()">Editar Gu&iacute;a</a>
-        <a id="guias-delBtn" href="#" class="easyui-linkbutton" onclick="deleteGuia()">Borrar gu&iacute;a</a>
-        <input id="guias-search" type="text" onchange="doSearchGuia()"/> 
-        <a id="guias-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchGuia()">Buscar</a>
+    	<span style="float:left;">
+        	<a id="guias-newBtn" href="#" class="easyui-linkbutton" onclick="newGuia($('#guias-search').val())">Nuevo Gu&iacute;a</a>
+        	<a id="guias-editBtn" href="#" class="easyui-linkbutton" onclick="editGuia()">Editar Gu&iacute;a</a>
+        	<a id="guias-delBtn" href="#" class="easyui-linkbutton" onclick="deleteGuia()">Borrar gu&iacute;a</a>
+    		<input id="guias-search" type="text" value="----- Buscar -----" class="search_textfield"/>
+    	</span>
+    	<span style="float:right;">
+    		<a id="guias-reloadBtn" href="#" class="easyui-linkbutton"">Actualizar</a>
+    	</span>
     </div>
     
 	<?php include_once("dialogs/dlg_guias.inc"); ?>
@@ -45,10 +49,10 @@
             height: 'auto',
             columns: [[
             	{ field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
-            	{ field:'Telefono',		width:15, sortable:true,	title: 'Tel&eacute;fono' },
-            	{ field:'Email',		width:25, sortable:true,    title: 'Correo Electr&oacute;nico' },
-                { field:'Club',			width:15, sortable:true,	title: 'Club'},
-                { field:'Observaciones',width:15,					title: 'Observaciones'}
+                { field:'Club',			width:20, sortable:true,	title: 'Club'},
+            	{ field:'Telefono',		width:10, sortable:true,	title: 'Tel&eacute;fono' },
+            	{ field:'Email',		width:15, sortable:true,    title: 'Correo Electr&oacute;nico' },
+                { field:'Observaciones',width:30,					title: 'Observaciones'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:function(idx,row) { 
@@ -105,7 +109,7 @@
             case 38:	/* Up */	selectRow(t,true); return false;
             case 40:    /* Down */	selectRow(t,false); return false;
             case 13:	/* Enter */	editGuia(); return false;
-            case 45:	/* Insert */ newGuia(); return false;
+            case 45:	/* Insert */ newGuia($('#guias-search').val()); return false;
             case 46:	/* Supr */	deleteGuia(); return false;
             case 33:	/* Re Pag */ selectPage(t,-1); return false;
             case 34:	/* Av Pag */ selectPage(t,1); return false;
@@ -138,10 +142,28 @@
             content: '<span style="color:#000">Borrar el gu&iacute;a seleccionado de la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
-
-        $('#guias-searchBtn').linkbutton({iconCls:'icon-search',plain:true}).tooltip({ // buscar datos del guia
+        $('#guias-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // borrar perro     
+        $('#guias-reloadBtn').tooltip({
         	position: 'top',
-        	content: '<span style="color:#000">Buscar entradas que contengan el texto indicado</span>',
+        	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
+    	$('#guias-reloadBtn').on("click", function () {
+        	// clear selection and reload table
+    		$('#guias-search').val('----- Buscar -----');
+            $('#guias-datagrid').datagrid('load',{ where: '' });
+    	});
+        $("#guias-search").keydown(function(event){
+            if(event.keyCode != 13) return;
+          	// reload data adding search criteria
+            $('#guias-datagrid').datagrid('load',{
+                where: $('#guias-search').val()
+            });
+        });
+        $('#guias-search').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Buscar entradas que contengan el texto dado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});

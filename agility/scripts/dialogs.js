@@ -112,10 +112,12 @@ function assignGuiaToClub(club) {
 
 /**
  * Abre el dialogo para crear un nuevo guia
+ * @param {string} def valor por defecto para el campo nombre
  */
-function newGuia(){
+function newGuia(def){
 	$('#guias-dialog').dialog('open').dialog('setTitle','Nuevo gu&iacute;a');
 	$('#guias-form').form('clear');
+	if (!strpos(def,"Buscar")) $('#guias-Nombre').val(def);
 	$('#guias-Operation').val('insert');
 	$('#guias-Parent').val('');
 }
@@ -137,11 +139,15 @@ function editGuiaFromClub(club) {
 }
 
 /**
- * Abre el dialogo para editar un guia existente
+ * Abre el dialogo para editar un guia ya existente
  */
 function editGuia(){
+	if ($('#guias-search').is(":focus")) return; // on enter key in search input ignore
     var row = $('#guias-datagrid').datagrid('getSelected');
-    if (!row) return;// no guia selected
+    if (!row) {
+    	$.messager.alert("Edit Error:","!No ha seleccionado ningún guía!","warning");
+    	return; // no way to know which dog is selected
+    }
     $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del gu&iacute;a');
     // add extra required parameters to dialo
     row.Viejo=row.Nombre;
@@ -215,20 +221,20 @@ function saveGuia(){
  */
 function deleteGuia(){
     var row = $('#guias-datagrid').datagrid('getSelected');
-    if (!row) return;
+    if (!row) {
+    	$.messager.alert("Delete Error:","!No ha seleccionado ningún guía!","warning");
+    	return; // no way to know which dog is selected
+    }
     $.messager.confirm('Confirm','Borrar datos del guia: '+ row.Nombre+'\n¿Seguro?',function(r){
-        if (r){
-            $.get('database/guiaFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
-                if (result.success){
-                    $('#guias-datagrid').datagrid('reload');    // reload the guia data
-                } else {
-                    $.messager.show({    // show error message
-                        title: 'Error',
-                        msg: result.errorMsg
-                    });
-                }
-            },'json');
-        }
+    	if (!r) return;
+    	$.get('database/guiaFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
+    		if (result.success){
+    			$('#guias-datagrid').datagrid('reload');    // reload the guia data
+    		} else {
+    			// show error message
+    			$.messager.show({ title: 'Error', msg: result.errorMsg });
+    		}
+    	},'json');
     });
 }
 
@@ -290,6 +296,7 @@ function assignPerroToGuia(guia) {
  * Abre el dialogo para editar datos de un perro ya existente
  */
 function editDog(){
+	if ($('#perros-search').is(":focus")) return; // on enter key in search input ignore
     var row = $('#perros-datagrid').datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Edit Error:","!No ha seleccionado ningún perro!","warning");

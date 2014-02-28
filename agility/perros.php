@@ -12,10 +12,15 @@
     </table>
     <!-- BARRA DE TAREAS -->
     <div id="perros-toolbar">
-    	<a id="perros-newBtn" href="#" class="easyui-linkbutton" onclick="newDog($('#perros-search').val())">Nuevo Perro</a>
-    	<a id="perros-editBtn" href="#" class="easyui-linkbutton" onclick="editDog()">Editar Perro</a>
-    	<a id="perros-delBtn" href="#" class="easyui-linkbutton" onclick="deleteDog()">Borrar Perro</a>
-    	<input id="perros-search" type="text" value="----- Buscar -----" class="search_textfield"/>
+    	<span style="float:left;">
+    		<a id="perros-newBtn" href="#" class="easyui-linkbutton" onclick="newDog($('#perros-search').val())">Nuevo Perro</a>
+    		<a id="perros-editBtn" href="#" class="easyui-linkbutton" onclick="editDog()">Editar Perro</a>
+    		<a id="perros-delBtn" href="#" class="easyui-linkbutton" onclick="deleteDog()">Borrar Perro</a>
+    		<input id="perros-search" type="text" value="----- Buscar -----" class="search_textfield"/>
+    	</span>
+    	<span style="float:right;">
+    		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"">Actualizar</a>
+    	</span>
     </div>
     
 	<?php include_once("dialogs/dlg_perros.inc"); ?>
@@ -144,7 +149,18 @@
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-    	
+        $('#perros-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // borrar perro     
+        $('#perros-reloadBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
+    	$('#perros-reloadBtn').on("click", function () {
+        	// clear selection and reload table
+    		$('#perros-search').val('---- Buscar -----');
+            $('#perros-datagrid').datagrid('load',{ where: '' });
+    	});
         $("#perros-search").keydown(function(event){
             if(event.keyCode != 13) return;
           	// reload data adding search criteria
