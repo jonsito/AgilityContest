@@ -19,19 +19,49 @@ function disable_gzip() {
 }
 // disable_gzip();
 
+
+/**
+ * Parse provided string and escape special chars to avoid SQL injection problems
+ * NOTICE: THIS IS ONLY VALID FOR MYSQL "native escape mode" on UTF-8 encoding
+ * DO NOT FORCE "ANSI" escape mode
+ * @param unknown $str
+ */
+function escapeString($str) {
+	$len=strlen($str);
+	$res="";
+	for($i=0;$i<$len;$i++) {
+		switch($str[$i]) {
+			case '\n': $a="\\"."n"; break;
+			case '\r': $a="\\"."r"; break;
+			case '"': $a="\\".'"'; break;
+			case '\'': $a="\\"."'"; break;
+			case '\b': $a="\\"."b"; break;
+			case '\\': $a="\\"."\\"; break;
+			case '%': $a="\\".'%'; break;
+			case '_': $a="\\"."_"; break;
+			default: $a=$str[$i]; break;
+		}
+		$res .= $a;
+	}
+	return $res;
+}
+
 /**
  * get a variable from _REQUEST array
  * @param {string} $name variable name
  * @param {string} $type default type (i,s,b)
- * @param {string} $default default value. may be null
+ * @param {string} $def default value. may be null
  * @return requested value (int,string,bool) or null if invalid type
  */
-function http_request($name,$type,$default) {
+function http_request($name,$type,$def) {
+	$a=escapeString($def);
+	if (isset($_REQUEST[$name])) $a=escapeString($_REQUEST[$name]);
+	if ($a===null) return null;
 	switch ($type) {
-		case "i": return isset($_REQUEST[$name])?intval($_REQUEST[$name]):$default;
-		case "s": return isset($_REQUEST[$name])?strval($_REQUEST[$name]):$default;
-		case "b": return isset($_REQUEST[$name])?boolval($_REQUEST[$name]):$default;
-		case "d": return isset($_REQUEST[$name])?doubleval($_REQUEST[$name]):$default;
+		case "i": return intval($a);
+		case "s": return strval($a);
+		case "b": return boolval($a);
+		case "d": return doubleval($a);
 	}
 	do_log("request() invalid type:$type requested"); 
 	return null; 
