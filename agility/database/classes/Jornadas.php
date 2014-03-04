@@ -75,9 +75,9 @@ class Jornadas extends DBObject {
 		
 		// iniciamos los valores, chequeando su existencia
 		$prueba = $this->prueba;
-		$nombre = http_request("Nombre","s",null); // Name or comment for jornada
-		$fecha = str_replace("/","-",http_request("Fecha","s","")); // mysql requires format YYYY-MM-DD
-		$hora = http_request("Hora","s","");
+		$nombre = http_request("Nombre","s",null,false); // Name or comment for jornada
+		$fecha = str_replace("/","-",http_request("Fecha","s","",false)); // mysql requires format YYYY-MM-DD
+		$hora = http_request("Hora","s","",false);
 		$grado1 = http_request("Grado1","i",0);
 		$grado2 = http_request("Grado2","i",0);
 		$grado3 = http_request("Grado3","i",0);
@@ -126,9 +126,9 @@ class Jornadas extends DBObject {
 		
 		// iniciamos los valores, chequeando su existencia
 		$prueba = $this->prueba;
-		$nombre = http_request("Nombre","s",null); // Name or comment for jornada
-		$fecha = str_replace("/","-",http_request("Fecha","s","")); // mysql requires format YYYY-MM-DD
-		$hora = http_request("Hora","s","");
+		$nombre = http_request("Nombre","s",null,false); // Name or comment for jornada
+		$fecha = str_replace("/","-",http_request("Fecha","s","",false)); // mysql requires format YYYY-MM-DD
+		$hora = http_request("Hora","s","",false);
 		$grado1 = http_request("Grado1","i",0);
 		$grado2 = http_request("Grado2","i",0);
 		$grado3 = http_request("Grado3","i",0);

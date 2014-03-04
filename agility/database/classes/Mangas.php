@@ -106,17 +106,17 @@ class Mangas extends DBObject {
 		$trm_m_factor = http_request("TRM_M_Factor","i",0);
 		$trm_s_factor = http_request("TRM_S_Factor","i",0);
 		// Unidad TRS
-		$trs_l_unit = http_request("TRS_L_Unit","s","s");
-		$trs_m_unit = http_request("TRS_M_Unit","s","s");
-		$trs_s_unit = http_request("TRS_S_Unit","s","s");
+		$trs_l_unit = http_request("TRS_L_Unit","s","s",false);
+		$trs_m_unit = http_request("TRS_M_Unit","s","s",false);
+		$trs_s_unit = http_request("TRS_S_Unit","s","s",false);
 		// Unidad TRM
-		$trm_l_unit = http_request("TRM_L_Unit","s","s");
-		$trm_m_unit = http_request("TRM_M_Unit","s","s");
-		$trm_s_unit = http_request("TRM_S_Unit","s","s");
+		$trm_l_unit = http_request("TRM_L_Unit","s","s",false);
+		$trm_m_unit = http_request("TRM_M_Unit","s","s",false);
+		$trm_s_unit = http_request("TRM_S_Unit","s","s",false);
 		// Jueces y observaciones
-		$juez1 = http_request("Juez1","s",null);
-		$juez2 = http_request("Juez2","s",null);
-		$observaciones = http_request("Observaciones","s",null);
+		$juez1 = http_request("Juez1","s",null,false);
+		$juez2 = http_request("Juez2","s",null,false);
+		$observaciones = http_request("Observaciones","s",null,false);
 		// cerrada
 		$cerrada = http_request("Cerrada","i",0);
 		

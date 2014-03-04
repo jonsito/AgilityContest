@@ -51,11 +51,12 @@ function escapeString($str) {
  * @param {string} $name variable name
  * @param {string} $type default type (i,s,b)
  * @param {string} $def default value. may be null
+ * @param {boolean} $esc true if variable should be MySQL escape'd to avoid SQL injection
  * @return requested value (int,string,bool) or null if invalid type
  */
-function http_request($name,$type,$def) {
-	$a=escapeString($def);
-	if (isset($_REQUEST[$name])) $a=escapeString($_REQUEST[$name]);
+function http_request($name,$type,$def,$esc=true) {
+	$a=($esc) ? escapeString($def) : $def;
+	if (isset($_REQUEST[$name])) $a= ($esc) ? escapeString($_REQUEST[$name]) : $_REQUEST[$name];
 	if ($a===null) return null;
 	switch ($type) {
 		case "i": return intval($a);

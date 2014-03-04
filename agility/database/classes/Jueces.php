@@ -19,14 +19,14 @@ class Jueces extends DBObject {
 		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre =		http_request("Nombre","s",null); // pkey not null
-		$direccion1 =	http_request("Direccion1","s",null);
-		$direccion2 =	http_request("Direccion2","s",null);
-		$telefono = 	http_request("Telefono","s",null);
+		$nombre =		http_request("Nombre","s",null,false); // pkey not null
+		$direccion1 =	http_request("Direccion1","s",null,false);
+		$direccion2 =	http_request("Direccion2","s",null,false);
+		$telefono = 	http_request("Telefono","s",null,false);
 		$internacional= http_request("Internacional","i",0); // not null
 		$practicas =	http_request("Practicas","i",0);
-		$email =		http_request("Email","s",null); // not null
-		$observaciones=	http_request("Observaciones","s",null);
+		$email =		http_request("Email","s",null,false); // not null
+		$observaciones=	http_request("Observaciones","s",null,false);
 		
 		$this->myLogger->debug("Nombre: $nombre Dir1: $direccion1 Dir2: $Direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado

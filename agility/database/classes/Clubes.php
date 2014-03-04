@@ -22,20 +22,20 @@ class Clubes extends DBObject {
 		if (!$res)  return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre 	= http_request("Nombre","s",null);
-		$direccion1 = http_request('Direccion1',"s",null);
-		$direccion2 = http_request('Direccion2',"s",null); 
-		$provincia	= http_request('Provincia',"s",null);
-		$contacto1	= http_request('Contacto1',"s",null);
-		$contacto2	= http_request('Contacto2',"s",null);
-		$contacto3	= http_request('Contacto3',"s",null);
-		$gps		= http_request('GPS',"s",null);
-		$web		= http_request('Web',"s",null);
-		$email		= http_request('Email',"s",null);
-		$facebook	= http_request('Facebook',"s",null);
-		$google		= http_request('Google',"s",null);
-		$twitter	= http_request('Twitter',"s",null);
-		$observaciones = http_request('Observaciones',"s",null);
+		$nombre 	= http_request("Nombre","s",null,false);
+		$direccion1 = http_request('Direccion1',"s",null,false);
+		$direccion2 = http_request('Direccion2',"s",null,false); 
+		$provincia	= http_request('Provincia',"s",null,false);
+		$contacto1	= http_request('Contacto1',"s",null,false);
+		$contacto2	= http_request('Contacto2',"s",null,false);
+		$contacto3	= http_request('Contacto3',"s",null,false);
+		$gps		= http_request('GPS',"s",null,false);
+		$web		= http_request('Web',"s",null,false);
+		$email		= http_request('Email',"s",null,false);
+		$facebook	= http_request('Facebook',"s",null,false);
+		$google		= http_request('Google',"s",null,false);
+		$twitter	= http_request('Twitter',"s",null,false);
+		$observaciones = http_request('Observaciones',"s",null,false);
 		$baja		= http_request('Baja',"i",0);
 		$this->myLogger->debug("Nombre: $nombre Direccion1: $direccion1 Contacto1: $contacto1 Observaciones: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
@@ -65,24 +65,24 @@ class Clubes extends DBObject {
 				$web,$email,$facebook,$google,$twitter,$observaciones,$baja,$viejo);
 		if (!$res) return $this->error($this->conn->error);
 		// iniciamos los valores, chequeando su existencia
-		$nombre 	= http_request("Nombre","s",null);
-		$viejo		= http_request("Viejo","s",null);
-		$direccion1 = http_request('Direccion1',"s",null);
-		$direccion2 = http_request('Direccion2',"s",null); 
-		$provincia	= http_request('Provincia',"s",null);
-		$contacto1	= http_request('Contacto1',"s",null);
-		$contacto2	= http_request('Contacto2',"s",null);
-		$contacto3	= http_request('Contacto3',"s",null);
-		$gps		= http_request('GPS',"s",null);
-		$web		= http_request('Web',"s",null);
-		$email		= http_request('Email',"s",null);
-		$facebook	= http_request('Facebook',"s",null);
-		$google		= http_request('Google',"s",null);
-		$twitter	= http_request('Twitter',"s",null);
-		$observaciones = http_request('Observaciones',"s",null);
+		$nombre 	= http_request("Nombre","s",null,false);
+		$viejo		= http_request("Viejo","s",null,false);
+		$direccion1 = http_request('Direccion1',"s",null,false);
+		$direccion2 = http_request('Direccion2',"s",null,false); 
+		$provincia	= http_request('Provincia',"s",null,false);
+		$contacto1	= http_request('Contacto1',"s",null,false);
+		$contacto2	= http_request('Contacto2',"s",null,false);
+		$contacto3	= http_request('Contacto3',"s",null,false);
+		$gps		= http_request('GPS',"s",null,false);
+		$web		= http_request('Web',"s",null,false);
+		$email		= http_request('Email',"s",null,false);
+		$facebook	= http_request('Facebook',"s",null,false);
+		$google		= http_request('Google',"s",null,false);
+		$twitter	= http_request('Twitter',"s",null,false);
+		$observaciones = http_request('Observaciones',"s",null,false);
 		$baja		= http_request('Baja',"i",0);
 		
-		$this->myLogger->debug("Nombre: $nombre Direccion1: $direccion1 Contacto1: $contacto1 Observaciones: $observaciones");
+		$this->myLogger->debug("Nombre: $nombre Viejo: $viejo Provincia: $provincia Direccion1: $direccion1 Contacto1: $contacto1 ");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($this->conn->error);

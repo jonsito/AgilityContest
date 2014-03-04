@@ -15,11 +15,11 @@ class Guias extends DBObject {
 		if (!$res) return $this->error($this->conn->error);  
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre 	= http_request("Nombre","s",null); // primary key
-		$telefono = http_request('Telefono',"s",null);
-		$email = http_request('Email',"s",null);
-		$club	= http_request('Club',"s",null); // not null
-		$observaciones= http_request('Observaciones',"s",null);
+		$nombre 	= http_request("Nombre","s",null,false); // primary key
+		$telefono = http_request('Telefono',"s",null,false);
+		$email = http_request('Email',"s",null,false);
+		$club	= http_request('Club',"s",null,false); // not null
+		$observaciones= http_request('Observaciones',"s",null,false);
 		$this->myLogger->info("Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
 		
 		// invocamos la orden SQL y devolvemos el resultado
@@ -41,12 +41,12 @@ class Guias extends DBObject {
 		if (!$res) return $this->error($this->conn->error); 
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre 	= http_request("Nombre","s",null); // primary key
-		$viejo 	= http_request("Viejo","s",null); 
-		$telefono = http_request('Telefono',"s",null);
-		$email = http_request('Email',"s",null);
-		$club	= http_request('Club',"s",null); // not null
-		$observaciones= http_request('Observaciones',"s",null);
+		$nombre 	= http_request("Nombre","s",null,false); // primary key
+		$viejo 	= http_request("Viejo","s",null,false); 
+		$telefono = http_request('Telefono',"s",null,false);
+		$email = http_request('Email',"s",null,false);
+		$club	= http_request('Club',"s",null,false); // not null
+		$observaciones= http_request('Observaciones',"s",null,false);
 		
 		$this->myLogger->info("Viejo: $viejo Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
 		

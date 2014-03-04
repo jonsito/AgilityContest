@@ -17,13 +17,13 @@ class Dogs extends DBObject {
 		$res=$stmt->bind_param('sssssss',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia);
 		if (!$res) return $this->error($this->conn->error);
 		// iniciamos los valores, chequeando su existencia
-		$nombre =	http_request("Nombre","s",null); 
-		$raza =		http_request("Raza","s",null); 
-		$loe_rrc =	http_request("LOE_RRC","s",null); 
-		$licencia = http_request("Licencia","s",null); 
-		$categoria= http_request("Categoria","s",null); 
-		$grado =	http_request("Grado","s",null); 
-		$guia =		http_request("Guia","s",null); 
+		$nombre =	http_request("Nombre","s",null,false); 
+		$raza =		http_request("Raza","s",null,false); 
+		$loe_rrc =	http_request("LOE_RRC","s",null,false); 
+		$licencia = http_request("Licencia","s",null,false); 
+		$categoria= http_request("Categoria","s",null,false); 
+		$grado =	http_request("Grado","s",null,false); 
+		$guia =		http_request("Guia","s",null,false); 
 		
 		$this->myLogger->info("Nombre: $nombre Raza: $raza LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
 		// invocamos la orden SQL y devolvemos el resultado
@@ -52,13 +52,13 @@ class Dogs extends DBObject {
 		if (!$res) return $this->error($this->conn->error);
 
 		// iniciamos los valores, chequeando su existencia
-		$nombre =	http_request("Nombre","s",null);
-		$raza =		http_request("Raza","s",null);
-		$loe_rrc =	http_request("LOE_RRC","s",null);
-		$licencia = http_request("Licencia","s",null);
-		$categoria= http_request("Categoria","s",null);
-		$grado =	http_request("Grado","s",null);
-		$guia =		http_request("Guia","s",null);
+		$nombre =	http_request("Nombre","s",null,false);
+		$raza =		http_request("Raza","s",null,false);
+		$loe_rrc =	http_request("LOE_RRC","s",null,false);
+		$licencia = http_request("Licencia","s",null,false);
+		$categoria= http_request("Categoria","s",null,false);
+		$grado =	http_request("Grado","s",null,false);
+		$guia =		http_request("Guia","s",null,false);
 
 		$this->myLogger->info("IDPerro: $idperro Nombre: $nombre Raza: $raza LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
 		// invocamos la orden SQL y devolvemos el resultado

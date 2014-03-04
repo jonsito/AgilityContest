@@ -15,12 +15,12 @@ class Pruebas extends DBObject {
 		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre =	http_request("Nombre","s",null);
-		$club =		http_request("Club","s",null);
-		$ubicacion=	http_request("Ubicacion","s",null);
-		$triptico =	http_request("Triptico","s",null);
-		$cartel =	http_request("Cartel","s",null);
-		$observaciones = http_request("Observaciones","s",null);
+		$nombre =	http_request("Nombre","s",null,false);
+		$club =		http_request("Club","s",null,false);
+		$ubicacion=	http_request("Ubicacion","s",null,false);
+		$triptico =	http_request("Triptico","s",null,false);
+		$cartel =	http_request("Cartel","s",null,false);
+		$observaciones = http_request("Observaciones","s",null,false);
 		$cerrada =	http_request("Cerrada","i",0);
 		$this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
 		
@@ -63,13 +63,13 @@ class Pruebas extends DBObject {
 		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre =	http_request("Nombre","s",null);
+		$nombre =	http_request("Nombre","s",null,false);
 		$id =		http_request("ID","i",0);
-		$club =		http_request("Club","s",null);
-		$ubicacion=	http_request("Ubicacion","s",null);
-		$triptico =	http_request("Triptico","s",null);
-		$cartel =	http_request("Cartel","s",null);
-		$observaciones = http_request("Observaciones","s",null);
+		$club =		http_request("Club","s",null,false);
+		$ubicacion=	http_request("Ubicacion","s",null,false);
+		$triptico =	http_request("Triptico","s",null,false);
+		$cartel =	http_request("Cartel","s",null,false);
+		$observaciones = http_request("Observaciones","s",null,false);
 		$cerrada =	http_request("Cerrada","i",0);
 		$this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
 		
