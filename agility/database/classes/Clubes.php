@@ -180,6 +180,29 @@ class Clubes extends DBObject {
 		return $result;
 	}
 	
+	/** 
+	 * Retorna el logo asociado al club de nombre indicado
+	 * NOTA: esto no retorna una respuesta json, sino una imagen
+	 * @param unknown $nombre
+	 */
+	function getLogo($nombre) {
+		$this->myLogger->enter();
+		$str="SELECT Logo FROM Clubes WHERE Nombre='$nombre'";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		$row=$rs->fetch_object();
+		$rs->free();
+		$name="rsce.png";
+		if ($row) $name=$row->Logo;
+		$fname=__DIR__."/../../images/logos/$name";
+		if (!file_exists($fname)) {
+			$this->myLogger->notice("Logo file $fname does not exists");
+			$fname=__DIR__."/../../images/logos/rsce.png"; // use default name
+		}
+		$size = getimagesize($fname);
+		header('Content-type: '.$size['mime']);
+		readfile($fname);
+	}
 } /* end of class "Clubes" */
 
 ?>

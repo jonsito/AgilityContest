@@ -27,12 +27,17 @@ function newClub(def){
  */
 function editClub(){
     var row = $('#clubes-datagrid').datagrid('getSelected');
-    if (!row) return;
+    if (!row) {
+    	$.messager.alert("Update Error:","!No ha seleccionado ningún Club!","warning");
+    	return; // no way to know which dog is selected
+    }
     $('#clubes-dialog').dialog('open').dialog('setTitle','Modificar datos del club');
     $('#clubes-form').form('load',row);
     // save old club name in "Viejo" hidden form input to allow change guia name
     $('#clubes-Viejo').val( $('#clubes-Nombre').val());
 	$('#clubes-Operation').val('update');
+	var nombre="/agility/database/clubFunctions.php?Operation=logo&Nombre="+row.Nombre;
+    $('#Clubes-Logo').attr("src",nombre);
 }
 
 /**
