@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.4deb0ubuntu1ppa1
+-- version 4.1.8deb0.1
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-01-2014 a las 10:01:39
--- Versión del servidor: 5.5.34-0ubuntu0.12.04.1
--- Versión de PHP: 5.3.10-1ubuntu3.9
+-- Tiempo de generación: 05-03-2014 a las 13:40:17
+-- Versión del servidor: 5.5.35-0ubuntu0.12.04.2
+-- Versión de PHP: 5.3.10-1ubuntu3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -29,7 +29,7 @@ USE `agility`;
 --
 -- Estructura de tabla para la tabla `Categorias_Perro`
 --
--- Creación: 10-01-2014 a las 07:46:45
+-- Creación: 24-02-2014 a las 07:55:20
 --
 
 DROP TABLE IF EXISTS `Categorias_Perro`;
@@ -55,7 +55,7 @@ INSERT INTO `Categorias_Perro` (`Categoria`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `Clubes`
 --
--- Creación: 10-01-2014 a las 07:46:47
+-- Creación: 05-03-2014 a las 12:36:55
 --
 
 DROP TABLE IF EXISTS `Clubes`;
@@ -92,72 +92,92 @@ CREATE TABLE IF NOT EXISTS `Clubes` (
 
 INSERT INTO `Clubes` (`Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `Contacto1`, `Contacto2`, `Contacto3`, `GPS`, `Web`, `Email`, `Facebook`, `Google`, `Twitter`, `Logo`, `Observaciones`, `Baja`) VALUES
 ('-- Sin asignar --', '', '', 'Madrid', '', '', '', '', '', '', '', '', '', NULL, 'NO BORRAR ESTA ENTRADA. SE USARA PARA AQUELLOS GUIAS QUE NO TENGAN CLUB ASIGNADO', 0),
-('ACADE', 'Salvadas, 41, 2º C', '15705 Santiago de Compostela', 'Coruña, A', '+ 34 620 29 58 31', '+ 34 881 93 95 5', NULL, NULL, 'http://www.asociacionacade.com/', 'asociacioncansdeportistas@gmail.com', NULL, NULL, NULL, NULL, NULL, 0),
+('AA Y CIA', '28609 Sevilla La Nueva (Madrid)', '', 'Madrid', '+ 34 619 29 03 98', '', '', '', '', 'arribas.anabel@gmail.com', '', '', '', NULL, '', 0),
+('ACADE', 'Salvadas, 41, 2º C', '15705 Santiago de Compostela', 'Coruña, A', '+ 34 620 29 58 31', '+ 34 881 93 95 5', '', '', 'http://www.asociacionacade.com/', 'asociacioncansdeportistas@gmail.com', '', '', '', NULL, '', 0),
 ('Agilcan', 'Paseo de los Olivos 10', '28330 San Martin de la Vega', 'Madrid', '634 417 893', '918 946 096', '659 146 878', NULL, 'http://www.agilcan.es/', 'info@agilcan.es', NULL, NULL, NULL, NULL, NULL, 0),
-('Badalona', NULL, NULL, 'Barcelona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Baix Llobregat', NULL, NULL, 'Barcelona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Campo de Gibraltar', NULL, NULL, 'Cádiz', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Camu', NULL, NULL, 'Murcia', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Canic', NULL, NULL, 'Barcelona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Canino Algecireño', NULL, NULL, 'Cádiz', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Castellón', NULL, NULL, 'Castellón/Castelló', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+('Alhambra', 'Urano, 24', '18200 Maracena (Granada)', 'Granada', ' + 34 958 42 12 85 ', '', '', '', '', 'agilityalhambra@hotmail.com', '', '', '', NULL, '', 0),
+('Askizu', 'Caserio Benta - Barrio Askizu', '20808 Getaria (Guipúzcoa)', 'Gipuzkoa/Guipúzcoa', '+ 34 656 76 60 65', '', '', '', 'http://www.agilityaskizu.com/', 'antonio@agilityaskizu.com', '', '', '', NULL, '', 0),
+('Badalona', 'Camí del Xiprers, s/n', '08916 Badalona (Barcelona)', 'Barcelona', ' + 34 93 597 23 53 ', ' + 34 676 48 99 40 ', '', '', 'http://www.agilitybadalona.con/', 'info@agilitybadalona.com', '', '', '', NULL, '', 0),
+('Baix Llobregat', 'Enric Borras, 10', '08820 El Prat de Llobregat (Barcelona)', 'Barcelona', '+34 695 79 42 74', '', '', '', 'http://www.agilitybaixllobregat.com/', 'agilitybaixllobregat@hotmail.com', '', '', '', NULL, '', 0),
+('Campo de Gibraltar', 'Arbol de la Paz, 4', '11205 Algeciras (Cádiz)', 'Cádiz', ' + 34 647 80 32 64 ', '', '', '', '', 'villa-zahara@hotmail.com', '', '', '', NULL, '', 0),
+('Camu', 'Párraco Pedro Lozano, 26', '30007 Zarandona (Murcia)', 'Murcia', '+ 34 636 25 19 39', '', '', '', '', 'clubagilitymurcia@hotmail.com', '', '', '', NULL, '', 0),
+('Can Natura', 'Peñella Baja, 1', '33310 Cabranes (Asturias)', 'Asturias', '+ 34 696 86 08 63', '', '', '', 'http://www.cannatura.net/', 'cannatura@hotmail.com', '', '', '', NULL, '', 0),
+('Canic', 'Sant Pere, 10', '08392 Llavaneres (Barcelona)', 'Barcelona', '+ 34 93 792 76 55', '', '', '', 'http://www.agilitycanic.cat/', 'info@agilitycanic.cat', '', '', '', NULL, '', 0),
+('Canino Algecireño', 'Los Naranjos, 8', '11380 Tarifa (Cádiz)', 'Cádiz', ' + 34 663 55 86 42 ', '', '', '', '', 'arquikm@gmail.com', '', '', '', NULL, '', 0),
+('Castellón', 'Mar Cantábrico, 2, 1º C', '12100 Grao de Castellón (Castellón)', 'Castellón/Castelló', '+ 34 964 28 61 52', '+ 34 625 82 25 35', '', '', 'http://www.agilitycastellon.es/', 'agilitycastellon@gmx.es', '', '', '', NULL, '', 0),
 ('Cinco Huesos', 'Paseo de los Pozos, Km. 1,2', '28813 Torres de la Alameda', 'Madrid', '+ 34 91 832 83 00 ', '+ 34 691 77 75 24 ', '', '', 'http://www.cincohuesos.com/', 'cincohuesos@gmail.com', '', '', '', NULL, 'Antiguo club "Apata"', 0),
-('Ciudad de Antequera', NULL, NULL, 'Málaga', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Ciutat Comtal', NULL, NULL, 'Barcelona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Cornella', NULL, NULL, 'Barcelona', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Correcan', NULL, NULL, 'Madrid', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+('Ciudad de Antequera', '', '', 'Málaga', '', '', '', '', '', '', '', '', '', NULL, '', 1),
+('Ciutat Comtal', 'Escultor Llimona, 38-40, Entr. 2ª', '08031 Barcelona', 'Barcelona', ' + 34 645 85 10 06 ', '', '', '', 'http://www.agilitybarcelona.com/', 'info@agilitybarcelona.com', '', '', '', NULL, '', 0),
+('Ciutat de Valencia', 'Sequia de Calvera, 33, Bajo', '46910 Sedaví (Valencia)', 'Valencia/Valéncia', '', '', '', '', 'http://www.bichopeludo.com/ciutat_de_valencia.html', 'ciutatdevalencia@bichopeludo.com', '', '', '', NULL, '', 0),
+('Clotet', 'Apdo. de correos 517', '12500 Vinaroz (Castellón)', 'Castellón/Castelló', '+ 34 687 52 38 11', '', '', '', 'http://www.degarrof.com/', 'declotet@hotmail.com', '', '', '', NULL, '', 0),
+('Cornella', 'Mn. Andreu, 13-19', '08940 Cornellà de Llobregat (Barcelona)', 'Barcelona', '+ 34 638 98 75 91', '', '', '', 'http://www.agilitycornella.com/', 'info@agilitycornella.com', '', '', '', NULL, '', 0),
+('Correcan', ' Lóndrés, 58, 1º D', '28850 Torrejón de Ardoz (Madrid)', 'Madrid', '+ 34 668 86 76 81', '', '', '', 'http://www.correcan.es/', 'info@correcan.es', '', '', '', NULL, '', 0),
+('Costa Azahar', 'Camino Caminas, 223 - Apdo. de correos 717', '12080 Castellón', 'Castellón/Castelló', '+ 34 964 76 60 83', '', '', '', 'http://www.mediterraniacentrocanino.com/', 'info@mediterraniacentrocanino.com', '', '', '', NULL, '', 0),
 ('Costa Blanca', 'C/ Baltasar Gracián Nº3, Urb. Montecid', '03670 Monforte del Cid ', 'Alicante/Alacant', NULL, NULL, NULL, NULL, 'http://www.agilitycostablanca.com/', 'agility@agilitycostablanca.com', NULL, NULL, NULL, NULL, NULL, 0),
+('Cousadecans', 'Lugar de Foxo, s/n - San Vicente de Vigo', '15175 Carral (La Coruña)', 'Coruña, A', '+ 34 652 83 28 34', '+ 34 620 67 61 40', '', '', '', 'cousadecans@gmail.com', '', '', '', NULL, '', 0),
 ('Cuatro Patas', 'Club social Urb/ El Socorro', 'Carmona', 'Sevilla', '630 52 72 42 (Isaac) ', '615 45 58 78 (Rafa)', NULL, 'N 37.43865 - W 5.79858', NULL, 'agiltiy4patas@hotmail.com', NULL, NULL, NULL, 0x74727565, NULL, 0),
 ('Cubas', 'Paseo de los Cipreses s/n', 'Cubas de la Sagra', 'Madrid', '918143395', '619 56 43 49', NULL, NULL, 'http://clubagilitycubas.es/', 'clubagilitycubas@terra.com', NULL, NULL, NULL, NULL, NULL, 0),
-('Deporcan', NULL, NULL, 'Madrid', '629 843 681', NULL, NULL, '40.32132, -3.41895', NULL, 'agility.deporcan@gmail.com', NULL, NULL, NULL, 0x416e746967756f2022436c756220426f6164696c6c6122, NULL, 0),
+('Deporcan', 'Jazmín, 16, Entreplanta', '28033 Madrid', 'Madrid', '629 843 681', ' + 34 91 302 44 35', '', '40.32132, -3.41895', 'http://www.clubagilityboadilla.org/', 'agility.deporcan@gmail.com', '', '', '', 0x416e746967756f2022436c756220426f6164696c6c6122, 'Antiguo "Club Boadilla"', 0),
 ('Depordog', 'Avd del Mueble s/n', '11130 Chiclana', 'Cádiz', '652 73 45 17', NULL, NULL, NULL, 'http://www.clubagilitydepordog.es/', 'ildegolo@hotmail.com', NULL, NULL, NULL, NULL, NULL, 0),
-('Educan', NULL, NULL, 'Madrid', '617 469 312', NULL, NULL, NULL, 'http://www.madrid.educan.es/', 'agility.madrid@educan.es', NULL, NULL, NULL, NULL, NULL, 0),
+('Educan', 'Mester de Juglaría, 20', '28978 Cubas de la Sagra (Madrid)', 'Madrid', '617 469 312', '+ 34 676 67 76 38', '', '', 'http://www.madrid.educan.es/', 'agility.madrid@educan.es', '', '', '', NULL, '', 0),
 ('El Hechizo del Border C.', 'Ctra. Monserrat, Km. 7''5, nº 26', '46900 Torrent ', 'Valencia/Valéncia', '+ 34 96 156 56 75', NULL, NULL, NULL, 'http://www.elhechizo.com/', 'elhechizobc@gmail.com', NULL, NULL, NULL, NULL, NULL, 0),
 ('El Nogueral', 'Cami del Camp, 23', '03460 Beneixama', 'Alicante/Alacant', '+ 34 695 45 23 69', NULL, NULL, NULL, 'http://www.clubagility.es/', 'info@clubagility.es', NULL, NULL, NULL, NULL, NULL, 0),
-('Eslon', 'Carretera de Carranque s/n', 'Serranillos del Valle', 'Madrid', '657 209 274', NULL, NULL, NULL, 'http://www.agilityeslon.com', 'info@agilityeslon.com', NULL, NULL, NULL, NULL, NULL, 0),
+('El Tramusser Benifaio', 'Polígono 16 - Cami Prefasic', '46450 Benifaió (Valencia)', 'Valencia/Valéncia', '+ 34 678 57 47 86', '', '', '', 'http://www.escuelacaninavalencia.com/', 'madamagility@hotmail.com', '', '', '', NULL, '', 0),
+('Els Dimonis de Bascara', 'Apartado de correos 241', '17600 Figueres (Gerona)', 'Girona/Gerona', ' + 34 657 20 44 81', '', '', '', 'http://www.dimonisdebascara.cat/', 'dimonisdebascara@hotmail.es', '', '', '', NULL, '', 0),
+('Eslón', 'Carretera de Carranque s/n', 'Serranillos del Valle', 'Madrid', '657 209 274', '', '', '', 'http://www.agilityeslon.com', 'info@agilityeslon.com', '', '', '', NULL, '', 0),
+('Euskadi', 'CLUB DE AGILITY EUSKADI Beike Bidea, 2, 2º Dcha', '48950 Asua - Erandio (Vizcaya)', 'Bizkaia/Vizcaya', '619 423 720 - Pedro Martinez', '', '', '', ' www.agilityeuskadi.com', 'info@agilityeuskadi.com', '', '', '', NULL, '', 0),
+('Hoop Agility', 'Alberto Conti, 8, 7º C', '28935 Móstoles (Madrid)', 'Madrid', '+ 34 635 65 78 42', '', '', '', 'http://www.agilityclub.es/', 'info@agilityclub.es', '', '', '', NULL, '', 0),
 ('Illa Blanca', 'Washington, 18, 2º', '07820 San Antonio de Portmany (Ibiza)', 'Balears, Illes', '+ 34 672 32 39 22', NULL, NULL, NULL, 'http://www.agilityillablanca.com/', 'info@agilityillablanca.com', NULL, NULL, NULL, NULL, NULL, 0),
+('Indog Maria de Huerva', 'Calle Orfeón 13  Nave A', '50410  Cuarte de Huerva', 'Zaragoza', '', '', '', '', 'http://www.agilityindog.com/', 'info@agilityindog.com', '', '', '', NULL, '', 0),
 ('Junior', 'Calle de la Fuente, nº 8', '16162-Villar del Horno', 'Cuenca', '626389032', NULL, NULL, NULL, 'http://www.agilityjunior.es/', 'agilityjunior@gmail.com, info@agilityjunior.es', NULL, NULL, NULL, NULL, NULL, 0),
-('Kai Argi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('L''Almozara', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('L''Horta Nord', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('La Daga', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('La Dama', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('La Manada', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('La Princesa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('La Ribera', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('La Selva', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Lealcan', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Maresme', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Marvi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Mi Perro 10', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Neo Reus', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Palaciego', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Parbayon Cantabria', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Parque del Alamillo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Patas', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Paterna', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Pican', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Pura Vida', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Santa Quiteria', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Star Can', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Talavera', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Tercans', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Torrevieja', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Valles Club Cani', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Vallgorguina', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Vila-Real', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Vilcan', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Villena', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
+('Kai Argi', 'Oiartzun, 6, Entlo. B', '20110 Pasaia San Pedro (Guipúzcoa)', 'Gipuzkoa/Guipúzcoa', '+ 34 656 71 51 31', '', '', '', 'http://www.kaiargi.com', 'kaiargi@kaiargi.com', '', '', '', NULL, '', 0),
+('L''Almozara', 'Camino de Pinseque, 147-A', '50190 Garrapinillos (Zaragoza)', 'Zaragoza', ' + 34 637 54 15 86', '', '', '', '', '', '', '', '', NULL, '', 0),
+('L''Horta Nord', 'Vora Vía, 2', '46132 Almassera (Valencia)', 'Valencia/Valéncia', '+ 34 651 30 41 47', '', '', '', 'http://clubagilitylhortanord.blogspot.com.es/', '', 'https://www.facebook.com/agility.lhortanordvalencia', '', '', NULL, '', 0),
+('La Daga', '25230 Mollerussa (Lérida)', '', 'Lleida/Lérida', ' + 34 660 72 04 90 ', '', '', '', 'http://www.clubagilityladaga.blogspot.com/', 'niisia84@hotmail.com', '', '', '', NULL, '', 0),
+('La Dama', 'Partida de las Casicas, 5', '03330 Crevillente (Alicante) – España', 'Alicante/Alacant', ' +34 622 109 409', '', '', ' 38° 10′ 44″ N – 0° 48′ 30″ W”', 'http://www.agilityladama.com/ladama/', 'agilityladama@gmail.com', '', '', '', NULL, '', 0),
+('La Manada', 'Partida Calvet, 37, Bajo', '46120 Alboraia (Valencia)', 'Valencia/Valéncia', '+ 34 659 89 78 40 (Vicent)', '', '', '39° 29'' 47.55'''' N - 0° 20'' 37.1'''' W', 'http://www.la-manada.org/agility/', 'info@la-manada.org', '', '', '', NULL, '', 0),
+('La Palma', 'Paraje Los Pérez de Arriba', '30593 La Palma - Cartagena (Murcia)', 'Murcia', ' + 34 669 23 31 83', '', '', '', 'http://www.agilitycartagena.com/', 'agilitycartagena@gmail.com', '', '', '', NULL, '', 0),
+('La Princesa', 'Ocaña, 104, Bajo', '28047 Madrid', 'Madrid', '+ 34 91 465 50 05 ', '', '', '+40° 19'' 35,41", -3° 50'' 50,61" ', 'http://www.agilitylaprincesa.es/', 'agilitylaprincesa@gmail.com', '', '', '', NULL, '', 0),
+('La Ribera', 'Plaza España, 11', '50638 Cabañas de Ebro (Zaragoza)', 'Zaragoza', ' + 34 976 75 86 33', ' + 34 649 58 65 98 ', '', '', 'http://www.agilitylaribera.es/', 'agilitylaribera@hotmail.com', '', '', '', NULL, '', 0),
+('La Selva', 'Carretera Vella de Riudarenes, s/n', '17430 Santa Coloma de Farners (Gerona)', 'Girona/Gerona', '+ 34 606 77 64 65', ' + 34 629 36 37 39', '', '', 'http://www.asscaninalaselva.com/', 'agility@asscaninalaselva.com', '', '', '', NULL, '', 0),
+('Lealcan', 'José Luis Sampedro, 14, 2º D', '28529 Rivas Vaciamadrid (Madrid)', 'Madrid', ': + 34 646 44 45 55', '', '', '', 'http://www.lealcan.com/', 'info@lealcan.com', '', '', '', NULL, '', 0),
+('Maresme', 'Santiago Rusiñol, 90', '08340 Vilassar de Mar (Barcelona)', 'Barcelona', ' + 34 93 759 70 54 ', '', '', '', '', 'agilitymaresme@telefonica.net', '', '', '', NULL, '', 0),
+('Marvi', '40 Pins, 36 - Urb. Roca II', '08430 La Roca del Valles (Barcelona)', 'Barcelona', '+ 34 93 842 21 05 ', '', '', '', '', 'Marvistel@hotmail.com', '', '', '', NULL, '', 0),
+('Mediterráneo', 'Senda Estrecha, 14', '30011 Murcia', 'Murcia', '+ 34 968 25 77 83', '+ 34 677 40 98 57', '', '', '', '', '', '', '', NULL, '', 0),
+('Mi Perro 10', 'Andalucía, 25', '28750 San Agustín de Guadalix (Madrid)', 'Madrid', '+ 34 651 91 41 46', '', '', '', 'http://www.miperro10.com/', 'info@miperro10.com', '', '', '', NULL, '', 0),
+('Miramar', 'Carrer del Llorer, 3', '08789 La Torre de Claramunt (Barcelona)', 'Barcelona', '+ 34 679 27 27 91 ', '', '', '', '', 'jmtorres323@gmail.com', '', '', '', NULL, '', 0),
+('Negreira', 'Avda. Recinto Ferial, 2, 4º A', '36540 Silleda (Pontevedra)', 'Pontevedra', '+ 34 629 50 71 76', '', '', '', '', '', '', '', '', NULL, '', 0),
+('Neo Reus', 'Mª Aurelia Campany, 4, 6º, 2º', '43204 Reus (Tarragona)', 'Tarragona', '+ 34 616 44 62 41', '', '', '', '', 'agilityneo@hotmail.com', '', '', '', NULL, '', 0),
+('Palaciego', 'Roble, 7', '41720 Los Palacios y Villafranca (Sevilla)', 'Sevilla', '+ 34 619 12 73 25 ', '', '', '', 'http://www.actiweb.es/palaciego/', '', 'https://www.facebook.com/pages/Club-Deportivo-Agility-Palaciego/192778427478835', '', '', NULL, '', 0),
+('Parbayon Cantabria', 'Bº Sorribero Bajo, nº 4', '39470 Renedo de Piélagos (Cantabria)', 'Cantabria', '+ 34 626 79 14 54 ', '', '', '', 'http://www.agilitycantabria.com/', 'agilitycantabria@gmail.com', '', '', '', NULL, '', 0),
+('Parque del Alamillo', 'Antonio Machín, 9, 1º Izda.', '41009 Sevilla', 'Sevilla', ' + 34 655 76 46 03', '+ 34 95 443 45 77 ', '', '', 'http://www.clubagilityalamillo.com/', 'clubagilityalamillo@hotmail.com', '', '', '', NULL, '', 0),
+('Pataplán', ' N-320a carretera de Valencia Km.134.', '', 'Cuenca', ' Juan José González (Presidente del Club) - tfn: 639776502', '	 Javier Martínez (Tesorero y Webmaster) - tfn: 605914763', '', 'N40.033819,W2.11415', 'http://www.agilitypataplan.es/', 'info@agilitypataplan.es', '', '', '', NULL, '', 0),
+('Patas', 'Ameixoada, 28C', '36954 Moaña (Pontevedra)', 'Pontevedra', '+ 34 986 31 10 13', '+ 34 659 01 36 68 ', '', '', 'http://patas.blogaliza.org/', 'agilitypatas@hotmail.com', '', '', '', NULL, '', 0),
+('Paterna', 'Cid Campeador, 12-13', '46980 Paterna (Valencia)', 'Valencia/Valéncia', '+ 34 677 72 27 30', '', '', '', 'http://www.agilitypaterna.com/', 'info@agilitypaterna.com', '', '', '', NULL, '', 0),
+('Pican', 'Marqués de Dos Aguas, 39, p. 8', '46220 Picassent (Valencia)', 'Valencia/Valéncia', '+ 34 687 70 69 90', '', '', '', '', 'clubagilitypican@gmail.com', '', '', '', NULL, '', 0),
+('Pura Vida', 'Almendro, 3, Bl. 2, 1º C', '28710 El Molar (Madrid)', 'Madrid', ' + 34 680 19 08 42', '', '', '', 'http://www.mascotaspuravida.es/', 'agility@mascotaspuravida.es', '', '', '', NULL, '', 0),
+('Santa Quiteria', '08410 Vilanova del Valles (Barcelona)', '', 'Barcelona', '+ 34 651 89 21 07', '', '', '', 'http://www.agilitysantaquiteria.es/', 'info@agilitysantaquiteria.es', '', '', '', NULL, '', 0),
+('Star Can', 'Avda. del Vincle, 28', '03560 Campello (Alicante)', 'Alicante/Alacant', '+ 34 96 563 01 60', '(Ana Alonso) anastarcan@hotmail.com', '', 'W 0º 33´ 03" N 38º 22´31"', 'http://www.starcan.es/', 'nsoler@starcan.es', '', '', '', NULL, '', 0),
+('Talavera', 'Cervera - Local 39', '45600 Talavera de la Reina (Toledo)', 'Toledo', '+ 34 610 01 79 75 ', '', '', '', '', 'reinaboxtalavera@hotmail.com', '', '', '', NULL, '', 0),
+('Tandem', 'Carretera M413 km 8,5 de Arroyomolinos a Moraleja de Enmedio', 'Madrid.', 'Madrid', '687 964891', '627 964845', '', '', '', 'informacion@agilitytandem.es', '', '', '', NULL, '', 0),
+('Tercans', 'Reibon, 192-A  -  Meira', '36955 Moaña (Pontevedra)', 'Pontevedra', ' + 34 617 34 07 63 ', '', '', '', '', 'tercans@gmail.com', '', '', '', NULL, '', 0),
+('Torrevieja', 'Moriones, 43, 3º E', '03182 Torrevieja (Alicante)', 'Alicante/Alacant', '+ 34 635 41 30 31', '', '', '', '', 'info.agilitytorrevieja@gmail.com', '', '', '', NULL, '', 0),
+('Toskahua', 'Cmno Santa Pau, 233 Garrapinillos-ZARAGOZA', '', 'Zaragoza', 'Tel.- 976-780583 movil.-666-436111', '', '', '', 'http://perso.wanadoo.es/vjuan/agility.htm', 'grupotoskahua@eresmas.com', '', '', '', NULL, '', 0),
+('Valles Club Cani', '08140 Caldes de Montbui (Barcelona)', '', 'Barcelona', ' telèfon:    619 28 68 82 ', '', '', ' N 41º 37'' 07''''    E 2º 10'' 31.7''''', '', 'info@vallesgrupcani.org', '', '', '', NULL, '', 0),
+('Vallgorguina', 'Vila Carina Ctra. C-61, Km. 15,5', '08471 Vallgorguina (Barcelona)', 'Barcelona', '+ 34 93 867 93 18 ', '+ 34 600 00 54 99 ', '', '', '', 'agilityvallgorguina@centrecani.cat', '', '', '', NULL, '', 0),
+('Vila-Real', 'Padre Lluis María Llop, 54, 1º B', '12540 Vila-real (Castellón)', 'Castellón/Castelló', '+ 34 964 52 40 09', '', '', '', 'http://www.agilityvila-real.es/', 'agilityvilareal@gmail.com', '', '', '', NULL, '', 0),
+('Vilcan', 'Nou, 20', '46270 Villanueva de Castellón (Valencia)', 'Valencia/Valéncia', '+ 34 96 245 31 81', '', '', '', '', '', '', '', '', NULL, '', 0),
+('Villena', 'Plaza El Rollo, 5', '03400 Villena (Alicante)', 'Alicante/Alacant', '+ 34 636 42 67 13', '', '', '', 'http://clubagilityvillena.blogspot.com.es/', '', '', '', '', NULL, '', 0),
 ('W.E.L.P.E.', 'Polideportivo Municipal La Canaleja', 'Alcorcón', 'Madrid', '+ 34 91 619 52 79', NULL, NULL, NULL, 'http://www.grupowelpe.com', 'gwelpe@teleline.es', 'https://www.facebook.com/groups/484854411592829/', NULL, '@gwelpe', NULL, NULL, 0),
-('Xanastur', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0),
-('Zampican', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+('Xanastur', ' Baleares, 39, 3º D', '33208 Gijón (Asturias)', 'Asturias', '+ 34 607 11 90 56', '', '', '', 'http://www.xanastur.org/', 'xanasturcentrocanino@gmail.com', '', '', '', NULL, '', 0),
+('Zampican', 'Río Navía, 2', '12006 Castellón', 'Castellón/Castelló', '+ 34 629 07 06 75', '', '', '', 'http://www.agilityzampican.es/', '', '', '', '', NULL, '', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Equipos`
 --
--- Creación: 10-01-2014 a las 07:46:48
+-- Creación: 24-02-2014 a las 07:55:22
 --
 
 DROP TABLE IF EXISTS `Equipos`;
@@ -190,7 +210,7 @@ INSERT INTO `Equipos` (`ID`, `Prueba`, `Nombre`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `Grados_Perro`
 --
--- Creación: 10-01-2014 a las 07:46:45
+-- Creación: 24-02-2014 a las 07:55:21
 --
 
 DROP TABLE IF EXISTS `Grados_Perro`;
@@ -219,7 +239,7 @@ INSERT INTO `Grados_Perro` (`Grado`, `Comentarios`) VALUES
 --
 -- Estructura de tabla para la tabla `Guias`
 --
--- Creación: 10-01-2014 a las 07:46:48
+-- Creación: 24-02-2014 a las 07:55:23
 --
 
 DROP TABLE IF EXISTS `Guias`;
@@ -247,25 +267,32 @@ CREATE TABLE IF NOT EXISTS `Guias` (
 INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VALUES
 ('-- Sin asignar --', '', '', '-- Sin asignar --', 'NO BORRAR. Valor por defecto cuando un perro se define por primera vez'),
 ('Aaron Laro', NULL, NULL, 'Cubas', NULL),
+('Ada Serrano', '', '', 'Santa Quiteria', ''),
 ('Adoración Morales', NULL, NULL, 'La Dama', NULL),
+('Adrian Bajo', '', '', 'Vila-Real', ''),
 ('Adrian Díaz', NULL, NULL, 'El Hechizo del Border C.', NULL),
-('Adrian Martínez', NULL, NULL, 'Eslon', NULL),
+('Adrian Martínez', '', '', 'Pataplán', ''),
+('Adrián Soria', '', '', 'Pataplán', ''),
 ('Agustin Centelles', NULL, NULL, 'L''Almozara', NULL),
+('Agustín González', '', '', 'L''Horta Nord', ''),
 ('Aida Al-Nehlawi', NULL, NULL, 'Canic', NULL),
+('Alaitz Idarraga', '', '', 'Euskadi', ''),
 ('Albert Ulldemolins', NULL, NULL, 'Badalona', NULL),
 ('Alberto Alonso', NULL, NULL, 'Costa Blanca', NULL),
 ('Alberto Costas', NULL, NULL, 'Vallgorguina', NULL),
+('Alberto González', '', '', 'Deporcan', ''),
 ('Alberto Marugan', '', '', 'Agilcan', ''),
 ('Alberto Mudarra', NULL, NULL, 'L''Almozara', NULL),
 ('Alberto Pereda', NULL, NULL, 'La Princesa', NULL),
 ('Alejandro Piñeiro', NULL, NULL, 'Tercans', NULL),
-('Alejandro Rodríguez', NULL, NULL, 'Depordog', NULL),
+('Alejandro Rodríguez Villalta', '', '', 'Palaciego', ''),
 ('Alex del Río', NULL, NULL, 'Ciutat Comtal', NULL),
 ('Alex Olivera', NULL, NULL, 'Santa Quiteria', NULL),
 ('Alex Sabini', NULL, NULL, 'Ciutat Comtal', NULL),
 ('Alfredo Ortíz', NULL, NULL, 'Junior', NULL),
 ('Alicia Mejias', NULL, NULL, 'Parque del Alamillo', NULL),
 ('Alicia Sanjurjo', NULL, NULL, 'Valles Club Cani', NULL),
+('Almudena Novo', '', '', 'Cinco Huesos', ''),
 ('Amparo Roig', NULL, NULL, 'L''Horta Nord', NULL),
 ('Ana Alonso', NULL, NULL, 'Star Can', NULL),
 ('Ana Baeza', NULL, NULL, 'Junior', NULL),
@@ -273,21 +300,28 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Ana Isabel Escobar', NULL, NULL, 'Deporcan', NULL),
 ('Ana Mateu', NULL, NULL, 'Canic', NULL),
 ('Ana Ontañon', NULL, NULL, 'Maresme', NULL),
+('Ana Palet', '', '', 'Deporcan', ''),
 ('Andrea García', NULL, NULL, 'Vila-Real', NULL),
 ('Andrés Gimeno', NULL, NULL, 'La Dama', NULL),
 ('Andrés López', NULL, NULL, 'Tercans', NULL),
+('Andres Morillas Sanjuan', '', '', 'Educan', ''),
+('Angel Corroto', '', '', 'Eslón', ''),
+('Angel González', '', '', 'Agilcan', ''),
 ('Angel Insa', NULL, NULL, 'L''Almozara', NULL),
 ('Angel Puertolas', NULL, NULL, 'Kai Argi', NULL),
+('Angel Rubio', '', '', 'Indog Maria de Huerva', ''),
 ('Angeles Abad', NULL, NULL, 'L''Almozara', NULL),
-('Angelica Castaño', NULL, NULL, 'Eslon', NULL),
+('Angelica Castaño', NULL, NULL, 'Eslón', NULL),
 ('Ankie Kleijberg', NULL, NULL, 'Star Can', NULL),
 ('Anna Aguilella', NULL, NULL, 'Costa Blanca', NULL),
 ('Antje Lippold', NULL, NULL, 'Cornella', NULL),
 ('Antonio Carmona', NULL, NULL, 'Cornella', NULL),
 ('Antonio Fernández', NULL, NULL, 'Correcan', NULL),
-('Antonio López', NULL, NULL, 'Junior', NULL),
+('Antonio López', '', '', 'Educan', ''),
 ('Antonio Molina', NULL, NULL, 'Cinco Huesos', NULL),
 ('Antonio Ojeda', NULL, NULL, 'Castellón', NULL),
+('Antonio Santos', '', '', 'Santa Quiteria', ''),
+('Antonio Tovar', '', '', 'L''Almozara', ''),
 ('Arabia Vidal', NULL, NULL, 'Vilcan', NULL),
 ('Araceli Montero', NULL, NULL, 'Badalona', NULL),
 ('Aracelis Rodríguez', NULL, NULL, 'Ciutat Comtal', NULL),
@@ -297,37 +331,48 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Arturo Conejera', NULL, NULL, 'Correcan', NULL),
 ('Astrid Hoffmeister', NULL, NULL, 'Lealcan', NULL),
 ('Barbara Flemming', NULL, NULL, 'Star Can', NULL),
-('Berit Kittel', NULL, NULL, 'Parbayon Cantabria', NULL),
+('Beatriz Juan', '', '', 'L''Horta Nord', ''),
+('Belén de Carvalho', '', '', 'Educan', ''),
+('Berit Kittel', '', '', 'Indog Maria de Huerva', ''),
 ('Carles Fortuny', NULL, NULL, 'Ciutat Comtal', NULL),
 ('Carlos Alvarez', NULL, NULL, 'Tercans', NULL),
 ('Carlos Casado', NULL, NULL, 'Star Can', NULL),
 ('Carlos Iglesias', NULL, NULL, 'Vallgorguina', NULL),
-('Carlos Martínez', NULL, NULL, 'Eslon', NULL),
+('Carlos Martínez', NULL, NULL, 'Eslón', NULL),
+('Carlos Pulpón', '', '', 'Eslón', ''),
 ('Carlos Serra', NULL, NULL, 'Illa Blanca', NULL),
 ('Carmen Alos', NULL, NULL, 'Canic', NULL),
 ('Carmen Antequera', NULL, NULL, 'L''Horta Nord', NULL),
 ('Carmen Briceño', NULL, NULL, 'L''Almozara', NULL),
-('Carmen Sotomayor', NULL, NULL, 'Eslon', NULL),
+('Carmen Sotomayor', NULL, NULL, 'Eslón', NULL),
 ('Carmen Vázquez', NULL, NULL, 'La Selva', NULL),
 ('Carolina Verdú', NULL, NULL, 'Villena', NULL),
 ('Celeste Zarzosa', NULL, NULL, 'La Princesa', NULL),
 ('Celso Valle', NULL, NULL, 'Maresme', NULL),
-('Cesar Losada', NULL, NULL, 'Eslon', NULL),
+('Cesar Losada', NULL, NULL, 'Eslón', NULL),
+('Charly Castañer', '', '', 'Indog Maria de Huerva', ''),
 ('Concepción Fernández', NULL, NULL, 'La Princesa', NULL),
 ('Concepción López', NULL, NULL, 'La Ribera', NULL),
 ('Cristian Verde', NULL, NULL, 'Tercans', NULL),
+('Cristina Blanco', '', '', 'Cubas', ''),
+('Cristina Cortijo', '', '', 'Eslón', ''),
 ('Cristina García', NULL, NULL, 'La Daga', NULL),
-('Cristina González', NULL, NULL, 'Lealcan', NULL),
+('Cristina González', '', '', 'Vallgorguina', ''),
+('Cristina Pedraz', '', '', 'AA Y CIA', ''),
+('Cristina Ruill', '', '', 'La Daga', ''),
 ('Cristofol Albert', NULL, NULL, 'L''Horta Nord', NULL),
 ('Damian Alarcon', NULL, NULL, 'Educan', NULL),
 ('Daniel Amigo', NULL, NULL, 'Badalona', NULL),
 ('Daniel Luna', NULL, NULL, 'Junior', NULL),
 ('Daniel Menéndez', NULL, NULL, 'El Hechizo del Border C.', NULL),
 ('David Alique', NULL, NULL, 'Deporcan', NULL),
+('David Asenjo', '', '', 'L''Almozara', ''),
 ('David Escribano', '', '', 'Cubas', ''),
 ('David Ferrer', NULL, NULL, 'Badalona', NULL),
 ('David Flix', NULL, NULL, 'Santa Quiteria', NULL),
+('David Gómez-Calcerrada', '', '', 'La Princesa', ''),
 ('David Gonzalbo', NULL, NULL, 'El Hechizo del Border C.', NULL),
+('David Molina', '', '', 'L''Almozara', ''),
 ('David Parejo', NULL, NULL, 'Ciudad de Antequera', NULL),
 ('David Sepulveda', NULL, NULL, 'Badalona', NULL),
 ('Debra Howard', NULL, NULL, 'La Princesa', NULL),
@@ -337,29 +382,35 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Dolores López', NULL, NULL, 'Villena', NULL),
 ('Dolores Sampedro', NULL, NULL, 'Zampican', NULL),
 ('Eduard Bonet', NULL, NULL, 'Badalona', NULL),
-('Eduard Giralt', NULL, NULL, 'Maresme', NULL),
+('Eduard Giralt Canadell', '', '', 'Santa Quiteria', ''),
+('Eduardo Adán', '', '', 'Indog Maria de Huerva', ''),
 ('Efren Lucas', NULL, NULL, 'Star Can', NULL),
 ('Elena Alberich', NULL, NULL, 'Canic', NULL),
 ('Elena Chinchilla', NULL, NULL, 'L''Horta Nord', NULL),
+('Elena Miguel', '', '', 'Eslón', ''),
 ('Elena Sin', NULL, NULL, 'L''Almozara', NULL),
 ('Elisenda Huidobro', NULL, NULL, 'Canic', NULL),
 ('Emilio Calvo', NULL, NULL, 'El Hechizo del Border C.', NULL),
 ('Emilio José Pedrazuela', NULL, NULL, 'Educan', NULL),
 ('Enric García', NULL, NULL, 'Zampican', NULL),
 ('Enric Lleixa', NULL, NULL, 'Badalona', NULL),
-('Enrique Alonso', NULL, NULL, 'Educan', NULL),
+('Enrique Alonso Queija', '', '', 'Educan', ''),
+('Enrique Camarero', '', '', 'Eslón', ''),
 ('Enrique Grau', NULL, NULL, 'Costa Blanca', NULL),
 ('Enrique Herbera', NULL, NULL, 'Badalona', NULL),
 ('Enrique Lleixa', NULL, NULL, 'Badalona', NULL),
 ('Enrique Sendra', NULL, NULL, 'Tercans', NULL),
 ('Ernesto Sorribes', NULL, NULL, 'Zampican', NULL),
 ('Estefanía Pérez', NULL, NULL, 'Educan', NULL),
+('Estíbaliz Pereda Navarro', '', '', 'Deporcan', ''),
+('Estíbaliz Pujana', '', '', 'L''Horta Nord', ''),
 ('Eugenio Villares', NULL, NULL, 'Cubas', NULL),
 ('Eva Grau', NULL, NULL, 'Paterna', NULL),
-('Eva Vázquez', NULL, NULL, 'L''Almozara', NULL),
+('Eva Vázquez Morales', '', '', 'L''Almozara', ''),
 ('Fermin Gil', NULL, NULL, 'L''Horta Nord', NULL),
 ('Fernando Benet', NULL, NULL, 'Zampican', NULL),
 ('Fernando Bibián', '', '', 'Agilcan', ''),
+('Fernando De La Fuente', '', '', 'L''Almozara', ''),
 ('Francisco Aguilera', NULL, NULL, 'Ciudad de Antequera', NULL),
 ('Francisco de la Cruz', NULL, NULL, 'Cinco Huesos', NULL),
 ('Francisco Esteban', NULL, NULL, 'Costa Blanca', NULL),
@@ -371,50 +422,63 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Francisco Medina', NULL, NULL, 'Canic', NULL),
 ('Francisco Pérez', NULL, NULL, 'Marvi', NULL),
 ('Francisco Sobral', NULL, NULL, 'Patas', NULL),
+('Gabriel Gómez', '', '', 'L''Almozara', ''),
 ('Gabriel Martín', NULL, NULL, 'Parbayon Cantabria', NULL),
+('Gema López', '', '', 'Eslón', ''),
 ('Gerard Barberá', NULL, NULL, 'Neo Reus', NULL),
 ('Gerardo Alvarez', NULL, NULL, 'Junior', NULL),
-('Gerardo González', NULL, NULL, 'Eslon', NULL),
+('Gerardo González', NULL, NULL, 'Eslón', NULL),
 ('Gisela Solis', NULL, NULL, 'La Daga', NULL),
+('Gorka Pozuelo', '', '', 'L''Horta Nord', ''),
 ('Gregorio Conde', NULL, NULL, 'Badalona', NULL),
 ('Iago Sánchez', NULL, NULL, 'Tercans', NULL),
 ('Iban Cubedo', NULL, NULL, 'Costa Blanca', NULL),
 ('Imanol López', NULL, NULL, 'L''Almozara', NULL),
-('Inmaculada Rubio', NULL, NULL, 'Eslon', NULL),
+('Iñaki García', '', '', 'Euskadi', ''),
+('Inmaculada Rubio', NULL, NULL, 'Eslón', NULL),
+('Irati Diego', '', '', 'L''Horta Nord', ''),
+('Irena', '', '', 'L''Almozara', ''),
 ('Irene Artacho', NULL, NULL, 'Cinco Huesos', NULL),
 ('Isabel Gómez', NULL, NULL, 'Depordog', NULL),
 ('Isabel Rodríguez', NULL, NULL, 'Valles Club Cani', NULL),
 ('Isidoro Vázquez', NULL, NULL, 'Cubas', NULL),
-('Ismael Pérez', NULL, NULL, 'Canic', NULL),
+('Ismael Pérez', '', '', 'Canic', ''),
 ('Israel Fernández', NULL, NULL, 'Vallgorguina', NULL),
-('Iván Pardo', NULL, NULL, 'Lealcan', NULL),
+('Iván Pardo García', '', '', 'Vallgorguina', ''),
 ('Iván San Antonio', NULL, NULL, 'Cinco Huesos', NULL),
-('Iván Sánchez', NULL, NULL, 'La Princesa', NULL),
+('Iván Sánchez García', '', '', 'La Princesa', ''),
 ('Jacqueline Holemans', NULL, NULL, 'Santa Quiteria', NULL),
 ('Jaime Gamir', NULL, NULL, 'Baix Llobregat', NULL),
+('Jara Pérez', '', '', 'Agilcan', ''),
 ('Jaume Fernández', NULL, NULL, 'Ciutat Comtal', NULL),
 ('Javier Gómez', NULL, NULL, 'Pican', NULL),
-('Javier Iniesta', NULL, NULL, 'Lealcan', NULL),
+('Javier Iniesta', '', '', 'Vallgorguina', ''),
 ('Javier López', NULL, NULL, 'Santa Quiteria', NULL),
-('Javier Martínez', NULL, NULL, 'Eslon', NULL),
-('Javier Mora', NULL, NULL, 'Correcan', NULL),
-('Javier Ovejero', NULL, NULL, 'Eslon', NULL),
+('Javier Martín', '', '', 'Agilcan', ''),
+('Javier Martínez', '', '', 'Pataplán', ''),
+('Javier Mora Canales', '', '', 'Correcan', ''),
+('Javier Ovejero', NULL, NULL, 'Eslón', NULL),
 ('Javier Sanchis', NULL, NULL, 'Maresme', NULL),
+('Javier Santisteban', '', '', 'Cinco Huesos', ''),
+('Jenifer Tolín', '', '', 'La Princesa', ''),
 ('Jennifer Tolín', NULL, NULL, 'La Princesa', NULL),
 ('Jenny Funcke', NULL, NULL, 'Badalona', NULL),
 ('Jerónimo Martínez', NULL, NULL, 'Star Can', NULL),
 ('Jesús Crespo', NULL, NULL, 'Mi Perro 10', NULL),
-('Jesús Cuellar', NULL, NULL, 'Eslon', NULL),
+('Jesús Cuellar', NULL, NULL, 'Eslón', NULL),
 ('Jesús Gómez', '', '', 'Agilcan', ''),
 ('Jesús Manuel Romero', NULL, NULL, 'Palaciego', NULL),
+('Joan Castillo', '', '', 'Maresme', ''),
 ('Joan Wenceslao Pastor', NULL, NULL, 'Valles Club Cani', NULL),
 ('Joaquín Andrés', '', '', 'Agilcan', ''),
 ('Jonathan Guillen', NULL, NULL, 'Vilcan', NULL),
 ('Jordi Boix', NULL, NULL, 'Canic', NULL),
 ('Jordi Gómez', NULL, NULL, 'Canic', NULL),
-('Jorge Arcas', NULL, NULL, 'L''Almozara', NULL),
+('Jorge Arcas Perales', '', '', 'L''Almozara', ''),
+('Jorge Bala', '', '', 'L''Almozara', ''),
 ('Jorge Muñoz', NULL, NULL, 'Cubas', NULL),
 ('Jorge Valero', NULL, NULL, 'L''Almozara', NULL),
+('José Angel Beired', '', '', 'Toskahua', ''),
 ('José Angel Torres', NULL, NULL, 'Tercans', NULL),
 ('José Antonio Encinas', NULL, NULL, 'Correcan', NULL),
 ('José Antonio Pascual', NULL, NULL, 'L''Almozara', NULL),
@@ -424,6 +488,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('José Francisco Martorell', NULL, NULL, 'Pican', NULL),
 ('José Guix', NULL, NULL, 'Pican', NULL),
 ('José Luis García', NULL, NULL, 'Zampican', NULL),
+('Jose Luis J. Mori', '', '', 'AA Y CIA', ''),
 ('José Luis Prieto', NULL, NULL, 'Illa Blanca', NULL),
 ('José Luis Quiroga', NULL, NULL, 'Cornella', NULL),
 ('José Luis Romero', NULL, NULL, 'Cubas', NULL),
@@ -439,49 +504,61 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('José Moreno', NULL, NULL, 'Cuatro Patas', NULL),
 ('José Pavon', NULL, NULL, 'Depordog', NULL),
 ('José Peris', NULL, NULL, 'Paterna', NULL),
+('Jose Ramón López', '', '', 'Eslón', ''),
 ('José Santos Luna', NULL, NULL, 'Junior', NULL),
 ('José Soliño', NULL, NULL, 'Tercans', NULL),
 ('Josep Barbera', NULL, NULL, 'Neo Reus', NULL),
 ('Josep Mª Pineda', NULL, NULL, 'Valles Club Cani', NULL),
 ('Juan Antonio Martinez', NULL, 'juansgaviota@gmail.com', 'W.E.L.P.E.', NULL),
 ('Juan Campin', NULL, NULL, 'La Princesa', NULL),
-('Juan Carlos Blas', NULL, NULL, 'Eslon', NULL),
+('Juan Carlos Blas', NULL, NULL, 'Eslón', NULL),
 ('Juan Carlos Companys', NULL, NULL, 'Costa Blanca', NULL),
 ('Juan Carlos Hinojal', NULL, NULL, 'Parbayon Cantabria', NULL),
-('Juan Carlos Redondo', NULL, NULL, 'Talavera', NULL),
+('Juan Carlos Redondo', '', '', 'Tandem', ''),
+('Juan Carlos Ruiz', '', '', 'Eslón', ''),
 ('Juan del Amo', NULL, NULL, 'Junior', NULL),
+('Juan Escos', '', '', 'La Ribera', ''),
 ('Juan Francisco Pelegrin', NULL, NULL, 'La Ribera', NULL),
 ('Juan Francisco Torres', NULL, NULL, 'Badalona', NULL),
 ('Juan José Espadas', NULL, NULL, 'Canic', NULL),
+('Juan José González', '', '', 'Pataplán', ''),
 ('Juan Luis Colmano', NULL, NULL, 'L''Almozara', NULL),
 ('Juan Manuel Caballo', NULL, NULL, 'L''Horta Nord', NULL),
 ('Juan Martín de las Blancas', '', '', 'Cubas', ''),
 ('Juan Miguel Cifuentes', NULL, NULL, 'L''Horta Nord', NULL),
 ('Juan Pablo Díaz', NULL, NULL, 'Cubas', NULL),
 ('Juan Pedro Martínez', NULL, NULL, 'Castellón', NULL),
+('Juan Rodríguez', '', '', 'La Princesa', ''),
 ('Juan Solanes', NULL, NULL, 'Vilcan', NULL),
 ('Judith Cortes', NULL, NULL, 'L''Almozara', NULL),
 ('Judith Franco', '', '', 'Cinco Huesos', ''),
 ('Judith Herms', NULL, NULL, 'Ciutat Comtal', NULL),
-('Julia Faci', NULL, NULL, 'L''Almozara', NULL),
-('Julia Morugova', NULL, NULL, 'El Nogueral', NULL),
+('Julia Faci Green', '', '', 'L''Almozara', ''),
 ('Julian Sánchez', NULL, NULL, 'Valles Club Cani', NULL),
+('Julio Freire', '', '', 'Parbayon Cantabria', ''),
 ('Katia Moeller', NULL, NULL, 'Canino Algecireño', NULL),
 ('Katy Navarro', NULL, NULL, 'Parbayon Cantabria', NULL),
 ('Laura Carrasco', NULL, NULL, 'Ciutat Comtal', NULL),
 ('Laura Chiva', NULL, NULL, 'Badalona', NULL),
+('Laura Monrabal', '', '', 'L''Almozara', ''),
 ('Lorena Díez', NULL, NULL, 'La Princesa', NULL),
 ('Lorena García', NULL, NULL, 'Parbayon Cantabria', NULL),
 ('Lorena Gargoles', NULL, NULL, 'Canic', NULL),
 ('Lourdes Giménez', NULL, NULL, 'El Hechizo del Border C.', NULL),
 ('Lourdes Peñarrocha', NULL, NULL, 'Star Can', NULL),
+('Lucía Montalbán', '', '', 'L''Almozara', ''),
+('Lucía Romero', '', '', 'Palaciego', ''),
 ('Luis Alberto Pereira', NULL, NULL, 'Parbayon Cantabria', NULL),
 ('Luis Carlos Sanchez', NULL, NULL, 'Agilcan', NULL),
+('Luis de Frías', '', '', 'La Princesa', ''),
 ('Luis Ignacio Carazo', NULL, NULL, 'Valles Club Cani', NULL),
 ('Luis Luque', NULL, NULL, 'Vallgorguina', NULL),
-('Luis Miguel Rodrigo', NULL, NULL, 'Lealcan', NULL),
-('Luisa Fernanda Millan', NULL, NULL, 'Eslon', NULL),
+('Luis Miguel Rodrigo', '', '', 'L''Horta Nord', ''),
+('Luis Miguel Rodriguez', '', '', 'La Princesa', ''),
+('Luisa Fernanda Millan', '', '', 'Pataplán', ''),
 ('Luna Ramírez', NULL, NULL, 'Maresme', NULL),
+('Maitane Luengo', '', '', 'Euskadi', ''),
+('Maite Guerrero', '', '', 'Eslón', ''),
 ('Manel Martínez', NULL, NULL, 'Valles Club Cani', NULL),
 ('Manuel Basco', NULL, NULL, 'Palaciego', NULL),
 ('Manuel Jesús García', NULL, NULL, 'Campo de Gibraltar', NULL),
@@ -489,6 +566,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Manuel Santomé', NULL, NULL, 'Tercans', NULL),
 ('Mar Bermúdez', NULL, NULL, 'Camu', NULL),
 ('Marc Rabada', NULL, NULL, 'La Daga', NULL),
+('Marco Maldonado', '', '', 'Indog Maria de Huerva', ''),
 ('Marcos Martínez', NULL, NULL, 'Pican', NULL),
 ('María López', NULL, NULL, 'Valles Club Cani', NULL),
 ('Marina López', NULL, NULL, 'Ciutat Comtal', NULL),
@@ -496,17 +574,20 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Marisa Jarabo', NULL, NULL, 'W.E.L.P.E.', NULL),
 ('Marta de la Rosa', NULL, NULL, 'Zampican', NULL),
 ('Marta Gregorio', NULL, NULL, 'Tercans', NULL),
+('Marta Jiménez', '', '', 'Agilcan', ''),
+('Marta Ponce', '', '', 'L''Almozara', ''),
 ('Marta Sánchez', NULL, NULL, 'Cubas', NULL),
 ('Massimiliano Miggiano', NULL, NULL, 'Vallgorguina', NULL),
 ('Matias Monleón', NULL, NULL, 'L''Horta Nord', NULL),
 ('Matias Rodríguez', NULL, NULL, 'Vallgorguina', NULL),
+('Menchu Melcom', '', '', 'Deporcan', ''),
 ('Mercedes Fernández', NULL, NULL, 'Star Can', NULL),
 ('Michael Volkert', NULL, NULL, 'La Selva', NULL),
 ('Miguel Angel Fernández', NULL, NULL, 'Xanastur', NULL),
-('Miguel Angel García', NULL, NULL, 'Eslon', NULL),
+('Miguel Angel García', NULL, NULL, 'Eslón', NULL),
 ('Miguel Angel Morales', NULL, NULL, 'Agilcan', NULL),
 ('Miguel Angel Soriano', NULL, NULL, 'Star Can', NULL),
-('Miguel García', NULL, NULL, 'Tercans', NULL),
+('Miguel García Rodríguez', '', '', 'Tercans', ''),
 ('Mireia Carrascoso', NULL, NULL, 'La Daga', NULL),
 ('Miriam García', NULL, NULL, 'Neo Reus', NULL),
 ('Mónica Muñiz', NULL, NULL, 'Educan', NULL),
@@ -516,13 +597,16 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Mª José Manzano', NULL, NULL, 'L''Almozara', NULL),
 ('Narciso Leita', NULL, NULL, 'La Ribera', NULL),
 ('Natalia Cuadrado', NULL, NULL, 'Cornella', NULL),
+('Natividad Ruiz García', '', '', 'Educan', ''),
 ('Natividad Soler', NULL, NULL, 'Star Can', NULL),
 ('Neus Baró', NULL, NULL, 'Canic', NULL),
 ('Noelia Gimeno', NULL, NULL, 'Paterna', NULL),
+('Noelia Mouchet', '', '', 'Vallgorguina', ''),
 ('Nuria Alonso', NULL, NULL, 'Ciutat Comtal', NULL),
 ('Nuria Costa', NULL, NULL, 'Valles Club Cani', NULL),
 ('Nuria Fortuny', NULL, NULL, 'Ciutat Comtal', NULL),
-('Nuria Morell', NULL, NULL, 'Valles Club Cani', NULL),
+('Nuria Morell Nadal', '', '', 'Valles Club Cani', ''),
+('Olga Palomares', '', '', 'Deporcan', ''),
 ('Oria Micó', NULL, NULL, 'Villena', NULL),
 ('Oscar Bravo', NULL, NULL, 'Cornella', NULL),
 ('Oscar Muñiz', NULL, NULL, 'Educan', NULL),
@@ -530,16 +614,17 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Oscar Sacristan', NULL, NULL, 'La Princesa', NULL),
 ('Pablo Ballesta', NULL, NULL, 'Camu', NULL),
 ('Pablo Miró', NULL, NULL, 'Zampican', NULL),
-('Paloma Faci', NULL, NULL, 'L''Almozara', NULL),
-('Pau Serrano', NULL, NULL, 'Illa Blanca', NULL),
+('Paloma Faci Green', '', '', 'L''Almozara', ''),
+('Pau Serrano Ciratusa', '', '', 'L''Almozara', ''),
 ('Paula de Lucas', NULL, NULL, 'Cubas', NULL),
 ('Paula Rello', NULL, NULL, 'Cubas', NULL),
 ('Paulino Iranzo', NULL, NULL, 'Pican', NULL),
-('Pedro Delgado', NULL, NULL, 'Mi Perro 10', NULL),
+('Pedro Delgado Fernandez', '', '', 'Educan', ''),
 ('Pedro Jesús Tazón', NULL, NULL, 'Parbayon Cantabria', NULL),
+('Pedro Martínez', '', '', 'Euskadi', ''),
 ('pepe', '', 'pepe@pepe.com', 'ACADE', ''),
 ('pepepepe', '', '', 'ACADE', ''),
-('Pilar Collado', NULL, NULL, 'Parbayon Cantabria', NULL),
+('Pilar Collado', '', '', 'Indog Maria de Huerva', ''),
 ('Pilar Matesanz', NULL, NULL, 'W.E.L.P.E.', NULL),
 ('Pilar Rodríguez', NULL, NULL, 'Parbayon Cantabria', NULL),
 ('Rachel Stevens', NULL, NULL, 'Neo Reus', NULL),
@@ -558,28 +643,37 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Ricardo Benito', NULL, NULL, 'W.E.L.P.E.', NULL),
 ('Ricardo Martínez', NULL, NULL, 'Depordog', NULL),
 ('Ricardo Santolaya', NULL, NULL, 'L''Almozara', NULL),
-('Roberto Castro', NULL, NULL, 'Eslon', NULL),
+('Roberto Castro', NULL, NULL, 'Eslón', NULL),
 ('Roberto Iñigo', NULL, NULL, 'Cinco Huesos', NULL),
-('Roberto Reina', NULL, NULL, 'La Princesa', NULL),
+('Roberto Reina Vega', '', '', 'La Princesa', ''),
 ('Rocio Hermelo', NULL, NULL, 'Tercans', NULL),
 ('Rocio Santos', NULL, NULL, 'Parque del Alamillo', NULL),
+('Rodrigo González', '', '', 'La Princesa', ''),
+('Roque Alonso', '', '', 'Junior', ''),
+('Ross Rubio', '', '', 'Deporcan', ''),
 ('Ruben Jurado', NULL, NULL, 'La Daga', NULL),
 ('Ruben Lopera', NULL, NULL, 'Marvi', NULL),
 ('Ruben Montero', NULL, NULL, 'La Princesa', NULL),
 ('Sabina González', NULL, NULL, 'La Selva', NULL),
 ('Salvador Martí', NULL, NULL, 'Santa Quiteria', NULL),
+('Sandra Gracia', '', '', 'L''Almozara', ''),
 ('Sara Bellido', NULL, NULL, 'Canino Algecireño', NULL),
+('Sara Lara', '', '', 'L''Horta Nord', ''),
 ('Sara Montila', NULL, NULL, 'Deporcan', NULL),
-('Sara Montoya', NULL, NULL, 'Eslon', NULL),
+('Sara Montoya', NULL, NULL, 'Eslón', NULL),
 ('Sebastian González', NULL, NULL, 'Badalona', NULL),
 ('Sergio Casalins', NULL, NULL, 'Educan', NULL),
 ('Sergio Colomé', NULL, NULL, 'L''Almozara', NULL),
 ('Sergio García', NULL, NULL, 'Vila-Real', NULL),
 ('Sergio Martín', NULL, NULL, 'L''Almozara', NULL),
+('Sergio Romeo', '', '', 'L''Almozara', ''),
 ('Sergio Ruiz', NULL, NULL, 'Correcan', NULL),
+('Sergio Tella', '', '', 'La Ribera', ''),
+('Sheila Giménez', '', '', 'L''Almozara', ''),
 ('Silvia León', NULL, NULL, 'Zampican', NULL),
-('Silvia Perea', NULL, NULL, 'W.E.L.P.E.', NULL),
+('Silvia Perea', '', '', 'W.E.L.P.E.', ''),
 ('Silvia Rodríguez', NULL, NULL, 'Valles Club Cani', NULL),
+('Sofía Díaz', '', '', 'Santa Quiteria', ''),
 ('Sonia Asensio', NULL, NULL, 'Camu', NULL),
 ('Sonia Conejero', NULL, NULL, 'Villena', NULL),
 ('Stefan Eggenschwiler', NULL, NULL, 'Torrevieja', NULL),
@@ -591,7 +685,7 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Valentín de la Mesa', NULL, NULL, 'Costa Blanca', NULL),
 ('Vanessa Calpe', NULL, NULL, 'Vila-Real', NULL),
 ('Vanessa Hermoso', NULL, NULL, 'Campo de Gibraltar', NULL),
-('Verónica Díez', NULL, NULL, 'Parbayon Cantabria', NULL),
+('Verónica Díez Gómez', '', '', 'Parbayon Cantabria', ''),
 ('Verónica Ibañez', NULL, NULL, 'Ciudad de Antequera', NULL),
 ('Verónica Rodríguez', NULL, NULL, 'La Princesa', NULL),
 ('Vicente Cambra', NULL, NULL, 'La Manada', NULL),
@@ -599,17 +693,19 @@ INSERT INTO `Guias` (`Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VAL
 ('Vicente Micó', NULL, NULL, 'Villena', NULL),
 ('Vicente Villalba', NULL, NULL, 'L''Horta Nord', NULL),
 ('Victor García', NULL, NULL, 'Marvi', NULL),
+('Wladimiro', '', '', 'L''Almozara', ''),
 ('Xavier López', NULL, NULL, 'Santa Quiteria', NULL),
 ('Yolanda Larena', NULL, NULL, 'Neo Reus', NULL),
 ('Yolanda Moreno', NULL, NULL, 'L''Horta Nord', NULL),
-('Yolanda Torres', NULL, NULL, 'Maresme', NULL);
+('Yolanda Torres', NULL, NULL, 'Maresme', NULL),
+('Yulia Morugova', '', '', 'El Nogueral', '');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Inscripciones`
 --
--- Creación: 10-01-2014 a las 07:46:48
+-- Creación: 24-02-2014 a las 07:55:23
 --
 
 DROP TABLE IF EXISTS `Inscripciones`;
@@ -622,10 +718,11 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
   `Equipo` int(4) DEFAULT NULL,
   `Pagado` int(4) NOT NULL DEFAULT '12',
   PRIMARY KEY (`ID`),
+  UNIQUE KEY `Inscripciones_dj` (`Jornada`,`IDPerro`),
   KEY `IDPerro` (`IDPerro`),
   KEY `Jornada` (`Jornada`),
   KEY `Equipo` (`Equipo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=49 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=150 ;
 
 --
 -- RELACIONES PARA LA TABLA `Inscripciones`:
@@ -643,22 +740,20 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
 
 INSERT INTO `Inscripciones` (`ID`, `Jornada`, `IDPerro`, `Celo`, `Observaciones`, `Equipo`, `Pagado`) VALUES
 (1, 1, 10, 0, '', 10, 12),
-(3, 2, 12, 0, NULL, NULL, 12),
+(3, 2, 12, 0, '', 10, 12),
 (5, 1, 563, 0, 'Test', 10, 24),
 (6, 3, 563, 0, 'Test', 10, 24),
-(12, 1, 569, 0, 'test', NULL, 12),
-(13, 3, 569, 0, 'test', NULL, 12),
-(14, 4, 569, 0, 'test', NULL, 12),
+(12, 1, 569, 0, 'test', 11, 12),
+(13, 3, 569, 0, 'test', 11, 12),
+(14, 4, 569, 0, 'test', 11, 12),
 (15, 9, 572, 0, '', 11, 12),
 (16, 9, 573, 0, '', 11, 12),
 (17, 9, 574, 0, '', 11, 24),
 (18, 10, 574, 0, '', 11, 24),
-(19, 9, 575, 0, '', 11, 24),
-(20, 10, 575, 0, '', 11, 24),
+(20, 10, 575, 1, '', 11, 24),
 (21, 9, 227, 0, '', 11, 24),
 (22, 10, 227, 0, '', 11, 24),
 (23, 10, 576, 0, '', 11, 12),
-(24, 10, 500, 0, '', 11, 12),
 (25, 9, 577, 0, '', 11, 24),
 (26, 10, 577, 0, '', 11, 24),
 (27, 9, 578, 0, '', 11, 24),
@@ -679,17 +774,74 @@ INSERT INTO `Inscripciones` (`ID`, `Jornada`, `IDPerro`, `Celo`, `Observaciones`
 (42, 10, 582, 0, '', 11, 24),
 (43, 9, 583, 0, '', 11, 24),
 (44, 10, 583, 0, '', 11, 24),
-(45, 9, 584, 0, '', 11, 24),
 (46, 10, 584, 0, '', 11, 24),
 (47, 9, 585, 0, '', 11, 24),
-(48, 10, 585, 0, '', 11, 24);
+(48, 10, 585, 0, '', 11, 24),
+(51, 9, 399, 0, '', 11, 0),
+(53, 9, 384, 1, '', 11, 24),
+(54, 10, 384, 1, '', 11, 24),
+(60, 10, 399, 0, '', 11, 24),
+(65, 9, 414, 0, '', 11, 24),
+(66, 10, 414, 0, '', 11, 24),
+(67, 9, 404, 0, '', 11, 24),
+(68, 10, 404, 0, '', 11, 24),
+(70, 9, 575, 1, '', 11, 24),
+(72, 10, 579, 0, '', 11, 12),
+(74, 9, 563, 0, '', 11, 24),
+(75, 10, 563, 0, '', 11, 24),
+(108, 9, 564, 0, '', 11, 24),
+(109, 10, 564, 0, '', 11, 24),
+(122, 9, 569, 0, '', 11, 24),
+(123, 10, 569, 0, '', 11, 24),
+(124, 9, 500, 0, '', 11, 12),
+(125, 9, 558, 0, '', 11, 12),
+(126, 9, 496, 0, '', 11, 12),
+(127, 9, 467, 0, '', 11, 12),
+(130, 9, 272, 0, '', 11, 0),
+(131, 10, 272, 0, '', 11, 0),
+(132, 9, 147, 0, '', 11, 0),
+(133, 10, 147, 0, '', 11, 0),
+(134, 9, 130, 0, '', 11, 0),
+(135, 10, 130, 0, '', 11, 0),
+(136, 9, 101, 0, '', 11, 0),
+(137, 10, 101, 0, '', 11, 0),
+(138, 9, 111, 0, '', 11, 0),
+(139, 10, 111, 0, '', 11, 0),
+(140, 9, 273, 0, '', 11, 0),
+(141, 10, 273, 0, '', 11, 0),
+(142, 9, 13, 0, '', 11, 0),
+(143, 10, 13, 0, '', 11, 0),
+(144, 9, 395, 0, '', 11, 0),
+(145, 10, 395, 0, '', 11, 0),
+(148, 9, 94, 0, '', 11, 0),
+(149, 10, 94, 0, '', 11, 0);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `InscritosJornada`
+--
+DROP VIEW IF EXISTS `InscritosJornada`;
+CREATE TABLE IF NOT EXISTS `InscritosJornada` (
+`IDPerro` int(4)
+,`Equipo` int(4)
+,`Jornada` int(4)
+,`Celo` tinyint(1)
+,`Observaciones` varchar(255)
+,`Nombre` varchar(255)
+,`Licencia` varchar(255)
+,`Categoria` varchar(1)
+,`Grado` varchar(16)
+,`Guia` varchar(255)
+,`Club` varchar(255)
+,`Orden` double
+);
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Jornadas`
 --
--- Creación: 10-01-2014 a las 07:46:48
+-- Creación: 24-02-2014 a las 07:55:23
 --
 
 DROP TABLE IF EXISTS `Jornadas`;
@@ -746,7 +898,7 @@ INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Gr
 --
 -- Estructura de tabla para la tabla `Jueces`
 --
--- Creación: 10-01-2014 a las 07:46:46
+-- Creación: 24-02-2014 a las 07:55:21
 --
 
 DROP TABLE IF EXISTS `Jueces`;
@@ -798,7 +950,7 @@ INSERT INTO `Jueces` (`Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `Interna
 --
 -- Estructura de tabla para la tabla `Mangas`
 --
--- Creación: 10-01-2014 a las 07:50:29
+-- Creación: 24-02-2014 a las 07:55:24
 --
 
 DROP TABLE IF EXISTS `Mangas`;
@@ -806,49 +958,51 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
   `Jornada` int(4) NOT NULL,
   `Tipo` varchar(16) NOT NULL DEFAULT 'Otras',
-  `Grado` varchar(16) NOT NULL DEFAULT '-', 
-  `Recorrido`		int(4) NOT NULL DEFAULT '0', -- 0:LMS -- 1:L+MS -- 2:L+M+S
-  `Dist_L`			int(4) NOT NULL DEFAULT '0',
-  `Obst_L`			int(4) NOT NULL DEFAULT '0',
-  `Dist_M`			int(4) NOT NULL DEFAULT '0',
-  `Obst_M`			int(4) NOT NULL DEFAULT '0',
-  `Dist_S`			int(4) NOT NULL DEFAULT '0',
-  `Obst_S`			int(4) NOT NULL DEFAULT '0',
-  `TRS_L_Tipo` 		int(4) NOT NULL DEFAULT '0',
-  `TRS_L_Factor` 	int(4) NOT NULL DEFAULT '0',
-  `TRS_L_Unit` 		varchar(1) NOT NULL DEFAULT 's',
-  `TRM_L_Tipo` 		int(4) NOT NULL DEFAULT '1',
-  `TRM_L_Factor` 	int(4) NOT NULL DEFAULT '50',
-  `TRM_L_Unit`		varchar(1) NOT NULL DEFAULT '%',
-  `TRS_M_Tipo`		int(4) NOT NULL DEFAULT '0',
-  `TRS_M_Factor`	int(4) NOT NULL DEFAULT '0',
-  `TRS_M_Unit`		varchar(1) NOT NULL DEFAULT 's',
-  `TRM_M_Tipo`		int(4) NOT NULL DEFAULT '1',
-  `TRM_M_Factor`	int(4) NOT NULL DEFAULT '50',
-  `TRM_M_Unit`		varchar(1) NOT NULL DEFAULT '%',
-  `TRS_S_Tipo`		int(4) NOT NULL DEFAULT '0',
-  `TRS_S_Factor`	int(4) NOT NULL DEFAULT '0',
-  `TRS_S_Unit`		varchar(1) NOT NULL DEFAULT 's',
-  `TRM_S_Tipo`		int(4) NOT NULL DEFAULT '1',
-  `TRM_S_Factor`	int(4) NOT NULL DEFAULT '50',
-  `TRM_S_Unit`		varchar(1) NOT NULL DEFAULT '%',
-  `Juez1`			varchar(255) DEFAULT '-- Sin asignar --',
-  `Juez2`			varchar(255) DEFAULT '-- Sin asignar --',
-  `Observaciones`	varchar(255) DEFAULT NULL,
-  `Cerrada`			tinyint(1) NOT NULL DEFAULT '0',
-  `Orden_Salida`	text NOT NULL DEFAULT '',
+  `Grado` varchar(16) NOT NULL DEFAULT '-',
+  `Recorrido` int(4) NOT NULL DEFAULT '0',
+  `Dist_L` int(4) NOT NULL DEFAULT '0',
+  `Obst_L` int(4) NOT NULL DEFAULT '0',
+  `Dist_M` int(4) NOT NULL DEFAULT '0',
+  `Obst_M` int(4) NOT NULL DEFAULT '0',
+  `Dist_S` int(4) NOT NULL DEFAULT '0',
+  `Obst_S` int(4) NOT NULL DEFAULT '0',
+  `TRS_L_Tipo` int(4) NOT NULL DEFAULT '0',
+  `TRS_L_Factor` int(4) NOT NULL DEFAULT '0',
+  `TRS_L_Unit` varchar(1) NOT NULL DEFAULT 's',
+  `TRM_L_Tipo` int(4) NOT NULL DEFAULT '1',
+  `TRM_L_Factor` int(4) NOT NULL DEFAULT '50',
+  `TRM_L_Unit` varchar(1) NOT NULL DEFAULT '%',
+  `TRS_M_Tipo` int(4) NOT NULL DEFAULT '0',
+  `TRS_M_Factor` int(4) NOT NULL DEFAULT '0',
+  `TRS_M_Unit` varchar(1) NOT NULL DEFAULT 's',
+  `TRM_M_Tipo` int(4) NOT NULL DEFAULT '1',
+  `TRM_M_Factor` int(4) NOT NULL DEFAULT '50',
+  `TRM_M_Unit` varchar(1) NOT NULL DEFAULT '%',
+  `TRS_S_Tipo` int(4) NOT NULL DEFAULT '0',
+  `TRS_S_Factor` int(4) NOT NULL DEFAULT '0',
+  `TRS_S_Unit` varchar(1) NOT NULL DEFAULT 's',
+  `TRM_S_Tipo` int(4) NOT NULL DEFAULT '1',
+  `TRM_S_Factor` int(4) NOT NULL DEFAULT '50',
+  `TRM_S_Unit` varchar(1) NOT NULL DEFAULT '%',
+  `Juez1` varchar(255) DEFAULT '-- Sin asignar --',
+  `Juez2` varchar(255) DEFAULT '-- Sin asignar --',
+  `Observaciones` varchar(255) DEFAULT NULL,
+  `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
+  `Orden_Salida` text NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `Mangas_Tipo` (`Tipo`),
-  KEY `Mangas_Juez Titular` (`Juez1`),
-  KEY `Mangas_Juez Practicas` (`Juez2`),
-  KEY `Mangas_Jornada` (`Jornada`),
-  KEY `Mangas_Grado` (`Grado`)
+  KEY `Tipo` (`Tipo`),
+  KEY `Grado` (`Grado`),
+  KEY `Juez Titular` (`Juez1`),
+  KEY `Juez Practicas` (`Juez2`),
+  KEY `Jornada` (`Jornada`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
 
 --
 -- RELACIONES PARA LA TABLA `Mangas`:
 --   `Tipo`
 --       `Tipo_Manga` -> `Tipo`
+--   `Grado`
+--       `Grados_Perro` -> `Grado`
 --   `Juez1`
 --       `Jueces` -> `Nombre`
 --   `Juez2`
@@ -861,26 +1015,26 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
 -- Volcado de datos para la tabla `Mangas`
 --
 
-INSERT INTO `Mangas` (`ID`, `Jornada`, `Tipo`, `Observaciones`, `Cerrada`, `Orden_Salida`) VALUES
-(1, 9, 'Agility-1 GI',  NULL, 0, NULL),
-(2, 9, 'Agility-2 GI',  NULL, 0, NULL),
-(3, 9, 'Agility GII',   NULL, 0, NULL),
-(4, 9, 'Jumping GII',   NULL, 0, NULL),
-(5, 9, 'Agility GIII',  NULL, 0, NULL),
-(6, 9, 'Jumping GIII',  NULL, 0, NULL),
-(8, 10, 'Agility-1 GI', NULL, 0, NULL),
-(9, 10, 'Agility-2 GI', NULL, 0, NULL),
-(10, 10, 'Agility GII', NULL, 0, NULL),
-(11, 10, 'Jumping GII', NULL, 0, NULL),
-(12, 10, 'Agility GIII', NULL, 0, NULL),
-(13, 10, 'Jumping GIII', NULL, 0, NULL),
-(16, 1, 'Agility-1 GI', NULL, 0, NULL),
-(17, 1, 'Agility-2 GI', NULL, 0, NULL),
-(18, 1, 'Agility GII',  NULL, 0, NULL),
-(19, 1, 'Jumping GII',  NULL, 0, NULL),
-(20, 1, 'Agility GIII', NULL, 0, NULL),
-(21, 1, 'Jumping GIII', NULL, 0, NULL),
-(24, 9, 'Pre-Agility',  NULL, 0, NULL);
+INSERT INTO `Mangas` (`ID`, `Jornada`, `Tipo`, `Grado`, `Recorrido`, `Dist_L`, `Obst_L`, `Dist_M`, `Obst_M`, `Dist_S`, `Obst_S`, `TRS_L_Tipo`, `TRS_L_Factor`, `TRS_L_Unit`, `TRM_L_Tipo`, `TRM_L_Factor`, `TRM_L_Unit`, `TRS_M_Tipo`, `TRS_M_Factor`, `TRS_M_Unit`, `TRM_M_Tipo`, `TRM_M_Factor`, `TRM_M_Unit`, `TRS_S_Tipo`, `TRS_S_Factor`, `TRS_S_Unit`, `TRM_S_Tipo`, `TRM_S_Factor`, `TRM_S_Unit`, `Juez1`, `Juez2`, `Observaciones`, `Cerrada`, `Orden_Salida`) VALUES
+(1, 9, 'Agility-1 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 'Beltrán Bustamante, Ana', '-- Sin asignar --', 'esto es una prueba', 0, ''),
+(2, 9, 'Agility-2 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(3, 9, 'Agility GII', 'GII', 0, 165, 21, 165, 21, 165, 21, 2, 15, '%', 1, 50, '%', 3, 2, 's', 1, 40, 's', 3, 2, 's', 1, 40, 's', 'Beltrán Bustamante, Ana', '-- Sin asignar --', 'Primera manga. ', 0, 'BEGIN,TAG_-0,TAG_-1,TAG_L0,33,579,227,574,578,558,272,TAG_L1,575,TAG_M0,563,564,577,414,404,TAG_M1,384,TAG_S0,496,500,585,TAG_S1,TAG_T0,TAG_T1,END'),
+(4, 9, 'Jumping GII', 'GII', 0, 165, 19, 165, 19, 165, 19, 2, 15, '%', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', '', 0, 'BEGIN,TAG_-0,TAG_-1,TAG_L0,227,574,579,558,33,578,272,TAG_L1,575,TAG_M0,563,414,404,577,564,TAG_M1,384,TAG_S0,500,496,585,TAG_S1,TAG_T0,TAG_T1,END'),
+(5, 9, 'Agility GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(6, 9, 'Jumping GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', '', 0, ''),
+(8, 10, 'Agility-1 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(9, 10, 'Agility-2 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(10, 10, 'Agility GII', 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(11, 10, 'Jumping GII', 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(12, 10, 'Agility GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(13, 10, 'Jumping GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(16, 1, 'Agility-1 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(17, 1, 'Agility-2 GI', 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(18, 1, 'Agility GII', 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(19, 1, 'Jumping GII', 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(20, 1, 'Agility GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(21, 1, 'Jumping GIII', 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, ''),
+(24, 9, 'Pre-Agility', 'P.A.', 0, 0, 0, 0, 0, 0, 0, 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', 0, 0, 's', 1, 50, '%', '-- Sin asignar --', '-- Sin asignar --', NULL, 0, '');
 
 -- --------------------------------------------------------
 
@@ -904,7 +1058,7 @@ CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 --
 -- Estructura de tabla para la tabla `Perros`
 --
--- Creación: 10-01-2014 a las 07:46:49
+-- Creación: 24-02-2014 a las 07:55:24
 --
 
 DROP TABLE IF EXISTS `Perros`;
@@ -913,15 +1067,15 @@ CREATE TABLE IF NOT EXISTS `Perros` (
   `Nombre` varchar(255) NOT NULL,
   `Raza` varchar(255) DEFAULT NULL,
   `LOE_RRC` varchar(255) DEFAULT NULL,
-  `Licencia` varchar(255) DEFAULT NULL,
+  `Licencia` varchar(255) DEFAULT '--------',
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
-  `Guia` varchar(255) DEFAULT 'Sin guia',
+  `Guia` varchar(255) DEFAULT '-- Sin asignar --',
   `Grado` varchar(16) DEFAULT '-',
   PRIMARY KEY (`IDPerro`),
   KEY `Perros_ibfk_3` (`Guia`),
   KEY `Perros_ibfk_1` (`Categoria`),
   KEY `Perros_ibfk_2` (`Grado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=586 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=740 ;
 
 --
 -- RELACIONES PARA LA TABLA `Perros`:
@@ -939,127 +1093,127 @@ CREATE TABLE IF NOT EXISTS `Perros` (
 
 INSERT INTO `Perros` (`IDPerro`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`, `Guia`, `Grado`) VALUES
 (10, 'Yuma', 'P.B.Malinoise', '1936256', 'A330', 'L', 'Juan Miguel Cifuentes', 'GIII'),
-(11, 'Hannibal', NULL, '1764520', 'A090', 'L', 'Tomás Pérez', '-'),
-(12, 'Ardi', '', '79097', '729', 'L', 'Paloma Faci', '-'),
+(11, 'Hannibal', '', '1764520', 'A090', 'L', 'Tomás Pérez', 'GIII'),
+(12, 'Ardi', '', '79097', '729', 'L', 'Paloma Faci Green', '-'),
 (13, 'William', NULL, '1667920', '920', 'L', 'Jenny Funcke', '-'),
 (14, 'Xonny', NULL, '1317156', '622', 'L', 'Cesar Losada', '-'),
-(15, 'Indiana Jones', NULL, '1720531', '987', 'L', 'Juan Francisco Pelegrin', '-'),
-(16, 'Thelma', NULL, '1515702', '824', 'L', 'Ricardo Santolaya', '-'),
-(17, 'Boss', NULL, '1528991', '797', 'L', 'Oscar Muñiz', '-'),
-(18, 'Lee', '', '95245', 'A084', 'L', 'Antonio Molina', 'GIII'),
+(15, 'Indiana Jones', '', '1720531', '987', 'L', 'Juan Francisco Pelegrin', 'GIII'),
+(16, 'Thelma', '', '1515702', '824', 'L', 'Ricardo Santolaya', 'GIII'),
+(17, 'Boss', '', '1528991', '797', 'L', 'Oscar Muñiz', 'GIII'),
+(18, 'Lee', 'Border Collie', '95245', 'A084', 'L', 'Antonio Molina', 'GIII'),
 (19, 'Chinouk', NULL, '1390419', '724', 'L', 'Michael Volkert', '-'),
 (20, 'Angie', NULL, '1370168', '691', 'L', 'Antonio Molina', '-'),
-(21, 'Burundi', NULL, '1874262', 'A310', 'L', 'Elena Chinchilla', '-'),
-(22, 'Piter', NULL, '110594', 'A360', 'L', 'Cristofol Albert', '-'),
-(23, 'Napa', NULL, '1975832', 'A401', 'L', 'Paloma Faci', '-'),
-(24, 'Gon', NULL, '1725855', 'A024', 'L', 'Manuel Santomé', '-'),
-(25, 'Valerie', NULL, '1467667', '786', 'L', 'Manel Martínez', '-'),
-(26, 'Woman', '', '1866186', 'A206', 'L', 'Javier Mora', 'GIII'),
+(21, 'Burundi', '', '1874262', 'A310', 'L', 'Elena Chinchilla', 'GIII'),
+(22, 'Piter', '', '110594', 'A360', 'L', 'Cristofol Albert', 'GIII'),
+(23, 'Napa', '', '1975832', 'A401', 'L', 'Paloma Faci Green', 'GIII'),
+(24, 'Gon', '', '1725855', 'A024', 'L', 'Manuel Santomé', 'GIII'),
+(25, 'Valerie', '', '1467667', '786', 'L', 'Manel Martínez', 'GIII'),
+(26, 'Woman', '', '1866186', 'A206', 'L', 'Javier Mora Canales', 'GIII'),
 (27, 'Baloo', NULL, '86974', '991', 'L', 'Pilar Collado', '-'),
 (28, 'Piter Winers', NULL, '100338', 'A188', 'L', 'José Guix', '-'),
 (29, 'Lula', NULL, '1891977', 'A344', 'L', 'Angel Puertolas', '-'),
 (30, 'Karen', NULL, '1970258', 'A427', 'L', 'Amparo Roig', '-'),
-(31, 'Runa', NULL, '112361', 'A347', 'L', 'Alex Olivera', '-'),
+(31, 'Runa', '', '112361', 'A347', 'L', 'Alex Olivera', 'GIII'),
 (33, 'Chiruca', '', '1635759', '986', 'L', 'Antonio Fernández', 'GII'),
-(35, 'Moss', NULL, '113891', 'A391', 'L', 'Roberto Iñigo', '-'),
-(36, 'Nena', NULL, '1521753', '930', 'L', 'Julia Faci', '-'),
-(38, 'Deby', NULL, '101610', 'A147', 'L', 'Cesar Losada', '-'),
-(39, 'Noah', NULL, '1887262', 'A268', 'L', 'Vicente Villalba', '-'),
+(35, 'Moss', '', '113891', 'A391', 'L', 'Roberto Iñigo', 'GIII'),
+(36, 'Nena', NULL, '1521753', '930', 'L', 'Julia Faci Green', '-'),
+(38, 'Deby', 'BorderCollie', '101610', 'A147', 'L', 'Cesar Losada', 'GIII'),
+(39, 'Noah', '', '1887262', 'A268', 'L', 'Vicente Villalba', 'GIII'),
 (40, 'Sil', NULL, '1831356', 'A150', 'L', 'Manuel Santomé', '-'),
-(41, 'Furia', NULL, '1554907', '892', 'L', 'Nuria Fortuny', '-'),
-(42, 'Mc Coy', NULL, '1905162', 'A322', 'L', 'Carmen Sotomayor', '-'),
-(43, 'Argi', NULL, '110120', 'A241', 'L', 'Manuel Basco', '-'),
+(41, 'Furia', '', '1554907', '892', 'L', 'Nuria Fortuny', 'GIII'),
+(42, 'Mc Coy', 'Border Collie', '1905162', 'A322', 'L', 'Carmen Sotomayor', 'GIII'),
+(43, 'Argi', '', '110120', 'A241', 'L', 'Manuel Basco', 'GIII'),
 (44, 'Lua', NULL, '118441', 'A327', 'L', 'José Manuel Linares', '-'),
-(45, 'Zoe', NULL, '109748', 'A289', 'L', 'Marta Sánchez', '-'),
+(45, 'Zoe', '', '109748', 'A289', 'L', 'Marta Sánchez', 'GIII'),
 (47, 'Juice', NULL, '117997', 'A387', 'L', 'Berit Kittel', '-'),
 (48, 'Vega', NULL, '1552296', '855', 'L', 'Amparo Roig', '-'),
 (49, 'Idris', NULL, '83909', '880', 'L', 'Narciso Leita', '-'),
 (51, 'Izar', NULL, '1596718', '851', 'L', 'Francisco Martín', '-'),
-(52, 'Pica', NULL, '104103', 'A091', 'L', 'Alberto Costas', '-'),
-(53, 'Nana', NULL, '1780849', 'A073', 'L', 'José Luis García', '-'),
+(52, 'Pica', '', '104103', 'A091', 'L', 'Alberto Costas', 'GIII'),
+(53, 'Nana', '', '1780849', 'A073', 'L', 'José Luis García', 'GIII'),
 (54, 'Tara', NULL, 'No tiene', '1466', 'L', 'Oscar Reboredo', '-'),
-(56, 'Finn', NULL, '2074557', 'A596', 'L', 'Rachel Stevens', '-'),
-(57, 'Rocky', NULL, '1796496', 'A355', 'L', 'Arturo Conejera', '-'),
-(58, 'Neil', NULL, '122117', 'A417', 'L', 'Isidoro Vázquez', '-'),
-(59, 'Asia', NULL, '1958017', 'A364', 'L', 'José Luis Romero', '-'),
-(60, 'Xodro', NULL, '1959124', 'A371', 'L', 'Carlos Martínez', '-'),
+(56, 'Finn', '', '2074557', 'A596', 'L', 'Rachel Stevens', 'GIII'),
+(57, 'Rocky', '', '1796496', 'A355', 'L', 'Arturo Conejera', 'GIII'),
+(58, 'Neil', 'Flat Coated Retriever', '122117', 'A417', 'L', 'Isidoro Vázquez', '-'),
+(59, 'Asia', 'Border Collie', '1958017', 'A364', 'L', 'José Luis Romero', 'GIII'),
+(60, 'Xodro', 'BorderCollie', '1959124', 'A371', 'L', 'Carlos Martínez', 'GIII'),
 (61, 'Bec', NULL, '87712', '979', 'L', 'José Martí', '-'),
 (62, 'Bely', NULL, '1370171', '692', 'L', 'Francisco Pérez', '-'),
-(63, 'Laia', NULL, '1594320', '921', 'L', 'Israel Fernández', '-'),
-(64, 'Bamba', NULL, '1887258', 'A242', 'L', 'Andrea García', '-'),
-(65, 'Akane', NULL, '101429', 'A249', 'L', 'Gerardo González', '-'),
-(66, 'Mister', NULL, '99971', 'A250', 'L', 'Angelica Castaño', '-'),
+(63, 'Laia', '', '1594320', '921', 'L', 'Israel Fernández', 'GIII'),
+(64, 'Bamba', '', '1887258', 'A242', 'L', 'Andrea García', 'GII'),
+(65, 'Akane', 'Euskal A Txakurra', '101429', 'A249', 'L', 'Gerardo González', 'GIII'),
+(66, 'Mister', 'Border Collie', '99971', 'A250', 'L', 'Angelica Castaño', 'GII'),
 (67, 'Spyro', NULL, '89457', 'A155', 'L', 'Angel Puertolas', '-'),
 (68, 'Becho', NULL, '1831350', 'A203', 'L', 'Alejandro Piñeiro', '-'),
 (69, 'Luna', NULL, '1798021', 'A163', 'L', 'Vicente Micó', '-'),
-(70, 'Buh', NULL, '1929147', 'A297', 'L', 'Pilar Collado', '-'),
-(71, 'Aby', NULL, '105806', 'A204', 'L', 'Roberto Reina', '-'),
-(72, 'Yuma', NULL, '113067', 'A385', 'L', 'Luis Alberto Pereira', '-'),
+(70, 'Buh', '', '1929147', 'A297', 'L', 'Pilar Collado', 'GIII'),
+(71, 'Aby', 'Border Collie', '105806', 'A204', 'L', 'Roberto Reina Vega', 'GIII'),
+(72, 'Yuma', '', '113067', 'A385', 'L', 'Luis Alberto Pereira', 'GIII'),
 (73, 'Zak', NULL, '1831579', 'A160', 'L', 'Pablo Miró', '-'),
-(75, 'Tanga', NULL, '119678', 'A366', 'L', 'Sara Montoya', '-'),
-(76, 'Viconte', NULL, '1561797', '813', 'L', 'Verónica Rodríguez', '-'),
-(77, 'Dela', NULL, '2028765', 'A377', 'L', 'Luis Luque', '-'),
+(75, 'Tanga', 'Border Collie', '119678', 'A366', 'L', 'Sara Montoya', 'GIII'),
+(76, 'Viconte', 'Mudi', '1561797', '813', 'L', 'Luis Miguel Rodriguez', 'GII'),
+(77, 'Dela', '', '2028765', 'A377', 'L', 'Luis Luque', 'GII'),
 (78, 'Brus', NULL, '1763613', 'A140', 'L', 'David Parejo', '-'),
-(80, 'King', NULL, '1520008', '856', 'L', 'Mónica Muñiz', '-'),
-(81, 'Brujostel', NULL, '1717447', 'A231', 'L', 'Julia Morugova', '-'),
-(83, 'Kora', NULL, '111627', 'A332', 'L', 'Pedro Delgado', '-'),
+(80, 'King', '', '1520008', '856', 'L', 'Mónica Muñiz', 'GIII'),
+(81, 'Brujostel', 'Border Collie', '1717447', 'A231', 'L', 'Yulia Morugova', 'GIII'),
+(83, 'Kora', 'P.B.Malinoise', '111627', 'A332', 'L', 'Pedro Delgado Fernandez', 'GII'),
 (84, 'Rubia', NULL, '127474', 'A481', 'L', 'Luis Miguel Rodrigo', '-'),
-(85, 'Fito', NULL, '127473', 'A529', 'L', 'Luis Miguel Rodrigo', '-'),
+(85, 'Fito', '', '127473', 'A529', 'L', 'Luis Miguel Rodrigo', 'GIII'),
 (86, 'Visente', NULL, '116863', 'A359', 'L', 'Paulino Iranzo', '-'),
 (87, 'Maia', NULL, '1780846', 'A132', 'L', 'Arcadio Nohales', '-'),
-(88, 'Mecha', '', '129549', 'A558', 'L', 'José Antonio Encinas', 'GIII'),
+(88, 'Mecha', 'P.B.Malinoise', '129549', 'A558', 'L', 'José Antonio Encinas', 'GIII'),
 (89, 'Ari', NULL, '1893230', 'A301', 'L', 'Anna Aguilella', '-'),
-(90, 'Aslan', NULL, '1970223', 'A457', 'L', 'Iban Cubedo', '-'),
-(91, 'Mambo', NULL, '1392048', '753', 'L', 'Eduard Giralt', '-'),
-(93, 'Nut', NULL, '120681', 'A430', 'L', 'Mónica Rodríguez', '-'),
+(90, 'Aslan', '', '1970223', 'A457', 'L', 'Iban Cubedo', 'GIII'),
+(91, 'Mambo', '', '1392048', '753', 'L', 'Eduard Giralt Canadell', 'GIII'),
+(93, 'Nut', '', '120681', 'A430', 'L', 'Mónica Rodríguez', 'GII'),
 (94, 'Xena', NULL, '1570666', 'A118', 'L', 'José Miguel Agustín', '-'),
 (95, 'Fiona', NULL, '2010068', 'A491', 'L', 'Rafael Altava', '-'),
-(96, 'Winner', 'Border Collie', '127815', 'A497', 'L', 'Ricardo Santolaya', 'Baja'),
-(97, 'Jade', NULL, '120128', 'A522', 'L', 'Gerardo González', '-'),
-(98, 'Dasher', NULL, '2000291', 'A411', 'L', 'Juan Francisco Pelegrin', '-'),
+(96, 'Winner', 'Border Collie', '127815', 'A497', 'L', 'Ricardo Santolaya', 'GII'),
+(97, 'Jade', 'skal A Txakurra', '120128', 'A522', 'L', 'Gerardo González', 'GIII'),
+(98, 'Dasher', '', '2000291', 'A411', 'L', 'Juan Francisco Pelegrin', 'GIII'),
 (99, 'Gaston', NULL, '1717449', 'A340', 'L', 'Francisco Pérez', '-'),
 (100, 'Pipo', NULL, '118271', 'A458', 'L', 'Rafael Fernández', '-'),
 (101, 'Grey', NULL, '1717450', 'A066', 'L', 'Araceli Montero', '-'),
-(102, 'Maty', NULL, '1964043', 'A333', 'L', 'Roberto Castro', '-'),
-(104, 'Dylan', NULL, '127444', 'A461', 'L', 'Iván Sánchez', '-'),
+(102, 'Maty', 'Border Collie', '1964043', 'A333', 'L', 'Cristina Cortijo', 'GII'),
+(104, 'Dylan', '', '127444', 'A461', 'L', 'Iván Sánchez García', 'GIII'),
 (106, 'Magia', NULL, '1753228', 'A104', 'L', 'Carolina Verdú', '-'),
 (107, 'Lia', NULL, '1842317', 'A389', 'L', 'Silvia León', '-'),
 (108, 'Coma', NULL, '1957039', 'A538', 'L', 'Diana Cozar', '-'),
-(109, 'Isis', NULL, '1443353', '838', 'L', 'Ana Alonso', '-'),
+(109, 'Isis', '', '1443353', '838', 'L', 'Ana Alonso', 'GIII'),
 (110, 'Otto', NULL, '91641', 'A070', 'L', 'Rafael García', '-'),
-(111, 'Nana', NULL, '1781905', 'A225', 'L', 'Enrique Herbera', '-'),
-(113, 'Assucar', NULL, '1594318', '992', 'L', 'Juan Carlos Redondo', '-'),
-(114, 'Fantastico', NULL, '109814', 'A218', 'L', 'Pau Serrano', '-'),
-(115, 'Panda', NULL, '1936233', 'A474', 'L', 'Lorena Díez', '-'),
-(116, 'Raissa', NULL, '131570', 'A563', 'L', 'Javier Iniesta', '-'),
+(111, 'Nana', '', '1781905', 'A225', 'L', 'Enrique Herbera', 'GII'),
+(113, 'Assucar', 'Border Collie', '1594318', '992', 'L', 'Juan Carlos Redondo', 'GII'),
+(114, 'Fantastico', NULL, '109814', 'A218', 'L', 'Pau Serrano Ciratusa', '-'),
+(115, 'Panda', 'Border Collie', '1936233', 'A474', 'L', 'Lorena Díez', 'GII'),
+(116, 'Raissa', '', '131570', 'A563', 'L', 'Javier Iniesta', 'GII'),
 (119, 'Nuka', NULL, '127265', 'A486', 'L', 'Alex Sabini', '-'),
-(120, 'Halcon', NULL, '126805', 'A482', 'L', 'Carlos Serra', '-'),
-(121, 'California', NULL, '1967653', 'A414', 'L', 'Jorge Arcas', '-'),
+(120, 'Halcon', '', '126805', 'A482', 'L', 'Carlos Serra', 'GIII'),
+(121, 'California', '', '1967653', 'A414', 'L', 'Jorge Arcas Perales', 'GII'),
 (122, 'Astra', NULL, '1551831', '783', 'L', 'Alejandro Piñeiro', '-'),
-(123, 'Fito', NULL, '1980971', 'A490', 'L', 'Silvia León', '-'),
+(123, 'Fito', '', '1980971', 'A490', 'L', 'Silvia León', 'GII'),
 (124, 'Magic-Black', NULL, '101184', 'A318', 'L', 'Raquel Garrido', '-'),
 (125, 'Blacky', NULL, 'No tiene', '1493', 'L', 'Marina López', '-'),
-(126, 'Red Magic', NULL, '1834052', 'A124', 'L', 'Carlos Martínez', '-'),
-(127, 'Beauty', NULL, '120728', 'A452', 'L', 'Pau Serrano', '-'),
+(126, 'Red Magic', 'Border Collie', '1834052', 'A124', 'L', 'Elena Miguel', 'GII'),
+(127, 'Beauty', '', '120728', 'A452', 'L', 'Pau Serrano Ciratusa', 'GIII'),
 (128, 'Savannah', NULL, '1627377', '833', 'L', 'Ana Ontañon', '-'),
-(129, 'Ra', NULL, '2009048', 'A494', 'L', 'Manuel Santomé', '-'),
+(129, 'Ra', '', '2009048', 'A494', 'L', 'Manuel Santomé', 'GII'),
 (130, 'Flay', NULL, '123186', 'A418', 'L', 'Gregorio Conde', '-'),
 (131, 'Bu', NULL, '111416', 'A519', 'L', 'Rafael Torregrosa', '-'),
 (132, 'Heidy', NULL, '1727593', 'A035', 'L', 'Sergio Martín', '-'),
 (133, 'Kiko', NULL, '1780843', 'A145', 'L', 'Ernesto Sorribes', '-'),
 (134, 'Koba', NULL, '1533440', '843', 'L', 'Imanol López', '-'),
 (135, 'Kiwi', NULL, '1908098', 'A267', 'L', 'Imanol López', '-'),
-(136, 'Yun', NULL, '2001179', 'A484', 'L', 'Concepción Fernández', '-'),
+(136, 'Yun', 'Border Collie', '2001179', 'A484', 'L', 'Concepción Fernández', 'GII'),
 (137, 'Nora', NULL, '80601', '735', 'L', 'Silvia Rodríguez', '-'),
 (139, 'Liss', NULL, '1779665', 'A212', 'L', 'David Parejo', '-'),
-(141, 'Rayko', NULL, '2027590', 'A321', 'L', 'Paula de Lucas', '-'),
+(141, 'Rayko', 'Border Collie', '2027590', 'A321', 'L', 'Paula de Lucas', 'GIII'),
 (143, 'Nani', NULL, '1838888', 'A238', 'L', 'Judith Cortes', '-'),
-(146, 'Rasca', NULL, '2047380', 'A564', 'L', 'Alberto Costas', '-'),
-(147, 'Abby', NULL, '2104382', 'A533', 'L', 'Jenny Funcke', '-'),
+(146, 'Rasca', '', '2047380', 'A564', 'L', 'Alberto Costas', 'GIII'),
+(147, 'Abby', '', '2104382', 'A533', 'L', 'Jenny Funcke', '-'),
 (150, 'Merlin', NULL, '1996593', 'A523', 'L', 'Diana García', '-'),
-(151, 'Rusti', NULL, '1831356', 'A227', 'L', 'Francisco José Sousa', '-'),
-(153, 'Cora', NULL, 'No tiene', '1525', 'L', 'Angel Insa', '-'),
-(154, 'Dux', NULL, '1727100', 'A134', 'L', 'Francisco Sobral', '-'),
+(151, 'Rusti', '', '1831356', 'A227', 'L', 'Francisco José Sousa', 'GII'),
+(153, 'Cora', '', 'No tiene', '1525', 'L', 'Angel Insa', 'GII'),
+(154, 'Dux', '', '1727100', 'A134', 'L', 'Francisco Sobral', 'GIII'),
 (155, 'Urko', NULL, '127390', 'A565', 'L', 'Carlos Iglesias', '-'),
 (156, 'Blues', NULL, '1756737', 'A083', 'L', 'Marcos Martínez', '-'),
 (157, 'Lia', NULL, 'No tiene', '1481', 'L', 'Lourdes Peñarrocha', '-'),
@@ -1070,7 +1224,7 @@ INSERT INTO `Perros` (`IDPerro`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categ
 (164, 'Dunja', NULL, '131504', 'A568', 'L', 'Antje Lippold', '-'),
 (165, 'Nova', NULL, '1472107', '765', 'L', 'Nuria Costa', '-'),
 (166, 'Nuca', NULL, '105491', 'A431', 'L', 'Rafael Camacho', '-'),
-(168, 'Nora', NULL, '113894', 'A356', 'L', 'Raúl Sánchez', '-'),
+(168, 'Nora', 'Braco', '113894', 'A356', 'L', 'Raúl Sánchez', 'GII'),
 (170, 'Kimi', NULL, '1908103', 'A271', 'L', 'Daniel Luna', '-'),
 (174, 'Samba', NULL, '131663', 'A608', 'L', 'Carlos Casado', '-'),
 (176, 'Liss', NULL, '1988114', 'A429', 'L', 'Dolores Sampedro', '-'),
@@ -1082,9 +1236,9 @@ INSERT INTO `Perros` (`IDPerro`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categ
 (188, 'Aragorn', NULL, '1568043', 'A380', 'L', 'Victor García', '-'),
 (189, 'Aizu', NULL, '1680441', 'A499', 'L', 'Katy Navarro', '-'),
 (191, 'Avemar', NULL, '1677435', 'A335', 'L', 'Manuel Jesús García', '-'),
-(193, 'Completa', NULL, '95707', 'A121', 'L', 'Pau Serrano', '-'),
-(194, 'Jayna', NULL, '1779666', 'A173', 'L', 'José Antonio Pascual', '-'),
-(197, 'Kira', NULL, '1710175', 'A116', 'L', 'Enrique Alonso', '-'),
+(193, 'Completa', NULL, '95707', 'A121', 'L', 'Pau Serrano Ciratusa', '-'),
+(194, 'Jayna', '', '1779666', 'A173', 'L', 'José Antonio Pascual', 'GII'),
+(197, 'Kira', '', '1710175', 'A116', 'L', 'Enrique Alonso Queija', 'GIII'),
 (198, 'Elfo', NULL, '1496681', '963', 'L', 'José Soliño', '-'),
 (199, 'Choco', NULL, '96941', 'A058', 'L', 'Carlos Alvarez', '-'),
 (200, 'Gini', NULL, '1891331', 'A193', 'L', 'Katia Moeller', '-'),
@@ -1092,12 +1246,12 @@ INSERT INTO `Perros` (`IDPerro`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categ
 (202, 'Zazpi', NULL, '1779668', 'A278', 'L', 'David Parejo', '-'),
 (203, 'Frasqui', NULL, '1962362', 'A438', 'L', 'Francisco Aguilera', '-'),
 (204, 'Yhara', NULL, '1827258', 'A357', 'L', 'Judith Herms', '-'),
-(209, 'Lennon', NULL, '111486', 'A336', 'L', 'Miguel Angel García', '-'),
+(209, 'Lennon', 'A. Foxhound', '111486', 'A336', 'L', 'Miguel Angel García', 'GII'),
 (210, 'Irma', NULL, '1779789', 'A096', 'L', 'Elena Sin', '-'),
 (212, 'Yai', NULL, '1879217', 'A475', 'L', 'Andrés Gimeno', '-'),
-(215, 'Clara', NULL, '1936237', 'A462', 'L', 'Ruben Montero', '-'),
+(215, 'Clara', 'Border Collie', '1936237', 'A462', 'L', 'Ruben Montero', 'GII'),
 (216, 'Laika', NULL, '93988', 'A224', 'L', 'Raquel Frago', '-'),
-(218, 'Argon', NULL, '1926695', 'A488', 'L', 'Concepción López', '-'),
+(218, 'Argon', '', '1926695', '987', 'L', 'Concepción López', 'GII'),
 (219, 'Nube', NULL, '124447', 'A465', 'L', 'José Manuel Basco', '-'),
 (221, 'Blue', NULL, '1863534', 'A552', 'L', 'Katy Navarro', '-'),
 (222, 'Hana', NULL, 'No tiene', '1526', 'L', 'Rocio Santos', '-'),
@@ -1112,9 +1266,9 @@ INSERT INTO `Perros` (`IDPerro`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categ
 (235, 'Gus', NULL, '111335', 'A548', 'L', 'Vicente Cambra', '-'),
 (236, 'Paco', NULL, '85033', 'A550', 'L', 'Vicente Cambra', '-'),
 (237, 'Thor', NULL, '1839333', 'A348', 'L', 'José Peris', '-'),
-(238, 'Fol', NULL, '86747', '940', 'L', 'Miguel García', '-'),
+(238, 'Fol', '', '86747', '940', 'L', 'Miguel García Rodríguez', 'GIII'),
 (239, 'Fito', NULL, '1914405', 'A362', 'L', 'Francisco José Sousa', '-'),
-(240, 'Troy', NULL, '98617', 'A044', 'L', 'Nuria Morell', '-'),
+(240, 'Troy', '', '98617', 'A044', 'L', 'Nuria Morell Nadal', 'GII'),
 (241, 'Dana', NULL, 'No tiene', '1528', 'L', 'Matias Rodríguez', '-'),
 (242, 'Doña Sol', NULL, '1885107', 'A261', 'L', 'Juan Solanes', '-'),
 (244, 'Martina', NULL, '1833796', 'A545', 'L', 'Elena Alberich', '-'),
@@ -1126,46 +1280,46 @@ INSERT INTO `Perros` (`IDPerro`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categ
 (254, 'Hechizada', NULL, '1663984', 'A064', 'L', 'Emilio Calvo', '-'),
 (255, 'Cindy', NULL, '1812230', 'A189', 'L', 'Adrian Díaz', '-'),
 (257, 'Rotten', NULL, 'No tiene', '1518', 'L', 'José Luis Prieto', '-'),
-(260, 'Pixie Moon', NULL, '1879218', 'A260', 'L', 'José Luis Sogorb', '-'),
-(262, 'Timba', NULL, '119645', 'A403', 'L', 'Carmen Vázquez', '-'),
-(263, 'Nuwa', NULL, '132677', 'A597', 'L', 'Tamara Vidal', '-'),
+(260, 'Pixie Moon', '', '1879218', 'A260', 'L', 'José Luis Sogorb', '-'),
+(262, 'Timba', '', '119645', 'A403', 'L', 'Carmen Vázquez', 'GIII'),
+(263, 'Nuwa', '', '132677', 'A597', 'L', 'Tamara Vidal', 'GII'),
 (264, 'Kora', NULL, '99230', 'A466', 'L', 'Jesús Manuel Romero', '-'),
 (265, 'Kona', NULL, '1986188', 'A524', 'L', 'Ankie Kleijberg', '-'),
 (266, 'Arwen', NULL, '1753230', 'A151', 'L', 'Cristian Verde', '-'),
 (267, 'Blas', NULL, '1761207', 'A086', 'L', 'José Miguel Paredes', '-'),
 (268, 'Rudy', NULL, '102435', 'A113', 'L', 'Luis Ignacio Carazo', '-'),
-(272, 'Ira', '', '101193', 'A141', 'L', 'Alberto Marugan', '-'),
+(272, 'Ira', 'P.B.Malinoise', '101193', 'A141', 'L', 'Alberto Marugan', 'GII'),
 (273, 'Terra', NULL, '114522', 'A328', 'L', 'Juan Francisco Torres', '-'),
 (274, 'Kira', NULL, '120733', 'A405', 'L', 'Aida Al-Nehlawi', '-'),
 (278, 'Nube', NULL, '97289', 'A515', 'L', 'José Luis Romero', '-'),
 (279, 'Mara', NULL, '80787', 'A396', 'L', 'Ana Isabel Escobar', '-'),
 (281, 'Trasto', NULL, 'No tiene', '1391', 'L', 'Adrian Díaz', '-'),
-(286, 'Kiria', NULL, 'No tiene', '1553', 'L', 'Jorge Valero', '-'),
-(287, 'Wind', NULL, '1881696', 'A421', 'L', 'Ruben Jurado', '-'),
+(286, 'Kiria', '', 'No tiene', 'A155', 'L', 'Jorge Valero', 'GII'),
+(287, 'Wind', 'Border Collie', '1881696', 'A421', 'L', 'Ruben Jurado', 'GII'),
 (291, 'Rocky', NULL, '1756734', 'A156', 'L', 'José Francisco Martorell', '-'),
 (292, 'Pepo', NULL, '1756735', 'A200', 'L', 'José Francisco Martorell', '-'),
 (293, 'Mina', NULL, '124583', 'A501', 'L', 'Javier Gómez', '-'),
 (294, 'Gipsy', NULL, 'No tiene', '1542', 'L', 'Javier López', '-'),
 (296, 'Atril', NULL, '1985153', 'A454', 'L', 'Marta Gregorio', '-'),
 (297, 'Max', NULL, '1945286', 'A487', 'L', 'Andrés López', '-'),
-(299, 'N''Hug', NULL, '110043', 'A283', 'L', 'José Castaño', '-'),
+(299, 'N''Hug', '', '110043', 'A283', 'L', 'José Castaño', 'GII'),
 (301, 'Che', NULL, '1472786', 'A313', 'L', 'Juan Solanes', '-'),
 (305, 'Chincheta', NULL, '97802', 'A165', 'L', 'Sonia Asensio', '-'),
 (314, 'Nemo', NULL, '1950998', 'A478', 'L', 'Enrique Grau', '-'),
 (316, 'Tao', NULL, '1807243', 'A554', 'L', 'Sara Montila', '-'),
-(317, 'Luna', NULL, 'No tiene', '1539', 'L', 'Ricardo Martínez', '-'),
+(317, 'Luna', '', 'No tiene', '1539', 'L', 'Ricardo Martínez', 'GII'),
 (322, 'Molsa', NULL, '1710467', 'A103', 'L', 'Sabina González', '-'),
-(323, 'Dina', NULL, '1798019', 'A136', 'L', 'Javier Martínez', '-'),
-(325, 'Neo', NULL, '99972', 'A077', 'L', 'Antonio López', '-'),
+(323, 'Dina', '', '1798019', 'A136', 'L', 'Javier Martínez', 'GII'),
+(325, 'Neo', '', '99972', 'A077', 'L', 'Antonio López', 'GIII'),
 (329, 'Zidane', NULL, '2081050', 'A591', 'L', 'Alberto Mudarra', '-'),
 (332, 'Poly', NULL, '2060633', 'A587', 'L', 'José Luis Sogorb', '-'),
-(333, 'Kinder', NULL, '101433', 'A223', 'L', 'Raquel Frago', '-'),
+(333, 'Kinder', '', '101433', 'A223', 'L', 'Raquel Frago', 'GII'),
 (334, 'Juno', NULL, 'No tiene', '1552', 'L', 'Arianna Bucci', '-'),
 (335, 'Flash', NULL, '109519', 'A420', 'L', 'Gerard Barberá', '-'),
 (337, 'Troya', NULL, '127255', 'A527', 'L', 'Xavier López', '-'),
 (341, 'Pluto', NULL, '80602', '785', 'L', 'María López', '-'),
 (342, 'Poli', NULL, '98654', 'A290', 'L', 'Silvia Rodríguez', '-'),
-(345, 'Shasta', 'Border Collie', '109487', 'A272', 'L', 'Silvia Perea', 'GII'),
+(345, 'Shasta', 'Border Collie', '109487', 'A272', 'L', 'Mario Rodríguez', 'GII'),
 (349, 'Kira', NULL, '83038', '789', 'L', 'Manuel Jesús García', '-'),
 (353, 'Maya', NULL, '1683945', 'A110', 'L', 'Juan Pedro Martínez', '-'),
 (356, 'Grace', NULL, '127031', 'A575', 'L', 'Oscar Reboredo', '-'),
@@ -1175,48 +1329,48 @@ INSERT INTO `Perros` (`IDPerro`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categ
 (368, 'Blue', NULL, '86743', 'A180', 'L', 'Diego Rouco', '-'),
 (369, 'Golfa', NULL, '1719195', 'A557', 'L', 'Jacqueline Holemans', '-'),
 (370, 'Runa', NULL, '2006235', 'A537', 'L', 'Lourdes Peñarrocha', '-'),
-(371, 'Fanta', NULL, '1940535', 'A544', 'L', 'Natividad Soler', '-'),
-(373, 'Xula', NULL, '83896', '844', 'M', 'Julia Faci', '-'),
-(374, 'Danko', NULL, '113906', 'A325', 'M', 'Jorge Muñoz', '-'),
+(371, 'Fanta', '', '1940535', 'A544', 'L', 'Natividad Soler', 'GII'),
+(373, 'Xula', NULL, '83896', '844', 'M', 'Julia Faci Green', '-'),
+(374, 'Danko', '', '113906', 'A325', 'M', 'Jorge Muñoz', 'GIII'),
 (375, 'Hanna', NULL, '1843070', 'A159', 'M', 'Nuria Fortuny', '-'),
-(376, 'Guti', NULL, '111666', 'A215', 'M', 'Javier Ovejero', '-'),
+(376, 'Guti', 'Cocker Spaniel', '111666', 'A215', 'M', 'Javier Ovejero', '-'),
 (377, 'Cala', NULL, '1691264', 'A095', 'M', 'Alberto Alonso', '-'),
 (379, 'Milo', NULL, '1399802', '718', 'M', 'Juan Carlos Redondo', '-'),
 (380, 'Gotika', NULL, '1682493', '971', 'M', 'Ariadna Soriano', '-'),
-(381, 'Drac', NULL, '106327', 'A196', 'M', 'Elisenda Huidobro', '-'),
+(381, 'Drac', '', '106327', 'A196', 'M', 'Elisenda Huidobro', 'GIII'),
 (382, 'Neo', NULL, '109522', 'A445', 'M', 'Gerard Barberá', '-'),
 (383, 'Sra. Maruja', NULL, '1695088', '997', 'M', 'Enrique Lleixa', '-'),
-(384, 'Duna', NULL, '93084', '953', 'M', 'Francisco Esteban', '-'),
-(385, 'Kiwi', NULL, '1982934', 'A525', 'M', 'Verónica Díez', '-'),
+(384, 'Duna', '', '93084', '953', 'M', 'Francisco Esteban', 'GII'),
+(385, 'Kiwi', '', '1982934', 'A525', 'M', 'Verónica Díez Gómez', 'GIII'),
 (386, 'Sucre', NULL, '1558711', '938', 'M', 'Nuria Alonso', '-'),
-(387, 'Lass', NULL, '131981', 'A580', 'M', 'Eugenio Villares', '-'),
+(387, 'Lass', 'Perro de Aguas Español', '131981', 'A580', 'M', 'Eugenio Villares', 'GIII'),
 (389, 'Tuna', NULL, '1731780', 'A057', 'M', 'Manuel Basco', '-'),
 (390, 'Norai', NULL, '97039', 'A015', 'M', 'Fernando Benet', '-'),
-(391, 'Menta', NULL, '1459964', '767', 'M', 'Albert Ulldemolins', '-'),
+(391, 'Menta', '', '1459964', '767', 'M', 'Albert Ulldemolins', 'GIII'),
 (393, 'Wirbel', 'Schnnauzer', '1252941', '588', 'M', 'Mario Rodríguez', 'Ret.'),
-(394, 'Pepsi', NULL, '1849505', 'A270', 'M', 'Carles Fortuny', '-'),
+(394, 'Pepsi', '', '1849505', 'A270', 'M', 'Carles Fortuny', 'GII'),
 (395, 'Kiss', NULL, '1258632', '762', 'M', 'Daniel Amigo', '-'),
 (396, 'Ina', NULL, 'No tiene', '1549', 'M', 'Ubaldo Delgado', '-'),
 (397, 'Kenia', NULL, '86609', '954', 'M', 'Remedios Torres', '-'),
-(398, 'Gamma', NULL, '1988761', 'A307', 'M', 'Jordi Boix', '-'),
-(399, 'Goku', NULL, 'No tiene', '1513', 'M', 'Juan Carlos Blas', '-'),
+(398, 'Gamma', '', '1988761', 'A307', 'M', 'Jordi Boix', 'GIII'),
+(399, 'Goku', 'Fox Terrier Wire ', 'No tiene', '1513', 'M', 'Juan Carlos Blas', 'GIII'),
 (400, 'Coockie', NULL, '120745', 'A434', 'M', 'Toni Rios', '-'),
 (401, 'Habana', NULL, '131393', 'A634', 'M', 'Estefanía Pérez', '-'),
 (402, 'Dau', NULL, '113713', 'A446', 'M', 'Nuria Alonso', '-'),
-(404, 'Jolie', NULL, '1561798', '808', 'M', 'Celeste Zarzosa', '-'),
-(406, 'Boira', NULL, '1809307', 'A281', 'M', 'Cristina García', '-'),
+(404, 'Jolie', 'Mudi', '1561798', '808', 'M', 'Celeste Zarzosa', 'GII'),
+(406, 'Boira', '', '1809307', 'A281', 'M', 'Cristina García', 'GIII'),
 (407, 'Queen', NULL, '93971', '989', 'M', 'Juan Luis Colmano', '-'),
 (410, 'Legend', NULL, '1606337', '927', 'M', 'Sonia Conejero', '-'),
 (412, 'Koku', NULL, '1394913', '714', 'M', 'Oria Micó', '-'),
-(414, 'Luna', NULL, '103250', 'A240', 'M', 'Paula Rello', '-'),
-(415, 'Nell', NULL, '1329279', 'A293', 'M', 'Eva Vázquez', '-'),
+(414, 'Luna', '', '103250', 'A240', 'M', 'Paula Rello', 'GII'),
+(415, 'Nell', NULL, '1329279', 'A293', 'M', 'Eva Vázquez Morales', '-'),
 (416, 'Lucas', NULL, '112275', 'A248', 'M', 'Alberto Pereda', '-'),
 (417, 'Benavis', NULL, '1803327', 'A195', 'M', 'Alicia Mejias', '-'),
 (419, 'Paquita', NULL, '1852290', 'A229', 'M', 'Pablo Ballesta', '-'),
 (420, 'Fey', NULL, '2063400', 'A440', 'M', 'Stina Sandquist', '-'),
 (422, 'Robbi', NULL, '104953', 'A146', 'M', 'Vanessa Calpe', '-'),
-(424, 'Mate', NULL, '1930526', 'A469', 'M', 'David Alique', '-'),
-(425, 'Veron', NULL, '1423605', 'A412', 'M', 'Eva Vázquez', '-'),
+(424, 'Mate', '', '1930526', 'A469', 'M', 'David Alique', 'GII'),
+(425, 'Veron', '', '1423605', 'A412', 'M', 'Eva Vázquez Morales', 'GII'),
 (426, 'Lume', NULL, '1985134', 'A416', 'M', 'José Angel Torres', '-'),
 (429, 'Foska', NULL, '108199', 'A182', 'M', 'Juan Solanes', '-'),
 (431, 'Bimba', NULL, '1968121', 'A451', 'M', 'Mercedes Fernández', '-'),
@@ -1228,46 +1382,46 @@ INSERT INTO `Perros` (`IDPerro`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categ
 (440, 'Kenya', NULL, '112354', 'A233', 'M', 'Laura Carrasco', '-'),
 (444, 'Duque', NULL, 'No tiene', '1551', 'M', 'Alicia Mejias', '-'),
 (446, 'Harley', NULL, '2025374', 'A428', 'M', 'Efren Lucas', '-'),
-(447, 'Johnny Cash', NULL, '2057033', 'A594', 'M', 'Vicente Micó', '-'),
-(452, 'Striptease', NULL, '2023589', 'A577', 'M', 'Carmen Alos', '-'),
+(447, 'Johnny Cash', '', '2057033', 'A594', 'M', 'Vicente Micó', 'GIII'),
+(452, 'Striptease', '', '2023589', 'A577', 'M', 'Carmen Alos', 'GII'),
 (454, 'Tuco', NULL, '2026054', 'A419', 'M', 'Inmaculada Rubio', '-'),
 (456, 'Mia', NULL, '121232', 'A547', 'M', 'Matias Monleón', '-'),
 (457, 'Gunilla', NULL, 'No tiene', '1471', 'M', 'Luna Ramírez', '-'),
 (463, 'Alma', NULL, '90313', 'A566', 'M', 'Lourdes Giménez', '-'),
 (464, 'Noa', NULL, '1926077', 'A526', 'M', 'Pilar Rodríguez', '-'),
-(465, 'Magia', NULL, '2032179', 'A528', 'S', 'Carmen Briceño', '-'),
-(466, 'Saroa', NULL, '1789456', 'A149', 'S', 'Yolanda Torres', '-'),
-(467, 'Melendi', NULL, '1842276', 'A164', 'S', 'Luis Luque', '-'),
+(465, 'Magia', '', '2032179', 'A528', 'S', 'Carmen Briceño', 'GIII'),
+(466, 'Saroa', '', '1789456', 'A149', 'S', 'Yolanda Torres', 'GIII'),
+(467, 'Melendi', '', '1842276', 'A164', 'S', 'Luis Luque', 'GIII'),
 (468, 'Mims', NULL, '102903', 'A279', 'S', 'Agustin Centelles', '-'),
 (469, 'Hancock', NULL, '131702', 'A609', 'S', 'Miguel Angel Soriano', '-'),
 (473, 'Tris', NULL, '119441', 'A398', 'S', 'Rocio Hermelo', '-'),
 (474, 'Lula', NULL, '123192', 'A607', 'S', 'David Sepulveda', '-'),
 (475, 'Rufo', NULL, '123178', 'A435', 'S', 'José Peris', '-'),
-(477, 'Sira', NULL, '106345', 'A168', 'S', 'David Ferrer', '-'),
-(478, 'Nit', NULL, '112007', 'A208', 'S', 'Montserrat Calvet', '-'),
+(477, 'Sira', '', '106345', 'A168', 'S', 'David Ferrer', 'GIII'),
+(478, 'Nit', '', '112007', 'A208', 'S', 'Montserrat Calvet', 'GIII'),
 (479, 'Xira', '', '124731', 'A424', 'S', 'Sergio Ruiz', 'GIII'),
-(482, 'Che Guevara', NULL, '112448', 'A230', 'S', 'Julia Morugova', '-'),
+(482, 'Che Guevara', 'Caniche', '112448', 'A230', 'S', 'Yulia Morugova', 'GIII'),
 (484, 'Enzo', NULL, '117909', 'A444', 'S', 'Miriam García', '-'),
-(485, 'Nuca', NULL, '109471', 'A181', 'S', 'Iván Pardo', '-'),
+(485, 'Nuca', 'Tibetan Spaniel', '109471', 'A181', 'S', 'Iván Pardo García', 'GIII'),
 (487, 'Gismo', NULL, '123726', 'A449', 'S', 'Stefan Eggenschwiler', '-'),
 (488, 'Nana', NULL, '103211', 'A277', 'S', 'Sara Montila', '-'),
-(489, 'Nikita', NULL, '123006', 'A443', 'S', 'Ana Alonso', '-'),
-(490, 'Xena', NULL, '125524', 'A509', 'S', 'Enric García', '-'),
-(491, 'Chula', NULL, '106335', 'A135', 'S', 'Ismael Pérez', '-'),
+(489, 'Nikita', '', '123006', 'A443', 'S', 'Ana Alonso', 'GIII'),
+(490, 'Xena', '', '125524', 'A509', 'S', 'Enric García', 'GIII'),
+(491, 'Chula', '', '106335', 'A135', 'S', 'Ismael Pérez', 'GIII'),
 (492, 'Dagga', NULL, '127338', 'A507', 'S', 'Iago Sánchez', '-'),
 (495, 'Greta', NULL, '1849716', 'A337', 'S', 'Barbara Flemming', '-'),
 (496, 'Bengel', 'Schnnauzer', '1433208', '760', 'S', 'Mario Rodríguez', 'GII'),
 (497, 'Nei', NULL, '1400011', '770', 'S', 'Isabel Rodríguez', '-'),
 (498, 'Tess', NULL, '102439', 'A245', 'S', 'Jaume Fernández', '-'),
 (500, 'Lia', 'Mestizo', '132000', 'A588', 'S', 'Irene Artacho', 'GII'),
-(504, 'Taca', NULL, '128455', 'A589', 'S', 'Ana Mateu', '-'),
-(505, 'Miche', NULL, '1706141', 'A097', 'S', 'Manuel Lara', '-'),
+(504, 'Taca', '', '128455', 'A589', 'S', 'Ana Mateu', 'GII'),
+(505, 'Miche', '', '1706141', 'A097', 'S', 'Manuel Lara', 'GII'),
 (506, 'Manin', NULL, '104120', 'A100', 'S', 'Rocio Hermelo', '-'),
-(507, 'Doña Matilde', NULL, '2005359', 'A514', 'S', 'Enric Lleixa', '-'),
+(507, 'Doña Matilde', '', '2005359', 'A514', 'S', 'Enric Lleixa', 'GIII'),
 (508, 'Aqua', NULL, '2056249', 'A513', 'S', 'Laura Chiva', '-'),
-(512, 'Nuca', '', '1678476', 'A088', 'S', 'Aaron Laro', 'GII'),
-(514, 'Pepa', NULL, '1957259', 'A393', 'S', 'Francisco de la Cruz', '-'),
-(515, 'Spyro', NULL, '131527', 'A569', 'S', 'Oscar Bravo', '-'),
+(512, 'Nuca', 'Schnauzer', '1678476', 'A088', 'S', 'Aaron Laro', 'GII'),
+(514, 'Pepa', 'Jack Rusell', '1957259', 'A393', 'S', 'Francisco de la Cruz', 'GII'),
+(515, 'Spyro', '', '131527', 'A569', 'S', 'Oscar Bravo', 'GIII'),
 (516, 'Della', NULL, '2061744', 'A467', 'S', 'Daniel Amigo', '-'),
 (518, 'Lua', NULL, '116884', 'A287', 'S', 'Juan Carlos Companys', '-'),
 (519, 'Mayo', NULL, 'No tiene', '1419', 'S', 'Noelia Gimeno', '-'),
@@ -1278,7 +1432,7 @@ INSERT INTO `Perros` (`IDPerro`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categ
 (531, 'Gus', NULL, '119626', 'A346', 'S', 'Antonio Carmona', '-'),
 (534, 'Lola', NULL, 'No tiene', '1541', 'S', 'Lourdes Giménez', '-'),
 (540, 'Thor', '', '1939205', 'A535', 'S', 'Aaron Laro', 'GII'),
-(541, 'Quillo', NULL, '127443', 'A604', 'S', 'Cristina González', '-'),
+(541, 'Quillo', '', '127443', 'A604', 'S', 'Cristina González', 'GII'),
 (542, 'Lennon', NULL, '103239', 'A144', 'S', 'Mónica Saavedra', '-'),
 (543, 'Boira', NULL, 'No tiene', '1554', 'S', 'Salvador Martí', '-'),
 (544, 'Kyra', NULL, '131481', 'A600', 'S', 'Alicia Sanjurjo', '-'),
@@ -1286,16 +1440,16 @@ INSERT INTO `Perros` (`IDPerro`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categ
 (557, 'Ada', NULL, NULL, '1459', 'S', 'Ramón Arribas', 'GII'),
 (558, 'Aker', 'P.B. Malinoise', '1553051', 'A397', 'L', 'Francisco Javier Jaen', 'GII'),
 (559, 'Akira', NULL, '125877', 'A455', 'L', 'José Moreno', 'GII'),
-(563, 'Dama', 'Fox Terrier Wire', '0131204', 'A641', 'M', 'Juan Antonio Martinez', 'GII'),
-(564, 'Flai', 'Fox Terrier Wire', '0129738', '', 'M', 'Juan Antonio Martinez', 'P.A.'),
-(567, 'Donna', 'Border Collie', '', '', 'L', 'Ricardo Benito', 'GI'),
-(569, 'fito', 'mestizo', '', '', '-', '-- Sin asignar --', '-'),
+(563, 'Dama', 'Fox Terrier Wire', '0131204', 'A641', 'M', 'Juan Antonio Martinez', 'GIII'),
+(564, 'Flai', 'Fox Terrier Wire', '0129738', 'en tramite', 'M', 'Juan Antonio Martinez', 'GII'),
+(567, 'Donna', 'Border Collie', '', '', 'L', 'Ricardo Benito', 'GII'),
+(569, 'fito', 'mestizo', '', '', 'L', 'pepe', 'GIII'),
 (571, 'paco', '', '', '', '-', '-- Sin asignar --', '-'),
-(572, 'Akela', 'Border Collie', '', '', 'L', 'Fernando Bibián', 'GI'),
+(572, 'Akela', 'Border Collie', '', 'A746', 'L', 'Fernando Bibián', 'GII'),
 (573, 'Toska', 'Border Collie', '', '', 'L', 'Jesús Gómez', 'GI'),
 (574, 'Sira', 'P.B.Malinoise', '', 'A-584', 'L', 'Joaquín Andrés', 'GII'),
 (575, 'Duna', 'P. Aleman', '', 'A-586', 'L', 'Vicente Martín', 'GII'),
-(576, 'Olivia', 'Schnauzer', '', '', 'S', 'Judith Franco', 'GI'),
+(576, 'Olivia', 'Schnauzer', '', '', 'S', 'Judith Franco', 'GII'),
 (577, 'Kyle', 'Schnauzer', '', 'A-539', 'M', 'Iván San Antonio', 'GII'),
 (578, 'Kara', 'Border Collie', '', 'A-541', 'L', 'Ramón García', 'GII'),
 (579, 'Tibet', 'Border Collie', '', '', 'L', 'Antonio Molina', 'GII'),
@@ -1304,14 +1458,155 @@ INSERT INTO `Perros` (`IDPerro`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categ
 (582, 'Danah', 'P. Australiano', '', '', 'L', 'Juan Martín de las Blancas', 'GI'),
 (583, 'Net', 'P. Australiano', '', '', 'L', 'Isidoro Vázquez', 'GI'),
 (584, 'Sira', 'Boxer', '', '', 'L', 'David Escribano', 'GI'),
-(585, 'Maggie', 'Mestizo', '', '', 'S', 'Raúl Sánchez', 'GII');
+(585, 'Maggie', 'Mestizo', '', '1570', 'S', 'Raúl Sánchez', 'GII'),
+(586, 'Kiss', '', '', '', 'L', 'Jara Pérez', 'GI'),
+(587, 'Milka', '', '', '', 'L', 'Javier Martín', 'GI'),
+(588, 'Mitzi', '', '', '', 'L', 'Angel González', 'GI'),
+(589, 'Sura', '', '', '', 'L', 'Marta Jiménez', 'GI'),
+(590, 'Queen', '', '', '', 'M', 'Angel González', 'GI'),
+(591, 'Neo', '', '', '', 'L', 'Jesús Gómez', 'GII'),
+(592, 'Sitan', '', '', '795', 'L', 'Joaquín Andrés', 'GII'),
+(593, 'Kaiser', '', '', 'A383', 'S', 'Jara Pérez', 'GII'),
+(594, 'Geha', '', '', 'A162', 'L', 'Luis Carlos Sanchez', 'GIII'),
+(595, 'Momo', 'Borde Collie', '', '1593', 'L', 'Roberto Iñigo', 'GII'),
+(597, 'Skay', '', '', '', 'L', 'Javier Santisteban', 'GII'),
+(598, 'Keko', '', '', '', 'L', 'Alberto González', 'GI'),
+(599, 'Mambo', '', '', '', 'L', 'Ana Palet', 'GI'),
+(601, 'Swing', '', '', '', 'L', 'Olga Palomares', 'GI'),
+(603, 'Trufa', '', '', '', 'L', 'Ross Rubio', 'GI'),
+(605, 'Soma', '', '', 'A696', 'L', 'Menchu Melcom', 'GII'),
+(606, 'Phoebe', '', '', 'A555', 'M', 'Estíbaliz Pereda Navarro', 'GII'),
+(607, 'Izzie', '', '', 'A275', 'S', 'Estíbaliz Pereda Navarro', 'GII'),
+(608, 'Kyra', 'Border Collie', '', '', 'L', 'Andres Morillas Sanjuan', 'GI'),
+(610, 'Nika', 'Border Collie', '', '', 'L', 'Belén de Carvalho', 'GI'),
+(611, 'Dolce', 'Border Collie', '', 'A681', 'L', 'Andres Morillas Sanjuan', 'GII'),
+(612, 'Dolce', '', '', 'A723', 'L', 'Natividad Ruiz García', 'GII'),
+(613, 'Gilda', 'Border Collie', '', 'A723', 'L', 'Natividad Ruiz García', 'GII'),
+(614, 'Noa', 'Border Collie', '', 'A540', 'L', 'Pedro Delgado Fernandez', 'GII'),
+(616, 'Thor', 'Border Collie', '', '', 'L', 'Juan Carlos Ruiz', 'GI'),
+(618, 'Hakira Haru', 'BorderCollie', '', 'A311', 'L', 'Gema López', 'GII'),
+(619, 'Nala', 'BorderCollie', '', 'A142', 'L', 'Enrique Camarero', 'GIII'),
+(620, 'Peka', '', '', 'A615', 'L', 'José Santos Luna', 'GII'),
+(621, 'Milady', '', '', '', 'L', 'Ricardo Santolaya', 'GII'),
+(622, 'Yashi', 'Pastor de los Pirineos', '', '', 'M', 'Verónica Rodríguez', 'GI'),
+(623, 'Dollar', '', '', '911', 'L', 'Luis de Frías', 'GII'),
+(625, ' Héctor', 'Pastor Vasco', '', '1597', 'L', 'David Gómez-Calcerrada', 'GII'),
+(626, 'Ron', 'Border Collie', '', 'A617', 'L', 'Oscar Sacristan', 'GII'),
+(627, 'Viconte', '', '', 'A367', 'L', 'Juan Rodríguez', 'GII'),
+(628, 'Agran', 'Border Collie', '', '', 'L', 'Adrián Soria', 'GII'),
+(629, 'Bimba', 'Border Collie', '', 'A288', 'L', 'Luisa Fernanda Millan', 'GII'),
+(630, 'Dudy', 'Border Collie', '', '', 'L', 'Juan José González', 'GII'),
+(631, 'Kember', 'Bóxer', '', '1558', 'L', 'Adrian Martínez', 'GII'),
+(632, 'Luca', '', '', 'A749', 'M', 'Cristina González', 'GII'),
+(633, 'Kika', 'West Higland White Terrier', '', 'A722', 'S', 'Noelia Mouchet', 'GII'),
+(634, 'Olivia', 'Caniche', '', 'A701', 'S', 'Cristina Pedraz', 'GII'),
+(635, 'Sombra', 'Border Collie', '', 'A679', 'L', 'Jose Luis J. Mori', 'GII'),
+(636, 'Noah', 'Schnauzer', '', '', 'S', 'Iván San Antonio', 'GI'),
+(638, 'Brea', 'Mestizo', '', '', 'L', 'Almudena Novo', 'GI'),
+(639, 'Lola', 'Jack Rusell', '', 'A633', 'S', 'Francisco de la Cruz', 'GII'),
+(640, 'Yeny', 'Border Collie', '', 'A747', 'L', 'José Luis Romero', 'GII'),
+(641, 'Sonic', 'Perro de Aguas Español', '', 'A495', 'L', 'Cristina Blanco', 'GII'),
+(642, 'Wind', 'Border Collie', '', 'A561', 'L', 'Sergio Casalins', 'GII'),
+(643, 'Crack', 'Border Collie', '', 'A719', 'L', 'Oscar Muñiz', 'GII'),
+(644, 'Nitra', 'Caniche', '', 'A743', 'S', 'Yulia Morugova', 'GII'),
+(645, 'Nova', 'Border Collie', '', 'A642', 'L', 'Roque Alonso', 'GII'),
+(646, 'Momo', 'Border Collie', '', 'A621', 'L', 'Ana Baeza', 'GII'),
+(647, 'Byron', 'Border Collie', '', '', 'L', 'Rodrigo González', 'GI'),
+(648, 'Amis', 'Border Collie', '', 'A620', 'L', 'José Mahillo', 'GII'),
+(649, 'Noa', 'BorderCollie', '', 'A143', 'L', 'Jenifer Tolín', 'GII'),
+(650, 'Vlad', 'Perro de Aguas Español', '', '', 'L', 'Angel Corroto', 'GI'),
+(651, 'Mou', 'Kelpie Australiano', '', '', 'L', 'Carlos Pulpón', 'GI'),
+(652, 'Black', 'Border Collie', '', '', 'L', 'Jose Ramón López', 'GI'),
+(653, 'Kala', 'Yorkshire Terrier', '', '1574', 'S', 'Cristina Cortijo', 'GII'),
+(654, 'Andy', 'Border Collie', '', 'A671', 'L', 'Maite Guerrero', 'GII'),
+(655, 'beep', '', '', '', 'L', 'Rachel Stevens', 'GI'),
+(656, 'Ella', '', '', '', 'L', 'Maitane Luengo', 'GI'),
+(657, 'Nya', '', '', '', 'L', 'Ada Serrano', 'GI'),
+(658, 'Tibet', '', '', '', 'L', 'Cristina Ruill', 'GI'),
+(659, 'Kenzo', '', '', '', 'L', 'Wladimiro', 'GI'),
+(660, 'Dafne', '', '', '', 'L', 'Juan Escos', 'GI'),
+(661, 'Nut', '', '', '', 'L', 'Sandra Gracia', 'GI'),
+(662, 'Morgan', '', '', '', 'L', 'Elisenda Huidobro', 'GI'),
+(663, 'Juke', '', '', '', 'L', 'Marta Ponce', 'GI'),
+(664, 'Argi', '', '', '', 'L', 'Estíbaliz Pujana', 'GI'),
+(665, 'Pi', '', '', '', 'L', 'Francisco Sobral', 'GI'),
+(666, 'Horatio', '', '', '', 'S', 'Beatriz Juan', 'GI'),
+(667, 'Goldie', '', '', '', 'S', 'Paloma Faci Green', 'GI'),
+(668, 'Cachirulo', '', '', 'A578', 'L', 'David Molina', 'GII'),
+(669, 'Lucky', '', '', '1561', 'L', 'Alejandro Rodríguez Villalta', 'GII'),
+(671, 'Chika', '', '', 'A518', 'L', 'Julio Freire', 'GII'),
+(672, 'Inka', '', '', 'A699', 'L', 'Cristina García', 'GII'),
+(673, 'Nupsi', '', '', '', 'L', 'Berit Kittel', 'GII'),
+(674, 'Inka', '', '', 'A381', 'L', 'Pedro Martínez', 'GII'),
+(675, 'Tiri', '', '', 'A782', 'L', 'José Luis García', 'GII'),
+(677, 'Itoitz', '', '', 'A713', 'L', 'Alaitz Idarraga', 'GII'),
+(678, 'Xira', '', '', '1499', 'L', 'Adrian Bajo', 'GII'),
+(679, 'Gala', '', '', 'A500', 'L', 'Alex Olivera', 'GII'),
+(680, 'Luna', '', '', '', 'L', 'Angel Rubio', 'GII'),
+(681, 'Lorenzo', '', '', 'A666', 'L', 'Pilar Collado', 'GII'),
+(682, 'Bombon', '', '', 'A773', 'L', 'Angeles Abad', 'GII'),
+(683, 'Lluna', '', '', '1537', 'L', 'Angeles Abad', 'GII'),
+(684, 'Ardi de Rioja', '', '', '0729', 'L', 'Jorge Arcas Perales', 'GII'),
+(686, 'Danko', '', '', '1509', 'L', 'David Asenjo', 'GII'),
+(687, 'Tessa', '', '', 'A317', 'L', 'Sergio Tella', 'GII'),
+(688, 'Rex', '', '', '1578', 'L', 'Sofía Díaz', 'GII'),
+(689, 'Chicaa', '', '', 'A703', 'L', 'Gabriel Gómez', 'GII'),
+(690, 'Sue', '', '', 'A788', 'L', 'Silvia León', 'GII'),
+(691, 'Kira', '', '', '', 'L', 'Charly Castañer', 'GII'),
+(692, 'Heidy', '', '', 'A496', 'L', 'Juan Pablo Díaz', 'GII'),
+(693, 'Bella', '', '', '1586', 'L', 'Lucía Romero', 'GII'),
+(694, 'Hanna', '', '', '1584', 'L', 'Agustín González', 'GII'),
+(695, 'Eo', '', '', 'A768', 'L', 'Manuel Santomé', 'GII'),
+(696, 'Panda', '', '', '', 'L', 'Laura Monrabal', 'GII'),
+(697, 'Venus', '', '', 'A743', 'L', 'Luis Luque', 'GII'),
+(698, 'Charly', '', '', '1592', 'L', 'José Angel Beired', 'GII'),
+(699, 'Argi', '', '', '1600', 'L', 'Irati Diego', 'GII'),
+(700, 'Broto', '', '', 'A764', 'L', 'Sergio Romeo', 'GII'),
+(701, 'Anouk', '', '', 'A480', 'L', 'Sheila Giménez', 'GII'),
+(702, 'Flecha', '', '', 'A748', 'L', 'Sara Lara', 'GII'),
+(703, 'Heidi', '', '', 'A035', 'L', 'Sergio Martín', 'GII'),
+(704, 'Moa', '', '', 'A508', 'L', 'Francisco José Sousa', 'GII'),
+(705, 'Greta', '', '', '', 'L', 'Jorge Bala', 'GII'),
+(706, 'Lur', '', '', 'A741', 'L', 'Gorka Pozuelo', 'GII'),
+(707, 'Charli', '', '', 'A655', 'L', 'Arabia Vidal', 'GII'),
+(709, 'Lia', '', '', '1563', 'L', 'Lucía Montalbán', 'GII'),
+(710, 'Nika', '', '', '1590', 'S', 'Fernando De La Fuente', 'GII'),
+(711, 'Erinka', '', '', 'A761', 'S', 'Nuria Morell Nadal', 'GII'),
+(712, 'Ursus', '', '', '', 'S', 'Iñaki García', 'GII'),
+(713, 'Ela', '', '', 'A618', 'S', 'Neus Baró', 'GII'),
+(714, 'Lua', '', '', 'A763', 'S', 'Antonio Santos', 'GII'),
+(715, 'Wembley', '', '', 'A769', 'S', 'Carles Fortuny', 'GII'),
+(716, 'Rikke', '', '', '', 'S', 'Antonio Tovar', 'GII'),
+(717, 'Imo', '', '', 'A631', 'M', 'Jorge Bala', 'GII'),
+(718, 'Alpargata', '', '', 'A606', 'M', 'Eva Vázquez Morales', 'GII'),
+(719, 'Lucky Luque', '', '', 'A766', 'S', 'Israel Fernández', 'GII'),
+(720, 'Salma', '', '', 'A521', 'S', 'Joan Castillo', 'GII'),
+(721, 'Dracma', '', '', 'A626', 'S', 'Marta de la Rosa', 'GII'),
+(722, 'Jade', '', '', 'A629', 'L', 'Jonathan Guillen', 'GIII'),
+(723, 'Rinoa', '', '', 'A447', 'L', 'Marc Rabada', 'GIII'),
+(724, 'Chus', '', '', '934', 'L', 'Jonathan Guillen', 'GIII'),
+(725, 'Gala', '', '', 'A674', 'L', 'Eduardo Adán', 'GIII'),
+(726, 'Chamán', '', '', 'A262', 'L', 'Pedro Martínez', 'GIII'),
+(727, 'Koira', '', '', 'A252', 'L', 'Marco Maldonado', 'GIII'),
+(728, 'Kobu', '', '', '1564', 'M', 'Irena', 'GIII'),
+(729, 'Zeus', '', '', 'A139', 'M', 'Marc Rabada', 'GIII'),
+(730, 'Gea', '', '', 'A175', 'M', 'Juan Carlos Hinojal', 'GIII'),
+(731, 'Sacha', '', '', 'A632', 'M', 'Francisco Medina', 'GIII'),
+(732, 'Fran', '', '', 'A028', 'M', 'David Molina', 'GIII'),
+(733, 'Peka', '', '', 'A291', 'M', 'Julio Freire', 'GIII'),
+(734, 'Time', '', '', 'A571', 'M', 'Ruben Jurado', 'GIII'),
+(735, 'Alma', '', '', '874', 'M', 'Emilio José Pedrazuela', 'GIII'),
+(736, 'Kira', '', '', 'A600', 'S', 'Alicia Sanjurjo', 'GIII'),
+(737, 'Cleo', '', '', 'A152', 'S', 'Carmen Antequera', 'GIII'),
+(738, 'Luna', '', '', '0956', 'S', 'Carmen Antequera', 'GIII'),
+(739, 'Nika', '', '', 'A082', 'S', 'Marc Rabada', 'GII');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Provincias`
 --
--- Creación: 10-01-2014 a las 07:46:47
+-- Creación: 24-02-2014 a las 07:55:22
 --
 
 DROP TABLE IF EXISTS `Provincias`;
@@ -1337,7 +1632,7 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 ('Badajoz', 'Extremadura', 6),
 ('Balears, Illes', 'Balears, Illes', 7),
 ('Barcelona', 'Cataluña', 8),
-('Bizkaia', 'País Vasco', 48),
+('Bizkaia/Vizcaya', 'País Vasco', 48),
 ('Burgos', 'Castilla y León', 9),
 ('Cáceres', 'Extremadura', 10),
 ('Cádiz', 'Andalucía', 11),
@@ -1348,22 +1643,22 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 ('Córdoba', 'Andalucía', 14),
 ('Coruña, A', 'Galicia', 15),
 ('Cuenca', 'Castilla - La Mancha', 16),
-('Gipuzkoa', 'País Vasco', 20),
-('Girona', 'Cataluña', 17),
+('Gipuzkoa/Guipúzcoa', 'País Vasco', 20),
+('Girona/Gerona', 'Cataluña', 17),
 ('Granada', 'Andalucía', 18),
 ('Guadalajara', 'Castilla - La Mancha', 19),
 ('Huelva', 'Andalucía', 21),
 ('Huesca', 'Aragón', 22),
 ('Jaén', 'Andalucía', 23),
 ('León', 'Castilla y León', 24),
-('Lleida', 'Cataluña', 25),
+('Lleida/Lérida', 'Cataluña', 25),
 ('Lugo', 'Galicia', 27),
 ('Madrid', 'Madrid, Comunidad de', 28),
 ('Málaga', 'Andalucía', 29),
 ('Melilla', 'Melilla', 52),
 ('Murcia', 'Murcia, Región de', 30),
 ('Navarra', 'Navarra, Comunidad Foral de', 31),
-('Ourense', 'Galicia', 32),
+('Ourense/Orense', 'Galicia', 32),
 ('Palencia', 'Castilla y León', 34),
 ('Palmas, Las', 'Canarias', 35),
 ('Pontevedra', 'Galicia', 36),
@@ -1386,7 +1681,7 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 --
 -- Estructura de tabla para la tabla `Pruebas`
 --
--- Creación: 10-01-2014 a las 07:46:49
+-- Creación: 27-02-2014 a las 14:58:47
 --
 
 DROP TABLE IF EXISTS `Pruebas`;
@@ -1416,32 +1711,37 @@ CREATE TABLE IF NOT EXISTS `Pruebas` (
 INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`, `Observaciones`, `Cerrada`) VALUES
 (1, '-- Sin asignar --', '-- Sin asignar --', 'Somewhere over the rainbow...', '', '', 'NO BORRAR ESTA ENTRADA. SE USARA PARA AQUELLAS JORNADAS QUE NO TENGAN PRUEBA ASIGNADA', 1),
 (2, 'WELPE 26-27 Octubre', 'W.E.L.P.E.', 'Instalaciones del Club. "La Canaleja"', '', '', '', 0),
-(3, 'Pruebas 46 y 47 del Club Agility Eslon', 'Eslon', 'Instalaciones del club', 0x687474703a2f2f6167696c69747965736c6f6e2e636f6d2f70727565626173525343452f7072756562614f637431332f486f6a615f496e7363726970635f525343455f4f6374323031332e706466, '', '', 0);
+(3, 'Pruebas 46 y 47 del Club Agility Eslon', 'Eslón', 'Instalaciones del club', 0x687474703a2f2f6167696c69747965736c6f6e2e636f6d2f70727565626173525343452f7072756562614f637431332f486f6a615f496e7363726970635f525343455f4f6374323031332e706466, '', 'hola', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Resultados`
 --
--- Creación: 10-01-2014 a las 07:46:49
+-- Creación: 24-02-2014 a las 07:55:25
 --
 
 DROP TABLE IF EXISTS `Resultados`;
 CREATE TABLE IF NOT EXISTS `Resultados` (
   `Manga` int(4) NOT NULL,
   `IDPerro` int(4) NOT NULL,
-  `Orden` int(4) NOT NULL DEFAULT '0',
-  `Entrada` timestamp NULL DEFAULT NULL,
-  `Comienzo` timestamp NULL DEFAULT NULL,
+  `Nombre` varchar(255) NOT NULL,
+  `Licencia` varchar(255) NOT NULL DEFAULT '--------',
+  `Categoria` varchar(1) NOT NULL DEFAULT '-',
+  `Grado` varchar(16) NOT NULL DEFAULT '-',
+  `Guia` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
+  `Club` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
+  `Entrada` timestamp NOT NULL DEFAULT '2014-01-01 00:00:00',
+  `Comienzo` timestamp NOT NULL DEFAULT '2014-01-01 00:00:00',
   `Faltas` int(4) NOT NULL DEFAULT '0',
   `Rehuses` int(4) NOT NULL DEFAULT '0',
   `Tocados` int(4) NOT NULL DEFAULT '0',
   `Eliminado` tinyint(1) NOT NULL DEFAULT '0',
-  `No presentado` tinyint(1) NOT NULL DEFAULT '0',
+  `NoPresentado` tinyint(1) NOT NULL DEFAULT '0',
   `Tiempo` double NOT NULL DEFAULT '0',
-  `Observaciones` varchar(255) DEFAULT NULL,
-  KEY `IDPerro` (`IDPerro`),
-  KEY `Manga` (`Manga`)
+  `Observaciones` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`Manga`,`IDPerro`),
+  KEY `Resultados_ibfk_1` (`IDPerro`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1451,40 +1751,94 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 --   `Manga`
 --       `Mangas` -> `ID`
 --
+
+--
+-- Volcado de datos para la tabla `Resultados`
+--
+
+INSERT INTO `Resultados` (`Manga`, `IDPerro`, `Nombre`, `Licencia`, `Categoria`, `Grado`, `Guia`, `Club`, `Entrada`, `Comienzo`, `Faltas`, `Rehuses`, `Tocados`, `Eliminado`, `NoPresentado`, `Tiempo`, `Observaciones`) VALUES
+(3, 33, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández', 'Correcan', '2014-02-20 14:07:57', '2014-02-20 14:07:57', 0, 0, 0, 0, 0, 49.12, ''),
+(3, 227, 'Onis', 'A498', 'L', 'GII', 'José Antonio Vega', 'Agilcan', '2014-02-13 07:49:53', '2014-02-13 07:49:53', 0, 0, 0, 0, 0, 40, ''),
+(3, 384, 'Duna', '953', 'M', 'GII', 'Francisco Esteban', 'Costa Blanca', '2014-02-20 14:07:06', '2014-02-20 14:07:06', 0, 0, 0, 1, 0, 0, ''),
+(3, 404, 'Jolie', '808', 'M', 'GII', 'Celeste Zarzosa', 'La Princesa', '2014-02-20 14:06:57', '2014-02-20 14:06:57', 0, 0, 0, 0, 0, 49.2, ''),
+(3, 414, 'Luna', 'A240', 'M', 'GII', 'Paula Rello', 'Cubas', '2014-02-13 07:49:12', '2014-02-13 07:49:12', 0, 2, 0, 0, 0, 40, ''),
+(3, 496, 'Bengel', '760', 'S', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-02-13 07:49:32', '2014-02-13 07:49:32', 0, 0, 0, 0, 0, 42, ''),
+(3, 500, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2014-02-13 07:49:37', '2014-02-13 07:49:37', 0, 0, 0, 0, 0, 43, ''),
+(3, 558, 'Aker', 'A397', 'L', 'GII', 'Francisco Javier Jaen', 'Deporcan', '2014-02-13 07:47:43', '2014-02-13 07:47:43', 0, 0, 0, 0, 0, 43, ''),
+(3, 563, 'Dama', 'A641', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-02-20 14:07:16', '2014-02-20 14:07:16', 0, 0, 0, 0, 0, 45, ''),
+(3, 564, 'Flai', 'en tramite', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-02-13 07:49:02', '2014-02-13 07:49:02', 1, 0, 0, 0, 0, 45, ''),
+(3, 574, 'Sira', 'A-584', 'L', 'GII', 'Joaquín Andrés', 'Agilcan', '2014-02-20 14:08:20', '2014-02-20 14:08:20', 1, 0, 0, 0, 0, 49.5, ''),
+(3, 575, 'Duna', 'A-586', 'L', 'GII', 'Vicente Martín', 'Agilcan', '2014-02-20 14:07:14', '2014-02-20 14:07:14', 0, 0, 0, 0, 0, 50.32, ''),
+(3, 577, 'Kyle', 'A-539', 'M', 'GII', 'Iván San Antonio', 'Cinco Huesos', '2014-02-13 07:49:05', '2014-02-13 07:49:05', 0, 0, 0, 0, 0, 10, ''),
+(3, 578, 'Kara', 'A-541', 'L', 'GII', 'Ramón García', 'Cinco Huesos', '2014-02-20 14:08:22', '2014-02-20 14:08:22', 0, 0, 0, 0, 0, 42, ''),
+(3, 579, 'Tibet', '', 'L', 'GII', 'Antonio Molina', 'Cinco Huesos', '2014-02-20 14:08:04', '2014-02-20 14:08:04', 0, 0, 0, 0, 0, 42.3, ''),
+(3, 585, 'Maggie', '', 'S', 'GII', 'Raúl Sánchez', 'Cubas', '2014-02-13 07:49:41', '2014-02-13 07:49:41', 0, 0, 0, 0, 1, 0, ''),
+(4, 33, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández', 'Correcan', '2014-02-20 14:11:39', '2014-02-20 14:11:39', 0, 0, 0, 0, 0, 49.5, ''),
+(4, 227, 'Onis', 'A498', 'L', 'GII', 'José Antonio Vega', 'Agilcan', '2014-02-20 14:10:37', '2014-02-20 14:10:37', 0, 0, 0, 0, 0, 35.1, ''),
+(4, 384, 'Duna', '953', 'M', 'GII', 'Francisco Esteban', 'Costa Blanca', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 404, 'Jolie', '808', 'M', 'GII', 'Celeste Zarzosa', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 414, 'Luna', 'A240', 'M', 'GII', 'Paula Rello', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 496, 'Bengel', '760', 'S', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 500, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 558, 'Aker', 'A397', 'L', 'GII', 'Francisco Javier Jaen', 'Deporcan', '2014-02-20 14:11:37', '2014-02-20 14:11:37', 0, 0, 0, 0, 0, 43.3, ''),
+(4, 563, 'Dama', 'A641', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-02-20 14:10:30', '2014-02-20 14:10:30', 0, 0, 0, 0, 1, 0, ''),
+(4, 564, 'Flai', 'en tramite', 'M', 'GII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 574, 'Sira', 'A-584', 'L', 'GII', 'Joaquín Andrés', 'Agilcan', '2014-02-20 14:10:40', '2014-02-20 14:10:40', 0, 0, 0, 0, 0, 36.2, ''),
+(4, 575, 'Duna', 'A-586', 'L', 'GII', 'Vicente Martín', 'Agilcan', '2014-02-20 14:09:50', '2014-02-20 14:09:50', 0, 0, 0, 0, 0, 51.7, ''),
+(4, 577, 'Kyle', 'A-539', 'M', 'GII', 'Iván San Antonio', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, ''),
+(4, 578, 'Kara', 'A-541', 'L', 'GII', 'Ramón García', 'Cinco Huesos', '2014-02-20 14:09:46', '2014-02-20 14:09:46', 0, 0, 0, 0, 0, 50.6, ''),
+(4, 579, 'Tibet', '', 'L', 'GII', 'Antonio Molina', 'Cinco Huesos', '2014-02-20 14:10:45', '2014-02-20 14:10:45', 0, 0, 0, 0, 0, 37.3, ''),
+(4, 585, 'Maggie', '', 'S', 'GII', 'Raúl Sánchez', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '');
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Tipo_Manga`
 --
--- Creación: 10-01-2014 a las 07:46:47
+-- Creación: 24-02-2014 a las 07:55:25
 --
 
 DROP TABLE IF EXISTS `Tipo_Manga`;
 CREATE TABLE IF NOT EXISTS `Tipo_Manga` (
   `Tipo` varchar(16) NOT NULL DEFAULT '',
   `Descripcion` varchar(255) DEFAULT NULL,
-  `Grado` varchar(255) NOT NULL DEFAULT '-',
+  `Grado` varchar(16) NOT NULL DEFAULT '-',
   PRIMARY KEY (`Tipo`),
   KEY `Grado` (`Grado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELACIONES PARA LA TABLA `Tipo_Manga`:
+--   `Grado`
+--       `Grados_Perro` -> `Grado`
+--
 
 --
 -- Volcado de datos para la tabla `Tipo_Manga`
 --
 
 INSERT INTO `Tipo_Manga` (`Tipo`, `Descripcion`, `Grado`) VALUES
-('Agility Equipos',	'Agility por Equipos',	'-'),
-('Agility GII',		'Agility Grado II',		'GII'),
-('Agility GIII',	'Agility Grado III',	'GIII'),
-('Agility-1 GI ',	'Agility Grado I Manga 1', 'GI'),
-('Agility-2 GI',	'Agility Grado I Manga 2', 'GI'),
-('Exhibición',		'Ronda de Exhibición',	'-'),
-('Jumping Equipos',	'Jumping por Equipos',	'-'),
-('Jumping GII',		'Jumping Grado II',		'GII'),
-('Jumping GIII',	'Jumping Grado III',	'GIII'),
-('K.O.',			'Ronda K.O.',			'-'),
-('Otras',			'Manga sin tipo definido', '-'),
-('Pre-Agility',		'Ronda de Pre-Agility',	'P.A.');
+('Agility Equipos', 'Agility por Equipos', '-'),
+('Agility GII', 'Agility Grado II', 'GII'),
+('Agility GIII', 'Agility Grado III', 'GIII'),
+('Agility-1 GI ', 'Agility Grado I Manga 1', 'GI'),
+('Agility-2 GI', 'Agility Grado I Manga 2', 'GI'),
+('Exhibición', 'Ronda de Exhibición', '-'),
+('Jumping Equipos', 'Jumping por Equipos', '-'),
+('Jumping GII', 'Jumping Grado II', 'GII'),
+('Jumping GIII', 'Jumping Grado III', 'GIII'),
+('K.O.', 'Ronda K.O.', '-'),
+('Otras', 'Manga sin tipo definido', '-'),
+('Pre-Agility', 'Ronda de Pre-Agility', 'P.A.');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `InscritosJornada`
+--
+DROP TABLE IF EXISTS `InscritosJornada`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `InscritosJornada` AS select `Inscripciones`.`IDPerro` AS `IDPerro`,`Inscripciones`.`Equipo` AS `Equipo`,`Inscripciones`.`Jornada` AS `Jornada`,`Inscripciones`.`Celo` AS `Celo`,`Inscripciones`.`Observaciones` AS `Observaciones`,`Perros`.`Nombre` AS `Nombre`,`Perros`.`Licencia` AS `Licencia`,`Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Perros`.`Guia` AS `Guia`,`Guias`.`Club` AS `Club`,rand() AS `Orden` from ((`Inscripciones` join `Perros`) join `Guias`) where ((`Inscripciones`.`IDPerro` = `Perros`.`IDPerro`) and (`Perros`.`Guia` = `Guias`.`Nombre`));
 
 -- --------------------------------------------------------
 
@@ -1493,40 +1847,7 @@ INSERT INTO `Tipo_Manga` (`Tipo`, `Descripcion`, `Grado`) VALUES
 --
 DROP TABLE IF EXISTS `PerroGuiaClub`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` AS 
-	SELECT 
-		`Perros`.`IDPerro` AS `IDPerro`,
-		`Perros`.`Nombre` AS `Nombre`,
-		`Perros`.`Raza` AS `Raza`,
-		`Perros`.`Licencia` AS `Licencia`,
-		`Perros`.`LOE_RRC` AS `LOE_RRC`,
-		`Perros`.`Categoria` AS `Categoria`,
-		`Perros`.`Grado` AS `Grado`,
-		`Perros`.`Guia` AS `Guia`,
-		`Guias`.`Club` AS `Club`
-	FROM (`Perros` JOIN `Guias`) 
-	WHERE (`Perros`.`Guia` = `Guias`.`Nombre`) 
-	ORDER BY `Guias`.`Club`,`Perros`.`Categoria`,`Perros`.`Nombre`;
-
---
--- Estructura para la vista `InscritosJornada`
---
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `InscritosJornada` AS
-	SELECT 
-		`Inscripciones`.`IDPerro` AS `IDPerro`,
-		`Inscripciones`.`Equipo` AS `Equipo`,
-		`Inscripciones`.`Jornada` AS `Jornada`,
-		`Inscripciones`.`Celo` AS `Celo`,
-		`Inscripciones`.`Observaciones` AS `Observaciones`,
-		`Perros`.`Nombre` AS `Nombre`,
-		`Perros`.`Licencia` AS `Licencia`,
-		`Perros`.`Categoria` AS `Categoria`,
-		`Perros`.`Grado` AS `Grado`,
-		`Perros`.`Guia` AS `Guia`,
-		`Guias`.`Club` AS `Club`,
-		RAND() AS `Orden`
-	FROM (`Inscripciones` JOIN `Perros` JOIN `Guias`) 
-	WHERE (`Inscripciones`.`IDPerro` = `Perros`.`IDPerro`) AND (`Perros`.`Guia` = `Guias`.`Nombre`);
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` AS select `Perros`.`IDPerro` AS `IDPerro`,`Perros`.`Nombre` AS `Nombre`,`Perros`.`Raza` AS `Raza`,`Perros`.`Licencia` AS `Licencia`,`Perros`.`LOE_RRC` AS `LOE_RRC`,`Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Perros`.`Guia` AS `Guia`,`Guias`.`Club` AS `Club` from (`Perros` join `Guias`) where (`Perros`.`Guia` = `Guias`.`Nombre`) order by `Guias`.`Club`,`Perros`.`Categoria`,`Perros`.`Nombre`;
 
 --
 -- Restricciones para tablas volcadas
@@ -1536,13 +1857,13 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Filtros para la tabla `Clubes`
 --
 ALTER TABLE `Clubes`
-  ADD CONSTRAINT `Clubes_ibfk_1` FOREIGN KEY (`Provincia`) REFERENCES `Provincias` (`Provincia`);
+  ADD CONSTRAINT `Clubes_ibfk_1` FOREIGN KEY (`Provincia`) REFERENCES `Provincias` (`Provincia`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Equipos`
 --
 ALTER TABLE `Equipos`
-  ADD CONSTRAINT `Equipos_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`);
+  ADD CONSTRAINT `Equipos_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Guias`
@@ -1562,23 +1883,17 @@ ALTER TABLE `Inscripciones`
 -- Filtros para la tabla `Jornadas`
 --
 ALTER TABLE `Jornadas`
-  ADD CONSTRAINT `Jornadas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`);
+  ADD CONSTRAINT `Jornadas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Mangas`
 --
 ALTER TABLE `Mangas`
   ADD CONSTRAINT `Mangas_ibfk_1` FOREIGN KEY (`Tipo`) REFERENCES `Tipo_Manga` (`Tipo`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_2` FOREIGN KEY (`Juez1`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`Juez2`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_5` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE;
---
--- Filtros para la tabla `Tipo_Manga`
---
-
-ALTER TABLE `Tipo_Manga`
-  ADD CONSTRAINT `Tipo_Manga_ibfk_1` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `Mangas_ibfk_2` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`Juez1`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Juez2`) REFERENCES `Jueces` (`Nombre`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `Mangas_ibfk_5` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Perros`
@@ -1592,7 +1907,7 @@ ALTER TABLE `Perros`
 -- Filtros para la tabla `Pruebas`
 --
 ALTER TABLE `Pruebas`
-  ADD CONSTRAINT `Pruebas_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `Clubes` (`Nombre`);
+  ADD CONSTRAINT `Pruebas_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `Clubes` (`Nombre`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Resultados`
@@ -1600,6 +1915,12 @@ ALTER TABLE `Pruebas`
 ALTER TABLE `Resultados`
   ADD CONSTRAINT `Resultados_ibfk_1` FOREIGN KEY (`IDPerro`) REFERENCES `Perros` (`IDPerro`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Mangas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `Tipo_Manga`
+--
+ALTER TABLE `Tipo_Manga`
+  ADD CONSTRAINT `Tipo_Manga_ibfk_1` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
