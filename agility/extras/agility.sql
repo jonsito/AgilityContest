@@ -765,14 +765,6 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estructura Stand-in para la vista `InscritosJornada`
---
-DROP VIEW IF EXISTS `InscritosJornada`;
-CREATE TABLE IF NOT EXISTS `InscritosJornada` (
-);
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `Jornadas`
 --
 -- Creación: 24-02-2014 a las 07:55:23
@@ -1684,14 +1676,6 @@ INSERT INTO `Tipo_Manga` (`Tipo`, `Descripcion`, `Grado`) VALUES
 ('K.O.', 'Ronda K.O.', '-'),
 ('Otras', 'Manga sin tipo definido', '-'),
 ('Pre-Agility', 'Ronda de Pre-Agility', 'P.A.');
-
--- --------------------------------------------------------
-
---
--- Estructura para la vista `InscritosJornada`
---
-DROP TABLE IF EXISTS `InscritosJornada`;
--- en uso(#1356 - View 'agility.InscritosJornada' references invalid table(s) or column(s) or function(s) or definer/invoker of view lack rights to use them)
 
 -- --------------------------------------------------------
 
