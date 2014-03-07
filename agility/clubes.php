@@ -1,7 +1,7 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE CLUBES -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="clubes-datagrid" class="easyui-datagrid"></table>
+    <table id="clubes-datagrid" class="easyui-datagrid" style="width:975px;"></table>
 	<!-- BARRA DE TAREAS -->
     <div id="clubes-toolbar">
     
@@ -184,6 +184,7 @@
         function showGuiasByClub(index,club){
         	// - sub tabla de guias inscritos en un club
         	$('#guias-datagrid-'+replaceAll(' ','_',club.Nombre)).datagrid({
+            	width: 925,
         		title: 'Gu&iacute;as inscritos en el club '+club.Nombre,
         		url: 'database/guiaFunctions.php?Operation=getbyclub&Club='+club.Nombre,
         		method: 'get',
@@ -270,6 +271,7 @@
         function showPerrosByGuiaByClub(index,guia){
         	// - sub tabla de perros asignados a un guia
         	$('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid({
+            	width: 875,
         		title: 'Perros registrados a nombre de '+guia.Nombre,
         		url: 'database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.Nombre },

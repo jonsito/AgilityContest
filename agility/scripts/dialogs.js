@@ -14,12 +14,16 @@ function doSearchClub() {
 
 /**
  * Abre el dialogo para crear un nuevo club
+ *@param {string} def nombre por defecto del club
+ *@param {function} onAccept what to do when a new club is created
  */
-function newClub(def){
+function newClub(def,onAccept){
 	$('#clubes-dialog').dialog('open').dialog('setTitle','Nuevo club');
 	$('#clubes-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#clubes-Nombre').val(def);
 	$('#clubes-Operation').val('insert');
+	if (onAccept!==undefined)
+		$('#clubes-okBtn').one('click',onAccept);
 }
 
 /**
@@ -111,13 +115,16 @@ function assignGuiaToClub(club) {
 /**
  * Abre el dialogo para crear un nuevo guia
  * @param {string} def valor por defecto para el campo nombre
+ * @param {function} onAccept what to do (only once) when window gets closed
  */
-function newGuia(def){
+function newGuia(def,onAccept){
 	$('#guias-dialog').dialog('open').dialog('setTitle','Nuevo gu&iacute;a');
 	$('#guias-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#guias-Nombre').val(def);
 	$('#guias-Operation').val('insert');
 	$('#guias-Parent').val('');
+	if (onAccept!==undefined)
+		$('#guias-okBtn').one('click',onAccept);
 }
 
 /**

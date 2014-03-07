@@ -77,8 +77,11 @@
     	}
 	});
     $('#perros-newGuiaBtn').bind('click',function() {
-        $('#perros-Guia').combogrid({ 'setValue' : '' });
-        newGuia($('#perros-Guia').combogrid('getText'));
+        newGuia(
+            $('#perros-Guia').combogrid('getText'), // default name
+            function() { // on accept repaint
+            	$('#perros-Guia').combogrid('setValue',$('#guias-Nombre').val());
+            });
     });
     // campos del formulario
     $('#perros-dialog').dialog({

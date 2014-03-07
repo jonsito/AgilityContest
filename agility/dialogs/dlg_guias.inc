@@ -59,8 +59,11 @@
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
         $('#guias-newClubBtn').bind('click',function() {
-            $('#guias-Club').combogrid({ 'setValue' : '' });
-            newClub( $('#guias-Club').combogrid('getText') );
+            newClub( 
+                $('#guias-Club').combogrid('getText'), // default name
+                function() { // what to do on accept button pressed
+                	$('#guias-Club').combogrid('setValue',$('#clubes-Nombre').val());
+                });    
         });
         
         // campos del formulario

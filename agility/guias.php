@@ -172,6 +172,7 @@
         function showPerrosByGuia(index,guia){
         	// - sub tabla de perros asignados a un guia
         	$('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid({
+            	width: 925,
         		title: 'Perros registrados a nombre de '+guia.Nombre,
        		    pagination: false,
         	    rownumbers: false,
