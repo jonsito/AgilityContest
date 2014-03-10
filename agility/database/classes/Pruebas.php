@@ -89,6 +89,10 @@ class Pruebas extends DBObject {
 	function delete($id) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Prueba ID");
+		// si la prueba esta cerrada damos error
+		
+		// si no esta cerrada, guardamos las jornadas jornadas de esta
+		// prueba que sí que lo estén
 		$res= $this->query("DELETE FROM Pruebas WHERE (ID=$id) AND (Cerrada=0) ");
 		if (!$res) return $this->error($this->conn->error);
 		// if affected rows == 0 implica prueba cerrada: notify error
