@@ -37,19 +37,25 @@ class Jueces extends DBObject {
 		return ""; 
 	}
 	
-	function update() {
+	/**
+	 * Update juez data
+	 * @param {integer} $id Juez ID primary key
+	 * @return {string} "" on success; null on error
+	 */
+	function update($id) {
 		$this->myLogger->enter();
+		if ($id==0) return $this->error("Invalid Juez ID");
 		// componemos un prepared statement
 		$sql ="UPDATE Jueces SET Nombre=? , Direccion1=? , Direccion2=? , Telefono=? , Internacional=? , Practicas=? , Email=? , Observaciones=?
-		       WHERE ( Nombre=? )";
+		       WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('ssssiisss',$nombre,$direccion1,$direccion2,$telefono,$internacional,$practicas,$email,$observaciones,$viejo);
+		$res=$stmt->bind_param('ssssiisss',$nombre,$direccion1,$direccion2,$telefono,$internacional,$practicas,$email,$observaciones,$idjuez);
 		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
 		$nombre =		http_request("Nombre","s",null); // pkey not null
-		$viejo =		http_request("Viejo","s",null); // to allow change name
+		$idjuez =		$id;
 		$direccion1 =	http_request("Direccion1","s",null);
 		$direccion2 =	http_request("Direccion2","s",null);
 		$telefono = 	http_request("Telefono","s",null);
@@ -57,7 +63,7 @@ class Jueces extends DBObject {
 		$practicas =	http_request("Practicas","i",0);
 		$email =		http_request("Email","s",null); // not null
 		$observaciones=	http_request("Observaciones","s",null);
-		$this->myLogger->debug("N.Viejo: $viejo N.nuevo: $nombre Dir1: $direccion1 Dir2: $direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
+		$this->myLogger->debug("ID: $id Nombre: $nombre Dir1: $direccion1 Dir2: $direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
@@ -69,17 +75,35 @@ class Jueces extends DBObject {
 	
 	/**
 	 * Delete juez with provided name
-	 * @param {string} $juez name primary key
+	 * @param {integer} $id ID primary key
 	 * @return "" on success ; otherwise null
 	 */
-	function delete($juez) {
+	function delete($id) {
 		$this->myLogger->enter();
-		if ($juez==='-- Sin asignar --') return $this->error("Cannot delete default juez"); 
-		$str="DELETE FROM Jueces WHERE ( Nombre='$juez' )";
+		if ($id<=1) return $this->error("Invalid Juez ID"); // cannot delete if juez<=default 
+		$str="DELETE FROM Jueces WHERE ( ID=$id )";
 		$res= $this->query($str);
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
+	}	
+	
+	/**
+	 * Select juez with provided ID
+	 * @param {string} $juez name primary key
+	 * @return "" on success ; otherwise null
+	 */
+	function selectByID($id) {
+		$this->myLogger->enter();
+		if ($id<=0) return $this->error("Invalid Juez ID"); // Juez ID must be positive greater than 0 
+		$str="SELECT * FROM Jueces WHERE ( ID=$id )";
+		$rs= $this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		$row=$rs->fetch_array();
+		$rs->free();
+		if(!$row) return $this->error("No Juez found with provided ID $id");
+		$this->myLogger->leave();
+		return $row;
 	} 
 	
 	function select() {

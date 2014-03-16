@@ -43,7 +43,8 @@
             fitColumns: true,
             singleSelect: true,
             columns: [[
-            	{ field:'Nombre',		width:40, sortable:true,	title: 'Nombre:' },
+                { field:'ID',			hidden:true },
+                { field:'Nombre',		width:40, sortable:true,	title: 'Nombre:' },
             	{ field:'Direccion1',	width:35,					title: 'Direcci&oacute;n 1:' },
             	{ field:'Direccion2',	width:35,                   title: 'Direcci&oacute;n 2' },
             	{ field:'Telefono',		width:20, sortable:true,	title: 'Tel&eacute;fono' },

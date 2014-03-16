@@ -470,9 +470,13 @@ function deleteDog(){
  * @param {string} def default value to insert into Nombre 
  */
 function newJuez(def){
+	// open dialog
 	$('#jueces-dialog').dialog('open').dialog('setTitle','Nuevo juez');
+	// clear old data (if any)
 	$('#jueces-form').form('clear');
+	// fill juez Name 
 	if (!strpos(def,"Buscar")) $('#jueces-Nombre').val(def);
+	// set up operation
 	$('#jueces-Operation').val('insert');
 }
 
@@ -486,17 +490,11 @@ function editJuez(){
     	$.messager.alert("Edit Error:","!No ha seleccionado ningún Juez!","warning");
     	return; // no way to know which dog is selected
     }
+    // set up operation properly
+    row.Operation='update';
+    // open dialog
     $('#jueces-dialog').dialog('open').dialog('setTitle','Modificar datos del juez');
-    $('#jueces-form').form({
-      	onLoadSuccess: function(data){
-            // take care on int-to-bool translation for checkboxes
-            $('#jueces-Internacional').prop('checked',(row.Internacional==1)?true:false);
-            $('#jueces-Practicas').prop('checked',(row.Practicas==1)?true:false);
-            // save old juez name in "Viejo" hidden form input to allow change juez name
-            $('#jueces-Viejo').val( $('#jueces-Nombre').val());
-        	$('#jueces-Operation').val('update');
-       	}
-    });
+    // and fill form with row data
     $('#jueces-form').form('load',row);
 }
 
@@ -540,7 +538,7 @@ function deleteJuez(){
     }
     $.messager.confirm('Confirm','Borrar datos del juez:'+row.Nombre+'\n ¿Seguro?',function(r){
       	if (!r) return;
-        $.get('database/juezFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
+        $.get('database/juezFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
                 $('#jueces-datagrid').datagrid('reload');    // reload the juez data
             } else {
