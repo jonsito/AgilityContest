@@ -49,7 +49,8 @@
             singleSelect: true,
             view: detailview,
             columns: [[
-               	    { field:'Nombre',		width:10, sortable:true,	title: 'Nombre:'},
+                  	{ field:'ID',			hidden:true},
+                   	{ field:'Nombre',		width:10, sortable:true,	title: 'Nombre:'},
             		{ field:'Direccion1',	width:15, sortable:true,	title: 'Direcci&oacute;n 1:' },
             		{ field:'Direccion2',	width:10, sortable:false,	title: 'Direcci&oacute;n 2' },
             		{ field:'Provincia',	width:7, sortable:false,   title: 'Provincia' },
@@ -216,10 +217,11 @@
         	    loadMsg: 'Cargando lista de guias....',
         	    height: 'auto',
         	    columns: [[
-        	          { field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
-        	          { field:'Telefono',	width:15, sortable:true,	title: 'Tel&eacute;fono' },
-        	          { field:'Email',		width:25, sortable:true,    title: 'Correo Electr&oacute;nico' },
-        	          { field:'Observaciones',width:15,					title: 'Observaciones'}
+        	        { field:'ID',			hidden:true },	
+        	    	{ field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
+        	    	{ field:'Telefono',	width:15, sortable:true,	title: 'Tel&eacute;fono' },
+        	    	{ field:'Email',		width:25, sortable:true,    title: 'Correo Electr&oacute;nico' },
+        	    	{ field:'Observaciones',width:15,					title: 'Observaciones'}
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             	rowStyler:function(idx,row) { 
@@ -304,7 +306,7 @@
         	    loadMsg: 'Loading list of dogs',
         	    height: 'auto',
         	    columns: [[
-            	    { field:'IDPerro',	width:15, sortable:true,	title: 'ID'},
+            	    { field:'ID',		width:15, sortable:true,	title: 'ID'},
             		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
             		{ field:'Categoria',width:15, sortable:false,	title: 'Cat.' },
             		{ field:'Grado',	width:25, sortable:false,   title: 'Grado' },

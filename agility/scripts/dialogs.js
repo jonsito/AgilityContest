@@ -22,6 +22,10 @@ function newClub(def,onAccept){
 	$('#clubes-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#clubes-Nombre').val(def);
 	$('#clubes-Operation').val('insert');
+	// select ID=1 to get default logo
+	var nombre="/agility/database/clubFunctions.php?Operation=logo&ID=1";
+    $('#clubes-Logo').attr("src",nombre);
+    // add onAccept related function if any
 	if (onAccept!==undefined)
 		$('#clubes-okBtn').one('click',onAccept);
 }
@@ -30,18 +34,17 @@ function newClub(def,onAccept){
  * Abre el dialogo para editar un club existente
  */
 function editClub(){
+	if ($('#clubes-search').is(":focus")) return; // on enter key in search input ignore
     var row = $('#clubes-datagrid').datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Update Error:","!No ha seleccionado ningún Club!","warning");
     	return; // no way to know which dog is selected
     }
+    row.Operation='update';
+	var nombre="/agility/database/clubFunctions.php?Operation=logo&ID="+row.ID;
+    $('#clubes-Logo').attr("src",nombre);
     $('#clubes-dialog').dialog('open').dialog('setTitle','Modificar datos del club');
     $('#clubes-form').form('load',row);
-    // save old club name in "Viejo" hidden form input to allow change guia name
-    $('#clubes-Viejo').val( $('#clubes-Nombre').val());
-	$('#clubes-Operation').val('update');
-	var nombre="/agility/database/clubFunctions.php?Operation=logo&Nombre="+row.Nombre;
-    $('#Clubes-Logo').attr("src",nombre);
 }
 
 /**
@@ -83,7 +86,7 @@ function deleteClub(){
     }
     $.messager.confirm('Confirm','Borrar el club "'+row.Nombre+'" de la base de datos ¿Seguro?',function(r){
         if (!r) return;
-        $.get('database/clubFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
+        $.get('database/clubFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
                 $('#clubes-datagrid').datagrid('reload');    // reload the guia data
             } else {
@@ -467,17 +470,15 @@ function deleteDog(){
 
 /**
  * Open "New Juez dialog"
- * @param {string} def default value to insert into Nombre 
+ *@param {string} def default value to insert into Nombre 
+ *@param {function} onAccept what to do when a new Juez is created
  */
-function newJuez(def){
-	// open dialog
-	$('#jueces-dialog').dialog('open').dialog('setTitle','Nuevo juez');
-	// clear old data (if any)
-	$('#jueces-form').form('clear');
-	// fill juez Name 
-	if (!strpos(def,"Buscar")) $('#jueces-Nombre').val(def);
-	// set up operation
-	$('#jueces-Operation').val('insert');
+function newJuez(def,onAccept){
+	$('#jueces-dialog').dialog('open').dialog('setTitle','Nuevo juez'); // open dialog
+	$('#jueces-form').form('clear');// clear old data (if any)
+	if (!strpos(def,"Buscar")) $('#jueces-Nombre').val(def);// fill juez Name
+	$('#jueces-Operation').val('insert');// set up operation
+	if (onAccept!==undefined)$('#jueces-okBtn').one('click',onAccept);
 }
 
 /**

@@ -10,7 +10,7 @@
                 	type="text" 
                 	class="easyui-validatebox" 
                 	style="width:350px" />
-                <input id="clubes-Viejo" name="Viejo" type="hidden" /> <!-- used to allow operator change guia's name -->
+                <input id="clubes-ID" name="ID" type="hidden" /> <!-- used to allow operator change club name -->
                 <input id="clubes-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
@@ -24,7 +24,7 @@
             <div class="fitem">
                 <label for="Provincia">Provincia</label>
                 <select id="clubes-Provincia" name="Provincia" class="easyui-combogrid" style="width:200px"></select>
-                <input id="Clubes-Logo"
+                <input id="clubes-Logo"
                    	type="image"
                 	name="Logo" 
                 	src="/agility/database/clubFunctions.php?Operation=logo&Nombre=rsce"

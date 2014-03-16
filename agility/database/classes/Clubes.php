@@ -50,7 +50,7 @@ class Clubes extends DBObject {
 	 * Update entry in database table "Clubs"
 	 * @return string "" empty if ok; null on error
 	 */
-	function update() {
+	function update($id) {
 		$this->myLogger->enter();
 		
 		// componemos un prepared statement
@@ -58,15 +58,15 @@ class Clubes extends DBObject {
 				SET Nombre=? , Direccion1=? , Direccion2=? , Provincia=? ,
 				Contacto1=? , Contacto2=? , Contacto3=? , GPS=? , Web=? ,
 				Email=? , Facebook=? , Google=? , Twitter=? , Observaciones=? , Baja=?
-				WHERE ( Nombre=? )";
+				WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('ssssssssssssssis',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,
-				$web,$email,$facebook,$google,$twitter,$observaciones,$baja,$viejo);
+				$web,$email,$facebook,$google,$twitter,$observaciones,$baja,$idclub);
 		if (!$res) return $this->error($this->conn->error);
 		// iniciamos los valores, chequeando su existencia
 		$nombre 	= http_request("Nombre","s",null,false);
-		$viejo		= http_request("Viejo","s",null,false);
+		$idclub		= $id;
 		$direccion1 = http_request('Direccion1',"s",null,false);
 		$direccion2 = http_request('Direccion2',"s",null,false); 
 		$provincia	= http_request('Provincia',"s",null,false);
@@ -91,14 +91,15 @@ class Clubes extends DBObject {
 		return "";
 	}
 	
-	function delete($nombre) {
+	function delete($id) {
 		$this->myLogger->enter();
-		if ($nombre===null)  return $this->error("No club name provided");
-		// fase 1: desasignar guias del club
-		$res= $this->query("UPDATE Guias SET Club='-- Sin asignar --'  WHERE (Club='$nombre')");
+		// cannot delete default club id or null club id
+		if ($id<=1)  return $this->error("No club or invalid Club ID '$id' provided");
+		// fase 1: desasignar guias del club (assign to default club with ID=1)
+		$res= $this->query("UPDATE Guias SET Club=1  WHERE (Club=$id)");
 		if (!$res) return $this->error($this->conn->error);
 		// fase 2: borrar el club de la BBDD
-		$res= $this->query("DELETE FROM Clubes WHERE (Nombre='$nombre')");
+		$res= $this->query("DELETE FROM Clubes WHERE (ID=$id)");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -183,11 +184,12 @@ class Clubes extends DBObject {
 	/** 
 	 * Retorna el logo asociado al club de nombre indicado
 	 * NOTA: esto no retorna una respuesta json, sino una imagen
-	 * @param unknown $nombre
+	 * @param {integer} $id club id
 	 */
-	function getLogo($nombre) {
+	function getLogo($id) {
 		$this->myLogger->enter();
-		$str="SELECT Logo FROM Clubes WHERE Nombre='$nombre'";
+		if ($id==0) $id=1; // on insert, select default logo
+		$str="SELECT Logo FROM Clubes WHERE ID=$id";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$row=$rs->fetch_object();
