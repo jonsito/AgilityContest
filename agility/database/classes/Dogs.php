@@ -40,15 +40,15 @@ class Dogs extends DBObject {
 	 * @param {integer} $idperro dog id primary key
 	 * @return "" on success; null on error
 	 */
-	function update($idperro) {
+	function update($id) {
 		$this->myLogger->enter();
-		if ($idperro===null) return $this->error("No idperro provided"); 
+		if ($id<=0) return $this->error("No Dog ID provided"); 
 		// componemos un prepared statement
 		$sql ="UPDATE Perros SET Nombre=? , Raza=? , LOE_RRC=? , Licencia=? , Categoria=? , Grado=? , Guia=?
-		       WHERE ( IDPerro=? )";
+		       WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('sssssssi',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia,$idperro);
+		$res=$stmt->bind_param('ssssssii',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia,$idperro);
 		if (!$res) return $this->error($this->conn->error);
 
 		// iniciamos los valores, chequeando su existencia
@@ -58,9 +58,10 @@ class Dogs extends DBObject {
 		$licencia = http_request("Licencia","s",null,false);
 		$categoria= http_request("Categoria","s",null,false);
 		$grado =	http_request("Grado","s",null,false);
-		$guia =		http_request("Guia","s",null,false);
+		$guia =		http_request("Guia","i",0,false);
+		$idperro =	$id;
 
-		$this->myLogger->info("IDPerro: $idperro Nombre: $nombre Raza: $raza LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
+		$this->myLogger->info("ID: $id Nombre: $nombre Raza: $raza LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		$stmt->close();
@@ -76,8 +77,8 @@ class Dogs extends DBObject {
 	 */
 	function delete($idperro) {
 		$this->myLogger->enter();
-		if ($idperro===null) return $this->error("No idperro provided"); 
-		$rs= $this->query("DELETE FROM Perros WHERE (IDPerro=$idperro)");
+		if ($idperro<=0) return $this->error("No Dog ID"); 
+		$rs= $this->query("DELETE FROM Perros WHERE (ID=$idperro)");
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -90,8 +91,9 @@ class Dogs extends DBObject {
 	 */
 	function orphan ($idperro) {
 		$this->myLogger->enter();
-		if ($idperro===null) return $this->error("No idperro provided"); 
-		$rs= $this->query("UPDATE Perros SET Guia='-- Sin asignar --' WHERE (IDPerro='$idperro')");
+		if ($idperro<=0) return $this->error("No Dog ID provided"); 
+		// assign to default Guia ID=1
+		$rs= $this->query("UPDATE Perros SET Guia=1 WHERE (ID=$idperro)");
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -109,7 +111,7 @@ class Dogs extends DBObject {
 		$order=http_request("order","s","ASC");
 		$search=http_Request("where","s","");
 		$where = ' ';
-		if ($search!=='') $where="WHERE (Nombre LIKE '%$search%') OR ( Guia LIKE '%$search%') OR ( Club LIKE '%$search%')";
+		if ($search!=='') $where="WHERE (Nombre LIKE '%$search%') OR ( NombreGuia LIKE '%$search%') OR ( NombreClub LIKE '%$search%')";
 		$offset = ($page-1)*$rows;
 		$result = array();
 
@@ -144,7 +146,7 @@ class Dogs extends DBObject {
 		
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
-		$like =  ($q===null) ? "" : " WHERE ( ( Nombre LIKE '%$q%' ) OR ( Guia LIKE '%$q%' ) OR ( Club LIKE '%$q%' ) )";
+		$like =  ($q===null) ? "" : " WHERE ( ( Nombre LIKE '%$q%' ) OR ( NombreGuia LIKE '%$q%' ) OR ( NombreClub LIKE '%$q%' ) )";
 
 		// execute first query to know how many elements
 		$result = array();
@@ -170,22 +172,22 @@ class Dogs extends DBObject {
 	
 	/** 
 	 * enumera todos los perros asociados a un guia
-	 * @param {string} $guia Nombre del guia
+	 * @param {integer} $guia ID del guia
 	 */
-	function selectByGuia($guia) {
+	function selectByGuia($idguia) {
 		$this->myLogger->enter();
-		if ($guia===null) return $this->error("No guia specified");
+		if ($idguiq<=0) return $this->error("Invalid Guia ID");
 		// evaluate offset and row count for query
 		$result = array();
 		$items = array();
 		// execute first query to know how many elements
-		$str="SELECT count(*) FROM Perros WHERE ( Guia = '".$guia."' )";
+		$str="SELECT count(*) FROM PerroGuiaClub WHERE ( Guia = $idguia )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$row=$rs->fetch_row();
 		$result["total"] = $row[0];
 		$rs->free();
-		$str="SELECT * FROM Perros WHERE ( Guia ='$guia' ) ORDER BY Nombre ASC";
+		$str="SELECT * FROM PerroGuiaClub WHERE ( Guia ='$guia' ) ORDER BY Nombre ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array

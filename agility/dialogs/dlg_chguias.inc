@@ -16,7 +16,7 @@
                 <label for="Nombre">Nombre:</label>
                 <input id="chguias-Nombre" name="Nombre" class="easyui-validatebox" style="width:300px" />
                 <input id="chguias-Club" name="Club" type="hidden" value="" /> <!-- hidden field to store related club -->
-                <input id="chguias-Viejo" name="Viejo" type="hidden" value="" /> <!-- used to allow operator change guia's name -->
+                <input id="chguias-ID" name="ID" type="hidden" value="" /> <!-- used to allow operator change guia's name -->
                 <input id="chguias-Operation" name="Operation" type="hidden" value=""/> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
@@ -106,7 +106,6 @@
     			if (!nombre) return;
     	        $('#chguias-form').form('load','database/guiaFunctions.php?Operation=getbyname&Nombre='+nombre); // load form with json retrieved data
     			$('#chguias-Club').val($('#chguias-newClub').val()); // restore "Club" field
-    			$('#chguias-Viejo').val(nombre);
     		}
     	});
 </script>

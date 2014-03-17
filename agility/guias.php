@@ -48,8 +48,10 @@
             view: detailview,
             height: 'auto',
             columns: [[
+                { field:'ID',			hidden:true },
             	{ field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
-                { field:'Club',			width:20, sortable:true,	title: 'Club'},
+                { field:'Club',			hidden:true},
+                { field:'NombreClub',	width:20, sortable:true,	title: 'Club'},
             	{ field:'Telefono',		width:10, sortable:true,	title: 'Tel&eacute;fono' },
             	{ field:'Email',		width:15, sortable:true,    title: 'Correo Electr&oacute;nico' },
                 { field:'Observaciones',width:30,					title: 'Observaciones'}

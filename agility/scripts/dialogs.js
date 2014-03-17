@@ -103,9 +103,10 @@ function deleteClub(){
 
 /**
  * Abre el formulario para anyadir guias a un club
- *@param club: nombre del club
+ *@param {integer} club: ID del club
+ *@param {function} onAccept what to do (only once) when chguias-dialog gets closed by pressing ok
  */
-function assignGuiaToClub(club) {
+function assignGuiaToClub(club,onAccept) {
 	$('#chguias-dialog').dialog('open').dialog('setTitle','Asignar/Registrar un gu&iacute;a');
 	$('#chguias-form').form('clear'); // erase form
 	$('#chguias-title').text('Reasignar/Declarar un guia como perteneciente al club '+club.Nombre);
@@ -113,6 +114,8 @@ function assignGuiaToClub(club) {
 	$('#chguias-newClub').val(club.Nombre);
 	$('#chguias-Operation').val('insert');
 	$('#chguias-Parent').val('-' + replaceAll(' ','_',club.Nombre));
+	if (onAccept!==undefined)
+		$('#chguias-okBtn').one('click',onAccept);
 }
 
 /**
@@ -161,7 +164,6 @@ function editGuia(){
     }
     $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del gu&iacute;a');
     // add extra required parameters to dialo
-    row.Viejo=row.Nombre;
     row.Parent='';
     row.Operation='update';
     $('#guias-form').form('load',row); // load row data into form
@@ -172,7 +174,6 @@ function editGuia(){
  * Ask for commit new/edit guia to server
  */
 function assignGuia(){
-	// $('#chguias-Viejo').val($('#chguias-Search').combogrid('getValue'));
 	$('#chguias-Club').val($('#chguias-newClub').val());
     // do normal submit
     $('#chguias-form').form('submit',{
@@ -587,7 +588,6 @@ function editPrueba(){
             $('#pruebas-Cerrada').prop('checked',(row.Cerrada==1)?true:false);
     	}
     });
-    row.Viejo=row.Nombre;
     row.Operation='update';
     $('#pruebas-form').form('load',row);
 }

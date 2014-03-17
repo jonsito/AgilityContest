@@ -30,25 +30,25 @@ class Guias extends DBObject {
 		return "";
 	}
 	
-	function update() {
+	function update($id) {
 		$this->myLogger->enter();
-		
+		if ($id<=0) return $this->error("Invalid Guia ID provided");
 		// componemos un prepared statement
-		$sql ="UPDATE Guias SET Nombre=? , Telefono=? , Email=? , Club=? , Observaciones=? WHERE ( Nombre=? )";
+		$sql ="UPDATE Guias SET Nombre=? , Telefono=? , Email=? , Club=? , Observaciones=? WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('ssssss',$nombre,$telefono,$email,$club,$observaciones,$viejo);
+		$res=$stmt->bind_param('ssssss',$nombre,$telefono,$email,$club,$observaciones,$guiaid);
 		if (!$res) return $this->error($this->conn->error); 
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre 	= http_request("Nombre","s",null,false); // primary key
-		$viejo 	= http_request("Viejo","s",null,false); 
+		$nombre 	= http_request("Nombre","s",null,false); 
 		$telefono = http_request('Telefono',"s",null,false);
 		$email = http_request('Email',"s",null,false);
 		$club	= http_request('Club',"s",null,false); // not null
 		$observaciones= http_request('Observaciones',"s",null,false);
+		$guiaid 	= $id; // primary key
 		
-		$this->myLogger->info("Viejo: $viejo Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
+		$this->myLogger->info("ID: $id Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
@@ -58,14 +58,14 @@ class Guias extends DBObject {
 		return "";
 	}
 	
-	function delete($nombre) {
+	function delete($id) {
 		$this->myLogger->enter();
-		if ($nombre===null) return $this->error("No guia name provided");
-		// fase 1: desasignamos los perros de este guia
-		$res= $this->query("UPDATE Perros SET GUIA='-- Sin asignar --' WHERE ( Guia='$nombre')");
+		if ($id<=1) return $this->error("Invalid Guia ID provided"); // cannot delete ID=1
+		// fase 1: desasignamos los perros de este guia (los asignamos al guia id=1)
+		$res= $this->query("UPDATE Perros SET GUIA=1 WHERE ( Guia=$id )");
 		if (!$res) return $this->error($this->conn->error); 
 		// fase 2: borramos el guia de la base de datos
-		$res= $this->query("DELETE FROM Guias WHERE (Nombre='$nombre')");
+		$res= $this->query("DELETE FROM Guias WHERE (ID=$id)");
 		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";
@@ -73,13 +73,13 @@ class Guias extends DBObject {
 	
 	/**
 	 * remove a handler from provided club
-	 * @param unknown $guia
+	 * @param {integer} $id Guia ID primary key
 	 * @return "" on success ; null on error
 	 */
-	function orphan($guia) {
-		if ($guia===null) return $this->error("No handler name provided"); 
+	function orphan($i) {
 		$this->myLogger->enter();
-		$res= $this->query("UPDATE Guias SET Club='-- Sin asignar --' WHERE ( Nombre='$guia' )");
+		if ($i<=0) return $this->error("Invalid Guia ID"); 
+		$res= $this->query("UPDATE Guias SET Club=1 WHERE ( ID=$id )");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
@@ -94,19 +94,23 @@ class Guias extends DBObject {
 		$order=http_request("order","s","ASC");
 		$search=http_Request("where","s","");
 		$where = '';
-		if ($search!=='') $where=" WHERE ( (Nombre LIKE '%$search%') OR ( Club LIKE '%$search%') ) ";
+		if ($search!=='') $where=" AND ( (Guias.Nombre LIKE '%$search%') OR ( Clubes.Nombre LIKE '%$search%') ) ";
 		$offset = ($page-1)*$rows;
 		$result = array();
 		
 		// execute first query to know how many elements
-		$rs=$this->query("SELECT count(*) FROM Guias $where");
+		$rs=$this->query("SELECT count(*) FROM Guias,Clubes WHERE (Guias.Club=Clubes.ID) $where");
 		if (!$rs) return $this->error($this->conn->error);
 		$row=$rs->fetch_array();
 		$rs->free();
 		$result["total"] = $row[0];
 		
 		// second query to retrieve $rows starting at $offset
-		$rs=$this->query("SELECT * FROM Guias $where ORDER BY $sort $order LIMIT $offset,$rows");
+		$rs=$this->query(
+				"SELECT Guias.ID,Guias.Nombre,Telefono,Guias.Email,Club, Clubes.Nombre AS NombreClub,Guias.Observaciones
+				FROM Guias,Clubes 
+				WHERE (Guias.Club=Clubes.ID) $where 
+				ORDER BY $sort $order LIMIT $offset,$rows");
 		if (!$rs) return $this->error($this->conn->error); 
 		// retrieve result into an array
 		$items = array();
@@ -151,25 +155,24 @@ class Guias extends DBObject {
 	
 	/** 
 	 * Enumerate by club (exact match)
-	 * @param {string} $club Club name (key search) 
+	 * @param {integer} $club Club ID primary key
 	 * @return result on success; null on error
 	 */
 	function selectByClub($club) {
 		$this->myLogger->enter();
-		if ($club===null) return $this->error("No club name provided");
+		if ($club<=0) return $this->error("Invalid Club ID provided");
 		$result = array();
 		$items = array();
 		
 		// execute first query to know how many elements
-		$club=strval($_GET['Club']);
-		$str="SELECT count(*) FROM Guias WHERE ( Club = '$club' )";
+		$str="SELECT count(*) FROM Guias WHERE ( Club=$club )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 
 		$row=$rs->fetch_row();
 		$result["total"] = $row[0];
 		$rs->free();
 		// second query to retrieve elements
-		$str="SELECT * FROM Guias WHERE ( Club ='$club' ) ORDER BY Nombre ASC";
+		$str="SELECT * FROM Guias WHERE ( Club=$club ) ORDER BY Nombre ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 
 		// retrieve result into an array
@@ -183,27 +186,24 @@ class Guias extends DBObject {
 	}
 	
 	/**
-	 * Select a (single) entry that matches with provided handler name
-	 * @param {string} $nombre handler's name
+	 * Select a (single) entry that matches with provided handler ID
+	 * @param {integer} $id Handler ID primary key
 	 * @return result on success; null on error
 	 */
-	function selectByNombre($nombre) {
+	function selectByID($id) {
 		$this->myLogger->enter();
-		if ($nombre===null) return $this->error("No handler name provided"); 
+		if ($nombre<=0) return $this->error("Invalid Provided Handler ID"); 
 		// query to retrieve $rows starting at $offset
-		$str="SELECT * FROM Guias WHERE ( Nombre = '$nombre' )";
+		$str="SELECT * FROM Guias WHERE ( ID = $id )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
-		$result = array();
-		while($row = $rs->fetch_array()){ // should only be one item
-			$row['Operation']='update'; // dirty trick to ensure that form operation is fixed
-			array_push($result, $row);
-		}
-		// disconnect from database
+		$row = $rs->fetch_array();
 		$rs->free();
+		if (!$row)	return $this->error("No handler found with ID=$id");
+		$row['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
-		return $result;
+		return $row;
 	}
 }
 	

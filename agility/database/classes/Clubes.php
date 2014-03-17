@@ -82,7 +82,7 @@ class Clubes extends DBObject {
 		$observaciones = http_request('Observaciones',"s",null,false);
 		$baja		= http_request('Baja',"i",0);
 		
-		$this->myLogger->debug("Nombre: $nombre Viejo: $viejo Provincia: $provincia Direccion1: $direccion1 Contacto1: $contacto1 ");
+		$this->myLogger->debug("Nombre: $nombre ID: $idclub Provincia: $provincia Direccion1: $direccion1 Contacto1: $contacto1 ");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($this->conn->error);

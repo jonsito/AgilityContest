@@ -53,15 +53,17 @@
             fitColumns: true,
             singleSelect: true,
             columns: [[
-            	{ field:'IDPerro',   width:10,  sortable:true, align: 'right', title: 'ID' },
+            	{ field:'ID',   hidden:true },
             	{ field:'Nombre',   width:30, sortable:true,  align: 'right', title: 'Nombre' },
             	{ field:'Raza',     width:25,                align: 'right', title: 'Raza' },
             	{ field:'LOE_RRC',  width:20, sortable:true, align: 'right', title: 'LOE / RRC' },
             	{ field:'Licencia', width:15, sortable:true, align: 'right', title: 'Lic.' },
             	{ field:'Categoria',width:10,                 align:'center', title: 'Cat.' },
             	{ field:'Grado',    width:10,                 align:'center', title: 'Grado' },
-                { field:'Guia',     width:50, sortable:true,                 title: 'Nombre del Gu&iacute;a'},
-                { field:'Club',     width:35, sortable:true,                 title: 'Club'}
+            	{ field:'Guia',   hidden:true },
+                { field:'NombreGuia',     width:50, sortable:true, title: 'Nombre del Gu&iacute;a'},
+            	{ field:'Club',   hidden:true },
+                { field:'NombreClub',     width:35, sortable:true, title: 'Nombre del Club'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:function(index,row) { 

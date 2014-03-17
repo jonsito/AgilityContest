@@ -7,16 +7,18 @@
 		$result=null;
 		$guias= new Guias("guiaFunctions");
 		$operation=http_request("Operation","s",null);
+		$guiaid=http_request("ID","i",0);
+		$clubid=http_request("Club","i",0);
 		if ($operation===null) throw new Exception("Call to guiaFunctions without 'Operation' requested");
 		switch ($operation) {
 			case "insert": $result=$guias->insert(); break;
-			case "update": $result=$guias->update(); break;
-			case "delete": $result=$guias->delete(http_request("Nombre","s",null)); break;
-			case "orphan": $result=$guias->orphan(http_request("Nombre","s",0)); break; // unassing from club
+			case "update": $result=$guias->update($guiaid); break;
+			case "delete": $result=$guias->delete($guiaid); break;
 			case "select": $result=$guias->select(); break; // select *
+			case "orphan": $result=$guias->orphan($guiaid); break; // unassing from club
 			case "enumerate": $result=$guias->enumerate(); break; // block select
-			case "getbyclub": $result=$guias->selectByClub(http_request("Club","s",null)); break;
-			case "getbyname": $result=$guias->selectByNombre(http_request("Nombre","s",null)); break;
+			case "getbyclub": $result=$guias->selectByClub($clubid); break; 
+			case "getbyid": $result=$guias->selectByID($guiaid); break;
 			default: throw new Exception("guiaFunctions:: invalid operation: $operation provided");
 		}
 		if ($result===null) throw new Exception($guias->errormsg);

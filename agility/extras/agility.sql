@@ -950,15 +950,17 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
 --
 DROP VIEW IF EXISTS `PerroGuiaClub`;
 CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
-`Perro` int(4)
+`ID` int(4)
 ,`Nombre` varchar(255)
 ,`Raza` varchar(255)
 ,`Licencia` varchar(255)
 ,`LOE_RRC` varchar(255)
 ,`Categoria` varchar(1)
 ,`Grado` varchar(16)
-,`Guia` varchar(255)
-,`Club` varchar(255)
+,`Guia` int(4)
+,`Club` int(4)
+,`NombreGuia` varchar(255)
+,`NombreClub` varchar(255)
 );
 -- --------------------------------------------------------
 
@@ -1751,7 +1753,21 @@ INSERT INTO `Tipo_Manga` (`Tipo`, `Descripcion`, `Grado`) VALUES
 --
 DROP TABLE IF EXISTS `PerroGuiaClub`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` AS select `Perros`.`ID` AS `Perro`,`Perros`.`Nombre` AS `Nombre`,`Perros`.`Raza` AS `Raza`,`Perros`.`Licencia` AS `Licencia`,`Perros`.`LOE_RRC` AS `LOE_RRC`,`Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Guias`.`Nombre` AS `Guia`,`Clubes`.`Nombre` AS `Club` from ((`Perros` join `Guias`) join `Clubes`) where ((`Perros`.`Guia` = `Guias`.`ID`) and (`Guias`.`Club` = `Clubes`.`ID`)) order by `Clubes`.`Nombre`,`Perros`.`Categoria`,`Perros`.`Nombre`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` AS 
+	select 	`Perros`.`ID` AS `ID`,
+			`Perros`.`Nombre` AS `Nombre`,
+			`Perros`.`Raza` AS `Raza`,
+			`Perros`.`Licencia` AS `Licencia`,
+			`Perros`.`LOE_RRC` AS `LOE_RRC`,
+			`Perros`.`Categoria` AS `Categoria`,
+			`Perros`.`Grado` AS `Grado`,
+			`Perros`.`Guia` AS `Guia`,
+			`Guias`.`Nombre` AS `NombreGuia`,
+			`Guias`.`Club` AS `Club`,
+			`Clubes`.`Nombre` AS `NombreClub` 
+	from ((`Perros` join `Guias`) join `Clubes`) 
+	where ((`Perros`.`Guia` = `Guias`.`ID`) and (`Guias`.`Club` = `Clubes`.`ID`)) 
+	order by `Clubes`.`Nombre`,`Perros`.`Categoria`,`Perros`.`Nombre`;
 
 --
 -- Restricciones para tablas volcadas
