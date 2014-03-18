@@ -84,6 +84,10 @@ function deleteClub(){
     	$.messager.alert("Delete Error:","!No ha seleccionado ningún Club!","warning");
     	return; // no way to know which dog is selected
     }
+    if (row.ID==1) {
+    	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
+    	return; // cannot delete default club
+    }
     $.messager.confirm('Confirm','Borrar el club "'+row.Nombre+'" de la base de datos ¿Seguro?',function(r){
         if (!r) return;
         $.get('database/clubFunctions.php',{Operation:'delete',ID:row.ID},function(result){
@@ -236,6 +240,10 @@ function deleteGuia(){
     if (!row) {
     	$.messager.alert("Delete Error:","!No ha seleccionado ningún guía!","warning");
     	return; // no way to know which dog is selected
+    }
+    if (row.ID==1) {
+    	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
+    	return; // cannot delete default entry
     }
     $.messager.confirm('Confirm','Borrar datos del guia: '+ row.Nombre+'\n¿Seguro?',function(r){
     	if (!r) return;
@@ -537,6 +545,10 @@ function deleteJuez(){
     if (!row) {
     	$.messager.alert("Delete Error:","!No ha seleccionado ningún Juez!","info");
     	return; // no way to know which juez is selected
+    }
+    if (row.ID==1) {
+    	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
+    	return; // cannot delete default juez
     }
     $.messager.confirm('Confirm','Borrar datos del juez:'+row.Nombre+'\n ¿Seguro?',function(r){
       	if (!r) return;

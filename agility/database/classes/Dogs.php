@@ -105,14 +105,14 @@ class Dogs extends DBObject {
 	 */
 	function select() {
 		// evaluate offset and row count for query
-		$page= http_request("page","i",1);
-		$rows= http_request("rows","i",20);
+		// $page= http_request("page","i",1);
+		// $rows= http_request("rows","i",20);
 		$sort= http_request("sort","s","Nombre");
 		$order=http_request("order","s","ASC");
 		$search=http_Request("where","s","");
 		$where = ' ';
 		if ($search!=='') $where="WHERE (Nombre LIKE '%$search%') OR ( NombreGuia LIKE '%$search%') OR ( NombreClub LIKE '%$search%')";
-		$offset = ($page-1)*$rows;
+		// $offset = ($page-1)*$rows;
 		$result = array();
 
 		// execute first query to know how many elements
@@ -122,7 +122,8 @@ class Dogs extends DBObject {
 		$result["total"] = $row[0];
 		$rs->free();
 		// second query to retrieve $rows starting at $offset
-		$str="SELECT * FROM PerroGuiaClub $where ORDER BY $sort $order LIMIT $offset,$rows";
+		// $str="SELECT * FROM PerroGuiaClub $where ORDER BY $sort $order LIMIT $offset,$rows";
+		$str="SELECT * FROM PerroGuiaClub $where ORDER BY $sort $order";
 		$this->myLogger->query($str);
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);

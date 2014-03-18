@@ -88,14 +88,11 @@ class Guias extends DBObject {
 	function select() {
 		$this->myLogger->enter();
 		// evaluate offset and row count for query
-		$page= http_request("page","i",1);
-		$rows= http_request("rows","i",20);
 		$sort= http_request("sort","s","Nombre");
 		$order=http_request("order","s","ASC");
 		$search=http_Request("where","s","");
 		$where = '';
 		if ($search!=='') $where=" AND ( (Guias.Nombre LIKE '%$search%') OR ( Clubes.Nombre LIKE '%$search%') ) ";
-		$offset = ($page-1)*$rows;
 		$result = array();
 		
 		// execute first query to know how many elements
@@ -110,7 +107,7 @@ class Guias extends DBObject {
 				"SELECT Guias.ID,Guias.Nombre,Telefono,Guias.Email,Club, Clubes.Nombre AS NombreClub,Guias.Observaciones
 				FROM Guias,Clubes 
 				WHERE (Guias.Club=Clubes.ID) $where 
-				ORDER BY $sort $order LIMIT $offset,$rows");
+				ORDER BY $sort $order");
 		if (!$rs) return $this->error($this->conn->error); 
 		// retrieve result into an array
 		$items = array();

@@ -25,3 +25,11 @@
 .datagrid-row-selected td{
 	background:#FBEC88;
 }
+
+.datagrid-header-rownumber{
+	width:40px;	
+}
+
+.datagrid-cell-rownumber{
+    width:40px;
+}

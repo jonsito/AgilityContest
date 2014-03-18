@@ -4,7 +4,7 @@
     <table id="clubes-datagrid" class="easyui-datagrid" style="width:975px;height:550px;"></table>
     
 	<!-- BARRA DE TAREAS DE LA TABLA DE CLUBES-->
-    <div id="clubes-toolbar" style="padding:2px 2px 10px 2px;>
+    <div id="clubes-toolbar" style="padding:5px 5px 25px 5px;">
     	<span style="float:left;">
     		<a id="clubes-newBtn" href="#" class="easyui-linkbutton" onclick="newClub($('#clubes-search').val())">Nuevo Club</a>
     		<a id="clubes-editBtn" href="#" class="easyui-linkbutton" onclick="editClub()">Editar Club</a>
@@ -41,6 +41,7 @@
         	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Clubes',
         	url: 'database/clubFunctions.php?Operation=select',
+        	loadMsg: 'Actualizando lista de Clubes ...',
         	method: 'get',
             toolbar: '#clubes-toolbar',
             pagination: false,
@@ -98,8 +99,8 @@
                 	t.datagrid('selectRow', (up ? count-1 : 0));
             	}
         	}
+        	
 			function selectPage(t,offset) {
-
             	var count = t.datagrid('getRows').length;    // row count
             	var selected = t.datagrid('getSelected');
             	if (selected){
@@ -195,7 +196,7 @@
         	    fitColumns: true,
         	    singleSelect: true,
                 view: detailview,
-        	    height: 'auto',
+        	    // height: 'auto',
         		title: 'Gu&iacute;as inscritos en el club '+club.Nombre,
         	    loadMsg: 'Cargando lista de guias....',
         		url: 'database/guiaFunctions.php?Operation=getbyclub&Club='+club.ID,
@@ -291,7 +292,7 @@
         	    rownumbers: false,
         	    fitColumns: true,
         	    singleSelect: true,
-        	    height: 'auto',
+        	    // height: 'auto',
         	    loadMsg: 'Loading list of dogs',
         		title: 'Perros registrados a nombre de '+guia.Nombre,
         		url: 'database/dogFunctions.php',

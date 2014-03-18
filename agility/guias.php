@@ -1,10 +1,9 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE GUIAS -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="guias-datagrid" class="easyui-datagrid" style="width:975px;">
-    </table>
-    <!-- BARRA DE TAREAS -->
-    <div id="guias-toolbar">
+    <table id="guias-datagrid" class="easyui-datagrid" style="width:975px;height:550px">  </table>
+    <!-- BARRA DE TAREAS DE LA TABLA DE GUIAS -->
+    <div id="guias-toolbar" style="padding:5px 5px 25px 5px">
     	<span style="float:left;">
         	<a id="guias-newBtn" href="#" class="easyui-linkbutton" onclick="newGuia($('#guias-search').val())">Nuevo Gu&iacute;a</a>
         	<a id="guias-editBtn" href="#" class="easyui-linkbutton" onclick="editGuia()">Editar Gu&iacute;a</a>
@@ -39,14 +38,14 @@
         	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Gu&iacute;as',
         	url: 'database/guiaFunctions.php?Operation=select',
+        	loadMsg: 'Actualizando lista de Gu&iacute;as...',
         	method: 'get',
             toolbar: '#guias-toolbar',
-            pagination: true,
-            rownumbers: false,
+            pagination: false,
+            rownumbers: true,
             singleSelect: true,
             fitColumns: true,
             view: detailview,
-            height: 'auto',
             columns: [[
                 { field:'ID',			hidden:true },
             	{ field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
@@ -66,7 +65,7 @@
             },        
             // especificamos un formateador especial para desplegar la tabla de perros por guia
             detailFormatter:function(idx,row){
-                return '<div style="padding:2px"><table id="perros-datagrid-' + replaceAll(' ','_',row.Nombre) + '"></table></div>';
+                return '<div style="padding:2px"><table id="perros-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
             },
             onExpandRow: function(idx,row) { showPerrosByGuia(idx,row); },
 
@@ -88,24 +87,27 @@
                 	t.datagrid('selectRow', (up ? count-1 : 0));
             	}
         	}
+
 			function selectPage(t,offset) {
-				var p=t.datagrid('getPager').pagination('options');
-				var curPage=p.pageNumber;
-				var lastPage=1+parseInt(p.total/p.pageSize);
-				if (offset==-2) curPage=1;
-				if (offset==2) curPage=lastPage;
-				if ((offset==-1) && (curPage>1)) curPage=curPage-1;
-				if ((offset==1) && (curPage<lastPage)) curPage=curPage+1;
-            	t.datagrid('clearSelections');
-            	p.pageNumber=curPage;
-            	t.datagrid('options').pageNumber=curPage;
-            	t.datagrid('reload', {
-                	where: $('#guias-search').val(),
-                	onloadSuccess: function(data) {
-                		t.datagrid('getPager').pagination('refresh',{pageNumber:curPage});
+            	var count = t.datagrid('getRows').length;    // row count
+            	var selected = t.datagrid('getSelected');
+            	if (selected){
+                	var index = t.datagrid('getRowIndex', selected);
+                	switch(offset) {
+                	case 1: index+=10; break;
+                	case -1: index-=10; break;
+                	case 2: index=count -1; break;
+                	case -2: index=0; break;
                 	}
-                });
+                	if (index<0) index=0;
+                	if (index>=count) index=count-1;
+                	t.datagrid('clearSelections');
+                	t.datagrid('selectRow', index);
+            	} else {
+                	t.datagrid('selectRow', 0);
+            	}
 			}
+			
         	var t = $('#guias-datagrid');
             switch(e.keyCode){
             case 38:	/* Up */	selectRow(t,true); return false;
@@ -173,8 +175,8 @@
 		// mostrar los perros asociados a un guia
         function showPerrosByGuia(index,guia){
         	// - sub tabla de perros asignados a un guia
-        	$('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid({
-            	width: 925,
+        	$('#perros-datagrid-'+replaceAll(' ','_',guia.ID)).datagrid({
+            	width: 900,
         		title: 'Perros registrados a nombre de '+guia.Nombre,
        		    pagination: false,
         	    rownumbers: false,
@@ -183,7 +185,7 @@
         	    loadMsg: 'Loading list of dogs',
         	    height: 'auto',
         		url: 'database/dogFunctions.php',
-        		queryParams: { Operation: 'getbyguia', Guia: guia.Nombre },
+        		queryParams: { Operation: 'getbyguia', Guia: guia.ID },
         		method: 'get',
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		// toolbar: '#perrosbyguia-toolbar', 
@@ -207,7 +209,7 @@
 					handler: function(){delPerroFromGuia(guia);}
 				}],
         	    columns: [[
-            	    { field:'IDPerro',	width:15, sortable:true,	title: 'ID'},
+            	    { field:'ID',	width:15, sortable:true,	title: 'ID'},
             		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
             		{ field:'Categoria',width:15, sortable:false,	title: 'Cat.' },
             		{ field:'Grado',	width:25, sortable:false,   title: 'Grado' },

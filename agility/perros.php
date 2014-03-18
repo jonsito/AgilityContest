@@ -1,17 +1,8 @@
-<!-- TABLA DE jquery-easyui para listar y editar la BBDD DE PERROS -->
-
-    <!-- INFORMACION ADICIONAL 
-    <div class="demo-info" style="margin-bottom:10px">
-        <div class="demo-tip icon-tip">&nbsp;</div>
-        <div>Selecciona con el rat&oacute;n las acciones a realizar en la barra de tareas</div>
-    </div>
-    -->
-    
+<!-- TABLA DE jquery-easyui para listar y editar la BBDD DE PERROS -->    
     <!-- DECLARACION DE LA TABLA -->
-    <table id="perros-datagrid" class="easyui-datagrid" >
-    </table>
+    <table id="perros-datagrid" class="easyui-datagrid" style="width:975px;height:550px;">    </table>
     <!-- BARRA DE TAREAS -->
-    <div id="perros-toolbar">
+    <div id="perros-toolbar" style="padding:5px 5px 25px 5px">
     	<span style="float:left;">
     		<a id="perros-newBtn" href="#" class="easyui-linkbutton" onclick="newDog($('#perros-search').val())">Nuevo Perro</a>
     		<a id="perros-editBtn" href="#" class="easyui-linkbutton" onclick="editDog()">Editar Perro</a>
@@ -46,10 +37,11 @@
         	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Perros',
         	url: 'database/dogFunctions.php?Operation=select',
+        	loadMsg: 'Actualizando lista de perros ...',
         	method: 'get',
             toolbar: '#perros-toolbar',
-            pagination: true,
-            rownumbers: false,
+            pagination: false,
+            rownumbers: true,
             fitColumns: true,
             singleSelect: true,
             columns: [[
@@ -90,24 +82,27 @@
                 	t.datagrid('selectRow', (up ? count-1 : 0));
             	}
         	}
+        	
 			function selectPage(t,offset) {
-				var p=t.datagrid('getPager').pagination('options');
-				var curPage=p.pageNumber;
-				var lastPage=1+parseInt(p.total/p.pageSize);
-				if (offset==-2) curPage=1;
-				if (offset==2) curPage=lastPage;
-				if ((offset==-1) && (curPage>1)) curPage=curPage-1;
-				if ((offset==1) && (curPage<lastPage)) curPage=curPage+1;
-            	t.datagrid('clearSelections');
-            	p.pageNumber=curPage;
-            	t.datagrid('options').pageNumber=curPage;
-            	t.datagrid('reload', {
-                	where: $('#perros-search').val(),
-                	onloadSuccess: function(data) {
-                		t.datagrid('getPager').pagination('refresh',{pageNumber:curPage});
+            	var count = t.datagrid('getRows').length;    // row count
+            	var selected = t.datagrid('getSelected');
+            	if (selected){
+                	var index = t.datagrid('getRowIndex', selected);
+                	switch(offset) {
+                	case 1: index+=10; break;
+                	case -1: index-=10; break;
+                	case 2: index=count -1; break;
+                	case -2: index=0; break;
                 	}
-                });
+                	if (index<0) index=0;
+                	if (index>=count) index=count-1;
+                	t.datagrid('clearSelections');
+                	t.datagrid('selectRow', index);
+            	} else {
+                	t.datagrid('selectRow', 0);
+            	}
 			}
+			
         	var t = $('#perros-datagrid');
             switch(e.keyCode){
             case 38:	/* Up */	selectRow(t,true); return false;
