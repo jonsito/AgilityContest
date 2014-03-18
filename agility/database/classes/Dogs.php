@@ -105,24 +105,13 @@ class Dogs extends DBObject {
 	 */
 	function select() {
 		// evaluate offset and row count for query
-		// $page= http_request("page","i",1);
-		// $rows= http_request("rows","i",20);
 		$sort= http_request("sort","s","Nombre");
 		$order=http_request("order","s","ASC");
 		$search=http_Request("where","s","");
 		$where = ' ';
 		if ($search!=='') $where="WHERE (Nombre LIKE '%$search%') OR ( NombreGuia LIKE '%$search%') OR ( NombreClub LIKE '%$search%')";
-		// $offset = ($page-1)*$rows;
 		$result = array();
-
-		// execute first query to know how many elements
-		$rs=$this->query("SELECT count(*) FROM PerroGuiaClub $where");
-		if (!$rs) return $this->error($this->conn->error);
-		$row=$rs->fetch_array();
-		$result["total"] = $row[0];
-		$rs->free();
-		// second query to retrieve $rows starting at $offset
-		// $str="SELECT * FROM PerroGuiaClub $where ORDER BY $sort $order LIMIT $offset,$rows";
+		// query to retrieve 
 		$str="SELECT * FROM PerroGuiaClub $where ORDER BY $sort $order";
 		$this->myLogger->query($str);
 		$rs=$this->query($str);
@@ -133,13 +122,14 @@ class Dogs extends DBObject {
 			array_push($items, $row);
 		}
 		$result["rows"] = $items;
+		$result["total"] = $rs->num_rows;
 		// disconnect from database and return result
 		$rs->free();
 		return $result;
 	}
 	
 	/**
-	 * Like select but not provide indexed search
+	 * Like select but not provide ordered search
 	 * @return NULL|multitype:multitype: unknown
 	 */
 	function enumerate() {
@@ -149,13 +139,7 @@ class Dogs extends DBObject {
 		$q=http_request("q","s",null);
 		$like =  ($q===null) ? "" : " WHERE ( ( Nombre LIKE '%$q%' ) OR ( NombreGuia LIKE '%$q%' ) OR ( NombreClub LIKE '%$q%' ) )";
 
-		// execute first query to know how many elements
-		$result = array();
-		$rs=$this->query("SELECT count(*) FROM PerroGuiaClub ".$like);
-		if (!$rs) return $this->error($this->conn->error);
-		$row=$rs->fetch_row();
-		$result["total"] = $row[0];
-		$rs->free();
+		$result = array();		
 		// second query to retrieve $rows starting at $offset
 		$rs=$this->query("SELECT * FROM PerroGuiaClub $like ORDER BY Club,Guia,Nombre");
 		if (!$rs) return $this->error($this->conn->error);
@@ -165,6 +149,7 @@ class Dogs extends DBObject {
 			array_push($items, $row);
 		}
 		$result["rows"] = $items;
+		$result["total"] = $rs->num_rows;
 		// return composed array
 		$this->myLogger->leave();
 		$rs->free();
@@ -181,13 +166,7 @@ class Dogs extends DBObject {
 		// evaluate offset and row count for query
 		$result = array();
 		$items = array();
-		// execute first query to know how many elements
-		$str="SELECT count(*) FROM PerroGuiaClub WHERE ( Guia = $idguia )";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		$row=$rs->fetch_row();
-		$result["total"] = $row[0];
-		$rs->free();
+		
 		$str="SELECT * FROM PerroGuiaClub WHERE ( Guia ='$idguia' ) ORDER BY Nombre ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -196,8 +175,9 @@ class Dogs extends DBObject {
 			array_push($items, $row);
 		}
 		// free resources and return
-		$rs->free();
 		$result["rows"] = $items;
+		$result["total"] = $rs->num_rows;
+		$rs->free();
 		$this->myLogger->leave();
 		return $result;
 	}

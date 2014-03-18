@@ -95,14 +95,7 @@ class Guias extends DBObject {
 		if ($search!=='') $where=" AND ( (Guias.Nombre LIKE '%$search%') OR ( Clubes.Nombre LIKE '%$search%') ) ";
 		$result = array();
 		
-		// execute first query to know how many elements
-		$rs=$this->query("SELECT count(*) FROM Guias,Clubes WHERE (Guias.Club=Clubes.ID) $where");
-		if (!$rs) return $this->error($this->conn->error);
-		$row=$rs->fetch_array();
-		$rs->free();
-		$result["total"] = $row[0];
-		
-		// second query to retrieve $rows starting at $offset
+		// query to retrieve data
 		$rs=$this->query(
 				"SELECT Guias.ID,Guias.Nombre,Telefono,Guias.Email,Club, Clubes.Nombre AS NombreClub,Guias.Observaciones
 				FROM Guias,Clubes 
@@ -115,27 +108,21 @@ class Guias extends DBObject {
 			array_push($items, $row);
 		}
 		$result["rows"] = $items;
+		$result["total"] = $rs->num_rows;
 		// disconnect from database and return composed array
 		$rs->free();
 		$this->myLogger->leave();
 		return $result;
 	}
 	
-	function enumerate() { // like select but do not provide indexed block query
+	function enumerate() { // like select but do not provide order query
 		$this->myLogger->enter();
 		// evaluate search string
 		$q=http_request("q","s",null);
 		$like =  ($q===null) ? "" : " WHERE ( ( Nombre LIKE '%$q%' ) OR ( Club LIKE '%$q%' ) )";
 		
 		$result = array();
-		// execute first query to know how many elements
-		$rs=$this->query("SELECT count(*) FROM Guias ".$like);
-		if (!$rs) return $this->error($this->conn->error);
-		$row=$rs->fetch_row();
-		$rs->free();
-		$result["total"] = $row[0];
-		
-		// second query to retrieve $rows starting at $offset
+		// query to retrieve data
 		$rs=$this->query("SELECT Nombre,Club FROM Guias ".$like." ORDER BY Club,Nombre");
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
@@ -144,6 +131,7 @@ class Guias extends DBObject {
 			array_push($items, $row);
 		}
 		$result["rows"] = $items;
+		$result["total"] = $rs->num_rows;
 		// disconnect from database and return
 		$rs->free();
 		$this->myLogger->leave();

@@ -111,25 +111,13 @@ class Clubes extends DBObject {
 	function select() {
 		$this->myLogger->enter();
 		// evaluate offset and row count for query
-		// $page= http_request("page","i",1);
-		// $rows= http_request("rows","i",20);
 		$sort= http_request("sort","s","Nombre");
 		$order=http_request("order","s","ASC");
 		$search=http_Request("where","s","");
 		$where = '';
 		if ($search!=='') $where=" WHERE ( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') OR ( Facebook LIKE '%$search%') ) ";
-		// $offset = ($page-1)*$rows;
 		$result = array();
-		
-		// execute first query to know how many elements
-		$rs=$this->query("SELECT count(*) FROM Clubes $where");
-		if (!$rs)  return $this->error($this->conn->error);
-		$row=$rs->fetch_array();
-		$rs->free();
-		$result["total"] = $row[0];
-		
-		// second query to retrieve $rows starting at $offset
-		// $rs=$this->query("SELECT * FROM Clubes $where ORDER BY $sort $order LIMIT $offset,$rows");
+		// query to retrieve $rows 
 		$rs=$this->query("SELECT * FROM Clubes $where ORDER BY $sort $order");
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
@@ -138,6 +126,7 @@ class Clubes extends DBObject {
 			array_push($items, $row);
 		}
 		$result["rows"] = $items;
+		$result["total"]=$rs->num_rows;
 		$rs->free();
 		// return composed array
 		$this->myLogger->leave();
@@ -154,15 +143,8 @@ class Clubes extends DBObject {
 		$q=http_request("q","s",null);
 		$like =  ($q===null) ? "" : " WHERE Nombre LIKE '%".$q."%'";
 		
-		// execute first query to know how many elements
 		$result = array();
-		$rs=$this->query("SELECT count(*) FROM Clubes ".$like);
-		if (!$rs)  return $this->error($this->conn->error);
-		$row=$rs->fetch_row();
-		$result["total"] = $row[0];
-		$rs->free();
-		
-		// second query to retrieve $rows starting at $offset
+		// query to retrieve data
 		$rs=$this->query("SELECT Nombre,Provincia FROM Clubes ".$like." ORDER BY Nombre ASC");
 		if (!$rs) return $this->error($this->conn->error);
 		
@@ -176,9 +158,10 @@ class Clubes extends DBObject {
 			array_push($items, $row);
 		}
 		$result["rows"] = $items;
+		$result["total"] = $rs->num_rows;
+		$rs->free();
 		// return composed array
 		$this->myLogger->leave();
-		$rs->free();
 		return $result;
 	}
 	

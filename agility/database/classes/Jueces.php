@@ -109,24 +109,14 @@ class Jueces extends DBObject {
 	function select() {
 		$this->myLogger->enter();
 		// evaluate offset and row count for query
-		// $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
-		// $rows = isset($_GET['rows']) ? intval($_GET['rows']) : 20;
 		$sort = isset($_GET['sort']) ? strval($_GET['sort']) : 'Nombre';
 		$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
 		$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
 		$where = '';
 		if ($search!=='') $where=" WHERE ( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') ) ";
-		// $offset = ($page-1)*$rows;
 		$result = array();
 		
-		// execute first query to know how many elements
-		$rs=$this->query("SELECT count(*) FROM Jueces $where");
-		if (!$rs) return $this->error($this->conn->error);
-		$row=$rs->fetch_array();
-		$result["total"] = $row[0];
-		
-		// second query to retrieve $rows starting at $offset
-		// $str="SELECT * FROM Jueces $where ORDER BY $sort $order LIMIT $offset,$rows";
+		// query to retrieve data
 		$str="SELECT * FROM Jueces $where ORDER BY $sort $order";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -136,25 +126,20 @@ class Jueces extends DBObject {
 			array_push($items, $row);
 		}
 		$result["rows"] = $items;
+		$result["total"] = $rs->num_rows;
 		// clean and return
 		$rs->free();
 		$this->myLogger->leave();
 		return $result;
 	}
 	
-	function enumerate() { // like select but do not perform offset/rows operation
+	function enumerate() { // like select but do not perform search operation
 		$this->myLogger->enter();
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
 		$like =  ($q===null) ? "" : " WHERE Nombre LIKE '%".$q."%'";
 		
-		// execute first query to know how many elements
-		$rs=$this->query("SELECT count(*) FROM Jueces ".$like);
-		if (!$rs) return $this->error($this->conn->error);
-		$row=$rs->fetch_row();
-		$result["total"] = $row[0];
-		
-		// second query to retrieve $rows starting at $offset
+		//  query to retrieve data
 		$str="SELECT * FROM Jueces ".$like." ORDER BY Nombre ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -165,6 +150,7 @@ class Jueces extends DBObject {
 			array_push($items, $row);
 		}
 		$result["rows"] = $items;
+		$result["total"] = $rs->num_rows;
 		// clean and return
 		$rs->free();
 		$this->myLogger->leave();

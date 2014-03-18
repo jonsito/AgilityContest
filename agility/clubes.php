@@ -189,7 +189,7 @@
         function showGuiasByClub(index,club){
         	// - sub tabla de guias inscritos en un club
         	$('#guias-datagrid-'+replaceAll(' ','_',club.ID)).datagrid({
-            	width: 900,
+            	width: 875,
             	fit:false,
        		    pagination: false,
         	    rownumbers: false,
