@@ -176,7 +176,7 @@ class Dogs extends DBObject {
 	 */
 	function selectByGuia($idguia) {
 		$this->myLogger->enter();
-		if ($idguiq<=0) return $this->error("Invalid Guia ID");
+		if ($idguia<=0) return $this->error("Invalid Guia ID");
 		// evaluate offset and row count for query
 		$result = array();
 		$items = array();
@@ -187,7 +187,7 @@ class Dogs extends DBObject {
 		$row=$rs->fetch_row();
 		$result["total"] = $row[0];
 		$rs->free();
-		$str="SELECT * FROM PerroGuiaClub WHERE ( Guia ='$guia' ) ORDER BY Nombre ASC";
+		$str="SELECT * FROM PerroGuiaClub WHERE ( Guia ='$idguia' ) ORDER BY Nombre ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array

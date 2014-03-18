@@ -1,10 +1,10 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE CLUBES -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="clubes-datagrid" class="easyui-datagrid" style="width:975px;"></table>
-	<!-- BARRA DE TAREAS -->
-    <div id="clubes-toolbar">
+    <table id="clubes-datagrid" class="easyui-datagrid" style="width:975px;height:550px;"></table>
     
+	<!-- BARRA DE TAREAS DE LA TABLA DE CLUBES-->
+    <div id="clubes-toolbar" style="padding:2px 2px 10px 2px;>
     	<span style="float:left;">
     		<a id="clubes-newBtn" href="#" class="easyui-linkbutton" onclick="newClub($('#clubes-search').val())">Nuevo Club</a>
     		<a id="clubes-editBtn" href="#" class="easyui-linkbutton" onclick="editClub()">Editar Club</a>
@@ -43,7 +43,7 @@
         	url: 'database/clubFunctions.php?Operation=select',
         	method: 'get',
             toolbar: '#clubes-toolbar',
-            pagination: true,
+            pagination: false,
             rownumbers: true,
             fitColumns: true,
             singleSelect: true,
@@ -77,7 +77,7 @@
             },        
             // especificamos un formateador especial para desplegar la tabla de guias por club
             detailFormatter:function(index,club){
-                return '<div style="padding:2px"><table class="easyui-datagrid"	id="guias-datagrid-' + replaceAll(' ','_',club.Nombre) + '"></table></div>';
+                return '<div style="padding:2px"><table class="easyui-datagrid"	id="guias-datagrid-' + replaceAll(' ','_',club.ID) + '"></table></div>';
             },
             onExpandRow: function(idx,club) { showGuiasByClub(idx,club); }
         }); // end of '#clubes-datagrid' declaration
@@ -99,23 +99,26 @@
             	}
         	}
 			function selectPage(t,offset) {
-				var p=t.datagrid('getPager').pagination('options');
-				var curPage=p.pageNumber;
-				var lastPage=1+parseInt(p.total/p.pageSize);
-				if (offset==-2) curPage=1;
-				if (offset==2) curPage=lastPage;
-				if ((offset==-1) && (curPage>1)) curPage=curPage-1;
-				if ((offset==1) && (curPage<lastPage)) curPage=curPage+1;
-            	t.datagrid('clearSelections');
-            	p.pageNumber=curPage;
-            	t.datagrid('options').pageNumber=curPage;
-            	t.datagrid('reload',{
-            		where: $('#clubes-search').val(),
-            		onLoadSuccess: function(data){
-            			t.datagrid('getPager').pagination('refresh',{pageNumber:curPage});
-            		}
-            	});
+
+            	var count = t.datagrid('getRows').length;    // row count
+            	var selected = t.datagrid('getSelected');
+            	if (selected){
+                	var index = t.datagrid('getRowIndex', selected);
+                	switch(offset) {
+                	case 1: index+=10; break;
+                	case -1: index-=10; break;
+                	case 2: index=count -1; break;
+                	case -2: index=0; break;
+                	}
+                	if (index<0) index=0;
+                	if (index>=count) index=count-1;
+                	t.datagrid('clearSelections');
+                	t.datagrid('selectRow', index);
+            	} else {
+                	t.datagrid('selectRow', 0);
+            	}
 			}
+			
         	var t = $('#clubes-datagrid');
             switch(e.keyCode){
             case 38:	/* Up */	selectRow(t,true); return false;
@@ -184,10 +187,18 @@
     	
         function showGuiasByClub(index,club){
         	// - sub tabla de guias inscritos en un club
-        	$('#guias-datagrid-'+replaceAll(' ','_',club.Nombre)).datagrid({
-            	width: 925,
+        	$('#guias-datagrid-'+replaceAll(' ','_',club.ID)).datagrid({
+            	width: 900,
+            	fit:false,
+       		    pagination: false,
+        	    rownumbers: false,
+        	    fitColumns: true,
+        	    singleSelect: true,
+                view: detailview,
+        	    height: 'auto',
         		title: 'Gu&iacute;as inscritos en el club '+club.Nombre,
-        		url: 'database/guiaFunctions.php?Operation=getbyclub&Club='+club.Nombre,
+        	    loadMsg: 'Cargando lista de guias....',
+        		url: 'database/guiaFunctions.php?Operation=getbyclub&Club='+club.ID,
         		method: 'get',
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		toolbar: [{
@@ -209,13 +220,6 @@
         			iconCls: 'icon-remove',
         			handler: function(){delGuiaFromClub(club);}
         		}],
-       		    pagination: false,
-        	    rownumbers: false,
-        	    fitColumns: true,
-        	    singleSelect: true,
-                view: detailview,
-        	    loadMsg: 'Cargando lista de guias....',
-        	    height: 'auto',
         	    columns: [[
         	        { field:'ID',			hidden:true },	
         	    	{ field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
@@ -241,12 +245,19 @@
                 },
                 // especificamos un formateador especial para desplegar la tabla de perros por guia
                 detailFormatter:function(index,guia){
-                    return '<div style="padding:5px"><table class="easyui-datagrid" id="perros-datagrid-' + replaceAll(' ','_',guia.Nombre) + '"></table></div>';
+                    return '<div style="padding:2px"><table class="easyui-datagrid" id="perros-datagrid-' + replaceAll(' ','_',guia.ID) + '"></table></div>';
                 },
                 
-                onExpandRow: function(idx,guia) { showPerrosByGuiaByClub(idx,guia); },
+                onExpandRow: function(idx,guia) { showPerrosByGuiaByClub(idx,guia,club); },
                 /* end of clubes-guias-dog subtable */
-                
+                onResize:function(){
+                    $('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
+                },
+                onLoadSuccess:function(){
+                    setTimeout(function(){
+                        $('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
+                    },0);
+                } 
         	}); // end of '#clubes-guias-datagrid' declaration
         	$('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
         	
@@ -270,13 +281,21 @@
         } // end of "showGuiasByClub"
         
 		// mostrar los perros asociados a un guia
-        function showPerrosByGuiaByClub(index,guia){
+        function showPerrosByGuiaByClub(index,guia,club){
+            var parent='#guias-datagrid-'+replaceAll(' ','_',club.ID);
         	// - sub tabla de perros asignados a un guia
-        	$('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid({
-            	width: 875,
+        	$('#perros-datagrid-'+replaceAll(' ','_',guia.ID)).datagrid({
+            	fit:false,
+            	width: 850,
+       		    pagination: false,
+        	    rownumbers: false,
+        	    fitColumns: true,
+        	    singleSelect: true,
+        	    height: 'auto',
+        	    loadMsg: 'Loading list of dogs',
         		title: 'Perros registrados a nombre de '+guia.Nombre,
         		url: 'database/dogFunctions.php',
-        		queryParams: { Operation: 'getbyguia', Guia: guia.Nombre },
+        		queryParams: { Operation: 'getbyguia', Guia: guia.ID },
         		method: 'get',
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		// toolbar: '#perrosbyguia-toolbar', 
@@ -299,12 +318,6 @@
 					iconCls: 'icon-remove',
 					handler: function(){delPerroFromGuia(guia);}
 				}],
-       		    pagination: false,
-        	    rownumbers: false,
-        	    fitColumns: true,
-        	    singleSelect: true,
-        	    loadMsg: 'Loading list of dogs',
-        	    height: 'auto',
         	    columns: [[
             	    { field:'ID',		width:15, sortable:true,	title: 'ID'},
             		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
@@ -323,15 +336,15 @@
                     editPerroFromGuia(guia);
                 },
                 onResize:function(){
-                    $('#guias-datagrid').datagrid('fixDetailRowHeight',index);
+                    $(parent).datagrid('fixDetailRowHeight',index);
                 },
                 onLoadSuccess:function(){
                     setTimeout(function(){
-                        $('#guias-datagrid').datagrid('fixDetailRowHeight',index);
+                        $(parent).datagrid('fixDetailRowHeight',index);
                     },0);
                 } 
         	}); // end of perrosbyguia-datagrid-Nombre_del_Guia
-        	$('#guias-datagrid').datagrid('fixDetailRowHeight',index);
+        	$(parent).datagrid('fixDetailRowHeight',index);
 
             // botones de los sub-formularios
             $('#perrosByGuia-newBtn').linkbutton().tooltip({ // anyadir nuevo perro al guia
