@@ -88,23 +88,25 @@
         $('#chguias-Search').combogrid({
     		panelWidth: 350,
     		panelHeight: 200,
-    		idField: 'Nombre',
+    		idField: 'ID',
     		textField: 'Nombre',
     		url: 'database/guiaFunctions.php?Operation=enumerate',
     		method: 'get',
     		mode: 'remote',
     		columns: [[
+    	    	{field:'ID',hidden:true},
     			{field:'Nombre',title:'Nombre',sortable:true,width:60,align:'right'},
-    			{field:'Club',title:'Club',sortable:true,width:40,align:'right'}
+    			{field:'Club',hidden:true},
+    			{field:'NombreClub',title:'Club',sortable:true,width:40,align:'right'}
     		]],
     		multiple: false,
     		fitColumns: true,
     		singleSelect: true,
     		selectOnNavigation: false ,
     		onSelect: function(index,row) {
-    			var nombre=row.Nombre;
+    			var id=row.ID;
     			if (!nombre) return;
-    	        $('#chguias-form').form('load','database/guiaFunctions.php?Operation=getbyname&Nombre='+nombre); // load form with json retrieved data
+    	        $('#chguias-form').form('load','database/guiaFunctions.php?Operation=getbyid&ID='+id); // load form with json retrieved data
     			$('#chguias-Club').val($('#chguias-newClub').val()); // restore "Club" field
     		}
     	});

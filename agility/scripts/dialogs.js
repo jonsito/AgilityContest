@@ -253,7 +253,7 @@ function deleteGuia(){
     			$('#guias-datagrid').datagrid('reload');    // reload the guia data
     		} else {
     			// show error message
-    			$.messager.show({ title: 'Error', msg: result.errorMsg });
+    			$.messager.show({ title:'Error', width:300, height:200, msg:result.errorMsg });
     		}
     	},'json');
     });
@@ -265,19 +265,17 @@ function deleteGuia(){
  *@param club datos del club
  */
 function delGuiaFromClub(club) {
-    var row = $('#guias-datagrid-'+replaceAll(' ','_',club.Nombre)).datagrid('getSelected');
+    var row = $('#guias-datagrid-'+replaceAll(' ','_',club.ID)).datagrid('getSelected');
     if (!row) return;
 
     $.messager.confirm('Confirm',"Borrar asignacion del gu&iacute;a '"+row.Nombre+"' al club '"+club.Nombre+"' ¿Seguro?'",function(r){
         if (r){
             $.get('database/guiaFunctions.php',{'Operation':'orphan','Nombre':row.Nombre},function(result){
                 if (result.success){
-                    $('#guias-datagrid-'+replaceAll(' ','_',club.Nombre)).datagrid('reload');    // reload the guia data
+                    $('#guias-datagrid-'+replaceAll(' ','_',club.ID)).datagrid('reload');    // reload the guia data
                 } else {
-                    $.messager.show({    // show error message
-                        title: 'Error',
-                        msg: result.errorMsg
-                    });
+                	// show error message
+                    $.messager.show({ title: 'Error', width: 300, height: 200, msg: result.errorMsg });
                 }
             },'json');
         }
