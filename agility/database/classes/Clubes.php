@@ -121,12 +121,9 @@ class Clubes extends DBObject {
 		$rs=$this->query("SELECT * FROM Clubes $where ORDER BY $sort $order");
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
-		$items = array();
-		while($row = $rs->fetch_array()){
-			array_push($items, $row);
-		}
-		$result["rows"] = $items;
-		$result["total"]=$rs->num_rows;
+		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
+		$result["total"] = $rs->num_rows;
+		// disconnect from database and return composed array
 		$rs->free();
 		// return composed array
 		$this->myLogger->leave();
@@ -145,20 +142,12 @@ class Clubes extends DBObject {
 		
 		$result = array();
 		// query to retrieve data
-		$rs=$this->query("SELECT Nombre,Provincia FROM Clubes ".$like." ORDER BY Nombre ASC");
+		$rs=$this->query("SELECT ID,Nombre,Provincia FROM Clubes ".$like." ORDER BY Nombre ASC");
 		if (!$rs) return $this->error($this->conn->error);
-		
 		// retrieve result into an array
-		$items = array();
-		while($row = $rs->fetch_array()){
-			// utf8 encode data
-			// $row["Nombre"] =utf8_encode( $row["Nombre"] );
-			// $row["Provincia"]   =utf8_encode( $row["Provincia"]   );
-			// and store into result array
-			array_push($items, $row);
-		}
-		$result["rows"] = $items;
+		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
 		$result["total"] = $rs->num_rows;
+		// disconnect from database and return composed array
 		$rs->free();
 		// return composed array
 		$this->myLogger->leave();

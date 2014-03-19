@@ -121,19 +121,15 @@ class Jueces extends DBObject {
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
-		$items = array();
-		while($row = $rs->fetch_array()){
-			array_push($items, $row);
-		}
-		$result["rows"] = $items;
+		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
 		$result["total"] = $rs->num_rows;
-		// clean and return
+		// disconnect from database and return composed array
 		$rs->free();
 		$this->myLogger->leave();
 		return $result;
 	}
 	
-	function enumerate() { // like select but do not perform search operation
+	function enumerate() { // like select but with fixed order
 		$this->myLogger->enter();
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
@@ -143,15 +139,10 @@ class Jueces extends DBObject {
 		$str="SELECT * FROM Jueces ".$like." ORDER BY Nombre ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
-		
 		// retrieve result into an array
-		$items = array();
-		while($row = $rs->fetch_array()){
-			array_push($items, $row);
-		}
-		$result["rows"] = $items;
+		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
 		$result["total"] = $rs->num_rows;
-		// clean and return
+		// disconnect from database and return composed array
 		$rs->free();
 		$this->myLogger->leave();
 		return $result;

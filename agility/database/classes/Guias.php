@@ -103,11 +103,7 @@ class Guias extends DBObject {
 				ORDER BY $sort $order");
 		if (!$rs) return $this->error($this->conn->error); 
 		// retrieve result into an array
-		$items = array();
-		while($row = $rs->fetch_array()){
-			array_push($items, $row);
-		}
-		$result["rows"] = $items;
+		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
 		$result["total"] = $rs->num_rows;
 		// disconnect from database and return composed array
 		$rs->free();
@@ -115,24 +111,23 @@ class Guias extends DBObject {
 		return $result;
 	}
 	
-	function enumerate() { // like select but do not provide order query
+	function enumerate() { // like select but do not provide order query. Used in comboboxes
 		$this->myLogger->enter();
 		// evaluate search string
 		$q=http_request("q","s",null);
-		$like =  ($q===null) ? "" : " WHERE ( ( Nombre LIKE '%$q%' ) OR ( Club LIKE '%$q%' ) )";
+		$like =  ($q===null) ? "" : " AND ( ( Nombre LIKE '%$q%' ) OR ( NombreClub LIKE '%$q%' ) )";
 		
 		$result = array();
 		// query to retrieve data
-		$rs=$this->query("SELECT Nombre,Club FROM Guias ".$like." ORDER BY Club,Nombre");
-		if (!$rs) return $this->error($this->conn->error);
+		$rs=$this->query(
+				"SELECT ID,Nombre,Club,Club.Nombre as NombreClub 
+				FROM Guias,Clubes
+				WHERE (Guias.Club=Clubes.ID) ".$like." ORDER BY NombreClub,Nombre");
+		if (!$rs) return $this->error($this->conn->error); 
 		// retrieve result into an array
-		$items = array();
-		while($row = $rs->fetch_array()){
-			array_push($items, $row);
-		}
-		$result["rows"] = $items;
+		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
 		$result["total"] = $rs->num_rows;
-		// disconnect from database and return
+		// disconnect from database and return composed array
 		$rs->free();
 		$this->myLogger->leave();
 		return $result;
@@ -147,24 +142,14 @@ class Guias extends DBObject {
 		$this->myLogger->enter();
 		if ($club<=0) return $this->error("Invalid Club ID provided");
 		$result = array();
-		$items = array();
-		
-		// execute first query to know how many elements
-		$str="SELECT count(*) FROM Guias WHERE ( Club=$club )";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error); 
-		$row=$rs->fetch_row();
-		$result["total"] = $row[0];
-		$rs->free();
-		// second query to retrieve elements
+		// execute query to retrieve elements
 		$str="SELECT * FROM Guias WHERE ( Club=$club ) ORDER BY Nombre ASC";
 		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error); 
+		if (!$rs) return $this->error($this->conn->error);  
 		// retrieve result into an array
-		while($row = $rs->fetch_array()){
-			array_push($items, $row);
-		}
-		// clean environment and return
+		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
+		$result["total"] = $rs->num_rows;
+		// disconnect from database and return composed array
 		$rs->free();
 		$result["rows"] = $items;
 		return $result;
