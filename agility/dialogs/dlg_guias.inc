@@ -87,13 +87,14 @@
         $('#guias-Club').combogrid({
 			panelWidth: 350,
 			panelHeight: 200,
-			idField: 'Nombre',
+			idField: 'ID',
 			textField: 'Nombre',
 			url: 'database/clubFunctions.php?Operation=enumerate',
 			method: 'get',
 			mode: 'remote',
 			required: true,
 			columns: [[
+			    {field:'ID', hidden:true},
     			{field:'Nombre',title:'Nombre del club',width:80,align:'right'},
     			{field:'Provincia',title:'Provincia',width:40,align:'right'},
 			]],

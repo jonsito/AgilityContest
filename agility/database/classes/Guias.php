@@ -114,13 +114,13 @@ class Guias extends DBObject {
 	function enumerate() { // like select but do not provide order query. Used in comboboxes
 		$this->myLogger->enter();
 		// evaluate search string
-		$q=http_request("q","s",null);
-		$like =  ($q===null) ? "" : " AND ( ( Nombre LIKE '%$q%' ) OR ( NombreClub LIKE '%$q%' ) )";
+		$q=http_request("q","s","");
+		$like =  ($q==="") ? "" : " AND ( ( Guias.Nombre LIKE '%$q%' ) OR ( Clubes.Nombre LIKE '%$q%' ) )";
 		
 		$result = array();
 		// query to retrieve data
 		$rs=$this->query(
-				"SELECT ID,Nombre,Club,Club.Nombre as NombreClub 
+				"SELECT Guias.ID AS ID ,Guias.Nombre AS Nombre, Guias.Club AS Club,Clubes.Nombre AS NombreClub 
 				FROM Guias,Clubes
 				WHERE (Guias.Club=Clubes.ID) ".$like." ORDER BY NombreClub,Nombre");
 		if (!$rs) return $this->error($this->conn->error); 
@@ -151,7 +151,6 @@ class Guias extends DBObject {
 		$result["total"] = $rs->num_rows;
 		// disconnect from database and return composed array
 		$rs->free();
-		$result["rows"] = $items;
 		return $result;
 	}
 	

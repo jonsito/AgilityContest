@@ -131,14 +131,14 @@ class Clubes extends DBObject {
 	}
 	
 	/** 
-	 * return a dupla Nombre,Provincia list according select criteria
+	 * return a dupla ID Nombre,Provincia list according select criteria
 	 * return data if success; null on error
 	 */
 	function enumerate() {
 		$this->myLogger->enter();
 		// evaluate offset and row count for query
-		$q=http_request("q","s",null);
-		$like =  ($q===null) ? "" : " WHERE Nombre LIKE '%".$q."%'";
+		$q=http_request("q","s","");
+		$like =  ($q==="") ? "" : " WHERE Nombre LIKE '%".$q."%'";
 		
 		$result = array();
 		// query to retrieve data

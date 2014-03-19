@@ -9,7 +9,7 @@
                 	name="Nombre" 
                 	type="text" 
                 	class="easyui-validatebox"/>
-                <input id="perros-IDPerro" name="IDPerro" type="hidden" /> <!-- hide idperro, as only used for edit and is readonly -->
+                <input id="perros-ID" name="ID" type="hidden" /> <!-- hide idperro, as only used for edit and is readonly -->
                 <input id="perros-Parent" name="Parent" type="hidden" /> <!-- used to store parent datagrid if any -->
                 <input id="perros-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
             </div>
@@ -127,15 +127,17 @@
     $('#perros-Guia').combogrid({
 		panelWidth: 350,
 		panelHeight: 200,
-		idField: 'Nombre',
+		idField: 'ID',
 		textField: 'Nombre',
 		url: 'database/guiaFunctions.php?Operation=enumerate',
 		method: 'get',
 		mode: 'remote',
 		required: true,
 		columns: [[
+		    {field:'ID', hidden:true},
 			{field:'Nombre',title:'Nombre del gu&iacute;a',width:80,align:'right'},
-			{field:'Club',title:'Club',width:40,align:'right'},
+		    {field:'Club', hidden:true},
+			{field:'NombreClub',title:'Club',width:40,align:'right'},
 		]],
 		multiple: false,
 		fitColumns: true,

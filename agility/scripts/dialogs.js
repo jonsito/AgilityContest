@@ -142,7 +142,7 @@ function newGuia(def,onAccept){
  * @param club
  */
 function editGuiaFromClub(club) {
-	var parent = '-' + replaceAll(' ','_',club.Nombre);
+	var parent = '-' + replaceAll(' ','_',club.ID);
     var row = $('#guias-datagrid'+parent).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Delete Error:","!No ha seleccionado ningún Guia!","warning");
@@ -150,7 +150,8 @@ function editGuiaFromClub(club) {
     }
     $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre);
     // add extra needed parameters to dialog
-    row.Club=club.Nombre;
+    row.Club=club.ID;
+    row.NombreClub=club.Nombre;
     row.Parent=parent;
     row.Operation='update';
     $('#guias-form').form('load',row);
@@ -167,7 +168,7 @@ function editGuia(){
     	return; // no way to know which dog is selected
     }
     $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del gu&iacute;a');
-    // add extra required parameters to dialo
+    // add extra required parameters to dialog
     row.Parent='';
     row.Operation='update';
     $('#guias-form').form('load',row); // load row data into form
@@ -338,7 +339,7 @@ function editInscribedDog(mode){
 	if (mode==0) idperro= $('#inscripciones-IDPerro').val();
 	else idperro= $('#chinscripciones-IDPerro').val();
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro a inscribir');
-    $('#perros-form').form('load','database/dogFunctions.php?Operation=getbyidperro&IDPerro='+idperro);// load form with row data
+    $('#perros-form').form('load','database/dogFunctions.php?Operation=getbyidperro&ID='+idperro);// load form with row data
     $('#perros-form').form({
     	onLoadSuccess: function(data) {
     		$('#perros-Parent').val(''); // no parent datagrid
@@ -351,7 +352,7 @@ function editInscribedDog(mode){
 *@param guia: nombre del guia
 */
 function editPerroFromGuia(guia) {
-	var parent = '-'+replaceAll(' ','_',guia.Nombre);
+	var parent = '-'+replaceAll(' ','_',guia.ID);
 	// try to locate which dog has been selected 
     var row = $('#perros-datagrid'+parent).datagrid('getSelected');
     if (!row) {
@@ -402,7 +403,7 @@ function assignDog() {
  * Ejecuta la peticion json para anyadir/editar un perro
  */
 function saveDog(){
-	var idperro=$('#perros-IDPerro').val();
+	var idperro=$('#perros-ID').val();
     $('#perros-form').form('submit',{
         url: 'database/dogFunctions.php',
         method: 'get',
@@ -418,7 +419,7 @@ function saveDog(){
                 });
             } else {
             	var parent=$('#perros-Parent').val();
-            	var url='database/dogFunctions.php?Operation=getbyidperro&IDPerro='+idperro;
+            	var url='database/dogFunctions.php?Operation=getbyidperro&ID='+idperro;
             	// reload the dog data on datagrid (if any)
                 $('#perros-datagrid'+parent).datagrid('reload');
                 // reload the dog data from inscripciones (if any)
@@ -435,17 +436,19 @@ function saveDog(){
  * Quita la asignacion del perro marcado al guia indicado
  */
 function delPerroFromGuia(guia) {
-    var row = $('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('getSelected');
+    var row = $('#perros-datagrid-'+replaceAll(' ','_',guia.ID)).datagrid('getSelected');
     if (!row) return;
     $.messager.confirm('Confirm',"Borrar asignacion del perro '"+row.Nombre+"' al guia '"+guia.Nombre+"' ¿Seguro?'",function(r){
         if (r){
-            $.get('database/dogFunctions.php',{Operation:'orphan',IDPerro:row.IDPerro},function(result){
+            $.get('database/dogFunctions.php',{Operation:'orphan',ID:row.ID},function(result){
                 if (result.success){
                     $('#perros-datagrid-'+replaceAll(' ','_',guia.Nombre)).datagrid('reload');    // reload the guia data
                 } else {
                     $.messager.show({    // show error message
                         title: 'Error',
-                        msg: result.errorMsg
+                        msg: result.errorMsg,
+                        width: 300,
+                        height:200
                     });
                 }
             },'json');
@@ -461,7 +464,7 @@ function deleteDog(){
     if (row){
         $.messager.confirm('Confirm','Borrar el perro: "'+ row.Nombre+'" de la base de datos.\n¿Seguro?',function(r){
         	if (!r) return;
-            $.get('database/dogFunctions.php',{Operation:'delete',IDPerro:row.IDPerro},function(result){
+            $.get('database/dogFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
                     $('#perros-datagrid').datagrid('reload');    // reload the dog data
                 } else { // show error message
@@ -840,7 +843,7 @@ function editInscripcion() {
 	// abrimos dialogo de edicion de inscripcion
 	$('#chinscripciones-dialog').dialog('open').dialog('setTitle','Modificar datos de inscripci&oacute;n');
 	// rellenamos formulario de datos del perro
-	$('#chinscripciones-data').form('load','database/dogFunctions.php?Operation=getbyidperro&IDPerro='+row.IDPerro);
+	$('#chinscripciones-data').form('load','database/dogFunctions.php?Operation=getbyidperro&ID='+row.ID);
 	// rellenamos formulario de la inscripcion
 	$('#chinscripciones-form').form('load',row);
 	// ajustamos checkboxes (un cb tiene "value" and "checked" como propiedades, y el 'load' solo toca "value")
@@ -903,7 +906,7 @@ function deleteInscripcion() {
 		if (r){
 			$.get('database/inscripcionFunctions.php',{
 					Operation:'remove',
-					IDPerro:row.IDPerro,
+					ID:row.ID,
 					ID:workingData.prueba,
 					J1:$('#jornada_cerrada-1').text(),
 					J2:$('#jornada_cerrada-2').text(),

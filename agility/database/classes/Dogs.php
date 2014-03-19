@@ -132,8 +132,8 @@ class Dogs extends DBObject {
 		$this->myLogger->enter();
 		
 		// evaluate search criteria for query
-		$q=http_request("q","s",null);
-		$like =  ($q===null) ? "" : " WHERE ( ( Nombre LIKE '%$q%' ) OR ( NombreGuia LIKE '%$q%' ) OR ( NombreClub LIKE '%$q%' ) )";
+		$q=http_request("q","s","");
+		$like =  ($q==="") ? "" : " WHERE ( ( Nombre LIKE '%$q%' ) OR ( NombreGuia LIKE '%$q%' ) OR ( NombreClub LIKE '%$q%' ) )";
 
 		$result = array();		
 		// second query to retrieve $rows starting at $offset
@@ -202,8 +202,8 @@ class Dogs extends DBObject {
 	function categoriasPerro() {
 		$this->myLogger->enter();
 		// evaluate offset and row count for query
-		$q=http_request("q","s",null);
-		$like =  ($q===null) ? "" : " WHERE Categoria LIKE '%".$q."%'";
+		$q=http_request("q","s","");
+		$like =  ($q==="") ? "" : " WHERE Categoria LIKE '%".$q."%'";
 	
 		// query to retrieve table data
 		$sql="SELECT Categoria,Observaciones FROM Categorias_Perro ".$like." ORDER BY Categoria";
@@ -234,8 +234,8 @@ class Dogs extends DBObject {
 	function gradosPerro() {
 		$this->myLogger->enter();
 		// evaluate offset and row count for query
-		$q=http_request("q","s",null);
-		$like =  ($q===null) ? "" : " WHERE Grado LIKE '%".$q."%'";
+		$q=http_request("q","s","");
+		$like =  ($q==="") ? "" : " WHERE Grado LIKE '%".$q."%'";
 
 		// query to retrieve table data
 		$sql="SELECT Grado,Comentarios FROM Grados_Perro ".$like." ORDER BY Grado";
