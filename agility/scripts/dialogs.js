@@ -171,7 +171,11 @@ function editGuia(){
     // add extra required parameters to dialog
     row.Parent='';
     row.Operation='update';
-    $('#guias-form').form('load',row); // load row data into form
+    // stupid trick to make dialog's clubs combogrid display right data
+    $('#guias-form').form('load',row); // load row data into guia edit form
+    $('#guias-Club').combogrid('clear');
+    $('#guias-Club').combogrid('setValue',row.Club);
+    $('#guias-Club').combogrid('setText',row.NombreClub);
 }
 
 /**
@@ -326,6 +330,10 @@ function editDog(){
     row.Parent='';
     row.Operation='update';
     $('#perros-form').form('load',row);// load form with row data
+    // stupid combogrid that doesn't display right data after form load
+    $('#perros-Guia').combogrid('clear');
+    $('#perros-Guia').combogrid('setValue',row.Guia);
+    $('#perros-Guia').combogrid('setText',row.NombreGuia);
 }
 
 /**
@@ -334,8 +342,8 @@ function editDog(){
  */
 function editInscribedDog(mode){
 	var idperro=0;
-	if (mode==0) idperro= $('#inscripciones-IDPerro').val();
-	else idperro= $('#chinscripciones-IDPerro').val();
+	if (mode==0) idperro= $('#inscripciones-ID').val();
+	else idperro= $('#chinscripciones-ID').val();
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro a inscribir');
     $('#perros-form').form('load','database/dogFunctions.php?Operation=getbyidperro&ID='+idperro);// load form with row data
     $('#perros-form').form({
@@ -362,11 +370,10 @@ function editPerroFromGuia(guia) {
     row.Parent=parent;
     row.Operation='update';
     $('#perros-form').form('load',row);	// load form with row data
-    $('#perros-form').form({
-    	onLoadSuccess: function(data) {
-    		$('#perros-Guia').combogrid({ 'value': guia.Nombre} );  // set up default "guia" value
-    	}
-    });
+    // stupid combogrid that doesn't display right data after form load
+    $('#perros-Guia').combogrid('clear');
+    $('#perros-Guia').combogrid('setValue',row.Guia);
+    $('#perros-Guia').combogrid('setText',row.NombreGuia);
 }
 
 /** 

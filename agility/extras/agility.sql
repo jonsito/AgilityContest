@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-03-2014 a las 12:26:39
+-- Tiempo de generación: 20-03-2014 a las 14:47:01
 -- Versión del servidor: 5.5.35-0ubuntu0.12.04.2
 -- Versión de PHP: 5.3.10-1ubuntu3.10
 
@@ -109,7 +109,7 @@ INSERT INTO `Clubes` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `
 (14, 'Canino Algecireño', 'Los Naranjos, 8', '11380 Tarifa (Cádiz)', 'Cádiz', ' + 34 663 55 86 42 ', '', '', '', '', 'arquikm@gmail.com', '', '', '', 'canino_algecireno.png', '', 0),
 (15, 'Castellón', 'Mar Cantábrico, 2, 1º C', '12100 Grao de Castellón (Castellón)', 'Castellón/Castelló', '+ 34 964 28 61 52', '+ 34 625 82 25 35', '', '', 'http://www.agilitycastellon.es/', 'agilitycastellon@gmx.es', '', '', '', 'castellon.png', '', 0),
 (16, 'Cinco Huesos', 'Paseo de los Pozos, Km. 1,2', '28813 Torres de la Alameda', 'Madrid', '+ 34 91 832 83 00 ', '+ 34 691 77 75 24 ', '', '', 'http://www.cincohuesos.com/', 'cincohuesos@gmail.com', '', '', '', 'cinco_huesos.png', 'Antiguo club "Apata"', 0),
-(17, 'Ciudad de Antequera', '', '', 'Málaga', '', '', '', '', '', '', '', '', '', 'ciudad_de_antequera.png', '', 1),
+(17, 'Ciudad de Antequera', '', '', 'Málaga', '', '', '', '', '', '', '', '', '', 'ciudad_de_antequera.png', 'Baja 28-enero-2014', 1),
 (18, 'Ciutat Comtal', 'Escultor Llimona, 38-40, Entr. 2ª', '08031 Barcelona', 'Barcelona', ' + 34 645 85 10 06 ', '', '', '', 'http://www.agilitybarcelona.com/', 'info@agilitybarcelona.com', '', '', '', 'ciutat_comtal.png', '', 0),
 (19, 'Ciutat de Valencia', 'Sequia de Calvera, 33, Bajo', '46910 Sedaví (Valencia)', 'Valencia/Valéncia', '', '', '', '', 'http://www.bichopeludo.com/ciutat_de_valencia.html', 'ciutatdevalencia@bichopeludo.com', '', '', '', 'ciutat_de_valencia.png', '', 0),
 (20, 'Clotet', 'Apdo. de correos 517', '12500 Vinaroz (Castellón)', 'Castellón/Castelló', '+ 34 687 52 38 11', '', '', '', 'http://www.degarrof.com/', 'declotet@hotmail.com', '', '', '', 'clotet.png', '', 0),
@@ -251,7 +251,7 @@ CREATE TABLE IF NOT EXISTS `Guias` (
   PRIMARY KEY (`ID`),
   KEY `Guias_Nombre` (`Nombre`),
   KEY `Guias_Club` (`Club`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=466 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=468 ;
 
 --
 -- RELACIONES PARA LA TABLA `Guias`:
@@ -320,7 +320,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (54, 'Anna Aguilella', NULL, NULL, 24, NULL),
 (55, 'Antje Lippold', NULL, NULL, 21, NULL),
 (56, 'Antonio Carmona', NULL, NULL, 21, NULL),
-(57, 'Antonio Fernández', NULL, NULL, 22, NULL),
+(57, 'Antonio Fernández Moreno', '', '', 22, ''),
 (58, 'Antonio López', '', '', 30, ''),
 (59, 'Antonio Molina', NULL, NULL, 16, NULL),
 (60, 'Antonio Ojeda', NULL, NULL, 15, NULL),
@@ -662,7 +662,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (396, 'Rafael García', NULL, NULL, 76, NULL),
 (397, 'Rafael Torregrosa', NULL, NULL, 24, NULL),
 (398, 'Ramón Arribas', '', '', 2, ''),
-(399, 'Ramón García', '', '', 16, ''),
+(399, 'Ramón García Maroto', '', '', 16, ''),
 (400, 'Raquel Frago', NULL, NULL, 49, NULL),
 (401, 'Raquel Garrido', NULL, NULL, 27, NULL),
 (402, 'Raúl Sánchez', NULL, NULL, 27, NULL),
@@ -728,7 +728,9 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (462, 'Yolanda Larena', NULL, NULL, 58, NULL),
 (463, 'Yolanda Moreno', NULL, NULL, 43, NULL),
 (464, 'Yolanda Torres', NULL, NULL, 52, NULL),
-(465, 'Yulia Morugova', '', '', 32, '');
+(465, 'Yulia Morugova', '', '', 32, ''),
+(466, 'Maria Jorge', '', '', 2, ''),
+(467, 'Carmen Gutiérrez', '', '', 2, '');
 
 -- --------------------------------------------------------
 
@@ -987,7 +989,7 @@ CREATE TABLE IF NOT EXISTS `Perros` (
   KEY `Perros_GuiaNombre` (`Guia`),
   KEY `Perros_Categoria` (`Categoria`),
   KEY `Perros_Grado` (`Grado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=556 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=559 ;
 
 --
 -- RELACIONES PARA LA TABLA `Perros`:
@@ -1121,7 +1123,7 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (116, 'Rayko', 'Border Collie', '2027590', 'A321', 'L', 381, 'GIII'),
 (117, 'Nani', NULL, '1838888', 'A238', 'L', 286, '-'),
 (118, 'Rasca', '', '2047380', 'A564', 'L', 16, 'GIII'),
-(119, 'Abby', '', '2104382', 'A533', 'L', 215, '-'),
+(119, 'Abby', 'P. B. Groenendael', '2104382', 'A533', 'L', 215, 'GII'),
 (120, 'Merlin', NULL, '1996593', 'A523', 'L', 121, '-'),
 (121, 'Rusti', '', '1831356', 'A227', 'L', 164, 'GII'),
 (122, 'Cora', '', 'No tiene', '1525', 'L', 48, 'GII'),
@@ -1160,7 +1162,7 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (155, 'Yhara', NULL, '1827258', 'A357', 'L', 288, '-'),
 (156, 'Lennon', 'A. Foxhound', '111486', 'A336', 'L', 347, 'GII'),
 (157, 'Irma', NULL, '1779789', 'A096', 'L', 132, '-'),
-(158, 'Yai', NULL, '1879217', 'A475', 'L', 42, '-'),
+(158, 'Yai', '', '1879217', 'A475', 'L', 42, '-'),
 (159, 'Clara', 'Border Collie', '1936237', 'A462', 'L', 418, 'GII'),
 (160, 'Laika', NULL, '93988', 'A224', 'L', 400, '-'),
 (161, 'Argon', '', '1926695', '987', 'L', 96, 'GII'),
@@ -1343,12 +1345,12 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (338, 'Sully', NULL, '116639', 'A520', 'S', 397, '-'),
 (339, 'Gus', NULL, '119626', 'A346', 'S', 56, '-'),
 (340, 'Lola', NULL, 'No tiene', '1541', 'S', 301, '-'),
-(341, 'Thor', '', '1939205', 'A535', 'S', 2, 'GII'),
+(341, 'Thor', 'Schnauzer', '1939205', 'A535', 'S', 2, 'GII'),
 (342, 'Quillo', 'Rusky Toy', '127443', 'A604', 'S', 101, 'GII'),
 (343, 'Lennon', NULL, '103239', 'A144', 'S', 355, '-'),
 (344, 'Boira', NULL, 'No tiene', '1554', 'S', 420, '-'),
 (345, 'Kyra', NULL, '131481', 'A600', 'S', 30, '-'),
-(346, 'Acha', NULL, '123731', 'A483', 'M', 324, '-'),
+(346, 'Acha', '', '123731', 'A483', 'M', 324, '-'),
 (347, 'Ada', 'Mestizo', '', '1459', 'S', 398, 'GII'),
 (348, 'Aker', 'P.B. Malinoise', '1553051', 'A397', 'L', 162, 'GII'),
 (349, 'Akira', NULL, '125877', 'A455', 'L', 255, 'GII'),
@@ -1365,7 +1367,7 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (360, 'Kyle', 'Schnauzer', '', 'A-539', 'M', 198, 'GII'),
 (361, 'Kara', 'Border Collie', '', 'A-541', 'L', 399, 'GII'),
 (362, 'Tibet', 'Border Collie', '', '', 'L', 59, 'GII'),
-(363, 'Beltxa', 'Schnauzer', '', 'A-622', 'S', 432, 'GII'),
+(363, 'Beltxa', 'Schnauzer', '', 'A622', 'S', 432, 'GII'),
 (364, 'Yeni', 'Border Collie', '', '', 'L', 245, 'GI'),
 (365, 'Danah', 'P. Australiano', '', '', 'L', 280, 'GI'),
 (366, 'Net', 'P. Australiano', '', '', 'L', 192, 'GI'),
@@ -1379,7 +1381,7 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (375, 'Sitan', '', '', '795', 'L', 224, 'GII'),
 (376, 'Kaiser', '', '', 'A383', 'S', 202, 'GII'),
 (377, 'Geha', '', '', 'A162', 'L', 308, 'GIII'),
-(378, 'Momo', 'Borde Collie', '', '1593', 'L', 409, 'GII'),
+(378, 'Momo', 'Borde Collie', '', 'A391', 'L', 409, 'GII'),
 (379, 'Skay', '', '', '', 'L', 212, 'GII'),
 (380, 'Keko', '', '', '', 'L', 17, 'GI'),
 (381, 'Mambo', 'Border Collie', '', '', 'L', 39, 'GI'),
@@ -1556,7 +1558,9 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (552, 'Blue', '', '', '1572', 'L', 346, 'GII'),
 (553, 'Dana', '', '', 'A688', 'L', 346, 'GII'),
 (554, 'Phoebe', '', '', 'A690', 'L', 196, 'GII'),
-(555, 'Sella', '', '', '', 'L', 94, 'GII');
+(555, 'Sella', '', '', '', 'L', 94, 'GII'),
+(556, 'botinera', '', '', '', 'L', 466, 'GI'),
+(558, 'Rumba', '', '', '', 'L', 467, 'GI');
 
 -- --------------------------------------------------------
 
