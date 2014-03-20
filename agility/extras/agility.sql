@@ -3,11 +3,10 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-03-2014 a las 09:10:08
+-- Tiempo de generación: 20-03-2014 a las 12:26:39
 -- Versión del servidor: 5.5.35-0ubuntu0.12.04.2
 -- Versión de PHP: 5.3.10-1ubuntu3.10
 
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -30,7 +29,7 @@ USE `agility`;
 --
 -- Estructura de tabla para la tabla `Categorias_Perro`
 --
--- Creación: 10-03-2014 a las 12:45:38
+-- Creación: 11-03-2014 a las 08:13:41
 --
 
 DROP TABLE IF EXISTS `Categorias_Perro`;
@@ -56,7 +55,7 @@ INSERT INTO `Categorias_Perro` (`Categoria`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `Clubes`
 --
--- Creación: 10-03-2014 a las 12:45:40
+-- Creación: 11-03-2014 a las 08:13:43
 --
 
 DROP TABLE IF EXISTS `Clubes`;
@@ -81,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `Clubes` (
   PRIMARY KEY (`ID`),
   KEY `Clubes_Nombre` (`Nombre`),
   KEY `Clubes_Provincia` (`Provincia`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=82 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=86 ;
 
 --
 -- RELACIONES PARA LA TABLA `Clubes`:
@@ -94,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `Clubes` (
 --
 
 INSERT INTO `Clubes` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `Contacto1`, `Contacto2`, `Contacto3`, `GPS`, `Web`, `Email`, `Facebook`, `Google`, `Twitter`, `Logo`, `Observaciones`, `Baja`) VALUES
-(1, '-- Sin asignar --', NULL, NULL, '-- Sin asignar --', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'rsce.png', 'NO BORRAR ESTA ENTRADA. SE USARA PARA AQUELLOS GUIAS QUE NO TENGAN CLUB ASIGNADO', 0),
+(1, '-- Sin asignar --', '', '', '-- Sin asignar --', '', '', '', '', '', '', '', '', '', 'rsce.png', 'NO BORRAR ESTA ENTRADA. SE USARA PARA AQUELLOS GUIAS QUE NO TENGAN CLUB ASIGNADO', 0),
 (2, 'AA Y CIA', '28609 Sevilla La Nueva (Madrid)', '', 'Madrid', '+ 34 619 29 03 98', '', '', '', '', 'arribas.anabel@gmail.com', '', '', '', 'aaycia.png', '', 0),
 (3, 'ACADE', 'Salvadas, 41, 2º C', '15705 Santiago de Compostela', 'Coruña, A', '+ 34 620 29 58 31', '+ 34 881 93 95 5', '', '', 'http://www.asociacionacade.com/', 'asociacioncansdeportistas@gmail.com', '', '', '', 'acade.png', '', 0),
 (4, 'Agilcan', 'Paseo de los Olivos 10', '28330 San Martin de la Vega', 'Madrid', '634 417 893', '918 946 096', '659 146 878', NULL, 'http://www.agilcan.es/', 'info@agilcan.es', NULL, NULL, NULL, 'agilcan.png', NULL, 0),
@@ -174,14 +173,18 @@ INSERT INTO `Clubes` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `
 (78, 'Villena', 'Plaza El Rollo, 5', '03400 Villena (Alicante)', 'Alicante/Alacant', '+ 34 636 42 67 13', '', '', '', 'http://clubagilityvillena.blogspot.com.es/', '', '', '', '', 'villena.png', '', 0),
 (79, 'W.E.L.P.E.', 'Polideportivo Municipal La Canaleja', 'Alcorcón', 'Madrid', '+ 34 91 619 52 79', NULL, NULL, NULL, 'http://www.grupowelpe.com', 'gwelpe@teleline.es', 'https://www.facebook.com/groups/484854411592829/', NULL, '@gwelpe', 'welpe.png', NULL, 0),
 (80, 'Xanastur', ' Baleares, 39, 3º D', '33208 Gijón (Asturias)', 'Asturias', '+ 34 607 11 90 56', '', '', '', 'http://www.xanastur.org/', 'xanasturcentrocanino@gmail.com', '', '', '', 'xanastur.png', '', 0),
-(81, 'Zampican', 'Río Navía, 2', '12006 Castellón', 'Castellón/Castelló', '+ 34 629 07 06 75', '', '', '', 'http://www.agilityzampican.es/', '', '', '', '', 'zampican.png', '', 0);
+(81, 'Zampican', 'Río Navía, 2', '12006 Castellón', 'Castellón/Castelló', '+ 34 629 07 06 75', '', '', '', 'http://www.agilityzampican.es/', '', '', '', '', 'zampican.png', '', 0),
+(82, 'Buscans', '07810 Cala de San Vicente (Ibiza)', '', 'Balears, Illes', ' + 34 661 02 12 6', '+34 637 13 62 73', '', '', '', 'buscans@hotmail.com', '', '', '', 'buscans.png', '', 0),
+(83, 'Eivissa', 'Elx, s/n, B. 1, nº 4', '07820 Sant Agusti - Sant Josep (Ibiza)', 'Balears, Illes', '+ 34 971 34 58 28', '+34 609 35 40 00', '', '', 'http://www.agilityeivissa.com/', 'info@agilityeivissa.com', '', '', '', 'eivissa.png', '', 0),
+(84, 'Insular', 'Pablo Picasso', '07820 San Antonio (Baleares)', 'Balears, Illes', '+34 655 76 10 94', '', '', '', 'http://www.agilityinsular.com/', 'agilityinsular@gmail.com', '', '', '', 'insular.png', '', 0),
+(85, 'Teocan', 'Rarís, s/n', '15883 Teo (La Coruña)', 'Coruña, A', '+ 34 627 93 72 81', '', '', '', '', 'adteocan@gmail.com', '', '', '', 'teocan.png', '', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Equipos`
 --
--- Creación: 10-03-2014 a las 12:45:41
+-- Creación: 11-03-2014 a las 08:13:43
 --
 
 DROP TABLE IF EXISTS `Equipos`;
@@ -205,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `Equipos` (
 --
 -- Estructura de tabla para la tabla `Grados_Perro`
 --
--- Creación: 10-03-2014 a las 12:45:39
+-- Creación: 11-03-2014 a las 08:13:41
 --
 
 DROP TABLE IF EXISTS `Grados_Perro`;
@@ -234,7 +237,7 @@ INSERT INTO `Grados_Perro` (`Grado`, `Comentarios`) VALUES
 --
 -- Estructura de tabla para la tabla `Guias`
 --
--- Creación: 10-03-2014 a las 13:25:46
+-- Creación: 11-03-2014 a las 08:13:43
 --
 
 DROP TABLE IF EXISTS `Guias`;
@@ -262,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `Guias` (
 
 INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones`) VALUES
 (1, '-- Sin asignar --', NULL, NULL, 1, 'NO BORRAR. Valor por defecto cuando un perro se define por primera vez'),
-(2, 'Aaron Laro', NULL, NULL, 27, NULL),
+(2, 'Aaron Laro', '', '', 27, ''),
 (3, 'Ada Serrano', '', '', 67, ''),
 (4, 'Adoración Morales', NULL, NULL, 45, NULL),
 (5, 'Adrian Bajo', '', '', 76, ''),
@@ -732,7 +735,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 --
 -- Estructura de tabla para la tabla `Inscripciones`
 --
--- Creación: 10-03-2014 a las 12:45:42
+-- Creación: 11-03-2014 a las 08:13:44
 --
 
 DROP TABLE IF EXISTS `Inscripciones`;
@@ -794,7 +797,7 @@ DELIMITER ;
 --
 -- Estructura de tabla para la tabla `Jornadas`
 --
--- Creación: 10-03-2014 a las 12:45:41
+-- Creación: 11-03-2014 a las 08:13:44
 --
 
 DROP TABLE IF EXISTS `Jornadas`;
@@ -829,7 +832,7 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
 --
 -- Estructura de tabla para la tabla `Jueces`
 --
--- Creación: 10-03-2014 a las 12:45:39
+-- Creación: 11-03-2014 a las 08:13:42
 --
 
 DROP TABLE IF EXISTS `Jueces`;
@@ -852,8 +855,8 @@ CREATE TABLE IF NOT EXISTS `Jueces` (
 --
 
 INSERT INTO `Jueces` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `Internacional`, `Practicas`, `Email`, `Observaciones`) VALUES
-(1, '-- Sin asignar --', NULL, NULL, '--- -- -- --', 0, 0, 'nobody@nomail.com', 'NO BORRAR: Asignacion de juez por defecto'),
-(2, 'Beltrán Bustamante, Ana', 'Camí del Camp, 23', '03460 Beneixama (Alicante)', '639 67 86 09', 0, 1, 'sadda_874@hotmail.com', NULL),
+(1, '-- Sin asignar --', '--------', '--------', '--------', 1, 1, 'nobody@nomail.com', 'NO BORRAR: Asignacion de juez por defecto'),
+(2, 'Beltrán Bustamante, Ana', 'Camí del Camp, 23', '03460 Beneixama (Alicante)', '639 67 86 09', 0, 0, 'sadda\\_874@hotmail.com', ''),
 (3, 'Boix Balaguer, Josep', 'Sant Pere, 10', '08392 San Andreu de Llavaneres (Barcelona)', ' 93 792 76 55', 1, 0, 'josep@agilitycanic.cat', NULL),
 (4, 'Conde Delgado, Gregorio', NULL, NULL, ' 93 389 35 83 / 619 39 39 28', 1, 0, 'gconde@xtec.cat', NULL),
 (5, 'Correa Arqueros, Mariano', 'Avda. de Moratalaz, 178, 2º A', '28030 Madrid', ' 91 301 47 58', 1, 0, 'mariano.correa@nsn.com', NULL),
@@ -868,13 +871,13 @@ INSERT INTO `Jueces` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `I
 (14, 'Humanes Almonte, Miguel Angel', 'Zamora, 23, 3º C', '28941 Fuenlabrada (Madrid)', '607 70 55 75', 1, 0, 'agilblack@hotmail.com', NULL),
 (15, 'Lanzó, Juan Antonio', 'Recinto Ferial, 2, 4º A', '36540 Silleda (Pontevedra)', ' 629 50 71 76 / 986 57 70 00', 1, 0, 'tonylanzo@gmail.com', NULL),
 (16, 'Linares García, José Manuel', 'Carril de los Córdobas, 2', '30161 Llano de Brujas (Murcia)', '968 85 12 60 / 696 75 07 67', 0, 1, 'jomaliga1@gmail.com', NULL),
-(17, 'Muñiz Martínez, Oscar', 'León Felipe, 31, 4º, 1ª', '28942 Fuenlabrada (Madrid)', '665 79 86 49', 0, 1, 'agilityzeus@gmail.com', NULL),
+(17, 'Muñiz Martínez, Oscar', 'León Felipe, 31, 4º, 1ª', '28942 Fuenlabrada (Madrid)', '665 79 86 49', 1, 0, 'agilityzeus@gmail.com', ''),
 (18, 'Navarro Costas, Jordi', 'Santiago Rusiñol, 90', '08340 Vilassar de Mar (Barcelona)', '93 759 70 54 / 609 30 97 10', 1, 0, 'jordinuc@telefonica.net', NULL),
 (19, 'Parejo Carregalo, Manuel', 'Ctra. Valle de Abdalajis, Km. 1,7', '29260 La Joya (Málaga)', '95 270 26 04', 0, 1, 'losparejos@hotmail.com', NULL),
 (20, 'Pineda Puig, Josep Mª', 'Sant Ramón, 69, B-3', '08140 Caldes de Montbui (Barcelona)', '93 865 46 16 / 678 43 36 45', 0, 0, 'pepagility@movistar.es', NULL),
 (21, 'Poble Rosas, Ramón', 'Jaume I, 18', '08140 Caldes de Montbui (Barcelona)', '93 865 20 32', 1, 0, 'pobleramon@gmail.com', NULL),
 (22, 'Rodríguez Matesanz, Mario', 'Plaza del Peñón, 10', '28923 Alcorcón (Madrid)', ' 91 619 52 79', 1, 0, 'gwelpe@terra.es', NULL),
-(23, 'Santome González, Manuel', 'Fonte da Tella, 133 - A - Moureira - Meira', '36955 Moaña (Pontevedra)', '986 31 27 77 / 607 83 20 53', 0, 1, 'lolosantome@gmail.com', NULL),
+(23, 'Santome González, Manuel', 'Fonte da Tella, 133 - A - Moureira - Meira', '36955 Moaña (Pontevedra)', '986 31 27 77 / 607 83 20 53', 0, 0, 'lolosantome@gmail.com', ''),
 (24, 'Ulldemolins Santisteve, Albert', 'Llorer, 28, Casa 4', '08415 Bigues I Riells (Barcelona)', ' 93 865 89 64 / 636 96 33 77', 0, 1, 'albert23m@hotmail.com', NULL);
 
 -- --------------------------------------------------------
@@ -882,7 +885,7 @@ INSERT INTO `Jueces` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `I
 --
 -- Estructura de tabla para la tabla `Mangas`
 --
--- Creación: 10-03-2014 a las 12:45:42
+-- Creación: 11-03-2014 a las 08:13:44
 --
 
 DROP TABLE IF EXISTS `Mangas`;
@@ -958,8 +961,8 @@ CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 ,`Categoria` varchar(1)
 ,`Grado` varchar(16)
 ,`Guia` int(4)
-,`Club` int(4)
 ,`NombreGuia` varchar(255)
+,`Club` int(4)
 ,`NombreClub` varchar(255)
 );
 -- --------------------------------------------------------
@@ -967,7 +970,7 @@ CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 --
 -- Estructura de tabla para la tabla `Perros`
 --
--- Creación: 10-03-2014 a las 13:25:33
+-- Creación: 11-03-2014 a las 08:13:44
 --
 
 DROP TABLE IF EXISTS `Perros`;
@@ -1560,7 +1563,7 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 --
 -- Estructura de tabla para la tabla `Provincias`
 --
--- Creación: 10-03-2014 a las 12:45:38
+-- Creación: 11-03-2014 a las 08:13:42
 --
 
 DROP TABLE IF EXISTS `Provincias`;
@@ -1636,7 +1639,7 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 --
 -- Estructura de tabla para la tabla `Pruebas`
 --
--- Creación: 10-03-2014 a las 12:45:41
+-- Creación: 11-03-2014 a las 08:13:45
 --
 
 DROP TABLE IF EXISTS `Pruebas`;
@@ -1671,7 +1674,7 @@ INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`
 --
 -- Estructura de tabla para la tabla `Resultados`
 --
--- Creación: 10-03-2014 a las 12:45:42
+-- Creación: 11-03-2014 a las 08:13:45
 --
 
 DROP TABLE IF EXISTS `Resultados`;
@@ -1710,7 +1713,7 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 --
 -- Estructura de tabla para la tabla `Tipo_Manga`
 --
--- Creación: 10-03-2014 a las 12:45:42
+-- Creación: 11-03-2014 a las 08:13:45
 --
 
 DROP TABLE IF EXISTS `Tipo_Manga`;
@@ -1753,21 +1756,7 @@ INSERT INTO `Tipo_Manga` (`Tipo`, `Descripcion`, `Grado`) VALUES
 --
 DROP TABLE IF EXISTS `PerroGuiaClub`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` AS 
-	select 	`Perros`.`ID` AS `ID`,
-			`Perros`.`Nombre` AS `Nombre`,
-			`Perros`.`Raza` AS `Raza`,
-			`Perros`.`Licencia` AS `Licencia`,
-			`Perros`.`LOE_RRC` AS `LOE_RRC`,
-			`Perros`.`Categoria` AS `Categoria`,
-			`Perros`.`Grado` AS `Grado`,
-			`Perros`.`Guia` AS `Guia`,
-			`Guias`.`Nombre` AS `NombreGuia`,
-			`Guias`.`Club` AS `Club`,
-			`Clubes`.`Nombre` AS `NombreClub` 
-	from ((`Perros` join `Guias`) join `Clubes`) 
-	where ((`Perros`.`Guia` = `Guias`.`ID`) and (`Guias`.`Club` = `Clubes`.`ID`)) 
-	order by `Clubes`.`Nombre`,`Perros`.`Categoria`,`Perros`.`Nombre`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` AS select `Perros`.`ID` AS `ID`,`Perros`.`Nombre` AS `Nombre`,`Perros`.`Raza` AS `Raza`,`Perros`.`Licencia` AS `Licencia`,`Perros`.`LOE_RRC` AS `LOE_RRC`,`Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Perros`.`Guia` AS `Guia`,`Guias`.`Nombre` AS `NombreGuia`,`Guias`.`Club` AS `Club`,`Clubes`.`Nombre` AS `NombreClub` from ((`Perros` join `Guias`) join `Clubes`) where ((`Perros`.`Guia` = `Guias`.`ID`) and (`Guias`.`Club` = `Clubes`.`ID`)) order by `Clubes`.`Nombre`,`Perros`.`Categoria`,`Perros`.`Nombre`;
 
 --
 -- Restricciones para tablas volcadas
@@ -1841,7 +1830,6 @@ ALTER TABLE `Resultados`
 --
 ALTER TABLE `Tipo_Manga`
   ADD CONSTRAINT `Tipo_Manga_ibfk_1` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE;
-SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
