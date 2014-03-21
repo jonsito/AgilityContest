@@ -20,6 +20,7 @@ function doSearchClub() {
 function newClub(def,onAccept){
 	$('#clubes-dialog').dialog('open').dialog('setTitle','Nuevo club');
 	$('#clubes-form').form('clear');
+	// si el nombre del club contiene "Buscar" ignoramos
 	if (!strpos(def,"Buscar")) $('#clubes-Nombre').val(def);
 	$('#clubes-Operation').val('insert');
 	// select ID=1 to get default logo
@@ -32,10 +33,11 @@ function newClub(def,onAccept){
 
 /**
  * Abre el dialogo para editar un club existente
+ * @var {string} dg current active datagrid ID
  */
-function editClub(){
+function editClub(dg){
 	if ($('#clubes-search').is(":focus")) return; // on enter key in search input ignore
-    var row = $('#clubes-datagrid').datagrid('getSelected');
+    var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Update Error:","!No ha seleccionado ningún Club!","warning");
     	return; // no way to know which dog is selected
@@ -77,9 +79,10 @@ function saveClub(){
 /**
  * Pide confirmacion para borrar un club de la base de datos
  * En caso afirmativo lo borra
+ * @var {string} dg current active datagrid ID
  */
-function deleteClub(){
-    var row = $('#clubes-datagrid').datagrid('getSelected');
+function deleteClub(dg){
+    var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Delete Error:","!No ha seleccionado ningún Club!","warning");
     	return; // no way to know which dog is selected
@@ -92,12 +95,9 @@ function deleteClub(){
         if (!r) return;
         $.get('database/clubFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
-                $('#clubes-datagrid').datagrid('reload');    // reload the guia data
+                $(dg).datagrid('reload');    // reload the provided datagrid
             } else {
-                $.messager.show({    // show error message
-                    title: 'Error',
-                    msg: result.errorMsg
-                });
+                $.messager.show({ width:300,height:200,title: 'Error',msg: result.errorMsg });
             }
         },'json');
     });
@@ -127,12 +127,12 @@ function assignGuiaToClub(club,onAccept) {
 
 /**
  * Abre el formulario de edicion de guias para cambiar los datos de un guia preasignado a un club
+ * @param {string} dg datagrid ID de donde se obtiene el guia
  * @param {object} club datos del club
  * @param {function} onAccept what to do (only once) when window gets closed
  */
-function editGuiaFromClub(club,onAccept) {
-	var parent = '-' + replaceAll(' ','_',club.ID);
-    var row = $('#guias-datagrid'+parent).datagrid('getSelected');
+function editGuiaFromClub(dg, club, onAccept) {
+    var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Delete Error:","!No ha seleccionado ningún Guia!","warning");
     	return; // no way to know which guia is selected
@@ -140,7 +140,6 @@ function editGuiaFromClub(club,onAccept) {
     // add extra needed parameters to dialog
     row.Club=club.ID;
     row.NombreClub=club.Nombre;
-    row.Parent=parent;
     row.Operation='update';
     $('#guias-form').form('load',row);
     $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre);
@@ -151,17 +150,21 @@ function editGuiaFromClub(club,onAccept) {
 /**
  * Quita la asignacion del guia marcado al club indicado
  * Invocada desde el menu de clubes
+ * @param {string} dg datagrid ID de donde se obtiene el guia
  * @param {object} club datos del club
  * @param {function} onAccept what to do (only once) when window gets closed
  */
-function delGuiaFromClub(club,onAccept) {
-    var row = $('#guias-datagrid-'+replaceAll(' ','_',club.ID)).datagrid('getSelected');
-    if (!row) return;
-
+function delGuiaFromClub(dg,club,onAccept) {
+    var row = $(dg).datagrid('getSelected');
+    if (!row){
+    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Guia!","warning");
+    	return; // no way to know which guia is selected
+    }
     $.messager.confirm('Confirm',"Borrar asignacion del gu&iacute;a '"+row.Nombre+"' al club '"+club.Nombre+"' ¿Seguro?'",function(r){
         if (r){
             $.get('database/guiaFunctions.php',{'Operation':'orphan','ID':row.ID},function(result){
                 if (result.success){
+                	$(dg).datagrid('reload');
                 	if (onAccept!==undefined) onAccept(); // usually reload the guia data 
                 } else {
                 	// show error message
@@ -189,10 +192,11 @@ function newGuia(def,onAccept){
 
 /**
  * Abre el dialogo para editar un guia ya existente
+ * @param {string} dg datagrid ID de donde se obtiene el guia
  */
-function editGuia(){
+function editGuia(dg){
 	if ($('#guias-search').is(":focus")) return; // on enter key in search input ignore
-    var row = $('#guias-datagrid').datagrid('getSelected');
+    var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Edit Error:","!No ha seleccionado ningún guía!","warning");
     	return; // no way to know which dog is selected
@@ -211,9 +215,10 @@ function editGuia(){
 /**
  * Borra de la BBDD los datos del guia seleccionado. 
  * Invocada desde el menu de guias
+ * @param {string} dg datagrid ID de donde se obtiene el guia
  */
-function deleteGuia(){
-    var row = $('#guias-datagrid').datagrid('getSelected');
+function deleteGuia(dg){
+    var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Delete Error:","!No ha seleccionado ningún guía!","warning");
     	return; // no way to know which dog is selected
@@ -226,7 +231,7 @@ function deleteGuia(){
     	if (!r) return;
     	$.get('database/guiaFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
     		if (result.success){
-    			$('#guias-datagrid').datagrid('reload');    // reload the guia data
+    			$(dg).datagrid('reload');    // reload the guia data
     		} else {
     			// show error message
     			$.messager.show({ title:'Error', width:300, height:200, msg:result.errorMsg });
@@ -251,12 +256,7 @@ function assignGuia(){
         success: function(res){
             var result = eval('('+res+')');
             if (result.errorMsg){
-                $.messager.show({
-                	width: 300,
-                	height:200,
-                    title: 'Error',
-                    msg: result.errorMsg
-                });
+                $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
             } else {
             	// notice that onAccept() already refresh parent dialog
                 $('#chguias-dialog').dialog('close');        // close the dialog
@@ -280,10 +280,7 @@ function saveGuia(){
         success: function(res){
             var result = eval('('+res+')');
             if (result.errorMsg){
-                $.messager.show({
-                    title: 'Error',
-                    msg: result.errorMsg
-                });
+                $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
             } else {
             	// notice that onAccept() already refresh parent dialog
                 $('#guias-dialog').dialog('close');        // close the dialog
@@ -307,10 +304,11 @@ function newDog(def){
 
 /**
  * Abre el dialogo para editar datos de un perro ya existente
+ * @param {string} dg datagrid ID de donde se obtiene el perro
  */
-function editDog(){
+function editDog(dg){
 	if ($('#perros-search').is(":focus")) return; // on enter key in search input ignore
-    var row = $('#perros-datagrid').datagrid('getSelected');
+    var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Edit Error:","!No ha seleccionado ningún perro!","warning");
     	return; // no way to know which dog is selected
@@ -328,24 +326,24 @@ function editDog(){
 
 /**
  * Borra el perro seleccionado de la base de datos
+ * @param {string} dg datagrid ID de donde se obtiene el perro
  */
-function deleteDog(){
-    var row = $('#perros-datagrid').datagrid('getSelected');
-    if (row){
-        $.messager.confirm('Confirm','Borrar el perro: "'+ row.Nombre+'" de la base de datos.\n¿Seguro?',function(r){
-        	if (!r) return;
-            $.get('database/dogFunctions.php',{Operation:'delete',ID:row.ID},function(result){
-                if (result.success){
-                    $('#perros-datagrid').datagrid('reload');    // reload the dog data
-                } else { // show error message
-                    $.messager.show({ title: 'Error',  msg: result.errorMsg });
-                }
-            },'json');
-        });
-    } else {
+function deleteDog(dg){
+    var row = $(dg).datagrid('getSelected');
+    if (!row) {
     	$.messager.alert("Delete Error:","!No ha seleccionado ningún perro!","info");
     	return; // no way to know which dog is selected
     }
+    $.messager.confirm('Confirm','Borrar el perro: "'+ row.Nombre+'" de la base de datos.\n¿Seguro?',function(r){
+       	if (!r) return;
+        $.get('database/dogFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+            if (result.success){
+                $('#perros-datagrid').datagrid('reload');    // reload the dog data
+            } else { // show error message
+                $.messager.show({ title: 'Error',  msg: result.errorMsg });
+            }
+        },'json');
+    });
 }
 
 /**
@@ -387,19 +385,18 @@ function assignPerroToGuia(guia,onAccept) {
 
 /**
 * Abre el formulario para anyadir perros a un guia
-*@param {object} guia: datos del guia
+* @param {string} dg datagrid ID de donde se obtiene el perro
+* @param {object} guia: datos del guia
 * @param {function} onAccept what to do (only once) when window gets closed
 */
-function editPerroFromGuia(guia,onAccept) {
-	var parent = '-'+replaceAll(' ','_',guia.ID);
+function editPerroFromGuia(dg,guia,onAccept) {
 	// try to locate which dog has been selected 
-    var row = $('#perros-datagrid'+parent).datagrid('getSelected');
+    var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Error","!No ha seleccionado ningún perro!","warning");
     	return; // no way to know which dog is selected
     }
     // add extra required data to form dialog
-    row.Parent=parent;
     row.Operation='update';
     $('#perros-form').form('load',row);	// load form with row data
     // stupid combogrid that doesn't display right data after form load
@@ -414,16 +411,21 @@ function editPerroFromGuia(guia,onAccept) {
 
 /**
  * Quita la asignacion del perro marcado al guia indicado
-  * @param {object} guia: datos del guia
+ * @param {string} dg datagrid ID de donde se obtiene el perro
+ * @param {object} guia: datos del guia
  * @param {function} onAccept what to do (only once) when window gets closed
  */
-function delPerroFromGuia(guia,onAccept) {
-    var row = $('#perros-datagrid-'+replaceAll(' ','_',guia.ID)).datagrid('getSelected');
-    if (!row) return;
+function delPerroFromGuia(dg,guia,onAccept) {
+    var row = $(dg).datagrid('getSelected');
+    if (!row){
+    	$.messager.alert("Error","!No ha seleccionado ningún perro!","warning");
+    	return; // no way to know which dog is selected
+    }
     $.messager.confirm('Confirm',"Borrar asignacion del perro '"+row.Nombre+"' al guia '"+guia.Nombre+"' ¿Seguro?'",function(r){
         if (r){
             $.get('database/dogFunctions.php',{Operation:'orphan',ID:row.ID},function(result){
                 if (result.success){
+                	$(dg).datagrid('reload');
                 	if (onAccept!==undefined) onAccept(); // usually reload the guia data
                 } else {
                     $.messager.show({title: 'Error', msg: result.errorMsg, width: 300,height:200 });
@@ -501,10 +503,11 @@ function newJuez(def,onAccept){
 
 /**
  * Open "Edit Juez" dialog
+ * @param {string} dg datagrid ID de donde se obtiene el juez
  */
-function editJuez(){
+function editJuez(dg){
 	if ($('#jueces-search').is(":focus")) return; // on enter key in search input ignore
-    var row = $('#jueces-datagrid').datagrid('getSelected');
+    var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Edit Error:","!No ha seleccionado ningún Juez!","warning");
     	return; // no way to know which dog is selected
@@ -545,9 +548,10 @@ function saveJuez(){
 
 /**
  * Delete juez data in bbdd
+ * @param {string} dg datagrid ID de donde se obtiene el juez
  */
-function deleteJuez(){
-    var row = $('#jueces-datagrid').datagrid('getSelected');
+function deleteJuez(dg){
+    var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Delete Error:","!No ha seleccionado ningún Juez!","info");
     	return; // no way to know which juez is selected
@@ -560,7 +564,7 @@ function deleteJuez(){
       	if (!r) return;
         $.get('database/juezFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
-                $('#jueces-datagrid').datagrid('reload');    // reload the juez data
+                $(dg).datagrid('reload');    // reload the juez data
             } else {
             	// show error message
                 $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
@@ -594,11 +598,14 @@ function newPrueba(){
 
 /**
  * Open dialogo de modificacion de pruebas
+ * @param {string} dg datagrid ID de donde se obtiene la prueba
  */
-function editPrueba(){
-    var row = $('#pruebas-datagrid').datagrid('getSelected');
-    if (!row) return; // no prueba selected
-    
+function editPrueba(dg){
+    var row = $(dg).datagrid('getSelected');
+    if (!row) {
+    	$.messager.alert("Edit Error:","!No ha seleccionado ninga Prueba!","info");
+    	return; // no way to know which prueba is selected
+    }
     $('#pruebas-dialog').dialog('open').dialog('setTitle','Modificar datos de la prueba');
     $('#pruebas-form').form({
     	onLoadSuccess: function(data) {
@@ -613,7 +620,7 @@ function editPrueba(){
 /**
  * Ask json routines for add/edit a prueba into BBDD
  */
-function savePrueba(){
+function savePrueba() {
 	// take care on bool-to-int translation from checkboxes to database
     $('#pruebas-Cerrada').val( $('#pruebas-Cerrada').is(':checked')?'1':'0');
     // do normal submit
@@ -625,9 +632,7 @@ function savePrueba(){
         },
         success: function(res){
             var result = eval('('+res+')');
-            if (result.errorMsg){
-                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg
-                });
+            if (result.errorMsg){ $.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {
                 $('#pruebas-dialog').dialog('close');        // close the dialog
                 $('#pruebas-datagrid').datagrid('reload');    // reload the prueba data
@@ -638,18 +643,22 @@ function savePrueba(){
 
 /**
  * Delete data related with a prueba in BBDD
+ * @param {string} dg datagrid ID de donde se obtiene la prueba
  */
-function deletePrueba(){
-    var row = $('#pruebas-datagrid').datagrid('getSelected');
-    if (!row) return;
+function deletePrueba(dg){
+    var row = $(dg).datagrid('getSelected');
+    if (!row) {
+    	$.messager.alert("Delete Error:","!No ha seleccionado ninga Prueba!","info");
+    	return; // no way to know which prueba is selected
+    }
     $.messager.confirm('Confirm',
     		"<p>Importante:</p><p>Si decide borrar la prueba <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta</p><p>Desea realmente borrar la prueba seleccionada?</p>",function(r){
         if (r){
             $.get('database/pruebaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
-                    $('#pruebas-datagrid').datagrid('reload');    // reload the prueba data
+                    $(dg).datagrid('reload');    // reload the prueba data
                 } else {
-                    $.messager.show({width:300,height:200,title: 'Error', msg: result.errorMsg});
+                    $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
                 }
             },'json');
         }
@@ -721,7 +730,7 @@ function delJornadaFromPrueba(prueba,datagridID) {
                     $(datagridID).datagrid('reload');    // reload the pruebas data
                     // $('#jornadas-datagrid-'+prueba.ID).datagrid('reload');    // reload the pruebas data
                 } else {
-                    $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg });
+                    $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
                 }
             },'json');
         }
@@ -912,7 +921,7 @@ function deleteInscripcion() {
 							where: $('#inscripciones-search').val()
 						});
 					} else {
-						$.messager.show({ width:300,height:200,title: 'Error',msg: result.errorMsg });
+						$.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
 					}
 				},'json');
 		} // if (r)
@@ -986,7 +995,7 @@ function updateInscripcion(){
         success: function(res){
             var result = eval('('+res+')');
             if (result.errorMsg){
-                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
+                $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg});
             } else {
                 $('#chinscripciones-dialog').dialog('close');        // close the dialog
                 // notice that some of these items may fail if dialog is not deployed. just ignore

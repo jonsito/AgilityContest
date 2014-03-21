@@ -50,7 +50,7 @@
                 return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
             },
     		// on double click fireup editor dialog
-        	onDblClickRow:function() { editPrueba(); },
+        	onDblClickRow:function() { editPrueba('#pruebas-datagrid'); },
             // especificamos un formateador especial para desplegar la tabla de jornadas por prueba
             detailFormatter:function(index,row){
                 return '<div style="padding:2px"><table id="jornadas-datagrid-' + row.ID + '"/></div>';
@@ -100,9 +100,9 @@
             switch(e.keyCode){
             case 38:	/* Up */	selectRow(t,true); return false;
             case 40:    /* Down */	selectRow(t,false); return false;
-            case 13:	/* Enter */	editClub(); return false;
-            case 45:	/* Insert */ newClub(); return false;
-            case 46:	/* Supr */	deleteClub(); return false;
+            case 13:	/* Enter */	editPrueba('#pruebas-datagrid'); return false;
+            case 45:	/* Insert */ newPrueba('#pruebas-datagrid'); return false;
+            case 46:	/* Supr */	deletePrueba('#pruebas-datagrid'); return false;
             case 33:	/* Re Pag */ selectPage(t,-1); return false;
             case 34:	/* Av Pag */ selectPage(t,1); return false;
             case 35:	/* Fin */    selectPage(t,2); return false;

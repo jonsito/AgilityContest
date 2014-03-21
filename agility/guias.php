@@ -65,7 +65,7 @@
             },        
             // especificamos un formateador especial para desplegar la tabla de perros por guia
             detailFormatter:function(idx,row){
-                return '<div style="padding:2px"><table id="perros-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
+                return '<div style="padding:2px"><table id="guias-perros-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
             },
             onExpandRow: function(idx,row) { showPerrosByGuia(idx,row); },
 
@@ -175,7 +175,7 @@
 		// mostrar los perros asociados a un guia
         function showPerrosByGuia(index,guia){
         	// - sub tabla de perros asignados a un guia
-        	var mySelf='#perros-datagrid-'+replaceAll(' ','_',guia.ID);
+        	var mySelf='#guias-perros-datagrid-'+replaceAll(' ','_',guia.ID);
 			$(mySelf).datagrid({
             	width: 875,
         		title: 'Perros registrados a nombre de '+guia.Nombre,
