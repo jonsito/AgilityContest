@@ -6,18 +6,17 @@
                 <label for="Search">Buscar: </label>
                 <select id="chperros-Search" name="Search" class="easyui-combogrid" style="width:250px"></select>&nbsp;
                 <a id="chperros-clearBtn" href="#" class="easyui-linkbutton">Limpiar</a>
-                <input id="chperros-Parent" name="Parent" type="hidden" /> <!-- used to store parent datagrid if any -->
-                <input id="chperros-newGuia" name="newGuia" type="hidden" /> <!-- used to store guia -->
         	</div>
         </form>
         <hr/>
         <form id="chperros-form" method="get" novalidate>
             <div class="fitem">
                 <label for="Nombre">Nombre:</label>
-                <input id="chperros-Nombre" name="Nombre" class="easyui-validatebox" />
-                <input id="chperros-IDPerro" name="IDPerro" type="hidden" /> <!-- hide idperro, as only used for edit and is readonly -->
-                <input id="chperros-Operation" name="Operation" type="hidden" value="insert"/> <!-- inser/update/delete -->
-                <input id="chperros-Guia" name="Guia" type="hidden" /> <!-- name of the guia -->
+                <input id="chperros-ID" name="ID" type="hidden" /> <!-- dog id -->
+                <input id="chperros-Nombre" name="Nombre" class="easyui-validatebox" /> <!-- dog name -->
+                <input id="chperros-Operation" name="Operation" type="hidden" value="update"/> <!-- inser/update/delete -->
+                <input id="chperros-Guia" name="Guia" type="hidden" /> <!-- id of the guia -->
+                <input id="chperros-newGuia" name="Guia" type="hidden" /> <!-- id original of the guia -->
             </div>
             <div class="fitem">
                 <label for="Raza">Raza:</label>
@@ -114,9 +113,9 @@
 		singleSelect: true,
 		selectOnNavigation: false ,
 		onSelect: function(index,row) {
-			var idperro=row.IDPerro;
+			var idperro=row.ID;
 			if (!idperro) return;
-	        $('#chperros-form').form('load','database/dogFunctions.php?Operation=getbyidperro&IDPerro='+idperro); // load form with json retrieved data
+	        $('#chperros-form').form('load','database/dogFunctions.php?Operation=getbyidperro&ID='+idperro); // load form with json retrieved data
 		}
 	});
     $('#chperros-Nombre').validatebox({

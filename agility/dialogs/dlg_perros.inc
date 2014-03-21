@@ -10,7 +10,6 @@
                 	type="text" 
                 	class="easyui-validatebox"/>
                 <input id="perros-ID" name="ID" type="hidden" /> <!-- hide idperro, as only used for edit and is readonly -->
-                <input id="perros-Parent" name="Parent" type="hidden" /> <!-- used to store parent datagrid if any -->
                 <input id="perros-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
             </div>
             <div class="fitem">

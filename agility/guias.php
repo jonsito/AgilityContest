@@ -175,7 +175,8 @@
 		// mostrar los perros asociados a un guia
         function showPerrosByGuia(index,guia){
         	// - sub tabla de perros asignados a un guia
-        	$('#perros-datagrid-'+replaceAll(' ','_',guia.ID)).datagrid({
+        	var mySelf='#perros-datagrid-'+replaceAll(' ','_',guia.ID);
+			$(mySelf).datagrid({
             	width: 875,
         		title: 'Perros registrados a nombre de '+guia.Nombre,
        		    pagination: false,
@@ -194,19 +195,19 @@
 					text: 'Asignar perro',
 					plain: true,
 					iconCls: 'icon-dog',
-					handler: function(){assignPerroToGuia(guia);},
+					handler: function(){assignPerroToGuia(guia, function () { $(mySelf).datagrid('reload'); } ); }
 				},{
 					id: 'perrosbyguia-editBtn',
 					text: 'Editar datos',
 					plain: true,
 					iconCls: 'icon-edit',
-					handler: function(){editPerroFromGuia(guia);}
+					handler: function(){editPerroFromGuia(guia, function () { $(mySelf).datagrid('reload'); } ); }
 				},{
 					id: 'perrosbyguia-delBtn',
 					text: 'Desasignar perro',
 					plain: true,
 					iconCls: 'icon-trash',
-					handler: function(){delPerroFromGuia(guia);}
+					handler: function(){delPerroFromGuia(guia, function () { $(mySelf).datagrid('reload'); } ); }
 				}],
         	    columns: [[
             	    { field:'ID',	width:15, sortable:true,	title: 'ID'},
@@ -223,7 +224,7 @@
             	},
             	// on double click fireup editor dialog
                 onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-                    editPerroFromGuia(guia);
+                    editPerroFromGuia(guia,function () { $(mySelf).datagrid('reload'); });
                 },
                 onResize:function(){
                     $('#guias-datagrid').datagrid('fixDetailRowHeight',index);

@@ -28,8 +28,8 @@ class Dogs extends DBObject {
 		$this->myLogger->info("Nombre: $nombre Raza: $raza LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
+		if (!$res) return $this->error($stmt->error);
 		$stmt->close();
-		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return "";
 		
@@ -37,7 +37,7 @@ class Dogs extends DBObject {
 	
 	/**
 	 * Update data for provided dog ID
-	 * @param {integer} $idperro dog id primary key
+	 * @param {integer} $id dog id primary key
 	 * @return "" on success; null on error
 	 */
 	function update($id) {
@@ -64,8 +64,8 @@ class Dogs extends DBObject {
 		$this->myLogger->info("ID: $id Nombre: $nombre Raza: $raza LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
+		if (!$res) return $this->error($stmt->error); 
 		$stmt->close();
-		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";
 	}
@@ -159,7 +159,7 @@ class Dogs extends DBObject {
 		$result = array();
 		$items = array();
 		
-		$str="SELECT * FROM PerroGuiaClub WHERE ( Guia ='$idguia' ) ORDER BY Nombre ASC";
+		$str="SELECT * FROM PerroGuiaClub WHERE ( Guia =$idguia ) ORDER BY Nombre ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
@@ -178,10 +178,10 @@ class Dogs extends DBObject {
 	 */
 	function selectByIDPerro($idperro){
 		$this->myLogger->enter();
-		if ($idperro<=0) return $this->error("No IDPerro specified"); 
+		if ($idperro<=0) return $this->error("No Perro ID specified"); 
 		
 		// second query to retrieve $rows starting at $offset
-		$str="SELECT * FROM PerroGuiaClub WHERE ( IDPerro = $idperro )";
+		$str="SELECT * FROM PerroGuiaClub WHERE ( ID = $idperro )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
