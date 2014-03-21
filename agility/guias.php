@@ -6,8 +6,8 @@
     <div id="guias-toolbar" style="padding:5px 5px 25px 5px">
     	<span style="float:left;">
         	<a id="guias-newBtn" href="#" class="easyui-linkbutton" onclick="newGuia($('#guias-search').val())">Nuevo Gu&iacute;a</a>
-        	<a id="guias-editBtn" href="#" class="easyui-linkbutton" onclick="editGuia()">Editar Gu&iacute;a</a>
-        	<a id="guias-delBtn" href="#" class="easyui-linkbutton" onclick="deleteGuia()">Borrar gu&iacute;a</a>
+        	<a id="guias-editBtn" href="#" class="easyui-linkbutton" onclick="editGuia('#guias-datagrid')">Editar Gu&iacute;a</a>
+        	<a id="guias-delBtn" href="#" class="easyui-linkbutton" onclick="deleteGuia('#guias-datagrid')">Borrar gu&iacute;a</a>
     		<input id="guias-search" type="text" value="----- Buscar -----" class="search_textfield"/>
     	</span>
     	<span style="float:right;">
@@ -61,7 +61,7 @@
             },
         	// on double click fireup editor dialog
             onDblClickRow:function() { 
-                editGuia();
+                editGuia('#guias-datagrid');
             },        
             // especificamos un formateador especial para desplegar la tabla de perros por guia
             detailFormatter:function(idx,row){
@@ -112,9 +112,9 @@
             switch(e.keyCode){
             case 38:	/* Up */	selectRow(t,true); return false;
             case 40:    /* Down */	selectRow(t,false); return false;
-            case 13:	/* Enter */	editGuia(); return false;
+            case 13:	/* Enter */	editGuia('#guias-datagrid'); return false;
             case 45:	/* Insert */ newGuia($('#guias-search').val()); return false;
-            case 46:	/* Supr */	deleteGuia(); return false;
+            case 46:	/* Supr */	deleteGuia('#guias-datagrid'); return false;
             case 33:	/* Re Pag */ selectPage(t,-1); return false;
             case 34:	/* Av Pag */ selectPage(t,1); return false;
             case 35:	/* Fin */    selectPage(t,2); return false;
@@ -155,7 +155,7 @@
     	});
     	$('#guias-reloadBtn').on("click", function () {
         	// clear selection and reload table
-    		$('#guias-search').val('----- Buscar -----');
+    		$('#guias-search').val('---- Buscar ----');
             $('#guias-datagrid').datagrid('load',{ where: '' });
     	});
         $("#guias-search").keydown(function(event){
@@ -195,19 +195,19 @@
 					text: 'Asignar perro',
 					plain: true,
 					iconCls: 'icon-dog',
-					handler: function(){assignPerroToGuia(guia, function () { $(mySelf).datagrid('reload'); } ); }
+					handler: function(){assignPerroToGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } ); }
 				},{
 					id: 'perrosbyguia-editBtn',
 					text: 'Editar datos',
 					plain: true,
 					iconCls: 'icon-edit',
-					handler: function(){editPerroFromGuia(guia, function () { $(mySelf).datagrid('reload'); } ); }
+					handler: function(){editPerroFromGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } ); }
 				},{
 					id: 'perrosbyguia-delBtn',
 					text: 'Desasignar perro',
 					plain: true,
 					iconCls: 'icon-trash',
-					handler: function(){delPerroFromGuia(guia, function () { $(mySelf).datagrid('reload'); } ); }
+					handler: function(){delPerroFromGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } ); }
 				}],
         	    columns: [[
             	    { field:'ID',	width:15, sortable:true,	title: 'ID'},
@@ -224,7 +224,7 @@
             	},
             	// on double click fireup editor dialog
                 onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-                    editPerroFromGuia(guia,function () { $(mySelf).datagrid('reload'); });
+                    editPerroFromGuia(mySelf,guia,function () { $(mySelf).datagrid('reload'); });
                 },
                 onResize:function(){
                     $('#guias-datagrid').datagrid('fixDetailRowHeight',index);

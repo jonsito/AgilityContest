@@ -5,9 +5,9 @@
     <div id="perros-toolbar" style="padding:5px 5px 25px 5px">
     	<span style="float:left;">
     		<a id="perros-newBtn" href="#" class="easyui-linkbutton" onclick="newDog($('#perros-search').val())">Nuevo Perro</a>
-    		<a id="perros-editBtn" href="#" class="easyui-linkbutton" onclick="editDog()">Editar Perro</a>
-    		<a id="perros-delBtn" href="#" class="easyui-linkbutton" onclick="deleteDog()">Borrar Perro</a>
-    		<input id="perros-search" type="text" value="----- Buscar -----" class="search_textfield"/>
+    		<a id="perros-editBtn" href="#" class="easyui-linkbutton" onclick="editDog('#perros-datagrid')">Editar Perro</a>
+    		<a id="perros-delBtn" href="#" class="easyui-linkbutton" onclick="deleteDog('#perros-datagrid')">Borrar Perro</a>
+    		<input id="perros-search" type="text" value="--- Buscar ---" class="search_textfield"/>
     	</span>
     	<span style="float:right;">
     		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"">Actualizar</a>
@@ -63,7 +63,7 @@
             },
         	// on double click fireup editor dialog
             onDblClickRow:function() { 
-                editDog();
+                editDog('#perros-datagrid');
             }
         });
         // activa teclas up/down para navegar por el panel
@@ -107,9 +107,9 @@
             switch(e.keyCode){
             case 38:	/* Up */	selectRow(t,true); return false;
             case 40:    /* Down */	selectRow(t,false); return false;
-            case 13:	/* Enter */	editDog(); return false;
+            case 13:	/* Enter */	editDog('#perros-datagrid'); return false;
             case 45:	/* Insert */ newDog($('#perros-search').val()); return false;
-            case 46:	/* Supr */	deleteDog(); return false;
+            case 46:	/* Supr */	deleteDog('#perros-datagrid'); return false;
             case 33:	/* Re Pag */ selectPage(t,-1); return false;
             case 34:	/* Av Pag */ selectPage(t,1); return false;
             case 35:	/* Fin */    selectPage(t,2); return false;
@@ -155,7 +155,7 @@
     	});
     	$('#perros-reloadBtn').on("click", function () {
         	// clear selection and reload table
-    		$('#perros-search').val('---- Buscar -----');
+    		$('#perros-search').val('--- Buscar ---');
             $('#perros-datagrid').datagrid('load',{ where: '' });
     	});
         $("#perros-search").keydown(function(event){

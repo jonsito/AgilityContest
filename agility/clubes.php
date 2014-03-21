@@ -9,7 +9,7 @@
     		<a id="clubes-newBtn" href="#" class="easyui-linkbutton" onclick="newClub($('#clubes-search').val())">Nuevo Club</a>
     		<a id="clubes-editBtn" href="#" class="easyui-linkbutton" onclick="editClub('#clubes-datagrid')">Editar Club</a>
     		<a id="clubes-delBtn" href="#" class="easyui-linkbutton" onclick="deleteClub('#clubes-datagrid')">Borrar Club</a>
-    		<input id="clubes-search" type="text" value="----- Buscar -----" class="search_textfield"/>
+    		<input id="clubes-search" type="text" value="---- Buscar ----" class="search_textfield"/>
     	</span>
     	<span style="float:right;">
     		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"">Actualizar</a>
@@ -126,7 +126,7 @@
             case 40:    /* Down */	selectRow(t,false); return false;
             case 13:	/* Enter */	editClub('#clubes-datagrid'); return false;
             case 45:	/* Insert */ newClub($('#clubes-search').val()); return false;
-            case 46:	/* Supr */	deleteClub(); return false;
+            case 46:	/* Supr */	deleteClub('#clubes-datagrid'); return false;
             case 33:	/* Re Pag */ selectPage(t,-1); return false;
             case 34:	/* Av Pag */ selectPage(t,1); return false;
             case 35:	/* Fin */    selectPage(t,2); return false;
@@ -168,7 +168,7 @@
     	});
     	$('#clubes-reloadBtn').on("click", function () {
         	// clear selection and reload table
-    		$('#clubes-search').val('----- Buscar -----');
+    		$('#clubes-search').val('---- Buscar ----');
             $('#clubes-datagrid').datagrid('load',{ where: '' });
     	});
         $("#clubes-search").keydown(function(event){
@@ -208,19 +208,19 @@
             		text: 'Asociar gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-users',
-        			handler: function(){ assignGuiaToClub( club, function () { $(mySelf).datagrid('reload'); } ); }
+        			handler: function(){ assignGuiaToClub( mySelf,club, function () { $(mySelf).datagrid('reload'); } ); }
         		},{
             		id: 'guiasByClub-editBtn',
             		text: 'Editar gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-edit',
-        			handler: function(){ editGuiaFromClub(club, function () { $(mySelf).datagrid('reload'); } );}
+        			handler: function(){ editGuiaFromClub(mySelf,club, function () { $(mySelf).datagrid('reload'); } );}
         		},{
             		id: 'guiasByClub-delBtn',
             		text: 'Des-asociar gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-remove',
-        			handler: function(){ delGuiaFromClub(club, function () { $(mySelf).datagrid('reload'); } );}
+        			handler: function(){ delGuiaFromClub(mySelf,club, function () { $(mySelf).datagrid('reload'); } );}
         		}],
         	    columns: [[
         	        { field:'ID',			hidden:true },	
@@ -243,7 +243,7 @@
                 },
             	// on double click fireup editor dialog
                 onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-                    editGuiaFromClub(club,	function () { $(mySelf).datagrid('reload'); } );
+                    editGuiaFromClub(mySelf,club,	function () { $(mySelf).datagrid('reload'); } );
                 },
                 // especificamos un formateador especial para desplegar la tabla de perros por guia
                 detailFormatter:function(index,guia){
@@ -313,13 +313,13 @@
 					text: 'Editar datos',
 					plain: true,
 					iconCls: 'icon-edit',
-					handler: function(){editPerroFromGuia(guia, function () { $(mySelf).datagrid('reload'); } );}
+					handler: function(){editPerroFromGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } );}
 				},{
 					id: 'perrosByGuiaByClub-delBtn',
 					text: 'Desasignar perro',
 					plain: true,
 					iconCls: 'icon-remove',
-					handler: function(){delPerroFromGuia(guia, function () { $(mySelf).datagrid('reload'); } );}
+					handler: function(){delPerroFromGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } );}
 				}],
         	    columns: [[
             	    { field:'ID',		width:15, sortable:true,	title: 'ID'},
@@ -336,7 +336,7 @@
             	},
             	// on double click fireup editor dialog
                 onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-                    editPerroFromGuia(guia, function () { $(mySelf).datagrid('reload'); } );
+                    editPerroFromGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } );
                 },
                 onResize:function(){
                     $(parent).datagrid('fixDetailRowHeight',index);
