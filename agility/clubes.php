@@ -188,7 +188,8 @@
     	
         function showGuiasByClub(index,club){
         	// - sub tabla de guias inscritos en un club
-        	$('#guias-datagrid-'+replaceAll(' ','_',club.ID)).datagrid({
+        	var mySelf='#guias-datagrid-'+replaceAll(' ','_',club.ID);
+        	$(mySelf).datagrid({
             	width: 875,
             	fit:false,
        		    pagination: false,
@@ -207,19 +208,19 @@
             		text: 'Asociar gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-users',
-        			handler: function(){assignGuiaToClub(club);}
+        			handler: function(){ assignGuiaToClub( club, function () { $(mySelf).datagrid('reload'); } ); }
         		},{
             		id: 'guiasByClub-editBtn',
             		text: 'Editar gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-edit',
-        			handler: function(){editGuiaFromClub(club);}
+        			handler: function(){ editGuiaFromClub(club, function () { $(mySelf).datagrid('reload'); } );}
         		},{
             		id: 'guiasByClub-delBtn',
             		text: 'Des-asociar gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-remove',
-        			handler: function(){delGuiaFromClub(club);}
+        			handler: function(){ delGuiaFromClub(club, function () { $(mySelf).datagrid('reload'); } );}
         		}],
         	    columns: [[
         	        { field:'ID',			hidden:true },	
@@ -242,7 +243,7 @@
                 },
             	// on double click fireup editor dialog
                 onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-                    editGuiaFromClub(club);
+                    editGuiaFromClub(club,	function () { $(mySelf).datagrid('reload'); } );
                 },
                 // especificamos un formateador especial para desplegar la tabla de perros por guia
                 detailFormatter:function(index,guia){

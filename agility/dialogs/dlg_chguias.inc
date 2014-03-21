@@ -6,17 +6,16 @@
                 <label for="Search">Buscar: </label>
                 <select id="chguias-Search" name="Search" class="easyui-combogrid" style="width:200px"></select>&nbsp;
                 <a id="chguias-clearBtn" href="#" class="easyui-linkbutton">Limpiar</a>
-                <input id="chguias-Parent" name="Parent" type="hidden" /> <!-- used to store parent datagrid if any -->
-                <input id="chguias-newClub" name="newClub" type="hidden" /> <!-- used to store club -->
         	</div>
         </form>
         <hr/>
         <form id="chguias-form" method="get" novalidate>
             <div class="fitem">
                 <label for="Nombre">Nombre:</label>
+                <input id="chguias-ID" name="ID" type="hidden" value="" /> <!-- Guia ID -->
                 <input id="chguias-Nombre" name="Nombre" class="easyui-validatebox" style="width:300px" />
-                <input id="chguias-Club" name="Club" type="hidden" value="" /> <!-- hidden field to store related club -->
-                <input id="chguias-ID" name="ID" type="hidden" value="" /> <!-- used to allow operator change guia's name -->
+                <input id="chguias-Club" name="Club" type="hidden" value="" /> <!-- Club ID -->
+                <input id="chguias-newClub" name="newClub" type="hidden" value="" /> <!-- new Club ID -->
                 <input id="chguias-Operation" name="Operation" type="hidden" value=""/> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
@@ -68,15 +67,7 @@
         });
         
         // campos del formulario
-        $('#chguias-dialog').dialog( {
-                closed: true,
-                buttons: '#chguias-dlg-buttons',
-                iconCls: 'icon-users'
-        });
-        $('#chguias-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
-        	if (e.keyCode == 27){ $('#chguias-dialog').dialog('close');
-        	}
-        });
+
         $('#chguias-Nombre').validatebox({
             required: true,
             validType: 'length[1,255]'
@@ -105,9 +96,19 @@
     		selectOnNavigation: false ,
     		onSelect: function(index,row) {
     			var id=row.ID;
-    			if (!nombre) return;
+    			if (id<=0) return;
     	        $('#chguias-form').form('load','database/guiaFunctions.php?Operation=getbyid&ID='+id); // load form with json retrieved data
     			$('#chguias-Club').val($('#chguias-newClub').val()); // restore "Club" field
     		}
+    	});
+
+        // datos de la ventana
+        $('#chguias-dialog').dialog( {
+            closed: true,
+            buttons: '#chguias-dlg-buttons',
+            iconCls: 'icon-users'
+    	});
+    	$('#chguias-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
+    		if (e.keyCode == 27){ $('#chguias-dialog').dialog('close');	}
     	});
 </script>

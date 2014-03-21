@@ -107,19 +107,69 @@ function deleteClub(){
 
 /**
  * Abre el formulario para anyadir guias a un club
- *@param {integer} club: ID del club
+ *@param {object} club: datos del club
  *@param {function} onAccept what to do (only once) when chguias-dialog gets closed by pressing ok
  */
 function assignGuiaToClub(club,onAccept) {
-	$('#chguias-dialog').dialog('open').dialog('setTitle','Asignar/Registrar un gu&iacute;a');
-	$('#chguias-form').form('clear'); // erase form
+	// clear data forms
+	$('#chguias-header').form('clear'); // erase header form
+	$('#chguias-Search').form('clear'); // reset header combogrid
+	$('#chguias-form').form('clear'); // erase data form
+	// fill default values
+	$('#chguias-newClub').val(club.ID); // id del club to assign
+	$('#chguias-Operation').val('update'); // operation
+	// finalmente desplegamos el formulario y ajustamos textos
 	$('#chguias-title').text('Reasignar/Declarar un guia como perteneciente al club '+club.Nombre);
-	$('#chguias-Club').val(club.Nombre);
-	$('#chguias-newClub').val(club.Nombre);
-	$('#chguias-Operation').val('insert');
-	$('#chguias-Parent').val('-' + replaceAll(' ','_',club.Nombre));
+	$('#chguias-dialog').dialog('open').dialog('setTitle','Asignar/Registrar un gu&iacute;a');
 	if (onAccept!==undefined)
-		$('#chguias-okBtn').one('click',onAccept);
+		$('#chguias-okBtn').one('click',onAccept); // usually refresh parent datagrid
+}
+
+/**
+ * Abre el formulario de edicion de guias para cambiar los datos de un guia preasignado a un club
+ * @param {object} club datos del club
+ * @param {function} onAccept what to do (only once) when window gets closed
+ */
+function editGuiaFromClub(club,onAccept) {
+	var parent = '-' + replaceAll(' ','_',club.ID);
+    var row = $('#guias-datagrid'+parent).datagrid('getSelected');
+    if (!row) {
+    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Guia!","warning");
+    	return; // no way to know which guia is selected
+    }
+    // add extra needed parameters to dialog
+    row.Club=club.ID;
+    row.NombreClub=club.Nombre;
+    row.Parent=parent;
+    row.Operation='update';
+    $('#guias-form').form('load',row);
+    $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre);
+	if (onAccept!==undefined)
+		$('#guias-okBtn').one('click',onAccept);
+}
+
+/**
+ * Quita la asignacion del guia marcado al club indicado
+ * Invocada desde el menu de clubes
+ * @param {object} club datos del club
+ * @param {function} onAccept what to do (only once) when window gets closed
+ */
+function delGuiaFromClub(club,onAccept) {
+    var row = $('#guias-datagrid-'+replaceAll(' ','_',club.ID)).datagrid('getSelected');
+    if (!row) return;
+
+    $.messager.confirm('Confirm',"Borrar asignacion del gu&iacute;a '"+row.Nombre+"' al club '"+club.Nombre+"' ¿Seguro?'",function(r){
+        if (r){
+            $.get('database/guiaFunctions.php',{'Operation':'orphan','ID':row.ID},function(result){
+                if (result.success){
+                	if (onAccept!==undefined) onAccept(); // usually reload the guia data 
+                } else {
+                	// show error message
+                    $.messager.show({ title: 'Error', width: 300, height: 200, msg: result.errorMsg });
+                }
+            },'json');
+        }
+    });
 }
 
 /**
@@ -135,26 +185,6 @@ function newGuia(def,onAccept){
 	$('#guias-Parent').val('');
 	if (onAccept!==undefined)
 		$('#guias-okBtn').one('click',onAccept);
-}
-
-/**
- * Abre el formulario de edicion de guias para cambiar los datos de un guia preasignado a un club
- * @param club
- */
-function editGuiaFromClub(club) {
-	var parent = '-' + replaceAll(' ','_',club.ID);
-    var row = $('#guias-datagrid'+parent).datagrid('getSelected');
-    if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Guia!","warning");
-    	return; // no way to know which guia is selected
-    }
-    $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre);
-    // add extra needed parameters to dialog
-    row.Club=club.ID;
-    row.NombreClub=club.Nombre;
-    row.Parent=parent;
-    row.Operation='update';
-    $('#guias-form').form('load',row);
 }
 
 /**
@@ -176,64 +206,6 @@ function editGuia(){
     $('#guias-Club').combogrid('clear');
     $('#guias-Club').combogrid('setValue',row.Club);
     $('#guias-Club').combogrid('setText',row.NombreClub);
-}
-
-/**
- * Invoca a json para añadir/editar los datos del guia seleccionado en el formulario
- * Ask for commit new/edit guia to server
- */
-function assignGuia(){
-	$('#chguias-Club').val($('#chguias-newClub').val());
-    // do normal submit
-    $('#chguias-form').form('submit',{
-        url: 'database/guiaFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
-            if (result.errorMsg){
-                $.messager.show({
-                    title: 'Error',
-                    msg: result.errorMsg
-                });
-            } else {
-            	var parent=$('#chguias-Parent').val();
-                $('#guias-datagrid'+parent).datagrid('reload');    // reload the guia data
-                $('#chguias-Search').combogrid({ 'value' : ''});        // clear search form
-                $('#chguias-dialog').dialog('close');        // close the dialog
-            }
-        }
-    });
-}
-
-/**
- * Invoca a json para añadir/editar los datos del guia seleccionado en el formulario
- * Ask for commit new/edit guia to server
- */
-function saveGuia(){
-    // do normal submit
-    $('#guias-form').form('submit',{
-        url: 'database/guiaFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
-            if (result.errorMsg){
-                $.messager.show({
-                    title: 'Error',
-                    msg: result.errorMsg
-                });
-            } else {
-            	var parent=$('#guias-Parent').val();
-                $('#guias-datagrid'+parent).datagrid('reload');    // reload the guia data
-                $('#guias-dialog').dialog('close');        // close the dialog
-            }
-        }
-    });
 }
 
 /**
@@ -264,24 +236,58 @@ function deleteGuia(){
 }
 
 /**
- * Quita la asignacion del guia marcado al club indicado
- * Invocada desde el menu de clubes
- *@param club datos del club
+ * Invoca a json para añadir/editar los datos del guia seleccionado en el formulario
+ * Ask for commit new/edit guia to server
  */
-function delGuiaFromClub(club) {
-    var row = $('#guias-datagrid-'+replaceAll(' ','_',club.ID)).datagrid('getSelected');
-    if (!row) return;
+function assignGuia(){
+	$('#chguias-Club').val($('#chguias-newClub').val());
+    // do normal submit
+    $('#chguias-form').form('submit',{
+        url: 'database/guiaFunctions.php',
+        method: 'get',
+        onSubmit: function(param){
+            return $(this).form('validate');
+        },
+        success: function(res){
+            var result = eval('('+res+')');
+            if (result.errorMsg){
+                $.messager.show({
+                	width: 300,
+                	height:200,
+                    title: 'Error',
+                    msg: result.errorMsg
+                });
+            } else {
+            	// notice that onAccept() already refresh parent dialog
+                $('#chguias-dialog').dialog('close');        // close the dialog
+            }
+        }
+    });
+}
 
-    $.messager.confirm('Confirm',"Borrar asignacion del gu&iacute;a '"+row.Nombre+"' al club '"+club.Nombre+"' ¿Seguro?'",function(r){
-        if (r){
-            $.get('database/guiaFunctions.php',{'Operation':'orphan','Nombre':row.Nombre},function(result){
-                if (result.success){
-                    $('#guias-datagrid-'+replaceAll(' ','_',club.ID)).datagrid('reload');    // reload the guia data
-                } else {
-                	// show error message
-                    $.messager.show({ title: 'Error', width: 300, height: 200, msg: result.errorMsg });
-                }
-            },'json');
+/**
+ * Invoca a json para añadir/editar los datos del guia seleccionado en el formulario
+ * Ask for commit new/edit guia to server
+ */
+function saveGuia(){
+    // do normal submit
+    $('#guias-form').form('submit',{
+        url: 'database/guiaFunctions.php',
+        method: 'get',
+        onSubmit: function(param){
+            return $(this).form('validate');
+        },
+        success: function(res){
+            var result = eval('('+res+')');
+            if (result.errorMsg){
+                $.messager.show({
+                    title: 'Error',
+                    msg: result.errorMsg
+                });
+            } else {
+            	// notice that onAccept() already refresh parent dialog
+                $('#guias-dialog').dialog('close');        // close the dialog
+            }
         }
     });
 }

@@ -12,7 +12,7 @@ class Guias extends DBObject {
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('sssss',$nombre,$telefono,$email,$club,$observaciones);
-		if (!$res) return $this->error($this->conn->error);  
+		if (!$res) return $this->error($stmt->error);  
 		
 		// iniciamos los valores, chequeando su existencia
 		$nombre 	= http_request("Nombre","s",null,false); // primary key
@@ -37,8 +37,8 @@ class Guias extends DBObject {
 		$sql ="UPDATE Guias SET Nombre=? , Telefono=? , Email=? , Club=? , Observaciones=? WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('ssssss',$nombre,$telefono,$email,$club,$observaciones,$guiaid);
-		if (!$res) return $this->error($this->conn->error); 
+		$res=$stmt->bind_param('sssisi',$nombre,$telefono,$email,$club,$observaciones,$guiaid);
+		if (!$res) return $this->error($stmt->error); 
 		
 		// iniciamos los valores, chequeando su existencia
 		$nombre 	= http_request("Nombre","s",null,false); 
@@ -52,8 +52,8 @@ class Guias extends DBObject {
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
+		if (!$res) return $this->error($stmt->error); 
 		$stmt->close();
-		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";
 	}
@@ -76,9 +76,9 @@ class Guias extends DBObject {
 	 * @param {integer} $id Guia ID primary key
 	 * @return "" on success ; null on error
 	 */
-	function orphan($i) {
+	function orphan($id) {
 		$this->myLogger->enter();
-		if ($i<=0) return $this->error("Invalid Guia ID"); 
+		if ($id<=0) return $this->error("Invalid Guia ID"); 
 		$res= $this->query("UPDATE Guias SET Club=1 WHERE ( ID=$id )");
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
@@ -161,7 +161,7 @@ class Guias extends DBObject {
 	 */
 	function selectByID($id) {
 		$this->myLogger->enter();
-		if ($nombre<=0) return $this->error("Invalid Provided Handler ID"); 
+		if ($id<=0) return $this->error("Invalid Provided Handler ID"); 
 		// query to retrieve $rows starting at $offset
 		$str="SELECT * FROM Guias WHERE ( ID = $id )";
 		$rs=$this->query($str);
