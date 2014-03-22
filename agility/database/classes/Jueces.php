@@ -121,7 +121,7 @@ class Jueces extends DBObject {
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
-		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
+		$result["rows"] = $this->fetch_all($rs);
 		$result["total"] = $rs->num_rows;
 		// disconnect from database and return composed array
 		$rs->free();
@@ -140,7 +140,7 @@ class Jueces extends DBObject {
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
-		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
+		$result["rows"] = $this->fetch_all($rs);
 		$result["total"] = $rs->num_rows;
 		// disconnect from database and return composed array
 		$rs->free();

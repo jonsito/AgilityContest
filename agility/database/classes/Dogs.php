@@ -117,7 +117,7 @@ class Dogs extends DBObject {
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
-		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
+		$result["rows"] = $this->fetch_all($rs);
 		$result["total"] = $rs->num_rows;
 		// disconnect from database and return result
 		$rs->free();
@@ -140,7 +140,7 @@ class Dogs extends DBObject {
 		$rs=$this->query("SELECT * FROM PerroGuiaClub $like ORDER BY Club,Guia,Nombre");
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
-		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
+		$result["rows"] = $this->fetch_all($rs);
 		$result["total"] = $rs->num_rows;
 		$rs->free();
 		// return composed array
@@ -163,7 +163,7 @@ class Dogs extends DBObject {
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
-		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
+		$result["rows"] = $this->fetch_all($rs);
 		$result["total"] = $rs->num_rows;
 		$rs->free();
 		$this->myLogger->leave();

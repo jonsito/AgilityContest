@@ -9,6 +9,7 @@ class DBObject {
 	public $errormsg; // should be public to access to from caller
 	protected $myLogger;
 	
+	private $fall; // boolean to notice use of fetch_all() or fetch_array loop
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
@@ -24,6 +25,8 @@ class DBObject {
 			$this->errormsg="$file::construct() cannot contact database";
 			throw new Exception($this->errormsg);
 		}
+		// check if exists resultset::fetch_all() method 
+		$fall= (method_exists('mysqli_result', 'fetch_all'))?true:false; 
 	}
 	
 	/**
@@ -43,5 +46,14 @@ class DBObject {
 	function query($sql) {
 		$this->myLogger->query($sql);
 		return $this->conn->query($sql);
+	}
+	
+	function fetch_all($rs) {
+		// estilo mysqlnd
+		if ($this->fall) return $rs->fetch_all(MYSQLI_ASSOC);
+		// estilo mysqli
+		$res= array();
+		while ($res[]= $rs->fetch_array());
+		return $res;
 	}
 }

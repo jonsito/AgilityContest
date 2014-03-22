@@ -103,7 +103,7 @@ class Guias extends DBObject {
 				ORDER BY $sort $order");
 		if (!$rs) return $this->error($this->conn->error); 
 		// retrieve result into an array
-		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
+		$result["rows"] = $this->fetch_all($rs);
 		$result["total"] = $rs->num_rows;
 		// disconnect from database and return composed array
 		$rs->free();
@@ -125,7 +125,7 @@ class Guias extends DBObject {
 				WHERE (Guias.Club=Clubes.ID) ".$like." ORDER BY NombreClub,Nombre");
 		if (!$rs) return $this->error($this->conn->error); 
 		// retrieve result into an array
-		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
+		$result["rows"] = $this->fetch_all($rs);
 		$result["total"] = $rs->num_rows;
 		// disconnect from database and return composed array
 		$rs->free();
@@ -147,7 +147,7 @@ class Guias extends DBObject {
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);  
 		// retrieve result into an array
-		$result["rows"] = $rs->fetch_all(MYSQLI_ASSOC);
+		$result["rows"] = $this->fetch_all($rs);
 		$result["total"] = $rs->num_rows;
 		// disconnect from database and return composed array
 		$rs->free();
