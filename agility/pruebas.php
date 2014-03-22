@@ -1,16 +1,20 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE Pruebas -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="pruebas-datagrid" class="easyui-datagrid"></table>     
-    	<!-- BARRA DE TAREAS -->
-    	<div id="pruebas-toolbar">
-    	    <a id="pruebas-newBtn" href="#" class="easyui-linkbutton" onclick="newPrueba()">Nueva prueba</a>
-    	    <a id="pruebas-editBtn" href="#" class="easyui-linkbutton" onclick="editPrueba()">Editar prueba</a>
-    	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" onclick="deletePrueba()">Borrar prueba</a>
-    	    <input id="pruebas-search" type="text" onchange="doSearchPrueba()"/> 
-    	    <a id="pruebas-searchBtn" href="#" class="easyui-linkbutton" onclick="doSearchPrueba()">Buscar</a>
+    <table id="pruebas-datagrid" class="easyui-datagrid" style="width:975px;height:550px"></table>     
+    <!-- BARRA DE TAREAS DE LA TABLA DE PRUEBAS-->
+    <div id="pruebas-toolbar" style="padding:5px 5px 25px 5px;">
+    	<span style="float:left;">
+    	    <a id="pruebas-newBtn" href="#" class="easyui-linkbutton" onclick="newPrueba('#pruebas-search')">Nueva prueba</a>
+    	    <a id="pruebas-editBtn" href="#" class="easyui-linkbutton" onclick="editPrueba('#pruebas-datagrid')">Editar prueba</a>
+    	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" onclick="deletePrueba('#pruebas-datagrid')">Borrar prueba</a>
+    		<input id="pruebas-search" type="text" value="---- Buscar ----" class="search_textfield"/>
     	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox" onclick="doSearchPrueba()"/>Incl. Cerradas
-    	</div>
+    	</span>
+    	<span style="float:right;">
+    		<a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton"">Actualizar</a>
+    	</span>
+    </div>
     
  	<?php include_once("dialogs/dlg_clubes.inc");?>
  	<?php include_once("dialogs/dlg_pruebas.inc");?>

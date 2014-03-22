@@ -50,9 +50,9 @@ class Pruebas extends DBObject {
 		return "";
 	}
 	
-	function update() {
+	function update($pruebaid) {
 		$this->myLogger->enter();
-		
+		if ($id<=0) return $this->error("Invalid Prueba ID");
 		// componemos un prepared statement
 		$sql ="UPDATE Pruebas
 				SET Nombre=? , Club=? , Ubicacion=? , Triptico=? , Cartel=?, Observaciones=?, Cerrada=?
@@ -64,7 +64,7 @@ class Pruebas extends DBObject {
 		
 		// iniciamos los valores, chequeando su existencia
 		$nombre =	http_request("Nombre","s",null,false);
-		$id =		http_request("ID","i",0);
+		$id =		$pruebaid;
 		$club =		http_request("Club","s",null,false);
 		$ubicacion=	http_request("Ubicacion","s",null,false);
 		$triptico =	http_request("Triptico","s",null,false);
@@ -88,9 +88,7 @@ class Pruebas extends DBObject {
 	 */
 	function delete($id) {
 		$this->myLogger->enter();
-		if ($id<=0) return $this->error("Invalid Prueba ID");
-		// si la prueba esta cerrada damos error
-		
+		if ($id<=1) return $this->error("Invalid Prueba ID");
 		// si no esta cerrada, guardamos las jornadas jornadas de esta
 		// prueba que sí que lo estén
 		$res= $this->query("DELETE FROM Pruebas WHERE (ID=$id) AND (Cerrada=0) ");
@@ -102,11 +100,12 @@ class Pruebas extends DBObject {
 		return "";
 	}
 	
+	/**
+	 * Lista pruebas ordenando por los parametros especificados y con criterios de busqueda
+	 * @return null on error, else array in jquery expected format
+	 */
 	function select() {
 		$this->myLogger->enter();
-		// evaluate offset and row count for query
-		$page= http_request("page","i",1);
-		$rows= http_request("rows","i",20);
 		$sort= http_request("sort","s","Nombre");
 		$order=http_request("order","s","ASC");
 		$search=http_Request("where","s","");
@@ -125,27 +124,15 @@ class Pruebas extends DBObject {
 			if ($closed==0) $where = " WHERE ( Cerrada = 0 ) ";
 			else $where="";
 		}
-		$offset = ($page-1)*$rows;
-		$result = array();
 		
-		// execute first query to know how many elements
-		$rs=$this->query("SELECT count(*) FROM Pruebas $where");
-		if (!$rs) return $this->error($this->conn->error);
-		$row=$rs->fetch_array();
-		$result["total"] = $row[0];
-		$rs->free();
-		
-		// second query to retrieve $rows starting at $offset
-		$str="SELECT * FROM Pruebas $where ORDER BY $sort $order LIMIT $offset,$rows";
+		// execute query to retrieve $rows starting at $offset
+		$str="SELECT * FROM Pruebas $where ORDER BY $sort $order";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
-		
-		// retrieve result into an array
-		$items = array();
-		while($row = $rs->fetch_array()){
-			array_push($items, $row);
-		}
-		$result["rows"] = $items;
+
+		$result = array();
+		$result["rows"] = $this->fetch_all($rs);
+		$result["total"] = $rs->num_rows();
 		// clean and return
 		$rs->free();
 		$this->myLogger->leave();
@@ -153,32 +140,23 @@ class Pruebas extends DBObject {
 	}
 	
 	/** 
-	 * lista de pruebas abiertas
+	 * lista de pruebas abiertas.
+	 * As select but not sort criteria and show only open contests. Used in combogrids
 	 */
 	function enumerate() {
 		$this->myLogger->enter();
-		$result = array();
 
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
 		$like =  ($q===null) ? "" : " AND ( (Nombre LIKE '%$q%' ) OR (Club LIKE '%$q%') OR (Observaciones LIKE '%$q%') )";
 		
-		// execute first query to know how many elements
-		$rs=$this->query("SELECT count(*) FROM Pruebas WHERE ( Cerrada=0 ) $like");
-		if (!$rs) return $this->error($this->conn->error);
-		$row=$rs->fetch_row();
-		$result["total"] = $row[0];
-		
 		// second query to retrieve $rows starting at $offset
 		$rs=$this->query("SELECT * FROM Pruebas WHERE (Cerrada=0) $like ORDER BY Nombre ASC");
 		if (!$rs) return $this->error($this->conn->error);
 
-		// retrieve result into an array
-		$items = array();
-		while($row = $rs->fetch_array()) {
-			array_push($items, $row);
-		}
-		$result["rows"] = $items;
+		$result = array();
+		$result["rows"] = $this->fetch_all($rs);
+		$result["total"] = $rs->num_rows();
 		// clean and return
 		$rs->free();
 		$this->myLogger->leave();
