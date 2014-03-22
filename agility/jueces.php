@@ -6,9 +6,9 @@
     <div id="jueces-toolbar" style="padding:5px 5px 25px 5px;">
     	<span style="float:left;">
     		<a id="jueces-newBtn" href="#" class="easyui-linkbutton" onclick="newJuez($('#jueces-search').val())">Nuevo Juez</a>
-    		<a id="jueces-editBtn" href="#" class="easyui-linkbutton" onclick="editJuez()">Editar Juez</a>
-    		<a id="jueces-delBtn" href="#" class="easyui-linkbutton" onclick="deletJuez()">Borrar Juez</a>
-    		<input id="jueces-search" type="text" value="----- Buscar -----" class="search_textfield"/>
+    		<a id="jueces-editBtn" href="#" class="easyui-linkbutton" onclick="editJuez('#jueces-datagrid')">Editar Juez</a>
+    		<a id="jueces-delBtn" href="#" class="easyui-linkbutton" onclick="deleteJuez('#jueces-datagrid')">Borrar Juez</a>
+    		<input id="jueces-search" type="text" value="---- Buscar ----" class="search_textfield"/>
     	</span>
     	<span style="float:right;">
     		<a id="jueces-reloadBtn" href="#" class="easyui-linkbutton"">Actualizar</a>
@@ -60,7 +60,7 @@
             },
         	// on double click fireup editor dialog
             onDblClickRow:function() { 
-                editJuez();
+                editJuez('#jueces-datagrid');
             }
         });
         // activa teclas up/down para navegar por el panel
@@ -104,9 +104,9 @@
             switch(e.keyCode){
                 case 38:	/* Up */	selectRow(t,true); return false;
                 case 40:    /* Down */	selectRow(t,false); return false;
-                case 13:	/* Enter */	editJuez(); return false;
+                case 13:	/* Enter */	editJuez('#jueces-datagrid'); return false;
                 case 45:	/* Insert */newJuez($('#jueces-search').val()); return false;
-                case 46:	/* Supr */	deleteJuez(); return false;
+                case 46:	/* Supr */	deleteJuez('#jueces-datagrid'); return false;
                 case 33:	/* Re Pag */ selectPage(t,-1); return false;
                 case 34:	/* Av Pag */ selectPage(t,1); return false;
                 case 35:	/* Fin */    selectPage(t,2); return false;

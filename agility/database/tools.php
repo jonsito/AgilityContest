@@ -38,7 +38,7 @@ function escapeString($str) {
 			case '\b': $a="\\"."b"; break;
 			case '\\': $a="\\"."\\"; break;
 			case '%': $a="\\".'%'; break;
-			case '_': $a="\\"."_"; break;
+			// case '_': $a="\\"."_"; break;
 			default: $a=$str[$i]; break;
 		}
 		$res .= $a;

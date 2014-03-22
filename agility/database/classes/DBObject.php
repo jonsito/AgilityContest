@@ -26,7 +26,7 @@ class DBObject {
 			throw new Exception($this->errormsg);
 		}
 		// check if exists resultset::fetch_all() method 
-		$fall= (method_exists('mysqli_result', 'fetch_all'))?true:false; 
+		$this->fall= (method_exists('mysqli_result', 'fetch_all'))?true:false; 
 	}
 	
 	/**
@@ -53,7 +53,7 @@ class DBObject {
 		if ($this->fall) return $rs->fetch_all(MYSQLI_ASSOC);
 		// estilo mysqli
 		$res= array();
-		while ($res[]= $rs->fetch_array());
+		while ($row= $rs->fetch_array(MYSQLI_ASSOC)) array_push($res,$row);
 		return $res;
 	}
 }

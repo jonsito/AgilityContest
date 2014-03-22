@@ -518,6 +518,9 @@ function editJuez(dg){
     $('#jueces-dialog').dialog('open').dialog('setTitle','Modificar datos del juez');
     // and fill form with row data
     $('#jueces-form').form('load',row);
+    // take care on internacional & practice checkbox
+    $('#jueces-Internacional').prop('checked',(row.Internacional==1)?true:false);
+    $('#jueces-Practicas').prop('checked',(row.Practicas==1)?true:false);
 }
 
 /**
