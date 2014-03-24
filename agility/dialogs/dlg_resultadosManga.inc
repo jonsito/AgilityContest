@@ -10,36 +10,34 @@
 	</div>
 	<!-- TABLA DE DATOS DE TRS Y TRM DE LA MANGA -->
 	<div id="resultadosmanga-trs">
-		<span style="float:left;">
 		<form id="resultadosmanga-trs-form" method="get">
-			<table>
+			<table style="float:left;">
 				<tr>
 					<th>Large</th>
-					<td>Distancia <input type="text" size=4" class="trstrm" readonly="readonly" name="DIST_L"></td>
-					<td>Obst&aacute;culos <input type="text" size=4" class="trstrm" readonly="readonly" name="OBST_L"></td>
-					<td>TRS <input type="text" size=4" class="trstrm" readonly="readonly" name="TRS_L"></td>
-					<td>TRM <input type="text" size=4" class="trstrm" readonly="readonly" name="TRM_L"></td>
-					<td>Vel. <input type="text" size=4" class="trstrm" readonly="readonly" name="VEL_L"></td>
+					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" name="DIST_L"></td>
+					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" name="OBST_L"></td>
+					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" name="TRS_L"></td>
+					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" name="TRM_L"></td>
+					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" name="VEL_L"></td>
 				</tr>
 				<tr>
 					<th>Medium</th>
-					<td>Distancia <input type="text" size=4" class="trstrm" readonly="readonly" name="DIST_M"></td>
-					<td>Obst&aacute;culos <input type="text" size=4" class="trstrm" readonly="readonly" name="OBST_M"></td>
-					<td>TRS <input type="text" size=4" class="trstrm" readonly="readonly" name="TRS_M"></td>
-					<td>TRM <input type="text" size=4" class="trstrm" readonly="readonly" name="TRM_M"></td>
-					<td>Vel. <input type="text" size=4" class="trstrm" readonly="readonly" name="VEL_M"></td>
+					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" name="DIST_M"></td>
+					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" name="OBST_M"></td>
+					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" name="TRS_M"></td>
+					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" name="TRM_M"></td>
+					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" name="VEL_M"></td>
 				</tr>
 				<tr>
 					<th>Small</th>
-					<td>Distancia <input type="text" size=4" class="trstrm" readonly="readonly" name="DIST_S"></td>
-					<td>Obst&aacute;culos <input type="text" size=4" class="trstrm" readonly="readonly" name="OBST_S"></td>
-					<td>TRS <input type="text" size=4" class="trstrm" readonly="readonly" name="TRS_S"></td>
-					<td>TRM <input type="text" size=4" class="trstrm" readonly="readonly" name="TRM_S"></td>
-					<td>Vel. <input type="text" size=4" class="trstrm" readonly="readonly" name="VEL_S"></td>
+					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" name="DIST_S"></td>
+					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" name="OBST_S"></td>
+					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" name="TRS_S"></td>
+					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" name="TRM_S"></td>
+					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" name="VEL_S"></td>
 				</tr>
 			</table>
 		</form>
-		</span>
 	</div>
 	<!-- TABLA DE PRESENTACION DE RESULTADOS DE CADA MANGA -->
 	<table id="resultadosmanga-datagrid" class="easyui-datagrid"></table>

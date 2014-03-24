@@ -28,8 +28,8 @@
 		<td><label for="Observaciones">Observaciones:</label></td>
 		<td><input id="resultados-info-comments" type="text" class="result_forms" readonly="readonly" name="Observaciones"/></td>
 		</tr>
-		</form>
 		</table>
+		</form>
 	</div> <!-- Datos de Prueba/Jornada/Ronda -->
 	
 	<div data-options="region:'center',title:'Datos de las Mangas de esta ronda'" style="width:500px">
@@ -42,27 +42,27 @@
 			<table>
 				<tr>
 					<th>Large</th>
-					<td>Distancia <input type="text" size=4" class="result_forms" readonly="readonly" name="DIST_L"></td>
-					<td>Obst&aacute;culos <input type="text" size=4" class="result_forms" readonly="readonly" name="OBST_L"></td>
-					<td>TRS <input type="text" size=4" class="result_forms" readonly="readonly" name="TRS_L"></td>
-					<td>TRM <input type="text" size=4" class="result_forms" readonly="readonly" name="TRM_L"></td>
-					<td>Vel. <input type="text" size=4" class="result_forms" readonly="readonly" name="VEL_L"></td>
+					<td>Distancia <input type="text" size="4" class="result_forms" readonly="readonly" name="DIST_L"></td>
+					<td>Obst&aacute;culos <input type="text" size="4" class="result_forms" readonly="readonly" name="OBST_L"></td>
+					<td>TRS <input type="text" size="4" class="result_forms" readonly="readonly" name="TRS_L"></td>
+					<td>TRM <input type="text" size="4" class="result_forms" readonly="readonly" name="TRM_L"></td>
+					<td>Vel. <input type="text" size="4" class="result_forms" readonly="readonly" name="VEL_L"></td>
 				</tr>
 				<tr>
 					<th>Medium</th>
-					<td>Distancia <input type="text" size=4" class="result_forms" readonly="readonly" name="DIST_M"></td>
-					<td>Obst&aacute;culos <input type="text" size=4" class="result_forms" readonly="readonly" name="OBST_M"></td>
-					<td>TRS <input type="text" size=4" class="result_forms" readonly="readonly" name="TRS_M"></td>
-					<td>TRM <input type="text" size=4" class="result_forms" readonly="readonly" name="TRM_M"></td>
-					<td>Vel. <input type="text" size=4" class="result_forms" readonly="readonly" name="VEL_M"></td>
+					<td>Distancia <input type="text" size="4" class="result_forms" readonly="readonly" name="DIST_M"></td>
+					<td>Obst&aacute;culos <input type="text" size="4" class="result_forms" readonly="readonly" name="OBST_M"></td>
+					<td>TRS <input type="text" size="4" class="result_forms" readonly="readonly" name="TRS_M"></td>
+					<td>TRM <input type="text" size="4" class="result_forms" readonly="readonly" name="TRM_M"></td>
+					<td>Vel. <input type="text" size="4" class="result_forms" readonly="readonly" name="VEL_M"></td>
 				</tr>
 				<tr>
 					<th>Small</th>
-					<td>Distancia <input type="text" size=4" class="result_forms" readonly="readonly" name="DIST_S"></td>
-					<td>Obst&aacute;culos <input type="text" size=4" class="result_forms" readonly="readonly" name="OBST_S"></td>
-					<td>TRS <input type="text" size=4" class="result_forms" readonly="readonly" name="TRS_S"></td>
-					<td>TRM <input type="text" size=4" class="result_forms" readonly="readonly" name="TRM_S"></td>
-					<td>Vel. <input type="text" size=4" class="result_forms" readonly="readonly" name="VEL_S"></td>
+					<td>Distancia <input type="text" size="4" class="result_forms" readonly="readonly" name="DIST_S"></td>
+					<td>Obst&aacute;culos <input type="text" size="4" class="result_forms" readonly="readonly" name="OBST_S"></td>
+					<td>TRS <input type="text" size="4" class="result_forms" readonly="readonly" name="TRS_S"></td>
+					<td>TRM <input type="text" size="4" class="result_forms" readonly="readonly" name="TRM_S"></td>
+					<td>Vel. <input type="text" size="4" class="result_forms" readonly="readonly" name="VEL_S"></td>
 				</tr>
 			</table>
 		</form> <!-- Datos de la manga 1 -->
@@ -75,27 +75,27 @@
 			<table>
 				<tr>
 					<th>Large</th>
-					<td>Distancia <input type="text" size=4" class="result_forms" readonly="readonly" name="DIST_L"></td>
-					<td>Obst&aacute;culos <input type="text" size=4" class="result_forms" readonly="readonly" name="OBST_L"></td>
-					<td>TRS <input type="text" size=4" class="result_forms" readonly="readonly" name="TRS_L"></td>
-					<td>TRM <input type="text" size=4" class="result_forms" readonly="readonly" name="TRM_L"></td>
-					<td>Vel. <input type="text" size=4" class="result_forms" readonly="readonly" name="VEL_L"></td>
+					<td>Distancia <input type="text" size="4" class="result_forms" readonly="readonly" name="DIST_L"></td>
+					<td>Obst&aacute;culos <input type="text" size="4" class="result_forms" readonly="readonly" name="OBST_L"></td>
+					<td>TRS <input type="text" size="4" class="result_forms" readonly="readonly" name="TRS_L"></td>
+					<td>TRM <input type="text" size="4" class="result_forms" readonly="readonly" name="TRM_L"></td>
+					<td>Vel. <input type="text" size="4" class="result_forms" readonly="readonly" name="VEL_L"></td>
 				</tr>
 				<tr>
 					<th>Medium</th>
-					<td>Distancia <input type="text" size=4" class="result_forms" readonly="readonly" name="DIST_M"></td>
-					<td>Obst&aacute;culos <input type="text" size=4" class="result_forms" readonly="readonly" name="OBST_M"></td>
-					<td>TRS <input type="text" size=4" class="result_forms" readonly="readonly" name="TRS_M"></td>
-					<td>TRM <input type="text" size=4" class="result_forms" readonly="readonly" name="TRM_M"></td>
-					<td>Vel. <input type="text" size=4" class="result_forms" readonly="readonly" name="VEL_M"></td>
+					<td>Distancia <input type="text" size="4" class="result_forms" readonly="readonly" name="DIST_M"></td>
+					<td>Obst&aacute;culos <input type="text" size="4" class="result_forms" readonly="readonly" name="OBST_M"></td>
+					<td>TRS <input type="text" size="4" class="result_forms" readonly="readonly" name="TRS_M"></td>
+					<td>TRM <input type="text" size="4" class="result_forms" readonly="readonly" name="TRM_M"></td>
+					<td>Vel. <input type="text" size="4" class="result_forms" readonly="readonly" name="VEL_M"></td>
 				</tr>
 				<tr>
 					<th>Small</th>
-					<td>Distancia <input type="text" size=4" class="result_forms" readonly="readonly" name="DIST_S"></td>
-					<td>Obst&aacute;culos <input type="text" size=4" class="result_forms" readonly="readonly" name="OBST_S"></td>
-					<td>TRS <input type="text" size=4" class="result_forms" readonly="readonly" name="TRS_S"></td>
-					<td>TRM <input type="text" size=4" class="result_forms" readonly="readonly" name="TRM_S"></td>
-					<td>Vel. <input type="text" size=4" class="result_forms" readonly="readonly" name="VEL_S"></td>
+					<td>Distancia <input type="text" size="4" class="result_forms" readonly="readonly" name="DIST_S"></td>
+					<td>Obst&aacute;culos <input type="text" size="4" class="result_forms" readonly="readonly" name="OBST_S"></td>
+					<td>TRS <input type="text" size="4" class="result_forms" readonly="readonly" name="TRS_S"></td>
+					<td>TRM <input type="text" size="4" class="result_forms" readonly="readonly" name="TRM_S"></td>
+					<td>Vel. <input type="text" size="4" class="result_forms" readonly="readonly" name="VEL_S"></td>
 				</tr>
 			</table>
 		</form> <!-- Datos de la manga 2 -->

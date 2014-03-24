@@ -11,7 +11,7 @@
     		<input id="jueces-search" type="text" value="---- Buscar ----" class="search_textfield"/>
     	</span>
     	<span style="float:right;">
-    		<a id="jueces-reloadBtn" href="#" class="easyui-linkbutton"">Actualizar</a>
+    		<a id="jueces-reloadBtn" href="#" class="easyui-linkbutton">Actualizar</a>
     	</span>
     </div>
 	<?php include_once("dialogs/dlg_jueces.inc")?>

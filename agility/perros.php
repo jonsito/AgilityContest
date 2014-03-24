@@ -10,7 +10,7 @@
     		<input id="perros-search" type="text" value="--- Buscar ---" class="search_textfield"/>
     	</span>
     	<span style="float:right;">
-    		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"">Actualizar</a>
+    		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton">Actualizar</a>
     	</span>
     </div>
     

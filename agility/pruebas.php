@@ -12,7 +12,7 @@
     	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox" onclick="doSearchPrueba()"/>Incl. Cerradas
     	</span>
     	<span style="float:right;">
-    		<a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton"">Actualizar</a>
+    		<a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton">Actualizar</a>
     	</span>
     </div>
     
@@ -151,7 +151,13 @@
             content: '<span style="color:#000">Incluir en el listado las pruebas finalizadas</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
-
+        $('#pruebas-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // borrar perro     
+        $('#pruebas-reloadBtn').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
+    	});
 
         // ------------- submenu de jornadas asociadas a una prueba --------------------- //
         function showJornadasByPrueba (index,prueba) {

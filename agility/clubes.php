@@ -12,7 +12,7 @@
     		<input id="clubes-search" type="text" value="---- Buscar ----" class="search_textfield"/>
     	</span>
     	<span style="float:right;">
-    		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"">Actualizar</a>
+    		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton">Actualizar</a>
     	</span>
     </div>   
 
