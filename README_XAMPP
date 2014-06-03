@@ -12,12 +12,12 @@ Instrucciones para instalar en un pendrive bajo Windows XAMPP
 - Descomprimir el fichero .zip en el directorio raiz del pendrive (F:\)
 
 2- Instalacion y configuración 
-- Copiar el fichero F:\AgilityContest-master\agility\extras\httpd-AgilityContest.conf
-  al directorio F:\xampp\apache\conf\extra\httpd-AgilityContest.conf
+- Copiar el fichero F:\AgilityContest-master\agility\extras\xampp_httpd.conf
+  al directorio F:\xampp\apache\conf\extra\xampp_httpd.conf
 - Editar el fichero F:\xampp\apache\conf\httpd.conf y añadir al final del fichero
   la linea:
   
-  Include "conf/extra/httpd-AgilityContest.conf"
+  Include "conf/extra/xampp_httpd.conf"
 
 - Arrancar la aplicacion portableapps como USUARIO ADMINISTRADOR
 - Verificar que los servicios "FileZilla" "Apache" y "MySQL" estan correctamente arrancados

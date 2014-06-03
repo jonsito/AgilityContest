@@ -1,0 +1,28 @@
+Instrucciones para instalar AgilityContest en un sistema Linux
+==============================================================
+
+1- Descarga y preparación del software
+
+Tener instalados y funcionando
+- phpmyAdmin
+- apache >=2.4
+- MySQL  >=5.5
+- mod_phpmysqlnd (modulo php_mysql con driver nativo)
+
+- Escoger un directorio ${BASE} de instalacion
+- Descargar desde github la última version de AgilityContest en formato .zip
+- Descomprimir el fichero .zip en el directorio ${BASE}
+
+2a- Instalacion y configuración (ficheros)
+- Copiar el fichero ${BASE}/agility/extras/linux_httpd.conf a /etc/httpd/conf.d
+- Editar el fichero ajustando los campos Alias y Directory
+- Reiniciar apache y comprobar que se accede a la pagina principal
+- En sistemas Fedora, y dependiendo de si se instala en un directorio bajo home, puede ser necesario ajustar SELinux
+ root# setsebool -P httpd_read_user_content 1
+
+2b- Instalacion y configuracion (base de datos)
+  mysql -u root
+  source ${BASE}/agility/extras/agility.sql
+  source i${BASE}/agility/extras/users.sql
+  quit
+- Abrir la página "http://localhost/agility" desde el navegador para comprobar que todo funciona
