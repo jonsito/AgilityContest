@@ -180,20 +180,16 @@ class Dogs extends DBObject {
 	function selectByIDPerro($idperro){
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("No Perro ID specified");
-		
 		// make query
-		$str="SELECT * FROM PerroGuiaClub WHERE ( ID = $idperro )";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		
-		// retrieve result into an array
-		$result =$rs->fetch_array(); // should be only one item
-		$result['Operation']='update'; // dirty trick to ensure that form operation is rewritten on loadform
-		
-		// free resources and return result
-		$rs->free();
+		$data= $this->__singleSelect(
+				/* SELECT */ "*",
+				/* FROM */ "PerroGuiaClub",
+				/* WHERE */ "( ID=$idperro )"
+		);
+		if (!$data)	return $this->error("No Dog found with ID=$idperro");
+		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
-		return $result;
+		return $data;
 	}
 	
 	/**

@@ -91,22 +91,22 @@ class Guias extends DBObject {
 		$sort= http_request("sort","s","Nombre");
 		$order=http_request("order","s","ASC");
 		$search=http_Request("where","s","");
-		$where = '';
-		if ($search!=='') $where=" AND ( (Guias.Nombre LIKE '%$search%') OR ( Clubes.Nombre LIKE '%$search%') ) ";
-		$result = array();
-		
-		// query to retrieve data
-		$rs=$this->query(
-				"SELECT Guias.ID,Guias.Nombre,Telefono,Guias.Email,Club, Clubes.Nombre AS NombreClub,Guias.Observaciones
-				FROM Guias,Clubes 
-				WHERE (Guias.Club=Clubes.ID) $where 
-				ORDER BY $sort $order");
-		if (!$rs) return $this->error($this->conn->error); 
-		// retrieve result into an array
-		$result["rows"] = $this->fetch_all($rs);
-		$result["total"] = $rs->num_rows;
-		// disconnect from database and return composed array
-		$rs->free();
+		$page=http_request("page","i",0);
+		$rows=http_request("rows","i",0);
+		$limit="";
+		if ($page!=0 && $rows!=0 ) {
+			$offset=($page-1)*$rows;
+			$limit="".$offset.",".$rows;
+		}	
+		$where = "(Guias.Club=Clubes.ID)";
+		if ($search!=='') $where="(Guias.Club=Clubes.ID) AND ( (Guias.Nombre LIKE '%$search%') OR ( Clubes.Nombre LIKE '%$search%') ) ";
+		$result=$this->__select(
+				/* SELECT */ "Guias.ID, Guias.Nombre, Telefono, Guias.Email, Club, Clubes.Nombre AS NombreClub, Guias.Observaciones",
+				/* FROM */ "Guias,Clubes",
+				/* WHERE */ $where,
+				/* ORDER BY */ $sort." ".$order,
+				/* LIMIT */ $limit
+		);
 		$this->myLogger->leave();
 		return $result;
 	}
@@ -115,20 +115,15 @@ class Guias extends DBObject {
 		$this->myLogger->enter();
 		// evaluate search string
 		$q=http_request("q","s","");
-		$like =  ($q==="") ? "" : " AND ( ( Guias.Nombre LIKE '%$q%' ) OR ( Clubes.Nombre LIKE '%$q%' ) )";
-		
-		$result = array();
-		// query to retrieve data
-		$rs=$this->query(
-				"SELECT Guias.ID AS ID ,Guias.Nombre AS Nombre, Guias.Club AS Club,Clubes.Nombre AS NombreClub 
-				FROM Guias,Clubes
-				WHERE (Guias.Club=Clubes.ID) ".$like." ORDER BY NombreClub,Nombre");
-		if (!$rs) return $this->error($this->conn->error); 
-		// retrieve result into an array
-		$result["rows"] = $this->fetch_all($rs);
-		$result["total"] = $rs->num_rows;
-		// disconnect from database and return composed array
-		$rs->free();
+		$where="(Guias.Club=Clubes.ID)";
+		if ($q!=="") $where="(Guias.Club=Clubes.ID AND ( ( Guias.Nombre LIKE '%$q%' ) OR ( Clubes.Nombre LIKE '%$q%' ) )";
+		$result=$this->__select(
+				/* SELECT */ "Guias.ID AS ID ,Guias.Nombre AS Nombre, Guias.Club AS Club,Clubes.Nombre AS NombreClub",
+				/* FROM */ "Guias,Clubes",
+				/* WHERE */ $where,
+				/* ORDER BY */ "NombreClub ASC, Nombre ASC",
+				/* LIMIT */ ""
+		);
 		$this->myLogger->leave();
 		return $result;
 	}
@@ -141,16 +136,14 @@ class Guias extends DBObject {
 	function selectByClub($club) {
 		$this->myLogger->enter();
 		if ($club<=0) return $this->error("Invalid Club ID provided");
-		$result = array();
-		// execute query to retrieve elements
-		$str="SELECT * FROM Guias WHERE ( Club=$club ) ORDER BY Nombre ASC";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);  
-		// retrieve result into an array
-		$result["rows"] = $this->fetch_all($rs);
-		$result["total"] = $rs->num_rows;
-		// disconnect from database and return composed array
-		$rs->free();
+		$result=$this->__select(
+				/* SELECT */ "*",
+				/* FROM */ "Guias",
+				/* WHERE */ "( Club=$club )",
+				/* ORDER BY */ "Nombre ASC",
+				/* LIMIT */ ""
+		);
+		$this->myLogger->leave();
 		return $result;
 	}
 	
@@ -161,18 +154,16 @@ class Guias extends DBObject {
 	 */
 	function selectByID($id) {
 		$this->myLogger->enter();
-		if ($id<=0) return $this->error("Invalid Provided Handler ID"); 
-		// query to retrieve $rows starting at $offset
-		$str="SELECT * FROM Guias WHERE ( ID = $id )";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		// retrieve result into an array
-		$row = $rs->fetch_array();
-		$rs->free();
-		if (!$row)	return $this->error("No handler found with ID=$id");
-		$row['Operation']='update'; // dirty trick to ensure that form operation is fixed
+		if ($id<=0) return $this->error("Invalid Provided Handler ID");
+		$data= $this->__singleSelect(
+				/* SELECT */ "*",
+				/* FROM */ "Guias",
+				/* WHERE */ "( ID=$id )"
+		); 
+		if (!$data)	return $this->error("No handler found with ID=$id");
+		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
-		return $row;
+		return $data;
 	}
 }
 	
