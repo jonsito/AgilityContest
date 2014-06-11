@@ -18,7 +18,8 @@ Tener instalados y funcionando
 - Editar el fichero ajustando los campos Alias y Directory
 - Reiniciar apache y comprobar que se accede a la pagina principal
 - En sistemas Fedora, y dependiendo de si se instala en un directorio bajo home, puede ser necesario ajustar SELinux
- root# setsebool -P httpd_read_user_content 1
+ root# setsebool -P httpd_enable_homedirs on
+ root# setsebool -P httpd_read_user_content on
 
 2b- Instalacion y configuracion (base de datos)
   mysql -u root
