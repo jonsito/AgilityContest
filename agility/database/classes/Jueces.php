@@ -96,14 +96,15 @@ class Jueces extends DBObject {
 	function selectByID($id) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Juez ID"); // Juez ID must be positive greater than 0 
-		$str="SELECT * FROM Jueces WHERE ( ID=$id )";
-		$rs= $this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		$row=$rs->fetch_array();
-		$rs->free();
-		if(!$row) return $this->error("No Juez found with provided ID $id");
+		$data= $this->__singleSelect(
+				/* SELECT */ "*",
+				/* FROM */ "Jueces",
+				/* WHERE */ "( ID=$id )"
+		);
+		if (!$data)	return $this->error("No Juez found with provided ID=$id");
+		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
-		return $row;
+		return $data;
 	} 
 	
 	function select() {
@@ -112,19 +113,22 @@ class Jueces extends DBObject {
 		$sort = isset($_GET['sort']) ? strval($_GET['sort']) : 'Nombre';
 		$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
 		$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
+		$page=http_request("page","i",0);
+		$rows=http_request("rows","i",0);
+		$limit="";
+		if ($page!=0 && $rows!=0 ) {
+			$offset=($page-1)*$rows;
+			$limit="".$offset.",".$rows;
+		}
 		$where = '';
-		if ($search!=='') $where=" WHERE ( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') ) ";
-		$result = array();
-		
-		// query to retrieve data
-		$str="SELECT * FROM Jueces $where ORDER BY $sort $order";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		// retrieve result into an array
-		$result["rows"] = $this->fetch_all($rs);
-		$result["total"] = $rs->num_rows;
-		// disconnect from database and return composed array
-		$rs->free();
+		if ($search!=='') $where="( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') ) ";
+		$result=$this->__select(
+				/* SELECT */ "*",
+				/* FROM */ "Jueces",
+				/* WHERE */ $where,
+				/* ORDER BY */ $sort." ".$order,
+				/* LIMIT */ $limit
+		);
 		$this->myLogger->leave();
 		return $result;
 	}
@@ -133,17 +137,15 @@ class Jueces extends DBObject {
 		$this->myLogger->enter();
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
-		$like =  ($q===null) ? "" : " WHERE Nombre LIKE '%".$q."%'";
-		
-		//  query to retrieve data
-		$str="SELECT * FROM Jueces ".$like." ORDER BY Nombre ASC";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		// retrieve result into an array
-		$result["rows"] = $this->fetch_all($rs);
-		$result["total"] = $rs->num_rows;
-		// disconnect from database and return composed array
-		$rs->free();
+		$where="";
+		if ($q!=="") $where="Nombre LIKE '%".$q."%'";
+		$result=$this->__select(
+				/* SELECT */ "*",
+				/* FROM */ "Jueces",
+				/* WHERE */ $where,
+				/* ORDER BY */ "Nombre ASC",
+				/* LIMIT */ ""
+		);
 		$this->myLogger->leave();
 		return $result;
 	}

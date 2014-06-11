@@ -114,18 +114,22 @@ class Clubes extends DBObject {
 		$sort= http_request("sort","s","Nombre");
 		$order=http_request("order","s","ASC");
 		$search=http_Request("where","s","");
+		$page=http_request("page","i",0);
+		$rows=http_request("rows","i",0);
+		$limit="";
+		if ($page!=0 && $rows!=0 ) {
+			$offset=($page-1)*$rows;
+			$limit="".$offset.",".$rows;
+		}
 		$where = '';
-		if ($search!=='') $where=" WHERE ( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') OR ( Facebook LIKE '%$search%') ) ";
-		$result = array();
-		// query to retrieve $rows 
-		$rs=$this->query("SELECT * FROM Clubes $where ORDER BY $sort $order");
-		if (!$rs) return $this->error($this->conn->error);
-		// retrieve result into an array
-		$result["rows"] = $this->fetch_all($rs);
-		$result["total"] = $rs->num_rows;
-		// disconnect from database and return composed array
-		$rs->free();
-		// return composed array
+		if ($search!=='') $where="( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') OR ( Facebook LIKE '%$search%') ) ";
+		$result=$this->__select(
+				/* SELECT */ "*",
+				/* FROM */ "Clubes",
+				/* WHERE */ $where,
+				/* ORDER BY */ $sort." ".$order,
+				/* LIMIT */ $limit
+		);
 		$this->myLogger->leave();
 		return $result;
 	}
@@ -136,20 +140,17 @@ class Clubes extends DBObject {
 	 */
 	function enumerate() {
 		$this->myLogger->enter();
-		// evaluate offset and row count for query
+		// evaluate search query string
 		$q=http_request("q","s","");
-		$like =  ($q==="") ? "" : " WHERE Nombre LIKE '%".$q."%'";
-		
-		$result = array();
-		// query to retrieve data
-		$rs=$this->query("SELECT ID,Nombre,Provincia FROM Clubes ".$like." ORDER BY Nombre ASC");
-		if (!$rs) return $this->error($this->conn->error);
-		// retrieve result into an array
-		$result["rows"] = $this->fetch_all($rs);
-		$result["total"] = $rs->num_rows;
-		// disconnect from database and return composed array
-		$rs->free();
-		// return composed array
+		$where="";
+		if ($q!=="") $where="Nombre LIKE '%".$q."%'";
+		$result=$this->__select(
+				/* SELECT */ "ID,Nombre,Provincia",
+				/* FROM */ "Clubes",
+				/* WHERE */ $where,
+				/* ORDER BY */ "Nombre ASC",
+				/* LIMIT */ ""
+		);
 		$this->myLogger->leave();
 		return $result;
 	}
