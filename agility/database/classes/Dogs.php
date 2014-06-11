@@ -103,24 +103,29 @@ class Dogs extends DBObject {
 	 * Enumerate all dogs that matches requested criteria and order
 	 * @return null on error, else requested data
 	 */
-	function select() {
+	 function select() {
+		$this->myLogger->enter();
 		// evaluate offset and row count for query
 		$sort= http_request("sort","s","Nombre");
 		$order=http_request("order","s","ASC");
-		$search=http_Request("where","s","");
-		$where = ' ';
-		if ($search!=='') $where="WHERE (Nombre LIKE '%$search%') OR ( NombreGuia LIKE '%$search%') OR ( NombreClub LIKE '%$search%')";
-		$result = array();
-		// query to retrieve 
-		$str="SELECT * FROM PerroGuiaClub $where ORDER BY $sort $order";
-		$this->myLogger->query($str);
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		// retrieve result into an array
-		$result["rows"] = $this->fetch_all($rs);
-		$result["total"] = $rs->num_rows;
-		// disconnect from database and return result
-		$rs->free();
+		$search=http_request("where","s","");
+		$page=http_request("page","i",0);
+		$rows=http_request("rows","i",0);
+		$limit="";
+		if ($page!=0 && $rows!=0 ) {
+			$offset=($page-1)*$rows;
+			$limit="".$offset.",".$rows;
+		}
+		$where = "";
+		if ($search!=="") $where="(Nombre LIKE '%$search%') OR ( NombreGuia LIKE '%$search%') OR ( NombreClub LIKE '%$search%')";
+		$result=$this->__select(
+				/* SELECT */ "*",
+				/* FROM */ "PerroGuiaClub",
+				/* WHERE */ $where,
+				/* ORDER BY */ $sort." ".$order,
+				/* LIMIT */ $limit
+		);
+		$this->myLogger->leave();
 		return $result;
 	}
 	
@@ -129,20 +134,18 @@ class Dogs extends DBObject {
 	 * @return NULL|multitype:multitype: unknown
 	 */
 	function enumerate() {
-		$this->myLogger->enter();
-		
+		$this->myLogger->enter();	
 		// evaluate search criteria for query
 		$q=http_request("q","s","");
-		$like =  ($q==="") ? "" : " WHERE ( ( Nombre LIKE '%$q%' ) OR ( NombreGuia LIKE '%$q%' ) OR ( NombreClub LIKE '%$q%' ) )";
-
-		$result = array();		
-		// second query to retrieve $rows starting at $offset
-		$rs=$this->query("SELECT * FROM PerroGuiaClub $like ORDER BY Club,Guia,Nombre");
-		if (!$rs) return $this->error($this->conn->error);
-		// retrieve result into an array
-		$result["rows"] = $this->fetch_all($rs);
-		$result["total"] = $rs->num_rows;
-		$rs->free();
+		$where =  ($q==="") ? "" : " ( ( Nombre LIKE '%$q%' ) OR ( NombreGuia LIKE '%$q%' ) OR ( NombreClub LIKE '%$q%' ) )";
+		// retrieve result from parent __select() call
+		$result= $this->__select(
+				/* SELECT */ "*",
+				/* FROM */ "PerroGuiaClub",
+				/* WHERE */ $where,
+				/* ORDER BY */ "Club ASC, Guia ASC, Nombre ASC",
+				/* LIMIT */ ""
+		);
 		// return composed array
 		$this->myLogger->leave();
 		return $result;
@@ -155,17 +158,15 @@ class Dogs extends DBObject {
 	function selectByGuia($idguia) {
 		$this->myLogger->enter();
 		if ($idguia<=0) return $this->error("Invalid Guia ID");
-		// evaluate offset and row count for query
-		$result = array();
-		$items = array();
-		
-		$str="SELECT * FROM PerroGuiaClub WHERE ( Guia =$idguia ) ORDER BY Nombre ASC";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		// retrieve result into an array
-		$result["rows"] = $this->fetch_all($rs);
-		$result["total"] = $rs->num_rows;
-		$rs->free();
+		// retrieve result from parent __select() call
+		$result= $this->__select(
+				/* SELECT */ "*",
+				/* FROM */ "PerroGuiaClub",
+				/* WHERE */ "( Guia = $idguia )",
+				/* ORDER BY */ "Nombre ASC",
+				/* LIMIT */ ""
+		);
+		// return composed array
 		$this->myLogger->leave();
 		return $result;
 	}
@@ -178,12 +179,13 @@ class Dogs extends DBObject {
 	 */
 	function selectByIDPerro($idperro){
 		$this->myLogger->enter();
-		if ($idperro<=0) return $this->error("No Perro ID specified"); 
+		if ($idperro<=0) return $this->error("No Perro ID specified");
 		
-		// second query to retrieve $rows starting at $offset
+		// make query
 		$str="SELECT * FROM PerroGuiaClub WHERE ( ID = $idperro )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
+		
 		// retrieve result into an array
 		$result =$rs->fetch_array(); // should be only one item
 		$result['Operation']='update'; // dirty trick to ensure that form operation is rewritten on loadform

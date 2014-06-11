@@ -36,7 +36,7 @@ class DBObject {
 	function  __destruct() {
 		// DBConnection::closeConnection($this->conn);
 	}
-	
+
 	function error($msg) {
 		$trace=debug_backtrace();
 		$this->errormsg=$this->file."::".$trace[1]['function']."() Error at ".$trace[1]['file'].":".$trace[1]['line'].":\n".$msg;
@@ -56,4 +56,42 @@ class DBObject {
 		while ($row= $rs->fetch_array(MYSQLI_ASSOC)) array_push($res,$row);
 		return $res;
 	}
+	
+
+	/**
+	 * Generic function for handle select() on child classes
+	 * @param string $sel SELECT clause (required)
+	 * @param string $from FROM clause (required)
+	 * @param string $where WHERE clause (optional)
+	 * @param string $order ORDER BY clause (optional)
+	 * @param string $limit LIMIT offset,rows clause (optional
+	 */
+	function __select($select,$from,$where="",$order="",$limit="") {
+		// if $limit is not null, perform a first count query
+		$result=array();
+		$result["total"]=0;
+		if ($limit!=="") {
+			$str= "SELECT count(*) FROM ".$from;
+			$this->myLogger->query($str);
+			$rs=$this->query($str);
+			if (!$rs) return $this->error($this->conn->error);
+			$row=$rs->fetch_array();
+			$result["total"] = $row[0];
+			$rs->free();
+		}
+		// compose real request
+		$str="SELECT ".$select." FROM ".$from;
+		if ($where!=="") $str= $str." WHERE ".$where;
+		if ($order!=="") $str= $str." ORDER BY ".$order;
+		if ($limit!=="") $str= $str." LIMIT ".$limit;
+		// make query
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		// generate result
+		$result["rows"] = $this->fetch_all($rs);
+		if ($result["total"]==0) $result["total"] = $rs->num_rows;
+		$rs->free();
+		return $result;
+	}
+	
 }
