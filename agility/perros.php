@@ -44,6 +44,8 @@
             rownumbers: true,
             fitColumns: true,
             singleSelect: true,
+            view: scrollview,
+            pageSize: 50,
             columns: [[
             	{ field:'ID',   hidden:true },
             	{ field:'Nombre',   width:30, sortable:true,  align: 'right', title: 'Nombre' },
