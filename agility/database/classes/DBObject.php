@@ -78,6 +78,11 @@ class DBObject {
 			$row=$rs->fetch_array();
 			$result["total"] = $row[0];
 			$rs->free();
+			// if (rowcount==0) no need to perform a second query
+			if ($result["total"]==0) {
+				$result["rows"]=array();
+				return $result;
+			}
 		}
 		// compose real request
 		$str="SELECT ".$select." FROM ".$from;
@@ -96,6 +101,7 @@ class DBObject {
 	
 	/**
 	 * Perform a query that returns first (and unique) element
+	 * as an associative array
 	 * @param unknown $select SELECT clause (required) 
 	 * @param unknown $from FROM clause (required)
 	 * @param string $where WHERE clause (optional)
@@ -109,6 +115,26 @@ class DBObject {
 		if (!$rs) return $this->error($this->conn->error);
 		// generate result
 		$result=$rs->fetch_array();
+		$rs->free();
+		return $result;
+	}
+	
+	/**
+	 * Perform a query that returns first (and unique) element
+	 * as an Object
+	 * @param unknown $select SELECT clause (required)
+	 * @param unknown $from FROM clause (required)
+	 * @param string $where WHERE clause (optional)
+	 */
+	function __selectObject($select,$from,$where="") {
+		// compose SQL query
+		$str="SELECT ".$select." FROM ".$from;
+		if ($where!=="") $str= $str." WHERE ".$where;
+		// make query
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		// generate result
+		$result=$rs->fetch_object();
 		$rs->free();
 		return $result;
 	}

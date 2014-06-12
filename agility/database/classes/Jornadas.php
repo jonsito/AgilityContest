@@ -134,17 +134,16 @@ class Jornadas extends DBObject {
 	function selectByID($id) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Jornada ID");
-		// second query to retrieve $rows starting at $offset
-		$str="SELECT * FROM Jornadas WHERE ( ID = $id )";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		// retrieve result into an array
-		if ($rs->num_rows==0) return $this->error("No jornada(s) found");
-		$result = $rs->fetch_object();  // should only be one element
-		// disconnect from database
-		$rs->free();
+		
+		// make query
+		$data= $this->__singleSelect(
+				/* SELECT */ "*",
+				/* FROM */ "Jornadas",
+				/* WHERE */ "( ID=$id )"
+		);
+		if (!$data)	return $this->error("No Jornada found with ID=$id");
 		$this->myLogger->leave();
-		return $result;
+		return $data;
 	}
 	
 	/**
@@ -156,23 +155,15 @@ class Jornadas extends DBObject {
 		$result = array();
 		$items = array();
 		
-		$str="SELECT count(*) FROM Jornadas WHERE ( Prueba = ".$this->prueba." )";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error); 
-		$row=$rs->fetch_row();
-		$result["total"] = $row[0];
-		$rs->free();
-		if ($result["total"]>0) {
-			$str="SELECT * FROM Jornadas WHERE ( Prueba = ".$this->prueba." ) ORDER BY Numero ASC";
-			$rs=$this->query($str);
-			if (!$rs) return $this->error($this->conn->error); 
-			// retrieve result into an array
-			while($row = $rs->fetch_array()){
-				array_push($items, $row);
-			}
-			$rs->free();
-		}
-		$result["rows"] = $items;
+		// retrieve result from parent __select() call
+		$result= $this->__select(
+				/* SELECT */ "*",
+				/* FROM */ "Jornadas",
+				/* WHERE */ "( Prueba = ".$this->prueba." )",
+				/* ORDER BY */ "Numero ASC",
+				/* LIMIT */ ""
+		);
+		// return composed array
 		$this->myLogger->leave();
 		return $result;
 	}	
@@ -183,31 +174,19 @@ class Jornadas extends DBObject {
 	 */
 	function searchByPrueba() {
 		$this->myLogger->enter();
-		
-		$result = array();
-		$items = array();
 		// evaluate search terms
 		$q=http_request("q","s","");
-		$like=")";
-		if ($q!=="") $like = " AND ( (Nombre LIKE '%$q%') OR (Numero LIKE '%$q%') ) )";
-		
-		$str="SELECT count(*) FROM Jornadas WHERE ( ( Prueba = ".$this->prueba." ) AND ( Cerrada=0) $like";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error); 
-		$row=$rs->fetch_row();
-		$result["total"] = $row[0];
-		$rs->free();
-		if ($result["total"]>0) {
-			$str="SELECT * FROM Jornadas WHERE ( ( Prueba = ".$this->prueba." ) AND ( Cerrada=0 ) $like ORDER BY Numero ASC";
-			$rs=$this->query($str);
-			if (!$rs)  return $this->error($this->conn->error); 
-			// retrieve result into an array
-			while($row = $rs->fetch_array()){
-				array_push($items, $row);
-			}
-			$rs->free();
-		}
-		$result["rows"] = $items;
+		$where= "( Prueba = ".$this->prueba." ) AND ( Cerrada=0)";
+		if ($q!=="") $where= "( Prueba = ".$this->prueba." ) AND ( Cerrada=0) AND ( (Nombre LIKE '%$q%') OR (Numero LIKE '%$q%') ) ";
+		// retrieve result from parent __select() call
+		$result= $this->__select(
+				/* SELECT */ "*",
+				/* FROM */ "Jornadas",
+				/* WHERE */ $where,
+				/* ORDER BY */ "Numero ASC",
+				/* LIMIT */ ""
+		);
+		// return composed array
 		$this->myLogger->leave();
 		return $result;
 	}
@@ -226,13 +205,14 @@ class Jornadas extends DBObject {
 		$row=$rs->fetch_object();
 		$rs->free();
 		if (!$row) {
-			$this->myLogger->error("No result for Manga $tipo in Jornada $jornada");
+			$this->myLogger->error("No result found for Manga $tipo in Jornada $jornada");
 			return 0;
 		}
 		$this->myLogger->debug("$str retorna ".$row->ID);
 		$this->myLogger->leave();
 		return $row;
 	}
+	
 	/**
 	 * Devuelve una lista de las rondas de que consta esta jornada (GI,GII,GIII, PreAgility..)
 	 * @param unknown $jornadaid ID de jornada

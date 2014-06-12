@@ -119,11 +119,11 @@ class Pruebas extends DBObject {
 		}
 		$where="";
 		if ( ($search!=="") && ($closed==0) )
-			$where="( (Pruebas.Club=Clubes.ID) && ( Cerrada=0 ) && 	( (Nombre LIKE '%$search%') OR ( NombreClub LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) ) ";
+			$where="( (Pruebas.Club=Clubes.ID) && ( Pruebas.Cerrada=0 ) && 	( (Pruebas.Nombre LIKE '%$search%') OR ( NombreClub LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) ) ";
 		if ( ($search!=="") && ($closed!=0) )
-			$where="( (Pruebas.Club=Clubes.ID) && ( (Nombre LIKE '%$search%') OR ( NombreClub LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) )";
+			$where="( (Pruebas.Club=Clubes.ID) && ( (Pruebas.Nombre LIKE '%$search%') OR ( NombreClub LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) )";
 		if ( ($search==="") && ($closed==0) )
-			$where="( (Pruebas.Club=Clubes.ID) && ( Cerrada=0 ) )";
+			$where="( (Pruebas.Club=Clubes.ID) && ( Pruebas.Cerrada=0 ) )";
 		if ( ($search==="") && ($closed!=0) )
 			$where="(Pruebas.Club=Clubes.ID)";
 
@@ -150,8 +150,8 @@ class Pruebas extends DBObject {
 
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
-		$where= "(Pruebas.Club=Clubes.ID) && ( Cerrrada=0 )";
-		if($q!==null) $where="(Pruebas.Club=Clubes.ID) && ( Cerrada=0 ) AND ( (Nombre LIKE '%$q%' ) OR (NombreClub LIKE '%$q%') OR (Observaciones LIKE '%$q%') )";
+		$where= "(Pruebas.Club=Clubes.ID) && ( Pruebas.Cerrada=0 )";
+		if($q!=="") $where="(Pruebas.Club=Clubes.ID) && ( Cerrada=0 ) AND ( (Pruebas.Nombre LIKE '%$q%' ) OR (NombreClub LIKE '%$q%') OR (Observaciones LIKE '%$q%') )";
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
