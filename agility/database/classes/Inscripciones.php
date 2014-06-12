@@ -157,14 +157,13 @@ class Inscripciones extends DBObject {
 		$search =  http_request("q","s","");
 		$extra = '';
 		if ($search!=='') $extra=" AND ( (PerroGuiaClub.Nombre LIKE '%$search%')
-		OR ( Club LIKE '%$search%') OR ( Guia LIKE '%$search%' ) )";
+		OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) )";
 		
 		// !toma ya con la query :-) 
 		$str="SELECT * FROM PerroGuiaClub
-				WHERE ( ID NOT IN  
-					( SELECT DISTINCT Perro FROM Inscripciones,Jornadas 
-					WHERE (Inscripciones.Jornada=Jornadas.ID) AND (Jornadas.Prueba=".$this->prueba.")
-					GROUP BY Perro) ) $extra
+				WHERE 
+					ID NOT IN ( SELECT Perro FROM Inscripciones WHERE (Prueba=".$this->prueba.") )
+					$extra
 				ORDER BY Club ASC, Categoria ASC, Grado ASC, Nombre ASC";
 
 		$rs=$this->query($str);
@@ -172,9 +171,8 @@ class Inscripciones extends DBObject {
 		
 		// Fase 2: la tabla de resultados a devolver
 		$data = array(); // result { total(numberofrows), data(arrayofrows)
-		$count = 0;
-		$idperros = array();
 		while($row = $rs->fetch_array()) array_push($data,$row);
+		$rs->free();
 		$result=array('total'=>count($data), 'rows'=>$data);
 		$this->myLogger->leave();
 		return $result;
@@ -190,57 +188,29 @@ class Inscripciones extends DBObject {
 		$id = $this->prueba;
 		$search =  http_request("where","s","");
 		// $extra= a single ')' or name search criterion
-		$extra = ')';
+		$extra = '';
 		if ($search!=='') $extra=" AND ( (PerroGuiaClub.Nombre LIKE '%$search%') 
-				OR ( Club LIKE '%$search%') OR ( Guia LIKE '%$search%' ) ) )";
+				OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) ) ";
 
 		// FASE 1: obtener lista de perros inscritos con sus datos
-		$str="SELECT Numero , Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
-		Categoria , Grado , Celo , Guia , Club , Equipo , Observaciones , Pagado
-		FROM Inscripciones,PerroGuiaClub,Jornadas
-		WHERE ( ( Inscripciones.Perro = PerroGuiaClub.ID)
-		AND ( Inscripciones.Jornada = Jornadas.ID )
-		AND ( Prueba= $id )
-		$extra ORDER BY Club ASC, Categoria ASC, Grado ASC, Nombre ASC"; 
+		$str="SELECT Inscripciones.ID AS ID, Dorsal , Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
+		Categoria , Grado , Celo , Guia , Club , NombreGuia, NombreClub, Equipo , Observaciones , J1,J2,J3,J4,J5,J6,J7,J8,Pagado
+		FROM Inscripciones,PerroGuiaClub
+		WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) AND ( Prueba= $id )	$extra 
+		ORDER BY NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"; 
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 	
 		// Fase 2: la tabla de resultados a devolver
-		$result = array(); // result { total(numberofrows), data(arrayofrows)
-		$count = 0;
-		$idperros = array();
-		while($row = $rs->fetch_array()){
-			if (!isset($idperros[$row['IDPerro']])) {
-				$count++;
-				$idperros[$row['Perro']]= array(
-						'Perro' => $row['Perro'],
-						'Nombre' => $row['Nombre'],
-						'Categoria' => $row['Categoria'],
-						'Grado' => $row['Grado'],
-						'Celo' => $row['Celo'],
-						'Guia' => $row['Guia'],
-						'Club' => $row['Club'],
-						'Equipo' => $row['Equipo'],
-						'Observaciones' => $row['Observaciones'],
-						'Pagado' => $row['Pagado'],
-						'J1' => 0, 'J2' => 0, 'J3' => 0, 'J4' => 0, 'J5' => 0, 'J6' => 0, 'J7' => 0,'J8' => 0
-				);
-			} // create row if not exists
-			// store wich jornada is subscribed into array
-			$jornada=$row['Numero'];
-			$idperros[$row['IDPerro']]["J$jornada"]=1;
-		}
+		$data = array(); // result { total(numberofrows), data(arrayofrows)
+		while($row = $rs->fetch_array()) array_push($data,$row);
 		$rs->free();
-		$items=array();
-		$index=0;
-		foreach($idperros as $key => $item) array_push($items,$item);
-		$result['total']=$count; // number of rows retrieved
-		$result['rows']=$items;
-		// and return json encoded $result variable
+		$result=array('total'=>count($data), 'rows'=>$data);
 		$this->myLogger->leave();
 		return $result;
+	
 	}
 	
-} /* end of class "Clubes" */
+} /* end of class "Inscripciones" */
 
 ?>

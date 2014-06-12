@@ -9,25 +9,25 @@
 
 <div id="inscripciones-info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
 <div id="inscripciones-infolayout" class="easyui-layout" style="height:150px">
-	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px">
-		<form id="inscripciones-pruebas" method="get">
+	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px" class="c_inscripciones-datosprueba">
+		<form id="inscripciones-pruebas" method="get" >
 		<input type="hidden" name="ID"/>
 		<input type="hidden" name="Club"/>
 		<input type="hidden" name="Ubicacion"/>
 		<input type="hidden" name="Triptico"/>
 		<input type="hidden" name="Cartel"/>
-		<input type="hidden" name="Cerrada"/>	
+		<input type="hidden" name="Cerrada"/>
 		<p>
 		<label for="Nombre" style="font-weight:bold">Denominaci&oacute;n:</label>
-		<input id="inscripciones-pnombre" type="text" name="Nombre" disabled="disabled" />
+		<input id="inscripciones-pnombre" type="text" name="Nombre" disabled="disabled" size="19"/>
 		</p>
 		<p>
 		<label for="Club" style="font-weight:bold">Club Organizador:</label>
-		<input id="inscripciones-pclub" type="text" name="NombreClub" disabled="disabled"/>
+		<input id="inscripciones-pclub" type="text" name="NombreClub" disabled="disabled" size="15"/>
 		</p>
 		<p>
 		<label for="Observaciones" style="font-weight:bold">Observaciones:</label>
-		<input id="inscripciones-pcomments" type="text" name="Observaciones" disabled="disabled"/>
+		<input id="inscripciones-pcomments" type="text" name="Observaciones" disabled="disabled" size="36"/>
 		</p>
 		</form>
 	</div>
@@ -164,7 +164,7 @@ $('#inscripciones-datagrid').datagrid({
 	collapsed: false,
 	// propiedades especificas del datagrid
     pagination: false,
-    rownumbers: true,
+    rownumbers: false,
     fitColumns: true,
     singleSelect: true,
     multiSort: true,
@@ -178,21 +178,22 @@ $('#inscripciones-datagrid').datagrid({
         { field:'Perro',  hidden:true }, // dog ID
         { field:'Equipo', hidden:true }, // only used on Team contests
         { field:'Pagado', hidden:true }, // to store if handler paid :-)
-    	{ field:'Nombre',	width:10, sortable:true, align: 'right',	title: 'Nombre' },
-    	{ field:'Categoria',width:4,  sortable:true, align: 'center',  	title: 'Cat' },
-    	{ field:'Grado',	width:4,  sortable:true, align: 'center',  	title: 'Grado' },
-    	{ field:'Guia',		width:23, sortable:true, align: 'right',	title: 'Guia' },
-    	{ field:'Club',		width:18, sortable:true, align: 'right',	title: 'Club' },
+    	{ field:'Dorsal',	width:6,  sortable:true, align: 'right',	title: 'Dorsal' },
+    	{ field:'Nombre',	width:15, sortable:true, align: 'right',	title: 'Nombre' },
+    	{ field:'Categoria',width:5,  sortable:true, align: 'center',  	title: 'Cat.' },
+    	{ field:'Grado',	width:5,  sortable:true, align: 'center',  	title: 'Grado' },
+    	{ field:'Guia',		width:25, sortable:true, align: 'right',	title: 'Guia' },
+    	{ field:'Club',		width:15, sortable:true, align: 'right',	title: 'Club' },
     	{ field:'Observaciones',width:15,            title: 'Observaciones' },
     	{ field:'Celo',		width:4, align:'center', title: 'Celo' },
-        { field:'J1',		width:4, align:'center', title: 'J1'},
-        { field:'J2',		width:4, align:'center', title: 'J2'},
-        { field:'J3',		width:4, align:'center', title: 'J3'},
-        { field:'J4',		width:4, align:'center', title: 'J4'},
-        { field:'J5',		width:4, align:'center', title: 'J5'},
-        { field:'J6',		width:4, align:'center', title: 'J6'},
-        { field:'J7',		width:4, align:'center', title: 'J7'},
-        { field:'J8',		width:4, align:'center', title: 'J8'},
+        { field:'J1',		width:3, align:'center', title: 'J1'},
+        { field:'J2',		width:3, align:'center', title: 'J2'},
+        { field:'J3',		width:3, align:'center', title: 'J3'},
+        { field:'J4',		width:3, align:'center', title: 'J4'},
+        { field:'J5',		width:3, align:'center', title: 'J5'},
+        { field:'J6',		width:3, align:'center', title: 'J6'},
+        { field:'J7',		width:3, align:'center', title: 'J7'},
+        { field:'J8',		width:3, align:'center', title: 'J8'},
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:function(index,row) { 
@@ -303,12 +304,14 @@ $('#inscripciones-newGrid').combogrid({
 	required: false,
 	value: '- Nuevas inscripciones -',
 	columns: [[
-		{field:'Perro',hidden:'true'},
+	   	{field:'ID',hidden:'true'},
+		{field:'Guia',hidden:'true'},
+		{field:'Club',hidden:'true'},
 		{field:'Nombre',title:'Perro',width:20,align:'right'},
 		{field:'Categoria',title:'Cat.',width:10,align:'center'},
 		{field:'Grado',title:'Grado',width:10,align:'center'},
-		{field:'Guia',title:'Guia',width:40,align:'right'},
-		{field:'Club',title:'Club',width:20,align:'right'}
+		{field:'NombreGuia',title:'Guia',width:40,align:'right'},
+		{field:'NombreClub',title:'Club',width:20,align:'right'}
 	]],
 	multiple: true,
 	fitColumns: true,

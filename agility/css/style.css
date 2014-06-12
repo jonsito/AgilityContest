@@ -105,6 +105,21 @@ img.mainpage{
 	font-size: 11px;
 }
 
+/***** formulario informacion datos de la prueba ***/
+.c_inscripciones-datosprueba {
+	font-size: 12px;
+	text-align: left;
+}
+.c_inscripciones-datosprueba input {
+	font-size: 12px;
+	color: #000;
+	border:none;
+	float: right;
+}
+.c_inscripciones-datosprueba select {
+	font-size: 11px;
+}
+
 .trstrm {
 	font-size: 9px;
 }
