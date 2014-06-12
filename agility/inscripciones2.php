@@ -12,6 +12,7 @@
 	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px">
 		<form id="inscripciones-pruebas" method="get">
 		<input type="hidden" name="ID"/>
+		<input type="hidden" name="Club"/>
 		<input type="hidden" name="Ubicacion"/>
 		<input type="hidden" name="Triptico"/>
 		<input type="hidden" name="Cartel"/>
@@ -22,7 +23,7 @@
 		</p>
 		<p>
 		<label for="Club" style="font-weight:bold">Club Organizador:</label>
-		<input id="inscripciones-pclub" type="text" name="Club" disabled="disabled"/>
+		<input id="inscripciones-pclub" type="text" name="NombreClub" disabled="disabled"/>
 		</p>
 		<p>
 		<label for="Observaciones" style="font-weight:bold">Observaciones:</label>

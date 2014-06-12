@@ -182,7 +182,7 @@ class Pruebas extends DBObject {
 							Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
 							Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
 				/* FROM */ "Pruebas,Clubes",
-				/* WHERE */ "( ID=$id )"
+				/* WHERE */ "( Clubes.ID=Pruebas.Club) && ( Pruebas.ID=$id )"
 		);
 		if (!$data)	return $this->error("No Prueba found with ID=$id");
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
