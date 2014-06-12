@@ -173,7 +173,8 @@ $('#inscripciones-datagrid').datagrid({
 	loadMsg: 'Actualizando datos de inscripciones....',
     toolbar: '#inscripciones-toolbar',
     columns: [[
-        { field:'IDPerro', hidden:true }, // dog ID
+        { field:'ID',     hidden:true }, // inscripcion ID
+        { field:'Perro',  hidden:true }, // dog ID
         { field:'Equipo', hidden:true }, // only used on Team contests
         { field:'Pagado', hidden:true }, // to store if handler paid :-)
     	{ field:'Nombre',	width:10, sortable:true, align: 'right',	title: 'Nombre' },
@@ -293,7 +294,7 @@ $('#inscripciones-newGrid').combogrid({
     delay: 250, // dont search on every keystroke
 	panelWidth: 400,
 	panelHeight: 150,
-	idField: 'IDPerro',
+	idField: 'Perro',
 	textField: 'Nombre',
 	url: 'database/inscripcionFunctions.php?Operation=noinscritos&ID='+workingData.prueba,
 	method: 'get',
@@ -301,7 +302,7 @@ $('#inscripciones-newGrid').combogrid({
 	required: false,
 	value: '- Nuevas inscripciones -',
 	columns: [[
-		{field:'IDPerro',hidden:'true'},
+		{field:'Perro',hidden:'true'},
 		{field:'Nombre',title:'Perro',width:20,align:'right'},
 		{field:'Categoria',title:'Cat.',width:10,align:'center'},
 		{field:'Grado',title:'Grado',width:10,align:'center'},

@@ -72,7 +72,7 @@ class Inscripciones extends DBObject {
 		$this->myLogger->enter();
 
 		// variables comunes a todas las jornadas
-		$idperro=http_request("IDPerro","i",0);
+		$idperro=http_request("Perro","i",0);
 		if ($idperro==0) return $this->error("Invalid IDPerro ID"); 
 		$celo=http_request("Celo","i",0);
 		$observaciones=http_request("Observaciones","s","");
@@ -161,10 +161,10 @@ class Inscripciones extends DBObject {
 		
 		// !toma ya con la query :-) 
 		$str="SELECT * FROM PerroGuiaClub
-				WHERE ( IDPerro NOT IN  
-					( SELECT DISTINCT IDPerro FROM Inscripciones,Jornadas 
+				WHERE ( ID NOT IN  
+					( SELECT DISTINCT Perro FROM Inscripciones,Jornadas 
 					WHERE (Inscripciones.Jornada=Jornadas.ID) AND (Jornadas.Prueba=".$this->prueba.")
-					GROUP BY IDPerro) ) $extra
+					GROUP BY Perro) ) $extra
 				ORDER BY Club ASC, Categoria ASC, Grado ASC, Nombre ASC";
 
 		$rs=$this->query($str);
@@ -195,10 +195,10 @@ class Inscripciones extends DBObject {
 				OR ( Club LIKE '%$search%') OR ( Guia LIKE '%$search%' ) ) )";
 
 		// FASE 1: obtener lista de perros inscritos con sus datos
-		$str="SELECT Numero , Inscripciones.IDPerro AS IDPerro , PerroGuiaClub.Nombre AS Nombre,
+		$str="SELECT Numero , Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
 		Categoria , Grado , Celo , Guia , Club , Equipo , Observaciones , Pagado
 		FROM Inscripciones,PerroGuiaClub,Jornadas
-		WHERE ( ( Inscripciones.IDPerro = PerroGuiaClub.IDPerro)
+		WHERE ( ( Inscripciones.Perro = PerroGuiaClub.ID)
 		AND ( Inscripciones.Jornada = Jornadas.ID )
 		AND ( Prueba= $id )
 		$extra ORDER BY Club ASC, Categoria ASC, Grado ASC, Nombre ASC"; 
@@ -212,8 +212,8 @@ class Inscripciones extends DBObject {
 		while($row = $rs->fetch_array()){
 			if (!isset($idperros[$row['IDPerro']])) {
 				$count++;
-				$idperros[$row['IDPerro']]= array(
-						'IDPerro' => $row['IDPerro'],
+				$idperros[$row['Perro']]= array(
+						'Perro' => $row['Perro'],
 						'Nombre' => $row['Nombre'],
 						'Categoria' => $row['Categoria'],
 						'Grado' => $row['Grado'],
