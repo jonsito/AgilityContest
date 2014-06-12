@@ -7,7 +7,7 @@
     		<a id="perros-newBtn" href="#" class="easyui-linkbutton" onclick="newDog($('#perros-search').val())">Nuevo Perro</a>
     		<a id="perros-editBtn" href="#" class="easyui-linkbutton" onclick="editDog('#perros-datagrid')">Editar Perro</a>
     		<a id="perros-delBtn" href="#" class="easyui-linkbutton" onclick="deleteDog('#perros-datagrid')">Borrar Perro</a>
-    		<input id="perros-search" type="text" value="--- Buscar ---" class="search_textfield"/>
+    		<input id="perros-search" type="text" value="---- Buscar ----" class="search_textfield"/>
     	</span>
     	<span style="float:right;">
     		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton">Actualizar</a>
@@ -157,7 +157,7 @@
     	});
     	$('#perros-reloadBtn').on("click", function () {
         	// clear selection and reload table
-    		$('#perros-search').val('--- Buscar ---');
+    		$('#perros-search').val('---- Buscar ----');
             $('#perros-datagrid').datagrid('load',{ where: '' });
     	});
         $("#perros-search").keydown(function(event){

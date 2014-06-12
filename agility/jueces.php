@@ -154,7 +154,7 @@
     	});
     	$('#jueces-reloadBtn').on("click", function () {
         	// clear selection and reload table
-    		$('#jueces-search').val('---- Buscar -----');
+    		$('#jueces-search').val('---- Buscar ----');
             $('#jueces-datagrid').datagrid('load',{ where: '' });
     	});
         $("#jueces-search").keydown(function(event){

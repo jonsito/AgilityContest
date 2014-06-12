@@ -11,12 +11,12 @@ class Pruebas extends DBObject {
 			   VALUES(?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('ssssssi',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$cerrada);
+		$res=$stmt->bind_param('sissssi',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$cerrada);
 		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
 		$nombre =	http_request("Nombre","s",null,false);
-		$club =		http_request("Club","s",null,false);
+		$club =		http_request("Club","i",0);
 		$ubicacion=	http_request("Ubicacion","s",null,false);
 		$triptico =	http_request("Triptico","s",null,false);
 		$cartel =	http_request("Cartel","s",null,false);
@@ -59,13 +59,13 @@ class Pruebas extends DBObject {
 				WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('ssssssii',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$cerrada,$id);
+		$res=$stmt->bind_param('sissssii',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$cerrada,$id);
 		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
 		$nombre =	http_request("Nombre","s",null,false);
 		$id =		$pruebaid;
-		$club =		http_request("Club","s",null,false);
+		$club =		http_request("Club","i",0);
 		$ubicacion=	http_request("Ubicacion","s",null,false);
 		$triptico =	http_request("Triptico","s",null,false);
 		$cartel =	http_request("Cartel","s",null,false);
@@ -110,31 +110,33 @@ class Pruebas extends DBObject {
 		$order=http_request("order","s","ASC");
 		$search=http_Request("where","s","");
 		$closed= http_request("closed","i",0); // si esta declarada, se incluyen las pruebas cerradas
-		
-		$where = '';
-		if ($search!=='') {
-			if ($closed==0) $where= " WHERE (
-				( (Nombre LIKE '%$search%') OR ( Club LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) )
-				AND ( Cerrada = 0 )
-				) ";
-			else $where= " WHERE (
-				(Nombre LIKE '%$search%') OR ( Club LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' )
-				) ";
-		} else {
-			if ($closed==0) $where = " WHERE ( Cerrada = 0 ) ";
-			else $where="";
+		$page=http_request("page","i",0);
+		$rows=http_request("rows","i",0);
+		$limit="";
+		if ($page!=0 && $rows!=0 ) {
+			$offset=($page-1)*$rows;
+			$limit="".$offset.",".$rows;
 		}
-		
-		// execute query to retrieve $rows starting at $offset
-		$str="SELECT * FROM Pruebas $where ORDER BY $sort $order";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
+		$where="";
+		if ( ($search!=="") && ($closed==0) )
+			$where="( (Pruebas.Club=Clubes.ID) && ( Cerrada=0 ) && 	( (Nombre LIKE '%$search%') OR ( NombreClub LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) ) ";
+		if ( ($search!=="") && ($closed!=0) )
+			$where="( (Pruebas.Club=Clubes.ID) && ( (Nombre LIKE '%$search%') OR ( NombreClub LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) )";
+		if ( ($search==="") && ($closed==0) )
+			$where="( (Pruebas.Club=Clubes.ID) && ( Cerrada=0 ) )";
+		if ( ($search==="") && ($closed!=0) )
+			$where="(Pruebas.Club=Clubes.ID)";
 
-		$result = array();
-		$result["rows"] = $this->fetch_all($rs);
-		$result["total"] = $rs->num_rows();
-		// clean and return
-		$rs->free();
+		// execute query to retrieve $rows starting at $offset
+		$result=$this->__select(
+				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
+							Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
+							Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
+				/* FROM */ "Pruebas,Clubes",
+				/* WHERE */ $where,
+				/* ORDER BY */ $sort." ".$order,
+				/* LIMIT */ $limit
+		);
 		$this->myLogger->leave();
 		return $result;
 	}
@@ -148,17 +150,19 @@ class Pruebas extends DBObject {
 
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
-		$like =  ($q===null) ? "" : " AND ( (Nombre LIKE '%$q%' ) OR (Club LIKE '%$q%') OR (Observaciones LIKE '%$q%') )";
-		
-		// second query to retrieve $rows starting at $offset
-		$rs=$this->query("SELECT * FROM Pruebas WHERE (Cerrada=0) $like ORDER BY Nombre ASC");
-		if (!$rs) return $this->error($this->conn->error);
-
-		$result = array();
-		$result["rows"] = $this->fetch_all($rs);
-		$result["total"] = $rs->num_rows();
-		// clean and return
-		$rs->free();
+		$where= "(Pruebas.Club=Clubes.ID) && ( Cerrrada=0 )";
+		if($q!==null) $where="(Pruebas.Club=Clubes.ID) && ( Cerrada=0 ) AND ( (Nombre LIKE '%$q%' ) OR (NombreClub LIKE '%$q%') OR (Observaciones LIKE '%$q%') )";
+		// retrieve result from parent __select() call
+		$result= $this->__select(
+				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
+							Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
+							Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
+				/* FROM */ "Pruebas,Clubes",
+				/* WHERE */ $where,
+				/* ORDER BY */ "Nombre ASC",
+				/* LIMIT */ ""
+		);
+		// return composed array
 		$this->myLogger->leave();
 		return $result;
 	}
@@ -171,46 +175,36 @@ class Pruebas extends DBObject {
 	function selectByID($id) {
 		$this->myLogger->enter();
 		if ($id==0) return $this->error("Invalid Prueba ID");
-		$str="SELECT * FROM Pruebas WHERE ( ID = '$id' )";
-		// do_log("get_pruebaByID:: query string is $str");
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		// retrieve result into an array
-		$result = $rs->fetch_array();  // should only be one element
-		$rs->free();
-		// clean and return ok
+
+		// make query
+		$data= $this->__singleSelect(
+				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
+							Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
+							Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
+				/* FROM */ "Pruebas,Clubes",
+				/* WHERE */ "( ID=$id )"
+		);
+		if (!$data)	return $this->error("No Prueba found with ID=$id");
+		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
-		return $result;
+		return $data;
 	}
 	
 	function selectEquiposByPrueba($id) {
 		$this->myLogger->enter();
 		if ($id==0) return $this->error("Invalid Prueba ID");
 		$q=http_request("q","s","");
-		$like="";
-		if ($q!=="") $like=" AND ( ( Nombre LIKE '%$q%' ) OR ( Observaciones LIKE '%$q%' ) )";
-		$result = array();
-		
-		// execute first query to know how many elements
-		$rs=$this->query("SELECT count(*) FROM Equipos WHERE ( Prueba = $id )".$like);
-		if (!$rs) return $this->error($this->conn->error);
-		$row=$rs->fetch_row();
-		$result["total"] = $row[0];
-		$rs->free();
-		
-		// second query to retrieve $rows starting at $offset
-		$str="SELECT * FROM Equipos WHERE ( Prueba = $id )".$like." ORDER BY Nombre ASC";
-		do_log("pruebas::selectEquiposByPrueba() query string: $str");
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		// retrieve result into an array
-		$items = array();
-		while($row = $rs->fetch_array()){
-			array_push($items, $row);
-		}
-		$result["rows"] = $items;
-		// disconnect from database
-		$rs->free();
+		$where="( Prueba=$id )";
+		if ($q!=="") $where="( Prueba=$id ) AND ( ( Nombre LIKE '%$q%' ) OR ( Observaciones LIKE '%$q%' ) )";
+		// retrieve result from parent __select() call
+		$result= $this->__select(
+				/* SELECT */ "*",
+				/* FROM */ "Equipos",
+				/* WHERE */ $where,
+				/* ORDER BY */ "Nombre ASC",
+				/* LIMIT */ ""
+		);
+		// return composed array
 		$this->myLogger->leave();
 		return $result;
 	}

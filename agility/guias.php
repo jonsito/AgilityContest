@@ -8,7 +8,7 @@
         	<a id="guias-newBtn" href="#" class="easyui-linkbutton" onclick="newGuia($('#guias-search').val())">Nuevo Gu&iacute;a</a>
         	<a id="guias-editBtn" href="#" class="easyui-linkbutton" onclick="editGuia('#guias-datagrid')">Editar Gu&iacute;a</a>
         	<a id="guias-delBtn" href="#" class="easyui-linkbutton" onclick="deleteGuia('#guias-datagrid')">Borrar gu&iacute;a</a>
-    		<input id="guias-search" type="text" value="----- Buscar -----" class="search_textfield"/>
+    		<input id="guias-search" type="text" value="---- Buscar ----" class="search_textfield"/>
     	</span>
     	<span style="float:right;">
     		<a id="guias-reloadBtn" href="#" class="easyui-linkbutton">Actualizar</a>

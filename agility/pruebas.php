@@ -28,21 +28,30 @@
         // datos de la tabla de pruebas
         // - tabla
         $('#pruebas-datagrid').datagrid({
+
+        	// propiedades del panel padre asociado
+        	fit: false,
+        	border: false,
+        	closable: false,
+        	collapsible: false,
+            expansible: false,
+        	collapsed: false,        	
         	title: 'Gesti&oacute;n de datos de pruebas',
         	url: 'database/pruebaFunctions.php?Operation=select',
+        	loadMsg: 'Actualizando lista de Clubes ...',
         	method: 'get',
             toolbar: '#pruebas-toolbar',
-            pagination: true,
-            rownumbers: false,
-            singleSelect: true,
+            pagination: false,
+            rownumbers: true,
             fitColumns: true,
-            expansible: true,
-            view: detailview,
-            height: 'auto',
+            singleSelect: true,
+            view: scrollview,
+            pageSize: 50,
             columns: [[
                 { field:'ID', hidden:true }, // primary key
             	{ field:'Nombre',		width:20,	sortable:true,	title:'Nombre de la prueba:' },
-            	{ field:'Club',			width:15,	sortable:true,	title:'Club organizador' },
+            	{ field:'Club',			hidden:true },
+            	{ field:'NombreClub',	width:15,	sortable:true,	title:'Club organizador' },
             	{ field:'Ubicacion',	width:20,					title:'Lugar de celebraci&oacute;n' },
                 { field:'Triptico',		width:10,					title:'URL del Tr&iacute;ptico'},
                 { field:'Cartel',		width:10,					title:'URL del Cartel'},
@@ -163,7 +172,7 @@
         function showJornadasByPrueba (index,prueba) {
             var datagridID='#jornadas-datagrid-'+prueba.ID;
             $(datagridID).datagrid({
-        		title: 'Jornadas de que consta la prueba '+prueba.Nombre,
+        		title: "Jornadas de que consta la prueba '"+prueba.Nombre+"'",
         		url: 'database/jornadaFunctions.php',
         		queryParams: { Operation: 'select', Prueba: prueba.ID },
         		method: 'get',

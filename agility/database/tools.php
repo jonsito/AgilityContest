@@ -60,7 +60,7 @@ function http_request($name,$type,$def,$esc=true) {
 	if ($a===null) return null;
 	switch ($type) {
 		case "i": return intval($a);
-		case "s": return strval($a);
+		case "s": return ($a==="---- Buscar ----")? "": strval($a);
 		case "b": return boolval($a);
 		case "d": return doubleval($a);
 	}
