@@ -14,7 +14,7 @@ Tener instalados y funcionando
 - Descomprimir el fichero .zip en el directorio ${BASE}
 
 2a- Instalacion y configuración (ficheros)
-- Copiar el fichero ${BASE}/agility/extras/linux_httpd.conf a /etc/httpd/conf.d
+- Copiar el fichero ${BASE}/agility/extras/linux_httpd.conf a /etc/httpd/conf.d/agility.conf
 - Editar el fichero ajustando los campos Alias y Directory
 - Reiniciar apache y comprobar que se accede a la pagina principal
 - En sistemas Fedora, y dependiendo de si se instala en un directorio bajo home, puede ser necesario ajustar SELinux
