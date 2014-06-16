@@ -202,6 +202,7 @@
             		{ field:'Grado1',		width:6, sortable:false,   align:'center', title: 'G-I   ' },
             		{ field:'Grado2',		width:6, sortable:false,   align:'center', title: 'G-II  ' },
             		{ field:'Grado3',		width:6, sortable:false,   align:'center', title: 'G-III ' },
+            		{ field:'Open',			width:6, sortable:false,   align:'center', title: 'Open ' },
             		{ field:'Equipos',		width:6, sortable:false,   align:'center', title: 'Eq.   ' },
             		{ field:'PreAgility',	width:6, sortable:false,   align:'center', title: 'Pre.  ' },
             		{ field:'KO',			width:6, sortable:false,   align:'center', title: 'K.O.  ' },

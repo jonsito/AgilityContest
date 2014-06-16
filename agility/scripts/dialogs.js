@@ -785,26 +785,31 @@ function checkPrueba(id) {
 	var count=0;
 	count += $('#jornadas-Equipos').is(':checked')?1:0;
 	count += $('#jornadas-KO').is(':checked')?1:0;
+	count += $('#jornadas-Open').is(':checked')?1:0;
 	if (count==0) return;
-	$.messager.alert('Error','No se pueden declarar pruebas adicionales en una jornada KO o por Equipos','error');
+	$.messager.alert('Error','No se pueden declarar pruebas adicionales en un Open, una jornada KO o una prueba por Equipos','error');
 	$(id).prop('checked',false);
+}
+
+function checkAlone() {
+	var count=0;
+	count += $('#jornadas-Grado1').is(':checked')?1:0;
+	count += $('#jornadas-Grado2').is(':checked')?1:0;
+	count += $('#jornadas-Grado3').is(':checked')?1:0;
+	count += $('#jornadas-Open').is(':checked')?1:0;
+	count += $('#jornadas-PreAgility').is(':checked')?1:0;
+	count += $('#jornadas-Equipos').is(':checked')?1:0;
+	count += $('#jornadas-KO').is(':checked')?1:0;
+	count += $('#jornadas-Exhibicion').is(':checked')?1:0;
+	count += $('#jornadas-Otras').is(':checked')?1:0;
+	return count; // 0 or 1 OK; else error
 }
 
 /**
  * En el caso de una prueba KO debe ser la unica prueba de la jornada
  */
 function setKO() {
-	var count=0;
-	var KO=$('#jornadas-KO').val( $('#jornadas-KO').is(':checked')?1:0);
-	if (KO==0) return;
-	count += $('#jornadas-Grado1').is(':checked')?1:0;
-	count += $('#jornadas-Grado2').is(':checked')?1:0;
-	count += $('#jornadas-Grado3').is(':checked')?1:0;
-	count += $('#jornadas-PreAgility').is(':checked')?1:0;
-	count += $('#jornadas-Equipos').is(':checked')?1:0;
-	count += $('#jornadas-Exhibicion').is(':checked')?1:0;
-	count += $('#jornadas-Otras').is(':checked')?1:0;
-	if (count==0) return; // everything ok
+	if (checkAlone($('#jornadas-KO'))<=1) return; // everything ok
 	$.messager.alert('Error','Una prueba KO debe ser declarada en una jornada independiente','error');
 	$('#jornadas-KO').prop('checked',false);
 }
@@ -813,19 +818,18 @@ function setKO() {
  * En el caso de una prueba por equipos debe ser la unica prueba de la jornada
  */
 function setEquipos() {
-	var count=0;
-	var KO=$('#jornadas-KO').val( $('#jornadas-KO').is(':checked')?1:0);
-	if (KO==0) return;
-	count += $('#jornadas-Grado1').is(':checked')?1:0;
-	count += $('#jornadas-Grado2').is(':checked')?1:0;
-	count += $('#jornadas-Grado3').is(':checked')?1:0;
-	count += $('#jornadas-PreAgility').is(':checked')?1:0;
-	count += $('#jornadas-KO').is(':checked')?1:0;
-	count += $('#jornadas-Exhibicion').is(':checked')?1:0;
-	count += $('#jornadas-Otras').is(':checked')?1:0;
-	if (count==0) return; // everything ok
+	if (checkAlone($('#jornadas-Equipos'))<=1) return; // everything ok
 	$.messager.alert('Error','Una prueba por equipos debe ser declarada en una jornada independiente','error');
 	$('#jornadas-Equipos').prop('checked',false);
+}
+
+/**
+ * En el caso de una prueba por equipos debe ser la unica prueba de la jornada
+ */
+function setOpen() {
+	if (checkAlone($('#jornadas-Open'))<=1) return; // everything ok
+	$.messager.alert('Error','Una prueba abierta (Open) debe ser declarada en una jornada independiente','error');
+	$('#jornadas-Open').prop('checked',false);
 }
 
 // ***** gestion de inscripciones	*****************************************************
