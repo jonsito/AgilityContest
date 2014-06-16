@@ -129,9 +129,9 @@ class Jornadas extends DBObject {
 		$this->myLogger->enter();
 		if ($jornadaid<=0) return $this->error("Invalid Jornada ID"); 
 		
-		// si la jornada esta cerrada en lugar de borrarla la movemos a "-- Sin asignar --"
+		// si la jornada esta cerrada en lugar de borrarla la movemos a la prueba por defecto (ID=1)
 		// con esto evitamos borrar mangas y resultados ya fijos
-		$res= $this->query("UPDATE Jornadas SET Prueba='-- Sin asignar --' WHERE ( (ID=$jornadaid) AND (Cerrada=1) );");
+		$res= $this->query("UPDATE Jornadas SET Prueba=1 WHERE ( (ID=$jornadaid) AND (Cerrada=1) );");
 		if (!$res) return $this->error($this->conn->error); 
 		
 		// si la jornada no está cerrada, directamente la borramos
@@ -141,6 +141,23 @@ class Jornadas extends DBObject {
 
 		$this->myLogger->leave();
 	} 
+	
+	/**
+	 * delete all journeys that belongs to current pruebaID
+	 */
+	function deleteByPrueba() {
+		$this->myLogger->enter();
+		$p=$this->prueba;
+		if ($p <= 0 ) return $this->error("Invalid Prueba ID"); 
+		if ($p == 1 ) return $this->error("Cannot delete Journeys linked to default Contest");
+		// first pass: closed journeys now belongs to default Contest
+		$res=  $this->query("UPDATE Jornadas SET Prueba=1 WHERE ( (Prueba=$p) AND (Cerrada=1) );");
+		if (!$res) return $this->error($this->conn->error);
+		// second pass: remove non closed journeys related with current PruebaID
+		$res=  $this->query("DELETE FROM Jornadas WHERE ( (Prueba=$p) AND (Cerrada=0) );");
+		if (!$res) return $this->error($this->conn->error);
+		$this->myLogger->leave();
+	}
 	
 	function selectByID($id) {
 		$this->myLogger->enter();

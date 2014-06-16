@@ -1,6 +1,7 @@
 <?php
 
 require_once("DBObject.php");
+require_once("Jornadas.php");
 
 class Pruebas extends DBObject {
 	
@@ -89,8 +90,10 @@ class Pruebas extends DBObject {
 	function delete($id) {
 		$this->myLogger->enter();
 		if ($id<=1) return $this->error("Invalid Prueba ID");
-		// si no esta cerrada, guardamos las jornadas jornadas de esta
-		// prueba que sí que lo estén
+		// Guardamos las jornadas cerradas de esta prueba
+		$j=new Jornadas("Pruebas.php",$id);
+		$j->deleteByPrueba();
+		// intentamos eliminar la prueba
 		$res= $this->query("DELETE FROM Pruebas WHERE (ID=$id) AND (Cerrada=0) ");
 		if (!$res) return $this->error($this->conn->error);
 		// if affected rows == 0 implica prueba cerrada: notify error
