@@ -52,9 +52,14 @@
             </div>
             
             <div class="fitem">
-                <label for="Equipos" style="width:200px" >Manga por Equipos</label>
-                <input id="jornadas-Equipos" name="Equipos" class="easyui-checkbox" 
-                type="checkbox" value="1" onClick="setEquipos()"/>
+                <label for="Equipos3" style="width:200px" >Equipos (3 mejores)</label>
+                <input id="jornadas-Equipos3" name="Equipos3" class="easyui-checkbox" 
+                type="checkbox" value="1" onClick="setEquipos(3)"/>
+            </div>
+            <div class="fitem">
+                <label for="Equipos4" style="width:200px" >Equipos (Conjunta)</label>
+                <input id="jornadas-Equipos4" name="Equipos4" class="easyui-checkbox" 
+                type="checkbox" value="1" onClick="setEquipos(4)"/>
             </div>
             
             <div class="fitem">

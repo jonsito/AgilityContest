@@ -913,7 +913,7 @@ DROP TABLE IF EXISTS `Mangas`;
 CREATE TABLE IF NOT EXISTS `Mangas` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
   `Jornada` int(4) NOT NULL,
-  `Tipo` varchar(16) NOT NULL DEFAULT 'Otras',
+  `Tipo` int(4) NOT NULL DEFAULT '1',
   `Grado` varchar(16) NOT NULL DEFAULT '-',
   `Recorrido` int(4) NOT NULL DEFAULT '0',
   `Dist_L` int(4) NOT NULL DEFAULT '0',
@@ -956,7 +956,7 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
 --
 -- RELACIONES PARA LA TABLA `Mangas`:
 --   `Tipo`
---       `Tipo_Manga` -> `Tipo`
+--       `Tipo_Manga` -> `ID`
 --   `Grado`
 --       `Grados_Perro` -> `Grado`
 --   `Juez1`
@@ -1742,13 +1742,13 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 
 DROP TABLE IF EXISTS `Tipo_Manga`;
 CREATE TABLE IF NOT EXISTS `Tipo_Manga` (
-  `Tipo` varchar(16) NOT NULL DEFAULT '',
+  `ID` int(4) NOT NULL AUTO_INCREMENT,
   `Descripcion` varchar(255) DEFAULT NULL,
   `Grado` varchar(16) NOT NULL DEFAULT '-',
-  PRIMARY KEY (`Tipo`),
+  PRIMARY KEY (`ID`),
+  KEY `Descripcion` (`Descripcion`),
   KEY `Grado` (`Grado`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17;
 --
 -- RELACIONES PARA LA TABLA `Tipo_Manga`:
 --   `Grado`
@@ -1759,19 +1759,23 @@ CREATE TABLE IF NOT EXISTS `Tipo_Manga` (
 -- Volcado de datos para la tabla `Tipo_Manga`
 --
 
-INSERT INTO `Tipo_Manga` (`Tipo`, `Descripcion`, `Grado`) VALUES
-('Agility Equipos', 'Agility por Equipos', '-'),
-('Agility GII', 'Agility Grado II', 'GII'),
-('Agility GIII', 'Agility Grado III', 'GIII'),
-('Agility-1 GI ', 'Agility Grado I Manga 1', 'GI'),
-('Agility-2 GI', 'Agility Grado I Manga 2', 'GI'),
-('Exhibición', 'Ronda de Exhibición', '-'),
-('Jumping Equipos', 'Jumping por Equipos', '-'),
-('Jumping GII', 'Jumping Grado II', 'GII'),
-('Jumping GIII', 'Jumping Grado III', 'GIII'),
-('K.O.', 'Ronda K.O.', '-'),
-('Otras', 'Manga sin tipo definido', '-'),
-('Pre-Agility', 'Ronda de Pre-Agility', 'P.A.');
+INSERT INTO `Tipo_Manga` (`ID`, `Descripcion`, `Grado`) VALUES
+(1, 'Manga sin tipo definido', '-'),
+(2, 'Ronda de Pre-Agility', 'P.A.'),
+(3, 'Agility Grado I Manga 1', 'GI'),
+(4, 'Agility Grado I Manga 2', 'GI'),
+(5, 'Agility Grado II', 'GII'),
+(6, 'Agility Grado III', 'GIII'),
+(7, 'Agility Abierta (Open)', '-'),
+(8, 'Agility Equipos (3 mejores)', '-'),
+(9, 'Agility Equipos (Conjunta)', '-'),
+(10, 'Jumping Grado II', 'GII'),
+(11, 'Jumping Grado III', 'GIII'),
+(12, 'Jumping Abierta (Open)', '-'),
+(13, 'Jumping por Equipos (3 mejores)', '-'),
+(14, 'Jumping por Equipos (Conjunta)', '-'),
+(15, 'Ronda K.O.', '-'),
+(16, 'Ronda de Exhibición', '-');
 
 -- --------------------------------------------------------
 
@@ -1822,7 +1826,7 @@ ALTER TABLE `Jornadas`
 -- Filtros para la tabla `Mangas`
 --
 ALTER TABLE `Mangas`
-  ADD CONSTRAINT `Mangas_ibfk_1` FOREIGN KEY (`Tipo`) REFERENCES `Tipo_Manga` (`Tipo`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Mangas_ibfk_1` FOREIGN KEY (`Tipo`) REFERENCES `Tipo_Manga` (`ID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `Mangas_ibfk_2` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`Juez1`) REFERENCES `Jueces` (`ID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Juez2`) REFERENCES `Jueces` (`ID`) ON UPDATE CASCADE,

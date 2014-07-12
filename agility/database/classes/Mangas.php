@@ -5,6 +5,26 @@ require_once("DBObject.php");
 class Mangas extends DBObject {
 	protected $jornada;
 	
+	/* copia de la estructura de la base de datos, para ahorrar consultas */
+	public $tipo_manga= array(
+			 [1] => array( 'Manga sin tipo definido', '-'),
+			 [2] => array( 'Ronda de Pre-Agility', 'P.A.'),
+			 [3] => array( 'Agility Grado I Manga 1', 'GI'),
+		 	 [4] => array( 'Agility Grado I Manga 2', 'GI'),
+			 [5] => array( 'Agility Grado II', 'GII'),
+			 [6] => array( 'Agility Grado III', 'GIII'),
+			 [7] => array( 'Agility Abierta (Open)', '-'),
+			 [8] => array( 'Agility Equipos (3 mejores)', '-'),
+			 [9] => array( 'Agility Equipos (Conjunta)', '-'),
+			[10] => array( 'Jumping Grado II', 'GII'),
+			[11] => array( 'Jumping Grado III', 'GIII'),
+			[12] => array( 'Jumping Abierta (Open)', '-'),
+			[13] => array( 'Jumping por Equipos (3 mejores)', '-'),
+			[14] => array( 'Jumping por Equipos (Conjunta)', '-'),
+			[15] => array( 'Ronda K.O.', '-'),
+			[16] => array( 'Ronda de Exhibición', '-')	
+	);
+	
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
@@ -20,10 +40,16 @@ class Mangas extends DBObject {
 		$this->jornada=$jornada;
 	}
 	
+	/**
+	 * 
+	 * @param {integer} $tipo ID del tipo manga (tabla 'Tipo_Manga')
+	 * @param {string} $grado valor asociado al grado de la manga de la ID dada
+	 * @return {string} empty on success, else error 
+	 */
 	function insert($tipo,$grado) {
 		$this->myLogger->enter();
 		// si la manga existe no hacer nada; si no existe crear manga
-		$str="SELECT count(*) AS 'result' FROM Mangas WHERE ( Jornada = ".$this->jornada." ) AND  ( Tipo = '".$tipo."' )";
+		$str="SELECT count(*) AS 'result' FROM Mangas WHERE ( Jornada = ".$this->jornada." ) AND  ( Tipo = ".$tipo." )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 
 		if ($rs->num_rows > 0) {
@@ -31,7 +57,7 @@ class Mangas extends DBObject {
 			return "";
 		}
 		$rs->free();
-		$str="INSERT INTO Mangas ( Jornada , Tipo, Grado ) VALUES (".$this->jornada.",'".$tipo."','".$grado."')";
+		$str="INSERT INTO Mangas ( Jornada , Tipo, Grado ) VALUES (".$this->jornada.",".$tipo.",'".$grado."')";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
@@ -131,13 +157,14 @@ class Mangas extends DBObject {
 	
 	/**
 	 * Delete a Manga from jornada $this->jornada when tipo is $tipo
+	 * @param {integer} tipo ID a sociado a tipo manga
 	 * @return "" on success; null on error
 	 */
 	function delete($tipo) {
 		$this->myLogger->enter();
-		if ($tipo===null) return $this->error("Invalid value for 'Tipo'"); 
+		if ( ($tipo<=0) || ($tipo>16) ) return $this->error("Invalid value for 'Tipo'"); 
 		// si la manga existe, borrarla; si no existe, no hacer nada
-		$str="DELETE FROM Mangas WHERE ( Jornada = ".$this->jornada." ) AND  ( Tipo = '".$tipo."' )";
+		$str="DELETE FROM Mangas WHERE ( Jornada = ".$this->jornada." ) AND  ( Tipo = ".$tipo." )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
@@ -184,7 +211,7 @@ class Mangas extends DBObject {
 		if($result["total"]>0) {
 			$str="SELECT ID, Mangas.Tipo AS Tipo, Tipo_Manga.Descripcion AS Descripcion
 			FROM Mangas,Tipo_Manga
-			WHERE ( ( Jornada = ".$this->jornada." ) AND ( Mangas.Tipo = Tipo_Manga.Tipo) )
+			WHERE ( ( Jornada = ".$this->jornada." ) AND ( Mangas.Tipo = Tipo_Manga.ID ) )
 			ORDER BY Descripcion ASC";
 			$rs=$this->query($str);
 			if (!$rs) return $this->error($this->conn->error); 
