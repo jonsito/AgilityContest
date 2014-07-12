@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.9deb0.1
+-- version 3.5.8.2
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-03-2014 a las 14:47:01
--- Versión del servidor: 5.5.35-0ubuntu0.12.04.2
--- Versión de PHP: 5.3.10-1ubuntu3.10
+-- Tiempo de generación: 12-07-2014 a las 09:36:57
+-- Versión del servidor: 5.5.37-MariaDB
+-- Versión de PHP: 5.5.14
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -21,15 +19,13 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `agility`
 --
-CREATE DATABASE IF NOT EXISTS `agility` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `agility`;
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Categorias_Perro`
 --
--- Creación: 11-03-2014 a las 08:13:41
+-- Creación: 12-07-2014 a las 09:16:36
 --
 
 DROP TABLE IF EXISTS `Categorias_Perro`;
@@ -55,7 +51,7 @@ INSERT INTO `Categorias_Perro` (`Categoria`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `Clubes`
 --
--- Creación: 11-03-2014 a las 08:13:43
+-- Creación: 12-07-2014 a las 09:16:36
 --
 
 DROP TABLE IF EXISTS `Clubes`;
@@ -184,7 +180,7 @@ INSERT INTO `Clubes` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `
 --
 -- Estructura de tabla para la tabla `Equipos`
 --
--- Creación: 11-03-2014 a las 08:13:43
+-- Creación: 12-07-2014 a las 09:16:36
 --
 
 DROP TABLE IF EXISTS `Equipos`;
@@ -195,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `Equipos` (
   `Observaciones` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `Prueba` (`Prueba`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- RELACIONES PARA LA TABLA `Equipos`:
@@ -203,12 +199,19 @@ CREATE TABLE IF NOT EXISTS `Equipos` (
 --       `Pruebas` -> `ID`
 --
 
+--
+-- Volcado de datos para la tabla `Equipos`
+--
+
+INSERT INTO `Equipos` (`ID`, `Prueba`, `Nombre`, `Observaciones`) VALUES
+(1, 2, '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 - Equipo por defecto');
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Grados_Perro`
 --
--- Creación: 11-03-2014 a las 08:13:41
+-- Creación: 12-07-2014 a las 09:16:36
 --
 
 DROP TABLE IF EXISTS `Grados_Perro`;
@@ -237,7 +240,7 @@ INSERT INTO `Grados_Perro` (`Grado`, `Comentarios`) VALUES
 --
 -- Estructura de tabla para la tabla `Guias`
 --
--- Creación: 11-03-2014 a las 08:13:43
+-- Creación: 12-07-2014 a las 09:16:36
 --
 
 DROP TABLE IF EXISTS `Guias`;
@@ -737,7 +740,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 --
 -- Estructura de tabla para la tabla `Inscripciones`
 --
--- Creación: 11-03-2014 a las 08:13:44
+-- Creación: 12-07-2014 a las 09:16:36
 --
 
 DROP TABLE IF EXISTS `Inscripciones`;
@@ -799,7 +802,7 @@ DELIMITER ;
 --
 -- Estructura de tabla para la tabla `Jornadas`
 --
--- Creación: 11-03-2014 a las 08:13:44
+-- Creación: 12-07-2014 a las 09:33:32
 --
 
 DROP TABLE IF EXISTS `Jornadas`;
@@ -813,7 +816,9 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
   `Grado1` tinyint(1) NOT NULL DEFAULT '1',
   `Grado2` tinyint(1) NOT NULL DEFAULT '1',
   `Grado3` tinyint(1) NOT NULL DEFAULT '1',
-  `Equipos` tinyint(1) NOT NULL DEFAULT '0',
+  `Open` tinyint(1) NOT NULL DEFAULT '0',
+  `Equipos3` tinyint(1) NOT NULL DEFAULT '0',
+  `Equipos4` tinyint(1) NOT NULL DEFAULT '0',
   `PreAgility` tinyint(1) NOT NULL DEFAULT '1',
   `KO` tinyint(1) NOT NULL DEFAULT '0',
   `Exhibicion` tinyint(1) NOT NULL DEFAULT '0',
@@ -821,7 +826,7 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `Prueba` (`Prueba`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- RELACIONES PARA LA TABLA `Jornadas`:
@@ -829,12 +834,26 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
 --       `Pruebas` -> `ID`
 --
 
+--
+-- Volcado de datos para la tabla `Jornadas`
+--
+
+INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Grado1`, `Grado2`, `Grado3`, `Open`, `Equipos3`, `Equipos4`, `PreAgility`, `KO`, `Exhibicion`, `Otras`, `Cerrada`) VALUES
+(1, 2, 1, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+(2, 2, 2, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0),
+(3, 2, 3, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+(4, 2, 4, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+(5, 2, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+(6, 2, 6, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+(7, 2, 7, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+(8, 2, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0);
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Jueces`
 --
--- Creación: 11-03-2014 a las 08:13:42
+-- Creación: 12-07-2014 a las 09:16:36
 --
 
 DROP TABLE IF EXISTS `Jueces`;
@@ -887,7 +906,7 @@ INSERT INTO `Jueces` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `I
 --
 -- Estructura de tabla para la tabla `Mangas`
 --
--- Creación: 11-03-2014 a las 08:13:44
+-- Creación: 12-07-2014 a las 09:16:36
 --
 
 DROP TABLE IF EXISTS `Mangas`;
@@ -972,7 +991,7 @@ CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 --
 -- Estructura de tabla para la tabla `Perros`
 --
--- Creación: 11-03-2014 a las 08:13:44
+-- Creación: 12-07-2014 a las 09:16:36
 --
 
 DROP TABLE IF EXISTS `Perros`;
@@ -1567,7 +1586,7 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 --
 -- Estructura de tabla para la tabla `Provincias`
 --
--- Creación: 11-03-2014 a las 08:13:42
+-- Creación: 12-07-2014 a las 09:16:36
 --
 
 DROP TABLE IF EXISTS `Provincias`;
@@ -1643,7 +1662,7 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 --
 -- Estructura de tabla para la tabla `Pruebas`
 --
--- Creación: 11-03-2014 a las 08:13:45
+-- Creación: 12-07-2014 a las 09:16:36
 --
 
 DROP TABLE IF EXISTS `Pruebas`;
@@ -1658,7 +1677,7 @@ CREATE TABLE IF NOT EXISTS `Pruebas` (
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
   KEY `Club` (`Club`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- RELACIONES PARA LA TABLA `Pruebas`:
@@ -1671,14 +1690,15 @@ CREATE TABLE IF NOT EXISTS `Pruebas` (
 --
 
 INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`, `Observaciones`, `Cerrada`) VALUES
-(1, '-- Sin asignar --', 1, NULL, NULL, NULL, 'NO BORRAR: Prueba por defecto para jornadas huerfanas', 1);
+(1, '-- Sin asignar --', 1, NULL, NULL, NULL, 'NO BORRAR: Prueba por defecto para jornadas huerfanas', 1),
+(2, 'Prueba de prueba', 79, 'Instalaciones del club', '', '', '', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Resultados`
 --
--- Creación: 11-03-2014 a las 08:13:45
+-- Creación: 12-07-2014 a las 09:16:37
 --
 
 DROP TABLE IF EXISTS `Resultados`;
@@ -1717,7 +1737,7 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 --
 -- Estructura de tabla para la tabla `Tipo_Manga`
 --
--- Creación: 11-03-2014 a las 08:13:45
+-- Creación: 12-07-2014 a las 09:16:37
 --
 
 DROP TABLE IF EXISTS `Tipo_Manga`;
@@ -1834,7 +1854,6 @@ ALTER TABLE `Resultados`
 --
 ALTER TABLE `Tipo_Manga`
   ADD CONSTRAINT `Tipo_Manga_ibfk_1` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
