@@ -93,17 +93,19 @@ $('#seljornada-Jornada').combogrid({
 	    { field:'ID',			hidden:true }, // ID de la jornada
 	    { field:'Prueba',		hidden:true }, // ID de la prueba
 	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre/Comentario' },
-		{ field:'Fecha',		width:20, sortable:false,	align:'right', title: 'Fecha:' },
-		{ field:'Hora',			width:15, sortable:false,	align:'right', title: 'Hora.' },
-		{ field:'Grado1',		width:7, sortable:false,	align:'center', title: 'G-I   ' },
-		{ field:'Grado2',		width:7, sortable:false,	align:'center', title: 'G-II  ' },
-		{ field:'Grado3',		width:7, sortable:false,	align:'center', title: 'G-III ' },
-		{ field:'Equipos',		width:7, sortable:false,	align:'center', title: 'Eq.   ' },
-		{ field:'PreAgility',	width:7, sortable:false,	align:'center', title: 'Pre.  ' },
-		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.  ' },
-		{ field:'Exhibicion',	width:7, sortable:false,	align:'center', title: 'Show  ' },
-		{ field:'Otras',		width:7, sortable:false,	align:'center', title: 'Otras ' }
+		{ field:'Nombre',		width:40, sortable:false,   align:'right',  title: 'Nombre/Comentario' },
+		{ field:'Fecha',		width:20, sortable:false,	align:'right',  title: 'Fecha: ' },
+		{ field:'Hora',			width:15, sortable:false,	align:'right',  title: 'Hora.  ' },
+		{ field:'Grado1',		width:7, sortable:false,	align:'center', title: 'G-I    ' },
+		{ field:'Grado2',		width:7, sortable:false,	align:'center', title: 'G-II   ' },
+		{ field:'Grado3',		width:7, sortable:false,	align:'center', title: 'G-III  ' },
+		{ field:'Open',		    width:7, sortable:false,	align:'center', title: 'Open   ' },
+		{ field:'Equipos3',		width:7, sortable:false,	align:'center', title: 'Eq. 3x4' },
+		{ field:'Equipos4',		width:7, sortable:false,	align:'center', title: 'Eq. Conj.' },
+		{ field:'PreAgility',	width:7, sortable:false,	align:'center', title: 'Pre.   ' },
+		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.   ' },
+		{ field:'Exhibicion',	width:7, sortable:false,	align:'center', title: 'Show   ' },
+		{ field:'Otras',		width:7, sortable:false,	align:'center', title: 'Otras  ' }
 	]],
 	onBeforeLoad: function(param) { param.Operation='enumerate', param.Prueba=workingData.prueba; return true; }
 });

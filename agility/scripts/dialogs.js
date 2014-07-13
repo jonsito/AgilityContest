@@ -705,8 +705,10 @@ function editJornadaFromPrueba(pruebaID,datagridID) {
     $('#jornadas-Grado1').prop('checked',(row.Grado1==1)?true:false);
     $('#jornadas-Grado2').prop('checked',(row.Grado2==1)?true:false);
     $('#jornadas-Grado3').prop('checked',(row.Grado3==1)?true:false);
-    $('#jornadas-Equipos').prop('checked',(row.Equipos==1)?true:false);
+    $('#jornadas-Equipos3').prop('checked',(row.Equipos3==1)?true:false);
+    $('#jornadas-Equipos4').prop('checked',(row.Equipos4==1)?true:false);
     $('#jornadas-PreAgility').prop('checked',(row.PreAgility==1)?true:false);
+    $('#jornadas-Open').prop('checked',(row.Open==1)?true:false);
     $('#jornadas-KO').prop('checked',(row.KO==1)?true:false);
     $('#jornadas-Exhibicion').prop('checked',(row.Exhibicion==1)?true:false);
     $('#jornadas-Otras').prop('checked',(row.Otras==1)?true:false);
@@ -748,7 +750,9 @@ function saveJornada(){
     $('#jornadas-Grado1').val( $('#jornadas-Grado1').is(':checked')?'1':'0');
     $('#jornadas-Grado2').val( $('#jornadas-Grado2').is(':checked')?'1':'0');
     $('#jornadas-Grado3').val( $('#jornadas-Grado3').is(':checked')?'1':'0');
-    $('#jornadas-Equipos').val( $('#jornadas-Equipos').is(':checked')?'1':'0');
+    $('#jornadas-Open').val( $('#jornadas-Open').is(':checked')?'1':'0');
+    $('#jornadas-Equipos3').val( $('#jornadas-Equipos3').is(':checked')?'1':'0');
+    $('#jornadas-Equipos4').val( $('#jornadas-Equipos4').is(':checked')?'1':'0');
     $('#jornadas-PreAgility').val( $('#jornadas-PreAgility').is(':checked')?'1':'0');
     $('#jornadas-KO').val( $('#jornadas-KO').is(':checked')?'1':'0');
     $('#jornadas-Exhibicion').val( $('#jornadas-Exhibicion').is(':checked')?'1':'0');
@@ -779,58 +783,51 @@ function saveJornada(){
 }
 
 /**
- * No permitir activacion de una prueba si hay declarada una prueba ko o una de equipos
+ * Comprueba si se puede seleccionar la prueba elegida en base a las mangas pre-existentes
+ * @param {checkbox} id checkbox que se acaba de (de) seleccionar
+ * @param {mask} mascara de la prueba marcada (seleccionada o de-seleccionada)
+ * 0x0001, 'Otras'
+ * 0x0002, 'PreAgility'
+ * 0x0004, 'Grado1',
+ * 0x0008, 'Grado2',
+ * 0x0010, 'Grado3',
+ * 0x0020, 'Open',
+ * 0x0040, 'Equipos3',
+ * 0x0080, 'Equipos4',
+ * 0x0100, 'KO',
+ * 0x0200, 'Exhibicion'
  */
-function checkPrueba(id) {
-	var count=0;
-	count += $('#jornadas-Equipos').is(':checked')?1:0;
-	count += $('#jornadas-KO').is(':checked')?1:0;
-	count += $('#jornadas-Open').is(':checked')?1:0;
-	if (count==0) return;
-	$.messager.alert('Error','No se pueden declarar pruebas adicionales en un Open, una jornada KO o una prueba por Equipos','error');
-	$(id).prop('checked',false);
+function checkPrueba(id,mask) {
+	var pruebas=0;
+	// mascara de pruebas seleccionadas
+	pruebas |= $('#jornadas-Otras').is(':checked')?0x0001:0;
+	pruebas |= $('#jornadas-PreAgility').is(':checked')?0x0002:0;
+	pruebas |= $('#jornadas-Grado1').is(':checked')?0x0004:0;
+	pruebas |= $('#jornadas-Grado2').is(':checked')?0x0008:0;
+	pruebas |= $('#jornadas-Grado3').is(':checked')?0x0010:0;
+	pruebas |= $('#jornadas-Open').is(':checked')?0x0020:0;
+	pruebas |= $('#jornadas-Equipos3').is(':checked')?0x0040:0;
+	pruebas |= $('#jornadas-Equipos4').is(':checked')?0x0080:0;
+	pruebas |= $('#jornadas-KO').is(':checked')?0x0100:0;
+	pruebas |= $('#jornadas-Exhibicion').is(':checked')?0x0200:0;
+	// si no hay prueba seleccionada no hacer nada
+	if (pruebas==0) return;
+	// si estamos seleccionando una prueba ko/open/equipos, no permitir ninguna otra
+	if ( (mask & 0x01E0) != 0 ) {
+		if (mask!=pruebas) {
+			$.messager.alert('Error','Una prueba KO, un Open, o una prueba por equipos deben ser declaradas en jornadas independiente','error');
+			$(id).prop('checked',false);
+			return;
+		}
+	} else {
+		if ( (pruebas & 0x01E0) != 0 ) {
+			$.messager.alert('Error','No se pueden añadir pruebas adicionales si hay declarado un Open, una jornada KO o una prueba por Equipos','error');
+			$(id).prop('checked',false);
+			return;
+		}
+	}
 }
 
-function checkAlone() {
-	var count=0;
-	count += $('#jornadas-Grado1').is(':checked')?1:0;
-	count += $('#jornadas-Grado2').is(':checked')?1:0;
-	count += $('#jornadas-Grado3').is(':checked')?1:0;
-	count += $('#jornadas-Open').is(':checked')?1:0;
-	count += $('#jornadas-PreAgility').is(':checked')?1:0;
-	count += $('#jornadas-Equipos').is(':checked')?1:0;
-	count += $('#jornadas-KO').is(':checked')?1:0;
-	count += $('#jornadas-Exhibicion').is(':checked')?1:0;
-	count += $('#jornadas-Otras').is(':checked')?1:0;
-	return count; // 0 or 1 OK; else error
-}
-
-/**
- * En el caso de una prueba KO debe ser la unica prueba de la jornada
- */
-function setKO() {
-	if (checkAlone($('#jornadas-KO'))<=1) return; // everything ok
-	$.messager.alert('Error','Una prueba KO debe ser declarada en una jornada independiente','error');
-	$('#jornadas-KO').prop('checked',false);
-}
-
-/**
- * En el caso de una prueba por equipos debe ser la unica prueba de la jornada
- */
-function setEquipos() {
-	if (checkAlone($('#jornadas-Equipos'))<=1) return; // everything ok
-	$.messager.alert('Error','Una prueba por equipos debe ser declarada en una jornada independiente','error');
-	$('#jornadas-Equipos').prop('checked',false);
-}
-
-/**
- * En el caso de una prueba por equipos debe ser la unica prueba de la jornada
- */
-function setOpen() {
-	if (checkAlone($('#jornadas-Open'))<=1) return; // everything ok
-	$.messager.alert('Error','Una prueba abierta (Open) debe ser declarada en una jornada independiente','error');
-	$('#jornadas-Open').prop('checked',false);
-}
 
 // ***** gestion de inscripciones	*****************************************************
 

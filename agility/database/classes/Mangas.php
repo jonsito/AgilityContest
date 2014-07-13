@@ -7,22 +7,23 @@ class Mangas extends DBObject {
 	
 	/* copia de la estructura de la base de datos, para ahorrar consultas */
 	public $tipo_manga= array(
-			 [1] => array( 'Manga sin tipo definido', '-'),
-			 [2] => array( 'Ronda de Pre-Agility', 'P.A.'),
-			 [3] => array( 'Agility Grado I Manga 1', 'GI'),
-		 	 [4] => array( 'Agility Grado I Manga 2', 'GI'),
-			 [5] => array( 'Agility Grado II', 'GII'),
-			 [6] => array( 'Agility Grado III', 'GIII'),
-			 [7] => array( 'Agility Abierta (Open)', '-'),
-			 [8] => array( 'Agility Equipos (3 mejores)', '-'),
-			 [9] => array( 'Agility Equipos (Conjunta)', '-'),
-			[10] => array( 'Jumping Grado II', 'GII'),
-			[11] => array( 'Jumping Grado III', 'GIII'),
-			[12] => array( 'Jumping Abierta (Open)', '-'),
-			[13] => array( 'Jumping por Equipos (3 mejores)', '-'),
-			[14] => array( 'Jumping por Equipos (Conjunta)', '-'),
-			[15] => array( 'Ronda K.O.', '-'),
-			[16] => array( 'Ronda de Exhibición', '-')	
+			array ( 0,'',''),
+			array( 1, 'Manga sin tipo definido', '-'),
+			array( 2, 'Ronda de Pre-Agility', 'P.A.'),
+			array( 3, 'Agility Grado I Manga 1', 'GI'),
+		 	array( 4, 'Agility Grado I Manga 2', 'GI'),
+			array( 5, 'Agility Grado II', 'GII'),
+			array( 6, 'Agility Grado III', 'GIII'),
+			array( 7, 'Agility Abierta (Open)', '-'),
+			array( 8, 'Agility Equipos (3 mejores)', '-'),
+			array( 9, 'Agility Equipos (Conjunta)', '-'),
+			array( 10,'Jumping Grado II', 'GII'),
+			array( 11,'Jumping Grado III', 'GIII'),
+			array( 12,'Jumping Abierta (Open)', '-'),
+			array( 13,'Jumping por Equipos (3 mejores)', '-'),
+			array( 14,'Jumping por Equipos (Conjunta)', '-'),
+			array( 15,'Ronda K.O.', '-'),
+			array( 16,'Ronda de Exhibición', '-')	
 	);
 	
 	/**

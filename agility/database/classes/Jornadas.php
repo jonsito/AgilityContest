@@ -105,12 +105,12 @@ class Jornadas extends DBObject {
 		// componemos un prepared statement
 		$sql ="UPDATE Jornadas
 				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, Grado1=?, Grado2=?, Grado3=?,
-					Open=?, Equipos=?, PreAgility=?, KO=?, Exhibicion=?, Otras=?, Cerrada=?
+					Open=?, Equipos3=?, Equipos4=?, PreAgility=?, KO=?, Exhibicion=?, Otras=?, Cerrada=?
 				WHERE ( ID=? );";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('isssiiiiiiiiiii',
-				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$open,$equipos,$preagility,$ko,$exhibicion,$otras,$cerrada,$id);
+		$res=$stmt->bind_param('isssiiiiiiiiiiii',
+				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$ko,$exhibicion,$otras,$cerrada,$id);
 		if (!$res) return $this->error($this->conn->error); 
 		
 		// iniciamos los valores, chequeando su existencia
@@ -122,7 +122,8 @@ class Jornadas extends DBObject {
 		$grado2 = http_request("Grado2","i",0);
 		$grado3 = http_request("Grado3","i",0);
 		$open = http_request("Open","i",0);
-		$equipos = http_request("Equipos","i",0);
+		$equipos3 = http_request("Equipos3","i",0);
+		$equipos4 = http_request("Equipos4","i",0);
 		$preagility = http_request("PreAgility","i",0);
 		$ko = http_request("KO","i",0);
 		$exhibicion = http_request("Exhibicion","i",0);
@@ -137,7 +138,7 @@ class Jornadas extends DBObject {
 		if (!$res) return $this->error($this->conn->error); 
 		$stmt->close();
 		if (!$cerrada) {
-			$this->declare_mangas($id,$grado1,$grado2,$grado3,$open,$equipos,$preagility,$ko,$exhibicion,$otras);
+			$this->declare_mangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$ko,$exhibicion,$otras);
 		}
 		$this->myLogger->leave();
 		return "";
