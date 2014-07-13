@@ -612,11 +612,12 @@ function editPrueba(dg){
     $('#pruebas-dialog').dialog('open').dialog('setTitle','Modificar datos de la prueba');
     $('#pruebas-form').form({
     	onLoadSuccess: function(data) {
+    		alert('hola');
+    	    $('#pruebas-Operation').val('update');
             // take care on int-to-bool translation for checkboxes
             $('#pruebas-Cerrada').prop('checked',(row.Cerrada==1)?true:false);
     	}
     });
-    row.Operation='update';
     $('#pruebas-form').form('load',row);
 }
 

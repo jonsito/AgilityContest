@@ -11,7 +11,7 @@ try {
 	$pruebaID=http_request("ID","i",0);
 	switch ($operation) {
 		case "insert": $result=$pruebas->insert(); break;
-		case "update": $result=$pruebas->update(); break;
+		case "update": $result=$pruebas->update($pruebaID); break;
 		case "delete": $result=$pruebas->delete($pruebaID); break;
 		case "select": $result=$pruebas->select(); break;
 		case "enumerate": $result=$pruebas->enumerate(); break;

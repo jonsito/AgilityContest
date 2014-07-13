@@ -53,7 +53,7 @@ class Pruebas extends DBObject {
 	
 	function update($pruebaid) {
 		$this->myLogger->enter();
-		if ($id<=0) return $this->error("Invalid Prueba ID");
+		if ($pruebaid<=0) return $this->error("Invalid Prueba ID");
 		// componemos un prepared statement
 		$sql ="UPDATE Pruebas
 				SET Nombre=? , Club=? , Ubicacion=? , Triptico=? , Cartel=?, Observaciones=?, Cerrada=?
