@@ -56,7 +56,7 @@
                 // take care on internacional & practice checkbox
                 $('#jueces-Internacional').prop('checked',(data.Internacional==1)?true:false);
                 $('#jueces-Practicas').prop('checked',(data.Practicas==1)?true:false);
-            };
+            }
         });
         // - botones
         $('#jueces-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({

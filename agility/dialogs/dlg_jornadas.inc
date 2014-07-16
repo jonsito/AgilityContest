@@ -88,7 +88,7 @@
         </form>
             
 		<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-		<div id="jornadas-dlg-buttons">
+		<div id="jornadas-dlg-buttons" style="padding-bottom:15px">
 			<a id="jornadas-okBtn" href="#" class="easyui-linkbutton" onclick="saveJornada()">Guardar</a>
 			<a id="jornadas-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#jornadas-dialog').dialog('close')">Cancelar</a>
 		</div>
