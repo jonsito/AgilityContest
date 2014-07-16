@@ -683,26 +683,50 @@ function editJornadaFromPrueba(pruebaID,datagridID) {
     	return; // no hay ninguna jornada seleccionada. retornar
     }
     if (row.Cerrada==true) { // no permitir la edicion de pruebas cerradas
-    	$.messager.alert("Invalid selection","No se puede editar una prueba marcada como cerrada","error");
+    	$.messager.alert("Invalid selection","No se puede editar una jornada marcada como cerrada","error");
         return;
     }
     // todo ok: abrimos ventana de dialogo
     $('#jornadas-dialog').dialog('open').dialog('setTitle','Modificar datos de la jornada');
-    $('#jornadas-form').form('load',row);
-    // fix date and checkboxes value into datebox in "onLoadSuccess" event declaration
-    $('#jornadas-Grado1').prop('checked',(row.Grado1==1)?true:false);
-    $('#jornadas-Grado2').prop('checked',(row.Grado2==1)?true:false);
-    $('#jornadas-Grado3').prop('checked',(row.Grado3==1)?true:false);
-    $('#jornadas-Equipos3').prop('checked',(row.Equipos3==1)?true:false);
-    $('#jornadas-Equipos4').prop('checked',(row.Equipos4==1)?true:false);
-    $('#jornadas-PreAgility').prop('checked',(row.PreAgility==1)?true:false);
-    $('#jornadas-Open').prop('checked',(row.Open==1)?true:false);
-    $('#jornadas-KO').prop('checked',(row.KO==1)?true:false);
-    $('#jornadas-Exhibicion').prop('checked',(row.Exhibicion==1)?true:false);
-    $('#jornadas-Otras').prop('checked',(row.Otras==1)?true:false);
-    $('#jornadas-Cerrada').prop('checked',(row.Cerrada==1)?true:false);
-	$('#jornadas-Prueba').val(pruebaID);
-	$('#jornadas-Operation').val('update');
+    $('#jornadas-form').form('load',row); // will trigger onLoadSuccess in dlg_pruebas
+}
+
+/**
+ * Cierra la jornada seleccionada
+ *@param pruebaID objeto que contiene los datos de la prueba
+ *@param datagridID identificador del datagrid del que se toman los datos
+ */
+function closeJornadaFromPrueba(pruebaID,datagridID) {
+	// obtenemos datos de la JORNADA seleccionada
+	var row= $(datagridID).datagrid('getSelected');
+    // var row = $('#jornadas-datagrid-'+prueba.ID).datagrid('getSelected');
+    if (!row) {
+    	$.messager.alert("No selection","!No ha seleccionado ninguna jornada!","warning");
+    	return; // no hay ninguna jornada seleccionada. retornar
+    }
+    if (row.Cerrada==true) { // no permitir la edicion de pruebas cerradas
+    	$.messager.alert("Invalid selection","No se puede cerrar una jornada que ya está marcada como cerrada","error");
+        return;
+    }
+    $.messager.defaults={ ok:"Cerrar", cancel:"Cancelar" };
+    var w=$.messager.confirm(
+    		"Aviso",
+    		"Si marca una jornada como 'cerrada'<br />" +
+    		"no podrá modificar los datos de mangas, <br/>" +
+    		"inscripciones, o resultados<br />" +
+    		"¿Desea continuar?",
+    		function(r) { 
+    	    	if(r) {
+    	            $.get('database/jornadaFunctions.php',{Operation:'close',ID:row.ID},function(result){
+    	                if (result.success){
+    	                    $(datagridID).datagrid('reload');    // reload the pruebas data
+    	                } else {
+    	                    $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
+    	                }
+    	            },'json');
+    	    	}
+    		});
+    w.window('resize',{width:400,height:150}).window('center');
 }
 
 /**
@@ -763,7 +787,7 @@ function saveJornada(){
             	var id=$('#jornadas-Prueba').val();
                 $('#jornadas-dialog').dialog('close');        // close the dialog
                 // notice that some of these items may fail if dialog is not deployed. just ignore
-                $('#jornadas-datagrid-'+id).datagrid('reload',{ Prueba:id , Operation:'enumerate' }); // reload the prueba data
+                $('#jornadas-datagrid-'+id).datagrid('reload',{ Prueba:id , Operation:'select' }); // reload the prueba data
                 $('#inscripciones-jornadas').datagrid('reload');    // reload the prueba data
             }
         }

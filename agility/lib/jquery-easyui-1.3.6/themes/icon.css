@@ -85,6 +85,9 @@
 .icon-trash{
 	background:url('icons/trash.png') no-repeat center center;
 }
+.icon-forbidden{
+	background:url('icons/forbidden.png') no-repeat center center;
+}
 
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;

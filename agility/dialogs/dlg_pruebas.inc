@@ -12,6 +12,7 @@
                 	style="width:325px" />
                 <input id="pruebas-ID" name="ID" type="hidden" /> <!-- primary key -->
                 <input id="pruebas-Operation" name="Operation" type="hidden" /> <!-- used to store operation type -->
+                <input id="pruebas-Cerrada" name="Cerrada" type="hidden" /> <!-- preserve "closed" status -->
             </div>
             <div class="fitem">
                 <label for="Club">Club:</label>
@@ -34,11 +35,6 @@
                 <label for="Observaciones">Observaciones:</label>
                 <textarea id="pruebas-Observaciones" name="Observaciones" style="height:50px;width:250px"></textarea>
             </div>
-            <div class="fitem"><hr/></div>
-            <div class="fitem">
-                <label for="Cerrada">Prueba Cerrada:</label>
-                <input id="pruebas-Cerrada" name="Cerrada" class="easyui-checkbox" type="checkbox" value="1" />
-            </div>
         </form>
     
 		<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
@@ -55,8 +51,6 @@
     	onLoadSuccess: function(data) {
         	// alert(JSON.stringify(data));
     	    $('#pruebas-Operation').val('update');
-            // take care on int-to-bool translation for checkboxes
-            $('#pruebas-Cerrada').prop('checked',(data.Cerrada==1)?true:false);
     	}
     });
     // - botones

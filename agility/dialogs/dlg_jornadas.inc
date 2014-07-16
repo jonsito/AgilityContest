@@ -107,7 +107,24 @@
         buttons:'#jornadas-dlg-buttons'
     });
     // - declaracion del formulario
-    $('#jornadas-form').form();
+    $('#jornadas-form').form({
+        onLoadSuccess : function(data) {
+            // fix date and checkboxes value into datebox in "onLoadSuccess" event declaration
+            $('#jornadas-PreAgility').prop('checked',(data.PreAgility==1)?true:false);
+            $('#jornadas-Grado1').prop('checked',(data.Grado1==1)?true:false);
+            $('#jornadas-Grado2').prop('checked',(data.Grado2==1)?true:false);
+            $('#jornadas-Grado3').prop('checked',(data.Grado3==1)?true:false);
+            $('#jornadas-Equipos3').prop('checked',(data.Equipos3==1)?true:false);
+            $('#jornadas-Equipos4').prop('checked',(data.Equipos4==1)?true:false);
+            $('#jornadas-Open').prop('checked',(data.Open==1)?true:false);
+            $('#jornadas-KO').prop('checked',(data.KO==1)?true:false);
+            $('#jornadas-Exhibicion').prop('checked',(data.Exhibicion==1)?true:false);
+            $('#jornadas-Otras').prop('checked',(data.Otras==1)?true:false);
+            $('#jornadas-Cerrada').prop('checked',(data.Cerrada==1)?true:false);
+        	$('#jornadas-Prueba').val(data.Prueba);
+        	$('#jornadas-Operation').val('update');
+        }
+    });
 
     // fechas
     $('#jornadas-Fecha').datebox({ 

@@ -145,7 +145,7 @@ class Jornadas extends DBObject {
 	}
 	
 	/**
-	 * Delete jornada with provided name
+	 * Delete jornada with provided ID
 	 * @param {integer} jornada name primary key
 	 * @return "" on success ; otherwise null
 	 */
@@ -164,7 +164,23 @@ class Jornadas extends DBObject {
 		if (!$res)  return $this->error($this->conn->error); 
 
 		$this->myLogger->leave();
+		return "";
 	} 
+	
+	/**
+	 * Close jornada with provided ID
+	 * @param {integer} jornada name primary key
+	 * @return "" on success ; otherwise null
+	 */
+	function close($jornadaid) {
+		$this->myLogger->enter();
+		if ($jornadaid<=0) return $this->error("Invalid Jornada ID");
+		// marcamos la jornada con ID=$jornadaid como cerrada
+		$res= $this->query("UPDATE Jornadas SET Cerrada=1 WHERE ( ID=$jornadaid ) ;");
+		if (!$res) return $this->error($this->conn->error);
+		$this->myLogger->leave();
+		return "";
+	}
 	
 	/**
 	 * delete all journeys that belongs to current pruebaID

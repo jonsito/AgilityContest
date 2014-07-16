@@ -179,13 +179,28 @@
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		// por defecto, cada prueba tiene asociadas 8 jornadas que se crean automaticamente
         		// por consiguiente desde la aplicacion no se deben poder anyadir ni borrar jornadas
-        		toolbar:  [{
-        			id: 'jornadasbyprueba-editBtn',
-                	text: 'Editar jornada',
-                	plain: true,
-            		iconCls: 'icon-edit',
-           			handler: function(){editJornadaFromPrueba(prueba.ID,datagridID);}
-        		}],
+        		toolbar:  [
+        	        {
+        				id: 'jornadasbyprueba-editBtn',
+                		text: 'Editar jornada',
+                		plain: true,
+            			iconCls: 'icon-edit',
+           				handler: function(){editJornadaFromPrueba(prueba.ID,datagridID);}
+        			},{
+        				id: 'jornadasbyprueba-closeBtn',
+                		text: 'Cerrar jornada',
+                		plain: true,
+            			iconCls: 'icon-forbidden',
+           				handler: function(){closeJornadaFromPrueba(prueba.ID,datagridID);}
+        			},{
+        				id: 'jornadasbyprueba-reloadBtn',
+                		text: 'Actualizar',
+                		plain: true,
+            			iconCls: 'icon-reload',
+            			style: 'align:right',
+           				handler: function(){$(datagridID).datagrid('reload')}    // reload the pruebas data}
+        			}
+        			],
        		    pagination: false,
         	    rownumbers: false,
         	    fitColumns: true,
@@ -234,6 +249,16 @@
             $('#jornadasbyprueba-editBtn').linkbutton().tooltip({ // editar datos de la jornada
                 position: 'top',
                 content: '<span style="color:#000">Editar los datos la jornada seleccionada</span>',
+            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+            });
+            $('#jornadasbyprueba-closeBtn').linkbutton().tooltip({ // marcar la jornada como cerrada
+                position: 'top',
+                content: '<span style="color:#000">Cerrar la jornada seleccionada y Guardar datos permanentemente</span>',
+            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
+            });
+            $('#jornadasbyprueba-reloadBtn').linkbutton().tooltip({ // actualizar datos de jornadas de esta prueba
+                position: 'top',
+                content: '<span style="color:#000">Actualizar la lista de jornadas de esta prueba</span>',
             	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
             });
         };

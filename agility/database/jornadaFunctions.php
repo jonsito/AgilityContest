@@ -14,6 +14,7 @@
 		switch ($operation) {
 			// there is no need of "insert" method: every prueba has 8 "hard-linked" jornadas
 			case "delete": $result=$jornadas->delete($jornadaid); break;
+			case "close": $result=$jornadas->close($jornadaid); break;
 			case "update": $result=$jornadas->update($jornadaid); break;
 			case "select": $result=$jornadas->selectByPrueba(); break;
 			case "enumerate": $result=$jornadas->searchByPrueba(); break;
