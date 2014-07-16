@@ -198,7 +198,7 @@
                 		plain: true,
             			iconCls: 'icon-reload',
             			style: 'align:right',
-           				handler: function(){$(datagridID).datagrid('reload')}    // reload the pruebas data}
+           				handler: function(){$(datagridID).datagrid('reload');}    // reload the pruebas data}
         			}
         			],
        		    pagination: false,

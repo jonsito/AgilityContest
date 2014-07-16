@@ -207,9 +207,6 @@ function editGuia(dg){
     row.Operation='update';
     // stupid trick to make dialog's clubs combogrid display right data
     $('#guias-form').form('load',row); // load row data into guia edit form
-    $('#guias-Club').combogrid('clear');
-    $('#guias-Club').combogrid('setValue',row.Club);
-    $('#guias-Club').combogrid('setText',row.NombreClub);
 }
 
 /**
@@ -318,10 +315,6 @@ function editDog(dg){
     row.Parent='';
     row.Operation='update';
     $('#perros-form').form('load',row);// load form with row data
-    // stupid combogrid that doesn't display right data after form load
-    $('#perros-Guia').combogrid('clear');
-    $('#perros-Guia').combogrid('setValue',row.Guia);
-    $('#perros-Guia').combogrid('setText',row.NombreGuia);
 }
 
 /**
@@ -393,11 +386,7 @@ function editPerroFromGuia(dg,guia,onAccept) {
     }
     // add extra required data to form dialog
     row.Operation='update';
-    $('#perros-form').form('load',row);	// load form with row data
-    // stupid combogrid that doesn't display right data after form load
-    $('#perros-Guia').combogrid('clear');
-    $('#perros-Guia').combogrid('setValue',row.Guia);
-    $('#perros-Guia').combogrid('setText',row.NombreGuia);
+    $('#perros-form').form('load',row);	// load form with row data. onLoadSuccess will fix comboboxes
     // finally display composed data
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro asignado a '+guia.Nombre);
 	if (onAccept!==undefined)
@@ -513,9 +502,6 @@ function editJuez(dg){
     $('#jueces-dialog').dialog('open').dialog('setTitle','Modificar datos del juez');
     // and fill form with row data
     $('#jueces-form').form('load',row);
-    // take care on internacional & practice checkbox
-    $('#jueces-Internacional').prop('checked',(row.Internacional==1)?true:false);
-    $('#jueces-Practicas').prop('checked',(row.Practicas==1)?true:false);
 }
 
 /**

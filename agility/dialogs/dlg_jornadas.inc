@@ -1,6 +1,6 @@
      <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE JORNADAS -->
-    <div id="jornadas-dialog" class="easyui-dialog" style="width:350px;height:575px;padding:10px 20px">
-        <div class="ftitle">Informaci&oacute;n de la Jornada</div>
+    <div id="jornadas-dialog" class="easyui-dialog" style="width:350px;height:525px;padding:25px">
+        <div class="ftitle">Informaci&oacute;n de la Jornada<br /></div>
         <form id="jornadas-form" method="get" novalidate>
             <div class="fitem">
                 <label for="Nombre" style="width:250px">Nombre / Comentarios:</label>
@@ -84,12 +84,6 @@
                 <label for="Otras" style="width:200px" >Otras (no especificada)</label>
                 <input id="jornadas-Otras" name="Otras" class="easyui-checkbox" 
                 type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Otras',0x0001)"/>
-            </div>
-            
-            <div class="fitem"><hr/></div>
-            <div class="fitem">
-                <label for="Cerrada" style="width:200px" >Cerrar jornada</label>
-                <input id="jornadas-Cerrada" name="Cerrada" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
         </form>
             

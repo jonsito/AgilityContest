@@ -51,7 +51,13 @@
 	<script type="text/javascript">
         // datos del formulario de nuevo/edit jueces
         // - declaracion del formulario
-        $('#jueces-form').form();
+        $('#jueces-form').form({
+            onLoadSuccess: function(data) {
+                // take care on internacional & practice checkbox
+                $('#jueces-Internacional').prop('checked',(data.Internacional==1)?true:false);
+                $('#jueces-Practicas').prop('checked',(data.Practicas==1)?true:false);
+            };
+        });
         // - botones
         $('#jueces-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
         	position: 'top',

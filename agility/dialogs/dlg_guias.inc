@@ -41,7 +41,13 @@
     <script type="text/javascript">
         // datos del formulario de nuevo/edit guia
         // - declaracion del formulario
-        $('#guias-form').form();
+        $('#guias-form').form({
+        	onLoadSuccess: function(data) {
+        	    $('#guias-Club').combogrid('clear');
+        	    $('#guias-Club').combogrid('setValue',data.Club);
+        	    $('#guias-Club').combogrid('setText',data.NombreClub);
+        	}   
+        });
         // - botones
         $('#guias-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
             position: 'top',

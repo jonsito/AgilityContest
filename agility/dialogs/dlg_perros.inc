@@ -58,7 +58,12 @@
     $('#perros-form').form({
     	onLoadSuccess: function(data) {
     	    $('#perros-Operation').val('update'); // mark "update" operation
-    	});
+    	    // stupid combogrid that doesn't display right data after form load
+    	    $('#perros-Guia').combogrid('clear');
+    	    $('#perros-Guia').combogrid('setValue',data.Guia);
+    	    $('#perros-Guia').combogrid('setText',data.NombreGuia);
+    	}
+	});
     // - botones
     $('#perros-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
     	position: 'top',
