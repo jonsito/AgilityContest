@@ -51,7 +51,14 @@
     <script type="text/javascript">
     // datos del formulario de nuevo/edit prueba
     // - declaracion del formulario
-    $('#pruebas-form').form();
+    $('#pruebas-form').form({
+    	onLoadSuccess: function(data) {
+        	// alert(JSON.stringify(data));
+    	    $('#pruebas-Operation').val('update');
+            // take care on int-to-bool translation for checkboxes
+            $('#pruebas-Cerrada').prop('checked',(data.Cerrada==1)?true:false);
+    	}
+    });
     // - botones
     $('#pruebas-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
         position: 'top',

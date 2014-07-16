@@ -356,11 +356,6 @@ function editInscribedDog(mode){
 	else idperro= $('#chinscripciones-ID').val();
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro a inscribir');
     $('#perros-form').form('load','database/dogFunctions.php?Operation=getbyidperro&ID='+idperro);// load form with row data
-    $('#perros-form').form({
-    	onLoadSuccess: function(data) {
-    	    $('#perros-Operation').val('update'); // mark "update" operation
-    	}
-    });
 }
 
 /**
@@ -610,14 +605,6 @@ function editPrueba(dg){
     	return; // no way to know which prueba is selected
     }
     $('#pruebas-dialog').dialog('open').dialog('setTitle','Modificar datos de la prueba');
-    $('#pruebas-form').form({
-    	onLoadSuccess: function(data) {
-    		alert('hola');
-    	    $('#pruebas-Operation').val('update');
-            // take care on int-to-bool translation for checkboxes
-            $('#pruebas-Cerrada').prop('checked',(row.Cerrada==1)?true:false);
-    	}
-    });
     $('#pruebas-form').form('load',row);
 }
 

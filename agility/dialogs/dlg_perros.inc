@@ -55,7 +55,10 @@
 
     // datos del formulario de nuevo/edit perros
     // - declaracion del formulario
-    $('#perros-form').form();
+    $('#perros-form').form({
+    	onLoadSuccess: function(data) {
+    	    $('#perros-Operation').val('update'); // mark "update" operation
+    	});
     // - botones
     $('#perros-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
     	position: 'top',
