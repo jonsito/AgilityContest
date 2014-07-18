@@ -81,9 +81,7 @@
             		{ field:'Baja',			width:2, sortable:true,    title: 'Baja' }
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-            rowStyler:function(index,row) { 
-                return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-            },
+            rowStyler:myRowStyler,
         	// on double click fireup editor dialog
             onDblClickRow:function() { 
                 editClub('#clubes-datagrid');
@@ -214,9 +212,7 @@
         	    	{ field:'Observaciones',width:15,					title: 'Observaciones'}
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-            	rowStyler:function(idx,row) { 
-            	    return ((idx&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-            	},
+            	rowStyler:myRowStyler,
                 onResize:function(){
                     $('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
                 },
@@ -302,9 +298,7 @@
             		{ field:'Licencia',	width:25, sortable:true,    title: 'Licencia' }
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-            	rowStyler:function(idx,row) { 
-            	    return ((idx&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-            	},
+            	rowStyler:myRowStyler},
             	// on double click fireup editor dialog
                 onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
                     editPerroFromGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } );

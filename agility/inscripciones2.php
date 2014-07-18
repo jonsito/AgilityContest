@@ -115,9 +115,7 @@ $('#inscripciones-jornadas').datagrid({
       		{ field:'Otras',		width:15, sortable:false,	align:'center', title: 'Otras  ' },
       		{ field:'Cerrada',		width:20, sortable:false,	align:'center', title: 'Cerrada', formatter:identificaJornada }
     ]],
-    rowStyler:function(index,row) { // colorize rows
-        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-    },
+    rowStyler:myRowStyler,
 	// on double click fireup editor dialog
 	onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
     	editJornadaFromPrueba(workingData.prueba,'#inscripciones-jornadas');
@@ -197,9 +195,7 @@ $('#inscripciones-datagrid').datagrid({
         { field:'J8',		width:3, align:'center', title: 'J8'},
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-    rowStyler:function(index,row) { 
-        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-    },
+    rowStyler:myRowStyler,
 	// on double click fireup editor dialog
     onDblClickRow:function() { 
         editInscripcion();

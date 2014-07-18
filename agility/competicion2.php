@@ -57,9 +57,7 @@ $('#competicion-listamangas').datagrid({
       	    { field:'Tipo',			hidden:true }, // Tipo de manga
       	    { field:'Descripcion',	width:120, sortable:false, align:'right'}, // texto del tipo de manga
     ]],
-    rowStyler:function(index,row) { // colorize rows
-        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-    },
+    rowStyler:myRowStyler,
     onSelect: function (index,row) {
         if (index<0) { // no manga selected
             $('#competicion-datosmanga').html("");

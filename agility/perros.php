@@ -73,9 +73,7 @@
                 { field:'NombreClub',     width:35, sortable:true, title: 'Nombre del Club'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-            rowStyler:function(index,row) { 
-                return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-            },
+            rowStyler:myRowStyler,
         	// on double click fireup editor dialog
             onDblClickRow:function() { 
                 editDog('#perros-datagrid');

@@ -69,9 +69,7 @@
                 { field:'Cerrada',		width:7,					title:'Cerrada', align: 'center'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-            rowStyler:function(index,row) { 
-                return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-            },
+            rowStyler:myRowStyler,
     		// on double click fireup editor dialog
         	onDblClickRow:function() { editPrueba('#pruebas-datagrid'); },
             // especificamos un formateador especial para desplegar la tabla de jornadas por prueba
@@ -207,9 +205,7 @@
             		{ field:'Cerrada',		width:8, sortable:false,   align:'center', title: 'Cerrada' }
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-            	rowStyler:function(idx,row) { 
-            	    return ((idx&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-            	},
+            	rowStyler:myRowStyler,
             	// on double click fireup editor dialog
                 onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
                     editJornadaFromPrueba(prueba.ID,datagridID);

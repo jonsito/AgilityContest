@@ -294,9 +294,7 @@ $('#resultados-manga1-datagrid').datagrid({
       	{ field:'Penalizacion',	width:15, align:'right', title: 'Penal.'}, 
       	{ field:'Calificacion',	width:25, align:'center',title: 'Calificacion'}
     ]],
-    rowStyler:function(index,row) { // colorize rows
-        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-    },
+    rowStyler:myRowStyler,
     onBeforeLoad: function(param) {
         param.Categorias=$('#resultados-cat-form-select').val();
         // do not load if no manga selected
@@ -343,9 +341,7 @@ $('#resultados-manga2-datagrid').datagrid({
       	{ field:'Penalizacion',	width:15, align:'right', title: 'Penal.'}, 
       	{ field:'Calificacion',	width:25, align:'center',title: 'Calificacion'}
     ]],
-    rowStyler:function(index,row) { // colorize rows
-        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-    },
+    rowStyler:myRowStyler,
     onBeforeLoad: function(param) {
         param.Categorias=$('#resultados-cat-form-select').val();
         // do not load if no manga selected
@@ -375,9 +371,7 @@ $('#resultados-conjunta-datagrid').datagrid({
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
-    rowStyler:function(index,row) { // colorize rows
-        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-    },
+    rowStyler:myRowStyler,
     onBeforeLoad: function(param) { // do not load if no manga selected
         if (workingData.manga<=0) return false;
         if (workingData.manga2<=0) return false;
