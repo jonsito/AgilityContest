@@ -5,13 +5,26 @@
     <!-- BARRA DE TAREAS DE LA TABLA DE GUIAS -->
     <div id="guias-toolbar" style="padding:5px 5px 25px 5px">
     	<span style="float:left;">
-        	<a id="guias-newBtn" href="#" class="easyui-linkbutton" onclick="newGuia($('#guias-search').val())">Nuevo Gu&iacute;a</a>
-        	<a id="guias-editBtn" href="#" class="easyui-linkbutton" onclick="editGuia('#guias-datagrid')">Editar Gu&iacute;a</a>
-        	<a id="guias-delBtn" href="#" class="easyui-linkbutton" onclick="deleteGuia('#guias-datagrid')">Borrar gu&iacute;a</a>
-    		<input id="guias-search" type="text" value="---- Buscar ----" class="search_textfield"/>
+        	<a id="guias-newBtn" href="#" class="easyui-linkbutton"
+        		iconCls="icon-users" plain="true"
+        		onclick="newGuia($('#guias-search').val())">Nuevo Gu&iacute;a</a>
+        	<a id="guias-editBtn" href="#" class="easyui-linkbutton"
+        		iconCls="icon-edit" plain="true" 
+        		onclick="editGuia('#guias-datagrid')">Editar Gu&iacute;a</a>
+        	<a id="guias-delBtn" href="#" class="easyui-linkbutton" 
+        		iconCls="icon-trash" plain="true"
+        		onclick="deleteGuia('#guias-datagrid')">Borrar gu&iacute;a</a>
+    		<input id="guias-search" type="text" value="---- Buscar ----" class="search_textfield"
+    		/>
     	</span>
     	<span style="float:right;">
-    		<a id="guias-reloadBtn" href="#" class="easyui-linkbutton">Actualizar</a>
+    		<a id="guias-reloadBtn" href="#" class="easyui-linkbutton"
+    			plain=true" iconCls="icon-reload"
+    			onClick="
+    	        	// clear selection and reload table
+    	    		$('#guias-search').val('---- Buscar ----');
+    	            $('#guias-datagrid').datagrid('load',{ where: '' });"
+    			>Actualizar</a>
     	</span>
     </div>
     
@@ -131,33 +144,33 @@
             }
 		});
         // - botones de la toolbar de la tabla
-        $('#guias-newBtn').linkbutton({iconCls:'icon-users',plain:true}).tooltip({ // nuevo guia 
+        $('#guias-newBtn').linkbutton().tooltip({ // nuevo guia 
         	position: 'top',
         	content: '<span style="color:#000">Dar de alta un nuevo gu&iacute;a en la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#guias-editBtn').linkbutton({iconCls:'icon-edit',plain:true}).tooltip({ // editar guia  
+        $('#guias-editBtn').linkbutton().tooltip({ // editar guia  
         	position: 'top',
         	content: '<span style="color:#000">Editar los datos del gu&iacute;a seleccionado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     	});
-        $('#guias-delBtn').linkbutton({iconCls:'icon-trash',plain:true}).tooltip({ // borrar guia
+        $('#guias-delBtn').linkbutton().tooltip({ // borrar guia
             position: 'top',
             content: '<span style="color:#000">Borrar el gu&iacute;a seleccionado de la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
-        $('#guias-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // borrar perro     
-        $('#guias-reloadBtn').tooltip({
+        $('#guias-reloadBtn').linkbutton().tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-    	$('#guias-reloadBtn').on("click", function () {
-        	// clear selection and reload table
-    		$('#guias-search').val('---- Buscar ----');
-            $('#guias-datagrid').datagrid('load',{ where: '' });
+        $('#guias-search').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Mostrar gu&iacute;as que coincidan con el criterio de busqueda</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
     	});
         $("#guias-search").keydown(function(event){
             if(event.keyCode != 13) return;
@@ -166,12 +179,6 @@
                 where: $('#guias-search').val()
             });
         });
-        $('#guias-search').tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Buscar entradas que contengan el texto dado</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
 
 		// mostrar los perros asociados a un guia
         function showPerrosByGuia(index,guia){

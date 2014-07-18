@@ -4,13 +4,26 @@
     <!-- BARRA DE TAREAS -->
     <div id="perros-toolbar" style="padding:5px 5px 25px 5px">
     	<span style="float:left;">
-    		<a id="perros-newBtn" href="#" class="easyui-linkbutton" onclick="newDog($('#perros-search').val())">Nuevo Perro</a>
-    		<a id="perros-editBtn" href="#" class="easyui-linkbutton" onclick="editDog('#perros-datagrid')">Editar Perro</a>
-    		<a id="perros-delBtn" href="#" class="easyui-linkbutton" onclick="deleteDog('#perros-datagrid')">Borrar Perro</a>
-    		<input id="perros-search" type="text" value="---- Buscar ----" class="search_textfield"/>
+    		<a id="perros-newBtn" href="#" class="easyui-linkbutton"
+    			plain="true" iconCls="icon-dog"
+    			onclick="newDog($('#perros-search').val())">Nuevo Perro</a>
+    		<a id="perros-editBtn" href="#" class="easyui-linkbutton"
+    			plain="true" iconCls="icon-edit"
+    			onclick="editDog('#perros-datagrid')">Editar Perro</a>
+    		<a id="perros-delBtn" href="#" class="easyui-linkbutton"
+    			plain="true" iconCls="icon-trash"
+    			onclick="deleteDog('#perros-datagrid')">Borrar Perro</a>
+    		<input id="perros-search" type="text" value="---- Buscar ----" class="search_textfield"
+    			/>
     	</span>
     	<span style="float:right;">
-    		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton">Actualizar</a>
+    		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"
+    			plain="true" iconCls="icon-reload"
+    			onclick="
+    	        	// clear selection and reload table
+    	    		$('#perros-search').val('---- Buscar ----');
+    	            $('#perros-datagrid').datagrid('load',{ where: '' });"
+    		>Actualizar</a>
     	</span>
     </div>
     
@@ -127,38 +140,35 @@
             }
 		});
         // - botones de la toolbar de la tabla
-        $('#perros-newBtn').linkbutton({plain:true,iconCls:'icon-dog'}); // nuevo perro       
-        $('#perros-newBtn').tooltip({
+        $('#perros-newBtn').linkbutton().tooltip({ // nuevo perro
         	position: 'top',
         	content: '<span style="color:#000">Dar de alta un nuevo perro en la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#perros-editBtn').linkbutton({plain:true,iconCls:'icon-edit'}); // editar perro      
-        $('#perros-editBtn').tooltip({
+        $('#perros-editBtn').linkbutton().tooltip({ // editar perro
         	position: 'top',
         	content: '<span style="color:#000">Modificar los datos del perro seleccionado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#perros-delBtn').linkbutton({plain:true,iconCls:'icon-trash'}); // borrar perro     
-        $('#perros-delBtn').tooltip({
+        $('#perros-delBtn').linkbutton().tooltip({ // borrar perro
         	position: 'top',
         	content: '<span style="color:#000">Eliminar el perro seleccionado de la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#perros-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // borrar perro     
-        $('#perros-reloadBtn').tooltip({
+        $('#perros-reloadBtn').linkbutton().tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-    	$('#perros-reloadBtn').on("click", function () {
-        	// clear selection and reload table
-    		$('#perros-search').val('---- Buscar ----');
-            $('#perros-datagrid').datagrid('load',{ where: '' });
+        $('#perros-search').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Buscar perros que cumplan con el criterio de busqueda</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
     	});
         $("#perros-search").keydown(function(event){
             if(event.keyCode != 13) return;
@@ -167,10 +177,4 @@
                 where: $('#perros-search').val()
             });
         });
-        $('#perros-search').tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Buscar entradas que contengan el texto dado</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
 	</script>

@@ -6,13 +6,24 @@
 	<!-- BARRA DE TAREAS DE LA TABLA DE CLUBES-->
     <div id="clubes-toolbar" style="padding:5px 5px 25px 5px;">
     	<span style="float:left;">
-    		<a id="clubes-newBtn" href="#" class="easyui-linkbutton" onclick="newClub($('#clubes-search').val())">Nuevo Club</a>
-    		<a id="clubes-editBtn" href="#" class="easyui-linkbutton" onclick="editClub('#clubes-datagrid')">Editar Club</a>
-    		<a id="clubes-delBtn" href="#" class="easyui-linkbutton" onclick="deleteClub('#clubes-datagrid')">Borrar Club</a>
+    		<a id="clubes-newBtn" href="#" class="easyui-linkbutton" 
+    			iconCls="icon-flag" plain=true
+    			onclick="newClub($('#clubes-search').val())">Nuevo Club</a>
+    		<a id="clubes-editBtn" href="#" class="easyui-linkbutton" 
+    			iconCls="icon-edit" plain=true
+    			onclick="editClub('#clubes-datagrid')">Editar Club</a>
+    		<a id="clubes-delBtn" href="#" class="easyui-linkbutton" 
+    			iconCls="icon-trash" plain=true
+    			onclick="deleteClub('#clubes-datagrid')">Borrar Club</a>
     		<input id="clubes-search" type="text" value="---- Buscar ----" class="search_textfield"/>
     	</span>
     	<span style="float:right;">
-    		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton">Actualizar</a>
+    		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"
+    		plain="true" iconCls="icon-reload"
+    		onClick="
+        	// clear selection and reload table
+    		$('#clubes-search').val('---- Buscar ----');
+            $('#clubes-datagrid').datagrid('load',{ where: '' });">Actualizar</a>
     	</span>
     </div>   
 
@@ -144,33 +155,34 @@
 		}); 
 		
         // - botones de la toolbar de la tabla
-        $('#clubes-newBtn').linkbutton({iconCls:'icon-flag',plain:true}).tooltip({ // nuevo club        
+        $('#clubes-newBtn').linkbutton().tooltip({ // nuevo club        
         	position: 'top',
         	content: '<span style="color:#000">Dar de alta un nuevo club en la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#clubes-editBtn').linkbutton({iconCls:'icon-edit',plain:true}).tooltip({ // editar club   
+        $('#clubes-editBtn').linkbutton().tooltip({ // editar club   
         	position: 'top',
         	content: '<span style="color:#000">Editar los datos del club seleccionado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     	});
-        $('#clubes-delBtn').linkbutton({iconCls:'icon-trash',plain:true}).tooltip({ // borrar club
+        $('#clubes-delBtn').linkbutton().tooltip({ // borrar club
             position: 'top',
             content: '<span style="color:#000">Borrar el club seleccionado de la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
-        $('#clubes-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // actualizar tabla
+        $('#clubes-reloadBtn').linkbutton(); // actualizar tabla
         $('#clubes-reloadBtn').tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-    	$('#clubes-reloadBtn').on("click", function () {
-        	// clear selection and reload table
-    		$('#clubes-search').val('---- Buscar ----');
-            $('#clubes-datagrid').datagrid('load',{ where: '' });
+        $('#clubes-search').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Mostrar clubes que coincidan con el criterio de busqueda</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
     	});
         $("#clubes-search").keydown(function(event){
             if(event.keyCode != 13) return;
@@ -179,12 +191,6 @@
                 where: $('#clubes-search').val()
             });
         });
-        $('#clubes-search').tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Buscar entradas que contengan el texto dado</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
         
     	
         function showGuiasByClub(index,club){

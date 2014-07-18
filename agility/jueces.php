@@ -5,13 +5,26 @@
     <!-- BARRA DE TAREAS DE LA TABLA DE JUECES -->
     <div id="jueces-toolbar" style="padding:5px 5px 25px 5px;">
     	<span style="float:left;">
-    		<a id="jueces-newBtn" href="#" class="easyui-linkbutton" onclick="newJuez($('#jueces-search').val())">Nuevo Juez</a>
-    		<a id="jueces-editBtn" href="#" class="easyui-linkbutton" onclick="editJuez('#jueces-datagrid')">Editar Juez</a>
-    		<a id="jueces-delBtn" href="#" class="easyui-linkbutton" onclick="deleteJuez('#jueces-datagrid')">Borrar Juez</a>
-    		<input id="jueces-search" type="text" value="---- Buscar ----" class="search_textfield"/>
+    		<a id="jueces-newBtn" href="#" class="easyui-linkbutton"
+    			iconCls="icon-whistle" plain="true"
+    			onclick="newJuez($('#jueces-search').val())">Nuevo Juez</a>
+    		<a id="jueces-editBtn" href="#" class="easyui-linkbutton" 
+    			iconCls="icon-edit" plain="true"
+    			onclick="editJuez('#jueces-datagrid')">Editar Juez</a>
+    		<a id="jueces-delBtn" href="#" class="easyui-linkbutton" 
+    			iconCls="icon-trash" plain="true"
+    			onclick="deleteJuez('#jueces-datagrid')">Borrar Juez</a>
+    		<input id="jueces-search" type="text" value="---- Buscar ----" class="search_textfield"
+    			/>
     	</span>
     	<span style="float:right;">
-    		<a id="jueces-reloadBtn" href="#" class="easyui-linkbutton">Actualizar</a>
+    		<a id="jueces-reloadBtn" href="#" class="easyui-linkbutton"
+    			plain="true" iconCls="icon-reload"
+    			onclick="
+    	        	// clear selection and reload table
+    	    		$('#jueces-search').val('---- Buscar ----');
+    	            $('#jueces-datagrid').datagrid('load',{ where: '' });"
+    			>Actualizar</a>
     	</span>
     </div>
 	<?php include_once("dialogs/dlg_jueces.inc")?>
@@ -124,38 +137,35 @@
             }
 		});
         // - botones de la toolbar de la tabla
-        $('#jueces-newBtn').linkbutton({iconCls:'icon-whistle',plain:true }); // nuevo juez
-        $('#jueces-newBtn').tooltip({
+        $('#jueces-newBtn').linkbutton().tooltip({ // nuevo juez
         	position: 'top',
         	content: '<span style="color:#000">Dar de alta un nuevo juez en la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#jueces-editBtn').linkbutton({iconCls:'icon-edit',plain:true }); // editar juez
-        $('#jueces-editBtn').tooltip({
+        $('#jueces-editBtn').linkbutton().tooltip({ // editar juez
         	position: 'top',
         	content: '<span style="color:#000">Modificar los datos del juez seleccionado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#jueces-delBtn').linkbutton({iconCls:'icon-trash',plain:true }); // borrar juez 
-        $('#jueces-delBtn').tooltip({
+        $('#jueces-delBtn').linkbutton().tooltip({ // borrar juez 
         	position: 'top',
         	content: '<span style="color:#000">Eliminar el juez seleccionado de la BBDD</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	}); 
-        $('#jueces-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // borrar perro     
-        $('#jueces-reloadBtn').tooltip({
+        $('#jueces-reloadBtn').linkbutton().tooltip({ // recargar 
         	position: 'top',
         	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-    	$('#jueces-reloadBtn').on("click", function () {
-        	// clear selection and reload table
-    		$('#jueces-search').val('---- Buscar ----');
-            $('#jueces-datagrid').datagrid('load',{ where: '' });
+        $('#jueces-search').tooltip({
+        	position: 'top',
+        	content: '<span style="color:#000">Buscar jueces que coincidan con el criterio de busqueda</span>',
+        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+        	}
     	});
         $("#jueces-search").keydown(function(event){
             if(event.keyCode != 13) return;
@@ -164,12 +174,6 @@
                 where: $('#jueces-search').val()
             });
         });
-        $('#jueces-search').tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Buscar entradas que contengan el texto dado</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
         
 
 	</script>
