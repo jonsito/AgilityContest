@@ -143,35 +143,13 @@
                 return false;
             }
 		});
-        // - botones de la toolbar de la tabla
-        $('#guias-newBtn').linkbutton().tooltip({ // nuevo guia 
-        	position: 'top',
-        	content: '<span style="color:#000">Dar de alta un nuevo gu&iacute;a en la BBDD</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#guias-editBtn').linkbutton().tooltip({ // editar guia  
-        	position: 'top',
-        	content: '<span style="color:#000">Editar los datos del gu&iacute;a seleccionado</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-    	});
-        $('#guias-delBtn').linkbutton().tooltip({ // borrar guia
-            position: 'top',
-            content: '<span style="color:#000">Borrar el gu&iacute;a seleccionado de la BBDD</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-        });
-        $('#guias-reloadBtn').linkbutton().tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#guias-search').tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Mostrar gu&iacute;as que coincidan con el criterio de busqueda</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
+		// tooltips
+		addTooltip($('#guias-newBtn').linkbutton(),"Dar de alta un nuevo gu&iacute;a en la BBDD"); 
+		addTooltip($('#guias-editBtn').linkbutton(),"Editar los datos del gu&iacute;a seleccionado");
+		addTooltip($('#guias-delBtn').linkbutton(),"Borrar el gu&iacute;a seleccionado de la BBDD");
+		addTooltip($('#guias-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
+		addTooltip($('#guias-search'),"ostrar gu&iacute;as que coincidan con el criterio de busqueda");
+        // - activar la tecla "Enter" en la casilla de busqueda
         $("#guias-search").keydown(function(event){
             if(event.keyCode != 13) return;
           	// reload data adding search criteria
@@ -199,19 +177,19 @@
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		// toolbar: '#perrosbyguia-toolbar', 
 				toolbar:  [{
-					id: 'perrosbyguia-newBtn',
+					id: 'perrosbyguia-newBtn'+guia.ID,
 					text: 'Asignar perro',
 					plain: true,
 					iconCls: 'icon-dog',
 					handler: function(){assignPerroToGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } ); }
 				},{
-					id: 'perrosbyguia-editBtn',
+					id: 'perrosbyguia-editBtn'+guia.ID,
 					text: 'Editar datos',
 					plain: true,
 					iconCls: 'icon-edit',
 					handler: function(){editPerroFromGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } ); }
 				},{
-					id: 'perrosbyguia-delBtn',
+					id: 'perrosbyguia-delBtn'+guia.ID,
 					text: 'Desasignar perro',
 					plain: true,
 					iconCls: 'icon-trash',
@@ -244,27 +222,9 @@
                 } 
         	}); // end of perrosbyguia-datagrid-Nombre_del_Guia
         	$('#guias-datagrid').datagrid('fixDetailRowHeight',index);
-
-            // botones de los sub-formularios
-            $('#perrosbyguia-newBtn').linkbutton().tooltip({ // anyadir nuevo perro al guia
-                position: 'top',
-                content: '<span style="color:#000">Asignar un nuevo perro al guia</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });     
-            $('#perrosbyguia-delBtn').linkbutton().tooltip({ // desasignar perro al guia
-                position: 'top',
-                content: '<span style="color:#000">Eliminar asignaci&oacute;n del perro al gu&iacute;a</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });        
-            $('#perrosbyguia-editBtn').linkbutton().tooltip({ // editar datos del perro asignado al guia
-                position: 'top',
-                content: '<span style="color:#000">Editar los datos del perro asignado</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });
-            $('#perrosbyguia-assignBtn').linkbutton().tooltip({ // asignar un perro de la bbdd a este guia
-                position: 'top',
-                content: '<span style="color:#000">Reasignar un perro existente a este gu&iacute;a</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });
+			// tooltips de los sub-formularios
+			addTooltip($('#perrosbyguia-newBtn'+guia.ID).linkbutton(),"Asignar un nuevo perro a '"+guia.Nombre+"'"); 
+			addTooltip($('#perrosbyguia-delBtn'+guia.ID).linkbutton(),"Eliminar asignaci&oacute;n del perro a '"+guia.Nombre+"'"); 
+			addTooltip($('#perrosbyguia-editBtn'+guia.ID).linkbutton(),"Editar los datos del perro asignado a '"+guia.Nombre+"'");
         } // end of showPerrosByGuia
 	</script>

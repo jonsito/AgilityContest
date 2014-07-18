@@ -136,37 +136,12 @@
                     return false;
             }
 		});
-        // - botones de la toolbar de la tabla
-        $('#jueces-newBtn').linkbutton().tooltip({ // nuevo juez
-        	position: 'top',
-        	content: '<span style="color:#000">Dar de alta un nuevo juez en la BBDD</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#jueces-editBtn').linkbutton().tooltip({ // editar juez
-        	position: 'top',
-        	content: '<span style="color:#000">Modificar los datos del juez seleccionado</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#jueces-delBtn').linkbutton().tooltip({ // borrar juez 
-        	position: 'top',
-        	content: '<span style="color:#000">Eliminar el juez seleccionado de la BBDD</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	}); 
-        $('#jueces-reloadBtn').linkbutton().tooltip({ // recargar 
-        	position: 'top',
-        	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#jueces-search').tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Buscar jueces que coincidan con el criterio de busqueda</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
+		// tooltips
+		addTooltip($('#jueces-newBtn').linkbutton(),"Dar de alta un nuevo juez en la BBDD"); 
+		addTooltip($('#jueces-editBtn').linkbutton(),"Modificar los datos del juez seleccionado");
+		addTooltip($('#jueces-delBtn').linkbutton(),"Eliminar el juez seleccionado de la BBDD");
+		addTooltip($('#jueces-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
+		addTooltip($('#jueces-search'),"Buscar jueces que coincidan con el criterio de busqueda");
         $("#jueces-search").keydown(function(event){
             if(event.keyCode != 13) return;
           	// reload data adding search criteria

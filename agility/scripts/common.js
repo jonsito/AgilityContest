@@ -43,3 +43,17 @@ var workingData = new Object({
 	datosJornada: new Object(), // last selected jornada data
 	datosRonda: new Object() // last selected ronda (grade, manga1, manga2)
 });
+
+/**
+ * Add a tooltip provided element, with given text
+ * @param {easyui-object} obj Element suitable to add a tooltip
+ * @param {string} text Data text to be shown
+ */
+function addTooltip(obj,text) {
+	obj.tooltip({
+    	position: 'top',
+    	content: '<span style="color:#000">'+text+'</span>',
+    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
+    	}
+	});
+}

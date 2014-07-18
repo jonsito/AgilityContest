@@ -153,37 +153,14 @@
                 return false;
             }
 		}); 
-		
-        // - botones de la toolbar de la tabla
-        $('#clubes-newBtn').linkbutton().tooltip({ // nuevo club        
-        	position: 'top',
-        	content: '<span style="color:#000">Dar de alta un nuevo club en la BBDD</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#clubes-editBtn').linkbutton().tooltip({ // editar club   
-        	position: 'top',
-        	content: '<span style="color:#000">Editar los datos del club seleccionado</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-    	});
-        $('#clubes-delBtn').linkbutton().tooltip({ // borrar club
-            position: 'top',
-            content: '<span style="color:#000">Borrar el club seleccionado de la BBDD</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-        });
-        $('#clubes-reloadBtn').linkbutton(); // actualizar tabla
-        $('#clubes-reloadBtn').tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#clubes-search').tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Mostrar clubes que coincidan con el criterio de busqueda</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
+
+		// tooltips
+		addTooltip($('#clubes-newBtn').linkbutton(),"Dar de alta un nuevo club en la BBDD"); 
+		addTooltip($('#clubes-editBtn').linkbutton(),"Editar los datos del club seleccionado");
+		addTooltip($('#clubes-delBtn').linkbutton(),"Borrar el club seleccionado de la BBDD");
+		addTooltip($('#clubes-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
+		addTooltip($('#clubes-search'),"Mostrar clubes que coincidan con el criterio de busqueda");
+        // - activar la tecla "Enter" en la casilla de busqueda
         $("#clubes-search").keydown(function(event){
             if(event.keyCode != 13) return;
           	// reload data adding search criteria
@@ -211,19 +188,19 @@
         		method: 'get',
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		toolbar: [{
-            		id: 'guiasByClub-newBtn',
+            		id: 'guiasByClub-newBtn'+club.ID,
             		text: 'Asociar gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-users',
         			handler: function(){ assignGuiaToClub( mySelf,club, function () { $(mySelf).datagrid('reload'); } ); }
         		},{
-            		id: 'guiasByClub-editBtn',
+            		id: 'guiasByClub-editBtn'+club.ID,
             		text: 'Editar gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-edit',
         			handler: function(){ editGuiaFromClub(mySelf,club, function () { $(mySelf).datagrid('reload'); } );}
         		},{
-            		id: 'guiasByClub-delBtn',
+            		id: 'guiasByClub-delBtn'+club.ID,
             		text: 'Des-asociar gu&iacute;a',
             		plain: true,
         			iconCls: 'icon-remove',
@@ -269,23 +246,10 @@
                 } 
         	}); // end of '#clubes-guias-datagrid' declaration
         	$('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
-        	
-            //** botones del subformulario guiasByClub
-            $('#guiasByClub-newBtn').linkbutton().tooltip({ // anyadir entrada a lalista de guias del club
-                position: 'top',
-                content: '<span style="color:#000">Asociar/Crear nuevo guia en el club seleccionado</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });          
-            $('#guiasByClub-editBtn').linkbutton().tooltip({ // eliminar entrada lista de guias del club
-                position: 'top',
-                content: '<span style="color:#000">Editar datos del gu&iacute;a seleccionado del club</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });      
-            $('#guiasByClub-delBtn').linkbutton().tooltip({ // eliminar entrada lista de guias del club
-                position: 'top',
-                content: '<span style="color:#000">Desasociar al gu&iacute;a seleccionado del club</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });
+			// tooltips de los sub-formularios
+			addTooltip($('#guiasByClub-newBtn'+club.ID).linkbutton(),"Asociar/Crear nuevo guia en el club '"+club.Nombre+"'"); 
+			addTooltip($('#guiasByClub-editBtn'+club.ID).linkbutton(),"Editar datos del gu&iacute;a seleccionado del club '"+club.Nombre+"'"); 
+			addTooltip($('#guiasByClub-delBtn'+club.ID).linkbutton(),"Desasociar al gu&iacute;a seleccionado del club '"+club.Nombre+"'");
             	
         } // end of "showGuiasByClub"
         
@@ -310,19 +274,19 @@
         		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         		// toolbar: '#perrosbyguia-toolbar', 
 				toolbar:  [{
-					id: 'perrosByGuiaByClub-newBtn',
+					id: 'perrosByGuiaByClub-newBtn'+guia.ID+'_'+club.ID,
 					text: 'Asignar perro',
 					plain: true,
 					iconCls: 'icon-dog',
 					handler: function(){assignPerroToGuia(guia, function () { $(mySelf).datagrid('reload'); } );},
 				},{
-					id: 'perrosByGuiaByClub-editBtn',
+					id: 'perrosByGuiaByClub-editBtn'+guia.ID+'_'+club.ID,
 					text: 'Editar datos',
 					plain: true,
 					iconCls: 'icon-edit',
 					handler: function(){editPerroFromGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } );}
 				},{
-					id: 'perrosByGuiaByClub-delBtn',
+					id: 'perrosByGuiaByClub-delBtn'+guia.ID+'_'+club.ID,
 					text: 'Desasignar perro',
 					plain: true,
 					iconCls: 'icon-remove',
@@ -356,22 +320,10 @@
         	}); // end of perrosbyguia-datagrid-Nombre_del_Guia
         	$(parent).datagrid('fixDetailRowHeight',index);
 
-            // botones de los sub-formularios
-            $('#perrosByGuiaByClub-newBtn').linkbutton().tooltip({ // anyadir nuevo perro al guia
-                position: 'top',
-                content: '<span style="color:#000">Asignar un nuevo perro al guia</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });     
-            $('#perrosByGuiaByClub-delBtn').linkbutton().tooltip({ // desasignar perro al guia
-                position: 'top',
-                content: '<span style="color:#000">Eliminar asignaci&oacute;n del perro al gu&iacute;a</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });        
-            $('#perrosByGuiaByClub-editBtn').linkbutton().tooltip({ // editar datos del perro asignado al guia
-                position: 'top',
-                content: '<span style="color:#000">Editar los datos del perro asignado</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });
+			// tooltips de los sub-formularios
+			addTooltip($('#perrosByGuiaByClub-newBtn'+guia.ID+'_'+club.ID).linkbutton(),"Crear/Asignar un nuevo perro a '"+guia.Nombre+"'"); 
+			addTooltip($('#perrosByGuiaByClub-editBtn'+guia.ID+'_'+club.ID).linkbutton(),"Editar los datos del perro asignado a '"+guia.Nombre+"'"); 
+			addTooltip($('#perrosByGuiaByClub-delBtn'+guia.ID+'_'+club.ID).linkbutton(),"Eliminar asignaci&oacute;n del perro a '"+guia.Nombre+"'");
         } // end of showPerrosByGuia
 	</script>
 

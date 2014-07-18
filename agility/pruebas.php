@@ -140,42 +140,13 @@
                 return false;
             }
 		}); 
-		 
-        // - botones  y tooltips de la tabla
-        $('#pruebas-newBtn').linkbutton().tooltip({ // nueva prueba
-        	position: 'top',
-        	content: '<span style="color:#000">Dar de alta una nueva prueba</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#pruebas-editBtn').linkbutton().tooltip({ // editar prueba
-        	position: 'top',
-        	content: '<span style="color:#000">Editar los datos de la prueba seleccionada</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-    	});
-        $('#pruebas-delBtn').linkbutton().tooltip({ // borrar prueba
-            position: 'top',
-            content: '<span style="color:#000">Eliminar la prueba seleccionada</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-        });
-
-        $('#pruebas-search').tooltip({ // buscar prueba
-        	position: 'top',
-        	content: '<span style="color:#000">Buscar pruebas coincidentes con el texto indicado</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#pruebas-openBox').tooltip({ 
-            position: 'top',
-            content: '<span style="color:#000">Incluir en el listado las pruebas finalizadas</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-        });
-        $('#pruebas-reloadBtn').linkbutton().tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
+		// tooltips
+		addTooltip($('#pruebas-newBtn').linkbutton(),"Dar de alta una nueva prueba"); 
+		addTooltip($('#pruebas-editBtn').linkbutton(),"Editar los datos de la prueba seleccionada");
+		addTooltip($('#pruebas-delBtn').linkbutton(),"Eliminar la prueba seleccionada");
+		addTooltip($('#pruebas-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
+		addTooltip($('#pruebas-openBox').linkbutton(),"Incluir en el listado las pruebas finalizadas (cerradas)");
+		addTooltip($('#pruebas-search'),"Buscar pruebas coincidentes con el criterio de busqueda indicado");
 
         // ------------- submenu de jornadas asociadas a una prueba --------------------- //
         function showJornadasByPrueba (index,prueba) {
@@ -190,19 +161,19 @@
         		// por consiguiente desde la aplicacion no se deben poder anyadir ni borrar jornadas
         		toolbar:  [
         	        {
-        				id: 'jornadasbyprueba-editBtn',
+        				id: 'jornadasbyprueba-editBtn'+prueba.ID,
                 		text: 'Editar jornada',
                 		plain: true,
             			iconCls: 'icon-edit',
            				handler: function(){editJornadaFromPrueba(prueba.ID,datagridID);}
         			},{
-        				id: 'jornadasbyprueba-closeBtn',
+        				id: 'jornadasbyprueba-closeBtn'+prueba.ID,
                 		text: 'Cerrar jornada',
                 		plain: true,
             			iconCls: 'icon-forbidden',
            				handler: function(){closeJornadaFromPrueba(prueba.ID,datagridID);}
         			},{
-        				id: 'jornadasbyprueba-reloadBtn',
+        				id: 'jornadasbyprueba-reloadBtn'+prueba.ID,
                 		text: 'Actualizar',
                 		plain: true,
             			iconCls: 'icon-reload',
@@ -253,23 +224,10 @@
                 } 
         	}); // end of pruebas-jornada-datagrid
         	$('#pruebas-datagrid').datagrid('fixDetailRowHeight',index);
-        	
-            // botones de los sub-formularios
-            $('#jornadasbyprueba-editBtn').linkbutton().tooltip({ // editar datos de la jornada
-                position: 'top',
-                content: '<span style="color:#000">Editar los datos la jornada seleccionada</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });
-            $('#jornadasbyprueba-closeBtn').linkbutton().tooltip({ // marcar la jornada como cerrada
-                position: 'top',
-                content: '<span style="color:#000">Cerrar la jornada seleccionada y Guardar datos permanentemente</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });
-            $('#jornadasbyprueba-reloadBtn').linkbutton().tooltip({ // actualizar datos de jornadas de esta prueba
-                position: 'top',
-                content: '<span style="color:#000">Actualizar la lista de jornadas de esta prueba</span>',
-            	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-            });
+			// tooltips de los sub-formularios
+			addTooltip($('#jornadasbyprueba-editBtn'+prueba.ID).linkbutton(),"Editar los datos la jornada seleccionada"); 
+			addTooltip($('#jornadasbyprueba-closeBtn'+prueba.ID).linkbutton(),"Cerrar la jornada seleccionada y Guardar datos permanentemente"); 
+			addTooltip($('#jornadasbyprueba-reloadBtn'+prueba.ID).linkbutton(),"Actualizar la lista de jornadas de esta prueba");
         };
         
 	</script>

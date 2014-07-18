@@ -139,37 +139,13 @@
                 return false;
             }
 		});
-        // - botones de la toolbar de la tabla
-        $('#perros-newBtn').linkbutton().tooltip({ // nuevo perro
-        	position: 'top',
-        	content: '<span style="color:#000">Dar de alta un nuevo perro en la BBDD</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#perros-editBtn').linkbutton().tooltip({ // editar perro
-        	position: 'top',
-        	content: '<span style="color:#000">Modificar los datos del perro seleccionado</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#perros-delBtn').linkbutton().tooltip({ // borrar perro
-        	position: 'top',
-        	content: '<span style="color:#000">Eliminar el perro seleccionado de la BBDD</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#perros-reloadBtn').linkbutton().tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#perros-search').tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Buscar perros que cumplan con el criterio de busqueda</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
+		// tooltips
+		addTooltip($('#perros-newBtn').linkbutton(),"Dar de alta un nuevo perro en la BBDD"); 
+		addTooltip($('#perros-editBtn').linkbutton(),"Modificar los datos del perro seleccionado");
+		addTooltip($('#perros-delBtn').linkbutton(),"Eliminar el perro seleccionado de la BBDD");
+		addTooltip($('#perros-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
+		addTooltip($('#perros-search'),"Buscar perros que cumplan con el criterio de busqueda");
+        // - activar la tecla "Enter" en la casilla de busqueda
         $("#perros-search").keydown(function(event){
             if(event.keyCode != 13) return;
           	// reload data adding search criteria
