@@ -27,7 +27,7 @@
 		</p>
 		<p>
 		<label for="Observaciones" style="font-weight:bold">Observaciones:</label>
-		<input id="inscripciones-pcomments" type="text" name="Observaciones" disabled="disabled" size="36"/>
+		<input id="inscripciones-pcomments" type="text" name="Observaciones" disabled="disabled" size="33"/>
 		</p>
 		</form>
 	</div>
@@ -41,14 +41,24 @@
     <div id="inscripciones-toolbar" style="padding:10px 10px 40px 10px;">
     	<span style="float:left">
     	<select id="inscripciones-newGrid" class="easyui-combogrid" style="width:150px"></select>
-    	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton" onclick="insertInscripcion()">Inscribir</a>
-    	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton" onclick="editInscripcion()">Editar Registro</a>
-    	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton" onclick="deleteInscripcion()">Borrar inscripci&oacute;n</a>
+    	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton"
+    		plain="true" iconCls="icon-add"
+    		onclick="insertInscripcion()">Inscribir</a>
+    	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton"
+    		plain="true" iconCls="icon-edit"
+    		onclick="editInscripcion()">Editar Registro</a>
+    	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton"
+    		plain="true" iconCls="icon-remove"
+    		onclick="deleteInscripcion()">Borrar inscripci&oacute;n</a>
      	</span>
     	<span style="float:right">
     	<!-- estos elementos deben estar alineados a la derecha -->
-    	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton">Imprimir</a>
-	   	<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton" onclick="$('#inscripciones-datagrid').datagrid('reload');">Refrescar</a>
+    	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton"
+    		plain="true" iconCls="icon-print"
+    		>Imprimir</a>
+	   	<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton" 
+	   		plain="true" iconCls="icon-reload"
+	   		onclick="$('#inscripciones-datagrid').datagrid('reload');">Refrescar</a>
 	   	</span>
     </div>
   
@@ -258,34 +268,6 @@ $('#inscripciones-datagrid').datagrid('getPanel').panel('panel').attr('tabindex'
     }
 }); 
 
-// - botones de la cabecera de la tabla
-$('#inscripciones-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // nueva inscricion 
-$('#inscripciones-reloadBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Refrescar la lista de inscripciones</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-
-$('#inscripciones-printBtn').linkbutton({plain:true,iconCls:'icon-print'}); // imprimir listado 
-$('#inscripciones-printBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Imprimir la lista de inscripciones</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#inscripciones-printBtn').on("click", function () {
-	$.fileDownload(
-		'pdf/inscritosByPrueba.php',
-		{
-			httpMethod: 'GET',
-			data: { Prueba: workingData.prueba},
-	        preparingMessageHtml: "We are preparing your report, please wait...",
-	        failMessageHtml: "There was a problem generating your report, please try again."
-		}
-	);
-    return false; //this is critical to stop the click event which will trigger a normal file download!
-});
 
 // combogrid de inscripcion de participantes
 $('#inscripciones-newGrid').combogrid({
@@ -316,35 +298,26 @@ $('#inscripciones-newGrid').combogrid({
 	selectOnNavigation: false
 });
 
-// - botones de la toolbar de la tabla
-$('#inscripciones-newBtn').linkbutton({plain:true,iconCls:'icon-add'}); // insertar inscripcion      
-$('#inscripciones-newBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Inscribir el/los perro(s) seleccionados</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#inscripciones-editBtn').linkbutton({plain:true,iconCls:'icon-edit'}); // editar inscripcion      
-$('#inscripciones-editBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Modificar el registro seleccionado</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#inscripciones-delBtn').linkbutton({plain:true,iconCls:'icon-remove'}); // borrar perro     
-$('#inscripciones-delBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Eliminar el registro seleccionado de la BBDD</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
 
-$('#inscripciones-searchBtn').linkbutton({plain:true,iconCls:'icon-search'} ); // buscar perro
-$('#inscripciones-searchBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Buscar entradas que contengan el texto dado</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
+// tooltips
+addTooltip($('#inscripciones-newBtn').linkbutton(),"Inscribir el/los perro(s) seleccionados"); 
+addTooltip($('#inscripciones-editBtn').linkbutton(),"Modificar la inscripción seleccionada");
+addTooltip($('#inscripciones-delBtn').linkbutton(),"Eliminar la inscripción seleccionada de la BBDD");
+addTooltip($('#inscripciones-printBtn').linkbutton(),"Imprimir la lista de inscritos en la prueba");
+addTooltip($('#inscripciones-reloadBtn').linkbutton(),"Refrescar la lista de inscripciones para la prueba");
+
+// special handling for printing inscritos
+$('#inscripciones-printBtn').on("click", function () {
+	$.fileDownload(
+		'pdf/inscritosByPrueba.php',
+		{
+			httpMethod: 'GET',
+			data: { Prueba: workingData.prueba},
+	        preparingMessageHtml: "We are preparing your report, please wait...",
+	        failMessageHtml: "There was a problem generating your report, please try again."
+		}
+	);
+    return false; //this is critical to stop the click event which will trigger a normal file download!
 });
 
 // ventana de progreso de las inscripciones

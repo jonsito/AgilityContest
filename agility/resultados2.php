@@ -165,9 +165,10 @@
 		<option value="4">Medium + Small</option>
 		<option value="5">Large + Medium + Small</option>
 	</select>
-    <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" onclick="reloadClasificacion();">Refrescar</a>
-    <a id="resultados-labelsBtn" href="#" class="easyui-linkbutton" onclick="">Etiquetas</a>
-    <a id="resultados-printBtn" href="#" class="easyui-linkbutton" onclick="">Imprimir</a>
+    <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" 
+    	plain="true" iconCls="icon-reload" onclick="reloadClasificacion();">Refrescar</a>
+    <a id="resultados-labelsBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-table" onclick="">Etiquetas</a>
+    <a id="resultados-printBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-print" onclick="">Imprimir</a>
 	</form>
 </div>
 
@@ -230,28 +231,10 @@ $('#resultados-manga2-trs-form').form(
 		"database/mangaFunctions.php?Operation=getTRS&Jornada="+workingData.jornada+"&Manga="+workingData.datosRonda.Manga2
 		);
 
-// botones de la tabla de resultados
-$('#resultados-refreshBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // recargar
-$('#resultados-refreshBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Actualizar la tabla de resultados</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#resultados-labelsBtn').linkbutton({plain:true,iconCls:'icon-table'}); // etiquetas
-$('#resultados-labelsBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Generar patron CSV para componer etiquetas</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#resultados-printBtn').linkbutton({plain:true,iconCls:'icon-print'}); // imprimir
-$('#resultados-printBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Imprimir los resultados</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
+//tooltips
+addTooltip($('#resultados-refreshBtn').linkbutton(),"Actualizar la tabla de resultados");
+addTooltip($('#resultados-labelsBtn').linkbutton(),"Generar patron CSV para componer etiquetas");
+addTooltip($('#resultados-printBtn').linkbutton(),"Imprimir los resultados de la manga"); 
 
 // declaracion de las diversas tablas de resultados
 $('#resultados-manga1-datagrid').datagrid({
