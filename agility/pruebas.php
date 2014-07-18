@@ -5,14 +5,24 @@
     <!-- BARRA DE TAREAS DE LA TABLA DE PRUEBAS-->
     <div id="pruebas-toolbar" style="padding:5px 5px 25px 5px;">
     	<span style="float:left;">
-    	    <a id="pruebas-newBtn" href="#" class="easyui-linkbutton" onclick="newPrueba('#pruebas-search')">Nueva prueba</a>
-    	    <a id="pruebas-editBtn" href="#" class="easyui-linkbutton" onclick="editPrueba('#pruebas-datagrid')">Editar prueba</a>
-    	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" onclick="deletePrueba('#pruebas-datagrid')">Borrar prueba</a>
+    	    <a id="pruebas-newBtn" href="#" class="easyui-linkbutton" 
+    	    iconCls="icon-add" plain="true"
+    	    onclick="newPrueba('#pruebas-search')">Nueva prueba</a>
+    	    <a id="pruebas-editBtn" href="#" class="easyui-linkbutton"
+    	    iconCls="icon-edit" plain="true"
+    	    onclick="editPrueba('#pruebas-datagrid')">Editar prueba</a>
+    	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" 
+    	    iconCls="icon-remove" plain="true"
+    	    onclick="deletePrueba('#pruebas-datagrid')">Borrar prueba</a>
     		<input id="pruebas-search" type="text" value="---- Buscar ----" class="search_textfield"/>
-    	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox" onclick="doSearchPrueba()"/>Incl. Cerradas
+    	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox" 
+    	    iconCls="icon-search" plain="true"
+    	    onclick="doSearchPrueba()"/>Incl. Cerradas
     	</span>
     	<span style="float:right;">
-    		<a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton">Actualizar</a>
+    		<a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton" 
+    	    iconCls="icon-reload" plain="true"
+    	    onclick="$('#pruebas-datagrid').datagrid('reload')">Actualizar</a>
     	</span>
     </div>
     
@@ -132,24 +142,24 @@
 		}); 
 		 
         // - botones  y tooltips de la tabla
-        $('#pruebas-newBtn').linkbutton({iconCls:'icon-add',plain:true }).tooltip({ // nueva prueba
+        $('#pruebas-newBtn').linkbutton().tooltip({ // nueva prueba
         	position: 'top',
         	content: '<span style="color:#000">Dar de alta una nueva prueba</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
         	}
     	});
-        $('#pruebas-editBtn').linkbutton({iconCls:'icon-edit',plain:true }).tooltip({ // editar prueba
+        $('#pruebas-editBtn').linkbutton().tooltip({ // editar prueba
         	position: 'top',
         	content: '<span style="color:#000">Editar los datos de la prueba seleccionada</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
     	});
-        $('#pruebas-delBtn').linkbutton({iconCls:'icon-remove',plain:true }).tooltip({ // borrar prueba
+        $('#pruebas-delBtn').linkbutton().tooltip({ // borrar prueba
             position: 'top',
             content: '<span style="color:#000">Eliminar la prueba seleccionada</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
 
-        $('#pruebas-searchBtn').linkbutton({iconCls:'icon-search',plain:true }).tooltip({ // buscar prueba
+        $('#pruebas-search').tooltip({ // buscar prueba
         	position: 'top',
         	content: '<span style="color:#000">Buscar pruebas coincidentes con el texto indicado</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
@@ -160,8 +170,7 @@
             content: '<span style="color:#000">Incluir en el listado las pruebas finalizadas</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
         });
-        $('#pruebas-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // borrar perro     
-        $('#pruebas-reloadBtn').tooltip({
+        $('#pruebas-reloadBtn').linkbutton().tooltip({
         	position: 'top',
         	content: '<span style="color:#000">Borrar casilla de busqueda y actualizar tabla</span>',
         	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
