@@ -47,7 +47,7 @@
         <form id="chinscripciones-form" method="get" novalidate>
         	<!-- these two fields need to be filled before commit -->
         	<input id="chinscripciones-fIDPerro" type="hidden" name="IDPerro"/>
-        	<input id="chinscripciones-fPruebaID" type="hidden" name="ID"/>
+        	<input id="chinscripciones-fPruebaID" type="hidden" name="IDPrueba"/>
         	<input id="chinscripciones-fOperation" type="hidden" name="Operation"/>
         	<!-- "standard" data fields -->
         	<div class="fitem">
@@ -143,7 +143,7 @@
 		panelHeight: 100,
 		idField: 'ID',
 		textField: 'Nombre',
-		url: 'database/pruebaFunctions.php?Operation=equipos&ID='+workingData.prueba,
+		url: 'database/pruebaFunctions.php?Operation=equipos&IDPrueba='+workingData.prueba,
 		method: 'get',
 		mode: 'remote',
 		required: true,

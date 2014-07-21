@@ -5,7 +5,7 @@
 	
 	try {
 		$result=null;
-		$inscripciones= new Inscripciones("inscripcionFunctions",http_request("ID","i",0));
+		$inscripciones= new Inscripciones("inscripcionFunctions",http_request("IDPrueba","i",0));
 		$operation=http_request("Operation","s",null);
 		if ($operation===null) throw new Exception("Call to inscripcionFunctions without 'Operation' requested");
 		switch ($operation) {

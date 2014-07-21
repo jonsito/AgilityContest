@@ -945,9 +945,9 @@ function insertInscripcion() {
 			url:"database/inscripcionFunctions.php",
 			dataType:'json',
 			data: {
-				ID: workingData.prueba,
+				IDPrueba: workingData.prueba,
 				Operation: 'doit',
-				IDPerro: row.IDPerro
+				IDPerro: row.ID
 			}
 		});
 		count++;

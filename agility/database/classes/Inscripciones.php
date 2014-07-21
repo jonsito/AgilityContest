@@ -72,7 +72,7 @@ class Inscripciones extends DBObject {
 		$this->myLogger->enter();
 
 		// variables comunes a todas las jornadas
-		$idperro=http_request("Perro","i",0);
+		$idperro=http_request("IDPerro","i",0);
 		if ($idperro==0) return $this->error("Invalid IDPerro ID"); 
 		$celo=http_request("Celo","i",0);
 		$observaciones=http_request("Observaciones","s","");
@@ -104,14 +104,14 @@ class Inscripciones extends DBObject {
 				// vamos a ver si esta ya inscrito. 
 				$this->myLogger->debug("Insert/Update inscripcion Jornada:$numero ID:$jornada IDPerro:$idperro");
 				// usamos una sentencia "replace" que equivala a "insert of update if exists"
-				$sql="REPLACE INTO Inscripciones ( Jornada , IDPerro , Celo , Observaciones , Equipo , Pagado )
+				$sql="REPLACE INTO Inscripciones ( Jornada , Perro , Celo , Observaciones , Equipo , Pagado )
 					VALUES ( $jornada , $idperro, $celo , '$observaciones' , $equipo , $pagado )";
 				$rs=$this->query($sql);
 				if (!$rs) return $this->error($this->conn->error);
 			} else {
 				// no solicita inscripcion: borrar datos
 				$this->myLogger->debug("Borrar inscripcion Jornada:$numero ID:$jornada IDPerro:$idperro");
-				$sql="DELETE FROM Inscripciones where ( (IDPerro=$idperro) AND (Jornada=$jornada))";
+				$sql="DELETE FROM Inscripciones where ( (Perro=$idperro) AND (Jornada=$jornada))";
 				$rs=$this->query($sql);
 				if (!$rs) return $this->error($this->conn->error);
 			}
@@ -138,7 +138,7 @@ class Inscripciones extends DBObject {
 				$this->myLogger->info("Skip delete IDPerro $idperro on closed Jornada $jornada");
 				continue;
 			}
-			$sql="DELETE FROM Inscripciones where ( (IDPerro=$idperro) AND (Jornada=$jornada))";
+			$sql="DELETE FROM Inscripciones where ( (Perro=$idperro) AND (Jornada=$jornada))";
 			$res=$this->query($sql);
 			if (!$res) return $this->error($this->conn->error); 
 			$res=$this->updateOrdenSalida($jornada,$idperro);
