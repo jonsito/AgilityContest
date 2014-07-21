@@ -172,27 +172,6 @@
         		url: 'database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.ID },
         		method: 'get',
-        		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
-        		// toolbar: '#perrosbyguia-toolbar', 
-				toolbar:  [{
-					id: 'perrosbyguia-newBtn'+guia.ID,
-					text: 'Asignar perro',
-					plain: true,
-					iconCls: 'icon-dog',
-					handler: function(){assignPerroToGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } ); }
-				},{
-					id: 'perrosbyguia-editBtn'+guia.ID,
-					text: 'Editar datos',
-					plain: true,
-					iconCls: 'icon-edit',
-					handler: function(){editPerroFromGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } ); }
-				},{
-					id: 'perrosbyguia-delBtn'+guia.ID,
-					text: 'Desasignar perro',
-					plain: true,
-					iconCls: 'icon-trash',
-					handler: function(){delPerroFromGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } ); }
-				}],
         	    columns: [[
             	    { field:'ID',	width:15, sortable:true,	title: 'ID'},
             		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
@@ -217,10 +196,41 @@
                     },0);
                 } 
         	}); // end of perrosbyguia-datagrid-Nombre_del_Guia
+
+    		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
+    		// toolbar: '#perrosbyguia-toolbar', 
+			var toolbar = [{
+				id: 'perrosbyguia-newBtn'+guia.ID,
+				text: 'Asignar perro',
+				plain: true,
+				iconCls: 'icon-dog',
+				handler: function(){assignPerroToGuia(mySelf,guia); }
+			},{
+				id: 'perrosbyguia-editBtn'+guia.ID,
+				text: 'Editar datos',
+				plain: true,
+				iconCls: 'icon-edit',
+				handler: function(){editPerroFromGuia(mySelf,guia); }
+			},{
+				id: 'perrosbyguia-delBtn'+guia.ID,
+				text: 'Desasignar perro',
+				plain: true,
+				iconCls: 'icon-trash',
+				handler: function(){delPerroFromGuia(mySelf,guia); }
+			},{
+				id: 'perrosbyguia-reloadBtn'+guia.ID,
+        		text: 'Actualizar',
+        		plain: true,
+    			iconCls: 'icon-reload',
+    			align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
+   				handler: function(){ $(mySelf).datagrid('reload'); }    // reload the clubs data}
+			}];
+    		$(mySelf).datagrid('buildToolbar',toolbar); // programmatically add toolbar to datagrid
         	$('#guias-datagrid').datagrid('fixDetailRowHeight',index);
 			// tooltips de los sub-formularios
 			addTooltip($('#perrosbyguia-newBtn'+guia.ID).linkbutton(),"Asignar un nuevo perro a '"+guia.Nombre+"'"); 
 			addTooltip($('#perrosbyguia-delBtn'+guia.ID).linkbutton(),"Eliminar asignaci&oacute;n del perro a '"+guia.Nombre+"'"); 
 			addTooltip($('#perrosbyguia-editBtn'+guia.ID).linkbutton(),"Editar los datos del perro asignado a '"+guia.Nombre+"'");
+			addTooltip($('#perrosbyguia-reloadBtn'+guia.ID).linkbutton(),"Actualizar la lista de perros del gu&iacute;a '"+guia.Nombre+"'");
         } // end of showPerrosByGuia
 	</script>

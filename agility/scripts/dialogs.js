@@ -107,10 +107,10 @@ function deleteClub(dg){
 
 /**
  * Abre el formulario para anyadir guias a un club
- *@param {object} club: datos del club
- *@param {function} onAccept what to do (only once) when chguias-dialog gets closed by pressing ok
+ *@param {String} ID: Identificador del elemento ( datagrid) desde el que se invoca esta funcion
+ *@param {object} data: datos del club
  */
-function assignGuiaToClub(club,onAccept) {
+function assignGuiaToClub(id,club) {
 	// clear data forms
 	$('#chguias-header').form('clear'); // erase header form
 	$('#chguias-Search').combogrid('clear'); // reset header combogrid
@@ -121,17 +121,16 @@ function assignGuiaToClub(club,onAccept) {
 	// finalmente desplegamos el formulario y ajustamos textos
 	$('#chguias-title').text('Reasignar/Declarar un guia como perteneciente al club '+club.Nombre);
 	$('#chguias-dialog').dialog('open').dialog('setTitle','Asignar/Registrar un gu&iacute;a');
-	if (onAccept!==undefined)
-		$('#chguias-okBtn').one('click',onAccept); // usually refresh parent datagrid
+	// on click OK button, close dialog and refresh data
+	$('#chguias-okBtn').one('click',function () { $(id).datagrid('reload'); } ); 
 }
 
 /**
  * Abre el formulario de edicion de guias para cambiar los datos de un guia preasignado a un club
  * @param {string} dg datagrid ID de donde se obtiene el guia
  * @param {object} club datos del club
- * @param {function} onAccept what to do (only once) when window gets closed
  */
-function editGuiaFromClub(dg, club, onAccept) {
+function editGuiaFromClub(dg, club) {
     var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Delete Error:","!No ha seleccionado ningún Guia!","warning");
@@ -143,8 +142,8 @@ function editGuiaFromClub(dg, club, onAccept) {
     row.Operation='update';
     $('#guias-form').form('load',row);
     $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre);
-	if (onAccept!==undefined)
-		$('#guias-okBtn').one('click',onAccept);
+	// on click OK button, close dialog and refresh data
+	$('#guias-okBtn').one('click',function () { $(id).datagrid('reload'); } ); 
 }
 
 /**
@@ -154,7 +153,7 @@ function editGuiaFromClub(dg, club, onAccept) {
  * @param {object} club datos del club
  * @param {function} onAccept what to do (only once) when window gets closed
  */
-function delGuiaFromClub(dg,club,onAccept) {
+function delGuiaFromClub(dg,club) {
     var row = $(dg).datagrid('getSelected');
     if (!row){
     	$.messager.alert("Delete Error:","!No ha seleccionado ningún Guia!","warning");
@@ -165,7 +164,6 @@ function delGuiaFromClub(dg,club,onAccept) {
             $.get('database/guiaFunctions.php',{'Operation':'orphan','ID':row.ID},function(result){
                 if (result.success){
                 	$(dg).datagrid('reload');
-                	if (onAccept!==undefined) onAccept(); // usually reload the guia data 
                 } else {
                 	// show error message
                     $.messager.show({ title: 'Error', width: 300, height: 200, msg: result.errorMsg });
@@ -353,10 +351,10 @@ function editInscribedDog(mode){
 
 /**
  * Abre el formulario para anyadir/asignar perros a un guia
- *@param guia: nombre del guia
- *@param {function} onAccept what to do (only once) when chguias-dialog gets closed by pressing ok
+ *@param {string} ID identificador del datagrid que se actualiza
+ *@param {object} guia: datos del guia
  */
-function assignPerroToGuia(guia,onAccept) {
+function assignPerroToGuia(id,guia) {
 	// clean previous dialog data
 	$('#chperros-header').form('clear');
 	$('#chperros-Search').combogrid('clear');
@@ -367,8 +365,7 @@ function assignPerroToGuia(guia,onAccept) {
 	// desplegar ventana y ajustar textos
 	$('#chperros-title').text('Buscar perro / Declarar un nuevo perro y asignarlo a '+guia.Nombre);
 	$('#chperros-dialog').dialog('open').dialog('setTitle',"Reasignar / Declarar perro");
-	if (onAccept!==undefined)
-		$('#chperros-okBtn').one('click',onAccept); // usually refresh parent datagrid
+	$('#chperros-okBtn').one('click',function () { $(mySelf).datagrid('reload'); } );
 }
 
 /**
@@ -377,7 +374,7 @@ function assignPerroToGuia(guia,onAccept) {
 * @param {object} guia: datos del guia
 * @param {function} onAccept what to do (only once) when window gets closed
 */
-function editPerroFromGuia(dg,guia,onAccept) {
+function editPerroFromGuia(dg,guia) {
 	// try to locate which dog has been selected 
     var row = $(dg).datagrid('getSelected');
     if (!row) {
@@ -389,8 +386,7 @@ function editPerroFromGuia(dg,guia,onAccept) {
     $('#perros-form').form('load',row);	// load form with row data. onLoadSuccess will fix comboboxes
     // finally display composed data
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro asignado a '+guia.Nombre);
-	if (onAccept!==undefined)
-		$('#guias-okBtn').one('click',onAccept);
+	$('#perros-okBtn').one('click',function () { $(dg).datagrid('reload'); } );
 }
 
 /**
@@ -399,7 +395,7 @@ function editPerroFromGuia(dg,guia,onAccept) {
  * @param {object} guia: datos del guia
  * @param {function} onAccept what to do (only once) when window gets closed
  */
-function delPerroFromGuia(dg,guia,onAccept) {
+function delPerroFromGuia(dg,guia) {
     var row = $(dg).datagrid('getSelected');
     if (!row){
     	$.messager.alert("Error","!No ha seleccionado ningún perro!","warning");
@@ -410,7 +406,6 @@ function delPerroFromGuia(dg,guia,onAccept) {
             $.get('database/dogFunctions.php',{Operation:'orphan',ID:row.ID},function(result){
                 if (result.success){
                 	$(dg).datagrid('reload');
-                	if (onAccept!==undefined) onAccept(); // usually reload the guia data
                 } else {
                     $.messager.show({title: 'Error', msg: result.errorMsg, width: 300,height:200 });
                 }

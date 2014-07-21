@@ -154,31 +154,6 @@
         		url: 'database/jornadaFunctions.php',
         		queryParams: { Operation: 'select', Prueba: prueba.ID },
         		method: 'get',
-        		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
-        		// por defecto, cada prueba tiene asociadas 8 jornadas que se crean automaticamente
-        		// por consiguiente desde la aplicacion no se deben poder anyadir ni borrar jornadas
-        		toolbar:  [
-        	        {
-        				id: 'jornadasbyprueba-editBtn'+prueba.ID,
-                		text: 'Editar jornada',
-                		plain: true,
-            			iconCls: 'icon-edit',
-           				handler: function(){editJornadaFromPrueba(prueba.ID,datagridID);}
-        			},{
-        				id: 'jornadasbyprueba-closeBtn'+prueba.ID,
-                		text: 'Cerrar jornada',
-                		plain: true,
-            			iconCls: 'icon-forbidden',
-           				handler: function(){closeJornadaFromPrueba(prueba.ID,datagridID);}
-        			},{
-        				id: 'jornadasbyprueba-reloadBtn'+prueba.ID,
-                		text: 'Actualizar',
-                		plain: true,
-            			iconCls: 'icon-reload',
-            			style: 'align:right',
-           				handler: function(){$(datagridID).datagrid('reload');}    // reload the pruebas data}
-        			}
-        			],
        		    pagination: false,
         	    rownumbers: false,
         	    fitColumns: true,
@@ -219,7 +194,34 @@
                     },0);
                 } 
         	}); // end of pruebas-jornada-datagrid
+
         	$('#pruebas-datagrid').datagrid('fixDetailRowHeight',index);
+    		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
+    		// por defecto, cada prueba tiene asociadas 8 jornadas que se crean automaticamente
+    		// por consiguiente desde la aplicacion no se deben poder anyadir ni borrar jornadas
+    		var toolbar=  [
+    	        {
+    				id: 'jornadasbyprueba-editBtn'+prueba.ID,
+            		text: 'Editar jornada',
+            		plain: true,
+        			iconCls: 'icon-edit',
+       				handler: function(){editJornadaFromPrueba(prueba.ID,datagridID);}
+    			},{
+    				id: 'jornadasbyprueba-closeBtn'+prueba.ID,
+            		text: 'Cerrar jornada',
+            		plain: true,
+        			iconCls: 'icon-forbidden',
+       				handler: function(){closeJornadaFromPrueba(prueba.ID,datagridID);}
+    			},{
+    				id: 'jornadasbyprueba-reloadBtn'+prueba.ID,
+            		text: 'Actualizar',
+            		plain: true,
+        			iconCls: 'icon-reload',
+        			align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
+       				handler: function(){$(datagridID).datagrid('reload');}    // reload the pruebas data}
+    			}
+    			];
+    		$(datagridID).datagrid('buildToolbar',toolbar);
 			// tooltips de los sub-formularios
 			addTooltip($('#jornadasbyprueba-editBtn'+prueba.ID).linkbutton(),"Editar los datos la jornada seleccionada"); 
 			addTooltip($('#jornadasbyprueba-closeBtn'+prueba.ID).linkbutton(),"Cerrar la jornada seleccionada y Guardar datos permanentemente"); 

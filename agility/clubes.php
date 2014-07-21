@@ -184,26 +184,6 @@
         	    loadMsg: 'Cargando lista de guias....',
         		url: 'database/guiaFunctions.php?Operation=getbyclub&Club='+club.ID,
         		method: 'get',
-        		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
-        		toolbar: [{
-            		id: 'guiasByClub-newBtn'+club.ID,
-            		text: 'Asociar gu&iacute;a',
-            		plain: true,
-        			iconCls: 'icon-users',
-        			handler: function(){ assignGuiaToClub( mySelf,club, function () { $(mySelf).datagrid('reload'); } ); }
-        		},{
-            		id: 'guiasByClub-editBtn'+club.ID,
-            		text: 'Editar gu&iacute;a',
-            		plain: true,
-        			iconCls: 'icon-edit',
-        			handler: function(){ editGuiaFromClub(mySelf,club, function () { $(mySelf).datagrid('reload'); } );}
-        		},{
-            		id: 'guiasByClub-delBtn'+club.ID,
-            		text: 'Des-asociar gu&iacute;a',
-            		plain: true,
-        			iconCls: 'icon-remove',
-        			handler: function(){ delGuiaFromClub(mySelf,club, function () { $(mySelf).datagrid('reload'); } );}
-        		}],
         	    columns: [[
         	        { field:'ID',			hidden:true },	
         	    	{ field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
@@ -223,7 +203,7 @@
                 },
             	// on double click fireup editor dialog
                 onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-                    editGuiaFromClub(mySelf,club,	function () { $(mySelf).datagrid('reload'); } );
+                    editGuiaFromClub(mySelf,club );
                 },
                 // especificamos un formateador especial para desplegar la tabla de perros por guia
                 detailFormatter:function(index,guia){
@@ -241,11 +221,40 @@
                     },0);
                 } 
         	}); // end of '#clubes-guias-datagrid' declaration
+        	// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
+        	var	toolbar= [{
+            		id: 'guiasByClub-newBtn'+club.ID,
+            		text: 'Asociar gu&iacute;a',
+            		plain: true,
+        			iconCls: 'icon-users',
+        			handler: function(){ assignGuiaToClub(mySelf,club); }
+        		},{
+            		id: 'guiasByClub-editBtn'+club.ID,
+            		text: 'Editar gu&iacute;a',
+            		plain: true,
+        			iconCls: 'icon-edit',
+        			handler: function(){ editGuiaFromClub(mySelf,club); }
+        		},{
+            		id: 'guiasByClub-delBtn'+club.ID,
+            		text: 'Des-asociar gu&iacute;a',
+            		plain: true,
+        			iconCls: 'icon-remove',
+        			handler: function(){ delGuiaFromClub(mySelf,club); }
+        		},{
+    				id: 'guiasByClub-reloadBtn'+club.ID,
+            		text: 'Actualizar',
+            		plain: true,
+        			iconCls: 'icon-reload',
+        			align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
+       				handler: function(){ $(mySelf).datagrid('reload'); }    // reload the clubs data}
+    			}];
+    		$(mySelf).datagrid('buildToolbar',toolbar);
         	$('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
 			// tooltips de los sub-formularios
 			addTooltip($('#guiasByClub-newBtn'+club.ID).linkbutton(),"Asociar/Crear nuevo guia en el club '"+club.Nombre+"'"); 
 			addTooltip($('#guiasByClub-editBtn'+club.ID).linkbutton(),"Editar datos del gu&iacute;a seleccionado del club '"+club.Nombre+"'"); 
-			addTooltip($('#guiasByClub-delBtn'+club.ID).linkbutton(),"Desasociar al gu&iacute;a seleccionado del club '"+club.Nombre+"'");
+			addTooltip($('#guiasByClub-delBtn'+club.ID).linkbutton(),"Desasociar al gu&iacute;a seleccionado del club '"+club.Nombre+"'"); 
+			addTooltip($('#guiasByClub-reloadBtn'+club.ID).linkbutton(),"Actualizar la lista de gu&iacute;s del club '"+club.Nombre+"'");
             	
         } // end of "showGuiasByClub"
         
@@ -267,29 +276,8 @@
         		url: 'database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.ID },
         		method: 'get',
-        		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
-        		// toolbar: '#perrosbyguia-toolbar', 
-				toolbar:  [{
-					id: 'perrosByGuiaByClub-newBtn'+guia.ID+'_'+club.ID,
-					text: 'Asignar perro',
-					plain: true,
-					iconCls: 'icon-dog',
-					handler: function(){assignPerroToGuia(guia, function () { $(mySelf).datagrid('reload'); } );},
-				},{
-					id: 'perrosByGuiaByClub-editBtn'+guia.ID+'_'+club.ID,
-					text: 'Editar datos',
-					plain: true,
-					iconCls: 'icon-edit',
-					handler: function(){editPerroFromGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } );}
-				},{
-					id: 'perrosByGuiaByClub-delBtn'+guia.ID+'_'+club.ID,
-					text: 'Desasignar perro',
-					plain: true,
-					iconCls: 'icon-remove',
-					handler: function(){delPerroFromGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } );}
-				}],
         	    columns: [[
-            	    { field:'ID',		width:15, sortable:true,	title: 'ID'},
+            	    { field:'ID',		width:15, sortable:true,	title: 'ID' },
             		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
             		{ field:'Categoria',width:15, sortable:false,	title: 'Cat.' },
             		{ field:'Grado',	width:25, sortable:false,   title: 'Grado' },
@@ -298,10 +286,10 @@
             		{ field:'Licencia',	width:25, sortable:true,    title: 'Licencia' }
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-            	rowStyler:myRowStyler},
+            	rowStyler: myRowStyler,
             	// on double click fireup editor dialog
-                onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-                    editPerroFromGuia(mySelf,guia, function () { $(mySelf).datagrid('reload'); } );
+                onDblClickRow: function(idx,row) { //idx: selected row index; row selected row data
+                    editPerroFromGuia(mySelf,guia );
                 },
                 onResize:function(){
                     $(parent).datagrid('fixDetailRowHeight',index);
@@ -312,12 +300,45 @@
                     },0);
                 } 
         	}); // end of perrosbyguia-datagrid-Nombre_del_Guia
+        	
+    		// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
+    		// toolbar: '#perrosbyguia-toolbar', 
+			var toolbar=  [{
+				id: 'perrosByGuiaByClub-newBtn'+guia.ID+'_'+club.ID,
+				text: 'Asignar perro',
+				plain: true,
+				iconCls: 'icon-dog',
+				handler: function(){ assignPerroToGuia(mySelf,guia ); },
+			},{
+				id: 'perrosByGuiaByClub-editBtn'+guia.ID+'_'+club.ID,
+				text: 'Editar datos',
+				plain: true,
+				iconCls: 'icon-edit',
+				handler: function(){editPerroFromGuia(mySelf,guia);}
+			},{
+				id: 'perrosByGuiaByClub-delBtn'+guia.ID+'_'+club.ID,
+				text: 'Desasignar perro',
+				plain: true,
+				iconCls: 'icon-remove',
+				handler: function(){delPerroFromGuia(mySelf,guia);}
+			},{
+				id: 'perrosByGuiaByClub-reloadBtn'+guia.ID+'_'+club.ID,
+        		text: 'Actualizar',
+        		plain: true,
+    			iconCls: 'icon-reload',
+    			align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
+   				handler: function(){ $(mySelf).datagrid('reload'); }    // reload the clubs data}
+			}];
+			// add toolbar to datagrid
+    		$(mySelf).datagrid('buildToolbar',toolbar);
+    		// tell parent to fix rendering ob subgrid
         	$(parent).datagrid('fixDetailRowHeight',index);
 
 			// tooltips de los sub-formularios
 			addTooltip($('#perrosByGuiaByClub-newBtn'+guia.ID+'_'+club.ID).linkbutton(),"Crear/Asignar un nuevo perro a '"+guia.Nombre+"'"); 
 			addTooltip($('#perrosByGuiaByClub-editBtn'+guia.ID+'_'+club.ID).linkbutton(),"Editar los datos del perro asignado a '"+guia.Nombre+"'"); 
 			addTooltip($('#perrosByGuiaByClub-delBtn'+guia.ID+'_'+club.ID).linkbutton(),"Eliminar asignaci&oacute;n del perro a '"+guia.Nombre+"'");
+			addTooltip($('#perrosByGuiaByClub-reloadBtn'+guia.ID+'_'+club.ID).linkbutton(),"Actualizar la lista de perros del gu&iacute;a '"+guia.Nombre+"'");
         } // end of showPerrosByGuia
 	</script>
 

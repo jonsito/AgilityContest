@@ -67,3 +67,30 @@ function addTooltip(obj,text) {
 function myRowStyler(idx,row) {
 	return ((idx&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
 }
+
+
+/**
+ * Extension of datagrid methods to add "align" property on array declared toolbars
+ * http://www.jeasyui.com/forum/index.php?topic=3540.msg8090#msg8090
+ * Básicamente lo que hace es redefinir el toolbar (remove()+prepend(),
+ * y ajustar el style "float" de todos los elementos declarados, +appentTo()
+ */
+$.extend($.fn.datagrid.methods, {
+	buildToolbar: function(jq, items){
+		return jq.each(function(){
+			var p = $(this).datagrid('getPanel');
+			p.children('div.datagrid-toolbar').remove();
+			var tb = $('<div class="datagrid-toolbar"></div>').prependTo(p);
+			$.map(items, function(item){
+	        var t = $('<a href="javascript:void(0)"></a>').appendTo(tb);
+	        t.linkbutton($.extend({}, item, {
+	        	onClick:function(){
+	        		if (item.handler) { item.handler.call(this); }
+	        		if (item.onClick){ item.onClick.call(this); }
+	        	}
+	        }));
+	        t.css('float', item.align || '');
+			});
+		});
+	}
+});
