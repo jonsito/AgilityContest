@@ -212,9 +212,7 @@ class Inscripciones extends DBObject {
 
 		// FASE 1: obtener lista de perros inscritos con sus datos
 		$str="SELECT Inscripciones.ID AS ID, Dorsal , Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
-			Categoria , Grado , Celo , Guia , Club , NombreGuia, NombreClub, Equipo , Observaciones , Jornadas,Pagado,
-			SIGN(Jornadas&1) AS J1, SIGN(Jornadas&2) AS J2, SIGN(Jornadas&4) AS J3, SIGN(Jornadas&8) AS J4,
-			SIGN(Jornadas&16) AS J5, SIGN(Jornadas&32) AS J6, SIGN(Jornadas&64) AS J7, SIGN(Jornadas&128) AS J8
+			Categoria , Grado , Celo , Guia , Club , NombreGuia, NombreClub, Equipo , Observaciones , Jornadas, Pagado
 			FROM Inscripciones,PerroGuiaClub
 			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) AND ( Prueba=".$this->pruebaID." )	$extra 
 			ORDER BY NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"; 
@@ -223,7 +221,17 @@ class Inscripciones extends DBObject {
 	
 		// Fase 2: la tabla de resultados a devolver
 		$data = array(); // result { total(numberofrows), data(arrayofrows)
-		while($row = $rs->fetch_array()) array_push($data,$row);
+		while($row = $rs->fetch_array()) {
+			$row['J1']=($row['Jornadas']&0x0001)?1:0;
+			$row['J2']=($row['Jornadas']&0x0002)?1:0;
+			$row['J3']=($row['Jornadas']&0x0004)?1:0;
+			$row['J4']=($row['Jornadas']&0x0008)?1:0;
+			$row['J5']=($row['Jornadas']&0x0010)?1:0;
+			$row['J6']=($row['Jornadas']&0x0020)?1:0;
+			$row['J7']=($row['Jornadas']&0x0040)?1:0;
+			$row['J8']=($row['Jornadas']&0x0080)?1:0;
+			array_push($data,$row);
+		}
 		$rs->free();
 		$result=array('total'=>count($data), 'rows'=>$data);
 		$this->myLogger->leave();

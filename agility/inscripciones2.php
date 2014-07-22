@@ -5,7 +5,6 @@
 <?php include_once("dialogs/dlg_clubes.inc");?>
 <?php include_once("dialogs/dlg_jornadas.inc");?>
 <?php include_once("dialogs/dlg_inscripciones.inc");?>
-<?php include_once("dialogs/dlg_chinscripciones.inc");?>
 
 <div id="inscripciones-info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
 <div id="inscripciones-infolayout" class="easyui-layout" style="height:150px">

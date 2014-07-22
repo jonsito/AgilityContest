@@ -716,8 +716,10 @@ function closeJornadaFromPrueba(pruebaID,datagridID) {
  */
 function delJornadaFromPrueba(prueba,datagridID) {
 	var row= $(datagridID).datagrid('getSelected');
-    // var row = $('#jornadas-datagrid-'+prueba.ID).datagrid('getSelected');
-    if (!row) return; // no row selected
+    if (!row) {
+    	$.messager.alert("No selection","!No ha seleccionado ninguna jornada!","warning");
+    	return; // no hay ninguna jornada seleccionada. retornar
+    }
     if (prueba.Cerrada==true) {
         $.messager.show({width:300,heigh:200,title: 'Error',msg: 'No se pueden borrar jornadas de una prueba cerrada'});
     }
@@ -828,7 +830,10 @@ function editInscripcion() {
 	var cerrada=false;
 	// obtenemos datos de la inscripcion seleccionada
 	var row= $('#inscripciones-datagrid').datagrid('getSelected');
-    if (!row) return; // no hay ninguna inscripcion seleccionada. retornar
+    if (!row) {
+    	$.messager.alert("No selection","!No ha seleccionado ninguna inscripción!","warning");
+    	return; // no hay ninguna inscripcion seleccionada. retornar
+    }
 	// cerramos dialogo de nueva inscripcion
     $('#inscripciones-buscar').form('clear'); 
     $('#inscripciones-data').form('clear'); 
@@ -892,8 +897,11 @@ function editInscripcion() {
  * Delete data related with an inscription in BBDD
  */
 function deleteInscripcion() {
-	var row = $('#inscripciones-datagrid').datagrid('getSelected');
-	if (!row) return;
+	var row = $('#inscripciones-datagrid').datagrid('getSelected');    
+	if (!row) {
+    	$.messager.alert("No selection","!No ha seleccionado ninguna inscripcion!","warning");
+    	return; // no hay ninguna inscripcion seleccionada. retornar
+    }
 	$.messager.confirm('Confirm',
 			"<p>Importante:</p>" +
 			"<p>Si decide borrar la inscripcion <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta.<br />" +
