@@ -7,10 +7,12 @@
 		$result=null;
 		$inscripciones= new Inscripciones("inscripcionFunctions",http_request("IDPrueba","i",0));
 		$operation=http_request("Operation","s",null);
+		$perro=http_request("IDPerro","i",0);
 		if ($operation===null) throw new Exception("Call to inscripcionFunctions without 'Operation' requested");
 		switch ($operation) {
-			case "doit": $result=$inscripciones->doit(); break;
-			case "remove": $result=$inscripciones->remove(); break;
+			case "insert": $result=$inscripciones->insert($perro); break; // nueva inscripcion
+			case "update": $result=$inscripciones->update($perro); break; // editar inscripcion ya existente
+			case "delete": $result=$inscripciones->delete($perro); break; // borrar inscripcion
 			case "noinscritos": $result=$inscripciones->noinscritos(); break;
 			case "inscritos": $result=$inscripciones->inscritos(); break;
 			default: throw new Exception("inscripcionFunctions:: invalid operation: $operation provided");

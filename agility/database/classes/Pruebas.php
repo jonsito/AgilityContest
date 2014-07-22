@@ -40,7 +40,7 @@ class Pruebas extends DBObject {
 		if (!$res) return $this->error($this->conn->error);
 		
 		// create eight journeys per contest
-		for ($n=1;$n<9;$n++) {
+		for ($n=0;$n<8;$n++) {
 			$sql ="INSERT INTO Jornadas (Prueba,Numero,Nombre,Fecha,Hora)
 			VALUES ($pruebaid,$n,'-- Sin asignar --','2013-01-01','00:00:00')";
 			$res=$this->query($sql);
@@ -53,7 +53,7 @@ class Pruebas extends DBObject {
 	
 	function update($pruebaid) {
 		$this->myLogger->enter();
-		if ($pruebaid<=0) return $this->error("Invalid Prueba ID");
+		if ($pruebaid<=0) return $this->error("pruebas::update() Invalid Prueba ID:$pruebaid");
 		// componemos un prepared statement
 		$sql ="UPDATE Pruebas
 				SET Nombre=? , Club=? , Ubicacion=? , Triptico=? , Cartel=?, Observaciones=?, Cerrada=?
@@ -89,7 +89,8 @@ class Pruebas extends DBObject {
 	 */
 	function delete($id) {
 		$this->myLogger->enter();
-		if ($id<=1) return $this->error("Invalid Prueba ID");
+		// pruebaID==1 is default prueba, so avoid deletion
+		if ($id<=1) return $this->error("pruebas::delete() Invalid Prueba ID:$id");
 		// Guardamos las jornadas cerradas de esta prueba
 		$j=new Jornadas("Pruebas.php",$id);
 		$j->deleteByPrueba();
@@ -177,7 +178,7 @@ class Pruebas extends DBObject {
 	 */
 	function selectByID($id) {
 		$this->myLogger->enter();
-		if ($id==0) return $this->error("Invalid Prueba ID");
+		if ($id<=0) return $this->error("prueba:::selectByID() Invalid Prueba ID:$id");
 
 		// make query
 		$data= $this->__singleSelect(
@@ -195,7 +196,7 @@ class Pruebas extends DBObject {
 	
 	function selectEquiposByPrueba($id) {
 		$this->myLogger->enter();
-		if ($id==0) return $this->error("Invalid Prueba ID");
+		if ($id<=0) return $this->error("pruebas::selectEquiposByPrueba() Invalid Prueba ID:$id");
 		$q=http_request("q","s","");
 		$where="( Prueba=$id )";
 		if ($q!=="") $where="( Prueba=$id ) AND ( ( Nombre LIKE '%$q%' ) OR ( Observaciones LIKE '%$q%' ) )";

@@ -946,7 +946,7 @@ function insertInscripcion() {
 			dataType:'json',
 			data: {
 				IDPrueba: workingData.prueba,
-				Operation: 'doit',
+				Operation: 'insert',
 				IDPerro: row.ID
 			}
 		});
@@ -981,7 +981,7 @@ function updateInscripcion(){
 	// fill needed data to be sent
 	$('#chinscripciones-fIDPerro').val($('#chinscripciones-IDPerro').val());
 	$('#chinscripciones-fPruebaID').val(workingData.prueba);
-	$('#chinscripciones-fOperation').val('doit');
+	$('#chinscripciones-fOperation').val('update');
     // do normal submit
     $('#chinscripciones-form').form('submit',{
         url: 'database/inscripcionFunctions.php',

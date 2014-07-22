@@ -5,9 +5,8 @@ require_once("OrdenSalida.php"); // to insert/remove inscriptions from mangas
 
 class Inscripciones extends DBObject {
 	
-	protected $prueba;
-	protected $jornadas; // array of jornadas for this prueba
-	protected $declaradas; // declare if a jornada has flag "-- Sin asignar --"
+	protected $pruebaID;
+	protected $defaultTeam; //  {array} datos del equipo por defecto para esta prueba
 	
 	/**
 	 * Constructor
@@ -21,129 +20,148 @@ class Inscripciones extends DBObject {
 			$this->errormsg="$file::construct() invalid prueba:$prueba ID";
 			throw new Exception($this->errormsg);
 		}
-		$this->prueba=$prueba;
-		// obtenemos la lista de jornadas asociadas a esta prueba
-		$j=new Jornadas("inscripciones",$prueba);
-		$res=$j->selectByPrueba();
-		if ( ($res===null) || ($res==="") ) {
-			$this->errormsg="$file::construct() cannot get list of Jornadas for this prueba";
+		$this->pruebaID=$prueba;
+		
+		// obtenemos el equipo por defecto para esta prueba
+		$res= $this->__singleSelect(
+			/* SELECT */ "ID",
+			/* FROM */   "Equipos",
+			/* WHERE */ "( Prueba = $prueba ) AND ( Nombre = '-- Sin asignar --' )"
+		);
+		if (($res===null) || ($res==="")) {
+			$this->errormsg="$file::construct() cannot get default team data for this prueba";
 			throw new Exception($this->errormsg);
 		}
-		$this->jornadas=array();
-		$this->declaradas=array();
-		foreach($res["rows"] as $item) { 
-			$this->jornadas[$item["Numero"]]=$item;
-			$this->declaradas[$item["Numero"]]=($item["Nombre"]!=="-- Sin asignar --")?1:0;
-		} 
+		$this->defaultTeam=$res;
 	}
-
-	/**
-	 * Actualiza el orden de salida si es necesario
-	 * @param {integer} $jornada
-	 * @param {integer} $idperro
-	 * @param {integer} $celo
-	 * @return "" on success; null on error
-	 */
-	function updateOrdenSalida($jornada,$idperro) {
-		$this->myLogger->enter();
+	
+	function updateOrdenSalida($operation,$idperro) {
 		// obtenemos un manejador de ordenes de salida
 		$os=new OrdenSalida("inscripciones::ordensalida");
-	
-		// buscamos la lista de mangas que tiene la jornada
-		$str="SELECT ID FROM Mangas	WHERE ( Jornada = $jornada ) ORDER BY Tipo ASC";
-		$rs=$this->query($str);
-		if(!$rs) return $this->error($this->conn->error); 
-		// retrieve result into an array
-		while($row = $rs->fetch_object()){
-			$manga=$row->ID;
-			$this->myLogger->debug("Ajustando el orden de salida jornada:$jornada manga:$manga idperro:$idperro");
-			$os->handle($jornada,$manga,$idperro);
+		
+		// Cogemos la lista de jornadas abiertas de esta prueba
+		$j=new Jornadas($operation,$this->pruebaID);
+		$jornadas=$j->searchByPrueba();
+		if ( ($jornadas===null) || ($jornadas==="") ) {
+			return $this->error("$file::updateOrdenSalida() cannot get list of open Jornadas for prueba:".$this->pruebaID);
 		}
-		$rs->free();
-		$this->myLogger->leave();
-		return "";
+		// por cada jornada abierta, cogemos la lista de mangas
+		foreach($jornadas["rows"] as $jornada) {
+			$idjornada=$jornada["ID"];
+			$mangas= $this->__select("ID","Mangas","( Jornada=$idjornada )","Tipo ASC");
+			if ( ($mangas===null) || ($mangas==="") ) {
+				return $this->error("$file::updateOrdenSalida() cannot get list of mangas for jornada:$idjornada on prueba:".$this->pruebaID);
+			}
+			// Por cada manga de cada jornada, actualizamos -si es necesario- el orden de salida del perro
+			foreach($mangas["rows"] as $manga) {
+				$os->handle($idjornada,$manga["ID"],$idperro);
+			}
+		}
 	}
 	
 	/**
-	 * insert/update/delete a new inscripcion into database
+	 * Create a new inscripcion
+	 * @param {integer} perro ID del perro
 	 * @return empty string if ok; else null
 	 */
-	function doit() {
+	function insert($perro) {
 		$this->myLogger->enter();
-
-		// variables comunes a todas las jornadas
-		$idperro=http_request("IDPerro","i",0);
-		if ($idperro==0) return $this->error("Invalid IDPerro ID"); 
-		$celo=http_request("Celo","i",0);
-		$observaciones=http_request("Observaciones","s","");
-		$equipo=http_request("Equipo","i",0);
-		$pagado=http_request("Pagado","i",0);
+		if ($perro<=0) return $this->error("Invalid IDPerro ID");
+		$res= $this->__SelectObject(
+			/* SELECT */ "count(*) AS count",
+			/* FROM */ "Inscripciones",
+			/* WHERE */ "( Prueba=".$this->pruebaID.") AND ( Perro=$perro )"
+		);
+		if($res->count>0)
+			return $this->error("El perro con ID:".$perro." ya esta inscrito en la prueba:".$this->pruebaID);
 		
-		// si el ID de equipo es cero, buscamos el equipo por defecto para la prueba solicitada
-		if ($equipo==0) {
-			$this->myLogger->info("No equipo selected on prueba ".$this->prueba."; get default");
-			$sql="SELECT ID FROM Equipos WHERE ( Prueba = ".$this->prueba." ) AND ( Nombre = '-- Sin asignar --' )";
-			$rs=$this->query($sql);		
-			if (!$rs) return $this->error($this->conn->error);
-			$row=$rs->fetch_row();
-			$equipo = $row[0];
-			$rs->free();
-		}
-		// inscribimos en cada una de las jornadas solicitadas
-		for ($numero=1;$numero<9;$numero++) {
-			// si la jornada esta cerrada no se hace nada
-			if ($this->jornadas[$numero]["Cerrada"]!=0) {
-				$this->myLogger->info("La jornada $numero esta cerrada");
-				continue;
-			}
-			// obtenemos el JornadaID
-			$jornada=$this->jornadas[$numero]["ID"];
-			// vemos si pide inscribirse en esta jornada. Si no lo pide, se mira si inscribir por defecto
-			$solicita=http_request("J$numero","i",$this->declaradas[$numero]);
-			if ($solicita) {
-				// vamos a ver si esta ya inscrito. 
-				$this->myLogger->debug("Insert/Update inscripcion Jornada:$numero ID:$jornada IDPerro:$idperro");
-				// usamos una sentencia "replace" que equivala a "insert of update if exists"
-				$sql="REPLACE INTO Inscripciones ( Jornada , Perro , Celo , Observaciones , Equipo , Pagado )
-					VALUES ( $jornada , $idperro, $celo , '$observaciones' , $equipo , $pagado )";
-				$rs=$this->query($sql);
-				if (!$rs) return $this->error($this->conn->error);
-			} else {
-				// no solicita inscripcion: borrar datos
-				$this->myLogger->debug("Borrar inscripcion Jornada:$numero ID:$jornada IDPerro:$idperro");
-				$sql="DELETE FROM Inscripciones where ( (Perro=$idperro) AND (Jornada=$jornada))";
-				$rs=$this->query($sql);
-				if (!$rs) return $this->error($this->conn->error);
-			}
-			// actualizamos el orden de salida
-			$res=$this->updateOrdenSalida($jornada,$idperro);
-			if ($res===null) return $this->error($this->errormsg);
-		}
+		// Generamos los valores por defecto de "celo" "observaciones" "jornadas" y "pagado" para la inscripcion.
+		// Para ello, buscamos las jornadas que no están ni cerradas ni declaradas como "-- Sin asignar --" y componemos
+		// el valor por defecto de jornadas y el dinero "pagado" por la inscripcion
+		$res=$this->__selectObject(
+			/* SELECT */ "12*count(*) AS Pagado, IFNULL(SUM(1<<NUMERO),0) AS Jornadas",
+			/* FROM */   "Jornadas",
+			/* WHERE */  "(Jornadas.Prueba=".$this->pruebaID.") AND (Jornadas.Cerrada=0) AND (Jornadas.Nombre!='-- Sin asignar --')"
+		);
+		$prueba=$this->pruebaID;
+		$jornadas=$res->Jornadas;
+		$pagado=$res->Pagado;
+		$equipo=$this->defaultTeam["ID"];
+		$celo=0;
+		$observaciones="";
+		
+		// ok, ya tenemos todo. Vamos a inscribirle... pero solo en las jornadas abiertas
+		$str= "INSERT INTO Inscripciones (Prueba,Perro,Celo,Observaciones,Equipo,Jornadas,Pagado)
+			VALUES ($prueba,$perro,$celo,'$observaciones',$equipo,$jornadas,$pagado)";
+		$res=$this->query($str);
+		if (!$res) return $this->error($this->conn->error);
+		
+		// una vez inscrito, vamos a repasar la lista de jornadas y actualizar en caso necesario
+		// los datos de las mangas (en concreto el orden de salida)
+		$res=$this->updateOrdenSalida("Insert inscripcion of perro:$perro",$perro);
+		if ($res===null) return $this->error($this->errormsg);
 		// all right return ok
 		$this->myLogger->leave();
 		return ""; // return ok
 	}
 	
 	/**
+	 * Update an inscripcion
+	 * @param {integer} perro ID del perro
+	 * @return empty string if ok; else null
+	 */
+	function update($idperro) {
+		$this->myLogger->enter();
+		if ($idperro<=0) return $this->error("Invalid IDPerro ID");
+
+		// cogemos los datos actuales
+		$res=$this->__selectObject(
+			/* SELECT */ "Celo, Observaciones, Equipo, Jornadas, Pagado", // idinscripcion, idprueba, idperro y dorsal no cambian
+			/* FROM */ "Inscripciones",
+			/* WHERE */ "(Perro=$idperro) AND (Prueba=".$this->pruebaID.")"
+		);
+		if (($res==null) || (res===""))
+			return $this->error("El perro cond ID:$idperro no esta inscrito en la prueba: ".$this->pruebaID.")");
+
+		// buscamos datos nuevos y mezclamos con los actuales
+		$celo=http_request("Celo","i",$res->Celo);
+		$observaciones=http_request("Observaciones","s",$res->Observaciones);
+		$equipo=http_request("Equipo","i",$res->Equipo);
+		$pagado=http_request("Pagado","s",$res->Pagado);
+
+		// TODO: Make sure that form leaves unchanged Closed jornada's inscription state
+		$jornadas=http_request("Jornadas","s",$res->Jornadas);
+		// actualizamos bbdd
+		$str="UPDATE Inscripciones 
+			SET Celo=$celo , Observaciones='$observaciones' , Equipo=$equipo , Jornadas=$jornadas , Pagado=$pagado
+			WHERE ( Perro=$idperro ) AND ( Prueba=".$this->pruebaID." )";
+
+		// recalculamos orden de salida en cada jornada
+		$res=$this->updateOrdenSalida("Update inscripcion of perro:$idperro",$idperro);
+		if ($res===null) return $this->error($this->errormsg);
+		
+		// everything ok. return
+		$this->myLogger->leave();
+		return "";
+	}
+	
+	/**
 	 * Remove all inscriptions of IDPerro in non-closed jornadas from provided prueba 
 	 * @return {string} "" on success; null on error
 	 */
-	function remove() {
+	function delete($idperro) {
 		$this->myLogger->enter();
-		$idperro=http_request("IDPerro","i",0);
-		if ($idperro==0) return $this->error("Invalid IDPerro ID"); 
-		for ($n=1;$n<9;$n++) {
-			$jornada=$this->jornadas[$n]["ID"];
-			if ($this->jornadas[$n]["Cerrada"]!=0) {
-				$this->myLogger->info("Skip delete IDPerro $idperro on closed Jornada $jornada");
-				continue;
-			}
-			$sql="DELETE FROM Inscripciones where ( (Perro=$idperro) AND (Jornada=$jornada))";
-			$res=$this->query($sql);
-			if (!$res) return $this->error($this->conn->error); 
-			$res=$this->updateOrdenSalida($jornada,$idperro);
-			if ($res===null) $this->conn->error($this->errormsg);
-		} // for every jornada on provided prueba
+		if ($idperro<=0) return $this->error("Invalid IDPerro ID");
+		
+		// Eliminamos el perro de la tabla de inscripciones
+		$sql="DELETE FROM Inscripciones WHERE (Perro=$idperro) AND (Prueba=".$this->pruebaID.")";
+		$res=$this->query($sql);
+		if (!$res) return $this->error($this->conn->error);
+		
+		// recalculamos orden de salida en cada jornada abierta
+		$res=$this->updateOrdenSalida("Delete inscripcion of perro:$idperro",$idperro);
+		if ($res===null) return $this->error($this->errormsg);
+		
 		$this->myLogger->leave();
 		return "";
 	}
@@ -162,7 +180,7 @@ class Inscripciones extends DBObject {
 		// !toma ya con la query :-) 
 		$str="SELECT * FROM PerroGuiaClub
 				WHERE 
-					ID NOT IN ( SELECT Perro FROM Inscripciones WHERE (Prueba=".$this->prueba.") )
+					ID NOT IN ( SELECT Perro FROM Inscripciones WHERE (Prueba=".$this->pruebaID.") )
 					$extra
 				ORDER BY Club ASC, Categoria ASC, Grado ASC, Nombre ASC";
 
@@ -185,7 +203,7 @@ class Inscripciones extends DBObject {
 		$this->myLogger->enter();
 	
 		// evaluate offset and row count for query
-		$id = $this->prueba;
+		$id = $this->pruebaID;
 		$search =  http_request("where","s","");
 		// $extra= a single ')' or name search criterion
 		$extra = '';
@@ -194,9 +212,9 @@ class Inscripciones extends DBObject {
 
 		// FASE 1: obtener lista de perros inscritos con sus datos
 		$str="SELECT Inscripciones.ID AS ID, Dorsal , Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
-		Categoria , Grado , Celo , Guia , Club , NombreGuia, NombreClub, Equipo , Observaciones , J1,J2,J3,J4,J5,J6,J7,J8,Pagado
+		Categoria , Grado , Celo , Guia , Club , NombreGuia, NombreClub, Equipo , Observaciones , Jornadas,Pagado
 		FROM Inscripciones,PerroGuiaClub
-		WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) AND ( Prueba= $id )	$extra 
+		WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) AND ( Prueba=".$this->pruebaID." )	$extra 
 		ORDER BY NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"; 
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);

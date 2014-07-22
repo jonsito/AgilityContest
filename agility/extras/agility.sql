@@ -752,15 +752,8 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
   `Celo` tinyint(1) NOT NULL DEFAULT '0',
   `Observaciones` varchar(255) DEFAULT NULL,
   `Equipo` int(4) DEFAULT NULL,
-  `J1` tinyint(1) NOT NULL DEFAULT '0',
-  `J2` tinyint(1) NOT NULL DEFAULT '0',
-  `J3` tinyint(1) NOT NULL DEFAULT '0',
-  `J4` tinyint(1) NOT NULL DEFAULT '0',
-  `J5` tinyint(1) NOT NULL DEFAULT '0',
-  `J6` tinyint(1) NOT NULL DEFAULT '0',
-  `J7` tinyint(1) NOT NULL DEFAULT '0',
-  `J8` tinyint(1) NOT NULL DEFAULT '0',
-  `Pagado` int(4) NOT NULL DEFAULT '12',
+  `Jornadas` int(4) NOT NULL DEFAULT '0',
+  `Pagado` int(4) NOT NULL DEFAULT '24',
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Inscripciones_PruebaPerro` (`Prueba`,`Perro`),
   KEY `Inscripciones_Perro` (`Perro`),
@@ -839,14 +832,14 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
 --
 
 INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Grado1`, `Grado2`, `Grado3`, `Open`, `Equipos3`, `Equipos4`, `PreAgility`, `KO`, `Exhibicion`, `Otras`, `Cerrada`) VALUES
-(1, 2, 1, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
-(2, 2, 2, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0),
-(3, 2, 3, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
-(4, 2, 4, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
-(5, 2, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
-(6, 2, 6, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
-(7, 2, 7, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
-(8, 2, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0);
+(1, 2, 0, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+(2, 2, 1, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0),
+(3, 2, 2, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+(4, 2, 3, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+(5, 2, 4, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+(6, 2, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+(7, 2, 6, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
+(8, 2, 7, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -943,7 +936,6 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
   `Juez1` int(4) NOT NULL DEFAULT '1',
   `Juez2` int(4) NOT NULL DEFAULT '1',
   `Observaciones` varchar(255) DEFAULT NULL,
-  `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   `Orden_Salida` text NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `Tipo` (`Tipo`),

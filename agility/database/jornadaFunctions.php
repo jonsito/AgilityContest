@@ -19,7 +19,7 @@
 			case "select": $result=$jornadas->selectByPrueba(); break;
 			case "enumerate": $result=$jornadas->searchByPrueba(); break;
 			case "rounds": $result=$jornadas->roundsByJornada($jornadaid); break;
-			default: throw new Exception("pruebaFunctions:: invalid operation: $operation provided");
+			default: throw new Exception("jornadaFunctions:: invalid operation: $operation provided");
 		}
 		if ($result===null) throw new Exception($jornadas->errormsg);
 		if ($result==="") echo json_encode(array('success'=>true));

@@ -15,7 +15,7 @@ DONE - En prueba K.O. no permitir pruebas adicionales
 - Handle club logos
 - Prueba's Triptico & cartel should be URL's instead of blobs
 DONE - Limitar a ¿ocho? jornadas el contenido de una prueba
-- No permitir desasignar perros del guia "-- Sin Asignar --"
+DONE - No permitir desasignar perros del guia "-- Sin Asignar --"
 - Cerrar ventanas abiertas al cambiar de menu
 - No permitir inscribir a perros ya inscritos
 - ventana de aviso "No se podrán modificar..." al marcar una jornada como cerrada

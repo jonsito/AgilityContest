@@ -187,12 +187,14 @@ $('#inscripciones-datagrid').datagrid({
         { field:'Perro',  hidden:true }, // dog ID
         { field:'Equipo', hidden:true }, // only used on Team contests
         { field:'Pagado', hidden:true }, // to store if handler paid :-)
+        { field:'Guia', hidden:true }, // Guia ID
+        { field:'Club', hidden:true }, // Club ID
     	{ field:'Dorsal',	width:6,  sortable:true, align: 'right',	title: 'Dorsal' },
     	{ field:'Nombre',	width:15, sortable:true, align: 'right',	title: 'Nombre' },
     	{ field:'Categoria',width:5,  sortable:true, align: 'center',  	title: 'Cat.' },
     	{ field:'Grado',	width:5,  sortable:true, align: 'center',  	title: 'Grado' },
-    	{ field:'Guia',		width:25, sortable:true, align: 'right',	title: 'Guia' },
-    	{ field:'Club',		width:15, sortable:true, align: 'right',	title: 'Club' },
+    	{ field:'NombreGuia',	width:25, sortable:true, align: 'right',	title: 'Guia' },
+    	{ field:'NombreClub',	width:15, sortable:true, align: 'right',	title: 'Club' },
     	{ field:'Observaciones',width:15,            title: 'Observaciones' },
     	{ field:'Celo',		width:4, align:'center', title: 'Celo' },
         { field:'J1',		width:3, align:'center', title: 'J1'},

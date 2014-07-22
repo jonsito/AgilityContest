@@ -337,7 +337,6 @@ class OrdenSalida extends DBObject {
 		$manga = $rs->fetch_object();
 		$rs->free ();
 		if (!$manga) return $this->error("No hay datos registrados de la manga $idmanga");
-		if ($manga->Cerrada==1) return $this->error("No se puede modificar una manga cerrada");
 		
 		// si el orden de salida esta vacio no hacemos nada
 		if ($manga->Orden_Salida==="") {
