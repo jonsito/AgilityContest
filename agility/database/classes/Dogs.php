@@ -109,14 +109,14 @@ class Dogs extends DBObject {
 		$sort= http_request("sort","s","Nombre");
 		$order=http_request("order","s","ASC");
 		$search=http_request("where","s","");
-		$page=http_request("page","i",0);
-		$rows=http_request("rows","i",0);
-		$limit="";
+		$page=http_request("page","i",1);
+		$rows=http_request("rows","i",50);
+		$where = "";
+		$limit = "";
 		if ($page!=0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		$where = "";
 		if ($search!=="") $where="(Nombre LIKE '%$search%') OR ( NombreGuia LIKE '%$search%') OR ( NombreClub LIKE '%$search%')";
 		$result=$this->__select(
 				/* SELECT */ "*",

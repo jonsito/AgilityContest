@@ -66,12 +66,15 @@ class DBObject {
 	 * @param string $order ORDER BY clause (optional)
 	 * @param string $limit LIMIT offset,rows clause (optional
 	 */
-	function __select($select,$from,$where="",$order="",$limit="") {
+	function __select($select,$from,$where,$order,$limit) {
 		// if $limit is not null, perform a first count query
 		$result=array();
+		if ($where!=="") $where=" WHERE ".$where;
+		if ($order!=="") $order=" ORDER BY ".$order;
+		if ($limit!=="") $limit=" LIMIT ".$limit;
 		$result["total"]=0;
 		if ($limit!=="") {
-			$str= "SELECT count(*) FROM ".$from;
+			$str= "SELECT count(*) FROM $from $where";
 			$this->myLogger->query($str);
 			$rs=$this->query($str);
 			if (!$rs) return $this->error($this->conn->error);
@@ -85,10 +88,7 @@ class DBObject {
 			}
 		}
 		// compose real request
-		$str="SELECT ".$select." FROM ".$from;
-		if ($where!=="") $str= $str." WHERE ".$where;
-		if ($order!=="") $str= $str." ORDER BY ".$order;
-		if ($limit!=="") $str= $str." LIMIT ".$limit;
+		$str="SELECT $select FROM $from $where $limit";
 		// make query
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -106,9 +106,9 @@ class DBObject {
 	 * @param unknown $from FROM clause (required)
 	 * @param string $where WHERE clause (optional)
 	 */
-	function __singleSelect($select,$from,$where="") {
+	function __singleSelect($select,$from,$where) {
 		// compose SQL query
-		$str="SELECT ".$select." FROM ".$from;
+		$str="SELECT $select FROM $from";
 		if ($where!=="") $str= $str." WHERE ".$where;
 		// make query
 		$rs=$this->query($str);
@@ -126,9 +126,9 @@ class DBObject {
 	 * @param unknown $from FROM clause (required)
 	 * @param string $where WHERE clause (optional)
 	 */
-	function __selectObject($select,$from,$where="") {
+	function __selectObject($select,$from,$where) {
 		// compose SQL query
-		$str="SELECT ".$select." FROM ".$from;
+		$str="SELECT $select FROM $from";
 		if ($where!=="") $str= $str." WHERE ".$where;
 		// make query
 		$rs=$this->query($str);

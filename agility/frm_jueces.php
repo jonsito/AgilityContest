@@ -1,7 +1,7 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE JUECES -->
     
     <!-- DECLARACION DE LA TABLA DE JUECES -->
-    <table id="jueces-datagrid" class="easyui-datagrid" style="width:975px;height:550px">  </table>
+    <table id="jueces-datagrid" style="width:975px;height:550px">  </table>
     <!-- BARRA DE TAREAS DE LA TABLA DE JUECES -->
     <div id="jueces-toolbar" style="padding:5px 5px 25px 5px;">
     	<span style="float:left;">

@@ -12,7 +12,7 @@
 		</span>
 	</div>
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
-	<table id="competicion-datagrid" class="easyui-datagrid"></table>
+	<table id="competicion-datagrid"></table>
 </div>
 
 <script type="text/javascript">

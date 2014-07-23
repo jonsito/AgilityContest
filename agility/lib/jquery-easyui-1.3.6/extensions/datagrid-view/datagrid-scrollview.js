@@ -20,7 +20,8 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 		}
 		
 		var index = this.index;
-		var table = ['<table class="datagrid-btable" cellspacing="0" cellpadding="0" border="0"><tbody>'];
+		var table = ['<div class="datagrid-btable-top"></div>',
+		             '<table class="datagrid-btable" cellspacing="0" cellpadding="0" border="0"><tbody>'];
 		for(var i=0; i<rows.length; i++) {
 			var css = opts.rowStyler ? opts.rowStyler.call(target, index, rows[i]) : '';
 			var classValue = '';
@@ -64,6 +65,7 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 			index++;
 		}
 		table.push('</tbody></table>');
+		table.push('<div class="datagrid-btable-bottom"></div>');
 		
 		$(container).html(table.join(''));
 	},
@@ -216,11 +218,16 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 			if (dc.body2.is(':empty')){
 				reload.call(this);
 			} else {
-				var firstTr = opts.finder.getTr(target, this.index, 'body', 2);
-				var lastTr = opts.finder.getTr(target, 0, 'last', 2);
 				var headerHeight = dc.view2.children('div.datagrid-header').outerHeight();
-				var top = firstTr.position().top - headerHeight;
-				var bottom = lastTr.position().top + lastTr.outerHeight() - headerHeight;
+//				var firstTr = opts.finder.getTr(target, this.index, 'body', 2);
+//				var lastTr = opts.finder.getTr(target, 0, 'last', 2);
+//				var top = firstTr.position().top - headerHeight;
+//				var bottom = lastTr.position().top + lastTr.outerHeight() - headerHeight;
+				
+				var topDiv = dc.body2.children('div.datagrid-btable-top');
+				var bottomDiv = dc.body2.children('div.datagrid-btable-bottom');
+				var top = topDiv.position().top + topDiv._outerHeight() - headerHeight;
+				var bottom = bottomDiv.position().top - headerHeight;
 				
 				if (top > dc.body2.height() || bottom < 0){
 					reload.call(this);
@@ -369,13 +376,12 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 			opts.view.render.call(opts.view, target, dc.body2, false);
 			opts.view.render.call(opts.view, target, dc.body1, true);
 //			dc.body1.add(dc.body2).children('table.datagrid-btable').css({
-//				paddingTop: this.index*rowHeight,
-//				paddingBottom: state.data.total*rowHeight - this.rows.length*rowHeight - this.index*rowHeight
+//				marginTop: this.index*rowHeight,
+//				marginBottom: state.data.total*rowHeight - this.rows.length*rowHeight - this.index*rowHeight
 //			});
-			dc.body1.add(dc.body2).children('table.datagrid-btable').css({
-				marginTop: this.index*rowHeight,
-				marginBottom: state.data.total*rowHeight - this.rows.length*rowHeight - this.index*rowHeight
-			});
+			var body = dc.body1.add(dc.body2);
+			body.children('div.datagrid-btable-top').css('height', this.index*rowHeight);
+			body.children('div.datagrid-btable-bottom').css('height', state.data.total*rowHeight - this.rows.length*rowHeight - this.index*rowHeight);
 			
 			var r = [];
 			for(var i=0; i<this.index; i++){

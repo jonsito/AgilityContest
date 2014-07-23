@@ -106,13 +106,13 @@
 <div id="resultados-data" class="easyui-panel" title="Clasificaciones">
 	<div id="resultados-datatabs" class="easyui-tabs" style="height:325px;padding:0px 0px 10px 0px;">
 		<div title="Manga 1" data-options="closable:false">
-			<table id="resultados-manga1-datagrid" class="easyui-datagrid" style="padding:10px 20px"></table>
+			<table id="resultados-manga1-datagrid" style="padding:10px 20px"></table>
 		</div>
 		<div title="Manga 2" data-options="closable:false">
-			<table id="resultados-manga2-datagrid" class="easyui-datagrid" style="padding:10px 20px"></table>
+			<table id="resultados-manga2-datagrid" style="padding:10px 20px"></table>
 		</div>
 		<div title="Conjunta" data-options="closable:false">
-			<table id="resultados-conjunta-datagrid" class="easyui-datagrid" style="padding:10px 20px">
+			<table id="resultados-conjunta-datagrid" style="padding:10px 20px">
 				<thead>
 					<tr>
 						<th>&nbsp;</th>

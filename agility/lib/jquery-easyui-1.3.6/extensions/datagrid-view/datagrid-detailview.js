@@ -250,11 +250,14 @@ var detailview = $.extend({}, $.fn.datagrid.defaults.view, {
 				td.prependTo(t.find('tr:first'));
 			}
 		}
-		
-		var that = this;
-		setTimeout(function(){
-			that.bindEvents(target);
-		},0);
+
+		if (!state.bindDetailEvents){
+			state.bindDetailEvents = true;
+			var that = this;
+			setTimeout(function(){
+				that.bindEvents(target);
+			},0);
+		}
 	},
 	
 	onAfterRender: function(target){
@@ -272,13 +275,19 @@ var detailview = $.extend({}, $.fn.datagrid.defaults.view, {
 		if (!state.onResize){
 			state.onResize = opts.onResize;
 		}
-		function setBodyTableWidth(){
-			var columnWidths = dc.view2.children('div.datagrid-header').find('table').width();
-			dc.body2.children('table').width(columnWidths);
+		function resizeDetails(){
+			var ht = dc.header2.find('table');
+			var fr = ht.find('tr.datagrid-filter-row').hide();
+			var ww = ht.width()-1;
+			var details = dc.body2.find('div.datagrid-row-detail:visible')._outerWidth(ww);
+			details.find('.easyui-fluid').trigger('_resize');
+			fr.show();
 		}
 		
 		opts.onResizeColumn = function(field, width){
-			setBodyTableWidth();
+			if (!opts.fitColumns){
+				resizeDetails();				
+			}
 			var rowCount = $(target).datagrid('getRows').length;
 			for(var i=0; i<rowCount; i++){
 				$(target).datagrid('fixDetailRowHeight', i);
@@ -288,7 +297,9 @@ var detailview = $.extend({}, $.fn.datagrid.defaults.view, {
 			state.onResizeColumn.call(target, field, width);
 		};
 		opts.onResize = function(width, height){
-			setBodyTableWidth();
+			if (opts.fitColumns){
+				resizeDetails();				
+			}
 			state.onResize.call(panel, width, height);
 		};
 		

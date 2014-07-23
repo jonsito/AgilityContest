@@ -114,18 +114,18 @@ class Pruebas extends DBObject {
 		$order=http_request("order","s","ASC");
 		$search=http_Request("where","s","");
 		$closed= http_request("closed","i",0); // si esta declarada, se incluyen las pruebas cerradas
-		$page=http_request("page","i",0);
-		$rows=http_request("rows","i",0);
+		$page=http_request("page","i",1);
+		$rows=http_request("rows","i",50);
 		$limit="";
+		$where="";
 		if ($page!=0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		$where="";
 		if ( ($search!=="") && ($closed==0) )
-			$where="( (Pruebas.Club=Clubes.ID) && ( Pruebas.Cerrada=0 ) && 	( (Pruebas.Nombre LIKE '%$search%') OR ( NombreClub LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) ) ";
+			$where="( (Pruebas.Club=Clubes.ID) && ( Pruebas.Cerrada=0 ) && 	( (Pruebas.Nombre LIKE '%$search%') OR ( Clubes.Nombre LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) ) ";
 		if ( ($search!=="") && ($closed!=0) )
-			$where="( (Pruebas.Club=Clubes.ID) && ( (Pruebas.Nombre LIKE '%$search%') OR ( NombreClub LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) )";
+			$where="( (Pruebas.Club=Clubes.ID) && ( (Pruebas.Nombre LIKE '%$search%') OR ( Clubes.Nombre LIKE '%$search%') OR ( Ubicacion LIKE '%$search%' ) ) )";
 		if ( ($search==="") && ($closed==0) )
 			$where="( (Pruebas.Club=Clubes.ID) && ( Pruebas.Cerrada=0 ) )";
 		if ( ($search==="") && ($closed!=0) )
@@ -155,7 +155,7 @@ class Pruebas extends DBObject {
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
 		$where= "(Pruebas.Club=Clubes.ID) && ( Pruebas.Cerrada=0 )";
-		if($q!=="") $where="(Pruebas.Club=Clubes.ID) && ( Cerrada=0 ) AND ( (Pruebas.Nombre LIKE '%$q%' ) OR (NombreClub LIKE '%$q%') OR (Observaciones LIKE '%$q%') )";
+		if($q!=="") $where="(Pruebas.Club=Clubes.ID) && ( Cerrada=0 ) AND ( (Pruebas.Nombre LIKE '%$q%' ) OR (Clubes.Nombre LIKE '%$q%') OR (Pruebas.Observaciones LIKE '%$q%') )";
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
@@ -199,7 +199,7 @@ class Pruebas extends DBObject {
 		if ($id<=0) return $this->error("pruebas::selectEquiposByPrueba() Invalid Prueba ID:$id");
 		$q=http_request("q","s","");
 		$where="( Prueba=$id )";
-		if ($q!=="") $where="( Prueba=$id ) AND ( ( Nombre LIKE '%$q%' ) OR ( Observaciones LIKE '%$q%' ) )";
+		if ($q!=="") $where="( Prueba=$id ) AND ( ( Nombre LIKE '%$q%' ) OR ( Pruebas.Observaciones LIKE '%$q%' ) )";
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "*",

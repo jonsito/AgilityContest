@@ -1,6 +1,6 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE PERROS -->    
     <!-- DECLARACION DE LA TABLA -->
-    <table id="perros-datagrid" class="easyui-datagrid" style="width:975px;height:550px;">    </table>
+    <table id="perros-datagrid" style="width:975px;height:550px;">    </table>
     <!-- BARRA DE TAREAS -->
     <div id="perros-toolbar" style="padding:5px 5px 25px 5px">
     	<span style="float:left;">
@@ -59,6 +59,7 @@
             singleSelect: true,
             view: scrollview,
             pageSize: 50,
+            remoteFilter: true,
             columns: [[
             	{ field:'ID',   hidden:true },
             	{ field:'Nombre',   width:30, sortable:true,  align: 'right', title: 'Nombre' },

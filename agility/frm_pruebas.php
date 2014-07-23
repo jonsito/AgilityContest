@@ -1,7 +1,7 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE Pruebas -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="pruebas-datagrid" class="easyui-datagrid" style="width:975px;height:550px"></table>     
+    <table id="pruebas-datagrid" style="width:975px;height:550px"></table>     
     <!-- BARRA DE TAREAS DE LA TABLA DE PRUEBAS-->
     <div id="pruebas-toolbar" style="padding:5px 5px 25px 5px;">
     	<span style="float:left;">

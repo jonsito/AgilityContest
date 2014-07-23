@@ -91,8 +91,8 @@ class Guias extends DBObject {
 		$sort= http_request("sort","s","Nombre");
 		$order=http_request("order","s","ASC");
 		$search=http_Request("where","s","");
-		$page=http_request("page","i",0);
-		$rows=http_request("rows","i",0);
+		$page=http_request("page","i",1);
+		$rows=http_request("rows","i",50);
 		$limit="";
 		if ($page!=0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;

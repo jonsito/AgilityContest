@@ -55,12 +55,14 @@ function escapeString($str) {
  * @return requested value (int,string,bool) or null if invalid type
  */
 function http_request($name,$type,$def,$esc=true) {
-	$a=($esc) ? escapeString($def) : $def;
-	if (isset($_REQUEST[$name])) $a= ($esc) ? escapeString($_REQUEST[$name]) : $_REQUEST[$name];
+	$a=$def;
+	if (isset($_REQUEST[$name])) $a=$_REQUEST[$name];
 	if ($a===null) return null;
 	switch ($type) {
+		case "s": if ($a==="---- Buscar ----") $a="";
+			if ($esc) return escapeString(strval($a));
+			return strval($a);
 		case "i": return intval($a);
-		case "s": return ($a==="---- Buscar ----")? "": strval($a);
 		case "b": return boolval($a);
 		case "d": return doubleval($a);
 	}

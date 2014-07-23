@@ -1,7 +1,7 @@
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE CLUBES -->
     
     <!-- DECLARACION DE LA TABLA -->
-    <table id="clubes-datagrid" class="easyui-datagrid" style="width:975px;height:550px;"></table>
+    <table id="clubes-datagrid" style="width:975px;height:550px;"></table>
     
 	<!-- BARRA DE TAREAS DE LA TABLA DE CLUBES-->
     <div id="clubes-toolbar" style="padding:5px 5px 25px 5px;">
@@ -88,7 +88,7 @@
             },        
             // especificamos un formateador especial para desplegar la tabla de guias por club
             detailFormatter:function(index,club){
-                return '<div style="padding:2px"><table class="easyui-datagrid"	id="clubes-guias-datagrid-' + replaceAll(' ','_',club.ID) + '"></table></div>';
+                return '<div style="padding:2px"><table id="clubes-guias-datagrid-' + replaceAll(' ','_',club.ID) + '"></table></div>';
             },
             onExpandRow: function(idx,club) { showGuiasByClub(idx,club); }
         }); // end of '#clubes-datagrid' declaration
@@ -207,7 +207,7 @@
                 },
                 // especificamos un formateador especial para desplegar la tabla de perros por guia
                 detailFormatter:function(index,guia){
-                    return '<div style="padding:2px"><table class="easyui-datagrid" id="clubes-guias-perros-datagrid-' + replaceAll(' ','_',guia.ID) + '"></table></div>';
+                    return '<div style="padding:2px"><table id="clubes-guias-perros-datagrid-' + replaceAll(' ','_',guia.ID) + '"></table></div>';
                 },
                 
                 onExpandRow: function(idx,guia) { showPerrosByGuiaByClub(idx,guia,club); },

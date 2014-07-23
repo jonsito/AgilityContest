@@ -6,7 +6,7 @@
 <div id="competicion_info" class="easyui-panel" title="Informaci&oacute;n de la jornada de competici&oacute;n">
 <div id="competicion_infolayout" class="easyui-layout" style="height:400px">
 	<div data-options="region:'west',title:'Mangas de la jornada',split:true,collapsed:false" style="width:200px">
-		<table id="competicion-listamangas" class="easyui-datagrid" style="padding:10px 20px"></table>
+		<table id="competicion-listamangas" style="padding:10px 20px"></table>
 	</div>
 	<div data-options="region:'center',title:'Datos de la manga'" style="width:600px;">
 		<font size="11"> <!--  take care on some stupid browsers -->

@@ -14,7 +14,7 @@
 		</span>
 	</div>
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
-	<table id="ordensalida-datagrid" class="easyui-datagrid"></table>
+	<table id="ordensalida-datagrid"></table>
 </div>
 
 <script type="text/javascript">

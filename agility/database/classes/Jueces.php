@@ -113,14 +113,14 @@ class Jueces extends DBObject {
 		$sort = isset($_GET['sort']) ? strval($_GET['sort']) : 'Nombre';
 		$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
 		$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
-		$page=http_request("page","i",0);
-		$rows=http_request("rows","i",0);
+		$page=http_request("page","i",1);
+		$rows=http_request("rows","i",50);
 		$limit="";
 		if ($page!=0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		$where = '';
+		$where = "";
 		if ($search!=='') $where="( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "*",

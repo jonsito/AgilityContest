@@ -209,13 +209,19 @@ class Inscripciones extends DBObject {
 		$extra = '';
 		if ($search!=='') $extra=" AND ( (PerroGuiaClub.Nombre LIKE '%$search%') 
 				OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) ) ";
-
+		$page=http_request("page","i",1);
+		$rows=http_request("rows","i",50);
+		$limit="";
+		if ($page!=0 && $rows!=0 ) {
+			$offset=($page-1)*$rows;
+			$limit=" LIMIT ".$offset.",".$rows;
+		}
 		// FASE 1: obtener lista de perros inscritos con sus datos
 		$str="SELECT Inscripciones.ID AS ID, Dorsal , Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
 			Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club , NombreGuia, NombreClub, Equipo , Observaciones , Jornadas, Pagado
 			FROM Inscripciones,PerroGuiaClub
 			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) AND ( Prueba=".$this->pruebaID." )	$extra 
-			ORDER BY NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"; 
+			ORDER BY NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC $limit"; 
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 	

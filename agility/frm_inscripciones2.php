@@ -31,7 +31,7 @@
 		</form>
 	</div>
 	<div data-options="region:'center',title:'Lista de jornadas de la prueba'" style="width:500px">
-		<table id="inscripciones-jornadas" class="easyui-datagrid"></table>
+		<table id="inscripciones-jornadas"></table>
 	</div>
 </div> 
 </div> 
@@ -63,7 +63,7 @@
   
 <div id="inscripciones-list" class="easyui-panel" style="width:auto;height:400px;">  
 	<!-- DECLARACION DE LA TABLA DE INSCRIPCIONES -->
-	<table id="inscripciones-datagrid" class="easyui-datagrid" ></table>
+	<table id="inscripciones-datagrid"></table>
 </div>
 
 <div id="inscripciones-progresswindow" class="easyui-window">
@@ -169,14 +169,18 @@ $('#inscripciones-datagrid').datagrid({
 	border: false,
 	closable: false,
 	collapsible: false,
+    expansible: false,
 	collapsed: false,
 	// propiedades especificas del datagrid
     pagination: false,
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
+    view: scrollview,
+    pageSize: 50,
     multiSort: true,
     remoteSort: false,
+    remoteFilter: true,
 	url: 'database/inscripcionFunctions.php?Operation=inscritos&IDPrueba='+workingData.prueba,
 	method: 'get',
 	loadMsg: 'Actualizando datos de inscripciones....',

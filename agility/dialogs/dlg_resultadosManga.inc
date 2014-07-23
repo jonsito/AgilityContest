@@ -40,7 +40,7 @@
 		</form>
 	</div>
 	<!-- TABLA DE PRESENTACION DE RESULTADOS DE CADA MANGA -->
-	<table id="resultadosmanga-datagrid" class="easyui-datagrid"></table>
+	<table id="resultadosmanga-datagrid"></table>
 </div>
 
 <script type="text/javascript">
