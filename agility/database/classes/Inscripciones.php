@@ -212,7 +212,7 @@ class Inscripciones extends DBObject {
 
 		// FASE 1: obtener lista de perros inscritos con sus datos
 		$str="SELECT Inscripciones.ID AS ID, Dorsal , Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
-			Categoria , Grado , Celo , Guia , Club , NombreGuia, NombreClub, Equipo , Observaciones , Jornadas, Pagado
+			Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club , NombreGuia, NombreClub, Equipo , Observaciones , Jornadas, Pagado
 			FROM Inscripciones,PerroGuiaClub
 			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) AND ( Prueba=".$this->pruebaID." )	$extra 
 			ORDER BY NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"; 

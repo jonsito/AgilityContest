@@ -338,18 +338,6 @@ function deleteDog(dg){
 }
 
 /**
- * Abre el dialogo para editar datos de un perro ya existente desde el menu de inscripciones
- * @param {integer} mode 0:newInscripcion 1:editInscripcion
- */
-function editInscribedDog(mode){
-	var idperro=0;
-	if (mode==0) idperro= $('#inscripciones-ID').val();
-	else idperro= $('#chinscripciones-ID').val();
-    $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro a inscribir');
-    $('#perros-form').form('load','database/dogFunctions.php?Operation=getbyidperro&ID='+idperro);// load form with row data
-}
-
-/**
  * Abre el formulario para anyadir/asignar perros a un guia
  *@param {string} ID identificador del datagrid que se actualiza
  *@param {object} guia: datos del guia
@@ -834,63 +822,8 @@ function editInscripcion() {
     	$.messager.alert("No selection","!No ha seleccionado ninguna inscripción!","warning");
     	return; // no hay ninguna inscripcion seleccionada. retornar
     }
-	// cerramos dialogo de nueva inscripcion
-    $('#inscripciones-buscar').form('clear'); 
-    $('#inscripciones-data').form('clear'); 
-    $('#inscripciones-form').form('clear'); 
-    $('#inscripciones-Participante').combogrid({ 'setValue' : '' });
-    $('#inscripciones-dialog').dialog('close');
-	// abrimos dialogo de edicion de inscripcion
-	$('#chinscripciones-dialog').dialog('open').dialog('setTitle','Modificar datos de inscripci&oacute;n');
-	// rellenamos formulario de datos del perro
-	$('#chinscripciones-data').form('load','database/dogFunctions.php?Operation=getbyidperro&ID='+row.ID);
-	// rellenamos formulario de la inscripcion
-	$('#chinscripciones-form').form('load',row);
-	// ajustamos checkboxes (un cb tiene "value" and "checked" como propiedades, y el 'load' solo toca "value")
-	// store original values
-	$('#chinscripciones-oldJ1').val(row.J1);
-	$('#chinscripciones-oldJ2').val(row.J2);
-	$('#chinscripciones-oldJ3').val(row.J3);
-	$('#chinscripciones-oldJ4').val(row.J4);
-	$('#chinscripciones-oldJ5').val(row.J5);
-	$('#chinscripciones-oldJ6').val(row.J6);
-	$('#chinscripciones-oldJ7').val(row.J7);
-	$('#chinscripciones-oldJ8').val(row.J8);
-	// set up checked status
-	$('#chinscripciones-J1').prop('checked',row.J1);
-	$('#chinscripciones-J2').prop('checked',row.J2);
-	$('#chinscripciones-J3').prop('checked',row.J3);
-	$('#chinscripciones-J4').prop('checked',row.J4);
-	$('#chinscripciones-J5').prop('checked',row.J5);
-	$('#chinscripciones-J6').prop('checked',row.J6);
-	$('#chinscripciones-J7').prop('checked',row.J7);
-	$('#chinscripciones-J8').prop('checked',row.J8);
-	// disable those ones that belongs to closed journeys
-	// store cerrada status into form
-	cerrada= ($('#jornada_cerrada-1').text()=='1')?true:false;
-	$('#chinscripciones-c1').val($('#jornada_cerrada-1').text());
-	$('#chinscripciones-J1').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-2').text()=='1')?true:false;
-	$('#chinscripciones-c2').val($('#jornada_cerrada-2').text());
-	$('#chinscripciones-J2').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-3').text()=='1')?true:false;
-	$('#chinscripciones-c3').val($('#jornada_cerrada-3').text());
-	$('#chinscripciones-J3').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-4').text()=='1')?true:false;
-	$('#chinscripciones-c4').val($('#jornada_cerrada-4').text());
-	$('#chinscripciones-J4').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-5').text()=='1')?true:false;
-	$('#chinscripciones-c5').val($('#jornada_cerrada-5').text());
-	$('#chinscripciones-J5').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-6').text()=='1')?true:false;
-	$('#chinscripciones-c6').val($('#jornada_cerrada-6').text());
-	$('#chinscripciones-J6').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-7').text()=='1')?true:false;
-	$('#chinscripciones-c7').val($('#jornada_cerrada-7').text());
-	$('#chinscripciones-J7').prop('disabled',cerrada);
-	cerrada= ($('#jornada_cerrada-8').text()=='1')?true:false;
-	$('#chinscripciones-c8').val($('#jornada_cerrada-8').text());
-	$('#chinscripciones-J8').prop('disabled',cerrada);
+    $('#edit_inscripcion-data').form('load',row);
+    $('#edit_inscripcion-dialog').dialog('open');
 }
 
 /**
@@ -966,47 +899,5 @@ function insertInscripcion() {
 	$('#inscripciones-newGrid').combogrid('grid').datagrid('clearSelections');
     // reload the inscripciones table
 	$('#inscripciones-datagrid').datagrid('reload');
-}
-
-/**
- * Ask for submit inscription changes to server
- */
-function updateInscripcion(){
-	// if no jornada selected warn
-	var count=0;
-	if ( $('#chinscripciones-J1').prop('checked')) count++;
-	if ( $('#chinscripciones-J2').prop('checked')) count++;
-	if ( $('#chinscripciones-J3').prop('checked')) count++;
-	if ( $('#chinscripciones-J4').prop('checked')) count++;
-	if ( $('#chinscripciones-J5').prop('checked')) count++;
-	if ( $('#chinscripciones-J6').prop('checked')) count++;
-	if ( $('#chinscripciones-J7').prop('checked')) count++;
-	if ( $('#chinscripciones-J8').prop('checked')) count++;
-	if (count==0) {
-		$.messager.alert("Error","!No ha seleccionado ninguna jornada!","warning");
-		return;
-	}
-	// fill needed data to be sent
-	$('#chinscripciones-fIDPerro').val($('#chinscripciones-IDPerro').val());
-	$('#chinscripciones-fPruebaID').val(workingData.prueba);
-	$('#chinscripciones-fOperation').val('update');
-    // do normal submit
-    $('#chinscripciones-form').form('submit',{
-        url: 'database/inscripcionFunctions.php',
-        method: 'get',
-        onSubmit: function(param){ // nothing to validate, but...
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
-            if (result.errorMsg){
-                $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg});
-            } else {
-                $('#chinscripciones-dialog').dialog('close');        // close the dialog
-                // notice that some of these items may fail if dialog is not deployed. just ignore
-                $('#inscripciones-datagrid').datagrid('reload'); // reload the inscripciones table
-            }
-        }
-    });
 }
 

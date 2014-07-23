@@ -4,7 +4,7 @@
 <?php include_once("dialogs/dlg_guias.inc");?>
 <?php include_once("dialogs/dlg_clubes.inc");?>
 <?php include_once("dialogs/dlg_jornadas.inc");?>
-<?php include_once("dialogs/dlg_inscripciones.inc");?>
+<?php include_once("dialogs/dlg_editInscripcion.inc");?>
 
 <div id="inscripciones-info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
 <div id="inscripciones-infolayout" class="easyui-layout" style="height:150px">
@@ -182,12 +182,15 @@ $('#inscripciones-datagrid').datagrid({
 	loadMsg: 'Actualizando datos de inscripciones....',
     toolbar: '#inscripciones-toolbar',
     columns: [[
-        { field:'ID',     hidden:true }, // inscripcion ID
-        { field:'Perro',  hidden:true }, // dog ID
-        { field:'Equipo', hidden:true }, // only used on Team contests
-        { field:'Pagado', hidden:true }, // to store if handler paid :-)
-        { field:'Guia', hidden:true }, // Guia ID
-        { field:'Club', hidden:true }, // Club ID
+        { field:'ID',		hidden:true }, // inscripcion ID
+        { field:'Perro',	hidden:true }, // dog ID
+        { field:'Equipo',	hidden:true }, // only used on Team contests
+        { field:'Pagado', 	hidden:true }, // to store if handler paid :-)
+        { field:'Guia', 	hidden:true }, // Guia ID
+        { field:'Club',		hidden:true }, // Club ID
+        { field:'LOE_RRC',	hidden:true }, // LOE/RRC
+        { field:'Licencia', hidden:true }, // LOE/RRC
+        { field:'Club',		hidden:true }, // Club ID
     	{ field:'Dorsal',	width:6,  sortable:true, align: 'right',	title: 'Dorsal' },
     	{ field:'Nombre',	width:15, sortable:true, align: 'right',	title: 'Nombre' },
     	{ field:'Categoria',width:5,  sortable:true, align: 'center',  	title: 'Cat.' },
