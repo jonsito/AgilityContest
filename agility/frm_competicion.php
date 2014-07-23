@@ -9,7 +9,7 @@ $('#Header_Operation').html('<p>Competicion - Selecci&oacute;n de Prueba y Jorna
 
 $('#seljornada-window').window({
 	onClose: function () {
-		var page=(workingData.jornada!=0)?'competicion2.php':'main.php';
+		var page=(workingData.jornada!=0)?'frm_competicion2.php':'frm_main.php';
 		loadContents('#contenido',page);
 	} 
 });

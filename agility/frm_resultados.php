@@ -9,7 +9,7 @@ $('#Header_Operation').html('<p>Resultados - Selecci&oacute;n de Prueba, Jornada
 
 $('#selmanga-window').window({
 	onClose: function () {
-		var page=(workingData.jornada!=0)?'resultados2.php':'main.php';
+		var page=(workingData.jornada!=0)?'frm_resultados2.php':'frm_main.php';
 		loadContents('#contenido',page);
 	} 
 });
