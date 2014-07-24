@@ -122,7 +122,7 @@ $('#ordensalida-printBtn').tooltip({
 });
 $('#ordensalida-printBtn').on("click", function () {
 	$.fileDownload(
-		'pdf/ordenDeSalida.php',
+		'pdf/print_ordenDeSalida.php',
 		{
 			httpMethod: 'GET',
 			data: { 

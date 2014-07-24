@@ -317,7 +317,7 @@ addTooltip($('#inscripciones-reloadBtn').linkbutton(),"Refrescar la lista de ins
 // special handling for printing inscritos
 $('#inscripciones-printBtn').on("click", function () {
 	$.fileDownload(
-		'pdf/inscritosByPrueba.php',
+		'pdf/print_inscritosByPrueba.php',
 		{
 			httpMethod: 'GET',
 			data: { Prueba: workingData.prueba},

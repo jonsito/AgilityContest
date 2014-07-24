@@ -369,7 +369,7 @@ $('#resultados-printBtn').on("click", function () {
 	var tab = $('#resultados-datatabs').tabs('getSelected');
 	var index = $('#resultados-datatabs').tabs('getTabIndex',tab);
 	$.fileDownload(
-		'pdf/clasificaciones.php',
+		'pdf/print_clasificaciones.php',
 		{
 			httpMethod: 'GET',
 			data: { 

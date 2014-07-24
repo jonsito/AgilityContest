@@ -156,7 +156,7 @@ $('#competicion-printBtn').tooltip({
 });
 $('#competicion-printBtn').on("click", function () {
 	$.fileDownload(
-		'pdf/entradaDeDatos.php',
+		'pdf/print_entradaDeDatos.php',
 		{
 			httpMethod: 'GET',
 			data: { 
