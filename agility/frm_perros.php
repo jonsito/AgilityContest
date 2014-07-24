@@ -2,23 +2,22 @@
     <!-- DECLARACION DE LA TABLA -->
     <table id="perros-datagrid" style="width:975px;height:550px;">    </table>
     <!-- BARRA DE TAREAS -->
-    <div id="perros-toolbar" style="padding:5px 5px 25px 5px">
+    <div id="perros-toolbar" style="padding:5px 5px 35px 5px">
     	<span style="float:left;">
     		<a id="perros-newBtn" href="#" class="easyui-linkbutton"
-    			plain="true" iconCls="icon-dog"
+    			data-options="iconCls:'icon-dog'"
     			onclick="newDog($('#perros-search').val())">Nuevo Perro</a>
     		<a id="perros-editBtn" href="#" class="easyui-linkbutton"
-    			plain="true" iconCls="icon-edit"
+    			data-options="iconCls:'icon-edit'"
     			onclick="editDog('#perros-datagrid')">Editar Perro</a>
     		<a id="perros-delBtn" href="#" class="easyui-linkbutton"
-    			plain="true" iconCls="icon-trash"
+    			data-options="iconCls:'icon-trash'"
     			onclick="deleteDog('#perros-datagrid')">Borrar Perro</a>
-    		<input id="perros-search" type="text" value="---- Buscar ----" class="search_textfield"
-    			/>
+    		<input id="perros-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
     	</span>
     	<span style="float:right;">
     		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"
-    			plain="true" iconCls="icon-reload"
+    			data-options="iconCls:'icon-reload'"
     			onclick="
     	        	// clear selection and reload table
     	    		$('#perros-search').val('---- Buscar ----');

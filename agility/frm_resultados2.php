@@ -166,9 +166,9 @@
 		<option value="5">Large + Medium + Small</option>
 	</select>
     <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" 
-    	plain="true" iconCls="icon-reload" onclick="reloadClasificacion();">Refrescar</a>
-    <a id="resultados-labelsBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-table" onclick="">Etiquetas</a>
-    <a id="resultados-printBtn" href="#" class="easyui-linkbutton" plain="true" iconCls="icon-print" onclick="">Imprimir</a>
+    	data-options="iconCls:'icon-reload'" onclick="reloadClasificacion();">Refrescar</a>
+    <a id="resultados-labelsBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-table'" onclick="">Etiquetas</a>
+    <a id="resultados-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'" onclick="">Imprimir</a>
 	</form>
 </div>
 

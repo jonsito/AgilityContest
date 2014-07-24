@@ -3,26 +3,26 @@
     <!-- DECLARACION DE LA TABLA -->
     <table id="pruebas-datagrid" style="width:975px;height:550px"></table>     
     <!-- BARRA DE TAREAS DE LA TABLA DE PRUEBAS-->
-    <div id="pruebas-toolbar" style="padding:5px 5px 25px 5px;">
+    <div id="pruebas-toolbar" style="padding:5px 5px 35px 5px;">
     	<span style="float:left;">
     	    <a id="pruebas-newBtn" href="#" class="easyui-linkbutton" 
-    	    iconCls="icon-add" plain="true"
-    	    onclick="newPrueba('#pruebas-search')">Nueva prueba</a>
+    	    	data-options="iconCls:'icon-add'"
+    	    	onclick="newPrueba('#pruebas-search')">Nueva prueba</a>
     	    <a id="pruebas-editBtn" href="#" class="easyui-linkbutton"
-    	    iconCls="icon-edit" plain="true"
-    	    onclick="editPrueba('#pruebas-datagrid')">Editar prueba</a>
+    	    	data-options="iconCls:'icon-edit'"
+    	    	onclick="editPrueba('#pruebas-datagrid')">Editar prueba</a>
     	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" 
-    	    iconCls="icon-remove" plain="true"
-    	    onclick="deletePrueba('#pruebas-datagrid')">Borrar prueba</a>
+    	    	data-options="iconCls:'icon-remove'"
+    	    	onclick="deletePrueba('#pruebas-datagrid')">Borrar prueba</a>
     		<input id="pruebas-search" type="text" value="---- Buscar ----" class="search_textfield"/>
-    	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox" 
-    	    iconCls="icon-search" plain="true"
-    	    onclick="doSearchPrueba()"/>Incl. Cerradas
+    	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox"
+    	    	data-options="iconCls:'icon-search'" 
+    	    	onclick="doSearchPrueba()"/>Incl. Cerradas
     	</span>
     	<span style="float:right;">
     		<a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton" 
-    	    iconCls="icon-reload" plain="true"
-    	    onclick="$('#pruebas-datagrid').datagrid('reload')">Actualizar</a>
+    	    	data-options="iconCls:'icon-reload'"
+    	    	onclick="$('#pruebas-datagrid').datagrid('reload')">Actualizar</a>
     	</span>
     </div>
     
@@ -203,19 +203,16 @@
     	        {
     				id: 'jornadasbyprueba-editBtn'+prueba.ID,
             		text: 'Editar jornada',
-            		plain: true,
         			iconCls: 'icon-edit',
        				handler: function(){editJornadaFromPrueba(prueba.ID,datagridID);}
     			},{
     				id: 'jornadasbyprueba-closeBtn'+prueba.ID,
             		text: 'Cerrar jornada',
-            		plain: true,
         			iconCls: 'icon-forbidden',
        				handler: function(){closeJornadaFromPrueba(prueba.ID,datagridID);}
     			},{
     				id: 'jornadasbyprueba-reloadBtn'+prueba.ID,
             		text: 'Actualizar',
-            		plain: true,
         			iconCls: 'icon-reload',
         			align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
        				handler: function(){$(datagridID).datagrid('reload');}    // reload the pruebas data}

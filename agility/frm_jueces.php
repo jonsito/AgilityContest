@@ -3,23 +3,22 @@
     <!-- DECLARACION DE LA TABLA DE JUECES -->
     <table id="jueces-datagrid" style="width:975px;height:550px">  </table>
     <!-- BARRA DE TAREAS DE LA TABLA DE JUECES -->
-    <div id="jueces-toolbar" style="padding:5px 5px 25px 5px;">
+    <div id="jueces-toolbar" style="padding:5px 5px 35px 5px;">
     	<span style="float:left;">
     		<a id="jueces-newBtn" href="#" class="easyui-linkbutton"
-    			iconCls="icon-whistle" plain="true"
+    			data-options="iconCls:'icon-whistle'"
     			onclick="newJuez($('#jueces-search').val())">Nuevo Juez</a>
     		<a id="jueces-editBtn" href="#" class="easyui-linkbutton" 
-    			iconCls="icon-edit" plain="true"
+    			data-options="iconCls:'icon-edit'"
     			onclick="editJuez('#jueces-datagrid')">Editar Juez</a>
     		<a id="jueces-delBtn" href="#" class="easyui-linkbutton" 
-    			iconCls="icon-trash" plain="true"
+    			data-options="iconCls:'icon-trash'"
     			onclick="deleteJuez('#jueces-datagrid')">Borrar Juez</a>
-    		<input id="jueces-search" type="text" value="---- Buscar ----" class="search_textfield"
-    			/>
+    		<input id="jueces-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
     	</span>
     	<span style="float:right;">
     		<a id="jueces-reloadBtn" href="#" class="easyui-linkbutton"
-    			plain="true" iconCls="icon-reload"
+    			data-options="iconCls:'icon-reload'"
     			onclick="
     	        	// clear selection and reload table
     	    		$('#jueces-search').val('---- Buscar ----');

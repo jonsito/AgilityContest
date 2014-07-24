@@ -3,23 +3,22 @@
     <!-- DECLARACION DE LA TABLA -->
     <table id="guias-datagrid" style="width:975px;height:550px">  </table>
     <!-- BARRA DE TAREAS DE LA TABLA DE GUIAS -->
-    <div id="guias-toolbar" style="padding:5px 5px 25px 5px">
+    <div id="guias-toolbar" style="padding:5px 5px 35px 5px">
     	<span style="float:left;">
         	<a id="guias-newBtn" href="#" class="easyui-linkbutton"
-        		iconCls="icon-users" plain="true"
+        		data-options="iconCls:'icon-users'"
         		onclick="newGuia($('#guias-search').val())">Nuevo Gu&iacute;a</a>
         	<a id="guias-editBtn" href="#" class="easyui-linkbutton"
-        		iconCls="icon-edit" plain="true" 
+        		data-options="iconCls:'icon-edit'"
         		onclick="editGuia('#guias-datagrid')">Editar Gu&iacute;a</a>
         	<a id="guias-delBtn" href="#" class="easyui-linkbutton" 
-        		iconCls="icon-trash" plain="true"
+        		data-options="iconCls:'icon-trash'"
         		onclick="deleteGuia('#guias-datagrid')">Borrar gu&iacute;a</a>
-    		<input id="guias-search" type="text" value="---- Buscar ----" class="search_textfield"
-    		/>
+    		<input id="guias-search" type="text" value="---- Buscar ----" class="search_textfield" />
     	</span>
     	<span style="float:right;">
     		<a id="guias-reloadBtn" href="#" class="easyui-linkbutton"
-    			plain=true" iconCls="icon-reload"
+    			data-options="iconCls:'icon-reload'"
     			onClick="
     	        	// clear selection and reload table
     	    		$('#guias-search').val('---- Buscar ----');
@@ -202,25 +201,21 @@
 			var toolbar = [{
 				id: 'perrosbyguia-newBtn'+guia.ID,
 				text: 'Asignar perro',
-				plain: true,
 				iconCls: 'icon-dog',
 				handler: function(){assignPerroToGuia(mySelf,guia); }
 			},{
 				id: 'perrosbyguia-editBtn'+guia.ID,
 				text: 'Editar datos',
-				plain: true,
 				iconCls: 'icon-edit',
 				handler: function(){editPerroFromGuia(mySelf,guia); }
 			},{
 				id: 'perrosbyguia-delBtn'+guia.ID,
 				text: 'Desasignar perro',
-				plain: true,
 				iconCls: 'icon-trash',
 				handler: function(){delPerroFromGuia(mySelf,guia); }
 			},{
 				id: 'perrosbyguia-reloadBtn'+guia.ID,
         		text: 'Actualizar',
-        		plain: true,
     			iconCls: 'icon-reload',
     			align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
    				handler: function(){ $(mySelf).datagrid('reload'); }    // reload the clubs data}

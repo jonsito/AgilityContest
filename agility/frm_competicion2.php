@@ -20,13 +20,13 @@
 <div id="competicion-listamanga-toolbar">
    	<span style="float:left">
     	<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton"
-    		plain="true" iconCls="icon-order" 
+    		data-options="iconCls:'icon-order'" style="width:185px"
     		onclick="competicionDialog('ordensalida');">Orden de salida</a>
     	<a id="competicion-competicionBtn" href="#" class="easyui-linkbutton"
-    		plain="true" iconCls="icon-table"
+    		data-options="iconCls:'icon-table'" style="width:185px"
     		onclick="competicionDialog('competicion');">Entrada de datos</a>
     	<a id="competicion-resultmangaBtn" href="#" class="easyui-linkbutton"
-    		plain="true" iconCls="icon-endflag"
+    		data-options="iconCls:'icon-endflag'" style="width:185px"
     		onclick="competicionDialog('resultadosmanga');">Resultados de la manga</a>
 	</span>
 </div>

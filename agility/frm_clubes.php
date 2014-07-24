@@ -4,22 +4,22 @@
     <table id="clubes-datagrid" style="width:975px;height:550px;"></table>
     
 	<!-- BARRA DE TAREAS DE LA TABLA DE CLUBES-->
-    <div id="clubes-toolbar" style="padding:5px 5px 25px 5px;">
+    <div id="clubes-toolbar" style="padding:5px 5px 35px 5px;">
     	<span style="float:left;">
-    		<a id="clubes-newBtn" href="#" class="easyui-linkbutton" 
-    			iconCls="icon-flag" plain=true
+    		<a id="clubes-newBtn" href="#" class="easyui-linkbutton"
+    			data-options="iconCls:'icon-flag'"
     			onclick="newClub($('#clubes-search').val())">Nuevo Club</a>
     		<a id="clubes-editBtn" href="#" class="easyui-linkbutton" 
-    			iconCls="icon-edit" plain=true
+    			data-options="iconCls:'icon-edit'"
     			onclick="editClub('#clubes-datagrid')">Editar Club</a>
     		<a id="clubes-delBtn" href="#" class="easyui-linkbutton" 
-    			iconCls="icon-trash" plain=true
+    			data-options="iconCls:'icon-trash'"
     			onclick="deleteClub('#clubes-datagrid')">Borrar Club</a>
     		<input id="clubes-search" type="text" value="---- Buscar ----" class="search_textfield"/>
     	</span>
     	<span style="float:right;">
     		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"
-    		plain="true" iconCls="icon-reload"
+    		data-options="iconCls:'icon-reload'"
     		onClick="
         	// clear selection and reload table
     		$('#clubes-search').val('---- Buscar ----');
@@ -225,25 +225,21 @@
         	var	toolbar= [{
             		id: 'guiasByClub-newBtn'+club.ID,
             		text: 'Asociar gu&iacute;a',
-            		plain: true,
         			iconCls: 'icon-users',
         			handler: function(){ assignGuiaToClub(mySelf,club); }
         		},{
             		id: 'guiasByClub-editBtn'+club.ID,
             		text: 'Editar gu&iacute;a',
-            		plain: true,
         			iconCls: 'icon-edit',
         			handler: function(){ editGuiaFromClub(mySelf,club); }
         		},{
             		id: 'guiasByClub-delBtn'+club.ID,
             		text: 'Des-asociar gu&iacute;a',
-            		plain: true,
         			iconCls: 'icon-remove',
         			handler: function(){ delGuiaFromClub(mySelf,club); }
         		},{
     				id: 'guiasByClub-reloadBtn'+club.ID,
             		text: 'Actualizar',
-            		plain: true,
         			iconCls: 'icon-reload',
         			align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
        				handler: function(){ $(mySelf).datagrid('reload'); }    // reload the clubs data}
@@ -306,25 +302,21 @@
 			var toolbar=  [{
 				id: 'perrosByGuiaByClub-newBtn'+guia.ID+'_'+club.ID,
 				text: 'Asignar perro',
-				plain: true,
 				iconCls: 'icon-dog',
 				handler: function(){ assignPerroToGuia(mySelf,guia ); },
 			},{
 				id: 'perrosByGuiaByClub-editBtn'+guia.ID+'_'+club.ID,
 				text: 'Editar datos',
-				plain: true,
 				iconCls: 'icon-edit',
 				handler: function(){editPerroFromGuia(mySelf,guia);}
 			},{
 				id: 'perrosByGuiaByClub-delBtn'+guia.ID+'_'+club.ID,
 				text: 'Desasignar perro',
-				plain: true,
 				iconCls: 'icon-remove',
 				handler: function(){delPerroFromGuia(mySelf,guia);}
 			},{
 				id: 'perrosByGuiaByClub-reloadBtn'+guia.ID+'_'+club.ID,
         		text: 'Actualizar',
-        		plain: true,
     			iconCls: 'icon-reload',
     			align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
    				handler: function(){ $(mySelf).datagrid('reload'); }    // reload the clubs data}

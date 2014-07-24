@@ -41,22 +41,22 @@
     	<span style="float:left">
     	<select id="inscripciones-newGrid" style="width:150px"></select>
     	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton"
-    		plain="true" iconCls="icon-add"
+    		data-options="iconCls:'icon-add'" 
     		onclick="insertInscripcion()">Inscribir</a>
     	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton"
-    		plain="true" iconCls="icon-edit"
+    		data-options="iconCls:'icon-edit'" 
     		onclick="editInscripcion()">Editar Registro</a>
     	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton"
-    		plain="true" iconCls="icon-remove"
+    		data-options="iconCls:'icon-remove'" 
     		onclick="deleteInscripcion()">Borrar inscripci&oacute;n</a>
      	</span>
     	<span style="float:right">
     	<!-- estos elementos deben estar alineados a la derecha -->
     	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton"
-    		plain="true" iconCls="icon-print"
-    		>Imprimir</a>
+    		data-options="iconCls:'icon-print'" 
+    		>Imprimir</a> <!-- onClick() is handled below -->
 	   	<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton" 
-	   		plain="true" iconCls="icon-reload"
+    		data-options="iconCls:'icon-reload'" 
 	   		onclick="$('#inscripciones-datagrid').datagrid('reload');">Refrescar</a>
 	   	</span>
     </div>
@@ -197,8 +197,8 @@ $('#inscripciones-datagrid').datagrid({
         { field:'Club',		hidden:true }, // Club ID
     	{ field:'Dorsal',	width:6,  sortable:true, align: 'right',	title: 'Dorsal' },
     	{ field:'Nombre',	width:15, sortable:true, align: 'right',	title: 'Nombre' },
-    	{ field:'Categoria',width:5,  sortable:true, align: 'center',  	title: 'Cat.' },
-    	{ field:'Grado',	width:5,  sortable:true, align: 'center',  	title: 'Grado' },
+    	{ field:'Categoria',width:4,  sortable:true, align: 'center',  	title: 'Cat.' },
+    	{ field:'Grado',	width:6,  sortable:true, align: 'center',  	title: 'Grado' },
     	{ field:'NombreGuia',	width:25, sortable:true, align: 'right',	title: 'Guia' },
     	{ field:'NombreClub',	width:15, sortable:true, align: 'right',	title: 'Club' },
     	{ field:'Observaciones',width:15,            title: 'Observaciones' },
