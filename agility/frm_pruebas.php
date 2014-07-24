@@ -139,7 +139,7 @@
             }
 		}); 
 		// tooltips
-		addTooltip($('#pruebas-newBtn').linkbutton(),"Dar de alta una nueva prueba"); 
+		addTooltip($('#pruebas-newBtn').linkbutton(),"Crear y guardar una nueva prueba<br/> en la Base de Datos"); 
 		addTooltip($('#pruebas-editBtn').linkbutton(),"Editar los datos de la prueba seleccionada");
 		addTooltip($('#pruebas-delBtn').linkbutton(),"Eliminar la prueba seleccionada");
 		addTooltip($('#pruebas-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");

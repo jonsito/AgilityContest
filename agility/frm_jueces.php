@@ -134,7 +134,7 @@
             }
 		});
 		// tooltips
-		addTooltip($('#jueces-newBtn').linkbutton(),"Dar de alta un nuevo juez en la BBDD"); 
+		addTooltip($('#jueces-newBtn').linkbutton(),"Añadir un nuevo juez<br/> a la Base de Datos"); 
 		addTooltip($('#jueces-editBtn').linkbutton(),"Modificar los datos del juez seleccionado");
 		addTooltip($('#jueces-delBtn').linkbutton(),"Eliminar el juez seleccionado de la BBDD");
 		addTooltip($('#jueces-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");

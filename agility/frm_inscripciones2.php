@@ -45,7 +45,7 @@
     		onclick="insertInscripcion()">Inscribir</a>
     	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton"
     		data-options="iconCls:'icon-edit'" 
-    		onclick="editInscripcion()">Editar Registro</a>
+    		onclick="editInscripcion()">Editar Inscripci&oacute;n</a>
     	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton"
     		data-options="iconCls:'icon-remove'" 
     		onclick="deleteInscripcion()">Borrar inscripci&oacute;n</a>
@@ -280,7 +280,7 @@ $('#inscripciones-datagrid').datagrid('getPanel').panel('panel').attr('tabindex'
 // combogrid de inscripcion de participantes
 $('#inscripciones-newGrid').combogrid({
     fit:true,
-    delay: 250, // dont search on every keystroke
+    delay: 100, // dont search on every keystroke
 	panelWidth: 400,
 	panelHeight: 150,
 	idField: 'Perro',
@@ -306,8 +306,8 @@ $('#inscripciones-newGrid').combogrid({
 	selectOnNavigation: false
 });
 
-
 // tooltips
+addTooltip($('#inscripciones-newGrid').combogrid('textbox'),"Buscar y seleccionar<br />uno o más perros para su inscripción"); 
 addTooltip($('#inscripciones-newBtn').linkbutton(),"Inscribir el/los perro(s) seleccionados"); 
 addTooltip($('#inscripciones-editBtn').linkbutton(),"Modificar la inscripción seleccionada");
 addTooltip($('#inscripciones-delBtn').linkbutton(),"Eliminar la inscripción seleccionada de la BBDD");

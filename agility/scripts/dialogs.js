@@ -874,6 +874,10 @@ function insertInscripcion() {
 	var selectedRows= g.datagrid('getSelections');
 	var count=1;
 	var size=selectedRows.length;
+	if(size==0) {
+    	$.messager.alert("No selection","!No ha marcado ningún perro para proceder a su inscripción!","warning");
+    	return; // no hay ninguna inscripcion seleccionada. retornar
+	}
 	$('#inscripciones-progresswindow').window('open');
 	$.each(selectedRows, function(index,row) {
 		$('#inscripciones-progressbar').progressbar('setValue',count*(100/size));

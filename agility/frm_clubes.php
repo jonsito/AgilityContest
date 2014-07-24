@@ -153,7 +153,7 @@
 		}); 
 
 		// tooltips
-		addTooltip($('#clubes-newBtn').linkbutton(),"Dar de alta un nuevo club en la BBDD"); 
+		addTooltip($('#clubes-newBtn').linkbutton(),"Dar de alta un nuevo club <br/>en la Base de Datos"); 
 		addTooltip($('#clubes-editBtn').linkbutton(),"Editar los datos del club seleccionado");
 		addTooltip($('#clubes-delBtn').linkbutton(),"Borrar el club seleccionado de la BBDD");
 		addTooltip($('#clubes-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");

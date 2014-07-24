@@ -138,7 +138,7 @@
             }
 		});
 		// tooltips
-		addTooltip($('#perros-newBtn').linkbutton(),"Dar de alta un nuevo perro en la BBDD"); 
+		addTooltip($('#perros-newBtn').linkbutton(),"Registrar un nuevo perro <br/>en la Base de Datos"); 
 		addTooltip($('#perros-editBtn').linkbutton(),"Modificar los datos del perro seleccionado");
 		addTooltip($('#perros-delBtn').linkbutton(),"Eliminar el perro seleccionado de la BBDD");
 		addTooltip($('#perros-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");

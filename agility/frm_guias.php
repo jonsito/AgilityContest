@@ -141,11 +141,11 @@
             }
 		});
 		// tooltips
-		addTooltip($('#guias-newBtn').linkbutton(),"Dar de alta un nuevo gu&iacute;a en la BBDD"); 
+		addTooltip($('#guias-newBtn').linkbutton(),"Dar de alta un nuevo gu&iacute;a <br/>en la Base de Datos"); 
 		addTooltip($('#guias-editBtn').linkbutton(),"Editar los datos del gu&iacute;a seleccionado");
 		addTooltip($('#guias-delBtn').linkbutton(),"Borrar el gu&iacute;a seleccionado de la BBDD");
 		addTooltip($('#guias-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
-		addTooltip($('#guias-search'),"ostrar gu&iacute;as que coincidan con el criterio de busqueda");
+		addTooltip($('#guias-search'),"Mostrar gu&iacute;as que coincidan con el criterio de busqueda");
         // - activar la tecla "Enter" en la casilla de busqueda
         $("#guias-search").keydown(function(event){
             if(event.keyCode != 13) return;
