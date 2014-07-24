@@ -73,7 +73,7 @@
             	    <label for="J8">J8</label>
             	    <input id="edit_inscripcion-J8" name="J8" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
             	    <label for="Equipo">Equipo: </label>
-            	    <select id="edit_inscripcion-Equipo" name="Equipo" class="easyui-combogrid" style="width:200px"></select>
+            	    <select id="edit_inscripcion-Equipo" name="Equipo" style="width:200px"></select>
 				</div>
             
 				<div>Datos adicionales</div>

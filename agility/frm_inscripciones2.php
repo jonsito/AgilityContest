@@ -39,7 +39,7 @@
 	<!-- BARRA DE TAREAS -->
     <div id="inscripciones-toolbar" style="padding:10px 10px 40px 10px;">
     	<span style="float:left">
-    	<select id="inscripciones-newGrid" class="easyui-combogrid" style="width:150px"></select>
+    	<select id="inscripciones-newGrid" style="width:150px"></select>
     	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton"
     		plain="true" iconCls="icon-add"
     		onclick="insertInscripcion()">Inscribir</a>

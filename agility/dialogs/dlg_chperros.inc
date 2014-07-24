@@ -4,7 +4,7 @@
         <form id="chperros-header">
         	<div class="fitem">
                 <label for="Search">Buscar: </label>
-                <select id="chperros-Search" name="Search" class="easyui-combogrid" style="width:250px"></select>&nbsp;
+                <select id="chperros-Search" name="Search" style="width:250px"></select>&nbsp;
                 <a id="chperros-clearBtn" href="#" class="easyui-linkbutton">Limpiar</a>
         	</div>
         </form>

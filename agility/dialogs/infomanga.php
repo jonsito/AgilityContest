@@ -6,11 +6,11 @@
 		<tr> <!-- fila 0: datos de los jueces -->
 			<td>Juez 1:</td>
 			<td colspan="4">
-				<select id="dmanga_Juez1" name="Juez1" class="easyui-combogrid" style="width:200px"></select>
+				<select id="dmanga_Juez1" name="Juez1" style="width:200px"></select>
 			</td>
 			<td>Juez 2:</td>
 			<td colspan="4">
-				<select id="dmanga_Juez2" name="Juez2" class="easyui-combogrid" style="width:200px"></select>
+				<select id="dmanga_Juez2" name="Juez2" style="width:200px"></select>
 			</td>
 		</tr>
 		<tr> <!-- fila 1 tipos de recorrido -->

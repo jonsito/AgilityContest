@@ -23,7 +23,7 @@
             </div>
             <div class="fitem">
                 <label for="Provincia">Provincia</label>
-                <select id="clubes-Provincia" name="Provincia" class="easyui-combogrid" style="width:200px"></select>
+                <select id="clubes-Provincia" name="Provincia" style="width:200px"></select>
                 <input id="clubes-Logo"
                    	type="image"
                 	name="Logo" 

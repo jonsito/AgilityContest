@@ -4,7 +4,7 @@
         <form id="chguias-header">
         	<div class="fitem">
                 <label for="Search">Buscar: </label>
-                <select id="chguias-Search" name="Search" class="easyui-combogrid" style="width:200px"></select>&nbsp;
+                <select id="chguias-Search" name="Search" style="width:200px"></select>&nbsp;
                 <a id="chguias-clearBtn" href="#" class="easyui-linkbutton">Limpiar</a>
         	</div>
         </form>

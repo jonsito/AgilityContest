@@ -16,7 +16,7 @@
             </div>
             <div class="fitem">
                 <label for="Club">Club:</label>
-                <select id="pruebas-Club" name="Club" class="easyui-combogrid" style="width:200px"></select>
+                <select id="pruebas-Club" name="Club" style="width:200px"></select>
                 <a id="pruebas-newClubBtn" href="#" class="easyui-linkbutton" style="float:right">Nuevo Club</a>
             </div>
             <div class="fitem">

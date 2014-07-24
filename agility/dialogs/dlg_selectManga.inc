@@ -5,15 +5,15 @@
 			<div id="selmanga-Content" data-options="region:'north',border:'true'">
         		<div class="fitem">
             		<label for="Prueba">Selecciona Prueba:</label>
-            		<select id="selmanga-Prueba" name="Prueba" class="easyui-combogrid" style="width:200px"></select>
+            		<select id="selmanga-Prueba" name="Prueba" style="width:200px"></select>
         		</div>        		
         		<div class="fitem">
             		<label for="Jornada">Selecciona Jornada:</label>
-            		<select id="selmanga-Jornada" name="Jornada" class="easyui-combogrid" style="width:200px"></select>
+            		<select id="selmanga-Jornada" name="Jornada" style="width:200px"></select>
         		</div>      		
         		<div class="fitem">
             		<label for="Ronda">Selecciona Ronda:</label>
-            		<select id="selmanga-Ronda" name="Ronda" class="easyui-combogrid" style="width:200px"></select>
+            		<select id="selmanga-Ronda" name="Ronda" style="width:200px"></select>
         		</div>
 			</div> <!-- contenido -->
 		</form>

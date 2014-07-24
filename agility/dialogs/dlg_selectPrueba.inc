@@ -5,7 +5,7 @@
 			<form id="selprueba-Prueba">
         		<div class="fitem">
             		<label for="Search">Buscar:</label>
-            		<select id="selprueba-Search" name="Search" class="easyui-combogrid" style="width:200px"></select>
+            		<select id="selprueba-Search" name="Search" style="width:200px"></select>
         		</div>
 			</form>
 		</div> <!-- contenido -->
