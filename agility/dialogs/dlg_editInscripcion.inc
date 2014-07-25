@@ -39,7 +39,9 @@
             <input id="edit_inscripcion-J8" 		name="J8" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J8lbl" 		for="J8">J8</label>
         	<label id="edit_inscripcion_Equipolbl"	for="Equipo">Equipo: </label>         	    
-            <select id="edit_inscripcion-Equipo" 	name="Equipo" class="easyui-combogrid"></select>
+            <span id="edit_inscripcion-Equiposp">
+            	<select id="edit_inscripcion-Equipo" 	name="Equipo" class="easyui-combogrid" style="width:130px"></select>
+            </span>
             <label id="edit_inscripcion-Celolbl"	for="Celo">Celo:</label>
             <input id="edit_inscripcion-Celo"		name="Celo" class="easyui-checkbox" type="checkbox" value="1" />
 	        <label id="edit_inscripcion-Observacioneslbl" for="Observaciones">Observaciones:</label>
@@ -159,7 +161,7 @@
 	doLayout(dg,"#edit_inscripcion-J8",				3,	8,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-J8lbl",			4,	8,	2,	1	);
 	doLayout(dg,"#edit_inscripcion_Equipolbl",		3,	9,	1,	1	);   	    
-	doLayout(dg,"#edit_inscripcion-Equipo",			4,	9,	1,	1	); 
+	doLayout(dg,"#edit_inscripcion-Equiposp",		4,	9,	2,	1	); 
 	doLayout(dg,"#edit_inscripcion-Celolbl",		3,	10,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-Celo",			4,	10,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-Pagadolbl",		3,	11,	1,	1	);
