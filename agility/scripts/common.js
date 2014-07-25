@@ -41,8 +41,33 @@ var workingData = new Object({
 	manga2: 0, // ID de la segunda manga para el calculo de resultados
 	datosPrueba: new Object(), // last selected prueba data
 	datosJornada: new Object(), // last selected jornada data
-	datosRonda: new Object() // last selected ronda (grade, manga1, manga2)
+	datosRonda: new Object(), // last selected ronda (grade, manga1, manga2)
 });
+
+/**
+ * Used to evaluate position, width and heigh on an element to be 
+ * layed out in a grid
+ * @param dg datagrid { cols, rows }
+ * @param id id of element to be layed out
+ * @param x start col
+ * @param y start row
+ * @param w nuber of cols
+ * @param h number of rows
+ */
+function doLayout(dg,id,x,y,w,h) {
+	var elem=$(id);
+	elem.css('display','inline-block');
+	elem.css('position','absolute');
+	elem.css('float','left');
+	elem.css('padding','5px');
+	elem.css('-webkit-box-sizing','border-box');
+	elem.css('-moz-box-sizing','border-box');
+	elem.css('box-sizing','border-box');
+	elem.css('left',  ((25+x*100)/dg.cols)+'%');
+	elem.css('top',   ((75+y*100)/dg.rows)+'%');
+	elem.css('width', ((w*100)/dg.cols)+'%');
+	elem.css('height',((h*100)/dg.rows)+'%');
+}
 
 /**
  * Add a tooltip provided element, with given text
