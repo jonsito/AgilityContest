@@ -1,6 +1,9 @@
 
    <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
-    <div id="edit_inscripcion-dialog" style="width:500px;height:430px;padding:10px 20px">
+    <div id="edit_inscripcion-dialog" title="Editar inscripcion" class="easyui-dialog"
+    	data-options="closed:true,modal:true,buttons:'#edit_inscripcion-dlg-buttons'" 
+    	style="width:500px;height:430px;padding:10px">
+    	
         <form id="edit_inscripcion-data" method="get" novalidate="novalidate">
         	<input id="edit_inscripcion-ID" type="hidden" name="ID"/>
         	<input id="edit_inscripcion-Operation" type="hidden" name="Operation" value="update"/>
@@ -50,28 +53,30 @@
  	  		<input id="edit_inscripcion-Pagado" 	name="Pagado" 
  	  			class="easyui-validatebox" type="text" style="text-align:right;padding-right:5px"/>
  	  		<span id="edit_inscripcion-PagadoEuro">&euro;</span>
-        </form>     		
-        <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-		<div id="edit_inscripcion-dlg-buttons">
-			<span style="float:left">
-		   		<a id="edit_inscripcion-editDogBtn" href="#" />
-		   	</span>
-		   	<span style="float:right">  	
-				<a id="edit_inscripcion-cancelBtn" href="#" />
-        		<a id="edit_inscripcion-okBtn" href="#"  onclick="updateInscripcion()" />
-        		<a id="edit_inscripcion-clearBtn" href="#"/>
-        	</span>
-    	</div>
-
+        </form> 
+    
+    </div>
+    		
+    <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+	<div id="edit_inscripcion-dlg-buttons" style="padding:2px 0">
+		<table cellpadding="0" cellspacing="0" style="width:100%">
+		<tr>
+		<td style="text-align:left;padding-left:2px">
+	   		<a id="edit_inscripcion-editDogBtn" href="#" class="easyui-linkbutton"/>
+	   	</td>
+	   	<td style="text-align:right;padding-right:2px">  	
+			<a id="edit_inscripcion-cancelBtn" href="#" class="easyui-linkbutton"/>
+       		<a id="edit_inscripcion-okBtn" href="#" class="easyui-linkbutton" onclick="updateInscripcion()" />
+       		<a id="edit_inscripcion-clearBtn" class="easyui-linkbutton" href="#"/>
+       	</td>
+       	</tr>
+       	</table>
     </div>
 
+    	
     <script type="text/javascript">
     // datos del formulario de nuevo/edit prueba
     $('#edit_inscripcion-dialog').dialog({
-        title: 'Editar inscripcion',
-        closed: true,
-		modal:true,
-        buttons: '#edit_inscripcion-dlg-buttons'
     });
 
     // - botones
