@@ -19,8 +19,10 @@
 		</form>
 		<div data-options="region:'center'">&nbsp;</div>
 		<div id="selmanga-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
-    	    <a id="selmanga-okBtn" href="#" class="easyui-linkbutton" onclick="acceptSelectManga()">Aceptar</a>&nbsp;
-    	    <a id="selmanga-cancelBtn" href="#" class="easyui-linkbutton" onclick="cancelSelectManga()">Cancelar</a>
+    	    <a id="selmanga-okBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls: 'icon-ok' " onclick="acceptSelectManga()">Aceptar</a>&nbsp;
+    	    <a id="selmanga-cancelBtn" href="#" class="easyui-linkbutton"
+    	    	data-options="iconCls: 'icon-cancel'" onclick="cancelSelectManga()">Cancelar</a>
 		</div>	<!-- botones -->
 	</div> <!-- Layout -->
 </div> <!-- Window -->
@@ -40,19 +42,8 @@ $('#selmanga-window').window({
 $('#selmanga-form').form();
 $('#selmanga-layout').layout();
 
-$('#selmanga-okBtn').linkbutton({ iconCls: 'icon-ok' }).tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Trabajar con la ronda seleccionada</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-
-$('#selmanga-cancelBtn').linkbutton({ iconCls: 'icon-cancel' }).tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Cancelar selecci&oacute;n. Cerrar ventana</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
+addTooltip($('#selmanga-okBtn').linkbutton(),"Trabajar con la ronda seleccionada");
+addTooltip($('#selmanga-cancelBtn').linkbutton(),"Cancelar selecci&oacute;n. Cerrar ventana");
 
 $('#selmanga-Prueba').combogrid({
 	panelWidth: 450,

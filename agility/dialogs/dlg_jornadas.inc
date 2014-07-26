@@ -89,8 +89,10 @@
             
 		<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 		<div id="jornadas-dlg-buttons" style="padding-bottom:15px">
-			<a id="jornadas-okBtn" href="#" class="easyui-linkbutton" onclick="saveJornada()">Guardar</a>
-			<a id="jornadas-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#jornadas-dialog').dialog('close')">Cancelar</a>
+			<a id="jornadas-okBtn" href="#" class="easyui-linkbutton" 
+				data-options="iconCls:'icon-ok'" onclick="saveJornada()">Guardar</a>
+			<a id="jornadas-cancelBtn" href="#" class="easyui-linkbutton" 
+				data-options="iconCls:'icon-cancel'" onclick="javascript:$('#jornadas-dialog').dialog('close')">Cancelar</a>
 		</div>
     </div>
     
@@ -156,17 +158,8 @@
         required: true,
         validType: 'length[1,255]'
     });
-    // - boton de "Aceptar"
-    $('#jornadas-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
-        position: 'top',
-        content: '<span style="color:#000">Registrar la entrada en la Base de Datos</span>',
-    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-    });
-    // - boton de "Cancelar"
-    $('#jornadas-cancelBtn').linkbutton({iconCls:'icon-cancel'}).tooltip({
-        position: 'top',
-        content: '<span style="color:#000">Cancelar la operaci&oacute;n. Cerrar ventana</span>',
-    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-    });
+
+	addTooltip($('#jornadas-okBtn').linkbutton(),"Registrar la entrada en la Base de Datos");
+	addTooltip($('#jornadas-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
     
     </script>

@@ -64,7 +64,7 @@ function doLayout(dg,id,x,y,w,h) {
 	elem.css('-moz-box-sizing','border-box');
 	elem.css('box-sizing','border-box');
 	elem.css('left',  ((25+x*100)/dg.cols)+'%');
-	elem.css('top',   ((75+y*100)/dg.rows)+'%');
+	elem.css('top',   ((100+y*100)/dg.rows)+'%');
 	elem.css('width', ((w*100)/dg.cols)+'%');
 	elem.css('height',((h*100)/dg.rows)+'%');
 }

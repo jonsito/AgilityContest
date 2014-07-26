@@ -24,7 +24,8 @@
             <div class="fitem">
                 <label for="Club">Club:</label>
                 <select id="guias-Club" name="Club" style="width:200px"></select>
-            	<a id="guias-newClubBtn" href="#" class="easyui-linkbutton" style="float:right">Nuevo Club</a>
+            	<a id="guias-newClubBtn" href="#" class="easyui-linkbutton" 
+            		data-options="iconCls:'icon-flag'" style="float:right">Nuevo Club</a>
             </div>
             <div class="fitem">
                 <label for="Observaciones">Comentarios:</label>
@@ -33,8 +34,10 @@
         </form>
     	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     	<div id="guias-dlg-buttons">
-    	    <a id="guias-okBtn" href="#" class="easyui-linkbutton" onclick="saveGuia()">Guardar</a>
-    	    <a id="guias-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#guias-dialog').dialog('close')">Cancelar</a>
+    	    <a id="guias-okBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls:'icon-ok'" onclick="saveGuia()">Guardar</a>
+    	    <a id="guias-cancelBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#guias-dialog').dialog('close')">Cancelar</a>
     	</div>
     </div>
 
@@ -49,21 +52,10 @@
         	}   
         });
         // - botones
-        $('#guias-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
-            position: 'top',
-            content: '<span style="color:#000">Aceptar datos y registrarlos en la BBDD</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-        });
-        $('#guias-cancelBtn').linkbutton({iconCls:'icon-cancel'}).tooltip({
-            position: 'top',
-            content: '<span style="color:#000">Anular operaci&oacute;n. Cerrar ventana</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-        });
-        $('#guias-newClubBtn').linkbutton({iconCls:'icon-flag'}).tooltip({
-            position: 'top',
-            content: '<span style="color:#000">Registrar nuevo club</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-        });
+        
+		addTooltip($('#guias-okBtn').linkbutton(),"Aceptar datos del gu&iacute;a y registrarlos en la BBDD");
+		addTooltip($('#guias-cancelBtn').linkbutton(),"Anular operaci&oacute;n. Cerrar ventana");
+		addTooltip($('#guias-newClubBtn').linkbutton(),"Registrar nuevo club");
         $('#guias-newClubBtn').bind('click',function() {
             newClub( 
                 $('#guias-Club').combogrid('getText'), // default name

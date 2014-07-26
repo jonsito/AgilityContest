@@ -41,13 +41,16 @@
             <div class="fitem">
                 <label for="Guia">Gu&iacute;a:</label>
                 <select id="perros-Guia" name="Guia" style="width:225px"></select>
-            	<a id="perros-newGuiaBtn" href="#" class="easyui-linkbutton" style="float:right">Nuevo Gu&iacute;a</a>
+            	<a id="perros-newGuiaBtn" href="#" class="easyui-linkbutton" 
+            		data-options="iconCls:'icon-users'" style="float:right">Nuevo Gu&iacute;a</a>
             </div>
         </form>
     	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     	<div id="perros-dlg-buttons">
-    	    <a id="perros-okBtn" href="#" class="easyui-linkbutton" onclick="saveDog()">Guardar</a>
-    	    <a id="perros-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#perros-dialog').dialog('close')">Cancelar</a>
+    	    <a id="perros-okBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls:'icon-ok'" onclick="saveDog()">Guardar</a>
+    	    <a id="perros-cancelBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#perros-dialog').dialog('close')">Cancelar</a>
     	</div>
     </div>
 
@@ -65,31 +68,17 @@
     	}
 	});
     // - botones
-    $('#perros-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
-    	position: 'top',
-    	content: '<span style="color:#000">Aceptar datos y actualizar la BBDD</span>',
-    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-    	}
-	});
-    $('#perros-cancelBtn').linkbutton({iconCls:'icon-cancel'}).tooltip({
-    	position: 'top',
-    	content: '<span style="color:#000">Cancelar edicion. Cerrar ventana</span>',
-    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-    	}
-	});
-    $('#perros-newGuiaBtn').linkbutton({iconCls:'icon-users'}).tooltip({
-    	position: 'top',
-    	content: '<span style="color:#000">Registrar nuevo gu&iacute;a</span>',
-    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-    	}
-	});
-    $('#perros-newGuiaBtn').bind('click',function() {
+	addTooltip($('#perros-okBtn').linkbutton(),"Aceptar datos del perro y actualizar la BBDD");
+	addTooltip($('#perros-cancelBtn').linkbutton(),"Cancelar edicion. Cerrar ventana");
+	addTooltip($('#perros-newGuiaBtn').linkbutton(),"Dar de alta un nuevo gu&iacute;a");
+	$('#perros-newGuiaBtn').bind('click',function() {
         newGuia(
             $('#perros-Guia').combogrid('getText'), // default name
             function() { // on accept repaint
             	$('#perros-Guia').combogrid('setValue',$('#guias-Nombre').val());
             });
     });
+    
     // campos del formulario
     $('#perros-dialog').dialog({
         closed:true,

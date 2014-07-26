@@ -3,14 +3,19 @@
 	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 	<div id="ordensalida-toolbar">
  		<span style="float:left">
-		   	<a id="ordensalida-randomBtn" href="#" class="easyui-linkbutton" onclick="evalOrdenSalida('random')">Aleatorio</a>
-		   	<a id="ordensalida-resultBtn" href="#" class="easyui-linkbutton" onclick="evalOrdenSalida('reverse')">Manga anterior</a>
-		   	<a id="ordensalida-saveBtn" href="#" class="easyui-linkbutton" onclick="saveOrdenSalida()">Guardar</a>
-		   	<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadOrdenSalida()">Actualizar</a>
+		   	<a id="ordensalida-randomBtn" href="#" class="easyui-linkbutton" 
+		   		data-options="iconCls:'icon-dice'" onclick="evalOrdenSalida('random')">Aleatorio</a>
+		   	<a id="ordensalida-resultBtn" href="#" class="easyui-linkbutton" 
+		   		data-options="iconCls:'icon-updown'" onclick="evalOrdenSalida('reverse')">Manga anterior</a>
+		   	<a id="ordensalida-saveBtn" href="#" class="easyui-linkbutton" 
+		   		data-options="iconCls:'icon-save'" onclick="saveOrdenSalida()">Guardar</a>
+		   	<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton" 
+		   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenSalida()">Actualizar</a>
     		</span>
     		<span style="float:right">
     		<!-- estos elementos deben estar alineados a la derecha -->
-    		<a id="ordensalida-printBtn" href="#" class="easyui-linkbutton">Imprimir</a>
+    		<a id="ordensalida-printBtn" href="#" 
+    			data-options="iconCls:'icon-print'" class="easyui-linkbutton">Imprimir</a>
 		</span>
 	</div>
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
@@ -84,42 +89,12 @@ $('#ordensalida-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0
 	return false;
 });
 
-//- botones del panel de orden de mangas
-$('#ordensalida-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // nueva inscricion 
-$('#ordensalida-reloadBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Actualizar el orden de salida desde base de datos</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#ordensalida-randomBtn').linkbutton({plain:true,iconCls:'icon-dice'}); // nueva inscricion 
-$('#ordensalida-randomBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Generar un nuevo orden de salida aleatorio</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#ordensalida-resultBtn').linkbutton({plain:true,iconCls:'icon-updown'}); // nueva inscricion 
-$('#ordensalida-resultBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Orden de salida inverso a resultados de primera manga</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#ordensalida-saveBtn').linkbutton({plain:true,iconCls:'icon-save'}); // editar inscripcion      
-$('#ordensalida-saveBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Guardar orden de salida en base de datos</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#ordensalida-printBtn').linkbutton({plain:true,iconCls:'icon-print'}); // imprimir listado 
-$('#ordensalida-printBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Imprimir el orden de salida</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
+// botones
+addTooltip($('#ordensalida-reloadBtn').linkbutton(),"Actualizar el orden de salida desde base de datos");
+addTooltip($('#ordensalida-randomBtn').linkbutton(),"Generar un nuevo orden de salida aleatorio");
+addTooltip($('#ordensalida-resultBtn').linkbutton(),"Orden de salida inverso a resultados de primera manga");
+addTooltip($('#ordensalida-saveBtn').linkbutton(),"Guardar orden de salida en base de datos");
+addTooltip($('#ordensalida-printBtn').linkbutton(),"Imprimir el orden de salida");
 $('#ordensalida-printBtn').on("click", function () {
 	$.fileDownload(
 		'pdf/print_ordenDeSalida.php',

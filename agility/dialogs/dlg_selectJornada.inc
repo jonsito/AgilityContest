@@ -15,8 +15,10 @@
 		</form>
 		<div data-options="region:'center'"></div>
 		<div id="seljornada-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
-    	    <a id="seljornada-okBtn" href="#" class="easyui-linkbutton" onclick="acceptSelectJornada()">Aceptar</a>
-    	    <a id="seljornada-cancelBtn" href="#" class="easyui-linkbutton" onclick="cancelSelectJornada()">Cancelar</a>
+    	    <a id="seljornada-okBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls: 'icon-ok'" onclick="acceptSelectJornada()">Aceptar</a>
+    	    <a id="seljornada-cancelBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls: 'icon-cancel'" onclick="cancelSelectJornada()">Cancelar</a>
 		</div>	<!-- botones -->
 	</div> <!-- Layout -->
 </div> <!-- Window -->
@@ -36,19 +38,8 @@ $('#seljornada-window').window({
 $('#seljornada-form').form();
 $('#seljornada-layout').layout();
 
-$('#seljornada-okBtn').linkbutton({ iconCls: 'icon-ok' }).tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Trabajar con la jornada seleccionada</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-
-$('#seljornada-cancelBtn').linkbutton({ iconCls: 'icon-cancel' }).tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Cancelar selecci&oacute;n. Cerrar ventana</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
+addTooltip($('#seljornada-okBtn').linkbutton(),"Trabajar con la jornada seleccionada");
+addTooltip($('#seljornada-cancelBtn').linkbutton(),"Cancelar selecci&oacute;n. Cerrar ventana");
 
 $('#seljornada-Prueba').combogrid({
 	panelWidth: 450,

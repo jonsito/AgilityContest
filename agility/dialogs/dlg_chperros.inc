@@ -5,7 +5,8 @@
         	<div class="fitem">
                 <label for="Search">Buscar: </label>
                 <select id="chperros-Search" name="Search" style="width:250px"></select>&nbsp;
-                <a id="chperros-clearBtn" href="#" class="easyui-linkbutton">Limpiar</a>
+                <a id="chperros-clearBtn" href="#" class="easyui-linkbutton"
+                	data-options="iconCls: 'icon-undo'">Limpiar</a>
         	</div>
         </form>
         <hr/>
@@ -47,9 +48,11 @@
         </form>
     	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     	<div id="chperros-dlg-buttons">
-    	    <a id="chperros-okBtn" href="#" class="easyui-linkbutton" onclick="assignDog()">Reasignar</a>
+    	    <a id="chperros-okBtn" href="#" class="easyui-linkbutton" onclick="assignDog()"
+    	    	data-options="iconCls:'icon-ok'">Reasignar</a>
     	    <a id="chperros-cancelBtn" href="#" class="easyui-linkbutton"  
-    	    	onclick="javascript:$('#chperros-dialog').dialog('close')">Cancelar</a>
+    	    	onclick="javascript:$('#chperros-dialog').dialog('close')"
+    	    	data-options="iconCls:'icon-cancel'">Cancelar</a>
     	</div>
     </div>
     
@@ -59,29 +62,15 @@
     // - declaracion del formulario
     $('#chperros-form').form();
     // - botones
-    $('#chperros-clearBtn').linkbutton({ iconCls: 'icon-undo'}).tooltip({
-    	position: 'top',
-    	content: '<span style="color:#000">Limpiar formulario</span>',
-    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-    	}
-	});
+    addTooltip($('#chperros-clearBtn').linkbutton(),"Limpiar formulario de reasignacion de perro");
+    addTooltip($('#chperros-okBtn').linkbutton(),"Aceptar datos y actualizar la BBDD");
+    addTooltip($('#chperros-cancelBtn').linkbutton(),"Cancelar asignacion. Cerrar ventana");
     $('#chperros-clearBtn').bind('click',function() {
         $('#chperros-form').form('clear'); 
         $('#chperros-Search').combogrid({ 'setValue' : '' });
 		$('#chperros-Operation').val('insert'); // mark operation as 'insert'
     });
-    $('#chperros-okBtn').linkbutton({ iconCls: 'icon-ok'}).tooltip({
-    	position: 'top',
-    	content: '<span style="color:#000">Aceptar datos y actualizar la BBDD</span>',
-    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-    	}
-	});
-    $('#chperros-cancelBtn').linkbutton({ iconCls: 'icon-cancel'}).tooltip({
-    	position: 'top',
-    	content: '<span style="color:#000">Cancelar edicion. Cerrar ventana</span>',
-    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-    	}
-	});
+    
     // campos del formulario
     $('#chperros-dialog').dialog({
     	closed: true,

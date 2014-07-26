@@ -43,8 +43,10 @@
         </form>
     	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     	<div id="jueces-dlg-buttons">
-    	    <a id="jueces-okBtn" href="#" class="easyui-linkbutton" onclick="saveJuez()">Guardar</a>
-    	    <a id="jueces-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#jueces-dialog').dialog('close')">Cancelar</a>
+    	    <a id="jueces-okBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls:'icon-ok'" onclick="saveJuez()">Guardar</a>
+    	    <a id="jueces-cancelBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#jueces-dialog').dialog('close')">Cancelar</a>
     	</div>
     </div>
     
@@ -59,18 +61,8 @@
             }
         });
         // - botones
-        $('#jueces-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Aceptar datos y actualizar la BBDD</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
-        $('#jueces-cancelBtn').linkbutton({iconCls:'icon-cancel'}).tooltip({
-        	position: 'top',
-        	content: '<span style="color:#000">Cancelar edicion. Cerrar ventana</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-        	}
-    	});
+		addTooltip($('#jornadas-okBtn').linkbutton(),"Registrar los datos del juez y actualizar la BBDD");
+		addTooltip($('#jornadas-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
         // campos del formulario
         $('#jueces-dialog').dialog({
             closed: true,

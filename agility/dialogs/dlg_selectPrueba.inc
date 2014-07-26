@@ -10,8 +10,10 @@
 			</form>
 		</div> <!-- contenido -->
 		<div id="selprueba-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
-    	    <a id="selprueba-okBtn" href="#" class="easyui-linkbutton" onclick="acceptSelectPrueba()">Aceptar</a>
-    	    <a id="selprueba-cancelBtn" href="#" class="easyui-linkbutton" onclick="cancelSelectPrueba()">Cancelar</a>
+    	    <a id="selprueba-okBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls:'icon-ok'" onclick="acceptSelectPrueba()">Aceptar</a>
+    	    <a id="selprueba-cancelBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls:'icon-cancel'" onclick="cancelSelectPrueba()">Cancelar</a>
 		</div>	<!-- botones -->
 	</div> <!-- Layout -->
 </div> <!-- Window -->
@@ -31,19 +33,8 @@ $('#selprueba-window').window({
 $('#selprueba-form').form();
 $('#selprueba-layout').layout();
 
-$('#selprueba-okBtn').linkbutton({ iconCls: 'icon-ok' }).tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Trabajar con la prueba seleccionada</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-
-$('#selprueba-cancelBtn').linkbutton({ iconCls: 'icon-cancel' }).tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Cancelar selecci&oacute;n. Cerrar ventana</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
+addTooltip($('#selprueba-okBtn').linkbutton(),"Trabajar con la prueba seleccionada");
+addTooltip($('#selprueba-cancelBtn').linkbutton(),"Cancelar selecci&oacute;n. Cerrar ventana");
 
 $('#selprueba-Search').combogrid({
 	panelWidth: 450,

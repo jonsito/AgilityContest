@@ -1,16 +1,12 @@
-
    <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
-    <div id="edit_inscripcion-dialog" title="Editar inscripcion" class="easyui-dialog"
-    	data-options="closed:true,modal:true,buttons:'#edit_inscripcion-dlg-buttons'" 
-    	style="width:500px;height:430px;padding:10px">
-    	
+    <div id="edit_inscripcion-dialog" 
+    	style="width:500px;height:450px;padding:10px">
         <form id="edit_inscripcion-data" method="get" novalidate="novalidate">
         	<input id="edit_inscripcion-ID" type="hidden" name="ID"/>
         	<input id="edit_inscripcion-Operation" type="hidden" name="Operation" value="update"/>
             <input id="edit_inscripcion-LOE_RRC" name="LOE_RRC" type="hidden" />
             <input id="edit_inscripcion-Raza" name="Raza" type="hidden" />
            	<input id="edit_inscripcion-Perro" name="Perro" type="hidden" />
-            	
            	<span  id="edit_inscripcion-dogInfo" 	class="ftitle">Informaci&oacute;n del perro:</span>
            	<span  id="edit_inscripcion-inscInfo" 	class="ftitle">Datos de la inscripci&oacute;n:</span>
            	<label id="edit_inscripcion-Nombrelbl"	for="Nombre">Nombre:</label>
@@ -54,55 +50,57 @@
  	  			class="easyui-validatebox" type="text" style="text-align:right;padding-right:5px"/>
  	  		<span id="edit_inscripcion-PagadoEuro">&euro;</span>
         </form> 
-    
     </div>
-    		
+   		
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-	<div id="edit_inscripcion-dlg-buttons" style="padding:2px 0">
+	<div id="edit_inscripcion-dlg-buttons" style="padding:2px 5px">
 		<table cellpadding="0" cellspacing="0" style="width:100%">
 		<tr>
 		<td style="text-align:left;padding-left:2px">
-	   		<a id="edit_inscripcion-editDogBtn" href="#" class="easyui-linkbutton"/>
+	   		<a id="edit_inscripcion-editDogBtn" href="#" class="easyui-linkbutton"
+	   			data-options="iconCls:'icon-edit'">Editar</a>
 	   	</td>
 	   	<td style="text-align:right;padding-right:2px">  	
-			<a id="edit_inscripcion-cancelBtn" href="#" class="easyui-linkbutton"/>
-       		<a id="edit_inscripcion-okBtn" href="#" class="easyui-linkbutton" onclick="updateInscripcion()" />
-       		<a id="edit_inscripcion-clearBtn" class="easyui-linkbutton" href="#"/>
+			<a id="edit_inscripcion-cancelBtn" href="#" class="easyui-linkbutton"
+				data-options="iconCls:'icon-cancel'">Cancelar</a>
+       		<a id="edit_inscripcion-okBtn" href="#" class="easyui-linkbutton" onclick="updateInscripcion()" 
+       			data-options="iconCls:'icon-save'">Aceptar</a>
+       		<a id="edit_inscripcion-clearBtn" class="easyui-linkbutton" href="#"
+       			data-options="iconCls:'icon-undo'">Deshacer</a>
        	</td>
        	</tr>
        	</table>
     </div>
-
     	
     <script type="text/javascript">
-    // datos del formulario de nuevo/edit prueba
+    
+    // declaracion del dialogo
     $('#edit_inscripcion-dialog').dialog({
+        closed:true,
+        modal:true,
+        buttons:'#edit_inscripcion-dlg-buttons',
+        title: 'Editar inscripcion'
     });
-
-    // - botones
-    $('#edit_inscripcion-editDogBtn').linkbutton({iconCls:'icon-edit',text: 'Editar'});
-    $('#edit_inscripcion-okBtn').linkbutton({iconCls:'icon-save',text: 'Aceptar'});
-    $('#edit_inscripcion-cancelBtn').linkbutton({iconCls:'icon-cancel',text: 'Cancelar'});
-    $('#edit_inscripcion-clearBtn').linkbutton({iconCls:'icon-undo',text: 'Deshacer'});
+    
     // tooltips
     addTooltip($('#edit_inscripcion-editDogBtn').linkbutton(),"Modificar la información del perro<br/>en la Base de Datos");
     addTooltip($('#edit_inscripcion-okBtn').linkbutton(),"Aceptar cambios<br/> Actualizar datos de la inscripci&oacute;n");
     addTooltip($('#edit_inscripcion-cancelBtn').linkbutton(),"Cancelar cambios. Cerrar la ventana");
     addTooltip($('#edit_inscripcion-clearBtn').linkbutton(),"Deshacer cambios. restaurar formulario"); 
- 
+ 	// acciones de los botones
     $('#edit_inscripcion-cancelBtn').bind('click',function() {
-        $('#edit_inscripcion-form').form('clear'); 
+        $('#edit_inscripcion-form').form('reset'); 
         $('#edit_inscripcion-Equipo').combogrid({ 'setValue' : '-- Sin asignar --' });
         $('#edit_inscripcion-dialog').dialog('close');
     });
     
     $('#edit_inscripcion-clearBtn').bind('click',function() {
-        $('#edit_inscripcion-form').form('clear'); 
+        $('#edit_inscripcion-form').form('reset'); 
         $('#edit_inscripcion-Equipo').combogrid({ 'setValue' : '-- Sin asignar --' });
     });
 
     $('#edit_inscripcion-editDogBtn').bind('click',function() {
-        editInscribedDog(0);
+        editInscribedDog();
     });
     
     // campos del formulario

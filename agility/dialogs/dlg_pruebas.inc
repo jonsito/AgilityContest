@@ -17,7 +17,8 @@
             <div class="fitem">
                 <label for="Club">Club:</label>
                 <select id="pruebas-Club" name="Club" style="width:200px"></select>
-                <a id="pruebas-newClubBtn" href="#" class="easyui-linkbutton" style="float:right">Nuevo Club</a>
+                <a id="pruebas-newClubBtn" href="#" class="easyui-linkbutton" 
+                	data-options="iconCls:'icon-flag'" style="float:right">Nuevo Club</a>
             </div>
             <div class="fitem">
                 <label for="Ubicacion">Lugar de realizaci&oacute;n</label>
@@ -39,8 +40,10 @@
     
 		<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 		<div id="pruebas-dlg-buttons">
-        	<a id="pruebas-okBtn" href="#" class="easyui-linkbutton" onclick="savePrueba()">Guardar</a>
-        	<a id="pruebas-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#pruebas-dialog').dialog('close')">Cancelar</a>
+        	<a id="pruebas-okBtn" href="#" class="easyui-linkbutton" 
+        		data-options="iconCls:'icon-ok'" onclick="savePrueba()">Guardar</a>
+        	<a id="pruebas-cancelBtn" href="#" class="easyui-linkbutton" 
+        		data-options="iconCls:'icon-cancel'" onclick="javascript:$('#pruebas-dialog').dialog('close')">Cancelar</a>
     	</div>
     </div>
 
@@ -53,22 +56,11 @@
     	    $('#pruebas-Operation').val('update');
     	}
     });
+    
     // - botones
-    $('#pruebas-okBtn').linkbutton({iconCls:'icon-ok'}).tooltip({
-        position: 'top',
-        content: '<span style="color:#000">Aceptar datos. Registrar prueba en la BBDD</span>',
-    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-    });
-    $('#pruebas-cancelBtn').linkbutton({iconCls:'icon-cancel'}).tooltip({
-        position: 'top',
-        content: '<span style="color:#000">Anular operaci&oacute;n. Cerrar ventana</span>',
-    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-    });
-    $('#pruebas-newClubBtn').linkbutton({iconCls:'icon-flag'}).tooltip({
-        position: 'top',
-        content: '<span style="color:#000">Registrar un nuevo club en la BBDD</span>',
-    	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-    });
+	addTooltip($('#pruebas-okBtn').linkbutton(),"Aceptar datos. Registrar prueba en la BBDD");
+	addTooltip($('#pruebas-cancelBtn').linkbutton(),"Anular operaci&oacute;n. Cerrar ventana");
+	addTooltip($('#pruebas-newClubBtn').linkbutton(),"Registrar un nuevo club en la BBDD");
     $('#pruebas-newClubBtn').bind('click',function() {
         $('#pruebas-Club').combogrid({ 'setValue' : '' });
         newClub();

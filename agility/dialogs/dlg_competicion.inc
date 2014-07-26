@@ -3,12 +3,14 @@
 	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 	<div id="competicion-toolbar">
  		<span style="float:left">
-		   	<a id="competicion-saveBtn" href="#" class="easyui-linkbutton" onclick="endEditing()">Guardar</a>
-		   	<a id="competicion-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadCompeticion()">Actualizar</a>
+		   	<a id="competicion-saveBtn" href="#" class="easyui-linkbutton" 
+		   		data-options="iconCls:'icon-save'" onclick="endEditing()">Guardar</a>
+		   	<a id="competicion-reloadBtn" href="#" class="easyui-linkbutton" 
+		   		data-options="iconCls:'icon-reload'" onclick="reloadCompeticion()">Actualizar</a>
     		</span>
     		<span style="float:right">
     		<!-- estos elementos deben estar alineados a la derecha -->
-    		<a id="competicion-printBtn" href="#" class="easyui-linkbutton">Imprimir</a>
+    		<a id="competicion-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'">Imprimir</a>
 		</span>
 	</div>
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
@@ -133,27 +135,9 @@ function onClickRow(index){
 }
 
 //- botones del panel de orden de mangas
-$('#competicion-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // nueva inscricion 
-$('#competicion-reloadBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Actualizar datos de competicion de la manga</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#competicion-saveBtn').linkbutton({plain:true,iconCls:'icon-save'}); // editar inscripcion      
-$('#competicion-saveBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Guardar datos de competicion</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#competicion-printBtn').linkbutton({plain:true,iconCls:'icon-print'}); // imprimir listado 
-$('#competicion-printBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Imprimir formulario ayudante de pista</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
+addTooltip($('#competicion-reloadBtn').linkbutton(),"Recargar datos de competicion de la manga");
+addTooltip($('#competicion-saveBtn').linkbutton(),"Guardar datos de competicion");
+addTooltip($('#competicion-printBtn').linkbutton(),"Imprimir formulario ayudante de pista");
 $('#competicion-printBtn').on("click", function () {
 	$.fileDownload(
 		'pdf/print_entradaDeDatos.php',

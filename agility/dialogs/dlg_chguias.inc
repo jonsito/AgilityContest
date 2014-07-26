@@ -5,7 +5,8 @@
         	<div class="fitem">
                 <label for="Search">Buscar: </label>
                 <select id="chguias-Search" name="Search" style="width:200px"></select>&nbsp;
-                <a id="chguias-clearBtn" href="#" class="easyui-linkbutton">Limpiar</a>
+                <a id="chguias-clearBtn" href="#" class="easyui-linkbutton"
+                	data-options="iconCls: 'icon-undo'">Limpiar</a>
         	</div>
         </form>
         <hr/>
@@ -33,8 +34,10 @@
         </form>
     	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     	<div id="chguias-dlg-buttons">
-    	    <a id="chguias-okBtn" href="#" class="easyui-linkbutton" onclick="assignGuia()">Guardar</a>
-    	    <a id="chguias-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#chguias-dialog').dialog('close')">Cancelar</a>
+    	    <a id="chguias-okBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls:'icon-ok'" onclick="assignGuia()">Guardar</a>
+    	    <a id="chguias-cancelBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#chguias-dialog').dialog('close')">Cancelar</a>
     	</div>
     </div>
 
@@ -43,28 +46,15 @@
         // - declaracion del formulario
         $('#chguias-form').form();
         // - botones
-    	$('#chguias-clearBtn').linkbutton({ iconCls: 'icon-undo'}).tooltip({
-    		position: 'top',
-    		content: '<span style="color:#000">Limpiar formulario</span>',
-    		onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-    		}
-		});
+    	addTooltip($('#chguias-clearBtn').linkbutton(),"Limpiar formulario");
+    	addTooltip($('#chguias-cancelBtn').linkbutton(),"Anular operaci&oacute;n. Cerrar ventana");
+    	addTooltip($('#chguias-okBtn').linkbutton(),"Aceptar datos y registrarlos en la BBDD");
     	$('#chguias-clearBtn').bind('click',function() {
     	    $('#chguias-form').form('clear'); 
     	    $('#chguias-Search').combogrid({ 'setValue' : '' });
 			$('#chguias-Operation').val('insert'); // mark operation as 'insert'
 			$('#chguias-Club').val($('#chguias-newClub').val()); // restore "Club" field
     	});
-        $('#chguias-okBtn').linkbutton({ iconCls: 'icon-ok'}).tooltip({
-            position: 'top',
-            content: '<span style="color:#000">Aceptar datos y registrarlos en la BBDD</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-        });
-        $('#chguias-cancelBtn').linkbutton({ iconCls: 'icon-cancel'}).tooltip({
-            position: 'top',
-            content: '<span style="color:#000">Anular operaci&oacute;n. Cerrar ventana</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-        });
         
         // campos del formulario
 

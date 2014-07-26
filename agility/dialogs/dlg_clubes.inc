@@ -78,8 +78,10 @@
         
     	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     	<div id="clubes-dlg-buttons">
-    	    <a id="clubes-okBtn" href="#" class="easyui-linkbutton"  onclick="saveClub()">Guardar</a>
-    	    <a id="clubes-cancelBtn" href="#" class="easyui-linkbutton" onclick="javascript:$('#clubes-dialog').dialog('close')">Cancelar</a>
+    	    <a id="clubes-okBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls: 'icon-ok'" onclick="saveClub()">Guardar</a>
+    	    <a id="clubes-cancelBtn" href="#" class="easyui-linkbutton" 
+    	    	data-options="iconCls: 'icon-cancel'"onclick="javascript:$('#clubes-dialog').dialog('close')">Cancelar</a>
     	</div>
     </div>
     
@@ -88,16 +90,8 @@
         // - declaracion del formulario
         $('#clubes-form').form();
         // - botones
-        $('#clubes-okBtn').linkbutton( {iconCls: 'icon-ok' } ).tooltip({
-            position: 'top',
-            content: '<span style="color:#000">Aceptar datos y registrarlos en la BBDD</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-        });
-        $('#clubes-cancelBtn').linkbutton( {iconCls: 'icon-cancel' } ).tooltip({
-            position: 'top',
-            content: '<span style="color:#000">Anular operaci&oacute;n. Cerrar ventana</span>',
-        	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});}
-        });
+    	addTooltip($('#clubes-okBtn').linkbutton(),"Aceptar datos del club y actualizar la BBDD");
+    	addTooltip($('#clubes-cancelBtn').linkbutton(),"Cancelar operaci&oacute;n. Cerrar ventana");
         $('#clubes-Provincia').combogrid({
 			panelWidth: 300,
 			panelHeight: 200,

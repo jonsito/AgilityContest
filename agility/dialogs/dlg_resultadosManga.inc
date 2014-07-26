@@ -3,9 +3,11 @@
 	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 	<div id="resultadosmanga-toolbar">
  		<span style="float:right">
-		   	<a id="resultadosmanga-reloadBtn" href="#" class="easyui-linkbutton" onclick="reloadResultadosManga()">Actualizar</a>
+		   	<a id="resultadosmanga-reloadBtn" href="#" class="easyui-linkbutton" 
+		   		data-options="iconCls:'icon-reload'" onclick="reloadResultadosManga()">Actualizar</a>
 		   	<br />
-    		<a id="resultadosmanga-printBtn" href="#" class="easyui-linkbutton" onclick="printResultadosManga()">Imprimir</a>
+    		<a id="resultadosmanga-printBtn" href="#" class="easyui-linkbutton" 
+    			data-options="iconCls:'icon-print'" onclick="printResultadosManga()">Imprimir</a>
 		</span>
 	</div>
 	<!-- TABLA DE DATOS DE TRS Y TRM DE LA MANGA -->
@@ -111,19 +113,7 @@ $('#resultadosmanga-datagrid').datagrid('getPanel').panel('panel').attr('tabinde
 });
 
 //- botones del panel de resultados de la manga
-$('#resultadosmanga-reloadBtn').linkbutton({plain:true,iconCls:'icon-reload'}); // recargar resultados      
-$('#resultadosmanga-reloadBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Recargar resultados de la manga</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
-$('#resultadosmanga-printBtn').linkbutton({plain:true,iconCls:'icon-print'}); // imprimir listado 
-$('#resultadosmanga-printBtn').tooltip({
-	position: 'top',
-	content: '<span style="color:#000">Imprimir resultados de la manga</span>',
-	onShow: function(){	$(this).tooltip('tip').css({backgroundColor: '#ef0',borderColor: '#444'	});
-	}
-});
+addTooltip($('#resultadosmanga-reloadBtn').linkbutton(),"Actualizar resultados de la manga");
+addTooltip($('#resultadosmanga-printBtn').linkbutton(),"Imprimir resultados de la manga");
 
 </script>
