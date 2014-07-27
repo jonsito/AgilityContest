@@ -6,14 +6,14 @@
     	<span style="float:left;">
     		<a id="perros-newBtn" href="#" class="easyui-linkbutton"
     			data-options="iconCls:'icon-dog'"
-    			onclick="newDog($('#perros-search').val())">Nuevo Perro</a>
+    			onclick="newDog($('#perros-datagrid','#perros-search').val())">Nuevo Perro</a>
     		<a id="perros-editBtn" href="#" class="easyui-linkbutton"
     			data-options="iconCls:'icon-edit'"
     			onclick="editDog('#perros-datagrid')">Editar Perro</a>
     		<a id="perros-delBtn" href="#" class="easyui-linkbutton"
     			data-options="iconCls:'icon-trash'"
     			onclick="deleteDog('#perros-datagrid')">Borrar Perro</a>
-    		<input id="perros-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
+    		<input id="perros-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
     	</span>
     	<span style="float:right;">
     		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"
@@ -33,7 +33,7 @@
     <script type="text/javascript">
     
     	// set up operation header content
-        $('#Header_Operation').html('<p>Gesti&oacute;n de Perros</p>');
+    	setHeader('Gesti&oacute;n de Perros');
         
         // tell jquery to convert declared elements to jquery easyui Objects
         
@@ -79,76 +79,13 @@
                 editDog('#perros-datagrid');
             }
         });
-        // activa teclas up/down para navegar por el panel
-        $('#perros-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-            function selectRow(t,up){
-            	var count = t.datagrid('getRows').length;    // row count
-            	var selected = t.datagrid('getSelected');
-            	if (selected){
-                	var index = t.datagrid('getRowIndex', selected);
-                	index = index + (up ? -1 : 1);
-                	if (index < 0) index = 0;
-                	if (index >= count) index = count - 1;
-                	t.datagrid('clearSelections');
-                	t.datagrid('selectRow', index);
-            	} else {
-                	t.datagrid('selectRow', (up ? count-1 : 0));
-            	}
-        	}
-        	
-			function selectPage(t,offset) {
-            	var count = t.datagrid('getRows').length;    // row count
-            	var selected = t.datagrid('getSelected');
-            	if (selected){
-                	var index = t.datagrid('getRowIndex', selected);
-                	switch(offset) {
-                	case 1: index+=10; break;
-                	case -1: index-=10; break;
-                	case 2: index=count -1; break;
-                	case -2: index=0; break;
-                	}
-                	if (index<0) index=0;
-                	if (index>=count) index=count-1;
-                	t.datagrid('clearSelections');
-                	t.datagrid('selectRow', index);
-            	} else {
-                	t.datagrid('selectRow', 0);
-            	}
-			}
-			
-        	var t = $('#perros-datagrid');
-            switch(e.keyCode){
-            case 38:	/* Up */	selectRow(t,true); return false;
-            case 40:    /* Down */	selectRow(t,false); return false;
-            case 13:	/* Enter */	editDog('#perros-datagrid'); return false;
-            case 45:	/* Insert */ newDog($('#perros-search').val()); return false;
-            case 46:	/* Supr */	deleteDog('#perros-datagrid'); return false;
-            case 33:	/* Re Pag */ selectPage(t,-1); return false;
-            case 34:	/* Av Pag */ selectPage(t,1); return false;
-            case 35:	/* Fin */    selectPage(t,2); return false;
-            case 36:	/* Inicio */ selectPage(t,-2); return false;
-            case 9: 	/* Tab */
-                // if (e.shiftkey) return false; // shift+Tab
-                return false;
-            case 16:	/* Shift */
-            case 17:	/* Ctrl */
-            case 18:	/* Alt */
-            case 27:	/* Esc */
-                return false;
-            }
-		});
+		
+		// key handler
+       	addKeyHandler('#perros-datagrid',newDog,editDog,deleteDog);
 		// tooltips
 		addTooltip($('#perros-newBtn').linkbutton(),"Registrar un nuevo perro <br/>en la Base de Datos"); 
 		addTooltip($('#perros-editBtn').linkbutton(),"Modificar los datos del perro seleccionado");
 		addTooltip($('#perros-delBtn').linkbutton(),"Eliminar el perro seleccionado de la BBDD");
 		addTooltip($('#perros-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
-		addTooltip($('#perros-search'),"Buscar perros que cumplan con el criterio de busqueda");
-        // - activar la tecla "Enter" en la casilla de busqueda
-        $("#perros-search").keydown(function(event){
-            if(event.keyCode != 13) return;
-          	// reload data adding search criteria
-            $('#perros-datagrid').datagrid('load',{
-                where: $('#perros-search').val()
-            });
-        });
+		addTooltip($('#perros-datagrid-search'),"Buscar perros que cumplan con el criterio de busqueda");
 	</script>

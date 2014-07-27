@@ -290,9 +290,10 @@ function saveGuia(){
 
 /**
  * Abre el dialogo para insertar datos de un nuevo perro
+ * @param {string} dg datagrid ID de donde se obtiene el perro
  * @param def nombre por defecto que se asigna al perro en el formulario
  */
-function newDog(def){
+function newDog(dg,def){
 	$('#perros-dialog').dialog('open').dialog('setTitle','Nuevo perro');
 	$('#perros-form').form('clear'); // start with an empty form
 	if (!strpos(def,"Buscar")) $('#perros-Nombre').val(def);
@@ -459,10 +460,11 @@ function saveDog(){
 
 /**
  * Open "New Juez dialog"
+ *@param {string} dg datagrid ID de donde se obtiene el juez
  *@param {string} def default value to insert into Nombre 
  *@param {function} onAccept what to do when a new Juez is created
  */
-function newJuez(def,onAccept){
+function newJuez(dg,def,onAccept){
 	$('#jueces-dialog').dialog('open').dialog('setTitle','Nuevo juez'); // open dialog
 	$('#jueces-form').form('clear');// clear old data (if any)
 	if (!strpos(def,"Buscar")) $('#jueces-Nombre').val(def);// fill juez Name
@@ -557,12 +559,17 @@ function doSearchPrueba() {
 }
 
 /**
- * Open dialogo de creacion de pruebas
+ *Open dialogo de creacion de pruebas
+ *@param {string} dg datagrid ID de donde se obtiene la prueba
+ *@param {string} def default value to insert into Nombre 
+ *@param {function} onAccept what to do when a new prueba is created
  */
-function newPrueba(){
+function newPrueba(dg,def,onAccept){
 	$('#pruebas-dialog').dialog('open').dialog('setTitle','Nueva Prueba');
 	$('#pruebas-form').form('clear');
+	if (!strpos(def,"Buscar")) $('#pruebas-Nombre').val(def);// fill juez Name
 	$('#pruebas-Operation').val('insert');
+	if (onAccept!==undefined)$('#pruebas-okBtn').one('click',onAccept);
 }
 
 /**
@@ -829,12 +836,57 @@ function openTeamDialog(pruebaID) {
 function closeTeamDialog() {
 	
 }
+/**
+ *Open dialogo de alta de equipos
+ *@param {string} dg datagrid ID de donde se obtiene el equipo y el id de prueba
+ *@param {string} def default value to insert into Nombre 
+ *@param {function} onAccept what to do when a new team is created
+ */
+function newTeam(dg){
+	$('#equiois-dialog').dialog('open').dialog('setTitle','Nueva Prueba');
+	$('#equipos-form').form('clear');
+	if (!strpos(def,"Buscar")) $('#equipos-Nombre').val(def);// fill juez Name
+	$('#equipos-Operation').val('insert');
+	if (onAccept!==undefined)$('#equipos-okBtn').one('click',onAccept);
+}
 
 /**
- * Añade un equipo para esta prueba en la base de datos
+ * Open dialogo de modificacion de equiois
+ * @param {string} dg datagrid ID de donde se obtiene el equipo a editar
  */
-function addTeam() {
-	
+function editTeam(dg){
+    var row = $(dg).datagrid('getSelected');
+    if (!row) {
+    	$.messager.alert("Edit Error:","!No ha seleccionado ningun Equipo!","info");
+    	return; // no way to know which prueba is selected
+    }
+    $('#equipos-dialog').dialog('open').dialog('setTitle','Modificar datos del equipo');
+    $('#equipos-form').form('load',row);
+}
+
+/**
+ * Delete data related with a team in BBDD
+ * @param {string} dg datagrid ID de donde se obtiene el teamID y la pruebaID
+ */
+function deleteTeam(dg){
+    var row = $(dg).datagrid('getSelected');
+    if (!row) {
+    	$.messager.alert("Delete Error:","!No ha seleccionado ningun Equipo!","info");
+    	return; // no way to know which prueba is selected
+    }
+    $.messager.confirm('Confirm',
+    		"<p>Esta operacion borrara el equipo y reasignará los perros de éste al equipo por defecto</p>" +
+    		"<p>Desea realmente eliminar el equipo seleccionado?</p>",function(r){
+        if (r){
+            $.get('database/equiposFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+                if (result.success){
+                    $(dg).datagrid('reload');    // reload the prueba data
+                } else {
+                    $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
+                }
+            },'json');
+        }
+    });
 }
 
 function editInscripcion() {

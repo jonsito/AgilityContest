@@ -36,7 +36,7 @@
     <script type="text/javascript">
 
     	// set up operation header content
-        $('#Header_Operation').html('<p>Gesti&oacute;n de Base de Datos de Clubes</p>');
+        setHeader('Gesti&oacute;n de Base de Datos de Clubes');
         
         // tell jquery to convert declared elements to jquery easyui Objects
         

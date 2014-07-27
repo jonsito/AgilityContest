@@ -61,8 +61,8 @@
             }
         });
         // - botones
-		addTooltip($('#jornadas-okBtn').linkbutton(),"Registrar los datos del juez y actualizar la BBDD");
-		addTooltip($('#jornadas-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
+		addTooltip($('#jueces-okBtn').linkbutton(),"Registrar los datos del juez y actualizar la BBDD");
+		addTooltip($('#jueces-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
         // campos del formulario
         $('#jueces-dialog').dialog({
             closed: true,

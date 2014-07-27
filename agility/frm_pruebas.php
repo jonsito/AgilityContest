@@ -7,14 +7,14 @@
     	<span style="float:left;">
     	    <a id="pruebas-newBtn" href="#" class="easyui-linkbutton" 
     	    	data-options="iconCls:'icon-add'"
-    	    	onclick="newPrueba('#pruebas-search')">Nueva prueba</a>
+    	    	onclick="newPrueba('#pruebas-datagrid',$('#pruebas-datagrid-search').val())">Nueva prueba</a>
     	    <a id="pruebas-editBtn" href="#" class="easyui-linkbutton"
     	    	data-options="iconCls:'icon-edit'"
     	    	onclick="editPrueba('#pruebas-datagrid')">Editar prueba</a>
     	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" 
     	    	data-options="iconCls:'icon-remove'"
     	    	onclick="deletePrueba('#pruebas-datagrid')">Borrar prueba</a>
-    		<input id="pruebas-search" type="text" value="---- Buscar ----" class="search_textfield"/>
+    		<input id="pruebas-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"/>
     	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox"
     	    	data-options="iconCls:'icon-search'" 
     	    	onclick="doSearchPrueba()"/>Incl. Cerradas
@@ -22,7 +22,11 @@
     	<span style="float:right;">
     		<a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton" 
     	    	data-options="iconCls:'icon-reload'"
-    	    	onclick="$('#pruebas-datagrid').datagrid('reload')">Actualizar</a>
+    	    	onclick="
+   	        		// clear selection and reload table
+   	    			$('#pruebas_datagrid-search').val('---- Buscar ----');
+   	            	$('#pruebas_datagrid').datagrid('load',{ where: '' });"
+   			>Actualizar</a>
     	</span>
     </div>
     
@@ -33,7 +37,7 @@
     <script type="text/javascript">
     
     	// set up operation header content
-        $('#Header_Operation').html('<p>Creaci&oacute;n y edici&oacute;n de pruebas</p>');
+        setHeader('Creaci&oacute;n y edici&oacute;n de pruebas');
         
         // datos de la tabla de pruebas
         // - tabla
@@ -82,69 +86,15 @@
             
         }); // end of pruebas-datagrid
         
-     	// activa teclas up/down para navegar por el panel
-        $('#pruebas-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-            function selectRow(t,up){
-            	var count = t.datagrid('getRows').length;    // row count
-            	var selected = t.datagrid('getSelected');
-            	if (selected){
-                	var index = t.datagrid('getRowIndex', selected);
-                	index = index + (up ? -1 : 1);
-                	if (index < 0) index = 0;
-                	if (index >= count) index = count - 1;
-                	t.datagrid('clearSelections');
-                	t.datagrid('selectRow', index);
-            	} else {
-                	t.datagrid('selectRow', (up ? count-1 : 0));
-            	}
-        	}
-			function selectPage(t,offset) {
-				var p=t.datagrid('getPager').pagination('options');
-				var curPage=p.pageNumber;
-				var lastPage=1+parseInt(p.total/p.pageSize);
-				if (offset==-2) curPage=1;
-				if (offset==2) curPage=lastPage;
-				if ((offset==-1) && (curPage>1)) curPage=curPage-1;
-				if ((offset==1) && (curPage<lastPage)) curPage=curPage+1;
-            	t.datagrid('clearSelections');
-            	p.pageNumber=curPage;
-            	t.datagrid('options').pageNumber=curPage;
-            	t.datagrid('reload',{
-            		where: $('#pruebas-search').val(),
-                    closed: $('#pruebas-openBox').is(':checked')?'1':'0',
-                    onLoadSuccess: function(data){
-                    	t.datagrid('getPager').pagination('refresh',{pageNumber:curPage});
-                    }
-            	});
-			}
-        	var t = $('#pruebas-datagrid');
-            switch(e.keyCode){
-            case 38:	/* Up */	selectRow(t,true); return false;
-            case 40:    /* Down */	selectRow(t,false); return false;
-            case 13:	/* Enter */	editPrueba('#pruebas-datagrid'); return false;
-            case 45:	/* Insert */ newPrueba('#pruebas-datagrid'); return false;
-            case 46:	/* Supr */	deletePrueba('#pruebas-datagrid'); return false;
-            case 33:	/* Re Pag */ selectPage(t,-1); return false;
-            case 34:	/* Av Pag */ selectPage(t,1); return false;
-            case 35:	/* Fin */    selectPage(t,2); return false;
-            case 36:	/* Inicio */ selectPage(t,-2); return false;
-            case 9: 	/* Tab */
-                // if (e.shiftkey) return false; // shift+Tab
-                return false;
-            case 16:	/* Shift */
-            case 17:	/* Ctrl */
-            case 18:	/* Alt */
-            case 27:	/* Esc */
-                return false;
-            }
-		}); 
+		// key handler
+       	addKeyHandler('#pruebas-datagrid',newPrueba,editPrueba,deletePrueba);
 		// tooltips
 		addTooltip($('#pruebas-newBtn').linkbutton(),"Crear y guardar una nueva prueba<br/> en la Base de Datos"); 
 		addTooltip($('#pruebas-editBtn').linkbutton(),"Editar los datos de la prueba seleccionada");
 		addTooltip($('#pruebas-delBtn').linkbutton(),"Eliminar la prueba seleccionada");
 		addTooltip($('#pruebas-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
 		addTooltip($('#pruebas-openBox').linkbutton(),"Incluir en el listado las pruebas finalizadas (cerradas)");
-		addTooltip($('#pruebas-search'),"Buscar pruebas coincidentes con el criterio de busqueda indicado");
+		addTooltip($('#pruebas-datagrid-search'),"Buscar pruebas coincidentes con el criterio de busqueda indicado");
 
         // ------------- submenu de jornadas asociadas a una prueba --------------------- //
         function showJornadasByPrueba (index,prueba) {

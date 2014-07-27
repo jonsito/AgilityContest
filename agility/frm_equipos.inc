@@ -17,7 +17,7 @@
    	<span style="float:left;">
    		<a id="team_datagrid-newBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-add'"
-   			onclick="newTeam($('#team_datagrid-search').val())">Nuevo equipo</a>
+   			onclick="newTeam($('#team_datagrid','#team_datagrid-search').val())">Nuevo equipo</a>
    		<a id="team_datagrid-editBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-edit'"
    			onclick="editTeam('#team_datagrid')">Editar equipo</a>
@@ -106,66 +106,8 @@ $('#team_datagrid').datagrid({
     }
 });
 
-
-// activa teclas up/down para navegar por el panel
-$('#team_datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-    function selectRow(t,up){
-    	var count = t.datagrid('getRows').length;    // row count
-    	var selected = t.datagrid('getSelected');
-    	if (selected){
-        	var index = t.datagrid('getRowIndex', selected);
-        	index = index + (up ? -1 : 1);
-        	if (index < 0) index = 0;
-        	if (index >= count) index = count - 1;
-        	t.datagrid('clearSelections');
-        	t.datagrid('selectRow', index);
-    	} else {
-        	t.datagrid('selectRow', (up ? count-1 : 0));
-    	}
-	}
-	
-	function selectPage(t,offset) {
-    	var count = t.datagrid('getRows').length;    // row count
-    	var selected = t.datagrid('getSelected');
-    	if (selected){
-        	var index = t.datagrid('getRowIndex', selected);
-        	switch(offset) {
-        	case 1: index+=10; break;
-        	case -1: index-=10; break;
-        	case 2: index=count -1; break;
-        	case -2: index=0; break;
-        	}
-        	if (index<0) index=0;
-        	if (index>=count) index=count-1;
-        	t.datagrid('clearSelections');
-        	t.datagrid('selectRow', index);
-    	} else {
-        	t.datagrid('selectRow', 0);
-    	}
-	}
-	
-	var t = $('#team_datagrid');
-    switch(e.keyCode){
-        case 38:	/* Up */	selectRow(t,true); return false;
-        case 40:    /* Down */	selectRow(t,false); return false;
-        case 13:	/* Enter */	editTeam('#team_datagrid'); return false;
-        case 45:	/* Insert */newTeam($('#team_datagrid-search').val()); return false;
-        case 46:	/* Supr */	deleteTeam('#team_datagrid'); return false;
-        case 33:	/* Re Pag */ selectPage(t,-1); return false;
-        case 34:	/* Av Pag */ selectPage(t,1); return false;
-        case 35:	/* Fin */    selectPage(t,2); return false;
-        case 36:	/* Inicio */ selectPage(t,-2); return false;
-        case 9: 	/* Tab */
-            // if (e.shiftkey) return false; // shift+Tab
-            return false;
-        case 16:	/* Shift */
-        case 17:	/* Ctrl */
-        case 18:	/* Alt */
-        case 27:	/* Esc */
-            return false;
-    }
-});
-
+// key handler
+addKeyHandler('#team_datagrid',newTeam,editTeam,deleteTeam);
 // - tooltips
 addTooltip($('#team_datagrid-newBtn').linkbutton(),"Declarar un nuevo equipo para la prueba");
 addTooltip($('#team_datagrid-editBtn').linkbutton(),"Editar nombre/observaciones del equipo seleccionado");
@@ -173,11 +115,4 @@ addTooltip($('#team_datagrid-delBtn').linkbutton(),"Eliminar datos del equipo en
 addTooltip($('#team_datagrid-reloadBtn').linkbutton(),"Actualizar listado de equipos de la prueba");
 addTooltip($('#team_dialog-okBtn').linkbutton(),"Registrar los datos del equipo<br />. actualizar la BBDD");
 addTooltip($('#team_dialog-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
-$("#team_datagrid-search").keydown(function(event){
-    if(event.keyCode != 13) return;
-  	// reload data adding search criteria
-    $('#team_datagrid').datagrid('load',{
-        where: $('#team_datagrid-search').val()
-    });
-});
 </script>

@@ -96,6 +96,12 @@ function myRowStyler(idx,row) {
 
 
 /**
+ * Set text of 'header' field on main window
+ * @param {string} msg text to be shown
+ */
+function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); } 
+
+/**
  * Extension of datagrid methods to add "align" property on array declared toolbars
  * http://www.jeasyui.com/forum/index.php?topic=3540.msg8090#msg8090
  * Básicamente lo que hace es redefinir el toolbar (remove()+prepend(),
