@@ -812,10 +812,30 @@ function checkPrueba(id,mask) {
 }
 
 
-// ***** gestion de inscripciones	*****************************************************
+// ***** gestion de inscripciones y equipos de una prueba	*****************************************************
+
+/**
+ * Abre un dialogo para declarar un nuevo equipo para la prueba 
+ */
+function openTeamDialog(pruebaID) {
+	
+}
+
+/**
+ * Cierra la ventana de  dialogo de creacion de equipos
+ */
+function closeTeamDialog() {
+	
+}
+
+/**
+ * Añade un equipo para esta prueba en la base de datos
+ */
+function addTeam() {
+	
+}
 
 function editInscripcion() {
-	var cerrada=false;
 	// obtenemos datos de la inscripcion seleccionada
 	var row= $('#inscripciones-datagrid').datagrid('getSelected');
     if (!row) {

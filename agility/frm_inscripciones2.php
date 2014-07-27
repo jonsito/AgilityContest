@@ -45,11 +45,16 @@
     		onclick="insertInscripcion()">Inscribir</a>
     	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton"
     		data-options="iconCls:'icon-edit'" 
-    		onclick="editInscripcion()">Editar Inscripci&oacute;n</a>
+    		onclick="editInscripcion()">Editar</a>
     	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton"
     		data-options="iconCls:'icon-remove'" 
-    		onclick="deleteInscripcion()">Borrar inscripci&oacute;n</a>
+    		onclick="deleteInscripcion()">Borrar</a>
      	</span>
+    	<span style="float:center">
+    	<a id="inscripciones-teamBtn" href="#" class="easyui-linkbutton"
+    		data-options="iconCls:'icon-users'" 
+    		onclick="openTeamDialog()">Equipos</a>
+    	</span>
     	<span style="float:right">
     	<!-- estos elementos deben estar alineados a la derecha -->
     	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton"
@@ -201,16 +206,17 @@ $('#inscripciones-datagrid').datagrid({
     	{ field:'Grado',	width:6,  sortable:true, align: 'center',  	title: 'Grado' },
     	{ field:'NombreGuia',	width:25, sortable:true, align: 'right',	title: 'Guia' },
     	{ field:'NombreClub',	width:15, sortable:true, align: 'right',	title: 'Club' },
+    	{ field:'NombreEquipo',	width:10, sortable:true, align: 'right',	title: 'Equipo' },
     	{ field:'Observaciones',width:15,            title: 'Observaciones' },
     	{ field:'Celo',		width:4, align:'center', title: 'Celo' },
-        { field:'J1',		width:3, align:'center', title: 'J1'},
-        { field:'J2',		width:3, align:'center', title: 'J2'},
-        { field:'J3',		width:3, align:'center', title: 'J3'},
-        { field:'J4',		width:3, align:'center', title: 'J4'},
-        { field:'J5',		width:3, align:'center', title: 'J5'},
-        { field:'J6',		width:3, align:'center', title: 'J6'},
-        { field:'J7',		width:3, align:'center', title: 'J7'},
-        { field:'J8',		width:3, align:'center', title: 'J8'},
+        { field:'J1',		width:2, align:'center', title: 'J1'},
+        { field:'J2',		width:2, align:'center', title: 'J2'},
+        { field:'J3',		width:2, align:'center', title: 'J3'},
+        { field:'J4',		width:2, align:'center', title: 'J4'},
+        { field:'J5',		width:2, align:'center', title: 'J5'},
+        { field:'J6',		width:2, align:'center', title: 'J6'},
+        { field:'J7',		width:2, align:'center', title: 'J7'},
+        { field:'J8',		width:2, align:'center', title: 'J8'},
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:myRowStyler,
@@ -311,6 +317,7 @@ addTooltip($('#inscripciones-newGrid').combogrid('textbox'),"Buscar y selecciona
 addTooltip($('#inscripciones-newBtn').linkbutton(),"Inscribir el/los perro(s) seleccionados"); 
 addTooltip($('#inscripciones-editBtn').linkbutton(),"Modificar la inscripción seleccionada");
 addTooltip($('#inscripciones-delBtn').linkbutton(),"Eliminar la inscripción seleccionada de la BBDD");
+addTooltip($('#inscripciones-teamBtn').linkbutton(),"Abrir la ventana de gest&oacute;n de equipos de esta prueba");
 addTooltip($('#inscripciones-printBtn').linkbutton(),"Imprimir la lista de inscritos en la prueba");
 addTooltip($('#inscripciones-reloadBtn').linkbutton(),"Refrescar la lista de inscripciones para la prueba");
 

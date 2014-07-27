@@ -1,6 +1,6 @@
    <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
     <div id="edit_inscripcion-dialog" 
-    	style="width:500px;height:450px;padding:10px">
+    	style="width:475px;height:525px;padding:10px">
         <form id="edit_inscripcion-data" method="get" novalidate="novalidate">
         	<input id="edit_inscripcion-ID" type="hidden" name="ID"/>
         	<input id="edit_inscripcion-Operation" type="hidden" name="Operation" value="update"/>
@@ -71,7 +71,7 @@
        	</tr>
        	</table>
     </div>
-    	
+    
     <script type="text/javascript">
     
     // declaracion del dialogo
@@ -80,6 +80,11 @@
         modal:true,
         buttons:'#edit_inscripcion-dlg-buttons',
         title: 'Editar inscripcion'
+    });
+
+    $('#edit_inscripcion-form').form({
+        onLoadSuccess: function(data) {
+        }
     });
     
     // tooltips

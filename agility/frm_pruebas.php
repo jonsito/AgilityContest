@@ -188,7 +188,7 @@
                 onResize:function(){
                     $('#pruebas-datagrid').datagrid('fixDetailRowHeight',index);
                 },
-                onLoadSuccess:function(){
+                onLoadSuccess:function(data){
                     setTimeout(function(){
                         $('#pruebas-datagrid').datagrid('fixDetailRowHeight',index);
                     },0);
