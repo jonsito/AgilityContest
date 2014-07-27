@@ -7,21 +7,21 @@
     	<span style="float:left;">
         	<a id="guias-newBtn" href="#" class="easyui-linkbutton"
         		data-options="iconCls:'icon-users'"
-        		onclick="newGuia($('#guias-search').val())">Nuevo Gu&iacute;a</a>
+        		onclick="newGuia('guias-datagrid',$('#guias-datagrid-search').val())">Nuevo Gu&iacute;a</a>
         	<a id="guias-editBtn" href="#" class="easyui-linkbutton"
         		data-options="iconCls:'icon-edit'"
         		onclick="editGuia('#guias-datagrid')">Editar Gu&iacute;a</a>
         	<a id="guias-delBtn" href="#" class="easyui-linkbutton" 
         		data-options="iconCls:'icon-trash'"
         		onclick="deleteGuia('#guias-datagrid')">Borrar gu&iacute;a</a>
-    		<input id="guias-search" type="text" value="---- Buscar ----" class="search_textfield" />
+    		<input id="guias-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield" />
     	</span>
     	<span style="float:right;">
     		<a id="guias-reloadBtn" href="#" class="easyui-linkbutton"
     			data-options="iconCls:'icon-reload'"
     			onClick="
     	        	// clear selection and reload table
-    	    		$('#guias-search').val('---- Buscar ----');
+    	    		$('#guias-datagrid-search').val('---- Buscar ----');
     	            $('#guias-datagrid').datagrid('load',{ where: '' });"
     			>Actualizar</a>
     	</span>
@@ -82,78 +82,14 @@
 
         }); // end of guias-datagrid
 
-        // activa teclas up/down para navegar por el panel
-        $('#guias-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-            function selectRow(t,up){
-            	var count = t.datagrid('getRows').length;    // row count
-            	var selected = t.datagrid('getSelected');
-            	if (selected){
-                	var index = t.datagrid('getRowIndex', selected);
-                	index = index + (up ? -1 : 1);
-                	if (index < 0) index = 0;
-                	if (index >= count) index = count - 1;
-                	t.datagrid('clearSelections');
-                	t.datagrid('selectRow', index);
-            	} else {
-                	t.datagrid('selectRow', (up ? count-1 : 0));
-            	}
-        	}
-
-			function selectPage(t,offset) {
-            	var count = t.datagrid('getRows').length;    // row count
-            	var selected = t.datagrid('getSelected');
-            	if (selected){
-                	var index = t.datagrid('getRowIndex', selected);
-                	switch(offset) {
-                	case 1: index+=10; break;
-                	case -1: index-=10; break;
-                	case 2: index=count -1; break;
-                	case -2: index=0; break;
-                	}
-                	if (index<0) index=0;
-                	if (index>=count) index=count-1;
-                	t.datagrid('clearSelections');
-                	t.datagrid('selectRow', index);
-            	} else {
-                	t.datagrid('selectRow', 0);
-            	}
-			}
-			
-        	var t = $('#guias-datagrid');
-            switch(e.keyCode){
-            case 38:	/* Up */	selectRow(t,true); return false;
-            case 40:    /* Down */	selectRow(t,false); return false;
-            case 13:	/* Enter */	editGuia('#guias-datagrid'); return false;
-            case 45:	/* Insert */ newGuia($('#guias-search').val()); return false;
-            case 46:	/* Supr */	deleteGuia('#guias-datagrid'); return false;
-            case 33:	/* Re Pag */ selectPage(t,-1); return false;
-            case 34:	/* Av Pag */ selectPage(t,1); return false;
-            case 35:	/* Fin */    selectPage(t,2); return false;
-            case 36:	/* Inicio */ selectPage(t,-2); return false;
-            case 9: 	/* Tab */
-                // if (e.shiftkey) return false; // shift+Tab
-                return false;
-            case 16:	/* Shift */
-            case 17:	/* Ctrl */
-            case 18:	/* Alt */
-            case 27:	/* Esc */
-                return false;
-            }
-		});
+		// key handler
+       	addKeyHandler('#guias-datagrid',newGuia,editGuia,deleteGuia);
 		// tooltips
 		addTooltip($('#guias-newBtn').linkbutton(),"Dar de alta un nuevo gu&iacute;a <br/>en la Base de Datos"); 
 		addTooltip($('#guias-editBtn').linkbutton(),"Editar los datos del gu&iacute;a seleccionado");
 		addTooltip($('#guias-delBtn').linkbutton(),"Borrar el gu&iacute;a seleccionado de la BBDD");
 		addTooltip($('#guias-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
-		addTooltip($('#guias-search'),"Mostrar gu&iacute;as que coincidan con el criterio de busqueda");
-        // - activar la tecla "Enter" en la casilla de busqueda
-        $("#guias-search").keydown(function(event){
-            if(event.keyCode != 13) return;
-          	// reload data adding search criteria
-            $('#guias-datagrid').datagrid('load',{
-                where: $('#guias-search').val()
-            });
-        });
+		addTooltip($('#guias-datagrid-search'),"Mostrar gu&iacute;as que coincidan con el criterio de busqueda");
 
 		// mostrar los perros asociados a un guia
         function showPerrosByGuia(index,guia){

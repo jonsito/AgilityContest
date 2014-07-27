@@ -176,10 +176,11 @@ function delGuiaFromClub(dg,club) {
 
 /**
  * Abre el dialogo para crear un nuevo guia
+ * @param {string} dg ID del datagrid activo
  * @param {string} def valor por defecto para el campo nombre
  * @param {function} onAccept what to do (only once) when window gets closed
  */
-function newGuia(def,onAccept){
+function newGuia(dg,def,onAccept){
 	$('#guias-dialog').dialog('open').dialog('setTitle','Nuevo gu&iacute;a');
 	$('#guias-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#guias-Nombre').val(def);
@@ -194,7 +195,7 @@ function newGuia(def,onAccept){
  * @param {string} dg datagrid ID de donde se obtiene el guia
  */
 function editGuia(dg){
-	if ($('#guias-search').is(":focus")) return; // on enter key in search input ignore
+	if ($('#guias-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Edit Error:","!No ha seleccionado ningún guía!","warning");
