@@ -1,7 +1,7 @@
 <?php
 require_once("DBObject.php");
 
-class Guias extends DBObject {
+class Equipos extends DBObject {
 	
 	protected $pruebaID;
 	protected $defaultTeam; //  {array} datos del equipo por defecto para esta prueba

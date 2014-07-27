@@ -4,6 +4,7 @@
 <?php include_once("dialogs/dlg_guias.inc");?>
 <?php include_once("dialogs/dlg_clubes.inc");?>
 <?php include_once("dialogs/dlg_jornadas.inc");?>
+<?php include_once("frm_equipos.inc");?>
 <?php include_once("dialogs/dlg_editInscripcion.inc");?>
 
 <div id="inscripciones-info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
@@ -53,7 +54,7 @@
     	<span style="float:center">
     	<a id="inscripciones-teamBtn" href="#" class="easyui-linkbutton"
     		data-options="iconCls:'icon-users'" 
-    		onclick="openTeamDialog()">Equipos</a>
+    		onclick="alert('hola');$('#team_datagrid-dialog').dialog('open')">Equipos</a>
     	</span>
     	<span style="float:right">
     	<!-- estos elementos deben estar alineados a la derecha -->
