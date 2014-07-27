@@ -8,16 +8,17 @@
 function doSearchClub() {
 	// reload data adding search criteria
     $('#clubes-datagrid').datagrid('load',{
-        where: $('#clubes-search').val()
+        where: $('#clubes-datagrid-search').val()
     });
 }
 
 /**
  * Abre el dialogo para crear un nuevo club
+ *@param {string} dg datagrid id
  *@param {string} def nombre por defecto del club
  *@param {function} onAccept what to do when a new club is created
  */
-function newClub(def,onAccept){
+function newClub(dg,def,onAccept){
 	$('#clubes-dialog').dialog('open').dialog('setTitle','Nuevo club');
 	$('#clubes-form').form('clear');
 	// si el nombre del club contiene "Buscar" ignoramos
@@ -36,7 +37,7 @@ function newClub(def,onAccept){
  * @var {string} dg current active datagrid ID
  */
 function editClub(dg){
-	if ($('#clubes-search').is(":focus")) return; // on enter key in search input ignore
+	if ($('#clubes-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Update Error:","!No ha seleccionado ningún Club!","warning");

@@ -120,3 +120,90 @@ $.extend($.fn.datagrid.methods, {
 		});
 	}
 });
+
+
+/**
+ * Generic function for adding key handling to datagrids
+ * 
+ * Create key bindings for edit,new,delete, and search actions on datagrid
+ * assume that search textbox has 'dgid'-search as id
+ * Called functions have a pointer to base datagrid
+ * @param {string} dgid id(ie xxxx-datagrid) 
+ * @param {function(dgid,searchval} insertfn new/insert function
+ * @param {function(dgid) } updatefn edit function
+ * @param {function(dgid) } deletefn delete function
+ * @returns true on success, else false
+ */
+function addKeyHandler(dgid,insertfn,updatefn,deletefn) {
+   	
+    // activa teclas up/down para navegar por el panel
+    $(dgid).datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
+    	
+    	// up & down
+        function selectRow(t,up){
+        	var count = t.datagrid('getRows').length;    // row count
+        	var selected = t.datagrid('getSelected');
+        	if (selected){
+            	var index = t.datagrid('getRowIndex', selected);
+            	index = index + (up ? -1 : 1);
+            	if (index < 0) index = 0;
+            	if (index >= count) index = count - 1;
+            	t.datagrid('clearSelections');
+            	t.datagrid('selectRow', index);
+        	} else {
+            	t.datagrid('selectRow', (up ? count-1 : 0));
+        	}
+    	}
+    	
+        // pgup & pg down
+		function selectPage(t,offset) {
+        	var count = t.datagrid('getRows').length;    // row count
+        	var selected = t.datagrid('getSelected');
+        	if (selected){
+            	var index = t.datagrid('getRowIndex', selected);
+            	switch(offset) {
+            	case 1: index+=10; break;
+            	case -1: index-=10; break;
+            	case 2: index=count -1; break;
+            	case -2: index=0; break;
+            	}
+            	if (index<0) index=0;
+            	if (index>=count) index=count-1;
+            	t.datagrid('clearSelections');
+            	t.datagrid('selectRow', index);
+        	} else {
+            	t.datagrid('selectRow', 0);
+        	}
+		}
+		
+    	var t = $(dgid);
+        switch(e.keyCode){
+        case 38:	/* Up */	 selectRow(t,true); return false;
+        case 40:    /* Down */	 selectRow(t,false); return false;
+        case 13:	/* Enter */	 updatefn(dgid); return false;
+        case 45:	/* Insert */ insertfn(dgid,$(dgid+'-search').val()); return false;
+        case 46:	/* Supr */	 deletefn(dgid); return false;
+        case 33:	/* Re Pag */ selectPage(t,-1); return false;
+        case 34:	/* Av Pag */ selectPage(t,1); return false;
+        case 35:	/* Fin */    selectPage(t,2); return false;
+        case 36:	/* Inicio */ selectPage(t,-2); return false;
+        case 9: 	/* Tab */
+            // if (e.shiftkey) return false; // shift+Tab
+            return false;
+        case 16:	/* Shift */
+        case 17:	/* Ctrl */
+        case 18:	/* Alt */
+        case 27:	/* Esc */
+            return false;
+        }
+	}); 
+
+    // - activar la tecla "Enter" en la casilla de busqueda
+    $(dgid+'-search').keydown(function(event){
+        if(event.keyCode != 13) return;
+      	// reload data adding search criteria
+        $(dgid).datagrid('load',{
+            where: $(dgid+'-search').val()
+        });
+    });
+}

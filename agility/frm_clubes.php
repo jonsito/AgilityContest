@@ -8,21 +8,21 @@
     	<span style="float:left;">
     		<a id="clubes-newBtn" href="#" class="easyui-linkbutton"
     			data-options="iconCls:'icon-flag'"
-    			onclick="newClub($('#clubes-search').val())">Nuevo Club</a>
+    			onclick="newClub('#clubes-datagrid',$('#clubes-datagrid-search').val())">Nuevo Club</a>
     		<a id="clubes-editBtn" href="#" class="easyui-linkbutton" 
     			data-options="iconCls:'icon-edit'"
     			onclick="editClub('#clubes-datagrid')">Editar Club</a>
     		<a id="clubes-delBtn" href="#" class="easyui-linkbutton" 
     			data-options="iconCls:'icon-trash'"
     			onclick="deleteClub('#clubes-datagrid')">Borrar Club</a>
-    		<input id="clubes-search" type="text" value="---- Buscar ----" class="search_textfield"/>
+    		<input id="clubes-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"/>
     	</span>
     	<span style="float:right;">
     		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"
     		data-options="iconCls:'icon-reload'"
     		onClick="
         	// clear selection and reload table
-    		$('#clubes-search').val('---- Buscar ----');
+    		$('#clubes-datagrid-search').val('---- Buscar ----');
             $('#clubes-datagrid').datagrid('load',{ where: '' });">Actualizar</a>
     	</span>
     </div>   
@@ -93,79 +93,14 @@
             onExpandRow: function(idx,club) { showGuiasByClub(idx,club); }
         }); // end of '#clubes-datagrid' declaration
 
-        // activa teclas up/down para navegar por el panel
-        $('#clubes-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-            function selectRow(t,up){
-            	var count = t.datagrid('getRows').length;    // row count
-            	var selected = t.datagrid('getSelected');
-            	if (selected){
-                	var index = t.datagrid('getRowIndex', selected);
-                	index = index + (up ? -1 : 1);
-                	if (index < 0) index = 0;
-                	if (index >= count) index = count - 1;
-                	t.datagrid('clearSelections');
-                	t.datagrid('selectRow', index);
-            	} else {
-                	t.datagrid('selectRow', (up ? count-1 : 0));
-            	}
-        	}
-        	
-			function selectPage(t,offset) {
-            	var count = t.datagrid('getRows').length;    // row count
-            	var selected = t.datagrid('getSelected');
-            	if (selected){
-                	var index = t.datagrid('getRowIndex', selected);
-                	switch(offset) {
-                	case 1: index+=10; break;
-                	case -1: index-=10; break;
-                	case 2: index=count -1; break;
-                	case -2: index=0; break;
-                	}
-                	if (index<0) index=0;
-                	if (index>=count) index=count-1;
-                	t.datagrid('clearSelections');
-                	t.datagrid('selectRow', index);
-            	} else {
-                	t.datagrid('selectRow', 0);
-            	}
-			}
-			
-        	var t = $('#clubes-datagrid');
-            switch(e.keyCode){
-            case 38:	/* Up */	selectRow(t,true); return false;
-            case 40:    /* Down */	selectRow(t,false); return false;
-            case 13:	/* Enter */	editClub('#clubes-datagrid'); return false;
-            case 45:	/* Insert */ newClub($('#clubes-search').val()); return false;
-            case 46:	/* Supr */	deleteClub('#clubes-datagrid'); return false;
-            case 33:	/* Re Pag */ selectPage(t,-1); return false;
-            case 34:	/* Av Pag */ selectPage(t,1); return false;
-            case 35:	/* Fin */    selectPage(t,2); return false;
-            case 36:	/* Inicio */ selectPage(t,-2); return false;
-            case 9: 	/* Tab */
-                // if (e.shiftkey) return false; // shift+Tab
-                return false;
-            case 16:	/* Shift */
-            case 17:	/* Ctrl */
-            case 18:	/* Alt */
-            case 27:	/* Esc */
-                return false;
-            }
-		}); 
-
+		// key handler
+       	addKeyHandler('#clubes-datagrid',newClub,editClub,deleteClub);
 		// tooltips
 		addTooltip($('#clubes-newBtn').linkbutton(),"Dar de alta un nuevo club <br/>en la Base de Datos"); 
 		addTooltip($('#clubes-editBtn').linkbutton(),"Editar los datos del club seleccionado");
 		addTooltip($('#clubes-delBtn').linkbutton(),"Borrar el club seleccionado de la BBDD");
 		addTooltip($('#clubes-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
-		addTooltip($('#clubes-search'),"Mostrar clubes que coincidan con el criterio de busqueda");
-        // - activar la tecla "Enter" en la casilla de busqueda
-        $("#clubes-search").keydown(function(event){
-            if(event.keyCode != 13) return;
-          	// reload data adding search criteria
-            $('#clubes-datagrid').datagrid('load',{
-                where: $('#clubes-search').val()
-            });
-        });
+		addTooltip($('#clubes-datagrid-search'),"Mostrar clubes que coincidan con el criterio de busqueda");
         
     	
         function showGuiasByClub(index,club){
