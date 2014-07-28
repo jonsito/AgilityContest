@@ -5,7 +5,7 @@
 	
 	try {
 		$result=null;
-		$equipos= new Equipos("equiposFunctions",http_request("IDPrueba","i",0));
+		$equipos= new Equipos("equiposFunctions",http_request("Prueba","i",0));
 		$operation=http_request("Operation","s",null);
 		$equipo=http_request("ID","i",0); // used on update/delete
 		if ($operation===null) throw new Exception("Call to inscripcionFunctions without 'Operation' requested");

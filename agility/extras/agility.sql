@@ -190,7 +190,8 @@ CREATE TABLE IF NOT EXISTS `Equipos` (
   `Nombre` varchar(255) NOT NULL,
   `Observaciones` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  KEY `Prueba` (`Prueba`)
+  UNIQUE KEY `Equipos_PruebaNombre` (`Prueba`,`Nombre`),
+  KEY `Equipos_Prueba` (`Prueba`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --

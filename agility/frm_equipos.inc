@@ -68,6 +68,7 @@ $('#team_datagrid').datagrid({
     pageSize: 50,
     columns: [[
         { field:'ID',			hidden:true },
+        { field:'Prueba',		hidden:true },
         { field:'Nombre',		width:20, sortable:true,	title: 'Nombre:' },
         { field:'Observaciones',width:80,					title: 'Observaciones'}
     ]],

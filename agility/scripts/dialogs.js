@@ -845,10 +845,12 @@ function closeTeamDialog() {
  *@param {function} onAccept what to do when a new team is created
  */
 function newTeam(dg,def,onAccept){
+	var idprueba=$(dg).datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
 	$('#team_edit_dialog').dialog('open').dialog('setTitle','A&ntilde;adir nuevo equipo');
 	$('#team_edit_dialog-form').form('clear');
-	if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill juez Name
+	if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill team Name
 	$('#team_edit_dialog-Operation').val('insert');
+	$('#team_edit_dialog-Prueba').val(idprueba);
 	if (onAccept!==undefined)$('#team_edit_dialog-okBtn').one('click',onAccept);
 }
 
@@ -892,6 +894,26 @@ function deleteTeam(dg){
     });
 }
 
+function saveTeam() {
+	var id=$('team_edit_dialog-Prueba').val();
+    $('#team_edit_dialog-form').form('submit',{
+        url: 'database/equiposFunctions.php',
+        method: 'get',
+        onSubmit: function(param){
+            return $(this).form('validate');
+        },
+        success: function(res){
+            var result = eval('('+res+')');
+            if (result.errorMsg){
+                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
+            } else {
+                $('#team_edit_dialog').dialog('close');        // close the dialog
+                // notice that some of these items may fail if dialog is not deployed. just ignore
+                $('#team_datagrid').datagrid('reload',{ Prueba:id , Operation:'select' }); // reload the prueba data
+            }
+        }
+    });
+}
 
 /**
  *Abre dialogo de registro de inscripciones

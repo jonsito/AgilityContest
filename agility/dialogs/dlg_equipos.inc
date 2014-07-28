@@ -11,6 +11,7 @@
 				buttons:'#team_dialog-buttons'">
    	<div class="ftitle">Datos del equipo:</div>
    	<form id="team_edit_dialog-form" class="easyui-form">
+   		<input id="team_edit_dialog-Prueba" type="hidden" name="Prueba" value="0"/>
    		<input id="team_edit_dialog-Operation" type="hidden" name="Operation" value="insert"/>
    	 	<div class="fitem">
 			<label for="Nombre" style="width:100px">Nombre:</label>
