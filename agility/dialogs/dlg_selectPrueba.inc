@@ -66,7 +66,8 @@ function acceptSelectPrueba() {
 		$.messager.alert("Error","Debe indicar una prueba v&aacute;lida","error");
 		return;
 	} 
-	workingData.prueba=$('#selprueba-Search').combogrid('getValue');
+	workingData.prueba=p.ID;
+	workingData.datosPrueba=p;
 	$('#selprueba-Search').combogrid('setValue','');
 	$('#selprueba-window').window('close');	
 }

@@ -827,7 +827,8 @@ function checkPrueba(id,mask) {
  * Abre un dialogo para declarar un nuevo equipo para la prueba 
  */
 function openTeamDialog(pruebaID) {
-	
+	$('#team_datagrid-dialog').dialog('open');
+	$('#team_datagrid').datagrid('reload');
 }
 
 /**
@@ -836,18 +837,19 @@ function openTeamDialog(pruebaID) {
 function closeTeamDialog() {
 	
 }
+
 /**
  *Open dialogo de alta de equipos
  *@param {string} dg datagrid ID de donde se obtiene el equipo y el id de prueba
  *@param {string} def default value to insert into Nombre 
  *@param {function} onAccept what to do when a new team is created
  */
-function newTeam(dg){
-	$('#equiois-dialog').dialog('open').dialog('setTitle','Nueva Prueba');
-	$('#equipos-form').form('clear');
-	if (!strpos(def,"Buscar")) $('#equipos-Nombre').val(def);// fill juez Name
-	$('#equipos-Operation').val('insert');
-	if (onAccept!==undefined)$('#equipos-okBtn').one('click',onAccept);
+function newTeam(dg,def,onAccept){
+	$('#team_edit_dialog').dialog('open').dialog('setTitle','A&ntilde;adir nuevo equipo');
+	$('#team_edit_dialog-form').form('clear');
+	if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill juez Name
+	$('#team_edit_dialog-Operation').val('insert');
+	if (onAccept!==undefined)$('#team_edit_dialog-okBtn').one('click',onAccept);
 }
 
 /**
@@ -860,8 +862,9 @@ function editTeam(dg){
     	$.messager.alert("Edit Error:","!No ha seleccionado ningun Equipo!","info");
     	return; // no way to know which prueba is selected
     }
-    $('#equipos-dialog').dialog('open').dialog('setTitle','Modificar datos del equipo');
-    $('#equipos-form').form('load',row);
+    $('#tean_edit_dialog').dialog('open').dialog('setTitle','Modificar datos del equipo');
+	row.Operation="update";
+    $('#tean_edit_dialog-form').form('load',row);
 }
 
 /**
@@ -887,6 +890,21 @@ function deleteTeam(dg){
             },'json');
         }
     });
+}
+
+
+/**
+ *Abre dialogo de registro de inscripciones
+ *@param {string} dg datagrid ID de donde se obtiene el id de la prueba
+ *@param {string} def default value to insert into search field
+ *@param {function} onAccept what to do when a new inscription is created
+ */
+function newInscripcion(dg,def,onAccept) {
+	$('#new_inscripcion-dialog').dialog('open').dialog('setTitle','Nueva(s) inscripciones');
+	$('#new_inscripcion-form').form('clear');
+	if (!strpos(def,"Buscar")) $('#new_inscripcion-search').val(def);// fill juez Name
+	$('#new_inscripcion-Operation').val('insert');
+	if (onAccept!==undefined)$('#new_inscripcion-okBtn').one('click',onAccept);
 }
 
 function editInscripcion() {
@@ -942,9 +960,10 @@ function deleteInscripcion() {
 
 /**
  * Ask for commit new inscripcion to server
+ * @param {string} dg datagrid to retrieve selections from
  */
-function insertInscripcion() {
-	var g=$('#inscripciones-newGrid').combogrid('grid');
+function insertInscripcion(dg) {
+	var g=$(dg).datagrid('grid');
 	var selectedRows= g.datagrid('getSelections');
 	var count=1;
 	var size=selectedRows.length;

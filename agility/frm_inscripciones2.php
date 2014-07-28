@@ -1,86 +1,100 @@
+<!-- este panel se divide en dos partes:
+- La primera, desplegable contiene la información de la prueba y jornadas disponibles
+- La segunda, contiene la lista de inscritos a la prueba y la barra de botones de gestion de inscripciones
+-->
+ 
+<?php
+// include_once("dialogs/dlg_perros.inc");
+// include_once("dialogs/dlg_guias.inc");
+// include_once("dialogs/dlg_clubes.inc");
+// include_once("dialogs/dlg_jornadas.inc");
+include_once("dialogs/dlg_equipos.inc");
+include_once("frm_equipos.inc");
+// include_once("dialogs/dlg_newInscripcion.inc");
+// include_once("dialogs/dlg_editInscripcion.inc");
+?>
+ 
 <!-- PANEL INFORMATIVO SOBRE LA PRUEBA Y JORNADAS ASOCIADAS -->
-
-<?php include_once("dialogs/dlg_perros.inc");?>
-<?php include_once("dialogs/dlg_guias.inc");?>
-<?php include_once("dialogs/dlg_clubes.inc");?>
-<?php include_once("dialogs/dlg_jornadas.inc");?>
-<?php include_once("frm_equipos.inc");?>
-<?php include_once("dialogs/dlg_editInscripcion.inc");?>
-
 <div id="inscripciones-info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
-<div id="inscripciones-infolayout" class="easyui-layout" style="height:150px">
-	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px" class="c_inscripciones-datosprueba">
-		<form id="inscripciones-pruebas" method="get" >
-		<input type="hidden" name="ID"/>
-		<input type="hidden" name="Club"/>
-		<input type="hidden" name="Ubicacion"/>
-		<input type="hidden" name="Triptico"/>
-		<input type="hidden" name="Cartel"/>
-		<input type="hidden" name="Cerrada"/>
-		<p>
-		<label for="Nombre" style="font-weight:bold">Denominaci&oacute;n:</label>
-		<input id="inscripciones-pnombre" type="text" name="Nombre" disabled="disabled" size="19"/>
-		</p>
-		<p>
-		<label for="Club" style="font-weight:bold">Club Organizador:</label>
-		<input id="inscripciones-pclub" type="text" name="NombreClub" disabled="disabled" size="15"/>
-		</p>
-		<p>
-		<label for="Observaciones" style="font-weight:bold">Observaciones:</label>
-		<input id="inscripciones-pcomments" type="text" name="Observaciones" disabled="disabled" size="33"/>
-		</p>
-		</form>
-	</div>
-	<div data-options="region:'center',title:'Lista de jornadas de la prueba'" style="width:500px">
-		<table id="inscripciones-jornadas"></table>
-	</div>
-</div> 
-</div> 
 	
-	<!-- BARRA DE TAREAS -->
-    <div id="inscripciones-toolbar" style="padding:10px 10px 40px 10px;">
-    	<span style="float:left">
-    	<select id="inscripciones-newGrid" style="width:150px"></select>
-    	<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton"
-    		data-options="iconCls:'icon-add'" 
-    		onclick="insertInscripcion()">Inscribir</a>
-    	<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton"
-    		data-options="iconCls:'icon-edit'" 
-    		onclick="editInscripcion()">Editar</a>
-    	<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton"
-    		data-options="iconCls:'icon-remove'" 
-    		onclick="deleteInscripcion()">Borrar</a>
-     	</span>
-    	<span style="float:center">
-    	<a id="inscripciones-teamBtn" href="#" class="easyui-linkbutton"
-    		data-options="iconCls:'icon-users'" 
-    		onclick="alert('hola');$('#team_datagrid-dialog').dialog('open')">Equipos</a>
-    	</span>
-    	<span style="float:right">
-    	<!-- estos elementos deben estar alineados a la derecha -->
-    	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton"
-    		data-options="iconCls:'icon-print'" 
-    		>Imprimir</a> <!-- onClick() is handled below -->
-	   	<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton" 
-    		data-options="iconCls:'icon-reload'" 
-	   		onclick="$('#inscripciones-datagrid').datagrid('reload');">Refrescar</a>
-	   	</span>
-    </div>
-  
-<div id="inscripciones-list" class="easyui-panel" style="width:auto;height:400px;">  
+	<div id="inscripciones-infolayout" class="easyui-layout" style="height:150px">
+	
+		<!-- PANEL IZQUIERDO: DATOS DE LA PRUEBA -->
+		<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" 
+			style="width:300px;padding:10px" class="c_inscripciones-datosprueba">
+			<form id="inscripciones-pruebas" method="get" >
+			<input type="hidden" name="ID"/>
+			<input type="hidden" name="Club"/>
+			<input type="hidden" name="Ubicacion"/>
+			<input type="hidden" name="Triptico"/>
+			<input type="hidden" name="Cartel"/>
+			<input type="hidden" name="Cerrada"/>
+			<p>
+			<label for="Nombre" style="font-weight:bold">Denominaci&oacute;n:</label>
+			<input id="inscripciones-pnombre" type="text" name="Nombre" disabled="disabled" size="19"/>
+			</p>
+			<p>
+			<label for="Club" style="font-weight:bold">Club Organizador:</label>
+			<input id="inscripciones-pclub" type="text" name="NombreClub" disabled="disabled" size="15"/>
+			</p>
+			<p>
+			<label for="Observaciones" style="font-weight:bold">Observaciones:</label>
+			<input id="inscripciones-pcomments" type="text" name="Observaciones" disabled="disabled" size="33"/>
+			</p>
+			</form>
+		</div>
+		
+		<!-- PANEL DERECHO: LISTA DE JORNADAS -->
+		<div data-options="region:'center',title:'Lista de jornadas de la prueba'" style="width:500px">
+			<table id="inscripciones-jornadas"></table>
+		</div>
+		
+	</div> 
+</div> 
+
+<!-- PANEL INFORMATIVO SOBRE LAS INSCRIPCIONES -->
+<div id="inscripciones-list" class="easyui-panel" style="width:auto;height:400px;"
+	data-options="noHeader:true, border:true, closable:false, collapsible:false, collapsed:false,">
+	
 	<!-- DECLARACION DE LA TABLA DE INSCRIPCIONES -->
 	<table id="inscripciones-datagrid"></table>
-</div>
 
-<div id="inscripciones-progresswindow" class="easyui-window">
-	<p id="inscripciones-progresslabel" style="align:center">Inscribiendo a:</p>
-	<div id="inscripciones-progressbar" class="easyui-progressbar" style="align:center;"></div>
-</div> 
+	<!-- BARRA DE TAREAS DE LA TABLA DE INSCRIPCIONES -->
+	<div id="inscripciones-toolbar" style="padding:5px 5px 35px 5px">
+	   	<span style="float:left"> <!-- estos elementos deben estar alineados a la izquierda -->
+	   		<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton"
+	   			data-options="iconCls:'icon-add'"
+	   			onclick="newInscripcion($('#inscripciones-datagrid','#inscripciones-datagrid-search').val())">Nueva(s)</a>
+	   		<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton"
+	   			data-options="iconCls:'icon-edit'"
+	   			onclick="editInscripcion('#inscripciones-datagrid')">Editar</a>
+	   		<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton"
+	   			data-options="iconCls:'icon-trash'"
+	   			onclick="deleteInscripcion('#inscripciones-datagrid')">Borrar</a>
+	   		<input id="inscripciones-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
+	   	</span>
+	   	<span style="float:right"> 	<!-- estos elementos deben estar alineados a la derecha -->
+	    	<a id="inscripciones-teamBtn" href="#" class="easyui-linkbutton"
+	    		data-options="iconCls:'icon-huella'" 
+	    		onclick="openTeamDialog(workingData.prueba)">Equipos</a>
+	    	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton"
+	    		data-options="iconCls:'icon-print'" 
+	    		>Imprimir</a> <!-- onClick() is handled below -->
+	   		<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton"
+	   			data-options="iconCls:'icon-reload'"
+	   			onclick="
+	   	        	// clear selection and reload table
+	   	    		$('#inscripciones-datagrid-search').val('---- Buscar ----');
+	   	            $('#inscripciones-datagrid').datagrid('load',{ where: '' });"
+	   		>Actualizar</a>
+	   	</span>
+	</div>
+</div>
 
 <script type="text/javascript">
 // cabecera de la pagina
-$('#Header_Operation').html('<p>Inscripciones - Formulario de registro</p>');
-// inicializamos formularios
+setHeader('Inscripciones - Formulario de registro');
+
 $('#inscripciones-info').panel({
 	border:true,
 	closable:false,
@@ -88,13 +102,6 @@ $('#inscripciones-info').panel({
 	collapsed:true
 });
 
-$('#inscripciones-list').panel({
-	noHeader:	true,
-	border:		true,
-	closable:	false,
-	collapsible:false,
-	collapsed:	false,
-});
 $('#inscripciones-infolayout').layout();
 $('#inscripciones-pruebas').form('load','database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
 $('#inscripciones-jornadas').datagrid({
@@ -157,7 +164,7 @@ $('#inscripciones-jornadas').datagrid('getPanel').panel('panel').attr('tabindex'
     switch(e.keyCode){
     case 38:	/* Up */	selectRow(t,true); return false;
     case 40:    /* Down */	selectRow(t,false); return false;
-    case 13:	/* Enter */	editJornadaFromPrueba(workingData.prueba,'#inscripciones-jornadas');; return false;
+    case 13:	/* Enter */	editJornadaFromPrueba(workingData.prueba,'#inscripciones-jornadas'); return false;
     }
 });
 
@@ -227,95 +234,11 @@ $('#inscripciones-datagrid').datagrid({
     }
 });
 
-// activa teclas up/down para navegar por el panel
-$('#inscripciones-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-    function selectRow(t,up){
-    	var count = t.datagrid('getRows').length;    // row count
-    	var selected = t.datagrid('getSelected');
-    	if (selected){
-        	var index = t.datagrid('getRowIndex', selected);
-        	index = index + (up ? -1 : 1);
-        	if (index < 0) index = 0;
-        	if (index >= count) index = count - 1;
-        	t.datagrid('clearSelections');
-        	t.datagrid('selectRow', index);
-    	} else {
-        	t.datagrid('selectRow', (up ? count-1 : 0));
-    	}
-	}
-	function selectPage(t,offset) {
-		var p=t.datagrid('getPager').pagination('options');
-		var curPage=p.pageNumber;
-		var lastPage=1+parseInt(p.total/p.pageSize);
-		if (offset==-2) curPage=1;
-		if (offset==2) curPage=lastPage;
-		if ((offset==-1) && (curPage>1)) curPage=curPage-1;
-		if ((offset==1) && (curPage<lastPage)) curPage=curPage+1;
-    	t.datagrid('clearSelections');
-    	p.pageNumber=curPage;
-    	t.datagrid('options').pageNumber=curPage;
-    	t.datagrid('reload',{
-    		where: $('#inscripciones-search').val(),
-            onLoadSuccess: function(data){
-            	t.datagrid('getPager').pagination('refresh',{pageNumber:curPage});
-            }
-    	});
-	}
-	var t = $('#inscripciones-datagrid');
-    switch(e.keyCode){
-    case 38:	/* Up */	selectRow(t,true); return false;
-    case 40:    /* Down */	selectRow(t,false); return false;
-    case 13:	/* Enter */	editInscripcion(); return false;
-    case 45:	/* Insert */ newInscripcion(); return false;
-    case 46:	/* Supr */	deleteInscripcion(); return false;
-    case 33:	/* Re Pag */ selectPage(t,-1); return false;
-    case 34:	/* Av Pag */ selectPage(t,1); return false;
-    case 35:	/* Fin */    selectPage(t,2); return false;
-    case 36:	/* Inicio */ selectPage(t,-2); return false;
-    case 9: 	/* Tab */
-        // if (e.shiftkey) return false; // shift+Tab
-        return false;
-    case 16:	/* Shift */
-    case 17:	/* Ctrl */
-    case 18:	/* Alt */
-    case 27:	/* Esc */
-        return false;
-    }
-}); 
 
-
-// combogrid de inscripcion de participantes
-$('#inscripciones-newGrid').combogrid({
-    fit:true,
-    delay: 100, // dont search on every keystroke
-	panelWidth: 400,
-	panelHeight: 150,
-	idField: 'Perro',
-	textField: 'Nombre',
-	url: 'database/inscripcionFunctions.php?Operation=noinscritos&IDPrueba='+workingData.prueba,
-	method: 'get',
-	mode: 'remote',
-	required: false,
-	value: '- Nuevas inscripciones -',
-	columns: [[
-	   	{field:'ID',hidden:'true'},
-		{field:'Guia',hidden:'true'},
-		{field:'Club',hidden:'true'},
-		{field:'Nombre',title:'Perro',width:20,align:'right'},
-		{field:'Categoria',title:'Cat.',width:10,align:'center'},
-		{field:'Grado',title:'Grado',width:10,align:'center'},
-		{field:'NombreGuia',title:'Guia',width:40,align:'right'},
-		{field:'NombreClub',title:'Club',width:20,align:'right'}
-	]],
-	multiple: true,
-	fitColumns: true,
-	singleSelect: false,
-	selectOnNavigation: false
-});
-
+// key handler
+addKeyHandler('#inscripciones-datagrid',newInscripcion,editInscripcion,deleteInscripcion);
 // tooltips
-addTooltip($('#inscripciones-newGrid').combogrid('textbox'),"Buscar y seleccionar<br />uno o más perros para su inscripción"); 
-addTooltip($('#inscripciones-newBtn').linkbutton(),"Inscribir el/los perro(s) seleccionados"); 
+addTooltip($('#inscripciones-newBtn').linkbutton(),"Registrar nueva(s) inscripciones"); 
 addTooltip($('#inscripciones-editBtn').linkbutton(),"Modificar la inscripción seleccionada");
 addTooltip($('#inscripciones-delBtn').linkbutton(),"Eliminar la inscripción seleccionada de la BBDD");
 addTooltip($('#inscripciones-teamBtn').linkbutton(),"Abrir la ventana de gest&oacute;n de equipos de esta prueba");
@@ -336,21 +259,5 @@ $('#inscripciones-printBtn').on("click", function () {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 });
 
-// ventana de progreso de las inscripciones
-$('#inscripciones-progresswindow').window({
-	 width:450,
-	 height:200,
-	 modal:true,
-	 collapsable:false,
-	 minimizable:false,
-	 maximizable:false,
-	 closable:false,
-	 closed:true
-});
-
-$('#inscripciones-progressbar').progressbar({
-	width: 300,
-    value: 0
-});
 
 </script>
