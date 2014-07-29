@@ -4,16 +4,17 @@
 -->
  
 <?php
-// include_once("dialogs/dlg_perros.inc");
-// include_once("dialogs/dlg_guias.inc");
-// include_once("dialogs/dlg_clubes.inc");
-// include_once("dialogs/dlg_jornadas.inc");
+include_once("dialogs/dlg_perros.inc");
+include_once("dialogs/dlg_guias.inc");
+include_once("dialogs/dlg_clubes.inc");
+include_once("dialogs/dlg_jornadas.inc");
 include_once("dialogs/dlg_equipos.inc");
 include_once("frm_equipos.inc");
-// include_once("dialogs/dlg_newInscripcion.inc");
-// include_once("dialogs/dlg_editInscripcion.inc");
+include_once("dialogs/dlg_newInscripcion.inc");
+include_once("dialogs/dlg_editInscripcion.inc");
 ?>
- 
+
+<div id="hola">
 <!-- PANEL INFORMATIVO SOBRE LA PRUEBA Y JORNADAS ASOCIADAS -->
 <div id="inscripciones-info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
 	
@@ -63,8 +64,8 @@ include_once("frm_equipos.inc");
 	<div id="inscripciones-toolbar" style="padding:5px 5px 35px 5px">
 	   	<span style="float:left"> <!-- estos elementos deben estar alineados a la izquierda -->
 	   		<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton"
-	   			data-options="iconCls:'icon-add'"
-	   			onclick="newInscripcion($('#inscripciones-datagrid','#inscripciones-datagrid-search').val())">Nueva(s)</a>
+	   			data-options="iconCls:'icon-notes'"
+	   			onclick="newInscripcion($('#inscripciones-datagrid','#inscripciones-datagrid-search').val())">Nuevo</a>
 	   		<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton"
 	   			data-options="iconCls:'icon-edit'"
 	   			onclick="editInscripcion('#inscripciones-datagrid')">Editar</a>
@@ -90,6 +91,8 @@ include_once("frm_equipos.inc");
 	   	</span>
 	</div>
 </div>
+
+</div> <!-- id="hola" -->
 
 <script type="text/javascript">
 // cabecera de la pagina

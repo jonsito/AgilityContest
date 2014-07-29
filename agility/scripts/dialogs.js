@@ -822,7 +822,7 @@ function checkPrueba(id,mask) {
 }
 
 
-// ***** gestion de inscripciones y equipos de una prueba	*****************************************************
+// ***** gestion de equipos de una prueba	*****************************************************
 
 /**
  * Abre un dialogo para declarar un nuevo equipo para la prueba 
@@ -926,6 +926,8 @@ function saveTeam() {
     });
 }
 
+//***** gestion de inscripciones de una prueba	*****************************************************
+
 /**
  *Abre dialogo de registro de inscripciones
  *@param {string} dg datagrid ID de donde se obtiene el id de la prueba
@@ -937,6 +939,7 @@ function newInscripcion(dg,def,onAccept) {
 	$('#new_inscripcion-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#new_inscripcion-search').val(def);// fill juez Name
 	$('#new_inscripcion-Operation').val('insert');
+	$('#new_inscripcion-Prueba').val(workingData.prueba);
 	if (onAccept!==undefined)$('#new_inscripcion-okBtn').one('click',onAccept);
 }
 

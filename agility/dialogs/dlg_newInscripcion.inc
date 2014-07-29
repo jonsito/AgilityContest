@@ -1,10 +1,17 @@
 <!-- FORMULARIO DE ALTA DE INSCRIPCIONES EN UNA PRUEBA -->
-<div id="new_inscripcion-dialog" class="easyui-dialog" title="Nueva(s) inscripciones"
-	data-options="buttons:new_inscripcion-buttons,closable:true,closed:true" 
-	style="width:500px;height:350px;padding:10px 20px">
+<div id="new_inscripcion-dialog" class="easyui-dialog"
+	data-options="iconCls:'icon-notes',
+				modal:true,
+				closed:true,
+				closable:true,
+				collapsible:false,
+				minimizable:false,
+				maximizable:false,
+				resizable:false"
+	style="width:640px;padding:10px 20px">
   	<form id="new_inscripcion-form">
    		<input id="new_inscripcion-Operation" name="Operation" type="hidden" value="insert"/>
-   		<input id="new_inscripcion-IDPrueba" type="hidden" name="IDPrueba" value="0"/>
+   		<input id="new_inscripcion-Prueba" type="hidden" name="Prueba" value="0"/>
    		<label for="Buscar">Buscar: </label>
    		<input type="text" id="new_inscripcion-search" style="width:150px" value="---- Buscar ----" class="search_textfield"/>
    	</form>
@@ -19,20 +26,25 @@
     	<a id="new_inscripcion-cancelBtn" href="#" class="easyui-linkbutton" 
     		data-options="iconCls:'icon-cancel'" onclick="javascript:$('#new_inscripcion-dialog').dialog('close')">Cancelar</a>
 	</div>
-<!-- 
+	
+	<!-- barra de progreso de actualizacion de inscripciones -->
 	<div id="new_inscripcion-progresswindow" class="easyui-window">
 		<p id="new_incripcion-progresslabel" style="align:center">Inscribiendo a:</p>
-		<div id="new_inscripcioin-progressbar" class="easyui-progressbar" 
+		<div id="new_inscripcion-progressbar" class="easyui-progressbar" 
 			data-options="width:300px,value:0" style="align:center;"></div>
 	</div>
---> 
+	
 </div>
 
 <script type="text/javascript">
 
 //TODO: estudiar por qué el "closed:true" en el data-options no funciona
-$('#new_inscripcion-dialog').dialog({closed:true});
-
+$('#new_inscripcion-dialog').dialog({
+	title:"A&ntilde;adir inscripciones a la prueba: '"+workingData.datosPrueba.Nombre+"'",
+	closed:true,
+	buttons:'#new_inscripcion-buttons'
+	});
+	
 // combogrid de inscripcion de participantes
 $('#new_inscripcion-datagrid').datagrid({
     fit:true,
@@ -41,7 +53,7 @@ $('#new_inscripcion-datagrid').datagrid({
 	panelHeight: 150,
 	idField: 'Perro',
 	textField: 'Nombre',
-	url: 'database/inscripcionFunctions.php?Operation=noinscritos&IDPrueba='+workingData.prueba,
+	url: 'database/inscripcionFunctions.php?Operation=noinscritos&Prueba='+workingData.prueba,
 	method: 'get',
 	mode: 'remote',
 	required: false,
@@ -66,7 +78,7 @@ addTooltip($('#new_inscripcion-search').linkbutton(),"Buscar posibles participan
 addTooltip($('#new_inscripcion-okBtn').linkbutton(),"Inscribir el/los perro(s) seleccionado(s) en la prueba"); 
 addTooltip($('#new_inscripcion-cancelBtn').linkbutton(),"Cerrar la ventana<br /> Volver a la ventana de gestion de inscripciones");
 
-/*
+
 //ventana de progreso de las inscripciones
 $('#new_inscripcion-progresswindow').window({
 	 width:450,
@@ -78,5 +90,5 @@ $('#new_inscripcion-progresswindow').window({
 	 closable:false,
 	 closed:true
 });
-*/
+
 </script>
