@@ -7,7 +7,7 @@
     	<span style="float:left;">
     		<a id="jueces-newBtn" href="#" class="easyui-linkbutton"
     			data-options="iconCls:'icon-whistle'"
-    			onclick="newJuez('#jueces-datagrid',$('#jueces-search').val())">Nuevo Juez</a>
+    			onclick="newJuez('#jueces-datagrid',$('#jueces-datagrid-search').val())">Nuevo Juez</a>
     		<a id="jueces-editBtn" href="#" class="easyui-linkbutton" 
     			data-options="iconCls:'icon-edit'"
     			onclick="editJuez('#jueces-datagrid')">Editar Juez</a>
@@ -21,7 +21,7 @@
     			data-options="iconCls:'icon-reload'"
     			onclick="
     	        	// clear selection and reload table
-    	    		$('#jueces-search').val('---- Buscar ----');
+    	    		$('#jueces-datagrid-search').val('---- Buscar ----');
     	            $('#jueces-datagrid').datagrid('load',{ where: '' });"
     			>Actualizar</a>
     	</span>

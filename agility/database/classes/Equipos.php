@@ -85,7 +85,7 @@ class Equipos extends DBObject {
 	
 	function delete($id) {
 		$this->myLogger->enter();
-		$def=$this->defaultTeam;
+		$def=$this->defaultTeam['ID'];
 		if ($id<0) return $this->error("Invalid Equipo ID provided"); // cannot delete ID=1
 		if ($id==$def) return $this->error("Cannot delete default team for this Contest");
 		// fase 1: desasignamos los perros de este equipo (los asignamos al equipo por defecto de la prueba)

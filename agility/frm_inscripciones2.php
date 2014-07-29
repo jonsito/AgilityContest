@@ -76,7 +76,7 @@ include_once("frm_equipos.inc");
 	   	<span style="float:right"> 	<!-- estos elementos deben estar alineados a la derecha -->
 	    	<a id="inscripciones-teamBtn" href="#" class="easyui-linkbutton"
 	    		data-options="iconCls:'icon-huella'" 
-	    		onclick="openTeamDialog(workingData.prueba)">Equipos</a>
+	    		onclick="openTeamWindow(workingData.prueba)">Equipos</a>
 	    	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton"
 	    		data-options="iconCls:'icon-print'" 
 	    		>Imprimir</a> <!-- onClick() is handled below -->

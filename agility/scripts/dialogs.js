@@ -305,7 +305,7 @@ function newDog(dg,def){
  * @param {string} dg datagrid ID de donde se obtiene el perro
  */
 function editDog(dg){
-	if ($('#perros-search').is(":focus")) return; // on enter key in search input ignore
+	if ($('#perros-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Edit Error:","!No ha seleccionado ningún perro!","warning");
@@ -477,7 +477,7 @@ function newJuez(dg,def,onAccept){
  * @param {string} dg datagrid ID de donde se obtiene el juez
  */
 function editJuez(dg){
-	if ($('#jueces-search').is(":focus")) return; // on enter key in search input ignore
+	if ($('#jueces-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Edit Error:","!No ha seleccionado ningún Juez!","warning");
@@ -577,6 +577,7 @@ function newPrueba(dg,def,onAccept){
  * @param {string} dg datagrid ID de donde se obtiene la prueba
  */
 function editPrueba(dg){
+	if ($('#pruebas-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Edit Error:","!No ha seleccionado ninga Prueba!","info");
@@ -826,7 +827,7 @@ function checkPrueba(id,mask) {
 /**
  * Abre un dialogo para declarar un nuevo equipo para la prueba 
  */
-function openTeamDialog(pruebaID) {
+function openTeamWindow(pruebaID) {
 	$('#team_datagrid-dialog').dialog('open');
 	$('#team_datagrid').datagrid('reload');
 }
@@ -834,7 +835,7 @@ function openTeamDialog(pruebaID) {
 /**
  * Cierra la ventana de  dialogo de creacion de equipos
  */
-function closeTeamDialog() {
+function closeTeamWindow() {
 	
 }
 
@@ -850,7 +851,7 @@ function newTeam(dg,def,onAccept){
 	$('#team_edit_dialog-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill team Name
 	$('#team_edit_dialog-Operation').val('insert');
-	$('#team_edit_dialog-Prueba').val(idprueba);
+	$('#team_edit_dialog-Prueba').val(idprueba.Prueba);
 	if (onAccept!==undefined)$('#team_edit_dialog-okBtn').one('click',onAccept);
 }
 
@@ -859,14 +860,20 @@ function newTeam(dg,def,onAccept){
  * @param {string} dg datagrid ID de donde se obtiene el equipo a editar
  */
 function editTeam(dg){
+	if ($('#team_datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Edit Error:","!No ha seleccionado ningun Equipo!","info");
     	return; // no way to know which prueba is selected
     }
-    $('#tean_edit_dialog').dialog('open').dialog('setTitle','Modificar datos del equipo');
+
+    if (row.Nombre==="-- Sin asignar --") {
+    	$.messager.alert("Edit Error:","El equipo por defecto NO se puede editar","info");
+    	return; // no way to know which prueba is selected
+    }
+    $('#team_edit_dialog').dialog('open').dialog('setTitle','Modificar datos del equipo');
 	row.Operation="update";
-    $('#tean_edit_dialog-form').form('load',row);
+    $('#team_edit_dialog-form').form('load',row);
 }
 
 /**
@@ -879,11 +886,15 @@ function deleteTeam(dg){
     	$.messager.alert("Delete Error:","!No ha seleccionado ningun Equipo!","info");
     	return; // no way to know which prueba is selected
     }
+    if (row.Nombre==="-- Sin asignar --") {
+    	$.messager.alert("Delete Error:","El equipo por defecto no puede borrarse","info");
+    	return; // no way to know which prueba is selected
+    }
     $.messager.confirm('Confirm',
-    		"<p>Esta operacion borrara el equipo y reasignará los perros de éste al equipo por defecto</p>" +
-    		"<p>Desea realmente eliminar el equipo seleccionado?</p>",function(r){
+    		"<p>Esta operaci&oacute;n borrar&aacute; el equipo y reasignar&aacute; los perros de &eacute;ste al equipo por defecto</p>" +
+    		"<p>Desea realmente eliminar el equipo '"+row.Nombre+"' de esta prueba?</p>",function(r){
         if (r){
-            $.get('database/equiposFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+            $.get('database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba},function(result){
                 if (result.success){
                     $(dg).datagrid('reload');    // reload the prueba data
                 } else {
@@ -907,8 +918,8 @@ function saveTeam() {
             if (result.errorMsg){
                 $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
             } else {
-                $('#team_edit_dialog').dialog('close');        // close the dialog
-                // notice that some of these items may fail if dialog is not deployed. just ignore
+            	// on editing team close dialog
+                if($('#team_edit_dialog-Operation').val()==='update') $('#team_edit_dialog').dialog('close');
                 $('#team_datagrid').datagrid('reload',{ Prueba:id , Operation:'select' }); // reload the prueba data
             }
         }
@@ -930,6 +941,7 @@ function newInscripcion(dg,def,onAccept) {
 }
 
 function editInscripcion() {
+	if ($('#inscripciones-datagrid-search').is(":focus")) return; // on enter key in search input ignore
 	// obtenemos datos de la inscripcion seleccionada
 	var row= $('#inscripciones-datagrid').datagrid('getSelected');
     if (!row) {

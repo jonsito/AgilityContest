@@ -6,7 +6,7 @@
     	<span style="float:left;">
     		<a id="perros-newBtn" href="#" class="easyui-linkbutton"
     			data-options="iconCls:'icon-dog'"
-    			onclick="newDog($('#perros-datagrid','#perros-search').val())">Nuevo Perro</a>
+    			onclick="newDog($('#perros-datagrid','#perros-datagrid-search').val())">Nuevo Perro</a>
     		<a id="perros-editBtn" href="#" class="easyui-linkbutton"
     			data-options="iconCls:'icon-edit'"
     			onclick="editDog('#perros-datagrid')">Editar Perro</a>
@@ -20,7 +20,7 @@
     			data-options="iconCls:'icon-reload'"
     			onclick="
     	        	// clear selection and reload table
-    	    		$('#perros-search').val('---- Buscar ----');
+    	    		$('#perros-datagrid-search').val('---- Buscar ----');
     	            $('#perros-datagrid').datagrid('load',{ where: '' });"
     		>Actualizar</a>
     	</span>

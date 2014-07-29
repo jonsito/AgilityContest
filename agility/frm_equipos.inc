@@ -32,7 +32,7 @@
 	   	        	// clear selection and reload table
 	   	    		$('#team_datagrid-search').val('---- Buscar ----');	
 	   	            $('#team_datagrid').datagrid('load',{ where: '' });"
-	   			>Actualizar</a>
+	   			>Limpiar</a>
 	   	</span>
 	</div>
 </div>
@@ -56,7 +56,7 @@ $('#team_datagrid').datagrid({
     expansible: false,
 	collapsed: false,
 	// datos de la conexion ajax
-	url: 'database/equiposFunctions.php?Operation=select&IDPrueba='+workingData.prueba,
+	url: 'database/equiposFunctions.php?Operation=select&Prueba='+workingData.prueba,
 	loadMsg: 'Actualizando lista de equipos ...',
 	method: 'get',
     toolbar: '#team_toolbar',
@@ -87,5 +87,5 @@ addTooltip($('#team_datagrid-search'),"Buscar equipos que coincidan con el crite
 addTooltip($('#team_datagrid-newBtn').linkbutton(),"Declarar un nuevo equipo para la prueba");
 addTooltip($('#team_datagrid-editBtn').linkbutton(),"Editar nombre/observaciones del equipo seleccionado");
 addTooltip($('#team_datagrid-delBtn').linkbutton(),"Eliminar datos del equipo en la prueba");
-addTooltip($('#team_datagrid-reloadBtn').linkbutton(),"Actualizar listado de equipos de la prueba");
+addTooltip($('#team_datagrid-reloadBtn').linkbutton(),"Borrar casilla de busqueda. Actualizar listado de equipos");
 </script>
