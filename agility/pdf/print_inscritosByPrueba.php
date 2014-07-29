@@ -118,17 +118,19 @@ class PDF extends FPDF {
 				$this->writeTableHeader();
 			} 
 			// $this->Cell($this->pos[0],7,$row['IDPerro'],	'LR',0,$this->align[0],$fill);
-			$this->Cell($this->pos[0],7,$rowcount+1,	'LR',0,		$this->align[0],$fill); // display order instead of idperro
-			$this->Cell($this->pos[1],7,$row['Nombre'],	'LR',0,		$this->align[1],$fill);
-			$this->Cell($this->pos[2],7,$row['Licencia'],'LR',0,	$this->align[2],$fill);
-			$this->Cell($this->pos[3],7,$row['Guia'],	'LR',0,		$this->align[3],$fill);
-			$this->Cell($this->pos[4],7,$row['Club'],	'LR',0,		$this->align[4],$fill);
-			$this->Cell($this->pos[5],7,$row['Categoria'],'LR',0,	$this->align[5],$fill);
-			$this->Cell($this->pos[6],7,$row['Grado'],	'LR',0,		$this->align[6],$fill);
-			$this->Cell($this->pos[7],7,$row['Celo'],	'LR',0,		$this->align[7],$fill);
-			$this->Cell($this->pos[8],7,$row['Observaciones'],'LR',0,$this->align[9],$fill);
-			$this->Cell($this->pos[9],7,$row['J1'],		'LR',0,		$this->align[9],$fill);
-			$this->Cell($this->pos[10],7,$row['J2'],		'LR',0,	$this->align[10],$fill);
+			// $this->Cell($this->pos[0],7,$rowcount+1,		'LR',	0,		$this->align[0],$fill); // display order instead of idperro
+
+			$this->Cell($this->pos[0],7,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
+			$this->Cell($this->pos[1],7,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
+			$this->Cell($this->pos[2],7,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
+			$this->Cell($this->pos[3],7,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
+			$this->Cell($this->pos[4],7,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
+			$this->Cell($this->pos[5],7,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
+			$this->Cell($this->pos[6],7,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
+			$this->Cell($this->pos[7],7,($row['Celo']==="0")?"":"X",'LR',0,	$this->align[7],	$fill);
+			$this->Cell($this->pos[8],7,$row['Observaciones'],'LR',	0,		$this->align[9],	$fill);
+			$this->Cell($this->pos[9],7,($row['J1']==="0")?"":"X",	'LR',0,		$this->align[9],	$fill);
+			$this->Cell($this->pos[10],7,($row['J2']==="0")?"":"X",'LR',0,		$this->align[10],	$fill);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;
@@ -147,7 +149,7 @@ try {
 	$datosPrueba=$prueba->selectByID($pruebaid);
 	// Datos de inscripciones
 	$inscripciones = new Inscripciones("printInscritosByPrueba",$pruebaid);
-	$inscritos= $inscripciones->inscritos();
+	$inscritos= $inscripciones->enumerate();
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e.getMessage());
 }

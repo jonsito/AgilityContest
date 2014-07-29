@@ -197,7 +197,48 @@ class Inscripciones extends DBObject {
 	}
 	
 	/**
-	 * retrieve all inscriptions of stored prueba (no page/order selection)
+	 * retrieve all inscriptions in stored prueba
+	 * no search, no order, no limit, just retrieve all in 'Dorsal ASC' order
+	 */
+	function enumerate() {
+		$this->myLogger->enter();
+		// evaluate offset and row count for query
+		$id = $this->pruebaID;
+		// FASE 1: obtener lista de perros inscritos con sus datos
+		$str="SELECT Inscripciones.ID AS ID, Dorsal , Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
+				Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
+				NombreGuia, NombreClub, Equipos.ID AS Equipo,Equipos.Nombre AS NombreEquipo ,
+				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
+			FROM Inscripciones,PerroGuiaClub,Equipos
+			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) 
+				AND ( Inscripciones.Prueba=$id ) 
+				AND (Equipos.ID=Inscripciones.Equipo)
+				ORDER BY Dorsal ASC";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+	
+		// Fase 2: la tabla de resultados a devolver
+		$data = array(); // result { total(numberofrows), data(arrayofrows)
+		while($row = $rs->fetch_array()) {
+			$row['J1']=($row['Jornadas']&0x0001)?1:0;
+			$row['J2']=($row['Jornadas']&0x0002)?1:0;
+			$row['J3']=($row['Jornadas']&0x0004)?1:0;
+			$row['J4']=($row['Jornadas']&0x0008)?1:0;
+			$row['J5']=($row['Jornadas']&0x0010)?1:0;
+			$row['J6']=($row['Jornadas']&0x0020)?1:0;
+			$row['J7']=($row['Jornadas']&0x0040)?1:0;
+			$row['J8']=($row['Jornadas']&0x0080)?1:0;
+			array_push($data,$row);
+		}
+		$rs->free();
+		$result=array('total'=>count($data), 'rows'=>$data);
+		$this->myLogger->leave();
+		return $result;
+	
+	}
+	
+	/**
+	 * retrieve all inscriptions of stored prueba
 	 */
 	function inscritos() {
 		$this->myLogger->enter();
@@ -222,7 +263,7 @@ class Inscripciones extends DBObject {
 				NombreGuia, NombreClub, Equipos.ID AS Equipo,Equipos.Nombre AS NombreEquipo , 
 				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
 			FROM Inscripciones,PerroGuiaClub,Equipos
-			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) AND ( Inscripciones.Prueba=".$this->pruebaID." ) AND (Equipos.ID=Inscripciones.Equipo) $extra 
+			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) AND ( Inscripciones.Prueba=$id ) AND (Equipos.ID=Inscripciones.Equipo) $extra 
 			ORDER BY NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC $limit"; 
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -244,7 +285,6 @@ class Inscripciones extends DBObject {
 		$result=array('total'=>count($data), 'rows'=>$data);
 		$this->myLogger->leave();
 		return $result;
-	
 	}
 	
 } /* end of class "Inscripciones" */
