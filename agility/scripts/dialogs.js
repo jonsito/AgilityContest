@@ -852,7 +852,19 @@ function newTeam(dg,def,onAccept){
 	if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill team Name
 	$('#team_edit_dialog-Operation').val('insert');
 	$('#team_edit_dialog-Prueba').val(idprueba.Prueba);
+    // notice that on "new" window must be explicitely closed, so don't add close-on-ok() code
 	if (onAccept!==undefined)$('#team_edit_dialog-okBtn').one('click',onAccept);
+}
+
+/* same as newTeam, but using a combogrid as parent element */
+function newTeam2(cg,def){
+    var idprueba=$(cg).combogrid('grid').datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
+    $('#team_edit_dialog').dialog('open').dialog('setTitle','A&ntilde;adir nuevo equipo');
+    $('#team_edit_dialog-form').form('clear');
+    if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill team Name
+    $('#team_edit_dialog-Operation').val('insert');
+    $('#team_edit_dialog-Prueba').val(idprueba.Prueba);
+    $('#team_edit_dialog-okBtn').one('click',function() {$('#team_edit_dialog').dialog('close');});
 }
 
 /**
@@ -873,6 +885,9 @@ function editTeam(dg){
     }
     $('#team_edit_dialog').dialog('open').dialog('setTitle','Modificar datos del equipo');
 	row.Operation="update";
+    // tel window to be closed when "OK" clicked
+    $('#team_edit_dialog-okBtn').one('click',function() {$('#team_edit_dialog').dialog('close');});
+    // and load team edit dialog with provided data
     $('#team_edit_dialog-form').form('load',row);
 }
 
@@ -918,9 +933,9 @@ function saveTeam() {
             if (result.errorMsg){
                 $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
             } else {
-            	// on editing team close dialog
-                if($('#team_edit_dialog-Operation').val()==='update') $('#team_edit_dialog').dialog('close');
-                $('#team_datagrid').datagrid('reload',{ Prueba:id , Operation:'select' }); // reload the prueba data
+            	// on save done refresh related data/combo grids
+                $('#new_inscripcion-Equipo').combogrid('reload',{ Prueba:id , Operation:'enumerate' }); 
+                $('#team_datagrid').datagrid('reload',{ Prueba:id , Operation:'select' }); 
             }
         }
     });

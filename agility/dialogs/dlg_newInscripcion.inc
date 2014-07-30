@@ -54,7 +54,7 @@
         <span style="float:right;padding:5px">  
         <label id="new_inscripcion_Equipolbl"	for="Equipo">Equipo: </label>       	    
         <span id="new_inscripcion-Equiposp">
-           	<select id="new_inscripcion-Equipo" name="Equipo" style="width:130px"></select>
+           	<select id="new_inscripcion-Equipo" name="Equipo" style="width:130px" onchange="checkTeam(this)"></select>
         </span>
         <label id="new_inscripcion-Celolbl"	for="Celo">Celo:</label>
         <input id="new_inscripcion-Celo"		name="Celo" class="easyui-checkbox" type="checkbox" value="1" />
@@ -64,10 +64,17 @@
 
 	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 	<div id="new_inscripcion-buttons">
-		<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
-    		data-options="iconCls:'icon-ok'" onclick="insertInscripcion('#new_inscripcion-datagrid')">Inscribir</a>
-    	<a id="new_inscripcion-doneBtn" href="#" class="easyui-linkbutton" 
-    		data-options="iconCls:'icon-cancel'" onclick="javascript:$('#new_inscripcion-dialog').dialog('close')">Hecho</a>
+	   	<span style="float:left;">
+	   		<a id="new_inscripcion-teamBtn" href="#" class="easyui-linkbutton"
+	   			data-options="iconCls:'icon-add'"
+	   			onclick="newTeam2('#new_inscripcion-Equipo','nuevo equipo')">Nuevo Equipo</a>
+	   	</span>
+	   	<span style="float:right;">
+			<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
+    			data-options="iconCls:'icon-ok'" onclick="insertInscripcion('#new_inscripcion-datagrid')">Inscribir</a>
+    		<a id="new_inscripcion-doneBtn" href="#" class="easyui-linkbutton" 
+    			data-options="iconCls:'icon-cancel'" onclick="javascript:$('#new_inscripcion-dialog').dialog('close')">Hecho</a>
+    	</span>
 	</div>
 	
 	<!-- barra de progreso de actualizacion de inscripciones -->
@@ -164,6 +171,7 @@ addTooltip($('#new_inscripcion-search').linkbutton(),"Buscar posibles participan
 addTooltip($('#new_inscripcion-okBtn').linkbutton(),"Inscribir el/los perro(s) seleccionado(s) en la prueba"); 
 addTooltip($('#new_inscripcion-doneBtn').linkbutton(),"Cerrar la ventana<br /> Volver a la ventana de gestion de inscripciones");
 addTooltip($('#new_inscripcion-reloadBtn').linkbutton(),"Borrar seleccion. Refrescar lista");
+addTooltip($('#new_inscripcion-teamBtn').linkbutton(),"A&ntilde;adir nuevo equipo");
 
 
 //ventana de progreso de las inscripciones

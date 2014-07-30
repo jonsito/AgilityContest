@@ -1,4 +1,4 @@
-<!-- ventana de presentacion de los datos de los euipos de una prueba -->
+<!-- ventana de presentacion de los datos de los equipos de una prueba -->
 <div id="team_datagrid-dialog" class="easyui-dialog" style="width:600px;height:300px"
 	data-options="iconCls:'icon-huella',
 				modal:true,
