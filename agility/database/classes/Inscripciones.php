@@ -172,17 +172,25 @@ class Inscripciones extends DBObject {
 	function noinscritos() {
 		$this->myLogger->enter();
 		
-		$search =  http_request("q","s","");
+		$id = $this->pruebaID;
+		$search =  http_request("where","s","");
 		$extra = '';
 		if ($search!=='') $extra=" AND ( (PerroGuiaClub.Nombre LIKE '%$search%')
-		OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) )";
-		
-		// !toma ya con la query :-) 
+		OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) ) ";
+
+		$page=http_request("page","i",1);
+		$rows=http_request("rows","i",50);
+		$limit="";
+		if ($page!=0 && $rows!=0 ) {
+			$offset=($page-1)*$rows;
+			$limit=" LIMIT ".$offset.",".$rows;
+		}
+		 
 		$str="SELECT * FROM PerroGuiaClub
 				WHERE 
-					ID NOT IN ( SELECT Perro FROM Inscripciones WHERE (Prueba=".$this->pruebaID.") )
+					ID NOT IN ( SELECT Perro FROM Inscripciones WHERE (Prueba=$id) )
 					$extra
-				ORDER BY Club ASC, Categoria ASC, Grado ASC, Nombre ASC";
+				ORDER BY Club ASC, Categoria ASC, Grado ASC, Nombre ASC $limit";
 
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);

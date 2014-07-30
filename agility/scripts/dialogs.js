@@ -972,7 +972,7 @@ function deleteInscripcion() {
 			$.get('database/inscripcionFunctions.php',{
 					Operation:'remove',
 					ID:row.ID,
-					ID:workingData.prueba,
+					Prueba:row.Prueba,
 					J1:$('#jornada_cerrada-1').text(),
 					J2:$('#jornada_cerrada-2').text(),
 					J3:$('#jornada_cerrada-3').text(),
@@ -1020,7 +1020,7 @@ function insertInscripcion(dg) {
 			url:"database/inscripcionFunctions.php",
 			dataType:'json',
 			data: {
-				IDPrueba: workingData.prueba,
+				Prueba: workingData.prueba,
 				Operation: 'insert',
 				IDPerro: row.ID
 			}

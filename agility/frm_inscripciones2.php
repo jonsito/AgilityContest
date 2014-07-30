@@ -2,7 +2,7 @@
 - La primera, desplegable contiene la información de la prueba y jornadas disponibles
 - La segunda, contiene la lista de inscritos a la prueba y la barra de botones de gestion de inscripciones
 -->
- 
+
 <?php
 include_once("dialogs/dlg_perros.inc");
 include_once("dialogs/dlg_guias.inc");
@@ -101,6 +101,7 @@ setHeader('Inscripciones - Formulario de registro');
 $('#inscripciones-info').panel({
 	border:true,
 	closable:false,
+	closed:false,
 	collapsible:true,
 	collapsed:true
 });
@@ -197,7 +198,7 @@ $('#inscripciones-datagrid').datagrid({
     multiSort: true,
     remoteSort: false,
     remoteFilter: true,
-	url: 'database/inscripcionFunctions.php?Operation=inscritos&IDPrueba='+workingData.prueba,
+	url: 'database/inscripcionFunctions.php?Operation=inscritos&Prueba='+workingData.prueba,
 	method: 'get',
 	loadMsg: 'Actualizando datos de inscripciones....',
     toolbar: '#inscripciones-toolbar',
