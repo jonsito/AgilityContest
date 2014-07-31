@@ -12,6 +12,8 @@
   	<form id="new_inscripcion-form">
    		<input id="new_inscripcion-Operation" name="Operation" type="hidden" value="insert"/>
    		<input id="new_inscripcion-Prueba" type="hidden" name="Prueba" value="0"/>
+   		
+   		<!-- barra de tareas del dialogo -->
    		<div id="new_inscripcion-datagrid-tools">
    			<span style="float:left;padding:10px">
    			   	<label for="Buscar">Buscar: </label>
@@ -29,47 +31,51 @@
 	   				>Limpiar</a>
 	   		</span>
    		</div>
+   		
    		<!--  tabla que contiene el resultado de la seleccion del formulario -->
-		<table id="new_inscripcion-datagrid" class="easyui-datagrid"></table>
+   		<div style="height:250px">
+			<table id="new_inscripcion-datagrid" class="easyui-datagrid"></table>
+		</div>
+		
 		<!-- botones de datos auxiliares para la inscripcion -->
 		<span style="float:left;padding:5px">
-		Jornadas:
-        <input id="new_inscripcion-J1" 			name="J1" class="easyui-checkbox" type="checkbox" value="1" onclick="evalJornadas(this);"/>
-        <label id="new_inscripcion-J1lbl" 		for="J1">1</label>
-        <input id="new_inscripcion-J2" 			name="J2" class="easyui-checkbox" type="checkbox" value="2" onclick="evalJornadas(this);"/>
-        <label id="new_inscripcion-J2lbl" 		for="J2">2</label>
-        <input id="new_inscripcion-J3"			name="J3" class="easyui-checkbox" type="checkbox" value="4" onclick="evalJornadas(this);"/>
-        <label id="new_inscripcion-J3lbl"		for="J3">3</label>
-        <input id="new_inscripcion-J4"			name="J4" class="easyui-checkbox" type="checkbox" value="8" onclick="evalJornadas(this);"/>
- 	    <label id="new_inscripcion-J4lbl"		for="J4">4</label>
-        <input id="new_inscripcion-J5"			name="J5" class="easyui-checkbox" type="checkbox" value="16" onclick="evalJornadas(this);"/>
-        <label id="new_inscripcion-J5lbl" 		for="J5">5</label>
-        <input id="new_inscripcion-J6" 			name="J6" class="easyui-checkbox" type="checkbox" value="32" onclick="evalJornadas(this);"/>
-        <label id="new_inscripcion-J6lbl" 		for="J6">6</label>
-        <input id="new_inscripcion-J7" 			name="J7" class="easyui-checkbox" type="checkbox" value="64" onclick="evalJornadas(this);"/>
-        <label id="new_inscripcion-J7lbl" 		for="J7">7</label>
-        <input id="new_inscripcion-J8" 			name="J8" class="easyui-checkbox" type="checkbox" value="128" onclick="evalJornadas(this);"/>
-        <label id="new_inscripcion-J8lbl" 		for="J8">8</label>
+			Jornadas:
+        	<input id="new_inscripcion-J1" 			name="J1" class="easyui-checkbox" type="checkbox" value="1" onclick="evalJornadas(this);"/>
+        	<label id="new_inscripcion-J1lbl" 		for="J1">1</label>
+        	<input id="new_inscripcion-J2" 			name="J2" class="easyui-checkbox" type="checkbox" value="2" onclick="evalJornadas(this);"/>
+        	<label id="new_inscripcion-J2lbl" 		for="J2">2</label>
+       		<input id="new_inscripcion-J3"			name="J3" class="easyui-checkbox" type="checkbox" value="4" onclick="evalJornadas(this);"/>
+       		<label id="new_inscripcion-J3lbl"		for="J3">3</label>
+       		<input id="new_inscripcion-J4"			name="J4" class="easyui-checkbox" type="checkbox" value="8" onclick="evalJornadas(this);"/>
+ 	   		<label id="new_inscripcion-J4lbl"		for="J4">4</label>
+       		<input id="new_inscripcion-J5"			name="J5" class="easyui-checkbox" type="checkbox" value="16" onclick="evalJornadas(this);"/>
+        	<label id="new_inscripcion-J5lbl" 		for="J5">5</label>
+        	<input id="new_inscripcion-J6" 			name="J6" class="easyui-checkbox" type="checkbox" value="32" onclick="evalJornadas(this);"/>
+        	<label id="new_inscripcion-J6lbl" 		for="J6">6</label>
+        	<input id="new_inscripcion-J7" 			name="J7" class="easyui-checkbox" type="checkbox" value="64" onclick="evalJornadas(this);"/>
+        	<label id="new_inscripcion-J7lbl" 		for="J7">7</label>
+        	<input id="new_inscripcion-J8" 			name="J8" class="easyui-checkbox" type="checkbox" value="128" onclick="evalJornadas(this);"/>
+       		<label id="new_inscripcion-J8lbl" 		for="J8">8</label>
         </span>
         <span style="float:right;padding:5px">  
-        <label id="new_inscripcion_Equipolbl"	for="Equipo">Equipo: </label>       	    
-        <span id="new_inscripcion-Equiposp">
-           	<select id="new_inscripcion-Equipo" name="Equipo" style="width:130px" onchange="checkTeam(this)"></select>
-        </span>
-        <label id="new_inscripcion-Celolbl"	for="Celo">Celo:</label>
-        <input id="new_inscripcion-Celo"		name="Celo" class="easyui-checkbox" type="checkbox" value="1" />
-        <input id="new_inscripcion-Jornadas"	type="hidden" name="Jornadas" value="0" />
+        	<label id="new_inscripcion_Equipolbl"	for="Equipo">Equipo: </label>       	    
+        	<span id="new_inscripcion-Equiposp">
+        	   	<select id="new_inscripcion-Equipo" name="Equipo" style="width:130px"></select>
+        	</span>
+        	<label id="new_inscripcion-Celolbl"	for="Celo">Celo:</label>
+        	<input id="new_inscripcion-Celo"		name="Celo" class="easyui-checkbox" type="checkbox" value="1" />
+        	<input id="new_inscripcion-Jornadas"	type="hidden" name="Jornadas" value="0" />
         </span>
    	</form>
 
 	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 	<div id="new_inscripcion-buttons">
-	   	<span style="float:left;">
+	   	<span style="float:left;padding:5px">
 	   		<a id="new_inscripcion-teamBtn" href="#" class="easyui-linkbutton"
 	   			data-options="iconCls:'icon-add'"
 	   			onclick="newTeam2('#new_inscripcion-Equipo','nuevo equipo')">Nuevo Equipo</a>
 	   	</span>
-	   	<span style="float:right;">
+	   	<span style="float:right;padding:5px">
 			<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
     			data-options="iconCls:'icon-ok'" onclick="insertInscripcion('#new_inscripcion-datagrid')">Inscribir</a>
     		<a id="new_inscripcion-doneBtn" href="#" class="easyui-linkbutton" 
@@ -122,6 +128,7 @@ $('#new_inscripcion-datagrid').datagrid({
 	},
 	method: 'get',
 	mode: 'remote',
+	loadMsg: 'Actualizando lista de equipos ...',
 	columns: [[
 	   	{field:'ID',hidden:'true'},
 		{field:'Guia',hidden:'true'},
@@ -147,11 +154,7 @@ $('#new_inscripcion-Equipo').combogrid({
 	panelHeight: 100,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: 'database/equiposFunctions.php',
-	queryParams: {
-		Prueba: workingData.prueba,
-		Operation: 'enumerate'
-	},
+	url: 'database/equiposFunctions.php?Operation=enumerate&Prueba='+workingData.prueba,
 	method: 'get',
 	mode: 'remote',
 	required: true,

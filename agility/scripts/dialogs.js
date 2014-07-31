@@ -911,7 +911,8 @@ function deleteTeam(dg){
         if (r){
             $.get('database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba},function(result){
                 if (result.success){
-                    $(dg).datagrid('reload');    // reload the prueba data
+                    $(dg).datagrid('load');    // reload the prueba data 
+                    $('#new_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
                 } else {
                     $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
                 }
@@ -921,7 +922,6 @@ function deleteTeam(dg){
 }
 
 function saveTeam() {
-	var id=$('team_edit_dialog-Prueba').val();
     $('#team_edit_dialog-form').form('submit',{
         url: 'database/equiposFunctions.php',
         method: 'get',
@@ -934,8 +934,8 @@ function saveTeam() {
                 $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
             } else {
             	// on save done refresh related data/combo grids
-                $('#new_inscripcion-Equipo').combogrid('reload',{ Prueba:id , Operation:'enumerate' }); 
-                $('#team_datagrid').datagrid('reload',{ Prueba:id , Operation:'select' }); 
+                $('#new_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
+                $('#team_datagrid').datagrid('load'); 
             }
         }
     });
