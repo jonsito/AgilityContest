@@ -204,6 +204,7 @@ $('#inscripciones-datagrid').datagrid({
     toolbar: '#inscripciones-toolbar',
     columns: [[
         { field:'ID',		hidden:true }, // inscripcion ID
+        { field:'Prueba',	hidden:true }, // prueba ID
         { field:'Perro',	hidden:true }, // dog ID
         { field:'Equipo',	hidden:true }, // only used on Team contests
         { field:'Pagado', 	hidden:true }, // to store if handler paid :-)

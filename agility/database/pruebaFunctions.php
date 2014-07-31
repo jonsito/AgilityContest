@@ -16,7 +16,6 @@ try {
 		case "select": $result=$pruebas->select(); break;
 		case "enumerate": $result=$pruebas->enumerate(); break;
 		case "getbyid": $result=$pruebas->selectByID($pruebaID); break;
-		case "equipos": $result=$pruebas->selectEquiposByPrueba($pruebaID); break;
 		default: throw new Exception("pruebaFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) throw new Exception($pruebas->errormsg);

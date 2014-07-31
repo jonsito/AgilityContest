@@ -193,25 +193,6 @@ class Pruebas extends DBObject {
 		$this->myLogger->leave();
 		return $data;
 	}
-	
-	function selectEquiposByPrueba($id) {
-		$this->myLogger->enter();
-		if ($id<=0) return $this->error("pruebas::selectEquiposByPrueba() Invalid Prueba ID:$id");
-		$q=http_request("q","s","");
-		$where="( Prueba=$id )";
-		if ($q!=="") $where="( Prueba=$id ) AND ( ( Nombre LIKE '%$q%' ) OR ( Pruebas.Observaciones LIKE '%$q%' ) )";
-		// retrieve result from parent __select() call
-		$result= $this->__select(
-				/* SELECT */ "*",
-				/* FROM */ "Equipos",
-				/* WHERE */ $where,
-				/* ORDER BY */ "Nombre ASC",
-				/* LIMIT */ ""
-		);
-		// return composed array
-		$this->myLogger->leave();
-		return $result;
-	}
 }
 
 ?>

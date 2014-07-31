@@ -48,7 +48,7 @@ class Inscripciones extends DBObject {
 		// por cada jornada abierta, cogemos la lista de mangas
 		foreach($jornadas["rows"] as $jornada) {
 			$idjornada=$jornada["ID"];
-			$mangas= $this->__select("ID","Mangas","( Jornada=$idjornada )","Tipo ASC");
+			$mangas= $this->__select("ID","Mangas","( Jornada=$idjornada )","Tipo ASC","");
 			if ( ($mangas===null) || ($mangas==="") ) {
 				return $this->error("$file::updateOrdenSalida() cannot get list of mangas for jornada:$idjornada on prueba:".$this->pruebaID);
 			}
@@ -57,6 +57,7 @@ class Inscripciones extends DBObject {
 				$os->handle($idjornada,$manga["ID"],$idperro);
 			}
 		}
+		return ""; // no errors
 	}
 	
 	/**
@@ -120,14 +121,14 @@ class Inscripciones extends DBObject {
 			/* FROM */ "Inscripciones",
 			/* WHERE */ "(Perro=$idperro) AND (Prueba=".$this->pruebaID.")"
 		);
-		if (($res==null) || (res===""))
+		if (($res==null) || ($res===""))
 			return $this->error("El perro cond ID:$idperro no esta inscrito en la prueba: ".$this->pruebaID.")");
 
 		// buscamos datos nuevos y mezclamos con los actuales
 		$celo=http_request("Celo","i",$res->Celo);
 		$observaciones=http_request("Observaciones","s",$res->Observaciones);
 		$equipo=http_request("Equipo","i",$res->Equipo);
-		$pagado=http_request("Pagado","s",$res->Pagado);
+		$pagado=http_request("Pagado","i",$res->Pagado);
 
 		// TODO: Make sure that form leaves unchanged Closed jornada's inscription state
 		$jornadas=http_request("Jornadas","s",$res->Jornadas);
@@ -135,7 +136,11 @@ class Inscripciones extends DBObject {
 		$str="UPDATE Inscripciones 
 			SET Celo=$celo , Observaciones='$observaciones' , Equipo=$equipo , Jornadas=$jornadas , Pagado=$pagado
 			WHERE ( Perro=$idperro ) AND ( Prueba=".$this->pruebaID." )";
-
+		
+		// actualizamos datos de inscripcion
+		$res=$this->query($str);
+		if (!$res) return $this->error($this->conn->error);
+		
 		// recalculamos orden de salida en cada jornada
 		$res=$this->updateOrdenSalida("Update inscripcion of perro:$idperro",$idperro);
 		if ($res===null) return $this->error($this->errormsg);
@@ -213,7 +218,7 @@ class Inscripciones extends DBObject {
 		// evaluate offset and row count for query
 		$id = $this->pruebaID;
 		// FASE 1: obtener lista de perros inscritos con sus datos
-		$str="SELECT Inscripciones.ID AS ID, Dorsal , Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
+		$str="SELECT Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal , Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
 				Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
 				NombreGuia, NombreClub, Equipos.ID AS Equipo,Equipos.Nombre AS NombreEquipo ,
 				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
@@ -266,7 +271,7 @@ class Inscripciones extends DBObject {
 			$limit=" LIMIT ".$offset.",".$rows;
 		}
 		// FASE 1: obtener lista de perros inscritos con sus datos
-		$str="SELECT Inscripciones.ID AS ID, Dorsal , Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
+		$str="SELECT Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal, Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
 				Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club , 
 				NombreGuia, NombreClub, Equipos.ID AS Equipo,Equipos.Nombre AS NombreEquipo , 
 				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado

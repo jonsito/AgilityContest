@@ -94,6 +94,12 @@ img.mainpage{
 	margin-right: auto;
 }
 
+/**** centrar el texto de las clases dlg_xxxx *****/
+.dialog_forms label {
+	line-height: 25px;
+	font-weight:bold;
+}
+
 /**** tamanyo de los select del formulario de datos de la manga manga */
 .c_competicion-datosmanga {
 	font-size: 11px;

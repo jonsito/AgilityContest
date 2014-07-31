@@ -7,7 +7,7 @@
 		$result=null;
 		$inscripciones= new Inscripciones("inscripcionFunctions",http_request("Prueba","i",0));
 		$operation=http_request("Operation","s",null);
-		$perro=http_request("IDPerro","i",0);
+		$perro=http_request("Perro","i",0);
 		if ($operation===null) throw new Exception("Call to inscripcionFunctions without 'Operation' requested");
 		switch ($operation) {
 			case "insert": $result=$inscripciones->insert($perro); break; // nueva inscripcion

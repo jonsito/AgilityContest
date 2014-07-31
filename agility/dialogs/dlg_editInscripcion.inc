@@ -1,8 +1,10 @@
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
-<div id="edit_inscripcion-dialog" 
-   	style="width:475px;height:525px;padding:10px">
+<div id="edit_inscripcion-dialog" style="width:475px;padding:10px">
+	<div style="height:425px" class="dialog_forms">
         <form id="edit_inscripcion-data" method="get" novalidate="novalidate">
         	<input id="edit_inscripcion-ID" type="hidden" name="ID"/>
+        	<input id="edit_inscripcion-Prueba" type="hidden" name="Prueba"/>
+        	<input id="edit_inscripcion-Jornadas" type="hidden" name="Jornadas"/>
         	<input id="edit_inscripcion-Operation" type="hidden" name="Operation" value="update"/>
             <input id="edit_inscripcion-LOE_RRC" name="LOE_RRC" type="hidden" />
             <input id="edit_inscripcion-Raza" name="Raza" type="hidden" />
@@ -23,19 +25,19 @@
            	<input id="edit_inscripcion-NombreClub" name="NombreClub" type="text" disabled="disabled" />
            	<input id="edit_inscripcion-J1" 		name="J1" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
            	<label id="edit_inscripcion-J1lbl" 		for="J1">J1</label>
-            <input id="edit_inscripcion-J2" 		name="J2" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
+            <input id="edit_inscripcion-J2" 		name="J2" class="easyui-checkbox" type="checkbox" value="2" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J2lbl" 		for="J2">J2</label>
-            <input id="edit_inscripcion-J3"			name="J3" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
+            <input id="edit_inscripcion-J3"			name="J3" class="easyui-checkbox" type="checkbox" value="4" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J3lbl"		for="J3">J3</label>
-            <input id="edit_inscripcion-J4"			name="J4" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
+            <input id="edit_inscripcion-J4"			name="J4" class="easyui-checkbox" type="checkbox" value="8" onclick="doMoney(this);"/>
  	        <label id="edit_inscripcion-J4lbl"		for="J4">J4</label>
-            <input id="edit_inscripcion-J5"			name="J5" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
+            <input id="edit_inscripcion-J5"			name="J5" class="easyui-checkbox" type="checkbox" value="16" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J5lbl" 		for="J5">J5</label>
-            <input id="edit_inscripcion-J6" 		name="J6" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
+            <input id="edit_inscripcion-J6" 		name="J6" class="easyui-checkbox" type="checkbox" value="32" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J6lbl" 		for="J6">J6</label>
-            <input id="edit_inscripcion-J7" 		name="J7" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
+            <input id="edit_inscripcion-J7" 		name="J7" class="easyui-checkbox" type="checkbox" value="64" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J7lbl" 		for="J7">J7</label>
-            <input id="edit_inscripcion-J8" 		name="J8" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
+            <input id="edit_inscripcion-J8" 		name="J8" class="easyui-checkbox" type="checkbox" value="128" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J8lbl" 		for="J8">J8</label>
         	<label id="edit_inscripcion_Equipolbl"	for="Equipo">Equipo: </label>         	    
             <span id="edit_inscripcion-Equiposp">
@@ -50,20 +52,18 @@
  	  			class="easyui-validatebox" type="text" style="text-align:right;padding-right:5px"/>
  	  		<span id="edit_inscripcion-PagadoEuro">&euro;</span>
         </form> 
-           		
+    </div>
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-	<div id="edit_inscripcion-dlg-buttons" style="padding:2px 5px">
+	<div id="edit_inscripcion-dlg-buttons" style="padding:5px">
 		<span style="float:left">
 	   		<a id="edit_inscripcion-editDogBtn" href="#" class="easyui-linkbutton"
-	   			data-options="iconCls:'icon-edit'">Editar</a>
+	   			data-options="iconCls:'icon-dog'">Modificar</a>
 	   	</span>
 	   	<span style="float:right">  	
 			<a id="edit_inscripcion-cancelBtn" href="#" class="easyui-linkbutton"
 				data-options="iconCls:'icon-cancel'">Cancelar</a>
-       		<a id="edit_inscripcion-okBtn" href="#" class="easyui-linkbutton" onclick="updateInscripcion()" 
+       		<a id="edit_inscripcion-okBtn" href="#" class="easyui-linkbutton" onclick="saveInscripcion()" 
        			data-options="iconCls:'icon-save'">Aceptar</a>
-       		<a id="edit_inscripcion-clearBtn" class="easyui-linkbutton" href="#"
-       			data-options="iconCls:'icon-undo'">Deshacer</a>
        	</span>
     </div>
     
@@ -89,17 +89,12 @@
     addTooltip($('#edit_inscripcion-editDogBtn').linkbutton(),"Modificar la información del perro<br/>en la Base de Datos");
     addTooltip($('#edit_inscripcion-okBtn').linkbutton(),"Aceptar cambios<br/> Actualizar datos de la inscripci&oacute;n");
     addTooltip($('#edit_inscripcion-cancelBtn').linkbutton(),"Cancelar cambios. Cerrar la ventana");
-    addTooltip($('#edit_inscripcion-clearBtn').linkbutton(),"Deshacer cambios. restaurar formulario"); 
+    
  	// acciones de los botones
     $('#edit_inscripcion-cancelBtn').bind('click',function() {
         $('#edit_inscripcion-form').form('reset'); 
         $('#edit_inscripcion-Equipo').combogrid({ 'setValue' : '-- Sin asignar --' });
         $('#edit_inscripcion-dialog').dialog('close');
-    });
-    
-    $('#edit_inscripcion-clearBtn').bind('click',function() {
-        $('#edit_inscripcion-form').form('reset'); 
-        $('#edit_inscripcion-Equipo').combogrid({ 'setValue' : '-- Sin asignar --' });
     });
 
     $('#edit_inscripcion-editDogBtn').bind('click',function() {
@@ -113,10 +108,10 @@
 		panelHeight: 100,
 		idField: 'ID',
 		textField: 'Nombre',
-		url: 'database/pruebaFunctions.php?Operation=equipos&ID='+workingData.prueba,
+		url: 'database/equiposFunctions.php?Operation=enumerate&Prueba='+workingData.prueba,
 		method: 'get',
 		mode: 'remote',
-		required: false,
+		required: true,
 		columns: [[
 			{field:'ID',hidden:'true'},
 			{field:'Nombre',title:'Nombre',width:25,align:'right'},
@@ -128,9 +123,15 @@
 		selectOnNavigation: false
     });
     
-    function doMoney(checkbox) {
+    function doMoney(obj) {
+        // current values
+    	var jornadas=$('#edit_inscripcion-Jornadas').val();
         var money=Number($('#edit_inscripcion-Pagado').val());
-        if (checkbox.checked) $('#edit_inscripcion-Pagado').val(money+12);
+        // evaluate jornadas
+    	if (obj.checked) $('#edit_inscripcion-Jornadas').val(jornadas | obj.value);
+    	else $('#edit_inscripcion-Jornadas').val(jornadas & ~obj.value);
+    	// evaluate money
+        if (obj.checked) $('#edit_inscripcion-Pagado').val(money+12);
         else $('#edit_inscripcion-Pagado').val(money-12);
     }
 

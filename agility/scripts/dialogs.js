@@ -913,6 +913,7 @@ function deleteTeam(dg){
                 if (result.success){
                     $(dg).datagrid('load');    // reload the prueba data 
                     $('#new_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
+                    $('#edit_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
                 } else {
                     $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
                 }
@@ -921,6 +922,10 @@ function deleteTeam(dg){
     });
 }
 
+/**
+ * Save Team being edited, as result of doneBtn.onClick()
+ * On success refresh every related datagrids
+ */
 function saveTeam() {
     $('#team_edit_dialog-form').form('submit',{
         url: 'database/equiposFunctions.php',
@@ -935,6 +940,7 @@ function saveTeam() {
             } else {
             	// on save done refresh related data/combo grids
                 $('#new_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
+                $('#edit_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
                 $('#team_datagrid').datagrid('load'); 
             }
         }
@@ -966,8 +972,33 @@ function editInscripcion() {
     	$.messager.alert("No selection","!No ha seleccionado ninguna inscripción!","warning");
     	return; // no hay ninguna inscripcion seleccionada. retornar
     }
+    row.Operation='update';
     $('#edit_inscripcion-data').form('load',row);
     $('#edit_inscripcion-dialog').dialog('open');
+}
+
+/**
+ * Save Inscripcion being edited, as result of doneBtn.onClick()
+ * On success refresh every related datagrids
+ */
+function saveInscripcion() {
+    $('#edit_inscripcion-data').form('submit',{
+        url: 'database/inscripcionFunctions.php',
+        method: 'get',
+        onSubmit: function(param){
+            return $(this).form('validate');
+        },
+        success: function(res){
+            var result = eval('('+res+')');
+            if (result.errorMsg){
+                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
+            } else {
+            	// on save done refresh related data/combo grids and close dialog
+            	$('#inscripciones-datagrid').datagrid('reload');
+            	$('#edit_inscripcion-dialog').dialog('close');
+            }
+        }
+    });
 }
 
 /**
