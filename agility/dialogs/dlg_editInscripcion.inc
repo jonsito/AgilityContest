@@ -1,5 +1,5 @@
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
-<div id="edit_inscripcion-dialog" style="width:475px;padding:10px">
+<div id="edit_inscripcion-dialog" style="width:525px;padding:10px">
 	<div style="height:425px" class="dialog_forms">
         <form id="edit_inscripcion-form" method="get" novalidate="novalidate">
         	<input id="edit_inscripcion-ID" type="hidden" name="ID"/>
@@ -84,6 +84,8 @@
 
     $('#edit_inscripcion-form').form({
         onLoadSuccess: function(data) {
+            // retrieve info on jornadas
+        	var jornadas=$('#inscripciones-jornadas').datagrid('getData')['rows'];
             // evaluate celo checkbox status
         	$('#edit_inscripcion-Celo2').prop('checked',(data.celo)?true:false);
             // evaluate checked status of jornadas
@@ -95,6 +97,24 @@
         	$('#edit_inscripcion-J6').prop('checked',(data.Jornadas&0x0020)?true:false);
         	$('#edit_inscripcion-J7').prop('checked',(data.Jornadas&0x0040)?true:false);
         	$('#edit_inscripcion-J8').prop('checked',(data.Jornadas&0x0080)?true:false);
+        	// fix disabled status on closed jornadas
+        	$('#edit_inscripcion-J1').prop('disabled',(jornadas[0].Cerrada==="1")?true:false);
+        	$('#edit_inscripcion-J2').prop('disabled',(jornadas[1].Cerrada==="1")?true:false);
+        	$('#edit_inscripcion-J3').prop('disabled',(jornadas[2].Cerrada==="1")?true:false);
+        	$('#edit_inscripcion-J4').prop('disabled',(jornadas[3].Cerrada==="1")?true:false);
+        	$('#edit_inscripcion-J5').prop('disabled',(jornadas[4].Cerrada==="1")?true:false);
+        	$('#edit_inscripcion-J6').prop('disabled',(jornadas[5].Cerrada==="1")?true:false);
+        	$('#edit_inscripcion-J7').prop('disabled',(jornadas[6].Cerrada==="1")?true:false);
+        	$('#edit_inscripcion-J8').prop('disabled',(jornadas[7].Cerrada==="1")?true:false);
+        	// fix text for jornadas
+        	$('#edit_inscripcion-J1lbl').text('J1 - '+jornadas[0].Nombre);
+        	$('#edit_inscripcion-J2lbl').text('J2 - '+jornadas[1].Nombre);
+        	$('#edit_inscripcion-J3lbl').text('J3 - '+jornadas[2].Nombre);
+        	$('#edit_inscripcion-J4lbl').text('J4 - '+jornadas[3].Nombre);
+        	$('#edit_inscripcion-J5lbl').text('J5 - '+jornadas[4].Nombre);
+        	$('#edit_inscripcion-J6lbl').text('J6 - '+jornadas[5].Nombre);
+        	$('#edit_inscripcion-J7lbl').text('J7 - '+jornadas[6].Nombre);
+        	$('#edit_inscripcion-J8lbl').text('J8 - '+jornadas[7].Nombre);
         }
     });
     
@@ -149,9 +169,9 @@
     }
 
     // layout
-    var dg= {'cols':7, 'rows':15}; // declare base datagrid
+    var dg= {'cols':8, 'rows':15}; // declare base datagrid
 	doLayout(dg,'#edit_inscripcion-dogInfo',		0,	0,	3,	1	);
-	doLayout(dg,"#edit_inscripcion-inscInfo",		3,	0,	3,	1	);
+	doLayout(dg,"#edit_inscripcion-inscInfo",		3,	0,	4,	1	);
 	doLayout(dg,"#edit_inscripcion-Nombrelbl",		0,	1,	2,	1	);
 	doLayout(dg,"#edit_inscripcion-Nombre",			0,	2,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-Licencialbl",	0,	3,	2,	1	);
@@ -165,21 +185,21 @@
 	doLayout(dg,"#edit_inscripcion-NombreClublbl",	0,	9,	2,	1	);
 	doLayout(dg,"#edit_inscripcion-NombreClub",		0,	10,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-J1",				3,	1,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J1lbl",			4,	1,	2,	1	);
+	doLayout(dg,"#edit_inscripcion-J1lbl",			4,	1,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-J2",				3,	2,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J2lbl",			4,	2,	2,	1	);
+	doLayout(dg,"#edit_inscripcion-J2lbl",			4,	2,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-J3",				3,	3,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J3lbl",			4,	3,	2,	1	);
+	doLayout(dg,"#edit_inscripcion-J3lbl",			4,	3,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-J4",				3,	4,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J4lbl",			4,	4,	2,	1	);
+	doLayout(dg,"#edit_inscripcion-J4lbl",			4,	4,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-J5",				3,	5,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J5lbl" ,			4,	5,	2,	1	);
+	doLayout(dg,"#edit_inscripcion-J5lbl" ,			4,	5,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-J6",				3,	6,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J6lbl",			4,	6,	2,	1	);
+	doLayout(dg,"#edit_inscripcion-J6lbl",			4,	6,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-J7" ,			3,	7,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J7lbl",			4,	7,	2,	1	);
+	doLayout(dg,"#edit_inscripcion-J7lbl",			4,	7,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-J8",				3,	8,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-J8lbl",			4,	8,	2,	1	);
+	doLayout(dg,"#edit_inscripcion-J8lbl",			4,	8,	3,	1	);
 	doLayout(dg,"#edit_inscripcion_Equipolbl",		3,	9,	1,	1	);   	    
 	doLayout(dg,"#edit_inscripcion-Equiposp",		4,	9,	2,	1	); 
 	doLayout(dg,"#edit_inscripcion-Celolbl",		3,	10,	1,	1	);
