@@ -86,6 +86,7 @@ function cancelSelectPrueba() {
 
 // set up header title
 setHeader('Inscripciones - Selecci&oacute;n de prueba');
+initWorkingData();
 
 // display prueba selection dialog
 $('#selprueba-window').window('open');

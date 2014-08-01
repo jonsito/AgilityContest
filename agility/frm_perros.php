@@ -17,12 +17,12 @@
     	</span>
     	<span style="float:right;">
     		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"
-    			data-options="iconCls:'icon-reload'"
+    			data-options="iconCls:'icon-brush'"
     			onclick="
     	        	// clear selection and reload table
     	    		$('#perros-datagrid-search').val('---- Buscar ----');
     	            $('#perros-datagrid').datagrid('load',{ where: '' });"
-    		>Actualizar</a>
+    		>Limpiar</a>
     	</span>
     </div>
     

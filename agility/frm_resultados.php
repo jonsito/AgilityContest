@@ -14,6 +14,7 @@ $('#selmanga-window').window({
 	} 
 });
 
+initWorkingData();
 $('#selmanga-window').window('open');
 
 </script>

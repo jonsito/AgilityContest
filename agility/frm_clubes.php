@@ -19,11 +19,11 @@
     	</span>
     	<span style="float:right;">
     		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"
-    		data-options="iconCls:'icon-reload'"
+    		data-options="iconCls:'icon-brush'"
     		onClick="
         	// clear selection and reload table
     		$('#clubes-datagrid-search').val('---- Buscar ----');
-            $('#clubes-datagrid').datagrid('load',{ where: '' });">Actualizar</a>
+            $('#clubes-datagrid').datagrid('load',{ where: '' });">Limpiar</a>
     	</span>
     </div>   
 

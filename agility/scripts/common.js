@@ -28,21 +28,27 @@ function strpos (pajar, aguja, offset) {
 }
 
 /**
-* Object to store working data primary keys
+ * Initialize working data information object
+ */
+function initWorkingData() {
+	workingData.perro= 0; // IDPerro del perro en edicion
+	workingData.guia= 0; // ID del guia en edicion
+	workingData.club= 0; // ID del club activo
+	workingData.juez= 0; // ID del juez activo
+	workingData.prueba= 0; // ID de la prueba en curso
+	workingData.jornada= 0; // ID de la jornada en curso
+	workingData.manga= 0; // ID de la manga en curso
+	workingData.manga2= 0; // ID de la segunda manga para el calculo de resultados
+	workingData.datosPrueba= new Object(); // last selected prueba data
+	workingData.datosJornada= new Object(); // last selected jornada data
+	workingData.datosRonda= new Object(); // last selected ronda (grade, manga1, manga2)
+}
+
+/**
+* Declare and initialize Object to store working data primary keys
 */
-var workingData = new Object({
-	perro: 0, // IDPerro del perro en edicion
-	guia: 0, // ID del guia en edicion
-	club: 0, // ID del club activo
-	juez: 0, // ID del juez activo
-	prueba: 0, // ID de la prueba en curso
-	jornada: 0, // ID de la jornada en curso
-	manga: 0, // ID de la manga en curso
-	manga2: 0, // ID de la segunda manga para el calculo de resultados
-	datosPrueba: new Object(), // last selected prueba data
-	datosJornada: new Object(), // last selected jornada data
-	datosRonda: new Object(), // last selected ronda (grade, manga1, manga2)
-});
+var workingData = new Object();
+initWorkingData();
 
 /**
  * Used to evaluate position, width and heigh on an element to be 

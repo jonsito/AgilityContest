@@ -18,12 +18,12 @@
     	</span>
     	<span style="float:right;">
     		<a id="jueces-reloadBtn" href="#" class="easyui-linkbutton"
-    			data-options="iconCls:'icon-reload'"
+    			data-options="iconCls:'icon-brush'"
     			onclick="
     	        	// clear selection and reload table
     	    		$('#jueces-datagrid-search').val('---- Buscar ----');
     	            $('#jueces-datagrid').datagrid('load',{ where: '' });"
-    			>Actualizar</a>
+    			>Limpiar</a>
     	</span>
     </div>
 	<?php include_once("dialogs/dlg_jueces.inc")?>

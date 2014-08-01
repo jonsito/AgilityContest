@@ -21,12 +21,12 @@
     	</span>
     	<span style="float:right;">
     		<a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-reload'"
+    	    	data-options="iconCls:'icon-brush'"
     	    	onclick="
    	        		// clear selection and reload table
    	    			$('#pruebas_datagrid-search').val('---- Buscar ----');
    	            	$('#pruebas_datagrid').datagrid('load',{ where: '' });"
-   			>Actualizar</a>
+   			>Limpiar</a>
     	</span>
     </div>
     

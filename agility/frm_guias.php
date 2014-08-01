@@ -18,12 +18,12 @@
     	</span>
     	<span style="float:right;">
     		<a id="guias-reloadBtn" href="#" class="easyui-linkbutton"
-    			data-options="iconCls:'icon-reload'"
+    			data-options="iconCls:'icon-brush'"
     			onClick="
     	        	// clear selection and reload table
     	    		$('#guias-datagrid-search').val('---- Buscar ----');
     	            $('#guias-datagrid').datagrid('load',{ where: '' });"
-    			>Actualizar</a>
+    			>Limpiar</a>
     	</span>
     </div>
     
