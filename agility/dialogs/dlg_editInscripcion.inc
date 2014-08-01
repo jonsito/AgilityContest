@@ -1,7 +1,7 @@
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
 <div id="edit_inscripcion-dialog" style="width:475px;padding:10px">
 	<div style="height:425px" class="dialog_forms">
-        <form id="edit_inscripcion-data" method="get" novalidate="novalidate">
+        <form id="edit_inscripcion-form" method="get" novalidate="novalidate">
         	<input id="edit_inscripcion-ID" type="hidden" name="ID"/>
         	<input id="edit_inscripcion-Prueba" type="hidden" name="Prueba"/>
         	<input id="edit_inscripcion-Jornadas" type="hidden" name="Jornadas"/>
@@ -43,8 +43,9 @@
             <span id="edit_inscripcion-Equiposp">
             	<select id="edit_inscripcion-Equipo" 	name="Equipo" class="easyui-combogrid" style="width:130px"></select>
             </span>
-            <label id="edit_inscripcion-Celolbl"	for="Celo">Celo:</label>
-            <input id="edit_inscripcion-Celo"		name="Celo" class="easyui-checkbox" type="checkbox" value="1" />
+            <label id="edit_inscripcion-Celolbl"	for="Celo2">Celo:</label>
+           	<input id="edit_inscripcion-Celo" 		name="Celo" type="hidden" value="0"/>
+            <input id="edit_inscripcion-Celo2"		name="Celo2" class="easyui-checkbox" type="checkbox" value="1" />
 	        <label id="edit_inscripcion-Observacioneslbl" for="Observaciones">Observaciones:</label>
 	        <input id="edit_inscripcion-Observaciones" type="text" name="Observaciones"/>
 	        <label id="edit_inscripcion-Pagadolbl"	for="Pagado">Pagado: </label>
@@ -74,14 +75,26 @@
     
     // declaracion del dialogo
     $('#edit_inscripcion-dialog').dialog({
-        closed:true,
-        modal:true,
-        buttons:'#edit_inscripcion-dlg-buttons',
+        iconCls: 'icon-notes',
+        closed: true,
+        modal: true,
+        buttons: '#edit_inscripcion-dlg-buttons',
         title: 'Editar inscripcion'
     });
 
     $('#edit_inscripcion-form').form({
         onLoadSuccess: function(data) {
+            // evaluate celo checkbox status
+        	$('#edit_inscripcion-Celo2').prop('checked',(data.celo)?true:false);
+            // evaluate checked status of jornadas
+        	$('#edit_inscripcion-J1').prop('checked',(data.Jornadas&0x0001)?true:false);
+        	$('#edit_inscripcion-J2').prop('checked',(data.Jornadas&0x0002)?true:false);
+        	$('#edit_inscripcion-J3').prop('checked',(data.Jornadas&0x0004)?true:false);
+        	$('#edit_inscripcion-J4').prop('checked',(data.Jornadas&0x0008)?true:false);
+        	$('#edit_inscripcion-J5').prop('checked',(data.Jornadas&0x0010)?true:false);
+        	$('#edit_inscripcion-J6').prop('checked',(data.Jornadas&0x0020)?true:false);
+        	$('#edit_inscripcion-J7').prop('checked',(data.Jornadas&0x0040)?true:false);
+        	$('#edit_inscripcion-J8').prop('checked',(data.Jornadas&0x0080)?true:false);
         }
     });
     
@@ -170,7 +183,7 @@
 	doLayout(dg,"#edit_inscripcion_Equipolbl",		3,	9,	1,	1	);   	    
 	doLayout(dg,"#edit_inscripcion-Equiposp",		4,	9,	2,	1	); 
 	doLayout(dg,"#edit_inscripcion-Celolbl",		3,	10,	1,	1	);
-	doLayout(dg,"#edit_inscripcion-Celo",			4,	10,	1,	1	);
+	doLayout(dg,"#edit_inscripcion-Celo2",			4,	10,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-Pagadolbl",		3,	11,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-Pagado",			4,	11,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-PagadoEuro",		5,	11,	1,	1	);

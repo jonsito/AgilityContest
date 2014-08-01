@@ -205,6 +205,7 @@ $('#inscripciones-datagrid').datagrid({
     columns: [[
         { field:'ID',		hidden:true }, // inscripcion ID
         { field:'Prueba',	hidden:true }, // prueba ID
+        { field:'Jornadas',	hidden:true }, // bitmask de jornadas inscritas
         { field:'Perro',	hidden:true }, // dog ID
         { field:'Equipo',	hidden:true }, // only used on Team contests
         { field:'Pagado', 	hidden:true }, // to store if handler paid :-)

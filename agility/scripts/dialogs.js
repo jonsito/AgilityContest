@@ -973,7 +973,7 @@ function editInscripcion() {
     	return; // no hay ninguna inscripcion seleccionada. retornar
     }
     row.Operation='update';
-    $('#edit_inscripcion-data').form('load',row);
+    $('#edit_inscripcion-form').form('load',row);
     $('#edit_inscripcion-dialog').dialog('open');
 }
 
@@ -982,7 +982,9 @@ function editInscripcion() {
  * On success refresh every related datagrids
  */
 function saveInscripcion() {
-    $('#edit_inscripcion-data').form('submit',{
+	// make sure that "Celo" field has correct value
+	$('#edit_inscripcion-Celo').val( $('#edit_inscripcion-Celo2').is(':checked')?'1':'0');
+    $('#edit_inscripcion-form').form('submit',{
         url: 'database/inscripcionFunctions.php',
         method: 'get',
         onSubmit: function(param){
