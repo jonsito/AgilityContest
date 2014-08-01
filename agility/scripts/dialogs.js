@@ -957,10 +957,7 @@ function saveTeam() {
  */
 function newInscripcion(dg,def,onAccept) {
 	$('#new_inscripcion-dialog').dialog('open').dialog('setTitle','Nueva(s) inscripciones');
-	$('#new_inscripcion-form').form('clear');
-	if (!strpos(def,"Buscar")) $('#new_inscripcion-search').val(def);// fill juez Name
-	$('#new_inscripcion-Operation').val('insert');
-	$('#new_inscripcion-Prueba').val(workingData.prueba);
+	// let openEvent on dialog fire up form setup
 	if (onAccept!==undefined)$('#new_inscripcion-okBtn').one('click',onAccept);
 }
 

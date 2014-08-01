@@ -63,7 +63,9 @@
         	   	<select id="new_inscripcion-Equipo" name="Equipo" style="width:130px"></select>
         	</span>
         	<label id="new_inscripcion-Celolbl"	for="Celo">Celo:</label>
-        	<input id="new_inscripcion-Celo"		name="Celo" class="easyui-checkbox" type="checkbox" value="1" />
+   			<input id="new_inscripcion-Celo" type="hidden" name="Celo" value="0"/>
+        	<input id="new_inscripcion-Celo2"		name="Celo2" class="easyui-checkbox" type="checkbox" value="1" 
+        		onclick="$('#new_inscripcion-Celo').val( $('#new_inscripcion-Celo2').is(':checked')?'1':'0');"/>
         	<input id="new_inscripcion-Jornadas"	type="hidden" name="Jornadas" value="0" />
         </span>
    	</form>
@@ -72,7 +74,7 @@
 	<div id="new_inscripcion-buttons">
 	   	<span style="float:left;padding:5px">
 	   		<a id="new_inscripcion-teamBtn" href="#" class="easyui-linkbutton"
-	   			data-options="iconCls:'icon-add'"
+	   			data-options="iconCls:'icon-huella'"
 	   			onclick="newTeam2('#new_inscripcion-Equipo','nuevo equipo')">Nuevo Equipo</a>
 	   	</span>
 	   	<span style="float:right;padding:5px">
@@ -114,7 +116,8 @@ $('#new_inscripcion-dialog').dialog({
 	title:"A&ntilde;adir inscripciones a la prueba: '"+workingData.datosPrueba.Nombre+"'",
 	closed:true,
 	toolbar: '#new_inscripcion-datagrid-tools',
-	buttons:'#new_inscripcion-buttons'
+	buttons:'#new_inscripcion-buttons',
+	onOpen: newInscripcion_onOpenSuccess // on display setup jornada's 'checkboxes info
 	});
 	
 // datagrid de inscripcion de participantes
@@ -169,12 +172,74 @@ $('#new_inscripcion-Equipo').combogrid({
 	selectOnNavigation: false
 });
 
+// setup form on windows open
+function newInscripcion_onOpenSuccess() {
+    // retrieve info on jornadas
+	var jornadas = $('#inscripciones-jornadas').datagrid('getData')['rows'];
+	// default dog name from search text string
+	var def = $('#inscripciones-datagrid-search').val();
+
+	// clear form
+	$('#new_inscripcion-form').form('clear');
+	
+	// setup initial search string, prueba ID and Operation
+	if (!strpos(def,"Buscar")) $('#new_inscripcion-search').val(def);// fill perro Name
+	$('#new_inscripcion-Operation').val('insert');
+	$('#new_inscripcion-Prueba').val(workingData.prueba);
+
+	// reload datagrid with evaluated search value
+	listaNoInscritos();
+	
+    // mark checked as default every named jornadas
+	$('#new_inscripcion-J1').prop('checked',(jornadas[0].Nombre==="-- Sin asignar --")?false:true);
+	$('#new_inscripcion-J2').prop('checked',(jornadas[1].Nombre==="-- Sin asignar --")?false:true);
+	$('#new_inscripcion-J3').prop('checked',(jornadas[2].Nombre==="-- Sin asignar --")?false:true);
+	$('#new_inscripcion-J4').prop('checked',(jornadas[3].Nombre==="-- Sin asignar --")?false:true);
+	$('#new_inscripcion-J5').prop('checked',(jornadas[4].Nombre==="-- Sin asignar --")?false:true);
+	$('#new_inscripcion-J6').prop('checked',(jornadas[5].Nombre==="-- Sin asignar --")?false:true);
+	$('#new_inscripcion-J7').prop('checked',(jornadas[6].Nombre==="-- Sin asignar --")?false:true);
+	$('#new_inscripcion-J8').prop('checked',(jornadas[7].Nombre==="-- Sin asignar --")?false:true);
+	// fix disabled status on closed jornadas
+	$('#new_inscripcion-J1').prop('disabled',(jornadas[0].Cerrada==="1")?true:false);
+	$('#new_inscripcion-J2').prop('disabled',(jornadas[1].Cerrada==="1")?true:false);
+	$('#new_inscripcion-J3').prop('disabled',(jornadas[2].Cerrada==="1")?true:false);
+	$('#new_inscripcion-J4').prop('disabled',(jornadas[3].Cerrada==="1")?true:false);
+	$('#new_inscripcion-J5').prop('disabled',(jornadas[4].Cerrada==="1")?true:false);
+	$('#new_inscripcion-J6').prop('disabled',(jornadas[5].Cerrada==="1")?true:false);
+	$('#new_inscripcion-J7').prop('disabled',(jornadas[6].Cerrada==="1")?true:false);
+	$('#new_inscripcion-J8').prop('disabled',(jornadas[7].Cerrada==="1")?true:false);
+	// fix tooltip for jornadas
+	addTooltip($('#new_inscripcion-J1'),'Jornada 1: '+jornadas[0].Nombre);
+	addTooltip($('#new_inscripcion-J2'),'Jornada 2: '+jornadas[1].Nombre);
+	addTooltip($('#new_inscripcion-J3'),'Jornada 3: '+jornadas[2].Nombre);
+	addTooltip($('#new_inscripcion-J4'),'Jornada 4: '+jornadas[3].Nombre);
+	addTooltip($('#new_inscripcion-J5'),'Jornada 5: '+jornadas[4].Nombre);
+	addTooltip($('#new_inscripcion-J6'),'Jornada 6: '+jornadas[5].Nombre);
+	addTooltip($('#new_inscripcion-J7'),'Jornada 7: '+jornadas[6].Nombre);
+	addTooltip($('#new_inscripcion-J8'),'Jornada 8: '+jornadas[7].Nombre);
+	// evaluate initial state for "Jornadas" field
+	$('#new_inscripcion-Jornadas').val(
+			(jornadas[0].Nombre==="-- Sin asignar --")?0:1 +
+			(jornadas[1].Nombre==="-- Sin asignar --")?0:2 +
+			(jornadas[2].Nombre==="-- Sin asignar --")?0:4 +
+			(jornadas[3].Nombre==="-- Sin asignar --")?0:8 +
+			(jornadas[4].Nombre==="-- Sin asignar --")?0:16 +
+			(jornadas[5].Nombre==="-- Sin asignar --")?0:32 +
+			(jornadas[6].Nombre==="-- Sin asignar --")?0:64 +
+			(jornadas[7].Nombre==="-- Sin asignar --")?0:128 
+		);
+	// select up default team (as alphabetic order '-- Sin asignar --' comes first :-)
+	$('#new_inscripcion-Equipo').combogrid('grid').datagrid('selectRow',0);
+	// validation flag makes this tooltip disappear, so reinit on every window open
+	addTooltip($('#new_inscripcion-search').linkbutton(),"Buscar posibles participantes<br /> que coincidan con el criterio de busqueda"); 
+}
+
 // tooltips de los sub-formularios
-addTooltip($('#new_inscripcion-search').linkbutton(),"Buscar posibles participantes<br /> que coincidan con el criterio de busqueda"); 
 addTooltip($('#new_inscripcion-okBtn').linkbutton(),"Inscribir el/los perro(s) seleccionado(s) en la prueba"); 
 addTooltip($('#new_inscripcion-doneBtn').linkbutton(),"Cerrar la ventana<br /> Volver a la ventana de gestion de inscripciones");
 addTooltip($('#new_inscripcion-reloadBtn').linkbutton(),"Borrar seleccion. Refrescar lista");
 addTooltip($('#new_inscripcion-teamBtn').linkbutton(),"A&ntilde;adir nuevo equipo");
+addTooltip($('#new_inscripcion-Equipo').combogrid('textbox'),"Seleccionar el equipo <br />en el que se inscriben el/los perros marcados");
 
 
 //ventana de progreso de las inscripciones

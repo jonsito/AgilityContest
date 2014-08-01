@@ -142,6 +142,7 @@ class Equipos extends DBObject {
 		$this->myLogger->leave();
 		return $result;
 	}
+	
 	/**
 	 * Select a (single) entry that matches with provided Equipo ID
 	 * @param {integer} $id Equipo ID (primary key)
