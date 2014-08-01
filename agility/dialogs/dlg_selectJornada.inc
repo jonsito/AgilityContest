@@ -122,8 +122,8 @@ function acceptSelectJornada() {
 }
 
 function cancelSelectJornada() {
-	workingData.prueba='';
-	workingData.jornada='';
+	workingData.prueba=0;
+	workingData.jornada=0;
 	$('#seljornada-Prueba').combogrid('setValue','');
 	$('#seljornada-Jornada').combogrid('setValue','');
 	$('#seljornada-window').window('close');

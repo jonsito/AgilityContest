@@ -32,9 +32,9 @@ function strpos (pajar, aguja, offset) {
 */
 var workingData = new Object({
 	perro: 0, // IDPerro del perro en edicion
-	guia: '', // nombre del guia en edicion
-	club: '', // nombre del club activo
-	juez: '', // nombre del juez activo
+	guia: 0, // ID del guia en edicion
+	club: 0, // ID del club activo
+	juez: 0, // ID del juez activo
 	prueba: 0, // ID de la prueba en curso
 	jornada: 0, // ID de la jornada en curso
 	manga: 0, // ID de la manga en curso
