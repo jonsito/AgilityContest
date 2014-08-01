@@ -40,7 +40,7 @@ class Pruebas extends DBObject {
 		if (!$res) return $this->error($this->conn->error);
 		
 		// create eight journeys per contest
-		for ($n=0;$n<8;$n++) {
+		for ($n=1;$n<9;$n++) {
 			$sql ="INSERT INTO Jornadas (Prueba,Numero,Nombre,Fecha,Hora)
 			VALUES ($pruebaid,$n,'-- Sin asignar --','2013-01-01','00:00:00')";
 			$res=$this->query($sql);
