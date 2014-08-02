@@ -88,8 +88,7 @@
 	<!-- barra de progreso de actualizacion de inscripciones -->
 	<div id="new_inscripcion-progresswindow" class="easyui-window">
 		<p id="new_incripcion-progresslabel" style="align:center">Inscribiendo a:</p>
-		<div id="new_inscripcion-progressbar" class="easyui-progressbar" 
-			data-options="width:300px,value:0" style="align:center;"></div>
+		<div id="new_inscripcion-progressbar" style="align:center;"></div>
 	</div>
 	
 </div>
@@ -244,17 +243,20 @@ addTooltip($('#new_inscripcion-reloadBtn').linkbutton(),"Borrar seleccion. Refre
 addTooltip($('#new_inscripcion-teamBtn').linkbutton(),"A&ntilde;adir nuevo equipo");
 addTooltip($('#new_inscripcion-Equipo').combogrid('textbox'),"Seleccionar el equipo <br />en el que se inscriben el/los perros marcados");
 
-
-//ventana de progreso de las inscripciones
+//ventana y barra de progreso de las inscripciones
+$('#new_inscripcion-progressbar').progressbar({
+	width: 300,
+	value: 0
+});
 $('#new_inscripcion-progresswindow').window({
-	 width:450,
-	 height:200,
-	 modal:true,
+	 title:	'Procesando inscripciones...',
+	 width:		450,
+	 modal:		true,
 	 collapsable:false,
 	 minimizable:false,
 	 maximizable:false,
-	 closable:false,
-	 closed:true
+	 closable:	false,
+	 closed:	true
 });
 
 </script>

@@ -1070,18 +1070,17 @@ function deleteInscripcion() {
  * @param {string} dg datagrid to retrieve selections from
  */
 function insertInscripcion(dg) {
-	var g=$(dg).datagrid('grid');
-	var selectedRows= g.datagrid('getSelections');
+	var selectedRows= $(dg).datagrid('getSelections');
 	var count=1;
 	var size=selectedRows.length;
 	if(size==0) {
     	$.messager.alert("No selection","!No ha marcado ningún perro para proceder a su inscripción!","warning");
     	return; // no hay ninguna inscripcion seleccionada. retornar
 	}
-	$('#inscripciones-progresswindow').window('open');
+	$('#new_inscripcion-progresswindow').window('open');
 	$.each(selectedRows, function(index,row) {
-		$('#inscripciones-progressbar').progressbar('setValue',count*(100/size));
-		$('#inscripciones-progresslabel').text("Inscribiendo a: "+row.Nombre);
+		$('#new_inscripcion-progresslabel').text("Inscribiendo a: "+row.Nombre);
+		$('#new_inscripcion-progressbar').progressbar('setValue',count*(100/size));
 		$.ajax({
 	        async: false,
 	        cache: false,
@@ -1092,15 +1091,16 @@ function insertInscripcion(dg) {
 			data: {
 				Prueba: workingData.prueba,
 				Operation: 'insert',
-				IDPerro: row.ID
+				Perro: row.ID
 			}
 		});
 		count++;
 	});
-	$('#inscripciones-progresswindow').window('close');
+	$('#new_inscripcion-progresswindow').window('close');
     // notice that some of these items may fail if dialog is not deployed. just ignore
 	// foreach finished, clean, close and refresh
-	$('#inscripciones-newGrid').combogrid('grid').datagrid('clearSelections');
+	$(dg).datagrid('clearSelections');
+	listaNoInscritos();
     // reload the inscripciones table
 	$('#inscripciones-datagrid').datagrid('reload');
 }
