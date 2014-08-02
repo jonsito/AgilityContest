@@ -196,7 +196,7 @@ $('#inscripciones-datagrid').datagrid({
     view: scrollview,
     pageSize: 50,
     multiSort: true,
-    remoteSort: false,
+    remoteSort: true,
     remoteFilter: true,
 	url: 'database/inscripcionFunctions.php?Operation=inscritos&Prueba='+workingData.prueba,
 	method: 'get',

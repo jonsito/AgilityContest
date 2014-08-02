@@ -110,8 +110,11 @@ class Pruebas extends DBObject {
 	 */
 	function select() {
 		$this->myLogger->enter();
-		$sort= http_request("sort","s","Nombre");
-		$order=http_request("order","s","ASC");
+		$sort=getOrderString( //needed to properly handle multisort requests from datagrid
+			http_request("sort","s",""),
+			http_request("order","s",""),
+			"Nombre ASC"
+		);
 		$search=http_Request("where","s","");
 		$closed= http_request("closed","i",0); // si esta declarada, se incluyen las pruebas cerradas
 		$page=http_request("page","i",1);
@@ -138,7 +141,7 @@ class Pruebas extends DBObject {
 							Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
 				/* FROM */ "Pruebas,Clubes",
 				/* WHERE */ $where,
-				/* ORDER BY */ $sort." ".$order,
+				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);
 		$this->myLogger->leave();

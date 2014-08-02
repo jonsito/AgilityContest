@@ -189,13 +189,17 @@ class Inscripciones extends DBObject {
 		if ($page!=0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;
 			$limit=" LIMIT ".$offset.",".$rows;
-		}
-		 
+		};
+		$order=getOrderString( 
+			http_request("sort","s",""),
+			http_request("order","s",""),
+			"NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"
+		);
 		$str="SELECT * FROM PerroGuiaClub
 				WHERE 
 					ID NOT IN ( SELECT Perro FROM Inscripciones WHERE (Prueba=$id) )
 					$extra
-				ORDER BY Club ASC, Categoria ASC, Grado ASC, Nombre ASC $limit";
+				ORDER BY $order $limit";
 
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -270,7 +274,12 @@ class Inscripciones extends DBObject {
 		if ($page!=0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;
 			$limit=" LIMIT ".$offset.",".$rows;
-		}
+		};
+		$order=getOrderString( 
+			http_request("sort","s",""),
+			http_request("order","s",""),
+			"NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"
+		);
 		// FASE 1: obtener lista de perros inscritos con sus datos
 		$str="SELECT Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal, Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
 				Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club , 
@@ -278,7 +287,7 @@ class Inscripciones extends DBObject {
 				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
 			FROM Inscripciones,PerroGuiaClub,Equipos
 			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) AND ( Inscripciones.Prueba=$id ) AND (Equipos.ID=Inscripciones.Equipo) $extra 
-			ORDER BY NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC $limit"; 
+			ORDER BY $order $limit"; 
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 	

@@ -80,4 +80,19 @@ function random_password($chars = 8) {
    return substr(str_shuffle($letters), 0, $chars);
 }
 
+/**
+ * Compose a valid ORDER sentence by mean of received comma-separaqted strings
+ * from easyui sort & order http requests
+ */
+function getOrderString($sort,$order,$def) {
+	if ($sort==="") return $def; // empty search string; 
+	$s=explode(",",$sort);
+	$o=explode(",",$order);
+	$res="";
+	for($n=0;$n<count($s);$n++) {
+		if ($n!=0) $res.=",";
+		$res = $res . $s[$n] . " " . $o[$n];
+	}
+	return $res;
+}
 ?>

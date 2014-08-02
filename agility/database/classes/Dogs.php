@@ -106,8 +106,11 @@ class Dogs extends DBObject {
 	 function select() {
 		$this->myLogger->enter();
 		// evaluate offset and row count for query
-		$sort= http_request("sort","s","Nombre");
-		$order=http_request("order","s","ASC");
+		$sort=getOrderString( //needed to properly handle multisort requests from datagrid
+			http_request("sort","s",""),
+			http_request("order","s",""),
+			"Nombre ASC"
+		);
 		$search=http_request("where","s","");
 		$page=http_request("page","i",1);
 		$rows=http_request("rows","i",50);
@@ -122,7 +125,7 @@ class Dogs extends DBObject {
 				/* SELECT */ "*",
 				/* FROM */ "PerroGuiaClub",
 				/* WHERE */ $where,
-				/* ORDER BY */ $sort." ".$order,
+				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);
 		$this->myLogger->leave();

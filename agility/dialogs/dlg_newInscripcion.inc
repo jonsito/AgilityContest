@@ -136,10 +136,10 @@ $('#new_inscripcion-datagrid').datagrid({
 	   	{field:'ID',hidden:'true'},
 		{field:'Guia',hidden:'true'},
 		{field:'Club',hidden:'true'},
-		{field:'Nombre',title:'Perro',width:20,align:'right'},
-		{field:'Categoria',title:'Cat.',width:10,align:'center'},
-		{field:'Grado',title:'Grado',width:10,align:'center'},
-		{field:'NombreGuia',title:'Guia',width:40,align:'right'},
+		{field:'Nombre', sortable:true, title:'Perro',width:20,align:'right'},
+		{field:'Categoria', sortable:true, title:'Cat.',width:10,align:'center'},
+		{field:'Grado', title:'Grado', width:10,align:'center'},
+		{field:'NombreGuia', sortable:true, title:'Guia',width:40,align:'right'},
 		{field:'NombreClub',title:'Club',width:20,align:'right'}
 	]],
     rowStyler:myRowStyler,
@@ -148,6 +148,9 @@ $('#new_inscripcion-datagrid').datagrid({
 	singleSelect: false,
 	view: scrollview,
 	pageSize: 10,
+    multiSort: true,
+    remoteSort: true,
+    remoteFilter: true,
 	selectOnNavigation: false
 });
 
