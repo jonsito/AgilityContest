@@ -82,12 +82,12 @@ include_once("dialogs/dlg_editInscripcion.inc");
 	    		data-options="iconCls:'icon-print'" 
 	    		>Imprimir</a> <!-- onClick() is handled below -->
 	   		<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton"
-	   			data-options="iconCls:'icon-reload'"
+	   			data-options="iconCls:'icon-brush'"
 	   			onclick="
 	   	        	// clear selection and reload table
 	   	    		$('#inscripciones-datagrid-search').val('---- Buscar ----');
 	   	            $('#inscripciones-datagrid').datagrid('load',{ where: '' });"
-	   		>Actualizar</a>
+	   		>Limpiar</a>
 	   	</span>
 	</div>
 </div>
@@ -249,7 +249,8 @@ addTooltip($('#inscripciones-editBtn').linkbutton(),"Modificar la inscripción s
 addTooltip($('#inscripciones-delBtn').linkbutton(),"Eliminar la inscripción seleccionada de la BBDD");
 addTooltip($('#inscripciones-teamBtn').linkbutton(),"Abrir la ventana de gest&oacute;n de equipos de esta prueba");
 addTooltip($('#inscripciones-printBtn').linkbutton(),"Imprimir la lista de inscritos en la prueba");
-addTooltip($('#inscripciones-reloadBtn').linkbutton(),"Refrescar la lista de inscripciones para la prueba");
+addTooltip($('#inscripciones-reloadBtn').linkbutton(),"Borrar la casilla de b&uacute;squeda<br/>Actualizar la lista de inscripciones para la prueba");
+addTooltip($('#inscripciones-datagrid-search'),"Buscar inscripciones que coincidan con el texto indicado");
 
 // special handling for printing inscritos
 $('#inscripciones-printBtn').on("click", function () {
