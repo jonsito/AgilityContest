@@ -1,6 +1,6 @@
 
-    <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE PERROS -->
-    <div id="perros-dialog" class="easyui-dialog" style="width:550px;height:400px;padding:10px 20px">
+    <!-- FORMULARIO DE ALTA/MODIFICACION DE LA BBDD DE PERROS -->
+    <div id="perros-dialog" class="easyui-dialog" style="width:550px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del perro</div>
         <form id="perros-form" method="get" novalidate>
             <div class="fitem">
@@ -45,6 +45,11 @@
             		data-options="iconCls:'icon-users'" style="float:right">Nuevo Gu&iacute;a</a>
             </div>
         </form>
+        <span id="perros-warning">
+        <em>Aviso:</em><br/>
+        Los cambios en los datos de Categor&iacute;a o Grado<br/>
+        afectarán a los resultados de todas las pruebas y jornadas<br/>
+        en las que el perro esté inscrito y no hayan sido marcadas como 'cerradas'</span>
     	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     	<div id="perros-dlg-buttons">
     	    <a id="perros-okBtn" href="#" class="easyui-linkbutton" 

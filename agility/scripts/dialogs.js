@@ -298,6 +298,7 @@ function newDog(dg,def){
 	$('#perros-form').form('clear'); // start with an empty form
 	if (!strpos(def,"Buscar")) $('#perros-Nombre').val(def);
 	$('#perros-Operation').val('insert');
+	$('#perros-warning').css('visibility','hidden');
 }
 
 /**
@@ -313,9 +314,39 @@ function editDog(dg){
     }
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro');
     // add extra required data to form dialog
-    row.Parent='';
     row.Operation='update';
     $('#perros-form').form('load',row);// load form with row data
+	$('#perros-warning').css('visibility','visible');
+}
+
+/**
+ * Abre el dialogo para editar datos de un perro que se ha inscrito en una prueba
+ * @param {string} dg datagrid ID de donde se obtiene el perro
+ */
+function editInscribedDog(dg){
+	id=$('#edit_inscripcion-Perro').val();
+	$('#perros-form').form('load','database/dogFunctions.php?Operation=getbyidperro&ID='+id);
+    $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro a inscribir');
+    // add extra required data to form dialog
+	$('#perros-warning').css('visibility','visible');
+	$('#perros-okBtn').one('click',function() {
+		// leave inscripcion dialog open
+		saveInscripcion(false);
+		// and refill dog changes with new data
+		$.ajax({
+			url: 'database/dogFunctions.php?Operation=getbyidperro&ID='+id,
+			data: { Operation: 'getbyidperro', ID: id },
+			dataType: 'json',
+			success: function(data) {
+				$('#edit_inscripcion-Nombre').val(data.Nombre);
+				$('#edit_inscripcion-Licencia').val(data.Licencia);
+				$('#edit_inscripcion-Categoria').val(data.Categoria);
+				$('#edit_inscripcion-Grado').val(data.Grado);
+				$('#edit_inscripcion-NombreGuia').val(data.NombreGuia);
+				$('#edit_inscripcion-NombreClub').val(data.NombreClub);
+			}
+		});
+	});
 }
 
 /**
@@ -469,7 +500,7 @@ function newJuez(dg,def,onAccept){
 	$('#jueces-form').form('clear');// clear old data (if any)
 	if (!strpos(def,"Buscar")) $('#jueces-Nombre').val(def);// fill juez Name
 	$('#jueces-Operation').val('insert');// set up operation
-	if (onAccept!==undefined)$('#jueces-okBtn').one('click',onAccept);
+	if (onAccept!==undefined) $('#jueces-okBtn').one('click',onAccept);
 }
 
 /**
@@ -833,13 +864,6 @@ function openTeamWindow(pruebaID) {
 }
 
 /**
- * Cierra la ventana de  dialogo de creacion de equipos
- */
-function closeTeamWindow() {
-	
-}
-
-/**
  *Open dialogo de alta de equipos
  *@param {string} dg datagrid ID de donde se obtiene el equipo y el id de prueba
  *@param {string} def default value to insert into Nombre 
@@ -977,8 +1001,9 @@ function editInscripcion() {
 /**
  * Save Inscripcion being edited, as result of doneBtn.onClick()
  * On success refresh every related datagrids
+ * if (done) close dialog, else reload
  */
-function saveInscripcion() {
+function saveInscripcion(close) {
 	// make sure that "Celo" field has correct value
 	$('#edit_inscripcion-Celo').val( $('#edit_inscripcion-Celo2').is(':checked')?'1':'0');
     $('#edit_inscripcion-form').form('submit',{
@@ -994,7 +1019,7 @@ function saveInscripcion() {
             } else {
             	// on save done refresh related data/combo grids and close dialog
             	$('#inscripciones-datagrid').datagrid('reload');
-            	$('#edit_inscripcion-dialog').dialog('close');
+            	if (close) $('#edit_inscripcion-dialog').dialog('close');
             }
         }
     });

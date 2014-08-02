@@ -10,15 +10,15 @@
             <input id="edit_inscripcion-Raza" name="Raza" type="hidden" />
            	<input id="edit_inscripcion-Perro" name="Perro" type="hidden" />
            	<span  id="edit_inscripcion-dogInfo" 	class="ftitle">Informaci&oacute;n del perro:</span>
-           	<span  id="edit_inscripcion-inscInfo" 	class="ftitle">Datos de la inscripci&oacute;n:</span>
+           	<span  id="edit_inscripcion-inscInfo" 	class="ftitle" style="tex-align:center">Datos de la inscripci&oacute;n:</span>
            	<label id="edit_inscripcion-Nombrelbl"	for="Nombre">Nombre:</label>
            	<input id="edit_inscripcion-Nombre" 	name="Nombre" type="text" disabled="disabled" />
         	<label id="edit_inscripcion-Licencialbl" for="Licencia">Licencia: </label>
         	<input id="edit_inscripcion-Licencia"	name="Licencia" type="text" disabled="disabled"/>
         	<label id="edit_inscripcion-Categorialbl" for="Categoria">Categoria: </label>
-            <input id="edit_inscripcion-Categoria" 	name="Categoria" type="text" disabled="disabled"/>
+            <input id="edit_inscripcion-Categoria" 	name="Categoria" type="text" style="text-align:center" disabled="disabled"/>
         	<label id="edit_inscripcion-Gradolbl"	for="Grado">Grado: </label>
-            <input id="edit_inscripcion-Grado" 		name="Grado" type="text" disabled="disabled" />
+            <input id="edit_inscripcion-Grado" 		name="Grado" type="text" style="text-align:center" disabled="disabled" />
             <label id="edit_inscripcion-NombreGuialbl"	for="NombreGuia">Gu&iacute;a: </label>
             <input id="edit_inscripcion-NombreGuia" name="NombreGuia" type="text" disabled="disabled"/>
             <label id="edit_inscripcion-NombreClublbl" for="NombreClub">Club: </label>
@@ -63,7 +63,7 @@
 	   	<span style="float:right">  	
 			<a id="edit_inscripcion-cancelBtn" href="#" class="easyui-linkbutton"
 				data-options="iconCls:'icon-cancel'">Cancelar</a>
-       		<a id="edit_inscripcion-okBtn" href="#" class="easyui-linkbutton" onclick="saveInscripcion()" 
+       		<a id="edit_inscripcion-okBtn" href="#" class="easyui-linkbutton" onclick="saveInscripcion(true)" 
        			data-options="iconCls:'icon-save'">Aceptar</a>
        	</span>
     </div>

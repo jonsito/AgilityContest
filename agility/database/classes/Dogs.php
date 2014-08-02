@@ -61,7 +61,7 @@ class Dogs extends DBObject {
 		$guia =		http_request("Guia","i",0,false);
 		$idperro =	$id;
 
-		$this->myLogger->info("ID: $id Nombre: $nombre Raza: $raza LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
+		$this->myLogger->info("\nUPDATE dogs: ID: $id Nombre: $nombre Raza: $raza Licencia: $licencia LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error); 
