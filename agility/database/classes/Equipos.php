@@ -100,13 +100,15 @@ class Equipos extends DBObject {
 	
 	function select() {
 		$this->myLogger->enter();
-		// evaluate offset and row count for query
-		$sort=getOrderString( //needed to properly handle multisort requests from datagrid
+		//needed to properly handle multisort requests from datagrid
+		$sort=getOrderString( 
 			http_request("sort","s",""),
 			http_request("order","s",""),
 			"Nombre ASC"
 		);
+		// evaluate if any search criteria
 		$search=http_Request("where","s","");
+		// evaluate offset and row count for query
 		$page=http_request("page","i",1);
 		$rows=http_request("rows","i",50);
 		$limit="";

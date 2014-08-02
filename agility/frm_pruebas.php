@@ -61,6 +61,8 @@
             singleSelect: true,
             view: scrollview,
             pageSize: 50,
+            multiSort: true,
+            remoteSort: true,
             columns: [[
                 { field:'ID', hidden:true }, // primary key
             	{ field:'Nombre',		width:20,	sortable:true,	title:'Nombre de la prueba:' },

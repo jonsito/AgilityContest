@@ -61,6 +61,8 @@
             singleSelect: true,
             view: scrollview,
             pageSize: 50,
+            multiSort: true,
+            remoteSort: true,
             columns: [[
                   	{ field:'ID',			hidden:true},
                    	{ field:'Nombre',		width:10, sortable:true,	title: 'Nombre:'},

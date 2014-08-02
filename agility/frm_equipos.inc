@@ -63,11 +63,13 @@ $('#team_datagrid').datagrid({
 	loadMsg: 'Actualizando lista de equipos ...',
 	method: 'get',
 	mode: 'remote',
+    multiSort: true,
+    remoteSort: true,
     columns: [[
         { field:'ID',			hidden:true },
         { field:'Prueba',		hidden:true },
         { field:'Nombre',		width:20, sortable:true,	title: 'Nombre:' },
-        { field:'Observaciones',width:80,					title: 'Observaciones'}
+        { field:'Observaciones',width:80, sortable:true,	title: 'Observaciones'}
     ]],
     pagination: false,
     rownumbers: true,

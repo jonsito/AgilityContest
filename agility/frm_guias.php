@@ -59,6 +59,8 @@
             fitColumns: true,
             view: scrollview,
             pageSize: 50,
+            multiSort: true,
+            remoteSort: true,
             columns: [[
                 { field:'ID',			hidden:true },
             	{ field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },

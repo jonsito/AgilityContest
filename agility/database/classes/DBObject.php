@@ -88,7 +88,7 @@ class DBObject {
 			}
 		}
 		// compose real request
-		$str="SELECT $select FROM $from $where $limit";
+		$str="SELECT $select FROM $from $where $order $limit";
 		// make query
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);

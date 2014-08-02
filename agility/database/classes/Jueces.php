@@ -109,10 +109,15 @@ class Jueces extends DBObject {
 	
 	function select() {
 		$this->myLogger->enter();
-		// evaluate offset and row count for query
-		$sort = isset($_GET['sort']) ? strval($_GET['sort']) : 'Nombre';
-		$order = isset($_GET['order']) ? strval($_GET['order']) : 'ASC';
+		//needed to properly handle multisort requests from datagrid
+		$sort=getOrderString(
+				http_request("sort","s",""),
+				http_request("order","s",""),
+				"Nombre ASC"
+		);
+		// search string
 		$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
+		// evaluate offset and row count for query
 		$page=http_request("page","i",1);
 		$rows=http_request("rows","i",50);
 		$limit="";
@@ -126,7 +131,7 @@ class Jueces extends DBObject {
 				/* SELECT */ "*",
 				/* FROM */ "Jueces",
 				/* WHERE */ $where,
-				/* ORDER BY */ $sort." ".$order,
+				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);
 		$this->myLogger->leave();
