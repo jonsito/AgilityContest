@@ -27,6 +27,14 @@ function strpos (pajar, aguja, offset) {
 	return i === -1 ? false : i;
 }
 
+
+/**
+ * indica si una variable, funcion u objeto está definido
+ * @param {string} variable objeto buscar
+ * @returns {Boolean} true si existe el objeto 'variable'
+ */
+function isDefined(variable) { return (typeof(window[variable]) != "undefined");}
+
 /**
  * Initialize working data information object
  */

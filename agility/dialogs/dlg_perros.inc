@@ -40,7 +40,7 @@
             </div>
             <div class="fitem">
                 <label for="Guia">Gu&iacute;a:</label>
-                <select id="perros-Guia" name="Guia" style="width:225px"></select>
+                <select id="perros-Guia" name="Guia" style="width:225px" class="easyui-combogrid"></select>
             	<a id="perros-newGuiaBtn" href="#" class="easyui-linkbutton" 
             		data-options="iconCls:'icon-users'" style="float:right">Nuevo Gu&iacute;a</a>
             </div>

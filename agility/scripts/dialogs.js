@@ -464,7 +464,6 @@ function assignDog() {
  * Ejecuta la peticion json para anyadir/editar un perro
  */
 function saveDog(){
-	var idperro=$('#perros-ID').val();
     $('#perros-form').form('submit',{
         url: 'database/dogFunctions.php',
         method: 'get',
@@ -476,10 +475,8 @@ function saveDog(){
             if (result.errorMsg){
                 $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
             } else {
-            	var url='database/dogFunctions.php?Operation=getbyidperro&ID='+idperro;
                 // reload the dog data from inscripciones (if any)
-    	        $('#inscripciones-data').form('load',url);
-    	        $('#chinscripciones-data').form('load',url);
+            	if (isDefined('listaNoInscritos')) listaNoInscritos();
     	        // close the dialog
                 $('#perros-dialog').dialog('close');   
             }

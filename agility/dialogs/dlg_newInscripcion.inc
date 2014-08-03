@@ -76,6 +76,9 @@
 	   		<a id="new_inscripcion-teamBtn" href="#" class="easyui-linkbutton"
 	   			data-options="iconCls:'icon-huella'"
 	   			onclick="newTeam2('#new_inscripcion-Equipo','nuevo equipo')">Nuevo Equipo</a>
+	   		<a id="new_inscripcion-dogBtn" href="#" class="easyui-linkbutton"
+	   			data-options="iconCls:'icon-dog'"
+	   			onclick="newDog('#new_inscripcion-datagrid',$('#new_inscripcion-search').val())">Nuevo Perro</a>
 	   	</span>
 	   	<span style="float:right;padding:5px">
 			<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
@@ -240,7 +243,8 @@ function newInscripcion_onOpenSuccess() {
 addTooltip($('#new_inscripcion-okBtn').linkbutton(),"Inscribir el/los perro(s) seleccionado(s) en la prueba"); 
 addTooltip($('#new_inscripcion-doneBtn').linkbutton(),"Cerrar la ventana<br /> Volver a la ventana de gestion de inscripciones");
 addTooltip($('#new_inscripcion-reloadBtn').linkbutton(),"Borrar seleccion. Refrescar lista");
-addTooltip($('#new_inscripcion-teamBtn').linkbutton(),"A&ntilde;adir nuevo equipo");
+addTooltip($('#new_inscripcion-teamBtn').linkbutton(),"Definir un nuevo equipo en esta prueba");
+addTooltip($('#new_inscripcion-dogBtn').linkbutton(),"Dar de alta un nuevo perro en la BBDD");
 addTooltip($('#new_inscripcion-Equipo').combogrid('textbox'),"Seleccionar el equipo <br />en el que se inscriben el/los perros marcados");
 
 //ventana y barra de progreso de las inscripciones
