@@ -49,16 +49,18 @@ class Mangas extends DBObject {
 	 */
 	function insert($tipo,$grado) {
 		$this->myLogger->enter();
+		$j=$this->jornada;
 		// si la manga existe no hacer nada; si no existe crear manga
-		$str="SELECT count(*) AS 'result' FROM Mangas WHERE ( Jornada = ".$this->jornada." ) AND  ( Tipo = ".$tipo." )";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error); 
-		if ($rs->num_rows > 0) {
+		$res=$this->__singleSelect(
+				"count(*)", 
+				"Mangas", 
+				"( Jornada=$j ) AND  ( Tipo=$tipo ) AND ( Grado='$grado' )"
+		);
+		if ($res->Result>0){
 			$this->myLogger->info("Jornada:".$this->jornada." Manga: $tipo already exists. exit OK");
 			return "";
 		}
-		$rs->free();
-		$str="INSERT INTO Mangas ( Jornada , Tipo, Grado ) VALUES (".$this->jornada.",".$tipo.",'".$grado."')";
+		$str="INSERT INTO Mangas ( Jornada , Tipo, Grado ) VALUES ($j,$tipo,'$grado')";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 
 		$this->myLogger->leave();

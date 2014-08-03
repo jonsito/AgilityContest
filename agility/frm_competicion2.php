@@ -4,37 +4,39 @@
  	
 <!-- PANEL INFORMATIVO SOBRE LA MANGAS DE ESTA JORNADA -->
 <div id="competicion_info" class="easyui-panel" title="Informaci&oacute;n de la jornada de competici&oacute;n">
-<div id="competicion_infolayout" class="easyui-layout" style="height:400px">
-	<div data-options="region:'west',title:'Mangas de la jornada',split:true,collapsed:false" style="width:200px">
-		<table id="competicion-listamangas" style="padding:10px 20px"></table>
+
+	<!-- paneles de lista de mangas y datos de cada manga -->
+	<div id="competicion_infolayout" class="easyui-layout" style="height:400px">
+		<div data-options="region:'west',title:'Mangas de la jornada',split:true,collapsed:false" style="width:200px">
+			<table id="competicion-listamangas" style="padding:10px 20px"></table>
+		</div>
+		<div data-options="region:'center',title:'Datos de la manga'" style="width:600px;">
+			<font size="11"> <!--  take care on some stupid browsers -->
+			<span id="competicion-datosmanga" class="c_competicion-datosmanga"></span>
+			</font>
+		</div> <!-- datos de la manga -->
+	</div> <!-- informacion de layout -->
+
+	<!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
+	<div id="competicion-listamanga-toolbar">
+	   	<span style="float:left">
+	    	<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton"
+	    		data-options="iconCls:'icon-order'" style="width:185px"
+	    		onclick="competicionDialog('ordensalida');">Orden de salida</a>
+	    	<a id="competicion-competicionBtn" href="#" class="easyui-linkbutton"
+	    		data-options="iconCls:'icon-table'" style="width:185px"
+	    		onclick="competicionDialog('competicion');">Entrada de datos</a>
+	    	<a id="competicion-resultmangaBtn" href="#" class="easyui-linkbutton"
+	    		data-options="iconCls:'icon-endflag'" style="width:185px"
+	    		onclick="competicionDialog('resultadosmanga');">Resultados de la manga</a>
+		</span>
 	</div>
-	<div data-options="region:'center',title:'Datos de la manga'" style="width:600px;">
-		<font size="11"> <!--  take care on some stupid browsers -->
-		<span id="competicion-datosmanga" class="c_competicion-datosmanga"></span>
-		</font>
-	</div> <!-- datos de la manga -->
-</div> <!-- informacion de layout -->
-</div> <!-- panel de informacion -->
 
-<!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
-<div id="competicion-listamanga-toolbar">
-   	<span style="float:left">
-    	<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton"
-    		data-options="iconCls:'icon-order'" style="width:185px"
-    		onclick="competicionDialog('ordensalida');">Orden de salida</a>
-    	<a id="competicion-competicionBtn" href="#" class="easyui-linkbutton"
-    		data-options="iconCls:'icon-table'" style="width:185px"
-    		onclick="competicionDialog('competicion');">Entrada de datos</a>
-    	<a id="competicion-resultmangaBtn" href="#" class="easyui-linkbutton"
-    		data-options="iconCls:'icon-endflag'" style="width:185px"
-    		onclick="competicionDialog('resultadosmanga');">Resultados de la manga</a>
-	</span>
-</div>
-
-    
+</div> <!-- panel de informacion -->  
 <script type="text/javascript">
+
 // cargamos nombre de la jornada y de la prueba
-$('#Header_Operation').html('<p>Desarrollo de la prueba</p>');
+setHeader('Desarrollo de la prueba');
 
 // declaracion de cada elemento grafico
 $('#competicion_info').panel({
@@ -44,6 +46,7 @@ $('#competicion_info').panel({
 	collapsible:false,
 	collapsed:false
 });
+
 $('#competicion_infolayout').layout();
 
 $('#competicion-listamangas').datagrid({

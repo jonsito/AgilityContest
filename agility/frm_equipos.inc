@@ -31,7 +31,7 @@
     </div>
 	<!--  Botones de la tabla de equipos (solo el boton de cerrar) -->
 	<div id="team_datagrid-buttons">
-		<span style="float:right";padding:5px">
+		<span style="float:right;padding:5px">
     		<a id="team_datagrid-doneBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
     			onclick="javascript:$('#team_datagrid-dialog').dialog('close')">Hecho</a>
     	</span>

@@ -87,7 +87,7 @@
             // retrieve info on jornadas
         	var jornadas=$('#inscripciones-jornadas').datagrid('getData')['rows'];
             // evaluate celo checkbox status
-        	$('#edit_inscripcion-Celo2').prop('checked',(data.celo)?true:false);
+        	$('#edit_inscripcion-Celo2').prop('checked',(data.Celo)?true:false);
             // evaluate checked status of jornadas
         	$('#edit_inscripcion-J1').prop('checked',(data.Jornadas&0x0001)?true:false);
         	$('#edit_inscripcion-J2').prop('checked',(data.Jornadas&0x0002)?true:false);
