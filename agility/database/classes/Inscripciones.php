@@ -76,19 +76,12 @@ class Inscripciones extends DBObject {
 		if($res->count>0)
 			return $this->error("El perro con ID:".$perro." ya esta inscrito en la prueba:".$this->pruebaID);
 		
-		// Generamos los valores por defecto de "celo" "observaciones" "jornadas" y "pagado" para la inscripcion.
-		// Para ello, buscamos las jornadas que no están ni cerradas ni declaradas como "-- Sin asignar --" y componemos
-		// el valor por defecto de jornadas y el dinero "pagado" por la inscripcion
-		$res=$this->__selectObject(
-			/* SELECT */ "12*count(*) AS Pagado, IFNULL(SUM(1<<NUMERO),0) AS Jornadas",
-			/* FROM */   "Jornadas",
-			/* WHERE */  "(Jornadas.Prueba=".$this->pruebaID.") AND (Jornadas.Cerrada=0) AND (Jornadas.Nombre!='-- Sin asignar --')"
-		);
+		// obtenemos los restantes valores de la inscripcion
 		$prueba=$this->pruebaID;
-		$jornadas=$res->Jornadas;
-		$pagado=$res->Pagado;
-		$equipo=$this->defaultTeam["ID"];
-		$celo=0;
+		$jornadas=http_request("Jornadas","i",0);
+		$pagado=http_request("Pagado","i",0);
+		$equipo=http_request("Equipo","i",$this->defaultTeam["ID"]);
+		$celo=http_request("Celo","i",0);
 		$observaciones="";
 		
 		// ok, ya tenemos todo. Vamos a inscribirle... pero solo en las jornadas abiertas
@@ -156,7 +149,7 @@ class Inscripciones extends DBObject {
 	 */
 	function delete($idperro) {
 		$this->myLogger->enter();
-		if ($idperro<=0) return $this->error("Invalid IDPerro ID");
+		if ($idperro<=0) return $this->error("Invalid Perro ID");
 		
 		// Eliminamos el perro de la tabla de inscripciones
 		$sql="DELETE FROM Inscripciones WHERE (Perro=$idperro) AND (Prueba=".$this->pruebaID.")";

@@ -1,4 +1,3 @@
-<!--
 <?php
 include('conn.php');
 

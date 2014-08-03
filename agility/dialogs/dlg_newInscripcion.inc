@@ -183,6 +183,7 @@ function newInscripcion_onOpenSuccess() {
 	var jornadas = $('#inscripciones-jornadas').datagrid('getData')['rows'];
 	// default dog name from search text string
 	var def = $('#inscripciones-datagrid-search').val();
+	var val=0;
 
 	// clear form
 	$('#new_inscripcion-form').form('clear');
@@ -223,16 +224,15 @@ function newInscripcion_onOpenSuccess() {
 	addTooltip($('#new_inscripcion-J7'),'Jornada 7: '+jornadas[6].Nombre);
 	addTooltip($('#new_inscripcion-J8'),'Jornada 8: '+jornadas[7].Nombre);
 	// evaluate initial state for "Jornadas" field
-	$('#new_inscripcion-Jornadas').val(
-			(jornadas[0].Nombre==="-- Sin asignar --")?0:1 +
-			(jornadas[1].Nombre==="-- Sin asignar --")?0:2 +
-			(jornadas[2].Nombre==="-- Sin asignar --")?0:4 +
-			(jornadas[3].Nombre==="-- Sin asignar --")?0:8 +
-			(jornadas[4].Nombre==="-- Sin asignar --")?0:16 +
-			(jornadas[5].Nombre==="-- Sin asignar --")?0:32 +
-			(jornadas[6].Nombre==="-- Sin asignar --")?0:64 +
-			(jornadas[7].Nombre==="-- Sin asignar --")?0:128 
-		);
+	if (jornadas[0].Nombre!=="-- Sin asignar --") val+=1;
+	if (jornadas[1].Nombre!=="-- Sin asignar --") val+=2;
+	if (jornadas[2].Nombre!=="-- Sin asignar --") val+=4;
+	if (jornadas[3].Nombre!=="-- Sin asignar --") val+=8;
+	if (jornadas[4].Nombre!=="-- Sin asignar --") val+=16;
+	if (jornadas[5].Nombre!=="-- Sin asignar --") val+=32;
+	if (jornadas[6].Nombre!=="-- Sin asignar --") val+=64;
+	if (jornadas[7].Nombre!=="-- Sin asignar --") val+=128;
+	$('#new_inscripcion-Jornadas').val(val);
 	// select up default team (as alphabetic order '-- Sin asignar --' comes first :-)
 	$('#new_inscripcion-Equipo').combogrid('grid').datagrid('selectRow',0);
 	// validation flag makes this tooltip disappear, so reinit on every window open

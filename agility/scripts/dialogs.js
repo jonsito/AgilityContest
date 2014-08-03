@@ -1032,34 +1032,38 @@ function deleteInscripcion() {
     	return; // no hay ninguna inscripcion seleccionada. retornar
     }
 	$.messager.confirm('Confirm',
-			"<p>Importante:</p>" +
-			"<p>Si decide borrar la inscripcion <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta.<br />" +
-			"Desea realmente borrar la inscripción seleccionada?</p>",function(r){
-		if (r){
-			$.get('database/inscripcionFunctions.php',{
-					Operation:'remove',
-					ID:row.ID,
-					Prueba:row.Prueba,
-					J1:$('#jornada_cerrada-1').text(),
-					J2:$('#jornada_cerrada-2').text(),
-					J3:$('#jornada_cerrada-3').text(),
-					J4:$('#jornada_cerrada-4').text(),
-					J5:$('#jornada_cerrada-5').text(),
-					J6:$('#jornada_cerrada-6').text(),
-					J7:$('#jornada_cerrada-7').text(),
-					J8:$('#jornada_cerrada-8').text()
-					},
-				function(result){
-					if (result.success) {
-						$('#inscripciones-datagrid').datagrid('reload',{ // reload the inscripciones table
-							where: $('#inscripciones-search').val()
-						});
-					} else {
-						$.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
-					}
-				},'json');
-		} // if (r)
-	}).window({width:475});
+			"<p><b>Importante:</b></p>" +
+			"<p>Si decide borrar la inscripcion <br/>" +
+			"<b>se perder&aacute;n</b> todos los datos y resultados de este participante<br />" +
+			"que afecten a jornadas que no hayan sido marcadas como <em>Cerradas</em><br/>" +
+			"Desea realmente borrar la inscripción seleccionada?</p>",
+			function(r){
+				if (r){
+					$.get(
+						// URL
+						'database/inscripcionFunctions.php',
+						// arguments
+						{ 
+							Operation:'delete',
+							ID:row.ID, // id de la inscripcion
+							Perro:row.Perro, // id del perro
+							Prueba:row.Prueba // id de la prueba
+						},
+						// on Success function
+						function(result){
+							if (result.success) {
+								$('#inscripciones-datagrid').datagrid('reload',{ // reload the inscripciones table
+									where: $('#inscripciones-search').val()
+								});
+							} else {
+								$.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
+							}
+						},
+						// expected datatype format for response
+						'json'
+					);
+				} // if (r)
+		}).window({width:475});
 }
 
 /**
@@ -1088,7 +1092,11 @@ function insertInscripcion(dg) {
 			data: {
 				Prueba: workingData.prueba,
 				Operation: 'insert',
-				Perro: row.ID
+				Perro: row.ID,
+				Jornadas: $('#new_inscripcion-Jornadas').val(),
+				Celo: $('#new_inscripcion-Celo').val(),
+				Equipo: $('#new_inscripcion-Equipo').combogrid('getValue'),
+				Pagado: $('#new_inscripcion-Pagado').val()
 			}
 		});
 		count++;
