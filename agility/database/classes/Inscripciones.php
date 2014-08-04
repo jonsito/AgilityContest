@@ -303,6 +303,43 @@ class Inscripciones extends DBObject {
 		return $result;
 	}
 	
+	/**
+	 * retrieve all inscriptions of stored prueba and jornada
+	 * @param {int} $jornadaID ID de jornada
+	 */
+	function inscritosByJornada($jornadaID) {
+		$this->myLogger->enter();
+		$pruebaid=$this->pruebaID;
+		// Cogemos la lista de jornadas abiertas de esta prueba
+		$j=new Jornadas("inscripciones::inscritosByJornada()",$this->pruebaID);
+		$jornadas=$j->searchByPrueba();
+		if ( ($jornadas===null) || ($jornadas==="") ) {
+			return $this->error("$file::updateOrdenSalida() cannot get list of open Jornadas for prueba:".$this->pruebaID);
+		}
+		// por cada jornada abierta, miramos a ver si la ID coincide con la que buscamos
+		$mask=0;
+		foreach($jornadas["rows"] as $jornada) {
+			if ($jornada['ID']==$jornadaID) $mask=1<<($jornada['Numero']-1); // 1..8
+		}
+		if ($mask==0) {
+			return $this->error("$file::inscritosByJornada() cannot find open Jornada ID: $jornadaID in prueba:".$this->pruebaID);
+		}
+		// obtenemos la lista de perros inscritos con sus datos
+		$result=$this->__select(
+			/* SELECT */"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Inscripciones.Perro AS Perro, 
+				Dorsal, PerroGuiaClub.Nombre AS Nombre, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
+				NombreGuia, NombreClub, Equipos.ID AS Equipo,Equipos.Nombre AS NombreEquipo ,
+				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
+			/* FROM */	"Inscripciones,PerroGuiaClub,Equipos",
+			/* WHERE */ "( Inscripciones.Perro = PerroGuiaClub.ID) AND 
+				( Inscripciones.Prueba=$pruebaid ) AND ( ( Inscripciones.Jornadas&$mask ) != 0 ) AND
+				(Equipos.ID=Inscripciones.Equipo)",
+			/* ORDER BY */ "Categoria ASC , Celo ASC, Equipo",
+			/* LIMIT */ ""
+		);
+		$this->myLogger->leave();
+		return $result;
+	}
 } /* end of class "Inscripciones" */
 
 ?>

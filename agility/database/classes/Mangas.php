@@ -51,8 +51,8 @@ class Mangas extends DBObject {
 		$this->myLogger->enter();
 		$j=$this->jornada;
 		// si la manga existe no hacer nada; si no existe crear manga
-		$res=$this->__singleSelect(
-				"count(*)", 
+		$res=$this->__selectObject(
+				"count(*) AS Result", 
 				"Mangas", 
 				"( Jornada=$j ) AND  ( Tipo=$tipo ) AND ( Grado='$grado' )"
 		);
@@ -212,7 +212,7 @@ class Mangas extends DBObject {
 		$result["total"] = $row[0];
 		
 		if($result["total"]>0) {
-			$str="SELECT ID, Mangas.Tipo AS Tipo, Tipo_Manga.Descripcion AS Descripcion
+			$str="SELECT Mangas.ID AS ID, Mangas.Tipo AS Tipo, Tipo_Manga.Descripcion AS Descripcion
 			FROM Mangas,Tipo_Manga
 			WHERE ( ( Jornada = ".$this->jornada." ) AND ( Mangas.Tipo = Tipo_Manga.ID ) )
 			ORDER BY Descripcion ASC";

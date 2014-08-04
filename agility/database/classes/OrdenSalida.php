@@ -2,6 +2,7 @@
 require_once("DBObject.php");
 require_once("Resultados.php");
 require_once("Clasificaciones.php");
+require_once("Inscripciones.php");
 
 class OrdenSalida extends DBObject {
 	
@@ -135,7 +136,7 @@ class OrdenSalida extends DBObject {
 	 * @param {int} $manga ID de manga
 	 * @return array[count,[data]] array ordenado segun ordensalida de datos de perros de una manga 
 	 */
-	function getData($jornada, $manga) {
+	function getData($prueba,$jornada, $manga) {
 		$this->myLogger->enter();
 		// fase 0: vemos si ya hay una lista definida
 		$ordensalida = $this->getOrden ( $manga );
@@ -147,9 +148,10 @@ class OrdenSalida extends DBObject {
 		$registrados = explode ( ",", $ordensalida );
 		
 		// fase 1: obtener los perros inscritos en la jornada
-		$sql1 = "SELECT * FROM InscritosJornada WHERE ( Jornada=$jornada ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden";
-		$rs1 = $this->query ( $sql1 );
-		if (!$rs1) return $this->error($this->conn->error);
+		$i=new Inscripciones("ordensalida::getData()",$prueba);
+		$inscripciones= $i->inscritosByJornada($jornada);
+		if (!$inscripciones)
+			return $this->error("Cannot get inscripciones for prueba:$prueba jornada:$jornada manga:$manga");
 		
 		// fase 2: obtener las categorias de perros que debemos aceptar
 		$sql2 = "SELECT Grado FROM Mangas WHERE ( ID=$manga )";
@@ -160,19 +162,16 @@ class OrdenSalida extends DBObject {
 		$grado = $obj2->Grado;
 		
 		// fase 3: crear el array y la lista de perros y contrastarlo con la tabla y orden registrado
-		$data = array ();
-		while ( $row = $rs1->fetch_object () ) {
+		foreach ($inscripciones['rows'] as $row) {
 			// only add to list when grado is '-' (Any) or grado matches requested
-			if (($grado !== "-") && ($grado !== $row->Grado))
+			if (($grado !== "-") && ($grado !== $row['Grado']))
 				continue;
-			$idx = array_search ( $row->IDPerro, $registrados );
+			$idx = array_search ( $row['Perro'], $registrados );
 			// si idperro en lista se inserta; si no esta en lista implica error de consistencia
 			if ($idx === false)
-				$this->myLogger->notice("El idperro " . $row->IDPerro . " esta inscrito pero no aparece en el orden de salida" );
-			else
-				$registrados [$idx] = $row;
+				$this->myLogger->notice("El perro " . $row['Perro'] . " esta inscrito pero no aparece en el orden de salida" );
+			else $registrados [$idx] = $row;
 		}
-		$rs1->free();
 		
 		// fase 4: construimos la tabla de resultados
 		$count = 0;
@@ -191,7 +190,7 @@ class OrdenSalida extends DBObject {
 				if (strpos ( $item, "END" ) !== false) continue;
 				if (strpos ( $item, "TAG_" ) !== false)	continue;
 					// idperro no registrado: error
-				$this->myLogger->notice("El idperro $item esta en el orden de salida, pero no esta inscrito" );
+				$this->myLogger->notice("El perro $item esta en el orden de salida, pero no esta inscrito" );
 			}
 		}
 		// finally encode result and send to client

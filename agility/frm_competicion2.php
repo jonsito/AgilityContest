@@ -7,8 +7,26 @@
 
 	<!-- paneles de lista de mangas y datos de cada manga -->
 	<div id="competicion_infolayout" class="easyui-layout" style="height:400px">
-		<div data-options="region:'west',title:'Mangas de la jornada',split:true,collapsed:false" style="width:200px">
-			<table id="competicion-listamangas" style="padding:10px 20px"></table>
+		<div data-options="region:'west',title:'Mangas de la jornada',split:true,collapsed:false" style="width:250px">
+		
+			<!-- Tabla que contiene la lista de Mangas de la jornada -->
+			<table id="competicion-listamangas" style="padding:50px"></table>
+		
+			<!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
+			<div id="competicion-listamanga-toolbar">
+	   			<span style="float:left">
+	    			<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton"
+	    				data-options="iconCls:'icon-order'" style="width:185px"
+	    				onclick="competicionDialog('ordensalida');">Orden de salida</a>
+	    			<a id="competicion-competicionBtn" href="#" class="easyui-linkbutton"
+	    				data-options="iconCls:'icon-table'" style="width:185px"
+	    				onclick="competicionDialog('competicion');">Entrada de datos</a>
+	    			<a id="competicion-resultmangaBtn" href="#" class="easyui-linkbutton"
+	    				data-options="iconCls:'icon-endflag'" style="width:185px"
+	    				onclick="competicionDialog('resultadosmanga');">Resultados de la manga</a>
+				</span>
+			</div>
+			
 		</div>
 		<div data-options="region:'center',title:'Datos de la manga'" style="width:600px;">
 			<font size="11"> <!--  take care on some stupid browsers -->
@@ -17,20 +35,7 @@
 		</div> <!-- datos de la manga -->
 	</div> <!-- informacion de layout -->
 
-	<!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
-	<div id="competicion-listamanga-toolbar">
-	   	<span style="float:left">
-	    	<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton"
-	    		data-options="iconCls:'icon-order'" style="width:185px"
-	    		onclick="competicionDialog('ordensalida');">Orden de salida</a>
-	    	<a id="competicion-competicionBtn" href="#" class="easyui-linkbutton"
-	    		data-options="iconCls:'icon-table'" style="width:185px"
-	    		onclick="competicionDialog('competicion');">Entrada de datos</a>
-	    	<a id="competicion-resultmangaBtn" href="#" class="easyui-linkbutton"
-	    		data-options="iconCls:'icon-endflag'" style="width:185px"
-	    		onclick="competicionDialog('resultadosmanga');">Resultados de la manga</a>
-		</span>
-	</div>
+
 
 </div> <!-- panel de informacion -->  
 <script type="text/javascript">
@@ -51,9 +56,10 @@ $('#competicion_infolayout').layout();
 
 $('#competicion-listamangas').datagrid({
 	url: 'database/mangaFunctions.php?Operation=enumerate&Jornada='+workingData.jornada,
+	fit: true,
 	method: 'get',
     pagination: false,
-    rownumbers: false,
+    rownumbers: true,
     fitColumns: true,
     singleSelect: true,
     showHeader: false,
@@ -61,7 +67,7 @@ $('#competicion-listamangas').datagrid({
     columns:[[
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Tipo',			hidden:true }, // Tipo de manga
-      	    { field:'Descripcion',	width:120, sortable:false, align:'right'}, // texto del tipo de manga
+      	    { field:'Descripcion',	sortable:false, align:'right'}, // texto del tipo de manga
     ]],
     rowStyler:myRowStyler,
     onSelect: function (index,row) {

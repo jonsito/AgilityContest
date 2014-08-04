@@ -28,13 +28,13 @@ class Resultados extends DBObject {
 		$str="SELECT Jornada,Cerrada FROM Mangas WHERE ID=$manga";
 		$rs=$this->query($str);
 		if (!$rs) {
-			$this->errormsg("Cannot retrieve data for manga $manga");
+			$this->error("Cannot retrieve data for manga $manga");
 			throw new Exception($this->errormsg);
 		}
 		$row=$rs->fetch_object();
 		$rs->free();
 		if (!$row) {
-			$this->errormsg("Manga $manga does not exists in database");
+			$this->error("Manga $manga does not exists in database");
 			throw new Exception($this->errormsg);
 		}
 		$this->jornada=$row->Jornada;

@@ -45,6 +45,7 @@ $('#ordensalida-datagrid').datagrid({
 	method: 'get',
 	url: 'database/ordenSalidaFunctions.php?Operation=getData',
     queryParams: {
+        Prueba: workingData.prueba,
         Jornada: workingData.jornada,
         Manga: workingData.manga
     },

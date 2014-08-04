@@ -84,6 +84,7 @@ function reloadOrdenSalida() {
     $('#ordensalida-datagrid').datagrid(
             'load',
             { 
+            	Prueba: workingData.prueba,
             	Jornada: workingData.jornada , 
             	Manga: workingData.manga , 
             	Operation: 'getData' 
