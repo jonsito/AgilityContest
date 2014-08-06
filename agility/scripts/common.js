@@ -44,9 +44,12 @@ function initWorkingData() {
 	workingData.club= 0; // ID del club activo
 	workingData.juez= 0; // ID del juez activo
 	workingData.prueba= 0; // ID de la prueba en curso
+	workingData.nombrePrueba= ""; // nombre de la prueba en curso
 	workingData.jornada= 0; // ID de la jornada en curso
+	workingData.nombreJornada= ""; // nombre de la jornada
 	workingData.manga= 0; // ID de la manga en curso
 	workingData.manga2= 0; // ID de la segunda manga para el calculo de resultados
+	workingData.nombreManga = ""; // denominacion de la manga
 	workingData.datosPrueba= new Object(); // last selected prueba data
 	workingData.datosJornada= new Object(); // last selected jornada data
 	workingData.datosRonda= new Object(); // last selected ronda (grade, manga1, manga2)

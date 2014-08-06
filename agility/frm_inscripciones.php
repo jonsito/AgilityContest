@@ -73,13 +73,14 @@ function acceptSelectPrueba() {
 		return;
 	} 
 	workingData.prueba=p.ID;
+	workingData.nombrePrueba=p.Nombre;
 	workingData.datosPrueba=p;
 	$('#selprueba-Search').combogrid('setValue','');
 	$('#selprueba-window').window('close');	
 }
 
 function cancelSelectPrueba() {
-	workingData.prueba=0;
+	initWorkingData();
 	$('#selprueba-Search').combogrid('setValue','');
 	$('#selprueba-window').window('close');
 }

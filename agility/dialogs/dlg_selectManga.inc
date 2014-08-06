@@ -159,20 +159,18 @@ function acceptSelectManga() {
 	// store selected data into global structure
 	workingData.prueba=p.ID;
 	workingData.nombrePrueba=p.Nombre;
+	workingData.datosPrueba=p;
 	workingData.jornada=j.ID;
 	workingData.nombreJornada=j.Nombre;
+	workingData.datosJornada=j;
 	workingData.manga=m.Manga1;
 	workingData.manga2=m.Manga2;
+	workingData.datosManga=m;
 	$('#selmanga-window').window('close');	
 }
 
 function cancelSelectManga() {
-	workingData.prueba=0;
-	workingData.nombrePrueba="";
-	workingData.jornada=0;
-	workingData.nombreJornada="";
-	workingData.manga=0;
-	workingData.manga2=0;
+	initWorkingData();
 	$('#selmanga-Prueba').combogrid('setValue','');
 	$('#selmanga-Jornada').combogrid('setValue','');
 	$('#selmanga-Ronda').combogrid('setValue','');

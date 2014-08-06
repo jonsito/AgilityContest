@@ -116,14 +116,16 @@ function acceptSelectJornada() {
 	// store selected data into global structure
 	workingData.prueba=p.ID;
 	workingData.nombrePrueba=p.Nombre;
+	workingData.datosPrueba=p;
+	workingData.datosJornada=j;
 	workingData.jornada=j.ID;
 	workingData.nombreJornada=j.Nombre;
+	workingData.datosJornada=j;
 	$('#seljornada-window').window('close');	
 }
 
 function cancelSelectJornada() {
-	workingData.prueba=0;
-	workingData.jornada=0;
+	initWorkingData();
 	$('#seljornada-Prueba').combogrid('setValue','');
 	$('#seljornada-Jornada').combogrid('setValue','');
 	$('#seljornada-window').window('close');
