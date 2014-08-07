@@ -359,10 +359,13 @@ class Mangas extends DBObject {
 		}
 		$result['S']['TRM'] = ceil( $result['S']['TRM'] ); // redondeamos hacia arriba el TRM de Standard
 		
-		// Calculo de la velocidad
-		$result["L"]["Vel"] = number_format( $result["L"]["Dist"] / $result["L"]["TRS"], 2);
-		$result["M"]["Vel"] = number_format( $result["M"]["Dist"] / $result["M"]["TRS"], 2);
-		$result["S"]["Vel"] = number_format( $result["S"]["Dist"] / $result["S"]["TRS"], 2);
+		// Calculo de la velocidad 
+		if ($result["L"]["TRS"]==0) $result["L"]["Vel"]= number_format(0,2); // fix divide-by-zero if no data
+		else $result["L"]["Vel"] = number_format( $result["L"]["Dist"] / $result["L"]["TRS"], 2);
+		if ($result["M"]["TRS"]==0) $result["M"]["Vel"]= number_format(0,2); // fix divide-by-zero if no data
+		else $result["M"]["Vel"] = number_format( $result["M"]["Dist"] / $result["M"]["TRS"], 2);
+		if ($result["S"]["TRS"]==0) $result["S"]["Vel"]= number_format(0,2); // fix divide-by-zero if no data
+		else $result["S"]["Vel"] = number_format( $result["S"]["Dist"] / $result["S"]["TRS"], 2);
 				
 		$this->myLogger->leave();
 		// $this->myLogger->trace(print_r($result,true));
