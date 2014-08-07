@@ -34,9 +34,6 @@
     
     <script type="text/javascript">
     
-    	// set up operation header content
-        setHeader('Gesti&oacute;n de Base de Datos de Gu&iacute;as');
-        
         // tell jquery to convert declared elements to jquery easyui Objects
         // datos de la tabla de guias
         // - tabla

@@ -40,9 +40,6 @@
 </div> <!-- panel de informacion -->  
 <script type="text/javascript">
 
-// cargamos nombre de la jornada y de la prueba
-setHeader('Desarrollo de la prueba');
-
 // declaracion de cada elemento grafico
 $('#competicion_info').panel({
 	title:workingData.nombrePrueba+' -- '+workingData.nombreJornada,

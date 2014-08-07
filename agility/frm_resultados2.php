@@ -174,8 +174,6 @@
 
 <script type="text/javascript">
 
-//cabecera de la pagina
-$('#Header_Operation').html('<p>Resultados y Clasificaciones</p>');
 //inicializamos formularios
 $('#resultados-info').panel({
 	border:true,

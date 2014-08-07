@@ -34,11 +34,6 @@
     <?php include_once("dialogs/dlg_chperros.inc")?>
 
     <script type="text/javascript">
-
-    	// set up operation header content
-        setHeader('Gesti&oacute;n de Base de Datos de Clubes');
-        
-        // tell jquery to convert declared elements to jquery easyui Objects
         
         // datos de la tabla de clubes
         // - tabla

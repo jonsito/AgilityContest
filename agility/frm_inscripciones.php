@@ -1,6 +1,6 @@
 
 <!-- background image -->
-<img class="mainpage" src="images/foto_klein.jpg" alt="Klein" width="800" height="400" align="middle"/>
+<img class="mainpage" src="images/wallpapers/foto_klein.jpg" alt="Klein" width="800" height="400" align="middle"/>
 
 <!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->
 <div id="selprueba-window" class="easyui-window" style="position:relative,width:500px;height:150px;padding:20px 20px">
@@ -34,8 +34,13 @@ $('#selprueba-window').window({
 	shadow: true,
 	modal: true,
 	onClose: function () {
-		var page=(workingData.prueba!=0)?'frm_inscripciones2.php':'frm_main.php';
-		loadContents('#contenido',page);
+		var title="";
+		var page="frm_main.php";
+		if(workingData.prueba!=0) {
+			page="frm_inscripciones2.php";
+			title="Inscripciones - Formulario de registro"
+		}
+		loadContents(page,title);
 	}
 });
 
@@ -85,8 +90,7 @@ function cancelSelectPrueba() {
 	$('#selprueba-window').window('close');
 }
 
-// set up header title
-setHeader('Inscripciones - Selecci&oacute;n de prueba');
+// make sure working data are clean
 initWorkingData();
 
 // display prueba selection dialog

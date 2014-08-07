@@ -40,6 +40,14 @@ body {
 	padding-left: 250px;
 }
 
+/***** Datos de la imagen de fondo ****/
+
+#en_construccion {
+	background-image: url('../images/en_construccion.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
 /***** Datos del menu lateral *****/
 #mysidebar {
 	position: fixed;

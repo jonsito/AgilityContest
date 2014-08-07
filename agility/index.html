@@ -27,7 +27,7 @@
 
 <!-- LOGO -->
 <div id="mylogo">
-	<p><img src="icons/logo_welpe.jpg" height="80" alt="logo welpe" /></p>
+	<p><img src="images/logo_welpe.jpg" height="80" alt="logo welpe" /></p>
 </div>
 
 <!-- MENU LATERAL -->
@@ -38,37 +38,37 @@
 <ul>
 <li>BASE DE DATOS
 	<ul>
-	<li><a href="javascript:loadContents('#contenido','frm_clubes.php');">Clubes</a></li>
-	<li><a href="javascript:loadContents('#contenido','frm_guias.php');">Gu&iacute;as</a></li>
-	<li><a href="javascript:loadContents('#contenido','frm_perros.php');">Perros</a></li>
-	<li><a href="javascript:loadContents('#contenido','frm_jueces.php');">Jueces</a></li>
+	<li><a href="javascript:loadContents('frm_clubes.php','Gesti&oacute;n de la Base de Datos de Clubes');">Clubes</a></li>
+	<li><a href="javascript:loadContents('frm_guias.php','Gesti&oacute;n de la Base de Datos de Gu&iacute;as');">Gu&iacute;as</a></li>
+	<li><a href="javascript:loadContents('frm_perros.php','Gesti&oacute;n de la base de datos de Perros');">Perros</a></li>
+	<li><a href="javascript:loadContents('frm_jueces.php','Gesti&oacute;n de la Base de datos de Jueces');">Jueces</a></li>
 	</ul>
 </li>
 <li>PRUEBAS
 	<ul>
-	<li><a href="javascript:loadContents('#contenido','frm_pruebas.php');">Creaci&oacute;n de pruebas</a></li>
-	<li><a href="javascript:loadContents('#contenido','frm_inscripciones.php');">Edici&oacute;n. Inscripciones</a></li>
-	<li><a href="javascript:loadContents('#contenido','frm_competicion.php');">Desarrollo de la prueba</a></li>
+	<li><a href="javascript:loadContents('frm_pruebas.php','Creaci&oacute;n y edici&oacute;n de pruebas');">Creaci&oacute;n de pruebas</a></li>
+	<li><a href="javascript:loadContents('frm_inscripciones.php','Inscripciones - Selecci&oacute;n de prueba');">Edici&oacute;n. Inscripciones</a></li>
+	<li><a href="javascript:loadContents('frm_competicion.php','Competicion - Selecci&oacute;n de Prueba y Jornada');">Desarrollo de la prueba</a></li>
 	</ul>
 </li>
 <li>CONSULTAS
 	<ul>
-	<li><a href="javascript:loadContents('#contenido','frm_resultados.php');">Resultados</a></li>
-	<li><a href="javascript:loadContents('#contenido','frm_estadisticas.php');">Estad&iacute;sticas</a></li>
+	<li><a href="javascript:loadContents('frm_resultados.php','Resultados - Selecci&oacute;n de Prueba, Jornada y Ronda');">Resultados</a></li>
+	<li><a href="javascript:loadContents('frm_estadisticas.php','Estad&iacute;sticas');">Estad&iacute;sticas</a></li>
 	</ul>
 </li>
 <li>HERRAMIENTAS
 	<ul>
 	<li> <a target="phpMyAdmin" href="/phpmyadmin">phpMyAdmin</a></li>
-	<li> <a href="javascript:loadContents('#contenido','frm_backup.php')">Importar/Exportar</a></li>
-	<li> <a href="javascript:loadContents('#contenido','frm_admin.php')">Administraci&oacute;n</a></li>
+	<li> <a href="javascript:loadContents('frm_backup.php','Importar / Exportar datos')">Importar/Exportar</a></li>
+	<li> <a href="javascript:loadContents('frm_admin.php','Administraci&oacute;n')">Administraci&oacute;n</a></li>
 	</ul>
 </li>
 <li>DOCUMENTACION
 	<ul>
 	<li> <a target="documentacion" href="/agility/manual.html">Manual en l&iacute;nea</a></li>
 	<li> <a target="grupowelpe" href="http://www.grupowelpe.com">Grupo Welpe</a><li>
-	<li> <a href="javascript:loadContents('#contenido','frm_about.php')">Acerca de...</a></li>
+	<li> <a href="javascript:loadContents('frm_about.php','Sobre la aplicaci&oacute;n...')">Acerca de...</a></li>
 	</ul>
 </ul>
 </div> <!-- mymenu -->
@@ -77,12 +77,13 @@
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 <div id="mycontent">
 <span id="contenido">
-<img class="mainpage" src="images/equipo_welpe.jpg" alt="El equipo de W.E.L.P.E." width="800" height="400"/>
+<img class="mainpage" src="images/wallpapers/equipo_welpe.jpg" alt="El equipo de W.E.L.P.E." width="800" height="400"/>
 </span>
 </div>
 
 <script type="text/javascript">
 // expand/collapse menu on mouse enter/exit
+setHeader("");
 $('#mymenu').mouseenter(function(){$('#mymenu').panel('expand');})
 $('#mymenu').mouseleave(function(){$('#mymenu').panel('collapse');})
 </script>

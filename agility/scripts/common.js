@@ -1,11 +1,24 @@
 /**
- * Load html contents from 'page' URL and set as contents on 'id' tag
- * @param id tag to replace DOM contents
- * @param page URL where to retrieve HTML data
+ * Set text of 'header' field on main window
+ * @param {string} msg text to be shown
  */
-function loadContents(id,page) {
+function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); } 
+
+/**
+ * Load html contents from 'page' URL and set as contents on '#contenido' tag
+ * @param page URL where to retrieve HTML data
+ * @param title new page title
+ */
+function loadContents(page,title) {
 	$('#mymenu').panel('collapse');
-	$(id).load(page);
+	$('#contenido').load(	
+			page,
+			{},
+			function(response,status,xhr){
+				setHeader(title);
+				if (status=='error') $('#contenido').load('frm_notavailable.php');
+			}
+		);
 }
 
 /**
@@ -110,13 +123,6 @@ function addTooltip(obj,text) {
 function myRowStyler(idx,row) {
 	return ((idx&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
 }
-
-
-/**
- * Set text of 'header' field on main window
- * @param {string} msg text to be shown
- */
-function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); } 
 
 /**
  * Extension of datagrid methods to add "align" property on array declared toolbars

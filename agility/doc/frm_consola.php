@@ -1,6 +1,3 @@
-<script type="text/javascript">
-        $('#Header_Operation').html('<p>El panel del asistente del juez</p>');
-</script>
 <h1>Loren Ipsum dolor sit amet</h1>
 <p>
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, 

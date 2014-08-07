@@ -31,9 +31,6 @@
 	<?php include_once("dialogs/dlg_clubes.inc");?>
     
     <script type="text/javascript">
-    
-    	// set up operation header content
-    	setHeader('Gesti&oacute;n de Perros');
         
         // tell jquery to convert declared elements to jquery easyui Objects
         

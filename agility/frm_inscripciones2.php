@@ -95,8 +95,6 @@ include_once("dialogs/dlg_editInscripcion.inc");
 </div> <!-- id="hola" -->
 
 <script type="text/javascript">
-// cabecera de la pagina
-setHeader('Inscripciones - Formulario de registro');
 
 $('#inscripciones-info').panel({
 	border:true,

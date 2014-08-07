@@ -35,9 +35,6 @@
  	<?php include_once("dialogs/dlg_jornadas.inc");?>
 
     <script type="text/javascript">
-    
-    	// set up operation header content
-        setHeader('Creaci&oacute;n y edici&oacute;n de pruebas');
         
         // datos de la tabla de pruebas
         // - tabla

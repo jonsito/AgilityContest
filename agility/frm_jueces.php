@@ -29,9 +29,6 @@
 	<?php include_once("dialogs/dlg_jueces.inc")?>
     
     <script type="text/javascript">
-    
-    	// set up operation header content
-		setHeader('Gesti&oacute;n de Jueces');
         
         // datos de la tabla de jueces
         $('#jueces-datagrid').datagrid({

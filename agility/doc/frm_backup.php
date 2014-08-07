@@ -1,6 +1,4 @@
-<script type="text/javascript">
-        $('#Header_Operation').html('<p>Importar/Exportar datos. Copias de seguridad</p>');
-</script>
+
 <h1>Loren Ipsum dolor sit amet</h1>
 <p>
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, 

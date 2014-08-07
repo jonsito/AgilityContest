@@ -1,6 +1,3 @@
-<script type="text/javascript">
-        $('#Header_Operation').html('<p>Introducci&oacute;n a la aplicaci&oacute;n. El entorno de trabajo</p>');
-</script>
 <h1>Loren Ipsum dolor sit amet</h1>
 <p>
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, 

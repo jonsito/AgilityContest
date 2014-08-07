@@ -1,28 +1,37 @@
+
+<div id="dlg_about" class="easyui-window" title="Acerca de" style="width:600px;padding:20px">
+	<p>
+	<strong>Agility Contest</strong> es Copyright &copy; 2013,2014 de Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;
+	</p>
+	<p>
+	Se permite su uso, copia, modificaci&oacute;n y redistribuci&oacute;n 
+	bajo los t&eacute;rminos de la <a target="license" href="COPYING">Licencia General P&uacute;blica de GNU</a>
+	</p>
+	<p>	
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+	</p><p>
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+	</p><p>
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+	</p>
+</div>
 <script type="text/javascript">
-        $('#Header_Operation').html('<p>Sobre la aplicaci&oacute;n...</p>');
+        $('#dlg_about').window({
+            collapsible:false,
+            minimizable:false,
+            maximizable:false,
+            resizable:false,
+            closable:true,
+            iconCls: 'icon-dog',
+            onClose: function() {loadContents('frm_main.php','');
+            }
+        })
 </script>
-<h1>Loren Ipsum dolor sit amet</h1>
-<p>
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit, 
-sed diam nonummy nibh euismod tincidunt ut laoreet dolore 
-magna aliquam erat volutpat. 
-Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper 
-suscipit lobortis nisl ut aliquip ex ea commodo consequat. 
-Duis autem vel eum iriure dolor in hendrerit in vulputate 
-velit esse molestie consequat, vel illum dolore eu feugiat 
-nulla facilisis at vero eros et accumsan et iusto odio 
-dignissim qui blandit praesent luptatum zzril delenit augue 
-duis dolore te feugait nulla facilisi. 
-Nam liber tempor cum soluta nobis eleifend option congue nihil 
-imperdiet doming id quod mazim placerat facer possim assum. 
-Typi non habent claritatem insitam; est usus legentis in iis 
-qui facit eorum claritatem. 
-Investigationes demonstraverunt lectores legere me lius quod 
-ii legunt saepius. Claritas est etiam processus dynamicus, 
-qui sequitur mutationem consuetudium lectorum. 
-Mirum est notare quam littera gothica, quam nunc putamus parum claram, 
-anteposuerit litterarum formas humanitatis per seacula 
-quarta decima et quinta decima. 
-Eodem modo typi, qui nunc nobis videntur parum clari, 
-fiant sollemnes in futurum.
-</p>
