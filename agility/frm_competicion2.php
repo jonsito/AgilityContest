@@ -14,7 +14,7 @@
 		
 			<!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
 			<div id="competicion-listamanga-toolbar">
-	   			<span style="float:left">
+	   			<span style="float:left;padding:10px 10px 10px 20px">
 	    			<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton"
 	    				data-options="iconCls:'icon-order'" style="width:185px"
 	    				onclick="competicionDialog('ordensalida');">Orden de salida</a>
@@ -64,7 +64,7 @@ $('#competicion-listamangas').datagrid({
     columns:[[
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Tipo',			hidden:true }, // Tipo de manga
-      	    { field:'Descripcion',	sortable:false, align:'right'}, // texto del tipo de manga
+      	    { field:'Descripcion',	width:200, sortable:false, align:'right'}, // texto del tipo de manga
     ]],
     rowStyler:myRowStyler,
     onSelect: function (index,row) {
@@ -93,7 +93,7 @@ $('#competicion-listamangas').datagrid({
 
 //tooltips
 addTooltip($('#competicion-ordensalidaBtn').linkbutton(),"Ver/Editar el Orden de salida de la manga");
-addTooltip($('#competicion-competicionBtn').linkbutton(),"Insertar datos de los recorridos de la manga");
+addTooltip($('#competicion-competicionBtn').linkbutton(),"Insertar resultados de los participantes en la manga");
 addTooltip($('#competicion-resultmangaBtn').linkbutton(),"Ver los resultados parciales de la manga"); 
 
 </script>

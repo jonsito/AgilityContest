@@ -5,7 +5,7 @@
 // display prueba selection dialog
 $('#seljornada-window').window({
 	onClose: function () {
-
+		var extra="";
 		var page="frm_main.php";
 		// no jornada selected load main menu
 		if (workingData.jornada==0) {
@@ -13,11 +13,23 @@ $('#seljornada-window').window({
 			return;
 		}
 		page="frm_competicion2.php";
-		if (workingData.datosJornada.Equipos3==1) page="frm_competicion_eq3.php";
-		if (workingData.datosJornada.Equipos4==1) page="frm_competicion_eq4.php";
-		if (workingData.datosJornada.Open==1) page="frm_competicion_open.php";
-		if (workingData.datosJornada.KO==1) page="frm_competicion_ko.php";
-		loadContents(page,'Desarrollo de la jornada');
+		if (workingData.datosJornada.Equipos3==1) {
+			page="frm_competicion_eq3.php";
+			extra=" ( Equipos -3 mejores- )";
+		}
+		if (workingData.datosJornada.Equipos4==1) {
+			page="frm_competicion_eq4.php";
+			extra=" ( Equipos -conjunta- )";
+		}
+		if (workingData.datosJornada.Open==1) {
+			page="frm_competicion_open.php";
+			extra=" ( Abierta )";
+		}
+		if (workingData.datosJornada.KO==1) {
+			page="frm_competicion_ko.php";
+			extra=" ( Mangas K.O. )";
+		}
+		loadContents(page,'Desarrollo de la jornada'+extra);
 	} 
 });
 
