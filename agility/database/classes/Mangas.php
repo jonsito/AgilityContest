@@ -247,29 +247,29 @@ class Mangas extends DBObject {
 	function prepareMangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$ko,$exhibicion,$otras) {
 		$this->myLogger->enter();
 	
-		if ($grado1) { 	$mangas->insert(3,'GI'); $mangas->insert(4,'GI');		}
-		else { $mangas->delete(3);	$mangas->delete(4); }
+		if ($grado1) { 	$this->insert(3,'GI'); $this->insert(4,'GI');		}
+		else { $this->delete(3);	$this->delete(4); }
 	
-		if ($grado2) { $mangas->insert(5,'GII'); $mangas->insert(10,'GII'); }
-		else { $mangas->delete(5); $mangas->delete(10); }
+		if ($grado2) { $this->insert(5,'GII'); $this->insert(10,'GII'); }
+		else { $this->delete(5); $this->delete(10); }
 	
-		if ($grado3) { $mangas->insert(6,'GIII'); $mangas->insert(11,'GIII'); }
-		else { $mangas->delete(6);	$mangas->delete(11); }
+		if ($grado3) { $this->insert(6,'GIII'); $this->insert(11,'GIII'); }
+		else { $this->delete(6);	$this->delete(11); }
 	
-		if ($open) { $mangas->insert(7,'-'); $mangas->insert(12,'-'); }
-		else { $mangas->delete(7);	$mangas->delete(12); }
+		if ($open) { $this->insert(7,'-'); $this->insert(12,'-'); }
+		else { $this->delete(7);	$this->delete(12); }
 	
-		if ($equipos3) {	$mangas->insert(8,'-');	$mangas->insert(13,'-');	}
-		else { $mangas->delete(8);	$mangas->delete(13);	}
+		if ($equipos3) {	$this->insert(8,'-');	$this->insert(13,'-');	}
+		else { $this->delete(8);	$this->delete(13);	}
 	
-		if ($equipos4) {	$mangas->insert(9,'-');	$mangas->insert(14,'-');	}
-		else { $mangas->delete(9);	$mangas->delete(14);	}
+		if ($equipos4) {	$this->insert(9,'-');	$this->insert(14,'-');	}
+		else { $this->delete(9);	$this->delete(14);	}
 	
-		if ($preagility) { $mangas->insert(2,'P.A.'); }
-		else { $mangas->delete(2); }
+		if ($preagility) { $this->insert(2,'P.A.'); }
+		else { $this->delete(2); }
 	
-		if ($exhibicion) { $mangas->insert(16,'-');}
-		else { $mangas->delete(16); }
+		if ($exhibicion) { $this->insert(16,'-');}
+		else { $this->delete(16); }
 		// TODO: Decidir que se hace con las mangas 'otras'
 		// TODO: las mangas KO hay que crearlas dinamicamente en funcion del numero de participantes
 		$this->myLogger->leave();
