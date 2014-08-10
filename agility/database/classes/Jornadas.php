@@ -5,25 +5,6 @@ require_once("Mangas.php");
 
 class Jornadas extends DBObject {
 	
-	/* contenido de la tabla Tipo_Manga
-	(1, 'Manga sin tipo definido', '-'),
-	(2, 'Ronda de Pre-Agility', 'P.A.'),
-	(3, 'Agility Grado I Manga 1', 'GI'),
-	(4, 'Agility Grado I Manga 2', 'GI'),
-	(5, 'Agility Grado II', 'GII'),
-	(6, 'Agility Grado III', 'GIII'),
-	(7, 'Agility Abierta (Open)', '-'),
-	(8, 'Agility Equipos (3 mejores)', '-'),
-	(9, 'Agility Equipos (Conjunta)', '-'),
-	(10, 'Jumping Grado II', 'GII'),
-	(11, 'Jumping Grado III', 'GIII'),
-	(12, 'Jumping Abierta (Open)', '-'),
-	(13, 'Jumping por Equipos (3 mejores)', '-'),
-	(14, 'Jumping por Equipos (Conjunta)', '-'),
-	(15, 'Ronda K.O.', '-'),
-	(16, 'Ronda de Exhibición', '-');
-	*/ 
-	
 	protected $prueba; // id de prueba
 
 	/**
@@ -39,53 +20,6 @@ class Jornadas extends DBObject {
 			throw new Exception($this->errormsg);
 		}
 		$this->prueba=$prueba;
-	}
-	
-	/**
-	 * creacion / borrado de mangas asociadas a una jornada 
-	 * @param {integer} $id ID de jornada
-	 * @param {integer} $grado1 la jornada tiene(1) o no (0) mangas de grado 1
-	 * @param {integer} $grado2 la jornada tiene (1) o no (0) mangas de grado 2
-	 * @param {integer} $grado3 la jornada tiene (1) o no (0) mangas de grado 3
-	 * @param {integer} $open la jornada tiene (1) o no (0) una prueba abierta (Open)
-	 * @param {integer} $equipos3 la jornada tiene (1) o no (0) una manga por equipos (3 de 4)
-	 * @param {integer} $equipos4 la jornada tiene (1) o no (0) una manga por equipos (conjunta)
-	 * @param {integer} $preagility la jornada tiene (1) o no (0) manga de preagility
-	 * @param {integer} $ko la jornada contiene (1) o no (0) una prueba k0
-	 * @param {integer} $exhibicion la jornada tiene (1) o no (0) mangas de exhibicion
-	 * @param {integer} $otras la jornada contiene (1) o no (0) mangas no definidas
-	 * // TODO: handle ko, exhibicion and otras
-	 */
-	function declare_mangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$ko,$exhibicion,$otras) {
-		$this->myLogger->enter();
-		$mangas =new Mangas("jornadaFunctions",$id);
-		
-		if ($grado1) { 	$mangas->insert(3,'GI'); $mangas->insert(4,'GI');		}
-		else { $mangas->delete(3);	$mangas->delete(4); }
-		
-		if ($grado2) { $mangas->insert(5,'GII'); $mangas->insert(10,'GII'); }
-		else { $mangas->delete(5); $mangas->delete(10); }
-		
-		if ($grado3) { $mangas->insert(6,'GIII'); $mangas->insert(11,'GIII'); }
-		else { $mangas->delete(6);	$mangas->delete(11); }
-		
-		if ($open) { $mangas->insert(7,'-'); $mangas->insert(12,'-'); }
-		else { $mangas->delete(7);	$mangas->delete(12); }
-
-		if ($equipos3) {	$mangas->insert(8,'-');	$mangas->insert(13,'-');	}
-		else { $mangas->delete(8);	$mangas->delete(13);	}		
-
-		if ($equipos4) {	$mangas->insert(9,'-');	$mangas->insert(14,'-');	}
-		else { $mangas->delete(9);	$mangas->delete(14);	}
-		
-		if ($preagility) { $mangas->insert(2,'P.A.'); }
-		else { $mangas->delete(2); }
-		
-		if ($exhibicion) { $mangas->insert(16,'-');}
-		else { $mangas->delete(16); }
-		// TODO: Decidir que se hace con las mangas 'otras'
-		// TODO: las mangas KO hay que crearlas dinamicamente en funcion del numero de participantes
-		$this->myLogger->leave();
 	}
 	
 	/*****
@@ -138,7 +72,8 @@ class Jornadas extends DBObject {
 		if (!$res) return $this->error($this->conn->error); 
 		$stmt->close();
 		if (!$cerrada) {
-			$this->declare_mangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$ko,$exhibicion,$otras);
+			$mangas =new Mangas("jornadaFunctions",$id);
+			$mangas->prepareMangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$ko,$exhibicion,$otras);
 		}
 		$this->myLogger->leave();
 		return "";
