@@ -165,6 +165,36 @@ class Inscripciones extends DBObject {
 	}
 	
 	/**
+	 * Recupera los datos de la inscripcion de un perro y una prueba dadas
+	 * @param {integer} $id ID del perro
+	 */
+	function selectByPerro($idperro) {
+		$this->myLogger->enter();
+		$prueba=$this->pruebaID;
+		$res=$this->__singleSelect(
+				/* SELECT */ "*", 
+				/* FROM */   "Inscripciones",
+				/* WHERE */  "( Prueba=$prueba ) AND ( Perro=$idperro )");
+		$this->myLogger->leave();
+		return $res;
+	}
+	
+	/**
+	 * Recupera los datos de una inscripcion definida por su ID
+	 * @param {integer} $id ID de la inscripcion
+	 */
+	function selectByID($id) {
+		$this->myLogger->enter();
+		$prueba=$this->pruebaID;
+		$res=$this->__singleSelect(
+				/* SELECT */ "*",
+				/* FROM */   "Inscripciones",
+				/* WHERE */  "( ID=$id )");
+		$this->myLogger->leave();
+		return $res;
+	}
+	
+	/**
 	 * retrieve all dogs that has no inscitpion on this prueba
 	 */
 	function noinscritos() {
