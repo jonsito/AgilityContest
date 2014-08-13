@@ -1697,13 +1697,14 @@ INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`
 DROP TABLE IF EXISTS `Resultados`;
 CREATE TABLE IF NOT EXISTS `Resultados` (
   `Manga` int(4) NOT NULL,
+  `Dorsal` int(4) NOT NULL,
   `Perro` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Licencia` varchar(255) NOT NULL DEFAULT '--------',
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
   `Grado` varchar(16) NOT NULL DEFAULT '-',
-  `Guia` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
-  `Club` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
+  `NombreGuia` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
+  `NombreClub` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
   `Entrada` timestamp NOT NULL DEFAULT '2014-01-01 00:00:00',
   `Comienzo` timestamp NOT NULL DEFAULT '2014-01-01 00:00:00',
   `Faltas` int(4) NOT NULL DEFAULT '0',
@@ -1714,7 +1715,8 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
   `Tiempo` double NOT NULL DEFAULT '0',
   `Observaciones` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`Manga`,`Perro`),
-  KEY `Resultados_Perro` (`Perro`)
+  KEY `Resultados_Perro` (`Perro`),
+  KEY `Resultados_Dorsal` (`Dorsal`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1723,6 +1725,8 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 --       `Perros` -> `ID`
 --   `Manga`
 --       `Mangas` -> `ID`
+--   `Dorsal`
+--       `Inscripciones` -> `Dorsal`
 --
 
 -- --------------------------------------------------------
@@ -1844,7 +1848,8 @@ ALTER TABLE `Pruebas`
 --
 ALTER TABLE `Resultados`
   ADD CONSTRAINT `Resultados_ibfk_1` FOREIGN KEY (`Perro`) REFERENCES `Perros` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Mangas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Manga` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Resultados_ibfk_3` FOREIGN KEY (`Dorsal`) REFERENCES `Inscripciones` (`Dorsal`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Tipo_Manga`

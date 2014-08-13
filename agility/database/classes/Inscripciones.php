@@ -1,7 +1,7 @@
 <?php
 require_once("DBObject.php");
 require_once("Jornadas.php");
-require_once("OrdenSalida.php"); // to insert/remove inscriptions from mangas
+require_once("procesaInscripcion.php"); // to insert/remove inscriptions from mangas
 
 class Inscripciones extends DBObject {
 	
@@ -35,31 +35,6 @@ class Inscripciones extends DBObject {
 		$this->defaultTeam=$res;
 	}
 	
-	function updateOrdenSalida($operation,$idperro) {
-		// obtenemos un manejador de ordenes de salida
-		$os=new OrdenSalida("inscripciones::ordensalida");
-		
-		// Cogemos la lista de jornadas abiertas de esta prueba
-		$j=new Jornadas($operation,$this->pruebaID);
-		$jornadas=$j->searchByPrueba();
-		if ( ($jornadas===null) || ($jornadas==="") ) {
-			return $this->error("$file::updateOrdenSalida() cannot get list of open Jornadas for prueba:".$this->pruebaID);
-		}
-		// por cada jornada abierta, cogemos la lista de mangas
-		foreach($jornadas["rows"] as $jornada) {
-			$idjornada=$jornada["ID"];
-			$mangas= $this->__select("ID","Mangas","( Jornada=$idjornada )","Tipo ASC","");
-			if ( ($mangas===null) || ($mangas==="") ) {
-				return $this->error("$file::updateOrdenSalida() cannot get list of mangas for jornada:$idjornada on prueba:".$this->pruebaID);
-			}
-			// Por cada manga de cada jornada, actualizamos -si es necesario- el orden de salida del perro
-			foreach($mangas["rows"] as $manga) {
-				$os->handle($idjornada,$manga["ID"],$idperro);
-			}
-		}
-		return ""; // no errors
-	}
-	
 	/**
 	 * Create a new inscripcion
 	 * @param {integer} perro ID del perro
@@ -89,11 +64,10 @@ class Inscripciones extends DBObject {
 			VALUES ($prueba,$perro,$celo,'$observaciones',$equipo,$jornadas,$pagado)";
 		$res=$this->query($str);
 		if (!$res) return $this->error($this->conn->error);
-		
 		// una vez inscrito, vamos a repasar la lista de jornadas y actualizar en caso necesario
-		// los datos de las mangas (en concreto el orden de salida)
-		$res=$this->updateOrdenSalida("Insert inscripcion of perro:$perro",$perro);
-		if ($res===null) return $this->error($this->errormsg);
+		$inscripcionid=$this->conn->insert_id;
+		// los datos de las mangas y resultados
+		procesaInscripcion($prueba,$inscripcionid);
 		// all right return ok
 		$this->myLogger->leave();
 		return ""; // return ok
@@ -110,7 +84,7 @@ class Inscripciones extends DBObject {
 
 		// cogemos los datos actuales
 		$res=$this->__selectObject(
-			/* SELECT */ "Celo, Observaciones, Equipo, Jornadas, Pagado", // idinscripcion, idprueba, idperro y dorsal no cambian
+			/* SELECT */ "ID, Celo, Observaciones, Equipo, Jornadas, Pagado", // idinscripcion, idprueba, idperro y dorsal no cambian
 			/* FROM */ "Inscripciones",
 			/* WHERE */ "(Perro=$idperro) AND (Prueba=".$this->pruebaID.")"
 		);
@@ -118,6 +92,7 @@ class Inscripciones extends DBObject {
 			return $this->error("El perro cond ID:$idperro no esta inscrito en la prueba: ".$this->pruebaID.")");
 
 		// buscamos datos nuevos y mezclamos con los actuales
+		$id=$res->ID;
 		$celo=http_request("Celo","i",$res->Celo);
 		$observaciones=http_request("Observaciones","s",$res->Observaciones);
 		$equipo=http_request("Equipo","i",$res->Equipo);
@@ -134,9 +109,8 @@ class Inscripciones extends DBObject {
 		$res=$this->query($str);
 		if (!$res) return $this->error($this->conn->error);
 		
-		// recalculamos orden de salida en cada jornada
-		$res=$this->updateOrdenSalida("Update inscripcion of perro:$idperro",$idperro);
-		if ($res===null) return $this->error($this->errormsg);
+		// recalculamos la inscripcion, orden de salida y tabla de resultados
+		procesaInscripcion($this->pruebaID,$id);
 		
 		// everything ok. return
 		$this->myLogger->leave();
@@ -151,15 +125,13 @@ class Inscripciones extends DBObject {
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("Invalid Perro ID");
 		
+		// eliminamos informacion del perro en los ordenes de salida y tabla de resultados
+		// TODO: write
+		
 		// Eliminamos el perro de la tabla de inscripciones
 		$sql="DELETE FROM Inscripciones WHERE (Perro=$idperro) AND (Prueba=".$this->pruebaID.")";
 		$res=$this->query($sql);
 		if (!$res) return $this->error($this->conn->error);
-		
-		// recalculamos orden de salida en cada jornada abierta
-		$res=$this->updateOrdenSalida("Delete inscripcion of perro:$idperro",$idperro);
-		if ($res===null) return $this->error($this->errormsg);
-		
 		$this->myLogger->leave();
 		return "";
 	}

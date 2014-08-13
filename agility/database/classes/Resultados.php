@@ -48,27 +48,43 @@ class Resultados extends DBObject {
 	 * @param {integer} $idperro
 	 * @return "" on success; null on error
 	 */
-	function insert($idperro) {
+	function insert($idperro,$ndorsal) {
+		$error="";
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("No idperro specified");
+		if ($ndorsal<=0) return $this->error("No dorsal specified");
 		if ($this->cerrada!=0) return $this->error("Manga ".$this->manga." is closed");
 		
 		// phase 1: retrieve dog data
-		$str="SELECT * FROM PerroGuiaClub WHERE ( IDPerro = $idperro )";
+		$str="SELECT * FROM PerroGuiaClub WHERE ( ID = $idperro )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$perro =$rs->fetch_object(); // should be only one item
 		$rs->free();
-		if (!$perro) return $this->error("No information on IDPerro: $idperro");
+		if (!$perro) return $this->error("No information on Perro ID: $idperro");
 		
 		// phase 2: insert into resultados. On duplicate ($manga,$idperro) key an error will occur
-		$str="INSERT INTO Resultados ( Manga , Nombre , IDPerro , Licencia , Categoria , Grado , Guia , Club ) VALUES ("
-				.$this->manga.		",'"	.$perro->Nombre. 	"'," 	.$perro->IDPerro.	",'"	.$perro->Licencia.	"','"
-				.$perro->Categoria. "','" 	.$perro->Grado.		"','"	.$perro->Guia.		"','"	.$perro->Club .	"')";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
+		$sql="INSERT INTO Resultados (Manga,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
+				VALUES (?,?,?,?,?,?,?,?,?)";
+		$stmt=$this->conn->prepare($sql);
+		if (!$stmt) return $this->error($this->conn->error);
+		$res=$stmt->bind_param('iiissssss',$manga,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$guia,$club);
+		if (!$res) return $this->error($this->conn->error);
+		$manga=$this->manga;
+		$dorsal=$ndorsal;
+		$perro=$idperro;
+		$nombre=$perro->Nombre;
+		$licencia=$perro->Licencia;
+		$categoria=$perro->Categoria;
+		$grado=$perro->Grado;
+		$guia=$perro->NombreGuia;
+		$club=$perro->NombreClub;
+		// ejecutamos el query
+		$res=$stmt->execute();
+		if (!$res) $error=$this->error($stmt->error);
+		$stmt->close();
 		$this->myLogger->leave();
-		return "";
+		return $error;
 	}
 	
 	/**
@@ -78,9 +94,9 @@ class Resultados extends DBObject {
 	 */
 	function delete($idperro) {
 		$this->myLogger->enter();
-		if ($idperro<=0) return $this->error("No IDPerro specified");
+		if ($idperro<=0) return $this->error("No Perro ID specified");
 		if ($this->cerrada!=0) return $this->error("Manga ".$this->manga." is closed");
-		$str="DELETE * FROM Resultados WHERE ( IDPerro = $idperro ) AND ( Manga=".$this->manga.")";
+		$str="DELETE * FROM Resultados WHERE ( Perro = $idperro ) AND ( Manga=".$this->manga.")";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
@@ -94,13 +110,13 @@ class Resultados extends DBObject {
 	 */
 	function select($idperro) {
 		$this->myLogger->enter();
-		if ($idperro<=0) return $this->error("No IDPerro specified");
-		$str="SELECT * FROM Resultados WHERE ( IDPerro = $idperro ) AND ( Manga=".$this->manga.")";
+		if ($idperro<=0) return $this->error("No Perro ID specified");
+		$str="SELECT * FROM Resultados WHERE ( Perro = $idperro ) AND ( Manga=".$this->manga.")";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$row=$rs->fetch_array();
 		$rs->free();
-		if(!$row) return $this->error("No Results for IDPerro:$idperro on Manga:".$this->manga);
+		if(!$row) return $this->error("No Results for Perro:$idperro on Manga:".$this->manga);
 		$this->myLogger->leave();
 		return $row;
 	}
@@ -112,7 +128,7 @@ class Resultados extends DBObject {
 	 */
 	function update($idperro) {
 		$this->myLogger->enter();
-		if ($idperro<=0) return $this->error("No IDPerro specified");
+		if ($idperro<=0) return $this->error("No Perro ID specified");
 		if ($this->cerrada!=0) return $this->error("Manga ".$this->manga." is closed");
 		// buscamos la lista de parametros a actualizar
 		$entrada=http_request("Entrada","s",date("Y-m-d H:i:s"));
@@ -138,7 +154,7 @@ class Resultados extends DBObject {
 				Faltas=$faltas , Rehuses=$rehuses , Tocados=$tocados ,
 				NoPresentado=$nopresentado , Eliminado=$eliminado , 
 				Tiempo=$tiempo , Observaciones='$observaciones' 
-			WHERE (IDPerro=$idperro) AND (Manga=".$this->manga.")";
+			WHERE (Perro=$idperro) AND (Manga=".$this->manga.")";
 		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
@@ -169,7 +185,7 @@ class Resultados extends DBObject {
 		if (!$rs) return $this->error($this->conn->error);
 		// y los guardamos en un array indexado por el idperro
 		$data=array();
-		while($row=$rs->fetch_array()) $data[$row["IDPerro"]]=$row;
+		while($row=$rs->fetch_array()) $data[$row["Perro"]]=$row;
 		$rs->free();
 		
 		// fase 3 componemos el resultado siguiendo el orden de salida
