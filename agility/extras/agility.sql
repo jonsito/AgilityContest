@@ -937,7 +937,7 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
   `Juez1` int(4) NOT NULL DEFAULT '1',
   `Juez2` int(4) NOT NULL DEFAULT '1',
   `Observaciones` varchar(255) DEFAULT NULL,
-  `Orden_Salida` text NOT NULL,
+  `Orden_Salida` text NOT NULL DEFAULT "",
   PRIMARY KEY (`ID`),
   KEY `Tipo` (`Tipo`),
   KEY `Grado` (`Grado`),

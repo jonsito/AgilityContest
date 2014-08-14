@@ -44,7 +44,7 @@ function borraPerroDeJornada($inscripcion,$jornada) {
  * @param {object} $jornada Datos de la jornada
  */
 function inscribePerroEnJornada($inscripcion,$jornada) {
-	$myLogger=new Logger();
+	$myLogger=new Logger("inscribePerroEnJornada");
 	$j=$jornada['ID'];
 	$p=$jornada['Prueba'];
 	$idperro=$inscripcion['Perro'];
@@ -93,20 +93,36 @@ function inscribePerroEnJornada($inscripcion,$jornada) {
 				break;
 		}
 		
-		// si no tiene que estar, no hacemos nada
-		if ($inscribir==false) {
-			$myLogger->info("Ignorando inscripcion Perro:$idperro Prueba:$p Jornada:$j Manga:$mid Tipo:$mtype");
-			continue;
-		}
-		$myLogger->info("Generando registros para Perro:$idperro Prueba:$p Jornada:$j Manga:$mid Tipo:$mtype");
-		// nos aseguramos de que el perro esta en el orden de salida
+		// Verificamos el orden de salida de la manga		
 		$os=new OrdenSalida("inscribePerroEnJornada");
 		$orden=$os->getOrden($manga['ID']);
-		$os->insertIntoList($orden, $idperro, $perro['Categoria'], $inscripcion['Celo']);
+		$myLogger->info("El orden de salida Prueba:$p Jornada:$j Manga:$mid Tipo:$mtype es:\n$orden");
+		if ($inscribir==false) {
+			$myLogger->info("Eliminando al perro $idperro del orden de salida");
+			$orden=$os->removeFromList($orden,$idperro);	
+		} else {
+			$myLogger->info("Insertando al perro $idperro en el orden de salida");
+			$orden=$os->insertIntoList($orden, $idperro, $perro['Categoria'], $inscripcion['Celo']);
+		}
+		$myLogger->info("Nuevo orden de salida: \n$orden");
 		$os->setOrden($manga['ID'], $orden);
-		// nos aseguramos de que existe una entrada en la tabla de resultados de esta manga para este perro
+		
+		// verificamos la tabla de resultados de esta manga
 		$rs=new Resultados("inscribePerroEnJornada",$manga['ID']);
-		// TODO: write
+		if ($inscribir==false) {
+			// borramos entrada del perro en la tabla de resultados de la manga
+			$rs->delete($idperro);
+		} else {
+			// nos aseguramos de que existe una entrada 
+			// en la tabla de resultados de esta manga para este perro
+			$res = $rs->insert($idperro, $inscripcion['Dorsal']);
+			if (!$res) {
+				// si esta funcion falla implica que ya existe una entrada asociada.
+				// (duplicate key) avisamos y no hacemos nada
+				$myLogger->error("Insert into Resultados perro:$idperro Prueba:$p Jornada:$j Manga:$mid");
+				$myLogger->error($this->conn->error);
+			}
+		}
 	} /* foreach */
 }
 
@@ -119,7 +135,7 @@ function inscribePerroEnJornada($inscripcion,$jornada) {
  * @param {integer} $i ID de inscripcion
  */
 function procesaInscripcion($p,$i) {
-	$myLogger=new Logger();
+	$myLogger=new Logger("procesaInscripcion");
 	// si la prueba o la inscripcion son nulas genera error
 	try {
 		if ($p<=0) throw new Exception("ID de prueba invalida: $p");
@@ -131,8 +147,8 @@ function procesaInscripcion($p,$i) {
 		// buscamos las jornadas en las que esta inscrito
 		$iobject= new Inscripciones("procesaInscripcion",$p);
 		$inscripcion=$iobject->selectByID($i);
-		if(!inscripcion) throw new Exception("No encuentro la inscripcion con ID: $i");
-		$id=$inscripcion['Perro'];
+		if(!$inscripcion) throw new Exception("No encuentro la inscripcion con ID: $i");
+		$idp=$inscripcion['Perro'];
 		// contrastamos la lista de jornadas de la prueba con la lista de jornadas en las que esta inscrito
 		foreach($jp['rows'] as $jornada) {
 			$numj=$jornada['Numero']-1; // obtenemos el numero de jornada
@@ -141,7 +157,7 @@ function procesaInscripcion($p,$i) {
 				continue; // no tocamos las jornadas cerradas
 			}
 			$idj=$jornada['ID'];
-			if ( ($inscripcion['Jornadas'] & (1<<$n)) != 0) {
+			if ( ($inscripcion['Jornadas'] & (1<<$numj)) != 0) {
 				$myLogger->info("El perro $idp esta inscrito en la jornada $idj de la prueba $p");
 				inscribePerroEnJornada($inscripcion,$jornada);
 			} else {

@@ -30,14 +30,10 @@ class OrdenSalida extends DBObject {
 	 */
 	function getOrden($manga) {
 		$this->myLogger->enter();
-		$sql = "SELECT Orden_Salida FROM Mangas WHERE ( ID=$manga )";
-		$rs = $this->query ( $sql );
-		if (!$rs) return $this->error($this->conn->error);
-		$row = $rs->fetch_object ();
-		$result = $row->Orden_Salida;
-		$rs->free ();
+		$res=$this->__selectObject("Orden_Salida", "Mangas", "( ID=$manga )");
+		$result = $res->Orden_Salida;
 		$this->myLogger->leave();
-		return ($result===null)?"":$result;
+		return ($result==="")?$this->default_orden:$result;
 	}
 	
 	/**

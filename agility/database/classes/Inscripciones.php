@@ -80,16 +80,18 @@ class Inscripciones extends DBObject {
 	 */
 	function update($idperro) {
 		$this->myLogger->enter();
+		$p=$this->pruebaID;
 		if ($idperro<=0) return $this->error("Invalid IDPerro ID");
 
 		// cogemos los datos actuales
 		$res=$this->__selectObject(
-			/* SELECT */ "ID, Celo, Observaciones, Equipo, Jornadas, Pagado", // idinscripcion, idprueba, idperro y dorsal no cambian
-			/* FROM */ "Inscripciones",
-			/* WHERE */ "(Perro=$idperro) AND (Prueba=".$this->pruebaID.")"
+						// idinscripcion, idprueba, idperro y dorsal no cambian
+			/* SELECT */	"ID, Celo, Observaciones, Equipo, Jornadas, Pagado", 
+			/* FROM */		"Inscripciones",
+			/* WHERE */		"(Perro=$idperro) AND (Prueba=$p)"
 		);
 		if (($res==null) || ($res===""))
-			return $this->error("El perro cond ID:$idperro no esta inscrito en la prueba: ".$this->pruebaID.")");
+			return $this->error("El perro cond ID:$idperro no figura inscrito en la prueba:$p");
 
 		// buscamos datos nuevos y mezclamos con los actuales
 		$id=$res->ID;
@@ -97,13 +99,14 @@ class Inscripciones extends DBObject {
 		$observaciones=http_request("Observaciones","s",$res->Observaciones);
 		$equipo=http_request("Equipo","i",$res->Equipo);
 		$pagado=http_request("Pagado","i",$res->Pagado);
+		$jornadas=http_request("Jornadas","i",$res->Jornadas);
 
 		// TODO: Make sure that form leaves unchanged Closed jornada's inscription state
 		$jornadas=http_request("Jornadas","s",$res->Jornadas);
 		// actualizamos bbdd
 		$str="UPDATE Inscripciones 
-			SET Celo=$celo , Observaciones='$observaciones' , Equipo=$equipo , Jornadas=$jornadas , Pagado=$pagado
-			WHERE ( Perro=$idperro ) AND ( Prueba=".$this->pruebaID." )";
+			SET Celo=$celo, Observaciones='$observaciones', Equipo=$equipo, Jornadas=$jornadas, Pagado=$pagado
+			WHERE ( ID=$id)";
 		
 		// actualizamos datos de inscripcion
 		$res=$this->query($str);
@@ -123,13 +126,18 @@ class Inscripciones extends DBObject {
 	 */
 	function delete($idperro) {
 		$this->myLogger->enter();
+		$p=$this->pruebaID;
 		if ($idperro<=0) return $this->error("Invalid Perro ID");
-		
-		// eliminamos informacion del perro en los ordenes de salida y tabla de resultados
-		// TODO: write
-		
-		// Eliminamos el perro de la tabla de inscripciones
-		$sql="DELETE FROM Inscripciones WHERE (Perro=$idperro) AND (Prueba=".$this->pruebaID.")";
+		// fase 0: obtenemos el ID de la inscripcion
+		$res=$this->__singleSelect("ID", "Inscripciones", "(Perro=$idperro) AND (Prueba=$p");
+		if (!$res) return $this->error("El perro con id:$idperro esta inscrito en la prueba:$p");
+		$i=$res['ID'];
+		// fase 1: actualizamos la DB para indicar que el perro no esta inscrito en ninguna jornada
+		$sql="Update Inscripciones SET Jornadas = 0  WHERE (ID=$i)";
+		// fase 2: eliminamos informacion del perro en los ordenes de salida y tabla de resultados
+		procesaInscripcion($p, $i);
+		// fase 3: finalmente eliminamos el perro de la tabla de inscripciones
+		$sql="DELETE FROM Inscripciones WHERE (ID=$i)";
 		$res=$this->query($sql);
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
