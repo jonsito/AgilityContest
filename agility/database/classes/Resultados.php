@@ -2,11 +2,14 @@
 require_once("DBObject.php");
 require_once("OrdenSalida.php");
 require_once("Mangas.php");
+require_once("Jornadas.php");
 
 class Resultados extends DBObject {
-	protected $manga;
-	protected $jornada;
-	protected $cerrada;
+	protected $manga; // datos de la manga
+	protected $IDManga; // ID de la manga
+	protected $jornada;  // datos de la jornada
+	protected $IDJornada; // ID de la jornada
+	protected $cerrada; // indica si la jornada esta cerrada
 
 	/**
 	 * Constructor
@@ -20,25 +23,25 @@ class Resultados extends DBObject {
 	function __construct($file,$manga) {
 		parent::__construct($file);
 		if ($manga<=0) {
-			$this->errormsg="Resultados::Construct invalid Manga ID";
+			$this->errormsg="Resultados::Construct invalid Manga ID: $manga";
 			throw new Exception($this->errormsg);
 		}
-		$this->manga=$manga;
+		$this->IDManga=$manga;
 		// obtenemos el id de jornada y vemos si la manga esta cerrada
-		$str="SELECT Jornada,Cerrada FROM Mangas WHERE ID=$manga";
-		$rs=$this->query($str);
-		if (!$rs) {
-			$this->error("Cannot retrieve data for manga $manga");
-			throw new Exception($this->errormsg);
-		}
-		$row=$rs->fetch_object();
-		$rs->free();
-		if (!$row) {
+		$obj=$this->__selectObject("*", "Mangas", "(ID=$manga)");
+		if (!$obj) {
 			$this->error("Manga $manga does not exists in database");
 			throw new Exception($this->errormsg);
 		}
-		$this->jornada=$row->Jornada;
-		$this->cerrada=$row->Cerrada;
+		$this->manga=$obj;
+		$this->IDJornada=$this->manga->Jornada;
+		$obj=$this->__selectObject("*","Jornadas","(ID=$this->IDJornada)");
+		if (!$obj) {
+			$this->error("Cannot locate JornadaID: $this->IDJornada for MangaID:$manga in database");
+			throw new Exception($this->errormsg);
+		}
+		$this->jornada=$obj;
+		$this->cerrada=$this->jornada->Cerrada;
 	}
 		
 	
@@ -50,18 +53,16 @@ class Resultados extends DBObject {
 	 */
 	function insert($idperro,$ndorsal) {
 		$error="";
+		$idmanga=$this->IDManga;
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("No idperro specified");
 		if ($ndorsal<=0) return $this->error("No dorsal specified");
-		if ($this->cerrada!=0) return $this->error("Manga ".$this->manga." is closed");
-		
+		if ($this->cerrada!=0) 
+			return $this->error("Manga $idmanga comes from closed Jornada: $this->IDJornada");		
 		// phase 1: retrieve dog data
-		$str="SELECT * FROM PerroGuiaClub WHERE ( ID = $idperro )";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		$perro =$rs->fetch_object(); // should be only one item
-		$rs->free();
-		if (!$perro) return $this->error("No information on Perro ID: $idperro");
+		$objperro=$this->__selectObject("*", "PerroGuiaClub", "( ID = $idperro )");
+		if (!$objperro) 
+			return $this->error("No information on Perro ID: $idperro");
 		
 		// phase 2: insert into resultados. On duplicate ($manga,$idperro) key an error will occur
 		$sql="INSERT INTO Resultados (Manga,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
@@ -70,15 +71,15 @@ class Resultados extends DBObject {
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('iiissssss',$manga,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$guia,$club);
 		if (!$res) return $this->error($this->conn->error);
-		$manga=$this->manga;
+		$manga=$idmanga;
 		$dorsal=$ndorsal;
 		$perro=$idperro;
-		$nombre=$perro->Nombre;
-		$licencia=$perro->Licencia;
-		$categoria=$perro->Categoria;
-		$grado=$perro->Grado;
-		$guia=$perro->NombreGuia;
-		$club=$perro->NombreClub;
+		$nombre=$objperro->Nombre;
+		$licencia=$objperro->Licencia;
+		$categoria=$objperro->Categoria;
+		$grado=$objperro->Grado;
+		$guia=$objperro->NombreGuia;
+		$club=$objperro->NombreClub;
 		// ejecutamos el query
 		$res=$stmt->execute();
 		if (!$res) $error=$this->error($stmt->error);
@@ -94,9 +95,11 @@ class Resultados extends DBObject {
 	 */
 	function delete($idperro) {
 		$this->myLogger->enter();
+		$idmanga=$this->IDManga;
 		if ($idperro<=0) return $this->error("No Perro ID specified");
-		if ($this->cerrada!=0) return $this->error("Manga ".$this->manga." is closed");
-		$str="DELETE * FROM Resultados WHERE ( Perro = $idperro ) AND ( Manga=".$this->manga.")";
+		if ($this->cerrada!=0) 
+			return $this->error("Manga $idmanga comes from closed Jornada:$this->IDJornada");
+		$str="DELETE * FROM Resultados WHERE ( Perro=$idperro ) AND ( Manga=$idmanga)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
@@ -110,13 +113,10 @@ class Resultados extends DBObject {
 	 */
 	function select($idperro) {
 		$this->myLogger->enter();
+		$idmanga=$this->IDManga;
 		if ($idperro<=0) return $this->error("No Perro ID specified");
-		$str="SELECT * FROM Resultados WHERE ( Perro = $idperro ) AND ( Manga=".$this->manga.")";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		$row=$rs->fetch_array();
-		$rs->free();
-		if(!$row) return $this->error("No Results for Perro:$idperro on Manga:".$this->manga);
+		$row=$this->__singleSelect("*", "Resultados", "(Perro=$idperro) AND (Manga=$idmanga)");
+		if(!$row) return $this->error("No Results for Perro:$idperro on Manga:$idmanga");
 		$this->myLogger->leave();
 		return $row;
 	}
@@ -128,8 +128,10 @@ class Resultados extends DBObject {
 	 */
 	function update($idperro) {
 		$this->myLogger->enter();
+		$idmanga=$this->IDManga;
 		if ($idperro<=0) return $this->error("No Perro ID specified");
-		if ($this->cerrada!=0) return $this->error("Manga ".$this->manga." is closed");
+		if ($this->cerrada!=0) 
+			return $this->error("Manga $idmanga comes from closed Jornada: $this->IDJornada");
 		// buscamos la lista de parametros a actualizar
 		$entrada=http_request("Entrada","s",date("Y-m-d H:i:s"));
 		$comienzo=http_request("Comienzo","s",date("Y-m-d H:i:s"));
@@ -154,7 +156,7 @@ class Resultados extends DBObject {
 				Faltas=$faltas , Rehuses=$rehuses , Tocados=$tocados ,
 				NoPresentado=$nopresentado , Eliminado=$eliminado , 
 				Tiempo=$tiempo , Observaciones='$observaciones' 
-			WHERE (Perro=$idperro) AND (Manga=".$this->manga.")";
+			WHERE (Perro=$idperro) AND (Manga=$this->IDManga)";
 		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
@@ -167,20 +169,20 @@ class Resultados extends DBObject {
 	 */
 	function enumerate() {
 		$this->myLogger->enter();
-		
+		$idmanga=$this->IDManga;
 		// fase 1: obtenemos el orden de salida
 		$os=new OrdenSalida("Competicion");
-		$orden=$os->getOrden($this->manga);
+		$orden=$os->getOrden($idmanga);
 		if ($orden==="") {
 			// si no hay orden de salida predefinido, genera uno al azar
-			$this->myLogger->notice("There is no OrdenSalida predefined for manga:".$this->manga);
-			$orden= $os->random($this->jornada,$this->manga);
+			$this->myLogger->notice("There is no OrdenSalida predefined for manga:$idmanga");
+			$orden= $os->random($this->jornada,$idmanga);
 		}
 		$this->myLogger->debug("El orden de salida es: \n$orden");
 		$lista = explode ( ",", $orden );
 		
 		// fase 2: obtenemos todos los resultados de esta manga 
-		$str="SELECT * FROM Resultados WHERE (Manga=".$this->manga.")";
+		$str="SELECT * FROM Resultados WHERE (Manga=$idmanga)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		// y los guardamos en un array indexado por el idperro
