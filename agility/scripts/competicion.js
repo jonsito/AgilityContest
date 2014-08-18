@@ -98,9 +98,10 @@ function reloadCompeticion() {
     $('#competicion-datagrid').datagrid(
             'load',
             { 
+            	Prueba: workingData.prueba ,
             	Jornada: workingData.jornada , 
             	Manga: workingData.manga , 
-            	Operation: 'enumerate' 
+            	Operation: 'getData' 
             }
     );
 }
@@ -111,13 +112,14 @@ function reloadResultadosManga() {
     $('#resultadosmanga-datagrid').datagrid(
             'load',
             { 
+            	Prueba: workingData.prueba,
             	Jornada: workingData.jornada , 
             	Manga: workingData.manga , 
             	Operation: 'parcial'
             }
     );
     $('#resultadosmanga-trs-form').form(
-    		'load',"database/mangaFunctions.php?Operation=getTRS&Jornada="+workingData.jornada+"&Manga="+workingData.manga);
+    		'load',"database/mangaFunctions.php?Operation=getTRS&Prueba="+workingData.prueba+"&Jornada="+workingData.jornada+"&Manga="+workingData.manga);
 }
 
 function saveCompeticionData(idx,data) {
@@ -130,11 +132,12 @@ function saveCompeticionData(idx,data) {
 			Prueba:		workingData.prueba,
 			Jornada:	workingData.jornada,
 			Manga:		workingData.manga,
-			IDPerro: 	data['IDPerro'],
+			Dorsal: 	data['Dorsal'],
+			Perro: 		data['Perro'],
 			Licencia:	data['Licencia'],
 			Nombre:		data['Nombre'],
-			Guia:		data['Guia'],
-			Club:		data['Club'],
+			NombreGuia:	data['NombreGuia'],
+			NombreClub:	data['NombreClub'],
 			Categoria:	data['Categoria'],
 			Tocados:	data['Tocados'],
 			Faltas:		data['Faltas'],
@@ -153,13 +156,15 @@ function saveCompeticionData(idx,data) {
 
 // genera un nuevo orden aleatorio
 function evalOrdenSalida(mode) {
+	if (workingData.prueba==0) return;
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
 	$.ajax({
 		type:'GET',
 		url:"database/ordenSalidaFunctions.php",
 		dataType:'json',
-		data: { 
+		data: {
+			Prueba: workingData.prueba,
 			Jornada: workingData.jornada,
 			Manga: workingData.manga,
 			Operation: mode
@@ -176,9 +181,11 @@ function dragAndDrop(from,to,where) {
 	if (workingData.manga==0) return;
 	$.ajax({
 		type:'GET',
-		url:"database/ordenSalidaFunctions.php?Operation=dnd",
+		url:"database/ordenSalidaFunctions.php",
 		dataType:'json',
-		data: { 
+		data: {
+			Operation: 'dnd',
+			Prueba: workingData.prueba,
 			Jornada: workingData.jornada,
 			Manga: workingData.manga,
 			From: from,

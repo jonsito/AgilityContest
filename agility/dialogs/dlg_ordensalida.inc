@@ -1,7 +1,7 @@
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
 <div id="ordensalida-window" class="easyui-window" style="width:800px;height:450px;padding:0px 10px 40px 10px">
 	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
-	<div id="ordensalida-toolbar">
+	<div id="ordensalida-toolbar" style="padding:5px">
  		<span style="float:left">
 		   	<a id="ordensalida-randomBtn" href="#" class="easyui-linkbutton" 
 		   		data-options="iconCls:'icon-dice'" onclick="evalOrdenSalida('random')">Aleatorio</a>
@@ -19,7 +19,7 @@
 		</span>
 	</div>
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
-	<table id="ordensalida-datagrid"></table>
+	<table id="ordensalida-datagrid" style="padding:5px"></table>
 </div>
 
 <script type="text/javascript">
@@ -43,27 +43,28 @@ $('#ordensalida-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: 'database/ordenSalidaFunctions.php?Operation=getData',
+	url: 'database/ordenSalidaFunctions.php',
     queryParams: {
+        Operation: 'getData',
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
         Manga: workingData.manga
     },
     loadMsg: "Actualizando orden de salida...",
     pagination: false,
-    rownumbers: true,
+    rownumbers: false,
     fitColumns: true,
     singleSelect: true,
     // toolbar: '#ordensalida-toolbar',
     columns:[[
-        	{ field:'IDPerro',		hidden:true },
-          	// { field:'IDPerro',		width:10, sortable:false,	align:'left',  title: 'IDPerro'},
+        	{ field:'Perro',		hidden:true },
+          	{ field:'Dorsal',		width:10, sortable:false,	align:'left',  title: 'Dorsal'},
           	{ field:'Nombre',		width:20, sortable:false,	align:'left',  title: 'Nombre'},
-      		{ field:'Licencia',		width:15, sortable:false,   align:'right', title: 'Lic.' },
+      		{ field:'Licencia',		width:15, sortable:false,   align:'right', title: 'Licencia' },
       		{ field:'Categoria',	width:10, sortable:false,   align:'center', title: 'Cat.' },
-      		{ field:'Guia',			width:50, sortable:false,   align:'right', title: 'Guia' },
-      		{ field:'Club',		    width:30, sortable:false,   align:'right', title: 'Club' },
-      		{ field:'Celo',		    width:10, sortable:false,   align:'right', title: 'Celo' },
+      		{ field:'NombreGuia',	width:50, sortable:false,   align:'right', title: 'Guia' },
+      		{ field:'NombreClub',	width:30, sortable:false,   align:'right', title: 'Club' },
+      		{ field:'Celo',		    width:10, sortable:false,   align:'center', title: 'Celo' },
       		{ field:'Observaciones',width:30, sortable:false,   align:'right', title: 'Observaciones' }
     ]],
     rowStyler:function(index,row) { // colorize rows

@@ -15,7 +15,7 @@ try {
 		case "update": $result=$resultados->update($idperro); break;
 		case "delete": $result=$resultados->delete($idperro); break;
 		case "select": $result=$resultados->select($idperro); break;
-		case "enumerate": $result=$resultados->enumerate(); break;
+		case "enumerate": $result=$resultados->getResultados(); break;
 		default: throw new Exception("resultadosFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) throw new Exception($resultados->errormsg);

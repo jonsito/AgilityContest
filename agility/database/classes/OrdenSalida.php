@@ -127,72 +127,59 @@ class OrdenSalida extends DBObject {
 	
 	/**
 	 * Obtiene la lista (actualizada) de perros de una manga
+	 * En el proceso de inscripcion ya hemos creado la tabla de resultados, y el orden de salida
+	 * con lo que la cosa es sencilla:
+	 * Cogemos los perros inscritos en la manga y los ordenamos segun el orden establecido, añadiendo
+	 * el campo "Celo"
 	 *
+	 * @param {int} $prueba ID de prueba
 	 * @param {int} $jornada ID de jornada
 	 * @param {int} $manga ID de manga
 	 * @return array[count,[data]] array ordenado segun ordensalida de datos de perros de una manga 
 	 */
 	function getData($prueba,$jornada, $manga) {
 		$this->myLogger->enter();
-		// fase 0: vemos si ya hay una lista definida
-		$ordensalida = $this->getOrden ( $manga );
-		if ($ordensalida === "") { // no hay orden predefinido
-			$ordensalida = $this-> random ( $jornada, $manga, false );
+		// fase 1: obtenemos el orden de salida
+		$orden=$this->getOrden($manga);
+		if ($orden==="") {
+			// si no hay orden de salida predefinido,
+			// quiere decir que no hay nadie inscrito. Indica error
+			return $this->myLogger->error("No hay inscripciones en Prueba:$prueba Jornada:$jornada Manga:$manga");
 		}
-		$this->myLogger->debug("El orden de salida actual es $ordensalida" );
-		// ok tenemos orden de salida. vamos a convertirla en un array asociativo
-		$registrados = explode ( ",", $ordensalida );
+		$this->myLogger->debug("Resultados::Enumerate() Manga:$manga El orden de salida es: \n$orden");
+		$lista = explode ( ",", $orden );
 		
-		// fase 1: obtener los perros inscritos en la jornada
-		$i=new Inscripciones("ordensalida::getData()",$prueba);
-		$inscripciones= $i->inscritosByJornada($jornada);
-		if (!$inscripciones)
-			return $this->error("Cannot get inscripciones for prueba:$prueba jornada:$jornada manga:$manga");
+		// fase 2: obtenemos todos los resultados de esta manga 
+		$rs=$this->__select("*", "Resultados", "(Manga=$manga)", "", "");
+		if (!$rs) return $this->error($this->conn->error);
+		// y los guardamos en un array indexado por el idperro
+		$data=array();
+		foreach($rs['rows'] as $row) { $data[$row['Perro']]=$row;}
 		
-		// fase 2: obtener las categorias de perros que debemos aceptar
-		$sql2 = "SELECT Grado FROM Mangas WHERE ( ID=$manga )";
-		$rs2 = $this->query( $sql2 );
-		if (!$rs2) return $this->error($this->conn->error);
-		$obj2 = $rs2->fetch_object();
-		$rs2->free ();
-		$grado = $obj2->Grado;
-		
-		// fase 3: crear el array y la lista de perros y contrastarlo con la tabla y orden registrado
-		foreach ($inscripciones['rows'] as $row) {
-			// only add to list when grado is '-' (Any) or grado matches requested
-			if (($grado !== "-") && ($grado !== $row['Grado']))
-				continue;
-			$idx = array_search ( $row['Perro'], $registrados );
-			// si idperro en lista se inserta; si no esta en lista implica error de consistencia
-			if ($idx === false)
-				$this->myLogger->notice("El perro " . $row['Perro'] . " esta inscrito pero no aparece en el orden de salida" );
-			else $registrados [$idx] = $row;
-		}
-		
-		// fase 4: construimos la tabla de resultados
-		$count = 0;
-		$data = array ();
-		foreach ( $registrados as $item ) {
-			// si es un objeto anyadimos el idperro
-			if (is_object ( $item )) {
-				array_push ( $data, $item );
-				// $this->myLogger->debug("push:" . $item->IDPerro . " count:$count" );
-				$count ++;
-				continue;
-			}
-			// si es un string vemos si es un tag o un "hueco"
-			if (is_string ( $item )) {
-				if (strpos ( $item, "BEGIN" ) !== false) continue;
-				if (strpos ( $item, "END" ) !== false) continue;
-				if (strpos ( $item, "TAG_" ) !== false)	continue;
-					// idperro no registrado: error
-				$this->myLogger->notice("El perro $item esta en el orden de salida, pero no esta inscrito" );
+		// fase 3 componemos el resultado siguiendo el orden de salida
+		$items=array();
+		$count=0;
+		$celo=0;
+		foreach ($lista as $idperro) {
+			switch($idperro) {
+				// separadores2
+				case "BEGIN": case "END": continue;
+				case "TAG_-0": case "TAG_L0": case "TAG_M0": case "TAG_S0": case "TAG_T0": $celo=0; continue;
+				case "TAG_-1": case "TAG_L1": case "TAG_M1": case "TAG_S1": case "TAG_T1": $celo=1; continue;
+				default: // idperroes
+					if (!isset($data[$idperro])) {
+						$this->myLogger->error("No hay entrada en 'Resultados' para perro:$idperro Manga:$manga");
+						// TODO: esto no deberia ocurrir pero por si acaso ver como resolverlo
+					}
+					$data[$idperro]['Celo']=$celo;
+					array_push($items,$data[$idperro]);
+					$count++;
+					break;
 			}
 		}
-		// finally encode result and send to client
-		$result = array ();
-		$result ["total"] = $count;
-		$result ["rows"] = $data;
+		$result = array();
+		$result["total"] = $count;
+		$result["rows"] = $items;
 		$this->myLogger->leave();
 		return $result;
 	}

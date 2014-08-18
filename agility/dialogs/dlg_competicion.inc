@@ -1,7 +1,7 @@
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
 <div id="competicion-window" class="easyui-window" style="width:800px;height:450px;padding:0px 10px 40px 10px">
 	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
-	<div id="competicion-toolbar">
+	<div id="competicion-toolbar" style="padding:5px">
  		<span style="float:left">
 		   	<a id="competicion-saveBtn" href="#" class="easyui-linkbutton" 
 		   		data-options="iconCls:'icon-save'" onclick="endEditing()">Guardar</a>
@@ -14,7 +14,7 @@
 		</span>
 	</div>
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
-	<table id="competicion-datagrid"></table>
+	<table id="competicion-datagrid" style="padding:5px"></table>
 </div>
 
 <script type="text/javascript">
@@ -38,32 +38,35 @@ $('#competicion-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: 'database/resultadosFunctions.php?Operation=enumerate',
+	url: 'database/ordenSalidaFunctions.php',
     queryParams: {
+        Operation: 'getData',
+        Prueba: workingData.prueba,
         Jornada: workingData.jornada,
         Manga: workingData.manga
     },
     loadMsg: "Actualizando datos de competicion ...",
     pagination: false,
-    rownumbers: true,
+    rownumbers: false,
     fitColumns: true,
     singleSelect: true,
     // toolbar: '#competicion-toolbar',
     columns:[[
         { field:'Manga',		hidden:true },
-        { field:'IDPerro',		hidden:true },
+        { field:'Perro',		hidden:true },
       	{ field:'Licencia',		hidden:true },
+        { field:'Dorsal',		width:10, align:'right',  title: 'Dorsal'},
         { field:'Nombre',		width:20, align:'left',  title: 'Nombre'},
-        { field:'Guia',			width:50, align:'right', title: 'Guia' },
-        { field:'Club',			width:30, align:'right', title: 'Club' },
+        { field:'NombreGuia',	width:50, align:'right', title: 'Guia' },
+        { field:'NombreClub',	width:30, align:'right', title: 'Club' },
       	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
       	{ field:'Faltas',		width:15, align:'right', title: 'Faltas',	editor:'numberbox' },
-      	{ field:'Rehuses',		width:15, align:'right', title: 'Rehuses',	editor:'numberbox', },
-      	{ field:'Tocados',		width:15, align:'right', title: 'Tocados',	editor:'numberbox' },
+      	{ field:'Rehuses',		width:15, align:'right', title: 'Rehus.',	editor:'numberbox', },
+      	{ field:'Tocados',		width:15, align:'right', title: 'Tocad.',	editor:'numberbox' },
       	{ field:'Tiempo',		width:20, align:'right', title: 'Tiempo',	editor:{type:'numberbox',options:{precision:2}}	}, 
       	{ field:'Eliminado',	width:10, align:'center',title: 'Elim.',	editor:{type:'checkbox',options:{on:1,off:0}}	},
       	{ field:'NoPresentado',	width:10, align:'center',title: 'N.P.',		editor:{type:'checkbox',options:{on:1,off:0}}	},		
-      	{ field:'Observaciones',width:30, align:'left',	 title: 'Observaciones',	editor:'text'  }
+      	{ field:'Observaciones',width:20, align:'left',	 title: 'Observaciones',	editor:'text'  }
     ]],
     rowStyler:function(index,row) { // colorize rows. Equivalent to "striped: true", but better look&feel
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';

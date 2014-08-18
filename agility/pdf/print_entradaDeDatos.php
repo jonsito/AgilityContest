@@ -204,7 +204,7 @@ try {
 	$manga= $m->selectByID($mangaid);
 	// Datos del orden de salida
 	$o = new OrdenSalida("printOrdenDeSalida");
-	$orden= $o->getData($jornadaid,$mangaid);
+	$orden= $o->getData($pruebaid,$jornadaid,$mangaid);
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e.getMessage());
 };

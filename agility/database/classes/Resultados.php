@@ -174,58 +174,11 @@ class Resultados extends DBObject {
 	}
 	
 	/**
-	 * Presenta una tabla ordenada segun el orden de salida asociado a la manga
+	 * Presenta una tabla ordenada segun los resultados de la manga
 	 * @return null on error else array en formato easyui datagrid
 	 */
-	function enumerate() {
-		$this->myLogger->enter();
-		$idmanga=$this->IDManga;
-		// fase 1: obtenemos el orden de salida
-		$os=new OrdenSalida("Competicion");
-		$orden=$os->getOrden($idmanga);
-		if ($orden==="") {
-			// si no hay orden de salida predefinido, genera uno al azar
-			$this->myLogger->notice("There is no OrdenSalida predefined for manga:$idmanga");
-			$orden= $os->random($this->jornada,$idmanga);
-		}
-		$this->myLogger->debug("El orden de salida es: \n$orden");
-		$lista = explode ( ",", $orden );
-		
-		// fase 2: obtenemos todos los resultados de esta manga 
-		$str="SELECT * FROM Resultados WHERE (Manga=$idmanga)";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		// y los guardamos en un array indexado por el idperro
-		$data=array();
-		while($row=$rs->fetch_array()) $data[$row["Perro"]]=$row;
-		$rs->free();
-		
-		// fase 3 componemos el resultado siguiendo el orden de salida
-		$items=array();
-		$count=0;
-		$celo=0;
-		foreach ($lista as $idperro) {
-			switch($idperro) {
-				// separadores2
-				case "BEGIN": case "END": continue;
-				case "TAG_-0": case "TAG_L0": case "TAG_M0": case "TAG_S0": case "TAG_T0": $celo=0; continue;
-				case "TAG_-1": case "TAG_L1": case "TAG_M1": case "TAG_S1": case "TAG_T1": $celo=1; continue;
-				default: // idperroes
-					if (!isset($data[$idperro])) {
-						$this->myLogger->error("No hay entrada en 'Resultados' para idperro:$idperro Manga:$idmanga");
-						// TODO: esto no deberia ocurrir pero por si acaso ver como resolverlo
-					}
-					$data[$idperro]['Celo']=$celo;
-					array_push($items,$data[$idperro]);
-					$count++;
-					break;
-			}
-		}
-		$result = array();
-		$result["total"] = $count;
-		$result["rows"] = $items;
-		$this->myLogger->leave();
-		return $result;
+	function getResultados() {
+		// TODO: write
 	}
 }
 ?>
