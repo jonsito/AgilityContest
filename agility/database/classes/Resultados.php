@@ -206,15 +206,14 @@ class Resultados extends DBObject {
 		$celo=0;
 		foreach ($lista as $idperro) {
 			switch($idperro) {
-				// separadores
-				case "BEGIN": case END: continue;
+				// separadores2
+				case "BEGIN": case "END": continue;
 				case "TAG_-0": case "TAG_L0": case "TAG_M0": case "TAG_S0": case "TAG_T0": $celo=0; continue;
 				case "TAG_-1": case "TAG_L1": case "TAG_M1": case "TAG_S1": case "TAG_T1": $celo=1; continue;
 				default: // idperroes
 					if (!isset($data[$idperro])) {
-						$this->myLogger->warn("No Results for idperro:$idperro. Creating default one");
-						$this->insert($idperro);
-						$data[$idperro]=$this->select($idperro);
+						$this->myLogger->error("No hay entrada en 'Resultados' para idperro:$idperro Manga:$idmanga");
+						// TODO: esto no deberia ocurrir pero por si acaso ver como resolverlo
 					}
 					$data[$idperro]['Celo']=$celo;
 					array_push($items,$data[$idperro]);
