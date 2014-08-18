@@ -212,7 +212,7 @@ class Mangas extends DBObject {
 		$result["total"] = $row[0];
 		
 		if($result["total"]>0) {
-			$str="SELECT Mangas.ID AS ID, Mangas.Tipo AS Tipo, Tipo_Manga.Descripcion AS Descripcion
+			$str="SELECT Mangas.ID AS ID, Mangas.Tipo AS Tipo, Tipo_Manga.Grado AS Grado, Tipo_Manga.Descripcion AS Descripcion
 			FROM Mangas,Tipo_Manga
 			WHERE ( ( Jornada = ".$this->jornada." ) AND ( Mangas.Tipo = Tipo_Manga.ID ) )
 			ORDER BY Descripcion ASC";
@@ -246,32 +246,52 @@ class Mangas extends DBObject {
 	 */
 	function prepareMangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$ko,$exhibicion,$otras) {
 		$this->myLogger->enter();
-	
+
+		/* 3, 'Agility Grado I Manga 1', 'GI' */
+		/* 4, 'Agility Grado I Manga 2', 'GI' */
 		if ($grado1) { 	$this->insert(3,'GI'); $this->insert(4,'GI');		}
 		else { $this->delete(3);	$this->delete(4); }
-	
+
+		/* 5, 'Agility Grado II', 'GII' */
+		/* 10,'Jumping Grado II', 'GII' */
 		if ($grado2) { $this->insert(5,'GII'); $this->insert(10,'GII'); }
 		else { $this->delete(5); $this->delete(10); }
-	
+
+		/* 6, 'Agility Grado III', 'GIII' */
+		/* 11,'Jumping Grado III', 'GIII' */
 		if ($grado3) { $this->insert(6,'GIII'); $this->insert(11,'GIII'); }
 		else { $this->delete(6);	$this->delete(11); }
-	
+
+		/* 7, 'Agility Abierta (Open)', '-' */
+		/* 12,'Jumping Abierta (Open)', '-' */
 		if ($open) { $this->insert(7,'-'); $this->insert(12,'-'); }
 		else { $this->delete(7);	$this->delete(12); }
-	
+
+		/* 8, 'Agility Equipos (3 mejores)', '-' */
+		/* 13,'Jumping por Equipos (3 mejores)', '-' */
 		if ($equipos3) {	$this->insert(8,'-');	$this->insert(13,'-');	}
 		else { $this->delete(8);	$this->delete(13);	}
-	
+
+		/* 9, 'Agility Equipos (Conjunta)', '-' */
+		/* 14,'Jumping por Equipos (Conjunta)', '-' */
 		if ($equipos4) {	$this->insert(9,'-');	$this->insert(14,'-');	}
 		else { $this->delete(9);	$this->delete(14);	}
-	
+
+		/* 2, 'Ronda de Pre-Agility', 'P.A.' */
 		if ($preagility) { $this->insert(2,'P.A.'); }
 		else { $this->delete(2); }
-	
+
+		/* 16,'Ronda de Exhibición', '-' */
 		if ($exhibicion) { $this->insert(16,'-');}
 		else { $this->delete(16); }
-		// TODO: Decidir que se hace con las mangas 'otras'
+
+		/* 15,'Ronda K.O.', '-' */
 		// TODO: las mangas KO hay que crearlas dinamicamente en funcion del numero de participantes
+		
+		// TODO: Decidir que se hace con las mangas 'otras'
+		/*  0,'','' */
+		/* 1, 'Manga sin tipo definido', '-' */
+		
 		$this->myLogger->leave();
 	}
 	

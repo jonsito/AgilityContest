@@ -44,48 +44,58 @@ class Resultados extends DBObject {
 		$this->cerrada=$this->jornada->Cerrada;
 	}
 		
-	
+
 	/**
 	 * Inserta perro en la lista de resultados de la manga
 	 * los datos del perro se toman de la tabla perroguiaclub
-	 * @param {integer} $idperro
-	 * @return "" on success; null on error
+	 * @param {array} $objperro datos perroguiaclub
+	 * @param {integer} $ndorsal Dorsal con el que compite
+	 * @return "" on success; else error string
 	 */
-	function insert($idperro,$ndorsal) {
+	function insertByData($objperro,$ndorsal) {
 		$error="";
 		$idmanga=$this->IDManga;
 		$this->myLogger->enter();
-		if ($idperro<=0) return $this->error("No idperro specified");
 		if ($ndorsal<=0) return $this->error("No dorsal specified");
 		if ($this->cerrada!=0) 
-			return $this->error("Manga $idmanga comes from closed Jornada: $this->IDJornada");		
-		// phase 1: retrieve dog data
-		$objperro=$this->__selectObject("*", "PerroGuiaClub", "( ID = $idperro )");
-		if (!$objperro) 
-			return $this->error("No information on Perro ID: $idperro");
+			return $this->error("Manga $idmanga comes from closed Jornada: $this->IDJornada");	
 		
-		// phase 2: insert into resultados. On duplicate ($manga,$idperro) key an error will occur
+		// Insert into resultados. On duplicate ($manga,$idperro) key ignore
 		$sql="INSERT INTO Resultados (Manga,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
-				VALUES (?,?,?,?,?,?,?,?,?)";
+				VALUES (?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Manga=Manga";
 		$stmt=$this->conn->prepare($sql);
-		if (!$stmt) return $this->error($this->conn->error);
+		if (!$stmt) return $this->conn->error;
 		$res=$stmt->bind_param('iiissssss',$manga,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$guia,$club);
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
 		$manga=$idmanga;
 		$dorsal=$ndorsal;
-		$perro=$idperro;
-		$nombre=$objperro->Nombre;
-		$licencia=$objperro->Licencia;
-		$categoria=$objperro->Categoria;
-		$grado=$objperro->Grado;
-		$guia=$objperro->NombreGuia;
-		$club=$objperro->NombreClub;
+		$perro=$objperro['ID'];
+		$nombre=$objperro['Nombre'];
+		$licencia=$objperro['Licencia'];
+		$categoria=$objperro['Categoria'];
+		$grado=$objperro['Grado'];
+		$guia=$objperro['NombreGuia'];
+		$club=$objperro['NombreClub'];
 		// ejecutamos el query
 		$res=$stmt->execute();
-		if (!$res) $error=$this->error($stmt->error);
+		if (!$res) $error=$stmt->error;
 		$stmt->close();
 		$this->myLogger->leave();
 		return $error;
+	}
+	
+	/**
+	 * Inserta perro en la lista de resultados de la manga
+	 * @param {integer} $integer ID del perro
+	 * @param {integer} $ndorsal Dorsal con el que compite
+	 * @return "" on success; else error string
+	 */
+	function insert($idperro,$ndorsal) {
+		// obtenemos los datos del perro
+		$pobj=new Dogs("Resultados::insert");
+		$perro=$pobj->selectByIDPerro($iderro);
+		if (!$perro) throw new Exception("No hay datos para el perro a inscribir con id: $idp");
+		return insertByData($perro,$ndorsal);
 	}
 	
 	/**
