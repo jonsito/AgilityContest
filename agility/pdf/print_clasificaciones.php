@@ -151,8 +151,8 @@ class parcialPDF extends FPDF {
 			$this->SetFont('Arial','',10); // remove bold
 			$this->Cell($this->pos[1],7,	$row['Nombre'],			'LR',0,$this->align[1],$fill);
 			$this->Cell($this->pos[2],7,	$row['Licencia'],		'LR',0,$this->align[2],$fill);
-			$this->Cell($this->pos[3],7,	$row['Guia'],			'LR',0,$this->align[3],$fill);
-			$this->Cell($this->pos[4],7,	$row['Club'],			'LR',0,$this->align[4],$fill);
+			$this->Cell($this->pos[3],7,	$row['NombreGuia'],		'LR',0,$this->align[3],$fill);
+			$this->Cell($this->pos[4],7,	$row['NombreClub'],		'LR',0,$this->align[4],$fill);
 			$this->Cell($this->pos[5],7,	$row['Categoria'],		'LR',0,$this->align[5],$fill);
 			$this->SetFont('Arial','B',9); // remove bold
 			$this->Cell($this->pos[6],7,	$row['Faltas'],			'LR',0,$this->align[6],$fill);

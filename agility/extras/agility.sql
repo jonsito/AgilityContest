@@ -1716,7 +1716,8 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
   `Observaciones` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`Manga`,`Perro`),
   KEY `Resultados_Perro` (`Perro`),
-  KEY `Resultados_Dorsal` (`Dorsal`)
+  KEY `Resultados_Dorsal` (`Dorsal`),
+  KEY `Resultados_Manga` (`Manga`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1847,9 +1848,9 @@ ALTER TABLE `Pruebas`
 -- Filtros para la tabla `Resultados`
 --
 ALTER TABLE `Resultados`
-  ADD CONSTRAINT `Resultados_ibfk_1` FOREIGN KEY (`Perro`) REFERENCES `Perros` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Manga` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Resultados_ibfk_3` FOREIGN KEY (`Dorsal`) REFERENCES `Inscripciones` (`Dorsal`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Resultados_ibfk_1` FOREIGN KEY (`Perro`) REFERENCES `Perros` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Resultados`
+  ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Mangas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Tipo_Manga`

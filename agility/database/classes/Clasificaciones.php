@@ -34,12 +34,12 @@ class Clasificaciones extends DBObject {
 		$this->myLogger->enter();
 		// FASE 0: creamos una tabla temporal en la que ir almacenando los diversos resultados parciales
 		$str="CREATE TEMPORARY TABLE $tablename (
-			`IDPerro` int(4) NOT NULL,
+			`Perro` int(4) NOT NULL,
 			`Nombre` varchar(255) NOT NULL,
 			`Licencia` varchar(255) NOT NULL DEFAULT '--------',
 			`Categoria` varchar(1) NOT NULL DEFAULT '-',
-			`Guia` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
-			`Club` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
+			`NombreGuia` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
+			`NombreClub` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
 			
 			`Faltas` int(4) NOT NULL DEFAULT '0',
 			`Tocados` int(4) NOT NULL DEFAULT '0',
@@ -60,7 +60,7 @@ class Clasificaciones extends DBObject {
 			`Velocidad2` double NOT NULL DEFAULT '0',
 			`Penalizacion2` double NOT NULL DEFAULT '0',
 			`Calificacion2` varchar(16) DEFAULT NULL,
-			PRIMARY KEY ( `IDPerro` )
+			PRIMARY KEY ( `Perro` )
 		)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -68,8 +68,8 @@ class Clasificaciones extends DBObject {
 		// FASE 1:
 		// Recopilamos datos "personales"  (comunes a ambas mangas)
 		// Y hacemos un calculo de las penalizaciones por recorrido de la primera manga
-		$str="INSERT INTO $tablename (IDPerro,Nombre,Licencia,Categoria,Guia,Club,Faltas,Tocados,Rehuses,Tiempo,PRecorrido) 
-			SELECT IDPerro,Nombre,Licencia,Categoria,Guia,Club,Faltas,Tocados,Rehuses,Tiempo, 
+		$str="INSERT INTO $tablename (Perro,Nombre,Licencia,Categoria,NombreGuia,NombreClub,Faltas,Tocados,Rehuses,Tiempo,PRecorrido) 
+			SELECT Perro,Nombre,Licencia,Categoria,NombreGuia,NombreClub,Faltas,Tocados,Rehuses,Tiempo, 
 			( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
 			FROM Resultados WHERE ( Manga=$manga1 )";
 		$rs=$this->query($str);
@@ -113,7 +113,7 @@ class Clasificaciones extends DBObject {
 		// y lo reinsertamos en la tabla temporal		
 	
 		// componemos un prepared statement
-		$sql ="UPDATE $tablename SET PTiempo=? , Penalizacion=? ,Velocidad=?, Calificacion=? WHERE ( IDPerro=? )";
+		$sql ="UPDATE $tablename SET PTiempo=? , Penalizacion=? ,Velocidad=?, Calificacion=? WHERE ( Perro=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('dddsi',$pt,$p,$v,$c,$d);
@@ -152,10 +152,10 @@ class Clasificaciones extends DBObject {
 			$p=$row->Penalizacion;
 			$v=$row->Velocidad;
 			$c=$row->Calificacion;
-			$d=$row->IDPerro;	
+			$d=$row->Perro;	
 			// $this->myLogger->trace("after fase 4: ".print_r($row,true));
 			$res=$stmt->execute();
-			// $this->myLogger->trace("update clasificacion on IDPerro: $d");
+			// $this->myLogger->trace("update clasificacion on Perro: $d");
 			if (!$res) return $this->error($this->conn->error); 
 		}
 		$stmt->close(); // cerramos el prepared statement
@@ -168,13 +168,13 @@ class Clasificaciones extends DBObject {
 		/******************************** calculo de la segunda manga (si esta declarada ) *******************/
 		// FASE 1: hacemos un calculo de las penalizaciones por recorrido
 		// como esta vez ya estan creadas las filas, hacemos un select from resultados y luego un update por cada idperro
-		$str="SELECT IDPerro, Faltas, Tocados, Rehuses, Tiempo, 
+		$str="SELECT Perro, Faltas, Tocados, Rehuses, Tiempo, 
 		( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido
 		FROM Resultados WHERE ( Manga=$manga2 )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		
-		$str="UPDATE $tablename SET Faltas2=?, Tocados2=?, Rehuses2=?, Tiempo2=?, PRecorrido2=? WHERE ( IDPerro=?)";
+		$str="UPDATE $tablename SET Faltas2=?, Tocados2=?, Rehuses2=?, Tiempo2=?, PRecorrido2=? WHERE ( Perro=?)";
 		$stmt=$this->conn->prepare($str);
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('iiidii',$f,$t,$r,$t,$pr,$d);
@@ -185,7 +185,7 @@ class Clasificaciones extends DBObject {
 			$r=$row->Rehuses;
 			$t=$row->Tiempo;
 			$pr=$row->PRecorrido;
-			$d=$row->IDPerro;
+			$d=$row->Perro;
 			$res=$stmt->execute();
 			if (!$res) return $this->error($this->conn->error);
 		}
@@ -220,7 +220,7 @@ class Clasificaciones extends DBObject {
 		// y lo reinsertamos en la tabla temporal
 		
 		// componemos un prepared statement
-		$sql ="UPDATE $tablename SET PTiempo2=? , Penalizacion2=? ,Velocidad2=?, Calificacion2=? WHERE ( IDPerro=? )";
+		$sql ="UPDATE $tablename SET PTiempo2=? , Penalizacion2=? ,Velocidad2=?, Calificacion2=? WHERE ( Perro=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('dddsi',$pt,$p,$v,$c,$d);
@@ -261,10 +261,10 @@ class Clasificaciones extends DBObject {
 			$p=$row->Penalizacion2;
 			$v=$row->Velocidad2;
 			$c=$row->Calificacion2;
-			$d=$row->IDPerro;
+			$d=$row->Perro;
 			// $this->myLogger->trace("after fase 4: ".print_r($row,true));
 			$res=$stmt->execute();
-			// $this->myLogger->trace("update clasificacion on IDPerro: $d");
+			// $this->myLogger->trace("update clasificacion on Perro: $d");
 			if (!$res) return $this->error($this->conn->error);
 		}
 		$stmt->close(); // cerramos el prepared statement
@@ -285,7 +285,7 @@ class Clasificaciones extends DBObject {
 		// FASE 2: hacemos un query en base a un join de la tabla de resultados
 		// y la de calificaciones ordenado por categoria/celo/penalizacion/tiempo
 	
-		$str= "SELECT $manga AS Manga, IDPerro, Categoria, Tiempo, Penalizacion
+		$str= "SELECT $manga AS Manga, Perro, Categoria, Tiempo, Penalizacion
 		FROM $tablename
 		ORDER BY Categoria ASC, Penalizacion DESC, Tiempo DESC";
 		$rs=$this->query($str);
@@ -320,7 +320,7 @@ class Clasificaciones extends DBObject {
 		// y la de calificaciones ordenado por categoria/penalizacion/tiempo
 		$rows=array();
 		if ($cat==="0") { // select every categorias in a separate order
-			$str= "SELECT $manga AS Manga, IDPerro, Nombre, Licencia, Categoria, Guia, Club,
+			$str= "SELECT $manga AS Manga, Perro, Nombre, Licencia, Categoria, NombreGuia, NombreClub,
 				Faltas, Rehuses, Tocados, Tiempo, Velocidad, Penalizacion, Calificacion
 				FROM $tablename
 				ORDER BY Categoria ASC, Penalizacion ASC, Tiempo ASC";
@@ -342,31 +342,31 @@ class Clasificaciones extends DBObject {
 		} else {
 			switch($cat) {
 			case "1": // Only enumerate Large
-				$str= "SELECT $manga AS Manga, IDPerro, Nombre, Licencia, Categoria, Guia, Club,
+				$str= "SELECT $manga AS Manga, Perro, Nombre, Licencia, Categoria, NombreGuia, NombreClub,
 					Faltas, Rehuses, Tocados, Tiempo, Velocidad, Penalizacion, Calificacion
 					FROM $tablename WHERE ( Categoria = 'L' )
 					ORDER BY Penalizacion ASC, Tiempo ASC";
 				break;
 			case "2": // Only enumerate Medium
-				$str= "SELECT $manga AS Manga, IDPerro, Nombre, Licencia, Categoria, Guia, Club,
+				$str= "SELECT $manga AS Manga, Perro, Nombre, Licencia, Categoria, NombreGuia, NombreClub,
 					Faltas, Rehuses, Tocados, Tiempo, Velocidad, Penalizacion, Calificacion
 					FROM $tablename WHERE ( Categoria = 'M' )
 					ORDER BY Penalizacion ASC, Tiempo ASC";
 				break;
 			case "3": // Only enumerate Small
-				$str= "SELECT $manga AS Manga, IDPerro, Nombre, Licencia, Categoria, Guia, Club,
+				$str= "SELECT $manga AS Manga, Perro, Nombre, Licencia, Categoria, NombreGuia, NombreClub,
 					Faltas, Rehuses, Tocados, Tiempo, Velocidad, Penalizacion, Calificacion
 					FROM $tablename WHERE ( Categoria = 'S' )
 					ORDER BY Penalizacion ASC, Tiempo ASC";
 				break;
 			case "4": // Enumerate Medium+Small
-				$str= "SELECT $manga AS Manga, IDPerro, Nombre, Licencia, Categoria, Guia, Club,
+				$str= "SELECT $manga AS Manga, Perro, Nombre, Licencia, Categoria, NombreGuia, NombreClub,
 					Faltas, Rehuses, Tocados, Tiempo, Velocidad, Penalizacion, Calificacion
 					FROM $tablename WHERE ( Categoria = 'M' ) OR ( Categoria = 'S' )
 					ORDER BY Penalizacion ASC, Tiempo ASC";
 				break;
 			case "5": // Enumerate Large+Medium+Small
-				$str= "SELECT $manga AS Manga, IDPerro, Nombre, Licencia, Categoria, Guia, Club,
+				$str= "SELECT $manga AS Manga, Perro, Nombre, Licencia, Categoria, NombreGuia, NombreClub,
 					Faltas, Rehuses, Tocados, Tiempo, Velocidad, Penalizacion, Calificacion
 					FROM $tablename 
 					ORDER BY Penalizacion ASC, Tiempo ASC";
