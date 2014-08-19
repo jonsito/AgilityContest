@@ -27,10 +27,10 @@ class PDF extends FPDF {
 
 	// geometria de las celdas
 	protected $cellHeader
-					=array('Orden','Nombre','Lic.','Guía','Club','Celo','Observaciones');
-	protected $pos	=array(  10,       30,     15,    50,   30,     10,    40);
-	protected $align=array(  'R',      'L',    'C',   'R',  'R',    'C',   'R');
-	protected $fmt	=array(  'i',      's',    's',   's',  's',    'b',   's');
+					=array('Orden','Dorsal','Nombre','Lic.','Guía','Club','Celo','Observaciones');
+	protected $pos	=array(  12,      12,     30,     15,    50,   30,     10,    26);
+	protected $align=array(  'R',    'R',    'L',    'C',   'R',  'R',    'C',   'R');
+	protected $fmt	=array(  'i',    'i',    's',    's',   's',  's',    'b',   's');
 	protected $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
@@ -78,8 +78,9 @@ class PDF extends FPDF {
 		
 		// pintamos "identificacion de la manga"
 		$this->SetFont('Arial','B',12); // Arial bold 15
-		$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
-		$str2 .= $this->manga->Tipo . " - " . $this->cat[$this->categoria];
+		$str  = $this->jornada['Nombre'] . " - " . $this->jornada['Fecha'];
+		$tmanga= Mangas::$tipo_manga[$this->manga->Tipo][1];
+		$str2 = $tmanga . " - " . $this->cat[$this->categoria];
 		$this->Cell(90,10,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
 		$this->Cell(90,10,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
 		$this->Ln(10);
@@ -129,25 +130,28 @@ class PDF extends FPDF {
 		$rowcount=0;
 		foreach($this->orden as $row) {
 			// if change in categoria, reset orden counter and force page change
-			if ($row->Categoria !== $this->categoria) {
-				$this->categoria = $row->Categoria;
+			if ($row['Categoria'] !== $this->categoria) {
+				$this->categoria = $row['Categoria'];
 				$this->Cell(array_sum($this->pos),0,'','T'); // forzamos linea de cierre
 				$rowcount=0;
 			}
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			if( ($rowcount%35) == 0 ) { // assume 35 rows per page ( rowWidth = 7mmts )
+			if( ($rowcount%32) == 0 ) { // assume 32 rows per page ( rowWidth = 7mmts )
 				if ($rowcount>0) 
 					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre en cambio de pagina
 				$this->addPage();
 				$this->writeTableHeader();
 			}
-			$this->Cell($this->pos[0],7,$rowcount+1,	'LR',0,$this->align[0],$fill); // display order
-			$this->Cell($this->pos[1],7,$row->Nombre,	'LR',0,$this->align[1],$fill);
-			$this->Cell($this->pos[2],7,$row->Licencia,	'LR',0,$this->align[2],$fill);
-			$this->Cell($this->pos[3],7,$row->Guia,		'LR',0,$this->align[3],$fill);
-			$this->Cell($this->pos[4],7,$row->Club,		'LR',0,$this->align[4],$fill);
-			$this->Cell($this->pos[5],7,$row->Celo,		'LR',0,$this->align[5],$fill);
-			$this->Cell($this->pos[6],7,$row->Observaciones,'LR',0,$this->align[6],$fill);
+			$this->SetFont('Arial','B',11); // bold 9px
+			$this->Cell($this->pos[0],7,($rowcount+1)." - ",'LR',0,$this->align[0],$fill); // display order
+			$this->SetFont('Arial','',9); // remove bold 9px
+			$this->Cell($this->pos[1],7,$row['Dorsal'],		'LR',0,$this->align[1],$fill);
+			$this->Cell($this->pos[2],7,$row['Nombre'],		'LR',0,$this->align[2],$fill);
+			$this->Cell($this->pos[3],7,$row['Licencia'],	'LR',0,$this->align[3],$fill);
+			$this->Cell($this->pos[4],7,$row['NombreGuia'],	'LR',0,$this->align[4],$fill);
+			$this->Cell($this->pos[5],7,$row['NombreClub'],	'LR',0,$this->align[5],$fill);
+			$this->Cell($this->pos[6],7,$row['Celo'],		'LR',0,$this->align[6],$fill);
+			$this->Cell($this->pos[7],7,$row['Observaciones'],'LR',0,$this->align[7],$fill);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;
@@ -160,11 +164,11 @@ class PDF extends FPDF {
 
 // Consultamos la base de datos
 try {
-	$myLogger=new Logger("base");
+	$myLogger=new Logger("print_ordenDeSalida");
 	$pruebaid=http_request("Prueba","i",0);
 	$jornadaid=http_request("Jornada","i",0);
 	$mangaid=http_request("Manga","i",0);
-	$myLogger->info("Prueba:$pruebaid Jornada:$jornadaid Manga:$mangaid");
+	$myLogger->info("print_ordenDeSalida::Enter() Prueba:$pruebaid Jornada:$jornadaid Manga:$mangaid");
 	
 	// Datos de la prueba
 	$p=new Pruebas("printOrdenDeSalida");

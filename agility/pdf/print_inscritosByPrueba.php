@@ -111,7 +111,7 @@ class PDF extends FPDF {
 		$rowcount=0;
 		foreach($this->inscritos as $row) {
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			if( ($rowcount%35) == 0 ) { // assume 35 rows per page ( rowWidth = 7mmts )
+			if( ($rowcount%33) == 0 ) { // assume 33 rows per page ( rowWidth = 7mmts )
 				if ($rowcount>0) 
 					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
 				$this->addPage();

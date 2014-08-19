@@ -6,7 +6,7 @@ class Mangas extends DBObject {
 	protected $jornada;
 	
 	/* copia de la estructura de la base de datos, para ahorrar consultas */
-	public $tipo_manga= array(
+	public static $tipo_manga= array(
 			array ( 0,'',''),
 			array( 1, 'Manga sin tipo definido', '-'),
 			array( 2, 'Ronda de Pre-Agility', 'P.A.'),

@@ -1,7 +1,7 @@
 <?php
 require_once("DBObject.php");
 require_once("Jornadas.php");
-require_once("procesaInscripcion.php"); // to insert/remove inscriptions from mangas
+require_once(__DIR__."/../procesaInscripcion.php"); // to insert/remove inscriptions from mangas
 
 class Inscripciones extends DBObject {
 	
@@ -263,7 +263,7 @@ class Inscripciones extends DBObject {
 	 */
 	function inscritos() {
 		$this->myLogger->enter();
-	
+		$result=array();
 		// evaluate offset and row count for query
 		$id = $this->pruebaID;
 		$search =  http_request("where","s","");
@@ -283,6 +283,22 @@ class Inscripciones extends DBObject {
 			http_request("order","s",""),
 			"NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"
 		);
+		// FASE 0: cuenta el numero total de inscritos
+		$str="SELECT count(*)
+		FROM Inscripciones,PerroGuiaClub,Equipos
+		WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) 
+			AND ( Inscripciones.Prueba=$id ) 
+			AND (Equipos.ID=Inscripciones.Equipo) $extra";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		$row=$rs->fetch_array();
+		$result["total"] = $row[0];
+		$rs->free();
+		// if (rowcount==0) no need to perform a second query
+		if ($result["total"]==0) {
+			$result["rows"]=array();
+			return $result;
+		}
 		// FASE 1: obtener lista de perros inscritos con sus datos
 		$str="SELECT Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal, Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
 				Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club , 
@@ -308,7 +324,7 @@ class Inscripciones extends DBObject {
 			array_push($data,$row);
 		}
 		$rs->free();
-		$result=array('total'=>count($data), 'rows'=>$data);
+		$result['rows']=$data;
 		$this->myLogger->leave();
 		return $result;
 	}
