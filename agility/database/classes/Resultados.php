@@ -160,12 +160,12 @@ class Resultados extends DBObject {
 		if ($nopresentado==1) { $tiempo=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0; }
 		if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; $faltas=0; $rehuses=0; $tocados=0; }
 		if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
-		// efectuamos el update
+		// efectuamos el update, marcando "pendiente" como false
 		$sql="UPDATE Resultados 
 			SET Entrada='$entrada' , Comienzo='$comienzo' , 
 				Faltas=$faltas , Rehuses=$rehuses , Tocados=$tocados ,
 				NoPresentado=$nopresentado , Eliminado=$eliminado , 
-				Tiempo=$tiempo , Observaciones='$observaciones' 
+				Tiempo=$tiempo , Observaciones='$observaciones' , Pendiente=0
 			WHERE (Perro=$idperro) AND (Manga=$this->IDManga)";
 		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);

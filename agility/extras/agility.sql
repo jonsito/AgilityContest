@@ -1714,6 +1714,7 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
   `NoPresentado` tinyint(1) NOT NULL DEFAULT '0',
   `Tiempo` double NOT NULL DEFAULT '0',
   `Observaciones` varchar(255) NOT NULL DEFAULT '',
+  `Pendiente` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`Manga`,`Perro`),
   KEY `Resultados_Perro` (`Perro`),
   KEY `Resultados_Dorsal` (`Dorsal`),

@@ -27,10 +27,10 @@ class PDF extends FPDF {
 
 	// geometria de las celdas
 	protected $cellHeader
-					=array('Orden','Nombre','Lic.','Guía','Club','Celo');
-	protected $pos	=array(  15,       35,     20,    60,   40,     20);
-	protected $align=array(  'C',      'L',    'C',   'R',  'R',    'C');
-	protected $fmt	=array(  'i',      's',    's',   's',  's',    'b');
+					=array('Dorsal','Nombre','Lic.','Guía','Club','Celo', 'Observaciones');
+	protected $pos	=array(  15,       35,     20,    50,   30,     10,    30);
+	protected $align=array(  'C',      'R',    'C',   'R',  'R',    'C',   'R');
+	protected $fmt	=array(  'i',      's',    's',   's',  's',    'b',   's');
 	protected $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
@@ -42,7 +42,7 @@ class PDF extends FPDF {
 	function __construct($prueba,$jornada,$manga,$orden) {
 		parent::__construct('Portrait','mm');
 		if ( ($prueba===null) || ($jornada===null) || ($manga===null) || ($orden===null) ) {
-			$this->errormsg="printOrdenDeSalida: either prueba/jornada/ manga/orden data are invalid";
+			$this->errormsg="printEntradaDeDatos: either prueba/jornada/ manga/orden data are invalid";
 			throw new Exception($this->errormsg);
 		}
 		$this->prueba=$prueba;
@@ -50,7 +50,7 @@ class PDF extends FPDF {
 		$this->manga=$manga;
 		$this->orden=$orden;
 		$this->categoria="L";
-		$this->myLogger= new Logger("printOrdenDeSalida");
+		$this->myLogger= new Logger("printEntradaDeDatos");
 	}
 	
 	// Cabecera de página
@@ -78,8 +78,9 @@ class PDF extends FPDF {
 		
 		// pintamos "identificacion de la manga"
 		$this->SetFont('Arial','B',12); // Arial bold 15
-		$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
-		$str2 .= $this->manga->Tipo . " - " . $this->cat[$this->categoria];
+		$str  = $this->jornada['Nombre'] . " - " . $this->jornada['Fecha'];
+		$tmanga= Mangas::$tipo_manga[$this->manga->Tipo][1];
+		$str2 = $tmanga . " - " . $this->cat[$this->categoria];
 		$this->Cell(90,10,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
 		$this->Cell(90,10,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
 		$this->Ln(10);
@@ -118,20 +119,38 @@ class PDF extends FPDF {
 	}
 	
 	function writeTableCell($rowcount,$row) {
-		$this->myLogger->trace("imprimiendo datos del idperro: ".$row->IDPerro);
+		$this->myLogger->trace("imprimiendo datos del idperro: ".$row['Perro']);
 		// cada celda tiene una cabecera con los datos del participante
 		$this->SetFillColor(0,0,255); // azul
 		$this->SetDrawColor(0,0,0); // negro para los recuadros
+		// save cursor position 
+		$x=$this->getX();
+		$y=$this->GetY();
+		// fase 1: contenido de cada celda de la cabecera
 		$this->SetTextColor(255,255,255); // blanco
 		$this->SetFont('Arial','B',20); // bold 9px
-		$this->Cell($this->pos[0],10,$rowcount+1,	'LR',0,$this->align[0],true); // display order
+		$this->Cell($this->pos[0],10,$row['Dorsal'],		'LTR',0,$this->align[0],true); // display order
 		$this->SetFont('Arial','B',12); // bold 9px
-		$this->Cell($this->pos[1],10,$row->Nombre,	'LR',0,$this->align[1],true);
-		$this->Cell($this->pos[2],10,$row->Licencia,	'LR',0,$this->align[2],true);
-		$this->Cell($this->pos[3],10,$row->Guia,		'LR',0,$this->align[3],true);
-		$this->Cell($this->pos[4],10,$row->Club,		'LR',0,$this->align[4],true);
-		$this->Cell($this->pos[5],10,($row->Celo!=0)?"Celo":"",'LR',0,$this->align[5],true);
-		$this->Cell($this->pos[6],10,$row->Observaciones,'LR',0,$this->align[6],true);
+		$this->Cell($this->pos[1],10,$row['Nombre'],		'LTR',0,$this->align[1],true);
+		$this->Cell($this->pos[2],10,$row['Licencia'],		'LTR',0,$this->align[2],true);
+		$this->Cell($this->pos[3],10,$row['NombreGuia'],	'LTR',0,$this->align[3],true);
+		$this->Cell($this->pos[4],10,$row['NombreClub'],	'LTR',0,$this->align[4],true);
+		$this->Cell($this->pos[5],10,($row['Celo']!=0)?"Celo":"",'LTR',0,$this->align[5],true);
+		$this->Cell($this->pos[6],10,$row['Observaciones'],	'LTR',0,$this->align[6],true);
+
+		// fase 2: nombre de cada celda de la cabecera
+		$this->SetXY($x,$y); // restore cursor position
+		$this->SetTextColor(0,0,0); // negro
+		$this->SetFont('Arial','I',8); // italic 8px
+		$this->Cell($this->pos[0],5,'',	'',	0,'L',false); // Dorsal
+		$this->Cell($this->pos[1],5,'Nombre:',	'',	0,'L',false);
+		$this->Cell($this->pos[2],5,'Licencia:','',	0,'L',false);
+		$this->Cell($this->pos[3],5,'Guia:',	'',	0,'L',false);
+		$this->Cell($this->pos[4],5,'Club:',	'',	0,'L',false);
+		$this->Cell($this->pos[5],5,'Celo:',	'',	0,'L',false);
+		$this->Cell($this->pos[6],5,'Observaciones:','',0,'L',false);
+		$this->Cell(0,10); // increase height before newline
+		
 		// Restauración de colores y fuentes
 		$this->SetFillColor(224,235,255); // azul merle
 		$this->SetTextColor(0,0,0); // negro
@@ -166,9 +185,9 @@ class PDF extends FPDF {
 		$rowcount=0;
 		foreach($this->orden as $row) {
 			// if change in categoria, reset orden counter and force page change
-			if ($row->Categoria !== $this->categoria) {
-				$this->myLogger->trace("Nueva categoria es: ".$row->Categoria);
-				$this->categoria = $row->Categoria;
+			if ($row['Categoria'] !== $this->categoria) {
+				$this->myLogger->trace("Nueva categoria es: ".$row['Categoria']);
+				$this->categoria = $row['Categoria'];
 				$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre de categoria
 				$rowcount=0;
 			}
@@ -194,16 +213,16 @@ try {
 	$myLogger->info("Prueba:$pruebaid Jornada:$jornadaid Manga:$mangaid");
 	
 	// Datos de la prueba
-	$p=new Pruebas("printOrdenDeSalida");
+	$p=new Pruebas("printEntradaDeDatos");
 	$prueba=$p->selectByID($pruebaid);
 	// Datos de la jornada
-	$j=new Jornadas("printOrdenDeSalida",$pruebaid);
+	$j=new Jornadas("printEntradaDeDatos",$pruebaid);
 	$jornada=$j->selectByID($jornadaid);
 	// Datos de la manga
-	$m = new Mangas("printOrdenDeSalida",$jornadaid);
+	$m = new Mangas("printEntradaDeDatos",$jornadaid);
 	$manga= $m->selectByID($mangaid);
 	// Datos del orden de salida
-	$o = new OrdenSalida("printOrdenDeSalida");
+	$o = new OrdenSalida("printEntradaDeDatos");
 	$orden= $o->getData($pruebaid,$jornadaid,$mangaid);
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e.getMessage());
@@ -212,6 +231,6 @@ try {
 $pdf = new PDF($prueba,$jornada,$manga,$orden['rows']);
 $pdf->AliasNbPages();
 $pdf->composeTable();
-$pdf->Output("printOrdenDeSalida.pdf","D"); // "D" means open download dialog
+$pdf->Output("printEntradaDeDatos.pdf","D"); // "D" means open download dialog
 echo json_encode(array('success'=>true));
 ?>
