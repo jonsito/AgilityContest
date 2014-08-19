@@ -7,7 +7,7 @@ try {
 	$result=null;
 	$operation=http_request("Operation","s",null);
 	$mangaID=http_request("Manga","i",0);
-	$idperro=http_request("IDPerro","i",0);
+	$idperro=http_request("Perro","i",0);
 	if ($operation===null) throw new Exception("Call to resultadosFunction without 'Operation' requested");
 	$resultados= new Resultados("resultadosFunctions",$mangaID);
 	switch ($operation) {

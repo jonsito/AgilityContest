@@ -146,7 +146,7 @@ class OrdenSalida extends DBObject {
 			// quiere decir que no hay nadie inscrito. Indica error
 			return $this->myLogger->error("No hay inscripciones en Prueba:$prueba Jornada:$jornada Manga:$manga");
 		}
-		$this->myLogger->debug("Resultados::Enumerate() Manga:$manga El orden de salida es: \n$orden");
+		$this->myLogger->debug("OrdenSalida::getData() Manga:$manga El orden de salida es: \n$orden");
 		$lista = explode ( ",", $orden );
 		
 		// fase 2: obtenemos todos los resultados de esta manga 
@@ -192,35 +192,66 @@ class OrdenSalida extends DBObject {
 	 */
 	function random($jornada, $manga) {
 		$this->myLogger->enter();
-		// fase 0: establecemos los string iniciales en base al orden especificado
-		$ordensalida = $this->default_orden;
-		// fase 1: obtener los perros inscritos en la jornada
-		$sql1 = "SELECT * FROM InscritosJornada WHERE ( Jornada=$jornada ) ORDER BY Categoria ASC , Celo ASC, Equipo, Orden";
-		$rs1 = $this->query ($sql1 );
-		if (!$rs1) return $this->error($this->conn->error);
-		
-		// fase 2: obtener las categorias de perros que debemos aceptar
-		$sql2 = "SELECT Grado FROM Mangas WHERE ( ID=$manga )";
-		$rs2 = $this->query ($sql2 );
-		if (!$rs2) return $this->error($this->conn->error);
-		$obj2 = $rs2->fetch_object ();
-		$rs2->free ();
-		$grado = $obj2->Grado;
-		
-		// fase 3: generar la lista de perros "ordenada" al azar
-		while ( $row = $rs1->fetch_object () ) {
-			// only add to list when grado is '-' (Any) or grado matches requested
-			if (($grado !== "-") && ($grado !== $row->Grado))
-				continue;
-				// elaborate ordensalida
-			$ordensalida = $this->insertIntoList ( $ordensalida, $row->IDPerro, $row->Categoria, $row->Celo );
+		// obtenemos el orden de salida
+		$ordensalida=$this->getOrden($manga);
+		if ($ordensalida==="") {
+			// si no hay orden de salida predefinido,
+			// quiere decir que no hay nadie inscrito. Indica error
+			return $this->myLogger->error("No hay inscripciones en Jornada:$jornada Manga:$manga");
 		}
-		$rs1->free ();
+		$this->myLogger->debug("OrdenSalida::Random() Manga:$manga Orden original: \n$ordensalida");
+		// "troceamos" el orden por categorias, y reorganizamos cada subcategoria al azar
+		// "BEGIN,TAG_-0,TAG_-1,TAG_L0,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END";
+		$newOrden="BEGIN,";
+		$str=getInnerString($ordensalida,"BEGIN,",",TAG_-0");
+		if ($str!=="") $newOrden = $newOrden . implode(",",aleatorio(explode(",", $str))) . ",";
+		$newOrden = $newOrden . "TAG_-0,";
+
+		$str=getInnerString($ordensalida,"TAG_-0,",",TAG_-1");
+		if ($str!=="") $newOrden = $newOrden . implode(",",aleatorio(explode(",", $str))) . ",";
+		$newOrden = $newOrden . "TAG_-1,";
+
+		$str=getInnerString($ordensalida,"TAG_-1,",",TAG_L0");
+		if ($str!=="") $newOrden = $newOrden . implode(",",aleatorio(explode(",", $str))) . ",";
+		$newOrden = $newOrden . "TAG_L0,";
+
+		$str=getInnerString($ordensalida,"TAG_L0,",",TAG_L1");
+		if ($str!=="") $newOrden = $newOrden . implode(",",aleatorio(explode(",", $str))) . ",";
+		$newOrden = $newOrden . "TAG_L1,";
+
+		$str=getInnerString($ordensalida,"TAG_L1,",",TAG_M0");
+		if ($str!=="") $newOrden = $newOrden . implode(",",aleatorio(explode(",", $str))) . ",";
+		$newOrden = $newOrden . "TAG_M0,";
+
+		$str=getInnerString($ordensalida,"TAG_M0,",",TAG_M1");
+		if ($str!=="") $newOrden = $newOrden . implode(",",aleatorio(explode(",", $str))) . ",";
+		$newOrden = $newOrden . "TAG_M1,";
+
+		$str=getInnerString($ordensalida,"TAG_M1,",",TAG_S0");
+		if ($str!=="") $newOrden = $newOrden . implode(",",aleatorio(explode(",", $str))) . ",";
+		$newOrden = $newOrden . "TAG_S0,";
+
+		$str=getInnerString($ordensalida,"TAG_S0,",",TAG_S1");
+		if ($str!=="") $newOrden = $newOrden . implode(",",aleatorio(explode(",", $str))) . ",";
+		$newOrden = $newOrden . "TAG_S1,";
+
+		$str=getInnerString($ordensalida,"TAG_S1,",",TAG_T0");
+		if ($str!=="") $newOrden = $newOrden . implode(",",aleatorio(explode(",", $str))) . ",";
+		$newOrden = $newOrden . "TAG_T0,";
+
+		$str=getInnerString($ordensalida,"TAG_T0,",",TAG_T1");
+		if ($str!=="") $newOrden = $newOrden . implode(",",aleatorio(explode(",", $str))) . ",";
+		$newOrden = $newOrden . "TAG_T1,";
+
+		$str=getInnerString($ordensalida,"TAG_T1,",",END");
+		if ($str!=="") $newOrden = $newOrden . implode(",",aleatorio(explode(",", $str))) . ",";
+		$newOrden = $newOrden . "END";
+
+		// almacenamos el nuevo orden de salida
+		$this->myLogger->debug("OrdenSalida::Random() Manga:$manga Orden final: \n$newOrden");
+		$this->setOrden ( $manga, $newOrden );
 		
-		// fase 4: almacenar el orden de salida en los datos de la manga
-		$this->setOrden ( $manga, $ordensalida );
-		
-		// fase 5: limpieza y retorno de resultados
+		// limpieza y retorno de resultados
 		$this->myLogger->leave();
 		return $ordensalida;
 	}
@@ -289,90 +320,6 @@ class OrdenSalida extends DBObject {
 		$this->myLogger->trace("El orden de salida nuevo es:\n$ordensalida");
 		return $ordensalida;
 		$this->myLogger->leave();
-	}
-	
-	/**
-	 * Inserta/actualiza/elimina un perro del orden de salida
-	 * @param {integer} $idjornada ID de jornada
-	 * @param {integer} $idmanga ID de manga
-	 * @param {integer} $idperro IDPerro
-	 * @return {string} null on error, "" on success
-	 */
-	function handle($idjornada,$idmanga,$idperro) {
-		$this->myLogger->enter();
-		
-		// obtenemos datos de jornada
-		// si jornada cerrada no hacemos nada
-		$sql = "SELECT * FROM Jornadas WHERE ( ID=$idjornada )";
-		$rs = $this->query( $sql );
-		if (!$rs) return $this->error($this->conn->error);
-		$jornada = $rs->fetch_object();
-		$rs->free ();
-		if (!$jornada) return $this->error("No hay datos registrados de la jornada $idjornada");
-		if ($jornada->Cerrada==1) return $this->error("No se puede modificar una jornada cerrada");
-
-		// obtenemos datos de manga
-		// si orden de salida vacio o manga cerrada no hacemos nada
-		$sql = "SELECT * FROM Mangas WHERE ( ID=$idmanga )";
-		$rs = $this->query( $sql );
-		if (!$rs) return $this->error($this->conn->error);
-		$manga = $rs->fetch_object();
-		$rs->free ();
-		if (!$manga) return $this->error("No hay datos registrados de la manga $idmanga");
-		
-		// si el orden de salida esta vacio no hacemos nada
-		if ($manga->Orden_Salida==="") {
-			$this->myLogger->info("La manga $idmanga no tiene definido orden de salida");
-			$this->myLogger->leave();
-			return "";
-		}
-		$ordensalida= $manga->Orden_Salida;
-		
-		// obtenemos datos del perro
-		// si el perro no esta inscrito en esta jornada nos aseguramos de que esta borrado de la manga
-		$sql = "SELECT * FROM InscritosJornada WHERE ( Jornada=$idjornada ) AND ( IDPerro=$idperro)";
-		$rs = $this->query ($sql );
-		if (!$rs) return $this->error($this->conn->error);
-		$perro = $rs->fetch_object();
-		$rs->free ();
-		if (!$perro) {
-			$this->myLogger->notice("El perro $idperro no figura inscrito en la jornada $idjornada");
-			$ordensalida=$this->removeFromList($ordensalida,$idperro);
-			$this->myLogger->leave();
-			return $this->setOrden($idmanga,$ordensalida);
-		}
-
-		// si el perro esta inscrito en la jornada, pero la manga no es compatible, lo borramos de la manga
-		if ($perro->Grado != $manga->Grado) {
-			if ($manga->Grado!=="-") {
-				$this->myLogger->info("El perro con idperro $idperro no puede competir en la manga $idmanga");
-				$ordensalida=$this->removeFromList($ordensalida,$idperro);
-				$this->myLogger->leave();
-				return $this->setOrden($idmanga,$ordensalida);
-			}
-		}
-		// si llegamos hasta aqui hay que inscribir al perro en la manga
-
-		// si no esta inscrito en la manga, lo inscribimos
-		if ( strpos($ordensalida,',$idperro,')===false) {
-			$nuevoorden=$this->insertIntoList($ordensalida, $idperro, $perro->Categoria, $perro->Celo);
-			$this->myLogger->leave();
-			return $this->setOrden($idmanga,$nuevoorden);
-		}
-
-		// si esta inscrito en la manga, vemos si esta en el sitio correcto (cat,celo)
-		$bien=$this->verify($ordensalida,idperro, $perro->Categoria, $perro->Celo);
-		if ($bien) {
-			// si esta bien inscrito, no hacemos nada
-			$this->myLogger->info("El perro $idperro ya esta BIEN inscrito en la manga $idmanga");
-		} else {
-			// si esta mal inscrito lo borramos y reinsertamos en el sitio correcto
-			$this->myLogger->info("El perro $idperro esta MAL inscrito en la manga $idmanga . Corregimos");
-			$nuevoorden=$this->removeFromList($ordensalida,$idperro);
-			$ordensalida=$this->insertIntoList($ordensalida, $idperro, $perro->Categoria, $perro->Celo);
-		}
-		$this->myLogger->leave();
-		return $this->setOrden($idmanga,$ordensalida);
 	}
 	
 	function dragAndDrop($jornada,$manga,$from,$to,$where) {

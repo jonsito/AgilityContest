@@ -26,9 +26,9 @@
 
 	<div id="team_dialog-buttons">
 	   	<a id="team_edit_dialog-okBtn" href="#" class="easyui-linkbutton" 
-	   			iconCls="icon-save" onclick="saveTeam()">Guardar</a>
+	   			data-options="iconCls:'icon-save'" onclick="saveTeam()">Guardar</a>
 		<a id="team_edit_dialog-cancelBtn" href="#" class="easyui-linkbutton" 
-				iconCls="icon-cancel" onclick="javascript:$('#team_edit_dialog').dialog('close')">Cerrar</a>
+				data-options="iconCls:'icon-cancel'" onclick="javascript:$('#team_edit_dialog').dialog('close')">Cerrar</a>
 	</div>
 	
 </div>

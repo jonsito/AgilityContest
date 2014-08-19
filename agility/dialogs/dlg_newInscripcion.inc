@@ -90,7 +90,7 @@
 	
 	<!-- barra de progreso de actualizacion de inscripciones -->
 	<div id="new_inscripcion-progresswindow" class="easyui-window">
-		<p id="new_incripcion-progresslabel" style="align:center">Inscribiendo a:</p>
+		<p id="new_inscripcion-progresslabel" style="align:center">Inscribiendo a:</p>
 		<div id="new_inscripcion-progressbar" style="align:center;"></div>
 	</div>
 	

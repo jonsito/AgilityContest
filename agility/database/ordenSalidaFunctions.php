@@ -27,7 +27,6 @@ try {
 	switch ($operation) {
 		case "random":	$result = $os->random($j,$m); break;
 		case "reverse":	$result = $os->reverse($j,$m); break;
-		case "handle":	$result = $os->handle($j,$m,$d); break;
 		case "getData":	$result = $os->getData($p,$j,$m); break;
 		case "dnd":	$result = $os->dragAndDrop($j,$m,$f,$t,$w); break;
 	}

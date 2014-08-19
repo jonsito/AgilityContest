@@ -81,6 +81,29 @@ function random_password($chars = 8) {
 }
 
 /**
+ * Randomize array content
+ * @param {array} $a array a reordenar
+ * @return shuffled array
+ */
+function aleatorio($a) { shuffle($a); return $a; }
+
+/**
+ * Return the substring starting after '$from' and ending before '$to'
+ * @param {string} $str string to search into
+ * @param {string} $from start tag
+ * @param {string} $to end tag
+ */
+function getInnerString($str,$from="",$to="") {
+		$str = " ".$str;
+		$ini = strpos($str,$from);
+		if ($ini == 0) return "";
+		$ini += strlen($from);
+		$len = strpos($str,$to,$ini) - $ini;
+		if ($len<=0) return "";
+		return substr($str,$ini,$len);
+}
+
+/**
  * Compose a valid ORDER sentence by mean of received comma-separaqted strings
  * from easyui sort & order http requests
  */
