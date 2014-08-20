@@ -176,9 +176,96 @@ class Resultados extends DBObject {
 	/**
 	 * Presenta una tabla ordenada segun los resultados de la manga
 	 * @return null on error else array en formato easyui datagrid
+	 *@param {integer} mode 0:L 1:M 2:S 3:MS 4:LMS.
+	 *@return requested data or error
 	 */
-	function getResultados() {
-		// TODO: write
+	
+	function getResultados($mode) {
+		$this->myLogger->enter();
+		$idmanga=$this->IDManga;
+		
+		// FASE 0: en funcion del tipo de recorrido y modo pedido
+		// ajustamos el criterio de busqueda de la tabla de resultados
+		$where="(Manga=$idmanga) AND (Pendiente=0) ";
+		switch ($this->manga->Recorrido) {
+			case 0: // Large, Medium, Small por separado
+				switch($mode) {
+					case 0: /* Large */		$where= "$where AND (Categoria='L')"; break;
+					case 1: /* Medium */	$where= "$where AND (Categoria='M')"; break;
+					case 2: /* Small */		$where= "$where AND (Categoria='S')"; break;
+					case 3: // Medium+Small - invalido
+					case 4: // Large+Medium+Small - invalido
+					default:
+						return $this->error("Tipo de recorrido 0 incompatible con datos pedidos");
+				} 
+			case 1: // Large por separado, Medium+Small conjunta
+				switch($mode) {
+					case 0: /* Large */		$where= "$where AND (Categoria='L')"; break;
+					case 3: /* Medium+Small */ $where= "$where AND ( (Categoria='L') OR (Categoria='M') )"; break;
+					case 1: // Medium - invalido
+					case 2: // Small - invalido
+					case 4: // Large+Medium+Small - invalido
+					default:
+						return $this->error("Tipo de recorrido 1 incompatible con datos pedidos");
+				} 
+			case 2: // Large+Medium+Small conjunta
+				switch($mode) {
+					case 4: // Large+Medium+Small */
+						$where= "$where AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
+					case 0: // Large - invalido
+					case 1: // Medium - invalido
+					case 2: // Small - invalido
+					case 3: // Medium+Small - invalido
+					default:
+						return $this->error("Tipo de recorrido 2 incompatible con datos pedidos");
+				}
+		}
+		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
+		$res=$this->__select(
+				"Dorsal,Perro,Nombre,Licencia,Categoria,NombreGuia,NombreClub,Faltas,Tocados,Rehuses,Tiempo,
+					( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido", 
+				"Resultados", 
+				$where, 
+				" PRecorrido ASC, Tiempo ASC", 
+				"");
+		$table=$res['rows'];
+		$this->myLogger->leave();
+		// FASE 2: evaluamos TRS Y TRM
+		$mng= new Mangas("Resultados::getResultados",$this->IDJornada,$this->IDManga);
+		$tdata=$mng->evalTRS($this->manga->Recorrido,$mode); // 'dist' 'obst' 'trs' 'trm'
+		$trs=$tdata['trs'];
+		$trm=$tdata['trm'];
+		// FASE 3: añadimos ptiempo, puntuacion y clasificacion
+		foreach ($table as $row ) {
+			// evaluamos penalizacion por tiempo y penalizacion final
+			if ($row['Tiempo']<$trs)  // Por debajo del TRS
+				{ $row['PTiempo']=0; $row['Penalizacion']=$row['PRecorrido']; }
+			if ($row['Tiempo']>=$trs) // Superado TRS
+				{ $row['PTiempo']=$row['Tiempo']-$trs; $row['Penalizacion']=$row['PRecorrido']+$row['PTiempo']; }
+			if ($row['Tiempo']>$trm) // Superado TRM: eliminado
+				{ $row['PTiempo']=100; $row['Penalizacion']=100; }
+				
+			// evaluamos velocidad y ajustamos numero de decimales
+			if ($row['Tiempo']==0) $row['Velocidad']=0;
+			else $row['Velocidad'] = number_format( $tdata['dist'] / $row['Tiempo'], 1); // velocidad con 1 decimal
+			$row['Penalizacion'] =number_format($row['Penalizacion'],2); // penalizacion con 2 decimales
+			
+			// evaluamos calificacion
+			if ($row['Penalizacion']==0)	$row['Calificacion'] = "Excelente (p)";
+			if ($row['Penalizacion']>0)		$row['Calificacion'] = "Excelente";
+			if ($row['Penalizacion']>=6)	$row['Calificacion'] = "Muy Bien";
+			if ($row['Penalizacion']>=16)	$row['Calificacion'] = "Bueno";
+			if ($row['Penalizacion']>=26)	$row['Calificacion'] = "No Clasificado";
+			if ($row['Penalizacion']>=100) {$row['Penalizacion']=100; $row['Calificacion'] = "Eliminado"; }
+			if ($row['Penalizacion']=200)  {$row['Penalizacion']=200; $row['Calificacion'] = "No Presentado"; }
+		}
+		// FASE 4: re-ordenamos los datos en base a la puntuacion y retornamos resultado
+		usort($table, function($a, $b) {
+			return $b['Penalizacion'] - $a['Penalizacion']; // sort in reverse (ASC) order
+		});
+		// finalmente retornamos array
+		$this->myLogger->leave();
+		return $res;
 	}
 }
 ?>
