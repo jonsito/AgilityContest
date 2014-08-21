@@ -106,20 +106,55 @@ function reloadCompeticion() {
     );
 }
 
-function reloadResultadosManga() {
+/**
+ * Reload ventana de resultados
+ * @param recorrido 0:L/M/S 1:L/M+S 2:/L+M+S
+ */
+function reloadResultadosManga(recorrido) {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
+	// recargamos el datagrid con los resultados pedidos
     $('#resultadosmanga-datagrid').datagrid(
             'load',
             { 
             	Prueba: workingData.prueba,
             	Jornada: workingData.jornada , 
-            	Manga: workingData.manga , 
+            	Manga: workingData.manga ,
+            	Mode: (recorrido==2)?4:0,
             	Operation: 'getResultados'
             }
     );
-    $('#resultadosmanga-trs-form').form(
-    		'load',"database/mangaFunctions.php?Operation=getTRS&Prueba="+workingData.prueba+"&Jornada="+workingData.jornada+"&Manga="+workingData.manga);
+    // actualizamos la informacion del panel de informacion de trs/trm
+    alert("Recorrido es: "+recorrido);
+    switch(recorrido){
+    case 0: // Large / Medium / Small
+    	// ajustar textos
+    	$('#resultadosmanga-MediumRow').css("display:initial");
+    	$('#resultadosmanga-SmallRow').css("display:initial");
+    	$('#resultadosmanga-LargeLbl').text("Large");
+    	$('#resultadosmanga-MediumLbl').text("Medium");
+    	$('#resultadosmanga-SmallLbl').text("Small");
+    	// obtener datos de trs y trm para cada categoria
+    	break;
+    case 1: // Large / Medium+Small
+    	// ajustar textos
+    	$('#resultadosmanga-MediumRow').css("display:initial");
+    	$('#resultadosmanga-SmallRow').css("display:hidden");
+    	$('#resultadosmanga-LargeLbl').text("Large");
+    	$('#resultadosmanga-MediumLbl').text("Medium + Small");
+    	$('#resultadosmanga-SmallLbl').text("");
+    	// obtener datos de trs y trm para cada categoria
+    	break;
+    case 2: // Large+Medium+Small conjunta
+    	// ajustar textos
+    	$('#resultadosmanga-MediumRow').css("display:hidden");
+    	$('#resultadosmanga-SmallRow').css("display:hidden");
+    	$('#resultadosmanga-LargeLbl').text("Large + Medium + Small");
+    	$('#resultadosmanga-MediumLbl').text("");
+    	$('#resultadosmanga-SmallLbl').text("");
+    	// obtener datos de trs y trm para cada categoria
+    	break;
+    }
 }
 
 function saveCompeticionData(idx,data) {

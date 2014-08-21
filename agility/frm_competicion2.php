@@ -64,6 +64,8 @@ $('#competicion-listamangas').datagrid({
     columns:[[
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Tipo',			hidden:true }, // Tipo de manga
+      	    { field:'Grado',		hidden:true }, // Grado de los perros de la manga
+      	    { field:'Recorrido',	hidden:true }, // 0:L/M/S 1:L/M+S 2:L+M+S
       	    { field:'Descripcion',	width:200, sortable:false, align:'right'}, // texto del tipo de manga
     ]],
     rowStyler:myRowStyler,
@@ -72,9 +74,11 @@ $('#competicion-listamangas').datagrid({
             $('#competicion-datosmanga').html("");
         	workingData.manga=0;
         	workingData.nombreManga="";
+        	workingData.datosManga=null;
             return; 
         }
         // guardamos el id y el nombre de la manga
+        workingData.datosManga=row;
         workingData.manga=row.ID;
         workingData.nombreManga=row.Descripcion;
         // cannot use loadcontents, because need to execute commands, _after_ html document load success
@@ -87,7 +91,7 @@ $('#competicion-listamangas').datagrid({
         // refresh orden de salida/competicion/resultados
         reloadOrdenSalida();
         reloadCompeticion();
-        reloadResultadosManga('LMS');
+        reloadResultadosManga(row.Recorrido);
     }
 });
 

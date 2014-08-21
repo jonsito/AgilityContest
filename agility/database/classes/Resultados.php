@@ -47,14 +47,14 @@ class Resultados extends DBObject {
 	 * gets distance, obstacles, trs and trm
 	 * @param {integer} $mode 0:Large 1:Medium 2:Small 3:M+S 4:L+M+S
 	 * @param {array} current results data according $mode 
-	 * @return array('dist','obst','trs','trm') or null on error
+	 * @return array('dist','obst','trs','trm','vel') or null on error
 	 */
-	private function evalTRS($mode,$results) {
+	private function evalTRS($mode,$data) {
 		$dmanga=(array) $this->getDatosManga();
 		$result= array();
 		// vemos de donde tenemos que tomar los datos
 		$suffix='L';
-		switch(mode) {
+		switch($mode) {
 			case 0: $suffix='L'; break;
 			case 1: $suffix='M'; break;
 			case 2: $suffix='S'; break;
@@ -67,10 +67,10 @@ class Resultados extends DBObject {
 		// evaluamos mejor tiempo y media de los tres mejores
 		$best1=0;
 		$best3=0;
-		if (count($result==0)) { $best1=0; $best3=0;} // no hay ni resultados ni tiempos
-		if (count($result==1)) { $best1=$result[0]['Tiempo']; $best3=$result[0]['Tiempo'];}
-		if (count($result==2)) { $best1=$result[0]['Tiempo']; $best3=($result[0]['Tiempo']+$result[1]['Tiempo'])/2;}
-		if (count($result>=3)) { $best1=$result[0]['Tiempo']; $best3=($result[0]['Tiempo']+$result[1]['Tiempo']+$result[2]['Tiempo'])/3;}
+		if (count($data)==0) { $best1=0; $best3=0;} // no hay ni resultados ni tiempos
+		if (count($data)==1) { $best1=$data[0]['Tiempo']; $best3=$data[0]['Tiempo'];}
+		if (count($data)==2) { $best1=$data[0]['Tiempo']; $best3=($data[0]['Tiempo']+$data[1]['Tiempo'])/2;}
+		if (count($data)>=3) { $best1=$data[0]['Tiempo']; $best3=($data[0]['Tiempo']+$data[1]['Tiempo']+$data[2]['Tiempo'])/3;}
 		// Evaluamos TRS
 		switch ($dmanga["TRS_{$suffix}_Tipo"]) {
 			case 0: // tiempo fijo
@@ -97,6 +97,8 @@ class Resultados extends DBObject {
 				break;
 		}
 		$result['trm']=ceil($result['trm']); // redondeamos hacia arriba
+		// Finalmente evaluamos la velocidad de la ronda
+		$result['vel']= ($result['trs']==0)?0:number_format($result['dist']/$result['trs'],1);
 		// esto es todo amigos
 		return $result;
 	}
@@ -264,7 +266,7 @@ class Resultados extends DBObject {
 		// FASE 0: en funcion del tipo de recorrido y modo pedido
 		// ajustamos el criterio de busqueda de la tabla de resultados
 		$where="(Manga=$idmanga) AND (Pendiente=0) ";
-		switch ($this->dmanga->Recorrido) {
+		switch ($this->getDatosManga()->Recorrido) {
 			case 0: // Large, Medium, Small por separado
 				switch($mode) {
 					case 0: /* Large */		$where= "$where AND (Categoria='L')"; break;
@@ -273,8 +275,9 @@ class Resultados extends DBObject {
 					case 3: // Medium+Small - invalido
 					case 4: // Large+Medium+Small - invalido
 					default:
-						return $this->error("Tipo de recorrido 0 incompatible con datos pedidos");
-				} 
+						return $this->error("Tipo de recorrido 0 incompatible con modo pedido:$mode");
+				}
+				break;
 			case 1: // Large por separado, Medium+Small conjunta
 				switch($mode) {
 					case 0: /* Large */		$where= "$where AND (Categoria='L')"; break;
@@ -283,8 +286,9 @@ class Resultados extends DBObject {
 					case 2: // Small - invalido
 					case 4: // Large+Medium+Small - invalido
 					default:
-						return $this->error("Tipo de recorrido 1 incompatible con datos pedidos");
-				} 
+						return $this->error("Tipo de recorrido 1 incompatible con modo pedido:$modo");
+				}
+				break;
 			case 2: // Large+Medium+Small conjunta
 				switch($mode) {
 					case 4: // Large+Medium+Small */
@@ -294,8 +298,9 @@ class Resultados extends DBObject {
 					case 2: // Small - invalido
 					case 3: // Medium+Small - invalido
 					default:
-						return $this->error("Tipo de recorrido 2 incompatible con datos pedidos");
+						return $this->error("Tipo de recorrido 2 incompatible con modo pedido:$mode");
 				}
+				break;
 		}
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
@@ -308,7 +313,8 @@ class Resultados extends DBObject {
 		$table=$res['rows'];
 		$this->myLogger->leave();
 		// FASE 2: evaluamos TRS Y TRM
-		$tdata=$this->evalTRS($mode,table); // array( 'dist' 'obst' 'trs' 'trm')
+		$tdata=$this->evalTRS($mode,$table); // array( 'dist' 'obst' 'trs' 'trm', 'vel')
+		$res['trs']=$tdata; // store trs data into result
 		$trs=$tdata['trs'];
 		$trm=$tdata['trm'];
 		// FASE 3: añadimos ptiempo, puntuacion y clasificacion
@@ -342,6 +348,13 @@ class Resultados extends DBObject {
 		// finalmente retornamos array
 		$this->myLogger->leave();
 		return $res;
+	}
+	
+	function getTRS($mode) {
+		$this->myLogger->enter();
+		$trs=getResultados($mode)['trs'];
+		$this->myLogger->leave();
+		return $trs;
 	}
 }
 ?>

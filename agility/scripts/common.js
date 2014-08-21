@@ -65,6 +65,7 @@ function initWorkingData() {
 	workingData.nombreManga = ""; // denominacion de la manga
 	workingData.datosPrueba= new Object(); // last selected prueba data
 	workingData.datosJornada= new Object(); // last selected jornada data
+	workingData.datosManga= new Object(); // last selected jornada data
 	workingData.datosRonda= new Object(); // last selected ronda (grade, manga1, manga2)
 }
 

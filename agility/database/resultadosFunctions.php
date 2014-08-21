@@ -8,6 +8,7 @@ try {
 	$operation=http_request("Operation","s",null);
 	$mangaID=http_request("Manga","i",0);
 	$idperro=http_request("Perro","i",0);
+	$mode=http_request("Mode","i",0);
 	if ($operation===null) throw new Exception("Call to resultadosFunction without 'Operation' requested");
 	$resultados= new Resultados("resultadosFunctions",$mangaID);
 	switch ($operation) {
@@ -15,7 +16,8 @@ try {
 		case "update": $result=$resultados->update($idperro); break;
 		case "delete": $result=$resultados->delete($idperro); break;
 		case "select": $result=$resultados->select($idperro); break;
-		case "getResultados": $result=$resultados->getResultados(); break;
+		case "getResultados": $result=$resultados->getResultados($mode); break;
+		case "getTRS": $result=$resultados->getTRS($mode); break;
 		default: throw new Exception("resultadosFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) throw new Exception($resultados->errormsg);

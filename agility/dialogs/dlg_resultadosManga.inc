@@ -14,24 +14,28 @@
 	<div id="resultadosmanga-trs">
 		<form id="resultadosmanga-trs-form" method="get">
 			<table style="float:left;">
-				<tr>
-					<th>Large</th>
+				<tr><th colspan="6">Datos de la manga y categor&iacute;a(s) seleccionada(s)</th></tr>
+				<tr id="resultadosmanga-LargeRow">
+					<td><input type="radio" name="Recorrido" id="resultadosmanga-LargeBtn" value="0" checked="checked"></td>
+					<th id="resultadosmanga-LargeLbl">Large</th>
 					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" name="DIST_L"></td>
 					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" name="OBST_L"></td>
 					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" name="TRS_L"></td>
 					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" name="TRM_L"></td>
 					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" name="VEL_L"></td>
 				</tr>
-				<tr>
-					<th>Medium</th>
+				<tr id="resultadosmanga-MediumRow">
+					<td><input type="radio" name="Recorrido" id="resultadosmanga-LargeBtn" value="1"></td>
+					<th id="resultadosmanga-MediumLbl">Medium</th>
 					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" name="DIST_M"></td>
 					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" name="OBST_M"></td>
 					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" name="TRS_M"></td>
 					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" name="TRM_M"></td>
 					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" name="VEL_M"></td>
 				</tr>
-				<tr>
-					<th>Small</th>
+				<tr id="resultadosmanga-SmallRow">
+					<td><input type="radio" name="Recorrido" id="resultadosmanga-LargeBtn" value="2"></td>
+					<th id="resultadosmanga-SmallLbl">Small</th>
 					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" name="DIST_S"></td>
 					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" name="OBST_S"></td>
 					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" name="TRS_S"></td>
@@ -72,6 +76,7 @@ $('#resultadosmanga-datagrid').datagrid({
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
         Manga: workingData.manga,
+        Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
         Operation: 'getResultados'
     },
     loadMsg: "Actualizando resultados de la manga ...",
@@ -85,7 +90,7 @@ $('#resultadosmanga-datagrid').datagrid({
         { field:'Perro',		hidden:true },
         { field:'Dorsal',		hidden:true},
       	{ field:'Licencia',		hidden:true },
-        { field:'Puesto',		width:10, align:'left',  title: 'Puesto'},
+        { field:'Puesto',		width:12, align:'left',  title: 'Puesto'},
         { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
         { field:'NombreGuia',	width:40, align:'right', title: 'Guia' },
         { field:'NombreClub',	width:25, align:'right', title: 'Club' },
@@ -95,7 +100,7 @@ $('#resultadosmanga-datagrid').datagrid({
       	{ field:'Tocados',		width:10, align:'center', title: 'Tocados'},
       	{ field:'Tiempo',		width:15, align:'right', title: 'Tiempo'},
       	{ field:'Velocidad',	width:10, align:'right', title: 'Vel.'},
-      	{ field:'Penalizacion',		width:15, align:'right', title: 'Penal.'}, 
+      	{ field:'Penalizacion',	width:15, align:'right', title: 'Penal.'}, 
       	{ field:'Calificacion',	width:25, align:'center',title: 'Calificacion'}
     ]],
     rowStyler:function(index,row) { // colorize rows

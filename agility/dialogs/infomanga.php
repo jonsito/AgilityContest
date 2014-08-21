@@ -144,12 +144,8 @@
 			<td colspan="2">Observaciones</td>
 			<td colspan="11"><input type="text" id="dmanga_Observaciones" name="Observaciones" size="75" value=""/></td>
 		</tr>
-		<tr> <!-- fila 7: manga cerrada. botones reset y save -->
-			<td colspan="2">
-				<label for="dmanga_Cerrada">Cerrar manga</label>
-				<input class="easyui-checkbox" type="checkbox" id="dmanga_Cerrada" name="Cerrada" value="1">
-			</td>
-			<td colspan="3">&nbsp;</td>
+		<tr> <!-- fila 7: botones reset y save -->
+			<td colspan="5">&nbsp;</td>
 			<td>
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" 
 					id="dmanga_Restaurar" onclick="reload_manga(workingData.manga);">Restaurar</a>
@@ -213,7 +209,6 @@ addTooltip($('#dmanga_Juez2').combogrid('textbox'),"Datos del juez auxiliar/pr&a
 addTooltip($('#dmanga_Recorrido_0'),"Recorrido &uacute;nico para las tres categor&iacute;as");
 addTooltip($('#dmanga_Recorrido_1'),"Recorridos separados para Standard y Mini-Midi");
 addTooltip($('#dmanga_Recorrido_2'),"Recorridos independientes para cada cagegor&iacute;a");
-addTooltip($('#dmanga_Cerrada'),"Marcar la manga como finalizada<br/>Generar datos definitivos");
 addTooltip($('#dmanga_Restaurar').linkbutton(),"Restaurar datos originales de la manga");
 addTooltip($('#dmanga_Guardar').linkbutton(),"Guardar los datos t&eacute;cnicos de la manga");
 
