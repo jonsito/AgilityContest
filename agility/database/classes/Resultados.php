@@ -5,12 +5,102 @@ require_once("Mangas.php");
 require_once("Jornadas.php");
 
 class Resultados extends DBObject {
-	protected $manga; // datos de la manga
 	protected $IDManga; // ID de la manga
-	protected $jornada;  // datos de la jornada
 	protected $IDJornada; // ID de la jornada
-	protected $cerrada; // indica si la jornada esta cerrada
+	protected $dmanga=null; // datos de la manga
+	protected $djornada=null;  // datos de la jornada
 
+	private function getDatosManga() {
+		if ($dmanga!=null) return $dmanga;
+		$idmanga=$this->IDManga;
+		// si no los tenemos todavia consultamos la base de datos
+		$obj=$this->__selectObject("*", "Mangas", "(ID=$idmanga)");
+		if (!is_object($obj)) {
+			$this->error("Manga $idmanga does not exists in database");
+			return null;
+		}
+		$this->dmanga=$obj;
+		return $this->dmanga;
+	}
+	
+	private function getDatosJornada() {
+		if ($djornada!=null) return $djornada;
+		$manga=$this->getDatosManga();
+		$this->IDJornada=$manga->Jornada;
+		$idjornada=$this->IDJornada;
+		$idmanga=$this->IDManga;
+		$obj=$this->__selectObject("*","Jornadas","(ID=$this->IDJornada)");
+		if (!is_ibject($obj)) {
+			$this->error("Cannot locate JornadaID: $idjornada for MangaID:$idmanga in database");
+			return null;
+		}
+		$this->jornada=$obj;
+		return $this->jornada;
+	}
+	
+	private function isCerrada() {
+		$jrd=getDatosJornada();
+		return 	($jrd->Cerrada!=0)? true:false;
+	}
+	
+	/**
+	 * gets distance, obstacles, trs and trm
+	 * @param {integer} $mode 0:Large 1:Medium 2:Small 3:M+S 4:L+M+S
+	 * @param {array} current results data according $mode 
+	 * @return array('dist','obst','trs','trm') or null on error
+	 */
+	private function evalTRS($mode,$results) {
+		$dmanga=(array) $this->getDatosManga();
+		$result= array();
+		// vemos de donde tenemos que tomar los datos
+		$suffix='L';
+		switch(mode) {
+			case 0: $suffix='L'; break;
+			case 1: $suffix='M'; break;
+			case 2: $suffix='S'; break;
+			case 3: $suffix='M'; break; // M+S
+			case 4: $suffix='L'; break; // L+M+S
+		}
+		// evaluamos distancia y obstaculos
+		$result['dist']= $dmanga["Dist_$suffix"]; 
+		$result['obst']= $dmanga["Obst_$suffix"];
+		// evaluamos mejor tiempo y media de los tres mejores
+		$best1=0;
+		$best3=0;
+		if (count($result==0)) { $best1=0; $best3=0;} // no hay ni resultados ni tiempos
+		if (count($result==1)) { $best1=$result[0]['Tiempo']; $best3=$result[0]['Tiempo'];}
+		if (count($result==2)) { $best1=$result[0]['Tiempo']; $best3=($result[0]['Tiempo']+$result[1]['Tiempo'])/2;}
+		if (count($result>=3)) { $best1=$result[0]['Tiempo']; $best3=($result[0]['Tiempo']+$result[1]['Tiempo']+$result[2]['Tiempo'])/3;}
+		// Evaluamos TRS
+		switch ($dmanga["TRS_{$suffix}_Tipo"]) {
+			case 0: // tiempo fijo
+				$result['trs']=$dmanga["TRS_{$suffix}_Factor"];
+				break;
+			case 1: // mejor tiempo
+				if ($dmanga["TRS_{$suffix}_Unit"]==="s") $result['trs']= $best1 + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
+				else $result['trs']= $best1 * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
+				break;
+			case 2: // media de los tres mejores tiempos
+				if ($dmanga["TRS_{$suffix}_Unit"]==="s") $result['trs']= $best3 + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
+				else $result['trs']= $best3 * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
+				break;
+		}
+		$result['trs']=ceil($result['trs']); // redondeamos hacia arriba
+		// Evaluamos TRM
+		switch($dmanga["TRM_{$suffix}_Tipo"]) {
+			case 0: // TRM Fijo
+				$result['trm']=$dmanga["TRM_{$suffix}_Factor"];
+				break;
+			case 1: // TRS + (segs o porcentaje)
+				if ($dmanga["TRM_{$suffix}_Unit"]==="s") $result['trm']=$result['trs'] + $dmanga["TRM_{$suffix}_Factor"]; // ( + X segundos )
+				else $result['trm'] = $result['trs'] * ( (100+$dmanga["TRM_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
+				break;
+		}
+		$result['trm']=ceil($result['trm']); // redondeamos hacia arriba
+		// esto es todo amigos
+		return $result;
+	}
+	
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
@@ -27,24 +117,11 @@ class Resultados extends DBObject {
 			throw new Exception($this->errormsg);
 		}
 		$this->IDManga=$manga;
-		// obtenemos el id de jornada y vemos si la manga esta cerrada
-		$obj=$this->__selectObject("*", "Mangas", "(ID=$manga)");
-		if (!$obj) {
-			$this->error("Manga $manga does not exists in database");
-			throw new Exception($this->errormsg);
-		}
-		$this->manga=$obj;
-		$this->IDJornada=$this->manga->Jornada;
-		$obj=$this->__selectObject("*","Jornadas","(ID=$this->IDJornada)");
-		if (!$obj) {
-			$this->error("Cannot locate JornadaID: $this->IDJornada for MangaID:$manga in database");
-			throw new Exception($this->errormsg);
-		}
-		$this->jornada=$obj;
-		$this->cerrada=$this->jornada->Cerrada;
+		$this->IDJornada=0;
+		$this->dmanga=null;
+		$this->djornada=null;
 	}
 		
-
 	/**
 	 * Inserta perro en la lista de resultados de la manga
 	 * los datos del perro se toman de la tabla perroguiaclub
@@ -57,8 +134,8 @@ class Resultados extends DBObject {
 		$idmanga=$this->IDManga;
 		$this->myLogger->enter();
 		if ($ndorsal<=0) return $this->error("No dorsal specified");
-		if ($this->cerrada!=0) 
-			return $this->error("Manga $idmanga comes from closed Jornada: $this->IDJornada");	
+		if ($this->isCerrada()) 
+			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);	
 		
 		// Insert into resultados. On duplicate ($manga,$idperro) key ignore
 		$sql="INSERT INTO Resultados (Manga,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
@@ -107,8 +184,8 @@ class Resultados extends DBObject {
 		$this->myLogger->enter();
 		$idmanga=$this->IDManga;
 		if ($idperro<=0) return $this->error("No Perro ID specified");
-		if ($this->cerrada!=0) 
-			return $this->error("Manga $idmanga comes from closed Jornada:$this->IDJornada");
+		if ($this->isCerrada()) 
+			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
 		$str="DELETE * FROM Resultados WHERE ( Perro=$idperro ) AND ( Manga=$idmanga)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -140,8 +217,8 @@ class Resultados extends DBObject {
 		$this->myLogger->enter();
 		$idmanga=$this->IDManga;
 		if ($idperro<=0) return $this->error("No Perro ID specified");
-		if ($this->cerrada!=0) 
-			return $this->error("Manga $idmanga comes from closed Jornada: $this->IDJornada");
+		if ($this->isCerrada()) 
+			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
 		// buscamos la lista de parametros a actualizar
 		$entrada=http_request("Entrada","s",date("Y-m-d H:i:s"));
 		$comienzo=http_request("Comienzo","s",date("Y-m-d H:i:s"));
@@ -231,8 +308,7 @@ class Resultados extends DBObject {
 		$table=$res['rows'];
 		$this->myLogger->leave();
 		// FASE 2: evaluamos TRS Y TRM
-		$mng= new Mangas("Resultados::getResultados",$this->IDJornada,$this->IDManga);
-		$tdata=$mng->evalTRS($this->manga->Recorrido,$mode); // 'dist' 'obst' 'trs' 'trm'
+		$tdata=$this->evalTRS($mode,table); // array( 'dist' 'obst' 'trs' 'trm')
 		$trs=$tdata['trs'];
 		$trm=$tdata['trm'];
 		// FASE 3: añadimos ptiempo, puntuacion y clasificacion
