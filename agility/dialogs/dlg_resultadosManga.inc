@@ -14,7 +14,7 @@
 	<div id="resultadosmanga-trs">
 		<form id="resultadosmanga-trs-form" method="get">
 			<table style="float:left;">
-				<tr><th colspan="6">Datos de la manga y categor&iacute;a(s) seleccionada(s)</th></tr>
+				<tr><th colspan="6">Datos t&eacute;cnicos de la manga seleccionada(s)</th></tr>
 				<tr id="resultadosmanga-LargeRow">
 					<td><input type="radio" name="Recorrido" id="resultadosmanga-LargeBtn" value="0" checked="checked"></td>
 					<th id="resultadosmanga-LargeLbl">Large</th>
@@ -42,6 +42,7 @@
 					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" name="TRM_S"></td>
 					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" name="VEL_S"></td>
 				</tr>
+				<tr><th colspan="6">Resultados de la categor&iacute;a seleccionada</th></tr>
 			</table>
 		</form>
 	</div>

@@ -4,19 +4,19 @@
 	<input type="hidden" id="dmanga_Manga" name="ID"/>
 	<table id="competicion-tabladatosmanga">
 		<tr> <!-- fila 0: datos de los jueces -->
-			<td>Juez 1:</td>
+			<td style="text-align:right">Juez 1:</td>
 			<td colspan="4">
 				<select id="dmanga_Juez1" name="Juez1" style="width:200px"></select>
 			</td>
-			<td>Juez 2:</td>
+			<td style="text-align:right">Juez 2:</td>
 			<td colspan="4">
 				<select id="dmanga_Juez2" name="Juez2" style="width:200px"></select>
 			</td>
 		</tr>
 		<tr> <!-- fila 1 tipos de recorrido -->
-			<td colspan="2">Recorridos: </td>
+			<td>Recorridos: </td>
 			<td colspan="3">
-				<input type="radio" id="dmanga_Recorrido_0" name="Recorrido" value="0" onClick="dmanga_setRecorridos();"/>
+				<input type="radio" id="dmanga_Recorrido_0" name="Recorrido" value="2" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_0">Recorrido com&uacute;n</label>
 			</td>
 			<td colspan="3">
@@ -24,7 +24,7 @@
 				<label for="dmanga_Recorrido_1">Std / Mini-Midi</label>
 			</td>
 			<td colspan="3">
-				<input type="radio" id="dmanga_Recorrido_2" name="Recorrido" value="2" onClick="dmanga_setRecorridos();"/>
+				<input type="radio" id="dmanga_Recorrido_2" name="Recorrido" value="0" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_2">Std / Midi / Mini</label>
 			</td>
 		</tr>
@@ -35,8 +35,8 @@
 			<td colspan="4">Tiempo de recorrido Standard</td>
 			<td colspan="3">Tiempo de recorrido M&aacute;ximo</td>
 		</tr>
-		<tr> <!-- fila 3: recorrido comun datos standard -->
-			<td>Standard</td>
+		<tr id="dmanga_LargeRow"> <!-- fila 3: recorrido comun datos standard -->
+			<td id="dmanga_LargeLbl">Large</td>
 			<td><input type="text" id="dmanga_DistL" name="Dist_L" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<td><input type="text" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<!-- datos para TRS standard -->
@@ -69,8 +69,8 @@
 				</select>
 			</td>
 		</tr>
-		<tr> <!-- fila 4: recorrido std / mini+midi datos midi -->
-			<td>Medium</td>
+		<tr id="dmanga_MediumRow"> <!-- fila 4: recorrido std / mini+midi datos midi -->
+			<td id="dmanga_MediumLbl">Medium</td>
 			<td><input type="text" id="dmanga_DistM" name="Dist_M" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<td><input type="text" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<!-- datos para TRS medium -->
@@ -104,8 +104,8 @@
 				</select>
 			</td>		
 		</tr>
-		<tr> <!-- fila 5: recorrido std / mini / midi + datos mini -->
-			<td>Small</td>
+		<tr id="dmanga_SmallRow"> <!-- fila 5: recorrido std / mini / midi + datos mini -->
+			<td id="dmanga_SmallLbl">Small</td>
 			<td><input type="text" id="dmanga_DistS" name="Dist_S" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<td><input type="text" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<!-- datos para TRS small -->
@@ -142,7 +142,7 @@
 		</tr>
 		<tr> <!-- fila 6: observaciones -->
 			<td colspan="2">Observaciones</td>
-			<td colspan="11"><input type="text" id="dmanga_Observaciones" name="Observaciones" size="75" value=""/></td>
+			<td colspan="8"><input type="text" id="dmanga_Observaciones" name="Observaciones" size="75" value=""/></td>
 		</tr>
 		<tr> <!-- fila 7: botones reset y save -->
 			<td colspan="5">&nbsp;</td>
@@ -150,7 +150,7 @@
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" 
 					id="dmanga_Restaurar" onclick="reload_manga(workingData.manga);">Restaurar</a>
 			</td>
-			<td colspan="2">&nbsp;</td>
+			<td colspan="3">&nbsp;</td>
 			<td>
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" 
 					id="dmanga_Guardar" onclick="save_manga(workingData.manga);">Guardar</a>

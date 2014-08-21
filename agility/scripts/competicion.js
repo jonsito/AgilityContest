@@ -10,8 +10,9 @@
  */
 function dmanga_setRecorridos() {
 	var val=$("input:radio[name=Recorrido]:checked").val();
+	workingData.datosManga.Recorrido=val;
 	switch (val) {
-	case '0': // recorrido comun para std, mini y midi
+	case '2': // recorrido comun para std, mini y midi
 		var distl=$('#dmanga_DistL').val();
 		var obstl=$('#dmanga_ObstL').val();
 		$('#dmanga_DistM').attr('readonly',true);
@@ -22,6 +23,12 @@ function dmanga_setRecorridos() {
 		$('#dmanga_DistS').val(distl);
 		$('#dmanga_ObstS').attr('readonly',true);
 		$('#dmanga_ObstS').val(obstl);
+		// visibilidad de cada fila
+		$('#dmanga_MediumRow').css('display','none');
+		$('#dmanga_SmallRow').css('display','none');
+		$('#dmanga_LargeLbl').html("Com&uacute;n");
+		$('#dmanga_MediumLbl').html("&nbsp;");
+		$('#dmanga_SmallLbl').html("&nbsp;");
 		break;
 	case '1': // un recorrido para std y otro para mini-midi
 		var distm=$('#dmanga_DistM').val();
@@ -35,12 +42,24 @@ function dmanga_setRecorridos() {
 		// set TRS relative to Midi TRS
 		$('#dmanga_TRS_S_Tipo').val(4); 
 		$('#dmanga_TRS_S_Factor').val(0);
+		// visibilidad de cada fila
+		$('#dmanga_MediumRow').css('display','table-row');
+		$('#dmanga_SmallRow').css('display','none');
+		$('#dmanga_LargeLbl').html("Large");
+		$('#dmanga_MediumLbl').html("Med.+Small");
+		$('#dmanga_SmallLbl').html("&nbsp;");
 		break;
-	case '2': // recorridos separados para cada categoria
+	case '0': // recorridos separados para cada categoria
 		$('#dmanga_DistM').removeAttr('readonly');
 		$('#dmanga_ObstM').removeAttr('readonly');
 		$('#dmanga_DistS').removeAttr('readonly');
 		$('#dmanga_ObstS').removeAttr('readonly');
+		// visibilidad de cada fila
+		$('#dmanga_MediumRow').css('display','table-row');
+		$('#dmanga_SmallRow').css('display','table-row');
+		$('#dmanga_LargeLbl').html("Large");
+		$('#dmanga_MediumLbl').html("Medium");
+		$('#dmanga_SmallLbl').html("Small");
 		break;
 	}
 }
@@ -54,7 +73,9 @@ function dmanga_setRecorridos() {
 function save_manga(id) {
 	$("#competicion-formdatosmanga").bind('ajax:complete', function() {
 		// on submit success, reload results
-		reloadResultadosManga();
+		var recorrido=$("input:radio[name=Recorrido]:checked").val();
+		workingData.datosManga.Recorrido=val;
+		reloadResultadosManga(recorrido);
 	});
 	$('#competicion-formdatosmanga').form('submit', {
 		url: 'database/mangaFunctions.php',
@@ -125,34 +146,39 @@ function reloadResultadosManga(recorrido) {
             }
     );
     // actualizamos la informacion del panel de informacion de trs/trm
-    alert("Recorrido es: "+recorrido);
-    switch(recorrido){
+    switch(parseInt(recorrido)){
     case 0: // Large / Medium / Small
     	// ajustar textos
-    	$('#resultadosmanga-MediumRow').css("display:initial");
-    	$('#resultadosmanga-SmallRow').css("display:initial");
-    	$('#resultadosmanga-LargeLbl').text("Large");
-    	$('#resultadosmanga-MediumLbl').text("Medium");
-    	$('#resultadosmanga-SmallLbl').text("Small");
+    	alert("Large / Medium / Small");
+    	$('#resultadosmanga-MediumRow').css('display','table-row');
+    	$('#resultadosmanga-SmallRow').css('display','table-row');
+    	$('#resultadosmanga-LargeLbl').html("Large");
+    	$('#resultadosmanga-MediumLbl').html("Medium");
+    	$('#resultadosmanga-SmallLbl').html("Small");
     	// obtener datos de trs y trm para cada categoria
     	break;
     case 1: // Large / Medium+Small
     	// ajustar textos
-    	$('#resultadosmanga-MediumRow').css("display:initial");
-    	$('#resultadosmanga-SmallRow').css("display:hidden");
-    	$('#resultadosmanga-LargeLbl').text("Large");
-    	$('#resultadosmanga-MediumLbl').text("Medium + Small");
-    	$('#resultadosmanga-SmallLbl').text("");
+    	alert("Large / Medium+Small");
+    	$('#resultadosmanga-MediumRow').css('display','table-row');
+    	$('#resultadosmanga-SmallRow').css('display','none');
+    	$('#resultadosmanga-LargeLbl').html("Large");
+    	$('#resultadosmanga-MediumLbl').html("Medium+Small");
+    	$('#resultadosmanga-SmallLbl').html("&nbsp;");
     	// obtener datos de trs y trm para cada categoria
     	break;
     case 2: // Large+Medium+Small conjunta
     	// ajustar textos
-    	$('#resultadosmanga-MediumRow').css("display:hidden");
-    	$('#resultadosmanga-SmallRow').css("display:hidden");
-    	$('#resultadosmanga-LargeLbl').text("Large + Medium + Small");
-    	$('#resultadosmanga-MediumLbl').text("");
-    	$('#resultadosmanga-SmallLbl').text("");
+    	alert("Large+Medium+Small Conjunta");
+    	$('#resultadosmanga-MediumRow').css('display','none');
+    	$('#resultadosmanga-SmallRow').css('display','none');
+    	$('#resultadosmanga-LargeLbl').html('Conjunta L+M+S');
+    	$('#resultadosmanga-MediumLbl').html("&nbsp;");
+    	$('#resultadosmanga-SmallLbl').html("&nbsp;");
     	// obtener datos de trs y trm para cada categoria
+    	break;
+    default: 
+    	alert("Recorrido invalido:"+recorrido);
     	break;
     }
 }
@@ -263,7 +289,7 @@ function competicionDialog(name) {
         // abrimos ventana de dialogo
         $('#resultadosmanga-window').dialog('open').window('setTitle'," Resultados de la manga: "+title);
         // cargamos ventana de orden de salida
-        reloadResultadosManga();
+        reloadResultadosManga(row.Recorrido);
     }
 }
 
