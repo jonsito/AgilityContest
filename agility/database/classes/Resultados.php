@@ -11,7 +11,7 @@ class Resultados extends DBObject {
 	protected $djornada=null;  // datos de la jornada
 
 	private function getDatosManga() {
-		if ($dmanga!=null) return $dmanga;
+		if ($this->dmanga!=null) return $this->dmanga;
 		$idmanga=$this->IDManga;
 		// si no los tenemos todavia consultamos la base de datos
 		$obj=$this->__selectObject("*", "Mangas", "(ID=$idmanga)");
@@ -24,22 +24,22 @@ class Resultados extends DBObject {
 	}
 	
 	private function getDatosJornada() {
-		if ($djornada!=null) return $djornada;
+		if ($this->djornada!=null) return $this->djornada;
 		$manga=$this->getDatosManga();
 		$this->IDJornada=$manga->Jornada;
 		$idjornada=$this->IDJornada;
 		$idmanga=$this->IDManga;
 		$obj=$this->__selectObject("*","Jornadas","(ID=$this->IDJornada)");
-		if (!is_ibject($obj)) {
+		if (!is_object($obj)) {
 			$this->error("Cannot locate JornadaID: $idjornada for MangaID:$idmanga in database");
 			return null;
 		}
-		$this->jornada=$obj;
-		return $this->jornada;
+		$this->djornada=$obj;
+		return $this->djornada;
 	}
 	
 	private function isCerrada() {
-		$jrd=getDatosJornada();
+		$jrd=$this->getDatosJornada();
 		return 	($jrd->Cerrada!=0)? true:false;
 	}
 	
@@ -264,7 +264,7 @@ class Resultados extends DBObject {
 		// FASE 0: en funcion del tipo de recorrido y modo pedido
 		// ajustamos el criterio de busqueda de la tabla de resultados
 		$where="(Manga=$idmanga) AND (Pendiente=0) ";
-		switch ($this->manga->Recorrido) {
+		switch ($this->dmanga->Recorrido) {
 			case 0: // Large, Medium, Small por separado
 				switch($mode) {
 					case 0: /* Large */		$where= "$where AND (Categoria='L')"; break;

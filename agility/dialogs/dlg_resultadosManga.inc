@@ -67,12 +67,12 @@ $('#resultadosmanga-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: 'database/clasificacionesFunctions.php',
+	url: 'database/resultadosFunctions.php',
     queryParams: {
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
         Manga: workingData.manga,
-        Operation: 'parcial'
+        Operation: 'getResultados'
     },
     loadMsg: "Actualizando resultados de la manga ...",
     pagination: false,

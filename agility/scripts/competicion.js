@@ -115,7 +115,7 @@ function reloadResultadosManga() {
             	Prueba: workingData.prueba,
             	Jornada: workingData.jornada , 
             	Manga: workingData.manga , 
-            	Operation: 'parcial'
+            	Operation: 'getResultados'
             }
     );
     $('#resultadosmanga-trs-form').form(
