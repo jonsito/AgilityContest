@@ -73,6 +73,9 @@ class Resultados extends DBObject {
 		if (count($data)>=3) { $best1=$data[0]['Tiempo']; $best3=($data[0]['Tiempo']+$data[1]['Tiempo']+$data[2]['Tiempo'])/3;}
 		// Evaluamos TRS
 		switch ($dmanga["TRS_{$suffix}_Tipo"]) {
+			// NOTA IMPORTANTE: 
+			// No se hace chequeo de tipos, con lo que si por error en un calculo de TRS standard se pide un tipo STD+XX
+			// la aplicacion entrará en un bucle infinito
 			case 0: // tiempo fijo
 				$result['trs']=$dmanga["TRS_{$suffix}_Factor"];
 				break;
@@ -83,6 +86,18 @@ class Resultados extends DBObject {
 			case 2: // media de los tres mejores tiempos
 				if ($dmanga["TRS_{$suffix}_Unit"]==="s") $result['trs']= $best3 + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
 				else $result['trs']= $best3 * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
+				break;
+			case 3: // trs standard +xxx						
+				$result_std=getResultados(0)['trs'];
+				if ($dmanga["TRS_{$suffix}_Unit"]==="s") 
+					$result['trs']= $result_std['trs'] + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
+				else $result['trs']= $result_std['trs'] * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
+				break;
+			case 4: // trs medium + xx						
+				$result_med=getResultados(1)['trs'];
+				if ($dmanga["TRS_{$suffix}_Unit"]==="s") 
+					$result['trs']= $result_med['trs'] + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
+				else $result['trs']= $result_med['trs'] * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
 				break;
 		}
 		$result['trs']=ceil($result['trs']); // redondeamos hacia arriba
@@ -266,41 +281,13 @@ class Resultados extends DBObject {
 		// FASE 0: en funcion del tipo de recorrido y modo pedido
 		// ajustamos el criterio de busqueda de la tabla de resultados
 		$where="(Manga=$idmanga) AND (Pendiente=0) ";
-		switch ($this->getDatosManga()->Recorrido) {
-			case 0: // Large, Medium, Small por separado
-				switch($mode) {
-					case 0: /* Large */		$where= "$where AND (Categoria='L')"; break;
-					case 1: /* Medium */	$where= "$where AND (Categoria='M')"; break;
-					case 2: /* Small */		$where= "$where AND (Categoria='S')"; break;
-					case 3: // Medium+Small - invalido
-					case 4: // Large+Medium+Small - invalido
-					default:
-						return $this->error("Tipo de recorrido 0 incompatible con modo pedido:$mode");
-				}
-				break;
-			case 1: // Large por separado, Medium+Small conjunta
-				switch($mode) {
-					case 0: /* Large */		$where= "$where AND (Categoria='L')"; break;
-					case 3: /* Medium+Small */ $where= "$where AND ( (Categoria='L') OR (Categoria='M') )"; break;
-					case 1: // Medium - invalido
-					case 2: // Small - invalido
-					case 4: // Large+Medium+Small - invalido
-					default:
-						return $this->error("Tipo de recorrido 1 incompatible con modo pedido:$modo");
-				}
-				break;
-			case 2: // Large+Medium+Small conjunta
-				switch($mode) {
-					case 4: // Large+Medium+Small */
-						$where= "$where AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
-					case 0: // Large - invalido
-					case 1: // Medium - invalido
-					case 2: // Small - invalido
-					case 3: // Medium+Small - invalido
-					default:
-						return $this->error("Tipo de recorrido 2 incompatible con modo pedido:$mode");
-				}
-				break;
+		switch ($mode) {
+			case 0: /* Large */		$where= "$where AND (Categoria='L')"; break;
+			case 1: /* Medium */	$where= "$where AND (Categoria='M')"; break;
+			case 2: /* Small */		$where= "$where AND (Categoria='S')"; break;
+			case 3: /* Med+Small */ $where= "$where AND ( (Categoria='M') OR (Categoria='S') )"; break;
+			case 4: /* L+M+S */ 	$where= "$where AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
+			default: return $this->error("modo de recorrido desconocido:$mode");
 		}
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
