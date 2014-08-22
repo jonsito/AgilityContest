@@ -26,7 +26,7 @@ $('#competicion-window').window({
 	resizable:		false,
 	iconCls:		'icon-table',
 	closed:			true,
-	modal:			false
+	modal:			true
 });
 
 $('#competicion-datagrid').datagrid({

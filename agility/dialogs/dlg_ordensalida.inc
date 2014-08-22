@@ -31,7 +31,7 @@ $('#ordensalida-window').window({
 	resizable:		false,
 	iconCls:		'icon-order',
 	closed:			true,
-	modal:			false
+	modal:			true
 });
 
 $('#ordensalida-datagrid').datagrid({

@@ -16,7 +16,8 @@
 			<table style="float:left;">
 				<tr><th colspan="6">Datos t&eacute;cnicos de la manga seleccionada(s)</th></tr>
 				<tr id="resultadosmanga-LargeRow">
-					<td><input type="radio" name="Recorrido" id="resultadosmanga-LargeBtn" value="0" checked="checked"></td>
+					<td><input type="radio" name="Recorrido" id="resultadosmanga-LargeBtn" 
+						value="0" checked="checked" onclick="reloadParcial(0)"></td>
 					<th id="resultadosmanga-LargeLbl">Large</th>
 					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" name="DIST_L"></td>
 					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" name="OBST_L"></td>
@@ -25,7 +26,8 @@
 					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" name="VEL_L"></td>
 				</tr>
 				<tr id="resultadosmanga-MediumRow">
-					<td><input type="radio" name="Recorrido" id="resultadosmanga-LargeBtn" value="1"></td>
+					<td><input type="radio" name="Recorrido" id="resultadosmanga-LargeBtn" 
+						value="1" onclick="reloadParcial(1)"></td>
 					<th id="resultadosmanga-MediumLbl">Medium</th>
 					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" name="DIST_M"></td>
 					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" name="OBST_M"></td>
@@ -34,7 +36,8 @@
 					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" name="VEL_M"></td>
 				</tr>
 				<tr id="resultadosmanga-SmallRow">
-					<td><input type="radio" name="Recorrido" id="resultadosmanga-LargeBtn" value="2"></td>
+					<td><input type="radio" name="Recorrido" id="resultadosmanga-LargeBtn" 
+						value="2" onclick="reloadParcial(2)"></td>
 					<th id="resultadosmanga-SmallLbl">Small</th>
 					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" name="DIST_S"></td>
 					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" name="OBST_S"></td>
@@ -60,7 +63,7 @@ $('#resultadosmanga-window').window({
 	resizable:		false,
 	iconCls:		'icon-endflag',
 	closed:			true,
-	modal:			false
+	modal:			true
 });
 
 $('#resultadosmanga-datagrid').datagrid({
@@ -93,16 +96,18 @@ $('#resultadosmanga-datagrid').datagrid({
       	{ field:'Licencia',		hidden:true },
         { field:'Puesto',		width:12, align:'left',  title: 'Puesto'},
         { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
-        { field:'NombreGuia',	width:40, align:'right', title: 'Guia' },
+        { field:'NombreGuia',	width:35, align:'right', title: 'Guia' },
         { field:'NombreClub',	width:25, align:'right', title: 'Club' },
       	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
       	{ field:'Faltas',		width:10, align:'center', title: 'Faltas'},
       	{ field:'Rehuses',		width:10, align:'center', title: 'Rehuses'},
       	{ field:'Tocados',		width:10, align:'center', title: 'Tocados'},
+      	{ field:'PRecorrido',	hidden:true },
       	{ field:'Tiempo',		width:15, align:'right', title: 'Tiempo'},
+      	{ field:'PTiempo',		hidden:true },
       	{ field:'Velocidad',	width:10, align:'right', title: 'Vel.'},
       	{ field:'Penalizacion',	width:15, align:'right', title: 'Penal.'}, 
-      	{ field:'Calificacion',	width:25, align:'center',title: 'Calificacion'}
+      	{ field:'Calificacion',	width:30, align:'center',title: 'Calificacion'}
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';

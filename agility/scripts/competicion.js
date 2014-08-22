@@ -135,6 +135,7 @@ function reloadResultadosManga(recorrido) {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
 	// recargamos el datagrid con los resultados pedidos
+	// por defecto seleccionamos resultados de categoria "large"
     $('#resultadosmanga-datagrid').datagrid(
             'load',
             { 
@@ -145,11 +146,11 @@ function reloadResultadosManga(recorrido) {
             	Operation: 'getResultados'
             }
     );
+    $('#resultadosmanga-LargeBtn').prop('checked',true);
     // actualizamos la informacion del panel de informacion de trs/trm
     switch(parseInt(recorrido)){
     case 0: // Large / Medium / Small
     	// ajustar textos
-    	alert("Large / Medium / Small");
     	$('#resultadosmanga-MediumRow').css('display','table-row');
     	$('#resultadosmanga-SmallRow').css('display','table-row');
     	$('#resultadosmanga-LargeLbl').html("Large");
@@ -159,7 +160,6 @@ function reloadResultadosManga(recorrido) {
     	break;
     case 1: // Large / Medium+Small
     	// ajustar textos
-    	alert("Large / Medium+Small");
     	$('#resultadosmanga-MediumRow').css('display','table-row');
     	$('#resultadosmanga-SmallRow').css('display','none');
     	$('#resultadosmanga-LargeLbl').html("Large");
@@ -169,16 +169,12 @@ function reloadResultadosManga(recorrido) {
     	break;
     case 2: // Large+Medium+Small conjunta
     	// ajustar textos
-    	alert("Large+Medium+Small Conjunta");
     	$('#resultadosmanga-MediumRow').css('display','none');
     	$('#resultadosmanga-SmallRow').css('display','none');
     	$('#resultadosmanga-LargeLbl').html('Conjunta L+M+S');
     	$('#resultadosmanga-MediumLbl').html("&nbsp;");
     	$('#resultadosmanga-SmallLbl').html("&nbsp;");
     	// obtener datos de trs y trm para cada categoria
-    	break;
-    default: 
-    	alert("Recorrido invalido:"+recorrido);
     	break;
     }
 }
@@ -291,6 +287,49 @@ function competicionDialog(name) {
         // cargamos ventana de orden de salida
         reloadResultadosManga(row.Recorrido);
     }
+}
+
+/** actualiza el datagrid de resultados
+ * @param mode 0:large/conjunto 1:medium/m+s 2:small
+ */
+function reloadParcial(val) {
+	var mode=0;
+	var recorrido=parseInt(workingData.datosManga.Recorrido);
+	var value=parseInt(val); // stupid javascript!!
+	switch (recorrido) {
+	case 0: //  large / medium / small
+		switch(value) {
+		case 0: mode=0; break; 
+		case 1: mode=1; break;
+		case 2: mode=2; break;
+		}
+		break;
+	case 1: // large / medium+small
+		switch(value) {
+		case 0: mode=0; break; 
+		case 1: mode=3; break;
+		case 2: mode=3; break; // invalido
+		}
+		break;
+	case 2: // large+medium+small
+		switch(value) {
+		case 0: mode=4; break; 
+		case 1: mode=4; break; // invalido
+		case 2: mode=4; break; // invalido
+		}
+		break;
+	}
+	// reload resultados
+	$('#resultadosmanga-datagrid').datagrid(
+			'load',
+			{
+		        Prueba: workingData.prueba,
+		        Jornada: workingData.jornada,
+		        Manga: workingData.manga,
+		        Mode: mode,
+		        Operation: 'getResultados'
+			}
+	);
 }
 
 function reloadClasificacion() {

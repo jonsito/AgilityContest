@@ -292,7 +292,8 @@ class Resultados extends DBObject {
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
 				"Dorsal,Perro,Nombre,Licencia,Categoria,NombreGuia,NombreClub,Faltas,Tocados,Rehuses,Tiempo,
-					( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido", 
+					( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido,
+					0 AS PTiempo, 0 AS Penalizacion, '' AS Calificacion, 0 AS Velocidad", 
 				"Resultados", 
 				$where, 
 				" PRecorrido ASC, Tiempo ASC", 
@@ -305,35 +306,82 @@ class Resultados extends DBObject {
 		$trs=$tdata['trs'];
 		$trm=$tdata['trm'];
 		// FASE 3: añadimos ptiempo, puntuacion y clasificacion
-		foreach ($table as $row ) {
-			// evaluamos penalizacion por tiempo y penalizacion final
-			if ($row['Tiempo']<$trs)  // Por debajo del TRS
-				{ $row['PTiempo']=0; $row['Penalizacion']=$row['PRecorrido']; }
-			if ($row['Tiempo']>=$trs) // Superado TRS
-				{ $row['PTiempo']=$row['Tiempo']-$trs; $row['Penalizacion']=$row['PRecorrido']+$row['PTiempo']; }
-			if ($row['Tiempo']>$trm) // Superado TRM: eliminado
-				{ $row['PTiempo']=100; $row['Penalizacion']=100; }
-				
-			// evaluamos velocidad y ajustamos numero de decimales
-			if ($row['Tiempo']==0) $row['Velocidad']=0;
-			else $row['Velocidad'] = number_format( $tdata['dist'] / $row['Tiempo'], 1); // velocidad con 1 decimal
-			$row['Penalizacion'] =number_format($row['Penalizacion'],2); // penalizacion con 2 decimales
+		$size=count($table);
+		for ($idx=0;$idx<$size;$idx++ ){ 
+			// importante: las asignaciones se hacen en base a $table[$idx], 
+			// pues si no solo se actualiza la copia
 			
-			// evaluamos calificacion
-			if ($row['Penalizacion']==0)	$row['Calificacion'] = "Excelente (p)";
-			if ($row['Penalizacion']>0)		$row['Calificacion'] = "Excelente";
-			if ($row['Penalizacion']>=6)	$row['Calificacion'] = "Muy Bien";
-			if ($row['Penalizacion']>=16)	$row['Calificacion'] = "Bueno";
-			if ($row['Penalizacion']>=26)	$row['Calificacion'] = "No Clasificado";
-			if ($row['Penalizacion']>=100) {$row['Penalizacion']=100; $row['Calificacion'] = "Eliminado"; }
-			if ($row['Penalizacion']=200)  {$row['Penalizacion']=200; $row['Calificacion'] = "No Presentado"; }
+			// evaluamos penalizacion por tiempo y penalizacion final
+			if ($table[$idx]['Tiempo']<$trs) { // Por debajo del TRS
+				$table[$idx]['PTiempo']		= 	0; 
+				$table[$idx]['Penalizacion']=	$table[$idx]['PRecorrido'];
+			}
+			if ($table[$idx]['Tiempo']>=$trs) { // Superado TRS
+				$table[$idx]['PTiempo']		=	$table[$idx]['Tiempo'] 		-	$trs; 
+				$table[$idx]['Penalizacion']=	$table[$idx]['PRecorrido']	+	$table[$idx]['PTiempo'];
+			}
+			if ($table[$idx]['Tiempo']>$trm) { // Superado TRM: eliminado
+				$table[$idx]['PTiempo']		=	100; 
+				$table[$idx]['Penalizacion']=	100;
+			}
+				
+			// evaluamos velocidad con 1 decimal
+			if ($table[$idx]['Tiempo']==0)
+					$table[$idx]['Velocidad'] = number_format(0,1); // 0.0
+			else 	$table[$idx]['Velocidad'] = number_format( $tdata['dist'] / $table[$idx]['Tiempo'], 1);
+			// penalizacion y tiempo con 2 decimales
+			$table[$idx]['Penalizacion'] =number_format($table[$idx]['Penalizacion'],2); 
+			$table[$idx]['Tiempo'] =number_format($table[$idx]['Tiempo'],2); 
+			
+			// evaluamos calificacion 
+			if ($table[$idx]['Penalizacion']>=200)  {
+				$table[$idx]['Penalizacion']="200.00"; 
+				$table[$idx]['Velocidad']="-"; 
+				$table[$idx]['Tiempo']="-"; 
+				$table[$idx]['Faltas']="-"; 
+				$table[$idx]['Rehuses']="-"; 
+				$table[$idx]['Tocados']="-"; 
+				$table[$idx]['Calificacion'] = "No Presentado"; 
+			}
+			else if ($table[$idx]['Penalizacion']>=100) {
+				$table[$idx]['Penalizacion']="100.00"; 
+				$table[$idx]['Velocidad']="-"; 
+				$table[$idx]['Tiempo']="-"; 
+				$table[$idx]['Calificacion'] = "Eliminado"; 
+			}
+			else if ($table[$idx]['Penalizacion']>=26)	$table[$idx]['Calificacion'] = "No Clasificado";
+			else if ($table[$idx]['Penalizacion']>=16)	$table[$idx]['Calificacion'] = "Bueno";
+			else if ($table[$idx]['Penalizacion']>=6)	$table[$idx]['Calificacion'] = "Muy Bien";
+			else if ($table[$idx]['Penalizacion']>0)	$table[$idx]['Calificacion'] = "Excelente";
+			else if ($table[$idx]['Penalizacion']==0)	$table[$idx]['Calificacion'] = "Excelente (p)";
 		}
-		// FASE 4: re-ordenamos los datos en base a la puntuacion y retornamos resultado
+		// FASE 4: re-ordenamos los datos en base a la puntuacion y calculamos campo "Puesto"
 		usort($table, function($a, $b) {
-			return $b['Penalizacion'] - $a['Penalizacion']; // sort in reverse (ASC) order
+			if ( floatval($a['Penalizacion'])==floatval($b['Penalizacion']) ){
+				return floatval($a['Tiempo']) - floatval($b['Tiempo']);
+			}
+			return floatval($a['Penalizacion']) - floatval($b['Penalizacion']);
 		});
+		// TODO take care con duplicated penalizacion and time
+			for($idx=0;$idx<$size;$idx++) {
+				if ($table[$idx]['Tiempo']==="-") { $table[$idx]['Puesto']="-"; continue; }
+				$table[$idx]['Puesto']=1+$idx;
+			}
+		/*
+		$puesto=1;
+		$last=0;
+		for($idx=0;$idx<$size;$idx++) {
+			if ($table[$idx]['Tiempo']==="-") { $table[$idx]['Puesto']="-"; continue; }
+			$now=100*$table[$idx]['Penalizacion']+$table[$idx]['Tiempo'];
+			if ($last==$now) { $table[$idx]['Puesto']=$puesto; continue; }
+			$table[$idx]['Puesto']=1+$idx;
+			$last=$now; 
+			$puesto=1+$idx;
+		}
+		*/
 		// finalmente retornamos array
 		$this->myLogger->leave();
+		$res['rows']=$table;
 		return $res;
 	}
 	
