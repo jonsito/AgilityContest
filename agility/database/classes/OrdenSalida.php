@@ -25,12 +25,12 @@ class OrdenSalida extends DBObject {
 	
 	/**
 	 * Retrieve Mangas.Orden_Salida
-	 * @param unknown $manga
+	 * @param {integer} $idmanga
 	 * @return {string} orden de salida. "" si vacio; null on error
 	 */
-	function getOrden($manga) {
+	function getOrden($idmanga) {
 		$this->myLogger->enter();
-		$res=$this->__selectObject("Orden_Salida", "Mangas", "( ID=$manga )");
+		$res=$this->__selectObject("Orden_Salida", "Mangas", "( ID=$idmanga )");
 		$result = $res->Orden_Salida;
 		$this->myLogger->leave();
 		return ($result==="")?$this->default_orden:$result;
@@ -42,9 +42,9 @@ class OrdenSalida extends DBObject {
 	 * @param {string} $orden new ordensalida
 	 * @return {string} "" if success; null on error
 	 */
-	function setOrden($manga, $orden) {
+	function setOrden($idmanga, $orden) {
 		$this->myLogger->enter();
-		$sql = "UPDATE Mangas SET Orden_Salida = '" . $orden . "' WHERE ( ID=$manga )";
+		$sql = "UPDATE Mangas SET Orden_Salida = '$orden' WHERE ( ID=$idmanga )";
 		$rs = $this->query ($sql);
 		// do not call $rs->free() as no resultset returned
 		if (!$rs) return $this->error($this->conn->error);
@@ -257,6 +257,58 @@ class OrdenSalida extends DBObject {
 	}
 	
 	/**
+	 * Comodity function que dice viendo el orden de salida si un perro tiene celo o no
+	 * @param {string} $ordensalida Orden de salida
+	 * @param {integer} $idperro ID del perro
+	 * @return 0 o 1 
+	 */
+	private function hasCelo($ordensalida,$idperro) {
+		$p=",{number_format($idperro,0)},";
+		$str=getInnerString($ordensalida,"BEGIN,",",TAG_-0");
+		if (strpos(",{$str},",0)!== false) return 0;
+		$str=getInnerString($ordensalida,"TAG_-0,",",TAG_-1");
+		if (strpos(",{$str},",0)!== false) return 0;
+		$str=getInnerString($ordensalida,"TAG_-1,",",TAG_L0");
+		if (strpos(",{$str},",0)!== false) return 1;
+		$str=getInnerString($ordensalida,"TAG_L0,",",TAG_L1");
+		if (strpos(",{$str},",0)!== false) return 0;
+		$str=getInnerString($ordensalida,"TAG_L1,",",TAG_M0");
+		if (strpos(",{$str},",0)!== false) return 1;
+		$str=getInnerString($ordensalida,"TAG_M0,",",TAG_M1");
+		if (strpos(",{$str},",0)!== false) return 0;
+		$str=getInnerString($ordensalida,"TAG_M1,",",TAG_S0");
+		if (strpos(",{$str},",0)!== false) return 1;
+		$str=getInnerString($ordensalida,"TAG_S0,",",TAG_S1");
+		if (strpos(",{$str},",0)!== false) return 0;
+		$str=getInnerString($ordensalida,"TAG_S1,",",TAG_T0");
+		if (strpos(",{$str},",0)!== false) return 1;
+		$str=getInnerString($ordensalida,"TAG_T0,",",TAG_T1");
+		if (strpos(",{$str},",0)!== false) return 0;
+		$str=getInnerString($ordensalida,"TAG_T1,",",END");
+		if (strpos(",{$str},",0)!== false) return 1;
+		// si llega hasta aqui significa que no esta en la lista: error
+		$this->myLogger->error("El perro con ID:$idperro no aparece en el orden de salida:\n$ordensalida");
+		return 0;
+	}
+	
+	private function invierteResultados($to,$from,$mode) {
+		$orden=$this->getOrden($to->ID);
+		$r =new Resultados("OrdenSalida::invierteResultados", $from->ID);
+		$data=$r->getResultados($mode)['rows'];
+		$size= count($data);
+		// recorremos los resultados en orden inverso
+		// y reinsertamos los perros actualizando el orden
+		for($idx=$size-1; $idx>=0; $idx--) {
+			$perro=$data[$idx]['Perro'];
+			$cat=$data[$idx]['Categoria'];
+			$celo=$this->hasCelo($orden,$perro);
+			$orden=$this->insertIntoList($orden, $perro, $cat, $celo);
+		}
+		// salvamos datos
+		$this->setOrden($to->ID, $orden);
+	}
+	
+	/**
 	 * Calcula el orden de salida de una manga en funcion del orden inverso al resultado de su manga "hermana"
 	 * @param {integer} $jornada ID De Jornada
 	 * @param {integer} $manga ID De la manga de la que hay que calcular el orden de salida
@@ -265,61 +317,34 @@ class OrdenSalida extends DBObject {
 	function reverse($jornada,$manga) {
 		$this->myLogger->enter();
 		// fase 1: buscamos la "manga hermana"
-		$str="SELECT Grado,Orden_Salida FROM Mangas WHERE (Jornada=$jornada) AND (ID=$manga)";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		$obj=$rs->fetch_object();
-		$rs->free();
-		if (!$obj) return $this->error("No manga found with ID=$manga");
-		$grado=$obj->Grado;
-		$str="Select * FROM Mangas WHERE (Jornada=$jornada) AND (Grado='$grado') AND (ID!=$manga)";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		$manga2=$rs->fetch_object();
-		$rs->free();
-		if (!$manga2) return $this->error("No manga found with with same 'Grado' as ID=$manga");
-		$mangaid=$manga2->ID;
+		// para ello hay que buscar la manga que tiene la misma jornada y grado pero distinto id
+		$mangaobj=$this->__selectObject("*", "Mangas", "(Jornada=$jornada) AND (ID=$manga)");
+		if (!is_object($mangaobj)) return $this->error("No manga found with ID=$manga");
+		$grado=$mangaobj->Grado;
+		$manga2obj=$this->__selectObject("*", "Mangas", "(Jornada=$jornada) AND (Grado='$grado') AND (ID!=$manga)");
+		if (!is_object($manga2obj)) return $this->error("No manga found with with same 'Grado' as ID=$manga");
 	
-		// fase 2: evaluamos resultados
-		// nos aseguramos de que la manga tiene la tabla de resultados asociada
-		$r=new Resultados("OrdenSalida::Reverse",$mangaid);
-		$r->enumerate();
-		if (!$r) {
-			$this->myLoger->error("OrdenSalida::reverse::enumerate $mangaid failed");
-			return null;
+		// fase 2: evaluamos resultados de la manga hermana
+		$this->myLogger->trace("El rden de salida original para manga:$manga es:\n$mangaobj->Orden_Salida");
+		// En funcion del tipo de recorrido tendremos que leer diversos conjuntos de Resultados
+		switch($manga2->Recorrido) {
+			case 0: // Large, medium, small
+				$this->invierteResultados($mangaobj,$manga2obj,0);
+				$this->invierteResultados($mangaobj,$manga2obj,1);
+				$this->invierteResultados($mangaobj,$manga2obj,2);
+				break;
+			case 1: // Large, medium+small
+				$this->invierteResultados($mangaobj,$manga2obj,0);
+				$this->invierteResultados($mangaobj,$manga2obj,3);
+				break;
+			case 2: // conjunta L+M+S
+				$this->invierteResultados($mangaobj,$manga2obj,4);
+				break;
 		}
-		$r=new Clasificaciones("OrdenSalida::Reverse");
-		$orden=$r->reverseOrden($mangaid);
-		if (!$orden) {
-			$this->myLogger->error("OrdenSalida::reverse::orden $mangaid failed");
-			return null;
-		}
-		
-		// fase 3: como la tabla de resultados no contiene informacion sobre el celo
-		// y para ahorrar consultas a la DB, vamos a sacar dicha información del orden actual
-		$registrados = explode ( ",", $obj->Orden_Salida);
-		$celo=array();
-		$lastCelo=0;
-		foreach($registrados as $idperro) {
-			switch($idperro) {
-				case "BEGIN": continue;
-				case "END": continue;
-				case "TAG_-0": case "TAG_L0": case "TAG_M0": case "TAG_S0": case "TAG_T0": $lastCelo=0; break;
-				case "TAG_-1": case "TAG_L1": case "TAG_M1": case "TAG_S1": case "TAG_T1": $lastCelo=1; break;
-				default: $celo[$idperro]=$lastCelo;
-			}
-		}
-		// fase 4: componemos el orden de salida en base a los resultados obtenidos
-		$ordensalida=$this->default_orden;
-		foreach ($orden['rows'] as $item) {
-			// $this->myLogger->trace("parsing row:".$item['IDPerro']);
-			$ordensalida=$this->insertIntoList($ordensalida,$item['IDPerro'],$item['Categoria'],$celo[$item['IDPerro']]);
-		}
-		$this->setOrden($manga,$ordensalida);
-		$this->myLogger->trace("El orden de salida original era:\n$obj->Orden_Salida");
-		$this->myLogger->trace("El orden de salida nuevo es:\n$ordensalida");
-		return $ordensalida;
+		$nuevo=$this->getOrden($mangaobj->ID);
+		$this->myLogger->trace("El orden de salida nuevo es:\n$nuevo");
 		$this->myLogger->leave();
+		return $ordensalida;
 	}
 	
 	function dragAndDrop($jornada,$manga,$from,$to,$where) {

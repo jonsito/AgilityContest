@@ -88,13 +88,13 @@ class Resultados extends DBObject {
 				else $result['trs']= $best3 * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
 				break;
 			case 3: // trs standard +xxx						
-				$result_std=getResultados(0)['trs'];
+				$result_std=$this->getResultados(0)['trs'];
 				if ($dmanga["TRS_{$suffix}_Unit"]==="s") 
 					$result['trs']= $result_std['trs'] + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
 				else $result['trs']= $result_std['trs'] * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
 				break;
 			case 4: // trs medium + xx						
-				$result_med=getResultados(1)['trs'];
+				$result_med=$this->getResultados(1)['trs'];
 				if ($dmanga["TRS_{$suffix}_Unit"]==="s") 
 					$result['trs']= $result_med['trs'] + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
 				else $result['trs']= $result_med['trs'] * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
