@@ -181,14 +181,7 @@ class Mangas extends DBObject {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Manga ID"); 
 		// second query to retrieve $rows starting at $offset
-		$str="SELECT * FROM Mangas WHERE ( ID = $id )";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error); 
-		// retrieve result into an array
-		if ($rs->num_rows==0) return $this->error("No manga(s) found"); 
-		$result = $rs->fetch_object();  // should only be one element
-		// disconnect from database
-		$rs->free();
+		$result=$this->__selectObject("*","Mangas","( ID=$id )");
 		$this->myLogger->leave();
 		return $result;
 	}
