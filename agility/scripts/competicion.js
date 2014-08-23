@@ -4,6 +4,13 @@
 
 /************************** Gestion de datos de la ventana de manga activa */
 
+/* formatters para el datagrid dlg_resultadosManga */
+
+function formatPuesto(val,row,idx) { return (row.Penalizacion>=200)?"-":val; }
+function formatVelocidad(val,row,idx) { return (row.Penalizacion>=100)?"-":parseFloat(val).toFixed(1); }
+function formatTiempo(val,row,idx) { return (row.Penalizacion>=100)?"-":parseFloat(val).toFixed(2); }
+function formatPenalizacion(val,row,idx) { return parseFloat(val).toFixed(2); }
+
 /**
  * Actualiza el modo de visualizacion del panel de mangas
  * en funcion del tipo de recorrido seleccionado

@@ -313,40 +313,28 @@ class Resultados extends DBObject {
 			
 			// evaluamos penalizacion por tiempo y penalizacion final
 			if ($table[$idx]['Tiempo']<$trs) { // Por debajo del TRS
-				$table[$idx]['PTiempo']		= 	0; 
+				$table[$idx]['PTiempo']		= 	0.0; 
 				$table[$idx]['Penalizacion']=	$table[$idx]['PRecorrido'];
 			}
 			if ($table[$idx]['Tiempo']>=$trs) { // Superado TRS
 				$table[$idx]['PTiempo']		=	$table[$idx]['Tiempo'] 		-	$trs; 
-				$table[$idx]['Penalizacion']=	$table[$idx]['PRecorrido']	+	$table[$idx]['PTiempo'];
+				$table[$idx]['Penalizacion']=	floatval($table[$idx]['PRecorrido'])	+	$table[$idx]['PTiempo'];
 			}
 			if ($table[$idx]['Tiempo']>$trm) { // Superado TRM: eliminado
-				$table[$idx]['PTiempo']		=	100; 
-				$table[$idx]['Penalizacion']=	100;
+				$table[$idx]['Penalizacion']=	100.0;
 			}
 				
-			// evaluamos velocidad con 1 decimal
-			if ($table[$idx]['Tiempo']==0)
-					$table[$idx]['Velocidad'] = number_format(0,1); // 0.0
-			else 	$table[$idx]['Velocidad'] = number_format( $tdata['dist'] / $table[$idx]['Tiempo'], 1);
-			// penalizacion y tiempo con 2 decimales
-			$table[$idx]['Penalizacion'] =number_format($table[$idx]['Penalizacion'],2); 
-			$table[$idx]['Tiempo'] =number_format($table[$idx]['Tiempo'],2); 
+			// evaluamos velocidad 
+			if ($table[$idx]['Tiempo']==0)	$table[$idx]['Velocidad'] = 0;
+			else 	$table[$idx]['Velocidad'] =  $tdata['dist'] / $table[$idx]['Tiempo'];
 			
 			// evaluamos calificacion 
 			if ($table[$idx]['Penalizacion']>=200)  {
-				$table[$idx]['Penalizacion']="200.00"; 
-				$table[$idx]['Velocidad']="-"; 
-				$table[$idx]['Tiempo']="-"; 
-				$table[$idx]['Faltas']="-"; 
-				$table[$idx]['Rehuses']="-"; 
-				$table[$idx]['Tocados']="-"; 
+				$table[$idx]['Penalizacion']=200.0; 
 				$table[$idx]['Calificacion'] = "No Presentado"; 
 			}
 			else if ($table[$idx]['Penalizacion']>=100) {
-				$table[$idx]['Penalizacion']="100.00"; 
-				$table[$idx]['Velocidad']="-"; 
-				$table[$idx]['Tiempo']="-"; 
+				$table[$idx]['Penalizacion']=100.0; 
 				$table[$idx]['Calificacion'] = "Eliminado"; 
 			}
 			else if ($table[$idx]['Penalizacion']>=26)	$table[$idx]['Calificacion'] = "No Clasificado";
@@ -357,28 +345,28 @@ class Resultados extends DBObject {
 		}
 		// FASE 4: re-ordenamos los datos en base a la puntuacion y calculamos campo "Puesto"
 		usort($table, function($a, $b) {
-			if ( floatval($a['Penalizacion'])==floatval($b['Penalizacion']) ){
-				return floatval($a['Tiempo']) - floatval($b['Tiempo']);
-			}
-			return floatval($a['Penalizacion']) - floatval($b['Penalizacion']);
+			if ( $a['Penalizacion'] == $b['Penalizacion'] )	return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
+			return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
 		});
-		// TODO take care con duplicated penalizacion and time
-			for($idx=0;$idx<$size;$idx++) {
-				if ($table[$idx]['Tiempo']==="-") { $table[$idx]['Puesto']="-"; continue; }
-				$table[$idx]['Puesto']=1+$idx;
-			}
-		/*
+		
+		// format output data and take care con duplicated penalizacion and time
 		$puesto=1;
 		$last=0;
 		for($idx=0;$idx<$size;$idx++) {
-			if ($table[$idx]['Tiempo']==="-") { $table[$idx]['Puesto']="-"; continue; }
+			// ajustamos puesto
 			$now=100*$table[$idx]['Penalizacion']+$table[$idx]['Tiempo'];
-			if ($last==$now) { $table[$idx]['Puesto']=$puesto; continue; }
-			$table[$idx]['Puesto']=1+$idx;
-			$last=$now; 
-			$puesto=1+$idx;
+			if ($last!=$now) { $last=$now; $puesto=1+$idx; }
+			$table[$idx]['Puesto']=$puesto;
+			/*
+			// This should be done at javascript view level
+			// ajustamos penalizacion y tiempo con 2 decimales
+			$table[$idx]['Penalizacion'] =number_format($table[$idx]['Penalizacion'],2);
+			$table[$idx]['Velocidad'] =number_format($table[$idx]['Velocidad'],1); 
+			$table[$idx]['Tiempo'] =number_format($table[$idx]['Tiempo'],2);
+			if ($table[$idx]['Penalizacion']>=100) { $table[$idx]['Tiempo']="-"; $table[$idx]['Velocidad']="-"; }
+			if ($table[$idx]['Penalizacion']>=200) $table[$idx]['Puesto']="-";
+			*/
 		}
-		*/
 		// finalmente retornamos array
 		$this->myLogger->leave();
 		$res['rows']=$table;

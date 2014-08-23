@@ -55,7 +55,6 @@
 
 <script type="text/javascript">
 
-
 $('#resultadosmanga-window').window({
 	collapsible:	false,
 	minimizable:	false,
@@ -94,7 +93,7 @@ $('#resultadosmanga-datagrid').datagrid({
         { field:'Perro',		hidden:true },
         { field:'Dorsal',		hidden:true},
       	{ field:'Licencia',		hidden:true },
-        { field:'Puesto',		width:12, align:'left',  title: 'Puesto'},
+        { field:'Puesto',		width:12, align:'left',  title: 'Puesto', formatter:formatPuesto},
         { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
         { field:'NombreGuia',	width:35, align:'right', title: 'Guia' },
         { field:'NombreClub',	width:25, align:'right', title: 'Club' },
@@ -103,10 +102,10 @@ $('#resultadosmanga-datagrid').datagrid({
       	{ field:'Rehuses',		width:10, align:'center', title: 'Rehuses'},
       	{ field:'Tocados',		width:10, align:'center', title: 'Tocados'},
       	{ field:'PRecorrido',	hidden:true },
-      	{ field:'Tiempo',		width:15, align:'right', title: 'Tiempo'},
+      	{ field:'Tiempo',		width:15, align:'right', title: 'Tiempo', formatter:formatTiempo},
       	{ field:'PTiempo',		hidden:true },
-      	{ field:'Velocidad',	width:10, align:'right', title: 'Vel.'},
-      	{ field:'Penalizacion',	width:15, align:'right', title: 'Penal.'}, 
+      	{ field:'Velocidad',	width:10, align:'right', title: 'Vel.', formatter:formatVelocidad},
+      	{ field:'Penalizacion',	width:15, align:'right', title: 'Penal.', formatter:formatPenalizacion}, 
       	{ field:'Calificacion',	width:30, align:'center',title: 'Calificacion'}
     ]],
     rowStyler:function(index,row) { // colorize rows
