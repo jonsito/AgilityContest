@@ -7,7 +7,7 @@
 		   		data-options="iconCls:'icon-reload'" onclick="reloadParcial($('input:radio[name=rRecorrido]:checked').val())">Actualizar</a>
 		   	<br />
     		<a id="resultadosmanga-printBtn" href="#" class="easyui-linkbutton" 
-    			data-options="iconCls:'icon-print'" onclick="printResultadosManga()">Imprimir</a>
+    			data-options="iconCls:'icon-print'" onclick="printParcial($('input:radio[name=rRecorrido]:checked').val())">Imprimir</a>
 		</span>
 	</div>
 	<!-- TABLA DE DATOS DE TRS Y TRM DE LA MANGA -->

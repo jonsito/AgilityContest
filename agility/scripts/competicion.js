@@ -134,34 +134,59 @@ function reloadCompeticion() {
     );
 }
 
+/**
+ * imprime los resultados de la manga/categoria solicitadas
+ * @param val 0:large/conjunto 1:medium/m+s 2:small
+ */
+function printParcial(val) {
+	var mode=0;
+	var value=parseInt(val); // stupid javascript!!
+	// obtenemos informacion sobre los datos a imprimir
+	switch(parseInt(workingData.datosManga.Recorrido)) {
+	case 0: //  large / medium / small
+		switch(value) {	case 0: mode=0; break; case 1: mode=1; break; case 2: mode=2; break; }
+		break;
+	case 1: // large / medium+small
+		switch(value) {	case 0: mode=0; break; case 1: mode=3; break; case 2: mode=3; break; }
+		break;
+	case 2: // large+medium+small
+		switch(value) {	case 0: mode=4; break; case 1: mode=4; break; case 2: mode=4; break; }
+		break;
+	}
+	// imprimimos los datos de la manga y categoria solicitada
+	$.fileDownload(
+		'pdf/print_resultadosByManga.php',
+		{
+			httpMethod: 'GET',
+			data: { 
+				Prueba: workingData.prueba,
+				Jornada: workingData.jornada,
+				Manga: workingData.manga,
+				Mode: mode,
+				Operation: 'print'
+			},
+	        preparingMessageHtml: "We are preparing your report, please wait...",
+	        failMessageHtml: "There was a problem generating your report, please try again."
+		}
+	);
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+}
+
 /** actualiza el datagrid de resultados
  * @param mode 0:large/conjunto 1:medium/m+s 2:small
  */
 function reloadParcial(val) {
 	var mode=0;
-	var recorrido=parseInt(workingData.datosManga.Recorrido);
 	var value=parseInt(val); // stupid javascript!!
-	switch (recorrido) {
+	switch (parseInt(workingData.datosManga.Recorrido)) {
 	case 0: //  large / medium / small
-		switch(value) {
-		case 0: mode=0; break; 
-		case 1: mode=1; break;
-		case 2: mode=2; break;
-		}
+		switch(value) {	case 0: mode=0; break; case 1: mode=1; break; case 2: mode=2; break; }
 		break;
 	case 1: // large / medium+small
-		switch(value) {
-		case 0: mode=0; break; 
-		case 1: mode=3; break;
-		case 2: mode=3; break; // invalido
-		}
+		switch(value) {	case 0: mode=0; break; case 1: mode=3; break; case 2: mode=3; break; /* invalido*/	}
 		break;
 	case 2: // large+medium+small
-		switch(value) {
-		case 0: mode=4; break; 
-		case 1: mode=4; break; // invalido
-		case 2: mode=4; break; // invalido
-		}
+		switch(value) {	case 0: mode=4; break; 	case 1: mode=4; break; /* invalido */ case 2: mode=4; break; /* invalido */	}
 		break;
 	}
 	// reload resultados
