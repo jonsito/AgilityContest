@@ -4,7 +4,7 @@
 	<div id="resultadosmanga-toolbar">
  		<span style="float:right;padding:5px">
 		   	<a id="resultadosmanga-reloadBtn" href="#" class="easyui-linkbutton" 
-		   		data-options="iconCls:'icon-reload'" onclick="reloadResultadosManga()">Actualizar</a>
+		   		data-options="iconCls:'icon-reload'" onclick="reloadParcial($('input:radio[name=rRecorrido]:checked').val())">Actualizar</a>
 		   	<br />
     		<a id="resultadosmanga-printBtn" href="#" class="easyui-linkbutton" 
     			data-options="iconCls:'icon-print'" onclick="printResultadosManga()">Imprimir</a>
@@ -16,34 +16,31 @@
 			<table style="float:left;">
 				<tr><th colspan="6">Datos t&eacute;cnicos de la manga seleccionada(s)</th></tr>
 				<tr id="resultadosmanga-LargeRow">
-					<td><input type="radio" name="Recorrido" id="resultadosmanga-LargeBtn" 
-						value="0" checked="checked" onclick="reloadParcial(0)"></td>
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-LargeBtn" value="0" onclick="reloadParcial(0)"></td>
 					<th id="resultadosmanga-LargeLbl">Large</th>
-					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" name="DIST_L"></td>
-					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" name="OBST_L"></td>
-					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" name="TRS_L"></td>
-					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" name="TRM_L"></td>
-					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" name="VEL_L"></td>
+					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_L"></td>
+					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_L"></td>
+					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_TRS_L"></td>
+					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_TRM_L"></td>
+					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_VEL_L"></td>
 				</tr>
 				<tr id="resultadosmanga-MediumRow">
-					<td><input type="radio" name="Recorrido" id="resultadosmanga-LargeBtn" 
-						value="1" onclick="reloadParcial(1)"></td>
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-LargeBtn" value="1" onclick="reloadParcial(1)"></td>
 					<th id="resultadosmanga-MediumLbl">Medium</th>
-					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" name="DIST_M"></td>
-					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" name="OBST_M"></td>
-					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" name="TRS_M"></td>
-					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" name="TRM_M"></td>
-					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" name="VEL_M"></td>
+					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_M"></td>
+					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_M"></td>
+					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_TRS_M"></td>
+					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_TRM_M"></td>
+					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_VEL_M"></td>
 				</tr>
 				<tr id="resultadosmanga-SmallRow">
-					<td><input type="radio" name="Recorrido" id="resultadosmanga-LargeBtn" 
-						value="2" onclick="reloadParcial(2)"></td>
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-LargeBtn" value="2" onclick="reloadParcial(2)"></td>
 					<th id="resultadosmanga-SmallLbl">Small</th>
-					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" name="DIST_S"></td>
-					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" name="OBST_S"></td>
-					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" name="TRS_S"></td>
-					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" name="TRM_S"></td>
-					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" name="VEL_S"></td>
+					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_S"></td>
+					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_S"></td>
+					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_TRS_S"></td>
+					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_TRM_S"></td>
+					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_VEL_S"></td>
 				</tr>
 				<tr><th colspan="6">Resultados de la categor&iacute;a seleccionada</th></tr>
 			</table>
@@ -124,7 +121,7 @@ $('#resultadosmanga-datagrid').datagrid('getPanel').panel('panel').attr('tabinde
 });
 
 //- botones del panel de resultados de la manga
-addTooltip($('#resultadosmanga-reloadBtn').linkbutton(),"Actualizar resultados de la manga");
+addTooltip($('#resultadosmanga-reloadBtn').linkbutton(),"Actualizar datos de la manga/categoria seleccionada");
 addTooltip($('#resultadosmanga-printBtn').linkbutton(),"Imprimir resultados de la manga");
 
 </script>

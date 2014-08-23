@@ -12,11 +12,11 @@ function formatTiempo(val,row,idx) { return (row.Penalizacion>=100)?"-":parseFlo
 function formatPenalizacion(val,row,idx) { return parseFloat(val).toFixed(2); }
 
 /**
- * Actualiza el modo de visualizacion del panel de mangas
+ * Actualiza el modo de visualizacion del panel infomangas
  * en funcion del tipo de recorrido seleccionado
  */
 function dmanga_setRecorridos() {
-	var val=$("input:radio[name=Recorrido]:checked").val();
+	var val=$("input[name='Recorrido']:checked").val();
 	workingData.datosManga.Recorrido=val;
 	switch (val) {
 	case '2': // recorrido comun para std, mini y midi
@@ -134,26 +134,80 @@ function reloadCompeticion() {
     );
 }
 
+/** actualiza el datagrid de resultados
+ * @param mode 0:large/conjunto 1:medium/m+s 2:small
+ */
+function reloadParcial(val) {
+	var mode=0;
+	var recorrido=parseInt(workingData.datosManga.Recorrido);
+	var value=parseInt(val); // stupid javascript!!
+	switch (recorrido) {
+	case 0: //  large / medium / small
+		switch(value) {
+		case 0: mode=0; break; 
+		case 1: mode=1; break;
+		case 2: mode=2; break;
+		}
+		break;
+	case 1: // large / medium+small
+		switch(value) {
+		case 0: mode=0; break; 
+		case 1: mode=3; break;
+		case 2: mode=3; break; // invalido
+		}
+		break;
+	case 2: // large+medium+small
+		switch(value) {
+		case 0: mode=4; break; 
+		case 1: mode=4; break; // invalido
+		case 2: mode=4; break; // invalido
+		}
+		break;
+	}
+	// reload resultados
+	// en lugar de invocar al datagrid, lo que vamos a hacer es
+	// una peticion ajax, para obtener a la vez los datos tecnicos de la manga
+
+	$.ajax({
+		type:'GET',
+		url:"database/resultadosFunctions.php",
+		dataType:'json',
+		data: {
+			Operation:	'getResultados',
+			Prueba:		workingData.prueba,
+			Jornada:	workingData.jornada,
+			Manga:		workingData.manga,
+			Mode: mode
+		},
+		success: function(dat) {
+			var suffix='L';
+			switch (mode) {
+			case 0: case 4: suffix='L'; break;
+			case 1: case 3: suffix='M'; break;
+			case 2: suffix='S'; break;
+			}
+			$('#rm_DIST_'+suffix).val(dat['trs'].dist);
+			$('#rm_OBST_'+suffix).val(dat['trs'].obst);
+			$('#rm_TRS_'+suffix).val(dat['trs'].trs);
+			$('#rm_TRM_'+suffix).val(dat['trs'].trm);
+			$('#rm_VEL_'+suffix).val(dat['trs'].vel);
+			$('#resultadosmanga-datagrid').datagrid('loadData',dat);
+		}
+	});
+}
+
 /**
- * Reload ventana de resultados
+ * Inicializa ventana de resultados
+ * borra datagrid previa y recalcula datos de TRS 
  * @param recorrido 0:L/M/S 1:L/M+S 2:/L+M+S
  */
 function reloadResultadosManga(recorrido) {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
-	// recargamos el datagrid con los resultados pedidos
-	// por defecto seleccionamos resultados de categoria "large"
-    $('#resultadosmanga-datagrid').datagrid(
-            'load',
-            { 
-            	Prueba: workingData.prueba,
-            	Jornada: workingData.jornada , 
-            	Manga: workingData.manga ,
-            	Mode: (recorrido==2)?4:0,
-            	Operation: 'getResultados'
-            }
-    );
-    $('#resultadosmanga-LargeBtn').prop('checked',true);
+    $('#resultadosmanga-LargeBtn').prop('checked',false);
+    $('#resultadosmanga-MediumBtn').prop('checked',false);
+    $('#resultadosmanga-SmallBtn').prop('checked',false);
+    $('#resultadosmanga-datagrid').datagrid('loadData',{total:0, rows:{}});
     // actualizamos la informacion del panel de informacion de trs/trm
     switch(parseInt(recorrido)){
     case 0: // Large / Medium / Small
@@ -296,48 +350,7 @@ function competicionDialog(name) {
     }
 }
 
-/** actualiza el datagrid de resultados
- * @param mode 0:large/conjunto 1:medium/m+s 2:small
- */
-function reloadParcial(val) {
-	var mode=0;
-	var recorrido=parseInt(workingData.datosManga.Recorrido);
-	var value=parseInt(val); // stupid javascript!!
-	switch (recorrido) {
-	case 0: //  large / medium / small
-		switch(value) {
-		case 0: mode=0; break; 
-		case 1: mode=1; break;
-		case 2: mode=2; break;
-		}
-		break;
-	case 1: // large / medium+small
-		switch(value) {
-		case 0: mode=0; break; 
-		case 1: mode=3; break;
-		case 2: mode=3; break; // invalido
-		}
-		break;
-	case 2: // large+medium+small
-		switch(value) {
-		case 0: mode=4; break; 
-		case 1: mode=4; break; // invalido
-		case 2: mode=4; break; // invalido
-		}
-		break;
-	}
-	// reload resultados
-	$('#resultadosmanga-datagrid').datagrid(
-			'load',
-			{
-		        Prueba: workingData.prueba,
-		        Jornada: workingData.jornada,
-		        Manga: workingData.manga,
-		        Mode: mode,
-		        Operation: 'getResultados'
-			}
-	);
-}
+
 
 function reloadClasificacion() {
 	$('#resultados-manga1-datagrid').datagrid('reload');
