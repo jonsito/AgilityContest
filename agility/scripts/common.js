@@ -155,40 +155,70 @@ $.extend($.fn.datagrid.methods, {
  * Extension del messager para permitir una coleccion de radiobuttons en lugar de un prompt
  * Se anyade la opcion $messager.radio(title,{val:text},callback)
  */
-/*
-$.extend($.messager, {
-    radio: function(title, msg, fn) {
-    	var str="";
-    	$.each(msg,function(val,text){
-    		str +='<input class="messager-input" type="radio" name="messager-radio" value="'+val+'">'+text+'</input>\n';
-    	});
-        var content = '<div class="messager-icon messager-question"></div>'
-                                + '<div>' + title + '</div>'
-                                + '<br/>'
-                                + str
-                                + '<div style="clear:both;"/>';
-        var buttons = {};
-        buttons[$.messager.defaults.ok] = function(){
-                win.window('close');
-                if (fn){
-            			var val=$('input:radio[name="messager-radio"]:checked').val();
-                        fn(val);
-                        return false;
-                }
-        };
-        buttons[$.messager.defaults.cancel] = function(){
-                win.window('close');
-                if (fn){
-                        fn();
-                        return false;
-                }
-        };
-        // _f: createDialog()
-        var win= _f(title,content,buttons);
-        return win;
-    }
-});
-*/
+(function($){
+	function createDialog(title, content, buttons){
+		var win = $('<div class="messager-body"></div>').appendTo('body');
+		win.append(content);
+		if (buttons){
+			var tb = $('<div class="messager-button"></div>').appendTo(win);
+			for(var label in buttons){
+				$('<a></a>').attr('href', 'javascript:void(0)').text(label)
+							.css('margin-left', 10)
+							.bind('click', eval(buttons[label]))
+							.appendTo(tb).linkbutton();
+			}
+		}
+		win.window({
+			title: title,
+			noheader: (title?false:true),
+			width: 300,
+			height: 'auto',
+			modal: true,
+			collapsible: false,
+			minimizable: false,
+			maximizable: false,
+			resizable: false,
+			onClose: function(){
+				setTimeout(function(){
+					win.window('destroy');
+				}, 100);
+			}
+		});
+		win.window('window').addClass('messager-window');
+		win.children('div.messager-button').children('a:first').focus();
+		return win;
+	}
+	$.messager.radio = function(title, msg, fn){
+		var str="";
+		$.each(msg,function(val,text){
+			str +='<br /><input type="radio" name="messager-radio" value="'+val+'">'+text+'\n';
+		});
+		 var content = '<div class="messager-icon messager-question"></div>'
+		                         + '<div>' + title + '</div>'
+		                         + '<br/>'
+		                         + str
+		                         + '<div style="clear:both;"/>';
+		 var buttons = {};
+		 buttons[$.messager.defaults.ok] = function(){
+		         win.window('close');
+		         if (fn){
+		     			var val=$('input:radio[name="messager-radio"]:checked').val();
+		                 fn(val);
+		                 return false;
+		         }
+		 };
+		 buttons[$.messager.defaults.cancel] = function(){
+		         win.window('close');
+		         if (fn){
+		                 fn();
+		                 return false;
+		         }
+		 };
+		var win = createDialog(title,content,buttons);
+		win.children('input.messager-input').focus();
+		return win;
+	};
+})(jQuery);
 
 /**
  * Generic function for adding key handling to datagrids
