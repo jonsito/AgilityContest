@@ -142,8 +142,8 @@ addTooltip($('#competicion-reloadBtn').linkbutton(),"Recargar datos de competici
 addTooltip($('#competicion-saveBtn').linkbutton(),"Guardar datos de competicion");
 addTooltip($('#competicion-printBtn').linkbutton(),"Imprimir formulario ayudante de pista");
 $('#competicion-printBtn').on("click", function () {
-	 $.messager.radio('Selecciona formulario', {0:'Extendido (1 perro/pagina)',1:'Normal (5 perros/pagina)',2:'Compacto (15 perros/pagina)'}, function(r){
-	 if (!r) return;
+	 $.messager.radio('Selecciona formulario', {1:'Extendido (1 perro/pagina)',5:'Normal (5 perros/pagina)',15:'Compacto (15 perros/pagina)'}, function(r){
+	 	if (!r) return;
 		$.fileDownload(
 			'pdf/print_entradaDeDatos.php',
 			{
@@ -151,7 +151,8 @@ $('#competicion-printBtn').on("click", function () {
 				data: { 
 					Prueba: workingData.prueba,
 					Jornada: workingData.jornada,
-					Manga: workingData.manga
+					Manga: workingData.manga,
+					Mode: r
 				},
 		        preparingMessageHtml: "We are preparing your report, please wait...",
 		        failMessageHtml: "There was a problem generating your report, please try again."
