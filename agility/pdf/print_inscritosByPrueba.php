@@ -127,10 +127,10 @@ class PDF extends FPDF {
 			$this->Cell($this->pos[4],7,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
 			$this->Cell($this->pos[5],7,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
 			$this->Cell($this->pos[6],7,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
-			$this->Cell($this->pos[7],7,($row['Celo']==="0")?"":"X",'LR',0,	$this->align[7],	$fill);
+			$this->Cell($this->pos[7],7,($row['Celo']==0)?"":"X",'LR',0,	$this->align[7],	$fill);
 			$this->Cell($this->pos[8],7,$row['Observaciones'],'LR',	0,		$this->align[9],	$fill);
-			$this->Cell($this->pos[9],7,($row['J1']==="0")?"":"X",	'LR',0,		$this->align[9],	$fill);
-			$this->Cell($this->pos[10],7,($row['J2']==="0")?"":"X",'LR',0,		$this->align[10],	$fill);
+			$this->Cell($this->pos[9],7,($row['J1']==0)?"":"X",	'LR',0,		$this->align[9],	$fill);
+			$this->Cell($this->pos[10],7,($row['J2']==0)?"":"X",'LR',0,		$this->align[10],	$fill);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;

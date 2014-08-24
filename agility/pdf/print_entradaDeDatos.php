@@ -216,7 +216,8 @@ class PDF extends FPDF {
 		$this->Ln();
 		$this->Cell(20,10*$f,"Rehúses",1,0,'L',false);
 		for ($i=1;$i<=3;$i++) $this->Cell(10,10*$f,$i,1,0,'C',(($i&0x01)==0)?false:true);
-		$this->Cell(10); $this->Cell(30,10*$f,"Elim. ",1,0,'L',false); $this->Cell(30,10,"N.P. ",1,0,'L',false);
+		$this->Cell(10); $this->Cell(30,10*$f,"Elim. ",1,0,'L',false); 
+		$this->Cell(30,10*$f,"N.P. ",1,0,'L',false);
 		$this->Cell(10); $this->Cell(20,10*$f,"R: ",1,0,'L',false);
 		$this->Cell(40,10*$f,"",'LBR',0,'C',true);
 		$this->Ln(17);

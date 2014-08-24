@@ -150,7 +150,7 @@ class PDF extends FPDF {
 			$this->Cell($this->pos[3],7,$row['Licencia'],	'LR',0,$this->align[3],$fill);
 			$this->Cell($this->pos[4],7,$row['NombreGuia'],	'LR',0,$this->align[4],$fill);
 			$this->Cell($this->pos[5],7,$row['NombreClub'],	'LR',0,$this->align[5],$fill);
-			$this->Cell($this->pos[6],7,$row['Celo'],		'LR',0,$this->align[6],$fill);
+			$this->Cell($this->pos[6],7,($row['Celo']==0)?"":"X",		'LR',0,$this->align[6],$fill);
 			$this->Cell($this->pos[7],7,$row['Observaciones'],'LR',0,$this->align[7],$fill);
 			$this->Ln();
 			$fill = ! $fill;
