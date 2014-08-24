@@ -21,6 +21,7 @@ class PDF extends FPDF {
 	protected $prueba; // datos de la prueba
 	protected $jornada; // datos de la jornada
 	protected $manga; // datos de la manga
+	protected $manga2; // datos de la manga 2
 	protected $numrows; // formato del pdf 0:1 1:5 2:15 perros/pagina
 	protected $categoria; // categoria que estamos listando
 	protected $myLogger;
@@ -28,26 +29,30 @@ class PDF extends FPDF {
 	// geometria de las celdas
 	protected $cellHeader
 					=array('Dorsal','Nombre','Lic.','Guía','Club','Celo', 'Observaciones');
-	protected $pos	=array(  15,       35,     20,    40,   40,     10,    30);
+	protected $pos	=array(  15,       25,     15,    50,   45,     10,    30);
 	protected $align=array(  'C',      'R',    'C',   'L',  'R',    'C',   'R');
 	protected $fmt	=array(  'i',      's',    's',   's',  's',    'b',   's');
 	protected $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
 	 * Constructor
-	 * @param {integer} $prueba Prueba ID
-	 * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
+	 * @param {object} $prueba 
+	 * @param {object} $jornada 
+	 * @param {array[object]} datos de la manga y (si existe) manga hermana
+	 * @param {array} $orden Lista de inscritos en formato jquery array[count,rows[]]
+	 * @param {integer} $numrows numero de perros a imprimir por cada hoja
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$orden,$numrows) {
+	function __construct($prueba,$jornada,$mangas,$orden,$numrows) {
 		parent::__construct('Portrait','mm');
-		if ( ($prueba===null) || ($jornada===null) || ($manga===null) || ($orden===null) ) {
+		if ( ($prueba===null) || ($jornada===null) || ($mangas===null) || ($orden===null) ) {
 			$this->errormsg="printEntradaDeDatos: either prueba/jornada/ manga/orden data are invalid";
 			throw new Exception($this->errormsg);
 		}
 		$this->prueba=$prueba;
 		$this->jornada=$jornada;
-		$this->manga=$manga;
+		$this->manga=$mangas[0];
+		$this->manga2=$mangas[1];
 		$this->orden=$orden;
 		$this->numrows=$numrows;
 		$this->categoria="L";
@@ -77,6 +82,7 @@ class PDF extends FPDF {
 		$this->Cell(100,10,"Introducción de Datos",1,0,'C',false);// Nombre de la prueba centrado
 		$this->Ln(); // Salto de línea
 		
+		if($this->numrows==1) $this->Ln(20);
 		// pintamos "identificacion de la manga"
 		$this->SetFont('Arial','B',12); // Arial bold 15
 		$str  = $this->jornada['Nombre'] . " - " . $this->jornada['Fecha'];
@@ -154,11 +160,13 @@ class PDF extends FPDF {
 		$this->Ln(8);
 	}
 	
-	function writeTableCell_extendido($rowcount,$row) {
-		
-	}
-	
-	function writeTableCell_normal($rowcount,$row) {
+	/**
+	 * 
+	 * @param unknown $rowcount Row index
+	 * @param unknown $row Row data
+	 * @param number $f width factor (to be reused on extended print)
+	 */
+	function writeTableCell_normal($rowcount,$row,$f=1) {
 		$this->myLogger->trace("imprimiendo datos del idperro: ".$row['Perro']);
 		// cada celda tiene una cabecera con los datos del participante
 		$this->SetFillColor(0,0,255); // azul
@@ -169,49 +177,67 @@ class PDF extends FPDF {
 		// fase 1: contenido de cada celda de la cabecera
 		$this->SetTextColor(255,255,255); // blanco
 		$this->SetFont('Arial','B',20); // bold 9px
-		$this->Cell($this->pos[0],10,$row['Dorsal'],		'LTR',0,$this->align[0],true); // display order
+		$this->Cell($this->pos[0],10*$f,$row['Dorsal'],		'LTR',0,$this->align[0],true); // display order
 		$this->SetFont('Arial','B',12); // bold 9px
-		$this->Cell($this->pos[1],10,$row['Nombre'],		'LTR',0,$this->align[1],true);
-		$this->Cell($this->pos[2],10,$row['Licencia'],		'LTR',0,$this->align[2],true);
-		$this->Cell($this->pos[3],10,$row['NombreGuia'],	'LTR',0,$this->align[3],true);
-		$this->Cell($this->pos[4],10,$row['NombreClub'],	'LTR',0,$this->align[4],true);
-		$this->Cell($this->pos[5],10,($row['Celo']!=0)?"Celo":"",'LTR',0,$this->align[5],true);
-		$this->Cell($this->pos[6],10,$row['Observaciones'],	'LTR',0,$this->align[6],true);
+		$this->Cell($this->pos[1],10*$f,$row['Nombre'],		'LTR',0,$this->align[1],true);
+		$this->Cell($this->pos[2],10*$f,$row['Licencia'],		'LTR',0,$this->align[2],true);
+		$this->Cell($this->pos[3],10*$f,$row['NombreGuia'],	'LTR',0,$this->align[3],true);
+		$this->Cell($this->pos[4],10*$f,$row['NombreClub'],	'LTR',0,$this->align[4],true);
+		$this->Cell($this->pos[5],10*$f,($row['Celo']!=0)?"Celo":"",'LTR',0,$this->align[5],true);
+		$this->Cell($this->pos[6],10*$f,$row['Observaciones'],	'LTR',0,$this->align[6],true);
 
 		// fase 2: nombre de cada celda de la cabecera
 		$this->SetXY($x,$y); // restore cursor position
 		$this->SetTextColor(0,0,0); // negro
 		$this->SetFont('Arial','I',8); // italic 8px
-		$this->Cell($this->pos[0],5,'',	'',	0,'L',false); // Dorsal
+		$this->Cell($this->pos[0],5,($f!=1)?'Dorsal':'','',	0,'L',false); // Dorsal
 		$this->Cell($this->pos[1],5,'Nombre:',	'',	0,'L',false);
 		$this->Cell($this->pos[2],5,'Licencia:','',	0,'L',false);
 		$this->Cell($this->pos[3],5,'Guia:',	'',	0,'L',false);
 		$this->Cell($this->pos[4],5,'Club:',	'',	0,'L',false);
 		$this->Cell($this->pos[5],5,'Celo:',	'',	0,'L',false);
 		$this->Cell($this->pos[6],5,'Observaciones:','',0,'L',false);
-		$this->Cell(0,10); // increase height before newline
+		$this->Cell(0,10*$f); // increase height before newline
 		
 		// Restauración de colores y fuentes
 		$this->SetFillColor(224,235,255); // azul merle
 		$this->SetTextColor(0,0,0); // negro
 		$this->Ln();
 		// datos de Faltas, Tocados y Rehuses
-		$this->Cell(20,10,"Faltas",1,0,'L',false);
-		for ($i=1;$i<=10;$i++) $this->Cell(10,10,$i,1,0,'C',(($i&0x01)==0)?false:true);
-		$this->Cell(10); $this->Cell(20,10,"F: ",1,0,'L',false);
-		$this->Cell(40,10,"Tiempo: ",'LTR',0,'C',true);
+		$this->Cell(20,10*$f,"Faltas",1,0,'L',false);
+		for ($i=1;$i<=10;$i++) $this->Cell(10,10*$f,$i,1,0,'C',(($i&0x01)==0)?false:true);
+		$this->Cell(10); $this->Cell(20,10*$f,"F: ",1,0,'L',false);
+		$this->Cell(40,10*$f,"Tiempo: ",'LTR',0,'C',true);
 		$this->Ln();
-		$this->Cell(20,10,"Tocados",1,0,'L',false);
-		for ($i=1;$i<=10;$i++) $this->Cell(10,10,$i,1,0,'C',(($i&0x01)==0)?false:true);
-		$this->Cell(10); $this->Cell(20,10,"T: ",1,0,'L',false);
-		$this->Cell(40,10,"",'LR',0,'C',true);
+		$this->Cell(20,10*$f,"Tocados",1,0,'L',false);
+		for ($i=1;$i<=10;$i++) $this->Cell(10,10*$f,$i,1,0,'C',(($i&0x01)==0)?false:true);
+		$this->Cell(10); $this->Cell(20,10*$f,"T: ",1,0,'L',false);
+		$this->Cell(40,10*$f,"",'LR',0,'C',true);
 		$this->Ln();
-		$this->Cell(20,10,"Rehúses",1,0,'L',false);
-		for ($i=1;$i<=3;$i++) $this->Cell(10,10,$i,1,0,'C',(($i&0x01)==0)?false:true);
-		$this->Cell(10); $this->Cell(30,10,"Elim. ",1,0,'L',false); $this->Cell(30,10,"N.P. ",1,0,'L',false);
-		$this->Cell(10); $this->Cell(20,10,"R: ",1,0,'L',false);
-		$this->Cell(40,10,"",'LBR',0,'C',true);
+		$this->Cell(20,10*$f,"Rehúses",1,0,'L',false);
+		for ($i=1;$i<=3;$i++) $this->Cell(10,10*$f,$i,1,0,'C',(($i&0x01)==0)?false:true);
+		$this->Cell(10); $this->Cell(30,10*$f,"Elim. ",1,0,'L',false); $this->Cell(30,10,"N.P. ",1,0,'L',false);
+		$this->Cell(10); $this->Cell(20,10*$f,"R: ",1,0,'L',false);
+		$this->Cell(40,10*$f,"",'LBR',0,'C',true);
 		$this->Ln(17);
+	}
+
+	function writeTableCell_extendido($rowcount,$row) {
+		// imprimimos informacion de la primera manga
+		$this->writeTableCell_normal($rowcount,$row,2);
+		// si existe imprimimos informacion de la segunda manga
+		if ($this->manga2==null) return;
+		$this->Ln(20);
+		// pintamos "identificacion" de la segunda manga
+		$this->SetFont('Arial','B',12); // Arial bold 15
+		$str  = $this->jornada['Nombre'] . " - " . $this->jornada['Fecha'];
+		$tmanga= Mangas::$tipo_manga[$this->manga2->Tipo][1];
+		$str2 = $tmanga . " - " . $this->cat[$this->categoria];
+		$this->Cell(90,10,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
+		$this->Cell(90,10,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
+		$this->Ln(10);
+		// y volvemos a pintar el recuadro para la segunda manga
+		$this->writeTableCell_normal($rowcount,$row,2);
 	}
 	
 	// Tabla coloreada
@@ -262,9 +288,9 @@ try {
 	// Datos de la jornada
 	$j=new Jornadas("printEntradaDeDatos",$pruebaid);
 	$jornada=$j->selectByID($jornadaid);
-	// Datos de la manga
+	// Datos de la manga y su manga hermana
 	$m = new Mangas("printEntradaDeDatos",$jornadaid);
-	$manga= $m->selectByID($mangaid);
+	$mangas= $m->getHermanas($mangaid);
 	// Datos del orden de salida
 	$o = new OrdenSalida("printEntradaDeDatos");
 	$orden= $o->getData($pruebaid,$jornadaid,$mangaid);
@@ -272,7 +298,7 @@ try {
 	die ("Error accessing database: ".$e.getMessage());
 };
 // Creamos generador de documento
-$pdf = new PDF($prueba,$jornada,$manga,$orden['rows'],$mode);
+$pdf = new PDF($prueba,$jornada,$mangas,$orden['rows'],$mode);
 $pdf->AliasNbPages();
 $pdf->composeTable();
 $pdf->Output("printEntradaDeDatos.pdf","D"); // "D" means open download dialog
