@@ -317,32 +317,30 @@ class OrdenSalida extends DBObject {
 	function reverse($jornada,$manga) {
 		$this->myLogger->enter();
 		// fase 1: buscamos la "manga hermana"
-		// para ello hay que buscar la manga que tiene la misma jornada y grado pero distinto id
-		$mangaobj=$this->__selectObject("*", "Mangas", "(Jornada=$jornada) AND (ID=$manga)");
-		if (!is_object($mangaobj)) return $this->error("No manga found with ID=$manga");
-		$grado=$mangaobj->Grado;
-		$manga2obj=$this->__selectObject("*", "Mangas", "(Jornada=$jornada) AND (Grado='$grado') AND (ID!=$manga)");
-		if (!is_object($manga2obj)) return $this->error("No manga found with with same 'Grado' as ID=$manga");
+		$mhandler=new Mangas("OrdenSalida::reverse()",$jornada);
+		$hermanas=$mhandler->getHermanas($manga);
+		if (!is_array($hermanas)) return $this->error("Error find hermanas info for jornada:$jornada and manga:$manga");
+		if ($hermanas[1]==null) return $this->error("Cannot reverse order: Manga:$manga of Jornada:$jornada has no brother");
 	
 		// fase 2: evaluamos resultados de la manga hermana
-		$this->myLogger->trace("El rden de salida original para manga:$manga es:\n$mangaobj->Orden_Salida");
+		$this->myLogger->trace("El orden de salida original para manga:$manga jornada:$jornada es:\n{$hermanas[0]->Orden_Salida}");
 		// En funcion del tipo de recorrido tendremos que leer diversos conjuntos de Resultados
-		switch($manga2->Recorrido) {
+		switch($hermanas[0]->Recorrido) {
 			case 0: // Large, medium, small
-				$this->invierteResultados($mangaobj,$manga2obj,0);
-				$this->invierteResultados($mangaobj,$manga2obj,1);
-				$this->invierteResultados($mangaobj,$manga2obj,2);
+				$this->invierteResultados($hermanas[0],$hermanas[1],0);
+				$this->invierteResultados($hermanas[0],$hermanas[1],1);
+				$this->invierteResultados($hermanas[0],$hermanas[1],2);
 				break;
 			case 1: // Large, medium+small
-				$this->invierteResultados($mangaobj,$manga2obj,0);
-				$this->invierteResultados($mangaobj,$manga2obj,3);
+				$this->invierteResultados($hermanas[0],$hermanas[1],0);
+				$this->invierteResultados($hermanas[0],$hermanas[1],3);
 				break;
 			case 2: // conjunta L+M+S
-				$this->invierteResultados($mangaobj,$manga2obj,4);
+				$this->invierteResultados($hermanas[0],$hermanas[1],4);
 				break;
 		}
-		$nuevo=$this->getOrden($mangaobj->ID);
-		$this->myLogger->trace("El orden de salida nuevo es:\n$nuevo");
+		$nuevo=$this->getOrden($hermanas[0]->ID);
+		$this->myLogger->trace("El orden de salida nuevo para manga:$manga jornada:$jornada es:\n$nuevo");
 		$this->myLogger->leave();
 		return $ordensalida;
 	}

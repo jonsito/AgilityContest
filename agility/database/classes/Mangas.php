@@ -26,6 +26,26 @@ class Mangas extends DBObject {
 			array( 16,'Ronda de Exhibición', '-')	
 	);
 	
+	/* tabla para obtener facilmente la manga complementaria a una manga dada */
+	public static $manga_hermana= array(
+		0,	/* 0,'','' */
+		0,	/* 1, 'Manga sin tipo definido', '-' */
+		0,	/* 2, 'Ronda de Pre-Agility', 'P.A.' */
+		4,	/* 3, 'Agility Grado I Manga 1', 'GI' */
+		3,	/* 4, 'Agility Grado I Manga 2', 'GI' */
+		10,	/* 5, 'Agility Grado II', 'GII' */
+		11,	/* 6, 'Agility Grado III', 'GIII' */
+		12,	/* 7, 'Agility Abierta (Open)', '-' */
+		13,	/* 8, 'Agility Equipos (3 mejores)', '-' */
+		14,	/* 9, 'Agility Equipos (Conjunta)', '-' */
+		5,	/* 10,'Jumping Grado II', 'GII' */
+		6,	/* 11,'Jumping Grado III', 'GIII' */
+		7,	/* 12,'Jumping Abierta (Open)', '-' */
+		8,	/* 13,'Jumping por Equipos (3 mejores)', '-' */
+		9,	/* 14,'Jumping por Equipos (Conjunta)', '-' */
+		0	/* 15,'Ronda K.O.', '-' */
+	);
+	
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
@@ -201,6 +221,31 @@ class Mangas extends DBObject {
 		);
 		$this->myLogger->leave();
 		return $result;
+	}
+	
+	/**
+	 * Obtiene la manga "hermana" de la que tiene el ID dado
+	 * @param {integer} $id ID de la jornada
+	 * @return array[0:jornadaByID,1:jornadaHermana]
+	 */
+	function getHermanas($id) {
+		$this->myLogger->enter();
+		if ($id<=0) return $this->error("Invalid Manga ID");
+		// second query to retrieve $rows starting at $offset
+		$result=$this->__selectObject("*","Mangas","( ID=$id )");
+		if (!is_object($result)) return $this->error("Cannot locate Manga with ID=$id");
+		$tipo=Mangas::$manga_hermana[$result->Tipo];
+		if ($tipo==0) {
+			$this->myLogger->info("La manga:$id de tipo:{$result->Tipo} no tiene hermana asociada");
+			return array($result,null); 
+		}
+		$result2=$this->__selectObject("*","Mangas","( Jornada={$this->jornada} ) AND ( Tipo=$tipo)");
+		if (!is_object($result2)) {
+			// inconsistency error muy serio 
+			return $this->error("Falta la manga hermana de tipo:$tipo para manga:$id de tipo:{$result->Tipo}");
+		}
+		$this->myLogger->leave();
+		return array($result,$result2);
 	}
 	
 	/**
