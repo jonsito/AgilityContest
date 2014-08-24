@@ -28,8 +28,8 @@ class PDF extends FPDF {
 	// geometria de las celdas
 	protected $cellHeader
 					=array('Dorsal','Nombre','Lic.','Guía','Club','Celo', 'Observaciones');
-	protected $pos	=array(  15,       35,     20,    50,   30,     10,    30);
-	protected $align=array(  'C',      'R',    'C',   'R',  'R',    'C',   'R');
+	protected $pos	=array(  15,       35,     20,    40,   40,     10,    30);
+	protected $align=array(  'C',      'R',    'C',   'L',  'R',    'C',   'R');
 	protected $fmt	=array(  'i',      's',    's',   's',  's',    'b',   's');
 	protected $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	

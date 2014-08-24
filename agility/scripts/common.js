@@ -151,6 +151,44 @@ $.extend($.fn.datagrid.methods, {
 	}
 });
 
+/**
+ * Extension del messager para permitir una coleccion de radiobuttons en lugar de un prompt
+ * Se anyade la opcion $messager.radio(title,{val:text},callback)
+ */
+/*
+$.extend($.messager, {
+    radio: function(title, msg, fn) {
+    	var str="";
+    	$.each(msg,function(val,text){
+    		str +='<input class="messager-input" type="radio" name="messager-radio" value="'+val+'">'+text+'</input>\n';
+    	});
+        var content = '<div class="messager-icon messager-question"></div>'
+                                + '<div>' + title + '</div>'
+                                + '<br/>'
+                                + str
+                                + '<div style="clear:both;"/>';
+        var buttons = {};
+        buttons[$.messager.defaults.ok] = function(){
+                win.window('close');
+                if (fn){
+            			var val=$('input:radio[name="messager-radio"]:checked').val();
+                        fn(val);
+                        return false;
+                }
+        };
+        buttons[$.messager.defaults.cancel] = function(){
+                win.window('close');
+                if (fn){
+                        fn();
+                        return false;
+                }
+        };
+        // _f: createDialog()
+        var win= _f(title,content,buttons);
+        return win;
+    }
+});
+*/
 
 /**
  * Generic function for adding key handling to datagrids

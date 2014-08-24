@@ -10,7 +10,7 @@
     		</span>
     		<span style="float:right">
     		<!-- estos elementos deben estar alineados a la derecha -->
-    		<a id="competicion-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'">Imprimir</a>
+    		<a id="competicion-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'">Formularios</a>
 		</span>
 	</div>
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
@@ -142,19 +142,23 @@ addTooltip($('#competicion-reloadBtn').linkbutton(),"Recargar datos de competici
 addTooltip($('#competicion-saveBtn').linkbutton(),"Guardar datos de competicion");
 addTooltip($('#competicion-printBtn').linkbutton(),"Imprimir formulario ayudante de pista");
 $('#competicion-printBtn').on("click", function () {
-	$.fileDownload(
-		'pdf/print_entradaDeDatos.php',
-		{
-			httpMethod: 'GET',
-			data: { 
-				Prueba: workingData.prueba,
-				Jornada: workingData.jornada,
-				Manga: workingData.manga
-			},
-	        preparingMessageHtml: "We are preparing your report, please wait...",
-	        failMessageHtml: "There was a problem generating your report, please try again."
-		}
-	);
+	 $.messager.radio('Selecciona formulario', {0:'Extendido (1 perro/pagina)',1:'Normal (5 perros/pagina)',2:'Compacto (15 perros/pagina)'}, function(r){
+	 if (!r) return;
+		$.fileDownload(
+			'pdf/print_entradaDeDatos.php',
+			{
+				httpMethod: 'GET',
+				data: { 
+					Prueba: workingData.prueba,
+					Jornada: workingData.jornada,
+					Manga: workingData.manga
+				},
+		        preparingMessageHtml: "We are preparing your report, please wait...",
+		        failMessageHtml: "There was a problem generating your report, please try again."
+			}
+		);
+	}).window({width:300});
     return false; //this is critical to stop the click event which will trigger a normal file download!
 });
+
 </script>
