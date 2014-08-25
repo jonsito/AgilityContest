@@ -15,6 +15,7 @@ require_once(__DIR__.'/../database/classes/Pruebas.php');
 require_once(__DIR__.'/../database/classes/Jornadas.php');
 require_once(__DIR__.'/../database/classes/Mangas.php');
 require_once(__DIR__.'/../database/classes/Clasificaciones.php');
+require_once(__DIR__."/print_common.php");
 
 class parcialPDF extends FPDF {
 
@@ -23,7 +24,7 @@ class parcialPDF extends FPDF {
 	protected $manga; // datos de la manga
 	protected $categorias; // categorias del listado
 	protected $clasificacion; // clasificacion de la manga
-	protected $myLogger;
+	public $myLogger;
 	
 	// geometria de las celdas
 	protected $cellHeader
@@ -31,7 +32,7 @@ class parcialPDF extends FPDF {
 	protected $pos	=array(  10,       20,    12,    37,   25,     7,    7,     7,    7,   12,      8,    12,      22);
 	protected $align=array(  'C',      'L',   'L',   'R',  'R',   'C',  'C',   'C',  'C',  'R',     'R',   'R',     'C');
 	protected $fmt	=array(  'i',      's',   's',   's',  's',   's',  's');
-	protected $cat  =array(	"-" => "Sin categoria", "0" => "Sin categoria",
+	public $cat  =array(	"-" => "Sin categoria", "0" => "Sin categoria",
 							"L"=>"Large",	"1"=>"Large",
 							"M"=>"Medium",	"2"=>"Medium",
 							"S"=>"Small",	"3"=>"Small",
@@ -66,47 +67,14 @@ class parcialPDF extends FPDF {
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		// pintamos Logo
-		// TODO: escoger logo en funcion del club
-		// $this->image(file,startx,starty,width)
-		$this->Image(__DIR__.'/../images/logos/welpe.png',15,10,20);
-		
-		// recordatorio
-		// $this->cell( width, height, data, borders, where, align, fill)
-		
-		// pintamos nombre de la prueba
-		$this->SetFont('Arial','BI',10); // Arial bold italic 10
-		$this->Cell(50); // primer cuarto de la linea
-		$this->Cell(100,10,$this->prueba['Nombre'],0,0,'C',false);// Nombre de la prueba centrado 
-		$this->Ln(); // Salto de línea
-		
-		// pintamos "listado de participantes en un recuadro"
-		$this->SetFont('Arial','B',20); // Arial bold 20
-		$this->Cell(50); // primer cuarto de la linea
-		$this->Cell(100,10,"Clasificacion Parcial",1,0,'C',false);// Nombre de la prueba centrado
-		$this->Ln(); // Salto de línea
-		
-		// pintamos "identificacion de la manga"
-		$this->SetFont('Arial','B',12); // Arial bold 15
-		$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
-		$str2 .= $this->manga->Tipo . " - " . $this->cat[$this->categorias];
-		$this->Cell(90,10,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
-		$this->Cell(90,10,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
-		$this->Ln(10);
-		
+		print_commonHeader($this,$this->prueba,$this->jornada,$this->manga,"Clasificación Final");
+		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga);
 		$this->myLogger->leave();
 	}
 		
 	// Pie de página
 	function Footer() {
-		$this->myLogger->enter();
-		// Posición: a 1,5 cm del final
-		$this->SetY(-15);
-		// Arial italic 8
-		$this->SetFont('Arial','I',8);
-		// Número de página
-		$this->Cell(0,10,'Página '.$this->PageNo().'/{nb}',0,0,'C');
-		$this->myLogger->leave();
+		print_commonFooter($this,$this->prueba,$this->jornada,$this->manga);
 	}
 	
 	function writeTableHeader() {

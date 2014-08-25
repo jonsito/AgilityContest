@@ -15,6 +15,7 @@ require_once(__DIR__.'/../database/classes/Pruebas.php');
 require_once(__DIR__.'/../database/classes/Jornadas.php');
 require_once(__DIR__.'/../database/classes/Mangas.php');
 require_once(__DIR__.'/../database/classes/OrdenSalida.php');
+require_once(__DIR__."/print_common.php");
 
 class PDF extends FPDF {
 
@@ -23,8 +24,8 @@ class PDF extends FPDF {
 	protected $manga; // datos de la manga
 	protected $manga2; // datos de la manga 2
 	protected $numrows; // formato del pdf 0:1 1:5 2:15 perros/pagina
-	protected $categoria; // categoria que estamos listando
-	protected $myLogger;
+	public $categoria; // categoria que estamos listando
+	public $myLogger;
 
 	// geometria de las celdas
 	protected $cellHeader
@@ -32,7 +33,7 @@ class PDF extends FPDF {
 	protected $pos	=array(  15,       25,     15,    50,   45,     10,    30);
 	protected $align=array(  'C',      'R',    'C',   'L',  'R',    'C',   'R');
 	protected $fmt	=array(  'i',      's',    's',   's',  's',    'b',   's');
-	protected $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
+	public $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
 	 * Constructor
@@ -62,49 +63,16 @@ class PDF extends FPDF {
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		// pintamos Logo
-		// TODO: escoger logo en funcion del club
-		// $this->image(file,startx,starty,width)
-		$this->Image(__DIR__.'/../images/logos/welpe.png',15,10,20);
-		
-		// recordatorio
-		// $this->cell( width, height, data, borders, where, align, fill)
-		
-		// pintamos nombre de la prueba
-		$this->SetFont('Arial','BI',10); // Arial bold italic 10
-		$this->Cell(50); // primer cuarto de la linea
-		$this->Cell(100,10,$this->prueba['Nombre'],0,0,'C',false);// Nombre de la prueba centrado 
-		$this->Ln(); // Salto de línea
-		
-		// pintamos "listado de participantes en un recuadro"
-		$this->SetFont('Arial','B',20); // Arial bold 20
-		$this->Cell(50); // primer cuarto de la linea
-		$this->Cell(100,10,"Introducción de Datos",1,0,'C',false);// Nombre de la prueba centrado
-		$this->Ln(); // Salto de línea
-		
+		print_commonHeader($this,$this->prueba,$this->jornada,$this->manga,"Introducción de Datos");
+		// si estamos en modo 1 perro/pagina, dejamos un buen hueco antes de pintar la id de la manga
 		if($this->numrows==1) $this->Ln(20);
-		// pintamos "identificacion de la manga"
-		$this->SetFont('Arial','B',12); // Arial bold 15
-		$str  = $this->jornada['Nombre'] . " - " . $this->jornada['Fecha'];
-		$tmanga= Mangas::$tipo_manga[$this->manga->Tipo][1];
-		$str2 = $tmanga . " - " . $this->cat[$this->categoria];
-		$this->Cell(90,10,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
-		$this->Cell(90,10,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
-		$this->Ln(10);
-		
+		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga);
 		$this->myLogger->leave();
 	}
 		
 	// Pie de página
 	function Footer() {
-		$this->myLogger->enter();
-		// Posición: a 1,5 cm del final
-		$this->SetY(-15);
-		// Arial italic 8
-		$this->SetFont('Arial','I',8);
-		// Número de página
-		$this->Cell(0,10,'Página '.$this->PageNo().'/{nb}',0,0,'C');
-		$this->myLogger->leave();
+		print_commonFooter($this,$this->prueba,$this->jornada,$this->manga);
 	}
 	
 	function writeTableCell_compacto($rowcount,$row) {
@@ -230,13 +198,7 @@ class PDF extends FPDF {
 		if ($this->manga2==null) return;
 		$this->Ln(20);
 		// pintamos "identificacion" de la segunda manga
-		$this->SetFont('Arial','B',12); // Arial bold 15
-		$str  = $this->jornada['Nombre'] . " - " . $this->jornada['Fecha'];
-		$tmanga= Mangas::$tipo_manga[$this->manga2->Tipo][1];
-		$str2 = $tmanga . " - " . $this->cat[$this->categoria];
-		$this->Cell(90,10,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
-		$this->Cell(90,10,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
-		$this->Ln(10);
+		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga2);
 		// y volvemos a pintar el recuadro para la segunda manga
 		$this->writeTableCell_normal($rowcount,$row,2);
 	}

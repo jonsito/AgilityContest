@@ -16,10 +16,11 @@ require_once(__DIR__.'/../database/classes/Jueces.php');
 require_once(__DIR__.'/../database/classes/Jornadas.php');
 require_once(__DIR__.'/../database/classes/Mangas.php');
 require_once(__DIR__.'/../database/classes/Resultados.php');
+require_once(__DIR__."/print_common.php");
 
 class PDF extends FPDF {
 	
-	protected $myLogger;
+	public $myLogger;
 	protected $prueba;
 	protected $jornada;
 	protected $manga;
@@ -53,35 +54,8 @@ class PDF extends FPDF {
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		// pintamos Logo
-		// TODO: escoger logo en funcion del club
-		// $this->image(file,startx,starty,width)
-		$this->Image(__DIR__.'/../images/logos/welpe.png',15,10,20);
-		
-		// recordatorio
-		// $this->cell( width, height, data, borders, where, align, fill)
-		
-		// pintamos nombre de la prueba
-		$this->SetFont('Arial','BI',10); // Arial bold italic 10
-		$this->Cell(50); // primer cuarto de la linea
-		$this->Cell(100,10,$this->prueba['Nombre'],0,0,'C',false);// Nombre de la prueba centrado 
-		$this->Ln(); // Salto de línea
-		
-		// pintamos "Resultados Parciales" en un recuadro
-		$this->SetFont('Arial','BI',20); // Arial bold italic 10
-		$this->Cell(50); // primer cuarto de la linea
-		$this->Cell(100,10,"Resultados Parciales",1,0,'C',false);// Nombre de la prueba centrado
-		$this->Ln(15);
-		$this->myLogger->leave();
-		
-		// pintamos "identificacion de la manga"
-		$this->SetFont('Arial','B',12); // Arial bold 15
-		$str  = "{$this->jornada['Nombre']} - {$this->jornada['Fecha']}";
-		$tmanga= Mangas::$tipo_manga[$this->manga->Tipo][1];
-		$str2 = "$tmanga - {$this->modestr[intval($this->mode)]}";
-		$this->Cell(90,10,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
-		$this->Cell(90,10,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
-		$this->Ln(10);
+		print_commonHeader($this,$this->prueba,$this->jornada,$this->manga,"Orden de Salida");
+		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga);
 		
 		// Si es la primera hoja pintamos datos tecnicos de la manga
 		if ($this->PageNo()!=1) return;
@@ -107,17 +81,10 @@ class PDF extends FPDF {
 		$this->Cell(18,7,"{$this->resultados['trs']['vel']} m/s","BR",0,'L',false);
 		$this->Ln(14); // en total tres lineas extras en la primera hoja
 	}
-		
+	
 	// Pie de página
 	function Footer() {
-		$this->myLogger->enter();
-		// Posición: a 1,5 cm del final
-		$this->SetY(-15);
-		// Arial italic 8
-		$this->SetFont('Arial','I',8);
-		// Número de página
-		$this->Cell(0,10,'Página '.$this->PageNo().'/{nb}',0,0,'C');
-		$this->myLogger->leave();
+		print_commonFooter($this,$this->prueba,$this->jornada,array($this->manga));
 	}
 	
 	function writeTableHeader() {
