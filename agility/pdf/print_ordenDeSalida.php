@@ -23,7 +23,7 @@ class PDF extends FPDF {
 	protected $jornada; // datos de la jornada
 	protected $manga; // datos de la manga
 	protected $orden; // orden de salida
-	public $categoria; // categoria que estamos listando
+	protected $categoria; // categoria que estamos listando
 	public $myLogger;
 
 	// geometria de las celdas
@@ -32,7 +32,7 @@ class PDF extends FPDF {
 	protected $pos	=array(  12,      12,     30,     15,    50,   30,     10,    26);
 	protected $align=array(  'R',    'R',    'L',    'C',   'R',  'R',    'C',   'R');
 	protected $fmt	=array(  'i',    'i',    's',    's',   's',  's',    'b',   's');
-	public $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
+	protected $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
 	 * Constructor
@@ -58,7 +58,7 @@ class PDF extends FPDF {
 	function Header() {
 		$this->myLogger->enter();
 		print_commonHeader($this,$this->prueba,$this->jornada,$this->manga,"Orden de Salida");
-		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga);
+		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga,$this->cat[$this->categoria]);
 		$this->myLogger->leave();
 	}
 	
@@ -156,6 +156,6 @@ try {
 $pdf = new PDF($prueba,$jornada,$manga,$orden['rows']);
 $pdf->AliasNbPages();
 $pdf->composeTable();
-$pdf->Output("printOrdenDeSalida.pdf","D"); // "D" means open download dialog
+$pdf->Output("ordenDeSalida.pdf","D"); // "D" means open download dialog
 echo json_encode(array('success'=>true));
 ?>

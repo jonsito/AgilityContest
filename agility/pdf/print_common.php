@@ -29,7 +29,6 @@ function print_commonHeader($pdf,$prueba,$jornada,$manga,$title) {
 	}
 	$icon="welpe.png";
 	if (isset($pdf->club)) $icon=$pdf->club->Logo;
-	$pdf->myLogger->trace("El ancho de la pagina es:{$pdf->w}");
 	// los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
 	$pdf->SetXY(10,10); // margins are 10mm each
 	$pdf->Cell(25.4,25.4,$pdf->Image(__DIR__.'/../images/logos/'.$icon,$pdf->getX(),$pdf->getY(),25.4),0,0,'L',false);
@@ -64,12 +63,12 @@ function print_commonFooter($pdf,$prueba,$jornada,$manga) {
 }
 
 // Identificacion de la Manga
-function print_identificacionManga($pdf,$prueba,$jornada,$manga) {
+function print_identificacionManga($pdf,$prueba,$jornada,$manga,$categoria) {
 		// pintamos "identificacion de la manga"
 		$pdf->SetFont('Arial','B',12); // Arial bold 15
 		$str  = $jornada['Nombre'] . " - " . $jornada['Fecha'];
 		$tmanga= Mangas::$tipo_manga[$manga->Tipo][1];
-		$str2 = $tmanga . " - " . $pdf->cat[$pdf->categoria];
+		$str2="$tmanga - $categoria";
 		$pdf->Cell(90,10,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
 		$pdf->Cell(90,10,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
 		$pdf->Ln(10);

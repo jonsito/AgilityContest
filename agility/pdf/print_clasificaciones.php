@@ -22,7 +22,7 @@ class parcialPDF extends FPDF {
 	protected $prueba; // datos de la prueba
 	protected $jornada; // datos de la jornada
 	protected $manga; // datos de la manga
-	protected $categorias; // categorias del listado
+	protected $categoria; // categorias del listado
 	protected $clasificacion; // clasificacion de la manga
 	public $myLogger;
 	
@@ -32,7 +32,7 @@ class parcialPDF extends FPDF {
 	protected $pos	=array(  10,       20,    12,    37,   25,     7,    7,     7,    7,   12,      8,    12,      22);
 	protected $align=array(  'C',      'L',   'L',   'R',  'R',   'C',  'C',   'C',  'C',  'R',     'R',   'R',     'C');
 	protected $fmt	=array(  'i',      's',   's',   's',  's',   's',  's');
-	public $cat  =array(	"-" => "Sin categoria", "0" => "Sin categoria",
+	protected $cat  =array(	"-" => "Sin categoria", "0" => "Sin categoria",
 							"L"=>"Large",	"1"=>"Large",
 							"M"=>"Medium",	"2"=>"Medium",
 							"S"=>"Small",	"3"=>"Small",
@@ -49,7 +49,7 @@ class parcialPDF extends FPDF {
 	 * @param {object} $datos de clasificacion en formato jquery
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$categorias,$clasificacion) {
+	function __construct($prueba,$jornada,$manga,$categoria,$clasificacion) {
 		parent::__construct('Portrait','mm');
 		if ( ($prueba===null) || ($jornada===null) || ($manga===null) || ($clasificacion===null) ) {
 			$this->errormsg="clasificacionManga: either prueba/jornada/ manga/clasif data are invalid";
@@ -58,7 +58,7 @@ class parcialPDF extends FPDF {
 		$this->prueba=$prueba;
 		$this->jornada=$jornada;
 		$this->manga=$manga;
-		$this->categorias=$categorias;
+		$this->categoria=$categoria;
 		$this->clasificacion=$clasificacion;
 		$this->myLogger= new Logger("clasificacionManga");
 		$this->myLogger->info("Categorias is:: $categorias");
@@ -68,7 +68,7 @@ class parcialPDF extends FPDF {
 	function Header() {
 		$this->myLogger->enter();
 		print_commonHeader($this,$this->prueba,$this->jornada,$this->manga,"Clasificación Final");
-		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga);
+		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga,$this->cat[$this->categoria]);
 		$this->myLogger->leave();
 	}
 		
@@ -416,7 +416,7 @@ try {
 		// Creamos generador de documento
 		$pdf->AliasNbPages();
 		$pdf->composeTable();
-		$pdf->Output("printClasificaciones.pdf","D"); // "D" means open download dialog
+		$pdf->Output("clasificacionFinal.pdf","D"); // "D" means open download dialog
 	}
 } catch (Exception $e) {
 	do_log($e->getMessage());

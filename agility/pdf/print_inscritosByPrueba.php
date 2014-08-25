@@ -48,38 +48,13 @@ class PDF extends FPDF {
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		// pintamos Logo
-		// TODO: escoger logo en funcion del club
-		// $this->image(file,startx,starty,width)
-		$this->Image(__DIR__.'/../images/logos/welpe.png',15,10,20);
-		
-		// recordatorio
-		// $this->cell( width, height, data, borders, where, align, fill)
-		
-		// pintamos nombre de la prueba
-		$this->SetFont('Arial','BI',10); // Arial bold italic 10
-		$this->Cell(50); // primer cuarto de la linea
-		$this->Cell(100,10,$this->prueba['Nombre'],0,0,'C',false);// Nombre de la prueba centrado 
-		$this->Ln(); // Salto de línea
-		
-		// pintamos "listado de participantes en un recuadro
-		$this->SetFont('Arial','BI',20); // Arial bold italic 10
-		$this->Cell(50); // primer cuarto de la linea
-		$this->Cell(100,10,"Listado de participantes",1,0,'C',false);// Nombre de la prueba centrado
-		$this->Ln(15);
+		print_commonHeader($this,$this->prueba,$this->jornada,$this->manga,"Listado de Participantes");
 		$this->myLogger->leave();
 	}
 		
 	// Pie de página
 	function Footer() {
-		$this->myLogger->enter();
-		// Posición: a 1,5 cm del final
-		$this->SetY(-15);
-		// Arial italic 8
-		$this->SetFont('Arial','I',8);
-		// Número de página
-		$this->Cell(0,10,'Página '.$this->PageNo().'/{nb}',0,0,'C');
-		$this->myLogger->leave();
+		print_commonFooter($this,$this->prueba,$this->jornada,array($this->manga));
 	}
 	
 	function writeTableHeader() {

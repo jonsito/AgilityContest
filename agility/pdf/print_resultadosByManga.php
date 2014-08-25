@@ -54,8 +54,8 @@ class PDF extends FPDF {
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		print_commonHeader($this,$this->prueba,$this->jornada,$this->manga,"Orden de Salida");
-		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga);
+		print_commonHeader($this,$this->prueba,$this->jornada,$this->manga,"Resultados Parciales");
+		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga,$this->modestr[intval($this->mode)]);
 		
 		// Si es la primera hoja pintamos datos tecnicos de la manga
 		if ($this->PageNo()!=1) return;
@@ -180,5 +180,5 @@ try {
 $pdf = new PDF($prueba,$jornada,$manga,$resultados,$mode);
 $pdf->AliasNbPages();
 $pdf->composeTable();
-$pdf->Output("inscritosByPrueba.pdf","D"); // "D" means open download dialog
+$pdf->Output("resultadosByManga.pdf","D"); // "D" means open download dialog
 ?>

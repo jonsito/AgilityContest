@@ -24,7 +24,7 @@ class PDF extends FPDF {
 	protected $manga; // datos de la manga
 	protected $manga2; // datos de la manga 2
 	protected $numrows; // formato del pdf 0:1 1:5 2:15 perros/pagina
-	public $categoria; // categoria que estamos listando
+	protected $categoria; // categoria que estamos listando
 	public $myLogger;
 
 	// geometria de las celdas
@@ -33,7 +33,7 @@ class PDF extends FPDF {
 	protected $pos	=array(  15,       25,     15,    50,   45,     10,    30);
 	protected $align=array(  'C',      'R',    'C',   'L',  'R',    'C',   'R');
 	protected $fmt	=array(  'i',      's',    's',   's',  's',    'b',   's');
-	public $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
+	protected $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
 	 * Constructor
@@ -66,7 +66,7 @@ class PDF extends FPDF {
 		print_commonHeader($this,$this->prueba,$this->jornada,$this->manga,"Introducción de Datos");
 		// si estamos en modo 1 perro/pagina, dejamos un buen hueco antes de pintar la id de la manga
 		if($this->numrows==1) $this->Ln(20);
-		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga);
+		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga,$this->cat[$this->categoria]);
 		$this->myLogger->leave();
 	}
 		
@@ -198,7 +198,7 @@ class PDF extends FPDF {
 		if ($this->manga2==null) return;
 		$this->Ln(20);
 		// pintamos "identificacion" de la segunda manga
-		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga2);
+		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga2,$this->cat[$this->categoria]);
 		// y volvemos a pintar el recuadro para la segunda manga
 		$this->writeTableCell_normal($rowcount,$row,2);
 	}
@@ -264,6 +264,6 @@ try {
 $pdf = new PDF($prueba,$jornada,$mangas,$orden['rows'],$mode);
 $pdf->AliasNbPages();
 $pdf->composeTable();
-$pdf->Output("printEntradaDeDatos.pdf","D"); // "D" means open download dialog
+$pdf->Output("entradaDeDatos.pdf","D"); // "D" means open download dialog
 echo json_encode(array('success'=>true));
 ?>
