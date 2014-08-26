@@ -19,7 +19,7 @@ class PDF extends FPDF {
 	
 	protected $prueba;
 	protected $inscritos;
-	protected $myLogger;
+	public $myLogger;
 
 	// geometria de las celdas
 	protected $cellHeader
@@ -49,6 +49,7 @@ class PDF extends FPDF {
 	function Header() {
 		$this->myLogger->enter();
 		print_commonHeader($this,$this->prueba,$this->jornada,$this->manga,"Listado de Participantes");
+		$this->Ln(5);
 		$this->myLogger->leave();
 	}
 		
@@ -87,7 +88,7 @@ class PDF extends FPDF {
 		$rowcount=0;
 		foreach($this->inscritos as $row) {
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			if( ($rowcount%33) == 0 ) { // assume 33 rows per page ( rowWidth = 7mmts )
+			if( ($rowcount%32) == 0 ) { // assume 32 rows per page ( rowWidth = 7mmts )
 				if ($rowcount>0) 
 					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
 				$this->addPage();
