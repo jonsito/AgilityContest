@@ -29,11 +29,12 @@ function print_commonHeader($pdf,$prueba,$jornada,$manga,$title) {
 	}
 	$icon="welpe.png";
 	if (isset($pdf->club)) $icon=$pdf->club->Logo;
+	$icon2=($icon==="rsce.png")?"fci.png":"rsce.png"; // to avoid duplicate head logos
 	// los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
 	$pdf->SetXY(10,10); // margins are 10mm each
 	$pdf->Cell(25.4,25.4,$pdf->Image(__DIR__.'/../images/logos/'.$icon,$pdf->getX(),$pdf->getY(),25.4),0,0,'L',false);
 	$pdf->SetXY($pdf->w - 35.4,10);
-	$pdf->Cell(25.4,25.4,$pdf->Image(__DIR__.'/../images/logos/rsce.png',$pdf->getX(),$pdf->getY(),25.4),0,0,'R',false);
+	$pdf->Cell(25.4,25.4,$pdf->Image(__DIR__.'/../images/logos/'.$icon2,$pdf->getX(),$pdf->getY(),25.4),0,0,'R',false);
 
 	// pintamos nombre de la prueba
 	$pdf->SetXY(10,10);
