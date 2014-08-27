@@ -4,7 +4,7 @@
 <div id="datos_manga1-trs">
 	<form id="datos_manga1-trs-form" method="get">
 		<table style="float:left;" width="100%">
-			<tr>
+			<tr id="datos_manga1-InfoRow">
 				<td colspan="3">
 					<span style="font-weight:bold">Manga 1:</span>
 					<input type="text" size="20" class="result_forms" readonly="readonly" id="dm1_Nombre">
@@ -50,7 +50,7 @@
 <div id="datos_manga2-trs">
 	<form id="datos_manga2-trs-form" method="get">
 		<table style="float:left;" width="100%">
-			<tr>
+			<tr id="datos_manga2-InfoRow">
 				<td colspan="3">
 					<span style="font-weight:bold">Manga 2:</span>
 					<input type="text" size="20" class="result_forms" readonly="readonly" id="dm2_Nombre">

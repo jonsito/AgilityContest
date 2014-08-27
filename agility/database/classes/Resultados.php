@@ -19,6 +19,8 @@ class Resultados extends DBObject {
 			$this->error("Manga $idmanga does not exists in database");
 			return null;
 		}
+		// add some extra info
+		$obj->TipoManga=Mangas::$tipo_manga[$obj->Tipo][1];
 		$this->dmanga=$obj;
 		return $this->dmanga;
 	}
@@ -367,9 +369,10 @@ class Resultados extends DBObject {
 			if ($table[$idx]['Penalizacion']>=200) $table[$idx]['Puesto']="-";
 			*/
 		}
-		// finalmente retornamos array
+		// finalmente anyadimos info de la manga y retornamos array
 		$this->myLogger->leave();
 		$res['rows']=$table;
+		$res['manga']=$this->getDatosManga();
 		return $res;
 	}
 	

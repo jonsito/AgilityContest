@@ -381,6 +381,149 @@ function competicionDialog(name) {
  * rellena la ventana de informacion con los datos definitivos de cada manga de la ronda seleccionada
  */
 function resultados_doSelectRonda(row) {
+	var mode=0;
+	// FASE 0.1: limpiamos los botones de la ventana "inforesultados"
+    $('#datos_manga1-LargeBtn').prop('checked',true);
+    $('#datos_manga1-MediumBtn').prop('checked',false);
+    $('#datos_manga1-SmallBtn').prop('checked',false);
+    $('#datos_manga2-LargeBtn').prop('checked',true);
+    $('#datos_manga2-MediumBtn').prop('checked',false);
+    $('#datos_manga2-SmallBtn').prop('checked',false);
+    // FASE 0.2 limpiamos datagrids de resultados parciales y globales
+    // TODO:write
+    // FASE 1.1 Ajustamos en funcion del tipo de recorrido lo que debemos ver en la manga 1
+    switch(parseInt(row.Recorrido1)){
+    case 0: // Large / Medium / Small
+    	$('#datos_manga1-MediumRow').css('display','table-row');
+    	$('#datos_manga1-SmallRow').css('display','table-row');
+    	$('#datos_manga1-LargeLbl').html("Large");
+    	$('#datos_manga1-MediumLbl').html("Medium");
+    	$('#datos_manga1-SmallLbl').html("Small");
+    	break;
+    case 1: // Large / Medium+Small
+    	$('#datos_manga1-MediumRow').css('display','table-row');
+    	$('#datos_manga1-SmallRow').css('display','none');
+    	$('#datos_manga1-LargeLbl').html("Large");
+    	$('#datos_manga1-MediumLbl').html("Medium+Small");
+    	$('#datos_manga1-SmallLbl').html("&nbsp;");
+    	break;
+    case 2: // Large+Medium+Small conjunta
+    	$('#datos_manga1-MediumRow').css('display','none');
+    	$('#datos_manga1-SmallRow').css('display','none');
+    	$('#datos_manga1-LargeLbl').html('Conjunta L+M+S');
+    	$('#datos_manga1-MediumLbl').html("&nbsp;");
+    	$('#datos_manga1-SmallLbl').html("&nbsp;");
+    	break;
+    }    
+    // FASE 1.2 Ajustamos en funcion del tipo de recorrido lo que debemos ver en la manga 1
+    switch(parseInt(row.Recorrido2)){
+    case -1: // no hay segunda manga
+    	$('#datos_manga2-InfoRow').css('display','none');
+    	$('#datos_manga2-LargeRow').css('display','none');
+    	$('#datos_manga2-MediumRow').css('display','none');
+    	$('#datos_manga2-SmallRow').css('display','none');
+    	break;
+    case 0: // Large / Medium / Small
+    	$('#datos_manga2-InfoRow').css('display','table-row');
+    	$('#datos_manga2-LargeRow').css('display','table-row');
+    	$('#datos_manga2-MediumRow').css('display','table-row');
+    	$('#datos_manga2-SmallRow').css('display','table-row');
+    	$('#datos_manga2-LargeLbl').html("Large");
+    	$('#datos_manga2-MediumLbl').html("Medium");
+    	$('#datos_manga2-SmallLbl').html("Small");
+    	break;
+    case 1: // Large / Medium+Small
+    	$('#datos_manga2-InfoRow').css('display','table-row');
+    	$('#datos_manga2-LargeRow').css('display','table-row');
+    	$('#datos_manga2-MediumRow').css('display','table-row');
+    	$('#datos_manga2-SmallRow').css('display','none');
+    	$('#datos_manga2-LargeLbl').html("Large");
+    	$('#datos_manga2-MediumLbl').html("Medium+Small");
+    	$('#datos_manga2-SmallLbl').html("&nbsp;");
+    	break;
+    case 2: // Large+Medium+Small conjunta
+    	$('#datos_manga2-InfoRow').css('display','table-row');
+    	$('#datos_manga2-LargeRow').css('display','table-row');
+    	$('#datos_manga2-MediumRow').css('display','none');
+    	$('#datos_manga2-SmallRow').css('display','none');
+    	$('#datos_manga2-LargeLbl').html('Conjunta L+M+S');
+    	$('#datos_manga2-MediumLbl').html("&nbsp;");
+    	$('#datos_manga2-SmallLbl').html("&nbsp;");
+    	break;
+    }
+    // FASE 2.1 cargamos los resultados y datos tecnicos de la manga 1
+	switch (row.Recorrido1) {
+	case 0: //  large / medium / small
+		switch(value) {	case 0: mode=0; break; case 1: mode=1; break; case 2: mode=2; break; }
+		break;
+	case 1: // large / medium+small
+		switch(value) {	case 0: mode=0; break; case 1: mode=3; break; case 2: mode=3; break; /* invalido*/	}
+		break;
+	case 2: // large+medium+small
+		switch(value) {	case 0: mode=4; break; 	case 1: mode=4; break; /* invalido */ case 2: mode=4; break; /* invalido */	}
+		break;
+	}
+	$.ajax({
+		type:'GET',
+		url:"database/resultadosFunctions.php",
+		dataType:'json',
+		data: {	Operation:'getResultados', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:row.Manga1, Mode: mode	},
+		success: function(dat) {
+			var suffix='L';
+			switch (mode) {
+			case 0: case 4: suffix='L'; break;
+			case 1: case 3: suffix='M'; break;
+			case 2: suffix='S'; break;
+			}
+			$('#dm1_Nombre').val(dat['manga'].TipoManga);
+			$('#dm1_Juez1').val('(juez 1 pendiente)');
+			$('#dm1_Juez2').val('(juez 2 pendiente)');
+			$('#dm1_DIST_'+suffix).val(dat['trs'].dist);
+			$('#dm1_OBST_'+suffix).val(dat['trs'].obst);
+			$('#dm1_TRS_'+suffix).val(dat['trs'].trs);
+			$('#dm1_TRM_'+suffix).val(dat['trs'].trm);
+			$('#dm1_VEL_'+suffix).val(dat['trs'].vel);
+			// load datagrid con resultados de la primera manga
+			// $('#resultadosmanga-datagrid').datagrid('loadData',dat);
+		}
+	});
+    // FASE 2.2 cargamos los resultados y datos tecnicos de la manga 2
+	switch (row.Recorrido2) {
+	case 0: //  large / medium / small
+		switch(value) {	case 0: mode=0; break; case 1: mode=1; break; case 2: mode=2; break; }
+		break;
+	case 1: // large / medium+small
+		switch(value) {	case 0: mode=0; break; case 1: mode=3; break; case 2: mode=3; break; /* invalido*/	}
+		break;
+	case 2: // large+medium+small
+		switch(value) {	case 0: mode=4; break; 	case 1: mode=4; break; /* invalido */ case 2: mode=4; break; /* invalido */	}
+		break;
+	}
+	$.ajax({
+		type:'GET',
+		url:"database/resultadosFunctions.php",
+		dataType:'json',
+		data: {	Operation:'getResultados', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:row.Manga2, Mode: mode	},
+		success: function(dat) {
+			var suffix='L';
+			switch (mode) {
+			case 0: case 4: suffix='L'; break;
+			case 1: case 3: suffix='M'; break;
+			case 2: suffix='S'; break;
+			}
+			$('#dm2_Nombre').val(dat['manga'].TipoManga);
+			$('#dm2_Juez1').val('(juez 1 pendiente)');
+			$('#dm2_Juez2').val('(juez 2 pendiente)');
+			$('#dm2_DIST_'+suffix).val(dat['trs'].dist);
+			$('#dm2_OBST_'+suffix).val(dat['trs'].obst);
+			$('#dm2_TRS_'+suffix).val(dat['trs'].trs);
+			$('#dm2_TRM_'+suffix).val(dat['trs'].trm);
+			$('#dm2_VEL_'+suffix).val(dat['trs'].vel);
+			// load datagrid con resultados de la primera manga
+			// $('#resultadosmanga-datagrid').datagrid('loadData',dat);
+		}
+	});
+    // FASE 3: cargamos informacion sobre resultados globales
 }
  
 /**

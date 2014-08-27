@@ -112,7 +112,7 @@ function acceptSelectJornada() {
 	var j=$('#seljornada-Jornada').combogrid('grid').datagrid('getSelected');
 	if ( (p==null) || (j==null) ) {
 		// indica error
-		$.messager.aler("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
+		$.messager.alert("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
 		return;
 	}
 	// clear selection to make sure next time gets empty

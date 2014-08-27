@@ -95,6 +95,8 @@ $('#resultados-info-ronda').combogrid({
 	columns: [[
 	   	{ field:'Manga1',		hidden:true }, // ID de la manga1
 		{ field:'Manga2',		hidden:true }, // ID de la manga2
+		{ field:'Recorrido1',	hidden:true }, // tipo de recorrido		
+		{ field:'Recorrido2',	hidden:true }, // tipo de recorrido		
 		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre' }
 	]],
 	onBeforeLoad: function(param) { 
