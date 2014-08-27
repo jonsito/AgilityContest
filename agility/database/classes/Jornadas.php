@@ -255,7 +255,7 @@ class Jornadas extends DBObject {
 		}
 		if ($row->PreAgility!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,2); // 'Pre-Agility'
-			$manga2= 0;
+			$manga2= null;
 			array_push($data,array("Nombre" => "Manga de Pre-Agility","Manga1" => $manga1['ID'], "Manga2" => 0 ) );
 		}
 		if ($row->Equipos3!=0) {
@@ -266,27 +266,21 @@ class Jornadas extends DBObject {
 		if ($row->Equipos4!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,9); // 'Agility Equipos (conjunta)'
 			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,14); // 'Jumping Equipos (conjunta)'
-			array_push($data,array("Nombre" => "Competicion por equipos","Manga1" => $manga1['ID'],
-					"Nombre1" => "Agility",
-					 
-					"Juez11" => $manga1['Juez1'], "Juez12" => $manga1['Juez2'],"Manga2" => $manga2['ID']) );
+			array_push($data,array("Nombre" => "Competicion por equipos","Manga1" => $manga1['ID'],"Manga2" => $manga2['ID']) );
 		}
 		if ($row->KO!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,15); // Ronda K.O.
-			$manga2= 0;
-			array_push($data,array("Nombre" => "Ronda K.O.", "Manga1" => $manga1['ID'],
-					"Nombre1" => "Ronda K.O.",
-					
-					"Juez11" => $manga1['Juez1'], "Juez12" => $manga1['Juez2'],"Manga2" => 0) );
+			$manga2= null;
+			array_push($data,array("Nombre" => "Ronda K.O.", "Manga1" => $manga1['ID'],"Manga2" => 0) );
 		}
 		if ($row->Exhibicion!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,16); // 'Exhibición'
-			$manga2= 0;
+			$manga2= null;
 			array_push($data,array("Nombre" => "Manga de Exhibicion", "Manga1" => $manga1['ID'],"Manga2" => 0) );
 		}			
 		if ($row->Otras!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,1); // 'Otras' ( sin tipo definido )
-			$manga2= 0;
+			$manga2= null;
 			array_push($data,array("Nombre" => "Otras (sin definir)", "Manga1" => $manga1['ID'],"Manga2" => 0) );
 		}
 		$result=array();

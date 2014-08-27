@@ -375,9 +375,66 @@ function competicionDialog(name) {
     }
 }
 
+/************************************* funciones para la ventana de resultados **************************/
+ 
+/**
+ * rellena la ventana de informacion con los datos definitivos de cada manga de la ronda seleccionada
+ */
+function resultados_doSelectRonda(row) {
+}
+ 
+/**
+ * Imprime los resultados finales de la ronda seleccionada en formato CSV para su conversion en etiquetas
+ * @returns {Boolean} false 
+ */
+function printEtiquetas() {
+	$.fileDownload(
+		'pdf/clasificaciones.php',
+		{
+			httpMethod: 'GET',
+			data: { 
+		        Prueba: workingData.prueba,
+		        Jornada: workingData.jornada,
+		        Manga: workingData.manga,
+		        Manga2: workingData.manga2,
+		        Operation: 3, // 0:manga1, 1:manga2, 2:final, 3:etiquetas
+		        Categorias: $('#resultados-cat-form-select').val()
+			},
+	        preparingMessageHtml: "Generando ficheros de clasificaciones. Por favor, espere...",
+	        failMessageHtml: "Ha habido problemas en la generacion del informe\n. Por favor, intentelo de nuevo."
+		}
+	);
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+}
 
+/**
+ * Imprime los resultados finales de la ronda seleccionada en formato pdf
+ * @return false
+ */
+function printResultados() {
+	// vemos cual es el panel activo
+	var tab = $('#resultados-datatabs').tabs('getSelected');
+	var index = $('#resultados-datatabs').tabs('getTabIndex',tab);
+	$.fileDownload(
+		'pdf/print_clasificaciones.php',
+		{
+			httpMethod: 'GET',
+			data: { 
+		        Prueba: workingData.prueba,
+		        Jornada: workingData.jornada,
+		        Manga: workingData.manga,
+		        Manga2: workingData.manga2,
+		        Operation: index, // 0:manga1, 1:manga2, 2:final, 3:etiquetas
+		        Categorias: $('#resultados-cat-form-select').val()
+			},
+	        preparingMessageHtml: "Generando PDF con clasificaciones. Por favor, espere...",
+	        failMessageHtml: "Ha habido problemas en la generacion del informe\n. Por favor, intentelo de nuevo."
+		}
+	);
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+}
 
-function reloadClasificacion() {
+function reloadClasificaciones(manga,recorrido) {
 	$('#resultados-manga1-datagrid').datagrid('reload');
 	$('#resultados-manga2-datagrid').datagrid('reload');
 	$('#resultados-conjunta-datagrid').datagrid('reload');
