@@ -132,9 +132,9 @@ class PDF extends FPDF {
 			$penal=number_format($row['Penalizacion'],2);
 			
 			// print row data
-			$this->SetFont('Arial','B',11); // bold 9px
+			$this->SetFont('Arial','B',11); // bold 11px
 			$this->Cell($this->pos[0],7," $puesto -",			'LR',	0,		$this->align[0],	$fill);
-			$this->SetFont('Arial','',9); // remove bold 9px
+			$this->SetFont('Arial','',8); // set data font size
 			$this->Cell($this->pos[1],7,$row['Dorsal'],			'LR',	0,		$this->align[1],	$fill);
 			$this->Cell($this->pos[2],7,$row['Nombre'],			'LR',	0,		$this->align[2],	$fill);
 			$this->Cell($this->pos[3],7,$row['Licencia'],		'LR',	0,		$this->align[3],	$fill);
