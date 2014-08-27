@@ -9,8 +9,8 @@
 		<input id="resultados-info-nombre" type="text" class="result_forms" readonly="readonly" name="Nombre" size="30"/></td>
 		</tr>
 		<tr>
-		<td><label for="Club">Club Organizador:</label></td>
-		<td><input id="resultados-info-club" type="text" class="result_forms" readonly="readonly" name="Club"/></td>
+		<td><label for="NombreClub">Club Organizador:</label></td>
+		<td><input id="resultados-info-club" type="text" class="result_forms" readonly="readonly" name="NombreClub"/></td>
 		</tr>
 		<tr>
 		<td><label for="Jornada">Jornada:</label></td>
@@ -196,7 +196,7 @@ $('#resultados-datatabs').tabs({
 });
 $('#resultados-info-prueba').form('load',{
 	Nombre:	workingData.datosPrueba.Nombre,
-	Club:	workingData.datosPrueba.Club,
+	NombreClub:	workingData.datosPrueba.NombreClub,
 	Jornada: workingData.datosJornada.Nombre,
 	Fecha:	workingData.datosJornada.Fecha,
 	Ronda:	workingData.datosRonda.Nombre,
@@ -311,8 +311,8 @@ $('#resultados-manga2-datagrid').datagrid({
       	{ field:'Licencia',		hidden:true },
         { field:'Puesto',		width:10, align:'left',  title: 'Puesto'},
         { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
-        { field:'Guia',			width:40, align:'right', title: 'Guia' },
-        { field:'Club',			width:25, align:'right', title: 'Club' },
+        { field:'NombreGuia',			width:40, align:'right', title: 'Guia' },
+        { field:'NombreClub',			width:25, align:'right', title: 'Club' },
       	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
       	{ field:'Faltas',		width:10, align:'center', title: 'Faltas'},
       	{ field:'Rehuses',		width:10, align:'center', title: 'Rehuses'},

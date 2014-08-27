@@ -29,7 +29,7 @@
 
 <script type="text/javascript">
 $('#selmanga-window').window({
-	title: 'Selecciona la Prueba, Jornada y Ronda',
+	title: 'Selecciona Prueba y Jornada ',
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,
@@ -39,11 +39,9 @@ $('#selmanga-window').window({
 	modal: true
 });
 
-$('#selmanga-form').form();
-$('#selmanga-layout').layout();
+// $('#selmanga-form').form();
+// $('#selmanga-layout').layout();
 
-addTooltip($('#selmanga-okBtn').linkbutton(),"Trabajar con la ronda seleccionada");
-addTooltip($('#selmanga-cancelBtn').linkbutton(),"Cancelar selecci&oacute;n. Cerrar ventana");
 
 $('#selmanga-Prueba').combogrid({
 	panelWidth: 450,
@@ -176,4 +174,8 @@ function cancelSelectManga() {
 	$('#selmanga-Ronda').combogrid('setValue','');
 	$('#selmanga-window').window('close');
 }
+
+addTooltip($('#selmanga-okBtn').linkbutton(),"Trabajar con la ronda seleccionada");
+addTooltip($('#selmanga-cancelBtn').linkbutton(),"Cancelar selecci&oacute;n. Cerrar ventana");
+
 </script>
