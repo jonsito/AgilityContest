@@ -2,6 +2,7 @@
 
 <form id="competicion-formdatosmanga" method="get">
 	<input type="hidden" id="dmanga_Manga" name="ID"/>
+	<input type="hidden" id="dmanga_Tipo" name="Tipo"/>
 	<table id="competicion-tabladatosmanga">
 		<tr> <!-- fila 0: datos de los jueces -->
 			<td style="text-align:right">Juez 1:</td>

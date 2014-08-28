@@ -62,7 +62,7 @@ class Mangas extends DBObject {
 	}
 	
 	/**
-	 * 
+	 * inserta una manga en la jornada
 	 * @param {integer} $tipo ID del tipo manga (tabla 'Tipo_Manga')
 	 * @param {string} $grado valor asociado al grado de la manga de la ID dada
 	 * @return {string} empty on success, else error 
@@ -77,7 +77,7 @@ class Mangas extends DBObject {
 				"( Jornada=$j ) AND  ( Tipo=$tipo ) AND ( Grado='$grado' )"
 		);
 		if ($res->Result>0){
-			$this->myLogger->info("Jornada:".$this->jornada." Manga: $tipo already exists. exit OK");
+			$this->myLogger->info("Jornada:$j Manga:$tipo already exists. exit OK");
 			return "";
 		}
 		$str="INSERT INTO Mangas ( Jornada , Tipo, Grado ) VALUES ($j,$tipo,'$grado')";
@@ -129,7 +129,8 @@ class Mangas extends DBObject {
 		* Orden_Salida (se modifica en otro sitio)
 		*/
 		$id			= $mangaid;
-		$recorrido	= http_request("Recorrido","i",0);(isset($_REQUEST['Recorrido']))?intval($_REQUEST['Recorrido']):0;
+		$recorrido	= http_request("Recorrido","i",0);
+		$tipo	= http_request("Tipo","i",0);
 		// distancias
 		$dist_l = http_request("Dist_L","i",0);
 		$dist_m = http_request("Dist_M","i",0);
@@ -172,6 +173,12 @@ class Mangas extends DBObject {
 		$res=$stmt->execute();
 		if (!$res) return $this->error($this->conn->error); 
 		$stmt->close();
+		
+		// actualizamos el campo "Recorrido" de las Mangas gemelas
+		$tipogemelo=Mangas::$manga_hermana[$tipo];
+		$sql="UPDATE Mangas SET Recorrido=$recorrido WHERE ( Jornada={$this->jornada} ) AND (Tipo=$tipogemelo)";
+		$res=$this->query($sql);
+		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";
 	}
@@ -234,18 +241,24 @@ class Mangas extends DBObject {
 		// second query to retrieve $rows starting at $offset
 		$result=$this->__selectObject("*","Mangas","( ID=$id )");
 		if (!is_object($result)) return $this->error("Cannot locate Manga with ID=$id");
+		$hermanas=array($result);
 		$tipo=Mangas::$manga_hermana[$result->Tipo];
 		if ($tipo==0) {
 			$this->myLogger->info("La manga:$id de tipo:{$result->Tipo} no tiene hermana asociada");
 			return array($result,null); 
 		}
-		$result2=$this->__selectObject("*","Mangas","( Jornada={$this->jornada} ) AND ( Tipo=$tipo)");
-		if (!is_object($result2)) {
+		// Obtenemos __Todas__ las mangas de esta jornada que tienen el tipo buscado ninguna, una o hasta 8(k.O.)
+		$result2=$this->__select("*","Mangas","( Jornada={$this->jornada} ) AND ( Tipo=$tipo)","","");
+		if (!is_array($result2)) {
 			// inconsistency error muy serio 
 			return $this->error("Falta la manga hermana de tipo:$tipo para manga:$id de tipo:{$result->Tipo}");
 		}
+		foreach ($result2['rows'] as $index => $item) {
+			// iterate on every sisters found, converting it to Objects
+			array_push($hermanas,json_decode(json_encode($item), FALSE));
+		}
 		$this->myLogger->leave();
-		return array($result,$result2);
+		return $hermanas;
 	}
 	
 	/**
