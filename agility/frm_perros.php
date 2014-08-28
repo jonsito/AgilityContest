@@ -6,7 +6,7 @@
     	<span style="float:left;">
     		<a id="perros-newBtn" href="#" class="easyui-linkbutton"
     			data-options="iconCls:'icon-dog'"
-    			onclick="newDog($('#perros-datagrid','#perros-datagrid-search').val())">Nuevo Perro</a>
+    			onclick="newDog('#perros-datagrid',$('#perros-datagrid-search').val())">Nuevo Perro</a>
     		<a id="perros-editBtn" href="#" class="easyui-linkbutton"
     			data-options="iconCls:'icon-edit'"
     			onclick="editDog('#perros-datagrid')">Editar Perro</a>
