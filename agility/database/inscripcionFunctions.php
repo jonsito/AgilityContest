@@ -15,6 +15,7 @@
 			case "delete": $result=$inscripciones->delete($perro); break; // borrar inscripcion
 			case "noinscritos": $result=$inscripciones->noinscritos(); break;
 			case "inscritos": $result=$inscripciones->inscritos(); break;
+			case "reorder": $result=$inscripciones->reorder(); break;
 			default: throw new Exception("inscripcionFunctions:: invalid operation: $operation provided");
 		}
 		if ($result===null) throw new Exception($inscripciones->errormsg);

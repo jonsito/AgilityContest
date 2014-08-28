@@ -329,6 +329,20 @@ class Inscripciones extends DBObject {
 		return $result;
 	}
 	
+	/*
+	 * Reorder dorsales by mean of club,categoria,grado,nombre
+	 */
+	function reorder() {
+		$this->myLogger->enter();
+		$this->myLogger->leave();
+		// buscar las jornadas de esta prueba
+		// buscar las mangas de las jornadas de esta prueba
+		// buscar los resultados de las mangas de las jornadas de esta prueba
+		// update Resultados set Dorsal=nuevo where Resultados.Manga=Manga.ID and Manga.Jornada=Jornada.ID and Jornada.prueba=Prueba.ID
+		// reordenar dorsales
+		// propagar cambios a tablas de resultados
+	}
+	
 	/**
 	 * retrieve all inscriptions of stored prueba and jornada
 	 * @param {int} $jornadaID ID de jornada

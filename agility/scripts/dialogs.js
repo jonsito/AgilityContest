@@ -1116,5 +1116,18 @@ function insertInscripcion(dg) {
  */
 function reorderInscripciones(idprueba) {
 	alert("dialogs.js::ReorderInscripciones(idprueba) {PENDING}");
+	$.ajax({
+        async: false,
+        cache: false,
+        timeout: 10000, // 10 segundos
+		type:'GET',
+		url:"database/inscripcionFunctions.php",
+		dataType:'json',
+		data: {
+			Prueba: idprueba,
+			Operation: 'reorder'
+		},
+		success: function(data) {$('#inscripciones-datagrid').datagrid('reload'); }
+	});
 	// TODO: write
 }
