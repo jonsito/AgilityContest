@@ -80,6 +80,15 @@ $('#competicion-datagrid').datagrid({
 
 var competicion_editIndex = undefined;
 
+var pressed={};
+
+// stupid trick to avoid auto-repeat of keydown event
+
+$('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keyup',function(e){
+	var keycode = (e.keyCode ? e.keyCode : e.which);
+    pressed[keycode] = null; // mark key as released
+});
+
 //activa teclas up/down para navegar por el panel de gestion de jornadas
 $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
     function selectRow(t,up){
@@ -96,8 +105,12 @@ $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0
         	t.datagrid('selectRow', (up ? count-1 : 0));
     	}
 	}
+
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (pressed[keycode]!=null) return false; // already fired; ignore
+    pressed[keycode]=true;
 	var t = $('#competicion-datagrid');
-    switch(e.keyCode){
+    switch(keycode){
     case 38:	/* Up */	if (competicion_editIndex===undefined) selectRow(t,true); return false;
     case 40:    /* Down */	if (competicion_editIndex===undefined) selectRow(t,false); return false;
     case 13:	/* Enter */ 
