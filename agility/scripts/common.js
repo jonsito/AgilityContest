@@ -153,10 +153,10 @@ $.extend($.fn.datagrid.methods, {
 
 /**
  * Extension del messager para permitir una coleccion de radiobuttons en lugar de un prompt
- * Se anyade la opcion $messager.radio(title,{val:text},callback)
+ * Se anyade la opcion $messager.radio(title,text{val:text},callback)
  */
 (function($){
-	function createDialog(title, content, buttons){
+	function createDialog(title,content, buttons){
 		var win = $('<div class="messager-body"></div>').appendTo('body');
 		win.append(content);
 		if (buttons){
@@ -188,13 +188,13 @@ $.extend($.fn.datagrid.methods, {
 		win.children('div.messager-button').children('a:first').focus();
 		return win;
 	}
-	$.messager.radio = function(title, msg, fn){
+	$.messager.radio = function(title,text, msg, fn){
 		var str="";
-		$.each(msg,function(val,text){
-			str +='<br /><input type="radio" name="messager-radio" value="'+val+'">'+text+'\n';
+		$.each(msg,function(val,optstr){
+			str +='<br /><input type="radio" name="messager-radio" value="'+val+'">&nbsp;'+optstr+'\n';
 		});
 		 var content = '<div class="messager-icon messager-question"></div>'
-		                         + '<div>' + title + '</div>'
+		                         + '<div>' + text + '</div>'
 		                         + '<br/>'
 		                         + str
 		                         + '<div style="clear:both;"/>';

@@ -55,10 +55,8 @@
 <div id="resultados-toolbar">
     <a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" 
     	data-options="iconCls:'icon-reload'" onclick="reloadClasificacion();">Refrescar</a>
-    <a id="resultados-labelsBtn" href="#" class="easyui-linkbutton" 
-    	data-options="iconCls:'icon-table'" onclick="printEtiquetas()">Etiquetas</a>
     <a id="resultados-printBtn" href="#" class="easyui-linkbutton" 
-    	data-options="iconCls:'icon-print'" onclick="printResultados">Imprimir</a>
+    	data-options="iconCls:'icon-print'" onclick="resultados_doPrint()">Imprimir</a>
 </div>
 
 <script type="text/javascript">
@@ -150,7 +148,6 @@ $('#resultados-manga2-trs-form').form(
 
 //tooltips
 addTooltip($('#resultados-refreshBtn').linkbutton(),"Actualizar la tabla de resultados");
-addTooltip($('#resultados-labelsBtn').linkbutton(),"Generar patron CSV para componer etiquetas");
 addTooltip($('#resultados-printBtn').linkbutton(),"Imprimir los resultados de la manga"); 
 
 // declaracion de las diversas tablas de resultados

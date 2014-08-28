@@ -1110,3 +1110,11 @@ function insertInscripcion(dg) {
 	$('#inscripciones-datagrid').datagrid('reload');
 }
 
+/**
+ * Reajusta los dorsales de los perros inscritos ordenandolos por club,categoria,grado,nombre
+ * @param idprueba ID de la prueba
+ */
+function reorderInscripciones(idprueba) {
+	alert("dialogs.js::ReorderInscripciones(idprueba) {PENDING}");
+	// TODO: write
+}

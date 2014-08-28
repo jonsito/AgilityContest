@@ -532,13 +532,6 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
 function resultados_doSelectRonda(row) {
 	var resultados=[];
 	var clasificaciones=[];
-	// FASE 0 limpiamos los botones de la ventana "inforesultados"
-    $('#datos_manga1-LargeBtn').prop('checked',true);
-    $('#datos_manga1-MediumBtn').prop('checked',false);
-    $('#datos_manga1-SmallBtn').prop('checked',false);
-    $('#datos_manga2-LargeBtn').prop('checked',true);
-    $('#datos_manga2-MediumBtn').prop('checked',false);
-    $('#datos_manga2-SmallBtn').prop('checked',false);
     // FASE 1 Ajustamos en funcion del tipo de recorrido lo que debemos ver en las mangas
     // Recordatorio: ambas mangas tienen siempre el mismo tipo de recorrido
     switch(parseInt(row.Recorrido1)){
@@ -642,12 +635,28 @@ function resultados_doSelectRonda(row) {
     // y finalmente ordenaremos dicha manga 'Conjunta' alimentando al datagrid correspondiente
     // TODO: write
 }
- 
+
+/**
+ * Imprime una hoja con los podio de esta ronda
+ */
+function resultados_printPodium() {
+	alert("competicion.js::resultados_printPodium() {PENDING}");
+	// TODO: write
+}
+
+/**
+ * Imprime los resultados finales separados por categoria y grado, tal y como pide la RSCE
+ */
+function resultados_printCanina() {
+	alert("competicion.js::resultados_printCanina() {PENDING}");
+	// TODO: write
+}
+
 /**
  * Imprime los resultados finales de la ronda seleccionada en formato CSV para su conversion en etiquetas
  * @returns {Boolean} false 
  */
-function printEtiquetas() {
+function resultados_printEtiquetas() {
 	$.fileDownload(
 		'pdf/clasificaciones.php',
 		{
@@ -671,7 +680,7 @@ function printEtiquetas() {
  * Imprime los resultados finales de la ronda seleccionada en formato pdf
  * @return false
  */
-function printResultados() {
+function resultados_printClasificacion() {
 	// vemos cual es el panel activo
 	var tab = $('#resultados-datatabs').tabs('getSelected');
 	var index = $('#resultados-datatabs').tabs('getTabIndex',tab);
@@ -694,8 +703,28 @@ function printResultados() {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
-function reloadClasificaciones(manga,recorrido) {
-	$('#resultados-manga1-datagrid').datagrid('reload');
-	$('#resultados-manga2-datagrid').datagrid('reload');
-	$('#resultados-conjunta-datagrid').datagrid('reload');
+/**
+ * Presenta un menu al usuario indicando que es lo que se quiere imprimir
+ */
+function resultados_doPrint() {
+	 $.messager.radio(
+			 'Selecciona modelo',
+			 'Selecciona el tipo de documento a generar:',
+			 { 1:'Podium',2:'Etiquetas',3:'Informes R.S.C.E',4:'Clasificación'}, 
+			 function(r){ 
+				 switch(r) {
+				 case 0: resultados_printPodio(); break;
+				 case 1: resultados_printEtiquetas(); break;
+				 case 2: resultados_printCanina(); break;
+				 case 3: resultados_printClasificacion(); break;
+				 }
+			 }
+		).window({width:250});
+	    return false; //this is critical to stop the click event which will trigger a normal file download!
+}
+
+function reloadClasificaciones() {
+	alert("competicion.js::reloadClasificaciones() {PENDING}");
+	// TODO: write
+	// check for valid manga combogrid selection, and invoke onSelect method
 }

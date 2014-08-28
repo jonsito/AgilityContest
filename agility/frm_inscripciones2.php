@@ -75,6 +75,9 @@ include_once("dialogs/dlg_editInscripcion.inc");
 	   		<input id="inscripciones-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
 	   	</span>
 	   	<span style="float:right"> 	<!-- estos elementos deben estar alineados a la derecha -->
+	    	<a id="inscripciones-reorderBtn" href="#" class="easyui-linkbutton"
+	    		data-options="iconCls:'icon-updown'" 
+	    		onclick="reorderInscripciones(workingData.prueba)">Reordenar</a>
 	    	<a id="inscripciones-teamBtn" href="#" class="easyui-linkbutton"
 	    		data-options="iconCls:'icon-huella'" 
 	    		onclick="openTeamWindow(workingData.prueba)">Equipos</a>
@@ -244,6 +247,7 @@ addKeyHandler('#inscripciones-datagrid',newInscripcion,editInscripcion,deleteIns
 addTooltip($('#inscripciones-newBtn').linkbutton(),"Registrar nueva(s) inscripciones"); 
 addTooltip($('#inscripciones-editBtn').linkbutton(),"Modificar la inscripción seleccionada");
 addTooltip($('#inscripciones-delBtn').linkbutton(),"Eliminar la inscripción seleccionada de la BBDD");
+addTooltip($('#inscripciones-reorderBtn').linkbutton(),"Reasignar Dorsales por orden de Club,Categoria,Grado, y Nombre");
 addTooltip($('#inscripciones-teamBtn').linkbutton(),"Abrir la ventana de gest&oacute;n de equipos de esta prueba");
 addTooltip($('#inscripciones-printBtn').linkbutton(),"Imprimir la lista de inscritos en la prueba");
 addTooltip($('#inscripciones-reloadBtn').linkbutton(),"Borrar la casilla de b&uacute;squeda<br/>Actualizar la lista de inscripciones para la prueba");
