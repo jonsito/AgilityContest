@@ -103,7 +103,8 @@ $('#resultadosmanga-datagrid').datagrid({
       	{ field:'PTiempo',		hidden:true },
       	{ field:'Velocidad',	width:10, align:'right', title: 'Vel.', formatter:formatVelocidad},
       	{ field:'Penalizacion',	width:15, align:'right', title: 'Penal.', formatter:formatPenalizacion}, 
-      	{ field:'Calificacion',	width:30, align:'center',title: 'Calificacion'}
+      	{ field:'Calificacion',	width:30, align:'center',title: 'Calificacion'}, 
+      	{ field:'CShort', hidden:true}
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';

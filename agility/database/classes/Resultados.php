@@ -334,16 +334,33 @@ class Resultados extends DBObject {
 			if ($table[$idx]['Penalizacion']>=200)  {
 				$table[$idx]['Penalizacion']=200.0; 
 				$table[$idx]['Calificacion'] = "No Presentado"; 
+				$table[$idx]['CShort'] = "N.P."; 
 			}
 			else if ($table[$idx]['Penalizacion']>=100) {
 				$table[$idx]['Penalizacion']=100.0; 
-				$table[$idx]['Calificacion'] = "Eliminado"; 
+				$table[$idx]['Calificacion'] = "Eliminado";
+				$table[$idx]['CShort'] = "Elim"; 
 			}
-			else if ($table[$idx]['Penalizacion']>=26)	$table[$idx]['Calificacion'] = "No Clasificado";
-			else if ($table[$idx]['Penalizacion']>=16)	$table[$idx]['Calificacion'] = "Bueno";
-			else if ($table[$idx]['Penalizacion']>=6)	$table[$idx]['Calificacion'] = "Muy Bien";
-			else if ($table[$idx]['Penalizacion']>0)	$table[$idx]['Calificacion'] = "Excelente";
-			else if ($table[$idx]['Penalizacion']==0)	$table[$idx]['Calificacion'] = "Excelente (p)";
+			else if ($table[$idx]['Penalizacion']>=26)	{
+				$table[$idx]['Calificacion'] = "No Clasificado";
+				$table[$idx]['CShort'] = "N.C.";
+			}
+			else if ($table[$idx]['Penalizacion']>=16)	{
+				$table[$idx]['Calificacion'] = "Bueno";
+				$table[$idx]['CShort'] = "Bien";
+			}
+			else if ($table[$idx]['Penalizacion']>=6)	{
+				$table[$idx]['Calificacion'] = "Muy Bien";
+				$table[$idx]['CShort'] = "M.B.";
+			}
+			else if ($table[$idx]['Penalizacion']>0)	{
+				$table[$idx]['Calificacion'] = "Excelente";
+				$table[$idx]['CShort'] = "Exc ";
+			}
+			else if ($table[$idx]['Penalizacion']==0)	{
+				$table[$idx]['Calificacion'] = "Excelente (p)";
+				$table[$idx]['CShort'] = "Ex P";
+			}
 		}
 		// FASE 4: re-ordenamos los datos en base a la puntuacion y calculamos campo "Puesto"
 		usort($table, function($a, $b) {
