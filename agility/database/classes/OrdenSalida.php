@@ -31,6 +31,7 @@ class OrdenSalida extends DBObject {
 	function getOrden($idmanga) {
 		$this->myLogger->enter();
 		$res=$this->__selectObject("Orden_Salida", "Mangas", "( ID=$idmanga )");
+		if (!is_object($res)) return $this->error($this->conn->error);
 		$result = $res->Orden_Salida;
 		$this->myLogger->leave();
 		return ($result==="")?$this->default_orden:$result;
@@ -151,7 +152,7 @@ class OrdenSalida extends DBObject {
 		
 		// fase 2: obtenemos todos los resultados de esta manga 
 		$rs=$this->__select("*", "Resultados", "(Manga=$manga)", "", "");
-		if (!$rs) return $this->error($this->conn->error);
+		if (!is_array($rs)) return $this->error($this->conn->error);
 		// y los guardamos en un array indexado por el idperro
 		$data=array();
 		foreach($rs['rows'] as $row) { $data[$row['Perro']]=$row;}

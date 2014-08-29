@@ -162,7 +162,7 @@ class Guias extends DBObject {
 				/* FROM */ "Guias",
 				/* WHERE */ "( ID=$id )"
 		); 
-		if (!$data)	return $this->error("No handler found with ID=$id");
+		if (!is_array($data))	return $this->error("No handler found with ID=$id");
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
 		return $data;

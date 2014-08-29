@@ -230,7 +230,8 @@ class Resultados extends DBObject {
 		$idmanga=$this->IDManga;
 		if ($idperro<=0) return $this->error("No Perro ID specified");
 		$row=$this->__singleSelect("*", "Resultados", "(Perro=$idperro) AND (Manga=$idmanga)");
-		if(!$row) return $this->error("No Results for Perro:$idperro on Manga:$idmanga");
+		if(!is_array($row)) 
+			return $this->error("No Results for Perro:$idperro on Manga:$idmanga");
 		$this->myLogger->leave();
 		return $row;
 	}
@@ -308,6 +309,8 @@ class Resultados extends DBObject {
 				$where, 
 				" PRecorrido ASC, Tiempo ASC", 
 				"");
+		if (!is_array($res))
+			return $this->error($this->conn->error);
 		$table=$res['rows'];
 		$this->myLogger->leave();
 		// FASE 2: evaluamos TRS Y TRM

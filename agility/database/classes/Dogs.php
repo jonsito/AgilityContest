@@ -190,7 +190,7 @@ class Dogs extends DBObject {
 				/* FROM */ "PerroGuiaClub",
 				/* WHERE */ "( ID=$idperro )"
 		);
-		if (!$data)	return $this->error("No Dog found with ID=$idperro");
+		if (!is_array($data))	return $this->error("No Dog found with ID=$idperro");
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
 		return $data;

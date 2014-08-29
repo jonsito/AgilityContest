@@ -28,7 +28,7 @@ class Inscripciones extends DBObject {
 			/* FROM */   "Equipos",
 			/* WHERE */ "( Prueba = $prueba ) AND ( Nombre = '-- Sin asignar --' )"
 		);
-		if (($res===null) || ($res==="")) {
+		if (!is_array($res)) {
 			$this->errormsg="$file::construct() cannot get default team data for this prueba";
 			throw new Exception($this->errormsg);
 		}
@@ -40,16 +40,18 @@ class Inscripciones extends DBObject {
 	 * @param {integer} perro ID del perro
 	 * @return empty string if ok; else null
 	 */
-	function insert($perro) {
+	function insert($idperro) {
 		$this->myLogger->enter();
-		if ($perro<=0) return $this->error("Invalid IDPerro ID");
+		if ($idperro<=0) return $this->error("Invalid IDPerro ID");
 		$res= $this->__SelectObject(
 			/* SELECT */ "count(*) AS count",
 			/* FROM */ "Inscripciones",
-			/* WHERE */ "( Prueba=".$this->pruebaID.") AND ( Perro=$perro )"
+			/* WHERE */ "( Prueba=".$this->pruebaID.") AND ( Perro=$idperro )"
 		);
+		if (!is_object($res))
+			return $this->error("No puedo obtener datos del perro con ID:$idperro para la prueba:{$this->pruebaID}");
 		if($res->count>0)
-			return $this->error("El perro con ID:".$perro." ya esta inscrito en la prueba:".$this->pruebaID);
+			return $this->error("El perro con ID:$idperro ya esta inscrito en la prueba:{$this->pruebaID}");
 		
 		// obtenemos los restantes valores de la inscripcion
 		$prueba=$this->pruebaID;
@@ -61,7 +63,7 @@ class Inscripciones extends DBObject {
 		
 		// ok, ya tenemos todo. Vamos a inscribirle... pero solo en las jornadas abiertas
 		$str= "INSERT INTO Inscripciones (Prueba,Perro,Celo,Observaciones,Equipo,Jornadas,Pagado)
-			VALUES ($prueba,$perro,$celo,'$observaciones',$equipo,$jornadas,$pagado)";
+			VALUES ($prueba,$idperro,$celo,'$observaciones',$equipo,$jornadas,$pagado)";
 		$res=$this->query($str);
 		if (!$res) return $this->error($this->conn->error);
 		// una vez inscrito, vamos a repasar la lista de jornadas y actualizar en caso necesario
@@ -90,7 +92,7 @@ class Inscripciones extends DBObject {
 			/* FROM */		"Inscripciones",
 			/* WHERE */		"(Perro=$idperro) AND (Prueba=$p)"
 		);
-		if (($res==null) || ($res===""))
+		if (!is_object($res))
 			return $this->error("El perro cond ID:$idperro no figura inscrito en la prueba:$p");
 
 		// buscamos datos nuevos y mezclamos con los actuales
@@ -129,8 +131,8 @@ class Inscripciones extends DBObject {
 		$p=$this->pruebaID;
 		if ($idperro<=0) return $this->error("Invalid Perro ID");
 		// fase 0: obtenemos el ID de la inscripcion
-		$res=$this->__singleSelect("ID", "Inscripciones", "(Perro=$idperro) AND (Prueba=$p");
-		if (!$res) return $this->error("El perro con id:$idperro esta inscrito en la prueba:$p");
+		$res=$this->__singleSelect("ID", "Inscripciones", "(Perro=$idperro) AND (Prueba=$p)");
+		if (!is_array($res)) return $this->error("El perro con id:$idperro no esta inscrito en la prueba:$p");
 		$i=$res['ID'];
 		// fase 1: actualizamos la DB para indicar que el perro no esta inscrito en ninguna jornada
 		$sql="Update Inscripciones SET Jornadas = 0  WHERE (ID=$i)";

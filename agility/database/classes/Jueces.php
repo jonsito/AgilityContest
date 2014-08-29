@@ -101,7 +101,7 @@ class Jueces extends DBObject {
 				/* FROM */ "Jueces",
 				/* WHERE */ "( ID=$id )"
 		);
-		if (!$data)	return $this->error("No Juez found with provided ID=$id");
+		if (!is_array($data))	return $this->error("No Juez found with provided ID=$id");
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
 		return $data;

@@ -191,7 +191,7 @@ class Pruebas extends DBObject {
 				/* FROM */ "Pruebas,Clubes",
 				/* WHERE */ "( Clubes.ID=Pruebas.Club) && ( Pruebas.ID=$id )"
 		);
-		if (!$data)	return $this->error("No Prueba found with ID=$id");
+		if (!is_array($data))	return $this->error("No Prueba found with ID=$id");
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
 		return $data;

@@ -76,6 +76,8 @@ class Mangas extends DBObject {
 				"Mangas", 
 				"( Jornada=$j ) AND  ( Tipo=$tipo ) AND ( Grado='$grado' )"
 		);
+		if(!is_object($res))
+			return $this->error("Cannot get info on Mangas for Jornada:$j");
 		if ($res->Result>0){
 			$this->myLogger->info("Jornada:$j Manga:$tipo already exists. exit OK");
 			return "";

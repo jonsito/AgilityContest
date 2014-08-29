@@ -26,7 +26,7 @@ class Equipos extends DBObject {
 				/* FROM */   "Equipos",
 				/* WHERE */ "( Prueba = $prueba ) AND ( Nombre = '-- Sin asignar --' )"
 		);
-		if (($res===null) || ($res==="")) {
+		if (!is_array($res)) {
 			$this->errormsg="$file::construct() cannot get default team data for prueba ID:$prueba" ;
 			throw new Exception($this->errormsg);
 		}
@@ -161,7 +161,7 @@ class Equipos extends DBObject {
 				/* FROM */ "Equipos",
 				/* WHERE */ "( ID=$id )"
 		); 
-		if (!$data)	return $this->error("No Equipo found with ID=$id");
+		if (!is_array($data))	return $this->error("No Equipo found with ID=$id");
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
 		return $data;

@@ -144,7 +144,7 @@ class Jornadas extends DBObject {
 				/* FROM */ "Jornadas",
 				/* WHERE */ "( ID=$id )"
 		);
-		if (!$data)	return $this->error("No Jornada found with ID=$id");
+		if (!is_array($data))	return $this->error("No Jornada found with ID=$id");
 		$this->myLogger->leave();
 		return $data;
 	}
