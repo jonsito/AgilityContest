@@ -44,6 +44,33 @@ class Resultados extends DBObject {
 		$jrd=$this->getDatosJornada();
 		return 	($jrd->Cerrada!=0)? true:false;
 	}
+
+	/**
+	 * Constructor
+	 * @param {string} $file caller for this object
+	 * @param {string} $manga Manga ID
+	 * @throws Exception when
+	 * - cannot contact database
+	 * - invalid manga ID
+	 * - manga is closed
+	 */
+	function __construct($file,$prueba,$manga) {
+		parent::__construct($file);
+		if ($manga<=0) {
+			$this->errormsg="Resultados::Construct invalid Manga ID: $manga";
+			throw new Exception($this->errormsg);
+		}
+		if ($prueba<=0) {
+			$this->errormsg="Resultados::Construct invalid Prueba ID: $manga";
+			throw new Exception($this->errormsg);
+		}
+		$this->IDPrueba=$prueba;
+		$this->IDJornada=0; // to be filled
+		$this->IDManga=$manga;
+		$this->dprueba=null;
+		$this->dmanga=null;
+		$this->djornada=null;
+	}
 	
 	/**
 	 * gets distance, obstacles, trs and trm
@@ -119,27 +146,7 @@ class Resultados extends DBObject {
 		// esto es todo amigos
 		return $result;
 	}
-	
-	/**
-	 * Constructor
-	 * @param {string} $file caller for this object
-	 * @param {string} $manga Manga ID
-	 * @throws Exception when
-	 * - cannot contact database 
-	 * - invalid manga ID
-	 * - manga is closed
-	 */
-	function __construct($file,$manga) {
-		parent::__construct($file);
-		if ($manga<=0) {
-			$this->errormsg="Resultados::Construct invalid Manga ID: $manga";
-			throw new Exception($this->errormsg);
-		}
-		$this->IDManga=$manga;
-		$this->IDJornada=0;
-		$this->dmanga=null;
-		$this->djornada=null;
-	}
+
 		
 	/**
 	 * Inserta perro en la lista de resultados de la manga
@@ -157,14 +164,15 @@ class Resultados extends DBObject {
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);	
 		
 		// Insert into resultados. On duplicate ($manga,$idperro) key ignore
-		$sql="INSERT INTO Resultados (Manga,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
-				VALUES (?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Manga=Manga";
+		$sql="INSERT INTO Resultados (Prueba,Manga,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
+				VALUES (?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Manga=Manga";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->conn->error;
-		$res=$stmt->bind_param('iiissssss',$manga,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$guia,$club);
+		$res=$stmt->bind_param('iiiissssss',$prueba,$manga,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$guia,$club);
 		if (!$res) return $this->error($stmt->error);
 		$manga=$idmanga;
 		$dorsal=$ndorsal;
+		$prueba=$this->IDPrueba;
 		$perro=$objperro['ID'];
 		$nombre=$objperro['Nombre'];
 		$licencia=$objperro['Licencia'];
@@ -182,7 +190,7 @@ class Resultados extends DBObject {
 	
 	/**
 	 * Inserta perro en la lista de resultados de la manga
-	 * @param {integer} $integer ID del perro
+	 * @param {integer} $idperro ID del perro
 	 * @param {integer} $ndorsal Dorsal con el que compite
 	 * @return "" on success; else error string
 	 */
@@ -191,7 +199,7 @@ class Resultados extends DBObject {
 		$pobj=new Dogs("Resultados::insert");
 		$perro=$pobj->selectByIDPerro($iderro);
 		if (!$perro) throw new Exception("No hay datos para el perro a inscribir con id: $idp");
-		return insertByData($perro,$ndorsal);
+		return insertByData($perro,$idprueba,$ndorsal);
 	}
 	
 	/**

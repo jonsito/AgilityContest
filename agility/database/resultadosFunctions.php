@@ -6,13 +6,15 @@ require_once("classes/Resultados.php");
 try {
 	$result=null;
 	$operation=http_request("Operation","s",null);
+	$pruebaID=http_request("Prueba","i",0);
 	$mangaID=http_request("Manga","i",0);
 	$idperro=http_request("Perro","i",0);
+	$dorsal=http_request("Dorsal","i",0);
 	$mode=http_request("Mode","i",0);
 	if ($operation===null) throw new Exception("Call to resultadosFunction without 'Operation' requested");
-	$resultados= new Resultados("resultadosFunctions",$mangaID);
+	$resultados= new Resultados("resultadosFunctions",$pruebaID,$mangaID);
 	switch ($operation) {
-		case "insert": $result=$resultados->insert($idperro); break;
+		case "insert": $result=$resultados->insert($idperro,$dorsal); break;
 		case "update": $result=$resultados->update($idperro); break;
 		case "delete": $result=$resultados->delete($idperro); break;
 		case "select": $result=$resultados->select($idperro); break;

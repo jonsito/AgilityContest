@@ -171,7 +171,7 @@ try {
 	$jornada= $jorobj->selectByID($idjornada);
 	$mngobj= new Mangas("printResultadosByManga",$idjornada);
 	$manga=$mngobj->selectByID($idmanga);
-	$resobj= new Resultados("printResultadosByManga",$idmanga);
+	$resobj= new Resultados("printResultadosByManga",$idprueba,$idmanga);
 	$resultados=$resobj->getResultados($mode);
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e.getMessage());

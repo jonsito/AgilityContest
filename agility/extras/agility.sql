@@ -1697,6 +1697,7 @@ INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`
 
 DROP TABLE IF EXISTS `Resultados`;
 CREATE TABLE IF NOT EXISTS `Resultados` (
+  `Prueba` int(4) NOT NULL,
   `Manga` int(4) NOT NULL,
   `Dorsal` int(4) NOT NULL,
   `Perro` int(4) NOT NULL,
@@ -1718,12 +1719,15 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
   `Pendiente` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`Manga`,`Perro`),
   KEY `Resultados_Perro` (`Perro`),
+  KEY `Resultados_Manga` (`Manga`),
   KEY `Resultados_Dorsal` (`Dorsal`),
-  KEY `Resultados_Manga` (`Manga`)
+  KEY `Resultados_Prueba` (`Prueba`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `Resultados`:
+--   `Prueba`
+--       `Pruebas` -> `ID`
 --   `Perro`
 --       `Perros` -> `ID`
 --   `Manga`
@@ -1853,6 +1857,8 @@ ALTER TABLE `Resultados`
   ADD CONSTRAINT `Resultados_ibfk_1` FOREIGN KEY (`Perro`) REFERENCES `Perros` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `Resultados`
   ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Mangas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Resultados`
+  ADD CONSTRAINT `Resultados_ibfk_3` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Tipo_Manga`

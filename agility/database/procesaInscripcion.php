@@ -33,7 +33,7 @@ function borraPerroDeJornada($inscripcion,$jornada,$perro) {
 		$os->removeFromList($orden, $inscripcion['Perro']);
 		$os->setOrden($manga['ID'], $orden);
 		// eliminamos el perro de la tabla de resultados de todas las mangas de esta jornada
-		$rs=new Resultados("borraPerroDeJornada",$manga['ID']);
+		$rs=new Resultados("borraPerroDeJornada",$jornada['Prueba'],$manga['ID']);
 		$rs->delete($inscripcion['Perro']);
 	}
 }
@@ -105,7 +105,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 		$os->setOrden($manga['ID'], $orden);
 		
 		// verificamos la tabla de resultados de esta manga
-		$rs=new Resultados("inscribePerroEnJornada::Resultados",$mid);
+		$rs=new Resultados("inscribePerroEnJornada::Resultados",$jornada['Prueba'],$mid);
 		if ($inscribir==false) {
 			$myLogger->info("Borrando Perro:$idperro Grado:$g de Resultados manga:$mid");
 			// borramos entrada del perro en la tabla de resultados de la manga
