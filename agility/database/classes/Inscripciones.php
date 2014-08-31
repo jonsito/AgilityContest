@@ -337,12 +337,46 @@ class Inscripciones extends DBObject {
 	function reorder() {
 		$this->myLogger->enter();
 		$this->myLogger->leave();
-		// buscar las jornadas de esta prueba
-		// buscar las mangas de las jornadas de esta prueba
-		// buscar los resultados de las mangas de las jornadas de esta prueba
-		// update Resultados set Dorsal=nuevo where Resultados.Manga=Manga.ID and Manga.Jornada=Jornada.ID and Jornada.prueba=Prueba.ID
-		// reordenar dorsales
-		// propagar cambios a tablas de resultados
+		// ordenamos los perros por club, categoria grado
+		$inscritos=$this->__select(
+				"Perro,Nombre,NombreClub,Categoria,Grado",
+				"Inscripciones,PerroGuiaClub",
+				"(Inscripciones.Prueba={$this->pruebaID}) AND (Inscripciones.Perro=PerroGuiaClub.ID)", 
+				"NombreClub ASC,Categoria ASC, Grado ASC, Nombre ASC", 
+				"");
+		if (!is_array($inscritos))
+			return $this->error("reorder(): Canot retrieve list of inscritos");
+
+		//usaremos prepared statements para acelerar
+		$str1="UPDATE Inscripciones SET Dorsal=? WHERE (Prueba={$this->pruebaID}) AND (Perro=?)";
+		$str2="UPDATE Resultados SET DORSAL=? WHERE (Prueba={$this->pruebaID}) AND (Perro=?)";
+			
+		$stmt1=$this->conn->prepare($str1);
+		if (!$stmt1) return $this->error($this->conn->error);
+		$stmt2=$this->conn->prepare($str2);
+		if (!$stmt2) return $this->error($this->conn->error);
+			
+		$res1=$stmt1->bind_param('ii',$dorsal1,$perro1);
+		if (!$res1) return $this->error($stmt1->error);
+		$res2=$stmt2->bind_param('ii',$dorsal2,$perro2);
+		if (!$res2) return $this->error($stmt2->error);
+
+		$dorsal=1;
+		$len=count($inscritos['rows']);
+		
+		for($n=0;$n<$len;$n++,$dorsal++) { 
+			// actualizamos las tabla de inscripciones y resultados
+			$dorsal1=$dorsal; $dorsal2=$dorsal;
+			$perro1=$inscritos['rows'][$n]['Perro']; $perro2=$perro1;
+			$res=$stmt1->execute();
+			if (!$res) return $this->error($stmt1->error);
+			$res=$stmt2->execute();
+			if (!$res) return $this->error($stmt2->error);
+		}
+		$stmt1->close();
+		$stmt1->close();
+		$this->myLogger->leave();
+		return "";
 	}
 	
 	/**

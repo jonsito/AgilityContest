@@ -63,7 +63,7 @@ class Clubes extends DBObject {
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('ssssssssssssssis',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,
 				$web,$email,$facebook,$google,$twitter,$observaciones,$baja,$idclub);
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
 		// iniciamos los valores, chequeando su existencia
 		$nombre 	= http_request("Nombre","s",null,false);
 		$idclub		= $id;
@@ -85,7 +85,7 @@ class Clubes extends DBObject {
 		$this->myLogger->debug("Nombre: $nombre ID: $idclub Provincia: $provincia Direccion1: $direccion1 Contacto1: $contacto1 ");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
-		if (!$res) return $this->error($this->conn->error);
+		if (!$res) return $this->error($stmt->error);
 		$this->myLogger->leave();
 		$stmt->close();
 		return "";

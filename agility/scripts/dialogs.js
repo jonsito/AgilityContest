@@ -1115,7 +1115,6 @@ function insertInscripcion(dg) {
  * @param idprueba ID de la prueba
  */
 function reorderInscripciones(idprueba) {
-	alert("dialogs.js::ReorderInscripciones(idprueba) {PENDING}");
 	$.ajax({
         async: false,
         cache: false,
