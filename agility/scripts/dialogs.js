@@ -774,10 +774,15 @@ function saveJornada(){
     $('#jornadas-Open').val( $('#jornadas-Open').is(':checked')?'1':'0');
     $('#jornadas-Equipos3').val( $('#jornadas-Equipos3').is(':checked')?'1':'0');
     $('#jornadas-Equipos4').val( $('#jornadas-Equipos4').is(':checked')?'1':'0');
-    $('#jornadas-PreAgility').val( ($('#jornadas-MangasPreAgility').val()==1)?'1':'0');
-    $('#jornadas-PreAgility2').val( ($('#jornadas-MangasPreAgility').val()==2)?'1':'0');
+    if ($('#jornadas-PreAgilityChk').is(':checked')) {
+        $('#jornadas-PreAgility').val( ($('#jornadas-MangasPreAgility').val()==1)?'1':'0');
+        $('#jornadas-PreAgility2').val( ($('#jornadas-MangasPreAgility').val()==2)?'1':'0');
+    } else {
+    	$('#jornadas-PreAgility').val(0);
+    	$('#jornadas-PreAgility2').val(0);
+    }
     $('#jornadas-KO').val( $('#jornadas-KO').is(':checked')?'1':'0');
-    $('#jornadas-Especial').val( $('#jornadas-Exhibicion').is(':checked')?'1':'0');
+    $('#jornadas-Especial').val( $('#jornadas-Especial').is(':checked')?'1':'0');
     $('#jornadas-Cerrada').val( $('#jornadas-Cerrada').is(':checked')?'1':'0');
     // handle fecha
     // do normal submit

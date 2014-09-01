@@ -13,8 +13,6 @@
 				<input id="jornadas-ID" type="hidden" name="ID"/> 
 				<!-- Operacion a realizar con el formulario -->
 				<input id="jornadas-Operation" type="hidden" name="Operation"/>
-				<!-- Indice a la prueba seleccionada en el formulario -->
-				<input id="jornadas-PruebaIndex" type="hidden" name="PruebaIndex"/>
         	</div>
             <div class="fitem">
                 <label for="Fecha">Fecha</label>
@@ -25,7 +23,7 @@
                 <input id="jornadas-Hora" name="Hora" class="easyui-timespinner" style="width:250px;align:right"/>
             </div>
             <div class="fitem">
-            	<label style="width:250px">Mangas a realizar:</label>
+            	<label style="width:250px">Rondas de que consta la jornada:</label>
             </div>
             
             <div class="fitem">
@@ -36,7 +34,7 @@
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-PreAgilityChk',0x0003)"/>
                 <select id="jornadas-MangasPreAgility" name="MangasPreAgility" style="width:125px">
                 <option value="1"> Manga única </option>
-                <option value="2"> 2 Mangas</option>
+                <option value="2"> Dos Mangas</option>
                 </select>
             </div>
             <div class="fitem">
@@ -109,12 +107,12 @@
             // fix date and checkboxes value into datebox in "onLoadSuccess" event declaration
             if (data.PreAgility==1) {
                 $('#jornadas-PreAgilityChk').prop('checked',true);
-                $('jornadas-MangasPreAgility').prop('value',1);
-            	$('jornadas-MangasPreAgility').prop('disabled',false);
+                $('#jornadas-MangasPreAgility').prop('value',1);
+            	$('#jornadas-MangasPreAgility').prop('disabled',false);
             } else if (data.PreAgility2==1) {
                 $('#jornadas-PreAgilityChk').prop('checked',true);
-            	$('jornadas-MangasPreAgility').prop('disabled',false);
-                $('jornadas-MangasPreAgility').prop('value',1);
+            	$('#jornadas-MangasPreAgility').prop('disabled',false);
+                $('#jornadas-MangasPreAgility').prop('value',2);
             } else {
                 $('#jornadas-PreAgilityChk').prop('checked',false);
             	$('#jornadas-MangasPreAgility').prop('disabled','disabled');

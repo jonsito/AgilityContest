@@ -61,8 +61,8 @@ class Jornadas extends DBObject {
 		$preagility = http_request("PreAgility","i",0);
 		$preagility2 = http_request("PreAgility2","i",0);
 		$ko = http_request("KO","i",0);
-		$exhibicion = http_request("Especal","i",0);
-		$otras = http_request("Observaciones","s","(sin especificar)");
+		$especial = http_request("Especial","i",0);
+		$observaciones = http_request("Observaciones","s","(sin especificar)");
 		$cerrada = http_request("Cerrada","i",0);
 		$id= $jornadaid;
 		
@@ -74,7 +74,7 @@ class Jornadas extends DBObject {
 		$stmt->close();
 		if (!$cerrada) {
 			$mangas =new Mangas("jornadaFunctions",$id);
-			$mangas->prepareMangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$ko,$exhibicion,$otras);
+			$mangas->prepareMangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$especial,$observaciones);
 		}
 		$this->myLogger->leave();
 		return "";

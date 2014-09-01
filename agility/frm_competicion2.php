@@ -66,7 +66,13 @@ $('#competicion-listamangas').datagrid({
       	    { field:'Tipo',			hidden:true }, // Tipo de manga
       	    { field:'Grado',		hidden:true }, // Grado de los perros de la manga
       	    { field:'Recorrido',	hidden:true }, // 0:L/M/S 1:L/M+S 2:L+M+S
-      	    { field:'Descripcion',	width:200, sortable:false, align:'right'}, // texto del tipo de manga
+      	    { field:'Descripcion',	width:200, sortable:false, align:'right',
+          	    formatter: function(val,row){ // si manga especial, obtener texto del campo observaciones
+              	    if (row.Tipo!=16) return val;
+              	    if (workingData.datosJornada.Observaciones==="") return val;
+              	    return workingData.datosJornada.Observaciones;
+          	    }
+      	    }, // texto del tipo de manga
     ]],
     rowStyler:myRowStyler,
     onSelect: function (index,row) {

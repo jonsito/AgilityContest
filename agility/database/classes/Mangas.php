@@ -8,8 +8,8 @@ class Mangas extends DBObject {
 	/* copia de la estructura de la base de datos, para ahorrar consultas */
 	public static $tipo_manga= array(
 			array ( 0,'',''),
-			array( 1, 'Manga sin tipo definido', '-'),
-			array( 2, 'Ronda de Pre-Agility', 'P.A.'),
+			array( 1, 'Pre-Agility Manga 1', 'P.A.'),
+			array( 2, 'Pre-Agility Manga 2', 'P.A.'),
 			array( 3, 'Agility Grado I Manga 1', 'GI'),
 		 	array( 4, 'Agility Grado I Manga 2', 'GI'),
 			array( 5, 'Agility Grado II', 'GII'),
@@ -23,14 +23,14 @@ class Mangas extends DBObject {
 			array( 13,'Jumping por Equipos (3 mejores)', '-'),
 			array( 14,'Jumping por Equipos (Conjunta)', '-'),
 			array( 15,'Ronda K.O.', '-'),
-			array( 16,'Ronda de Exhibición', '-')	
+			array( 16,'Manga especial', '-')	
 	);
 	
 	/* tabla para obtener facilmente la manga complementaria a una manga dada */
 	public static $manga_hermana= array(
 		0,	/* 0,'','' */
-		0,	/* 1, 'Manga sin tipo definido', '-' */
-		0,	/* 2, 'Ronda de Pre-Agility', 'P.A.' */
+		2,	/* 1, 'Pre-Agility Manga 1', 'P.A.' */ // notice that in 1 manga mode there is no sister
+		1,	/* 2, 'Pre-Agility Manga 2', 'P.A.' */
 		4,	/* 3, 'Agility Grado I Manga 1', 'GI' */
 		3,	/* 4, 'Agility Grado I Manga 2', 'GI' */
 		10,	/* 5, 'Agility Grado II', 'GII' */
@@ -43,7 +43,8 @@ class Mangas extends DBObject {
 		7,	/* 12,'Jumping Abierta (Open)', '-' */
 		8,	/* 13,'Jumping por Equipos (3 mejores)', '-' */
 		9,	/* 14,'Jumping por Equipos (Conjunta)', '-' */
-		0	/* 15,'Ronda K.O.', '-' */
+		0,	/* 15,'Ronda K.O.', '-' */
+		0	/* 16,'Manga Especial', '-' */
 	);
 	
 	/**
@@ -82,7 +83,7 @@ class Mangas extends DBObject {
 			$this->myLogger->info("Jornada:$j Manga:$tipo already exists. exit OK");
 			return "";
 		}
-		$str="INSERT INTO Mangas ( Jornada , Tipo, Grado ) VALUES ($j,$tipo,'$grado')";
+		$str="INSERT INTO Mangas ( Jornada , Tipo, Grado, Observaciones ) VALUES ($j,$tipo,'$grado','$observaciones')";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
@@ -272,15 +273,27 @@ class Mangas extends DBObject {
 	 * @param {integer} $open la jornada tiene (1) o no (0) una prueba abierta (Open)
 	 * @param {integer} $equipos3 la jornada tiene (1) o no (0) una manga por equipos (3 de 4)
 	 * @param {integer} $equipos4 la jornada tiene (1) o no (0) una manga por equipos (conjunta)
-	 * @param {integer} $preagility la jornada tiene (1) o no (0) manga de preagility
+	 * @param {integer} $preagility la jornada tiene (1) o no (0) manga de preagility a una vuelta
+	 * @param {integer} $preagility2 la jornada tiene (1) o no (0) mangas de preagility a dos vueltas
 	 * @param {integer} $ko la jornada contiene (1) o no (0) una prueba k0
-	 * @param {integer} $exhibicion la jornada tiene (1) o no (0) mangas de exhibicion
-	 * @param {integer} $otras la jornada contiene (1) o no (0) mangas no definidas
+	 * @param {integer} $especial la jornada tiene (1) o no (0) mangas especial a una vuelta
+	 * @param {integer} $observaciones nombre con el que se denominara la manga especial
 	 * // TODO: handle ko, exhibicion and otras
 	 */
-	function prepareMangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$ko,$exhibicion,$otras) {
+	function prepareMangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$especial,$observaciones) {
 		$this->myLogger->enter();
 
+		/*  0,'','' */
+		/* 1, 'Pre Agility (una manga)', 'P.A.' */
+		/* 2, 'Pre Agility (dos mangas)', 'P.A.' */
+		// truco para discernir si el pre agility tiene una manga o dos
+		if ($preagility2) { $this->insert(1,'P.A.'); $this->insert(2,'P.A.');}
+		else {
+			$this->delete(2);
+			if ($preagility) { $this->insert(1,'P.A.'); }
+			else { $this->delete(1); }
+		}
+		
 		/* 3, 'Agility Grado I Manga 1', 'GI' */
 		/* 4, 'Agility Grado I Manga 2', 'GI' */
 		if ($grado1) { 	$this->insert(3,'GI'); $this->insert(4,'GI');		}
@@ -311,20 +324,13 @@ class Mangas extends DBObject {
 		if ($equipos4) {	$this->insert(9,'-');	$this->insert(14,'-');	}
 		else { $this->delete(9);	$this->delete(14);	}
 
-		/* 2, 'Ronda de Pre-Agility', 'P.A.' */
-		if ($preagility) { $this->insert(2,'P.A.'); }
-		else { $this->delete(2); }
 
 		/* 16,'Ronda de Exhibición', '-' */
-		if ($exhibicion) { $this->insert(16,'-');}
+		if ($especial) { $this->insert(16,'-');}
 		else { $this->delete(16); }
 
 		/* 15,'Ronda K.O.', '-' */
 		// TODO: las mangas KO hay que crearlas dinamicamente en funcion del numero de participantes
-		
-		// TODO: Decidir que se hace con las mangas 'otras'
-		/*  0,'','' */
-		/* 1, 'Manga sin tipo definido', '-' */
 		
 		$this->myLogger->leave();
 	}
