@@ -60,10 +60,10 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 		$inscribir=false;
 		// comprobamos si el perro tiene que estar en esta manga
 		switch ($mtype) {
-			case 1: //  'Manga sin tipo definido', '-'
-				$inscribir=true; break;
-			case 2: // 'Ronda de Pre-Agility', 'P.A.'
-				if ($g==='P.A') $inscribir=true; break;
+			case 1: //  'Pre Agility Manga 1', 'P.A.'
+				if ($g==='P.A.') $inscribir=true; break;
+			case 2: // 'Pre Agility Manga 2', 'P.A.'
+				if ($g==='P.A.') $inscribir=true; break;
 			case 3: // 'Agility Grado I Manga 1', 'GI'
 		 	case 4: // 'Agility Grado I Manga 2', 'GI'
 				if ($g==='GI') $inscribir=true; break;
@@ -83,7 +83,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 			case 13:// 'Jumping por Equipos (3 mejores)', '-'
 			case 14:// 'Jumping por Equipos (Conjunta)', '-'
 			case 15:// 'Ronda K.O.', '-'
-			case 16:// 'Ronda de Exhibición', '-'
+			case 16:// 'Manga especial', '-'
 				$inscribir=true; break;
 			default: 
 				throw new Exception("Tipo de manga $mtype desconocido. Manga:$mid Jornada:$j Prueba:$p");
