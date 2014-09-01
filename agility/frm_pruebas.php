@@ -116,7 +116,8 @@
             		{ field:'Nombre',		width:20, sortable:false,   title: 'Nombre/Comentario' },
             		{ field:'Fecha',		width:12, sortable:true,	title: 'Fecha:' },
             		{ field:'Hora',			width:10, sortable:false,	title: 'Hora.' },
-            		{ field:'PreAgility',	width:8, sortable:false,   align:'center', title: 'PreAg. ' },
+            		{ field:'PreAgility',	width:8, sortable:false,   align:'center', title: 'P.A. -1' },
+            		{ field:'PreAgility2',	width:8, sortable:false,   align:'center', title: 'P.A. -2' },
             		{ field:'Grado1',		width:8, sortable:false,   align:'center', title: 'G-I    ' },
             		{ field:'Grado2',		width:8, sortable:false,   align:'center', title: 'G-II   ' },
             		{ field:'Grado3',		width:8, sortable:false,   align:'center', title: 'G-III  ' },
@@ -124,8 +125,8 @@
             		{ field:'Equipos3',		width:8, sortable:false,   align:'center', title: 'Eq. 3x4' },
             		{ field:'Equipos4',		width:8, sortable:false,   align:'center', title: 'Eq. 4x4' },
             		{ field:'KO',			width:8, sortable:false,   align:'center', title: 'K.O.   ' },
-            		{ field:'Exhibicion',	width:8, sortable:false,   align:'center', title: 'Show   ' },
-            		{ field:'Otras',		width:8, sortable:false,   align:'center', title: 'Otras  ' },
+            		{ field:'Especial',	    width:8, sortable:false,   align:'center', title: 'Especial'},
+            	    { field:'Observaciones',hidden:true }, // texto para el caso de Manga especial
             		{ field:'Cerrada',		width:8, sortable:false,   align:'center', title: 'Cerrada' }
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css

@@ -774,10 +774,10 @@ function saveJornada(){
     $('#jornadas-Open').val( $('#jornadas-Open').is(':checked')?'1':'0');
     $('#jornadas-Equipos3').val( $('#jornadas-Equipos3').is(':checked')?'1':'0');
     $('#jornadas-Equipos4').val( $('#jornadas-Equipos4').is(':checked')?'1':'0');
-    $('#jornadas-PreAgility').val( $('#jornadas-PreAgility').is(':checked')?'1':'0');
+    $('#jornadas-PreAgility').val( ($('#jornadas-MangasPreAgility').val()==1)?'1':'0');
+    $('#jornadas-PreAgility2').val( ($('#jornadas-MangasPreAgility').val()==2)?'1':'0');
     $('#jornadas-KO').val( $('#jornadas-KO').is(':checked')?'1':'0');
-    $('#jornadas-Exhibicion').val( $('#jornadas-Exhibicion').is(':checked')?'1':'0');
-    $('#jornadas-Otras').val( $('#jornadas-Otras').is(':checked')?'1':'0');
+    $('#jornadas-Especial').val( $('#jornadas-Exhibicion').is(':checked')?'1':'0');
     $('#jornadas-Cerrada').val( $('#jornadas-Cerrada').is(':checked')?'1':'0');
     // handle fecha
     // do normal submit
@@ -807,8 +807,8 @@ function saveJornada(){
  * Comprueba si se puede seleccionar la prueba elegida en base a las mangas pre-existentes
  * @param {checkbox} id checkbox que se acaba de (de) seleccionar
  * @param {mask} mascara de la prueba marcada (seleccionada o de-seleccionada)
- * 0x0001, 'Otras'
- * 0x0002, 'PreAgility'
+ * 0x0001, 'PreAgility 1 Manga'
+ * 0x0002, 'PreAgility 2 Mangas'
  * 0x0004, 'Grado1',
  * 0x0008, 'Grado2',
  * 0x0010, 'Grado3',
@@ -816,13 +816,20 @@ function saveJornada(){
  * 0x0040, 'Equipos3',
  * 0x0080, 'Equipos4',
  * 0x0100, 'KO',
- * 0x0200, 'Exhibicion'
+ * 0x0200, 'Especial'
  */
 function checkPrueba(id,mask) {
 	var pruebas=0;
 	// mascara de pruebas seleccionadas
-	pruebas |= $('#jornadas-Otras').is(':checked')?0x0001:0;
-	pruebas |= $('#jornadas-PreAgility').is(':checked')?0x0002:0;
+	if ( $('#jornadas-PreAgilityChk').is(':checked') ) {
+		$('#jornadas-MangasPreAgility').prop('disabled','disabled');
+		pruebas |= $("input[name='MangasPreAgility']:checked").val();
+		$('#jornadas-MangasPreAgility').prop('disabled',false);
+	} else {
+		$('#jornadas-MangasPreAgility').prop('disabled','disabled');
+	}
+	pruebas |= $('#jornadas-PreAgility').is(':checked')?0x0001:0;
+	pruebas |= $('#jornadas-PreAgility2').is(':checked')?0x0002:0;
 	pruebas |= $('#jornadas-Grado1').is(':checked')?0x0004:0;
 	pruebas |= $('#jornadas-Grado2').is(':checked')?0x0008:0;
 	pruebas |= $('#jornadas-Grado3').is(':checked')?0x0010:0;
@@ -830,7 +837,12 @@ function checkPrueba(id,mask) {
 	pruebas |= $('#jornadas-Equipos3').is(':checked')?0x0040:0;
 	pruebas |= $('#jornadas-Equipos4').is(':checked')?0x0080:0;
 	pruebas |= $('#jornadas-KO').is(':checked')?0x0100:0;
-	pruebas |= $('#jornadas-Exhibicion').is(':checked')?0x0200:0;
+	if ( $('#jornadas-Especial').is(':checked') ) {
+		pruebas |= 0x0200;
+		$('#jornadas-Observaciones').prop('disabled',false);
+	} else {
+		$('#jornadas-Observaciones').prop('disabled',true);
+	}
 	// si no hay prueba seleccionada no hacer nada
 	if (pruebas==0) return;
 	// si estamos seleccionando una prueba ko/open/equipos, no permitir ninguna otra

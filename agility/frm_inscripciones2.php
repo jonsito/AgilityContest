@@ -136,10 +136,10 @@ $('#inscripciones-jornadas').datagrid({
       		{ field:'Grado3',		width:15, sortable:false,	align:'center', title: 'G-III  ' },
       		{ field:'Equipos3',		width:15, sortable:false,	align:'center', title: 'Eq. 3/4' },
       		{ field:'Equipos4',		width:15, sortable:false,	align:'center', title: 'Eq. Conj.' },
-      		{ field:'PreAgility',	width:15, sortable:false,	align:'center', title: 'Pre.   ' },
+      		{ field:'PreAgility',	width:15, sortable:false,	align:'center', title: 'P.A. -1' },
+      		{ field:'PreAgility2',	width:15, sortable:false,	align:'center', title: 'P.A. -2' },
       		{ field:'KO',			width:15, sortable:false,	align:'center', title: 'K.O.   ' },
-      		{ field:'Exhibicion',	width:15, sortable:false,	align:'center', title: 'Show   ' },
-      		{ field:'Otras',		width:15, sortable:false,	align:'center', title: 'Otras  ' },
+      		{ field:'Especial',		width:15, sortable:false,	align:'center', title: 'Especial' },
       		{ field:'Cerrada',		width:20, sortable:false,	align:'center', title: 'Cerrada', formatter:identificaJornada }
     ]],
     rowStyler:myRowStyler,

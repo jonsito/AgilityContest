@@ -816,9 +816,10 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
   `Equipos4` tinyint(1) NOT NULL DEFAULT '0',
   `PreAgility` tinyint(1) NOT NULL DEFAULT '1',
   `KO` tinyint(1) NOT NULL DEFAULT '0',
-  `Exhibicion` tinyint(1) NOT NULL DEFAULT '0',
-  `Otras` tinyint(1) NOT NULL DEFAULT '0',
+  `Especial` tinyint(1) NOT NULL DEFAULT '0',
+  `PreAgility2` tinyint(1) NOT NULL DEFAULT '0',
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
+  `Observaciones` varchar(255) NOT NULL DEFAULT "",
   PRIMARY KEY (`ID`),
   KEY `Prueba` (`Prueba`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
@@ -833,15 +834,15 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
 -- Volcado de datos para la tabla `Jornadas`
 --
 
-INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Grado1`, `Grado2`, `Grado3`, `Open`, `Equipos3`, `Equipos4`, `PreAgility`, `KO`, `Exhibicion`, `Otras`, `Cerrada`) VALUES
-(1, 2, 1, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
-(2, 2, 2, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0),
-(3, 2, 3, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
-(4, 2, 4, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
-(5, 2, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
-(6, 2, 6, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
-(7, 2, 7, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0),
-(8, 2, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0);
+INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Grado1`, `Grado2`, `Grado3`, `Open`, `Equipos3`, `Equipos4`, `PreAgility`, `KO`, `Especial`, `PreAgility2`, `Observaciones`, `Cerrada`) VALUES
+(1, 2, 1, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
+(2, 2, 2, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, '', 0),
+(3, 2, 3, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
+(4, 2, 4, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
+(5, 2, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
+(6, 2, 6, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
+(7, 2, 7, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
+(8, 2, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0);
 
 -- --------------------------------------------------------
 
@@ -1764,8 +1765,8 @@ CREATE TABLE IF NOT EXISTS `Tipo_Manga` (
 --
 
 INSERT INTO `Tipo_Manga` (`ID`, `Descripcion`, `Grado`) VALUES
-(1, 'Manga sin tipo definido', '-'),
-(2, 'Ronda de Pre-Agility', 'P.A.'),
+(1, 'Pre-Agility Manga 1', 'P.A.'),
+(2, 'Pre-Agility Manga 2', 'P.A.'),
 (3, 'Agility Grado I Manga 1', 'GI'),
 (4, 'Agility Grado I Manga 2', 'GI'),
 (5, 'Agility Grado II', 'GII'),
@@ -1779,7 +1780,7 @@ INSERT INTO `Tipo_Manga` (`ID`, `Descripcion`, `Grado`) VALUES
 (13, 'Jumping por Equipos (3 mejores)', '-'),
 (14, 'Jumping por Equipos (Conjunta)', '-'),
 (15, 'Ronda K.O.', '-'),
-(16, 'Ronda de Exhibición', '-');
+(16, 'Manga Especial', '-');
 
 -- --------------------------------------------------------
 

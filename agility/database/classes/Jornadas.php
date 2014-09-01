@@ -39,12 +39,12 @@ class Jornadas extends DBObject {
 		// componemos un prepared statement
 		$sql ="UPDATE Jornadas
 				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, Grado1=?, Grado2=?, Grado3=?,
-					Open=?, Equipos3=?, Equipos4=?, PreAgility=?, KO=?, Exhibicion=?, Otras=?, Cerrada=?
+					Open=?, Equipos3=?, Equipos4=?, PreAgility=?, PreAgility2=?, KO=?, Especial=?, Observaciones=?, Cerrada=?
 				WHERE ( ID=? );";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('isssiiiiiiiiiiii',
-				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$ko,$exhibicion,$otras,$cerrada,$id);
+		$res=$stmt->bind_param('isssiiiiiiiiiisii',
+				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$especial,$observaciones,$cerrada,$id);
 		if (!$res) return $this->error($this->conn->error); 
 		
 		// iniciamos los valores, chequeando su existencia
@@ -59,9 +59,10 @@ class Jornadas extends DBObject {
 		$equipos3 = http_request("Equipos3","i",0);
 		$equipos4 = http_request("Equipos4","i",0);
 		$preagility = http_request("PreAgility","i",0);
+		$preagility2 = http_request("PreAgility2","i",0);
 		$ko = http_request("KO","i",0);
-		$exhibicion = http_request("Exhibicion","i",0);
-		$otras = http_request("Otras","i",0);
+		$exhibicion = http_request("Especal","i",0);
+		$otras = http_request("Observaciones","s","(sin especificar)");
 		$cerrada = http_request("Cerrada","i",0);
 		$id= $jornadaid;
 		
@@ -266,12 +267,20 @@ class Jornadas extends DBObject {
 									) );
 		}
 		if ($row->PreAgility!=0) {
-			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,2); // 'Pre-Agility'
+			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,1); // 'Pre-Agility (1 manga)'
 			$manga2= null;
-			array_push($data,array("Nombre" => "Manga de Pre-Agility",
+			array_push($data,array("Nombre" => "Pre-Agility (manga única)",
 									"Manga1" => $manga1['ID'], "Manga2" => 0,
 									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => -1
 									 ) );
+		}			
+		if ($row->PreAgility2!=0) {
+			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,1); // 'Pre-Agility (2 mangas)
+			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,2); // 'Pre-Agility (2 mangas)
+			array_push($data,array("Nombre" => "Pre-Agility (2 mangas)", 
+									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
+									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
+									) );
 		}
 		if ($row->Equipos3!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,8); // 'Agility Equipos (3 mejores)'
@@ -297,18 +306,10 @@ class Jornadas extends DBObject {
 									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => -1
 									) );
 		}
-		if ($row->Exhibicion!=0) {
+		if ($row->Especial!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,16); // 'Exhibición'
 			$manga2= null;
-			array_push($data,array("Nombre" => "Manga de Exhibicion", 
-									"Manga1" => $manga1['ID'],"Manga2" => 0,
-									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => -1
-									) );
-		}			
-		if ($row->Otras!=0) {
-			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,1); // 'Otras' ( sin tipo definido )
-			$manga2= null;
-			array_push($data,array("Nombre" => "Otras (sin definir)", 
+			array_push($data,array("Nombre" => $row->Observaciones, 
 									"Manga1" => $manga1['ID'],"Manga2" => 0,
 									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => -1
 									) );

@@ -93,10 +93,10 @@ $('#seljornada-Jornada').combogrid({
 		{ field:'Open',		    width:8, sortable:false,	align:'center', title: 'Open   ' },
 		{ field:'Equipos3',		width:8, sortable:false,	align:'center', title: 'Eq.3x4 ' },
 		{ field:'Equipos4',		width:8, sortable:false,	align:'center', title: 'Eq.Conj' },
-		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'Pre.   ' },
+		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'Pre. 1 ' },
+		{ field:'PreAgility2',	width:8, sortable:false,	align:'center', title: 'Pre. 2 ' },
 		{ field:'KO',			width:8, sortable:false,	align:'center', title: 'K.O.   ' },
-		{ field:'Exhibicion',	width:8, sortable:false,	align:'center', title: 'Show   ' },
-		{ field:'Otras',		width:8, sortable:false,	align:'center', title: 'Otras  ' }
+		{ field:'Especial',		width:8, sortable:false,	align:'center', title: 'Show   ' },
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='enumerate', 
