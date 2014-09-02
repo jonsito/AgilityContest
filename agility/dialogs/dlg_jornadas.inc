@@ -32,11 +32,12 @@
                 <label for="PreAgilityChk" style="width:150px" >Pre-Agility</label>
                 <input id="jornadas-PreAgilityChk" name="PreAgilityChk" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-PreAgilityChk',0x0003)"/>
-                <select id="jornadas-MangasPreAgility" name="MangasPreAgility" style="width:125px">
+                <select id="jornadas-MangasPreAgility" name="MangasPreAgility" style="width:130px">
                 <option value="1"> Manga única </option>
                 <option value="2"> Dos Mangas</option>
                 </select>
             </div>
+            
             <div class="fitem">
                 <label for="Grado1" style="width:150px" >Grado 1</label>
                 <input id="jornadas-Grado1" name="Grado1" class="easyui-checkbox" 
@@ -60,16 +61,17 @@
                 <input id="jornadas-Open" name="Open" class="easyui-checkbox" 
                 	type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Open',0x0020)"/>
             </div>
-            
-            <div class="fitem">
-                <label for="Equipos3" style="width:150px" >Equipos (3 mejores)</label>
-                <input id="jornadas-Equipos3" name="Equipos3" class="easyui-checkbox" 
-                	type="checkbox" value="1" onClick="checkPrueba('#jornadas-Equipos3',0x0040)"/>
-            </div>
-            <div class="fitem">
-                <label for="Equipos4" style="width:150px" >Equipos (Conjunta)</label>
-                <input id="jornadas-Equipos4" name="Equipos4" class="easyui-checkbox" 
-                	type="checkbox" value="1" onClick="checkPrueba('#jornadas-Equipos4',0x0080)"/>
+    
+             <div class="fitem">
+            	<input type="hidden" id="jornadas-Equipos3" name="Equipos3" value="1">
+            	<input type="hidden" id="jornadas-Equipos4" name="Equipos4" value="2">
+                <label for="EquiposChk" style="width:150px" >Equipos</label>
+                <input id="jornadas-EquiposChk" name="EquiposChk" class="easyui-checkbox" 
+                	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-EquiposChk',0x00C0)"/>
+                <select id="jornadas-MangasEquipos" name="MangasEquipos" style="width:130px">
+                <option value="1">3 mejores de 4</option>
+                <option value="2">Cuatro conjunta</option>
+                </select>
             </div>
             
             <div class="fitem">
@@ -121,6 +123,18 @@
             $('#jornadas-Grado1').prop('checked',(data.Grado1==1)?true:false);
             $('#jornadas-Grado2').prop('checked',(data.Grado2==1)?true:false);
             $('#jornadas-Grado3').prop('checked',(data.Grado3==1)?true:false);
+            if (data.Equipos3==1) {
+                $('#jornadas-EquiposChk').prop('checked',true);
+                $('#jornadas-MangasEquipos').prop('value',64);
+            	$('#jornadas-MangasEquipos').prop('disabled',false);
+            } else if (data.Equipos4==1) {
+                $('#jornadas-EquiposChk').prop('checked',true);
+            	$('#jornadas-MangasEquipos').prop('disabled',false);
+                $('#jornadas-MangasEquipos').prop('value',128);
+            } else {
+                $('#jornadas-EquiposChk').prop('checked',false);
+            	$('#jornadas-MangasEquipos').prop('disabled','disabled');
+            }
             $('#jornadas-Equipos3').prop('checked',(data.Equipos3==1)?true:false);
             $('#jornadas-Equipos4').prop('checked',(data.Equipos4==1)?true:false);
             $('#jornadas-Open').prop('checked',(data.Open==1)?true:false);

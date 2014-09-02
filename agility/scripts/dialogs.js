@@ -768,18 +768,23 @@ function delJornadaFromPrueba(prueba,datagridID) {
  */
 function saveJornada(){
 	// take care on bool-to-int translation from checkboxes to database
-    $('#jornadas-Grado1').val( $('#jornadas-Grado1').is(':checked')?'1':'0');
-    $('#jornadas-Grado2').val( $('#jornadas-Grado2').is(':checked')?'1':'0');
-    $('#jornadas-Grado3').val( $('#jornadas-Grado3').is(':checked')?'1':'0');
-    $('#jornadas-Open').val( $('#jornadas-Open').is(':checked')?'1':'0');
-    $('#jornadas-Equipos3').val( $('#jornadas-Equipos3').is(':checked')?'1':'0');
-    $('#jornadas-Equipos4').val( $('#jornadas-Equipos4').is(':checked')?'1':'0');
     if ($('#jornadas-PreAgilityChk').is(':checked')) {
         $('#jornadas-PreAgility').val( ($('#jornadas-MangasPreAgility').val()==1)?'1':'0');
         $('#jornadas-PreAgility2').val( ($('#jornadas-MangasPreAgility').val()==2)?'1':'0');
     } else {
     	$('#jornadas-PreAgility').val(0);
     	$('#jornadas-PreAgility2').val(0);
+    }
+    $('#jornadas-Grado1').val( $('#jornadas-Grado1').is(':checked')?'1':'0');
+    $('#jornadas-Grado2').val( $('#jornadas-Grado2').is(':checked')?'1':'0');
+    $('#jornadas-Grado3').val( $('#jornadas-Grado3').is(':checked')?'1':'0');
+    $('#jornadas-Open').val( $('#jornadas-Open').is(':checked')?'1':'0');    
+    if ($('#jornadas-EquiposChk').is(':checked')) {
+        $('#jornadas-Equipos3').val( ($('#jornadas-MangasEquipos').val()==1)?'1':'0');
+        $('#jornadas-Equipos4').val( ($('#jornadas-MangasEquipos').val()==2)?'1':'0');
+    } else {
+    	$('#jornadas-Equipos3').val(0);
+    	$('#jornadas-Equipos4').val(0);
     }
     $('#jornadas-KO').val( $('#jornadas-KO').is(':checked')?'1':'0');
     $('#jornadas-Especial').val( $('#jornadas-Especial').is(':checked')?'1':'0');
@@ -827,26 +832,32 @@ function checkPrueba(id,mask) {
 	var pruebas=0;
 	// mascara de pruebas seleccionadas
 	if ( $('#jornadas-PreAgilityChk').is(':checked') ) {
-		$('#jornadas-MangasPreAgility').prop('disabled','disabled');
-		pruebas |= $("input[name='MangasPreAgility']:checked").val();
 		$('#jornadas-MangasPreAgility').prop('disabled',false);
+		pruebas |= 0x0003; // 1:manga simple 2:dos mangas
 	} else {
 		$('#jornadas-MangasPreAgility').prop('disabled','disabled');
 	}
-	pruebas |= $('#jornadas-PreAgility').is(':checked')?0x0001:0;
-	pruebas |= $('#jornadas-PreAgility2').is(':checked')?0x0002:0;
+	// pruebas |= $('#jornadas-PreAgility').is(':checked')?0x0001:0;
+	// pruebas |= $('#jornadas-PreAgility2').is(':checked')?0x0002:0;
 	pruebas |= $('#jornadas-Grado1').is(':checked')?0x0004:0;
 	pruebas |= $('#jornadas-Grado2').is(':checked')?0x0008:0;
 	pruebas |= $('#jornadas-Grado3').is(':checked')?0x0010:0;
 	pruebas |= $('#jornadas-Open').is(':checked')?0x0020:0;
-	pruebas |= $('#jornadas-Equipos3').is(':checked')?0x0040:0;
-	pruebas |= $('#jornadas-Equipos4').is(':checked')?0x0080:0;
+
+	if ( $('#jornadas-EquiposChk').is(':checked') ) {
+		$('#jornadas-MangasEquipos').prop('disabled',false);
+		pruebas |= 0x00C0; // eq3:64 eq4:128
+	} else {
+		$('#jornadas-MangasEquipos').prop('disabled','disabled');
+	}
+	// pruebas |= $('#jornadas-Equipos3').is(':checked')?0x0040:0;
+	// pruebas |= $('#jornadas-Equipos4').is(':checked')?0x0080:0;
 	pruebas |= $('#jornadas-KO').is(':checked')?0x0100:0;
 	if ( $('#jornadas-Especial').is(':checked') ) {
-		pruebas |= 0x0200;
 		$('#jornadas-Observaciones').prop('disabled',false);
+		pruebas |= 0x0200;
 	} else {
-		$('#jornadas-Observaciones').prop('disabled',true);
+		$('#jornadas-Observaciones').prop('disabled','disabled');
 	}
 	// si no hay prueba seleccionada no hacer nada
 	if (pruebas==0) return;
@@ -855,12 +866,15 @@ function checkPrueba(id,mask) {
 		if (mask!=pruebas) {
 			$.messager.alert('Error','Una prueba KO, un Open, o una prueba por equipos deben ser declaradas en jornadas independiente','error');
 			$(id).prop('checked',false);
+			if (id==='#jornadas-EquiposChk') $('#jornadas-MangasEquipos').prop('disabled','disabled');
 			return;
 		}
 	} else {
 		if ( (pruebas & 0x01E0) != 0 ) {
 			$.messager.alert('Error','No se pueden añadir pruebas adicionales si hay declarado un Open, una jornada KO o una prueba por Equipos','error');
 			$(id).prop('checked',false);
+			if (id==='#jornadas-PreAgilityChk') $('#jornadas-MangasPreAgility').prop('disabled','disabled');
+			if (id==='#jornadas-Especial') $('#jornadas-Observaciones').prop('disabled','disabled');
 			return;
 		}
 	}
