@@ -33,21 +33,21 @@
 	</div> <!-- Datos de Prueba/Jornada/Ronda -->
 	
 	<div data-options="region:'center',title:'Datos t&eacute;cnicos de las Mangas de esta ronda'" style="width:500px;padding:10px;font-size:9px">
-		<?php require('dialogs/inforesultados.php')?>
+		<?php require('dialogs/inforesultados.inc')?>
 	</div> <!-- Layout: center --> 
 </div> <!-- informacion de layout -->
 </div> <!-- panel de informacion -->
 
 <div id="resultados-data" class="easyui-panel" title="Clasificaciones">
 	<div id="resultados-datatabs" class="easyui-tabs" style="height:325px;padding:0px 0px 10px 0px;" data-options="tools:'#resultados-toolbar'">
-		<div title="Manga 1" data-options="closable:false">
-			<table id="resultados-manga1-datagrid" style="padding:10px 20px"></table>
+		<div title="Large" data-options="closable:false">
+			<table id="resultados-large-datagrid" class="easyui-datagrid" style="padding:10px 20px"></table>
 		</div>
-		<div title="Manga 2" data-options="closable:false">
-			<table id="resultados-manga2-datagrid" style="padding:10px 20px"></table>
+		<div title="Medium" data-options="closable:false">
+			<table id="resultados-medium-datagrid" class="easyui-datagrid" style="padding:10px 20px"></table>
 		</div>
-		<div title="Final" data-options="closable:false">
-			<table id="resultados-conjunta-datagrid" style="padding:10px 20px"></table>
+		<div title="Small" data-options="closable:false">
+			<table id="resultados-small-datagrid" class="easyui-datagrid" style="padding:10px 20px"></table>
 		</div>
 	</div>
 </div>
@@ -78,6 +78,7 @@ $('#resultados-data').panel({
 $('#resultados-infolayout').layout();
 $('#resultados-datatabs').tabs( {tools:'#resultados-toolbar'});
 
+// combogrid que presenta cada una de las rondas de la jornada
 $('#resultados-info-ronda').combogrid({
 	panelWidth: 200,
 	panelHeight: 100,
@@ -108,7 +109,7 @@ $('#resultados-info-ronda').combogrid({
 	}
 });
 
-
+// form que contiene la informacion de la prueba
 $('#resultados-info-prueba').form('load',{
 	Nombre:	workingData.datosPrueba.Nombre,
 	NombreClub:	workingData.datosPrueba.NombreClub,
@@ -150,131 +151,137 @@ $('#resultados-manga2-trs-form').form(
 addTooltip($('#resultados-refreshBtn').linkbutton(),"Actualizar la tabla de resultados");
 addTooltip($('#resultados-printBtn').linkbutton(),"Imprimir los resultados de la manga"); 
 
-// declaracion de las diversas tablas de resultados
-$('#resultados-manga1-datagrid').datagrid({
-	// propiedades del panel asociado
+$('#resultados-large-datagrid').datagrid({// propiedades del panel asociado
+		fit: true,
+		border: false,
+		closable: false,
+		collapsible: false,
+		collapsed: false,
+		// propiedades del datagrid
+		// no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
+	    loadMsg: "Actualizando resultados de la ronda: 'Large'",
+	    pagination: false,
+	    rownumbers: false,
+	    fitColumns: true,
+	    singleSelect: true,
+	    columns:[[
+			{ field:'Prueba',		hidden:true },
+			{ field:'Jornada',		hidden:true },
+			{ field:'Manga1',		hidden:true },
+			{ field:'Manga2',		hidden:true },
+	        { field:'Perro',		hidden:true },
+	        { field:'Puesto',		width:10, align:'left',  title: ' # '},
+	        { field:'Dorsal',		width:10, align:'left',  title: 'Dorsal'},
+	        { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
+	      	{ field:'Licencia',		width:10, align:'left',  title: 'Lic.' },
+	      	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' }, // categoria y grado
+	        { field:'NombreGuia',	width:40, align:'right', title: 'Guia' },
+	        { field:'NombreClub',	width:30, align:'right', title: 'Club' },
+	      	{ field:'F1',			width:10, align:'center', title:'F/T'},
+	      	{ field:'R1',			width:10, align:'center', title:'Reh.'},
+	      	{ field:'T1',			width:15, align:'right', title: 'Tiempo'},
+	      	{ field:'V1',			width:10, align:'right', title: 'Vel.'},
+	      	{ field:'P1',			width:15, align:'right', title: 'Penal.'}, 
+	      	{ field:'C1',			width:20, align:'center',title: 'Calif'},
+	      	{ field:'F2',			width:10, align:'center', title:'F/T'},
+	      	{ field:'R2',			width:10, align:'center', title:'Reh.'},
+	      	{ field:'T2',			width:15, align:'right', title: 'Tiempo'},
+	      	{ field:'V2',			width:10, align:'right', title: 'Vel.'},
+	      	{ field:'P2',			width:15, align:'right', title: 'Penal.'}, 
+	      	{ field:'C2',			width:20, align:'center',title: 'Calif'},
+	      	{ field:'Penalizacion',	width:15, align:'right', title: 'Penalizacion'}, 
+	      	{ field:'Calificacion',	width:25, align:'center',title: 'Calificacion'}
+	      	
+	    ]],
+	    rowStyler:myRowStyler
+	    });
+$('#resultados-medium-datagrid').datagrid({// propiedades del panel asociado
 	fit: true,
 	border: false,
 	closable: false,
 	collapsible: false,
 	collapsed: false,
 	// propiedades del datagrid
-	method: 'get',
-	url: 'database/clasificacionesFunctions.php',
-    queryParams: {
-        Jornada: workingData.jornada,
-        Manga: workingData.manga,
-        Operation: 'parcial',
-        Categorias: $('#resultados-cat-form-select').val()
-    },
-    loadMsg: "Actualizando resultados de la manga 1 ....",
-    pagination: false,
-    rownumbers: false,
-    fitColumns: true,
-    singleSelect: true,
-    // toolbar: '#resultadosmanga-toolbar',
-    columns:[[
-        { field:'Manga',		hidden:true },
-        { field:'IDPerro',		hidden:true },
-        // { field:'IDPerro',		width:10, align:'left',  title: 'IDPerro'},
-      	{ field:'Licencia',		hidden:true },
-        { field:'Puesto',		width:10, align:'left',  title: 'Puesto'},
-        { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
-        { field:'Guia',			width:40, align:'right', title: 'Guia' },
-        { field:'Club',			width:25, align:'right', title: 'Club' },
-      	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
-      	{ field:'Faltas',		width:10, align:'center', title: 'Faltas'},
-      	{ field:'Rehuses',		width:10, align:'center', title: 'Rehuses'},
-      	{ field:'Tocados',		width:10, align:'center', title: 'Tocados'},
-      	{ field:'Tiempo',		width:15, align:'right', title: 'Tiempo'},
-      	{ field:'Velocidad',	width:10, align:'right', title: 'Vel.'},
-      	{ field:'Penalizacion',	width:15, align:'right', title: 'Penal.'}, 
-      	{ field:'Calificacion',	width:25, align:'center',title: 'Calificacion'}
-    ]],
-    rowStyler:myRowStyler,
-    onBeforeLoad: function(param) {
-        param.Categorias=$('#resultados-cat-form-select').val();
-        // do not load if no manga selected
-        return (workingData.manga<=0)?false:true; 
-    } 
-});
-
-$('#resultados-manga2-datagrid').datagrid({
-	// propiedades del panel asociado
-	fit: true,
-	border: false,
-	closable: false,
-	collapsible: false,
-	collapsed: false,
-	// propiedades del datagrid
-	method: 'get',
-	url: 'database/clasificacionesFunctions.php',
-    queryParams: {
-        Jornada: workingData.jornada,
-        Manga: workingData.manga2,
-        Operation: 'parcial',
-        Categorias: $('#resultados-cat-form-select').val()
-    },
-    loadMsg: "Actualizando resultados de la manga 2 ....",
+	// no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
+    loadMsg: "Actualizando resultados de la ronda: 'Medium'",
     pagination: false,
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
     columns:[[
-        { field:'Manga',		hidden:true },
-        { field:'IDPerro',		hidden:true },
-        // { field:'IDPerro',		width:10, align:'left',  title: 'IDPerro'},
-      	{ field:'Licencia',		hidden:true },
-        { field:'Puesto',		width:10, align:'left',  title: 'Puesto'},
+		{ field:'Prueba',		hidden:true },
+		{ field:'Jornada',		hidden:true },
+		{ field:'Manga1',		hidden:true },
+		{ field:'Manga2',		hidden:true },
+        { field:'Perro',		hidden:true },
+        { field:'Puesto',		width:10, align:'left',  title: ' # '},
+        { field:'Dorsal',		width:10, align:'left',  title: 'Dorsal'},
         { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
-        { field:'NombreGuia',			width:40, align:'right', title: 'Guia' },
-        { field:'NombreClub',			width:25, align:'right', title: 'Club' },
-      	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
-      	{ field:'Faltas',		width:10, align:'center', title: 'Faltas'},
-      	{ field:'Rehuses',		width:10, align:'center', title: 'Rehuses'},
-      	{ field:'Tocados',		width:10, align:'center', title: 'Tocados'},
-      	{ field:'Tiempo',		width:15, align:'right', title: 'Tiempo'},
-      	{ field:'Velocidad',	width:10, align:'right', title: 'Vel.'},
-      	{ field:'Penalizacion',	width:15, align:'right', title: 'Penal.'}, 
+      	{ field:'Licencia',		width:10, align:'left',  title: 'Lic.' },
+      	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' }, // categoria y grado
+        { field:'NombreGuia',	width:40, align:'right', title: 'Guia' },
+        { field:'NombreClub',	width:30, align:'right', title: 'Club' },
+      	{ field:'F1',			width:10, align:'center', title:'F/T'},
+      	{ field:'R1',			width:10, align:'center', title:'Reh.'},
+      	{ field:'T1',			width:15, align:'right', title: 'Tiempo'},
+      	{ field:'V1',			width:10, align:'right', title: 'Vel.'},
+      	{ field:'P1',			width:15, align:'right', title: 'Penal.'}, 
+      	{ field:'C1',			width:20, align:'center',title: 'Calif'},
+      	{ field:'F2',			width:10, align:'center', title:'F/T'},
+      	{ field:'R2',			width:10, align:'center', title:'Reh.'},
+      	{ field:'T2',			width:15, align:'right', title: 'Tiempo'},
+      	{ field:'V2',			width:10, align:'right', title: 'Vel.'},
+      	{ field:'P2',			width:15, align:'right', title: 'Penal.'}, 
+      	{ field:'C2',			width:20, align:'center',title: 'Calif'},
+      	{ field:'Penalizacion',	width:15, align:'right', title: 'Penalizacion'}, 
       	{ field:'Calificacion',	width:25, align:'center',title: 'Calificacion'}
+      	
     ]],
-    rowStyler:myRowStyler,
-    onBeforeLoad: function(param) {
-        param.Categorias=$('#resultados-cat-form-select').val();
-        // do not load if no manga selected
-        return (workingData.manga<=0)?false:true; 
-    } 
-});
-
-$('#resultados-conjunta-datagrid').datagrid({
-	// propiedades del panel asociado
+    rowStyler:myRowStyler
+    });
+$('#resultados-small-datagrid').datagrid({// propiedades del panel asociado
 	fit: true,
 	border: false,
 	closable: false,
 	collapsible: false,
 	collapsed: false,
 	// propiedades del datagrid
-	method: 'get',
-	url: 'database/clasificacionesFunctions.php',
-    queryParams: {
-        Jornada: workingData.jornada,
-        Manga: workingData.manga,
-        Manga2: workingData.manga2,
-        Operation: 'final',
-        Categorias: $('#resultados-cat-form-select').val()
-    },
-    loadMsg: "Actualizando resultados de la clasificacion conjunta ....",
+	// no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
+    loadMsg: "Actualizando resultados de la ronda: 'Small'",
     pagination: false,
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
-    rowStyler:myRowStyler,
-    onBeforeLoad: function(param) { // do not load if no manga selected
-        if (workingData.manga<=0) return false;
-        if (workingData.manga2<=0) return false;
-        param.Categorias=$('#resultados-cat-form-select').val();
-        return true;
-    }
-});
+    columns:[[
+		{ field:'Prueba',		hidden:true },
+		{ field:'Jornada',		hidden:true },
+		{ field:'Manga1',		hidden:true },
+		{ field:'Manga2',		hidden:true },
+        { field:'Perro',		hidden:true },
+        { field:'Puesto',		width:10, align:'left',  title: ' # '},
+        { field:'Dorsal',		width:10, align:'left',  title: 'Dorsal'},
+        { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
+      	{ field:'Licencia',		width:10, align:'left',  title: 'Lic.' },
+      	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' }, // categoria y grado
+        { field:'NombreGuia',	width:40, align:'right', title: 'Guia' },
+        { field:'NombreClub',	width:30, align:'right', title: 'Club' },
+      	{ field:'F1',			width:10, align:'center', title:'F/T'},
+      	{ field:'R1',			width:10, align:'center', title:'Reh.'},
+      	{ field:'T1',			width:15, align:'right', title: 'Tiempo'},
+      	{ field:'V1',			width:10, align:'right', title: 'Vel.'},
+      	{ field:'P1',			width:15, align:'right', title: 'Penal.'}, 
+      	{ field:'C1',			width:20, align:'center',title: 'Calif'},
+      	{ field:'F2',			width:10, align:'center', title:'F/T'},
+      	{ field:'R2',			width:10, align:'center', title:'Reh.'},
+      	{ field:'T2',			width:15, align:'right', title: 'Tiempo'},
+      	{ field:'V2',			width:10, align:'right', title: 'Vel.'},
+      	{ field:'P2',			width:15, align:'right', title: 'Penal.'}, 
+      	{ field:'C2',			width:20, align:'center',title: 'Calif'},
+      	{ field:'Penalizacion',	width:15, align:'right', title: 'Penalizacion'}, 
+      	{ field:'Calificacion',	width:25, align:'center',title: 'Calificacion'}
+      	
+    ]],
+    rowStyler:myRowStyler
+    });
 
 </script>
