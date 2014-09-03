@@ -545,8 +545,11 @@ function resultados_doSelectRonda(row) {
 		resultados_fillForm(resultados,row.Manga1,'1',0);
 		resultados_fillForm(resultados,row.Manga1,'1',1);
 		resultados_fillForm(resultados,row.Manga1,'1',2);
+		$('#resultados-selectCategoria').combobox('loadData',
+				[{mode:0,text:'Large',selected:true},{mode:1,text:'Medium'},{mode:2,text:'Small'}]);
     	// Manga 2
 		if (row.Manga2<=0) {
+			// esta ronda solo tiene una manga. desactiva la segunda
 			$('#datos_manga2-InfoRow').css('display','none');
 			$('#datos_manga2-LargeRow').css('display','none');
 			$('#datos_manga2-MediumRow').css('display','none');
@@ -573,6 +576,8 @@ function resultados_doSelectRonda(row) {
     	$('#datos_manga1-SmallLbl').html("&nbsp;");
 		resultados_fillForm(resultados,row.Manga1,'1',0);
 		resultados_fillForm(resultados,row.Manga1,'1',3);
+		$('#resultados-selectCategoria').combobox('loadData',
+				[{mode:0,text:'Large',selected:true},{mode:3,text:'Medium + Small'}]);
     	// Manga 2
 		if (row.Manga2<=0) { // no hay segunda manga: oculta formulario
 			$('#datos_manga2-InfoRow').css('display','none');
@@ -599,6 +604,8 @@ function resultados_doSelectRonda(row) {
     	$('#datos_manga1-MediumLbl').html("&nbsp;");
     	$('#datos_manga1-SmallLbl').html("&nbsp;");
 		resultados_fillForm(resultados,row.Manga1,'1',4);
+		$('#resultados-selectCategoria').combobox('loadData',
+				[{mode:4,text:'Large + Medium + Small',selected:true}]);
     	// Manga 2
 		if (row.Manga2<=0) {
 			$('#datos_manga2-InfoRow').css('display','none');
@@ -727,52 +734,4 @@ function reloadClasificaciones() {
 	alert("competicion.js::reloadClasificaciones() {PENDING}");
 	// TODO: write
 	// check for valid manga combogrid selection, and invoke onSelect method
-}
-
-function resultadosGetDatagrid(title) {
-	return {
-		// propiedades del panel asociado
-		fit: true,
-		border: false,
-		closable: false,
-		collapsible: false,
-		collapsed: false,
-		// propiedades del datagrid
-		// no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
-		oadMsg: "Actualizando resultados de la ronda: 'Large'",
-		agination: false,
-		ownumbers: false,
-		itColumns: true,
-		singleSelect: true,
-		columns:[[
-			{ field:'Prueba',		hidden:true },
-			{ field:'Jornada',		hidden:true },
-			{ field:'Manga1',		hidden:true },
-			{ field:'Manga2',		hidden:true },
-		    { field:'Perro',		hidden:true },
-		    { field:'Puesto',		width:10, align:'left',  title: ' # '},
-		    { field:'Dorsal',		width:10, align:'left',  title: 'Dorsal'},
-		    { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
-		   	{ field:'Licencia',		width:10, align:'left',  title: 'Lic.' },
-		   	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' }, // categoria y grado
-		    { field:'NombreGuia',	width:40, align:'right', title: 'Guia' },
-		    { field:'NombreClub',	width:30, align:'right', title: 'Club' },
-		  	{ field:'F1',			width:10, align:'center', title:'F/T'},
-		  	{ field:'R1',			width:10, align:'center', title:'Reh.'},
-		  	{ field:'T1',			width:15, align:'right', title: 'Tiempo'},
-		   	{ field:'V1',			width:10, align:'right', title: 'Vel.'},
-		   	{ field:'P1',			width:15, align:'right', title: 'Penal.'}, 
-		   	{ field:'C1',			width:20, align:'center',title: 'Calif'},
-		   	{ field:'F2',			width:10, align:'center', title:'F/T'},
-		  	{ field:'R2',			width:10, align:'center', title:'Reh.'},
-		   	{ field:'T2',			width:15, align:'right', title: 'Tiempo'},
-		    { field:'V2',			width:10, align:'right', title: 'Vel.'},
-		    { field:'P2',			width:15, align:'right', title: 'Penal.'}, 
-		    { field:'C2',			width:20, align:'center',title: 'Calif'},
-		    { field:'Penalizacion',	width:15, align:'right', title: 'Penalizacion'}, 
-		    { field:'Calificacion',	width:25, align:'center',title: 'Calificacion'}
-		      	
-		    ]],
-		    rowStyler:myRowStyler
-		};
 }
