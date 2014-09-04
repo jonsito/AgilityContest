@@ -5,8 +5,22 @@ require_once("Mangas.php");
 
 class Jornadas extends DBObject {
 	
+	// bitfield of 512:Esp 256:KO 128:Eq4 64:Eq3 32:Opn 16:G3 8:G2 4:G1 2:Pre2 1:Pre1
+	public static $tipo_ronda= array(
+		array(0,	''),
+		array(1,	'Pre-Agility (1 Manga)'),
+		array(2,	'Pre-Agility (2 Mangas)'),
+		array(4,	'Ronda de Grado I'),
+		array(8,	'Ronda de Grado II'),
+		array(16,	'Ronda de Grado III'),
+		array(32,	'Ronda Abierta (Open)'),
+		array(64,	'Equipos ( 3 mejores )'),
+		array(128,	'Equipos ( 4 conjunta )'),
+		array(256,	'Ronda K.O'),
+		array(512,	'Manga especial')
+	);
+	
 	protected $prueba; // id de prueba
-
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
@@ -237,7 +251,9 @@ class Jornadas extends DBObject {
 		if ($row->Grado1!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,3); // 'Agility-1 GI'
 			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,4); // 'Agility-2 GI'
-			array_push($data,array("Nombre" => "Ronda de Grado I",
+			array_push($data,array( 
+									"Ronda" => Jornadas::$tipo_ronda[2][0],
+									"Nombre" => Jornadas::$tipo_ronda[2][1],
 									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
 									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
 									) );
@@ -245,7 +261,9 @@ class Jornadas extends DBObject {
 		if ($row->Grado2!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,5); // 'Agility GII'
 			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,10); // 'Jumping GII'
-			array_push($data,array("Nombre" => "Ronda de Grado II", 
+			array_push($data,array( 
+									"Ronda" => Jornadas::$tipo_ronda[4][0],
+									"Nombre" => Jornadas::$tipo_ronda[4][1], 
 									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
 									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
 									) );
@@ -253,7 +271,9 @@ class Jornadas extends DBObject {
 		if ($row->Grado3!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,6); // 'Agility GIII'
 			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,11); // 'Jumping GIII'
-			array_push($data,array("Nombre" => "Ronda de Grado III", 
+			array_push($data,array( 
+									"Ronda" => Jornadas::$tipo_ronda[5][0],
+									"Nombre" => Jornadas::$tipo_ronda[5][1],
 									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
 									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
 									) );
@@ -261,7 +281,9 @@ class Jornadas extends DBObject {
 		if ($row->Open!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,7); // 'Agility Open'
 			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,12); // 'Jumping Open'
-			array_push($data,array("Nombre" => "Prueba Abierta (Open)", 
+			array_push($data,array( 
+									"Ronda" => Jornadas::$tipo_ronda[6][0],
+									"Nombre" => Jornadas::$tipo_ronda[6][1], 
 									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
 									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
 									) );
@@ -269,7 +291,9 @@ class Jornadas extends DBObject {
 		if ($row->PreAgility!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,1); // 'Pre-Agility (1 manga)'
 			$manga2= null;
-			array_push($data,array("Nombre" => "Pre-Agility (manga única)",
+			array_push($data,array( 
+									"Ronda" => Jornadas::$tipo_ronda[1][0],
+									"Nombre" => Jornadas::$tipo_ronda[1][1],
 									"Manga1" => $manga1['ID'], "Manga2" => 0,
 									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => -1
 									 ) );
@@ -277,7 +301,9 @@ class Jornadas extends DBObject {
 		if ($row->PreAgility2!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,1); // 'Pre-Agility (2 mangas)
 			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,2); // 'Pre-Agility (2 mangas)
-			array_push($data,array("Nombre" => "Pre-Agility (2 mangas)", 
+			array_push($data,array( 
+									"Ronda" => Jornadas::$tipo_ronda[2][0],
+									"Nombre" => Jornadas::$tipo_ronda[2][1], 
 									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
 									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
 									) );
@@ -285,7 +311,9 @@ class Jornadas extends DBObject {
 		if ($row->Equipos3!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,8); // 'Agility Equipos (3 mejores)'
 			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,13); // 'Jumping Equipos (3 mejores)'
-			array_push($data,array("Nombre" => "Competicion por equipos", 
+			array_push($data,array( 
+									"Ronda" => Jornadas::$tipo_ronda[7][0],
+									"Nombre" => Jornadas::$tipo_ronda[7][1], 
 									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
 									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
 									) );
@@ -293,7 +321,9 @@ class Jornadas extends DBObject {
 		if ($row->Equipos4!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,9); // 'Agility Equipos (conjunta)'
 			$manga2= $this->fetchManga($mangas['rows'],$jornadaid,14); // 'Jumping Equipos (conjunta)'
-			array_push($data,array("Nombre" => "Competicion por equipos",
+			array_push($data,array( 
+									"Ronda" => Jornadas::$tipo_ronda[8][0],
+									"Nombre" => Jornadas::$tipo_ronda[8][1],
 									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
 									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
 									) );
@@ -301,15 +331,19 @@ class Jornadas extends DBObject {
 		if ($row->KO!=0) {
 			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,15); // Ronda K.O.
 			$manga2= null;
-			array_push($data,array("Nombre" => "Ronda K.O.", 
+			array_push($data,array( 
+									"Ronda" => Jornadas::$tipo_ronda[9][0],
+									"Nombre" => Jornadas::$tipo_ronda[9][1], 
 									"Manga1" => $manga1['ID'],"Manga2" => 0,
 									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => -1
 									) );
 		}
 		if ($row->Especial!=0) {
-			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,16); // 'Exhibición'
+			$manga1= $this->fetchManga($mangas['rows'],$jornadaid,16); // 'Manga especial'
 			$manga2= null;
-			array_push($data,array("Nombre" => $row->Observaciones, 
+			array_push($data,array( 
+									"Ronda" => Jornadas::$tipo_ronda[10][0],
+									"Nombre" => Jornadas::$tipo_ronda[10][1], 
 									"Manga1" => $manga1['ID'],"Manga2" => 0,
 									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => -1
 									) );
