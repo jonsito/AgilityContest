@@ -154,12 +154,9 @@ class Jornadas extends DBObject {
 		if ($id<=0) return $this->error("Invalid Jornada ID");
 		
 		// make query
-		$data= $this->__singleSelect(
-				/* SELECT */ "*",
-				/* FROM */ "Jornadas",
-				/* WHERE */ "( ID=$id )"
-		);
-		if (!is_array($data))	return $this->error("No Jornada found with ID=$id");
+		$obj=$this->__getObject("Jornadas",$id);
+		if (!is_object($obj))	return $this->error("No Jornada found with ID=$id");
+		$data= json_decode(json_encode($obj), true); // convert object to array
 		$this->myLogger->leave();
 		return $data;
 	}
@@ -242,7 +239,7 @@ class Jornadas extends DBObject {
 			return $result;
 		}
 		// obtenemos informacion de la jornada y de las mangas de esta jornada
-		$row=$this->__selectObject("*","Jornadas","(ID=$jornadaid)");
+		$row=$this->__getObject("Jornadas",$jornadaid);
 		if (!is_object($row)) return $this->error("No Jornadas with ID=$jornadaid");
 		$mangas=$this->__select("*","Mangas","Jornada=$jornadaid","","");
 		if (!is_array($mangas)) return $this->error("No Mangas with Jornada ID=$jornadaid");

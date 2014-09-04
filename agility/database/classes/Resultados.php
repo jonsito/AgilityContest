@@ -14,7 +14,7 @@ class Resultados extends DBObject {
 		if ($this->dmanga!=null) return $this->dmanga;
 		$idmanga=$this->IDManga;
 		// si no los tenemos todavia consultamos la base de datos
-		$obj=$this->__selectObject("*", "Mangas", "(ID=$idmanga)");
+		$obj=$this->__getObject("Mangas", $idmanga);
 		if (!is_object($obj)) {
 			$this->error("Manga $idmanga does not exists in database");
 			return null;
@@ -31,7 +31,7 @@ class Resultados extends DBObject {
 		$this->IDJornada=$manga->Jornada;
 		$idjornada=$this->IDJornada;
 		$idmanga=$this->IDManga;
-		$obj=$this->__selectObject("*","Jornadas","(ID=$this->IDJornada)");
+		$obj=$this->__getObject("Jornadas", $this->IDJornada);
 		if (!is_object($obj)) {
 			$this->error("Cannot locate JornadaID: $idjornada for MangaID:$idmanga in database");
 			return null;
@@ -229,7 +229,7 @@ class Resultados extends DBObject {
 		$this->myLogger->enter();
 		$idmanga=$this->IDManga;
 		if ($idperro<=0) return $this->error("No Perro ID specified");
-		$row=$this->__singleSelect("*", "Resultados", "(Perro=$idperro) AND (Manga=$idmanga)");
+		$row=$this->__selectAsArray("*", "Resultados", "(Perro=$idperro) AND (Manga=$idmanga)");
 		if(!is_array($row)) 
 			return $this->error("No Results for Perro:$idperro on Manga:$idmanga");
 		$this->myLogger->leave();

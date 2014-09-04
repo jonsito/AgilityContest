@@ -96,12 +96,11 @@ class Jueces extends DBObject {
 	function selectByID($id) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Juez ID"); // Juez ID must be positive greater than 0 
-		$data= $this->__singleSelect(
-				/* SELECT */ "*",
-				/* FROM */ "Jueces",
-				/* WHERE */ "( ID=$id )"
-		);
-		if (!is_array($data))	return $this->error("No Juez found with provided ID=$id");
+
+		// make query
+		$obj=$this->__getObject("Jueces",$id);
+		if (!is_object($obj))	return $this->error("No Juez found with provided ID=$id");
+		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
 		return $data;

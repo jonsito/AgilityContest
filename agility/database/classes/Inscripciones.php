@@ -23,7 +23,7 @@ class Inscripciones extends DBObject {
 		$this->pruebaID=$prueba;
 		
 		// obtenemos el equipo por defecto para esta prueba
-		$res= $this->__singleSelect(
+		$res= $this->__selectAsArray(
 			/* SELECT */ "ID",
 			/* FROM */   "Equipos",
 			/* WHERE */ "( Prueba = $prueba ) AND ( Nombre = '-- Sin asignar --' )"
@@ -131,7 +131,7 @@ class Inscripciones extends DBObject {
 		$p=$this->pruebaID;
 		if ($idperro<=0) return $this->error("Invalid Perro ID");
 		// fase 0: obtenemos el ID de la inscripcion
-		$res=$this->__singleSelect("ID", "Inscripciones", "(Perro=$idperro) AND (Prueba=$p)");
+		$res=$this->__selectAsArray("ID", "Inscripciones", "(Perro=$idperro) AND (Prueba=$p)");
 		if (!is_array($res)) return $this->error("El perro con id:$idperro no esta inscrito en la prueba:$p");
 		$i=$res['ID'];
 		// fase 1: actualizamos la DB para indicar que el perro no esta inscrito en ninguna jornada
@@ -153,7 +153,7 @@ class Inscripciones extends DBObject {
 	function selectByPerro($idperro) {
 		$this->myLogger->enter();
 		$prueba=$this->pruebaID;
-		$res=$this->__singleSelect(
+		$res=$this->__selectAsArray(
 				/* SELECT */ "*", 
 				/* FROM */   "Inscripciones",
 				/* WHERE */  "( Prueba=$prueba ) AND ( Perro=$idperro )");
@@ -168,12 +168,11 @@ class Inscripciones extends DBObject {
 	function selectByID($id) {
 		$this->myLogger->enter();
 		$prueba=$this->pruebaID;
-		$res=$this->__singleSelect(
-				/* SELECT */ "*",
-				/* FROM */   "Inscripciones",
-				/* WHERE */  "( ID=$id )");
+		$obj=$this->__getObject("Inscripciones",$id);
+		if (!is_object($obj))	return $this->error("No Inscripcion found with ID=$id");
+		$data= json_decode(json_encode($obj), true); // convert object to array
 		$this->myLogger->leave();
-		return $res;
+		return $data;
 	}
 	
 	/**

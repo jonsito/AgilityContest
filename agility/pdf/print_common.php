@@ -24,7 +24,7 @@ function print_commonHeader($pdf,$prueba,$jornada,$manga,$title) {
 	
 	if (!isset($pdf->club)) { // to avoid duplicated database queries
 		$clubobj=new Clubes("print_commonHeader");
-		$club=$clubobj->__selectObject("*","Clubes","(ID={$prueba['Club']})");
+		$club=$clubobj->__getObject("Clubes",$prueba['Club']);
 		if (is_object($club)) $pdf->club=$club;
 	}
 	$icon="welpe.png";

@@ -21,7 +21,7 @@ class Equipos extends DBObject {
 		$this->pruebaID=$prueba;
 	
 		// obtenemos el equipo por defecto para esta prueba
-		$res= $this->__singleSelect(
+		$res= $this->__selectAsArray(
 				/* SELECT */ "ID",
 				/* FROM */   "Equipos",
 				/* WHERE */ "( Prueba = $prueba ) AND ( Nombre = '-- Sin asignar --' )"
@@ -151,17 +151,14 @@ class Equipos extends DBObject {
 	/**
 	 * Select a (single) entry that matches with provided Equipo ID
 	 * @param {integer} $id Equipo ID (primary key)
-	 * @return result on success; null on error
+	 * @return {array} result on success; null on error
 	 */
 	function selectByID($id) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Provided Equipo ID");
-		$data= $this->__singleSelect(
-				/* SELECT */ "*",
-				/* FROM */ "Equipos",
-				/* WHERE */ "( ID=$id )"
-		); 
-		if (!is_array($data))	return $this->error("No Equipo found with ID=$id");
+		$obj=$this->__getObject("Equipos",$id);
+		if (!is_object($data))	return $this->error("No Equipo found with ID=$id");
+		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
 		return $data;

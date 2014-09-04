@@ -185,12 +185,9 @@ class Dogs extends DBObject {
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("No Perro ID specified");
 		// make query
-		$data= $this->__singleSelect(
-				/* SELECT */ "*",
-				/* FROM */ "PerroGuiaClub",
-				/* WHERE */ "( ID=$idperro )"
-		);
-		if (!is_array($data))	return $this->error("No Dog found with ID=$idperro");
+		$obj=$this->__getObject("PerroGuiaClub",$idperro);
+		if (!is_object($obj))	return $this->error("No Dog found with ID=$idperro");
+		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
 		return $data;

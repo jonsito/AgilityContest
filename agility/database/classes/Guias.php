@@ -157,12 +157,9 @@ class Guias extends DBObject {
 	function selectByID($id) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Provided Handler ID");
-		$data= $this->__singleSelect(
-				/* SELECT */ "*",
-				/* FROM */ "Guias",
-				/* WHERE */ "( ID=$id )"
-		); 
-		if (!is_array($data))	return $this->error("No handler found with ID=$id");
+		$obj=$this->__getObject("Guias",$id);
+		if (!is_object($obj))	return $this->error("No handler found with ID=$id");
+		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
 		return $data;

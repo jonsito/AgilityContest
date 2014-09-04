@@ -184,7 +184,7 @@ class Pruebas extends DBObject {
 		if ($id<=0) return $this->error("prueba:::selectByID() Invalid Prueba ID:$id");
 
 		// make query
-		$data= $this->__singleSelect(
+		$data= $this->__selectAsArray(
 				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
 							Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
 							Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
