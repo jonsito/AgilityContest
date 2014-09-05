@@ -52,7 +52,8 @@ class Clubes extends DBObject {
 	 */
 	function update($id) {
 		$this->myLogger->enter();
-		
+		// cannot delete default club id or null club id
+		if ($id<=1)  return $this->error("No club or invalid Club ID '$id' provided");
 		// componemos un prepared statement
 		$sql ="UPDATE Clubes
 				SET Nombre=? , Direccion1=? , Direccion2=? , Provincia=? ,
@@ -137,6 +138,23 @@ class Clubes extends DBObject {
 		return $result;
 	}
 	
+	/**
+	 * Obtiene los datos del club con el ID indicado
+	 * Usado para rellenar formularios:  formid.form('load',url);
+	 * @param {integer} $id Club primary key
+	 * @return null on error; array() with data on success
+	 */
+	function selectByID($id){
+		$this->myLogger->enter();
+		if ($id<=0) return $this->error("Invalid Club ID:$id");
+		// make query
+		$obj=$this->__getObject("Clubes",$id);
+		if (!is_object($obj))	return $this->error("No Dog found with ID=$id");
+		$data= json_decode(json_encode($obj), true); // convert object to array
+		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
+		$this->myLogger->leave();
+		return $data;
+	}
 	/** 
 	 * return a dupla ID Nombre,Provincia list according select criteria
 	 * return data if success; null on error

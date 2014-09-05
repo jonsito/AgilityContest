@@ -103,28 +103,13 @@ class DBObject {
 	}
 	
 	/**
-	 * Retrieves and caches objects from database by given (table,id) pair
-	 * @param {string} $table where to search object from
-	 * @param {integer} $id primary key of requested object
-	 * @return {object/string} obj if found, else error string
-	 */
-	function __getObject($table,$id) {
-		// if already defined return it
-		if ( isset($this->cache[$table]) && isset($this->cache[$table][id]) ) return $this->cache[$table][id];
-		// else ask database
-		$obj=__selectObject("*",$table,"(ID=$id)");
-		if( is_object($obj) ) $this->cache[$table][id]=$obj;
-		return $obj;
-	}
-
-	/**
 	 * Perform a query that returns first (and unique) element
 	 * as an Object
 	 * @param unknown $select SELECT clause (required)
 	 * @param unknown $from FROM clause (required)
 	 * @param string $where WHERE clause
 	 */
-	function __selectAsObject($select,$from,$where) {
+	function __selectObject($select,$from,$where) {
 		// compose SQL query
 		$str="SELECT $select FROM $from";
 		if ($where!=="") $str= $str." WHERE ".$where;
@@ -137,7 +122,6 @@ class DBObject {
 		return $result;
 	}
 	
-
 	/**
 	 * Perform a query that returns first (and unique) element
 	 * as an associative array
@@ -146,9 +130,18 @@ class DBObject {
 	 * @param string $where WHERE clause
 	 */
 	function __selectAsArray($select,$from,$where="") {
-		$obj=$this->__selectAsObject($select,$from,$where);
+		$obj=$this->__selectObject($select,$from,$where);
 		if (!is_object($obj)) return $obj;
 		return json_decode(json_encode($obj), true);
 	}
-	
+
+	/**
+	 * Retrieves and caches objects from database by given (table,id) pair
+	 * @param {string} $table where to search object from
+	 * @param {integer} $id primary key of requested object
+	 * @return {object/string} obj if found, else error string
+	 *
+	 * TODO: properly handle cache
+	 */
+	function __getObject($table,$id) { return __selectObject("*",$table,"(ID=$id)"); }
 }

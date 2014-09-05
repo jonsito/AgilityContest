@@ -84,7 +84,6 @@ class Inscripciones extends DBObject {
 		$this->myLogger->enter();
 		$p=$this->pruebaID;
 		if ($idperro<=0) return $this->error("Invalid IDPerro ID");
-
 		// cogemos los datos actuales
 		$res=$this->__selectObject(
 						// idinscripcion, idprueba, idperro y dorsal no cambian

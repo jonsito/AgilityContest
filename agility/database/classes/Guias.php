@@ -32,7 +32,7 @@ class Guias extends DBObject {
 	
 	function update($id) {
 		$this->myLogger->enter();
-		if ($id<=0) return $this->error("Invalid Guia ID provided");
+		if ($id<=0) return $this->error("Invalid Guia ID:$id provided");
 		// componemos un prepared statement
 		$sql ="UPDATE Guias SET Nombre=? , Telefono=? , Email=? , Club=? , Observaciones=? WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
@@ -60,7 +60,7 @@ class Guias extends DBObject {
 	
 	function delete($id) {
 		$this->myLogger->enter();
-		if ($id<=1) return $this->error("Invalid Guia ID provided"); // cannot delete ID=1
+		if ($id<=1) return $this->error("Invalid Guia ID:$id provided"); // cannot delete ID=1
 		// fase 1: desasignamos los perros de este guia (los asignamos al guia id=1)
 		$res= $this->query("UPDATE Perros SET GUIA=1 WHERE ( Guia=$id )");
 		if (!$res) return $this->error($this->conn->error); 

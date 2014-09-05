@@ -42,7 +42,7 @@ class Dogs extends DBObject {
 	 */
 	function update($id) {
 		$this->myLogger->enter();
-		if ($id<=0) return $this->error("No Dog ID provided"); 
+		if ($id<=0) return $this->error("Invalid Dog ID:$id"); 
 		// componemos un prepared statement
 		$sql ="UPDATE Perros SET Nombre=? , Raza=? , LOE_RRC=? , Licencia=? , Categoria=? , Grado=? , Guia=?
 		       WHERE ( ID=? )";
@@ -77,7 +77,7 @@ class Dogs extends DBObject {
 	 */
 	function delete($idperro) {
 		$this->myLogger->enter();
-		if ($idperro<=0) return $this->error("No Dog ID"); 
+		if ($idperro<=0) return $this->error("Invalid Dog ID:$idperro"); 
 		$rs= $this->query("DELETE FROM Perros WHERE (ID=$idperro)");
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
@@ -91,7 +91,7 @@ class Dogs extends DBObject {
 	 */
 	function orphan ($idperro) {
 		$this->myLogger->enter();
-		if ($idperro<=0) return $this->error("No Dog ID provided"); 
+		if ($idperro<=0) return $this->error("Invalid Dog ID:$idperro"); 
 		// assign to default Guia ID=1
 		$rs= $this->query("UPDATE Perros SET Guia=1 WHERE (ID=$idperro)");
 		if (!$rs) return $this->error($this->conn->error);
@@ -161,7 +161,7 @@ class Dogs extends DBObject {
 	 */
 	function selectByGuia($idguia) {
 		$this->myLogger->enter();
-		if ($idguia<=0) return $this->error("Invalid Guia ID");
+		if ($idguia<=0) return $this->error("Invalid Guia ID:$idguia");
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "*",
@@ -181,9 +181,9 @@ class Dogs extends DBObject {
 	 * @param {integer} $idperro dog primary key
 	 * @return null on error; array() with data on success
 	 */
-	function selectByIDPerro($idperro){
+	function selectByID($idperro){
 		$this->myLogger->enter();
-		if ($idperro<=0) return $this->error("No Perro ID specified");
+		if ($idperro<=0) return $this->error("Invalid Perro ID:$idperro");
 		// make query
 		$obj=$this->__getObject("PerroGuiaClub",$idperro);
 		if (!is_object($obj))	return $this->error("No Dog found with ID=$idperro");

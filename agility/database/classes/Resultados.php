@@ -197,7 +197,7 @@ class Resultados extends DBObject {
 	function insert($idperro,$ndorsal) {
 		// obtenemos los datos del perro
 		$pobj=new Dogs("Resultados::insert");
-		$perro=$pobj->selectByIDPerro($iderro);
+		$perro=$pobj->selectByID($iderro);
 		if (!$perro) throw new Exception("No hay datos para el perro a inscribir con id: $idp");
 		return insertByData($perro,$idprueba,$ndorsal);
 	}
