@@ -91,7 +91,7 @@ class Clasificaciones extends DBObject {
 		// una vez ordenados, el índice perro ya no tiene sentido, con lo que vamos a eliminarlo
 		// y reconstruir el array
 		$final2=array();
-		foreach($final as $item) array_push($final,$item);
+		foreach($final as $item) array_push($final2,$item);
 		$final=$final2;
 		
 		// re-ordenamos los datos en base a la puntuacion 

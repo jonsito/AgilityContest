@@ -242,7 +242,7 @@ class Mangas extends DBObject {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Manga ID");
 		// second query to retrieve $rows starting at $offset
-		$result=$this->$this->__getObject("Mangas",$id);
+		$result=$this->__getObject("Mangas",$id);
 		if (!is_object($result)) return $this->error("Cannot locate Manga with ID=$id");
 		$hermanas=array($result);
 		$tipo=Mangas::$manga_hermana[$result->Tipo];

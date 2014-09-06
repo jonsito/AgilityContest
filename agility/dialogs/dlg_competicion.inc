@@ -87,6 +87,7 @@ var pressed={};
 $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keyup',function(e){
 	var keycode = (e.keyCode ? e.keyCode : e.which);
     pressed[keycode] = null; // mark key as released
+    return false;
 });
 
 //activa teclas up/down para navegar por el panel de gestion de jornadas

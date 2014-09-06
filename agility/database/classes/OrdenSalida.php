@@ -292,9 +292,17 @@ class OrdenSalida extends DBObject {
 		return 0;
 	}
 	
-	private function invierteResultados($to,$from,$mode) {
+	/**
+	 * Evalua los resultados de la manga from segun mode
+	 * y recalcula el orden de salida de la manga from
+	 * @param {integer} $prueba ID de la prueba, necesario para el constructor de resultados
+	 * @param {integer} $to manga a reordenar
+	 * @param {integer} $from manga donde buscar resultados
+	 * @param {integer} $mode categorias de la manga (L,M,S,MS,LMS)
+	 */
+	private function invierteResultados($prueba,$to,$from,$mode) {
 		$orden=$this->getOrden($to->ID);
-		$r =new Resultados("OrdenSalida::invierteResultados", $from->ID);
+		$r =new Resultados("OrdenSalida::invierteResultados", $prueba,$from->ID);
 		$data=$r->getResultados($mode)['rows'];
 		$size= count($data);
 		// recorremos los resultados en orden inverso
@@ -317,6 +325,11 @@ class OrdenSalida extends DBObject {
 	 */
 	function reverse($jornada,$manga) {
 		$this->myLogger->enter();
+		// extraemos el ID de prueba de la jornada. Usamos la prueba "1" como fake pruebaid para que funcione
+		// el constructor
+		$jhandler=new Jornadas("OrdenSalida::reverse",1);
+		$jdata=$jhandler->selectByID($jornada);
+		$prueba=$jdata['Prueba'];
 		// fase 1: buscamos la "manga hermana"
 		$mhandler=new Mangas("OrdenSalida::reverse()",$jornada);
 		$hermanas=$mhandler->getHermanas($manga);
@@ -328,16 +341,16 @@ class OrdenSalida extends DBObject {
 		// En funcion del tipo de recorrido tendremos que leer diversos conjuntos de Resultados
 		switch($hermanas[0]->Recorrido) {
 			case 0: // Large, medium, small
-				$this->invierteResultados($hermanas[0],$hermanas[1],0);
-				$this->invierteResultados($hermanas[0],$hermanas[1],1);
-				$this->invierteResultados($hermanas[0],$hermanas[1],2);
+				$this->invierteResultados($prueba,$hermanas[0],$hermanas[1],0);
+				$this->invierteResultados($prueba,$hermanas[0],$hermanas[1],1);
+				$this->invierteResultados($prueba,$hermanas[0],$hermanas[1],2);
 				break;
 			case 1: // Large, medium+small
-				$this->invierteResultados($hermanas[0],$hermanas[1],0);
-				$this->invierteResultados($hermanas[0],$hermanas[1],3);
+				$this->invierteResultados($prueba,$hermanas[0],$hermanas[1],0);
+				$this->invierteResultados($prueba,$hermanas[0],$hermanas[1],3);
 				break;
 			case 2: // conjunta L+M+S
-				$this->invierteResultados($hermanas[0],$hermanas[1],4);
+				$this->invierteResultados($prueba,$hermanas[0],$hermanas[1],4);
 				break;
 		}
 		$nuevo=$this->getOrden($hermanas[0]->ID);
