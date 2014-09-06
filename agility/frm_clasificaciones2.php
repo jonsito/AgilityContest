@@ -84,7 +84,7 @@
    	</span>
    	<span style="float:right;">
    		<a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-reload'" onclick="reloadClasificacion();">Refrescar</a>
+   			data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();">Refrescar</a>
    		<a id="resultados-printBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-print'" onclick="resultados_doPrint()">Imprimir</a>
    	</span>
@@ -111,7 +111,8 @@ $('#resultados-infolayout').layout();
 $('#resultados-selectCategoria').combobox({
 		valueField:'mode',
 		textField:'text',
-		panelHeight:69
+		panelHeight:69,
+		onSelect:function (index,row) {	reloadClasificaciones(); }
 });
 
 

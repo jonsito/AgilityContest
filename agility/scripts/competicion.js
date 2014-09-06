@@ -630,7 +630,29 @@ function resultados_doPrint() {
 }
 
 function reloadClasificaciones() {
-	alert("competicion.js::reloadClasificaciones() {PENDING}");
-	// TODO: write
-	// check for valid manga combogrid selection, and invoke onSelect method
+	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
+	if (ronda==null) {
+    	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+    	return; // no way to know which ronda is selected
+	}
+	// obtenemos el modo activo
+	var mode=$('#resultados-selectCategoria').combobox('getValue');
+	alert("mode es:"+mode);
+	// calculamos y recargamos tabla de clasificaciones
+	$.ajax({
+		type:'GET',
+		url:"database/clasificacionesFunctions.php",
+		dataType:'json',
+		data: {	
+			Prueba:workingData.prueba,
+			Jornada:workingData.jornada,
+			Manga1:ronda.Manga1,
+			Manga2:ronda.Manga2,
+			Rondas: ronda.Rondas,
+			Mode: mode
+		},
+		success: function(dat) {
+			$('#resultados-datagrid').datagrid('loadData',dat);
+		}
+	});
 }
