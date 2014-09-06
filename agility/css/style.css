@@ -164,7 +164,11 @@ img.mainpage{
 
 /******* tabla de clasificaciones *****/
 .resultados_theader {
-	font-style: bold,italic;
-	color: #fff;
-	background-color: #00F;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.resultados_border {
+	border-collapse: separate;
+	border-left: 1px solid #000;
 }

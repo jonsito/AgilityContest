@@ -11,6 +11,18 @@ function formatVelocidad(val,row,idx) { return (row.Penalizacion>=200)?"-":parse
 function formatTiempo(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFloat(val).toFixed(2); }
 function formatPenalizacion(val,row,idx) { return parseFloat(val).toFixed(2); }
 
+/* formaters para el frm_clasificaciones */
+function formatPuestoFinal(val,row,idx) { return (row.Penalizacion>=200)?"-":val; }
+function formatPenalizacionFinal(val,row,idx) { return parseFloat(val).toFixed(2); }
+
+function formatV1(val,row,idx) { return (row.P1>=200)?"-":parseFloat(val).toFixed(1); }
+function formatT1(val,row,idx) { return (row.P1>=200)?"-":parseFloat(val).toFixed(2); }
+function formatP1(val,row,idx) { return parseFloat(val).toFixed(2); }
+function formatV2(val,row,idx) { return (row.P2>=200)?"-":parseFloat(val).toFixed(1); }
+function formatT2(val,row,idx) { return (row.P2>=200)?"-":parseFloat(val).toFixed(2); }
+function formatP2(val,row,idx) { return parseFloat(val).toFixed(2); }
+
+function formatBorder(val,row,idx) { return 'border-left: 1px solid #000;'; }
 /**
  * Actualiza el modo de visualizacion del panel infomangas
  * en funcion del tipo de recorrido seleccionado

@@ -12,7 +12,7 @@ $('#seljornada-window').window({
 			loadContents(page,"");
 			return;
 		}
-		page="frm_resultados2.php";
+		page="frm_clasificaciones2.php";
 		if (workingData.datosJornada.Equipos3==1) page="resultados_eq3.php";
 		if (workingData.datosJornada.Equipos4==1) page="resultados_eq4.php";
 		if (workingData.datosJornada.Open==1) page="resultados_open.php";
