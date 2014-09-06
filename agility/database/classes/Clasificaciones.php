@@ -65,6 +65,7 @@ class Clasificaciones extends DBObject {
 				'V1' => $item['Velocidad'],
 				'P1' => $item['Penalizacion'],
 				'C1' => $item['CShort'],
+				'Puesto1' => $item['Puesto'],
 				'Penalizacion' => 0,
 				'Calificacion' => ''
 			);
@@ -82,6 +83,7 @@ class Clasificaciones extends DBObject {
 			$final[$item['Perro']]['V2'] = $item['Velocidad'];
 			$final[$item['Perro']]['P2'] = $item['Penalizacion'];
 			$final[$item['Perro']]['C2'] = $item['CShort'];
+			$final[$item['Perro']]['Puesto2'] = $item['Puesto'];
 			$final[$item['Perro']]['Tiempo'] = $final[$item['Perro']]['T1'] + $final[$item['Perro']]['T2'];
 			$final[$item['Perro']]['Penalizacion'] = $final[$item['Perro']]['P1'] + $final[$item['Perro']]['P2'];
 			// TODO: properly evaluate calificacion y puntos

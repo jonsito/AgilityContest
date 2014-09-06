@@ -567,21 +567,29 @@ function resultados_printCanina() {
  * @param {integer} mode 0:CSV 1:PDF
  * @returns {Boolean} false 
  */
-function resultados_printEtiquetas(mode) {
+function resultados_printEtiquetas(flag) {
+	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
+	var url='pdf/print_etiquetas_csv.php';
+	if (flag!=0) url='pdf/print_etiquetas_pdf.php';
+	var mode=$('#resultados-selectCategoria').combobox('getValue');
+	if (ronda==null) {
+    	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+    	return false; // no way to know which ronda is selected
+	}
 	$.fileDownload(
-		'pdf/print_etiquetas.php',
+		url,
 		{
 			httpMethod: 'GET',
 			data: { 
-		        Prueba: workingData.prueba,
-		        Jornada: workingData.jornada,
-		        Manga1: workingData.manga,
-		        Manga2: workingData.manga2,
-		        Mode: mode, 
-		        Categorias: $('#resultados-cat-form-select').val()
+				Prueba:workingData.prueba,
+				Jornada:workingData.jornada,
+				Manga1:ronda.Manga1,
+				Manga2:ronda.Manga2,
+				Rondas: ronda.Rondas,
+				Mode: mode
 			},
-	        preparingMessageHtml: "Generando ficheros de clasificaciones. Por favor, espere...",
-	        failMessageHtml: "Ha habido problemas en la generacion del informe\n. Por favor, intentelo de nuevo."
+	        preparingMessageHtml: "Generando formulario con las etiquetas. Por favor, espere...",
+	        failMessageHtml: "Ha habido problemas en la generacion del formulario\n. Por favor, intentelo de nuevo."
 		}
 	);
     return false; //this is critical to stop the click event which will trigger a normal file download!
@@ -592,7 +600,30 @@ function resultados_printEtiquetas(mode) {
  * @return false
  */
 function resultados_printClasificacion() {
-	alert("competicion.js::resultados_printClasificacion() {PENDING}");
+	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
+	var url='pdf/print_etiquetas_csv.php';
+	if (flag!=0) url='pdf/print_clasificacion.php';
+	var mode=$('#resultados-selectCategoria').combobox('getValue');
+	if (ronda==null) {
+    	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+    	return false; // no way to know which ronda is selected
+	}
+	$.fileDownload(
+		url,
+		{
+			httpMethod: 'GET',
+			data: { 
+				Prueba:workingData.prueba,
+				Jornada:workingData.jornada,
+				Manga1:ronda.Manga1,
+				Manga2:ronda.Manga2,
+				Rondas: ronda.Rondas,
+				Mode: mode
+			},
+	        preparingMessageHtml: "Generando PDF con las clasificaciones. Por favor, espere...",
+	        failMessageHtml: "Ha habido problemas en la generacion del formulario\n. Por favor, intentelo de nuevo."
+		}
+	);
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
@@ -603,9 +634,9 @@ function resultados_doPrint() {
 	 $.messager.radio(
 			 'Selecciona modelo',
 			 'Selecciona el tipo de documento a generar:',
-			 { 1:'Podium',2:'Etiquetas (CSV)',3:'Etiquetas (PDF)',4:'Informes R.S.C.E',5:'Clasificación'}, 
+			 { 0:'Podium',1:'Etiquetas (CSV)',2:'Etiquetas (PDF)',3:'Informes R.S.C.E',4:'Clasificación'}, 
 			 function(r){ 
-				 switch(r) {
+				 switch(parseInt(r)) {
 				 case 0: resultados_printPodio(); break;
 				 case 1: resultados_printEtiquetas(0); break;
 				 case 2: resultados_printEtiquetas(1); break;
@@ -625,7 +656,6 @@ function reloadClasificaciones() {
 	}
 	// obtenemos el modo activo
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
-	alert("mode es:"+mode);
 	// calculamos y recargamos tabla de clasificaciones
 	$.ajax({
 		type:'GET',

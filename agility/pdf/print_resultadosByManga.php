@@ -42,7 +42,7 @@ class PDF extends FPDF {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$manga,$resultados,$mode) {
-		parent::__construct('Portrait','mm');
+		parent::__construct('Portrait','mm','A4');
 		$this->prueba=$prueba;
 		$this->jornada=$jornada;
 		$this->manga=$manga;
