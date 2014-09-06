@@ -153,7 +153,7 @@ function procesaInscripcion($p,$i) {
 
 		// obtenemos los datos del perro
 		$pobj=new Dogs("inscribePerroEnJornada");
-		$perro=$pobj->selectByIDPerro($idp);
+		$perro=$pobj->selectByID($idp);
 		if (!$perro) throw new Exception("No hay datos para el perro a inscribir con id: $idp");
 		
 		// contrastamos la lista de jornadas de la prueba con la lista de jornadas en las que esta inscrito

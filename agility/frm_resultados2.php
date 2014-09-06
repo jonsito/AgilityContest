@@ -48,10 +48,6 @@
 	    <th colspan="2" class="resultados_theader"> Resultados</th>
 	    </tr>
 	    <tr>
-		<th data-options="field:'Prueba',		hidden:true " ></th>
-		<th data-options="field:'Jornada',		hidden:true " ></th>
-		<th data-options="field:'Manga1',		hidden:true " ></th>
-		<th data-options="field:'Manga2',		hidden:true " ></th>
 	    <th data-options="field:'Perro',		hidden:true " ></th>
 	    <th data-options="field:'Puesto',		width:15, align:'left'" > # </th>
 	    <th data-options="field:'Dorsal',		width:25, align:'left'" > Dorsal</th>
@@ -73,8 +69,10 @@
 	    <th data-options="field:'P2',			width:20, align:'right'"> Penal.</th>
 	    <th data-options="field:'C2',			width:25, align:'center'"> Cal.</th>
 	    
+	    <th data-options="field:'Tiempo',		hidden:true" ></th>
 	    <th data-options="field:'Penalizacion',	width:30, align:'right'" > Penaliz.</th>
 	    <th data-options="field:'Calificacion',	width:35, align:'center'" > Calificacion</th>
+	    <th data-options="field:'Puntos',		width:10, align:'center'"> Pt.</th>
 	    </tr>
 	</thead>
 	</table>
@@ -135,6 +133,7 @@ $('#resultados-info-ronda').combogrid({
 		{ field:'Manga2',		hidden:true }, // ID de la manga2
 		{ field:'Recorrido1',	hidden:true }, // tipo de recorrido		
 		{ field:'Recorrido2',	hidden:true }, // tipo de recorrido		
+		{ field:'Rondas',		hidden:true }, // bitfield del tipo de rondas
 		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre' }
 	]],
 	onBeforeLoad: function(param) { 

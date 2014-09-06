@@ -48,7 +48,7 @@ class Resultados extends DBObject {
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
-	 * @param {string} $manga Manga ID
+	 * @param {integer} $manga Manga ID
 	 * @throws Exception when
 	 * - cannot contact database
 	 * - invalid manga ID

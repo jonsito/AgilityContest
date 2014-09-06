@@ -377,119 +377,6 @@ function competicionDialog(name) {
 
 /************************************* funciones para la ventana de resultados **************************/
 
-/*
- * Recordatorio de los campos de las tablas de resultados y clasificaciones
- * 
- * Resultados-datagrid
-        { field:'Manga',		hidden:true },
-        { field:'Perro',		hidden:true },
-        { field:'Dorsal',		hidden:true},
-      	{ field:'Licencia',		hidden:true },
-        { field:'Puesto',		width:12, align:'left',  title: 'Puesto', formatter:formatPuesto},
-        { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
-        { field:'NombreGuia',	width:35, align:'right', title: 'Guia' },
-        { field:'NombreClub',	width:25, align:'right', title: 'Club' },
-      	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
-      	{ field:'Faltas',		width:10, align:'center', title: 'Faltas'},
-      	{ field:'Rehuses',		width:10, align:'center', title: 'Rehuses'},
-      	{ field:'Tocados',		width:10, align:'center', title: 'Tocados'},
-      	{ field:'PRecorrido',	hidden:true },
-      	{ field:'Tiempo',		width:15, align:'right', title: 'Tiempo', formatter:formatTiempo},
-      	{ field:'PTiempo',		hidden:true },
-      	{ field:'Velocidad',	width:10, align:'right', title: 'Vel.', formatter:formatVelocidad},
-      	{ field:'Penalizacion',	width:15, align:'right', title: 'Penal.', formatter:formatPenalizacion}, 
-      	{ field:'Calificacion',	width:30, align:'center',title: 'Calificacion'}, 
-      	{ field:'CShort', hidden:true}
-      	
- *Clasificaciones-datagrid
-        { field:'Perro',		hidden:true },
-        { field:'Dorsal',		hidden:true},
-      	{ field:'Licencia',		hidden:true },
-        { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
-        { field:'NombreGuia',	width:35, align:'right', title: 'Guia' },
-        { field:'NombreClub',	width:25, align:'right', title: 'Club' },
-      	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
-      	{ field:'F1',		width:10, align:'center', title: 'Faltas 1'},
-      	{ field:'F2',		width:10, align:'center', title: 'Faltas 2'},
-      	{ field:'R1',		width:10, align:'center', title: 'Rehuses 1'},
-      	{ field:'R2',		width:10, align:'center', title: 'Rehuses 2'},
-      	{ field:'T1',		width:10, align:'center', title: 'Tocados 1'},
-      	{ field:'T2',		width:10, align:'center', title: 'Tocados 2'},
-      	{ field:'PR1',	hidden:true }, // Penalizacion recorrido 1
-      	{ field:'PR2',	hidden:true }, // Penalizacion recorrido 2
-      	{ field:'Tiempo1',		width:15, align:'right', title: 'Tiempo', formatter:formatTiempo},
-      	{ field:'Tiempo2',		width:15, align:'right', title: 'Tiempo', formatter:formatTiempo},
-      	{ field:'PT1',		hidden:true }, // Penalizacion tiempo 1
-      	{ field:'PT2',		hidden:true }, // Penalizacion tiempo 2
-      	{ field:'V1',	width:10, align:'right', title: 'Vel. 1', formatter:formatVelocidad},
-      	{ field:'V2',	width:10, align:'right', title: 'Vel. 2', formatter:formatVelocidad},
-      	{ field:'P1',	width:15, align:'right', title: 'Penal 1', formatter:formatPenalizacion}, 
-      	{ field:'P2',	width:15, align:'right', title: 'Penal 2', formatter:formatPenalizacion},  
-      	{ field:'C1', hidden:true} // Calificacion 1
-      	{ field:'C2', hidden:true} // Calificacion 2
-        { field:'Puesto',		width:12, align:'left',  title: 'Puesto', formatter:formatPuesto},
-      	{ field:'Calificacion',	width:30, align:'center',title: 'Calificacion'},
-      	{ field:'Penalizacion',	width:30, align:'center',title: 'Penalizacion'},
- */
-
-/**
- * extrae los datos de la manga 1 de la fila asociada y compone la primera parte de la tabla clasificaciones
- * asociada al modo indicado 
- */
-function parseManga1(clasificaciones,mode,row) {
-	clasificaciones[mode][row['Perro']]= {
-	        'Perro':		row['Perro'],
-	        'Dorsal':		row['Dorsal'],
-	      	'Licencia':		row['Licencia'],
-	        'Nombre':		row['Nombre'],
-	        'NombreGuia':	row['NombreGuia'],
-	        'NombreClub':	row['NombreClub'],
-	      	'Categoria':	row['Categoria'],
-	      	'F1':			row['Faltas'],
-	      	'F2':			0,
-	      	'R1':			row['Rehuses'],
-	      	'R2':			0,
-	      	'T1':			row['Tocados'],
-	      	'T2':			0,
-	      	'PR1':			row['PRecorrido'],
-	      	'PR2':			0,
-	      	'Tiempo1':		row['Tiempo'],
-	      	'Tiempo2':		0,
-	      	'PT1':			row['PTiempo'],
-	      	'PT2':			0,
-	      	'V1':			row['Velocidad'],
-	      	'V2':			0,
-	      	'P1':			row['Penalizacion'],
-	      	'P2':			0,  
-	      	'C1':			row['CShort'],
-	      	'C2':			0,
-	        'Puesto':		0,
-	      	'Calificacion':	0,
-	      	'Penalizacion':	0
-	};
-}
-
-/**
- * extrae los datos de la manga 2 de la fila asociada y compone segunda parte de la tabla clasificaciones
- * asociada al modo indicado 
- */
-function parseManga2(clasificaciones,mode,row) {
-	// Juntamos y mezclamos los datos de la manga 1 con la 2
-	var res=$.extend(clasificaciones[mode][row['Perro']],{
-	      	'F2':			row['Faltas'],
-	      	'R2':			row['Rehuses'],
-	      	'T2':			row['Tocados'],
-	      	'PR2':			row['PRecorrido'],
-	      	'Tiempo2':		row['Tiempo'],
-	      	'PT2':			row['PTiempo'],
-	      	'V2':			row['Velocidad'],
-	      	'P2':			row['Penalizacion'],
-	      	'C2':			row['CShort']
-	});
-	// save evaluated data into our object
-	clasificaciones[mode][row['Perro']]=res;
-}
-
 /**
  * rellena los diversos formularios de informacion de resultados
  * resultados: almacen de resultados (array[mode][manga]
@@ -531,7 +418,6 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
  */
 function resultados_doSelectRonda(row) {
 	var resultados=[];
-	var clasificaciones=[];
     // FASE 1 Ajustamos en funcion del tipo de recorrido lo que debemos ver en las mangas
     // Recordatorio: ambas mangas tienen siempre el mismo tipo de recorrido
     switch(parseInt(row.Recorrido1)){
@@ -624,23 +510,24 @@ function resultados_doSelectRonda(row) {
 		}
     	break;
     } 
-    // FASE 2: cargamos informacion sobre resultados globales
-    // tenemos la variable resultados, con los datos de cada Recorrido y cada manga '1' ['2'] de cada recorrido
-    // lo que vamos a hacer es añadir una 'manga" extra 'C' con la suma de datos de las dos
-    for (var mode=0;mode<5;mode++) {
-    	if(typeof resultados[mode] === "undefined") continue;
-    	$.each(resultados[mode]['1'],function(key,value) {
-    		parseManga1(clasificaciones,mode,value);
-    	});
-    	if(typeof resultados[mode]['2'] === "undefined") continue; // no datos for manga 2
-    	$.each(resultados[mode]['2'],function(key,value) {
-    		parseManga2(clasificaciones,mode,value);
-    	});
-    }
-    // Computamos los datos finales ahora que tenemos todo tabulado
-    
-    // y finalmente ordenaremos dicha manga 'Conjunta' alimentando al datagrid correspondiente
-    // TODO: write
+    // FASE 2: cargamos informacion sobre resultados globales y la volcamos en el datagrid
+    mode=$('#resultados-selectCategoria').combobox('getValue');
+	$.ajax({
+		type:'GET',
+		url:"database/clasificacionesFunctions.php",
+		dataType:'json',
+		data: {	
+			Prueba:workingData.prueba,
+			Jornada:workingData.jornada,
+			Manga1:row.Manga1,
+			Manga2:row.Manga2,
+			Rondas: row.Rondas,
+			Mode: mode
+		},
+		success: function(dat) {
+			$('#resultados-datagrid').datagrid('loadData',dat);
+		}
+	});
 }
 
 /**

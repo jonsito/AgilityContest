@@ -50,7 +50,7 @@ class Mangas extends DBObject {
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
-	 * @param {string} $jornada jornada ID
+	 * @param {integer} $jornada jornada ID
 	 * @throws Exception if cannot contact database or invalid jornada ID
 	 */
 	function __construct($file,$jornada) {

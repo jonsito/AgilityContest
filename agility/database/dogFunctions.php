@@ -19,7 +19,7 @@ try {
 		case "select": $result=$perros->select(); break; // list with order, index, count and where
 		case "enumerate":	$result=$perros->enumerate(); break; // list with where
 		case "getbyguia":	$result=$perros->selectByGuia($idguia); break;
-		case "getbyidperro":	$result=$perros->selectByIDPerro($idperro); break;
+		case "getbyidperro":	$result=$perros->selectByID($idperro); break;
 		case "categorias":	$result=$perros->categoriasPerro(); break;
 		case "grados":		$result=$perros->gradosPerro(); break;
 		default: throw new Exception("dogFunctions:: invalid operation: $operation provided");
