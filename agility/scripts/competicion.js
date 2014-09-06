@@ -564,19 +564,20 @@ function resultados_printCanina() {
 
 /**
  * Imprime los resultados finales de la ronda seleccionada en formato CSV para su conversion en etiquetas
+ * @param {integer} mode 0:CSV 1:PDF
  * @returns {Boolean} false 
  */
-function resultados_printEtiquetas() {
+function resultados_printEtiquetas(mode) {
 	$.fileDownload(
-		'pdf/clasificaciones.php',
+		'pdf/print_etiquetas.php',
 		{
 			httpMethod: 'GET',
 			data: { 
 		        Prueba: workingData.prueba,
 		        Jornada: workingData.jornada,
-		        Manga: workingData.manga,
+		        Manga1: workingData.manga,
 		        Manga2: workingData.manga2,
-		        Operation: 3, // 0:manga1, 1:manga2, 2:final, 3:etiquetas
+		        Mode: mode, 
 		        Categorias: $('#resultados-cat-form-select').val()
 			},
 	        preparingMessageHtml: "Generando ficheros de clasificaciones. Por favor, espere...",
@@ -591,25 +592,7 @@ function resultados_printEtiquetas() {
  * @return false
  */
 function resultados_printClasificacion() {
-	// vemos cual es el panel activo
-	var tab = $('#resultados-datatabs').tabs('getSelected');
-	var index = $('#resultados-datatabs').tabs('getTabIndex',tab);
-	$.fileDownload(
-		'pdf/print_clasificaciones.php',
-		{
-			httpMethod: 'GET',
-			data: { 
-		        Prueba: workingData.prueba,
-		        Jornada: workingData.jornada,
-		        Manga: workingData.manga,
-		        Manga2: workingData.manga2,
-		        Operation: index, // 0:manga1, 1:manga2, 2:final, 3:etiquetas
-		        Categorias: $('#resultados-cat-form-select').val()
-			},
-	        preparingMessageHtml: "Generando PDF con clasificaciones. Por favor, espere...",
-	        failMessageHtml: "Ha habido problemas en la generacion del informe\n. Por favor, intentelo de nuevo."
-		}
-	);
+	alert("competicion.js::resultados_printClasificacion() {PENDING}");
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
@@ -620,13 +603,14 @@ function resultados_doPrint() {
 	 $.messager.radio(
 			 'Selecciona modelo',
 			 'Selecciona el tipo de documento a generar:',
-			 { 1:'Podium',2:'Etiquetas',3:'Informes R.S.C.E',4:'Clasificación'}, 
+			 { 1:'Podium',2:'Etiquetas (CSV)',3:'Etiquetas (PDF)',4:'Informes R.S.C.E',5:'Clasificación'}, 
 			 function(r){ 
 				 switch(r) {
 				 case 0: resultados_printPodio(); break;
-				 case 1: resultados_printEtiquetas(); break;
-				 case 2: resultados_printCanina(); break;
-				 case 3: resultados_printClasificacion(); break;
+				 case 1: resultados_printEtiquetas(0); break;
+				 case 2: resultados_printEtiquetas(1); break;
+				 case 3: resultados_printCanina(); break;
+				 case 4: resultados_printClasificacion(); break;
 				 }
 			 }
 		).window({width:250});

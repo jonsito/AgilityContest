@@ -1,4 +1,4 @@
-<?php
+ <?php
 header('Set-Cookie: fileDownload=true; path=/');
 // mandatory 'header' to be the first element to be echoed to stdout
 
