@@ -376,14 +376,18 @@ function competicionDialog(name) {
     if (name==='competicion') {
         // abrimos ventana de dialogo
         $('#competicion-window').dialog('open').window('setTitle'," Entrada de datos: "+title);
-        // cargamos ventana de orden de salida
+        // cargamos ventana de entrada de datos
         reloadCompeticion();
     }
     if (name==='resultadosmanga') {
         // abrimos ventana de dialogo
         $('#resultadosmanga-window').dialog('open').window('setTitle'," Resultados de la manga: "+title);
-        // cargamos ventana de orden de salida
+        // cargamos ventana de presentacion de resultados parciales
         reloadResultadosManga(row.Recorrido);
+        // marcamos la primera opcion como seleccionada
+        $('#resultadosmanga-LargeBtn').prop('checked','checked');
+        // y recargarmos resultados parciales
+        reloadParcial(0);
     }
 }
 
