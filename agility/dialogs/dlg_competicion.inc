@@ -62,8 +62,8 @@ $('#competicion-datagrid').datagrid({
         { field:'NombreClub',	width:30, align:'right', title: 'Club' },
       	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
       	{ field:'Faltas',		width:15, align:'right', title: 'Faltas',	editor:'numberbox' },
-      	{ field:'Rehuses',		width:15, align:'right', title: 'Rehus.',	editor:'numberbox', },
       	{ field:'Tocados',		width:15, align:'right', title: 'Tocad.',	editor:'numberbox' },
+      	{ field:'Rehuses',		width:15, align:'right', title: 'Rehus.',	editor:'numberbox', },
       	{ field:'Tiempo',		width:20, align:'right', title: 'Tiempo',	editor:{type:'numberbox',options:{precision:2}}	}, 
       	{ field:'Eliminado',	width:10, align:'center',title: 'Elim.',	editor:{type:'checkbox',options:{on:1,off:0}}	},
       	{ field:'NoPresentado',	width:10, align:'center',title: 'N.P.',		editor:{type:'checkbox',options:{on:1,off:0}}	},		
@@ -84,15 +84,15 @@ var competicion_editIndex = undefined;
 var pressed={};
 
 // stupid trick to avoid auto-repeat of keydown event
-
+/*
 $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keyup',function(e){
 	var keycode = (e.keyCode ? e.keyCode : e.which);
     pressed[keycode] = null; // mark key as released
     return false;
 });
-
+*/
 //activa teclas up/down para navegar por el panel de gestion de jornadas
-$('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
+$('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keyup',function(e){
     function selectRow(t,up){
     	var count = t.datagrid('getRows').length;    // row count
     	var selected = t.datagrid('getSelected');
@@ -109,8 +109,10 @@ $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0
 	}
 
     var keycode = (e.keyCode ? e.keyCode : e.which);
+/*
     if (pressed[keycode]!=null) return false; // already fired; ignore
     pressed[keycode]=true;
+*/
 	var t = $('#competicion-datagrid');
     switch(keycode){
     case 38:	/* Up */	if (competicion_editIndex===undefined) selectRow(t,true); return false;
