@@ -6,7 +6,6 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf ordenado por club, categoria y nombre con una pagina por cada jornada
 */
 
-define('FPDF_FONTPATH', __DIR__."/font/");
 require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../database/tools.php");
 require_once (__DIR__."/../database/logging.php");
@@ -17,15 +16,12 @@ require_once(__DIR__.'/../database/classes/Mangas.php');
 require_once(__DIR__.'/../database/classes/OrdenSalida.php');
 require_once(__DIR__."/print_common.php");
 
-class PDF extends FPDF {
+class PDF extends PrintCommon {
 
-	protected $prueba; // datos de la prueba
-	protected $jornada; // datos de la jornada
 	protected $manga; // datos de la manga
 	protected $manga2; // datos de la manga 2
 	protected $numrows; // formato del pdf 0:1 1:5 2:15 perros/pagina
 	protected $categoria; // categoria que estamos listando
-	public $myLogger;
 
 	// geometria de las celdas
 	protected $cellHeader
@@ -37,42 +33,39 @@ class PDF extends FPDF {
 	
 	/**
 	 * Constructor
-	 * @param {object} $prueba 
-	 * @param {object} $jornada 
+	 * @param {integer} $prueba 
+	 * @param {integer} $jornada 
 	 * @param {array[object]} datos de la manga y (si existe) manga hermana
 	 * @param {array} $orden Lista de inscritos en formato jquery array[count,rows[]]
 	 * @param {integer} $numrows numero de perros a imprimir por cada hoja
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$mangas,$orden,$numrows) {
-		parent::__construct('Portrait','mm');
-		if ( ($prueba===null) || ($jornada===null) || ($mangas===null) || ($orden===null) ) {
+		parent::__construct('Portrait',$prueba,$jornada);
+		if ( ($prueba<=0) || ($jornada<=0) || ($mangas===null) || ($orden===null) ) {
 			$this->errormsg="printEntradaDeDatos: either prueba/jornada/ manga/orden data are invalid";
 			throw new Exception($this->errormsg);
 		}
-		$this->prueba=$prueba;
-		$this->jornada=$jornada;
 		$this->manga=$mangas[0];
 		$this->manga2=$mangas[1];
 		$this->orden=$orden;
 		$this->numrows=$numrows;
 		$this->categoria="L";
-		$this->myLogger= new Logger("printEntradaDeDatos");
 	}
 	
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		print_commonHeader($this,$this->prueba,$this->jornada,"Introducción de Datos");
+		$this->print_commonHeader("Introducción de Datos");
 		// si estamos en modo 1 perro/pagina, dejamos un buen hueco antes de pintar la id de la manga
 		if($this->numrows==1) $this->Ln(20);
-		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga,$this->cat[$this->categoria]);
+		$this->print_identificacionManga($this->manga,$this->cat[$this->categoria]);
 		$this->myLogger->leave();
 	}
 		
 	// Pie de página
 	function Footer() {
-		print_commonFooter($this,$this->prueba,$this->jornada,$this->manga);
+		$this->print_commonFooter();
 	}
 	
 	function writeTableCell_compacto($rowcount,$row) {
@@ -198,7 +191,7 @@ class PDF extends FPDF {
 		if ($this->manga2==null) return;
 		$this->Ln(20);
 		// pintamos "identificacion" de la segunda manga
-		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga2,$this->cat[$this->categoria]);
+		$this->print_identificacionManga($this->manga2,$this->cat[$this->categoria]);
 		// y volvemos a pintar el recuadro para la segunda manga
 		$this->writeTableCell_normal($rowcount,$row,2);
 	}
@@ -239,31 +232,25 @@ class PDF extends FPDF {
 // Consultamos la base de datos
 try {
 	$myLogger=new Logger("print_entradaDeDatos");
-	$pruebaid=http_request("Prueba","i",0);
-	$jornadaid=http_request("Jornada","i",0);
-	$mangaid=http_request("Manga","i",0);
+	$prueba=http_request("Prueba","i",0);
+	$jornada=http_request("Jornada","i",0);
+	$manga=http_request("Manga","i",0);
 	$mode=http_request("Mode","i",0);
-	$myLogger->info("Prueba:$pruebaid Jornada:$jornadaid Manga:$mangaid Mode:$mode");
-	
-	// Datos de la prueba
-	$p=new Pruebas("printEntradaDeDatos");
-	$prueba=$p->selectByID($pruebaid);
-	// Datos de la jornada
-	$j=new Jornadas("printEntradaDeDatos",$pruebaid);
-	$jornada=$j->selectByID($jornadaid);
+	$myLogger->info("Prueba:$prueba Jornada:$jornada Manga:$manga Mode:$mode");
+
 	// Datos de la manga y su manga hermana
-	$m = new Mangas("printEntradaDeDatos",$jornadaid);
-	$mangas= $m->getHermanas($mangaid);
+	$m = new Mangas("printEntradaDeDatos",$jornada);
+	$mangas= $m->getHermanas($manga);
 	// Datos del orden de salida
 	$o = new OrdenSalida("printEntradaDeDatos");
-	$orden= $o->getData($pruebaid,$jornadaid,$mangaid);
+	$orden= $o->getData($prueba,$jornada,$manga);
+	// Creamos generador de documento
+	$pdf = new PDF($prueba,$jornada,$mangas,$orden['rows'],$mode);
+	$pdf->AliasNbPages();
+	$pdf->composeTable();
+	$pdf->Output("entradaDeDatos.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e.getMessage());
 };
-// Creamos generador de documento
-$pdf = new PDF($prueba,$jornada,$mangas,$orden['rows'],$mode);
-$pdf->AliasNbPages();
-$pdf->composeTable();
-$pdf->Output("entradaDeDatos.pdf","D"); // "D" means open download dialog
 echo json_encode(array('success'=>true));
 ?>
