@@ -44,15 +44,17 @@ class PDF extends PrintCommon {
 		$this->SetFont('Arial','B',9); // bold 9px
 		$jobj=new Jueces("print_Clasificaciones");
 		$juez1=$jobj->selectByID($this->manga1->Juez1);
-		$juez2=$jobj->selectByID($this->manga1->Juez2);
+		$juez2=$jobj->selectByID($this->manga1->Juez2); // asume mismos jueces en dos mangas
+		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
+		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
 		$this->Cell(20,7,"Juez 1:","LT",0,'L',false);
 		$this->Cell(70,7,$juez1['Nombre'],"T",0,'L',false);
 		$this->Cell(20,7,"Juez 2:","T",0,'L',false);
 		$this->Cell(70,7,$juez2['Nombre'],"TR",0,'L',false);
 		$this->Ln();
-		$this->Cell(180,7,'Datos Manga 1',"LTR",0,'L',false);
+		$this->Cell(180,7,$tm1,"LTR",0,'L',false);
 		$this->Ln();
-		$this->Cell(180,7,'Datos Manga 2',"LRTB",0,'L',false);
+		$this->Cell(180,7,$tm2,"LRTB",0,'L',false);
 	}
 	
 	function Header() {
@@ -65,6 +67,8 @@ class PDF extends PrintCommon {
 	}
 	
 	function writeTableHeader() {
+		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
+		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
 		
 		// colores para la cabecera de la tabla
 		$this->SetFillColor(0,0,255); // azul
@@ -76,8 +80,8 @@ class PDF extends PrintCommon {
 		// first row of table header
 		$this->SetFont('Arial','BI',12); // default font
 		$this->Cell(105,7,'Datos del participante',0,0,'L',true);
-		$this->Cell(65,7,'Manga 1',0,0,'C',true);
-		$this->Cell(65,7,'Manga 2',0,0,'C',true);
+		$this->Cell(65,7,$tm1,0,0,'C',true);
+		$this->Cell(65,7,$tm2,0,0,'C',true);
 		$this->Cell(40,7,'Clasificacion',0,0,'R',true);
 		$this->ln();
 		$this->SetFont('Arial','',8); // default font

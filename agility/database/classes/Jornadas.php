@@ -252,8 +252,12 @@ class Jornadas extends DBObject {
 			array_push($data,array( 
 									"Rondas" => Jornadas::$tipo_ronda[3][0],
 									"Nombre" => Jornadas::$tipo_ronda[3][1],
-									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
-									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
+									"Manga1" => $manga1['ID'],
+									"Manga2" => $manga2['ID'],
+									"NombreManga1" => 'Agility-1 GI',
+									"NombreManga2" => 'Agility-2 GI',
+									"Recorrido1" => $manga1['Recorrido'],
+									"Recorrido2" => $manga2['Recorrido']
 									) );
 		}
 		if ($row->Grado2!=0) {
@@ -262,8 +266,12 @@ class Jornadas extends DBObject {
 			array_push($data,array( 
 									"Rondas" => Jornadas::$tipo_ronda[4][0],
 									"Nombre" => Jornadas::$tipo_ronda[4][1], 
-									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
-									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
+									"Manga1" => $manga1['ID'],
+									"Manga2" => $manga2['ID'],
+									"NombreManga1" => 'Agility GII',
+									"NombreManga2" => 'Jumping GII',
+									"Recorrido1" => $manga1['Recorrido'],
+									"Recorrido2" => $manga2['Recorrido']
 									) );
 		}
 		if ($row->Grado3!=0) {
@@ -272,8 +280,12 @@ class Jornadas extends DBObject {
 			array_push($data,array( 
 									"Rondas" => Jornadas::$tipo_ronda[5][0],
 									"Nombre" => Jornadas::$tipo_ronda[5][1],
-									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
-									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
+									"Manga1" => $manga1['ID'],
+									"Manga2" => $manga2['ID'],
+									"NombreManga1" => 'Agility GIII',
+									"NombreManga2" => 'Jumping GIII',
+									"Recorrido1" => $manga1['Recorrido'],
+									"Recorrido2" => $manga2['Recorrido']
 									) );
 		}
 		if ($row->Open!=0) {
@@ -282,8 +294,12 @@ class Jornadas extends DBObject {
 			array_push($data,array( 
 									"Rondas" => Jornadas::$tipo_ronda[6][0],
 									"Nombre" => Jornadas::$tipo_ronda[6][1], 
-									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
-									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
+									"Manga1" => $manga1['ID'],
+									"Manga2" => $manga2['ID'],
+									"NombreManga1" => 'Agility Open',
+									"NombreManga2" => 'Jumping Open',
+									"Recorrido1" => $manga1['Recorrido'],
+									"Recorrido2" => $manga2['Recorrido']
 									) );
 		}
 		if ($row->PreAgility!=0) {
@@ -292,8 +308,12 @@ class Jornadas extends DBObject {
 			array_push($data,array( 
 									"Rondas" => Jornadas::$tipo_ronda[1][0],
 									"Nombre" => Jornadas::$tipo_ronda[1][1],
-									"Manga1" => $manga1['ID'], "Manga2" => 0,
-									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => -1
+									"Manga1" => $manga1['ID'],
+									"Manga2" => 0,
+									"NombreManga1" => 'Pre-Agility 1',
+									"NombreManga2" => '',
+									"Recorrido1" => $manga1['Recorrido'],
+									"Recorrido2" => -1
 									 ) );
 		}			
 		if ($row->PreAgility2!=0) {
@@ -302,8 +322,12 @@ class Jornadas extends DBObject {
 			array_push($data,array( 
 									"Rondas" => Jornadas::$tipo_ronda[2][0],
 									"Nombre" => Jornadas::$tipo_ronda[2][1], 
-									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
-									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
+									"Manga1" => $manga1['ID'],
+									"Manga2" => $manga2['ID'],
+									"NombreManga1" => 'Pre-Agility 1',
+									"NombreManga2" => 'Pre-Agility 2',
+									"Recorrido1" => $manga1['Recorrido'],
+									"Recorrido2" => $manga2['Recorrido']
 									) );
 		}
 		if ($row->Equipos3!=0) {
@@ -312,8 +336,12 @@ class Jornadas extends DBObject {
 			array_push($data,array( 
 									"Rondas" => Jornadas::$tipo_ronda[7][0],
 									"Nombre" => Jornadas::$tipo_ronda[7][1], 
-									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
-									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
+									"Manga1" => $manga1['ID'],
+									"Manga2" => $manga2['ID'],
+									"NombreManga1" => 'Agility Eq.',
+									"NombreManga2" => 'Jumping Eq.',
+									"Recorrido1" => $manga1['Recorrido'],
+									"Recorrido2" => $manga2['Recorrido']
 									) );
 		}
 		if ($row->Equipos4!=0) {
@@ -322,8 +350,12 @@ class Jornadas extends DBObject {
 			array_push($data,array( 
 									"Rondas" => Jornadas::$tipo_ronda[8][0],
 									"Nombre" => Jornadas::$tipo_ronda[8][1],
-									"Manga1" => $manga1['ID'],"Manga2" => $manga2['ID'],
-									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => $manga2['Recorrido']
+									"Manga1" => $manga1['ID'],
+									"Manga2" => $manga2['ID'],
+									"NombreManga1" => 'Agility Eq.',
+									"NombreManga2" => 'Jumping Eq.',
+									"Recorrido1" => $manga1['Recorrido'],
+									"Recorrido2" => $manga2['Recorrido']
 									) );
 		}
 		if ($row->KO!=0) {
@@ -332,8 +364,12 @@ class Jornadas extends DBObject {
 			array_push($data,array( 
 									"Rondas" => Jornadas::$tipo_ronda[9][0],
 									"Nombre" => Jornadas::$tipo_ronda[9][1], 
-									"Manga1" => $manga1['ID'],"Manga2" => 0,
-									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => -1
+									"Manga1" => $manga1['ID'],
+									"Manga2" => 0,
+									"NombreManga1" => 'Manga K.O.',
+									"NombreManga2" => '',
+									"Recorrido1" => $manga1['Recorrido'],
+									"Recorrido2" => -1
 									) );
 		}
 		if ($row->Especial!=0) {
@@ -342,8 +378,12 @@ class Jornadas extends DBObject {
 			array_push($data,array( 
 									"Rondas" => Jornadas::$tipo_ronda[10][0],
 									"Nombre" => Jornadas::$tipo_ronda[10][1], 
-									"Manga1" => $manga1['ID'],"Manga2" => 0,
-									"Recorrido1" => $manga1['Recorrido'],"Recorrido2" => -1
+									"Manga1" => $manga1['ID'],
+									"Manga2" => 0,
+									"NombreManga1" => 'Manga Especial',
+									"NombreManga2" => '',
+									"Recorrido1" => $manga1['Recorrido'],
+									"Recorrido2" => -1
 									) );
 		}
 		$result=array();

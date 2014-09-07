@@ -43,8 +43,8 @@
 	<thead>
 		<tr>
 		<th colspan="6"> <span class="resultados_theader">Datos del participante</span></th>
-	    <th colspan="6" id="resultados_theader_m1"> <span class="resultados_theader">Manga 1</span></th>
-	    <th colspan="6" id="resultados_theader_m2"> <span class="resultados_theader">Manga 2</span></th>
+	    <th colspan="6"> <span class="resultados_theader" id="resultados_thead_m1">Manga 1</span></th>
+	    <th colspan="6"> <span class="resultados_theader" id="resultados_thead_m2">Manga 2</span></th>
 	    <th colspan="3"> <span class="resultados_theader">Clasificaci&oacute;n</span></th>
 	    </tr>
 	    <tr>
@@ -132,6 +132,8 @@ $('#resultados-info-ronda').combogrid({
 	columns: [[
 	   	{ field:'Manga1',		hidden:true }, // ID de la manga1
 		{ field:'Manga2',		hidden:true }, // ID de la manga2
+		{ field:'NombreManga1',		hidden:true }, // ID de la manga1
+		{ field:'NombreManga2',		hidden:true }, // ID de la manga2
 		{ field:'Recorrido1',	hidden:true }, // tipo de recorrido		
 		{ field:'Recorrido2',	hidden:true }, // tipo de recorrido		
 		{ field:'Rondas',		hidden:true }, // bitfield del tipo de rondas

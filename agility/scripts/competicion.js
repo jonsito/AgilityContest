@@ -397,7 +397,7 @@ function competicionDialog(name) {
     }
 }
 
-/************************************* funciones para la ventana de resultados **************************/
+/************************************* funciones para la ventana de clasificaciones **************************/
 
 /**
  * rellena los diversos formularios de informacion de resultados
@@ -547,6 +547,8 @@ function resultados_doSelectRonda(row) {
 			Mode: mode
 		},
 		success: function(dat) {
+			$('#resultados_thead_m1').text(row.NombreManga1);
+			$('#resultados_thead_m2').text(row.NombreManga2);
 			$('#resultados-datagrid').datagrid('loadData',dat);
 		}
 	});
@@ -675,6 +677,8 @@ function reloadClasificaciones() {
 			Mode: mode
 		},
 		success: function(dat) {
+			$('#resultados_thead_m1').text(ronda.NombreManga1);
+			$('#resultados_thead_m2').text(ronda.NombreManga2);
 			$('#resultados-datagrid').datagrid('loadData',dat);
 		}
 	});
