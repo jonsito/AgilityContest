@@ -22,7 +22,13 @@ function formatV2(val,row,idx) { return (row.P2>=200)?"-":parseFloat(val).toFixe
 function formatT2(val,row,idx) { return (row.P2>=200)?"-":parseFloat(val).toFixed(2); }
 function formatP2(val,row,idx) { return parseFloat(val).toFixed(2); }
 
+/* stylers para formateo de celdas especificas */
 function formatBorder(val,row,idx) { return 'border-left: 1px solid #000;'; }
+function checkPending(val,row,idx) { 
+	if ( parseInt(row.Pendiente)!=0 ) return 'color: #f00;';
+	return '';
+}
+
 /**
  * Actualiza el modo de visualizacion del panel infomangas
  * en funcion del tipo de recorrido seleccionado
