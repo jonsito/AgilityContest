@@ -372,7 +372,7 @@ class Inscripciones extends DBObject {
 			if (!$res) return $this->error($stmt2->error);
 		}
 		$stmt1->close();
-		$stmt1->close();
+		$stmt2->close();
 		$this->myLogger->leave();
 		return "";
 	}

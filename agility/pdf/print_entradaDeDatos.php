@@ -63,7 +63,7 @@ class PDF extends FPDF {
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		print_commonHeader($this,$this->prueba,$this->jornada,$this->manga,"Introducción de Datos");
+		print_commonHeader($this,$this->prueba,$this->jornada,"Introducción de Datos");
 		// si estamos en modo 1 perro/pagina, dejamos un buen hueco antes de pintar la id de la manga
 		if($this->numrows==1) $this->Ln(20);
 		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga,$this->cat[$this->categoria]);

@@ -53,7 +53,6 @@ class PDF extends FPDF {
 	
 	// Cabecera de página
 	function Header() {
-		$this->myLogger->enter();
 		print_commonHeader($this,$this->prueba,$this->jornada,$this->manga,"Resultados Parciales");
 		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga,$this->modestr[intval($this->mode)]);
 		

@@ -20,107 +20,149 @@ require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__.'/../database/classes/Clasificaciones.php');
 require_once(__DIR__."/print_common.php");
 
-class PDF extends FPDF {
+class PDF extends PrintCommon {
 	
-	public $myLogger;
-	protected $prueba;
-	protected $club;
-	protected $jornada;
 	protected $manga1;
 	protected $manga2;
 	protected $resultados;
-	protected $icon;
-	
+
 	 /** Constructor
 	 * @param {obj} $manga datos de la manga
 	 * @param {obj} $resultados resultados asociados a la manga/categoria pedidas
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$mangas,$resultados) {
-		parent::__construct('Portrait','mm','A4');
-		$this->myLogger= new Logger("print_etiquetas_pdf");
-		$dbobj=new DBObject("print_etiquetas_pdf");
-		$this->prueba=$dbobj->__getObject("Pruebas",$prueba);
-		$this->club=$dbobj->__getObject("Clubes",$this->prueba->Club);
-		$this->jornada=$dbobj->__getObject("Jornadas",$jornada);
+		parent::__construct('Landscape',$prueba,$jornada);
+		$dbobj=new DBObject("print_clasificacion");
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
 		$this->resultados=$resultados;
-		// evaluage logo info
-		$this->icon="welpe.png";
-		if (isset($this->club)) $this->icon=$this->club->Logo;
 	}
 	
-	// No tenemos cabecera: no cabe
-	function Header() {// pintamos una linea	
-		$this->SetDrawColor(128,0,0); // line color
-		$this->Line(10,10,175,10);	
-		$this->SetDrawColor(128,128,128); // restore line color
+	function print_datosMangas() {
+		$this->setXY(10,40);
+		$this->SetFont('Arial','B',9); // bold 9px
+		$jobj=new Jueces("print_Clasificaciones");
+		$juez1=$jobj->selectByID($this->manga1->Juez1);
+		$juez2=$jobj->selectByID($this->manga1->Juez2);
+		$this->Cell(20,7,"Juez 1:","LT",0,'L',false);
+		$this->Cell(70,7,$juez1['Nombre'],"T",0,'L',false);
+		$this->Cell(20,7,"Juez 2:","T",0,'L',false);
+		$this->Cell(70,7,$juez2['Nombre'],"TR",0,'L',false);
+		$this->Ln();
+		$this->Cell(180,7,'Datos Manga 1',"LTR",0,'L',false);
+		$this->Ln();
+		$this->Cell(180,7,'Datos Manga 2',"LRTB",0,'L',false);
+	}
+	
+	function Header() {
+		$this->print_commonHeader("Clasificación Final");
 	}
 	
 	// Pie de página: tampoco cabe
 	function Footer() {
+		$this->print_commonFooter();
+	}
+	
+	function writeTableHeader() {
+		
+		// colores para la cabecera de la tabla
+		$this->SetFillColor(0,0,255); // azul
+		$this->SetTextColor(255,255,255); // blanco
+		$this->SetDrawColor(0,0,0); // line color
+		
+		$this->SetXY(10,($this->PageNo()==1)?65:40); // first page has 3 extra header lines
+		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+		// first row of table header
+		$this->SetFont('Arial','BI',12); // default font
+		$this->Cell(105,7,'Datos del participante',0,0,'L',true);
+		$this->Cell(65,7,'Manga 1',0,0,'C',true);
+		$this->Cell(65,7,'Manga 2',0,0,'C',true);
+		$this->Cell(40,7,'Clasificacion',0,0,'R',true);
+		$this->ln();
+		$this->SetFont('Arial','',8); // default font
+		// datos del participante
+		$this->Cell(10,7,'Dorsal',0,0,'C',true); 	// dorsal
+		$this->Cell(20,7,'Nombre',0,0,'C',true);	// nombre (20,y
+		$this->Cell(15,7,'Lic.',0,0,'C',true);	// licencia
+		$this->Cell(10,7,'Cat./Gr.',0,0,'C',true);	// categoria/grado
+		$this->Cell(30,7,'Guía',0,0,'C',true);	// nombreGuia
+		$this->Cell(20,7,'Club',0,0,'C',true);	// nombreClub
+		// manga 1
+		$this->Cell(8,7,'F/T',0,0,'C',true);	// 1- Faltas+Tocados
+		$this->Cell(8,7,'Reh',0,0,'C',true);	// 1- Rehuses
+		$this->Cell(13,7,'Tiempo',0,0,'C',true);	// 1- Tiempo
+		$this->Cell(10,7,'Vel.',0,0,'C',true);	// 1- Velocidad
+		$this->Cell(13,7,'Penal',0,0,'C',true);	// 1- Penalizacion
+		$this->Cell(13,7,'Calif',0,0,'C',true);	// 1- calificacion
+		// manga 2
+		$this->Cell(8,7,'F/T',0,0,'C',true);	// 2- Faltas+Tocados
+		$this->Cell(8,7,'Reh',0,0,'C',true);	// 2- Rehuses
+		$this->Cell(13,7,'Tiempo',0,0,'C',true);	// 2- Tiempo
+		$this->Cell(10,7,'Vel.',0,0,'C',true);	// 2- Velocidad
+		$this->Cell(13,7,'Penal',0,0,'C',true);	// 2- Penalizacion
+		$this->Cell(13,7,'Calif',0,0,'C',true);	// 2- calificacion
+		// global
+		$this->Cell(20,7,'Penaliz.',0,0,'C',true);	// Penalizacion
+		$this->Cell(10,7,'Calific.',0,0,'C',true);	// Calificacion
+		$this->Cell(10,7,'Puesto',0,0,'C',true);	// Puesto	
+		$this->Ln();	
+		// restore colors
+		$this->SetFillColor(224,235,255); // azul merle
+		$this->SetTextColor(0,0,0); // negro
+		$this->SetDrawColor(128,128,128); // line color
 	}
 	
 	function writeCell($idx,$row) {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-		//dorsal (10,y,20,17)
-		$this->SetFont('Arial','B',24); // bold 11px
-		$this->setXY(10,10+17*$idx);
-		$this->Cell(20,17,$row['Dorsal'],0,0,'C',false);
-		$this->SetFont('Arial','',12); // restore font size
+		$offset=($this->PageNo()==1)?80:55;
+		$this->SetXY(10, $offset + 7*$idx ); // first page has 3 extra header lines
+		$fill=(($idx%2)==0)?true:false;
 		
-		//logo   (30,y,15,15)
-		// los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
-		$this->SetXY(30,10+17*$idx); // margins are 10mm each
-		$this->Cell(17,17,$this->Image(__DIR__.'/../images/logos/'.$this->icon,$this->getX(),$this->getY(),17),0,0,'L',false);
+		// fomateamos datos
+		$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
+		$penal=number_format($row['Penalizacion'],2);
+		$v1= ($row['P1']>=200)?"-":number_format($row['V1'],1);
+		$t1= ($row['P1']>=200)?"-":number_format($row['T1'],2);
+		$p1=number_format($row['P1'],2);
+		$v2= ($row['P2']>=200)?"-":number_format($row['V2'],1);
+		$t2= ($row['P2']>=200)?"-":number_format($row['T2'],2);
+		$p2=number_format($row['P2'],2);
 		
-		//Nombre de la prueba (47,y,38,5) left
-		$this->SetXY(47,10+17*$idx); 
-		$this->Cell(38,5,$this->prueba->Nombre,0,0,'L',false);
-		//Fecha (47,y+5,38,5) left
-		$this->SetXY(47,10+17*$idx+5); 
-		$this->Cell(38,5,$this->jornada->Fecha,0,0,'L',false);
-		//Perro (47,y+10,38,7) right
-		$this->SetXY(47,10+17*$idx+10); 
-		$this->Cell(38,7,"{$row['Licencia']} - {$row['Nombre']}",0,0,'R',false);
-		//Manga1Tipo(85,y,20,8) center
-		$tipo=Mangas::$tipo_manga[$this->manga1->Tipo][3];
-		$this->SetXY(85,10+17*$idx); 
-		$this->Cell(20,8,$tipo,'LB',0,'L',false);
-		//Manga2Tipo(85,y+8,20,9) center
-		$tipo=Mangas::$tipo_manga[$this->manga2->Tipo][3];
-		$this->SetXY(85,10+17*$idx+8); 
-		$this->Cell(20,9,$tipo,'L',0,'L',false);
-		//Cat (105,y,15,8) center
-		$this->SetXY(105,10+17*$idx); 
-		$this->Cell(15,8,$row['Categoria'],'L',0,'C',false);
-		//Grado (105,y+8,15,9) center
-		$this->SetXY(105,10+17*$idx+8); 
-		$this->Cell(15,9,$row['Grado'],'L',0,'C',false);
-		//Penal1 (120,y,15,8) right
-		$this->SetXY(120,10+17*$idx); 
-		$this->Cell(15,8,$row['P1'],'LB',0,'C',false);
-		//Penal2 (120,y+8,15,9) right
-		$this->SetXY(120,10+17*$idx+8); 
-		$this->Cell(15,9,$row['P2'],'L',0,'C',false);
-		//Calif1 (135,y,25,8) right
-		$this->SetXY(135,10+17*$idx); 
-		$this->Cell(25,8,$row['C1'],'LB',0,'C',false);
-		//Calif2 (135,y+8,25,9) right
-		$this->SetXY(135,10+17*$idx+8); 
-		$this->Cell(25,9,$row['C2'],'L',0,'C',false);
-		//Puesto1 (160,y,15,8) center
-		$this->SetXY(160,10+17*$idx); 
-		$this->Cell(15,8,"{$row['Puesto1']}º",'LB',0,'C',false);
-		//Puesto2 (160,y+8,15,9) center
-		$this->SetXY(160,10+17*$idx+8); 
-		$this->Cell(15,9,"{$row['Puesto2']}º",'L',0,'C',false);
-		
-		// pintamos una linea	
-		$this->SetDrawColor(128,0,0); // line color
-		$this->Line(10,10+17*($idx+1),175,10+17*($idx+1));	
+		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+		// datos del participante
+		$this->Cell(10,7,$row['Dorsal'],0,0,'L',$fill); 	// dorsal
+		$this->Cell(20,7,$row['Nombre'],0,0,'R',$fill);	// nombre (20,y
+		$this->Cell(15,7,$row['Licencia'],0,0,'C',$fill);	// licencia
+		$this->Cell(10,7,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
+		$this->Cell(30,7,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia
+		$this->Cell(20,7,$row['NombreClub'],0,0,'R',$fill);	// nombreClub
+		// manga 1
+		$this->Cell(8,7,$row['F1'],0,0,'C',$fill);	// 1- Faltas+Tocados
+		$this->Cell(8,7,$row['R1'],0,0,'C',$fill);	// 1- Rehuses
+		$this->Cell(13,7,$t1,0,0,'C',$fill);	// 1- Tiempo
+		$this->Cell(10,7,$v1,0,0,'C',$fill);	// 1- Velocidad
+		$this->Cell(13,7,$p1,0,0,'C',$fill);	// 1- Penalizacion
+		$this->Cell(13,7,$row['C1'],0,0,'C',$fill);	// 1- calificacion
+		// manga 2
+		$this->Cell(8,7,$row['F2'],0,0,'C',$fill);	// 2- Faltas+Tocados
+		$this->Cell(8,7,$row['R2'],0,0,'C',$fill);	// 2- Rehuses
+		$this->Cell(13,7,$t2,0,0,'C',$fill);	// 2- Tiempo
+		$this->Cell(10,7,$v2,0,0,'C',$fill);	// 2- Velocidad
+		$this->Cell(13,7,$p2,0,0,'C',$fill);	// 2- Penalizacion
+		$this->Cell(13,7,$row['C2'],0,0,'C',$fill);	// 2- calificacion
+		// global
+		$this->Cell(20,7,$penal,0,0,'C',$fill);	// Penalizacion
+		$this->Cell(10,7,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
+		$this->Cell(10,7,$puesto,0,0,'R',$fill);	// Puesto
+		// lineas rojas
+		$this->SetDrawColor(128,0,0);
+		$this->Line(10+105,$offset + 7*$idx,10+105,$offset + 7*($idx+1));
+		$this->Line(10+170,$offset + 7*$idx,10+170,$offset + 7*($idx+1));
+		$this->Line(10+235,$offset + 7*$idx,10+235,$offset + 7*($idx+1));	
 		$this->SetDrawColor(128,128,128); // line color
+		
+		$this->Ln();
 	}
 	
 	function composeTable() {
@@ -133,11 +175,17 @@ class PDF extends FPDF {
 		$this->SetLineWidth(.3);
 		
 		$rowcount=0;
-		$numrows=16; // 16 etiquetas/pagina
+		$this->addPage();
+		$this->print_datosMangas();
 		foreach($this->resultados as $row) {
-			if($rowcount % $numrows==0) $this->addPage();
-			$this->writeCell($rowcount % $numrows,$row);
+			$numrows=($this->PageNo()==1)?15:19;
+			if($rowcount==0) $this->writeTableHeader();
+			$this->writeCell( $rowcount % $numrows,$row);
 			$rowcount++;
+			if ($rowcount>=$numrows) {
+				$this->addPage();
+				$rowcount=0;
+			}
 		}
 		$this->myLogger->leave();
 	}

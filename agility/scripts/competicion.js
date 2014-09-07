@@ -607,8 +607,7 @@ function resultados_printEtiquetas(flag) {
  */
 function resultados_printClasificacion() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
-	var url='pdf/print_etiquetas_csv.php';
-	if (flag!=0) url='pdf/print_clasificacion.php';
+	var url='pdf/print_clasificacion.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	if (ronda==null) {
     	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
