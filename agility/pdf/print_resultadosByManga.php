@@ -25,7 +25,7 @@ class PDF extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader
-					=array('Puesto','Dorsal','Nombre','Lic.','Guía','Club','Cat/Grad','Falt.','Reh.','Toc.','Tiempo','Vel.','Penal','Calificacion');
+					=array('Puesto','Dorsal','Nombre','Lic.','Guía','Club','Cat/Grad','Falt.','Toc.','Reh.','Tiempo','Vel.','Penal','Calificacion');
 	protected $pos	=array(  10,      10,     12,     10,     29,    31,     12,        7,      7,    7,       10,     7,    12,      24 );
 	protected $align=array(  'L',     'R',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L');
 	protected $fmt	=array(  'i',     'i',    's',    's',    's',   's',    's',       'i',   'i',   'i',     'f',    'f',  'f',     's');
@@ -135,8 +135,8 @@ class PDF extends PrintCommon {
 			$this->Cell($this->pos[5],7,$row['NombreClub'],		'LR',	0,		$this->align[5],	$fill);
 			$this->Cell($this->pos[6],7,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[6],	$fill);
 			$this->Cell($this->pos[7],7,$row['Faltas'],			'LR',	0,		$this->align[7],	$fill);
-			$this->Cell($this->pos[8],7,$row['Rehuses'],		'LR',	0,		$this->align[8],	$fill);
-			$this->Cell($this->pos[9],7,$row['Tocados'],		'LR',	0,		$this->align[9],	$fill);
+			$this->Cell($this->pos[8],7,$row['Tocados'],		'LR',	0,		$this->align[8],	$fill);
+			$this->Cell($this->pos[9],7,$row['Rehuses'],		'LR',	0,		$this->align[9],	$fill);
 			$this->Cell($this->pos[10],7,$tiempo,				'LR',	0,		$this->align[10],	$fill);
 			$this->Cell($this->pos[11],7,$veloc,				'LR',	0,		$this->align[11],	$fill);
 			$this->Cell($this->pos[12],7,$penal,				'LR',	0,		$this->align[12],	$fill);
