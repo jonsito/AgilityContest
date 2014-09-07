@@ -20,6 +20,7 @@ class PrintCommon extends FPDF {
 	protected $club;   // club orcanizadod
 	protected $icon;   // logo del club organizadod
 	protected $jornada; // datos de la jornada
+	protected $myDBObject;
 
 	/**
 	 * Constructor de la superclase 
@@ -30,10 +31,10 @@ class PrintCommon extends FPDF {
 	function __construct($orientacion,$prueba,$jornada=0) {
 		parent::__construct($orientacion,'mm','A4'); // Portrait or Landscape
 		$this->myLogger= new Logger("PrintCommon");
-		$dbobj=new DBObject("print_common_pdf");
-		$this->prueba=$dbobj->__getObject("Pruebas",$prueba);
-		$this->club=$dbobj->__getObject("Clubes",$this->prueba->Club); // club organizador
-		if ($jornada!=0) $this->jornada=$dbobj->__getObject("Jornadas",$jornada);
+		$this->myDBObject=new DBObject("print_common_pdf");
+		$this->prueba=$this->myDBObject->__getObject("Pruebas",$prueba);
+		$this->club=$this->myDBObject->__getObject("Clubes",$this->prueba->Club); // club organizador
+		if ($jornada!=0) $this->jornada=$this->myDBObject->__getObject("Jornadas",$jornada);
 		else $this->jornada=null;
 		// evaluage logo info
 		$this->icon="welpe.png";

@@ -6,7 +6,6 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf ordenado por club, categoria y nombre con una pagina por cada jornada
 */
 
-define('FPDF_FONTPATH', __DIR__."/font/");
 require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../database/tools.php");
 require_once (__DIR__."/../database/logging.php");
@@ -17,15 +16,12 @@ require_once(__DIR__.'/../database/classes/Mangas.php');
 require_once(__DIR__.'/../database/classes/OrdenSalida.php');
 require_once(__DIR__."/print_common.php");
 
-class PDF extends FPDF {
+class PDF extends PrintCommon {
 
-	protected $prueba; // datos de la prueba
-	protected $jornada; // datos de la jornada
 	protected $manga; // datos de la manga
 	protected $orden; // orden de salida
 	protected $categoria; // categoria que estamos listando
-	public $myLogger;
-
+	
 	// geometria de las celdas
 	protected $cellHeader
 					=array('Orden','Dorsal','Nombre','Lic.','Guía','Club','Celo','Observaciones');
@@ -40,31 +36,31 @@ class PDF extends FPDF {
 	 * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga,$orden) {
-		parent::__construct('Portrait','mm');
-		if ( ($prueba===null) || ($jornada===null) || ($manga===null) || ($orden===null) ) {
+	function __construct($prueba,$jornada,$manga) {
+		parent::__construct('Portrait',$prueba,$jornada);
+		if ( ($prueba<=0) || ($jornada<=0) || ($manga<=0) ) {
 			$this->errormsg="printOrdenDeSalida: either prueba/jornada/ manga/orden data are invalid";
 			throw new Exception($this->errormsg);
 		}
-		$this->prueba=$prueba;
-		$this->jornada=$jornada;
-		$this->manga=$manga;
-		$this->orden=$orden;
+		// Datos de la manga
+		$m = new Mangas("printOrdenDeSalida",$jornada);
+		$this->manga= $m->selectByID($manga);
+		// Datos del orden de salida
+		$o = new OrdenSalida("printOrdenDeSalida");
+		$os= $o->getData($prueba,$jornada,$manga);
+		$this->orden=$os['rows'];
 		$this->categoria="L";
-		$this->myLogger= new Logger("printOrdenDeSalida");
 	}
 	
 	// Cabecera de página
 	function Header() {
-		$this->myLogger->enter();
-		print_commonHeader($this,$this->prueba,$this->jornada,"Orden de Salida");
-		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga,$this->cat[$this->categoria]);
-		$this->myLogger->leave();
+		$this->print_commonHeader("Orden de Salida");
+		$this->print_identificacionManga($this->manga,$this->cat[$this->categoria]);
 	}
 	
 	// Pie de página
 	function Footer() {
-		print_commonFooter($this,$this->prueba,$this->jornada,array($this->manga));
+		$this->print_commonFooter();
 	}
 	
 	function writeTableHeader() {
@@ -132,30 +128,17 @@ class PDF extends FPDF {
 // Consultamos la base de datos
 try {
 	$myLogger=new Logger("print_ordenDeSalida");
-	$pruebaid=http_request("Prueba","i",0);
-	$jornadaid=http_request("Jornada","i",0);
-	$mangaid=http_request("Manga","i",0);
-	$myLogger->info("print_ordenDeSalida::Enter() Prueba:$pruebaid Jornada:$jornadaid Manga:$mangaid");
-	
-	// Datos de la prueba
-	$p=new Pruebas("printOrdenDeSalida");
-	$prueba=$p->selectByID($pruebaid);
-	// Datos de la jornada
-	$j=new Jornadas("printOrdenDeSalida",$pruebaid);
-	$jornada=$j->selectByID($jornadaid);
-	// Datos de la manga
-	$m = new Mangas("printOrdenDeSalida",$jornadaid);
-	$manga= $m->selectByID($mangaid);
-	// Datos del orden de salida
-	$o = new OrdenSalida("printOrdenDeSalida");
-	$orden= $o->getData($pruebaid,$jornadaid,$mangaid);
+	$prueba=http_request("Prueba","i",0);
+	$jornada=http_request("Jornada","i",0);
+	$manga=http_request("Manga","i",0);
+	$myLogger->info("print_ordenDeSalida::Enter() Prueba:$prueba Jornada:$jornada Manga:$manga");
+	// 	Creamos generador de documento
+	$pdf = new PDF($prueba,$jornada,$manga);
+	$pdf->AliasNbPages();
+	$pdf->composeTable();
+	$pdf->Output("ordenDeSalida.pdf","D"); // "D" means open download dialog	
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e.getMessage());
 };
-// Creamos generador de documento
-$pdf = new PDF($prueba,$jornada,$manga,$orden['rows']);
-$pdf->AliasNbPages();
-$pdf->composeTable();
-$pdf->Output("ordenDeSalida.pdf","D"); // "D" means open download dialog
 echo json_encode(array('success'=>true));
 ?>

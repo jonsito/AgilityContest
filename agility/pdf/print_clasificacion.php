@@ -209,14 +209,16 @@ try {
 	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
 	$c= new Clasificaciones("print_etiquetas_pdf",$prueba,$jornada);
 	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
+
+	// Creamos generador de documento
+	$pdf = new PDF($prueba,$jornada,$mangas,$result['rows']);
+	$pdf->AliasNbPages();
+	$pdf->composeTable();
+	$pdf->Output("print_etiquetas.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());
 }
+echo json_encode(array('success'=>true));
 
-// Creamos generador de documento
-$pdf = new PDF($prueba,$jornada,$mangas,$result['rows']);
-$pdf->AliasNbPages();
-$pdf->composeTable();
-$pdf->Output("print_etiquetas.pdf","D"); // "D" means open download dialog
 ?>

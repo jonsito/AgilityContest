@@ -119,12 +119,13 @@ try {
 	// Datos de inscripciones
 	$inscripciones = new Inscripciones("printInscritosByPrueba",$pruebaid);
 	$inscritos= $inscripciones->enumerate();
+	// Creamos generador de documento
+	$pdf = new PDF($pruebaid,$inscritos);
+	$pdf->AliasNbPages();
+	$pdf->composeTable();
+	$pdf->Output("inscritosByPrueba.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e.getMessage());
 }
-// Creamos generador de documento
-$pdf = new PDF($pruebaid,$inscritos);
-$pdf->AliasNbPages();
-$pdf->composeTable();
-$pdf->Output("inscritosByPrueba.pdf","D"); // "D" means open download dialog
+echo json_encode(array('success'=>true));
 ?>
