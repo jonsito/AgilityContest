@@ -86,9 +86,15 @@ class Clasificaciones extends DBObject {
 			$final[$item['Perro']]['Puesto2'] = $item['Puesto'];
 			$final[$item['Perro']]['Tiempo'] = $final[$item['Perro']]['T1'] + $final[$item['Perro']]['T2'];
 			$final[$item['Perro']]['Penalizacion'] = $final[$item['Perro']]['P1'] + $final[$item['Perro']]['P2'];
-			// TODO: properly evaluate calificacion y puntos
 			$final[$item['Perro']]['Calificacion'] = '';
 			$final[$item['Perro']]['Puntos'] = '';
+			// TODO: properly evaluate calificacion y puntos
+			$c=$p1=$final[$item['Perro']]['Categoria'];
+			if (($c==="GI") || ($c=="GII")) {
+				$p1=$final[$item['Perro']]['P1'];
+				$p2=$final[$item['Perro']]['P2'];
+				$final[$item['Perro']]['Calificacion'] = (($p1==0) && ($p2==0))?'Pto.':'';
+			}
 		}
 		// una vez ordenados, el índice perro ya no tiene sentido, con lo que vamos a eliminarlo
 		// y reconstruir el array
