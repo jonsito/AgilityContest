@@ -6,7 +6,6 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf ordenado por club, categoria y nombre con una pagina por cada jornada
 */
 
-define('FPDF_FONTPATH', __DIR__."/font/");
 require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../database/tools.php");
 require_once(__DIR__."/../database/logging.php");
@@ -15,11 +14,9 @@ require_once(__DIR__.'/../database/classes/Pruebas.php');
 require_once(__DIR__.'/../database/classes/Inscripciones.php');
 require_once(__DIR__."/print_common.php");
 
-class PDF extends FPDF {
+class PDF extends PrintCommon {
 	
-	protected $prueba;
 	protected $inscritos;
-	public $myLogger;
 
 	// geometria de las celdas
 	protected $cellHeader
@@ -35,27 +32,25 @@ class PDF extends FPDF {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$inscritos) {
-		parent::__construct('Portrait','mm');
-		if ( ($prueba===null) || ($inscritos===null) ) {
+		parent::__construct('Portrait',$prueba,0);
+		if ( ($prueba==0) || ($inscritos===null) ) {
 			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
 			throw new Exception($this->errormsg);
 		}
-		$this->prueba=$prueba;
 		$this->inscritos=$inscritos['rows'];
-		$this->myLogger= new Logger("printInscritosByPrueba");
 	}
 	
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		print_commonHeader($this,$this->prueba,$this->jornada,"Listado de Participantes");
+		$this->print_commonHeader("Listado de Participantes");
 		$this->Ln(5);
 		$this->myLogger->leave();
 	}
 		
 	// Pie de página
 	function Footer() {
-		print_commonFooter($this,$this->prueba,$this->jornada,array($this->manga));
+		$this->print_commonFooter();
 	}
 	
 	function writeTableHeader() {
@@ -121,9 +116,6 @@ class PDF extends FPDF {
 // Consultamos la base de datos
 try {
 	$pruebaid=http_request("Prueba","i",0);
-	// Datos de la prueba
-	$prueba =new Pruebas("printInscritosByPrueba");
-	$datosPrueba=$prueba->selectByID($pruebaid);
 	// Datos de inscripciones
 	$inscripciones = new Inscripciones("printInscritosByPrueba",$pruebaid);
 	$inscritos= $inscripciones->enumerate();
@@ -131,7 +123,7 @@ try {
 	die ("Error accessing database: ".$e.getMessage());
 }
 // Creamos generador de documento
-$pdf = new PDF($datosPrueba,$inscritos);
+$pdf = new PDF($pruebaid,$inscritos);
 $pdf->AliasNbPages();
 $pdf->composeTable();
 $pdf->Output("inscritosByPrueba.pdf","D"); // "D" means open download dialog
