@@ -6,7 +6,6 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un pdf con los participantes ordenados segun los resultados de la manga
  */
 
-define('FPDF_FONTPATH', __DIR__."/font/");
 require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../database/tools.php");
 require_once (__DIR__."/../database/logging.php");
@@ -18,11 +17,8 @@ require_once(__DIR__.'/../database/classes/Mangas.php');
 require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__."/print_common.php");
 
-class PDF extends FPDF {
+class PDF extends PrintCommon {
 	
-	public $myLogger;
-	protected $prueba;
-	protected $jornada;
 	protected $manga;
 	protected $resultados;
 	protected $mode;
@@ -42,9 +38,7 @@ class PDF extends FPDF {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$manga,$resultados,$mode) {
-		parent::__construct('Portrait','mm','A4');
-		$this->prueba=$prueba;
-		$this->jornada=$jornada;
+		parent::__construct('Portrait',$prueba,$jornada);
 		$this->manga=$manga;
 		$this->resultados=$resultados;
 		$this->mode=$mode;
@@ -53,8 +47,8 @@ class PDF extends FPDF {
 	
 	// Cabecera de página
 	function Header() {
-		print_commonHeader($this,$this->prueba,$this->jornada,$this->manga,"Resultados Parciales");
-		print_identificacionManga($this,$this->prueba,$this->jornada,$this->manga,$this->modestr[intval($this->mode)]);
+		$this->print_commonHeader("Resultados Parciales");
+		$this->print_identificacionManga($this->manga,$this->modestr[intval($this->mode)]);
 		
 		// Si es la primera hoja pintamos datos tecnicos de la manga
 		if ($this->PageNo()!=1) return;
@@ -83,7 +77,7 @@ class PDF extends FPDF {
 	
 	// Pie de página
 	function Footer() {
-		print_commonFooter($this,$this->prueba,$this->jornada,array($this->manga));
+		$this->print_commonFooter();
 	}
 	
 	function writeTableHeader() {
@@ -163,21 +157,19 @@ try {
 	$idjornada=http_request("Jornada","i",0);
 	$idmanga=http_request("Manga","i",0);
 	$mode=http_request("Mode","i",0);
-	// resultados de la manga
-	$pruobj= new Pruebas("printResultadosByManga");
-	$prueba=$pruobj->selectByID($idprueba);
-	$jorobj= new Jornadas("printResultadosByManga",$idprueba);
-	$jornada= $jorobj->selectByID($idjornada);
+	
 	$mngobj= new Mangas("printResultadosByManga",$idjornada);
 	$manga=$mngobj->selectByID($idmanga);
 	$resobj= new Resultados("printResultadosByManga",$idprueba,$idmanga);
 	$resultados=$resobj->getResultados($mode);
+
+	// Creamos generador de documento
+	$pdf = new PDF($idprueba,$idjornada,$manga,$resultados,$mode);
+	$pdf->AliasNbPages();
+	$pdf->composeTable();
+	$pdf->Output("resultadosByManga.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e.getMessage());
 }
-// Creamos generador de documento
-$pdf = new PDF($prueba,$jornada,$manga,$resultados,$mode);
-$pdf->AliasNbPages();
-$pdf->composeTable();
-$pdf->Output("resultadosByManga.pdf","D"); // "D" means open download dialog
+echo json_encode(array('success'=>true));
 ?>

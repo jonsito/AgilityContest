@@ -598,7 +598,6 @@ function AcceptPageBreak()
 
 function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='')
 {
-	// JAMC: convert from utf8
 	$txt=utf8_decode($txt);
 	
 	// Output a cell
