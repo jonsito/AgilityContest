@@ -6,7 +6,6 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un CSV con los datos para las etiquetas
  */
 
-define('FPDF_FONTPATH', __DIR__."/font/");
 require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../database/tools.php");
 require_once(__DIR__."/../database/logging.php");
@@ -25,36 +24,67 @@ class PDF extends PrintCommon {
 	protected $manga1;
 	protected $manga2;
 	protected $resultados;
+	protected $trs1;
+	protected $trs2;
+	protected $categoria;
 
 	 /** Constructor
 	 * @param {obj} $manga datos de la manga
 	 * @param {obj} $resultados resultados asociados a la manga/categoria pedidas
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$mangas,$resultados) {
+	function __construct($prueba,$jornada,$mangas,$resultados,$mode) {
 		parent::__construct('Landscape',$prueba,$jornada);
 		$dbobj=new DBObject("print_clasificacion");
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
-		$this->resultados=$resultados;
+		$this->resultados=$resultados['rows'];
+		$this->trs1=$resultados['trs1'];
+		$this->trs2=$resultados['trs2'];
+		$this->categoria = Mangas::$manga_modes[$mode][0];
 	}
 	
 	function print_datosMangas() {
 		$this->setXY(10,40);
 		$this->SetFont('Arial','B',9); // bold 9px
+		
 		$jobj=new Jueces("print_Clasificaciones");
 		$juez1=$jobj->selectByID($this->manga1->Juez1);
 		$juez2=$jobj->selectByID($this->manga1->Juez2); // asume mismos jueces en dos mangas
-		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
-		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
+		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $this->categoria;
+		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria;
+
+		$this->SetFont('Arial','B',11); // bold 9px
+		$this->Cell(95,7,"Jornada: {$this->jornada->Nombre}",0,0,'',false);
+		$this->SetFont('Arial','B',9); // bold 9px
 		$this->Cell(20,7,"Juez 1:","LT",0,'L',false);
 		$this->Cell(70,7,$juez1['Nombre'],"T",0,'L',false);
 		$this->Cell(20,7,"Juez 2:","T",0,'L',false);
 		$this->Cell(70,7,$juez2['Nombre'],"TR",0,'L',false);
 		$this->Ln();
-		$this->Cell(180,7,$tm1,"LTR",0,'L',false);
+		$trs=$this->trs1;
+		$this->SetFont('Arial','B',11); // bold 9px
+		$this->Cell(95,7,"Fecha: {$this->jornada->Fecha}",0,0,'',false);
+		$this->SetFont('Arial','B',9); // bold 9px
+		$this->Cell(55,7,$tm1,"LT",0,'L',false);
+		$this->Cell(25,7,"Dist.: {$trs['dist']}m","LT",0,'L',false);
+		$this->Cell(25,7,"Obst.: {$trs['obst']}","LT",0,'L',false);
+		$this->Cell(25,7,"TRS: {$trs['trs']}s","LT",0,'L',false);
+		$this->Cell(25,7,"TRM: {$trs['trm']}s","LT",0,'L',false);
+		$this->Cell(25,7,"Vel.: {$trs['vel']}m/s","LTR",0,'L',false);
 		$this->Ln();
-		$this->Cell(180,7,$tm2,"LRTB",0,'L',false);
+		$trs=$this->trs2;
+		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
+		$this->SetFont('Arial','B',11); // bold 9px
+		$this->Cell(95,7,"Ronda: $ronda - {$this->categoria}",0,0,'',false);
+		$this->SetFont('Arial','B',9); // bold 9px
+		$this->Cell(55,7,$tm2,"LTB",0,'L',false);
+		$this->Cell(25,7,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
+		$this->Cell(25,7,"Obst.: {$trs['obst']}","LTB",0,'L',false);
+		$this->Cell(25,7,"TRS: {$trs['trs']}s","LTB",0,'L',false);
+		$this->Cell(25,7,"TRM: {$trs['trm']}s","LTB",0,'L',false);
+		$this->Cell(25,7,"Vel.: {$trs['vel']}m/s","LTBR",0,'L',false);
+		$this->Ln();
 	}
 	
 	function Header() {
@@ -82,7 +112,7 @@ class PDF extends PrintCommon {
 		$this->Cell(105,7,'Datos del participante',0,0,'L',true);
 		$this->Cell(65,7,$tm1,0,0,'C',true);
 		$this->Cell(65,7,$tm2,0,0,'C',true);
-		$this->Cell(40,7,'Clasificacion',0,0,'R',true);
+		$this->Cell(40,7,'Clasificación',0,0,'R',true);
 		$this->ln();
 		$this->SetFont('Arial','',8); // default font
 		// datos del participante
@@ -135,7 +165,7 @@ class PDF extends PrintCommon {
 		
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// datos del participante
-		$this->Cell(10,7,$row['Dorsal'],0,0,'L',$fill); 	// dorsal
+		$this->Cell(10,7,$row['Dorsal'],0,0,'R',$fill); 	// dorsal
 		$this->Cell(20,7,$row['Nombre'],0,0,'R',$fill);	// nombre (20,y
 		$this->Cell(15,7,$row['Licencia'],0,0,'C',$fill);	// licencia
 		$this->Cell(10,7,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
@@ -161,10 +191,11 @@ class PDF extends PrintCommon {
 		$this->Cell(10,7,$puesto,0,0,'R',$fill);	// Puesto
 		// lineas rojas
 		$this->SetDrawColor(128,0,0);
+		$this->Line(10,$offset + 7*$idx,10,$offset + 7*($idx+1));
 		$this->Line(10+105,$offset + 7*$idx,10+105,$offset + 7*($idx+1));
 		$this->Line(10+170,$offset + 7*$idx,10+170,$offset + 7*($idx+1));
-		$this->Line(10+235,$offset + 7*$idx,10+235,$offset + 7*($idx+1));	
-		$this->SetDrawColor(128,128,128); // line color
+		$this->Line(10+235,$offset + 7*$idx,10+235,$offset + 7*($idx+1));
+		$this->Line(10+275,$offset + 7*$idx,10+275,$offset + 7*($idx+1));
 		
 		$this->Ln();
 	}
@@ -183,14 +214,23 @@ class PDF extends PrintCommon {
 		$this->print_datosMangas();
 		foreach($this->resultados as $row) {
 			$numrows=($this->PageNo()==1)?15:19;
-			if($rowcount==0) $this->writeTableHeader();
+			if($rowcount==0) $this->writeTableHeader();	
+			$this->SetDrawColor(128,128,128); // line color
 			$this->writeCell( $rowcount % $numrows,$row);
 			$rowcount++;
 			if ($rowcount>=$numrows) {
+				// pintamos linea de cierre 	
+				$this->setX(10);
+				$this->SetDrawColor(128,0,0); // line color
+				$this->cell(275,0,'','T'); // celda sin altura y con raya
 				$this->addPage();
 				$rowcount=0;
 			}
 		}
+		// pintamos linea de cierre final
+		$this->setX(10);
+		$this->SetDrawColor(128,0,0); // line color
+		$this->cell(275,0,'','T'); // celda sin altura y con raya
 		$this->myLogger->leave();
 	}
 }
@@ -215,7 +255,7 @@ try {
 	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
 
 	// Creamos generador de documento
-	$pdf = new PDF($prueba,$jornada,$mangas,$result['rows']);
+	$pdf = new PDF($prueba,$jornada,$mangas,$result,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("print_etiquetas.pdf","D"); // "D" means open download dialog

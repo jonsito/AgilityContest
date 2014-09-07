@@ -89,11 +89,10 @@ class Clasificaciones extends DBObject {
 			$final[$item['Perro']]['Calificacion'] = '';
 			$final[$item['Perro']]['Puntos'] = '';
 			// TODO: properly evaluate calificacion y puntos
-			$c=$p1=$final[$item['Perro']]['Categoria'];
-			if (($c==="GI") || ($c=="GII")) {
-				$p1=$final[$item['Perro']]['P1'];
-				$p2=$final[$item['Perro']]['P2'];
-				$final[$item['Perro']]['Calificacion'] = (($p1==0) && ($p2==0))?'Pto.':'';
+			$c=$p1=$final[$item['Perro']]['Grado'];
+			if (($c==="GII") || ($c=="GIII")) {
+				$final[$item['Perro']]['Calificacion'] = 
+					($final[$item['Perro']]['Penalizacion']==0)?'Pto.':'';
 			}
 		}
 		// una vez ordenados, el índice perro ya no tiene sentido, con lo que vamos a eliminarlo
@@ -121,6 +120,8 @@ class Clasificaciones extends DBObject {
 		$result=array();
 		$result['total']=$size;
 		$result['rows']=$final;
+		$result['trs1']=$c1['trs'];
+		$result['trs2']=$c2['trs'];
 		return $result;
 	}
 	

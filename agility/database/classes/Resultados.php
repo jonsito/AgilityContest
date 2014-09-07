@@ -401,6 +401,7 @@ class Resultados extends DBObject {
 		$this->myLogger->leave();
 		$res['rows']=$table;
 		$res['manga']=$this->getDatosManga();
+		$res['trs']=$tdata;
 		return $res;
 	}
 	

@@ -109,6 +109,9 @@ function save_manga(id) {
 			param.Jornada=workingData.jornada;
 			param.Manga=id;
 			return true; // to continue submitting
+		},
+		success: function(data) {
+			$.messager.alert('Data saved','Datos de la manga almacenados','info');
 		}
 	});
 }

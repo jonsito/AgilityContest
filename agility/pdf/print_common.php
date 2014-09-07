@@ -22,6 +22,7 @@ class PrintCommon extends FPDF {
 	protected $jornada; // datos de la jornada
 	protected $myDBObject;
 
+	protected $centro;
 	/**
 	 * Constructor de la superclase 
 	 * @param unknown $prueba ID de la prueba
@@ -30,6 +31,7 @@ class PrintCommon extends FPDF {
 	 */
 	function __construct($orientacion,$prueba,$jornada=0) {
 		parent::__construct($orientacion,'mm','A4'); // Portrait or Landscape
+		$this->centro=($orientacion==='Portrait')?107:145;
 		$this->myLogger= new Logger("PrintCommon");
 		$this->myDBObject=new DBObject("print_common_pdf");
 		$this->prueba=$this->myDBObject->__getObject("Pruebas",$prueba);
@@ -58,15 +60,14 @@ class PrintCommon extends FPDF {
 		$this->Cell(25.4,25.4,$this->Image(__DIR__.'/../images/logos/'.$icon2,$this->getX(),$this->getY(),25.4),0,0,'R',false);
 	
 		// pintamos nombre de la prueba
-		$this->SetXY(10,10);
+		$this->SetXY($this->centro -50,10);
 		$this->SetFont('Arial','BI',10); // Arial bold italic 10
-		$this->Cell(50); // primer cuarto de la linea
 		$this->Cell(100,10,$this->prueba->Nombre,0,0,'C',false);// Nombre de la prueba centrado 
 		$this->Ln(); // Salto de línea
 		
 		// pintamos el titulo en un recuadro
 		$this->SetFont('Arial','B',20); // Arial bold 20
-		$this->Cell(50); // primer cuarto de la linea
+		$this->SetXY($this->centro -50,20);
 		$this->Cell(100,10,$title,1,0,'C',false);// Nombre de la prueba centrado
 		$this->Ln(15); // Salto de línea
 		$this->myLogger->leave();

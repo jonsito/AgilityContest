@@ -1,6 +1,6 @@
 <!-- CLASIFICACIONES DE PRUEBA/JORNADA/RONDA -->
 <div id="resultados-info" class="easyui-panel" title="Informacion de la Ronda">
-<div id="resultados-infolayout" class="easyui-layout" style="height:220px;">
+<div id="resultados-infolayout" class="easyui-layout" style="height:175px;">
 	<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px;font-size:9px">
 		<form class="result_forms" id="resultados-info-prueba" method="get">
 		<table>
