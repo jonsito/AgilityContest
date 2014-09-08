@@ -1,52 +1,69 @@
-<!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->
-<div id="seljornada-window" class="easyui-window" style="position:relative,width:500px;height:200px;padding:20px 20px">
-	<div id="seljornada-Layout" class="easyui-layout" data-options="fit:'true'">
-		<form id="seljornada-Selection">
-			<div id="seljornada-Content" data-options="region:'north',border:'true'">
-        		<div class="fitem">
-            		<label for="Prueba">Selecciona Prueba:</label>
-            		<select id="seljornada-Prueba" name="Prueba" style="width:200px"></select>
-        		</div>        		
-        		<div class="fitem">
-            		<label for="Jornada">Selecciona Jornada:</label>
-            		<select id="seljornada-Jornada" name="Jornada" style="width:200px"></select>
-        		</div>
-			</div> <!-- contenido -->
-		</form>
-		<div data-options="region:'center'"></div>
-		<div id="seljornada-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
-    	    <a id="seljornada-okBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls: 'icon-ok'" onclick="acceptSelectJornada()">Aceptar</a>
-    	    <a id="seljornada-cancelBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls: 'icon-cancel'" onclick="cancelSelectJornada()">Cancelar</a>
-		</div>	<!-- botones -->
-	</div> <!-- Layout -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Agility Contest</title>
+<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.3.6/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.3.6/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
+<script src="/agility/lib/jquery-1.10.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-easyui-1.3.6/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-easyui-1.3.6/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-easyui-1.3.6/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-easyui-1.3.6/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/dialogs.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
+</head>
+
+<body style="width:600px;height:1024px;margin:0;padding:0;background-color:blue">
+<div id="contenido" style="width:inherit;height:inherit;margin:0;padding:0">
+
+<!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
+
+<div id="seljornada-dialog" class="easyui-dialog" style="position:relative,width:500px;height:180px;padding:20px 20px">
+	<form id="seljornada-Selection">
+    	<div class="fitem">
+       		<label for="Prueba">Selecciona Prueba:</label>
+       		<select id="seljornada-Prueba" name="Prueba" style="width:200px"></select>
+    	</div>        		
+    	<div class="fitem">
+       		<label for="Jornada">Selecciona Jornada:</label>
+       		<select id="seljornada-Jornada" name="Jornada" style="width:200px"></select>
+    	</div>
+	</form>
 </div> <!-- Window -->
 
+<div id="seljornada-Buttons" style="text-align:right">
+   	<a id="seljornada-okBtn" href="#" class="easyui-linkbutton" 
+   	   	data-options="iconCls: 'icon-ok'" onclick="acceptSelectJornada()">Aceptar</a>
+</div>	<!-- botones -->
+
 <script type="text/javascript">
-$('#seljornada-window').window({
+$('#seljornada-dialog').dialog({
 	title: 'Selecciona la Prueba y Jornada a desplegar',
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,
 	closable: true,
-	closed: true,
+	closed: false,
 	shadow: true,
-	modal: true
+	modal: true,
+	buttons: '#seljornada-Buttons' 
 });
 
 $('#seljornada-form').form();
-$('#seljornada-layout').layout();
 
 addTooltip($('#seljornada-okBtn').linkbutton(),"Trabajar con la jornada seleccionada");
-addTooltip($('#seljornada-cancelBtn').linkbutton(),"Cancelar selecci&oacute;n. Cerrar ventana");
 
 $('#seljornada-Prueba').combogrid({
 	panelWidth: 400,
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: 'database/pruebaFunctions.php?Operation=enumerate',
+	url: '/agility/database/pruebaFunctions.php?Operation=enumerate',
 	method: 'get',
 	mode: 'remote',
 	required: true,
@@ -73,7 +90,7 @@ $('#seljornada-Jornada').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: 'database/jornadaFunctions.php',
+	url: '/agility/database/jornadaFunctions.php',
 	method: 'get',
 	mode: 'remote',
 	required: true,
@@ -126,13 +143,32 @@ function acceptSelectJornada() {
 	workingData.jornada=j.ID;
 	workingData.nombreJornada=j.Nombre;
 	workingData.datosJornada=j;
-	$('#seljornada-window').window('close');	
-}
 
-function cancelSelectJornada() {
-	initWorkingData();
-	$('#seljornada-Prueba').combogrid('setValue','');
-	$('#seljornada-Jornada').combogrid('setValue','');
-	$('#seljornada-window').window('close');
+	var extra="";
+	var page="/agility/tablet/frm_competicion.php";
+	if (workingData.datosJornada.Equipos3==1) {
+		page="frm_competicion_eq3.php";
+	}
+	if (workingData.datosJornada.Equipos4==1) {
+		page="/agility/tablet/frm_competicion_eq4.php";
+	}
+	if (workingData.datosJornada.Open==1) {
+		page="/agility/tablet/frm_competicion_open.php";
+	}
+	if (workingData.datosJornada.KO==1) {
+		page="/agility/tablet/frm_competicion_ko.php";
+	}
+	$('#seljornada-dialog').dialog('close');
+	$('#contenido').load(	
+			page,
+			{},
+			function(response,status,xhr){
+				if (status=='error') $('#contenido').load('/agility/frm_notavailable.php');
+			}
+		);
+		
 }
 </script>
+</div> <!-- contenido -->
+</body>
+</html> 
