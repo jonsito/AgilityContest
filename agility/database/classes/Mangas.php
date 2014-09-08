@@ -248,83 +248,84 @@ class Mangas extends DBObject {
 		// analizamos cada jornada y si es necesario le ponemos las rondas necesarias
 		$rows=array();
 		foreach ($mangas as $manga) {
+			$this->myLogger->trace("Tipo manga: ".$manga['Tipo']);
 			$mng=intval($manga['Tipo']);
 			switch ($mng) {
 				/* "BEGIN,TAG_-0,TAG_-1,TAG_L0,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END" */
 				// en preagility no tenemos categorias, con lo que el string de busqueda es comun:
 				case 1:	/* 1, 'Pre-Agility Manga 1', 'P.A.' */ // notice that in 1 manga mode there is no sister
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'BEGIN,','To'=>',END','Nombre'=>'Pre-Agility 1'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>1,'From'=>'BEGIN,','To'=>',END','Nombre'=>'Pre-Agility 1'));
 					break;
 				case 2:	/* 2, 'Pre-Agility Manga 2', 'P.A.' */
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'BEGIN,','To'=>',END','Nombre'=>'Pre-Agility 2'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>2,'From'=>'BEGIN,','To'=>',END','Nombre'=>'Pre-Agility 2'));
 					break;
 				case 3:	/* 3, 'Agility Grado I Manga 1', 'GI' */
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Agility-1 GI Large'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Agility-1 GI Medium'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Agility-1 GI Small'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>3,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Agility-1 GI Large'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>4,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Agility-1 GI Medium'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>5,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Agility-1 GI Small'));
 					break;
 				case 4:	/* 4, 'Agility Grado I Manga 2', 'GI' */
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Agility-2 GI Large'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Agility-2 GI Medium'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Agility-2 GI Small'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>6,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Agility-2 GI Large'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>7,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Agility-2 GI Medium'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>8,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Agility-2 GI Small'));
 					break;
 				case 5:	/* 5, 'Agility Grado II', 'GII' */
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Agility GII Large'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Agility GII Medium'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Agility GII Small'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>9,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Agility GII Large'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>10,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Agility GII Medium'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>11,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Agility GII Small'));
 					break;
 				case 6:	/* 6, 'Agility Grado III', 'GIII' */
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Agility GIII Large'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Agility GIII Medium'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Agility GIII Small'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>12,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Agility GIII Large'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>13,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Agility GIII Medium'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>14,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Agility GIII Small'));
 					break;
 				case 7:	/* 7, 'Agility Abierta (Open)', '-' */
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Agility Open Large'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Agility Open Medium'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Agility Open Small'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>15,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Agility Open Large'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>16,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Agility Open Medium'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>17,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Agility Open Small'));
 					break;
 				case 8:	/* 8, 'Agility Equipos (3 mejores)', '-' */
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Agility Eq. Large'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Agility Eq. Medium'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Agility Eq. Small'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>18,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Agility Eq. Large'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>19,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Agility Eq. Medium'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>20,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Agility Eq. Small'));
 					break;
 				case 9:	/* 9, 'Agility Equipos (Conjunta)', '-' */
 					// en agility por equipos conjuntas, los perros mini y midi corren juntos uno detras de otro
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Ag. Equipos Large'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_M0,','To'=>',TAG_T0','Nombre'=>'Ag. Equipos Medium/Small'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>21,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Ag. Equipos Large'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>22,'From'=>'TAG_M0,','To'=>',TAG_T0','Nombre'=>'Ag. Equipos Medium/Small'));
 					break;
 				case 10:/* 10,'Jumping Grado II', 'GII' */
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Jumping GII Large'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Jumping GII Medium'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Jumping GII Small'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>23,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Jumping GII Large'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>24,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Jumping GII Medium'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>25,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Jumping GII Small'));
 					break;
 				case 11:/* 11,'Jumping Grado III', 'GIII' */
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Jumping GIII Large'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Jumping GIII Medium'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Jumping GIII Small'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>26,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Jumping GIII Large'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>27,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Jumping GIII Medium'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>28,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Jumping GIII Small'));
 					break;
 				case 12:/* 12,'Jumping Abierta (Open)', '-' */
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Jumping Open Large'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Jumping Open Medium'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Jumping Open Small'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>29,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Jumping Open Large'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>30,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Jumping Open Medium'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>31,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Jumping Open Small'));
 					break;
 				case 13:/* 13,'Jumping por Equipos (3 mejores)', '-' */
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Jumping Eq. Large'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Jumping Eq. Medium'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Jumping Eq. Small'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>32,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Jumping Eq. Large'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>33,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Jumping Eq. Medium'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>34,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Jumping Eq. Small'));
 					break;
 				case 14:/* 14,'Jumping por Equipos (Conjunta)', '-' */
 					// en agility por equipos conjuntas, los perros mini y midi corren juntos uno detras de otro
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Jump. Equipos Large'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_M0,','To'=>',TAG_T0','Nombre'=>'Jump. Equipos Medium/Small'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>35,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Jump. Equipos Large'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>36,'From'=>'TAG_M0,','To'=>',TAG_T0','Nombre'=>'Jump. Equipos Medium/Small'));
 					break;
 				case 15:/* 15,'Ronda K.O.', '-' */
 					// en las rondas KO corren todos contra todos: no hay categorias
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'BEGIN,','To'=>',END','Nombre'=>'Manga K.O'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>37,'From'=>'BEGIN,','To'=>',END','Nombre'=>'Manga K.O'));
 				case 16:/* 16,'Manga Especial', '-' */
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Manga Especial Large'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Manga Especial Medium'));
-					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Manga Especial Small'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>38,'From'=>'TAG_L0,','To'=>',TAG_M0','Nombre'=>'Manga Especial Large'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>39,'From'=>'TAG_M0,','To'=>',TAG_S0','Nombre'=>'Manga Especial Medium'));
+					array_push($rows, array('Prueba'=>$prueba,'Jornada'=>$this->jornada,'Manga'=>$mng,'ID'=>40,'From'=>'TAG_S0,','To'=>',TAG_T0','Nombre'=>'Manga Especial Small'));
 					break;
 				default:
 					return $this->error("Mangas::getTandasByJornada() invalid tipo manga {$manga['Tipo']}");
