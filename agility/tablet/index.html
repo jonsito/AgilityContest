@@ -19,30 +19,30 @@
 </head>
 
 <body style="width:600px;height:1024px;margin:0;padding:0;background-color:blue">
-<div id="contenido" style="width:inherit;height:inherit;margin:0;padding:0">
+<div id="tablet_contenido" style="width:inherit;height:inherit;margin:0;padding:0">
 
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 
-<div id="seljornada-dialog" class="easyui-dialog" style="position:relative,width:500px;height:180px;padding:20px 20px">
-	<form id="seljornada-Selection">
+<div id="seltablet-dialog" class="easyui-dialog" style="position:relative,width:500px;height:180px;padding:20px 20px">
+	<form id="seltablet-form">
     	<div class="fitem">
        		<label for="Prueba">Selecciona Prueba:</label>
-       		<select id="seljornada-Prueba" name="Prueba" style="width:200px"></select>
+       		<select id="seltablet-Prueba" name="Prueba" style="width:200px"></select>
     	</div>        		
     	<div class="fitem">
        		<label for="Jornada">Selecciona Jornada:</label>
-       		<select id="seljornada-Jornada" name="Jornada" style="width:200px"></select>
+       		<select id="seltablet-Jornada" name="Jornada" style="width:200px"></select>
     	</div>
 	</form>
 </div> <!-- Window -->
 
-<div id="seljornada-Buttons" style="text-align:right">
-   	<a id="seljornada-okBtn" href="#" class="easyui-linkbutton" 
-   	   	data-options="iconCls: 'icon-ok'" onclick="acceptSelectJornada()">Aceptar</a>
+<div id="seltablet-Buttons" style="text-align:right">
+   	<a id="seltablet-okBtn" href="#" class="easyui-linkbutton" 
+   	   	data-options="iconCls: 'icon-ok'" onclick="tablet_acceptSelectJornada()">Aceptar</a>
 </div>	<!-- botones -->
 
 <script type="text/javascript">
-$('#seljornada-dialog').dialog({
+$('#seltablet-dialog').dialog({
 	title: 'Selecciona la Prueba y Jornada a desplegar',
 	collapsible: false,
 	minimizable: false,
@@ -51,14 +51,14 @@ $('#seljornada-dialog').dialog({
 	closed: false,
 	shadow: true,
 	modal: true,
-	buttons: '#seljornada-Buttons' 
+	buttons: '#seltablet-Buttons' 
 });
 
-$('#seljornada-form').form();
+$('#seltablet-form').form();
 
-addTooltip($('#seljornada-okBtn').linkbutton(),"Trabajar con la jornada seleccionada");
+addTooltip($('#seltablet-okBtn').linkbutton(),"Trabajar con la jornada seleccionada");
 
-$('#seljornada-Prueba').combogrid({
+$('#seltablet-Prueba').combogrid({
 	panelWidth: 400,
 	panelHeight: 150,
 	idField: 'ID',
@@ -80,12 +80,12 @@ $('#seljornada-Prueba').combogrid({
 	]],
 	onChange:function(value){
 		workingData.prueba=Number(value);
-		var g = $('#seljornada-Jornada').combogrid('grid');
+		var g = $('#seltablet-Jornada').combogrid('grid');
 		g.datagrid('load',{Prueba:value});
 	}
 });
 
-$('#seljornada-Jornada').combogrid({
+$('#seltablet-Jornada').combogrid({
 	panelWidth: 550,
 	panelHeight: 150,
 	idField: 'ID',
@@ -123,18 +123,15 @@ $('#seljornada-Jornada').combogrid({
 	}
 });
 
-function acceptSelectJornada() {
+function tablet_acceptSelectJornada() {
 	// si prueba invalida cancelamos operacion
-	var p=$('#seljornada-Prueba').combogrid('grid').datagrid('getSelected');
-	var j=$('#seljornada-Jornada').combogrid('grid').datagrid('getSelected');
+	var p=$('#seltablet-Prueba').combogrid('grid').datagrid('getSelected');
+	var j=$('#seltablet-Jornada').combogrid('grid').datagrid('getSelected');
 	if ( (p==null) || (j==null) ) {
 		// indica error
 		$.messager.alert("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
 		return;
 	}
-	// clear selection to make sure next time gets empty
-	$('#seljornada-Prueba').combogrid('setValue','');
-	$('#seljornada-Jornada').combogrid('setValue','');
 	// store selected data into global structure
 	workingData.prueba=p.ID;
 	workingData.nombrePrueba=p.Nombre;
@@ -144,26 +141,24 @@ function acceptSelectJornada() {
 	workingData.nombreJornada=j.Nombre;
 	workingData.datosJornada=j;
 
-	var extra="";
-	var page="/agility/tablet/frm_competicion.php";
+	var page="/agility/tablet/tablet_competicion.php";
 	if (workingData.datosJornada.Equipos3==1) {
 		page="frm_competicion_eq3.php";
 	}
 	if (workingData.datosJornada.Equipos4==1) {
-		page="/agility/tablet/frm_competicion_eq4.php";
+		page="/agility/tablet/tablet_competicion_eq4.php";
 	}
 	if (workingData.datosJornada.Open==1) {
-		page="/agility/tablet/frm_competicion_open.php";
+		page="/agility/tablet/tablet_competicion_open.php";
 	}
 	if (workingData.datosJornada.KO==1) {
-		page="/agility/tablet/frm_competicion_ko.php";
+		page="/agility/tablet/tablet_competicion_ko.php";
 	}
-	$('#seljornada-dialog').dialog('close');
-	$('#contenido').load(	
+	$('#seltablet-dialog').dialog('close');
+	$('#tablet_contenido').load(	
 			page,
-			{},
 			function(response,status,xhr){
-				if (status=='error') $('#contenido').load('/agility/frm_notavailable.php');
+				if (status=='error') $('#tablet_contenido').load('/agility/frm_notavailable.php');
 			}
 		);
 		
