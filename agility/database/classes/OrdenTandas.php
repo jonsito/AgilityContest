@@ -2,6 +2,7 @@
 require_once("DBObject.php");
 require_once("Resultados.php");
 require_once("Clasificaciones.php");
+require_once("OrdenSalida.php");
 require_once("Inscripciones.php");
 
 class OrdenTandas extends DBObject {
@@ -286,50 +287,40 @@ class OrdenTandas extends DBObject {
 	 * @return array[count,[data]] array ordenado segun tandas/ordensalida de datos de perros de una jornada 
 	 */
 	function getData($prueba,$jornada) {
-		$this->myLogger->enter();
-		// fase 1: obtenemos el orden de salida
-		$orden=$this->getOrden($manga);
-		if ($orden===$this->default_orden) {
-			// si no hay orden de salida predefinido,
-			// quiere decir que no hay nadie inscrito. Indica error
-			return $this->myLogger->error("No hay Rondas definidas en Prueba:$prueba Jornada:$jornada");
-		}
-		$this->myLogger->debug("OrdenTandas::getData() Jornada:$jornada El orden de salida es: \n$orden");
-		$lista = explode ( ",", $orden );
+
+		$this->myLogger->leave();
 		
-		// fase 2: obtenemos todos los resultados de esta jornada 
-		$rs=$this->__select("*", "Resultados", "(Jornada=$jornada)", "", "");
-		if (!is_array($rs)) return $this->error($this->conn->error);
-		// y los guardamos en un array indexado por el idperro
-		$data=array();
-		foreach($rs['rows'] as $row) { $data[$row['Perro']]=$row;}
+		// prepared statement to retrieve mangas id
+		$sql="SELECT * FROM Resultados WHERE (Prueba=$prueba) AND (Jornada=$jornada) AND (Manga=?) AND (Perro=?)";
+		$stmt=$this->conn->prepare($sql);
+		if (!$stmt) return $this->error($this->conn->error);
+		$res=$stmt->bind_param('ii',$manga,$perro);
+		if (!$res) return $this->error($stmt->error);
 		
-		// fase 3 componemos el resultado siguiendo el orden de salida
-		$items=array();
-		$count=0;
-		$celo=0;
-		foreach ($lista as $idperro) {
-			switch($idperro) {
-				// separadores2
-				case "BEGIN": case "END": continue;
-				case "TAG_-0": case "TAG_L0": case "TAG_M0": case "TAG_S0": case "TAG_T0": $celo=0; continue;
-				case "TAG_-1": case "TAG_L1": case "TAG_M1": case "TAG_S1": case "TAG_T1": $celo=1; continue;
-				default: // idperroes
-					if (!isset($data[$idperro])) {
-						$this->myLogger->error("No hay entrada en 'Resultados' para perro:$idperro Jornada:$jornada");
-						// TODO: esto no deberia ocurrir pero por si acaso ver como resolverlo
-					}
-					$data[$idperro]['Celo']=$celo;
-					array_push($items,$data[$idperro]);
-					$count++;
-					break;
+		$rows=array();
+		// fase 1 buscamos las tandas de cada jornada
+		$lista_tandas=$this->getTandas($prueba,$jornada);
+		foreach ($lista_tandas['rows'] as $tanda) {
+			$manga=$tanda['Manga']; 
+			// en cada manga cogemos el orden de salida asociado
+			$os=new OrdenSalida("ordenTandas::getData()",$prueba,$jornada,$manga);
+			$ordenmanga=$os->getOrden($manga);
+			// extraemos el substring definido entre 'from' y 'to'
+			$ordentanda=getInnerString($ordenmanga,$tanda['From'],$tanda['To']);
+			// y recuperamos los perros inscritos
+			$orden=explode(',',$ordentanda);
+			foreach($orden as $perro) {
+				$rs=$stmt->execute();
+				if (!$rs) return $this->error($stmt->error);
+				$rs=$stmt->get_result();
+				array_push($rows,$rs->fetch_array());
 			}
 		}
-		$result = array();
-		$result["total"] = $count;
-		$result["rows"] = $items;
+		$stmt->close();
+		$result['rows']=$rows;
+		$result['total']=count($rows);
 		$this->myLogger->leave();
-		return $result;
+		return $result;	
 	}
 
 

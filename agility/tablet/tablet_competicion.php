@@ -90,14 +90,13 @@ $('#tablet_competicion-EntradaDatos').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: '/agility/database/ordenSalidaFunctions.php',
+	url: '/agility/database/ordenTandasFunctions.php',
     queryParams: {
         Operation: 'getData',
         Prueba: workingData.prueba,
-        Jornada: workingData.jornada,
-        Manga: workingData.manga
+        Jornada: workingData.jornada
     },
-    loadMsg: "Actualizando datos de competicion ...",
+    loadMsg: "Actualizando datos de los participantes ...",
     pagination: false,
     rownumbers: false,
     fitColumns: true,
@@ -122,9 +121,7 @@ $('#tablet_competicion-EntradaDatos').datagrid({
       	{ field:'NoPresentado',	width:5, align:'center',title: 'NP'},		
       	{ field:'Observaciones',hidden:true }
     ]],
-    rowStyler:function(index,row) { // colorize rows. Equivalent to "striped: true", but better look&feel
-        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-    },
+    rowStyler:myRowStyler,
     onBeforeLoad: function(param) { return true; }, // TODO: write
 	onLoadSuccess:function(){ 
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
