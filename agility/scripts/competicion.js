@@ -128,15 +128,14 @@ function reload_manga(id) {
 }
 
 function reloadOrdenTandas() {
+	if (workingData.prueba==0) return;
 	if (workingData.jornada==0) return;
-	if (workingData.manga==0) return;
     $('#ordentandas-datagrid').datagrid(
             'load',
             { 
             	Prueba: workingData.prueba,
-            	Jornada: workingData.jornada , 
-            	Manga: workingData.manga , 
-            	Operation: 'getOrden' 
+            	Jornada: workingData.jornada ,
+            	Operation: 'getTandas' 
             }
     );
 }
@@ -371,7 +370,7 @@ function dragAndDropOrdenSalida(from,to,where) {
 }
 //reajusta el programa de la jornada
 //poniendo la tanda "from" delante (where==0) o detras (where==1) de la tanda "to"
-function dragAndDropOrdenSalida(from,to,where) {
+function dragAndDropOrdenTandas(from,to,where) {
 	if (workingData.prueba==0) return;
 	if (workingData.jornada==0) return;
 	$.ajax({
@@ -379,7 +378,12 @@ function dragAndDropOrdenSalida(from,to,where) {
 		url:"database/ordenTandasFunctions.php",
 		dataType:'json',
 		data: {	
-			Operation: 'dnd', Prueba: workingData.prueba, Jornada: workingData.jornada, From: from,To: to,Where: where
+			Operation: 'dnd', 
+			Prueba: workingData.prueba, 
+			Jornada: workingData.jornada, 
+			From: from,
+			To: to,
+			Where: where
 		}
 	}).done( function(msg) {
 		reloadOrdenTandas();
@@ -602,6 +606,14 @@ function resultados_printPodium() {
  */
 function resultados_printCanina() {
 	alert("competicion.js::resultados_printCanina() {PENDING}");
+	// TODO: write
+}
+
+/**
+ * Imprime la secuencia de tandas de la jornada
+ */
+function competicion_printTandas() {
+	alert("competicion.js::competicion_printTandas() {PENDING}");
 	// TODO: write
 }
 

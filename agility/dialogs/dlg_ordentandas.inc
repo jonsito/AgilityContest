@@ -1,10 +1,8 @@
 <!--  dialogo de orden de tandas e introduccion de datos de una competicion -->
-<div id="ordentandas-window" class="easyui-window" style="width:425px;height:640px;padding:10px">
+<div id="ordentandas-window" class="easyui-window" style="width:400px;height:625px;padding:10px">
 	<!-- BARRA DE TAREAS DE ORDEN DE tandas -->
 	<div id="ordentandas-toolbar" style="padding:0px 10px 30px 10px">
  		<span style="float:left">
-		   	<a id="ordentandas-saveBtn" href="#" class="easyui-linkbutton" 
-		   		data-options="iconCls:'icon-save'" onclick="saveOrdenTandas()">Guardar</a>
 		   	<a id="ordentandas-reloadBtn" href="#" class="easyui-linkbutton" 
 		   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas()">Actualizar</a>
     		</span>
@@ -39,7 +37,7 @@ $('#ordentandas-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: 'database/ordenTandaFunctions.php',
+	url: 'database/ordenTandasFunctions.php',
     queryParams: {
         Operation: 'getTandas',
         Prueba: workingData.prueba,
@@ -68,7 +66,7 @@ $('#ordentandas-datagrid').datagrid({
     },
     onDragEnter: function(dst,src) { return true; }, // default is not restriction
     onDrop: function(dst,src,updown) {
-        dragAndDropOrdenTablas(src.ID,dst.ID,(updown==='top')?0:1);
+        dragAndDropOrdenTandas(src.ID,dst.ID,(updown==='top')?0:1);
     }
 });
 
@@ -80,8 +78,8 @@ $('#ordentandas-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0
 
 // botones
 addTooltip($('#ordentandas-reloadBtn').linkbutton(),"Actualizar el programa de la jornada desde base de datos");
-addTooltip($('#ordentandas-saveBtn').linkbutton(),"Guardar el programa de la jornada en base de datos");
 addTooltip($('#ordentandas-printBtn').linkbutton(),"Imprimir el programa de la jornada");
+
 $('#ordentandas-printBtn').on("click", function () {
 	$.fileDownload(
 		'pdf/print_ordenDeTandas.php',

@@ -145,7 +145,7 @@ class OrdenTandas extends DBObject {
 	 * @param {integer} $where 0:encima 1:debajo
 	 * @return string
 	 */
-	function dragAndDrop($jornada,$from,$to,$where) {
+	function dragAndDrop($prueba,$jornada,$from,$to,$where) {
 		$this->myLogger->enter();
 		if ( ($jornada<=0) || ($from<=0) || ($to<=0)) {
 			return $this->error("dnd: either Jornada:$jornada or SrcTanda:$from or DestTanda:$to are invalid");
