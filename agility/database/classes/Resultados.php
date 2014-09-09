@@ -164,15 +164,16 @@ class Resultados extends DBObject {
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);	
 		
 		// Insert into resultados. On duplicate ($manga,$idperro) key ignore
-		$sql="INSERT INTO Resultados (Prueba,Manga,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
-				VALUES (?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Manga=Manga";
+		$sql="INSERT INTO Resultados (Prueba,Jornada,Manga,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
+				VALUES (?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Manga=Manga";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->conn->error;
-		$res=$stmt->bind_param('iiiissssss',$prueba,$manga,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$guia,$club);
+		$res=$stmt->bind_param('iiiiissssss',$prueba,$jornada,$manga,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$guia,$club);
 		if (!$res) return $this->error($stmt->error);
+		$prueba=$this->IDPrueba;
+		$jornada=$this->IDJornada;
 		$manga=$idmanga;
 		$dorsal=$ndorsal;
-		$prueba=$this->IDPrueba;
 		$perro=$objperro['ID'];
 		$nombre=$objperro['Nombre'];
 		$licencia=$objperro['Licencia'];

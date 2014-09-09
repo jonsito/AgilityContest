@@ -820,6 +820,7 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
   `PreAgility2` tinyint(1) NOT NULL DEFAULT '0',
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   `Observaciones` varchar(255) NOT NULL DEFAULT "",
+  `OrdenTandas` varchar(255) NOT NULL DEFAULT "BEGIN,END",
   PRIMARY KEY (`ID`),
   KEY `Prueba` (`Prueba`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
@@ -836,7 +837,7 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
 
 INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Grado1`, `Grado2`, `Grado3`, `Open`, `Equipos3`, `Equipos4`, `PreAgility`, `KO`, `Especial`, `PreAgility2`, `Observaciones`, `Cerrada`) VALUES
 (1, 2, 1, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
-(2, 2, 2, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, '', 0),
+(2, 2, 2, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
 (3, 2, 3, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
 (4, 2, 4, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
 (5, 2, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
@@ -1699,6 +1700,7 @@ INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`
 DROP TABLE IF EXISTS `Resultados`;
 CREATE TABLE IF NOT EXISTS `Resultados` (
   `Prueba` int(4) NOT NULL,
+  `Jornada` int(4) NOT NULL,
   `Manga` int(4) NOT NULL,
   `Dorsal` int(4) NOT NULL,
   `Perro` int(4) NOT NULL,
@@ -1722,6 +1724,7 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
   KEY `Resultados_Perro` (`Perro`),
   KEY `Resultados_Manga` (`Manga`),
   KEY `Resultados_Dorsal` (`Dorsal`),
+  KEY `Resultados_Jornada` (`Jornada`),
   KEY `Resultados_Prueba` (`Prueba`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -1729,6 +1732,8 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
 -- RELACIONES PARA LA TABLA `Resultados`:
 --   `Prueba`
 --       `Pruebas` -> `ID`
+--   `Jornada`
+--       `Jornadas` -> `ID`
 --   `Perro`
 --       `Perros` -> `ID`
 --   `Manga`
@@ -1860,6 +1865,8 @@ ALTER TABLE `Resultados`
   ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Mangas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE `Resultados`
   ADD CONSTRAINT `Resultados_ibfk_3` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Resultados`
+  ADD CONSTRAINT `Resultados_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornada` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Tipo_Manga`
