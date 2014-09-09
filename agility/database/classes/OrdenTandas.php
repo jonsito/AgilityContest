@@ -4,13 +4,13 @@ require_once("Resultados.php");
 require_once("Clasificaciones.php");
 require_once("Inscripciones.php");
 
-class OrdenSalida extends DBObject {
+class OrdenTandas extends DBObject {
 	
 	// tablas utilizadas para componer e insertar los idperroes en el string de orden de salida
 	protected $default_orden = "BEGIN,END";
 	
 	// lista de tandas disponibles y rangos de busqueda en OrdenSalida
-	protected $lista_tandas = array (
+	static $lista_tandas = array (
 		0	=> array('ID'=>0,	'TipoManga'=>0,		'From'=>'',			'To'=>'',			'Nombre'=>'-- Sin especificar --','Categoria'=>'-',	'Grado'=>'-'),
 		// en pre-agility no hay categorias
 		1	=> array('ID'=>1,	'TipoManga'=> 1,	'From'=>'BEGIN,',	'To'=>',END',		'Nombre'=>'Pre-Agility 1',			'Categoria'=>'-LMST','Grado'=>'P.A.'),
@@ -58,6 +58,21 @@ class OrdenSalida extends DBObject {
 		40	=> array('ID'=>40,	'TipoManga'=> 16,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Manga Especial Small',	'Categoria'=>'S',	'Grado'=>'-'),
 	);
 
+	/**
+	 * return every array items that matches with provided key
+	 * @param unknown $key
+	 * @param unknown $value
+	 * @return multitype:
+	 */
+	function getTandasBy($key,$value) {
+		$res=array();
+		foreach(OrdenTandas::$lista_tandas as $item) {
+			if (!isset($item[$key])) return $res; // key not found: return empty array
+			if ($item[$key]===$value) array_push($res,$item);
+		}
+		return $res;
+	}
+	
 	/* use parent constructor and destructor */
 	
 	/**
@@ -98,7 +113,6 @@ class OrdenSalida extends DBObject {
 	 * @return {string} nuevo orden de salida
 	 */
 	function insertIntoList($orden, $idtanda) {
-		$this->myLogger->enter();
 		// $this->myLogger->debug("inserting idperro:$idperro cat:$cat celo:$celo" );
 		// lo borramos para evitar una posible doble insercion
 		$str = "," . $idtanda . ",";
@@ -107,7 +121,6 @@ class OrdenSalida extends DBObject {
 		$myTag = $idtanda . ",END";
 		// y lo insertamos en lugar que corresponde
 		$result = str_replace ( "END", $myTag, $nuevoorden );
-		$this->myLogger->leave();
 		return $result;
 	}
 	
@@ -118,10 +131,8 @@ class OrdenSalida extends DBObject {
 	 * @return {string} nuevo orden de tandas
 	 */
 	function removeFromList($orden,$idtanda) {
-		$this->myLogger->enter();
 		$str = "," . $idtanda . ",";
 		$nuevoorden = str_replace ( $str, ",", $orden );
-		$this->myLogger->leave();
 		return $nuevoorden;
 	}
 
@@ -151,7 +162,77 @@ class OrdenSalida extends DBObject {
 		$this->myLogger->leave();
 		return "";
 	}
+
 	
+	/**
+	 * Ajusta el orden de tandas para que coincida con los datos de la jornada dada
+	 * @param unknown $jornada
+	 */
+	function updateOrden($jornada) {
+		$this->myLogger->enter();
+		// obtenemos datos de la jornada
+		$j=$this->__getObject("Jornadas",$jornada);
+		if (!is_object($j)) return $this->error($this->conn->error);
+		$orden=$j->Orden_Tandas;
+		// obtenemos la lista de tandas de cada ronda
+		if ($j->PreAgility	!=0) {
+			foreach( $this->getTandasBy('TipoManga',1) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+		}
+		if ($j->PreAgility2	!=0) {
+			foreach( $this->getTandasBy('TipoManga',1) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+			foreach( $this->getTandasBy('TipoManga',2) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+		}
+		if ($j->Grado1	!=0) {
+			foreach( $this->getTandasBy('TipoManga',3) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+			foreach( $this->getTandasBy('TipoManga',4) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+		}
+		if ($j->Grado2	!=0) {
+			foreach( $this->getTandasBy('TipoManga',5) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+			foreach( $this->getTandasBy('TipoManga',10) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+		}
+		if ($j->Grado3	!=0) {
+			foreach( $this->getTandasBy('TipoManga',6) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+			foreach( $this->getTandasBy('TipoManga',11) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+		}
+		if ($j->Open	!=0) {
+			foreach( $this->getTandasBy('TipoManga',7) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+			foreach( $this->getTandasBy('TipoManga',12) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+		}
+		if ($j->Equipos3	!=0) {
+			foreach( $this->getTandasBy('TipoManga',8) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+			foreach( $this->getTandasBy('TipoManga',13) as $item) { $this->insertIntoList($orden,$item['ID']);  }
+		}
+		if ($j->Equipos4	!=0) {
+			foreach( $this->getTandasBy('TipoManga',9) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+			foreach( $this->getTandasBy('TipoManga',14) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+		}
+		if ($j->KO		!=0) {
+			foreach( $this->getTandasBy('TipoManga',15) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+		}
+		if ($j->Especial!=0) {
+			foreach( $this->getTandasBy('TipoManga',16) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
+		}
+		$this->setOrden($jornada,$orden);
+		$this->myLogger->leave();
+	}
+
+	/* 0,'','' */
+	/* 1, 'Pre-Agility Manga 1', 'P.A.' */ // notice that in 1 manga mode there is no sister
+	/* 2, 'Pre-Agility Manga 2', 'P.A.' */
+	/* 3, 'Agility Grado I Manga 1', 'GI' */
+	/* 4, 'Agility Grado I Manga 2', 'GI' */
+	/* 5, 'Agility Grado II', 'GII' */
+	/* 6, 'Agility Grado III', 'GIII' */
+	/* 7, 'Agility Abierta (Open)', '-' */
+	/* 8, 'Agility Equipos (3 mejores)', '-' */
+	/* 9, 'Agility Equipos (Conjunta)', '-' */
+	/* 10,'Jumping Grado II', 'GII' */
+	/* 11,'Jumping Grado III', 'GIII' */
+	/* 12,'Jumping Abierta (Open)', '-' */
+	/* 13,'Jumping por Equipos (3 mejores)', '-' */
+	/* 14,'Jumping por Equipos (Conjunta)', '-' */
+	/* 15,'Ronda K.O.', '-' */
+	/* 16,'Manga Especial', '-' */
 	/**
 	 * Obtiene la lista (actualizada) de perros de una jornada ordenada segun tandas/mangas
 	 * En el proceso de inscripcion ya hemos creado la tabla de resultados, y el orden de salida

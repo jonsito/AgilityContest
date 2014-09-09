@@ -2,6 +2,7 @@
 
 require_once("DBObject.php");
 require_once("Mangas.php");
+require_once("OrdenTandas.php");
 
 class Jornadas extends DBObject {
 	
@@ -90,6 +91,8 @@ class Jornadas extends DBObject {
 		if (!$cerrada) {
 			$mangas =new Mangas("jornadaFunctions",$id);
 			$mangas->prepareMangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$especial,$observaciones);
+			$ot =new OrdenTandas("Jornadas::update");
+			$ot->updateOrden($id);
 		}
 		$this->myLogger->leave();
 		return "";

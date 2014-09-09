@@ -1,6 +1,7 @@
 <?php
 
 require_once("DBObject.php");
+require_once("OrdenTandas.php");
 require_once("Jornadas.php");
 
 class Pruebas extends DBObject {
@@ -45,6 +46,11 @@ class Pruebas extends DBObject {
 			VALUES ($pruebaid,$n,'-- Sin asignar --','2013-01-01','00:00:00')";
 			$res=$this->query($sql);
 			if (!$res) return $this->error($this->conn->error);
+			// retrieve ID of inserted jornada
+			$jornadaid=$this->conn->insert_id;
+			// and regenerate Orden_Tandas field
+			$ot=new OrdenTandas("Pruebas::Insert()");
+			$ot->updateOrdenTandas($jornadaid);
 		}
 		// arriving here means everything ok. notify success
 		$this->myLogger->leave();
