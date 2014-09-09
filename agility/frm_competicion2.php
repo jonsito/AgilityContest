@@ -1,3 +1,4 @@
+<?php include_once("dialogs/dlg_ordentandas.inc");?>
 <?php include_once("dialogs/dlg_ordensalida.inc");?>
 <?php include_once("dialogs/dlg_competicion.inc");?>
 <?php include_once("dialogs/dlg_resultadosManga.inc");?>
@@ -15,6 +16,9 @@
 			<!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
 			<div id="competicion-listamanga-toolbar">
 	   			<span style="float:left;padding:10px 10px 10px 20px">
+	    			<a id="competicion-ordentandasBtn" href="#" class="easyui-linkbutton"
+	    				data-options="iconCls:'icon-updown'" style="width:185px"
+	    				onclick="competicionDialog('ordentandas');">Programaci&oacute;n</a>
 	    			<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton"
 	    				data-options="iconCls:'icon-order'" style="width:185px"
 	    				onclick="competicionDialog('ordensalida');">Orden de salida</a>
@@ -102,6 +106,7 @@ $('#competicion-listamangas').datagrid({
 });
 
 //tooltips
+addTooltip($('#competicion-ordentandasBtn').linkbutton(),"Ver/Ordenar la secuencia de <br/>Mangas/Categorias/Grados de la prueba");
 addTooltip($('#competicion-ordensalidaBtn').linkbutton(),"Ver/Editar el Orden de salida de la manga");
 addTooltip($('#competicion-competicionBtn').linkbutton(),"Insertar resultados de los participantes en la manga");
 addTooltip($('#competicion-resultmangaBtn').linkbutton(),"Ver los resultados parciales de la manga"); 

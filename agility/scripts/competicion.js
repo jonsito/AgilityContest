@@ -127,6 +127,20 @@ function reload_manga(id) {
     $('#competicion-formdatosmanga').form('load',url);
 }
 
+function reloadOrdenTandas() {
+	if (workingData.jornada==0) return;
+	if (workingData.manga==0) return;
+    $('#ordentandas-datagrid').datagrid(
+            'load',
+            { 
+            	Prueba: workingData.prueba,
+            	Jornada: workingData.jornada , 
+            	Manga: workingData.manga , 
+            	Operation: 'getOrden' 
+            }
+    );
+}
+
 function reloadOrdenSalida() {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
@@ -340,27 +354,37 @@ function evalOrdenSalida(mode) {
 
 // reajusta el orden de salida 
 // poniendo el idperro "from" delante (where==0) o detras (where==1) del idperro "to"
-function dragAndDrop(from,to,where) {
+function dragAndDropOrdenSalida(from,to,where) {
+	if (workingData.prueba==0) return;
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
 	$.ajax({
 		type:'GET',
 		url:"database/ordenSalidaFunctions.php",
 		dataType:'json',
-		data: {
-			Operation: 'dnd',
-			Prueba: workingData.prueba,
-			Jornada: workingData.jornada,
-			Manga: workingData.manga,
-			From: from,
-			To: to,
-			Where: where
+		data: {	
+			Operation: 'dnd', Prueba: workingData.prueba, Jornada: workingData.jornada,	Manga: workingData.manga, From: from,To: to,Where: where
 		}
 	}).done( function(msg) {
 		reloadOrdenSalida();
 	});
 }
-
+//reajusta el programa de la jornada
+//poniendo la tanda "from" delante (where==0) o detras (where==1) de la tanda "to"
+function dragAndDropOrdenSalida(from,to,where) {
+	if (workingData.prueba==0) return;
+	if (workingData.jornada==0) return;
+	$.ajax({
+		type:'GET',
+		url:"database/ordenTandasFunctions.php",
+		dataType:'json',
+		data: {	
+			Operation: 'dnd', Prueba: workingData.prueba, Jornada: workingData.jornada, From: from,To: to,Where: where
+		}
+	}).done( function(msg) {
+		reloadOrdenTandas();
+	});
+}
 /**
  * Abre la ventana de competicion requerida 'ordensalida','competicion','resultadosmanga'
  * @param name
@@ -368,14 +392,22 @@ function dragAndDrop(from,to,where) {
 function competicionDialog(name) {
 	// obtenemos datos de la manga seleccionada
 	var row= $('#competicion-listamangas').datagrid('getSelected');
-    if (!row) {
+    if (!row && name!== 'ordentandas') {
     	$.messager.alert('Error','No hay ninguna manga seleccionada','info');
     	return; // no hay ninguna manga seleccionada. retornar
     }
-    var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
+    var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada;
+    $('#ordentandas-window').dialog('close');
     $('#ordensalida-window').dialog('close');
     $('#competicion-window').dialog('close');
     $('#resultadosmanga-window').dialog('close');
+    if (name==='ordentandas') {
+        // abrimos ventana de dialogo
+        $('#ordentandas-window').dialog('open').window('setTitle',"Jornada: "+title);
+        // cargamos ventana de orden de salida
+        reloadOrdenTandas();
+    }
+    title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
     if (name==='ordensalida') {
         // abrimos ventana de dialogo
         $('#ordensalida-window').dialog('open').window('setTitle'," Orden de Salida: "+title);

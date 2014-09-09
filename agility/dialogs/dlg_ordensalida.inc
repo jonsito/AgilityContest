@@ -81,7 +81,7 @@ $('#ordensalida-datagrid').datagrid({
         return (from==to)?true:false;
     },
     onDrop: function(dst,src,updown) {
-        dragAndDrop(src.Perro,dst.Perro,(updown==='top')?0:1);
+        dragAndDropOrdenSalida(src.Perro,dst.Perro,(updown==='top')?0:1);
     }
 });
 

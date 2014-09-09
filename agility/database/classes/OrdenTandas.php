@@ -68,7 +68,7 @@ class OrdenTandas extends DBObject {
 		$res=array();
 		foreach(OrdenTandas::$lista_tandas as $item) {
 			if (!isset($item[$key])) return $res; // key not found: return empty array
-			if ($item[$key]===$value) array_push($res,$item);
+			if ($item[$key]==$value) array_push($res,$item);
 		}
 		return $res;
 	}
@@ -216,6 +216,47 @@ class OrdenTandas extends DBObject {
 		$this->myLogger->leave();
 	}
 
+	/**
+	 * Obtiene el programa de actividades de esta jornada
+	 */
+	function getTandas($prueba,$jornada) {
+		$this->myLogger->enter();
+		$orden=$this->getOrden($jornada);
+		
+		// prepared statement to retrieve mangas id
+		$sql="SELECT ID FROM Mangas WHERE (Jornada=?) AND (Tipo=?)";
+		$stmt=$this->conn->prepare($sql);
+		if (!$stmt) return $this->error($this->conn->error);	
+		$res=$stmt->bind_param('ii',$idjornada,$tipo);
+		if (!$res) return $this->error($stmt->error);
+
+		$idjornada=$jornada;
+		$result=array();
+		$rows=array();
+		$a=explode(",",$orden);
+		foreach($a as $idx) {
+			if($idx==='BEGIN') continue;
+			if($idx==='END') continue;
+			$tandas=$this->getTandasBy("ID",$idx);
+			foreach($tandas as $tanda){
+				$item=array('Prueba'=>$prueba, 'Jornada'=>$jornada);
+				$item=array_merge($item,$tanda);
+				$tipo=$item['TipoManga'];
+				$rs=$stmt->execute();
+				if (!$rs) return $this->error($stmt->error);
+				$stmt->bind_result($mangaid);
+				$stmt->fetch();
+				$item['Manga']=$mangaid;
+				array_push($rows,$item);	
+			}
+		}
+		$stmt->close();
+		$result['rows']=$rows;
+		$result['total']=count($rows);
+		$this->myLogger->leave();
+		return $result;
+	}
+	
 	/* 0,'','' */
 	/* 1, 'Pre-Agility Manga 1', 'P.A.' */ // notice that in 1 manga mode there is no sister
 	/* 2, 'Pre-Agility Manga 2', 'P.A.' */
