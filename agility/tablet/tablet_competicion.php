@@ -1,4 +1,3 @@
-<?php include_once("tablet_ordensalida.inc");?>
 <?php include_once("tablet_entradadatos.inc");?>
  	
 <!-- Gestion desde el tablet de el orden de salida y entrada de datos -->
@@ -6,11 +5,17 @@
 
 	<!-- paneles de lista de mangas y datos de cada manga -->
 	<div id="tablet_competicion-Layout" class="easyui-layout" style="width:600px;height:1000px;">
-	
-		<div data-options="region:'west',title:'Tandas de la Jornada',split:true,collapsed:false" style="width:200px">
-			<!-- Tabla que contiene la lista de tandas de la jornada -->
-			<table id="tablet_competicion-ListaTandas" class="easyui-datagrid" style="padding:10px;"></table>
-		</div> <!-- Orden de salida -->
+		<!-- Ventana para ver y ajustar el orden de tandas de la jornada -->
+		<div data-options="region:'west',title:'Tandas de la Jornada',split:true,collapsed:false" style="width:250px">
+			<table id="ordentandas-datagrid" class="easyui-datagrid" style="padding:10px;"></table>
+			<!-- toolbar para orden de tandas -->
+			<div id="ordentandas-toolbar" style="padding:0px 10px 30px 10px">
+ 				<span style="float:left">
+		   			<a id="ordentandas-reloadBtn" href="#" class="easyui-linkbutton" 
+		   				data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas()">Actualizar</a>
+    			</span>
+			</div>		
+		</div> <!-- Orden de tandas  -->
 		
 		<div data-options="region:'center',title:'Entrada de Datos'" style="width:400px;">
 			<!-- Tabla desplegable para la entrada de datos desde el tablet -->
@@ -30,7 +35,8 @@ $('#tablet_competicion-Panel').panel({
 	collapsed:false
 });
 $('#tablet_competicion-Layout').layout();
-$('#tablet_competicion-ListaTandas').datagrid({
+
+$('#ordentandas-datagrid').datagrid({
 	// propiedades del panel asociado
 	fit: true,
 	border: false,
@@ -38,38 +44,42 @@ $('#tablet_competicion-ListaTandas').datagrid({
 	collapsible: false,
 	collapsed: false,
 	// propiedades del datagrid
+	toolbar:'#ordentandas-toolbar',
 	method: 'get',
-	url: '/agility/database/mangaFunctions.php',
+	url: '/agility/database/ordenTandasFunctions.php',
     queryParams: {
         Operation: 'getTandas',
         Prueba: workingData.prueba,
         Jornada: workingData.jornada
     },
-    loadMsg: "Actualizando orden de tandas...",
+    loadMsg: "Actualizando programa de la Jornada .....",
     pagination: false,
     rownumbers: true,
     fitColumns: true,
     singleSelect: true,
     columns:[[
-      	{ field:'Prueba',	hidden:true }, // Prueba ID
-    	{ field:'Jornada',	hidden:true }, // Jornada ID
-        { field:'Manga',	hidden:true }, // Manga ID
-        { field:'From',		hidden:true }, // separador inicial en manga::ordensalida
-        { field:'To',		hidden:true }, // separador final en manga::ordensalida
-        { field:'ID',		hidden:true }, // ID de la tanda
-        { field:'Nombre',	width:20, sortable:false,	align:'left',  title: 'Tanda'},
+          	{ field:'ID',		hidden:true },
+        	{ field:'Prueba',	hidden:true },
+          	{ field:'Jornada',	hidden:true },
+          	{ field:'Manga',	hidden:true },
+      		{ field:'From',		hidden:true },
+      		{ field:'To',		hidden:true },
+      		{ field:'Nombre',	width:200, sortable:false, align:'right',title:'Secuencia de salida a pista'},
+      		{ field:'Categoria',hidden:true },
+      		{ field:'Grado',	hidden:true }
     ]],
     rowStyler:myRowStyler,
-    onBeforeLoad: function(param) { return (workingData.Jornada<=0)?false:true; }, // do not load if no jornada selected
     onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes) and enable drag and drop
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
     },
-    onDragEnter: function(dst,src) { return true; }, // default is allow any tandas order
+    onDragEnter: function(dst,src) { return true; }, // default is not restriction
     onDrop: function(dst,src,updown) {
-        // tablet_dragAndDrop(src.From,dst.To,(updown==='top')?0:1);
+        dragAndDropOrdenTandas(src.ID,dst.ID,(updown==='top')?0:1);
     }
 });
+
+addTooltip($('#ordentandas-reloadBtn').linkbutton(),"Actualizar el programa de la jornada desde base de datos");
 
 $('#tablet_competicion-EntradaDatos').datagrid({
 	// propiedades del panel asociado
@@ -80,7 +90,7 @@ $('#tablet_competicion-EntradaDatos').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: 'database/ordenSalidaFunctions.php',
+	url: '/agility/database/ordenSalidaFunctions.php',
     queryParams: {
         Operation: 'getData',
         Prueba: workingData.prueba,

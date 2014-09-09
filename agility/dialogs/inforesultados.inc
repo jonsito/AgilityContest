@@ -3,7 +3,7 @@
 <!-- TABLA DE DATOS DE TRS Y TRM DE LA PRIMERA MANGA -->
 <div id="datos_manga1-trs">
 	<form id="datos_manga1-trs-form" method="get">
-		<table style="float:left;" width="100%">
+		<table style="float:left;width:100%">
 			<tr id="datos_manga1-InfoRow">
 				<td colspan="3">
 					<span style="font-weight:bold">Manga 1:</span>
@@ -46,7 +46,7 @@
 <!-- TABLA DE DATOS DE TRS Y TRM DE LA SEGUNDA MANGA -->
 <div id="datos_manga2-trs">
 	<form id="datos_manga2-trs-form" method="get">
-		<table style="float:left;" width="100%">
+		<table style="float:left;width:100%">
 			<tr id="datos_manga2-InfoRow">
 				<td colspan="3">
 					<span style="font-weight:bold">Manga 2:</span>
