@@ -820,7 +820,7 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
   `PreAgility2` tinyint(1) NOT NULL DEFAULT '0',
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   `Observaciones` varchar(255) NOT NULL DEFAULT "",
-  `OrdenTandas` varchar(255) NOT NULL DEFAULT "BEGIN,END",
+  `Orden_Tandas` varchar(255) NOT NULL DEFAULT "BEGIN,END",
   PRIMARY KEY (`ID`),
   KEY `Prueba` (`Prueba`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
