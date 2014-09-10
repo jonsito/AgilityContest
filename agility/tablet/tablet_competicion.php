@@ -139,6 +139,10 @@ $('#tablet_competicion-EntradaDatos').datagrid({
     onClickRow: function(index) {
         // TODO: open tablet window data
     },
+    onDblClickRow: function(idx,row) {
+        $('#tdialog-dialog').dialog('open');
+        $('#tdialog-form').form('load',row);
+    },
     onDragEnter: function(dst,src) {
         if (dst.Manga!=src.Manga) return false;
         if (dst.Categoria!=src.Categoria) return false;
