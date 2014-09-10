@@ -4,8 +4,9 @@
 <div id="tablet_competicion-Panel" class="easyui-panel">
 
 	<!-- paneles de lista de mangas y datos de cada manga -->
-	<div id="tablet_competicion-Layout" class="easyui-layout" style="width:600px;height:1000px;">
+	<div id="tablet_competicion-Layout" class="easyui-layout" style="width:1024px;height:600px;">
 		<!-- Ventana para ver y ajustar el orden de tandas de la jornada -->
+		
 		<div data-options="region:'west',title:'Tandas de la Jornada',split:true,collapsed:false" style="width:250px">
 			<table id="ordentandas-datagrid" class="easyui-datagrid" style="padding:10px;"></table>
 			<!-- toolbar para orden de tandas -->
@@ -17,9 +18,9 @@
 			</div>		
 		</div> <!-- Orden de tandas  -->
 		
-		<div data-options="region:'center',title:'Entrada de Datos'" style="width:400px;">
+		<div data-options="region:'center',title:'Entrada de Datos'" style="width:774px;">
 			<!-- Tabla desplegable para la entrada de datos desde el tablet -->
-			<table id="tablet_competicion-EntradaDatos" class="easyui-datagrid"></table>
+			<table id="tablet_competicion-EntradaDatos" class="easyui-datagrid" style="padding:10px;"></table>
 		</div> <!-- Entrada de datos -->
 		
 	</div> <!-- tablet_competicion-Layout -->
@@ -108,6 +109,8 @@ $('#tablet_competicion-EntradaDatos').datagrid({
       	{ field:'Licencia',		hidden:true },
       	{ field:'Pendiente',	hidden:true },
         { field:'Dorsal',		width:10, align:'right',  title: '#', styler:checkPending },
+      	{ field:'Celo',			width:10, align:'center', title: 'Celo', 
+          			formatter:function(val,row){return (parseInt(val)==0)?" ":"X";}},
         { field:'Nombre',		width:20, align:'left',  title: 'Nombre'},
         { field:'NombreGuia',	width:45, align:'right', title: 'Guia' },
         { field:'NombreClub',	width:30, align:'right', title: 'Club' },

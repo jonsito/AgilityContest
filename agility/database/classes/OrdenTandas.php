@@ -287,16 +287,7 @@ class OrdenTandas extends DBObject {
 	 * @return array[count,[data]] array ordenado segun tandas/ordensalida de datos de perros de una jornada 
 	 */
 	function getData($prueba,$jornada) {
-
-		$this->myLogger->leave();
-		
-		// prepared statement to retrieve mangas id
-		$sql="SELECT * FROM Resultados WHERE (Prueba=$prueba) AND (Jornada=$jornada) AND (Manga=?) AND (Perro=?)";
-		$stmt=$this->conn->prepare($sql);
-		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('ii',$manga,$perro);
-		if (!$res) return $this->error($stmt->error);
-		
+		$this->myLogger->enter();
 		$rows=array();
 		// fase 1 buscamos las tandas de cada jornada
 		$lista_tandas=$this->getTandas($prueba,$jornada);
@@ -308,15 +299,22 @@ class OrdenTandas extends DBObject {
 			// extraemos el substring definido entre 'from' y 'to'
 			$ordentanda=getInnerString($ordenmanga,$tanda['From'],$tanda['To']);
 			// y recuperamos los perros inscritos
+			if($ordentanda==="") continue; // skip empty tandas
 			$orden=explode(',',$ordentanda);
+			$celo=0;
 			foreach($orden as $perro) {
-				$rs=$stmt->execute();
-				if (!$rs) return $this->error($stmt->error);
-				$rs=$stmt->get_result();
-				array_push($rows,$rs->fetch_array());
+				// from manual: don't compare strpos against 'true'
+				if (strpos($perro,'TAG')!==false) { // separator. check for 'Celo' field
+					if (strpos($perro,'1')===false) $celo=0;
+					if (strpos($perro,'0')===false) $celo=1;
+					continue; // next search
+				}
+				$res=$this->__selectAsArray("*","Resultados","(Prueba=$prueba) AND (Jornada=$jornada) AND (Manga=$manga) AND (Perro=$perro)");
+				if (!is_array($res)) return $this->error($this->conn-error);
+				$res['Celo']=$celo; // store celo info
+				array_push($rows,$res);
 			}
 		}
-		$stmt->close();
 		$result['rows']=$rows;
 		$result['total']=count($rows);
 		$this->myLogger->leave();
