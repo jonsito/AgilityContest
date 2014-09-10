@@ -73,6 +73,7 @@ $('#ordentandas-datagrid').datagrid({
     onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes) and enable drag and drop
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+    	$('#tablet_competicion-EntradaDatos').datagrid('reload');
     },
     onDragEnter: function(dst,src) { return true; }, // default is not restriction
     onDrop: function(dst,src,updown) {
@@ -102,12 +103,17 @@ $('#tablet_competicion-EntradaDatos').datagrid({
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
-    // toolbar: '#competicion-toolbar',
+    view: groupview,
+    groupField: "Tanda",
+    groupFormatter: function(value,rows){
+    	return value + ' - ' + rows.length + ' participante(s)';
+    },
     columns:[[
         { field:'Manga',		hidden:true },
         { field:'Perro',		hidden:true },
       	{ field:'Licencia',		hidden:true },
       	{ field:'Pendiente',	hidden:true },
+      	{ field:'Tanda',		hidden:true },
         { field:'Dorsal',		width:10, align:'right',  title: '#', styler:checkPending },
       	{ field:'Celo',			width:10, align:'center', title: 'Celo', 
           			formatter:function(val,row){return (parseInt(val)==0)?" ":"X";}},
@@ -127,10 +133,28 @@ $('#tablet_competicion-EntradaDatos').datagrid({
     rowStyler:myRowStyler,
     onBeforeLoad: function(param) { return true; }, // TODO: write
 	onLoadSuccess:function(){ 
+    	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 	},
     onClickRow: function(index) {
         // TODO: open tablet window data
+    },
+    onDragEnter: function(dst,src) {
+        if (dst.Manga!=src.Manga) return false;
+        if (dst.Categoria!=src.Categoria) return false;
+        if (dst.Grado!=src.Grado) return false;
+        if (dst.Celo!=src.Celo) return false;
+        return true;
+    }, 
+    onDrop: function(dst,src,updown) {
+        // reload el orden de salida en la manga asociada
+        workingData.manga=src.Manga;
+        dragAndDropOrdenSalida(
+                src.Perro,
+                dst.Perro,
+                (updown==='top')?0:1,
+                function()  { $('#tablet_competicion-EntradaDatos').datagrid('reload'); }
+         	);
     }
 });
 </script>

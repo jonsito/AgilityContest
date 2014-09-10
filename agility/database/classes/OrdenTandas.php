@@ -312,6 +312,7 @@ class OrdenTandas extends DBObject {
 				$res=$this->__selectAsArray("*","Resultados","(Prueba=$prueba) AND (Jornada=$jornada) AND (Manga=$manga) AND (Perro=$perro)");
 				if (!is_array($res)) return $this->error($this->conn-error);
 				$res['Celo']=$celo; // store celo info
+				$res['Tanda']=$tanda['Nombre'];
 				array_push($rows,$res);
 			}
 		}

@@ -135,7 +135,7 @@ function reloadOrdenTandas() {
             { 
             	Prueba: workingData.prueba,
             	Jornada: workingData.jornada ,
-            	Operation: 'getTandas' 
+            	Operation: 'getTandas'
             }
     );
 }
@@ -353,7 +353,8 @@ function evalOrdenSalida(mode) {
 
 // reajusta el orden de salida 
 // poniendo el idperro "from" delante (where==0) o detras (where==1) del idperro "to"
-function dragAndDropOrdenSalida(from,to,where) {
+// al retornar la funcion se invoca whenDone, que normalmente recargara el formulario padre
+function dragAndDropOrdenSalida(from,to,where,whenDone) {
 	if (workingData.prueba==0) return;
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
@@ -365,7 +366,7 @@ function dragAndDropOrdenSalida(from,to,where) {
 			Operation: 'dnd', Prueba: workingData.prueba, Jornada: workingData.jornada,	Manga: workingData.manga, From: from,To: to,Where: where
 		}
 	}).done( function(msg) {
-		reloadOrdenSalida();
+		whenDone();
 	});
 }
 //reajusta el programa de la jornada
