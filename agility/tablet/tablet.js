@@ -92,11 +92,15 @@ function tablet_lapreset() {
 function tablet_cancel() {
 	// retrieve original data from parent datagrid
 	var rows = $('#tablet_competicion-EntradaDatos').datagrid('getRows'); 
-	var row = rows[$('#tdialog-Parent')];  
-	 // restore form
-    $('#tdialog-form').form('load',row);
-    // save restored results 
-	resultados_update(); 
+	var row = rows[$('#tdialog-Parent').val()];
+	row.Operation='update';
+	// send original data to sql server
+	$.ajax({
+		type:'GET',
+		url:"/agility/database/resultadosFunctions.php",
+		dataType:'json',
+		data: row
+	});
 	 // and close window
 	$('#tdialog-dialog').dialog('close');
 }
