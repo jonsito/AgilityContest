@@ -61,7 +61,7 @@ class Resultados extends DBObject {
 			throw new Exception($this->errormsg);
 		}
 		if ($prueba<=0) {
-			$this->errormsg="Resultados::Construct invalid Prueba ID: $manga";
+			$this->errormsg="Resultados::Construct invalid Prueba ID: $prueba";
 			throw new Exception($this->errormsg);
 		}
 		$this->IDPrueba=$prueba;

@@ -3,19 +3,20 @@
 <!-- Gestion desde el tablet de el orden de salida y entrada de datos -->
 <div id="tablet_competicion-Panel" class="easyui-panel">
 
+	
 	<!-- paneles de lista de mangas y datos de cada manga -->
 	<div id="tablet_competicion-Layout" class="easyui-layout" style="width:1024px;height:600px;">
 		<!-- Ventana para ver y ajustar el orden de tandas de la jornada -->
 		
 		<div data-options="region:'west',title:'Tandas de la Jornada',split:true,collapsed:false" style="width:250px">
-			<table id="ordentandas-datagrid" class="easyui-datagrid" style="padding:10px;"></table>
+		
 			<!-- toolbar para orden de tandas -->
-			<div id="ordentandas-toolbar" style="padding:0px 10px 30px 10px">
- 				<span style="float:left">
-		   			<a id="ordentandas-reloadBtn" href="#" class="easyui-linkbutton" 
-		   				data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas()">Actualizar</a>
-    			</span>
-			</div>		
+			<div id="ordentandas-toolbar" style="padding:5px">
+				<a id="ordentandas-reloadBtn" href="#" class="easyui-linkbutton" 
+					data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas()">Actualizar</a>
+			</div>
+			<!--  datagrid con el orden de tandas -->
+			<table id="ordentandas-datagrid" class="easyui-datagrid" style="padding:10px;"></table>
 		</div> <!-- Orden de tandas  -->
 		
 		<div data-options="region:'center',title:'Entrada de Datos'" style="width:774px;">
@@ -27,6 +28,7 @@
 	
 </div> <!-- tablet_competicion-Panel -->  
 
+		
 <script type="text/javascript">
 $('#tablet_competicion-Panel').panel({
 	title:workingData.nombrePrueba+' -- '+workingData.nombreJornada,
@@ -36,6 +38,7 @@ $('#tablet_competicion-Panel').panel({
 	collapsed:false
 });
 $('#tablet_competicion-Layout').layout();
+$('#ordentandas-reloadBtn').linkbutton();
 
 $('#ordentandas-datagrid').datagrid({
 	// propiedades del panel asociado
@@ -69,7 +72,7 @@ $('#ordentandas-datagrid').datagrid({
       		{ field:'Categoria',hidden:true },
       		{ field:'Grado',	hidden:true }
     ]],
-    rowStyler:myRowStyler,
+    // rowStyler:myRowStyler,
     onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes) and enable drag and drop
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
@@ -81,7 +84,6 @@ $('#ordentandas-datagrid').datagrid({
     }
 });
 
-addTooltip($('#ordentandas-reloadBtn').linkbutton(),"Actualizar el programa de la jornada desde base de datos");
 
 $('#tablet_competicion-EntradaDatos').datagrid({
 	// propiedades del panel asociado
@@ -109,12 +111,16 @@ $('#tablet_competicion-EntradaDatos').datagrid({
     	return value + ' - ' + rows.length + ' participante(s)';
     },
     columns:[[
+        { field:'Parent',		hidden:true }, // self reference to row index
+        { field:'Prueba',		hidden:true }, // extra field to be used on form load/save
+        { field:'Jornada',		hidden:true }, // extra field to be used on form load/save
+        { field:'ID',			hidden:true },
         { field:'Manga',		hidden:true },
         { field:'Perro',		hidden:true },
       	{ field:'Licencia',		hidden:true },
       	{ field:'Pendiente',	hidden:true },
       	{ field:'Tanda',		hidden:true },
-        { field:'Dorsal',		width:10, align:'right',  title: '#', styler:checkPending },
+        { field:'Dorsal',		width:12, align:'center',  title: '#', styler:checkPending },
       	{ field:'Celo',			width:10, align:'center', title: 'Celo', 
           			formatter:function(val,row){return (parseInt(val)==0)?" ":"X";}},
         { field:'Nombre',		width:20, align:'left',  title: 'Nombre'},
@@ -130,18 +136,18 @@ $('#tablet_competicion-EntradaDatos').datagrid({
       	{ field:'NoPresentado',	width:5, align:'center',title: 'NP'},		
       	{ field:'Observaciones',hidden:true }
     ]],
-    rowStyler:myRowStyler,
+    // rowStyler:myRowStyler,
     onBeforeLoad: function(param) { return true; }, // TODO: write
 	onLoadSuccess:function(){ 
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 	},
-    onClickRow: function(index) {
-        // TODO: open tablet window data
-    },
-    onDblClickRow: function(idx,row) {
-        $('#tdialog-dialog').dialog('open');
+    onClickRow: function(index,row) {
+        row.Prueba=workingData.prueba;
+        row.Jornada=workingData.jornada
+        row.Parent=index; // store index
         $('#tdialog-form').form('load',row);
+        $('#tdialog-dialog').dialog('open');
     },
     onDragEnter: function(dst,src) {
         if (dst.Manga!=src.Manga) return false;

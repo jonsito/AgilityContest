@@ -49,6 +49,19 @@ function strpos (pajar, aguja, offset) {
 function isDefined(variable) { return (typeof(window[variable]) != "undefined");}
 
 /**
+ * Convierte los campos de un formulario en un array
+ * @param {#string} formId ID del formulario
+ * @returns {obj} objeto que contiene los datos
+ */
+function formToObject(formId) {
+    var formObj = {};
+    var inputs = $(formId).serializeArray();
+    $.each(inputs, function (i, input) {
+        formObj[input.name] = input.value;
+    });
+    return formObj;
+}
+/**
  * Initialize working data information object
  */
 function initWorkingData() {

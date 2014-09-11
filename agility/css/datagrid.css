@@ -33,3 +33,6 @@
 .datagrid-cell-rownumber{
     width:40px;
 }
+
+.datagrid-body tr:nth-child(even) {background: #CCC; }
+.datagrid-body tr:nth-child(odd) {background: #EEE; }

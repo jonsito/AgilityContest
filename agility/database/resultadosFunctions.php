@@ -7,6 +7,7 @@ try {
 	$result=null;
 	$operation=http_request("Operation","s",null);
 	$pruebaID=http_request("Prueba","i",0);
+	$JornadaID=http_request("Jornada","i",0);
 	$mangaID=http_request("Manga","i",0);
 	$idperro=http_request("Perro","i",0);
 	$dorsal=http_request("Dorsal","i",0);
