@@ -4,10 +4,12 @@ function resultados_update() {
     	{
     		url:'/agility/database/resultadosFunctions.php',
     		onSubmit: function() { return true; },
-    		success:function(data){
-    			var obj=formToObject('#tdialog-form');
-    			$('#tablet_competicion-EntradaDatos').datagrid('updateRow',{index: obj.Parent,row: obj});
-    		}
+    		// !do not update parent tablet row! 
+    		// as form('reset') seems not to work as we want, we use it as backup
+    		// success:function(data){
+    		// 	 var obj=formToObject('#tdialog-form');
+    		//	 $('#tablet_competicion-EntradaDatos').datagrid('updateRow',{index: obj.Parent,row: obj});
+    		// }
     	});
 }
 
@@ -50,10 +52,33 @@ function tablet_down(id){
 	$(id).val(''+m);
 	resultados_update();
 }
+function tablet_np() {
+	var n= parseInt($('#tdialog-NoPresentado').val());
+	if (n==0) {
+		$('#tdialog-NoPresentado').val(1);
+		// si no presentado borra todos los demas datos
+		$('#tdialog-Eliminado').val(0);
+		$('#tdialog-Faltas').val(0);
+		$('#tdialog-Rehuses').val(0);
+		$('#tdialog-Tocados').val(0);
+		$('#tdialog-Tiempo').val(0);
+	} else {
+		$('#tdialog-NoPresentado').val(0);
+	}
+	resultados_update();
+}
 
-function tablet_swap(id) {
-	var n= parseInt($(id).val());
-	$(id).val(n==0)?1:0;
+function tablet_elim() {
+	var n= parseInt($('#tdialog-Eliminado').val());
+	if (n==0) {
+		$('#tdialog-Eliminado').val(1);
+		// si eliminado, poner nopresentado y tiempo a cero, conservar todo lo demas
+		$('#tdialog-NoPresentado').val(0);
+		$('#tdialog-Tiempo').val(0);
+	} else {
+		$('#tdialog-Eliminado').val(0);
+		
+	}
 	resultados_update();
 }
 
@@ -65,12 +90,23 @@ function tablet_lapreset() {
 }
 
 function tablet_cancel() {
-	$('#tdialog-form').form('reset'); // restore to original state
-	resultados_update(); // save results 
-	$('#tdialog-dialog').dialog('close'); // and close window
+	// retrieve original data from parent datagrid
+	var rows = $('#tablet_competicion-EntradaDatos').datagrid('getRows'); 
+	var row = rows[$('#tdialog-Parent')];  
+	 // restore form
+    $('#tdialog-form').form('load',row);
+    // save restored results 
+	resultados_update(); 
+	 // and close window
+	$('#tdialog-dialog').dialog('close');
 }
 
-function tablet_accept() { 
-	resultados_update(); // save results 
+function tablet_accept() {
+	// save results 
+	resultados_update();
+	// send back data to parent tablet datagrid form
+	var obj=formToObject('#tdialog-form');
+	$('#tablet_competicion-EntradaDatos').datagrid('updateRow',{index: obj.Parent,row: obj});
+	// and close windows
 	$('#tdialog-dialog').dialog('close'); // and close window
 }

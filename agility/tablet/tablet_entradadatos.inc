@@ -23,8 +23,8 @@
        		<input id="tdialog-LapResetBtn" type="button" value="Lap/Reset" onclick="tablet_lapreset();">
        		<input id="tdialog-AcceptBtn" type="button" value="Aceptar" onclick="tablet_accept();"> 
        		<input id="tdialog-CancelBtn" type="button" value="Cancelar" onclick="tablet_cancel();">
-       		<input id="tdialog-NoPresentadoBtn" type="button" value="No Presentado" onclick="tablet_swap('#tdialog-NoPresentado');">
-       		<input id="tdialog-EliminadoBtn" type="button" value="Eliminado" onclick="tablet_swap('#tdialog-Eliminado');">
+       		<input id="tdialog-NoPresentadoBtn" type="button" value="No Presentado" onclick="tablet_np();">
+       		<input id="tdialog-EliminadoBtn" type="button" value="Eliminado" onclick="tablet_elim('#tdialog-Eliminado');">
        		<input id="tdialog-0" type="button" value="0" class="tablet_numbers" onclick="tablet_add(0);">
        		<input id="tdialog-1" type="button" value="1" class="tablet_numbers" onclick="tablet_add(1);">
        		<input id="tdialog-2" type="button" value="2" class="tablet_numbers" onclick="tablet_add(2);">
@@ -60,9 +60,9 @@
        		<label id="tdialog-TiempoLbl" for="Tiempo">Tiempo</label>
        		<input id="tdialog-Tiempo" type="text" readonly="readonly" value="00.00" name="Tiempo" class="tablet_data"/>
        		<label id="tdialog-NoPresentadoLbl" for="NoPresentado">N. P.</label>
-       		<input id="tdialog-NoPresentado" type="text" readonly="readonly" value="N.P." name="NoPresentado" class="tablet_data"/>
+       		<input id="tdialog-NoPresentado" type="text" readonly="readonly" value="0" name="NoPresentado" class="tablet_data"/>
        		<label id="tdialog-EliminadoLbl" for="Eliminado">Elim.</label>
-       		<input id="tdialog-Eliminado" type="text" readonly="readonly" value="Elim" name="Eliminado" class="tablet_data"/>
+       		<input id="tdialog-Eliminado" type="text" readonly="readonly" value="0" name="Eliminado" class="tablet_data"/>
         </form> 
     </div>
 </div>

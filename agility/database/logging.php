@@ -17,7 +17,7 @@ class Logger {
 	private $level;
 	private static $levels= array("PANIC","ALERT","ERROR","WARN","NOTICE","INFO","DEBUG","TRACE");
 		
-	function __construct($name,$level=LEVEL_NOTICE) {
+	function __construct($name,$level=LEVEL_ALL) {
 		$this->basename=$name;
 		$this->level=$level;
 	}	

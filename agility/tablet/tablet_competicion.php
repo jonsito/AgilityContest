@@ -108,7 +108,9 @@ $('#tablet_competicion-EntradaDatos').datagrid({
     view: groupview,
     groupField: "Tanda",
     groupFormatter: function(value,rows){
-    	return value + ' - ' + rows.length + ' participante(s)';
+        // evaluate number of dogs by tanda is so time consuming
+    	// return value + ' - ' + rows.length + ' participante(s)';
+    	return value;
     },
     columns:[[
         { field:'Parent',		hidden:true }, // self reference to row index
