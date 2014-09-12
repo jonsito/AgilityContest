@@ -1,4 +1,4 @@
-<?php include_once("tablet_entradadatos.inc");?>
+<?php include_once(__DIR__."/tablet_entradadatos.inc");?>
  	
 <!-- Gestion desde el tablet de el orden de salida y entrada de datos -->
 <div id="tablet_competicion-Panel" class="easyui-panel">

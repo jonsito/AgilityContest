@@ -1,5 +1,4 @@
-<?php include_once("tablet_entradadatos.inc");?>
- 	
+	
 <!-- Gestion desde el tablet de el orden de salida y entrada de datos -->
 <div id="vw_combinada-Panel" class="easyui-panel" style="width:1920px;height:1080px;">
 
@@ -10,7 +9,7 @@
 	
 		<!-- marco izquierdo. top:livestream bottom:llamada-->
 		<div data-options="region:'west',split:true,border:false,collapsible:false,collapsed:false" 
-				style="width:960px">
+				style="width:768px"> <!-- dos quintos del ancho de pantalla -->
 		
 			<div id="vw_combinada-Layout2" class="easyui-layout" data-options="fit:true">
 			
@@ -54,7 +53,7 @@ $('#vw_combinada-LiveStream').panel({
 	href:"/agility/database/videowall.php",
 	queryParams: {
 		Operation: 'LiveStream',
-		ID: workingData.Session
+		Session: workingData.sesion
 	},
 	loadingMessage:"Actualizando datos LiveStream..."
 });
@@ -68,7 +67,7 @@ $('#vw_combinada-Pendientes').panel({
 	href:"/agility/database/videowall.php",
 	queryParams: {
 		Operation: 'Llamada',
-		ID: workingData.Session
+		Session: workingData.sesion
 	},
 	loadingMessage:"Obteniendo lista de pre-ring..."
 });
@@ -78,10 +77,10 @@ $('#vw_combinada-Resultados').panel({
 	closable:false,
 	collapsible:false,
 	collapsed:false,
-	href:"/agility/database/videowall..php",
+	href:"/agility/database/videowall.php",
 	queryParams: {
 		Operation: 'Resultados',
-		ID: workingData.Session
+		Session: workingData.sesion
 	},
 	loadingMessage:"Obteniendo resultados parciales..."
 });

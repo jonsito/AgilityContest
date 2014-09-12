@@ -103,31 +103,32 @@ function vw_accept() {
 	$('#selvw-Jornada').combogrid('setValue','');
 	
 	// store selected data into global structure
-	workingData.session=s.ID;
+	workingData.sesion=s.ID;
 	workingData.nombreSesion=s.Nombre;
+	initWorkingData(s.ID);
 	var page="'/agility/frm_notavailable.php";
 	var n=parseInt($('#selvw-Vista').val());
 	switch (n){
 	case 0: //Listado de Inscritos
-		page="/agility/videowall/vw_inscripciones.php";
+		page="/agility/videowall/vw_inscripciones.inc";
 		break;
 	case 1: // Ordenes de Salida
-		page="/agility/videowall/vw_ordensalida.php";
+		page="/agility/videowall/vw_ordensalida.inc";
 		break;
 	case 2: // Llamada a pista
-		page="/agility/videowall/vw_llamada.php";
+		page="/agility/videowall/vw_llamada.inc";
 		break;
 	case 3: // Resultados Parciales
-		page="/agility/videowall/vw_parciales.php";
+		page="/agility/videowall/vw_parciales.inc";
 		break;
 	case 4: // Clasificaciones
-		page="/agility/videowall/vw_clasificaciones.php";
+		page="/agility/videowall/vw_clasificaciones.inc";
 		break;
 	case 5: // Live Stream OSD
-		page="/agility/videowall/vw_livestream.php";
+		page="/agility/videowall/vw_livestream.inc";
 		break;
 	case 6: // Vista Combinada
-		page="/agility/videowall/vw_combinada.php";
+		page="/agility/videowall/vw_combinada.inc";
 		break;
 	}
 	$('#selvw-dialog').dialog('close');
