@@ -1700,12 +1700,15 @@ INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`
 DROP TABLE IF EXISTS `Sesiones`;
 CREATE TABLE IF NOT EXISTS `Sesiones` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(255) NOT NULL DEFAULT '-- Anonimo --',
+  `Nombre` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
   `Prueba` int(4) NOT NULL DEFAULT '0',
   `Jornada` int(4) NOT NULL DEFAULT '0',
   `Manga` int(4) NOT NULL DEFAULT '0',
   `Tanda` int(4) NOT NULL DEFAULT '0',
   `Perro` int(4) NOT NULL DEFAULT '0',
+  `Guia` int(4) NOT NULL DEFAULT '0',
+  `Club` int(4) NOT NULL DEFAULT '0',
+  `Juez` int(4) NOT NULL DEFAULT '0',
   `Resultado` int(4) NOT NULL DEFAULT '0',
   `Usuario` varchar(255) NOT NULL DEFAULT '-- Anonimo --',
   `LastModified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1718,8 +1721,8 @@ CREATE TABLE IF NOT EXISTS `Sesiones` (
 -- Volcado de datos para la tabla `Sesiones`
 --
 
-INSERT INTO `Sesiones` (`ID`, `Nombre`, `Prueba`, `Jornada`, `Manga`, `Tanda`, `Perro`, `Resultado`,`Usuario`) VALUES
-(1, '-- Sin asignar --', 0, 0, 0, 0, 0, 0, '-- Anonimo --');
+INSERT INTO `Sesiones` (`ID`, `Nombre`, `Prueba`, `Jornada`, `Manga`, `Tanda`, `Perro`, `Guia`, `Club`, `Juez`, `Resultado`,`Usuario`) VALUES
+(1, '-- Sin asignar --', 0, 0, 0, 0, 0, 0, 0, 0, 0, '-- Anonimo --');
 
 -- --------------------------------------------------------
 

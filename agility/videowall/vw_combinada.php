@@ -53,8 +53,8 @@ $('#vw_combinada-LiveStream').panel({
 	collapsed:false,
 	href:"/agility/database/videowall.php",
 	queryParams: {
-		Operation: 'Livestream',
-		ID: workingData.SessionID
+		Operation: 'LiveStream',
+		ID: workingData.Session
 	},
 	loadingMessage:"Actualizando datos LiveStream..."
 });
@@ -68,7 +68,7 @@ $('#vw_combinada-Pendientes').panel({
 	href:"/agility/database/videowall.php",
 	queryParams: {
 		Operation: 'Llamada',
-		ID: workingData.SessionID
+		ID: workingData.Session
 	},
 	loadingMessage:"Obteniendo lista de pre-ring..."
 });
@@ -81,7 +81,7 @@ $('#vw_combinada-Resultados').panel({
 	href:"/agility/database/videowall..php",
 	queryParams: {
 		Operation: 'Resultados',
-		ID: workingData.SessionID
+		ID: workingData.Session
 	},
 	loadingMessage:"Obteniendo resultados parciales..."
 });

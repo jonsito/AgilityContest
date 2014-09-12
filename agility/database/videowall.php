@@ -4,14 +4,8 @@ require_once("logging.php");
 require_once("classes/DBObject.php");
 require_once("classes/OrdenTandas.php");
 
-$mySession=new DBObject("VideoWall");
-$
-
-$p = http_request("Prueba","i",0);
-$j = http_request("Jornada","i",0);
-$a = http_request("Pendientes","i",10);
-
 function videowall_llamada() {
+	$mySession=new DBObject("VideoWall_Llamada");
 	$ot=new OrdenTandas("Llamada a pista");
 	$result = $ot->getData($p,$j,$a)['rows'];
 	$numero=0;
@@ -47,3 +41,13 @@ function videowall_llamada() {
 function videowall_resultados() {
 }
 
+function videowall_livestream() {
+
+}
+
+$s = http_request("Sesion","i",0);
+$o = http_request("Operation","i",0);
+
+if($o==="Livestream") return videowall_livestream();
+if($o==="Llamada") return videowall_llamada();
+if($o==="Resultados") return videowall_resultados();

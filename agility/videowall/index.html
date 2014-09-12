@@ -26,12 +26,8 @@
 <div id="selvw-dialog" class="easyui-dialog" style="position:relative,width:500px;height:220px;padding:20px 20px">
 	<form id="selvw-Selection">
     	<div class="fitem">
-       		<label for="Prueba">Selecciona Prueba:</label>
-       		<select id="selvw-Prueba" name="Prueba" style="width:200px"></select>
-    	</div>        		
-    	<div class="fitem">
-       		<label for="Jornada">Selecciona Jornada:</label>
-       		<select id="selvw-Jornada" name="Jornada" style="width:200px"></select>
+       		<label for="Prueba">Selecciona Sesi&oacute;n:</label>
+       		<select id="selvw-Session" name="Session" style="width:200px"></select>
     	</div>
     	<div class="fitem">
        		<label for="Vista">Selecciona Vista:</label>
@@ -69,93 +65,46 @@ $('#selvw-dialog').dialog({
 
 $('#selvw-form').form();
 
-addTooltip($('#selvw-okBtn').linkbutton(),"Trabajar con la jornada seleccionada");
+addTooltip($('#selvw-okBtn').linkbutton(),"Trabajar con la sesión seleccionada");
 
-$('#selvw-Prueba').combogrid({
-	panelWidth: 400,
-	panelHeight: 150,
+$('#selvw-Session').combogrid({
+	panelWidth: 250,
+	panelHeight: 100,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/database/pruebaFunctions.php?Operation=enumerate',
+	url: '/agility/database/sessionFunctions.php',
 	method: 'get',
 	mode: 'remote',
 	required: true,
-	multiple: false,
-	fitColumns: true,
-	singleSelect: true,
-	selectOnNavigation: true, // let use cursor keys to interactive select
-	columns: [[
-	   	    {field:'ID',hidden:true},
-			{field:'Nombre',title:'Nombre',width:50,align:'right'},
-			{field:'Club',hidden:true},
-			{field:'NombreClub',title:'Club',width:20,align:'right'},
-			{field:'Observaciones',title:'Observaciones.',width:30,align:'right'}
-	]],
-	onChange:function(value){
-		workingData.prueba=Number(value);
-		var g = $('#selvw-Jornada').combogrid('grid');
-		g.datagrid('load',{Prueba:value});
-	}
-});
-
-$('#selvw-Jornada').combogrid({
-	panelWidth: 550,
-	panelHeight: 150,
-	idField: 'ID',
-	textField: 'Nombre',
-	url: '/agility/database/jornadaFunctions.php',
-	method: 'get',
-	mode: 'remote',
-	required: true,
+	rownumber: true,
 	multiple: false,
 	fitColumns: true,
 	singleSelect: true,
 	columns: [[
-	    { field:'ID',			hidden:true }, // ID de la jornada
-	    { field:'Prueba',		hidden:true }, // ID de la prueba
-	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-		{ field:'Nombre',		width:30, sortable:false,   align:'right',  title: 'Nombre/Comentario' },
-		{ field:'Fecha',		hidden:true},
-		{ field:'Hora',			hidden:true},
-		{ field:'Grado1',		width:8, sortable:false,	align:'center', title: 'G-I    ' },
-		{ field:'Grado2',		width:8, sortable:false,	align:'center', title: 'G-II   ' },
-		{ field:'Grado3',		width:8, sortable:false,	align:'center', title: 'G-III  ' },
-		{ field:'Open',		    width:8, sortable:false,	align:'center', title: 'Open   ' },
-		{ field:'Equipos3',		width:8, sortable:false,	align:'center', title: 'Eq.3x4 ' },
-		{ field:'Equipos4',		width:8, sortable:false,	align:'center', title: 'Eq.Conj' },
-		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'Pre. 1 ' },
-		{ field:'PreAgility2',	width:8, sortable:false,	align:'center', title: 'Pre. 2 ' },
-		{ field:'KO',			width:8, sortable:false,	align:'center', title: 'K.O.   ' },
-		{ field:'Especial',		width:8, sortable:false,	align:'center', title: 'Show   ' },
+	    { field:'ID',			width:5, sortable:false, align:'center', title:'ID' }, // Session ID
+		{ field:'Nombre',		width:30, sortable:false,   align:'right',  title: 'Nombre de sesión' }
 	]],
 	onBeforeLoad: function(param) { 
-		param.Operation='enumerate', 
-		param.Prueba=workingData.prueba;
-		param.AllowClosed=0;
+		param.Operation='enumerate'
 		return true;
 	}
 });
 
 function vw_accept() {
 	// si prueba invalida cancelamos operacion
-	var p=$('#selvw-Prueba').combogrid('grid').datagrid('getSelected');
-	var j=$('#selvw-Jornada').combogrid('grid').datagrid('getSelected');
-	if ( (p==null) || (j==null) ) {
+	var s=$('#selvw-Session').combogrid('grid').datagrid('getSelected');
+	if ( s===null ) {
 		// indica error
-		$.messager.alert("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
+		$.messager.alert("Error","Debe indicar una sesion v&aacute;lidas","error");
 		return;
 	}
 	// clear selection to make sure next time gets empty
-	$('#selvw-Prueba').combogrid('setValue','');
+	$('#selvw-Session').combogrid('setValue','');
 	$('#selvw-Jornada').combogrid('setValue','');
+	
 	// store selected data into global structure
-	workingData.prueba=p.ID;
-	workingData.nombrePrueba=p.Nombre;
-	workingData.datosPrueba=p;
-	workingData.datosJornada=j;
-	workingData.jornada=j.ID;
-	workingData.nombreJornada=j.Nombre;
-	workingData.datosJornada=j;
+	workingData.session=s.ID;
+	workingData.nombreSesion=s.Nombre;
 	var page="'/agility/frm_notavailable.php";
 	var n=parseInt($('#selvw-Vista').val());
 	switch (n){

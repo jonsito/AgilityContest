@@ -56,6 +56,7 @@ class Sesiones extends DBObject {
 		if ($data['Resultado']!=0)	$sql .=", Resultado={$data['Resultado']} ";
 		if ($data['Usuario']!==null)$sql .=", Usuario='{$data['Usuario']}' ";
 		$sql .= "WHERE (ID=$id);";
+		$this->myLogger->trace("Sesiones::update() query string:\n$sql");
 		$res= $this->query($sql);
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();

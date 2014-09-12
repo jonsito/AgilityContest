@@ -62,9 +62,10 @@ function formToObject(formId) {
     return formObj;
 }
 /**
+ * @param {integer} id SessionID
  * Initialize working data information object
  */
-function initWorkingData() {
+function initWorkingData(id) {
 	workingData.perro= 0; // IDPerro del perro en edicion
 	workingData.guia= 0; // ID del guia en edicion
 	workingData.club= 0; // ID del club activo
@@ -74,12 +75,66 @@ function initWorkingData() {
 	workingData.jornada= 0; // ID de la jornada en curso
 	workingData.nombreJornada= ""; // nombre de la jornada
 	workingData.manga= 0; // ID de la manga en curso
-	workingData.manga2= 0; // ID de la segunda manga para el calculo de resultados
 	workingData.nombreManga = ""; // denominacion de la manga
+	workingData.manga2= 0; // ID de la segunda manga para el calculo de resultados
+	workingData.tanda=0; // tanda (pareja manga/categoria) activa
+	workingData.nombreTanda = ""; 
+	workingData.sesion=0; // ID de la sesion para videomarcadores
+	workingData.nombreSesion="" // nombre de la sesion
 	workingData.datosPrueba= new Object(); // last selected prueba data
 	workingData.datosJornada= new Object(); // last selected jornada data
 	workingData.datosManga= new Object(); // last selected jornada data
 	workingData.datosRonda= new Object(); // last selected ronda (grade, manga1, manga2)
+	if (id!==undefined) {
+		$.ajax({
+			url: '/agility/database/sessionFunctions.php',
+			data: { Operation: 'getByID', ID: id },
+			dataType: 'json',
+	        async: false,
+	        cache: false,
+	        timeout: 30000,
+			success: function(data) {
+				workingData.perro	= data.Perro;
+				workingData.guia	= data.Guia;
+				workingData.club	= data.Club;
+				workingData.juez	= data.Juez;
+				workingData.prueba	= data.Prueba;
+				workingData.nombrePrueba= ""; // nombre de la prueba
+				workingData.jornada	= data.Jornada
+				workingData.nombreJornada= ""; // nombre de la jornada
+				workingData.manga	= data.Manga;
+				workingData.nombreManga = ""; // denominacion de la manga
+				workingData.manga2= 0; // ID de la segunda manga para el calculo de resultados
+				workingData.tanda	= data.Tanda;
+				workingData.nombreTanda = ""; 
+				workingData.sesion	= data.ID;
+				workingData.nombreSesion	= data.Nombre;
+				workingData.resultado = data.Resultado;
+			},
+			error: function(msg){ alert("error setting workingData: "+msg);}
+		});
+	}
+}
+
+/**
+ * Actualiza la sesion con el id dado en la tabla de sesiones de la bbdd
+ * @param id id de la sesion
+ * @param param parametros a actualizar en la sesion
+ */
+function updateSessionInfo(id, parameters) {
+	parameters.Operation='update',
+	parameters.ID=id;
+	$.ajax({
+		url: '/agility/database/sessionFunctions.php',
+		data: parameters,
+		dataType: 'json',
+	    async: false,
+	    cache: false,
+	    timeout: 30000,
+		success: function(data) { initWorkingData(id)	},
+		error: function(msg){ alert("error setting sessionDatabase: "+msg);}
+		});
+	return true;
 }
 
 /**

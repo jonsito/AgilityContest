@@ -9,7 +9,7 @@ try {
 	$operation=http_request("Operation","s",null);
 	$id=http_request("ID","i",0);
 	$data=array (
-			'Nombre' 	=> 	http_request("Nombre","s",0),
+			'Nombre' 	=> 	http_request("Nombre","s","-- Sin asignar --"),
 			'Prueba' 	=> 	http_request("Prueba","i",0),
 			'Jornada'	=>	http_request("Jornada","i",0),
 			'Manga'		=>	http_request("Manga","i",0),

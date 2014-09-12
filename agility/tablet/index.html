@@ -30,6 +30,10 @@
 <div id="seltablet-dialog" class="easyui-dialog" style="position:relative,width:600px;height:250px;padding:20px 20px">
 	<form id="seltablet-form">
     	<div class="fitem">
+       		<label for="Sesion">Sesi&oacute;n:</label>
+       		<select id="seltablet-Sesion" name="Sesion" style="width:200px"></select>
+    	</div>        		
+    	<div class="fitem">
        		<label for="Prueba">Selecciona Prueba:</label>
        		<select id="seltablet-Prueba" name="Prueba" style="width:200px"></select>
     	</div>        		
@@ -87,6 +91,29 @@ $('#seltablet-Prueba').combogrid({
 	}
 });
 
+$('#seltablet-Sesion').combogrid({
+	panelWidth: 250,
+	panelHeight: 100,
+	idField: 'ID',
+	textField: 'Nombre',
+	url: '/agility/database/sessionFunctions.php',
+	method: 'get',
+	mode: 'remote',
+	required: true,
+	rownumber: true,
+	multiple: false,
+	fitColumns: true,
+	singleSelect: true,
+	columns: [[
+	    { field:'ID',			width:5, sortable:false, align:'center', title:'ID' }, // Session ID
+		{ field:'Nombre',		width:30, sortable:false,   align:'right',  title: 'Nombre de sesión' }
+	]],
+	onBeforeLoad: function(param) { 
+		param.Operation='enumerate'
+		return true;
+	}
+});
+
 $('#seltablet-Jornada').combogrid({
 	panelWidth: 550,
 	panelHeight: 150,
@@ -127,19 +154,18 @@ $('#seltablet-Jornada').combogrid({
 
 function tablet_acceptSelectJornada() {
 	// si prueba invalida cancelamos operacion
+	var s=$('#seltablet-Sesion').combogrid('grid').datagrid('getSelected');
 	var p=$('#seltablet-Prueba').combogrid('grid').datagrid('getSelected');
 	var j=$('#seltablet-Jornada').combogrid('grid').datagrid('getSelected');
 	if ( (p==null) || (j==null) ) {
 		// indica error
-		$.messager.alert("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
+		$.messager.alert("Error","Debe<br />- Indicar la sesión para los videomarcadores<br />- Seleccionar prueba/jornada para manejo de datos","error");
 		return;
 	}
-	// store selected data into global structure
-	workingData.prueba=p.ID;
-	workingData.nombrePrueba=p.Nombre;
+
+	updateSessionInfo(s.ID,{Nombre: s.Nombre,Prueba:p.ID, Jornada:j.ID});
+	workingData.nombrePrueba=p.Nombre
 	workingData.datosPrueba=p;
-	workingData.datosJornada=j;
-	workingData.jornada=j.ID;
 	workingData.nombreJornada=j.Nombre;
 	workingData.datosJornada=j;
 
