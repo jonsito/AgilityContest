@@ -19,23 +19,23 @@
 </head>
 
 <body style="width:600px;height:1024px;margin:0;padding:0;background-color:blue">
-<div id="contenido" style="width:inherit;height:inherit;margin:0;padding:0">
+<div id="vw_contenido" style="width:inherit;height:inherit;margin:0;padding:0">
 
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 
-<div id="seljornada-dialog" class="easyui-dialog" style="position:relative,width:500px;height:220px;padding:20px 20px">
-	<form id="seljornada-Selection">
+<div id="selvw-dialog" class="easyui-dialog" style="position:relative,width:500px;height:220px;padding:20px 20px">
+	<form id="selvw-Selection">
     	<div class="fitem">
        		<label for="Prueba">Selecciona Prueba:</label>
-       		<select id="seljornada-Prueba" name="Prueba" style="width:200px"></select>
+       		<select id="selvw-Prueba" name="Prueba" style="width:200px"></select>
     	</div>        		
     	<div class="fitem">
        		<label for="Jornada">Selecciona Jornada:</label>
-       		<select id="seljornada-Jornada" name="Jornada" style="width:200px"></select>
+       		<select id="selvw-Jornada" name="Jornada" style="width:200px"></select>
     	</div>
     	<div class="fitem">
        		<label for="Vista">Selecciona Vista:</label>
-       		<select id="seljornada-Vista" name="Vista" style="width:200px">
+       		<select id="selvw-Vista" name="Vista" style="width:200px">
        		<option value="0">Listado de Inscritos</option>
        		<option value="1">Ordenes de Salida</option>
        		<option value="2">Llamada a pista</option>
@@ -49,13 +49,13 @@
 	</form>
 </div> <!-- Window -->
 
-<div id="seljornada-Buttons" style="text-align:right">
-   	<a id="seljornada-okBtn" href="#" class="easyui-linkbutton" 
-   	   	data-options="iconCls: 'icon-ok'" onclick="acceptSelectJornada()">Aceptar</a>
+<div id="selvw-Buttons" style="text-align:right">
+   	<a id="selvw-okBtn" href="#" class="easyui-linkbutton" 
+   	   	data-options="iconCls: 'icon-ok'" onclick="vw_accept()">Aceptar</a>
 </div>	<!-- botones -->
 
 <script type="text/javascript">
-$('#seljornada-dialog').dialog({
+$('#selvw-dialog').dialog({
 	title: 'Datos de la Vista a desplegar',
 	collapsible: false,
 	minimizable: false,
@@ -64,14 +64,14 @@ $('#seljornada-dialog').dialog({
 	closed: false,
 	shadow: true,
 	modal: true,
-	buttons: '#seljornada-Buttons' 
+	buttons: '#selvw-Buttons' 
 });
 
-$('#seljornada-form').form();
+$('#selvw-form').form();
 
-addTooltip($('#seljornada-okBtn').linkbutton(),"Trabajar con la jornada seleccionada");
+addTooltip($('#selvw-okBtn').linkbutton(),"Trabajar con la jornada seleccionada");
 
-$('#seljornada-Prueba').combogrid({
+$('#selvw-Prueba').combogrid({
 	panelWidth: 400,
 	panelHeight: 150,
 	idField: 'ID',
@@ -93,12 +93,12 @@ $('#seljornada-Prueba').combogrid({
 	]],
 	onChange:function(value){
 		workingData.prueba=Number(value);
-		var g = $('#seljornada-Jornada').combogrid('grid');
+		var g = $('#selvw-Jornada').combogrid('grid');
 		g.datagrid('load',{Prueba:value});
 	}
 });
 
-$('#seljornada-Jornada').combogrid({
+$('#selvw-Jornada').combogrid({
 	panelWidth: 550,
 	panelHeight: 150,
 	idField: 'ID',
@@ -136,18 +136,18 @@ $('#seljornada-Jornada').combogrid({
 	}
 });
 
-function acceptSelectJornada() {
+function vw_accept() {
 	// si prueba invalida cancelamos operacion
-	var p=$('#seljornada-Prueba').combogrid('grid').datagrid('getSelected');
-	var j=$('#seljornada-Jornada').combogrid('grid').datagrid('getSelected');
+	var p=$('#selvw-Prueba').combogrid('grid').datagrid('getSelected');
+	var j=$('#selvw-Jornada').combogrid('grid').datagrid('getSelected');
 	if ( (p==null) || (j==null) ) {
 		// indica error
 		$.messager.alert("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
 		return;
 	}
 	// clear selection to make sure next time gets empty
-	$('#seljornada-Prueba').combogrid('setValue','');
-	$('#seljornada-Jornada').combogrid('setValue','');
+	$('#selvw-Prueba').combogrid('setValue','');
+	$('#selvw-Jornada').combogrid('setValue','');
 	// store selected data into global structure
 	workingData.prueba=p.ID;
 	workingData.nombrePrueba=p.Nombre;
@@ -156,6 +156,39 @@ function acceptSelectJornada() {
 	workingData.jornada=j.ID;
 	workingData.nombreJornada=j.Nombre;
 	workingData.datosJornada=j;
+	var page="'/agility/frm_notavailable.php";
+	var n=parseInt($('#selvw-Vista').val());
+	switch (n){
+	case 0: //Listado de Inscritos
+		page="/agility/videowall/vw_inscripciones.php";
+		break;
+	case 1: // Ordenes de Salida
+		page="/agility/videowall/vw_ordensalida.php";
+		break;
+	case 2: // Llamada a pista
+		page="/agility/videowall/vw_llamada.php";
+		break;
+	case 3: // Resultados Parciales
+		page="/agility/videowall/vw_parciales.php";
+		break;
+	case 4: // Clasificaciones
+		page="/agility/videowall/vw_clasificaciones.php";
+		break;
+	case 5: // Live Stream OSD
+		page="/agility/videowall/vw_livestream.php";
+		break;
+	case 6: // Vista Combinada
+		page="/agility/videowall/vw_combinada.php";
+		break;
+	}
+	$('#selvw-dialog').dialog('close');
+	$('#vw_contenido').load(	
+			page,
+			function(response,status,xhr){
+				if (status=='error') $('#vw_contenido').load('/agility/frm_notavailable.php');
+			}
+		);
+		
 }
 </script>
 </div> <!-- contenido -->

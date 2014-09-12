@@ -20,11 +20,12 @@ try {
 	$f = http_request("From","i",0);
 	$t = http_request("To","i",0);
 	$w = http_request("Where","i",0); // 0:up 1:down
+	$a = http_request("Pendientes",i,0); // 0: listado completo; else retorna hasta "n" perros pendientes
 	if ( ($p<=0) || ($j<=0) ) 
 		throw new Exception("Call to ordenTandasFunctions with Invalid Prueba:$p or Jornada:$j ID");
 	switch ($operation) {
 		case "getTandas":$result = $os->getTandas($p,$j); break;
-		case "getData":	$result = $os->getData($p,$j); break;
+		case "getData":	$result = $os->getData($p,$j,$a); break;
 		case "dnd":	$result = $os->dragAndDrop($p,$j,$f,$t,$w); break;
 	}
 	// result may contain null (error),  "" success, or (any) data

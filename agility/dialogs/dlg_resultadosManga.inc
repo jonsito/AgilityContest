@@ -71,11 +71,12 @@ $('#resultadosmanga-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: 'database/resultadosFunctions.php',
+	url: '/agility/database/resultadosFunctions.php',
     queryParams: {
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
-        Manga: workingData.manga,
+        //Manga: workingData.manga,
+        Manga: 2,
         Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
         Operation: 'getResultados'
     },
@@ -106,9 +107,7 @@ $('#resultadosmanga-datagrid').datagrid({
       	{ field:'Calificacion',	width:30, align:'center',title: 'Calificacion'}, 
       	{ field:'CShort', hidden:true}
     ]],
-    rowStyler:function(index,row) { // colorize rows
-        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-    },
+    rowStyler:myRowStyler,
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
     onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes)
     	$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();

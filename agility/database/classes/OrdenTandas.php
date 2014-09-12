@@ -284,10 +284,12 @@ class OrdenTandas extends DBObject {
 	 *
 	 * @param {int} $prueba ID de prueba
 	 * @param {int} $jornada ID de jornada
+	 * @param {int} $pendientes 0: coge la lista completa; else coge los n primeros marcados como pendientes
 	 * @return array[count,[data]] array ordenado segun tandas/ordensalida de datos de perros de una jornada 
 	 */
-	function getData($prueba,$jornada) {
+	function getData($prueba,$jornada,$pendientes) {
 		$this->myLogger->enter();
+		$count=$pendientes;
 		$rows=array();
 		// fase 1 buscamos las tandas de cada jornada
 		$lista_tandas=$this->getTandas($prueba,$jornada);
@@ -313,7 +315,16 @@ class OrdenTandas extends DBObject {
 				if (!is_array($res)) return $this->error($this->conn-error);
 				$res['Celo']=$celo; // store celo info
 				$res['Tanda']=$tanda['Nombre'];
-				array_push($rows,$res);
+				if ($pendientes==0) { array_push($rows,$res); continue; } // include all
+				if ($res['Pendiente']==0) continue; // not pendiente: skip
+				if ($count > 0) { $count--; array_push($rows,$res); continue; } // not yet at count: insert 
+				// arriving here means that every requested dogs are filled
+				$this->myLogger->debug("OrdenTandas::getData() Already have $pendientes dogs");
+				// so return
+				$result['rows']=$rows;
+				$result['total']=count($rows);
+				$this->myLogger->leave();
+				return $result;
 			}
 		}
 		$result['rows']=$rows;

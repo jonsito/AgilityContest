@@ -185,3 +185,17 @@ input.tablet_numbers {
 	border-collapse: separate;
 	border-left: 1px solid #000;
 }
+
+/**** panel de resultados */
+.llamada {
+	width:100%;
+	table-layout: fixed;
+	font-size: 15px;
+	font-weight: bold;
+}
+.llamada th {
+    width: 50px;
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+}
