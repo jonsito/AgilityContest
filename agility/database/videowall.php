@@ -12,10 +12,10 @@ function videowall_llamada($idsesion) {
 	$result = $otmgr->getData($mySession->Prueba,$mySession->Jornada,10)['rows']; // obtiene los 10 primeros perros pendientes
 	$numero=0;
 	foreach ($result as $participante) {
-		error_log("Prueba:{$mySession->Prueba} Jornada {$mySession->Jornada} Participante".json_encode($participante) );
 		$numero++;
 		$logo=$otmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
 		if ($logo==="") $logo='rsce.png';
+		$celo=($participante['Celo']==='1')?'Celo':'';
 		echo '
 	<div id="participante_'.$numero.'">
 		<table class="llamada">
@@ -24,6 +24,9 @@ function videowall_llamada($idsesion) {
 			<td rowspan="2"><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'" width="50" height="50"/></td>
 			<td rowspan="2">'.$participante['Grado'].' - '.$participante['Categoria'].'</td>
 			<td>Dorsal: '.$participante['Dorsal'].'</td>
+			<td>Lic.  : '.$participante['Licencia'].'</td>
+			<td colspan="2" style="text-align:center; font-style:italic; font-size:20px;">'.$participante['Nombre'].'</td>
+			<td style="text-align:right;">'.$celo.'</td>		
 		</tr>
 		<tr>
 			<td colspan="3" style="text-align:left">Gu&iacute;a: '.$participante['NombreGuia'].'</td>
@@ -37,7 +40,36 @@ function videowall_llamada($idsesion) {
 	}
 }
 
-function videowall_resultados($sesion) {
+function videowall_resultados($idsesion) {
+	$sesmgr=new Sesiones("VideoWall_Resultados");
+	$mySession=$sesmgr->__getObject("Sesiones",$idsesion);
+	$resmgr=new Resultados("videowall_resultados",$mySession->Prueba, 2 /* TODO: FIX: $mySession->Manga*/ );
+	$result = $resmgr->getResultados(0 /* TODO: EVALUATE MODE */);
+	$numero=0;
+	foreach ($result['rows'] as $resultado) {
+		error_log(json_encode($resultado));
+		$numero++;
+		$logo=$resmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$resultado['Perro']})")['Logo'];
+		if ($logo==="") $logo='rsce.png';
+		echo '
+			<div id="Resultado_'.$numero.'>
+				<table class="llamada">
+					<tr>
+						<th rowspan="2">'.$resultado['Puesto'].'</th>
+						<td rowspan="2"><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'" width="50" height="50"/></td>
+						<td>Dorsal: '.$resultado['Dorsal'].'</td>
+						<td>Lic.  : '.$resultado['Licencia'].'</td>
+						<td>Cat  : '.$resultado['Categoria'].'</td>
+						<td>Grado  : '.$resultado['Grado'].'</td>
+						<td>Nombre.  : '.$resultado['Nombre'].'</td>
+						<td>NombreGuia.  : '.$resultado['NombreGuia'].'</td>
+						<td>NombreClub.  : '.$resultado['NombreClub'].'</td>
+					</tr>
+				</table>
+				<hr />
+			</div>
+		';
+	}
 }
 
 function videowall_livestream($sesion) {
