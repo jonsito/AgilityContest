@@ -16,7 +16,7 @@
 			
 				<div data-options="region:'north',split:true,border:false,title:'LiveStream',collapsible:false,collapsed:false" 
 					style="height:270px">
-					<?php include_once("livestream.inc")?>
+					<div id="vw_combinada-LiveStream" class="easyui-panel"></div>
 					hola
 				</div>
 				<div data-options="region:'center',split:true,border:false,title:'Llamada a pista'">
@@ -29,7 +29,7 @@
 		
 		<!-- marco derecho: resultados parciales -->
 		<div data-options="region:'center',title:'Resultados parciales'">
-			<?php include_once("parciales.inc")?>
+			<div id="vw_combinada-Resultados" class="easyui-panel"></div>
 		</div> <!-- resultados parciales -->
 		
 	</div> <!-- combinada-Layout -->
@@ -45,19 +45,45 @@ $('#vw_combinada-Panel').panel({
 	collapsible:false,
 	collapsed:false
 });
+$('#vw_combinada-LiveStream').panel({
+	noheader:true,
+	border:false,
+	closable:false,
+	collapsible:false,
+	collapsed:false,
+	href:"/agility/database/videowall.php",
+	queryParams: {
+		Operation: 'Livestream',
+		ID: workingData.SessionID
+	},
+	loadingMessage:"Actualizando datos LiveStream..."
+});
+
 $('#vw_combinada-Pendientes').panel({
 	noheader:true,
 	border:false,
 	closable:false,
 	collapsible:false,
 	collapsed:false,
-	href:"/agility/database/llamada.php",
+	href:"/agility/database/videowall.php",
 	queryParams: {
-		Prueba: workingData.prueba,
-		Jornada: workingData.jornada,
-		Pendientes: 10
+		Operation: 'Llamada',
+		ID: workingData.SessionID
 	},
-	loadingMessage:"Obteniendo lista de pre-ring"
+	loadingMessage:"Obteniendo lista de pre-ring..."
+});
+$('#vw_combinada-Resultados').panel({
+	noheader:true,
+	border:false,
+	closable:false,
+	collapsible:false,
+	collapsed:false,
+	href:"/agility/database/videowall..php",
+	queryParams: {
+		Operation: 'Resultados',
+		ID: workingData.SessionID
+	},
+	loadingMessage:"Obteniendo resultados parciales..."
 });
 $('#vw_combinada-Layout1').layout();
 $('#vw_combinada-Layout2').layout();

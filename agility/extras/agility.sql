@@ -1692,6 +1692,38 @@ INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `Sesiones`
+--
+-- Creación: 12-07-2014 a las 09:16:36
+--
+
+DROP TABLE IF EXISTS `Sesiones`;
+CREATE TABLE IF NOT EXISTS `Sesiones` (
+  `ID` int(4) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(255) NOT NULL DEFAULT '-- Anonimo --',
+  `Prueba` int(4) NOT NULL DEFAULT '0',
+  `Jornada` int(4) NOT NULL DEFAULT '0',
+  `Manga` int(4) NOT NULL DEFAULT '0',
+  `Tanda` int(4) NOT NULL DEFAULT '0',
+  `Perro` int(4) NOT NULL DEFAULT '0',
+  `Resultado` int(4) NOT NULL DEFAULT '0',
+  `Usuario` varchar(255) NOT NULL DEFAULT '-- Anonimo --',
+  `LastModified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`),
+  KEY `Sesiones_Prueba` (`Prueba`),
+  KEY `Sesiones_Jornada` (`Jornada`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Volcado de datos para la tabla `Sesiones`
+--
+
+INSERT INTO `Sesiones` (`ID`, `Nombre`, `Prueba`, `Jornada`, `Manga`, `Tanda`, `Perro`, `Resultado`,`Usuario`) VALUES
+(1, '-- Sin asignar --', 0, 0, 0, 0, 0, 0, '-- Anonimo --');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `Resultados`
 --
 -- Creación: 12-07-2014 a las 09:16:37
