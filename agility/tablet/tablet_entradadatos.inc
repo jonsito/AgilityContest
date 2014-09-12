@@ -9,7 +9,7 @@
         	<input id="tdialog-Manga" name="Manga" type="hidden">
         	<input id="tdialog-Perro" name="Perro" type="hidden">
       		<input id="tdialog-Licencia" name="Licencia" type="hidden">
-      		<input id="tdialog-Pendiente" name="Pendiente" type="hidden">
+      		<input id="tdialog-Pendiente" name="Pendiente" type="hidden" value="0">
       		<input id="tdialog-Tanda" name="Tanda" type="hidden">
       		<input id="tdialog-Observacioens" name="Observaciones" type="hidden">
       		<input id="tdialog-Operation" name="Operation" type="hidden" value="update">
@@ -78,7 +78,9 @@
         title: 'Entrada de datos'
     });
 
-    $('#tdialog-form').form();
+    $('#tdialog-form').form({
+        onLoadSuccess: tablet_updateSession
+    });
 
     // layout
     var dg= {'cols':28, 'rows':22}; // declare base datagrid

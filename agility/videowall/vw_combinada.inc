@@ -86,3 +86,4 @@ $('#vw_combinada-Resultados').panel({
 });
 $('#vw_combinada-Layout1').layout();
 $('#vw_combinada-Layout2').layout();
+</script>

@@ -80,7 +80,7 @@ function initWorkingData(id) {
 	workingData.tanda=0; // tanda (pareja manga/categoria) activa
 	workingData.nombreTanda = ""; 
 	workingData.sesion=0; // ID de la sesion para videomarcadores
-	workingData.nombreSesion="" // nombre de la sesion
+	workingData.nombreSesion=""; // nombre de la sesion
 	workingData.datosPrueba= new Object(); // last selected prueba data
 	workingData.datosJornada= new Object(); // last selected jornada data
 	workingData.datosManga= new Object(); // last selected jornada data
@@ -100,7 +100,7 @@ function initWorkingData(id) {
 				workingData.juez	= data.Juez;
 				workingData.prueba	= data.Prueba;
 				workingData.nombrePrueba= ""; // nombre de la prueba
-				workingData.jornada	= data.Jornada
+				workingData.jornada	= data.Jornada;
 				workingData.nombreJornada= ""; // nombre de la jornada
 				workingData.manga	= data.Manga;
 				workingData.nombreManga = ""; // denominacion de la manga
@@ -131,7 +131,7 @@ function updateSessionInfo(id, parameters) {
 	    async: false,
 	    cache: false,
 	    timeout: 30000,
-		success: function(data) { initWorkingData(id)	},
+		success: function(data) { initWorkingData(id);	},
 		error: function(msg){ alert("error setting sessionDatabase: "+msg);}
 		});
 	return true;

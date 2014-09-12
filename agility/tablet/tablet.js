@@ -110,7 +110,16 @@ function tablet_accept() {
 	resultados_update();
 	// send back data to parent tablet datagrid form
 	var obj=formToObject('#tdialog-form');
+	// mark as no longer pending
+	obj.Pendiente=0;
 	$('#tablet_competicion-EntradaDatos').datagrid('updateRow',{index: obj.Parent,row: obj});
 	// and close windows
 	$('#tdialog-dialog').dialog('close'); // and close window
+}
+
+// invoked on entradadatos form load, updates related session entry in database
+function update_session(){
+	// unfortunately onLoadSucess is not fired when a form is filled from local data. 
+	// so we need to do it byhand
+	// TODO: write
 }
