@@ -118,7 +118,7 @@ function tablet_accept() {
 }
 
 // invoked on entradadatos form load, updates related session entry in database
-function update_session(){
+function tablet_updateSession(){
 	// unfortunately onLoadSucess is not fired when a form is filled from local data. 
 	// so we need to do it byhand
 	// TODO: write
