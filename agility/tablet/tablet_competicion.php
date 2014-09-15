@@ -61,6 +61,7 @@ $('#ordentandas-datagrid').datagrid({
     rownumbers: true,
     fitColumns: true,
     singleSelect: true,
+    autoRowHeight: false,
     columns:[[
           	{ field:'ID',		hidden:true },
         	{ field:'Prueba',	hidden:true },
@@ -105,6 +106,7 @@ $('#tablet_competicion-EntradaDatos').datagrid({
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
+    autoRowHeight: false,
     view: groupview,
     groupField: "Tanda",
     groupFormatter: function(value,rows){
