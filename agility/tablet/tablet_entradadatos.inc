@@ -13,11 +13,11 @@
       		<input id="tdialog-Tanda" name="Tanda" type="hidden">
       		<input id="tdialog-Observacioens" name="Observaciones" type="hidden">
       		<input id="tdialog-Operation" name="Operation" type="hidden" value="update">
-       		<input id="tdialog-FaltaUpBtn" type="button" value="Falta +" onclick="tablet_up('#tdialog-Faltas');">
+       		<input id="tdialog-FaltaUpBtn" type="button" value="Falta" onclick="tablet_up('#tdialog-Faltas');" class="tablet_button tb_falta">
        		<input id="tdialog-FaltaDownBtn" type="button" value="Falta -" onclick="tablet_down('#tdialog-Faltas');">
-       		<input id="tdialog-RehuseUpBtn" type="button" value="Rehuse +" onclick="tablet_up('#tdialog-Rehuses');">
+       		<input id="tdialog-RehuseUpBtn" type="button" value="Rehuse" onclick="tablet_up('#tdialog-Rehuses')" class="tablet_button tb_rehuse">
        		<input id="tdialog-RehuseDownBtn" type="button" value="Rehuse -" onclick="tablet_down('#tdialog-Rehuses');">
-       		<input id="tdialog-TocadoUpBtn" type="button" value="Tocado +" onclick="tablet_up('#tdialog-Tocados');">
+       		<input id="tdialog-TocadoUpBtn" type="button" value="Tocado" onclick="tablet_up('#tdialog-Tocados');">
        		<input id="tdialog-TocadoDownBtn" type="button" value="Tocado -" onclick="tablet_down('#tdialog-Tocados');">
        		<input id="tdialog-StartStopBtn" type="button" value="Start/Stop" onclick="tablet_startstop();">
        		<input id="tdialog-LapResetBtn" type="button" value="Lap/Reset" onclick="tablet_lapreset();">
@@ -37,20 +37,20 @@
        		<input id="tdialog-9" type="button" value="9" class="tablet_numbers" onclick="tablet_add(9);">
        		<input id="tdialog-Del" type="button" value="." class="tablet_numbers" onclick="tablet_dot();">
        		<input id="tdialog-Dot" type="button" value="Del" class="tablet_numbers" onclick="tablet_del();">
-       		<label id="tdialog-DorsalLbl" for="Dorsal">Dorsal</label>
-       		<input id="tdialog-Dorsal" type="text" readonly="readonly" name="Dorsal" style="border:0;padding:0;"/>
-       		<label id="tdialog-NombreLbl" for="Nombre">Nombre</label>
-       		<input id="tdialog-Nombre" type="text" readonly="readonly" name="Nombre" style="border:0;padding:0;"/>
-       		<label id="tdialog-GuiaLbl" for="Guia">Gu&iacute;a</label>
-       		<input id="tdialog-Guia" type="text" readonly="readonly" name="NombreGuia" style="border:0;padding:0;"/>
-       		<label id="tdialog-ClubLbl" for="Club">Club</label>
-       		<input id="tdialog-Club" type="text" readonly="readonly" name="NombreClub" style="border:0;padding:0;"/>
-       		<label id="tdialog-CategoriaLbl" for="Categoria">Cat.</label>
-       		<input id="tdialog-Categoria" type="text" readonly="readonly" name="Categoria" style="border:0;padding:0;"/>
-       		<label id="tdialog-GradoLbl" for="Grado">Grado</label>
-       		<input id="tdialog-Grado" type="text" readonly="readonly" name="Grado" style="border:0;padding:0;"/>
-       		<label id="tdialog-CeloLbl" for="Celo">Celo</label>
-       		<input id="tdialog-Celo" type="text" readonly="readonly" name="Celo" style="border:0;padding:0;"/>
+       		<label id="tdialog-DorsalLbl" for="Dorsal" class="tablet_info">Dorsal</label>
+       		<input id="tdialog-Dorsal" type="text" readonly="readonly" name="Dorsal" class="tablet_info"/>
+       		<label id="tdialog-NombreLbl" for="Nombre" class="tablet_info">Nombre</label>
+       		<input id="tdialog-Nombre" type="text" readonly="readonly" name="Nombre" class="tablet_info"/>
+       		<label id="tdialog-GuiaLbl" for="Guia" class="tablet_info">Gu&iacute;a</label>
+       		<input id="tdialog-Guia" type="text" readonly="readonly" name="NombreGuia" class="tablet_info"/>
+       		<label id="tdialog-ClubLbl" for="Club" class="tablet_info">Club</label>
+       		<input id="tdialog-Club" type="text" readonly="readonly" name="NombreClub" class="tablet_info"/>
+       		<label id="tdialog-CategoriaLbl" for="Categoria" class="tablet_info">Cat.</label>
+       		<input id="tdialog-Categoria" type="text" readonly="readonly" name="Categoria" class="tablet_info"/>
+       		<label id="tdialog-GradoLbl" for="Grado" class="tablet_info">Grado</label>
+       		<input id="tdialog-Grado" type="text" readonly="readonly" name="Grado" class="tablet_info"/>
+       		<label id="tdialog-CeloLbl" for="Celo" class="tablet_info">Celo</label>
+       		<input id="tdialog-Celo" type="text" readonly="readonly" name="Celo" class="tablet_info"/>
        		<label id="tdialog-FaltasLbl" for="Faltas">Faltas</label>
        		<input id="tdialog-Faltas" type="text" readonly="readonly" value="0" name="Faltas" class="tablet_data"/>
        		<label id="tdialog-TocadosLbl" for="Tocados">Tocados</label>
@@ -63,13 +63,13 @@
        		<input id="tdialog-NoPresentado" type="text" readonly="readonly" value="0" name="NoPresentado" class="tablet_data"/>
        		<label id="tdialog-EliminadoLbl" for="Eliminado">Elim.</label>
        		<input id="tdialog-Eliminado" type="text" readonly="readonly" value="0" name="Eliminado" class="tablet_data"/>
+       		<label id="tdialog-Rectangulo" class="tablet_rectangulo">&nbsp;</label>
         </form> 
     </div>
 </div>
 
 
 <script type="text/javascript">
-    
     // declaracion del dialogo
     $('#tdialog-dialog').dialog({
         iconCls: 'icon-notes',
@@ -83,56 +83,57 @@
     });
 
     // layout
-    var dg= {'cols':28, 'rows':22}; // declare base datagrid
+    var dg= {'cols':210, 'rows':145}; // declare base datagrid as A5 sheet
 
-    doLayout(dg,"#tdialog-FaltaUpBtn",		1,		1,		5,		3	);
-    doLayout(dg,"#tdialog-FaltaDownBtn",	4,		5,		2,		1	);
-    doLayout(dg,"#tdialog-RehuseUpBtn",		22,		1,		5,		3	);
-    doLayout(dg,"#tdialog-RehuseDownBtn",	25,		5,		2,		1	);
-    doLayout(dg,"#tdialog-TocadoUpBtn",		1,		15,		5,		3	);
-    doLayout(dg,"#tdialog-TocadoDownBtn",	4,		19,		2,		1	);
-    doLayout(dg,"#tdialog-StartStopBtn",	4,		12,		2,		1	);
-    doLayout(dg,"#tdialog-LapResetBtn",		1,		12,		2,		1	);
-    doLayout(dg,"#tdialog-AcceptBtn",		24,		17,		3,		3	);
-    doLayout(dg,"#tdialog-CancelBtn",		19,		18,		3,		2	);
-    doLayout(dg,"#tdialog-NoPresentadoBtn",	19,		12,		3,		2	);
-    doLayout(dg,"#tdialog-EliminadoBtn",	24,		12,		3,		2	);
-    doLayout(dg,"#tdialog-1",				8,		12,		3,		2	);
-    doLayout(dg,"#tdialog-2",				11,		12,		3,		2	);
-    doLayout(dg,"#tdialog-3",				14,		12,		3,		2	);
-    doLayout(dg,"#tdialog-4",				8,		14,		3,		2	);
-    doLayout(dg,"#tdialog-5",				11,		14,		3,		2	);
-    doLayout(dg,"#tdialog-6",				14,		14,		3,		2	);
-    doLayout(dg,"#tdialog-7",				8,		16,		3,		2	);
-    doLayout(dg,"#tdialog-8",				11,		16,		3,		2	);
-    doLayout(dg,"#tdialog-9",				14,		16,		3,		2	);
-    doLayout(dg,"#tdialog-Dot",				8,		18,		3,		2	);
-    doLayout(dg,"#tdialog-0",				11,		18,		3,		2	);
-    doLayout(dg,"#tdialog-Del",				14,		18,		3,		2	);
-    doLayout(dg,"#tdialog-DorsalLbl",		8,		1,		2,		1	);
-    doLayout(dg,"#tdialog-Dorsal",			10,		1,		2,		1	);
-    doLayout(dg,"#tdialog-NombreLbl",		12,		1,		2,		1	);
-    doLayout(dg,"#tdialog-Nombre",			14,		1,		6,		1	);
-    doLayout(dg,"#tdialog-GuiaLbl",			8,		2,		2,		1	);
-    doLayout(dg,"#tdialog-Guia",			10,		2,		10,		1	);
-    doLayout(dg,"#tdialog-ClubLbl",			8,		3,		2,		1	);
-    doLayout(dg,"#tdialog-Club",			10,		3,		10,		1	);
-    doLayout(dg,"#tdialog-CategoriaLbl",	8,		5,		2,		1	);
-    doLayout(dg,"#tdialog-Categoria",		10,		5,		1,		1	);
-    doLayout(dg,"#tdialog-GradoLbl",		12,		5,		2,		1	);
-    doLayout(dg,"#tdialog-Grado",			14,		5,		2,		1	);
-    doLayout(dg,"#tdialog-CeloLbl",			17,		5,		2,		1	);
-    doLayout(dg,"#tdialog-Celo",			19,		5,		1,		1	);
-    doLayout(dg,"#tdialog-FaltasLbl",		1,		7,		3,		1	);
-    doLayout(dg,"#tdialog-Faltas",			1,		8,		3,		2	);
-    doLayout(dg,"#tdialog-TocadosLbl",		5,		7,		3,		1	);
-    doLayout(dg,"#tdialog-Tocados",			5,		8,		3,		2	);
-    doLayout(dg,"#tdialog-RehusesLbl",		9,		7,		3,		1	);
-    doLayout(dg,"#tdialog-Rehuses",			9,		8,		3,		2	);
-    doLayout(dg,"#tdialog-TiempoLbl",		13,		7,		8,		1	);
-    doLayout(dg,"#tdialog-Tiempo",			13,		8,		8,		2	);
-    doLayout(dg,"#tdialog-NoPresentadoLbl",	22,		7,		2,		1	);
-    doLayout(dg,"#tdialog-NoPresentado",	22,		8,		2,		2	);
-    doLayout(dg,"#tdialog-EliminadoLbl",	25,		7,		2,		1	);
-    doLayout(dg,"#tdialog-Eliminado",		25,		8,		2,		2	);
+    doLayout(dg,"#tdialog-FaltaUpBtn",		5,		10,		35,		90	);
+    doLayout(dg,"#tdialog-FaltaDownBtn",	50,		10,		15,		20	);
+    doLayout(dg,"#tdialog-RehuseUpBtn",		170,	10,		35,		90	);
+    doLayout(dg,"#tdialog-RehuseDownBtn",	145,	10,		15,		20	);
+    doLayout(dg,"#tdialog-TocadoUpBtn",		10,		110,	30,		30	);
+    doLayout(dg,"#tdialog-TocadoDownBtn",	50,		120,	15,		20	);
+    doLayout(dg,"#tdialog-StartStopBtn",	145,	90,		15,		10	);
+    doLayout(dg,"#tdialog-LapResetBtn",		50,		90,		15,		10	);
+    doLayout(dg,"#tdialog-AcceptBtn",		170,	120,	30,		20	);
+    doLayout(dg,"#tdialog-CancelBtn",		145,	120,	15,		20	);
+    doLayout(dg,"#tdialog-NoPresentadoBtn",	75,		10,		25,		20	);
+    doLayout(dg,"#tdialog-EliminadoBtn",	110,	10,		25,		20	);
+    doLayout(dg,"#tdialog-1",				75,		80,		20,		15	);
+    doLayout(dg,"#tdialog-2",				95,		80,		20,		15	);
+    doLayout(dg,"#tdialog-3",				115,	80,		20,		15	);
+    doLayout(dg,"#tdialog-4",				75,		95,		20,		15	);
+    doLayout(dg,"#tdialog-5",				95,		95,		20,		15	);
+    doLayout(dg,"#tdialog-6",				115,	95,		20,		15	);
+    doLayout(dg,"#tdialog-7",				75,		110,	20,		15	);
+    doLayout(dg,"#tdialog-8",				95,		110,	20,		15	);
+    doLayout(dg,"#tdialog-9",				115,	110,	20,		15	);
+    doLayout(dg,"#tdialog-Del",				115,	125,	20,		15	);
+    doLayout(dg,"#tdialog-0",				95,		125,	20,		15	);
+    doLayout(dg,"#tdialog-Dot",				75,		125,	20,		15	);
+    doLayout(dg,"#tdialog-DorsalLbl",		50,		31,		15,		8	);
+    doLayout(dg,"#tdialog-Dorsal",			65,		31,		35,		8	);
+    doLayout(dg,"#tdialog-NombreLbl",		100,	31,		15,		8	);
+    doLayout(dg,"#tdialog-Nombre",			115,	31,		45,		8	);
+    doLayout(dg,"#tdialog-GuiaLbl",			50,		39,		15,		8	);
+    doLayout(dg,"#tdialog-Guia",			65,		39,		35,		8	);
+    doLayout(dg,"#tdialog-ClubLbl",			100,	39,		15,		8	);
+    doLayout(dg,"#tdialog-Club",			115,	39,		45,		8	);
+    doLayout(dg,"#tdialog-CategoriaLbl",	50,		47,		15,		8	);
+    doLayout(dg,"#tdialog-Categoria",		65,		47,		20,		8	);
+    doLayout(dg,"#tdialog-GradoLbl",		90,		47,		15,		8	);
+    doLayout(dg,"#tdialog-Grado",			105,	47,		20,		8	);
+    doLayout(dg,"#tdialog-CeloLbl",			140,	47,		10,		8	);
+    doLayout(dg,"#tdialog-Celo",			150,	47,		10,		8	);
+    doLayout(dg,"#tdialog-FaltasLbl",		50,		70,		10,		5	);
+    doLayout(dg,"#tdialog-Faltas",			50,		55,		10,		15	);
+    doLayout(dg,"#tdialog-TocadosLbl",		65,		70,		10,		5	);
+    doLayout(dg,"#tdialog-Tocados",			65,		55,		10,		15	);
+    doLayout(dg,"#tdialog-RehusesLbl",		80,		70,		10,		5	);
+    doLayout(dg,"#tdialog-Rehuses",			80,		55,		10,		15	);
+    doLayout(dg,"#tdialog-TiempoLbl",		95,		70,		35,		5	);
+    doLayout(dg,"#tdialog-Tiempo",			95,		55,		35,		15	);
+    doLayout(dg,"#tdialog-NoPresentadoLbl",	135,	70,		10,		5	);
+    doLayout(dg,"#tdialog-NoPresentado",	135,	55,		10,		15	);
+    doLayout(dg,"#tdialog-EliminadoLbl",	150,	70,		10,		5	);
+    doLayout(dg,"#tdialog-Eliminado",		150,	55,		10,		15	);
+    doLayout(dg,"#tdialog-Rectangulo",		45,		32,		120,	46  );
 </script>
