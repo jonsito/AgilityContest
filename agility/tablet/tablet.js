@@ -1,3 +1,27 @@
+
+/******************* funciones de manejo de las ventana de orden de tandas y orden de salida en el tablet *******************/
+
+function tablet_printOrdenTandas() {
+	alert("tablet.js::tablet_printOrdenTandas() {PENDING}");
+}
+
+function tablet_printOrdenSalida() {
+	alert("tablet.js::tablet_printOrdenSalida() {PENDING}");
+}
+
+function tablet_showOrdenTandas() {
+	$('#tablet_ordenSalida-panel').panel('close');
+	$('#tablet_ordenTandas-panel').panel('open');
+    $('#tdialog-panel').panel('close');
+}
+
+function tablet_showOrdenSalida() {
+	$('#tablet_ordenTandas-panel').panel('close');
+	$('#tablet_ordenSalida-panel').panel('open');
+    $('#tdialog-panel').panel('close');
+}
+
+/******************* funciones de manejo de la ventana de entrada de resultados del tablet *****************/
 function resultados_update() {
     // call 'submit' method of form plugin to submit the form
     $('#tdialog-form').form('submit', 
@@ -91,7 +115,7 @@ function tablet_lapreset() {
 
 function tablet_cancel() {
 	// retrieve original data from parent datagrid
-	var rows = $('#tablet_competicion-EntradaDatos').datagrid('getRows'); 
+	var rows = $('#tablet_ordenSalida-datagrid').datagrid('getRows'); 
 	var row = rows[$('#tdialog-Parent').val()];
 	row.Operation='update';
 	// send original data to sql server
@@ -101,8 +125,8 @@ function tablet_cancel() {
 		dataType:'json',
 		data: row
 	});
-	 // and close window
-	$('#tdialog-dialog').dialog('close');
+	 // and close panel
+	$('#tdialog-panel').panel('close');
 }
 
 function tablet_accept() {
@@ -112,9 +136,9 @@ function tablet_accept() {
 	var obj=formToObject('#tdialog-form');
 	// mark as no longer pending
 	obj.Pendiente=0;
-	$('#tablet_competicion-EntradaDatos').datagrid('updateRow',{index: obj.Parent,row: obj});
+	$('#tablet_ordenSalida-datagrid').datagrid('updateRow',{index: obj.Parent,row: obj});
 	// and close windows
-	$('#tdialog-dialog').dialog('close'); // and close window
+	$('#tdialog-panel').panel('close'); // and close window
 }
 
 // invoked on entradadatos form load, updates related session entry in database

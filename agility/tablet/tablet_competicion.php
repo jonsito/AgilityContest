@@ -1,46 +1,69 @@
 <?php include_once(__DIR__."/tablet_entradadatos.inc");?>
- 	
-<!-- Gestion desde el tablet de el orden de salida y entrada de datos -->
-<div id="tablet_competicion-Panel" class="easyui-panel">
-
-	
-	<!-- paneles de lista de mangas y datos de cada manga -->
-	<div id="tablet_competicion-Layout" class="easyui-layout" style="width:1024px;height:600px;">
-		<!-- Ventana para ver y ajustar el orden de tandas de la jornada -->
+<!-- Ventana para ver y ajustar el orden de tandas de la jornada -->
+<div id="tablet_ordenTandas-panel" class="easyui-panel"
+	style="width:1024px;height:600px;position:fixed;top:0px;left:0px;">
+	<!-- toolbar para orden de tandas -->
+	<div id="tablet_ordenTandas-toolbar" style="padding:5px">
+		<a id="tablet_ordenTandas-reloadBtn" href="#" class="easyui-linkbutton" 
+			data-options="iconCls:'icon-reload'" onclick="$('#tablet_ordenTandas-datagrid').datagrid('reload');">Actualizar</a>
+		<a id="tablet_ordenTandas-printBtn" href="#" class="easyui-linkbutton" 
+			data-options="iconCls:'icon-print'" onclick="tablet_printOrdenTandas()">Imprimir</a>
+		<a id="tablet_ordenTandas-ordenBtn" href="#" class="easyui-linkbutton" 
+			data-options="iconCls:'icon-updown'" onclick="tablet_showOrdenSalida()">Orden de Salida</a>
+	</div>
+	<!--  datagrid con el orden de tandas -->
+	<table id="tablet_ordenTandas-datagrid" class="easyui-datagrid" style="padding:10px;"></table>
+</div> <!-- Orden de tandas  -->
 		
-		<div data-options="region:'west',title:'Tandas de la Jornada',split:true,collapsed:false" style="width:250px">
-		
-			<!-- toolbar para orden de tandas -->
-			<div id="ordentandas-toolbar" style="padding:5px">
-				<a id="ordentandas-reloadBtn" href="#" class="easyui-linkbutton" 
-					data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas()">Actualizar</a>
-			</div>
-			<!--  datagrid con el orden de tandas -->
-			<table id="ordentandas-datagrid" class="easyui-datagrid" style="padding:10px;"></table>
-		</div> <!-- Orden de tandas  -->
-		
-		<div data-options="region:'center',title:'Entrada de Datos'" style="width:774px;">
-			<!-- Tabla desplegable para la entrada de datos desde el tablet -->
-			<table id="tablet_competicion-EntradaDatos" class="easyui-datagrid" style="padding:10px;"></table>
-		</div> <!-- Entrada de datos -->
-		
-	</div> <!-- tablet_competicion-Layout -->
-	
-</div> <!-- tablet_competicion-Panel -->  
-
+<div id="tablet_ordenSalida-panel" class="easyui-panel"
+	style="width:1024px;height:600px;position:fixed;top:0px;left:0px;">
+	<!-- toolbar para orden de tandas -->
+	<div id="tablet_ordenSalida-toolbar" style="padding:5px">
+		<a id="tablet_ordenSalida-reloadBtn" href="#" class="easyui-linkbutton" 
+			data-options="iconCls:'icon-reload'" onclick="$('#tablet_ordenSalida-datagrid').datagrid('reload');">Actualizar</a>
+		<a id="tablet_ordenSalida-printBtn" href="#" class="easyui-linkbutton" 
+			data-options="iconCls:'icon-print'" onclick="tablet_printOrdenSalida()">Imprimir</a>
+		<a id="tablet_ordenSalida-ordenBtn" href="#" class="easyui-linkbutton" 
+			data-options="iconCls:'icon-updown'" onclick="tablet_showOrdenTandas()">Programa</a>
+	</div>
+	<!-- Tabla desplegable para la entrada de datos desde el tablet -->
+	<table id="tablet_ordenSalida-datagrid" class="easyui-datagrid" style="padding:10px;"></table>
+</div> <!-- orden de salida -->
 		
 <script type="text/javascript">
-$('#tablet_competicion-Panel').panel({
-	title:workingData.nombrePrueba+' -- '+workingData.nombreJornada,
-	border:false,
-	closable:false,
-	collapsible:false,
-	collapsed:false
-});
-$('#tablet_competicion-Layout').layout();
-$('#ordentandas-reloadBtn').linkbutton();
 
-$('#ordentandas-datagrid').datagrid({
+$('#tablet_ordenTandas-reloadBtn').linkbutton();
+$('#tablet_ordenTandas-printBtn').linkbutton();
+$('#tablet_ordenTandas-ordenBtn').linkbutton();
+$('#tablet_ordenSalida-reloadBtn').linkbutton();
+$('#tablet_ordenSalida-printBtn').linkbutton();
+$('#tablet_ordenSalida-ordenBtn').linkbutton();
+
+$('#tablet_ordenTandas-panel').panel({
+	title: 'Programa de la jornada',
+	collapsible:	false,
+	minimizable:	false,
+	maximizable:	false,
+	resizable:		false,
+	closable:		false,
+	iconCls:		'icon-table',
+	closed:			false,
+	modal:			false
+});
+
+$('#tablet_ordenSalida-panel').panel({
+	title: 'Orden de salida',
+	collapsible:	false,
+	minimizable:	false,
+	maximizable:	false,
+	resizable:		false,
+	closable:		false,
+	iconCls:		'icon-table',
+	closed:			true,
+	modal:			false
+});
+
+$('#tablet_ordenTandas-datagrid').datagrid({
 	// propiedades del panel asociado
 	fit: true,
 	border: false,
@@ -48,7 +71,7 @@ $('#ordentandas-datagrid').datagrid({
 	collapsible: false,
 	collapsed: false,
 	// propiedades del datagrid
-	toolbar:'#ordentandas-toolbar',
+	toolbar:'#tablet_ordenTandas-toolbar',
 	method: 'get',
 	url: '/agility/database/ordenTandasFunctions.php',
     queryParams: {
@@ -86,7 +109,7 @@ $('#ordentandas-datagrid').datagrid({
 });
 
 
-$('#tablet_competicion-EntradaDatos').datagrid({
+$('#tablet_ordenSalida-datagrid').datagrid({
 	// propiedades del panel asociado
 	fit: true,
 	border: false,
@@ -101,6 +124,7 @@ $('#tablet_competicion-EntradaDatos').datagrid({
         Prueba: workingData.prueba,
         Jornada: workingData.jornada
     },
+	toolbar:'#tablet_ordenSalida-toolbar',
     loadMsg: "Actualizando datos de los participantes ...",
     pagination: false,
     rownumbers: false,
@@ -149,7 +173,9 @@ $('#tablet_competicion-EntradaDatos').datagrid({
         row.Jornada=workingData.jornada
         row.Parent=index; // store index
         $('#tdialog-form').form('load',row);
-        $('#tdialog-dialog').dialog('open');
+        $('#tablet_ordenTandas-panel').panel('close');
+        $('#tablet_ordenSalida-panel').panel('close');
+        $('#tdialog-panel').panel('open');
     },
     onDragEnter: function(dst,src) {
         if (dst.Manga!=src.Manga) return false;

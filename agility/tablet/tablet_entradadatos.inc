@@ -1,5 +1,5 @@
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
-<div id="tdialog-dialog" style="width:1000px;height:580px;padding:10px">
+<div id="tdialog-panel" class="easyui-panel" style="width:1024px;height:600px;position:fixed;top:0px;left:0px">
 	<div class="dialog_forms">
         <form id="tdialog-form" method="get" novalidate="novalidate">
 			<input id="tdialog-Parent" name="Parent" type="hidden" value="0"> <!-- row idx on parent datagrid -->       
@@ -71,11 +71,17 @@
 
 <script type="text/javascript">
     // declaracion del dialogo
-    $('#tdialog-dialog').dialog({
+    $('#tdialog-panel').panel({
         iconCls: 'icon-notes',
         closed: true,
         modal: true,
-        title: 'Entrada de datos'
+        title: 'Entrada de datos',
+		closable:		false,
+    	collapsible:	false,
+    	minimizable:	false,
+    	maximizable:	false,
+    	resizable:		false,
+    	onClose:	function() { $('#tablet_ordenSalida-panel').panel('open'); }
     });
 
     $('#tdialog-form').form({
