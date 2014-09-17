@@ -1,5 +1,5 @@
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
-<div id="tdialog-panel" class="easyui-panel" style="width:1024px;height:600px;position:fixed;top:0px;left:0px">
+<div id="tdialog-panel" class="easyui-panel" style="width:1280px;height:800px;">
 	<div class="dialog_forms">
         <form id="tdialog-form" method="get" novalidate="novalidate">
 			<input id="tdialog-Parent" name="Parent" type="hidden" value="0"> <!-- row idx on parent datagrid -->       

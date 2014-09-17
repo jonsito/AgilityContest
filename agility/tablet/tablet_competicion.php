@@ -1,7 +1,7 @@
 <?php include_once(__DIR__."/tablet_entradadatos.inc");?>
 <!-- Ventana para ver y ajustar el orden de tandas de la jornada -->
 <div id="tablet_ordenTandas-panel" class="easyui-panel"
-	style="width:1024px;height:600px;position:fixed;top:0px;left:0px;">
+	style="width:1280px;height:800px;">
 	<!-- toolbar para orden de tandas -->
 	<div id="tablet_ordenTandas-toolbar" style="padding:5px">
 		<a id="tablet_ordenTandas-reloadBtn" href="#" class="easyui-linkbutton" 
@@ -16,7 +16,7 @@
 </div> <!-- Orden de tandas  -->
 		
 <div id="tablet_ordenSalida-panel" class="easyui-panel"
-	style="width:1024px;height:600px;position:fixed;top:0px;left:0px;">
+	style="width:1280px;height:800px;">
 	<!-- toolbar para orden de tandas -->
 	<div id="tablet_ordenSalida-toolbar" style="padding:5px">
 		<a id="tablet_ordenSalida-reloadBtn" href="#" class="easyui-linkbutton" 
@@ -100,7 +100,7 @@ $('#tablet_ordenTandas-datagrid').datagrid({
     onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes) and enable drag and drop
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
-    	$('#tablet_competicion-EntradaDatos').datagrid('reload');
+    	$('#tablet_ordenSalida-datagrid').datagrid('reload');
     },
     onDragEnter: function(dst,src) { return true; }, // default is not restriction
     onDrop: function(dst,src,updown) {
@@ -170,7 +170,7 @@ $('#tablet_ordenSalida-datagrid').datagrid({
 	},
     onClickRow: function(index,row) {
         row.Prueba=workingData.prueba;
-        row.Jornada=workingData.jornada
+        row.Jornada=workingData.jornada;
         row.Parent=index; // store index
         $('#tdialog-form').form('load',row);
         $('#tablet_ordenTandas-panel').panel('close');
@@ -191,7 +191,7 @@ $('#tablet_ordenSalida-datagrid').datagrid({
                 src.Perro,
                 dst.Perro,
                 (updown==='top')?0:1,
-                function()  { $('#tablet_competicion-EntradaDatos').datagrid('reload'); }
+                function()  { $('#tablet_ordenSalida-datagrid').datagrid('reload'); }
          	);
     }
 });

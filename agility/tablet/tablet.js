@@ -32,7 +32,7 @@ function resultados_update() {
     		// as form('reset') seems not to work as we want, we use it as backup
     		// success:function(data){
     		// 	 var obj=formToObject('#tdialog-form');
-    		//	 $('#tablet_competicion-EntradaDatos').datagrid('updateRow',{index: obj.Parent,row: obj});
+    		//	 $('#tablet_ordenSalida-datagrid').datagrid('updateRow',{index: obj.Parent,row: obj});
     		// }
     	});
 }
