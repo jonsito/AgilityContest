@@ -33,7 +33,7 @@ class OrdenTandas extends DBObject {
 		17	=> array('ID'=>17,	'TipoManga'=> 7,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Agility Open Small',		'Categoria'=>'S',	'Grado'=>'-'),
 		18	=> array('ID'=>18,	'TipoManga'=> 8,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Agility Eq. 3 Large',	'Categoria'=>'L',	'Grado'=>'-'),
 		19	=> array('ID'=>19,	'TipoManga'=> 8,	'From'=>'TAG_M0,',	'To'=>',TAG_S0',	'Nombre'=>'Agility Eq. 3 Medium',	'Categoria'=>'M',	'Grado'=>'-'),
-		20	=> array('ID'=>10,	'TipoManga'=> 8,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Agility Eq. 3 Small',	'Categoria'=>'S',	'Grado'=>'-'),
+		20	=> array('ID'=>20,	'TipoManga'=> 8,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Agility Eq. 3 Small',	'Categoria'=>'S',	'Grado'=>'-'),
 		21	=> array('ID'=>21,	'TipoManga'=> 9,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Ag. Equipos 4 Large',	'Categoria'=>'M',	'Grado'=>'-'),
 		// en jornadas por equipos conjunta se mezclan categorias M y S
 		22	=> array('ID'=>22,	'TipoManga'=> 9,	'From'=>'TAG_M0,',	'To'=>',TAG_T0',	'Nombre'=>'Ag. Equipos 4 Med/Small','Categoria'=>'MS',	'Grado'=>'-'),
@@ -225,13 +225,12 @@ class OrdenTandas extends DBObject {
 		$orden=$this->getOrden($jornada);
 		
 		// prepared statement to retrieve mangas id
-		$sql="SELECT ID FROM Mangas WHERE (Jornada=?) AND (Tipo=?)";
+		$sql="SELECT ID FROM Mangas WHERE (Jornada=$jornada) AND (Tipo=?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);	
-		$res=$stmt->bind_param('ii',$idjornada,$tipo);
+		$res=$stmt->bind_param('i',$tipo);
 		if (!$res) return $this->error($stmt->error);
 
-		$idjornada=$jornada;
 		$result=array();
 		$rows=array();
 		$a=explode(",",$orden);
@@ -275,6 +274,7 @@ class OrdenTandas extends DBObject {
 	/* 14,'Jumping por Equipos (Conjunta)', '-' */
 	/* 15,'Ronda K.O.', '-' */
 	/* 16,'Manga Especial', '-' */
+	
 	/**
 	 * Obtiene la lista (actualizada) de perros de una jornada ordenada segun tandas/mangas
 	 * En el proceso de inscripcion ya hemos creado la tabla de resultados, y el orden de salida
@@ -285,22 +285,39 @@ class OrdenTandas extends DBObject {
 	 * @param {int} $prueba ID de prueba
 	 * @param {int} $jornada ID de jornada
 	 * @param {int} $pendientes 0: coge la lista completa; else coge los n primeros marcados como pendientes
-	 * @return array[count,[data]] array ordenado segun tandas/ordensalida de datos de perros de una jornada 
+	 * @return {array} resultado en formato json easyui array["total","rows"]
 	 */
 	function getData($prueba,$jornada,$pendientes) {
 		$this->myLogger->enter();
 		$count=$pendientes;
 		$rows=array();
+		$oldmanga=0;
+		$ordenmanga=null;
+		$perrosmanga=null;
 		// fase 1 buscamos las tandas de cada jornada
 		$lista_tandas=$this->getTandas($prueba,$jornada);
 		foreach ($lista_tandas['rows'] as $tanda) {
-			$manga=$tanda['Manga']; 
-			// en cada manga cogemos el orden de salida asociado
-			$os=new OrdenSalida("ordenTandas::getData()",$prueba,$jornada,$manga);
-			$ordenmanga=$os->getOrden($manga);
-			// extraemos el substring definido entre 'from' y 'to'
+			$manga=$tanda['Manga'];
+			
+			// si cambiamos de manga, actualizamos variables desde la bbdd
+			if ($oldmanga!=$manga) {
+				$oldmanga=$manga;
+				// en cada manga cogemos el orden de salida asociado
+				$os=new OrdenSalida("ordenTandas::getData()",$prueba,$jornada,$manga);
+				$ordenmanga=$os->getOrden($manga);	
+				// cogemos tambien la lista de perros de cada manga, y la reindexamos segun el orden del perro
+				$res=$this->__select("*", "Resultados","(Prueba=$prueba) AND (Jornada=$jornada) AND (Manga=$manga)","","");
+				if (!is_array($res)) return $this->error($this->conn->error);
+				$perrosmanga=array();
+				foreach($res['rows'] as $item) {
+					$perrosmanga[$item['Perro']]=$item;
+				}
+			}
+			
+			// de cada tanda extraemos el substring definido entre 'from' y 'to'
 			$ordentanda=getInnerString($ordenmanga,$tanda['From'],$tanda['To']);
-			// y recuperamos los perros inscritos
+			
+			// y generamos la lista ordenada de los perros inscritos a partir de estos datos
 			if($ordentanda==="") continue; // skip empty tandas
 			$orden=explode(',',$ordentanda);
 			$celo=0;
@@ -311,13 +328,12 @@ class OrdenTandas extends DBObject {
 					if (strpos($perro,'0')===false) $celo=1;
 					continue; // next search
 				}
-				$res=$this->__selectAsArray("*","Resultados","(Prueba=$prueba) AND (Jornada=$jornada) AND (Manga=$manga) AND (Perro=$perro)");
-				if (!is_array($res)) return $this->error($this->conn-error);
-				$res['Celo']=$celo; // store celo info
-				$res['Tanda']=$tanda['Nombre'];
-				if ($pendientes==0) { array_push($rows,$res); continue; } // include all
-				if ($res['Pendiente']==0) continue; // not pendiente: skip
-				if ($count > 0) { $count--; array_push($rows,$res); continue; } // not yet at count: insert 
+				
+				$perrosmanga[$perro]['Celo']=$celo; // store celo info
+				$perrosmanga[$perro]['Tanda']=$tanda['Nombre'];
+				if ($pendientes==0) { array_push($rows,$perrosmanga[$perro]); continue; } // include all
+				if ($perrosmanga[$perro]['Pendiente']==0) continue; // not pendiente: skip
+				if ($count > 0) { $count--; array_push($rows,$perrosmanga[$perro]); continue; } // not yet at count: insert
 				// arriving here means that every requested dogs are filled
 				$this->myLogger->debug("OrdenTandas::getData() Already have $pendientes dogs");
 				// so return
@@ -330,10 +346,9 @@ class OrdenTandas extends DBObject {
 		$result['rows']=$rows;
 		$result['total']=count($rows);
 		$this->myLogger->leave();
-		return $result;	
+		return $result;
 	}
-
-
+	
 } // class
 
 ?>
