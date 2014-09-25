@@ -2,7 +2,8 @@ var groupview = $.extend({}, $.fn.datagrid.defaults.view, {
 	render: function(target, container, frozen){
 		var table = [];
 		var groups = this.groups;
-		for(var i=0; i<groups.length; i++){
+		var glen=groups.length;
+		for(var i=0; i<glen; i++){
 			table.push(this.renderGroup.call(this, target, i, groups[i], frozen));
 		}
 		$(container).html(table.join(''));
@@ -34,7 +35,8 @@ var groupview = $.extend({}, $.fn.datagrid.defaults.view, {
 		
 		table.push('<table class="datagrid-btable" cellspacing="0" cellpadding="0" border="0"><tbody>');
 		var index = group.startIndex;
-		for(var j=0; j<group.rows.length; j++) {
+		var grlen=group.rows.length;
+		for(var j=0; j<grlen; j++) {
 			var css = opts.rowStyler ? opts.rowStyler.call(target, index, group.rows[j]) : '';
 			var classValue = '';
 			var styleValue = '';
@@ -86,7 +88,8 @@ var groupview = $.extend({}, $.fn.datagrid.defaults.view, {
 		initCss();
 		
 		var groups = [];
-		for(var i=0; i<rows.length; i++){
+		var rlen=rows.length;
+		for(var i=0; i<rlen; i++){
 			var row = rows[i];
 			var group = getGroup(row[opts.groupField]);
 			if (!group){
@@ -102,7 +105,8 @@ var groupview = $.extend({}, $.fn.datagrid.defaults.view, {
 		
 		var index = 0;
 		var newRows = [];
-		for(var i=0; i<groups.length; i++){
+		var glen=groups.length;
+		for(var i=0; i<glen; i++){
 			var group = groups[i];
 			group.startIndex = index;
 			index += group.rows.length;
@@ -118,7 +122,8 @@ var groupview = $.extend({}, $.fn.datagrid.defaults.view, {
 		},0);
 		
 		function getGroup(value){
-			for(var i=0; i<groups.length; i++){
+			var glen=groups.length;
+			for(var i=0; i<glen; i++){
 				var group = groups[i];
 				if (group.value == value){
 					return group;
@@ -181,8 +186,8 @@ $.extend(groupview, {
 		var dc = state.dc;
 		var group = null;
 		var groupIndex;
-		
-		for(var i=0; i<this.groups.length; i++){
+		var tglen=this.groups.length;
+		for(var i=0; i<tglen; i++){
 			if (this.groups[i].value == row[opts.groupField]){
 				group = this.groups[i];
 				groupIndex = i;
@@ -260,7 +265,8 @@ $.extend(groupview, {
 		}
 		
 		var index = 0;
-		for(var i=0; i<this.groups.length; i++){
+		var tglen=this.groups.length;
+		for(var i=0; i<tglen; i++){
 			var group = this.groups[i];
 			group.startIndex = index;
 			index += group.rows.length;

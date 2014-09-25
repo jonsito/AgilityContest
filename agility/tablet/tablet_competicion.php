@@ -137,15 +137,15 @@ $('#tablet_ordenSalida-datagrid').datagrid({
     	return value + ' - ' + rows.length + ' participante(s)';
     },
     columns:[[
-        { field:'Parent',		hidden:true }, // self reference to row index
-        { field:'Prueba',		hidden:true }, // extra field to be used on form load/save
-        { field:'Jornada',		hidden:true }, // extra field to be used on form load/save
-        { field:'ID',			hidden:true },
-        { field:'Manga',		hidden:true },
-        { field:'Perro',		hidden:true },
-      	{ field:'Licencia',		hidden:true },
-      	{ field:'Pendiente',	hidden:true },
-      	{ field:'Tanda',		hidden:true },
+        { field:'Parent',		width:0, hidden:true }, // self reference to row index
+        { field:'Prueba',		width:0, hidden:true }, // extra field to be used on form load/save
+        { field:'Jornada',		width:0, hidden:true }, // extra field to be used on form load/save
+        { field:'ID',			width:0, hidden:true },
+        { field:'Manga',		width:0, hidden:true },
+        { field:'Perro',		width:0, hidden:true },
+      	{ field:'Licencia',		width:0, hidden:true },
+      	{ field:'Pendiente',	width:0, hidden:true },
+      	{ field:'Tanda',		width:0, hidden:true },
         { field:'Dorsal',		width:12, align:'center',  title: '#', styler:checkPending },
       	{ field:'Celo',			width:10, align:'center', title: 'Celo', formatter:checkCelo},
         { field:'Nombre',		width:20, align:'left',  title: 'Nombre'},
@@ -159,7 +159,7 @@ $('#tablet_ordenSalida-datagrid').datagrid({
       	{ field:'Tiempo',		width:15, align:'right', title: 'Tmp'	}, 
       	{ field:'Eliminado',	width:5, align:'center',title: 'EL.'},
       	{ field:'NoPresentado',	width:5, align:'center',title: 'NP'},		
-      	{ field:'Observaciones',hidden:true }
+      	{ field:'Observaciones',width:0, hidden:true }
     ]],
     // rowStyler:myRowStyler,
     onBeforeLoad: function(param) { return true; }, // TODO: write
