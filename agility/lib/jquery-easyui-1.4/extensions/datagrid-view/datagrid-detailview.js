@@ -37,6 +37,7 @@ var detailview = $.extend({}, $.fn.datagrid.defaults.view, {
 			} else {
 				table.push('<td colspan=' + (fields.length) + '>');
 			}
+
 			table.push('<div class="datagrid-row-detail">');
 			if (frozen){
 				table.push('&nbsp;');
@@ -44,6 +45,7 @@ var detailview = $.extend({}, $.fn.datagrid.defaults.view, {
 				table.push(opts.detailFormatter.call(target, i, rows[i]));
 			}
 			table.push('</div>');
+
 			table.push('</td>');
 			table.push('</tr>');
 			
@@ -195,6 +197,10 @@ var detailview = $.extend({}, $.fn.datagrid.defaults.view, {
 	
 	bindEvents: function(target){
 		var state = $.data(target, 'datagrid');
+
+		if (state.ss.bindDetailEvents){return;}
+		state.ss.bindDetailEvents = true;
+
 		var dc = state.dc;
 		var opts = state.options;
 		var body = dc.body1.add(dc.body2);
@@ -251,13 +257,13 @@ var detailview = $.extend({}, $.fn.datagrid.defaults.view, {
 			}
 		}
 
-		if (!state.bindDetailEvents){
-			state.bindDetailEvents = true;
-			var that = this;
-			setTimeout(function(){
-				that.bindEvents(target);
-			},0);
-		}
+		// if (!state.bindDetailEvents){
+		// 	state.bindDetailEvents = true;
+		// 	var that = this;
+		// 	setTimeout(function(){
+		// 		that.bindEvents(target);
+		// 	},0);
+		// }
 	},
 	
 	onAfterRender: function(target){
@@ -279,7 +285,8 @@ var detailview = $.extend({}, $.fn.datagrid.defaults.view, {
 			var ht = dc.header2.find('table');
 			var fr = ht.find('tr.datagrid-filter-row').hide();
 			var ww = ht.width()-1;
-			var details = dc.body2.find('div.datagrid-row-detail:visible')._outerWidth(ww);
+			var details = dc.body2.find('>table.datagrid-btable>tbody>tr>td>div.datagrid-row-detail:visible')._outerWidth(ww);
+			// var details = dc.body2.find('div.datagrid-row-detail:visible')._outerWidth(ww);
 			details.find('.easyui-fluid').trigger('_resize');
 			fr.show();
 		}
@@ -308,6 +315,12 @@ var detailview = $.extend({}, $.fn.datagrid.defaults.view, {
 		var footer = dc.footer1.add(dc.footer2);
 		footer.find('span.datagrid-row-expander').css('visibility', 'hidden');
 		$(target).datagrid('resize');
+
+		this.bindEvents(target);
+		var detail = dc.body1.add(dc.body2).find('div.datagrid-row-detail');
+		detail.unbind().bind('mouseover mouseout click dblclick contextmenu scroll', function(e){
+			e.stopPropagation();
+		});
 	}
 });
 
@@ -340,7 +353,8 @@ $.extend($.fn.datagrid.methods, {
 	getRowDetail: function(jq, index){
 		var opts = $.data(jq[0], 'datagrid').options;
 		var tr = opts.finder.getTr(jq[0], index, 'body', 2);
-		return tr.next().find('div.datagrid-row-detail');
+		// return tr.next().find('div.datagrid-row-detail');
+		return tr.next().find('>td>div.datagrid-row-detail');
 	},
 	expandRow: function(jq, index){
 		return jq.each(function(){
@@ -382,3 +396,85 @@ $.extend($.fn.datagrid.methods, {
 	}
 });
 
+$.extend($.fn.datagrid.methods, {
+	subgrid: function(jq, conf){
+		return jq.each(function(){
+			createGrid(this, conf);
+
+			function createGrid(target, conf, prow){
+				var queryParams = $.extend({}, conf.options.queryParams||{});
+				queryParams[conf.options.foreignField] = prow ? prow[conf.options.foreignField] : undefined;
+
+				$(target).datagrid($.extend({}, conf.options, {
+					subgrid: conf.subgrid,
+					view: (conf.subgrid ? detailview : undefined),
+					queryParams: queryParams,
+					detailFormatter: function(index, row){
+						return '<div><table class="datagrid-subgrid"></table></div>';
+					},
+					onExpandRow: function(index, row){
+						var opts = $(this).datagrid('options');
+						var rd = $(this).datagrid('getRowDetail', index);
+						var dg = getSubGrid(rd);
+						if (!dg.data('datagrid')){
+							createGrid(dg[0], opts.subgrid, row);
+						}
+						rd.find('.easyui-fluid').trigger('_resize');
+						setHeight(this, index);
+						if (conf.options.onExpandRow){
+							conf.options.onExpandRow.call(this, index, row);
+						}
+					},
+					onCollapseRow: function(index, row){
+						setHeight(this, index);
+						if (conf.options.onCollapseRow){
+							conf.options.onCollapseRow.call(this, index, row);
+						}
+					},
+					onResize: function(){
+						var dg = $(this).children('div.datagrid-view').children('table')
+						setParentHeight(this);
+					},
+					onResizeColumn: function(field, width){
+						setParentHeight(this);
+						if (conf.options.onResizeColumn){
+							conf.options.onResizeColumn.call(this, field, width);
+						}
+					},
+					onLoadSuccess: function(data){
+						setParentHeight(this);
+						if (conf.options.onLoadSuccess){
+							conf.options.onLoadSuccess.call(this, data);
+						}
+					}
+				}));
+			}
+			function getSubGrid(rowDetail){
+				var div = $(rowDetail).children('div');
+				if (div.children('div.datagrid').length){
+					return div.find('>div.datagrid>div.panel-body>div.datagrid-view>table.datagrid-subgrid');
+				} else {
+					return div.find('>table.datagrid-subgrid');
+				}
+			}
+			function setParentHeight(target){
+				var tr = $(target).closest('div.datagrid-row-detail').closest('tr').prev();
+				if (tr.length){
+					var index = parseInt(tr.attr('datagrid-row-index'));
+					var dg = tr.closest('div.datagrid-view').children('table');
+					setHeight(dg[0], index);
+				}
+			}
+			function setHeight(target, index){
+				$(target).datagrid('fixDetailRowHeight', index);
+				$(target).datagrid('fixRowHeight', index);
+				var tr = $(target).closest('div.datagrid-row-detail').closest('tr').prev();
+				if (tr.length){
+					var index = parseInt(tr.attr('datagrid-row-index'));
+					var dg = tr.closest('div.datagrid-view').children('table');
+					setHeight(dg[0], index);
+				}
+			}
+		});
+	}
+});

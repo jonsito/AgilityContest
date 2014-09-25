@@ -55,7 +55,7 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 				if (frozen){
 					table.push('&nbsp;');
 				} else {
-					table.push(opts.detailFormatter.call(target, i, rows[i]));
+					table.push(opts.detailFormatter.call(target, index, rows[i]));
 				}
 				table.push('</div>');
 				table.push('</td>');
@@ -241,6 +241,9 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 						this.populate.call(this, target);
 					});
 				} else if (bottom < dc.body2.height()){
+					if (state.data.rows.length >= state.data.total){
+						return;
+					}
 					var page = Math.floor(this.index/opts.pageSize)+2;
 					if (this.r2.length){
 						page++;
