@@ -40,16 +40,22 @@
 	function buildGrid(target){
 		var opts = $.data(target, 'edatagrid').options;
 		$(target).datagrid($.extend({}, opts, {
-			onDblClickCell:function(index,field){
+			onDblClickCell:function(index,field,value){
 				if (opts.editing){
 					$(this).edatagrid('editRow', index);
 					focusEditor(field);
 				}
+				if (opts.onDblClickCell){
+					opts.onDblClickCell.call(target, index, field, value);
+				}
 			},
-			onClickCell:function(index,field){
+			onClickCell:function(index,field,value){
 				if (opts.editing && opts.editIndex >= 0){
 					$(this).edatagrid('editRow', index);
 					focusEditor(field);
+				}
+				if (opts.onClickCell){
+					opts.onClickCell.call(target, index, field, value);
 				}
 			},
 			onAfterEdit: function(index, row){
@@ -100,13 +106,18 @@
 			},
 			onBeforeLoad: function(param){
 				if (opts.onBeforeLoad.call(target, param) == false){return false}
-//				$(this).datagrid('rejectChanges');
-				$(this).edatagrid('cancelRow');
+				// $(this).edatagrid('cancelRow');
 				if (opts.tree){
 					var node = $(opts.tree).tree('getSelected');
 					param[opts.treeParentField] = node ? node.id : undefined;
 				}
-			}
+			},
+			view: $.extend({}, opts.view, {
+				onBeforeRender: function(target, rows){
+					$(target).edatagrid('cancelRow');
+					opts.view.onBeforeRender.call(this, target, rows);
+				}
+			})
 		}));
 		
 		
@@ -372,6 +383,11 @@
 									dg.datagrid('deleteRow', index);
 								}
 								opts.onDestroy.call(dg[0], index, row);
+								var pager = dg.datagrid('getPager');
+								if (pager.length && !dg.datagrid('getRows').length){
+									dg.datagrid('options').pageNumber = pager.pagination('options').pageNumber;
+									dg.datagrid('reload');
+								}
 							}, 'json');
 						} else {
 							dg.datagrid('cancelEdit', index);
@@ -385,6 +401,7 @@
 	};
 	
 	$.fn.edatagrid.defaults = $.extend({}, $.fn.datagrid.defaults, {
+		singleSelect: true,
 		editing: true,
 		editIndex: -1,
 		destroyMsg:{
@@ -419,4 +436,7 @@
 		onDestroy: function(index, row){},
 		onError: function(index, row){}
 	});
+	
+	////////////////////////////////
+	$.parser.plugins.push('edatagrid');
 })(jQuery);
