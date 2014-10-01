@@ -131,18 +131,7 @@ $('#tablet_ordenSalida-datagrid').datagrid({
     fitColumns: true,
     singleSelect: true,
     autoRowHeight: false,
-    // view: groupview,
-    view: $.extend(groupview,{
-		render: function(target, container, frozen){
-			var table = [];
-			var groups = this.groups;
-			var len=groups.length;
-			for(var i=0; i<len; i++){
-				table.push(this.renderGroup.call(this, target, i, groups[i], frozen));
-			}
-			$(container)[0].innerHTML = table.join('');
-		}
-	}),
+    view: groupview,
     groupField: "Tanda",
     groupFormatter: function(value,rows){
     	return value + ' - ' + rows.length + ' participante(s)';
