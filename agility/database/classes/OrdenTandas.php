@@ -328,7 +328,6 @@ class OrdenTandas extends DBObject {
 					if (strpos($perro,'0')===false) $celo=1;
 					continue; // next search
 				}
-				
 				$perrosmanga[$perro]['Celo']=$celo; // store celo info
 				$perrosmanga[$perro]['Tanda']=$tanda['Nombre'];
 				if ($pendientes==0) { array_push($rows,$perrosmanga[$perro]); continue; } // include all
@@ -342,6 +341,61 @@ class OrdenTandas extends DBObject {
 				$this->myLogger->leave();
 				return $result;
 			}
+		}
+		$result['rows']=$rows;
+		$result['total']=count($rows);
+		$this->myLogger->leave();
+		return $result;
+	}
+	
+	/**
+	 * Obtiene la lista de perros actualizada (segun el orden de salida)
+	 * Correspondiente a la tupla prueba/jornada/tanda especificada
+	 * @param {integer} $prueba
+	 * @param {integer} $jornada
+	 * @param {integer} $idtanda
+	 */
+	function getDataByTanda($prueba,$jornada,$idtanda) {
+		$this->myLogger->enter();
+		$rows=array();
+		$ordenmanga=null;
+		$perrosmanga=null;
+		// fase 1 buscamos las tandas de cada jornada
+		$lista_tandas=$this->getTandas($prueba,$jornada);
+		foreach ($lista_tandas['rows'] as $tanda) {
+			if ($tanda['ID']!=$idtanda) continue;
+			$manga=$tanda['Manga'];
+
+			// cogemos tambien la lista de perros de cada manga, y la reindexamos segun el orden del perro
+			$res=$this->__select("*", "Resultados","(Prueba=$prueba) AND (Jornada=$jornada) AND (Manga=$manga)","","");
+			if (!is_array($res)) return $this->error($this->conn->error);
+			$perrosmanga=array();
+			foreach($res['rows'] as $item) {
+				$perrosmanga[$item['Perro']]=$item;
+			}
+
+			// cogemos el orden de salida asociado a la manga
+			$os=new OrdenSalida("ordenTandas::getData()",$prueba,$jornada,$manga);
+			$ordenmanga=$os->getOrden($manga);
+			// de la manga extraemos el substring definido en la tanda entre el 'from' y el 'to'
+			$ordentanda=getInnerString($ordenmanga,$tanda['From'],$tanda['To']);
+				
+			// y generamos la lista ordenada de los perros inscritos a partir de estos datos
+			if($ordentanda==="") break; // no perros in this tanda
+			$orden=explode(',',$ordentanda);
+			$celo=0;
+			foreach($orden as $perro) {
+				// from manual: don't compare strpos against 'true'
+				if (strpos($perro,'TAG')!==false) { // separator. check for 'Celo' field
+					if (strpos($perro,'1')===false) $celo=0;
+					if (strpos($perro,'0')===false) $celo=1;
+					continue; // next search
+				}
+				$perrosmanga[$perro]['Celo']=$celo; // store celo info
+				$perrosmanga[$perro]['Tanda']=$tanda['Nombre'];
+				array_push($rows,$perrosmanga[$perro]); 
+			}
+			break; // no sense to iterate rest of tandas
 		}
 		$result['rows']=$rows;
 		$result['total']=count($rows);

@@ -2,8 +2,7 @@ var groupview = $.extend({}, $.fn.datagrid.defaults.view, {
 	render: function(target, container, frozen){
 		var table = [];
 		var groups = this.groups;
-		var glen=groups.length;
-		for(var i=0; i<glen; i++){
+		for(var i=0; i<groups.length; i++){
 			table.push(this.renderGroup.call(this, target, i, groups[i], frozen));
 		}
 		$(container).html(table.join(''));
@@ -35,8 +34,7 @@ var groupview = $.extend({}, $.fn.datagrid.defaults.view, {
 		
 		table.push('<table class="datagrid-btable" cellspacing="0" cellpadding="0" border="0"><tbody>');
 		var index = group.startIndex;
-		var grlen=group.rows.length;
-		for(var j=0; j<grlen; j++) {
+		for(var j=0; j<group.rows.length; j++) {
 			var css = opts.rowStyler ? opts.rowStyler.call(target, index, group.rows[j]) : '';
 			var classValue = '';
 			var styleValue = '';
@@ -84,31 +82,27 @@ var groupview = $.extend({}, $.fn.datagrid.defaults.view, {
 	onBeforeRender: function(target, rows){
 		var state = $.data(target, 'datagrid');
 		var opts = state.options;
-	
+		
 		initCss();
 		
 		var groups = [];
-		var gkeys =[];
-		
-		var rlen=rows.length;
-		for(var i=0; i<rlen; i++){
+		for(var i=0; i<rows.length; i++){
 			var row = rows[i];
-			var gname=row[opts.groupField];
-			if (typeof gkeys[gname] === "undefined") {
+			var group = getGroup(row[opts.groupField]);
+			if (!group){
 				group = {
 					value: row[opts.groupField],
 					rows: [row]
 				};
 				groups.push(group);
-				gkeys[gname]=groups.length-1;
 			} else {
-				groups[gkeys[gname]].rows.push(row);
+				group.rows.push(row);
 			}
 		}
+		
 		var index = 0;
 		var newRows = [];
-		var glen=groups.length;
-		for(var i=0; i<glen; i++){
+		for(var i=0; i<groups.length; i++){
 			var group = groups[i];
 			group.startIndex = index;
 			index += group.rows.length;
@@ -123,6 +117,15 @@ var groupview = $.extend({}, $.fn.datagrid.defaults.view, {
 			that.bindEvents(target);
 		},0);
 		
+		function getGroup(value){
+			for(var i=0; i<groups.length; i++){
+				var group = groups[i];
+				if (group.value == value){
+					return group;
+				}
+			}
+			return null;
+		}
 		function initCss(){
 			if (!$('#datagrid-group-style').length){
 				$('head').append(
@@ -178,8 +181,8 @@ $.extend(groupview, {
 		var dc = state.dc;
 		var group = null;
 		var groupIndex;
-		var tglen=this.groups.length;
-		for(var i=0; i<tglen; i++){
+		
+		for(var i=0; i<this.groups.length; i++){
 			if (this.groups[i].value == row[opts.groupField]){
 				group = this.groups[i];
 				groupIndex = i;
@@ -257,8 +260,7 @@ $.extend(groupview, {
 		}
 		
 		var index = 0;
-		var tglen=this.groups.length;
-		for(var i=0; i<tglen; i++){
+		for(var i=0; i<this.groups.length; i++){
 			var group = this.groups[i];
 			group.startIndex = index;
 			index += group.rows.length;

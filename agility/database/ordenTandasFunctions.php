@@ -9,13 +9,14 @@ $file="ordenTandasFunctions";
 
 try {
 	$result=null;
-	$os=new OrdenTandas($file);
+	$ot=new OrdenTandas($file);
 	// retrieve variables
 	$operation=http_request("Operation","s",null);
 	if ($operation===null) 
 		throw new Exception("Call to ordenTandasFunctions without 'Operation' requested");
 	$p = http_request("Prueba","i",0);
 	$j = http_request("Jornada","i",0);
+	$td = http_request("Tanda","i",0);
 	// los siguiente campos se usan para drag and drop
 	$f = http_request("From","i",0);
 	$t = http_request("To","i",0);
@@ -24,12 +25,13 @@ try {
 	if ( ($p<=0) || ($j<=0) ) 
 		throw new Exception("Call to ordenTandasFunctions with Invalid Prueba:$p or Jornada:$j ID");
 	switch ($operation) {
-		case "getTandas":$result = $os->getTandas($p,$j); break;
-		case "getData":	$result = $os->getData($p,$j,$a); break;
-		case "dnd":	$result = $os->dragAndDrop($p,$j,$f,$t,$w); break;
+		case "getTandas":$result = $ot->getTandas($p,$j); break;
+		case "getData":	$result = $ot->getData($p,$j,$a); break;
+		case "getDataByTanda":	$result = $ot->getDataByTanda($p,$j,$td); break;
+		case "dnd":	$result = $ot->dragAndDrop($p,$j,$f,$t,$w); break;
 	}
 	// result may contain null (error),  "" success, or (any) data
-	if ($result===null) throw new Exception($os->errormsg);
+	if ($result===null) throw new Exception($ot->errormsg);
 	if ($result==="") echo json_encode(array('success'=>true));
 	else echo json_encode($result);
 } catch (Exception $e) {
