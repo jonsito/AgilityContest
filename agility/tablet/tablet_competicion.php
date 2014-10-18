@@ -120,78 +120,127 @@ $('#tablet_ordenSalida-datagrid').datagrid({
 	method: 'get',
 	url: '/agility/database/ordenTandasFunctions.php',
     queryParams: {
-        Operation: 'getData',
+        Operation: 'getTandas',
         Prueba: workingData.prueba,
         Jornada: workingData.jornada
     },
 	toolbar:'#tablet_ordenSalida-toolbar',
-    loadMsg: "Actualizando datos de los participantes ...",
+    loadMsg: "Actualizando programa ...",
     pagination: false,
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
     autoRowHeight: false,
-    view: groupview,
-    groupField: "Tanda",
-    groupFormatter: function(value,rows){
-    	return value + ' - ' + rows.length + ' participante(s)';
+    style: myRowStyler,
+    view: scrollview,
+    pageSize: 100, // enought bit to make it senseless
+    columns:[[ 
+          	{ field:'ID',		hidden:true },
+        	{ field:'Prueba',	hidden:true },
+          	{ field:'Jornada',	hidden:true },
+          	{ field:'Manga',	hidden:true },
+      		{ field:'From',		hidden:true },
+      		{ field:'To',		hidden:true },
+      		{ field:'Nombre',	width:200, sortable:false, align:'right',title:'Secuencia de salida a pista'},
+      		{ field:'Categoria',hidden:true },
+      		{ field:'Grado',	hidden:true }
+    ]],            
+    // especificamos un formateador especial para desplegar la tabla de perros por tanda
+    detailFormatter:function(idx,row){
+        return '<div style="padding:2px"><table id="tablet-ordenSalida-datagrid-' + row.ID +'"></table></div>';
     },
-    columns:[[
-        { field:'Parent',		width:0, hidden:true }, // self reference to row index
-        { field:'Prueba',		width:0, hidden:true }, // extra field to be used on form load/save
-        { field:'Jornada',		width:0, hidden:true }, // extra field to be used on form load/save
-        { field:'ID',			width:0, hidden:true },
-        { field:'Manga',		width:0, hidden:true },
-        { field:'Perro',		width:0, hidden:true },
-      	{ field:'Licencia',		width:0, hidden:true },
-      	{ field:'Pendiente',	width:0, hidden:true },
-      	{ field:'Tanda',		width:0, hidden:true },
-        { field:'Dorsal',		width:12, align:'center',  title: '#', styler:checkPending },
-      	{ field:'Celo',			width:10, align:'center', title: 'Celo', formatter:checkCelo},
-        { field:'Nombre',		width:20, align:'left',  title: 'Nombre'},
-        { field:'NombreGuia',	width:45, align:'right', title: 'Guia' },
-        { field:'NombreClub',	width:30, align:'right', title: 'Club' },
-      	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
-      	{ field:'Grado',		width:10, align:'center',title: 'Grd.' },
-      	{ field:'Faltas',		width:5, align:'center', title: 'F'},
-      	{ field:'Tocados',		width:5, align:'center', title: 'T'},
-      	{ field:'Rehuses',		width:5, align:'center', title: 'R'},
-      	{ field:'Tiempo',		width:15, align:'right', title: 'Tmp'	}, 
-      	{ field:'Eliminado',	width:5, align:'center',title: 'EL.'},
-      	{ field:'NoPresentado',	width:5, align:'center',title: 'NP'},		
-      	{ field:'Observaciones',width:0, hidden:true }
-    ]],
-    // rowStyler:myRowStyler,
+    onExpandRow: function(idx,row) { showPerrosByTanda(idx,row); },
     onBeforeLoad: function(param) { return true; }, // TODO: write
-	onLoadSuccess:function(){ 
-    	$(this).datagrid('enableDnd');
-		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
-	},
-    onClickRow: function(index,row) {
-        row.Prueba=workingData.prueba;
-        row.Jornada=workingData.jornada;
-        row.Parent=index; // store index
-        $('#tdialog-form').form('load',row);
-        $('#tablet_ordenTandas-panel').panel('close');
-        $('#tablet_ordenSalida-panel').panel('close');
-        $('#tdialog-panel').panel('open');
-    },
-    onDragEnter: function(dst,src) {
-        if (dst.Manga!=src.Manga) return false;
-        if (dst.Categoria!=src.Categoria) return false;
-        if (dst.Grado!=src.Grado) return false;
-        if (dst.Celo!=src.Celo) return false;
-        return true;
-    }, 
-    onDrop: function(dst,src,updown) {
-        // reload el orden de salida en la manga asociada
-        workingData.manga=src.Manga;
-        dragAndDropOrdenSalida(
-                src.Perro,
-                dst.Perro,
-                (updown==='top')?0:1,
-                function()  { $('#tablet_ordenSalida-datagrid').datagrid('reload'); }
-         	);
-    }
 });
+
+// mostrar los perros de una tanda
+function showPerrosByTanda(index,tanda){
+	// - sub tabla orden de salida de una tanda
+	var mySelf='#tablet_ordenSalida-datagrid-'+tanda.ID;
+	$(mySelf).datagrid({
+		// propiedades del panel asociado
+		fit: true,
+		border: false,
+		closable: false,
+		collapsible: false,
+		collapsed: false,
+		// propiedades del datagrid
+		method: 'get',
+		url: '/agility/database/ordenTandasFunctions.php',
+	    queryParams: {
+	        Operation: 'getDataByTanda',
+	        Prueba: workingData.prueba,
+	        Jornada: workingData.jornada,
+	        Tanda:tanda
+	    },
+	    loadMsg: "Actualizando orden de salida ...",
+	    pagination: false,
+	    rownumbers: false,
+	    fitColumns: true,
+	    singleSelect: true,
+	    autoRowHeight: false,
+		columns:[[
+		        { field:'Parent',		width:0, hidden:true }, // self reference to row index
+	            { field:'Prueba',		width:0, hidden:true }, // extra field to be used on form load/save
+	            { field:'Jornada',		width:0, hidden:true }, // extra field to be used on form load/save
+	            { field:'ID',			width:0, hidden:true },
+	            { field:'Manga',		width:0, hidden:true },
+	            { field:'Perro',		width:0, hidden:true },
+	            { field:'Licencia',		width:0, hidden:true },
+	            { field:'Pendiente',	width:0, hidden:true },
+	            { field:'Tanda',		width:0, hidden:true },
+	            { field:'Dorsal',		width:12, align:'center',	title: '#', styler:checkPending },
+	            { field:'Celo',			width:10, align:'center',	title: 'Celo', formatter:checkCelo},
+	            { field:'Nombre',		width:20, align:'left',		title: 'Nombre'},
+	            { field:'NombreGuia',	width:45, align:'right',	title: 'Guia' },
+	            { field:'NombreClub',	width:30, align:'right',	title: 'Club' },
+	            { field:'Categoria',	width:10, align:'center',	title: 'Cat.' },
+	            { field:'Grado',		width:10, align:'center',	title: 'Grd.' },
+	            { field:'Faltas',		width:5, align:'center',	title: 'F'},
+	            { field:'Tocados',		width:5, align:'center',	title: 'T'},
+	            { field:'Rehuses',		width:5, align:'center',	title: 'R'},
+	            { field:'Tiempo',		width:15, align:'right',	title: 'Tmp'	}, 
+	            { field:'Eliminado',	width:5, align:'center',	title: 'EL.'},
+	            { field:'NoPresentado',	width:5, align:'center',	title: 'NP'},		
+	            { field:'Observaciones',width:0, hidden:true }
+	          ]],
+          	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+        rowStyler:myRowStyler,
+        onClickRow: function(index,row) {
+            row.Prueba=workingData.prueba;
+            row.Jornada=workingData.jornada;
+            row.Parent=index; // store index
+            $('#tdialog-form').form('load',row);
+            $('#tablet_ordenTandas-panel').panel('close');
+            $('#tablet_ordenSalida-panel').panel('close');
+            $('#tdialog-panel').panel('open');
+        },
+        onResize:function(){
+            $('#tablet_ordenSalida-datagrid').datagrid('fixDetailRowHeight',index);
+        },
+        onLoadSuccess:function(){ 
+            setTimeout(function(){ $('#tablet_ordenSalida-datagrid').datagrid('fixDetailRowHeight',index); },0);
+        	$(this).datagrid('enableDnd');
+    		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+    	},
+        onDragEnter: function(dst,src) {
+            if (dst.Manga!=src.Manga) return false;
+            if (dst.Categoria!=src.Categoria) return false;
+            if (dst.Grado!=src.Grado) return false;
+            if (dst.Celo!=src.Celo) return false;
+            return true;
+        }, 
+        onDrop: function(dst,src,updown) {
+            // reload el orden de salida en la manga asociada
+            workingData.manga=src.Manga;
+            dragAndDropOrdenSalida(
+                    src.Perro,
+                    dst.Perro,
+                    (updown==='top')?0:1,
+                    function()  { $(mySelf).datagrid('reload'); }
+             	);
+        }
+	});
+	$('#tablet_ordenSalida-datagrid').datagrid('fixDetailRowHeight',index);
+}
 </script>
