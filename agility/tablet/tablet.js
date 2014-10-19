@@ -1,23 +1,22 @@
+function tandasStyler(val,row,idx) {
+	var str="text-align:left; ";
+	str += "font-weight:bold; ";
+	str += ((idx&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
+	return str;
+}
 
 /******************* funciones de manejo de las ventana de orden de tandas y orden de salida en el tablet *******************/
 
 function tablet_printOrdenTandas() {
-	alert("tablet.js::tablet_printOrdenTandas() {PENDING}");
+	alert("tablet.js::tablet-printOrdenTandas() {PENDING}");
 }
 
 function tablet_printOrdenSalida() {
-	alert("tablet.js::tablet_printOrdenSalida() {PENDING}");
-}
-
-function tablet_showOrdenTandas() {
-	$('#tablet_ordenSalida-panel').panel('close');
-	$('#tablet_ordenTandas-panel').panel('open');
-    $('#tdialog-panel').panel('close');
+	alert("tablet.js::tablet-printOrdenSalida() {PENDING}");
 }
 
 function tablet_showOrdenSalida() {
-	$('#tablet_ordenTandas-panel').panel('close');
-	$('#tablet_ordenSalida-panel').panel('open');
+	$('#tablet-panel').panel('open');
     $('#tdialog-panel').panel('close');
 }
 
@@ -115,7 +114,7 @@ function tablet_lapreset() {
 
 function tablet_cancel() {
 	// retrieve original data from parent datagrid
-	var rows = $('#tablet_ordenSalida-datagrid').datagrid('getRows'); 
+	var rows = $('#tablet-datagrid').datagrid('getRows'); 
 	var row = rows[$('#tdialog-Parent').val()];
 	row.Operation='update';
 	// send original data to sql server
@@ -136,7 +135,7 @@ function tablet_accept() {
 	var obj=formToObject('#tdialog-form');
 	// mark as no longer pending
 	obj.Pendiente=0;
-	$('#tablet_ordenSalida-datagrid').datagrid('updateRow',{index: obj.Parent,row: obj});
+	$('#tablet-datagrid').datagrid('updateRow',{index: obj.Parent,row: obj});
 	// and close windows
 	$('#tdialog-panel').panel('close'); // and close window
 }

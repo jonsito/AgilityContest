@@ -81,7 +81,7 @@
     	minimizable:	false,
     	maximizable:	false,
     	resizable:		false,
-    	onClose:	function() { $('#tablet_ordenSalida-panel').panel('open'); }
+    	onClose:	function() { $('#tablet-panel').panel('open'); }
     });
 
     $('#tdialog-form').form({

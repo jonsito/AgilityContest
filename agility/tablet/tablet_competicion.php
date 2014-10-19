@@ -1,46 +1,27 @@
 <?php include_once(__DIR__."/tablet_entradadatos.inc");?>
-<!-- Ventana para ver y ajustar el orden de tandas de la jornada -->
-<div id="tablet_ordenTandas-panel" class="easyui-panel"
-	style="width:1280px;height:800px;">
-	<!-- toolbar para orden de tandas -->
-	<div id="tablet_ordenTandas-toolbar" style="padding:5px">
-		<a id="tablet_ordenTandas-reloadBtn" href="#" class="easyui-linkbutton" 
-			data-options="iconCls:'icon-reload'" onclick="$('#tablet_ordenTandas-datagrid').datagrid('reload');">Actualizar</a>
-		<a id="tablet_ordenTandas-printBtn" href="#" class="easyui-linkbutton" 
-			data-options="iconCls:'icon-print'" onclick="tablet_printOrdenTandas()">Imprimir</a>
-		<a id="tablet_ordenTandas-ordenBtn" href="#" class="easyui-linkbutton" 
-			data-options="iconCls:'icon-updown'" onclick="tablet_showOrdenSalida()">Orden de Salida</a>
-	</div>
-	<!--  datagrid con el orden de tandas -->
-	<table id="tablet_ordenTandas-datagrid" class="easyui-datagrid" style="padding:10px;"></table>
-</div> <!-- Orden de tandas  -->
 		
-<div id="tablet_ordenSalida-panel" class="easyui-panel"
-	style="width:1280px;height:800px;">
+<div id="tablet-panel" class="easyui-panel"	style="width:1280px;height:800px;">
 	<!-- toolbar para orden de tandas -->
-	<div id="tablet_ordenSalida-toolbar" style="padding:5px">
-		<a id="tablet_ordenSalida-reloadBtn" href="#" class="easyui-linkbutton" 
-			data-options="iconCls:'icon-reload'" onclick="$('#tablet_ordenSalida-datagrid').datagrid('reload');">Actualizar</a>
-		<a id="tablet_ordenSalida-printBtn" href="#" class="easyui-linkbutton" 
-			data-options="iconCls:'icon-print'" onclick="tablet_printOrdenSalida()">Imprimir</a>
-		<a id="tablet_ordenSalida-ordenBtn" href="#" class="easyui-linkbutton" 
-			data-options="iconCls:'icon-updown'" onclick="tablet_showOrdenTandas()">Programa</a>
+	<div id="tablet-toolbar" style="padding:5px">
+		<a id="tablet-reloadBtn" href="#" class="easyui-linkbutton" 
+			data-options="iconCls:'icon-reload'" onclick="$('#tablet-datagrid').datagrid('reload');">Actualizar</a>
+		<a id="tablet-printTandasBtn" href="#" class="easyui-linkbutton" 
+			data-options="iconCls:'icon-print'" onclick="tablet_printOrdenTandas()">Impr. Programa</a>
+		<a id="tablet-printOrdenSalidaBtn" href="#" class="easyui-linkbutton" 
+			data-options="iconCls:'icon-print'" onclick="tablet_printOrdenSalida()">Impr. Orden</a>
 	</div>
 	<!-- Tabla desplegable para la entrada de datos desde el tablet -->
-	<table id="tablet_ordenSalida-datagrid" class="easyui-datagrid" style="padding:10px;"></table>
+	<table id="tablet-datagrid" class="easyui-datagrid" style="padding:10px;"></table>
 </div> <!-- orden de salida -->
 		
 <script type="text/javascript">
 
-$('#tablet_ordenTandas-reloadBtn').linkbutton();
-$('#tablet_ordenTandas-printBtn').linkbutton();
-$('#tablet_ordenTandas-ordenBtn').linkbutton();
-$('#tablet_ordenSalida-reloadBtn').linkbutton();
-$('#tablet_ordenSalida-printBtn').linkbutton();
-$('#tablet_ordenSalida-ordenBtn').linkbutton();
+$('#tablet-reloadBtn').linkbutton();
+$('#tablet-printTandasBtn').linkbutton();
+$('#tablet-printOrdenSalidaBtn').linkbutton();
 
-$('#tablet_ordenTandas-panel').panel({
-	title: 'Programa de la jornada',
+$('#tablet-panel').panel({
+	title: 'Orden de salida',
 	collapsible:	false,
 	minimizable:	false,
 	maximizable:	false,
@@ -51,19 +32,7 @@ $('#tablet_ordenTandas-panel').panel({
 	modal:			false
 });
 
-$('#tablet_ordenSalida-panel').panel({
-	title: 'Orden de salida',
-	collapsible:	false,
-	minimizable:	false,
-	maximizable:	false,
-	resizable:		false,
-	closable:		false,
-	iconCls:		'icon-table',
-	closed:			true,
-	modal:			false
-});
-
-$('#tablet_ordenTandas-datagrid').datagrid({
+$('#tablet-datagrid').datagrid({
 	// propiedades del panel asociado
 	fit: true,
 	border: false,
@@ -71,7 +40,6 @@ $('#tablet_ordenTandas-datagrid').datagrid({
 	collapsible: false,
 	collapsed: false,
 	// propiedades del datagrid
-	toolbar:'#tablet_ordenTandas-toolbar',
 	method: 'get',
 	url: '/agility/database/ordenTandasFunctions.php',
     queryParams: {
@@ -79,59 +47,13 @@ $('#tablet_ordenTandas-datagrid').datagrid({
         Prueba: workingData.prueba,
         Jornada: workingData.jornada
     },
-    loadMsg: "Actualizando programa de la Jornada .....",
+	toolbar:'#tablet-toolbar',
+    loadMsg: "Actualizando programa ...",
     pagination: false,
     rownumbers: true,
     fitColumns: true,
     singleSelect: true,
     autoRowHeight: false,
-    columns:[[
-          	{ field:'ID',		hidden:true },
-        	{ field:'Prueba',	hidden:true },
-          	{ field:'Jornada',	hidden:true },
-          	{ field:'Manga',	hidden:true },
-      		{ field:'From',		hidden:true },
-      		{ field:'To',		hidden:true },
-      		{ field:'Nombre',	width:200, sortable:false, align:'right',title:'Secuencia de salida a pista'},
-      		{ field:'Categoria',hidden:true },
-      		{ field:'Grado',	hidden:true }
-    ]],
-    // rowStyler:myRowStyler,
-    onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes) and enable drag and drop
-    	$(this).datagrid('enableDnd');
-		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
-    	$('#tablet_ordenSalida-datagrid').datagrid('reload');
-    },
-    onDragEnter: function(dst,src) { return true; }, // default is not restriction
-    onDrop: function(dst,src,updown) {
-        dragAndDropOrdenTandas(src.ID,dst.ID,(updown==='top')?0:1);
-    }
-});
-
-
-$('#tablet_ordenSalida-datagrid').datagrid({
-	// propiedades del panel asociado
-	fit: true,
-	border: false,
-	closable: false,
-	collapsible: false,
-	collapsed: false,
-	// propiedades del datagrid
-	method: 'get',
-	url: '/agility/database/ordenTandasFunctions.php',
-    queryParams: {
-        Operation: 'getTandas',
-        Prueba: workingData.prueba,
-        Jornada: workingData.jornada
-    },
-	toolbar:'#tablet_ordenSalida-toolbar',
-    loadMsg: "Actualizando programa ...",
-    pagination: false,
-    rownumbers: false,
-    fitColumns: true,
-    singleSelect: true,
-    autoRowHeight: false,
-    style: myRowStyler,
     view: scrollview,
     pageSize: 100, // enought bit to make it senseless
     columns:[[ 
@@ -141,13 +63,14 @@ $('#tablet_ordenSalida-datagrid').datagrid({
           	{ field:'Manga',	hidden:true },
       		{ field:'From',		hidden:true },
       		{ field:'To',		hidden:true },
-      		{ field:'Nombre',	width:200, sortable:false, align:'right',title:'Secuencia de salida a pista'},
+      		{ field:'Nombre',	width:200, sortable:false, align:'ledt',title:'Secuencia de salida a pista',styler:tandasStyler},
       		{ field:'Categoria',hidden:true },
       		{ field:'Grado',	hidden:true }
-    ]],            
+    ]],
+    rowStyler: myRowStyler,            
     // especificamos un formateador especial para desplegar la tabla de perros por tanda
     detailFormatter:function(idx,row){
-        return '<div style="padding:2px"><table id="tablet-ordenSalida-datagrid-' + row.ID +'"></table></div>';
+        return '<div style="padding:2px"><table id="tablet-datagrid-' + row.ID + '"></table></div>';
     },
     onExpandRow: function(idx,row) { showPerrosByTanda(idx,row); },
     onBeforeLoad: function(param) { return true; }, // TODO: write
@@ -156,12 +79,13 @@ $('#tablet_ordenSalida-datagrid').datagrid({
 // mostrar los perros de una tanda
 function showPerrosByTanda(index,tanda){
 	// - sub tabla orden de salida de una tanda
-	var mySelf='#tablet_ordenSalida-datagrid-'+tanda.ID;
+	var mySelf='#tablet-datagrid-'+tanda.ID;
 	$(mySelf).datagrid({
 		// propiedades del panel asociado
 		fit: true,
 		border: false,
 		closable: false,
+		closed: false,
 		collapsible: false,
 		collapsed: false,
 		// propiedades del datagrid
@@ -171,20 +95,21 @@ function showPerrosByTanda(index,tanda){
 	        Operation: 'getDataByTanda',
 	        Prueba: workingData.prueba,
 	        Jornada: workingData.jornada,
-	        Tanda:tanda
+	        Tanda:tanda.ID
 	    },
 	    loadMsg: "Actualizando orden de salida ...",
 	    pagination: false,
-	    rownumbers: false,
+	    rownumbers: true,
 	    fitColumns: true,
 	    singleSelect: true,
-	    autoRowHeight: false,
+	    height: 'auto',
 		columns:[[
 		        { field:'Parent',		width:0, hidden:true }, // self reference to row index
 	            { field:'Prueba',		width:0, hidden:true }, // extra field to be used on form load/save
 	            { field:'Jornada',		width:0, hidden:true }, // extra field to be used on form load/save
-	            { field:'ID',			width:0, hidden:true },
 	            { field:'Manga',		width:0, hidden:true },
+	            { field:'Tanda',		width:0, hidden:true }, // string with tanda's name
+	            { field:'ID',			width:0, hidden:true }, // tanda ID
 	            { field:'Perro',		width:0, hidden:true },
 	            { field:'Licencia',		width:0, hidden:true },
 	            { field:'Pendiente',	width:0, hidden:true },
@@ -211,17 +136,16 @@ function showPerrosByTanda(index,tanda){
             row.Jornada=workingData.jornada;
             row.Parent=index; // store index
             $('#tdialog-form').form('load',row);
-            $('#tablet_ordenTandas-panel').panel('close');
-            $('#tablet_ordenSalida-panel').panel('close');
+            $('#tablet-panel').panel('close');
             $('#tdialog-panel').panel('open');
         },
         onResize:function(){
-            $('#tablet_ordenSalida-datagrid').datagrid('fixDetailRowHeight',index);
+            $('#tablet-datagrid').datagrid('fixDetailRowHeight',index);
         },
         onLoadSuccess:function(){ 
-            setTimeout(function(){ $('#tablet_ordenSalida-datagrid').datagrid('fixDetailRowHeight',index); },0);
-        	$(this).datagrid('enableDnd');
-    		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+            setTimeout(function(){ $('#tablet-datagrid').datagrid('fixDetailRowHeight',index); },0);
+        	$(mySelf).datagrid('enableDnd');
+    		$(mySelf).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
     	},
         onDragEnter: function(dst,src) {
             if (dst.Manga!=src.Manga) return false;
@@ -241,6 +165,6 @@ function showPerrosByTanda(index,tanda){
              	);
         }
 	});
-	$('#tablet_ordenSalida-datagrid').datagrid('fixDetailRowHeight',index);
+	$('#tablet-datagrid').datagrid('fixDetailRowHeight',index);
 }
 </script>

@@ -393,6 +393,7 @@ class OrdenTandas extends DBObject {
 				}
 				$perrosmanga[$perro]['Celo']=$celo; // store celo info
 				$perrosmanga[$perro]['Tanda']=$tanda['Nombre'];
+				$perrosmanga[$perro]['ID']=$idtanda;
 				array_push($rows,$perrosmanga[$perro]); 
 			}
 			break; // no sense to iterate rest of tandas
