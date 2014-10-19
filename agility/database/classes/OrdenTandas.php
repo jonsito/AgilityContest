@@ -330,6 +330,7 @@ class OrdenTandas extends DBObject {
 				}
 				$perrosmanga[$perro]['Celo']=$celo; // store celo info
 				$perrosmanga[$perro]['Tanda']=$tanda['Nombre'];
+				$perrosmanga[$perro]['ID']=$tanda['ID'];
 				if ($pendientes==0) { array_push($rows,$perrosmanga[$perro]); continue; } // include all
 				if ($perrosmanga[$perro]['Pendiente']==0) continue; // not pendiente: skip
 				if ($count > 0) { $count--; array_push($rows,$perrosmanga[$perro]); continue; } // not yet at count: insert

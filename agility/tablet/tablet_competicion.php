@@ -70,38 +70,30 @@ $('#tablet-datagrid').datagrid({
     rowStyler: myRowStyler,            
     // especificamos un formateador especial para desplegar la tabla de perros por tanda
     detailFormatter:function(idx,row){
-        return '<div style="padding:2px"><table id="tablet-datagrid-' + row.ID + '"></table></div>';
+        return '<div style="padding:2px"><table id="tablet-datagrid-' + parseInt(row.ID) + '"></table></div>';
     },
-    onExpandRow: function(idx,row) { showPerrosByTanda(idx,row); },
-    onBeforeLoad: function(param) { return true; }, // TODO: write
+    onExpandRow: function(idx,row) { showPerrosByTanda(idx,row); }
 });
 
 // mostrar los perros de una tanda
-function showPerrosByTanda(index,tanda){
+function showPerrosByTanda(index,row){ 
 	// - sub tabla orden de salida de una tanda
-	var mySelf='#tablet-datagrid-'+tanda.ID;
+    var mySelf='#tablet-datagrid-'+row.ID;
 	$(mySelf).datagrid({
-		// propiedades del panel asociado
-		fit: true,
-		border: false,
-		closable: false,
-		closed: false,
-		collapsible: false,
-		collapsed: false,
-		// propiedades del datagrid
 		method: 'get',
 		url: '/agility/database/ordenTandasFunctions.php',
 	    queryParams: {
 	        Operation: 'getDataByTanda',
-	        Prueba: workingData.prueba,
-	        Jornada: workingData.jornada,
-	        Tanda:tanda.ID
+	        Prueba: row.Prueba,
+	        Jornada: row.Jornada,
+	        Tanda:row.ID
 	    },
 	    loadMsg: "Actualizando orden de salida ...",
 	    pagination: false,
 	    rownumbers: true,
 	    fitColumns: true,
 	    singleSelect: true,
+	    autoRowHeight: false,
 	    height: 'auto',
 		columns:[[
 		        { field:'Parent',		width:0, hidden:true }, // self reference to row index
@@ -114,28 +106,26 @@ function showPerrosByTanda(index,tanda){
 	            { field:'Licencia',		width:0, hidden:true },
 	            { field:'Pendiente',	width:0, hidden:true },
 	            { field:'Tanda',		width:0, hidden:true },
-	            { field:'Dorsal',		width:12, align:'center',	title: '#', styler:checkPending },
 	            { field:'Celo',			width:10, align:'center',	title: 'Celo', formatter:checkCelo},
 	            { field:'Nombre',		width:20, align:'left',		title: 'Nombre'},
 	            { field:'NombreGuia',	width:45, align:'right',	title: 'Guia' },
 	            { field:'NombreClub',	width:30, align:'right',	title: 'Club' },
-	            { field:'Categoria',	width:10, align:'center',	title: 'Cat.' },
-	            { field:'Grado',		width:10, align:'center',	title: 'Grd.' },
+	            { field:'Dorsal',		width:12, align:'center',	title: 'Dorsal', styler:checkPending },
+	            { field:'Categoria',	width:10, align:'center',	title: 'Categ.' },
+	            { field:'Grado',		width:10, align:'center',	title: 'Grado' },
 	            { field:'Faltas',		width:5, align:'center',	title: 'F'},
 	            { field:'Tocados',		width:5, align:'center',	title: 'T'},
 	            { field:'Rehuses',		width:5, align:'center',	title: 'R'},
-	            { field:'Tiempo',		width:15, align:'right',	title: 'Tmp'	}, 
+	            { field:'Tiempo',		width:15, align:'right',	title: 'Tiempp'	}, 
 	            { field:'Eliminado',	width:5, align:'center',	title: 'EL.'},
 	            { field:'NoPresentado',	width:5, align:'center',	title: 'NP'},		
 	            { field:'Observaciones',width:0, hidden:true }
 	          ]],
           	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
         rowStyler:myRowStyler,
-        onClickRow: function(index,row) {
-            row.Prueba=workingData.prueba;
-            row.Jornada=workingData.jornada;
-            row.Parent=index; // store index
-            $('#tdialog-form').form('load',row);
+        onClickRow: function(index,data) {
+            data.Parent=index; // store index
+            $('#tdialog-form').form('load',data);
             $('#tablet-panel').panel('close');
             $('#tdialog-panel').panel('open');
         },
@@ -156,6 +146,8 @@ function showPerrosByTanda(index,tanda){
         }, 
         onDrop: function(dst,src,updown) {
             // reload el orden de salida en la manga asociada
+            workingData.prueba=src.Prueba;
+            workingData.jornada=src.Jornada;
             workingData.manga=src.Manga;
             dragAndDropOrdenSalida(
                     src.Perro,
