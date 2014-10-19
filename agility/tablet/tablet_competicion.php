@@ -134,8 +134,10 @@ function showPerrosByTanda(index,row){
         },
         onLoadSuccess:function(){
             setTimeout(function(){ $('#tablet-datagrid').datagrid('fixDetailRowHeight',index); },0);
-        	$(mySelf).datagrid('enableDnd');
-    		$(mySelf).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+            if (! isMobileDevice() ) {
+        		$(mySelf).datagrid('enableDnd');
+    			$(mySelf).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+            }
     	},
         onDragEnter: function(dst,src) {
             if (dst.Manga!=src.Manga) return false;
