@@ -1,6 +1,6 @@
 <?php include_once(__DIR__."/tablet_entradadatos.inc");?>
 		
-<div id="tablet-panel" class="easyui-panel"	style="width:1280px;height:800px;">
+<div id="tablet-panel" style="width:1280px;height:800px;">
 	<!-- toolbar para orden de tandas -->
 	<div id="tablet-toolbar" style="padding:5px">
 		<a id="tablet-reloadBtn" href="#" class="easyui-linkbutton" 
@@ -11,8 +11,8 @@
 			data-options="iconCls:'icon-print'" onclick="tablet_printOrdenSalida()">Impr. Orden</a>
 	</div>
 	<!-- Tabla desplegable para la entrada de datos desde el tablet -->
-	<table id="tablet-datagrid" class="easyui-datagrid" style="padding:10px;"></table>
-</div> <!-- orden de salida -->
+	<table id="tablet-datagrid" style="padding:10px;"></table>
+</div> <!-- tandas / orden de salida -->
 		
 <script type="text/javascript">
 
@@ -27,7 +27,7 @@ $('#tablet-panel').panel({
 	maximizable:	false,
 	resizable:		false,
 	closable:		false,
-	iconCls:		'icon-table',
+	iconCls:		'icon-order',
 	closed:			false,
 	modal:			false
 });
@@ -54,7 +54,7 @@ $('#tablet-datagrid').datagrid({
     fitColumns: true,
     singleSelect: true,
     autoRowHeight: false,
-    view: scrollview,
+    view: detailview,
     pageSize: 100, // enought bit to make it senseless
     columns:[[ 
           	{ field:'ID',		hidden:true },
@@ -142,7 +142,7 @@ function showPerrosByTanda(index,tanda){
         onResize:function(){
             $('#tablet-datagrid').datagrid('fixDetailRowHeight',index);
         },
-        onLoadSuccess:function(){ 
+        onLoadSuccess:function(){
             setTimeout(function(){ $('#tablet-datagrid').datagrid('fixDetailRowHeight',index); },0);
         	$(mySelf).datagrid('enableDnd');
     		$(mySelf).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
