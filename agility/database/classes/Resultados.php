@@ -258,20 +258,24 @@ class Resultados extends DBObject {
 		$eliminado=http_request("Eliminado","i",0);
 		$tiempo=http_request("Tiempo","d",0.0);
 		$observaciones=http_request("Observaciones","s","");
-		// comprobamos la coherencia de los datos recibidos y ajustamos
-		// NOTA: el orden de estas comprobaciones es MUY importante
-		if ($rehuses>=3) { $tiempo=0; $eliminado=1; $nopresentado=0;}
-		if ($tiempo>0) {$nopresentado=0;}
-		if ($eliminado==1) { $tiempo=0; $nopresentado=0; }
-		if ($nopresentado==1) { $tiempo=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0; }
-		if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; $faltas=0; $rehuses=0; $tocados=0; }
-		if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
+		// si la actualizacion esta marcada como pendiente
+		$pendiente=http_request("Pendiente","i",1);
+		if ($pendiente==0) {
+			// comprobamos la coherencia de los datos recibidos y ajustamos
+			// NOTA: el orden de estas comprobaciones es MUY importante
+			if ($rehuses>=3) { $tiempo=0; $eliminado=1; $nopresentado=0;}
+			if ($tiempo>0) {$nopresentado=0;}
+			if ($eliminado==1) { $tiempo=0; $nopresentado=0; }
+			if ($nopresentado==1) { $tiempo=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0; }
+			if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; $faltas=0; $rehuses=0; $tocados=0; }
+			if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
+		}
 		// efectuamos el update, marcando "pendiente" como false
 		$sql="UPDATE Resultados 
 			SET Entrada='$entrada' , Comienzo='$comienzo' , 
 				Faltas=$faltas , Rehuses=$rehuses , Tocados=$tocados ,
 				NoPresentado=$nopresentado , Eliminado=$eliminado , 
-				Tiempo=$tiempo , Observaciones='$observaciones' , Pendiente=0
+				Tiempo=$tiempo , Observaciones='$observaciones' , Pendiente=$pendiente
 			WHERE (Perro=$idperro) AND (Manga=$this->IDManga)";
 		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);

@@ -325,7 +325,8 @@ function saveCompeticionData(idx,data) {
 			Tiempo:		data['Tiempo'],
 			Eliminado:	data['Eliminado'],
 			NoPresentado:	data['NoPresentado'],
-			Observaciones:	data['Observaciones']
+			Observaciones:	data['Observaciones'],
+			Pendiente: 0
 		},
 		success: function(dat) {
 			if (dat.Manga!=workingData.manga) return; // window changed

@@ -61,6 +61,17 @@ function formToObject(formId) {
     });
     return formObj;
 }
+
+/**
+ * Clone (deep-clone) an object
+ * Posibly not the most efficient way to do, but enought for me
+ * @param obj Object to be cloned
+ */
+function cloneObj(obj) {
+	return JSON.parse(JSON.stringify(obj));
+	// return jQuery.extend(true, {}, obj);
+}
+
 /**
  * @param {integer} id SessionID
  * Initialize working data information object

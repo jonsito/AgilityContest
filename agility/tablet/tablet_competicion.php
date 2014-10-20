@@ -116,15 +116,15 @@ function showPerrosByTanda(index,row){
 	            { field:'Faltas',		width:5, align:'center',	title: 'F'},
 	            { field:'Tocados',		width:5, align:'center',	title: 'T'},
 	            { field:'Rehuses',		width:5, align:'center',	title: 'R'},
-	            { field:'Tiempo',		width:15, align:'right',	title: 'Tiempp'	}, 
+	            { field:'Tiempo',		width:15, align:'right',	title: 'Tiempo'	}, 
 	            { field:'Eliminado',	width:5, align:'center',	title: 'EL.'},
 	            { field:'NoPresentado',	width:5, align:'center',	title: 'NP'},		
 	            { field:'Observaciones',width:0, hidden:true }
 	          ]],
           	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
         rowStyler:myRowStyler,
-        onClickRow: function(index,data) {
-            data.Parent=index; // store index
+        onClickRow: function(idx,data) {
+            data.Parent=mySelf; // store datagrid reference
             $('#tdialog-form').form('load',data);
             $('#tablet-panel').panel('close');
             $('#tdialog-panel').panel('open');

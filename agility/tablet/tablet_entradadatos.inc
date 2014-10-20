@@ -2,7 +2,7 @@
 <div id="tdialog-panel" class="easyui-panel" style="width:1280px;height:800px;">
 	<div class="dialog_forms">
         <form id="tdialog-form" method="get" novalidate="novalidate">
-			<input id="tdialog-Parent" name="Parent" type="hidden" value="0"> <!-- row idx on parent datagrid -->       
+			<input id="tdialog-Parent" name="Parent" type="hidden" value=""> <!-- name of parent datagrid -->       
         	<input id="tdialog-ID" name="ID" type="hidden">     
         	<input id="tdialog-Prueba" name="Prueba" type="hidden">
         	<input id="tdialog-Jornada" name="Jornada" type="hidden">
