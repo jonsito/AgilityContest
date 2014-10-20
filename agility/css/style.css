@@ -182,13 +182,25 @@ img.mainpage{
 }
 
 .tb_falta {
-	background: #808080 url(/agility/images/falta.png); 
+	background: #a0a0a0 url(/agility/images/falta.png); 
 	background-repeat: no-repeat;
 	background-position: center;
 }
 
 .tb_rehuse {
-	background: #808080 url(/agility/images/rehuse.png);
+	background: #a0a0a0 url(/agility/images/rehuse.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.tb_tocado {
+	background: #a0a0a0 url(/agility/images/tocado.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.tb_eliminado {
+	background: #f0a0a0 url(/agility/images/eliminado.png);
 	background-repeat: no-repeat;
 	background-position: center;
 }
