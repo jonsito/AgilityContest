@@ -197,12 +197,35 @@ img.mainpage{
 	background: #a0a0a0 url(/agility/images/tocado.png);
 	background-repeat: no-repeat;
 	background-position: center;
+	font-size: 40px;
 }
 
 .tb_eliminado {
-	background: #f0a0a0 url(/agility/images/eliminado.png);
+	background: #a00000 url(/agility/images/eliminado.png);
 	background-repeat: no-repeat;
 	background-position: center;
+	font-size: 28px;
+}
+
+.tb_nopresentado {
+	background: #a0a000 url(/agility/images/nopresentado.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	font-size: 18px;
+}
+
+.tb_accept {
+	background: #00a000 url(/agility/images/dog_accept.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	font-size: 35px;
+}
+
+.tb_cancel {
+	background: #f0a0a0 url(/agility/images/dog_cancel.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	font-size: 18px;
 }
 
 input.tablet_info {

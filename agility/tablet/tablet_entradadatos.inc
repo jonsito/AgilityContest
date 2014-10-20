@@ -21,9 +21,9 @@
        		<input id="tdialog-TocadoDownBtn" type="button" value="Tocado -" onclick="tablet_down('#tdialog-Tocados');">
        		<input id="tdialog-StartStopBtn" type="button" value="Start/Stop" onclick="tablet_startstop();">
        		<input id="tdialog-LapResetBtn" type="button" value="Lap/Reset" onclick="tablet_lapreset();">
-       		<input id="tdialog-AcceptBtn" type="button" value="Aceptar" onclick="tablet_accept();"> 
-       		<input id="tdialog-CancelBtn" type="button" value="Cancelar" onclick="tablet_cancel();">
-       		<input id="tdialog-NoPresentadoBtn" type="button" value="No Presentado" onclick="tablet_np();">
+       		<input id="tdialog-AcceptBtn" type="button" value="Aceptar" onclick="tablet_accept();" class="tablet_button tb_accept"> 
+       		<input id="tdialog-CancelBtn" type="button" value="Cancelar" onclick="tablet_cancel();" class="tablet_button tb_cancel">
+       		<input id="tdialog-NoPresentadoBtn" type="button" value="No Presentado" onclick="tablet_np();" class="tablet_button tb_nopresentado">
        		<input id="tdialog-EliminadoBtn" type="button" value="Eliminado" onclick="tablet_elim('#tdialog-Eliminado');" class="tablet_button tb_eliminado">
        		<input id="tdialog-0" type="button" value="0" class="tablet_numbers" onclick="tablet_add(0);">
        		<input id="tdialog-1" type="button" value="1" class="tablet_numbers" onclick="tablet_add(1);">
