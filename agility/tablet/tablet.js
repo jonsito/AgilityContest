@@ -23,16 +23,6 @@ function tandasStyler(val,row,idx) {
 
 /******************* funciones de manejo de las ventana de orden de tandas y orden de salida en el tablet *******************/
 
-function tablet_printOrdenTandas() {
-	alert("tablet.js::tablet-printOrdenTandas() {PENDING}");
-	// TODO: write
-}
-
-function tablet_printOrdenSalida() {
-	alert("tablet.js::tablet-printOrdenSalida() {PENDING}");
-	// TODO: write
-}
-
 function tablet_showOrdenSalida() {
 	$('#tablet-panel').panel('open');
     $('#tdialog-panel').panel('close');

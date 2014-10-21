@@ -5,10 +5,6 @@
 	<div id="tablet-toolbar" style="padding:5px">
 		<a id="tablet-reloadBtn" href="#" class="easyui-linkbutton" 
 			data-options="iconCls:'icon-reload'" onclick="$('#tablet-datagrid').datagrid('reload');">Actualizar</a>
-		<a id="tablet-printTandasBtn" href="#" class="easyui-linkbutton" 
-			data-options="iconCls:'icon-print'" onclick="tablet_printOrdenTandas()">Impr. Programa</a>
-		<a id="tablet-printOrdenSalidaBtn" href="#" class="easyui-linkbutton" 
-			data-options="iconCls:'icon-print'" onclick="tablet_printOrdenSalida()">Impr. Orden</a>
 	</div>
 	<!-- Tabla desplegable para la entrada de datos desde el tablet -->
 	<table id="tablet-datagrid" style="padding:10px;"></table>
@@ -17,8 +13,6 @@
 <script type="text/javascript">
 
 $('#tablet-reloadBtn').linkbutton();
-$('#tablet-printTandasBtn').linkbutton();
-$('#tablet-printOrdenSalidaBtn').linkbutton();
 
 $('#tablet-panel').panel({
 	title: 'Orden de salida',

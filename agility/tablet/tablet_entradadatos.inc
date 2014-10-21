@@ -85,6 +85,7 @@
     });
 
     $('#tdialog-form').form({
+        // tell session manager to update competitor's info
         onLoadSuccess: tablet_updateSession
     });
 
