@@ -32,12 +32,13 @@ function tablet_showOrdenSalida() {
 function resultados_update(pendiente) {
 	$('#tdialog-Pendiente').val(pendiente);
     // call 'submit' method of form plugin to submit the form
+	// NOTE: do not update parent tablet row! 
+	// as form('reset') seems not to work as we want, we use it as backup
     $('#tdialog-form').form('submit', 
     	{
     		url:'/agility/server/database/resultadosFunctions.php',
     		onSubmit: function() { return true; },
-    		// !do not update parent tablet row! 
-    		// as form('reset') seems not to work as we want, we use it as backup
+    		success: function (data) { tablet_updateSession() }
     	});
 }
 
@@ -111,10 +112,12 @@ function tablet_elim() {
 }
 
 function tablet_startstop() {
+	// send "chrono" event to every session listeners
 	// TODO: write
 }
 
 function tablet_salida() {
+	// send "salida" event to every session listeners
 	// TODO: write
 }
 
@@ -161,9 +164,10 @@ function tablet_accept() {
 	
 }
 
-// invoked on entradadatos form load, updates related session entry in database
+// fired on 
+// - entradadatos form load
+// - update resultados database table 
 function tablet_updateSession(){
-	// unfortunately onLoadSucess is not fired when a form is filled from local data. 
-	// so we need to do it byhand
-	// TODO: write
+	// send "update" event to every session listeners
+	// call web socket to send event to every listeners for this session
 }

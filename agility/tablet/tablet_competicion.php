@@ -118,6 +118,7 @@ function showPerrosByTanda(index,row){
           	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
         rowStyler:myRowStyler,
         onClickRow: function(idx,data) {
+            data.SessionID=workingData.
             data.Parent=mySelf; // store datagrid reference
             $('#tdialog-form').form('load',data);
             $('#tablet-panel').panel('close');
