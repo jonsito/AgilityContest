@@ -123,7 +123,8 @@ function tablet_elim() {
 function tablet_startstop() {
 	// TODO: write
 }
-function tablet_lapreset() {
+
+function tablet_salida() {
 	// TODO: write
 }
 

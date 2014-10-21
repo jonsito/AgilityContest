@@ -19,8 +19,8 @@
        		<input id="tdialog-RehuseDownBtn" type="button" value="Rehuse -" onclick="tablet_down('#tdialog-Rehuses');">
        		<input id="tdialog-TocadoUpBtn" type="button" value="Tocado" onclick="tablet_up('#tdialog-Tocados');" class="tablet_button tb_tocado">
        		<input id="tdialog-TocadoDownBtn" type="button" value="Tocado -" onclick="tablet_down('#tdialog-Tocados');">
-       		<input id="tdialog-StartStopBtn" type="button" value="Start/Stop" onclick="tablet_startstop();">
-       		<input id="tdialog-LapResetBtn" type="button" value="Lap/Reset" onclick="tablet_lapreset();">
+       		<input id="tdialog-StartStopBtn" type="button" value="Crono" onclick="tablet_startstop();" class="tablet_button tb_crono">
+       		<input id="tdialog-SalidaBtn" type="button" value="Salida" onclick="tablet_salida();" class="tablet_button tb_salida">
        		<input id="tdialog-AcceptBtn" type="button" value="Aceptar" onclick="tablet_accept();" class="tablet_button tb_accept"> 
        		<input id="tdialog-CancelBtn" type="button" value="Cancelar" onclick="tablet_cancel();" class="tablet_button tb_cancel">
        		<input id="tdialog-NoPresentadoBtn" type="button" value="No Presentado" onclick="tablet_np();" class="tablet_button tb_nopresentado">
@@ -97,8 +97,8 @@
     doLayout(dg,"#tdialog-RehuseDownBtn",	145,	10,		15,		20	);
     doLayout(dg,"#tdialog-TocadoUpBtn",		10,		110,	30,		30	);
     doLayout(dg,"#tdialog-TocadoDownBtn",	50,		120,	15,		20	);
-    doLayout(dg,"#tdialog-StartStopBtn",	145,	90,		15,		10	);
-    doLayout(dg,"#tdialog-LapResetBtn",		50,		90,		15,		10	);
+    doLayout(dg,"#tdialog-SalidaBtn",		50,		85,		15,		15	);
+    doLayout(dg,"#tdialog-StartStopBtn",	145,	85,		15,		15	);
     doLayout(dg,"#tdialog-AcceptBtn",		170,	120,	30,		20	);
     doLayout(dg,"#tdialog-CancelBtn",		145,	120,	15,		20	);
     doLayout(dg,"#tdialog-NoPresentadoBtn",	75,		10,		25,		20	);

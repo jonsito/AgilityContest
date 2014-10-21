@@ -182,49 +182,54 @@ img.mainpage{
 }
 
 .tb_falta {
-	background: #a0a0a0 url(/agility/images/falta.png); 
-	background-repeat: no-repeat;
-	background-position: center;
+	background: #a0a0a0 url(/agility/images/falta.png) no-repeat center;
+	background-size: contain;
 }
 
 .tb_rehuse {
-	background: #a0a0a0 url(/agility/images/rehuse.png);
-	background-repeat: no-repeat;
-	background-position: center;
+	background: #a0a0a0 url(/agility/images/rehuse.png) no-repeat center;
+	background-size: contain;
 }
 
 .tb_tocado {
-	background: #a0a0a0 url(/agility/images/tocado.png);
-	background-repeat: no-repeat;
-	background-position: center;
+	background: #a0a0a0 url(/agility/images/tocado.png) no-repeat center;
+	background-size: contain;
 	font-size: 40px;
 }
 
 .tb_eliminado {
-	background: #a00000 url(/agility/images/eliminado.png);
-	background-repeat: no-repeat;
-	background-position: center;
+	background: #ff0000 url(/agility/images/eliminado.png) no-repeat center;
+	background-size: contain;
 	font-size: 28px;
 }
 
 .tb_nopresentado {
-	background: #a0a000 url(/agility/images/nopresentado.png);
-	background-repeat: no-repeat;
-	background-position: center;
+	background: #a0a000 url(/agility/images/nopresentado.png) no-repeat center;
+	background-size: contain;
 	font-size: 18px;
 }
 
+.tb_salida {
+	background: #8080f0 url(/agility/images/silbato.png) no-repeat center;
+	background-size: contain;
+	font-size: 25px;
+}
+
+.tb_crono {
+	background: #00a0a0 url(/agility/images/crono.png) no-repeat center;
+	background-size: contain;
+	font-size: 20px;
+}
+
 .tb_accept {
-	background: #00a000 url(/agility/images/dog_accept.png);
-	background-repeat: no-repeat;
-	background-position: center;
+	background: #00a000 url(/agility/images/dog_accept.png) no-repeat center;
+	background-size: contain;
 	font-size: 35px;
 }
 
 .tb_cancel {
-	background: #f0a0a0 url(/agility/images/dog_cancel.png);
-	background-repeat: no-repeat;
-	background-position: center;
+	background: #f0a0a0 url(/agility/images/dog_cancel.png) no-repeat center;
+	background-size: contain;
 	font-size: 18px;
 }
 
