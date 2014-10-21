@@ -108,7 +108,7 @@ $('#inscripciones-info').panel({
 });
 
 $('#inscripciones-infolayout').layout();
-$('#inscripciones-pruebas').form('load','database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
+$('#inscripciones-pruebas').form('load','server/database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
 $('#inscripciones-jornadas').datagrid({
 	// propiedades del panel asociado
 	fit: true,
@@ -121,7 +121,7 @@ $('#inscripciones-jornadas').datagrid({
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
-	url: 'database/jornadaFunctions.php?Operation=select&Prueba='+workingData.prueba,
+	url: 'server/database/jornadaFunctions.php?Operation=select&Prueba='+workingData.prueba,
 	method: 'get',
 	loadMsg: 'Actualizando datos de las jornadas...',
     columns:[[
@@ -198,7 +198,7 @@ $('#inscripciones-datagrid').datagrid({
     pageSize: 50,
     multiSort: true,
     remoteSort: true,
-	url: 'database/inscripcionFunctions.php?Operation=inscritos&Prueba='+workingData.prueba,
+	url: 'server/database/inscripcionFunctions.php?Operation=inscritos&Prueba='+workingData.prueba,
 	method: 'get',
 	loadMsg: 'Actualizando datos de inscripciones....',
     toolbar: '#inscripciones-toolbar',

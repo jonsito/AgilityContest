@@ -56,7 +56,7 @@ $('#competicion_info').panel({
 $('#competicion_infolayout').layout();
 
 $('#competicion-listamangas').datagrid({
-	url: 'database/mangaFunctions.php?Operation=enumerate&Jornada='+workingData.jornada,
+	url: 'server/database/mangaFunctions.php?Operation=enumerate&Jornada='+workingData.jornada,
 	fit: true,
 	method: 'get',
     pagination: false,

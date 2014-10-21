@@ -50,7 +50,7 @@ $('#vw_combinada-LiveStream').panel({
 	closable:false,
 	collapsible:false,
 	collapsed:false,
-	href:"/agility/database/videowall.php",
+	href:"/agility/server/database/videowall.php",
 	queryParams: {
 		Operation: 'LiveStream',
 		Session: workingData.sesion
@@ -64,7 +64,7 @@ $('#vw_combinada-Pendientes').panel({
 	closable:false,
 	collapsible:false,
 	collapsed:false,
-	href:"/agility/database/videowall.php",
+	href:"/agility/server/database/videowall.php",
 	queryParams: {
 		Operation: 'Llamada',
 		Session: workingData.sesion
@@ -77,7 +77,7 @@ $('#vw_combinada-Resultados').panel({
 	closable:false,
 	collapsible:false,
 	collapsed:false,
-	href:"/agility/database/videowall.php",
+	href:"/agility/server/database/videowall.php",
 	queryParams: {
 		Operation: 'Resultados',
 		Session: workingData.sesion

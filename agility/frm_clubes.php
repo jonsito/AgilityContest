@@ -46,7 +46,7 @@
             expansible: false,
         	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Clubes',
-        	url: 'database/clubFunctions.php?Operation=select',
+        	url: 'server/database/clubFunctions.php?Operation=select',
         	loadMsg: 'Actualizando lista de Clubes ...',
         	method: 'get',
             toolbar: '#clubes-toolbar',
@@ -114,7 +114,7 @@
         	    // height: 'auto',
         		title: 'Gu&iacute;as inscritos en el club '+club.Nombre,
         	    loadMsg: 'Cargando lista de guias....',
-        		url: 'database/guiaFunctions.php?Operation=getbyclub&Club='+club.ID,
+        		url: 'server/database/guiaFunctions.php?Operation=getbyclub&Club='+club.ID,
         		method: 'get',
         	    columns: [[
         	        { field:'ID',			hidden:true },	
@@ -201,7 +201,7 @@
         	    // height: 'auto',
         	    loadMsg: 'Loading list of dogs',
         		title: 'Perros registrados a nombre de '+guia.Nombre,
-        		url: 'database/dogFunctions.php',
+        		url: 'server/database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.ID },
         		method: 'get',
         	    columns: [[

@@ -86,7 +86,7 @@
 		panelHeight: 200,
 		idField: 'ID',
 		textField: 'Nombre',
-		url: 'database/dogFunctions.php?Operation=enumerate',
+		url: 'server/database/dogFunctions.php?Operation=enumerate',
 		method: 'get',
 		mode: 'remote',
 		columns: [[
@@ -104,7 +104,7 @@
 		onSelect: function(index,row) {
 			var idperro=row.ID;
 			if (!idperro) return;
-	        $('#chperros-form').form('load','database/dogFunctions.php?Operation=getbyidperro&ID='+idperro); // load form with json retrieved data
+	        $('#chperros-form').form('load','server/database/dogFunctions.php?Operation=getbyidperro&ID='+idperro); // load form with json retrieved data
 		}
 	});
     $('#chperros-Nombre').validatebox({
@@ -118,7 +118,7 @@
     	method: 'get',
     	mode: 'remote',
 		required: true,
-    	url:'database/dogFunctions.php?Operation=grados',
+    	url:'server/database/dogFunctions.php?Operation=grados',
     	// TODO: this should work. study why doesn't
 		onLoadSuccess: function(data){
 			for(var i=0; i<data.length; i++){
@@ -138,6 +138,6 @@
 		method: 'get',
 		mode: 'remote',
 		required: true,
-		url:'database/dogFunctions.php?Operation=categorias'
+		url:'server/database/dogFunctions.php?Operation=categorias'
     });
     </script>

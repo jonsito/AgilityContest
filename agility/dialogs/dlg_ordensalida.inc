@@ -43,7 +43,7 @@ $('#ordensalida-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: 'database/ordenSalidaFunctions.php',
+	url: 'server/database/ordenSalidaFunctions.php',
     queryParams: {
         Operation: 'getData',
         Prueba: workingData.prueba,

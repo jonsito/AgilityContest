@@ -71,7 +71,7 @@ $('#resultadosmanga-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: '/agility/database/resultadosFunctions.php',
+	url: '/agility/server/database/resultadosFunctions.php',
     queryParams: {
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,

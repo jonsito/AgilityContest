@@ -48,7 +48,7 @@
             expansible: false,
         	collapsed: false,        	
         	title: 'Gesti&oacute;n de datos de pruebas',
-        	url: 'database/pruebaFunctions.php?Operation=select',
+        	url: 'server/database/pruebaFunctions.php?Operation=select',
         	loadMsg: 'Actualizando lista de Clubes ...',
         	method: 'get',
             toolbar: '#pruebas-toolbar',
@@ -100,7 +100,7 @@
             var datagridID='#jornadas-datagrid-'+prueba.ID;
             $(datagridID).datagrid({
         		title: "Jornadas de que consta la prueba '"+prueba.Nombre+"'",
-        		url: 'database/jornadaFunctions.php',
+        		url: 'server/database/jornadaFunctions.php',
         		queryParams: { Operation: 'select', Prueba: prueba.ID },
         		method: 'get',
        		    pagination: false,

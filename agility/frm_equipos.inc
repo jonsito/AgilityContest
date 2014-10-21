@@ -58,7 +58,7 @@ $('#team_datagrid-dialog').dialog({
 // datos de la tabla de equipos
 $('#team_datagrid').datagrid({
 	fit: true,
-	url: 'database/equiposFunctions.php?Operation=select&Prueba='+workingData.prueba,
+	url: 'server/database/equiposFunctions.php?Operation=select&Prueba='+workingData.prueba,
 	queryParams: { where: ''	},
 	loadMsg: 'Actualizando lista de equipos ...',
 	method: 'get',

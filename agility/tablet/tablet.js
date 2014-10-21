@@ -34,7 +34,7 @@ function resultados_update(pendiente) {
     // call 'submit' method of form plugin to submit the form
     $('#tdialog-form').form('submit', 
     	{
-    		url:'/agility/database/resultadosFunctions.php',
+    		url:'/agility/server/database/resultadosFunctions.php',
     		onSubmit: function() { return true; },
     		// !do not update parent tablet row! 
     		// as form('reset') seems not to work as we want, we use it as backup
@@ -127,7 +127,7 @@ function tablet_cancel() {
 		row.Operation='update';
 		$.ajax({
 			type:'GET',
-			url:"/agility/database/resultadosFunctions.php",
+			url:"/agility/server/database/resultadosFunctions.php",
 			dataType:'json',
 			data: row
 		});

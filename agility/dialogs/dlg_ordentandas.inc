@@ -37,7 +37,7 @@ $('#ordentandas-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: 'database/ordenTandasFunctions.php',
+	url: 'server/database/ordenTandasFunctions.php',
     queryParams: {
         Operation: 'getTandas',
         Prueba: workingData.prueba,

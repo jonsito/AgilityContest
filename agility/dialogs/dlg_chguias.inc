@@ -71,7 +71,7 @@
     		panelHeight: 200,
     		idField: 'ID',
     		textField: 'Nombre',
-    		url: 'database/guiaFunctions.php?Operation=enumerate',
+    		url: 'server/database/guiaFunctions.php?Operation=enumerate',
     		method: 'get',
     		mode: 'remote',
     		columns: [[
@@ -87,7 +87,7 @@
     		onSelect: function(index,row) {
     			var id=row.ID;
     			if (id<=0) return;
-    	        $('#chguias-form').form('load','database/guiaFunctions.php?Operation=getbyid&ID='+id); // load form with json retrieved data
+    	        $('#chguias-form').form('load','server/database/guiaFunctions.php?Operation=getbyid&ID='+id); // load form with json retrieved data
     			$('#chguias-Club').val($('#chguias-newClub').val()); // restore "Club" field
     		}
     	});

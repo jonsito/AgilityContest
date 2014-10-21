@@ -98,7 +98,7 @@ function initWorkingData(id) {
 	workingData.datosRonda= new Object(); // last selected ronda (grade, manga1, manga2)
 	if (id!==undefined) {
 		$.ajax({
-			url: '/agility/database/sessionFunctions.php',
+			url: '/agility/server/database/sessionFunctions.php',
 			data: { Operation: 'getByID', ID: id },
 			dataType: 'json',
 	        async: false,
@@ -136,7 +136,7 @@ function updateSessionInfo(id, parameters) {
 	parameters.Operation='update',
 	parameters.ID=id;
 	$.ajax({
-		url: '/agility/database/sessionFunctions.php',
+		url: '/agility/server/database/sessionFunctions.php',
 		data: parameters,
 		dataType: 'json',
 	    async: false,

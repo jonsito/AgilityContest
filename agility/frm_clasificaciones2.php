@@ -122,7 +122,7 @@ $('#resultados-info-ronda').combogrid({
 	panelHeight: 100,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: 'database/jornadaFunctions.php',
+	url: 'server/database/jornadaFunctions.php',
 	method: 'get',
 	mode: 'remote',
 	required: true,
@@ -172,7 +172,7 @@ $('#resultados-manga1-trs-form').form({
 	
 $('#resultados-manga1-trs-form').form(
 		'load',
-		"database/mangaFunctions.php?Operation=getTRS&Jornada="+workingData.jornada+"&Manga="+workingData.datosRonda.Manga1
+		"server/database/mangaFunctions.php?Operation=getTRS&Jornada="+workingData.jornada+"&Manga="+workingData.datosRonda.Manga1
 		);
 $('#resultados-manga2-trs-form').form({
 	onLoadSuccess: function (data) {
@@ -185,7 +185,7 @@ $('#resultados-manga2-trs-form').form({
 });
 $('#resultados-manga2-trs-form').form(
 		'load',
-		"database/mangaFunctions.php?Operation=getTRS&Jornada="+workingData.jornada+"&Manga="+workingData.datosRonda.Manga2
+		"server/database/mangaFunctions.php?Operation=getTRS&Jornada="+workingData.jornada+"&Manga="+workingData.datosRonda.Manga2
 		);
 
 //tooltips

@@ -46,7 +46,7 @@
             expansible: false,
         	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Gu&iacute;as',
-        	url: 'database/guiaFunctions.php?Operation=select',
+        	url: 'server/database/guiaFunctions.php?Operation=select',
         	loadMsg: 'Actualizando lista de Gu&iacute;as...',
         	method: 'get',
             toolbar: '#guias-toolbar',
@@ -103,7 +103,7 @@
         	    singleSelect: true,
         	    loadMsg: 'Loading list of dogs',
         	    height: 'auto',
-        		url: 'database/dogFunctions.php',
+        		url: 'server/database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.ID },
         		method: 'get',
         	    columns: [[

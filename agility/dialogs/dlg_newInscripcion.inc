@@ -125,7 +125,7 @@ $('#new_inscripcion-dialog').dialog({
 // datagrid de inscripcion de participantes
 $('#new_inscripcion-datagrid').datagrid({
     fit:true,
-	url: 'database/inscripcionFunctions.php',
+	url: 'server/database/inscripcionFunctions.php',
 	queryParams: {
 		Operation: 'noinscritos',
 		Prueba: workingData.prueba,
@@ -162,7 +162,7 @@ $('#new_inscripcion-Equipo').combogrid({
 	panelHeight: 100,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: 'database/equiposFunctions.php?Operation=enumerate&Prueba='+workingData.prueba,
+	url: 'server/database/equiposFunctions.php?Operation=enumerate&Prueba='+workingData.prueba,
 	method: 'get',
 	mode: 'remote',
 	required: true,

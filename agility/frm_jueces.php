@@ -41,7 +41,7 @@
         	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Jueces',
         	// datos de la conexion ajax
-        	url: 'database/juezFunctions.php?Operation=select',
+        	url: 'server/database/juezFunctions.php?Operation=select',
         	loadMsg: 'Actualizando lista de jueces ...',
         	method: 'get',
             toolbar: '#jueces-toolbar',

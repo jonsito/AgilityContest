@@ -25,7 +25,7 @@ function newClub(dg,def,onAccept){
 	if (!strpos(def,"Buscar")) $('#clubes-Nombre').val(def);
 	$('#clubes-Operation').val('insert');
 	// select ID=1 to get default logo
-	var nombre="/agility/database/clubFunctions.php?Operation=logo&ID=1";
+	var nombre="/agility/server/database/clubFunctions.php?Operation=logo&ID=1";
     $('#clubes-Logo').attr("src",nombre);
     // add onAccept related function if any
 	if (onAccept!==undefined)
@@ -44,7 +44,7 @@ function editClub(dg){
     	return; // no way to know which dog is selected
     }
     row.Operation='update';
-	var nombre="/agility/database/clubFunctions.php?Operation=logo&ID="+row.ID;
+	var nombre="/agility/server/database/clubFunctions.php?Operation=logo&ID="+row.ID;
     $('#clubes-Logo').attr("src",nombre);
     $('#clubes-dialog').dialog('open').dialog('setTitle','Modificar datos del club');
     $('#clubes-form').form('load',row);
@@ -57,7 +57,7 @@ function editClub(dg){
 function saveClub(){
     // do normal submit
     $('#clubes-form').form('submit',{
-        url: 'database/clubFunctions.php',
+        url: 'server/database/clubFunctions.php',
         method: 'get',
         onSubmit: function(param){
             return $(this).form('validate');
@@ -94,7 +94,7 @@ function deleteClub(dg){
     }
     $.messager.confirm('Confirm','Borrar el club "'+row.Nombre+'" de la base de datos ¿Seguro?',function(r){
         if (!r) return;
-        $.get('/agility/database/clubFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('/agility/server/database/clubFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
                 $(dg).datagrid('reload');    // reload the provided datagrid
             } else {
@@ -162,7 +162,7 @@ function delGuiaFromClub(dg,club) {
     }
     $.messager.confirm('Confirm',"Borrar asignacion del gu&iacute;a '"+row.Nombre+"' al club '"+club.Nombre+"' ¿Seguro?'",function(r){
         if (r){
-            $.get('/agility/database/guiaFunctions.php',{'Operation':'orphan','ID':row.ID},function(result){
+            $.get('/agility/server/database/guiaFunctions.php',{'Operation':'orphan','ID':row.ID},function(result){
                 if (result.success){
                 	$(dg).datagrid('reload');
                 } else {
@@ -226,7 +226,7 @@ function deleteGuia(dg){
     }
     $.messager.confirm('Confirm','Borrar datos del guia: '+ row.Nombre+'\n¿Seguro?',function(r){
     	if (!r) return;
-    	$.get('/agility/database/guiaFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
+    	$.get('/agility/server/database/guiaFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
     		if (result.success){
     			$(dg).datagrid('reload');    // reload the guia data
     		} else {
@@ -245,7 +245,7 @@ function assignGuia(){
 	$('#chguias-Club').val($('#chguias-newClub').val());
     // do normal submit
     $('#chguias-form').form('submit',{
-        url: '/agility/database/guiaFunctions.php',
+        url: '/agility/server/database/guiaFunctions.php',
         method: 'get',
         onSubmit: function(param){
             return $(this).form('validate');
@@ -269,7 +269,7 @@ function assignGuia(){
 function saveGuia(){
     // do normal submit
     $('#guias-form').form('submit',{
-        url: '/agility/database/guiaFunctions.php',
+        url: '/agility/server/database/guiaFunctions.php',
         method: 'get',
         onSubmit: function(param){
             return $(this).form('validate');
@@ -325,7 +325,7 @@ function editDog(dg){
  */
 function editInscribedDog(dg){
 	id=$('#edit_inscripcion-Perro').val();
-	$('#perros-form').form('load','/agility/database/dogFunctions.php?Operation=getbyidperro&ID='+id);
+	$('#perros-form').form('load','/agility/server/database/dogFunctions.php?Operation=getbyidperro&ID='+id);
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro a inscribir');
     // add extra required data to form dialog
 	$('#perros-warning').css('visibility','visible');
@@ -334,7 +334,7 @@ function editInscribedDog(dg){
 		saveInscripcion(false);
 		// and refill dog changes with new data
 		$.ajax({
-			url: '/agility/database/dogFunctions.php?Operation=getbyidperro&ID='+id,
+			url: '/agility/server/database/dogFunctions.php?Operation=getbyidperro&ID='+id,
 			data: { Operation: 'getbyidperro', ID: id },
 			dataType: 'json',
 			success: function(data) {
@@ -361,7 +361,7 @@ function deleteDog(dg){
     }
     $.messager.confirm('Confirm','Borrar el perro: "'+ row.Nombre+'" de la base de datos.\n¿Seguro?',function(r){
        	if (!r) return;
-        $.get('/agility/database/dogFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('/agility/server/database/dogFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
                 $('#perros-datagrid').datagrid('reload');    // reload the dog data
             } else { // show error message
@@ -425,7 +425,7 @@ function delPerroFromGuia(dg,guia) {
     }
     $.messager.confirm('Confirm',"Borrar asignacion del perro '"+row.Nombre+"' al guia '"+guia.Nombre+"' ¿Seguro?'",function(r){
         if (r){
-            $.get('/agility/database/dogFunctions.php',{Operation:'orphan',ID:row.ID},function(result){
+            $.get('/agility/server/database/dogFunctions.php',{Operation:'orphan',ID:row.ID},function(result){
                 if (result.success){
                 	$(dg).datagrid('reload');
                 } else {
@@ -443,7 +443,7 @@ function assignDog() {
 	// set up guia
 	$('#chperros-Guia').val($('#chperros-newGuia').val());
     $('#chperros-form').form('submit',{
-        url: '/agility/database/dogFunctions.php',
+        url: '/agility/server/database/dogFunctions.php',
         method: 'get',
         onSubmit: function(param){
             return $(this).form('validate');
@@ -465,7 +465,7 @@ function assignDog() {
  */
 function saveDog(){
     $('#perros-form').form('submit',{
-        url: '/agility/database/dogFunctions.php',
+        url: '/agility/server/database/dogFunctions.php',
         method: 'get',
         onSubmit: function(param){
             return $(this).form('validate');
@@ -528,7 +528,7 @@ function saveJuez(){
     $('#jueces-Practicas').val( $('#jueces-Practicas').is(':checked')?'1':'0');
     // do normal submit
     $('#jueces-form').form('submit',{
-        url: '/agility/database/juezFunctions.php',
+        url: '/agility/server/database/juezFunctions.php',
         method: 'get',
         onSubmit: function(param){
             return $(this).form('validate');
@@ -561,7 +561,7 @@ function deleteJuez(dg){
     }
     $.messager.confirm('Confirm','Borrar datos del juez:'+row.Nombre+'\n ¿Seguro?',function(r){
       	if (!r) return;
-        $.get('/agility/database/juezFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('/agility/server/database/juezFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
                 $(dg).datagrid('reload');    // reload the juez data
             } else {
@@ -623,7 +623,7 @@ function savePrueba() {
     $('#pruebas-Cerrada').val( $('#pruebas-Cerrada').is(':checked')?'1':'0');
     // do normal submit
     $('#pruebas-form').form('submit',{
-        url: '/agility/database/pruebaFunctions.php',
+        url: '/agility/server/database/pruebaFunctions.php',
         method: 'get',
         onSubmit: function(param){
             return $(this).form('validate');
@@ -652,7 +652,7 @@ function deletePrueba(dg){
     $.messager.confirm('Confirm',
     		"<p>Importante:</p><p>Si decide borrar la prueba <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta</p><p>Desea realmente borrar la prueba seleccionada?</p>",function(r){
         if (r){
-            $.get('/agility/database/pruebaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+            $.get('/agility/server/database/pruebaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
                     $(dg).datagrid('reload');    // reload the prueba data
                 } else {
@@ -724,7 +724,7 @@ function closeJornadaFromPrueba(pruebaID,datagridID) {
     		"¿Desea continuar?",
     		function(r) { 
     	    	if(r) {
-    	            $.get('/agility/database/jornadaFunctions.php',{Operation:'close',ID:row.ID},function(result){
+    	            $.get('/agility/server/database/jornadaFunctions.php',{Operation:'close',ID:row.ID},function(result){
     	                if (result.success){
     	                    $(datagridID).datagrid('reload');    // reload the pruebas data
     	                } else {
@@ -751,7 +751,7 @@ function delJornadaFromPrueba(prueba,datagridID) {
     }
     $.messager.confirm('Confirm',"Borrar Jornada '"+row.ID+"' de la prueba '"+prueba.Nombre+"' ¿Seguro?'",function(r){
         if (r){
-            $.get('/agility/database/jornadaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
+            $.get('/agility/server/database/jornadaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
                     $(datagridID).datagrid('reload');    // reload the pruebas data
                     // $('#jornadas-datagrid-'+prueba.ID).datagrid('reload');    // reload the pruebas data
@@ -793,7 +793,7 @@ function saveJornada(){
     // do normal submit
     $('#jornadas-Operation').val('update');
     $('#jornadas-form').form('submit',{
-        url: '/agility/database/jornadaFunctions.php',
+        url: '/agility/server/database/jornadaFunctions.php',
         method: 'get',
         onSubmit: function(param){
             return $(this).form('validate');
@@ -961,7 +961,7 @@ function deleteTeam(dg){
     		"<p>Esta operaci&oacute;n borrar&aacute; el equipo y reasignar&aacute; los perros de &eacute;ste al equipo por defecto</p>" +
     		"<p>Desea realmente eliminar el equipo '"+row.Nombre+"' de esta prueba?</p>",function(r){
         if (r){
-            $.get('/agility/database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba},function(result){
+            $.get('/agility/server/database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba},function(result){
                 if (result.success){
                     $(dg).datagrid('load');    // reload the prueba data 
                     $('#new_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
@@ -980,7 +980,7 @@ function deleteTeam(dg){
  */
 function saveTeam() {
     $('#team_edit_dialog-form').form('submit',{
-        url: '/agility/database/equiposFunctions.php',
+        url: '/agility/server/database/equiposFunctions.php',
         method: 'get',
         onSubmit: function(param){
             return $(this).form('validate');
@@ -1035,7 +1035,7 @@ function saveInscripcion(close) {
 	// make sure that "Celo" field has correct value
 	$('#edit_inscripcion-Celo').val( $('#edit_inscripcion-Celo2').is(':checked')?'1':'0');
     $('#edit_inscripcion-form').form('submit',{
-        url: '/agility/database/inscripcionFunctions.php',
+        url: '/agility/server/database/inscripcionFunctions.php',
         method: 'get',
         onSubmit: function(param){
             return $(this).form('validate');
@@ -1072,7 +1072,7 @@ function deleteInscripcion() {
 				if (r){
 					$.get(
 						// URL
-						'/agility/database/inscripcionFunctions.php',
+						'/agility/server/database/inscripcionFunctions.php',
 						// arguments
 						{ 
 							Operation:'delete',
@@ -1118,7 +1118,7 @@ function insertInscripcion(dg) {
 	        cache: false,
 	        timeout: 10000, // 10 segundos
 			type:'GET',
-			url:"/agility/database/inscripcionFunctions.php",
+			url:"/agility/server/database/inscripcionFunctions.php",
 			dataType:'json',
 			data: {
 				Prueba: workingData.prueba,
@@ -1151,7 +1151,7 @@ function reorderInscripciones(idprueba) {
         cache: false,
         timeout: 10000, // 10 segundos
 		type:'GET',
-		url:"/agility/database/inscripcionFunctions.php",
+		url:"/agility/server/database/inscripcionFunctions.php",
 		dataType:'json',
 		data: {
 			Prueba: idprueba,

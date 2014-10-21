@@ -104,7 +104,7 @@
     	textField:'Comentarios',
     	method: 'get',
     	mode: 'remote',
-    	url:'database/dogFunctions.php?Operation=grados',
+    	url:'server/database/dogFunctions.php?Operation=grados',
     	// TODO: this should work. study why doesn't
 		onLoadSuccess: function(data){
 			for(var i=0; i<data.length; i++){
@@ -123,14 +123,14 @@
 		textField:'Observaciones',
 		method: 'get',
 		mode: 'remote',
-		url:'database/dogFunctions.php?Operation=categorias'
+		url:'server/database/dogFunctions.php?Operation=categorias'
     });
     $('#perros-Guia').combogrid({
 		panelWidth: 350,
 		panelHeight: 200,
 		idField: 'ID',
 		textField: 'Nombre',
-		url: 'database/guiaFunctions.php?Operation=enumerate',
+		url: 'server/database/guiaFunctions.php?Operation=enumerate',
 		method: 'get',
 		mode: 'remote',
 		required: true,

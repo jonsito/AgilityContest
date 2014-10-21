@@ -35,7 +35,7 @@ $('#tablet-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: '/agility/database/ordenTandasFunctions.php',
+	url: '/agility/server/database/ordenTandasFunctions.php',
     queryParams: {
         Operation: 'getTandas',
         Prueba: workingData.prueba,
@@ -75,7 +75,7 @@ function showPerrosByTanda(index,row){
     var mySelf='#tablet-datagrid-'+row.ID;
 	$(mySelf).datagrid({
 		method: 'get',
-		url: '/agility/database/ordenTandasFunctions.php',
+		url: '/agility/server/database/ordenTandasFunctions.php',
 	    queryParams: {
 	        Operation: 'getDataByTanda',
 	        Prueba: row.Prueba,

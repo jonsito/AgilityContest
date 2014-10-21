@@ -45,7 +45,7 @@
             expansible: false,
         	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Perros',
-        	url: 'database/dogFunctions.php?Operation=select',
+        	url: 'server/database/dogFunctions.php?Operation=select',
         	loadMsg: 'Actualizando lista de perros ...',
         	method: 'get',
             toolbar: '#perros-toolbar',

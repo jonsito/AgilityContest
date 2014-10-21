@@ -27,7 +27,7 @@
                 <input id="clubes-Logo"
                    	type="image"
                 	name="Logo" 
-                	src="/agility/database/clubFunctions.php?Operation=logo&Nombre=rsce"
+                	src="/agility/server/database/clubFunctions.php?Operation=logo&Nombre=rsce"
                 	width="120" style="float:right; margin-right:50px"/>
             </div>
             <div class="fitem">
@@ -97,7 +97,7 @@
 			panelHeight: 200,
 			idField: 'Provincia',
 			textField: 'Provincia',
-			url: 'database/enumerate_Provincias.php?Operation=select',
+			url: 'server/database/enumerate_Provincias.php?Operation=select',
 			method: 'get',
 			mode: 'remote',
 			required: true,
