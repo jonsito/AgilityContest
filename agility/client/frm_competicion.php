@@ -1,4 +1,4 @@
-<?php include_once("dialogs/dlg_selectJornada.inc")?>
+<?php require_once("dialogs/dlg_selectJornada.inc")?>
 
 <script type="text/javascript">
 
@@ -6,27 +6,27 @@
 $('#seljornada-window').window({
 	onClose: function () {
 		var extra="";
-		var page="frm_main.php";
+		var page="/agility/client/frm_main.php";
 		// no jornada selected load main menu
 		if (workingData.jornada==0) {
 			loadContents(page,'');
 			return;
 		}
-		page="frm_competicion2.php";
+		page="/agility/client/frm_competicion2.php";
 		if (workingData.datosJornada.Equipos3==1) {
-			page="frm_competicion_eq3.php";
+			page="/agility/client/frm_competicion_eq3.php";
 			extra=" ( Equipos -3 mejores- )";
 		}
 		if (workingData.datosJornada.Equipos4==1) {
-			page="frm_competicion_eq4.php";
+			page="/agility/client/frm_competicion_eq4.php";
 			extra=" ( Equipos -conjunta- )";
 		}
 		if (workingData.datosJornada.Open==1) {
-			page="frm_competicion_open.php";
+			page="/agility/client/frm_competicion_open.php";
 			extra=" ( Abierta )";
 		}
 		if (workingData.datosJornada.KO==1) {
-			page="frm_competicion_ko.php";
+			page="/agility/client/frm_competicion_ko.php";
 			extra=" ( Mangas K.O. )";
 		}
 		loadContents(page,'Desarrollo de la jornada'+extra);
@@ -38,4 +38,4 @@ $('#seljornada-window').window('open');
 
 </script>
 
-<img class="mainpage" src="images/wallpapers/foto_dama.jpg" alt="Dama" width="800" height="400" align="middle"/>
+<img class="mainpage" src="/agility/images/wallpapers/foto_dama.jpg" alt="Dama" width="800" height="400" align="middle"/>

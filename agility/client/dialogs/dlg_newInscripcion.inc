@@ -125,7 +125,7 @@ $('#new_inscripcion-dialog').dialog({
 // datagrid de inscripcion de participantes
 $('#new_inscripcion-datagrid').datagrid({
     fit:true,
-	url: 'server/database/inscripcionFunctions.php',
+	url: '/agility/server/database/inscripcionFunctions.php',
 	queryParams: {
 		Operation: 'noinscritos',
 		Prueba: workingData.prueba,
@@ -162,7 +162,7 @@ $('#new_inscripcion-Equipo').combogrid({
 	panelHeight: 100,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: 'server/database/equiposFunctions.php?Operation=enumerate&Prueba='+workingData.prueba,
+	url: '/agility/server/database/equiposFunctions.php?Operation=enumerate&Prueba='+workingData.prueba,
 	method: 'get',
 	mode: 'remote',
 	required: true,

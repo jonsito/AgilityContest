@@ -26,7 +26,7 @@
     			>Limpiar</a>
     	</span>
     </div>
-	<?php include_once("dialogs/dlg_jueces.inc")?>
+	<?php require_once("dialogs/dlg_jueces.inc")?>
     
     <script type="text/javascript">
         
@@ -41,7 +41,7 @@
         	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Jueces',
         	// datos de la conexion ajax
-        	url: 'server/database/juezFunctions.php?Operation=select',
+        	url: '/agility/server/database/juezFunctions.php?Operation=select',
         	loadMsg: 'Actualizando lista de jueces ...',
         	method: 'get',
             toolbar: '#jueces-toolbar',

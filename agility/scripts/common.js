@@ -16,7 +16,7 @@ function loadContents(page,title) {
 			{},
 			function(response,status,xhr){
 				setHeader(title);
-				if (status=='error') $('#contenido').load('frm_notavailable.php');
+				if (status=='error') $('#contenido').load('/agility/client/frm_notavailable.php');
 			}
 		);
 }

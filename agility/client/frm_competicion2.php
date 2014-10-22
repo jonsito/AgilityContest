@@ -1,7 +1,7 @@
-<?php include_once("dialogs/dlg_ordentandas.inc");?>
-<?php include_once("dialogs/dlg_ordensalida.inc");?>
-<?php include_once("dialogs/dlg_competicion.inc");?>
-<?php include_once("dialogs/dlg_resultadosManga.inc");?>
+<?php require_once("dialogs/dlg_ordentandas.inc");?>
+<?php require_once("dialogs/dlg_ordensalida.inc");?>
+<?php require_once("dialogs/dlg_competicion.inc");?>
+<?php require_once("dialogs/dlg_resultadosManga.inc");?>
  	
 <!-- PANEL INFORMATIVO SOBRE LA MANGAS DE ESTA JORNADA -->
 <div id="competicion_info" class="easyui-panel" title="Informaci&oacute;n de la jornada de competici&oacute;n">
@@ -56,7 +56,7 @@ $('#competicion_info').panel({
 $('#competicion_infolayout').layout();
 
 $('#competicion-listamangas').datagrid({
-	url: 'server/database/mangaFunctions.php?Operation=enumerate&Jornada='+workingData.jornada,
+	url: '/agility/server/database/mangaFunctions.php?Operation=enumerate&Jornada='+workingData.jornada,
 	fit: true,
 	method: 'get',
     pagination: false,

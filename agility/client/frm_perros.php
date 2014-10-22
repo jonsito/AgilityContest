@@ -26,9 +26,9 @@
     	</span>
     </div>
     
-	<?php include_once("dialogs/dlg_perros.inc"); ?>
-	<?php include_once("dialogs/dlg_guias.inc");?>
-	<?php include_once("dialogs/dlg_clubes.inc");?>
+	<?php require_once("dialogs/dlg_perros.inc"); ?>
+	<?php require_once("dialogs/dlg_guias.inc");?>
+	<?php require_once("dialogs/dlg_clubes.inc");?>
     
     <script type="text/javascript">
         
@@ -45,7 +45,7 @@
             expansible: false,
         	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Perros',
-        	url: 'server/database/dogFunctions.php?Operation=select',
+        	url: '/agility/server/database/dogFunctions.php?Operation=select',
         	loadMsg: 'Actualizando lista de perros ...',
         	method: 'get',
             toolbar: '#perros-toolbar',

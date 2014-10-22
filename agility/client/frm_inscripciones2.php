@@ -4,14 +4,14 @@
 -->
 
 <?php
-include_once("dialogs/dlg_perros.inc");
-include_once("dialogs/dlg_guias.inc");
-include_once("dialogs/dlg_clubes.inc");
-include_once("dialogs/dlg_jornadas.inc");
-include_once("dialogs/dlg_equipos.inc");
-include_once("frm_equipos.inc");
-include_once("dialogs/dlg_newInscripcion.inc");
-include_once("dialogs/dlg_editInscripcion.inc");
+require_once("dialogs/dlg_perros.inc");
+require_once("dialogs/dlg_guias.inc");
+require_once("dialogs/dlg_clubes.inc");
+require_once("dialogs/dlg_jornadas.inc");
+require_once("dialogs/dlg_equipos.inc");
+require_once("frm_equipos.inc");
+require_once("dialogs/dlg_newInscripcion.inc");
+require_once("dialogs/dlg_editInscripcion.inc");
 ?>
 
 <div id="hola">
@@ -108,7 +108,7 @@ $('#inscripciones-info').panel({
 });
 
 $('#inscripciones-infolayout').layout();
-$('#inscripciones-pruebas').form('load','server/database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
+$('#inscripciones-pruebas').form('load','/agility/server/database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
 $('#inscripciones-jornadas').datagrid({
 	// propiedades del panel asociado
 	fit: true,
@@ -121,7 +121,7 @@ $('#inscripciones-jornadas').datagrid({
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
-	url: 'server/database/jornadaFunctions.php?Operation=select&Prueba='+workingData.prueba,
+	url: '/agility/server/database/jornadaFunctions.php?Operation=select&Prueba='+workingData.prueba,
 	method: 'get',
 	loadMsg: 'Actualizando datos de las jornadas...',
     columns:[[
@@ -198,7 +198,7 @@ $('#inscripciones-datagrid').datagrid({
     pageSize: 50,
     multiSort: true,
     remoteSort: true,
-	url: 'server/database/inscripcionFunctions.php?Operation=inscritos&Prueba='+workingData.prueba,
+	url: '/agility/server/database/inscripcionFunctions.php?Operation=inscritos&Prueba='+workingData.prueba,
 	method: 'get',
 	loadMsg: 'Actualizando datos de inscripciones....',
     toolbar: '#inscripciones-toolbar',

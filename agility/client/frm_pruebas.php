@@ -30,9 +30,9 @@
     	</span>
     </div>
     
- 	<?php include_once("dialogs/dlg_clubes.inc");?>
- 	<?php include_once("dialogs/dlg_pruebas.inc");?>
- 	<?php include_once("dialogs/dlg_jornadas.inc");?>
+ 	<?php require_once("dialogs/dlg_clubes.inc");?>
+ 	<?php require_once("dialogs/dlg_pruebas.inc");?>
+ 	<?php require_once("dialogs/dlg_jornadas.inc");?>
 
     <script type="text/javascript">
         
@@ -48,7 +48,7 @@
             expansible: false,
         	collapsed: false,        	
         	title: 'Gesti&oacute;n de datos de pruebas',
-        	url: 'server/database/pruebaFunctions.php?Operation=select',
+        	url: '/agility/server/database/pruebaFunctions.php?Operation=select',
         	loadMsg: 'Actualizando lista de Clubes ...',
         	method: 'get',
             toolbar: '#pruebas-toolbar',
@@ -100,7 +100,7 @@
             var datagridID='#jornadas-datagrid-'+prueba.ID;
             $(datagridID).datagrid({
         		title: "Jornadas de que consta la prueba '"+prueba.Nombre+"'",
-        		url: 'server/database/jornadaFunctions.php',
+        		url: '/agility/server/database/jornadaFunctions.php',
         		queryParams: { Operation: 'select', Prueba: prueba.ID },
         		method: 'get',
        		    pagination: false,

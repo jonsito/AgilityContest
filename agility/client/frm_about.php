@@ -31,7 +31,7 @@
             resizable:false,
             closable:true,
             iconCls: 'icon-dog',
-            onClose: function() {loadContents('frm_main.php','');
+            onClose: function() {loadContents('/agility/client/frm_main.php','');
             }
         })
 </script>

@@ -1,6 +1,6 @@
 
 <!-- background image -->
-<img class="mainpage" src="images/wallpapers/foto_klein.jpg" alt="Klein" width="800" height="400" align="middle"/>
+<img class="mainpage" src="/agility/images/wallpapers/foto_klein.jpg" alt="Klein" width="800" height="400" align="middle"/>
 
 <!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->
 <div id="selprueba-window" class="easyui-window" style="position:relative,width:500px;height:150px;padding:20px 20px">
@@ -35,9 +35,9 @@ $('#selprueba-window').window({
 	modal: true,
 	onClose: function () {
 		var title="";
-		var page="frm_main.php";
+		var page="/agility/client/frm_main.php";
 		if(workingData.prueba!=0) {
-			page="frm_inscripciones2.php";
+			page="/agility/client/frm_inscripciones2.php";
 			title="Inscripciones - Formulario de registro"
 		}
 		loadContents(page,title);
@@ -52,7 +52,7 @@ $('#selprueba-Search').combogrid({
 	panelHeight: 100,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: 'server/database/pruebaFunctions.php?Operation=enumerate',
+	url: '/agility/server/database/pruebaFunctions.php?Operation=enumerate',
 	method: 'get',
 	mode: 'remote',
 	required: true,
