@@ -10,13 +10,12 @@ try {
 	$id=http_request("ID","i",0);
 	$data=array (
 			'Nombre' 	=> 	http_request("Nombre","s","-- Sin asignar --"),
+			'Comentario'=> 	http_request("Comentario","s",""),
 			'Prueba' 	=> 	http_request("Prueba","i",0),
 			'Jornada'	=>	http_request("Jornada","i",0),
 			'Manga'		=>	http_request("Manga","i",0),
 			'Tanda'		=>	http_request("Tanda","i",0),
-			'Perro'		=>	http_request("Perro","i",0),
-			'Resultado'	=>	http_request("Resultado","i",0),
-			'Usuario'	=>	http_request("Usuario","s",'-- Anonimo --'),
+			'Operador'	=>	http_request("Operador","s",'-- Anonimo --'),
 	);
 	if ($operation===null) throw new Exception("Call to sessionFunctions without 'Operation' requested");
 	$sesion= new Sesiones("sessionFunctions");

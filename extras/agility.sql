@@ -1704,6 +1704,10 @@ CREATE TABLE IF NOT EXISTS `Sesiones` (
   `Comentario` varchar(255) DEFAULT NULL,
   `Operador` varchar(255) NOT NULL DEFAULT '-- Anonimo --',
   `SessionKey` varchar(255) DEFAULT NULL,
+  `Prueba` int(4) NOT NULL DEFAULT '0',
+  `Jornada` int(4) NOT NULL DEFAULT '0',
+  `Manga` int(4) NOT NULL DEFAULT '0',
+  `Tanda` int(4) NOT NULL DEFAULT '0',
   `LastModified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

@@ -11,22 +11,21 @@ class Sesiones extends DBObject {
 	function insert($data) {
 		$this->myLogger->enter();
 		// componemos un prepared statement
-		$sql ="INSERT INTO Sesiones (Nombre,Prueba,Jornada,Manga,Tanda,Perro,Resultado,Usuario)
-			   VALUES(?,?,?,?,?,?,?,?)";
+		$sql ="INSERT INTO Sesiones (Nombre,Comentario,Prueba,Jornada,Manga,Tanda,Operador)
+			   VALUES(?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('siiiiiis',$nombre,$prueba,$jornada,$manga,$tanda,$perro,$resultado,$usuario);
+		$res=$stmt->bind_param('ssiiiis',$nombre,$comentario,$prueba,$jornada,$manga,$tanda,$operador);
 		if (!$res) return $this->error($this->conn->error);	
 		
 		// extraemos los valores del parametro
 		$nombre =	$data['Nombre'];
+		$comentario=$data['Comentario'];
 		$prueba =	$data['Prueba'];
 		$jornada =	$data['Jornada'];
 		$manga =	$data['Manga'];
 		$tanda =	$data['Tanda'];
-		$perro =	$data['Perro'];
-		$resultado =$data['Resultado'];
-		$usuario =	$data['Usuario'];
+		$operador =	$data['Operador'];
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
@@ -48,13 +47,12 @@ class Sesiones extends DBObject {
 		$now=date('Y-m-d G:i:s');
 		$sql="UPDATE Sesiones SET LastModified='$now'";
 		if ($data['Nombre']!==null)	$sql .=", Nombre='{$data['Nombre']}' ";
+		if ($data['Comentario']!==null)	$sql .=", Comentario='{$data['Comentario']}' ";
 		if ($data['Prueba']!=0)		$sql .=", Prueba={$data['Prueba']} ";
 		if ($data['Jornada']!=0)	$sql .=", Jornada={$data['Jornada']} ";
 		if ($data['Manga']!=0)		$sql .=", Manga={$data['Manga']} ";
 		if ($data['Tanda']!=0)		$sql .=", Tanda={$data['Tanda']} ";
-		if ($data['Perro']!=0)		$sql .=", Perro={$data['Perro']} ";
-		if ($data['Resultado']!=0)	$sql .=", Resultado={$data['Resultado']} ";
-		if ($data['Usuario']!==null)$sql .=", Usuario='{$data['Usuario']}' ";
+		if ($data['Operador']!==null)$sql .=", Operador='{$data['Operador']}' ";
 		$sql .= "WHERE (ID=$id);";
 		$this->myLogger->trace("Sesiones::update() query string:\n$sql");
 		$res= $this->query($sql);
