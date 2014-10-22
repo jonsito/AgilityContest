@@ -166,7 +166,7 @@ $('#competicion-printBtn').on("click", function () {
 			 function(r){
 	 	if (!r) return;
 		$.fileDownload(
-			'pdf/print_entradaDeDatos.php',
+			'/agility/server/pdf/print_entradaDeDatos.php',
 			{
 				httpMethod: 'GET',
 				data: { 

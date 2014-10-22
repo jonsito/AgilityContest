@@ -99,7 +99,7 @@ addTooltip($('#ordensalida-saveBtn').linkbutton(),"Guardar orden de salida en ba
 addTooltip($('#ordensalida-printBtn').linkbutton(),"Imprimir el orden de salida");
 $('#ordensalida-printBtn').on("click", function () {
 	$.fileDownload(
-		'pdf/print_ordenDeSalida.php',
+		'/agility/server/pdf/print_ordenDeSalida.php',
 		{
 			httpMethod: 'GET',
 			data: { 

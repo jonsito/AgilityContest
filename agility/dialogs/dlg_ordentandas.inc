@@ -82,7 +82,7 @@ addTooltip($('#ordentandas-printBtn').linkbutton(),"Imprimir el programa de la j
 
 $('#ordentandas-printBtn').on("click", function () {
 	$.fileDownload(
-		'pdf/print_ordenDeTandas.php',
+		'/agility/server/pdf/print_ordenDeTandas.php',
 		{
 			httpMethod: 'GET',
 			data: { 

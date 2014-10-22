@@ -7,14 +7,14 @@ header('Set-Cookie: fileDownload=true; path=/');
  */
 
 require_once(__DIR__."/fpdf.php");
-require_once(__DIR__."/../server/database/tools.php");
-require_once (__DIR__."/../server/database/logging.php");
-require_once(__DIR__.'/../server/database/classes/DBObject.php');
-require_once(__DIR__.'/../server/database/classes/Pruebas.php');
-require_once(__DIR__.'/../server/database/classes/Jueces.php');
-require_once(__DIR__.'/../server/database/classes/Jornadas.php');
-require_once(__DIR__.'/../server/database/classes/Mangas.php');
-require_once(__DIR__.'/../server/database/classes/Resultados.php');
+require_once(__DIR__."/../database/tools.php");
+require_once (__DIR__."/../database/logging.php");
+require_once(__DIR__.'/../database/classes/DBObject.php');
+require_once(__DIR__.'/../database/classes/Pruebas.php');
+require_once(__DIR__.'/../database/classes/Jueces.php');
+require_once(__DIR__.'/../database/classes/Jornadas.php');
+require_once(__DIR__.'/../database/classes/Mangas.php');
+require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__."/print_common.php");
 
 class PDF extends PrintCommon {

@@ -256,7 +256,7 @@ addTooltip($('#inscripciones-datagrid-search'),"Buscar inscripciones que coincid
 // special handling for printing inscritos
 $('#inscripciones-printBtn').on("click", function () {
 	$.fileDownload(
-		'pdf/print_inscritosByPrueba.php',
+		'/agility/server/pdf/print_inscritosByPrueba.php',
 		{
 			httpMethod: 'GET',
 			data: { Prueba: workingData.prueba},

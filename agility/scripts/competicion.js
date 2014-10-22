@@ -192,7 +192,7 @@ function printParcial(val) {
 	}
 	// imprimimos los datos de la manga y categoria solicitada
 	$.fileDownload(
-		'pdf/print_resultadosByManga.php',
+		'/agility/server/pdf/print_resultadosByManga.php',
 		{
 			httpMethod: 'GET',
 			data: { 
@@ -629,8 +629,8 @@ function competicion_printTandas() {
  */
 function resultados_printEtiquetas(flag) {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
-	var url='pdf/print_etiquetas_csv.php';
-	if (flag!=0) url='pdf/print_etiquetas_pdf.php';
+	var url='/agility/server/pdf/print_etiquetas_csv.php';
+	if (flag!=0) url='/agility/server/pdf/print_etiquetas_pdf.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	if (ronda==null) {
     	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
@@ -661,7 +661,7 @@ function resultados_printEtiquetas(flag) {
  */
 function resultados_printClasificacion() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
-	var url='pdf/print_clasificacion.php';
+	var url='/agility/server/pdf/print_clasificacion.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	if (ronda==null) {
     	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");

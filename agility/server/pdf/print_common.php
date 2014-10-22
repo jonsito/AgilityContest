@@ -1,16 +1,16 @@
 <?php
 define('FPDF_FONTPATH', __DIR__."/font/");
 require_once(__DIR__."/fpdf.php");
-require_once(__DIR__."/../server/database/tools.php");
-require_once(__DIR__."/../server/database/logging.php");
-require_once(__DIR__.'/../server/database/classes/DBObject.php');
-require_once(__DIR__.'/../server/database/classes/Clubes.php');
-require_once(__DIR__.'/../server/database/classes/Pruebas.php');
-require_once(__DIR__.'/../server/database/classes/Jueces.php');
-require_once(__DIR__.'/../server/database/classes/Jornadas.php');
-require_once(__DIR__.'/../server/database/classes/Mangas.php');
-require_once(__DIR__.'/../server/database/classes/Resultados.php');
-require_once(__DIR__.'/../server/database/classes/Clasificaciones.php');
+require_once(__DIR__."/../database/tools.php");
+require_once(__DIR__."/../database/logging.php");
+require_once(__DIR__.'/../database/classes/DBObject.php');
+require_once(__DIR__.'/../database/classes/Clubes.php');
+require_once(__DIR__.'/../database/classes/Pruebas.php');
+require_once(__DIR__.'/../database/classes/Jueces.php');
+require_once(__DIR__.'/../database/classes/Jornadas.php');
+require_once(__DIR__.'/../database/classes/Mangas.php');
+require_once(__DIR__.'/../database/classes/Resultados.php');
+require_once(__DIR__.'/../database/classes/Clasificaciones.php');
 require_once(__DIR__."/print_common.php");
 
 class PrintCommon extends FPDF {
@@ -55,9 +55,9 @@ class PrintCommon extends FPDF {
 		// 		los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
 		$icon2=($this->icon==="rsce.png")?"fci.png":"rsce.png"; // to avoid duplicate head logos
 		$this->SetXY(10,10); // margins are 10mm each
-		$this->Cell(25.4,25.4,$this->Image(__DIR__.'/../images/logos/'.$this->icon,$this->getX(),$this->getY(),25.4),0,0,'L',false);
+		$this->Cell(25.4,25.4,$this->Image(__DIR__.'/../../images/logos/'.$this->icon,$this->getX(),$this->getY(),25.4),0,0,'L',false);
 		$this->SetXY($this->w - 35.4,10);
-		$this->Cell(25.4,25.4,$this->Image(__DIR__.'/../images/logos/'.$icon2,$this->getX(),$this->getY(),25.4),0,0,'R',false);
+		$this->Cell(25.4,25.4,$this->Image(__DIR__.'/../../images/logos/'.$icon2,$this->getX(),$this->getY(),25.4),0,0,'R',false);
 	
 		// pintamos nombre de la prueba
 		$this->SetXY($this->centro -50,10);

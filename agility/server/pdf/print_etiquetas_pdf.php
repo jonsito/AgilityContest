@@ -7,16 +7,16 @@ header('Set-Cookie: fileDownload=true; path=/');
  */
 
 require_once(__DIR__."/fpdf.php");
-require_once(__DIR__."/../server/database/tools.php");
-require_once(__DIR__."/../server/database/logging.php");
-require_once(__DIR__.'/../server/database/classes/DBObject.php');
-require_once(__DIR__.'/../server/database/classes/Clubes.php');
-require_once(__DIR__.'/../server/database/classes/Pruebas.php');
-require_once(__DIR__.'/../server/database/classes/Jueces.php');
-require_once(__DIR__.'/../server/database/classes/Jornadas.php');
-require_once(__DIR__.'/../server/database/classes/Mangas.php');
-require_once(__DIR__.'/../server/database/classes/Resultados.php');
-require_once(__DIR__.'/../server/database/classes/Clasificaciones.php');
+require_once(__DIR__."/../database/tools.php");
+require_once(__DIR__."/../database/logging.php");
+require_once(__DIR__.'/../database/classes/DBObject.php');
+require_once(__DIR__.'/../database/classes/Clubes.php');
+require_once(__DIR__.'/../database/classes/Pruebas.php');
+require_once(__DIR__.'/../database/classes/Jueces.php');
+require_once(__DIR__.'/../database/classes/Jornadas.php');
+require_once(__DIR__.'/../database/classes/Mangas.php');
+require_once(__DIR__.'/../database/classes/Resultados.php');
+require_once(__DIR__.'/../database/classes/Clasificaciones.php');
 require_once(__DIR__."/print_common.php");
 
 class PDF extends FPDF {
@@ -78,7 +78,7 @@ class PDF extends FPDF {
 		//logo   (30,y,15,15)
 		// los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
 		$this->SetXY(30,$y1); // margins are 10mm each
-		$this->Cell(17,17,$this->Image(__DIR__.'/../images/logos/'.$this->icon,$this->getX(),$this->getY(),17),0,0,'L',false);
+		$this->Cell(17,17,$this->Image(__DIR__.'/../../images/logos/'.$this->icon,$this->getX(),$this->getY(),17),0,0,'L',false);
 		
 		//Nombre de la prueba (47,y,38,5) left
 		$this->SetXY(47,$y1); 
