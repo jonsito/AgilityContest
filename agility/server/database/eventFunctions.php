@@ -12,7 +12,7 @@ try {
 			'Session'	=> 	http_request("Session","i",0),
 			'Type' 		=> 	http_request("Session","s",""),
 			'Source'	=> 	http_request("Source","s",""),
-			'ID' 		=> 	http_request("ID","i",0), // last session ID
+			'Timestamp'	=> 	http_request("Timestamp","i",0), // last event timestamp
 			'Prueba' 	=> 	http_request("Prueba","i",0),
 			'Jornada'	=>	http_request("Jornada","i",0),
 			'Manga'		=>	http_request("Manga","i",0),

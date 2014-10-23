@@ -1734,7 +1734,7 @@ CREATE TABLE IF NOT EXISTS `Eventos` (
   `Source` varchar(255) NOT NULL,
   `Type` varchar(255) NOT NULL,
   `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-  `Data` varchar(255) NOT NULL DEFAULT '-- Anonimo --',
+  `Data` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`ID`),
   KEY `Eventos_Session` (`Session`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
