@@ -822,7 +822,7 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
   `Observaciones` varchar(255) NOT NULL DEFAULT "",
   `Orden_Tandas` varchar(255) NOT NULL DEFAULT "BEGIN,END",
   PRIMARY KEY (`ID`),
-  KEY `Prueba` (`Prueba`)
+  KEY `Jornadas_Prueba` (`Prueba`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
@@ -942,24 +942,24 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
   `Observaciones` varchar(255) DEFAULT NULL,
   `Orden_Salida` text NOT NULL DEFAULT "",
   PRIMARY KEY (`ID`),
-  KEY `Tipo` (`Tipo`),
-  KEY `Grado` (`Grado`),
-  KEY `Juez_Titular` (`Juez1`),
-  KEY `Juez_Practicas` (`Juez2`),
-  KEY `Jornada` (`Jornada`)
+  KEY `Mangas_Tipo` (`Tipo`),
+  KEY `Mangas_Grado` (`Grado`),
+  KEY `Mangas_Juez1` (`Juez1`),
+  KEY `Mangas_Juez2` (`Juez2`),
+  KEY `Mangas_Jornada` (`Jornada`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- RELACIONES PARA LA TABLA `Mangas`:
---   `Tipo`
+--   `Mangas_Tipo`
 --       `Tipo_Manga` -> `ID`
---   `Grado`
+--   `Mangas_Grado`
 --       `Grados_Perro` -> `Grado`
---   `Juez1`
+--   `Mangas_Juez1`
 --       `Jueces` -> `ID`
---   `Juez2`
+--   `Mangas_Juez2`
 --       `Jueces` -> `ID`
---   `Jornada`
+--   `Mangas_Jornada`
 --       `Jornadas` -> `ID`
 --
 
@@ -1591,7 +1591,7 @@ CREATE TABLE IF NOT EXISTS `Provincias` (
   `Comunidad` varchar(32) DEFAULT NULL,
   `Codigo` int(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Provincia`),
-  UNIQUE KEY `Codigo` (`Codigo`)
+  UNIQUE KEY `Provincias_Codigo` (`Codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -1672,7 +1672,7 @@ CREATE TABLE IF NOT EXISTS `Pruebas` (
   `Observaciones` varchar(255) DEFAULT NULL,
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
-  KEY `Club` (`Club`)
+  KEY `Pruebas_Club` (`Club`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
@@ -1718,6 +1718,26 @@ CREATE TABLE IF NOT EXISTS `Sesiones` (
 
 INSERT INTO `Sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `SessionKey`) VALUES
 (1, '-- Sin asignar --', 'NO BORRAR: Sesion por defecto para manejador de eventos','-- Anonimo --',NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Eventos`
+--
+-- Creación: 23-10-2014 a las 11:00:04
+--
+
+DROP TABLE IF EXISTS `Eventos`;
+CREATE TABLE IF NOT EXISTS `Eventos` (
+  `ID` int(4) NOT NULL AUTO_INCREMENT, 						-- Event ID
+  `Sesion` int(4) NOT NULL, 								-- Session ID
+  `Source` varchar(255) NOT NULL, 							-- Sender's Name
+  `Type` varchar(255) NOT NULL, 							-- Event Type
+  `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
+  `Data` varchar(255) NOT NULL DEFAULT '-- Anonimo --', 	-- Json encoded event data
+  PRIMARY KEY (`ID`),
+  KEY `Eventos_Sesion` (`Sesion`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1886,6 +1906,12 @@ ALTER TABLE `Perros`
 ALTER TABLE `Pruebas`
   ADD CONSTRAINT `Pruebas_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `Clubes` (`ID`) ON UPDATE CASCADE;
 
+--
+-- Filtros para la tabla `Eventos`
+--
+ALTER TABLE `Eventos`
+  ADD CONSTRAINT `Eventos_ibfk_1` FOREIGN KEY (`Sesion`) REFERENCES `Sesiones` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
 --
 -- Filtros para la tabla `Resultados`
 --
