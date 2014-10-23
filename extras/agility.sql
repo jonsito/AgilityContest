@@ -1729,14 +1729,14 @@ INSERT INTO `Sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `SessionKey`) 
 
 DROP TABLE IF EXISTS `Eventos`;
 CREATE TABLE IF NOT EXISTS `Eventos` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT, 						-- Event ID
-  `Sesion` int(4) NOT NULL, 								-- Session ID
-  `Source` varchar(255) NOT NULL, 							-- Sender's Name
-  `Type` varchar(255) NOT NULL, 							-- Event Type
+  `ID` int(4) NOT NULL AUTO_INCREMENT,
+  `Session` int(4) NOT NULL,
+  `Source` varchar(255) NOT NULL,
+  `Type` varchar(255) NOT NULL,
   `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-  `Data` varchar(255) NOT NULL DEFAULT '-- Anonimo --', 	-- Json encoded event data
+  `Data` varchar(255) NOT NULL DEFAULT '-- Anonimo --',
   PRIMARY KEY (`ID`),
-  KEY `Eventos_Sesion` (`Sesion`)
+  KEY `Eventos_Session` (`Session`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -1910,7 +1910,7 @@ ALTER TABLE `Pruebas`
 -- Filtros para la tabla `Eventos`
 --
 ALTER TABLE `Eventos`
-  ADD CONSTRAINT `Eventos_ibfk_1` FOREIGN KEY (`Sesion`) REFERENCES `Sesiones` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `Eventos_ibfk_1` FOREIGN KEY (`Session`) REFERENCES `Sesiones` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
   
 --
 -- Filtros para la tabla `Resultados`
