@@ -64,7 +64,8 @@ function http_request($name,$type,$def,$esc=true) {
 			return strval($a);
 		case "i": return intval($a);
 		case "b": return boolval($a);
-		case "d": return doubleval($a);
+		case "d": 
+		case "f": return doubleval($a);
 	}
 	do_log("request() invalid type:$type requested"); 
 	return null; 

@@ -12,17 +12,15 @@ require_once("DBObject.php");
 class Eventos extends DBObject {
 	
 	static $event_list = array (
-		0 => 'null',		// null event: no action taken
-		1 => 'open',		// operator starts tablet application
-		2 => 'falta',		// falta - value:numero de faltas
-		3 => 'tocado',		// tocado - value:numero de tocados
-		4 => 'rehuse',		// rehuse - value:numero de rehuses
-		5 => 'nopresentado',
-		6 => 'comienzo',	// operador abre panel de entrada de datos
-		7 => 'salida',		// juez da orden de salida ( crono 15 segundos )
-		8 => 'cronomanual', // value: timestamp
-		9 => 'cronoauto',   // valua: timestamp
-		10 => 'fin'			// operador pulsa aceptar o cancelar. 
+		0  => 'null',		// null event: no action taken
+		1  => 'open',		// operator starts tablet application
+		2  => 'datos',		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+		8  => 'llamada',	// operador abre panel de entrada de datos
+		9  => 'salida',		// juez da orden de salida ( crono 15 segundos )
+		10 => 'cronomanual',// value: timestamp
+		11 => 'cronoauto',  // value: timestamp
+		12 => 'aceptar',	// operador pulsa aceptar
+		13 => 'cancelar'	// operador pulsa cancelar
 	);
 	
 	protected $sessionID;
@@ -55,16 +53,16 @@ class Eventos extends DBObject {
 		$sid=$this->sessionID;
 		
 		// prepare statement
-		$sql = "INSERT INTO Eventos ( Session, Source, Type, Timestamp, Data ) VALUES ($sid,?,?,?,?)";
+		$sql = "INSERT INTO Eventos ( TimeStamp,Session, Source, Type, Data ) VALUES (?,$sid,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('ssis',$source,$type,$timestamp,$evtdata);
+		$res=$stmt->bind_param('ssss',$timestamp,$source,$type,$evtdata);
 		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores
+		$timestamp= date('Y-m-d G:i:s');
 		$source=$data['Source'];
 		$type=$data['Type'];
-		$timestamp=$data['Timestamp'];
 		$evtdata=json_encode($data);
 		
 		// invocamos la orden SQL y devolvemos el resultado
@@ -72,6 +70,7 @@ class Eventos extends DBObject {
 		if (!$res) return $this->error($this->conn->error);
 		
 		// retrieve EventID on newly create event
+		$data['TimeStamp']=$timestamp;
 		$data['ID']=$this->conn->insert_id;
 		$stmt->close();
 		

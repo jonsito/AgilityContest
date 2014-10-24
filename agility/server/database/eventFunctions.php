@@ -10,22 +10,28 @@ try {
 	$id=http_request("ID","i",0);
 	$data=array (	
 			'Session'	=> 	http_request("Session","i",0),
-			'Type' 		=> 	http_request("Session","s",""),
+			'Type' 		=> 	http_request("Type","s",""),
 			'Source'	=> 	http_request("Source","s",""),
-			'Timestamp'	=> 	http_request("Timestamp","i",0), // last event timestamp
 			'Prueba' 	=> 	http_request("Prueba","i",0),
 			'Jornada'	=>	http_request("Jornada","i",0),
 			'Manga'		=>	http_request("Manga","i",0),
 			'Tanda'		=>	http_request("Tanda","i",0),
-			'Perro'		=>	http_request("Perro","i",0),
-			'Value'		=>  http_request("Value","i",0)
+			// el valor por defecto "-1" indica que no se debe utilizar dicho campo
+			'Perro'		=>	http_request("Perro","i",-1),
+			'Faltas'	=>	http_request("Faltas","i",-1),
+			'Tocados'	=>	http_request("Tocados","i",-1),
+			'Rehuses'	=>	http_request("Rehuses","i",-1),
+			'NoPresentado'	=>	http_request("NoPresentado","i",-1),
+			'Eliminado'	=>	http_request("Eliminado","i",-1),
+			'Tiempo'	=>	http_request("Tiempo","d",-1),
+			'Value'		=>	http_request("Value","i",-1)
 	);
 	if ($operation===null) throw new Exception("Call to eventFunctions without 'Operation' requested");
-	$eventmgr= new Eventos("eventFunctions");
+	$eventmgr= new Eventos("eventFunctions",$data['Session']);
 	switch ($operation) {
-		case "getEvents": $result=$eventmgr->get($data); break;
-		case "putEvent": $result=$eventmgr->update($data); break;
-		case "listEvents": $result=$eventmgr->delete($data); break;
+		case "getEvents": $result=$eventmgr->getEvents($data); break;
+		case "putEvent": $result=$eventmgr->putEvent($data); break;
+		case "listEvents": $result=$eventmgr->listEvents($data); break;
 		default: throw new Exception("eventFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) throw new Exception($eventmgr->errormsg);

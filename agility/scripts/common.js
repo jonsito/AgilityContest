@@ -106,9 +106,6 @@ function initWorkingData(id) {
 	        timeout: 30000,
 			success: function(data) {
 				workingData.perro	= data.Perro;
-				workingData.guia	= data.Guia;
-				workingData.club	= data.Club;
-				workingData.juez	= data.Juez;
 				workingData.prueba	= data.Prueba;
 				workingData.nombrePrueba= ""; // nombre de la prueba
 				workingData.jornada	= data.Jornada;
@@ -120,7 +117,6 @@ function initWorkingData(id) {
 				workingData.nombreTanda = ""; 
 				workingData.sesion	= data.ID;
 				workingData.nombreSesion	= data.Nombre;
-				workingData.resultado = data.Resultado;
 			},
 			error: function(msg){ alert("error setting workingData: "+msg);}
 		});

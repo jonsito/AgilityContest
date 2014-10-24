@@ -227,11 +227,17 @@ function tablet_acceptSelectJornada() {
 		return;
 	}
 
+	// update database session info with provided operator data
 	updateSessionInfo(s.ID,{Nombre: s.Nombre,Prueba:p.ID, Jornada:j.ID});
-	workingData.nombrePrueba=p.Nombre
-	workingData.datosPrueba=p;
+	// los demas valores se actualizan en la linea anterior
+	workingData.nombreSesion=s.Nombre;
+	workingData.nombrePrueba=p.Nombre;
 	workingData.nombreJornada=j.Nombre;
-	workingData.datosJornada=j;
+	// notify session open() to event manager
+	tablet_putEvent(
+		'open',
+		{ 'Session': s.ID, 'Source': 'tablet_'+s.ID, 'Prueba': p.ID, 'Jornada': j.ID, 'Manga':	0, 'Tanda':	0, 'Perro':	0 }
+	);
 
 	var page="/agility/tablet/tablet_competicion.php";
 	if (workingData.datosJornada.Equipos3==1) {

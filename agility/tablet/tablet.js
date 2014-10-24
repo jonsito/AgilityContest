@@ -29,7 +29,35 @@ function tablet_showOrdenSalida() {
 }
 
 /******************* funciones de manejo de la ventana de entrada de resultados del tablet *****************/
-function resultados_update(pendiente) {
+
+/**
+ * send events
+ * @param {string} type: Event Type
+ * @param {object} data: Event data
+ */
+function tablet_putEvent(type,data){
+	// setup default elements for this event
+	obj= {
+			'Operation':'putEvent',
+			'Type': 	type,
+			'Source':	'tablet_'+$('#tdialog-Session').val(),
+			'Session':	$('#tdialog-Session').val(),
+			'Prueba':	$('#tdialog-Prueba').val(),
+			'Jornada':	$('#tdialog-Jornada').val(),
+			'Manga':	$('#tdialog-Manga').val(),
+			'Tanda':	$('#tdialog-ID').val(),
+			'Perro':	$('#tdialog-Perro').val()	
+	}
+	// send "update" event to every session listeners
+	$.ajax({
+		type:'GET',
+		url:"/agility/server/database/eventFunctions.php",
+		dataType:'json',
+		data: $.extend({},obj,data)
+	});
+}
+
+function tablet_updateResultados(pendiente) {
 	$('#tdialog-Pendiente').val(pendiente);
     // call 'submit' method of form plugin to submit the form
 	// NOTE: do not update parent tablet row! 
@@ -38,7 +66,7 @@ function resultados_update(pendiente) {
     	{
     		url:'/agility/server/database/resultadosFunctions.php',
     		onSubmit: function() { return true; },
-    		success: function (data) { tablet_updateSession() }
+    		// success: function (data) { }
     	});
 }
 
@@ -52,35 +80,47 @@ function tablet_add(val) {
 		if (len>2) return; // only two decimal digits
 	}
 	$('#tdialog-Tiempo').val(''+str+val);
-	resultados_update(1);
+	tablet_updateResultados(1);
+	// dont send time event
 }
 
 function tablet_dot() {
 	var str=$('#tdialog-Tiempo').val();
 	if (str.indexOf('.')>=0) return;
 	tablet_add('.');
-	resultados_update(1);
+	tablet_updateResultados(1);
+	// dont send time event
 }
 
 function tablet_del() {
 	var str=$('#tdialog-Tiempo').val();
 	if (str==='') return;
 	$('#tdialog-Tiempo').val(str.substring(0, str.length-1));
-	resultados_update(1);
+	tablet_updateResultados(1);
+	// dont send time event
 }
 
 function tablet_up(id){
 	var n= 1+parseInt($(id).val());
+	var lbl = replaceAll('#tdialog-','',id);
+	var datos = {};
 	$(id).val(''+n);
-	resultados_update(1);
+	tablet_updateResultados(1);
+	datos[lbl]=$(id).val()
+	tablet_putEvent( 'datos', datos);
 }
 
 function tablet_down(id){
 	var n= parseInt($(id).val());
 	var m = (n<=0) ? 0 : n-1;
+	var lbl = replaceAll('#tdialog-','',id);
+	var datos = {};
 	$(id).val(''+m);
-	resultados_update(1);
+	tablet_updateResultados(1);
+	datos[lbl]=$(id).val()
+	tablet_putEvent( 'datos', datos );
 }
+
 function tablet_np() {
 	var n= parseInt($('#tdialog-NoPresentado').val());
 	if (n==0) {
@@ -94,7 +134,18 @@ function tablet_np() {
 	} else {
 		$('#tdialog-NoPresentado').val(0);
 	}
-	resultados_update(1);
+	tablet_updateResultados(1);
+	tablet_putEvent(
+		'datos',
+		{
+		'NoPresentado'	:	$('#tdialog-NoPresentado').val(),
+		'Faltas'		:	$('#tdialog-Faltas').val(),
+		'Tocados'		:	$('#tdialog-Tocados').val(),
+		'Rehuses'		:	$('#tdialog-Rehuses').val(),
+		'Tiempo'		:	$('#tdialog-Tiempo').val(),
+		'Eliminado'		:	$('#tdialog-eliminado').val()
+		}
+		);
 }
 
 function tablet_elim() {
@@ -108,25 +159,31 @@ function tablet_elim() {
 		$('#tdialog-Eliminado').val(0);
 		
 	}
-	resultados_update(1);
+	tablet_updateResultados(1);
+	tablet_putEvent(
+			'datos',
+			{
+			'NoPresentado'	:	$('#tdialog-NoPresentado').val(),
+			'Tiempo'		:	$('#tdialog-Tiempo').val(),
+			'Eliminado'		:	$('#tdialog-eliminado').val()
+			}
+		);
 }
 
 function tablet_startstop() {
-	// send "chrono" event to every session listeners
-	// TODO: write
+	tablet_putEvent('chronomanual',{ 'Value' : getTime() } );
 }
 
 function tablet_salida() {
-	// send "salida" event to every session listeners
-	// TODO: write
+	tablet_putEvent('salida',{ 'Value' : getTime() } );
 }
 
 function tablet_cancel() {
 	// retrieve original data from parent datagrid
 	var dgname=$('#tdialog-Parent').val();
 	var row =$(dgname).datagrid('getSelected');
-	// update database according row data
 	if (row) {
+		// update database according row data
 		row.Operation='update';
 		$.ajax({
 			type:'GET',
@@ -134,6 +191,18 @@ function tablet_cancel() {
 			dataType:'json',
 			data: row
 		});
+		// and fire up cancel event
+		tablet_putEvent(
+				'cancelar',
+				{ 
+					'NoPresentado'	:	row.NoPresentado,
+					'Faltas'		:	row.Faltas,
+					'Tocados'		:	row.Tocados,
+					'Rehuses'		:	row.Rehuses,
+					'Tiempo'		:	row.Tiempo,
+					'Eliminado'		:	row.Eliminado
+				} 
+			);
 	}
 	// and close panel
 	$('#tdialog-panel').panel('close');
@@ -141,7 +210,7 @@ function tablet_cancel() {
 
 function tablet_accept() {
 	// save results 
-	resultados_update(0); // mark as result no longer pendiente
+	tablet_updateResultados(0); // mark as result no longer pendiente
 	
 	// close entradadatos window
 	// this must be done BEFORE datagrid contents update
@@ -161,13 +230,17 @@ function tablet_accept() {
 	// update row
 	$(dgname).datagrid('updateRow',{index: rowindex, row: obj});
 	$(dgname).datagrid('refreshRow',rowindex);
-	
+	// and fire up accept event
+	tablet_putEvent(
+			'aceptar',
+			{ 
+				'NoPresentado'	:	row.NoPresentado,
+				'Faltas'		:	row.Faltas,
+				'Tocados'		:	row.Tocados,
+				'Rehuses'		:	row.Rehuses,
+				'Tiempo'		:	row.Tiempo,
+				'Eliminado'		:	row.Eliminado
+			} 
+		);
 }
 
-// fired on 
-// - entradadatos form load
-// - update resultados database table 
-function tablet_updateSession(){
-	// send "update" event to every session listeners
-	// call web socket to send event to every listeners for this session
-}

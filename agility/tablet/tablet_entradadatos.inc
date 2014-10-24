@@ -11,7 +11,7 @@
         	<input id="tdialog-Perro" name="Perro" type="hidden">
       		<input id="tdialog-Licencia" name="Licencia" type="hidden">
       		<input id="tdialog-Pendiente" name="Pendiente" type="hidden" value="0">
-      		<input id="tdialog-Tanda" name="Tanda" type="hidden">
+      		<input id="tdialog-Tanda" name="Tanda" type="hidden"> <!-- Tanda name -->
       		<input id="tdialog-Observacioens" name="Observaciones" type="hidden">
       		<input id="tdialog-Operation" name="Operation" type="hidden" value="update">
        		<input id="tdialog-FaltaUpBtn" type="button" value="Falta" onclick="tablet_up('#tdialog-Faltas');" class="tablet_button tb_falta">
@@ -87,7 +87,18 @@
 
     $('#tdialog-form').form({
         // tell session manager to update competitor's info
-        onLoadSuccess: tablet_updateSession
+        onLoadSuccess: function() { 
+            tablet_putEvent('llamada', 
+        		{ // setup initial data for event
+        		'NoPresentado'	:	$('#tdialog-NoPresentado').val(),
+        		'Faltas'		:	$('#tdialog-Faltas').val(),
+        		'Tocados'		:	$('#tdialog-Tocados').val(),
+        		'Rehuses'		:	$('#tdialog-Rehuses').val(),
+        		'Tiempo'		:	$('#tdialog-Tiempo').val(),
+        		'Eliminado'		:	$('#tdialog-eliminado').val()
+        		}
+            ) ;
+        }
     });
 
     // layout
