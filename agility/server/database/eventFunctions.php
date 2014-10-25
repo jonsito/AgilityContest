@@ -7,9 +7,12 @@ require_once("classes/Eventos.php");
 try {
 	$result=null;
 	$operation=http_request("Operation","s",null);
-	$id=http_request("ID","i",0);
-	$data=array (	
+	$data=array (
+			// common data for senders and receivers
+			'ID'		=>	http_request("ID","i",0),
 			'Session'	=> 	http_request("Session","i",0),
+			'TimeStamp'	=> 	http_request("TimeStamp","i",0), // last timestamp parsed
+			// datos identificativos del evento que se envia
 			'Type' 		=> 	http_request("Type","s",""),
 			'Source'	=> 	http_request("Source","s",""),
 			'Prueba' 	=> 	http_request("Prueba","i",0),

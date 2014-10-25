@@ -102,7 +102,7 @@ class Eventos extends DBObject {
 		
 		// retrieve timestamp from file and request
 		$current=filemtime($this->sessionFile);
-		$last=$data['Timestamp'];
+		$last=$data['TimeStamp'];
 		
 		// Counter to manually keep track of time elapsed 
 		// (PHP's set_time_limit() is unrealiable while sleeping)
@@ -114,7 +114,7 @@ class Eventos extends DBObject {
 			if ( $current > $last ) {
 				// new data has arrived: get it
 				$res=$this->listEvents($data);
-				if ( is_array($res)) $res['timestamp']=$current; // data received: store timestamp in response
+				if ( is_array($res)) $res['TimeStamp']=$current; // data received: store timestamp in response
 				break;
 			}
 			// Otherwise, sleep for the specified time, after which the loop runs again
