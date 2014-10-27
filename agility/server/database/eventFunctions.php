@@ -35,6 +35,7 @@ try {
 		case "getEvents": $result=$eventmgr->getEvents($data); break;
 		case "putEvent": $result=$eventmgr->putEvent($data); break;
 		case "listEvents": $result=$eventmgr->listEvents($data); break;
+		case "connect": $result=$eventmgr->connect($data); break;
 		default: throw new Exception("eventFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) throw new Exception($eventmgr->errormsg);

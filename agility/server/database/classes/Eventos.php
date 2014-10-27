@@ -98,7 +98,7 @@ class Eventos extends DBObject {
 		session_write_close();
 		
 		// Automatically die after timeout (plus buffer)
-		set_time_limit(MESSAGE_TIMEOUT_SECONDS+MESSAGE_TIMEOUT_SECONDS_BUFFER);
+		set_time_limit(EVENT_TIMEOUT_SECONDS+EVENT_TIMEOUT_SECONDS_BUFFER);
 		
 		// retrieve timestamp from file and request
 		$current=filemtime($this->sessionFile);
@@ -106,11 +106,12 @@ class Eventos extends DBObject {
 		
 		// Counter to manually keep track of time elapsed 
 		// (PHP's set_time_limit() is unrealiable while sleeping)
-		$counter = MESSAGE_TIMEOUT_SECONDS;
+		$counter = EVENT_TIMEOUT_SECONDS;
 		$res=null;
 		
 		// Poll for messages and hang if nothing is found, until the timeout is exhausted
 		while($counter > 0)	{
+			// $this->myLogger->info("filemtime:$current lastquery:$last" );
 			if ( $current > $last ) {
 				// new data has arrived: get it
 				$res=$this->listEvents($data);
@@ -118,14 +119,15 @@ class Eventos extends DBObject {
 				break;
 			}
 			// Otherwise, sleep for the specified time, after which the loop runs again
-			usleep(MESSAGE_POLL_MICROSECONDS);
+			usleep(EVENT_POLL_MICROSECONDS);
 			// clear stat cache to ask for real mtime
 			clearstatcache();
 			$current =filemtime($this->sessionFile);
 			// Decrement seconds from counter (the interval was set in μs, see above)
-			$counter -= MESSAGE_POLL_MICROSECONDS / 1000000;
+			$counter -= EVENT_POLL_MICROSECONDS / 1000000;
 		}
-		if ($res===null) $res="Timeout in polling";
+		// if no new events (timeout) create an empty result
+		if ($res===null) $res=array( 'total'=>0, 'rows'=>array(), 'TimeStamp' => $current );
 		$this->myLogger->leave();
 		return $res;
 	}
@@ -136,7 +138,7 @@ class Eventos extends DBObject {
 	 * @return available events for session $data['Session'] with id greater than $data['ID']
 	 */
 	function listEvents($data) {
-		if ($data['Session']<=0) $this->error("No Session ID specified");
+		if ($data['Session']<=0) return $this->error("No Session ID specified");
 		$this->myLogger->enter();
 		$result=$this->__select(
 				/* SELECT */ "*",
@@ -145,6 +147,29 @@ class Eventos extends DBObject {
 				/* ORDER BY */ "ID",
 				/* LIMIT */ ""
 		);
+		$this->myLogger->leave();
+		return $result;
+	}
+	
+	/**
+	 * Retrieve last "open" event with provided Session ID
+	 * Used for clients to retrieve event ID index
+	 * SELECT * from Eventos
+	 *		WHERE  ( Session = {$data['Session']} ) AND ( Type = 'open' )
+	 *		ORDER BY ID DESC LIMIT 1
+	 * @param {array} $data requested event info
+	 * @return {array} data about last "open" event with provided session id
+	 */
+	function connect($data) {
+		if ($data['Session']<=0) return $this->error("No Session ID specified");
+		$this->myLogger->enter();
+		$result=$this->__select(
+				/* SELECT */ "*",
+				/* FROM */ "Eventos",
+				/* WHERE */ "( Session = {$data['Session']} ) AND ( Type = 'open' )",
+				/* ORDER BY */ "ID DESC",
+				/* LIMIT */ "0,1"
+						);
 		$this->myLogger->leave();
 		return $result;
 	}

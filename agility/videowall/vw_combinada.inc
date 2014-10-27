@@ -57,7 +57,7 @@ $('#vw_combinada-LiveStream').panel({
 	},
 	loadingMessage:"Actualizando datos LiveStream...",
 	onLoad: function() {
-		waitForEvents(workingData.sesion,0,0,vw_processLiveStream);
+		startEventMgr(workingData.sesion,vw_processLiveStream);
 	}
 });
 

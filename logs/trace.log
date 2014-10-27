@@ -1,0 +1,10 @@
+[27-Oct-2014 11:58:51 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::35::getEvents() : Leave
+[27-Oct-2014 11:58:51 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::35::getEvents() : Enter
+[27-Oct-2014 11:59:00 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::117::listEvents() : Enter
+[27-Oct-2014 11:59:00 Europe/Madrid] QUERY eventFunctions::__select() :
+SELECT * FROM Eventos  WHERE ( Session = 1 ) AND ( ID > 32 )  ORDER BY ID 
+[27-Oct-2014 11:59:00 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::117::listEvents() : Leave
+[27-Oct-2014 11:59:00 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::35::getEvents() : Leave
+[27-Oct-2014 11:59:00 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::35::getEvents() : Enter
+[27-Oct-2014 11:59:30 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::35::getEvents() : Leave
+[27-Oct-2014 11:59:31 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::35::getEvents() : Enter
