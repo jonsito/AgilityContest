@@ -1,0 +1,31 @@
+/* estilos asociados al tablet */
+.videowall_form {
+	line-height: 25px;
+	font-weight:bold;
+	color:white;
+}
+
+label.videowall_form {
+	text-align: left;
+	font-size: 15px;
+	border:0;
+	padding:0;
+}
+
+input.videowall_form {
+	vertical-align: middle;
+	margin-top: 5px;
+}
+
+.videowall_rectangulo {
+    background-color: #000000;
+    border: 3px solid black;
+    border-radius: 25px;
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+
+
+#video-background {
+	z-index: -100;
+} 

@@ -63,5 +63,5 @@ function waitForEvents(sesID,evtID,timestamp,callback){
 }
 
 function vw_processLiveStream(event) {
-	alert(JSON.stringify(event));
+	// alert(JSON.stringify(event));
 }

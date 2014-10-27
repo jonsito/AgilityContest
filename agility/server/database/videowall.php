@@ -16,8 +16,9 @@ function videowall_llamada($idsesion) {
 		$logo=$otmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
 		if ($logo==="") $logo='rsce.png';
 		$celo=($participante['Celo']==='1')?'Celo':'';
+		$bg=(($numero%2)!=0)?"#ffffff":"#d0d0d0";
 		echo '
-	<div id="participante_'.$numero.'">
+	<div id="participante_'.$numero.'" style="background:'.$bg.'">
 		<table class="llamada">
 		<tr>
 			<th rowspan="2">'.$numero.'</th>
@@ -25,7 +26,7 @@ function videowall_llamada($idsesion) {
 			<td rowspan="2">'.$participante['Grado'].' - '.$participante['Categoria'].'</td>
 			<td>Dorsal: '.$participante['Dorsal'].'</td>
 			<td>Lic.  : '.$participante['Licencia'].'</td>
-			<td colspan="2" style="text-align:center; font-style:italic; font-size:20px;">'.$participante['Nombre'].'</td>
+			<td colspan="2" style="text-align:center; font-style:italic; font-size:25px;">'.$participante['Nombre'].'</td>
 			<td style="text-align:right;">'.$celo.'</td>		
 		</tr>
 		<tr>
@@ -34,7 +35,6 @@ function videowall_llamada($idsesion) {
 			<td colspan="2" style="text-align:left">Club: '.$participante['NombreClub'].'</td>
 		</tr>
 		</table>
-		<hr />
 	</div>
 	';
 	}
@@ -79,6 +79,6 @@ function videowall_livestream($sesion) {
 $sesion = http_request("Session","i",0);
 $operacion = http_request("Operation","s",null);
 
-if($operacion==="Livestream") return videowall_livestream($sesion);
+if($operacion==="LiveStream") return videowall_livestream($sesion);
 if($operacion==="Llamada") return videowall_llamada($sesion);
 if($operacion==="Resultados") return videowall_resultados($sesion);
