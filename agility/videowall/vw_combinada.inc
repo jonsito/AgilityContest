@@ -25,29 +25,29 @@
     						-->
     						<source src="/agility/videos/sample_video.webm" type='video/webm; codecs="vp8,vorbis"' />
     					</video> 
-						<form id="vwc_form" class="videowall_form">
+						<div id="videowall_data">
 							<!-- Recuadros de decoracion -->
-							<span id="vwc_Resultados" class="videowall_rectangulo">&nbsp;</span>
-							<span id="vwc_Datos" class="videowall_rectangulo" >&nbsp;</span>
+							<span class="vw_fondo" id="vwc_Resultados">&nbsp;</span>
+							<span class="vw_fondo" id="vwc_Datos">&nbsp;</span>
 							<!-- datos de resultados -->
-							<label id="vwc_FaltasLbl" for="Faltas">Faltas:</label>
-							<input type="text" id="vwc_Faltas" name="Faltas" value="0" readonly="readonly" disabled="disabled"/>
-							<label id="vwc_TocadosLbl" for="Tocados">Tocados:</label>
-							<input type="text" id="vwc_Tocados" name="Tocados" value="0" readonly="readonly" disabled="disabled"/>
-							<label id="vwc_RehusesLbl" for="Rehuses">Rehuses:</label>
-							<input type="text" id="vwc_Rehuses" name="Rehuses" value="0" readonly="readonly" disabled="disabled"/>
-							<label id="vwc_TiempoLbl" for="Tiempo">Tiempo:</label>
-							<input type="text" id="vwc_Tiempo" name="Tiempo" value="0" readonly="readonly" disabled="disabled"/>
+							<span class="vw_label" id="vwc_FaltasLbl">Faltas:</span>
+							<span class="vw_data"  id="vwc_Faltas">0</span>
+							<span class="vw_label" id="vwc_TocadosLbl">Tocados:</span>
+							<span class="vw_data"  id="vwc_Tocados">0</span>
+							<span class="vw_label" id="vwc_RehusesLbl">Rehuses:</span>
+							<span class="vw_data"  id="vwc_Rehuses">0</span>
+							<span class="vw_label" id="vwc_TiempoLbl">Tiempo:</span>
+							<span class="vw_data"  id="vwc_Tiempo">00.00</span>
 							<!-- Informacion del participante -->
-							<label id="vwc_Logo">Logo</label>
-							<label id="vwc_Dorsal">Dorsal</label>
-							<label id="vwc_Nombre">Nombre</label>
-							<label id="vwc_NombreGuia">Guia</label>
-							<label id="vwc_NombreClub">Club</label>
-							<label id="vwc_Categoria">Categoria</label>
-							<label id="vwc_Grado">Grado</label>
-							<label id="vwc_Celo">Celo</label>
-						</form>
+							<span class="vw_label" id="vwc_Logo">Logo</span>
+							<span class="vw_label" id="vwc_Dorsal">Dorsal</span>
+							<span class="vw_label" id="vwc_Nombre">Nombre</span>
+							<span class="vw_label" id="vwc_NombreGuia">Guia</span>
+							<span class="vw_label" id="vwc_NombreClub">Club</span>
+							<span class="vw_label" id="vwc_Categoria">Categoria</span>
+							<span class="vw_label" id="vwc_Grado">Grado</span>
+							<span class="vw_label" id="vwc_Celo">Celo</span>
+						</div>
 					</div>
 				</div>
 				<div data-options="region:'center',split:true,border:false,title:'Llamada a pista'">
@@ -133,13 +133,13 @@ doLayout(layout,"#vwc_Rehuses",		735,	100,	25,		25	);
 doLayout(layout,"#vwc_TiempoLbl",	640,	125,	50,		25	);
 doLayout(layout,"#vwc_Tiempo",		710,	125,	50,		25	);
 
-doLayout(layout,"#vwc_Logo",		50,		345,	100,	80	);
-doLayout(layout,"#vwc_Dorsal",		150,	345,	60,		40	);
-doLayout(layout,"#vwc_Nombre",		210,	345,	290,	40	);
-doLayout(layout,"#vwc_NombreGuia",	150,	385,	300,	40	);
-doLayout(layout,"#vwc_NombreClub",	450,	385,	250,	40	);
-doLayout(layout,"#vwc_Categoria",	550,	345,	100,	40	);
-doLayout(layout,"#vwc_Grado",		650,	345,	100,	40	);
-doLayout(layout,"#vwc_Celo",		700,	385,	50,		40	);
+doLayout(layout,"#vwc_Logo",		50,		350,	100,	80	);
+doLayout(layout,"#vwc_Dorsal",		150,	350,	60,		40	);
+doLayout(layout,"#vwc_Nombre",		210,	350,	290,	40	);
+doLayout(layout,"#vwc_NombreGuia",	150,	390,	300,	40	);
+doLayout(layout,"#vwc_NombreClub",	450,	390,	250,	40	);
+doLayout(layout,"#vwc_Categoria",	550,	350,	100,	40	);
+doLayout(layout,"#vwc_Grado",		650,	350,	100,	40	);
+doLayout(layout,"#vwc_Celo",		700,	390,	50,		40	);
 
 </script>

@@ -976,11 +976,14 @@ CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 ,`Licencia` varchar(255)
 ,`LOE_RRC` varchar(255)
 ,`Categoria` varchar(1)
+,`NombreCategoria` varchar(255)
 ,`Grado` varchar(16)
+,`NombreGrado` varchar(255)
 ,`Guia` int(4)
 ,`NombreGuia` varchar(255)
 ,`Club` int(4)
 ,`NombreClub` varchar(255)
+,`LogoClub` varchar(255)
 );
 -- --------------------------------------------------------
 
@@ -1844,7 +1847,25 @@ INSERT INTO `Tipo_Manga` (`ID`, `Descripcion`, `Grado`) VALUES
 --
 DROP TABLE IF EXISTS `PerroGuiaClub`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` AS select `Perros`.`ID` AS `ID`,`Perros`.`Nombre` AS `Nombre`,`Perros`.`Raza` AS `Raza`,`Perros`.`Licencia` AS `Licencia`,`Perros`.`LOE_RRC` AS `LOE_RRC`,`Perros`.`Categoria` AS `Categoria`,`Perros`.`Grado` AS `Grado`,`Perros`.`Guia` AS `Guia`,`Guias`.`Nombre` AS `NombreGuia`,`Guias`.`Club` AS `Club`,`Clubes`.`Nombre` AS `NombreClub` from ((`Perros` join `Guias`) join `Clubes`) where ((`Perros`.`Guia` = `Guias`.`ID`) and (`Guias`.`Club` = `Clubes`.`ID`)) order by `Clubes`.`Nombre`,`Perros`.`Categoria`,`Perros`.`Nombre`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` 
+	AS select `Perros`.`ID` AS `ID`,
+			`Perros`.`Nombre` AS `Nombre`,
+			`Perros`.`Raza` AS `Raza`,
+			`Perros`.`Licencia` AS `Licencia`,
+			`Perros`.`LOE_RRC` AS `LOE_RRC`,
+			`Perros`.`Categoria` AS `Categoria`,
+			`Categorias_Perro`.`Observaciones` AS `NombreCategoria`,
+			`Perros`.`Grado` AS `Grado`,
+			`Grados_Perro`.`Comentarios` AS `NombreGrado`,
+			`Perros`.`Guia` AS `Guia`,
+			`Guias`.`Nombre` AS `NombreGuia`,
+			`Guias`.`Club` AS `Club`,
+			`Clubes`.`Nombre` AS `NombreClub`, 
+			`Clubes`.`Logo` AS `LogoClub` 
+	from ((((`Perros` join `Guias`) join `Clubes`) join `Grados_Perro`) join `Categorias_Perro` )
+	where ((`Perros`.`Guia` = `Guias`.`ID`) and (`Guias`.`Club` = `Clubes`.`ID`) 
+		and (`Perros`.`Categoria` = `Categorias_Perro`.`Categoria`) and (`Perros`.`Grado`=`Grados_Perro`.`Grado`) ) 
+	order by `Clubes`.`Nombre`,`Perros`.`Categoria`,`Perros`.`Nombre`;
 
 --
 -- Restricciones para tablas volcadas

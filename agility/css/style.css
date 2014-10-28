@@ -167,13 +167,13 @@ img.mainpage{
 	text-align: left;
 	font-size: 15px;
 	font-weight: bold;
-	border:0;
-	padding:0;
+	border: 0;
+	padding: 10px;
 }
 
 input.tablet_info {
 	vertical-align: middle;
-	margin-top: 5px;
+	/* margin-top: 5px; */
 }
 
 .tablet_button {

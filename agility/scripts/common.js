@@ -165,7 +165,7 @@ function doLayout(dg,id,x,y,w,h) {
 	elem.css('display','inline-block');
 	elem.css('position','absolute');
 	elem.css('float','left');
-	elem.css('padding','5px');
+	// elem.css('padding','5px');
 	elem.css('-webkit-box-sizing','border-box');
 	elem.css('-moz-box-sizing','border-box');
 	elem.css('box-sizing','border-box');

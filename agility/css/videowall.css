@@ -1,29 +1,28 @@
 /* estilos asociados al tablet */
-.videowall_form {
-	background-color: transparent;
+#videowall_data {
 	vertical-align: middle;
-	text-align: left;
 	font-size: 15px;
 	line-height: 25px;
 	font-weight: bold;
-	color: white;
 	border: none;
 	border-width: 0px;
-	padding:0;
-}
-
-label.videowall_form {
 	z-index: 1;
 }
 
-input.videowall_form {
-	font-size: 10px;
-	outline:none; 
-	margin-top: 5px;
-	z-index: 1;
+.vw_label {
+	text-align: left;
+	background-color: transparent;
+	color: white;
 }
 
-.videowall_rectangulo {
+.vw_data {
+	text-align: center;
+	background-color: #c0c0c0;
+	padding-top: 0px;
+	color: white;
+}
+
+.vw_fondo {
     background-color: rgba(127,127,127,0.5);
     border: 3px solid black;
     border-radius: 25px;
