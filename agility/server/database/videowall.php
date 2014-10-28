@@ -73,7 +73,13 @@ function videowall_resultados($idsesion) {
 }
 
 function videowall_livestream($sesion) {
-
+	/* recupera los datos de un perro y le añade informacion de celo */
+	$celo = http_request("Celo","i",0);
+	$id= http_request("Perro","i",0);
+	$pmgr= new Dogs("VideoWall_LiveSTream");
+	$data=$pmgr->selectByID($id);
+	$data["Celo"]=$celo;
+	return $data;
 }
 
 $sesion = http_request("Session","i",0);

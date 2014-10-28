@@ -19,8 +19,10 @@ try {
 			'Jornada'	=>	http_request("Jornada","i",0),
 			'Manga'		=>	http_request("Manga","i",0),
 			'Tanda'		=>	http_request("Tanda","i",0),
+			'Perro'		=>	http_request("Perro","i",0),
+			'Dorsal'	=>	http_request("Dorsal","i",0),
+			'Celo'		=>	http_request("Celo","i",0),
 			// el valor por defecto "-1" indica que no se debe utilizar dicho campo
-			'Perro'		=>	http_request("Perro","i",-1),
 			'Faltas'	=>	http_request("Faltas","i",-1),
 			'Tocados'	=>	http_request("Tocados","i",-1),
 			'Rehuses'	=>	http_request("Rehuses","i",-1),

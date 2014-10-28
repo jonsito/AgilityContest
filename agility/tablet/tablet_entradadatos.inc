@@ -95,7 +95,9 @@
         		'Tocados'		:	$('#tdialog-Tocados').val(),
         		'Rehuses'		:	$('#tdialog-Rehuses').val(),
         		'Tiempo'		:	$('#tdialog-Tiempo').val(),
-        		'Eliminado'		:	$('#tdialog-eliminado').val()
+        		'Eliminado'		:	$('#tdialog-Eliminado').val(),
+        		'Celo'			:	$('#tdialog-Celo').val(),
+        		'Dorsal'		:	$('#tdialog-Dorsal').val(),
         		}
             ) ;
         }

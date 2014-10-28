@@ -46,7 +46,8 @@ function tablet_putEvent(type,data){
 			'Jornada':	$('#tdialog-Jornada').val(),
 			'Manga':	$('#tdialog-Manga').val(),
 			'Tanda':	$('#tdialog-ID').val(),
-			'Perro':	$('#tdialog-Perro').val()	
+			'Perro':	$('#tdialog-Perro').val(),
+			'Celo':		$('#tdialog-Celo').val()	
 	}
 	// send "update" event to every session listeners
 	$.ajax({
@@ -143,7 +144,7 @@ function tablet_np() {
 		'Tocados'		:	$('#tdialog-Tocados').val(),
 		'Rehuses'		:	$('#tdialog-Rehuses').val(),
 		'Tiempo'		:	$('#tdialog-Tiempo').val(),
-		'Eliminado'		:	$('#tdialog-eliminado').val()
+		'Eliminado'		:	$('#tdialog-Eliminado').val()
 		}
 		);
 }
@@ -165,7 +166,7 @@ function tablet_elim() {
 			{
 			'NoPresentado'	:	$('#tdialog-NoPresentado').val(),
 			'Tiempo'		:	$('#tdialog-Tiempo').val(),
-			'Eliminado'		:	$('#tdialog-eliminado').val()
+			'Eliminado'		:	$('#tdialog-Eliminado').val()
 			}
 		);
 }

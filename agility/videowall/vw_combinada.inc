@@ -17,7 +17,7 @@
 					style="height:450px">
 					<div id="vw_combinada-LiveStream" class="easyui-panel">
 						<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
-					    <video id="video-background" autoplay="autoplay" preload="auto" muted="muted"
+					    <video id="video-background" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
 					    	poster="/agility/images/wallpapers/foto_dama.jpg" height="450">
     						<source src="/agility/videos/sample_video.mp4" type='video/mp4; codecs="avc1,mp4a"' />
     						<!-- ogv se ve muy mal en firefox
@@ -39,7 +39,8 @@
 							<span class="vw_label" id="vwc_TiempoLbl">Tiempo:</span>
 							<span class="vw_data"  id="vwc_Tiempo">00.00</span>
 							<!-- Informacion del participante -->
-							<span class="vw_label" id="vwc_Logo">Logo</span>
+							<span style="display:none" id="vwc_Perro">0</span>
+							<img id="vwc_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="vw_logo"/>
 							<span class="vw_label" id="vwc_Dorsal">Dorsal</span>
 							<span class="vw_label" id="vwc_Nombre">Nombre</span>
 							<span class="vw_label" id="vwc_NombreGuia">Guia</span>
@@ -133,9 +134,9 @@ doLayout(layout,"#vwc_Rehuses",		735,	100,	25,		25	);
 doLayout(layout,"#vwc_TiempoLbl",	640,	125,	50,		25	);
 doLayout(layout,"#vwc_Tiempo",		710,	125,	50,		25	);
 
-doLayout(layout,"#vwc_Logo",		50,		350,	100,	80	);
-doLayout(layout,"#vwc_Dorsal",		150,	350,	60,		40	);
-doLayout(layout,"#vwc_Nombre",		210,	350,	290,	40	);
+doLayout(layout,"#vwc_Logo",		30,		350,	80,		80	);
+doLayout(layout,"#vwc_Dorsal",		150,	350,	100,	40	);
+doLayout(layout,"#vwc_Nombre",		250,	350,	250,	40	);
 doLayout(layout,"#vwc_NombreGuia",	150,	390,	300,	40	);
 doLayout(layout,"#vwc_NombreClub",	450,	390,	250,	40	);
 doLayout(layout,"#vwc_Categoria",	550,	350,	100,	40	);

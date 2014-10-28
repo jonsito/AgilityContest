@@ -15,6 +15,10 @@
 	color: white;
 }
 
+.vw_logo {
+	background-color: transparent;
+}
+
 .vw_data {
 	text-align: center;
 	background-color: #c0c0c0;
@@ -29,5 +33,5 @@
 }
 
 #video-background {
-	z-index: -100;
+	z-index: -1;
 } 
