@@ -51,7 +51,7 @@ function waitForEvents(sesID,evtID,timestamp,callback){
 			var timestamp= response['TimeStamp'];
 			$.each(response['rows'],function(key,value){
 				evtID=value['ID']; // store last evt id
-				callback(value['Data']);
+				callback(evtID,value['Data']);
 			});
 			setTimeout(function(){ waitForEvents(sesID,evtID,timestamp,callback);},500);
 		},
@@ -72,8 +72,8 @@ function vw_updateData(data) {
 	if (data["Tocados"]!=-1) $('#vwc_Tocados').html(data["Tocados"]);
 	if (data["Rehuses"]!=-1) $('#vwc_Rehuses').html(data["Rehuses"]);
 	if (data["Tiempo"]!=-1) $('#vwc_Tiempo').html(data["Tiempo"]);
-	if (data["Eliminado"]==1)	$('#vwc_Tiempo').html('<span class="blink">Elim.</span>');
-	if (data["NoPresentado"]==1) $('#vwc_Tiempo').html('<span class="blink">N.P.</span>');
+	if (data["Eliminado"]==1)	$('#vwc_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
+	if (data["NoPresentado"]==1) $('#vwc_Tiempo').html('<span class="blink" style="color:red">N.P.</span>');
 }
 
 function vw_showData(data) {
@@ -112,8 +112,8 @@ function vw_showData(data) {
 	$('#vwc_Tocados').html(data["Tocados"]);
 	$('#vwc_Rehuses').html(data["Rehuses"]);
 	$('#vwc_Tiempo').html(data["Tiempo"]);
-	if (data["Eliminado"]==1)	$('#vwc_Tiempo').html('<span class="blink">Elim.</span>');
-	if (data["NoPresentado"]==1) $('#vwc_Tiempo').html('<span class="blink">N.P.</span>');
+	if (data["Eliminado"]==1)	$('#vwc_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
+	if (data["NoPresentado"]==1) $('#vwc_Tiempo').html('<span class="blink" style="color:red">N.P.</span>');
 	
 }
 
@@ -121,6 +121,12 @@ function vw_showData(data) {
  * activa una secuencia de conteo hacia atras de 15 segundos
  */
 function vw_counter(){
+	var myCounter = new Countdown({  
+	    seconds:15,  // number of seconds to count down
+	    onUpdateStatus: function(sec){ $('#vwc_Tiempo').html(sec); }, // callback for each second
+	    onCounterEnd: function(){  $('#vwc_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
+	});
+	myCounter.start();
 }
 
 /**
@@ -134,8 +140,9 @@ function vw_crono(auto,oper) {
 function vw_evalResult() {
 }
 
-function vw_processLiveStream(evt) {
+function vw_processLiveStream(id,evt) {
 	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
+	event['ID']=id;
 	switch (event['Type']) {
 	case 'null':		// null event: no action taken
 		return; 
@@ -154,8 +161,10 @@ function vw_processLiveStream(evt) {
 		return;
 	case 'cronomanual':	// value: timestamp
 		vw_crono(0,0);
+		return;
 	case 'cronoauto':  	// value: timestamp
 		vw_crono(1,0);
+		return;
 	case 'aceptar':		// operador pulsa aceptar
 		vw_crono(0,1);  // nos aseguramos de que los cronos esten parados
 		vw_crono(1,1);

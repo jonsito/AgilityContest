@@ -172,11 +172,11 @@ function tablet_elim() {
 }
 
 function tablet_startstop() {
-	tablet_putEvent('chronomanual',{ 'Value' : getTime() } );
+	tablet_putEvent('cronomanual',{ 'Value' : new Date().getTime() } );
 }
 
 function tablet_salida() {
-	tablet_putEvent('salida',{ 'Value' : getTime() } );
+	tablet_putEvent('salida',{ 'Value' : new Date().getTime() } );
 }
 
 function tablet_cancel() {
