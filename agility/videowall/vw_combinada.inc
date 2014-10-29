@@ -27,27 +27,27 @@
     					</video> 
 						<div id="videowall_data">
 							<!-- Recuadros de decoracion -->
-							<span class="vw_fondo" id="vwc_Resultados">&nbsp;</span>
-							<span class="vw_fondo" id="vwc_Datos">&nbsp;</span>
+							<span class="vwc_fondo" id="vwc_Resultados">&nbsp;</span>
+							<span class="vwc_fondo" id="vwc_Datos">&nbsp;</span>
 							<!-- datos de resultados -->
-							<span class="vw_label" id="vwc_FaltasLbl">Faltas:</span>
-							<span class="vw_data"  id="vwc_Faltas">0</span>
-							<span class="vw_label" id="vwc_TocadosLbl">Tocados:</span>
-							<span class="vw_data"  id="vwc_Tocados">0</span>
-							<span class="vw_label" id="vwc_RehusesLbl">Rehuses:</span>
-							<span class="vw_data"  id="vwc_Rehuses">0</span>
-							<span class="vw_label" id="vwc_TiempoLbl">Tiempo:</span>
-							<span class="vw_data"  id="vwc_Tiempo">00.00</span>
+							<span class="vwc_label" id="vwc_FaltasLbl">Faltas:</span>
+							<span class="vwc_data"  id="vwc_Faltas">0</span>
+							<span class="vwc_label" id="vwc_TocadosLbl">Tocados:</span>
+							<span class="vwc_data"  id="vwc_Tocados">0</span>
+							<span class="vwc_label" id="vwc_RehusesLbl">Rehuses:</span>
+							<span class="vwc_data"  id="vwc_Rehuses">0</span>
+							<span class="vwc_label" id="vwc_TiempoLbl">Tiempo:</span>
+							<span class="vwc_data"  id="vwc_Tiempo">00.00</span>
 							<!-- Informacion del participante -->
 							<span style="display:none" id="vwc_Perro">0</span>
-							<img id="vwc_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="vw_logo"/>
-							<span class="vw_label" id="vwc_Dorsal">Dorsal</span>
-							<span class="vw_label" id="vwc_Nombre">Nombre</span>
-							<span class="vw_label" id="vwc_NombreGuia">Guia</span>
-							<span class="vw_label" id="vwc_NombreClub">Club</span>
-							<span class="vw_label" id="vwc_Categoria">Categoria</span>
-							<span class="vw_label" id="vwc_Grado">Grado</span>
-							<span class="vw_label" id="vwc_Celo">Celo</span>
+							<img id="vwc_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="vwc_logo"/>
+							<span class="vwc_label" id="vwc_Dorsal">Dorsal</span>
+							<span class="vwc_label" id="vwc_Nombre">Nombre</span>
+							<span class="vwc_label" id="vwc_NombreGuia">Guia</span>
+							<span class="vwc_label" id="vwc_NombreClub">Club</span>
+							<span class="vwc_label" id="vwc_Categoria">Categoria</span>
+							<span class="vwc_label" id="vwc_Grado">Grado</span>
+							<span class="vwc_label" id="vwc_Celo">Celo</span>
 						</div>
 					</div>
 				</div>
@@ -66,10 +66,19 @@
 		
 	</div> <!-- combinada-Layout -->
 	
-</div> <!-- combinada-Panel -->  
+</div> <!-- combinada-Panel -->
 
+<!-- declare a tag to attach a chrono object to -->
+<div id="cronomanual"></div>
 		
 <script type="text/javascript">
+$('#cronomanual').Chrono( {
+	seconds_sel: '#vwc_Tiempo',
+	auto: false,
+	interval: 100,
+	showMode: 2
+});
+
 $('#vw_combinada-Panel').panel({
 	noheader:true,
 	border:false,
@@ -77,7 +86,7 @@ $('#vw_combinada-Panel').panel({
 	collapsible:false,
 	collapsed:false,
 	onOpen: function() {
-		startEventMgr(workingData.sesion,vw_processLiveStream);
+		startEventMgr(workingData.sesion,vwc_processLiveStream);
 	}
 });
 

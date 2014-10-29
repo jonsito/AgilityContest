@@ -62,12 +62,12 @@ function waitForEvents(sesID,evtID,timestamp,callback){
 	});
 }
 
-function vw_showOSD(val) {
+function vwc_showOSD(val) {
 	if (val==0) $('#videowall_data').css('display','none')
 	else $('#videowall_data').css('display','initial');
 }
 
-function vw_updateData(data) {
+function vwc_updateData(data) {
 	if (data["Faltas"]!=-1) $('#vwc_Faltas').html(data["Faltas"]);
 	if (data["Tocados"]!=-1) $('#vwc_Tocados').html(data["Tocados"]);
 	if (data["Rehuses"]!=-1) $('#vwc_Rehuses').html(data["Rehuses"]);
@@ -76,7 +76,7 @@ function vw_updateData(data) {
 	if (data["NoPresentado"]==1) $('#vwc_Tiempo').html('<span class="blink" style="color:red">N.P.</span>');
 }
 
-function vw_showData(data) {
+function vwc_showData(data) {
 	var perro=$('#vwc_Perro').html();
 	var dorsal=data['Dorsal'];
 	var celo=data['Celo'];
@@ -120,7 +120,7 @@ function vw_showData(data) {
 /**
  * activa una secuencia de conteo hacia atras de 15 segundos
  */
-function vw_counter(){
+function vwc_counter(){
 	var myCounter = new Countdown({  
 	    seconds:15,  // number of seconds to count down
 	    onUpdateStatus: function(sec){ $('#vwc_Tiempo').html(sec); }, // callback for each second
@@ -130,48 +130,60 @@ function vw_counter(){
 }
 
 /**
- * Maneja los cronometros
- * @param auto 0:manual 1:automatico
- * @param oper -1:stop+reset 0:start/stop 1:stop
+ * Maneja el cronometro manual
+ * @param oper 'start','stop','pause','resume','reset'
  */
-function vw_crono(auto,oper) {
+function vwc_cronoManual(oper) {
+	$('#cronomanual').Chrono(oper);
 }
 
-function vw_evalResult() {
+function vwc_cronoAutomatico() {
+	return; // nothing to do here with automatic chrono events
 }
 
-function vw_processLiveStream(id,evt) {
+function vwc_evalResult() {
+}
+
+function vwc_processLiveStream(id,evt) {
 	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
 	event['ID']=id;
 	switch (event['Type']) {
 	case 'null':		// null event: no action taken
 		return; 
 	case 'open':		// operator starts tablet application
-		vw_showOSD(0); 	// activa visualizacion de OSD
+		vwc_showOSD(0); 	// activa visualizacion de OSD
 		return;
 	case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-		vw_updateData(event);
+		vwc_updateData(event);
 		return
 	case 'llamada':		// operador abre panel de entrada de datos
-		vw_showOSD(1); 	// activa visualizacion de OSD
-		vw_showData(event);
+		vwc_cronoManual('stop');
+		vwc_cronoManual('reset');
+		vwc_showOSD(1); 	// activa visualizacion de OSD
+		vwc_showData(event);
 		return
 	case 'salida':		// juez da orden de salida ( crono 15 segundos )
-		vw_counter();
+		vwc_cronoManual('stop');
+		vwc_cronoManual('reset');
+		vwc_counter();
 		return;
-	case 'cronomanual':	// value: timestamp
-		vw_crono(0,0);
+	case 'start':	// value: timestamp
+		vwc_cronoManual('start');
+		return;
+	case 'stop':	// value: timestamp
+		vwc_cronoManual('stop');
 		return;
 	case 'cronoauto':  	// value: timestamp
-		vw_crono(1,0);
+		vwc_cronoAutomatico();
 		return;
 	case 'aceptar':		// operador pulsa aceptar
-		vw_crono(0,1);  // nos aseguramos de que los cronos esten parados
-		vw_crono(1,1);
-		vw_evalResult(); // presenta clasificacion provisional del perro
+		vwc_cronoManual('stop');  // nos aseguramos de que los cronos esten parados
+		vwc_evalResult(); // presenta clasificacion provisional del perro
 		return;
 	case 'cancelar':	// operador pulsa cancelar
-		vw_showOSD(0);
+		vwc_cronoManual('stop');
+		vwc_cronoManual('reset');
+		vwc_showOSD(0);
 		return;
 	}
 }

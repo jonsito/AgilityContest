@@ -9,24 +9,24 @@
 	z-index: 1;
 }
 
-.vw_label {
+.vwc_label {
 	text-align: left;
 	background-color: transparent;
 	color: white;
 }
 
-.vw_logo {
+.vwc_logo {
 	background-color: transparent;
 }
 
-.vw_data {
+.vwc_data {
 	text-align: center;
 	background-color: #c0c0c0;
 	padding-top: 0px;
 	color: white;
 }
 
-.vw_fondo {
+.vwc_fondo {
     background-color: rgba(127,127,127,0.5);
     border: 3px solid black;
     border-radius: 25px;

@@ -15,12 +15,13 @@ class Eventos extends DBObject {
 		0  => 'null',		// null event: no action taken
 		1  => 'open',		// operator starts tablet application
 		2  => 'datos',		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-		8  => 'llamada',	// operador abre panel de entrada de datos
-		9  => 'salida',		// juez da orden de salida ( crono 15 segundos )
-		10 => 'cronomanual',// value: timestamp
-		11 => 'cronoauto',  // value: timestamp
-		12 => 'aceptar',	// operador pulsa aceptar
-		13 => 'cancelar'	// operador pulsa cancelar
+		3  => 'llamada',	// operador abre panel de entrada de datos
+		4  => 'salida',		// juez da orden de salida ( crono 15 segundos )
+		5  => 'start',		// Crono manual - value: timestamp
+		6  => 'stop',		// Crono manual - value: timestamp
+		7  => 'crono',  	// Crono electronico - value: timestamp
+		8  => 'aceptar',	// operador pulsa aceptar
+		9  => 'cancelar'	// operador pulsa cancelar
 	);
 	
 	protected $sessionID;

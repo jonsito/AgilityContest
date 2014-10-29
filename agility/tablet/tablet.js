@@ -172,7 +172,14 @@ function tablet_elim() {
 }
 
 function tablet_startstop() {
-	tablet_putEvent('cronomanual',{ 'Value' : new Date().getTime() } );
+	var time = new Date().getTime();
+	if ( $('#tdialog-StartStopBtn').val() === "Start" ) {
+		tablet_putEvent('start',{ 'Value' : time } );
+		$('#tdialog-StartStopBtn').val("Stop");
+	} else {
+		tablet_putEvent('stop',{ 'Value' : time } );
+		$('#tdialog-StartStopBtn').val("Start");
+	}
 }
 
 function tablet_salida() {

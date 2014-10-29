@@ -20,7 +20,7 @@
        		<input id="tdialog-RehuseDownBtn" type="button" value="Rehuse -" onclick="tablet_down('#tdialog-Rehuses');">
        		<input id="tdialog-TocadoUpBtn" type="button" value="Tocado" onclick="tablet_up('#tdialog-Tocados');" class="tablet_button tb_tocado">
        		<input id="tdialog-TocadoDownBtn" type="button" value="Tocado -" onclick="tablet_down('#tdialog-Tocados');">
-       		<input id="tdialog-StartStopBtn" type="button" value="Crono" onclick="tablet_startstop();" class="tablet_button tb_crono">
+       		<input id="tdialog-StartStopBtn" type="button" value="Start" onclick="tablet_startstop();" class="tablet_button tb_crono">
        		<input id="tdialog-SalidaBtn" type="button" value="Salida" onclick="tablet_salida();" class="tablet_button tb_salida">
        		<input id="tdialog-AcceptBtn" type="button" value="Aceptar" onclick="tablet_accept();" class="tablet_button tb_accept"> 
        		<input id="tdialog-CancelBtn" type="button" value="Cancelar" onclick="tablet_cancel();" class="tablet_button tb_cancel">
@@ -87,7 +87,8 @@
 
     $('#tdialog-form').form({
         // tell session manager to update competitor's info
-        onLoadSuccess: function() { 
+        onLoadSuccess: function() {
+            $('#tdialog-StartStopBtn').val("Start");
             tablet_putEvent('llamada', 
         		{ // setup initial data for event
         		'NoPresentado'	:	$('#tdialog-NoPresentado').val(),

@@ -11,6 +11,7 @@
 <script src="/agility/lib/jquery-easyui-1.4/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/dialogs.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
@@ -105,7 +106,7 @@ function vw_accept() {
 	workingData.sesion=s.ID;
 	workingData.nombreSesion=s.Nombre;
 	initWorkingData(s.ID);
-	var page="'/agility/frm_notavailable.php";
+	var page="'/agility/client/frm_notavailable.php";
 	var n=parseInt($('#selvw-Vista').val());
 	switch (n){
 	case 0: //Listado de Inscritos
@@ -134,7 +135,7 @@ function vw_accept() {
 	$('#vw_contenido').load(	
 			page,
 			function(response,status,xhr){
-				if (status=='error') $('#vw_contenido').load('/agility/frm_notavailable.php');
+				if (status=='error') $('#vw_contenido').load('/agility/client/frm_notavailable.php');
 			}
 		);
 		
