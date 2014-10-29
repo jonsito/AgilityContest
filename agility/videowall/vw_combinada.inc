@@ -134,14 +134,14 @@ var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 doLayout(layout,"#vwc_Resultados",	625,	35,		150,	130	);
 doLayout(layout,"#vwc_Datos",		25,		345,	750,	80	);
 
-doLayout(layout,"#vwc_FaltasLbl",	640,	50,		75,		25	);
+doLayout(layout,"#vwc_FaltasLbl",	635,	50,		75,		25	);
 doLayout(layout,"#vwc_Faltas",		735,	50,		25,		25	);
-doLayout(layout,"#vwc_TocadosLbl",	640,	75,		75,		25	);
+doLayout(layout,"#vwc_TocadosLbl",	635,	75,		75,		25	);
 doLayout(layout,"#vwc_Tocados",		735,	75,		25,		25	);
-doLayout(layout,"#vwc_RehusesLbl",	640,	100,	75,		25	);
+doLayout(layout,"#vwc_RehusesLbl",	635,	100,	75,		25	);
 doLayout(layout,"#vwc_Rehuses",		735,	100,	25,		25	);
-doLayout(layout,"#vwc_TiempoLbl",	640,	125,	50,		25	);
-doLayout(layout,"#vwc_Tiempo",		710,	125,	50,		25	);
+doLayout(layout,"#vwc_TiempoLbl",	635,	125,	50,		25	);
+doLayout(layout,"#vwc_Tiempo",		705,	125,	55,		25	);
 
 doLayout(layout,"#vwc_Logo",		30,		350,	80,		80	);
 doLayout(layout,"#vwc_Dorsal",		150,	350,	100,	40	);

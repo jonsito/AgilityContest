@@ -9,7 +9,6 @@
 	var running = false;
 	var pause = false;
 	var startTime = 0;
-	var dateObj=new Date();
 	
 	var config = {
 		// initial values
@@ -51,12 +50,11 @@
 		start: function() {
 			var check = config.onBeforeStart();
 			if(check != false){
-				startTime=0;
 				$(config.start).attr('disabled',true);
 				$(config.stop).attr('disabled',false);
 				$(config.resume).attr('disabled',true);
 				$(config.pause).attr('disabled',false);
-				starttime=dateObj.getTime();
+				startTime=new Date().getTime();
 				running = true;
 				run_chrono();
 			}
@@ -110,9 +108,9 @@
 	};
 
 	function run_chrono(){
-		if (startTime=0) startTime=dateObj.getTime();
+		if (startTime==0) startTime=new Date().getTime();
 		if(running){
-			var currentTime=dateObj.getTime();
+			var currentTime=new Date().getTime();
 			var elapsed		= currentTime-startTime;
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);

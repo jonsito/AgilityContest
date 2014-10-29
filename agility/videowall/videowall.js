@@ -141,7 +141,9 @@ function vwc_cronoAutomatico() {
 	return; // nothing to do here with automatic chrono events
 }
 
-function vwc_evalResult() {
+function vwc_evalResult(event) {
+	// TODO: preliminary. need to be revisited
+	vwc_showData(event);
 }
 
 function vwc_processLiveStream(id,evt) {
@@ -178,7 +180,7 @@ function vwc_processLiveStream(id,evt) {
 		return;
 	case 'aceptar':		// operador pulsa aceptar
 		vwc_cronoManual('stop');  // nos aseguramos de que los cronos esten parados
-		vwc_evalResult(); // presenta clasificacion provisional del perro
+		vwc_evalResult(event); // presenta clasificacion provisional del perro
 		return;
 	case 'cancelar':	// operador pulsa cancelar
 		vwc_cronoManual('stop');
