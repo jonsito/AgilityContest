@@ -56,6 +56,7 @@ $('#selprueba-Search').combogrid({
 	method: 'get',
 	mode: 'remote',
 	required: true,
+	editable: isMobileDevice()?false:true, //disable keyboard deploy on mobile devices
 	columns: [[
 	    {field:'ID',hidden:true},
 		{field:'Nombre',title:'Nombre',width:50,align:'right'},

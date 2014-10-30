@@ -54,6 +54,7 @@ $('#seljornada-Prueba').combogrid({
 	fitColumns: true,
 	singleSelect: true,
 	selectOnNavigation: true, // let use cursor keys to interactive select
+	editable: isMobileDevice()?false:true, //disable keyboard deploy on mobile devices
 	columns: [[
 	   	    {field:'ID',hidden:true},
 			{field:'Nombre',title:'Nombre',width:50,align:'right'},
@@ -80,6 +81,7 @@ $('#seljornada-Jornada').combogrid({
 	multiple: false,
 	fitColumns: true,
 	singleSelect: true,
+	editable: isMobileDevice()?false:true, //disable keyboard deploy on mobile devices
 	columns: [[
 	    { field:'ID',			hidden:true }, // ID de la jornada
 	    { field:'Prueba',		hidden:true }, // ID de la prueba

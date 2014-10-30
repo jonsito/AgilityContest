@@ -31,7 +31,7 @@
     	</div>
     	<div class="fitem">
        		<label for="Vista">Selecciona Vista:</label>
-       		<select id="selvw-Vista" name="Vista" style="width:200px">
+       		<select id="selvw-Vista" name="Vista" style="width:200px" readonly="readonly">
        		<option value="0">Listado de Inscritos</option>
        		<option value="1">Ordenes de Salida</option>
        		<option value="2">Llamada a pista</option>
@@ -80,6 +80,7 @@ $('#selvw-Session').combogrid({
 	multiple: false,
 	fitColumns: true,
 	singleSelect: true,
+	editable: false, // avoid keyboard deploy
 	columns: [[
 	    { field:'ID',			width:5, sortable:false, align:'center', title:'ID' }, // Session ID
 		{ field:'Nombre',		width:30, sortable:false,   align:'right',  title: 'Nombre de sesión' }

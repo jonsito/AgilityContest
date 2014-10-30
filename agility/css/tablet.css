@@ -1,0 +1,108 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*
+* estilos asociados al tablet
+*/
+
+/* try to use hardware acceleration if available */
+/* 
+* {
+    transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+}
+*/
+
+.tablet_info {
+	text-align: left;
+	font-size: 15px;
+	font-weight: bold;
+	border: 0;
+	padding: 10px;
+}
+
+input.tablet_info {
+	vertical-align: middle;
+	/* margin-top: 5px; */
+}
+
+.tablet_button {
+	border: 5px solid black;
+	text-align: center;
+	vertical-align: bottom;
+	font-size: 50px;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.tb_falta {
+	background: #a0a0a0 url(/agility/images/falta.png) no-repeat center;
+	background-size: contain;
+}
+
+.tb_rehuse {
+	background: #a0a0a0 url(/agility/images/rehuse.png) no-repeat center;
+	background-size: contain;
+}
+
+.tb_tocado {
+	background: #a0a0a0 url(/agility/images/tocado.png) no-repeat center;
+	background-size: contain;
+	font-size: 40px;
+}
+
+.tb_eliminado {
+	background: #ff0000 url(/agility/images/eliminado.png) no-repeat center;
+	background-size: contain;
+	font-size: 28px;
+}
+
+.tb_nopresentado {
+	background: #a0a000 url(/agility/images/nopresentado.png) no-repeat center;
+	background-size: contain;
+	font-size: 18px;
+}
+
+.tb_salida {
+	background: #8080f0 url(/agility/images/silbato.png) no-repeat center;
+	background-size: contain;
+	font-size: 25px;
+}
+
+.tb_crono {
+	background: #00a0a0 url(/agility/images/crono.png) no-repeat center;
+	background-size: contain;
+	font-size: 20px;
+}
+
+.tb_accept {
+	background: #00a000 url(/agility/images/dog_accept.png) no-repeat center;
+	background-size: contain;
+	font-size: 35px;
+}
+
+.tb_cancel {
+	background: #f0a0a0 url(/agility/images/dog_cancel.png) no-repeat center;
+	background-size: contain;
+	font-size: 18px;
+}
+
+.tablet_rectangulo {
+    background-color: #0000ff;
+    border: 3px solid black;
+    opacity: 0.3;
+    filter: alpha(opacity=30); /* For IE8 and earlier */
+}
+
+.tablet_data {
+	text-align: center;
+	font-size: 35px;
+	font-weight: bold;
+	font-style: italic;
+}
+
+input.tablet_numbers {
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+}
