@@ -236,7 +236,7 @@ function tablet_acceptSelectJornada() {
 	workingData.nombreJornada=j.Nombre;
 	// notify session open() to event manager
 	tablet_putEvent(
-		'open',
+		'init',
 		{ 'Session': s.ID, 'Source': 'tablet_'+s.ID, 'Prueba': p.ID, 'Jornada': j.ID, 'Manga':	0, 'Tanda':	0, 'Perro':	0 }
 	);
 

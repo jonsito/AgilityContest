@@ -13,15 +13,16 @@ class Eventos extends DBObject {
 	
 	static $event_list = array (
 		0  => 'null',		// null event: no action taken
-		1  => 'open',		// operator starts tablet application
-		2  => 'datos',		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-		3  => 'llamada',	// operador abre panel de entrada de datos
-		4  => 'salida',		// juez da orden de salida ( crono 15 segundos )
-		5  => 'start',		// Crono manual - value: timestamp
-		6  => 'stop',		// Crono manual - value: timestamp
-		7  => 'crono',  	// Crono electronico - value: timestamp
-		8  => 'aceptar',	// operador pulsa aceptar
-		9  => 'cancelar'	// operador pulsa cancelar
+		1  => 'init',		// operator starts tablet application
+		2  => 'open',		// operator selects tanda on tablet
+		3  => 'datos',		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+		4  => 'llamada',	// operador abre panel de entrada de datos
+		5  => 'salida',		// juez da orden de salida ( crono 15 segundos )
+		6  => 'start',		// Crono manual - value: timestamp
+		7  => 'stop',		// Crono manual - value: timestamp
+		8  => 'crono',  	// Crono electronico - value: timestamp
+		9  => 'aceptar',	// operador pulsa aceptar
+		10  => 'cancelar'	// operador pulsa cancelar
 	);
 	
 	protected $sessionID;

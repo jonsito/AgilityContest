@@ -66,11 +66,12 @@ $('#tablet-datagrid').datagrid({
     detailFormatter:function(idx,row){
         return '<div style="padding:2px"><table id="tablet-datagrid-' + parseInt(row.ID) + '"></table></div>';
     },
-    onExpandRow: function(idx,row) { showPerrosByTanda(idx,row); }
+    onClickRow: function(idx,row) { tablet_updateSession(row);},
+    onExpandRow: function(idx,row) { tablet_showPerrosByTanda(idx,row); }
 });
 
 // mostrar los perros de una tanda
-function showPerrosByTanda(index,row){ 
+function tablet_showPerrosByTanda(index,row){ 
 	// - sub tabla orden de salida de una tanda
     var mySelf='#tablet-datagrid-'+row.ID;
 	$(mySelf).datagrid({

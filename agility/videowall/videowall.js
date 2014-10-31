@@ -67,6 +67,14 @@ function vwc_showOSD(val) {
 	else $('#videowall_data').css('display','initial');
 }
 
+function vwc_updateResults() {
+	// TODO:write
+}
+
+function vwc_updatePendingQueue(data) {
+	// TODO: write
+}
+
 function vwc_updateData(data) {
 	if (data["Faltas"]!=-1) $('#vwc_Faltas').html(data["Faltas"]);
 	if (data["Tocados"]!=-1) $('#vwc_Tocados').html(data["Tocados"]);
@@ -142,8 +150,8 @@ function vwc_cronoAutomatico() {
 }
 
 function vwc_evalResult(event) {
-	// TODO: preliminary. need to be revisited
 	vwc_showData(event);
+	vwc_updateResults();
 }
 
 function vwc_processLiveStream(id,evt) {
@@ -152,8 +160,12 @@ function vwc_processLiveStream(id,evt) {
 	switch (event['Type']) {
 	case 'null':		// null event: no action taken
 		return; 
-	case 'open':		// operator starts tablet application
+	case 'init':		// operator starts tablet application
 		vwc_showOSD(0); 	// activa visualizacion de OSD
+		return;
+	case 'open':		// operator select tanda
+		vwc_updateResults();
+		vwc_updatePendingQueue();
 		return;
 	case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwc_updateData(event);

@@ -44,6 +44,29 @@ function tablet_putEvent(type,data){
 	});
 }
 
+function tablet_updateSession(row) {
+	// update sesion info in database
+	var data = {
+			Operation: 'update',
+			ID: workingData.sesion,
+			Session: workingData.sesion,
+			Prueba: row.Prueba,
+			Jornada: row.Jornada,
+			Manga: row.Manga,
+			Tanda: row.ID
+	}
+	$.ajax({
+		type:	'GET',
+		url:	"/agility/server/database/sessionFunctions.php",
+		dataType:'json',
+		data:	data,
+		sucess: function() {
+			// send event
+			tablet_putEvent('open',data)
+		}
+	});
+}
+
 function tablet_updateResultados(pendiente) {
 	$('#tdialog-Pendiente').val(pendiente);
     // call 'submit' method of form plugin to submit the form
@@ -183,20 +206,22 @@ function tablet_cancel() {
 			type:'GET',
 			url:"/agility/server/database/resultadosFunctions.php",
 			dataType:'json',
-			data: row
+			data: row,
+			success: function () {
+				// and fire up cancel event
+				tablet_putEvent(
+						'cancelar',
+						{ 
+							'NoPresentado'	:	row.NoPresentado,
+							'Faltas'		:	row.Faltas,
+							'Tocados'		:	row.Tocados,
+							'Rehuses'		:	row.Rehuses,
+							'Tiempo'		:	row.Tiempo,
+							'Eliminado'		:	row.Eliminado
+						} 
+					);
+			}
 		});
-		// and fire up cancel event
-		tablet_putEvent(
-				'cancelar',
-				{ 
-					'NoPresentado'	:	row.NoPresentado,
-					'Faltas'		:	row.Faltas,
-					'Tocados'		:	row.Tocados,
-					'Rehuses'		:	row.Rehuses,
-					'Tiempo'		:	row.Tiempo,
-					'Eliminado'		:	row.Eliminado
-				} 
-			);
 	}
 	// and close panel
 	$('#tdialog-panel').panel('close');
