@@ -67,12 +67,22 @@ function vwc_showOSD(val) {
 	else $('#videowall_data').css('display','initial');
 }
 
-function vwc_updateResults() {
+function vwc_updateResults(event) {
 	// TODO:write
 }
 
-function vwc_updatePendingQueue(data) {
-	// TODO: write
+function vwc_updatePendingQueue(event) {
+	$.ajax( {
+		type: "GET",
+		url: "/agility/server/database/videowall.php",
+		data: {
+			Operation: 'llamada',
+			Session: workingData.sesion
+		},
+		success: function(data,status,jqxhr) {
+			$('#vwc_listaPendientes').html(data);
+		}
+	});
 }
 
 function vwc_updateData(data) {
@@ -164,8 +174,8 @@ function vwc_processLiveStream(id,evt) {
 		vwc_showOSD(0); 	// activa visualizacion de OSD
 		return;
 	case 'open':		// operator select tanda
-		vwc_updateResults();
-		vwc_updatePendingQueue();
+		vwc_updateResults(event);
+		vwc_updatePendingQueue(event);
 		return;
 	case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwc_updateData(event);

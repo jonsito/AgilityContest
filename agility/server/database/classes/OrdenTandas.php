@@ -287,18 +287,23 @@ class OrdenTandas extends DBObject {
 	 * @param {int} $pendientes 0: coge la lista completa; else coge los n primeros marcados como pendientes
 	 * @return {array} resultado en formato json easyui array["total","rows"]
 	 */
-	function getData($prueba,$jornada,$pendientes) {
+	function getData($prueba,$jornada,$pendientes,$tandaID) {
 		$this->myLogger->enter();
 		$count=$pendientes;
 		$rows=array();
 		$oldmanga=0;
 		$ordenmanga=null;
 		$perrosmanga=null;
+		$inloop=0;
 		// fase 1 buscamos las tandas de cada jornada
 		$lista_tandas=$this->getTandas($prueba,$jornada);
 		foreach ($lista_tandas['rows'] as $tanda) {
-			$manga=$tanda['Manga'];
-			
+			if ($tandaID!=0) {
+				// parse data starting on provided TandaID
+				if ($tanda['ID']==$tandaID) $inloop=1;
+				if ($inloop==0) continue;
+				$manga=$tanda['Manga'];
+			}
 			// si cambiamos de manga, actualizamos variables desde la bbdd
 			if ($oldmanga!=$manga) {
 				$oldmanga=$manga;

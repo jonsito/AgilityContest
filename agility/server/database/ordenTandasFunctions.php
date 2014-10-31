@@ -26,7 +26,7 @@ try {
 		throw new Exception("Call to ordenTandasFunctions with Invalid Prueba:$p or Jornada:$j ID");
 	switch ($operation) {
 		case "getTandas":$result = $ot->getTandas($p,$j); break;
-		case "getData":	$result = $ot->getData($p,$j,$a); break;
+		case "getData":	$result = $ot->getData($p,$j,$a,$td); break;
 		case "getDataByTanda":	$result = $ot->getDataByTanda($p,$j,$td); break;
 		case "dnd":	$result = $ot->dragAndDrop($p,$j,$f,$t,$w); break;
 	}

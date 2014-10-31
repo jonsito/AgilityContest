@@ -9,7 +9,7 @@ function videowall_llamada($idsesion) {
 	$sesmgr=new Sesiones("VideoWall_Llamada");
 	$otmgr=new OrdenTandas("Llamada a pista");
 	$mySession=$sesmgr->__getObject("Sesiones",$idsesion);
-	$result = $otmgr->getData($mySession->Prueba,$mySession->Jornada,10)['rows']; // obtiene los 10 primeros perros pendientes
+	$result = $otmgr->getData($mySession->Prueba,$mySession->Jornada,10,$mySession->Tanda)['rows']; // obtiene los 10 primeros perros pendientes
 	$numero=0;
 	foreach ($result as $participante) {
 		$numero++;
@@ -85,6 +85,6 @@ function videowall_livestream($sesion) {
 $sesion = http_request("Session","i",0);
 $operacion = http_request("Operation","s",null);
 
-if($operacion==="LiveStream") return videowall_livestream($sesion);
-if($operacion==="Llamada") return videowall_llamada($sesion);
-if($operacion==="Resultados") return videowall_resultados($sesion);
+if($operacion==="livestream") return videowall_livestream($sesion);
+if($operacion==="llamada") return videowall_llamada($sesion);
+if($operacion==="resultados") return videowall_resultados($sesion);

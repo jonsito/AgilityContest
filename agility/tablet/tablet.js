@@ -49,7 +49,6 @@ function tablet_updateSession(row) {
 	var data = {
 			Operation: 'update',
 			ID: workingData.sesion,
-			Session: workingData.sesion,
 			Prueba: row.Prueba,
 			Jornada: row.Jornada,
 			Manga: row.Manga,
@@ -58,10 +57,12 @@ function tablet_updateSession(row) {
 	$.ajax({
 		type:	'GET',
 		url:	"/agility/server/database/sessionFunctions.php",
-		dataType:'json',
+		// dataType:'json',
 		data:	data,
-		sucess: function() {
+		success: function() {
 			// send event
+			data.Operation=	'putEvent';
+			data.Session=	data.ID;
 			tablet_putEvent('open',data)
 		}
 	});

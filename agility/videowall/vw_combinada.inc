@@ -52,7 +52,9 @@
 					</div>
 				</div>
 				<div data-options="region:'center',split:true,border:false,title:'Llamada a pista'">
-					<div id="vw_combinada-Pendientes" class="easyui-panel"></div>
+					<div id="vw_combinada-Pendientes" class="easyui-panel">
+						<span id="vwc_listaPendientes"></span>
+					</div>
 				</div>
 				
 			</div>
@@ -103,14 +105,9 @@ $('#vw_combinada-Pendientes').panel({
 	border:false,
 	closable:false,
 	collapsible:false,
-	collapsed:false,
-	href:"/agility/server/database/videowall.php",
-	queryParams: {
-		Operation: 'Llamada',
-		Session: workingData.sesion
-	},
-	loadingMessage:"Obteniendo lista de pre-ring..."
+	collapsed:false
 });
+
 $('#vw_combinada-Resultados').panel({
 	noheader:true,
 	border:false,
@@ -119,11 +116,12 @@ $('#vw_combinada-Resultados').panel({
 	collapsed:false,
 	href:"/agility/server/database/videowall.php",
 	queryParams: {
-		Operation: 'Resultados',
+		Operation: 'resultados',
 		Session: workingData.sesion
 	},
 	loadingMessage:"Obteniendo resultados parciales..."
 });
+
 $('#vw_combinada-Layout1').layout();
 $('#vw_combinada-Layout2').layout();
 
