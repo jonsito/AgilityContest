@@ -19,7 +19,7 @@ function videowall_llamada($idsesion) {
 		$bg=(($numero%2)!=0)?"#ffffff":"#d0d0d0";
 		echo '
 	<div id="participante_'.$numero.'" style="background:'.$bg.'">
-		<table class="llamada">
+		<table class="vwc_llamada">
 		<tr>
 			<th rowspan="2">'.$numero.'</th>
 			<td rowspan="2"><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'" width="50" height="50"/></td>
@@ -31,8 +31,7 @@ function videowall_llamada($idsesion) {
 		</tr>
 		<tr>
 			<td colspan="3" style="text-align:left">Gu&iacute;a: '.$participante['NombreGuia'].'</td>
-			<td style="text-align:center">-</td>
-			<td colspan="2" style="text-align:left">Club: '.$participante['NombreClub'].'</td>
+			<td colspan="2" style="text-align:right">Club: '.$participante['NombreClub'].'</td>
 		</tr>
 		</table>
 	</div>
@@ -46,30 +45,60 @@ function videowall_resultados($idsesion) {
 	$resmgr=new Resultados("videowall_resultados",$mySession->Prueba, 2 /* TODO: FIX: $mySession->Manga*/ );
 	$result = $resmgr->getResultados(0 /* TODO: EVALUATE MODE */);
 	$numero=0;
+	// cabecera de la tabla
+	echo '
+			<div id="vwc_tablaResultados">
+			<table class="vwc_tresultados">
+			<theader>
+				<th>Puesto</th>
+				<th>&nbsp</th>
+				<th colspan="5">Participante</th>
+				<th>Flt.</th>
+				<th>Toc.</th>
+				<th>Reh.</th>
+				<th>Tiempo</th>
+				<th>Vel.</th>
+				<th>Penal.</th>
+				<th colspan="2">Calificacion</th>
+			</theader>
+			<tbody>
+			';
 	foreach ($result['rows'] as $resultado) {
 		error_log(json_encode($resultado));
 		$numero++;
+		$bg=(($numero%2)!=0)?"#ffffff":"#d0d0d0";
 		$logo=$resmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$resultado['Perro']})")['Logo'];
 		if ($logo==="") $logo='rsce.png';
 		echo '
-			<div id="Resultado_'.$numero.'>
-				<table class="llamada">
-					<tr>
-						<th rowspan="2">'.$resultado['Puesto'].'</th>
-						<td rowspan="2"><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'" width="50" height="50"/></td>
-						<td>Dorsal: '.$resultado['Dorsal'].'</td>
-						<td>Lic.  : '.$resultado['Licencia'].'</td>
-						<td>Cat  : '.$resultado['Categoria'].'</td>
-						<td>Grado  : '.$resultado['Grado'].'</td>
-						<td>Nombre.  : '.$resultado['Nombre'].'</td>
-						<td>NombreGuia.  : '.$resultado['NombreGuia'].'</td>
-						<td>NombreClub.  : '.$resultado['NombreClub'].'</td>
-					</tr>
-				</table>
-				<hr />
-			</div>
+			<tr id="Resultado_'.$numero.'" style="background:'.$bg.'">
+				<td class="vwc_puesto">'.$resultado['Puesto'].'</td>
+				<td><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'" width="50" height="50"/></td>
+				<td colspan="3">
+					<table>
+						<tr>
+							<td>Dorsal: '.$resultado['Dorsal'].'</td>
+							<td>Lic.: '.$resultado['Licencia'].'</td>
+							<td>Cat: '.$resultado['Categoria'].'</td>
+							<td>Grado: '.$resultado['Grado'].'</td>
+						</tr>
+						<tr>
+							<td>Guia: '.$resultado['NombreGuia'].'</td>
+							<td>Club: '.$resultado['NombreClub'].'</td>
+						</tr>
+					</table>
+				</td>
+				<td colspan="2" class="vwc_nombre">'.$resultado['Nombre'].'</td>
+				<td class="vwc_ftr">'.$resultado['Faltas'].'</td>
+				<td class="vwc_ftr">'.$resultado['Tocados'].'</td>
+				<td class="vwc_ftr">'.$resultado['Rehuses'].'</td>
+				<td class="vwc_rlarge">'.$resultado['Tiempo'].'</td>
+				<td class="vwc_vel">'.$resultado['Velocidad'].'</td>
+				<td class="vwc_rlarge">'.$resultado['Penalizacion'].'</td>
+				<td colspan="2" class="vwc_calif">'.$resultado['Calificacion'].'</td>
+			<tr>
 		';
 	}
+	echo ' </tbody></table></div>';
 }
 
 function videowall_livestream($sesion) {

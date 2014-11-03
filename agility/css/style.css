@@ -119,6 +119,18 @@ img.mainpage{
 	font-size: 11px;
 }
 
+/*** panel frm_clasificaciones2.php *****/
+
+.resultados_theader {
+	font-style: italic;
+	font-weight: bold;
+}
+
+.resultados_border {
+	border-collapse: separate;
+	border-left: 1px solid #000;
+}
+
 /***** formulario informacion datos de la prueba ***/
 .c_inscripciones-datosprueba {
 	font-size: 12px;
@@ -162,30 +174,6 @@ img.mainpage{
 	padding-left:20px;
 }
 
-/******* tabla de clasificaciones *****/
-.resultados_theader {
-	font-style: italic;
-	font-weight: bold;
-}
-
-.resultados_border {
-	border-collapse: separate;
-	border-left: 1px solid #000;
-}
-
-/**** panel de resultados */
-.llamada {
-	width:100%;
-	table-layout: fixed;
-	font-size: 15px;
-	font-weight: bold;
-}
-.llamada th {
-    width: 50px;
-	text-align: center;
-	font-size: 30px;
-	font-weight: bold;
-}
 
 /****** Efectos especiales ****/
 /* @group Blink */
