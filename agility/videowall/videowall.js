@@ -68,7 +68,18 @@ function vwc_showOSD(val) {
 }
 
 function vwc_updateResults(event) {
-	// TODO:write
+	$.ajax( {
+		type: "GET",
+		url: "/agility/server/database/videowall.php",
+		data: {
+			Operation: 'resultados',
+			Session: workingData.sesion
+		},
+		success: function(data,status,jqxhr) {
+			alert("hola");
+			$('#vwc_resultadosParciales').html(data);
+		}
+	});
 }
 
 function vwc_updatePendingQueue(event) {

@@ -63,7 +63,9 @@
 		
 		<!-- marco derecho: resultados parciales -->
 		<div data-options="region:'center',title:'Resultados parciales'">
-			<div id="vw_combinada-Resultados" class="easyui-panel"></div>
+			<div id="vw_combinada-Resultados" class="easyui-panel">
+				<span id="vwc_resultadosParciales"></span>
+			</div>
 		</div> <!-- resultados parciales -->
 		
 	</div> <!-- combinada-Layout -->
@@ -113,13 +115,7 @@ $('#vw_combinada-Resultados').panel({
 	border:false,
 	closable:false,
 	collapsible:false,
-	collapsed:false,
-	href:"/agility/server/database/videowall.php",
-	queryParams: {
-		Operation: 'resultados',
-		Session: workingData.sesion
-	},
-	loadingMessage:"Obteniendo resultados parciales..."
+	collapsed:false
 });
 
 $('#vw_combinada-Layout1').layout();

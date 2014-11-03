@@ -42,7 +42,7 @@ function videowall_llamada($idsesion) {
 function videowall_resultados($idsesion) {
 	$sesmgr=new Sesiones("VideoWall_Resultados");
 	$mySession=$sesmgr->__getObject("Sesiones",$idsesion);
-	$resmgr=new Resultados("videowall_resultados",$mySession->Prueba, 2 /* TODO: FIX: $mySession->Manga*/ );
+	$resmgr=new Resultados("videowall_resultados",$mySession->Prueba, $mySession->Manga );
 	$result = $resmgr->getResultados(0 /* TODO: EVALUATE MODE */);
 	$numero=0;
 	// cabecera de la tabla
@@ -74,16 +74,16 @@ function videowall_resultados($idsesion) {
 				<td class="vwc_puesto">'.$resultado['Puesto'].'</td>
 				<td><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'" width="50" height="50"/></td>
 				<td colspan="3">
-					<table>
+					<table class="vwc_trparticipantes">
 						<tr>
-							<td>Dorsal: '.$resultado['Dorsal'].'</td>
-							<td>Lic.: '.$resultado['Licencia'].'</td>
-							<td>Cat: '.$resultado['Categoria'].'</td>
-							<td>Grado: '.$resultado['Grado'].'</td>
+							<td>Dorsal:</td><td>'.$resultado['Dorsal'].'</td>
+							<td>Lic.:</td><td>'.$resultado['Licencia'].'</td>
+							<td>Grado:</td><td>'.$resultado['Grado'].'</td>
+							<td>Cat:</td><td>'.$resultado['Categoria'].'</td>
 						</tr>
 						<tr>
-							<td>Guia: '.$resultado['NombreGuia'].'</td>
-							<td>Club: '.$resultado['NombreClub'].'</td>
+							<td>Guia:</td><td colspan="4">'.$resultado['NombreGuia'].'</td>
+							<td>Club:</td><td colspan="2">'.$resultado['NombreClub'].'</td>
 						</tr>
 					</table>
 				</td>
@@ -91,14 +91,14 @@ function videowall_resultados($idsesion) {
 				<td class="vwc_ftr">'.$resultado['Faltas'].'</td>
 				<td class="vwc_ftr">'.$resultado['Tocados'].'</td>
 				<td class="vwc_ftr">'.$resultado['Rehuses'].'</td>
-				<td class="vwc_rlarge">'.$resultado['Tiempo'].'</td>
-				<td class="vwc_vel">'.$resultado['Velocidad'].'</td>
-				<td class="vwc_rlarge">'.$resultado['Penalizacion'].'</td>
+				<td class="vwc_rlarge">'.number_format($resultado['Tiempo'],2).'</td>
+				<td class="vwc_vel">'.number_format($resultado['Velocidad'],1).'</td>
+				<td class="vwc_rlarge">'.number_format($resultado['Penalizacion'],2).'</td>
 				<td colspan="2" class="vwc_calif">'.$resultado['Calificacion'].'</td>
-			<tr>
+			</tr>
 		';
 	}
-	echo ' </tbody></table></div>';
+	echo '</tbody></table></div>';
 }
 
 function videowall_livestream($sesion) {

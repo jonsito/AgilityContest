@@ -92,7 +92,7 @@ $('#competicion-listamangas').datagrid({
         workingData.manga=row.ID;
         workingData.nombreManga=row.Descripcion;
         // cannot use loadcontents, because need to execute commands, _after_ html document load success
-        $('#competicion-datosmanga').load("dialogs/infomanga.inc", function() {
+        $('#competicion-datosmanga').load("/agility/client/dialogs/infomanga.inc", function() {
             // titulo del panel lateral con la informacion de la manga
         	$('#competicion_infolayout').layout('panel','center').panel('setTitle','Datos de la manga -- '+workingData.nombreManga);
         	// datos del panel lateral con informacion de la manga
