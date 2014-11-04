@@ -36,6 +36,16 @@
 	z-index: -1;
 }
 
+/* barras indicadoras de nueva tanda en llamada a pista */
+.vwc_tanda {
+	background-color: #8080ff;
+	color: white;
+	text-align: right;
+	font-size: 20px;
+	font-weight: bold;
+	font-style: italic;
+}
+
 /* panel de llamada a pista */
 .vwc_llamada {
 	width:100%;

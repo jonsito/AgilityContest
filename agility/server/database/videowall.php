@@ -66,12 +66,17 @@ class VideoWall {
 	);
 
 	function videowall_llamada($idsesion) {
+		$lastTanda="";
 		$sesmgr=new Sesiones("VideoWall_Llamada");
 		$otmgr=new OrdenTandas("Llamada a pista");
 		$mySession=$sesmgr->__getObject("Sesiones",$idsesion);
 		$result = $otmgr->getData($mySession->Prueba,$mySession->Jornada,10,$mySession->Tanda)['rows']; // obtiene los 10 primeros perros pendientes
 		$numero=0;
 		foreach ($result as $participante) {
+			if ($lastTanda!==$participante['Tanda']){
+				$lastTanda=$participante['Tanda'];
+				echo '<div id="tanda_"'.$lastTanda.' class="vwc_tanda"><hr /> ---- '.$lastTanda.' ---- <hr /></div>';
+			}
 			$numero++;
 			$logo=$otmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
 			if ($logo==="") $logo='rsce.png';
