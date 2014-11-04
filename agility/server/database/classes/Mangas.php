@@ -47,6 +47,12 @@ class Mangas extends DBObject {
 		0	/* 16,'Manga Especial', '-' */
 	);
 	
+	public static $manga_recorridos= array(
+		0 => array('Large / Medium / Small','L/M/S'), // recorridos separados por categoria
+		1 => array('Large / Medium + Small','L/M+S'), // dos recorridos: large y M+S
+		2 => array('Large + Medium + Small','L+M+S')  // recorrido unico conjunto
+	);
+	
 	public static $manga_modes= array (
 		0 => array('Large','L'),
 		1 => array('Medium','M'),

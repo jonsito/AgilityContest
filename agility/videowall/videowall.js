@@ -70,13 +70,13 @@ function vwc_showOSD(val) {
 function vwc_updateResults(event) {
 	$.ajax( {
 		type: "GET",
+		dataType: 'html',
 		url: "/agility/server/database/videowall.php",
 		data: {
 			Operation: 'resultados',
 			Session: workingData.sesion
 		},
 		success: function(data,status,jqxhr) {
-			alert("hola");
 			$('#vwc_resultadosParciales').html(data);
 		}
 	});
@@ -85,6 +85,7 @@ function vwc_updateResults(event) {
 function vwc_updatePendingQueue(event) {
 	$.ajax( {
 		type: "GET",
+		dataType: 'html',
 		url: "/agility/server/database/videowall.php",
 		data: {
 			Operation: 'llamada',

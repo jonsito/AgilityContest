@@ -15,7 +15,8 @@
 			
 				<div data-options="region:'north',split:true,border:false,title:'LiveStream',collapsible:false,collapsed:false" 
 					style="height:450px">
-					<div id="vw_combinada-LiveStream" class="easyui-panel">
+					<div id="vw_combinada-LiveStream" class="easyui-panel"
+						data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
 						<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
 					    <video id="video-background" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
 					    	poster="/agility/images/wallpapers/foto_dama.jpg" height="450">
@@ -52,7 +53,8 @@
 					</div>
 				</div>
 				<div data-options="region:'center',split:true,border:false,title:'Llamada a pista'">
-					<div id="vw_combinada-Pendientes" class="easyui-panel">
+					<div id="vw_combinada-Pendientes" class="easyui-panel"
+						data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
 						<span id="vwc_listaPendientes"></span>
 					</div>
 				</div>
@@ -63,7 +65,8 @@
 		
 		<!-- marco derecho: resultados parciales -->
 		<div data-options="region:'center',title:'Resultados parciales'">
-			<div id="vw_combinada-Resultados" class="easyui-panel">
+			<div id="vw_combinada-Resultados" class="easyui-panel"
+				data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
 				<span id="vwc_resultadosParciales"></span>
 			</div>
 		</div> <!-- resultados parciales -->
@@ -76,6 +79,8 @@
 <div id="cronomanual"></div>
 		
 <script type="text/javascript">
+	
+// create a Chronometer instance
 $('#cronomanual').Chrono( {
 	seconds_sel: '#vwc_Tiempo',
 	auto: false,
@@ -94,33 +99,8 @@ $('#vw_combinada-Panel').panel({
 	}
 });
 
-$('#vw_combinada-LiveStream').panel({
-	noheader:true,
-	border:false,
-	closable:false,
-	collapsible:false,
-	collapsed:false
-});
-
-$('#vw_combinada-Pendientes').panel({
-	noheader:true,
-	border:false,
-	closable:false,
-	collapsible:false,
-	collapsed:false
-});
-
-$('#vw_combinada-Resultados').panel({
-	noheader:true,
-	border:false,
-	closable:false,
-	collapsible:false,
-	collapsed:false
-});
-
 $('#vw_combinada-Layout1').layout();
 $('#vw_combinada-Layout2').layout();
-
 
 // layout
 var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet

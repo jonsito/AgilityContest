@@ -75,8 +75,7 @@ $('#resultadosmanga-datagrid').datagrid({
     queryParams: {
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
-        //Manga: workingData.manga,
-        Manga: 2,
+        Manga: workingData.manga,
         Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
         Operation: 'getResultados'
     },
@@ -108,7 +107,7 @@ $('#resultadosmanga-datagrid').datagrid({
       	{ field:'CShort', hidden:true}
     ]],
     rowStyler:myRowStyler,
-    onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
+    onBeforeLoad: function(param) { return (param.Manga<=0)?false:true; }, // do not load if no manga selected
     onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes)
     	$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
     }
