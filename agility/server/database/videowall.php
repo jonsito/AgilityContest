@@ -11,6 +11,8 @@ class VideoWall {
 	function __construct() {
 		$this->myLogger=new Logger("VideoWall.php");
 	}
+
+	public static $modestr  =array("Large","Medium","Small","Medium+Small","Conjunta L/M/S");
 	
 	// matrid de modos a evaluar en funcion del tipo de recorrido y de la tanda
 	// recorridos:
@@ -22,42 +24,42 @@ class VideoWall {
 			// en pre-agility no hay categorias
 			1	=> array(-1, -1,  4, 'Pre-Agility 1'), // en pre agility-compiten todos juntos
 			2	=> array(-1, -1,  4, 'Pre-Agility 2'),
-			3	=> array( 0,  0,  4, 'Agility-1 GI'/* Large */),
-			4	=> array( 1,  3,  4, 'Agility-1 GI'/* Medium */),
-			5	=> array( 2,  3,  4, 'Agility-1 GI'/* Small */),
-			6	=> array( 0,  0,  4, 'Agility-2 GI'/* Large */),
-			7	=> array( 1,  3,  4, 'Agility-2 GI'/* Medium */),
-			8	=> array( 2,  3,  4, 'Agility-2 GI'/* Small */),
-			9	=> array( 0,  0,  4, 'Agility GII'/* Large */),
-			10	=> array( 1,  3,  4, 'Agility GII'/* Medium */),
-			11	=> array( 2,  3,  4, 'Agility GII'/* Small */),
-			12	=> array( 0,  0,  4, 'Agility GIII'/* Large */),
-			13	=> array( 1,  3,  4, 'Agility GIII'/* Medium */),
-			14	=> array( 2,  3,  4, 'Agility GIII'/* Small */),
-			15	=> array( 0,  0,  4, 'Agility Open'/* Large */),
-			16	=> array( 1,  3,  4, 'Agility Open'/* Medium */),
-			17	=> array( 2,  3,  4, 'Agility Open'/* Small */),
-			18	=> array( 0,  0,  4, 'Agility Eq. 3'/* Large */),
-			19	=> array(-1,  3,  4, 'Agility Eq. 3'/* Medium */), // en equipos compiten m y s juntos
-			20	=> array(-1,  3,  4, 'Agility Eq. 3'/* Small */),
-			21	=> array( 0,  0,  4, 'Ag. Equipos 4'/* Large */),
+			3	=> array( 0,  0,  4, 'Agility Grado I Manga 1'/* Large */),
+			4	=> array( 1,  3,  4, 'Agility Grado I Manga 1'/* Medium */),
+			5	=> array( 2,  3,  4, 'Agility Grado I Manga 1'/* Small */),
+			6	=> array( 0,  0,  4, 'Agility Grado I Manga 2'/* Large */),
+			7	=> array( 1,  3,  4, 'Agility Grado I Manga 2'/* Medium */),
+			8	=> array( 2,  3,  4, 'Agility Grado I Manga 2'/* Small */),
+			9	=> array( 0,  0,  4, 'Agility Grado II'/* Large */),
+			10	=> array( 1,  3,  4, 'Agility Grado II'/* Medium */),
+			11	=> array( 2,  3,  4, 'Agility Grado II'/* Small */),
+			12	=> array( 0,  0,  4, 'Agility Grado III'/* Large */),
+			13	=> array( 1,  3,  4, 'Agility Grado III'/* Medium */),
+			14	=> array( 2,  3,  4, 'Agility Grado III'/* Small */),
+			15	=> array( 0,  0,  4, 'Agility Abierta (Open)'/* Large */),
+			16	=> array( 1,  3,  4, 'Agility Abierta (Open)'/* Medium */),
+			17	=> array( 2,  3,  4, 'Agility Abierta (Open)'/* Small */),
+			18	=> array( 0,  0,  4, 'Agility Eq. (3 mejores)'/* Large */),
+			19	=> array(-1,  3,  4, 'Agility Eq. (3 mejores)'/* Medium */), // en equipos compiten m y s juntos
+			20	=> array(-1,  3,  4, 'Agility Eq. (3 mejores)'/* Small */),
+			21	=> array( 0,  0,  4, 'Agility. Eq. (4 conjunta)'/* Large */),
 			// en jornadas por equipos conjunta se mezclan categorias M y S
-			22	=> array(-1,  3,  4, 'Ag. Equipos 4'/* Med/Small */),
-			23	=> array( 0,  0,  4, 'Jumping GII'/* Large */),
-			24	=> array( 1,  3,  4, 'Jumping GII'/* Medium */),
-			25	=> array( 2,  3,  4, 'Jumping GII'/* Small */),
-			26	=> array( 0,  0,  4, 'Jumping GIII'/* Large */),
-			27	=> array( 1,  3,  4, 'Jumping GIII'/* Medium */),
-			28	=> array( 2,  3,  4, 'Jumping GIII'/* Small */),
-			29	=> array( 0,  0,  4, 'Jumping Open'/* Large */),
-			30	=> array( 1,  3,  4, 'Jumping Open'/* Medium */),
-			31	=> array( 2,  3,  4, 'Jumping Open'/* Small */),
-			32	=> array( 0,  0,  4, 'Jumping Eq. 3'/* Large */),
-			33	=> array(-1,  3,  4, 'Jumping Eq. 3'/* Medium */),
-			34	=> array(-1,  3,  4, 'Jumping Eq. 3'/* Small */),
+			22	=> array(-1,  3,  4, 'Agility Eq. (4 conjunta)'/* Med/Small */),
+			23	=> array( 0,  0,  4, 'Jumping Grado II'/* Large */),
+			24	=> array( 1,  3,  4, 'Jumping Grado II'/* Medium */),
+			25	=> array( 2,  3,  4, 'Jumping Grado II'/* Small */),
+			26	=> array( 0,  0,  4, 'Jumping Grado III'/* Large */),
+			27	=> array( 1,  3,  4, 'Jumping Grado III'/* Medium */),
+			28	=> array( 2,  3,  4, 'Jumping Grado III'/* Small */),
+			29	=> array( 0,  0,  4, 'Jumping Abierta (Open)'/* Large */),
+			30	=> array( 1,  3,  4, 'Jumping Abierta (Open)'/* Medium */),
+			31	=> array( 2,  3,  4, 'Jumping Abierta (Open)'/* Small */),
+			32	=> array( 0,  0,  4, 'Jumping Eq. (3 mejores)'/* Large */),
+			33	=> array(-1,  3,  4, 'Jumping Eq. (3 mejores)'/* Medium */),
+			34	=> array(-1,  3,  4, 'Jumping Eq. (3 mejores)'/* Small */),
 			// en jornadas por equipos conjunta se mezclan categorias M y S
-			35	=> array( 0,  0,  4, 'Jp. Equipos 4'/* Large */),
-			36	=> array(-1,  3,  4, 'Jp. Equipos 4'/* Med/Small */),
+			35	=> array( 0,  0,  4, 'Jumping. Eq. (4 conjunta)'/* Large */),
+			36	=> array(-1,  3,  4, 'Jumping. Eq. (4 conjunta)'/* Med/Small */),
 			// en las rondas KO, los perros compiten todos contra todos
 			37	=> array(-1, -1,  4, 'Manga K.O.'),
 			38	=> array( 0,  0,  4, 'Manga Especial'/* Large */),
@@ -114,8 +116,31 @@ class VideoWall {
 		$this->myLogger->trace("**** Mode es $mode");
 		$result = $resmgr->getResultados($mode);
 		$numero=0;
+		$mangastr=VideoWall::$modes[$mySession->Tanda][3]." - ".VideoWall::$modestr[$mode];
 		// cabecera de la tabla
 		echo '
+			<!-- Datos de TRS y TRM -->
+			<div id="vwc_tablaTRS">
+			<table class="vwc_trs">
+				<theader>
+					<tr>
+						<th colspan="2" style="align:leftt">Resultados Parciales</th>
+						<th colspan="3">'.$mangastr.'</th>
+					</tr>
+				</theader
+				<tbody>
+					<tr style="align:right">
+						<td>Distancia: '.$result['trs']['dist'].'mts.</td>
+						<td>Obst&aacute;culos: '.$result['trs']['obst'].'</td>
+						<td>T.R.Standard: '.$result['trs']['trs'].'secs.</td>
+						<td>T.R.M&aacute;ximo: '.$result['trs']['trm'].'secs.</td>
+						<td>Velocidad: '.$result['trs']['vel'].'m/s</td>
+					</tr>
+				</tbody>
+			</table>
+			<hr />
+			</div>
+			<!-- Resultados -->
 			<div id="vwc_tablaResultados">
 			<table class="vwc_tresultados">
 			<theader>

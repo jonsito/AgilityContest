@@ -13,7 +13,7 @@
 		
 			<div id="vw_combinada-Layout2" class="easyui-layout" data-options="fit:true">
 			
-				<div data-options="region:'north',split:true,border:false,title:'LiveStream',collapsible:false,collapsed:false" 
+				<div data-options="region:'north',split:true,border:false,collapsible:false,collapsed:false" 
 					style="height:450px">
 					<div id="vw_combinada-LiveStream" class="easyui-panel"
 						data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
@@ -64,7 +64,7 @@
 		</div> <!-- marco izquierdo  -->
 		
 		<!-- marco derecho: resultados parciales -->
-		<div data-options="region:'center',title:'Resultados parciales'">
+		<div data-options="region:'center'">
 			<div id="vw_combinada-Resultados" class="easyui-panel"
 				data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
 				<span id="vwc_resultadosParciales"></span>
