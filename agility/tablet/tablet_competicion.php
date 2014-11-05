@@ -1,6 +1,6 @@
 <?php include_once(__DIR__."/tablet_entradadatos.inc");?>
 		
-<div id="tablet-panel" style="width:1280px;height:800px;">
+<div id="tablet-panel" style="margin:0;padding:0">
 	<!-- toolbar para orden de tandas -->
 	<div id="tablet-toolbar" style="padding:5px">
 		<a id="tablet-reloadBtn" href="#" class="easyui-linkbutton" 
@@ -16,12 +16,16 @@ $('#tablet-reloadBtn').linkbutton();
 
 $('#tablet-panel').panel({
 	title: 'Orden de salida',
+	fit: true,
+	width: window.innerWidth || document.body.clientWidth,
+	height:  window.innerHeight || document.body.clientHeight,
 	collapsible:	false,
 	minimizable:	false,
 	maximizable:	false,
 	resizable:		false,
 	closable:		false,
 	iconCls:		'icon-order',
+	maximized:		true,
 	closed:			false,
 	modal:			false
 });

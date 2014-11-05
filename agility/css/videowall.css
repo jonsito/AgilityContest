@@ -1,5 +1,9 @@
-/* estilos asociados al tablet */
-#videowall_data {
+/*
+* Estilos asociados a las diversas pantallas de visualizacion
+*/
+
+/**** estilos asociados al panel "LiveStream" */
+#vwls_common {
 	vertical-align: middle;
 	font-size: 15px;
 	line-height: 25px;
@@ -9,24 +13,24 @@
 	z-index: 1;
 }
 
-.vwc_label {
+.vwls_label {
 	text-align: left;
 	background-color: transparent;
 	color: white;
 }
 
-.vwc_logo {
+.vwls_logo {
 	background-color: transparent;
 }
 
-.vwc_data {
+.vwls_data {
 	text-align: center;
 	background-color: #c0c0c0;
 	padding-top: 0px;
 	color: white;
 }
 
-.vwc_fondo {
+.vwls_fondo {
     background-color: rgba(127,127,127,0.5);
     border: 3px solid black;
     border-radius: 25px;
@@ -36,7 +40,7 @@
 	z-index: -1;
 }
 
-/* barras indicadoras de nueva tanda en llamada a pista */
+/***** barras indicadoras de nueva tanda en llamada a pista */
 .vwc_tanda {
 	background-color: #8080ff;
 	color: white;

@@ -1,6 +1,6 @@
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
-<div id="tdialog-panel" class="easyui-panel" style="width:1280px;height:800px;">
-	<div class="dialog_forms">
+<div id="tdialog-panel">
+	<div class="dialog_forms" style="background:white">
         <form id="tdialog-form" method="get" novalidate="novalidate">
 			<input id="tdialog-Session" name="Session" type="hidden" value="0"> <!-- Session ID -->  
 			<input id="tdialog-Parent" name="Parent" type="hidden" value=""> <!-- name of parent datagrid -->       
@@ -76,11 +76,13 @@
         iconCls: 'icon-notes',
         closed: true,
         modal: true,
-        title: 'Entrada de datos',
+        fit: true,
+        // title: 'Entrada de datos',
 		closable:		false,
     	collapsible:	false,
     	minimizable:	false,
     	maximizable:	false,
+    	maximized: 		true,
     	resizable:		false,
     	onClose:	function() { $('#tablet-panel').panel('open'); }
     });

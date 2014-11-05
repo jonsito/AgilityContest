@@ -1,12 +1,9 @@
-	
-<!-- Gestion desde el tablet de el orden de salida y entrada de datos -->
+	<!-- Presentacion combinada de live stream, llamada a pista y resultados parciales -->
 <div id="vw_combinada-Panel" class="easyui-panel" style="width:1920px;height:1080px;">
 
-	
 	<!-- paneles de lista de mangas y datos de cada manga -->
 	<div id="vw_combinada-Layout1" class="easyui-layout" data-options="fit:true">
-	
-	
+		
 		<!-- marco izquierdo. top:livestream bottom:llamada-->
 		<div data-options="region:'west',split:true,border:false,collapsible:false,collapsed:false" 
 				style="width:800px"> <!-- dos quintos del ancho de pantalla -->
@@ -26,29 +23,29 @@
     						-->
     						<source src="/agility/videos/sample_video.webm" type='video/webm; codecs="vp8,vorbis"' />
     					</video> 
-						<div id="videowall_data">
+						<div id="vwls_common">
 							<!-- Recuadros de decoracion -->
-							<span class="vwc_fondo" id="vwc_Resultados">&nbsp;</span>
-							<span class="vwc_fondo" id="vwc_Datos">&nbsp;</span>
+							<span class="vwls_fondo" id="vwls_Resultados">&nbsp;</span>
+							<span class="vwls_fondo" id="vwls_Datos">&nbsp;</span>
 							<!-- datos de resultados -->
-							<span class="vwc_label" id="vwc_FaltasLbl">Faltas:</span>
-							<span class="vwc_data"  id="vwc_Faltas">0</span>
-							<span class="vwc_label" id="vwc_TocadosLbl">Tocados:</span>
-							<span class="vwc_data"  id="vwc_Tocados">0</span>
-							<span class="vwc_label" id="vwc_RehusesLbl">Rehuses:</span>
-							<span class="vwc_data"  id="vwc_Rehuses">0</span>
-							<span class="vwc_label" id="vwc_TiempoLbl">Tiempo:</span>
-							<span class="vwc_data"  id="vwc_Tiempo">00.00</span>
+							<span class="vwls_label" id="vwls_FaltasLbl">Faltas:</span>
+							<span class="vwls_data"  id="vwls_Faltas">0</span>
+							<span class="vwls_label" id="vwls_TocadosLbl">Tocados:</span>
+							<span class="vwls_data"  id="vwls_Tocados">0</span>
+							<span class="vwls_label" id="vwls_RehusesLbl">Rehuses:</span>
+							<span class="vwls_data"  id="vwls_Rehuses">0</span>
+							<span class="vwls_label" id="vwls_TiempoLbl">Tiempo:</span>
+							<span class="vwls_data"  id="vwls_Tiempo">00.00</span>
 							<!-- Informacion del participante -->
-							<span style="display:none" id="vwc_Perro">0</span>
-							<img id="vwc_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="vwc_logo"/>
-							<span class="vwc_label" id="vwc_Dorsal">Dorsal</span>
-							<span class="vwc_label" id="vwc_Nombre">Nombre</span>
-							<span class="vwc_label" id="vwc_NombreGuia">Guia</span>
-							<span class="vwc_label" id="vwc_NombreClub">Club</span>
-							<span class="vwc_label" id="vwc_Categoria">Categoria</span>
-							<span class="vwc_label" id="vwc_Grado">Grado</span>
-							<span class="vwc_label" id="vwc_Celo">Celo</span>
+							<span style="display:none" id="vwls_Perro">0</span>
+							<img id="vwls_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="vwls_logo"/>
+							<span class="vwls_label" id="vwls_Dorsal">Dorsal</span>
+							<span class="vwls_label" id="vwls_Nombre">Nombre</span>
+							<span class="vwls_label" id="vwls_NombreGuia">Guia</span>
+							<span class="vwls_label" id="vwls_NombreClub">Club</span>
+							<span class="vwls_label" id="vwls_Categoria">Categoria</span>
+							<span class="vwls_label" id="vwls_Grado">Grado</span>
+							<span class="vwls_label" id="vwls_Celo">Celo</span>
 						</div>
 					</div>
 				</div>
@@ -82,7 +79,7 @@
 	
 // create a Chronometer instance
 $('#cronomanual').Chrono( {
-	seconds_sel: '#vwc_Tiempo',
+	seconds_sel: '#vwls_Tiempo',
 	auto: false,
 	interval: 100,
 	showMode: 2
@@ -95,7 +92,7 @@ $('#vw_combinada-Panel').panel({
 	collapsible:false,
 	collapsed:false,
 	onOpen: function() {
-		startEventMgr(workingData.sesion,vwc_processLiveStream);
+		startEventMgr(workingData.sesion,vwc_processCombinada);
 	}
 });
 
@@ -105,25 +102,25 @@ $('#vw_combinada-Layout2').layout();
 // layout
 var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 
-doLayout(layout,"#vwc_Resultados",	625,	35,		150,	130	);
-doLayout(layout,"#vwc_Datos",		25,		345,	750,	80	);
+doLayout(layout,"#vwls_Resultados",	625,	35,		150,	130	);
+doLayout(layout,"#vwls_Datos",		25,		345,	750,	80	);
 
-doLayout(layout,"#vwc_FaltasLbl",	635,	50,		75,		25	);
-doLayout(layout,"#vwc_Faltas",		735,	50,		25,		25	);
-doLayout(layout,"#vwc_TocadosLbl",	635,	75,		75,		25	);
-doLayout(layout,"#vwc_Tocados",		735,	75,		25,		25	);
-doLayout(layout,"#vwc_RehusesLbl",	635,	100,	75,		25	);
-doLayout(layout,"#vwc_Rehuses",		735,	100,	25,		25	);
-doLayout(layout,"#vwc_TiempoLbl",	635,	125,	50,		25	);
-doLayout(layout,"#vwc_Tiempo",		705,	125,	55,		25	);
+doLayout(layout,"#vwls_FaltasLbl",	635,	50,		75,		25	);
+doLayout(layout,"#vwls_Faltas",		735,	50,		25,		25	);
+doLayout(layout,"#vwls_TocadosLbl",	635,	75,		75,		25	);
+doLayout(layout,"#vwls_Tocados",		735,	75,		25,		25	);
+doLayout(layout,"#vwls_RehusesLbl",	635,	100,	75,		25	);
+doLayout(layout,"#vwls_Rehuses",		735,	100,	25,		25	);
+doLayout(layout,"#vwls_TiempoLbl",	635,	125,	50,		25	);
+doLayout(layout,"#vwls_Tiempo",		705,	125,	55,		25	);
 
-doLayout(layout,"#vwc_Logo",		30,		350,	80,		80	);
-doLayout(layout,"#vwc_Dorsal",		150,	350,	100,	40	);
-doLayout(layout,"#vwc_Nombre",		250,	350,	250,	40	);
-doLayout(layout,"#vwc_NombreGuia",	150,	390,	300,	40	);
-doLayout(layout,"#vwc_NombreClub",	450,	390,	250,	40	);
-doLayout(layout,"#vwc_Categoria",	550,	350,	100,	40	);
-doLayout(layout,"#vwc_Grado",		650,	350,	100,	40	);
-doLayout(layout,"#vwc_Celo",		700,	390,	50,		40	);
+doLayout(layout,"#vwls_Logo",		30,		350,	80,		80	);
+doLayout(layout,"#vwls_Dorsal",		150,	350,	100,	40	);
+doLayout(layout,"#vwls_Nombre",		250,	350,	250,	40	);
+doLayout(layout,"#vwls_NombreGuia",	150,	390,	300,	40	);
+doLayout(layout,"#vwls_NombreClub",	450,	390,	250,	40	);
+doLayout(layout,"#vwls_Categoria",	550,	350,	100,	40	);
+doLayout(layout,"#vwls_Grado",		650,	350,	100,	40	);
+doLayout(layout,"#vwls_Celo",		700,	390,	50,		40	);
 
 </script>

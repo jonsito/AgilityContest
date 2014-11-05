@@ -62,9 +62,9 @@ function waitForEvents(sesID,evtID,timestamp,callback){
 	});
 }
 
-function vwc_showOSD(val) {
-	if (val==0) $('#videowall_data').css('display','none')
-	else $('#videowall_data').css('display','initial');
+function vwls_showOSD(val) {
+	if (val==0) $('#vwls_common').css('display','none')
+	else $('#vwls_common').css('display','initial');
 }
 
 function vwc_updateResults(event) {
@@ -97,17 +97,17 @@ function vwc_updatePendingQueue(event) {
 	});
 }
 
-function vwc_updateData(data) {
-	if (data["Faltas"]!=-1) $('#vwc_Faltas').html(data["Faltas"]);
-	if (data["Tocados"]!=-1) $('#vwc_Tocados').html(data["Tocados"]);
-	if (data["Rehuses"]!=-1) $('#vwc_Rehuses').html(data["Rehuses"]);
-	if (data["Tiempo"]!=-1) $('#vwc_Tiempo').html(data["Tiempo"]);
-	if (data["Eliminado"]==1)	$('#vwc_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
-	if (data["NoPresentado"]==1) $('#vwc_Tiempo').html('<span class="blink" style="color:red">N.P.</span>');
+function vwls_updateData(data) {
+	if (data["Faltas"]!=-1) $('#vwls_Faltas').html(data["Faltas"]);
+	if (data["Tocados"]!=-1) $('#vwls_Tocados').html(data["Tocados"]);
+	if (data["Rehuses"]!=-1) $('#vwls_Rehuses').html(data["Rehuses"]);
+	if (data["Tiempo"]!=-1) $('#vwls_Tiempo').html(data["Tiempo"]);
+	if (data["Eliminado"]==1)	$('#vwls_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
+	if (data["NoPresentado"]==1) $('#vwls_Tiempo').html('<span class="blink" style="color:red">N.P.</span>');
 }
 
-function vwc_showData(data) {
-	var perro=$('#vwc_Perro').html();
+function vwls_showData(data) {
+	var perro=$('#vwls_Perro').html();
 	var dorsal=data['Dorsal'];
 	var celo=data['Celo'];
 	if (perro!==data['Perro']) {
@@ -123,14 +123,14 @@ function vwc_showData(data) {
 			cache: false,
 			dataType: 'json',
 			success: function(data){
-				$('#vwc_Logo').attr("src","/agility/images/logos/"+data['LogoClub']);
-				$('#vwc_Dorsal').html("Dorsal: "+dorsal );
-				$('#vwc_Nombre').html(data["Nombre"]);
-				$('#vwc_NombreGuia').html("Guia: "+data["NombreGuia"]);
-				$('#vwc_NombreClub').html("Club: "+data["NombreClub"]);
-				$('#vwc_Categoria').html(data["NombreCategoria"].replace(/.* - /g,""));
-				$('#vwc_Grado').html(data["NombreGrado"]);
-				$('#vwc_Celo').html((celo==1)?'<span class="blink">Celo</span>':'');
+				$('#vwls_Logo').attr("src","/agility/images/logos/"+data['LogoClub']);
+				$('#vwls_Dorsal').html("Dorsal: "+dorsal );
+				$('#vwls_Nombre').html(data["Nombre"]);
+				$('#vwls_NombreGuia').html("Guia: "+data["NombreGuia"]);
+				$('#vwls_NombreClub').html("Club: "+data["NombreClub"]);
+				$('#vwls_Categoria').html(data["NombreCategoria"].replace(/.* - /g,""));
+				$('#vwls_Grado').html(data["NombreGrado"]);
+				$('#vwls_Celo').html((celo==1)?'<span class="blink">Celo</span>':'');
 			},
 			error: function(XMLHttpRequest,textStatus,errorThrown) {
 				alert("error: "+textStatus + " "+ errorThrown );
@@ -138,23 +138,23 @@ function vwc_showData(data) {
 		});
 	}
 	// actualiza resultados del participante
-	$('#vwc_Faltas').html(data["Faltas"]);
-	$('#vwc_Tocados').html(data["Tocados"]);
-	$('#vwc_Rehuses').html(data["Rehuses"]);
-	$('#vwc_Tiempo').html(data["Tiempo"]);
-	if (data["Eliminado"]==1)	$('#vwc_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
-	if (data["NoPresentado"]==1) $('#vwc_Tiempo').html('<span class="blink" style="color:red">N.P.</span>');
+	$('#vwls_Faltas').html(data["Faltas"]);
+	$('#vwls_Tocados').html(data["Tocados"]);
+	$('#vwls_Rehuses').html(data["Rehuses"]);
+	$('#vwls_Tiempo').html(data["Tiempo"]);
+	if (data["Eliminado"]==1)	$('#vwls_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
+	if (data["NoPresentado"]==1) $('#vwls_Tiempo').html('<span class="blink" style="color:red">N.P.</span>');
 	
 }
 
 /**
  * activa una secuencia de conteo hacia atras de 15 segundos
  */
-function vwc_counter(){
+function vwls_counter(){
 	var myCounter = new Countdown({  
 	    seconds:15,  // number of seconds to count down
-	    onUpdateStatus: function(sec){ $('#vwc_Tiempo').html(sec); }, // callback for each second
-	    onCounterEnd: function(){  $('#vwc_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
+	    onUpdateStatus: function(sec){ $('#vwls_Tiempo').html(sec); }, // callback for each second
+	    onCounterEnd: function(){  $('#vwls_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
 	});
 	myCounter.start();
 }
@@ -163,63 +163,99 @@ function vwc_counter(){
  * Maneja el cronometro manual
  * @param oper 'start','stop','pause','resume','reset'
  */
-function vwc_cronoManual(oper) {
+function vwls_cronoManual(oper) {
 	$('#cronomanual').Chrono(oper);
 }
 
-function vwc_cronoAutomatico() {
-	return; // nothing to do here with automatic chrono events
-}
-
-function vwc_evalResult(event) {
-	vwc_showData(event);
-	vwc_updateResults();
-}
-
-function vwc_processLiveStream(id,evt) {
+function vwc_processCombinada(id,evt) {
 	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
 	event['ID']=id;
 	switch (event['Type']) {
 	case 'null':		// null event: no action taken
 		return; 
 	case 'init':		// operator starts tablet application
-		vwc_showOSD(0); 	// activa visualizacion de OSD
+		vwls_showOSD(0); 	// activa visualizacion de OSD
 		return;
 	case 'open':		// operator select tanda
-		vwc_updateResults(event);
-		vwc_updatePendingQueue(event);
+		vwc_updateResults(event); // actualiza panel de resultados
+		vwc_updatePendingQueue(event); // actualiza panel de llamadas 
 		return;
 	case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-		vwc_updateData(event);
+		vwls_updateData(event);
 		return
 	case 'llamada':		// operador abre panel de entrada de datos
-		vwc_cronoManual('stop');
-		vwc_cronoManual('reset');
-		vwc_showOSD(1); 	// activa visualizacion de OSD
-		vwc_showData(event);
+		vwls_cronoManual('stop');
+		vwls_cronoManual('reset');
+		vwls_showOSD(1); 	// activa visualizacion de OSD
+		vwls_showData(event);
 		return
 	case 'salida':		// juez da orden de salida ( crono 15 segundos )
-		vwc_cronoManual('stop');
-		vwc_cronoManual('reset');
-		vwc_counter();
+		vwls_cronoManual('stop');
+		vwls_cronoManual('reset');
+		vwls_counter();
 		return;
 	case 'start':	// value: timestamp
-		vwc_cronoManual('start');
+		vwls_cronoManual('start');
 		return;
 	case 'stop':	// value: timestamp
-		vwc_cronoManual('stop');
+		vwls_cronoManual('stop');
 		return;
 	case 'cronoauto':  	// value: timestamp
-		vwc_cronoAutomatico();
-		return;
+		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':		// operador pulsa aceptar
-		vwc_cronoManual('stop');  // nos aseguramos de que los cronos esten parados
-		vwc_evalResult(event); // presenta clasificacion provisional del perro
+		vwls_cronoManual('stop');  // nos aseguramos de que los cronos esten parados
+		vwls_showData(event); // actualiza pantall liveStream
+		vwc_updateResults(); // actualiza panel de resultados
 		return;
 	case 'cancelar':	// operador pulsa cancelar
-		vwc_cronoManual('stop');
-		vwc_cronoManual('reset');
-		vwc_showOSD(0);
+		vwls_cronoManual('stop');
+		vwls_cronoManual('reset');
+		vwls_showOSD(0); // apaga el OSD
+		return;
+	}
+}
+
+function vwls_processLiveStream(id,evt) {
+	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
+	event['ID']=id;
+	switch (event['Type']) {
+	case 'null':		// null event: no action taken
+		return; 
+	case 'init':		// operator starts tablet application
+		vwls_showOSD(0); 	// activa visualizacion de OSD
+		return;
+	case 'open':		// operator select tanda: nothing to do here
+		return;
+	case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+		vwls_updateData(event);
+		return
+	case 'llamada':		// operador abre panel de entrada de datos
+		vwls_cronoManual('stop');
+		vwls_cronoManual('reset');
+		vwls_showOSD(1); 	// activa visualizacion de OSD
+		vwls_showData(event);
+		return
+	case 'salida':		// juez da orden de salida ( crono 15 segundos )
+		vwls_cronoManual('stop');
+		vwls_cronoManual('reset');
+		vwls_counter();
+		return;
+	case 'start':	// value: timestamp
+		vwls_cronoManual('start');
+		return;
+	case 'stop':	// value: timestamp
+		vwls_cronoManual('stop');
+		return;
+	case 'cronoauto':  	// value: timestamp nada que hacer
+		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
+	case 'aceptar':		// operador pulsa aceptar
+		vwls_cronoManual('stop');  // nos aseguramos de que los cronos esten parados
+		vwls_showData(event); // actualiza pantall liveStream
+		return;
+	case 'cancelar':	// operador pulsa cancelar
+		vwls_cronoManual('stop');
+		vwls_cronoManual('reset');
+		vwls_showOSD(0); // apaga el OSD
 		return;
 	}
 }
