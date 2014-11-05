@@ -82,8 +82,8 @@
     	collapsible:	false,
     	minimizable:	false,
     	maximizable:	false,
-    	maximized: 		true,
     	resizable:		false,
+    	maximized: 		true,
     	onClose:	function() { $('#tablet-panel').panel('open'); }
     });
 

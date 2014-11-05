@@ -34,7 +34,7 @@ function tablet_putEvent(type,data){
 			'Tanda':	$('#tdialog-ID').val(),
 			'Perro':	$('#tdialog-Perro').val(),
 			'Celo':		$('#tdialog-Celo').val()	
-	}
+	};
 	// send "update" event to every session listeners
 	$.ajax({
 		type:'GET',
@@ -53,7 +53,7 @@ function tablet_updateSession(row) {
 			Jornada: row.Jornada,
 			Manga: row.Manga,
 			Tanda: row.ID
-	}
+	};
 	$.ajax({
 		type:	'GET',
 		url:	"/agility/server/database/sessionFunctions.php",
@@ -63,7 +63,7 @@ function tablet_updateSession(row) {
 			// send event
 			data.Operation=	'putEvent';
 			data.Session=	data.ID;
-			tablet_putEvent('open',data)
+			tablet_putEvent('open',data);
 		}
 	});
 }
@@ -117,7 +117,7 @@ function tablet_up(id){
 	var datos = {};
 	$(id).val(''+n);
 	tablet_updateResultados(1);
-	datos[lbl]=$(id).val()
+	datos[lbl]=$(id).val();
 	tablet_putEvent( 'datos', datos);
 }
 
@@ -128,7 +128,7 @@ function tablet_down(id){
 	var datos = {};
 	$(id).val(''+m);
 	tablet_updateResultados(1);
-	datos[lbl]=$(id).val()
+	datos[lbl]=$(id).val();
 	tablet_putEvent( 'datos', datos );
 }
 

@@ -63,7 +63,7 @@ function waitForEvents(sesID,evtID,timestamp,callback){
 }
 
 function vwls_showOSD(val) {
-	if (val==0) $('#vwls_common').css('display','none')
+	if (val==0) $('#vwls_common').css('display','none');
 	else $('#vwls_common').css('display','initial');
 }
 

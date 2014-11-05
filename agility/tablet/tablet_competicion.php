@@ -32,11 +32,11 @@ $('#tablet-panel').panel({
 
 $('#tablet-datagrid').datagrid({
 	// propiedades del panel asociado
-	fit: true,
-	border: false,
-	closable: false,
-	collapsible: false,
-	collapsed: false,
+	// fit: true,
+	// border: false,
+	// closable: false,
+	// collapsible: false,
+	// collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
 	url: '/agility/server/database/ordenTandasFunctions.php',
