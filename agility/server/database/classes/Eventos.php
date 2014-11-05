@@ -142,10 +142,12 @@ class Eventos extends DBObject {
 	function listEvents($data) {
 		if ($data['Session']<=0) return $this->error("No Session ID specified");
 		$this->myLogger->enter();
+		$extra="";
+		if ($data['Type']!=="") $extra=" AND ( Type = {$data['Type']} )";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Eventos",
-				/* WHERE */ "( Session = {$data['Session']} ) AND ( ID > {$data['ID']} )",
+				/* WHERE */ "( Session = {$data['Session']} ) AND ( ID > {$data['ID']} ) $extra",
 				/* ORDER BY */ "ID",
 				/* LIMIT */ ""
 		);
