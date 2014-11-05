@@ -1,13 +1,13 @@
 <?php include_once(__DIR__."/tablet_entradadatos.inc");?>
 		
-<div id="tablet-panel" style="margin:0;padding:0">
+<div id="tablet-panel" style="margin:0px;padding:0px">
 	<!-- toolbar para orden de tandas -->
 	<div id="tablet-toolbar" style="padding:5px">
 		<a id="tablet-reloadBtn" href="#" class="easyui-linkbutton" 
 			data-options="iconCls:'icon-reload'" onclick="$('#tablet-datagrid').datagrid('reload');">Actualizar</a>
 	</div>
 	<!-- Tabla desplegable para la entrada de datos desde el tablet -->
-	<table id="tablet-datagrid" style="padding:10px;"></table>
+	<table id="tablet-datagrid" style="height:480px;margin:0px;padding:0px;"></table>
 </div> <!-- tandas / orden de salida -->
 		
 <script type="text/javascript">
@@ -17,8 +17,6 @@ $('#tablet-reloadBtn').linkbutton();
 $('#tablet-panel').panel({
 	title: 'Orden de salida',
 	fit: true,
-	width: window.innerWidth || document.body.clientWidth,
-	height:  window.innerHeight || document.body.clientHeight,
 	collapsible:	false,
 	minimizable:	false,
 	maximizable:	false,
@@ -32,11 +30,11 @@ $('#tablet-panel').panel({
 
 $('#tablet-datagrid').datagrid({
 	// propiedades del panel asociado
-	// fit: true,
-	// border: false,
-	// closable: false,
-	// collapsible: false,
-	// collapsed: false,
+	fit: true,
+	border: false,
+	closable: false,
+	collapsible: false,
+	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
 	url: '/agility/server/database/ordenTandasFunctions.php',
