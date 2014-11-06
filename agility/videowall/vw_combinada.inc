@@ -15,8 +15,8 @@
 					<div id="vw_combinada-LiveStream" class="easyui-panel"
 						data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
 						<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
-					    <video id="video-background" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
-					    	poster="/agility/images/wallpapers/foto_dama.jpg" height="450">
+					    <video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
+					    	poster="/agility/images/wallpapers/foto_dama.jpg">
     						<source src="/agility/videos/sample_video.mp4" type='video/mp4; codecs="avc1,mp4a"' />
     						<!-- ogv se ve muy mal en firefox
     						<source src="/agility/videos/sample_video.ogv" type='video/ogg; codecs="theora,vorbis"' />

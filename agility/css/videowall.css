@@ -36,7 +36,9 @@
     border-radius: 25px;
 }
 
-#video-background {
+#vwls_video {
+	width: 100%;
+	height: auto;
 	z-index: -1;
 }
 

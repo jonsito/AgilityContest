@@ -1,10 +1,9 @@
 <!-- Pantalla liveStream -->
-<div id="vwls_LiveStream-Panel" class="easyui-panel"
-	data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
+<div id="vwls_LiveStream-window" class="easyui-window" style="padding:10px">
 	<div id="vwls-LiveStream" class="easyui-panel"
 				data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
 		<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
-		<video id="video-background" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
+		<video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
 		   	poster="/agility/images/wallpapers/foto_dama.jpg">
     		<source src="/agility/videos/sample_video.mp4" type='video/mp4; codecs="avc1,mp4a"' />
     		<!-- ogv se ve muy mal en firefox
@@ -52,12 +51,14 @@ $('#cronomanual').Chrono( {
 	showMode: 2
 });
 
-$('#vwls_LiveStream-Panel').panel({
+$('#vwls_LiveStream-window').window({
+	fit:true,
 	noheader:true,
 	border:false,
 	closable:false,
 	collapsible:false,
 	collapsed:false,
+	resizable:true,
 	onOpen: function() {
 		startEventMgr(workingData.sesion,vwls_processLiveStream);
 	}
