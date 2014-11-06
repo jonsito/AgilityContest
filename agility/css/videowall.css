@@ -122,3 +122,22 @@
 	text-align: left;
 	font-weight: bold;
 }
+
+/* cabecera flotante para resultados parciales y llamada a pista */
+.vw_floatingheader {
+	position:absolute;
+	top:20px;
+	left:75px;
+	padding:0px 50px;
+	z-index:1;
+    background-color: rgba(127,127,127,0.5);
+    border: 3px solid black;
+    border-radius: 25px;
+}
+.vw_floatingheader span {
+	margin-top:0px;
+	margin-bottom:0px;
+	font-size: 25px;
+	font-weight: bold;
+	font-style: italic;
+}

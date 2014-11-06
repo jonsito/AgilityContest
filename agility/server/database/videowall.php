@@ -67,12 +67,12 @@ class VideoWall {
 			40	=> array( 2,  3,  4, 'Manga Especial'/* Small */),
 	);
 
-	function videowall_llamada($idsesion) {
+	function videowall_llamada($idsesion,$pendientes) {
 		$lastTanda="";
 		$sesmgr=new Sesiones("VideoWall_Llamada");
 		$otmgr=new OrdenTandas("Llamada a pista");
 		$mySession=$sesmgr->__getObject("Sesiones",$idsesion);
-		$result = $otmgr->getData($mySession->Prueba,$mySession->Jornada,10,$mySession->Tanda)['rows']; // obtiene los 10 primeros perros pendientes
+		$result = $otmgr->getData($mySession->Prueba,$mySession->Jornada,$pendientes,$mySession->Tanda)['rows']; // obtiene los 10 primeros perros pendientes
 		$numero=0;
 		foreach ($result as $participante) {
 			if ($lastTanda!==$participante['Tanda']){
@@ -208,7 +208,8 @@ class VideoWall {
 
 $sesion = http_request("Session","i",0);
 $operacion = http_request("Operation","s",null);
+$pendientes = http_request("Pendientes","i",10);
 $vw=new VideoWall();
 if($operacion==="livestream") return $vw->videowall_livestream($sesion);
-if($operacion==="llamada") return $vw->videowall_llamada($sesion);
+if($operacion==="llamada") return $vw->videowall_llamada($sesion,$pendientes);
 if($operacion==="resultados") return $vw->videowall_resultados($sesion);

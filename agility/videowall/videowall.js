@@ -82,13 +82,14 @@ function vwc_updateResults(event) {
 	});
 }
 
-function vwc_updatePendingQueue(event) {
+function vwc_updatePendingQueue(event,pendientes) {
 	$.ajax( {
 		type: "GET",
 		dataType: 'html',
 		url: "/agility/server/database/videowall.php",
 		data: {
 			Operation: 'llamada',
+			Pendientes: pendientes,
 			Session: workingData.sesion
 		},
 		success: function(data,status,jqxhr) {
@@ -178,7 +179,7 @@ function vwc_processCombinada(id,evt) {
 		return;
 	case 'open':		// operator select tanda
 		vwc_updateResults(event); // actualiza panel de resultados
-		vwc_updatePendingQueue(event); // actualiza panel de llamadas 
+		vwc_updatePendingQueue(event,10); // actualiza panel de llamadas 
 		return;
 	case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
@@ -256,6 +257,37 @@ function vwls_processLiveStream(id,evt) {
 		vwls_cronoManual('stop');
 		vwls_cronoManual('reset');
 		vwls_showOSD(0); // apaga el OSD
+		return;
+	}
+}
+function vw_processLlamada(id,evt) {
+	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
+	event['ID']=id;
+	switch (event['Type']) {
+	case 'null': // null event: no action taken
+		return; 
+	case 'init': // operator starts tablet application
+		// TODO: muestra pendientes desde primera tanda
+		return;
+	case 'open': // operator select tanda:
+		vwc_updatePendingQueue(event,25)
+		return;
+	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+		vwls_updateData(event);
+		return
+	case 'llamada':	// llamada a pista
+		return
+	case 'salida': // orden de salida
+		return;
+	case 'start': // start crono manual
+		return;
+	case 'stop': // stop crono manual
+		return;
+	case 'cronoauto':  	// value: timestamp nada que hacer
+		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
+	case 'aceptar':	// operador pulsa aceptar
+		return;
+	case 'cancelar': // operador pulsa cancelar
 		return;
 	}
 }

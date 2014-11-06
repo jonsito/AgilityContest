@@ -49,7 +49,11 @@
 						</div>
 					</div>
 				</div>
-				<div data-options="region:'center',split:true,border:false,title:'Llamada a pista'">
+				<div data-options="region:'center',split:true,border:false">
+				
+					<div id="vwc_llamada-Cabecera" class="vw_floatingheader">
+						<span id="vwc_llamada-Texto">Llamada a pista<span>
+					</div>
 					<div id="vw_combinada-Pendientes" class="easyui-panel"
 						data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
 						<span id="vwc_listaPendientes"></span>
