@@ -1,20 +1,20 @@
 <?php include_once(__DIR__."/tablet_entradadatos.inc");?>
 		
-<div id="tablet-panel" style="margin:0px;padding:0px">
+<div id="tablet-window" style="margin:0px;padding:0px">
 	<!-- toolbar para orden de tandas -->
 	<div id="tablet-toolbar" style="padding:5px">
 		<a id="tablet-reloadBtn" href="#" class="easyui-linkbutton" 
 			data-options="iconCls:'icon-reload'" onclick="$('#tablet-datagrid').datagrid('reload');">Actualizar</a>
 	</div>
 	<!-- Tabla desplegable para la entrada de datos desde el tablet -->
-	<table id="tablet-datagrid" style="height:480px;margin:0px;padding:0px;"></table>
+	<table id="tablet-datagrid" style="margin:0px;padding:0px;"></table>
 </div> <!-- tandas / orden de salida -->
 		
 <script type="text/javascript">
 
 $('#tablet-reloadBtn').linkbutton();
 
-$('#tablet-panel').panel({
+$('#tablet-window').window({
 	title: 'Orden de salida',
 	fit: true,
 	collapsible:	false,
@@ -91,6 +91,7 @@ function tablet_showPerrosByTanda(index,row){
 	    fitColumns: true,
 	    singleSelect: true,
 	    autoRowHeight: false,
+	    width: '100%',
 	    height: 'auto',
 		columns:[[
 		        { field:'Parent',		width:0, hidden:true }, // self reference to row index
@@ -124,8 +125,8 @@ function tablet_showPerrosByTanda(index,row){
 	    	data.Session=workingData.sesion;
             data.Parent=mySelf; // store datagrid reference
             $('#tdialog-form').form('load',data);
-            $('#tablet-panel').panel('close');
-            $('#tdialog-panel').panel('open');
+            $('#tablet-window').window('close');
+            $('#tdialog-window').window('open');
         },
         onResize:function(){
             $('#tablet-datagrid').datagrid('fixDetailRowHeight',index);

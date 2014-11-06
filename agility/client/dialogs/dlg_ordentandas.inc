@@ -1,5 +1,6 @@
 <!--  dialogo de orden de tandas e introduccion de datos de una competicion -->
-<div id="ordentandas-window" class="easyui-window" style="width:400px;height:625px;padding:10px">
+<div id="ordentandas-window" class="easyui-window" style="width:400px;height:625px;padding:10px"
+	data-options="collapsible:false,minimizable:false,maximizable:false,resizable:false,iconCls:'icon-updown',closed:true,modal:true">
 	<!-- BARRA DE TAREAS DE ORDEN DE tandas -->
 	<div id="ordentandas-toolbar" style="padding:0px 10px 30px 10px">
  		<span style="float:left">
@@ -18,15 +19,7 @@
 
 <script type="text/javascript">
 
-$('#ordentandas-window').window({
-	collapsible:	false,
-	minimizable:	false,
-	maximizable:	false,
-	resizable:		false,
-	iconCls:		'icon-updown',
-	closed:			true,
-	modal:			true
-});
+$('#ordentandas-window').window();
 
 $('#ordentandas-datagrid').datagrid({
 	// propiedades del panel asociado

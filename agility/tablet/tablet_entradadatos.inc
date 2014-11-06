@@ -1,5 +1,5 @@
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
-<div id="tdialog-panel">
+<div id="tdialog-window">
 	<div class="dialog_forms" style="background:white">
         <form id="tdialog-form" method="get" novalidate="novalidate">
 			<input id="tdialog-Session" name="Session" type="hidden" value="0"> <!-- Session ID -->  
@@ -72,7 +72,7 @@
 
 <script type="text/javascript">
     // declaracion del dialogo
-    $('#tdialog-panel').panel({
+    $('#tdialog-window').window({
         iconCls: 'icon-notes',
         closed: true,
         modal: true,
@@ -84,7 +84,7 @@
     	maximizable:	false,
     	resizable:		false,
     	maximized: 		true,
-    	onClose:	function() { $('#tablet-panel').panel('open'); }
+    	onClose:	function() { $('#tablet-window').window('open'); }
     });
 
     $('#tdialog-form').form({

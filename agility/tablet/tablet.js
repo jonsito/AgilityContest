@@ -10,8 +10,8 @@ function tandasStyler(val,row,idx) {
 /******************* funciones de manejo de las ventana de orden de tandas y orden de salida en el tablet *******************/
 
 function tablet_showOrdenSalida() {
-	$('#tablet-panel').panel('open');
-    $('#tdialog-panel').panel('close');
+	$('#tablet-window').window('open');
+    $('#tdialog-window').window('close');
 }
 
 /******************* funciones de manejo de la ventana de entrada de resultados del tablet *****************/
@@ -225,7 +225,7 @@ function tablet_cancel() {
 		});
 	}
 	// and close panel
-	$('#tdialog-panel').panel('close');
+	$('#tdialog-window').window('close');
 }
 
 function tablet_accept() {
@@ -235,7 +235,7 @@ function tablet_accept() {
 	// close entradadatos window
 	// this must be done BEFORE datagrid contents update
 	// otherwise renderer will silently ignore actions
-	$('#tdialog-panel').panel('close'); // and close window
+	$('#tdialog-window').window('close'); // and close window
 	// retrieve original data from parent datagrid
 	var dgname = $('#tdialog-Parent').val();
 	var row = $(dgname).datagrid('getSelected');
