@@ -1,19 +1,18 @@
 	<!-- Presentacion combinada de live stream, llamada a pista y resultados parciales -->
-<div id="vw_combinada-Panel" class="easyui-panel" style="width:1920px;height:1080px;">
-
+<div id="vw_combinada-window">
 	<!-- paneles de lista de mangas y datos de cada manga -->
 	<div id="vw_combinada-Layout1" class="easyui-layout" data-options="fit:true">
 		
 		<!-- marco izquierdo. top:livestream bottom:llamada-->
 		<div data-options="region:'west',split:true,border:false,collapsible:false,collapsed:false" 
-				style="width:800px"> <!-- dos quintos del ancho de pantalla -->
+				style="width:40%"> <!-- dos quintos del ancho de pantalla -->
 		
 			<div id="vw_combinada-Layout2" class="easyui-layout" data-options="fit:true">
 			
 				<div data-options="region:'north',split:true,border:false,collapsible:false,collapsed:false" 
-					style="height:450px">
-					<div id="vw_combinada-LiveStream" class="easyui-panel"
-						data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
+					style="height:30%">
+					<div id="vwls_LiveStream" class="easyui-panel"
+						data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false,resizable:true">
 						<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
 					    <video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
 					    	poster="/agility/images/wallpapers/foto_dama.jpg">
@@ -89,7 +88,8 @@ $('#cronomanual').Chrono( {
 	showMode: 2
 });
 
-$('#vw_combinada-Panel').panel({
+$('#vw_combinada-window').window({
+	fit:true,
 	noheader:true,
 	border:false,
 	closable:false,
@@ -112,9 +112,9 @@ doLayout(layout,"#vwls_Datos",		25,		345,	750,	80	);
 doLayout(layout,"#vwls_FaltasLbl",	635,	50,		75,		25	);
 doLayout(layout,"#vwls_Faltas",		735,	50,		25,		25	);
 doLayout(layout,"#vwls_TocadosLbl",	635,	75,		75,		25	);
-doLayout(layout,"#vwls_Tocados",		735,	75,		25,		25	);
+doLayout(layout,"#vwls_Tocados",	735,	75,		25,		25	);
 doLayout(layout,"#vwls_RehusesLbl",	635,	100,	75,		25	);
-doLayout(layout,"#vwls_Rehuses",		735,	100,	25,		25	);
+doLayout(layout,"#vwls_Rehuses",	735,	100,	25,		25	);
 doLayout(layout,"#vwls_TiempoLbl",	635,	125,	50,		25	);
 doLayout(layout,"#vwls_Tiempo",		705,	125,	55,		25	);
 

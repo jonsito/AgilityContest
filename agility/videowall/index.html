@@ -137,10 +137,30 @@ function vw_accept() {
 			page,
 			function(response,status,xhr){
 				if (status=='error') $('#vw_contenido').load('/agility/client/frm_notavailable.php');
+				// vwls_setOSDScale();
 			}
 		);
-		
 }
+
+/*
+//handle auto-resize font
+function vwls_setOSDScale() {
+	var factor = 0.25;
+	var height = $('#vwls_LiveStream').height();
+	var max = 600;
+	var min = 30;
+	var size = factor * height; //Multiply the width of the body by the scaling factor:
+	if (size > max) size = max;
+	if (size < min) size = min; //Enforce the minimum and maximums
+	$('#vwls_common').css('font-size',size+'%');
+}
+
+$(document).ready(function() {
+	// trigger resize event
+	$(window).resize(function(){ vwls_setOSDScale(); });
+});
+*/
+
 </script>
 </div> <!-- contenido -->
 </body>

@@ -1,7 +1,7 @@
 <!-- Pantalla liveStream -->
-<div id="vwls_LiveStream-window" class="easyui-window" style="padding:10px">
-	<div id="vwls-LiveStream" class="easyui-panel"
-				data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
+<div id="vwls_LiveStream-window" style="padding:10px">
+	<div id="vwls_LiveStream" class="easyui-panel"
+		data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false,resizable:true">
 		<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
 		<video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
 		   	poster="/agility/images/wallpapers/foto_dama.jpg">
