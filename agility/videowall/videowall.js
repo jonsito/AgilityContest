@@ -260,6 +260,7 @@ function vwls_processLiveStream(id,evt) {
 		return;
 	}
 }
+
 function vw_processLlamada(id,evt) {
 	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
 	event['ID']=id;
@@ -286,6 +287,38 @@ function vw_processLlamada(id,evt) {
 	case 'cronoauto':  	// value: timestamp nada que hacer
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':	// operador pulsa aceptar
+		return;
+	case 'cancelar': // operador pulsa cancelar
+		return;
+	}
+}
+
+function vw_processParciales(id,evt) {
+	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
+	event['ID']=id;
+	switch (event['Type']) {
+	case 'null': // null event: no action taken
+		return; 
+	case 'init': // operator starts tablet application
+		// TODO: muestra pendientes desde primera tanda
+		return;
+	case 'open': // operator select tanda:
+		vwc_updateResults(event)
+		return;
+	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+		return
+	case 'llamada':	// llamada a pista
+		return
+	case 'salida': // orden de salida
+		return;
+	case 'start': // start crono manual
+		return;
+	case 'stop': // stop crono manual
+		return;
+	case 'cronoauto':  	// value: timestamp nada que hacer
+		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
+	case 'aceptar':	// operador pulsa aceptar
+		vwc_updateResults(event)
 		return;
 	case 'cancelar': // operador pulsa cancelar
 		return;

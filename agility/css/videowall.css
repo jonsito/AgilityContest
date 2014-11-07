@@ -66,12 +66,6 @@
 	font-weight: bold;
 }
 
-/* panel de resultados parciales */
-.vwc_tresultados {
-	text-align: center;
-	font-weight: bold;
-}
-
 /* elementos individuales de la tabla de resultados parciales */
 .vwc_puesto {
     width: 50px;
@@ -99,8 +93,10 @@
 	font-style: italic;
 }
 
+/* cabecera de ventana de resultados parciales */
 .vwc_trs {
 	width:100%;
+	padding:10px;
 	background-color: #8080ff;
 	color: white;
 	font-weight: bold;
@@ -114,6 +110,13 @@
 .vwc_trs td {
 	text-align:right;
 	font-size: 15px;
+}
+
+/* tabla de resultados parciales */
+.vwc_tresultados {
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
 }
 
 /* subtabla de participantes en resultados parciales */

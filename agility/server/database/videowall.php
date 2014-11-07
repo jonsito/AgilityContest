@@ -124,11 +124,12 @@ class VideoWall {
 			<table class="vwc_trs">
 				<theader>
 					<tr>
-						<th colspan="2" style="align:leftt">Resultados Parciales</th>
+						<th colspan="2" style="align:leftt">Resultados Provisionales</th>
 						<th colspan="3">'.$mangastr.'</th>
 					</tr>
 				</theader
 				<tbody>
+					<tr><td colspan="5">&nbsp</td></tr>
 					<tr style="align:right">
 						<td>Distancia: '.$result['trs']['dist'].'mts.</td>
 						<td>Obst&aacute;culos: '.$result['trs']['obst'].'</td>
