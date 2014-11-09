@@ -107,10 +107,10 @@ class Clasificaciones extends DBObject {
 			$final[$item['Perro']]['Calificacion'] = '';
 			$final[$item['Perro']]['Puntos'] = '';
 			// TODO: properly evaluate calificacion y puntos
-			$c=$p1=$final[$item['Perro']]['Grado'];
+			$c=$final[$item['Perro']]['Grado'];
 			if (($c==="GII") || ($c=="GIII")) {
 				$final[$item['Perro']]['Calificacion'] = 
-					($final[$item['Perro']]['Penalizacion']==0)?'Pto.':'';
+					($final[$item['Perro']]['Penalizacion']==0.0)?'Pto.':'';
 			}
 		}
 		// una vez ordenados, el índice perro ya no tiene sentido, con lo que vamos a eliminarlo

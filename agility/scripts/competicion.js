@@ -29,7 +29,7 @@ function formatTiempo(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFlo
 function formatPenalizacion(val,row,idx) { return parseFloat(val).toFixed(2); }
 
 /* formaters para el frm_clasificaciones */
-function formatPuestoFinal(val,row,idx) { return (row.Penalizacion>=200)?"-":val; }
+function formatPuestoFinal(val,row,idx) { return (row.Penalizacion>=200)?"-":row.Puesto; }
 function formatPenalizacionFinal(val,row,idx) { return parseFloat(val).toFixed(2); }
 
 function formatV1(val,row,idx) { return (row.P1>=200)?"-":parseFloat(val).toFixed(1); }

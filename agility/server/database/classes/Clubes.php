@@ -209,10 +209,10 @@ class Clubes extends DBObject {
 		$rs->free();
 		$name="rsce.png";
 		if ($row) $name=$row->Logo;
-		$fname=__DIR__."/../../images/logos/$name";
+		$fname=__DIR__."/../../../images/logos/$name";
 		if (!file_exists($fname)) {
 			$this->myLogger->notice("Logo file $fname does not exists");
-			$fname=__DIR__."/../../images/logos/rsce.png"; // use default name
+			$fname=__DIR__."/../../../images/logos/rsce.png"; // use default name
 		}
 		$size = getimagesize($fname);
 		header('Content-type: '.$size['mime']);

@@ -144,4 +144,6 @@ doLayout(layout,"#vwls_Categoria",	550,	350,	100,	40	);
 doLayout(layout,"#vwls_Grado",		650,	350,	100,	40	);
 doLayout(layout,"#vwls_Celo",		700,	390,	50,		40	);
 
+$('#vwls_common').css('font-size','15px');
+
 </script>

@@ -64,10 +64,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	    <th colspan="3"> <span class="resultados_theader">Clasificaci&oacute;n</span></th>
 	    </tr>
 	    <tr>
+	    <!-- 
 	    <th data-options="field:'Perro',		hidden:true " ></th>
+	     -->
 	    <th data-options="field:'Dorsal',		width:20, align:'left'" > Dors.</th>
 	    <th data-options="field:'Nombre',		width:35, align:'left'" > Nombre</th>
+	    <!-- 
 	   	<th data-options="field:'Licencia',		hidden:true" ></th>
+	     -->
 	   	<th data-options="field:'Categoria',	width:15, align:'center'" > Cat.</th>
 	   	<th data-options="field:'Grado',		width:20, align:'center'" > Grd.</th>
 	    <th data-options="field:'NombreGuia',	width:50, align:'right'" > Guia</th>
@@ -84,8 +88,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	    <th data-options="field:'V2',			width:15, align:'right',formatter:formatV2"> Vel.</th>
 	    <th data-options="field:'P2',			width:20, align:'right',formatter:formatP2"> Penal.</th>
 	    <th data-options="field:'C2',			width:25, align:'center'"> Cal.</th>
-	    
+	    <!-- 
 	    <th data-options="field:'Tiempo',		hidden:true" ></th>
+	     -->
 	    <th data-options="field:'Penalizacion',	width:30, align:'right',formatter:formatPenalizacionFinal,styler:formatBorder" > Penaliz.</th>
 	    <th data-options="field:'Calificacion',	width:20, align:'center'" > Calif.</th>
 	    <th data-options="field:'Puesto',		width:15, align:'right',formatter:formatPuestoFinal" > Puesto </th>
