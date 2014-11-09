@@ -40,7 +40,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 
 <script type="text/javascript">
-
 $('#ordensalida-window').window({
 	collapsible:	false,
 	minimizable:	false,
@@ -50,6 +49,7 @@ $('#ordensalida-window').window({
 	closed:			true,
 	modal:			true
 });
+
 
 $('#ordensalida-datagrid').datagrid({
 	// propiedades del panel asociado

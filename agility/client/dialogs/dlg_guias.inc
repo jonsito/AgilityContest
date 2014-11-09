@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE GUIAS -->
-    <div id="guias-dialog" class="easyui-dialog" style="width:500px;height:350px;padding:10px 20px">
+    <div id="guias-dialog" style="width:500px;height:350px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del guia</div>
         <form id="guias-form" method="get" novalidate>
             <div class="fitem">

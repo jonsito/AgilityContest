@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!--  dialogo de presentacion de resultados parciales de una manga -->
-<div id="resultadosmanga-window" class="easyui-window" style="width:800px;height:450px;padding:0px 10px 100px 10px">
+<div id="resultadosmanga-window" style="width:800px;height:450px;padding:0px 10px 100px 10px">
 	<!-- BARRA DE TAREAS DE RESULTADOS PARCIALES DE MANGA -->
 	<div id="resultadosmanga-toolbar">
  		<span style="float:right;padding:5px">

@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="competicion-window" class="easyui-window" style="width:800px;height:450px;padding:0px 10px 40px 10px">
+<div id="competicion-window"style="width:800px;height:450px;padding:0px 10px 40px 10px">
 	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 	<div id="competicion-toolbar" style="padding:5px">
  		<span style="float:left">
@@ -35,15 +35,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 
 <script type="text/javascript">
-
 $('#competicion-window').window({
-	collapsible:	false,
-	minimizable:	false,
-	maximizable:	false,
-	resizable:		false,
-	iconCls:		'icon-table',
-	closed:			true,
-	modal:			true
+	collapsible:false,
+	minimizable:false,
+	maximizable:false,
+	resizable:false,
+	iconCls:'icon-table',
+	closed:true,
+	modal:true
 });
 
 $('#competicion-datagrid').datagrid({

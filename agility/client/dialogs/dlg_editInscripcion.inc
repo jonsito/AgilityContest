@@ -89,16 +89,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
     
     <script type="text/javascript">
-    
-    // declaracion del dialogo
-    $('#edit_inscripcion-dialog').dialog({
-        iconCls: 'icon-notes',
-        closed: true,
-        modal: true,
-        buttons: '#edit_inscripcion-dlg-buttons',
-        title: 'Editar inscripcion'
-    });
 
+    $('#edit_inscripcion-dialog').dialog({
+    	iconCls:'icon-notes',
+    	closed:true,
+    	modal:true,
+    	buttons:'#edit_inscripcion-dlg-buttons',
+    	title:'Editar inscripcion'
+    });
+    
+    // declaracion del formulario
     $('#edit_inscripcion-form').form({
         onLoadSuccess: function(data) {
             // retrieve info on jornadas

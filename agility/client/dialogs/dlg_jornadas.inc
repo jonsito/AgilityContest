@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
      <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE JORNADAS -->
-    <div id="jornadas-dialog" class="easyui-dialog" style="width:375px;padding:25px">
+    <div id="jornadas-dialog" style="width:375px;padding:25px">
         <div class="ftitle">Informaci&oacute;n de la Jornada<br /></div>
         <form id="jornadas-form" method="get" novalidate>
             <div class="fitem">

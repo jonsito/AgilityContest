@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->
-<div id="seljornada-window" class="easyui-window" style="position:relative,width:500px;height:200px;padding:20px 20px">
+<div id="seljornada-window" style="position:relative,width:500px;height:200px;padding:20px 20px">
 	<div id="seljornada-Layout" class="easyui-layout" data-options="fit:'true'">
 		<form id="seljornada-Selection">
 			<div id="seljornada-Content" data-options="region:'north',border:'true'">

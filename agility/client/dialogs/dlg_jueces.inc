@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE JUECES -->
-    <div id="jueces-dialog" class="easyui-dialog" style="width:450px;height:450px;padding:10px 20px">
+    <div id="jueces-dialog" style="width:450px;height:450px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del juez</div>
         <form id="jueces-form" method="get" novalidate>
             <div class="fitem">

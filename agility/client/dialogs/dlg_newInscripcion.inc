@@ -16,16 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- FORMULARIO DE ALTA DE INSCRIPCIONES EN UNA PRUEBA -->
-<div id="new_inscripcion-dialog" class="easyui-dialog"
-	data-options="iconCls:'icon-notes',
-				modal:true,
-				closed:true,
-				closable:true,
-				collapsible:false,
-				minimizable:false,
-				maximizable:false,
-				resizable:false"
-	style="width:700px;padding:10px 20px">
+<div id="new_inscripcion-dialog" style="width:700px;padding:10px 20px">
   	<form id="new_inscripcion-form">
    		<input id="new_inscripcion-Operation" name="Operation" type="hidden" value="insert"/>
    		<input id="new_inscripcion-Prueba" type="hidden" name="Prueba" value="0"/>
@@ -129,11 +120,18 @@ function listaNoInscritos() {
 		where: ($('#new_inscripcion-search').val()==='---- Buscar ----')?'':$('#new_inscripcion-search').val()
 	});
 }
-
+	
 //TODO: estudiar por qué el "closed:true" en el data-options no funciona
 $('#new_inscripcion-dialog').dialog({
-	title:"A&ntilde;adir inscripciones a la prueba: '"+workingData.datosPrueba.Nombre+"'",
+	iconCls:'icon-notes',
+	modal:true,
 	closed:true,
+	closable:true,
+	collapsible:false,
+	minimizable:false,
+	maximizable:false,
+	resizable:false,
+	title:"A&ntilde;adir inscripciones a la prueba: '"+workingData.datosPrueba.Nombre+"'",
 	toolbar: '#new_inscripcion-datagrid-tools',
 	buttons:'#new_inscripcion-buttons',
 	onOpen: newInscripcion_onOpenSuccess // on display setup jornada's 'checkboxes info
