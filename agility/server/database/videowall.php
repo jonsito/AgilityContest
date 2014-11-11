@@ -105,16 +105,17 @@ class VideoWall {
 			<table class="vwc_llamada">
 			<tr>
 				<th rowspan="2">'.$numero.'</th>
-				<td rowspan="2"><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'" width="50" height="50"/></td>
-				<td rowspan="2">'.$participante['Grado'].' - '.$participante['Categoria'].'</td>
-				<td>Dorsal: '.$participante['Dorsal'].'</td>
-				<td>Lic.  : '.$participante['Licencia'].'</td>
-				<td colspan="2" style="text-align:center; font-style:italic; font-size:25px;">'.$participante['Nombre'].'</td>
-				<td style="text-align:right;">'.$celo.'</td>		
+				<td rowspan="2"><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'"/></td>
+				<td colspan="1" style="width:5%">'.$participante['Grado'].'</td>
+				<td colspan="2">Dorsal: '.$participante['Dorsal'].'</td>
+				<td colspan="3">Lic.: '.$participante['Licencia'].'</td>
+				<td colspan="3" style="text-align:center; font-style:italic; font-size:200%;">'.$participante['Nombre'].'</td>
+				<td colspan="1" style="text-align:right;">'.$celo.'</td>		
 			</tr>
 			<tr>
-				<td colspan="3" style="text-align:left">Gu&iacute;a: '.$participante['NombreGuia'].'</td>
-				<td colspan="2" style="text-align:right">Club: '.$participante['NombreClub'].'</td>
+				<td colspan="1" style="width:5%">'.$participante['Categoria'].'</td>
+				<td colspan="5" style="text-align:left">Gu&iacute;a: '.$participante['NombreGuia'].'</td>
+				<td colspan="4" style="text-align:right">Club: '.$participante['NombreClub'].'</td>
 			</tr>
 			</table>
 		</div>
