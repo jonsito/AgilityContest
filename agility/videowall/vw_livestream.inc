@@ -85,17 +85,17 @@ $('#vwls_LiveStream-window').window({
 // layout
 var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 
-doLayout(layout,"#vwls_Resultados",	625,	35,		150,	130	);
+doLayout(layout,"#vwls_Resultados",	620,	35,		155,	130	);
 doLayout(layout,"#vwls_Datos",		25,		345,	750,	80	);
 
-doLayout(layout,"#vwls_FaltasLbl",	635,	50,		75,		25	);
-doLayout(layout,"#vwls_Faltas",		735,	50,		25,		25	);
-doLayout(layout,"#vwls_TocadosLbl",	635,	75,		75,		25	);
-doLayout(layout,"#vwls_Tocados",	735,	75,		25,		25	);
-doLayout(layout,"#vwls_RehusesLbl",	635,	100,	75,		25	);
-doLayout(layout,"#vwls_Rehuses",	735,	100,	25,		25	);
-doLayout(layout,"#vwls_TiempoLbl",	635,	125,	50,		25	);
-doLayout(layout,"#vwls_Tiempo",		705,	125,	55,		25	);
+doLayout(layout,"#vwls_FaltasLbl",	630,	50,		75,		25	);
+doLayout(layout,"#vwls_Faltas",		740,	50,		25,		25	);
+doLayout(layout,"#vwls_TocadosLbl",	630,	75,		75,		25	);
+doLayout(layout,"#vwls_Tocados",	740,	75,		25,		25	);
+doLayout(layout,"#vwls_RehusesLbl",	630,	100,	75,		25	);
+doLayout(layout,"#vwls_Rehuses",	740,	100,	25,		25	);
+doLayout(layout,"#vwls_TiempoLbl",	630,	125,	50,		25	);
+doLayout(layout,"#vwls_Tiempo",		710,	125,	55,		25	);
 
 doLayout(layout,"#vwls_Logo",		30,		350,	80,		80	);
 doLayout(layout,"#vwls_Dorsal",		150,	350,	100,	40	);
@@ -106,4 +106,5 @@ doLayout(layout,"#vwls_Categoria",	550,	350,	100,	40	);
 doLayout(layout,"#vwls_Grado",		650,	350,	100,	40	);
 doLayout(layout,"#vwls_Celo",		700,	390,	50,		40	);
 
+jQuery('#vwls_LiveStream').fitText(0.035);
 </script>

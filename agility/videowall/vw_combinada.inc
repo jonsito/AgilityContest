@@ -27,7 +27,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<div id="vw_combinada-Layout2" class="easyui-layout" data-options="fit:true">
 			
 				<div data-options="region:'north',split:true,border:false,collapsible:false,collapsed:false" 
-					style="height:30%">
+					style="height:35%">
 					<div id="vwls_LiveStream" class="easyui-panel"
 						data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false,resizable:true">
 						<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
@@ -144,6 +144,5 @@ doLayout(layout,"#vwls_Categoria",	550,	350,	100,	40	);
 doLayout(layout,"#vwls_Grado",		650,	350,	100,	40	);
 doLayout(layout,"#vwls_Celo",		700,	390,	50,		40	);
 
-$('#vwls_common').css('font-size','15px');
-
+jQuery('#vwls_LiveStream').fitText(0.035);
 </script>

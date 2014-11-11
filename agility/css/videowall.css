@@ -22,7 +22,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /**** estilos asociados al panel "LiveStream" */
 #vwls_common {
 	vertical-align: middle;
-	font-size: 25px;
 	line-height: 25px;
 	font-weight: bold;
 	border: none;
@@ -43,7 +42,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .vwls_data {
 	text-align: center;
 	background-color: #c0c0c0;
-	padding-top: 0px;
 	color: white;
 }
 
