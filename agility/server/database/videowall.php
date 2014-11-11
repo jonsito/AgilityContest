@@ -101,24 +101,32 @@ class VideoWall {
 			$celo=($participante['Celo']==='1')?'Celo':'';
 			$bg=(($numero%2)!=0)?"#ffffff":"#d0d0d0";
 			echo '
-		<div id="participante_'.$numero.'" style="background:'.$bg.'">
-			<table class="vwc_llamada">
-			<tr>
-				<th rowspan="2">'.$numero.'</th>
-				<td rowspan="2"><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'"/></td>
-				<td colspan="1" style="width:5%">'.$participante['Grado'].'</td>
-				<td colspan="2">Dorsal: '.$participante['Dorsal'].'</td>
-				<td colspan="3">Lic.: '.$participante['Licencia'].'</td>
-				<td colspan="3" style="text-align:center; font-style:italic; font-size:200%;">'.$participante['Nombre'].'</td>
-				<td colspan="1" style="text-align:right;">'.$celo.'</td>		
-			</tr>
-			<tr>
-				<td colspan="1" style="width:5%">'.$participante['Categoria'].'</td>
-				<td colspan="5" style="text-align:left">Gu&iacute;a: '.$participante['NombreGuia'].'</td>
-				<td colspan="4" style="text-align:right">Club: '.$participante['NombreClub'].'</td>
-			</tr>
-			</table>
-		</div>
+		<table width="100%" border="0">
+		<tr id="participante_'.$numero.'" style="background:'.$bg.';width:100%;height:5%;">
+				<td style="width:10%;height:auto;text-align: center;font-size: 300%;font-weight: bold;">'.$numero.'</td>
+				<td style="width:5%;height:auto"><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'"/></td>
+				<td style="width:20%;height:auto;align:left">
+						Dorsal: '.$participante['Dorsal'].'<br />
+						Lic. : '.$participante['Licencia'].'<br />
+						Grado: '.$participante['Grado'].'<br />	
+						Cat. : '.$participante['Categoria'].'<br />				
+				</td>
+				<td style="width:60%;height:auto;align:left">
+					<table width="100%" border="0">
+					<tr style="height=50%;font-style:italic;font-size:200%;font-weight: bold;">
+						<td style="align:right;width:80%">'.$participante['Nombre'].'</td>
+						<td style="align:center;width:20%">'.$celo.'</td>
+					</tr>
+					<tr style="align:left;width:100%;height:25%">
+						<td>Gu&iacute;a: '.$participante['NombreGuia'].'</td>
+					</tr>
+					<tr style="align:left;width:100%;height:25%">
+						<td>Club: '.$participante['NombreClub'].'</td>
+					</tr>
+					</table>
+				</td>
+		</tr>
+		</table>
 		';
 		}
 	}
