@@ -1713,14 +1713,18 @@ CREATE TABLE IF NOT EXISTS `Sesiones` (
   `Tanda` int(4) NOT NULL DEFAULT '0',
   `LastModified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- Volcado de datos para la tabla `Sesiones`
 --
 
 INSERT INTO `Sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `SessionKey`) VALUES
-(1, '-- Sin asignar --', 'NO BORRAR: Sesion por defecto para manejador de eventos','-- Anonimo --',NULL);
+(1, '-- Sin asignar --', 'NO BORRAR: Sesion por defecto para manejador de eventos','-- Anonimo --',NULL),
+(2, 'Ring 1', 'Mangas a realizar en el Ring de honor','-- Anonimo --',NULL),
+(3, 'Ring 2', 'Mangas a realizar en el segundo ring','-- Anonimo --',NULL),
+(4, 'Ring 3', 'Mangas a realizar en el tercer ring','-- Anonimo --',NULL),
+(5, 'Ring 4', 'Mangas a realizar en el cuarto ring','-- Anonimo --',NULL);
 
 -- --------------------------------------------------------
 
