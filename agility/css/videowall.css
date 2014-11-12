@@ -166,8 +166,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /* cabecera flotante para resultados parciales y llamada a pista */
 .vw_floatingheader {
 	position:absolute;
-	top:20px;
-	left:75px;
+	top:10px;
+	left:10px;
 	padding:0px 50px;
 	z-index:1;
     background-color: rgba(127,127,127,0.5);

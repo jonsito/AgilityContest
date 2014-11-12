@@ -24,8 +24,8 @@ header('Set-Cookie: fileDownload=true; path=/');
 */
 
 require_once(__DIR__."/fpdf.php");
-require_once(__DIR__."/../database/tools.php");
-require_once (__DIR__."/../database/logging.php");
+require_once(__DIR__."/../tools.php");
+require_once (__DIR__."/../logging.php");
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Pruebas.php');
 require_once(__DIR__.'/../database/classes/Jornadas.php');

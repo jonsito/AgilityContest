@@ -18,7 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 /** mandatory requires for database and logging */
-require_once (__DIR__."/../logging.php");
+require_once (__DIR__."/../../logging.php");
 require_once (__DIR__."/DBConnection.php");
 
 class DBObject {

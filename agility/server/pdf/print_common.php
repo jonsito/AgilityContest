@@ -19,8 +19,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 define('FPDF_FONTPATH', __DIR__."/font/");
 require_once(__DIR__."/fpdf.php");
-require_once(__DIR__."/../database/tools.php");
-require_once(__DIR__."/../database/logging.php");
+require_once(__DIR__."/../tools.php");
+require_once(__DIR__."/../logging.php");
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Clubes.php');
 require_once(__DIR__.'/../database/classes/Pruebas.php');

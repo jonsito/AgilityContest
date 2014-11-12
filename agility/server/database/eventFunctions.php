@@ -18,9 +18,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 
-require_once("logging.php");
-require_once("tools.php");
-require_once("classes/Eventos.php");
+require_once(__DIR__."/../logging.php");
+require_once(__DIR__."/../tools.php");
+require_once(__DIR__."/classes/Eventos.php");
 
 try {
 	$result=null;
