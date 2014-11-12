@@ -90,45 +90,45 @@ class VideoWall {
 		$mySession=$sesmgr->__getObject("Sesiones",$idsesion);
 		$result = $otmgr->getData($mySession->Prueba,$mySession->Jornada,$pendientes,$mySession->Tanda)['rows']; // obtiene los 10 primeros perros pendientes
 		$numero=0;
+		echo '<table class="vwc_callEntry">';
 		foreach ($result as $participante) {
 			if ($lastTanda!==$participante['Tanda']){
 				$lastTanda=$participante['Tanda'];
-				echo '<div id="tanda_"'.$lastTanda.' class="vwc_tanda"><hr /> ---- '.$lastTanda.' ---- <hr /></div>';
+				echo '<tr><td colspan="5" class="vwc_callEntry vwc_callTanda">---- '.$lastTanda.' ----</td></tr>';
 			}
 			$numero++;
 			$logo=$otmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
 			if ($logo==="") $logo='rsce.png';
-			$celo=($participante['Celo']==='1')?'Celo':'';
+			$celo=($participante['Celo']==='1')?'Si':'No';
 			$bg=(($numero%2)!=0)?"#ffffff":"#d0d0d0";
 			echo '
-		<table width="100%" border="0">
-		<tr id="participante_'.$numero.'" style="background:'.$bg.';width:100%;height:5%;">
-				<td style="width:10%;height:auto;text-align: center;font-size: 300%;font-weight: bold;">'.$numero.'</td>
-				<td style="width:5%;height:auto"><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'"/></td>
-				<td style="width:20%;height:auto;align:left">
+				<tr id="participante_'.$numero.'" style="background:'.$bg.';">
+					<td class="vwc_callEntry vwc_callNumero">'.$numero.'</td>
+					<td class="vwc_callEntry vwc_callLogo">
+						<!-- trick to insert a resizeable image: use div+bgimage instead of img tag -->
+						<div style="height=100%;
+									position:relative;
+									background:url(\'/agility/images/logos/'.$logo.'\')no-repeat;
+									background-size:contain;
+									background-position:center;
+									font-size:600%">&nbsp;</div>
+					</td>
+					<td class="vwc_callEntry vwc_callDatos">
 						Dorsal: '.$participante['Dorsal'].'<br />
 						Lic. : '.$participante['Licencia'].'<br />
 						Grado: '.$participante['Grado'].'<br />	
-						Cat. : '.$participante['Categoria'].'<br />				
-				</td>
-				<td style="width:60%;height:auto;align:left">
-					<table width="100%" border="0">
-					<tr style="height=50%;font-style:italic;font-size:200%;font-weight: bold;">
-						<td style="align:right;width:80%">'.$participante['Nombre'].'</td>
-						<td style="align:center;width:20%">'.$celo.'</td>
-					</tr>
-					<tr style="align:left;width:100%;height:25%">
-						<td>Gu&iacute;a: '.$participante['NombreGuia'].'</td>
-					</tr>
-					<tr style="align:left;width:100%;height:25%">
-						<td>Club: '.$participante['NombreClub'].'</td>
-					</tr>
-					</table>
-				</td>
-		</tr>
-		</table>
-		';
+						Cat. : '.$participante['Categoria'].'		
+					</td>
+					<td class="vwc_callEntry vwc_callGuiaClub">
+						Gu&iacute;a: '.$participante['NombreGuia'].'<br />
+						Club: '.$participante['NombreClub'].'<br />
+						Celo: '.$celo.'	
+					</td>				
+					<td class="vwc_callEntry vwc_callNombre">'.$participante['Nombre'].'</td>
+				</tr>
+			';
 		}
+		echo '</table>';
 	}
 
 	function videowall_resultados($idsesion) {
