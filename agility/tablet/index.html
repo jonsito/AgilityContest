@@ -101,8 +101,8 @@ $('#seltablet-Prueba').combogrid({
 });
 
 $('#seltablet-Sesion').combogrid({
-	panelWidth: 250,
-	panelHeight: 100,
+	panelWidth: 500,
+	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
 	url: '/agility/server/database/sessionFunctions.php',
@@ -115,8 +115,9 @@ $('#seltablet-Sesion').combogrid({
 	singleSelect: true,
 	editable: false,
 	columns: [[
-	    { field:'ID',			width:5, sortable:false, align:'center', title:'ID' }, // Session ID
-		{ field:'Nombre',		width:30, sortable:false,   align:'right',  title: 'Nombre de sesión' }
+	   	    { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
+			{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: 'Nombre' },
+			{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' }
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='enumerate'
