@@ -1711,6 +1711,7 @@ CREATE TABLE IF NOT EXISTS `Sesiones` (
   `Jornada` int(4) NOT NULL DEFAULT '0',
   `Manga` int(4) NOT NULL DEFAULT '0',
   `Tanda` int(4) NOT NULL DEFAULT '0',
+  `LiveStream` varchar(255) DEFAULT NULL,
   `LastModified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
@@ -1719,12 +1720,12 @@ CREATE TABLE IF NOT EXISTS `Sesiones` (
 -- Volcado de datos para la tabla `Sesiones`
 --
 
-INSERT INTO `Sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `SessionKey`) VALUES
-(1, '-- Sin asignar --', 'NO BORRAR: Sesion por defecto para manejador de eventos','-- Anonimo --',NULL),
-(2, 'Ring 1', 'Mangas a realizar en el Ring de honor','-- Anonimo --',NULL),
-(3, 'Ring 2', 'Mangas a realizar en el segundo ring','-- Anonimo --',NULL),
-(4, 'Ring 3', 'Mangas a realizar en el tercer ring','-- Anonimo --',NULL),
-(5, 'Ring 4', 'Mangas a realizar en el cuarto ring','-- Anonimo --',NULL);
+INSERT INTO `Sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `LiveStream`, `SessionKey`) VALUES
+(1, '-- Sin asignar --', 'NO BORRAR: Sesion por defecto para manejador de eventos','-- Anonimo --','/agility/videos/sample_video.mp4',NULL),
+(2, 'Ring 1', 'Mangas a realizar en el Ring de honor','-- Anonimo --',NULL,NULL),
+(3, 'Ring 2', 'Mangas a realizar en el segundo ring','-- Anonimo --',NULL,NULL),
+(4, 'Ring 3', 'Mangas a realizar en el tercer ring','-- Anonimo --',NULL,NULL),
+(5, 'Ring 4', 'Mangas a realizar en el cuarto ring','-- Anonimo --',NULL,,NULL);
 
 -- --------------------------------------------------------
 

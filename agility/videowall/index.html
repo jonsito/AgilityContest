@@ -94,7 +94,8 @@ $('#selvw-Session').combogrid({
 	columns: [[
 	    { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
 		{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: 'Nombre' },
-		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' }
+		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' },
+		{ field:'LiveStream',	hidden:true }
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='enumerate'
@@ -148,7 +149,14 @@ function vw_accept() {
 			page,
 			function(response,status,xhr){
 				if (status=='error') $('#vw_contenido').load('/agility/client/frm_notavailable.php');
-				// vwls_setOSDScale();
+				else { 
+					// if LiveStream is present load and play assigned session's livestream url
+					var video=$('#vwls_video')[0];
+					if (!video) return;
+					video.src = s.LiveStream;
+					video.load();
+					video.play();
+				}
 			}
 		);
 }
