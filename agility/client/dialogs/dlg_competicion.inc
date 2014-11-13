@@ -20,8 +20,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 	<div id="competicion-toolbar" style="padding:5px">
  		<span style="float:left">
-		   	<a id="competicion-saveBtn" href="#" class="easyui-linkbutton" 
-		   		data-options="iconCls:'icon-save'" onclick="endEditing()">Guardar</a>
 		   	<a id="competicion-reloadBtn" href="#" class="easyui-linkbutton" 
 		   		data-options="iconCls:'icon-reload'" onclick="reloadCompeticion()">Actualizar</a>
     		</span>
@@ -82,8 +80,21 @@ $('#competicion-datagrid').datagrid({
       	{ field:'Rehuses',		width:15, align:'right', title: 'Rehus.',	editor:'numberbox', },
       	{ field:'Tiempo',		width:20, align:'right', title: 'Tiempo',	editor:{type:'numberbox',options:{precision:2}}	}, 
       	{ field:'Eliminado',	width:10, align:'center',title: 'Elim.',	editor:{type:'checkbox',options:{on:1,off:0}}	},
-      	{ field:'NoPresentado',	width:10, align:'center',title: 'N.P.',		editor:{type:'checkbox',options:{on:1,off:0}}	},		
-      	{ field:'Observaciones',width:20, align:'left',	 title: 'Observaciones',	editor:'text'  }
+      	{ field:'NoPresentado',	width:10, align:'center',title: 'N.P.',		editor:{type:'checkbox',options:{on:1,off:0}}	}, 
+      	{ field:'Observaciones',width:20, align:'left',	 title: 'Observaciones',	editor:'text'  },
+      	{ field:'action',		width:20, align:'center',title:'',
+      		formatter:function(value,row,index){
+      			if (row.editing){
+      				var s = '<a href="#" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="saverow(this);">Save</a> ';
+      				var c = '<a href="#" class="easyui-linkbutton" data-options="iconCls:\'icon-undo\'" onclick="cancelrow(this);">Cancel</a>';
+      				return s+c;
+      			} else {
+      				var e = '<a href="#" class="easyui-linkbutton" data-options="iconCls:\'icon-edit\'" onclick="editrow(this);">Edit</a> ';
+      				var d = '<a href="#" class="easyui-linkbutton" data-options="iconCls:\'icon-remove\'" onclick="deleterow(this);">Delete</a>';
+      				return e+d;
+      			}
+      		}
+      	}	
     ]],
     rowStyler:function(index,row) { // colorize rows. Equivalent to "striped: true", but better look&feel
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
@@ -92,88 +103,49 @@ $('#competicion-datagrid').datagrid({
 	onLoadSuccess:function(){ 
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 	},
-    onClickRow: onClickRow // start edit
+	onDblClickRow:function(index,row) {
+		$('#competicion-datagrid').datagrid('beginEdit',index);
+	},
+	// actualizacion de los iconos save/edit/delete/cancel
+	onBeforeEdit:function(index,row){ row.editing = true; updateActions(index); },
+	onAfterEdit:function(index,row){ row.editing = false; updateActions(index); },
+	onCancelEdit:function(index,row){ row.editing = false; updateActions(index); }
 });
 
-var competicion_editIndex = undefined;
-
-var pressed={};
-
-// stupid trick to avoid auto-repeat of keydown event
-/*
-$('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keyup',function(e){
-	var keycode = (e.keyCode ? e.keyCode : e.which);
-    pressed[keycode] = null; // mark key as released
-    return false;
-});
-*/
-//activa teclas up/down para navegar por el panel de gestion de jornadas
-$('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keyup',function(e){
-    function selectRow(t,up){
-    	var count = t.datagrid('getRows').length;    // row count
-    	var selected = t.datagrid('getSelected');
-    	if (selected){
-        	var index = t.datagrid('getRowIndex', selected);
-        	index = index + (up ? -1 : 1);
-        	if (index < 0) index = 0;
-        	if (index >= count) index = count - 1;
-        	t.datagrid('clearSelections');
-        	t.datagrid('selectRow', index);
-    	} else {
-        	t.datagrid('selectRow', (up ? count-1 : 0));
-    	}
-	}
-
-    var keycode = (e.keyCode ? e.keyCode : e.which);
-/*
-    if (pressed[keycode]!=null) return false; // already fired; ignore
-    pressed[keycode]=true;
-*/
-	var t = $('#competicion-datagrid');
-    switch(keycode){
-    case 38:	/* Up */	if (competicion_editIndex===undefined) selectRow(t,true); return false;
-    case 40:    /* Down */	if (competicion_editIndex===undefined) selectRow(t,false); return false;
-    case 13:	/* Enter */ 
-        if (competicion_editIndex!==undefined) {
-            endEditing(); // si estamos editando: finalizamos edicion
-            selectRow(t,false); // ponemos el indice en la siguiente fila
-        } 
-        // abrimos edicion
-        onClickRow(t.datagrid('getRowIndex', t.datagrid('getSelected')));// no estamos editando: pasamos a editar
-        return false;
-    case 27:	/* Escape */ $('#competicion-window').window('close'); return false;
-    }
-});
-
-function endEditing(){
-	if (competicion_editIndex == undefined){return true; }
-	if ($('#competicion-datagrid').datagrid('validateRow', competicion_editIndex)) {
-		$('#competicion-datagrid').datagrid('endEdit', competicion_editIndex);
-		// TODO: obtener y grabar los datos de la fila que se estaba editando
-		var data=$('#competicion-datagrid').datagrid('getRows')[competicion_editIndex];
-		saveCompeticionData(competicion_editIndex,data);
-		competicion_editIndex = undefined;
-		return true;
-	} else {
-		return false;
-	}
+// update row contents on action requested: just force repaint row
+function updateActions(index){
+		$('#competicion-datagrid').datagrid('updateRow',{
+		index: index,
+		row:{}
+	});
 }
 
-function onClickRow(index){
-	if (competicion_editIndex != index){
-		if (endEditing()){
-			$('#competicion-datagrid').datagrid('selectRow', index).datagrid('beginEdit', index);
-			competicion_editIndex = index;
-		} else {
-			$('#competicion-datagrid').datagrid('selectRow', competicion_editIndex);
+function getRowIndex(target){
+	var tr = $(target).closest('tr.datagrid-row');
+	return parseInt(tr.attr('datagrid-row-index'));
+};
+function editrow(target){
+	$('#competicion-datagrid').datagrid('beginEdit', getRowIndex(target));
+};
+function deleterow(target){
+	$.messager.confirm('Confirmar','Borrar resultados del participante<<br/> ¿Seguro?',function(r){
+		if (r){
+			alert("TODO: clearResultData() pending")// TODO: clear entry in database and refresh row with new data	
 		}
-	}
-}
+	});
+};
+function saverow(target){
+	$('#competicion-datagrid').datagrid('endEdit', getRowIndex(target));
+	// TODO: update database
+};
+function cancelrow(target){
+	$('#competicion-datagrid').datagrid('cancelEdit', getRowIndex(target));
+};
 
 //- botones del panel de orden de mangas
 addTooltip($('#competicion-reloadBtn').linkbutton(),"Recargar datos de competicion de la manga");
-addTooltip($('#competicion-saveBtn').linkbutton(),"Guardar datos de competicion");
 addTooltip($('#competicion-printBtn').linkbutton(),"Imprimir formulario ayudante de pista");
+
 $('#competicion-printBtn').on("click", function () {
 	 $.messager.radio(
 			 'Selecciona formulario',
