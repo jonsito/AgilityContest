@@ -22,8 +22,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  		<span style="float:left">
 		   	<a id="competicion-reloadBtn" href="#" class="easyui-linkbutton" 
 		   		data-options="iconCls:'icon-reload'" onclick="reloadCompeticion()">Actualizar</a>
-    		</span>
-    		<span style="float:right">
+		   	Auto:
+		   	<input id="competicion-autoUpdateBtn" type="checkbox" class="easyui-checkbox" value="0" onclick="autoUpdateCompeticion()"/>
+    	</span>
+    	<span style="float:right">
     		<!-- estos elementos deben estar alineados a la derecha -->
     		<a id="competicion-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'">Formularios</a>
 		</span>
@@ -115,7 +117,7 @@ $('#competicion-datagrid').datagrid({
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 	},
 	onDblClickRow:function(index,row) {
-		$('#competicion-datagrid').datagrid('beginEdit',index);
+		$(this).datagrid('beginEdit',index);
 	},
 	// actualizacion de los iconos save/edit/delete/cancel
 	onBeforeEdit:function(index,row){ row.editing = true; updateActions(index); },
@@ -158,6 +160,7 @@ function cancelrow(target){
 //- botones del panel de entrada de datos
 addTooltip($('#competicion-reloadBtn').linkbutton(),"Recargar datos de competicion de la manga");
 addTooltip($('#competicion-printBtn').linkbutton(),"Imprimir formulario ayudante de pista");
+addTooltip($('#competicion-autoUpdateBtn'),"(Des)activar actualizacion periodica de los datos");
 // botones de cada participante
 
 

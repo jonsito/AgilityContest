@@ -177,6 +177,8 @@ function reloadOrdenSalida() {
 function reloadCompeticion() {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
+	// si hay alguna celda en edicion, ignorar
+	
     $('#competicion-datagrid').datagrid(
             'load',
             { 
@@ -186,6 +188,20 @@ function reloadCompeticion() {
             	Operation: 'getData' 
             }
     );
+}
+
+var autoUpdateID=null;
+
+function autoUpdateCompeticion() {
+	var enabled=$('#competicion-autoUpdateBtn').prop('checked');
+	if (enabled) {
+		if (autoUpdateID!==null) return; // already activated
+		autoUpdateID=setInterval(function(){reloadCompeticion()}, 5000);
+	} else {
+		if (autoUpdateID==null) return; // already deactivated
+		clearInterval(autoUpdateID);
+		autoUpdateID=null;
+	}
 }
 
 /**
