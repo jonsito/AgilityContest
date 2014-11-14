@@ -66,6 +66,7 @@ $('#competicion-datagrid').datagrid({
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
+    editIndex: -1, // nonstandard added by me :-)
     // toolbar: '#competicion-toolbar',
     columns:[[
         { field:'Manga',		hidden:true },
@@ -111,6 +112,8 @@ $('#competicion-datagrid').datagrid({
     },
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
 	onLoadSuccess:function(){
+		// mark no row is being edited
+		$(this).datagrid('options').editIndex=-1;
 		// render datagrid buttons
 		$(this).datagrid('getPanel').find('a.easyui-linkbutton').linkbutton();
 		// enter focus to allow key binding
@@ -120,9 +123,9 @@ $('#competicion-datagrid').datagrid({
 		$(this).datagrid('beginEdit',index);
 	},
 	// actualizacion de los iconos save/edit/delete/cancel
-	onBeforeEdit:function(index,row){ row.editing = true; updateActions(index); },
-	onAfterEdit:function(index,row){ row.editing = false; updateActions(index); },
-	onCancelEdit:function(index,row){ row.editing = false; updateActions(index); }
+	onBeforeEdit:function(index,row){ $(this).datagrid('options').editIndex=index; row.editing = true; updateActions(index); },
+	onAfterEdit:function(index,row){ $(this).datagrid('options').editIndex=-1; row.editing = false; updateActions(index); },
+	onCancelEdit:function(index,row){ $(this).datagrid('options').editIndex=-1; row.editing = false; updateActions(index); }
 });
 
 // update row contents on action requested: just force repaint row and reassign buttons

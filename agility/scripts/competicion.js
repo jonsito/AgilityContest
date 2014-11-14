@@ -178,7 +178,7 @@ function reloadCompeticion() {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
 	// si hay alguna celda en edicion, ignorar
-	
+	if ($('#competicion-datagrid').datagrid('options').editIndex!=-1) return;
     $('#competicion-datagrid').datagrid(
             'load',
             { 
@@ -196,7 +196,7 @@ function autoUpdateCompeticion() {
 	var enabled=$('#competicion-autoUpdateBtn').prop('checked');
 	if (enabled) {
 		if (autoUpdateID!==null) return; // already activated
-		autoUpdateID=setInterval(function(){reloadCompeticion()}, 5000);
+		autoUpdateID=setInterval(function(){reloadCompeticion()}, 10000);
 	} else {
 		if (autoUpdateID==null) return; // already deactivated
 		clearInterval(autoUpdateID);
