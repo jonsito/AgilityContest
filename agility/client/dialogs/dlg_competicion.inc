@@ -142,19 +142,33 @@ function getRowIndex(target){
 	var tr = $(target).closest('tr.datagrid-row');
 	return parseInt(tr.attr('datagrid-row-index'));
 };
+
 function editrow(target){
 	$('#competicion-datagrid').datagrid('beginEdit', getRowIndex(target));
 };
 function deleterow(target){
 	$.messager.confirm('Confirmar','Borrar resultados del participante <br/> ¿Seguro?',function(r){
 		if (r){
-			alert("TODO: clearResultData() pending")// TODO: clear entry in database and refresh row with new data	
+			var editIndex=getRowIndex(target)
+			var data=$('#competicion-datagrid').datagrid('getRows')[editIndex];
+			data.Faltas=0;
+			data.Tocados=0;
+			data.Rehuses=0;
+			data.Tiempo=0.0;
+			data.Eliminado=0;
+			data.NoPresentado=0;
+			data.Observaciones="";
+			data.Pendiente=1;
+			saveCompeticionData(editIndex,data);	
 		}
 	});
 };
 function saverow(target){
-	$('#competicion-datagrid').datagrid('endEdit', getRowIndex(target));
-	// TODO: update database
+	var editIndex=getRowIndex(target)
+	$('#competicion-datagrid').datagrid('endEdit', editIndex );
+	var data=$('#competicion-datagrid').datagrid('getRows')[editIndex];
+	data.Pendiente=0;
+	saveCompeticionData(editIndex,data);
 };
 function cancelrow(target){
 	$('#competicion-datagrid').datagrid('cancelEdit', getRowIndex(target));

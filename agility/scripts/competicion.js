@@ -359,11 +359,13 @@ function saveCompeticionData(idx,data) {
 			Eliminado:	data['Eliminado'],
 			NoPresentado:	data['NoPresentado'],
 			Observaciones:	data['Observaciones'],
-			Pendiente: 0
+			Pendiente: data['Pendiente']
 		},
 		success: function(dat) {
 			if (dat.Manga!=workingData.manga) return; // window changed
 			$('#competicion-datagrid').datagrid('updateRow',{index: idx,row: dat});
+			$('#lnkb1_'+idx).linkbutton();
+			$('#lnkb2_'+idx).linkbutton();
 		}
 	});
 }
