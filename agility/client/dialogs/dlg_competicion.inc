@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="competicion-window"style="width:800px;height:450px;padding:0px 10px 40px 10px">
+<div id="competicion-window"style="width:900px;height:450px;padding:0px 10px 40px 10px">
 	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 	<div id="competicion-toolbar" style="padding:5px">
  		<span style="float:left">
@@ -72,27 +72,35 @@ $('#competicion-datagrid').datagrid({
       	{ field:'Pendiente',	hidden:true },
         { field:'Dorsal',		width:10, align:'right',  title: 'Dorsal', styler:checkPending },
         { field:'Nombre',		width:20, align:'left',  title: 'Nombre'},
-        { field:'NombreGuia',	width:50, align:'right', title: 'Guia' },
+        { field:'NombreGuia',	width:40, align:'right', title: 'Guia' },
         { field:'NombreClub',	width:30, align:'right', title: 'Club' },
       	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
-      	{ field:'Faltas',		width:15, align:'right', title: 'Faltas',	editor:'numberbox' },
-      	{ field:'Tocados',		width:15, align:'right', title: 'Tocad.',	editor:'numberbox' },
-      	{ field:'Rehuses',		width:15, align:'right', title: 'Rehus.',	editor:'numberbox', },
-      	{ field:'Tiempo',		width:20, align:'right', title: 'Tiempo',	editor:{type:'numberbox',options:{precision:2}}	}, 
+      	{ field:'Faltas',		width:7, align:'right', title: 'Flt',	editor:'numberbox' },
+      	{ field:'Tocados',		width:7, align:'right', title: 'Toc.',	editor:'numberbox' },
+      	{ field:'Rehuses',		width:7, align:'right', title: 'Reh.',	editor:'numberbox' },
+      	{ field:'Tiempo',		width:15, align:'right', title: 'Tiempo',
+          	editor:{
+          		type:'numberbox',
+          		options:{		
+              		formatter:function(v){	return parseFloat(v).toFixed(2); },
+        			parser:function(s){	var v = parseFloat(s);	return isNaN(v)?'':v; }
+            	}
+          	}
+        }, 
       	{ field:'Eliminado',	width:10, align:'center',title: 'Elim.',	editor:{type:'checkbox',options:{on:1,off:0}}	},
       	{ field:'NoPresentado',	width:10, align:'center',title: 'N.P.',		editor:{type:'checkbox',options:{on:1,off:0}}	}, 
       	{ field:'Observaciones',width:20, align:'left',	 title: 'Observaciones',	editor:'text'  },
-      	{ field:'action',		width:20, align:'center',title:'',
+      	{ field:'action',		width:35, align:'center',title: '',
       		formatter:function(value,row,index){
-      			if (row.editing){
-      				var s = '<a href="#" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="saverow(this);">Save</a> ';
-      				var c = '<a href="#" class="easyui-linkbutton" data-options="iconCls:\'icon-undo\'" onclick="cancelrow(this);">Cancel</a>';
-      				return s+c;
-      			} else {
-      				var e = '<a href="#" class="easyui-linkbutton" data-options="iconCls:\'icon-edit\'" onclick="editrow(this);">Edit</a> ';
-      				var d = '<a href="#" class="easyui-linkbutton" data-options="iconCls:\'icon-remove\'" onclick="deleterow(this);">Delete</a>';
-      				return e+d;
-      			}
+          		if (row.editing){
+    				var s = '<a href="#" id="lnkb1_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="saverow(this);">Save</a> ';
+    				var c = '<a href="#" id="lnkb2_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-undo\'" onclick="cancelrow(this);">Cancel</a>';
+    				return s+c;
+    			} else {
+    				var e = '<a href="#" id="lnkb1_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-edit\'" onclick="editrow(this);">Edit</a> ';
+    				var d = '<a href="#" id="lnkb2_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-trash\'" onclick="deleterow(this);">Clear</a>';
+    				return e+d;
+    			}
       		}
       	}	
     ]],
@@ -100,7 +108,10 @@ $('#competicion-datagrid').datagrid({
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
     },
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
-	onLoadSuccess:function(){ 
+	onLoadSuccess:function(){
+		// render datagrid buttons
+		$(this).datagrid('getPanel').find('a.easyui-linkbutton').linkbutton();
+		// enter focus to allow key binding
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 	},
 	onDblClickRow:function(index,row) {
@@ -112,12 +123,14 @@ $('#competicion-datagrid').datagrid({
 	onCancelEdit:function(index,row){ row.editing = false; updateActions(index); }
 });
 
-// update row contents on action requested: just force repaint row
+// update row contents on action requested: just force repaint row and reassign buttons
 function updateActions(index){
-		$('#competicion-datagrid').datagrid('updateRow',{
+	$('#competicion-datagrid').datagrid('updateRow',{
 		index: index,
 		row:{}
 	});
+	$('#lnkb1_'+index).linkbutton();
+	$('#lnkb2_'+index).linkbutton();
 }
 
 function getRowIndex(target){
@@ -128,7 +141,7 @@ function editrow(target){
 	$('#competicion-datagrid').datagrid('beginEdit', getRowIndex(target));
 };
 function deleterow(target){
-	$.messager.confirm('Confirmar','Borrar resultados del participante<<br/> ¿Seguro?',function(r){
+	$.messager.confirm('Confirmar','Borrar resultados del participante <br/> ¿Seguro?',function(r){
 		if (r){
 			alert("TODO: clearResultData() pending")// TODO: clear entry in database and refresh row with new data	
 		}
@@ -142,9 +155,11 @@ function cancelrow(target){
 	$('#competicion-datagrid').datagrid('cancelEdit', getRowIndex(target));
 };
 
-//- botones del panel de orden de mangas
+//- botones del panel de entrada de datos
 addTooltip($('#competicion-reloadBtn').linkbutton(),"Recargar datos de competicion de la manga");
 addTooltip($('#competicion-printBtn').linkbutton(),"Imprimir formulario ayudante de pista");
+// botones de cada participante
+
 
 $('#competicion-printBtn').on("click", function () {
 	 $.messager.radio(
