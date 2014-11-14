@@ -80,13 +80,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 	$('#guias-Club').combogrid('setValue',$('#clubes-Nombre').val());
                 });    
         });
-        
-        // campos del formulario
         $('#guias-dialog').dialog({
-            closed:true,
-            buttons: '#guias-dlg-buttons',
-            iconCls: 'icon-users'
+        	closed:true,
+        	buttons:'#guias-dlg-buttons',
+        	iconCls:'icon-users'
         });
+        // campos del formulario
         $('#guias-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
         	if (e.keyCode == 27){ $('#guias-dialog').dialog('close');
         	}
