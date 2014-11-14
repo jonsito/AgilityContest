@@ -205,6 +205,81 @@ function autoUpdateCompeticion() {
 }
 
 /**
+ * Key bindings para uso de teclas en el dialogo de entrada de datos
+ * @param evt Key Event
+ */
+
+function competicionKeyEventHandler(evt) {
+
+	// up & down keys
+    function selectRow(t,up){
+    	var count = t.datagrid('getRows').length;    // row count
+    	var selected = t.datagrid('getSelected');
+    	if (selected){
+        	var index = t.datagrid('getRowIndex', selected);
+        	index = index + (up ? -1 : 1);
+        	if (index < 0) index = 0;
+        	if (index >= count) index = count - 1;
+        	t.datagrid('clearSelections');
+        	t.datagrid('selectRow', index);
+    	} else {
+        	t.datagrid('selectRow', (up ? count-1 : 0));
+    	}
+	}
+
+	function editRow(t) {
+		var selected = t.datagrid('getSelected');
+		if(!selected) return;
+		var index = t.datagrid('getRowIndex', selected);
+        t.datagrid('beginEdit',index);
+	}
+	
+	var dg=$('#competicion-datagrid');
+	var editIndex=dg.datagrid('options').editIndex; // added by me
+	if (editIndex==-1) { // not editing
+		switch (evt.keyCode) {
+        case 38:	/* Up */	 
+            selectRow(dg,true); 
+            return false;
+        case 40:    /* Down */	 
+            selectRow(dg,false); 
+            return false;
+        case 13:	/* Enter */  
+            editRow(dg); 
+            return false;
+        case 27:	/* Esc */
+            // disable autorefresh if any
+            $('#competicion-autoUpdateBtn').prop('checked',false);
+            autoUpdateCompeticion(); // fire event 
+            // and close window  	 
+            $('#competicion-window').window('close'); 
+            return false;
+        default: 
+        	return false;
+		}
+	} else { //on edit
+		switch (evt.keyCode) {
+        case 13:	/* Enter */
+        	// save data
+        	dg.datagrid('endEdit', editIndex );
+        	var data=dg.datagrid('getRows')[editIndex];
+        	data.Pendiente=0;
+        	saveCompeticionData(editIndex,data);
+        	// and open edition on next row
+        	dg.datagrid('selectRow', editIndex); // previous focus is lost
+        	selectRow(dg,false); // move down one row
+        	editRow(dg);
+        	return false;
+        case 27:	/* Esc */ 
+            dg.datagrid('cancelEdit', editIndex);	
+            return false;
+		}
+	}
+	return true; // to allow follow key binding chain
+}
+
+
+/**
  * imprime los resultados de la manga/categoria solicitadas
  * @param val 0:large/conjunto 1:medium/m+s 2:small
  */
@@ -441,32 +516,32 @@ function competicionDialog(name) {
     	return; // no hay ninguna manga seleccionada. retornar
     }
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada;
-    $('#ordentandas-window').dialog('close');
-    $('#ordensalida-window').dialog('close');
-    $('#competicion-window').dialog('close');
-    $('#resultadosmanga-window').dialog('close');
+    $('#ordentandas-window').window('close');
+    $('#ordensalida-window').window('close');
+    $('#competicion-window').window('close');
+    $('#resultadosmanga-window').window('close');
     if (name==='ordentandas') {
         // abrimos ventana de dialogo
-        $('#ordentandas-window').dialog('open').window('setTitle',"Jornada: "+title);
+        $('#ordentandas-window').window('open').window('setTitle',"Jornada: "+title);
         // cargamos ventana de orden de salida
         reloadOrdenTandas();
     }
     title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
     if (name==='ordensalida') {
         // abrimos ventana de dialogo
-        $('#ordensalida-window').dialog('open').window('setTitle'," Orden de Salida: "+title);
+        $('#ordensalida-window').window('open').window('setTitle'," Orden de Salida: "+title);
         // cargamos ventana de orden de salida
         reloadOrdenSalida();
     }
     if (name==='competicion') {
         // abrimos ventana de dialogo
-        $('#competicion-window').dialog('open').window('setTitle'," Entrada de datos: "+title);
+        $('#competicion-window').window('open').window('setTitle'," Entrada de datos: "+title);
         // cargamos ventana de entrada de datos
         reloadCompeticion();
     }
     if (name==='resultadosmanga') {
         // abrimos ventana de dialogo
-        $('#resultadosmanga-window').dialog('open').window('setTitle'," Resultados de la manga: "+title);
+        $('#resultadosmanga-window').window('open').window('setTitle'," Resultados de la manga: "+title);
         // cargamos ventana de presentacion de resultados parciales
         reloadResultadosManga(row.Recorrido);
         // marcamos la primera opcion como seleccionada

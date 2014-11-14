@@ -178,8 +178,9 @@ function cancelrow(target){
 addTooltip($('#competicion-reloadBtn').linkbutton(),"Recargar datos de competicion de la manga");
 addTooltip($('#competicion-printBtn').linkbutton(),"Imprimir formulario ayudante de pista");
 addTooltip($('#competicion-autoUpdateBtn'),"(Des)activar actualizacion periodica de los datos");
-// botones de cada participante
 
+// key handling
+$('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).bind('keydown',competicionKeyEventHandler);
 
 $('#competicion-printBtn').on("click", function () {
 	 $.messager.radio(
