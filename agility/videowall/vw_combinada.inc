@@ -68,7 +68,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<div data-options="region:'center',split:true,border:false">
 				
 					<div id="vwc_llamada-Cabecera" class="vw_floatingheader">
-						<span id="vwc_llamada-Texto">Llamada a pista<span>
+						<span id="vwc_llamada-Texto">Llamada a pista</span>
 					</div>
 					<div id="vw_combinada-Pendientes" class="easyui-panel"
 						data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">

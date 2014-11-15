@@ -288,7 +288,7 @@ function vw_processLlamada(id,evt) {
 		// TODO: muestra pendientes desde primera tanda
 		return;
 	case 'open': // operator select tanda:
-		vwc_updatePendingQueue(event,25)
+		vwc_updatePendingQueue(event,25);
 		return;
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
@@ -320,7 +320,7 @@ function vw_processParciales(id,evt) {
 		// TODO: muestra pendientes desde primera tanda
 		return;
 	case 'open': // operator select tanda:
-		vwc_updateResults(event)
+		vwc_updateResults(event);
 		return;
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		return
@@ -335,7 +335,7 @@ function vw_processParciales(id,evt) {
 	case 'cronoauto':  	// value: timestamp nada que hacer
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':	// operador pulsa aceptar
-		vwc_updateResults(event)
+		vwc_updateResults(event);
 		return;
 	case 'cancelar': // operador pulsa cancelar
 		return;
