@@ -1725,7 +1725,7 @@ INSERT INTO `Sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `LiveStream`, 
 (2, 'Ring 1', 'Mangas a realizar en el Ring de honor','-- Anonimo --',NULL,NULL),
 (3, 'Ring 2', 'Mangas a realizar en el segundo ring','-- Anonimo --',NULL,NULL),
 (4, 'Ring 3', 'Mangas a realizar en el tercer ring','-- Anonimo --',NULL,NULL),
-(5, 'Ring 4', 'Mangas a realizar en el cuarto ring','-- Anonimo --',NULL,,NULL);
+(5, 'Ring 4', 'Mangas a realizar en el cuarto ring','-- Anonimo --',NULL,NULL);
 
 -- --------------------------------------------------------
 
