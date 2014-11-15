@@ -232,6 +232,8 @@ function competicionKeyEventHandler(evt) {
 		if(!selected) return;
 		var index = t.datagrid('getRowIndex', selected);
         t.datagrid('beginEdit',index);
+		var ed = $(t).datagrid('getEditor', {index:index,field:'Faltas'});
+		$(ed.target).next().find('input').focus();
 	}
 	
 	var dg=$('#competicion-datagrid');

@@ -120,7 +120,10 @@ $('#competicion-datagrid').datagrid({
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 	},
 	onDblClickRow:function(index,row) {
+		if( $(this).datagrid('options').editIndex!=-1) return; // on editing ignore double click
 		$(this).datagrid('beginEdit',index);
+		var ed = $(this).datagrid('getEditor', {index:index,field:'Faltas'});
+		$(ed.target).next().find('input').focus();
 	},
 	// actualizacion de los iconos save/edit/delete/cancel
 	onBeforeEdit:function(index,row){ $(this).datagrid('options').editIndex=index; row.editing = true; updateActions(index); },
