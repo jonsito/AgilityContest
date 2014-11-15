@@ -68,7 +68,7 @@ class Pruebas extends DBObject {
 			$jornadaid=$this->conn->insert_id;
 			// and regenerate Orden_Tandas field
 			$ot=new OrdenTandas("Pruebas::Insert()");
-			$ot->updateOrdenTandas($jornadaid);
+			$ot->updateOrden($jornadaid);
 		}
 		// arriving here means everything ok. notify success
 		$this->myLogger->leave();

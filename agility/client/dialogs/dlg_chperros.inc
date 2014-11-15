@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- FORMULARIO DE REASIGNACION DE UN PERRO-->
-    <div id="chperros-dialog" class="easyui-dialog" style="width:550px;height:400px;padding:10px 20px">
+    <div id="chperros-dialog" style="width:550px;height:400px;padding:10px 20px">
         <div id="chperros-title" class="ftitle">Reasignaci&oacute;n de un perro</div>
         <form id="chperros-header">
         	<div class="fitem">
@@ -63,14 +63,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 		style="width:155px" ></select>
             </div>
         </form>
-    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-    	<div id="chperros-dlg-buttons">
-    	    <a id="chperros-okBtn" href="#" class="easyui-linkbutton" onclick="assignDog()"
-    	    	data-options="iconCls:'icon-ok'">Reasignar</a>
-    	    <a id="chperros-cancelBtn" href="#" class="easyui-linkbutton"  
-    	    	onclick="javascript:$('#chperros-dialog').dialog('close')"
-    	    	data-options="iconCls:'icon-cancel'">Cancelar</a>
-    	</div>
+    </div>
+    
+    <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+    <div id="chperros-dlg-buttons">
+        <a id="chperros-okBtn" href="#" class="easyui-linkbutton" onclick="assignDog()"
+        	data-options="iconCls:'icon-ok'">Reasignar</a>
+        <a id="chperros-cancelBtn" href="#" class="easyui-linkbutton"  
+        	onclick="javascript:$('#chperros-dialog').dialog('close')"
+        	data-options="iconCls:'icon-cancel'">Cancelar</a>
     </div>
     
     <script type="text/javascript">

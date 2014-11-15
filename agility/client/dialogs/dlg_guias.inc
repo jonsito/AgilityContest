@@ -49,15 +49,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <textarea id="guias-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
             </div>
         </form>
-    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-    	<div id="guias-dlg-buttons">
-    	    <a id="guias-okBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-ok'" onclick="saveGuia()">Guardar</a>
-    	    <a id="guias-cancelBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#guias-dialog').dialog('close')">Cancelar</a>
-    	</div>
     </div>
 
+    <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+    <div id="guias-dlg-buttons">
+        <a id="guias-okBtn" href="#" class="easyui-linkbutton" 
+        	data-options="iconCls:'icon-ok'" onclick="saveGuia()">Guardar</a>
+        <a id="guias-cancelBtn" href="#" class="easyui-linkbutton" 
+        	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#guias-dialog').dialog('close')">Cancelar</a>
+    </div>
+    
     <script type="text/javascript">
         // datos del formulario de nuevo/edit guia
         // - declaracion del formulario

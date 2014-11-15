@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- FORMULARIO DE REASIGNACION DE GUIAS -->
-    <div id="chguias-dialog" class="easyui-dialog" style="width:550px;height:350px;padding:10px 20px">
+    <div id="chguias-dialog" style="width:550px;height:350px;padding:10px 20px">
         <div id="chguias-title" class="ftitle">Reasignaci&oacute;n de un guia</div>
         <form id="chguias-header">
         	<div class="fitem">
@@ -49,15 +49,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <textarea id="chguias-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
             </div>
         </form>
-    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-    	<div id="chguias-dlg-buttons">
-    	    <a id="chguias-okBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-ok'" onclick="assignGuia()">Guardar</a>
-    	    <a id="chguias-cancelBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#chguias-dialog').dialog('close')">Cancelar</a>
-    	</div>
     </div>
 
+   	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+   	<div id="chguias-dlg-buttons">
+   	    <a id="chguias-okBtn" href="#" class="easyui-linkbutton" 
+   	    	data-options="iconCls:'icon-ok'" onclick="assignGuia()">Guardar</a>
+   	    <a id="chguias-cancelBtn" href="#" class="easyui-linkbutton" 
+   	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#chguias-dialog').dialog('close')">Cancelar</a>
+   	</div>
+   	
     <script type="text/javascript">
         // datos del formulario de nuevo/edit guia
         // - declaracion del formulario

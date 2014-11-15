@@ -14,8 +14,7 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
-
-
+ 
     <!-- FORMULARIO DE ALTA/MODIFICACION DE LA BBDD DE PERROS -->
     <div id="perros-dialog" style="width:550px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del perro</div>
@@ -66,16 +65,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <em>Aviso:</em><br/>
         Los cambios en los datos de Categor&iacute;a o Grado<br/>
         afectarán a los resultados de todas las pruebas y jornadas<br/>
-        en las que el perro esté inscrito y no hayan sido marcadas como 'cerradas'</span>
-    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-    	<div id="perros-dlg-buttons">
-    	    <a id="perros-okBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-ok'" onclick="saveDog()">Guardar</a>
-    	    <a id="perros-cancelBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#perros-dialog').dialog('close')">Cancelar</a>
-    	</div>
+        en las que el perro esté inscrito y no hayan sido marcadas como 'cerradas'
+        </span>
     </div>
 
+    <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+    <div id="perros-dlg-buttons">
+        <a id="perros-okBtn" href="#" class="easyui-linkbutton" 
+        	data-options="iconCls:'icon-ok'" onclick="saveDog()">Guardar</a>
+        <a id="perros-cancelBtn" href="#" class="easyui-linkbutton" 
+        	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#perros-dialog').dialog('close')">Cancelar</a>
+    </div>
+    
     <script type="text/javascript">
 
     // datos del formulario de nuevo/edit perros

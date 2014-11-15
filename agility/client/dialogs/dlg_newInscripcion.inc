@@ -16,33 +16,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- FORMULARIO DE ALTA DE INSCRIPCIONES EN UNA PRUEBA -->
-<div id="new_inscripcion-dialog" style="width:700px;padding:10px 20px">
+<div id="new_inscripcion-dialog" style="width:700px;padding:10px">
   	<form id="new_inscripcion-form">
    		<input id="new_inscripcion-Operation" name="Operation" type="hidden" value="insert"/>
    		<input id="new_inscripcion-Prueba" type="hidden" name="Prueba" value="0"/>
-   		
-   		<!-- barra de tareas del dialogo -->
-   		<div id="new_inscripcion-datagrid-tools">
-   			<span style="float:left;padding:10px">
-   			   	<label for="Buscar">Buscar: </label>
-   				<input name="Buscar" type="text" id="new_inscripcion-search" style="width:150px" 
-   					value="---- Buscar ----" class="search_textfield" onchange="listaNoInscritos();"/>
-   			</span>
-   			<span style="float:right;padding:10px">
-   				<a id="new_inscripcion-reloadBtn" href="#" class="easyui-linkbutton"
-	   				data-options="iconCls:'icon-brush'"
-	   				onclick="
-	   		        	// clear selection and reload table
-	   		    		$('#new_inscripcion-search').val('---- Buscar ----');
-   						listaNoInscritos();
-	   		            "
-	   				>Limpiar</a>
-	   		</span>
-   		</div>
-   		
    		<!--  tabla que contiene el resultado de la seleccion del formulario -->
+   		
    		<div style="height:250px">
-			<table id="new_inscripcion-datagrid" class="easyui-datagrid"></table>
+			<table id="new_inscripcion-datagrid"></table>
 		</div>
 		
 		<!-- botones de datos auxiliares para la inscripcion -->
@@ -65,6 +46,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	<input id="new_inscripcion-J8" 			name="J8" class="easyui-checkbox" type="checkbox" value="128" onclick="evalJornadas(this);"/>
        		<label id="new_inscripcion-J8lbl" 		for="J8">8</label>
         </span>
+        
         <span style="float:right;padding:5px">  
         	<label id="new_inscripcion_Equipolbl"	for="Equipo">Equipo: </label>       	    
         	<span id="new_inscripcion-Equiposp">
@@ -77,31 +59,50 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	<input id="new_inscripcion-Jornadas"	type="hidden" name="Jornadas" value="0" />
         </span>
    	</form>
+</div>
+   		
+<!-- barra de tareas del dialogo -->
+<div id="new_inscripcion-datagrid-tools">
+	<span style="float:left;padding:10px">
+	   	<label for="Buscar">Buscar: </label>
+		<input name="Buscar" type="text" id="new_inscripcion-search" style="width:150px" 
+			value="---- Buscar ----" class="search_textfield" onchange="listaNoInscritos();"/>
+	</span>
+	<span style="float:right;padding:10px">
+		<a id="new_inscripcion-reloadBtn" href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-brush'"
+			onclick="
+	        	// clear selection and reload table
+	    		$('#new_inscripcion-search').val('---- Buscar ----');
+				listaNoInscritos();
+	            "
+			>Limpiar</a>
+	</span>
+</div>
+   		
 
-	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-	<div id="new_inscripcion-buttons">
-	   	<span style="float:left;padding:5px">
-	   		<a id="new_inscripcion-teamBtn" href="#" class="easyui-linkbutton"
-	   			data-options="iconCls:'icon-huella'"
-	   			onclick="newTeam2('#new_inscripcion-Equipo','nuevo equipo')">Nuevo Equipo</a>
-	   		<a id="new_inscripcion-dogBtn" href="#" class="easyui-linkbutton"
-	   			data-options="iconCls:'icon-dog'"
-	   			onclick="newDog('#new_inscripcion-datagrid',$('#new_inscripcion-search').val())">Nuevo Perro</a>
-	   	</span>
-	   	<span style="float:right;padding:5px">
-			<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
-    			data-options="iconCls:'icon-ok'" onclick="insertInscripcion('#new_inscripcion-datagrid')">Inscribir</a>
-    		<a id="new_inscripcion-doneBtn" href="#" class="easyui-linkbutton" 
-    			data-options="iconCls:'icon-cancel'" onclick="javascript:$('#new_inscripcion-dialog').dialog('close')">Hecho</a>
-    	</span>
-	</div>
+<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+<div id="new_inscripcion-buttons">
+   	<span style="float:left;padding:5px">
+   		<a id="new_inscripcion-teamBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-huella'"
+   			onclick="newTeam2('#new_inscripcion-Equipo','nuevo equipo')">Nuevo Equipo</a>
+   		<a id="new_inscripcion-dogBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-dog'"
+   			onclick="newDog('#new_inscripcion-datagrid',$('#new_inscripcion-search').val())">Nuevo Perro</a>
+   	</span>
+   	<span style="float:right;padding:5px">
+		<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
+   			data-options="iconCls:'icon-ok'" onclick="insertInscripcion('#new_inscripcion-datagrid')">Inscribir</a>
+   		<a id="new_inscripcion-doneBtn" href="#" class="easyui-linkbutton" 
+   			data-options="iconCls:'icon-cancel'" onclick="javascript:$('#new_inscripcion-dialog').dialog('close')">Hecho</a>
+   	</span>
+</div>
 	
-	<!-- barra de progreso de actualizacion de inscripciones -->
-	<div id="new_inscripcion-progresswindow" class="easyui-window">
-		<p id="new_inscripcion-progresslabel" style="align:center">Inscribiendo a:</p>
-		<div id="new_inscripcion-progressbar" style="align:center;"></div>
-	</div>
-	
+<!-- barra de progreso de actualizacion de inscripciones -->
+<div id="new_inscripcion-progresswindow">
+	<p id="new_inscripcion-progresslabel" style="align:center">Inscribiendo a:</p>
+	<div id="new_inscripcion-progressbar" style="align:center;"></div>
 </div>
 
 <script type="text/javascript">

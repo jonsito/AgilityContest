@@ -71,6 +71,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  	  		<span id="edit_inscripcion-PagadoEuro">&euro;</span>
         </form> 
     </div>
+    
+</div>
+
+    
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 	<div id="edit_inscripcion-dlg-buttons" style="padding:5px">
 		<span style="float:left">
@@ -84,9 +88,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
        			data-options="iconCls:'icon-save'">Aceptar</a>
        	</span>
     </div>
-    
-</div>
-
     
     <script type="text/javascript">
 

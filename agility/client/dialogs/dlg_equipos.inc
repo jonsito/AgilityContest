@@ -16,16 +16,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA LOS DATOS DE EQUIPOS DE UNA PRUEBA -->
-<div id="team_edit_dialog" class="easyui-dialog" title="Nuevo/Editar equipo" style="width:450px;padding:10px"
-	data-options="iconCls:'icon-huella',
-				modal:true,
-				closed:true,
-				closable:true,
-				collapsible:false,
-				minimizable:false,
-				maximizable:false,
-				resizable:false,
-				buttons:'#team_dialog-buttons'">
+<div id="team_edit_dialog" title="Nuevo/Editar equipo" style="width:450px;padding:10px"
+	data-options="">
    	<div class="ftitle">Datos del equipo:</div>
    	<form id="team_edit_dialog-form" class="easyui-form">
    		<input id="team_edit_dialog-ID" type="hidden" name="ID" value="0"/>
@@ -54,7 +46,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 // declaracion del dialogo
 // TODO: estudiar por qué el "closed:true" en el data-options no funciona
-$('#team_edit_dialog').dialog({closed:true});
+$('#team_edit_dialog').dialog({
+	iconCls:'icon-huella',
+	modal:true,
+	closed:true,
+	closable:true,
+	collapsible:false,
+	minimizable:false,
+	maximizable:false,
+	resizable:false,
+	buttons:'#team_dialog-buttons'
+});
 $('#team_edit_dialog-Nombre').validatebox({ required:true, validType:'length[1,100]'});
 addTooltip($('#team_edit_dialog-okBtn').linkbutton(),"Registrar los datos del equipo.<br />Actualizar la BBDD");
 addTooltip($('#team_edit_dialog-cancelBtn').linkbutton(),"Finalizar la operacion. Cerrar la ventana");

@@ -17,7 +17,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
  
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE CLUBES -->
-    <div id="clubes-dialog" class="easyui-dialog" style="width:550px;height:600px;padding:10px 20px">
+    <div id="clubes-dialog" style="width:550px;height:600px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del club</div>
         <form id="clubes-form" method="get" novalidate>
             <div class="fitem">
@@ -91,15 +91,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <label for="Baja">Baja del club:</label>
                 <input id="clubes-Baja" name="Baja" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
-        </form>    
+        </form>  
+    </div>  
         
-    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-    	<div id="clubes-dlg-buttons">
-    	    <a id="clubes-okBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls: 'icon-ok'" onclick="saveClub()">Guardar</a>
-    	    <a id="clubes-cancelBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls: 'icon-cancel'"onclick="javascript:$('#clubes-dialog').dialog('close')">Cancelar</a>
-    	</div>
+    <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+    <div id="clubes-dlg-buttons">
+        <a id="clubes-okBtn" href="#" class="easyui-linkbutton" 
+        	data-options="iconCls: 'icon-ok'" onclick="saveClub()">Guardar</a>
+        <a id="clubes-cancelBtn" href="#" class="easyui-linkbutton" 
+        	data-options="iconCls: 'icon-cancel'"onclick="javascript:$('#clubes-dialog').dialog('close')">Cancelar</a>
     </div>
     
     <script type="text/javascript">
