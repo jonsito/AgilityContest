@@ -9,7 +9,7 @@
 		#log {width:100%;height:400px}
 		#message {width:100%;line-height:20px}
 	</style>
-	<script src="/agility/lib/jquery-easyui-1.4/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
+	<script src="/agility/lib/jquery-easyui-1.4.1/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
 	<script src="fancywebsocket.js"></script>
 	<script>
 		var Server;
