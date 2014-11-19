@@ -15,47 +15,48 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE GUIAS -->
-    
+<div id="new_inscripcion-dialog" style="width:975px;height:550px;padding:5px">
     <!-- DECLARACION DE LA TABLA -->
-    <table id="guias-datagrid" style="width:975px;height:550px">  </table>
-    <!-- BARRA DE TAREAS DE LA TABLA DE GUIAS -->
-    <div id="guias-toolbar" style="padding:5px 5px 35px 5px">
-    	<span style="float:left;">
-        	<a id="guias-newBtn" href="#" class="easyui-linkbutton"
-        		data-options="iconCls:'icon-users'"
-        		onclick="newGuia('guias-datagrid',$('#guias-datagrid-search').val())">Nuevo Gu&iacute;a</a>
-        	<a id="guias-editBtn" href="#" class="easyui-linkbutton"
-        		data-options="iconCls:'icon-edit'"
-        		onclick="editGuia('#guias-datagrid')">Editar Gu&iacute;a</a>
-        	<a id="guias-delBtn" href="#" class="easyui-linkbutton" 
-        		data-options="iconCls:'icon-trash'"
-        		onclick="deleteGuia('#guias-datagrid')">Borrar gu&iacute;a</a>
-    		<input id="guias-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield" />
-    	</span>
-    	<span style="float:right;">
-    		<a id="guias-reloadBtn" href="#" class="easyui-linkbutton"
-    			data-options="iconCls:'icon-brush'"
-    			onClick="
-    	        	// clear selection and reload table
-    	    		$('#guias-datagrid-search').val('---- Buscar ----');
-    	            $('#guias-datagrid').datagrid('load',{ where: '' });"
-    			>Limpiar</a>
-    	</span>
-    </div>
+    <table id="guias-datagrid">  </table>
+</div>
+
+<!-- BARRA DE TAREAS DE LA TABLA DE GUIAS -->
+<div id="guias-toolbar" style="width:100%;display:inline-block">
+   	<span style="float:left;padding:5px">
+       	<a id="guias-newBtn" href="#" class="easyui-linkbutton"
+       		data-options="iconCls:'icon-users'"
+       		onclick="newGuia('guias-datagrid',$('#guias-datagrid-search').val())">Nuevo Gu&iacute;a</a>
+       	<a id="guias-editBtn" href="#" class="easyui-linkbutton"
+       		data-options="iconCls:'icon-edit'"
+       		onclick="editGuia('#guias-datagrid')">Editar Gu&iacute;a</a>
+       	<a id="guias-delBtn" href="#" class="easyui-linkbutton" 
+       		data-options="iconCls:'icon-trash'"
+       		onclick="deleteGuia('#guias-datagrid')">Borrar gu&iacute;a</a>
+   		<input id="guias-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield" />
+	</span>
+	<span style="float:right;padding:5px">
+   		<a id="guias-reloadBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-brush'"
+   			onClick="
+   	        	// clear selection and reload table
+   	    		$('#guias-datagrid-search').val('---- Buscar ----');
+   	            $('#guias-datagrid').datagrid('load',{ where: '' });"
+   			>Limpiar</a>
+	</span>
+</div>
     
-	<?php require_once("dialogs/dlg_guias.inc"); ?>
-	<?php require_once("dialogs/dlg_clubes.inc"); ?>
-	<?php require_once("dialogs/dlg_perros.inc"); ?>
-	<?php require_once("dialogs/dlg_chperros.inc"); ?>
+<?php require_once("dialogs/dlg_guias.inc"); ?>
+<?php require_once("dialogs/dlg_clubes.inc"); ?>
+<?php require_once("dialogs/dlg_perros.inc"); ?>
+<?php require_once("dialogs/dlg_chperros.inc"); ?>
     
-    <script type="text/javascript">
-    
+<script type="text/javascript">
         // tell jquery to convert declared elements to jquery easyui Objects
         // datos de la tabla de guias
         // - tabla
         $('#guias-datagrid').datagrid({
         	// propiedades del panel padre asociado
-        	fit: false,
+        	fit: true,
         	border: false,
         	closable: false,
         	collapsible: false,
@@ -179,4 +180,4 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			addTooltip($('#perrosbyguia-editBtn'+guia.ID).linkbutton(),"Editar los datos del perro asignado a '"+guia.Nombre+"'");
 			addTooltip($('#perrosbyguia-reloadBtn'+guia.ID).linkbutton(),"Actualizar la lista de perros del gu&iacute;a '"+guia.Nombre+"'");
         } // end of showPerrosByGuia
-	</script>
+</script>

@@ -15,39 +15,42 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-<!-- TABLA DE jquery-easyui para listar y editar la BBDD DE PERROS -->    
+<!-- TABLA DE jquery-easyui para listar y editar la BBDD DE PERROS -->
+<div style="width:975px;height:550px;">
     <!-- DECLARACION DE LA TABLA -->
-    <table id="perros-datagrid" style="width:975px;height:550px;">    </table>
-    <!-- BARRA DE TAREAS -->
-    <div id="perros-toolbar" style="padding:5px 5px 35px 5px">
-    	<span style="float:left;">
-    		<a id="perros-newBtn" href="#" class="easyui-linkbutton"
-    			data-options="iconCls:'icon-dog'"
-    			onclick="newDog('#perros-datagrid',$('#perros-datagrid-search').val())">Nuevo Perro</a>
-    		<a id="perros-editBtn" href="#" class="easyui-linkbutton"
-    			data-options="iconCls:'icon-edit'"
-    			onclick="editDog('#perros-datagrid')">Editar Perro</a>
-    		<a id="perros-delBtn" href="#" class="easyui-linkbutton"
-    			data-options="iconCls:'icon-trash'"
-    			onclick="deleteDog('#perros-datagrid')">Borrar Perro</a>
-    		<input id="perros-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
-    	</span>
-    	<span style="float:right;">
-    		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"
-    			data-options="iconCls:'icon-brush'"
-    			onclick="
-    	        	// clear selection and reload table
-    	    		$('#perros-datagrid-search').val('---- Buscar ----');
-    	            $('#perros-datagrid').datagrid('load',{ where: '' });"
-    		>Limpiar</a>
-    	</span>
-    </div>
+    <table id="perros-datagrid"></table>
+</div>    
+ 
+<!-- BARRA DE TAREAS -->
+<div id="perros-toolbar" style="width:100%;display:inline-block">
+   	<span style="float:left;padding:5px">
+   		<a id="perros-newBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-dog'"
+   			onclick="newDog('#perros-datagrid',$('#perros-datagrid-search').val())">Nuevo Perro</a>
+   		<a id="perros-editBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-edit'"
+   			onclick="editDog('#perros-datagrid')">Editar Perro</a>
+   		<a id="perros-delBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-trash'"
+   			onclick="deleteDog('#perros-datagrid')">Borrar Perro</a>
+   		<input id="perros-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
+   	</span>
+   	<span style="float:right;padding:5px">
+   		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-brush'"
+   			onclick="
+   	        	// clear selection and reload table
+   	    		$('#perros-datagrid-search').val('---- Buscar ----');
+   	            $('#perros-datagrid').datagrid('load',{ where: '' });"
+   		>Limpiar</a>
+   	</span>
+</div>
     
-	<?php require_once("dialogs/dlg_perros.inc"); ?>
-	<?php require_once("dialogs/dlg_guias.inc");?>
-	<?php require_once("dialogs/dlg_clubes.inc");?>
+<?php require_once("dialogs/dlg_perros.inc"); ?>
+<?php require_once("dialogs/dlg_guias.inc");?>
+<?php require_once("dialogs/dlg_clubes.inc");?>
     
-    <script type="text/javascript">
+<script type="text/javascript">
         
         // tell jquery to convert declared elements to jquery easyui Objects
         
@@ -55,7 +58,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         // - tabla
         $('#perros-datagrid').datagrid({
         	// propiedades del panel padre asociado
-        	fit: false,
+        	fit: true,
         	border: false,
         	closable: false,
         	collapsible: false,
@@ -103,4 +106,4 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		addTooltip($('#perros-delBtn').linkbutton(),"Eliminar el perro seleccionado de la BBDD");
 		addTooltip($('#perros-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
 		addTooltip($('#perros-datagrid-search'),"Buscar perros que cumplan con el criterio de busqueda");
-	</script>
+</script>

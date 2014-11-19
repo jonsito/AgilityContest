@@ -16,49 +16,49 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE Pruebas -->
-    
+<div style="width:975px;height:550px">    
     <!-- DECLARACION DE LA TABLA -->
-    <table id="pruebas-datagrid" style="width:975px;height:550px"></table>     
-    <!-- BARRA DE TAREAS DE LA TABLA DE PRUEBAS-->
-    <div id="pruebas-toolbar" style="padding:5px 5px 35px 5px;">
-    	<span style="float:left;">
-    	    <a id="pruebas-newBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-add'"
-    	    	onclick="newPrueba('#pruebas-datagrid',$('#pruebas-datagrid-search').val())">Nueva prueba</a>
-    	    <a id="pruebas-editBtn" href="#" class="easyui-linkbutton"
-    	    	data-options="iconCls:'icon-edit'"
-    	    	onclick="editPrueba('#pruebas-datagrid')">Editar prueba</a>
-    	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-remove'"
-    	    	onclick="deletePrueba('#pruebas-datagrid')">Borrar prueba</a>
-    		<input id="pruebas-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"/>
-    	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox"
-    	    	data-options="iconCls:'icon-search'" 
-    	    	onclick="doSearchPrueba()"/>Incl. Cerradas
-    	</span>
-    	<span style="float:right;">
-    		<a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-brush'"
-    	    	onclick="
-   	        		// clear selection and reload table
-   	    			$('#pruebas_datagrid-search').val('---- Buscar ----');
-   	            	$('#pruebas_datagrid').datagrid('load',{ where: '' });"
-   			>Limpiar</a>
-    	</span>
-    </div>
+    <table id="pruebas-datagrid"></table> 
+</div>
     
- 	<?php require_once("dialogs/dlg_clubes.inc");?>
- 	<?php require_once("dialogs/dlg_pruebas.inc");?>
- 	<?php require_once("dialogs/dlg_jornadas.inc");?>
+<!-- BARRA DE TAREAS DE LA TABLA DE PRUEBAS-->
+<div id="pruebas-toolbar" style="width:100%;display:inline-block">
+   	<span style="float:left;padding:5px">
+   	    <a id="pruebas-newBtn" href="#" class="easyui-linkbutton" 
+   	    	data-options="iconCls:'icon-add'"
+   	    	onclick="newPrueba('#pruebas-datagrid',$('#pruebas-datagrid-search').val())">Nueva prueba</a>
+   	    <a id="pruebas-editBtn" href="#" class="easyui-linkbutton"
+   	    	data-options="iconCls:'icon-edit'"
+   	    	onclick="editPrueba('#pruebas-datagrid')">Editar prueba</a>
+   	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" 
+   	    	data-options="iconCls:'icon-remove'"
+   	    	onclick="deletePrueba('#pruebas-datagrid')">Borrar prueba</a>
+   		<input id="pruebas-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"/>
+   	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox"
+   	    	data-options="iconCls:'icon-search'" 
+   	    	onclick="doSearchPrueba()"/>Incl. Cerradas
+   	</span>
+   	<span style="float:right;padding:5px">
+   		<a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton" 
+   	    	data-options="iconCls:'icon-brush'"
+   	    	onclick="
+        		// clear selection and reload table
+    			$('#pruebas_datagrid-search').val('---- Buscar ----');
+            	$('#pruebas_datagrid').datagrid('load',{ where: '' });"
+		>Limpiar</a>
+   	</span>
+</div>
+    
+<?php require_once("dialogs/dlg_clubes.inc");?>
+<?php require_once("dialogs/dlg_pruebas.inc");?>
+<?php require_once("dialogs/dlg_jornadas.inc");?>
 
-    <script type="text/javascript">
+<script type="text/javascript">
         
         // datos de la tabla de pruebas
-        // - tabla
         $('#pruebas-datagrid').datagrid({
-
         	// propiedades del panel padre asociado
-        	fit: false,
+        	fit: true,
         	border: false,
         	closable: false,
         	collapsible: false,
@@ -192,4 +192,4 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			addTooltip($('#jornadasbyprueba-reloadBtn'+prueba.ID).linkbutton(),"Actualizar la lista de jornadas de esta prueba");
         };
         
-	</script>
+</script>

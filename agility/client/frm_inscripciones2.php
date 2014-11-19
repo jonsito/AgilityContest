@@ -31,9 +31,8 @@ require_once("dialogs/dlg_newInscripcion.inc");
 require_once("dialogs/dlg_editInscripcion.inc");
 ?>
 
-<div id="hola">
 <!-- PANEL INFORMATIVO SOBRE LA PRUEBA Y JORNADAS ASOCIADAS -->
-<div id="inscripciones-info" class="easyui-panel" title="Informaci&oacute;n de la prueba">
+<div id="inscripciones-info">
 	
 	<div id="inscripciones-infolayout" class="easyui-layout" style="height:150px">
 	
@@ -71,57 +70,57 @@ require_once("dialogs/dlg_editInscripcion.inc");
 </div> 
 
 <!-- PANEL INFORMATIVO SOBRE LAS INSCRIPCIONES -->
-<div id="inscripciones-list" class="easyui-panel" style="width:auto;height:400px;"
-	data-options="noHeader:true, border:true, closable:false, collapsible:false, collapsed:false,">
-	
+<div id="inscripciones-list" class="easyui-panel" style="width:100%;height:450px"
+	data-options="noHeader:true,border:true,closable:false,collapsible:false,collapsed:false">
 	<!-- DECLARACION DE LA TABLA DE INSCRIPCIONES -->
 	<table id="inscripciones-datagrid"></table>
-
-	<!-- BARRA DE TAREAS DE LA TABLA DE INSCRIPCIONES -->
-	<div id="inscripciones-toolbar" style="padding:5px 5px 35px 5px">
-	   	<span style="float:left"> <!-- estos elementos deben estar alineados a la izquierda -->
-	   		<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton"
-	   			data-options="iconCls:'icon-notes'"
-	   			onclick="newInscripcion($('#inscripciones-datagrid','#inscripciones-datagrid-search').val())">Nuevo</a>
-	   		<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton"
-	   			data-options="iconCls:'icon-edit'"
-	   			onclick="editInscripcion('#inscripciones-datagrid')">Editar</a>
-	   		<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton"
-	   			data-options="iconCls:'icon-trash'"
-	   			onclick="deleteInscripcion('#inscripciones-datagrid')">Borrar</a>
-	   		<input id="inscripciones-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
-	   	</span>
-	   	<span style="float:right"> 	<!-- estos elementos deben estar alineados a la derecha -->
-	    	<a id="inscripciones-reorderBtn" href="#" class="easyui-linkbutton"
-	    		data-options="iconCls:'icon-updown'" 
-	    		onclick="reorderInscripciones(workingData.prueba)">Reordenar</a>
-	    	<a id="inscripciones-teamBtn" href="#" class="easyui-linkbutton"
-	    		data-options="iconCls:'icon-huella'" 
-	    		onclick="openTeamWindow(workingData.prueba)">Equipos</a>
-	    	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton"
-	    		data-options="iconCls:'icon-print'" 
-	    		>Imprimir</a> <!-- onClick() is handled below -->
-	   		<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton"
-	   			data-options="iconCls:'icon-brush'"
-	   			onclick="
-	   	        	// clear selection and reload table
-	   	    		$('#inscripciones-datagrid-search').val('---- Buscar ----');
-	   	            $('#inscripciones-datagrid').datagrid('load',{ where: '' });"
-	   		>Limpiar</a>
-	   	</span>
-	</div>
 </div>
 
-</div> <!-- id="hola" -->
+<!-- BARRA DE TAREAS DE LA TABLA DE INSCRIPCIONES -->
+<div id="inscripciones-toolbar" style="width:100%;display:inline-block">
+   	<span style="float:left;padding:5px"> <!-- estos elementos deben estar alineados a la izquierda -->
+   		<a id="inscripciones-newBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-notes'"
+   			onclick="newInscripcion($('#inscripciones-datagrid','#inscripciones-datagrid-search').val())">Nuevo</a>
+   		<a id="inscripciones-editBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-edit'"
+   			onclick="editInscripcion('#inscripciones-datagrid')">Editar</a>
+   		<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-trash'"
+   			onclick="deleteInscripcion('#inscripciones-datagrid')">Borrar</a>
+   		<input id="inscripciones-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
+   	</span>
+   	<span style="float:right;padding:5px"> 	<!-- estos elementos deben estar alineados a la derecha -->
+    	<a id="inscripciones-reorderBtn" href="#" class="easyui-linkbutton"
+    		data-options="iconCls:'icon-updown'" 
+    		onclick="reorderInscripciones(workingData.prueba)">Reordenar</a>
+    	<a id="inscripciones-teamBtn" href="#" class="easyui-linkbutton"
+    		data-options="iconCls:'icon-huella'" 
+    		onclick="openTeamWindow(workingData.prueba)">Equipos</a>
+    	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton"
+    		data-options="iconCls:'icon-print'" 
+    		>Imprimir</a> <!-- onClick() is handled below -->
+   		<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-brush'"
+   			onclick="
+   	        	// clear selection and reload table
+   	    		$('#inscripciones-datagrid-search').val('---- Buscar ----');
+   	            $('#inscripciones-datagrid').datagrid('load',{ where: '' });"
+   		>Limpiar</a>
+   	</span>
+</div>
 
 <script type="text/javascript">
-
 $('#inscripciones-info').panel({
+	title:'Informaci&oacute;n de la prueba',
 	border:true,
 	closable:false,
 	closed:false,
 	collapsible:true,
 	collapsed:false
+	// TODO: get this working :-(
+	// onExpand: function() {$('#inscripciones-list').panel('options').height='450px';},
+	// onCollapse: function() {$('#inscripciones-list').panel('options').height='600px';}
 });
 
 $('#inscripciones-infolayout').layout();

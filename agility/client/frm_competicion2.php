@@ -26,28 +26,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<!-- paneles de lista de mangas y datos de cada manga -->
 	<div id="competicion_infolayout" class="easyui-layout" style="height:400px">
 		<div data-options="region:'west',title:'Mangas de la jornada',split:true,collapsed:false" style="width:250px">
-		
 			<!-- Tabla que contiene la lista de Mangas de la jornada -->
 			<table id="competicion-listamangas" style="padding:50px"></table>
-		
-			<!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
-			<div id="competicion-listamanga-toolbar">
-	   			<span style="float:left;padding:10px 10px 10px 20px">
-	    			<a id="competicion-ordentandasBtn" href="#" class="easyui-linkbutton"
-	    				data-options="iconCls:'icon-updown'" style="width:185px"
-	    				onclick="competicionDialog('ordentandas');">Programaci&oacute;n</a>
-	    			<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton"
-	    				data-options="iconCls:'icon-order'" style="width:185px"
-	    				onclick="competicionDialog('ordensalida');">Orden de salida</a>
-	    			<a id="competicion-competicionBtn" href="#" class="easyui-linkbutton"
-	    				data-options="iconCls:'icon-table'" style="width:185px"
-	    				onclick="competicionDialog('competicion');">Entrada de datos</a>
-	    			<a id="competicion-resultmangaBtn" href="#" class="easyui-linkbutton"
-	    				data-options="iconCls:'icon-endflag'" style="width:185px"
-	    				onclick="competicionDialog('resultadosmanga');">Resultados de la manga</a>
-				</span>
-			</div>
-			
 		</div>
 		<div data-options="region:'center',title:'Datos de la manga'" style="width:600px;">
 			<font size="11"> <!--  take care on some stupid browsers -->
@@ -55,10 +35,26 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			</font>
 		</div> <!-- datos de la manga -->
 	</div> <!-- informacion de layout -->
-
-
-
 </div> <!-- panel de informacion -->  
+
+<!-- BARRA DE TAREAS DE LA LISTA DE MANGAS-->
+<div id="competicion-listamanga-toolbar" style="width:100%;display:inline-block">
+	<span style="float:left;padding:10px">
+		<a id="competicion-ordentandasBtn" href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-updown'" style="width:185px"
+			onclick="competicionDialog('ordentandas');">Programaci&oacute;n</a>
+		<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-order'" style="width:185px"
+			onclick="competicionDialog('ordensalida');">Orden de salida</a>
+		<a id="competicion-competicionBtn" href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-table'" style="width:185px"
+			onclick="competicionDialog('competicion');">Entrada de datos</a>
+		<a id="competicion-resultmangaBtn" href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-endflag'" style="width:185px"
+			onclick="competicionDialog('resultadosmanga');">Resultados de la manga</a>
+	</span>
+</div>
+
 <script type="text/javascript">
 
 // declaracion de cada elemento grafico

@@ -16,41 +16,44 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
  
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE JUECES -->
-    
+<div  style="width:975px;height:550px">   
     <!-- DECLARACION DE LA TABLA DE JUECES -->
-    <table id="jueces-datagrid" style="width:975px;height:550px">  </table>
-    <!-- BARRA DE TAREAS DE LA TABLA DE JUECES -->
-    <div id="jueces-toolbar" style="padding:5px 5px 35px 5px;">
-    	<span style="float:left;">
-    		<a id="jueces-newBtn" href="#" class="easyui-linkbutton"
-    			data-options="iconCls:'icon-whistle'"
-    			onclick="newJuez('#jueces-datagrid',$('#jueces-datagrid-search').val())">Nuevo Juez</a>
-    		<a id="jueces-editBtn" href="#" class="easyui-linkbutton" 
-    			data-options="iconCls:'icon-edit'"
-    			onclick="editJuez('#jueces-datagrid')">Editar Juez</a>
-    		<a id="jueces-delBtn" href="#" class="easyui-linkbutton" 
-    			data-options="iconCls:'icon-trash'"
-    			onclick="deleteJuez('#jueces-datagrid')">Borrar Juez</a>
-    		<input id="jueces-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
-    	</span>
-    	<span style="float:right;">
-    		<a id="jueces-reloadBtn" href="#" class="easyui-linkbutton"
-    			data-options="iconCls:'icon-brush'"
-    			onclick="
-    	        	// clear selection and reload table
-    	    		$('#jueces-datagrid-search').val('---- Buscar ----');
-    	            $('#jueces-datagrid').datagrid('load',{ where: '' });"
-    			>Limpiar</a>
-    	</span>
-    </div>
-	<?php require_once("dialogs/dlg_jueces.inc")?>
+    <table id="jueces-datagrid">  </table>
+</div> 
+
+<!-- BARRA DE TAREAS DE LA TABLA DE JUECES -->
+<div id="jueces-toolbar" style="width:100%;display:inline-block">
+ 	<span style="float:left;padding:5px">
+   		<a id="jueces-newBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-whistle'"
+   			onclick="newJuez('#jueces-datagrid',$('#jueces-datagrid-search').val())">Nuevo Juez</a>
+   		<a id="jueces-editBtn" href="#" class="easyui-linkbutton" 
+   			data-options="iconCls:'icon-edit'"
+   			onclick="editJuez('#jueces-datagrid')">Editar Juez</a>
+   		<a id="jueces-delBtn" href="#" class="easyui-linkbutton" 
+   			data-options="iconCls:'icon-trash'"
+   			onclick="deleteJuez('#jueces-datagrid')">Borrar Juez</a>
+   		<input id="jueces-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
+   	</span>
+   	<span style="float:right;padding:5px">
+   		<a id="jueces-reloadBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-brush'"
+   			onclick="
+   	        	// clear selection and reload table
+   	    		$('#jueces-datagrid-search').val('---- Buscar ----');
+   	            $('#jueces-datagrid').datagrid('load',{ where: '' });"
+   			>Limpiar</a>
+   	</span>
+</div>
+
+<?php require_once("dialogs/dlg_jueces.inc")?>
     
-    <script type="text/javascript">
+<script type="text/javascript">
         
         // datos de la tabla de jueces
         $('#jueces-datagrid').datagrid({
             // datos del panel padre asociado
-        	fit: false,
+        	fit: true,
         	border: false,
         	closable: false,
         	collapsible: false,
@@ -98,4 +101,4 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		addTooltip($('#jueces-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
 		addTooltip($('#jueces-datagrid-search'),"Buscar jueces que coincidan con el criterio de busqueda");
 
-	</script>
+</script>

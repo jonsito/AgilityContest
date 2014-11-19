@@ -15,47 +15,48 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE CLUBES -->
-    
+<div style="width:975px;height:550px;">
     <!-- DECLARACION DE LA TABLA -->
-    <table id="clubes-datagrid" style="width:975px;height:550px;"></table>
-    
-	<!-- BARRA DE TAREAS DE LA TABLA DE CLUBES-->
-    <div id="clubes-toolbar" style="padding:5px 5px 35px 5px;">
-    	<span style="float:left;">
-    		<a id="clubes-newBtn" href="#" class="easyui-linkbutton"
-    			data-options="iconCls:'icon-flag'"
-    			onclick="newClub('#clubes-datagrid',$('#clubes-datagrid-search').val())">Nuevo Club</a>
-    		<a id="clubes-editBtn" href="#" class="easyui-linkbutton" 
-    			data-options="iconCls:'icon-edit'"
-    			onclick="editClub('#clubes-datagrid')">Editar Club</a>
-    		<a id="clubes-delBtn" href="#" class="easyui-linkbutton" 
-    			data-options="iconCls:'icon-trash'"
-    			onclick="deleteClub('#clubes-datagrid')">Borrar Club</a>
-    		<input id="clubes-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"/>
-    	</span>
-    	<span style="float:right;">
-    		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"
-    		data-options="iconCls:'icon-brush'"
-    		onClick="
-        	// clear selection and reload table
-    		$('#clubes-datagrid-search').val('---- Buscar ----');
-            $('#clubes-datagrid').datagrid('load',{ where: '' });">Limpiar</a>
-    	</span>
-    </div>   
+    <table id="clubes-datagrid"></table>
+</div>
 
-    <?php require_once("dialogs/dlg_clubes.inc")?>
-    <?php require_once("dialogs/dlg_guias.inc")?>
-    <?php require_once("dialogs/dlg_chguias.inc")?>
-    <?php require_once("dialogs/dlg_perros.inc")?>
-    <?php require_once("dialogs/dlg_chperros.inc")?>
+<!-- BARRA DE TAREAS DE LA TABLA DE CLUBES-->
+<div id="clubes-toolbar" style="width:100%;display:inline-block">
+	<span style="float:left;padding:5px">
+		<a id="clubes-newBtn" href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-flag'"
+   			onclick="newClub('#clubes-datagrid',$('#clubes-datagrid-search').val())">Nuevo Club</a>
+   		<a id="clubes-editBtn" href="#" class="easyui-linkbutton" 
+   			data-options="iconCls:'icon-edit'"
+   			onclick="editClub('#clubes-datagrid')">Editar Club</a>
+   		<a id="clubes-delBtn" href="#" class="easyui-linkbutton" 
+   			data-options="iconCls:'icon-trash'"
+   			onclick="deleteClub('#clubes-datagrid')">Borrar Club</a>
+   		<input id="clubes-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"/>
+   	</span>
+   	<span style="float:right;padding:5px">
+   		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"
+   		data-options="iconCls:'icon-brush'"
+   		onClick="
+       	// clear selection and reload table
+   		$('#clubes-datagrid-search').val('---- Buscar ----');
+          $('#clubes-datagrid').datagrid('load',{ where: '' });">Limpiar</a>
+   	</span>
+</div>   
 
-    <script type="text/javascript">
+<?php require_once("dialogs/dlg_clubes.inc")?>
+<?php require_once("dialogs/dlg_guias.inc")?>
+<?php require_once("dialogs/dlg_chguias.inc")?>
+<?php require_once("dialogs/dlg_perros.inc")?>
+<?php require_once("dialogs/dlg_chperros.inc")?>
+
+<script type="text/javascript">
         
         // datos de la tabla de clubes
         // - tabla
         $('#clubes-datagrid').datagrid({
         	// propiedades del panel padre asociado
-        	fit: false,
+        	fit: true,
         	border: false,
         	closable: false,
         	collapsible: false,
@@ -280,5 +281,5 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			addTooltip($('#perrosByGuiaByClub-delBtn'+guia.ID+'_'+club.ID).linkbutton(),"Eliminar asignaci&oacute;n del perro a '"+guia.Nombre+"'");
 			addTooltip($('#perrosByGuiaByClub-reloadBtn'+guia.ID+'_'+club.ID).linkbutton(),"Actualizar la lista de perros del gu&iacute;a '"+guia.Nombre+"'");
         } // end of showPerrosByGuia
-	</script>
+</script>
 
