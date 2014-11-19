@@ -146,9 +146,10 @@ $('#new_inscripcion-datagrid').datagrid({
 	},
 	method: 'get',
 	mode: 'remote',
-	loadMsg: 'Actualizando lista de equipos ...',
+	loadMsg: 'Actualizando lista de perros ...',
 	toolbar: '#new_inscripcion-datagrid-tools',
 	footer: '#new_inscripcion-datagrid-footer',
+	idField: 'ID',
 	columns: [[
 	   	{field:'ID',hidden:'true'},
 		{field:'Guia',hidden:'true'},

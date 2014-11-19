@@ -389,6 +389,10 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 			}
 			state.data.rows = r.concat(this.rows);
 			
+			var spos = dc.body2.scrollTop();
+			$(target).datagrid('setSelectionState');
+			dc.body2.scrollTop(spos);
+
 			opts.onLoadSuccess.call(target, {
 				total: state.data.total,
 				rows: this.rows
