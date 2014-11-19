@@ -192,8 +192,18 @@ img.mainpage{
 	padding-left:20px;
 }
 
-
 /****** Efectos especiales ****/
+
+/* rotacion de texto */
+.rotate {
+	-webkit-transform: rotate(-90deg); /* Safari */
+	-moz-transform: rotate(-90deg); /* Firefox */
+	-ms-transform: rotate(-90deg); /* IE */
+	-o-transform: rotate(-90deg); /* Opera */
+	/* Internet Explorer */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
 /* @group Blink */
 
 .blink {
