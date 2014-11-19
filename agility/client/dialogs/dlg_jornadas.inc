@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-     <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE JORNADAS -->
-    <div id="jornadas-dialog" style="width:375px;padding:25px">
+<!-- FORMULARIO DE DECLARACION Y MODIFICACION DE JORNADAS -->
+<div id="jornadas-dialog" style="width:375px;padding:25px">
         <div class="ftitle">Informaci&oacute;n de la Jornada<br /></div>
         <form id="jornadas-form" method="get" novalidate>
             <div class="fitem">
@@ -105,16 +105,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </div>
         </form>
             
-		<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-		<div id="jornadas-dlg-buttons" style="padding-bottom:15px">
-			<a id="jornadas-okBtn" href="#" class="easyui-linkbutton" 
-				data-options="iconCls:'icon-ok'" onclick="saveJornada()">Guardar</a>
-			<a id="jornadas-cancelBtn" href="#" class="easyui-linkbutton" 
-				data-options="iconCls:'icon-cancel'" onclick="javascript:$('#jornadas-dialog').dialog('close')">Cancelar</a>
-		</div>
-    </div>
+</div>
     
-    <script type="text/javascript">
+<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+<div id="jornadas-dlg-buttons" style="padding:5px">
+	<a id="jornadas-okBtn" href="#" class="easyui-linkbutton" 
+		data-options="iconCls:'icon-ok'" onclick="saveJornada()">Guardar</a>
+	<a id="jornadas-cancelBtn" href="#" class="easyui-linkbutton" 
+		data-options="iconCls:'icon-cancel'" onclick="javascript:$('#jornadas-dialog').dialog('close')">Cancelar</a>
+</div>
+	
+<script type="text/javascript">
     // datos del formulario de nuevo/edit jornada
     $('#jornadas-dialog').dialog({
         closed:true,
@@ -204,4 +205,4 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	addTooltip($('#jornadas-okBtn').linkbutton(),"Registrar la entrada en la Base de Datos");
 	addTooltip($('#jornadas-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
     
-    </script>
+</script>

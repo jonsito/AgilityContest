@@ -53,16 +53,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <textarea id="pruebas-Observaciones" name="Observaciones" style="height:50px;width:250px"></textarea>
             </div>
         </form>
-    
-		<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-		<div id="pruebas-dlg-buttons">
-        	<a id="pruebas-okBtn" href="#" class="easyui-linkbutton" 
-        		data-options="iconCls:'icon-ok'" onclick="savePrueba()">Guardar</a>
-        	<a id="pruebas-cancelBtn" href="#" class="easyui-linkbutton" 
-        		data-options="iconCls:'icon-cancel'" onclick="javascript:$('#pruebas-dialog').dialog('close')">Cancelar</a>
-    	</div>
     </div>
 
+    
+	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+	<div id="pruebas-dlg-buttons">
+       	<a id="pruebas-okBtn" href="#" class="easyui-linkbutton" 
+       		data-options="iconCls:'icon-ok'" onclick="savePrueba()">Guardar</a>
+       	<a id="pruebas-cancelBtn" href="#" class="easyui-linkbutton" 
+       		data-options="iconCls:'icon-cancel'" onclick="javascript:$('#pruebas-dialog').dialog('close')">Cancelar</a>
+    </div>
+    
     <script type="text/javascript">
     // datos del formulario de nuevo/edit prueba
     // - declaracion del formulario

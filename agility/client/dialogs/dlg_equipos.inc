@@ -16,8 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA LOS DATOS DE EQUIPOS DE UNA PRUEBA -->
-<div id="team_edit_dialog" title="Nuevo/Editar equipo" style="width:450px;padding:10px"
-	data-options="">
+<div id="team_edit_dialog" title="Nuevo/Editar equipo" style="width:450px;padding:10px">
    	<div class="ftitle">Datos del equipo:</div>
    	<form id="team_edit_dialog-form" class="easyui-form">
    		<input id="team_edit_dialog-ID" type="hidden" name="ID" value="0"/>
@@ -32,20 +31,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<input id="team_edit_dialog-Observaciones" name="Observaciones" class="easyui-validatebox" style="width:300px"/>
 		</div>
    	</form>
-
-	<div id="team_dialog-buttons">
-	   	<a id="team_edit_dialog-okBtn" href="#" class="easyui-linkbutton" 
-	   			data-options="iconCls:'icon-save'" onclick="saveTeam()">Guardar</a>
-		<a id="team_edit_dialog-cancelBtn" href="#" class="easyui-linkbutton" 
-				data-options="iconCls:'icon-cancel'" onclick="javascript:$('#team_edit_dialog').dialog('close')">Cerrar</a>
-	</div>
 	
 </div>
    
+<div id="team_dialog-buttons">
+   	<a id="team_edit_dialog-okBtn" href="#" class="easyui-linkbutton" 
+   			data-options="iconCls:'icon-save'" onclick="saveTeam()">Guardar</a>
+	<a id="team_edit_dialog-cancelBtn" href="#" class="easyui-linkbutton" 
+			data-options="iconCls:'icon-cancel'" onclick="javascript:$('#team_edit_dialog').dialog('close')">Cerrar</a>
+</div>
+
 <script type="text/javascript">
 
 // declaracion del dialogo
-// TODO: estudiar por qué el "closed:true" en el data-options no funciona
 $('#team_edit_dialog').dialog({
 	iconCls:'icon-huella',
 	modal:true,

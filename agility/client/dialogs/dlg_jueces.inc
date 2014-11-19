@@ -58,15 +58,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <textarea id="jueces-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
             </div>
         </form>
-    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-    	<div id="jueces-dlg-buttons">
-    	    <a id="jueces-okBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-ok'" onclick="saveJuez()">Guardar</a>
-    	    <a id="jueces-cancelBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#jueces-dialog').dialog('close')">Cancelar</a>
-    	</div>
     </div>
     
+   	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
+   	<div id="jueces-dlg-buttons">
+   	    <a id="jueces-okBtn" href="#" class="easyui-linkbutton" 
+   	    	data-options="iconCls:'icon-ok'" onclick="saveJuez()">Guardar</a>
+   	    <a id="jueces-cancelBtn" href="#" class="easyui-linkbutton" 
+   	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#jueces-dialog').dialog('close')">Cancelar</a>
+   	</div>
+   	
 	<script type="text/javascript">
         // datos del formulario de nuevo/edit jueces
         // - declaracion del formulario
