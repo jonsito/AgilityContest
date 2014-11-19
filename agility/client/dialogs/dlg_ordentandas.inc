@@ -16,21 +16,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!--  dialogo de orden de tandas e introduccion de datos de una competicion -->
-<div id="ordentandas-window" style="width:400px;height:625px;padding:10px">
-	<!-- BARRA DE TAREAS DE ORDEN DE tandas -->
-	<div id="ordentandas-toolbar" style="padding:0px 10px 30px 10px">
- 		<span style="float:left">
-		   	<a id="ordentandas-reloadBtn" href="#" class="easyui-linkbutton" 
-		   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas()">Actualizar</a>
-    		</span>
-    		<span style="float:right">
-    		<!-- estos elementos deben estar alineados a la derecha -->
-    		<a id="ordentandas-printBtn" href="#" 
-    			data-options="iconCls:'icon-print'" class="easyui-linkbutton">Imprimir</a>
-		</span>
-	</div>
+<div id="ordentandas-window" style="width:350px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
-	<table id="ordentandas-datagrid" style="padding:10px"></table>
+	<table id="ordentandas-datagrid" style="padding:5px"></table>
+</div>
+
+<!-- BARRA DE TAREAS DE ORDEN DE tandas -->
+<div id="ordentandas-toolbar" style="width:100%;display:inline-block">
+	<span style="float:left;padding:5px">
+	   	<a id="ordentandas-reloadBtn" href="#" class="easyui-linkbutton" 
+	   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas()">Actualizar</a>
+   		</span>
+   		<span style="float:right;padding:5px">
+   		<!-- estos elementos deben estar alineados a la derecha -->
+   		<a id="ordentandas-printBtn" href="#" 
+   			data-options="iconCls:'icon-print'" class="easyui-linkbutton">Imprimir</a>
+	</span>
 </div>
 
 <script type="text/javascript">
@@ -39,7 +40,7 @@ $('#ordentandas-window').window({
 	collapsible:false,
 	minimizable:false,
 	maximizable:false,
-	resizable:false,
+	resizable:true,
 	iconCls:'icon-updown',
 	closed:true,
 	modal:true
@@ -61,6 +62,7 @@ $('#ordentandas-datagrid').datagrid({
         Jornada: workingData.jornada
     },
     loadMsg: "Actualizando programa de la Jornada .....",
+    toolbar: '#ordentandas-toolbar',
     pagination: false,
     rownumbers: true,
     fitColumns: true,

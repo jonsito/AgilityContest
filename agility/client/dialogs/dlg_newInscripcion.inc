@@ -16,18 +16,37 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- FORMULARIO DE ALTA DE INSCRIPCIONES EN UNA PRUEBA -->
-<div id="new_inscripcion-dialog" style="width:700px;padding:10px">
-  	<form id="new_inscripcion-form">
-   		<input id="new_inscripcion-Operation" name="Operation" type="hidden" value="insert"/>
-   		<input id="new_inscripcion-Prueba" type="hidden" name="Prueba" value="0"/>
-   		<!--  tabla que contiene el resultado de la seleccion del formulario -->
+<div id="new_inscripcion-dialog" style="width:700px;height:250px;padding:5px">
+   	<!--  tabla que contiene el resultado de la seleccion del formulario -->
+	<table id="new_inscripcion-datagrid"></table>
+</div>
+
+<!-- barra de tareas del dialogo -->
+<div id="new_inscripcion-datagrid-tools" style="width:100%;display:inline-block">
+	<span style="float:left;padding:5px">
+	   	<label for="Buscar">Buscar: </label>
+		<input name="Buscar" type="text" id="new_inscripcion-search" style="width:150px" 
+			value="---- Buscar ----" class="search_textfield" onchange="listaNoInscritos();"/>
+	</span>
+	<span style="float:right;padding:5px">
+		<a id="new_inscripcion-reloadBtn" href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-brush'"
+			onclick="
+	        	// clear selection and reload table
+	    		$('#new_inscripcion-search').val('---- Buscar ----');
+				listaNoInscritos();
+	            "
+			>Limpiar</a>
+	</span>
+</div>
    		
-   		<div style="height:250px">
-			<table id="new_inscripcion-datagrid"></table>
-		</div>
 		
-		<!-- botones de datos auxiliares para la inscripcion -->
+<!-- botones de datos auxiliares para la inscripcion -->
+<div id=new_inscripcion-datagrid-footer style="width:100%;display:inline-block">
+  	<form id="new_inscripcion-form">
 		<span style="float:left;padding:5px">
+   			<input id="new_inscripcion-Operation" name="Operation" type="hidden" value="insert"/>
+   			<input id="new_inscripcion-Prueba" type="hidden" name="Prueba" value="0"/>
 			Jornadas:
         	<input id="new_inscripcion-J1" 			name="J1" class="easyui-checkbox" type="checkbox" value="1" onclick="evalJornadas(this);"/>
         	<label id="new_inscripcion-J1lbl" 		for="J1">1</label>
@@ -46,7 +65,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	<input id="new_inscripcion-J8" 			name="J8" class="easyui-checkbox" type="checkbox" value="128" onclick="evalJornadas(this);"/>
        		<label id="new_inscripcion-J8lbl" 		for="J8">8</label>
         </span>
-        
         <span style="float:right;padding:5px">  
         	<label id="new_inscripcion_Equipolbl"	for="Equipo">Equipo: </label>       	    
         	<span id="new_inscripcion-Equiposp">
@@ -60,30 +78,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         </span>
    	</form>
 </div>
-   		
-<!-- barra de tareas del dialogo -->
-<div id="new_inscripcion-datagrid-tools">
-	<span style="float:left;padding:10px">
-	   	<label for="Buscar">Buscar: </label>
-		<input name="Buscar" type="text" id="new_inscripcion-search" style="width:150px" 
-			value="---- Buscar ----" class="search_textfield" onchange="listaNoInscritos();"/>
-	</span>
-	<span style="float:right;padding:10px">
-		<a id="new_inscripcion-reloadBtn" href="#" class="easyui-linkbutton"
-			data-options="iconCls:'icon-brush'"
-			onclick="
-	        	// clear selection and reload table
-	    		$('#new_inscripcion-search').val('---- Buscar ----');
-				listaNoInscritos();
-	            "
-			>Limpiar</a>
-	</span>
-</div>
-   		
 
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-<div id="new_inscripcion-buttons">
-   	<span style="float:left;padding:5px">
+<div id="new_inscripcion-buttons" style="width:100%;display:inline-block">
+   	<span style="float:left">
    		<a id="new_inscripcion-teamBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-huella'"
    			onclick="newTeam2('#new_inscripcion-Equipo','nuevo equipo')">Nuevo Equipo</a>
@@ -91,7 +89,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			data-options="iconCls:'icon-dog'"
    			onclick="newDog('#new_inscripcion-datagrid',$('#new_inscripcion-search').val())">Nuevo Perro</a>
    	</span>
-   	<span style="float:right;padding:5px">
+   	<span style="float:right">
 		<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-ok'" onclick="insertInscripcion('#new_inscripcion-datagrid')">Inscribir</a>
    		<a id="new_inscripcion-doneBtn" href="#" class="easyui-linkbutton" 
@@ -133,7 +131,6 @@ $('#new_inscripcion-dialog').dialog({
 	maximizable:false,
 	resizable:false,
 	title:"A&ntilde;adir inscripciones a la prueba: '"+workingData.datosPrueba.Nombre+"'",
-	toolbar: '#new_inscripcion-datagrid-tools',
 	buttons:'#new_inscripcion-buttons',
 	onOpen: newInscripcion_onOpenSuccess // on display setup jornada's 'checkboxes info
 	});
@@ -150,6 +147,8 @@ $('#new_inscripcion-datagrid').datagrid({
 	method: 'get',
 	mode: 'remote',
 	loadMsg: 'Actualizando lista de equipos ...',
+	toolbar: '#new_inscripcion-datagrid-tools',
+	footer: '#new_inscripcion-datagrid-footer',
 	columns: [[
 	   	{field:'ID',hidden:'true'},
 		{field:'Guia',hidden:'true'},

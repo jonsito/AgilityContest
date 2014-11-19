@@ -16,22 +16,23 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="competicion-window"style="width:900px;height:450px;padding:0px 10px 40px 10px">
-	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
-	<div id="competicion-toolbar" style="padding:5px">
- 		<span style="float:left">
-		   	<a id="competicion-reloadBtn" href="#" class="easyui-linkbutton" 
-		   		data-options="iconCls:'icon-reload'" onclick="reloadCompeticion()">Actualizar</a>
-		   	Auto:
-		   	<input id="competicion-autoUpdateBtn" type="checkbox" class="easyui-checkbox" value="0" onclick="autoUpdateCompeticion()"/>
-    	</span>
-    	<span style="float:right">
-    		<!-- estos elementos deben estar alineados a la derecha -->
-    		<a id="competicion-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'">Formularios</a>
-		</span>
-	</div>
+<div id="competicion-window"style="width:900px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
 	<table id="competicion-datagrid" style="padding:5px"></table>
+</div>
+
+<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
+<div id="competicion-toolbar" style="width:100%;display:inline-block">
+	<span style="float:left;padding:5px">
+	   	<a id="competicion-reloadBtn" href="#" class="easyui-linkbutton" 
+	   		data-options="iconCls:'icon-reload'" onclick="reloadCompeticion()">Actualizar</a>
+	   	Auto:
+	   	<input id="competicion-autoUpdateBtn" type="checkbox" class="easyui-checkbox" value="0" onclick="autoUpdateCompeticion()"/>
+   	</span>
+   	<span style="float:right;padding:5px">
+   		<!-- estos elementos deben estar alineados a la derecha -->
+   		<a id="competicion-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'">Formularios</a>
+	</span>
 </div>
 
 <script type="text/javascript">
@@ -39,7 +40,7 @@ $('#competicion-window').window({
 	collapsible:false,
 	minimizable:false,
 	maximizable:false,
-	resizable:false,
+	resizable:true,
 	iconCls:'icon-table',
 	closed:true,
 	modal:true
@@ -62,6 +63,7 @@ $('#competicion-datagrid').datagrid({
         Manga: workingData.manga
     },
     loadMsg: "Actualizando datos de competicion ...",
+    toolbar: '#competicion-toolbar',
     pagination: false,
     rownumbers: false,
     fitColumns: true,

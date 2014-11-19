@@ -16,27 +16,28 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="ordensalida-window" style="width:800px;height:450px;padding:0px 10px 40px 10px">
-	<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
-	<div id="ordensalida-toolbar" style="padding:5px">
- 		<span style="float:left">
-		   	<a id="ordensalida-randomBtn" href="#" class="easyui-linkbutton" 
-		   		data-options="iconCls:'icon-dice'" onclick="evalOrdenSalida('random')">Aleatorio</a>
-		   	<a id="ordensalida-resultBtn" href="#" class="easyui-linkbutton" 
-		   		data-options="iconCls:'icon-updown'" onclick="evalOrdenSalida('reverse')">Manga anterior</a>
-		   	<a id="ordensalida-saveBtn" href="#" class="easyui-linkbutton" 
-		   		data-options="iconCls:'icon-save'" onclick="saveOrdenSalida()">Guardar</a>
-		   	<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton" 
-		   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenSalida()">Actualizar</a>
-    		</span>
-    		<span style="float:right">
-    		<!-- estos elementos deben estar alineados a la derecha -->
-    		<a id="ordensalida-printBtn" href="#" 
-    			data-options="iconCls:'icon-print'" class="easyui-linkbutton">Imprimir</a>
-		</span>
-	</div>
+<div id="ordensalida-window" style="width:800px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
 	<table id="ordensalida-datagrid" style="padding:5px"></table>
+</div>
+
+<!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
+<div id="ordensalida-toolbar" style="width:100%;display:inline-block">
+	<span style="float:left;padding:5px">
+	   	<a id="ordensalida-randomBtn" href="#" class="easyui-linkbutton" 
+	   		data-options="iconCls:'icon-dice'" onclick="evalOrdenSalida('random')">Aleatorio</a>
+	   	<a id="ordensalida-resultBtn" href="#" class="easyui-linkbutton" 
+	   		data-options="iconCls:'icon-updown'" onclick="evalOrdenSalida('reverse')">Manga anterior</a>
+	   	<a id="ordensalida-saveBtn" href="#" class="easyui-linkbutton" 
+	   		data-options="iconCls:'icon-save'" onclick="saveOrdenSalida()">Guardar</a>
+	   	<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton" 
+	   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenSalida()">Actualizar</a>
+   		</span>
+   		<span style="float:right;padding:5px">
+   		<!-- estos elementos deben estar alineados a la derecha -->
+   		<a id="ordensalida-printBtn" href="#" 
+   			data-options="iconCls:'icon-print'" class="easyui-linkbutton">Imprimir</a>
+	</span>
 </div>
 
 <script type="text/javascript">
@@ -44,12 +45,11 @@ $('#ordensalida-window').window({
 	collapsible:	false,
 	minimizable:	false,
 	maximizable:	false,
-	resizable:		false,
+	resizable:		true,
 	iconCls:		'icon-order',
 	closed:			true,
 	modal:			true
 });
-
 
 $('#ordensalida-datagrid').datagrid({
 	// propiedades del panel asociado
@@ -68,6 +68,7 @@ $('#ordensalida-datagrid').datagrid({
         Manga: workingData.manga
     },
     loadMsg: "Actualizando orden de salida...",
+    toolbar: '#ordensalida-toolbar',
     pagination: false,
     rownumbers: false,
     fitColumns: true,

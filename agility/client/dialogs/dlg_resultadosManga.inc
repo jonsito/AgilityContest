@@ -17,14 +17,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <!--  dialogo de presentacion de resultados parciales de una manga -->
 <div id="resultadosmanga-window" style="width:800px;height:450px;padding:0px 10px 100px 10px">
+
 	<!-- BARRA DE TAREAS DE RESULTADOS PARCIALES DE MANGA -->
 	<div id="resultadosmanga-toolbar">
- 		<span style="float:right;padding:5px">
+		<span style="float:right;padding:5px">
 		   	<a id="resultadosmanga-reloadBtn" href="#" class="easyui-linkbutton" 
 		   		data-options="iconCls:'icon-reload'" onclick="reloadParcial($('input:radio[name=rRecorrido]:checked').val())">Actualizar</a>
 		   	<br />
-    		<a id="resultadosmanga-printBtn" href="#" class="easyui-linkbutton" 
-    			data-options="iconCls:'icon-print'" onclick="printParcial($('input:radio[name=rRecorrido]:checked').val())">Imprimir</a>
+	   		<a id="resultadosmanga-printBtn" href="#" class="easyui-linkbutton" 
+	   			data-options="iconCls:'icon-print'" onclick="printParcial($('input:radio[name=rRecorrido]:checked').val())">Imprimir</a>
 		</span>
 	</div>
 	<!-- TABLA DE DATOS DE TRS Y TRM DE LA MANGA -->
@@ -66,14 +67,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<!-- TABLA DE PRESENTACION DE RESULTADOS DE CADA MANGA -->
 	<table id="resultadosmanga-datagrid"></table>
 </div>
-
 <script type="text/javascript">
 
 $('#resultadosmanga-window').window({
 	collapsible:	false,
 	minimizable:	false,
 	maximizable:	false,
-	resizable:		false,
+	resizable:		true,
 	iconCls:		'icon-endflag',
 	closed:			true,
 	modal:			true
