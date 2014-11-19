@@ -196,7 +196,7 @@ function autoUpdateCompeticion() {
 	var enabled=$('#competicion-autoUpdateBtn').prop('checked');
 	if (enabled) {
 		if (autoUpdateID!==null) return; // already activated
-		autoUpdateID=setInterval(function(){reloadCompeticion()}, 10000);
+		autoUpdateID=setInterval(function(){reloadCompeticion();}, 10000);
 	} else {
 		if (autoUpdateID==null) return; // already deactivated
 		clearInterval(autoUpdateID);

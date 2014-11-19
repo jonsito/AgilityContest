@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- FORMULARIO DE ALTA DE INSCRIPCIONES EN UNA PRUEBA -->
-<div id="new_inscripcion-dialog" style="width:700px;height:250px;padding:5px">
+<div id="new_inscripcion-dialog" style="width:640px;height:400px;padding:5px">
    	<!--  tabla que contiene el resultado de la seleccion del formulario -->
 	<table id="new_inscripcion-datagrid"></table>
 </div>

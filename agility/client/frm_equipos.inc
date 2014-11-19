@@ -15,45 +15,39 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 <!-- ventana de presentacion de los datos de los equipos de una prueba -->
-<div id="team_datagrid-dialog" class="easyui-dialog" style="width:600px"
-	data-options="iconCls:'icon-huella',modal:true,
-				closed:true, closable:true,	collapsible:false, collapsed:false,
-				minimizable:false, maximizable:false, resizable:false">
-    
-    <!-- BARRA DE TAREAS DE LA TABLA DE Equipos -->
-	<div id="team_datagrid-toolbar" style="padding:5px 5px 35px 5px;">
-	   	<span style="float:left;">
-	   		<a id="team_datagrid-newBtn" href="#" class="easyui-linkbutton"	data-options="iconCls:'icon-add'"
-	   			onclick="newTeam('#team_datagrid',$('#team_datagrid-search').val())">Nuevo</a>
-	   		<a id="team_datagrid-editBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'"
-	   			onclick="editTeam('#team_datagrid')">Editar</a>
-	   		<a id="team_datagrid-delBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-trash'"
-	   			onclick="deleteTeam('#team_datagrid')">Borrar</a>
-	   		<input id="team_datagrid-search" type="text" value="---- Buscar ----" class="search_textfield" onchange="buscaEquipos()" />
-	   	</span>
-	   	<span style="float:right;">
-	   		<a id="team_datagrid-reloadBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-brush'"
-	   			onclick="
-	   	        	// clear selection and reload table
-	   	    		$('#team_datagrid-search').val('---- Buscar ----');	
-	   	            $('#team_datagrid').datagrid('load',{ where: '' });"
-	   			>Limpiar</a>
-	   	</span>
-	</div>
-	
+<div id="team_datagrid-dialog" style="width:600px;height:250px">
 	<!-- DECLARACION DE LA TABLA DE EQUIPOS -->
-	<div style="height:250px">
-		<table id="team_datagrid" class="easyui-datagrid"></table>
-    </div>
-	<!--  Botones de la tabla de equipos (solo el boton de cerrar) -->
-	<div id="team_datagrid-buttons">
-		<span style="float:right;padding:5px">
-    		<a id="team_datagrid-doneBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
-    			onclick="javascript:$('#team_datagrid-dialog').dialog('close')">Hecho</a>
-    	</span>
-	</div>
-	
+	<table id="team_datagrid" class="easyui-datagrid"></table>
 </div>	
+
+<!-- BARRA DE TAREAS DE LA TABLA DE Equipos -->
+<div id="team_datagrid-toolbar" style="width:100%;display:inline-block">
+   	<span style="float:left;padding:5px">
+   		<a id="team_datagrid-newBtn" href="#" class="easyui-linkbutton"	data-options="iconCls:'icon-add'"
+   			onclick="newTeam('#team_datagrid',$('#team_datagrid-search').val())">Nuevo</a>
+   		<a id="team_datagrid-editBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'"
+   			onclick="editTeam('#team_datagrid')">Editar</a>
+   		<a id="team_datagrid-delBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-trash'"
+   			onclick="deleteTeam('#team_datagrid')">Borrar</a>
+   		<input id="team_datagrid-search" type="text" value="---- Buscar ----" class="search_textfield" onchange="buscaEquipos()" />
+   	</span>
+   	<span style="float:right;padding:5px">
+   		<a id="team_datagrid-reloadBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-brush'"
+   			onclick="
+   	        	// clear selection and reload table
+   	    		$('#team_datagrid-search').val('---- Buscar ----');	
+   	            $('#team_datagrid').datagrid('load',{ where: '' });"
+   			>Limpiar</a>
+   	</span>
+</div>
+
+<!--  Botones de la tabla de equipos (solo el boton de cerrar) -->
+<div id="team_datagrid-buttons" style="width:100%;display:inline-block">
+	<span style="float:right;padding:5px">
+   		<a id="team_datagrid-doneBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
+   			onclick="javascript:$('#team_datagrid-dialog').dialog('close')">Hecho</a>
+   	</span>
+</div>
 
 <script type="text/javascript">
 
@@ -65,11 +59,17 @@ function buscaEquipos() {
 
 //TODO: estudiar por qué el "closed:true" en el data-options no funciona
 $('#team_datagrid-dialog').dialog({
+	iconCls:'icon-huella',
+	modal:true,
+	closable:true,
+	collapsible:false,
+	collapsed:false,
+	minimizable:false,
+	maximizable:false,
+	resizable:true,
 	title:"Gestion de Equipos de la prueba: '"+workingData.datosPrueba.Nombre+"'",
-    buttons: '#team_datagrid-buttons',
-    toolbar: '#team_datagrid-toolbar',
 	closed:true
-	});
+});
 
 // datos de la tabla de equipos
 $('#team_datagrid').datagrid({
@@ -77,10 +77,13 @@ $('#team_datagrid').datagrid({
 	url: '/agility/server/database/equiposFunctions.php?Operation=select&Prueba='+workingData.prueba,
 	queryParams: { where: ''	},
 	loadMsg: 'Actualizando lista de equipos ...',
+    footer: '#team_datagrid-buttons',
+    toolbar: '#team_datagrid-toolbar',
 	method: 'get',
 	mode: 'remote',
     multiSort: true,
     remoteSort: true,
+    idField: 'ID',
     columns: [[
         { field:'ID',			hidden:true },
         { field:'Prueba',		hidden:true },

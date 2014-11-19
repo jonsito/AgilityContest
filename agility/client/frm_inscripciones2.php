@@ -121,7 +121,7 @@ $('#inscripciones-info').panel({
 	closable:false,
 	closed:false,
 	collapsible:true,
-	collapsed:true
+	collapsed:false
 });
 
 $('#inscripciones-infolayout').layout();
@@ -264,23 +264,32 @@ addKeyHandler('#inscripciones-datagrid',newInscripcion,editInscripcion,deleteIns
 addTooltip($('#inscripciones-newBtn').linkbutton(),"Registrar nueva(s) inscripciones"); 
 addTooltip($('#inscripciones-editBtn').linkbutton(),"Modificar la inscripción seleccionada");
 addTooltip($('#inscripciones-delBtn').linkbutton(),"Eliminar la inscripción seleccionada de la BBDD");
-addTooltip($('#inscripciones-reorderBtn').linkbutton(),"Reasignar Dorsales por orden de Club,Categoria,Grado, y Nombre");
-addTooltip($('#inscripciones-teamBtn').linkbutton(),"Abrir la ventana de gest&oacute;n de equipos de esta prueba");
+addTooltip($('#inscripciones-reorderBtn').linkbutton(),"Reasignar dorsales por orden de Club,Categoria,Grado, y Nombre");
+addTooltip($('#inscripciones-teamBtn').linkbutton(),"Abrir la ventana de gesti&oacute;n de equipos de esta prueba");
 addTooltip($('#inscripciones-printBtn').linkbutton(),"Imprimir la lista de inscritos en la prueba");
 addTooltip($('#inscripciones-reloadBtn').linkbutton(),"Borrar la casilla de b&uacute;squeda<br/>Actualizar la lista de inscripciones para la prueba");
 addTooltip($('#inscripciones-datagrid-search'),"Buscar inscripciones que coincidan con el texto indicado");
 
 // special handling for printing inscritos
 $('#inscripciones-printBtn').on("click", function () {
-	$.fileDownload(
-		'/agility/server/pdf/print_inscritosByPrueba.php',
-		{
-			httpMethod: 'GET',
-			data: { Prueba: workingData.prueba},
-	        preparingMessageHtml: "We are preparing your report, please wait...",
-	        failMessageHtml: "There was a problem generating your report, please try again."
+	$.messager.radio(
+		'Selecciona modelo',
+		'Selecciona el tipo de documento a generar:',
+		{ 0:'Listado simple',1:'Catálogo',2:'Estadisticas'}, 
+		function(r){
+			if (!r) return;
+			var mode=parseInt(r);
+			$.fileDownload(
+				'/agility/server/pdf/print_inscritosByPrueba.php',
+				{
+					httpMethod: 'GET',
+					data: { Prueba: workingData.prueba, Mode: mode },
+			        preparingMessageHtml: "We are preparing your report, please wait...",
+			        failMessageHtml: "There was a problem generating your report, please try again."
+				}
+			);
 		}
-	);
+	).window({width:250});
     return false; //this is critical to stop the click event which will trigger a normal file download!
 });
 
