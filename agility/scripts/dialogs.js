@@ -20,6 +20,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 // ***** gestion de clubes		*********************************************************
 
 /**
+ * Vista preliminar del logo
+ */
+function updateLogoPreview(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$('#clubes-logo-preview').attr('src', e.target.result);
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
+/**
  * Recalcula la tabla de clubes anyadiendo parametros de busqueda
  */
 function doSearchClub() {

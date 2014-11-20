@@ -24,7 +24,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    		<input id="team_edit_dialog-Operation" type="hidden" name="Operation" value="insert"/>
    	 	<div class="fitem">
 			<label for="Nombre" style="width:100px">Nombre:</label>
-			<input id="team_edit_dialog-Nombre" name="Nombre" class="easyui-validatebox" style="width:150px"/>
+			<input id="team_edit_dialog-Nombre" name="Nombre" class="easyui-validatebox" style="width:150px"
+				data-options="required:true,validType:'length[1,100]'"/>
 		</div>
 		<div class="fitem">
 			<label for="Observaciones" style="width:100px">Observaciones:</label>
@@ -55,7 +56,6 @@ $('#team_edit_dialog').dialog({
 	resizable:false,
 	buttons:'#team_dialog-buttons'
 });
-$('#team_edit_dialog-Nombre').validatebox({ required:true, validType:'length[1,100]'});
 addTooltip($('#team_edit_dialog-okBtn').linkbutton(),"Registrar los datos del equipo.<br />Actualizar la BBDD");
 addTooltip($('#team_edit_dialog-cancelBtn').linkbutton(),"Finalizar la operacion. Cerrar la ventana");
 </script>
