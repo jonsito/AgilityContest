@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  dir="ltr">
+<head>
+    <title>JavaScript Canvas Image Conversion Example</title>
+    <meta name="description" content="" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Serif" />
+    <!--
+    from: http://sunbox.github.io/image-to-canvas-to-image/ 
+     -->
+    <script>
+        window.onload = function() {
+            
+            // Get the image
+            var sampleImage = document.getElementById("ringoImage"),
+                canvas = convertImageToCanvas(sampleImage),
+                image = convertCanvasToImage(canvas),
+                canvas2 = convertImageToCanvas(image),
+                image2 = convertCanvasToImage(canvas2);
+            
+            // Actions
+            document.getElementById("canvasHolder").appendChild(canvas);
+            document.getElementById("pngHolder").appendChild(image);
+            document.getElementById("canvasHolder2").appendChild(canvas2);
+            document.getElementById("pngHolder2").appendChild(image2);
+            
+            // Converts image to canvas; returns new canvas element
+            function convertImageToCanvas(image) {
+            var canvas = document.createElement("canvas");
+                canvas.width = image.width;
+                canvas.height = image.height;
+                canvas.getContext("2d").drawImage(image, 0, 0);
+                
+                return canvas;
+            }
+            
+            // Converts canvas to an image
+            function convertCanvasToImage(canvas) {
+                var image = new Image();
+                image.src = canvas.toDataURL("image/png");
+                return image;
+            }
+        };
+    </script>
+</head>
+<body>
+	
+	<div id="content-left">
+		<h1 style="margin-top:20px;">JavaScript Canvas Image Conversion Example</h1>	
+	<p>The images below include the original image (jpg), the canvas version, and a conversion from canvas to PNG.</p>
+	
+	<h2>Original Image</h2>
+	<p>
+		<img src="ringo-ftw.jpg" id="ringoImage" />
+	</p>
+	
+	<h2>Canvas Image</h2>
+	<p id="canvasHolder">
+		
+	</p>
+	
+	<h2>Canvas -&gt; PNG Image</h2>
+	<p id="pngHolder">
+		
+	</p>
+    
+	<h2>Canvas Image from PNG Image</h2>
+	<p id="canvasHolder2">
+		
+	</p>
+    
+	<h2>Canvas Image from PNG Image -&gt; PNG Image</h2>
+	<p id="pngHolder2">
+		
+	</p>
+	
+</body>
+</html>
