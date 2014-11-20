@@ -18,7 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  <div id="clubes-logo-dialog" style="width:400px;height:250px;padding:10px">
  	<div style="width=100%">
 		<input type="file" name="logoPreview" value="" id="clubes-logo-filePreview" 
-			class="required borrowerImageFile" data-errormsg="PhotoUploadErrorMsg" onchange="updateLogoPreview(this);">
+			class="required borrowerImageFile" data-errormsg="PhotoUploadErrorMsg" onchange="setLogoPreview(this);">
 		<hr />
 	</div>
 	<div style="display:table;margin: 0 auto">
@@ -29,9 +29,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 <div id="clubes-logo-buttons">
     <a id="clubes-logo-okBtn" href="#" class="easyui-linkbutton" 
-      	data-options="iconCls: 'icon-ok'" onclick="saveLogo()">Actualizar</a>
+      	data-options="iconCls: 'icon-ok'" onclick="acceptLogoPreview()">Actualizar</a>
     <a id="clubes-logo-cancelBtn" href="#" class="easyui-linkbutton" 
-       	data-options="iconCls: 'icon-cancel'"onclick="javascript:$('#clubes-logo-dialog').dialog('close')">Cancelar</a>
+       	data-options="iconCls: 'icon-cancel'"onclick="$('#clubes-logo-dialog').dialog('close')">Cancelar</a>
 </div>
 
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE CLUBES -->
@@ -155,7 +155,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             closed:true,
             modal:true,
             buttons:'#clubes-logo-buttons',
-            iconCls:'icon-palette'
+            iconCls:'icon-palette',
+            onOpen: function() {
+            	$('#clubes-logo-preview').attr('src', $('#clubes-Logo').attr('src'));
+            }
         } );
         $('#clubes-dialog').dialog( {
             closed:true,

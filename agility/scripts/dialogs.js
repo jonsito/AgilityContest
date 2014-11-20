@@ -22,7 +22,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /**
  * Vista preliminar del logo
  */
-function updateLogoPreview(input) {
+function setLogoPreview(input) {
 	if (input.files && input.files[0]) {
 		var reader = new FileReader();
 		reader.onload = function(e) {
@@ -30,6 +30,32 @@ function updateLogoPreview(input) {
 		}
 		reader.readAsDataURL(input.files[0]);
 	}
+}
+
+function acceptLogoPreview() {
+	// import logo to back window
+	$('#clubes-Logo').attr('src', $('#clubes-logo-preview').attr('src'));
+	// and close logo dialog
+	$('#clubes-logo-dialog').dialog('close')
+}
+
+/*
+ * Export logo image to server and store into database
+ */
+function saveLogo() {
+	// TODO: write
+	var fd = new FormData();
+	fd.append('file', $('#clubes-Logo')[0].files[0]);
+	$.ajax({
+		url: '/agility/database/clubFunctions.php',
+		data: fd,
+		processData: false,
+		contentType: false,
+		type: 'POST',
+		success: function (data) {
+			alert(data);
+		}
+	});
 }
 
 /**
