@@ -61,7 +61,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	        <img id="clubes-Logo"
     	           	alt="rsce"
     	          	name="Logo" 
-    	           	src="/agility/server/database/clubFunctions.php?Operation=logo&Nombre=rsce"
+    	           	src="/agility/server/database/clubFunctions.php?Operation=getlogo&Nombre=rsce"
     	           	width="120" style="float:right;margin-right:50px"/>
             </a>
         </div>

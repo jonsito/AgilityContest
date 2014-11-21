@@ -79,7 +79,7 @@ function newClub(dg,def,onAccept){
 	if (!strpos(def,"Buscar")) $('#clubes-Nombre').val(def);
 	$('#clubes-Operation').val('insert');
 	// select ID=1 to get default logo
-	var nombre="/agility/server/database/clubFunctions.php?Operation=logo&ID=1";
+	var nombre="/agility/server/database/clubFunctions.php?Operation=getlogo&ID=1";
     $('#clubes-Logo').attr("src",nombre);
     // add onAccept related function if any
 	if (onAccept!==undefined)
@@ -98,7 +98,7 @@ function editClub(dg){
     	return; // no way to know which dog is selected
     }
     row.Operation='update';
-	var nombre="/agility/server/database/clubFunctions.php?Operation=logo&ID="+row.ID;
+	var nombre="/agility/server/database/clubFunctions.php?Operation=getlogo&ID="+row.ID;
     $('#clubes-Logo').attr("src",nombre);
     $('#clubes-dialog').dialog('open').dialog('setTitle','Modificar datos del club');
     $('#clubes-form').form('load',row);

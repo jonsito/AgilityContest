@@ -17,7 +17,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 
-	require_once("DBObject.php");
+require_once("DBObject.php");
 
 class Clubes extends DBObject {
 
@@ -202,13 +202,9 @@ class Clubes extends DBObject {
 	function getLogo($id) {
 		$this->myLogger->enter();
 		if ($id==0) $id=1; // on insert, select default logo
-		$str="SELECT Logo FROM Clubes WHERE ID=$id";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		$row=$rs->fetch_object();
-		$rs->free();
-		$name="rsce.png";
-		if ($row) $name=$row->Logo;
+		$row=$this->__selectObject("Logo","Clubes","ID=$id");
+		if (!$row) return $this->error($this->conn->error);
+		$name=$row->Logo;
 		$fname=__DIR__."/../../../images/logos/$name";
 		if (!file_exists($fname)) {
 			$this->myLogger->notice("Logo file $fname does not exists");
@@ -218,6 +214,46 @@ class Clubes extends DBObject {
 		header('Content-type: '.$size['mime']);
 		readfile($fname);
 	}
+	
+	function setLogo($id) {
+		$this->myLogger->enter();
+		// el logo 1 NO es editable y debe ser siempre "rsce.png"
+		if ($id<=1) return $this->error("Cannot change Logo for club ID:$id");
+		// 1- leemos la imagen que nos viene en el post extrayendo el tipo y los datos
+		$imgstr=http_request("imagedata","s",null);
+		if (!$imgstr) return $this->error("No image data received for club ID:$id");
+		if (!preg_match('/data:([^;]*);base64,(.*)/', $imgstr, $matches)) {
+			return $this->error("Invalid received image string data:'$imgstr'");
+		}
+		$type=$matches[1]; // 'image/png' , 'image/jpeg', or whatever. Not really used
+		$image=base64_decode( str_replace(' ', '+', $matches[2]) ); // also replace '+' to spaces or newlines 
+		$img=imagecreatefromstring( $image  ); 
+		if (!$img) return $this->error("Invalid received image string data:'$imgstr'");
+		// 2- la convertimos a 120x120
+		$newImage = imagecreatetruecolor(120,120);
+		imagecopyresampled($newImage, $img, 0, 0, 0, 0, 120, 120, imagesx($img), imagesy($img));
+		// 3- obtenemos el nombre del logo actual
+		$row=$this->__selectObject("Logo","Clubes","ID=$id");
+		if (!$row) return $this->error($this->conn->error);
+		$name=$row->Logo;
+		// 4- si es igual a "rsce.png" lo cambiamos por "logo_id.png"
+		// 	y actualizamos el nombre en la bbdd 
+		if ($name==="rsce.png") {
+			$name="logo_$id.png";
+			$sql="UPDATE Clubes SET Logo='$name' WHERE (ID=$id)";
+			$res=$this->query($sql);
+			if (!$res) return $this->error($this->conn->error);
+		}
+		// 5- finalmente guardamos el logo en el fichero especificado en formato png
+		$fname=__DIR__."/../../../images/logos/$name";
+		imagepng($newImage, $fname);
+		// 6- limpiamos y retornamos OK
+		imagedestroy($img); 
+		imagedestroy($newImage);
+		$this->myLogger->leave();
+		return "";
+	}
+	
 } /* end of class "Clubes" */
 
 ?>
