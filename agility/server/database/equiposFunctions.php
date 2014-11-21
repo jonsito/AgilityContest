@@ -36,8 +36,10 @@ require_once(__DIR__."/classes/Equipos.php");
 			case "selectbyid": $result=$equipos->enumerate(); break; // recupera entrada unica
 			default: throw new Exception("equiposFunctions:: invalid operation: $operation provided");
 		}
-		if ($result===null) throw new Exception($equipos->errormsg);
-		if ($result==="") echo json_encode(array('success'=>true));
+		if ($result===null) 
+			throw new Exception($equipos->errormsg);
+		if ($result==="")
+			echo json_encode(array('success'=>true,'insert_id'=>$equipos->conn->insert_id,'affected_rows'=>$equipos->conn->affected_rows));
 		else echo json_encode($result);
 	} catch (Exception $e) {
 		do_log($e->getMessage());

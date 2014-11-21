@@ -282,7 +282,7 @@ function deleteGuia(dg){
     }
     $.messager.confirm('Confirm','Borrar datos del guia: '+ row.Nombre+'\n¿Seguro?',function(r){
     	if (!r) return;
-    	$.get('/agility/server/database/guiaFunctions.php',{Operation:'delete',Nombre:row.Nombre},function(result){
+    	$.get('/agility/server/database/guiaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
     		if (result.success){
     			$(dg).datagrid('reload');    // reload the guia data
     		} else {

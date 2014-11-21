@@ -37,8 +37,10 @@ try {
 		case "enumerate": $result=$jueces->enumerate(); break; // list with where
 		default: throw new Exception("juezFunctions:: invalid operation: '$operation' provided");
 	}
-	if ($result===null) throw new Exception($perros->errormsg);
-	if ($result==="") echo json_encode(array('success'=>true));
+	if ($result===null) 
+		throw new Exception($perros->errormsg);
+	if ($result==="")
+		echo json_encode(array('success'=>true,'insert_id'=>$jueces->conn->insert_id,'affected_rows'=>$jueces->conn->affected_rows)); 
 	else echo json_encode($result);
 } catch (Exception $e) {
 	do_log($e->getMessage());

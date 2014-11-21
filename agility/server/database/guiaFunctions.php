@@ -39,8 +39,10 @@ require_once(__DIR__."/classes/Guias.php");
 			case "getbyid": $result=$guias->selectByID($guiaid); break;
 			default: throw new Exception("guiaFunctions:: invalid operation: $operation provided");
 		}
-		if ($result===null) throw new Exception($guias->errormsg);
-		if ($result==="") echo json_encode(array('success'=>true));
+		if ($result===null) 
+			throw new Exception($guias->errormsg);
+		if ($result==="")
+			echo json_encode(array('success'=>true,'insert_id'=>$guias->conn->insert_id,'affected_rows'=>$guias->conn->affected_rows));
 		else echo json_encode($result);
 	} catch (Exception $e) {
 		do_log($e->getMessage());

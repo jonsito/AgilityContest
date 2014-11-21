@@ -58,8 +58,10 @@ try {
 		case "connect": $result=$eventmgr->connect($data); break;
 		default: throw new Exception("eventFunctions:: invalid operation: $operation provided");
 	}
-	if ($result===null) throw new Exception($eventmgr->errormsg);
-	if ($result==="") echo json_encode(array('success'=>true));
+	if ($result===null) 
+		throw new Exception($eventmgr->errormsg);
+	if ($result==="")
+		echo json_encode(array('success'=>true,'insert_id'=>$eventmgr->conn->insert_id,'affected_rows'=>$eventmgr->conn->affected_rows));
 	else echo json_encode($result);
 } catch (Exception $e) {
 	do_log($e->getMessage());

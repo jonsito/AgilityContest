@@ -46,8 +46,10 @@ try {
 		case "getByID":	$result=$sesion->selectByID($id); break;
 		default: throw new Exception("sessionFunctions:: invalid operation: $operation provided");
 	}
-	if ($result===null) throw new Exception($sesion->errormsg);
-	if ($result==="") echo json_encode(array('success'=>true));
+	if ($result===null) 
+		throw new Exception($sesion->errormsg);
+	if ($result==="") 
+		echo json_encode(array('success'=>true,'insert_id'=>$sesion->conn->insert_id,'affected_rows'=>$sesion->conn->affected_rows));
 	else echo json_encode($result);
 } catch (Exception $e) {
 	do_log($e->getMessage());

@@ -36,8 +36,10 @@ try {
 		case "getbyid": $result=$pruebas->selectByID($pruebaID); break;
 		default: throw new Exception("pruebaFunctions:: invalid operation: $operation provided");
 	}
-	if ($result===null) throw new Exception($pruebas->errormsg);
-	if ($result==="") echo json_encode(array('success'=>true));
+	if ($result===null) 
+		throw new Exception($pruebas->errormsg);
+	if ($result==="") 
+		echo json_encode(array('success'=>true,'insert_id'=>$pruebas->conn->insert_id,'affected_rows'=>$pruebas->conn->affected_rows));
 	else echo json_encode($result);
 } catch (Exception $e) {
 	do_log($e->getMessage());

@@ -41,8 +41,10 @@ try {
 		case "getTRS": $result=$resultados->getTRS($mode); break;
 		default: throw new Exception("resultadosFunctions:: invalid operation: $operation provided");
 	}
-	if ($result===null) throw new Exception($resultados->errormsg);
-	if ($result==="") echo json_encode(array('success'=>true));
+	if ($result===null) 
+		throw new Exception($resultados->errormsg);
+	if ($result==="") 
+		echo json_encode(array('success'=>true,'insert_id'=>$resultados->conn->insert_id,'affected_rows'=>$resultados->conn->affected_rows));
 	else echo json_encode($result);
 } catch (Exception $e) {
 	do_log($e->getMessage());

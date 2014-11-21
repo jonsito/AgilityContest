@@ -22,7 +22,7 @@ require_once (__DIR__."/../../logging.php");
 require_once (__DIR__."/DBConnection.php");
 
 class DBObject {
-	protected $conn;
+	public $conn; // TODO: should be protected
 	protected $file;
 	protected $cache; // ['table'][id->object]
 	public $errormsg; // should be public to access to from caller

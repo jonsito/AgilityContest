@@ -25,6 +25,7 @@ class Inscripciones extends DBObject {
 	
 	protected $pruebaID;
 	protected $defaultTeam; //  {array} datos del equipo por defecto para esta prueba
+	protected $insertid;
 	
 	/**
 	 * Constructor
@@ -51,6 +52,7 @@ class Inscripciones extends DBObject {
 			throw new Exception($this->errormsg);
 		}
 		$this->defaultTeam=$res;
+		$this->insert_id=0; // initial value
 	}
 	
 	/**
@@ -83,6 +85,7 @@ class Inscripciones extends DBObject {
 		$str= "INSERT INTO Inscripciones (Prueba,Perro,Celo,Observaciones,Equipo,Jornadas,Pagado)
 			VALUES ($prueba,$idperro,$celo,'$observaciones',$equipo,$jornadas,$pagado)";
 		$res=$this->query($str);
+		$this->insertid=$this->conn->insert_id;
 		if (!$res) return $this->error($this->conn->error);
 		// una vez inscrito, vamos a repasar la lista de jornadas y actualizar en caso necesario
 		$inscripcionid=$this->conn->insert_id;

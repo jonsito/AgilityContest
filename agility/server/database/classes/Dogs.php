@@ -27,7 +27,7 @@ class Dogs extends DBObject {
 	 */
 	function insert() {
 		$this->myLogger->enter();
-		// componemos un prepared statement
+		// componemos un prepared statement (para evitar sql injection)
 		$sql ="INSERT INTO Perros (Nombre,Raza,LOE_RRC,Licencia,Categoria,Grado,Guia)
 			   VALUES(?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);

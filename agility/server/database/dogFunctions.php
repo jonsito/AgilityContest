@@ -42,8 +42,10 @@ try {
 		case "grados":		$result=$perros->gradosPerro(); break;
 		default: throw new Exception("dogFunctions:: invalid operation: $operation provided");
 	}
-	if ($result===null) throw new Exception($perros->errormsg);
-	if ($result==="") echo json_encode(array('success'=>true));
+	if ($result===null) 
+		throw new Exception($perros->errormsg);
+	if ($result==="") 
+		echo json_encode(array('success'=>true,'insert_id'=>$perros->conn->insert_id,'affected_rows'=>$perros->conn->affected_rows));
 	else echo json_encode($result);
 } catch (Exception $e) {
 	do_log($e->getMessage());

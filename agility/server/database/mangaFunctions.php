@@ -39,8 +39,10 @@ try {
 		case "getTandas":	$result=$mangas->getTandasByJornada($jornada); break; 
 		default: throw new Exception("mangaFunctions:: invalid operation: $operation provided");
 	}
-	if ($result===null) throw new Exception($mangas->errormsg);
-	if ($result==="") echo json_encode(array('success'=>true));
+	if ($result===null) 
+		throw new Exception($mangas->errormsg);
+	if ($result==="") 
+		echo json_encode(array('success'=>true,'insert_id'=>0,'affected_rows'=>0));
 	else echo json_encode($result);
 } catch (Exception $e) {
 	do_log($e->getMessage());

@@ -36,8 +36,10 @@ require_once(__DIR__."/classes/Inscripciones.php");
 			case "reorder": $result=$inscripciones->reorder(); break;
 			default: throw new Exception("inscripcionFunctions:: invalid operation: $operation provided");
 		}
-		if ($result===null) throw new Exception($inscripciones->errormsg);
-		if ($result==="") echo json_encode(array('success'=>true));
+		if ($result===null) 
+			throw new Exception($inscripciones->errormsg);
+		if ($result==="")
+			echo json_encode(array('success'=>true,'insert_id'=>$inscripciones->insert_id,'affected_rows'=>$inscripciones->conn->affected_rows));
 		else echo json_encode($result);
 	} catch (Exception $e) {
 		do_log($e->getMessage());

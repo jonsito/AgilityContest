@@ -40,8 +40,10 @@ require_once(__DIR__."/classes/Jornadas.php");
 			case "rounds": $result=$jornadas->roundsByJornada($jornadaid); break;
 			default: throw new Exception("jornadaFunctions:: invalid operation: $operation provided");
 		}
-		if ($result===null) throw new Exception($jornadas->errormsg);
-		if ($result==="") echo json_encode(array('success'=>true));
+		if ($result===null) 
+			throw new Exception($jornadas->errormsg);
+		if ($result==="")
+			echo json_encode(array('success'=>true,'insert_id'=>0,'affected_rows'=>0));
 		else echo json_encode($result);
 	} catch (Exception $e) {
 		do_log($e->getMessage());

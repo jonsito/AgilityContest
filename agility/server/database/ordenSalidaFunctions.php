@@ -49,8 +49,10 @@ try {
 		case "dnd":	$result = $os->dragAndDrop($j,$m,$f,$t,$w); break;
 	}
 	// result may contain null (error),  "" success, or (any) data
-	if ($result===null) throw new Exception($os->errormsg);
-	if ($result==="") echo json_encode(array('success'=>true));
+	if ($result===null) 
+		throw new Exception($os->errormsg);
+	if ($result==="") 
+		echo json_encode(array('success'=>true,'insert_id'=>0,'affected_rows'=>0));
 	else echo json_encode($result);
 } catch (Exception $e) {
 	do_log($e->getMessage());

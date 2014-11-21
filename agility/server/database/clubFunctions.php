@@ -38,8 +38,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				return;
 			default: throw new Exception("clubFunctions:: invalid operation: '$operation' provided");
 		}
-		if ($result===null) throw new Exception($clubes->errormsg);
-		if ($result==="") echo json_encode(array('success'=>true));
+		if ($result===null) 
+			throw new Exception($clubes->errormsg);
+		if ($result==="") 
+			echo json_encode(array('success'=>true,'insert_id'=>$clubes->conn->insert_id,'affected_rows'=>$clubes->conn->affected_rows));
 		else echo json_encode($result);
 	} catch (Exception $e) {
 		do_log($e->getMessage());
