@@ -69,11 +69,11 @@ function strpos (pajar, aguja, offset) {
  * myCounter.start();
  */
 function Countdown(options) {
-	var timer,
-	instance = this,
-	seconds = options.seconds || 10,
-	updateStatus = options.onUpdateStatus || function () {},
-	counterEnd = options.onCounterEnd || function () {};
+	var timer=null;
+	var instance = this;
+	var seconds = options.seconds || 10;
+	var updateStatus = options.onUpdateStatus || function () {};
+	var counterEnd = options.onCounterEnd || function () {};
 
 	function decrementCounter() {
 		updateStatus(seconds);

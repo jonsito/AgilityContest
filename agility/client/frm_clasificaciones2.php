@@ -105,7 +105,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	</table>
 </div>
 
-<div id="resultados-toolbar" style="width:100%;display:inline-block"">
+<div id="resultados-toolbar" style="width:100%;display:inline-block">
    	<span style="float:left;padding:5px">
    	    <input id="resultados-selectCategoria" class="easyui-combobox" name="Categoria">
    	</span>

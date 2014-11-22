@@ -25,7 +25,7 @@ function setLogoPreview(input) {
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			$('#clubes-logo-preview').attr('src', e.target.result);
-		}
+		};
 		reader.readAsDataURL(input.files[0]);
 	}
 }
@@ -34,7 +34,7 @@ function acceptLogoPreview() {
 	// import logo to back window
 	$('#clubes-Logo').attr('src', $('#clubes-logo-preview').attr('src'));
 	// and close logo dialog
-	$('#clubes-logo-dialog').dialog('close')
+	$('#clubes-logo-dialog').dialog('close');
 }
 
 /*
