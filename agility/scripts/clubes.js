@@ -31,8 +31,15 @@ function setLogoPreview(input) {
 }
 
 function acceptLogoPreview() {
-	// import logo to back window
-	$('#clubes-Logo').attr('src', $('#clubes-logo-preview').attr('src'));
+	// insert logo into back image
+	var input=document.getElementById('clubes-logo-filePreview');
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$('#clubes-Logo').attr('src', e.target.result);
+		};
+		reader.readAsDataURL(input.files[0]);
+	}
 	// and close logo dialog
 	$('#clubes-logo-dialog').dialog('close');
 }
@@ -44,7 +51,7 @@ function saveLogo() {
     // Get the image
 	var img = document.getElementById("clubes-Logo");
     var canvas = document.createElement("canvas");
-    canvas.getContext("2d").drawImage(img, 0,0);
+    canvas.getContext("2d").drawImage(img, 0,0,img.naturalWidth,img.naturalHeight,0,0,120,120);
     $.ajax({
   		type: 'POST',
     	url: '/agility/server/database/clubFunctions.php',
