@@ -211,7 +211,7 @@ class Clubes extends DBObject {
 			$fname=__DIR__."/../../../images/logos/rsce.png"; // use default name
 		}
 		$size = getimagesize($fname);
-		header('Content-type: '.$size['mime']);
+		header('Content-Type: '.$size['mime']);
 		readfile($fname);
 	}
 	
@@ -254,6 +254,33 @@ class Clubes extends DBObject {
 		return "";
 	}
 	
+	function testLogo() {
+		// just receive, resample and resend received image
+		$this->myLogger->enter();
+		// extraemos la imagen
+		$imgstr=http_request("imagedata","s",null);
+		if (!$imgstr) return $this->error("No image data received for club ID:$id");
+		if (!preg_match('/data:([^;]*);base64,(.*)/', $imgstr, $matches)) {
+			return $this->error("Invalid received image string data:'$imgstr'");
+		}
+		$type=$matches[1]; // 'image/png' , 'image/jpeg', or whatever. Not really used
+		$image=base64_decode( str_replace(' ', '+', $matches[2]) ); // also replace '+' to spaces or newlines
+		// la convertimos a 120x120
+		$img=imagecreatefromstring( $image  );
+		if (!$img) return $this->error("Invalid received image string data:'$imgstr'");
+		$newImage = imagecreatetruecolor(120,120);
+		imagecopyresampled($newImage, $img, 0, 0, 0, 0, 120, 120, imagesx($img), imagesy($img));
+		// due to stupid ajax, we need to base64 encode image before send it
+		ob_start();
+		// enable oytput buffering
+		imagepng($newImage);
+		$imagedata = ob_get_contents();	// Capture the output
+		ob_end_clean();	// Clear the output buffer
+		echo 'data:image/png;base64,'.base64_encode($imagedata); // y la reenviamos ya codificada
+		imagedestroy($img); 
+		imagedestroy($newImage);
+		$this->myLogger->leave();
+	}
 } /* end of class "Clubes" */
 
 ?>

@@ -33,13 +33,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			case "delete": $result=$clubes->delete($idclub); break;
 			case "select": $result=$clubes->select(); break;
 			case "enumerate": $result=$clubes->enumerate(); break;
-			case "getlogo": 
-				// not a json function; just return an image 
+			case "getlogo": // not a json function; just return an image 
 				$result=$clubes->getLogo($idclub);
 				return;
 			case "setlogo":
 				// this call provides an image in base64 encoded format. Needs special handling
 				$result=$clubes->setLogo($idclub);
+				return;
+			case "testlogo": // resize and resend received image. just for testing
+				$result=$clubes->testLogo();
 				return;
 			default: throw new Exception("clubFunctions:: invalid operation: '$operation' provided");
 		}
