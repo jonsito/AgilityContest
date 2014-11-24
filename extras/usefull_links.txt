@@ -1,0 +1,4 @@
+----
+How do I allow apache to rotate logs in user home directory with SELinux enabled?
+http://serverfault.com/questions/602361/how-do-i-allow-apache-to-rotate-logs-in-user-home-directory-with-selinux-enabled
+----

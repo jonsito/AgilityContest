@@ -290,7 +290,7 @@ class Clubes extends DBObject {
 		// Allocate a transparent color and fill the new image with it.
 		// Without this the image will have a black background instead of being transparent.
 		$transparent = imagecolorallocatealpha( $newImage, 0, 0, 0, 127 );
-		imagefill( $newImage, 0, 0, $transparent ); 
+		imagefill( $newImage, 0, 0, $transparent );
 		imagecopyresampled($newImage, $img, 0, 0, 0, 0, 120, 120, imagesx($img), imagesy($img));
 		
 		// Now, time to send image back to navigator

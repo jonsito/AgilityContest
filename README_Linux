@@ -20,6 +20,8 @@ Tener instalados y funcionando
 - En sistemas Fedora, y dependiendo de si se instala en un directorio bajo home, puede ser necesario ajustar SELinux
  root# setsebool -P httpd_enable_homedirs on
  root# setsebool -P httpd_read_user_content on
+ root# chcon -Rv --type=httpd_user_rw_content_t ${BASE}/agility/images/logos
+ root# chcon -Rv --type=httpd_user_rw_content_t ${BASE}/logs
 
 2b- Instalacion y configuracion (base de datos)
   mysql -u root

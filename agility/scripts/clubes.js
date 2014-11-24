@@ -44,9 +44,7 @@ function saveLogo() {
     // Get the image
 	var img = document.getElementById("clubes-Logo");
     var canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    canvas.getContext("2d").drawImage(img, 0, 0);
+    canvas.getContext("2d").drawImage(img, 0,0);
     $.ajax({
   		type: 'POST',
     	url: '/agility/server/database/clubFunctions.php',
@@ -57,7 +55,7 @@ function saveLogo() {
     		imagedata: canvas.toDataURL("image/png")
     	},
     	contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
-    	success: function(data) { alert("ok") },
+    	success: function(data) { },
     	error: function() { alert("error");	}
    	});
 }
