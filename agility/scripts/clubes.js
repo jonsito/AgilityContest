@@ -41,19 +41,25 @@ function acceptLogoPreview() {
  * Export logo image to server and store into database
  */
 function saveLogo() {
-	// TODO: write
-	var fd = new FormData();
-	fd.append('file', $('#clubes-Logo')[0].files[0]);
-	$.ajax({
-		url: '/agility/database/clubFunctions.php',
-		data: fd,
-		processData: false,
-		contentType: false,
-		type: 'POST',
-		success: function (data) {
-			alert(data);
-		}
-	});
+    // Get the image
+	var img = document.getElementById("clubes-Logo");
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    canvas.getContext("2d").drawImage(img, 0, 0);
+    $.ajax({
+  		type: 'POST',
+    	url: '/agility/server/database/clubFunctions.php',
+    	dataType: 'text',
+    	data: {
+    		Operation: 'setlogo',
+    		ID: $('#clubes-ID').val(),
+    		imagedata: canvas.toDataURL("image/png")
+    	},
+    	contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+    	success: function(data) { alert("ok") },
+    	error: function() { alert("error");	}
+   	});
 }
 
 /**
@@ -124,6 +130,7 @@ function saveClub(){
                     msg: result.errorMsg
                 });
             } else {
+            	saveLogo();
                 $('#clubes-dialog').dialog('close');        // close the dialog
                 $('#clubes-datagrid').datagrid('reload');    // reload the clubes data
             }
