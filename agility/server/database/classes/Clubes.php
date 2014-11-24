@@ -229,9 +229,17 @@ class Clubes extends DBObject {
 		$image=base64_decode( str_replace(' ', '+', $matches[2]) ); // also replace '+' to spaces or newlines 
 		$img=imagecreatefromstring( $image  ); 
 		if (!$img) return $this->error("Invalid received image string data:'$imgstr'");
-		// 2- la convertimos a 120x120
+		
+		// 2- creamos una imagen de 120x120, le anyadimos canal alfa, y hacemos un copyresampled
 		$newImage = imagecreatetruecolor(120,120);
+		imagealphablending($newImage, true);
+		imagesavealpha($newImage, true);
+		// Allocate a transparent color and fill the new image with it.
+		// Without this the image will have a black background instead of being transparent.
+		$transparent = imagecolorallocatealpha( $newImage, 0, 0, 0, 127 );
+		imagefill( $newImage, 0, 0, $transparent ); 
 		imagecopyresampled($newImage, $img, 0, 0, 0, 0, 120, 120, imagesx($img), imagesy($img));
+		
 		// 3- obtenemos el nombre del logo actual
 		$row=$this->__selectObject("Logo","Clubes","ID=$id");
 		if (!$row) return $this->error($this->conn->error);
@@ -265,11 +273,20 @@ class Clubes extends DBObject {
 		}
 		$type=$matches[1]; // 'image/png' , 'image/jpeg', or whatever. Not really used
 		$image=base64_decode( str_replace(' ', '+', $matches[2]) ); // also replace '+' to spaces or newlines
-		// la convertimos a 120x120
-		$img=imagecreatefromstring( $image  );
+		$img=imagecreatefromstring($image);
 		if (!$img) return $this->error("Invalid received image string data:'$imgstr'");
+		
+		// creamos una imagen de 120x120, le anyadimos canal alfa, y hacemos un copyresampled
 		$newImage = imagecreatetruecolor(120,120);
+		imagealphablending($newImage, true);
+		imagesavealpha($newImage, true);
+		// Allocate a transparent color and fill the new image with it.
+		// Without this the image will have a black background instead of being transparent.
+		$transparent = imagecolorallocatealpha( $newImage, 0, 0, 0, 127 );
+		imagefill( $newImage, 0, 0, $transparent ); 
 		imagecopyresampled($newImage, $img, 0, 0, 0, 0, 120, 120, imagesx($img), imagesy($img));
+		
+		// Now, time to send image back to navigator
 		// due to stupid ajax, we need to base64 encode image before send it
 		ob_start();
 		// enable oytput buffering
@@ -277,6 +294,8 @@ class Clubes extends DBObject {
 		$imagedata = ob_get_contents();	// Capture the output
 		ob_end_clean();	// Clear the output buffer
 		echo 'data:image/png;base64,'.base64_encode($imagedata); // y la reenviamos ya codificada
+		
+		// cleanup
 		imagedestroy($img); 
 		imagedestroy($newImage);
 		$this->myLogger->leave();
