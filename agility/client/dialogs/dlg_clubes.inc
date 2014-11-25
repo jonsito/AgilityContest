@@ -128,7 +128,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	addTooltip($('#clubes-cancelBtn').linkbutton(),"Cancelar operaci&oacute;n. Cerrar ventana");
     	addTooltip($('#clubes-logo-okBtn').linkbutton(),"Aceptar datos. Actualizar el logo del club");
     	addTooltip($('#clubes-logo-cancelBtn').linkbutton(),"Cancelar operaci&oacute;n. Cerrar ventana");
-    	addTooltip($('#clubes-logo-filePreview'),"La imagen seleccionada debe ser tipo '.png', <br />tama&ntilde;o 120x120 pixels y con fondo transparente");
+    	addTooltip($('#clubes-logo-filePreview'),"La imagen seleccionada debe ser tipo '.png', <br />tama&ntilde;o 150x150 pixels y con fondo transparente");
     	addTooltip($('#clubes-Logo'),"Pulsa sobre la imagen para cambiar el logo del club");
 
     	// despliegue del selector de provincias

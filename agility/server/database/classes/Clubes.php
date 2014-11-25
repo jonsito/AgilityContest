@@ -229,16 +229,17 @@ class Clubes extends DBObject {
 		$image=base64_decode( str_replace(' ', '+', $matches[2]) ); // also replace '+' to spaces or newlines 
 		$img=imagecreatefromstring( $image  ); 
 		if (!$img) return $this->error("Invalid received image string data:'$imgstr'");
+		// imagepng($img,__DIR__."/../../../images/logos/image_tmp.png");
 		
-		// 2- creamos una imagen de 120x120, le anyadimos canal alfa, y hacemos un copyresampled
-		$newImage = imagecreatetruecolor(120,120);
+		// 2- creamos una imagen de 150x150, le anyadimos canal alfa, y hacemos un copyresampled
+		$newImage = imagecreatetruecolor(150,150);
 		imagealphablending($newImage, true);
 		imagesavealpha($newImage, true);
 		// Allocate a transparent color and fill the new image with it.
 		// Without this the image will have a black background instead of being transparent.
 		$transparent = imagecolorallocatealpha( $newImage, 0, 0, 0, 127 );
 		imagefill( $newImage, 0, 0, $transparent ); 
-		imagecopyresampled($newImage, $img, 0, 0, 0, 0, 120, 120, imagesx($img), imagesy($img));
+		imagecopyresampled($newImage, $img, 0, 0, 0, 0, 150, 150, imagesx($img), imagesy($img));
 		
 		// 3- obtenemos el nombre del logo actual
 		$row=$this->__selectObject("Logo","Clubes","ID=$id");
@@ -283,15 +284,15 @@ class Clubes extends DBObject {
 		$img=imagecreatefromstring($image);
 		if (!$img) return $this->error("Invalid received image string data:'$imgstr'");
 		
-		// creamos una imagen de 120x120, le anyadimos canal alfa, y hacemos un copyresampled
-		$newImage = imagecreatetruecolor(120,120);
+		// creamos una imagen de 150x150, le anyadimos canal alfa, y hacemos un copyresampled
+		$newImage = imagecreatetruecolor(150,150);
 		imagealphablending($newImage, true);
 		imagesavealpha($newImage, true);
 		// Allocate a transparent color and fill the new image with it.
 		// Without this the image will have a black background instead of being transparent.
 		$transparent = imagecolorallocatealpha( $newImage, 0, 0, 0, 127 );
 		imagefill( $newImage, 0, 0, $transparent );
-		imagecopyresampled($newImage, $img, 0, 0, 0, 0, 120, 120, imagesx($img), imagesy($img));
+		imagecopyresampled($newImage, $img, 0, 0, 0, 0, 150, 150, imagesx($img), imagesy($img));
 		
 		// Now, time to send image back to navigator
 		// due to stupid ajax, we need to base64 encode image before send it

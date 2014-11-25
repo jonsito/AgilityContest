@@ -49,9 +49,14 @@ function acceptLogoPreview() {
  */
 function saveLogo() {
     // Get the image
-	var img = document.getElementById("clubes-Logo");
+	var img=$('#clubes-Logo');
+	var w=img.naturalWidth(); // equivalent to img.prop('naturalWidth');
+	var h=img.naturalHeight(); // equivalent to img.prop('naturalHeight');
+	// copy into a canvas to send it
     var canvas = document.createElement("canvas");
-    canvas.getContext("2d").drawImage(img, 0,0,img.naturalWidth,img.naturalHeight,0,0,120,120);
+    canvas.width=w;
+    canvas.height=h;
+    canvas.getContext("2d").drawImage(img[0], 0,0,w,h);
     $.ajax({
   		type: 'POST',
     	url: '/agility/server/database/clubFunctions.php',
@@ -109,7 +114,9 @@ function editClub(dg){
     	return; // no way to know which dog is selected
     }
     row.Operation='update';
-	var nombre="/agility/server/database/clubFunctions.php?Operation=getlogo&ID="+row.ID;
+    // use date.getTime to bypass cache
+    var time=new Date().getTime();
+	var nombre="/agility/server/database/clubFunctions.php?Operation=getlogo&ID="+row.ID+"&time="+time;
     $('#clubes-Logo').attr("src",nombre);
     $('#clubes-dialog').dialog('open').dialog('setTitle','Modificar datos del club');
     $('#clubes-form').form('load',row);

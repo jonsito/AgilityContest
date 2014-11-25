@@ -274,6 +274,23 @@ function myRowStyler(idx,row) {
 }
 
 /**
+ * Add support for img.naturalWidth and img.naturalHeight in browsers that
+ * lack of this (IE<9)
+ */
+
+(function($) {
+	function img(url) {	var i=new Image; i.src=url;	return i; }
+ 
+	if ('naturalWidth' in (new Image)) {
+		$.fn.naturalWidth = function() { return this[0].naturalWidth; };
+		$.fn.naturalHeight = function() { return this[0].naturalHeight; };
+	} else {
+		$.fn.naturalWidth = function() { return img(this.src).width; };
+		$.fn.naturalHeight = function() { return img(this.src).height; };
+	}
+})(jQuery); 
+
+/**
  * Extension of datagrid methods to add "align" property on array declared toolbars
  * http://www.jeasyui.com/forum/index.php?topic=3540.msg8090#msg8090
  * Básicamente lo que hace es redefinir el toolbar (remove()+prepend(),
