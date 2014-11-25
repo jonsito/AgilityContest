@@ -39,6 +39,7 @@ class PrintCommon extends FPDF {
 	protected $icon;   // logo del club organizadod
 	protected $jornada; // datos de la jornada
 	protected $myDBObject;
+	protected $pageName; // name of file to be printed
 
 	protected $centro;
 	/**
@@ -114,5 +115,8 @@ class PrintCommon extends FPDF {
 		$this->Cell(90,10,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
 		$this->Ln(10);
 	}
+	
+	function setPageName($name) {$this->pageName=$name; }
+	function getPageName(){ return $this->pageName; }
 }
 ?>

@@ -32,7 +32,79 @@ require_once(__DIR__.'/../database/classes/Pruebas.php');
 require_once(__DIR__.'/../database/classes/Inscripciones.php');
 require_once(__DIR__."/print_common.php");
 
-class PDF extends PrintCommon {
+class PrintCatalogo extends PrintCommon {
+	protected $inscritos;
+	
+	/**
+	 * Constructor
+	 * @param {integer} $prueba Prueba ID
+	 * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
+	 * @throws Exception
+	*/
+	function __construct($prueba,$inscritos) {
+		parent::__construct('Portrait',$prueba,0);
+		if ( ($prueba==0) || ($inscritos===null) ) {
+			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
+			throw new Exception($this->errormsg);
+		}
+		$this->inscritos=$inscritos['rows'];
+		$this->setPageName("catalogoInscripciones.pdf");
+	}
+	
+	// Cabecera de página
+	function Header() {
+		$this->myLogger->enter();
+		$this->print_commonHeader("Catálogo");
+		$this->Ln(5);
+		$this->myLogger->leave();
+	}
+	
+	// Pie de página
+	function Footer() {
+		$this->print_commonFooter();
+	}
+	
+	function composeTable() {
+	}
+}
+
+class PrintEstadisticas extends PrintCommon {
+	protected $inscritos;
+	
+	/**
+	 * Constructor
+	 * @param {integer} $prueba Prueba ID
+	 * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
+	 * @throws Exception
+	 */
+	function __construct($prueba,$inscritos) {
+		parent::__construct('Portrait',$prueba,0);
+		if ( ($prueba==0) || ($inscritos===null) ) {
+			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
+			throw new Exception($this->errormsg);
+		}
+		$this->inscritos=$inscritos['rows'];
+		$this->setPageName("estadisticasInscripciones.pdf");
+	}
+	
+	// Cabecera de página
+	function Header() {
+		$this->myLogger->enter();
+		$this->print_commonHeader("Estadísticas");
+		$this->Ln(5);
+		$this->myLogger->leave();
+	}
+	
+	// Pie de página
+	function Footer() {
+		$this->print_commonFooter();
+	}
+
+	function composeTable() {
+	}
+}
+
+class PrintInscritos extends PrintCommon {
 	
 	protected $inscritos;
 
@@ -56,6 +128,7 @@ class PDF extends PrintCommon {
 			throw new Exception($this->errormsg);
 		}
 		$this->inscritos=$inscritos['rows'];
+		$this->setPageName("inscritosByPrueba.pdf");
 	}
 	
 	// Cabecera de página
@@ -134,14 +207,22 @@ class PDF extends PrintCommon {
 // Consultamos la base de datos
 try {
 	$pruebaid=http_request("Prueba","i",0);
+	$mode=http_request("Mode","i",0);
+	$pdf=null;
+	$name="";
 	// Datos de inscripciones
 	$inscripciones = new Inscripciones("printInscritosByPrueba",$pruebaid);
 	$inscritos= $inscripciones->enumerate();
 	// Creamos generador de documento
-	$pdf = new PDF($pruebaid,$inscritos);
+	switch ($mode) {
+		case 0: $pdf=new PrintInscritos($pruebaid,$inscritos); break;
+		case 1: $pdf=new PrintCatalogo($pruebaid,$inscritos); break;
+		case 2: $pdf=new PrintEstadisticas($pruebaid,$inscritos); break;
+		default: throw new Exception ("Inscripciones::print() Invalid print mode selected $mode");
+	}
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("inscritosByPrueba.pdf","D"); // "D" means open download dialog
+	$pdf->Output($pdf->getPageName(),"D"); // "D" means open download dialog
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e.getMessage());
 }
