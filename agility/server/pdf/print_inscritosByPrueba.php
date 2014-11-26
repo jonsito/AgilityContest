@@ -67,6 +67,7 @@ class PrintCatalogo extends PrintCommon {
 	}
 
 	function printClub($pos,$id) {
+		$y=10*$pos;
 		// retrieve club data
 		$cmgr=new Clubes('printCatalogo');
 		$club=$cmgr->selectByID($id);
@@ -79,19 +80,20 @@ class PrintCatalogo extends PrintCommon {
 		$this->SetLineWidth(.3); // ancho de linea
 		
 		// pintamos logo
-		$this->SetXY(10,5+10*$pos);
-		$this->Cell(25,25,$this->Image(__DIR__.'/../../images/logos/'.$icon,$this->getX(),$this->getY(),22),0,0,'LTB',false);
+		$this->SetXY(10,$y);
+		$this->Cell(25,25,'','LTB',0,'C',false);
+		$this->Image(__DIR__.'/../../images/logos/'.$icon,12.5,2.5+$y,20,20);
 
 		// pintamos info del club
 		$this->SetFont('Arial','B',9);
-		$this->SetXY(35,5+10*$pos);
+		$this->SetXY(35,$y);
 		$this->Cell( 50, 6, $club['Direccion1'],	'LT', 0, 'L', true); // pintamos direccion1
-		$this->SetXY(35,6+5+10*$pos);
+		$this->SetXY(35,6+$y);
 		$this->Cell( 50, 6, $club['Direccion2'],	'L', 0, 'L',	true);	// pintamos direccion2
-		$this->SetXY(35,12+5+10*$pos);
+		$this->SetXY(35,12+$y);
 		$this->Cell( 50, 6, $club['Provincia'],	'L', 0, 'L',	true);	// pintamos provincia
 		$this->SetFont('Arial','IB',24);
-		$this->SetXY(85,5+10*$pos);
+		$this->SetXY(85,$y);
 		$this->Cell( 110, 18, $club['Nombre'],	'T', 0, 'R',	true);	// pintamos Nombre
 		$this->Cell( 5, 18, '',	'TR', 0, 'R',	true);	// caja vacia de relleno
 		
@@ -99,7 +101,7 @@ class PrintCatalogo extends PrintCommon {
 		$this->SetFillColor(192,192,192); // fondo gris
 		$this->SetTextColor(0,0,0); // texto blanco
 		$this->SetFont('Arial','B',9);
-		$this->SetXY(35,18+5+10*$pos);
+		$this->SetXY(35,18+$y);
 		$this->Cell( 40, 7, 'Nombre','LTB', 0, 'C',true);
 		$this->Cell( 35, 7, 'Raza','LTB', 0, 'C',true);
 		$this->Cell( 15, 7, 'Licencia','LTB', 0, 'C',true);
@@ -115,7 +117,7 @@ class PrintCatalogo extends PrintCommon {
 		$this->SetTextColor(0,0,0); // texto negro
 		$this->SetDrawColor(128,0,0); // lineas rojo palido
 		$this->SetLineWidth(.3); // ancho de linea
-		$this->setXY(20,10*$pos); // posicion inicial
+		$this->setXY(20,10*$pos-5); // posicion inicial
 		// REMINDER: 
 		// $this->cell( width, height, data, borders, where, align, fill)
 		$this->SetFont('Arial','B',18); //
@@ -133,19 +135,32 @@ class PrintCatalogo extends PrintCommon {
 	
 	function composeTable() {
 		$this->myLogger->enter();
+		$this->addPage(); // start page
 		$club=0;
-		$pos=5; // header takes 5 cmts
+		$pos=4; // header takes 4 cmts
 		foreach($this->inscritos as $row) {
-			// at end of page newPage
-			if ($pos>=27) { $this->addPage(); $pos=5; }
-			// at start of page print club header
-			if ($pos==5) { $club=$row['Club']; $this->printClub($pos,$club); $pos+=3; }
-			// on club change, if at end of page, do newline
-			if ( $club!=$row['Club'] ) {
-				$club=$row['Club'];
-				if ($pos>23) { $this->addPage(); $pos=5; }
-				$this->printClub($pos,$club);
-				$pos+=3;
+			switch($pos) {
+				case 25: // check for new club
+				case 26:
+				case 27:
+					if ($club==$row['Club']) break;
+					// else cannot insert new club header
+					// no break
+				case 28: // force new page
+					$this->addPage(); 
+					$pos=4;
+					// no break
+				case 4: // always insert club data at top
+					$club=$row['Club'];
+					$this->printClub($pos,$club);
+					$pos+=3;
+					break;
+				default:
+					if ($club==$row['Club']) break;
+					$club=$row['Club'];
+					$this->printClub($pos,$club);
+					$pos+=3;
+					break;				
 			}
 			$this->printParticipante($pos,$row);
 			$pos+=1;	
@@ -252,7 +267,6 @@ class PrintInscritos extends PrintCommon {
 	// Tabla coloreada
 	function composeTable() {
 		$this->myLogger->enter();
-		
 		$this->SetDrawColor(128,0,0);
 		$this->SetLineWidth(.3);
 		
