@@ -248,7 +248,7 @@ class Inscripciones extends DBObject {
 		// FASE 1: obtener lista de perros inscritos con sus datos
 		$str="SELECT Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal , 
 				Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
-				Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
+				Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
 				NombreGuia, NombreClub, Equipos.ID AS Equipo,Equipos.Nombre AS NombreEquipo ,
 				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
 			FROM Inscripciones,PerroGuiaClub,Equipos
@@ -322,7 +322,7 @@ class Inscripciones extends DBObject {
 		}
 		// FASE 1: obtener lista de perros inscritos con sus datos
 		$str="SELECT Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal, Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
-				Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club , 
+				Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club , 
 				NombreGuia, NombreClub, Equipos.ID AS Equipo,Equipos.Nombre AS NombreEquipo , 
 				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
 			FROM Inscripciones,PerroGuiaClub,Equipos
@@ -421,7 +421,7 @@ class Inscripciones extends DBObject {
 		}
 		// obtenemos la lista de perros inscritos con sus datos
 		$result=$this->__select(
-			/* SELECT */"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Inscripciones.Perro AS Perro, 
+			/* SELECT */"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Inscripciones.Perro AS Perro, Raza,
 				Dorsal, PerroGuiaClub.Nombre AS Nombre, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
 				NombreGuia, NombreClub, Equipos.ID AS Equipo,Equipos.Nombre AS NombreEquipo ,
 				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
