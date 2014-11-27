@@ -1,5 +1,5 @@
 <!-- 
-llamada.inc
+vw_inscripciones.inc
 
 Copyright 2013-2014 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -15,20 +15,20 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-<!-- Tabla de llamada a pista -->
-<div id="vw_llamada-window">
-	<div id="vw_llamada-Cabecera" class="vw_floatingheader">
-		<span id="vw_llamada-Texto">Llamada a pista</span>
-	</div>
-	<div id="vw_llamada-Pendientes" class="easyui-panel"
+
+<!-- Presentacion de las inscripciones de la jornada -->
+<div id="vw_inscripciones-window">
+	<div id="vw_inscripciones-panel" class="easyui-panel"
 		data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
-		<span id="vwc_listaPendientes"></span>
-	</div>	
+			<span id="vw_inscripcionesJornada"></span>
+	</div>
 </div> <!-- vw_llamada-window -->
 
 <script type="text/javascript">
+//add 'callback' property to store interval references
+$.extend($.fn.window.defaults,{callback:null});
 
-$('#vw_llamada-window').window({
+$('#vw_inscripciones-window').window({
 	fit:true,
 	noheader:true,
 	border:false,
@@ -36,8 +36,14 @@ $('#vw_llamada-window').window({
 	collapsible:false,
 	collapsed:false,
 	resizable:true,
+	callback: null, 
+	// 1 minute poll is enouth for this, as no expected changes during a session
 	onOpen: function() {
-		startEventMgr(workingData.sesion,vw_processLlamada);
+		var a=setInterval(vwi_procesaInscripciones,30000);
+		$(this).window.defaults.callback=a; 
+	},
+	onClose: function() { 
+		clearInterval($(this).window.defaults.callback);
 	}
 });
 

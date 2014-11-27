@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 
-<!-- Presentacion combinada de live stream, llamada a pista y resultados parciales -->
+<!-- Presentacion de resultados parciales -->
 <div id="vw_parciales-window">
 	<div id="vw_parciales-Resultados" class="easyui-panel"
 		data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">

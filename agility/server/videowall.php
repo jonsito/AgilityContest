@@ -20,6 +20,7 @@ require_once(__DIR__."/logging.php");
 require_once(__DIR__."/database/classes/DBObject.php");
 require_once(__DIR__."/database/classes/OrdenTandas.php");
 require_once(__DIR__."/database/classes/Sesiones.php");
+require_once(__DIR__."/database/classes/Inscripciones.php");
 
 class VideoWall {
 	protected $myLogger;
@@ -230,12 +231,46 @@ class VideoWall {
 		$data["Celo"]=$celo;
 		return $data;
 	}
+	
+	function videowall_inscripciones($prueba,$jornada) {
+		$imgr=new Inscripciones("videowall_inscripciones",$prueba);
+		$result=$imgr->inscritosByJornada($jornada);
+		echo "<table>";
+			echo "<tr>";
+			echo "<th>Dorsal</th>";
+			echo "<th>Nombre</th>";
+			echo "<th>Raza</th>";
+			echo "<th>Licencia</th>";
+			echo "<th>Cat. - Grado</th>";
+			echo "<th>Guia</th>";
+			echo "<th>Club</th>";
+			echo "</tr>";
+		foreach ($result['rows'] as $i) {
+			echo "<tr>";
+			echo  "<td>{$i['Dorsal']}</td>";
+			echo "<td>{$i['Nombre']}</td>";
+			echo "<td>{$i['Raza']}</td>";
+			echo "<td>{$i['Licencia']}</td>";
+			echo "<td>{$i['Categoria']} - {$i['Grado']}</td>";
+			echo "<td>{$i['NombreGuia']}</td>";
+			echo "<td>{$i['NombreClub']}</td>";
+			echo "</tr>";
+		}
+		echo "</table>";
+	}
 } 
 
 $sesion = http_request("Session","i",0);
+$prueba = http_request("Prueba","i",0);
+$jornada = http_request("Jornada","i",0);
 $operacion = http_request("Operation","s",null);
 $pendientes = http_request("Pendientes","i",10);
 $vw=new VideoWall();
-if($operacion==="livestream") return $vw->videowall_livestream($sesion);
-if($operacion==="llamada") return $vw->videowall_llamada($sesion,$pendientes);
-if($operacion==="resultados") return $vw->videowall_resultados($sesion);
+try {
+	if($operacion==="livestream") return $vw->videowall_livestream($sesion);
+	if($operacion==="llamada") return $vw->videowall_llamada($sesion,$pendientes);
+	if($operacion==="resultados") return $vw->videowall_resultados($sesion);
+	if($operacion==="inscripciones") return $vw->videowall_inscripciones($prueba,$jornada);
+} catch (Exception $e) {
+	return "<p>Error:<br />".$e->getMessage()."</p>";
+}

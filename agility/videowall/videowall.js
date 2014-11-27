@@ -18,12 +18,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /** 
  * Call "connect" to retrieve last "open" event for provided session ID
  * fill working data with received info
- * If no response wait a second and try again
+ * If no response wait two seconds and try again
  * On sucess invoke                                                                                                                                                                                                                            
  * @param sesID
  * @param callback
  */
 function startEventMgr(sesID,callback) {
+	var timeout=2000;
 	$.ajax({
 		type: "GET",
 		url: "/agility/server/database/eventFunctions.php",
@@ -41,12 +42,12 @@ function startEventMgr(sesID,callback) {
 				initWorkingData(row['Session']);
 				setTimeout(function(){ waitForEvents(sesID,evtID,0,callback);},0);
 			} else {
-				setTimeout(function(){ startEventMgr(sesID,callback);},2000 );
+				setTimeout(function(){ startEventMgr(sesID,callback);},timeout );
 			}
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
 			alert("error: "+textStatus + " "+ errorThrown );
-			setTimeout(function(){  startEventMgr(sesID,callback);},2000 );
+			setTimeout(function(){  startEventMgr(sesID,callback);},timeout );
 		}
 	});
 }
@@ -183,6 +184,29 @@ function vwls_counter(){
  */
 function vwls_cronoManual(oper) {
 	$('#cronomanual').Chrono(oper);
+}
+
+/**
+ * Imprime los inscritos en la jornada marcada por la sesion activa
+ * @param jornada
+ */
+function vwi_updateInscripciones(data) {
+	// var t=new Date().getTime();
+	// $('#vw_inscripcionesJornada').html('Jornada:'+jornada+' '+t);
+	$.ajax( {
+		type: "GET",
+		dataType: 'html',
+		url: "/agility/server/videowall.php",
+		data: {
+			Operation: 'inscripciones',
+			Prueba: data.Prueba,
+			Jornada: data.Jornada,
+			Session: data.Sesion
+		},
+		success: function(data,status,jqxhr) {
+			$('#vw_inscripcionesJornada').html(data);
+		}
+	});
 }
 
 function vwc_processCombinada(id,evt) {
@@ -341,3 +365,35 @@ function vw_processParciales(id,evt) {
 		return;
 	}
 }
+
+/**
+ * (This process is executed every minute on 'inscripciones' videowall)
+ * 
+ * retrieve last 'connect' event for current sessionID
+ * get 'Jornada' info from this event
+ * and refresh table by invoke "inscritosByJornada"
+ */
+function vwi_procesaInscripciones() {
+	$.ajax({
+		type: "GET",
+		url: "/agility/server/database/eventFunctions.php",
+		data: {
+			'Operation' : 'connect',
+			'Session'	: workingData.sesion
+		},
+		async: true,
+		cache: false,
+		success: function(data){
+			var response= eval('(' + data + ')' );
+			if ( response['total']!=0) {
+				var row=response['rows'][0];
+				var info= eval('(' + row.Data + ')' );
+				vwi_updateInscripciones(info);
+			}
+		},
+		error: function(XMLHttpRequest,textStatus,errorThrown) {
+			alert("error: "+textStatus + " "+ errorThrown );
+		}
+	});
+}
+
