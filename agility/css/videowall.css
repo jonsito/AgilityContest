@@ -181,3 +181,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	font-weight: bold;
 	font-style: italic;
 }
+
+/************************** Elementos de la tabla de inscritos a la prueba ************/
+
+td.vwi_club {
+	width:90%;
+	background:#0000ff;
+	color:#ffffff;
+	text-align:right;
+	font-size:2em;
+	font-style:italic;
+	font-weight:bold;
+	padding-right:25px;
+}

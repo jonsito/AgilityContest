@@ -29,6 +29,7 @@ class VideoWall {
 		$this->myLogger=new Logger("VideoWall.php");
 	}
 
+	public static $cat=array('-'=>'','L'=>'Large','M'=>'Medium','S'=>'Small','T'=>'Tiny');
 	public static $modestr  =array("Large","Medium","Small","Medium+Small","Conjunta L/M/S");
 	
 	// matrid de modos a evaluar en funcion del tipo de recorrido y de la tanda
@@ -235,28 +236,46 @@ class VideoWall {
 	function videowall_inscripciones($prueba,$jornada) {
 		$imgr=new Inscripciones("videowall_inscripciones",$prueba);
 		$result=$imgr->inscritosByJornada($jornada);
-		echo "<table>";
-			echo "<tr>";
-			echo "<th>Dorsal</th>";
-			echo "<th>Nombre</th>";
-			echo "<th>Raza</th>";
-			echo "<th>Licencia</th>";
-			echo "<th>Cat. - Grado</th>";
-			echo "<th>Guia</th>";
-			echo "<th>Club</th>";
-			echo "</tr>";
+		echo '<table id="wvi_table" style="width:100%">';
+		echo '<tbody>';
+		$club=0;
+		$fila=0; // used to set table background color
 		foreach ($result['rows'] as $i) {
-			echo "<tr>";
-			echo  "<td>{$i['Dorsal']}</td>";
-			echo "<td>{$i['Nombre']}</td>";
-			echo "<td>{$i['Raza']}</td>";
-			echo "<td>{$i['Licencia']}</td>";
-			echo "<td>{$i['Categoria']} - {$i['Grado']}</td>";
-			echo "<td>{$i['NombreGuia']}</td>";
-			echo "<td>{$i['NombreClub']}</td>";
+			if ($club!=$i['Club']) {
+				$club=$i['Club'];
+				$fila=0;
+				// evaluamos logo
+				$logo=$imgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$i['Perro']})")['Logo'];
+				if ($logo==="") $logo='rsce.png';
+				// pintamos cabecera
+				echo '<tr><td colspan="6"><hr /></td></tr>';
+				echo "<tr id=\"Club_$club\">";
+				echo "<td colspan=\"1\" style=\"width:10%\" rowspan=\"2\">";
+				echo '	<img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'" width="75" height="75"/>';
+				echo "</td>";
+				echo '<td colspan="5" class="vwi_club">'.$i['NombreClub'].'</td>';
+				echo "</tr>";
+				echo "<tr>";
+				echo "<th style=\"width:20%;padding-left:25px\">Nombre</th>";
+				echo "<th style=\"width:15%\">Raza</th>";
+				echo "<th style=\"width:5%\" align=\"center\">Licencia</th>";
+				echo "<th style=\"width:15%\" align=\"center\">Categ. - Grado</th>";
+				echo "<th style=\"width:30%;text-align:right;padding-right:25px\">Gu&iacute;a</th>";
+				echo "</tr>";
+			}
+			$bg=(($fila%2)!=0)?"#ffffff":"#d0d0d0";
+			$c=VideoWall::$cat[$i['Categoria']];
+			echo "<tr id=\"Inscripcion_{$i['Dorsal']}\" style=\"background:$bg;font-size:1.4em\">";
+			echo "<td style=\"width:10%;padding-left:25px\">{$i['Dorsal']}</td>";
+			echo "<td style=\"width:20%;font-weight:bold;font-style:italic;padding-left:25px\">{$i['Nombre']}</td>";
+			echo "<td style=\"width:15%\">{$i['Raza']}</td>";
+			echo "<td style=\"width:5%;text-align:center\">{$i['Licencia']}</td>";
+			echo "<td style=\"width:15%;text-align:center\">{$c} - {$i['Grado']}</td>";
+			echo "<td style=\"width:30%;font-style:italic;text-align:right;padding-right:25px;\">{$i['NombreGuia']}</td>";
 			echo "</tr>";
+			$fila++;
 		}
-		echo "</table>";
+		echo "</tbody></table>";
 	}
 } 
 
