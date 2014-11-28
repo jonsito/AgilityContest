@@ -66,14 +66,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 					</div>
 				</div>
 				<div data-options="region:'center',split:true,border:false">
-				
-					<div id="vwc_llamada-Cabecera" class="vw_floatingheader">
+
+				<div id="vwc_llamada-layout" style="width:100%">
+					<div id="vwc_llamada-Cabecera" data-options="region:'north',split:false" style="height:10%" class="vw_floatingheader">
 						<span id="vwc_llamada-Texto">Llamada a pista</span>
 					</div>
-					<div id="vw_combinada-Pendientes" class="easyui-panel"
-						data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
+					<div id="vw_combinada-Pendientes" data-options="region:'center'">
 						<span id="vwc_listaPendientes"></span>
 					</div>
+				</div>
+					
 				</div>
 				
 			</div>
@@ -119,6 +121,7 @@ $('#vw_combinada-window').window({
 
 $('#vw_combinada-Layout1').layout();
 $('#vw_combinada-Layout2').layout();
+$('#vwc_llamada-layout').layout({fit:true});
 
 // layout
 var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet

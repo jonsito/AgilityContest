@@ -149,12 +149,12 @@ class VideoWall {
 			<!-- Datos de TRS y TRM -->
 			<div id="vwc_tablaTRS">
 			<table class="vwc_trs">
-				<theader>
+				<thead>
 					<tr>
 						<th colspan="2" style="align:leftt">Resultados Provisionales</th>
 						<th colspan="3">'.$mangastr.'</th>
 					</tr>
-				</theader
+				</thead>
 				<tbody>
 					<tr><td colspan="5">&nbsp</td></tr>
 					<tr style="align:right">
@@ -171,7 +171,7 @@ class VideoWall {
 			<!-- Resultados -->
 			<div id="vwc_tablaResultados">
 			<table class="vwc_tresultados">
-			<theader>
+			<thead>
 				<th>Puesto</th>
 				<th>&nbsp</th>
 				<th colspan="5">Participante</th>
@@ -182,7 +182,7 @@ class VideoWall {
 				<th>Vel.</th>
 				<th>Penal.</th>
 				<th colspan="2">Calificacion</th>
-			</theader>
+			</thead>
 			<tbody>
 			';
 		foreach ($result['rows'] as $resultado) {
@@ -232,12 +232,15 @@ class VideoWall {
 		$data["Celo"]=$celo;
 		return $data;
 	}
+
+	
 	
 	function videowall_inscripciones($prueba,$jornada) {
 		$imgr=new Inscripciones("videowall_inscripciones",$prueba);
 		$result=$imgr->inscritosByJornada($jornada);
 		$club=0;
 		$fila=0; // used to set table background color
+		echo '<table style="width:100%"><tbody>';
 		foreach ($result['rows'] as $i) {
 			if ($club!=$i['Club']) {
 				$club=$i['Club'];
@@ -245,7 +248,7 @@ class VideoWall {
 				// evaluamos logo
 				$logo=$imgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$i['Perro']})")['Logo'];
 				if ($logo==="") $logo='rsce.png';
-				// pintamos cabecera
+				// pintamos cabecera	
 				echo '<tr><td colspan="6"><hr /></td></tr>';
 				echo "<tr id=\"Club_$club\">";
 				echo "<td colspan=\"1\" style=\"width:10%\" rowspan=\"2\">";
@@ -273,6 +276,7 @@ class VideoWall {
 			echo "</tr>";
 			$fila++;
 		}
+	echo '</tbody></table>';
 	}
 } 
 

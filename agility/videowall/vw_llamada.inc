@@ -17,16 +17,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <!-- Tabla de llamada a pista -->
 <div id="vw_llamada-window">
-	<div id="vw_llamada-Cabecera" class="vw_floatingheader">
-		<span id="vw_llamada-Texto">Llamada a pista</span>
+	<div id="vw_llamada-layout" style="width:100%">
+		<div id="vw_llamada-Cabecera" data-options="region:'north',split:false" style="height:10%" class="vw_floatingheader">
+			<span id="vw_llamada-Texto">Llamada a pista</span>
+		</div>
+		<div id="vw_llamada-Pendientes" data-options="region:'center'">
+			<span id="vwc_listaPendientes"></span>
+		</div>	
 	</div>
-	<div id="vw_llamada-Pendientes" class="easyui-panel"
-		data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
-		<span id="vwc_listaPendientes"></span>
-	</div>	
 </div> <!-- vw_llamada-window -->
 
 <script type="text/javascript">
+
+$('#vw_llamada-layout').layout({fit:true});
 
 $('#vw_llamada-window').window({
 	fit:true,
