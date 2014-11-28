@@ -18,9 +18,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <!-- Presentacion de las inscripciones de la jornada -->
 <div id="vw_inscripciones-window">
+	<div id="vw_inscripciones-Cabecera" class="vw_floatingheader">
+		<span>Listado de inscritos en la jornada</span>
+	</div>
 	<div id="vw_inscripciones-panel" class="easyui-panel"
 		data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
-		<h1>Listado de inscritos a la jornada</h1>
 		<span id="vw_inscripcionesJornada"></span>
 	</div>
 </div> <!-- vw_llamada-window -->
@@ -40,7 +42,7 @@ $('#vw_inscripciones-window').window({
 	callback: null, 
 	// 1 minute poll is enouth for this, as no expected changes during a session
 	onOpen: function() {
-		var a=setInterval(vwi_procesaInscripciones,5000);
+		var a=setInterval(vwi_procesaInscripciones,10000);
 		$(this).window.defaults.callback=a; 
 	},
 	onClose: function() { 

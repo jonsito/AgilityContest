@@ -163,11 +163,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	font-weight: bold;
 }
 
-/* cabecera flotante para resultados parciales y llamada a pista */
+/**********  cabecera flotante para resultados parciales y llamada a pista **********/
 .vw_floatingheader {
 	position:absolute;
 	top:10px;
-	left:10px;
+	left:40px;
 	padding:0px 50px;
 	z-index:1;
     background-color: rgba(127,127,127,0.5);
@@ -183,7 +183,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 
 /************************** Elementos de la tabla de inscritos a la prueba ************/
-
+	
 td.vwi_club {
 	width:90%;
 	background:#0000ff;
