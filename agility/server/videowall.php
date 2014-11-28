@@ -236,9 +236,6 @@ class VideoWall {
 	function videowall_inscripciones($prueba,$jornada) {
 		$imgr=new Inscripciones("videowall_inscripciones",$prueba);
 		$result=$imgr->inscritosByJornada($jornada);
-		echo '<table id="wvi_table" style="width:100%">';
-		echo '<theader><tr><th colspan="6" style="height:50px">&nbsp;</th></tr></theader>';
-		echo '<tbody>';
 		$club=0;
 		$fila=0; // used to set table background color
 		foreach ($result['rows'] as $i) {
@@ -276,7 +273,6 @@ class VideoWall {
 			echo "</tr>";
 			$fila++;
 		}
-		echo "</tbody></table>";
 	}
 } 
 
