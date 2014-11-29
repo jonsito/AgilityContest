@@ -19,18 +19,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
+require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Pruebas.php");
 
 try {
 	$result=null;
 	$pruebas= new Pruebas("pruebaFunctions");
+	$am= new AuthManager("pruebaFunctions");
 	$operation=http_request("Operation","s",null);
 	if ($operation===null) throw new Exception("Call to pruebaFunctions without 'Operation' requested");
 	$pruebaID=http_request("ID","i",0);
 	switch ($operation) {
-		case "insert": $result=$pruebas->insert(); break;
-		case "update": $result=$pruebas->update($pruebaID); break;
-		case "delete": $result=$pruebas->delete($pruebaID); break;
+		case "insert": $am->access(PERMS_OPERATOR); $result=$pruebas->insert(); break;
+		case "update": $am->access(PERMS_OPERATOR); $result=$pruebas->update($pruebaID); break;
+		case "delete": $am->access(PERMS_OPERATOR); $result=$pruebas->delete($pruebaID); break;
 		case "select": $result=$pruebas->select(); break;
 		case "enumerate": $result=$pruebas->enumerate(); break;
 		case "getbyid": $result=$pruebas->selectByID($pruebaID); break;

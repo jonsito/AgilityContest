@@ -255,7 +255,7 @@ class Clubes extends DBObject {
 		}
 		// 5- finalmente guardamos el logo en el fichero especificado en formato png
 		$fname=__DIR__."/../../../images/logos/$name";
-		$this->myLogger->info("Trying to save png file to:'$fname'");
+		// $this->myLogger->info("Trying to save png file to:'$fname'");
 		imagepng($newImage, $fname);
 		// seems that imagepng fails on save to file due to strange permission related issue
 		// ob_start();// store output

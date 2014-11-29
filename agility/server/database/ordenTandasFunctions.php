@@ -20,6 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /** mandatory requires for database and logging */
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/DBConnection.php");
 require_once(__DIR__."/classes/OrdenTandas.php");
 
@@ -28,6 +29,7 @@ $file="ordenTandasFunctions";
 try {
 	$result=null;
 	$ot=new OrdenTandas($file);
+	$am= new AuthManager($file);
 	// retrieve variables
 	$operation=http_request("Operation","s",null);
 	if ($operation===null) 
@@ -45,8 +47,8 @@ try {
 	switch ($operation) {
 		case "getTandas":$result = $ot->getTandas($p,$j); break;
 		case "getData":	$result = $ot->getData($p,$j,$a,$td); break;
-		case "getDataByTanda":	$result = $ot->getDataByTanda($p,$j,$td); break;
-		case "dnd":	$result = $ot->dragAndDrop($p,$j,$f,$t,$w); break;
+		case "getDataByTanda": $result = $ot->getDataByTanda($p,$j,$td); break;
+		case "dnd":	$am->access(PERMS_ASSISTANT); $result = $ot->dragAndDrop($p,$j,$f,$t,$w); break;
 	}
 	// result may contain null (error),  "" success, or (any) data
 	if ($result===null) 

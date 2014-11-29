@@ -20,6 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /** mandatory requires for database and logging */
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/DBConnection.php");
 require_once(__DIR__."/classes/Jornadas.php");
 require_once(__DIR__."/classes/Mangas.php");
@@ -153,10 +154,12 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
  */
 function procesaInscripcion($p,$i) {
 	$myLogger=new Logger("procesaInscripcion");
+	$am= new AuthManager("procesaInscripcion");
 	// si la prueba o la inscripcion son nulas genera error
 	try {
 		if ($p<=0) throw new Exception("ID de prueba invalida: $p");
 		if ($i<=0) throw new Exception("ID de inscripcion invalida");
+		$am->access(PERMS_OPERATOR); // grant access or throw exception
 		
 		// buscamos las jornadas de que consta la Prueba
 		$jobject= new Jornadas("procesaInscripcion",$p);

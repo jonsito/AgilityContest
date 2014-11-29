@@ -16,10 +16,9 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
-
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
+require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Sesiones.php");
 
 try {
@@ -37,10 +36,11 @@ try {
 	);
 	if ($operation===null) throw new Exception("Call to sessionFunctions without 'Operation' requested");
 	$sesion= new Sesiones("sessionFunctions");
+	$am= new AuthManager("sessionFunctions");
 	switch ($operation) {
-		case "insert": $result=$sesion->insert($data); break;
-		case "update": $result=$sesion->update($id,$data); break;
-		case "delete": $result=$sesion->delete($id); break;
+		case "insert": $am->access(PERMS_OPERATOR); $result=$sesion->insert($data); break;
+		case "update": $am->access(PERMS_OPERATOR); $result=$sesion->update($id,$data); break;
+		case "delete": $am->access(PERMS_OPERATOR); $result=$sesion->delete($id); break;
 		case "enumerate": $result=$sesion->enumerate(); break; // no select (yet)
 		case "getByNombre":	$result=$sesion->selectByNombre($data['Nombre']); break;
 		case "getByID":	$result=$sesion->selectByID($id); break;

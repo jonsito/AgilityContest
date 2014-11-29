@@ -20,18 +20,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
+require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Jueces.php");
 
 try {
 	$result=null;
 	$jueces= new Jueces("juezFunctions");
+	$am= new AuthManager("juezFunctions");
 	$operation=http_request("Operation","s",null);
 	$idjuez=http_request("ID","i",0);
 	if ($operation===null) throw new Exception("Call to juezFunctions without 'Operation' requested");
 	switch ($operation) {
-		case "insert": $result=$jueces->insert(); break;
-		case "update": $result=$jueces->update($idjuez); break;
-		case "delete": $result=$jueces->delete($idjuez); break;
+		case "insert": $am->access(PERMS_OPERATOR); $result=$jueces->insert(); break;
+		case "update": $am->access(PERMS_OPERATOR); $result=$jueces->update($idjuez); break;
+		case "delete": $am->access(PERMS_OPERATOR); $result=$jueces->delete($idjuez); break;
 		case "selectbyid": $result=$jueces->selectByID($idjuez); break;
 		case "select": $result=$jueces->select(); break; // list with order, index, count and where
 		case "enumerate": $result=$jueces->enumerate(); break; // list with where

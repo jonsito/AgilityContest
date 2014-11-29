@@ -19,6 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
+require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Jornadas.php");
 	
 	/***************** programa principal **************/
@@ -26,15 +27,16 @@ require_once(__DIR__."/classes/Jornadas.php");
 	try {
 		$result=null;
 		$jornadas= new Jornadas("jornadaFunctions",http_request("Prueba","i",0));
+		$am= new AuthManager("jornadaFunctions");
 		$operation=http_request("Operation","s",null);
 		$jornadaid=http_request("ID","i",0);
 		$allowClosed=http_request("AllowClosed","i",0);
 		if ($operation===null) throw new Exception("Call to jornadaFunctions without 'Operation' requested");
 		switch ($operation) {
 			// there is no need of "insert" method: every prueba has 8 "hard-linked" jornadas
-			case "delete": $result=$jornadas->delete($jornadaid); break;
-			case "close": $result=$jornadas->close($jornadaid); break;
-			case "update": $result=$jornadas->update($jornadaid); break;
+			case "delete": $am->access(PERMS_OPERATOR); $result=$jornadas->delete($jornadaid); break;
+			case "close": $am->access(PERMS_OPERATOR); $result=$jornadas->close($jornadaid); break;
+			case "update": $am->access(PERMS_OPERATOR); $result=$jornadas->update($jornadaid); break;
 			case "select": $result=$jornadas->selectByPrueba(); break;
 			case "enumerate": $result=$jornadas->searchByPrueba($allowClosed); break;
 			case "rounds": $result=$jornadas->roundsByJornada($jornadaid); break;

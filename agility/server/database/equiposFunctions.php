@@ -19,18 +19,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Equipos.php");
 	
 	try {
 		$result=null;
 		$equipos= new Equipos("equiposFunctions",http_request("Prueba","i",0));
+		$am= new AuthManager("equiposFunctions");
 		$operation=http_request("Operation","s",null);
 		$equipo=http_request("ID","i",0); // used on update/delete
 		if ($operation===null) throw new Exception("Call to inscripcionFunctions without 'Operation' requested");
 		switch ($operation) {
-			case "insert": $result=$equipos->insert(); break; // nuevo equipo
-			case "update": $result=$equipos->update($equipo); break; // editar equipo
-			case "delete": $result=$equipos->delete($equipo); break; // borrar equipo
+			case "insert": $am->access("PERMS_OPERATOR"); $result=$equipos->insert(); break; // nuevo equipo
+			case "update": $am->access("PERMS_OPERATOR"); $result=$equipos->update($equipo); break; // editar equipo
+			case "delete": $am->access("PERMS_OPERATOR"); $result=$equipos->delete($equipo); break; // borrar equipo
 			case "select": $result=$equipos->select(); break; // listado ordenado/bloques/busqueda
 			case "enumerate": $result=$equipos->enumerate(); break; // listado solo busqueda
 			case "selectbyid": $result=$equipos->enumerate(); break; // recupera entrada unica

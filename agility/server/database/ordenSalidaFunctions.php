@@ -20,6 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /** mandatory requires for database and logging */
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/DBConnection.php");
 require_once(__DIR__."/classes/OrdenSalida.php");
 
@@ -28,6 +29,7 @@ $file="ordenSalidaFunctions";
 try {
 	$result=null;
 	$os=new OrdenSalida($file);
+	$am= new AuthManager($file);
 	// retrieve variables
 	$operation=http_request("Operation","s",null);
 	if ($operation===null) 
@@ -43,10 +45,10 @@ try {
 	if (($p<=0) || ($j<=0) || ($m<=0)) 
 		throw new Exception("Call to ordenSalidaFunctions with Invalid Prueba:$p Jornada:$j or manga:$m ID");
 	switch ($operation) {
-		case "random":	$result = $os->random($j,$m); break;
-		case "reverse":	$result = $os->reverse($j,$m); break;
+		case "random": $am->access(PERMS_OPERATOR);	$result = $os->random($j,$m); break;
+		case "reverse": $am->access(PERMS_OPERATOR); $result = $os->reverse($j,$m); break;
 		case "getData":	$result = $os->getData($p,$j,$m); break;
-		case "dnd":	$result = $os->dragAndDrop($j,$m,$f,$t,$w); break;
+		case "dnd": $am->access(PERMS_ASSISTANT); $result = $os->dragAndDrop($j,$m,$f,$t,$w); break;
 	}
 	// result may contain null (error),  "" success, or (any) data
 	if ($result===null) 

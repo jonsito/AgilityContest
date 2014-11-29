@@ -20,10 +20,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
+require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Eventos.php");
 
 try {
 	$result=null;
+	$am= new AuthManager("eventsFunctions");
 	$operation=http_request("Operation","s",null);
 	$data=array (
 			// common data for senders and receivers
@@ -53,7 +55,7 @@ try {
 	$eventmgr= new Eventos("eventFunctions",$data['Session']);
 	switch ($operation) {
 		case "getEvents": $result=$eventmgr->getEvents($data); break;
-		case "putEvent": $result=$eventmgr->putEvent($data); break;
+		case "putEvent": $am->access("PERMS_ASSISTANT"); $result=$eventmgr->putEvent($data); break;
 		case "listEvents": $result=$eventmgr->listEvents($data); break;
 		case "connect": $result=$eventmgr->connect($data); break;
 		default: throw new Exception("eventFunctions:: invalid operation: $operation provided");

@@ -19,6 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
+require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Resultados.php");
 
 try {
@@ -32,10 +33,11 @@ try {
 	$mode=http_request("Mode","i",0);
 	if ($operation===null) throw new Exception("Call to resultadosFunction without 'Operation' requested");
 	$resultados= new Resultados("resultadosFunctions",$pruebaID,$mangaID);
+	$am= new AuthManager("resultadosFunctions");
 	switch ($operation) {
-		case "insert": $result=$resultados->insert($idperro,$dorsal); break;
-		case "update": $result=$resultados->update($idperro); break;
-		case "delete": $result=$resultados->delete($idperro); break;
+		case "insert": $am->access(PERMS_OPERATOR); $result=$resultados->insert($idperro,$dorsal); break;
+		case "update": $am->access(PERMS_ASSISTANT); $result=$resultados->update($idperro); break;
+		case "delete": $am->access(PERMS_OPERATOR); $result=$resultados->delete($idperro); break;
 		case "select": $result=$resultados->select($idperro); break;
 		case "getResultados": $result=$resultados->getResultados($mode); break;
 		case "getTRS": $result=$resultados->getTRS($mode); break;

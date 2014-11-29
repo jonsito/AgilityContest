@@ -19,21 +19,23 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Inscripciones.php");
 	
 	try {
 		$result=null;
 		$inscripciones= new Inscripciones("inscripcionFunctions",http_request("Prueba","i",0));
+		$am= new AuthManager("inscripcionesFunctions");
 		$operation=http_request("Operation","s",null);
 		$perro=http_request("Perro","i",0);
 		if ($operation===null) throw new Exception("Call to inscripcionFunctions without 'Operation' requested");
 		switch ($operation) {
-			case "insert": $result=$inscripciones->insert($perro); break; // nueva inscripcion
-			case "update": $result=$inscripciones->update($perro); break; // editar inscripcion ya existente
-			case "delete": $result=$inscripciones->delete($perro); break; // borrar inscripcion
+			case "insert": $am->access(PERMS_OPERATOR); $result=$inscripciones->insert($perro); break; // nueva inscripcion
+			case "update": $am->access(PERMS_OPERATOR); $result=$inscripciones->update($perro); break; // editar inscripcion ya existente
+			case "delete": $am->access(PERMS_OPERATOR); $result=$inscripciones->delete($perro); break; // borrar inscripcion
 			case "noinscritos": $result=$inscripciones->noinscritos(); break;
 			case "inscritos": $result=$inscripciones->inscritos(); break;
-			case "reorder": $result=$inscripciones->reorder(); break;
+			case "reorder": $am->access(PERMS_OPERATOR); $result=$inscripciones->reorder(); break;
 			default: throw new Exception("inscripcionFunctions:: invalid operation: $operation provided");
 		}
 		if ($result===null) 

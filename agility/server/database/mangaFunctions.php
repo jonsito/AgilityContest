@@ -20,6 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
+require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Mangas.php");
 
 try {
@@ -30,9 +31,10 @@ try {
 	$manga=http_request("Manga","i",0);
 	if ($operation===null) throw new Exception("Call to mangaFunctions without 'Operation' requested");
 	$mangas= new Mangas("mangaFunctions",$jornada);
+	$am= new AuthManager("mangaFunctions");
 	switch ($operation) {
 		// no direct "insert", as created/destroyed from jornadaFunctions
-		case "update": 		$result=$mangas->update($manga); break;
+		case "update": $am->access(PERMS_OPERATOR); $result=$mangas->update($manga); break;
 		// no direct delete as created/destroyed from jornadaFunctions
 		case "enumerate": 	$result=$mangas->selectByJornada($jornada); break; 
 		case "getbyid":		$result=$mangas->selectByID($manga); break;
