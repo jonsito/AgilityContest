@@ -1695,6 +1695,38 @@ INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `Usuarios`
+-- 0:root 1:admin 2:operator 3:assistant 4:guest 5:none
+-- Creación: 01-12-2014 a las 17:56:55
+--
+
+DROP TABLE IF EXISTS `Usuarios`;
+CREATE TABLE IF NOT EXISTS `Usuarios` (
+  `ID` int(4) NOT NULL AUTO_INCREMENT,
+  `Login` varchar(255) UNIQUE NOT NULL,
+  `Password` varchar(255) DEFAULT NULL,
+  `Gecos` varchar(255) NOT NULL DEFAULT '',
+  `Phone` varchar(255) NOT NULL DEFAULT '',
+  `Email` varchar(255) NOT NULL DEFAULT '',
+  `Perms` int(4) NOT NULL DEFAULT '5',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Usuarios_Login` (`Login`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Volcado de datos para la tabla `Sesiones`
+--
+
+INSERT INTO `Usuarios` (`ID`, `Login`, `Password`, `Gecos`, `Phone`, `Email`, `Perms`) VALUES
+(1, 'root', '$2y$10$B6wZMNg8mWr0eZP6jTM7ru93cLjPdhC6T9Bb2ts7q8s3jBZ0Wg.TK','Usuario Root','','',0),
+(2, 'admin', '--UNDEF--','Usuario invitado','','',1),
+(3, 'operator', '--UNDEF--' ,'Usuario invitado','','',2),
+(4, 'assistant', '--UNDEF--','Usuario invitado','','',3),
+(5, 'guest', NULL,'Usuario invitado','','',4);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `Sesiones`
 --
 -- Creación: 12-07-2014 a las 09:16:36
