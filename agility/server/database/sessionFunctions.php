@@ -32,7 +32,7 @@ try {
 			'Jornada'	=>	http_request("Jornada","i",0),
 			'Manga'		=>	http_request("Manga","i",0),
 			'Tanda'		=>	http_request("Tanda","i",0),
-			'Operador'	=>	http_request("Operador","s",'-- Anonimo --'),
+			'Operador'	=>	http_request("Operador","i",0),
 	);
 	if ($operation===null) throw new Exception("Call to sessionFunctions without 'Operation' requested");
 	$sesion= new Sesiones("sessionFunctions");

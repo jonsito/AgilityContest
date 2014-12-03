@@ -40,7 +40,8 @@ class Eventos extends DBObject {
 		7  => 'stop',		// Crono manual - value: timestamp
 		8  => 'crono',  	// Crono electronico - value: timestamp
 		9  => 'aceptar',	// operador pulsa aceptar
-		10  => 'cancelar'	// operador pulsa cancelar
+		10  => 'cancelar',	// operador pulsa cancelar
+		11 => 'login'		// operador hace login en el sistema
 	);
 	
 	protected $sessionID;

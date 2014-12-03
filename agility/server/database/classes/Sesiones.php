@@ -29,11 +29,11 @@ class Sesiones extends DBObject {
 	function insert($data) {
 		$this->myLogger->enter();
 		// componemos un prepared statement
-		$sql ="INSERT INTO Sesiones (Nombre,Comentario,Prueba,Jornada,Manga,Tanda,Operador)
-			   VALUES(?,?,?,?,?,?,?)";
+		$sql ="INSERT INTO Sesiones (Nombre,Comentario,Prueba,Jornada,Manga,Tanda,Operador,SessionKey)
+			   VALUES(?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('ssiiiis',$nombre,$comentario,$prueba,$jornada,$manga,$tanda,$operador);
+		$res=$stmt->bind_param('ssiiiiis',$nombre,$comentario,$prueba,$jornada,$manga,$tanda,$operador,$sessionkey);
 		if (!$res) return $this->error($this->conn->error);	
 		
 		// extraemos los valores del parametro
@@ -44,6 +44,7 @@ class Sesiones extends DBObject {
 		$manga =	$data['Manga'];
 		$tanda =	$data['Tanda'];
 		$operador =	$data['Operador'];
+		$sessionkey=array_key_exist('SessionKey',$data)?$data['SessionKey']:null;
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
@@ -70,7 +71,7 @@ class Sesiones extends DBObject {
 		if ($data['Jornada']!=0)	$sql .=", Jornada={$data['Jornada']} ";
 		if ($data['Manga']!=0)		$sql .=", Manga={$data['Manga']} ";
 		if ($data['Tanda']!=0)		$sql .=", Tanda={$data['Tanda']} ";
-		if ($data['Operador']!==null)$sql .=", Operador='{$data['Operador']}' ";
+		if ($data['Operador']!=0)	$sql .=", Operador={$data['Operador']} ";
 		$sql .= "WHERE (ID=$id);";
 		$this->myLogger->trace("Sesiones::update() query string:\n$sql");
 		$res= $this->query($sql);

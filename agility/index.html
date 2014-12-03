@@ -32,8 +32,27 @@
 <script src="/agility/scripts/pruebas.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/inscripciones.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
+
+<script type="text/javascript">
+function initialize() {
+	// expand/collapse menu on mouse enter/exit
+	setHeader("");
+	$('#mymenu').mouseenter(function(){$('#mymenu').panel('expand');})
+	$('#mymenu').mouseleave(function(){$('#mymenu').panel('collapse');})
+	// make sure that every ajax call provides sessionKey
+
+	$.ajaxSetup({
+	  beforeSend: function(jqXHR, settings) {
+		if (!workingData.sessionKey) return;
+		jqXHR.setRequestHeader('X-AC-SessionKey',workingData.sessionKey);
+	    return true;
+	  }
+	});
+}
+</script>
+
 </head>
-<body>
+<body onload="initialize();">
 
 <!-- CABECERA -->
 <div id="myheader">
@@ -97,12 +116,6 @@
 </span>
 </div>
 
-<script type="text/javascript">
-// expand/collapse menu on mouse enter/exit
-setHeader("");
-$('#mymenu').mouseenter(function(){$('#mymenu').panel('expand');})
-$('#mymenu').mouseleave(function(){$('#mymenu').panel('collapse');})
-</script>
 </body>
 
 </html> 

@@ -1711,18 +1711,19 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
   `Perms` int(4) NOT NULL DEFAULT '5',
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Usuarios_Login` (`Login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Volcado de datos para la tabla `Sesiones`
 --
 
 INSERT INTO `Usuarios` (`ID`, `Login`, `Password`, `Gecos`, `Phone`, `Email`, `Perms`) VALUES
-(1, 'root', '$2y$10$B6wZMNg8mWr0eZP6jTM7ru93cLjPdhC6T9Bb2ts7q8s3jBZ0Wg.TK','Usuario Root','','',0),
-(2, 'admin', '--UNDEF--','Usuario invitado','','',1),
-(3, 'operator', '--UNDEF--' ,'Usuario invitado','','',2),
-(4, 'assistant', '--UNDEF--','Usuario invitado','','',3),
-(5, 'guest', NULL,'Usuario invitado','','',4);
+(1, '-- Sin asignar --', '--LOCKED--','NO BORRAR: Usuario por defecto para sesiones anonimas','','',5);
+(2, 'root', '$2y$10$B6wZMNg8mWr0eZP6jTM7ru93cLjPdhC6T9Bb2ts7q8s3jBZ0Wg.TK','Usuario Root','','',0),
+(3, 'admin', '--UNDEF--','Administrador de la aplicacion','','',1),
+(4, 'operator', '--UNDEF--' ,'Operador de consola','','',2),
+(5, 'assistant', '--UNDEF--','Asistente del juez (tablet)','','',3),
+(6, 'guest', '--NULL--','Usuario invitado (anonimo)','','',4);
 
 -- --------------------------------------------------------
 
@@ -1737,7 +1738,7 @@ CREATE TABLE IF NOT EXISTS `Sesiones` (
   `ID` int(4) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
   `Comentario` varchar(255) DEFAULT NULL,
-  `Operador` varchar(255) NOT NULL DEFAULT '-- Anonimo --',
+  `Operador` int(4) NOT NULL DEFAULT 1,
   `SessionKey` varchar(255) DEFAULT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '0',
   `Jornada` int(4) NOT NULL DEFAULT '0',
@@ -1964,6 +1965,12 @@ ALTER TABLE `Perros`
 ALTER TABLE `Pruebas`
   ADD CONSTRAINT `Pruebas_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `Clubes` (`ID`) ON UPDATE CASCADE;
 
+--
+-- Filtros para la tabla `Sesiones`
+--
+ALTER TABLE `Sesiones`
+  ADD CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `Usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
 --
 -- Filtros para la tabla `Eventos`
 --
