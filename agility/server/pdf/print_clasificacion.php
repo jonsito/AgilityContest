@@ -282,6 +282,4 @@ try {
 	do_log($e->getMessage());
 	die ($e->getMessage());
 }
-echo json_encode(array('success'=>true));
-
 ?>

@@ -26,7 +26,7 @@ header('Set-Cookie: fileDownload=true; path=/');
 
 require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
-require_once (__DIR__."/../logging.php");
+require_once(__DIR__."/../logging.php");
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Pruebas.php');
 require_once(__DIR__.'/../database/classes/Jornadas.php');
@@ -42,7 +42,7 @@ class PDF extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader
-					=array('Orden','Dorsal','Nombre','Lic.','Guía','Club','Celo','Observaciones');
+					=array('Orden','Dorsal','Nombre','Lic.','Guia','Club','Celo','Observaciones');
 	protected $pos	=array(  12,      12,     30,     15,    50,   30,     10,    26);
 	protected $align=array(  'R',    'R',    'L',    'C',   'R',  'R',    'C',   'R');
 	protected $fmt	=array(  'i',    'i',    's',    's',   's',  's',    'b',   's');
@@ -110,6 +110,7 @@ class PDF extends PrintCommon {
 		$fill = false;
 		$rowcount=0;
 		foreach($this->orden as $row) {
+			$this->myLogger->trace("printing ".$row['Nopmbre']);
 			// if change in categoria, reset orden counter and force page change
 			if ($row['Categoria'] !== $this->categoria) {
 				$this->categoria = $row['Categoria'];
@@ -158,5 +159,4 @@ try {
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e.getMessage());
 };
-echo json_encode(array('success'=>true));
 ?>

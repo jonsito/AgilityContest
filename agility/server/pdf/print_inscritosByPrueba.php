@@ -327,5 +327,4 @@ try {
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e.getMessage());
 }
-echo json_encode(array('success'=>true));
 ?>

@@ -283,7 +283,7 @@ $('#inscripciones-printBtn').on("click", function () {
 				{
 					httpMethod: 'GET',
 					data: { Prueba: workingData.prueba, Mode: mode },
-			        preparingMessageHtml: "We are preparing your report, please wait...",
+			        preparingMessageHtml: "Imprimiendo inscripciones; por favor espere...",
 			        failMessageHtml: "There was a problem generating your report, please try again."
 				}
 			);

@@ -125,7 +125,7 @@ $('#ordensalida-printBtn').on("click", function () {
 				Jornada: workingData.jornada,
 				Manga: workingData.manga
 			},
-	        preparingMessageHtml: "We are preparing your report, please wait...",
+	        preparingMessageHtml: "Imprimiendo orden de salida; por favor espere...",
 	        failMessageHtml: "There was a problem generating your report, please try again."
 		}
 	);
