@@ -248,12 +248,10 @@ class PDF extends PrintCommon {
 
 // Consultamos la base de datos
 try {
-	$myLogger=new Logger("print_entradaDeDatos");
 	$prueba=http_request("Prueba","i",0);
 	$jornada=http_request("Jornada","i",0);
 	$manga=http_request("Manga","i",0);
 	$mode=http_request("Mode","i",0);
-	$myLogger->info("Prueba:$prueba Jornada:$jornada Manga:$manga Mode:$mode");
 
 	// Datos de la manga y su manga hermana
 	$m = new Mangas("printEntradaDeDatos",$jornada);

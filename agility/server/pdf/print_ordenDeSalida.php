@@ -110,7 +110,6 @@ class PDF extends PrintCommon {
 		$fill = false;
 		$rowcount=0;
 		foreach($this->orden as $row) {
-			$this->myLogger->trace("printing ".$row['Nopmbre']);
 			// if change in categoria, reset orden counter and force page change
 			if ($row['Categoria'] !== $this->categoria) {
 				$this->categoria = $row['Categoria'];
@@ -146,11 +145,9 @@ class PDF extends PrintCommon {
 
 // Consultamos la base de datos
 try {
-	$myLogger=new Logger("print_ordenDeSalida");
 	$prueba=http_request("Prueba","i",0);
 	$jornada=http_request("Jornada","i",0);
 	$manga=http_request("Manga","i",0);
-	$myLogger->info("print_ordenDeSalida::Enter() Prueba:$prueba Jornada:$jornada Manga:$manga");
 	// 	Creamos generador de documento
 	$pdf = new PDF($prueba,$jornada,$manga);
 	$pdf->AliasNbPages();
