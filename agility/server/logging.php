@@ -63,7 +63,9 @@ class Logger {
 	function query($msg) {
 		if ($this->level<=LEVEL_INFO) return;
 		$trace=debug_backtrace();
-		$str="QUERY ".$this->basename."::".$trace[2]['function']."() :\n".$msg;
+		$tr=$trace[1];
+		if (array_key_exists(2,$trace)) $tr=$trace[2];
+		$str="QUERY ".$this->basename."::".$tr['function']."() :\n".$msg;
 		error_log($str);
 		return $str;
 	}
