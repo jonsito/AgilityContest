@@ -85,13 +85,18 @@ function delGuiaFromClub(dg,club) {
     });
 }
 
+function reload_guiasDatagrid() {
+	var w=$('#guias-datagrid-search').val();
+	if (strpos(w,"Buscar")) w='';
+	$('#guias-datagrid').datagrid('load',{ where: w });
+}
+
 /**
  * Abre el dialogo para crear un nuevo guia
- * @param {string} dg ID del datagrid activo
  * @param {string} def valor por defecto para el campo nombre
  * @param {function} onAccept what to do (only once) when window gets closed
  */
-function newGuia(dg,def,onAccept){
+function newGuia(def,onAccept){
 	$('#guias-dialog').dialog('open').dialog('setTitle','Nuevo gu&iacute;a');
 	$('#guias-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#guias-Nombre').val(def);
@@ -118,6 +123,8 @@ function editGuia(dg){
     row.Operation='update';
     // stupid trick to make dialog's clubs combogrid display right data
     $('#guias-form').form('load',row); // load row data into guia edit form
+    // on accept, display correct data
+    $('#guias-okBtn').one('click',reload_guiasDatagrid);
 }
 
 /**

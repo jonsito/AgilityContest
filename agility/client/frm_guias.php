@@ -25,7 +25,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<span style="float:left;padding:5px">
        	<a id="guias-newBtn" href="#" class="easyui-linkbutton"
        		data-options="iconCls:'icon-users'"
-       		onclick="newGuia('guias-datagrid',$('#guias-datagrid-search').val())">Nuevo Gu&iacute;a</a>
+       		onclick="newGuia($('#guias-datagrid-search').val(),reload_guiasDatagrid)">Nuevo Gu&iacute;a</a>
        	<a id="guias-editBtn" href="#" class="easyui-linkbutton"
        		data-options="iconCls:'icon-edit'"
        		onclick="editGuia('#guias-datagrid')">Editar Gu&iacute;a</a>

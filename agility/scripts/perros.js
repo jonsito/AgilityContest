@@ -17,6 +17,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 // ***** gestion de perros		*********************************************************
 
+function reload_perrosDatagrid() {
+	var w=$('#perros-datagrid-search').val();
+	if (strpos(w,"Buscar")) w='';
+	$('#perros-datagrid').datagrid('load',{ where: w });
+}
+
 /**
  * Abre el dialogo para insertar datos de un nuevo perro
  * @param {string} dg datagrid ID de donde se obtiene el perro
@@ -28,6 +34,7 @@ function newDog(dg,def){
 	if (!strpos(def,"Buscar")) $('#perros-Nombre').val(def);
 	$('#perros-Operation').val('insert');
 	$('#perros-warning').css('visibility','hidden');
+	$('#perros-okBtn').one('click',reload_perrosDatagrid);
 }
 
 /**
@@ -46,6 +53,7 @@ function editDog(dg){
     row.Operation='update';
     $('#perros-form').form('load',row);// load form with row data
 	$('#perros-warning').css('visibility','visible');
+	$('#perros-okBtn').one('click',reload_perrosDatagrid);
 }
 
 /**

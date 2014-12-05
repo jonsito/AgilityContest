@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.8.2
+-- version 4.2.13
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-07-2014 a las 09:36:57
--- Versión del servidor: 5.5.37-MariaDB
--- Versión de PHP: 5.5.14
+-- Tiempo de generación: 05-12-2014 a las 23:12:56
+-- Versión del servidor: 5.5.39-MariaDB
+-- Versión de PHP: 5.5.19
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,22 +21,28 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `agility`
 --
+CREATE DATABASE IF NOT EXISTS `agility` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `agility`;
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Categorias_Perro`
 --
--- Creación: 12-07-2014 a las 09:16:36
+-- Creación: 05-12-2014 a las 19:14:34
 --
 
 DROP TABLE IF EXISTS `Categorias_Perro`;
 CREATE TABLE IF NOT EXISTS `Categorias_Perro` (
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
-  `Observaciones` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`Categoria`)
+  `Observaciones` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncar tablas antes de insertar `Categorias_Perro`
+--
+
+TRUNCATE TABLE `Categorias_Perro`;
 --
 -- Volcado de datos para la tabla `Categorias_Perro`
 --
@@ -51,12 +59,12 @@ INSERT INTO `Categorias_Perro` (`Categoria`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `Clubes`
 --
--- Creación: 12-07-2014 a las 09:16:36
+-- Creación: 05-12-2014 a las 19:14:35
 --
 
 DROP TABLE IF EXISTS `Clubes`;
 CREATE TABLE IF NOT EXISTS `Clubes` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
+`ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL DEFAULT '',
   `Direccion1` varchar(255) DEFAULT NULL,
   `Direccion2` varchar(255) DEFAULT NULL,
@@ -72,11 +80,8 @@ CREATE TABLE IF NOT EXISTS `Clubes` (
   `Twitter` varchar(255) DEFAULT NULL,
   `Logo` varchar(255) DEFAULT 'rsce.png',
   `Observaciones` varchar(255) DEFAULT NULL,
-  `Baja` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ID`),
-  KEY `Clubes_Nombre` (`Nombre`),
-  KEY `Clubes_Provincia` (`Provincia`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=87 ;
+  `Baja` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=89 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `Clubes`:
@@ -84,6 +89,11 @@ CREATE TABLE IF NOT EXISTS `Clubes` (
 --       `Provincias` -> `Provincia`
 --
 
+--
+-- Truncar tablas antes de insertar `Clubes`
+--
+
+TRUNCATE TABLE `Clubes`;
 --
 -- Volcado de datos para la tabla `Clubes`
 --
@@ -174,26 +184,25 @@ INSERT INTO `Clubes` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `
 (83, 'Eivissa', 'Elx, s/n, B. 1, nº 4', '07820 Sant Agusti - Sant Josep (Ibiza)', 'Balears, Illes', '+ 34 971 34 58 28', '+34 609 35 40 00', '', '', 'http://www.agilityeivissa.com/', 'info@agilityeivissa.com', '', '', '', 'eivissa.png', '', 0),
 (84, 'Insular', 'Pablo Picasso', '07820 San Antonio (Baleares)', 'Balears, Illes', '+34 655 76 10 94', '', '', '', 'http://www.agilityinsular.com/', 'agilityinsular@gmail.com', '', '', '', 'insular.png', '', 0),
 (85, 'Teocan', 'Rarís, s/n', '15883 Teo (La Coruña)', 'Coruña, A', '+ 34 627 93 72 81', '', '', '', '', 'adteocan@gmail.com', '', '', '', 'teocan.png', '', 0),
-(86, 'Los Angeles de San Antón', 'Camino del Tiro Pichón, 1', '11500 El Puerto de Santa María', 'Cádiz', '+ 34 667 48 61 06', '+ 34 617 41 06 52', '', '', '', 'cdagilityladsa@hotmail.com', '', '', '', 'ladsa.png', '', 0);
+(86, 'Los Angeles de San Antón', 'Camino del Tiro Pichón, 1', '11500 El Puerto de Santa María', 'Cádiz', '+ 34 667 48 61 06', '+ 34 617 41 06 52', '', '', '', 'cdagilityladsa@hotmail.com', '', '', '', 'ladsa.png', '', 0),
+(87, 'A-0', 'Cº de los Santos, s/n - Avda. de la Vega, s/n', '28500 Arganda del Rey', 'Madrid', '+ 34 626 43 68 18', '+ 34 646 79 51 55', '', '', '', '', '', '', '', 'logo_87.png', '', 0),
+(88, 'A. D. C. Pozuelo', 'Felipe de la Guerra, 7', '28224 Pozuelo de Alarcón', 'Madrid', '', '', '', '', '', '', '', '', '', 'logo_88.png', '', 0);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Equipos`
 --
--- Creación: 12-07-2014 a las 09:16:36
+-- Creación: 05-12-2014 a las 19:14:35
 --
 
 DROP TABLE IF EXISTS `Equipos`;
 CREATE TABLE IF NOT EXISTS `Equipos` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
+`ID` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '1',
   `Nombre` varchar(255) NOT NULL,
-  `Observaciones` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `Equipos_PruebaNombre` (`Prueba`,`Nombre`),
-  KEY `Equipos_Prueba` (`Prueba`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+  `Observaciones` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `Equipos`:
@@ -201,6 +210,11 @@ CREATE TABLE IF NOT EXISTS `Equipos` (
 --       `Pruebas` -> `ID`
 --
 
+--
+-- Truncar tablas antes de insertar `Equipos`
+--
+
+TRUNCATE TABLE `Equipos`;
 --
 -- Volcado de datos para la tabla `Equipos`
 --
@@ -211,18 +225,51 @@ INSERT INTO `Equipos` (`ID`, `Prueba`, `Nombre`, `Observaciones`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `Eventos`
+--
+-- Creación: 05-12-2014 a las 19:14:35
+--
+
+DROP TABLE IF EXISTS `Eventos`;
+CREATE TABLE IF NOT EXISTS `Eventos` (
+`ID` int(4) NOT NULL,
+  `Session` int(4) NOT NULL,
+  `Source` varchar(255) NOT NULL,
+  `Type` varchar(255) NOT NULL,
+  `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Data` varchar(255) NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELACIONES PARA LA TABLA `Eventos`:
+--   `Session`
+--       `Sesiones` -> `ID`
+--
+
+--
+-- Truncar tablas antes de insertar `Eventos`
+--
+
+TRUNCATE TABLE `Eventos`;
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `Grados_Perro`
 --
--- Creación: 12-07-2014 a las 09:16:36
+-- Creación: 05-12-2014 a las 19:14:34
 --
 
 DROP TABLE IF EXISTS `Grados_Perro`;
 CREATE TABLE IF NOT EXISTS `Grados_Perro` (
   `Grado` varchar(16) NOT NULL,
-  `Comentarios` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`Grado`)
+  `Comentarios` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncar tablas antes de insertar `Grados_Perro`
+--
+
+TRUNCATE TABLE `Grados_Perro`;
 --
 -- Volcado de datos para la tabla `Grados_Perro`
 --
@@ -242,21 +289,18 @@ INSERT INTO `Grados_Perro` (`Grado`, `Comentarios`) VALUES
 --
 -- Estructura de tabla para la tabla `Guias`
 --
--- Creación: 12-07-2014 a las 09:16:36
+-- Creación: 05-12-2014 a las 19:14:35
 --
 
 DROP TABLE IF EXISTS `Guias`;
 CREATE TABLE IF NOT EXISTS `Guias` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
+`ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Telefono` varchar(16) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
   `Club` int(4) NOT NULL DEFAULT '1',
-  `Observaciones` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `Guias_Nombre` (`Nombre`),
-  KEY `Guias_Club` (`Club`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=468 ;
+  `Observaciones` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=501 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `Guias`:
@@ -264,6 +308,11 @@ CREATE TABLE IF NOT EXISTS `Guias` (
 --       `Clubes` -> `ID`
 --
 
+--
+-- Truncar tablas antes de insertar `Guias`
+--
+
+TRUNCATE TABLE `Guias`;
 --
 -- Volcado de datos para la tabla `Guias`
 --
@@ -303,7 +352,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (32, 'Amparo Roig', NULL, NULL, 43, NULL),
 (33, 'Ana Alonso', NULL, NULL, 68, NULL),
 (34, 'Ana Baeza', NULL, NULL, 40, NULL),
-(35, 'Ana Beltran', NULL, NULL, 32, NULL),
+(35, 'Ana Beltran Bustamante', '', '', 32, ''),
 (36, 'Ana Isabel Escobar', NULL, NULL, 28, NULL),
 (37, 'Ana Mateu', NULL, NULL, 13, NULL),
 (38, 'Ana Ontañon', NULL, NULL, 52, NULL),
@@ -326,8 +375,8 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (55, 'Antje Lippold', NULL, NULL, 21, NULL),
 (56, 'Antonio Carmona', NULL, NULL, 21, NULL),
 (57, 'Antonio Fernández Moreno', '', '', 22, ''),
-(58, 'Antonio López', '', '', 30, ''),
-(59, 'Antonio Molina', NULL, NULL, 16, NULL),
+(58, 'Antonio López', '', '', 87, ''),
+(59, 'Antonio Molina', '', '', 79, ''),
 (60, 'Antonio Ojeda', NULL, NULL, 15, NULL),
 (61, 'Antonio Santos', '', '', 67, ''),
 (62, 'Antonio Tovar', '', '', 42, ''),
@@ -341,14 +390,14 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (70, 'Asier García', '', '', 36, ''),
 (71, 'Astrid Hoffmeister', NULL, NULL, 51, NULL),
 (72, 'Barbara Flemming', NULL, NULL, 68, NULL),
-(73, 'Beatriz Juan', '', '', 43, ''),
+(73, 'Beatriz Juan', '', '', 87, ''),
 (74, 'Belén de Carvalho', '', '', 30, ''),
 (75, 'Berit Kittel', '', '', 39, ''),
 (76, 'Carles Fortuny', NULL, NULL, 18, NULL),
 (77, 'Carlos Alvarez', NULL, NULL, 71, NULL),
 (78, 'Carlos Casado', NULL, NULL, 68, NULL),
 (79, 'Carlos Iglesias', NULL, NULL, 75, NULL),
-(80, 'Carlos Martínez', NULL, NULL, 35, NULL),
+(80, 'Carlos Martínez R.', '', '', 35, ''),
 (81, 'Carlos Pérez', '', '', 48, ''),
 (82, 'Carlos Pulpón', '', '', 35, ''),
 (83, 'Carlos Serra', NULL, NULL, 38, NULL),
@@ -360,7 +409,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (89, 'Carolina Verdú', NULL, NULL, 78, NULL),
 (90, 'Celeste Zarzosa', NULL, NULL, 48, NULL),
 (91, 'Celso Valle', NULL, NULL, 52, NULL),
-(92, 'Cesar Losada', NULL, NULL, 35, NULL),
+(92, 'Cesar Losada Mera', '', '', 35, ''),
 (93, 'Charly Castañer', '', '', 39, ''),
 (94, 'Clara Ruisánchez', '', '', 80, ''),
 (95, 'Concepción Fernández', NULL, NULL, 48, NULL),
@@ -408,7 +457,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (137, 'Enma Gutiérrez', '', '', 60, ''),
 (138, 'Enric García', NULL, NULL, 81, NULL),
 (139, 'Enric Lleixa', NULL, NULL, 7, NULL),
-(140, 'Enrique Alonso Queija', '', '', 30, ''),
+(140, 'Enrique Alonso Queija', '', '', 40, ''),
 (141, 'Enrique Camarero', '', '', 35, ''),
 (142, 'Enrique Grau', NULL, NULL, 24, NULL),
 (143, 'Enrique Herbera', NULL, NULL, 7, NULL),
@@ -428,7 +477,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (157, 'Fernando De La Fuente', '', '', 42, ''),
 (158, 'Fito Rodríguez', '', '', 80, ''),
 (159, 'Francisco Aguilera', NULL, NULL, 17, NULL),
-(160, 'Francisco de la Cruz', NULL, NULL, 16, NULL),
+(160, 'Francisco de la Cruz', '', '', 88, ''),
 (161, 'Francisco Esteban', NULL, NULL, 24, NULL),
 (162, 'Francisco Javier Jaen', NULL, NULL, 28, NULL),
 (163, 'Francisco Javier Luque', NULL, NULL, 61, NULL),
@@ -443,7 +492,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (172, 'Gema López', '', '', 35, ''),
 (173, 'Gemma González', '', '', 80, ''),
 (174, 'Gerard Barberá', NULL, NULL, 58, NULL),
-(175, 'Gerardo Alvarez', NULL, NULL, 40, NULL),
+(175, 'Gerardo Alvarez', '', '', 62, ''),
 (176, 'Gerardo González', NULL, NULL, 35, NULL),
 (177, 'Gisela Solis', NULL, NULL, 44, NULL),
 (178, 'Gorka Pozuelo', '', '', 43, ''),
@@ -453,7 +502,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (182, 'Iban Cubedo', NULL, NULL, 24, NULL),
 (183, 'Imanol López', NULL, NULL, 42, NULL),
 (184, 'Iñaki García', '', '', 36, ''),
-(185, 'Inmaculada Rubio', NULL, NULL, 35, NULL),
+(185, 'Inmaculada Rubio', '', '', 62, ''),
 (186, 'Irati Diego', '', '', 43, ''),
 (187, 'Irena', '', '', 42, ''),
 (188, 'Irene Artacho', NULL, NULL, 16, NULL),
@@ -467,7 +516,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (196, 'Ivan Amez Alvarez', '', '', 80, ''),
 (197, 'Iván Pardo García', '', '', 75, ''),
 (198, 'Iván San Antonio', NULL, NULL, 16, NULL),
-(199, 'Iván Sánchez García', '', '', 48, ''),
+(199, 'Iván Sánchez García', '', '', 35, ''),
 (200, 'Jacqueline Holemans', NULL, NULL, 67, NULL),
 (201, 'Jaime Gamir', NULL, NULL, 8, NULL),
 (202, 'Jara Pérez', '', '', 4, ''),
@@ -477,7 +526,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (206, 'Javier López', NULL, NULL, 67, NULL),
 (207, 'Javier Martín', '', '', 4, ''),
 (208, 'Javier Martínez', '', '', 62, ''),
-(209, 'Javier Mora Canales', '', '', 22, ''),
+(209, 'Javier Mora Canales', '', '', 87, ''),
 (210, 'Javier Ovejero', NULL, NULL, 35, NULL),
 (211, 'Javier Sanchis', NULL, NULL, 52, NULL),
 (212, 'Javier Santisteban', '', '', 16, ''),
@@ -502,7 +551,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (231, 'Jorge Valero', NULL, NULL, 42, NULL),
 (232, 'José Angel Beired', '', '', 73, ''),
 (233, 'José Angel Torres', NULL, NULL, 71, NULL),
-(234, 'José Antonio Encinas', NULL, NULL, 22, NULL),
+(234, 'José Antonio Encinas', '', '', 87, ''),
 (235, 'José Antonio Pascual', NULL, NULL, 42, NULL),
 (236, 'José Antonio Vega', NULL, NULL, 4, NULL),
 (237, 'José Carlos Iglesias', NULL, NULL, 75, NULL),
@@ -629,7 +678,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (358, 'María José Manzano', NULL, NULL, 42, NULL),
 (359, 'Narciso Leita', NULL, NULL, 49, NULL),
 (360, 'Natalia Cuadrado', NULL, NULL, 21, NULL),
-(361, 'Natividad Ruiz García', '', '', 30, ''),
+(361, 'Natividad Ruiz García', '', '', 87, ''),
 (362, 'Natividad Soler', NULL, NULL, 68, NULL),
 (363, 'Neus Baró', NULL, NULL, 13, NULL),
 (364, 'Noelia Gimeno', NULL, NULL, 64, NULL),
@@ -642,7 +691,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (371, 'Olga Palomares', '', '', 28, ''),
 (372, 'Oria Micó', NULL, NULL, 78, NULL),
 (373, 'Oscar Bravo', NULL, NULL, 21, NULL),
-(374, 'Oscar Muñiz', NULL, NULL, 30, NULL),
+(374, 'Oscar Muñiz', '', '', 40, ''),
 (375, 'Oscar Reboredo', NULL, NULL, 18, NULL),
 (376, 'Oscar Sacristan', NULL, NULL, 48, NULL),
 (377, 'Pablo Ballesta', NULL, NULL, 10, NULL),
@@ -675,7 +724,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (404, 'Reyes García', NULL, NULL, 31, NULL),
 (405, 'Ricardo Benito', NULL, NULL, 79, NULL),
 (406, 'Ricardo Martínez', NULL, NULL, 29, NULL),
-(407, 'Ricardo Santolaya', NULL, NULL, 42, NULL),
+(407, 'Ricardo Santolaya', '', '', 88, ''),
 (408, 'Roberto Castro', NULL, NULL, 35, NULL),
 (409, 'Roberto Iñigo', NULL, NULL, 16, NULL),
 (410, 'Roberto Reina Vega', '', '', 48, ''),
@@ -683,7 +732,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (412, 'Rocio Santos', NULL, NULL, 61, NULL),
 (413, 'Rodrigo González', '', '', 48, ''),
 (414, 'Roque Alonso', '', '', 40, ''),
-(415, 'Ross Rubio', '', '', 28, ''),
+(415, 'Rosa Rubio', '', '', 28, ''),
 (416, 'Ruben Jurado', NULL, NULL, 44, NULL),
 (417, 'Ruben Lopera', NULL, NULL, 53, NULL),
 (418, 'Ruben Montero', NULL, NULL, 48, NULL),
@@ -735,19 +784,52 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (464, 'Yolanda Torres', NULL, NULL, 52, NULL),
 (465, 'Yulia Morugova', '', '', 32, ''),
 (466, 'Maria Jorge', '', '', 2, ''),
-(467, 'Carmen Gutiérrez', '', '', 2, '');
+(467, 'Carmen Gutiérrez', '', '', 2, ''),
+(468, 'Veronica Roda', '', '', 87, ''),
+(469, 'Elena Cardenal', '', '', 4, ''),
+(470, 'Natalia Peral', '', '', 2, ''),
+(471, 'Antonio Fernandez Ortiz', '', '', 22, ''),
+(472, 'Oscar Uceda', '', '', 27, ''),
+(473, 'Iván García Puebla', '', '', 42, ''),
+(474, 'Ainhoa de Frias', '', '', 48, ''),
+(475, 'Sonia García', '', '', 48, ''),
+(476, 'Jesus Perea', '', '', 48, ''),
+(477, 'Dolores Rosas', '', '', 87, ''),
+(478, 'Pablo Martínez', '', '', 43, ''),
+(479, 'Sara María Lara', '', '', 43, ''),
+(480, 'Fabian Santolaya', '', '', 88, ''),
+(481, 'David Calviño', '', '', 35, ''),
+(482, 'Yaiza Caballero Fernández', '', '', 80, ''),
+(483, 'Carlos Escribano', '', '', 35, ''),
+(484, 'Rosa Maria Cañadillas', '', '', 35, ''),
+(485, 'Arancha Ruipérez Moslares', '', '', 35, ''),
+(486, 'Rubén García', '', '', 35, ''),
+(487, 'Carlos Martínez S.', '', '', 35, ''),
+(488, 'Sandra Rodrigo', '', '', 87, ''),
+(489, 'Sonia Gil', '', '', 16, ''),
+(490, 'Beatriz Sánchez Casares', '', '', 16, ''),
+(491, 'Isabel Fernández', '', '', 16, ''),
+(492, 'Mari Carmen Martí Sanz', '', '', 16, ''),
+(493, 'Irene Escribano', '', '', 22, ''),
+(494, 'Cynthia Sánchez', '', '', 22, ''),
+(495, 'Rosa Rubio', '', '', 28, ''),
+(496, 'Irene Blanco', '', '', 28, ''),
+(497, ' Oscar López', '', '', 28, ''),
+(498, 'Virginia Pastor', '', '', 28, ''),
+(499, 'Ruben López', '', '', 48, ''),
+(500, 'Ana Belén Ondategui Casas', '', '', 80, '');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Inscripciones`
 --
--- Creación: 12-07-2014 a las 09:16:36
+-- Creación: 05-12-2014 a las 19:14:35
 --
 
 DROP TABLE IF EXISTS `Inscripciones`;
 CREATE TABLE IF NOT EXISTS `Inscripciones` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
+`ID` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '1',
   `Perro` int(4) NOT NULL,
   `Dorsal` int(4) NOT NULL DEFAULT '0',
@@ -755,14 +837,8 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
   `Observaciones` varchar(255) DEFAULT NULL,
   `Equipo` int(4) DEFAULT NULL,
   `Jornadas` int(4) NOT NULL DEFAULT '0',
-  `Pagado` int(4) NOT NULL DEFAULT '24',
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `Inscripciones_PruebaPerro` (`Prueba`,`Perro`),
-  KEY `Inscripciones_Perro` (`Perro`),
-  KEY `Inscripciones_Prueba` (`Prueba`),
-  KEY `Inscripciones_Equipo` (`Equipo`),
-  KEY `Inscripciones_Dorsal` (`Dorsal`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `Pagado` int(4) NOT NULL DEFAULT '24'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `Inscripciones`:
@@ -774,6 +850,11 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
 --       `Equipos` -> `ID`
 --
 
+--
+-- Truncar tablas antes de insertar `Inscripciones`
+--
+
+TRUNCATE TABLE `Inscripciones`;
 --
 -- Disparadores `Inscripciones`
 --
@@ -797,12 +878,12 @@ DELIMITER ;
 --
 -- Estructura de tabla para la tabla `Jornadas`
 --
--- Creación: 12-07-2014 a las 09:33:32
+-- Creación: 05-12-2014 a las 19:14:35
 --
 
 DROP TABLE IF EXISTS `Jornadas`;
 CREATE TABLE IF NOT EXISTS `Jornadas` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
+`ID` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '1',
   `Numero` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
@@ -819,11 +900,9 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
   `Especial` tinyint(1) NOT NULL DEFAULT '0',
   `PreAgility2` tinyint(1) NOT NULL DEFAULT '0',
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
-  `Observaciones` varchar(255) NOT NULL DEFAULT "",
-  `Orden_Tandas` varchar(255) NOT NULL DEFAULT "BEGIN,END",
-  PRIMARY KEY (`ID`),
-  KEY `Jornadas_Prueba` (`Prueba`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  `Observaciones` varchar(255) NOT NULL DEFAULT '',
+  `Orden_Tandas` varchar(255) NOT NULL DEFAULT 'BEGIN,END'
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `Jornadas`:
@@ -832,30 +911,35 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
 --
 
 --
+-- Truncar tablas antes de insertar `Jornadas`
+--
+
+TRUNCATE TABLE `Jornadas`;
+--
 -- Volcado de datos para la tabla `Jornadas`
 --
 
-INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Grado1`, `Grado2`, `Grado3`, `Open`, `Equipos3`, `Equipos4`, `PreAgility`, `KO`, `Especial`, `PreAgility2`, `Observaciones`, `Cerrada`) VALUES
-(1, 2, 1, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
-(2, 2, 2, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
-(3, 2, 3, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
-(4, 2, 4, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
-(5, 2, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
-(6, 2, 6, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
-(7, 2, 7, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0),
-(8, 2, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, '', 0);
+INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Grado1`, `Grado2`, `Grado3`, `Open`, `Equipos3`, `Equipos4`, `PreAgility`, `KO`, `Especial`, `PreAgility2`, `Cerrada`, `Observaciones`, `Orden_Tandas`) VALUES
+(1, 2, 1, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,END'),
+(2, 2, 2, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,END'),
+(3, 2, 3, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,END'),
+(4, 2, 4, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,END'),
+(5, 2, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,END'),
+(6, 2, 6, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,END'),
+(7, 2, 7, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,END'),
+(8, 2, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,END');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Jueces`
 --
--- Creación: 12-07-2014 a las 09:16:36
+-- Creación: 05-12-2014 a las 19:14:34
 --
 
 DROP TABLE IF EXISTS `Jueces`;
 CREATE TABLE IF NOT EXISTS `Jueces` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
+`ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Direccion1` varchar(255) DEFAULT NULL,
   `Direccion2` varchar(255) DEFAULT NULL,
@@ -863,11 +947,14 @@ CREATE TABLE IF NOT EXISTS `Jueces` (
   `Internacional` tinyint(1) NOT NULL DEFAULT '0',
   `Practicas` tinyint(1) NOT NULL DEFAULT '0',
   `Email` varchar(255) DEFAULT NULL,
-  `Observaciones` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `Jueces_Nombre` (`Nombre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=25 ;
+  `Observaciones` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
+--
+-- Truncar tablas antes de insertar `Jueces`
+--
+
+TRUNCATE TABLE `Jueces`;
 --
 -- Volcado de datos para la tabla `Jueces`
 --
@@ -903,12 +990,12 @@ INSERT INTO `Jueces` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `I
 --
 -- Estructura de tabla para la tabla `Mangas`
 --
--- Creación: 12-07-2014 a las 09:16:36
+-- Creación: 05-12-2014 a las 19:14:35
 --
 
 DROP TABLE IF EXISTS `Mangas`;
 CREATE TABLE IF NOT EXISTS `Mangas` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
+`ID` int(4) NOT NULL,
   `Jornada` int(4) NOT NULL,
   `Tipo` int(4) NOT NULL DEFAULT '1',
   `Grado` varchar(16) NOT NULL DEFAULT '-',
@@ -940,29 +1027,28 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
   `Juez1` int(4) NOT NULL DEFAULT '1',
   `Juez2` int(4) NOT NULL DEFAULT '1',
   `Observaciones` varchar(255) DEFAULT NULL,
-  `Orden_Salida` text NOT NULL DEFAULT "",
-  PRIMARY KEY (`ID`),
-  KEY `Mangas_Tipo` (`Tipo`),
-  KEY `Mangas_Grado` (`Grado`),
-  KEY `Mangas_Juez1` (`Juez1`),
-  KEY `Mangas_Juez2` (`Juez2`),
-  KEY `Mangas_Jornada` (`Jornada`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `Orden_Salida` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `Mangas`:
---   `Mangas_Tipo`
+--   `Tipo`
 --       `Tipo_Manga` -> `ID`
---   `Mangas_Grado`
+--   `Grado`
 --       `Grados_Perro` -> `Grado`
---   `Mangas_Juez1`
+--   `Juez1`
 --       `Jueces` -> `ID`
---   `Mangas_Juez2`
+--   `Juez2`
 --       `Jueces` -> `ID`
---   `Mangas_Jornada`
+--   `Jornada`
 --       `Jornadas` -> `ID`
 --
 
+--
+-- Truncar tablas antes de insertar `Mangas`
+--
+
+TRUNCATE TABLE `Mangas`;
 -- --------------------------------------------------------
 
 --
@@ -990,24 +1076,20 @@ CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 --
 -- Estructura de tabla para la tabla `Perros`
 --
--- Creación: 12-07-2014 a las 09:16:36
+-- Creación: 05-12-2014 a las 19:14:35
 --
 
 DROP TABLE IF EXISTS `Perros`;
 CREATE TABLE IF NOT EXISTS `Perros` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
+`ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Raza` varchar(255) DEFAULT NULL,
   `LOE_RRC` varchar(255) DEFAULT NULL,
   `Licencia` varchar(255) DEFAULT '--------',
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
   `Guia` int(4) NOT NULL DEFAULT '1',
-  `Grado` varchar(16) DEFAULT '-',
-  PRIMARY KEY (`ID`),
-  KEY `Perros_GuiaNombre` (`Guia`),
-  KEY `Perros_Categoria` (`Categoria`),
-  KEY `Perros_Grado` (`Grado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=559 ;
+  `Grado` varchar(16) DEFAULT '-'
+) ENGINE=InnoDB AUTO_INCREMENT=578 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `Perros`:
@@ -1019,6 +1101,11 @@ CREATE TABLE IF NOT EXISTS `Perros` (
 --       `Guias` -> `ID`
 --
 
+--
+-- Truncar tablas antes de insertar `Perros`
+--
+
+TRUNCATE TABLE `Perros`;
 --
 -- Volcado de datos para la tabla `Perros`
 --
@@ -1373,7 +1460,7 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (348, 'Aker', 'P.B. Malinoise', '1553051', 'A397', 'L', 162, 'GII'),
 (349, 'Akira', NULL, '125877', 'A455', 'L', 255, 'GII'),
 (350, 'Dama', 'Fox Terrier Wire', '0131204', 'A641', 'M', 264, 'GIII'),
-(351, 'Flai', 'Fox Terrier Wire', '0129738', 'en tramite', 'M', 264, 'GII'),
+(351, 'Flai', 'Fox Terrier Wire', '0129738', 'A815', 'M', 264, 'GII'),
 (352, 'Donna', 'Border Collie', '', '', 'L', 405, 'GII'),
 (353, 'fito', 'mestizo', '', '', 'L', 387, 'GIII'),
 (354, 'paco', '', '', '', '-', 1, '-'),
@@ -1403,8 +1490,8 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (379, 'Skay', '', '', '', 'L', 212, 'GII'),
 (380, 'Keko', '', '', '', 'L', 17, 'GI'),
 (381, 'Mambo', 'Border Collie', '', '', 'L', 39, 'GI'),
-(382, 'Swing', '', '', '', 'L', 371, 'GI'),
-(383, 'Trufa', '', '', '', 'L', 415, 'GI'),
+(382, 'Swing', '', '', '', 'M', 371, 'GI'),
+(383, 'Trufa', '', '', '', 'M', 415, 'GI'),
 (384, 'Soma', 'Border Collie', '', 'A696', 'L', 343, 'GII'),
 (385, 'Phoebe', 'Border Collie', '', 'A555', 'M', 148, 'GII'),
 (386, 'Izzie', 'West Higland White Terrier', '', 'A275', 'S', 148, 'GII'),
@@ -1433,7 +1520,7 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (409, 'Olivia', 'Caniche', '', 'A701', 'S', 102, 'GII'),
 (410, 'Sombra', 'Border Collie', '', 'A679', 'L', 242, 'GII'),
 (411, 'Noah', 'Schnauzer', '', '', 'S', 198, 'GI'),
-(412, 'Brea', 'Mestizo', '', '', 'L', 31, 'GI'),
+(412, 'Brea', 'Mestizo', '', '', 'L', 31, 'GII'),
 (413, 'Lola', 'Jack Rusell', '', 'A633', 'S', 160, 'GII'),
 (414, 'Yeny', 'Border Collie', '', 'A747', 'L', 245, 'GII'),
 (415, 'Sonic', 'Perro de Aguas Español', '', 'A495', 'L', 98, 'GII'),
@@ -1461,7 +1548,7 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (437, 'Juke', '', '', '', 'L', 336, 'GI'),
 (438, 'Argi', '', '', '', 'L', 149, 'GI'),
 (439, 'Pi', '', '', '', 'L', 169, 'GI'),
-(440, 'Horatio', '', '', '', 'S', 73, 'GI'),
+(440, 'Horatio', '', '', 'A647', 'S', 73, 'GII'),
 (441, 'Goldie', '', '', '', 'S', 379, 'GI'),
 (442, 'Cachirulo', '', '', 'A578', 'L', 116, 'GII'),
 (443, 'Lucky', '', '', '1561', 'L', 23, 'GII'),
@@ -1534,7 +1621,7 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (510, 'Quenn', 'Palleiro', '', '', 'M', 47, 'GI'),
 (511, 'Gala', 'Pastor Alemán', '', '', 'L', 40, 'GI'),
 (512, 'Moli', 'Jack Rusell', '', '', 'S', 194, 'GI'),
-(513, 'Vali', 'Border Collie', '', '', 'L', 9, 'GI'),
+(513, 'Vali', 'Border Collie', '', 'A811', 'L', 9, 'GI'),
 (514, 'Isis', 'Border Collie', '', '', 'L', 57, 'GI'),
 (515, 'Darco', 'Beagle', '', '', 'M', 46, 'GI'),
 (516, 'Bruce', 'Ratonero Bodeguero Andaluz', '', '', 'M', 230, 'GI'),
@@ -1542,7 +1629,7 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (518, 'Lluna', 'Border Collie', '', '', 'L', 459, 'GI'),
 (519, 'Dunah', 'Cocker Spaniel', '', 'A635', 'M', 28, 'GII'),
 (520, 'Aska', 'Border Collie', '', '', 'L', 306, 'GI'),
-(521, 'Buck', 'Border Collie', '', '', 'L', 81, 'GI'),
+(521, 'Buck', 'Border Collie', '', 'A877', 'L', 81, 'GII'),
 (522, 'Merche', 'Schnauzer Gigante', '', '', 'L', 303, 'GI'),
 (523, 'Bambú', 'Border Collie', '', '', 'L', 217, 'GI'),
 (524, 'King', '', '', 'A683', 'S', 263, 'GII'),
@@ -1578,25 +1665,47 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (554, 'Phoebe', '', '', 'A690', 'L', 196, 'GII'),
 (555, 'Sella', '', '', '', 'L', 94, 'GII'),
 (556, 'botinera', '', '', '', 'L', 466, 'GI'),
-(558, 'Rumba', '', '', '', 'L', 467, 'GI');
+(558, 'Rumba', '', '', '', 'L', 467, 'GI'),
+(559, 'Perla', '', '', '', 'S', 488, 'GI'),
+(560, 'Arturo', '', '', '', 'S', 477, 'GII'),
+(561, 'Yara', '', '', '', 'L', 489, 'GI'),
+(562, 'Arya', '', '', '', 'L', 399, 'P.A.'),
+(563, 'Sasha', '', '', '', 'L', 490, 'P.A.'),
+(564, 'Zar', '', '', '', 'L', 491, 'P.A.'),
+(565, 'Lillo', '', '', '', 'S', 492, 'P.A.'),
+(566, 'Ami', '', '', '', 'L', 493, 'P.A.'),
+(567, 'Dana', '', '', '', 'L', 493, 'P.A.'),
+(568, 'Golfo', '', '', '', 'L', 494, 'P.A.'),
+(569, 'Ron', '', '', '', 'L', 494, 'P.A.'),
+(570, 'Putt', '', '', '', 'L', 371, 'P.A.'),
+(571, 'Onza', '', '', '', 'M', 496, 'P.A.'),
+(572, 'Sancho', '', '', '', 'M', 497, 'P.A.'),
+(573, 'Manzanillo', '', '', '', 'S', 498, 'GI'),
+(574, 'Arwen', '', '', '', 'L', 473, 'GI'),
+(575, 'Nashira', '', '', 'A903', 'L', 499, 'GII'),
+(576, 'Chuli', '', '', '', 'L', 482, 'GI'),
+(577, 'Skay', '', '', '', 'L', 500, 'GI');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Provincias`
 --
--- Creación: 12-07-2014 a las 09:16:36
+-- Creación: 05-12-2014 a las 19:14:34
 --
 
 DROP TABLE IF EXISTS `Provincias`;
 CREATE TABLE IF NOT EXISTS `Provincias` (
   `Provincia` varchar(32) NOT NULL DEFAULT '',
   `Comunidad` varchar(32) DEFAULT NULL,
-  `Codigo` int(2) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`Provincia`),
-  UNIQUE KEY `Provincias_Codigo` (`Codigo`)
+  `Codigo` int(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Truncar tablas antes de insertar `Provincias`
+--
+
+TRUNCATE TABLE `Provincias`;
 --
 -- Volcado de datos para la tabla `Provincias`
 --
@@ -1661,22 +1770,20 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 --
 -- Estructura de tabla para la tabla `Pruebas`
 --
--- Creación: 12-07-2014 a las 09:16:36
+-- Creación: 05-12-2014 a las 19:14:35
 --
 
 DROP TABLE IF EXISTS `Pruebas`;
 CREATE TABLE IF NOT EXISTS `Pruebas` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
+`ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Club` int(4) NOT NULL DEFAULT '1',
   `Ubicacion` varchar(255) DEFAULT NULL,
   `Triptico` longblob,
   `Cartel` longblob,
   `Observaciones` varchar(255) DEFAULT NULL,
-  `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ID`),
-  KEY `Pruebas_Club` (`Club`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+  `Cerrada` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `Pruebas`:
@@ -1684,6 +1791,11 @@ CREATE TABLE IF NOT EXISTS `Pruebas` (
 --       `Clubes` -> `ID`
 --
 
+--
+-- Truncar tablas antes de insertar `Pruebas`
+--
+
+TRUNCATE TABLE `Pruebas`;
 --
 -- Volcado de datos para la tabla `Pruebas`
 --
@@ -1695,97 +1807,9 @@ INSERT INTO `Pruebas` (`ID`, `Nombre`, `Club`, `Ubicacion`, `Triptico`, `Cartel`
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `Usuarios`
--- 0:root 1:admin 2:operator 3:assistant 4:guest 5:none
--- Creación: 01-12-2014 a las 17:56:55
---
-
-DROP TABLE IF EXISTS `Usuarios`;
-CREATE TABLE IF NOT EXISTS `Usuarios` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
-  `Login` varchar(255) UNIQUE NOT NULL,
-  `Password` varchar(255) DEFAULT NULL,
-  `Gecos` varchar(255) NOT NULL DEFAULT '',
-  `Phone` varchar(255) NOT NULL DEFAULT '',
-  `Email` varchar(255) NOT NULL DEFAULT '',
-  `Perms` int(4) NOT NULL DEFAULT '5',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
-
---
--- Volcado de datos para la tabla `Sesiones`
---
-
-INSERT INTO `Usuarios` (`ID`, `Login`, `Password`, `Gecos`, `Phone`, `Email`, `Perms`) VALUES
-(1, '-- Sin asignar --', '--LOCKED--','NO BORRAR: Usuario por defecto para sesiones anonimas','','',5),
-(2, 'root', 'JDJ5JDEwJHc2Lm50WFhsQUYuWDl2Zm9JbnNVb09TVEVwcllGaHBCQjFQYk12Yk81VzlJWDd0cTNPRnd5','Usuario Root','','',0),
-(3, 'admin', '--UNDEF--','Administrador de la aplicacion','','',1),
-(4, 'operator', '--UNDEF--' ,'Operador de consola','','',2),
-(5, 'assistant', '--UNDEF--','Asistente del juez (tablet)','','',3),
-(6, 'guest', '--NULL--','Usuario invitado (anonimo)','','',4);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Sesiones`
---
--- Creación: 12-07-2014 a las 09:16:36
---
-
-DROP TABLE IF EXISTS `Sesiones`;
-CREATE TABLE IF NOT EXISTS `Sesiones` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
-  `Comentario` varchar(255) DEFAULT NULL,
-  `Operador` int(4) NOT NULL DEFAULT 1,
-  `SessionKey` varchar(255) DEFAULT NULL,
-  `Prueba` int(4) NOT NULL DEFAULT '0',
-  `Jornada` int(4) NOT NULL DEFAULT '0',
-  `Manga` int(4) NOT NULL DEFAULT '0',
-  `Tanda` int(4) NOT NULL DEFAULT '0',
-  `LiveStream` varchar(255) DEFAULT NULL,
-  `LastModified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`ID`),
-  KEY `Sesiones_Operador` (`Operador`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
-
---
--- Volcado de datos para la tabla `Sesiones`
---
-
-INSERT INTO `Sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `LiveStream`, `SessionKey`) VALUES
-(1, '-- Sin asignar --', 'NO BORRAR: Sesion por defecto para manejador de eventos',1,'/agility/videos/sample_video.mp4',NULL),
-(2, 'Ring 1', 'Mangas a realizar en el Ring de honor',1,NULL,NULL),
-(3, 'Ring 2', 'Mangas a realizar en el segundo ring',1,NULL,NULL),
-(4, 'Ring 3', 'Mangas a realizar en el tercer ring',1,NULL,NULL),
-(5, 'Ring 4', 'Mangas a realizar en el cuarto ring',1,NULL,NULL);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Eventos`
---
--- Creación: 23-10-2014 a las 11:00:04
---
-
-DROP TABLE IF EXISTS `Eventos`;
-CREATE TABLE IF NOT EXISTS `Eventos` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
-  `Session` int(4) NOT NULL,
-  `Source` varchar(255) NOT NULL,
-  `Type` varchar(255) NOT NULL,
-  `Timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-  `Data` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`ID`),
-  KEY `Eventos_Session` (`Session`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `Resultados`
 --
--- Creación: 12-07-2014 a las 09:16:37
+-- Creación: 05-12-2014 a las 19:14:36
 --
 
 DROP TABLE IF EXISTS `Resultados`;
@@ -1810,52 +1834,97 @@ CREATE TABLE IF NOT EXISTS `Resultados` (
   `NoPresentado` tinyint(1) NOT NULL DEFAULT '0',
   `Tiempo` double NOT NULL DEFAULT '0',
   `Observaciones` varchar(255) NOT NULL DEFAULT '',
-  `Pendiente` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`Manga`,`Perro`),
-  KEY `Resultados_Perro` (`Perro`),
-  KEY `Resultados_Manga` (`Manga`),
-  KEY `Resultados_Dorsal` (`Dorsal`),
-  KEY `Resultados_Jornada` (`Jornada`),
-  KEY `Resultados_Prueba` (`Prueba`)
+  `Pendiente` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `Resultados`:
---   `Prueba`
---       `Pruebas` -> `ID`
---   `Jornada`
---       `Jornadas` -> `ID`
 --   `Perro`
 --       `Perros` -> `ID`
 --   `Manga`
 --       `Mangas` -> `ID`
---   `Dorsal`
---       `Inscripciones` -> `Dorsal`
+--   `Prueba`
+--       `Pruebas` -> `ID`
+--   `Jornada`
+--       `Jornadas` -> `ID`
 --
+
+--
+-- Truncar tablas antes de insertar `Resultados`
+--
+
+TRUNCATE TABLE `Resultados`;
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Sesiones`
+--
+-- Creación: 05-12-2014 a las 19:14:35
+--
+
+DROP TABLE IF EXISTS `Sesiones`;
+CREATE TABLE IF NOT EXISTS `Sesiones` (
+`ID` int(4) NOT NULL,
+  `Nombre` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
+  `Comentario` varchar(255) DEFAULT NULL,
+  `Operador` int(4) NOT NULL DEFAULT '1',
+  `SessionKey` varchar(255) DEFAULT NULL,
+  `Prueba` int(4) NOT NULL DEFAULT '0',
+  `Jornada` int(4) NOT NULL DEFAULT '0',
+  `Manga` int(4) NOT NULL DEFAULT '0',
+  `Tanda` int(4) NOT NULL DEFAULT '0',
+  `LiveStream` varchar(255) DEFAULT NULL,
+  `LastModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- RELACIONES PARA LA TABLA `Sesiones`:
+--   `Operador`
+--       `Usuarios` -> `ID`
+--
+
+--
+-- Truncar tablas antes de insertar `Sesiones`
+--
+
+TRUNCATE TABLE `Sesiones`;
+--
+-- Volcado de datos para la tabla `Sesiones`
+--
+
+INSERT INTO `Sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `SessionKey`, `Prueba`, `Jornada`, `Manga`, `Tanda`, `LiveStream`, `LastModified`) VALUES
+(1, '-- Sin asignar --', 'NO BORRAR: Sesion por defecto para manejador de eventos', 1, NULL, 0, 0, 0, 0, '/agility/videos/sample_video.mp4', '2014-12-05 19:14:34'),
+(2, 'Ring 1', 'Mangas a realizar en el Ring de honor', 1, NULL, 0, 0, 0, 0, NULL, '2014-12-05 19:14:34'),
+(3, 'Ring 2', 'Mangas a realizar en el segundo ring', 1, NULL, 0, 0, 0, 0, NULL, '2014-12-05 19:14:34'),
+(4, 'Ring 3', 'Mangas a realizar en el tercer ring', 1, NULL, 0, 0, 0, 0, NULL, '2014-12-05 19:14:34'),
+(5, 'Ring 4', 'Mangas a realizar en el cuarto ring', 1, NULL, 0, 0, 0, 0, NULL, '2014-12-05 19:14:34');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Tipo_Manga`
 --
--- Creación: 12-07-2014 a las 09:16:37
+-- Creación: 05-12-2014 a las 19:14:36
 --
 
 DROP TABLE IF EXISTS `Tipo_Manga`;
 CREATE TABLE IF NOT EXISTS `Tipo_Manga` (
-  `ID` int(4) NOT NULL AUTO_INCREMENT,
+`ID` int(4) NOT NULL,
   `Descripcion` varchar(255) DEFAULT NULL,
-  `Grado` varchar(16) NOT NULL DEFAULT '-',
-  PRIMARY KEY (`ID`),
-  KEY `Descripcion` (`Descripcion`),
-  KEY `Grado` (`Grado`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17;
+  `Grado` varchar(16) NOT NULL DEFAULT '-'
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+
 --
 -- RELACIONES PARA LA TABLA `Tipo_Manga`:
 --   `Grado`
 --       `Grados_Perro` -> `Grado`
 --
 
+--
+-- Truncar tablas antes de insertar `Tipo_Manga`
+--
+
+TRUNCATE TABLE `Tipo_Manga`;
 --
 -- Volcado de datos para la tabla `Tipo_Manga`
 --
@@ -1881,30 +1950,223 @@ INSERT INTO `Tipo_Manga` (`ID`, `Descripcion`, `Grado`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `Usuarios`
+--
+-- Creación: 05-12-2014 a las 19:14:34
+--
+
+DROP TABLE IF EXISTS `Usuarios`;
+CREATE TABLE IF NOT EXISTS `Usuarios` (
+`ID` int(4) NOT NULL,
+  `Login` varchar(255) NOT NULL,
+  `Password` varchar(255) DEFAULT NULL,
+  `Gecos` varchar(255) NOT NULL DEFAULT '',
+  `Phone` varchar(255) NOT NULL DEFAULT '',
+  `Email` varchar(255) NOT NULL DEFAULT '',
+  `Perms` int(4) NOT NULL DEFAULT '5'
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- Truncar tablas antes de insertar `Usuarios`
+--
+
+TRUNCATE TABLE `Usuarios`;
+--
+-- Volcado de datos para la tabla `Usuarios`
+--
+
+INSERT INTO `Usuarios` (`ID`, `Login`, `Password`, `Gecos`, `Phone`, `Email`, `Perms`) VALUES
+(1, '-- Sin asignar --', '--LOCKED--', 'NO BORRAR: Usuario por defecto para sesiones anonimas', '', '', 5),
+(2, 'root', 'JDJ5JDEwJHc2Lm50WFhsQUYuWDl2Zm9JbnNVb09TVEVwcllGaHBCQjFQYk12Yk81VzlJWDd0cTNPRnd5', 'Usuario Root', '', '', 0),
+(3, 'admin', '--UNDEF--', 'Administrador de la aplicacion', '', '', 1),
+(4, 'operator', '--UNDEF--', 'Operador de consola', '', '', 2),
+(5, 'assistant', '--UNDEF--', 'Asistente del juez (tablet)', '', '', 3),
+(6, 'guest', '--NULL--', 'Usuario invitado (anonimo)', '', '', 4);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura para la vista `PerroGuiaClub`
 --
 DROP TABLE IF EXISTS `PerroGuiaClub`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` 
-	AS select `Perros`.`ID` AS `ID`,
-			`Perros`.`Nombre` AS `Nombre`,
-			`Perros`.`Raza` AS `Raza`,
-			`Perros`.`Licencia` AS `Licencia`,
-			`Perros`.`LOE_RRC` AS `LOE_RRC`,
-			`Perros`.`Categoria` AS `Categoria`,
-			`Categorias_Perro`.`Observaciones` AS `NombreCategoria`,
-			`Perros`.`Grado` AS `Grado`,
-			`Grados_Perro`.`Comentarios` AS `NombreGrado`,
-			`Perros`.`Guia` AS `Guia`,
-			`Guias`.`Nombre` AS `NombreGuia`,
-			`Guias`.`Club` AS `Club`,
-			`Clubes`.`Nombre` AS `NombreClub`, 
-			`Clubes`.`Logo` AS `LogoClub` 
-	from ((((`Perros` join `Guias`) join `Clubes`) join `Grados_Perro`) join `Categorias_Perro` )
-	where ((`Perros`.`Guia` = `Guias`.`ID`) and (`Guias`.`Club` = `Clubes`.`ID`) 
-		and (`Perros`.`Categoria` = `Categorias_Perro`.`Categoria`) and (`Perros`.`Grado`=`Grados_Perro`.`Grado`) ) 
-	order by `Clubes`.`Nombre`,`Perros`.`Categoria`,`Perros`.`Nombre`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `PerroGuiaClub` AS select `Perros`.`ID` AS `ID`,`Perros`.`Nombre` AS `Nombre`,`Perros`.`Raza` AS `Raza`,`Perros`.`Licencia` AS `Licencia`,`Perros`.`LOE_RRC` AS `LOE_RRC`,`Perros`.`Categoria` AS `Categoria`,`Categorias_Perro`.`Observaciones` AS `NombreCategoria`,`Perros`.`Grado` AS `Grado`,`Grados_Perro`.`Comentarios` AS `NombreGrado`,`Perros`.`Guia` AS `Guia`,`Guias`.`Nombre` AS `NombreGuia`,`Guias`.`Club` AS `Club`,`Clubes`.`Nombre` AS `NombreClub`,`Clubes`.`Logo` AS `LogoClub` from ((((`Perros` join `Guias`) join `Clubes`) join `Grados_Perro`) join `Categorias_Perro`) where ((`Perros`.`Guia` = `Guias`.`ID`) and (`Guias`.`Club` = `Clubes`.`ID`) and (`Perros`.`Categoria` = `Categorias_Perro`.`Categoria`) and (`Perros`.`Grado` = `Grados_Perro`.`Grado`)) order by `Clubes`.`Nombre`,`Perros`.`Categoria`,`Perros`.`Nombre`;
 
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `Categorias_Perro`
+--
+ALTER TABLE `Categorias_Perro`
+ ADD PRIMARY KEY (`Categoria`);
+
+--
+-- Indices de la tabla `Clubes`
+--
+ALTER TABLE `Clubes`
+ ADD PRIMARY KEY (`ID`), ADD KEY `Clubes_Nombre` (`Nombre`), ADD KEY `Clubes_Provincia` (`Provincia`);
+
+--
+-- Indices de la tabla `Equipos`
+--
+ALTER TABLE `Equipos`
+ ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Equipos_PruebaNombre` (`Prueba`,`Nombre`), ADD KEY `Equipos_Prueba` (`Prueba`);
+
+--
+-- Indices de la tabla `Eventos`
+--
+ALTER TABLE `Eventos`
+ ADD PRIMARY KEY (`ID`), ADD KEY `Eventos_Session` (`Session`);
+
+--
+-- Indices de la tabla `Grados_Perro`
+--
+ALTER TABLE `Grados_Perro`
+ ADD PRIMARY KEY (`Grado`);
+
+--
+-- Indices de la tabla `Guias`
+--
+ALTER TABLE `Guias`
+ ADD PRIMARY KEY (`ID`), ADD KEY `Guias_Nombre` (`Nombre`), ADD KEY `Guias_Club` (`Club`);
+
+--
+-- Indices de la tabla `Inscripciones`
+--
+ALTER TABLE `Inscripciones`
+ ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Inscripciones_PruebaPerro` (`Prueba`,`Perro`), ADD KEY `Inscripciones_Perro` (`Perro`), ADD KEY `Inscripciones_Prueba` (`Prueba`), ADD KEY `Inscripciones_Equipo` (`Equipo`), ADD KEY `Inscripciones_Dorsal` (`Dorsal`);
+
+--
+-- Indices de la tabla `Jornadas`
+--
+ALTER TABLE `Jornadas`
+ ADD PRIMARY KEY (`ID`), ADD KEY `Jornadas_Prueba` (`Prueba`);
+
+--
+-- Indices de la tabla `Jueces`
+--
+ALTER TABLE `Jueces`
+ ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Jueces_Nombre` (`Nombre`);
+
+--
+-- Indices de la tabla `Mangas`
+--
+ALTER TABLE `Mangas`
+ ADD PRIMARY KEY (`ID`), ADD KEY `Mangas_Tipo` (`Tipo`), ADD KEY `Mangas_Grado` (`Grado`), ADD KEY `Mangas_Juez1` (`Juez1`), ADD KEY `Mangas_Juez2` (`Juez2`), ADD KEY `Mangas_Jornada` (`Jornada`);
+
+--
+-- Indices de la tabla `Perros`
+--
+ALTER TABLE `Perros`
+ ADD PRIMARY KEY (`ID`), ADD KEY `Perros_GuiaNombre` (`Guia`), ADD KEY `Perros_Categoria` (`Categoria`), ADD KEY `Perros_Grado` (`Grado`);
+
+--
+-- Indices de la tabla `Provincias`
+--
+ALTER TABLE `Provincias`
+ ADD PRIMARY KEY (`Provincia`), ADD UNIQUE KEY `Provincias_Codigo` (`Codigo`);
+
+--
+-- Indices de la tabla `Pruebas`
+--
+ALTER TABLE `Pruebas`
+ ADD PRIMARY KEY (`ID`), ADD KEY `Pruebas_Club` (`Club`);
+
+--
+-- Indices de la tabla `Resultados`
+--
+ALTER TABLE `Resultados`
+ ADD PRIMARY KEY (`Manga`,`Perro`), ADD KEY `Resultados_Perro` (`Perro`), ADD KEY `Resultados_Manga` (`Manga`), ADD KEY `Resultados_Dorsal` (`Dorsal`), ADD KEY `Resultados_Jornada` (`Jornada`), ADD KEY `Resultados_Prueba` (`Prueba`);
+
+--
+-- Indices de la tabla `Sesiones`
+--
+ALTER TABLE `Sesiones`
+ ADD PRIMARY KEY (`ID`), ADD KEY `Sesiones_Operador` (`Operador`);
+
+--
+-- Indices de la tabla `Tipo_Manga`
+--
+ALTER TABLE `Tipo_Manga`
+ ADD PRIMARY KEY (`ID`), ADD KEY `Descripcion` (`Descripcion`), ADD KEY `Grado` (`Grado`);
+
+--
+-- Indices de la tabla `Usuarios`
+--
+ALTER TABLE `Usuarios`
+ ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Login` (`Login`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `Clubes`
+--
+ALTER TABLE `Clubes`
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=89;
+--
+-- AUTO_INCREMENT de la tabla `Equipos`
+--
+ALTER TABLE `Equipos`
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `Eventos`
+--
+ALTER TABLE `Eventos`
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `Guias`
+--
+ALTER TABLE `Guias`
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=501;
+--
+-- AUTO_INCREMENT de la tabla `Inscripciones`
+--
+ALTER TABLE `Inscripciones`
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `Jornadas`
+--
+ALTER TABLE `Jornadas`
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT de la tabla `Jueces`
+--
+ALTER TABLE `Jueces`
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+--
+-- AUTO_INCREMENT de la tabla `Mangas`
+--
+ALTER TABLE `Mangas`
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `Perros`
+--
+ALTER TABLE `Perros`
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=578;
+--
+-- AUTO_INCREMENT de la tabla `Pruebas`
+--
+ALTER TABLE `Pruebas`
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `Sesiones`
+--
+ALTER TABLE `Sesiones`
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `Tipo_Manga`
+--
+ALTER TABLE `Tipo_Manga`
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT de la tabla `Usuarios`
+--
+ALTER TABLE `Usuarios`
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- Restricciones para tablas volcadas
 --
@@ -1913,87 +2175,85 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Filtros para la tabla `Clubes`
 --
 ALTER TABLE `Clubes`
-  ADD CONSTRAINT `Clubes_ibfk_1` FOREIGN KEY (`Provincia`) REFERENCES `Provincias` (`Provincia`) ON UPDATE CASCADE;
+ADD CONSTRAINT `Clubes_ibfk_1` FOREIGN KEY (`Provincia`) REFERENCES `Provincias` (`Provincia`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Equipos`
 --
 ALTER TABLE `Equipos`
-  ADD CONSTRAINT `Equipos_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `Equipos_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `Eventos`
+--
+ALTER TABLE `Eventos`
+ADD CONSTRAINT `Eventos_ibfk_1` FOREIGN KEY (`Session`) REFERENCES `Sesiones` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Guias`
 --
 ALTER TABLE `Guias`
-  ADD CONSTRAINT `Guias_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `Clubes` (`ID`) ON UPDATE CASCADE;
+ADD CONSTRAINT `Guias_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `Clubes` (`ID`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Inscripciones`
 --
 ALTER TABLE `Inscripciones`
-  ADD CONSTRAINT `Inscripciones_ibfk_1` FOREIGN KEY (`Perro`) REFERENCES `Perros` (`ID`),
-  ADD CONSTRAINT `Inscripciones_ibfk_2` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Inscripciones_ibfk_3` FOREIGN KEY (`Equipo`) REFERENCES `Equipos` (`ID`);
+ADD CONSTRAINT `Inscripciones_ibfk_1` FOREIGN KEY (`Perro`) REFERENCES `Perros` (`ID`),
+ADD CONSTRAINT `Inscripciones_ibfk_2` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON UPDATE CASCADE,
+ADD CONSTRAINT `Inscripciones_ibfk_3` FOREIGN KEY (`Equipo`) REFERENCES `Equipos` (`ID`);
 
 --
 -- Filtros para la tabla `Jornadas`
 --
 ALTER TABLE `Jornadas`
-  ADD CONSTRAINT `Jornadas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `Jornadas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Mangas`
 --
 ALTER TABLE `Mangas`
-  ADD CONSTRAINT `Mangas_ibfk_1` FOREIGN KEY (`Tipo`) REFERENCES `Tipo_Manga` (`ID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_2` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`Juez1`) REFERENCES `Jueces` (`ID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Juez2`) REFERENCES `Jueces` (`ID`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Mangas_ibfk_5` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `Mangas_ibfk_1` FOREIGN KEY (`Tipo`) REFERENCES `Tipo_Manga` (`ID`) ON UPDATE CASCADE,
+ADD CONSTRAINT `Mangas_ibfk_2` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`Juez1`) REFERENCES `Jueces` (`ID`) ON UPDATE CASCADE,
+ADD CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Juez2`) REFERENCES `Jueces` (`ID`) ON UPDATE CASCADE,
+ADD CONSTRAINT `Mangas_ibfk_5` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Perros`
 --
 ALTER TABLE `Perros`
-  ADD CONSTRAINT `Perros_ibfk_1` FOREIGN KEY (`Categoria`) REFERENCES `Categorias_Perro` (`Categoria`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Perros_ibfk_2` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `Perros_ibfk_3` FOREIGN KEY (`Guia`) REFERENCES `Guias` (`ID`) ON UPDATE CASCADE;
+ADD CONSTRAINT `Perros_ibfk_1` FOREIGN KEY (`Categoria`) REFERENCES `Categorias_Perro` (`Categoria`) ON UPDATE CASCADE,
+ADD CONSTRAINT `Perros_ibfk_2` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON UPDATE CASCADE,
+ADD CONSTRAINT `Perros_ibfk_3` FOREIGN KEY (`Guia`) REFERENCES `Guias` (`ID`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Pruebas`
 --
 ALTER TABLE `Pruebas`
-  ADD CONSTRAINT `Pruebas_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `Clubes` (`ID`) ON UPDATE CASCADE;
+ADD CONSTRAINT `Pruebas_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `Clubes` (`ID`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `Resultados`
+--
+ALTER TABLE `Resultados`
+ADD CONSTRAINT `Resultados_ibfk_1` FOREIGN KEY (`Perro`) REFERENCES `Perros` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Mangas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `Resultados_ibfk_3` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `Resultados_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Sesiones`
 --
 ALTER TABLE `Sesiones`
-  ADD CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `Usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-  
---
--- Filtros para la tabla `Eventos`
---
-ALTER TABLE `Eventos`
-  ADD CONSTRAINT `Eventos_ibfk_1` FOREIGN KEY (`Session`) REFERENCES `Sesiones` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-  
---
--- Filtros para la tabla `Resultados`
---
-ALTER TABLE `Resultados`
-  ADD CONSTRAINT `Resultados_ibfk_1` FOREIGN KEY (`Perro`) REFERENCES `Perros` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `Resultados`
-  ADD CONSTRAINT `Resultados_ibfk_2` FOREIGN KEY (`Manga`) REFERENCES `Mangas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `Resultados`
-  ADD CONSTRAINT `Resultados_ibfk_3` FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `Resultados`
-  ADD CONSTRAINT `Resultados_ibfk_4` FOREIGN KEY (`Jornada`) REFERENCES `Jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `Usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `Tipo_Manga`
 --
 ALTER TABLE `Tipo_Manga`
-  ADD CONSTRAINT `Tipo_Manga_ibfk_1` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `Tipo_Manga_ibfk_1` FOREIGN KEY (`Grado`) REFERENCES `Grados_Perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
