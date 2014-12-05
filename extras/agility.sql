@@ -1709,8 +1709,7 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
   `Phone` varchar(255) NOT NULL DEFAULT '',
   `Email` varchar(255) NOT NULL DEFAULT '',
   `Perms` int(4) NOT NULL DEFAULT '5',
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `Usuarios_Login` (`Login`)
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
@@ -1718,8 +1717,8 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
 --
 
 INSERT INTO `Usuarios` (`ID`, `Login`, `Password`, `Gecos`, `Phone`, `Email`, `Perms`) VALUES
-(1, '-- Sin asignar --', '--LOCKED--','NO BORRAR: Usuario por defecto para sesiones anonimas','','',5);
-(2, 'root', '$2y$10$B6wZMNg8mWr0eZP6jTM7ru93cLjPdhC6T9Bb2ts7q8s3jBZ0Wg.TK','Usuario Root','','',0),
+(1, '-- Sin asignar --', '--LOCKED--','NO BORRAR: Usuario por defecto para sesiones anonimas','','',5),
+(2, 'root', 'JDJ5JDEwJHc2Lm50WFhsQUYuWDl2Zm9JbnNVb09TVEVwcllGaHBCQjFQYk12Yk81VzlJWDd0cTNPRnd5','Usuario Root','','',0),
 (3, 'admin', '--UNDEF--','Administrador de la aplicacion','','',1),
 (4, 'operator', '--UNDEF--' ,'Operador de consola','','',2),
 (5, 'assistant', '--UNDEF--','Asistente del juez (tablet)','','',3),
@@ -1746,7 +1745,8 @@ CREATE TABLE IF NOT EXISTS `Sesiones` (
   `Tanda` int(4) NOT NULL DEFAULT '0',
   `LiveStream` varchar(255) DEFAULT NULL,
   `LastModified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ID`),
+  KEY `Sesiones_Operador` (`Operador`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
@@ -1754,11 +1754,11 @@ CREATE TABLE IF NOT EXISTS `Sesiones` (
 --
 
 INSERT INTO `Sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `LiveStream`, `SessionKey`) VALUES
-(1, '-- Sin asignar --', 'NO BORRAR: Sesion por defecto para manejador de eventos','-- Anonimo --','/agility/videos/sample_video.mp4',NULL),
-(2, 'Ring 1', 'Mangas a realizar en el Ring de honor','-- Anonimo --',NULL,NULL),
-(3, 'Ring 2', 'Mangas a realizar en el segundo ring','-- Anonimo --',NULL,NULL),
-(4, 'Ring 3', 'Mangas a realizar en el tercer ring','-- Anonimo --',NULL,NULL),
-(5, 'Ring 4', 'Mangas a realizar en el cuarto ring','-- Anonimo --',NULL,NULL);
+(1, '-- Sin asignar --', 'NO BORRAR: Sesion por defecto para manejador de eventos',1,'/agility/videos/sample_video.mp4',NULL),
+(2, 'Ring 1', 'Mangas a realizar en el Ring de honor',1,NULL,NULL),
+(3, 'Ring 2', 'Mangas a realizar en el segundo ring',1,NULL,NULL),
+(4, 'Ring 3', 'Mangas a realizar en el tercer ring',1,NULL,NULL),
+(5, 'Ring 4', 'Mangas a realizar en el cuarto ring',1,NULL,NULL);
 
 -- --------------------------------------------------------
 

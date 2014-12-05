@@ -73,7 +73,9 @@ class AuthManager {
 		else if (strstr('--LOCK--',$pw)!==FALSE)
 			throw new Exception("Account '$login' is LOCKED");
 		else if (strstr('--NULL--',$pw)===FALSE) { // --NULL-- means no password required
-			if (!password_verify($password,$pw)) // check password against stored one
+			// unencode stored password
+			$pass=base64_decode($pw);
+			if (!password_verify($password,$pass)) // check password against stored one
 				throw new Exception("Login: invalid password for account '$login'");
 		}
 		/* Arriving here means login success */ 
