@@ -209,6 +209,34 @@ function vwi_updateInscripciones(data) {
 	});
 }
 
+function vwos_paintOrdenSalida(prueba,jornada,manga) {
+	// alert("Prueba:"+prueba+" Jornada:"+jornada+" Manga:"+manga);
+}
+
+/**
+ * Refresca periodicamente el orden de salida correspondiente
+ * a la seleccion especificada
+ * Se indica tambien si el perro esta o no pendiente de salir
+ */
+function vwos_updateOrdenSalida(data) {
+	if (data.Jornada==0) { // nada que presentar - operador hace logout
+		// TODO: borra datos
+		workingData.jornada=0;
+		workingData.prueba=0;
+		workingData.manga=0;
+		return;
+	}
+	if ( workingData.jornada != data.Jornada ) { // operador cambia de jornada - hace login 
+		// recupera rondas de la nueva jornada y selecciona la primera
+		// TODO: write
+		// marca nueva jornada como activa
+		workingData.jornada=data.Prueba;
+		workingData.jornada=data.Jornada;
+		workingData.manga=data.Manga;
+	}
+	vwos_paintOrdenSalida(workingData.prueba, workingData.jornada, workingData.manga);
+}
+
 function vwc_processCombinada(id,evt) {
 	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
 	event['ID']=id;
@@ -370,8 +398,7 @@ function vw_processParciales(id,evt) {
  * (This process is executed every minute on 'inscripciones' videowall)
  * 
  * retrieve last 'connect' event for current sessionID
- * get 'Jornada' info from this event
- * and refresh table by invoke "inscritosByJornada"
+ * call updateInscripciones with retrieved data
  */
 function vwi_procesaInscripciones() {
 	$.ajax({
@@ -397,3 +424,32 @@ function vwi_procesaInscripciones() {
 	});
 }
 
+/**
+ * (This process is executed every minute on 'ordensalida' videowall)
+ * 
+ * retrieve last 'connect' event for current sessionID
+ * call updateInscripciones with retrieved data
+ */
+function vwos_procesaOrdenSalida() {
+	$.ajax({
+		type: "GET",
+		url: "/agility/server/database/eventFunctions.php",
+		data: {
+			'Operation' : 'connect',
+			'Session'	: workingData.sesion
+		},
+		async: true,
+		cache: false,
+		success: function(data){
+			var response= eval('(' + data + ')' );
+			if ( response['total']!=0) {
+				var row=response['rows'][0];
+				var info= eval('(' + row.Data + ')' );
+				vwos_updateOrdenSalida(info);
+			}
+		},
+		error: function(XMLHttpRequest,textStatus,errorThrown) {
+			alert("error: "+textStatus + " "+ errorThrown );
+		}
+	});
+}

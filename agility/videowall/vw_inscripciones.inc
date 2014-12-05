@@ -44,6 +44,8 @@ $('#vw_inscripciones-window').window({
 	callback: null, 
 	// 1 minute poll is enouth for this, as no expected changes during a session
 	onOpen: function() {
+		// call once and then fire as timed task
+		vwi_procesaInscripciones();
 		var a=setInterval(vwi_procesaInscripciones,10000);
 		$(this).window.defaults.callback=a; 
 	},
