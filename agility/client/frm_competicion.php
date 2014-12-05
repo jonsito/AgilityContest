@@ -55,4 +55,4 @@ $('#seljornada-window').window('open');
 
 </script>
 
-<img class="mainpage" src="/agility/images/wallpapers/foto_dama.jpg" alt="Dama" width="800" height="400" align="middle"/>
+<img class="mainpage" src="/agility/server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle"/>

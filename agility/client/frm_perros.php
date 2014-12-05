@@ -60,7 +60,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	// propiedades del panel padre asociado
         	fit: true,
         	border: false,
-        	closable: false,
+        	closable: true,
         	collapsible: false,
             expansible: false,
         	collapsed: false,

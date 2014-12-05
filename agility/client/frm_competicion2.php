@@ -61,7 +61,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 $('#competicion_info').panel({
 	title:workingData.nombrePrueba+' -- '+workingData.nombreJornada,
 	border:true,
-	closable:false,
+	closable:true,
 	collapsible:false,
 	collapsed:false
 });

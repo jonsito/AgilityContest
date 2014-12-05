@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
  <!-- CLASIFICACIONES DE PRUEBA/JORNADA/RONDA -->
-<div id="resultados-info" class="easyui-panel" title="Informacion de la Ronda" style="width:100%"
-	data-options="border:true,closable:false,collapsible:false,collapsed:false">
+<div id="resultados-info" style="width:100%">
 	<div id="resultados-infolayout" class="easyui-layout" style="height:200px;">
 		<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px;font-size:9px">
 			<form class="result_forms" id="resultados-info-prueba" method="get">
@@ -59,8 +58,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	
 </div> <!-- panel de informacion -->
 
-<div id="resultados-data" class="easyui-panel" title="Clasificaciones" style="width:100%;height:400px"
-	data-options="border:true,closable:false,collapsible:false,collapsed:false">
+<div id="resultados-data" style="width:100%;height:400px">
 	<table id="resultados-datagrid">
 		<thead>
 			<tr>
@@ -118,6 +116,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 
 <script type="text/javascript">
+
+$('#resultados-data').panel({
+	closable:false,
+	collapsible:false,
+	collapsed:false
+});
+
+$('#resultados-info').panel({
+	title:'Clasificaciones de la Jornada',
+	closable:true,
+	collapsible:false,
+	collapsed:false,
+	onClose:function(){$('#resultados-data').panel('close');}
+});
 
 $('#resultados-infolayout').layout();
 $('#resultados-selectCategoria').combobox({

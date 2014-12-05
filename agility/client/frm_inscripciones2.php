@@ -114,13 +114,14 @@ require_once("dialogs/dlg_editInscripcion.inc");
 $('#inscripciones-info').panel({
 	title:'Informaci&oacute;n de la prueba',
 	border:true,
-	closable:false,
+	closable:true,
 	closed:false,
 	collapsible:true,
-	collapsed:false
+	collapsed:false,
 	// TODO: get this working :-(
 	// onExpand: function() {$('#inscripciones-list').panel('options').height='450px';},
 	// onCollapse: function() {$('#inscripciones-list').panel('options').height='600px';}
+	onClose: function() {$('#inscripciones-datagrid').datagrid('getPanel').panel('close'); }
 });
 
 $('#inscripciones-infolayout').layout();

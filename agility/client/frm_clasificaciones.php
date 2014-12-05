@@ -42,4 +42,4 @@ $('#seljornada-window').window('open');
 
 </script>
 
-<img class="mainpage" src="/agility/images/wallpapers/trio_de_ases.jpg" alt="Trio" align="middle"/>
+<img class="mainpage" src="/agility/images/wallpapers/clasificaciones.jpg" alt="Clasificaciones" width="640" height="480" align="middle"/>

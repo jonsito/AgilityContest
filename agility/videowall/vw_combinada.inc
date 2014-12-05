@@ -32,7 +32,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 						data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false,resizable:true">
 						<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
 					    <video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
-					    	poster="/agility/images/wallpapers/foto_dama.jpg">
+					    	poster="/agility/server/getRandomImage.php">
     						<source src="/agility/videos/sample_video.mp4" type='video/mp4; codecs="avc1,mp4a"' />
     						<!-- ogv se ve muy mal en firefox
     						<source src="/agility/videos/sample_video.ogv" type='video/ogg; codecs="theora,vorbis"' />

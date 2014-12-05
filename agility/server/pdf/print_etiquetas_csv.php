@@ -61,7 +61,7 @@ class CSV  {
 		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
 		$this->resultados=$resultados;
 		// evaluage logo info
-		$this->icon="welpe.png";
+		$this->icon="rsce.png";
 		if (isset($this->club)) $this->icon=$this->club->Logo;
 	}
 	

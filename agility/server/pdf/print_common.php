@@ -58,7 +58,7 @@ class PrintCommon extends FPDF {
 		if ($jornada!=0) $this->jornada=$this->myDBObject->__getObject("Jornadas",$jornada);
 		else $this->jornada=null;
 		// evaluage logo info
-		$this->icon="welpe.png";
+		$this->icon="rsce.png";
 		if (isset($this->club)) $this->icon=$this->club->Logo;
 	}
 	/**
