@@ -66,8 +66,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	        <label id="edit_inscripcion-Observacioneslbl" for="Observaciones">Observaciones:</label>
 	        <input id="edit_inscripcion-Observaciones" type="text" name="Observaciones"/>
 	        <label id="edit_inscripcion-Pagadolbl"	for="Pagado">Pagado: </label>
- 	  		<input id="edit_inscripcion-Pagado" 	name="Pagado" 
- 	  			class="easyui-validatebox" type="text" style="text-align:right;padding-right:5px"/>
+ 	  		<input id="edit_inscripcion-Pagado" 	name="Pagado" type="text" style="text-align:right;padding-right:5px"/>
  	  		<span id="edit_inscripcion-PagadoEuro">&euro;</span>
         </form> 
     </div>
@@ -76,7 +75,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
     
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-	<div id="edit_inscripcion-dlg-buttons" style="padding:5px">
+	<div id="edit_inscripcion-dlg-buttons" style="width:100%;inline:block">
 		<span style="float:left">
 	   		<a id="edit_inscripcion-editDogBtn" href="#" class="easyui-linkbutton"
 	   			data-options="iconCls:'icon-dog'">Modificar</a>

@@ -374,7 +374,7 @@ class OrdenSalida extends DBObject {
 		$nuevo=$this->getOrden($hermanas[0]->ID);
 		$this->myLogger->trace("El orden de salida nuevo para manga:$manga jornada:$jornada es:\n$nuevo");
 		$this->myLogger->leave();
-		return $ordensalida;
+		return $nuevo;
 	}
 	
 	function dragAndDrop($jornada,$manga,$from,$to,$where) {

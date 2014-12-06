@@ -154,7 +154,7 @@ function editrow(target){
 function deleterow(target){
 	$.messager.confirm('Confirmar','Borrar resultados del participante <br/> ¿Seguro?',function(r){
 		if (r){
-			var editIndex=getRowIndex(target)
+			var editIndex=getRowIndex(target);
 			var data=$('#competicion-datagrid').datagrid('getRows')[editIndex];
 			data.Faltas=0;
 			data.Tocados=0;
@@ -169,7 +169,7 @@ function deleterow(target){
 	});
 };
 function saverow(target){
-	var editIndex=getRowIndex(target)
+	var editIndex=getRowIndex(target);
 	$('#competicion-datagrid').datagrid('endEdit', editIndex );
 	var data=$('#competicion-datagrid').datagrid('getRows')[editIndex];
 	data.Pendiente=0;

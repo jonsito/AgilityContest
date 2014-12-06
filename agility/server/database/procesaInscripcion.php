@@ -49,8 +49,8 @@ function borraPerroDeJornada($inscripcion,$jornada,$perro) {
 		// eliminamos el perro del orden de salida de todas las mangas de esta jornada
 		$os=new OrdenSalida("borraPerroDeJornada");
 		$orden=$os->getOrden($manga['ID']);
-		$os->removeFromList($orden, $inscripcion['Perro']);
-		$os->setOrden($manga['ID'], $orden);
+		$neworden=$os->removeFromList($orden, $inscripcion['Perro']);
+		$os->setOrden($manga['ID'], $neworden);
 		// eliminamos el perro de la tabla de resultados de todas las mangas de esta jornada
 		$rs=new Resultados("borraPerroDeJornada",$jornada['Prueba'],$manga['ID']);
 		$rs->delete($inscripcion['Perro']);
@@ -180,11 +180,11 @@ function procesaInscripcion($p,$i) {
 		// contrastamos la lista de jornadas de la prueba con la lista de jornadas en las que esta inscrito
 		foreach($jp['rows'] as $jornada) {
 			$numj=$jornada['Numero']-1; // obtenemos el numero de jornada
+			$idj=$jornada['ID'];
 			if ($jornada['Cerrada']==1) {
 				$myLogger->info("La jornada $idj de la prueba $p esta cerrada");
 				continue; // no tocamos las jornadas cerradas
 			}
-			$idj=$jornada['ID'];
 			if ( ($inscripcion['Jornadas'] & (1<<$numj)) != 0) {
 				$myLogger->info("El perro $idp esta inscrito en la jornada $idj de la prueba $p");
 				inscribePerroEnJornada($inscripcion,$jornada,$perro);

@@ -215,16 +215,18 @@ function competicionKeyEventHandler(evt) {
     function selectRow(t,up){
     	var count = t.datagrid('getRows').length;    // row count
     	var selected = t.datagrid('getSelected');
+    	var res=true;
     	if (selected){
         	var index = t.datagrid('getRowIndex', selected);
         	index = index + (up ? -1 : 1);
-        	if (index < 0) index = 0;
-        	if (index >= count) index = count - 1;
+        	if (index < 0) { res=false; index = 0;}
+        	if (index >= count) { res=false; index = count - 1; }
         	t.datagrid('clearSelections');
         	t.datagrid('selectRow', index);
     	} else {
         	t.datagrid('selectRow', (up ? count-1 : 0));
     	}
+    	return res; // tell caller if index overflows
 	}
 
 	function editRow(t) {
@@ -269,8 +271,8 @@ function competicionKeyEventHandler(evt) {
         	saveCompeticionData(editIndex,data);
         	// and open edition on next row
         	dg.datagrid('selectRow', editIndex); // previous focus is lost
-        	selectRow(dg,false); // move down one row
-        	editRow(dg);
+        	var res=selectRow(dg,false); // move down one row
+        	if (res) editRow(dg); // and edit except if we already was at bottom
         	return false;
         case 27:	/* Esc */ 
             dg.datagrid('cancelEdit', editIndex);	
@@ -518,8 +520,10 @@ function competicionDialog(name) {
     	return; // no hay ninguna manga seleccionada. retornar
     }
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada;
+    // $('#ordentandas-toolbar').css('display','inherit');
     $('#ordentandas-window').window('close');
     $('#ordensalida-window').window('close');
+    // $('#competicion-toolbar').css('display','inherit');
     $('#competicion-window').window('close');
     $('#resultadosmanga-window').window('close');
     if (name==='ordentandas') {
