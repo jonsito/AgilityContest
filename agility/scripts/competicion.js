@@ -235,7 +235,10 @@ function competicionKeyEventHandler(evt) {
 		var index = t.datagrid('getRowIndex', selected);
         t.datagrid('beginEdit',index);
 		var ed = $(t).datagrid('getEditor', {index:index,field:'Faltas'});
-		$(ed.target).next().find('input').focus();
+		// mark as selected contents on first field
+		var input=$(ed.target).next().find('input');
+		input.focus();
+		input.select();
 	}
 	
 	var dg=$('#competicion-datagrid');
@@ -329,13 +332,25 @@ function reloadParcial(val) {
 	var value=parseInt(val); // stupid javascript!!
 	switch (parseInt(workingData.datosManga.Recorrido)) {
 	case 0: //  large / medium / small
-		switch(value) {	case 0: mode=0; break; case 1: mode=1; break; case 2: mode=2; break; }
+		switch(value) {	
+			case 0: mode=0; break; 
+			case 1: mode=1; break; 
+			case 2: mode=2; break; 
+		}
 		break;
 	case 1: // large / medium+small
-		switch(value) {	case 0: mode=0; break; case 1: mode=3; break; case 2: mode=3; break; /* invalido*/	}
+		switch(value) {	
+			case 0: mode=0; break; 
+			case 1: mode=3; break; 
+			case 2: return; /* invalido */
+		}
 		break;
 	case 2: // large+medium+small
-		switch(value) {	case 0: mode=4; break; 	case 1: mode=4; break; /* invalido */ case 2: mode=4; break; /* invalido */	}
+		switch(value) {	
+			case 0: mode=4; break; 	
+			case 1: return; /* invalido */ 
+			case 2: return; /* invalido */	
+		}
 		break;
 	}
 	// reload resultados
@@ -520,10 +535,8 @@ function competicionDialog(name) {
     	return; // no hay ninguna manga seleccionada. retornar
     }
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada;
-    // $('#ordentandas-toolbar').css('display','inherit');
     $('#ordentandas-window').window('close');
     $('#ordensalida-window').window('close');
-    // $('#competicion-toolbar').css('display','inherit');
     $('#competicion-window').window('close');
     $('#resultadosmanga-window').window('close');
     if (name==='ordentandas') {
@@ -553,6 +566,8 @@ function competicionDialog(name) {
         // marcamos la primera opcion como seleccionada
         $('#resultadosmanga-LargeBtn').prop('checked','checked');
         // y recargarmos resultados parciales
+        reloadParcial(2);
+        reloadParcial(1);
         reloadParcial(0);
     }
 }

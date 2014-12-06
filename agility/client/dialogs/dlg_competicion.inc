@@ -43,7 +43,15 @@ $('#competicion-window').window({
 	resizable:true,
 	iconCls:'icon-table',
 	closed:true,
-	modal:true
+	modal:true,
+	onBeforeClose: function() {
+		var dg=$('#competicion-datagrid');
+		var editIndex=dg.datagrid('options').editIndex;
+		if (editIndex<0) return true;
+		// do not allow close on editing active
+		$.messager.alert('Error','Debe guardar o cancelar la edición antes de cerrar la ventana','error');
+		return false;
+	}
 });
 
 $('#competicion-datagrid').datagrid({
@@ -124,8 +132,12 @@ $('#competicion-datagrid').datagrid({
 	onDblClickRow:function(index,row) {
 		if( $(this).datagrid('options').editIndex!=-1) return; // on editing ignore double click
 		$(this).datagrid('beginEdit',index);
+		// focus and first field and select contents
 		var ed = $(this).datagrid('getEditor', {index:index,field:'Faltas'});
-		$(ed.target).next().find('input').focus();
+		var input=$(ed.target).next().find('input');
+		input.focus();
+		input.select();
+		// input.setSelectionRange(0, input.value.length);
 	},
 	// actualizacion de los iconos save/edit/delete/cancel
 	onBeforeEdit:function(index,row){ $(this).datagrid('options').editIndex=index; row.editing = true; updateActions(index); },
