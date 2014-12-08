@@ -28,7 +28,8 @@ function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); }
  */
 function loadContents(page,title) {
 	$('#mymenu').panel('collapse');
-	$('#contenido').html('');
+	$('#contenido').remove();
+	$('#mycontent').html('<span id="contenido"></span>');
 	$('#contenido').load(	
 			page,
 			{},
