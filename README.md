@@ -24,7 +24,10 @@ Features:
 
 (*) Some of these features are still under development :-(
 
-Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+Agility Contest is Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+
+AgilityContest Logo is based on an original work from Britta Schweikl 
+at http://www.hundestempel.de/ and included in this program with her permission
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

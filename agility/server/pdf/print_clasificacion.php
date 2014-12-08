@@ -170,7 +170,7 @@ class PDF extends PrintCommon {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		$offset=($this->PageNo()==1)?80:55;
 		$this->SetXY(10, $offset + 7*$idx ); // first page has 3 extra header lines
-		$fill=(($idx%2)==0)?true:false;
+		$fill=(($idx%2)!=0)?true:false;
 		
 		// fomateamos datos
 		$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
