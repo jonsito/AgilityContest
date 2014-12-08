@@ -28,16 +28,9 @@ function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); }
  */
 function loadContents(page,title) {
 	$('#mymenu').panel('collapse');
-	$('#contenido').remove();
-	$('#mycontent').html('<span id="contenido"></span>');
-	$('#contenido').load(	
-			page,
-			{},
-			function(response,status,xhr){
-				setHeader(title);
-				if (status=='error') $('#contenido').load('/agility/client/frm_notavailable.php');
-			}
-		);
+	$('#contenido').panel('clear');
+	$('#contenido').panel('refresh',page);
+	setHeader(title);
 }
 
 /**

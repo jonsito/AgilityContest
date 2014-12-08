@@ -40,8 +40,8 @@ function initialize() {
 	setHeader("");
 	$('#mymenu').mouseenter(function(){$('#mymenu').panel('expand');})
 	$('#mymenu').mouseleave(function(){$('#mymenu').panel('collapse');})
+	
 	// make sure that every ajax call provides sessionKey
-
 	$.ajaxSetup({
 	  beforeSend: function(jqXHR, settings) {
 		if (!workingData.sessionKey) return;
@@ -49,6 +49,9 @@ function initialize() {
 	    return true;
 	  }
 	});
+	
+	// load a default page
+	loadContents("/agility/client/frm_main.php","");
 }
 </script>
 
@@ -111,9 +114,7 @@ function initialize() {
 	
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 <div id="mycontent">
-<span id="contenido">
-<img class="mainpage" src="/agility/images/wallpapers/portada.jpg" alt="Portada" width="640" height="480"/>
-</span>
+	<div id="contenido" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false,"></div>
 </div>
 
 </body>

@@ -32,13 +32,13 @@ require_once("dialogs/dlg_editInscripcion.inc");
 ?>
 
 <!-- PANEL INFORMATIVO SOBRE LA PRUEBA Y JORNADAS ASOCIADAS -->
-<div id="inscripciones-info">
+<div id="inscripciones-info" style="width:100%">
 	
 	<div id="inscripciones-infolayout" class="easyui-layout" style="height:150px">
 	
 		<!-- PANEL IZQUIERDO: DATOS DE LA PRUEBA -->
 		<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" 
-			style="width:300px;padding:10px" class="c_inscripciones-datosprueba">
+			style="width:30%;padding:10px" class="c_inscripciones-datosprueba">
 			<form id="inscripciones-pruebas" method="get" >
 			<input type="hidden" name="ID"/>
 			<input type="hidden" name="Club"/>
@@ -62,7 +62,7 @@ require_once("dialogs/dlg_editInscripcion.inc");
 		</div>
 		
 		<!-- PANEL DERECHO: LISTA DE JORNADAS -->
-		<div data-options="region:'center',title:'Lista de jornadas de la prueba'" style="width:500px">
+		<div data-options="region:'center',title:'Lista de jornadas de la prueba'" style="width:70%">
 			<table id="inscripciones-jornadas"></table>
 		</div>
 		
