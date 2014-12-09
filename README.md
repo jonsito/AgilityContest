@@ -1,5 +1,6 @@
 AgilityContest
 ==============
+![alt tag](https://raw.github.com/jonsito/AgilityContest/master/agility/images/AgilityContest.png)
 
 A web client-server (xampp) app to organize, register and show results for FCI Dog Agility Contests
 
