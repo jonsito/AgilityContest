@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="competicion-window"style="width:900px;height:450px;padding:5px">
+<div id="competicion-dialog"style="width:900px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
 	<table id="competicion-datagrid" style="padding:5px"></table>
 </div>
@@ -36,7 +36,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 
 <script type="text/javascript">
-$('#competicion-window').window({
+$('#competicion-dialog').dialog({
 	collapsible:false,
 	minimizable:false,
 	maximizable:false,

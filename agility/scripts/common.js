@@ -21,13 +21,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  */
 function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); } 
 
+var slaveDialogs = new Object();
+
 /**
  * Load html contents from 'page' URL and set as contents on '#contenido' tag
  * @param page URL where to retrieve HTML data
  * @param title new page title
+ * @param slaves list of dialogs to .destroy() on next loadContents
  */
-function loadContents(page,title) {
+function loadContents(page,title,slaves) {
 	$('#mymenu').panel('collapse');
+	$.each(slaveDialogs,function(key,val) { $(val).dialog('panel').panel('clear'); } ); 
+	slaveDialogs=(slaves===undefined)?{}:slaves;
 	$('#contenido').panel('clear');
 	$('#contenido').panel('refresh',page);
 	setHeader(title);

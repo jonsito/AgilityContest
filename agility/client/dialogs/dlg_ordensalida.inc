@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="ordensalida-window" style="width:800px;height:450px;padding:5px">
+<div id="ordensalida-dialog" style="width:800px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
 	<table id="ordensalida-datagrid" style="padding:5px"></table>
 </div>
@@ -41,7 +41,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 
 <script type="text/javascript">
-$('#ordensalida-window').window({
+$('#ordensalida-dialog').dialog({
 	collapsible:	false,
 	minimizable:	false,
 	maximizable:	false,
@@ -105,7 +105,7 @@ $('#ordensalida-datagrid').datagrid({
 
 // Activa tecla ESC (escape) para cerrar ventana
 $('#ordensalida-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-	if (e.keyCode==27) $('#ordensalida-window').window('close'); 
+	if (e.keyCode==27) $('#ordensalida-dialog').window('close'); 
 	return false;
 });
 

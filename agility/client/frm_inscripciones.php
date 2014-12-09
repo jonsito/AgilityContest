@@ -56,7 +56,7 @@ $('#selprueba-window').window({
 			page="/agility/client/frm_inscripciones2.php";
 			title="Inscripciones - Formulario de registro"
 		}
-		loadContents(page,title);
+		loadContents(page,title,{'inscripciones':'#new_inscripcion-dialog', 'equipos':'#team_datagrid-dialog'});
 	}
 });
 

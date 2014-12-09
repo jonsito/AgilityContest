@@ -535,32 +535,32 @@ function competicionDialog(name) {
     	return; // no hay ninguna manga seleccionada. retornar
     }
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada;
-    $('#ordentandas-window').window('close');
-    $('#ordensalida-window').window('close');
-    $('#competicion-window').window('close');
-    $('#resultadosmanga-window').window('close');
+    $('#ordentandas-dialog').dialog('close');
+    $('#ordensalida-dialog').dialog('close');
+    $('#competicion-dialog').dialog('close');
+    $('#resultadosmanga-dialog').dialog('close');
     if (name==='ordentandas') {
         // abrimos ventana de dialogo
-        $('#ordentandas-window').window('open').window('setTitle',"Jornada: "+title);
+        $('#ordentandas-dialog').dialog('open').dialog('setTitle',"Jornada: "+title);
         // cargamos ventana de orden de salida
         reloadOrdenTandas();
     }
     title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
     if (name==='ordensalida') {
         // abrimos ventana de dialogo
-        $('#ordensalida-window').window('open').window('setTitle'," Orden de Salida: "+title);
+        $('#ordensalida-dialog').dialog('open').dialog('setTitle'," Orden de Salida: "+title);
         // cargamos ventana de orden de salida
         reloadOrdenSalida();
     }
     if (name==='competicion') {
         // abrimos ventana de dialogo
-        $('#competicion-window').window('open').window('setTitle'," Entrada de datos: "+title);
+        $('#competicion-dialog').dialog('open').dialog('setTitle'," Entrada de datos: "+title);
         // cargamos ventana de entrada de datos
         reloadCompeticion();
     }
     if (name==='resultadosmanga') {
         // abrimos ventana de dialogo
-        $('#resultadosmanga-window').window('open').window('setTitle'," Resultados de la manga: "+title);
+        $('#resultadosmanga-dialog').dialog('open').dialog('setTitle'," Resultados de la manga: "+title);
         // cargamos ventana de presentacion de resultados parciales
         reloadResultadosManga(row.Recorrido);
         // marcamos la primera opcion como seleccionada

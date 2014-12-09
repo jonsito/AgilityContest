@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!--  dialogo de orden de tandas e introduccion de datos de una competicion -->
-<div id="ordentandas-window" style="width:350px;height:450px;padding:5px">
+<div id="ordentandas-dialog" style="width:350px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
 	<table id="ordentandas-datagrid" style="padding:5px"></table>
 </div>
@@ -36,7 +36,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
-$('#ordentandas-window').window({
+$('#ordentandas-dialog').dialog({
 	collapsible:false,
 	minimizable:false,
 	maximizable:false,
@@ -91,7 +91,7 @@ $('#ordentandas-datagrid').datagrid({
 
 // Activa tecla ESC (escape) para cerrar ventana
 $('#ordentandas-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-	if (e.keyCode==27) $('#ordentandas-window').window('close'); 
+	if (e.keyCode==27) $('#ordentandas-dialog').dialog('close'); 
 	return false;
 });
 

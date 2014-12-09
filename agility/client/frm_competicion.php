@@ -22,8 +22,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 // display prueba selection dialog
 $('#seljornada-window').window({
 	onClose: function () {
+		// default values
 		var extra="";
 		var page="/agility/client/frm_main.php";
+		var dialogs= {'t':'#ordentandas-dialog','s':'#ordensalida-dialog','c':'#competicion-dialog'};
+		
 		// no jornada selected load main menu
 		if (workingData.jornada==0) {
 			loadContents(page,'');
@@ -33,20 +36,24 @@ $('#seljornada-window').window({
 		if (workingData.datosJornada.Equipos3==1) {
 			page="/agility/client/frm_competicion_eq3.php";
 			extra=" ( Equipos -3 mejores- )";
+			dialogs= {};
 		}
 		if (workingData.datosJornada.Equipos4==1) {
 			page="/agility/client/frm_competicion_eq4.php";
 			extra=" ( Equipos -conjunta- )";
+			dialogs= {};
 		}
 		if (workingData.datosJornada.Open==1) {
 			page="/agility/client/frm_competicion_open.php";
 			extra=" ( Abierta )";
+			dialogs= {};
 		}
 		if (workingData.datosJornada.KO==1) {
 			page="/agility/client/frm_competicion_ko.php";
 			extra=" ( Mangas K.O. )";
+			dialogs= {};
 		}
-		loadContents(page,'Desarrollo de la jornada'+extra);
+		loadContents( page, 'Desarrollo de la jornada'+extra, dialogs );
 	} 
 });
 

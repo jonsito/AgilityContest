@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!--  dialogo de presentacion de resultados parciales de una manga -->
-<div id="resultadosmanga-window" style="width:800px;height:450px;padding:0px 10px 100px 10px">
+<div id="resultadosmanga-dialog" style="width:800px;height:450px;padding:0px 10px 100px 10px">
 
 	<!-- BARRA DE TAREAS DE RESULTADOS PARCIALES DE MANGA -->
 	<div id="resultadosmanga-toolbar">
@@ -69,7 +69,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 <script type="text/javascript">
 
-$('#resultadosmanga-window').window({
+$('#resultadosmanga-dialog').dialog({
 	collapsible:	false,
 	minimizable:	false,
 	maximizable:	false,
@@ -132,7 +132,7 @@ $('#resultadosmanga-datagrid').datagrid({
 
 //Activa tecla ESC (escape) para cerrar ventana
 $('#resultadosmanga-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-	if (e.keyCode==27) $('#resultadosmanga-window').window('close'); 
+	if (e.keyCode==27) $('#resultadosmanga-dialog').dialog('close'); 
 	return false;
 });
 
