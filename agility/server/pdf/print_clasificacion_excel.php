@@ -79,9 +79,16 @@ class Excel {
 		echo pack("ss", 0x0A, 0x00);
 		return;
 	}
+
+	// Function to write a Number (double) into Row, Col
+	function xlsNumber($Row, $Col, $Value) {
+		echo pack("sssss", 0x203, 14, $Row, $Col, 0x0);
+		echo pack("d", $Value);
+		return;
+	}
 	
 	// this will write text in the cell you specify
-	function xlsCell($Row, $Col, $Value ) {
+	function xlsLabel($Row, $Col, $Value ) {
 		$L = strlen($Value);
 		echo pack("ssssss", 0x204, 8 + $L, $Row, $Col, 0x0, $L);
 		echo $Value;
@@ -98,34 +105,34 @@ class Excel {
 		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria;
 		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
 		
-		$this->xlsCell(0,0,"Prueba");
-			$this->xlsCell(0,1,$this->prueba->Nombre);
-		$this->xlsCell(1,0,"Jornada");
-			$this->xlsCell(1,1,$this->jornada->Nombre);
-		$this->xlsCell(2,0,"Fecha");
-			$this->xlsCell(2,1,$this->jornada->Fecha);
-		$this->xlsCell(3,0,"Ronda");
-			$this->xlsCell(3,1, "$ronda - {$this->categoria}");
-		$this->xlsCell(4,0,"Juez 1");
-			$this->xlsCell(4,1,($j1==="-- Sin asignar --")?"":$j1);
-		$this->xlsCell(5,0,"Juez 2");
-			$this->xlsCell(5,1,($j2==="-- Sin asignar --")?"":$j2);
-		$this->xlsCell(6,0,"Manga 1");
+		$this->xlsLabel(0,0,"Prueba");
+			$this->xlsLabel(0,1,iconv( "UTF-8", "ISO-8859-1",$this->prueba->Nombre));
+		$this->xlsLabel(1,0,"Jornada");
+			$this->xlsLabel(1,1,iconv( "UTF-8", "ISO-8859-1",$this->jornada->Nombre));
+		$this->xlsLabel(2,0,"Fecha");
+			$this->xlsLabel(2,1,$this->jornada->Fecha);
+		$this->xlsLabel(3,0,"Ronda");
+			$this->xlsLabel(3,1, "$ronda - {$this->categoria}");
+		$this->xlsLabel(4,0,"Juez 1");
+			$this->xlsLabel(4,1,iconv( "UTF-8", "ISO-8859-1",($j1==="-- Sin asignar --")?"":$j1));
+		$this->xlsLabel(5,0,"Juez 2");
+			$this->xlsLabel(5,1,iconv( "UTF-8", "ISO-8859-1",($j2==="-- Sin asignar --")?"":$j2));
+		$this->xlsLabel(6,0,"Manga 1");
 			$trs=$this->trs1;
-			$this->xlsCell(6,1,$tm1);
-			$this->xlsCell(6,2,"Dist.: {$trs['dist']}m");
-			$this->xlsCell(6,3,"Obst.: {$trs['obst']}");
-			$this->xlsCell(6,4,"TRS: {$trs['trs']}s");
-			$this->xlsCell(6,5,"TRM: {$trs['trm']}s");
-			$this->xlsCell(6,6,"Vel.: {$trs['vel']}m/s");
-		$this->xlsCell(7,0,"Manga 2");
+			$this->xlsLabel(6,1,$tm1);
+			$this->xlsLabel(6,2,"Dist.: {$trs['dist']}m");
+			$this->xlsLabel(6,3,"Obst.: {$trs['obst']}");
+			$this->xlsLabel(6,4,"TRS: {$trs['trs']}s");
+			$this->xlsLabel(6,5,"TRM: {$trs['trm']}s");
+			$this->xlsLabel(6,6,"Vel.: {$trs['vel']}m/s");
+		$this->xlsLabel(7,0,"Manga 2");
 			$trs=$this->trs2;
-			$this->xlsCell(7,1,$tm2);
-			$this->xlsCell(7,2,"Dist.: {$trs['dist']}m");
-			$this->xlsCell(7,3,"Obst.: {$trs['obst']}");
-			$this->xlsCell(7,4,"TRS: {$trs['trs']}s");
-			$this->xlsCell(7,5,"TRM: {$trs['trm']}s");
-			$this->xlsCell(7,6,"Vel.: {$trs['vel']}m/s");
+			$this->xlsLabel(7,1,$tm2);
+			$this->xlsLabel(7,2,"Dist.: {$trs['dist']}m");
+			$this->xlsLabel(7,3,"Obst.: {$trs['obst']}");
+			$this->xlsLabel(7,4,"TRS: {$trs['trs']}s");
+			$this->xlsLabel(7,5,"TRM: {$trs['trm']}s");
+			$this->xlsLabel(7,6,"Vel.: {$trs['vel']}m/s");
 	}
 	
 	function write_TableHeader() {
@@ -133,35 +140,35 @@ class Excel {
 		$base=10; // primera cabecera
 		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
 		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
-		$this->xlsCell($base,0,"Datos del participante");
-		$this->xlsCell($base,7,$tm1);
-		$this->xlsCell($base,13,$tm2);
-		$this->xlsCell($base,19,"Clasificacion");
+		$this->xlsLabel($base,0,"Datos del participante");
+		$this->xlsLabel($base,7,$tm1);
+		$this->xlsLabel($base,13,$tm2);
+		$this->xlsLabel($base,19,"Clasificacion");
 		
 		$base=11; // segunda cabecera
-		$this->xlsCell($base,0,"Dorsal");
-		$this->xlsCell($base,1,"Nombre");
-		$this->xlsCell($base,2,"Licencia");
-		$this->xlsCell($base,3,"Categoria");
-		$this->xlsCell($base,4,"Grado");
-		$this->xlsCell($base,5,"Guia");
-		$this->xlsCell($base,6,"Club");
-		$this->xlsCell($base,7,"Faltas");
-		$this->xlsCell($base,8,"Rehuses");
-		$this->xlsCell($base,9,"Tiempo");
-		$this->xlsCell($base,10,"Velocidad");
-		$this->xlsCell($base,11,"Penalizacion");
-		$this->xlsCell($base,12,"Calificacion");
-		$this->xlsCell($base,13,"Faltas");
-		$this->xlsCell($base,14,"Rehuses");
-		$this->xlsCell($base,15,"Tiempo");
-		$this->xlsCell($base,16,"Velocidad");
-		$this->xlsCell($base,17,"Penalizacion");
-		$this->xlsCell($base,18,"Calificacion");
-		$this->xlsCell($base,19,"Tiempo");
-		$this->xlsCell($base,20,"Penalizacion");
-		$this->xlsCell($base,21,"Calificacion");
-		$this->xlsCell($base,22,"Puesto");
+		$this->xlsLabel($base,0,"Dorsal");
+		$this->xlsLabel($base,1,"Nombre");
+		$this->xlsLabel($base,2,"Licencia");
+		$this->xlsLabel($base,3,"Categoria");
+		$this->xlsLabel($base,4,"Grado");
+		$this->xlsLabel($base,5,"Guia");
+		$this->xlsLabel($base,6,"Club");
+		$this->xlsLabel($base,7,"Faltas");
+		$this->xlsLabel($base,8,"Rehuses");
+		$this->xlsLabel($base,9,"Tiempo");
+		$this->xlsLabel($base,10,"Velocidad");
+		$this->xlsLabel($base,11,"Penalizacion");
+		$this->xlsLabel($base,12,"Calificacion");
+		$this->xlsLabel($base,13,"Faltas");
+		$this->xlsLabel($base,14,"Rehuses");
+		$this->xlsLabel($base,15,"Tiempo");
+		$this->xlsLabel($base,16,"Velocidad");
+		$this->xlsLabel($base,17,"Penalizacion");
+		$this->xlsLabel($base,18,"Calificacion");
+		$this->xlsLabel($base,19,"Tiempo");
+		$this->xlsLabel($base,20,"Penalizacion");
+		$this->xlsLabel($base,21,"Calificacion");
+		$this->xlsLabel($base,22,"Puesto");
 	}
 	
 	function write_TableCell($idx,$row) {
@@ -178,29 +185,29 @@ class Excel {
 		
 		$base=$idx+12;
 
-		$this->xlsCell($base,0,$row['Dorsal']);
-		$this->xlsCell($base,1,iconv( "UTF-8", "ISO-8859-1",$row['Nombre']));
-		$this->xlsCell($base,2,$row['Licencia']);
-		$this->xlsCell($base,3,$row['Categoria']);
-		$this->xlsCell($base,4,$row['Grado']);
-		$this->xlsCell($base,5,iconv( "UTF-8", "ISO-8859-1",$row['NombreGuia']));
-		$this->xlsCell($base,6,iconv( "UTF-8", "ISO-8859-1",$row['NombreClub']));
-		$this->xlsCell($base,7,$row['F1']);
-		$this->xlsCell($base,8,$row['R1']);
-		$this->xlsCell($base,9,$t1);
-		$this->xlsCell($base,10,$v1);
-		$this->xlsCell($base,11,$p1);
-		$this->xlsCell($base,12,$row['C1']);
-		$this->xlsCell($base,13,$row['F2']);
-		$this->xlsCell($base,14,$row['R2']);
-		$this->xlsCell($base,15,$t2);
-		$this->xlsCell($base,16,$v2);
-		$this->xlsCell($base,17,$p2);
-		$this->xlsCell($base,18,$row['C2']);
-		$this->xlsCell($base,19,$t1+$t2);
-		$this->xlsCell($base,20,$penal);
-		$this->xlsCell($base,21,$row['Calificacion']);
-		$this->xlsCell($base,22,$puesto);
+		$this->xlsNumber($base,0,$row['Dorsal']);
+		$this->xlsLabel($base,1,iconv( "UTF-8", "ISO-8859-1",$row['Nombre']));
+		$this->xlsLabel($base,2,$row['Licencia']);
+		$this->xlsLabel($base,3,$row['Categoria']);
+		$this->xlsLabel($base,4,$row['Grado']);
+		$this->xlsLabel($base,5,iconv( "UTF-8", "ISO-8859-1",$row['NombreGuia']));
+		$this->xlsLabel($base,6,iconv( "UTF-8", "ISO-8859-1",$row['NombreClub']));
+		$this->xlsNumber($base,7,$row['F1']);
+		$this->xlsNumber($base,8,$row['R1']);
+		$this->xlsNumber($base,9,$t1);
+		$this->xlsNumber($base,10,$v1);
+		$this->xlsNumber($base,11,$p1);
+		$this->xlsLabel($base,12,$row['C1']);
+		$this->xlsNumber($base,13,$row['F2']);
+		$this->xlsNumber($base,14,$row['R2']);
+		$this->xlsNumber($base,15,$t2);
+		$this->xlsNumber($base,16,$v2);
+		$this->xlsNumber($base,17,$p2);
+		$this->xlsLabel($base,18,$row['C2']);
+		$this->xlsNumber($base,19,$t1+$t2);
+		$this->xlsNumber($base,20,$penal);
+		$this->xlsLabel($base,21,$row['Calificacion']);
+		$this->xlsLabel($base,22,$puesto);
 	}
 	
 	function composeTable() {
