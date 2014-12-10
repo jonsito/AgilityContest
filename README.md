@@ -19,7 +19,7 @@ Features:
 - Guest access from phones/tablet (with proper WIFI support)
 - On Screen Display support for LiveStream video (needs WebCam and/or videostream server)
 - PDF printout of inscriptions, competition order, results, labels, etc
-- XML Import/Export support for contest results *
+- Export contest results in MS-Excel format to ease data management
 - Preliminary support for non-FCI federations
 - Internationalization*
 

@@ -62,10 +62,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<table id="resultados-datagrid">
 		<thead>
 			<tr>
-				<th colspan="6"> <span class="resultados_theader">Datos del participante</span></th>
+				<th colspan="7"> <span class="resultados_theader">Datos del participante</span></th>
 			    <th colspan="6"> <span class="resultados_theader" id="resultados_thead_m1">Manga 1</span></th>
 			    <th colspan="6"> <span class="resultados_theader" id="resultados_thead_m2">Manga 2</span></th>
-			    <th colspan="3"> <span class="resultados_theader">Clasificaci&oacute;n</span></th>
+			    <th colspan="4"> <span class="resultados_theader">Clasificaci&oacute;n</span></th>
 		    </tr>
 		    <tr>
 		    	<!-- 
@@ -73,11 +73,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	     		-->
 	    		<th data-options="field:'Dorsal',		width:20, align:'left'" > Dors.</th>
 	    		<th data-options="field:'Nombre',		width:35, align:'left'" > Nombre</th>
-	    		<!-- 
-	   			<th data-options="field:'Licencia',		hidden:true" ></th>
-	    		-->
+	   			<th data-options="field:'Licencia',		width:15, align:'center'" > Lic.</th>
 	   			<th data-options="field:'Categoria',	width:15, align:'center'" > Cat.</th>
-	   			<th data-options="field:'Grado',		width:20, align:'center'" > Grd.</th>
+	   			<th data-options="field:'Grado',		width:15, align:'center'" > Grd.</th>
 	    		<th data-options="field:'NombreGuia',	width:50, align:'right'" > Guia</th>
 	    		<th data-options="field:'NombreClub',	width:45, align:'right'" > Club</th>
 	  			<th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"> F/T</th>
@@ -91,13 +89,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	   			<th data-options="field:'T2',			width:25, align:'right',formatter:formatT2"> Tmp.</th>
 	    		<th data-options="field:'V2',			width:15, align:'right',formatter:formatV2"> Vel.</th>
 	    		<th data-options="field:'P2',			width:20, align:'right',formatter:formatP2"> Penal.</th>
-	    		<th data-options="field:'C2',			width:25, align:'center'"> Cal.</th>
-	    		<!-- 
-	    		<th data-options="field:'Tiempo',		hidden:true" ></th>
-	    		-->
-	    		<th data-options="field:'Penalizacion',	width:30, align:'right',formatter:formatPenalizacionFinal,styler:formatBorder" > Penaliz.</th>
+	    		<th data-options="field:'C2',			width:25, align:'center'"> Cal.</th> 
+	    		<th data-options="field:'Tiempo',		width:25, align:'right',formatter:formatTF,styler:formatBorder">Tiempo</th>
+	    		<th data-options="field:'Penalizacion',	width:25, align:'right',formatter:formatPenalizacionFinal" > Penaliz.</th>
 	    		<th data-options="field:'Calificacion',	width:20, align:'center'" > Calif.</th>
-	    		<th data-options="field:'Puesto',		width:15, align:'right',formatter:formatPuestoFinal" > Puesto </th>
+	    		<th data-options="field:'Puesto',		width:15, align:'center',formatter:formatPuestoFinal" > Puesto </th>
 	    	</tr>
 		</thead>
 	</table>
@@ -105,13 +101,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <div id="resultados-toolbar" style="width:100%;display:inline-block">
    	<span style="float:left;padding:5px">
-   	    <input id="resultados-selectCategoria" class="easyui-combobox" name="Categoria">
+   	    <input id="resultados-selectCategoria" name="Categoria">
    	</span>
    	<span style="float:right;padding:5px">
    		<a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();">Refrescar</a>
    		<a id="resultados-printBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-print'" onclick="resultados_doPrint()">Imprimir</a>
+   			data-options="iconCls:'icon-print'" onclick="resultados_doPrint()">Informes</a>
    	</span>
 </div>
 
@@ -156,10 +152,10 @@ $('#resultados-info-ronda').combogrid({
 	columns: [[
 	   	{ field:'Manga1',		hidden:true }, // ID de la manga1
 		{ field:'Manga2',		hidden:true }, // ID de la manga2
-		{ field:'NombreManga1',		hidden:true }, // ID de la manga1
-		{ field:'NombreManga2',		hidden:true }, // ID de la manga2
-		{ field:'Recorrido1',	hidden:true }, // tipo de recorrido		
-		{ field:'Recorrido2',	hidden:true }, // tipo de recorrido		
+		{ field:'NombreManga1',		hidden:true }, // Nombre de la manga1
+		{ field:'NombreManga2',		hidden:true }, // Nombre de la manga2
+		{ field:'Recorrido1',	hidden:true }, // tipo de recorrido	manga 1	
+		{ field:'Recorrido2',	hidden:true }, // tipo de recorrido	manga 2
 		{ field:'Rondas',		hidden:true }, // bitfield del tipo de rondas
 		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre' }
 	]],

@@ -36,7 +36,7 @@ class PrintCommon extends FPDF {
 	protected $myLogger;
 	protected $prueba; // datos de la prueba
 	protected $club;   // club orcanizadod
-	protected $icon;   // logo del club organizadod
+	protected $icon;   // logo del club organizador
 	protected $jornada; // datos de la jornada
 	protected $myDBObject;
 	protected $pageName; // name of file to be printed

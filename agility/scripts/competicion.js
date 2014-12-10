@@ -38,6 +38,10 @@ function formatP1(val,row,idx) { return parseFloat(val).toFixed(2); }
 function formatV2(val,row,idx) { return (row.P2>=200)?"-":parseFloat(val).toFixed(1); }
 function formatT2(val,row,idx) { return (row.P2>=200)?"-":parseFloat(val).toFixed(2); }
 function formatP2(val,row,idx) { return parseFloat(val).toFixed(2); }
+function formatTF(val,row,idx) {
+	var t=parseFloat(row.T1)+parseFloat(row.T2);
+	return (row.Penalizacion>=200)?"-":t.toFixed(2); 
+}
 
 /* stylers para formateo de celdas especificas */
 function formatBorder(val,row,idx) { return 'border-left: 1px solid #000;'; }
@@ -741,8 +745,34 @@ function resultados_printPodium() {
  * Imprime los resultados finales separados por categoria y grado, tal y como pide la RSCE
  */
 function resultados_printCanina() {
-	alert("competicion.js::resultados_printCanina() {PENDING}");
-	// TODO: write
+	// Client-side excel conversion
+	// $('#resultados-datagrid').datagrid('toExcel',"clasificaciones.xls");
+	
+	// Server-side excel generation
+	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
+	var url='/agility/server/pdf/print_clasificacion_excel.php';
+	var mode=$('#resultados-selectCategoria').combobox('getValue');
+	if (ronda==null) {
+    	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+    	return false; // no way to know which ronda is selected
+	}
+	$.fileDownload(
+		url,
+		{
+			httpMethod: 'GET',
+			data: { 
+				Prueba:workingData.prueba,
+				Jornada:workingData.jornada,
+				Manga1:ronda.Manga1,
+				Manga2:ronda.Manga2,
+				Rondas: ronda.Rondas,
+				Mode: mode
+			},
+	        preparingMessageHtml: "Generando fichero Excel con las clasificaciones. Por favor, espere...",
+	        failMessageHtml: "Ha habido problemas en la generacion del fichero\n. Por favor, intentelo de nuevo."
+		}
+	);
+    return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
 /**
@@ -824,7 +854,7 @@ function resultados_doPrint() {
 	 $.messager.radio(
 			 'Selecciona modelo',
 			 'Selecciona el tipo de documento a generar:',
-			 { 0:'Podium',1:'Etiquetas (CSV)',2:'Etiquetas (PDF)',3:'Informes R.S.C.E',4:'Clasificación'}, 
+			 { 0:'Podium (PDF)',1:'Etiquetas (CSV)',2:'Etiquetas (PDF)',3:'Informe R.S.C.E. (Excel)',4:'Clasificación (PDF)'}, 
 			 function(r){ 
 				 switch(parseInt(r)) {
 				 case 0: resultados_printPodio(); break;

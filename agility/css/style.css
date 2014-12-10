@@ -149,6 +149,10 @@ img.mainpage{
 	border-left: 1px solid #000;
 }
 
+#resultados-datagrid .datagrid-cell {
+	font-size:0.1em;
+}
+
 /***** formulario informacion datos de la prueba ***/
 .c_inscripciones-datosprueba {
 	font-size: 12px;

@@ -79,7 +79,7 @@ class PDF extends FPDF {
 	function Footer() {
 	}
 	
-	function writeCell($idx,$row) {
+	function writeCell($idx,$row,$count) {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		//dorsal (10,y,20,17)
 		$y1=  10+17*$idx;
@@ -91,7 +91,7 @@ class PDF extends FPDF {
 		$this->SetFont('Arial','B',24); // bold 11px
 		$this->setXY(10,$y1);
 		$this->Cell(20,17,$row['Dorsal'],0,0,'C',false);
-		$this->SetFont('Arial','',12); // restore font size
+		$this->SetFont('Arial','I',8); // font for prueba,name
 		
 		//logo   (30,y,15,15)
 		// los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
@@ -115,6 +115,8 @@ class PDF extends FPDF {
 		$tipo=Mangas::$tipo_manga[$this->manga2->Tipo][3];
 		$this->SetXY(85,$y8); 
 		$this->Cell(20,9,$tipo,'L',0,'L',false);
+
+		$this->SetFont('Arial','',12); // font size for results data
 		//Cat (105,y,15,8) center
 		$this->SetXY(105,$y1); 
 		$this->Cell(15,8,$row['Categoria'],'L',0,'C',false);
@@ -135,10 +137,10 @@ class PDF extends FPDF {
 		$this->Cell(25,9,$row['C2'],'L',0,'C',false);
 		//Puesto1 (160,y,15,8) center
 		$this->SetXY(160,$y1); 
-		$this->Cell(15,8,"{$row['Puesto1']}º",'LB',0,'C',false);
+		$this->Cell(15,8,"{$row['Puesto1']}º / $count",'LB',0,'C',false);
 		//Puesto2 (160,y+8,15,9) center
 		$this->SetXY(160,$y8); 
-		$this->Cell(15,9,"{$row['Puesto2']}º",'L',0,'C',false);
+		$this->Cell(15,9,"{$row['Puesto2']}º / $count",'L',0,'C',false);
 		
 		// pintamos una linea	
 		$this->SetDrawColor(128,0,0); // line color
@@ -162,7 +164,7 @@ class PDF extends FPDF {
 		$numrows=16; // 16 etiquetas/pagina
 		$this->addPage();
 		foreach($this->resultados as $row) {
-			$this->writeCell($rowcount,$row);
+			$this->writeCell($rowcount,$row,count($this->resultados));
 			$rowcount++;
 			if ($rowcount>=$numrows) {
 				$this->addPage();
