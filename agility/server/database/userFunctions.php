@@ -1,7 +1,7 @@
 <?php
 
 /*
-juezFunctions.php
+userFunctions.php
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -21,28 +21,29 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../auth/AuthManager.php");
-require_once(__DIR__."/classes/Jueces.php");
+require_once(__DIR__."/classes/Usuarios.php");
 
 try {
 	$result=null;
-	$jueces= new Jueces("juezFunctions");
-	$am= new AuthManager("juezFunctions");
+	$users= new Usuarios("userFunctions");
+	$am= new AuthManager("userFunctions");
 	$operation=http_request("Operation","s",null);
-	$idjuez=http_request("ID","i",0);
-	if ($operation===null) throw new Exception("Call to juezFunctions without 'Operation' requested");
+	$id=http_request("ID","i",0);
+	if ($operation===null) throw new Exception("Call to userFunctions without 'Operation' requested");
 	switch ($operation) {
-		case "insert": $am->access(PERMS_OPERATOR); $result=$jueces->insert(); break;
-		case "update": $am->access(PERMS_OPERATOR); $result=$jueces->update($idjuez); break;
-		case "delete": $am->access(PERMS_OPERATOR); $result=$jueces->delete($idjuez); break;
-		case "selectbyid": $result=$jueces->selectByID($idjuez); break;
-		case "select": $result=$jueces->select(); break; // list with order, index, count and where
-		case "enumerate": $result=$jueces->enumerate(); break; // list with where
-		default: throw new Exception("juezFunctions:: invalid operation: '$operation' provided");
+		case "insert": $am->access(PERMS_ADMIN); $result=$users->insert(); break;
+		case "update": $am->access(PERMS_ADMIN); $result=$users->update($id); break;
+		case "delete": $am->access(PERMS_ADMIN); $result=$users->delete($id); break;
+		case "passwd": $am->access(PERMS_ADMIN); $result=$users->setPassword($id); break;
+		case "selectbyid": $result=$users->selectByID($id); break;
+		case "select": $result=$users->select(); break; // list with order, index, count and where
+		case "enumerate": $result=$users->enumerate(); break; // list with where
+		default: throw new Exception("userFunctions:: invalid operation: '$operation' provided");
 	}
 	if ($result===null) 
-		throw new Exception($jueces->errormsg);
+		throw new Exception($users->errormsg);
 	if ($result==="")
-		echo json_encode(array('success'=>true,'insert_id'=>$jueces->conn->insert_id,'affected_rows'=>$jueces->conn->affected_rows)); 
+		echo json_encode(array('success'=>true,'insert_id'=>$users->conn->insert_id,'affected_rows'=>$users->conn->affected_rows)); 
 	else echo json_encode($result);
 } catch (Exception $e) {
 	do_log($e->getMessage());

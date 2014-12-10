@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE PERROS -->
-<div style="width:975px;height:550px;">
+<div style="width:100%;height:550px;">
     <!-- DECLARACION DE LA TABLA -->
     <table id="perros-datagrid"></table>
 </div>    

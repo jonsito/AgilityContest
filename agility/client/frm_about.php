@@ -29,7 +29,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		</dd>
 		<dt>&nbsp;</dt>
 		<dt>
-			<strong>AgilityContest Logo</strong> está basado en un diseño original de <em>Britta Schweikl &ltBritta.Schweikl@t-online.de&gt</em>
+			<strong>AgilityContest Logo</strong> está basado en un diseño original de <em>Britta Schweikl &lt;ltBritta.Schweikl@t-online.de&gt;</em>
 		</dt>
 		<dd>
 		El diseño original -y muchos otros- se encuentra en <a href="http://www.hundestempel.de/">http://www.hundestempel.de/</a>. <br />
