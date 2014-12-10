@@ -35,7 +35,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    					onclick="editUser('#usuarios-datagrid')">Editar Usuario</a>
    				<a id="usuarios-delBtn" href="#" class="easyui-linkbutton" 
    					data-options="iconCls:'icon-trash'"
-   					onclick="deleteUser('#usuarios-datagrid')">Borrar Juez</a>
+   					onclick="deleteUser('#usuarios-datagrid')">Borrar Usuario</a>
    				<input id="usuarios-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
    			</span>
    			<span style="float:right;padding:5px">
