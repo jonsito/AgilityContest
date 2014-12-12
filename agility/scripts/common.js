@@ -264,16 +264,6 @@ function addTooltip(obj,text) {
 }
 
 /**
- * Common rowStyler function for AgilityContest datagrids
- * @paramm {integer} idx Row index
- * @param {Object} row Row data
- * @return {string} proper row style for given idx
- */
-function myRowStyler(idx,row) {
-	return ((idx&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-}
-
-/**
  * Add support for img.naturalWidth and img.naturalHeight in browsers that
  * lack of this (IE<9)
  */

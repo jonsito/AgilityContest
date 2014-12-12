@@ -1,3 +1,7 @@
+<?php 
+require_once(__DIR__."/../server/auth/Config.php");
+$config =new Config()
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +16,7 @@
 		GNU General Public License as published by the Free Software Foundation; either version 2 of the License, 
 		or (at your option) any later version." />
 <title>Agility Contest</title>
-<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.1/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.1/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.1/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
@@ -25,6 +29,9 @@
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/videowall/videowall.js" type="text/javascript" charset="utf-8" > </script>
+<style>
+body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
+</style>
 </head>
 
 <body style="margin:0;padding:0;background-color:blue;font-size:100%">

@@ -1,3 +1,7 @@
+<?php 
+require_once(__DIR__."/../server/auth/Config.php");
+$config =new Config()
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +18,7 @@
 <!-- try to disable zoom in tablet on double click -->
 <meta content='width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no;' name='viewport' />
 <title>Agility Contest</title>
-<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.1/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.1/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.1/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
@@ -39,7 +43,23 @@ function initialize() {
 	  }
 	});
 }
+
+/**
+ * Common rowStyler function for AgilityContest datagrids
+ * @paramm {integer} idx Row index
+ * @param {Object} row Row data
+ * @return {string} proper row style for given idx
+ */
+function myRowStyler(idx,row) {
+	var res="background-color:";
+	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
+	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
+	if ( (idx&0x01)==0) { return res+c1+";" } else { return res+c2+";" }
+}
 </script>
+<style>
+body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
+</style>
 </head>
 
 <body style="margin:0;padding:0" onload="initialize();">
