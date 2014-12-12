@@ -121,10 +121,9 @@ class PDF extends PrintCommon {
 		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
 		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
 		
-		// colores para la cabecera de la tabla
-		$this->SetFillColor(0,0,255); // azul
-		$this->SetTextColor(255,255,255); // blanco
-		$this->SetDrawColor(0,0,0); // line color
+		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
+		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
+		$this->ac_SetDrawColor(0,0,0); // line color
 		
 		$this->SetXY(10,($this->PageNo()==1)?65:40); // first page has 3 extra header lines
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
@@ -164,7 +163,7 @@ class PDF extends PrintCommon {
 		$this->Cell(9,7,'Puesto',0,0,'C',true);	// Puesto	
 		$this->Ln();	
 		// restore colors
-		$this->SetFillColor(224,235,255); // azul merle
+		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
 		$this->SetTextColor(0,0,0); // negro
 		$this->SetDrawColor(128,128,128); // line color
 	}
@@ -226,7 +225,7 @@ class PDF extends PrintCommon {
 	function composeTable() {
 		$this->myLogger->enter();
 
-		$this->SetFillColor(224,235,255); // azul merle
+		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
 		$this->SetTextColor(0,0,0); // negro
 		$this->SetFont('Arial','',8); // default font		
 		$this->SetDrawColor(128,128,128); // line color

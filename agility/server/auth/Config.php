@@ -34,10 +34,12 @@ define('AC_EASYUI_ROWCOLOR1','#ffffff');
 define('AC_EASYUI_ROWCOLOR2','#c0c0c0');
 
 /** generacion de PDF's **/
-define('AC_PDF_HDRCOLOR1','#0000ff');
-define('AC_PDF_HDRCOLOR2','#808080');
+define('AC_PDF_HDRFG1','#0000ff');
+define('AC_PDF_HDRBG1','#808080');
+define('AC_PDF_HDRFG2','#0000ff');
+define('AC_PDF_HDRBG2','#808080');
 define('AC_PDF_ROWCOLOR1','#ffffff');
-define('AC_PDF_ROWCOLOR2','#c0c0c0');
+define('AC_PDF_ROWCOLOR2','#e0ebff');
 
 /** Internacionalizacion. Idiomas **/
 define ('AC_LANG','es');
@@ -62,8 +64,10 @@ Class Config {
 		$this->config['easyui_rowcolor1'] =	AC_EASYUI_ROWCOLOR1;
 		$this->config['easyui_rowcolor2'] =	AC_EASYUI_ROWCOLOR2;
 		// generacion de PDF's
-		$this->config['pdf_hdr1color'] =	AC_PDF_HDRCOLOR1;
-		$this->config['pdf_hdr2color'] =	AC_PDF_HDRCOLOR2;
+		$this->config['pdf_hdrfg1'] =	AC_PDF_HDRFG1;
+		$this->config['pdf_hdrbg1'] =	AC_PDF_HDRBG1;
+		$this->config['pdf_hdrfg2'] =	AC_PDF_HDRFG2;
+		$this->config['pdf_hdrbg2'] =	AC_PDF_HDRBG2;
 		$this->config['pdf_rowcolor1'] =	AC_PDF_ROWCOLOR1;
 		$this->config['pdf_rowcolor2'] =	AC_PDF_ROWCOLOR2;
 		// Internacionalizacion. Idiomas

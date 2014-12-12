@@ -21,6 +21,7 @@ define('FPDF_FONTPATH', __DIR__."/font/");
 require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Clubes.php');
 require_once(__DIR__.'/../database/classes/Pruebas.php');
@@ -34,6 +35,7 @@ require_once(__DIR__."/print_common.php");
 class PrintCommon extends FPDF {
 	
 	protected $myLogger;
+	protected $config;
 	protected $prueba; // datos de la prueba
 	protected $club;   // club orcanizadod
 	protected $icon;   // logo del club organizador
@@ -52,6 +54,7 @@ class PrintCommon extends FPDF {
 		parent::__construct($orientacion,'mm','A4'); // Portrait or Landscape
 		$this->centro=($orientacion==='Portrait')?107:145;
 		$this->myLogger= new Logger("PrintCommon");
+		$this->config=new Config();
 		$this->myDBObject=new DBObject("print_common_pdf");
 		$this->prueba=$this->myDBObject->__getObject("Pruebas",$prueba);
 		$this->club=$this->myDBObject->__getObject("Clubes",$this->prueba->Club); // club organizador
@@ -118,5 +121,31 @@ class PrintCommon extends FPDF {
 	
 	function setPageName($name) {$this->pageName=$name; }
 	function getPageName(){ return $this->pageName; }
+	
+	function ac_SetFillColor($str) {
+		$val=intval(str_replace('#','0x',$str),0);
+		$r=(0x00FF0000&$val)>>16;
+		$g=(0x0000FF00&$val)>>8;
+		$b=(0x000000FF&$val);
+		$this->myLogger->info("fill color str:$str v2:$v2 val:$val R:$r G:$g B:$b");
+		$this->SetFillColor($r,$g,$b);
+	}
+	function ac_SetTextColor($str) {
+		$val=intval(str_replace('#','0x',$str),0);
+		$r=(0x00FF0000&$val)>>16;
+		$g=(0x0000FF00&$val)>>8;
+		$b=(0x000000FF&$val);
+		$this->myLogger->info("text color str:$str R:$r G:$g B:$b");
+		$this->SetTextColor($r,$g,$b);
+	}
+	function ac_SetDrawColor($str) {
+		$val=intval(str_replace('#','0x',$str),0);
+		$r=(0x00FF0000&$val)>>16;
+		$g=(0x0000FF00&$val)>>8;
+		$b=(0x000000FF&$val);
+		$this->myLogger->info("draw color str:$str R:$r G:$g B:$b");
+		$this->SetDrawColor($r,$g,$b);
+	}
+	
 }
 ?>
