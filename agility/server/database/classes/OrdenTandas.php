@@ -183,6 +183,14 @@ class OrdenTandas extends DBObject {
 	}
 
 	
+	function insert_remove($tipo,$orden,$oper) {
+		foreach( $this->getTandasBy('TipoManga',$tipo) as $item) {
+			if ($oper==true) $orden = $this->insertIntoList($orden,$item['ID']); 
+			else  $orden = $this->removeFromList($orden,$item['ID']);
+		}
+		return $orden;
+	}
+	
 	/**
 	 * Ajusta el orden de tandas para que coincida con los datos de la jornada dada
 	 * @param unknown $jornada
@@ -193,44 +201,24 @@ class OrdenTandas extends DBObject {
 		$j=$this->__getObject("Jornadas",$jornada);
 		if (!is_object($j)) return $this->error($this->conn->error);
 		$orden=$j->Orden_Tandas;
-		// obtenemos la lista de tandas de cada ronda
-		if ($j->PreAgility	!=0) {
-			foreach( $this->getTandasBy('TipoManga',1) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-		}
-		if ($j->PreAgility2	!=0) {
-			foreach( $this->getTandasBy('TipoManga',1) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-			foreach( $this->getTandasBy('TipoManga',2) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-		}
-		if ($j->Grado1	!=0) {
-			foreach( $this->getTandasBy('TipoManga',3) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-			foreach( $this->getTandasBy('TipoManga',4) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-		}
-		if ($j->Grado2	!=0) {
-			foreach( $this->getTandasBy('TipoManga',5) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-			foreach( $this->getTandasBy('TipoManga',10) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-		}
-		if ($j->Grado3	!=0) {
-			foreach( $this->getTandasBy('TipoManga',6) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-			foreach( $this->getTandasBy('TipoManga',11) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-		}
-		if ($j->Open	!=0) {
-			foreach( $this->getTandasBy('TipoManga',7) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-			foreach( $this->getTandasBy('TipoManga',12) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-		}
-		if ($j->Equipos3	!=0) {
-			foreach( $this->getTandasBy('TipoManga',8) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-			foreach( $this->getTandasBy('TipoManga',13) as $item) { $this->insertIntoList($orden,$item['ID']);  }
-		}
-		if ($j->Equipos4	!=0) {
-			foreach( $this->getTandasBy('TipoManga',9) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-			foreach( $this->getTandasBy('TipoManga',14) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-		}
-		if ($j->KO		!=0) {
-			foreach( $this->getTandasBy('TipoManga',15) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-		}
-		if ($j->Especial!=0) {
-			foreach( $this->getTandasBy('TipoManga',16) as $item) { $orden = $this->insertIntoList($orden,$item['ID']);  }
-		}
+		// actualizamos la lista de tandas de cada ronda
+		$orden= $this->insert_remove(1,$orden,($j->PreAgility2 != 0)?true:false);
+		$orden= $this->insert_remove(2,$orden,($j->PreAgility2 != 0)?true:false);
+		$orden= $this->insert_remove(1,$orden,($j->PreAgility != 0)?true:false);
+		$orden= $this->insert_remove(3,$orden,($j->Grado1 != 0)?true:false);
+		$orden= $this->insert_remove(4,$orden,($j->Grado1 != 0)?true:false);
+		$orden= $this->insert_remove(5,$orden,($j->Grado2 != 0)?true:false);
+		$orden= $this->insert_remove(10,$orden,($j->Grado2 != 0)?true:false);
+		$orden= $this->insert_remove(6,$orden,($j->Grado3 != 0)?true:false);
+		$orden= $this->insert_remove(11,$orden,($j->Grado3 != 0)?true:false);
+		$orden= $this->insert_remove(7,$orden,($j->Open != 0)?true:false);
+		$orden= $this->insert_remove(12,$orden,($j->Open != 0)?true:false);
+		$orden= $this->insert_remove(8,$orden,($j->Equipos3 != 0)?true:false);
+		$orden= $this->insert_remove(13,$orden,($j->Equipos3 != 0)?true:false);
+		$orden= $this->insert_remove(9,$orden,($j->Equipos4 != 0)?true:false);
+		$orden= $this->insert_remove(14,$orden,($j->Equipos4 != 0)?true:false);
+		$orden= $this->insert_remove(15,$orden,($j->KO != 0)?true:false);
+		$orden= $this->insert_remove(16,$orden,($j->Especial != 0)?true:false);
 		$this->setOrden($jornada,$orden);
 		$this->myLogger->leave();
 	}
