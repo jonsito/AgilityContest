@@ -17,47 +17,6 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-/* Common CSS tags for Agility Contest */
-
-body {
-	font-size: 100%;
-	background: #00f;
-}
-
-/***** Datos de la cabecera ******/
-#mylogo {
-	position: fixed;
-    top: 0px;
-    right: 10px;
-}
-
-#myheader {
-	position: fixed;
-	top: 10px;
-	left: 10px;
-}
-
-#myheader p {
-	color: #0f0;
-    padding-left: 20px;
-    font-family: Arial, sans-serif;
-    font-size: 28pt;
-    font-style: italic;
-    font-weight: bold;
-    display: table-cell;
-}
-
-#myheader p a:link {  text-decoration:none;color:#00ff00; }      /* unvisited link */
-#myheader p a:visited { text-decoration:none;color:#00ff00; }  /* visited link */
-#myheader p a:hover { text-decoration:none;color:#00ff00; }  /* mouse over link */
-#myheader p a:active { text-decoration:none;color:#00ff00; }  /* selected link */
-
-#myheader span p {
-	font-size: 24pt;
-	color: #ccc;
-	padding-left: 250px;
-}
-
 /***** Datos de la imagen de fondo ****/
 
 #en_construccion {

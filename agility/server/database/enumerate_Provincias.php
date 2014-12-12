@@ -20,36 +20,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
-require_once(__DIR__."/classes/DBConnection.php");
+require_once(__DIR__."/classes/DBObject.php");
 
-class Provincias {
-	protected $conn;
-	protected $file;
-	public $errormsg; // should be public to access to from caller
-	
-	/**
-	 * Constructor
-	 * @param {string} $file caller for this object
-	 * @throws Exception if cannot contact database
-	 */
-	function __construct($file) {
-		// connect database
-		$this->file=$file;
-		$this->conn=DBConnection::openConnection("agility_operator","operator@cachorrera");
-		if (!$this->conn) {
-			$this->errormsg="$file::construct() cannot contact database";
-			throw new Exception($this->errormsg);
-		}
-	}
-	
-	/**
-	 * Destructor
-	 * Just disconnect from database
-	 */
-	function  __destruct() {
-		DBConnection::closeConnection($this->conn);
-	}
-	
+class Provincias extends DBObject {
+
 	function select() {
 		// evaluate offset and row count for query
 		$q=http_request("q","s","");

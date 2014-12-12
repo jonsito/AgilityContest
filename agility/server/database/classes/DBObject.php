@@ -18,6 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 /** mandatory requires for database and logging */
+require_once (__DIR__."/../../auth/Config.php");
 require_once (__DIR__."/../../logging.php");
 require_once (__DIR__."/DBConnection.php");
 
@@ -38,10 +39,13 @@ class DBObject {
 		// connect database
 		$this->file=$file;
 		$this->myLogger= new Logger($file);
-		
 		$this->cache=array();
-		
-		$this->conn=DBConnection::openConnection("agility_operator","operator@cachorrera");
+		$config=new Config();
+		$h=$config->getEnv("database_host");
+		$n=$config->getEnv("database_name");
+		$u=$config->getEnv("database_user");
+		$p=$config->getEnv("database_pass");
+		$this->conn=DBConnection::openConnection($h,$n,$u,$p);
 		if (!$this->conn) {
 			$this->errormsg="$file::construct() cannot contact database";
 			throw new Exception($this->errormsg);

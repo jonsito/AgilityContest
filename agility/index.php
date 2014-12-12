@@ -1,3 +1,7 @@
+<?php 
+require_once(__DIR__."/server/auth/Config.php");
+$config =new Config()
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +16,7 @@
 		GNU General Public License as published by the Free Software Foundation; either version 2 of the License, 
 		or (at your option) any later version." />
 <title>Agility Contest</title>
-<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.1/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.1/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.1/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
@@ -55,13 +59,37 @@ function initialize() {
 	loadContents("/agility/client/frm_main.php","");
 }
 </script>
+<style>
+/* Common CSS tags for Agility Contest */
+
+body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
+
+/***** Datos de la cabecera ******/
+#mylogo { position: fixed; top: 0px; right: 10px; }
+#myheader {	position: fixed; top: 10px; left: 10px; }
+#myheader p { 
+	color: <?php echo $config->getEnv('easyui_hdrcolor'); ?>; 
+	padding-left: 20px; 
+	font-family: Arial, sans-serif;
+    font-size: 28pt;
+    font-style: italic;
+    font-weight: bold;
+    display: table-cell;
+}
+#myheader p a:link {  text-decoration:none; color:<?php echo $config->getEnv('easyui_hdrcolor'); ?>; }      /* unvisited link */
+#myheader p a:visited { text-decoration:none; color:<?php echo $config->getEnv('easyui_hdrcolor'); ?>; }  /* visited link */
+#myheader p a:hover { text-decoration:none; color:<?php echo $config->getEnv('easyui_hdrcolor'); ?>; }  /* mouse over link */
+#myheader p a:active { text-decoration:none; color:<?php echo $config->getEnv('easyui_hdrcolor'); ?>; }  /* selected link */
+#myheader span p { font-size:24pt; padding-left: 250px; color:<?php echo $config->getEnv('easyui_opcolor'); ?>; }
+</style>
 
 </head>
+
 <body onload="initialize();">
 
 <!-- CABECERA -->
 <div id="myheader">
-	<p> <a href="/agility/index.html">Agility Contest</a> </p>
+	<p> <a href="/agility/index.php">Agility Contest</a> </p>
 	<span id="Header_Operation"></span>
 </div>
 

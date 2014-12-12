@@ -16,10 +16,6 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
-define("DBHOST","localhost");
-define("DBNAME","agility");
-
 /**
  * DB connection handler
  * This class should only be used from DBConnection objects
@@ -28,8 +24,8 @@ define("DBNAME","agility");
  */
 class DBConnection {
 	
-	public static function openConnection($user,$pass) {
-		$conn = new mysqli(DBHOST,$user,$pass,DBNAME);
+	public static function openConnection($host,$name,$user,$pass) {
+		$conn = new mysqli($host,$user,$pass,$name);
 		if ($conn->connect_error) return null; 
 		$conn->query("SET NAMES 'utf8'");
 		return $conn;
