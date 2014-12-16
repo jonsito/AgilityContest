@@ -33,11 +33,16 @@ try {
 			'Manga'		=>	http_request("Manga","i",0),
 			'Tanda'		=>	http_request("Tanda","i",0),
 			'Operador'	=>	http_request("Operador","i",0),
+			'LiveStream'	=>	http_request("LiveStream","s",""),
+			'LiveStream2'	=>	http_request("LiveStream2","s",""),
+			'LiveStream3'	=>	http_request("LiveStream3","s",""),
+			'Hidden'	=>	http_request("Hidden","i",0),
 	);
 	if ($operation===null) throw new Exception("Call to sessionFunctions without 'Operation' requested");
 	$sesion= new Sesiones("sessionFunctions");
 	$am= new AuthManager("sessionFunctions");
 	switch ($operation) {
+		case "select": $am->access(PERMS_OPERATOR); $result=$sesion->select($data); break;
 		case "insert": $am->access(PERMS_OPERATOR); $result=$sesion->insert($data); break;
 		case "update": $am->access(PERMS_OPERATOR); $result=$sesion->update($id,$data); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$sesion->delete($id); break;

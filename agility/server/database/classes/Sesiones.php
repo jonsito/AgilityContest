@@ -23,6 +23,52 @@ require_once("DBObject.php");
 class Sesiones extends DBObject {
 	
 	/**
+	 * retrieve list of stored sessions
+	 * @return session list in easyui json expected format, or error string
+	 */
+	function select($data) {
+		$this->myLogger->enter();
+		//needed to properly handle multisort requests from datagrid
+		$sort=getOrderString(
+				http_request("sort","s",""),
+				http_request("order","s",""),
+				"Nombre ASC, Comentario ASC"
+		);
+		// search string
+		$search =  isset($_GET['where']) ? strval($_GET['where']) : '';
+		// evaluate offset and row count for query
+		$page=http_request("page","i",1);
+		$rows=http_request("rows","i",50);
+		$limit="";
+		if ($page!=0 && $rows!=0 ) {
+			$offset=($page-1)*$rows;
+			$limit="".$offset.",".$rows;
+		}
+		$where = "";
+		if ( ($search==="") and ($data['Hidden']==0)) {
+			$where = "";
+		}
+		if ( ($search==="") and ($data['Hidden']!=0)) {
+			$where= "(Nombre != '')";
+		}
+		if ( ($search!=="") and ($data['Hidden']==0)) {
+			$where="( (Nombre != '') AND ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
+		}
+		if ( ($search!=="") and ($data['Hidden']!=0)) {
+			$where="( (Nombre LIKE '%$search%') OR ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
+		}
+		$result=$this->__select(
+				/* SELECT */ "*",
+				/* FROM */ "Sesiones",
+				/* WHERE */ $where,
+				/* ORDER BY */ $sort,
+				/* LIMIT */ $limit
+		);
+		$this->myLogger->leave();
+		return $result;
+	}
+	
+	/**
 	 * Insert a new session into database
 	 * @return {string} "" if ok; null on error
 	 */
@@ -65,13 +111,16 @@ class Sesiones extends DBObject {
 		if ($id==0) return $this->error("Invalid Session ID:$id");
 		$now=date('Y-m-d G:i:s');
 		$sql="UPDATE Sesiones SET LastModified='$now'";
-		if ($data['Nombre']!==null)	$sql .=", Nombre='{$data['Nombre']}' ";
-		if ($data['Comentario']!==null)	$sql .=", Comentario='{$data['Comentario']}' ";
+		if ($data['Nombre']!=="")	$sql .=", Nombre='{$data['Nombre']}' ";
+		if ($data['Comentario']!=="")	$sql .=", Comentario='{$data['Comentario']}' ";
 		if ($data['Prueba']!=0)		$sql .=", Prueba={$data['Prueba']} ";
 		if ($data['Jornada']!=0)	$sql .=", Jornada={$data['Jornada']} ";
 		if ($data['Manga']!=0)		$sql .=", Manga={$data['Manga']} ";
 		if ($data['Tanda']!=0)		$sql .=", Tanda={$data['Tanda']} ";
 		if ($data['Operador']!=0)	$sql .=", Operador={$data['Operador']} ";
+		if ($data['LiveStream']!=="")	$sql .=", LiveStream='{$data['LiveStream']}' ";
+		if ($data['LiveStream2']!=="")	$sql .=", LiveStream2='{$data['LiveStream2']}' ";
+		if ($data['LiveStream3']!=0)	$sql .=", LiveStream3='{$data['LiveStream3']}' ";
 		$sql .= "WHERE (ID=$id);";
 		$this->myLogger->trace("Sesiones::update() query string:\n$sql");
 		$res= $this->query($sql);

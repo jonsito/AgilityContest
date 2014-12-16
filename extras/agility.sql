@@ -2166,6 +2166,8 @@ CREATE TABLE IF NOT EXISTS `Sesiones` (
   `Manga` int(4) NOT NULL DEFAULT '0',
   `Tanda` int(4) NOT NULL DEFAULT '0',
   `LiveStream` varchar(255) DEFAULT NULL,
+  `LiveStream2` varchar(255) DEFAULT NULL,
+  `LiveStream3` varchar(255) DEFAULT NULL,
   `LastModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 

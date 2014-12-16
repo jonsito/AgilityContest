@@ -54,6 +54,37 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	<?php require_once("dialogs/dlg_usuarios.inc")?>
    	</div>
    	<div title="Sesiones" data-options="iconCls:'icon-order'" style="padding:5px">
+   	   	 	
+	   	<!-- TABLA DE jquery-easyui para listar y editar la BBDD DE SESIONES -->
+		<div  style="width:100%;height:500px">   
+	    <!-- DECLARACION DE LA TABLA DE USUARIOS -->
+	    	<table id="sesiones-datagrid">  </table>
+		</div> 
+
+		<!-- BARRA DE TAREAS DE LA TABLA DE USUARIOS -->
+		<div id="sesiones-toolbar" style="width:100%;display:inline-block">
+ 			<span style="float:left;padding:5px">
+   				<a id="sesiones-newBtn" href="#" class="easyui-linkbutton"
+   					data-options="iconCls:'icon-users'"
+   					onclick="newUser('#sesiones-datagrid',$('#sesiones-datagrid-search').val())">Nuevo Usuario</a>
+   				<a id="sesiones-editBtn" href="#" class="easyui-linkbutton" 
+   					data-options="iconCls:'icon-edit'"
+   					onclick="editUser('#sesiones-datagrid')">Editar Usuario</a>
+   				<a id="sesiones-delBtn" href="#" class="easyui-linkbutton" 
+   					data-options="iconCls:'icon-trash'"
+   					onclick="deleteUser('#sesiones-datagrid')">Borrar Usuario</a>
+   				<input id="sesiones-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
+   			</span>
+   			<span style="float:right;padding:5px">
+   				<a id="sesiones-reloadBtn" href="#" class="easyui-linkbutton"
+   					data-options="iconCls:'icon-brush'"
+   					onclick="
+   			        	// clear selection and reload table
+   			    		$('#sesiones-datagrid-search').val('---- Buscar ----');
+   			            $('#sesiones-datagrid').datagrid('load',{ where: '' });"
+   					>Limpiar</a>
+   			</span>
+		</div>
     	<?php require_once("dialogs/dlg_sesiones.inc")?>
    	</div>
    	<div title="Configuraci&oacute;n" data-options="iconCls:'icon-setup'" style="padding:5px">
@@ -104,9 +135,50 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
          editUser('#usuarios-datagrid');
     }
  });
+ 
+ // datos de la tabla de usuarios
+ $('#sesiones-datagrid').datagrid({
+     // datos del panel padre asociado
+ 	fit: true,
+ 	border: false,
+ 	closable: false,
+ 	collapsible: false,
+    expansible: false,
+ 	collapsed: false,
+ 	title: 'Gesti&oacute;n de datos de Sesiones',
+ 	// datos de la conexion ajax
+ 	url: '/agility/server/database/sessionFunctions.php?Operation=select',
+ 	loadMsg: 'Actualizando lista de sesiones ...',
+ 	method: 'get',
+    toolbar: '#sesiones-toolbar',
+    pagination: false,
+    rownumbers: true,
+    fitColumns: true,
+    singleSelect: true,
+    view: scrollview,
+    pageSize: 50,
+    multiSort: true,
+    remoteSort: true,
+    columns: [[
+        { field:'ID',		hidden:true },
+        { field:'Nombre',		width:25, sortable:true,	title:'Nombre' },
+     	{ field:'Comentario',	width:55, sortable:true,	title:'Comentario' },
+     	{ field:'Operador',		width:55, sortable:true,	title:'Usuario' },
+     	{ field:'LiveStream',	width:30,				title:'Stream MP4' },
+     	{ field:'LiveStream2',	width:30,   			title:'Stream Ogg' },
+        { field:'LiveStream3',	width:30,				title:'Stream WebM' }
+    ]],
+    // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+    rowStyler:myRowStyler,
+ 	// on double click fireup editor dialog
+    onDblClickRow:function() { 
+         editUser('#sesiones-datagrid');
+    }
+ });
 
 // key handler
 addKeyHandler('#usuarios-datagrid',newUser,editUser,deleteUser);
+addKeyHandler('#sesiones-datagrid',newUser,editUser,deleteUser);
 // tooltips
 addTooltip($('#usuarios-newBtn').linkbutton(),"Añadir un nuevo usuario<br/> a la Base de Datos"); 
 addTooltip($('#usuarios-editBtn').linkbutton(),"Modificar los datos del usuario seleccionado");
@@ -114,5 +186,11 @@ addTooltip($('#usuarios-delBtn').linkbutton(),"Eliminar el usuario seleccionado 
 addTooltip($('#usuarios-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
 addTooltip($('#usuarios-keyBtn').linkbutton(),"Cambiar la contraseña del usuario");
 addTooltip($('#usuarios-datagrid-search'),"Buscar usuarios que coincidan con el criterio de busqueda");
+// tooltips
+addTooltip($('#sesiones-newBtn').linkbutton(),"Añadir una nueva sesi&oacute;n<br/> a la Base de Datos"); 
+addTooltip($('#sesiones-editBtn').linkbutton(),"Modificar los datos de la sesi&oacute;n seleccionado");
+addTooltip($('#sesiones-delBtn').linkbutton(),"Eliminar la sesi&oacute;n seleccionada de la BBDD");
+addTooltip($('#sesiones-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
+addTooltip($('#sesiones-datagrid-search'),"Buscar sesiones que coincidan con el criterio de busqueda");
 
  </script>
