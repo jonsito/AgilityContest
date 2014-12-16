@@ -57,22 +57,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	   	 	
 	   	<!-- TABLA DE jquery-easyui para listar y editar la BBDD DE SESIONES -->
 		<div  style="width:100%;height:500px">   
-	    <!-- DECLARACION DE LA TABLA DE USUARIOS -->
+	    <!-- DECLARACION DE LA TABLA DE SESIONES -->
 	    	<table id="sesiones-datagrid">  </table>
 		</div> 
 
-		<!-- BARRA DE TAREAS DE LA TABLA DE USUARIOS -->
+		<!-- BARRA DE TAREAS DE LA TABLA DE SESIONES -->
 		<div id="sesiones-toolbar" style="width:100%;display:inline-block">
  			<span style="float:left;padding:5px">
    				<a id="sesiones-newBtn" href="#" class="easyui-linkbutton"
-   					data-options="iconCls:'icon-users'"
-   					onclick="newUser('#sesiones-datagrid',$('#sesiones-datagrid-search').val())">Nuevo Usuario</a>
+   					data-options="iconCls:'icon-order'"
+   					onclick="newSession('#sesiones-datagrid',$('#sesiones-datagrid-search').val())">Nueva sesi&oacute;n</a>
    				<a id="sesiones-editBtn" href="#" class="easyui-linkbutton" 
    					data-options="iconCls:'icon-edit'"
-   					onclick="editUser('#sesiones-datagrid')">Editar Usuario</a>
+   					onclick="editSession('#sesiones-datagrid')">Editar sesi&oacute;n</a>
    				<a id="sesiones-delBtn" href="#" class="easyui-linkbutton" 
    					data-options="iconCls:'icon-trash'"
-   					onclick="deleteUser('#sesiones-datagrid')">Borrar Usuario</a>
+   					onclick="deleteSession('#sesiones-datagrid')">Borrar sesi&oacute;n</a>
    				<input id="sesiones-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
    			</span>
    			<span style="float:right;padding:5px">
@@ -162,11 +162,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     columns: [[
         { field:'ID',		hidden:true },
         { field:'Nombre',		width:25, sortable:true,	title:'Nombre' },
-     	{ field:'Comentario',	width:55, sortable:true,	title:'Comentario' },
-     	{ field:'Operador',		width:55, sortable:true,	title:'Usuario' },
-     	{ field:'LiveStream',	width:30,				title:'Stream MP4' },
-     	{ field:'LiveStream2',	width:30,   			title:'Stream Ogg' },
-        { field:'LiveStream3',	width:30,				title:'Stream WebM' }
+     	{ field:'Comentario',	width:55, sortable:true,	title:'Descripcion' },
+        { field:'Operador',		hidden:true },
+     	{ field:'Login',		width:25, sortable:true,	title:'Usuario' },
+     	{ field:'LiveStream',	width:40,				title:'Stream MP4' },
+     	{ field:'LiveStream2',	width:40,   			title:'Stream Ogg' },
+        { field:'LiveStream3',	width:40,				title:'Stream WebM' }
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:myRowStyler,
@@ -178,7 +179,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 // key handler
 addKeyHandler('#usuarios-datagrid',newUser,editUser,deleteUser);
-addKeyHandler('#sesiones-datagrid',newUser,editUser,deleteUser);
+addKeyHandler('#sesiones-datagrid',newSession,editSession,deleteSession);
 // tooltips
 addTooltip($('#usuarios-newBtn').linkbutton(),"Añadir un nuevo usuario<br/> a la Base de Datos"); 
 addTooltip($('#usuarios-editBtn').linkbutton(),"Modificar los datos del usuario seleccionado");

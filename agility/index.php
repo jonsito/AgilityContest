@@ -34,6 +34,7 @@ $config =new Config()
 <script src="/agility/scripts/perros.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/jueces.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/usuarios.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/sesiones.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/equipos.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/pruebas.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/inscripciones.js" type="text/javascript" charset="utf-8" > </script>
