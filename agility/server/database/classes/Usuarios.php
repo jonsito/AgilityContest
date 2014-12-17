@@ -134,8 +134,8 @@ class Usuarios extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		$where = "";
-		if ($search!=='') $where="( (Login LIKE '%$search%') OR ( Gecos LIKE '%$search%' ) OR ( Email LIKE '%$search%') ) ";
+		$where = "(Login != 'root') "; // hide root user to app
+		if ($search!=='') $where=" AND ( (Login LIKE '%$search%') OR ( Gecos LIKE '%$search%' ) OR ( Email LIKE '%$search%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Usuarios",

@@ -33,24 +33,24 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="sesiones-Operador" name="Operador" type="hidden" /> 
                 <label for="Login">Usuario</label>
                 <input id="sesiones-Login" class="easyui-validatebox" name="Login" readonly="readonly" type="text" style="width:250px" />
-                <a id="sesiones-Logout" href="#" class="easyui-linkbutton" 
+                <a id="sesiones-logoutBtn" href="#" class="easyui-linkbutton" 
                 	data-options="iconCls:'icon-exit'" onclick="session_logout()">Desconectar</a>
             </div>
             <div class="fitem">
+                <label for="Comentario">Comentarios</label>
+                <textarea id="sesiones-Comentario" name="Comentario" style="height:40px;width:375px"></textarea>
+            </div>
+            <div class="fitem">
                 <label for="LiveStream">Stream MPEG-4</label>
-                <input id="sesiones-Livestream" class="easyui-validatebox" name="LiveStream" type="text" style="width:250px" />
+                <input id="sesiones-Livestream" name="LiveStream" type="text" style="width:375px" />
             </div>
             <div class="fitem">
                 <label for="LiveStream2">Stream OGV</label>
-                <input id="sesiones-LiveStream2" class="easyui-validatebox" name="LiveStream2" type="text" style="width:250px" />
+                <input id="sesiones-LiveStream2" name="LiveStream2" type="text" style="width:375px" />
             </div>
             <div class="fitem">
                 <label for="LiveStream3">Stream Web-M</label>
-                <input id="sesiones-LiveStream3" name="LiveStream3" type="text" style="width:250px" />
-            </div>
-            <div class="fitem">
-                <label for="Comentario">Comentarios</label>
-                <textarea id="sesiones-Comentario" name="Comentario" style="height:25px;width:375px"></textarea>
+                <input id="sesiones-LiveStream3" name="LiveStream3" type="text" style="width:375px" />
             </div>
         </form>
     </div>
@@ -68,7 +68,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		$('#sesiones-dialog').dialog({ closed:true, buttons:'#sesiones-dlg-buttons', iconCls:'icon-order', modal:true });
 		$('#sesiones-form').form({novalidate:true});
         // - botones
-		addTooltip($('#sesiones-Logout').linkbutton(),"Desconectar este usuario de la sesi&oacute;n");
+		addTooltip($('#sesiones-logoutBtn').linkbutton(),"Desconectar este usuario de la sesi&oacute;n");
 		addTooltip($('#sesiones-okBtn').linkbutton(),"Registrar los datos de la sesi&oacute;n y actualizar la BBDD");
 		addTooltip($('#sesiones-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
         // on ESC key close session

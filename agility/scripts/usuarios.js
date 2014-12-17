@@ -60,6 +60,7 @@ function editUser(dg){
     $('#usuarios-dialog').dialog('open').dialog('setTitle','Modificar datos del usuario');
     // and fill form with row data
     $('#usuarios-form').form('load',row);
+    // select proper combo data
 }
 
 /**
@@ -100,7 +101,7 @@ function deleteUser(dg){
     	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
     	return; // cannot delete default user
     }
-    $.messager.confirm('Confirm','Borrar datos del usuario:'+row.Nombre+'\n ¿Seguro?',function(r){
+    $.messager.confirm('Confirm','Borrar datos del usuario:'+row.Login+'\n ¿Seguro?',function(r){
       	if (!r) return;
         $.get('/agility/server/database/userFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
