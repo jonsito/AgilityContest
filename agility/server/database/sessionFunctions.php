@@ -32,7 +32,7 @@ try {
 			'Jornada'	=>	http_request("Jornada","i",0),
 			'Manga'		=>	http_request("Manga","i",0),
 			'Tanda'		=>	http_request("Tanda","i",0),
-			'Operador'	=>	http_request("Operador","i",0),
+			'Operador'	=>	http_request("Operador","i",1), // default user ID 1
 			'LiveStream'	=>	http_request("LiveStream","s",""),
 			'LiveStream2'	=>	http_request("LiveStream2","s",""),
 			'LiveStream3'	=>	http_request("LiveStream3","s",""),

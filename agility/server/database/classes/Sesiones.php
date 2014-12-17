@@ -90,12 +90,12 @@ class Sesiones extends DBObject {
 		$manga =	$data['Manga'];
 		$tanda =	$data['Tanda'];
 		$operador =	$data['Operador'];
-		$sessionkey=array_key_exist('SessionKey',$data)?$data['SessionKey']:null;
+		$sessionkey=array_key_exists('SessionKey',$data)?$data['SessionKey']:null;
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
+		if (!$res) return $this->error($stmt->error);
 		$stmt->close();
-		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
 		return ""; 
 	}

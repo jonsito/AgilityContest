@@ -28,6 +28,9 @@ function newSession(dg,def,onAccept){
 	$('#sesiones-form').form('clear');// clear old data (if any)
 	if (!strpos(def,"Buscar")) $('#sesiones-Nombre').val(def);// fill session Name
 	$('#sesiones-Operation').val('insert');// set up operation
+	$('#sesiones-Operador').val(1);// set default user id for new session
+	$('#sesiones-Login').val('-- Sin asignar --');// set up default user name for new session
+	$('#sesiones-Logout').linkbutton('disable'); // no sense to logout default user
 	if (onAccept!==undefined) $('#sesiones-okBtn').one('click',onAccept);
 }
 
@@ -48,6 +51,7 @@ function editSession(dg){
     $('#sesiones-dialog').dialog('open').dialog('setTitle','Modificar datos de la sesi&oacute;n');
     // and fill form with row data
     $('#sesiones-form').form('load',row);
+	$('#sesiones-Logout').linkbutton('enable'); // let us logout user from session
 }
 
 /**
@@ -99,4 +103,9 @@ function deleteSession(dg){
             }
         },'json');
     });
+}
+
+function session_logout() {
+	$('#sesiones-Operador').val(1);// set default user id for new session
+	$('#sesiones-Login').val('-- Sin asignar --');// set up default user name for new session
 }

@@ -173,7 +173,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     rowStyler:myRowStyler,
  	// on double click fireup editor dialog
     onDblClickRow:function() { 
-         editUser('#sesiones-datagrid');
+         editSession('#sesiones-datagrid');
     }
  });
 
