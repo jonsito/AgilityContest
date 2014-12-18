@@ -56,10 +56,12 @@ class PDF extends PrintCommon {
 		parent::__construct('Landscape',$prueba,$jornada);
 		$dbobj=new DBObject("print_clasificacion");
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
-		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
+		$this->manga2=null;
+		if ($mangas[1]!=0) $this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
 		$this->resultados=$resultados['rows'];
 		$this->trs1=$resultados['trs1'];
-		$this->trs2=$resultados['trs2'];
+		$this->trs2=null;
+		if ($mangas[1]!=0) $this->trs2=$resultados['trs2'];
 		$this->categoria = Mangas::$manga_modes[$mode][0];
 	}
 	
@@ -71,35 +73,38 @@ class PDF extends PrintCommon {
 		$juez1=$jobj->selectByID($this->manga1->Juez1);
 		$juez2=$jobj->selectByID($this->manga1->Juez2); // asume mismos jueces en dos mangas
 		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $this->categoria;
-		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria;
+		$tm2=null;
+		if ($this->manga2!=null)
+			$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria;
 
 		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(95,7,"Jornada: {$this->jornada->Nombre}",0,0,'',false);
+		$this->Cell(80,7,"Jornada: {$this->jornada->Nombre}",0,0,'',false);
 		$this->SetFont('Arial','B',9); // bold 9px
 		$this->Cell(20,7,"Juez 1:","LT",0,'L',false);
 		$n=$juez1['Nombre'];
-		$this->Cell(70,7,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
+		$this->Cell(75,7,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
 		$this->Cell(20,7,"Juez 2:","T",0,'L',false);
 		$n=$juez2['Nombre'];
-		$this->Cell(70,7,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
+		$this->Cell(80,7,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
 		$this->Ln();
 		$trs=$this->trs1;
 		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(95,7,"Fecha: {$this->jornada->Fecha}",0,0,'',false);
+		$this->Cell(80,7,"Fecha: {$this->jornada->Fecha}",0,0,'',false);
 		$this->SetFont('Arial','B',9); // bold 9px
-		$this->Cell(55,7,$tm1,"LT",0,'L',false);
-		$this->Cell(25,7,"Dist.: {$trs['dist']}m","LT",0,'L',false);
-		$this->Cell(25,7,"Obst.: {$trs['obst']}","LT",0,'L',false);
-		$this->Cell(25,7,"TRS: {$trs['trs']}s","LT",0,'L',false);
-		$this->Cell(25,7,"TRM: {$trs['trm']}s","LT",0,'L',false);
-		$this->Cell(25,7,"Vel.: {$trs['vel']}m/s","LTR",0,'L',false);
+		$this->Cell(70,7,$tm1,"LTB",0,'L',false);
+		$this->Cell(25,7,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
+		$this->Cell(25,7,"Obst.: {$trs['obst']}","LTB",0,'L',false);
+		$this->Cell(25,7,"TRS: {$trs['trs']}s","LTB",0,'L',false);
+		$this->Cell(25,7,"TRM: {$trs['trm']}s","LTB",0,'L',false);
+		$this->Cell(25,7,"Vel.: {$trs['vel']}m/s","LTRB",0,'L',false);
 		$this->Ln();
+		if ($this->trs2==null) { $this->Ln(); return; }
 		$trs=$this->trs2;
 		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
 		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(95,7,"Ronda: $ronda - {$this->categoria}",0,0,'',false);
+		$this->Cell(80,7,"Ronda: $ronda - {$this->categoria}",0,0,'',false);
 		$this->SetFont('Arial','B',9); // bold 9px
-		$this->Cell(55,7,$tm2,"LTB",0,'L',false);
+		$this->Cell(70,7,$tm2,"LTB",0,'L',false);
 		$this->Cell(25,7,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
 		$this->Cell(25,7,"Obst.: {$trs['obst']}","LTB",0,'L',false);
 		$this->Cell(25,7,"TRS: {$trs['trs']}s","LTB",0,'L',false);
@@ -150,12 +155,16 @@ class PDF extends PrintCommon {
 		$this->Cell(12,7,'Penal',0,0,'C',true);	// 1- Penalizacion
 		$this->Cell(12,7,'Calif',0,0,'C',true);	// 1- calificacion
 		// manga 2
-		$this->Cell(7,7,'F/T',0,0,'C',true);	// 2- Faltas+Tocados
-		$this->Cell(7,7,'Reh',0,0,'C',true);	// 2- Rehuses
-		$this->Cell(12,7,'Tiempo',0,0,'C',true);	// 2- Tiempo
-		$this->Cell(9,7,'Vel.',0,0,'C',true);	// 2- Velocidad
-		$this->Cell(12,7,'Penal',0,0,'C',true);	// 2- Penalizacion
-		$this->Cell(12,7,'Calif',0,0,'C',true);	// 2- calificacion
+		if ($this->manga2!=null) {
+			$this->Cell(7,7,'F/T',0,0,'C',true);	// 2- Faltas+Tocados
+			$this->Cell(7,7,'Reh',0,0,'C',true);	// 2- Rehuses
+			$this->Cell(12,7,'Tiempo',0,0,'C',true);	// 2- Tiempo
+			$this->Cell(9,7,'Vel.',0,0,'C',true);	// 2- Velocidad
+			$this->Cell(12,7,'Penal',0,0,'C',true);	// 2- Penalizacion
+			$this->Cell(12,7,'Calif',0,0,'C',true);	// 2- calificacion
+		} else {
+			$this->Cell(59,7,'',0,0,'C',true);	// espacio en blanco
+		}
 		// global
 		$this->Cell(12,7,'Tiempo.',0,0,'C',true);	// Tiempo total
 		$this->Cell(12,7,'Penaliz.',0,0,'C',true);	// Penalizacion
@@ -200,12 +209,16 @@ class PDF extends PrintCommon {
 		$this->Cell(12,7,$p1,0,0,'C',$fill);	// 1- Penalizacion
 		$this->Cell(12,7,$row['C1'],0,0,'C',$fill);	// 1- calificacion
 		// manga 2
-		$this->Cell(7,7,$row['F2'],0,0,'C',$fill);	// 2- Faltas+Tocados
-		$this->Cell(7,7,$row['R2'],0,0,'C',$fill);	// 2- Rehuses
-		$this->Cell(12,7,$t2,0,0,'C',$fill);	// 2- Tiempo
-		$this->Cell(9,7,$v2,0,0,'C',$fill);	// 2- Velocidad
-		$this->Cell(12,7,$p2,0,0,'C',$fill);	// 2- Penalizacion
-		$this->Cell(12,7,$row['C2'],0,0,'C',$fill);	// 2- calificacion
+		if ($this->manga2!=null) {
+			$this->Cell(7,7,$row['F2'],0,0,'C',$fill);	// 2- Faltas+Tocados
+			$this->Cell(7,7,$row['R2'],0,0,'C',$fill);	// 2- Rehuses
+			$this->Cell(12,7,$t2,0,0,'C',$fill);	// 2- Tiempo
+			$this->Cell(9,7,$v2,0,0,'C',$fill);	// 2- Velocidad
+			$this->Cell(12,7,$p2,0,0,'C',$fill);	// 2- Penalizacion
+			$this->Cell(12,7,$row['C2'],0,0,'C',$fill);	// 2- calificacion
+		} else {
+			$this->Cell(59,7,'',0,0,'C',$fill);	// espacio en blanco
+		}
 		// global
 		$this->Cell(12,7,$t1+$t2,0,0,'C',$fill);	// Tiempo
 		$this->Cell(12,7,$penal,0,0,'C',$fill);	// Penalizacion
