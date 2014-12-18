@@ -84,15 +84,16 @@ class PDF extends PrintCommon {
 	function writeTableHeader() {
 		$this->myLogger->enter();
 		// Colores, ancho de línea y fuente en negrita de la cabecera de tabla
-		$this->SetFillColor(0,0,255); // azul
-		$this->SetTextColor(255,255,255); // blanco
+		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
+		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
+		$this->ac_SetDrawColor(0,0,0); // line color
 		$this->SetFont('Arial','B',9); // bold 9px
 		for($i=0;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
 			$this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
 		}
 		// Restauración de colores y fuentes
-		$this->SetFillColor(224,235,255); // azul merle
+		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
 		$this->SetTextColor(0,0,0); // negro
 		$this->SetFont('Arial','',9); // remove bold
 		$this->Ln();
@@ -103,7 +104,7 @@ class PDF extends PrintCommon {
 	function composeTable() {
 		$this->myLogger->enter();
 		
-		$this->SetDrawColor(128,0,0);
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
 		
 		// Datos

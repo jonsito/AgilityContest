@@ -40,6 +40,7 @@ define('AC_PDF_HDRFG2','#0000ff');
 define('AC_PDF_HDRBG2','#808080');
 define('AC_PDF_ROWCOLOR1','#ffffff');
 define('AC_PDF_ROWCOLOR2','#e0ebff');
+define('AC_PDF_LINECOLOR','#808080');
 
 /** Internacionalizacion. Idiomas **/
 define ('AC_LANG','es');
@@ -70,6 +71,7 @@ Class Config {
 		$this->config['pdf_hdrbg2'] =	AC_PDF_HDRBG2;
 		$this->config['pdf_rowcolor1'] =	AC_PDF_ROWCOLOR1;
 		$this->config['pdf_rowcolor2'] =	AC_PDF_ROWCOLOR2;
+		$this->config['pdf_linecolor'] =	AC_PDF_LINECOLOR;
 		// Internacionalizacion. Idiomas
 		$this->config['lang'] =	AC_LANG;
 		

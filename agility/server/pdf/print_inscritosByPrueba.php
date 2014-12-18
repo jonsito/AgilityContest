@@ -73,10 +73,10 @@ class PrintCatalogo extends PrintCommon {
 		$club=$cmgr->selectByID($id);
 		$icon=($club['Logo']==="")?'rsce.png':$club['Logo'];
 		$this->myLogger->trace("Position: ".$pos." ID:".$id." Club: ".$club['Nombre']);
-		
-		$this->SetFillColor(0,0,255); // fondo azul
-		$this->SetTextColor(255,255,255); // texto blanco
-		$this->SetDrawColor(128,0,0); // lineas rojo palido
+
+		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
+		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 		$this->SetLineWidth(.3); // ancho de linea
 		
 		// pintamos logo
@@ -97,9 +97,9 @@ class PrintCatalogo extends PrintCommon {
 		$this->Cell( 110, 18, $club['Nombre'],	'T', 0, 'R',	true);	// pintamos Nombre
 		$this->Cell( 5, 18, '',	'TR', 0, 'R',	true);	// caja vacia de relleno
 		
-		// pintamos cabeceras de la tabla
-		$this->SetFillColor(192,192,192); // fondo gris
-		$this->SetTextColor(0,0,0); // texto blanco
+		// pintamos cabeceras de la tabla		
+		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2')); // gris
+		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg2')); // negro
 		$this->SetFont('Arial','B',9);
 		$this->SetXY(35,18+$y);
 		$this->Cell( 40, 7, 'Nombre','LTB', 0, 'C',true);
@@ -113,9 +113,11 @@ class PrintCatalogo extends PrintCommon {
 	function printParticipante($pos,$row) {
 		$this->myLogger->trace("Position: ".$pos." Dorsal: ".$row['Dorsal']);
 		$fill = (($pos&0x01)==0)?true:false;
-		$this->SetFillColor(224,235,255); // fondo azul merle
-		$this->SetTextColor(0,0,0); // texto negro
-		$this->SetDrawColor(128,0,0); // lineas rojo palido
+
+		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
+		$this->SetTextColor(0,0,0); // negro
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+		
 		$this->SetLineWidth(.3); // ancho de linea
 		$this->setXY(20,10*$pos-5); // posicion inicial
 		// REMINDER: 
@@ -249,15 +251,16 @@ class PrintInscritos extends PrintCommon {
 	function writeTableHeader() {
 		$this->myLogger->enter();
 		// Colores, ancho de línea y fuente en negrita de la cabecera de tabla
-		$this->SetFillColor(0,0,255); // azul
-		$this->SetTextColor(255,255,255); // blanco
+		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
+		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
+		$this->ac_SetDrawColor(0,0,0); // line color
 		$this->SetFont('Arial','B',8); // bold 9px
 		for($i=0;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
 			$this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
 		}
 		// Restauración de colores y fuentes
-		$this->SetFillColor(224,235,255); // azul merle
+		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
 		$this->SetTextColor(0,0,0); // negro
 		$this->SetFont(''); // remove bold
 		$this->Ln();
@@ -267,7 +270,7 @@ class PrintInscritos extends PrintCommon {
 	// Tabla coloreada
 	function composeTable() {
 		$this->myLogger->enter();
-		$this->SetDrawColor(128,0,0);
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 		$this->SetLineWidth(.3);
 		
 		// Datos

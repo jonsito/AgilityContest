@@ -233,7 +233,7 @@ class PDF extends PrintCommon {
 	function composeTable() {
 		$this->myLogger->enter();
 		
-		$this->SetDrawColor(128,0,0);
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
 		// Datos
 		$rowcount=0;

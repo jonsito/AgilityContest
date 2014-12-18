@@ -175,7 +175,7 @@ class PDF extends PrintCommon {
 		// restore colors
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
 		$this->SetTextColor(0,0,0); // negro
-		$this->SetDrawColor(128,128,128); // line color
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 	}
 	
 	function writeCell($idx,$row) {
@@ -226,7 +226,7 @@ class PDF extends PrintCommon {
 		$this->Cell(9,7,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
 		$this->Cell(9,7,$puesto,0,0,'R',$fill);	// Puesto
 		// lineas rojas
-		$this->SetDrawColor(128,0,0);
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->Line(10,$offset + 7*$idx,10,$offset + 7*($idx+1));
 		$this->Line(10+115,$offset + 7*$idx,10+115,$offset + 7*($idx+1));
 		$this->Line(10+174,$offset + 7*$idx,10+174,$offset + 7*($idx+1));
@@ -242,7 +242,7 @@ class PDF extends PrintCommon {
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
 		$this->SetTextColor(0,0,0); // negro
 		$this->SetFont('Arial','',8); // default font		
-		$this->SetDrawColor(128,128,128); // line color
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 		$this->SetLineWidth(.3);
 		
 		$rowcount=0;
@@ -251,13 +251,13 @@ class PDF extends PrintCommon {
 		foreach($this->resultados as $row) {
 			$numrows=($this->PageNo()==1)?15:19;
 			if($rowcount==0) $this->writeTableHeader();	
-			$this->SetDrawColor(128,128,128); // line color
+			$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 			$this->writeCell( $rowcount % $numrows,$row);
 			$rowcount++;
 			if ($rowcount>=$numrows) {
 				// pintamos linea de cierre 	
 				$this->setX(10);
-				$this->SetDrawColor(128,0,0); // line color
+				$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 				$this->cell(275,0,'','T'); // celda sin altura y con raya
 				$this->addPage();
 				$rowcount=0;
@@ -265,7 +265,7 @@ class PDF extends PrintCommon {
 		}
 		// pintamos linea de cierre final
 		$this->setX(10);
-		$this->SetDrawColor(128,0,0); // line color
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 		$this->cell(275,0,'','T'); // celda sin altura y con raya
 		$this->myLogger->leave();
 	}
