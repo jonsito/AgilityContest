@@ -89,28 +89,45 @@ class Clasificaciones extends DBObject {
 			);
 			$final[$item['Perro']]=$participante;
 		}
-		// Procesamos la segunda manga
-		foreach($c2['rows'] as $item) {
-			if (!isset($final[$item['Perro']])) {
-				$this->myLogger->error("El perro con ID:{$item['Perro']} no tiene datos en la primera manga.");
-				continue;
+		if ($c2!=null) {
+			// Procesamos la segunda manga
+			foreach($c2['rows'] as $item) {
+				if (!isset($final[$item['Perro']])) {
+					$this->myLogger->error("El perro con ID:{$item['Perro']} no tiene datos en la primera manga.");
+					continue;
+				}
+				$final[$item['Perro']]['F2'] = $item['Faltas'] + $item['Tocados'];
+				$final[$item['Perro']]['R2'] = $item['Rehuses'];
+				$final[$item['Perro']]['T2'] = $item['Tiempo'];
+				$final[$item['Perro']]['V2'] = $item['Velocidad'];
+				$final[$item['Perro']]['P2'] = $item['Penalizacion'];
+				$final[$item['Perro']]['C2'] = $item['CShort'];
+				$final[$item['Perro']]['Puesto2'] = $item['Puesto'];
+				$final[$item['Perro']]['Tiempo'] = $final[$item['Perro']]['T1'] + $final[$item['Perro']]['T2'];
+				$final[$item['Perro']]['Penalizacion'] = $final[$item['Perro']]['P1'] + $final[$item['Perro']]['P2'];
+				$final[$item['Perro']]['Calificacion'] = '';
+				$final[$item['Perro']]['Puntos'] = '';
+				// TODO: properly evaluate calificacion y puntos
+				$c=$final[$item['Perro']]['Grado'];
+				if (($c==="GII") || ($c=="GIII")) {
+					$final[$item['Perro']]['Calificacion'] = 
+						($final[$item['Perro']]['Penalizacion']==0.0)?'Pto.':'';
+				}
 			}
-			$final[$item['Perro']]['F2'] = $item['Faltas'] + $item['Tocados'];
-			$final[$item['Perro']]['R2'] = $item['Rehuses'];
-			$final[$item['Perro']]['T2'] = $item['Tiempo'];
-			$final[$item['Perro']]['V2'] = $item['Velocidad'];
-			$final[$item['Perro']]['P2'] = $item['Penalizacion'];
-			$final[$item['Perro']]['C2'] = $item['CShort'];
-			$final[$item['Perro']]['Puesto2'] = $item['Puesto'];
-			$final[$item['Perro']]['Tiempo'] = $final[$item['Perro']]['T1'] + $final[$item['Perro']]['T2'];
-			$final[$item['Perro']]['Penalizacion'] = $final[$item['Perro']]['P1'] + $final[$item['Perro']]['P2'];
-			$final[$item['Perro']]['Calificacion'] = '';
-			$final[$item['Perro']]['Puntos'] = '';
-			// TODO: properly evaluate calificacion y puntos
-			$c=$final[$item['Perro']]['Grado'];
-			if (($c==="GII") || ($c=="GIII")) {
-				$final[$item['Perro']]['Calificacion'] = 
-					($final[$item['Perro']]['Penalizacion']==0.0)?'Pto.':'';
+		} else {
+			// en las rondas a una manga, debemos generar una segunda manga "fake"
+			foreach($c1['rows'] as $item) {
+				$final[$item['Perro']]['F2'] = 0;
+				$final[$item['Perro']]['R2'] = 0;
+				$final[$item['Perro']]['T2'] = 0;
+				$final[$item['Perro']]['V2'] = 0;
+				$final[$item['Perro']]['P2'] = 0;
+				$final[$item['Perro']]['C2'] = '';
+				$final[$item['Perro']]['Puesto2'] = 0;
+				$final[$item['Perro']]['Tiempo'] = $final[$item['Perro']]['T1'];
+				$final[$item['Perro']]['Penalizacion'] = $final[$item['Perro']]['P1'];
+				$final[$item['Perro']]['Calificacion'] = $final[$item['Perro']]['C1'];
+				$final[$item['Perro']]['Puntos'] = '';
 			}
 		}
 		// una vez ordenados, el índice perro ya no tiene sentido, con lo que vamos a eliminarlo
@@ -166,8 +183,9 @@ class Clasificaciones extends DBObject {
 		// vamos a ver que tipo de clasificacion nos estan pidiendo
 		switch ($rondas) {
 			case 0x0001: // pre-agility a una vuelta
-				$resultados= new Resultados("Clasificaciones::Preagility 1",$this->prueba->ID,$idmangas[0]);
-				return $resultados->getResultados($mode);
+				$r1= new Resultados("Clasificaciones::Preagility 1",$this->prueba->ID,$idmangas[0]);
+				$c1=$r1->getResultados($mode);
+				return $this->evalFinal($c1,null,$mode);
 			case 0x0002: // pre-agility a dos vueltas
 			case 0x0004: // Grado I
 			case 0x0008: // Grado II
@@ -193,8 +211,9 @@ class Clasificaciones extends DBObject {
 				$this->errormsg= "Clasificaciones:: Ronda $ronda is not yet supported";
 				return null;
 			case 0x0200: // manga especial (una vuelta)
-				$resultados= new Resultados("Clasificaciones::Manga Especial",$this->prueba->ID,$idmangas[0]);
-				return $resultados->getResultados($mode);
+				$r1= new Resultados("Clasificaciones::Manga Especial",$this->prueba->ID,$idmangas[0]);
+				$c1=$r1->getResultados($mode);
+				return $this->evalFinal($c1,null,$mode);
 		}
 	}
 }

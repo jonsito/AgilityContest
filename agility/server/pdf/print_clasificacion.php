@@ -216,7 +216,7 @@ class PDF extends PrintCommon {
 		$this->Line(10,$offset + 7*$idx,10,$offset + 7*($idx+1));
 		$this->Line(10+115,$offset + 7*$idx,10+115,$offset + 7*($idx+1));
 		$this->Line(10+174,$offset + 7*$idx,10+174,$offset + 7*($idx+1));
-		$this->Line(10+231,$offset + 7*$idx,10+231,$offset + 7*($idx+1));
+		$this->Line(10+233,$offset + 7*$idx,10+233,$offset + 7*($idx+1));
 		$this->Line(10+275,$offset + 7*$idx,10+275,$offset + 7*($idx+1));
 		
 		$this->Ln();
