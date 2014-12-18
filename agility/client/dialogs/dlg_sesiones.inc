@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE Sesiones -->
-    <div id="sesiones-dialog" style="width:550px;height:375px;padding:10px 20px">
+    <div id="sesiones-dialog" style="width:550px;height:400px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n de la sesi&oacute;n</div>
         <form id="sesiones-form" method="get">
             <div class="fitem">
@@ -52,6 +52,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <label for="LiveStream3">Stream Web-M</label>
                 <input id="sesiones-LiveStream3" name="LiveStream3" type="text" style="width:375px" />
             </div>
+            <div class="fitem" style="position:inline-block;float:right; padding-right:40px">
+				<a id="sesiones-seqBtn" href="#" class="easyui-linkbutton" 
+                	data-options="iconCls:'icon-video-tv'" onclick="session_sequences()">Secuencias</a>
+            </div>
+            
         </form>
     </div>
     
@@ -69,6 +74,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		$('#sesiones-form').form({novalidate:true});
         // - botones
 		addTooltip($('#sesiones-logoutBtn').linkbutton(),"Desconectar este usuario de la sesi&oacute;n");
+		addTooltip($('#sesiones-seqBtn').linkbutton(),"Ver/editar las secuencias para <br />los videomarcadores de esta sesi&oacute;n");
 		addTooltip($('#sesiones-okBtn').linkbutton(),"Registrar los datos de la sesi&oacute;n y actualizar la BBDD");
 		addTooltip($('#sesiones-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
         // on ESC key close session

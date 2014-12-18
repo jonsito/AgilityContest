@@ -109,3 +109,10 @@ function session_logout() {
 	$('#sesiones-Operador').val(1);// set default user id for new session
 	$('#sesiones-Login').val('-- Sin asignar --');// set up default user name for new session
 }
+
+function session_sequences() {
+	// TODO: write
+    $.messager.alert("TODO","Edicion de secuencias pendiente de desarrollo","info");
+    return; // no way to know which dog is selected
+}
+
