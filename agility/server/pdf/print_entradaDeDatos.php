@@ -88,8 +88,9 @@ class PDF extends PrintCommon {
 	function writeTableCell_compacto($rowcount,$row) {
 		$this->myLogger->trace("imprimiendo datos del idperro: ".$row['Perro']);
 		// cada celda tiene una cabecera con los datos del participante
-		$this->SetFillColor(0,0,255); // azul
-		$this->SetDrawColor(0,0,0); // negro para los recuadros
+		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
+		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
+		$this->ac_SetDrawColor(0,0,0); // line color
 		// save cursor position
 		$x=$this->getX();
 		$y=$this->GetY();
@@ -97,19 +98,24 @@ class PDF extends PrintCommon {
 		// fase 1: contenido de cada celda de la cabecera
 		// Cell( width,height,message,border,cursor,align,fill)
 		// border 1:0:'[LTRB]'
-		$this->SetTextColor(255,255,255); // blanco
 		$this->SetFont('Arial','B',20); // bold 20px
 		$this->Cell(15,14,$row['Dorsal'],		'LTBR',0,'C',true); // display order
 		$this->SetFont('Arial','B',10); // bold 10px
-		$this->Cell(10,7,($row['Celo']!=0)?"Celo":"",'TR',0,'C',true);
-		$this->Cell(15,7,$row['Licencia'],		'TR',0,'C',true);
-		$this->Cell(25,7,$row['Nombre'],		'TR',0,'R',true);
-		$this->Cell(50,7,$row['NombreGuia'],	'TR',0,'R',true);
-		$this->Cell(35,7,$row['NombreClub'],	'TR',0,'R',true);
+		$this->Cell(10,7,'',	'TR',0,'C',true);
+		$this->Cell(15,7,'',	'TR',0,'C',true);
+		$this->Cell(25,7,'',	'TR',0,'R',true);
+		$this->Cell(50,7,'',	'TR',0,'R',true);
+		$this->Cell(35,7,'',	'TR',0,'R',true);
 		$this->Cell(7, 14,'',	'TRB',0,'L',false);
 		$this->Cell(7, 14,'',	'TRB',0,'L',false);
 		$this->Cell(7, 14,'',	'TRB',0,'L',false);
 		$this->Cell(19, 14,'',  'TRB',0,'L',false);
+		$this->SetXY($x+15,$y+3); // restore cursor position
+		$this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'C',false);
+		$this->Cell(15,4,$row['Licencia'],		'',0,'C',false);
+		$this->Cell(25,4,$row['Nombre'],		'',0,'R',false);
+		$this->Cell(50,4,$row['NombreGuia'],	'',0,'R',false);
+		$this->Cell(35,4,$row['NombreClub'],	'',0,'R',false);
 
 		// ahora pintamos los nombres de los campos en negro fondo transparente sin borde
 		$this->SetXY($x,$y); // restore cursor position
@@ -127,7 +133,7 @@ class PDF extends PrintCommon {
 		$this->Cell(19,4,'Tiempo',  '',0,'C',false);
 		
 		// ahora pintamos recuadritos
-		$this->SetFillColor(224,235,255); // azul merle
+		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
 		$this->SetXY($x+15,$y+7); 
 		$this->Cell(15,7,'Faltas','RB',0,'L',false);
 		for ($i=1;$i<=10;$i++) $this->Cell(5,7,$i,'RB',0,'C',(($i&0x01)==0)?false:true);
@@ -147,24 +153,34 @@ class PDF extends PrintCommon {
 	function writeTableCell_normal($rowcount,$row,$f=1) {
 		$this->myLogger->trace("imprimiendo datos del idperro: ".$row['Perro']);
 		// cada celda tiene una cabecera con los datos del participante
-		$this->SetFillColor(0,0,255); // azul
-		$this->SetDrawColor(0,0,0); // negro para los recuadros
+		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
+		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
+		$this->ac_SetDrawColor(0,0,0); // line color
 		// save cursor position 
 		$x=$this->getX();
 		$y=$this->GetY();
 		// fase 1: contenido de cada celda de la cabecera
-		$this->SetTextColor(255,255,255); // blanco
 		$this->SetFont('Arial','B',20); // bold 9px
 		$this->Cell($this->pos[0],10*$f,$row['Dorsal'],		'LTR',0,$this->align[0],true); // display order
+		// pintamos cajas con fondo
+		$this->Cell($this->pos[1],10*$f,'',		'LTR',0,$this->align[1],true);
+		$this->Cell($this->pos[2],10*$f,'',		'LTR',0,$this->align[2],true);
+		$this->Cell($this->pos[3],10*$f,'',	'LTR',0,$this->align[3],true);
+		$this->Cell($this->pos[4],10*$f,'',	'LTR',0,$this->align[4],true);
+		$this->Cell($this->pos[5],10*$f,'','LTR',0,$this->align[5],true);
+		$this->Cell($this->pos[6],10*$f,'',	'LTR',0,$this->align[6],true);
+		
+		// pintamos textos un poco desplazados hacia abajo y sin borde ni fondo
+		$this->SetXY($x+$this->pos[0],$y+3); // restore cursor position
 		$this->SetFont('Arial','B',12); // bold 9px
-		$this->Cell($this->pos[1],10*$f,$row['Nombre'],		'LTR',0,$this->align[1],true);
-		$this->Cell($this->pos[2],10*$f,$row['Licencia'],		'LTR',0,$this->align[2],true);
-		$this->Cell($this->pos[3],10*$f,$row['NombreGuia'],	'LTR',0,$this->align[3],true);
-		$this->Cell($this->pos[4],10*$f,$row['NombreClub'],	'LTR',0,$this->align[4],true);
-		$this->Cell($this->pos[5],10*$f,($row['Celo']!=0)?"Celo":"",'LTR',0,$this->align[5],true);
-		$this->Cell($this->pos[6],10*$f,$row['Observaciones'],	'LTR',0,$this->align[6],true);
-
-		// fase 2: nombre de cada celda de la cabecera
+		$this->Cell($this->pos[1],10*$f-3,$row['Nombre'],		'',0,$this->align[1],false);
+		$this->Cell($this->pos[2],10*$f-3,$row['Licencia'],		'',0,$this->align[2],false);
+		$this->Cell($this->pos[3],10*$f-3,$row['NombreGuia'],	'',0,$this->align[3],false);
+		$this->Cell($this->pos[4],10*$f-3,$row['NombreClub'],	'',0,$this->align[4],false);
+		$this->Cell($this->pos[5],10*$f-3,($row['Celo']!=0)?"Celo":"",'',0,$this->align[5],false);
+		$this->Cell($this->pos[6],10*$f-3,$row['Observaciones'],	'',0,$this->align[6],false);
+		
+		// nombre nombre de cada celda de la cabecera
 		$this->SetXY($x,$y); // restore cursor position
 		$this->SetTextColor(0,0,0); // negro
 		$this->SetFont('Arial','I',8); // italic 8px
@@ -178,7 +194,7 @@ class PDF extends PrintCommon {
 		$this->Cell(0,10*$f); // increase height before newline
 		
 		// Restauración de colores y fuentes
-		$this->SetFillColor(224,235,255); // azul merle
+		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
 		$this->SetTextColor(0,0,0); // negro
 		$this->Ln();
 		// datos de Faltas, Tocados y Rehuses
