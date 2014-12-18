@@ -127,7 +127,7 @@ class PrintCommon extends FPDF {
 		$r=(0x00FF0000&$val)>>16;
 		$g=(0x0000FF00&$val)>>8;
 		$b=(0x000000FF&$val);
-		$this->myLogger->info("fill color str:$str v2:$v2 val:$val R:$r G:$g B:$b");
+		// $this->myLogger->info("fill color str:$str val:$val R:$r G:$g B:$b");
 		$this->SetFillColor($r,$g,$b);
 	}
 	function ac_SetTextColor($str) {
@@ -135,7 +135,7 @@ class PrintCommon extends FPDF {
 		$r=(0x00FF0000&$val)>>16;
 		$g=(0x0000FF00&$val)>>8;
 		$b=(0x000000FF&$val);
-		$this->myLogger->info("text color str:$str R:$r G:$g B:$b");
+		// $this->myLogger->info("text color str:$str R:$r G:$g B:$b");
 		$this->SetTextColor($r,$g,$b);
 	}
 	function ac_SetDrawColor($str) {
@@ -143,7 +143,7 @@ class PrintCommon extends FPDF {
 		$r=(0x00FF0000&$val)>>16;
 		$g=(0x0000FF00&$val)>>8;
 		$b=(0x000000FF&$val);
-		$this->myLogger->info("draw color str:$str R:$r G:$g B:$b");
+		// $this->myLogger->info("draw color str:$str R:$r G:$g B:$b");
 		$this->SetDrawColor($r,$g,$b);
 	}
 	

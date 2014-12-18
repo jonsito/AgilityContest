@@ -124,7 +124,8 @@ class PDF extends PrintCommon {
 	
 	function writeTableHeader() {
 		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
-		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
+		$tm2=null;
+		if ($this->manga2!=null) $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
 		
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
