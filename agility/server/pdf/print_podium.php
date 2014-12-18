@@ -57,13 +57,10 @@ class Print_Podium extends PrintCommon {
 		if ($mangas[1]!=0) $this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
 		$this->resultados=$resultados;
 	}
-	
-	function print_datosMangas() {
-		$this->ln(14); // TODO: write jornada / fecha / grado
-	}
-	
+
 	function Header() {
-		$this->print_commonHeader("Podiums");
+		$grado=Mangas::$tipo_manga[$this->manga1->Tipo][4];
+		$this->print_commonHeader("Pódium $grado");
 	}
 	
 	// Pie de página: tampoco cabe
@@ -71,7 +68,18 @@ class Print_Podium extends PrintCommon {
 		$this->print_commonFooter();
 	}
 	
-	function writeTableHeader() {
+	function print_InfoJornada() {
+		$this->setXY(10,40);
+		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2')); // gris
+		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg2')); // negro
+		$this->ac_SetDrawColor(0,0,0); // line color
+		$this->SetFont('Arial','B',11); // bold 11px
+		$this->Cell(140,7,"Jornada: {$this->jornada->Nombre}",0,0,'L',true);
+		$this->Cell(135,7,"Fecha: {$this->jornada->Fecha}",0,0,'R',true);
+		$this->ln(14); // TODO: write jornada / fecha / grado
+	}
+	
+	function writeTableHeader($mode) {
 		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
 		$tm2=null;
 		if ($this->manga2!=null) $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
@@ -84,7 +92,7 @@ class Print_Podium extends PrintCommon {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// first row of table header
 		$this->SetFont('Arial','BI',12); // default font
-		$this->Cell(115,7,'Datos del participante',0,0,'L',true);
+		$this->Cell(115,7,Mangas::$manga_modes[$mode][0],0,0,'L',true);
 		$this->Cell(59,7,$tm1,0,0,'C',true);
 		$this->Cell(59,7,$tm2,0,0,'C',true);
 		$this->Cell(42,7,'Clasificación',0,0,'C',true);
@@ -129,8 +137,8 @@ class Print_Podium extends PrintCommon {
 	
 	function writeCell($idx,$row) {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-		$offset=($this->PageNo()==1)?80:55;
-		$this->SetXY(10, $offset + 7*$idx ); // first page has 3 extra header lines
+		$y=$this->getY();
+		$this->SetX(10 ); // first page has 3 extra header lines
 		$fill=(($idx%2)!=0)?true:false;
 		
 		// fomateamos datos
@@ -173,46 +181,44 @@ class Print_Podium extends PrintCommon {
 		$this->Cell(12,7,$t1+$t2,0,0,'C',$fill);	// Tiempo
 		$this->Cell(12,7,$penal,0,0,'C',$fill);	// Penalizacion
 		$this->Cell(9,7,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
+		$this->SetFont('Arial','B',9); // default font
 		$this->Cell(9,7,$puesto,0,0,'R',$fill);	// Puesto
+		$this->SetFont('Arial','',8); // default font
 		// lineas rojas
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
-		$this->Line(10,$offset + 7*$idx,10,$offset + 7*($idx+1));
-		$this->Line(10+115,$offset + 7*$idx,10+115,$offset + 7*($idx+1));
-		$this->Line(10+174,$offset + 7*$idx,10+174,$offset + 7*($idx+1));
-		$this->Line(10+233,$offset + 7*$idx,10+233,$offset + 7*($idx+1));
-		$this->Line(10+275,$offset + 7*$idx,10+275,$offset + 7*($idx+1));
-		
-		$this->Ln();
+		$this->Line(10    ,$y,10,    $y+7);
+		$this->Line(10+115,$y,10+115,$y+7);
+		$this->Line(10+174,$y,10+174,$y+7);
+		$this->Line(10+233,$y,10+233,$y+7);
+		$this->Line(10+275,$y,10+275,$y+7);
+		$this->Ln(7);
 	}
 	
 	function composeTable() {
 		$this->myLogger->enter();
 
+		$this->addPage();
+		$this->print_InfoJornada();
+		
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
-		$this->SetTextColor(0,0,0); // negro
-		$this->SetFont('Arial','',8); // default font		
-		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color		
 		$this->SetLineWidth(.3);
-
-		$line=0;
+		$this->SetTextColor(0,0,0); // negro
+		$this->SetFont('Arial','',8); // default font
 		foreach($this->resultados as $mode => $data) {
 			$rowcount=0;
-			$this->print_datosMangas();
-			$line+=2;
 			foreach($data as $row) {
-				if($rowcount==0) { $this->writeTableHeader(); $line +=2; }
+				if($rowcount==0) $this->writeTableHeader($mode);
 				if($rowcount>2) break; // only print 3 first results
 				$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-				$this->writeCell( $line,$row);
+				$this->writeCell( $rowcount,$row);
 				$rowcount++;
-				$line++;
 			}
 			// pintamos linea de cierre final
 			$this->setX(10);
 			$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 			$this->cell(275,0,'','T'); // celda sin altura y con raya
 			$this->Ln(7);
-			$line++;	
 		}
 		$this->myLogger->leave();
 	}
@@ -263,9 +269,8 @@ try {
 	// Creamos generador de documento
 	$pdf = new Print_Podium($prueba,$jornada,$mangas,$result);
 	$pdf->AliasNbPages();
-	$pdf->addPage();
 	$pdf->composeTable();
-	$pdf->Output("print_clasificacion.pdf","D"); // "D" means open download dialog
+	$pdf->Output("print_podium.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());
