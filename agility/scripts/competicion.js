@@ -737,8 +737,28 @@ function resultados_doSelectRonda(row) {
  * Imprime una hoja con los podio de esta ronda
  */
 function resultados_printPodium() {
-	alert("competicion.js::resultados_printPodium() {PENDING}");
-	// TODO: write
+	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
+	var url='/agility/server/pdf/print_podium.php';
+	if (ronda==null) {
+    	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+    	return false; // no way to know which ronda is selected
+	}
+	$.fileDownload(
+		url,
+		{
+			httpMethod: 'GET',
+			data: { 
+				Prueba:workingData.prueba,
+				Jornada:workingData.jornada,
+				Manga1:ronda.Manga1,
+				Manga2:ronda.Manga2,
+				Rondas: ronda.Rondas
+			},
+	        preparingMessageHtml: "Generando PDF con los podios. Por favor, espere...",
+	        failMessageHtml: "Ha habido problemas en la generacion del formulario\n. Por favor, intentelo de nuevo."
+		}
+	);
+    return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
 /**
@@ -857,7 +877,7 @@ function resultados_doPrint() {
 			 { 0:'Podium (PDF)',1:'Etiquetas (CSV)',2:'Etiquetas (PDF)',3:'Informe R.S.C.E. (Excel)',4:'Clasificación (PDF)'}, 
 			 function(r){ 
 				 switch(parseInt(r)) {
-				 case 0: resultados_printPodio(); break;
+				 case 0: resultados_printPodium(); break;
 				 case 1: resultados_printEtiquetas(0); break;
 				 case 2: resultados_printEtiquetas(1); break;
 				 case 3: resultados_printCanina(); break;

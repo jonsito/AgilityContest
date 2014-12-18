@@ -1,6 +1,6 @@
 <?php
 /*
-print_clasificacion.php
+print_podium.php
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -38,83 +38,32 @@ require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__.'/../database/classes/Clasificaciones.php');
 require_once(__DIR__."/print_common.php");
 
-class PDF extends PrintCommon {
+class Print_Podium extends PrintCommon {
 	
 	protected $manga1;
 	protected $manga2;
 	protected $resultados;
-	protected $trs1;
-	protected $trs2;
-	protected $categoria;
 
 	 /** Constructor
-	 * @param {obj} $manga datos de la manga
-	 * @param {obj} $resultados resultados asociados a la manga/categoria pedidas
+	 * @param {array} $manga lista de mangaid's
+	 * @param {array} $resultados resultados asociados a la manga pedidas
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$mangas,$resultados,$mode) {
+	function __construct($prueba,$jornada,$mangas,$resultados) {
 		parent::__construct('Landscape',$prueba,$jornada);
 		$dbobj=new DBObject("print_clasificacion");
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=null;
 		if ($mangas[1]!=0) $this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
-		$this->resultados=$resultados['rows'];
-		$this->trs1=$resultados['trs1'];
-		$this->trs2=null;
-		if ($mangas[1]!=0) $this->trs2=$resultados['trs2'];
-		$this->categoria = Mangas::$manga_modes[$mode][0];
+		$this->resultados=$resultados;
 	}
 	
 	function print_datosMangas() {
-		$this->setXY(10,40);
-		$this->SetFont('Arial','B',9); // bold 9px
-		
-		$jobj=new Jueces("print_Clasificaciones");
-		$juez1=$jobj->selectByID($this->manga1->Juez1);
-		$juez2=$jobj->selectByID($this->manga1->Juez2); // asume mismos jueces en dos mangas
-		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $this->categoria;
-		$tm2=null;
-		if ($this->manga2!=null)
-			$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria;
-
-		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(80,7,"Jornada: {$this->jornada->Nombre}",0,0,'',false);
-		$this->SetFont('Arial','B',9); // bold 9px
-		$this->Cell(20,7,"Juez 1:","LT",0,'L',false);
-		$n=$juez1['Nombre'];
-		$this->Cell(75,7,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
-		$this->Cell(20,7,"Juez 2:","T",0,'L',false);
-		$n=$juez2['Nombre'];
-		$this->Cell(80,7,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
-		$this->Ln();
-		$trs=$this->trs1;
-		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(80,7,"Fecha: {$this->jornada->Fecha}",0,0,'',false);
-		$this->SetFont('Arial','B',9); // bold 9px
-		$this->Cell(70,7,$tm1,"LTB",0,'L',false);
-		$this->Cell(25,7,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
-		$this->Cell(25,7,"Obst.: {$trs['obst']}","LTB",0,'L',false);
-		$this->Cell(25,7,"TRS: {$trs['trs']}s","LTB",0,'L',false);
-		$this->Cell(25,7,"TRM: {$trs['trm']}s","LTB",0,'L',false);
-		$this->Cell(25,7,"Vel.: {$trs['vel']}m/s","LTRB",0,'L',false);
-		$this->Ln();
-		if ($this->trs2==null) { $this->Ln(); return; }
-		$trs=$this->trs2;
-		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
-		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(80,7,"Ronda: $ronda - {$this->categoria}",0,0,'',false);
-		$this->SetFont('Arial','B',9); // bold 9px
-		$this->Cell(70,7,$tm2,"LTB",0,'L',false);
-		$this->Cell(25,7,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
-		$this->Cell(25,7,"Obst.: {$trs['obst']}","LTB",0,'L',false);
-		$this->Cell(25,7,"TRS: {$trs['trs']}s","LTB",0,'L',false);
-		$this->Cell(25,7,"TRM: {$trs['trm']}s","LTB",0,'L',false);
-		$this->Cell(25,7,"Vel.: {$trs['vel']}m/s","LTBR",0,'L',false);
-		$this->Ln();
+		$this->ln(14); // TODO: write jornada / fecha / grado
 	}
 	
 	function Header() {
-		$this->print_commonHeader("Clasificación Final");
+		$this->print_commonHeader("Podiums");
 	}
 	
 	// Pie de página: tampoco cabe
@@ -131,7 +80,7 @@ class PDF extends PrintCommon {
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
 		$this->ac_SetDrawColor(0,0,0); // line color
 		
-		$this->SetXY(10,($this->PageNo()==1)?65:40); // first page has 3 extra header lines
+		$this->SetX(10); // first page has 3 extra header lines
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// first row of table header
 		$this->SetFont('Arial','BI',12); // default font
@@ -244,29 +193,27 @@ class PDF extends PrintCommon {
 		$this->SetFont('Arial','',8); // default font		
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 		$this->SetLineWidth(.3);
-		
-		$rowcount=0;
-		$this->addPage();
-		$this->print_datosMangas();
-		foreach($this->resultados as $row) {
-			$numrows=($this->PageNo()==1)?15:19;
-			if($rowcount==0) $this->writeTableHeader();	
-			$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-			$this->writeCell( $rowcount % $numrows,$row);
-			$rowcount++;
-			if ($rowcount>=$numrows) {
-				// pintamos linea de cierre 	
-				$this->setX(10);
+
+		$line=0;
+		foreach($this->resultados as $mode => $data) {
+			$rowcount=0;
+			$this->print_datosMangas();
+			$line+=2;
+			foreach($data as $row) {
+				if($rowcount==0) { $this->writeTableHeader(); $line +=2; }
+				if($rowcount>2) break; // only print 3 first results
 				$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-				$this->cell(275,0,'','T'); // celda sin altura y con raya
-				$this->addPage();
-				$rowcount=0;
+				$this->writeCell( $line,$row);
+				$rowcount++;
+				$line++;
 			}
+			// pintamos linea de cierre final
+			$this->setX(10);
+			$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+			$this->cell(275,0,'','T'); // celda sin altura y con raya
+			$this->Ln(7);
+			$line++;	
 		}
-		// pintamos linea de cierre final
-		$this->setX(10);
-		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-		$this->cell(275,0,'','T'); // celda sin altura y con raya
 		$this->myLogger->leave();
 	}
 }
@@ -286,13 +233,37 @@ try {
 	$mangas[6]=http_request("Manga7","i",0);
 	$mangas[7]=http_request("Manga8","i",0);
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
-	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
-	$c= new Clasificaciones("print_clasificacion_pdf",$prueba,$jornada);
-	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
-
+	
+	// buscamos los recorridos asociados a la manga
+	$dbobj=new DBObject("print_clasificacion");
+	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
+	$c= new Clasificaciones("print_podium_pdf",$prueba,$jornada);
+	$result=array();
+	switch($mng->Recorrido) {
+		case 0: // recorridos separados large medium small
+			$r=$c->clasificacionFinal($rondas,$mangas,0);
+			$result[0]=$r['rows'];
+			$r=$c->clasificacionFinal($rondas,$mangas,1);
+			$result[1]=$r['rows'];
+			$r=$c->clasificacionFinal($rondas,$mangas,2);
+			$result[2]=$r['rows'];
+			break;
+		case 1: // large / medium+small
+			$r=$c->clasificacionFinal($rondas,$mangas,0);
+			$result[0]=$r['rows'];
+			$r=$c->clasificacionFinal($rondas,$mangas,3);
+			$result[3]=$r['rows'];
+			break;
+		case 2: // recorrido conjunto large+medium+small
+			$r=$c->clasificacionFinal($rondas,$mangas,4);
+			$result[4]=$r['rows'];
+			break;
+	}
+	
 	// Creamos generador de documento
-	$pdf = new PDF($prueba,$jornada,$mangas,$result,$mode);
+	$pdf = new Print_Podium($prueba,$jornada,$mangas,$result);
 	$pdf->AliasNbPages();
+	$pdf->addPage();
 	$pdf->composeTable();
 	$pdf->Output("print_clasificacion.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {

@@ -196,5 +196,5 @@
 			// error
 			$.error( 'Method ' +  args + ' does not exist on jQuery.Chrono' );
 		}
-	}
+	};
 }( jQuery ) );
