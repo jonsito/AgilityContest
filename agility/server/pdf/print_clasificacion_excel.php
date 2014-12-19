@@ -38,34 +38,26 @@ require_once(__DIR__.'/../database/classes/Clasificaciones.php');
 
 class Excel {
 	protected $myLogger;
-	protected $club; // club organizador
-	protected $prueba; // datos de la prueba
-	protected $jornada; // datos de la jornada
-	protected $manga1; // datos de la manga
-	protected $manga2;
-	protected $resultados;
-	protected $trs1;
-	protected $trs2;
-	protected $categoria;
+	protected $dbobj;
+	protected $prueba;
+	protected $club;
+	protected $jornada;
+	protected $manga1;
+	protected $manga2; // in RSCE excel must allways exists (no single round)
 
 	 /** Constructor
 	 * @param {obj} $manga datos de la manga
 	 * @param {obj} $resultados resultados asociados a la manga/categoria pedidas
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$mangas,$resultados,$mode) {
-		$this->myLogger= new Logger("PrintCommon");
-		$dbobj=new DBObject("print_clasificacion_excel");
-		$this->prueba=$dbobj->__getObject("Pruebas",$prueba);
-		$this->club=$dbobj->__getObject("Clubes",$this->prueba->Club); // club organizador
-		if ($jornada!=0) $this->jornada=$dbobj->__getObject("Jornadas",$jornada);
-		else $this->jornada=null;
-		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
-		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
-		$this->resultados=$resultados['rows'];
-		$this->trs1=$resultados['trs1'];
-		$this->trs2=$resultados['trs2'];
-		$this->categoria = Mangas::$manga_modes[$mode][0];
+	function __construct($prueba,$jornada,$mangas) {
+		$this->myLogger= new Logger("PrintExcel");
+		$this->dbobj=new DBObject("print_clasificacion_excel");
+		$this->prueba	=$this->dbobj->__getObject("Pruebas",$prueba);
+		$this->club		=$this->dbobj->__getObject("Clubes",$this->prueba->Club); // club organizador
+		$this->jornada	=$this->dbobj->__getObject("Jornadas",$jornada);
+		$this->manga1	=$this->dbobj->__getObject("Mangas",$mangas[0]);
+		$this->manga2	=$this->dbobj->__getObject("Mangas",$mangas[1]);
 	}
 	
 	// This one makes the beginning of the xls file
@@ -95,49 +87,58 @@ class Excel {
 		return;
 	}
 	
-	function write_datosMangas() {
+	function write_pageHeader($prueba,$jornada,$mangas) {
+		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
+		// starts at 0
+		$this->xlsLabel(0,0,"Prueba");
+		$this->xlsLabel(0,1,iconv( "UTF-8", "ISO-8859-1",$this->prueba->Nombre));
+		$this->xlsLabel(1,0,"Club");
+		$this->xlsLabel(1,1,iconv( "UTF-8", "ISO-8859-1",$this->club->Nombre));
+		$this->xlsLabel(2,0,"Jornada");
+		$this->xlsLabel(2,1,iconv( "UTF-8", "ISO-8859-1",$this->jornada->Nombre));
+		$this->xlsLabel(3,0,"Fecha");
+		$this->xlsLabel(3,1,$this->jornada->Fecha);
+		$this->xlsLabel(4,0,"Ronda");
+		$this->xlsLabel(4,1, iconv("UTF-8", "ISO-8859-1",$ronda));
+		return 5;
+	}
+	
+	function write_datosMangas($result,$row, $mode) {
 		$jobj=new Jueces("print_Clasificaciones");
 		$juez1=$jobj->selectByID($this->manga1->Juez1);
 		$juez2=$jobj->selectByID($this->manga1->Juez2);
 		$j1=$juez1['Nombre'];
 		$j2=$juez2['Nombre'];
-		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $this->categoria;
-		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria;
-		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
+		$categoria = Mangas::$manga_modes[$mode][0];
+		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $categoria;
+		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $categoria;
 		
-		$this->xlsLabel(0,0,"Prueba");
-			$this->xlsLabel(0,1,iconv( "UTF-8", "ISO-8859-1",$this->prueba->Nombre));
-		$this->xlsLabel(1,0,"Jornada");
-			$this->xlsLabel(1,1,iconv( "UTF-8", "ISO-8859-1",$this->jornada->Nombre));
-		$this->xlsLabel(2,0,"Fecha");
-			$this->xlsLabel(2,1,$this->jornada->Fecha);
-		$this->xlsLabel(3,0,"Ronda");
-			$this->xlsLabel(3,1, "$ronda - {$this->categoria}");
-		$this->xlsLabel(4,0,"Juez 1");
-			$this->xlsLabel(4,1,iconv( "UTF-8", "ISO-8859-1",($j1==="-- Sin asignar --")?"":$j1));
-		$this->xlsLabel(5,0,"Juez 2");
-			$this->xlsLabel(5,1,iconv( "UTF-8", "ISO-8859-1",($j2==="-- Sin asignar --")?"":$j2));
-		$this->xlsLabel(6,0,"Manga 1");
-			$trs=$this->trs1;
-			$this->xlsLabel(6,1,$tm1);
-			$this->xlsLabel(6,2,"Dist.: {$trs['dist']}m");
-			$this->xlsLabel(6,3,"Obst.: {$trs['obst']}");
-			$this->xlsLabel(6,4,"TRS: {$trs['trs']}s");
-			$this->xlsLabel(6,5,"TRM: {$trs['trm']}s");
-			$this->xlsLabel(6,6,"Vel.: {$trs['vel']}m/s");
-		$this->xlsLabel(7,0,"Manga 2");
-			$trs=$this->trs2;
-			$this->xlsLabel(7,1,$tm2);
-			$this->xlsLabel(7,2,"Dist.: {$trs['dist']}m");
-			$this->xlsLabel(7,3,"Obst.: {$trs['obst']}");
-			$this->xlsLabel(7,4,"TRS: {$trs['trs']}s");
-			$this->xlsLabel(7,5,"TRM: {$trs['trm']}s");
-			$this->xlsLabel(7,6,"Vel.: {$trs['vel']}m/s");
+		$this->xlsLabel($row,0,"Juez 1");
+			$this->xlsLabel($row,1,iconv( "UTF-8", "ISO-8859-1",($j1==="-- Sin asignar --")?"":$j1));
+		$this->xlsLabel($row+1,0,"Juez 2");
+			$this->xlsLabel($row+1,1,iconv( "UTF-8", "ISO-8859-1",($j2==="-- Sin asignar --")?"":$j2));
+		$this->xlsLabel($row+2,0,"Manga 1");
+			$trs=$result['trs1'];
+			$this->xlsLabel($row+2,1,$tm1);
+			$this->xlsLabel($row+2,2,"Dist.: {$trs['dist']}m");
+			$this->xlsLabel($row+2,3,"Obst.: {$trs['obst']}");
+			$this->xlsLabel($row+2,4,"TRS: {$trs['trs']}s");
+			$this->xlsLabel($row+2,5,"TRM: {$trs['trm']}s");
+			$this->xlsLabel($row+2,6,"Vel.: {$trs['vel']}m/s");
+		$this->xlsLabel($row+3,0,"Manga 2");
+			$trs=$result['trs2'];
+			$this->xlsLabel($row+3,1,$tm2);
+			$this->xlsLabel($row+3,2,"Dist.: {$trs['dist']}m");
+			$this->xlsLabel($row+3,3,"Obst.: {$trs['obst']}");
+			$this->xlsLabel($row+3,4,"TRS: {$trs['trs']}s");
+			$this->xlsLabel($row+3,5,"TRM: {$trs['trm']}s");
+			$this->xlsLabel($row+3,6,"Vel.: {$trs['vel']}m/s");
+		return $row+4;
 	}
 	
-	function write_TableHeader() {
+	function write_TableHeader($base) {
 		
-		$base=10; // primera cabecera
+		// primera cabecera
 		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
 		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
 		$this->xlsLabel($base,0,"Datos del participante");
@@ -145,7 +146,7 @@ class Excel {
 		$this->xlsLabel($base,13,$tm2);
 		$this->xlsLabel($base,19,"Clasificacion");
 		
-		$base=11; // segunda cabecera
+		$base++; // segunda cabecera
 		$this->xlsLabel($base,0,"Dorsal");
 		$this->xlsLabel($base,1,"Nombre");
 		$this->xlsLabel($base,2,"Licencia");
@@ -169,9 +170,10 @@ class Excel {
 		$this->xlsLabel($base,20,"Penalizacion");
 		$this->xlsLabel($base,21,"Calificacion");
 		$this->xlsLabel($base,22,"Puesto");
+		return $base+1;
 	}
 	
-	function write_TableCell($idx,$row) {
+	function write_TableCell($base,$row) {
 		
 		// fomateamos datos
 		$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}";
@@ -182,8 +184,6 @@ class Excel {
 		$v2= ($row['P2']>=200)?"-":number_format($row['V2'],1);
 		$t2= ($row['P2']>=200)?"-":number_format($row['T2'],2);
 		$p2=number_format($row['P2'],2);
-		
-		$base=$idx+12;
 
 		$this->xlsNumber($base,0,$row['Dorsal']);
 		$this->xlsLabel($base,1,iconv( "UTF-8", "ISO-8859-1",$row['Nombre']));
@@ -208,18 +208,18 @@ class Excel {
 		$this->xlsNumber($base,20,$penal);
 		$this->xlsLabel($base,21,$row['Calificacion']);
 		$this->xlsLabel($base,22,$puesto);
+		return $base+1;
 	}
 	
-	function composeTable() {
+	function composeTable($mangas,$result,$mode,$base) {
 		$this->myLogger->enter();
-		$rowcount=0;
-		$this->write_datosMangas();
-		$this->write_TableHeader();
-		foreach($this->resultados as $row) {
-			$this->write_TableCell($rowcount,$row);
-			$rowcount++;
+		$base= $this->write_datosMangas($result,$base,$mode);
+		$base=$this->write_TableHeader( $base);
+		foreach($result['rows'] as $item) {
+			$base=$this->write_TableCell($base,$item);
 		}
 		$this->myLogger->leave();
+		return $base;
 	}
 }
 
@@ -238,6 +238,7 @@ try {
 	$mangas[6]=http_request("Manga7","i",0);
 	$mangas[7]=http_request("Manga8","i",0);
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
+	
 	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
 	$c= new Clasificaciones("print_etiquetas_pdf",$prueba,$jornada);
 	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
@@ -251,9 +252,36 @@ try {
 	header("Content-Type: application/download");
 	header("Content-Disposition: attachment;filename=clasificacion.xls");
 	header("Content-Transfer-Encoding: binary ");
-	$excel = new Excel($prueba,$jornada,$mangas,$result,$mode);
+	
+	$excel=new Excel($prueba,$jornada,$mangas);
 	$excel->xlsBOF();
-	$excel->composeTable();
+	$base=$excel->write_PageHeader($prueba,$jornada,$mangas);
+	
+	// buscamos los recorridos asociados a la mangas
+	$dbobj=new DBObject("print_clasificacion");
+	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
+	$c= new Clasificaciones("print_podium_pdf",$prueba,$jornada);
+	$result=array();
+	switch($mng->Recorrido) {
+		case 0: // recorridos separados large medium small
+			$r=$c->clasificacionFinal($rondas,$mangas,0);
+			$base= $excel->composeTable($mangas,$r,0,$base+1);
+			$r=$c->clasificacionFinal($rondas,$mangas,1);
+			$base = $excel->composeTable($mangas,$r,1,$base+1);
+			$r=$c->clasificacionFinal($rondas,$mangas,2);
+			$base = $excel->composeTable($mangas,$r,2,$base+1);
+			break;
+		case 1: // large / medium+small
+			$r=$c->clasificacionFinal($rondas,$mangas,0);
+			$base = $excel->composeTable($mangas,$r,0,$base+1);
+			$r=$c->clasificacionFinal($rondas,$mangas,3);
+			$base = $excel->composeTable($mangas,$r,3,$base+1);
+			break;
+		case 2: // recorrido conjunto large+medium+small
+			$r=$c->clasificacionFinal($rondas,$mangas,4);
+			$base = $excel->composeTable($mangas,$r,4,$base+1);
+			break;
+	}
 	$excel->xlsEOF();
 } catch (Exception $e) {
 	do_log($e->getMessage());
