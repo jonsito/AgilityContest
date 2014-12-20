@@ -1,14 +1,14 @@
-Instrucciones para instalar en un pendrive bajo Windows XAMPP
-==============================================================
+Instrucciones para instalar en un pen-drive bajo Windows XAMPP
+===============================================================
 
 1- Descarga y preparación del software
 
 - Preparar un pendrive de al menos 4Gb
 - Insertar el pendrive, y comprobar que esta formateado (FAT32)
-- Descargar e instalar PortableApps en el pendrive (F:\PortableApps)
-- Descargar e instalar XAMPP en el pendrive (F:\xampp)
-- Arrancar PortableApps y desde el menu, instalar el plugin de PortableXampp
+- Descargar la versión .zip de portable-xampp y descomprimirla en el directorio raíz del pen-drive
+http://sourceforge.net/projects/xampp/files/XAMPP%20Windows/5.6.3/xampp-portable-win32-5.6.3-0-VC11.zip/download
 - Descargar desde github la última version de AgilityContest en formato .zip
+https://github.com/jonsito/AgilityContest/archive/master.zip
 - Descomprimir el fichero .zip en el directorio raiz del pendrive (F:\)
 
 2- Instalacion y configuración 
@@ -19,18 +19,21 @@ Instrucciones para instalar en un pendrive bajo Windows XAMPP
   
   Include "conf/extra/xampp_httpd.conf"
 
-- Arrancar la aplicacion portableapps como USUARIO ADMINISTRADOR
-- Verificar que los servicios "FileZilla" "Apache" y "MySQL" estan correctamente arrancados
+- Arrancar el panel de control de xampp
+- Verificar que los servicios "Apache" y "MySQL" estan correctamente arrancados
 - Desde el menú de portableapps abrir una shell e invocar el interprete de mysql
   para instalar la base de datos y los usuarios de la aplicacion
-  mysql -u root
-  source F:\AgilityContest-master\agility\extras\agility.sql
-  source F:\AgilityContest-master\agility\extras\users.sql
-  quit
+  
+   mysql.exe -u root
+   source F:\AgilityContest-master\agility\extras\agility.sql
+   source F:\AgilityContest-master\agility\extras\users.sql
+   source F:\AgilityContest-master\agility\extras\rsce.sql
+   exit
+
 - Abrir la página "http://localhost/agility" desde el navegador para comprobar que todo funciona
 
 3- Uso diario
 - Insertar el pendrive
-- Arrancar PortableApps como administrador
-- Comprobar que FileZilla, Apache y MySQL estan arrancados y funcionando
+- Arrancar xampp control-panel
+- Comprobar que Apache y MySQL estan arrancados y funcionando
 - Abrir el navegador en la pagina http://localhost/agility
