@@ -29,6 +29,8 @@ try {
 	$am= new AuthManager("userFunctions");
 	$operation=http_request("Operation","s",null);
 	$id=http_request("ID","i",0);
+	$user=http_request("Username","s",null);
+	$pass=http_request("Password","s",null);
 	if ($operation===null) throw new Exception("Call to userFunctions without 'Operation' requested");
 	switch ($operation) {
 		case "insert": $am->access(PERMS_ADMIN); $result=$users->insert(); break;
@@ -38,6 +40,8 @@ try {
 		case "selectbyid": $result=$users->selectByID($id); break;
 		case "select": $result=$users->select(); break; // list with order, index, count and where
 		case "enumerate": $result=$users->enumerate(); break; // list with where
+		case "login": $result=$am->login($user,$pass);
+		case "logout": $result=$am->logout();
 		default: throw new Exception("userFunctions:: invalid operation: '$operation' provided");
 	}
 	if ($result===null) 

@@ -44,8 +44,8 @@ $config =new Config()
 function initialize() {
 	// expand/collapse menu on mouse enter/exit
 	setHeader("");
-	$('#mymenu').mouseenter(function(){$('#mymenu').panel('expand');})
-	$('#mymenu').mouseleave(function(){$('#mymenu').panel('collapse');})
+	$('#mymenu').mouseenter(function(){$('#mymenu').panel('expand');});
+	$('#mymenu').mouseleave(function(){$('#mymenu').panel('collapse');});
 	
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
@@ -70,7 +70,7 @@ function myRowStyler(idx,row) {
 	var res="background-color:";
 	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
 	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
-	if ( (idx&0x01)==0) { return res+c1+";" } else { return res+c2+";" }
+	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; };
 }
  
 </script>
@@ -119,6 +119,11 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <div id="mymenu" class="easyui-panel" title="Men&uacute; de Operaciones"
 	data-options="border:true,closable:false,collapsible:true,collapsed:true">
 <ul>
+<li>
+	<ul>
+	<li><a href="javascript:loadContents('/agility/client/frm_login.php','Inicio de sesion');">Inicio de sesi&oacute;n</a></li>
+	</ul>
+</li>
 <li>BASE DE DATOS
 	<ul>
 	<li><a href="javascript:loadContents('/agility/client/frm_clubes.php','Gesti&oacute;n de la Base de Datos de Clubes');">Clubes</a></li>

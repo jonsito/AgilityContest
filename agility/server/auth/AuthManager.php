@@ -129,4 +129,5 @@ class AuthManager {
 		throw new Exception("Insufficient credentials:({$this->level}) required: $requiredlevel");
 	}
 }
+
 ?>
