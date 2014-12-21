@@ -36,17 +36,17 @@ class AuthManager {
 	
 	function __construct($file) {
 		$this->myLogger=new Logger($file);
+		$this->mySessionMgr=new Sesiones("AuthManager");
 		/* try to retrieve session token */
 		$hdrs= getAllHeaders();
 		if (!array_key_exists("X-AC-SessionKey",$hdrs)) {
 			// no key found: assume anonymous login
-			// $this->level=PERMS_GUEST;
-			$this->level=PERMS_ROOT; // a temporary dirty trick :-)
+			$this->level=PERMS_GUEST;
+			//$this->level=PERMS_ROOT; // a temporary dirty trick :-)
 			return;
 		} 
 		/* if found evaluate for expiration and level */
 		$sk=$hdrs['X-AC-SessionKey'];
-		$this->mySessionMgr=new Sesiones("AuthManager");
 		$obj=$this->mySessionMgr->__selectObject("*","Sesiones","( SessionKey='$sk')");
 		if (!$obj) throw new Exception ("Invalid session key: '$sk'");
 		$userid=$obj->Operador;
@@ -54,7 +54,7 @@ class AuthManager {
 		/* if token expired throw exception */
 		// TODO: write
 		// else retrieve permission level
-		$obj=$this->mySessionMgr->getObject("Usuarios","(ID=$userid)");
+		$obj=$this->mySessionMgr->__getObject("Usuarios",$userid);
 		if (!$obj) throw new Exception("Provided SessionKey:'$sk' provides invalid User ID: '$userid'");
 		// $this->level=$obj->Perms;
 		$this->level=PERMS_ROOT; // TODO: remove temporary dirty trick :-)
@@ -65,7 +65,7 @@ class AuthManager {
 	 */
 	function login($login,$password) {
 		/* access database to check user credentials */
-		$obj=$this->mySessionMgr->getObject("*","Usuarios","(Login='$login')");
+		$obj=$this->mySessionMgr->__selectObject("*","Usuarios","(Login='$login')");
 		if (!$obj) throw new Exception("Login: Unknown user: '$login'");
 		$pw=$obj->Password;
 		if (strstr('--UNDEF--',$pw)!==FALSE) 
@@ -97,13 +97,22 @@ class AuthManager {
 			'Type'		=>  'login', 
 			'Source'	=>  'AuthManager'
 		);
-		$this->mySessionMgr->insert(data);
+		$this->mySessionMgr->insert($data);
 		// retrieve session_id and fire 'login' event
-		$sid=$this->mySesionMgr->conn->insert_id;
+		$sid=$this->mySessionMgr->conn->insert_id;
 		$evtMgr=new Eventos("AuthManager",$sid);
-		$evtMgr->insert($data);
+		$evtMgr->putEvent($data);
 		// That's all. Return generated session key
-		return $sk;
+		$result=array();
+		$result['ID']=$obj->ID;
+		$result['Login']=$obj->Login;
+		$result['Password']='';
+		$result['Gecos']=$obj->Gecos;
+		$result['Phone']=$obj->Phone;
+		$result['Email']=$obj->Email;
+		$result['Perms']=$obj->Perms;
+		$result['SessionKey']=$sk;
+		return $result;
 	}
 	
 	/*

@@ -121,7 +121,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <ul>
 <li>
 	<ul>
-	<li><a href="javascript:loadContents('/agility/client/frm_login.php','Inicio de sesion');">Inicio de sesi&oacute;n</a></li>
+	<li><a href="javascript:loadContents('/agility/client/frm_login.php','Inicio de sesion',{'login':'#login-dialog'});">Inicio de sesi&oacute;n</a></li>
 	</ul>
 </li>
 <li>BASE DE DATOS

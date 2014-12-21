@@ -40,8 +40,8 @@ try {
 		case "selectbyid": $result=$users->selectByID($id); break;
 		case "select": $result=$users->select(); break; // list with order, index, count and where
 		case "enumerate": $result=$users->enumerate(); break; // list with where
-		case "login": $result=$am->login($user,$pass);
-		case "logout": $result=$am->logout();
+		case "login": $result=$am->login($user,$pass); break;
+		case "logout": $result=$am->logout(); break;
 		default: throw new Exception("userFunctions:: invalid operation: '$operation' provided");
 	}
 	if ($result===null) 
