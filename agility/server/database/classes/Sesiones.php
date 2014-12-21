@@ -118,6 +118,7 @@ class Sesiones extends DBObject {
 		if ($data['Manga']!=0)		$sql .=", Manga={$data['Manga']} ";
 		if ($data['Tanda']!=0)		$sql .=", Tanda={$data['Tanda']} ";
 		if ($data['Operador']!=0)	$sql .=", Operador={$data['Operador']} ";
+		if ($data['SessionKey']!=="")	$sql .=", SessionKey='{$data['SessionKey']}' ";
 		if ($data['LiveStream']!=="")	$sql .=", LiveStream='{$data['LiveStream']}' ";
 		if ($data['LiveStream2']!=="")	$sql .=", LiveStream2='{$data['LiveStream2']}' ";
 		if ($data['LiveStream3']!=0)	$sql .=", LiveStream3='{$data['LiveStream3']}' ";

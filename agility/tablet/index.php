@@ -54,7 +54,7 @@ function myRowStyler(idx,row) {
 	var res="background-color:";
 	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
 	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
-	if ( (idx&0x01)==0) { return res+c1+";" } else { return res+c2+";" }
+	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 </script>
 <style>
@@ -68,40 +68,42 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 
-<div id="seltablet-dialog" class="easyui-dialog" style="position:relative,width:600px;height:250px;padding:20px 20px">
+<div id="seltablet-dialog" style="width:350px;height:275px;padding:10px" class="easyui-dialog"
+	data-options="title: 'Datos de Usuario, Prueba y Jornada',iconCls: 'icon-list',buttons: '#seltablet-Buttons',collapsible:false, minimizable:false,
+		maximizable:false, closable:true, closed:false, shadow:true, modal:true">
 	<form id="seltablet-form">
+       	<div class="fitem">
+       		<label for="Username">Usuario:</label>
+       		<input id="seltable-Username" name="Username" style="width:200px" type="text"
+       			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
+       	</div>        		
+       	<div class="fitem">
+       		<label for="Password">Contrase&ntilde;a:</label>
+       		<input id="seltable-Password" name="Password" style="width:200px" type="password"
+       			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
+       	</div>
+       	<div>&nbsp;</div>
     	<div class="fitem">
        		<label for="Sesion">Sesi&oacute;n:</label>
        		<select id="seltablet-Sesion" name="Sesion" style="width:200px"></select>
     	</div>        		
     	<div class="fitem">
-       		<label for="Prueba">Selecciona Prueba:</label>
+       		<label for="Prueba">Prueba:</label>
        		<select id="seltablet-Prueba" name="Prueba" style="width:200px"></select>
     	</div>        		
     	<div class="fitem">
-       		<label for="Jornada">Selecciona Jornada:</label>
+       		<label for="Jornada">Jornada:</label>
        		<select id="seltablet-Jornada" name="Jornada" style="width:200px"></select>
     	</div>
 	</form>
-</div> <!-- Window -->
+</div> <!-- Dialog -->
 
-<div id="seltablet-Buttons" style="text-align:right">
+<div id="seltablet-Buttons" style="text-align:right;padding:5px;">
    	<a id="seltablet-okBtn" href="#" class="easyui-linkbutton" 
    	   	data-options="iconCls:'icon-ok'" onclick="tablet_acceptSelectJornada()">Aceptar</a>
 </div>	<!-- botones -->
 
 <script type="text/javascript">
-$('#seltablet-dialog').dialog({
-	title: 'Selecciona la Prueba y Jornada a desplegar',
-	collapsible: false,
-	minimizable: false,
-	maximizable: false,
-	closable: true,
-	closed: false,
-	shadow: true,
-	modal: true,
-	buttons: '#seltablet-Buttons' 
-});
 
 $('#seltablet-form').form();
 
@@ -153,7 +155,7 @@ $('#seltablet-Sesion').combogrid({
 			{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' }
 	]],
 	onBeforeLoad: function(param) { 
-		param.Operation='enumerate'
+		param.Operation='enumerate';
 		return true;
 	}
 });
@@ -209,7 +211,9 @@ function tablet_acceptSelectJornada() {
 	}
 
 	// update database session info with provided operator data
+	// TODO : replace this call to login, that in turns join proper session
 	updateSessionInfo(s.ID,{Nombre: s.Nombre,Prueba:p.ID, Jornada:j.ID});
+	
 	// los demas valores se actualizan en la linea anterior
 	workingData.nombreSesion=s.Nombre;
 	workingData.nombrePrueba=p.Nombre;

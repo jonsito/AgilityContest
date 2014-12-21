@@ -28,11 +28,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<form id="login-Selection">
         		<div class="fitem">
             		<label for="Username">Nombre de usuario:</label>
-            		<input id="login-Username" name="Username" style="width:200px" type="text"/>
+            		<input id="login-Username" name="Username" style="width:200px" type="text"
+            			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
         		</div>        		
         		<div class="fitem">
-            		<label for="Password">Contrase&ntilde;a</label>
-            		<input id="login-Password" name="Password" style="width:200px" type="password"/>
+            		<label for="Password">Contrase&ntilde;a:</label>
+            		<input id="login-Password" name="Password" style="width:200px" type="password"
+            			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
         		</div>
 			</form>
 		</div> <!-- contenido -->

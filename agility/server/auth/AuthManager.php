@@ -60,10 +60,16 @@ class AuthManager {
 		$this->level=PERMS_ROOT; // TODO: remove temporary dirty trick :-)
 	}
 	
-	/*
-	 *  create session token or error
+	/**
+	 * Authenticate user.
+	 * On Login success create session and if needed send login event
+	 * @param {string} $login user name
+	 * @param {string} $password user password
+	 * @param {integer} $sid requested session id to join to
+	 * @throws Exception if something goes wrong
+	 * @return {array} errorMessage or result data
 	 */
-	function login($login,$password) {
+	function login($login,$password,$sid=0) {
 		/* access database to check user credentials */
 		$obj=$this->mySessionMgr->__selectObject("*","Usuarios","(Login='$login')");
 		if (!$obj) throw new Exception("Login: Unknown user: '$login'");
@@ -79,40 +85,47 @@ class AuthManager {
 				throw new Exception("Login: invalid password for account '$login'");
 		}
 		/* Arriving here means login success */ 
-		
 		// get & store permission level
 		$this->level=$obj->Perms;
-		//create a random session key and store into a new session
+		//create a random session key
 		$sk=random_password(16);
+		// compose data for a new session
 		$data=array (
-			'Nombre' 	=> 	$obj->Login,
-			'Comentario'=> 	$obj->Gecos,
-			'Prueba' 	=> 	0,
-			'Jornada'	=>	0,
-			'Manga'		=>	0,
-			'Tanda'		=>	0,
+			// datos para el gestor de sesiones
 			'Operador'	=>	$obj->ID,
 			'SessionKey'=>  $sk,
-			// requiredn event manager
+			'Prueba' 	=> 	http_request("Prueba","i",0),
+			'Jornada'	=>	http_request("Jornada","i",0),
+			'Manga'		=>	http_request("Manga","i",0),
+			'Tanda'		=>	http_request("Tanda","i",0),
+			// informacion de respuesta a la peticion
+			'UserID'	=>	$obj->ID,
+			'Login' 	=> 	$obj->Login,
+			'Password'	=>	'', // don't send back password :-)
+			'Gecos'		=>	$obj->Gecos,
+			'Phone'		=>	$obj->Phone,
+			'Email'		=>	$obj->Email,
+			'Perms'		=>	$obj->Perms,
+			// required for event manager
 			'Type'		=>  'login', 
 			'Source'	=>  'AuthManager'
 		);
-		$this->mySessionMgr->insert($data);
-		// retrieve session_id and fire 'login' event
-		$sid=$this->mySessionMgr->conn->insert_id;
-		$evtMgr=new Eventos("AuthManager",$sid);
-		$evtMgr->putEvent($data);
-		// That's all. Return generated session key
-		$result=array();
-		$result['ID']=$obj->ID;
-		$result['Login']=$obj->Login;
-		$result['Password']='';
-		$result['Gecos']=$obj->Gecos;
-		$result['Phone']=$obj->Phone;
-		$result['Email']=$obj->Email;
-		$result['Perms']=$obj->Perms;
-		$result['SessionKey']=$sk;
-		return $result;
+		// create/join to a session
+		if ($sid<=0) {
+			// if session id is not defined, create a new session
+			$data['Nombre']=$obj->Login;
+			$data['Comentario']=$obj->Gecos;
+			$this->mySessionMgr->insert($data);
+		} else {
+			// TODO: check and alert on busy session ID
+			// else join to declared session 
+			$this->mySessionMgr->update($data);
+			// and fire 'login' event
+			$evtMgr=new Eventos("AuthManager",$sid);
+			$evtMgr->putEvent($data);
+		}
+		// That's all. Return generated result data
+		return $data;
 	}
 	
 	/*
