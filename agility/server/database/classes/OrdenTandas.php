@@ -75,6 +75,24 @@ class OrdenTandas extends DBObject {
 		38	=> array('ID'=>38,	'TipoManga'=> 16,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Manga Especial Large',	'Categoria'=>'L',	'Grado'=>'-'),
 		39	=> array('ID'=>39,	'TipoManga'=> 16,	'From'=>'TAG_M0,',	'To'=>',TAG_S0',	'Nombre'=>'Manga Especial Medium',	'Categoria'=>'M',	'Grado'=>'-'),
 		40	=> array('ID'=>40,	'TipoManga'=> 16,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Manga Especial Small',	'Categoria'=>'S',	'Grado'=>'-'),
+
+		// "Tiny" support for Pruebas RFEC
+		41	=> array('ID'=>41,	'TipoManga'=> 3,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Agility-1 GI Tiny',		'Categoria'=>'T',	'Grado'=>'GI'),
+		42	=> array('ID'=>42,	'TipoManga'=> 4,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Agility-2 GI Tiny',		'Categoria'=>'T',	'Grado'=>'GI'),
+		43	=> array('ID'=>43,	'TipoManga'=> 5,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Agility GII Tiny',		'Categoria'=>'T',	'Grado'=>'GII'),
+		44	=> array('ID'=>44,	'TipoManga'=> 6,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Agility GIII Tiny',		'Categoria'=>'T',	'Grado'=>'GIII'),
+		45	=> array('ID'=>45,	'TipoManga'=> 7,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Agility Open Tiny',		'Categoria'=>'T',	'Grado'=>'-'),			
+		46	=> array('ID'=>46,	'TipoManga'=> 8,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Agility Eq. 3 Tiny',		'Categoria'=>'T',	'Grado'=>'-'),
+		// en equipos4  RFEC agrupamos por LM y ST
+		47	=> array('ID'=>47,	'TipoManga'=> 9,	'From'=>'TAG_L0,',	'To'=>',TAG_S0','Nombre'=>'Ag. Equipos 4 Large/Medium',	'Categoria'=>'LM',	'Grado'=>'-'),
+		48	=> array('ID'=>48,	'TipoManga'=> 9,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Ag. Equipos 4 Small/Tiny','Categoria'=>'ST',		'Grado'=>'-'),
+		49	=> array('ID'=>49,	'TipoManga'=> 10,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Jumping GII Tiny',		'Categoria'=>'T',		'Grado'=>'GII'),
+		50	=> array('ID'=>50,	'TipoManga'=> 11,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Jumping GIII Tiny',		'Categoria'=>'T',		'Grado'=>'GIII'),
+		51	=> array('ID'=>51,	'TipoManga'=> 12,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Jumping Open Tiny',		'Categoria'=>'T',		'Grado'=>'-'),
+		52	=> array('ID'=>52,	'TipoManga'=> 13,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Jumping Eq. 3 Tiny',		'Categoria'=>'T',		'Grado'=>'-'),
+		53	=> array('ID'=>53,	'TipoManga'=> 14,	'From'=>'TAG_L0,',	'To'=>',TAG_S0','Nombre'=>'Jp. Equipos 4 Large/Medium',	'Categoria'=>'LM',	'Grado'=>'-'),
+		54	=> array('ID'=>54,	'TipoManga'=> 14,	'From'=>'TAG_S0,',	'To'=>',END',	'Nombre'=>'Jp. Equipos 4 Small/Tiny','Categoria'=>'ST',		'Grado'=>'-'),
+		55	=> array('ID'=>55,	'TipoManga'=> 16,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Manga Especial Tiny',	'Categoria'=>'T',		'Grado'=>'-'),
 	);
 
 	/**
