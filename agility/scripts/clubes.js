@@ -127,20 +127,16 @@ function editClub(dg){
  * Ask for commit new/edit club to server
  */
 function saveClub(){
-    // do normal submit
-    $('#clubes-form').form('submit',{
-        url: 'server/database/clubFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
+    var frm = $('#clubes-form');
+    if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+    $.ajax({
+        type: 'GET',
+        url: '/agility/server/database/clubFunctions.php',
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
             if (result.errorMsg){
-                $.messager.show({
-                    title: 'Error',
-                    msg: result.errorMsg
-                });
+                $.messager.show({ title: 'Error', msg: result.errorMsg });
             } else {
             	saveLogo();
                 $('#clubes-dialog').dialog('close');        // close the dialog

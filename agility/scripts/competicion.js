@@ -120,24 +120,27 @@ function dmanga_setRecorridos() {
  * @param {Integer} id Identificador de la manga
  */
 function save_manga(id) {
-	$("#competicion-formdatosmanga").bind('ajax:complete', function() {
-		// on submit success, reload results
-		var recorrido=$("input:radio[name=Recorrido]:checked").val();
-		workingData.datosManga.Recorrido=val;
-		reloadResultadosManga(recorrido);
-	});
-	$('#competicion-formdatosmanga').form('submit', {
-		url: '/agility/server/database/mangaFunctions.php',
-		onSubmit: function(param) {
-			param.Operation='update';
-			param.Jornada=workingData.jornada;
-			param.Manga=id;
-			return true; // to continue submitting
-		},
-		success: function(data) {
-			$.messager.alert('Data saved','Datos de la manga almacenados','info');
-		}
-	});
+    $('#dmanga_Operation').val('update');
+    $('#dmanga_Jornada').val(workingData.jornada);
+    $('#dmanga_Manga').val(id);
+    var frm = $('#competicion-formdatosmanga');
+    alert(frm.serialize());
+    $.ajax({
+        type: 'GET',
+        url: '/agility/server/database/mangaFunctions.php',
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){ 
+            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+            } else {// on submit success, reload results
+    			var recorrido=$("input:radio[name=Recorrido]:checked").val();
+    			$.messager.alert('Data saved','Datos de la manga almacenados','info');
+    			workingData.datosManga.Recorrido=val;
+    			reloadResultadosManga(recorrido);
+            }
+        }
+    });
 }
 
 /**

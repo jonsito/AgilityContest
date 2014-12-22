@@ -71,12 +71,21 @@ class Mangas extends DBObject {
 		2 => array('Large + Medium + Small','L+M+S')  // recorrido unico conjunto
 	);
 	
+	public static $manga_recorridos_rfec= array(
+			0 => array('Large / Medium / Small / Tiny','L/M/S/T'), // recorridos separados por categoria
+			1 => array('Large + Medium / Small + Tiny','L+M/S+T'), // dos recorridos: LM y ST
+			2 => array('Large + Medium + Small + Tiny','L+M+S+T')  // recorrido unico conjunto
+	);
 	public static $manga_modes= array (
 		0 => array('Large','L'),
 		1 => array('Medium','M'),
 		2 => array('Small','S'),
 		3 => array('Medium + Small','MS'),
-		4 => array('Large + Medium + Small','LMS')
+		4 => array('Large + Medium + Small','LMS'),
+		5 => array('Tiny','T'),
+		6 => array('Large + Medium','LM'),
+		7 => array('Small + Tiny','ST'),
+		8 => array('Large + Medium + Small + Tiny','LMST')
 	);
 	
 	/**
@@ -244,6 +253,9 @@ class Mangas extends DBObject {
 		if ($id<=0) return $this->error("Invalid Manga ID"); 
 		// second query to retrieve $rows starting at $offset
 		$result=$this->__getObject("Mangas",$id);
+		$result->Manga=$id;
+		$result->Jornada=$this->jornada;
+		$result->Operation="update";
 		$this->myLogger->leave();
 		return $result;
 	}

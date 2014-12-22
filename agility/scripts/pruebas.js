@@ -71,17 +71,17 @@ function editPrueba(dg){
 function savePrueba() {
 	// take care on bool-to-int translation from checkboxes to database
     $('#pruebas-Cerrada').val( $('#pruebas-Cerrada').is(':checked')?'1':'0');
-    // do normal submit
-    $('#pruebas-form').form('submit',{
+    var frm = $('#pruebas-form');
+    if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+    $.ajax({
+        type: 'GET',
         url: '/agility/server/database/pruebaFunctions.php',
-        method: 'post',
-        ajax: true,
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
-            if (result.errorMsg){ $.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+        data: frm.serialize(),
+        dataType: 'json',
+        // beforeSend: function(jqXHR,settings){ return frm.form('validate'); },
+        success: function (result) {
+            if (result.errorMsg){ 
+            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {
                 $('#pruebas-dialog').dialog('close');        // close the dialog
                 $('#pruebas-datagrid').datagrid('reload');    // reload the prueba data
@@ -243,16 +243,17 @@ function saveJornada(){
     // handle fecha
     // do normal submit
     $('#jornadas-Operation').val('update');
-    $('#jornadas-form').form('submit',{
+    
+    var frm = $('#jornadas-form');
+    if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+    $.ajax({
+        type: 'GET',
         url: '/agility/server/database/jornadaFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
-            if (result.errorMsg){
-                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){ 
+            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {
             	var id=$('#jornadas-Prueba').val();
                 $('#jornadas-dialog').dialog('close');        // close the dialog

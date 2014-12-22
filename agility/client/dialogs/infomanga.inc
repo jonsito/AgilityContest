@@ -18,8 +18,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!-- Formulario que contiene los datos de una manga -->
 
 <form id="competicion-formdatosmanga" method="get">
-	<input type="hidden" id="dmanga_Manga" name="ID"/>
-	<input type="hidden" id="dmanga_Tipo" name="Tipo"/>
+	<input type="hidden" id="dmanga_Operation" name="Operation" value=""/>
+	<input type="hidden" id="dmanga_Jornada" name="Jornada" value=""/>
+	<input type="hidden" id="dmanga_Manga" name="Manga" value=""/>
+	<input type="hidden" id="dmanga_ID" name="ID" value=""/>
+	<input type="hidden" id="dmanga_Tipo" name="Tipo" value=""/>
 	<table id="competicion-tabladatosmanga">
 		<tr> <!-- fila 0: datos de los jueces -->
 			<td style="text-align:right">Juez 1:</td>
