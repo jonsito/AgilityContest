@@ -17,7 +17,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <!-- Formulario que contiene los datos de una manga -->
 
-<form id="competicion-formdatosmanga" method="get">
+<form id="competicion-formdatosmanga">
 	<input type="hidden" id="dmanga_Operation" name="Operation" value=""/>
 	<input type="hidden" id="dmanga_Jornada" name="Jornada" value=""/>
 	<input type="hidden" id="dmanga_Manga" name="Manga" value=""/>
