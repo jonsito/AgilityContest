@@ -18,6 +18,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 //***** gestion de pruebas		*********************************************************
 
 /**
+ * formatter para indicar si la prueba es de canina o de caza
+ */
+function formatRSCE(val,row,idx) {
+	return (val==0)?"RSCE":"RFEC"; }
+
+/**
  * Recalcula el formulario de pruebas anyadiendo parametros de busqueda
  */
 function doSearchPrueba() {
@@ -38,7 +44,8 @@ function doSearchPrueba() {
 function newPrueba(dg,def,onAccept){
 	$('#pruebas-dialog').dialog('open').dialog('setTitle','Nueva Prueba');
 	$('#pruebas-form').form('clear');
-	if (!strpos(def,"Buscar")) $('#pruebas-Nombre').val(def);// fill juez Name
+	$('#pruebas-RSCE').prop('checked',true);
+	if (!strpos(def,"Buscar")) $('#pruebas-Nombre').val(def);// fill prueba Name
 	$('#pruebas-Operation').val('insert');
 	if (onAccept!==undefined)$('#pruebas-okBtn').one('click',onAccept);
 }

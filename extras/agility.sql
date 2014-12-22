@@ -1942,6 +1942,8 @@ CREATE TABLE IF NOT EXISTS `Pruebas` (
   `Triptico` longblob,
   `Cartel` longblob,
   `Observaciones` varchar(255) DEFAULT NULL,
+  `RSCE` tinyint(1) NOT NULL DEFAULT '0',
+  `Selectiva` tinyint(1) NOT NULL DEFAULT '0',
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 

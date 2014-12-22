@@ -27,11 +27,11 @@ class Pruebas extends DBObject {
 	function insert() {
 		$this->myLogger->enter();
 		// componemos un prepared statement
-		$sql ="INSERT INTO Pruebas (Nombre,Club,Ubicacion,Triptico,Cartel,Observaciones,Cerrada)
-			   VALUES(?,?,?,?,?,?,?)";
+		$sql ="INSERT INTO Pruebas (Nombre,Club,Ubicacion,Triptico,Cartel,Observaciones,RSCE,Selectiva,Cerrada)
+			   VALUES(?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('sissssi',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$cerrada);
+		$res=$stmt->bind_param('sissssiii',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$rsce,$selectiva,$cerrada);
 		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
@@ -41,6 +41,8 @@ class Pruebas extends DBObject {
 		$triptico =	http_request("Triptico","s",null,false);
 		$cartel =	http_request("Cartel","s",null,false);
 		$observaciones = http_request("Observaciones","s",null,false);
+		$rsce =	http_request("RSCE","i",0);
+		$selectiva =	http_request("Selectiva","i",0);
 		$cerrada =	http_request("Cerrada","i",0);
 		$this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
 		
@@ -80,11 +82,11 @@ class Pruebas extends DBObject {
 		if ($pruebaid<=0) return $this->error("pruebas::update() Invalid Prueba ID:$pruebaid");
 		// componemos un prepared statement
 		$sql ="UPDATE Pruebas
-				SET Nombre=? , Club=? , Ubicacion=? , Triptico=? , Cartel=?, Observaciones=?, Cerrada=?
+				SET Nombre=? , Club=? , Ubicacion=? , Triptico=? , Cartel=?, Observaciones=?, RSCE=?, Selectiva=?, Cerrada=?
 				WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('sissssii',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$cerrada,$id);
+		$res=$stmt->bind_param('sissssiiii',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$rsce,$selectiva,$cerrada,$id);
 		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
@@ -95,6 +97,8 @@ class Pruebas extends DBObject {
 		$triptico =	http_request("Triptico","s",null,false);
 		$cartel =	http_request("Cartel","s",null,false);
 		$observaciones = http_request("Observaciones","s",null,false);
+		$rsce =	http_request("RSCE","i",0);
+		$selectiva =	http_request("Selectiva","i",0);
 		$cerrada =	http_request("Cerrada","i",0);
 		$this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
 		
@@ -161,7 +165,8 @@ class Pruebas extends DBObject {
 		// execute query to retrieve $rows starting at $offset
 		$result=$this->__select(
 				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
-							Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
+							Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel,
+							Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva,
 							Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
 				/* FROM */ "Pruebas,Clubes",
 				/* WHERE */ $where,
@@ -186,8 +191,8 @@ class Pruebas extends DBObject {
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
-							Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
-							Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
+							Pruebas.Ubicacion AS Ubicacion, Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
+							Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva, Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
 				/* FROM */ "Pruebas,Clubes",
 				/* WHERE */ $where,
 				/* ORDER BY */ "Nombre ASC",
@@ -210,8 +215,9 @@ class Pruebas extends DBObject {
 		// make query
 		$data= $this->__selectAsArray(
 				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
-							Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
-							Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
+					Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel,
+					Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva,
+					Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
 				/* FROM */ "Pruebas,Clubes",
 				/* WHERE */ "( Clubes.ID=Pruebas.Club) && ( Pruebas.ID=$id )"
 		);

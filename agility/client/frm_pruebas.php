@@ -66,7 +66,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	collapsed: false,        	
         	title: 'Gesti&oacute;n de datos de pruebas',
         	url: '/agility/server/database/pruebaFunctions.php?Operation=select',
-        	loadMsg: 'Actualizando lista de Clubes ...',
+        	loadMsg: 'Actualizando lista de Pruebas ...',
         	method: 'get',
             toolbar: '#pruebas-toolbar',
             pagination: false,
@@ -86,6 +86,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 { field:'Triptico',		width:10,					title:'URL del Tr&iacute;ptico'},
                 { field:'Cartel',		width:10,					title:'URL del Cartel'},
                 { field:'Observaciones',width:15,					title:'Observaciones'},
+                { field:'RSCE',			width:7, formatter:	formatRSCE, title:'Federacion', align: 'center'},
+                { field:'Selectiva',	width:7,					title:'Selectiva', align: 'center'},
                 { field:'Cerrada',		width:7,					title:'Cerrada', align: 'center'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css

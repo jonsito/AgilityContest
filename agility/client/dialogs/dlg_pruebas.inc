@@ -16,23 +16,33 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
    <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE PRUEBAS -->
-    <div id="pruebas-dialog" style="width:475px;height:425px;padding:10px 20px">
+    <div id="pruebas-dialog" style="width:450px;height:450px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n de la prueba</div>
         <form id="pruebas-form" method="get" novalidate>
             <div class="fitem">
-                <label for="Nombre" style="width:300px">Denominaci&oacute;n de la prueba:</label>
+                <label for="Nombre" style="width:325px">Denominaci&oacute;n de la prueba:</label>
                 <input id="pruebas-Nombre" 
                 	name="Nombre" 
                 	type="text" 
                 	class="easyui-validatebox" 
-                	style="width:325px" />
+                	style="width:350px" />
                 <input id="pruebas-ID" name="ID" type="hidden" /> <!-- primary key -->
                 <input id="pruebas-Operation" name="Operation" type="hidden" /> <!-- used to store operation type -->
                 <input id="pruebas-Cerrada" name="Cerrada" type="hidden" /> <!-- preserve "closed" status -->
             </div>
+            <div>&nbsp;<br /></div>
+            <div class="fitem">
+            	Federaci&oacute;n:
+            	<input id="pruebas-RSCE" type="radio" name="RSCE" value="0" checked="checked" />RSCE
+            	<input id="pruebas-RFCE" type="radio" name="RSCE" value="1" />RFEC
+            	<span style="float:right">
+            		<input id="pruebas-Selectiva" type="checkbox" name="Selectiva" value="1"/>Selectiva
+            	</span>
+            </div>
+            <div>&nbsp;<br /></div>
             <div class="fitem">
                 <label for="Club">Club:</label>
-                <select id="pruebas-Club" name="Club" style="width:200px"></select>
+                <select id="pruebas-Club" name="Club" style="width:175px"></select>
                 <a id="pruebas-newClubBtn" href="#" class="easyui-linkbutton" 
                 	data-options="iconCls:'icon-flag'" style="float:right">Nuevo Club</a>
             </div>
@@ -71,6 +81,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	onLoadSuccess: function(data) {
         	// alert(JSON.stringify(data));
     	    $('#pruebas-Operation').val('update');
+    	    $('#pruebas-Selectiva').prop('checked',(data.Selectiva==1)?true:false);
+    	    $('#pruebas-RSCE').prop('checked',(data.RSCE==0)?true:false);
     	}
     });
     
