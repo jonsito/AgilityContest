@@ -196,6 +196,23 @@ function initWorkingData(id) {
 	}
 }
 
+function initAuthInfo(id) {
+	authInfo.ID=0;
+	authInfo.Login="";
+	authInfo.Gecos="";
+	authInfo.SessionKey=null;
+	authInfo.Perms=5;
+	authInfo.SessionID=0;
+	if (id!==undefined) {
+		authInfo.ID=id.UserID;
+		authInfo.Login=id.Login;
+		authInfo.Gecos=id.Gecos;
+		authInfo.SessionKey=id.SessionKey;
+		authInfo.Perms=id.Perms;
+		authInfo.SessionID=id.SessionID;
+	}
+}
+
 /**
  * Actualiza la sesion con el id dado en la tabla de sesiones de la bbdd
  * @param id id de la sesion
@@ -222,6 +239,8 @@ function updateSessionInfo(id, parameters) {
 */
 var workingData = new Object();
 initWorkingData();
+var authInfo =new Object();
+initAuthInfo();
 
 /**
  * Used to evaluate position, width and heigh on an element to be 

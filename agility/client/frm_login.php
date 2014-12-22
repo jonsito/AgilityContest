@@ -70,8 +70,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         		if (data.errorMsg) { // error
         			$.messager.alert("Error",data.errorMsg,"error");
         		} else {// success: 
-            		// TODO: store user data
-            		alert(JSON.stringify(data));
+            		// alert(JSON.stringify(data));
+            		initAuthInfo(data);
         		} 
         	},
     		error: function() { alert("error");	},

@@ -40,9 +40,9 @@ class AuthManager {
 		/* try to retrieve session token */
 		$hdrs= getAllHeaders();
 		if (!array_key_exists("X-AC-SessionKey",$hdrs)) {
+			$this->myLogger->info("No sessionKey found in request");
 			// no key found: assume anonymous login
 			$this->level=PERMS_GUEST;
-			//$this->level=PERMS_ROOT; // a temporary dirty trick :-)
 			return;
 		} 
 		/* if found evaluate for expiration and level */
@@ -56,8 +56,8 @@ class AuthManager {
 		// else retrieve permission level
 		$obj=$this->mySessionMgr->__getObject("Usuarios",$userid);
 		if (!$obj) throw new Exception("Provided SessionKey:'$sk' provides invalid User ID: '$userid'");
-		// $this->level=$obj->Perms;
-		$this->level=PERMS_ROOT; // TODO: remove temporary dirty trick :-)
+		$this->myLogger->info("Username:{$obj->Login} Perms:{$obj->Perms}");
+		$this->level=$obj->Perms;
 	}
 	
 	/**
@@ -116,7 +116,9 @@ class AuthManager {
 			$data['Nombre']=$obj->Login;
 			$data['Comentario']=$obj->Gecos;
 			$this->mySessionMgr->insert($data);
+			$data['SessionID']=$this->mySessionMgr->conn->insert_id;
 		} else {
+			$data['SessionID']=$sid;
 			// TODO: check and alert on busy session ID
 			// else join to declared session 
 			$this->mySessionMgr->update($data);

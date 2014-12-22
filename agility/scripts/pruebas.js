@@ -66,7 +66,7 @@ function editPrueba(dg){
 }
 
 /**
- * Ask json routines for add/edit a prueba into BBDD
+ * Ask server routines for add/edit a prueba into BBDD
  */
 function savePrueba() {
 	// take care on bool-to-int translation from checkboxes to database
@@ -74,7 +74,8 @@ function savePrueba() {
     // do normal submit
     $('#pruebas-form').form('submit',{
         url: '/agility/server/database/pruebaFunctions.php',
-        method: 'get',
+        method: 'post',
+        ajax: true,
         onSubmit: function(param){
             return $(this).form('validate');
         },
