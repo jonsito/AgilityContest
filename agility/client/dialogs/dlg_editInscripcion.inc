@@ -16,8 +16,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
-<div id="edit_inscripcion-dialog" style="width:525px;padding:10px">
-	<div style="height:425px" class="dialog_forms">
+<div id="edit_inscripcion-dialog" style="width:500px;height:475px;padding:5px">
+	<div class="easyui-panel" data-options="fit:true">
+		<div class="dialog_forms">
         <form id="edit_inscripcion-form" method="get" novalidate="novalidate">
         	<input id="edit_inscripcion-ID" type="hidden" name="ID"/>
         	<input id="edit_inscripcion-Prueba" type="hidden" name="Prueba"/>
@@ -69,20 +70,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  	  		<input id="edit_inscripcion-Pagado" 	name="Pagado" type="text" style="text-align:right;padding-right:5px"/>
  	  		<span id="edit_inscripcion-PagadoEuro">&euro;</span>
         </form> 
-    </div>
-    
+    	</div>
+	</div>
 </div>
 
     
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-	<div id="edit_inscripcion-dlg-buttons" style="width:100%;inline:block">
-		<span style="float:left">
+	<div id="edit_inscripcion-dlg-buttons" style="width:100%;display:inline-block;padding:5px">
+		<span style="float:left;">
 	   		<a id="edit_inscripcion-editDogBtn" href="#" class="easyui-linkbutton"
 	   			data-options="iconCls:'icon-dog'">Modificar</a>
 	   	</span>
-	   	<span style="float:right">  	
+	   	<span style="float:right;">  	
 			<a id="edit_inscripcion-cancelBtn" href="#" class="easyui-linkbutton"
-				data-options="iconCls:'icon-cancel'">Cancelar</a>
+				data-options="iconCls:'icon-cancel'" onclick="$('#edit_inscripcion-dialog').dialog('close');">Cancelar</a>
        		<a id="edit_inscripcion-okBtn" href="#" class="easyui-linkbutton" onclick="saveInscripcion(true)" 
        			data-options="iconCls:'icon-save'">Aceptar</a>
        	</span>
@@ -141,11 +142,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     addTooltip($('#edit_inscripcion-cancelBtn').linkbutton(),"Cancelar cambios. Cerrar la ventana");
     
  	// acciones de los botones
-    $('#edit_inscripcion-cancelBtn').bind('click',function() {
-        $('#edit_inscripcion-form').form('reset'); 
-        $('#edit_inscripcion-Equipo').combogrid({ 'setValue' : '-- Sin asignar --' });
-        $('#edit_inscripcion-dialog').dialog('close');
-    });
 
     $('#edit_inscripcion-editDogBtn').bind('click',function() {
         editInscribedDog();
@@ -186,7 +182,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     }
 
     // layout
-    var dg= {'cols':8, 'rows':15}; // declare base datagrid
+    var dg= {'cols':8, 'rows':16}; // declare base datagrid
 	doLayout(dg,'#edit_inscripcion-dogInfo',		0,	0,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-inscInfo",		3,	0,	4,	1	);
 	doLayout(dg,"#edit_inscripcion-Nombrelbl",		0,	1,	2,	1	);
