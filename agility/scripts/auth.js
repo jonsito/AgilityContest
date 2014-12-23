@@ -35,7 +35,7 @@ function acceptLogin() {
        			$.messager.alert("Error",data.errorMsg,"error");
        		} else {// success: 
        			$.messager.alert("Usuario"+data.Login,"Sesi&oacute;n iniciada correctamente","info");
-           		$('#login_menu-text').html("Cerrar sesi&oacute;n: "+data.Login);
+           		$('#login_menu-text').html("Cerrar sesi&oacute;n: <br />"+data.Login);
            		initAuthInfo(data);
        		} 
        	},
@@ -62,7 +62,7 @@ function acceptLogout() {
        		} else {// success: 
        			$.messager.alert("Usuario"+user,"Sesi&oacute;n finalizada correctamente","info");
            		$('#login_menu-text').html("Iniciar sesi&oacute;n");
-           		initAuthInfo(null);
+           		initAuthInfo();
        		} 
        	},
    		error: function() { alert("error");	},

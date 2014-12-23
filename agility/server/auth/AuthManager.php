@@ -32,6 +32,7 @@ class AuthManager {
 	protected $myLogger;
 	protected $mySessionKey=null;
 	protected $level=PERMS_NONE;
+	protected $operador=0;
 	protected $mySessionMgr;
 	
 	function __construct($file) {
@@ -59,6 +60,7 @@ class AuthManager {
 		$this->myLogger->info("Username:{$obj->Login} Perms:{$obj->Perms}");
 		$this->level=$obj->Perms;
 		$this->mySessionKey=$sk;
+		$this->operador=$obj->ID;
 	}
 	
 	/**
@@ -112,15 +114,15 @@ class AuthManager {
 			'Source'	=>  'AuthManager'
 		);
 		// create/join to a session
-		if ($sid<=0) {
-			// if session id is not defined, create a new session
-			$data['Nombre']="Console";
-			$data['Comentario']=$obj->Login." - ".$obj->Gecos;
-			$this->mySessionMgr->insert($data);
+		if ($sid<=0) { //  if session id is not defined, create a new session
 			// remove all other console sessions from same user
 			$str="DELETE FROM Sesiones WHERE ( Nombre='Console' ) AND ( Operador={$obj->ID} )";
 			$this->mySessionMgr->query($str);
-			// and insert new session
+			// insert new session
+			$data['Nombre']="Console";
+			$data['Comentario']=$obj->Login." - ".$obj->Gecos;
+			$this->mySessionMgr->insert($data);
+			// and retrieve new session ID
 			$data['SessionID']=$this->mySessionMgr->conn->insert_id;
 		} else {
 			$data['SessionID']=$sid;
@@ -140,10 +142,12 @@ class AuthManager {
 	 */
 	function logout() {
 		// remove console sessions for this user
-		$str="DELETE FROM Sesiones WHERE ( Nombre='Console' ) AND ( Operador={$obj->ID} )";
+		$str="DELETE FROM Sesiones WHERE ( Nombre='Console' ) AND ( Operador={$this->operador} )";
 		$this->mySessionMgr->query($str);
 		// clear session key  on named sessions
-		$str="UPDATE Sesiones SET SessionKey=NULL WHERE ( SessionKey='{$this->mySessionKey}' )";
+		$str="UPDATE Sesiones 
+			SET SessionKey=NULL, Operador=1, Prueba=0, Jornada=0, Manga=0, Tanda=0 
+			WHERE ( SessionKey='{$this->mySessionKey}' )";
 		$this->mySessionMgr->query($str);
 	}
 	
