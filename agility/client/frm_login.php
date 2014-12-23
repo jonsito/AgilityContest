@@ -74,7 +74,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <script type="text/javascript">
 
 $('#login-dialog').dialog({
-	width:500p,
+	width:500,
 	height:250,
 	title:'Autenticaci&oacute;n',
 	iconCls:'icon-users',
@@ -104,5 +104,4 @@ addTooltip($('#login-cancelBtn').linkbutton(),"Cancelar apertura de sesion. Cerr
 addTooltip($('#logout-okBtn').linkbutton(),"Cerrar la sesion del usuario actual");
 addTooltip($('#logout-cancelBtn').linkbutton(),"Cancelar cierre de sesion. Cerrar ventana");
 
-	
 </script>
