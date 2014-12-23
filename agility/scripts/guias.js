@@ -55,7 +55,7 @@ function editGuiaFromClub(dg, club) {
     $('#guias-form').form('load',row);
     $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre);
 	// on click OK button, close dialog and refresh data
-	$('#guias-okBtn').one('click',function () { $(id).datagrid('reload'); } ); 
+	$('#guias-okBtn').one('click',function () { $(dg).datagrid('reload'); } ); 
 }
 
 /**
@@ -161,17 +161,18 @@ function deleteGuia(dg){
  */
 function assignGuia(){
 	$('#chguias-Club').val($('#chguias-newClub').val());
-    // do normal submit
-    $('#chguias-form').form('submit',{
+	
+
+    var frm = $('#chguias-form');
+    if (! frm.form('validate')) return;
+    $.ajax({
+        type: 'GET',
         url: '/agility/server/database/guiaFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
-            if (result.errorMsg){
-                $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){ 
+            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {
             	// notice that onAccept() already refresh parent dialog
                 $('#chguias-dialog').dialog('close');        // close the dialog
@@ -185,17 +186,17 @@ function assignGuia(){
  * Ask for commit new/edit guia to server
  */
 function saveGuia(){
-    // do normal submit
-    $('#guias-form').form('submit',{
+	// use $.ajax() instead of form('submit') to assure http request header is sent
+    var frm = $('#guias-form');
+    if (!frm.form('validate')) return;
+	$.ajax({
+        type: 'GET',
         url: '/agility/server/database/guiaFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
-            if (result.errorMsg){
-                $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){ 
+            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {
             	// notice that onAccept() already refresh parent dialog
                 $('#guias-dialog').dialog('close');        // close the dialog

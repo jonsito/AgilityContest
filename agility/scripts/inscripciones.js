@@ -49,16 +49,16 @@ function editInscripcion() {
 function saveInscripcion(close) {
 	// make sure that "Celo" field has correct value
 	$('#edit_inscripcion-Celo').val( $('#edit_inscripcion-Celo2').is(':checked')?'1':'0');
-    $('#edit_inscripcion-form').form('submit',{
+    var frm = $('#edit_inscripcion-form');
+    if (!frm.form('validate')) return;
+    $.ajax({
+        type: 'GET',
         url: '/agility/server/database/inscripcionFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
-            if (result.errorMsg){
-                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){ 
+            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {
             	// on save done refresh related data/combo grids and close dialog
             	$('#inscripciones-datagrid').datagrid('reload');

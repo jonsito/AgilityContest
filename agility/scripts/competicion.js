@@ -124,7 +124,6 @@ function save_manga(id) {
     $('#dmanga_Jornada').val(workingData.jornada);
     $('#dmanga_Manga').val(id);
     var frm = $('#competicion-formdatosmanga');
-    alert(frm.serialize());
     $.ajax({
         type: 'GET',
         url: '/agility/server/database/mangaFunctions.php',
@@ -136,7 +135,7 @@ function save_manga(id) {
             } else {// on submit success, reload results
     			var recorrido=$("input:radio[name=Recorrido]:checked").val();
     			$.messager.alert('Data saved','Datos de la manga almacenados','info');
-    			workingData.datosManga.Recorrido=val;
+    			workingData.datosManga.Recorrido=recorrido;
     			reloadResultadosManga(recorrido);
             }
         }

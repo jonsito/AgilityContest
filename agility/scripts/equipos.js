@@ -113,17 +113,17 @@ function deleteTeam(dg){
  * On success refresh every related datagrids
  */
 function saveTeam() {
-    $('#team_edit_dialog-form').form('submit',{
+    var frm = $('#team_edit_dialog-form');
+    if (! frm.form('validate')) return;
+    $.ajax({
+        type: 'GET',
         url: '/agility/server/database/equiposFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
-            if (result.errorMsg){
-                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
-            } else {
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){ 
+            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+            } else {// on submit success, reload results
             	// on save done refresh related data/combo grids
                 $('#new_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
                 $('#edit_inscripcion-Equipo').combogrid('grid').datagrid('load'); 

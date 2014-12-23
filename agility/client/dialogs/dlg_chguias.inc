@@ -31,18 +31,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <div class="fitem">
                 <label for="Nombre">Nombre:</label>
                 <input id="chguias-ID" name="ID" type="hidden" value="" /> <!-- Guia ID -->
-                <input id="chguias-Nombre" name="Nombre" class="easyui-validatebox" style="width:300px" />
+                <input id="chguias-Nombre" name="Nombre" style="width:300px" />
                 <input id="chguias-Club" name="Club" type="hidden" value="" /> <!-- Club ID -->
                 <input id="chguias-newClub" name="newClub" type="hidden" value="" /> <!-- new Club ID -->
                 <input id="chguias-Operation" name="Operation" type="hidden" value=""/> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
                 <label for="Email">Correo electr&oacute;nico:</label>
-                <input id="chguias-Email" name="Email" class="easyui-validatebox" type="text" style="width:250px"/>
+                <input id="chguias-Email" name="Email" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
                 <label for="Telefono">Tel&eacute;fono:</label>
-                <input id="chguias-Telefono" class="easyui-validatebox" name="Telefono" type="text" />
+                <input id="chguias-Telefono" name="Telefono" type="text" />
             </div>
             <div class="fitem">
                 <label for="Observaciones">Observaciones:</label>
