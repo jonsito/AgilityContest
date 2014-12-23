@@ -51,12 +51,14 @@ class AuthManager {
 		$obj=$this->mySessionMgr->__selectObject("*","Sesiones","( SessionKey='$sk')");
 		if (!$obj) throw new Exception ("Invalid session key: '$sk'");
 		$userid=$obj->Operador;
+
+		$this->myLogger->info("SessionKey:'$sk' belongs to userid:'$userid'");
 		$lastModified=$obj->LastModified;
 		/* if token expired throw exception */
 		// TODO: write
 		// else retrieve permission level
 		$obj=$this->mySessionMgr->__getObject("Usuarios",$userid);
-		if (!$obj) throw new Exception("Provided SessionKey:'$sk' provides invalid User ID: '$userid'");
+		if (!$obj) throw new Exception("Provided SessionKey:'$sk' gives invalid User ID: '$userid'");
 		$this->myLogger->info("Username:{$obj->Login} Perms:{$obj->Perms}");
 		$this->level=$obj->Perms;
 		$this->mySessionKey=$sk;
@@ -97,10 +99,12 @@ class AuthManager {
 			// datos para el gestor de sesiones
 			'Operador'	=>	$obj->ID,
 			'SessionKey'=>  $sk,
+			'Nombre' 	=> 	http_request("Nombre","s",""),
 			'Prueba' 	=> 	http_request("Prueba","i",0),
 			'Jornada'	=>	http_request("Jornada","i",0),
 			'Manga'		=>	http_request("Manga","i",0),
 			'Tanda'		=>	http_request("Tanda","i",0),
+			'Perro'		=>	http_request("Perro","i",0),
 			// informacion de respuesta a la peticion
 			'UserID'	=>	$obj->ID,
 			'Login' 	=> 	$obj->Login,
@@ -110,8 +114,8 @@ class AuthManager {
 			'Email'		=>	$obj->Email,
 			'Perms'		=>	$obj->Perms,
 			// required for event manager
-			'Type'		=>  'login', 
-			'Source'	=>  'AuthManager'
+			'Type'		=>  'init', /* ¿perhaps evtType should be 'login'¿ */
+			'Source' 	=> 	http_request("Source","s","AuthManager")
 		);
 		// create/join to a session
 		if ($sid<=0) { //  if session id is not defined, create a new session
@@ -125,10 +129,12 @@ class AuthManager {
 			// and retrieve new session ID
 			$data['SessionID']=$this->mySessionMgr->conn->insert_id;
 		} else {
-			$data['SessionID']=$sid;
+			// to join to a named session we need at least Assistant permission level
+			$this->access(PERMS_ASSISTANT); // on fail throw exception
+			unset($data['Nombre']); // to avoid override Session Name
 			// TODO: check and alert on busy session ID
 			// else join to declared session 
-			$this->mySessionMgr->update($data);
+			$this->mySessionMgr->update($sid,$data);
 			// and fire 'login' event
 			$evtMgr=new Eventos("AuthManager",$sid);
 			$evtMgr->putEvent($data);

@@ -25,19 +25,20 @@ try {
 	$result=null;
 	$operation=http_request("Operation","s",null);
 	$id=http_request("ID","i",0);
-	$data=array (
-			'Nombre' 	=> 	http_request("Nombre","s","-- Sin asignar --"),
-			'Comentario'=> 	http_request("Comentario","s",""),
-			'Prueba' 	=> 	http_request("Prueba","i",0),
-			'Jornada'	=>	http_request("Jornada","i",0),
-			'Manga'		=>	http_request("Manga","i",0),
-			'Tanda'		=>	http_request("Tanda","i",0),
-			'Operador'	=>	http_request("Operador","i",1), // default user ID 1
-			'LiveStream'	=>	http_request("LiveStream","s",""),
-			'LiveStream2'	=>	http_request("LiveStream2","s",""),
-			'LiveStream3'	=>	http_request("LiveStream3","s",""),
-			'Hidden'	=>	http_request("Hidden","i",0),
-	);
+	$data=array ();
+	// parse only provided variables
+	$data=testAndSet($data,"Nombre","s","-- Sin asignar --");
+	$data=testAndSet($data,"Comentario","s","");
+	$data=testAndSet($data,"Prueba","i",0);
+	$data=testAndSet($data,"Jornada","i",0);
+	$data=testAndSet($data,"Manga","i",0);
+	$data=testAndSet($data,"Tanda","i",0);
+	$data=testAndSet($data,"Operador","i",1); // default user ID 1
+	$data=testAndSet($data,"LiveStream","s","");
+	$data=testAndSet($data,"LiveStream2","s","");
+	$data=testAndSet($data,"LiveStream3","s","");
+	$data=testAndSet($data,"Hidden","i",0);
+	
 	if ($operation===null) throw new Exception("Call to sessionFunctions without 'Operation' requested");
 	$sesion= new Sesiones("sessionFunctions");
 	$am= new AuthManager("sessionFunctions");

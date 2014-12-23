@@ -17,7 +17,7 @@ $config =new Config()
 		or (at your option) any later version." />
 <!-- try to disable zoom in tablet on double click -->
 <meta content='width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no;' name='viewport' />
-<title>Agility Contest</title>
+<title>AgilityContest (Tablet)</title>
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.1/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.1/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
@@ -58,9 +58,11 @@ function myRowStyler(idx,row) {
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 </script>
+
 <style>
 body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
 </style>
+
 </head>
 
 <body style="margin:0;padding:0" onload="initialize();">
@@ -211,41 +213,60 @@ function tablet_acceptSelectJornada() {
 		return;
 	}
 
-	// update database session info with provided operator data
-	// TODO : replace this call to login, that in turns join proper session
-	updateSessionInfo(s.ID,{Nombre: s.Nombre,Prueba:p.ID, Jornada:j.ID});
-	
-	// los demas valores se actualizan en la linea anterior
-	workingData.nombreSesion=s.Nombre;
-	workingData.nombrePrueba=p.Nombre;
-	workingData.nombreJornada=j.Nombre;
-	// notify session open() to event manager
-	tablet_putEvent(
-		'init',
-		{ 'Session': s.ID, 'Source': 'tablet_'+s.ID, 'Prueba': p.ID, 'Jornada': j.ID, 'Manga':	0, 'Tanda':	0, 'Perro':	0 }
-	);
+	var parameters={ 
+		'Operation':'login',
+		'Username': $('#seltable-Username').val(),
+		'Password': $('#seltable-Password').val(),
+		'Session' : s.ID,
+		'Nombre'  : s.Nombre,
+		'Source'  : 'tablet_'+s.ID,
+		'Prueba'  : p.ID,
+		'Jornada' : j.ID,
+		'Manga'   : 0,
+		'Tanda'   : 0,
+		'Perro'   : 0
+	};
 
-	var page="/agility/tablet/tablet_competicion.php";
-	if (workingData.datosJornada.Equipos3==1) {
-		page="/agility/tablet/tablet_competicion_eq3.php";
-	}
-	if (workingData.datosJornada.Equipos4==1) {
-		page="/agility/tablet/tablet_competicion_eq4.php";
-	}
-	if (workingData.datosJornada.Open==1) {
-		page="/agility/tablet/tablet_competicion_open.php";
-	}
-	if (workingData.datosJornada.KO==1) {
-		page="/agility/tablet/tablet_competicion_ko.php";
-	}
-	$('#seltablet-dialog').dialog('close');
-	$('#tablet_contenido').load(	
-			page,
-			function(response,status,xhr){
-				if (status=='error') $('#tablet_contenido').load('/agility/frm_notavailable.php');
-			}
-		);
-		
+	// call login
+	// updateSessionInfo(s.ID,{Nombre: s.Nombre,Prueba:p.ID, Jornada:j.ID});
+	
+	$.ajax({
+		type: 'POST',
+  		url: '/agility/server/database/userFunctions.php',
+   		dataType: 'json',
+   		data: parameters,
+   		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+   		success: function(data) {
+    		if (data.errorMsg) { $.messager.alert("Error",data.errorMsg,"error"); return; } 
+    		// $.messager.alert("Usuario"+data.Login,"Sesi&oacute;n iniciada correctamente","info");
+    	   	initAuthInfo(data);
+    	   	initWorkingData(s.ID);
+    	   	// los demas valores se actualizan en la linea anterior
+    		workingData.nombreSesion=s.Nombre;
+    		workingData.nombrePrueba=p.Nombre;
+    		workingData.nombreJornada=j.Nombre;	var page="/agility/tablet/tablet_competicion.php";
+    		if (workingData.datosJornada.Equipos3==1) {
+    			page="/agility/tablet/tablet_competicion_eq3.php";
+    		}
+    		if (workingData.datosJornada.Equipos4==1) {
+    			page="/agility/tablet/tablet_competicion_eq4.php";
+    		}
+    		if (workingData.datosJornada.Open==1) {
+    			page="/agility/tablet/tablet_competicion_open.php";
+    		}
+    		if (workingData.datosJornada.KO==1) {
+    			page="/agility/tablet/tablet_competicion_ko.php";
+    		}
+    		$('#seltablet-dialog').dialog('close');
+    		$('#tablet_contenido').load(	
+    				page,
+    				function(response,status,xhr){
+    					if (status=='error') $('#tablet_contenido').load('/agility/frm_notavailable.php');
+    				}
+    			);
+    	},
+   		error: function() { alert("error");	},
+	});
 }
 </script>
 </body>

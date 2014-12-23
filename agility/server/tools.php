@@ -90,6 +90,21 @@ function http_request($name,$type,$def,$esc=true) {
 }
 
 /**
+ * If requested name is present in http request retrieve it and add to provided array
+ * 
+ * @param {array} $data
+ * @param {string} $name variable name
+ * @param {string} $type default type (i,s,b)
+ * @param {string} $def default value. may be null
+ * @param {boolean} $esc true if variable should be MySQL escape'd to avoid SQL injection
+ * @return array with inserted data
+ */
+function testAndSet($data,$name,$type,$def,$esc=true) {
+	if (isset($_REQUEST[$name])) $data[$name]=http_request($name,$type,$def,$esc);
+	return $data;
+}
+
+/**
  * Generate a random password of "n" characters
  * @param number $chars Number of characters. Default to 8
  * @return requested password
