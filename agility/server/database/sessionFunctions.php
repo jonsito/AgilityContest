@@ -37,15 +37,15 @@ try {
 	$data=testAndSet($data,"LiveStream","s","");
 	$data=testAndSet($data,"LiveStream2","s","");
 	$data=testAndSet($data,"LiveStream3","s","");
-	$data=testAndSet($data,"Hidden","i",0);
+	$data["Hidden"]=http_request("Hidden","i",0);
 	
 	if ($operation===null) throw new Exception("Call to sessionFunctions without 'Operation' requested");
 	$sesion= new Sesiones("sessionFunctions");
 	$am= new AuthManager("sessionFunctions");
 	switch ($operation) {
-		case "select": $am->access(PERMS_OPERATOR); $result=$sesion->select($data); break;
+		case "select": $result=$sesion->select($data); break;
 		case "insert": $am->access(PERMS_OPERATOR); $result=$sesion->insert($data); break;
-		case "update": $am->access(PERMS_OPERATOR); $result=$sesion->update($id,$data); break;
+		case "update": $am->access(PERMS_ASSISTANT); $result=$sesion->update($id,$data); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$sesion->delete($id); break;
 		case "enumerate": $result=$sesion->enumerate(); break; // no select (yet)
 		case "getByNombre":	$result=$sesion->selectByNombre($data['Nombre']); break;

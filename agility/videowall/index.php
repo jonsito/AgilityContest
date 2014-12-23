@@ -104,7 +104,8 @@ $('#selvw-Session').combogrid({
 		{ field:'LiveStream',	hidden:true }
 	]],
 	onBeforeLoad: function(param) { 
-		param.Operation='enumerate'
+		param.Operation='select'
+		param.Hidden=1;
 		return true;
 	}
 });

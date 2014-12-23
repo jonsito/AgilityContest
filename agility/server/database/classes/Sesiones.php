@@ -49,13 +49,13 @@ class Sesiones extends DBObject {
 			$where = "( Sesiones.Operador = Usuarios.ID )";
 		}
 		if ( ($search==="") and ($data['Hidden']!=0)) {
-			$where= "( Sesiones.Operador = Usuarios.ID ) AND (Nombre != '')";
+			$where= "( Sesiones.Operador = Usuarios.ID ) AND (Nombre != 'Console')";
 		}
 		if ( ($search!=="") and ($data['Hidden']==0)) {
-			$where=" ( Sesiones.Operador = Usuarios.ID ) && (Nombre != '') AND ( ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
+			$where=" ( Sesiones.Operador = Usuarios.ID ) AND (Nombre LIKE '%$search%')  AND ( ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
 		}
 		if ( ($search!=="") and ($data['Hidden']!=0)) {
-			$where=" ( Sesiones.Operador = Usuarios.ID ) AND( (Nombre LIKE '%$search%') OR ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
+			$where=" ( Sesiones.Operador = Usuarios.ID ) AND (Nombre != 'Console') AND( (Nombre LIKE '%$search%') OR ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
 		}
 		$result=$this->__select(
 				/* SELECT */ "Sesiones.ID AS ID,Nombre,Comentario,Operador,Login,LiveStream,LiveStream2,LiveStream3",

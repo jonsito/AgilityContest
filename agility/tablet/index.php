@@ -158,7 +158,8 @@ $('#seltablet-Sesion').combogrid({
 			{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' }
 	]],
 	onBeforeLoad: function(param) { 
-		param.Operation='enumerate';
+		param.Operation='select';
+		param.Hidden=1;
 		return true;
 	}
 });
