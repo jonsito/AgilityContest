@@ -30,7 +30,7 @@ define ("PERMS_NONE",5);
 class AuthManager {
 	
 	protected $myLogger;
-	protected $token=null;
+	protected $mySessionKey=null;
 	protected $level=PERMS_NONE;
 	protected $mySessionMgr;
 	
@@ -58,6 +58,7 @@ class AuthManager {
 		if (!$obj) throw new Exception("Provided SessionKey:'$sk' provides invalid User ID: '$userid'");
 		$this->myLogger->info("Username:{$obj->Login} Perms:{$obj->Perms}");
 		$this->level=$obj->Perms;
+		$this->mySessionKey=$sk;
 	}
 	
 	/**
@@ -113,9 +114,13 @@ class AuthManager {
 		// create/join to a session
 		if ($sid<=0) {
 			// if session id is not defined, create a new session
-			$data['Nombre']=$obj->Login;
-			$data['Comentario']=$obj->Gecos;
+			$data['Nombre']="Console";
+			$data['Comentario']=$obj->Login." - ".$obj->Gecos;
 			$this->mySessionMgr->insert($data);
+			// remove all other console sessions from same user
+			$str="DELETE FROM Sesiones WHERE ( Nombre='Console' ) AND ( Operador={$obj->ID} )";
+			$this->mySessionMgr->query($str);
+			// and insert new session
 			$data['SessionID']=$this->mySessionMgr->conn->insert_id;
 		} else {
 			$data['SessionID']=$sid;
@@ -134,8 +139,12 @@ class AuthManager {
 	 * closes current session
 	 */
 	function logout() {
-		/* retrieve session token and mark as expired */
-		// TODO: write
+		// remove console sessions for this user
+		$str="DELETE FROM Sesiones WHERE ( Nombre='Console' ) AND ( Operador={$obj->ID} )";
+		$this->mySessionMgr->query($str);
+		// clear session key  on named sessions
+		$str="UPDATE Sesiones SET SessionKey=NULL WHERE ( SessionKey='{$this->mySessionKey}' )";
+		$this->mySessionMgr->query($str);
 	}
 	
 	/*
