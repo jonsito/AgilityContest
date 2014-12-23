@@ -19,36 +19,62 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 * Client-side uthentication related functions
 */
 
-/**
- * Try to authenticate with server
- * On success store sessionkey and call callback
- * On fail, show message
- */
-function login(user,pass,callback){
+function acceptLogin() {
+	$.ajax({
+		type: 'POST',
+  		url: '/agility/server/database/userFunctions.php',
+   		dataType: 'json',
+   		data: {
+   			Operation: 'login',
+   			Username: $('#login-Username').val(),
+   			Password: $('#login-Password').val(),
+   		},
+   		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+   		success: function(data) {
+       		if (data.errorMsg) { // error
+       			$.messager.alert("Error",data.errorMsg,"error");
+       		} else {// success: 
+       			$.messager.alert("Usuario"+data.Login,"Sesi&oacute;n iniciada correctamente","info");
+           		$('#login_menu-text').html("Cerrar sesi&oacute;n: "+data.Login);
+           		initAuthInfo(data);
+       		} 
+       	},
+   		error: function() { alert("error");	},
+	});
+	$('#login-dialog').dialog('close');	
 }
 
-/**
- * Tell server to close current session and remove sessionkey token
- * On success call callback
- */
-function logout(callback) {
+function acceptLogout() {
+	var user=authInfo.Login;
+	$.ajax({
+		type: 'POST',
+   		url: '/agility/server/database/userFunctions.php',
+   		dataType: 'json',
+   		data: {
+   			Operation: 'logout',
+   			Username: user,
+   			Password: "",
+   		},
+   		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+   		success: function(data) {
+       		if (data.errorMsg) { // error
+       			$.messager.alert("Error",data.errorMsg,"error");
+       		} else {// success: 
+       			$.messager.alert("Usuario"+user,"Sesi&oacute;n finalizada correctamente","info");
+           		$('#login_menu-text').html("Iniciar sesi&oacute;n");
+           		initAuthInfo(null);
+       		} 
+       	},
+   		error: function() { alert("error");	},
+	});
+	$('#login-Usuario').val('');
+	$('#login-Password').val('');
+	$('#login-dialog').dialog('close');	
+}
 	
-}
-
-/**
- * Tell server join to session with provided ID
- * @param id Session ID to join to
- * @param callback what to do on success
- */
-function joinSession(id,callback) {
-	
-}
-
-/**
- * Ask server if current session has enought permissions
- * @param perm 0:root 1:admin 2:operator 3:assistant 4:guest 5:none 
- * @return true on access granted, else false
- */
-function access(perms) {
-
+function cancelLogin() {
+	$('#login-Usuario').val('');
+	$('#login-Password').val('');
+	// close window
+	$('#login-dialog').dialog('close');
 }
