@@ -67,18 +67,16 @@ function editUser(dg){
  * Call json to Ask for commit new/edit user to server
  */
 function saveUser(){
-	// take care on bool-to-int translation from checkboxes to database
-    // do normal submit
-    $('#usuarios-form').form('submit',{
-        url: '/agility/server/database/userFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
+    var frm = $('#usuarios-form');
+    if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+    $.ajax({
+        type: 'GET',
+        url: '/agility/server/database/clubFunctions.php',
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
             if (result.errorMsg){
-                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
+                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
             } else {
                 $('#usuarios-dialog').dialog('close');        // close the dialog
                 $('#usuarios-datagrid').datagrid('reload');    // reload the user data

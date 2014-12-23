@@ -179,17 +179,18 @@ function delPerroFromGuia(dg,guia) {
 function assignDog() {
 	// set up guia
 	$('#chperros-Guia').val($('#chperros-newGuia').val());
-    $('#chperros-form').form('submit',{
+    var frm = $('#chperros-form');
+    if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+    $.ajax({
+        type: 'GET',
         url: '/agility/server/database/dogFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
             if (result.errorMsg){
-                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
+                $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
             } else {
+            	saveLogo();
             	$('#chperros-Search').combogrid('clear');  // clear search field
                 $('#chperros-dialog').dialog('close');        // close the dialog
             }
@@ -201,21 +202,21 @@ function assignDog() {
  * Ejecuta la peticion json para anyadir/editar un perro
  */
 function saveDog(){
-    $('#perros-form').form('submit',{
+    var frm = $('#perros-form');
+    if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+    $.ajax({
+        type: 'GET',
         url: '/agility/server/database/dogFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
             if (result.errorMsg){
                 $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
             } else {
                 // reload the dog data from inscripciones (if any)
             	if (isDefined('listaNoInscritos')) listaNoInscritos();
     	        // close the dialog
-                $('#perros-dialog').dialog('close');   
+                $('#perros-dialog').dialog('close'); 
             }
         }
     });

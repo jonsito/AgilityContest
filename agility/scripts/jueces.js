@@ -57,18 +57,18 @@ function saveJuez(){
 	// take care on bool-to-int translation from checkboxes to database
     $('#jueces-Internacional').val( $('#jueces-Internacional').is(':checked')?'1':'0');
     $('#jueces-Practicas').val( $('#jueces-Practicas').is(':checked')?'1':'0');
-    // do normal submit
-    $('#jueces-form').form('submit',{
+    var frm = $('#jueces-form');
+    if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+    $.ajax({
+        type: 'GET',
         url: '/agility/server/database/juezFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
             if (result.errorMsg){
-                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
+                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
             } else {
+            	saveLogo();
                 $('#jueces-dialog').dialog('close');        // close the dialog
                 $('#jueces-datagrid').datagrid('reload');    // reload the juez data
             }

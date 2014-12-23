@@ -136,7 +136,7 @@ function saveClub(){
         dataType: 'json',
         success: function (result) {
             if (result.errorMsg){
-                $.messager.show({ title: 'Error', msg: result.errorMsg });
+                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
             } else {
             	saveLogo();
                 $('#clubes-dialog').dialog('close');        // close the dialog

@@ -87,15 +87,20 @@ function tablet_updateSession(row) {
 
 function tablet_updateResultados(pendiente) {
 	$('#tdialog-Pendiente').val(pendiente);
-    // call 'submit' method of form plugin to submit the form
-	// NOTE: do not update parent tablet row! 
-	// as form('reset') seems not to work as we want, we use it as backup
-    $('#tdialog-form').form('submit', 
-    	{
-    		url:'/agility/server/database/resultadosFunctions.php',
-    		onSubmit: function() { return true; },
-    		// success: function (data) { }
-    	});
+    var frm = $('#tdialog-form');
+    $.ajax({
+        type: 'GET',
+        url: '/agility/server/database/resultadosFunctions.php',
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){
+                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
+            } 
+        	// NOTE: do not update parent tablet row on success 
+        	// as form('reset') seems not to work as we want, we use it as backup
+        }
+    });
 }
 
 function tablet_add(val) {

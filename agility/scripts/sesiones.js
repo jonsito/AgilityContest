@@ -58,18 +58,16 @@ function editSession(dg){
  * Call json to Ask for commit new/edit session to server
  */
 function saveSession(){
-	// take care on bool-to-int translation from checkboxes to database
-    // do normal submit
-    $('#sesiones-form').form('submit',{
+    var frm = $('#sesiones-form');
+    if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+    $.ajax({
+        type: 'GET',
         url: '/agility/server/database/sessionFunctions.php',
-        method: 'get',
-        onSubmit: function(param){
-            return $(this).form('validate');
-        },
-        success: function(res){
-            var result = eval('('+res+')');
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
             if (result.errorMsg){
-                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
+                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
             } else {
                 $('#sesiones-dialog').dialog('close');        // close the dialog
                 $('#sesiones-datagrid').datagrid('reload');    // reload the session data
