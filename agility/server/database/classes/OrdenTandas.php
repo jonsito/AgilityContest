@@ -201,8 +201,13 @@ class OrdenTandas extends DBObject {
 	}
 
 	
-	function insert_remove($tipo,$orden,$oper) {
+	function insert_remove($rsce,$tipo,$orden,$oper) {
 		foreach( $this->getTandasBy('TipoManga',$tipo) as $item) {
+			if( ($rsce==0) && ($item['Categoria']==='T') ) {
+				// remove every "tiny" tandas on RSCE contests
+				$orden = $this->removeFromList($orden,$item['ID']);
+				return $orden;
+			}
 			if ($oper==true) $orden = $this->insertIntoList($orden,$item['ID']); 
 			else  $orden = $this->removeFromList($orden,$item['ID']);
 		}
@@ -218,25 +223,28 @@ class OrdenTandas extends DBObject {
 		// obtenemos datos de la jornada
 		$j=$this->__getObject("Jornadas",$jornada);
 		if (!is_object($j)) return $this->error($this->conn->error);
+		$p=$this->__getObject("Pruebas",$j->Prueba);
+		if (!is_object($p)) return $this->error($this->conn->error);
+		$r=$p->RSCE;
 		$orden=$j->Orden_Tandas;
 		// actualizamos la lista de tandas de cada ronda
-		$orden= $this->insert_remove(1,$orden,($j->PreAgility2 != 0)?true:false);
-		$orden= $this->insert_remove(2,$orden,($j->PreAgility2 != 0)?true:false);
-		$orden= $this->insert_remove(1,$orden,($j->PreAgility != 0)?true:false);
-		$orden= $this->insert_remove(3,$orden,($j->Grado1 != 0)?true:false);
-		$orden= $this->insert_remove(4,$orden,($j->Grado1 != 0)?true:false);
-		$orden= $this->insert_remove(5,$orden,($j->Grado2 != 0)?true:false);
-		$orden= $this->insert_remove(10,$orden,($j->Grado2 != 0)?true:false);
-		$orden= $this->insert_remove(6,$orden,($j->Grado3 != 0)?true:false);
-		$orden= $this->insert_remove(11,$orden,($j->Grado3 != 0)?true:false);
-		$orden= $this->insert_remove(7,$orden,($j->Open != 0)?true:false);
-		$orden= $this->insert_remove(12,$orden,($j->Open != 0)?true:false);
-		$orden= $this->insert_remove(8,$orden,($j->Equipos3 != 0)?true:false);
-		$orden= $this->insert_remove(13,$orden,($j->Equipos3 != 0)?true:false);
-		$orden= $this->insert_remove(9,$orden,($j->Equipos4 != 0)?true:false);
-		$orden= $this->insert_remove(14,$orden,($j->Equipos4 != 0)?true:false);
-		$orden= $this->insert_remove(15,$orden,($j->KO != 0)?true:false);
-		$orden= $this->insert_remove(16,$orden,($j->Especial != 0)?true:false);
+		$orden= $this->insert_remove($r,1,$orden,($j->PreAgility2 != 0)?true:false);
+		$orden= $this->insert_remove($r,2,$orden,($j->PreAgility2 != 0)?true:false);
+		$orden= $this->insert_remove($r,1,$orden,($j->PreAgility != 0)?true:false);
+		$orden= $this->insert_remove($r,3,$orden,($j->Grado1 != 0)?true:false);
+		$orden= $this->insert_remove($r,4,$orden,($j->Grado1 != 0)?true:false);
+		$orden= $this->insert_remove($r,5,$orden,($j->Grado2 != 0)?true:false);
+		$orden= $this->insert_remove($r,10,$orden,($j->Grado2 != 0)?true:false);
+		$orden= $this->insert_remove($r,6,$orden,($j->Grado3 != 0)?true:false);
+		$orden= $this->insert_remove($r,11,$orden,($j->Grado3 != 0)?true:false);
+		$orden= $this->insert_remove($r,7,$orden,($j->Open != 0)?true:false);
+		$orden= $this->insert_remove($r,12,$orden,($j->Open != 0)?true:false);
+		$orden= $this->insert_remove($r,8,$orden,($j->Equipos3 != 0)?true:false);
+		$orden= $this->insert_remove($r,13,$orden,($j->Equipos3 != 0)?true:false);
+		$orden= $this->insert_remove($r,9,$orden,($j->Equipos4 != 0)?true:false);
+		$orden= $this->insert_remove($r,14,$orden,($j->Equipos4 != 0)?true:false);
+		$orden= $this->insert_remove($r,15,$orden,($j->KO != 0)?true:false);
+		$orden= $this->insert_remove($r,16,$orden,($j->Especial != 0)?true:false);
 		$this->setOrden($jornada,$orden);
 		$this->myLogger->leave();
 	}
