@@ -1142,6 +1142,8 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
   `Obst_M` int(4) NOT NULL DEFAULT '0',
   `Dist_S` int(4) NOT NULL DEFAULT '0',
   `Obst_S` int(4) NOT NULL DEFAULT '0',
+  `Dist_T` int(4) NOT NULL DEFAULT '0',
+  `Obst_T` int(4) NOT NULL DEFAULT '0',
   `TRS_L_Tipo` int(4) NOT NULL DEFAULT '0',
   `TRS_L_Factor` int(4) NOT NULL DEFAULT '0',
   `TRS_L_Unit` varchar(1) NOT NULL DEFAULT 's',
@@ -1160,6 +1162,12 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
   `TRM_S_Tipo` int(4) NOT NULL DEFAULT '1',
   `TRM_S_Factor` int(4) NOT NULL DEFAULT '50',
   `TRM_S_Unit` varchar(1) NOT NULL DEFAULT '%',
+  `TRS_T_Tipo` int(4) NOT NULL DEFAULT '0',
+  `TRS_T_Factor` int(4) NOT NULL DEFAULT '0',
+  `TRS_T_Unit` varchar(1) NOT NULL DEFAULT 's',
+  `TRM_T_Tipo` int(4) NOT NULL DEFAULT '1',
+  `TRM_T_Factor` int(4) NOT NULL DEFAULT '50',
+  `TRM_T_Unit` varchar(1) NOT NULL DEFAULT '%',
   `Juez1` int(4) NOT NULL DEFAULT '1',
   `Juez2` int(4) NOT NULL DEFAULT '1',
   `Observaciones` varchar(255) DEFAULT NULL,
@@ -2671,10 +2679,10 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
 
 INSERT INTO `Usuarios` (`ID`, `Login`, `Password`, `Gecos`, `Phone`, `Email`, `Perms`) VALUES
 (1, '-- Sin asignar --', '--LOCKED--', 'NO BORRAR: Usuario por defecto para sesiones anonimas', '', '', 5),
-(2, 'root', 'JDJ5JDEwJHc2Lm50WFhsQUYuWDl2Zm9JbnNVb09TVEVwcllGaHBCQjFQYk12Yk81VzlJWDd0cTNPRnd5', 'Usuario Root', '', '', 0),
-(3, 'admin', '--UNDEF--', 'Administrador de la aplicacion', '', '', 1),
-(4, 'operator', '--UNDEF--', 'Operador de consola', '', '', 2),
-(5, 'assistant', '--UNDEF--', 'Asistente del juez (tablet)', '', '', 3),
+(2, 'root',		'JDJ5JDEwJHc2Lm50WFhsQUYuWDl2Zm9JbnNVb09TVEVwcllGaHBCQjFQYk12Yk81VzlJWDd0cTNPRnd5', 'Usuario Root', '', '', 0),
+(3, 'admin',	'JDJ5JDEwJFcwa3B4YUxDVkJ0OVd0NFZVNUhzcXVBTE1yN0x2WWhBTFo4RHQ5TWZZQzgzZGRnMDA1VlVD', 'Administrador de la aplicacion', '', '', 1),
+(4, 'operator', 'JDJ5JDEwJHMyclNoQUtsMlJ0UU5pRG9yUXF3QXUwbEVRdWpUT0daSXJGZmJLR3B4MEVHRzRiOFNYSjdt', 'Operador de consola', '', '', 2),
+(5, 'assistant','JDJ5JDEwJHRLL09tT2xJZ1lRRlovNVhsLksxRC52aXo4L1UxNTMub1EwRDRoZ3pCZDcxRHRnSmo0LmE2', 'Asistente del juez (tablet)', '', '', 3),
 (6, 'guest', '--NULL--', 'Usuario invitado (anonimo)', '', '', 4);
 
 -- --------------------------------------------------------

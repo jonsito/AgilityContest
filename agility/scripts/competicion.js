@@ -53,11 +53,13 @@ function checkPending(val,row,idx) {
 function checkCelo(val,row) {
 	return (parseInt(val)==0)?" ":"X";
 }
+
 /**
  * Actualiza el modo de visualizacion del panel infomangas
  * en funcion del tipo de recorrido seleccionado
+ * para las pruebas de Canina
  */
-function dmanga_setRecorridos() {
+function dmanga_setRecorridos_rsce() {
 	var val=$("input[name='Recorrido']:checked").val();
 	workingData.datosManga.Recorrido=val;
 	switch (val) {
@@ -72,6 +74,19 @@ function dmanga_setRecorridos() {
 		$('#dmanga_DistS').val(distl);
 		$('#dmanga_ObstS').attr('readonly',true);
 		$('#dmanga_ObstS').val(obstl);
+		
+		// set TRS and TRM for midi relative to Standard TRS
+		$('#dmanga_TRS_M_Tipo').val(3); 
+		$('#dmanga_TRS_M_Factor').val(0);
+		$('#dmanga_TRM_M_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
+		$('#dmanga_TRM_M_Factor').val($('#dmanga_TRM_L_Factor').val());
+
+		// set TRS and TRM for small relative to Standard TRS
+		$('#dmanga_TRS_S_Tipo').val(3); 
+		$('#dmanga_TRS_S_Factor').val(0);
+		$('#dmanga_TRM_S_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
+		$('#dmanga_TRM_S_Factor').val($('#dmanga_TRM_L_Factor').val());
+		
 		// visibilidad de cada fila
 		$('#dmanga_MediumRow').css('display','none');
 		$('#dmanga_SmallRow').css('display','none');
@@ -88,9 +103,13 @@ function dmanga_setRecorridos() {
 		$('#dmanga_DistS').val(distm);
 		$('#dmanga_ObstS').attr('readonly',true);
 		$('#dmanga_ObstS').val(obstm);
-		// set TRS relative to Midi TRS
+		
+		// set Small TRS and TRM relative to Midi TRS
 		$('#dmanga_TRS_S_Tipo').val(4); 
 		$('#dmanga_TRS_S_Factor').val(0);
+		$('#dmanga_TRM_S_Tipo').val($('#dmanga_TRM_M_Tipo').val()); 
+		$('#dmanga_TRM_S_Factor').val($('#dmanga_TRM_M_Factor').val());
+		
 		// visibilidad de cada fila
 		$('#dmanga_MediumRow').css('display','table-row');
 		$('#dmanga_SmallRow').css('display','none');
@@ -109,6 +128,113 @@ function dmanga_setRecorridos() {
 		$('#dmanga_LargeLbl').html("Large");
 		$('#dmanga_MediumLbl').html("Medium");
 		$('#dmanga_SmallLbl').html("Small");
+		break;
+	}
+}
+
+/**
+ * Actualiza el modo de visualizacion del panel infomangas
+ * en funcion del tipo de recorrido seleccionado
+ * para las pruebas de Caza
+ */
+function dmanga_setRecorridos_rfec() {
+	var val=$("input[name='Recorrido']:checked").val();
+	workingData.datosManga.Recorrido=val;
+	switch (val) {
+	case '2': // recorrido comun para std, med, min, y tiny
+		var distl=$('#dmanga_DistL').val();
+		var obstl=$('#dmanga_ObstL').val();
+		$('#dmanga_DistM').attr('readonly',true);
+		$('#dmanga_DistM').val(distl);
+		$('#dmanga_ObstM').attr('readonly',true);
+		$('#dmanga_ObstM').val(obstl);
+		$('#dmanga_DistS').attr('readonly',true);
+		$('#dmanga_DistS').val(distl);
+		$('#dmanga_ObstS').attr('readonly',true);
+		$('#dmanga_ObstS').val(obstl);
+		$('#dmanga_DistT').attr('readonly',true);
+		$('#dmanga_DistT').val(distl);
+		$('#dmanga_ObstT').attr('readonly',true);
+		$('#dmanga_ObstT').val(obstl);
+		
+		// set TRS and TRM for midi relative to Standard TRS
+		$('#dmanga_TRS_M_Tipo').val(3); 
+		$('#dmanga_TRS_M_Factor').val(0);
+		$('#dmanga_TRM_M_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
+		$('#dmanga_TRM_M_Factor').val($('#dmanga_TRM_L_Factor').val());
+
+		// set TRS and TRM for small relative to Standard TRS
+		$('#dmanga_TRS_S_Tipo').val(3); 
+		$('#dmanga_TRS_S_Factor').val(0);
+		$('#dmanga_TRM_S_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
+		$('#dmanga_TRM_S_Factor').val($('#dmanga_TRM_L_Factor').val());
+
+		// set TRS and TRM for tiny relative to Standard TRS
+		$('#dmanga_TRS_T_Tipo').val(3); 
+		$('#dmanga_TRS_T_Factor').val(0);
+		$('#dmanga_TRM_T_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
+		$('#dmanga_TRM_T_Factor').val($('#dmanga_TRM_L_Factor').val());
+		
+		// visibilidad de cada fila
+		$('#dmanga_MediumRow').css('display','none');
+		$('#dmanga_SmallRow').css('display','none');
+		$('#dmanga_TinyRow').css('display','none');
+		$('#dmanga_LargeLbl').html("Com&uacute;n");
+		$('#dmanga_MediumLbl').html("&nbsp;");
+		$('#dmanga_SmallLbl').html("&nbsp;");
+		$('#dmanga_TinyLbl').html("&nbsp;");
+		break;
+	case '1': // un recorrido para std/midi y otro para mini/tiny
+		var distl=$('#dmanga_DistL').val();
+		var obstl=$('#dmanga_ObstL').val();
+		var dists=$('#dmanga_DistS').val();
+		var obsts=$('#dmanga_ObstS').val();
+		$('#dmanga_DistM').attr('readonly',true);
+		$('#dmanga_DistM').val(distl);
+		$('#dmanga_ObstM').attr('readonly',true);
+		$('#dmanga_ObstM').val(obstl);
+		$('#dmanga_DistS').removeAttr('readonly');
+		$('#dmanga_DistT').attr('readonly',true);
+		$('#dmanga_DistT').val(dists);
+		$('#dmanga_ObstT').attr('readonly',true);
+		$('#dmanga_ObstT').val(obsts);
+		
+		// set TRS and TRM for midi relative to Standard TRS
+		$('#dmanga_TRS_M_Tipo').val(3); 
+		$('#dmanga_TRS_M_Factor').val(0);
+		$('#dmanga_TRM_M_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
+		$('#dmanga_TRM_M_Factor').val($('#dmanga_TRM_L_Factor').val());
+
+		// set TRS and TRM for tiny relative to small TRS
+		$('#dmanga_TRS_T_Tipo').val(5); 
+		$('#dmanga_TRS_T_Factor').val(0);
+		$('#dmanga_TRM_T_Tipo').val($('#dmanga_TRM_S_Tipo').val()); 
+		$('#dmanga_TRM_T_Factor').val($('#dmanga_TRM_S_Factor').val());
+		
+		// visibilidad de cada fila
+		$('#dmanga_MediumRow').css('display','none');
+		$('#dmanga_SmallRow').css('display','table-row');
+		$('#dmanga_TinyRow').css('display','none');
+		$('#dmanga_LargeLbl').html("Large+Medium");
+		$('#dmanga_MediumLbl').html("&nbsp;");
+		$('#dmanga_SmallLbl').html("Small+Tiny");
+		$('#dmanga_TinyLbl').html("&nbsp;");
+		break;
+	case '0': // recorridos separados para cada categoria
+		$('#dmanga_DistM').removeAttr('readonly');
+		$('#dmanga_ObstM').removeAttr('readonly');
+		$('#dmanga_DistS').removeAttr('readonly');
+		$('#dmanga_ObstS').removeAttr('readonly');
+		$('#dmanga_DistT').removeAttr('readonly');
+		$('#dmanga_ObstT').removeAttr('readonly');
+		// visibilidad de cada fila
+		$('#dmanga_MediumRow').css('display','table-row');
+		$('#dmanga_SmallRow').css('display','table-row');
+		$('#dmanga_TinyRow').css('display','table-row');
+		$('#dmanga_LargeLbl').html("Large");
+		$('#dmanga_MediumLbl').html("Medium");
+		$('#dmanga_SmallLbl').html("Small");
+		$('#dmanga_TinyLbl').html("Tiny");
 		break;
 	}
 }

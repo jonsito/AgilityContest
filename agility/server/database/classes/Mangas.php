@@ -72,10 +72,11 @@ class Mangas extends DBObject {
 	);
 	
 	public static $manga_recorridos_rfec= array(
-			0 => array('Large / Medium / Small / Tiny','L/M/S/T'), // recorridos separados por categoria
-			1 => array('Large + Medium / Small + Tiny','L+M/S+T'), // dos recorridos: LM y ST
-			2 => array('Large + Medium + Small + Tiny','L+M+S+T')  // recorrido unico conjunto
+			0 => array('Recorridos separados','L/M/S/T'), // recorridos separados por categoria
+			1 => array('Large+Medium / Small+Tiny','L+M/S+T'), // dos recorridos: LM y ST
+			2 => array('Recorrido comun','L+M+S+T')  // recorrido unico conjunto
 	);
+	
 	public static $manga_modes= array (
 		0 => array('Large','L'),
 		1 => array('Medium','M'),
@@ -137,10 +138,11 @@ class Mangas extends DBObject {
 		// preparamos la query SQL
 		$sql= "UPDATE Mangas SET
  			Recorrido=? ,
-			Dist_L=? , Obst_L=? , Dist_M=? , Obst_M=? , Dist_S=? , Obst_S=? ,
+			Dist_L=? , Obst_L=? , Dist_M=? , Obst_M=? , Dist_S=? , Obst_S=? , Dist_T=? , Obst_T=? ,
 			TRS_L_Tipo=? , TRS_L_Factor=? , TRS_L_Unit=? , TRM_L_Tipo=? , TRM_L_Factor=? , TRM_L_Unit=? ,
 			TRS_M_Tipo=? , TRS_M_Factor=? , TRS_M_Unit=? , TRM_M_Tipo=? , TRM_M_Factor=? , TRM_M_Unit=? ,
 			TRS_S_Tipo=? , TRS_S_Factor=? , TRS_S_Unit=? , TRM_S_Tipo=? , TRM_S_Factor=? , TRM_S_Unit=? ,
+			TRS_T_Tipo=? , TRS_T_Factor=? , TRS_T_Unit=? , TRM_T_Tipo=? , TRM_T_Factor=? , TRM_T_Unit=? ,
 			Juez1=? , Juez2=? ,
 			Observaciones=?
 			WHERE (ID=?)";
@@ -148,13 +150,14 @@ class Mangas extends DBObject {
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param(
-				'iiiiiiiiisiisiisiisiisiissssi',
-				$recorrido,
-				$dist_l,		$obst_l,		$dist_m,		$obst_m,		$dist_s,		$obst_s, 	// distancias y obstaculos
-				$trs_l_tipo,	$trs_l_factor,	$trs_l_unit,	$trm_l_tipo,	$trm_l_factor,	$trm_l_unit,// TRS y TRM Large
-				$trs_m_tipo,	$trs_m_factor,	$trs_m_unit,	$trm_m_tipo,	$trm_m_factor,	$trm_m_unit,// TRS Y TRM Medium
-				$trs_s_tipo,	$trs_s_factor,	$trs_s_unit,	$trm_s_tipo,	$trm_s_factor,	$trm_s_unit,// TRS y TRM Small
-				$juez1, 		$juez2, 		$observaciones,	$id		
+			'iiiiiiiiiiisiisiisiisiisiisiisiissssi',
+			$recorrido,
+			$dist_l,	$obst_l,	$dist_m,	$obst_m,	$dist_s,	$obst_s, 	$dist_t,	$obst_t,// distancias y obstaculos
+			$trs_l_tipo,	$trs_l_factor,	$trs_l_unit,	$trm_l_tipo,	$trm_l_factor,	$trm_l_unit,// TRS y TRM Large
+			$trs_m_tipo,	$trs_m_factor,	$trs_m_unit,	$trm_m_tipo,	$trm_m_factor,	$trm_m_unit,// TRS Y TRM Medium
+			$trs_s_tipo,	$trs_s_factor,	$trs_s_unit,	$trm_s_tipo,	$trm_s_factor,	$trm_s_unit,// TRS y TRM Small
+			$trs_t_tipo,	$trs_t_factor,	$trs_t_unit,	$trm_t_tipo,	$trm_t_factor,	$trm_t_unit,// TRS y TRM Small
+			$juez1, 		$juez2, 		$observaciones,	$id		
 		);
 		if (!$res) return $this->error($this->conn->error); 
 		
@@ -179,34 +182,42 @@ class Mangas extends DBObject {
 		$dist_l = http_request("Dist_L","i",0);
 		$dist_m = http_request("Dist_M","i",0);
 		$dist_s = http_request("Dist_S","i",0);
+		$dist_t = http_request("Dist_T","i",0);
 		// obstaculos
 		$obst_l = http_request("Obst_L","i",0); 
 		$obst_m = http_request("Obst_M","i",0);
 		$obst_s = http_request("Obst_S","i",0);
+		$obst_t = http_request("Obst_T","i",0);
 		// tipo TRS
 		$trs_l_tipo = http_request("TRS_L_Tipo","i",0);
 		$trs_m_tipo = http_request("TRS_M_Tipo","i",0);
 		$trs_s_tipo = http_request("TRS_S_Tipo","i",0);
+		$trs_t_tipo = http_request("TRS_T_Tipo","i",0);
 		// tipo TRM
 		$trm_l_tipo = http_request("TRM_L_Tipo","i",0);
 		$trm_m_tipo = http_request("TRM_M_Tipo","i",0);
 		$trm_s_tipo = http_request("TRM_S_Tipo","i",0);
+		$trm_t_tipo = http_request("TRM_T_Tipo","i",0);
 		// factor TRS
 		$trs_l_factor = http_request("TRS_L_Factor","i",0);
 		$trs_m_factor = http_request("TRS_M_Factor","i",0);
 		$trs_s_factor = http_request("TRS_S_Factor","i",0);
+		$trs_t_factor = http_request("TRS_T_Factor","i",0);
 		// factor TRM
 		$trm_l_factor = http_request("TRM_L_Factor","i",0);
 		$trm_m_factor = http_request("TRM_M_Factor","i",0);
 		$trm_s_factor = http_request("TRM_S_Factor","i",0);
+		$trm_t_factor = http_request("TRM_T_Factor","i",0);
 		// Unidad TRS
 		$trs_l_unit = http_request("TRS_L_Unit","s","s",false);
 		$trs_m_unit = http_request("TRS_M_Unit","s","s",false);
 		$trs_s_unit = http_request("TRS_S_Unit","s","s",false);
+		$trs_t_unit = http_request("TRS_T_Unit","s","s",false);
 		// Unidad TRM
 		$trm_l_unit = http_request("TRM_L_Unit","s","s",false);
 		$trm_m_unit = http_request("TRM_M_Unit","s","s",false);
 		$trm_s_unit = http_request("TRM_S_Unit","s","s",false);
+		$trm_t_unit = http_request("TRM_T_Unit","s","s",false);
 		// Jueces y observaciones
 		$juez1 = http_request("Juez1","s",null,false);
 		$juez2 = http_request("Juez2","s",null,false);
