@@ -37,7 +37,7 @@ try {
 		case "insert": $am->access(PERMS_ADMIN); $result=$users->insert(); break;
 		case "update": $am->access(PERMS_ADMIN); $result=$users->update($id); break;
 		case "delete": $am->access(PERMS_ADMIN); $result=$users->delete($id); break;
-		case "passwd": $am->access(PERMS_ADMIN); $result=$users->setPassword($id); break;
+		case "password": $am->access(PERMS_ADMIN); $result=$users->setPassword($id); break;
 		case "selectbyid": $result=$users->selectByID($id); break;
 		case "select": $result=$users->select(); break; // list with order, index, count and where
 		case "enumerate": $result=$users->enumerate(); break; // list with where

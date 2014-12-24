@@ -41,6 +41,7 @@ function newUser(dg,def,onAccept){
 	if (!strpos(def,"Buscar")) $('#usuarios-Nombre').val(def);// fill user Name
 	$('#usuarios-Operation').val('insert');// set up operation
 	if (onAccept!==undefined) $('#usuarios-okBtn').one('click',onAccept);
+	$('#usuarios-passwdBtn').linkbutton('disable');
 }
 
 /**
@@ -60,7 +61,7 @@ function editUser(dg){
     $('#usuarios-dialog').dialog('open').dialog('setTitle','Modificar datos del usuario');
     // and fill form with row data
     $('#usuarios-form').form('load',row);
-    // select proper combo data
+	$('#usuarios-passwdBtn').linkbutton('enable');
 }
 
 /**
@@ -113,5 +114,44 @@ function deleteUser(dg){
 }
 
 function setPassword(dg) {
-	alert("Usuarios::setPassword {PENDING}");
+	var row = $(dg).datagrid('getSelected');
+	if (!row) {
+		$.messager.alert("Delete Error:","!No ha seleccionado ningún Usuario!","info");
+		return; // no way to know which user is selected
+	}
+	if (authInfo.Perms<=1) { 
+		// if user perms>=admin hide "old password"field
+		$('#password-SameUser').css('display','none');
+	} else {
+		// else if current user != selected user forbid operation
+		$('#password-SameUser').css('display','inherit');
+		if (authInfo.ID != row.ID) { 
+			$.messager.alert("Error:","Solo un administrador puede cambiar la contrase&ntilde;a de otro usuario","error");
+			return;
+		}
+	}
+	$('#password-form').form('clear');
+	$('#password-dialog').dialog('open');
+}
+
+function savePassword() {
+    $.ajax({
+        type: 'GET',
+        url: '/agility/server/database/userFunctions.php',
+        data: {
+        	Operation: 'password',
+        	CurrentPassword:	$('#password-CurrentPassword').val(),
+        	NewPassword:		$('#password-NewPassword').val(),
+        	NewPassword2:		$('#password-NewPassword2').val(),
+        },
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){
+                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
+            } else {
+            	$.messager.alert('Info', 'Contrase&ntilde;a cambiada correctamente','info');
+            }
+        	$('#password-dialog').dialog('close');
+        }
+    });
 }

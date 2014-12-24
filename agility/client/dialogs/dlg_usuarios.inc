@@ -14,7 +14,32 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
-
+	<div id="password-dialog" style="width:550px;height:300px;padding:10px 20px">
+		<div class="ftitle">Cambio de contrase&ntilde;a</div>
+		<form id="password-form" method="get">
+			<div id="password-SameUser" class="fitem">
+                <label for="CurrentPassword">Contrase&ntilde;a actual</label>
+                <input id="password-CurrentPassword" name="CurrentPassword" type="password" style="height:25px;width:375px"/>
+            </div>
+            <div class="fitem">
+                <label for="NewPassword">Nueva contrase&ntilde;a</label>
+                <input id="password-NewPassword" name="NewPassword" type="password" style="height:25px;width:375px"/>
+            </div>
+            <div class="fitem">
+                <label for="NewPassword2">Nueva contrase&ntilde;a (otra vez)</label>
+                <input id="password-NewPassword2" name="NewPassword2" type="password" style="height:25px;width:375px"/>
+            </div>
+		</form>
+	</div>
+	
+   	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE CAMBIO DE CONTRASENYA -->
+   	<div id="password-dlg-buttons">
+   	    <a id="password-okBtn" href="#" class="easyui-linkbutton" 
+   	    	data-options="iconCls:'icon-ok'" onclick="savePassword()">Guardar</a>
+   	    <a id="password-cancelBtn" href="#" class="easyui-linkbutton" 
+   	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#password-dialog').dialog('close')">Cancelar</a>
+   	</div>
+   	
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE Usuarios -->
     <div id="usuarios-dialog" style="width:550px;height:300px;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del usuario</div>
@@ -23,7 +48,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <label for="Login">Nombre</label>
                 <input id="usuarios-Login" class="easyui-validatebox" name="Login" type="text" style="width:250px" />
                 <a id="usuarios-passwdBtn" href="#" class="easyui-linkbutton" 
-                	data-options="iconCls:'icon-key'" onclick="setPassword">Contrase&ntilde;a</a>
+                	data-options="iconCls:'icon-key'" onclick="setPassword('#usuarios-datagrid');">Contrase&ntilde;a</a>
                 <input id="usuarios-ID" name="ID" type="hidden" /> 
                 <input id="usuarios-Operation" name="Operation" type="hidden" /> <!-- insert/update/delete operation -->
             </div>
@@ -63,10 +88,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		// declaraciones
 		$('#usuarios-dialog').dialog({ closed:true, buttons:'#usuarios-dlg-buttons', iconCls:'icon-users', modal:true });
 		$('#usuarios-form').form({novalidate:true});
+		$('#password-dialog').dialog({ closed:true, buttons:'#password-dlg-buttons', iconCls:'icon-users', modal:true });
+		$('#password-form').form({novalidate:true});
+		
         // - botones
 		addTooltip($('#usuarios-passwdBtn').linkbutton(),"Cambiar la contrase&ntilde;a del usuario");
 		addTooltip($('#usuarios-okBtn').linkbutton(),"Guardar datos del usuario y actualizar la BBDD");
 		addTooltip($('#usuarios-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
+
+		addTooltip($('#password-okBtn').linkbutton(),"Cambiar la contrase&ntilde;a");
+		addTooltip($('#password-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
+		
         // on ESC key close session
         $('#usuarios-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
         	if (e.keyCode == 27){ $('#usuarios-dialog').dialog('close');
