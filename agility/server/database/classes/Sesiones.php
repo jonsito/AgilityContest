@@ -44,17 +44,18 @@ class Sesiones extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
+		// if hidden==0 hide console related sessions
 		$where = "";
-		if ( ($search==="") and ($data['Hidden']==0)) {
+		if ( ($search==="") and ($data['Hidden']!=0)) {
 			$where = "( Sesiones.Operador = Usuarios.ID )";
 		}
-		if ( ($search==="") and ($data['Hidden']!=0)) {
+		if ( ($search==="") and ($data['Hidden']==0)) {
 			$where= "( Sesiones.Operador = Usuarios.ID ) AND (Nombre != 'Console')";
 		}
-		if ( ($search!=="") and ($data['Hidden']==0)) {
+		if ( ($search!=="") and ($data['Hidden']!=0)) {
 			$where=" ( Sesiones.Operador = Usuarios.ID ) AND (Nombre LIKE '%$search%')  AND ( ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
 		}
-		if ( ($search!=="") and ($data['Hidden']!=0)) {
+		if ( ($search!=="") and ($data['Hidden']==0)) {
 			$where=" ( Sesiones.Operador = Usuarios.ID ) AND (Nombre != 'Console') AND( (Nombre LIKE '%$search%') OR ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
 		}
 		$result=$this->__select(
