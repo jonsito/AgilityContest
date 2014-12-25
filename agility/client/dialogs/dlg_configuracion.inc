@@ -82,6 +82,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<span  style="float:left;padding:5px">
     <a id="config-resetBtn" href="#" class="easyui-linkbutton" 
     	data-options="iconCls:'icon-reload'" onclick="loadConfig()">Restaurar</a>
+    <a id="config-defaultBtn" href="#" class="easyui-linkbutton" 
+    	data-options="iconCls:'icon-setup'" onclick="defaultConfig()">Default</a>
     </span>
 	<span  style="float:right;padding:5px">
     <a id="config-okBtn" href="#" class="easyui-linkbutton" 
@@ -92,7 +94,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 
 <script type="text/javascript">
-	addTooltip($('#config-resetBtn').linkbutton(),"Recuperar valores originales desde el servidor");
+	addTooltip($('#config-resetBtn').linkbutton(),"Anula modificaciones. Recupera datos desde el servidor.");
+	addTooltip($('#config-defaultBtn').linkbutton(),"Recuperar valores de fabrica de la aplicaci&oacute;n");
 	addTooltip($('#config-okBtn').linkbutton(),"Aceptar datos. Guardar nueva configuraci&oacute;n");
 	addTooltip($('#config-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
 	
@@ -118,6 +121,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	    });
 	}	
 
+	function defaultConfig() {
+		$.messager.confirm("Confirmar","Recuperar valores de f&aacute;brica.¿Seguro?",function(r){
+			if (r) {
+				$('#config-form').form('load','/agility/server/database/sessionFunctions.php?Operation=defaultConfig');
+			}
+		});
+	}
+	
 	function loadConfig() {
 		$('#config-form').form('load','/agility/server/database/sessionFunctions.php?Operation=loadConfig');
 	}

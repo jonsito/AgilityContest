@@ -26,7 +26,7 @@ define('AC_DATABASE_USER','agility_operator');
 define('AC_DATABASE_PASS','operator@cachorrera');
 
 /** entorno grafico **/
-define('AC_EASYUI_THEME','metro');
+define('AC_EASYUI_THEME','default');
 define('AC_EASYUI_BGCOLOR','#0000ff');
 define('AC_EASYUI_HDRCOLOR','#00ff00');
 define('AC_EASYUI_OPCOLOR','#c0c0c0');
@@ -155,6 +155,39 @@ Class Config {
 	
 	public function loadConfig() {
 		return $this->config;
+	}
+	
+	function defaultConfig() {
+		$data=array();
+		$data['easyui_theme'] = 	AC_EASYUI_THEME;
+		$data['easyui_bgcolor'] =	AC_EASYUI_BGCOLOR;
+		$data['easyui_hdrcolor'] =	AC_EASYUI_HDRCOLOR;
+		$data['easyui_opcolor'] =	AC_EASYUI_OPCOLOR;
+		$data['easyui_rowcolor1'] =	AC_EASYUI_ROWCOLOR1;
+		$data['easyui_rowcolor2'] =	AC_EASYUI_ROWCOLOR2;
+		// configuracion del videowall
+		$data['vw_polltime'] =	AC_VW_POLLTIME;
+		$data['vw_hdrfg1'] =	AC_VW_HDRFG1;
+		$data['vw_hdrbg1'] =	AC_VW_HDRBG1;
+		$data['vw_hdrfg2'] =	AC_VW_HDRFG2;
+		$data['vw_hdrbg2'] =	AC_VW_HDRBG2;
+		$data['vw_rowcolor1'] =	AC_VW_ROWCOLOR1;
+		$data['vw_rowcolor2'] =	AC_VW_ROWCOLOR2;
+		// generacion de PDF's
+		$data['pdf_hdrfg1'] =	AC_PDF_HDRFG1;
+		$data['pdf_hdrbg1'] =	AC_PDF_HDRBG1;
+		$data['pdf_hdrfg2'] =	AC_PDF_HDRFG2;
+		$data['pdf_hdrbg2'] =	AC_PDF_HDRBG2;
+		$data['pdf_rowcolor1'] =	AC_PDF_ROWCOLOR1;
+		$data['pdf_rowcolor2'] =	AC_PDF_ROWCOLOR2;
+		$data['pdf_linecolor'] =	AC_PDF_LINECOLOR;
+		// Internacionalizacion. Idiomas
+		$data['lang'] =	AC_LANG;
+		$res=array_merge($this->config,$data);
+		$result=$this->write_ini_file($res,AC_CONFIG_FILE);
+		if ($result===FALSE) return "Error al generar el fichero de configuracion";
+		$this->config=$res;
+		return $res;
 	}
 	
 	public function saveConfig() {
