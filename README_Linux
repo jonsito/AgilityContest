@@ -22,6 +22,7 @@ Tener instalados y funcionando
  root# setsebool -P httpd_read_user_content on
  root# chcon -Rv --type=httpd_user_rw_content_t ${BASE}/agility/images/logos
  root# chcon -Rv --type=httpd_user_rw_content_t ${BASE}/logs
+ root# chcon -v --type=httpd_user_rw_content_t ${BASE}/agility/server/auth/config.ini
 
 2b- Instalacion y configuracion (base de datos)
   mysql -u root

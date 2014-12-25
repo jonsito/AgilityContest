@@ -17,13 +17,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  
  <div id="config-panel" class="easyui-panel" style="width:550px;height:300px;padding:10px 20px"
 	data-options="fit:true,footer:'#config-dlg-buttons',onOpen:loadConfig">
-	<form id="config-form" name="configuracion">
+	<form id="config-form" name="configuracion" class="easyui-form">
+		<input id="config-Operation" type="hidden" name="Operation" value="saveConfig"/>
 		<!-- TODO: Los parametros de la base de datos solo se deben presentar en el primer arranque -->
 		<h3>General</h3>
 		<label for="lang">Idioma</label>
 		<select id="config_lang" name="lang">
 			<option value="es" selected="selected">Espa&ntilde;ol</option>
-			<option value="en"">Ingl&eacute;s</option>
+			<option value="en">Ingl&eacute;s</option>
 		</select>
 		<h3>Escritorio</h3>
 		<label for="easyui_theme">Tema del escritorio</label>
@@ -96,10 +97,28 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	addTooltip($('#config-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
 	
 	function saveConfig() {
-		$.messager.alert("TODO","Lectura/recuperacion de la configuracion pendiente de desarrollo","info");
+		$('#config-Operation').val('saveConfig');
+	    var frm = $('#config-form');
+	    $.ajax({
+	        type: 'GET',
+	        url: '/agility/server/database/sessionFunctions.php',
+	        data: frm.serialize(),
+	        dataType: 'json',
+	        success: function (result) {
+	            if (result.errorMsg){
+	                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
+	            } else {
+		            $.messager.alert("Save",
+				            "Configuraci&oacute;n guardada correctamente. <br />"+
+				            "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"+
+				            " para que los cambios tengan efecto",
+				            "info");
+	            }
+	        }
+	    });
 	}	
 
 	function loadConfig() {
-		$.messager.alert("TODO","Ajuste de la configuracion desde consola pendiente de desarrollo","info");
+		$('#config-form').form('load','/agility/server/database/sessionFunctions.php?Operation=loadConfig');
 	}
 </script>
