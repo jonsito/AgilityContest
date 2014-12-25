@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
- <div id="admin-tab" class="easyui-tabs" style="width:100%;height:auto;">
+ <div id="admin-tab" class="easyui-tabs" style="width:100%;height:550px;">
    	<div title="Usuarios" data-options="iconCls:'icon-users'" style="padding:5px;border:solid 1px #000000">  
    	 	
 	   	<!-- TABLA DE jquery-easyui para listar y editar la BBDD DE USUARIOS -->

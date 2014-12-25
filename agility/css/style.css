@@ -211,5 +211,10 @@ img.mainpage{
     50.01% { opacity: 0; }
     100% { opacity: 0; }
 }
+/* tabulacion panel de configuracion */
+#config-panel label {
+	display: inline-block;
+	width: 300px;
+}
 
 /* @end */
