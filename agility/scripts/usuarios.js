@@ -126,23 +126,33 @@ function setPassword(dg) {
 		// else if current user != selected user forbid operation
 		$('#password-SameUser').css('display','inherit');
 		if (authInfo.ID != row.ID) { 
-			$.messager.alert("Error:","Solo un administrador puede cambiar la contrase&ntilde;a de otro usuario","error");
+			$.messager.alert("Permisos insuficientes:","Solo un administrador puede cambiar la contrase&ntilde;a de otro usuario","error");
 			return;
 		}
 	}
 	$('#password-form').form('clear');
+	$('#password-UserID').val(row.ID);
 	$('#password-dialog').dialog('open');
 }
 
 function savePassword() {
+	var id=$('#password-UserID').val();
+	var op=$('#password-CurrentPassword').val();
+	var np=$('#password-NewPassword').val();
+	var np2=$('#password-NewPassword2').val();
+	if (np!=np2) {
+		$.messager.show({ width:300, height:200, title: 'Error', msg: 'Las contrase&ntilde;as no coinciden' });
+		return;
+	}
     $.ajax({
         type: 'GET',
         url: '/agility/server/database/userFunctions.php',
         data: {
         	Operation: 'password',
-        	CurrentPassword:	$('#password-CurrentPassword').val(),
-        	NewPassword:		$('#password-NewPassword').val(),
-        	NewPassword2:		$('#password-NewPassword2').val(),
+        	ID: 			id,
+        	Password:		op,
+        	NewPassword:	np,
+        	NewPassword2:	np2,
         },
         dataType: 'json',
         success: function (result) {

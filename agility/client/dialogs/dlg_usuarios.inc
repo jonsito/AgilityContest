@@ -18,6 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<div class="ftitle">Cambio de contrase&ntilde;a</div>
 		<form id="password-form" method="get">
 			<div id="password-SameUser" class="fitem">
+				<input id="password-UserID" type="hidden" name="UserID" value="" />
                 <label for="CurrentPassword">Contrase&ntilde;a actual</label>
                 <input id="password-CurrentPassword" name="CurrentPassword" type="password" style="height:25px;width:375px"/>
             </div>

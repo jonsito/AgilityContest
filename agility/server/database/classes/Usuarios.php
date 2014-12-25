@@ -147,10 +147,6 @@ class Usuarios extends DBObject {
 		return $result;
 	}
 	
-	function setPassword() {
-			// TODO: write
-	}
-	
 	function enumerate() { // like select but with fixed order
 		$this->myLogger->enter();
 		// evaluate search criteria for query

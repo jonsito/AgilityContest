@@ -157,6 +157,50 @@ class AuthManager {
 		$this->mySessionMgr->query($str);
 	}
 	
+	/**
+	 * change password for requested user ID
+	 * @param {integer} $id user id to change password to
+	 * @param {string} $pass old password
+	 * @throws Exception on error
+	 * @return string "" on success; else error message
+	 */
+	function setPassword($id,$pass) {
+		switch ($this->level) {
+			case 5:
+			case 4: throw new Exception("Guest accounts cannot change password");
+			case 3:
+			case 2:	// comprobamos el user id
+				if ($id!=$this->operador) throw new Exception("User can only change their own password");
+				// comprobamos que la contrasenya antigua es correcta
+				$obj=$this->mySessionMgr->__selectObject("*","Usuarios","(ID=$id)");
+				if (!$obj) throw new Exception("SetPassword: Unknown userID: '$id'");
+				$pw=$obj->Password;
+				if (strstr('--LOCK--',$pw)!==FALSE)
+					throw new Exception("Cuenta bloqueada. Solo puede desbloquearla un usuario administrador");
+				if ( (strstr('--UNDEF--',$pw)!==FALSE) && (strstr('--NULL--',$pw)!==FALSE) ) {
+					// unencode stored password
+					$op=base64_decode($pw);
+					if (!password_verify($pass,$op)) // check password against stored one
+						throw new Exception("SetPassword: la contrase&ntilde;a anterior no es v&aacute;lida");
+				}
+				// no break
+			case 1:
+			case 0:
+				// compare passwors
+				$p1=http_request("NewPassword","s","");
+				$p2=http_request("NewPassword2","s","");
+				if ($p1!==$p2) throw new Exception("Las contrase&ntilde;as no coinciden");
+				// and store it for requested user
+				$p=base64_encode(password_hash($p1,PASSWORD_DEFAULT));
+				$str="UPDATE Usuarios SET Password='$p' WHERE (ID=$id)";
+				$res=$this->mySessionMgr->query($str);
+				if ($res===FALSE) return $this->mySessionMgr->conn->error;
+				return "";
+			default: throw new Exception("Internal error: invalid permission level");
+		}
+		
+	}
+	
 	/*
 	 * return permissions for provided session token
 	 */
