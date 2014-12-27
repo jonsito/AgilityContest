@@ -159,7 +159,7 @@ $('#seltablet-Sesion').combogrid({
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='select';
-		param.Hidden=1;
+		param.Hidden=0;
 		return true;
 	}
 });
@@ -233,8 +233,8 @@ function tablet_acceptSelectJornada() {
 	
 	$.ajax({
 		type: 'POST',
-  		url: '/agility/server/database/userFunctions.php',
-   		dataType: 'json',
+  		url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
+   		dataType: 'jsonp',
    		data: parameters,
    		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
    		success: function(data) {

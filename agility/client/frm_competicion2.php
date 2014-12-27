@@ -21,7 +21,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php require_once("dialogs/dlg_resultadosManga.inc");?>
  	
 <!-- PANEL INFORMATIVO SOBRE LA MANGAS DE ESTA JORNADA -->
-<div id="competicion_info" class="easyui-panel" title="Informaci&oacute;n de la jornada de competici&oacute;n">
+<div id="competicion_info" class="easyui-panel" title="Informaci&oacute;n de la jornada de competici&oacute;n" style="width:975px">
 
 	<!-- paneles de lista de mangas y datos de cada manga -->
 	<div id="competicion_infolayout" class="easyui-layout" style="height:400px">
