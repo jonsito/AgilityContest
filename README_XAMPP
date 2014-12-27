@@ -3,31 +3,41 @@ Instrucciones para instalar en un pen-drive bajo Windows XAMPP
 
 1- Descarga y preparación del software
 
-- Preparar un pendrive de al menos 4Gb
+- Preparar un pendrive de al menos 2Gb. ( recomendable 4Gb )
+
 - Insertar el pendrive, y comprobar que esta formateado (FAT32)
+
 - Descargar la versión .zip de portable-xampp y descomprimirla en el directorio raíz del pen-drive
 http://sourceforge.net/projects/xampp/files/XAMPP%20Windows/5.6.3/xampp-portable-win32-5.6.3-0-VC11.zip/download
+
 - Descargar desde github la última version de AgilityContest en formato .zip
 https://github.com/jonsito/AgilityContest/archive/master.zip
+
 - Descomprimir el fichero .zip en el directorio raiz del pendrive (F:\)
 
 2- Instalacion y configuración 
+
+- Asumimos que el pendrive se asigna al disco F: En caso negativo, substituir esta letra por la correcta en el resto de las instrucciones
+
 - Copiar el fichero F:\AgilityContest-master\agility\extras\xampp_httpd.conf
-  al directorio F:\xampp\apache\conf\extra\xampp_httpd.conf
-- Editar el fichero F:\xampp\apache\conf\httpd.conf y añadir al final del fichero
-  la linea:
+  al directorio F:\xampp\apache\conf\extra\xampp_httpd.conf.
+
+- Editar el fichero F:\xampp\apache\conf\httpd.conf y añadir al final del fichero la linea:
   
   Include "conf/extra/xampp_httpd.conf"
 
-- Arrancar el panel de control de xampp
+- Arrancar el panel de control de xampp (ejecutar F:\xampp\xampp-control.exe)
+
 - Verificar que los servicios "Apache" y "MySQL" estan correctamente arrancados
+
 - Desde el menú de portableapps abrir una shell e invocar el interprete de mysql
   para instalar la base de datos y los usuarios de la aplicacion
   
-   mysql.exe -u root
-   source F:\AgilityContest-master\agility\extras\agility.sql
-   source F:\AgilityContest-master\agility\extras\users.sql
-   source F:\AgilityContest-master\agility\extras\rsce.sql
+F:\xampp\mysql\bin\mysql.exe -u root
+
+   source F:\AgilityContest-master\extras\agility.sql
+   source F:\AgilityContest-master\extras\users.sql
+   source F:\AgilityContest-master\extras\rsce.sql
    exit
 
 - Abrir la página "http://localhost/agility" desde el navegador para comprobar que todo funciona
