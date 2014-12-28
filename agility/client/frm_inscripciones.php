@@ -19,7 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <img class="mainpage" src="/agility/server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle"/>
 
 <!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->
-<div id="selprueba-window" class="easyui-window" style="position:relative,width:500px;height:150px;padding:20px 20px">
+<div id="selprueba-window" class="easyui-window" style="position:relative;width:400px;height:150px;padding:20px 20px">
 	<div id="selprueba-Layout" class="easyui-layout" data-options="fit:true'">
 		<div id="selprueba-Content" data-options="region:'center',border:'true'">
 			<form id="selprueba-Prueba">
@@ -54,7 +54,7 @@ $('#selprueba-window').window({
 		var page="/agility/client/frm_main.php";
 		if(workingData.prueba!=0) {
 			page="/agility/client/frm_inscripciones2.php";
-			title="Inscripciones - Formulario de registro"
+			title="Inscripciones - Formulario de registro";
 		}
 		loadContents(page,title,{'inscripciones':'#new_inscripcion-dialog', 'equipos':'#team_datagrid-dialog'});
 	}

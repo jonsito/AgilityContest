@@ -19,6 +19,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 * Client-side uthentication related functions
 */
 
+/**
+ * Abre el frame de login o logout dependiendo de si se ha iniciado o no la sesion
+ */
+function showLoginWindow() {
+	if (typeof(authInfo.SessionKey)==undefined || (authInfo.SessionKey==null) ) {
+		loadContents('/agility/client/frm_login.php','Iniciar sesion',{'l':'#login-Buttons'});
+	} else {
+		loadContents('/agility/client/frm_logout.php','Finalizar sesion',{'l':'#logout-Buttons'});
+	}
+}
+
 function acceptLogin() {
 	var user= $('#login-Username').val();
 	var pass=$('#login-Password').val();
@@ -39,6 +50,7 @@ function acceptLogin() {
    		success: function(data) {
        		if (data.errorMsg) { // error
        			$.messager.alert("Error",data.errorMsg,"error");
+       			initAuthInfo();
        		} else {// success: 
        			$.messager.alert("Usuario"+data.Login,"Sesi&oacute;n iniciada correctamente","info");
            		$('#login_menu-text').html("Cerrar sesi&oacute;n: <br />"+data.Login);
@@ -47,7 +59,7 @@ function acceptLogin() {
        	},
    		error: function() { alert("error");	},
 	});
-	$('#login-dialog').dialog('close');
+	$('#login-window').window('close');
 }
 
 function acceptLogout() {
@@ -73,14 +85,17 @@ function acceptLogout() {
        	},
    		error: function() { alert("error");	},
 	});
-	$('#login-Usuario').val('');
-	$('#login-Password').val('');
-	$('#login-dialog').dialog('close');	
+	$('#logout-window').window('close');	
 }
 	
 function cancelLogin() {
 	$('#login-Usuario').val('');
 	$('#login-Password').val('');
 	// close window
-	$('#login-dialog').dialog('close');
+	$('#login-window').window('close');
+}
+
+function cancelLogout() {
+	// close window
+	$('#logout-window').window('close');
 }

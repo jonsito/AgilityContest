@@ -58,7 +58,7 @@ function initialize() {
 	});
 	
 	// load login page
-	loadContents("/agility/client/frm_login.php","");
+	loadContents("/agility/client/frm_main.php","");
 }
 
 /**
@@ -122,7 +122,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <ul>
 <li>
 	<ul>
-	<li><a href="javascript:loadContents('/agility/client/frm_login.php','Inicio de sesion',{'login':'#login-dialog'});">
+	<li><a id="menu-Login" href="javascript:showLoginWindow();">
 		<span id="login_menu-text">Iniciar sesi&oacute;n</span></a>
 	</li>
 	</ul>
