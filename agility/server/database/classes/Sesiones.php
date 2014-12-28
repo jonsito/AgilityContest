@@ -186,8 +186,10 @@ class Sesiones extends DBObject {
 	function enumerate($q="") { // like select but with fixed order
 		$this->myLogger->enter();
 		// evaluate search criteria for query
+		// $where="( Nombre != 'Console') ";
+		// if ($q!=="") $where="AND (Nombre LIKE '%".$q."%' )";
 		$where="";
-		if ($q!=="") $where="Nombre LIKE '%".$q."%'";
+		if ($q!=="") $where="(Nombre LIKE '%".$q."%' )";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Sesiones",

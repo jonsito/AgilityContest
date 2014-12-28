@@ -22,8 +22,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 function acceptLogin() {
 	$.ajax({
 		type: 'POST',
-  		url: '/agility/server/database/userFunctions.php',
-   		dataType: 'json',
+  		url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
+   		dataType: 'jsonp',
    		data: {
    			Operation: 'login',
    			Username: $('#login-Username').val(),

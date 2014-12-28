@@ -146,7 +146,8 @@ function savePassword() {
 	}
     $.ajax({
         type: 'GET',
-        url: '/agility/server/database/userFunctions.php',
+    	// get server host name to compose https request
+        url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
         data: {
         	Operation: 'password',
         	ID: 			id,
@@ -154,7 +155,7 @@ function savePassword() {
         	NewPassword:	np,
         	NewPassword2:	np2,
         },
-        dataType: 'json',
+        dataType: 'jsonp',
         success: function (result) {
             if (result.errorMsg){
                 $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });

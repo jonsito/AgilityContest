@@ -23,6 +23,7 @@ require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/Usuarios.php");
 
+$response="";
 try {
 	$result=null;
 	$users= new Usuarios("userFunctions");
@@ -48,11 +49,14 @@ try {
 	if ($result===null) 
 		throw new Exception($users->errormsg);
 	if ($result==="")
-		echo json_encode(array('success'=>true,'insert_id'=>$users->conn->insert_id,'affected_rows'=>$users->conn->affected_rows)); 
-	else echo json_encode($result);
+		$response= array('success'=>true,'insert_id'=>$users->conn->insert_id,'affected_rows'=>$users->conn->affected_rows); 
+	else $response=$result;
 } catch (Exception $e) {
 	do_log($e->getMessage());
-	echo json_encode(array('errorMsg'=>$e->getMessage()));
+	$response = array('errorMsg'=>$e->getMessage());
 }
+// take care on jsonp request to handle https cross domain for login and setPassword
+if(isset($_GET['callback'])) echo $_GET['callback'].'('.json_encode($response).')'; // jsonp
+else echo json_encode($response); // json
 
 ?>
