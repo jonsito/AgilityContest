@@ -32,9 +32,9 @@ var slaveDialogs = new Object();
 function loadContents(page,title,slaves) {
 	$('#mymenu').panel('collapse');
 	$.each(slaveDialogs,function(key,val) {
-		if (typeof($(val).dialog('panel'))!=='undefined') $(val).dialog('panel').panel('clear'); 
+		$(val).dialog('panel').panel('clear'); 
 	} ); 
-	slaveDialogs=(typeof($slaves)==='undefined')?{}:slaves;
+	slaveDialogs=(typeof(slaves)==='undefined')?{}:slaves;
 	$('#contenido').panel('clear');
 	$('#contenido').panel('refresh',page);
 	setHeader(title);

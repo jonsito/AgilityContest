@@ -24,9 +24,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  */
 function showLoginWindow() {
 	if (typeof(authInfo.SessionKey)==undefined || (authInfo.SessionKey==null) ) {
-		loadContents('/agility/client/frm_login.php','Iniciar sesion',{'l':'#login-Buttons'});
+		loadContents('/agility/client/frm_login.php','Iniciar sesion',{'l':'#login-window'});
 	} else {
-		loadContents('/agility/client/frm_logout.php','Finalizar sesion',{'l':'#logout-Buttons'});
+		loadContents('/agility/client/frm_logout.php','Finalizar sesion',{'l':'#logout-window'});
 	}
 }
 
