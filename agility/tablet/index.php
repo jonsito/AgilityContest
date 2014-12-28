@@ -208,16 +208,22 @@ function tablet_acceptSelectJornada() {
 	var s=$('#seltablet-Sesion').combogrid('grid').datagrid('getSelected');
 	var p=$('#seltablet-Prueba').combogrid('grid').datagrid('getSelected');
 	var j=$('#seltablet-Jornada').combogrid('grid').datagrid('getSelected');
+	var user=$('#seltable-Username').val();
+	var pass=$('#seltable-Password').val();
 	if ( (p==null) || (j==null) ) {
 		// indica error
 		$.messager.alert("Error","Debe<br />- Indicar la sesión para los videomarcadores<br />- Seleccionar prueba/jornada para manejo de datos","error");
 		return;
 	}
+	if (!user || !user.length) {
+		$.messager.alert("Invalid data","No ha indicado ningún usuario","error");
+		return;
+	};
 
 	var parameters={ 
 		'Operation':'login',
-		'Username': $('#seltable-Username').val(),
-		'Password': $('#seltable-Password').val(),
+		'Username': user,
+		'Password': pass,
 		'Session' : s.ID,
 		'Nombre'  : s.Nombre,
 		'Source'  : 'tablet_'+s.ID,

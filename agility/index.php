@@ -57,8 +57,8 @@ function initialize() {
 	  }
 	});
 	
-	// load a default page
-	loadContents("/agility/client/frm_main.php","");
+	// load login page
+	loadContents("/agility/client/frm_login.php","");
 }
 
 /**

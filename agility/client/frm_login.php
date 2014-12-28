@@ -76,7 +76,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 $('#login-dialog').dialog({
 	width:500,
 	height:250,
-	title:'Autenticaci&oacute;n',
+	title:'Iniciar Sesi&oacute;n',
 	iconCls:'icon-users',
 	collapsible:false,
 	minimizable:false,
@@ -88,15 +88,16 @@ $('#login-dialog').dialog({
 	onBeforeOpen: function() {
 		if(authInfo.SessionKey==null){ 
 			$('#login-dialog').dialog('options').height=250;
-			$('#login-Content').css('display','inherit');
+			$('#login-Content').css('display','inline');
 			$('#logout-Content').css('display','none');
 		} else { 
 			$('#login-dialog').dialog('options').height=100;
 			$('#logout-UserName').text(authInfo.Login);
 			$('#login-Content').css('display','none');
-			$('#logout-Content').css('display','inherit');
+			$('#logout-Content').css('display','inline');
 		}
-	}
+	},
+	onclose: function() { $('#login-dialog').dialog('clear'); }
 });
 		
 addTooltip($('#login-okBtn').linkbutton(),"Iniciar sesi&oacute;n con el usuario seleccionado");

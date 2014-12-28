@@ -20,14 +20,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 function acceptLogin() {
+	var user= $('#login-Username').val();
+	var pass=$('#login-Password').val();
+	if (!user || !user.length) {
+		$.messager.alert("Invalid data","No ha indicado ningún usuario","error");
+		return;
+	};
 	$.ajax({
 		type: 'POST',
   		url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
    		dataType: 'jsonp',
    		data: {
    			Operation: 'login',
-   			Username: $('#login-Username').val(),
-   			Password: $('#login-Password').val(),
+   			Username: user,
+   			Password: pass,
    		},
    		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
    		success: function(data) {
@@ -41,7 +47,7 @@ function acceptLogin() {
        	},
    		error: function() { alert("error");	},
 	});
-	$('#login-dialog').dialog('close');	
+	$('#login-dialog').dialog('close');
 }
 
 function acceptLogout() {
