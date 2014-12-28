@@ -20,7 +20,7 @@ $config =new Config()
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.1/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/videowall.css" />
+<link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
 <script src="/agility/lib/jquery-easyui-1.4.1/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.1/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
@@ -104,8 +104,8 @@ $('#selvw-Session').combogrid({
 		{ field:'LiveStream',	hidden:true }
 	]],
 	onBeforeLoad: function(param) { 
-		param.Operation='select'
-		param.Hidden=1;
+		param.Operation='select';
+		param.Hidden=0;
 		return true;
 	}
 });

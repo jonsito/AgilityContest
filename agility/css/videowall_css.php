@@ -1,5 +1,9 @@
+<?php header ("Content-type: text/css");
+require_once(__DIR__."/../server/auth/Config.php");
+$config = new Config();
+?>
 /*
-videowall.css
+videowall_css.php
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -72,8 +76,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 .vwc_callTanda { /* fila de indicador de tanda */
 	width:100%;
-	background-color: #8080ff;
-	color: white;
+	background-color: <?php echo $config->getEnv('vw_hdrbg2')?>;
+	color: <?php echo $config->getEnv('vw_hdrfg2')?>;
 	text-align: right;
 	font-size: 200%;
 	padding:2%;
@@ -134,8 +138,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .vwc_trs {
 	width:100%;
 	padding:10px;
-	background-color: #0000ff;
-	color: white;
+	background-color: <?php echo $config->getEnv('vw_hdrbg2')?>;
+	color: <?php echo $config->getEnv('vw_hdrfg2')?>;
 	font-weight: bold;
 	font-style: italic;
 	table-layout: fixed;
@@ -169,8 +173,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	margin-bottom:0px;
 	width:100%;
 	padding:10px;
-	background-color: #0000ff;
-	color: white;
+	background-color: <?php echo $config->getEnv('vw_hdrbg2')?>;
+	color: <?php echo $config->getEnv('vw_hdrfg2')?>;
 	font-weight: bold;
 	font-style: italic;
 	font-size:1.5em;
@@ -180,8 +184,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	
 td.vwi_club {
 	width:90%;
-	background:#8080ff;
-	color:#ffffff;
+	background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
+	color: <?php echo $config->getEnv('vw_hdrfg1')?>;
 	text-align:right;
 	font-size:2em;
 	font-style:italic;

@@ -325,7 +325,6 @@ $.extend($.fn.datagrid.methods, {
 			});
 		});
 	},
-	// TODO: Add header info in excel tables
     toExcel: function(jq, filename){
         return jq.each(function(){
             var uri = 'data:application/vnd.ms-excel;base64,';
