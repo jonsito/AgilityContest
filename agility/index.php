@@ -58,7 +58,7 @@ function initialize() {
 	});
 	
 	// load login page
-	loadContents("/agility/client/frm_main.php","");
+	loadContents("/agility/client/frm_login.php","");
 }
 
 /**
