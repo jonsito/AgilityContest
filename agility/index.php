@@ -151,7 +151,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <li>HERRAMIENTAS
 	<ul>
 	<li> <a href="javascript:loadContents('/agility/client/frm_admin.php','Administraci&oacute;n')">Administraci&oacute;n</a></li>
-	<li> <a target="phpMyAdmin" href="/phpmyadmin">phpMyAdmin</a></li>
+	<li><a id="menu-Login" href="javascript:showMyAdminWindow();">Acceso a BBDD</a></li>
 	</ul>
 </li>
 <li>DOCUMENTACION
@@ -159,6 +159,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 	<li> <a target="documentacion" href="/agility/client/manual.html">Manual en l&iacute;nea</a></li>
 	<li> <a href="javascript:loadContents('/agility/client/frm_about.php','Sobre la aplicaci&oacute;n...')">Acerca de...</a></li>
 	</ul>
+</li>
 </ul>
 </div> <!-- mymenu -->
 </div> <!-- mysidebar -->

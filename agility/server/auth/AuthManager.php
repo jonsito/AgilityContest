@@ -74,7 +74,7 @@ class AuthManager {
 	 * @throws Exception if something goes wrong
 	 * @return {array} errorMessage or result data
 	 */
-	function login($login,$password,$sid=0) {
+	function login($login,$password,$sid=0,$nosession=false) {
 		/* access database to check user credentials */
 		$obj=$this->mySessionMgr->__selectObject("*","Usuarios","(Login='$login')");
 		if (!$obj) throw new Exception("Login: Unknown user: '$login'");
@@ -117,6 +117,8 @@ class AuthManager {
 			'Type'		=>  'init', /* ¿perhaps evtType should be 'login'¿ */
 			'Source' 	=> 	http_request("Source","s","AuthManager")
 		);
+		// if no session is requested, just check password, do not create any session
+		if ($nosession==true) return $data;
 		// create/join to a session
 		if ($sid<=0) { //  if session id is not defined, create a new session
 			// remove all other console sessions from same user
@@ -141,6 +143,10 @@ class AuthManager {
 		}
 		// That's all. Return generated result data
 		return $data;
+	}
+	
+	function checkPassword($user,$pass) {
+		return $this->login($user,$pass,0,true);	
 	}
 	
 	/*

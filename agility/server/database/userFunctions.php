@@ -43,6 +43,7 @@ try {
 		case "select": $result=$users->select(); break; // list with order, index, count and where
 		case "enumerate": $result=$users->enumerate(); break; // list with where
 		case "login": $result=$am->login($user,$pass,$sid); break;
+		case "pwcheck": $result=$am->checkPassword($user,$pass); break; // just check pass, dont create session
 		case "logout": $result=$am->logout(); break;
 		default: throw new Exception("userFunctions:: invalid operation: '$operation' provided");
 	}

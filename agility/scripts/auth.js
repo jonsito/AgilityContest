@@ -32,6 +32,11 @@ function showLoginWindow() {
 	}
 }
 
+function showMyAdminWindow() {
+	$('#myAdmin-window').remove();
+	loadContents('/agility/client/frm_myAdmin.php','Acceso directo a la Base de Datos');
+}
+
 function acceptLogin() {
 	var user= $('#login-Username').val();
 	var pass=$('#login-Password').val();
@@ -89,7 +94,37 @@ function acceptLogout() {
 	});
 	$('#logout-window').window('close');	
 }
-	
+
+function acceptMyAdmin() {
+	var user= $('#myAdmin-Username').val();
+	var pass=$('#myAdmin-Password').val();
+	if (!user || !user.length) {
+		$.messager.alert("Invalid data","No ha indicado ningún usuario","error");
+		return;
+	};
+	$.ajax({
+		type: 'POST',
+  		url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
+   		dataType: 'jsonp',
+   		data: {
+   			Operation: 'pwcheck',
+   			Username: user,
+   			Password: pass,
+   		},
+   		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+   		success: function(data) {
+       		if (data.errorMsg) { // error
+       			$.messager.alert("Error",data.errorMsg,"error");
+       		} else {// success: 
+       			if (parseInt(data.Perms)<=1) window.open("/phpmyadmin","phpMyAdmin");
+       			else $.messager.alert("Error","El usuario no tiene permisos de administrador","error");
+       		} 
+       	},
+   		error: function() { alert("error");	},
+	});
+	$('#myAdmin-window').window('close');
+}
+
 function cancelLogin() {
 	$('#login-Usuario').val('');
 	$('#login-Password').val('');
@@ -100,4 +135,9 @@ function cancelLogin() {
 function cancelLogout() {
 	// close window
 	$('#logout-window').window('close');
+}
+
+function cancelMyAdmin() {
+	// close window
+	$('#myAdmin-window').window('close');
 }
