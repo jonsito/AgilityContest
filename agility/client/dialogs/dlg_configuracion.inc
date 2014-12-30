@@ -36,9 +36,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		</select><br />
 		<label for="easyui_bgcolor">Color del fondo del escritorio</label>
 		<input name="easyui_bgcolor" value="#0000ff" type="color"/><br />
-		<label for="easyui_hdrcolor">Color T&iacute;tulo de cabecera</label>
+		<label for="easyui_hdrcolor">Color del T&iacute;tulo de cabecera</label>
 		<input name="easyui_hdrcolor" value="#00ff00" type="color"/><br />
-		<label for="easyui_opcolor">T&iacute;tulo del men&uacute; activo</label>
+		<label for="easyui_opcolor">Color del T&iacute;tulo del men&uacute; activo</label>
 		<input name="easyui_opcolor" value="opcolor" type="color"/><br />
 		<label for="easyui_rowcolor1">Color de filas pares en las tablas</label>
 		<input name="easyui_rowcolor1" value="#e0e0e0" type="color"/><br />
@@ -47,6 +47,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<h3>Video-marcadores</h3>
 		<label for="vw_polltime">Frecuencia de refresco (seg.)</label>
 		<input name="vw_polltime" type="text" size="2" value="5"/><br />
+		<label for="vw_alpha">Nivel de transparencia en OnScreenDisplay </label>
+		<input name="vw_alpha" type="text" size="3" value="0.5"/><br />
 		<label for="vw_hdrbg1">Color de fondo de la cabecera principal</label>
 		<input name="vw_hdrbg1" type="color" value="#0000ff"/><br />
 		<label for="vw_hdrfg1">Color del texto de la cabecera principal</label>

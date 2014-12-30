@@ -50,7 +50,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 
 .vwls_fondo {
-    background-color: rgba(127,127,127,0.5);
+    background-color: rgba(127,127,127,<?php echo $config->getEnv('vw_alpha')?>);
     border: 3px solid black;
     border-radius: 25px;
 }
@@ -138,8 +138,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .vwc_trs {
 	width:100%;
 	padding:10px;
-	background-color: <?php echo $config->getEnv('vw_hdrbg2')?>;
-	color: <?php echo $config->getEnv('vw_hdrfg2')?>;
+	background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
+	color: <?php echo $config->getEnv('vw_hdrfg1')?>;
 	font-weight: bold;
 	font-style: italic;
 	table-layout: fixed;
@@ -173,8 +173,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	margin-bottom:0px;
 	width:100%;
 	padding:10px;
-	background-color: <?php echo $config->getEnv('vw_hdrbg2')?>;
-	color: <?php echo $config->getEnv('vw_hdrfg2')?>;
+	background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
+	color: <?php echo $config->getEnv('vw_hdrfg1')?>;
 	font-weight: bold;
 	font-style: italic;
 	font-size:1.5em;
@@ -184,8 +184,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	
 td.vwi_club {
 	width:90%;
-	background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
-	color: <?php echo $config->getEnv('vw_hdrfg1')?>;
+	background-color: <?php echo $config->getEnv('vw_hdrbg2')?>;
+	color: <?php echo $config->getEnv('vw_hdrfg2')?>;
 	text-align:right;
 	font-size:2em;
 	font-style:italic;

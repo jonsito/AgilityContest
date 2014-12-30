@@ -17,6 +17,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 require_once(__DIR__."/logging.php");
+require_once(__DIR__."/auth/Config.php");
 require_once(__DIR__."/database/classes/DBObject.php");
 require_once(__DIR__."/database/classes/OrdenTandas.php");
 require_once(__DIR__."/database/classes/Sesiones.php");
@@ -172,7 +173,9 @@ class VideoWall {
 			54	=> array( -1, 7,  8, 'Jp. Equipos 4'/* Small/Tiny*/),
 			55	=> array( 5,  7,  8, 'Manga Especial' /* Tiny */),
 	);
+	
 	function videowall_llamada($idsesion,$pendientes) {
+		$config=new Config();
 		$lastTanda="";
 		$sesmgr=new Sesiones("VideoWall_Llamada");
 		$otmgr=new OrdenTandas("Llamada a pista");
@@ -189,7 +192,7 @@ class VideoWall {
 			$logo=$otmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
 			if ($logo==="") $logo='rsce.png';
 			$celo=($participante['Celo']==='1')?'Si':'No';
-			$bg=(($numero%2)!=0)?"#ffffff":"#d0d0d0";
+			$bg=(($numero%2)!=0)?$config->getEnv("vw_rowcolor1"):$config->getEnv("vw_rowcolor2");
 			echo '
 				<tr id="participante_'.$numero.'" style="background:'.$bg.';">
 					<td class="vwc_callEntry vwc_callNumero">'.$numero.'</td>
@@ -221,6 +224,7 @@ class VideoWall {
 	}
 
 	function videowall_resultados($idsesion) {
+		$config=new Config();
 		$sesmgr=new Sesiones("VideoWall_Resultados");
 		$mySession=$sesmgr->__getObject("Sesiones",$idsesion);
 		$resmgr=new Resultados("videowall_resultados",$mySession->Prueba, $mySession->Manga );
@@ -275,7 +279,7 @@ class VideoWall {
 		foreach ($result['rows'] as $resultado) {
 			error_log(json_encode($resultado));
 			$numero++;
-			$bg=(($numero%2)!=0)?"#ffffff":"#d0d0d0";
+			$bg=(($numero%2)!=0)?$config->getEnv("vw_rowcolor1"):$config->getEnv("vw_rowcolor2");
 			$logo=$resmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$resultado['Perro']})")['Logo'];
 			if ($logo==="") $logo='rsce.png';
 			echo '
@@ -323,6 +327,7 @@ class VideoWall {
 	
 	
 	function videowall_inscripciones($prueba,$jornada) {
+		$config = new Config();
 		$imgr=new Inscripciones("videowall_inscripciones",$prueba);
 		$result=$imgr->inscritosByJornada($jornada);
 		$club=0;
@@ -351,7 +356,7 @@ class VideoWall {
 				echo "<th style=\"width:30%;text-align:right;padding-right:25px\">Gu&iacute;a</th>";
 				echo "</tr>";
 			}
-			$bg=(($fila%2)!=0)?"#ffffff":"#d0d0d0";
+			$bg=(($fila%2)!=0)?$config->getEnv("vw_rowcolor1"):$config->getEnv("vw_rowcolor2");
 			$c=VideoWall::$cat[$i['Categoria']];
 			echo "<tr id=\"Inscripcion_{$i['Dorsal']}\" style=\"background:$bg;font-size:1.4em\">";
 			echo "<td style=\"width:10%;padding-left:25px\">{$i['Dorsal']}</td>";
@@ -366,7 +371,6 @@ class VideoWall {
 	echo '</tbody></table>';
 	}
 } 
-
 $sesion = http_request("Session","i",0);
 $prueba = http_request("Prueba","i",0);
 $jornada = http_request("Jornada","i",0);

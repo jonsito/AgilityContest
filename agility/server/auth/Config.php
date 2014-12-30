@@ -35,16 +35,17 @@ define('AC_EASYUI_ROWCOLOR2','#c0c0c0');
 
 /** personalizacion del videowall **/
 define('AC_VW_POLLTIME',5);
-define('AC_VW_HDRFG1','#0000ff');
-define('AC_VW_HDRBG1','#808080');
+define('AC_VW_ALPHA',0.5);
+define('AC_VW_HDRFG1','#000000');
+define('AC_VW_HDRBG1','#FF7F00');
 define('AC_VW_HDRFG2','#0000ff');
 define('AC_VW_HDRBG2','#808080');
 define('AC_VW_ROWCOLOR1','#ffffff');
 define('AC_VW_ROWCOLOR2','#e0ebff');
 
 /** generacion de PDF's **/
-define('AC_PDF_HDRFG1','#0000ff');
-define('AC_PDF_HDRBG1','#808080');
+define('AC_PDF_HDRFG1','#000000');
+define('AC_PDF_HDRBG1','#00FF00');
 define('AC_PDF_HDRFG2','#0000ff');
 define('AC_PDF_HDRBG2','#808080');
 define('AC_PDF_ROWCOLOR1','#ffffff');
@@ -75,6 +76,7 @@ Class Config {
 		$this->config['easyui_rowcolor2'] =	AC_EASYUI_ROWCOLOR2;
 		// configuracion del videowall
 		$this->config['vw_polltime'] =	AC_VW_POLLTIME;
+		$this->config['vw_alpha'] =		AC_VW_ALPHA;
 		$this->config['vw_hdrfg1'] =	AC_VW_HDRFG1;
 		$this->config['vw_hdrbg1'] =	AC_VW_HDRBG1;
 		$this->config['vw_hdrfg2'] =	AC_VW_HDRFG2;
@@ -167,6 +169,7 @@ Class Config {
 		$data['easyui_rowcolor2'] =	AC_EASYUI_ROWCOLOR2;
 		// configuracion del videowall
 		$data['vw_polltime'] =	AC_VW_POLLTIME;
+		$data['vw_alpha'] =		AC_VW_ALPHA;
 		$data['vw_hdrfg1'] =	AC_VW_HDRFG1;
 		$data['vw_hdrbg1'] =	AC_VW_HDRBG1;
 		$data['vw_hdrfg2'] =	AC_VW_HDRFG2;
@@ -201,6 +204,7 @@ Class Config {
 		$data=testAndSet($data,'easyui_rowcolor2','s',AC_EASYUI_ROWCOLOR2);
 		// configuracion del videowall
 		$data=testAndSet($data,'vw_polltime','i',AC_VW_POLLTIME);
+		$data=testAndSet($data,'vw_alpha','f',AC_VW_ALPHA);
 		$data=testAndSet($data,'vw_hdrfg1','s',AC_VW_HDRFG1);
 		$data=testAndSet($data,'vw_hdrbg1','s',AC_VW_HDRBG1);
 		$data=testAndSet($data,'vw_hdrfg2','s',AC_VW_HDRFG2);
