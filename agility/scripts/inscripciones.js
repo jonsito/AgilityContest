@@ -175,3 +175,14 @@ function reorderInscripciones(idprueba) {
 		success: function(data) {$('#inscripciones-datagrid').datagrid('reload'); }
 	});
 }
+
+/**
+ * Comprueba si un participante se puede o no inscribir en una jornada
+ * @param {object} jornada, datos de la jornada
+ */
+function canInscribe(jornada) {
+	var result=true;
+	if (jornada.Cerrada==1) result=false;
+	if (jornada.Nombre === '-- Sin asignar --') result=false;
+	return result;
+}

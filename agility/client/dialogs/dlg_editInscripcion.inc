@@ -115,15 +115,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	$('#edit_inscripcion-J6').prop('checked',(data.Jornadas&0x0020)?true:false);
         	$('#edit_inscripcion-J7').prop('checked',(data.Jornadas&0x0040)?true:false);
         	$('#edit_inscripcion-J8').prop('checked',(data.Jornadas&0x0080)?true:false);
-        	// fix disabled status on closed jornadas
-        	$('#edit_inscripcion-J1').prop('disabled',(jornadas[0].Cerrada==="1")?true:false);
-        	$('#edit_inscripcion-J2').prop('disabled',(jornadas[1].Cerrada==="1")?true:false);
-        	$('#edit_inscripcion-J3').prop('disabled',(jornadas[2].Cerrada==="1")?true:false);
-        	$('#edit_inscripcion-J4').prop('disabled',(jornadas[3].Cerrada==="1")?true:false);
-        	$('#edit_inscripcion-J5').prop('disabled',(jornadas[4].Cerrada==="1")?true:false);
-        	$('#edit_inscripcion-J6').prop('disabled',(jornadas[5].Cerrada==="1")?true:false);
-        	$('#edit_inscripcion-J7').prop('disabled',(jornadas[6].Cerrada==="1")?true:false);
-        	$('#edit_inscripcion-J8').prop('disabled',(jornadas[7].Cerrada==="1")?true:false);
         	// fix text for jornadas
         	$('#edit_inscripcion-J1lbl').text('J1 - '+jornadas[0].Nombre);
         	$('#edit_inscripcion-J2lbl').text('J2 - '+jornadas[1].Nombre);
@@ -133,6 +124,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	$('#edit_inscripcion-J6lbl').text('J6 - '+jornadas[5].Nombre);
         	$('#edit_inscripcion-J7lbl').text('J7 - '+jornadas[6].Nombre);
         	$('#edit_inscripcion-J8lbl').text('J8 - '+jornadas[7].Nombre);
+        	// evaluate enabled/disabled status by mean of check "Cerrada" and "-- Sin asignar --"
+        	$('#edit_inscripcion-J1').prop('disabled', ! canInscribe(jornadas[0]) );
+        	$('#edit_inscripcion-J2').prop('disabled', ! canInscribe(jornadas[1]) );
+        	$('#edit_inscripcion-J3').prop('disabled', ! canInscribe(jornadas[2]) );
+        	$('#edit_inscripcion-J4').prop('disabled', ! canInscribe(jornadas[3]) );
+        	$('#edit_inscripcion-J5').prop('disabled', ! canInscribe(jornadas[4]) );
+        	$('#edit_inscripcion-J6').prop('disabled', ! canInscribe(jornadas[5]) );
+        	$('#edit_inscripcion-J7').prop('disabled', ! canInscribe(jornadas[6]) );
+        	$('#edit_inscripcion-J8').prop('disabled', ! canInscribe(jornadas[7]) );
         }
     });
     

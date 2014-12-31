@@ -44,7 +44,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	</div>
 	
 	<!-- botones del menu de login-->
-	<div id="login-Buttons" ata-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
+	<div id="login-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
 		<a id="login-okBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls: 'icon-ok'" onclick="acceptLogin()">Aceptar</a>
 		<a id="login-cancelBtn" href="#" class="easyui-linkbutton" 

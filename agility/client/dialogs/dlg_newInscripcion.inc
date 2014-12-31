@@ -221,15 +221,15 @@ function newInscripcion_onOpenSuccess() {
 	$('#new_inscripcion-J6').prop('checked',(jornadas[5].Nombre==="-- Sin asignar --")?false:true);
 	$('#new_inscripcion-J7').prop('checked',(jornadas[6].Nombre==="-- Sin asignar --")?false:true);
 	$('#new_inscripcion-J8').prop('checked',(jornadas[7].Nombre==="-- Sin asignar --")?false:true);
-	// fix disabled status on closed jornadas
-	$('#new_inscripcion-J1').prop('disabled',(jornadas[0].Cerrada==="1")?true:false);
-	$('#new_inscripcion-J2').prop('disabled',(jornadas[1].Cerrada==="1")?true:false);
-	$('#new_inscripcion-J3').prop('disabled',(jornadas[2].Cerrada==="1")?true:false);
-	$('#new_inscripcion-J4').prop('disabled',(jornadas[3].Cerrada==="1")?true:false);
-	$('#new_inscripcion-J5').prop('disabled',(jornadas[4].Cerrada==="1")?true:false);
-	$('#new_inscripcion-J6').prop('disabled',(jornadas[5].Cerrada==="1")?true:false);
-	$('#new_inscripcion-J7').prop('disabled',(jornadas[6].Cerrada==="1")?true:false);
-	$('#new_inscripcion-J8').prop('disabled',(jornadas[7].Cerrada==="1")?true:false);
+	// evaluate enabled/disabled status by mean of check "Cerrada" and "-- Sin asignar --"
+	$('#new_inscripcion-J1').prop('disabled', ! canInscribe(jornadas[0]) );
+	$('#new_inscripcion-J2').prop('disabled', ! canInscribe(jornadas[1]) );
+	$('#new_inscripcion-J3').prop('disabled', ! canInscribe(jornadas[2]) );
+	$('#new_inscripcion-J4').prop('disabled', ! canInscribe(jornadas[3]) );
+	$('#new_inscripcion-J5').prop('disabled', ! canInscribe(jornadas[4]) );
+	$('#new_inscripcion-J6').prop('disabled', ! canInscribe(jornadas[5]) );
+	$('#new_inscripcion-J7').prop('disabled', ! canInscribe(jornadas[6]) );
+	$('#new_inscripcion-J8').prop('disabled', ! canInscribe(jornadas[7]) );
 	// fix tooltip for jornadas
 	addTooltip($('#new_inscripcion-J1'),'Jornada 1: '+jornadas[0].Nombre);
 	addTooltip($('#new_inscripcion-J2'),'Jornada 2: '+jornadas[1].Nombre);
@@ -240,14 +240,14 @@ function newInscripcion_onOpenSuccess() {
 	addTooltip($('#new_inscripcion-J7'),'Jornada 7: '+jornadas[6].Nombre);
 	addTooltip($('#new_inscripcion-J8'),'Jornada 8: '+jornadas[7].Nombre);
 	// evaluate initial state for "Jornadas" field
-	if (jornadas[0].Nombre!=="-- Sin asignar --") val+=1;
-	if (jornadas[1].Nombre!=="-- Sin asignar --") val+=2;
-	if (jornadas[2].Nombre!=="-- Sin asignar --") val+=4;
-	if (jornadas[3].Nombre!=="-- Sin asignar --") val+=8;
-	if (jornadas[4].Nombre!=="-- Sin asignar --") val+=16;
-	if (jornadas[5].Nombre!=="-- Sin asignar --") val+=32;
-	if (jornadas[6].Nombre!=="-- Sin asignar --") val+=64;
-	if (jornadas[7].Nombre!=="-- Sin asignar --") val+=128;
+	if ( canInscribe(jornadas[0]) ) val+=1;
+	if ( canInscribe(jornadas[1]) ) val+=2;
+	if ( canInscribe(jornadas[2]) ) val+=4;
+	if ( canInscribe(jornadas[3]) ) val+=8;
+	if ( canInscribe(jornadas[4]) ) val+=16;
+	if ( canInscribe(jornadas[5]) ) val+=32;
+	if ( canInscribe(jornadas[6]) ) val+=64;
+	if ( canInscribe(jornadas[7]) ) val+=128;
 	$('#new_inscripcion-Jornadas').val(val);
 	// select up default team (as alphabetic order '-- Sin asignar --' comes first :-)
 	$('#new_inscripcion-Equipo').combogrid('grid').datagrid('selectRow',0);

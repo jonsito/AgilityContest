@@ -54,7 +54,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	</div>
 	
 	<!-- botones del menu de myAdmin-->
-	<div id="myAdmin-Buttons" ata-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
+	<div id="myAdmin-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
 		<a id="myAdmin-okBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls: 'icon-ok'" onclick="acceptMyAdmin()">Aceptar</a>
 		<a id="myAdmin-cancelBtn" href="#" class="easyui-linkbutton" 
