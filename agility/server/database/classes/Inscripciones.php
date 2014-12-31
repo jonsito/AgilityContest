@@ -211,27 +211,21 @@ class Inscripciones extends DBObject {
 		$limit="";
 		if ($page!=0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;
-			$limit=" LIMIT ".$offset.",".$rows;
+			$limit=" ".$offset.",".$rows;
 		};
 		$order=getOrderString( 
 			http_request("sort","s",""),
 			http_request("order","s",""),
 			"NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"
 		);
-		$str="SELECT * FROM PerroGuiaClub
-				WHERE 
-					ID NOT IN ( SELECT Perro FROM Inscripciones WHERE (Prueba=$id) )
-					$extra
-				ORDER BY $order $limit";
+		$result= $this->__select(
+			/* SELECT */	"*",
+			/* FROM */		"PerroGuiaClub",
+			/* WHERE */		"ID NOT IN ( SELECT Perro FROM Inscripciones WHERE (Prueba=$id) ) $extra ",
+			/* ORDER BY */	$order,
+			/* LIMIT */		$limit
+		);
 
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		
-		// Fase 2: la tabla de resultados a devolver
-		$data = array(); // result { total(numberofrows), data(arrayofrows)
-		while($row = $rs->fetch_array()) array_push($data,$row);
-		$rs->free();
-		$result=array('total'=>count($data), 'rows'=>$data);
 		$this->myLogger->leave();
 		return $result;
 	}

@@ -127,9 +127,7 @@ class PDF extends PrintCommon {
 		$tm2=null;
 		if ($this->manga2!=null) $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
 		
-		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
-		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
-		$this->ac_SetDrawColor(0,0,0); // line color
+		$this->ac_header(1,12);
 		
 		$this->SetXY(10,($this->PageNo()==1)?65:40); // first page has 3 extra header lines
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)

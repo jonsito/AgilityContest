@@ -371,7 +371,7 @@ class PrintEstadisticas extends PrintCommon {
 
 			$this->ac_header(2,9); // grado I
 			$this->cell(30,7,'Grado I','RB',0,'L',true);
-			$this->ac_row(0,9);
+			$this->ac_row(1,9);
 			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['S'],'RB',0,'C',true);
@@ -380,7 +380,7 @@ class PrintEstadisticas extends PrintCommon {
 			
 			$this->ac_header(2,9); // grado II
 			$this->cell(30,7,'Grado II','RB',0,'L',true);
-			$this->ac_row(0,9);
+			$this->ac_row(2,9);
 			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['S'],'RB',0,'C',true);
@@ -389,7 +389,7 @@ class PrintEstadisticas extends PrintCommon {
 			
 			$this->ac_header(2,9); // grado III
 			$this->cell(30,7,'Grado III','RB',0,'L',true);
-			$this->ac_row(0,9);
+			$this->ac_row(3,9);
 			$this->cell(30,7,$data[$name]['GIII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GIII']['M'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GIII']['S'],'RB',0,'C',true);
@@ -398,7 +398,7 @@ class PrintEstadisticas extends PrintCommon {
 
 			$this->ac_header(2,9); // Total
 			$this->cell(30,7,'Total','RB',0,'L',true);
-			$this->ac_row(0,9);
+			$this->ac_row(4,9);
 			$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['G']['S'],'RB',0,'C',true);
@@ -427,7 +427,7 @@ class PrintEstadisticas extends PrintCommon {
 
 			$this->ac_header(2,9); // grado I
 			$this->cell(30,7,'Grado I','RB',0,'L',true);
-			$this->ac_row(0,9);
+			$this->ac_row(1,9);
 			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['S'],'RB',0,'C',true);
@@ -437,7 +437,7 @@ class PrintEstadisticas extends PrintCommon {
 			
 			$this->ac_header(2,9); // grado II
 			$this->cell(30,7,'Grado II','RB',0,'L',true);
-			$this->ac_row(0,9);
+			$this->ac_row(2,9);
 			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['S'],'RB',0,'C',true);
@@ -447,7 +447,7 @@ class PrintEstadisticas extends PrintCommon {
 
 			$this->ac_header(2,9); // Total
 			$this->cell(30,7,'Total','RB',0,'L',true);
-			$this->ac_row(0,9);
+			$this->ac_row(3,9);
 			$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['G']['S'],'RB',0,'C',true);
