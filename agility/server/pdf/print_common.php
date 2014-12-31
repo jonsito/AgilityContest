@@ -147,5 +147,27 @@ class PrintCommon extends FPDF {
 		$this->SetDrawColor($r,$g,$b);
 	}
 	
+	function ac_header($idx,$size) {
+		$this->SetFont('Arial','B',$size);
+		if($idx==1) {
+			$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // naranja
+			$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // negro
+		} else {
+			$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2')); // azul
+			$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg2')); // blanco
+		}
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+		$this->SetLineWidth(.3); // ancho de linea
+	}
+	
+	function ac_row($idx,$size) {
+		$bg=$this->config->getEnv('pdf_rowcolor1');
+		if ( ($idx&0x01)==1)$bg=$this->config->getEnv('pdf_rowcolor2');
+		$this->SetFont('Arial','B',$size);
+		$this->ac_SetFillColor($bg); // color de la fila
+		$this->ac_SetTextColor('#000000'); // negro
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+		$this->SetLineWidth(.3); // ancho de linea
+	}
 }
 ?>
