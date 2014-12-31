@@ -39,6 +39,7 @@ class PrintCommon extends FPDF {
 	protected $prueba; // datos de la prueba
 	protected $club;   // club orcanizadod
 	protected $icon;   // logo del club organizador
+	protected $icon2;   // logo de la federacion
 	protected $jornada; // datos de la jornada
 	protected $myDBObject;
 	protected $pageName; // name of file to be printed
@@ -62,6 +63,7 @@ class PrintCommon extends FPDF {
 		else $this->jornada=null;
 		// evaluage logo info
 		$this->icon="rsce.png";
+		$this->icon2="rsce.png";
 		if (isset($this->club)) $this->icon=$this->club->Logo;
 	}
 	/**
@@ -75,11 +77,16 @@ class PrintCommon extends FPDF {
 		// 		$this->Image(string file [, float x [, float y [, float w [, float h [, string type [, mixed link]]]]]])
 		// 		$this->Cell( width, height, data, borders, where, align, fill)
 		// 		los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
-		$icon2=($this->icon==="rsce.png")?"fci.png":"rsce.png"; // to avoid duplicate head logos
+		if ($this->prueba->RSCE==0) {
+			$this->icon2=($this->icon==="rsce.png")?"fci.png":"rsce.png"; // to avoid duplicate head logos
+		} else {
+			$this->icon2="rfec.png";
+			$this->icon2=($this->icon==="rfec.png")?"csd.png":"rfec.png"; // to avoid duplicate head logos
+		}
 		$this->SetXY(10,10); // margins are 10mm each
 		$this->Cell(25.4,25.4,$this->Image(__DIR__.'/../../images/logos/'.$this->icon,$this->getX(),$this->getY(),25.4),0,0,'L',false);
 		$this->SetXY($this->w - 35.4,10);
-		$this->Cell(25.4,25.4,$this->Image(__DIR__.'/../../images/logos/'.$icon2,$this->getX(),$this->getY(),25.4),0,0,'R',false);
+		$this->Cell(25.4,25.4,$this->Image(__DIR__.'/../../images/logos/'.$this->icon2,$this->getX(),$this->getY(),25.4),0,0,'R',false);
 	
 		// pintamos nombre de la prueba
 		$this->SetXY($this->centro -50,10);
