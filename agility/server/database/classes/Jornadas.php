@@ -123,18 +123,17 @@ class Jornadas extends DBObject {
 	 */
 	function delete($jornadaid) {
 		$this->myLogger->enter();
-		if ($jornadaid<=0) return $this->error("Invalid Jornada ID"); 
-		
-		// si la jornada esta cerrada en lugar de borrarla la movemos a la prueba por defecto (ID=1)
-		// con esto evitamos borrar mangas y resultados ya fijos
-		$res= $this->query("UPDATE Jornadas SET Prueba=1 WHERE ( (ID=$jornadaid) AND (Cerrada=1) );");
+		if ($jornadaid<=0) return $this->error("Invalid Jornada ID");
+		// borramos cada una de las mangas de esta jornada
+		$mng=new Mangas("deleteJornada",$jornadaid);
+		$res=$mng->selectByJornada();
+		if (!is_array($res)) return $res; // error
+		foreach($res['rows'] as $manga) {
+			$mng->deleteByID($manga['ID']);
+		}
+		// y borramos la propia jornada
+		$res= $this->query("DELETE FROM Jornadas WHERE ( ID = $jornadaid );");
 		if (!$res) return $this->error($this->conn->error); 
-		
-		// si la jornada no está cerrada, directamente la borramos
-		// recuerda que las mangas y resultados asociados se borran por la "foreign key"
-		$res= $this->query("DELETE FROM Jornadas WHERE ( (ID=$jornadaid) AND (Cerrada=0) );");
-		if (!$res)  return $this->error($this->conn->error); 
-
 		$this->myLogger->leave();
 		return "";
 	} 
@@ -162,13 +161,15 @@ class Jornadas extends DBObject {
 		$p=$this->prueba;
 		if ($p <= 0 ) return $this->error("Invalid Prueba ID"); 
 		if ($p == 1 ) return $this->error("Cannot delete Journeys linked to default Contest");
-		// first pass: closed journeys now belongs to default Contest
-		$res=  $this->query("UPDATE Jornadas SET Prueba=1 WHERE ( (Prueba=$p) AND (Cerrada=1) );");
-		if (!$res) return $this->error($this->conn->error);
-		// second pass: remove non closed journeys related with current PruebaID
-		$res=  $this->query("DELETE FROM Jornadas WHERE ( (Prueba=$p) AND (Cerrada=0) );");
-		if (!$res) return $this->error($this->conn->error);
+		// cogemos las jornadas de esta prueba
+		$res=$this->selectByPrueba();
+		if (!is_array($res)) return $res;
+		// borramos cada una de las jornadas 
+		foreach($res['rows'] as $jornada) {
+			$this->delete($jornada['ID']);
+		}
 		$this->myLogger->leave();
+		return "";
 	}
 	
 	function selectByID($id) {

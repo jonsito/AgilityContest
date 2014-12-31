@@ -119,15 +119,18 @@ class Pruebas extends DBObject {
 		$this->myLogger->enter();
 		// pruebaID==1 is default prueba, so avoid deletion
 		if ($id<=1) return $this->error("pruebas::delete() Invalid Prueba ID:$id");
-		// Guardamos las jornadas cerradas de esta prueba
+		// Borramos resultados asociados a esta prueba
+		$res=$this->query("DELETE FROM Resultados WHERE ( Prueba=$id)");
+		// Borramos inscripciones de esta prueba
+		$res=$this->query("DELETE FROM Inscripciones WHERE ( Prueba=$id)");
+		// Borramos equipos de esta prueba
+		$res=$this->query("DELETE FROM Equipos WHERE ( Prueba=$id)");
+		// Borramos las jornadas (y mangas) de esta prueba
 		$j=new Jornadas("Pruebas.php",$id);
 		$j->deleteByPrueba();
-		// intentamos eliminar la prueba
-		$res= $this->query("DELETE FROM Pruebas WHERE (ID=$id) AND (Cerrada=0) ");
-		if (!$res) return $this->error($this->conn->error);
-		// if affected rows == 0 implica prueba cerrada: notify error
-		if ($this->conn->affected_rows==0) 
-			return $this->error("Cannot delete prueba $id marked as 'closed'"); 
+		// finalmente intentamos eliminar la prueba
+		$res= $this->query("DELETE FROM Pruebas WHERE (ID=$id)");
+		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
 		return "";
 	}

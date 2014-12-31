@@ -101,7 +101,9 @@ function deletePrueba(dg){
     	return; // no way to know which prueba is selected
     }
     $.messager.confirm('Confirm',
-    		"<p>Importante:</p><p>Si decide borrar la prueba <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta</p><p>Desea realmente borrar la prueba seleccionada?</p>",function(r){
+    		"<p><strong>Importante:</strong></p>" +
+    		"<p>Si decide borrar la prueba <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta" +
+    		"</p><p>Desea realmente borrar la prueba seleccionada?</p>",function(r){
         if (r){
             $.get('/agility/server/database/pruebaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
