@@ -211,13 +211,14 @@ class Jornadas extends DBObject {
 	 * @param {integer} $allowClosed 1:allow listing closed jornadas; 0:don't
 	 * @return unknown
 	 */
-	function searchByPrueba($allowClosed=0) {
+	function searchByPrueba($allowClosed=0,$hideUnassigned=0) {
 		$this->myLogger->enter();
 		// evaluate search terms
 		$q=http_request("q","s","");
-		$cerrada=($allowClosed==0)?"AND ( Cerrada=0 )":"";
-		$where= "( Prueba = {$this->prueba} ) ";
-		if ($q!=="") $where= "( Prueba = {$this->prueba} ) $cerrada AND ( (Nombre LIKE '%$q%') OR (Numero LIKE '%$q%') ) ";
+		$cerrada=($allowClosed==0)?" AND ( Cerrada=0 )":"";
+		$unassigned=($hideUnassigned==1)?" AND ( Nombre <> '-- Sin asignar --' )":"";
+		$where= "( Prueba = {$this->prueba} ) $cerrada $unassigned";
+		if ($q!=="") $where= "( Prueba = {$this->prueba} ) $cerrada $unassigned AND ( (Nombre LIKE '%$q%') OR (Numero LIKE '%$q%') ) ";
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "*",

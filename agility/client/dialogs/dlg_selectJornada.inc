@@ -121,6 +121,7 @@ $('#seljornada-Jornada').combogrid({
 		param.Operation='enumerate', 
 		param.Prueba=workingData.prueba;
 		param.AllowClosed=0;
+		param.HideUnassigned=1;
 		return true;
 	}
 });
