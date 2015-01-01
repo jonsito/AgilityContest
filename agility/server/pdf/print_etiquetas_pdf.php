@@ -37,7 +37,7 @@ require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__.'/../database/classes/Clasificaciones.php');
 require_once(__DIR__."/print_common.php");
 
-class PDF extends FPDF {
+class Etiquetas_PDF extends FPDF {
 	
 	public $myLogger;
 	protected $prueba;
@@ -45,7 +45,7 @@ class PDF extends FPDF {
 	protected $jornada;
 	protected $manga1;
 	protected $manga2;
-	protected $resultados;
+	public $resultados;
 	protected $icon;
 	
 	 /** Constructor
@@ -53,7 +53,7 @@ class PDF extends FPDF {
 	 * @param {obj} $resultados resultados asociados a la manga/categoria pedidas
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$mangas,$resultados) {
+	function __construct($prueba,$jornada,$mangas) {
 		parent::__construct('Portrait','mm','A4');
 		$this->myLogger= new Logger("print_etiquetas_pdf");
 		$dbobj=new DBObject("print_etiquetas_pdf");
@@ -62,7 +62,6 @@ class PDF extends FPDF {
 		$this->jornada=$dbobj->__getObject("Jornadas",$jornada);
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
-		$this->resultados=$resultados;
 		// evaluage logo info
 		$this->icon="rsce.png";
 		if (isset($this->club)) $this->icon=$this->club->Logo;
@@ -148,9 +147,8 @@ class PDF extends FPDF {
 		$this->SetDrawColor(128,128,128); // line color
 	}
 	
-	function composeTable() {
+	function composeTable($rowcount=0) {
 		$this->myLogger->enter();
-
 		$this->SetFillColor(224,235,255); // azul merle
 		$this->SetTextColor(0,0,0); // negro
 		$this->SetFont('Arial','',8); // default font		
@@ -159,19 +157,14 @@ class PDF extends FPDF {
 		
 		$this->SetMargins(10,10,10); // left top right
 		$this->SetAutoPageBreak(true,10);
-		
-		$rowcount=0;
-		$numrows=16; // 16 etiquetas/pagina
-		$this->addPage();
+
 		foreach($this->resultados as $row) {
+			if (($rowcount%16)==0) $this->addPage(); // 16 etiquetas por pagina
 			$this->writeCell($rowcount,$row,count($this->resultados));
 			$rowcount++;
-			if ($rowcount>=$numrows) {
-				$this->addPage();
-				$rowcount=0;
-			}
 		}
 		$this->myLogger->leave();
+		return $rowcount;
 	}
 }
 
@@ -191,16 +184,51 @@ try {
 	$mangas[7]=http_request("Manga8","i",0);
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
 	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
+	
+	// Creamos generador de documento
+	$pdf = new Etiquetas_PDF($prueba,$jornada,$mangas,$result['rows']);
+
+	// buscamos los recorridos asociados a la mangas
+	$dbobj=new DBObject("print_etiquetas_csv");
+	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
+	
 	$c= new Clasificaciones("print_etiquetas_pdf",$prueba,$jornada);
-	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
+	
+	switch($mng->Recorrido) {
+		case 0: // recorridos separados large medium small
+			$result=$c->clasificacionFinal($rondas,$mangas,0);
+			$pdf->resultados=$result['rows'];
+			$count= $pdf->composeTable(0);
+			$result=$c->clasificacionFinal($rondas,$mangas,1);
+			$pdf->resultados=$result['rows'];
+			$count= $pdf->composeTable($count);
+			$result=$c->clasificacionFinal($rondas,$mangas,2);
+			$pdf->resultados=$result['rows'];
+			$count= $pdf->composeTable($count);
+			break;
+		case 1: // large / medium+small
+			$result=$c->clasificacionFinal($rondas,$mangas,0);
+			$pdf->resultados=$result['rows'];
+			$count=$pdf->composeTable(0);
+			$result=$c->clasificacionFinal($rondas,$mangas,3);
+			$pdf->resultados=$result['rows'];
+			$count= $pdf->composeTable($count);
+			break;
+		case 2: // recorrido conjunto large+medium+small
+			$result=$c->clasificacionFinal($rondas,$mangas,4);
+			$pdf->resultados=$result['rows'];
+			$count= $pdf->composeTable(0);
+			break;
+	}
+	
+	
+	// mandamos a la salida el documento
+	$pdf->Output("print_etiquetas.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());
 }
 
-// Creamos generador de documento
-$pdf = new PDF($prueba,$jornada,$mangas,$result['rows']);
-$pdf->AliasNbPages();
+
 $pdf->composeTable();
-$pdf->Output("print_etiquetas.pdf","D"); // "D" means open download dialog
 ?>

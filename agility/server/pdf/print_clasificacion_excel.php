@@ -260,7 +260,7 @@ try {
 	// buscamos los recorridos asociados a la mangas
 	$dbobj=new DBObject("print_clasificacion");
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
-	$c= new Clasificaciones("print_podium_pdf",$prueba,$jornada);
+	$c= new Clasificaciones("print_clasificacion_excel",$prueba,$jornada);
 	$result=array();
 	switch($mng->Recorrido) {
 		case 0: // recorridos separados large medium small

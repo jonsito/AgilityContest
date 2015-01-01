@@ -98,14 +98,12 @@ class CSV  {
 		return $line;
 	}
 	
-	function composeTable() {
+	function composeTable($hdr) {
 		$this->myLogger->enter();
-		$result=$this->writeHeader();
-		$rowcount=0;
-		$numrows=16; // 16 etiquetas/pagina
+		$result="";
+		if ($hdr) $result=$this->writeHeader();
 		foreach($this->resultados as $row) {
 			$result.=$this->writeCell($row);
-			$rowcount++;
 		}
 		$this->myLogger->leave();
 		return $result;
@@ -128,15 +126,45 @@ try {
 	$mangas[7]=http_request("Manga8","i",0);
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
 	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
-	$c= new Clasificaciones("print_etiquetas_pdf",$prueba,$jornada);
-	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
+
+	header("Content-type: text/plain");
+	header("Content-Disposition: attachment; filename=printEtiquetas.csv");	
+	
+	// buscamos los recorridos asociados a la mangas
+	$dbobj=new DBObject("print_etiquetas_csv");
+	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
+	
+	$c= new Clasificaciones("print_etiquetas_csv",$prueba,$jornada);
+	
+	switch($mng->Recorrido) {
+		case 0: // recorridos separados large medium small
+			$result=$c->clasificacionFinal($rondas,$mangas,0);
+			$csv =new CSV($prueba,$jornada,$mangas,$result['rows']);
+			echo $csv->composeTable(true);			
+			$result=$c->clasificacionFinal($rondas,$mangas,1);
+			$csv =new CSV($prueba,$jornada,$mangas,$result['rows']);
+			echo $csv->composeTable(false);			
+			$result=$c->clasificacionFinal($rondas,$mangas,2);
+			$csv =new CSV($prueba,$jornada,$mangas,$result['rows']);
+			echo $csv->composeTable(false);
+			break;
+		case 1: // large / medium+small
+			$result=$c->clasificacionFinal($rondas,$mangas,0);
+			$csv =new CSV($prueba,$jornada,$mangas,$result['rows']);
+			echo $csv->composeTable(true);			
+			$result=$c->clasificacionFinal($rondas,$mangas,3);
+			$csv =new CSV($prueba,$jornada,$mangas,$result['rows']);
+			echo $csv->composeTable(false);
+			break;
+		case 2: // recorrido conjunto large+medium+small
+			$result=$c->clasificacionFinal($rondas,$mangas,4);
+			$csv =new CSV($prueba,$jornada,$mangas,$result['rows']);
+			echo $csv->composeTable(true);
+			break;
+	}
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());
 }
 
-header("Content-type: text/plain");
-header("Content-Disposition: attachment; filename=printEtiquetas_csv.csv");
-$csv =new CSV($prueba,$jornada,$mangas,$result['rows']);
-echo $csv->composeTable();
 ?>
