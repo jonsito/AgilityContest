@@ -44,6 +44,7 @@ define('AC_VW_ROWCOLOR1','#ffffff');
 define('AC_VW_ROWCOLOR2','#e0ebff');
 
 /** generacion de PDF's **/
+define('AC_PDF_TOPMARGIN', 10.0); // margen superior etiquetas
 define('AC_PDF_HDRFG1','#000000');
 define('AC_PDF_HDRBG1','#00FF00');
 define('AC_PDF_HDRFG2','#0000ff');
@@ -84,6 +85,7 @@ Class Config {
 		$this->config['vw_rowcolor1'] =	AC_VW_ROWCOLOR1;
 		$this->config['vw_rowcolor2'] =	AC_VW_ROWCOLOR2;
 		// generacion de PDF's
+		$this->config['pdf_topmargin'] = AC_PDF_TOPMARGIN;
 		$this->config['pdf_hdrfg1'] =	AC_PDF_HDRFG1;
 		$this->config['pdf_hdrbg1'] =	AC_PDF_HDRBG1;
 		$this->config['pdf_hdrfg2'] =	AC_PDF_HDRFG2;
@@ -177,6 +179,7 @@ Class Config {
 		$data['vw_rowcolor1'] =	AC_VW_ROWCOLOR1;
 		$data['vw_rowcolor2'] =	AC_VW_ROWCOLOR2;
 		// generacion de PDF's
+		$data['pdf_topmargin'] = AC_PDF_TOPMARGIN;
 		$data['pdf_hdrfg1'] =	AC_PDF_HDRFG1;
 		$data['pdf_hdrbg1'] =	AC_PDF_HDRBG1;
 		$data['pdf_hdrfg2'] =	AC_PDF_HDRFG2;
@@ -212,6 +215,7 @@ Class Config {
 		$data=testAndSet($data,'vw_rowcolor1','s',AC_VW_ROWCOLOR1);
 		$data=testAndSet($data,'vw_rowcolor2','s',AC_VW_ROWCOLOR2);
 		// generacion de PDF's
+		$data=testAndSet($data,'pdf_topmargin','f',AC_PDF_TOPMARGIN);
 		$data=testAndSet($data,'pdf_hdrfg1','s',AC_PDF_HDRFG1);
 		$data=testAndSet($data,'pdf_hdrbg1','s',AC_PDF_HDRBG1);
 		$data=testAndSet($data,'pdf_hdrfg2','s',AC_PDF_HDRFG2);

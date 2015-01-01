@@ -47,7 +47,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<h3>Video-marcadores</h3>
 		<label for="vw_polltime">Frecuencia de refresco (seg.)</label>
 		<input name="vw_polltime" type="text" size="2" value="5"/><br />
-		<label for="vw_alpha">Nivel de transparencia en OnScreenDisplay </label>
+		<label for="vw_alpha">Transparencia del OnScreenDisplay (0.0-1.0)</label>
 		<input name="vw_alpha" type="text" size="3" value="0.5"/><br />
 		<label for="vw_hdrbg1">Color de fondo de la cabecera principal</label>
 		<input name="vw_hdrbg1" type="color" value="#0000ff"/><br />
@@ -62,6 +62,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<label for="vw_rowcolor2">Color de fondo las filas impares</label>
 		<input name="vw_rowcolor2" type="color" value="#c0c0c0"/><br />
 		<h3>Generaci&oacute;n de Informes</h3>
+		<label for="pdf_topmargin">Margen superior impr. etiquetas (mmts)</label>
+		<input name="pdf_topmargin" type="text" size="4" value="10.0"/><br />
 		<label for="pdf_hdrbg1">Color de fondo de la cabecera principal</label>
 		<input name="pdf_hdrbg1" type="color" value="#ff8020"/><br />
 		<label for="pdf_hdrfg1">Color del texto de la cabecera principal</label>

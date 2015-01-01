@@ -27,6 +27,7 @@ header('Set-Cookie: fileDownload=true; path=/');
 require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__.'/../auth/Config.php');
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Clubes.php');
 require_once(__DIR__.'/../database/classes/Pruebas.php');
@@ -47,6 +48,7 @@ class Etiquetas_PDF extends FPDF {
 	protected $manga2;
 	public $resultados;
 	protected $icon;
+	protected $config;
 	
 	 /** Constructor
 	 * @param {obj} $manga datos de la manga
@@ -56,6 +58,7 @@ class Etiquetas_PDF extends FPDF {
 	function __construct($prueba,$jornada,$mangas) {
 		parent::__construct('Portrait','mm','A4');
 		$this->myLogger= new Logger("print_etiquetas_pdf");
+		$this->config=new Config();
 		$dbobj=new DBObject("print_etiquetas_pdf");
 		$this->prueba=$dbobj->__getObject("Pruebas",$prueba);
 		$this->club=$dbobj->__getObject("Clubes",$this->prueba->Club);
@@ -69,8 +72,9 @@ class Etiquetas_PDF extends FPDF {
 	
 	// No tenemos cabecera: no cabe
 	function Header() {// pintamos una linea	
+		$top=$this->config->getEnv('pdf_topmargin');
 		$this->SetDrawColor(128,0,0); // line color
-		$this->Line(10,10,175,10);	
+		$this->Line(10,$top,175,$top);	
 		$this->SetDrawColor(128,128,128); // restore line color
 	}
 	
@@ -79,13 +83,15 @@ class Etiquetas_PDF extends FPDF {
 	}
 	
 	function writeCell($idx,$row,$count) {
+		$top=$this->config->getEnv('pdf_topmargin');
+		
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		//dorsal (10,y,20,17)
-		$y1=  10+17*$idx;
-		$y5=  10+17*$idx+5;
-		$y10= 10+17*$idx+10;
-		$y8=  10+17*$idx+8;
-		$ynext=10+17*($idx+1);
+		$y1=  $top+17*$idx;
+		$y5=  $top+17*$idx+5;
+		$y10= $top+17*$idx+10;
+		$y8=  $top+17*$idx+8;
+		$ynext=$top+17*($idx+1);
 		
 		$this->SetFont('Arial','B',24); // bold 11px
 		$this->setXY(10,$y1);
@@ -155,12 +161,12 @@ class Etiquetas_PDF extends FPDF {
 		$this->SetDrawColor(128,128,128); // line color
 		$this->SetLineWidth(.3);
 		
-		$this->SetMargins(10,10,10); // left top right
+		$this->SetMargins(10,$this->config->getEnv('pdf_topmargin'),10); // left top right
 		$this->SetAutoPageBreak(true,10);
 
 		foreach($this->resultados as $row) {
 			if (($rowcount%16)==0) $this->addPage(); // 16 etiquetas por pagina
-			$this->writeCell($rowcount,$row,count($this->resultados));
+			$this->writeCell($rowcount%16,$row,count($this->resultados));
 			$rowcount++;
 		}
 		$this->myLogger->leave();
