@@ -170,7 +170,7 @@ class PrintCommon extends FPDF {
 	function ac_row($idx,$size) {
 		$bg=$this->config->getEnv('pdf_rowcolor1');
 		if ( ($idx&0x01)==1)$bg=$this->config->getEnv('pdf_rowcolor2');
-		$this->SetFont('Arial','B',$size);
+		$this->SetFont('Arial','',$size);
 		$this->ac_SetFillColor($bg); // color de la fila
 		$this->ac_SetTextColor('#000000'); // negro
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color

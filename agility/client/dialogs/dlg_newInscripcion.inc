@@ -165,7 +165,7 @@ $('#new_inscripcion-datagrid').datagrid({
 	fitColumns: true,
 	singleSelect: false,
 	view: scrollview,
-	pageSize: 10,
+	pageSize: 50,
     multiSort: true,
     remoteSort: true,
     remoteFilter: true,

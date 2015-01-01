@@ -87,10 +87,7 @@ class PDF extends PrintCommon {
 	
 	function writeTableCell_compacto($rowcount,$row) {
 		$this->myLogger->trace("imprimiendo datos del idperro: ".$row['Perro']);
-		// cada celda tiene una cabecera con los datos del participante
-		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
-		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
-		$this->ac_SetDrawColor(0,0,0); // line color
+		$this->ac_header(1,20);
 		// save cursor position
 		$x=$this->getX();
 		$y=$this->GetY();
