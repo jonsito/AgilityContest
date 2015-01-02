@@ -47,3 +47,9 @@ F:\xampp\mysql\bin\mysql.exe -u root
 - Arrancar xampp control-panel
 - Comprobar que Apache y MySQL estan arrancados y funcionando
 - Abrir el navegador en la pagina http://localhost/agility
+
+4- Consideraciones sobre el Firewall y el uso de HTTPS
+
+Si bien AgilityContest está pensado tanto para su uso con protocolo HTTP como HTTPS, por motivos de seguridad todo el proceso de envio de contraseñas se realiza con protocolo "jsonp" sobre HTTPS. Esto puede ocasionar algunos problemas en sistemas windows con una configuración de firewall excesivamente restrictiva
+
+Para que el proceso de autenticación funcione correctamente es preciso que el navegador reconozca el certificado que el servidor apache provee por defecto. Para ello será preciso AL MENOS UNA VEZ acceder a la página en modo seguro en la dirección https://localhost/agility e instruir al navegador para que acepte de forma permanente el certificado
