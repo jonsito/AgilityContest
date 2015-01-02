@@ -1,4 +1,4 @@
-<h1>Loren Ipsum dolor sit amet</h1>
+<h1>Lorem Ipsum dolor sit amet</h1>
 <p>
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, 
 sed diam nonummy nibh euismod tincidunt ut laoreet dolore 
