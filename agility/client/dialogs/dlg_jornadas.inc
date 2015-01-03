@@ -140,7 +140,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             $('#jornadas-PreAgility').prop('checked',(data.PreAgility==1)?true:false);
             $('#jornadas-Grado1').prop('checked',(data.Grado1==1)?true:false);
             $('#jornadas-Grado2').prop('checked',(data.Grado2==1)?true:false);
-            $('#jornadas-Grado3').prop('checked',(data.Grado3==1)?true:false);
+            if (workingData.datosPrueba.RSCE==0) {
+            	$('#jornadas-Grado3').prop('disabled',false);
+                $('#jornadas-Grado3').prop('checked',(data.Grado3==1)?true:false);
+            } else {
+            	$('#jornadas-Grado3').prop('disabled','disabled');
+                $('#jornadas-Grado3').prop('checked',false);
+            }
             if (data.Equipos3==1) {
                 $('#jornadas-EquiposChk').prop('checked',true);
                 $('#jornadas-MangasEquipos').prop('value',64);
