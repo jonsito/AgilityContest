@@ -166,4 +166,5 @@ class DBObject {
 	 * TODO: properly handle cache
 	 */
 	function __getObject($table,$id) { return $this->__selectObject("*",$table,"(ID=$id)"); }
+	function __getArray($table,$id) { return $this->__selectAsArray("*",$table,"(ID=$id)"); }
 }

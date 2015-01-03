@@ -25,9 +25,19 @@ require_once(__DIR__."/database/classes/Inscripciones.php");
 
 class VideoWall {
 	protected $myLogger;
+	protected $myDBObject;
+	protected $session;
+	protected $prueba;
+	protected $jornada;
+	protected $config;
 	
-	function __construct() {
+	function __construct($sessionid) {
 		$this->myLogger=new Logger("VideoWall.php");
+		$this->config=new Config();
+		$this->myDBObject=new DBObject("Videowall");
+		$this->session=$this->myDBObject->__getArray("Sesiones",$sessionid);
+		$this->prueba=$this->myDBObject->__getArray("Pruebas",$this->session['Prueba']);
+		$this->jornada=$this->myDBObject->__getArray("Jornadas",$this->session['Jornada']);
 	}
 
 	public static $cat=array('-'=>'','L'=>'Large','M'=>'Medium','S'=>'Small','T'=>'Tiny');
@@ -174,13 +184,14 @@ class VideoWall {
 			55	=> array( 5,  7,  8, 'Manga Especial' /* Tiny */),
 	);
 	
+	function getBackground($row) {
+		return (($row%2)!=0)?$this->config->getEnv("vw_rowcolor1"):$this->config->getEnv("vw_rowcolor2");
+	}
+	
 	function videowall_llamada($idsesion,$pendientes) {
-		$config=new Config();
 		$lastTanda="";
-		$sesmgr=new Sesiones("VideoWall_Llamada");
 		$otmgr=new OrdenTandas("Llamada a pista");
-		$mySession=$sesmgr->__getObject("Sesiones",$idsesion);
-		$result = $otmgr->getData($mySession->Prueba,$mySession->Jornada,$pendientes,$mySession->Tanda)['rows']; // obtiene los 10 primeros perros pendientes
+		$result = $otmgr->getData($this->session['Prueba'],$this->session['Jornada'],$pendientes,$this->session['Tanda'])['rows']; // obtiene los 10 primeros perros pendientes
 		$numero=0;
 		echo '<table class="vwc_callEntry">';
 		foreach ($result as $participante) {
@@ -192,7 +203,7 @@ class VideoWall {
 			$logo=$otmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
 			if ($logo==="") $logo='rsce.png';
 			$celo=($participante['Celo']==='1')?'Si':'No';
-			$bg=(($numero%2)!=0)?$config->getEnv("vw_rowcolor1"):$config->getEnv("vw_rowcolor2");
+			$bg=$this->getBackground($numero);
 			echo '
 				<tr id="participante_'.$numero.'" style="background:'.$bg.';">
 					<td class="vwc_callEntry vwc_callNumero">'.$numero.'</td>
@@ -224,17 +235,14 @@ class VideoWall {
 	}
 
 	function videowall_resultados($idsesion) {
-		$config=new Config();
-		$sesmgr=new Sesiones("VideoWall_Resultados");
-		$mySession=$sesmgr->__getObject("Sesiones",$idsesion);
-		$resmgr=new Resultados("videowall_resultados",$mySession->Prueba, $mySession->Manga );
+		$resmgr=new Resultados("videowall_resultados",$this->session['Prueba'], $this->session['Manga'] );
 		// obtenemos modo de resultados asociado a la manga
-		$myManga=$sesmgr->__getObject("Mangas",$mySession->Manga);
-		$mode=VideoWall::$modes[$mySession->Tanda][$myManga->Recorrido];
+		$myManga=$this->myDBObject->__getObject("Mangas",$this->session['Manga']);
+		$mode=VideoWall::$modes[$this->session['Tanda']][$myManga->Recorrido];
 		$this->myLogger->trace("**** Mode es $mode");
 		$result = $resmgr->getResultados($mode);
 		$numero=0;
-		$mangastr=VideoWall::$modes[$mySession->Tanda][3]." - ".VideoWall::$modestr[$mode];
+		$mangastr=VideoWall::$modes[$this->session['Tanda']][3]." - ".VideoWall::$modestr[$mode];
 		// cabecera de la tabla
 		echo '
 			<!-- Datos de TRS y TRM -->
@@ -279,7 +287,7 @@ class VideoWall {
 		foreach ($result['rows'] as $resultado) {
 			error_log(json_encode($resultado));
 			$numero++;
-			$bg=(($numero%2)!=0)?$config->getEnv("vw_rowcolor1"):$config->getEnv("vw_rowcolor2");
+			$bg=$this->getBackground($numero);
 			$logo=$resmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$resultado['Perro']})")['Logo'];
 			if ($logo==="") $logo='rsce.png';
 			echo '
@@ -314,7 +322,7 @@ class VideoWall {
 		echo '</tbody></table></div>';
 	}
 	
-	function videowall_livestream($sesion) {
+	function videowall_livestream() {
 		/* recupera los datos de un perro y le añade informacion de celo */
 		$celo = http_request("Celo","i",0);
 		$id= http_request("Perro","i",0);
@@ -323,13 +331,10 @@ class VideoWall {
 		$data["Celo"]=$celo;
 		return $data;
 	}
-
 	
-	
-	function videowall_inscripciones($prueba,$jornada) {
-		$config = new Config();
-		$imgr=new Inscripciones("videowall_inscripciones",$prueba);
-		$result=$imgr->inscritosByJornada($jornada);
+	function videowall_inscripciones() {
+		$imgr=new Inscripciones("videowall_inscripciones",$this->prueba['ID']);
+		$result=$imgr->inscritosByJornada($this->jornada['ID']);
 		$club=0;
 		$fila=0; // used to set table background color
 		echo '<table style="width:100%"><tbody>';
@@ -356,7 +361,7 @@ class VideoWall {
 				echo "<th style=\"width:30%;text-align:right;padding-right:25px\">Gu&iacute;a</th>";
 				echo "</tr>";
 			}
-			$bg=(($fila%2)!=0)?$config->getEnv("vw_rowcolor1"):$config->getEnv("vw_rowcolor2");
+			$bg=$this->getBackground($fila);
 			$c=VideoWall::$cat[$i['Categoria']];
 			echo "<tr id=\"Inscripcion_{$i['Dorsal']}\" style=\"background:$bg;font-size:1.4em\">";
 			echo "<td style=\"width:10%;padding-left:25px\">{$i['Dorsal']}</td>";
@@ -372,16 +377,14 @@ class VideoWall {
 	}
 } 
 $sesion = http_request("Session","i",0);
-$prueba = http_request("Prueba","i",0);
-$jornada = http_request("Jornada","i",0);
 $operacion = http_request("Operation","s",null);
 $pendientes = http_request("Pendientes","i",10);
-$vw=new VideoWall();
+$vw=new VideoWall($sesion);
 try {
-	if($operacion==="livestream") return $vw->videowall_livestream($sesion);
+	if($operacion==="livestream") return $vw->videowall_livestream();
 	if($operacion==="llamada") return $vw->videowall_llamada($sesion,$pendientes);
 	if($operacion==="resultados") return $vw->videowall_resultados($sesion);
-	if($operacion==="inscripciones") return $vw->videowall_inscripciones($prueba,$jornada);
+	if($operacion==="inscripciones") return $vw->videowall_inscripciones();
 } catch (Exception $e) {
 	return "<p>Error:<br />".$e->getMessage()."</p>";
 }

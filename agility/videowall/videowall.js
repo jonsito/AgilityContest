@@ -276,11 +276,13 @@ function vwc_processCombinada(id,evt) {
 		vwls_cronoManual('stop');  // nos aseguramos de que los cronos esten parados
 		vwls_showData(event); // actualiza pantall liveStream
 		vwc_updateResults(); // actualiza panel de resultados
+		vwc_updatePendingQueue(event,10); // actualiza panel de llamadas 
 		return;
 	case 'cancelar':	// operador pulsa cancelar
 		vwls_cronoManual('stop');
 		vwls_cronoManual('reset');
 		vwls_showOSD(0); // apaga el OSD
+		vwc_updatePendingQueue(event,10); // actualiza panel de llamadas 
 		return;
 	}
 }
@@ -356,8 +358,10 @@ function vw_processLlamada(id,evt) {
 	case 'cronoauto':  	// value: timestamp nada que hacer
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':	// operador pulsa aceptar
+		vwc_updatePendingQueue(event,25);
 		return;
 	case 'cancelar': // operador pulsa cancelar
+		vwc_updatePendingQueue(event,25);
 		return;
 	}
 }
