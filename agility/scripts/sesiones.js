@@ -90,7 +90,7 @@ function deleteSession(dg){
     	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
     	return; // cannot delete default session
     }
-    $.messager.confirm('Confirm','Borrar datos de la sesi&oacute;n:'+row.Nombre+'\n ¿Seguro?',function(r){
+    $.messager.confirm('Confirm','Eliminar la sesi&oacute;n:'+row.Nombre+'\n ¿Seguro?',function(r){
       	if (!r) return;
         $.get('/agility/server/database/sessionFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
@@ -114,3 +114,21 @@ function session_sequences() {
     return; // no way to know which dog is selected
 }
 
+function resetSession(dg) {
+    var row = $(dg).datagrid('getSelected');
+    if (!row) {
+    	$.messager.alert("Delete Error:","!No ha seleccionado ninguna Sesi&oacute;n!","info");
+    	return; // no way to know which session is selected
+    }
+    $.messager.confirm('Confirm','Borrar historial de eventos de la sesi&oacute;n:'+row.Nombre+'\n ¿Seguro?',function(r){
+      	if (!r) return;
+        $.get('/agility/server/database/sessionFunctions.php',{Operation:'reset',ID:row.ID},function(result){
+            if (result.success){
+                $(dg).datagrid('reload');    // reload the session data
+            } else {
+            	// show error message
+                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
+            }
+        },'json');
+    });
+}

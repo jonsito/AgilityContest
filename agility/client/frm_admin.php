@@ -73,6 +73,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    				<a id="sesiones-delBtn" href="#" class="easyui-linkbutton" 
    					data-options="iconCls:'icon-trash'"
    					onclick="deleteSession('#sesiones-datagrid')">Borrar sesi&oacute;n</a>
+   				<a id="sesiones-resetBtn" href="#" class="easyui-linkbutton" 
+   					data-options="iconCls:'icon-redo'"
+   					onclick="resetSession('#sesiones-datagrid')">Reiniciar sesi&oacute;n</a>
    				<input id="sesiones-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
    			</span>
    			<span style="float:right;padding:5px">
@@ -191,6 +194,7 @@ addTooltip($('#usuarios-datagrid-search'),"Buscar usuarios que coincidan con el 
 addTooltip($('#sesiones-newBtn').linkbutton(),"Añadir una nueva sesi&oacute;n<br/> a la Base de Datos"); 
 addTooltip($('#sesiones-editBtn').linkbutton(),"Modificar los datos de la sesi&oacute;n seleccionado");
 addTooltip($('#sesiones-delBtn').linkbutton(),"Eliminar la sesi&oacute;n seleccionada de la BBDD");
+addTooltip($('#sesiones-resetBtn').linkbutton(),"Reiniciar el historial de eventos de la sesi&oacute;n seleccionada");
 addTooltip($('#sesiones-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
 addTooltip($('#sesiones-datagrid-search'),"Buscar sesiones que coincidan con el criterio de busqueda");
 

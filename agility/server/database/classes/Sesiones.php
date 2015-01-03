@@ -147,6 +147,21 @@ class Sesiones extends DBObject {
 	}	
 	
 	/**
+	 * Delete events related with requested session ID
+	 * @param {integer} $id Session ID primary key
+	 * @return "" on success ; otherwise null
+	 */
+	function reset($id) {
+		$this->myLogger->enter();
+		if ($id<=1) return $this->error("Invalid Session ID"); // cannot delete if juez<=default
+		$str="DELETE FROM Eventos WHERE ( Session=$id )";
+		$res= $this->query($str);
+		if (!$res) return $this->error($this->conn->error);
+		$this->myLogger->leave();
+		return "";
+	}
+	
+	/**
 	 * Select sesion with provided ID
 	 * @param {string} $juez name primary key
 	 * @return {array} data on success ; otherwise error string

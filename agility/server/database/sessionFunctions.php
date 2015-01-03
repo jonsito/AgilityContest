@@ -47,6 +47,7 @@ try {
 		case "insert": $am->access(PERMS_OPERATOR); $result=$sesion->insert($data); break;
 		case "update": $am->access(PERMS_ASSISTANT); $result=$sesion->update($id,$data); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$sesion->delete($id); break;
+		case "reset": $am->access(PERMS_OPERATOR); $result=$sesion->reset($id); break;
 		case "enumerate": $result=$sesion->enumerate(); break; // no select (yet)
 		case "getByNombre":	$result=$sesion->selectByNombre($data['Nombre']); break;
 		case "getByID":	$result=$sesion->selectByID($id); break;
