@@ -101,13 +101,12 @@ addTooltip($('#ordentandas-printBtn').linkbutton(),"Imprimir el programa de la j
 
 $('#ordentandas-printBtn').on("click", function () {
 	$.fileDownload(
-		'/agility/server/pdf/print_ordenDeTandas.php',
+		'/agility/server/pdf/print_ordenTandas.php',
 		{
 			httpMethod: 'GET',
 			data: { 
 				Prueba: workingData.prueba,
-				Jornada: workingData.jornada,
-				Manga: workingData.manga
+				Jornada: workingData.jornada
 			},
 	        preparingMessageHtml: "We are preparing your report, please wait...",
 	        failMessageHtml: "There was a problem generating your report, please try again."
