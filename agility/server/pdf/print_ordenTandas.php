@@ -74,6 +74,10 @@ class PrintTandas extends PrintCommon {
 	// Pie de página
 	function Footer() {
 		$this->print_commonFooter();
+		// Pone un warning sobre la hora estimada
+		$this->SetXY(10,-20);
+		$this->SetFont('Arial','IB',10);
+		$this->Cell(190,5,'(*) IMPORTANTE: La hora indicada es una estimación que NO TIENE consideración de horario oficial',0,0,'L');
 	}
 	
 	function evalTime($time) {
@@ -89,7 +93,7 @@ class PrintTandas extends PrintCommon {
 		$this->setX(10);
 		$this->Cell(100,10,"Secuencia de salida a pista",'TLBR',0,'L',true);
 		$this->Cell(40,10,"Participantes",'TB',0,'C',true);
-		$this->Cell(50,10,"Hora prevista",'TLBR',0,'C',true);
+		$this->Cell(50,10,"Hora estimada (*)",'TLBR',0,'C',true);
 		$this->Ln();
 		$this->myLogger->leave();
 	}
@@ -105,7 +109,7 @@ class PrintTandas extends PrintCommon {
 		foreach($this->orden as $row) {
 			$time+=240; // asume 4min between tandas
 			// $this->cell(width,height,text,border,start,align,fill)
-			if (($rowcount%21)==0) {
+			if (($rowcount%20)==0) {
 				$this->addPage();
 				$this->writeTableHeader();
 			}
