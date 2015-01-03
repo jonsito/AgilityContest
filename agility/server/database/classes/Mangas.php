@@ -125,6 +125,7 @@ class Mangas extends DBObject {
 			$this->myLogger->info("Jornada:$j Manga:$tipo already exists. exit OK");
 			return "";
 		}
+		$observaciones = http_request("Observaciones","s","");
 		$str="INSERT INTO Mangas ( Jornada , Tipo, Grado, Observaciones ) VALUES ($j,$tipo,'$grado','$observaciones')";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 

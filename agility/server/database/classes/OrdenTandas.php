@@ -228,9 +228,18 @@ class OrdenTandas extends DBObject {
 		$r=$p->RSCE;
 		$orden=$j->Orden_Tandas;
 		// actualizamos la lista de tandas de cada ronda
-		$orden= $this->insert_remove($r,1,$orden,($j->PreAgility2 != 0)?true:false);
-		$orden= $this->insert_remove($r,2,$orden,($j->PreAgility2 != 0)?true:false);
-		$orden= $this->insert_remove($r,1,$orden,($j->PreAgility != 0)?true:false);
+		
+		// preagility necesita tratamiento especial. primero borramos
+		$orden= $this->insert_remove($r,1,$orden,false);
+		$orden= $this->insert_remove($r,2,$orden,false);
+		if (($j->PreAgility2 != 0)){ // preagility2 also handles preagility1
+			$orden= $this->insert_remove($r,1,$orden,true);
+			$orden= $this->insert_remove($r,2,$orden,true);
+		}
+		if (($j->PreAgility != 0)){
+			$orden= $this->insert_remove($r,1,$orden,true);
+			$orden= $this->insert_remove($r,2,$orden,false);
+		}
 		$orden= $this->insert_remove($r,3,$orden,($j->Grado1 != 0)?true:false);
 		$orden= $this->insert_remove($r,4,$orden,($j->Grado1 != 0)?true:false);
 		$orden= $this->insert_remove($r,5,$orden,($j->Grado2 != 0)?true:false);
