@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 03-01-2015 a las 20:42:54
+-- Tiempo de generación: 03-01-2015 a las 21:24:05
 -- Versión del servidor: 5.5.40-MariaDB
 -- Versión de PHP: 5.5.20
 
@@ -634,7 +634,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (261, 'Josep Barbera', NULL, NULL, 58, NULL),
 (262, 'Josep Mª Pineda', NULL, NULL, 74, NULL),
 (263, 'Juan', '', '', 3, ''),
-(264, 'Juan Antonio Martinez', NULL, 'juansgaviota@gmail.com', 79, NULL),
+(264, 'Juan Antonio Martinez', '', 'juansgaviota@gmail.com', 35, ''),
 (265, 'Juan Campin', NULL, NULL, 48, NULL),
 (266, 'Juan Carlos Blas', NULL, NULL, 35, NULL),
 (267, 'Juan Carlos Companys', NULL, NULL, 24, NULL),
@@ -2716,7 +2716,7 @@ CREATE TABLE IF NOT EXISTS `Sesiones` (
   `LiveStream2` varchar(255) DEFAULT NULL,
   `LiveStream3` varchar(255) DEFAULT NULL,
   `LastModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `Sesiones`
@@ -2728,8 +2728,8 @@ INSERT INTO `Sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `SessionKey`, 
 (3, 'Ring 2', 'Mangas a realizar en el segundo ring', 1, NULL, 0, 0, 0, 0, NULL, NULL, NULL, '2014-12-05 19:14:34'),
 (4, 'Ring 3', 'Mangas a realizar en el tercer ring', 1, NULL, 0, 0, 0, 0, NULL, NULL, NULL, '2014-12-05 19:14:34'),
 (5, 'Ring 4', 'Mangas a realizar en el cuarto ring', 1, NULL, 0, 0, 0, 0, NULL, NULL, NULL, '2014-12-05 19:14:34'),
-(18, 'Console', 'operator - Operador de consola', 4, 'PuoXVzKhiZSkvg6G', 0, 0, 0, 0, NULL, NULL, NULL, '2014-12-31 16:29:57'),
-(32, 'Console', 'admin - Administrador de la aplicacion', 3, 'iLcgKAHytzT719jq', 0, 0, 0, 0, NULL, NULL, NULL, '2015-01-03 16:56:21');
+(32, 'Console', 'admin - Administrador de la aplicacion', 3, 'iLcgKAHytzT719jq', 0, 0, 0, 0, NULL, NULL, NULL, '2015-01-03 16:56:21'),
+(34, 'Console', 'operator - Operador de consola', 4, 'BkEozQRf6SFC9p8J', 0, 0, 0, 0, NULL, NULL, NULL, '2015-01-03 21:19:02');
 
 -- --------------------------------------------------------
 
@@ -2998,7 +2998,7 @@ MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT de la tabla `Sesiones`
 --
 ALTER TABLE `Sesiones`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
+MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
 --
 -- AUTO_INCREMENT de la tabla `Tandas`
 --
