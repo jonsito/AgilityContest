@@ -131,7 +131,7 @@ class PrintTandas extends PrintCommon {
 				// comparamos grados
 				if ( strstr($row['Grado'],$item['Grado'])===false ) continue;
 				$count++;
-				$time+=90; // assume 90secs for each participante
+				$time+=80; // assume 80secs for each participante
 			}
 			$this->Cell(40,10,$count,'LBR',0,'C',true);
 			$this->Cell(40,10,$projectedTime,'LB',0,'R',true);
