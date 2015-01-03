@@ -47,7 +47,12 @@ $('#competicion-dialog').dialog({
 	onBeforeClose: function() {
 		var dg=$('#competicion-datagrid');
 		var editIndex=dg.datagrid('options').editIndex;
-		if (editIndex<0) return true;
+		if (editIndex<0) {
+			// disable autoupdate if any
+			$('#competicion-autoUpdateBtn').prop('checked',false);
+			autoUpdateCompeticion();
+			return true;
+		}
 		// do not allow close on editing active
 		$.messager.alert('Error','Debe guardar o cancelar la edición antes de cerrar la ventana','error');
 		return false;
