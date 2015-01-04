@@ -116,7 +116,7 @@ $('#competicion-listamangas').datagrid({
         // refresh orden de salida/competicion/resultados
         reloadOrdenSalida();
         reloadCompeticion();
-        reloadResultadosManga(row.Recorrido);
+        setupResultadosWindow(row.Recorrido);
     }
 });
 

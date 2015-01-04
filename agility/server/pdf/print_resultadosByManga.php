@@ -48,7 +48,9 @@ class PDF extends PrintCommon {
 	protected $align=array(  'L',     'R',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L');
 	protected $fmt	=array(  'i',     'i',    's',    's',    's',   's',    's',       'i',   'i',   'i',     'f',    'f',  'f',     's');
 
-	protected $modestr  =array("Large","Medium","Small","Medium+Small","Conjunta L/M/S");
+	protected $modestr  
+		=array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
+	
 	/**
 	 * Constructor
 	 * @param {obj} $manga datos de la manga

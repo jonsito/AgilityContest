@@ -22,7 +22,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<div id="resultadosmanga-toolbar">
 		<span style="float:right;padding:5px">
 		   	<a id="resultadosmanga-reloadBtn" href="#" class="easyui-linkbutton" 
-		   		data-options="iconCls:'icon-reload'" onclick="reloadParcial($('input:radio[name=rRecorrido]:checked').val())">Actualizar</a>
+		   		data-options="iconCls:'icon-reload'" onclick="reloadParcial($('input:radio[name=rRecorrido]:checked').val(),true)">Actualizar</a>
 		   	<br />
 	   		<a id="resultadosmanga-printBtn" href="#" class="easyui-linkbutton" 
 	   			data-options="iconCls:'icon-print'" onclick="printParcial($('input:radio[name=rRecorrido]:checked').val())">Imprimir</a>
@@ -34,7 +34,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<table style="float:left;">
 				<tr><th colspan="6">Datos t&eacute;cnicos de la manga seleccionada(s)</th></tr>
 				<tr id="resultadosmanga-LargeRow">
-					<td><input type="radio" name="rRecorrido" id="resultadosmanga-LargeBtn" value="0" onclick="reloadParcial(0)"></td>
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-LargeBtn" value="0" onclick="reloadParcial(0,true)"></td>
 					<th id="resultadosmanga-LargeLbl">Large</th>
 					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_L"></td>
 					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_L"></td>
@@ -43,7 +43,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_VEL_L"></td>
 				</tr>
 				<tr id="resultadosmanga-MediumRow">
-					<td><input type="radio" name="rRecorrido" id="resultadosmanga-MediumBtn" value="1" onclick="reloadParcial(1)"></td>
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-MediumBtn" value="1" onclick="reloadParcial(1,true)"></td>
 					<th id="resultadosmanga-MediumLbl">Medium</th>
 					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_M"></td>
 					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_M"></td>
@@ -52,7 +52,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_VEL_M"></td>
 				</tr>
 				<tr id="resultadosmanga-SmallRow">
-					<td><input type="radio" name="rRecorrido" id="resultadosmanga-SmallBtn" value="2" onclick="reloadParcial(2)"></td>
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-SmallBtn" value="2" onclick="reloadParcial(2,true)"></td>
 					<th id="resultadosmanga-SmallLbl">Small</th>
 					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_S"></td>
 					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_S"></td>
@@ -61,7 +61,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_VEL_S"></td>
 				</tr>
 				<tr id="resultadosmanga-TinyRow">
-					<td><input type="radio" name="rRecorrido" id="resultadosmanga-TinyBtn" value="2" onclick="reloadParcial(3)"></td>
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-TinyBtn" value="3" onclick="reloadParcial(3,true)"></td>
 					<th id="resultadosmanga-TinyLbl">Tiny</th>
 					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_T"></td>
 					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_T"></td>

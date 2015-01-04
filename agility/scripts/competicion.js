@@ -308,7 +308,7 @@ function save_manga(id) {
     			var recorrido=$("input:radio[name=Recorrido]:checked").val();
     			$.messager.alert('Data saved','Datos de la manga almacenados','info');
     			workingData.datosManga.Recorrido=recorrido;
-    			reloadResultadosManga(recorrido);
+    			setupResultadosWindow(recorrido);
             }
         }
     });
@@ -466,7 +466,7 @@ function competicionKeyEventHandler(evt) {
 
 /**
  * imprime los resultados de la manga/categoria solicitadas
- * @param val 0:large/conjunto 1:medium/m+s 2:small
+ * @param val 0:L 1:M 2:S 3:T
  */
 function printParcial(val) {
 	var mode=0;
@@ -492,12 +492,19 @@ function printParcial(val) {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
-/** actualiza el datagrid de resultados
- * @param mode 0:large/conjunto 1:medium/m+s 2:small 3:tiny
+/** 
+ * actualiza los datos de TRS y TRM de la fila especificada
+ * Si se le indica, rellena tambien el datagrid re resultados parciales
+ * @param {integer} mode 0:L 1:M 2:S 3:T
+ * @param {boolean} fill true to fill resultados datagrid; else false
  */
-function reloadParcial(val) {
+function reloadParcial(val,fill) {
 	var value=parseInt(val); // stupid javascript!!
 	var mode=getMode(workingData.datosManga.Recorrido,value);
+	if (mode==-1) {
+		$.messager.alert('Error','Internal error: invalid RSCE/Recorrido/Categoria combination','error');
+		return;
+	}
 	// reload resultados
 	// en lugar de invocar al datagrid, lo que vamos a hacer es
 	// una peticion ajax, para obtener a la vez los datos tecnicos de la manga
@@ -525,17 +532,17 @@ function reloadParcial(val) {
 			$('#rm_TRS_'+suffix).val(dat['trs'].trs);
 			$('#rm_TRM_'+suffix).val(dat['trs'].trm);
 			$('#rm_VEL_'+suffix).val(dat['trs'].vel);
-			$('#resultadosmanga-datagrid').datagrid('loadData',dat);
+			if (fill) $('#resultadosmanga-datagrid').datagrid('loadData',dat);
 		}
 	});
 }
 
 /**
- * Inicializa ventana de resultados
- * borra datagrid previa y recalcula datos de TRS 
- * @param recorrido 0:L/M/S 1:L/M+S 2:/L+M+S
+ * Inicializa ventana de resultados ajustando textos
+ * borra datagrid previa
+ * @param recorrido 0:L/M/S/T 1:L/M+S(RSCE) LM/ST(RFEC)  2:/L+M+S+T
  */
-function reloadResultadosManga(recorrido) {
+function setupResultadosWindow(recorrido) {
 	var rsce=(workingData.datosPrueba.RSCE==0)?true:false;
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
@@ -717,14 +724,15 @@ function competicionDialog(name) {
     if (name==='resultadosmanga') {
         // abrimos ventana de dialogo
         $('#resultadosmanga-dialog').dialog('open').dialog('setTitle'," Resultados de la manga: "+title);
-        // cargamos ventana de presentacion de resultados parciales
-        reloadResultadosManga(row.Recorrido);
+        // iniciamls ventana de presentacion de resultados parciales acorde al tipo de prueba (RSCE/RFEC) y recorrido
+        setupResultadosWindow(row.Recorrido);
         // marcamos la primera opcion como seleccionada
         $('#resultadosmanga-LargeBtn').prop('checked','checked');
-        // y recargarmos resultados parciales
-        reloadParcial(2);
-        reloadParcial(1);
-        reloadParcial(0);
+        // refrescamos datos de TRS y TRM
+        if (workingData.datosPrueba.RSCE!=0) reloadParcial(3,false);
+        reloadParcial(2,false);
+        reloadParcial(1,false);
+        reloadParcial(0,true); // pintamos el datagrid con los datos de categoria "large"
     }
 }
 
