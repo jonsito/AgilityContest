@@ -192,42 +192,56 @@ try {
 	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
 	
 	// Creamos generador de documento
-	$pdf = new Etiquetas_PDF($prueba,$jornada,$mangas,$result['rows']);
+	$pdf = new Etiquetas_PDF($prueba,$jornada,$mangas);
 
 	// buscamos los recorridos asociados a la mangas
 	$dbobj=new DBObject("print_etiquetas_csv");
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
-	
-	$c= new Clasificaciones("print_etiquetas_pdf",$prueba,$jornada);
-	
+	$prb=$dbobj->__getObject("Pruebas",$prueba);
+	$c= new Clasificaciones("print_podium_pdf",$prueba,$jornada);
+	$result=array();
+	$rsce=($prb->RSCE==0)?true:false;
 	switch($mng->Recorrido) {
 		case 0: // recorridos separados large medium small
-			$result=$c->clasificacionFinal($rondas,$mangas,0);
-			$pdf->resultados=$result['rows'];
-			$count= $pdf->composeTable(0);
-			$result=$c->clasificacionFinal($rondas,$mangas,1);
-			$pdf->resultados=$result['rows'];
-			$count= $pdf->composeTable($count);
-			$result=$c->clasificacionFinal($rondas,$mangas,2);
-			$pdf->resultados=$result['rows'];
-			$count= $pdf->composeTable($count);
+			$r=$c->clasificacionFinal($rondas,$mangas,0);
+			$result[0]=$r['rows'];
+			$r=$c->clasificacionFinal($rondas,$mangas,1);
+			$result[1]=$r['rows'];
+			$r=$c->clasificacionFinal($rondas,$mangas,2);
+			$result[2]=$r['rows'];
+			if (!$rsce) {
+				$r=$c->clasificacionFinal($rondas,$mangas,5);
+				$result[5]=$r['rows'];
+			}
 			break;
 		case 1: // large / medium+small
-			$result=$c->clasificacionFinal($rondas,$mangas,0);
-			$pdf->resultados=$result['rows'];
-			$count=$pdf->composeTable(0);
-			$result=$c->clasificacionFinal($rondas,$mangas,3);
-			$pdf->resultados=$result['rows'];
-			$count= $pdf->composeTable($count);
+			if ($rsce) {
+				$r=$c->clasificacionFinal($rondas,$mangas,0);
+				$result[0]=$r['rows'];
+				$r=$c->clasificacionFinal($rondas,$mangas,3);
+				$result[3]=$r['rows'];
+			} else {
+				$r=$c->clasificacionFinal($rondas,$mangas,6);
+				$result[6]=$r['rows'];
+				$r=$c->clasificacionFinal($rondas,$mangas,7);
+				$result[7]=$r['rows'];
+			}
 			break;
 		case 2: // recorrido conjunto large+medium+small
-			$result=$c->clasificacionFinal($rondas,$mangas,4);
-			$pdf->resultados=$result['rows'];
-			$count= $pdf->composeTable(0);
+			if ($rsce) {
+				$r=$c->clasificacionFinal($rondas,$mangas,4);
+				$result[4]=$r['rows'];
+			} else {
+				$r=$c->clasificacionFinal($rondas,$mangas,8);
+				$result[8]=$r['rows'];
+			}
 			break;
 	}
-	
-	
+	$count=0;
+	foreach ($result as $res) {
+		$pdf->resultados=$res;
+		$count= $pdf->composeTable($count);
+	}
 	// mandamos a la salida el documento
 	$pdf->Output("print_etiquetas.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
