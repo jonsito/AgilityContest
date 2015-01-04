@@ -20,7 +20,7 @@ Features:
 - On Screen Display support for LiveStream video (needs WebCam and/or videostream server)
 - PDF printout of inscriptions, competition order, results, labels, etc
 - Export contest results in MS-Excel format to ease data management
-- Preliminary support for non-FCI federations
+- Support for non-FCI federations (RFEC)
 - Internationalization*
 
 (*) Some of these features are still under development :-(
