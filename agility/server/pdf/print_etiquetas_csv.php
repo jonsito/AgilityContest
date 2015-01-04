@@ -133,35 +133,53 @@ try {
 	// buscamos los recorridos asociados a la mangas
 	$dbobj=new DBObject("print_etiquetas_csv");
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
-	
-	$c= new Clasificaciones("print_etiquetas_csv",$prueba,$jornada);
-	
+	$prb=$dbobj->__getObject("Pruebas",$prueba);
+	$c= new Clasificaciones("print_podium_pdf",$prueba,$jornada);
+	$result=array();
+	$rsce=($prb->RSCE==0)?true:false;
 	switch($mng->Recorrido) {
 		case 0: // recorridos separados large medium small
-			$result=$c->clasificacionFinal($rondas,$mangas,0);
-			$csv =new CSV($prueba,$jornada,$mangas,$result['rows']);
-			echo $csv->composeTable(true);			
-			$result=$c->clasificacionFinal($rondas,$mangas,1);
-			$csv =new CSV($prueba,$jornada,$mangas,$result['rows']);
-			echo $csv->composeTable(false);			
-			$result=$c->clasificacionFinal($rondas,$mangas,2);
-			$csv =new CSV($prueba,$jornada,$mangas,$result['rows']);
-			echo $csv->composeTable(false);
+			$r=$c->clasificacionFinal($rondas,$mangas,0);
+			$result[0]=$r['rows'];
+			$r=$c->clasificacionFinal($rondas,$mangas,1);
+			$result[1]=$r['rows'];
+			$r=$c->clasificacionFinal($rondas,$mangas,2);
+			$result[2]=$r['rows'];
+			if (!$rsce) {
+				$r=$c->clasificacionFinal($rondas,$mangas,5);
+				$result[5]=$r['rows'];
+			}
 			break;
 		case 1: // large / medium+small
-			$result=$c->clasificacionFinal($rondas,$mangas,0);
-			$csv =new CSV($prueba,$jornada,$mangas,$result['rows']);
-			echo $csv->composeTable(true);			
-			$result=$c->clasificacionFinal($rondas,$mangas,3);
-			$csv =new CSV($prueba,$jornada,$mangas,$result['rows']);
-			echo $csv->composeTable(false);
+			if ($rsce) {
+				$r=$c->clasificacionFinal($rondas,$mangas,0);
+				$result[0]=$r['rows'];
+				$r=$c->clasificacionFinal($rondas,$mangas,3);
+				$result[3]=$r['rows'];
+			} else {
+				$r=$c->clasificacionFinal($rondas,$mangas,6);
+				$result[6]=$r['rows'];
+				$r=$c->clasificacionFinal($rondas,$mangas,7);
+				$result[7]=$r['rows'];
+			}
 			break;
 		case 2: // recorrido conjunto large+medium+small
-			$result=$c->clasificacionFinal($rondas,$mangas,4);
-			$csv =new CSV($prueba,$jornada,$mangas,$result['rows']);
-			echo $csv->composeTable(true);
+			if ($rsce) {
+				$r=$c->clasificacionFinal($rondas,$mangas,4);
+				$result[4]=$r['rows'];
+			} else {
+				$r=$c->clasificacionFinal($rondas,$mangas,8);
+				$result[8]=$r['rows'];
+			}
 			break;
 	}
+	$first=true;
+	foreach ($result as $res) {
+		$csv =new CSV($prueba,$jornada,$mangas,$res);
+		echo $csv->composeTable($first);
+		$first=false;
+	}
+
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	die ($e->getMessage());
