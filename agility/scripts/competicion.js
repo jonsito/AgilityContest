@@ -54,6 +54,52 @@ function checkCelo(val,row) {
 	return (parseInt(val)==0)?" ":"X";
 }
 
+function getMode(rec,cat) {
+	var recorrido=parseInt(rec);
+	var categoria=parseInt(cat);
+	if (workingData.datosPrueba.RSCE==0) { // RSCE
+		switch(recorrido) {
+		case 0: // recorrido separado
+			if (categoria==0) return 0;
+			if (categoria==1) return 1;
+			if (categoria==2) return 2;
+			break;
+		case 1: // large / small+medium
+			if (categoria==0) return 0;
+			if (categoria==1) return 3;
+			if (categoria==2) return 3;
+			break;
+		case 2: // recorrido conjunto
+			if (categoria==0) return 4;
+			if (categoria==1) return 4;
+			if (categoria==2) return 4;
+			break;
+		}
+	} else { // RFEC
+		switch(recorrido) {
+		case 0: // recorrido separado
+			if (categoria==0) return 0;
+			if (categoria==1) return 1;
+			if (categoria==2) return 2;
+			if (categoria==3) return 5;
+			break;
+		case 1: // large+medium / small+tiny
+			if (categoria==0) return 6;
+			if (categoria==1) return 6;
+			if (categoria==2) return 7;
+			if (categoria==3) return 7;
+			break;
+		case 2: // recorrido conjunto
+			if (categoria==0) return 8;
+			if (categoria==1) return 8;
+			if (categoria==2) return 8;
+			if (categoria==3) return 8;
+			break;
+		}
+	}
+	return -1; // combinacion invalida
+}
+
 /**
  * Actualiza el modo de visualizacion del panel infomangas
  * en funcion del tipo de recorrido seleccionado
@@ -426,31 +472,7 @@ function printParcial(val) {
 	var mode=0;
 	var value=parseInt(val); // stupid javascript!!
 	// obtenemos informacion sobre los datos a imprimir
-	if (workingData.datosPrueba.RSCE==0) { // prueba RSCE
-		switch(parseInt(workingData.datosManga.Recorrido)) {
-		case 0: //  large / medium / small
-			switch(value) {	case 0: mode=0; break; case 1: mode=1; break; case 2: mode=2; break; }
-			break;
-		case 1: // large / medium+small
-			switch(value) {	case 0: mode=0; break; case 1: mode=3; break; case 2: mode=3; break; }
-			break;
-		case 2: // large+medium+small
-			switch(value) {	case 0: mode=4; break; case 1: mode=4; break; case 2: mode=4; break; }
-			break;
-		}
-	} else { // Prueba rfec
-		switch(parseInt(workingData.datosManga.Recorrido)) {
-		case 0: //  large / medium / small / tiny
-			switch(value) {	case 0: mode=0; break; case 1: mode=1; break; case 2: mode=2; break; }
-			break;
-		case 1: // large+medium / small+tiny
-			switch(value) {	case 0: mode=0; break; case 1: mode=3; break; case 2: mode=3; break; }
-			break;
-		case 2: // large+medium+small+tiny
-			switch(value) {	case 0: mode=4; break; case 1: mode=4; break; case 2: mode=4; break; }
-			break;
-		}
-	}
+	var mode=getMode(workingData.datosManga.Recorrido,value);
 	// imprimimos los datos de la manga y categoria solicitada
 	$.fileDownload(
 		'/agility/server/pdf/print_resultadosByManga.php',
@@ -474,36 +496,11 @@ function printParcial(val) {
  * @param mode 0:large/conjunto 1:medium/m+s 2:small 3:tiny
  */
 function reloadParcial(val) {
-	var mode=0;
 	var value=parseInt(val); // stupid javascript!!
-	switch (parseInt(workingData.datosManga.Recorrido)) {
-	case 0: //  large / medium / small
-		switch(value) {	
-			case 0: mode=0; break; 
-			case 1: mode=1; break; 
-			case 2: mode=2; break; 
-			case 2: mode=5; break; 
-		}
-		break;
-	case 1: // large / medium+small
-		switch(value) {	
-			case 0: mode=0; break; 
-			case 1: mode=3; break; 
-			case 2: return; /* invalido */
-		}
-		break;
-	case 2: // large+medium+small
-		switch(value) {	
-			case 0: mode=4; break; 	
-			case 1: return; /* invalido */ 
-			case 2: return; /* invalido */	
-		}
-		break;
-	}
+	var mode=getMode(workingData.datosManga.Recorrido,value);
 	// reload resultados
 	// en lugar de invocar al datagrid, lo que vamos a hacer es
 	// una peticion ajax, para obtener a la vez los datos tecnicos de la manga
-
 	$.ajax({
 		type:'GET',
 		url:"/agility/server/database/resultadosFunctions.php",
@@ -518,9 +515,10 @@ function reloadParcial(val) {
 		success: function(dat) {
 			var suffix='L';
 			switch (mode) {
-			case 0: case 4: suffix='L'; break;
+			case 0: case 4: case 6: case 8: suffix='L'; break;
 			case 1: case 3: suffix='M'; break;
-			case 2: suffix='S'; break;
+			case 2: case 7: suffix='S'; break;
+			case 5: suffix='T'; break;
 			}
 			$('#rm_DIST_'+suffix).val(dat['trs'].dist);
 			$('#rm_OBST_'+suffix).val(dat['trs'].obst);
@@ -538,40 +536,51 @@ function reloadParcial(val) {
  * @param recorrido 0:L/M/S 1:L/M+S 2:/L+M+S
  */
 function reloadResultadosManga(recorrido) {
+	var rsce=(workingData.datosPrueba.RSCE==0)?true:false;
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
     $('#resultadosmanga-LargeBtn').prop('checked',false);
     $('#resultadosmanga-MediumBtn').prop('checked',false);
     $('#resultadosmanga-SmallBtn').prop('checked',false);
+    $('#resultadosmanga-TinyBtn').prop('checked',false);
     $('#resultadosmanga-datagrid').datagrid('loadData',{total:0, rows:{}});
     // actualizamos la informacion del panel de informacion de trs/trm
     switch(parseInt(recorrido)){
-    case 0: // Large / Medium / Small
-    	// ajustar textos
+    case 0: // Large / Medium / Small / Tiny separados
+    	// ajustar visibilidad
+    	$('#resultadosmanga-LargeRow').css('display','table-row');
     	$('#resultadosmanga-MediumRow').css('display','table-row');
     	$('#resultadosmanga-SmallRow').css('display','table-row');
+    	$('#resultadosmanga-TinyRow').css('display',(rsce)?'none':'table-row');
+    	// ajustar textos
     	$('#resultadosmanga-LargeLbl').html("Large");
     	$('#resultadosmanga-MediumLbl').html("Medium");
     	$('#resultadosmanga-SmallLbl').html("Small");
-    	// obtener datos de trs y trm para cada categoria
+    	$('#resultadosmanga-TinyLbl').html("Tiny");
     	break;
-    case 1: // Large / Medium+Small
+    case 1: // RSCE: Large / Medium+Small --------- RFEC: Large+Medium / Tiny+Small
+    	// ajustar visibilidad
+    	$('#resultadosmanga-LargeRow').css('display','table-row');
+    	$('#resultadosmanga-MediumRow').css('display',(rsce)?'table-row':'none');
+    	$('#resultadosmanga-SmallRow').css('display',(rsce)?'none':'table-row');
+    	$('#resultadosmanga-TinyRow').css('display','none');
     	// ajustar textos
-    	$('#resultadosmanga-MediumRow').css('display','table-row');
-    	$('#resultadosmanga-SmallRow').css('display','none');
-    	$('#resultadosmanga-LargeLbl').html("Large");
-    	$('#resultadosmanga-MediumLbl').html("Medium+Small");
-    	$('#resultadosmanga-SmallLbl').html("&nbsp;");
-    	// obtener datos de trs y trm para cada categoria
+    	$('#resultadosmanga-LargeLbl').html((rsce)?"Large":"Large+Medium");
+    	$('#resultadosmanga-MediumLbl').html((rsce)?"Medium+Small":"&nbsp;");
+    	$('#resultadosmanga-SmallLbl').html("Small+Tiny");
+    	$('#resultadosmanga-TinyLbl').html("&nbsp;");
     	break;
-    case 2: // Large+Medium+Small conjunta
-    	// ajustar textos
+    case 2: // Large+Medium+Small (+Tiny) conjunta
+    	// ajustar visibilidad
+    	$('#resultadosmanga-LargeRow').css('display','table-row');
     	$('#resultadosmanga-MediumRow').css('display','none');
     	$('#resultadosmanga-SmallRow').css('display','none');
-    	$('#resultadosmanga-LargeLbl').html('Conjunta L+M+S');
+    	$('#resultadosmanga-TinyRow').css('display','none');
+    	// ajustar textos
+    	$('#resultadosmanga-LargeLbl').html((rsce)?"Conjunta L+M+S":"Conjunta L+M+S+T");
     	$('#resultadosmanga-MediumLbl').html("&nbsp;");
     	$('#resultadosmanga-SmallLbl').html("&nbsp;");
-    	// obtener datos de trs y trm para cada categoria
+    	$('#resultadosmanga-TinyLbl').html("&nbsp;");
     	break;
     }
 }
