@@ -107,6 +107,11 @@ class Resultados extends DBObject {
 			case 2: $suffix='S'; break;
 			case 3: $suffix='M'; break; // M+S
 			case 4: $suffix='L'; break; // L+M+S
+			// extra values for rfec contests
+			case 5: $suffix='T'; break; // T
+			case 6: $suffix='L'; break; // L+M
+			case 7: $suffix='S'; break; // S+T
+			case 8: $suffix="L"; break; // L+M+S+T
 		}
 		// evaluamos distancia y obstaculos
 		$result['dist']= $dmanga["Dist_$suffix"]; 
@@ -143,6 +148,12 @@ class Resultados extends DBObject {
 			case 4: // trs medium + xx						
 				$result_med=$this->getResultados(1)['trs'];
 				if ($dmanga["TRS_{$suffix}_Unit"]==="s") 
+					$result['trs']= $result_med['trs'] + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
+				else $result['trs']= $result_med['trs'] * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
+				break;
+			case 5: // trs small + xx
+				$result_med=$this->getResultados(2)['trs'];
+				if ($dmanga["TRS_{$suffix}_Unit"]==="s")
 					$result['trs']= $result_med['trs'] + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
 				else $result['trs']= $result_med['trs'] * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
 				break;
@@ -321,6 +332,10 @@ class Resultados extends DBObject {
 			case 2: /* Small */		$where= "$where AND (Categoria='S')"; break;
 			case 3: /* Med+Small */ $where= "$where AND ( (Categoria='M') OR (Categoria='S') )"; break;
 			case 4: /* L+M+S */ 	$where= "$where AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
+			case 5: /* Tiny */		$where= "$where AND (Categoria='T')"; break;
+			case 6: /* L+M */		$where= "$where AND ( (Categoria='L') OR (Categoria='M') )"; break;
+			case 7: /* S+T */		$where= "$where AND ( (Categoria='S') OR (Categoria='T') )"; break;
+			case 8: /* L+M+S+T */	break; // no check categoria
 			default: return $this->error("modo de recorrido desconocido:$mode");
 		}
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo

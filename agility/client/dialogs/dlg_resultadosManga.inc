@@ -43,7 +43,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_VEL_L"></td>
 				</tr>
 				<tr id="resultadosmanga-MediumRow">
-					<td><input type="radio" name="rRecorrido" id="resultadosmanga-LargeBtn" value="1" onclick="reloadParcial(1)"></td>
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-MediumBtn" value="1" onclick="reloadParcial(1)"></td>
 					<th id="resultadosmanga-MediumLbl">Medium</th>
 					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_M"></td>
 					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_M"></td>
@@ -52,13 +52,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_VEL_M"></td>
 				</tr>
 				<tr id="resultadosmanga-SmallRow">
-					<td><input type="radio" name="rRecorrido" id="resultadosmanga-LargeBtn" value="2" onclick="reloadParcial(2)"></td>
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-SmallBtn" value="2" onclick="reloadParcial(2)"></td>
 					<th id="resultadosmanga-SmallLbl">Small</th>
 					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_S"></td>
 					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_S"></td>
 					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_TRS_S"></td>
 					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_TRM_S"></td>
 					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_VEL_S"></td>
+				</tr>
+				<tr id="resultadosmanga-TinyRow">
+					<td><input type="radio" name="rRecorrido" id="resultadosmanga-TinyBtn" value="2" onclick="reloadParcial(3)"></td>
+					<th id="resultadosmanga-TinyLbl">Tiny</th>
+					<td>Distancia <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_T"></td>
+					<td>Obst&aacute;culos <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_T"></td>
+					<td>TRS <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_TRS_T"></td>
+					<td>TRM <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_TRM_T"></td>
+					<td>Vel. <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_VEL_T"></td>
 				</tr>
 				<tr><th colspan="6">Resultados de la categor&iacute;a seleccionada</th></tr>
 			</table>

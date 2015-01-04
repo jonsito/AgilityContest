@@ -1,0 +1,102 @@
+[03-Jan-2015 23:56:13 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/pruebaFunctions.php::28::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:13 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/pruebaFunctions.php::37::enumerate() : Enter
+[03-Jan-2015 23:56:13 Europe/Madrid] QUERY pruebaFunctions::__select() :
+SELECT Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
+							Pruebas.Ubicacion AS Ubicacion, Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
+							Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva, Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones FROM Pruebas,Clubes  WHERE (Pruebas.Club=Clubes.ID) && ( Cerrada=0 ) AND ( (Pruebas.Nombre LIKE '%%' ) OR (Clubes.Nombre LIKE '%%') OR (Pruebas.Observaciones LIKE '%%') )  ORDER BY Nombre ASC 
+[03-Jan-2015 23:56:13 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/pruebaFunctions.php::37::enumerate() : Leave
+[03-Jan-2015 23:56:13 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/jornadaFunctions.php::30::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:13 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/jornadaFunctions.php::42::searchByPrueba() : Enter
+[03-Jan-2015 23:56:13 Europe/Madrid] QUERY jornadaFunctions::__select() :
+SELECT * FROM Jornadas  WHERE ( Prueba = 0 )  AND ( Cerrada=0 )  AND ( Nombre <> '-- Sin asignar --' )  ORDER BY Numero ASC 
+[03-Jan-2015 23:56:13 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/jornadaFunctions.php::42::searchByPrueba() : Leave
+[03-Jan-2015 23:56:17 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/jornadaFunctions.php::30::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:17 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/jornadaFunctions.php::42::searchByPrueba() : Enter
+[03-Jan-2015 23:56:17 Europe/Madrid] QUERY jornadaFunctions::__select() :
+SELECT * FROM Jornadas  WHERE ( Prueba = 2 )  AND ( Cerrada=0 )  AND ( Nombre <> '-- Sin asignar --' )  ORDER BY Numero ASC 
+[03-Jan-2015 23:56:17 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/jornadaFunctions.php::42::searchByPrueba() : Leave
+[03-Jan-2015 23:56:19 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/jornadaFunctions.php::30::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:19 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/jornadaFunctions.php::42::searchByPrueba() : Enter
+[03-Jan-2015 23:56:19 Europe/Madrid] QUERY jornadaFunctions::__select() :
+SELECT * FROM Jornadas  WHERE ( Prueba = 0 )  AND ( Cerrada=0 )  AND ( Nombre <> '-- Sin asignar --' )  ORDER BY Numero ASC 
+[03-Jan-2015 23:56:19 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/jornadaFunctions.php::42::searchByPrueba() : Leave
+[03-Jan-2015 23:56:20 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenTandasFunctions.php::32::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:20 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenTandasFunctions.php::48::getTandas() : Enter
+[03-Jan-2015 23:56:20 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/OrdenTandas.php::266::getOrden() : Enter
+[03-Jan-2015 23:56:20 Europe/Madrid] QUERY ordenTandasFunctions::__selectObject() :
+SELECT Orden_Tandas FROM Jornadas WHERE ( ID=1 )
+[03-Jan-2015 23:56:20 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/OrdenTandas.php::266::getOrden() : Leave
+[03-Jan-2015 23:56:20 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenTandasFunctions.php::48::getTandas() : Leave
+[03-Jan-2015 23:56:20 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/mangaFunctions.php::34::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:20 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/mangaFunctions.php::39::selectByJornada() : Enter
+[03-Jan-2015 23:56:20 Europe/Madrid] QUERY mangaFunctions::__select() :
+SELECT Mangas.ID AS ID, Mangas.Tipo AS Tipo, Mangas.Recorrido AS Recorrido,Tipo_Manga.Grado AS Grado, Tipo_Manga.Descripcion AS Descripcion FROM Mangas,Tipo_Manga  WHERE ( ( Jornada = 1 ) AND ( Mangas.Tipo = Tipo_Manga.ID ) )  ORDER BY Descripcion ASC 
+[03-Jan-2015 23:56:20 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/mangaFunctions.php::39::selectByJornada() : Leave
+[03-Jan-2015 23:56:23 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/mangaFunctions.php::34::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/mangaFunctions.php::40::selectByID() : Enter
+[03-Jan-2015 23:56:23 Europe/Madrid] QUERY mangaFunctions::__selectObject() :
+SELECT * FROM Mangas WHERE (ID=31)
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/mangaFunctions.php::40::selectByID() : Leave
+[03-Jan-2015 23:56:23 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::32::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::50::getData() : Enter
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/OrdenSalida.php::162::getOrden() : Enter
+[03-Jan-2015 23:56:23 Europe/Madrid] QUERY ordenSalidaFunctions::__selectObject() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=31 )
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/OrdenSalida.php::162::getOrden() : Leave
+[03-Jan-2015 23:56:23 Europe/Madrid] DEBUG /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::50::getData() : OrdenSalida::getData() Manga:31 El orden de salida es: 
+BEGIN,TAG_-0,TAG_-1,TAG_L0,585,389,119,91,TAG_L1,TAG_M0,351,TAG_M1,TAG_S0,TAG_S1,TAG_T0,353,TAG_T1,END
+[03-Jan-2015 23:56:23 Europe/Madrid] QUERY ordenSalidaFunctions::__select() :
+SELECT * FROM Resultados  WHERE (Manga=31)  
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::50::getData() : Leave
+[03-Jan-2015 23:56:23 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/juezFunctions.php::29::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/juezFunctions.php::39::enumerate() : Enter
+[03-Jan-2015 23:56:23 Europe/Madrid] QUERY juezFunctions::__select() :
+SELECT * FROM Jueces  WHERE Nombre LIKE '%%'  ORDER BY Nombre ASC 
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/juezFunctions.php::39::enumerate() : Leave
+[03-Jan-2015 23:56:23 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::32::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::50::getData() : Enter
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/OrdenSalida.php::162::getOrden() : Enter
+[03-Jan-2015 23:56:23 Europe/Madrid] QUERY ordenSalidaFunctions::__selectObject() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=31 )
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/OrdenSalida.php::162::getOrden() : Leave
+[03-Jan-2015 23:56:23 Europe/Madrid] DEBUG /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::50::getData() : OrdenSalida::getData() Manga:31 El orden de salida es: 
+BEGIN,TAG_-0,TAG_-1,TAG_L0,585,389,119,91,TAG_L1,TAG_M0,351,TAG_M1,TAG_S0,TAG_S1,TAG_T0,353,TAG_T1,END
+[03-Jan-2015 23:56:23 Europe/Madrid] QUERY ordenSalidaFunctions::__select() :
+SELECT * FROM Resultados  WHERE (Manga=31)  
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::50::getData() : Leave
+[03-Jan-2015 23:56:23 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/juezFunctions.php::29::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/juezFunctions.php::39::enumerate() : Enter
+[03-Jan-2015 23:56:23 Europe/Madrid] QUERY juezFunctions::__select() :
+SELECT * FROM Jueces  WHERE Nombre LIKE '%%'  ORDER BY Nombre ASC 
+[03-Jan-2015 23:56:23 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/juezFunctions.php::39::enumerate() : Leave
+[03-Jan-2015 23:56:24 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::32::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:24 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::50::getData() : Enter
+[03-Jan-2015 23:56:24 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/OrdenSalida.php::162::getOrden() : Enter
+[03-Jan-2015 23:56:24 Europe/Madrid] QUERY ordenSalidaFunctions::__selectObject() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=31 )
+[03-Jan-2015 23:56:24 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/OrdenSalida.php::162::getOrden() : Leave
+[03-Jan-2015 23:56:24 Europe/Madrid] DEBUG /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::50::getData() : OrdenSalida::getData() Manga:31 El orden de salida es: 
+BEGIN,TAG_-0,TAG_-1,TAG_L0,585,389,119,91,TAG_L1,TAG_M0,351,TAG_M1,TAG_S0,TAG_S1,TAG_T0,353,TAG_T1,END
+[03-Jan-2015 23:56:24 Europe/Madrid] QUERY ordenSalidaFunctions::__select() :
+SELECT * FROM Resultados  WHERE (Manga=31)  
+[03-Jan-2015 23:56:24 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::50::getData() : Leave
+[03-Jan-2015 23:56:34 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::32::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:34 Europe/Madrid] Insufficient credentials:(4) required: 3
+[03-Jan-2015 23:56:34 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::32::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:34 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::50::getData() : Enter
+[03-Jan-2015 23:56:34 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/OrdenSalida.php::162::getOrden() : Enter
+[03-Jan-2015 23:56:34 Europe/Madrid] QUERY ordenSalidaFunctions::__selectObject() :
+SELECT Orden_Salida FROM Mangas WHERE ( ID=31 )
+[03-Jan-2015 23:56:34 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/OrdenSalida.php::162::getOrden() : Leave
+[03-Jan-2015 23:56:34 Europe/Madrid] DEBUG /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::50::getData() : OrdenSalida::getData() Manga:31 El orden de salida es: 
+BEGIN,TAG_-0,TAG_-1,TAG_L0,585,389,119,91,TAG_L1,TAG_M0,351,TAG_M1,TAG_S0,TAG_S1,TAG_T0,353,TAG_T1,END
+[03-Jan-2015 23:56:34 Europe/Madrid] QUERY ordenSalidaFunctions::__select() :
+SELECT * FROM Resultados  WHERE (Manga=31)  
+[03-Jan-2015 23:56:34 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenSalidaFunctions.php::50::getData() : Leave
+[03-Jan-2015 23:56:51 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenTandasFunctions.php::32::__construct() : No sessionKey found in request
+[03-Jan-2015 23:56:51 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenTandasFunctions.php::48::getTandas() : Enter
+[03-Jan-2015 23:56:51 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/OrdenTandas.php::266::getOrden() : Enter
+[03-Jan-2015 23:56:51 Europe/Madrid] QUERY ordenTandasFunctions::__selectObject() :
+SELECT Orden_Tandas FROM Jornadas WHERE ( ID=1 )
+[03-Jan-2015 23:56:51 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/OrdenTandas.php::266::getOrden() : Leave
+[03-Jan-2015 23:56:51 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/ordenTandasFunctions.php::48::getTandas() : Leave

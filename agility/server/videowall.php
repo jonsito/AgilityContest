@@ -41,7 +41,8 @@ class VideoWall {
 	}
 
 	public static $cat=array('-'=>'','L'=>'Large','M'=>'Medium','S'=>'Small','T'=>'Tiny');
-	public static $modestr  =array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny");
+	public static $modestr  
+		=array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
 	
 	// matriz de modos a evaluar en funcion del tipo de recorrido y de la tanda
 	// recorridos:
@@ -103,13 +104,13 @@ class VideoWall {
 			45	=> array( 5,  7,  8, 'Agility Open' /* Tiny */),
 			46	=> array( 5,  7,  8, 'Agility Eq. 3' /* Tiny */),
 			// en equipos4  RFEC agrupamos por LM y ST
-			47	=> array( -1, 7,  8, 'Ag. Equipos 4'/* Large/Medium*/),
+			47	=> array( -1, 6,  8, 'Ag. Equipos 4'/* Large/Medium*/),
 			48	=> array( -1, 7,  8, 'Ag. Equipos 4'/* Small/Tiny*/),
 			49	=> array( 5,  7,  8, 'Jumping GII' /* Tiny */),
 			50	=> array( 5,  7,  8, 'Jumping GIII' /* Tiny */),
 			51	=> array( 5,  7,  8, 'Jumping Open' /* Tiny */),
 			52	=> array( 5,  7,  8, 'Jumping Eq. 3' /* Tiny */),
-			53	=> array( -1, 7,  8, 'Jp. Equipos 4'/* Large/Medium*/),
+			53	=> array( -1, 6,  8, 'Jp. Equipos 4'/* Large/Medium*/),
 			54	=> array( -1, 7,  8, 'Jp. Equipos 4'/* Small/Tiny*/),
 			55	=> array( 5,  7,  8, 'Manga Especial' /* Tiny */),
 	);
@@ -173,13 +174,13 @@ class VideoWall {
 			45	=> array( 5,  7,  8, 'Agility Open' /* Tiny */),
 			46	=> array( 5,  7,  8, 'Agility Eq. 3' /* Tiny */),
 			// en equipos4  RFEC agrupamos por LM y ST
-			47	=> array( -1, 7,  8, 'Ag. Equipos 4'/* Large/Medium*/),
+			47	=> array( -1, 6,  8, 'Ag. Equipos 4'/* Large/Medium*/),
 			48	=> array( -1, 7,  8, 'Ag. Equipos 4'/* Small/Tiny*/),
 			49	=> array( 5,  7,  8, 'Jumping GII' /* Tiny */),
 			50	=> array( 5,  7,  8, 'Jumping GIII' /* Tiny */),
 			51	=> array( 5,  7,  8, 'Jumping Open' /* Tiny */),
 			52	=> array( 5,  7,  8, 'Jumping Eq. 3' /* Tiny */),
-			53	=> array( -1, 7,  8, 'Jp. Equipos 4'/* Large/Medium*/),
+			53	=> array( -1, 6,  8, 'Jp. Equipos 4'/* Large/Medium*/),
 			54	=> array( -1, 7,  8, 'Jp. Equipos 4'/* Small/Tiny*/),
 			55	=> array( 5,  7,  8, 'Manga Especial' /* Tiny */),
 	);
@@ -239,6 +240,9 @@ class VideoWall {
 		// obtenemos modo de resultados asociado a la manga
 		$myManga=$this->myDBObject->__getObject("Mangas",$this->session['Manga']);
 		$mode=VideoWall::$modes[$this->session['Tanda']][$myManga->Recorrido];
+		if ($this->prueba['RSCE']!=0) {
+			$mode=VideoWall::$modes_rfec[$this->session['Tanda']][$myManga->Recorrido];
+		}
 		$this->myLogger->trace("**** Mode es $mode");
 		$result = $resmgr->getResultados($mode);
 		$numero=0;

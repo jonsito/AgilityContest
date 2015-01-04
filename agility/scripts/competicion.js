@@ -426,16 +426,30 @@ function printParcial(val) {
 	var mode=0;
 	var value=parseInt(val); // stupid javascript!!
 	// obtenemos informacion sobre los datos a imprimir
-	switch(parseInt(workingData.datosManga.Recorrido)) {
-	case 0: //  large / medium / small
-		switch(value) {	case 0: mode=0; break; case 1: mode=1; break; case 2: mode=2; break; }
-		break;
-	case 1: // large / medium+small
-		switch(value) {	case 0: mode=0; break; case 1: mode=3; break; case 2: mode=3; break; }
-		break;
-	case 2: // large+medium+small
-		switch(value) {	case 0: mode=4; break; case 1: mode=4; break; case 2: mode=4; break; }
-		break;
+	if (workingData.datosPrueba.RSCE==0) { // prueba RSCE
+		switch(parseInt(workingData.datosManga.Recorrido)) {
+		case 0: //  large / medium / small
+			switch(value) {	case 0: mode=0; break; case 1: mode=1; break; case 2: mode=2; break; }
+			break;
+		case 1: // large / medium+small
+			switch(value) {	case 0: mode=0; break; case 1: mode=3; break; case 2: mode=3; break; }
+			break;
+		case 2: // large+medium+small
+			switch(value) {	case 0: mode=4; break; case 1: mode=4; break; case 2: mode=4; break; }
+			break;
+		}
+	} else { // Prueba rfec
+		switch(parseInt(workingData.datosManga.Recorrido)) {
+		case 0: //  large / medium / small / tiny
+			switch(value) {	case 0: mode=0; break; case 1: mode=1; break; case 2: mode=2; break; }
+			break;
+		case 1: // large+medium / small+tiny
+			switch(value) {	case 0: mode=0; break; case 1: mode=3; break; case 2: mode=3; break; }
+			break;
+		case 2: // large+medium+small+tiny
+			switch(value) {	case 0: mode=4; break; case 1: mode=4; break; case 2: mode=4; break; }
+			break;
+		}
 	}
 	// imprimimos los datos de la manga y categoria solicitada
 	$.fileDownload(
@@ -457,7 +471,7 @@ function printParcial(val) {
 }
 
 /** actualiza el datagrid de resultados
- * @param mode 0:large/conjunto 1:medium/m+s 2:small
+ * @param mode 0:large/conjunto 1:medium/m+s 2:small 3:tiny
  */
 function reloadParcial(val) {
 	var mode=0;
@@ -468,6 +482,7 @@ function reloadParcial(val) {
 			case 0: mode=0; break; 
 			case 1: mode=1; break; 
 			case 2: mode=2; break; 
+			case 2: mode=5; break; 
 		}
 		break;
 	case 1: // large / medium+small
