@@ -260,26 +260,45 @@ try {
 	// buscamos los recorridos asociados a la mangas
 	$dbobj=new DBObject("print_clasificacion");
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
+	$prb=$dbobj->__getObject("Pruebas",$prueba);
 	$c= new Clasificaciones("print_clasificacion_excel",$prueba,$jornada);
+	
 	$result=array();
+	$rsce=($prb->RSCE==0)?true:false;
 	switch($mng->Recorrido) {
-		case 0: // recorridos separados large medium small
+		case 0: // recorridos separados large medium small tiny
 			$r=$c->clasificacionFinal($rondas,$mangas,0);
-			$base= $excel->composeTable($mangas,$r,0,$base+1);
+			$base = $excel->composeTable($mangas,$r,0,$base+1);
 			$r=$c->clasificacionFinal($rondas,$mangas,1);
 			$base = $excel->composeTable($mangas,$r,1,$base+1);
 			$r=$c->clasificacionFinal($rondas,$mangas,2);
 			$base = $excel->composeTable($mangas,$r,2,$base+1);
+			if (!$rsce) {
+				$r=$c->clasificacionFinal($rondas,$mangas,5);
+				$base = $excel->composeTable($mangas,$r,5,$base+1);
+			}
 			break;
-		case 1: // large / medium+small
-			$r=$c->clasificacionFinal($rondas,$mangas,0);
-			$base = $excel->composeTable($mangas,$r,0,$base+1);
-			$r=$c->clasificacionFinal($rondas,$mangas,3);
-			$base = $excel->composeTable($mangas,$r,3,$base+1);
+		case 1: // large / medium+small (RSCE) ---- L+M / S+T (RFEC)
+			if ($rsce) {
+				$r=$c->clasificacionFinal($rondas,$mangas,0);
+				$base = $excel->composeTable($mangas,$r,0,$base+1);
+				$r=$c->clasificacionFinal($rondas,$mangas,3);
+				$base = $excel->composeTable($mangas,$r,3,$base+1);
+			} else {
+				$r=$c->clasificacionFinal($rondas,$mangas,6);
+				$base = $excel->composeTable($mangas,$r,6,$base+1);
+				$r=$c->clasificacionFinal($rondas,$mangas,7);
+				$base = $excel->composeTable($mangas,$r,7,$base+1);
+			}
 			break;
-		case 2: // recorrido conjunto large+medium+small
-			$r=$c->clasificacionFinal($rondas,$mangas,4);
-			$base = $excel->composeTable($mangas,$r,4,$base+1);
+		case 2: // recorrido conjunto large+medium+small+tiny
+			if ($rsce) {
+				$r=$c->clasificacionFinal($rondas,$mangas,4);
+				$base = $excel->composeTable($mangas,$r,4,$base+1);
+			} else {
+				$r=$c->clasificacionFinal($rondas,$mangas,8);
+				$base = $excel->composeTable($mangas,$r,8,$base+1);
+			}
 			break;
 	}
 	$excel->xlsEOF();
