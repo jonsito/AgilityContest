@@ -56,6 +56,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<td>TRM <input type="text" size="4" class="result_forms" readonly="readonly" id="dm1_TRM_S"></td>
 				<td>Vel. <input type="text" size="4" class="result_forms" readonly="readonly" id="dm1_VEL_S"></td>
 			</tr>
+			<tr id="datos_manga1-TinyRow">
+				<th id="datos_manga1-TinyLbl">Tiny</th>
+				<td>Distancia <input type="text" size="4" class="result_forms" readonly="readonly" id="dm1_DIST_T"></td>
+				<td>Obst&aacute;culos <input type="text" size="4" class="result_forms" readonly="readonly" id="dm1_OBST_T"></td>
+				<td>TRS <input type="text" size="4" class="result_forms" readonly="readonly" id="dm1_TRS_T"></td>
+				<td>TRM <input type="text" size="4" class="result_forms" readonly="readonly" id="dm1_TRM_T"></td>
+				<td>Vel. <input type="text" size="4" class="result_forms" readonly="readonly" id="dm1_VEL_T"></td>
+			</tr>
 			<tr><td colspan="7"><hr /></td></tr>
 		</table>
 	</form>
@@ -98,6 +106,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<td>TRS <input type="text" size="4" class="result_forms" readonly="readonly" id="dm2_TRS_S"></td>
 				<td>TRM <input type="text" size="4" class="result_forms" readonly="readonly" id="dm2_TRM_S"></td>
 				<td>Vel. <input type="text" size="4" class="result_forms" readonly="readonly" id="dm2_VEL_S"></td>
+			</tr>
+			<tr id="datos_manga2-TinyRow">
+				<th id="datos_manga2-TinyLbl">Tiny</th>
+				<td>Distancia <input type="text" size="4" class="result_forms" readonly="readonly" id="dm2_DIST_T"></td>
+				<td>Obst&aacute;culos <input type="text" size="4" class="result_forms" readonly="readonly" id="dm2_OBST_T"></td>
+				<td>TRS <input type="text" size="4" class="result_forms" readonly="readonly" id="dm2_TRS_T"></td>
+				<td>TRM <input type="text" size="4" class="result_forms" readonly="readonly" id="dm2_TRM_T"></td>
+				<td>Vel. <input type="text" size="4" class="result_forms" readonly="readonly" id="dm2_VEL_T"></td>
 			</tr>
 		</table>
 	</form>

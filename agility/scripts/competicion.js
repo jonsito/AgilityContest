@@ -754,9 +754,10 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
 		success: function(dat) {
 			var suffix='L';
 			switch (mode) {
-			case 0: case 4: suffix='L'; break;
+			case 0: case 4: case 6: case 8: suffix='L'; break;
 			case 1: case 3: suffix='M'; break;
-			case 2: suffix='S'; break;
+			case 2: case 7: suffix='S'; break;
+			case 5: suffix='T'; break;
 			}
 			$('#dm'+idxmanga+'_Nombre').val(dat['manga'].TipoManga);
 			$('#dm'+idxmanga+'_Juez1').val('(juez 1 pendiente)');
@@ -779,21 +780,32 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
  */
 function resultados_doSelectRonda(row) {
 	var resultados=[];
+	var rsce=(workingData.datosPrueba.RSCE==0)?true:false;
     // FASE 1 Ajustamos en funcion del tipo de recorrido lo que debemos ver en las mangas
     // Recordatorio: ambas mangas tienen siempre el mismo tipo de recorrido
     switch(parseInt(row.Recorrido1)){
-    case 0: // Large / Medium / Small
+    case 0: // Large / Medium / Small / Tiny
     	// Manga 1
+    	$('#datos_manga1-LargeRow').css('display','table-row');
     	$('#datos_manga1-MediumRow').css('display','table-row');
     	$('#datos_manga1-SmallRow').css('display','table-row');
+		$('#datos_manga1-TinyRow').css('display',(rsce)?'none':'table-row');
     	$('#datos_manga1-LargeLbl').html("Large");
     	$('#datos_manga1-MediumLbl').html("Medium");
     	$('#datos_manga1-SmallLbl').html("Small");
+    	$('#datos_manga1-TinyLbl').html("tiny");
 		resultados_fillForm(resultados,row.Manga1,'1',0);
 		resultados_fillForm(resultados,row.Manga1,'1',1);
 		resultados_fillForm(resultados,row.Manga1,'1',2);
-		$('#resultados-selectCategoria').combobox('loadData',
-				[{mode:0,text:'Large',selected:true},{mode:1,text:'Medium'},{mode:2,text:'Small'}]);
+		if (!rsce) resultados_fillForm(resultados,row.Manga1,'1',5);
+		// set up categoria combobox 
+		if (rsce) {
+			$('#resultados-selectCategoria').combobox('loadData',
+					[{mode:0,text:'Large',selected:true},{mode:1,text:'Medium'},{mode:2,text:'Small'}]);
+		} else {
+			$('#resultados-selectCategoria').combobox('loadData',
+					[{mode:0,text:'Large',selected:true},{mode:1,text:'Medium'},{mode:2,text:'Small'},{mode:5,text:'Tiny'}]);
+		}
     	// Manga 2
 		if (row.Manga2<=0) {
 			// esta ronda solo tiene una manga. desactiva la segunda
@@ -801,73 +813,110 @@ function resultados_doSelectRonda(row) {
 			$('#datos_manga2-LargeRow').css('display','none');
 			$('#datos_manga2-MediumRow').css('display','none');
 			$('#datos_manga2-SmallRow').css('display','none');
+			$('#datos_manga2-TinyRow').css('display','none');
 		} else {
 			$('#datos_manga2-InfoRow').css('display','table-row');
 			$('#datos_manga2-LargeRow').css('display','table-row');
     		$('#datos_manga2-MediumRow').css('display','table-row');
     		$('#datos_manga2-SmallRow').css('display','table-row');
+    		$('#datos_manga2-TinyRow').css('display',(rsce)?'none':'table-row');
     		$('#datos_manga2-LargeLbl').html("Large");
     		$('#datos_manga2-MediumLbl').html("Medium");
     		$('#datos_manga2-SmallLbl').html("Small");
+    		$('#datos_manga2-TinylLbl').html("Tiny");
     		resultados_fillForm(resultados,row.Manga2,'2',0);
     		resultados_fillForm(resultados,row.Manga2,'2',1);
     		resultados_fillForm(resultados,row.Manga2,'2',2);
+    		if (!rsce) resultados_fillForm(resultados,row.Manga2,'2',5);
 		}
     	break;
-    case 1: // Large / Medium+Small
+    case 1: // Large / Medium+Small (RSCE ) ---- Large+Medium / Small+Tiny (RFEC)
     	// Manga 1
-    	$('#datos_manga1-MediumRow').css('display','table-row');
-    	$('#datos_manga1-SmallRow').css('display','none');
-    	$('#datos_manga1-LargeLbl').html("Large");
-    	$('#datos_manga1-MediumLbl').html("Medium+Small");
-    	$('#datos_manga1-SmallLbl').html("&nbsp;");
-		resultados_fillForm(resultados,row.Manga1,'1',0);
-		resultados_fillForm(resultados,row.Manga1,'1',3);
-		$('#resultados-selectCategoria').combobox('loadData',
-				[{mode:0,text:'Large',selected:true},{mode:3,text:'Medium + Small'}]);
+    	$('#datos_manga1-LargeRow').css('display','table-row');
+    	$('#datos_manga1-MediumRow').css('display',(rsce)?'table-row':'none');
+    	$('#datos_manga1-SmallRow').css('display',(rsce)?'none':'table-row');
+    	$('#datos_manga1-TinyRow').css('display','none');
+    	
+    	$('#datos_manga1-LargeLbl').html("Large+Medium");
+    	$('#datos_manga1-MediumLbl').html((rsce)?"Medium+Small":"&nbsp;");
+    	$('#datos_manga1-SmallLbl').html((rsce)?"&nbsp;":"Small+Tiny");
+    	$('#datos_manga1-TinyLbl').html("&nbsp;");
+    	if (rsce) {
+    		resultados_fillForm(resultados,row.Manga1,'1',0); // l
+    		resultados_fillForm(resultados,row.Manga1,'1',3); // m+s
+    		$('#resultados-selectCategoria').combobox('loadData',
+    				[{mode:0,text:'Large',selected:true},{mode:3,text:'Medium + Small'}]);
+    	} else {
+    		resultados_fillForm(resultados,row.Manga1,'1',6); // l+m
+    		resultados_fillForm(resultados,row.Manga1,'1',7); // s+t
+    		$('#resultados-selectCategoria').combobox('loadData',
+    				[{mode:6,text:'Large+Medium',selected:true},{mode:7,text:'Small+Tiny'}]);
+    	}
     	// Manga 2
 		if (row.Manga2<=0) { // no hay segunda manga: oculta formulario
 			$('#datos_manga2-InfoRow').css('display','none');
 			$('#datos_manga2-LargeRow').css('display','none');
 			$('#datos_manga2-MediumRow').css('display','none');
 			$('#datos_manga2-SmallRow').css('display','none');
+			$('#datos_manga2-TinyRow').css('display','none');
 		} else {
-			$('#datos_manga2-InfoRow').css('display','table-row');
-			$('#datos_manga2-LargeRow').css('display','table-row');
-			$('#datos_manga2-MediumRow').css('display','table-row');
-			$('#datos_manga2-SmallRow').css('display','none');
-			$('#datos_manga2-LargeLbl').html("Large");
-			$('#datos_manga2-MediumLbl').html("Medium+Small");
-			$('#datos_manga2-SmallLbl').html("&nbsp;");
-			resultados_fillForm(resultados,row.Manga2,'2',0);
-			resultados_fillForm(resultados,row.Manga2,'2',3);
+	    	$('#datos_manga2-LargeRow').css('display','table-row');
+	    	$('#datos_manga2-MediumRow').css('display',(rsce)?'table-row':'none');
+	    	$('#datos_manga2-SmallRow').css('display',(rsce)?'none':'table-row');
+	    	$('#datos_manga2-TinyRow').css('display','none');
+	    	
+	    	$('#datos_manga2-LargeLbl').html("Large+Medium");
+	    	$('#datos_manga2-MediumLbl').html((rsce)?"Medium+Small":"&nbsp;");
+	    	$('#datos_manga2-SmallLbl').html((rsce)?"&nbsp;":"Small+Tiny");
+	    	$('#datos_manga2-TinyLbl').html("&nbsp;");
+			if (rsce) {
+				resultados_fillForm(resultados,row.Manga2,'2',0);
+				resultados_fillForm(resultados,row.Manga2,'2',3);
+			} else {
+				resultados_fillForm(resultados,row.Manga2,'2',6);
+				resultados_fillForm(resultados,row.Manga2,'2',7);
+			}
 		}
     	break;
-    case 2: // Large+Medium+Small conjunta
+    case 2: // Large+Medium+Small+tiny conjunta
     	// Manga 1
+    	$('#datos_manga1-LargeRow').css('display','table-row');
     	$('#datos_manga1-MediumRow').css('display','none');
     	$('#datos_manga1-SmallRow').css('display','none');
-    	$('#datos_manga1-LargeLbl').html('Conjunta L+M+S');
+    	$('#datos_manga1-TinyRow').css('display','none');
+    	
+    	$('#datos_manga1-LargeLbl').html((rsce)?'Conjunta L+M+S':'Conjunta L+M+S+T');
     	$('#datos_manga1-MediumLbl').html("&nbsp;");
     	$('#datos_manga1-SmallLbl').html("&nbsp;");
-		resultados_fillForm(resultados,row.Manga1,'1',4);
-		$('#resultados-selectCategoria').combobox('loadData',
-				[{mode:4,text:'Large + Medium + Small',selected:true}]);
+    	$('#datos_manga1-TinyLbl').html("&nbsp;");
+    	if (rsce) {
+    		resultados_fillForm(resultados,row.Manga1,'1',4);
+    		$('#resultados-selectCategoria').combobox('loadData',
+    				[{mode:4,text:'Conjunta L+M+S',selected:true}]);
+    	} else {
+    		resultados_fillForm(resultados,row.Manga1,'1',8);
+    		$('#resultados-selectCategoria').combobox('loadData',
+    				[{mode:8,text:'Conjunta L+M+S+T',selected:true}]);
+    	}
     	// Manga 2
 		if (row.Manga2<=0) {
 			$('#datos_manga2-InfoRow').css('display','none');
 			$('#datos_manga2-LargeRow').css('display','none');
 			$('#datos_manga2-MediumRow').css('display','none');
 			$('#datos_manga2-SmallRow').css('display','none');
+			$('#datos_manga2-TinyRow').css('display','none');
 		} else {
-			$('#datos_manga2-InfoRow').css('display','table-row');
-			$('#datos_manga2-LargeRow').css('display','table-row');
-			$('#datos_manga2-MediumRow').css('display','none');
-			$('#datos_manga2-SmallRow').css('display','none');
-			$('#datos_manga2-LargeLbl').html('Conjunta L+M+S');
-			$('#datos_manga2-MediumLbl').html("&nbsp;");
-			$('#datos_manga2-SmallLbl').html("&nbsp;");
-			resultados_fillForm(resultados,row.Manga2,'2',4);
+	    	$('#datos_manga2-LargeRow').css('display','table-row');
+	    	$('#datos_manga2-MediumRow').css('display','none');
+	    	$('#datos_manga2-SmallRow').css('display','none');
+	    	$('#datos_manga2-TinyRow').css('display','none');
+	    	
+	    	$('#datos_manga2-LargeLbl').html((rsce)?'Conjunta L+M+S':'Conjunta L+M+S+T');
+	    	$('#datos_manga2-MediumLbl').html("&nbsp;");
+	    	$('#datos_manga2-SmallLbl').html("&nbsp;");
+	    	$('#datos_manga2-TinyLbl').html("&nbsp;");
+			if (rsce) resultados_fillForm(resultados,row.Manga2,'2',4);
+			else resultados_fillForm(resultados,row.Manga2,'2',8);
 		}
     	break;
     } 
