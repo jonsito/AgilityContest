@@ -84,9 +84,7 @@ class Print_Podium extends PrintCommon {
 		$tm2=null;
 		if ($this->manga2!=null) $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
 		
-		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
-		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
-		$this->ac_SetDrawColor(0,0,0); // line color
+		$this->ac_header(1,12);
 		
 		$this->SetX(10); // first page has 3 extra header lines
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
@@ -243,8 +241,10 @@ try {
 	// buscamos los recorridos asociados a la manga
 	$dbobj=new DBObject("print_clasificacion");
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
+	$prb=$dbobj->__getObject("Pruebas",$prueba);
 	$c= new Clasificaciones("print_podium_pdf",$prueba,$jornada);
 	$result=array();
+	$rsce=($prb->RSCE==0)?true:false;
 	switch($mng->Recorrido) {
 		case 0: // recorridos separados large medium small
 			$r=$c->clasificacionFinal($rondas,$mangas,0);
@@ -253,16 +253,32 @@ try {
 			$result[1]=$r['rows'];
 			$r=$c->clasificacionFinal($rondas,$mangas,2);
 			$result[2]=$r['rows'];
+			if ($rsce) {
+				$r=$c->clasificacionFinal($rondas,$mangas,5);
+				$result[5]=$r['rows'];
+			}
 			break;
 		case 1: // large / medium+small
-			$r=$c->clasificacionFinal($rondas,$mangas,0);
-			$result[0]=$r['rows'];
-			$r=$c->clasificacionFinal($rondas,$mangas,3);
-			$result[3]=$r['rows'];
+			if ($rsce) {
+				$r=$c->clasificacionFinal($rondas,$mangas,0);
+				$result[0]=$r['rows'];
+				$r=$c->clasificacionFinal($rondas,$mangas,3);
+				$result[3]=$r['rows'];
+			} else {
+				$r=$c->clasificacionFinal($rondas,$mangas,6);
+				$result[6]=$r['rows'];
+				$r=$c->clasificacionFinal($rondas,$mangas,7);
+				$result[7]=$r['rows'];
+			}
 			break;
 		case 2: // recorrido conjunto large+medium+small
-			$r=$c->clasificacionFinal($rondas,$mangas,4);
-			$result[4]=$r['rows'];
+			if ($rsce) {
+				$r=$c->clasificacionFinal($rondas,$mangas,4);
+				$result[4]=$r['rows'];
+			} else {
+				$r=$c->clasificacionFinal($rondas,$mangas,8);
+				$result[8]=$r['rows'];
+			}
 			break;
 	}
 	

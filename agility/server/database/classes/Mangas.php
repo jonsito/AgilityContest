@@ -82,11 +82,11 @@ class Mangas extends DBObject {
 		1 => array('Medium','M'),
 		2 => array('Small','S'),
 		3 => array('Medium + Small','MS'),
-		4 => array('Large + Medium + Small','LMS'),
+		4 => array('Conjunta L+M+S','LMS'),
 		5 => array('Tiny','T'),
 		6 => array('Large + Medium','LM'),
 		7 => array('Small + Tiny','ST'),
-		8 => array('Large + Medium + Small + Tiny','LMST')
+		8 => array('Conjunta L+M+S+T','LMST')
 	);
 	
 	/**

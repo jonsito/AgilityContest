@@ -124,6 +124,10 @@ function insertInscripcion(dg) {
     	$.messager.alert("No selection","!No ha marcado ningún perro para proceder a su inscripción!","warning");
     	return; // no hay ninguna inscripcion seleccionada. retornar
 	}
+	if (authInfo.Perms>2) {
+    	$.messager.alert("No permission","Sesion con insuficiente permiso para realizar inscripciones","error");
+    	return; // no tiene permiso para realizar inscripciones. retornar
+	}
 	$('#new_inscripcion-progresswindow').window('open');
 	$.each(selectedRows, function(index,row) {
 		$('#new_inscripcion-progresslabel').text("Inscribiendo a: "+row.Nombre);
