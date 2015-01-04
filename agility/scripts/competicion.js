@@ -837,7 +837,7 @@ function resultados_doSelectRonda(row) {
     	$('#datos_manga1-SmallRow').css('display',(rsce)?'none':'table-row');
     	$('#datos_manga1-TinyRow').css('display','none');
     	
-    	$('#datos_manga1-LargeLbl').html("Large+Medium");
+    	$('#datos_manga1-LargeLbl').html((rsce)?"Large":"Large+Medium");
     	$('#datos_manga1-MediumLbl').html((rsce)?"Medium+Small":"&nbsp;");
     	$('#datos_manga1-SmallLbl').html((rsce)?"&nbsp;":"Small+Tiny");
     	$('#datos_manga1-TinyLbl').html("&nbsp;");
@@ -865,7 +865,7 @@ function resultados_doSelectRonda(row) {
 	    	$('#datos_manga2-SmallRow').css('display',(rsce)?'none':'table-row');
 	    	$('#datos_manga2-TinyRow').css('display','none');
 	    	
-	    	$('#datos_manga2-LargeLbl').html("Large+Medium");
+	    	$('#datos_manga2-LargeLbl').html((rsce)?"Large":"Large+Medium");
 	    	$('#datos_manga2-MediumLbl').html((rsce)?"Medium+Small":"&nbsp;");
 	    	$('#datos_manga2-SmallLbl').html((rsce)?"&nbsp;":"Small+Tiny");
 	    	$('#datos_manga2-TinyLbl').html("&nbsp;");
