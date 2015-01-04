@@ -131,7 +131,7 @@ $('#resultados-infolayout').layout();
 $('#resultados-selectCategoria').combobox({
 		valueField:'mode',
 		textField:'text',
-		panelHeight:69,
+		panelHeight:75,
 		onSelect:function (index,row) {	reloadClasificaciones(); }
 });
 
