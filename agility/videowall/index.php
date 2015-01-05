@@ -1,6 +1,9 @@
 <?php 
 require_once(__DIR__."/../server/auth/Config.php");
-$config =new Config()
+$config =new Config();
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
 ?>
 <!DOCTYPE html>
 <html>
@@ -65,6 +68,8 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
    	<a id="selvw-okBtn" href="#" class="easyui-linkbutton" 
    	   	data-options="iconCls: 'icon-ok'" onclick="vw_accept()">Aceptar</a>
 </div>	<!-- botones -->
+
+</div> <!-- contenido -->
 
 <script type="text/javascript">
 $('#selvw-dialog').dialog({
@@ -188,6 +193,5 @@ $(document).ready(function() {
 */
 
 </script>
-</div> <!-- contenido -->
 </body>
 </html> 

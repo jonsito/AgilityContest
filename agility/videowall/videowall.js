@@ -113,7 +113,6 @@ function vwc_updatePendingQueue(event,pendientes) {
 		success: function(data,status,jqxhr) {
 			$('#vwc_listaPendientes').html(data);
 			var str=$('#vw_NombrePrueba').val()+" - "+$('#vw_NombreJornada').val();
-			alert(str);
 			$('#vw_llamada-infocabecera').html(str);
 		}
 	});
@@ -234,7 +233,7 @@ function vwos_updateOrdenSalida(data) {
 		},
 		success: function(data,status,jqxhr) {
 			$('#vw_ordensalida-data').html(data);
-			var str=$('#vw_NombrePrueba').val()+" - "+$('#vw_NombreJornada').val();
+			var str=$('#vw_NombrePrueba').val()+" - "+$('#vw_NombreJornada').val()+" - "+$('#vw_NombreManga').val();
 			$('#vw_ordensalida-infocabecera').html(str);
 		}
 	});

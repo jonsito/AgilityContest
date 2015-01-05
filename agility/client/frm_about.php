@@ -20,8 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		style="border:1px solid #000000;margin:10px;float:right;padding:5px">
 	<dl>
 		<dt>
-			<strong>AgilityContest</strong> es Copyright &copy; 2013-2015 de <em>Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em><br />
-			Inscrito en el Registro Territorial de la Propiedad Intelectual de Madrid. <em>Expediente: 09-RTPI-09439.4/2014</em> 
+			<strong>AgilityContest</strong> es Copyright &copy; 2013-2015 de <em>Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em>
 		</dt>
 		<dd>
 		El código fuente está disponible en <a href="https://github.com/jonsito/AgilityContest">https://github.com/jonsito/AgilityContest</a><br />
@@ -38,6 +37,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		</dd>
 	</dl>
 	<hr />
+	<p>
+	Inscrito en el Registro Territorial de la Propiedad Intelectual de Madrid. <em>Expediente: 09-RTPI-09439.4/2014</em> 
+	</p>
 	<p>	
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

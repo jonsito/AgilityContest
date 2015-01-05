@@ -193,6 +193,7 @@ class VideoWall {
 		echo '<input type="hidden" id="vw_NombreSesion" value="'.$this->session['Nombre'].'"/>';
 		echo '<input type="hidden" id="vw_NombrePrueba" value="'.$this->prueba['Nombre'].'"/>';
 		echo '<input type="hidden" id="vw_NombreJornada" value="'.$this->jornada['Nombre'].'"/>';
+		echo '<input type="hidden" id="vw_NombreManga" value="'.VideoWall::$modes[$this->session['Tanda']][3].'"/>';
 	}
 	
 	function videowall_llamada($pendientes) {

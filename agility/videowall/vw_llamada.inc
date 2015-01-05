@@ -41,7 +41,6 @@ $('#vw_llamada-window').window({
 	collapsed:false,
 	resizable:true,
 	onOpen: function() {
-		alert($('#vw_llamada-infocabecera').html());
 		startEventMgr(workingData.sesion,vw_processLlamada);
 	}
 });
