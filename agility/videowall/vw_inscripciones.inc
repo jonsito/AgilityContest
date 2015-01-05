@@ -20,6 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="vw_inscripciones-window">
 	<div id="vw_inscripciones-layout" style="width:100%">
 		<div id="vwi_cabecera" data-options="region:'north',split:false" style="height:10%" class="vw_floatingheader">
+		    <span id="vw_inscripciones-infocabecera">Cabecera</span><br/>
 			<span id="vw_inscripciones-texto" >Listado de inscritos en la jornada</span>
 		</div>
 		<div id="vwi_tabla" data-options="region:'center'">

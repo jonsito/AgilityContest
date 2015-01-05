@@ -201,7 +201,7 @@ function vwi_updateInscripciones(data) {
 			Operation: 'inscripciones',
 			Prueba: data.Prueba,
 			Jornada: data.Jornada,
-			Session: data.Sesion
+			Session: data.Session
 		},
 		success: function(data,status,jqxhr) {
 			$('#vw_inscripcionesJornada').html(data);
