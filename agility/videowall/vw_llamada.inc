@@ -19,8 +19,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="vw_llamada-window">
 	<div id="vw_llamada-layout" style="width:100%">
 		<div id="vw_llamada-Cabecera" data-options="region:'north',split:false" style="height:10%" class="vw_floatingheader">
-			<span style="float:left;" id="vw_llamada-infocabecera">Cabecera</span>
 			<span style="float:right;" id="vw_llamada-Texto">Llamada a pista</span>
+			<span style="float:left;" id="vw_llamada-infocabecera">Cabecera</span>
 		</div>
 		<div id="vw_llamada-Pendientes" data-options="region:'center'">
 			<span id="vwc_listaPendientes"></span>
@@ -41,6 +41,7 @@ $('#vw_llamada-window').window({
 	collapsed:false,
 	resizable:true,
 	onOpen: function() {
+		alert($('#vw_llamada-infocabecera').html());
 		startEventMgr(workingData.sesion,vw_processLlamada);
 	}
 });
