@@ -20,11 +20,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="vw_ordensalida-window">
 	<div id="vw_ordensalida-layout" style="width:100%">
 		<div id="vwi_cabecera" data-options="region:'north',split:false" style="height:10%" class="vw_floatingheader">
+		<span id="vw_ordensalida-infocabecera">Cabecera</span><br/>
 			<span id="vw_ordensalida-texto" >Orden de salida</span>
 			<select id="vw_ordensalida-combogrid" style="width:200px;"></select>
 		</div>
 		<div id="vwi_tabla" data-options="region:'center'">
-			<span id="vw_ordensalidaJornada"></span>
+			<span id="vw_ordensalidaManga"></span>
 		</div>
 	</div>
 </div> <!-- vw_llamada-window -->
@@ -33,7 +34,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 $('#vw_ordensalida-layout').layout({fit:true});
 
 $('#vw_ordensalida-combogrid').combogrid({
-	url: '/agility/server/database/mangaFunctions.php?Operation=enumerate&Jornada='+workingData.jornada,
+	url: '/agility/server/database/mangaFunctions.php',
+	queryParams: {
+		'Operation': 'enumerate',
+		'Jornada' : workingData.jornada
+	},
 	method: 'get',
     fitColumns: true,
     singleSelect: true,
@@ -47,11 +52,11 @@ $('#vw_ordensalida-combogrid').combogrid({
 		{ field:'Grado',		hidden:true }, // Grado de los perros de la manga
 		{ field:'Recorrido',	hidden:true }, // 0:L/M/S 1:L/M+S 2:L+M+S
 		{ field:'Descripcion',	width:200, sortable:false, align:'right',
-		      	    formatter: function(val,row){ // si manga especial, obtener texto del campo observaciones
-		           	    if (row.Tipo!=16) return val;
-		           	    if (workingData.datosJornada.Observaciones==="") return val;
-		               	    return workingData.datosJornada.Observaciones;
-		       	    }
+		      	formatter: function(val,row){ // si manga especial, obtener texto del campo observaciones
+		       	    if (row.Tipo!=16) return val;
+		       	    if (workingData.datosJornada.Observaciones==="") return val;
+	           	    return workingData.datosJornada.Observaciones;
+	       	    }
 		}, // texto del tipo de manga
 	]],
 	onBeforeLoad: function(param) { 

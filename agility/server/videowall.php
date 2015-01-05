@@ -233,6 +233,7 @@ class VideoWall {
 			';
 		}
 		echo '</table>';
+		return 0;
 	}
 
 	function videowall_resultados($idsesion) {
@@ -324,6 +325,7 @@ class VideoWall {
 			';
 		}
 		echo '</tbody></table></div>';
+		return 0;
 	}
 	
 	function videowall_livestream() {
@@ -377,7 +379,14 @@ class VideoWall {
 			echo "</tr>";
 			$fila++;
 		}
-	echo '</tbody></table>';
+		echo '</tbody></table>';
+		return 0;
+	}
+	
+	function videowall_ordensalida() {
+		// TODO: write
+		echo "&nbsp;";
+		return 0;
 	}
 } 
 $sesion = http_request("Session","i",0);
@@ -389,6 +398,7 @@ try {
 	if($operacion==="llamada") return $vw->videowall_llamada($sesion,$pendientes);
 	if($operacion==="resultados") return $vw->videowall_resultados($sesion);
 	if($operacion==="inscripciones") return $vw->videowall_inscripciones();
+	if($operacion==="ordensalida") return $vw->videowall_ordensalida();
 } catch (Exception $e) {
 	return "<p>Error:<br />".$e->getMessage()."</p>";
 }

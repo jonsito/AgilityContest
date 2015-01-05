@@ -211,6 +211,20 @@ function vwi_updateInscripciones(data) {
 
 function vwos_paintOrdenSalida(prueba,jornada,manga) {
 	// alert("Prueba:"+prueba+" Jornada:"+jornada+" Manga:"+manga);
+	$.ajax( {
+		type: "GET",
+		dataType: 'html',
+		url: "/agility/server/videowall.php",
+		data: {
+			Operation: 'ordensalida',
+			Prueba: prueba,
+			Jornada: jornada,
+			Manga: manga,
+		},
+		success: function(data,status,jqxhr) {
+			$('#vw_inscripcionesJornada').html(data);
+		}
+	});
 }
 
 /**
