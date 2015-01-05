@@ -22,52 +22,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<div id="vwi_cabecera" data-options="region:'north',split:false" style="height:10%" class="vw_floatingheader">
 		<span id="vw_ordensalida-infocabecera">Cabecera</span><br/>
 			<span id="vw_ordensalida-texto" >Orden de salida</span>
-			<select id="vw_ordensalida-combogrid" style="width:200px;"></select>
 		</div>
 		<div id="vwi_tabla" data-options="region:'center'">
-			<span id="vw_ordensalidaManga"></span>
+			<span id="vw_ordensalida-data"></span>
 		</div>
 	</div>
 </div> <!-- vw_llamada-window -->
 
 <script type="text/javascript">
 $('#vw_ordensalida-layout').layout({fit:true});
-
-$('#vw_ordensalida-combogrid').combogrid({
-	url: '/agility/server/database/mangaFunctions.php',
-	queryParams: {
-		'Operation': 'enumerate',
-		'Jornada' : workingData.jornada
-	},
-	method: 'get',
-    fitColumns: true,
-    singleSelect: true,
-    showHeader: false,
-    idField: 'ID',
-    textField: 'Descripcion',
-    editable: false,
-	columns:[[
-		{ field:'ID',			hidden:true }, // ID de la jornada
-		{ field:'Tipo',			hidden:true }, // Tipo de manga
-		{ field:'Grado',		hidden:true }, // Grado de los perros de la manga
-		{ field:'Recorrido',	hidden:true }, // 0:L/M/S 1:L/M+S 2:L+M+S
-		{ field:'Descripcion',	width:200, sortable:false, align:'right',
-		      	formatter: function(val,row){ // si manga especial, obtener texto del campo observaciones
-		       	    if (row.Tipo!=16) return val;
-		       	    if (workingData.datosJornada.Observaciones==="") return val;
-	           	    return workingData.datosJornada.Observaciones;
-	       	    }
-		}, // texto del tipo de manga
-	]],
-	onBeforeLoad: function(param) { 
-		if (workingData.jornada==0) return false; // do not load if no jornada declared
-		return true;
-	},
-	onChange: function(value) {
-		workingData.manga=value;
-		vwos_paintOrdenSalida(workingData.prueba,workingData.jornada,value);
-	}
-});
 
 //add 'callback' property to store interval references
 $.extend($.fn.window.defaults,{callback:null});
@@ -84,7 +47,7 @@ $('#vw_ordensalida-window').window({
 	onOpen: function() {
 		// call once and then fire as timed task
 		vwos_procesaOrdenSalida();
-		var a=setInterval(vwos_procesaOrdenSalida,30000);
+		var a=setInterval(vwos_procesaOrdenSalida,10000);
 		$(this).window.defaults.callback=a; 
 	},
 	onClose: function() { 

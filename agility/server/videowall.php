@@ -189,7 +189,7 @@ class VideoWall {
 		return (($row%2)!=0)?$this->config->getEnv("vw_rowcolor1"):$this->config->getEnv("vw_rowcolor2");
 	}
 	
-	function videowall_llamada($idsesion,$pendientes) {
+	function videowall_llamada($pendientes) {
 		$lastTanda="";
 		$otmgr=new OrdenTandas("Llamada a pista");
 		$result = $otmgr->getData($this->session['Prueba'],$this->session['Jornada'],$pendientes,$this->session['Tanda'])['rows']; // obtiene los 10 primeros perros pendientes
@@ -236,7 +236,7 @@ class VideoWall {
 		return 0;
 	}
 
-	function videowall_resultados($idsesion) {
+	function videowall_resultados() {
 		$resmgr=new Resultados("videowall_resultados",$this->session['Prueba'], $this->session['Manga'] );
 		// obtenemos modo de resultados asociado a la manga
 		$myManga=$this->myDBObject->__getObject("Mangas",$this->session['Manga']);
@@ -384,19 +384,65 @@ class VideoWall {
 	}
 	
 	function videowall_ordensalida() {
-		// TODO: write
-		echo "&nbsp;";
+		$lastCategoria="";
+		$osmgr=new OrdenSalida("Llamada a pista");
+		$result = $osmgr->getData($this->session['Prueba'],$this->session['Jornada'],$this->session['Manga'])['rows']; // obtiene los 10 primeros perros pendientes
+		$numero=0;
+		echo '<table class="vwc_callEntry">';
+		foreach ($result as $participante) {
+			if ($lastCategoria!==$participante['Categoria']){
+				$lastCategoria=$participante['Categoria'];
+				$categ=VideoWall::$cat[$lastCategoria];
+				$mangastr=VideoWall::$modes[$this->session['Tanda']][3];
+				echo '<tr><td colspan="5" class="vwc_callEntry vwc_callTanda">---- '.$mangastr.' - '.$categ.' ----</td></tr>';
+				$numero=0;
+			}
+			$numero++;
+			$logo=$osmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
+			if ($logo==="") $logo='rsce.png';
+			$celo=($participante['Celo']==='1')?'Si':'No';
+			$pcolor=($participante['Pendiente']==0)?"#000000":"#FF0000"; // foreground color=red if pendiente
+			$bg=$this->getBackground($numero);
+			echo '
+				<tr id="participante_{$numero}" style="background:'.$bg.';">
+					<td class="vwc_callEntry vwc_callNumero" style="color:'.$pcolor.';">'.$numero.'</td>
+					<td class="vwc_callEntry vwc_callLogo">
+						<!-- trick to insert a resizeable image: use div+bgimage instead of img tag -->
+						<div style="height=100%;
+									position:relative;
+									background:url(\'/agility/images/logos/'.$logo.'\')no-repeat;
+									background-size:contain;
+									background-position:center;
+									font-size:600%">&nbsp;</div>
+					</td>
+					<td class="vwc_callEntry vwc_callDatos">
+						Dorsal: '.$participante['Dorsal'].'<br />
+						Lic. : '.$participante['Licencia'].'<br />
+						Grado: '.$participante['Grado'].'<br />	
+						Cat. : '.$participante['Categoria'].'		
+					</td>
+					<td class="vwc_callEntry vwc_callGuiaClub">
+						Gu&iacute;a: '.$participante['NombreGuia'].'<br />
+						Club: '.$participante['NombreClub'].'<br />
+						Celo: '.$celo.'	
+					</td>				
+					<td class="vwc_callEntry vwc_callNombre">'.$participante['Nombre'].'</td>
+				</tr>
+			';
+		}
+		echo '</table>';
 		return 0;
 	}
 } 
+
 $sesion = http_request("Session","i",0);
 $operacion = http_request("Operation","s",null);
 $pendientes = http_request("Pendientes","i",10);
 $vw=new VideoWall($sesion);
 try {
 	if($operacion==="livestream") return $vw->videowall_livestream();
-	if($operacion==="llamada") return $vw->videowall_llamada($sesion,$pendientes);
-	if($operacion==="resultados") return $vw->videowall_resultados($sesion);
+	if($operacion==="llamada") return $vw->videowall_llamada($pendientes);
+	if($operacion==="resultados") return $vw->videowall_resultados();
 	if($operacion==="inscripciones") return $vw->videowall_inscripciones();
 	if($operacion==="ordensalida") return $vw->videowall_ordensalida();
 } catch (Exception $e) {

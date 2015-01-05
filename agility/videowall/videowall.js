@@ -209,46 +209,28 @@ function vwi_updateInscripciones(data) {
 	});
 }
 
-function vwos_paintOrdenSalida(prueba,jornada,manga) {
-	// alert("Prueba:"+prueba+" Jornada:"+jornada+" Manga:"+manga);
-	$.ajax( {
-		type: "GET",
-		dataType: 'html',
-		url: "/agility/server/videowall.php",
-		data: {
-			Operation: 'ordensalida',
-			Prueba: prueba,
-			Jornada: jornada,
-			Manga: manga,
-		},
-		success: function(data,status,jqxhr) {
-			$('#vw_inscripcionesJornada').html(data);
-		}
-	});
-}
-
 /**
  * Refresca periodicamente el orden de salida correspondiente
  * a la seleccion especificada
  * Se indica tambien si el perro esta o no pendiente de salir
  */
 function vwos_updateOrdenSalida(data) {
-	if (data.Jornada==0) { // nada que presentar - operador hace logout
-		// TODO: borra datos
-		workingData.jornada=0;
-		workingData.prueba=0;
-		workingData.manga=0;
-		return;
-	}
-	if ( workingData.jornada != data.Jornada ) { // operador cambia de jornada - hace login 
-		// recupera rondas de la nueva jornada y selecciona la primera
-		// TODO: write
-		// marca nueva jornada como activa
-		workingData.jornada=data.Prueba;
-		workingData.jornada=data.Jornada;
-		workingData.manga=data.Manga;
-	}
-	vwos_paintOrdenSalida(workingData.prueba, workingData.jornada, workingData.manga);
+	// var t=new Date().getTime();
+	// $('#vw_inscripcionesJornada').html('Jornada:'+jornada+' '+t);
+	$.ajax( {
+		type: "GET",
+		dataType: 'html',
+		url: "/agility/server/videowall.php",
+		data: {
+			Operation: 'ordensalida',
+			Prueba: data.Prueba,
+			Jornada: data.Jornada,
+			Session: data.Session
+		},
+		success: function(data,status,jqxhr) {
+			$('#vw_ordensalida-data').html(data);
+		}
+	});
 }
 
 function vwc_processCombinada(id,evt) {
