@@ -15,13 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-
 <!-- Presentacion del orden de salida de la jornada -->
 <div id="vw_ordensalida-window">
 	<div id="vw_ordensalida-layout" style="width:100%">
-		<div id="vwi_cabecera" data-options="region:'north',split:false" style="height:10%" class="vw_floatingheader">
-		<span id="vw_ordensalida-infocabecera">Cabecera</span><br/>
-			<span id="vw_ordensalida-texto" >Orden de salida</span>
+		<div id="vwi_ordensalida-Cabecera" data-options="region:'north',split:false" style="height:10%" class="vw_floatingheader">
+			<span style="float:left;" id="vw_ordensalida-infocabecera">Cabecera</span>
+			<span style="float:right;" id="vw_ordensalida-texto" >Orden de salida</span>
 		</div>
 		<div id="vwi_tabla" data-options="region:'center'">
 			<span id="vw_ordensalida-data"></span>

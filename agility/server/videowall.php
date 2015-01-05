@@ -189,11 +189,18 @@ class VideoWall {
 		return (($row%2)!=0)?$this->config->getEnv("vw_rowcolor1"):$this->config->getEnv("vw_rowcolor2");
 	}
 	
+	function generateHeaderInfo() {
+		echo '<input type="hidden" id="vw_NombreSesion" value="'.$this->session['Nombre'].'"/>';
+		echo '<input type="hidden" id="vw_NombrePrueba" value="'.$this->prueba['Nombre'].'"/>';
+		echo '<input type="hidden" id="vw_NombreJornada" value="'.$this->jornada['Nombre'].'"/>';
+	}
+	
 	function videowall_llamada($pendientes) {
 		$lastTanda="";
 		$otmgr=new OrdenTandas("Llamada a pista");
 		$result = $otmgr->getData($this->session['Prueba'],$this->session['Jornada'],$pendientes,$this->session['Tanda'])['rows']; // obtiene los 10 primeros perros pendientes
 		$numero=0;
+		$this->generateHeaderInfo();
 		echo '<table class="vwc_callEntry">';
 		foreach ($result as $participante) {
 			if ($lastTanda!==$participante['Tanda']){
@@ -249,6 +256,7 @@ class VideoWall {
 		$numero=0;
 		$mangastr=VideoWall::$modes[$this->session['Tanda']][3]." - ".VideoWall::$modestr[$mode];
 		// cabecera de la tabla
+		$this->generateHeaderInfo();
 		echo '
 			<!-- Datos de TRS y TRM -->
 			<div id="vwc_tablaTRS">
@@ -343,6 +351,7 @@ class VideoWall {
 		$result=$imgr->inscritosByJornada($this->jornada['ID']);
 		$club=0;
 		$fila=0; // used to set table background color
+		$this->generateHeaderInfo();
 		echo '<table style="width:100%"><tbody>';
 		foreach ($result['rows'] as $i) {
 			if ($club!=$i['Club']) {
@@ -388,6 +397,7 @@ class VideoWall {
 		$osmgr=new OrdenSalida("Llamada a pista");
 		$result = $osmgr->getData($this->session['Prueba'],$this->session['Jornada'],$this->session['Manga'])['rows']; // obtiene los 10 primeros perros pendientes
 		$numero=0;
+		$this->generateHeaderInfo();
 		echo '<table class="vwc_callEntry">';
 		foreach ($result as $participante) {
 			if ($lastCategoria!==$participante['Categoria']){

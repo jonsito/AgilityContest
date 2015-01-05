@@ -177,7 +177,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	color: <?php echo $config->getEnv('vw_hdrfg1')?>;
 	font-weight: bold;
 	font-style: italic;
-	font-size:1.5em;
+	font-size:2.0em;
 }
 
 /************************** Elementos de la tabla de inscritos a la prueba ************/
