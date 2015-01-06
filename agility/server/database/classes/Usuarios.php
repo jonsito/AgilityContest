@@ -99,17 +99,17 @@ class Usuarios extends DBObject {
 	}	
 	
 	/**
-	 * Select juez with provided ID
-	 * @param {string} $juez name primary key
+	 * Select user with provided ID
+	 * @param {string} $user name primary key
 	 * @return "" on success ; otherwise null
 	 */
 	function selectByID($id) {
 		$this->myLogger->enter();
-		if ($id<=0) return $this->error("Invalid User ID"); // Juez ID must be positive greater than 0 
+		if ($id<=0) return $this->error("Invalid User ID"); // User ID must be positive greater than 0 
 
 		// make query
 		$obj=$this->__getObject("Usuarios",$id);
-		if (!is_object($obj))	return $this->error("No Juez found with provided ID=$id");
+		if (!is_object($obj))	return $this->error("No user found with provided ID=$id");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();

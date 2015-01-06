@@ -33,12 +33,13 @@ try {
 	$user=http_request("Username","s",null);
 	$pass=http_request("Password","s",null);
 	$sid=http_request("Session","i",0);
+	$sk=http_request("SessionKey","s","");
 	if ($operation===null) throw new Exception("Call to userFunctions without 'Operation' requested");
 	switch ($operation) {
 		case "insert": $am->access(PERMS_ADMIN); $result=$users->insert(); break;
 		case "update": $am->access(PERMS_ADMIN); $result=$users->update($id); break;
 		case "delete": $am->access(PERMS_ADMIN); $result=$users->delete($id); break;
-		case "password": $result=$am->setPassword($id,$pass); break; // access checks are done inside method
+		case "password": $result=$am->setPassword($id,$pass,$sk); break; // access checks are done inside method
 		case "selectbyid": $result=$users->selectByID($id); break;
 		case "select": $result=$users->select(); break; // list with order, index, count and where
 		case "enumerate": $result=$users->enumerate(); break; // list with where

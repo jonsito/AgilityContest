@@ -48,21 +48,30 @@ class AuthManager {
 		} 
 		/* if found evaluate for expiration and level */
 		$sk=$hdrs['X-AC-SessionKey'];
-		$obj=$this->mySessionMgr->__selectObject("*","Sesiones","( SessionKey='$sk')");
-		if (!$obj) throw new Exception ("Invalid session key: '$sk'");
-		$userid=$obj->Operador;
-
-		$this->myLogger->info("SessionKey:'$sk' belongs to userid:'$userid'");
-		$lastModified=$obj->LastModified;
-		/* if token expired throw exception */
-		// TODO: write
-		// else retrieve permission level
-		$obj=$this->mySessionMgr->__getObject("Usuarios",$userid);
-		if (!$obj) throw new Exception("Provided SessionKey:'$sk' gives invalid User ID: '$userid'");
+		$obj=$this->getUserByKey($sk);
 		$this->myLogger->info("Username:{$obj->Login} Perms:{$obj->Perms}");
 		$this->level=$obj->Perms;
 		$this->mySessionKey=$sk;
 		$this->operador=$obj->ID;
+	}
+	
+	/**
+	 * Localiza al usuario que tiene la SessionKey indicada
+	 * @param {string} $sk SessionKey
+	 * @return object throw exception
+	 */
+	function getUserByKey($sk) {
+		$obj=$this->mySessionMgr->__selectObject("*","Sesiones","( SessionKey='$sk')");
+		if (!$obj) throw new Exception ("Invalid session key: '$sk'");
+		$userid=$obj->Operador;
+		$this->myLogger->info("SessionKey:'$sk' belongs to userid:'$userid'");
+		/* if token expired throw exception */
+		// TODO: write
+		// $lastModified=$obj->LastModified;
+		// else retrieve permission level
+		$obj=$this->mySessionMgr->__getObject("Usuarios",$userid);
+		if (!$obj) throw new Exception("Provided SessionKey:'$sk' gives invalid User ID: '$userid'");
+		return $obj;
 	}
 	
 	/**
@@ -170,8 +179,9 @@ class AuthManager {
 	 * @throws Exception on error
 	 * @return string "" on success; else error message
 	 */
-	function setPassword($id,$pass) {
-		switch ($this->level) {
+	function setPassword($id,$pass,$sk) {
+		$u=$this->getUserByKey($sk);
+		switch ($u->Perms) {
 			case 5:
 			case 4: throw new Exception("Guest accounts cannot change password");
 				// no break needeed
