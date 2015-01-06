@@ -87,10 +87,10 @@ class Sesiones extends DBObject {
 		$nombre =	$data['Nombre'];
 		$comentario=$data['Comentario'];
 		$prueba =	$data['Prueba'];
-		$jornada =	$data['Jornada'];
-		$manga =	$data['Manga'];
-		$tanda =	$data['Tanda'];
-		$operador =	$data['Operador'];
+		$jornada =	http_request("Jornada","i",0); // cannot be null
+		$manga =	http_request("Manga","i",0); // cannot be null
+		$tanda =	http_request("Tanda","i",0); // cannot be null
+		$operador =	http_request("Operador","i",1); // cannot be null
 		$sessionkey=array_key_exists('SessionKey',$data)?$data['SessionKey']:null;
 		
 		// invocamos la orden SQL y devolvemos el resultado

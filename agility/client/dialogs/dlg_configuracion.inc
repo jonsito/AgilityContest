@@ -61,7 +61,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<input name="vw_rowcolor1" type="color" value="#e0e0e0"/><br />
 		<label for="vw_rowcolor2">Color de fondo las filas impares</label>
 		<input name="vw_rowcolor2" type="color" value="#c0c0c0"/><br />
-		<h3>Generaci&oacute;n de Informes</h3>
+		<h3>Generaci&oacute;n de Informes PDF</h3>
 		<label for="pdf_topmargin">Margen superior impr. etiquetas (mmts)</label>
 		<input name="pdf_topmargin" type="text" size="4" value="10.0"/><br />
 		<label for="pdf_hdrbg1">Color de fondo de la cabecera principal</label>

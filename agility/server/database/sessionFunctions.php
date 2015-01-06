@@ -29,11 +29,11 @@ try {
 	// parse only provided variables
 	$data=testAndSet($data,"Nombre","s","-- Sin asignar --");
 	$data=testAndSet($data,"Comentario","s","");
-	$data=testAndSet($data,"Prueba","i",0);
+	$data["Prueba"]=http_request("Prueba","i",1); // cannot be null
 	$data=testAndSet($data,"Jornada","i",0);
 	$data=testAndSet($data,"Manga","i",0);
 	$data=testAndSet($data,"Tanda","i",0);
-	$data=testAndSet($data,"Operador","i",1); // default user ID 1
+	$data=testAndSet($data,"Operador","i",1);
 	$data=testAndSet($data,"LiveStream","s","");
 	$data=testAndSet($data,"LiveStream2","s","");
 	$data=testAndSet($data,"LiveStream3","s","");
