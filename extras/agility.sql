@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.1
+-- version 4.3.4
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 03-01-2015 a las 21:24:05
+-- Tiempo de generación: 06-01-2015 a las 10:53:24
 -- Versión del servidor: 5.5.40-MariaDB
 -- Versión de PHP: 5.5.20
 
@@ -57,7 +57,7 @@ INSERT INTO `Categorias_Perro` (`Categoria`, `Observaciones`) VALUES
 
 DROP TABLE IF EXISTS `Clubes`;
 CREATE TABLE IF NOT EXISTS `Clubes` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL DEFAULT '',
   `Direccion1` varchar(255) DEFAULT NULL,
   `Direccion2` varchar(255) DEFAULT NULL,
@@ -186,7 +186,7 @@ INSERT INTO `Clubes` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `
 
 DROP TABLE IF EXISTS `Equipos`;
 CREATE TABLE IF NOT EXISTS `Equipos` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '1',
   `Nombre` varchar(255) NOT NULL,
   `Observaciones` varchar(255) DEFAULT NULL
@@ -211,13 +211,13 @@ INSERT INTO `Equipos` (`ID`, `Prueba`, `Nombre`, `Observaciones`) VALUES
 
 DROP TABLE IF EXISTS `Eventos`;
 CREATE TABLE IF NOT EXISTS `Eventos` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Session` int(4) NOT NULL,
   `Source` varchar(255) NOT NULL,
   `Type` varchar(255) NOT NULL,
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Data` varchar(255) NOT NULL DEFAULT ''
-) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=203 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `Eventos`
@@ -318,7 +318,115 @@ INSERT INTO `Eventos` (`ID`, `Session`, `Source`, `Type`, `Timestamp`, `Data`) V
 (92, 1, 'tablet_1', 'llamada', '2015-01-03 16:27:33', '{"ID":0,"Session":1,"TimeStamp":0,"Type":"llamada","Source":"tablet_1","Prueba":4,"Jornada":17,"Manga":16,"Tanda":7,"Perro":586,"Dorsal":21,"Celo":0,"Faltas":0,"Tocados":0,"Rehuses":0,"NoPresentado":0,"Eliminado":0,"Tiempo":0,"Value":-1}'),
 (93, 1, 'tablet_1', 'aceptar', '2015-01-03 16:28:02', '{"ID":0,"Session":1,"TimeStamp":0,"Type":"aceptar","Source":"tablet_1","Prueba":4,"Jornada":17,"Manga":16,"Tanda":7,"Perro":586,"Dorsal":0,"Celo":0,"Faltas":0,"Tocados":0,"Rehuses":0,"NoPresentado":0,"Eliminado":0,"Tiempo":23.45,"Value":-1}'),
 (94, 1, 'tablet_1', 'llamada', '2015-01-03 16:33:29', '{"ID":0,"Session":1,"TimeStamp":0,"Type":"llamada","Source":"tablet_1","Prueba":4,"Jornada":17,"Manga":16,"Tanda":7,"Perro":510,"Dorsal":26,"Celo":0,"Faltas":0,"Tocados":0,"Rehuses":0,"NoPresentado":0,"Eliminado":1,"Tiempo":0,"Value":-1}'),
-(95, 1, 'tablet_1', 'cancelar', '2015-01-03 16:33:32', '{"ID":0,"Session":1,"TimeStamp":0,"Type":"cancelar","Source":"tablet_1","Prueba":4,"Jornada":17,"Manga":16,"Tanda":7,"Perro":510,"Dorsal":0,"Celo":0,"Faltas":0,"Tocados":0,"Rehuses":0,"NoPresentado":0,"Eliminado":1,"Tiempo":0,"Value":-1}');
+(95, 1, 'tablet_1', 'cancelar', '2015-01-03 16:33:32', '{"ID":0,"Session":1,"TimeStamp":0,"Type":"cancelar","Source":"tablet_1","Prueba":4,"Jornada":17,"Manga":16,"Tanda":7,"Perro":510,"Dorsal":0,"Celo":0,"Faltas":0,"Tocados":0,"Rehuses":0,"NoPresentado":0,"Eliminado":1,"Tiempo":0,"Value":-1}'),
+(96, 1, 'tablet_1', 'init', '2015-01-04 18:41:59', '{"Operador":"5","SessionKey":"Y82bv6lZk4oIrpGe","Prueba":2,"Jornada":1,"Manga":0,"Tanda":0,"Perro":0,"UserID":"5","Login":"assistant","Password":"","Gecos":"Asistente del juez (tablet)","Phone":"","Email":"","Perms":"3","Type":"init","Source":"tablet_1"}'),
+(97, 1, 'tablet_0', 'open', '2015-01-04 18:42:24', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(98, 1, 'tablet_0', 'open', '2015-01-04 18:42:39', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":29,"Tanda":3,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(99, 1, 'tablet_0', 'open', '2015-01-04 18:42:44', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":29,"Tanda":4,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(100, 1, 'tablet_0', 'open', '2015-01-04 18:42:49', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":29,"Tanda":41,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(101, 1, 'tablet_0', 'open', '2015-01-04 18:43:00', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":30,"Tanda":6,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(102, 1, 'tablet_0', 'open', '2015-01-04 18:43:13', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":31,"Tanda":9,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(103, 1, 'tablet_0', 'open', '2015-01-04 18:43:22', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":31,"Tanda":10,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(104, 1, 'tablet_0', 'open', '2015-01-04 18:43:30', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":31,"Tanda":43,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(105, 1, 'tablet_0', 'open', '2015-01-04 18:43:37', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":31,"Tanda":11,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(106, 1, 'tablet_0', 'open', '2015-01-04 18:43:45', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":31,"Tanda":10,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(107, 1, 'tablet_0', 'open', '2015-01-04 18:44:51', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":31,"Tanda":10,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(108, 1, 'tablet_0', 'open', '2015-01-04 18:45:16', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":31,"Tanda":11,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(109, 1, 'tablet_0', 'open', '2015-01-04 18:45:33', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":32,"Tanda":23,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(110, 1, 'tablet_0', 'open', '2015-01-04 18:45:54', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":32,"Tanda":23,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(111, 1, 'tablet_1', 'init', '2015-01-04 22:44:19', '{"Operador":"5","SessionKey":"jxkXH2aMKF6hp5IQ","Prueba":2,"Jornada":1,"Manga":0,"Tanda":0,"Perro":0,"UserID":"5","Login":"assistant","Password":"","Gecos":"Asistente del juez (tablet)","Phone":"","Email":"","Perms":"3","Type":"init","Source":"tablet_1"}'),
+(112, 1, 'tablet_0', 'open', '2015-01-04 22:44:25', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":30,"Tanda":6,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(113, 1, 'tablet_0', 'open', '2015-01-04 22:44:42', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(114, 1, 'tablet_0', 'open', '2015-01-04 22:45:18', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(115, 1, 'tablet_0', 'open', '2015-01-04 22:45:23', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":31,"Tanda":9,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(116, 1, 'tablet_0', 'open', '2015-01-04 22:45:38', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":31,"Tanda":43,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(117, 1, 'tablet_0', 'open', '2015-01-04 22:46:39', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":31,"Tanda":43,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(118, 1, 'tablet_0', 'open', '2015-01-04 22:47:25', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":31,"Tanda":9,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(119, 1, 'tablet_1', 'init', '2015-01-05 10:02:35', '{"Operador":"4","SessionKey":"wb1NOn4CoErfVc7M","Prueba":3,"Jornada":9,"Manga":0,"Tanda":0,"Perro":0,"UserID":"4","Login":"operator","Password":"","Gecos":"Operador de consola","Phone":"","Email":"","Perms":"2","Type":"init","Source":"tablet_1"}'),
+(120, 1, 'tablet_0', 'open', '2015-01-05 10:02:39', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":9,"Manga":1,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(121, 1, 'tablet_1', 'llamada', '2015-01-05 10:02:56', '{"ID":0,"Session":1,"TimeStamp":0,"Type":"llamada","Source":"tablet_1","Prueba":3,"Jornada":9,"Manga":1,"Tanda":1,"Perro":562,"Dorsal":19,"Celo":0,"Faltas":3,"Tocados":0,"Rehuses":0,"NoPresentado":0,"Eliminado":0,"Tiempo":27.15,"Value":-1}'),
+(122, 1, 'tablet_1', 'cancelar', '2015-01-05 10:03:33', '{"ID":0,"Session":1,"TimeStamp":0,"Type":"cancelar","Source":"tablet_1","Prueba":3,"Jornada":9,"Manga":1,"Tanda":1,"Perro":562,"Dorsal":0,"Celo":0,"Faltas":3,"Tocados":0,"Rehuses":0,"NoPresentado":0,"Eliminado":0,"Tiempo":27.15,"Value":-1}'),
+(123, 1, 'tablet_1', 'init', '2015-01-05 10:03:46', '{"Operador":"4","SessionKey":"wM58ATlHPNYXiucB","Prueba":3,"Jornada":10,"Manga":0,"Tanda":0,"Perro":0,"UserID":"4","Login":"operator","Password":"","Gecos":"Operador de consola","Phone":"","Email":"","Perms":"2","Type":"init","Source":"tablet_1"}'),
+(124, 1, 'tablet_0', 'open', '2015-01-05 10:03:48', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":10,"Manga":8,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(125, 1, 'tablet_0', 'open', '2015-01-05 10:03:49', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":10,"Manga":8,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(126, 1, 'tablet_0', 'open', '2015-01-05 10:09:25', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":10,"Manga":8,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(127, 1, 'tablet_1', 'init', '2015-01-05 10:10:53', '{"Operador":"4","SessionKey":"1VNrxGkI23qDFiYM","Prueba":3,"Jornada":10,"Manga":0,"Tanda":0,"Perro":0,"UserID":"4","Login":"operator","Password":"","Gecos":"Operador de consola","Phone":"","Email":"","Perms":"2","Type":"init","Source":"tablet_1"}'),
+(128, 1, 'tablet_0', 'open', '2015-01-05 10:33:05', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":10,"Manga":9,"Tanda":3,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(129, 1, 'tablet_0', 'open', '2015-01-05 10:45:02', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":10,"Manga":8,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(130, 1, 'tablet_0', 'open', '2015-01-05 10:45:27', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":10,"Manga":11,"Tanda":9,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(131, 1, 'tablet_0', 'open', '2015-01-05 10:46:28', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":10,"Manga":10,"Tanda":8,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(132, 1, 'tablet_0', 'open', '2015-01-05 10:46:57', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":10,"Manga":11,"Tanda":9,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(133, 1, 'tablet_1', 'init', '2015-01-05 14:18:13', '{"Operador":"4","SessionKey":"bgFGD34xCoMYZWBL","Prueba":3,"Jornada":9,"Manga":0,"Tanda":0,"Perro":0,"UserID":"4","Login":"operator","Password":"","Gecos":"Operador de consola","Phone":"","Email":"","Perms":"2","Type":"init","Source":"tablet_1"}'),
+(134, 1, 'tablet_0', 'open', '2015-01-05 14:18:40', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":9,"Manga":1,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(135, 1, 'tablet_0', 'open', '2015-01-05 14:23:53', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":9,"Manga":1,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(136, 1, 'tablet_0', 'open', '2015-01-05 14:26:00', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":9,"Manga":1,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(137, 1, 'tablet_1', 'init', '2015-01-05 14:41:17', '{"Operador":"4","SessionKey":"6FSWV7YbEZqv5fgr","Prueba":3,"Jornada":9,"Manga":0,"Tanda":0,"Perro":0,"UserID":"4","Login":"operator","Password":"","Gecos":"Operador de consola","Phone":"","Email":"","Perms":"2","Type":"init","Source":"tablet_1"}'),
+(138, 1, 'tablet_0', 'open', '2015-01-05 14:41:21', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":9,"Manga":2,"Tanda":4,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(139, 1, 'tablet_0', 'open', '2015-01-05 14:42:14', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":9,"Manga":4,"Tanda":11,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(140, 1, 'tablet_0', 'open', '2015-01-05 14:48:20', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":9,"Manga":1,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(141, 1, 'tablet_0', 'open', '2015-01-05 14:51:11', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":9,"Manga":2,"Tanda":3,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(142, 1, 'tablet_0', 'open', '2015-01-05 15:05:25', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":9,"Manga":1,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(143, 1, 'tablet_0', 'open', '2015-01-05 15:05:52', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":9,"Manga":4,"Tanda":9,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(144, 1, 'tablet_0', 'open', '2015-01-05 15:33:07', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":9,"Manga":2,"Tanda":4,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(145, 1, 'tablet_0', 'open', '2015-01-05 15:33:33', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":3,"Jornada":9,"Manga":6,"Tanda":12,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(146, 1, 'tablet_1', 'init', '2015-01-05 15:35:14', '{"Operador":"4","SessionKey":"HbeS38KiBQGtr2WC","Prueba":2,"Jornada":1,"Manga":0,"Tanda":0,"Perro":0,"UserID":"4","Login":"operator","Password":"","Gecos":"Operador de consola","Phone":"","Email":"","Perms":"2","Type":"init","Source":"tablet_1"}'),
+(147, 1, 'tablet_0', 'open', '2015-01-05 15:35:20', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":31,"Tanda":9,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(148, 1, 'tablet_1', 'llamada', '2015-01-05 15:45:15', '{"ID":0,"Session":1,"TimeStamp":0,"Type":"llamada","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":31,"Tanda":9,"Perro":585,"Dorsal":2,"Celo":0,"Faltas":0,"Tocados":0,"Rehuses":1,"NoPresentado":0,"Eliminado":0,"Tiempo":34.45,"Value":-1}'),
+(149, 1, 'tablet_1', 'cancelar', '2015-01-05 15:45:21', '{"ID":0,"Session":1,"TimeStamp":0,"Type":"cancelar","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":31,"Tanda":9,"Perro":585,"Dorsal":0,"Celo":0,"Faltas":0,"Tocados":0,"Rehuses":1,"NoPresentado":0,"Eliminado":0,"Tiempo":34.45,"Value":-1}'),
+(150, 1, 'tablet_1', 'open', '2015-01-05 15:45:22', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":31,"Tanda":9,"Perro":585,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(151, 1, 'tablet_1', 'open', '2015-01-05 15:45:27', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":31,"Tanda":9,"Perro":585,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(152, 1, 'tablet_1', 'open', '2015-01-05 15:46:49', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":585,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(153, 1, 'tablet_1', 'open', '2015-01-05 16:09:15', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":585,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(154, 1, 'tablet_1', 'open', '2015-01-05 16:10:59', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":31,"Tanda":9,"Perro":585,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(155, 1, 'tablet_1', 'open', '2015-01-05 16:24:28', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":585,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(156, 1, 'tablet_1', 'open', '2015-01-05 16:24:51', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":44,"Tanda":2,"Perro":585,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(157, 1, 'tablet_1', 'open', '2015-01-05 16:25:28', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":585,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(158, 1, 'tablet_1', 'open', '2015-01-05 16:26:04', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":585,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(159, 1, 'tablet_1', 'open', '2015-01-05 16:33:16', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":29,"Tanda":3,"Perro":585,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(160, 1, 'tablet_1', 'llamada', '2015-01-05 16:33:23', '{"ID":0,"Session":1,"TimeStamp":0,"Type":"llamada","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":29,"Tanda":3,"Perro":556,"Dorsal":7,"Celo":0,"Faltas":0,"Tocados":0,"Rehuses":0,"NoPresentado":0,"Eliminado":0,"Tiempo":0,"Value":-1}'),
+(161, 1, 'tablet_1', 'cancelar', '2015-01-05 16:33:32', '{"ID":0,"Session":1,"TimeStamp":0,"Type":"cancelar","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":29,"Tanda":3,"Perro":556,"Dorsal":0,"Celo":0,"Faltas":0,"Tocados":0,"Rehuses":0,"NoPresentado":0,"Eliminado":0,"Tiempo":0,"Value":-1}'),
+(162, 1, 'tablet_1', 'open', '2015-01-05 16:33:37', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":29,"Tanda":3,"Perro":556,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(163, 1, 'tablet_1', 'init', '2015-01-05 16:46:09', '{"Operador":"4","SessionKey":"0exBufbCQ7tiHgLh","Prueba":2,"Jornada":1,"Manga":0,"Tanda":0,"Perro":0,"UserID":"4","Login":"operator","Password":"","Gecos":"Operador de consola","Phone":"","Email":"","Perms":"2","Type":"init","Source":"tablet_1"}'),
+(164, 1, 'tablet_0', 'open', '2015-01-05 16:46:12', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(165, 1, 'tablet_1', 'llamada', '2015-01-05 16:46:30', '{"ID":0,"Session":1,"TimeStamp":0,"Type":"llamada","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":29,"Tanda":3,"Perro":556,"Dorsal":7,"Celo":0,"Faltas":0,"Tocados":0,"Rehuses":0,"NoPresentado":0,"Eliminado":0,"Tiempo":0,"Value":-1}'),
+(166, 1, 'tablet_1', 'cancelar', '2015-01-05 16:46:42', '{"ID":0,"Session":1,"TimeStamp":0,"Type":"cancelar","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":29,"Tanda":3,"Perro":556,"Dorsal":0,"Celo":0,"Faltas":0,"Tocados":0,"Rehuses":0,"NoPresentado":0,"Eliminado":0,"Tiempo":0,"Value":-1}'),
+(167, 1, 'tablet_1', 'open', '2015-01-05 16:46:43', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":30,"Tanda":6,"Perro":556,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(168, 1, 'tablet_1', 'open', '2015-01-05 16:46:55', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":31,"Tanda":9,"Perro":556,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(169, 1, 'tablet_1', 'open', '2015-01-05 16:48:03', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":556,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}');
+INSERT INTO `Eventos` (`ID`, `Session`, `Source`, `Type`, `Timestamp`, `Data`) VALUES
+(170, 1, 'tablet_1', 'open', '2015-01-05 16:56:11', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":556,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(171, 1, 'tablet_1', 'open', '2015-01-05 17:11:07', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":556,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(172, 1, 'tablet_1', 'open', '2015-01-05 17:12:18', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":556,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(173, 1, 'tablet_1', 'open', '2015-01-05 17:15:11', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":556,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(174, 1, 'tablet_1', 'open', '2015-01-05 17:23:32', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_1","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":556,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(175, 1, 'tablet_1', 'init', '2015-01-05 20:00:41', '{"Operador":"4","SessionKey":"HF4KDqPoSsWbAVIw","Prueba":2,"Jornada":1,"Manga":0,"Tanda":0,"Perro":0,"UserID":"4","Login":"operator","Password":"","Gecos":"Operador de consola","Phone":"","Email":"","Perms":"2","Type":"init","Source":"tablet_1"}'),
+(176, 1, 'tablet_0', 'open', '2015-01-05 20:01:19', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(177, 1, 'tablet_0', 'open', '2015-01-05 20:01:28', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":30,"Tanda":8,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(178, 1, 'tablet_0', 'open', '2015-01-05 20:01:31', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(179, 1, 'tablet_0', 'open', '2015-01-05 20:01:39', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":44,"Tanda":2,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(180, 1, 'tablet_0', 'open', '2015-01-05 20:01:58', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(181, 1, 'tablet_0', 'open', '2015-01-05 20:02:06', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(182, 1, 'tablet_0', 'open', '2015-01-05 20:02:10', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":44,"Tanda":2,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(183, 1, 'tablet_0', 'open', '2015-01-05 20:02:14', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":29,"Tanda":3,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(184, 1, 'tablet_0', 'open', '2015-01-05 20:02:21', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(185, 1, 'tablet_0', 'open', '2015-01-05 20:03:27', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(186, 1, 'tablet_0', 'open', '2015-01-05 20:03:54', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":29,"Tanda":3,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(187, 1, 'tablet_0', 'open', '2015-01-05 20:06:47', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":30,"Tanda":6,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(188, 1, 'tablet_0', 'open', '2015-01-05 20:07:29', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":29,"Tanda":3,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(189, 1, 'tablet_0', 'open', '2015-01-05 20:08:19', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(190, 1, 'tablet_0', 'open', '2015-01-05 20:16:49', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(191, 1, 'tablet_0', 'open', '2015-01-05 20:19:58', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(192, 1, 'tablet_0', 'open', '2015-01-05 20:21:23', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(193, 1, 'tablet_0', 'open', '2015-01-05 20:23:23', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(194, 1, 'tablet_0', 'open', '2015-01-05 20:25:29', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(195, 1, 'tablet_0', 'open', '2015-01-05 20:26:09', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":44,"Tanda":2,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(196, 1, 'tablet_0', 'open', '2015-01-05 20:26:19', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":29,"Tanda":3,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(197, 1, 'tablet_0', 'open', '2015-01-05 20:26:39', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":29,"Tanda":5,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(198, 1, 'tablet_0', 'open', '2015-01-05 20:26:48', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":30,"Tanda":42,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(199, 1, 'tablet_0', 'open', '2015-01-05 20:27:03', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":32,"Tanda":23,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(200, 1, 'tablet_0', 'open', '2015-01-05 20:34:44', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":43,"Tanda":1,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(201, 1, 'tablet_0', 'open', '2015-01-05 20:35:05', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":29,"Tanda":3,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}'),
+(202, 1, 'tablet_0', 'open', '2015-01-05 20:35:47', '{"ID":1,"Session":1,"TimeStamp":0,"Type":"open","Source":"tablet_0","Prueba":2,"Jornada":1,"Manga":31,"Tanda":9,"Perro":0,"Dorsal":0,"Celo":0,"Faltas":-1,"Tocados":-1,"Rehuses":-1,"NoPresentado":-1,"Eliminado":-1,"Tiempo":-1,"Value":-1}');
 
 -- --------------------------------------------------------
 
@@ -358,7 +466,7 @@ INSERT INTO `Grados_Perro` (`Grado`, `Comentarios`) VALUES
 
 DROP TABLE IF EXISTS `Guias`;
 CREATE TABLE IF NOT EXISTS `Guias` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Telefono` varchar(16) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
@@ -866,7 +974,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (493, 'Irene Escribano', '', '', 22, ''),
 (494, 'Cynthia Sánchez', '', '', 22, ''),
 (496, 'Irene Blanco', '', '', 28, ''),
-(497, ' Oscar López', '', '', 28, ''),
+(497, 'Oscar López', '', '', 28, ''),
 (498, 'Virginia Pastor', '', '', 28, ''),
 (499, 'Ruben López', '', '', 48, ''),
 (500, 'Ana Belén Ondategui Casas', '', '', 80, ''),
@@ -895,7 +1003,7 @@ INSERT INTO `Guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 
 DROP TABLE IF EXISTS `Inscripciones`;
 CREATE TABLE IF NOT EXISTS `Inscripciones` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '1',
   `Perro` int(4) NOT NULL,
   `Dorsal` int(4) NOT NULL DEFAULT '0',
@@ -904,7 +1012,7 @@ CREATE TABLE IF NOT EXISTS `Inscripciones` (
   `Equipo` int(4) DEFAULT NULL,
   `Jornadas` int(4) NOT NULL DEFAULT '0',
   `Pagado` int(4) NOT NULL DEFAULT '24'
-) ENGINE=InnoDB AUTO_INCREMENT=178 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=187 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `Inscripciones`
@@ -1076,12 +1184,21 @@ INSERT INTO `Inscripciones` (`ID`, `Prueba`, `Perro`, `Dorsal`, `Celo`, `Observa
 (169, 4, 103, 66, 0, '', 3, 2, 0),
 (170, 4, 605, 55, 0, '', 3, 1, 0),
 (171, 4, 604, 57, 0, '', 3, 3, 0),
-(172, 2, 585, 1, 0, '', 1, 1, 0),
-(173, 2, 389, 2, 0, '', 1, 1, 0),
-(174, 2, 556, 3, 0, '', 1, 1, 0),
-(175, 2, 558, 4, 0, '', 1, 1, 0),
-(176, 2, 119, 5, 0, '', 1, 1, 0),
-(177, 2, 91, 6, 0, '', 1, 1, 0);
+(172, 2, 585, 2, 0, '', 1, 1, 0),
+(173, 2, 389, 3, 0, '', 1, 1, 0),
+(174, 2, 556, 7, 0, '', 1, 1, 0),
+(175, 2, 558, 8, 0, '', 1, 1, 0),
+(176, 2, 119, 12, 0, '', 1, 1, 0),
+(177, 2, 91, 13, 0, '', 1, 1, 0),
+(178, 2, 351, 15, 0, '', 1, 1, 0),
+(179, 2, 353, 10, 0, '', 1, 1, 0),
+(180, 2, 559, 5, 0, '', 1, 1, 0),
+(181, 2, 584, 6, 0, '', 1, 1, 0),
+(182, 2, 560, 4, 0, '', 1, 1, 0),
+(183, 2, 586, 9, 0, '', 1, 1, 0),
+(184, 2, 510, 11, 0, '', 1, 1, 0),
+(185, 2, 354, 1, 0, '', 1, 1, 0),
+(186, 2, 293, 14, 0, '', 1, 1, 0);
 
 --
 -- Disparadores `Inscripciones`
@@ -1111,7 +1228,7 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `Jornadas`;
 CREATE TABLE IF NOT EXISTS `Jornadas` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '1',
   `Numero` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
@@ -1137,7 +1254,7 @@ CREATE TABLE IF NOT EXISTS `Jornadas` (
 --
 
 INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Grado1`, `Grado2`, `Grado3`, `Open`, `Equipos3`, `Equipos4`, `PreAgility`, `KO`, `Especial`, `PreAgility2`, `Cerrada`, `Observaciones`, `Orden_Tandas`) VALUES
-(1, 2, 1, 'sabado', '2013-01-01', '00:00:00', 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, '(sin especificar)', 'BEGIN,2,3,4,5,41,6,7,8,42,9,10,11,43,23,24,25,49,END'),
+(1, 2, 1, 'sabado', '2013-01-01', '00:00:00', 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, '(sin especificar)', 'BEGIN,1,2,3,4,5,41,6,7,8,42,9,10,11,43,23,24,25,49,END'),
 (2, 2, 2, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,END'),
 (3, 2, 3, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,END'),
 (4, 2, 4, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,END'),
@@ -1153,8 +1270,8 @@ INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Gr
 (14, 3, 6, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
 (15, 3, 7, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
 (16, 3, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
-(17, 4, 1, 'Sabado', '2014-12-13', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '(sin especificar)', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
-(18, 4, 2, 'Domingo', '2014-12-14', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, '(sin especificar)', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
+(17, 4, 1, 'Sabado', '2014-12-13', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, '(sin especificar)', 'BEGIN,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
+(18, 4, 2, 'Domingo', '2014-12-14', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, '(sin especificar)', 'BEGIN,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
 (19, 4, 3, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
 (20, 4, 4, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
 (21, 4, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
@@ -1172,7 +1289,7 @@ INSERT INTO `Jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Gr
 
 DROP TABLE IF EXISTS `Jueces`;
 CREATE TABLE IF NOT EXISTS `Jueces` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Direccion1` varchar(255) DEFAULT NULL,
   `Direccion2` varchar(255) DEFAULT NULL,
@@ -1223,7 +1340,7 @@ INSERT INTO `Jueces` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `I
 
 DROP TABLE IF EXISTS `Mangas`;
 CREATE TABLE IF NOT EXISTS `Mangas` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Jornada` int(4) NOT NULL,
   `Tipo` int(4) NOT NULL DEFAULT '1',
   `Grado` varchar(16) NOT NULL DEFAULT '-',
@@ -1264,7 +1381,7 @@ CREATE TABLE IF NOT EXISTS `Mangas` (
   `Juez2` int(4) NOT NULL DEFAULT '1',
   `Observaciones` varchar(255) DEFAULT NULL,
   `Orden_Salida` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `Mangas`
@@ -1289,21 +1406,20 @@ INSERT INTO `Mangas` (`ID`, `Jornada`, `Tipo`, `Grado`, `Recorrido`, `Dist_L`, `
 (16, 17, 4, 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,371,372,356,590,589,591,592,593,596,597,601,576,577,603,79,605,604,TAG_L1,TAG_M0,510,586,588,383,TAG_M1,TAG_S0,411,587,TAG_S1,TAG_T0,TAG_T1,END'),
 (17, 17, 5, 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,387,391,585,75,410,361,365,384,520,575,159,405,404,397,8,598,602,229,52,84,156,424,393,428,607,608,610,609,389,TAG_L1,TAG_M0,360,516,294,351,TAG_M1,TAG_S0,584,440,323,359,363,413,330,427,TAG_S1,TAG_T0,TAG_T1,END'),
 (18, 17, 10, 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,387,391,585,75,410,361,365,384,520,575,159,405,404,397,8,598,602,229,52,84,156,424,393,428,607,608,610,609,389,TAG_L1,TAG_M0,360,516,294,351,TAG_M1,TAG_S0,584,440,323,359,363,413,330,427,TAG_S1,TAG_T0,TAG_T1,END'),
-(19, 17, 6, 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,18,71,68,25,34,78,3,148,10,27,51,46,31,85,TAG_L1,TAG_M0,253,241,350,TAG_M1,TAG_S0,309,314,TAG_S1,TAG_T0,TAG_T1,END'),
-(20, 17, 11, 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,18,71,68,25,34,78,3,148,10,27,51,46,31,85,TAG_L1,TAG_M0,253,241,350,TAG_M1,TAG_S0,309,314,TAG_S1,TAG_T0,TAG_T1,END'),
+(19, 17, 6, 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,18,71,68,25,34,78,3,10,27,51,46,31,85,148,TAG_L1,TAG_M0,253,241,350,TAG_M1,TAG_S0,309,314,TAG_S1,TAG_T0,TAG_T1,END'),
+(20, 17, 11, 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,18,71,68,25,34,78,3,10,27,51,46,31,85,148,TAG_L1,TAG_M0,253,241,350,TAG_M1,TAG_S0,309,314,TAG_S1,TAG_T0,TAG_T1,END'),
 (21, 18, 3, 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,514,592,603,79,604,TAG_L1,TAG_M0,398,595,TAG_M1,TAG_S0,411,565,587,TAG_S1,TAG_T0,TAG_T1,END'),
 (22, 18, 4, 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,514,592,603,79,604,TAG_L1,TAG_M0,398,595,TAG_M1,TAG_S0,411,565,587,TAG_S1,TAG_T0,TAG_T1,END'),
 (23, 18, 5, 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,387,391,585,377,410,361,379,24,365,94,401,522,400,113,61,423,397,8,598,95,602,229,352,52,84,156,424,393,428,607,608,610,609,606,103,389,TAG_L1,TAG_M0,360,272,351,TAG_M1,TAG_S0,584,440,559,560,323,359,418,413,330,427,TAG_S1,TAG_T0,TAG_T1,END'),
 (24, 18, 10, 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,387,391,585,377,410,361,379,24,365,94,401,522,400,113,61,423,397,8,598,95,602,229,352,52,84,156,424,393,428,607,608,610,609,606,103,389,TAG_L1,TAG_M0,360,272,351,TAG_M1,TAG_S0,584,440,559,560,323,359,418,413,330,427,TAG_S1,TAG_T0,TAG_T1,END'),
-(25, 18, 6, 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,18,71,68,220,25,34,65,57,78,148,599,600,10,27,51,46,31,85,TAG_L1,TAG_M0,350,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
-(26, 18, 11, 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,18,71,68,220,25,34,65,57,78,148,599,600,10,27,51,46,31,85,TAG_L1,TAG_M0,350,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
-(27, 1, 1, 'P.A.', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
-(28, 1, 2, 'P.A.', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
-(29, 1, 3, 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,556,558,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
-(30, 1, 4, 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,556,558,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
-(31, 1, 5, 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,585,389,119,91,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
-(32, 1, 10, 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,585,389,119,91,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
-(42, 17, 1, 'P.A.', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', '');
+(25, 18, 6, 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,18,71,68,220,25,34,65,57,78,599,600,10,27,51,46,31,85,148,TAG_L1,TAG_M0,350,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
+(26, 18, 11, 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,18,71,68,220,25,34,65,57,78,599,600,10,27,51,46,31,85,148,TAG_L1,TAG_M0,350,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
+(29, 1, 3, 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,556,558,TAG_L1,TAG_M0,586,510,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
+(30, 1, 4, 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,556,558,TAG_L1,TAG_M0,586,510,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
+(31, 1, 5, 'GII', 1, 165, 21, 165, 21, 165, 21, 165, 21, 0, 100, 's', 1, 50, '%', 3, 0, 's', 1, 50, '%', 3, 3, 's', 1, 50, '%', 5, 0, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,585,389,119,91,TAG_L1,TAG_M0,351,293,TAG_M1,TAG_S0,559,584,560,TAG_S1,TAG_T0,353,354,TAG_T1,END'),
+(32, 1, 10, 'GII', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,585,389,119,91,TAG_L1,TAG_M0,351,293,TAG_M1,TAG_S0,559,584,560,TAG_S1,TAG_T0,353,354,TAG_T1,END'),
+(43, 1, 1, 'P.A.', 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 3, 0, 's', 1, 50, '%', 3, 0, 's', 1, 50, '%', 3, 0, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END'),
+(44, 1, 2, 'P.A.', 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,TAG_L1,TAG_M0,TAG_M1,TAG_S0,TAG_S1,TAG_T0,TAG_T1,END');
 
 -- --------------------------------------------------------
 
@@ -1338,7 +1454,7 @@ CREATE TABLE IF NOT EXISTS `PerroGuiaClub` (
 
 DROP TABLE IF EXISTS `Perros`;
 CREATE TABLE IF NOT EXISTS `Perros` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Raza` varchar(255) DEFAULT NULL,
   `LOE_RRC` varchar(255) DEFAULT NULL,
@@ -1704,8 +1820,8 @@ INSERT INTO `Perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (350, 'Dama', 'Fox Terrier Wire', '0131204', 'A641', 'M', 264, 'GIII'),
 (351, 'Flai', 'Fox Terrier Wire', '0129738', 'A815', 'M', 264, 'GII'),
 (352, 'Donna', 'Border Collie', '', 'A795', 'L', 405, 'GII'),
-(353, 'fito', 'mestizo', '', '', 'L', 387, 'GIII'),
-(354, 'paco', '', '', '', '-', 1, '-'),
+(353, 'fito', 'mestizo', '', '', 'T', 387, 'GII'),
+(354, 'paco', '', '', '', 'T', 1, 'GII'),
 (355, 'Akela', 'Border Collie', '', 'A746', 'L', 155, 'GII'),
 (356, 'Toska', 'Border Collie', '', '', 'L', 220, 'GI'),
 (357, 'Sira', 'P.B.Malinoise', '', 'A584', 'L', 224, 'GII'),
@@ -2042,7 +2158,7 @@ INSERT INTO `Provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 
 DROP TABLE IF EXISTS `Pruebas`;
 CREATE TABLE IF NOT EXISTS `Pruebas` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Operador` int(4) DEFAULT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Club` int(4) NOT NULL DEFAULT '1',
@@ -2169,7 +2285,7 @@ INSERT INTO `Resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (3, 9, 4, 43, 423, 'Noa', 'A143', 'L', 'GII', 'Jenifer Tolín', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 9, 4, 4, 440, 'Horatio', 'A647', 'S', 'GII', 'Beatriz Juan', 'A-0', '2014-12-06 11:01:50', '2014-12-06 11:01:50', 0, 1, 0, 0, 0, 60.08, '', 0),
 (3, 9, 4, 29, 513, 'Vali', 'A811', 'L', 'GII', 'Africa Cabañas', 'Correcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(3, 9, 4, 41, 521, 'Buck', 'A877', 'L', 'GII', 'Carlos Pérez', 'La Princesa', '2014-12-06 11:13:05', '2014-12-06 11:13:05', 0, 0, 0, 1, 0, 0, '', 0),
+(3, 9, 4, 41, 521, 'Buck', 'A877', 'L', 'GII', 'Carlos Pérez', 'La Princesa', '2015-01-05 15:31:30', '2015-01-05 15:31:30', 0, 0, 0, 1, 0, 0, '', 0),
 (3, 9, 4, 3, 560, 'Arturo', '', 'S', 'GII', 'Dolores Rosas', 'A-0', '2014-12-06 11:09:31', '2014-12-06 11:09:31', 0, 0, 0, 1, 0, 0, '', 0),
 (3, 9, 4, 42, 575, 'Nashira', 'A903', 'L', 'GII', 'Ruben López', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 9, 5, 28, 24, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández Moreno', 'Correcan', '2014-12-06 10:02:35', '2014-12-06 10:02:35', 0, 0, 0, 0, 0, 0, '', 1),
@@ -2680,18 +2796,36 @@ INSERT INTO `Resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (4, 18, 26, 107, 350, 'Dama', 'A641', 'M', 'GIII', 'Juan Antonio Martinez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 26, 98, 599, 'Cayenne', '28123', 'L', 'GIII', 'Gregory Bielle-Bidalot', 'Tolouse Veto Agility', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 26, 99, 600, 'Etna', '34873', 'L', 'GIII', 'Ludiwine Dabezies', 'Tolouse Veto Agility', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(2, 1, 29, 3, 556, 'botinera', '', 'L', 'GI', 'Maria Jorge', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(2, 1, 29, 4, 558, 'Rumba', '', 'L', 'GI', 'Carmen Gutiérrez', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(2, 1, 30, 3, 556, 'botinera', '', 'L', 'GI', 'Maria Jorge', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(2, 1, 30, 4, 558, 'Rumba', '', 'L', 'GI', 'Carmen Gutiérrez', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(2, 1, 31, 6, 91, 'Nana', 'A225', 'L', 'GII', 'Enrique Herbera', 'Badalona', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(2, 1, 31, 5, 119, 'Abby', 'A533', 'L', 'GII', 'Jenny Funcke', 'Badalona', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(2, 1, 31, 2, 389, 'Dolce', 'A681', 'L', 'GII', 'Andres Morillas Sanjuan', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(2, 1, 31, 1, 585, 'Ari', 'A894', 'L', 'GII', 'Veronica Roda', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(2, 1, 32, 6, 91, 'Nana', 'A225', 'L', 'GII', 'Enrique Herbera', 'Badalona', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(2, 1, 32, 5, 119, 'Abby', 'A533', 'L', 'GII', 'Jenny Funcke', 'Badalona', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(2, 1, 32, 2, 389, 'Dolce', 'A681', 'L', 'GII', 'Andres Morillas Sanjuan', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(2, 1, 32, 1, 585, 'Ari', 'A894', 'L', 'GII', 'Veronica Roda', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1);
+(2, 1, 29, 11, 510, 'Quenn', '', 'M', 'GI', 'Angel González', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(2, 1, 29, 7, 556, 'botinera', '', 'L', 'GI', 'Maria Jorge', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(2, 1, 29, 8, 558, 'Rumba', '', 'L', 'GI', 'Carmen Gutiérrez', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(2, 1, 29, 9, 586, 'Hippie', '', 'M', 'GI', 'Luis Miguel Jiménez', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(2, 1, 30, 11, 510, 'Quenn', '', 'M', 'GI', 'Angel González', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(2, 1, 30, 7, 556, 'botinera', '', 'L', 'GI', 'Maria Jorge', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(2, 1, 30, 8, 558, 'Rumba', '', 'L', 'GI', 'Carmen Gutiérrez', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(2, 1, 30, 9, 586, 'Hippie', '', 'M', 'GI', 'Luis Miguel Jiménez', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(2, 1, 31, 13, 91, 'Nana', 'A225', 'L', 'GII', 'Enrique Herbera', 'Badalona', '2015-01-05 20:36:26', '2015-01-05 20:36:26', 0, 0, 0, 0, 0, 0, '', 1),
+(2, 1, 31, 12, 119, 'Abby', 'A533', 'L', 'GII', 'Jenny Funcke', 'Badalona', '2015-01-03 22:49:10', '2015-01-03 22:49:10', 0, 0, 0, 0, 1, 0, '', 0),
+(2, 1, 31, 14, 293, 'Striptease', 'A577', 'M', 'GII', 'Carmen Alos', 'Canic', '2015-01-05 20:36:55', '2015-01-05 20:36:55', 0, 0, 0, 0, 0, 0, '', 1),
+(2, 1, 31, 15, 351, 'Flai', 'A815', 'M', 'GII', 'Juan Antonio Martinez', 'Eslón', '2015-01-05 20:36:53', '2015-01-05 20:36:53', 0, 0, 0, 0, 0, 0, '', 1),
+(2, 1, 31, 10, 353, 'fito', '', 'T', 'GII', 'pepe', 'ACADE', '2015-01-04 21:54:54', '2015-01-04 21:54:54', 1, 0, 0, 0, 0, 23.45, '', 0),
+(2, 1, 31, 1, 354, 'paco', '', 'T', 'GII', '-- Sin asignar --', '-- Sin asignar --', '2015-01-04 21:55:03', '2015-01-04 21:55:03', 0, 0, 0, 1, 0, 0, '', 0),
+(2, 1, 31, 3, 389, 'Dolce', 'A681', 'L', 'GII', 'Andres Morillas Sanjuan', 'A-0', '2015-01-03 22:49:06', '2015-01-03 22:49:06', 10, 0, 0, 0, 0, 45, '', 0),
+(2, 1, 31, 5, 559, 'Perla', '', 'S', 'GII', 'Sandra Rodrigo', 'A-0', '2015-01-04 21:54:39', '2015-01-04 21:54:39', 0, 0, 0, 0, 0, 33.5, '', 0),
+(2, 1, 31, 4, 560, 'Arturo', '', 'S', 'GII', 'Dolores Rosas', 'A-0', '2015-01-04 21:54:51', '2015-01-04 21:54:51', 0, 2, 0, 0, 0, 54, '', 0),
+(2, 1, 31, 6, 584, 'Ursula', 'A840', 'S', 'GII', 'Pablo Martínez', 'A-0', '2015-01-04 20:43:12', '2015-01-04 20:43:12', 0, 0, 0, 0, 0, 35.7, '', 0),
+(2, 1, 31, 2, 585, 'Ari', 'A894', 'L', 'GII', 'Veronica Roda', 'A-0', '2015-01-03 22:48:54', '2015-01-03 22:48:54', 0, 1, 0, 0, 0, 34.45, '', 0),
+(2, 1, 32, 13, 91, 'Nana', 'A225', 'L', 'GII', 'Enrique Herbera', 'Badalona', '2015-01-04 20:43:55', '2015-01-04 20:43:55', 0, 0, 0, 1, 0, 0, '', 0),
+(2, 1, 32, 12, 119, 'Abby', 'A533', 'L', 'GII', 'Jenny Funcke', 'Badalona', '2015-01-04 20:43:51', '2015-01-04 20:43:51', 0, 0, 1, 0, 0, 33.7, '', 0),
+(2, 1, 32, 14, 293, 'Striptease', 'A577', 'M', 'GII', 'Carmen Alos', 'Canic', '2015-01-04 21:55:31', '2015-01-04 21:55:31', 0, 0, 0, 0, 0, 43.8, '', 0),
+(2, 1, 32, 15, 351, 'Flai', 'A815', 'M', 'GII', 'Juan Antonio Martinez', 'Eslón', '2015-01-04 20:43:56', '2015-01-04 20:43:56', 0, 0, 0, 0, 1, 0, '', 0),
+(2, 1, 32, 10, 353, 'fito', '', 'T', 'GII', 'pepe', 'ACADE', '2015-01-04 21:55:50', '2015-01-04 21:55:50', 0, 0, 0, 1, 0, 0, '', 0),
+(2, 1, 32, 1, 354, 'paco', '', 'T', 'GII', '-- Sin asignar --', '-- Sin asignar --', '2015-01-04 21:56:02', '2015-01-04 21:56:02', 0, 0, 0, 0, 0, 39.2, '', 0),
+(2, 1, 32, 3, 389, 'Dolce', 'A681', 'L', 'GII', 'Andres Morillas Sanjuan', 'A-0', '2015-01-04 20:43:44', '2015-01-04 20:43:44', 1, 0, 0, 0, 0, 40.54, '', 0),
+(2, 1, 32, 5, 559, 'Perla', '', 'S', 'GII', 'Sandra Rodrigo', 'A-0', '2015-01-04 21:55:37', '2015-01-04 21:55:37', 3, 0, 0, 0, 0, 90.2, '', 0),
+(2, 1, 32, 4, 560, 'Arturo', '', 'S', 'GII', 'Dolores Rosas', 'A-0', '2015-01-04 21:55:46', '2015-01-04 21:55:46', 0, 0, 0, 0, 1, 0, '', 0),
+(2, 1, 32, 6, 584, 'Ursula', 'A840', 'S', 'GII', 'Pablo Martínez', 'A-0', '2015-01-04 21:55:38', '2015-01-04 21:55:38', 0, 0, 0, 0, 0, 54, '', 0),
+(2, 1, 32, 2, 585, 'Ari', 'A894', 'L', 'GII', 'Veronica Roda', 'A-0', '2015-01-04 20:43:38', '2015-01-04 20:43:38', 0, 0, 0, 0, 0, 56.3, '', 0);
 
 -- --------------------------------------------------------
 
@@ -2703,7 +2837,7 @@ INSERT INTO `Resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 
 DROP TABLE IF EXISTS `Sesiones`;
 CREATE TABLE IF NOT EXISTS `Sesiones` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
   `Comentario` varchar(255) DEFAULT NULL,
   `Operador` int(4) NOT NULL DEFAULT '1',
@@ -2716,39 +2850,40 @@ CREATE TABLE IF NOT EXISTS `Sesiones` (
   `LiveStream2` varchar(255) DEFAULT NULL,
   `LiveStream3` varchar(255) DEFAULT NULL,
   `LastModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `Sesiones`
 --
 
 INSERT INTO `Sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `SessionKey`, `Prueba`, `Jornada`, `Manga`, `Tanda`, `LiveStream`, `LiveStream2`, `LiveStream3`, `LastModified`) VALUES
-(1, '-- Sin asignar --', '', 4, 'xOK1F9MXJUvR67ra', 4, 17, 16, 7, '/agility/videos/sample_video.mp4', NULL, NULL, '2015-01-03 16:26:34'),
+(1, '-- Sin asignar --', '', 4, 'HF4KDqPoSsWbAVIw', 2, 1, 31, 9, '/agility/videos/sample_video.mp4', NULL, NULL, '2015-01-05 20:35:47'),
 (2, 'Ring 1', 'Mangas a realizar en el Ring de honor', 1, NULL, 0, 0, 0, 0, NULL, NULL, NULL, '2014-12-05 19:14:34'),
 (3, 'Ring 2', 'Mangas a realizar en el segundo ring', 1, NULL, 0, 0, 0, 0, NULL, NULL, NULL, '2014-12-05 19:14:34'),
 (4, 'Ring 3', 'Mangas a realizar en el tercer ring', 1, NULL, 0, 0, 0, 0, NULL, NULL, NULL, '2014-12-05 19:14:34'),
 (5, 'Ring 4', 'Mangas a realizar en el cuarto ring', 1, NULL, 0, 0, 0, 0, NULL, NULL, NULL, '2014-12-05 19:14:34'),
-(32, 'Console', 'admin - Administrador de la aplicacion', 3, 'iLcgKAHytzT719jq', 0, 0, 0, 0, NULL, NULL, NULL, '2015-01-03 16:56:21'),
-(34, 'Console', 'operator - Operador de consola', 4, 'BkEozQRf6SFC9p8J', 0, 0, 0, 0, NULL, NULL, NULL, '2015-01-03 21:19:02');
+(48, 'Console', 'admin - Administrador de la aplicacion', 3, '6wbovWhqtaBpmOjK', 0, 0, 0, 0, NULL, NULL, NULL, '2015-01-05 22:17:26'),
+(49, 'Console', 'operator - Operador de consola', 4, 'ZxQIACJijoT4s2Nf', 0, 0, 0, 0, NULL, NULL, NULL, '2015-01-06 10:51:47');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Tandas`
 --
--- Creación: 03-01-2015 a las 20:41:29
+-- Creación: 06-01-2015 a las 10:50:34
 --
 
 DROP TABLE IF EXISTS `Tandas`;
 CREATE TABLE IF NOT EXISTS `Tandas` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '1',
   `Jornada` int(4) NOT NULL,
   `Sesion` int(4) NOT NULL DEFAULT '1',
   `Orden` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Categoria` varchar(1) NOT NULL,
-  `Grado` varchar(16) NOT NULL
+  `Grado` varchar(16) NOT NULL,
+  `Horario` varchar(128) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -2761,7 +2896,7 @@ CREATE TABLE IF NOT EXISTS `Tandas` (
 
 DROP TABLE IF EXISTS `Tipo_Manga`;
 CREATE TABLE IF NOT EXISTS `Tipo_Manga` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Descripcion` varchar(255) DEFAULT NULL,
   `Grado` varchar(16) NOT NULL DEFAULT '-'
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
@@ -2798,7 +2933,7 @@ INSERT INTO `Tipo_Manga` (`ID`, `Descripcion`, `Grado`) VALUES
 
 DROP TABLE IF EXISTS `Usuarios`;
 CREATE TABLE IF NOT EXISTS `Usuarios` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Login` varchar(255) NOT NULL,
   `Password` varchar(255) DEFAULT NULL,
   `Gecos` varchar(255) NOT NULL DEFAULT '',
@@ -2836,109 +2971,109 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Indices de la tabla `Categorias_Perro`
 --
 ALTER TABLE `Categorias_Perro`
- ADD PRIMARY KEY (`Categoria`);
+  ADD PRIMARY KEY (`Categoria`);
 
 --
 -- Indices de la tabla `Clubes`
 --
 ALTER TABLE `Clubes`
- ADD PRIMARY KEY (`ID`), ADD KEY `Clubes_Nombre` (`Nombre`), ADD KEY `Clubes_Provincia` (`Provincia`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Clubes_Nombre` (`Nombre`), ADD KEY `Clubes_Provincia` (`Provincia`);
 
 --
 -- Indices de la tabla `Equipos`
 --
 ALTER TABLE `Equipos`
- ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Equipos_PruebaNombre` (`Prueba`,`Nombre`), ADD KEY `Equipos_Prueba` (`Prueba`);
+  ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Equipos_PruebaNombre` (`Prueba`,`Nombre`), ADD KEY `Equipos_Prueba` (`Prueba`);
 
 --
 -- Indices de la tabla `Eventos`
 --
 ALTER TABLE `Eventos`
- ADD PRIMARY KEY (`ID`), ADD KEY `Eventos_Session` (`Session`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Eventos_Session` (`Session`);
 
 --
 -- Indices de la tabla `Grados_Perro`
 --
 ALTER TABLE `Grados_Perro`
- ADD PRIMARY KEY (`Grado`);
+  ADD PRIMARY KEY (`Grado`);
 
 --
 -- Indices de la tabla `Guias`
 --
 ALTER TABLE `Guias`
- ADD PRIMARY KEY (`ID`), ADD KEY `Guias_Nombre` (`Nombre`), ADD KEY `Guias_Club` (`Club`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Guias_Nombre` (`Nombre`), ADD KEY `Guias_Club` (`Club`);
 
 --
 -- Indices de la tabla `Inscripciones`
 --
 ALTER TABLE `Inscripciones`
- ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Inscripciones_PruebaPerro` (`Prueba`,`Perro`), ADD KEY `Inscripciones_Perro` (`Perro`), ADD KEY `Inscripciones_Prueba` (`Prueba`), ADD KEY `Inscripciones_Equipo` (`Equipo`), ADD KEY `Inscripciones_Dorsal` (`Dorsal`);
+  ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Inscripciones_PruebaPerro` (`Prueba`,`Perro`), ADD KEY `Inscripciones_Perro` (`Perro`), ADD KEY `Inscripciones_Prueba` (`Prueba`), ADD KEY `Inscripciones_Equipo` (`Equipo`), ADD KEY `Inscripciones_Dorsal` (`Dorsal`);
 
 --
 -- Indices de la tabla `Jornadas`
 --
 ALTER TABLE `Jornadas`
- ADD PRIMARY KEY (`ID`), ADD KEY `Jornadas_Prueba` (`Prueba`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Jornadas_Prueba` (`Prueba`);
 
 --
 -- Indices de la tabla `Jueces`
 --
 ALTER TABLE `Jueces`
- ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Jueces_Nombre` (`Nombre`);
+  ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Jueces_Nombre` (`Nombre`);
 
 --
 -- Indices de la tabla `Mangas`
 --
 ALTER TABLE `Mangas`
- ADD PRIMARY KEY (`ID`), ADD KEY `Mangas_Tipo` (`Tipo`), ADD KEY `Mangas_Grado` (`Grado`), ADD KEY `Mangas_Juez1` (`Juez1`), ADD KEY `Mangas_Juez2` (`Juez2`), ADD KEY `Mangas_Jornada` (`Jornada`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Mangas_Tipo` (`Tipo`), ADD KEY `Mangas_Grado` (`Grado`), ADD KEY `Mangas_Juez1` (`Juez1`), ADD KEY `Mangas_Juez2` (`Juez2`), ADD KEY `Mangas_Jornada` (`Jornada`);
 
 --
 -- Indices de la tabla `Perros`
 --
 ALTER TABLE `Perros`
- ADD PRIMARY KEY (`ID`), ADD KEY `Perros_GuiaNombre` (`Guia`), ADD KEY `Perros_Categoria` (`Categoria`), ADD KEY `Perros_Grado` (`Grado`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Perros_GuiaNombre` (`Guia`), ADD KEY `Perros_Categoria` (`Categoria`), ADD KEY `Perros_Grado` (`Grado`);
 
 --
 -- Indices de la tabla `Provincias`
 --
 ALTER TABLE `Provincias`
- ADD PRIMARY KEY (`Provincia`), ADD UNIQUE KEY `Provincias_Codigo` (`Codigo`);
+  ADD PRIMARY KEY (`Provincia`), ADD UNIQUE KEY `Provincias_Codigo` (`Codigo`);
 
 --
 -- Indices de la tabla `Pruebas`
 --
 ALTER TABLE `Pruebas`
- ADD PRIMARY KEY (`ID`), ADD KEY `Pruebas_Club` (`Club`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Pruebas_Club` (`Club`);
 
 --
 -- Indices de la tabla `Resultados`
 --
 ALTER TABLE `Resultados`
- ADD PRIMARY KEY (`Manga`,`Perro`), ADD KEY `Resultados_Perro` (`Perro`), ADD KEY `Resultados_Manga` (`Manga`), ADD KEY `Resultados_Dorsal` (`Dorsal`), ADD KEY `Resultados_Jornada` (`Jornada`), ADD KEY `Resultados_Prueba` (`Prueba`);
+  ADD PRIMARY KEY (`Manga`,`Perro`), ADD KEY `Resultados_Perro` (`Perro`), ADD KEY `Resultados_Manga` (`Manga`), ADD KEY `Resultados_Dorsal` (`Dorsal`), ADD KEY `Resultados_Jornada` (`Jornada`), ADD KEY `Resultados_Prueba` (`Prueba`);
 
 --
 -- Indices de la tabla `Sesiones`
 --
 ALTER TABLE `Sesiones`
- ADD PRIMARY KEY (`ID`), ADD KEY `Sesiones_Operador` (`Operador`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Sesiones_Operador` (`Operador`);
 
 --
 -- Indices de la tabla `Tandas`
 --
 ALTER TABLE `Tandas`
- ADD PRIMARY KEY (`ID`), ADD KEY `Tandas_Prueba` (`Prueba`), ADD KEY `Tandas_Jornada` (`Jornada`), ADD KEY `Tandas_Sesion` (`Sesion`), ADD KEY `Tandas_Categoria` (`Categoria`), ADD KEY `Tandas_Grado` (`Grado`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Tandas_Prueba` (`Prueba`), ADD KEY `Tandas_Jornada` (`Jornada`), ADD KEY `Tandas_Sesion` (`Sesion`), ADD KEY `Tandas_Categoria` (`Categoria`), ADD KEY `Tandas_Grado` (`Grado`);
 
 --
 -- Indices de la tabla `Tipo_Manga`
 --
 ALTER TABLE `Tipo_Manga`
- ADD PRIMARY KEY (`ID`), ADD KEY `Descripcion` (`Descripcion`), ADD KEY `Grado` (`Grado`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Descripcion` (`Descripcion`), ADD KEY `Grado` (`Grado`);
 
 --
 -- Indices de la tabla `Usuarios`
 --
 ALTER TABLE `Usuarios`
- ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Login` (`Login`);
+  ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Login` (`Login`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -2948,72 +3083,72 @@ ALTER TABLE `Usuarios`
 -- AUTO_INCREMENT de la tabla `Clubes`
 --
 ALTER TABLE `Clubes`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=95;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=95;
 --
 -- AUTO_INCREMENT de la tabla `Equipos`
 --
 ALTER TABLE `Equipos`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `Eventos`
 --
 ALTER TABLE `Eventos`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=96;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=203;
 --
 -- AUTO_INCREMENT de la tabla `Guias`
 --
 ALTER TABLE `Guias`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=516;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=516;
 --
 -- AUTO_INCREMENT de la tabla `Inscripciones`
 --
 ALTER TABLE `Inscripciones`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=178;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=187;
 --
 -- AUTO_INCREMENT de la tabla `Jornadas`
 --
 ALTER TABLE `Jornadas`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT de la tabla `Jueces`
 --
 ALTER TABLE `Jueces`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT de la tabla `Mangas`
 --
 ALTER TABLE `Mangas`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=43;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT de la tabla `Perros`
 --
 ALTER TABLE `Perros`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=611;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=611;
 --
 -- AUTO_INCREMENT de la tabla `Pruebas`
 --
 ALTER TABLE `Pruebas`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `Sesiones`
 --
 ALTER TABLE `Sesiones`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=50;
 --
 -- AUTO_INCREMENT de la tabla `Tandas`
 --
 ALTER TABLE `Tandas`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `Tipo_Manga`
 --
 ALTER TABLE `Tipo_Manga`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `Usuarios`
 --
 ALTER TABLE `Usuarios`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- Restricciones para tablas volcadas
 --

@@ -72,7 +72,7 @@ function saveUser(){
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
         type: 'GET',
-        url: '/agility/server/database/clubFunctions.php',
+        url: '/agility/server/database/userFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {

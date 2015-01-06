@@ -174,6 +174,7 @@ class AuthManager {
 		switch ($this->level) {
 			case 5:
 			case 4: throw new Exception("Guest accounts cannot change password");
+				// no break needeed
 			case 3:
 			case 2:	// comprobamos el user id
 				if ($id!=$this->operador) throw new Exception("User can only change their own password");

@@ -128,6 +128,8 @@ class Pruebas extends DBObject {
 		// Borramos las jornadas (y mangas) de esta prueba
 		$j=new Jornadas("Pruebas.php",$id);
 		$j->deleteByPrueba();
+		// Borramos tambien las tandas de las jornadas de esta prueba
+		$res=$this->query("DELETE FROM Tandas WHERE ( Prueba=$id)");
 		// finalmente intentamos eliminar la prueba
 		$res= $this->query("DELETE FROM Pruebas WHERE (ID=$id)");
 		if (!$res) return $this->error($this->conn->error); 
