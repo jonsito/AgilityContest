@@ -247,36 +247,46 @@ function tablet_acceptSelectJornada() {
    		data: parameters,
    		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
    		success: function(data) {
-    		if (data.errorMsg) { $.messager.alert("Error",data.errorMsg,"error"); return; } 
-    		// $.messager.alert("Usuario"+data.Login,"Sesi&oacute;n iniciada correctamente","info");
-    	   	initAuthInfo(data);
-    	   	initWorkingData(s.ID);
-    	   	// los demas valores se actualizan en la linea anterior
-    		workingData.nombreSesion=s.Nombre;
-    		workingData.nombrePrueba=p.Nombre;
-    		workingData.nombreJornada=j.Nombre;	var page="/agility/tablet/tablet_competicion.php";
-    		if (workingData.datosJornada.Equipos3==1) {
-    			page="/agility/tablet/tablet_competicion_eq3.php";
-    		}
-    		if (workingData.datosJornada.Equipos4==1) {
-    			page="/agility/tablet/tablet_competicion_eq4.php";
-    		}
-    		if (workingData.datosJornada.Open==1) {
-    			page="/agility/tablet/tablet_competicion_open.php";
-    		}
-    		if (workingData.datosJornada.KO==1) {
-    			page="/agility/tablet/tablet_competicion_ko.php";
-    		}
-    		$('#seltablet-dialog').dialog('close');
-    		$('#tablet_contenido').load(	
-    				page,
-    				function(response,status,xhr){
-    					if (status=='error') $('#tablet_contenido').load('/agility/frm_notavailable.php');
-    				}
-    			);
-    	},
+    		if (data.errorMsg) { 
+        		$.messager.alert("Error",data.errorMsg,"error"); 
+        		initAuthInfo(); // initialize to null
+        	} else {
+        		$.messager.alert(
+        	    	"Usuario: "+data.Login,
+        	    	"Sesi&oacute;n iniciada correctamente",
+        	    	"info",
+        	    	function() {
+        	    	   	initAuthInfo(data);
+        	    	   	initWorkingData(s.ID);
+        	    	   	// los demas valores se actualizan en la linea anterior
+        	    		workingData.nombreSesion=s.Nombre;
+        	    		workingData.nombrePrueba=p.Nombre;
+        	    		workingData.nombreJornada=j.Nombre;	var page="/agility/tablet/tablet_competicion.php";
+        	    		if (workingData.datosJornada.Equipos3==1) {
+        	    			page="/agility/tablet/tablet_competicion_eq3.php";
+        	    		}
+        	    		if (workingData.datosJornada.Equipos4==1) {
+        	    			page="/agility/tablet/tablet_competicion_eq4.php";
+        	    		}
+        	    		if (workingData.datosJornada.Open==1) {
+        	    			page="/agility/tablet/tablet_competicion_open.php";
+        	    		}
+        	    		if (workingData.datosJornada.KO==1) {
+        	    			page="/agility/tablet/tablet_competicion_ko.php";
+        	    		}
+        	    		$('#seltablet-dialog').dialog('close');
+        	    		$('#tablet_contenido').load(	
+        	    				page,
+        	    				function(response,status,xhr){
+        	    					if (status=='error') $('#tablet_contenido').load('/agility/frm_notavailable.php');
+        	    				}
+        	    			); // load
+        	    	} // close dialog; open main window
+        	    ); // alert calback
+        	} // if no ajax error
+    	}, // success function
    		error: function() { alert("error");	},
-	});
+	}); // ajax call
 }
 </script>
 </body>
