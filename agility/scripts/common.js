@@ -21,6 +21,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  */
 function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); } 
 
+/**
+ * nombres de las categorias en funcion de la federacion
+ */
+var nombreCategorias = {
+		'rsce': { 'L': 'Standard',	'M': 'Midi',	'S': 'Mini',	'T': '-',	'logo': 'rsce.png' },
+		'rfec': { 'L': 'Large',		'M': 'Medium',	'S': 'Small',	'T': 'Tiny','logo': 'rfec.png' },
+		'uca': 	{ 'L': '60',		'M': '50',		'S': '40',		'T': '30',	'logo': 'uca.png' },
+		0: { 'L': 'Standard',	'M': 'Midi',	'S': 'Mini',	'T': '-',	'logo': 'rsce.png' },
+		1: { 'L': 'Large',		'M': 'Medium',	'S': 'Small',	'T': 'Tiny','logo': 'rfec.png' },
+		2: { 'L': '60',			'M': '50',		'S': '40',		'T': '30',	'logo': 'uca.png' }
+};
+
 var slaveDialogs = new Object();
 
 /**
