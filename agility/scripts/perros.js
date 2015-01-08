@@ -190,7 +190,6 @@ function assignDog() {
             if (result.errorMsg){
                 $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
             } else {
-            	saveLogo();
             	$('#chperros-Search').combogrid('clear');  // clear search field
                 $('#chperros-dialog').dialog('close');        // close the dialog
             }

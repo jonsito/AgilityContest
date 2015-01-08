@@ -68,7 +68,6 @@ function saveJuez(){
             if (result.errorMsg){
                 $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
             } else {
-            	saveLogo();
                 $('#jueces-dialog').dialog('close');        // close the dialog
                 $('#jueces-datagrid').datagrid('reload');    // reload the juez data
             }
