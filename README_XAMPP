@@ -34,11 +34,13 @@ https://github.com/jonsito/AgilityContest/archive/master.zip
   para instalar la base de datos y los usuarios de la aplicacion
   
 F:\xampp\mysql\bin\mysql.exe -u root
-
-   source F:\AgilityContest-master\extras\agility.sql
-   source F:\AgilityContest-master\extras\users.sql
-   source F:\AgilityContest-master\extras\rsce.sql
-   exit
+  DROP DATABASE IF EXISTS agility;
+  CREATE DATABASE agility;
+  USE agility;
+  source F:\AgilityContest-master\extras\agility.sql
+  source F:\AgilityContest-master\extras\users.sql
+  source F:\AgilityContest-master\extras\rsce.sql
+  quit
 
 - Abrir la página "http://localhost/agility" desde el navegador para comprobar que todo funciona
 

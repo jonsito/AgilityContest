@@ -26,6 +26,9 @@ Tener instalados y funcionando
 
 2b- Instalacion y configuracion (base de datos)
   mysql -u root
+  DROP DATABASE IF EXISTS agility;
+  CREATE DATABASE agility;
+  USE agility;
   source ${BASE}/agility/extras/agility.sql
   source i${BASE}/agility/extras/users.sql
   quit
