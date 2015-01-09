@@ -70,8 +70,21 @@ $('#login-window').window({
 		return true;
 	}
 });
-		
+
 addTooltip($('#login-okBtn').linkbutton(),"Iniciar sesi&oacute;n con el usuario seleccionado");
 addTooltip($('#login-cancelBtn').linkbutton(),"Cancelar apertura de sesion. Cerrar ventana");
+
+// on Enter key on login field focus on password
+$('#login-Username').bind('keypress', function (evt) {
+    if (evt.keyCode != 13) return true;
+    $('#login-Password').focus();
+    return false;
+});
+//on Enter key on passwd field click on accept
+$('#login-Password').bind('keypress', function (evt) {
+    if (evt.keyCode != 13) return true;
+    $('#login-okBtn').click();
+    return false;
+});
 
 </script>

@@ -113,4 +113,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             required: false,
             validType: 'email'
         });
-        </script>
+
+     	// bind enter key on password dialog
+        $('#password-CurrentPassword').bind('keypress', function (evt) {
+            if (evt.keyCode != 13) return true;
+            $('#password-NewPassword').focus();
+            return false;
+        });
+        $('#password-NewPassword').bind('keypress', function (evt) {
+            if (evt.keyCode != 13) return true;
+            $('#password-NewPassword2').focus();
+            return false;
+        });
+        //on Enter key on passwd field click on accept
+        $('#password-NewPassword2').bind('keypress', function (evt) {
+            if (evt.keyCode != 13) return true;
+            $('#password-okBtn').click();
+            return false;
+        });
+	</script>

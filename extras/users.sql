@@ -3,7 +3,7 @@ GRANT USAGE ON *.* TO 'agility_admin'@'localhost' IDENTIFIED BY PASSWORD '*08B00
 GRANT ALL PRIVILEGES ON `agility`.* TO 'agility_admin'@'localhost' WITH GRANT OPTION;
 # Usuario 'operator' anyadir/borrar/modificar datos (sala de control)
 GRANT USAGE ON *.* TO 'agility_operator'@'localhost' IDENTIFIED BY PASSWORD '*133E83223499F08EAABCB24B71D08169FA241A9B';
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE TEMPORARY TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, EVENT ON `agility`.* TO 'agility_operator'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, EVENT ON `agility`.* TO 'agility_operator'@'localhost';
 # Usuario 'user' insertar datos (ayudante de pista)
 GRANT USAGE ON *.* TO 'agility_user'@'localhost' IDENTIFIED BY PASSWORD '*FA79D4F71FE9C4BEF173D2D0D8535A9A38253676';
 GRANT SELECT, INSERT, UPDATE, CREATE TEMPORARY TABLES, EXECUTE, SHOW VIEW ON `agility`.* TO 'agility_user'@'localhost';

@@ -79,12 +79,12 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 	<form id="seltablet-form">
        	<div class="fitem">
        		<label for="Username">Usuario:</label>
-       		<input id="seltable-Username" name="Username" style="width:200px" type="text"
+       		<input id="seltablet-Username" name="Username" style="width:200px" type="text"
        			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
        	</div>        		
        	<div class="fitem">
        		<label for="Password">Contrase&ntilde;a:</label>
-       		<input id="seltable-Password" name="Password" style="width:200px" type="password"
+       		<input id="seltablet-Password" name="Password" style="width:200px" type="password"
        			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
        	</div>
        	<div>&nbsp;</div>
@@ -124,7 +124,7 @@ $('#seltablet-Prueba').combogrid({
 	multiple: false,
 	fitColumns: true,
 	singleSelect: true,
-	editable: false,
+	editable: false,  // to disable tablet keyboard popup
 	selectOnNavigation: true, // let use cursor keys to interactive select
 	columns: [[
 	   	    {field:'ID',hidden:true},
@@ -153,7 +153,7 @@ $('#seltablet-Sesion').combogrid({
 	multiple: false,
 	fitColumns: true,
 	singleSelect: true,
-	editable: false,
+	editable: false,  // to disable tablet keyboard popup
 	columns: [[
 	   	    { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
 			{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: 'Nombre' },
@@ -178,7 +178,7 @@ $('#seltablet-Jornada').combogrid({
 	multiple: false,
 	fitColumns: true,
 	singleSelect: true,
-	editable: false,
+	editable: false, // to disable tablet keyboard popup
 	columns: [[
 	    { field:'ID',			hidden:true }, // ID de la jornada
 	    { field:'Prueba',		hidden:true }, // ID de la prueba
@@ -288,6 +288,19 @@ function tablet_acceptSelectJornada() {
    		error: function() { alert("error");	},
 	}); // ajax call
 }
+
+//on Enter key on login field fo	cus on password
+$('#seltablet-Username').bind('keypress', function (evt) {
+    if (evt.keyCode != 13) return true;
+    $('#seltablet-Password').focus();
+    return false;
+});
+//on Enter key on login field fo	cus on password
+$('#seltablet-Password').bind('keypress', function (evt) {
+    if (evt.keyCode != 13) return true;
+    $('#seltablet-Sesion').next().find('input').focus();
+    return false;
+});
 </script>
 </body>
 </html> 

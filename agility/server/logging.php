@@ -80,6 +80,6 @@ date_default_timezone_set("Europe/Madrid");
 ini_set("log_errors",1);
 ini_set("error_log",__DIR__."/../../logs/trace.log");
 
-apache_setenv('no-gzip', 1);
+// apache_setenv('no-gzip', 1); /* stupid Ubuntu disabled apache_setenv */
 ini_set('zlib.output_compression', 0);
 ?>
