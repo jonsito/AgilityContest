@@ -149,7 +149,7 @@ try {
 		throw new Exception($adm->errormsg);
 	if ($result==="") // success
 		$response= array('success'=>true); 
-	if ($result==="ok") return 0; // don't generate any aditional response 
+	if ($result==="ok") return; // don't generate any aditional response 
 	else $response=$result;
 } catch (Exception $e) {
 	do_log($e->getMessage());

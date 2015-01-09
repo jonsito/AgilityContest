@@ -124,6 +124,18 @@
 .icon-video-tv{
 	background:url('icons/video-tv.png') no-repeat center center;
 }
+.icon-db_backup{
+	background:url('icons/db_backup.png') no-repeat center center;
+}
+.icon-db_restore{
+	background:url('icons/db_restore.png') no-repeat center center;
+}
+.icon-on{
+	background:url('icons/on.png') no-repeat center center;
+}
+.icon-off{
+	background:url('icons/off.png') no-repeat center center;
+}
 
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;
