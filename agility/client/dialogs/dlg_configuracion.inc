@@ -64,6 +64,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<h3>Generaci&oacute;n de Informes PDF</h3>
 		<label for="pdf_topmargin">Margen superior impr. etiquetas (mmts)</label>
 		<input name="pdf_topmargin" type="text" size="4" value="10.0"/><br />
+		<label for="pdf_leftmargin">Margen izquierdo impr. etiquetas (mmts)</label>
+		<input name="pdf_leftmargin" type="text" size="4" value="10.0"/><br />
 		<label for="pdf_hdrbg1">Color de fondo de la cabecera principal</label>
 		<input name="pdf_hdrbg1" type="color" value="#ff8020"/><br />
 		<label for="pdf_hdrfg1">Color del texto de la cabecera principal</label>
