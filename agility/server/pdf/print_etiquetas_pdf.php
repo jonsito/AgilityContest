@@ -50,6 +50,14 @@ class Etiquetas_PDF extends FPDF {
 	protected $icon;
 	protected $config;
 	
+	function ac_SetDrawColor($str) {
+		$val=intval(str_replace('#','0x',$str),0);
+		$r=(0x00FF0000&$val)>>16;
+		$g=(0x0000FF00&$val)>>8;
+		$b=(0x000000FF&$val);
+		$this->SetDrawColor($r,$g,$b);
+	}
+	
 	 /** Constructor
 	 * @param {obj} $manga datos de la manga
 	 * @param {obj} $resultados resultados asociados a la manga/categoria pedidas
@@ -73,9 +81,8 @@ class Etiquetas_PDF extends FPDF {
 	// No tenemos cabecera: no cabe
 	function Header() {// pintamos una linea	
 		$top=$this->config->getEnv('pdf_topmargin');
-		$this->SetDrawColor(128,0,0); // line color
-		$this->Line(10,$top,175,$top);	
-		$this->SetDrawColor(128,128,128); // restore line color
+		$left=$this->config->getEnv('pdf_leftmargin');
+		$this->Line($left,$top,$left+165,$top);	
 	}
 	
 	// Pie de página: tampoco cabe
@@ -84,6 +91,7 @@ class Etiquetas_PDF extends FPDF {
 	
 	function writeCell($idx,$row,$count) {
 		$top=$this->config->getEnv('pdf_topmargin');
+		$left=$this->config->getEnv('pdf_leftmargin');
 		
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		//dorsal (10,y,20,17)
@@ -94,71 +102,70 @@ class Etiquetas_PDF extends FPDF {
 		$ynext=$top+17*($idx+1);
 		
 		$this->SetFont('Arial','B',24); // bold 11px
-		$this->setXY(10,$y1);
+		$this->setXY($left,$y1);
 		$this->Cell(20,17,$row['Dorsal'],0,0,'C',false);
 		$this->SetFont('Arial','I',8); // font for prueba,name
 		
 		//logo   (30,y,15,15)
 		// los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
-		$this->SetXY(30,$y1); // margins are 10mm each
+		$this->SetXY($left+20,$y1); // margins are 10mm each
 		$this->Cell(17,17,$this->Image(__DIR__.'/../../images/logos/'.$this->icon,$this->getX(),$this->getY(),17),0,0,'L',false);
 		
 		//Nombre de la prueba (47,y,38,5) left
-		$this->SetXY(47,$y1); 
+		$this->SetXY($left+37,$y1); 
 		$this->Cell(38,5,$this->prueba->Nombre,0,0,'L',false);
 		//Fecha (47,y+5,38,5) left
-		$this->SetXY(47,$y5); 
+		$this->SetXY($left+37,$y5); 
 		$this->Cell(38,5,$this->jornada->Fecha,0,0,'L',false);
 		//Perro (47,y+10,38,7) right
-		$this->SetXY(47,$y10); 
+		$this->SetXY($left+37,$y10); 
 		$this->Cell(38,7,"{$row['Licencia']} - {$row['Nombre']}",0,0,'R',false);
 		//Manga1Tipo(85,y,20,8) center
 		$tipo=Mangas::$tipo_manga[$this->manga1->Tipo][3];
-		$this->SetXY(85,$y1); 
+		$this->SetXY($left+75,$y1); 
 		$this->Cell(20,8,$tipo,'LB',0,'L',false);
 		//Manga2Tipo(85,y+8,20,9) center
 		$tipo=Mangas::$tipo_manga[$this->manga2->Tipo][3];
-		$this->SetXY(85,$y8); 
+		$this->SetXY($left+75,$y8); 
 		$this->Cell(20,9,$tipo,'L',0,'L',false);
 
 		$this->SetFont('Arial','',12); // font size for results data
 		//Cat (105,y,15,8) center
-		$this->SetXY(105,$y1); 
+		$this->SetXY($left+95,$y1); 
 		$this->Cell(15,8,$row['Categoria'],'L',0,'C',false);
 		//Grado (105,y+8,15,9) center
-		$this->SetXY(105,$y8); 
+		$this->SetXY($left+95,$y8); 
 		$this->Cell(15,9,$row['Grado'],'L',0,'C',false);
 		//Penal1 (120,y,15,8) right
-		$this->SetXY(120,$y1); 
+		$this->SetXY($left+110,$y1); 
 		$this->Cell(15,8,$row['P1'],'LB',0,'C',false);
 		//Penal2 (120,y+8,15,9) right
-		$this->SetXY(120,$y8); 
+		$this->SetXY($left+110,$y8); 
 		$this->Cell(15,9,$row['P2'],'L',0,'C',false);
 		//Calif1 (135,y,25,8) right
-		$this->SetXY(135,$y1); 
+		$this->SetXY($left+125,$y1); 
 		$this->Cell(25,8,$row['C1'],'LB',0,'C',false);
 		//Calif2 (135,y+8,25,9) right
-		$this->SetXY(135,$y8); 
+		$this->SetXY($left+125,$y8); 
 		$this->Cell(25,9,$row['C2'],'L',0,'C',false);
 		//Puesto1 (160,y,15,8) center
-		$this->SetXY(160,$y1); 
+		$this->SetXY($left+150,$y1); 
 		$this->Cell(15,8,"{$row['Puesto1']}º / $count",'LB',0,'C',false);
 		//Puesto2 (160,y+8,15,9) center
-		$this->SetXY(160,$y8); 
+		$this->SetXY($left+150,$y8); 
 		$this->Cell(15,9,"{$row['Puesto2']}º / $count",'L',0,'C',false);
 		
-		// pintamos una linea	
-		$this->SetDrawColor(128,0,0); // line color
-		$this->Line(10,$ynext,175,$ynext);	
-		$this->SetDrawColor(128,128,128); // line color
+		// pintamos una linea
+		$this->Line($left,$ynext,$left+165,$ynext);	
 	}
 	
 	function composeTable($rowcount=0) {
 		$this->myLogger->enter();
 		$this->SetFillColor(224,235,255); // azul merle
 		$this->SetTextColor(0,0,0); // negro
-		$this->SetFont('Arial','',8); // default font		
-		$this->SetDrawColor(128,128,128); // line color
+		$this->SetFont('Arial','',8); // default font	
+		$lc=$this->config->getEnv('pdf_linecolor');
+		$this->ac_SetDrawColor($lc);
 		$this->SetLineWidth(.3);
 		
 		$this->SetMargins(10,$this->config->getEnv('pdf_topmargin'),10); // left top right
