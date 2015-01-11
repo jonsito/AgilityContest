@@ -43,10 +43,10 @@ class PDF extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader
-					=array('Puesto','Dorsal','Nombre','Lic.','Guía','Club','Cat/Grad','Falt.','Toc.','Reh.','Tiempo','Vel.','Penal','Calificacion');
-	protected $pos	=array(  10,      10,     12,     10,     29,    31,     12,        7,      7,    7,       10,     7,    12,      24 );
-	protected $align=array(  'L',     'R',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L');
-	protected $fmt	=array(  'i',     'i',    's',    's',    's',   's',    's',       'i',   'i',   'i',     'f',    'f',  'f',     's');
+					=array('Dorsal','Nombre','Lic.','Guía','Club','Cat/Grad','Falt.','Toc.','Reh.','Tiempo','Vel.','Penal','Calificacion', 'Puesto');
+	protected $pos	=array(  10,     12,     10,     29,    31,     12,        7,      7,    7,       10,     7,    12,      22,			12 );
+	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
+	protected $fmt	=array(  'i',    's',    's',    's',   's',    's',       'i',   'i',   'i',     'f',    'f',  'f',     's',			'i');
 
 	protected $modestr  
 		=array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
@@ -140,28 +140,28 @@ class PDF extends PrintCommon {
 			}
 			// properly format special fields
 
-			$puesto= ($row['Penalizacion']>=200)? "-":$row['Puesto'];
+			$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
 			$veloc= ($row['Penalizacion']>=200)?"-":number_format($row['Velocidad'],1);
 			$tiempo= ($row['Penalizacion']>=200)?"-":number_format($row['Tiempo'],2);
 			$penal=number_format($row['Penalizacion'],2);
 			
 			// print row data
-			$this->SetFont('Arial','B',11); // bold 11px
-			$this->Cell($this->pos[0],7," $puesto -",			'LR',	0,		$this->align[0],	$fill);
 			$this->SetFont('Arial','',8); // set data font size
-			$this->Cell($this->pos[1],7,$row['Dorsal'],			'LR',	0,		$this->align[1],	$fill);
-			$this->Cell($this->pos[2],7,$row['Nombre'],			'LR',	0,		$this->align[2],	$fill);
-			$this->Cell($this->pos[3],7,$row['Licencia'],		'LR',	0,		$this->align[3],	$fill);
-			$this->Cell($this->pos[4],7,$row['NombreGuia'],		'LR',	0,		$this->align[4],	$fill);
-			$this->Cell($this->pos[5],7,$row['NombreClub'],		'LR',	0,		$this->align[5],	$fill);
-			$this->Cell($this->pos[6],7,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[6],	$fill);
-			$this->Cell($this->pos[7],7,$row['Faltas'],			'LR',	0,		$this->align[7],	$fill);
-			$this->Cell($this->pos[8],7,$row['Tocados'],		'LR',	0,		$this->align[8],	$fill);
-			$this->Cell($this->pos[9],7,$row['Rehuses'],		'LR',	0,		$this->align[9],	$fill);
-			$this->Cell($this->pos[10],7,$tiempo,				'LR',	0,		$this->align[10],	$fill);
-			$this->Cell($this->pos[11],7,$veloc,				'LR',	0,		$this->align[11],	$fill);
-			$this->Cell($this->pos[12],7,$penal,				'LR',	0,		$this->align[12],	$fill);
-			$this->Cell($this->pos[13],7,$row['Calificacion'],	'LR',	0,		$this->align[13],	$fill);
+			$this->Cell($this->pos[0],7,$row['Dorsal'],			'LR',	0,		$this->align[0],	$fill);
+			$this->Cell($this->pos[1],7,$row['Nombre'],			'LR',	0,		$this->align[1],	$fill);
+			$this->Cell($this->pos[2],7,$row['Licencia'],		'LR',	0,		$this->align[2],	$fill);
+			$this->Cell($this->pos[3],7,$row['NombreGuia'],		'LR',	0,		$this->align[3],	$fill);
+			$this->Cell($this->pos[4],7,$row['NombreClub'],		'LR',	0,		$this->align[4],	$fill);
+			$this->Cell($this->pos[5],7,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[5],	$fill);
+			$this->Cell($this->pos[6],7,$row['Faltas'],			'LR',	0,		$this->align[6],	$fill);
+			$this->Cell($this->pos[7],7,$row['Tocados'],		'LR',	0,		$this->align[7],	$fill);
+			$this->Cell($this->pos[8],7,$row['Rehuses'],		'LR',	0,		$this->align[8],	$fill);
+			$this->Cell($this->pos[9],7,$tiempo,				'LR',	0,		$this->align[9],	$fill);
+			$this->Cell($this->pos[10],7,$veloc,				'LR',	0,		$this->align[10],	$fill);
+			$this->Cell($this->pos[11],7,$penal,				'LR',	0,		$this->align[11],	$fill);
+			$this->Cell($this->pos[12],7,$row['Calificacion'],	'LR',	0,		$this->align[12],	$fill);
+			$this->SetFont('Arial','B',11); // bold 11px
+			$this->Cell($this->pos[13],7,$puesto,			'LR',	0,		$this->align[13],	$fill);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;

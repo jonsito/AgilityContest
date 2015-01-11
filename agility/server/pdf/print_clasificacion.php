@@ -193,8 +193,10 @@ class PDF extends PrintCommon {
 		$p2=number_format($row['P2'],2);
 		
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+
+		$this->SetFont('Arial','',8); // default font
 		// datos del participante
-		$this->Cell(10,7,$row['Dorsal'],0,0,'R',$fill); 	// dorsal
+		$this->Cell(10,7,$row['Dorsal'],0,0,'L',$fill); 	// dorsal
 		$this->Cell(25,7,$row['Nombre'],0,0,'L',$fill);	// nombre (20,y
 		$this->Cell(15,7,$row['Licencia'],0,0,'C',$fill);	// licencia
 		$this->Cell(10,7,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
@@ -222,7 +224,8 @@ class PDF extends PrintCommon {
 		$this->Cell(12,7,$t1+$t2,0,0,'C',$fill);	// Tiempo
 		$this->Cell(12,7,$penal,0,0,'C',$fill);	// Penalizacion
 		$this->Cell(9,7,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
-		$this->Cell(9,7,$puesto,0,0,'R',$fill);	// Puesto
+		$this->SetFont('Arial','B',10); // default font
+		$this->Cell(9,7,$puesto,0,0,'C',$fill);	// Puesto
 		// lineas rojas
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->Line(10,$offset + 7*$idx,10,$offset + 7*($idx+1));
