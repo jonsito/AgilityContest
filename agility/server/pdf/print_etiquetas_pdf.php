@@ -82,8 +82,7 @@ class Etiquetas_PDF extends FPDF {
 	function Header() {// pintamos una linea	
 		$top=$this->config->getEnv('pdf_topmargin');
 		$left=$this->config->getEnv('pdf_leftmargin');
-		$this->Line($left,$top,$left+50,$top);	
-		$this->Line($left,$top,$left,$top+50);	
+		$this->Line($left,$top,$left+190,$top);
 	}
 	
 	// Pie de página: tampoco cabe
@@ -100,16 +99,16 @@ class Etiquetas_PDF extends FPDF {
 		$y5=  $top+17*$idx+5;
 		$y10= $top+17*$idx+10;
 		$y8=  $top+17*$idx+8;
-		$ynext=$top+17*($idx+1)-1;
+		$ynext=$top+17*($idx+1);
 		
 		$this->SetFont('Arial','B',24); // bold 11px
-		$this->setXY($left,$y1);
-		$this->Cell(20,15,$row['Dorsal'],0,0,'C',false);
+		$this->setXY($left,$y1-1);
+		$this->Cell(20,17,$row['Dorsal'],'L',0,'C',false);
 		$this->SetFont('Arial','I',8); // font for prueba,name
 		
 		// caja izquierda (35,y,35,15)
 		$this->SetXY($left+20,$y1); // margins are 10mm each
-		$this->Cell(57,15,'',TLB,0,'L',false);
+		$this->Cell(57,15,'','L',0,'L',false);
 		
 		//logo   (30,y,15,15)
 		// los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
@@ -128,37 +127,40 @@ class Etiquetas_PDF extends FPDF {
 		//Manga1Tipo(85,y,20,8) center
 		$tipo=Mangas::$tipo_manga[$this->manga1->Tipo][3];
 		$this->SetXY($left+75,$y1); 
-		$this->Cell(20,7,$tipo,'TLB',0,'L',false);
+		$this->Cell(20,7,$tipo,'LB',0,'L',false);
 		//Manga2Tipo(85,y+8,20,9) center
 		$tipo=Mangas::$tipo_manga[$this->manga2->Tipo][3];
 		$this->SetXY($left+75,$y8); 
-		$this->Cell(20,8,$tipo,'LB',0,'L',false);
+		$this->Cell(20,8,$tipo,'L',0,'L',false);
 
 		$this->SetFont('Arial','',12); // font size for results data
 		//Cat (105,y,12,8) center
 		$this->SetXY($left+95,$y1); 
-		$this->Cell(12,7,$row['Categoria'],'TL',0,'C',false);
+		$this->Cell(12,7,$row['Categoria'],'LB',0,'C',false);
 		//Grado (105,y+8,12,9) center
 		$this->SetXY($left+95,$y8); 
-		$this->Cell(12,8,$row['Grado'],'LB',0,'C',false);
+		$this->Cell(12,8,$row['Grado'],'L',0,'C',false);
 		//Penal1 (117,y,17,8) right
 		$this->SetXY($left+107,$y1); 
-		$this->Cell(17,7,$row['P1'],'TLB',0,'C',false);
+		$this->Cell(17,7,$row['P1'],'LB',0,'C',false);
 		//Penal2 (117,y+8,17,9) right
 		$this->SetXY($left+107,$y8); 
-		$this->Cell(17,8,$row['P2'],'LB',0,'C',false);
+		$this->Cell(17,8,$row['P2'],'L',0,'C',false);
 		//Calif1 (134,y,25,8) right
 		$this->SetXY($left+124,$y1); 
-		$this->Cell(25,7,$row['C1'],'TLB',0,'C',false);
+		$this->Cell(25,7,$row['C1'],'LB',0,'C',false);
 		//Calif2 (134,y+8,25,9) right
 		$this->SetXY($left+124,$y8); 
-		$this->Cell(25,8,$row['C2'],'LB',0,'C',false);
+		$this->Cell(25,8,$row['C2'],'L',0,'C',false);
 		//Puesto1 (159,y,15,8) center
 		$this->SetXY($left+149,$y1); 
-		$this->Cell(15,7,"{$row['Puesto1']}º / $count",'TLBR',0,'C',false);
+		$this->Cell(15,7,"{$row['Puesto1']}º / $count",'LBR',0,'C',false);
 		//Puesto2 (159,y+8,15,9) center
 		$this->SetXY($left+149,$y8); 
-		$this->Cell(15,8,"{$row['Puesto2']}º / $count",'LBR',0,'C',false);
+		$this->Cell(15,8,"{$row['Puesto2']}º / $count",'LR',0,'C',false);
+		
+		// linea al final
+		$this->Line($left,$ynext,$left+190,$ynext);
 	}
 	
 	function composeTable($rowcount=0) {
