@@ -73,6 +73,7 @@ class Guias extends DBObject {
 		if (!$res) return $this->error($stmt->error); 
 		$stmt->close();
 		$this->myLogger->leave();
+		// TODO: study an easy way to propagate NombreGuia and NombreClub changes to Resultados table
 		return "";
 	}
 	

@@ -53,6 +53,21 @@ class Dogs extends DBObject {
 		
 	}
 	
+	function updateResultados($id) {
+		$pgc=$this->__getObject("PerroGuiaClub",$id);
+		$str="UPDATE Resultados,Jornadas
+			SET Resultados.Nombre='{$pgc->Nombre}',
+				Resultados.NombreGuia='{$pgc->NombreGuia}',
+				Resultados.NombreClub='{$pgc->NombreClub}',
+				Resultados.Categoria='{$pgc->Categoria}',
+				Resultados.Grado='{$pgc->Grado}',
+				Resultados.Licencia='{$pgc->Licencia}'
+			WHERE (Jornadas.ID=Resultados.Jornada) AND (Jornadas.Cerrada=0) AND (Resultados.Perro=$id)";
+		$res=$this->query($str);
+		if (!$res) return $this->conn->error;
+		return "";
+	}
+	
 	/**
 	 * Update data for provided dog ID
 	 * @param {integer} $id dog id primary key
@@ -84,8 +99,9 @@ class Dogs extends DBObject {
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error); 
 		$stmt->close();
+		// update data on table "Resultados"
 		$this->myLogger->leave();
-		return "";
+		return $this->updateResultados($id);
 	}
 	
 	/**
