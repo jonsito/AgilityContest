@@ -213,14 +213,14 @@ function newInscripcion_onOpenSuccess() {
 	listaNoInscritos();
 	
     // mark checked as default every named jornadas
-	$('#new_inscripcion-J1').prop('checked',(jornadas[0].Nombre==="-- Sin asignar --")?false:true);
-	$('#new_inscripcion-J2').prop('checked',(jornadas[1].Nombre==="-- Sin asignar --")?false:true);
-	$('#new_inscripcion-J3').prop('checked',(jornadas[2].Nombre==="-- Sin asignar --")?false:true);
-	$('#new_inscripcion-J4').prop('checked',(jornadas[3].Nombre==="-- Sin asignar --")?false:true);
-	$('#new_inscripcion-J5').prop('checked',(jornadas[4].Nombre==="-- Sin asignar --")?false:true);
-	$('#new_inscripcion-J6').prop('checked',(jornadas[5].Nombre==="-- Sin asignar --")?false:true);
-	$('#new_inscripcion-J7').prop('checked',(jornadas[6].Nombre==="-- Sin asignar --")?false:true);
-	$('#new_inscripcion-J8').prop('checked',(jornadas[7].Nombre==="-- Sin asignar --")?false:true);
+	$('#new_inscripcion-J1').prop('checked', canInscribe(jornadas[0]) );
+	$('#new_inscripcion-J2').prop('checked', canInscribe(jornadas[1]) );
+	$('#new_inscripcion-J3').prop('checked', canInscribe(jornadas[2]) );
+	$('#new_inscripcion-J4').prop('checked', canInscribe(jornadas[3]) );
+	$('#new_inscripcion-J5').prop('checked', canInscribe(jornadas[4]) );
+	$('#new_inscripcion-J6').prop('checked', canInscribe(jornadas[5]) );
+	$('#new_inscripcion-J7').prop('checked', canInscribe(jornadas[6]) );
+	$('#new_inscripcion-J8').prop('checked', canInscribe(jornadas[7]) );
 	// evaluate enabled/disabled status by mean of check "Cerrada" and "-- Sin asignar --"
 	$('#new_inscripcion-J1').prop('disabled', ! canInscribe(jornadas[0]) );
 	$('#new_inscripcion-J2').prop('disabled', ! canInscribe(jornadas[1]) );
