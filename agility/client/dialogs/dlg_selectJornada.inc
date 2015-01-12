@@ -120,7 +120,7 @@ $('#seljornada-Jornada').combogrid({
 	onBeforeLoad: function(param) { 
 		param.Operation='enumerate', 
 		param.Prueba=workingData.prueba;
-		param.AllowClosed=0;
+		param.AllowClosed=<?php echo $allowClosed;?>;
 		param.HideUnassigned=1;
 		return true;
 	}
