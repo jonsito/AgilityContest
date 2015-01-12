@@ -282,31 +282,31 @@ class OrdenSalida extends DBObject {
 	 * @return 0 o 1 
 	 */
 	private function hasCelo($ordensalida,$idperro) {
-		$p=",{number_format($idperro,0)},";
+		$p=",".number_format($idperro,0).",";
 		$str=getInnerString($ordensalida,"BEGIN,",",TAG_-0");
-		if (strpos(",{$str},",0)!== false) return 0;
+		if (strpos(",$str,",$p)!== false) return 0;
 		$str=getInnerString($ordensalida,"TAG_-0,",",TAG_-1");
-		if (strpos(",{$str},",0)!== false) return 0;
+		if (strpos(",$str,",$p)!== false) return 0;
 		$str=getInnerString($ordensalida,"TAG_-1,",",TAG_L0");
-		if (strpos(",{$str},",0)!== false) return 1;
+		if (strpos(",$str,",$p)!== false) return 1;
 		$str=getInnerString($ordensalida,"TAG_L0,",",TAG_L1");
-		if (strpos(",{$str},",0)!== false) return 0;
+		if (strpos(",$str,",$p)!== false) return 0;
 		$str=getInnerString($ordensalida,"TAG_L1,",",TAG_M0");
-		if (strpos(",{$str},",0)!== false) return 1;
+		if (strpos(",$str,",$p)!== false) return 1;
 		$str=getInnerString($ordensalida,"TAG_M0,",",TAG_M1");
-		if (strpos(",{$str},",0)!== false) return 0;
+		if (strpos(",$str,",$p)!== false) return 0;
 		$str=getInnerString($ordensalida,"TAG_M1,",",TAG_S0");
-		if (strpos(",{$str},",0)!== false) return 1;
+		if (strpos(",$str,",$p)!== false) return 1;
 		$str=getInnerString($ordensalida,"TAG_S0,",",TAG_S1");
-		if (strpos(",{$str},",0)!== false) return 0;
+		if (strpos(",$str,",$p)!== false) return 0;
 		$str=getInnerString($ordensalida,"TAG_S1,",",TAG_T0");
-		if (strpos(",{$str},",0)!== false) return 1;
+		if (strpos(",$str,",$p)!== false) return 1;
 		$str=getInnerString($ordensalida,"TAG_T0,",",TAG_T1");
-		if (strpos(",{$str},",0)!== false) return 0;
+		if (strpos(",$str,",$p)!== false) return 0;
 		$str=getInnerString($ordensalida,"TAG_T1,",",END");
-		if (strpos(",{$str},",0)!== false) return 1;
+		if (strpos(",$str,",$p)!== false) return 1;
 		// si llega hasta aqui significa que no esta en la lista: error
-		$this->myLogger->error("El perro con ID:$idperro no aparece en el orden de salida:\n$ordensalida");
+		$this->myLogger->error("La el perro:$idperro no aparece en el orden de salida:$ordensalida");
 		return 0;
 	}
 	
@@ -316,10 +316,10 @@ class OrdenSalida extends DBObject {
 	 * @param {integer} $prueba ID de la prueba, necesario para el constructor de resultados
 	 * @param {integer} $to manga a reordenar
 	 * @param {integer} $from manga donde buscar resultados
-	 * @param {integer} $mode categorias de la manga (L,M,S,MS,LMS)
+	 * @param {integer} $mode categorias de la manga (L,M,S,MS,LMS,T,LM,ST,LMST)
 	 */
 	private function invierteResultados($prueba,$to,$from,$mode) {
-		$orden=$this->getOrden($to->ID);
+		$orden=$this->getOrden($to->ID); // assume a previous starting order
 		$r =new Resultados("OrdenSalida::invierteResultados", $prueba,$from->ID);
 		$data=$r->getResultados($mode)['rows'];
 		$size= count($data);
@@ -347,7 +347,8 @@ class OrdenSalida extends DBObject {
 		// el constructor
 		$jhandler=new Jornadas("OrdenSalida::reverse",1);
 		$jdata=$jhandler->selectByID($jornada);
-		$prueba=$jdata['Prueba'];
+		$pid=$jdata['Prueba'];
+		$prueba=$jhandler->__getObject("Pruebas",$pid); // get prueba data
 		// fase 1: buscamos la "manga hermana"
 		$mhandler=new Mangas("OrdenSalida::reverse()",$jornada);
 		$hermanas=$mhandler->getHermanas($manga);
@@ -358,17 +359,27 @@ class OrdenSalida extends DBObject {
 		$this->myLogger->trace("El orden de salida original para manga:$manga jornada:$jornada es:\n{$hermanas[0]->Orden_Salida}");
 		// En funcion del tipo de recorrido tendremos que leer diversos conjuntos de Resultados
 		switch($hermanas[0]->Recorrido) {
-			case 0: // Large, medium, small
-				$this->invierteResultados($prueba,$hermanas[0],$hermanas[1],0);
-				$this->invierteResultados($prueba,$hermanas[0],$hermanas[1],1);
-				$this->invierteResultados($prueba,$hermanas[0],$hermanas[1],2);
+			case 0: // Large,medium,small (rsce) Large,medium,small,tiny (rfec)
+				$this->invierteResultados($pid,$hermanas[0],$hermanas[1],0);
+				$this->invierteResultados($pid,$hermanas[0],$hermanas[1],1);
+				$this->invierteResultados($pid,$hermanas[0],$hermanas[1],2);
+				if ($prueba->RSCE!=0) $this->invierteResultados($pid,$hermanas[0],$hermanas[1],5);
 				break;
-			case 1: // Large, medium+small
-				$this->invierteResultados($prueba,$hermanas[0],$hermanas[1],0);
-				$this->invierteResultados($prueba,$hermanas[0],$hermanas[1],3);
+			case 1: // Large,medium+small (rsce) Large+medium,Small+tiny (rfec)
+				if ($prueba->RSCE==0) {
+					$this->invierteResultados($pid,$hermanas[0],$hermanas[1],0);
+					$this->invierteResultados($pid,$hermanas[0],$hermanas[1],3);
+				} else {
+					$this->invierteResultados($pid,$hermanas[0],$hermanas[1],6);
+					$this->invierteResultados($pid,$hermanas[0],$hermanas[1],7);
+				}
 				break;
-			case 2: // conjunta L+M+S
-				$this->invierteResultados($prueba,$hermanas[0],$hermanas[1],4);
+			case 2: // conjunta L+M+S (rsce) L+M+S+T (rfec)
+				if ($prueba->RSCE==0) {
+					$this->invierteResultados($pid,$hermanas[0],$hermanas[1],4);
+				} else  {
+					$this->invierteResultados($pid,$hermanas[0],$hermanas[1],8);
+				}
 				break;
 		}
 		$nuevo=$this->getOrden($hermanas[0]->ID);

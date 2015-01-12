@@ -70,7 +70,7 @@ $('#ordensalida-datagrid').datagrid({
     loadMsg: "Actualizando orden de salida...",
     toolbar: '#ordensalida-toolbar',
     pagination: false,
-    rownumbers: false,
+    rownumbers: true,
     fitColumns: true,
     singleSelect: true,
     // toolbar: '#ordensalida-toolbar',

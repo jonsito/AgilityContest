@@ -38,7 +38,6 @@ try {
 		// no direct delete as created/destroyed from jornadaFunctions
 		case "enumerate": 	$result=$mangas->selectByJornada($jornada); break; 
 		case "getbyid":		$result=$mangas->selectByID($manga); break;
-		case "getTandas":	$result=$mangas->getTandasByJornada($jornada); break; 
 		default: throw new Exception("mangaFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) 
