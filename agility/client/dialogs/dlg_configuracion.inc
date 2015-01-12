@@ -93,9 +93,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     </span>
 	<span  style="float:right;padding:5px">
     <a id="config-okBtn" href="#" class="easyui-linkbutton" 
-    	data-options="iconCls:'icon-ok'" onclick="saveConfig()">Guardar</a>
-    <a id="config-cancelBtn" href="#" class="easyui-linkbutton" 
-    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#config-dialog').dialog('close')">Cancelar</a>
+    	data-options="iconCls:'icon-save'" onclick="saveConfig()">Guardar</a>
     </span>
 </div>
 
@@ -103,7 +101,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	addTooltip($('#config-resetBtn').linkbutton(),"Anula modificaciones. Recupera datos desde el servidor.");
 	addTooltip($('#config-defaultBtn').linkbutton(),"Recuperar valores de fabrica de la aplicaci&oacute;n");
 	addTooltip($('#config-okBtn').linkbutton(),"Aceptar datos. Guardar nueva configuraci&oacute;n");
-	addTooltip($('#config-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
 	
 	function saveConfig() {
 		$('#config-Operation').val('saveConfig');
