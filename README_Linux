@@ -24,7 +24,18 @@ Tener instalados y funcionando
  root# chcon -Rv --type=httpd_user_rw_content_t ${BASE}/logs
  root# chcon -v --type=httpd_user_rw_content_t ${BASE}/agility/server/auth/config.ini
 
-2b- Instalacion y configuracion (base de datos)
+2b- Configuracion de MySQL
+  Debido a problemas de compatibilidad con windows es necesario ajustar la variable 'lower_case_table_names' al
+  valor 1 ( valor por defecto en Windows ).
+- Editar el fichero /etc/my.cnf.d/server.cnf ( 'sudo vi /etc/my.cnf.d/server.cnf' )
+- En la sección [mysqld] añadir la opción:
+ ...
+ [mysqld]
+ lower_case_table_names = 1
+ ...
+- Reiniciar el servidor ( sudo service mysqld restart )
+
+2c- Instalacion y configuracion (base de datos)
   mysql -u root
   DROP DATABASE IF EXISTS agility;
   CREATE DATABASE agility;
@@ -32,4 +43,6 @@ Tener instalados y funcionando
   source ${BASE}/agility/extras/agility.sql
   source i${BASE}/agility/extras/users.sql
   quit
+
+3- Comprobación
 - Abrir la página "http://localhost/agility" desde el navegador para comprobar que todo funciona
