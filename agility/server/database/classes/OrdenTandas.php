@@ -208,6 +208,11 @@ class OrdenTandas extends DBObject {
 				$orden = $this->removeFromList($orden,$item['ID']);
 				return $orden;
 			}
+			if( ($rsce!=0) && ($item['Grado']==='GIII') ) {
+				// remove every "Grado III" tandas on non RSCE contests
+				$orden = $this->removeFromList($orden,$item['ID']);
+				return $orden;
+			}
 			if ($oper==true) $orden = $this->insertIntoList($orden,$item['ID']); 
 			else  $orden = $this->removeFromList($orden,$item['ID']);
 		}
