@@ -3459,6 +3459,7 @@ INSERT INTO `sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `SessionKey`, 
 DROP TABLE IF EXISTS `tandas`;
 CREATE TABLE IF NOT EXISTS `tandas` (
 `ID` int(4) NOT NULL,
+  `Tipo` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '1',
   `Jornada` int(4) NOT NULL,
   `Sesion` int(4) NOT NULL DEFAULT '1',
@@ -3466,7 +3467,8 @@ CREATE TABLE IF NOT EXISTS `tandas` (
   `Nombre` varchar(255) NOT NULL,
   `Categoria` varchar(1) NOT NULL,
   `Grado` varchar(16) NOT NULL,
-  `Horario` varchar(128) DEFAULT NULL
+  `Horario` varchar(64) DEFAULT NULL,
+  `Comentario` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
