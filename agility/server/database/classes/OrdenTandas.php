@@ -103,8 +103,8 @@ class OrdenTandas extends DBObject {
 	 */
 	function getTandasBy($key,$value) {
 		$res=array();
+		if (!isset(Tandas::$lista_tandas[0][$key])) return $res;// key not found: return empty array
 		foreach(OrdenTandas::$lista_tandas as $item) {
-			if (!isset($item[$key])) return $res; // key not found: return empty array
 			if ($item[$key]==$value) array_push($res,$item);
 		}
 		return $res;
