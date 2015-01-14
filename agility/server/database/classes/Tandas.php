@@ -109,7 +109,7 @@ class Tandas extends DBObject {
 	*/
 	function getTandasBy($key,$value) {
 		$res=array();
-		if (!isset(Tandas::$tipo_tanda[0][$key])) // key not found: return empty array
+		if (!isset(Tandas::$tipo_tanda[0][$key])) return $res; // key not found: return empty array
 		foreach(Tandas::$tipo_tanda as $item) {
 			if ($item[$key]==$value) array_push($res,$item);
 		}
