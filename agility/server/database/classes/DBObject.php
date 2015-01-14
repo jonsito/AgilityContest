@@ -66,6 +66,8 @@ class DBObject {
 		$trace=debug_backtrace();
 		$this->errormsg=$this->file."::".$trace[1]['function']."() Error at ".$trace[1]['file'].":".$trace[1]['line'].":\n".$msg;
 		return null;
+		// $this->myLogger->error($this->errormsg);
+		// return $this->errormsg;
 	}
 	
 	function query($sql) {

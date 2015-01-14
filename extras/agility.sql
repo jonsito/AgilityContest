@@ -3465,8 +3465,6 @@ CREATE TABLE IF NOT EXISTS `tandas` (
   `Sesion` int(4) NOT NULL DEFAULT '1',
   `Orden` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
-  `Categoria` varchar(1) NOT NULL,
-  `Grado` varchar(16) NOT NULL,
   `Horario` varchar(64) DEFAULT NULL,
   `Comentario` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -3479,10 +3477,6 @@ CREATE TABLE IF NOT EXISTS `tandas` (
 --       `jornadas` -> `ID`
 --   `Sesion`
 --       `sesiones` -> `ID`
---   `Categoria`
---       `categorias_perro` -> `Categoria`
---   `Grado`
---       `grados_perro` -> `Grado`
 --
 
 -- --------------------------------------------------------
@@ -3666,7 +3660,7 @@ ALTER TABLE `sesiones`
 -- Indices de la tabla `tandas`
 --
 ALTER TABLE `tandas`
- ADD PRIMARY KEY (`ID`), ADD KEY `Tandas_Prueba` (`Prueba`), ADD KEY `Tandas_Jornada` (`Jornada`), ADD KEY `Tandas_Sesion` (`Sesion`), ADD KEY `Tandas_Categoria` (`Categoria`), ADD KEY `Tandas_Grado` (`Grado`);
+ ADD PRIMARY KEY (`ID`), ADD KEY `Tandas_Prueba` (`Prueba`), ADD KEY `Tandas_Jornada` (`Jornada`), ADD KEY `Tandas_Sesion` (`Sesion`);
 
 --
 -- Indices de la tabla `tipo_manga`
@@ -3841,9 +3835,7 @@ ADD CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` 
 ALTER TABLE `tandas`
 ADD CONSTRAINT `Tandas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `Tandas_ibfk_2` FOREIGN KEY (`Jornada`) REFERENCES `jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `Tandas_ibfk_3` FOREIGN KEY (`Sesion`) REFERENCES `sesiones` (`ID`) ON UPDATE CASCADE,
-ADD CONSTRAINT `Tandas_ibfk_4` FOREIGN KEY (`Categoria`) REFERENCES `categorias_perro` (`Categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `Tandas_ibfk_5` FOREIGN KEY (`Grado`) REFERENCES `grados_perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `Tandas_ibfk_3` FOREIGN KEY (`Sesion`) REFERENCES `sesiones` (`ID`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tipo_manga`
