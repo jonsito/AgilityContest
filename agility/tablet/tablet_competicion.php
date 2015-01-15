@@ -54,7 +54,7 @@ $('#tablet-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: '/agility/server/database/ordenTandasFunctions.php',
+	url: '/agility/server/database/tandasFunctions.php',
     queryParams: {
         Operation: 'getTandas',
         Prueba: workingData.prueba,
@@ -95,7 +95,7 @@ function tablet_showPerrosByTanda(index,row){
     var mySelf='#tablet-datagrid-'+row.ID;
 	$(mySelf).datagrid({
 		method: 'get',
-		url: '/agility/server/database/ordenTandasFunctions.php',
+		url: '/agility/server/database/tandasFunctions.php',
 	    queryParams: {
 	        Operation: 'getDataByTanda',
 	        Prueba: row.Prueba,

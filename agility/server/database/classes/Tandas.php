@@ -107,9 +107,9 @@ class Tandas extends DBObject {
 	 * @param {value} $value
 	 * @return {array} List of Tandas that matches with requested key/value pair
 	*/
-	function getTandasBy($key,$value) {
+	function getTandasInfo($key,$value) {
 		$res=array();
-		if (!isset(Tandas::$tipo_tanda[0][$key])) return $res; // key not found: return empty array
+		if (!array_key_exists(Tandas::$tipo_tanda[0],$key)) return $res; // key not found: return empty array
 		foreach(Tandas::$tipo_tanda as $item) {
 			if ($item[$key]==$value) array_push($res,$item);
 		}
@@ -146,15 +146,41 @@ class Tandas extends DBObject {
 	 * @param {array} $data
 	 */
 	function insert($data) {
-		
+		// arriving here means update and/or insert
+		$p=$this->prueba->ID;
+		$j=$this->jornada->ID;
+		// locate latest order in manga
+		$obj=$this->__selectObject("MAX(Orden) AS Last","Tandas","(Prueba=$p) AND (Jornada=$j)");
+		$o=($obj!=null)?1+intval($obj->Last):1; // evaluate latest in order
+		$s=(array_key_exists(data,"Sesion"))?$data['Sesion']:1;
+		$n=(array_key_exists(data,"Nombre"))?$data['Nombre']:'-- Sin nombre --';
+		$h=(array_key_exists(data,"Horario"))?$data['Horario']:'';
+		$c=(array_key_exists(data,"Comentario"))?$data['Comentario']:'';
+		$str="INSERT INTO Tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Horario,Comentario) VALUES (0,$p,$j,$s,$o,'$n','$h','$c')";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		return "";
 	}
 	
 	/**
-	 * Update a 'Tipo=0' Tanda from database
+	 * Update Tanda in database
+	 * Only allow change "Nombre" field when tipo==0
 	 * @param {array} $data
 	 */
 	function update($id,$data){
-		
+		$str="UPDATE Tandas ";
+		$set=array();
+		$tipo="";
+		if (array_key_exists(data,"Sesion")) array_push($set,"Sesion={$data['Sesion']}");
+		if (array_key_exists(data,"Nombre")) { array_push($set,"Nombre='{$data['Nombre']}'"); $tipo=" AND (Tipo=0)"; }
+		if (array_key_exists(data,"Horario")) array_push($set,"Horario='{$data['Horario']}'");
+		if (array_key_exists(data,"Comentario")) array_push($set,"Comentario='{$data['Comentario']}'");
+		if (count($set)==0) return; // no data to update
+		$sets=imploder(",",$set);
+		$str= "$str SET $set WHERE (ID=$id) $tipo"; //  if tipo!=0 cannot change name
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		return "";
 	}
 	
 	function delete($id){
@@ -169,50 +195,36 @@ class Tandas extends DBObject {
 	function removeFromList($tipo) {
 		$p=$this->jornada->ID;
 		$j=$this->jornada->ID;
-		$str="DELETE FROM Tandas WHERE (ID=$id) AND (Tipo=$tipo)";
+		$str="DELETE FROM Tandas WHERE (Prueba=$p) AND (Jornada=$j) AND (Tipo=$tipo)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		return ""; // mark success
 	}
 	
-	function selectByJornada(){
-		$p=$this->jornada->ID;
-		$j=$this->jornada->ID;
-		return $this->__select(
-			/* SELECT */	"*",
-			/* FROM */		"Tandas",
-			/* WHERE */		"(Jornada={$this->jornada->ID})",
-			/* ORDER BY */	"Orden ASC",
-			/* LIMIT */		""
-			);
-		if(!is_array($res)){
-			return $this->error("No encuentro tandas para la prueba:$p jornada:$j");
-		}
-		// merge retrieved data with tipotanda info
-		foreach ($res['rows'] as $key => $item) {
-			$res['rows'][$key]=array_merge($item,Tandas::$tipo_tanda[$item['Tipo']]);
-		}
-		return $res;
+	function select($id){
+		return $this->__getArray("Tandas",$id);
 	}
 	
-	function selectBySession($id){
-		$p=$this->jornada->ID;
+	/**
+	 * insert $from before(where==false) or after(where=true) $to
+	 * @param unknown $from
+	 * @param unknown $to
+	 * @param unknown $where
+	 */
+	function dnd($from,$to,$where) {
+		$this->myLogger->enter();
+		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
-		$res=$this->__select(
-			/* SELECT */	"*",
-			/* FROM */		"Tandas",
-			/* WHERE */		"(Jornada=$j) AND (Sesion=$id)",
-			/* ORDER BY */	"Orden ASC",
-			/* LIMIT */		"" 
-			);
-		if(!is_array($res)){
-			return $this->error("No encuentro tandas para la prueba:$p jornada:$j sesion:$id");
+		// get from/to Tanda's ID
+		$f=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Orden=$from)");
+		$t=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Orden=$to)");
+		if(!$f || !$t) {
+			$this->myLogger->error("Error: no ID for tanda's order '$from' and/or '$to' on prueba:$p jornada:$j");
+			return $this->errormsg;
 		}
-		// merge retrieved data with tipotanda info
-		foreach ($res['rows'] as $key => $item) {
-			$res['rows'][$key]=array_merge($item,Tandas::$tipo_tanda[$item['Tipo']]);
-		}
-		return $res;
+		$fid=$f->ID;
+		$tid=$t->ID;
+		// TODO: write
 	}
 	
 	function swap($from,$to) {
@@ -221,7 +233,7 @@ class Tandas extends DBObject {
 		$j=$this->jornada->ID;
 		// get from/to Tanda's ID
 		$f=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Orden=$from)");
-		$t=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Orden=$from)");
+		$t=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Orden=$to)");
 		if(!$f || !$t) {
 			$this->myLogger->error("Error: no ID for tanda's order '$from' and/or '$to' on prueba:$p jornada:$j");
 			return $this->errormsg;
@@ -239,9 +251,146 @@ class Tandas extends DBObject {
 		$this->myLogger->leave();
 		return ""; // mark success
 	}
+
+	/**
+	 * Obtiene el programa de la jornada
+	 * @param {integer} $s session id. $s==0 means "any session"
+	 * @return json aware array or string on error
+	 */
+	function getTandas($s=0){
+		$p=$this->jornada->ID;
+		$j=$this->jornada->ID;
+		
+		// prepared statement to retrieve mangas id
+		$sql="SELECT ID FROM Mangas WHERE (Jornada=$jornada) AND (Tipo=?)";
+		$stmt=$this->conn->prepare($sql);
+		if (!$stmt) return $this->error($this->conn->error);
+		$res=$stmt->bind_param('i',$tipo);
+		if (!$res) return $this->error($stmt->error);
+		
+		// Ask dadabase to retrieve list of Tandas
+		$ses=(intval($s)==0)?"":" AND (Sesion=0) ";
+		$res= $this->__select(
+				/* SELECT */	"*",
+				/* FROM */		"Tandas",
+				/* WHERE */		"(Prueba=$p) AND (Jornada=$j) $ses",
+				/* ORDER BY */	"Orden ASC",
+				/* LIMIT */		""
+		);
+		if(!is_array($res)){
+			return $this->error("No encuentro tandas para la prueba:$p jornada:$j");
+		}
+		
+		// merge retrieved data with tipotanda info
+		foreach ($res['rows'] as $key => $item) {
+			// merge tipo_tanda info into result
+			$res['rows'][$key]=array_merge($item,Tandas::$tipo_tanda[$item['Tipo']]);
+			// evaluate and insert Manga ID
+			if ($item['Tipo']==0) { // User-Provided tandas has no Manga ID
+				$res['rows'][$key]['Manga']=0;
+			} else { // retrieve Manga ID and merge into result		
+				$tipo=$item['TipoManga'];
+				$rs=$stmt->execute();
+				if (!$rs) return $this->error($stmt->error);
+				$stmt->bind_result($mangaid);
+				$stmt->fetch();
+				$res['rows'][$key]['Manga']=$mangaid;
+			}
+		}
+		return $res;
+	}
+	
+	/**
+	 * Obtiene la lista ordenada de perros de esta jornada
+	 * @param number $s Sesion ID. $s!=0 -> muestra solo los perros de dicha sesion
+	 * @param number $t Tanda ID.
+	 *     $t=0; mira todos los perros de todas las tandas
+	 *     $t>0; mira SOLO los perros de la tanda (-$t)
+	 *     $t<0; mira todos los perros A PARTIR DE la tanda $t
+	 * @param number $p Pendientes $p=0 -> muestra todos los perros; else muestra los $p primeros pendientes de salir
+	 */
+	private function getListaPerros($s=0,$t=0,$p=0){
+		$count=$p;			// contador de perros pendientes de listar
+		$oldmanga=0;		// variable para controlar manga "activa"
+		$perrosmanga=null;	// lista de perros inscritos en una manga indexada por PerroID
+		$ordenmanga=null;	// CSV list of perros inscritos en una manga
+		$do_iterate=false;	// indica si debe analizar los perros de la tanda
+		$rows=array();		// donde iremos guardando los resultados
+		$result=array();	// resultado a devolver en formato json
+		
+		// obtenemos la lita de tandas
+		$lista_tandas=$this->getTandas($s);
+		
+		// iteramos la lista de tandas
+		foreach ($lista_tandas as $tanda) {
+			// Comprobamos si debemos analizar la tanda
+			if ($t>0) { $do_iterate= ( $tanda['ID'] == abs($t) )? true:false; } // iterar solo la tanda
+			if ($t<0) { if ( $tanda['ID'] == abs($t) ) $do_iterate=true; } 		// iterar a partir de la tanda
+			if ($t==0) $do_iterate=true;										// iterar TODAS las tandas
+			if (!$do_iterate) continue; // this tanda is not the one we are looking for
+			
+			// comprobamos ahora si hay cambio de manga
+			if ($oldManga!=$tanda['Manga']) { // cambio de manga
+				$oldmanga=$manga;
+				// en cada manga cogemos el orden de salida asociado
+				$os=new OrdenSalida("ordenTandas::getData()",$prueba,$jornada,$manga);
+				$ordenmanga=$os->getOrden($manga);
+				// cogemos tambien la lista de perros de cada manga, y la reindexamos segun el orden del perro
+				$res=$this->__select("*", "Resultados","(Prueba=$prueba) AND (Jornada=$jornada) AND (Manga=$manga)","","");
+				if (!is_array($res)) return $this->error($this->conn->error);
+				$perrosmanga=array();
+				foreach($res['rows'] as $item) {
+					$perrosmanga[$item['Perro']]=$item;
+				}
+			}
+			
+			// OK ya tenemos los perros de la manga. Ahora vamos a sacar la lista por cada tanda
+
+			// de cada tanda extraemos el substring definido entre 'from' y 'to'
+			$ordentanda=getInnerString($ordenmanga,$tanda['From'],$tanda['To']);
+				
+			// y generamos la lista ordenada de los perros inscritos a partir de estos datos
+			if($ordentanda==="") continue; // skip empty tandas
+			$orden=explode(',',$ordentanda);
+			$celo=0;
+			foreach($orden as $perro) {
+				// from manual: don't compare strpos against 'true'
+				if (strpos($perro,'TAG')!==false) { // separator. check for 'Celo' field
+					if (strpos($perro,'1')===false) $celo=0;
+					if (strpos($perro,'0')===false) $celo=1;
+					continue; // next search
+				}
+				$perrosmanga[$perro]['Celo']=$celo; // store celo info
+				$perrosmanga[$perro]['Tanda']=$tanda['Nombre'];
+				$perrosmanga[$perro]['ID']=$tanda['ID'];
+				if ($pendientes==0) { array_push($rows,$perrosmanga[$perro]); continue; } // include all
+				if ($perrosmanga[$perro]['Pendiente']==0) continue; // not pendiente: skip
+				if ($count > 0) { $count--; array_push($rows,$perrosmanga[$perro]); continue; } // not yet at count: insert
+				// arriving here means that every requested dogs are filled
+				$this->myLogger->debug("OrdenTandas::getData() Already have $pendientes dogs");
+				// so return
+				$result['rows']=$rows;
+				$result['total']=count($rows);
+				$this->myLogger->leave();
+				return $result;
+			}			 
+		}
+		$result['rows']=$rows;
+		$result['total']=count($rows);
+		$this->myLogger->leave();
+		return $result;
+	}
+
+	function getData($s,$t,$p) {
+		return $this->getListaPerros($s,-($t),$p);
+	}
+	
+	function getDataByTanda($s,$t) {
+		return $this->getListaPerros($$p,$j,s,$t,0);
+	}
 	
 	private function insert_remove($rsce,$tipo,$oper) {
-		foreach( $this->getTandasBy('TipoManga',$tipo) as $item) {
+		foreach( $this->getTandasInfo('TipoManga',$tipo) as $item) {
 			if( ($rsce==0) && ($item['Categoria']==='T') ) {
 				// remove every "tiny" tandas on RSCE contests
 				$this->removeFromList($item['Tipo']);
