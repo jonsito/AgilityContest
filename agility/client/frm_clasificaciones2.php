@@ -236,7 +236,7 @@ $('#resultados-manga2-trs-form').form(
 addTooltip($('#resultados-refreshBtn').linkbutton(),"Actualizar la tabla de clasificaciones");
 addTooltip($('#resultados-printBtn').linkbutton(),"Imprimir los clasificacion de la manga"); 
 addTooltip($('#resultados-printDlgBtn').linkbutton(),"Imprimir los datos en el formato seleccionado"); 
-addTooltip($('#resultados-printfirst').linkbutton(),"Numero de la pegatina de comienzo de la impresión<br/> en la hoja de etiquetas"); 
+addTooltip($('#r_prfirst').linkbutton(),"Numero de la pegatina de comienzo de la impresión<br/> en la hoja de etiquetas"); 
 
 $('#resultados-datagrid').datagrid({
 	// propiedades del panel asociado
