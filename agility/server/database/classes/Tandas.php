@@ -207,6 +207,8 @@ class Tandas extends DBObject {
 	
 	/**
 	 * insert $from before(where==false) or after(where=true) $to
+	 * This dnd routine uses a Orden shift'ng: increase every remaining row order, 
+	 * and assign moved row orden to created hole 
 	 * @param unknown $from
 	 * @param unknown $to
 	 * @param unknown $where
@@ -216,36 +218,49 @@ class Tandas extends DBObject {
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
 		// get from/to Tanda's ID
-		$f=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Orden=$from)");
-		$t=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Orden=$to)");
+		$f=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (ID=$from)");
+		$t=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (ID=$to)");
 		if(!$f || !$t) {
 			$this->myLogger->error("Error: no ID for tanda's order '$from' and/or '$to' on prueba:$p jornada:$j");
 			return $this->errormsg;
 		}
-		$fid=$f->ID;
-		$tid=$t->ID;
-		// TODO: write
+		$torder=$t->ID;
+		$neworder=($where)?$torder+1/*after*/:$torder/*before*/;
+		$comp=($where)?">"/*after*/:">="/*before*/;
+		$str="UPDATE Tandas SET Orden=Orden+1 WHERE ( Prueba = $p ) AND ( Jornada = $j ) AND ( Orden $comp $torder )";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		$str="UPDATE Tandas SET Orden=$neworder WHERE ( Prueba = $p ) AND ( Jornada = $j ) AND ( ID = $fid )";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		return "";
 	}
 	
+	/**
+	 * Swap orden between requested tandas
+	 * @param {integer} $from Tanda ID 1
+	 * @param {integer} $to Tanda ID 2
+	 * @return {string} error message or "" on success
+	 */
 	function swap($from,$to) {
 		$this->myLogger->enter();
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
 		// get from/to Tanda's ID
-		$f=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Orden=$from)");
-		$t=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Orden=$to)");
+		$f=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (ID=$from)");
+		$t=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (ID=$to)");
 		if(!$f || !$t) {
 			$this->myLogger->error("Error: no ID for tanda's order '$from' and/or '$to' on prueba:$p jornada:$j");
 			return $this->errormsg;
 		}
-		$fid=$f->ID;
-		$tid=$t->ID;
+		$forden=$f->Orden;
+		$torden=$t->Orden;
 		// perform swap update. 
 		// TODO: make it inside a transaction
-		$str="UPDATE Tandas SET Orden=$from WHERE (ID=$tid)";
+		$str="UPDATE Tandas SET Orden=$torden WHERE (ID=$from)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 
-		$str="UPDATE Tandas SET Orden=$to WHERE (ID=$fid)";	
+		$str="UPDATE Tandas SET Orden=$forder WHERE (ID=$to)";	
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
