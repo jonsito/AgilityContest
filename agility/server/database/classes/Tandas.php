@@ -109,7 +109,7 @@ class Tandas extends DBObject {
 	*/
 	function getTandasInfo($key,$value) {
 		$res=array();
-		if (!array_key_exists(Tandas::$tipo_tanda[0],$key)) return $res; // key not found: return empty array
+		if (!array_key_exists($key,Tandas::$tipo_tanda[0])) return $res; // key not found: return empty array
 		foreach(Tandas::$tipo_tanda as $item) {
 			if ($item[$key]==$value) array_push($res,$item);
 		}
@@ -152,10 +152,10 @@ class Tandas extends DBObject {
 		// locate latest order in manga
 		$obj=$this->__selectObject("MAX(Orden) AS Last","Tandas","(Prueba=$p) AND (Jornada=$j)");
 		$o=($obj!=null)?1+intval($obj->Last):1; // evaluate latest in order
-		$s=(array_key_exists(data,"Sesion"))?$data['Sesion']:1;
-		$n=(array_key_exists(data,"Nombre"))?$data['Nombre']:'-- Sin nombre --';
-		$h=(array_key_exists(data,"Horario"))?$data['Horario']:'';
-		$c=(array_key_exists(data,"Comentario"))?$data['Comentario']:'';
+		$s=(array_key_exists("Sesion",$data))?$data['Sesion']:1;
+		$n=(array_key_exists("Nombre",$data))?$data['Nombre']:'-- Sin nombre --';
+		$h=(array_key_exists("Horario",$data))?$data['Horario']:'';
+		$c=(array_key_exists("Comentario",$data))?$data['Comentario']:'';
 		$str="INSERT INTO Tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Horario,Comentario) VALUES (0,$p,$j,$s,$o,'$n','$h','$c')";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -171,10 +171,10 @@ class Tandas extends DBObject {
 		$str="UPDATE Tandas ";
 		$set=array();
 		$tipo="";
-		if (array_key_exists(data,"Sesion")) array_push($set,"Sesion={$data['Sesion']}");
-		if (array_key_exists(data,"Nombre")) { array_push($set,"Nombre='{$data['Nombre']}'"); $tipo=" AND (Tipo=0)"; }
-		if (array_key_exists(data,"Horario")) array_push($set,"Horario='{$data['Horario']}'");
-		if (array_key_exists(data,"Comentario")) array_push($set,"Comentario='{$data['Comentario']}'");
+		if (array_key_exists("Sesion",$data)) array_push($set,"Sesion={$data['Sesion']}");
+		if (array_key_exists("Nombre",$data)) { array_push($set,"Nombre='{$data['Nombre']}'"); $tipo=" AND (Tipo=0)"; }
+		if (array_key_exists("Horario",$data)) array_push($set,"Horario='{$data['Horario']}'");
+		if (array_key_exists("Comentario",$data)) array_push($set,"Comentario='{$data['Comentario']}'");
 		if (count($set)==0) return; // no data to update
 		$sets=imploder(",",$set);
 		$str= "$str SET $set WHERE (ID=$id) $tipo"; //  if tipo!=0 cannot change name
