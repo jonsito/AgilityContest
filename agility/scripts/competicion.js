@@ -681,9 +681,13 @@ function dragAndDropOrdenTandas(from,to,where) {
 			From: from,
 			To: to,
 			Where: where
-		}
-	}).done( function(msg) {
-		reloadOrdenTandas();
+		},
+    	success: function (result) {
+    		if (result.errorMsg){ 
+    			$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+    		}
+    		reloadOrdenTandas();
+    	}
 	});
 }
 /**

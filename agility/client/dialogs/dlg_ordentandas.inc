@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!--  dialogo de orden de tandas e introduccion de datos de una competicion -->
-<div id="ordentandas-dialog" style="width:350px;height:450px;padding:5px">
+<div id="ordentandas-dialog" style="width:700px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
 	<table id="ordentandas-datagrid" style="padding:5px"></table>
 </div>
@@ -55,7 +55,7 @@ $('#ordentandas-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: '/agility/server/database/ordenTandasFunctions.php',
+	url: '/agility/server/database/tandasFunctions.php',
     queryParams: {
         Operation: 'getTandas',
         Prueba: workingData.prueba,
@@ -74,7 +74,11 @@ $('#ordentandas-datagrid').datagrid({
           	{ field:'Manga',	hidden:true },
       		{ field:'From',		hidden:true },
       		{ field:'To',		hidden:true },
-      		{ field:'Nombre',	width:200, sortable:false, align:'right',title:'Secuencia de salida a pista'},
+      		{ field:'Nombre',	width:200, sortable:false, align:'left',title:'Actividad'},
+      		{ field:'Sesion',	hidden:true },
+      		{ field:'NombreSesion',width:120, sortable:false, align:'left',title:'Ring'},
+      		{ field:'Horario',	width:70, sortable:false, align:'right',title:'Horario'},
+      		{ field:'Observaciones',width:110, sortable:false, align:'right',title:'Observaciones'},
       		{ field:'Categoria',hidden:true },
       		{ field:'Grado',	hidden:true }
     ]],

@@ -40,7 +40,7 @@ try {
 	
 	// datos para listados, altas y bajas
 	$td = http_request("Tanda","i",0);
-	$s = http_request("Session","i",1); // session id. default '-- sin asignar --'
+	$s = http_request("Session","i",0); // default is no session
 	$a = http_request("Pendientes","i",0);
 	
 	// los siguiente campos se usan para drag and drop

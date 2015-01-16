@@ -24,6 +24,7 @@ class Tandas extends DBObject {
 	
 	protected $prueba;
 	protected $jornada;
+	protected $sesiones; // used to store current sesions
 	
 	/**
 	 * Tandas database only contains 'Tipo' field. Extract remaining data from this table
@@ -116,6 +117,13 @@ class Tandas extends DBObject {
 		return $res;
 	}
 	
+	function getSessionName($id){
+		foreach($this->sesiones as $sesion) {
+			if ($sesion['ID']==$id) return $sesion['Nombre'];
+		}
+		$this->myLogger->error("No session found with ID:$id");
+		return ""; // no session name found
+	}
 	/**
 	 * Constructor
 	 * @param {string} $file Caller's indentification
@@ -139,6 +147,8 @@ class Tandas extends DBObject {
 			$this->errormsg="$file::construct() jornada:$jornada is not owned by prueba:$prueba";
 			throw new Exception($this->errormsg);
 		}
+		$s=$this->__select("*","Sesiones","","","");
+		$this->sesiones=$s['rows'];
 	}
 	
 	/**
@@ -209,11 +219,11 @@ class Tandas extends DBObject {
 	 * insert $from before(where==false) or after(where=true) $to
 	 * This dnd routine uses a Orden shift'ng: increase every remaining row order, 
 	 * and assign moved row orden to created hole 
-	 * @param unknown $from
-	 * @param unknown $to
-	 * @param unknown $where
+	 * @param {integer} $from id to move
+	 * @param {integer} $to id to insert arounn
+	 * @param {boolean} $where false:insert before  / true:insert after
 	 */
-	function dnd($from,$to,$where) {
+	function dragAndDrop($from,$to,$where) {
 		$this->myLogger->enter();
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
@@ -224,13 +234,13 @@ class Tandas extends DBObject {
 			$this->myLogger->error("Error: no ID for tanda's order '$from' and/or '$to' on prueba:$p jornada:$j");
 			return $this->errormsg;
 		}
-		$torder=$t->ID;
+		$torder=$t->Orden;
 		$neworder=($where)?$torder+1/*after*/:$torder/*before*/;
 		$comp=($where)?">"/*after*/:">="/*before*/;
 		$str="UPDATE Tandas SET Orden=Orden+1 WHERE ( Prueba = $p ) AND ( Jornada = $j ) AND ( Orden $comp $torder )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
-		$str="UPDATE Tandas SET Orden=$neworder WHERE ( Prueba = $p ) AND ( Jornada = $j ) AND ( ID = $fid )";
+		$str="UPDATE Tandas SET Orden=$neworder WHERE ( Prueba = $p ) AND ( Jornada = $j ) AND ( ID = $from )";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		return "";
@@ -273,11 +283,11 @@ class Tandas extends DBObject {
 	 * @return json aware array or string on error
 	 */
 	function getTandas($s=0){
-		$p=$this->jornada->ID;
+		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
 		
 		// prepared statement to retrieve mangas id
-		$sql="SELECT ID FROM Mangas WHERE (Jornada=$jornada) AND (Tipo=?)";
+		$sql="SELECT ID FROM Mangas WHERE (Jornada=$j) AND (Tipo=?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('i',$tipo);
@@ -304,14 +314,17 @@ class Tandas extends DBObject {
 			if ($item['Tipo']==0) { // User-Provided tandas has no Manga ID
 				$res['rows'][$key]['Manga']=0;
 			} else { // retrieve Manga ID and merge into result		
-				$tipo=$item['TipoManga'];
+				$tipo=$item['Tipo'];
 				$rs=$stmt->execute();
 				if (!$rs) return $this->error($stmt->error);
 				$stmt->bind_result($mangaid);
 				$stmt->fetch();
-				$res['rows'][$key]['Manga']=$mangaid;
+				// add extra info to result
+				$res['rows'][$key]['Manga']=$mangaid;	
 			}
+			$res['rows'][$key]['NombreSesion']=$this->getSessionName($res['rows'][$key]['Sesion']);
 		}
+		$stmt->close();
 		return $res;
 	}
 	
