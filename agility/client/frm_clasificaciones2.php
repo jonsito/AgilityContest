@@ -107,8 +107,32 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    		<a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();">Refrescar</a>
    		<a id="resultados-printBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-print'" onclick="resultados_doPrint()">Informes</a>
+   			data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('open');">Informes</a>
    	</span>
+</div>
+
+<div id="resultados-printDialog" class="easyui-dialog" 
+	data-options="title:'Selecciona formato',closable:true,closed:true,width:'400px',height:'200px'">
+	<form style="padding:10px" id="resultados-printForm">
+	<input type="radio" name="r_prformat" value="0"/>Podium (PDF)<br />
+	<input type="radio" name="r_prformat" value="1"/>Etiquetas (CSV)<br />
+	<input type="radio" name="r_prformat" value="3"/>Informe R.S.C.E. (Excel)<br />
+	<input type="radio" name="r_prformat" value="4" checked="checked"/>Clasificación (PDF)<br />
+	<span  style="display:inline-block;width:100%">
+		<span style="float:left">
+			<input type="radio" name="r_prformat" value="2"/>Hoja de etiquetas (PDF). 
+		</span>
+		<span style="float:right">
+			Etiqueta inicial:
+			<input type="number" id="r_prfirst" style="width:40px" name="first" value="1" min="1" max="16"/><br />
+		</span>
+	</span>
+	&nbsp;<br />
+	<span  style="display:inline-block;width:100%">
+		<a id="resultados-printDlgBtn" href="#" class="easyui-linkbutton" style="float:right"
+   			data-options="iconCls:'icon-print'" onclick="resultados_doPrint();">Imprimir</a>
+	</span>
+	</form>
 </div>
 
 <script type="text/javascript">
@@ -209,8 +233,10 @@ $('#resultados-manga2-trs-form').form(
 		);
 
 //tooltips
-addTooltip($('#resultados-refreshBtn').linkbutton(),"Actualizar la tabla de resultados");
-addTooltip($('#resultados-printBtn').linkbutton(),"Imprimir los resultados de la manga"); 
+addTooltip($('#resultados-refreshBtn').linkbutton(),"Actualizar la tabla de clasificaciones");
+addTooltip($('#resultados-printBtn').linkbutton(),"Imprimir los clasificacion de la manga"); 
+addTooltip($('#resultados-printDlgBtn').linkbutton(),"Imprimir los datos en el formato seleccionado"); 
+addTooltip($('#resultados-printfirst').linkbutton(),"Numero de la pegatina de comienzo de la impresión<br/> en la hoja de etiquetas"); 
 
 $('#resultados-datagrid').datagrid({
 	// propiedades del panel asociado

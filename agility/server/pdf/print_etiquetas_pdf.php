@@ -176,7 +176,7 @@ class Etiquetas_PDF extends FPDF {
 		$this->SetAutoPageBreak(true,10);
 
 		foreach($this->resultados as $row) {
-			if (($rowcount%16)==0) $this->addPage(); // 16 etiquetas por pagina
+			if ( (($rowcount%16)==0) && ($rowcount!=0)) $this->addPage(); // 16 etiquetas por pagina
 			$this->writeCell($rowcount%16,$row,count($this->resultados));
 			$rowcount++;
 		}
@@ -186,9 +186,10 @@ class Etiquetas_PDF extends FPDF {
 }
 
 try {
-	$result=array();
-	for ($i=0;$i<9;$i++) $result[$i]=array();
+	$result=null;
 	$mangas=array();
+	$result=array();
+	for($n=0;$n<9;$n++) $result[$n]=array();
 	$prueba=http_request("Prueba","i",0);
 	$jornada=http_request("Jornada","i",0);
 	$rondas=http_request("Rondas","i","0"); // bitfield of 512:Esp 256:KO 128:Eq4 64:Eq3 32:Opn 16:G3 8:G2 4:G1 2:Pre2 1:Pre1
@@ -201,11 +202,9 @@ try {
 	$mangas[6]=http_request("Manga7","i",0);
 	$mangas[7]=http_request("Manga8","i",0);
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
-	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
+	$mode=http_request("Mode","i",0); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
+	$rowcount=http_request("Start","i",0); // offset to first label in page
 	
-	// Creamos generador de documento
-	$pdf = new Etiquetas_PDF($prueba,$jornada,$mangas);
-
 	// buscamos los recorridos asociados a la mangas
 	$dbobj=new DBObject("print_etiquetas_csv");
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
@@ -252,9 +251,13 @@ try {
 	$res=array_merge($result[0],$result[1],$result[2],$result[3],$result[4],$result[5],$result[6],$result[7],$result[8]);
 	// y ordenamos los resultados por dorsales
 	usort($res,function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
+	
+	// Creamos generador de documento
+	$pdf = new Etiquetas_PDF($prueba,$jornada,$mangas);
+	$pdf->addPage(); 
 	// mandamos a imprimir
 	$pdf->resultados=$res;
-	$pdf->composeTable(0);
+	$pdf->composeTable($rowcount);
 	// mandamos a la salida el documento
 	$pdf->Output("print_etiquetas.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
