@@ -186,7 +186,8 @@ class Etiquetas_PDF extends FPDF {
 }
 
 try {
-	$result=null;
+	$result=array();
+	for ($i=0;$i<9;$i++) $result[$i]=array();
 	$mangas=array();
 	$prueba=http_request("Prueba","i",0);
 	$jornada=http_request("Jornada","i",0);
@@ -210,7 +211,6 @@ try {
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
 	$prb=$dbobj->__getObject("Pruebas",$prueba);
 	$c= new Clasificaciones("print_podium_pdf",$prueba,$jornada);
-	$result=array();
 	$rsce=($prb->RSCE==0)?true:false;
 	switch($mng->Recorrido) {
 		case 0: // recorridos separados large medium small
@@ -248,11 +248,13 @@ try {
 			}
 			break;
 	}
-	$count=0;
-	foreach ($result as $res) {
-		$pdf->resultados=$res;
-		$count= $pdf->composeTable($count);
-	}
+	// juntamos las categorias
+	$res=array_merge($result[0],$result[1],$result[2],$result[3],$result[4],$result[5],$result[6],$result[7],$result[8]);
+	// y ordenamos los resultados por dorsales
+	usort($res,function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
+	// mandamos a imprimir
+	$pdf->resultados=$res;
+	$pdf->composeTable(0);
 	// mandamos a la salida el documento
 	$pdf->Output("print_etiquetas.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
