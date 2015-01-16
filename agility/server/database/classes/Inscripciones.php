@@ -354,7 +354,7 @@ class Inscripciones extends DBObject {
 				"Perro,Nombre,NombreClub,Categoria,Grado",
 				"Inscripciones,PerroGuiaClub",
 				"(Inscripciones.Prueba={$this->pruebaID}) AND (Inscripciones.Perro=PerroGuiaClub.ID)", 
-				"NombreClub ASC,Categoria ASC, Grado ASC, Nombre ASC", 
+				"NombreClub ASC,Grado ASC, Categoria ASC, Nombre ASC", 
 				"");
 		if (!is_array($inscritos))
 			return $this->error("reorder(): Canot retrieve list of inscritos");

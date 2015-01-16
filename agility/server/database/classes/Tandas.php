@@ -193,7 +193,7 @@ class Tandas extends DBObject {
 	}
 	
 	function removeFromList($tipo) {
-		$p=$this->jornada->ID;
+		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
 		$str="DELETE FROM Tandas WHERE (Prueba=$p) AND (Jornada=$j) AND (Tipo=$tipo)";
 		$rs=$this->query($str);
@@ -404,20 +404,21 @@ class Tandas extends DBObject {
 		return $this->getListaPerros($$p,$j,s,$t,0);
 	}
 	
-	private function insert_remove($rsce,$tipo,$oper) {
-		foreach( $this->getTandasInfo('TipoManga',$tipo) as $item) {
+	private function insert_remove($rsce,$tipomanga,$oper) {
+		foreach( $this->getTandasInfo('TipoManga',$tipomanga) as $item) {
+			$tipo=$item['Tipo'];
 			if( ($rsce==0) && ($item['Categoria']==='T') ) {
 				// remove every "tiny" tandas on RSCE contests
-				$this->removeFromList($item['Tipo']);
+				$this->removeFromList($tipo);
 				continue;
 			}
 			if( ($rsce!=0) && ($item['Grado']==='GIII') ) {
 				// remove every "Grado III" tandas on non RSCE contests
-				$this->removeFromList($item['Tipo']);
+				$this->removeFromList($tipo);
 				continue;
 			}
 			if ($oper==false) { // remove requested
-				$this->removeFromList($item['Tipo']);
+				$this->removeFromList($tipo);
 				continue;
 			} 
 			// arriving here means update and/or insert
@@ -458,27 +459,27 @@ class Tandas extends DBObject {
 		$this->insert_remove($r,1,false);
 		$this->insert_remove($r,2,false);
 		if (($j->PreAgility2 != 0)){ // preagility2 also handles preagility1
-			$orden= $this->insert_remove($r,1,true);
-			$orden= $this->insert_remove($r,2,true);
+			$orden= $this->insert_remove($r,1,true);	// Pre-Agility Manga 1
+			$orden= $this->insert_remove($r,2,true);	// Pre-Agility Manga 2
 		}
 		if (($j->PreAgility != 0)){
-			$orden= $this->insert_remove($r,1,true);
-			$orden= $this->insert_remove($r,2,false);
+			$orden= $this->insert_remove($r,1,true);	// Pre-Agility Manga 1
+			$orden= $this->insert_remove($r,2,false);	// Pre-Agility Manga 2
 		}
-		$this->insert_remove($r,3,($j->Grado1 != 0)?true:false);
-		$this->insert_remove($r,4,($j->Grado1 != 0)?true:false);
-		$this->insert_remove($r,5,($j->Grado2 != 0)?true:false);
-		$this->insert_remove($r,10,($j->Grado2 != 0)?true:false);
-		$this->insert_remove($r,6,($j->Grado3 != 0)?true:false);
-		$this->insert_remove($r,11,($j->Grado3 != 0)?true:false);
-		$this->insert_remove($r,7,($j->Open != 0)?true:false);
-		$this->insert_remove($r,12,($j->Open != 0)?true:false);
-		$this->insert_remove($r,8,($j->Equipos3 != 0)?true:false);
-		$this->insert_remove($r,13,($j->Equipos3 != 0)?true:false);
-		$this->insert_remove($r,9,($j->Equipos4 != 0)?true:false);
-		$this->insert_remove($r,14,($j->Equipos4 != 0)?true:false);
-		$this->insert_remove($r,15,($j->KO != 0)?true:false);
-		$this->insert_remove($r,16,($j->Especial != 0)?true:false);
+		$this->insert_remove($r,3,($j->Grado1 != 0)?true:false);		// Agility Grado I Manga 1
+		$this->insert_remove($r,4,($j->Grado1 != 0)?true:false);		// Agility Grado I Manga 2
+		$this->insert_remove($r,5,($j->Grado2 != 0)?true:false);		// Agility Grado II
+		$this->insert_remove($r,10,($j->Grado2 != 0)?true:false);		// Jumping Grado II
+		$this->insert_remove($r,6,($j->Grado3 != 0)?true:false);		// Agility Grado III
+		$this->insert_remove($r,11,($j->Grado3 != 0)?true:false);		// Jumping Grado III
+		$this->insert_remove($r,7,($j->Open != 0)?true:false);			// Agility Abierta (Open)
+		$this->insert_remove($r,12,($j->Open != 0)?true:false);			// Jumping Abierta (Open)
+		$this->insert_remove($r,8,($j->Equipos3 != 0)?true:false);		// Agility Equipos (3 mejores)
+		$this->insert_remove($r,13,($j->Equipos3 != 0)?true:false);		// Jumping por Equipos (3 mejores)
+		$this->insert_remove($r,9,($j->Equipos4 != 0)?true:false);		// Agility Equipos (Conjunta)
+		$this->insert_remove($r,14,($j->Equipos4 != 0)?true:false);		// Jumping por Equipos (Conjunta)
+		$this->insert_remove($r,15,($j->KO != 0)?true:false);			// Ronda K.O.
+		$this->insert_remove($r,16,($j->Especial != 0)?true:false);		// Manga especial
 		$this->myLogger->leave();
 	}
 	
