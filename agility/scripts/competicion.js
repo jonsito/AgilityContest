@@ -1017,11 +1017,12 @@ function competicion_printTandas() {
  * @param {integer} mode 0:CSV 1:PDF
  * @returns {Boolean} false 
  */
-function resultados_printEtiquetas(flag) {
+function resultados_printEtiquetas(flag,start) {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='/agility/server/pdf/print_etiquetas_csv.php';
 	if (flag!=0) url='/agility/server/pdf/print_etiquetas_pdf.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
+	var strt=parseInt(start)-1;
 	if (ronda==null) {
     	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
     	return false; // no way to know which ronda is selected
@@ -1036,7 +1037,8 @@ function resultados_printEtiquetas(flag) {
 				Manga1:ronda.Manga1,
 				Manga2:ronda.Manga2,
 				Rondas: ronda.Rondas,
-				Mode: mode
+				Mode: mode,
+				Start: strt
 			},
 	        preparingMessageHtml: "Generando formulario con las etiquetas. Por favor, espere...",
 	        failMessageHtml: "Ha habido problemas en la generacion del formulario\n. Por favor, intentelo de nuevo."
@@ -1080,20 +1082,26 @@ function resultados_printClasificacion() {
  * Presenta un menu al usuario indicando que es lo que se quiere imprimir
  */
 function resultados_doPrint() {
+	var r=$('input:radio[name="r_prformat"]:checked').val();
+	var line=$('#r_prfirst').val();
+	$('#resultados-printDialog').dialog('close');
+	switch(parseInt(r)) {
+		case 0: resultados_printPodium(); break;
+		case 1: resultados_printEtiquetas(0); break;
+		case 2: resultados_printEtiquetas(1,line); break;
+		case 3: resultados_printCanina(); break;
+		case 4: resultados_printClasificacion(); break;
+	}
+	/*
 	 $.messager.radio(
 			 'Selecciona modelo',
 			 'Selecciona el tipo de documento a generar:',
 			 { 0:'Podium (PDF)',1:'Etiquetas (CSV)',2:'Etiquetas (PDF)',3:'Informe R.S.C.E. (Excel)',4:'Clasificación (PDF)'}, 
 			 function(r){ 
-				 switch(parseInt(r)) {
-				 case 0: resultados_printPodium(); break;
-				 case 1: resultados_printEtiquetas(0); break;
-				 case 2: resultados_printEtiquetas(1); break;
-				 case 3: resultados_printCanina(); break;
-				 case 4: resultados_printClasificacion(); break;
-				 }
+
 			 }
 		).window({width:250});
+		*/
 	    return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
