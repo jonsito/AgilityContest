@@ -23,8 +23,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  *@param {string} def default value to insert into Nombre 
  *@param {function} onAccept what to do when a new Actividad is created
  */
-function newTanda(dg,onAccept){
+function newTanda(dg,def,onAccept){
 	$('#ordentandas_newtanda-dialog').dialog('open').dialog('setTitle','Nueva Actividad'); // open dialog
+	// TODO: revise $('#ordentandas_nt-Nombre').prop('editable',true);
 	$('#ordentandas_newtanda-form').form('clear');// clear old data (if any)
 	$('#ordentandas_nt-Operation').val('insert');// set up operation
 	$('#ordentandas_nt-Tipo').val(0);// set default tanda type
@@ -38,12 +39,14 @@ function newTanda(dg,onAccept){
  */
 function editTanda(dg){
     var row = $(dg).datagrid('getSelected');
+    var type=parseInt(row.Tipo);
     if (!row) {
     	$.messager.alert("Edit Error:","!No ha seleccionado ninguna actividad","warning");
     	return; // no way to know which dog is selected
     }
     // set up operation properly
     row.Operation='update';
+    // TODO: revise $('#ordentandas_nt-Nombre').prop('editable',(type==0)?true:false);
     // open dialog
     $('#ordentandas_newtanda-dialog').dialog('open').dialog('setTitle','Modificar datos de la actividad');
     // and fill form with row data
@@ -82,11 +85,11 @@ function deleteTanda(dg){
     	$.messager.alert("Delete Error:","!No ha seleccionado ninguna actividad","info");
     	return; // no way to know which session is selected
     }
-    if (row.ID==1) {
+    if (row.Type!=0) {
     	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
     	return; // cannot delete default session
     }
-    $.messager.confirm('Confirm','Eliminar la actividad'+row.Nombre+'\n ¿Seguro?',function(r){
+    $.messager.confirm('Confirm','Eliminar la actividad '+row.Nombre+'\n ¿Seguro?',function(r){
       	if (!r) return;
         $.get('/agility/server/database/tandasFunction.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
