@@ -23,14 +23,62 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <!-- BARRA DE TAREAS DE ORDEN DE tandas -->
 <div id="ordentandas-toolbar" style="width:100%;display:inline-block">
+   	<!-- estos elementos deben estar alineados a la inzquierda -->
 	<span style="float:left;padding:5px">
+	   	<a id="ordentandas-newdBtn" href="#" class="easyui-linkbutton" 
+	   		data-options="iconCls:'icon-add'" onclick="newTanda('#ordentandas-datagrid')">Insertar</a>
+	   	<a id="ordentandas-editBtn" href="#" class="easyui-linkbutton" 
+	   		data-options="iconCls:'icon-edit'" onclick="editTanda('#ordentandas-datagrid')">Editar</a>
+	   	<a id="ordentandas-removeBtn" href="#" class="easyui-linkbutton" 
+	   		data-options="iconCls:'icon-remove'" onclick="deleteTanda('#ordentandas-datagrid')">Borrar</a>
+   	</span>
+   	<!-- estos elementos deben estar alineados a la derecha -->
+   	<span style="float:right;padding:5px">
 	   	<a id="ordentandas-reloadBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas()">Actualizar</a>
-   		</span>
-   		<span style="float:right;padding:5px">
-   		<!-- estos elementos deben estar alineados a la derecha -->
-   		<a id="ordentandas-printBtn" href="#" 
-   			data-options="iconCls:'icon-print'" class="easyui-linkbutton">Imprimir</a>
+	   		data-options="iconCls:'icon-reload'" onclick="$('#ordentandas-datagrid').datagrid('reload');">Actualizar</a>
+   		<a id="ordentandas-printBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-print'" onclick="printTandas() >Imprimir</a>
+	</span>
+</div>
+
+<div id="ordentandas_newtanda-dialog" class="easyui-dialog" style="width:550px;height:400px;padding:10px 20px"
+		data-options="title:'Nueva actividad',closed:true,footer:'ordentandas_newtanda-footer'">
+	<form id="ordentandas_newtanda-form">
+	            <div class="fitem">
+                <label for="Nombre">Nombre:</label>
+                <input id="ordentandas_nt-Nombre" 
+                	name="Nombre" 
+                	type="text" 
+                	class="easyui-validatebox" 
+                	style="width:250px" />
+                <input id="ordentandas_nt-ID" name="ID" type="hidden" /> 
+                <input id="ordentandas_nt-Tipo" name="Tipo" type="hidden" /> 
+                <input id="ordentandas_nt-Operation" name="Operation" type="hidden" /> <!-- to store insert/update/delete operation -->
+            </div>
+            <div class="fitem">
+                <label for="Sesion">Sesi&oacute;n/Ring</label>
+                <select id="ordentandas_nt-Session" 
+                		name="Session" 
+                		class="easyui-combobox" 
+                		style="width:155px"></select>
+            </div>
+            <div class="fitem">
+                <label for="Horario">Horario</label>
+                <input id="ordentandas_nt-Horario" name="Horario" type="text" style="width:250px" />
+            </div>
+            <div class="fitem">
+                <label for="Comentarios">Comentarios</label>
+                <input id="ordentandas_nt-Comentarios" name="Comentarios" type="text" />
+            </div>
+	</form>
+</div>
+
+<div id="ordentandas_newtanda-footer">
+   	<span style="float:right;padding:5px">
+	   	<a id="ordentandas-okBtn" href="#" class="easyui-linkbutton" 
+	   		data-options="iconCls:'icon-accept'" onclick="saveTanda()" >Aceptar</a>
+   		<a id="ordentandas-cancelBtn" href="#" 
+   			data-options="iconCls:'icon-cancel'" class="easyui-linkbutton" onclick="$('#ordentanda_newtanda-dialog').dialog('close')" >Cancelar</a>
 	</span>
 </div>
 
@@ -104,18 +152,6 @@ addTooltip($('#ordentandas-reloadBtn').linkbutton(),"Actualizar el programa de l
 addTooltip($('#ordentandas-printBtn').linkbutton(),"Imprimir el programa de la jornada");
 
 $('#ordentandas-printBtn').on("click", function () {
-	$.fileDownload(
-		'/agility/server/pdf/print_ordenTandas.php',
-		{
-			httpMethod: 'GET',
-			data: { 
-				Prueba: workingData.prueba,
-				Jornada: workingData.jornada
-			},
-	        preparingMessageHtml: "We are preparing your report, please wait...",
-	        failMessageHtml: "There was a problem generating your report, please try again."
-		}
-	);
-    return false; //this is critical to stop the click event which will trigger a normal file download!
+
 });
 </script>

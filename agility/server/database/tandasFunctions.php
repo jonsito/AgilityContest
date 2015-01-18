@@ -39,7 +39,7 @@ try {
 	$ot = new Tandas($file,$p,$j);
 	
 	// datos para listados, altas y bajas
-	$td = http_request("Tanda","i",0);
+	$td = http_request("ID","i",0);
 	$s = http_request("Session","i",0); // default is no session
 	$a = http_request("Pendientes","i",0);
 	
@@ -50,13 +50,12 @@ try {
 	if ( ($p<=0) || ($j<=0) ) 
 		throw new Exception("Call to tandasFunctions with Invalid Prueba:$p or Jornada:$j ID");
 	switch ($operation) {
-		/* TODO: write */
-		/*
-		case "insert":
-		case "update":
-		case "delete":
-		case "populateJornada";
-		case "deleteJornada";
+		case "insert":	$am->access(PERMS_OPERATOR); $result = $ot->insert(); break;
+		case "update":	$am->access(PERMS_ASSISTANT); $result = $ot->update($td); break;
+		case "delete":	$am->access(PERMS_OPERATOR); $result = $ot->delete($td); break;
+		/* DO NOT CALL These functions from client side
+		case "populateJornada":
+		case "deleteJornada":
 		*/
 		case "getTandas":$result = $ot->getTandas($s); break;
 		case "getData":	$result = $ot->getData($s,$td,$p); break;
