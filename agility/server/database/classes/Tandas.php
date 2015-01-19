@@ -19,6 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 require_once("DBObject.php");
+require_once("OrdenSalida.php");
 
 class Tandas extends DBObject {
 	
@@ -304,7 +305,7 @@ class Tandas extends DBObject {
 		if (!$res) return $this->error($stmt->error);
 		
 		// Ask dadabase to retrieve list of Tandas
-		$ses=(intval($s)==0)?"":" AND (Sesion=0) ";
+		$ses=(intval($s)==0)?"":" AND (Sesion=$s) ";
 		$res= $this->__select(
 				/* SELECT */	"*",
 				/* FROM */		"Tandas",
@@ -318,7 +319,6 @@ class Tandas extends DBObject {
 		
 		// merge retrieved data with tipotanda info
 		foreach ($res['rows'] as $key => $item) {
-			$nombre=
 			// merge tipo_tanda info into result
 			$res['rows'][$key]=array_merge(Tandas::$tipo_tanda[$item['Tipo']],$item);
 			// evaluate and insert Manga ID
@@ -346,36 +346,38 @@ class Tandas extends DBObject {
 	 *     $t=0; mira todos los perros de todas las tandas
 	 *     $t>0; mira SOLO los perros de la tanda (-$t)
 	 *     $t<0; mira todos los perros A PARTIR DE la tanda $t
-	 * @param number $p Pendientes $p=0 -> muestra todos los perros; else muestra los $p primeros pendientes de salir
+	 * @param number $pendientes Pendientes $p=0 -> muestra todos los perros; else muestra los $p primeros pendientes de salir
 	 */
-	private function getListaPerros($s=0,$t=0,$p=0){
+	private function getListaPerros($s=0,$t=0,$pendientes=0){
+		$p=$this->prueba->ID;
+		$j=$this->jornada->ID;
 		$count=$p;			// contador de perros pendientes de listar
-		$oldmanga=0;		// variable para controlar manga "activa"
+		$manga=0;		// variable para controlar manga "activa"
 		$perrosmanga=null;	// lista de perros inscritos en una manga indexada por PerroID
 		$ordenmanga=null;	// CSV list of perros inscritos en una manga
 		$do_iterate=false;	// indica si debe analizar los perros de la tanda
 		$rows=array();		// donde iremos guardando los resultados
 		$result=array();	// resultado a devolver en formato json
 		
-		// obtenemos la lita de tandas
+		// obtenemos la lista de tandas
 		$lista_tandas=$this->getTandas($s);
 		
 		// iteramos la lista de tandas
-		foreach ($lista_tandas as $tanda) {
+		foreach ($lista_tandas['rows'] as $tanda) {
 			// Comprobamos si debemos analizar la tanda
 			if ($t>0) { $do_iterate= ( $tanda['ID'] == abs($t) )? true:false; } // iterar solo la tanda
 			if ($t<0) { if ( $tanda['ID'] == abs($t) ) $do_iterate=true; } 		// iterar a partir de la tanda
 			if ($t==0) $do_iterate=true;										// iterar TODAS las tandas
 			if (!$do_iterate) continue; // this tanda is not the one we are looking for
-			
+			if ($tanda['Manga']==0) continue; // user defined tandas, has no manga associated
 			// comprobamos ahora si hay cambio de manga
-			if ($oldManga!=$tanda['Manga']) { // cambio de manga
-				$oldmanga=$manga;
+			if ($manga!=$tanda['Manga']) { // cambio de manga
+				$manga=$tanda['Manga'];
 				// en cada manga cogemos el orden de salida asociado
-				$os=new OrdenSalida("ordenTandas::getData()",$prueba,$jornada,$manga);
+				$os=new OrdenSalida("ordenTandas::getData()",$p,$j,$manga);
 				$ordenmanga=$os->getOrden($manga);
 				// cogemos tambien la lista de perros de cada manga, y la reindexamos segun el orden del perro
-				$res=$this->__select("*", "Resultados","(Prueba=$prueba) AND (Jornada=$jornada) AND (Manga=$manga)","","");
+				$res=$this->__select("*", "Resultados","(Prueba=$p) AND (Jornada=$j) AND (Manga=$manga)","","");
 				if (!is_array($res)) return $this->error($this->conn->error);
 				$perrosmanga=array();
 				foreach($res['rows'] as $item) {
@@ -425,7 +427,7 @@ class Tandas extends DBObject {
 	}
 	
 	function getDataByTanda($s,$t) {
-		return $this->getListaPerros($$p,$j,s,$t,0);
+		return $this->getListaPerros($s,$t,0);
 	}
 	
 	private function insert_remove($rsce,$tipomanga,$oper) {

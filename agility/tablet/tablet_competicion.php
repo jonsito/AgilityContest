@@ -58,7 +58,8 @@ $('#tablet-datagrid').datagrid({
     queryParams: {
         Operation: 'getTandas',
         Prueba: workingData.prueba,
-        Jornada: workingData.jornada
+        Jornada: workingData.jornada,
+        Sesion: workingData.sesion
     },
 	toolbar:'#tablet-toolbar',
     loadMsg: "Actualizando programa ...",
