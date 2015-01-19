@@ -39,8 +39,8 @@ try {
 	$ot = new Tandas($file,$p,$j);
 	
 	// datos para listados, altas y bajas
-	$td = http_request("ID","i",0);
-	$s = http_request("Session","i",0); // default is no session
+	$id = http_request("ID","i",0);
+	$s = http_request("Sesion","i",0); // default is no session
 	$a = http_request("Pendientes","i",0);
 	
 	// los siguiente campos se usan para drag and drop
@@ -50,16 +50,16 @@ try {
 	if ( ($p<=0) || ($j<=0) ) 
 		throw new Exception("Call to tandasFunctions with Invalid Prueba:$p or Jornada:$j ID");
 	switch ($operation) {
-		case "insert":	$am->access(PERMS_OPERATOR); $result = $ot->insert(); break;
-		case "update":	$am->access(PERMS_ASSISTANT); $result = $ot->update($td); break;
-		case "delete":	$am->access(PERMS_OPERATOR); $result = $ot->delete($td); break;
+		case "insert":	$am->access(PERMS_OPERATOR); $result = $ot->insert($ot->getHttpData()); break;
+		case "update":	$am->access(PERMS_ASSISTANT); $result = $ot->update($id,$ot->getHttpData()); break;
+		case "delete":	$am->access(PERMS_OPERATOR); $result = $ot->delete($id); break;
 		/* DO NOT CALL These functions from client side
 		case "populateJornada":
 		case "deleteJornada":
 		*/
 		case "getTandas":$result = $ot->getTandas($s); break;
-		case "getData":	$result = $ot->getData($s,$td,$p); break;
-		case "getDataByTanda": $result = $ot->getDataByTanda($s,$td); break;
+		case "getData":	$result = $ot->getData($s,$id,$p); break;
+		case "getDataByTanda": $result = $ot->getDataByTanda($s,$id); break;
 		case "swap": $result = $ot->swap($f,$t); break;
 		case "dnd":	$am->access(PERMS_ASSISTANT); $result = $ot->dragAndDrop($f,$t,$w); break;
 	}

@@ -45,19 +45,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<form id="ordentandas_newtanda-form">
 	            <div class="fitem">
                 <label for="Nombre">Nombre:</label>
-                <input id="ordentandas_nt-Nombre"
-                	name="Nombre" 
-                	type="text" 
-                	class="easyui-validatebox" 
-                	data-options="required:true,validType:{length:[1,255]}"
-                	style="width:250px" />
+                <input id="ordentandas_nt-Nombre" name="Nombre"	type="text"	style="width:250px" />
                 <input id="ordentandas_nt-ID" name="ID" type="hidden" /> 
                 <input id="ordentandas_nt-Tipo" name="Tipo" type="hidden" /> 
+                <input id="ordentandas_nt-Prueba" name="Prueba" type="hidden" /> 
+                <input id="ordentandas_nt-Jornada" name="Jornada" type="hidden" /> 
                 <input id="ordentandas_nt-Operation" name="Operation" type="hidden" /> <!-- to store insert/update/delete operation -->
             </div>
             <div class="fitem">
                 <label for="Sesion">Sesi&oacute;n/Ring</label>
-                <select id="ordentandas_nt-Session" name="Session" style="width:150px"></select>
+                <select id="ordentandas_nt-Sesion" name="Sesion" style="width:150px"></select>
             </div>
             <div class="fitem">
                 <label for="Horario">Horario</label>
@@ -65,14 +62,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </div>
             <div class="fitem">
                 <label for="Comentarios">Comentarios</label>
-                <input id="ordentandas_nt-Comentarios" name="Comentarios" type="text" style="width:300px"/>
+                <input id="ordentandas_nt-Comentario" name="Comentario" type="text" style="width:300px"/>
             </div>
 	</form>
 </div>
 
 <div id="ordentandas_newtanda-buttons">
 	   	<a id="ordentandas-okBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-ok'" onclick="saveTanda()" >Aceptar</a>
+	   		data-options="iconCls:'icon-ok'" onclick="saveTanda('#ordentandas-datagrid')" >Aceptar</a>
    		<a id="ordentandas-cancelBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-cancel'" onclick="$('#ordentandas_newtanda-dialog').dialog('close')" >Cancelar</a>
 </div>
@@ -96,6 +93,8 @@ $('#ordentandas-dialog').dialog({
 	closed:true,
 	modal:true
 });
+
+$('#ordentandas_nt-Nombre').textbox({ required:true, validType:'length[1,255]' } );
 
 $('#ordentandas-datagrid').datagrid({
 	// propiedades del panel asociado
@@ -127,9 +126,9 @@ $('#ordentandas-datagrid').datagrid({
       		{ field:'To',		hidden:true },
       		{ field:'Nombre',	width:200, sortable:false, align:'left',title:'Actividad'},
       		{ field:'Sesion',	hidden:true },
-      		{ field:'NombreSesion',width:120, sortable:false, align:'left',title:'Ring'},
-      		{ field:'Horario',	width:70, sortable:false, align:'right',title:'Horario'},
-      		{ field:'Observaciones',width:110, sortable:false, align:'right',title:'Observaciones'},
+      		{ field:'NombreSesion',width:100, sortable:false, align:'left',title:'Sesion - Ring'},
+      		{ field:'Horario',	width:50, sortable:false, align:'center',title:'Horario'},
+      		{ field:'Comentario',width:160, sortable:false, align:'left',title:'Observaciones'},
       		{ field:'Categoria',hidden:true },
       		{ field:'Grado',	hidden:true }
     ]],
@@ -145,7 +144,7 @@ $('#ordentandas-datagrid').datagrid({
     }
 });
 
-$('#ordentandas_nt-Session').combogrid({
+$('#ordentandas_nt-Sesion').combogrid({
 	panelWidth: 500,
 	panelHeight: 150,
 	idField: 'ID',

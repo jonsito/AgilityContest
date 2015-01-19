@@ -24,12 +24,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  *@param {function} onAccept what to do when a new Actividad is created
  */
 function newTanda(dg,def,onAccept){
-	$('#ordentandas_newtanda-dialog').dialog('open').dialog('setTitle','Nueva Actividad'); // open dialog
-	// TODO: revise $('#ordentandas_nt-Nombre').prop('editable',true);
+	 // open dialog
+	$('#ordentandas_newtanda-dialog').dialog('open').dialog('setTitle','Nueva Actividad');
+	// en nueva entrada, el nombre debe ser editable
+	$('#ordentandas_nt-Nombre').textbox('readonly',false);
+	// limpiamos formularios y ponemos valores por defecto para nueva entrada
 	$('#ordentandas_newtanda-form').form('clear');// clear old data (if any)
 	$('#ordentandas_nt-Operation').val('insert');// set up operation
-	$('#ordentandas_nt-Tipo').val(0);// set default tanda type
+	$('#ordentandas_nt-Tipo').val(0); // 0: user defined actividad
+	$('#ordentandas_nt-Prueba').val(workingData.prueba);// prueba
+	$('#ordentandas_nt-Jornada').val(workingData.jornada);// jornada
 	$('#ordentandas_nt-Session').val(1);// set default session id for new actividad
+	// si hay funcion accept definida, crear evento
 	if (onAccept!==undefined) $('#ordentandas_nt-okBtn').one('click',onAccept);
 }
 
@@ -39,14 +45,14 @@ function newTanda(dg,def,onAccept){
  */
 function editTanda(dg){
     var row = $(dg).datagrid('getSelected');
-    var type=parseInt(row.Tipo);
     if (!row) {
     	$.messager.alert("Edit Error:","!No ha seleccionado ninguna actividad","warning");
     	return; // no way to know which dog is selected
     }
     // set up operation properly
     row.Operation='update';
-    // TODO: revise $('#ordentandas_nt-Nombre').prop('editable',(type==0)?true:false);
+    var type=parseInt(row.Tipo);
+    $('#ordentandas_nt-Nombre').textbox('readonly',(type==0)?false:true);
     // open dialog
     $('#ordentandas_newtanda-dialog').dialog('open').dialog('setTitle','Modificar datos de la actividad');
     // and fill form with row data
@@ -56,8 +62,8 @@ function editTanda(dg){
 /**
  * Call json to Ask for commit new/edit actividad to server
  */
-function saveTanda($dg){
-    var frm = $('#sordentandas_newtanda-form');
+function saveTanda(dg){
+    var frm = $('#ordentandas_newtanda-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
         type: 'GET',

@@ -151,6 +151,19 @@ class Tandas extends DBObject {
 		$this->sesiones=$s['rows'];
 	}
 	
+	function getHttpData() {
+		$data=array();
+		$data['Prueba']=$this->prueba->ID;
+		$data['Jornada']=$this->jornada->ID;
+		$data['ID']=http_request("ID","i",0);
+		$data['Tipo']=http_request("Tipo","i",0);
+		$data['Nombre']=http_request("Nombre","s","-- Sin nombre --");
+		$data['Sesion']=http_request("Sesion","i",1);
+		$data['Horario']=http_request("Horario","s","");
+		$data['Comentario']=http_request("Comentario","s","");
+		return $data;
+	}
+	
 	/**
 	 * Insert a new 'Tipo=0' data into database
 	 * @param {array} $data
@@ -162,10 +175,10 @@ class Tandas extends DBObject {
 		// locate latest order in manga
 		$obj=$this->__selectObject("MAX(Orden) AS Last","Tandas","(Prueba=$p) AND (Jornada=$j)");
 		$o=($obj!=null)?1+intval($obj->Last):1; // evaluate latest in order
-		$s=(array_key_exists("Sesion",$data))?$data['Sesion']:1;
-		$n=(array_key_exists("Nombre",$data))?$data['Nombre']:'-- Sin nombre --';
-		$h=(array_key_exists("Horario",$data))?$data['Horario']:'';
-		$c=(array_key_exists("Comentario",$data))?$data['Comentario']:'';
+		$s=$data['Sesion'];
+		$n=$data['Nombre'];
+		$h=$data['Horario'];
+		$c=$data['Comentario'];
 		$str="INSERT INTO Tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Horario,Comentario) VALUES (0,$p,$j,$s,$o,'$n','$h','$c')";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -178,16 +191,13 @@ class Tandas extends DBObject {
 	 * @param {array} $data
 	 */
 	function update($id,$data){
-		$str="UPDATE Tandas ";
-		$set=array();
-		$tipo="";
-		if (array_key_exists("Sesion",$data)) array_push($set,"Sesion={$data['Sesion']}");
-		if (array_key_exists("Nombre",$data)) { array_push($set,"Nombre='{$data['Nombre']}'"); $tipo=" AND (Tipo=0)"; }
-		if (array_key_exists("Horario",$data)) array_push($set,"Horario='{$data['Horario']}'");
-		if (array_key_exists("Comentario",$data)) array_push($set,"Comentario='{$data['Comentario']}'");
-		if (count($set)==0) return; // no data to update
-		$sets=imploder(",",$set);
-		$str= "$str SET $set WHERE (ID=$id) $tipo"; //  if tipo!=0 cannot change name
+		if ($id<=0) throw new Exception ("Invalid Tanda ID:$id");
+		$s=$data['Sesion'];
+		$n=$data['Nombre'];
+		$h=$data['Horario'];
+		$c=$data['Comentario'];
+		// TODO: if tipo!=0 cannot change name
+		$str= "UPDATE Tandas SET Nombre='$n', Sesion=$s, Horario='$h', Comentario='$c' WHERE (ID=$id)"; 
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		return "";
@@ -308,8 +318,9 @@ class Tandas extends DBObject {
 		
 		// merge retrieved data with tipotanda info
 		foreach ($res['rows'] as $key => $item) {
+			$nombre=
 			// merge tipo_tanda info into result
-			$res['rows'][$key]=array_merge($item,Tandas::$tipo_tanda[$item['Tipo']]);
+			$res['rows'][$key]=array_merge(Tandas::$tipo_tanda[$item['Tipo']],$item);
 			// evaluate and insert Manga ID
 			if ($item['Tipo']==0) { // User-Provided tandas has no Manga ID
 				$res['rows'][$key]['Manga']=0;
