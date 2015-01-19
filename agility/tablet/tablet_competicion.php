@@ -72,6 +72,7 @@ $('#tablet-datagrid').datagrid({
     pageSize: 100, // enought bit to make it senseless
     columns:[[ 
           	{ field:'ID',		hidden:true },
+        	{ field:'Sesion',	hidden:true },
         	{ field:'Prueba',	hidden:true },
           	{ field:'Jornada',	hidden:true },
           	{ field:'Manga',	hidden:true },
@@ -101,7 +102,8 @@ function tablet_showPerrosByTanda(index,row){
 	        Operation: 'getDataByTanda',
 	        Prueba: row.Prueba,
 	        Jornada: row.Jornada,
-	        Tanda:row.ID
+	        Sesion: row.Sesion,
+	        ID:row.ID
 	    },
 	    loadMsg: "Actualizando orden de salida ...",
 	    pagination: false,
