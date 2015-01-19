@@ -1092,17 +1092,7 @@ function resultados_doPrint() {
 		case 3: resultados_printCanina(); break;
 		case 4: resultados_printClasificacion(); break;
 	}
-	/*
-	 $.messager.radio(
-			 'Selecciona modelo',
-			 'Selecciona el tipo de documento a generar:',
-			 { 0:'Podium (PDF)',1:'Etiquetas (CSV)',2:'Etiquetas (PDF)',3:'Informe R.S.C.E. (Excel)',4:'Clasificación (PDF)'}, 
-			 function(r){ 
-
-			 }
-		).window({width:250});
-		*/
-	    return false; //this is critical to stop the click event which will trigger a normal file download!
+	return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
 function reloadClasificaciones() {
