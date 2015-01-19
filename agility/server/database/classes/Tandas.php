@@ -157,6 +157,7 @@ class Tandas extends DBObject {
 		$data['Prueba']=$this->prueba->ID;
 		$data['Jornada']=$this->jornada->ID;
 		$data['ID']=http_request("ID","i",0);
+		$data['InsertID']=http_request("InsertID","i",0);
 		$data['Tipo']=http_request("Tipo","i",0);
 		$data['Nombre']=http_request("Nombre","s","-- Sin nombre --");
 		$data['Sesion']=http_request("Sesion","i",1);
@@ -183,6 +184,21 @@ class Tandas extends DBObject {
 		$str="INSERT INTO Tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Horario,Comentario) VALUES (0,$p,$j,$s,$o,'$n','$h','$c')";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
+		// obtenemos el ID del registro insertado
+		$from=$this->conn->insert_id;
+		$to=$data['InsertID'];
+		if ($to==0) {
+			// buscamos el id del programa con menor orden
+			$str="SELECT ID From Tandas ORDER BY Orden ASC LIMIT 0,1";
+			$rs=$this->query($str);
+			if (!$rs) return $this->error($this->conn->error);
+			$obj=$rs->fetch_object();
+			$rs->free();
+			$to=intval($obj->ID);
+		}
+		// insertamos DELANTE del la tanda seleccionada
+		if( ($to!=0) && ($from!=$to) )return $this->dragAndDrop($from,$to,false);
+		$this->myLogger->info("Tandas::insert() WARN: cannot insert Tanda $from before requested one");
 		return "";
 	}
 	

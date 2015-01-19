@@ -50,6 +50,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="ordentandas_nt-Tipo" name="Tipo" type="hidden" /> 
                 <input id="ordentandas_nt-Prueba" name="Prueba" type="hidden" /> 
                 <input id="ordentandas_nt-Jornada" name="Jornada" type="hidden" /> 
+                <input id="ordentandas_nt-InsertID" name="InsertID" type="hidden" /> 
                 <input id="ordentandas_nt-Operation" name="Operation" type="hidden" /> <!-- to store insert/update/delete operation -->
             </div>
             <div class="fitem">
@@ -182,7 +183,7 @@ $('#ordentandas-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0
 addKeyHandler('#ordentandas-datagrid',newTanda,editTanda,deleteTanda);
 
 // botones
-addTooltip($('#ordentandas-newBtn').linkbutton(),"Añadir una nueva actividad al programa de la jornada");
+addTooltip($('#ordentandas-newBtn').linkbutton(),"Añadir una nueva actividad al programa de la jornada<br/>delante de la actividad seleccionada");
 addTooltip($('#ordentandas-editBtn').linkbutton(),"Editar la actividad seleccionada");
 addTooltip($('#ordentandas-removeBtn').linkbutton(),"Eliminar la actividad del programa de la jornada");
 addTooltip($('#ordentandas-reloadBtn').linkbutton(),"Actualizar el programa de la jornada desde base de datos");

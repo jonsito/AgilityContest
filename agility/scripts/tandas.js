@@ -23,13 +23,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  *@param {string} def default value to insert into Nombre 
  *@param {function} onAccept what to do when a new Actividad is created
  */
-function newTanda(dg,def,onAccept){
+function newTanda(dg,def,onAccept){    
+	// get track on where to insert new data
+	var row = $(dg).datagrid('getSelected');
+	var insertID=0;
+	if (row) insertID=row.ID;
 	 // open dialog
 	$('#ordentandas_newtanda-dialog').dialog('open').dialog('setTitle','Nueva Actividad');
 	// en nueva entrada, el nombre debe ser editable
 	$('#ordentandas_nt-Nombre').textbox('readonly',false);
 	// limpiamos formularios y ponemos valores por defecto para nueva entrada
 	$('#ordentandas_newtanda-form').form('clear');// clear old data (if any)
+	$('#ordentandas_nt-InsertID').val(insertID);// set up where to insert
 	$('#ordentandas_nt-Operation').val('insert');// set up operation
 	$('#ordentandas_nt-Tipo').val(0); // 0: user defined actividad
 	$('#ordentandas_nt-Prueba').val(workingData.prueba);// prueba
@@ -91,7 +96,7 @@ function deleteTanda(dg){
     	$.messager.alert("Delete Error:","!No ha seleccionado ninguna actividad","info");
     	return; // no way to know which session is selected
     }
-    if (row.Type!=0) {
+    if (row.Tipo!=0) {
     	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
     	return; // cannot delete default session
     }
