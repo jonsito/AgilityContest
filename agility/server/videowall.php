@@ -19,7 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/logging.php");
 require_once(__DIR__."/auth/Config.php");
 require_once(__DIR__."/database/classes/DBObject.php");
-require_once(__DIR__."/database/classes/OrdenTandas.php");
+require_once(__DIR__."/database/classes/Tandas.php");
 require_once(__DIR__."/database/classes/Sesiones.php");
 require_once(__DIR__."/database/classes/Inscripciones.php");
 
@@ -198,7 +198,7 @@ class VideoWall {
 	
 	function videowall_llamada($pendientes) {
 		$lastTanda="";
-		$otmgr=new OrdenTandas("Llamada a pista");
+		$otmgr=new Tandas("Llamada a pista",$this->prueba['ID'],$this->jornada['ID']);
 		$result = $otmgr->getData($this->session['Prueba'],$this->session['Jornada'],$pendientes,$this->session['Tanda'])['rows']; // obtiene los 10 primeros perros pendientes
 		$numero=0;
 		$this->generateHeaderInfo();
@@ -395,7 +395,7 @@ class VideoWall {
 	
 	function videowall_ordensalida() {
 		$lastCategoria="";
-		$osmgr=new OrdenSalida("Llamada a pista");
+		$osmgr=new OrdenSalida("Orden de salida");
 		$result = $osmgr->getData($this->session['Prueba'],$this->session['Jornada'],$this->session['Manga'])['rows']; // obtiene los 10 primeros perros pendientes
 		$numero=0;
 		$this->generateHeaderInfo();
