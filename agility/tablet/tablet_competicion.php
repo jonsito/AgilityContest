@@ -88,7 +88,7 @@ $('#tablet-datagrid').datagrid({
         return '<div style="padding:2px"><table id="tablet-datagrid-' + parseInt(row.ID) + '"></table></div>';
     },
     onClickRow: function(idx,row) { tablet_updateSession(row);},
-    onExpandRow: function(idx,row) { tablet_showPerrosByTanda(idx,row); }
+    onExpandRow: function(idx,row) { if (row.Tipo!=0) tablet_showPerrosByTanda(idx,row); }
 });
 
 // mostrar los perros de una tanda

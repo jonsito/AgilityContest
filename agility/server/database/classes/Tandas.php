@@ -26,6 +26,7 @@ class Tandas extends DBObject {
 	protected $prueba;
 	protected $jornada;
 	protected $sesiones; // used to store current sesions
+	protected $mangas; // used to store mangas of this journey
 	
 	/**
 	 * Tandas database only contains 'Tipo' field. Extract remaining data from this table
@@ -125,6 +126,15 @@ class Tandas extends DBObject {
 		$this->myLogger->error("No session found with ID:$id");
 		return ""; // no session name found
 	}
+	
+	function getMangaByTipo($tipomanga) {
+		foreach($this->mangas as $manga) {
+			if ($manga['Tipo']==$tipomanga) return $manga;
+		}
+		$this->myLogger->error("No mangas found with Tipo:$tipomanga");
+		return null;
+	}
+	
 	/**
 	 * Constructor
 	 * @param {string} $file Caller's indentification
@@ -150,6 +160,8 @@ class Tandas extends DBObject {
 		}
 		$s=$this->__select("*","Sesiones","","","");
 		$this->sesiones=$s['rows'];
+		$m=$this->__select("*","Mangas","(Jornada=$jornada)","","");
+		$this->mangas=$m['rows'];
 	}
 	
 	function getHttpData() {
@@ -313,13 +325,6 @@ class Tandas extends DBObject {
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
 		
-		// prepared statement to retrieve mangas id
-		$sql="SELECT ID FROM Mangas WHERE (Jornada=$j) AND (Tipo=?)";
-		$stmt=$this->conn->prepare($sql);
-		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('i',$tipo);
-		if (!$res) return $this->error($stmt->error);
-		
 		// Ask dadabase to retrieve list of Tandas
 		$ses=(intval($s)==0)?"":" AND (Sesion=$s) ";
 		$res= $this->__select(
@@ -338,20 +343,15 @@ class Tandas extends DBObject {
 			// merge tipo_tanda info into result
 			$res['rows'][$key]=array_merge(Tandas::$tipo_tanda[$item['Tipo']],$item);
 			// evaluate and insert Manga ID
-			if ($item['Tipo']==0) { // User-Provided tandas has no Manga ID
+			if ($res['rows'][$key]['Tipo']==0) { // User-Provided tandas has no Manga ID
 				$res['rows'][$key]['Manga']=0;
-			} else { // retrieve Manga ID and merge into result		
-				$tipo=$item['Tipo'];
-				$rs=$stmt->execute();
-				if (!$rs) return $this->error($stmt->error);
-				$stmt->bind_result($mangaid);
-				$stmt->fetch();
+			} else { // retrieve Manga ID and merge into result
+				$manga=$this->getMangaByTipo($res['rows'][$key]['TipoManga']);	
 				// add extra info to result
-				$res['rows'][$key]['Manga']=$mangaid;	
+				$res['rows'][$key]['Manga']=$manga['ID'];	
 			}
 			$res['rows'][$key]['NombreSesion']=$this->getSessionName($res['rows'][$key]['Sesion']);
 		}
-		$stmt->close();
 		return $res;
 	}
 	
