@@ -50,6 +50,7 @@ SSLCertificateKeyFile /etc/apache2/ssl/server.key
 [.....]
 
 sudo a2enmod ssl
+sudo a2dismod gnutls
 sudo a2ensite default-ssl
 
 # editar mysql.cnf para compatibilidad de base de datos con Windows
