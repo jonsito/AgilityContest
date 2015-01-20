@@ -1,0 +1,83 @@
+# Instalar apache2
+sudo apt-get install apache2
+
+# Instalar mysql
+sudo apt-get install mysql-server mysql-client
+sudo mysql_install_db
+sudo /usr/bin/mysql_secure_installation
+
+# Instalar php
+sudo apt-get install libapache2-mod-php5 php5 php5-mcrypt
+sudo apt-get install php5-common php5-curl php5-json php5-readline libapache2-mod-php5 php5-cgi php5-cli php5-gd php5-odbc php5-mysqlnd 
+
+# Ajustar dir.conf para que busque primero index.php
+sudo apt-get install vim-gnome
+sudo vi /etc/apache2/mods-enabled/dir.conf
+
+# Instalar phpMyAdmin
+sudo apt-get install phpmyadmin
+
+# Instalar soporte de SSL para apache
+sudo apt-get install libapache2-mod-gnutls
+
+# Crear certificado y editar configuracion segun las instrucciones de:
+# https://www.liberiangeek.net/2014/10/enable-self-signed-ssl-certificates-apache2-ubuntu-14-04
+sudo mkdir -p /etc/apache2/ssl
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/server.key -out /etc/apache2/ssl/server.crt
+
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:ES
+State or Province Name (full name) [Some-State]:Spain
+Locality Name (eg, city) []:Madrid
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:AgilityContest
+Organizational Unit Name (eg, section) []:Software
+Common Name (e.g. server FQDN or YOUR name) []:virt-ubuntu1404
+Email Address []:webmaster@virt-ubuntu1404
+
+#editamos configuracion de ssl
+sudo vi /etc/apache2/sites-available/default-ssl.conf
+[.....]
+ServerName virt-ubuntu1404:443
+SSLEngine on
+SSLCertificateFile /etc/apache2/ssl/server.crt
+SSLCertificateKeyFile /etc/apache2/ssl/server.key
+[.....]
+
+sudo a2enmod ssl
+sudo a2ensite default-ssl
+
+# editar mysql.cnf para compatibilidad de base de datos con Windows
+# anyadir "lower_case_table_names = 1" al final de la seccion '[mysqld]'
+sudo vi /etc/mysql/my.cnf
+
+# Desactivar apparmor
+sudo service apparmor stop
+sudo update-rc.d -f apparmor remove
+sudo apt-get remove apparmor apparmor-utils
+
+# Reiniciar mysql
+sudo service mysql restart
+
+# Descargar AgilityContest
+cd ${HOME}
+mkdir public_html
+cd public_html
+wget https://github.com/jonsito/AgilityContest/archive/master.zip
+unzip master.zip
+sudo chown -R ${USER}.www-data AgilityContest-master
+
+# configurar Apache para que acceda al programa
+sudo cp AgilityContest-master/extras/linux_httpd.conf /etc/apache2/conf-available/AgilityContest.conf
+sudo vi /etc/apache2/conf-available/AgilityContest.conf
+(ajustar Alias y Directory para que apunten a /home/${USER}/public_html/AgilityContest-master/agility)
+sudo a2enmod userdir
+sudo a2enconf AgilityContest.conf
+
+# Reiniciar apache
+sudo service apache2 reload
