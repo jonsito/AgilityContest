@@ -26,18 +26,24 @@ require_once(__DIR__."/database/classes/Inscripciones.php");
 class VideoWall {
 	protected $myLogger;
 	protected $myDBObject;
+	protected $sessionid;
 	protected $session;
 	protected $prueba;
 	protected $jornada;
 	protected $config;
+	protected $mangaid;
+	protected $tandaid;
 	
-	function __construct($sessionid) {
+	function __construct($sessionid,$pruebaid,$jornadaid,$mangaid,$tandaid) {
 		$this->myLogger=new Logger("VideoWall.php");
 		$this->config=new Config();
 		$this->myDBObject=new DBObject("Videowall");
+		$this->sessionid=$sessionid;
 		$this->session=$this->myDBObject->__getArray("Sesiones",$sessionid);
-		$this->prueba=$this->myDBObject->__getArray("Pruebas",$this->session['Prueba']);
-		$this->jornada=$this->myDBObject->__getArray("Jornadas",$this->session['Jornada']);
+		$this->prueba=$this->myDBObject->__getArray("Pruebas",($sessionid!=0)?$this->session['Prueba']:$pruebaid);
+		$this->jornada=$this->myDBObject->__getArray("Jornadas",($sessionid!=0)?$this->session['Jornada']:$jornadaid);
+		$this->mangaid=($sessionid!=0)?$this->session['Manga']:$mangaid;
+		$this->tandaid=($sessionid!=0)?$this->session['Tanda']:$tandaid;
 	}
 
 	public static $cat=array('-'=>'','L'=>'Large','M'=>'Medium','S'=>'Small','T'=>'Tiny');
@@ -51,8 +57,9 @@ class VideoWall {
 	}
 	
 	function generateHeaderInfo() {
-		$tandastr=$this->getTandaString($this->session['Tanda']);
-		echo '<input type="hidden" id="vw_NombreSesion" value="'.$this->session['Nombre'].'"/>';
+		$tandastr=Tandas::getTandaString($this->tandaid);
+		$sesname=($this->sessionid!=0)?$this->session['Nombre']:'';
+		echo '<input type="hidden" id="vw_NombreSesion" value="'.$sesname.'"/>';
 		echo '<input type="hidden" id="vw_NombrePrueba" value="'.$this->prueba['Nombre'].'"/>';
 		echo '<input type="hidden" id="vw_NombreJornada" value="'.$this->jornada['Nombre'].'"/>';
 		echo '<input type="hidden" id="vw_NombreManga" value="'.$tandastr.'"/>';
@@ -61,7 +68,7 @@ class VideoWall {
 	function videowall_llamada($pendientes) {
 		$lastTanda="";
 		$otmgr=new Tandas("Llamada a pista",$this->prueba['ID'],$this->jornada['ID']);
-		$result = $otmgr->getData($this->session['Prueba'],$this->session['Jornada'],$pendientes,$this->session['Tanda'])['rows']; // obtiene los 10 primeros perros pendientes
+		$result = $otmgr->getData($this->sessionid,$this->tandaid,$pendientes)['rows']; // obtiene los 10 primeros perros pendientes
 		$numero=0;
 		$this->generateHeaderInfo();
 		echo '<table class="vwc_callEntry">';
@@ -107,11 +114,11 @@ class VideoWall {
 	}
 
 	function videowall_resultados() {
-		$resmgr=new Resultados("videowall_resultados",$this->session['Prueba'], $this->session['Manga'] );
+		$resmgr=new Resultados("videowall_resultados",$this->prueba['ID'], $this->manga['ID'] );
 		// obtenemos modo de resultados asociado a la manga
-		$myManga=$this->myDBObject->__getObject("Mangas",$this->session['Manga']);
-		$mode=Tandas::getModeByTanda($this->prueba['RSCE'],$myManga->Recorrido,$this->session['Tanda']);
-		$mangastr=Tandas::getMangaStringByTanda($this->session['Tanda'])." - ".VideoWall::$modestr[$mode];
+		$myManga=$this->myDBObject->__getObject("Mangas",$this->manga['ID']);
+		$mode=Tandas::getModeByTanda($this->prueba['RSCE'],$myManga->Recorrido,$this->tandaid);
+		$mangastr=Tandas::getMangaStringByTanda($this->tandaid)." - ".VideoWall::$modestr[$mode];
 		
 		$this->myLogger->trace("**** Mode es $mode");
 		$result = $resmgr->getResultados($mode);
@@ -256,7 +263,7 @@ class VideoWall {
 	function videowall_ordensalida() {
 		$lastCategoria="";
 		$osmgr=new OrdenSalida("Orden de salida");
-		$result = $osmgr->getData($this->session['Prueba'],$this->session['Jornada'],$this->session['Manga'])['rows']; // obtiene los 10 primeros perros pendientes
+		$result = $osmgr->getData($this->prueba['ID'],$this->jornada['ID'],$this->mangaid)['rows']; // obtiene los 10 primeros perros pendientes
 		$numero=0;
 		$this->generateHeaderInfo();
 		echo '<table class="vwc_callEntry">';
@@ -264,7 +271,7 @@ class VideoWall {
 			if ($lastCategoria!==$participante['Categoria']){
 				$lastCategoria=$participante['Categoria'];
 				$categ=VideoWall::$cat[$lastCategoria];
-				$mangastr=Tandas::getMangaStringByTanda($this->session['Tanda']);
+				$mangastr=Tandas::getMangaStringByTanda($this->tandaid);
 				echo '<tr><td colspan="5" class="vwc_callEntry vwc_callTanda">---- '.$mangastr.' - '.$categ.' ----</td></tr>';
 				$numero=0;
 			}
@@ -309,7 +316,13 @@ class VideoWall {
 $sesion = http_request("Session","i",0);
 $operacion = http_request("Operation","s",null);
 $pendientes = http_request("Pendientes","i",10);
-$vw=new VideoWall($sesion);
+// on session==0, use this elements as IDentifiers
+$prueba = http_request("Prueba","i",0);
+$jornada = http_request("Jornada","i",0);
+$manga = http_request("Manga","i",0);
+$tanda = http_request("Tanda","i",0);
+
+$vw=new VideoWall($sesion,$prueba,$jornada,$manga,$tanda);
 try {
 	if($operacion==="livestream") return $vw->videowall_livestream();
 	if($operacion==="llamada") return $vw->videowall_llamada($pendientes);
