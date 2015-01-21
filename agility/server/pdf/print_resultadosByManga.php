@@ -44,7 +44,7 @@ class PDF extends PrintCommon {
 	// geometria de las celdas
 	protected $cellHeader
 					=array('Dorsal','Nombre','Lic.','Guía','Club','Cat/Grad','Falt.','Toc.','Reh.','Tiempo','Vel.','Penal','Calificacion', 'Puesto');
-	protected $pos	=array(  10,     12,     10,     29,    31,     12,        7,      7,    7,       10,     7,    12,      22,			12 );
+	protected $pos	=array(  12,     15,     10,     30,    25,     12,        7,      7,    7,       10,     7,    12,      22,			12 );
 	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
 	protected $fmt	=array(  'i',    's',    's',    's',   's',    's',       'i',   'i',   'i',     'f',    'f',  'f',     's',			'i');
 

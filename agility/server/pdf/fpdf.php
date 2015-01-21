@@ -602,7 +602,7 @@ function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link
 	for($n=strlen($txt);$n>0;$n--) {
 		$str=substr($txt,0,$n);
 		$sw=$this->GetStringWidth($str);
-		if ($sw>=($w-1)) continue;
+		if ($sw>=($w-1.5)) continue;
 		$txt=$str;
 		break;
 	} 
