@@ -38,7 +38,7 @@ class Tandas extends DBObject {
 	 * Categoria:	List of supported categorias in this tanda
 	 * Grado:		Tanda's grado 
 	 */
-	static $tipo_tanda = array (
+	public static $tipo_tanda = array (
 			0	=> array('Tipo'=>0,		'TipoManga'=>0,		'From'=>'',			'To'=>'',			'Nombre'=>'-- Sin especificar --','Categoria'=>'-',	'Grado'=>'-'),
 			// en pre-agility no hay categorias
 			1	=> array('Tipo'=>1,		'TipoManga'=> 1,	'From'=>'BEGIN,',	'To'=>',END',		'Nombre'=>'Pre-Agility 1',			'Categoria'=>'-LMST','Grado'=>'P.A.'),
@@ -103,6 +103,78 @@ class Tandas extends DBObject {
 			54	=> array('Tipo'=>54,	'TipoManga'=> 14,	'From'=>'TAG_S0,',	'To'=>',END',	'Nombre'=>'Jp. Equipos 4 Small/Tiny','Categoria'=>'ST',		'Grado'=>'-'),
 			55	=> array('Tipo'=>55,	'TipoManga'=> 16,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Manga Especial Tiny',	'Categoria'=>'T',		'Grado'=>'-'),
 	);
+
+	// matriz de modos a evaluar en funcion del tipo de recorrido y de la tanda
+	// recorridos:
+	// RSCE (0: l/m/s separados 1: l/m+s 2: l+m+s conjunto) RFEC( 3:l/m/s/t separados  4:l+m/s+t  5:l+m+s+t conjunto )
+	// modos:
+	// 0:large 1:medium 2:small 3:m+s 4:l+m+s 5:tiny 6:l+m 7:s+t 8:l+m+s+t -1:no valido
+	public static $modes_by_tanda=array(
+			0	=> array(-1, -1, -1, -1,-1,-1, '-- Sin especificar --'), // tanda definida por el usuario
+			// en pre-agility no hay categorias
+			1	=> array(-1, -1,  4, -1, -1,  8, 'Pre-Agility 1'), // en pre agility-compiten todos juntos
+			2	=> array(-1, -1,  4, -1, -1,  8, 'Pre-Agility 2'),
+			3	=> array( 0,  0,  4,  0,  6,  8, 'Agility Grado I Manga 1'/* Large */),
+			4	=> array( 1,  3,  4,  1,  6,  8, 'Agility Grado I Manga 1'/* Medium */),
+			5	=> array( 2,  3,  4,  2,  7,  8, 'Agility Grado I Manga 1'/* Small */),
+			6	=> array( 0,  0,  4,  0,  6,  8, 'Agility Grado I Manga 2'/* Large */),
+			7	=> array( 1,  3,  4,  1,  6,  8, 'Agility Grado I Manga 2'/* Medium */),
+			8	=> array( 2,  3,  4,  2,  7,  8, 'Agility Grado I Manga 2'/* Small */),
+			9	=> array( 0,  0,  4,  0,  6,  8, 'Agility Grado II'/* Large */),
+			10	=> array( 1,  3,  4,  1,  6,  8, 'Agility Grado II'/* Medium */),
+			11	=> array( 2,  3,  4,  2,  7,  8, 'Agility Grado II'/* Small */),
+			12	=> array( 0,  0,  4,  0,  6,  8, 'Agility Grado III'/* Large */),
+			13	=> array( 1,  3,  4,  1,  6,  8, 'Agility Grado III'/* Medium */),
+			14	=> array( 2,  3,  4,  2,  7,  8, 'Agility Grado III'/* Small */),
+			15	=> array( 0,  0,  4,  0,  6,  8, 'Agility Abierta (Open)'/* Large */),
+			16	=> array( 1,  3,  4,  1,  6,  8, 'Agility Abierta (Open)'/* Medium */),
+			17	=> array( 2,  3,  4,  2,  7,  8, 'Agility Abierta (Open)'/* Small */),
+			18	=> array( 0,  0,  4,  0,  6,  8, 'Agility Eq. (3 mejores)'/* Large */),	// en equipos compiten l y m juntos
+			19	=> array(-1,  3,  4, -1,  6,  8, 'Agility Eq. (3 mejores)'/* Medium */),
+			20	=> array(-1,  3,  4, -1,  7,  8, 'Agility Eq. (3 mejores)'/* Small */), // en equipos compiten s y t juntos
+			21	=> array( 0,  0,  4,  0,  6,  8, 'Agility. Eq. (4 conjunta)'/* Large */),
+			// en jornadas por equipos conjunta RSCE se mezclan categorias M y S
+			22	=> array(-1,  3,  4, -1,  6,  8, 'Agility Eq. (4 conjunta)'/* Med/Small */),
+			23	=> array( 0,  0,  4,  0,  6,  8, 'Jumping Grado II'/* Large */),
+			24	=> array( 1,  3,  4,  1,  6,  8, 'Jumping Grado II'/* Medium */),
+			25	=> array( 2,  3,  4,  2,  7,  8, 'Jumping Grado II'/* Small */),
+			26	=> array( 0,  0,  4,  0,  6,  8, 'Jumping Grado III'/* Large */),
+			27	=> array( 1,  3,  4,  1,  6,  8, 'Jumping Grado III'/* Medium */),
+			28	=> array( 2,  3,  4,  2,  7,  8, 'Jumping Grado III'/* Small */),
+			29	=> array( 0,  0,  4,  0,  6,  8, 'Jumping Abierta (Open)'/* Large */),
+			30	=> array( 1,  3,  4,  1,  6,  8, 'Jumping Abierta (Open)'/* Medium */),
+			31	=> array( 2,  3,  4,  2,  7,  8, 'Jumping Abierta (Open)'/* Small */),
+			32	=> array( 0,  0,  4,  0,  6,  8, 'Jumping Eq. (3 mejores)'/* Large */),
+			33	=> array(-1,  3,  4, -1,  6,  8, 'Jumping Eq. (3 mejores)'/* Medium */),
+			34	=> array(-1,  3,  4, -1,  7,  8, 'Jumping Eq. (3 mejores)'/* Small */),
+			// en jornadas por equipos conjunta se mezclan categorias M y S
+			35	=> array( 0,  0,  4,  0,  6,  8, 'Jumping. Eq. (4 conjunta)'/* Large */),
+			36	=> array(-1,  3,  4, -1,  6,  8, 'Jumping. Eq. (4 conjunta)'/* Med/Small */),
+			// en las rondas KO, los perros compiten todos contra todos
+			37	=> array(-1, -1,  4, -1, -1,  8, 'Manga K.O.'),
+			38	=> array( 0,  0,  4,  0,  6,  8, 'Manga Especial'/* Large */),
+			39	=> array( 1,  3,  4,  1,  6,  8, 'Manga Especial'/* Medium */),
+			40	=> array( 2,  3,  4,  2,  7,  8, 'Manga Especial'/* Small */),
+				
+			// "Tiny" support for Pruebas RFEC
+			41	=> array( 5,  7,  8,  5,  7,  8, 'Agility-1 GI' /* Tiny */),
+			42	=> array( 5,  7,  8,  5,  7,  8, 'Agility-2 GI' /* Tiny */),
+			43	=> array( 5,  7,  8,  5,  7,  8, 'Agility GII' /* Tiny */),
+			44	=> array( 5,  7,  8,  5,  7,  8, 'Agility GIII' /* Tiny */),
+			45	=> array( 5,  7,  8,  5,  7,  8, 'Agility Open' /* Tiny */),
+			46	=> array( 5,  7,  8,  5,  7,  8, 'Agility Eq. 3' /* Tiny */),
+			// en equipos4  RFEC agrupamos por LM y ST
+			47	=> array( -1, 6,  8,  -1, 6,  8, 'Ag. Equipos 4'/* Large/Medium*/),
+			48	=> array( -1, 7,  8,  -1, 7,  8, 'Ag. Equipos 4'/* Small/Tiny*/),
+			49	=> array( 5,  7,  8,  5,  7,  8, 'Jumping GII' /* Tiny */),
+			50	=> array( 5,  7,  8,  5,  7,  8, 'Jumping GIII' /* Tiny */),
+			51	=> array( 5,  7,  8,  5,  7,  8, 'Jumping Open' /* Tiny */),
+			52	=> array( 5,  7,  8,  5,  7,  8, 'Jumping Eq. 3' /* Tiny */),
+			53	=> array( -1, 6,  8,  -1, 6,  8, 'Jp. Equipos 4'/* Large/Medium*/),
+			54	=> array( -1, 7,  8,  -1, 7,  8, 'Jp. Equipos 4'/* Small/Tiny*/),
+			55	=> array( 5,  7,  8,  5,  7,  8, 'Manga Especial' /* Tiny */),
+	);
+	
 	
 	/**
 	 * return every array items that matches with provided key
@@ -110,13 +182,43 @@ class Tandas extends DBObject {
 	 * @param {value} $value
 	 * @return {array} List of Tandas that matches with requested key/value pair
 	*/
-	function getTandasInfo($key,$value) {
+	static function getTandasInfo($key,$value) {
 		$res=array();
 		if (!array_key_exists($key,Tandas::$tipo_tanda[0])) return $res; // key not found: return empty array
 		foreach(Tandas::$tipo_tanda as $item) {
 			if ($item[$key]==$value) array_push($res,$item);
 		}
 		return $res;
+	}
+	
+	/**
+	 * Retrieve mode based on rsce recorrido and tanda type
+	 * @param {integer} $rsce 0:rsce 1:rfec
+	 * @param {integer} $recorrido 0:separate 1:mixed 2:grouped
+	 * @param {integer} $tanda Tanda Type
+	 */
+	static function getModeByTanda($rsce,$recorrido,$tanda){
+		if (!array_key_exists($tanda,Tandas::$modes_by_tanda)) return -1;
+		return Tandas::$modes_by_tanda[$tanda][3*$rsce+$recorrido];
+	}
+	
+	/**
+	 * Retrieve Manga String based on and tanda type
+	 * @param {integer} $tanda Tanda Type
+	 */
+	static function getMangaStringByTanda($tanda){
+		if (!array_key_exists($tanda,Tandas::$modes_by_tanda)) return "";
+		return Tandas::$modes_by_tanda[$tanda][6];
+	}
+	
+	/**
+	 * Retrieve Tanda's name by type
+	 * @param {integer} $tanda type
+	 * @return NULL if not found, else requested name
+	 */
+	static function getTandaString($tanda){ 
+		if (!array_key_exists($tanda,Tandas::$tipo_tanda)) return null;
+		return Tandas::$tipo_tanda[$tanda]['Nombre']; 
 	}
 	
 	function getSessionName($id){

@@ -152,4 +152,55 @@ function getOrderString($sort,$order,$def) {
 	}
 	return $res;
 }
+
+/**
+ * Obtiene el "modo" de presentación en funcion de rsce/rfec tipoRecorrido y categoria
+ * @param {integer} $rsce 0:RSCE 1:RFEC
+ * @param {integer} $recorrido 0:L/M/S/T separado 1:L/MS LM/ST mixto 2:LMS LMST conjunto
+ * @param {integer} $categoria 0:L 1:M 2:S 3:T
+ */
+function getMangaMode($rsce,$recorrido,$categoria) {
+	if ($rsce==0) { // RSCE
+		switch($recorrido) {
+			case 0: // recorrido separado
+				if ($categoria==0) return 0;
+				if ($categoria==1) return 1;
+				if ($categoria==2) return 2;
+				break;
+			case 1: // large / small+medium
+				if ($categoria==0) return 0;
+				if ($categoria==1) return 3;
+				if ($categoria==2) return 3;
+				break;
+			case 2: // recorrido conjunto
+				if ($categoria==0) return 4;
+				if ($categoria==1) return 4;
+				if ($categoria==2) return 4;
+				break;
+		}
+	} else { // RFEC
+		switch(recorrido) {
+			case 0: // recorrido separado
+				if ($categoria==0) return 0;
+				if ($categoria==1) return 1;
+				if ($categoria==2) return 2;
+				if ($categoria==3) return 5;
+				break;
+			case 1: // large+medium / small+tiny
+				if ($categoria==0) return 6;
+				if ($categoria==1) return 6;
+				if ($categoria==2) return 7;
+				if ($categoria==3) return 7;
+				break;
+			case 2: // recorrido conjunto
+				if ($categoria==0) return 8;
+				if ($categoria==1) return 8;
+				if ($categoria==2) return 8;
+				if ($categoria==3) return 8;
+				break;
+		}
+	}
+	return -1; // combinacion invalida
+}
+
 ?>
