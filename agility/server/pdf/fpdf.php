@@ -599,6 +599,13 @@ function AcceptPageBreak()
 function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='')
 {
 	$txt=utf8_decode($txt);
+	for($n=strlen($txt);$n>0;$n--) {
+		$str=substr($txt,0,$n);
+		$sw=$this->GetStringWidth($str);
+		if ($sw>=($w-1)) continue;
+		$txt=$str;
+		break;
+	} 
 	
 	// Output a cell
 	$k = $this->k;
