@@ -38,3 +38,22 @@ function pb_updateInscripciones() {
 		}
 	});
 }
+
+function pb_updateResults() {
+	$.ajax( {
+		type: "GET",
+		dataType: 'html',
+		url: "/agility/server/videowall.php",
+		data: {
+			Operation: 'resultados',
+			Prueba: workingData.prueba,
+			Jornada: workingData.jornada,
+			Manga: workingData.manga,
+			Tanda: workingData.tanda,
+			Mode: workingData.mode
+		},
+		success: function(data,status,jqxhr) {
+			$('#pb_resultadosParciales').html(data);
+		}
+	});
+}

@@ -26,13 +26,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span id="pb_inscripcionesJornada"></span>
 		</div>
 	</div>
-</div> <!-- pb_llamada-window -->
+</div> <!-- pb_inscripciones-window -->
 
 <script type="text/javascript">
 $('#pb_inscripciones-layout').layout({fit:true});
-
-//add 'callback' property to store interval references
-$.extend($.fn.window.defaults,{callback:null});
 
 $('#pb_inscripciones-window').window({
 	fit:true,

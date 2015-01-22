@@ -192,6 +192,9 @@ function public_acceptSelection() {
 	workingData.datosPrueba=p;
 	workingData.jornada=j.ID;
 	workingData.datosJornada=j;
+	workingData.manga=0;
+	workingData.tanda=0;
+	workingData.mode=-1;
 	switch (o){
 	case 'inscritos': 
 		page="/agility/public/pb_inscripciones.inc";

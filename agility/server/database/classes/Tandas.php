@@ -526,7 +526,7 @@ class Tandas extends DBObject {
 				if ($perrosmanga[$perro]['Pendiente']==0) continue; // not pendiente: skip
 				if ($count > 0) { $count--; array_push($rows,$perrosmanga[$perro]); continue; } // not yet at count: insert
 				// arriving here means that every requested dogs are filled
-				$this->myLogger->debug("OrdenTandas::getData() Already have $pendientes dogs");
+				$this->myLogger->debug("Tandas::getData() Already have $pendientes dogs");
 				// so return
 				$result['rows']=$rows;
 				$result['total']=count($rows);
@@ -632,7 +632,7 @@ class Tandas extends DBObject {
 	 */
 	function removeJornada(){
 		$p=$this->prueba->ID;
-		$j=$this->prueba->ID;
+		$j=$this->jornada->ID;
 		$str="DELETE FROM Tandas WHERE (Prueba=$p) AND (Jornada=$j)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);

@@ -19,7 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 require_once("DBObject.php");
-require_once("OrdenTandas.php");
+require_once("Tandas.php");
 require_once("Jornadas.php");
 
 class Pruebas extends DBObject {
@@ -69,8 +69,8 @@ class Pruebas extends DBObject {
 			// retrieve ID of inserted jornada
 			$jornadaid=$this->conn->insert_id;
 			// and regenerate Orden_Tandas field
-			$ot=new OrdenTandas("Pruebas::Insert()");
-			$ot->updateOrden($jornadaid);
+			$ot=new Tandas("Pruebas::Insert()",$pruebaid,$jornadaid);
+			$ot->populateJornada();
 		}
 		// arriving here means everything ok. notify success
 		$this->myLogger->leave();

@@ -71,6 +71,10 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 </div> <!-- contenido -->
 
 <script type="text/javascript">
+
+//add 'callback' property to store interval references
+$.extend($.fn.window.defaults,{callback:null});
+
 $('#selvw-dialog').dialog({
 	title: 'Datos de la Vista a desplegar',
 	collapsible: false,

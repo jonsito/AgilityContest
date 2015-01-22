@@ -20,6 +20,7 @@ require_once(__DIR__."/logging.php");
 require_once(__DIR__."/auth/Config.php");
 require_once(__DIR__."/database/classes/DBObject.php");
 require_once(__DIR__."/database/classes/Tandas.php");
+require_once(__DIR__."/database/classes/Mangas.php");
 require_once(__DIR__."/database/classes/Sesiones.php");
 require_once(__DIR__."/database/classes/Inscripciones.php");
 
@@ -30,20 +31,39 @@ class VideoWall {
 	protected $session;
 	protected $prueba;
 	protected $jornada;
+	protected $manga;
+	protected $tanda;
 	protected $config;
 	protected $mangaid;
-	protected $tandaid;
+	protected $tandatype;
+	protected $mode;
 	
-	function __construct($sessionid,$pruebaid,$jornadaid,$mangaid,$tandaid) {
+	function __construct($sessionid,$pruebaid,$jornadaid,$mangaid,$tandatype,$mode) {
 		$this->myLogger=new Logger("VideoWall.php");
 		$this->config=new Config();
 		$this->myDBObject=new DBObject("Videowall");
-		$this->sessionid=$sessionid;
-		$this->session=$this->myDBObject->__getArray("Sesiones",$sessionid);
-		$this->prueba=$this->myDBObject->__getArray("Pruebas",($sessionid!=0)?$this->session['Prueba']:$pruebaid);
-		$this->jornada=$this->myDBObject->__getArray("Jornadas",($sessionid!=0)?$this->session['Jornada']:$jornadaid);
-		$this->mangaid=($sessionid!=0)?$this->session['Manga']:$mangaid;
-		$this->tandaid=($sessionid!=0)?$this->session['Tanda']:$tandaid;
+		if ($sessionid!=0) {
+			$this->session=$this->myDBObject->__getArray("Sesiones",$sessionid);
+			$this->sessionid=$sessionid;
+			$this->prueba=$this->myDBObject->__getArray("Pruebas",$this->session['Prueba']);
+			$this->jornada=$this->myDBObject->__getArray("Jornadas",$this->session['Jornada']);
+			$this->manga=$this->myDBObject->__getArray("Mangas",$this->session['Manga']);
+			$this->mangaid=$this->manga['ID'];
+			$this->tanda=$this->myDBObject->__getArray("Tandas",$this->session['Tanda']);
+			$this->tandatype=$this->tanda['Tipo'];
+			$this->mode=-1;
+		} else {
+			$this->session=null;
+			$this->sessionid=0;
+			$this->prueba=$this->myDBObject->__getArray("Pruebas",$pruebaid);
+			$this->jornada=$this->myDBObject->__getArray("Jornadas",$jornadaid);
+			$this->manga=$this->myDBObject->__getArray("Mangas",$mangaid);
+			$this->mangaid=$this->manga['ID'];
+			$this->tanda=null;
+			$this->tandatype=$tandatype;
+			$this->mode=$mode;	
+		}
+		$this->myLogger->info("sesion:$sessionid prueba:{$this->prueba['ID']} jornada:{$this->jornada['ID']} manga:{$this->mangaid} tanda:{$this->tandatype} mode:$mode");
 	}
 
 	public static $cat=array('-'=>'','L'=>'Large','M'=>'Medium','S'=>'Small','T'=>'Tiny');
@@ -56,13 +76,15 @@ class VideoWall {
 		return (($row%2)!=0)?$this->config->getEnv("vw_rowcolor1"):$this->config->getEnv("vw_rowcolor2");
 	}
 	
+	
 	function generateHeaderInfo() {
-		$tandastr=Tandas::getTandaString($this->tandaid);
+		$tandastr=Tandas::getTandaString($this->tandatype);
 		$sesname=($this->sessionid!=0)?$this->session['Nombre']:'';
 		echo '<input type="hidden" id="vw_NombreSesion" value="'.$sesname.'"/>';
 		echo '<input type="hidden" id="vw_NombrePrueba" value="'.$this->prueba['Nombre'].'"/>';
 		echo '<input type="hidden" id="vw_NombreJornada" value="'.$this->jornada['Nombre'].'"/>';
 		echo '<input type="hidden" id="vw_NombreManga" value="'.$tandastr.'"/>';
+		echo '<input type="hidden" id="vw_NombreTanda" value="'.$tandastr.'"/>';
 	}
 	
 	function videowall_llamada($pendientes) {
@@ -114,17 +136,51 @@ class VideoWall {
 	}
 
 	function videowall_resultados() {
-		$resmgr=new Resultados("videowall_resultados",$this->prueba['ID'], $this->manga['ID'] );
-		// obtenemos modo de resultados asociado a la manga
-		$myManga=$this->myDBObject->__getObject("Mangas",$this->manga['ID']);
-		$mode=Tandas::getModeByTanda($this->prueba['RSCE'],$myManga->Recorrido,$this->tandaid);
-		$mangastr=Tandas::getMangaStringByTanda($this->tandaid)." - ".VideoWall::$modestr[$mode];
+		// anyade informacion extra en el resultado html
+		$this->generateHeaderInfo();
+		if ($this->mangaid==0) { // no manga defined yet
+			echo '
+			<!-- Datos de TRS y TRM -->
+			<div id="vwc_tablaTRS">
+				<table class="vwc_trs">
+					<thead>
+						<tr>
+							<th colspan="2" style="align:leftt">Resultados Provisionales</th>
+							<th colspan="3">&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr><td colspan="5">&nbsp</td></tr>
+						<tr style="align:right">
+							<td>Distancia:</td>
+							<td>Obst&aacute;culos:</td>
+							<td>T.R.Standard:</td>
+							<td>T.R.M&aacute;ximo:</td>
+							<td>Velocidad:</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			';
+			return 0;
+		}
+		$resmgr=new Resultados("videowall_resultados",$this->prueba['ID'], $this->mangaid );
+		$myManga=$this->myDBObject->__getObject("Mangas",$this->mangaid);
 		
+		// Si en lugar de TandaID tenemos definido el modo, obtenemos datos a partir de la manga
+		$mode=-1;
+		$mangastr="";
+		if ($this->mode>=0){
+			$mode=$this->mode;
+			$mangastr=Mangas::$tipo_manga[$myManga->Tipo][1]." - ".VideoWall::$modestr[$mode];
+		} else {
+			// obtenemos modo de resultados asociado a la manga en base a TandaID
+			$mode=Tandas::getModeByTanda($this->prueba['RSCE'],$myManga->Recorrido,$this->tandatype);
+			$mangastr=Tandas::getMangaStringByTanda($this->tandatype)." - ".VideoWall::$modestr[$mode];
+		}
 		$this->myLogger->trace("**** Mode es $mode");
 		$result = $resmgr->getResultados($mode);
 		$numero=0;
-		// cabecera de la tabla
-		$this->generateHeaderInfo();
 		echo '
 			<!-- Datos de TRS y TRM -->
 			<div id="vwc_tablaTRS">
@@ -271,7 +327,7 @@ class VideoWall {
 			if ($lastCategoria!==$participante['Categoria']){
 				$lastCategoria=$participante['Categoria'];
 				$categ=VideoWall::$cat[$lastCategoria];
-				$mangastr=Tandas::getMangaStringByTanda($this->tandaid);
+				$mangastr=Tandas::getMangaStringByTanda($this->tandatype);
 				echo '<tr><td colspan="5" class="vwc_callEntry vwc_callTanda">---- '.$mangastr.' - '.$categ.' ----</td></tr>';
 				$numero=0;
 			}
@@ -321,8 +377,9 @@ $prueba = http_request("Prueba","i",0);
 $jornada = http_request("Jornada","i",0);
 $manga = http_request("Manga","i",0);
 $tanda = http_request("Tanda","i",0);
+$mode = http_request("Mode","i",-1); // -1 means "do not use"
 
-$vw=new VideoWall($sesion,$prueba,$jornada,$manga,$tanda);
+$vw=new VideoWall($sesion,$prueba,$jornada,$manga,$tanda,$mode);
 try {
 	if($operacion==="livestream") return $vw->videowall_livestream();
 	if($operacion==="llamada") return $vw->videowall_llamada($pendientes);
