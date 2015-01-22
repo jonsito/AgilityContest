@@ -189,38 +189,11 @@ function vwls_cronoManual(oper) {
 }
 
 /**
- * Imprime los inscritos en la jornada marcada por la sesion activa
- * @param jornada
- */
-function vwi_updateInscripciones(data) {
-	// var t=new Date().getTime();
-	// $('#vw_inscripcionesJornada').html('Jornada:'+jornada+' '+t);
-	$.ajax( {
-		type: "GET",
-		dataType: 'html',
-		url: "/agility/server/videowall.php",
-		data: {
-			Operation: 'inscripciones',
-			Prueba: data.Prueba,
-			Jornada: data.Jornada,
-			Session: data.Session
-		},
-		success: function(data,status,jqxhr) {
-			$('#vw_inscripcionesJornada').html(data);
-			var str=$('#vw_NombrePrueba').val()+" - "+$('#vw_NombreJornada').val();
-			$('#vw_inscripciones-infocabecera').html(str);
-		}
-	});
-}
-
-/**
  * Refresca periodicamente el orden de salida correspondiente
  * a la seleccion especificada
  * Se indica tambien si el perro esta o no pendiente de salir
  */
 function vwos_updateOrdenSalida(data) {
-	// var t=new Date().getTime();
-	// $('#vw_inscripcionesJornada').html('Jornada:'+jornada+' '+t);
 	$.ajax( {
 		type: "GET",
 		dataType: 'html',
@@ -398,36 +371,6 @@ function vw_processParciales(id,evt) {
 	case 'cancelar': // operador pulsa cancelar
 		return;
 	}
-}
-
-/**
- * (This process is executed every minute on 'inscripciones' videowall)
- * 
- * retrieve last 'connect' event for current sessionID
- * call updateInscripciones with retrieved data
- */
-function vwi_procesaInscripciones() {
-	$.ajax({
-		type: "GET",
-		url: "/agility/server/database/eventFunctions.php",
-		data: {
-			'Operation' : 'connect',
-			'Session'	: workingData.sesion
-		},
-		async: true,
-		cache: false,
-		success: function(data){
-			var response= eval('(' + data + ')' );
-			if ( response['total']!=0) {
-				var row=response['rows'][0];
-				var info= eval('(' + row.Data + ')' );
-				vwi_updateInscripciones(info);
-			}
-		},
-		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("error: "+textStatus + " "+ errorThrown );
-		}
-	});
 }
 
 /**
