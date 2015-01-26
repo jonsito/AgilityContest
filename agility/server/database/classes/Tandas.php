@@ -492,7 +492,7 @@ class Tandas extends DBObject {
 			if ($manga!=$tanda['Manga']) { // cambio de manga
 				$manga=$tanda['Manga'];
 				// en cada manga cogemos el orden de salida asociado
-				$os=new OrdenSalida("ordenTandas::getData()",$p,$j,$manga);
+				$os=new OrdenSalida("Tandas::getData()",$p,$j,$manga);
 				$ordenmanga=$os->getOrden($manga);
 				// cogemos tambien la lista de perros de cada manga, y la reindexamos segun el orden del perro
 				$res=$this->__select("*", "Resultados","(Prueba=$p) AND (Jornada=$j) AND (Manga=$manga)","","");
