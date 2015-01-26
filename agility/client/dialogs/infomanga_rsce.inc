@@ -24,15 +24,26 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<input type="hidden" id="dmanga_ID" name="ID" value=""/>
 	<input type="hidden" id="dmanga_Tipo" name="Tipo" value=""/>
 	<table id="competicion-tabladatosmanga">
+		<tr>
+			<td colspan="10">&nbsp;</td>
+		</tr>
 		<tr> <!-- fila 0: datos de los jueces -->
-			<td style="text-align:right">Juez 1:</td>
 			<td colspan="4">
+				<span style="text-align:right">Juez 1:</span>
 				<select id="dmanga_Juez1" name="Juez1" style="width:200px"></select>
 			</td>
-			<td style="text-align:right">Juez 2:</td>
 			<td colspan="4">
+				<span style="text-align:right">Juez 2:</span>
 				<select id="dmanga_Juez2" name="Juez2" style="width:200px"></select>
 			</td>
+			<td>&nbsp;</td>
+			<td colspan="1">
+				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-whistle'" 
+					id="dmanga_SameJuez" onclick="dmanga_shareJuez();">Replicar</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="10">&nbsp;</td>
 		</tr>
 		<tr> <!-- fila 1 tipos de recorrido -->
 			<td>Recorridos: </td>
@@ -48,6 +59,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<input type="radio" id="dmanga_Recorrido_2" name="Recorrido" value="0" onClick="dmanga_setRecorridos_rsce();"/>
 				<label for="dmanga_Recorrido_2">Std / Midi / Mini</label>
 			</td>
+		</tr>
+		<tr>
+			<td colspan="10">&nbsp;</td>
 		</tr>
 		<tr style="background-color:#c0c0c0"> <!-- fila 2: titulos  -->
 			<td>Categor&iacute;a</td>
@@ -232,5 +246,6 @@ addTooltip($('#dmanga_Recorrido_1'),"Recorridos separados para Standard y Mini-M
 addTooltip($('#dmanga_Recorrido_2'),"Recorridos independientes para cada cagegor&iacute;a");
 addTooltip($('#dmanga_Restaurar').linkbutton(),"Restaurar datos originales de la manga");
 addTooltip($('#dmanga_Guardar').linkbutton(),"Guardar los datos t&eacute;cnicos de la manga");
+addTooltip($('#dmanga_SameJuez').linkbutton(),"Asignar estos jueces a TODAS las mangas de la jornada");
 
 </script>

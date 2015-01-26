@@ -151,7 +151,7 @@ class Mangas extends DBObject {
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param(
-			'iiiiiiiiiiisiisiisiisiisiisiisiissssi',
+			'iiiiiiiiiiisiisiisiisiisiisiisiisiisi',
 			$recorrido,
 			$dist_l,	$obst_l,	$dist_m,	$obst_m,	$dist_s,	$obst_s, 	$dist_t,	$obst_t,// distancias y obstaculos
 			$trs_l_tipo,	$trs_l_factor,	$trs_l_unit,	$trm_l_tipo,	$trm_l_factor,	$trm_l_unit,// TRS y TRM Large
@@ -220,8 +220,8 @@ class Mangas extends DBObject {
 		$trm_s_unit = http_request("TRM_S_Unit","s","s",false);
 		$trm_t_unit = http_request("TRM_T_Unit","s","s",false);
 		// Jueces y observaciones
-		$juez1 = http_request("Juez1","s",null,false);
-		$juez2 = http_request("Juez2","s",null,false);
+		$juez1 = http_request("Juez1","i",1);
+		$juez2 = http_request("Juez2","i",1);
 		$observaciones = http_request("Observaciones","s",null,false);
 		
 		// ejecutamos el query
@@ -238,6 +238,15 @@ class Mangas extends DBObject {
 		$this->myLogger->leave();
 		return "";
 	}
+	
+	function shareJuez() {
+		$juez1 = http_request("Juez1","i",1);
+		$juez2 = http_request("Juez2","i",1);
+		$sql="UPDATE Mangas SET Juez1=$juez1, Juez2=$juez2 WHERE ( Jornada={$this->jornada} )";		
+		$res=$this->query($sql);
+		if (!$res) return $this->error($this->conn->error); 
+		$this->myLogger->leave();
+	}	
 	
 	/**
 	 * Delete a Manga from jornada $this->jornada when tipo is $tipo
