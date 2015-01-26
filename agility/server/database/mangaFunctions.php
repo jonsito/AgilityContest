@@ -35,6 +35,7 @@ try {
 	switch ($operation) {
 		// no direct "insert", as created/destroyed from jornadaFunctions
 		case "update": $am->access(PERMS_OPERATOR); $result=$mangas->update($manga); break;
+		case "sharejuez": $am->access(PERMS_OPERATOR); $result=$mangas->shareJuez(); break;
 		// no direct delete as created/destroyed from jornadaFunctions
 		case "enumerate": 	$result=$mangas->selectByJornada($jornada); break; 
 		case "getbyid":		$result=$mangas->selectByID($manga); break;

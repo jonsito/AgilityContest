@@ -284,6 +284,28 @@ function dmanga_setRecorridos_rfec() {
 		break;
 	}
 }
+function dmanga_shareJuez(id) {
+    $('#dmanga_Operation').val('sharejuez');
+    $('#dmanga_Jornada').val(workingData.jornada);
+    $('#dmanga_Manga').val(id);
+    var frm = $('#competicion-formdatosmanga');
+    $.ajax({
+        type: 'GET',
+        url: '/agility/server/database/mangaFunctions.php',
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){ 
+            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+            } else {// on submit success, reload results
+    			var recorrido=$("input:radio[name=Recorrido]:checked").val();
+    			$.messager.alert('Data saved','Exportados los datos de jueces','info');
+    			workingData.datosManga.Recorrido=recorrido;
+    			setupResultadosWindow(recorrido);
+            }
+        }
+    });
+}
 
 /**
  * Guarda las modificaciones a los datos de una manga

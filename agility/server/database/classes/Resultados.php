@@ -102,9 +102,9 @@ class Resultados extends DBObject {
 		// vemos de donde tenemos que tomar los datos
 		$suffix='L';
 		switch($mode) {
-			case 0: $suffix='L'; break;
-			case 1: $suffix='M'; break;
-			case 2: $suffix='S'; break;
+			case 0: $suffix='L'; break; // L
+ 			case 1: $suffix='M'; break; // M
+			case 2: $suffix='S'; break; // S
 			case 3: $suffix='M'; break; // M+S
 			case 4: $suffix='L'; break; // L+M+S
 			// extra values for rfec contests
