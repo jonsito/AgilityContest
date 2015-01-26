@@ -284,10 +284,10 @@ function dmanga_setRecorridos_rfec() {
 		break;
 	}
 }
-function dmanga_shareJuez(id) {
+function dmanga_shareJuez() {
     $('#dmanga_Operation').val('sharejuez');
     $('#dmanga_Jornada').val(workingData.jornada);
-    $('#dmanga_Manga').val(id);
+    $('#dmanga_Manga').val(0); // not really needed, but...
     var frm = $('#competicion-formdatosmanga');
     $.ajax({
         type: 'GET',
