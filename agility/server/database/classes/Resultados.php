@@ -362,17 +362,23 @@ class Resultados extends DBObject {
 			// importante: las asignaciones se hacen en base a $table[$idx], 
 			// pues si no solo se actualiza la copia
 			
-			// evaluamos penalizacion por tiempo y penalizacion final
-			if ($table[$idx]['Tiempo']<$trs) { // Por debajo del TRS
+			if ($trs==0) {
+				// si TRS==0 no hay penalizacion por tiempo
 				$table[$idx]['PTiempo']		= 	0.0; 
 				$table[$idx]['Penalizacion']=	$table[$idx]['PRecorrido'];
-			}
-			if ($table[$idx]['Tiempo']>=$trs) { // Superado TRS
-				$table[$idx]['PTiempo']		=	$table[$idx]['Tiempo'] 		-	$trs; 
-				$table[$idx]['Penalizacion']=	floatval($table[$idx]['PRecorrido'])	+	$table[$idx]['PTiempo'];
-			}
-			if ($table[$idx]['Tiempo']>$trm) { // Superado TRM: eliminado
-				$table[$idx]['Penalizacion']=	100.0;
+			} else {
+				// evaluamos penalizacion por tiempo y penalizacion final
+				if ($table[$idx]['Tiempo']<$trs) { // Por debajo del TRS
+					$table[$idx]['PTiempo']		= 	0.0; 
+					$table[$idx]['Penalizacion']=	$table[$idx]['PRecorrido'];
+				}
+				if ($table[$idx]['Tiempo']>=$trs) { // Superado TRS
+					$table[$idx]['PTiempo']		=	$table[$idx]['Tiempo'] 		-	$trs; 
+					$table[$idx]['Penalizacion']=	floatval($table[$idx]['PRecorrido'])	+	$table[$idx]['PTiempo'];
+				}
+				if ($table[$idx]['Tiempo']>$trm) { // Superado TRM: eliminado
+					$table[$idx]['Penalizacion']=	100.0;
+				}
 			}
 				
 			// evaluamos velocidad 
