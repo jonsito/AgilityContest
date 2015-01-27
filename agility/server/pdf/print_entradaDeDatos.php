@@ -72,12 +72,18 @@ class PDF extends PrintCommon {
 	
 	// Cabecera de página
 	function Header() {
-		$this->myLogger->enter();
 		$this->print_commonHeader("Introducción de Datos");
-		// si estamos en modo 1 perro/pagina, dejamos un buen hueco antes de pintar la id de la manga
-		if($this->numrows==1) $this->Ln(20);
-		$this->print_identificacionManga($this->manga,$this->cat[$this->categoria]);
-		$this->myLogger->leave();
+		if($this->numrows!=1) { 
+			// normal/compacto: pinta id de la jornada y de la manga
+			$this->print_identificacionManga($this->manga,$this->cat[$this->categoria]);
+		} else {
+			// modo extendido: pinta solo identificacion de la jornada
+			$this->SetFont('Arial','B',12); // Arial bold 15
+			$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
+			$this->Cell(90,9,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
+			$this->Ln(9);
+		}
+		
 	}
 		
 	// Pie de página
@@ -86,7 +92,6 @@ class PDF extends PrintCommon {
 	}
 	
 	function writeTableCell_compacto($rowcount,$row) {
-		$this->myLogger->trace("imprimiendo datos del idperro: ".$row['Perro']);
 		$this->ac_header(1,20);
 		// save cursor position
 		$x=$this->getX();
@@ -148,7 +153,6 @@ class PDF extends PrintCommon {
 	 * @param number $f width factor (to be reused on extended print)
 	 */
 	function writeTableCell_normal($rowcount,$row,$f=1) {
-		$this->myLogger->trace("imprimiendo datos del idperro: ".$row['Perro']);
 		// cada celda tiene una cabecera con los datos del participante
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
@@ -158,72 +162,180 @@ class PDF extends PrintCommon {
 		$y=$this->GetY();
 		// fase 1: contenido de cada celda de la cabecera
 		$this->SetFont('Arial','B',20); // bold 9px
-		$this->Cell($this->pos[0],10*$f,$row['Dorsal'],		'LTR',0,$this->align[0],true); // display order
+		$this->Cell($this->pos[0],10,$row['Dorsal'],		'LTR',0,$this->align[0],true); // display order
 		// pintamos cajas con fondo
-		$this->Cell($this->pos[1],10*$f,'',		'LTR',0,$this->align[1],true);
-		$this->Cell($this->pos[2],10*$f,'',		'LTR',0,$this->align[2],true);
-		$this->Cell($this->pos[3],10*$f,'',	'LTR',0,$this->align[3],true);
-		$this->Cell($this->pos[4],10*$f,'',	'LTR',0,$this->align[4],true);
-		$this->Cell($this->pos[5],10*$f,'','LTR',0,$this->align[5],true);
-		$this->Cell($this->pos[6],10*$f,'',	'LTR',0,$this->align[6],true);
+		$this->Cell($this->pos[1],10,'',		'LTR',0,$this->align[1],true);
+		$this->Cell($this->pos[2],10,'',		'LTR',0,$this->align[2],true);
+		$this->Cell($this->pos[3],10,'',	'LTR',0,$this->align[3],true);
+		$this->Cell($this->pos[4],10,'',	'LTR',0,$this->align[4],true);
+		$this->Cell($this->pos[5],10,'','LTR',0,$this->align[5],true);
+		$this->Cell($this->pos[6],10,'',	'LTR',0,$this->align[6],true);
 		
 		// pintamos textos un poco desplazados hacia abajo y sin borde ni fondo
 		$this->SetXY($x+$this->pos[0],$y+3); // restore cursor position
 		$this->SetFont('Arial','B',12); // bold 9px
-		$this->Cell($this->pos[1],10*$f-3,$row['Nombre'],		'',0,$this->align[1],false);
-		$this->Cell($this->pos[2],10*$f-3,$row['Licencia'],		'',0,$this->align[2],false);
-		$this->Cell($this->pos[3],10*$f-3,$row['NombreGuia'],	'',0,$this->align[3],false);
-		$this->Cell($this->pos[4],10*$f-3,$row['NombreClub'],	'',0,$this->align[4],false);
-		$this->Cell($this->pos[5],10*$f-3,($row['Celo']!=0)?"Celo":"",'',0,$this->align[5],false);
-		$this->Cell($this->pos[6],10*$f-3,$row['Observaciones'],	'',0,$this->align[6],false);
+		$this->Cell($this->pos[1],10-3,$row['Nombre'],		'',0,$this->align[1],false);
+		$this->Cell($this->pos[2],10-3,$row['Licencia'],		'',0,$this->align[2],false);
+		$this->Cell($this->pos[3],10-3,$row['NombreGuia'],	'',0,$this->align[3],false);
+		$this->Cell($this->pos[4],10-3,$row['NombreClub'],	'',0,$this->align[4],false);
+		$this->Cell($this->pos[5],10-3,($row['Celo']!=0)?"Celo":"",'',0,$this->align[5],false);
+		$this->Cell($this->pos[6],10-3,$row['Observaciones'],	'',0,$this->align[6],false);
 		
 		// nombre nombre de cada celda de la cabecera
 		$this->SetXY($x,$y); // restore cursor position
 		$this->SetTextColor(0,0,0); // negro
 		$this->SetFont('Arial','I',8); // italic 8px
-		$this->Cell($this->pos[0],5,($f!=1)?'Dorsal':'','',	0,'L',false); // Dorsal
+		$this->Cell($this->pos[0],5,'',			'',	0,'L',false); // Dorsal
 		$this->Cell($this->pos[1],5,'Nombre:',	'',	0,'L',false);
 		$this->Cell($this->pos[2],5,'Licencia:','',	0,'L',false);
 		$this->Cell($this->pos[3],5,'Guia:',	'',	0,'L',false);
 		$this->Cell($this->pos[4],5,'Club:',	'',	0,'L',false);
 		$this->Cell($this->pos[5],5,'Celo:',	'',	0,'L',false);
 		$this->Cell($this->pos[6],5,'Observaciones:','',0,'L',false);
-		$this->Cell(0,10*$f); // increase height before newline
+		$this->Cell(0,10); // increase height before newline
 		
 		// Restauración de colores y fuentes
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
 		$this->SetTextColor(0,0,0); // negro
 		$this->Ln();
 		// datos de Faltas, Tocados y Rehuses
-		$this->Cell(20,10*$f,"Faltas",1,0,'L',false);
-		for ($i=1;$i<=10;$i++) $this->Cell(10,10*$f,$i,1,0,'C',(($i&0x01)==0)?false:true);
-		$this->Cell(10); $this->Cell(20,10*$f,"F: ",1,0,'L',false);
-		$this->Cell(40,10*$f,"Tiempo: ",'LTR',0,'C',true);
+		$this->Cell(20,10,"Faltas",1,0,'L',false);
+		for ($i=1;$i<=10;$i++) $this->Cell(10,10,$i,1,0,'C',(($i&0x01)==0)?false:true);
+		$this->Cell(10); $this->Cell(20,10,"F: ",1,0,'L',false);
+		$this->Cell(40,10,"Tiempo: ",'LTR',0,'C',true);
 		$this->Ln();
-		$this->Cell(20,10*$f,"Tocados",1,0,'L',false);
-		for ($i=1;$i<=10;$i++) $this->Cell(10,10*$f,$i,1,0,'C',(($i&0x01)==0)?false:true);
-		$this->Cell(10); $this->Cell(20,10*$f,"T: ",1,0,'L',false);
-		$this->Cell(40,10*$f,"",'LR',0,'C',true);
+		$this->Cell(20,10,"Tocados",1,0,'L',false);
+		for ($i=1;$i<=10;$i++) $this->Cell(10,10,$i,1,0,'C',(($i&0x01)==0)?false:true);
+		$this->Cell(10); $this->Cell(20,10,"T: ",1,0,'L',false);
+		$this->Cell(40,10,"",'LR',0,'C',true);
 		$this->Ln();
-		$this->Cell(20,10*$f,"Rehúses",1,0,'L',false);
-		for ($i=1;$i<=3;$i++) $this->Cell(10,10*$f,$i,1,0,'C',(($i&0x01)==0)?false:true);
-		$this->Cell(10); $this->Cell(30,10*$f,"Elim. ",1,0,'L',false); 
-		$this->Cell(30,10*$f,"N.P. ",1,0,'L',false);
-		$this->Cell(10); $this->Cell(20,10*$f,"R: ",1,0,'L',false);
-		$this->Cell(40,10*$f,"",'LBR',0,'C',true);
-		$this->Ln(17);
+		$this->Cell(20,10,"Rehúses",1,0,'L',false);
+		for ($i=1;$i<=3;$i++) $this->Cell(10,10,$i,1,0,'C',(($i&0x01)==0)?false:true);
+		$this->Cell(10); $this->Cell(30,10,"Elim. ",1,0,'L',false); 
+		$this->Cell(30,10,"N.P. ",1,0,'L',false);
+		$this->Cell(10); $this->Cell(20,10,"R: ",1,0,'L',false);
+		$this->Cell(40,10,"",'LBR',0,'C',true);
+		$this->Ln(14);
 	}
 
 	function writeTableCell_extendido($rowcount,$row) {
-		// imprimimos informacion de la primera manga
-		$this->writeTableCell_normal($rowcount,$row,2);
-		// si existe imprimimos informacion de la segunda manga
-		if ($this->manga2==null) return;
-		$this->Ln(20);
-		// pintamos "identificacion" de la segunda manga
-		$this->print_identificacionManga($this->manga2,$this->cat[$this->categoria]);
-		// y volvemos a pintar el recuadro para la segunda manga
-		$this->writeTableCell_normal($rowcount,$row,2);
+
+		// cada celda tiene una cabecera con los datos del participante
+		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
+		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
+		$this->ac_SetDrawColor(0,0,0); // line color
+		// save cursor position
+		$x=$this->getX();
+		$y=$this->GetY();
+		// fase 1: contenido de cada celda de la cabecera
+		$this->SetFont('Arial','B',22); // bold 9px
+		$this->Cell($this->pos[0],30,$row['Dorsal'],		'LTRB',0,$this->align[0],true); // display order
+		// pintamos cajas con fondo
+		$this->Cell($this->pos[1],30,'',	'LTRB',0,$this->align[1],true);
+		$this->Cell($this->pos[2],30,'',	'TRB',0,$this->align[2],true);
+		$this->Cell($this->pos[3],30,'',	'TRB',0,$this->align[3],true);
+		$this->Cell($this->pos[4],30,'',	'TRB',0,$this->align[4],true);
+		$this->Cell($this->pos[5],30,'',	'TRB',0,$this->align[5],true);
+		$this->Cell($this->pos[6],30,'',	'TRB',0,$this->align[6],true);
+		
+		// pintamos textos un poco desplazados hacia abajo y sin borde ni fondo
+		$this->SetXY($x+$this->pos[0],$y+3); // restore cursor position
+		$this->SetFont('Arial','B',12); // bold 9px
+		$this->Cell($this->pos[1],30-3,$row['Nombre'],		'',0,$this->align[1],false);
+		$this->Cell($this->pos[2],30-3,$row['Licencia'],		'',0,$this->align[2],false);
+		$this->Cell($this->pos[3],30-3,$row['NombreGuia'],	'',0,$this->align[3],false);
+		$this->Cell($this->pos[4],30-3,$row['NombreClub'],	'',0,$this->align[4],false);
+		$this->Cell($this->pos[5],30-3,($row['Celo']!=0)?"Celo":"",'',0,$this->align[5],false);
+		$this->Cell($this->pos[6],30-3,$row['Observaciones'],	'',0,$this->align[6],false);
+		
+		// nombre nombre de cada celda de la cabecera
+		$this->SetXY($x,$y); // restore cursor position
+		$this->SetTextColor(0,0,0); // negro
+		$this->SetFont('Arial','I',8); // italic 8px
+		$this->Cell($this->pos[0],5,'Dorsal',	'',	0,'L',false); // Dorsal
+		$this->Cell($this->pos[1],5,'Nombre:',	'',	0,'L',false);
+		$this->Cell($this->pos[2],5,'Licencia:','',	0,'L',false);
+		$this->Cell($this->pos[3],5,'Guia:',	'',	0,'L',false);
+		$this->Cell($this->pos[4],5,'Club:',	'',	0,'L',false);
+		$this->Cell($this->pos[5],5,'Celo:',	'',	0,'L',false);
+		$this->Cell($this->pos[6],5,'Observaciones:','',0,'L',false);
+		$this->Cell(0,30); // increase height before newline
+		$this->Ln(30);		
+
+
+		// Datos de manga
+		$this->ac_header(1,15);
+		if($this->manga!=null) {
+			$str=Mangas::$tipo_manga[$this->manga->Tipo][1];
+			$str="$str - {$this->categoria}";
+			$this->ac_Cell(10,85,90,10,$str,"LTBR","C",false);
+		}
+		if($this->manga2!=null) {
+			$str=Mangas::$tipo_manga[$this->manga2->Tipo][1];
+			$str="$str - {$this->categoria}";
+			$this->ac_Cell(110,85,90,10,$str,"LTBR","C",false);
+		}
+		
+		// Restauración de colores y fuentes
+
+		$this->ac_header(2,10);
+		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
+		$this->SetTextColor(0,0,0); // negro
+		
+		// datos manga 1
+		if ($this->manga !=null) {
+			$this->ac_Cell(10,100,72,10,"Faltas:","LTBR","L",false);
+			$this->ac_Cell(82,100,18,20,"F:","LTBR","L",true);
+			for ($n=0;$n<9;$n++)$this->ac_Cell(10+(8*$n),110,8,10,$n+1,"LB","C",(($n%2)!=0)?true:false);
+
+			$this->ac_Cell(10,125,72,10,"Tocados:","LTBR","L",false);
+			$this->ac_Cell(82,125,18,20,"T:","LTBR","L",true);
+			for ($n=0;$n<9;$n++)$this->ac_Cell(10+(8*$n),135,8,10,$n+1,"LB","C",(($n%2)!=0)?true:false);
+			
+			$this->ac_Cell(10,150,72,10,"Rehuses:","LTBR","L",false);
+			$this->ac_Cell(82,150,18,20,"R:","LTBR","L",true);
+			for ($n=0;$n<3;$n++)$this->ac_Cell(10+(8*$n),160,8,10,$n+1,"LBR","C",(($n%2)!=0)?true:false);
+
+			$this->ac_Cell(10,175,28,20,"","LTB","L",false);
+			$this->ac_Cell(38,175,28,20,"","LTBR","L",false);
+			$this->ac_Cell(70,175,30,20,"","LTBR","L",true);
+			$this->ac_Cell(10,175,28,10,"No Presentado","","L",false);
+			$this->ac_Cell(38,175,28,10,"Eliminado","","L",false);
+			$this->ac_Cell(70,175,30,10,"Tiempo:","","L",false);
+		}
+		// datos manga 2
+		if ($this->manga2 !=null) {
+			$this->ac_Cell(110,100,72,10,"Faltas:","LTBR","L",false);
+			$this->ac_Cell(182,100,18,20,"F:","LTBR","L",true);
+			for ($n=0;$n<9;$n++)$this->ac_Cell(110+(8*$n),110,8,10,$n+1,"LB","C",(($n%2)!=0)?true:false);
+
+			$this->ac_Cell(110,125,72,10,"Tocados:","LTBR","L",false);
+			$this->ac_Cell(182,125,18,20,"T:","LTBR","L",true);
+			for ($n=0;$n<9;$n++)$this->ac_Cell(110+(8*$n),135,8,10,$n+1,"LB","C",(($n%2)!=0)?true:false);
+			
+			$this->ac_Cell(110,150,72,10,"Rehuses:","LTBR","L",false);
+			$this->ac_Cell(182,150,18,20,"R:","LTBR","L",true);
+			for ($n=0;$n<3;$n++)$this->ac_Cell(110+(8*$n),160,8,10,$n+1,"LBR","C",(($n%2)!=0)?true:false);
+
+			$this->ac_Cell(110,175,28,20,"","LTB","L",false);
+			$this->ac_Cell(138,175,28,20,"","LTBR","L",false);
+			$this->ac_Cell(170,175,30,20,"","LTBR","L",true);
+			$this->ac_Cell(110,175,28,10,"No Presentado","","L",false);
+			$this->ac_Cell(138,175,28,10,"Eliminado","","L",false);
+			$this->ac_Cell(170,175,30,10,"Tiempo:","","L",false);
+				
+		}
+
+		// Asistentes de pista
+		$this->ac_header(2,12);
+		if($this->manga!=null) {
+			$this->ac_Cell(10,200,90,10,"Asistente 1:","LTBR","L",true);
+		}
+		if($this->manga2!=null) {
+			$this->ac_Cell(110,200,90,10,"Asistente 2:","LTBR","L",true);
+		}
+		
+		$this->SetTextColor(0,0,0); // restore color on footer
 	}
 	
 	// Tabla coloreada
@@ -237,14 +349,20 @@ class PDF extends PrintCommon {
 		foreach($this->orden as $row) {
 			// if change in categoria, reset orden counter and force page change
 			if ($row['Categoria'] !== $this->categoria) {
-				$this->myLogger->trace("Nueva categoria es: ".$row['Categoria']);
+				// $this->myLogger->trace("Nueva categoria es: ".$row['Categoria']);
 				$this->categoria = $row['Categoria'];
-				$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre de categoria
+				// $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre de categoria
 				$rowcount=0;
 			}
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			if( ($rowcount % $this->numrows) == 0 ) { // assume $numrows entries per page 
 				$this->addPage();
+				if($this->numrows!=1) {
+					// indicamos nombre del operador que rellena la hoja
+					$this->ac_header(2,12);
+					$this->Cell(190,7,'Asistente:','LTBR',0,'L',true);
+					$this->Ln(8);
+				}
 			}
 			switch($this->numrows) {
 				case 1: $this->writeTableCell_extendido($rowcount,$row);break;

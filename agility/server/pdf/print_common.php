@@ -71,7 +71,7 @@ class PrintCommon extends FPDF {
 	 * @param {string} $title Titulo a imprimir en el cajetin
 	 */
 	function print_commonHeader($title) {
-		$this->myLogger->enter();
+		// $this->myLogger->enter();
 		// pintamos Logo del club organizador a la izquierda y logo de la canina a la derecha
 		// recordatorio
 		// 		$this->Image(string file [, float x [, float y [, float w [, float h [, string type [, mixed link]]]]]])
@@ -99,19 +99,19 @@ class PrintCommon extends FPDF {
 		$this->SetXY($this->centro -50,20);
 		$this->Cell(100,10,$title,1,0,'C',false);// Nombre de la prueba centrado
 		$this->Ln(15); // Salto de línea
-		$this->myLogger->leave();
+		// $this->myLogger->leave();
 	}
 		
 	// Pie de página
 	function print_commonFooter() {
-		$this->myLogger->enter();
+		// $this->myLogger->enter();
 		// Posición: a 1,5 cm del final
 		$this->SetY(-15);
 		// Arial italic 8
 		$this->SetFont('Arial','I',8);
 		// Número de página
 		$this->Cell(0,10,'Página '.$this->PageNo().'/{nb}',0,0,'C');
-		$this->myLogger->leave();
+		// $this->myLogger->leave();
 	}
 
 	// Identificacion de la Manga
@@ -120,10 +120,15 @@ class PrintCommon extends FPDF {
 		$this->SetFont('Arial','B',12); // Arial bold 15
 		$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
 		$tmanga= Mangas::$tipo_manga[$manga->Tipo][1];
-		$str2="$tmanga - $categoria";
-		$this->Cell(90,10,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
-		$this->Cell(90,10,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
-		$this->Ln(10);
+		$str2 = "$tmanga - $categoria";
+		$this->Cell(90,9,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
+		$this->Cell(90,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
+		$this->Ln(9);
+	}
+	
+	function ac_Cell($x,$y,$w,$h,$txt,$border,$align,$fill) {
+		$this->setXY($x,$y);
+		$this->Cell($w,$h,$txt,$border,0,$align,$fill);
 	}
 	
 	function setPageName($name) {$this->pageName=$name; }
