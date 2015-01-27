@@ -120,10 +120,15 @@ class PrintCommon extends FPDF {
 		$this->SetFont('Arial','B',12); // Arial bold 15
 		$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
 		$tmanga= Mangas::$tipo_manga[$manga->Tipo][1];
-		$str2="$tmanga - $categoria";
-		$this->Cell(90,10,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
-		$this->Cell(90,10,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
-		$this->Ln(10);
+		$str2 = "$tmanga - $categoria";
+		$this->Cell(90,9,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
+		$this->Cell(90,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
+		$this->Ln(9);
+	}
+	
+	function ac_Cell($x,$y,$w,$h,$txt,$border,$align,$fill) {
+		$this->setXY($x,$y);
+		$this->Cell($w,$h,$txt,$border,0,$align,$fill);
 	}
 	
 	function setPageName($name) {$this->pageName=$name; }
