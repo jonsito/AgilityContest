@@ -469,7 +469,7 @@ class Tandas extends DBObject {
 	private function getListaPerros($s=0,$t=0,$pendientes=0){
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
-		$count=$p;			// contador de perros pendientes de listar
+		$count=$pendientes;	// contador de perros pendientes de listar
 		$manga=0;		// variable para controlar manga "activa"
 		$perrosmanga=null;	// lista de perros inscritos en una manga indexada por PerroID
 		$ordenmanga=null;	// CSV list of perros inscritos en una manga
@@ -482,6 +482,7 @@ class Tandas extends DBObject {
 		
 		// iteramos la lista de tandas
 		foreach ($lista_tandas['rows'] as $tanda) {
+			$this->myLogger->info("Analizando tanda \n".json_encode($tanda));
 			// Comprobamos si debemos analizar la tanda
 			if ($t>0) { $do_iterate= ( $tanda['ID'] == abs($t) )? true:false; } // iterar solo la tanda
 			if ($t<0) { if ( $tanda['ID'] == abs($t) ) $do_iterate=true; } 		// iterar a partir de la tanda

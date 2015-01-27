@@ -90,7 +90,7 @@ class VideoWall {
 	function videowall_llamada($pendientes) {
 		$lastTanda="";
 		$otmgr=new Tandas("Llamada a pista",$this->prueba['ID'],$this->jornada['ID']);
-		$result = $otmgr->getData($this->sessionid,$this->tandaid,$pendientes)['rows']; // obtiene los 10 primeros perros pendientes
+		$result = $otmgr->getData($this->sessionid,$this->tanda['ID'],$pendientes)['rows']; // obtiene los 10 primeros perros pendientes
 		$numero=0;
 		$this->generateHeaderInfo();
 		echo '<table class="vwc_callEntry">';
