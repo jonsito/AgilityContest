@@ -152,6 +152,8 @@ class Etiquetas_PDF extends FPDF {
 		//Calif2 (134,y+8,25,9) right
 		$this->SetXY($left+124,$y8); 
 		$this->Cell(25,8,$row['C2'],'L',0,'C',false);
+		
+		$this->SetFont('Arial','',10); // font size for results data
 		//Puesto1 (159,y,15,8) center
 		$this->SetXY($left+149,$y1); 
 		$this->Cell(15,7,"{$row['Puesto1']}º / $count",'LBR',0,'C',false);
