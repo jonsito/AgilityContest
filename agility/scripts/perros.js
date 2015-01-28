@@ -113,7 +113,7 @@ function deleteDog(dg){
  *@param {string} ID identificador del datagrid que se actualiza
  *@param {object} guia: datos del guia
  */
-function assignPerroToGuia(id,guia) {
+function assignPerroToGuia(dg,guia) {
 	// clean previous dialog data
 	$('#chperros-header').form('clear');
 	$('#chperros-Search').combogrid('clear');
@@ -124,7 +124,8 @@ function assignPerroToGuia(id,guia) {
 	// desplegar ventana y ajustar textos
 	$('#chperros-title').text('Buscar perro / Declarar un nuevo perro y asignarlo a '+guia.Nombre);
 	$('#chperros-dialog').dialog('open').dialog('setTitle',"Reasignar / Declarar perro");
-	$('#chperros-okBtn').one('click',function () { $(mySelf).datagrid('reload'); } );
+	$('#chperros-okBtn').one('click',function () { $(dg).datagrid('reload'); } );
+	$('#chperros-newPeBtn').one('click',function () { $(dg).datagrid('reload'); } );
 }
 
 /**
@@ -174,11 +175,12 @@ function delPerroFromGuia(dg,guia) {
 }
 
 /** 
- * Actualiza los datos de un perro pre-asignado a un guia
+ * Actualiza (reassign+edit) los datos de un perro pre-asignado a otro guia
  */
 function assignDog() {
 	// set up guia
 	$('#chperros-Guia').val($('#chperros-newGuia').val());
+    $('#chperros-Operation').val('update');
     var frm = $('#chperros-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
@@ -192,6 +194,30 @@ function assignDog() {
             } else {
             	$('#chperros-Search').combogrid('clear');  // clear search field
                 $('#chperros-dialog').dialog('close');        // close the dialog
+            }
+        }
+    });
+}
+
+/**
+ * Anyade (new) un nuevo perro desde el menu de reasignacion de perros
+ */
+function saveChDog(){
+    var frm = $('#chperros-form');
+    $('#chperros-Guia').val($('#chperros-newGuia').val());
+    $('#chperros-Operation').val('insert');
+    if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+    $.ajax({
+        type: 'GET',
+        url: '/agility/server/database/dogFunctions.php',
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){
+                $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
+            } else {
+            	$('#chperros-Search').combogrid('clear');  // clear search field
+                $('#chperros-dialog').dialog('close');    // close the dialog
             }
         }
     });
