@@ -125,7 +125,7 @@ function assignPerroToGuia(dg,guia) {
 	$('#chperros-title').text('Buscar perro / Declarar un nuevo perro y asignarlo a '+guia.Nombre);
 	$('#chperros-dialog').dialog('open').dialog('setTitle',"Reasignar / Declarar perro");
 	$('#chperros-okBtn').one('click',function () { $(dg).datagrid('reload'); } );
-	$('#chperros-newPeBtn').one('click',function () { $(dg).datagrid('reload'); } );
+	$('#chperros-newBtn').one('click',function () { $(dg).datagrid('reload'); } );
 }
 
 /**
