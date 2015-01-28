@@ -34,7 +34,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="chperros-Nombre" name="Nombre" class="easyui-validatebox" /> <!-- dog name -->
                 <input id="chperros-Operation" name="Operation" type="hidden" value="update"/> <!-- inser/update/delete -->
                 <input id="chperros-Guia" name="Guia" type="hidden" /> <!-- id of the guia -->
-                <input id="chperros-newGuia" name="Guia" type="hidden" /> <!-- id original of the guia -->
+                <input id="chperros-newGuia" name="NewGuia" type="hidden" /> <!-- id original of the guia -->
             </div>
             <div class="fitem">
                 <label for="Raza">Raza:</label>
@@ -66,12 +66,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     </div>
     
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-    <div id="chperros-dlg-buttons">
-        <a id="chperros-okBtn" href="#" class="easyui-linkbutton" onclick="assignDog()"
-        	data-options="iconCls:'icon-ok'">Reasignar</a>
-        <a id="chperros-cancelBtn" href="#" class="easyui-linkbutton"  
-        	onclick="javascript:$('#chperros-dialog').dialog('close')"
-        	data-options="iconCls:'icon-cancel'">Cancelar</a>
+    <div id="chperros-dlg-buttons" style="display:inline-block">
+    	<span style="float:left">
+        	<a id="chperros-newBtn" href="#" class="easyui-linkbutton" onclick="saveChDog()"
+        		data-options="iconCls:'icon-dog'">Nuevo</a>
+        </span>
+        <span style="float:right">
+        	<a id="chperros-okBtn" href="#" class="easyui-linkbutton" onclick="assignDog()"
+        		data-options="iconCls:'icon-ok'">Reasignar</a>
+        	<a id="chperros-cancelBtn" href="#" class="easyui-linkbutton"  
+        		onclick="javascript:$('#chperros-dialog').dialog('close')"
+        		data-options="iconCls:'icon-cancel'">Cancelar</a>
+        </span>
     </div>
     
     <script type="text/javascript">
@@ -81,6 +87,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     $('#chperros-form').form();
     // - botones
     addTooltip($('#chperros-clearBtn').linkbutton(),"Limpiar formulario de reasignacion de perro");
+    addTooltip($('#chperros-newBtn').linkbutton(),"Crear un nuevo perro para este guía en la base de datos");
     addTooltip($('#chperros-okBtn').linkbutton(),"Aceptar datos y actualizar la BBDD");
     addTooltip($('#chperros-cancelBtn').linkbutton(),"Cancelar asignacion. Cerrar ventana");
     $('#chperros-clearBtn').bind('click',function() {
