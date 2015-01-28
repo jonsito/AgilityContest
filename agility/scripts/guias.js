@@ -22,7 +22,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  *@param {String} ID: Identificador del elemento ( datagrid) desde el que se invoca esta funcion
  *@param {object} data: datos del club
  */
-function assignGuiaToClub(id,club) {
+function assignGuiaToClub(dg,club) {
 	// clear data forms
 	$('#chguias-header').form('clear'); // erase header form
 	$('#chguias-Search').combogrid('clear'); // reset header combogrid
@@ -34,7 +34,8 @@ function assignGuiaToClub(id,club) {
 	$('#chguias-title').text('Reasignar/Declarar un guia como perteneciente al club '+club.Nombre);
 	$('#chguias-dialog').dialog('open').dialog('setTitle','Asignar/Registrar un gu&iacute;a');
 	// on click OK button, close dialog and refresh data
-	$('#chguias-okBtn').one('click',function () { $(id).datagrid('reload'); } ); 
+	$('#chguias-okBtn').one('click',function () { $(dg).datagrid('reload'); } ); 
+	$('#chguias-newBtn').one('click',function () { $(dg).datagrid('reload'); } ); 
 }
 
 /**
@@ -161,8 +162,7 @@ function deleteGuia(dg){
  */
 function assignGuia(){
 	$('#chguias-Club').val($('#chguias-newClub').val());
-	
-
+    $('#chguias-Operation').val('update');
     var frm = $('#chguias-form');
     if (! frm.form('validate')) return;
     $.ajax({
@@ -181,6 +181,29 @@ function assignGuia(){
     });
 }
 
+/**
+ * Anyade (new) un nuevo perro desde el menu de reasignacion de perros
+ */
+function saveChGuia(){
+    var frm = $('#chperros-form');
+	$('#chguias-Club').val($('#chguias-newClub').val());
+    $('#chguias-Operation').val('insert');
+    if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+    $.ajax({
+        type: 'GET',
+        url: '/agility/server/database/guiaFunctions.php',
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){
+                $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
+            } else {
+            	$('#chguias-Search').combogrid('clear');  // clear search field
+                $('#chguias-dialog').dialog('close');    // close the dialog
+            }
+        }
+    });
+}
 /**
  * Invoca a json para añadir/editar los datos del guia seleccionado en el formulario
  * Ask for commit new/edit guia to server
