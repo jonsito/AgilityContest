@@ -545,7 +545,7 @@ class PrintInscritos extends PrintCommon {
 		$rowcount=0;
 		foreach($this->inscritos as $row) {
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			if( ($rowcount%32) == 0 ) { // assume 32 rows per page ( rowWidth = 7mmts )
+			if( ($rowcount%38) == 0 ) { // assume 39 rows per page ( rowWidth = 7mmts )
 				if ($rowcount>0) 
 					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
 				$this->addPage();
@@ -554,17 +554,17 @@ class PrintInscritos extends PrintCommon {
 			// $this->Cell($this->pos[0],7,$row['IDPerro'],	'LR',0,$this->align[0],$fill);
 			// $this->Cell($this->pos[0],7,$rowcount+1,		'LR',	0,		$this->align[0],$fill); // display order instead of idperro
 
-			$this->Cell($this->pos[0],7,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
-			$this->Cell($this->pos[1],7,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
-			$this->Cell($this->pos[2],7,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
-			$this->Cell($this->pos[3],7,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
-			$this->Cell($this->pos[4],7,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
-			$this->Cell($this->pos[5],7,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
-			$this->Cell($this->pos[6],7,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
-			$this->Cell($this->pos[7],7,($row['Celo']==0)?"":"X",'LR',0,	$this->align[7],	$fill);
-			$this->Cell($this->pos[8],7,$row['Observaciones'],'LR',	0,		$this->align[9],	$fill);
-			$this->Cell($this->pos[9],7,($row['J1']==0)?"":"X",	'LR',0,		$this->align[9],	$fill);
-			$this->Cell($this->pos[10],7,($row['J2']==0)?"":"X",'LR',0,		$this->align[10],	$fill);
+			$this->Cell($this->pos[0],6,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
+			$this->Cell($this->pos[1],6,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
+			$this->Cell($this->pos[2],6,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
+			$this->Cell($this->pos[3],6,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
+			$this->Cell($this->pos[4],6,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
+			$this->Cell($this->pos[5],6,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
+			$this->Cell($this->pos[6],6,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
+			$this->Cell($this->pos[7],6,($row['Celo']==0)?"":"X",'LR',0,	$this->align[7],	$fill);
+			$this->Cell($this->pos[8],6,$row['Observaciones'],'LR',	0,		$this->align[9],	$fill);
+			$this->Cell($this->pos[9],6,($row['J1']==0)?"":"X",	'LR',0,		$this->align[9],	$fill);
+			$this->Cell($this->pos[10],6,($row['J2']==0)?"":"X",'LR',0,		$this->align[10],	$fill);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;

@@ -91,7 +91,8 @@ class PrintCommon extends FPDF {
 		// pintamos nombre de la prueba
 		$this->SetXY($this->centro -50,10);
 		$this->SetFont('Arial','BI',10); // Arial bold italic 10
-		$this->Cell(100,10,$this->prueba->Nombre,0,0,'C',false);// Nombre de la prueba centrado 
+		$str=$this->prueba->Nombre." - ".$this->club->Nombre;
+		$this->Cell(100,10,$str,0,0,'C',false);// Nombre de la prueba centrado 
 		$this->Ln(); // Salto de línea
 		
 		// pintamos el titulo en un recuadro
