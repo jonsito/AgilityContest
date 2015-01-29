@@ -248,7 +248,7 @@ class Inscripciones extends DBObject {
 			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) 
 				AND ( Inscripciones.Prueba=$id ) 
 				AND (Equipos.ID=Inscripciones.Equipo)
-				ORDER BY NombreClub ASC,Categoria ASC, Grado ASC, Nombre ASC";
+				ORDER BY NombreClub ASC,Grado ASC, Categoria ASC, Nombre ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 	
@@ -422,7 +422,7 @@ class Inscripciones extends DBObject {
 			/* WHERE */ "( Inscripciones.Perro = PerroGuiaClub.ID) AND 
 				( Inscripciones.Prueba=$pruebaid ) AND ( ( Inscripciones.Jornadas&$mask ) != 0 ) AND
 				(Equipos.ID=Inscripciones.Equipo)",
-			/* ORDER BY */ "NombreClub ASC, Categoria ASC , Grado ASC, Celo ASC",
+			/* ORDER BY */ "NombreClub ASC, Grado ASC , Categoria ASC, Celo ASC",
 			/* LIMIT */ ""
 		);
 		$this->myLogger->leave();

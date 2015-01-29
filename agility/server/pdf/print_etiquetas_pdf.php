@@ -99,6 +99,7 @@ class Etiquetas_PDF extends FPDF {
 		$y5=  $top+17*$idx+5;
 		$y10= $top+17*$idx+10;
 		$y8=  $top+17*$idx+8;
+		$y9=  $top+17*$idx+9;
 		$ynext=$top+17*($idx+1);
 		
 		$this->SetFont('Arial','B',24); // bold 11px
@@ -115,11 +116,14 @@ class Etiquetas_PDF extends FPDF {
 		$this->SetXY($left+20,$y1); // margins are 10mm each
 		$this->Cell(17,15,$this->Image(__DIR__.'/../../images/logos/'.$this->icon,$this->getX(),$this->getY(),15),0,0,'L',false);
 		
-		//Nombre de la prueba (45,y,38,5) left
+		//Nombre del club (45,y,38,5) left
 		$this->SetXY($left+35,$y1); 
+		$this->Cell(38,5,$this->club->Nombre,0,0,'L',false);
+		//Nombre de la prueba (45,y,38,5) left
+		$this->SetXY($left+35,$y5);
 		$this->Cell(38,5,$this->prueba->Nombre,0,0,'L',false);
 		//Fecha (45,y+5,38,5) left
-		$this->SetXY($left+35,$y5); 
+		$this->SetXY($left+35,$y9); 
 		$this->Cell(38,5,$this->jornada->Fecha,0,0,'L',false);
 		//Perro (45,y+10,38,7) right
 		$this->SetXY($left+35,$y10); 
@@ -136,7 +140,7 @@ class Etiquetas_PDF extends FPDF {
 		$this->SetFont('Arial','',12); // font size for results data
 		//Cat (105,y,12,8) center
 		$this->SetXY($left+95,$y1); 
-		$this->Cell(12,7,$row['Categoria'],'LB',0,'C',false);
+		$this->Cell(12,7,$row['Categoria'],'L',0,'C',false);
 		//Grado (105,y+8,12,9) center
 		$this->SetXY($left+95,$y8); 
 		$this->Cell(12,8,$row['Grado'],'L',0,'C',false);
