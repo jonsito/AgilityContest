@@ -100,6 +100,8 @@ class Admin {
 		if ($input===FALSE) { $this->errorMsg="adminFunctions::popen() failed"; return null;}
 		
 		$fname="$dbname-".date("Ymd_Hi").".sql";
+		header('Set-Cookie: fileDownload=true; path=/');
+		header('Cache-Control: max-age=60, must-revalidate');
 		header('Content-Type: text/plain; charset=utf-8');
 		header('Content-Disposition: attachment; filename="'.$fname.'"');
 		
