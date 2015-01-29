@@ -17,7 +17,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <!-- FORMULARIO DE REASIGNACION DE GUIAS -->
     <div id="chguias-dialog" style="width:550px;height:350px;padding:10px 20px">
-        <div id="chguias-title" class="ftitle">Reasignaci&oacute;n de un guia</div>
+        <div id="chguias-title" class="ftitle">Reasignaci&oacute;n de un gu&iacute;a</div>
         <form id="chguias-header">
         	<div class="fitem">
                 <label for="Search">Buscar: </label>
@@ -52,11 +52,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     </div>
 
    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
-   	<div id="chguias-dlg-buttons">
-   	    <a id="chguias-okBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-ok'" onclick="assignGuia()">Guardar</a>
-   	    <a id="chguias-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#chguias-dialog').dialog('close')">Cancelar</a>
+   	<div id="chguias-dlg-buttons" style="display:inline-block">
+   	    <span style="float:left">
+        	<a id="chguias-newBtn" href="#" class="easyui-linkbutton" onclick="saveChGuia()"
+        		data-options="iconCls:'icon-users'">Nuevo</a>
+        </span>
+        <span style="float:right">
+   	    	<a id="chguias-okBtn" href="#" class="easyui-linkbutton" 
+   	    		data-options="iconCls:'icon-ok'" onclick="assignGuia()">Reasignar</a>
+   	    	<a id="chguias-cancelBtn" href="#" class="easyui-linkbutton" 
+   	    		data-options="iconCls:'icon-cancel'" onclick="javascript:$('#chguias-dialog').dialog('close')">Cancelar</a>
+   	    </span>
    	</div>
    	
     <script type="text/javascript">
@@ -66,7 +72,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         // - botones
     	addTooltip($('#chguias-clearBtn').linkbutton(),"Limpiar formulario");
     	addTooltip($('#chguias-cancelBtn').linkbutton(),"Anular operaci&oacute;n. Cerrar ventana");
-    	addTooltip($('#chguias-okBtn').linkbutton(),"Aceptar datos y registrarlos en la BBDD");
+    	addTooltip($('#chguias-newBtn').linkbutton(),"Crear nuevo miembro del club con los datos especificados");
+    	addTooltip($('#chguias-okBtn').linkbutton(),"Re-asignar el guia con los datos especificados al club");
     	$('#chguias-clearBtn').bind('click',function() {
     	    $('#chguias-form').form('clear'); 
     	    $('#chguias-Search').combogrid({ 'setValue' : '' });
