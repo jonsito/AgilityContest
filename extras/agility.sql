@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.3.6
 -- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 11-01-2015 a las 15:00:18
--- Versión del servidor: 5.6.21
--- Versión de PHP: 5.6.3
+-- Servidor: localhost
+-- Tiempo de generación: 29-01-2015 a las 20:02:49
+-- Versión del servidor: 5.5.41-MariaDB
+-- Versión de PHP: 5.5.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,7 +27,7 @@ USE `agility`;
 --
 -- Estructura de tabla para la tabla `categorias_perro`
 --
--- Creación: 08-01-2015 a las 18:38:47
+-- Creación: 29-01-2015 a las 19:53:54
 --
 
 DROP TABLE IF EXISTS `categorias_perro`;
@@ -35,6 +35,10 @@ CREATE TABLE IF NOT EXISTS `categorias_perro` (
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
   `Observaciones` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELACIONES PARA LA TABLA `categorias_perro`:
+--
 
 --
 -- Volcado de datos para la tabla `categorias_perro`
@@ -52,12 +56,12 @@ INSERT INTO `categorias_perro` (`Categoria`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `clubes`
 --
--- Creación: 08-01-2015 a las 18:38:47
+-- Creación: 29-01-2015 a las 19:53:58
 --
 
 DROP TABLE IF EXISTS `clubes`;
 CREATE TABLE IF NOT EXISTS `clubes` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL DEFAULT '',
   `Direccion1` varchar(255) DEFAULT NULL,
   `Direccion2` varchar(255) DEFAULT NULL,
@@ -187,16 +191,16 @@ INSERT INTO `clubes` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `
 --
 -- Estructura de tabla para la tabla `equipos`
 --
--- Creación: 08-01-2015 a las 18:38:47
+-- Creación: 29-01-2015 a las 19:53:58
 --
 
 DROP TABLE IF EXISTS `equipos`;
 CREATE TABLE IF NOT EXISTS `equipos` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '1',
   `Nombre` varchar(255) NOT NULL,
   `Observaciones` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `equipos`:
@@ -212,19 +216,20 @@ INSERT INTO `equipos` (`ID`, `Prueba`, `Nombre`, `Observaciones`) VALUES
 (1, 2, '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 - Equipo por defecto'),
 (2, 3, '-- Sin asignar --', 'NO BORRAR: PRUEBA 3 - Equipo por defecto'),
 (3, 4, '-- Sin asignar --', 'NO BORRAR: PRUEBA 4 - Equipo por defecto'),
-(4, 5, '-- Sin asignar --', 'NO BORRAR: PRUEBA 5 - Equipo por defecto');
+(4, 5, '-- Sin asignar --', 'NO BORRAR: PRUEBA 5 - Equipo por defecto'),
+(5, 6, '-- Sin asignar --', 'NO BORRAR: PRUEBA 6 - Equipo por defecto');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `eventos`
 --
--- Creación: 08-01-2015 a las 18:38:47
+-- Creación: 29-01-2015 a las 19:53:58
 --
 
 DROP TABLE IF EXISTS `eventos`;
 CREATE TABLE IF NOT EXISTS `eventos` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Session` int(4) NOT NULL,
   `Source` varchar(255) NOT NULL,
   `Type` varchar(255) NOT NULL,
@@ -452,7 +457,7 @@ INSERT INTO `eventos` (`ID`, `Session`, `Source`, `Type`, `Timestamp`, `Data`) V
 --
 -- Estructura de tabla para la tabla `grados_perro`
 --
--- Creación: 08-01-2015 a las 18:38:47
+-- Creación: 29-01-2015 a las 19:53:55
 --
 
 DROP TABLE IF EXISTS `grados_perro`;
@@ -460,6 +465,10 @@ CREATE TABLE IF NOT EXISTS `grados_perro` (
   `Grado` varchar(16) NOT NULL,
   `Comentarios` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELACIONES PARA LA TABLA `grados_perro`:
+--
 
 --
 -- Volcado de datos para la tabla `grados_perro`
@@ -480,18 +489,18 @@ INSERT INTO `grados_perro` (`Grado`, `Comentarios`) VALUES
 --
 -- Estructura de tabla para la tabla `guias`
 --
--- Creación: 08-01-2015 a las 18:38:46
+-- Creación: 29-01-2015 a las 19:53:58
 --
 
 DROP TABLE IF EXISTS `guias`;
 CREATE TABLE IF NOT EXISTS `guias` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Telefono` varchar(16) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
   `Club` int(4) NOT NULL DEFAULT '1',
   `Observaciones` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=527 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=531 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `guias`:
@@ -531,7 +540,7 @@ INSERT INTO `guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (25, 'Alex del Río', NULL, NULL, 18, NULL),
 (26, 'Alex Olivera', NULL, NULL, 67, NULL),
 (27, 'Alex Sabini', NULL, NULL, 18, NULL),
-(28, 'Alfredo Ortíz', NULL, NULL, 40, NULL),
+(28, 'Alfredo Ortíz', '', '', 10, ''),
 (29, 'Alicia Mejias', NULL, NULL, 61, NULL),
 (30, 'Alicia Sanjurjo', NULL, NULL, 74, NULL),
 (31, 'Almudena Novo', '', '', 16, ''),
@@ -539,10 +548,10 @@ INSERT INTO `guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (33, 'Ana Alonso', NULL, NULL, 68, NULL),
 (34, 'Ana Baeza', NULL, NULL, 40, NULL),
 (35, 'Ana Beltran Bustamante', '', '', 32, ''),
-(36, 'Ana Isabel Escobar', NULL, NULL, 28, NULL),
+(36, 'Ana Isabel Escobar', '', '', 75, ''),
 (37, 'Ana Mateu', NULL, NULL, 13, NULL),
 (38, 'Ana Ontañon', NULL, NULL, 52, NULL),
-(39, 'Ana Palet', '', '', 28, ''),
+(39, 'Ana Palet', '', '', 75, ''),
 (40, 'Ana Valencia', '', '', 4, ''),
 (41, 'Andrea García', NULL, NULL, 76, NULL),
 (42, 'Andrés Gimeno', NULL, NULL, 45, NULL),
@@ -651,7 +660,7 @@ INSERT INTO `guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (145, 'Enrique Sendra', NULL, NULL, 71, NULL),
 (146, 'Ernesto Sorribes', NULL, NULL, 81, NULL),
 (147, 'Estefanía Pérez', NULL, NULL, 30, NULL),
-(148, 'Estíbaliz Pereda Navarro', '', '', 28, ''),
+(148, 'Estíbaliz Pereda Navarro', '', '', 75, ''),
 (149, 'Estíbaliz Pujana', '', '', 43, ''),
 (150, 'Eugenio Villares', NULL, NULL, 27, NULL),
 (151, 'Eva Grau', NULL, NULL, 64, NULL),
@@ -690,7 +699,7 @@ INSERT INTO `guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (184, 'Iñaki García', '', '', 36, ''),
 (185, 'Inmaculada Rubio', '', '', 62, ''),
 (186, 'Irati Diego', '', '', 43, ''),
-(187, 'Irena', '', '', 42, ''),
+(187, 'Irena Montalvo', '', '', 22, ''),
 (188, 'Irene Artacho', NULL, NULL, 16, NULL),
 (189, 'Isabel Gómez', NULL, NULL, 29, NULL),
 (190, 'Isabel Natera', '', '', 36, ''),
@@ -720,7 +729,7 @@ INSERT INTO `guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (214, 'Jennifer Tolín', NULL, NULL, 48, NULL),
 (215, 'Jenny Funcke', NULL, NULL, 7, NULL),
 (216, 'Jerónimo Martínez', NULL, NULL, 68, NULL),
-(217, 'Jessica Graciano', '', '', 48, ''),
+(217, 'Jessica Graciano', '', '', 35, ''),
 (218, 'Jesús Crespo', NULL, NULL, 55, NULL),
 (219, 'Jesús Cuellar', NULL, NULL, 35, NULL),
 (220, 'Jesús Gómez', '', '', 4, ''),
@@ -748,7 +757,7 @@ INSERT INTO `guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (242, 'Jose Luis J. Mori', '', '', 2, ''),
 (243, 'José Luis Prieto', NULL, NULL, 38, NULL),
 (244, 'José Luis Quiroga', NULL, NULL, 21, NULL),
-(245, 'José Luis Romero', NULL, NULL, 27, NULL),
+(245, 'José Luis Romero', '', '', 88, ''),
 (246, 'José Luis Sogorb', NULL, NULL, 45, NULL),
 (247, 'José Mahillo', NULL, NULL, 48, NULL),
 (248, 'José Manuel Basco', NULL, NULL, 59, NULL),
@@ -885,7 +894,7 @@ INSERT INTO `guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (379, 'Paloma Faci Green', '', '', 42, ''),
 (380, 'Pau Serrano Ciratusa', '', '', 42, ''),
 (381, 'Paula de Lucas', NULL, NULL, 27, NULL),
-(382, 'Paula Rello', NULL, NULL, 27, NULL),
+(382, 'Paula Rello', '', '', 87, ''),
 (383, 'Paulino Iranzo', NULL, NULL, 65, NULL),
 (384, 'Pedro Delgado Fernandez', '', '', 87, ''),
 (385, 'Pedro Jesús Tazón', NULL, NULL, 60, NULL),
@@ -904,7 +913,7 @@ INSERT INTO `guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (398, 'Ramón Arribas', '', '', 2, ''),
 (399, 'Ramón García Maroto', '', '', 16, ''),
 (400, 'Raquel Frago', NULL, NULL, 49, NULL),
-(401, 'Raquel Garrido', NULL, NULL, 27, NULL),
+(401, 'Raquel Garrido', '', '', 70, ''),
 (402, 'Raúl Sánchez', NULL, NULL, 27, NULL),
 (403, 'Remedios Torres', NULL, NULL, 68, NULL),
 (404, 'Reyes García', NULL, NULL, 31, NULL),
@@ -930,7 +939,7 @@ INSERT INTO `guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (424, 'Sara Montila', NULL, NULL, 28, NULL),
 (425, 'Sara Montoya', NULL, NULL, 35, NULL),
 (426, 'Sebastian González', NULL, NULL, 7, NULL),
-(427, 'Sergio Casalins', NULL, NULL, 30, NULL),
+(427, 'Sergio Casalins', '', '', 66, ''),
 (428, 'Sergio Colomé', NULL, NULL, 42, NULL),
 (429, 'Sergio García', NULL, NULL, 76, NULL),
 (430, 'Sergio Martín', NULL, NULL, 42, NULL),
@@ -1027,19 +1036,23 @@ INSERT INTO `guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 (523, 'Jesús Fernández Crespo', '', '', 55, ''),
 (524, 'Susana Calvelo', '', '', 16, ''),
 (525, 'Laura', '', '', 80, ''),
-(526, 'Beatriz', '', '', 80, '');
+(526, 'Beatriz', '', '', 80, ''),
+(527, 'Miriam Villar', '', '', 70, ''),
+(528, 'Miguel Angel Manzaneda', '', '', 2, ''),
+(529, 'Mercedes Prieto', '', '', 4, ''),
+(530, 'Álvaro Muñiz', '', '', 87, '');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `inscripciones`
 --
--- Creación: 08-01-2015 a las 18:38:46
+-- Creación: 29-01-2015 a las 19:53:58
 --
 
 DROP TABLE IF EXISTS `inscripciones`;
 CREATE TABLE IF NOT EXISTS `inscripciones` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '1',
   `Perro` int(4) NOT NULL,
   `Dorsal` int(4) NOT NULL DEFAULT '0',
@@ -1048,7 +1061,7 @@ CREATE TABLE IF NOT EXISTS `inscripciones` (
   `Equipo` int(4) DEFAULT NULL,
   `Jornadas` int(4) NOT NULL DEFAULT '0',
   `Pagado` int(4) NOT NULL DEFAULT '24'
-) ENGINE=InnoDB AUTO_INCREMENT=295 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=417 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `inscripciones`:
@@ -1351,13 +1364,131 @@ INSERT INTO `inscripciones` (`ID`, `Prueba`, `Perro`, `Dorsal`, `Celo`, `Observa
 (291, 5, 630, 105, 0, '', 4, 3, 0),
 (292, 5, 626, 106, 0, '', 4, 1, -12),
 (293, 5, 632, 107, 0, '', 4, 2, 0),
-(294, 5, 631, 108, 0, '', 4, 2, 0);
+(294, 5, 631, 108, 0, '', 4, 2, 0),
+(295, 6, 602, 112, 0, '', 5, 3, 0),
+(296, 6, 148, 95, 0, '', 5, 1, 0),
+(297, 6, 416, 94, 0, '', 5, 1, 0),
+(298, 6, 519, 34, 0, '', 5, 2, 0),
+(299, 6, 585, 3, 0, '', 5, 3, 0),
+(300, 6, 584, 12, 0, '', 5, 3, 0),
+(301, 6, 391, 5, 0, '', 5, 3, 0),
+(302, 6, 440, 11, 0, '', 5, 3, 0),
+(303, 6, 68, 13, 0, '', 5, 3, 0),
+(304, 6, 633, 1, 0, 'Test', 5, 3, 0),
+(305, 6, 560, 10, 0, '', 5, 2, -12),
+(306, 6, 576, 117, 0, '', 5, 1, 0),
+(307, 6, 577, 118, 0, '', 5, 1, 0),
+(308, 6, 571, 43, 0, '', 5, 1, 0),
+(309, 6, 383, 45, 0, '', 5, 1, 0),
+(310, 6, 589, 42, 0, '', 5, 3, 0),
+(311, 6, 314, 50, 0, '', 5, 3, 0),
+(312, 6, 384, 49, 0, '', 5, 1, 0),
+(313, 6, 617, 46, 0, '', 5, 1, 0),
+(314, 6, 616, 48, 0, '', 5, 1, 0),
+(315, 6, 573, 47, 0, '', 5, 1, 0),
+(316, 6, 382, 44, 0, '', 5, 1, 0),
+(317, 6, 593, 75, 0, '', 5, 1, -12),
+(318, 6, 57, 87, 0, '', 5, 3, 0),
+(319, 6, 113, 88, 0, '', 5, 3, 0),
+(320, 6, 399, 77, 0, '', 5, 1, 0),
+(321, 6, 594, 86, 0, '', 5, 1, 0),
+(322, 6, 575, 81, 0, '', 5, 1, 0),
+(323, 6, 522, 80, 0, '', 5, 1, 0),
+(324, 6, 400, 78, 0, '', 5, 3, 0),
+(325, 6, 401, 83, 0, '', 5, 3, 0),
+(326, 6, 423, 82, 0, '', 5, 2, 0),
+(327, 6, 267, 84, 0, '', 5, 2, 0),
+(328, 6, 274, 85, 0, '', 5, 2, 0),
+(329, 6, 521, 76, 0, '', 5, 2, 0),
+(330, 6, 398, 74, 0, '', 5, 2, 0),
+(331, 6, 634, 79, 0, '', 5, 3, 0),
+(332, 6, 623, 92, 0, '', 5, 2, 0),
+(333, 6, 405, 91, 0, '', 5, 2, 0),
+(334, 6, 404, 90, 0, '', 5, 2, 0),
+(335, 6, 635, 93, 0, '', 5, 3, 0),
+(336, 6, 229, 114, 0, '', 5, 3, 0),
+(337, 6, 352, 113, 0, '', 5, 2, 0),
+(338, 6, 10, 116, 0, '', 5, 1, 0),
+(339, 6, 636, 115, 0, '', 5, 1, 0),
+(340, 6, 25, 37, 0, '', 5, 3, 0),
+(341, 6, 361, 35, 0, '', 5, 3, 0),
+(342, 6, 379, 36, 0, '', 5, 2, 0),
+(343, 6, 101, 97, 0, '', 5, 3, 0),
+(344, 6, 637, 96, 0, 'Test', 5, 3, 0),
+(345, 6, 595, 89, 0, '', 5, 2, 0),
+(346, 6, 639, 40, 0, '', 5, 3, 0),
+(347, 6, 253, 41, 0, '', 5, 3, 0),
+(348, 6, 75, 25, 0, '', 5, 1, 0),
+(349, 6, 410, 26, 0, '', 5, 1, 0),
+(351, 6, 640, 24, 0, 'Test', 5, 3, 0),
+(352, 6, 3, 22, 0, '', 5, 3, 0),
+(353, 6, 414, 18, 1, '', 5, 3, 0),
+(354, 6, 45, 21, 0, '', 5, 3, 0),
+(355, 6, 413, 19, 0, '', 5, 3, 0),
+(356, 6, 330, 20, 0, '', 5, 3, 0),
+(357, 6, 78, 23, 0, '', 5, 3, 0),
+(358, 6, 8, 17, 0, '', 5, 3, 0),
+(359, 6, 397, 16, 0, '', 5, 3, 0),
+(360, 6, 618, 33, 0, '', 5, 1, 0),
+(361, 6, 355, 31, 0, '', 5, 1, 0),
+(362, 6, 357, 32, 0, '', 5, 1, 0),
+(363, 6, 510, 30, 0, '', 5, 1, 0),
+(364, 6, 356, 29, 0, '', 5, 1, 0),
+(365, 6, 371, 27, 0, '', 5, 1, 0),
+(366, 6, 641, 28, 0, '', 5, 1, 0),
+(367, 6, 622, 99, 0, '', 5, 3, 0),
+(368, 6, 601, 98, 0, '', 5, 3, 0),
+(369, 6, 407, 107, 0, '', 5, 3, 0),
+(370, 6, 342, 110, 0, '', 5, 3, 0),
+(371, 6, 408, 109, 0, '', 5, 3, 0),
+(372, 6, 202, 103, 0, '', 5, 3, 0),
+(373, 6, 386, 108, 0, '', 5, 3, 0),
+(374, 6, 95, 105, 0, '', 5, 3, 0),
+(375, 6, 348, 101, 0, '', 5, 3, 0),
+(376, 6, 517, 104, 0, '', 5, 3, 0),
+(377, 6, 380, 102, 0, '', 5, 3, 0),
+(379, 6, 312, 111, 0, '', 5, 1, 0),
+(381, 6, 642, 100, 0, '', 5, 3, 0),
+(383, 6, 643, 106, 0, '', 5, 1, 0),
+(384, 6, 220, 14, 0, '', 5, 3, 0),
+(385, 6, 392, 7, 0, '', 5, 3, 0),
+(386, 6, 272, 9, 0, '', 5, 3, 0),
+(387, 6, 94, 8, 1, '', 5, 2, 0),
+(388, 6, 34, 15, 0, '', 5, 2, 0),
+(389, 6, 387, 6, 0, '', 5, 2, 0),
+(390, 6, 389, 4, 0, '', 5, 2, 0),
+(391, 6, 644, 2, 0, '', 5, 2, 0),
+(392, 6, 604, 55, 0, '', 5, 3, 0),
+(393, 6, 79, 54, 0, '', 5, 3, 0),
+(394, 6, 427, 67, 0, '', 5, 3, 0),
+(395, 6, 609, 61, 0, '', 5, 3, 0),
+(396, 6, 607, 59, 0, '', 5, 3, 0),
+(397, 6, 27, 69, 0, '', 5, 3, 0),
+(398, 6, 103, 63, 0, '', 5, 3, 0),
+(399, 6, 52, 62, 0, '', 5, 3, 0),
+(400, 6, 394, 56, 0, '', 5, 3, 0),
+(401, 6, 156, 60, 0, '', 5, 3, 0),
+(402, 6, 424, 66, 0, '', 5, 3, 0),
+(403, 6, 393, 65, 0, '', 5, 3, 0),
+(404, 6, 608, 64, 0, '', 5, 3, 0),
+(405, 6, 610, 58, 0, '', 5, 3, 0),
+(406, 6, 350, 73, 0, '', 5, 3, 0),
+(407, 6, 51, 68, 0, '', 5, 3, 0),
+(408, 6, 31, 71, 0, '', 5, 3, 0),
+(409, 6, 46, 72, 0, '', 5, 3, 0),
+(410, 6, 85, 70, 0, '', 5, 3, 0),
+(411, 6, 605, 53, 0, '', 5, 1, 0),
+(412, 6, 428, 57, 0, '', 5, 1, 0),
+(413, 6, 498, 39, 0, '', 5, 3, 0),
+(414, 6, 514, 38, 0, '', 5, 2, 0),
+(415, 6, 418, 52, 0, '', 5, 3, 0),
+(416, 6, 624, 51, 0, 'Test', 5, 3, 0);
 
 --
 -- Disparadores `inscripciones`
 --
 DROP TRIGGER IF EXISTS `Increase_Dorsal`;
-DELIMITER //
+DELIMITER $$
 CREATE TRIGGER `Increase_Dorsal` BEFORE INSERT ON `inscripciones`
  FOR EACH ROW BEGIN
      select count(*) into @rows from Inscripciones where Prueba = NEW.Prueba;
@@ -1368,7 +1499,7 @@ CREATE TRIGGER `Increase_Dorsal` BEFORE INSERT ON `inscripciones`
        set NEW.Dorsal = 1;
      end if;
 END
-//
+$$
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -1376,12 +1507,12 @@ DELIMITER ;
 --
 -- Estructura de tabla para la tabla `jornadas`
 --
--- Creación: 08-01-2015 a las 18:38:47
+-- Creación: 29-01-2015 a las 19:53:58
 --
 
 DROP TABLE IF EXISTS `jornadas`;
 CREATE TABLE IF NOT EXISTS `jornadas` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '1',
   `Numero` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
@@ -1400,7 +1531,7 @@ CREATE TABLE IF NOT EXISTS `jornadas` (
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   `Observaciones` varchar(255) NOT NULL DEFAULT '',
   `Orden_Tandas` varchar(255) NOT NULL DEFAULT 'BEGIN,END'
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `jornadas`:
@@ -1429,8 +1560,8 @@ INSERT INTO `jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Gr
 (14, 3, 6, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
 (15, 3, 7, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
 (16, 3, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
-(17, 4, 1, 'Sabado', '2014-12-13', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, '(sin especificar)', 'BEGIN,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
-(18, 4, 2, 'Domingo', '2014-12-14', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, '(sin especificar)', 'BEGIN,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
+(17, 4, 1, 'Sabado', '2015-01-31', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, '(sin especificar)', 'BEGIN,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
+(18, 4, 2, 'Domingo', '2015-02-01', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, '(sin especificar)', 'BEGIN,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
 (19, 4, 3, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
 (20, 4, 4, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
 (21, 4, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
@@ -1444,19 +1575,27 @@ INSERT INTO `jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Gr
 (29, 5, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
 (30, 5, 6, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
 (31, 5, 7, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
-(32, 5, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END');
+(32, 5, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
+(33, 6, 1, 'Sábado', '2015-01-31', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, '(sin especificar)', 'BEGIN,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
+(34, 6, 2, 'Domingo', '2015-02-01', '00:00:00', 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, '(sin especificar)', 'BEGIN,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
+(35, 6, 3, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
+(36, 6, 4, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
+(37, 6, 5, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
+(38, 6, 6, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
+(39, 6, 7, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END'),
+(40, 6, 8, '-- Sin asignar --', '2013-01-01', '00:00:00', 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, '', 'BEGIN,1,3,4,5,6,7,8,9,10,11,23,24,25,12,13,14,26,27,28,END');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `jueces`
 --
--- Creación: 08-01-2015 a las 18:38:47
+-- Creación: 29-01-2015 a las 19:53:57
 --
 
 DROP TABLE IF EXISTS `jueces`;
 CREATE TABLE IF NOT EXISTS `jueces` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Direccion1` varchar(255) DEFAULT NULL,
   `Direccion2` varchar(255) DEFAULT NULL,
@@ -1466,6 +1605,10 @@ CREATE TABLE IF NOT EXISTS `jueces` (
   `Email` varchar(255) DEFAULT NULL,
   `Observaciones` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+
+--
+-- RELACIONES PARA LA TABLA `jueces`:
+--
 
 --
 -- Volcado de datos para la tabla `jueces`
@@ -1502,12 +1645,12 @@ INSERT INTO `jueces` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `I
 --
 -- Estructura de tabla para la tabla `mangas`
 --
--- Creación: 08-01-2015 a las 18:38:46
+-- Creación: 29-01-2015 a las 19:53:58
 --
 
 DROP TABLE IF EXISTS `mangas`;
 CREATE TABLE IF NOT EXISTS `mangas` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Jornada` int(4) NOT NULL,
   `Tipo` int(4) NOT NULL DEFAULT '1',
   `Grado` varchar(16) NOT NULL DEFAULT '-',
@@ -1521,25 +1664,25 @@ CREATE TABLE IF NOT EXISTS `mangas` (
   `Dist_T` int(4) NOT NULL DEFAULT '0',
   `Obst_T` int(4) NOT NULL DEFAULT '0',
   `TRS_L_Tipo` int(4) NOT NULL DEFAULT '0',
-  `TRS_L_Factor` int(4) NOT NULL DEFAULT '0',
+  `TRS_L_Factor` int(4) NOT NULL DEFAULT '100',
   `TRS_L_Unit` varchar(1) NOT NULL DEFAULT 's',
   `TRM_L_Tipo` int(4) NOT NULL DEFAULT '1',
   `TRM_L_Factor` int(4) NOT NULL DEFAULT '50',
   `TRM_L_Unit` varchar(1) NOT NULL DEFAULT '%',
   `TRS_M_Tipo` int(4) NOT NULL DEFAULT '0',
-  `TRS_M_Factor` int(4) NOT NULL DEFAULT '0',
+  `TRS_M_Factor` int(4) NOT NULL DEFAULT '100',
   `TRS_M_Unit` varchar(1) NOT NULL DEFAULT 's',
   `TRM_M_Tipo` int(4) NOT NULL DEFAULT '1',
   `TRM_M_Factor` int(4) NOT NULL DEFAULT '50',
   `TRM_M_Unit` varchar(1) NOT NULL DEFAULT '%',
   `TRS_S_Tipo` int(4) NOT NULL DEFAULT '0',
-  `TRS_S_Factor` int(4) NOT NULL DEFAULT '0',
+  `TRS_S_Factor` int(4) NOT NULL DEFAULT '100',
   `TRS_S_Unit` varchar(1) NOT NULL DEFAULT 's',
   `TRM_S_Tipo` int(4) NOT NULL DEFAULT '1',
   `TRM_S_Factor` int(4) NOT NULL DEFAULT '50',
   `TRM_S_Unit` varchar(1) NOT NULL DEFAULT '%',
   `TRS_T_Tipo` int(4) NOT NULL DEFAULT '0',
-  `TRS_T_Factor` int(4) NOT NULL DEFAULT '0',
+  `TRS_T_Factor` int(4) NOT NULL DEFAULT '100',
   `TRS_T_Unit` varchar(1) NOT NULL DEFAULT 's',
   `TRM_T_Tipo` int(4) NOT NULL DEFAULT '1',
   `TRM_T_Factor` int(4) NOT NULL DEFAULT '50',
@@ -1548,7 +1691,7 @@ CREATE TABLE IF NOT EXISTS `mangas` (
   `Juez2` int(4) NOT NULL DEFAULT '1',
   `Observaciones` varchar(255) DEFAULT NULL,
   `Orden_Salida` text NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `mangas`:
@@ -1614,7 +1757,19 @@ INSERT INTO `mangas` (`ID`, `Jornada`, `Tipo`, `Grado`, `Recorrido`, `Dist_L`, `
 (55, 26, 5, 'GII', 1, 190, 22, 190, 22, 190, 22, 0, 0, 0, 55, 's', 0, 83, 's', 0, 58, 's', 0, 87, 's', 4, 0, 's', 1, 50, '%', 0, 0, 's', 0, 0, 's', 17, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,517,380,412,396,229,95,423,623,404,392,607,8,602,513,361,603,405,94,378,609,113,585,348,379,397,24,TAG_L1,410,TAG_M0,407,613,TAG_M1,TAG_S0,413,408,512,440,323,584,342,330,TAG_S1,TAG_T0,TAG_T1,END'),
 (56, 26, 10, 'GII', 1, 160, 21, 160, 21, 160, 21, 0, 0, 0, 42, 's', 0, 63, 's', 0, 45, 's', 0, 66, 's', 4, 0, 's', 1, 66, '%', 0, 0, 's', 0, 0, 's', 17, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,113,94,412,361,348,585,513,24,517,404,379,410,405,397,380,392,607,623,378,423,603,396,602,95,8,229,609,TAG_L1,TAG_M0,613,407,TAG_M1,TAG_S0,413,342,512,584,440,323,408,330,TAG_S1,TAG_T0,TAG_T1,END'),
 (57, 26, 6, 'GIII', 1, 198, 22, 198, 22, 198, 22, 0, 0, 0, 50, 's', 0, 75, 's', 0, 53, 's', 0, 80, 's', 4, 0, 's', 0, 80, '%', 0, 0, 's', 0, 0, 's', 17, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,34,68,27,220,57,85,31,25,3,78,TAG_L1,TAG_M0,615,350,TAG_M1,TAG_S0,614,312,314,TAG_S1,TAG_T0,TAG_T1,END'),
-(58, 26, 11, 'GIII', 1, 175, 22, 175, 22, 175, 22, 0, 0, 0, 39, 's', 0, 59, 's', 0, 41, 's', 0, 62, 's', 4, 0, 's', 0, 62, '%', 0, 0, 's', 0, 0, 's', 17, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,34,85,78,57,27,31,220,25,68,3,TAG_L1,TAG_M0,615,350,TAG_M1,TAG_S0,614,314,312,TAG_S1,TAG_T0,TAG_T1,END');
+(58, 26, 11, 'GIII', 1, 175, 22, 175, 22, 175, 22, 0, 0, 0, 39, 's', 0, 59, 's', 0, 41, 's', 0, 62, 's', 4, 0, 's', 0, 62, '%', 0, 0, 's', 0, 0, 's', 17, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,34,85,78,57,27,31,220,25,68,3,TAG_L1,TAG_M0,615,350,TAG_M1,TAG_S0,614,314,312,TAG_S1,TAG_T0,TAG_T1,END'),
+(59, 33, 3, 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,576,577,589,639,356,371,641,622,601,381,604,79,605,633,637,624,TAG_L1,TAG_M0,571,383,617,382,510,TAG_M1,TAG_S0,616,573,642,640,TAG_S1,TAG_T0,TAG_T1,END'),
+(60, 33, 4, 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,576,577,589,639,356,371,641,622,601,381,604,79,605,633,637,624,TAG_L1,TAG_M0,571,383,617,382,510,TAG_M1,TAG_S0,616,573,642,640,TAG_S1,TAG_T0,TAG_T1,END'),
+(61, 33, 5, 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,602,416,585,391,384,399,575,522,593,400,401,634,229,361,75,410,8,397,618,355,357,95,348,517,380,202,643,392,390,609,607,103,52,394,156,424,393,608,610,428,TAG_L1,414,TAG_M0,636,407,272,TAG_M1,TAG_S0,584,440,594,413,330,342,408,386,427,418,TAG_S1,TAG_T0,354,TAG_T1,END'),
+(62, 33, 10, 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,602,416,585,391,384,399,575,522,593,400,401,634,229,361,75,410,8,397,618,355,357,95,348,517,380,202,643,392,390,609,607,103,52,394,156,424,393,608,610,428,TAG_L1,414,TAG_M0,636,407,272,TAG_M1,TAG_S0,584,440,594,413,330,342,408,386,427,418,TAG_S1,TAG_T0,354,TAG_T1,END'),
+(63, 33, 6, 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,148,68,57,113,10,25,101,3,45,78,220,27,51,31,46,85,TAG_L1,TAG_M0,635,253,350,498,TAG_M1,TAG_S0,314,312,TAG_S1,TAG_T0,TAG_T1,END'),
+(64, 33, 11, 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,148,68,57,113,10,25,101,3,45,78,220,27,51,31,46,85,TAG_L1,TAG_M0,635,253,350,498,TAG_M1,TAG_S0,314,312,TAG_S1,TAG_T0,TAG_T1,END'),
+(65, 34, 3, 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,589,639,622,601,381,644,604,79,514,633,637,624,TAG_L1,TAG_M0,398,595,TAG_M1,TAG_S0,642,640,TAG_S1,TAG_T0,TAG_T1,END'),
+(66, 34, 4, 'GI', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,589,639,622,601,381,644,604,79,514,633,637,624,TAG_L1,TAG_M0,398,595,TAG_M1,TAG_S0,642,640,TAG_S1,TAG_T0,TAG_T1,END'),
+(67, 34, 5, 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,602,585,391,400,401,423,521,634,623,405,404,229,352,361,379,8,397,95,348,517,380,202,392,387,389,609,607,103,52,394,156,424,393,608,610,TAG_L1,414,94,TAG_M0,519,267,274,407,272,TAG_M1,TAG_S0,584,440,560,413,330,342,408,386,427,418,TAG_S1,TAG_T0,354,TAG_T1,END'),
+(68, 34, 10, 'GII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,602,585,391,400,401,423,521,634,623,405,404,229,352,361,379,8,397,95,348,517,380,202,392,387,389,609,607,103,52,394,156,424,393,608,610,TAG_L1,414,94,TAG_M0,519,267,274,407,272,TAG_M1,TAG_S0,584,440,560,413,330,342,408,386,427,418,TAG_S1,TAG_T0,354,TAG_T1,END'),
+(69, 34, 6, 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,68,57,113,25,101,3,45,78,220,34,27,51,31,46,85,TAG_L1,TAG_M0,635,253,350,498,TAG_M1,TAG_S0,314,TAG_S1,TAG_T0,TAG_T1,END'),
+(70, 34, 11, 'GIII', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 0, 100, 's', 1, 50, '%', 1, 1, '', 'BEGIN,TAG_-0,TAG_-1,TAG_L0,68,57,113,25,101,3,45,78,220,34,27,51,31,46,85,TAG_L1,TAG_M0,635,253,350,498,TAG_M1,TAG_S0,314,TAG_S1,TAG_T0,TAG_T1,END');
 
 -- --------------------------------------------------------
 
@@ -1638,17 +1793,18 @@ CREATE TABLE IF NOT EXISTS `perroguiaclub` (
 ,`NombreClub` varchar(255)
 ,`LogoClub` varchar(255)
 );
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `perros`
 --
--- Creación: 08-01-2015 a las 18:38:47
+-- Creación: 29-01-2015 a las 19:53:59
 --
 
 DROP TABLE IF EXISTS `perros`;
 CREATE TABLE IF NOT EXISTS `perros` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Raza` varchar(255) DEFAULT NULL,
   `LOE_RRC` varchar(255) DEFAULT NULL,
@@ -1656,7 +1812,7 @@ CREATE TABLE IF NOT EXISTS `perros` (
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
   `Guia` int(4) NOT NULL DEFAULT '1',
   `Grado` varchar(16) DEFAULT '-'
-) ENGINE=InnoDB AUTO_INCREMENT=633 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=645 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `perros`:
@@ -1772,7 +1928,7 @@ INSERT INTO `perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (98, 'California', '', '1967653', 'A414', 'L', 228, 'GII'),
 (99, 'Astra', NULL, '1551831', '783', 'L', 22, '-'),
 (100, 'Fito', '', '1980971', 'A490', 'L', 435, 'GII'),
-(101, 'Magic-Black', NULL, '101184', 'A318', 'L', 401, '-'),
+(101, 'Magic-Black', 'Border Collie', '101184', 'A318', 'L', 401, 'GIII'),
 (102, 'Blacky', NULL, 'No tiene', '1493', 'L', 330, '-'),
 (103, 'Red Magic', 'Border Collie', '1834052', 'A124', 'L', 131, 'GII'),
 (104, 'Beauty', '', '120728', 'A452', 'L', 380, 'GIII'),
@@ -1784,7 +1940,7 @@ INSERT INTO `perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (110, 'Kiko', NULL, '1780843', 'A145', 'L', 146, '-'),
 (111, 'Koba', NULL, '1533440', '843', 'L', 183, '-'),
 (112, 'Kiwi', NULL, '1908098', 'A267', 'L', 183, '-'),
-(113, 'Yun', 'Border Collie', '2001179', 'A484', 'L', 95, 'GII'),
+(113, 'Yun', 'Border Collie', '2001179', 'A484', 'L', 95, 'GIII'),
 (114, 'Nora', NULL, '80601', '735', 'L', 437, '-'),
 (115, 'Liss', NULL, '1779665', 'A212', 'L', 117, '-'),
 (116, 'Rayko', 'Border Collie', '2027590', 'A321', 'L', 381, 'GIII'),
@@ -1873,7 +2029,7 @@ INSERT INTO `perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (199, 'Terra', NULL, '114522', 'A328', 'L', 274, '-'),
 (200, 'Kira', NULL, '120733', 'A405', 'L', 12, '-'),
 (201, 'Nube', NULL, '97289', 'A515', 'L', 245, '-'),
-(202, 'Mara', NULL, '80787', 'A396', 'L', 36, '-'),
+(202, 'Mara', '', '80787', 'A396', 'L', 36, 'GII'),
 (203, 'Trasto', NULL, 'No tiene', '1391', 'L', 6, '-'),
 (204, 'Kiria', '', 'No tiene', 'A155', 'L', 231, 'GII'),
 (205, 'Wind', 'Border Collie', '1881696', 'A421', 'L', 416, 'GII'),
@@ -2259,9 +2415,9 @@ INSERT INTO `perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (590, 'Bruni', 'Border Collie', '', '', 'L', 506, 'GI'),
 (591, 'Dana', 'Border Collie', '', '', 'L', 507, 'GI'),
 (592, 'Lua', 'Mestizo', '', '', 'L', 508, 'GI'),
-(593, 'Ada', 'Mestizo', '', '', 'L', 475, 'GI'),
+(593, 'Ada', 'Mestizo', '', '', 'L', 475, 'GII'),
 (594, 'Mashel', 'Jack Russel', '', 'A931', 'S', 474, 'GII'),
-(595, 'Lola', 'Wippet', '', '', 'M', 509, 'GI'),
+(595, 'Lola', 'Whippet', '', '', 'M', 509, 'GI'),
 (596, 'Moly', 'Border Collie', '', '', 'L', 7, 'GI'),
 (597, 'Coco', 'Labrador Retriever', '', '', 'L', 510, 'GI'),
 (598, 'Nika', 'Border Collie', '', 'A821', 'L', 140, 'GII'),
@@ -2270,7 +2426,7 @@ INSERT INTO `perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (601, 'Lee-Ann', 'Border Colliie', '', '', 'L', 197, 'GI'),
 (602, 'Sucre', 'Border Collie', '', 'A920', 'L', 5, 'GII'),
 (603, 'Killa', 'Mestizo', '', 'Pendiente', 'L', 513, 'GII'),
-(604, 'Mizarfrida', 'Border Collie', '', '', 'L', 514, 'GI'),
+(604, 'Mizar', 'Border Collie', '', '', 'L', 514, 'GI'),
 (605, 'Hera', 'Border Collie', '', '', 'L', 483, 'GI'),
 (606, 'Nora', 'P.B. Malinoise', '', 'A305', 'L', 515, 'GII'),
 (607, 'Hela', 'Border Collie', '', 'A836', 'L', 92, 'GII'),
@@ -2288,7 +2444,7 @@ INSERT INTO `perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (621, 'Iris', '', '', '', 'L', 521, 'P.A.'),
 (622, 'Truco', 'Border Collie', '', '', 'L', 522, 'GI'),
 (623, 'Nubia', 'Pastor Alemán', '', 'A-309', 'L', 276, 'GII'),
-(624, 'Bora', '', '', '', 'L', 465, 'P.A.'),
+(624, 'Bora', 'Border Collie', '', '', 'L', 465, 'GI'),
 (625, 'Knut', '', '', '', 'L', 523, 'GI'),
 (626, 'Hera', '', '', '', 'L', 523, 'GII'),
 (627, 'Arashi', '', '', '', 'L', 207, 'P.A.'),
@@ -2296,14 +2452,25 @@ INSERT INTO `perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 (629, 'Vash', '', '', '', 'L', 220, 'P.A.'),
 (630, 'Coba', 'Border Collie', '', '', 'L', 524, 'P.A.'),
 (631, 'Yoda', '', '', '', 'L', 526, 'P.A.'),
-(632, 'Parche', '', '', '', 'L', 525, 'P.A.');
+(632, 'Parche', '', '', '', 'L', 525, 'P.A.'),
+(633, 'Asics', 'Pastor Belga Malinois', '', '', 'L', 312, 'GI'),
+(634, 'Menta', 'Border Collie', '', 'A450', 'L', 20, 'GII'),
+(635, 'Turco', 'Perro de Agua Español', '', '', 'M', 175, 'GIII'),
+(636, 'Witzig', 'Pastor Pirineos', '', '', 'M', 331, 'GII'),
+(637, 'Lis', 'Border Collie', '', '', 'L', 527, 'GI'),
+(639, 'Boss', 'Border Collie', '', '', 'L', 111, 'GI'),
+(640, 'Nueve', 'West Highland', '', '', 'S', 528, 'GI'),
+(641, 'Neo', 'Border Collie', '', '', 'L', 529, 'GI'),
+(642, 'Charly', 'Jack Rusell', '', '', 'S', 101, 'GI'),
+(643, 'Wiki', 'Borde Collie', '', 'A941', 'L', 39, 'GII'),
+(644, 'Boss', 'Border Collie', '', '', 'L', 530, 'GI');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `provincias`
 --
--- Creación: 08-01-2015 a las 18:38:47
+-- Creación: 29-01-2015 a las 19:53:56
 --
 
 DROP TABLE IF EXISTS `provincias`;
@@ -2312,6 +2479,10 @@ CREATE TABLE IF NOT EXISTS `provincias` (
   `Comunidad` varchar(32) DEFAULT NULL,
   `Codigo` int(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- RELACIONES PARA LA TABLA `provincias`:
+--
 
 --
 -- Volcado de datos para la tabla `provincias`
@@ -2377,12 +2548,12 @@ INSERT INTO `provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 --
 -- Estructura de tabla para la tabla `pruebas`
 --
--- Creación: 08-01-2015 a las 18:38:47
+-- Creación: 29-01-2015 a las 19:53:59
 --
 
 DROP TABLE IF EXISTS `pruebas`;
 CREATE TABLE IF NOT EXISTS `pruebas` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Operador` int(4) DEFAULT NULL,
   `Nombre` varchar(255) NOT NULL,
   `Club` int(4) NOT NULL DEFAULT '1',
@@ -2393,7 +2564,7 @@ CREATE TABLE IF NOT EXISTS `pruebas` (
   `RSCE` tinyint(1) NOT NULL DEFAULT '0',
   `Selectiva` tinyint(1) NOT NULL DEFAULT '0',
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `pruebas`:
@@ -2410,14 +2581,15 @@ INSERT INTO `pruebas` (`ID`, `Operador`, `Nombre`, `Club`, `Ubicacion`, `Triptic
 (2, NULL, 'Prueba de prueba', 79, 'Instalaciones del club', '', '', '', 1, 0, 0),
 (3, NULL, '2014 Diciembre Cinco Huesos', 16, 'Instalaciones del club', '', '', '', 0, 0, 0),
 (4, NULL, 'Eslon 13-14 Diciembre', 35, 'instalaciones del club', '', '', '', 0, 0, 0),
-(5, NULL, '2015 10-11 Enero Cinco Huesos', 16, '', '', '', '', 0, 0, 0);
+(5, NULL, '2015 10-11 Enero Cinco Huesos', 16, '', '', '', '', 0, 0, 0),
+(6, NULL, 'Club Agility Eslón', 35, 'Serranillos del Valle', '', '', '31 enero - 1 febrero 2015', 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `resultados`
 --
--- Creación: 08-01-2015 a las 18:38:46
+-- Creación: 29-01-2015 a las 19:53:59
 --
 
 DROP TABLE IF EXISTS `resultados`;
@@ -2509,7 +2681,7 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (3, 9, 4, 28, 24, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández Moreno', 'Correcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 9, 4, 46, 61, 'Viconte', '813', 'L', 'GII', 'Luis Miguel Rodriguez', 'La Princesa', '2014-12-06 11:15:38', '2014-12-06 11:15:38', 0, 3, 0, 1, 0, 0, '', 0),
 (3, 9, 4, 44, 94, 'Panda', 'A474', 'L', 'GII', 'Lorena Díez', 'La Princesa', '2014-12-06 11:17:39', '2014-12-06 11:17:39', 0, 0, 0, 1, 0, 0, '', 0),
-(3, 9, 4, 47, 113, 'Yun', 'A484', 'L', 'GII', 'Concepción Fernández', 'La Princesa', '2014-12-06 11:25:47', '2014-12-06 11:25:47', 0, 0, 0, 0, 0, 44.4, '', 0),
+(3, 9, 4, 47, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-12-06 11:25:47', '2014-12-06 11:25:47', 0, 0, 0, 0, 0, 44.4, '', 0),
 (3, 9, 4, 58, 229, 'Shasta', 'A272', 'L', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 9, 4, 24, 323, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2014-12-06 11:05:42', '2014-12-06 11:05:42', 2, 1, 0, 0, 0, 45.41, '', 0),
 (3, 9, 4, 6, 330, 'Pepa', 'A393', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
@@ -2534,7 +2706,7 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (3, 9, 5, 28, 24, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández Moreno', 'Correcan', '2014-12-06 10:02:35', '2014-12-06 10:02:35', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 9, 5, 46, 61, 'Viconte', '813', 'L', 'GII', 'Luis Miguel Rodriguez', 'La Princesa', '2014-12-06 10:02:51', '2014-12-06 10:02:51', 0, 0, 0, 1, 0, 0, '', 0),
 (3, 9, 5, 44, 94, 'Panda', 'A474', 'L', 'GII', 'Lorena Díez', 'La Princesa', '2014-12-06 10:06:57', '2014-12-06 10:06:57', 0, 0, 0, 1, 0, 0, '', 0),
-(3, 9, 5, 47, 113, 'Yun', 'A484', 'L', 'GII', 'Concepción Fernández', 'La Princesa', '2014-12-06 10:01:13', '2014-12-06 10:01:13', 0, 0, 0, 0, 0, 30.15, '', 0),
+(3, 9, 5, 47, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-12-06 10:01:13', '2014-12-06 10:01:13', 0, 0, 0, 0, 0, 30.15, '', 0),
 (3, 9, 5, 58, 229, 'Shasta', 'A272', 'L', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 9, 5, 24, 323, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2014-12-06 10:22:20', '2014-12-06 10:22:20', 0, 0, 0, 0, 0, 34.55, '', 0),
 (3, 9, 5, 6, 330, 'Pepa', 'A393', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
@@ -2611,7 +2783,7 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (3, 10, 11, 28, 24, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández Moreno', 'Correcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 10, 11, 46, 61, 'Viconte', '813', 'L', 'GII', 'Luis Miguel Rodriguez', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 10, 11, 44, 94, 'Panda', 'A474', 'L', 'GII', 'Lorena Díez', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(3, 10, 11, 47, 113, 'Yun', 'A484', 'L', 'GII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(3, 10, 11, 47, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 10, 11, 58, 229, 'Shasta', 'A272', 'L', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 10, 11, 24, 323, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 10, 11, 6, 330, 'Pepa', 'A393', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
@@ -2636,7 +2808,7 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (3, 10, 12, 28, 24, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández Moreno', 'Correcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 10, 12, 46, 61, 'Viconte', '813', 'L', 'GII', 'Luis Miguel Rodriguez', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 10, 12, 44, 94, 'Panda', 'A474', 'L', 'GII', 'Lorena Díez', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(3, 10, 12, 47, 113, 'Yun', 'A484', 'L', 'GII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(3, 10, 12, 47, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 10, 12, 58, 229, 'Shasta', 'A272', 'L', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 10, 12, 24, 323, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (3, 10, 12, 6, 330, 'Pepa', 'A393', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
@@ -2684,12 +2856,12 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (4, 17, 15, 46, 590, 'Bruni', '', 'L', 'GI', 'Javier Perez', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 15, 52, 591, 'Dana', '', 'L', 'GI', 'Beatriz Gómez', 'Educan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 15, 76, 592, 'Lua', '', 'L', 'GI', 'Rodrigo García-Vidal', 'Hoop Agility', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(4, 17, 15, 77, 593, 'Ada', '', 'L', 'GI', 'Sonia García', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(4, 17, 15, 77, 593, 'Ada', '', 'L', 'GII', 'Sonia García', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 15, 92, 596, 'Moly', '', 'L', 'GI', 'Adrian Martínez', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 15, 91, 597, 'Coco', '', 'L', 'GI', 'Daniel Zamora', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 15, 100, 601, 'Lee-Ann', '', 'L', 'GI', 'Iván Pardo García', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 15, 109, 603, 'killa', '', 'L', 'GI', 'Alberto Pérez', 'Xanastur', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(4, 17, 15, 57, 604, 'Mizarfrida', '', 'L', 'GI', 'Rómulo Parrilla', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(4, 17, 15, 57, 604, 'Mizar', '', 'L', 'GI', 'Rómulo Parrilla', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 15, 55, 605, 'Hera', '', 'L', 'GI', 'Carlos Escribano', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 16, 56, 79, 'Jade', '', 'L', 'GI', 'Rosa Maria Cañadillas', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 16, 24, 356, 'Toska', '', 'L', 'GI', 'Jesús Gómez', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
@@ -2709,12 +2881,12 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (4, 17, 16, 46, 590, 'Bruni', '', 'L', 'GI', 'Javier Perez', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 16, 52, 591, 'Dana', '', 'L', 'GI', 'Beatriz Gómez', 'Educan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 16, 76, 592, 'Lua', '', 'L', 'GI', 'Rodrigo García-Vidal', 'Hoop Agility', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(4, 17, 16, 77, 593, 'Ada', '', 'L', 'GI', 'Sonia García', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(4, 17, 16, 77, 593, 'Ada', '', 'L', 'GII', 'Sonia García', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 16, 92, 596, 'Moly', '', 'L', 'GI', 'Adrian Martínez', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 16, 91, 597, 'Coco', '', 'L', 'GI', 'Daniel Zamora', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 16, 100, 601, 'Lee-Ann', '', 'L', 'GI', 'Iván Pardo García', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 16, 109, 603, 'killa', '', 'L', 'GI', 'Alberto Pérez', 'Xanastur', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(4, 17, 16, 57, 604, 'Mizarfrida', '', 'L', 'GI', 'Rómulo Parrilla', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(4, 17, 16, 57, 604, 'Mizar', '', 'L', 'GI', 'Rómulo Parrilla', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 16, 55, 605, 'Hera', '', 'L', 'GI', 'Carlos Escribano', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 17, 14, 8, 'Thelma', '824', 'L', 'GII', 'Fabian Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 17, 36, 24, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández Moreno', 'Correcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
@@ -2790,10 +2962,10 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (4, 17, 18, 68, 393, 'Thor', 'A835', 'L', 'GII', 'Juan Carlos Ruiz', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 18, 13, 397, 'Milady', 'A791', 'L', 'GII', 'Ricardo Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 18, 93, 404, 'Bimba', 'A288', 'L', 'GII', 'Luisa Fernanda Millan', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(4, 17, 18, 94, 405, 'Dudy', 'A753', 'L', 'GII', 'Juan José González', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1);
-INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nombre`, `Licencia`, `Categoria`, `Grado`, `NombreGuia`, `NombreClub`, `Entrada`, `Comienzo`, `Faltas`, `Rehuses`, `Tocados`, `Eliminado`, `NoPresentado`, `Tiempo`, `Observaciones`, `Pendiente`) VALUES
+(4, 17, 18, 94, 405, 'Dudy', 'A753', 'L', 'GII', 'Juan José González', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 18, 20, 410, 'Sombra', 'A679', 'L', 'GII', 'Jose Luis J. Mori', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(4, 17, 18, 17, 413, 'Lola', 'A633', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(4, 17, 18, 17, 413, 'Lola', 'A633', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1);
+INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nombre`, `Licencia`, `Categoria`, `Grado`, `NombreGuia`, `NombreClub`, `Entrada`, `Comienzo`, `Faltas`, `Rehuses`, `Tocados`, `Eliminado`, `NoPresentado`, `Tiempo`, `Observaciones`, `Pendiente`) VALUES
 (4, 17, 18, 69, 424, 'Vlad', 'A752', 'L', 'GII', 'Angel Corroto', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 18, 75, 427, 'Kala', '1574', 'S', 'GII', 'Cristina Cortijo', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 17, 18, 58, 428, 'Andy', 'A671', 'L', 'GII', 'Maite Guerrero', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
@@ -2868,7 +3040,7 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (4, 18, 21, 76, 592, 'Lua', '', 'L', 'GI', 'Rodrigo García-Vidal', 'Hoop Agility', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 21, 90, 595, 'Lola', '', 'M', 'GI', 'Pablo Parra', 'Mi Perro 10', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 21, 109, 603, 'killa', '', 'L', 'GI', 'Alberto Pérez', 'Xanastur', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(4, 18, 21, 57, 604, 'Mizarfrida', '', 'L', 'GI', 'Rómulo Parrilla', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(4, 18, 21, 57, 604, 'Mizar', '', 'L', 'GI', 'Rómulo Parrilla', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 22, 56, 79, 'Jade', '', 'L', 'GI', 'Rosa Maria Cañadillas', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 22, 24, 356, 'Toska', '', 'L', 'GI', 'Jesús Gómez', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 22, 22, 371, 'Mitzy', '', 'L', 'GI', 'Angel González', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
@@ -2886,7 +3058,7 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (4, 18, 22, 76, 592, 'Lua', '', 'L', 'GI', 'Rodrigo García-Vidal', 'Hoop Agility', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 22, 90, 595, 'Lola', '', 'M', 'GI', 'Pablo Parra', 'Mi Perro 10', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 22, 109, 603, 'killa', '', 'L', 'GI', 'Alberto Pérez', 'Xanastur', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(4, 18, 22, 57, 604, 'Mizarfrida', '', 'L', 'GI', 'Rómulo Parrilla', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(4, 18, 22, 57, 604, 'Mizar', '', 'L', 'GI', 'Rómulo Parrilla', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 23, 14, 8, 'Thelma', '824', 'L', 'GII', 'Fabian Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 23, 36, 24, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández Moreno', 'Correcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 23, 64, 52, 'Mister', 'A250', 'L', 'GII', 'Rubén García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
@@ -2895,7 +3067,7 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (4, 18, 23, 84, 94, 'Panda', 'A474', 'L', 'GII', 'Lorena Díez', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 23, 101, 95, 'Raissa', 'A563', 'L', 'GII', 'Javier Iniesta', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 23, 66, 103, 'Red Magic', 'A124', 'L', 'GII', 'Elena Miguel', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(4, 18, 23, 87, 113, 'Yun', 'A484', 'L', 'GII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(4, 18, 23, 87, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 23, 61, 156, 'Lennon', 'A336', 'L', 'GII', 'Miguel Angel García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 23, 104, 229, 'Shasta', 'A272', 'L', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 23, 42, 272, 'Luna', 'A240', 'M', 'GII', 'Paula Rello', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
@@ -2947,7 +3119,7 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (4, 18, 24, 84, 94, 'Panda', 'A474', 'L', 'GII', 'Lorena Díez', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 24, 101, 95, 'Raissa', 'A563', 'L', 'GII', 'Javier Iniesta', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 24, 66, 103, 'Red Magic', 'A124', 'L', 'GII', 'Elena Miguel', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(4, 18, 24, 87, 113, 'Yun', 'A484', 'L', 'GII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(4, 18, 24, 87, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 24, 61, 156, 'Lennon', 'A336', 'L', 'GII', 'Miguel Angel García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 24, 104, 229, 'Shasta', 'A272', 'L', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (4, 18, 24, 42, 272, 'Luna', 'A240', 'M', 'GII', 'Paula Rello', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
@@ -3075,7 +3247,7 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (5, 25, 45, 36, 581, 'Lady', '', 'L', 'P.A.', 'Jose Luis de la Vara', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (5, 25, 45, 38, 582, 'Zoe', '', 'L', 'P.A.', 'Yaiza', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (5, 25, 45, 41, 583, 'Tabu', '', 'L', 'P.A.', 'Isabel Fernández', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(5, 25, 45, 62, 624, 'Bora', '', 'L', 'P.A.', 'Yulia Morugova', 'El Nogueral', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(5, 25, 45, 62, 624, 'Bora', '', 'L', 'GI', 'Yulia Morugova', 'El Nogueral', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (5, 25, 45, 102, 627, 'Arashi', '', 'L', 'P.A.', 'Javier Martín', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (5, 25, 45, 103, 628, 'Shiva', '', 'L', 'P.A.', 'Ana Valencia', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
 (5, 25, 45, 104, 629, 'Vash', '', 'L', 'P.A.', 'Jesús Gómez', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
@@ -3119,11 +3291,11 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (5, 25, 48, 40, 323, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2015-01-10 12:26:41', '2015-01-10 12:26:41', 0, 0, 0, 0, 0, 44.57, '', 0),
 (5, 25, 48, 16, 330, 'Pepa', 'A393', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2015-01-10 12:29:58', '2015-01-10 12:29:58', 2, 0, 0, 0, 0, 44.06, '', 0),
 (5, 25, 48, 91, 342, 'Quillo', 'A604', 'S', 'GII', 'Cristina González', 'Vallgorguina', '2015-01-10 12:28:14', '2015-01-10 12:28:14', 0, 0, 0, 1, 0, 0, '', 0),
-(5, 25, 48, 87, 348, 'Aker', 'A397', 'L', 'GII', 'Francisco Javier Jaen', 'Vallgorguina', '2015-01-10 12:10:28', '2015-01-10 12:10:28', 0, 0, 0, 1, 0, 0, '', 0);
-INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nombre`, `Licencia`, `Categoria`, `Grado`, `NombreGuia`, `NombreClub`, `Entrada`, `Comienzo`, `Faltas`, `Rehuses`, `Tocados`, `Eliminado`, `NoPresentado`, `Tiempo`, `Observaciones`, `Pendiente`) VALUES
+(5, 25, 48, 87, 348, 'Aker', 'A397', 'L', 'GII', 'Francisco Javier Jaen', 'Vallgorguina', '2015-01-10 12:10:28', '2015-01-10 12:10:28', 0, 0, 0, 1, 0, 0, '', 0),
 (5, 25, 48, 23, 357, 'Sira', 'A584', 'L', 'GII', 'Joaquín Andrés', 'Agilcan', '2015-01-10 12:12:01', '2015-01-10 12:12:01', 0, 0, 0, 1, 0, 0, '', 0),
 (5, 25, 48, 21, 358, 'Duna', 'A586', 'L', 'GII', 'Vicente Martín', 'Agilcan', '2015-01-10 12:10:21', '2015-01-10 12:10:21', 1, 0, 0, 0, 0, 53.36, '', 0),
-(5, 25, 48, 31, 361, 'Kara', 'A-541', 'L', 'GII', 'Ramón García Maroto', 'Cinco Huesos', '2015-01-10 12:10:52', '2015-01-10 12:10:52', 4, 1, 0, 0, 0, 48.16, '', 0),
+(5, 25, 48, 31, 361, 'Kara', 'A-541', 'L', 'GII', 'Ramón García Maroto', 'Cinco Huesos', '2015-01-10 12:10:52', '2015-01-10 12:10:52', 4, 1, 0, 0, 0, 48.16, '', 0);
+INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nombre`, `Licencia`, `Categoria`, `Grado`, `NombreGuia`, `NombreClub`, `Entrada`, `Comienzo`, `Faltas`, `Rehuses`, `Tocados`, `Eliminado`, `NoPresentado`, `Tiempo`, `Observaciones`, `Pendiente`) VALUES
 (5, 25, 48, 32, 378, 'Momo', 'A391', 'L', 'GII', 'Roberto Iñigo', 'Cinco Huesos', '2015-01-10 12:13:27', '2015-01-10 12:13:27', 2, 1, 0, 0, 0, 43.39, '', 0),
 (5, 25, 48, 33, 379, 'Skay', 'A605', 'L', 'GII', 'Javier Santisteban', 'Cinco Huesos', '2015-01-10 12:10:41', '2015-01-10 12:10:41', 0, 0, 0, 1, 0, 0, '', 0),
 (5, 25, 48, 83, 380, 'Keko', '', 'L', 'GII', 'Alberto González', 'Vallgorguina', '2015-01-10 12:14:01', '2015-01-10 12:14:01', 2, 1, 0, 0, 0, 48.24, '', 0),
@@ -3298,7 +3470,7 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (5, 26, 55, 43, 24, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández Moreno', 'Correcan', '2015-01-11 12:21:22', '2015-01-11 12:21:22', 0, 0, 0, 1, 0, 0, '', 0),
 (5, 26, 55, 3, 94, 'Panda', 'A474', 'L', 'GII', 'Lorena Díez', 'A-0', '2015-01-11 12:12:29', '2015-01-11 12:12:29', 0, 0, 0, 1, 0, 0, '', 0),
 (5, 26, 55, 88, 95, 'Raissa', 'A563', 'L', 'GII', 'Javier Iniesta', 'Vallgorguina', '2015-01-11 12:09:35', '2015-01-11 12:09:35', 0, 0, 0, 0, 0, 52.91, '', 0),
-(5, 26, 55, 77, 113, 'Yun', 'A484', 'L', 'GII', 'Concepción Fernández', 'La Princesa', '2015-01-11 12:13:31', '2015-01-11 12:13:31', 0, 0, 0, 1, 0, 0, '', 0),
+(5, 26, 55, 77, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2015-01-11 12:13:31', '2015-01-11 12:13:31', 0, 0, 0, 1, 0, 0, '', 0),
 (5, 26, 55, 94, 229, 'Shasta', 'A272', 'L', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2015-01-11 12:09:28', '2015-01-11 12:09:28', 0, 0, 0, 0, 0, 42.28, '', 0),
 (5, 26, 55, 40, 323, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2015-01-11 12:35:50', '2015-01-11 12:35:50', 1, 1, 0, 0, 0, 48.54, '', 0),
 (5, 26, 55, 16, 330, 'Pepa', 'A393', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2015-01-11 12:36:48', '2015-01-11 12:36:48', 0, 0, 0, 0, 0, 42.42, '', 0),
@@ -3336,7 +3508,7 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (5, 26, 56, 43, 24, 'Chiruca', '986', 'L', 'GII', 'Antonio Fernández Moreno', 'Correcan', '2015-01-11 13:35:56', '2015-01-11 13:35:56', 0, 0, 0, 1, 0, 0, '', 0),
 (5, 26, 56, 3, 94, 'Panda', 'A474', 'L', 'GII', 'Lorena Díez', 'A-0', '2015-01-11 13:27:40', '2015-01-11 13:27:40', 0, 2, 0, 0, 0, 42.97, '', 0),
 (5, 26, 56, 88, 95, 'Raissa', 'A563', 'L', 'GII', 'Javier Iniesta', 'Vallgorguina', '2015-01-11 13:39:04', '2015-01-11 13:39:04', 0, 0, 0, 1, 0, 0, '', 0),
-(5, 26, 56, 77, 113, 'Yun', 'A484', 'L', 'GII', 'Concepción Fernández', 'La Princesa', '2015-01-11 13:27:33', '2015-01-11 13:27:33', 0, 0, 0, 0, 0, 35.55, '', 0),
+(5, 26, 56, 77, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2015-01-11 13:27:33', '2015-01-11 13:27:33', 0, 0, 0, 0, 0, 35.55, '', 0),
 (5, 26, 56, 94, 229, 'Shasta', 'A272', 'L', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2015-01-11 13:41:02', '2015-01-11 13:41:02', 0, 0, 0, 0, 0, 36.37, '', 0),
 (5, 26, 56, 40, 323, 'Lia', 'A588', 'S', 'GII', 'Irene Artacho', 'Cinco Huesos', '2015-01-11 13:13:08', '2015-01-11 13:13:08', 0, 0, 0, 0, 0, 41.23, '', 0),
 (5, 26, 56, 16, 330, 'Pepa', 'A393', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2015-01-11 13:13:17', '2015-01-11 13:13:17', 3, 0, 0, 0, 0, 37.4, '', 0),
@@ -3401,19 +3573,417 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 (5, 26, 58, 60, 314, 'Nana', 'A277', 'S', 'GIII', 'Sara Montila', 'Deporcan', '2015-01-11 08:33:32', '2015-01-11 08:33:32', 0, 0, 0, 0, 0, 39.95, '', 0),
 (5, 26, 58, 72, 350, 'Dama', 'A641', 'M', 'GIII', 'Juan Antonio Martinez', 'Eslón', '2015-01-11 08:32:00', '2015-01-11 08:32:00', 0, 0, 0, 0, 0, 44.29, '', 0),
 (5, 26, 58, 28, 614, 'Ben', 'A-928', 'S', 'GIII', 'Nina Causevic', 'Campo de Gibraltar', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
-(5, 26, 58, 27, 615, 'Winni', 'A-929', 'M', 'GIII', 'Nina Causevic', 'Campo de Gibraltar', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1);
+(5, 26, 58, 27, 615, 'Winni', 'A-929', 'M', 'GIII', 'Nina Causevic', 'Campo de Gibraltar', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 54, 79, 'Jade', '', 'L', 'GI', 'Rosa Maria Cañadillas', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 29, 356, 'Toska', '', 'L', 'GI', 'Jesús Gómez', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 27, 371, 'Mitzy', '', 'L', 'GI', 'Angel González', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 86, 381, 'Mambo', '', 'L', 'GI', 'Ana Palet', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 44, 382, 'Swing', '', 'M', 'GI', 'Olga Palomares', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 45, 383, 'Trufa', '', 'M', 'GI', 'Rosa Rubio', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 30, 510, 'Quenn', '', 'M', 'GI', 'Angel González', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 43, 571, 'Onza', '', 'M', 'GI', 'Irene Blanco', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 47, 573, 'Manzanillo', '', 'S', 'GI', 'Virginia Pastor', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 117, 576, 'Chuli', '', 'L', 'GI', 'Yaiza Caballero Fernández', 'Xanastur', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 118, 577, 'Skye', '', 'L', 'GI', 'Ana Belén Ondategui Casas', 'Xanastur', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 42, 589, 'Iris', '', 'L', 'GI', 'Sara Montila', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 75, 593, 'Ada', '', 'L', 'GII', 'Sonia García', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 89, 595, 'Lola', '', 'M', 'GI', 'Pablo Parra', 'Mi Perro 10', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 98, 601, 'Lee-Ann', '', 'L', 'GI', 'Iván Pardo García', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 55, 604, 'Mizar', '', 'L', 'GI', 'Rómulo Parrilla', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 53, 605, 'Hera', '', 'L', 'GI', 'Carlos Escribano', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 48, 616, 'Mika', '', 'S', 'GI', 'Eli Brandsaeter', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 46, 617, 'Wendy', '', 'M', 'GI', 'Nicolas Alcaide', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 99, 622, 'Truco', '', 'L', 'GI', 'Marta Acero', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 51, 624, 'Bora', '', 'L', 'GI', 'Yulia Morugova', 'El Nogueral', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 1, 633, 'Asics', '', 'L', 'GI', 'Luis Miguel Rodrigo', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 96, 637, 'Lis', '', 'L', 'GI', 'Miriam Villar', 'Tandem', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 40, 639, 'Boss', '', 'L', 'GI', 'David Escribano', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 24, 640, 'Nueve', '', 'S', 'GI', 'Miguel Angel Manzaneda', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 28, 641, 'Neo', '', 'L', 'GI', 'Mercedes Prieto', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 59, 100, 642, 'Charly', '', 'S', 'GI', 'Cristina González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 54, 79, 'Jade', '', 'L', 'GI', 'Rosa Maria Cañadillas', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 29, 356, 'Toska', '', 'L', 'GI', 'Jesús Gómez', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 27, 371, 'Mitzy', '', 'L', 'GI', 'Angel González', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 86, 381, 'Mambo', '', 'L', 'GI', 'Ana Palet', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 44, 382, 'Swing', '', 'M', 'GI', 'Olga Palomares', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 45, 383, 'Trufa', '', 'M', 'GI', 'Rosa Rubio', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 30, 510, 'Quenn', '', 'M', 'GI', 'Angel González', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 43, 571, 'Onza', '', 'M', 'GI', 'Irene Blanco', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 47, 573, 'Manzanillo', '', 'S', 'GI', 'Virginia Pastor', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 117, 576, 'Chuli', '', 'L', 'GI', 'Yaiza Caballero Fernández', 'Xanastur', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 118, 577, 'Skye', '', 'L', 'GI', 'Ana Belén Ondategui Casas', 'Xanastur', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 42, 589, 'Iris', '', 'L', 'GI', 'Sara Montila', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 75, 593, 'Ada', '', 'L', 'GII', 'Sonia García', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 89, 595, 'Lola', '', 'M', 'GI', 'Pablo Parra', 'Mi Perro 10', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 98, 601, 'Lee-Ann', '', 'L', 'GI', 'Iván Pardo García', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 55, 604, 'Mizar', '', 'L', 'GI', 'Rómulo Parrilla', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 53, 605, 'Hera', '', 'L', 'GI', 'Carlos Escribano', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 48, 616, 'Mika', '', 'S', 'GI', 'Eli Brandsaeter', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 46, 617, 'Wendy', '', 'M', 'GI', 'Nicolas Alcaide', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 99, 622, 'Truco', '', 'L', 'GI', 'Marta Acero', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1);
+INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nombre`, `Licencia`, `Categoria`, `Grado`, `NombreGuia`, `NombreClub`, `Entrada`, `Comienzo`, `Faltas`, `Rehuses`, `Tocados`, `Eliminado`, `NoPresentado`, `Tiempo`, `Observaciones`, `Pendiente`) VALUES
+(6, 33, 60, 51, 624, 'Bora', '', 'L', 'GI', 'Yulia Morugova', 'El Nogueral', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 1, 633, 'Asics', '', 'L', 'GI', 'Luis Miguel Rodrigo', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 96, 637, 'Lis', '', 'L', 'GI', 'Miriam Villar', 'Tandem', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 40, 639, 'Boss', '', 'L', 'GI', 'David Escribano', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 24, 640, 'Nueve', '', 'S', 'GI', 'Miguel Angel Manzaneda', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 28, 641, 'Neo', '', 'L', 'GI', 'Mercedes Prieto', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 60, 100, 642, 'Charly', '', 'S', 'GI', 'Cristina González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 17, 8, 'Thelma', '824', 'L', 'GII', 'Fabian Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 62, 52, 'Mister', 'A250', 'L', 'GII', 'Rubén García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 25, 75, 'Nut', 'A430', 'L', 'GII', 'Mónica Rodríguez', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 105, 95, 'Raissa', 'A563', 'L', 'GII', 'Javier Iniesta', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 63, 103, 'Red Magic', 'A124', 'L', 'GII', 'Elena Miguel', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 88, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 60, 156, 'Lennon', 'A336', 'L', 'GII', 'Miguel Angel García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 103, 202, 'Mara', 'A396', 'L', 'GII', 'Ana Isabel Escobar', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 114, 229, 'Shasta', 'A272', 'L', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 9, 272, 'Luna', 'A240', 'M', 'GII', 'Paula Rello', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 20, 330, 'Pepa', 'A393', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 110, 342, 'Quillo', 'A604', 'S', 'GII', 'Cristina González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 101, 348, 'Aker', 'A397', 'L', 'GII', 'Francisco Javier Jaen', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 1, 354, 'paco', '', 'T', 'GII', '-- Sin asignar --', '-- Sin asignar --', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 31, 355, 'Akela', 'A746', 'L', 'GII', 'Fernando Bibián', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 32, 357, 'Sira', 'A584', 'L', 'GII', 'Joaquín Andrés', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 35, 361, 'Kara', 'A-541', 'L', 'GII', 'Ramón García Maroto', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 102, 380, 'Keko', '', 'L', 'GII', 'Alberto González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 49, 384, 'Soma', 'A696', 'L', 'GII', 'Menchu Melcom', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 108, 386, 'Izzie', 'A275', 'S', 'GII', 'Estíbaliz Pereda Navarro', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 88, 390, 'Dolce', '', 'L', 'GII', 'Natividad Ruiz García', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 5, 391, 'Gilda', 'A723', 'L', 'GII', 'Natividad Ruiz García', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 7, 392, 'Noa', 'A540', 'L', 'GII', 'Pedro Delgado Fernandez', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 65, 393, 'Thor', 'A835', 'L', 'GII', 'Juan Carlos Ruiz', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 56, 394, 'Akira Haru', 'A311', 'L', 'GII', 'Gema López', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 16, 397, 'Milady', 'A791', 'L', 'GII', 'Ricardo Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 77, 399, 'Dollar', '911', 'L', 'GII', 'Luis de Frías', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 78, 400, 'Héctor', '1597', 'L', 'GII', 'David Gómez-Calcerrada', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 83, 401, 'Ron', 'A617', 'L', 'GII', 'Oscar Sacristan', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 107, 407, 'Luca', 'A749', 'M', 'GII', 'Cristina González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 109, 408, 'Kika', 'A722', 'S', 'GII', 'Noelia Mouchet', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 26, 410, 'Sombra', 'A679', 'L', 'GII', 'Jose Luis J. Mori', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 19, 413, 'Lola', 'A633', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 18, 414, 'Yeny', 'A747', 'L', 'GII', 'José Luis Romero', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 94, 416, 'Wind', 'A561', 'L', 'GII', 'Sergio Casalins', 'Educan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 52, 418, 'Nitra', 'A743', 'S', 'GII', 'Yulia Morugova', 'El Nogueral', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 66, 424, 'Vlad', 'A752', 'L', 'GII', 'Angel Corroto', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 67, 427, 'Kala', '1574', 'S', 'GII', 'Cristina Cortijo', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 57, 428, 'Andy', 'A671', 'L', 'GII', 'Maite Guerrero', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 11, 440, 'Horatio', 'A847', 'S', 'GII', 'Beatriz Juan', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 104, 517, 'Nut', 'A-886', 'L', 'GII', 'Francisco Javier Jaen', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 80, 522, 'Merche', 'A989', 'L', 'GII', 'Lourdes Rivera', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 10, 560, 'Arturo', '', 'S', 'GII', 'Dolores Rosas', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 81, 575, 'Nashira', 'A903', 'L', 'GII', 'Ruben López', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 12, 584, 'Ursula', 'A840', 'S', 'GII', 'Pablo Martínez', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 3, 585, 'Ari', 'A894', 'L', 'GII', 'Veronica Roda', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 75, 593, 'Ada', '', 'L', 'GII', 'Sonia García', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 86, 594, 'Mashel', 'A931', 'S', 'GII', 'Ainhoa de Frias', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 112, 602, 'Sucre', 'A920', 'L', 'GII', 'Adrian Bajo', 'Vila-Real', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 59, 607, 'Hela', 'A836', 'L', 'GII', 'Cesar Losada Mera', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 64, 608, 'Sendy', 'A926', 'L', 'GII', 'Carlos Martínez S.', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 61, 609, 'Lumbre', 'A932', 'L', 'GII', 'Arancha Ruipérez Moslares', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 58, 610, 'Baddy', '', 'L', 'GII', 'David Calviño', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 33, 618, 'Thais', '1640', 'L', 'GII', 'Elena Cardenal', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 79, 634, 'Menta', 'A450', 'L', 'GII', 'Alberto Pereda', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 115, 636, 'Witzig', '', 'M', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 61, 106, 643, 'Wiki', 'A941', 'L', 'GII', 'Ana Palet', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 17, 8, 'Thelma', '824', 'L', 'GII', 'Fabian Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 62, 52, 'Mister', 'A250', 'L', 'GII', 'Rubén García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 25, 75, 'Nut', 'A430', 'L', 'GII', 'Mónica Rodríguez', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 105, 95, 'Raissa', 'A563', 'L', 'GII', 'Javier Iniesta', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 63, 103, 'Red Magic', 'A124', 'L', 'GII', 'Elena Miguel', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 88, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 60, 156, 'Lennon', 'A336', 'L', 'GII', 'Miguel Angel García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 103, 202, 'Mara', 'A396', 'L', 'GII', 'Ana Isabel Escobar', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 114, 229, 'Shasta', 'A272', 'L', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 9, 272, 'Luna', 'A240', 'M', 'GII', 'Paula Rello', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 20, 330, 'Pepa', 'A393', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 110, 342, 'Quillo', 'A604', 'S', 'GII', 'Cristina González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 101, 348, 'Aker', 'A397', 'L', 'GII', 'Francisco Javier Jaen', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 1, 354, 'paco', '', 'T', 'GII', '-- Sin asignar --', '-- Sin asignar --', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 31, 355, 'Akela', 'A746', 'L', 'GII', 'Fernando Bibián', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 32, 357, 'Sira', 'A584', 'L', 'GII', 'Joaquín Andrés', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 35, 361, 'Kara', 'A-541', 'L', 'GII', 'Ramón García Maroto', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 102, 380, 'Keko', '', 'L', 'GII', 'Alberto González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 49, 384, 'Soma', 'A696', 'L', 'GII', 'Menchu Melcom', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 108, 386, 'Izzie', 'A275', 'S', 'GII', 'Estíbaliz Pereda Navarro', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 88, 390, 'Dolce', '', 'L', 'GII', 'Natividad Ruiz García', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 5, 391, 'Gilda', 'A723', 'L', 'GII', 'Natividad Ruiz García', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 7, 392, 'Noa', 'A540', 'L', 'GII', 'Pedro Delgado Fernandez', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 65, 393, 'Thor', 'A835', 'L', 'GII', 'Juan Carlos Ruiz', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 56, 394, 'Akira Haru', 'A311', 'L', 'GII', 'Gema López', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 16, 397, 'Milady', 'A791', 'L', 'GII', 'Ricardo Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 77, 399, 'Dollar', '911', 'L', 'GII', 'Luis de Frías', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 78, 400, 'Héctor', '1597', 'L', 'GII', 'David Gómez-Calcerrada', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 83, 401, 'Ron', 'A617', 'L', 'GII', 'Oscar Sacristan', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 107, 407, 'Luca', 'A749', 'M', 'GII', 'Cristina González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 109, 408, 'Kika', 'A722', 'S', 'GII', 'Noelia Mouchet', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 26, 410, 'Sombra', 'A679', 'L', 'GII', 'Jose Luis J. Mori', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 19, 413, 'Lola', 'A633', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 18, 414, 'Yeny', 'A747', 'L', 'GII', 'José Luis Romero', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 94, 416, 'Wind', 'A561', 'L', 'GII', 'Sergio Casalins', 'Educan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 52, 418, 'Nitra', 'A743', 'S', 'GII', 'Yulia Morugova', 'El Nogueral', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 66, 424, 'Vlad', 'A752', 'L', 'GII', 'Angel Corroto', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 67, 427, 'Kala', '1574', 'S', 'GII', 'Cristina Cortijo', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 57, 428, 'Andy', 'A671', 'L', 'GII', 'Maite Guerrero', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 11, 440, 'Horatio', 'A847', 'S', 'GII', 'Beatriz Juan', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 104, 517, 'Nut', 'A-886', 'L', 'GII', 'Francisco Javier Jaen', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 80, 522, 'Merche', 'A989', 'L', 'GII', 'Lourdes Rivera', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 10, 560, 'Arturo', '', 'S', 'GII', 'Dolores Rosas', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 81, 575, 'Nashira', 'A903', 'L', 'GII', 'Ruben López', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 12, 584, 'Ursula', 'A840', 'S', 'GII', 'Pablo Martínez', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 3, 585, 'Ari', 'A894', 'L', 'GII', 'Veronica Roda', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 75, 593, 'Ada', '', 'L', 'GII', 'Sonia García', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 86, 594, 'Mashel', 'A931', 'S', 'GII', 'Ainhoa de Frias', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 112, 602, 'Sucre', 'A920', 'L', 'GII', 'Adrian Bajo', 'Vila-Real', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 59, 607, 'Hela', 'A836', 'L', 'GII', 'Cesar Losada Mera', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 64, 608, 'Sendy', 'A926', 'L', 'GII', 'Carlos Martínez S.', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 61, 609, 'Lumbre', 'A932', 'L', 'GII', 'Arancha Ruipérez Moslares', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 58, 610, 'Baddy', '', 'L', 'GII', 'David Calviño', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 33, 618, 'Thais', '1640', 'L', 'GII', 'Elena Cardenal', 'Agilcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 79, 634, 'Menta', 'A450', 'L', 'GII', 'Alberto Pereda', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 115, 636, 'Witzig', '', 'M', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 62, 106, 643, 'Wiki', 'A941', 'L', 'GII', 'Ana Palet', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 22, 3, 'Hannibal Lecter XIII', 'A090', 'L', 'GIII', 'Tomás Pérez Ayuso', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 116, 10, 'Lee', 'A084', 'L', 'GIII', 'Antonio Molina', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 37, 25, 'Moss', 'A391', 'L', 'GIII', 'Roberto Iñigo', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 69, 27, 'Deby', 'A147', 'L', 'GIII', 'Cesar Losada Mera', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 71, 31, 'Mc Coy', 'A322', 'L', 'GIII', 'Carmen Sotomayor', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 21, 45, 'Asia', 'A364', 'L', 'GIII', 'José Luis Romero', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 72, 46, 'Xodro', 'A371', 'L', 'GIII', 'Carlos Martínez R.', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 68, 51, 'Akane', 'A249', 'L', 'GIII', 'Gerardo González', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 87, 57, 'Aby', 'A204', 'L', 'GIII', 'Roberto Reina Vega', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 13, 68, 'Fito', 'A529', 'L', 'GIII', 'Luis Miguel Rodrigo', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 23, 78, 'Winner', 'A497', 'L', 'GIII', 'Ricardo Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 70, 85, 'Dylan', 'A461', 'L', 'GIII', 'Iván Sánchez García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 97, 101, 'Magic-Black', 'A318', 'L', 'GIII', 'Raquel Garrido', 'Tandem', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 88, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 95, 148, 'Kira', 'A116', 'L', 'GIII', 'Enrique Alonso Queija', 'Pura Vida', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 14, 220, 'Neo', 'A077', 'L', 'GIII', 'Antonio López', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 41, 253, 'Lass', 'A580', 'M', 'GIII', 'Eugenio Villares', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 111, 312, 'Nuca', 'A181', 'S', 'GIII', 'Iván Pardo García', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 50, 314, 'Nana', 'A277', 'S', 'GIII', 'Sara Montila', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 73, 350, 'Dama', 'A641', 'M', 'GIII', 'Juan Antonio Martinez', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 39, 498, 'Kobu', '1564', 'M', 'GIII', 'Irena Montalvo', 'Correcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 63, 93, 635, 'Turco', '', 'M', 'GIII', 'Gerardo Alvarez', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 22, 3, 'Hannibal Lecter XIII', 'A090', 'L', 'GIII', 'Tomás Pérez Ayuso', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 116, 10, 'Lee', 'A084', 'L', 'GIII', 'Antonio Molina', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 37, 25, 'Moss', 'A391', 'L', 'GIII', 'Roberto Iñigo', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 69, 27, 'Deby', 'A147', 'L', 'GIII', 'Cesar Losada Mera', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 71, 31, 'Mc Coy', 'A322', 'L', 'GIII', 'Carmen Sotomayor', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 21, 45, 'Asia', 'A364', 'L', 'GIII', 'José Luis Romero', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 72, 46, 'Xodro', 'A371', 'L', 'GIII', 'Carlos Martínez R.', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 68, 51, 'Akane', 'A249', 'L', 'GIII', 'Gerardo González', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 87, 57, 'Aby', 'A204', 'L', 'GIII', 'Roberto Reina Vega', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 13, 68, 'Fito', 'A529', 'L', 'GIII', 'Luis Miguel Rodrigo', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 23, 78, 'Winner', 'A497', 'L', 'GIII', 'Ricardo Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 70, 85, 'Dylan', 'A461', 'L', 'GIII', 'Iván Sánchez García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 97, 101, 'Magic-Black', 'A318', 'L', 'GIII', 'Raquel Garrido', 'Tandem', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 88, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 95, 148, 'Kira', 'A116', 'L', 'GIII', 'Enrique Alonso Queija', 'Pura Vida', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 14, 220, 'Neo', 'A077', 'L', 'GIII', 'Antonio López', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 41, 253, 'Lass', 'A580', 'M', 'GIII', 'Eugenio Villares', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 111, 312, 'Nuca', 'A181', 'S', 'GIII', 'Iván Pardo García', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 50, 314, 'Nana', 'A277', 'S', 'GIII', 'Sara Montila', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 73, 350, 'Dama', 'A641', 'M', 'GIII', 'Juan Antonio Martinez', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 39, 498, 'Kobu', '1564', 'M', 'GIII', 'Irena Montalvo', 'Correcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 33, 64, 93, 635, 'Turco', '', 'M', 'GIII', 'Gerardo Alvarez', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 54, 79, 'Jade', '', 'L', 'GI', 'Rosa Maria Cañadillas', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 86, 381, 'Mambo', '', 'L', 'GI', 'Ana Palet', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 74, 398, 'Yashi', '', 'M', 'GI', 'Verónica Rodríguez', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 38, 514, 'Isis', '', 'L', 'GI', 'Antonio Fernandez Ortiz', 'Correcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 42, 589, 'Iris', '', 'L', 'GI', 'Sara Montila', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 75, 593, 'Ada', '', 'L', 'GII', 'Sonia García', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 89, 595, 'Lola', '', 'M', 'GI', 'Pablo Parra', 'Mi Perro 10', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 98, 601, 'Lee-Ann', '', 'L', 'GI', 'Iván Pardo García', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 55, 604, 'Mizar', '', 'L', 'GI', 'Rómulo Parrilla', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 99, 622, 'Truco', '', 'L', 'GI', 'Marta Acero', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 51, 624, 'Bora', '', 'L', 'GI', 'Yulia Morugova', 'El Nogueral', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 1, 633, 'Asics', '', 'L', 'GI', 'Luis Miguel Rodrigo', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 96, 637, 'Lis', '', 'L', 'GI', 'Miriam Villar', 'Tandem', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 40, 639, 'Boss', '', 'L', 'GI', 'David Escribano', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 24, 640, 'Nueve', '', 'S', 'GI', 'Miguel Angel Manzaneda', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 100, 642, 'Charly', '', 'S', 'GI', 'Cristina González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 65, 2, 644, 'Boss', '', 'L', 'GI', 'Álvaro Muñiz', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 54, 79, 'Jade', '', 'L', 'GI', 'Rosa Maria Cañadillas', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 86, 381, 'Mambo', '', 'L', 'GI', 'Ana Palet', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 74, 398, 'Yashi', '', 'M', 'GI', 'Verónica Rodríguez', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 38, 514, 'Isis', '', 'L', 'GI', 'Antonio Fernandez Ortiz', 'Correcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 42, 589, 'Iris', '', 'L', 'GI', 'Sara Montila', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 75, 593, 'Ada', '', 'L', 'GII', 'Sonia García', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 89, 595, 'Lola', '', 'M', 'GI', 'Pablo Parra', 'Mi Perro 10', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 98, 601, 'Lee-Ann', '', 'L', 'GI', 'Iván Pardo García', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 55, 604, 'Mizar', '', 'L', 'GI', 'Rómulo Parrilla', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 99, 622, 'Truco', '', 'L', 'GI', 'Marta Acero', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 51, 624, 'Bora', '', 'L', 'GI', 'Yulia Morugova', 'El Nogueral', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 1, 633, 'Asics', '', 'L', 'GI', 'Luis Miguel Rodrigo', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 96, 637, 'Lis', '', 'L', 'GI', 'Miriam Villar', 'Tandem', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 40, 639, 'Boss', '', 'L', 'GI', 'David Escribano', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 24, 640, 'Nueve', '', 'S', 'GI', 'Miguel Angel Manzaneda', 'AA Y CIA', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 100, 642, 'Charly', '', 'S', 'GI', 'Cristina González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 66, 2, 644, 'Boss', '', 'L', 'GI', 'Álvaro Muñiz', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 17, 8, 'Thelma', '824', 'L', 'GII', 'Fabian Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 62, 52, 'Mister', 'A250', 'L', 'GII', 'Rubén García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 8, 94, 'Panda', 'A474', 'L', 'GII', 'Lorena Díez', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 105, 95, 'Raissa', 'A563', 'L', 'GII', 'Javier Iniesta', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 63, 103, 'Red Magic', 'A124', 'L', 'GII', 'Elena Miguel', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 88, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 60, 156, 'Lennon', 'A336', 'L', 'GII', 'Miguel Angel García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 103, 202, 'Mara', 'A396', 'L', 'GII', 'Ana Isabel Escobar', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 114, 229, 'Shasta', 'A272', 'L', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 84, 267, 'Jolie', '808', 'M', 'GII', 'Celeste Zarzosa', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 9, 272, 'Luna', 'A240', 'M', 'GII', 'Paula Rello', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 85, 274, 'Lucas', 'A248', 'M', 'GII', 'Alberto Pereda', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 20, 330, 'Pepa', 'A393', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 110, 342, 'Quillo', 'A604', 'S', 'GII', 'Cristina González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 101, 348, 'Aker', 'A397', 'L', 'GII', 'Francisco Javier Jaen', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 113, 352, 'Donna', 'A795', 'L', 'GII', 'Ricardo Benito', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 1, 354, 'paco', '', 'T', 'GII', '-- Sin asignar --', '-- Sin asignar --', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 35, 361, 'Kara', 'A-541', 'L', 'GII', 'Ramón García Maroto', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 36, 379, 'Skay', 'A605', 'L', 'GII', 'Javier Santisteban', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 102, 380, 'Keko', '', 'L', 'GII', 'Alberto González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 108, 386, 'Izzie', 'A275', 'S', 'GII', 'Estíbaliz Pereda Navarro', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 6, 387, 'Kyra', '1607', 'L', 'GII', 'Andres Morillas Sanjuan', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 4, 389, 'Dolce', 'A681', 'L', 'GII', 'Andres Morillas Sanjuan', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 5, 391, 'Gilda', 'A723', 'L', 'GII', 'Natividad Ruiz García', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 7, 392, 'Noa', 'A540', 'L', 'GII', 'Pedro Delgado Fernandez', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 65, 393, 'Thor', 'A835', 'L', 'GII', 'Juan Carlos Ruiz', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 56, 394, 'Akira Haru', 'A311', 'L', 'GII', 'Gema López', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 16, 397, 'Milady', 'A791', 'L', 'GII', 'Ricardo Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 78, 400, 'Héctor', '1597', 'L', 'GII', 'David Gómez-Calcerrada', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 83, 401, 'Ron', 'A617', 'L', 'GII', 'Oscar Sacristan', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 90, 404, 'Bimba', 'A288', 'L', 'GII', 'Luisa Fernanda Millan', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 91, 405, 'Dudy', 'A753', 'L', 'GII', 'Juan José González', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 107, 407, 'Luca', 'A749', 'M', 'GII', 'Cristina González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 109, 408, 'Kika', 'A722', 'S', 'GII', 'Noelia Mouchet', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 19, 413, 'Lola', 'A633', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 18, 414, 'Yeny', 'A747', 'L', 'GII', 'José Luis Romero', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 52, 418, 'Nitra', 'A743', 'S', 'GII', 'Yulia Morugova', 'El Nogueral', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 82, 423, 'Noa', 'A143', 'L', 'GII', 'Jenifer Tolín', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 66, 424, 'Vlad', 'A752', 'L', 'GII', 'Angel Corroto', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 67, 427, 'Kala', '1574', 'S', 'GII', 'Cristina Cortijo', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 11, 440, 'Horatio', 'A847', 'S', 'GII', 'Beatriz Juan', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 104, 517, 'Nut', 'A-886', 'L', 'GII', 'Francisco Javier Jaen', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 34, 519, 'Dunah', 'A635', 'M', 'GII', 'Alfredo Ortíz', 'Junior', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 76, 521, 'Buck', 'A877', 'L', 'GII', 'Carlos Pérez', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 10, 560, 'Arturo', '', 'S', 'GII', 'Dolores Rosas', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 12, 584, 'Ursula', 'A840', 'S', 'GII', 'Pablo Martínez', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 3, 585, 'Ari', 'A894', 'L', 'GII', 'Veronica Roda', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 75, 593, 'Ada', '', 'L', 'GII', 'Sonia García', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 112, 602, 'Sucre', 'A920', 'L', 'GII', 'Adrian Bajo', 'Vila-Real', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 59, 607, 'Hela', 'A836', 'L', 'GII', 'Cesar Losada Mera', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 64, 608, 'Sendy', 'A926', 'L', 'GII', 'Carlos Martínez S.', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 61, 609, 'Lumbre', 'A932', 'L', 'GII', 'Arancha Ruipérez Moslares', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 58, 610, 'Baddy', '', 'L', 'GII', 'David Calviño', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 92, 623, 'Nubia', 'A-309', 'L', 'GII', 'Juan José González', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 67, 79, 634, 'Menta', 'A450', 'L', 'GII', 'Alberto Pereda', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 17, 8, 'Thelma', '824', 'L', 'GII', 'Fabian Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 62, 52, 'Mister', 'A250', 'L', 'GII', 'Rubén García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 8, 94, 'Panda', 'A474', 'L', 'GII', 'Lorena Díez', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 105, 95, 'Raissa', 'A563', 'L', 'GII', 'Javier Iniesta', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 63, 103, 'Red Magic', 'A124', 'L', 'GII', 'Elena Miguel', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 88, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 60, 156, 'Lennon', 'A336', 'L', 'GII', 'Miguel Angel García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 103, 202, 'Mara', 'A396', 'L', 'GII', 'Ana Isabel Escobar', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 114, 229, 'Shasta', 'A272', 'L', 'GII', 'Mario Rodríguez', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 84, 267, 'Jolie', '808', 'M', 'GII', 'Celeste Zarzosa', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 9, 272, 'Luna', 'A240', 'M', 'GII', 'Paula Rello', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 85, 274, 'Lucas', 'A248', 'M', 'GII', 'Alberto Pereda', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 20, 330, 'Pepa', 'A393', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 110, 342, 'Quillo', 'A604', 'S', 'GII', 'Cristina González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 101, 348, 'Aker', 'A397', 'L', 'GII', 'Francisco Javier Jaen', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 113, 352, 'Donna', 'A795', 'L', 'GII', 'Ricardo Benito', 'W.E.L.P.E.', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 1, 354, 'paco', '', 'T', 'GII', '-- Sin asignar --', '-- Sin asignar --', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 35, 361, 'Kara', 'A-541', 'L', 'GII', 'Ramón García Maroto', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 36, 379, 'Skay', 'A605', 'L', 'GII', 'Javier Santisteban', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 102, 380, 'Keko', '', 'L', 'GII', 'Alberto González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 108, 386, 'Izzie', 'A275', 'S', 'GII', 'Estíbaliz Pereda Navarro', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 6, 387, 'Kyra', '1607', 'L', 'GII', 'Andres Morillas Sanjuan', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 4, 389, 'Dolce', 'A681', 'L', 'GII', 'Andres Morillas Sanjuan', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 5, 391, 'Gilda', 'A723', 'L', 'GII', 'Natividad Ruiz García', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 7, 392, 'Noa', 'A540', 'L', 'GII', 'Pedro Delgado Fernandez', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 65, 393, 'Thor', 'A835', 'L', 'GII', 'Juan Carlos Ruiz', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 56, 394, 'Akira Haru', 'A311', 'L', 'GII', 'Gema López', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 16, 397, 'Milady', 'A791', 'L', 'GII', 'Ricardo Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 78, 400, 'Héctor', '1597', 'L', 'GII', 'David Gómez-Calcerrada', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 83, 401, 'Ron', 'A617', 'L', 'GII', 'Oscar Sacristan', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 90, 404, 'Bimba', 'A288', 'L', 'GII', 'Luisa Fernanda Millan', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 91, 405, 'Dudy', 'A753', 'L', 'GII', 'Juan José González', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 107, 407, 'Luca', 'A749', 'M', 'GII', 'Cristina González', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 109, 408, 'Kika', 'A722', 'S', 'GII', 'Noelia Mouchet', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 19, 413, 'Lola', 'A633', 'S', 'GII', 'Francisco de la Cruz', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 18, 414, 'Yeny', 'A747', 'L', 'GII', 'José Luis Romero', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 52, 418, 'Nitra', 'A743', 'S', 'GII', 'Yulia Morugova', 'El Nogueral', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 82, 423, 'Noa', 'A143', 'L', 'GII', 'Jenifer Tolín', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 66, 424, 'Vlad', 'A752', 'L', 'GII', 'Angel Corroto', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 67, 427, 'Kala', '1574', 'S', 'GII', 'Cristina Cortijo', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 11, 440, 'Horatio', 'A847', 'S', 'GII', 'Beatriz Juan', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 104, 517, 'Nut', 'A-886', 'L', 'GII', 'Francisco Javier Jaen', 'Vallgorguina', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 34, 519, 'Dunah', 'A635', 'M', 'GII', 'Alfredo Ortíz', 'Junior', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 76, 521, 'Buck', 'A877', 'L', 'GII', 'Carlos Pérez', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 10, 560, 'Arturo', '', 'S', 'GII', 'Dolores Rosas', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 12, 584, 'Ursula', 'A840', 'S', 'GII', 'Pablo Martínez', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 3, 585, 'Ari', 'A894', 'L', 'GII', 'Veronica Roda', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 75, 593, 'Ada', '', 'L', 'GII', 'Sonia García', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 112, 602, 'Sucre', 'A920', 'L', 'GII', 'Adrian Bajo', 'Vila-Real', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 59, 607, 'Hela', 'A836', 'L', 'GII', 'Cesar Losada Mera', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 64, 608, 'Sendy', 'A926', 'L', 'GII', 'Carlos Martínez S.', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 61, 609, 'Lumbre', 'A932', 'L', 'GII', 'Arancha Ruipérez Moslares', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 58, 610, 'Baddy', '', 'L', 'GII', 'David Calviño', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 92, 623, 'Nubia', 'A-309', 'L', 'GII', 'Juan José González', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 68, 79, 634, 'Menta', 'A450', 'L', 'GII', 'Alberto Pereda', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 22, 3, 'Hannibal Lecter XIII', 'A090', 'L', 'GIII', 'Tomás Pérez Ayuso', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 37, 25, 'Moss', 'A391', 'L', 'GIII', 'Roberto Iñigo', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 69, 27, 'Deby', 'A147', 'L', 'GIII', 'Cesar Losada Mera', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 71, 31, 'Mc Coy', 'A322', 'L', 'GIII', 'Carmen Sotomayor', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 15, 34, 'Zoe', 'A289', 'L', 'GIII', 'Marta Sánchez', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 21, 45, 'Asia', 'A364', 'L', 'GIII', 'José Luis Romero', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 72, 46, 'Xodro', 'A371', 'L', 'GIII', 'Carlos Martínez R.', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 68, 51, 'Akane', 'A249', 'L', 'GIII', 'Gerardo González', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 87, 57, 'Aby', 'A204', 'L', 'GIII', 'Roberto Reina Vega', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 13, 68, 'Fito', 'A529', 'L', 'GIII', 'Luis Miguel Rodrigo', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 23, 78, 'Winner', 'A497', 'L', 'GIII', 'Ricardo Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 70, 85, 'Dylan', 'A461', 'L', 'GIII', 'Iván Sánchez García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 97, 101, 'Magic-Black', 'A318', 'L', 'GIII', 'Raquel Garrido', 'Tandem', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 88, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 14, 220, 'Neo', 'A077', 'L', 'GIII', 'Antonio López', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 41, 253, 'Lass', 'A580', 'M', 'GIII', 'Eugenio Villares', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 50, 314, 'Nana', 'A277', 'S', 'GIII', 'Sara Montila', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 73, 350, 'Dama', 'A641', 'M', 'GIII', 'Juan Antonio Martinez', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1);
+INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nombre`, `Licencia`, `Categoria`, `Grado`, `NombreGuia`, `NombreClub`, `Entrada`, `Comienzo`, `Faltas`, `Rehuses`, `Tocados`, `Eliminado`, `NoPresentado`, `Tiempo`, `Observaciones`, `Pendiente`) VALUES
+(6, 34, 69, 39, 498, 'Kobu', '1564', 'M', 'GIII', 'Irena Montalvo', 'Correcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 69, 93, 635, 'Turco', '', 'M', 'GIII', 'Gerardo Alvarez', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 22, 3, 'Hannibal Lecter XIII', 'A090', 'L', 'GIII', 'Tomás Pérez Ayuso', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 37, 25, 'Moss', 'A391', 'L', 'GIII', 'Roberto Iñigo', 'Cinco Huesos', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 69, 27, 'Deby', 'A147', 'L', 'GIII', 'Cesar Losada Mera', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 71, 31, 'Mc Coy', 'A322', 'L', 'GIII', 'Carmen Sotomayor', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 15, 34, 'Zoe', 'A289', 'L', 'GIII', 'Marta Sánchez', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 21, 45, 'Asia', 'A364', 'L', 'GIII', 'José Luis Romero', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 72, 46, 'Xodro', 'A371', 'L', 'GIII', 'Carlos Martínez R.', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 68, 51, 'Akane', 'A249', 'L', 'GIII', 'Gerardo González', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 87, 57, 'Aby', 'A204', 'L', 'GIII', 'Roberto Reina Vega', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 13, 68, 'Fito', 'A529', 'L', 'GIII', 'Luis Miguel Rodrigo', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 23, 78, 'Winner', 'A497', 'L', 'GIII', 'Ricardo Santolaya', 'A. D. C. Pozuelo', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 70, 85, 'Dylan', 'A461', 'L', 'GIII', 'Iván Sánchez García', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 97, 101, 'Magic-Black', 'A318', 'L', 'GIII', 'Raquel Garrido', 'Tandem', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 88, 113, 'Yun', 'A484', 'L', 'GIII', 'Concepción Fernández', 'La Princesa', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 14, 220, 'Neo', 'A077', 'L', 'GIII', 'Antonio López', 'A-0', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 41, 253, 'Lass', 'A580', 'M', 'GIII', 'Eugenio Villares', 'Cubas', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 50, 314, 'Nana', 'A277', 'S', 'GIII', 'Sara Montila', 'Deporcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 73, 350, 'Dama', 'A641', 'M', 'GIII', 'Juan Antonio Martinez', 'Eslón', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 39, 498, 'Kobu', '1564', 'M', 'GIII', 'Irena Montalvo', 'Correcan', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1),
+(6, 34, 70, 93, 635, 'Turco', '', 'M', 'GIII', 'Gerardo Alvarez', 'Pataplán', '2014-01-01 00:00:00', '2014-01-01 00:00:00', 0, 0, 0, 0, 0, 0, '', 1);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `sesiones`
 --
--- Creación: 08-01-2015 a las 18:38:47
+-- Creación: 29-01-2015 a las 19:53:59
 --
 
 DROP TABLE IF EXISTS `sesiones`;
 CREATE TABLE IF NOT EXISTS `sesiones` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
   `Comentario` varchar(255) DEFAULT NULL,
   `Operador` int(4) NOT NULL DEFAULT '1',
@@ -3426,7 +3996,7 @@ CREATE TABLE IF NOT EXISTS `sesiones` (
   `LiveStream2` varchar(255) DEFAULT NULL,
   `LiveStream3` varchar(255) DEFAULT NULL,
   `LastModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `sesiones`:
@@ -3446,27 +4016,27 @@ INSERT INTO `sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `SessionKey`, 
 (5, 'Ring 4', 'Mangas a realizar en el cuarto ring', 1, NULL, 0, 0, 0, 0, NULL, NULL, NULL, '2014-12-05 19:14:34'),
 (49, 'Console', 'operator - Operador de consola', 4, 'ZxQIACJijoT4s2Nf', 0, 0, 0, 0, NULL, NULL, NULL, '2015-01-06 10:51:47'),
 (50, 'Console', 'admin - Administrador de la aplicacion', 1, 'RjvKoqO4pIGEl6aM', 0, 0, 0, 0, NULL, NULL, NULL, '2015-01-06 21:59:28'),
-(60, 'Console', 'admin - Administrador de la aplicacion', 3, 'ZJgHvzqRpy2XfN0s', 0, 0, 0, 0, NULL, NULL, NULL, '2015-01-11 07:26:59');
+(74, 'Console', 'admin - Administrador de la aplicacion', 3, 'Uo8Bz3fy57KhNVJS', 0, 0, 0, 0, NULL, NULL, NULL, '2015-01-29 19:58:01');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `tandas`
 --
--- Creación: 08-01-2015 a las 18:38:46
+-- Creación: 29-01-2015 a las 19:53:59
 --
 
 DROP TABLE IF EXISTS `tandas`;
 CREATE TABLE IF NOT EXISTS `tandas` (
-`ID` int(4) NOT NULL,
-  `Tipo` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '1',
   `Jornada` int(4) NOT NULL,
   `Sesion` int(4) NOT NULL DEFAULT '1',
   `Orden` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
-  `Horario` varchar(64) DEFAULT NULL,
-  `Comentario` varchar(255) DEFAULT NULL
+  `Categoria` varchar(1) NOT NULL,
+  `Grado` varchar(16) NOT NULL,
+  `Horario` varchar(128) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -3477,6 +4047,10 @@ CREATE TABLE IF NOT EXISTS `tandas` (
 --       `jornadas` -> `ID`
 --   `Sesion`
 --       `sesiones` -> `ID`
+--   `Categoria`
+--       `categorias_perro` -> `Categoria`
+--   `Grado`
+--       `grados_perro` -> `Grado`
 --
 
 -- --------------------------------------------------------
@@ -3484,12 +4058,12 @@ CREATE TABLE IF NOT EXISTS `tandas` (
 --
 -- Estructura de tabla para la tabla `tipo_manga`
 --
--- Creación: 08-01-2015 a las 18:38:46
+-- Creación: 29-01-2015 a las 19:53:59
 --
 
 DROP TABLE IF EXISTS `tipo_manga`;
 CREATE TABLE IF NOT EXISTS `tipo_manga` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Descripcion` varchar(255) DEFAULT NULL,
   `Grado` varchar(16) NOT NULL DEFAULT '-'
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
@@ -3527,12 +4101,12 @@ INSERT INTO `tipo_manga` (`ID`, `Descripcion`, `Grado`) VALUES
 --
 -- Estructura de tabla para la tabla `usuarios`
 --
--- Creación: 08-01-2015 a las 18:38:47
+-- Creación: 29-01-2015 a las 19:53:58
 --
 
 DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE IF NOT EXISTS `usuarios` (
-`ID` int(4) NOT NULL,
+  `ID` int(4) NOT NULL,
   `Login` varchar(255) NOT NULL,
   `Password` varchar(255) DEFAULT NULL,
   `Gecos` varchar(255) NOT NULL DEFAULT '',
@@ -3540,6 +4114,10 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `Email` varchar(255) NOT NULL DEFAULT '',
   `Perms` int(4) NOT NULL DEFAULT '5'
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- RELACIONES PARA LA TABLA `usuarios`:
+--
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -3570,109 +4148,109 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Indices de la tabla `categorias_perro`
 --
 ALTER TABLE `categorias_perro`
- ADD PRIMARY KEY (`Categoria`);
+  ADD PRIMARY KEY (`Categoria`);
 
 --
 -- Indices de la tabla `clubes`
 --
 ALTER TABLE `clubes`
- ADD PRIMARY KEY (`ID`), ADD KEY `Clubes_Nombre` (`Nombre`), ADD KEY `Clubes_Provincia` (`Provincia`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Clubes_Nombre` (`Nombre`), ADD KEY `Clubes_Provincia` (`Provincia`);
 
 --
 -- Indices de la tabla `equipos`
 --
 ALTER TABLE `equipos`
- ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Equipos_PruebaNombre` (`Prueba`,`Nombre`), ADD KEY `Equipos_Prueba` (`Prueba`);
+  ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Equipos_PruebaNombre` (`Prueba`,`Nombre`), ADD KEY `Equipos_Prueba` (`Prueba`);
 
 --
 -- Indices de la tabla `eventos`
 --
 ALTER TABLE `eventos`
- ADD PRIMARY KEY (`ID`), ADD KEY `Eventos_Session` (`Session`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Eventos_Session` (`Session`);
 
 --
 -- Indices de la tabla `grados_perro`
 --
 ALTER TABLE `grados_perro`
- ADD PRIMARY KEY (`Grado`);
+  ADD PRIMARY KEY (`Grado`);
 
 --
 -- Indices de la tabla `guias`
 --
 ALTER TABLE `guias`
- ADD PRIMARY KEY (`ID`), ADD KEY `Guias_Nombre` (`Nombre`), ADD KEY `Guias_Club` (`Club`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Guias_Nombre` (`Nombre`), ADD KEY `Guias_Club` (`Club`);
 
 --
 -- Indices de la tabla `inscripciones`
 --
 ALTER TABLE `inscripciones`
- ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Inscripciones_PruebaPerro` (`Prueba`,`Perro`), ADD KEY `Inscripciones_Perro` (`Perro`), ADD KEY `Inscripciones_Prueba` (`Prueba`), ADD KEY `Inscripciones_Equipo` (`Equipo`), ADD KEY `Inscripciones_Dorsal` (`Dorsal`);
+  ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Inscripciones_PruebaPerro` (`Prueba`,`Perro`), ADD KEY `Inscripciones_Perro` (`Perro`), ADD KEY `Inscripciones_Prueba` (`Prueba`), ADD KEY `Inscripciones_Equipo` (`Equipo`), ADD KEY `Inscripciones_Dorsal` (`Dorsal`);
 
 --
 -- Indices de la tabla `jornadas`
 --
 ALTER TABLE `jornadas`
- ADD PRIMARY KEY (`ID`), ADD KEY `Jornadas_Prueba` (`Prueba`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Jornadas_Prueba` (`Prueba`);
 
 --
 -- Indices de la tabla `jueces`
 --
 ALTER TABLE `jueces`
- ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Jueces_Nombre` (`Nombre`);
+  ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Jueces_Nombre` (`Nombre`);
 
 --
 -- Indices de la tabla `mangas`
 --
 ALTER TABLE `mangas`
- ADD PRIMARY KEY (`ID`), ADD KEY `Mangas_Tipo` (`Tipo`), ADD KEY `Mangas_Grado` (`Grado`), ADD KEY `Mangas_Juez1` (`Juez1`), ADD KEY `Mangas_Juez2` (`Juez2`), ADD KEY `Mangas_Jornada` (`Jornada`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Mangas_Tipo` (`Tipo`), ADD KEY `Mangas_Grado` (`Grado`), ADD KEY `Mangas_Juez1` (`Juez1`), ADD KEY `Mangas_Juez2` (`Juez2`), ADD KEY `Mangas_Jornada` (`Jornada`);
 
 --
 -- Indices de la tabla `perros`
 --
 ALTER TABLE `perros`
- ADD PRIMARY KEY (`ID`), ADD KEY `Perros_GuiaNombre` (`Guia`), ADD KEY `Perros_Categoria` (`Categoria`), ADD KEY `Perros_Grado` (`Grado`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Perros_GuiaNombre` (`Guia`), ADD KEY `Perros_Categoria` (`Categoria`), ADD KEY `Perros_Grado` (`Grado`);
 
 --
 -- Indices de la tabla `provincias`
 --
 ALTER TABLE `provincias`
- ADD PRIMARY KEY (`Provincia`), ADD UNIQUE KEY `Provincias_Codigo` (`Codigo`);
+  ADD PRIMARY KEY (`Provincia`), ADD UNIQUE KEY `Provincias_Codigo` (`Codigo`);
 
 --
 -- Indices de la tabla `pruebas`
 --
 ALTER TABLE `pruebas`
- ADD PRIMARY KEY (`ID`), ADD KEY `Pruebas_Club` (`Club`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Pruebas_Club` (`Club`);
 
 --
 -- Indices de la tabla `resultados`
 --
 ALTER TABLE `resultados`
- ADD PRIMARY KEY (`Manga`,`Perro`), ADD KEY `Resultados_Perro` (`Perro`), ADD KEY `Resultados_Manga` (`Manga`), ADD KEY `Resultados_Dorsal` (`Dorsal`), ADD KEY `Resultados_Jornada` (`Jornada`), ADD KEY `Resultados_Prueba` (`Prueba`);
+  ADD PRIMARY KEY (`Manga`,`Perro`), ADD KEY `Resultados_Perro` (`Perro`), ADD KEY `Resultados_Manga` (`Manga`), ADD KEY `Resultados_Dorsal` (`Dorsal`), ADD KEY `Resultados_Jornada` (`Jornada`), ADD KEY `Resultados_Prueba` (`Prueba`);
 
 --
 -- Indices de la tabla `sesiones`
 --
 ALTER TABLE `sesiones`
- ADD PRIMARY KEY (`ID`), ADD KEY `Sesiones_Operador` (`Operador`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Sesiones_Operador` (`Operador`);
 
 --
 -- Indices de la tabla `tandas`
 --
 ALTER TABLE `tandas`
- ADD PRIMARY KEY (`ID`), ADD KEY `Tandas_Prueba` (`Prueba`), ADD KEY `Tandas_Jornada` (`Jornada`), ADD KEY `Tandas_Sesion` (`Sesion`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Tandas_Prueba` (`Prueba`), ADD KEY `Tandas_Jornada` (`Jornada`), ADD KEY `Tandas_Sesion` (`Sesion`), ADD KEY `Tandas_Categoria` (`Categoria`), ADD KEY `Tandas_Grado` (`Grado`);
 
 --
 -- Indices de la tabla `tipo_manga`
 --
 ALTER TABLE `tipo_manga`
- ADD PRIMARY KEY (`ID`), ADD KEY `Descripcion` (`Descripcion`), ADD KEY `Grado` (`Grado`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Descripcion` (`Descripcion`), ADD KEY `Grado` (`Grado`);
 
 --
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
- ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Login` (`Login`);
+  ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `Login` (`Login`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -3682,72 +4260,72 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `clubes`
 --
 ALTER TABLE `clubes`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=95;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=95;
 --
 -- AUTO_INCREMENT de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `eventos`
 --
 ALTER TABLE `eventos`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=203;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=203;
 --
 -- AUTO_INCREMENT de la tabla `guias`
 --
 ALTER TABLE `guias`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=527;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=531;
 --
 -- AUTO_INCREMENT de la tabla `inscripciones`
 --
 ALTER TABLE `inscripciones`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=295;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=417;
 --
 -- AUTO_INCREMENT de la tabla `jornadas`
 --
 ALTER TABLE `jornadas`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT de la tabla `jueces`
 --
 ALTER TABLE `jueces`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT de la tabla `mangas`
 --
 ALTER TABLE `mangas`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=59;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=71;
 --
 -- AUTO_INCREMENT de la tabla `perros`
 --
 ALTER TABLE `perros`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=633;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=645;
 --
 -- AUTO_INCREMENT de la tabla `pruebas`
 --
 ALTER TABLE `pruebas`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `sesiones`
 --
 ALTER TABLE `sesiones`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=61;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=75;
 --
 -- AUTO_INCREMENT de la tabla `tandas`
 --
 ALTER TABLE `tandas`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `tipo_manga`
 --
 ALTER TABLE `tipo_manga`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- Restricciones para tablas volcadas
 --
@@ -3835,7 +4413,9 @@ ADD CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` 
 ALTER TABLE `tandas`
 ADD CONSTRAINT `Tandas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `Tandas_ibfk_2` FOREIGN KEY (`Jornada`) REFERENCES `jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `Tandas_ibfk_3` FOREIGN KEY (`Sesion`) REFERENCES `sesiones` (`ID`) ON UPDATE CASCADE;
+ADD CONSTRAINT `Tandas_ibfk_3` FOREIGN KEY (`Sesion`) REFERENCES `sesiones` (`ID`) ON UPDATE CASCADE,
+ADD CONSTRAINT `Tandas_ibfk_4` FOREIGN KEY (`Categoria`) REFERENCES `categorias_perro` (`Categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `Tandas_ibfk_5` FOREIGN KEY (`Grado`) REFERENCES `grados_perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tipo_manga`
