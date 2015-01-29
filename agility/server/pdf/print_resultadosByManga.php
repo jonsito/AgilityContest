@@ -78,9 +78,11 @@ class PDF extends PrintCommon {
 		$juez1=$jobj->selectByID($this->manga->Juez1);
 		$juez2=$jobj->selectByID($this->manga->Juez2);
 		$this->Cell(20,7,"Juez 1:","LT",0,'L',false);
-		$this->Cell(70,7,$juez1['Nombre'],"T",0,'L',false);
+		$str=($juez1['Nombre']==="-- Sin asignar --")?"":$juez1['Nombre'];
+		$this->Cell(70,7,$str,"T",0,'L',false);
 		$this->Cell(20,7,"Juez 2:","T",0,'L',false);
-		$this->Cell(78,7,$juez2['Nombre'],"TR",0,'L',false);
+		$str=($juez2['Nombre']==="-- Sin asignar --")?"":$juez2['Nombre'];
+		$this->Cell(78,7,$str,"TR",0,'L',false);
 		$this->Ln(7);
 		$this->Cell(20,7,"Distancia:","LB",0,'L',false);
 		$this->Cell(25,7,"{$this->resultados['trs']['dist']} mts","B",0,'L',false);
@@ -129,7 +131,7 @@ class PDF extends PrintCommon {
 		// Datos
 		$fill = false;
 		$rowcount=0;
-		$numrows=($this->PageNo()==1)?26:29;
+		$numrows=($this->PageNo()==1)?30:33;
 		foreach($this->resultados['rows'] as $row) {
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			if( ($rowcount%$numrows) == 0 ) { // assume $numrows rows per page ( rowWidth = 7mmts )
@@ -147,21 +149,21 @@ class PDF extends PrintCommon {
 			
 			// print row data
 			$this->SetFont('Arial','',8); // set data font size
-			$this->Cell($this->pos[0],7,$row['Dorsal'],			'LR',	0,		$this->align[0],	$fill);
-			$this->Cell($this->pos[1],7,$row['Nombre'],			'LR',	0,		$this->align[1],	$fill);
-			$this->Cell($this->pos[2],7,$row['Licencia'],		'LR',	0,		$this->align[2],	$fill);
-			$this->Cell($this->pos[3],7,$row['NombreGuia'],		'LR',	0,		$this->align[3],	$fill);
-			$this->Cell($this->pos[4],7,$row['NombreClub'],		'LR',	0,		$this->align[4],	$fill);
-			$this->Cell($this->pos[5],7,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[5],	$fill);
-			$this->Cell($this->pos[6],7,$row['Faltas'],			'LR',	0,		$this->align[6],	$fill);
-			$this->Cell($this->pos[7],7,$row['Tocados'],		'LR',	0,		$this->align[7],	$fill);
-			$this->Cell($this->pos[8],7,$row['Rehuses'],		'LR',	0,		$this->align[8],	$fill);
-			$this->Cell($this->pos[9],7,$tiempo,				'LR',	0,		$this->align[9],	$fill);
-			$this->Cell($this->pos[10],7,$veloc,				'LR',	0,		$this->align[10],	$fill);
-			$this->Cell($this->pos[11],7,$penal,				'LR',	0,		$this->align[11],	$fill);
-			$this->Cell($this->pos[12],7,$row['Calificacion'],	'LR',	0,		$this->align[12],	$fill);
+			$this->Cell($this->pos[0],6,$row['Dorsal'],			'LR',	0,		$this->align[0],	$fill);
+			$this->Cell($this->pos[1],6,$row['Nombre'],			'LR',	0,		$this->align[1],	$fill);
+			$this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	$fill);
+			$this->Cell($this->pos[3],6,$row['NombreGuia'],		'LR',	0,		$this->align[3],	$fill);
+			$this->Cell($this->pos[4],6,$row['NombreClub'],		'LR',	0,		$this->align[4],	$fill);
+			$this->Cell($this->pos[5],6,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[5],	$fill);
+			$this->Cell($this->pos[6],6,$row['Faltas'],			'LR',	0,		$this->align[6],	$fill);
+			$this->Cell($this->pos[7],6,$row['Tocados'],		'LR',	0,		$this->align[7],	$fill);
+			$this->Cell($this->pos[8],6,$row['Rehuses'],		'LR',	0,		$this->align[8],	$fill);
+			$this->Cell($this->pos[9],6,$tiempo,				'LR',	0,		$this->align[9],	$fill);
+			$this->Cell($this->pos[10],6,$veloc,				'LR',	0,		$this->align[10],	$fill);
+			$this->Cell($this->pos[11],6,$penal,				'LR',	0,		$this->align[11],	$fill);
+			$this->Cell($this->pos[12],6,$row['Calificacion'],	'LR',	0,		$this->align[12],	$fill);
 			$this->SetFont('Arial','B',11); // bold 11px
-			$this->Cell($this->pos[13],7,$puesto,			'LR',	0,		$this->align[13],	$fill);
+			$this->Cell($this->pos[13],6,$puesto,			'LR',	0,		$this->align[13],	$fill);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;

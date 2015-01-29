@@ -82,7 +82,7 @@ class PDF extends PrintCommon {
 		$this->SetFont('Arial','B',9); // bold 9px
 		$this->Cell(20,7,"Juez 1:","LT",0,'L',false);
 		$n=$juez1['Nombre'];
-		$this->Cell(75,7,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
+		$this->Cell(75,7,($n==="-- Sin asignar --")?"":$n,"T",0,'L',false);
 		$this->Cell(20,7,"Juez 2:","T",0,'L',false);
 		$n=$juez2['Nombre'];
 		$this->Cell(80,7,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
@@ -179,7 +179,7 @@ class PDF extends PrintCommon {
 	function writeCell($idx,$row) {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		$offset=($this->PageNo()==1)?80:55;
-		$this->SetXY(10, $offset + 7*$idx ); // first page has 3 extra header lines
+		$this->SetXY(10, $offset + 6*$idx ); // first page has 3 extra header lines
 		$fill=(($idx%2)!=0)?true:false;
 		
 		// fomateamos datos
@@ -196,43 +196,43 @@ class PDF extends PrintCommon {
 
 		$this->SetFont('Arial','',8); // default font
 		// datos del participante
-		$this->Cell(10,7,$row['Dorsal'],0,0,'L',$fill); 	// dorsal
-		$this->Cell(25,7,$row['Nombre'],0,0,'L',$fill);	// nombre (20,y
-		$this->Cell(15,7,$row['Licencia'],0,0,'C',$fill);	// licencia
-		$this->Cell(10,7,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
-		$this->Cell(35,7,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia
-		$this->Cell(20,7,$row['NombreClub'],0,0,'R',$fill);	// nombreClub
+		$this->Cell(10,6,$row['Dorsal'],0,0,'L',$fill); 	// dorsal
+		$this->Cell(25,6,$row['Nombre'],0,0,'L',$fill);	// nombre (20,y
+		$this->Cell(15,6,$row['Licencia'],0,0,'C',$fill);	// licencia
+		$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
+		$this->Cell(35,6,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia
+		$this->Cell(20,6,$row['NombreClub'],0,0,'R',$fill);	// nombreClub
 		// manga 1
-		$this->Cell(7,7,$row['F1'],0,0,'C',$fill);	// 1- Faltas+Tocados
-		$this->Cell(7,7,$row['R1'],0,0,'C',$fill);	// 1- Rehuses
-		$this->Cell(12,7,$t1,0,0,'C',$fill);	// 1- Tiempo
-		$this->Cell(9,7,$v1,0,0,'C',$fill);	// 1- Velocidad
-		$this->Cell(12,7,$p1,0,0,'C',$fill);	// 1- Penalizacion
-		$this->Cell(12,7,$row['C1'],0,0,'C',$fill);	// 1- calificacion
+		$this->Cell(7,6,$row['F1'],0,0,'C',$fill);	// 1- Faltas+Tocados
+		$this->Cell(7,6,$row['R1'],0,0,'C',$fill);	// 1- Rehuses
+		$this->Cell(12,6,$t1,0,0,'C',$fill);	// 1- Tiempo
+		$this->Cell(9,6,$v1,0,0,'C',$fill);	// 1- Velocidad
+		$this->Cell(12,6,$p1,0,0,'C',$fill);	// 1- Penalizacion
+		$this->Cell(12,6,$row['C1'],0,0,'C',$fill);	// 1- calificacion
 		// manga 2
 		if ($this->manga2!=null) {
-			$this->Cell(7,7,$row['F2'],0,0,'C',$fill);	// 2- Faltas+Tocados
-			$this->Cell(7,7,$row['R2'],0,0,'C',$fill);	// 2- Rehuses
-			$this->Cell(12,7,$t2,0,0,'C',$fill);	// 2- Tiempo
-			$this->Cell(9,7,$v2,0,0,'C',$fill);	// 2- Velocidad
-			$this->Cell(12,7,$p2,0,0,'C',$fill);	// 2- Penalizacion
-			$this->Cell(12,7,$row['C2'],0,0,'C',$fill);	// 2- calificacion
+			$this->Cell(7,6,$row['F2'],0,0,'C',$fill);	// 2- Faltas+Tocados
+			$this->Cell(7,6,$row['R2'],0,0,'C',$fill);	// 2- Rehuses
+			$this->Cell(12,6,$t2,0,0,'C',$fill);	// 2- Tiempo
+			$this->Cell(9,6,$v2,0,0,'C',$fill);	// 2- Velocidad
+			$this->Cell(12,6,$p2,0,0,'C',$fill);	// 2- Penalizacion
+			$this->Cell(12,6,$row['C2'],0,0,'C',$fill);	// 2- calificacion
 		} else {
-			$this->Cell(59,7,'',0,0,'C',$fill);	// espacio en blanco
+			$this->Cell(59,6,'',0,0,'C',$fill);	// espacio en blanco
 		}
 		// global
-		$this->Cell(12,7,$t1+$t2,0,0,'C',$fill);	// Tiempo
-		$this->Cell(12,7,$penal,0,0,'C',$fill);	// Penalizacion
-		$this->Cell(9,7,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
+		$this->Cell(12,6,$t1+$t2,0,0,'C',$fill);	// Tiempo
+		$this->Cell(12,6,$penal,0,0,'C',$fill);	// Penalizacion
+		$this->Cell(9,6,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
 		$this->SetFont('Arial','B',10); // default font
-		$this->Cell(9,7,$puesto,0,0,'C',$fill);	// Puesto
+		$this->Cell(9,6,$puesto,0,0,'C',$fill);	// Puesto
 		// lineas rojas
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
-		$this->Line(10,$offset + 7*$idx,10,$offset + 7*($idx+1));
-		$this->Line(10+115,$offset + 7*$idx,10+115,$offset + 7*($idx+1));
-		$this->Line(10+174,$offset + 7*$idx,10+174,$offset + 7*($idx+1));
-		$this->Line(10+233,$offset + 7*$idx,10+233,$offset + 7*($idx+1));
-		$this->Line(10+275,$offset + 7*$idx,10+275,$offset + 7*($idx+1));
+		$this->Line(10,$offset + 6*$idx,10,$offset + 6*($idx+1));
+		$this->Line(10+115,$offset + 6*$idx,10+115,$offset + 6*($idx+1));
+		$this->Line(10+174,$offset + 6*$idx,10+174,$offset + 6*($idx+1));
+		$this->Line(10+233,$offset + 6*$idx,10+233,$offset + 6*($idx+1));
+		$this->Line(10+275,$offset + 6*$idx,10+275,$offset + 6*($idx+1));
 		
 		$this->Ln();
 	}
@@ -250,7 +250,7 @@ class PDF extends PrintCommon {
 		$this->addPage();
 		$this->print_datosMangas();
 		foreach($this->resultados as $row) {
-			$numrows=($this->PageNo()==1)?15:19;
+			$numrows=($this->PageNo()==1)?18:22;
 			if($rowcount==0) $this->writeTableHeader();	
 			$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 			$this->writeCell( $rowcount % $numrows,$row);
