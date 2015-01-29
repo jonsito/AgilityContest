@@ -118,22 +118,22 @@ class PDF extends PrintCommon {
 				$rowcount=0;
 			}
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			if( ($rowcount%32) == 0 ) { // assume 32 rows per page ( rowWidth = 7mmts )
+			if( ($rowcount%37) == 0 ) { // assume 37 rows per page ( rowWidth = 6mmts )
 				if ($rowcount>0) 
 					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre en cambio de pagina
 				$this->addPage();
 				$this->writeTableHeader();
 			}
 			$this->SetFont('Arial','B',11); // bold 9px
-			$this->Cell($this->pos[0],7,($rowcount+1)." - ",'LR',0,$this->align[0],$fill); // display order
+			$this->Cell($this->pos[0],6,($rowcount+1)." - ",'LR',0,$this->align[0],$fill); // display order
 			$this->SetFont('Arial','',9); // remove bold 9px
-			$this->Cell($this->pos[1],7,$row['Dorsal'],		'LR',0,$this->align[1],$fill);
-			$this->Cell($this->pos[2],7,$row['Nombre'],		'LR',0,$this->align[2],$fill);
-			$this->Cell($this->pos[3],7,$row['Licencia'],	'LR',0,$this->align[3],$fill);
-			$this->Cell($this->pos[4],7,$row['NombreGuia'],	'LR',0,$this->align[4],$fill);
-			$this->Cell($this->pos[5],7,$row['NombreClub'],	'LR',0,$this->align[5],$fill);
-			$this->Cell($this->pos[6],7,($row['Celo']==0)?"":"X",		'LR',0,$this->align[6],$fill);
-			$this->Cell($this->pos[7],7,$row['Observaciones'],'LR',0,$this->align[7],$fill);
+			$this->Cell($this->pos[1],6,$row['Dorsal'],		'LR',0,$this->align[1],$fill);
+			$this->Cell($this->pos[2],6,$row['Nombre'],		'LR',0,$this->align[2],$fill);
+			$this->Cell($this->pos[3],6,$row['Licencia'],	'LR',0,$this->align[3],$fill);
+			$this->Cell($this->pos[4],6,$row['NombreGuia'],	'LR',0,$this->align[4],$fill);
+			$this->Cell($this->pos[5],6,$row['NombreClub'],	'LR',0,$this->align[5],$fill);
+			$this->Cell($this->pos[6],6,($row['Celo']==0)?"":"X",		'LR',0,$this->align[6],$fill);
+			$this->Cell($this->pos[7],6,$row['Observaciones'],'LR',0,$this->align[7],$fill);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;
