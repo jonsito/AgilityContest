@@ -154,7 +154,9 @@ class Inscripciones extends DBObject {
 		if (!is_array($res)) return $this->error("El perro con id:$idperro no esta inscrito en la prueba:$p");
 		$i=$res['ID'];
 		// fase 1: actualizamos la DB para indicar que el perro no esta inscrito en ninguna jornada
-		$sql="Update Inscripciones SET Jornadas = 0  WHERE (ID=$i)";
+		$sql="UPDATE Inscripciones SET Jornadas = 0  WHERE (ID=$i)";
+		$res=$this->query($sql);
+		if (!$res) return $this->error($this->conn->error);
 		// fase 2: eliminamos informacion del perro en los ordenes de salida y tabla de resultados
 		procesaInscripcion($p, $i);
 		// fase 3: finalmente eliminamos el perro de la tabla de inscripciones
