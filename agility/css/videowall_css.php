@@ -162,7 +162,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 /* subtabla de participantes en resultados parciales */
 .vwc_trparticipantes {
-	width: 350px;
+	width: 100%;
 	text-align: left;
 	font-weight: bold;
 }

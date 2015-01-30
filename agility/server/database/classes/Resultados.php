@@ -514,6 +514,7 @@ class Resultados extends DBObject {
 		return $result;
 	}
 	
+	// version extendida de Jornadas::roundByJornada() en la que se genera una entrada por cada recorrido de cada categoria
 	static function enumerateClasificaciones($jornadaid) {
 	
 		/*inner functions */
@@ -527,11 +528,14 @@ class Resultados extends DBObject {
 			return array(
 					'Prueba'=>$p,
 					'Jornada'=>$j,
+					'Rondas'=> Jornadas::$tipo_ronda[$t][0],
 					'Nombre'=> Jornadas::$tipo_ronda[$t][1]." - ".Mangas::$manga_modes[$m][0],
 					'Recorrido'=>$r,
 					'Mode'=>$m,
-					'Manga1'=>$m1,
-					'Manga2'=>$m2
+					'Manga1'=>$m1['ID'],
+					'Manga2'=>($m2!==null)?$m2['ID']:0,
+					'NombreManga1'=>Mangas::$tipo_manga[$m1['Tipo']][1],
+					'NombreManga2'=>($m2!==null)?Mangas::$tipo_manga[$m2['Tipo']][1]:''
 			);
 		}
 	
@@ -550,40 +554,39 @@ class Resultados extends DBObject {
 			/* Pre-Agility siempre tiene recorrido comun para todas las categorias */
 			$m1=__searchManga(1,$mangas); // PA-1
 			$m2=__searchManga(2,$mangas); // PA-2
-			array_push($data,__getArray($prueba['ID'],$jornadaid,2,$m1['Recorrido'],($prueba['RSCE']==0)?4:8,$m1['ID'],$m2['ID']));
+			array_push($data,__getArray($prueba['ID'],$jornadaid,2,$m1['Recorrido'],($prueba['RSCE']==0)?4:8,$m1,$m2));
 		} else if ($jornada['PreAgility']!=0) {
 			// $dbobj->myLogger->trace("Procesando mangas de preagility-1");
 			/* Pre-Agility siempre tiene recorrido comun para todas las categorias */
 			$m1=__searchManga(1,$mangas); // PA-1
-			array_push($data,__getArray($prueba['ID'],$jornadaid,1,$m1['Recorrido'],($prueba['RSCE']==0)?4:8,$m1['ID'],0));
+			array_push($data,__getArray($prueba['ID'],$jornadaid,1,$m1['Recorrido'],($prueba['RSCE']==0)?4:8,$m1,null));
 		}
 		if ($jornada['Grado1']!=0) {
 			$m1=__searchManga(3,$mangas); // Agility 1 Grado I
 			$m2=__searchManga(4,$mangas); // Agility 2 Grado I
-			// $dbobj->myLogger->trace("Procesando mangas de Grado 1 - m1:{$m1['ID']} m2:{$m2['ID']}");
 			switch($m1['Recorrido']){
 				case 0: // separado
-					array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],0,$m1['ID'],$m2['ID'])); // large
-					array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],1,$m1['ID'],$m2['ID'])); // medium
-					array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],2,$m1['ID'],$m2['ID'])); // small
+					array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],0,$m1,$m2)); // large
+					array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],1,$m1,$m2)); // medium
+					array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],2,$m1,$m2)); // small
 					if($prueba['RSCE']!=0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],5,$m1['ID'],$m2['ID'])); // tiny
+						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],5,$m1,$m2)); // tiny
 					}
 					break;
 				case 1: // mixto
 					if($prueba['RSCE']==0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],0,$m1['ID'],$m2['ID'])); // large
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],3,$m1['ID'],0)); // m+s
+						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],0,$m1,$m2)); // large
+						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],3,$m1,$m2)); // m+s
 					} else {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],6,$m1['ID'],$m2['ID'])); // l+m
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],7,$m1['ID'],$m2['ID'])); // s+t
+						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],6,$m1,$m2)); // l+m
+						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],7,$m1,$m2)); // s+t
 					}
 					break;
 				case 2: // conjunto
 					if($prueba['RSCE']==0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],4,$m1['ID'],$m2['ID'])); // l+m+s
+						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],4,$m1,$m2)); // l+m+s
 					} else {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],8,$m1['ID'],$m2['ID'])); // l+m+s+t
+						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],8,$m1,$m2)); // l+m+s+t
 					}
 					break;
 			}
@@ -592,30 +595,29 @@ class Resultados extends DBObject {
 		if ($jornada['Grado2']!=0) {
 			$m1=__searchManga(5,$mangas); // Agility Grado II
 			$m2=__searchManga(10,$mangas); // Jumping Grado II
-			// $dbobj->myLogger->trace("Procesando mangas de Grado 2 - m1:{$m1['ID']} m2:{$m2['ID']}");
 			switch($m1['Recorrido']){
 				case 0: // separado
-					array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],0,$m1['ID'],$m2['ID'])); // large
-					array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],1,$m1['ID'],$m2['ID'])); // medium
-					array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],2,$m1['ID'],$m2['ID'])); // small
+					array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],0,$m1,$m2)); // large
+					array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],1,$m1,$m2)); // medium
+					array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],2,$m1,$m2)); // small
 					if($prueba['RSCE']!=0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],5,$m1['ID'],$m2['ID'])); // tiny
+						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],5,$m1,$m2)); // tiny
 					}
 					break;
 				case 1: // mixto
 					if($prueba['RSCE']==0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],0,$m1['ID'],$m2['ID'])); // large
-						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],3,$m1['ID'],$m2['ID'])); // m+s
+						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],0,$m1,$m2)); // large
+						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],3,$m1,$m2)); // m+s
 					} else {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],6,$m1['ID'],$m2['ID'])); // l+m
-						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],7,$m1['ID'],$m2['ID'])); // s+t
+						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],6,$m1,$m2)); // l+m
+						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],7,$m1,$m2)); // s+t
 					}
 					break;
 				case 2: // conjunto
 					if($prueba['RSCE']==0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],4,$m1['ID'],$m2['ID'])); // l+m+s
+						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],4,$m1,$m2)); // l+m+s
 					} else {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],8,$m1['ID'],$m2['ID'])); // l+m+s+t
+						array_push($data,__getArray($prueba['ID'],$jornadaid,4,$m1['Recorrido'],8,$m1,$m2)); // l+m+s+t
 					}
 					break;
 			}
@@ -624,30 +626,29 @@ class Resultados extends DBObject {
 		if ($jornada['Grado3']!=0) {
 			$m1=__searchManga(6,$mangas); // Agility Grado III
 			$m2=__searchManga(11,$mangas); // Jumping Grado III
-			// $dbobj->myLogger->trace("Procesando mangas de Grado 3 - m1:{$m1['ID']} m2:{$m2['ID']}");
 			switch($m1['Recorrido']){
 				case 0: // separado
-					array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],0,$m1['ID'],$m2['ID'])); // large
-					array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],1,$m1['ID'],$m2['ID'])); // medium
-					array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],2,$m1['ID'],$m2['ID'])); // small
+					array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],0,$m1,$m2)); // large
+					array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],1,$m1,$m2)); // medium
+					array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],2,$m1,$m2)); // small
 					if($prueba['RSCE']!=0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],5,$m1['ID'],$m2['ID'])); // tiny
+						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],5,$m1,$m2)); // tiny
 					}
 					break;
 				case 1: // mixto
 					if($prueba['RSCE']==0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],0,$m1['ID'],$m2['ID'])); // large
-						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],3,$m1['ID'],$m2['ID'])); // m+s
+						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],0,$m1,$m2)); // large
+						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],3,$m1,$m2)); // m+s
 					} else {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],6,$m1['ID'],$m2['ID'])); // l+m
-						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],7,$m1['ID'],$m2['ID'])); // s+t
+						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],6,$m1,$m2)); // l+m
+						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],7,$m1,$m2)); // s+t
 					}
 					break;
 				case 2: // conjunto
 					if($prueba['RSCE']==0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],4,$m1['ID'],$m2['ID'])); // l+m+s
+						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],4,$m1,$m2)); // l+m+s
 					} else {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],8,$m1['ID'],$m2['ID'])); // l+m+s+t
+						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],8,$m1,$m2)); // l+m+s+t
 					}
 					break;
 			}
@@ -656,30 +657,29 @@ class Resultados extends DBObject {
 		if ($jornada['Open']!=0) {
 			$m1=__searchManga(7,$mangas); // Agility Open
 			$m2=__searchManga(12,$mangas); // Jumping Open
-			// $dbobj->myLogger->trace("Procesando mangas de Open - m1:{$m1['ID']} m2:{$m2['ID']}");
 			switch($m1['Recorrido']){
 				case 0: // separado
-					array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],0,$m1['ID'],$m2['ID'])); // large
-					array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],1,$m1['ID'],$m2['ID'])); // medium
-					array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],2,$m1['ID'],$m2['ID'])); // small
+					array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],0,$m1,$m2)); // large
+					array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],1,$m1,$m2)); // medium
+					array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],2,$m1,$m2)); // small
 					if($prueba['RSCE']!=0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],5,$m1['ID'],$m2['ID'])); // tiny
+						array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],5,$m1,$m2)); // tiny
 					}
 					break;
 				case 1: // mixto
 					if($prueba['RSCE']==0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],0,$m1['ID'],$m2['ID'])); // large
-						array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],3,$m1['ID'],$m2['ID'])); // m+s
+						array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],0,$m1,$m2)); // large
+						array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],3,$m1,$m2)); // m+s
 					} else {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],6,$m1['ID'],$m2['ID'])); // l+m
-						array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],7,$m1['ID'],$m2['ID'])); // s+t
+						array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],6,$m1,$m2)); // l+m
+						array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],7,$m1,$m2)); // s+t
 					}
 					break;
 				case 2: // conjunto
 					if($prueba['RSCE']==0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],4,$m1['ID'],$m2['ID'])); // l+m+s
+						array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],4,$m1,$m2)); // l+m+s
 					} else {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,5,$m1['Recorrido'],8,$m1['ID'],$m2['ID'])); // l+m+s+t
+						array_push($data,__getArray($prueba['ID'],$jornadaid,6,$m1['Recorrido'],8,$m1,$m2)); // l+m+s+t
 					}
 					break;
 			}
@@ -702,30 +702,29 @@ class Resultados extends DBObject {
 		}
 		if ($jornada['Especial']!=0) {
 			$m1=__searchManga(16,$mangas); // Manga especial a una vuelta
-			// $dbobj->myLogger->trace("Procesando manga Especial - m1:{$m1['ID']} m2:0");
 			switch($m1['Recorrido']){
 				case 0: // separado
-					array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],0,$m1['ID'],0)); // large
-					array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],1,$m1['ID'],0)); // medium
-					array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],2,$m1['ID'],0)); // small
+					array_push($data,__getArray($prueba['ID'],$jornadaid,10,$m1['Recorrido'],0,$m1,null)); // large
+					array_push($data,__getArray($prueba['ID'],$jornadaid,10,$m1['Recorrido'],1,$m1,null)); // medium
+					array_push($data,__getArray($prueba['ID'],$jornadaid,10,$m1['Recorrido'],2,$m1,null)); // small
 					if($prueba['RSCE']!=0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],5,$m1['ID'],0)); // tiny
+						array_push($data,__getArray($prueba['ID'],$jornadaid,10,$m1['Recorrido'],5,$m1,null)); // tiny
 					}
 					break;
 				case 1: // mixto
 					if($prueba['RSCE']==0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],0,$m1['ID'],0)); // large
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],3,$m1['ID'],0)); // m+s
+						array_push($data,__getArray($prueba['ID'],$jornadaid,10,$m1['Recorrido'],0,$m1,null)); // large
+						array_push($data,__getArray($prueba['ID'],$jornadaid,10,$m1['Recorrido'],3,$m1,null)); // m+s
 					} else {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],6,$m1['ID'],0)); // l+m
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],7,$m1['ID'],0)); // s+t
+						array_push($data,__getArray($prueba['ID'],$jornadaid,10,$m1['Recorrido'],6,$m1,null)); // l+m
+						array_push($data,__getArray($prueba['ID'],$jornadaid,10,$m1['Recorrido'],7,$m1,null)); // s+t
 					}
 					break;
 				case 2: // conjunto
 					if($prueba['RSCE']==0) {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],4,$m1['ID'],0)); // l+m+s
+						array_push($data,__getArray($prueba['ID'],$jornadaid,10,$m1['Recorrido'],4,$m1,null)); // l+m+s
 					} else {
-						array_push($data,__getArray($prueba['ID'],$jornadaid,3,$m1['Recorrido'],8,$m1['ID'],0)); // l+m+s+t
+						array_push($data,__getArray($prueba['ID'],$jornadaid,10,$m1['Recorrido'],8,$m1,null)); // l+m+s+t
 					}
 					break;
 			}

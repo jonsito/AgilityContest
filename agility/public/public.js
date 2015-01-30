@@ -58,21 +58,28 @@ function pb_updateResults() {
 	});
 }
 
-function pb_updateFinales() {	$.ajax( {
-	type: "GET",
-	dataType: 'html',
-	url: "/agility/server/videowall.php",
-	data: {
-		Operation: 'clasificaciones',
-		Prueba: workingData.prueba,
-		Jornada: workingData.jornada,
-		Manga: workingData.manga,
-		Manga2: workingData.manga2,
-		Recorrido: workingData.recorrido,
-		Mode: workingData.mode
-	},
-	success: function(data,status,jqxhr) {
-		$('#pb_resultadosFinales').html(data);
+function pb_updateFinales() {
+	var ronda=$('#pb_enumerateFinales').combogrid('grid').datagrid('getSelected');
+	if (ronda==null) {
+    	// $.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+    	return; // no way to know which ronda is selected
 	}
-});
+	$.ajax({
+		type:'GET',
+		url:"/agility/server/database/clasificacionesFunctions.php",
+		dataType:'json',
+		data: {	
+			Prueba:	ronda.Prueba,
+			Jornada:ronda.Jornada,
+			Manga1:	ronda.Manga1,
+			Manga2:	ronda.Manga2,
+			Rondas: ronda.Rondas,
+			Mode: 	ronda.Mode
+		},
+		success: function(dat) {
+			$('#pb_resultados_thead_m1').text(ronda.NombreManga1);
+			$('#pb_resultados_thead_m2').text(ronda.NombreManga2);
+			$('#pb_resultados-datagrid').datagrid('loadData',dat);
+		}
+	});
 }

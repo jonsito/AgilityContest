@@ -65,7 +65,6 @@ $('#pb_enumerateParciales').combogrid({
 		workingData.manga=row.Manga;
 		workingData.tanda=0; // fake tanda. use manga+mode to evaluate results
 		workingData.mode=row.Mode;
-		alert(JSON.stringify(workingData));
 		pb_updateResults();
 	}
 });

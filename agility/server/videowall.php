@@ -134,63 +134,7 @@ class VideoWall {
 		echo '</table>';
 		return 0;
 	}
-	
-	function videowall_clasificaciones() {
-		$manga2 = http_request("Manga2","i",0);
-		$recorrido = http_request("Recorrido","i",0);
-		// anyade informacion extra en el resultado html
-		$this->generateHeaderInfo();
-		if ($this->mangaid==0) { // no ronda selected yet 
-			echo '
-			<!-- Datos de TRS y TRM -->
-			<div id="vwc_tablaTRS">
-				<table class="vwc_trs">
-					<thead>
-						<tr>
-							<th colspan="13" style="align:left">Clasificaci&oacute;n Final</th>
-							<th colspan="10">&nbsp;</th>
-						</tr>
-						<tr>
-							<th colspan="7"> <span class="resultados_theader">Datos del participante</span></th>
-			    			<th colspan="6"> <span class="resultados_theader" id="resultados_thead_m1">Manga 1</span></th>
-			    			<th colspan="6"> <span class="resultados_theader" id="resultados_thead_m2">Manga 2</span></th>
-			    			<th colspan="4"> <span class="resultados_theader">Clasificaci&oacute;n</span></th>
-		    			</tr>
-		    			<tr>
-	    					<th>Logo</th>
-	    					<th> Dors.</th>
-	    					<th> Nombre</th>
-	   						<th> Lic.</th>
-	   						<th> Cat.</th>
-	   						<th> Grd.</th>
-	    					<th> Guia</th>
-	    					<th> Club</th>
-	  						<th> F/T</th>
-	  						<th> R.</th>
-	  						<th> Tmp.</th>
-	   						<th> Vel</th>
-	   						<th> Penal.</th>
-	   						<th> Cal.</th>
-	   						<th> F/T</th>
-	  						<th> R.</th>
-	   						<th> Tmp.</th>
-	    					<th> Vel.</th>
-	    					<th> Penal.</th>
-	    					<th> Cal.</th> 
-	    					<th>Tiempo</th>
-	    					<th> Penaliz.</th>
-	    					<th> Calif.</th>
-	    					<th> Puesto </th>
-	    				</tr>
-					</thead>
-				</table>
-			</div>
-			';
-			return 0;
-		}
-		// TODO on data provided call clasificaciones and convert to html
-	}
-	
+
 	function videowall_resultados() {
 		// anyade informacion extra en el resultado html
 		$this->generateHeaderInfo();
@@ -264,9 +208,7 @@ class VideoWall {
 			<div id="vwc_tablaResultados">
 			<table class="vwc_tresultados">
 			<thead>
-				<th>Puesto</th>
-				<th>&nbsp</th>
-				<th colspan="5">Participante</th>
+				<th colspan="6">Participante</th>
 				<th>Flt.</th>
 				<th>Toc.</th>
 				<th>Reh.</th>
@@ -274,6 +216,7 @@ class VideoWall {
 				<th>Vel.</th>
 				<th>Penal.</th>
 				<th colspan="2">Calificacion</th>
+				<th>Puesto</th>
 			</thead>
 			<tbody>
 			';
@@ -285,8 +228,8 @@ class VideoWall {
 			if ($logo==="") $logo='rsce.png';
 			echo '
 				<tr id="Resultado_'.$numero.'" style="background:'.$bg.'">
-					<td class="vwc_puesto">'.$resultado['Puesto'].'</td>
 					<td><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'" width="50" height="50"/></td>
+					<td colspan="2" class="vwc_nombre">'.$resultado['Nombre'].'</td>
 					<td colspan="3">
 						<table class="vwc_trparticipantes">
 							<tr>
@@ -301,7 +244,6 @@ class VideoWall {
 							</tr>
 						</table>
 					</td>
-					<td colspan="2" class="vwc_nombre">'.$resultado['Nombre'].'</td>
 					<td class="vwc_ftr">'.$resultado['Faltas'].'</td>
 					<td class="vwc_ftr">'.$resultado['Tocados'].'</td>
 					<td class="vwc_ftr">'.$resultado['Rehuses'].'</td>
@@ -309,6 +251,7 @@ class VideoWall {
 					<td class="vwc_vel">'.number_format($resultado['Velocidad'],1).'</td>
 					<td class="vwc_rlarge">'.number_format($resultado['Penalizacion'],2).'</td>
 					<td colspan="2" class="vwc_calif">'.$resultado['Calificacion'].'</td>
+					<td class="vwc_puesto">'.$resultado['Puesto'].'</td>
 				</tr>
 			';
 		}
@@ -440,7 +383,6 @@ try {
 	if($operacion==="livestream") return $vw->videowall_livestream();
 	if($operacion==="llamada") return $vw->videowall_llamada($pendientes);
 	if($operacion==="resultados") return $vw->videowall_resultados();
-	if($operacion==="clasificaciones") return $vw->videowall_clasificaciones();
 	if($operacion==="inscripciones") return $vw->videowall_inscripciones();
 	if($operacion==="ordensalida") return $vw->videowall_ordensalida();
 } catch (Exception $e) {
