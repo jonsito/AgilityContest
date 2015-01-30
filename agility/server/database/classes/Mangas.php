@@ -22,6 +22,7 @@ require_once("DBObject.php");
 
 class Mangas extends DBObject {
 	protected $jornada;
+	protected $pruebaObj;
 	
 	/* copia de la estructura de la base de datos, para ahorrar consultas */
 	public static $tipo_manga= array(
@@ -102,6 +103,9 @@ class Mangas extends DBObject {
 			throw new Exception($this->errormsg);
 		}
 		$this->jornada=$jornada;
+		$this->pruebaObj=$this->__selectObject("Pruebas.ID,Pruebas.RSCE,Pruebas.Selectiva",
+										"Pruebas,Jornadas",
+										"(Pruebas.ID=Jornadas.Prueba) AND (Jornadas.ID=$jornada)");
 	}
 	
 	/**
@@ -121,14 +125,35 @@ class Mangas extends DBObject {
 		);
 		if(!is_object($res))
 			return $this->error("Cannot get info on Mangas for Jornada:$j");
+		
 		if ($res->Result>0){
-			$this->myLogger->info("Jornada:$j Manga:$tipo already exists. exit OK");
-			return "";
+			$this->myLogger->info("Jornada:$j Manga:$tipo already exists");
+		} else {
+			$observaciones = http_request("Observaciones","s","");
+			$str="INSERT INTO Mangas ( Jornada , Tipo, Grado, Observaciones ) VALUES ($j,$tipo,'$grado','$observaciones')";
+			$rs=$this->query($str);
+			if (!$rs) return $this->error($this->conn->error); 
 		}
-		$observaciones = http_request("Observaciones","s","");
-		$str="INSERT INTO Mangas ( Jornada , Tipo, Grado, Observaciones ) VALUES ($j,$tipo,'$grado','$observaciones')";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error); 
+
+		/* si la prueba es selectiva ajustamos tipo de recorrido, y TRS */
+		if ($this->pruebaObj->Selectiva!=0) {
+			$doSelectiva=false;
+			if ( ($this->pruebaObj->RSCE==0) && ($tipo==6) ) $doSelectiva=true; // RSCE Agility Grado III
+			if ( ($this->pruebaObj->RSCE==0) && ($tipo==11) ) $doSelectiva=true; // RSCE Jumping Grado III
+			if ( ($this->pruebaObj->RSCE!=0) && ($tipo==5) ) $doSelectiva=true; // RFEC Jumping Grado II
+			if ( ($this->pruebaObj->RSCE!=0) && ($tipo==10) ) $doSelectiva=true; // RFEC Jumping Grado II
+			if ($doSelectiva) {
+				$str="UPDATE Mangas
+				SET Recorrido=0,
+				TRS_L_Tipo=1, TRS_M_Tipo=1, TRS_S_Tipo=1, TRS_T_Tipo=1,
+				TRS_L_Factor=10, TRS_M_Factor=10, TRS_S_Factor=10, TRS_T_Factor=10,
+				TRS_L_Unit='%', TRS_M_Unit='%', TRS_S_Unit='%', TRS_T_Unit='%'
+				WHERE ( Jornada=$j ) AND  ( Tipo=$tipo ) AND ( Grado='$grado' )";
+				$rs=$this->query($str);
+				if (!$rs) return $this->error($this->conn->error);
+			}
+		}
+
 		$this->myLogger->leave();
 		return "";
 	}
