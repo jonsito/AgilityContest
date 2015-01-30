@@ -87,20 +87,19 @@ class Admin {
 	
 	public function backup() {
 		
-		$n=$this->myConfig->getEnv('database_name');
-		$h=$this->myConfig->getEnv('database_host');
-		$u=$this->myConfig->getEnv('database_user');
-		$p=$this->myConfig->getEnv('database_pass');
+		$dbname=$this->myConfig->getEnv('database_name');
+		$dbhost=$this->myConfig->getEnv('database_host');
+		$dbuser=$this->myConfig->getEnv('database_user');
+		$dbpass=$this->myConfig->getEnv('database_pass');
 		
-		
-		$cmd="mysqldump";
-		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') $cmd="\\xampp\\mysql\\bin\\mysqldump.exe";
-		$cmd = "$cmd --single-transaction -u $u@$h -p$p $n";
+		$cmd="mysqldump"; // unix
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') $cmd='"\xampp\mysql\bin\mysqldump.exe"';
+		$cmd = "$cmd --opt -h $dbhost -u$dbuser -p$dbpass $dbname";
 		$this->myLogger->info("Ejecutando comando: '$cmd'");
 		$input = popen($cmd, 'r');
 		if ($input===FALSE) { $this->errorMsg="adminFunctions::popen() failed"; return null;}
 		
-		$fname="$n-".date("Ymd_Hi").".sql";
+		$fname="$dbname-".date("Ymd_Hi").".sql";
 		header('Content-Type: text/plain; charset=utf-8');
 		header('Content-Disposition: attachment; filename="'.$fname.'"');
 		
