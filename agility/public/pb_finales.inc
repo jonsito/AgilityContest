@@ -62,11 +62,11 @@ $('#pb_enumerateFinales').combogrid({
 	onChange:function(value){
 		var row=$('#pb_enumerateFinales').combogrid('grid').datagrid('getSelected');
 		if (!row) return;
-		workingData.manga1=row.Manga1;
+		workingData.manga=row.Manga1;
 		workingData.manga2=row.Manga2;
 		workingData.tanda=0; // fake tanda. use manga+mode to evaluate results
 		workingData.mode=row.Mode;
-		alert(JSON.stringify(workingData));
+		workingData.recorrido=row.Recorrido;
 		pb_updateFinales();
 	}
 });

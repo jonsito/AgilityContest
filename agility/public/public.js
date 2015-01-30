@@ -58,6 +58,21 @@ function pb_updateResults() {
 	});
 }
 
-function pb_updateFinales() {
-	alert("public::updateFinales() TODO: write");
+function pb_updateFinales() {	$.ajax( {
+	type: "GET",
+	dataType: 'html',
+	url: "/agility/server/videowall.php",
+	data: {
+		Operation: 'clasificaciones',
+		Prueba: workingData.prueba,
+		Jornada: workingData.jornada,
+		Manga: workingData.manga,
+		Manga2: workingData.manga2,
+		Recorrido: workingData.recorrido,
+		Mode: workingData.mode
+	},
+	success: function(data,status,jqxhr) {
+		$('#pb_resultadosFinales').html(data);
+	}
+});
 }
