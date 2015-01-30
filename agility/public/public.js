@@ -57,3 +57,7 @@ function pb_updateResults() {
 		}
 	});
 }
+
+function pb_updateFinales() {
+	alert("public::updateFinales() TODO: write");
+}

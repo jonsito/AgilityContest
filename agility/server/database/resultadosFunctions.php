@@ -40,7 +40,8 @@ try {
 		case "delete": $am->access(PERMS_OPERATOR); $result=$resultados->delete($idperro); break;
 		case "select": $result=$resultados->select($idperro); break;
 		case "getResultados": $result=$resultados->getResultados($mode); break;
-		case "enumerateResultados": $result=$resultados->enumerateResultados($JornadaID); break;
+		case "enumerateResultados": $result=Resultados::enumerateResultados($JornadaID); break;
+		case "enumerateClasificaciones": $result=Resultados::enumerateClasificaciones($JornadaID); break;
 		case "getTRS": $result=$resultados->getTRS($mode); break;
 		default: throw new Exception("resultadosFunctions:: invalid operation: $operation provided");
 	}

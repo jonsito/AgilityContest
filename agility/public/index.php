@@ -206,7 +206,7 @@ function public_acceptSelection() {
 		page="/agility/public/pb_parciales.inc";
 		break;
 	case 'clasificaciones':
-		page="/agility/public/pb_clasificaciones.inc";
+		page="/agility/public/pb_finales.inc";
 		break;
 	case 'podios':
 		page="/agility/public/pb_podios.inc";
