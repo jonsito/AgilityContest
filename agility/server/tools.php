@@ -73,6 +73,7 @@ function escapeString($str) {
  * @return requested value (int,string,bool) or null if invalid type
  */
 function http_request($name,$type,$def,$esc=true) {
+	$t=array (1,true,"1","on","true","si","yes","ja","oui");
 	$a=$def;
 	if (isset($_REQUEST[$name])) $a=$_REQUEST[$name];
 	if ($a===null) return null;
@@ -81,7 +82,10 @@ function http_request($name,$type,$def,$esc=true) {
 			if ($esc) return escapeString(strval($a));
 			return strval($a);
 		case "i": return intval($a);
-		case "b": return boolval($a);
+		case "b":
+			if ($a==="") return $def;
+			foreach($t as $item) { if ($a===$item) return true; }
+			return false;
 		case "d": 
 		case "f": return doubleval($a);
 	}
