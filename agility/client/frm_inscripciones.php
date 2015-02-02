@@ -48,16 +48,7 @@ $('#selprueba-window').window({
 	closable: true,
 	closed: true,
 	shadow: true,
-	modal: true,
-	onClose: function () {
-		var title="";
-		var page="/agility/client/frm_main.php";
-		if(workingData.prueba!=0) {
-			page="/agility/client/frm_inscripciones2.php";
-			title="Inscripciones - Formulario de registro";
-		}
-		loadContents(page,title,{'inscripciones':'#new_inscripcion-dialog', 'equipos':'#team_datagrid-dialog'});
-	}
+	modal: true
 });
 
 addTooltip($('#selprueba-okBtn').linkbutton(),"Trabajar con la prueba seleccionada");
@@ -83,32 +74,36 @@ $('#selprueba-Search').combogrid({
 	multiple: false,
 	fitColumns: true,
 	singleSelect: true,
-	selectOnNavigation: false 
+	selectOnNavigation: false,
+	onLoadSuccess: function(data) {
+		if (workingData.prueba!=0) $('#selprueba-Search').combogrid('setValue',workingData.prueba);
+	}
 });
 
 function acceptSelectPrueba() {
 	// si no hay ninguna prueba valida seleccionada aborta
+	var title="";
+	var page="/agility/client/frm_main.php";
 	var p=$('#selprueba-Search').combogrid('grid').datagrid('getSelected');
 	if (p==null) {
 		// indica error
 		$.messager.alert("Error","Debe indicar una prueba v&aacute;lida","error");
 		return;
-	} 
-	workingData.prueba=p.ID;
-	workingData.nombrePrueba=p.Nombre;
-	workingData.datosPrueba=p;
-	$('#selprueba-Search').combogrid('setValue','');
-	$('#selprueba-window').window('close');	
+	} else {
+		setPrueba(p);
+		page="/agility/client/frm_inscripciones2.php";
+		title="Inscripciones - Formulario de registro";
+	}
+	$('#selprueba-window').window('close');
+	loadContents(page,title,{'inscripciones':'#new_inscripcion-dialog', 'equipos':'#team_datagrid-dialog'});
 }
 
 function cancelSelectPrueba() {
-	initWorkingData();
-	$('#selprueba-Search').combogrid('setValue','');
+	var title="";
+	var page="/agility/client/frm_main.php";
 	$('#selprueba-window').window('close');
+	loadContents(page,title);
 }
-
-// make sure working data are clean
-initWorkingData();
 
 // display prueba selection dialog
 $('#selprueba-window').window('open');

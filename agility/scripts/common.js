@@ -157,8 +157,43 @@ function isMobileDevice() {
 	  }
 	 else {
 	    return false;
-	  }
+	 }
+}
+
+/**
+ * Set prueba from selection dialogs
+ * On change also reset jornada info
+ * @param {object} data prueba data
+ */
+function setPrueba(data) {
+	var old=workingData.prueba;
+	workingData.prueba=Number(data.ID);
+	workingData.nombrePrueba=data.Nombre;
+	workingData.datosPrueba=data;
+	if(workingData.prueba!=old) {
+		workingData.jornada=0;
+		workingData.nombreJornada="";
+		workingData.datosJornada=new Object();
 	}
+}
+
+/**
+ * Set jornada from selection dialogs
+ * On change also reset manga info
+ * @param {object} data jornada info
+ */
+function setJornada(data) {
+	var old=workingData.jornada;
+	workingData.jornada=Number(data.ID);
+	workingData.nombreJornada=data.Nombre;
+	workingData.datosJornada=data;
+	if(workingData.jornada!=old) {
+		workingData.manga=0;
+		workingData.nombreManga="";
+		workingData.datosJornada=new Object();
+	}
+}
+
 /**
  * @param {integer} id SessionID
  * Initialize working data information object

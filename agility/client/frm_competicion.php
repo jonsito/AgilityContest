@@ -57,7 +57,6 @@ $('#seljornada-window').window({
 	} 
 });
 
-initWorkingData();
 $('#seljornada-window').window('open');
 
 </script>
