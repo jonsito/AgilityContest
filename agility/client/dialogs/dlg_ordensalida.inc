@@ -31,7 +31,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	   	<a id="ordensalida-saveBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls:'icon-save'" onclick="saveOrdenSalida()">Guardar</a>
 	   	<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenSalida()">Actualizar</a>
+	   		data-options="iconCls:'icon-reload'" onclick="reloadAndCheck()">Actualizar</a>
    		</span>
    		<span style="float:right;padding:5px">
    		<!-- estos elementos deben estar alineados a la derecha -->
@@ -89,7 +89,8 @@ $('#ordensalida-datagrid').datagrid({
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
     },
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
-    onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes) and enable drag and drop
+    onLoadSuccess: function(data) {
+        // get focus on datagrid (to bind keystrokes) and enable drag and drop
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
     },

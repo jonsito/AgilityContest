@@ -360,6 +360,46 @@ function reloadOrdenTandas() {
     );
 }
 
+function proximityAlert() {
+	var data=$('#ordensalida-datagrid').datagrid('getRows');
+	var idx=0;
+	var guias= [];
+	var lista="<br />";
+	for (idx=0;idx<data.length;idx++) {
+		var NombreGuia=data[idx].NombreGuia;
+		// not yet declared: store perro and orden
+		if ( !(NombreGuia in guias) ) {
+			guias[NombreGuia] = { 'index': idx, 'perro': data[idx].Nombre }; 
+			continue; 
+		} 
+		// already declared: eval distance
+		dist=idx-guias[NombreGuia].index;
+		if (dist>5) {
+			// declared but more than 5 dogs ahead. reset index and continue
+			guias[NombreGuia] = { 'index': idx, 'perro': data[idx].Nombre }; 
+			continue;
+		}
+		// arriving here means that a dog is closer than 5 steps from previous one from same guia.
+		// store to notify later
+		lista = lista + NombreGuia+": " +
+				guias[NombreGuia].index+":" + guias[NombreGuia].perro +
+				" ---  " + 
+				idx +":" + data[idx].Nombre + 
+				"<br />";
+	}
+	// arriving here means work done
+	if (lista!=="") {
+		var w=$.messager.alert('Aviso','<p>Lista de gu&iacute;as con perros demasiado juntos:</p><p>'+lista+'</p>','warning');
+		w.window('resize',{width:350}).window('center');
+	} else {
+		$.messager.alert('Buscar','No encuentro perros del mismo guia juntos','info');
+	}
+}
+
+function reloadAndCheck() {
+	proximityAlert();
+}
+
 function reloadOrdenSalida() {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
@@ -654,6 +694,11 @@ function evalOrdenSalida(mode) {
 	if (workingData.prueba==0) return;
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
+	if (mode==='random') {
+		$.messager.confirm('Confirmar', 'Se perderan todos los ajustes hechos a mano<br />Desea continuar?', function(r){
+			if (!r){ return; }
+		});
+	}
 	$.ajax({
 		type:'GET',
 		url:"/agility/server/database/ordenSalidaFunctions.php",
