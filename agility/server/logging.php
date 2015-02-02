@@ -33,13 +33,24 @@ define ("LEVEL_NONE",-1);
 class Logger {
 	private $basename;
 	private $level;
-	private static $levels= array("PANIC","ALERT","ERROR","WARN","NOTICE","INFO","DEBUG","TRACE");
+	private static $levels= array("PANIC","ALERT","ERROR","WARN","NOTICE","INFO","DEBUG","TRACE","ALL");
 		
 	function __construct($name,$level=LEVEL_ALL) {
 		$this->basename=$name;
-		$this->level=$level;
+		$this->setLevel($level);
 	}	
 
+	function setLevel($level) {
+		if (is_int($level) ) {$this->level=$level; return; }
+		foreach ($levels as $idx => $lvl) { 
+			if ( strtoupper($level)==$lvl) { $this->level=$idx; return; }
+		} 
+	}
+	
+	function getLevel() {
+		return $this->level;
+	}
+	
 	function log($level,$msg) {
 		if ($level>$this->level) return;
 		$trace=debug_backtrace();
