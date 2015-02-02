@@ -29,6 +29,9 @@ define ('AC_LANG','es');
 /** logging **/
 define('AC_DEBUG_LEVEL','none');
 
+/** variables de la aplicacion principal **/
+define('AC_PROXIMITY_ALERT',5);
+
 /** base de datos **/
 define('AC_DATABASE_NAME','agility');
 define('AC_DATABASE_HOST','localhost');
@@ -85,6 +88,8 @@ Class Config {
 
 		// Internacionalizacion. Idiomas
 		$this->config['lang'] =	AC_LANG;
+		// variables del sistema
+		$this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
 		
 		// database
 		$this->config['database_name'] =	AC_DATABASE_NAME;
@@ -192,8 +197,10 @@ Class Config {
 		$data=array();
 
 		// skip version info/date as cannot be edited by user
-		
+
 		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
+		$this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
+		
 		// configuracion de la consola
 		$data['easyui_theme'] = 	AC_EASYUI_THEME;
 		$data['easyui_bgcolor'] =	AC_EASYUI_BGCOLOR;
@@ -269,6 +276,7 @@ Class Config {
 		$data=testAndSet($data,'lang','s',AC_LANG);
 		// logging
 		$data=testAndSet($data,'debug_level','s',AC_DEBUG_LEVEL);
+		$data=testAndSet($data,'proximity_alert','i',AC_PROXIMITY_ALERT);
 		
 		// finally write file:
 		$res=array_merge($this->config,$data);

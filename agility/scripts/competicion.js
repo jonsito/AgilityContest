@@ -374,7 +374,7 @@ function proximityAlert() {
 		} 
 		// already declared: eval distance
 		dist=idx-guias[NombreGuia].index;
-		if (dist>5) {
+		if (dist>ac_config.proximity_alert) {
 			// declared but more than 5 dogs ahead. reset index and continue
 			guias[NombreGuia] = { 'index': idx, 'perro': data[idx].Nombre }; 
 			continue;
@@ -388,11 +388,11 @@ function proximityAlert() {
 				"<br />";
 	}
 	// arriving here means work done
-	if (lista!=="") {
+	if (lista==="<br />") {
+		$.messager.alert('Buscar','No aparecen perros del mismo guia juntos','info');
+	} else {
 		var w=$.messager.alert('Aviso','<p>Lista de gu&iacute;as con perros demasiado juntos:</p><p>'+lista+'</p>','warning');
 		w.window('resize',{width:350}).window('center');
-	} else {
-		$.messager.alert('Buscar','No encuentro perros del mismo guia juntos','info');
 	}
 }
 
@@ -696,22 +696,22 @@ function evalOrdenSalida(mode) {
 	if (workingData.manga==0) return;
 	if (mode==='random') {
 		$.messager.confirm('Confirmar', 'Se perderan todos los ajustes hechos a mano<br />Desea continuar?', function(r){
-			if (!r){ return; }
+			if (!r) return;
+			$.ajax({
+				type:'GET',
+				url:"/agility/server/database/ordenSalidaFunctions.php",
+				dataType:'json',
+				data: {
+					Prueba: workingData.prueba,
+					Jornada: workingData.jornada,
+					Manga: workingData.manga,
+					Operation: mode
+				}
+			}).done( function(msg) {
+				reloadOrdenSalida();
+			});
 		});
 	}
-	$.ajax({
-		type:'GET',
-		url:"/agility/server/database/ordenSalidaFunctions.php",
-		dataType:'json',
-		data: {
-			Prueba: workingData.prueba,
-			Jornada: workingData.jornada,
-			Manga: workingData.manga,
-			Operation: mode
-		}
-	}).done( function(msg) {
-		reloadOrdenSalida();
-	});
 }
 
 // reajusta el orden de salida 

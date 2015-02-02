@@ -30,8 +30,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	   		data-options="iconCls:'icon-updown'" onclick="evalOrdenSalida('reverse')">Manga anterior</a>
 	   	<a id="ordensalida-saveBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls:'icon-save'" onclick="saveOrdenSalida()">Guardar</a>
-	   	<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-reload'" onclick="reloadAndCheck()">Actualizar</a>
+	   	<a id="ordensalida-checkBtn" href="#" class="easyui-linkbutton" 
+	   		data-options="iconCls:'icon-help'" onclick="reloadAndCheck()">Revisar</a>
    		</span>
    		<span style="float:right;padding:5px">
    		<!-- estos elementos deben estar alineados a la derecha -->
@@ -111,7 +111,7 @@ $('#ordensalida-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0
 });
 
 // botones
-addTooltip($('#ordensalida-reloadBtn').linkbutton(),"Actualizar el orden de salida desde base de datos");
+addTooltip($('#ordensalida-checkBtn').linkbutton(),"Actualizar. Verificar 'alertas de proximidad' <br/>entre perros del mismo gu&iacute;a");
 addTooltip($('#ordensalida-randomBtn').linkbutton(),"Generar un nuevo orden de salida aleatorio");
 addTooltip($('#ordensalida-resultBtn').linkbutton(),"Orden de salida inverso a resultados de primera manga");
 addTooltip($('#ordensalida-saveBtn').linkbutton(),"Guardar orden de salida en base de datos");

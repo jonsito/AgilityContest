@@ -75,7 +75,51 @@ function myRowStyler(idx,row) {
 	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; };
 }
- 
+
+var ac_config= {
+		// version, logging y depuracion
+		'debug_level'		: '<?php echo $config->getEnv('debug_level'); ?>',
+		'version_name'		: '<?php echo $config->getEnv('version_name'); ?>',
+		'version_date'		: '<?php echo $config->getEnv('version_date'); ?>',
+
+		// Internacionalizacion. Idiomas
+		'lang'				: '<?php echo $config->getEnv('lang'); ?>',
+		// variables del sistema
+		'proximity_alert'	: <?php echo $config->getEnv('proximity_alert'); ?>,
+		
+		// entorno grafico
+		'easyui_theme' 		: '<?php echo $config->getEnv('easyui_theme'); ?>',
+		'easyui_bgcolor'	: '<?php echo $config->getEnv('easyui_bgcolor'); ?>',
+		'easyui_hdrcolor'	: '<?php echo $config->getEnv('easyui_hdrcolor'); ?>',
+		'easyui_opcolor'	: '<?php echo $config->getEnv('easyui_opcolor'); ?>',
+		'easyui_rowcolor1'	: '<?php echo $config->getEnv('easyui_rowcolor1'); ?>',
+		'easyui_rowcolor2'	: '<?php echo $config->getEnv('easyui_rowcolor2'); ?>',
+		// configuracion del videowall
+		'vw_polltime'		: <?php echo $config->getEnv('vw_polltime'); ?>,
+		'vw_alpha'			: <?php echo $config->getEnv('vw_alpha'); ?>,
+		'vw_hdrfg1'			: '<?php echo $config->getEnv('vw_hdrfg1'); ?>',
+		'vw_hdrbg1'			: '<?php echo $config->getEnv('vw_hdrbg1'); ?>',
+		'vw_hdrfg2'			: '<?php echo $config->getEnv('vw_hdrfg2'); ?>',
+		'vw_hdrbg2'			: '<?php echo $config->getEnv('vw_hdrbg2'); ?>',
+		'vw_rowcolor1'		: '<?php echo $config->getEnv('vw_rowcolor1'); ?>',
+		'vw_rowcolor2'		: '<?php echo $config->getEnv('vw_rowcolor2'); ?>',
+		// generacion de PDF's
+		'pdf_topmargin'		: '<?php echo $config->getEnv('pdf_topmargin'); ?>',
+		'pdf_leftmargin'	: '<?php echo $config->getEnv('pdf_leftmargin'); ?>',
+		'pdf_hdrfg1'		: '<?php echo $config->getEnv('pdf_hdrfg1'); ?>',
+		'pdf_hdrbg1'		: '<?php echo $config->getEnv('pdf_hdrbg1'); ?>',
+		'pdf_hdrfg2'		: '<?php echo $config->getEnv('pdf_hdrfg2'); ?>',
+		'pdf_hdrbg2'		: '<?php echo $config->getEnv('pdf_hdrbg2'); ?>',
+		'pdf_rowcolor1'		: '<?php echo $config->getEnv('pdf_rowcolor1'); ?>',
+		'pdf_rowcolor2'		: '<?php echo $config->getEnv('pdf_rowcolor2'); ?>',
+		'pdf_linecolor'		: '<?php echo $config->getEnv('pdf_linecolor'); ?>',
+		
+		// personalizacion del tablet
+		'tablet_beep'		: <?php echo $config->getEnv('tablet_beep'); ?>,
+		'tablet_dnd'		: <?php echo $config->getEnv('tablet_dnd'); ?>,
+		'tablet_crono'		: <?php echo $config->getEnv('tablet_crono'); ?>
+}
+
 </script>
 <style>
 /* Common CSS tags for Agility Contest */
