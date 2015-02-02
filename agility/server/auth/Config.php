@@ -19,6 +19,16 @@
 /** default values **/
 define('AC_CONFIG_FILE',__DIR__."/config.ini");
 
+/** version */
+define('AC_VERSION_NAME','1.0');
+define('AC_VERSION_DATE','20130901_0000');
+
+/** Internacionalizacion. Idiomas **/
+define ('AC_LANG','es');
+
+/** logging **/
+define('AC_DEBUG_LEVEL','none');
+
 /** base de datos **/
 define('AC_DATABASE_NAME','agility');
 define('AC_DATABASE_HOST','localhost');
@@ -54,8 +64,11 @@ define('AC_PDF_ROWCOLOR1','#ffffff');
 define('AC_PDF_ROWCOLOR2','#e0ebff');
 define('AC_PDF_LINECOLOR','#808080');
 
-/** Internacionalizacion. Idiomas **/
-define ('AC_LANG','es');
+/** personalizacion del tablet **/
+define('AC_TABLET_BEEP',false);
+define('AC_TABLET_DND',false);
+define('AC_TABLET_CRONO',false);
+
 
 Class Config {
 	
@@ -64,6 +77,15 @@ Class Config {
 	function __construct() {
 
 		/** cargamos los valores por defecto **/
+		
+		// version, logging y depuracion
+		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
+		$this->config['version_name'] =	AC_VERSION_NAME;
+		$this->config['version_date'] =	AC_VERSION_DATE;
+
+		// Internacionalizacion. Idiomas
+		$this->config['lang'] =	AC_LANG;
+		
 		// database
 		$this->config['database_name'] =	AC_DATABASE_NAME;
 		$this->config['database_host'] =	AC_DATABASE_HOST;
@@ -95,8 +117,11 @@ Class Config {
 		$this->config['pdf_rowcolor1'] =	AC_PDF_ROWCOLOR1;
 		$this->config['pdf_rowcolor2'] =	AC_PDF_ROWCOLOR2;
 		$this->config['pdf_linecolor'] =	AC_PDF_LINECOLOR;
-		// Internacionalizacion. Idiomas
-		$this->config['lang'] =	AC_LANG;
+		
+		// personalizacion del tablet
+		$this->config['tablet_beep'] =	AC_TABLET_BEEP;
+		$this->config['tablet_dnd'] =	AC_TABLET_DND;
+		$this->config['tablet_crono'] =	AC_TABLET_CRONO;
 		
 		// ahora intentamos leer el fichero de configuracion
 		$res=parse_ini_file(AC_CONFIG_FILE,false); // false: don't parse subsections
@@ -165,6 +190,11 @@ Class Config {
 	
 	function defaultConfig() {
 		$data=array();
+
+		// skip version info/date as cannot be edited by user
+		
+		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
+		// configuracion de la consola
 		$data['easyui_theme'] = 	AC_EASYUI_THEME;
 		$data['easyui_bgcolor'] =	AC_EASYUI_BGCOLOR;
 		$data['easyui_hdrcolor'] =	AC_EASYUI_HDRCOLOR;
@@ -190,6 +220,10 @@ Class Config {
 		$data['pdf_rowcolor1'] =	AC_PDF_ROWCOLOR1;
 		$data['pdf_rowcolor2'] =	AC_PDF_ROWCOLOR2;
 		$data['pdf_linecolor'] =	AC_PDF_LINECOLOR;
+		// tablet
+		$this->config['tablet_beep'] =	AC_TABLET_BEEP;
+		$this->config['tablet_dnd'] =	AC_TABLET_DND;
+		$this->config['tablet_crono'] =	AC_TABLET_CRONO;
 		// Internacionalizacion. Idiomas
 		$data['lang'] =	AC_LANG;
 		$res=array_merge($this->config,$data);
@@ -227,8 +261,15 @@ Class Config {
 		$data=testAndSet($data,'pdf_rowcolor1','s',AC_PDF_ROWCOLOR1);
 		$data=testAndSet($data,'pdf_rowcolor2','s',AC_PDF_ROWCOLOR2);
 		$data=testAndSet($data,'pdf_linecolor','s',AC_PDF_LINECOLOR);
+		// tablet
+		$data=testAndSet($data,'tablet_beep','s',AC_TABLET_BEEP);
+		$data=testAndSet($data,'tablet_dnd','s',AC_TABLETDND);
+		$data=testAndSet($data,'tablet_crono','s',AC_TABLET_CRONO);
 		// Internacionalizacion. Idiomas
 		$data=testAndSet($data,'lang','s',AC_LANG);
+		// logging
+		$data=testAndSet($data,'debug_level','s',AC_DEBUG_LEVEL);
+		
 		// finally write file:
 		$res=array_merge($this->config,$data);
 		$result=$this->write_ini_file($res,AC_CONFIG_FILE);
