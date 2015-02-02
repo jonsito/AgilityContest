@@ -270,7 +270,7 @@ Class Config {
 		$data=testAndSet($data,'pdf_linecolor','s',AC_PDF_LINECOLOR);
 		// tablet
 		$data=testAndSet($data,'tablet_beep','s',AC_TABLET_BEEP);
-		$data=testAndSet($data,'tablet_dnd','s',AC_TABLETDND);
+		$data=testAndSet($data,'tablet_dnd','s',AC_TABLET_DND);
 		$data=testAndSet($data,'tablet_crono','s',AC_TABLET_CRONO);
 		// Internacionalizacion. Idiomas
 		$data=testAndSet($data,'lang','s',AC_LANG);
