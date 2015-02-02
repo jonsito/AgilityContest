@@ -27,7 +27,7 @@ define('AC_VERSION_DATE','20130901_0000');
 define ('AC_LANG','es');
 
 /** logging **/
-define('AC_DEBUG_LEVEL','none');
+define('AC_DEBUG_LEVEL',0);
 
 /** variables de la aplicacion principal **/
 define('AC_PROXIMITY_ALERT',5);
@@ -275,7 +275,7 @@ Class Config {
 		// Internacionalizacion. Idiomas
 		$data=testAndSet($data,'lang','s',AC_LANG);
 		// logging
-		$data=testAndSet($data,'debug_level','s',AC_DEBUG_LEVEL);
+		$data=testAndSet($data,'debug_level','i',AC_DEBUG_LEVEL);
 		$data=testAndSet($data,'proximity_alert','i',AC_PROXIMITY_ALERT);
 		
 		// finally write file:
