@@ -21,16 +21,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<div id="config-tabs" class="easyui-tabs" data-options="tabPosition:'left'" style="width:100%;height:auto">
 		<input id="config-Operation" type="hidden" name="Operation" value="saveConfig"/>
 		<!-- TODO: Los parametros de la base de datos solo se deben presentar en el primer arranque -->
-		
-		<div title="General" style="padding:10px">
-			<h3>Configuraci&oacute;n general</h3>
-			<label for="lang">Idioma</label>
-			<select id="config_lang" name="lang">
-				<option value="es" selected="selected">Espa&ntilde;ol</option>
-				<option value="en">Ingl&eacute;s</option>
-			</select>
-		</div>
-		
+
 		<div title="Escritorio" style="padding:10px">		
 			<h3>Apariencia del escritorio</h3>
 			<label for="easyui_theme">Tema del escritorio</label>
@@ -58,7 +49,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<input type="checkbox" name="tablet_beep" value="1"/><br />
 			<label for="tablet_dnd">Orden de salida ajustable desde el tablet</label> 
 			<input type="checkbox" name="tablet_dnd" value="1"/><br />
-			<label for="tablet_crono">Mostrar datos de cronometro en tablet</label> 
+			<label for="tablet_crono">Mostrar datos de cron&oacute;metro en tablet</label> 
 			<input type="checkbox" name="tablet_crono" value="1"/><br />
 		</div>
 		
@@ -107,7 +98,30 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<div title="Internet" style="padding:10px">
 		<h3>Acceso p&uacute;blico v&iacute;a web</h3>
 		</div>
-		
+				
+		<div title="Sistema" style="padding:10px">
+			<h3>Configuraci&oacute;n general</h3>
+			<label for="lang">Idioma</label>
+			<select id="config_lang" name="lang">
+				<option value="es" selected="selected">Espa&ntilde;ol</option>
+				<option value="en">Ingl&eacute;s</option>
+			</select><br />
+			<label for="debug_level">Nivel de depuracion</label>
+			<select id="debug_level" name="debug_level">
+				<!-- "PANIC","ALERT","ERROR","WARN","NOTICE","INFO","DEBUG","TRACE","ALL" -->
+				<option value="0" >Ninguno.</option>
+				<option value="1" >Alertas de sistema inutilizable</option>
+				<option value="2" selected="selected">Errores no recuperables</option>
+				<option value="3" >Errores recuperables</option>
+				<option value="4" >Avisos a tener en cuenta</option>
+				<option value="5" >Mensajes informativos</option>
+				<option value="6">Informaci&oacute;n de depuraci&oacute;n</option>
+				<option value="7">Registrar trazas de ejecuci&oacute;n</option>
+				<option value="8">Registrar absolutamente todo</option>
+			</select><br />
+			<label for="proximity_alert">Alerta de proximidad en orden de salida</label>
+			<input type="number" min="1" max="20" "size="2" value="5" name="proximity_alert"/> Perros<br />
+		</div>
 	</div>
 	</form>
 </div>
