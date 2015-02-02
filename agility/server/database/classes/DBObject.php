@@ -38,13 +38,14 @@ class DBObject {
 	function __construct($file) {
 		// connect database
 		$this->file=$file;
-		$this->myLogger= new Logger($file);
 		$this->cache=array();
 		$config=new Config();
 		$h=$config->getEnv("database_host");
 		$n=$config->getEnv("database_name");
 		$u=$config->getEnv("database_user");
 		$p=$config->getEnv("database_pass");
+		$l=$config->getEnv("debug_level");
+		$this->myLogger= new Logger($file,$l);
 		$this->conn=DBConnection::openConnection($h,$n,$u,$p);
 		if (!$this->conn) {
 			$this->errormsg="$file::construct() cannot contact database";

@@ -73,7 +73,7 @@ function escapeString($str) {
  * @return requested value (int,string,bool) or null if invalid type
  */
 function http_request($name,$type,$def,$esc=true) {
-	$t=array (1,true,"1","on","true","si","yes","ja","oui");
+	$t=array (1,true,"1","t","T","true","True","TRUE","on","On","ON","s","S","si","Si","SI","y","Y","yes","Yes","YES");
 	$a=$def;
 	if (isset($_REQUEST[$name])) $a=$_REQUEST[$name];
 	if ($a===null) return null;
