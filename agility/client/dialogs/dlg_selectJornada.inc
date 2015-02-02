@@ -80,9 +80,18 @@ $('#seljornada-Prueba').combogrid({
 			{field:'Observaciones',title:'Observaciones.',width:30,align:'right'}
 	]],
 	onChange:function(value){
-		workingData.prueba=Number(value);
+		var p=$('#seljornada-Prueba').combogrid('grid').datagrid('getSelected');
+		if (p==null) return;
+		setPrueba(p);
 		var g = $('#seljornada-Jornada').combogrid('grid');
 		g.datagrid('load',{Prueba:value});
+	},
+	onLoadSuccess: function(data) {
+		if (workingData.prueba!=0) $('#seljornada-Prueba').combogrid('setValue',workingData.prueba);
+		else {
+			$('#seljornada-Prueba').combogrid('grid').datagrid('clearSelections');
+			$('#seljornada-Jornada').combogrid('grid').datagrid('clearSelections');
+		}
 	}
 });
 
@@ -123,6 +132,9 @@ $('#seljornada-Jornada').combogrid({
 		param.AllowClosed=<?php echo $allowClosed;?>;
 		param.HideUnassigned=1;
 		return true;
+	},
+	onLoadSuccess: function(data) {
+		if (workingData.jornada!=0) $('#seljornada-Jornada').combogrid('setValue',workingData.jornada);
 	}
 });
 
@@ -135,24 +147,13 @@ function acceptSelectJornada() {
 		$.messager.alert("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
 		return;
 	}
-	// clear selection to make sure next time gets empty
-	$('#seljornada-Prueba').combogrid('setValue','');
-	$('#seljornada-Jornada').combogrid('setValue','');
 	// store selected data into global structure
-	workingData.prueba=p.ID;
-	workingData.nombrePrueba=p.Nombre;
-	workingData.datosPrueba=p;
-	workingData.datosJornada=j;
-	workingData.jornada=j.ID;
-	workingData.nombreJornada=j.Nombre;
-	workingData.datosJornada=j;
+	setPrueba(p);
+	setJornada(j);
 	$('#seljornada-window').window('close');	
 }
 
 function cancelSelectJornada() {
-	initWorkingData();
-	$('#seljornada-Prueba').combogrid('setValue','');
-	$('#seljornada-Jornada').combogrid('setValue','');
 	$('#seljornada-window').window('close');
 }
 </script>
