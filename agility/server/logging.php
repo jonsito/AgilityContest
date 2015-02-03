@@ -42,7 +42,7 @@ class Logger {
 
 	function setLevel($level) {
 		if (is_int($level) ) {$this->level=$level; return; }
-		foreach ($levels as $idx => $lvl) { 
+		foreach (Logger::$levels as $idx => $lvl) { 
 			if ( strtoupper($level)==$lvl) { $this->level=$idx; return; }
 		} 
 	}
