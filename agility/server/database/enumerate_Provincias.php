@@ -50,7 +50,7 @@ class Provincias extends DBObject {
 		}
 		// retrieve result into an array
 		$items = array();
-		while($row = $rs->fetch_array()){
+		while($row = $rs->fetch_array(MYSQLI_ASSOC)){
 			array_push($items, $row);
 		}
 		$rs->free();

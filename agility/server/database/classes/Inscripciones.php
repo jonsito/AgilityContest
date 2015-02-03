@@ -256,7 +256,7 @@ class Inscripciones extends DBObject {
 	
 		// Fase 2: la tabla de resultados a devolver
 		$data = array(); // result { total(numberofrows), data(arrayofrows)
-		while($row = $rs->fetch_array()) {
+		while($row = $rs->fetch_array(MYSQLI_ASSOC)) {
 			$row['J1']=($row['Jornadas']&0x0001)?1:0;
 			$row['J2']=($row['Jornadas']&0x0002)?1:0;
 			$row['J3']=($row['Jornadas']&0x0004)?1:0;
@@ -328,7 +328,7 @@ class Inscripciones extends DBObject {
 	
 		// Fase 2: la tabla de resultados a devolver
 		$data = array(); // result { total(numberofrows), data(arrayofrows)
-		while($row = $rs->fetch_array()) {
+		while($row = $rs->fetch_array(MYSQLI_ASSOC)) {
 			$row['J1']=($row['Jornadas']&0x0001)?1:0;
 			$row['J2']=($row['Jornadas']&0x0002)?1:0;
 			$row['J3']=($row['Jornadas']&0x0004)?1:0;
