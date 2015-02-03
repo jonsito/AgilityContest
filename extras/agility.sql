@@ -3834,7 +3834,9 @@ CREATE TABLE IF NOT EXISTS `tandas` (
   `Nombre` varchar(255) NOT NULL,
   `Categoria` varchar(1) NOT NULL,
   `Grado` varchar(16) NOT NULL,
-  `Horario` varchar(128) DEFAULT NULL
+  `Horario` varchar(128) DEFAULT NULL,
+  `ID` int(4) NOT NULL,
+  `Comentario` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
