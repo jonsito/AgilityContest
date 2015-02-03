@@ -575,9 +575,10 @@ class Tandas extends DBObject {
 			if ($obj!=null) $last=1+intval($obj->Last); // evaluate latest in order
 			// check for already inserted into Tandas
 			$obj=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Tipo=$tipo)");
-			if ($obj==null) { // insert into list at end
+			if ($obj==null) { // insert into list at end. NOTICE Fake Categoria/Grado to mantain backwards compatibility
 				$n=Tandas::$tipo_tanda[$tipo]['Nombre'];
-				$str="INSERT INTO Tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre) VALUES ($tipo,$p,$j,1,$last,'$n')";
+				$str="INSERT INTO Tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Categoria,Grado) 
+					VALUES ($tipo,$p,$j,1,$last,'$n','-','-')";
 				$rs=$this->query($str);
 				if (!$rs) return $this->error($this->conn->error); 
 			} else { // move to the end of the list
