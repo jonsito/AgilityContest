@@ -245,7 +245,7 @@ class Dogs extends DBObject {
 		if (!$rs) return $this->error($this->conn->error); 
 		// retrieve result into an array
 		$result = array();
-		while($row = $rs->fetch_array()){
+		while($row = $rs->fetch_array(MYSQLI_ASSOC)){
 			// add a default state for comobobox
 			if ($row["Categoria"]==='-') 
 				{ $row["selected"]=1; $row[2]=1;}
@@ -277,7 +277,7 @@ class Dogs extends DBObject {
 		if (!$rs) return $this->error($this->conn->error);
 		// retrieve result into an array
 		$result = array();
-		while($row = $rs->fetch_array()){
+		while($row = $rs->fetch_array(MYSQLI_ASSOC)){
 			// add a default state for comobobox
 			if ($row["Grado"]==='-') 
 				{ $row["selected"]=1; $row[2]=1;}
