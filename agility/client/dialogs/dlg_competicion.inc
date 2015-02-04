@@ -105,8 +105,8 @@ $('#competicion-datagrid').datagrid({
             	}
           	}
         }, 
-      	{ field:'Eliminado',	width:10, align:'center',title: 'Elim.',	editor:{type:'checkbox',options:{on:1,off:0}}	},
-      	{ field:'NoPresentado',	width:10, align:'center',title: 'N.P.',		editor:{type:'checkbox',options:{on:1,off:0}}	}, 
+      	{ field:'Eliminado',	width:10, align:'center',title: 'Elim.',formatter:formatEliminado,	editor:{type:'checkbox',options:{on:1,off:0}}	},
+      	{ field:'NoPresentado',	width:10, align:'center',title: 'N.P.',formatter:formatNoPresentado,	editor:{type:'checkbox',options:{on:1,off:0}}	}, 
       	{ field:'Observaciones',width:20, align:'left',	 title: 'Observaciones',	editor:'text'  },
       	{ field:'action',		width:35, align:'center',title: '',
       		formatter:function(value,row,index){
