@@ -107,7 +107,7 @@ class PDF extends PrintCommon {
 		// fase 1: contenido de cada celda de la cabecera
 		// Cell( width,height,message,border,cursor,align,fill)
 		// pintamos logo
-		$this->Cell(15,17,'','LTBR',0,'L',false);
+		$this->Cell(15,19,'','LTBR',0,'L',false);
 		$this->SetXY($x+1,$y+2); // restore cursor position
 		$this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logo,$this->getX(),$this->getY(),12),0,0,'L',false);
 		
@@ -143,13 +143,13 @@ class PDF extends PrintCommon {
 		
 		// ahora pintamos zona de escritura de palotes
 		$this->SetXY($x+15,$y+7); 
-		$this->Cell(60,10,'','TRB',0,'',false); // palotes faltas
-		$this->Cell(40,10,'','TRB',0,'',false); // palotes rehuses
-		$this->Cell(25,10,'','TRB',0,'',false); // palotes tocados
-		$this->Cell(7, 10,'','TRB',0,'',false); // total faltas
-		$this->Cell(7, 10,'','TRB',0,'',false); // total rehuses
-		$this->Cell(7, 10,'','TRB',0,'',false); // total tocados
-		$this->Cell(29,10,'','TRB',0,'',false); // tiempo
+		$this->Cell(60,12,'','TRB',0,'',false); // palotes faltas
+		$this->Cell(40,12,'','TRB',0,'',false); // palotes rehuses
+		$this->Cell(25,12,'','TRB',0,'',false); // palotes tocados
+		$this->Cell(7, 12,'','TRB',0,'',false); // total faltas
+		$this->Cell(7, 12,'','TRB',0,'',false); // total rehuses
+		$this->Cell(7, 12,'','TRB',0,'',false); // total tocados
+		$this->Cell(29,12,'','TRB',0,'',false); // tiempo
 		$this->SetXY($x+15,$y+7); 
 		$this->Cell(60,7,'Faltas',	'',0,'L',false);
 		$this->Cell(40,7,'Rehuses',	'',0,'L',false);
@@ -158,7 +158,7 @@ class PDF extends PrintCommon {
 		$this->Cell(7, 7,'Reh.',	'',0,'C',false);
 		$this->Cell(7, 7,'Toc.',	'',0,'C',false);
 		$this->Cell(29,7,'Tiempo',  '',0,'L',false);
-		$this->Ln(16);
+		$this->Ln(15);
 	}
 	
 	/**
