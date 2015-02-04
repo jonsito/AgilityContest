@@ -195,7 +195,7 @@ class Clubes extends DBObject {
 	}
 	
 	/** 
-	 * Retorna el logo asociado al club de nombre indicado
+	 * Retorna el logo asociado al club de id indicado
 	 * NOTA: esto no retorna una respuesta json, sino una imagen
 	 * @param {integer} $id club id
 	 */
@@ -215,6 +215,47 @@ class Clubes extends DBObject {
 		readfile($fname);
 	}
 	
+	/**
+	 * Retorna el logo del club asociado al guia del perro de id indicado
+	 * NOTA: esto no retorna una respuesta json, sino una imagen
+	 * @param {integer} $id perro id
+	 */
+	function getLogoByPerro($id) {
+		$this->myLogger->enter();
+		if ($id==0) $id=1; // on insert, select default logo
+		$row=$this->__selectObject("Logo","Perros,Guias,Clubes","(Perros.Guia=Guias.ID ) AND (Guias.Club=Clubes.ID) AND (Perros.ID=$id)");
+		if (!$row) return $this->error($this->conn->error);
+		$name=$row->Logo;
+		$fname=__DIR__."/../../../images/logos/$name";
+		if (!file_exists($fname)) {
+			$this->myLogger->notice("Logo file $fname does not exists");
+			$fname=__DIR__."/../../../images/logos/rsce.png"; // use default name
+		}
+		$size = getimagesize($fname);
+		header('Content-Type: '.$size['mime']);
+		readfile($fname);
+	}
+	
+	/**
+	 * Retorna el logo del club asociado al guia de id indicado
+	 * NOTA: esto no retorna una respuesta json, sino una imagen
+	 * @param {integer} $id perro id
+	 */
+	function getLogoByGuia($id) {
+		$this->myLogger->enter();
+		if ($id==0) $id=1; // on insert, select default logo
+		$row=$this->__selectObject("Logo","Guias,Clubes","(Guias.Club=Clubes.ID) AND (Guias.ID=$id)");
+		if (!$row) return $this->error($this->conn->error);
+		$name=$row->Logo;
+		$fname=__DIR__."/../../../images/logos/$name";
+		if (!file_exists($fname)) {
+			$this->myLogger->notice("Logo file $fname does not exists");
+			$fname=__DIR__."/../../../images/logos/rsce.png"; // use default name
+		}
+		$size = getimagesize($fname);
+		header('Content-Type: '.$size['mime']);
+		readfile($fname);
+	}	
 	function setLogo($id) {
 		$this->myLogger->enter();
 		// el logo 1 NO es editable y debe ser siempre "rsce.png"
