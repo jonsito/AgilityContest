@@ -89,7 +89,7 @@ class Etiquetas_PDF extends FPDF {
 	function Footer() {
 	}
 	
-	function writeCell($idx,$row,$count) {
+	function writeCell($idx,$row) {
 		$top=$this->config->getEnv('pdf_topmargin');
 		$left=$this->config->getEnv('pdf_leftmargin');
 		
@@ -160,10 +160,10 @@ class Etiquetas_PDF extends FPDF {
 		$this->SetFont('Arial','',10); // font size for results data
 		//Puesto1 (159,y,15,8) center
 		$this->SetXY($left+149,$y1); 
-		$this->Cell(15,7,"{$row['Puesto1']}º / $count",'LBR',0,'C',false);
+		$this->Cell(15,7,"{$row['Puesto1']}º / ${row['Participantes']}",'LBR',0,'C',false);
 		//Puesto2 (159,y+8,15,9) center
 		$this->SetXY($left+149,$y8); 
-		$this->Cell(15,8,"{$row['Puesto2']}º / $count",'LR',0,'C',false);
+		$this->Cell(15,8,"{$row['Puesto2']}º / ${row['Participantes']}",'LR',0,'C',false);
 		
 		// linea al final
 		$this->Line($left,$ynext,$left+190,$ynext);
@@ -183,7 +183,7 @@ class Etiquetas_PDF extends FPDF {
 
 		foreach($this->resultados as $row) {
 			if ( (($rowcount%16)==0) && ($rowcount!=0)) $this->addPage(); // 16 etiquetas por pagina
-			$this->writeCell($rowcount%16,$row,count($this->resultados));
+			$this->writeCell($rowcount%16,$row);
 			$rowcount++;
 		}
 		$this->myLogger->leave();
@@ -192,7 +192,6 @@ class Etiquetas_PDF extends FPDF {
 }
 
 try {
-	$result=null;
 	$mangas=array();
 	$result=array();
 	for($n=0;$n<9;$n++) $result[$n]=array();
