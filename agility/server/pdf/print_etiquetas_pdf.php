@@ -108,25 +108,25 @@ class Etiquetas_PDF extends FPDF {
 		$this->SetFont('Arial','I',8); // font for prueba,name
 		
 		// caja izquierda (35,y,35,15)
-		$this->SetXY($left+20,$y1); // margins are 10mm each
-		$this->Cell(57,15,'','L',0,'L',false);
+		$this->SetXY($left+22,$y1); // margins are 10mm each
+		$this->Cell(55,15,'','L',0,'L',false);
 		
 		//logo   (30,y,15,15)
 		// los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
-		$this->SetXY($left+20,$y1); // margins are 10mm each
+		$this->SetXY($left+22,$y1); // margins are 10mm each
 		$this->Cell(17,15,$this->Image(__DIR__.'/../../images/logos/'.$this->icon,$this->getX(),$this->getY(),15),0,0,'L',false);
 		
 		//Nombre del club (45,y,38,5) left
-		$this->SetXY($left+35,$y1); 
+		$this->SetXY($left+36,$y1); 
 		$this->Cell(38,5,$this->club->Nombre,0,0,'L',false);
 		//Nombre de la prueba (45,y,38,5) left
-		$this->SetXY($left+35,$y5);
+		$this->SetXY($left+36,$y5);
 		$this->Cell(38,5,$this->prueba->Nombre,0,0,'L',false);
 		//Fecha (45,y+5,38,5) left
-		$this->SetXY($left+35,$y9); 
+		$this->SetXY($left+36,$y9); 
 		$this->Cell(38,5,$this->jornada->Fecha,0,0,'L',false);
 		//Perro (45,y+10,38,7) right
-		$this->SetXY($left+35,$y10); 
+		$this->SetXY($left+36,$y10); 
 		$this->Cell(38,7,"{$row['Licencia']} - {$row['Nombre']}",0,0,'R',false);
 		//Manga1Tipo(85,y,20,8) center
 		$tipo=Mangas::$tipo_manga[$this->manga1->Tipo][3];
