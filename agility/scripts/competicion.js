@@ -741,7 +741,7 @@ function dragAndDropOrdenTandas(from,to,where) {
 	if (workingData.jornada==0) return;
 	$.ajax({
 		type:'GET',
-		url:"/agility/server/database/tandasFunctions.php",
+		url:"/agility/server/database/ordenTandasFunctions.php",
 		dataType:'json',
 		data: {	
 			Operation: 'dnd', 
