@@ -158,14 +158,17 @@ function tablet_np() {
 	var n= parseInt($('#tdialog-NoPresentado').val());
 	if (n==0) {
 		$('#tdialog-NoPresentado').val(1);
+		$('#tdialog-NoPresentadoStr').val("NP");
 		// si no presentado borra todos los demas datos
 		$('#tdialog-Eliminado').val(0);
+		$('#tdialog-EliminadoStr').val("");
 		$('#tdialog-Faltas').val(0);
 		$('#tdialog-Rehuses').val(0);
 		$('#tdialog-Tocados').val(0);
 		$('#tdialog-Tiempo').val(0);
 	} else {
 		$('#tdialog-NoPresentado').val(0);
+		$('#tdialog-NoPresentadoStr').val("");
 	}
 	tablet_updateResultados(1);
 	tablet_putEvent(
@@ -185,12 +188,14 @@ function tablet_elim() {
 	var n= parseInt($('#tdialog-Eliminado').val());
 	if (n==0) {
 		$('#tdialog-Eliminado').val(1);
+		$('#tdialog-EliminadoStr').val("EL");
 		// si eliminado, poner nopresentado y tiempo a cero, conservar todo lo demas
 		$('#tdialog-NoPresentado').val(0);
+		$('#tdialog-NoPresentadoStr').val("");
 		$('#tdialog-Tiempo').val(0);
 	} else {
 		$('#tdialog-Eliminado').val(0);
-		
+		$('#tdialog-EliminadoStr').val("");
 	}
 	tablet_updateResultados(1);
 	tablet_putEvent(

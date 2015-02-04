@@ -77,10 +77,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
        		<input id="tdialog-Rehuses" type="text" readonly="readonly" value="0" name="Rehuses" class="tablet_data"/>
        		<label id="tdialog-TiempoLbl" for="Tiempo">Tiempo</label>
        		<input id="tdialog-Tiempo" type="text" readonly="readonly" value="00.00" name="Tiempo" class="tablet_data"/>
-       		<label id="tdialog-NoPresentadoLbl" for="NoPresentado">N. P.</label>
-       		<input id="tdialog-NoPresentado" type="text" readonly="readonly" value="0" name="NoPresentado" class="tablet_data"/>
-       		<label id="tdialog-EliminadoLbl" for="Eliminado">Elim.</label>
-       		<input id="tdialog-Eliminado" type="text" readonly="readonly" value="0" name="Eliminado" class="tablet_data"/>
+       		<label id="tdialog-NoPresentadoLbl" for="NoPresentadoStr">No Pr.</label>
+       		<input id="tdialog-NoPresentado" type="hidden" name="NoPresentado" value="0"/>
+       		<input id="tdialog-NoPresentadoStr" type="text" readonly="readonly" value="" name="NoPresentadoStr" class="tablet_data"/>
+       		<label id="tdialog-EliminadoLbl" for="EliminadoStr">Elim.</label>
+       		<input id="tdialog-Eliminado" type="hidden" value="0" name="Eliminado"/>
+       		<input id="tdialog-EliminadoStr" type="text" readonly="readonly" value="" name="EliminadoStr" class="tablet_data"/>
        		<label id="tdialog-Rectangulo" class="tablet_rectangulo">&nbsp;</label>
         </form> 
     </div>
@@ -173,8 +175,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     doLayout(dg,"#tdialog-TiempoLbl",		95,		70,		35,		5	);
     doLayout(dg,"#tdialog-Tiempo",			95,		55,		35,		15	);
     doLayout(dg,"#tdialog-NoPresentadoLbl",	135,	70,		10,		5	);
-    doLayout(dg,"#tdialog-NoPresentado",	135,	55,		10,		15	);
+    doLayout(dg,"#tdialog-NoPresentadoStr",	135,	55,		10,		15	);
     doLayout(dg,"#tdialog-EliminadoLbl",	150,	70,		10,		5	);
-    doLayout(dg,"#tdialog-Eliminado",		150,	55,		10,		15	);
+    doLayout(dg,"#tdialog-EliminadoStr",	150,	55,		10,		15	);
     doLayout(dg,"#tdialog-Rectangulo",		45,		32,		120,	46  );
 </script>

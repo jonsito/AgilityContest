@@ -135,8 +135,8 @@ function tablet_showPerrosByTanda(index,row){
 	            { field:'Tocados',		width:5, align:'center',	title: 'T'},
 	            { field:'Rehuses',		width:5, align:'center',	title: 'R'},
 	            { field:'Tiempo',		width:15, align:'right',	title: 'Tiempo'	}, 
-	            { field:'Eliminado',	width:5, align:'center',	title: 'EL.'},
-	            { field:'NoPresentado',	width:5, align:'center',	title: 'NP'},		
+	            { field:'Eliminado',	width:5, align:'center',	formatter:formatEliminado,	title: 'EL.'},
+	            { field:'NoPresentado',	width:5, align:'center',	formatter:formatNoPresentado,	title: 'NP'},		
 	            { field:'Observaciones',width:0, hidden:true }
 	          ]],
           	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css

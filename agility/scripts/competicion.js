@@ -27,6 +27,8 @@ function formatPuesto(val,row,idx) { return (row.Penalizacion>=200)?"-":val; }
 function formatVelocidad(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFloat(val).toFixed(1); }
 function formatTiempo(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFloat(val).toFixed(2); }
 function formatPenalizacion(val,row,idx) { return parseFloat(val).toFixed(2); }
+function formatEliminado(val,row,idx) { return (row.Eliminado==0)?"":"Elim"; }
+function formatNoPresentado(val,row,idx) { return (row.NoPresentado==0)?"":"N.P."; }
 
 /* formaters para el frm_clasificaciones */
 function formatPuestoFinal(val,row,idx) { return (row.Penalizacion>=200)?"-":row.Puesto; }
