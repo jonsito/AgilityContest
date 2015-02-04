@@ -109,6 +109,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     $('#tdialog-form').form({
         // tell session manager to update competitor's info
         onLoadSuccess: function() {
+            var el=parseInt($('#tdialog-Eliminado').val());
+            var np=parseInt($('#tdialog-NoPresentado').val());
+    		$('#tdialog-EliminadoStr').val((el==0)?"":"EL");
+    		$('#tdialog-NoPresentadoStr').val((np==0)?"":"NP");
             $('#tdialog-StartStopBtn').val("Start");
             tablet_putEvent('llamada', 
         		{ // setup initial data for event
