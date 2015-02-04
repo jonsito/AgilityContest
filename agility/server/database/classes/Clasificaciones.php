@@ -69,6 +69,7 @@ class Clasificaciones extends DBObject {
 		// Procesamos la primera manga
 		foreach($c1['rows'] as $item) {
 			$participante=array(
+				'Participantes' => count($c1['rows']),
 				'Puesto' => 0, // to be evaluated
 				'Dorsal' => $item['Dorsal'],
 				'Nombre' => $item['Nombre'],
