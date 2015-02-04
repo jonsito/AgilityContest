@@ -81,10 +81,10 @@ $('#seljornada-Prueba').combogrid({
 	]],
 	onChange:function(value){
 		var p=$('#seljornada-Prueba').combogrid('grid').datagrid('getSelected');
-		if (p==null) return;
+		if (p===null) return;
 		setPrueba(p);
-		var g = $('#seljornada-Jornada').combogrid('grid');
-		g.datagrid('load',{Prueba:value});
+		$('#seljornada-Jornada').combogrid('clear');
+		$('#seljornada-Jornada').combogrid('grid').datagrid('clearSelections');
 	},
 	onLoadSuccess: function(data) {
 		if (workingData.prueba!=0) $('#seljornada-Prueba').combogrid('setValue',workingData.prueba);
