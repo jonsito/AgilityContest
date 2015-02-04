@@ -84,7 +84,7 @@ $('#seljornada-Prueba').combogrid({
 		if (p===null) return;
 		setPrueba(p);
 		$('#seljornada-Jornada').combogrid('clear');
-		$('#seljornada-Jornada').combogrid('grid').datagrid('clearSelections');
+		$('#seljornada-Jornada').combogrid('grid').datagrid('load',{'Prueba':value});
 	},
 	onLoadSuccess: function(data) {
 		if (workingData.prueba!=0) $('#seljornada-Prueba').combogrid('setValue',workingData.prueba);
