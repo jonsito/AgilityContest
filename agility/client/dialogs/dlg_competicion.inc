@@ -208,7 +208,7 @@ $('#competicion-printBtn').on("click", function () {
 	 $.messager.radio(
 			 'Selecciona formulario',
 			 'Indica el tipo de formulario que quieres generar:', 
-			 {1:'Extendido (1 perro/pagina)',5:'Normal (5 perros/pagina)',15:'Compacto (15 perros/pagina)'}, 
+			 {1:'Extendido (1 perro/pagina)',5:'Normal (5 perros/pagina)',10:'Compacto (10 perros/pagina)'}, 
 			 function(r){
 	 	if (!r) return;
 		$.fileDownload(
