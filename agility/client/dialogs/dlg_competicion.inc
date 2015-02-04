@@ -94,8 +94,8 @@ $('#competicion-datagrid').datagrid({
         { field:'NombreClub',	width:30, align:'right', title: 'Club' },
       	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
       	{ field:'Faltas',		width:7, align:'right', title: 'Flt',	editor:'numberbox' },
-      	{ field:'Tocados',		width:7, align:'right', title: 'Toc.',	editor:'numberbox' },
       	{ field:'Rehuses',		width:7, align:'right', title: 'Reh.',	editor:'numberbox' },
+      	{ field:'Tocados',		width:7, align:'right', title: 'Toc.',	editor:'numberbox' },
       	{ field:'Tiempo',		width:15, align:'right', title: 'Tiempo',
           	editor:{
           		type:'numberbox',
