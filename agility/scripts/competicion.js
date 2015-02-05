@@ -1155,6 +1155,20 @@ function resultados_printClasificacion() {
 }
 
 /**
+ * Ajusta el menu de seleccion de metodo de impresion en funcion de la opcion seleccionada
+ */
+function r_selectOption(val) {
+	switch (parseInt(val)) {
+	case 0:
+	case 1:
+	case 3:
+	case 4: $('#r_prfirst').numberspinner('disable'); $('#r_prlist').numberspinner('disable'); break;
+	case 2: $('#r_prfirst').numberspinner('enable'); $('#r_prlist').numberspinner('disable'); break;
+	case 5: $('#r_prfirst').numberspinner('enable'); $('#r_prlist').numberspinner('enable'); break;
+	}
+}
+
+/**
  * Presenta un menu al usuario indicando que es lo que se quiere imprimir
  */
 function resultados_doPrint() {

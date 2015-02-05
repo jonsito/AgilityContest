@@ -114,21 +114,21 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="resultados-printDialog" class="easyui-dialog" 
 	data-options="title:'Selecciona formato',closable:true,closed:true,width:'400px',height:'230px'">
 	<form style="padding:10px" id="resultados-printForm">
-	<input type="radio" name="r_prformat" value="0"/>Podium (PDF)<br />
-	<input type="radio" name="r_prformat" value="1"/>Etiquetas (CSV)<br />
-	<input type="radio" name="r_prformat" value="3"/>Informe R.S.C.E. (Excel)<br />
-	<input type="radio" name="r_prformat" value="4" checked="checked"/>Clasificación (PDF)<br />
+	<input type="radio" name="r_prformat" value="0" onclick="r_selectOption(0);"/>Podium (PDF)<br />
+	<input type="radio" name="r_prformat" value="1" onclick="r_selectOption(1);"/>Etiquetas (CSV)<br />
+	<input type="radio" name="r_prformat" value="3" onclick="r_selectOption(3);"/>Informe R.S.C.E. (Excel)<br />
+	<input type="radio" name="r_prformat" value="4" checked="checked" onclick="r_selectOption(4);"/>Clasificación (PDF)<br />
 	<span  style="display:inline-block;width:100%">
 		<span style="float:left">
-			<input type="radio" name="r_prformat" value="2"/>Hojas de etiquetas (PDF). <br/>
-			<input type="radio" name="r_prformat" value="5"/>Etiquetas sueltas (PDF) 
+			<input type="radio" name="r_prformat" value="2" onclick="r_selectOption(2);"/>Hojas de etiquetas (PDF). <br/>
+			<input type="radio" name="r_prformat" value="5" onclick="r_selectOption(5);"/>Etiquetas sueltas (PDF) 
 		</span>
 		<span style="float:right">
 			<label id="r_prfirstLbl" for="first">Etiqueta inicial:</label>
 			<input id="r_prfirst" style="width:45px" name="first" class="easyui-numberspinner"
-				data-options="value:1,min:1,max:16"/><br />
+				data-options="value:1,min:1,max:16,disabled:true"/><br />
 			<label id="r_prlistLbl" for="list">Dorsales:</label>
-			<input id="r_prlist" style="width:85px" name="list" class="easyui-textbox" data-options="value:''"/><br />
+			<input id="r_prlist" style="width:85px" name="list" class="easyui-textbox" data-options="value:'',disabled:true"/><br />
 		</span>
 	</span>
 	&nbsp;<br />
