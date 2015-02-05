@@ -1088,9 +1088,11 @@ function competicion_printTandas() {
 /**
  * Imprime los resultados finales de la ronda seleccionada en formato CSV para su conversion en etiquetas
  * @param {integer} mode 0:CSV 1:PDF
+ * @param {integer} start if mode==PDF first line in output
+ * @param {string} list CSV dorsal list
  * @returns {Boolean} false 
  */
-function resultados_printEtiquetas(flag,start) {
+function resultados_printEtiquetas(flag,start,list) {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='/agility/server/pdf/print_etiquetas_csv.php';
 	if (flag!=0) url='/agility/server/pdf/print_etiquetas_pdf.php';
@@ -1111,7 +1113,8 @@ function resultados_printEtiquetas(flag,start) {
 				Manga2:ronda.Manga2,
 				Rondas: ronda.Rondas,
 				Mode: mode,
-				Start: strt
+				Start: strt,
+				List: list
 			},
 	        preparingMessageHtml: "Generando formulario con las etiquetas. Por favor, espere...",
 	        failMessageHtml: "Ha habido problemas en la generacion del formulario\n. Por favor, intentelo de nuevo."
@@ -1156,26 +1159,18 @@ function resultados_printClasificacion() {
  */
 function resultados_doPrint() {
 	var r=$('input:radio[name="r_prformat"]:checked').val();
-	var line=$('#r_prfirst').val();
+	var line=$('#r_prfirst').numberspinner('getValue');
+	var list=$('#r_prlist').textbox('getValue');
 	$('#resultados-printDialog').dialog('close');
 	switch(parseInt(r)) {
 		case 0: resultados_printPodium(); break;
-		case 1: resultados_printEtiquetas(0); break;
-		case 2: resultados_printEtiquetas(1,line); break;
+		case 1: resultados_printEtiquetas(0); break; // csv
 		case 3: resultados_printCanina(); break;
-		case 4: resultados_printClasificacion(); break;
+		case 4: resultados_printClasificacion(); break; 
+		case 5: resultados_printEtiquetas(1,line,list); break;
+		case 2: resultados_printEtiquetas(1,line,''); break;
 	}
-	/*
-	 $.messager.radio(
-			 'Selecciona modelo',
-			 'Selecciona el tipo de documento a generar:',
-			 { 0:'Podium (PDF)',1:'Etiquetas (CSV)',2:'Etiquetas (PDF)',3:'Informe R.S.C.E. (Excel)',4:'Clasificación (PDF)'}, 
-			 function(r){ 
-
-			 }
-		).window({width:250});
-		*/
-	    return false; //this is critical to stop the click event which will trigger a normal file download!
+	return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
 function reloadClasificaciones() {
