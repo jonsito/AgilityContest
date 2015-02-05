@@ -183,7 +183,7 @@ class Etiquetas_PDF extends FPDF {
 
 		foreach($this->resultados as $row) {
 			if ($listadorsales!=="") {
-				$aguja=$row['Dorsal'];
+				$aguja=",".$row['Dorsal'].",";
 				$pajar=",".$listadorsales.",";
 				if (strpos($pajar,$aguja)===FALSE) continue; // Dorsal not in list
 			}
