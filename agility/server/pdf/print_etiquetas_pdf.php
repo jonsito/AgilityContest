@@ -169,7 +169,7 @@ class Etiquetas_PDF extends FPDF {
 		$this->Line($left,$ynext,$left+190,$ynext);
 	}
 	
-	function composeTable($rowcount=0) {
+	function composeTable($rowcount=0,$listadorsales="") {
 		$this->myLogger->enter();
 		$this->SetFillColor(224,235,255); // azul merle
 		$this->SetTextColor(0,0,0); // negro
@@ -182,6 +182,11 @@ class Etiquetas_PDF extends FPDF {
 		$this->SetAutoPageBreak(true,10);
 
 		foreach($this->resultados as $row) {
+			if ($listadorsales!=="") {
+				$aguja=$row['Dorsal'];
+				$pajar=",".$listadorsales.",";
+				if (strpos($pajar,$aguja)===FALSE) continue; // Dorsal not in list
+			}
 			if ( (($rowcount%16)==0) && ($rowcount!=0)) $this->addPage(); // 16 etiquetas por pagina
 			$this->writeCell($rowcount%16,$row);
 			$rowcount++;
@@ -209,6 +214,7 @@ try {
 	$mangas[8]=http_request("Manga9","i",0); // mangas 3..9 are used in KO rondas
 	$mode=http_request("Mode","i",0); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
 	$rowcount=http_request("Start","i",0); // offset to first label in page
+	$listadorsales=http_request("List","s",""); // CSV Dorsal List
 	
 	// buscamos los recorridos asociados a la mangas
 	$dbobj=new DBObject("print_etiquetas_csv");
@@ -262,7 +268,7 @@ try {
 	$pdf->addPage(); 
 	// mandamos a imprimir
 	$pdf->resultados=$res;
-	$pdf->composeTable($rowcount);
+	$pdf->composeTable($rowcount,$listadorsales);
 	// mandamos a la salida el documento
 	$pdf->Output("print_etiquetas.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
@@ -270,6 +276,4 @@ try {
 	die ($e->getMessage());
 }
 
-
-$pdf->composeTable();
 ?>

@@ -112,7 +112,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 
 <div id="resultados-printDialog" class="easyui-dialog" 
-	data-options="title:'Selecciona formato',closable:true,closed:true,width:'400px',height:'200px'">
+	data-options="title:'Selecciona formato',closable:true,closed:true,width:'400px',height:'230px'">
 	<form style="padding:10px" id="resultados-printForm">
 	<input type="radio" name="r_prformat" value="0"/>Podium (PDF)<br />
 	<input type="radio" name="r_prformat" value="1"/>Etiquetas (CSV)<br />
@@ -120,11 +120,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<input type="radio" name="r_prformat" value="4" checked="checked"/>Clasificación (PDF)<br />
 	<span  style="display:inline-block;width:100%">
 		<span style="float:left">
-			<input type="radio" name="r_prformat" value="2"/>Hoja de etiquetas (PDF). 
+			<input type="radio" name="r_prformat" value="2"/>Hojas de etiquetas (PDF). <br/>
+			<input type="radio" name="r_prformat" value="5"/>Etiquetas sueltas (PDF) 
 		</span>
 		<span style="float:right">
-			Etiqueta inicial:
-			<input type="number" id="r_prfirst" style="width:40px" name="first" value="1" min="1" max="16"/><br />
+			<label id="r_prfirstLbl" for="first">Etiqueta inicial:</label>
+			<input id="r_prfirst" style="width:45px" name="first" class="easyui-numberspinner"
+				data-options="value:1,min:1,max:16"/><br />
+			<label id="r_prlistLbl" for="list">Dorsales:</label>
+			<input id="r_prlist" style="width:85px" name="list" class="easyui-textbox" data-options="value:''"/><br />
 		</span>
 	</span>
 	&nbsp;<br />
@@ -234,9 +238,10 @@ $('#resultados-manga2-trs-form').form(
 
 //tooltips
 addTooltip($('#resultados-refreshBtn').linkbutton(),"Actualizar la tabla de clasificaciones");
-addTooltip($('#resultados-printBtn').linkbutton(),"Imprimir los clasificacion de la manga"); 
+addTooltip($('#resultados-printBtn').linkbutton(),"Imprimir la clasificacion de la manga"); 
 addTooltip($('#resultados-printDlgBtn').linkbutton(),"Imprimir los datos en el formato seleccionado"); 
-addTooltip($('#r_prfirst').linkbutton(),"Numero de la pegatina de comienzo de la impresión<br/> en la hoja de etiquetas"); 
+addTooltip($('#r_prfirstLbl'),"Numero de la pegatina de comienzo de la impresión<br/> en la hoja de etiquetas"); 
+addTooltip($('#r_prlistLbl'),"Lista de dorsales a imprimir, separados por comas"); 
 
 $('#resultados-datagrid').datagrid({
 	// propiedades del panel asociado
