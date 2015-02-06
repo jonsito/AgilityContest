@@ -104,11 +104,43 @@ $('#ordensalida-datagrid').datagrid({
     }
 });
 
-// Activa tecla ESC (escape) para cerrar ventana
+//activa teclas up/down para navegar por el panel , esc para cerrar y ctrl+shift+enter para ver fila
 $('#ordensalida-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-	if (e.keyCode==27) $('#ordensalida-dialog').window('close'); 
-	return false;
+	// display selected cell including hidden fields
+	function displayRow() {
+		var selected = t.datagrid('getSelected');
+		if (!selected) return;
+		var w=$.messager.alert("Row Info",
+				"<p>Contenido de la fila<br /></p><p>"+print_r(selected)+"</p>",
+				"info");
+		
+	}
+	// move cursor
+    function selectRow(t,up){
+    	var count = t.datagrid('getRows').length;    // row count
+    	var selected = t.datagrid('getSelected');
+    	if (selected){
+        	var index = t.datagrid('getRowIndex', selected);
+        	index = index + (up ? -1 : 1);
+        	if (index < 0) index = 0;
+        	if (index >= count) index = count - 1;
+        	t.datagrid('clearSelections');
+        	t.datagrid('selectRow', index);
+    	} else {
+        	t.datagrid('selectRow', (up ? count-1 : 0));
+    	}
+	}
+	//main code
+	var t = $('#ordensalida-datagrid');
+    switch(e.keyCode){
+    case 27:    /* Esc */   $('#ordensalida-dialog').window('close'); return false;
+    case 38:	/* Up */	selectRow(t,true); return false;
+    case 40:    /* Down */	selectRow(t,false); return false;
+    case 13:	/* Enter */	if (e.ctrlKey) displayRow(); return false;
+    }
+    return false;
 });
+
 
 // botones
 addTooltip($('#ordensalida-checkBtn').linkbutton(),"Actualizar. Verificar 'alertas de proximidad' <br/>entre perros del mismo gu&iacute;a");
