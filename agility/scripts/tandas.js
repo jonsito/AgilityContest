@@ -112,19 +112,3 @@ function deleteTanda(dg){
         },'json');
     });
 }
-
-function printTandas() {
-	$.fileDownload(
-			'/agility/server/pdf/print_ordenTandas.php',
-			{
-				httpMethod: 'GET',
-				data: { 
-					Prueba: workingData.prueba,
-					Jornada: workingData.jornada
-				},
-		        preparingMessageHtml: "We are preparing your report, please wait...",
-		        failMessageHtml: "There was a problem generating your report, please try again."
-			}
-		);
-	return false; //this is critical to stop the click event which will trigger a normal file download!
-}

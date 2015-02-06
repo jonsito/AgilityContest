@@ -501,6 +501,64 @@ function print_r(arr,level) {
 }
 
 /**
+ * display selected cell including hidden fields
+ * @param dg jquery datagrid object
+ */ 
+function displayRowData(dg) {
+	var selected = dg.datagrid('getSelected');
+	if (!selected) return;
+	var index = dg.datagrid('getRowIndex', selected);
+	var w=$.messager.alert("Row Info",
+			"<p>Contenido de la fila<br /></p><p>"+print_r(selected)+"</p>",
+			"info",
+			function() {
+				dg.datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+				dg.datagrid('selectRow', index);
+			}
+		);    		
+}
+
+/**
+ * activa teclas up/down para navegar por el panel , esc para cerrar y ctrl+shift+enter para ver fila
+ * @param {string} datagrid '#datagrid-name'
+ * @param {string} dialog '#dialog-name'
+ * @param {function} onEnter function to be called on enter press
+ */
+function addSimpleKeyHandler(datagrid,dialog,onEnter){
+	
+	$(datagrid).datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
+
+		// move cursor
+	    function selectRow(t,up){
+	    	var count = t.datagrid('getRows').length;    // row count
+	    	var selected = t.datagrid('getSelected');
+	    	if (selected){
+	        	var index = t.datagrid('getRowIndex', selected);
+	        	index = index + (up ? -1 : 1);
+	        	if (index < 0) index = 0;
+	        	if (index >= count) index = count - 1;
+	        	t.datagrid('clearSelections');
+	        	t.datagrid('selectRow', index);
+	    	} else {
+	        	t.datagrid('selectRow', (up ? count-1 : 0));
+	    	}
+		}
+		//main code
+		var t = $(datagrid);
+	    switch(e.keyCode){
+	    case 27:    /* Esc */   $(dialog).window('close'); return false;
+	    case 38:	/* Up */	selectRow(t,true); return false;
+	    case 40:    /* Down */	selectRow(t,false); return false;
+	    case 13:	/* Enter */	if (e.ctrlKey) { displayRowData(t); return false; }
+	    						if (typeof(onEnter)!=='undefined') onEnter(datagrid,dialog);
+	    default:    // no break
+	    			return false;
+	    }
+	});
+    return false;
+}
+
+/**
  * Generic function for adding key handling to datagrids
  * 
  * Create key bindings for edit,new,delete, and search actions on datagrid
@@ -513,19 +571,8 @@ function print_r(arr,level) {
  * @returns true on success, else false
  */
 function addKeyHandler(dgid,insertfn,updatefn,deletefn) {
-   	
     // activa teclas up/down para navegar por el panel
     $(dgid).datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-    	
-    	// display selected cell including hidden fields
-    	function displayRow() {
-    		var selected = t.datagrid('getSelected');
-    		if (!selected) return;
-    		var w=$.messager.alert("Row Info",
-    				"<p>Contenido de la fila<br /></p><p>"+print_r(selected)+"</p>",
-    				"info");
-    		
-    	}
     	
     	// up & down
         function selectRow(t,up){
@@ -568,7 +615,7 @@ function addKeyHandler(dgid,insertfn,updatefn,deletefn) {
         switch(e.keyCode){
         case 38:	/* Up */	 selectRow(t,true); return false;
         case 40:    /* Down */	 selectRow(t,false); return false;
-        case 13:	/* Enter */	 if (e.ctrlKey) displayRow(); else updatefn(dgid); return false;
+        case 13:	/* Enter */	 if (e.ctrlKey) displayRowData(t); else updatefn(dgid); return false;
         case 45:	/* Insert */ insertfn(dgid,$(dgid+'-search').val()); return false;
         case 46:	/* Supr */	 deletefn(dgid); return false;
         case 33:	/* Re Pag */ selectPage(t,-1); return false;

@@ -35,9 +35,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<!-- estos elementos deben estar alineados a la derecha -->
    	<span style="float:right;padding:5px">
 	   	<a id="ordentandas-reloadBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-reload'" onclick="$('#ordentandas-datagrid').datagrid('reload');">Actualizar</a>
+	   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas();">Actualizar</a>
    		<a id="ordentandas-printBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-print'" onclick="printTandas()">Imprimir</a>
+   			data-options="iconCls:'icon-print'" onclick="printOrdenTandas()">Imprimir</a>
 	</span>
 </div>
 
@@ -170,14 +170,6 @@ $('#ordentandas_nt-Sesion').combogrid({
 		return true;
 	}
 });
-
-/*
-// Activa tecla ESC (escape) para cerrar ventana
-$('#ordentandas-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-	if (e.keyCode==27) $('#ordentandas-dialog').dialog('close'); 
-	return false;
-});
-*/
 
 // key handler
 addKeyHandler('#ordentandas-datagrid',newTanda,editTanda,deleteTanda);
