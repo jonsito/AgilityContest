@@ -107,7 +107,7 @@ $('#ordensalida-datagrid').datagrid({
 //activa teclas up/down para navegar por el panel , esc para cerrar y ctrl+shift+enter para ver fila
 $('#ordensalida-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
 	// display selected cell including hidden fields
-	function displayRow() {
+	function displayRow(t) {
 		var selected = t.datagrid('getSelected');
 		if (!selected) return;
 		var w=$.messager.alert("Row Info",
@@ -136,7 +136,7 @@ $('#ordensalida-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0
     case 27:    /* Esc */   $('#ordensalida-dialog').window('close'); return false;
     case 38:	/* Up */	selectRow(t,true); return false;
     case 40:    /* Down */	selectRow(t,false); return false;
-    case 13:	/* Enter */	if (e.ctrlKey) displayRow(); return false;
+    case 13:	/* Enter */	if (e.ctrlKey) displayRow(t); return false;
     }
     return false;
 });
