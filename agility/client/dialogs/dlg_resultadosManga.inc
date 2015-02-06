@@ -139,12 +139,8 @@ $('#resultadosmanga-datagrid').datagrid({
     }
 });
 
-//Activa tecla ESC (escape) para cerrar ventana
-$('#resultadosmanga-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-	if (e.keyCode==27) $('#resultadosmanga-dialog').dialog('close'); 
-	return false;
-});
-
+//Activa tecla ESC (escape) para cerrar ventana,up,down y control+enter para ver fila
+addSimpleKeyHandler('#resultadosmanga-datagrid','#resultadosmanga-dialog');
 //- botones del panel de resultados de la manga
 addTooltip($('#resultadosmanga-reloadBtn').linkbutton(),"Actualizar datos de la manga/categoria seleccionada");
 addTooltip($('#resultadosmanga-printBtn').linkbutton(),"Imprimir resultados de la manga");

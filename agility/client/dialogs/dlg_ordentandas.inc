@@ -25,12 +25,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="ordentandas-toolbar" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
 	   	<a id="ordentandas-reloadBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas()">Actualizar</a>
+	   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas();">Actualizar</a>
    		</span>
    		<span style="float:right;padding:5px">
    		<!-- estos elementos deben estar alineados a la derecha -->
-   		<a id="ordentandas-printBtn" href="#" 
-   			data-options="iconCls:'icon-print'" class="easyui-linkbutton">Imprimir</a>
+   		<a id="ordentandas-printBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-print'" onclick="printOrdenTandas();">Imprimir</a>
 	</span>
 </div>
 
@@ -89,29 +89,11 @@ $('#ordentandas-datagrid').datagrid({
     }
 });
 
-// Activa tecla ESC (escape) para cerrar ventana
-$('#ordentandas-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-	if (e.keyCode==27) $('#ordentandas-dialog').dialog('close'); 
-	return false;
-});
+// Activa tecla ESC (escape) para cerrar ventana,up,down y ctrl-enter para ver fila
+addSimpleKeyHandler('#ordentandas-datagrid','#ordentandas-dialog');
 
 // botones
 addTooltip($('#ordentandas-reloadBtn').linkbutton(),"Actualizar el programa de la jornada desde base de datos");
 addTooltip($('#ordentandas-printBtn').linkbutton(),"Imprimir el programa de la jornada");
 
-$('#ordentandas-printBtn').on("click", function () {
-	$.fileDownload(
-		'/agility/server/pdf/print_ordenTandas.php',
-		{
-			httpMethod: 'GET',
-			data: { 
-				Prueba: workingData.prueba,
-				Jornada: workingData.jornada
-			},
-	        preparingMessageHtml: "We are preparing your report, please wait...",
-	        failMessageHtml: "There was a problem generating your report, please try again."
-		}
-	);
-    return false; //this is critical to stop the click event which will trigger a normal file download!
-});
 </script>

@@ -391,9 +391,9 @@ function proximityAlert() {
 	}
 	// arriving here means work done
 	if (lista==="<br />") {
-		$.messager.alert('Buscar','No aparecen perros del mismo guia juntos','info');
+		$.messager.alert('Correcto','No aparecen perros del mismo guia pro&oacute;imos','info');
 	} else {
-		var w=$.messager.alert('Aviso','<p>Lista de gu&iacute;as con perros demasiado juntos:</p><p>'+lista+'</p>','warning');
+		var w=$.messager.alert('Alerta de proximidad','<p>Lista de gu&iacute;as con perros demasiado juntos:</p><p>'+lista+'</p>','warning');
 		w.window('resize',{width:350}).window('center');
 	}
 }
@@ -452,17 +452,7 @@ function autoUpdateCompeticion() {
  */
 
 function competicionKeyEventHandler(evt) {
-	
-	// display selected cell including hidden fields
-	function displayRow(t) {
-		var selected = t.datagrid('getSelected');
-		if (!selected) return;
-		var w=$.messager.alert("Row Info",
-				"<p>Contenido de la fila<br /></p><p>"+print_r(selected)+"</p>",
-				"info");
-		
-	}
-	
+
 	// up & down keys
     function selectRow(t,up){
     	var count = t.datagrid('getRows').length;    // row count
@@ -504,7 +494,7 @@ function competicionKeyEventHandler(evt) {
             selectRow(dg,false); 
             return false;
         case 13:	/* Enter */  
-        	if (evt.ctrlKey) displayRow(dg); else editRow(dg); 
+        	if (evt.ctrlKey) displayRowData(dg); else editRow(dg); 
             return false;
         case 27:	/* Esc */
             // disable autorefresh if any
@@ -724,6 +714,27 @@ function evalOrdenSalida(mode) {
 			});
 		});
 	}
+}
+
+/**
+ * manda a la impresora el orden de salida
+ * @returns {Boolean}
+ */
+function printOrdenSalida() {
+	$.fileDownload(
+			'/agility/server/pdf/print_ordenDeSalida.php',
+			{
+				httpMethod: 'GET',
+				data: { 
+					Prueba: workingData.prueba,
+					Jornada: workingData.jornada,
+					Manga: workingData.manga
+				},
+		        preparingMessageHtml: "Imprimiendo orden de salida; por favor espere...",
+		        failMessageHtml: "There was a problem generating your report, please try again."
+			}
+		);
+	    return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
 // reajusta el orden de salida 
@@ -1086,9 +1097,20 @@ function resultados_printCanina() {
 /**
  * Imprime la secuencia de tandas de la jornada
  */
-function competicion_printTandas() {
-	alert("competicion.js::competicion_printTandas() {PENDING}");
-	// TODO: write
+function printOrdenTandas() {
+	$.fileDownload(
+			'/agility/server/pdf/print_ordenTandas.php',
+			{
+				httpMethod: 'GET',
+				data: { 
+					Prueba: workingData.prueba,
+					Jornada: workingData.jornada
+				},
+		        preparingMessageHtml: "We are preparing your report, please wait...",
+		        failMessageHtml: "There was a problem generating your report, please try again."
+			}
+		);
+	    return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
 /**

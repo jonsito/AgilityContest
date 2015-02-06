@@ -28,15 +28,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	   		data-options="iconCls:'icon-dice'" onclick="evalOrdenSalida('random')">Aleatorio</a>
 	   	<a id="ordensalida-resultBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls:'icon-updown'" onclick="evalOrdenSalida('reverse')">Manga anterior</a>
-	   	<a id="ordensalida-saveBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-save'" onclick="saveOrdenSalida()">Guardar</a>
 	   	<a id="ordensalida-checkBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls:'icon-help'" onclick="reloadAndCheck()">Revisar</a>
    		</span>
    		<span style="float:right;padding:5px">
    		<!-- estos elementos deben estar alineados a la derecha -->
-   		<a id="ordensalida-printBtn" href="#" 
-   			data-options="iconCls:'icon-print'" class="easyui-linkbutton">Imprimir</a>
+   		<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-reload'" onclick="reloadOrdenSalida();">Actualizar</a>
+   		<a id="ordensalida-printBtn" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-print'" onclick="printOrdenSalida();">Imprimir</a>
 	</span>
 </div>
 
@@ -105,63 +105,13 @@ $('#ordensalida-datagrid').datagrid({
 });
 
 //activa teclas up/down para navegar por el panel , esc para cerrar y ctrl+shift+enter para ver fila
-$('#ordensalida-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-	// display selected cell including hidden fields
-	function displayRow(t) {
-		var selected = t.datagrid('getSelected');
-		if (!selected) return;
-		var w=$.messager.alert("Row Info",
-				"<p>Contenido de la fila<br /></p><p>"+print_r(selected)+"</p>",
-				"info");
-		
-	}
-	// move cursor
-    function selectRow(t,up){
-    	var count = t.datagrid('getRows').length;    // row count
-    	var selected = t.datagrid('getSelected');
-    	if (selected){
-        	var index = t.datagrid('getRowIndex', selected);
-        	index = index + (up ? -1 : 1);
-        	if (index < 0) index = 0;
-        	if (index >= count) index = count - 1;
-        	t.datagrid('clearSelections');
-        	t.datagrid('selectRow', index);
-    	} else {
-        	t.datagrid('selectRow', (up ? count-1 : 0));
-    	}
-	}
-	//main code
-	var t = $('#ordensalida-datagrid');
-    switch(e.keyCode){
-    case 27:    /* Esc */   $('#ordensalida-dialog').window('close'); return false;
-    case 38:	/* Up */	selectRow(t,true); return false;
-    case 40:    /* Down */	selectRow(t,false); return false;
-    case 13:	/* Enter */	if (e.ctrlKey) displayRow(t); return false;
-    }
-    return false;
-});
-
+addSimpleKeyHandler('#ordensalida-datagrid','#ordensalida-dialog');
 
 // botones
-addTooltip($('#ordensalida-checkBtn').linkbutton(),"Actualizar. Verificar 'alertas de proximidad' <br/>entre perros del mismo gu&iacute;a");
+addTooltip($('#ordensalida-checkBtn').linkbutton(),"Verificar 'alertas de proximidad' <br/>entre perros del mismo gu&iacute;a");
 addTooltip($('#ordensalida-randomBtn').linkbutton(),"Generar un nuevo orden de salida aleatorio");
 addTooltip($('#ordensalida-resultBtn').linkbutton(),"Orden de salida inverso a resultados de primera manga");
-addTooltip($('#ordensalida-saveBtn').linkbutton(),"Guardar orden de salida en base de datos");
 addTooltip($('#ordensalida-printBtn').linkbutton(),"Imprimir el orden de salida");
-$('#ordensalida-printBtn').on("click", function () {
-	$.fileDownload(
-		'/agility/server/pdf/print_ordenDeSalida.php',
-		{
-			httpMethod: 'GET',
-			data: { 
-				Prueba: workingData.prueba,
-				Jornada: workingData.jornada,
-				Manga: workingData.manga
-			},
-	        preparingMessageHtml: "Imprimiendo orden de salida; por favor espere...",
-	        failMessageHtml: "There was a problem generating your report, please try again."
-		}
-	);
-    return false; //this is critical to stop the click event which will trigger a normal file download!
-});
+addTooltip($('#ordensalida-reloadBtn').linkbutton(),"Recargar orden de salida. Actualizar ventana");
+
 </script>
