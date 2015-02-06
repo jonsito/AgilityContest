@@ -452,7 +452,17 @@ function autoUpdateCompeticion() {
  */
 
 function competicionKeyEventHandler(evt) {
-
+	
+	// display selected cell including hidden fields
+	function displayRow(t) {
+		var selected = t.datagrid('getSelected');
+		if (!selected) return;
+		var w=$.messager.alert("Row Info",
+				"<p>Contenido de la fila<br /></p><p>"+print_r(selected)+"</p>",
+				"info");
+		
+	}
+	
 	// up & down keys
     function selectRow(t,up){
     	var count = t.datagrid('getRows').length;    // row count
@@ -494,7 +504,7 @@ function competicionKeyEventHandler(evt) {
             selectRow(dg,false); 
             return false;
         case 13:	/* Enter */  
-            editRow(dg); 
+        	if (evt.ctrlKey) displayRow(dg); else editRow(dg); 
             return false;
         case 27:	/* Esc */
             // disable autorefresh if any

@@ -122,9 +122,7 @@ $('#competicion-datagrid').datagrid({
       		}
       	}	
     ]],
-    rowStyler:function(index,row) { // colorize rows. Equivalent to "striped: true", but better look&feel
-        return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
-    },
+    rowStyler:myRowStyler,
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
 	onLoadSuccess:function(){
 		// mark no row is being edited
