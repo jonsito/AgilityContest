@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.6
+-- version 4.3.7
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 03-02-2015 a las 13:20:58
+-- Tiempo de generación: 06-02-2015 a las 13:08:20
 -- Versión del servidor: 5.5.41-MariaDB
 -- Versión de PHP: 5.5.20
 
@@ -27,7 +27,7 @@ USE `agility`;
 --
 -- Estructura de tabla para la tabla `categorias_perro`
 --
--- Creación: 03-02-2015 a las 07:41:43
+-- Creación: 06-02-2015 a las 13:03:55
 --
 
 DROP TABLE IF EXISTS `categorias_perro`;
@@ -56,7 +56,7 @@ INSERT INTO `categorias_perro` (`Categoria`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `clubes`
 --
--- Creación: 03-02-2015 a las 07:41:48
+-- Creación: 06-02-2015 a las 13:04:00
 --
 
 DROP TABLE IF EXISTS `clubes`;
@@ -191,7 +191,7 @@ INSERT INTO `clubes` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `
 --
 -- Estructura de tabla para la tabla `equipos`
 --
--- Creación: 03-02-2015 a las 07:41:48
+-- Creación: 06-02-2015 a las 13:04:00
 --
 
 DROP TABLE IF EXISTS `equipos`;
@@ -224,7 +224,7 @@ INSERT INTO `equipos` (`ID`, `Prueba`, `Nombre`, `Observaciones`) VALUES
 --
 -- Estructura de tabla para la tabla `eventos`
 --
--- Creación: 03-02-2015 a las 07:41:49
+-- Creación: 06-02-2015 a las 13:04:00
 --
 
 DROP TABLE IF EXISTS `eventos`;
@@ -248,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `eventos` (
 --
 -- Estructura de tabla para la tabla `grados_perro`
 --
--- Creación: 03-02-2015 a las 07:41:44
+-- Creación: 06-02-2015 a las 13:03:56
 --
 
 DROP TABLE IF EXISTS `grados_perro`;
@@ -280,7 +280,7 @@ INSERT INTO `grados_perro` (`Grado`, `Comentarios`) VALUES
 --
 -- Estructura de tabla para la tabla `guias`
 --
--- Creación: 03-02-2015 a las 07:41:49
+-- Creación: 06-02-2015 a las 13:04:00
 --
 
 DROP TABLE IF EXISTS `guias`;
@@ -839,7 +839,7 @@ INSERT INTO `guias` (`ID`, `Nombre`, `Telefono`, `Email`, `Club`, `Observaciones
 --
 -- Estructura de tabla para la tabla `inscripciones`
 --
--- Creación: 03-02-2015 a las 07:41:49
+-- Creación: 06-02-2015 a las 13:04:00
 --
 
 DROP TABLE IF EXISTS `inscripciones`;
@@ -1298,7 +1298,7 @@ DELIMITER ;
 --
 -- Estructura de tabla para la tabla `jornadas`
 --
--- Creación: 03-02-2015 a las 07:41:49
+-- Creación: 06-02-2015 a las 13:04:00
 --
 
 DROP TABLE IF EXISTS `jornadas`;
@@ -1381,7 +1381,7 @@ INSERT INTO `jornadas` (`ID`, `Prueba`, `Numero`, `Nombre`, `Fecha`, `Hora`, `Gr
 --
 -- Estructura de tabla para la tabla `jueces`
 --
--- Creación: 03-02-2015 a las 07:41:48
+-- Creación: 06-02-2015 a las 13:03:59
 --
 
 DROP TABLE IF EXISTS `jueces`;
@@ -1436,7 +1436,7 @@ INSERT INTO `jueces` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Telefono`, `I
 --
 -- Estructura de tabla para la tabla `mangas`
 --
--- Creación: 03-02-2015 a las 07:41:49
+-- Creación: 06-02-2015 a las 13:04:00
 --
 
 DROP TABLE IF EXISTS `mangas`;
@@ -1590,7 +1590,7 @@ CREATE TABLE IF NOT EXISTS `perroguiaclub` (
 --
 -- Estructura de tabla para la tabla `perros`
 --
--- Creación: 03-02-2015 a las 07:41:49
+-- Creación: 06-02-2015 a las 13:04:00
 --
 
 DROP TABLE IF EXISTS `perros`;
@@ -2262,7 +2262,7 @@ INSERT INTO `perros` (`ID`, `Nombre`, `Raza`, `LOE_RRC`, `Licencia`, `Categoria`
 --
 -- Estructura de tabla para la tabla `provincias`
 --
--- Creación: 03-02-2015 a las 07:41:45
+-- Creación: 06-02-2015 a las 13:03:58
 --
 
 DROP TABLE IF EXISTS `provincias`;
@@ -2340,7 +2340,7 @@ INSERT INTO `provincias` (`Provincia`, `Comunidad`, `Codigo`) VALUES
 --
 -- Estructura de tabla para la tabla `pruebas`
 --
--- Creación: 03-02-2015 a las 07:41:49
+-- Creación: 06-02-2015 a las 13:04:00
 --
 
 DROP TABLE IF EXISTS `pruebas`;
@@ -2381,7 +2381,7 @@ INSERT INTO `pruebas` (`ID`, `Operador`, `Nombre`, `Club`, `Ubicacion`, `Triptic
 --
 -- Estructura de tabla para la tabla `resultados`
 --
--- Creación: 03-02-2015 a las 07:41:50
+-- Creación: 06-02-2015 a las 13:04:01
 --
 
 DROP TABLE IF EXISTS `resultados`;
@@ -3776,7 +3776,7 @@ INSERT INTO `resultados` (`Prueba`, `Jornada`, `Manga`, `Dorsal`, `Perro`, `Nomb
 --
 -- Estructura de tabla para la tabla `sesiones`
 --
--- Creación: 03-02-2015 a las 07:41:50
+-- Creación: 06-02-2015 a las 13:04:01
 --
 
 DROP TABLE IF EXISTS `sesiones`;
@@ -3794,7 +3794,7 @@ CREATE TABLE IF NOT EXISTS `sesiones` (
   `LiveStream2` varchar(255) DEFAULT NULL,
   `LiveStream3` varchar(255) DEFAULT NULL,
   `LastModified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `sesiones`:
@@ -3814,14 +3814,14 @@ INSERT INTO `sesiones` (`ID`, `Nombre`, `Comentario`, `Operador`, `SessionKey`, 
 (5, 'Ring 4', 'Mangas a realizar en el cuarto ring', 1, NULL, 0, 0, 0, 0, NULL, NULL, NULL, '2014-12-05 19:14:34'),
 (49, 'Console', 'operator - Operador de consola', 4, 'ZxQIACJijoT4s2Nf', 0, 0, 0, 0, NULL, NULL, NULL, '2015-01-06 10:51:47'),
 (50, 'Console', 'admin - Administrador de la aplicacion', 1, 'RjvKoqO4pIGEl6aM', 0, 0, 0, 0, NULL, NULL, NULL, '2015-01-06 21:59:28'),
-(74, 'Console', 'admin - Administrador de la aplicacion', 3, 'Eq32hVFufTtZLSHm', 0, 0, 0, 0, NULL, NULL, NULL, '2015-02-03 13:02:50');
+(75, 'Console', 'admin - Administrador de la aplicacion', 3, '4XJSRjP8rZVn9yzi', 0, 0, 0, 0, NULL, NULL, NULL, '2015-02-06 13:04:17');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `tandas`
 --
--- Creación: 03-02-2015 a las 10:48:41
+-- Creación: 06-02-2015 a las 13:04:01
 --
 
 DROP TABLE IF EXISTS `tandas`;
@@ -3832,12 +3832,12 @@ CREATE TABLE IF NOT EXISTS `tandas` (
   `Sesion` int(4) NOT NULL DEFAULT '1',
   `Orden` int(4) NOT NULL,
   `Nombre` varchar(255) NOT NULL,
-  `Categoria` varchar(1) NOT NULL,
+  `Categoria` varchar(16) NOT NULL,
   `Grado` varchar(16) NOT NULL,
   `Horario` varchar(128) DEFAULT NULL,
   `Tipo` int(4) NOT NULL,
   `Comentario` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=217 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=383 DEFAULT CHARSET=utf8;
 
 --
 -- RELACIONES PARA LA TABLA `tandas`:
@@ -3847,10 +3847,6 @@ CREATE TABLE IF NOT EXISTS `tandas` (
 --       `jornadas` -> `ID`
 --   `Sesion`
 --       `sesiones` -> `ID`
---   `Categoria`
---       `categorias_perro` -> `Categoria`
---   `Grado`
---       `grados_perro` -> `Grado`
 --
 
 --
@@ -3858,179 +3854,179 @@ CREATE TABLE IF NOT EXISTS `tandas` (
 --
 
 INSERT INTO `tandas` (`ID`, `Prueba`, `Jornada`, `Sesion`, `Orden`, `Nombre`, `Categoria`, `Grado`, `Horario`, `Tipo`, `Comentario`) VALUES
-(51, 3, 9, 1, 1, 'Pre-Agility 1', '-', '-', NULL, 1, NULL),
-(52, 3, 9, 1, 2, 'Agility-1 GI Large', '-', '-', NULL, 3, NULL),
-(53, 3, 9, 1, 3, 'Agility-1 GI Medium', '-', '-', NULL, 4, NULL),
-(54, 3, 9, 1, 4, 'Agility-1 GI Small', '-', '-', NULL, 5, NULL),
-(55, 3, 9, 1, 5, 'Agility-2 GI Large', '-', '-', NULL, 6, NULL),
-(56, 3, 9, 1, 6, 'Agility-2 GI Medium', '-', '-', NULL, 7, NULL),
-(57, 3, 9, 1, 7, 'Agility-2 GI Small', '-', '-', NULL, 8, NULL),
-(58, 3, 9, 1, 8, 'Agility GII Large', '-', '-', NULL, 9, NULL),
-(59, 3, 9, 1, 9, 'Agility GII Medium', '-', '-', NULL, 10, NULL),
-(60, 3, 9, 1, 10, 'Agility GII Small', '-', '-', NULL, 11, NULL),
-(61, 3, 9, 1, 11, 'Jumping GII Large', '-', '-', NULL, 23, NULL),
-(62, 3, 9, 1, 12, 'Jumping GII Medium', '-', '-', NULL, 24, NULL),
-(63, 3, 9, 1, 13, 'Jumping GII Small', '-', '-', NULL, 25, NULL),
-(64, 3, 9, 1, 14, 'Agility GIII Large', '-', '-', NULL, 12, NULL),
-(65, 3, 9, 1, 15, 'Agility GIII Medium', '-', '-', NULL, 13, NULL),
-(66, 3, 9, 1, 16, 'Agility GIII Small', '-', '-', NULL, 14, NULL),
-(67, 3, 9, 1, 17, 'Jumping GIII Large', '-', '-', NULL, 26, NULL),
-(68, 3, 9, 1, 18, 'Jumping GIII Medium', '-', '-', NULL, 27, NULL),
-(69, 3, 9, 1, 19, 'Jumping GIII Small', '-', '-', NULL, 28, NULL),
-(70, 3, 10, 1, 1, 'Pre-Agility 1', '-', '-', NULL, 1, NULL),
-(71, 3, 10, 1, 2, 'Agility-1 GI Large', '-', '-', NULL, 3, NULL),
-(72, 3, 10, 1, 3, 'Agility-1 GI Medium', '-', '-', NULL, 4, NULL),
-(73, 3, 10, 1, 4, 'Agility-1 GI Small', '-', '-', NULL, 5, NULL),
-(74, 3, 10, 1, 5, 'Agility-2 GI Large', '-', '-', NULL, 6, NULL),
-(75, 3, 10, 1, 6, 'Agility-2 GI Medium', '-', '-', NULL, 7, NULL),
-(76, 3, 10, 1, 7, 'Agility-2 GI Small', '-', '-', NULL, 8, NULL),
-(77, 3, 10, 1, 8, 'Agility GII Large', '-', '-', NULL, 9, NULL),
-(78, 3, 10, 1, 9, 'Agility GII Medium', '-', '-', NULL, 10, NULL),
-(79, 3, 10, 1, 10, 'Agility GII Small', '-', '-', NULL, 11, NULL),
-(80, 3, 10, 1, 11, 'Jumping GII Large', '-', '-', NULL, 23, NULL),
-(81, 3, 10, 1, 12, 'Jumping GII Medium', '-', '-', NULL, 24, NULL),
-(82, 3, 10, 1, 13, 'Jumping GII Small', '-', '-', NULL, 25, NULL),
-(83, 3, 10, 1, 14, 'Agility GIII Large', '-', '-', NULL, 12, NULL),
-(84, 3, 10, 1, 15, 'Agility GIII Medium', '-', '-', NULL, 13, NULL),
-(85, 3, 10, 1, 16, 'Agility GIII Small', '-', '-', NULL, 14, NULL),
-(86, 3, 10, 1, 17, 'Jumping GIII Large', '-', '-', NULL, 26, NULL),
-(87, 3, 10, 1, 18, 'Jumping GIII Medium', '-', '-', NULL, 27, NULL),
-(88, 3, 10, 1, 19, 'Jumping GIII Small', '-', '-', NULL, 28, NULL),
-(89, 5, 25, 1, 1, 'Pre-Agility 1', '-', '-', NULL, 1, NULL),
-(90, 5, 25, 1, 2, 'Agility-1 GI Large', '-', '-', NULL, 3, NULL),
-(91, 5, 25, 1, 3, 'Agility-1 GI Medium', '-', '-', NULL, 4, NULL),
-(92, 5, 25, 1, 4, 'Agility-1 GI Small', '-', '-', NULL, 5, NULL),
-(93, 5, 25, 1, 5, 'Agility-2 GI Large', '-', '-', NULL, 6, NULL),
-(94, 5, 25, 1, 6, 'Agility-2 GI Medium', '-', '-', NULL, 7, NULL),
-(95, 5, 25, 1, 7, 'Agility-2 GI Small', '-', '-', NULL, 8, NULL),
-(96, 5, 25, 1, 8, 'Agility GII Large', '-', '-', NULL, 9, NULL),
-(97, 5, 25, 1, 9, 'Agility GII Medium', '-', '-', NULL, 10, NULL),
-(98, 5, 25, 1, 10, 'Agility GII Small', '-', '-', NULL, 11, NULL),
-(99, 5, 25, 1, 11, 'Jumping GII Large', '-', '-', NULL, 23, NULL),
-(100, 5, 25, 1, 12, 'Jumping GII Medium', '-', '-', NULL, 24, NULL),
-(101, 5, 25, 1, 13, 'Jumping GII Small', '-', '-', NULL, 25, NULL),
-(102, 5, 25, 1, 14, 'Agility GIII Large', '-', '-', NULL, 12, NULL),
-(103, 5, 25, 1, 15, 'Agility GIII Medium', '-', '-', NULL, 13, NULL),
-(104, 5, 25, 1, 16, 'Agility GIII Small', '-', '-', NULL, 14, NULL),
-(105, 5, 25, 1, 17, 'Jumping GIII Large', '-', '-', NULL, 26, NULL),
-(106, 5, 25, 1, 18, 'Jumping GIII Medium', '-', '-', NULL, 27, NULL),
-(107, 5, 25, 1, 19, 'Jumping GIII Small', '-', '-', NULL, 28, NULL),
-(108, 5, 26, 1, 1, 'Pre-Agility 1', '-', '-', NULL, 1, NULL),
-(109, 5, 26, 1, 2, 'Agility-1 GI Large', '-', '-', NULL, 3, NULL),
-(110, 5, 26, 1, 3, 'Agility-1 GI Medium', '-', '-', NULL, 4, NULL),
-(111, 5, 26, 1, 4, 'Agility-1 GI Small', '-', '-', NULL, 5, NULL),
-(112, 5, 26, 1, 5, 'Agility-2 GI Large', '-', '-', NULL, 6, NULL),
-(113, 5, 26, 1, 6, 'Agility-2 GI Medium', '-', '-', NULL, 7, NULL),
-(114, 5, 26, 1, 7, 'Agility-2 GI Small', '-', '-', NULL, 8, NULL),
-(115, 5, 26, 1, 8, 'Agility GII Large', '-', '-', NULL, 9, NULL),
-(116, 5, 26, 1, 9, 'Agility GII Medium', '-', '-', NULL, 10, NULL),
-(117, 5, 26, 1, 10, 'Agility GII Small', '-', '-', NULL, 11, NULL),
-(118, 5, 26, 1, 11, 'Jumping GII Large', '-', '-', NULL, 23, NULL),
-(119, 5, 26, 1, 12, 'Jumping GII Medium', '-', '-', NULL, 24, NULL),
-(120, 5, 26, 1, 13, 'Jumping GII Small', '-', '-', NULL, 25, NULL),
-(121, 5, 26, 1, 14, 'Agility GIII Large', '-', '-', NULL, 12, NULL),
-(122, 5, 26, 1, 15, 'Agility GIII Medium', '-', '-', NULL, 13, NULL),
-(123, 5, 26, 1, 16, 'Agility GIII Small', '-', '-', NULL, 14, NULL),
-(124, 5, 26, 1, 17, 'Jumping GIII Large', '-', '-', NULL, 26, NULL),
-(125, 5, 26, 1, 18, 'Jumping GIII Medium', '-', '-', NULL, 27, NULL),
-(126, 5, 26, 1, 19, 'Jumping GIII Small', '-', '-', NULL, 28, NULL),
-(127, 4, 17, 1, 1, 'Agility-1 GI Large', '-', '-', NULL, 3, NULL),
-(128, 4, 17, 1, 2, 'Agility-1 GI Medium', '-', '-', NULL, 4, NULL),
-(129, 4, 17, 1, 3, 'Agility-1 GI Small', '-', '-', NULL, 5, NULL),
-(130, 4, 17, 1, 4, 'Agility-2 GI Large', '-', '-', NULL, 6, NULL),
-(131, 4, 17, 1, 5, 'Agility-2 GI Medium', '-', '-', NULL, 7, NULL),
-(132, 4, 17, 1, 6, 'Agility-2 GI Small', '-', '-', NULL, 8, NULL),
-(133, 4, 17, 1, 7, 'Agility GII Large', '-', '-', NULL, 9, NULL),
-(134, 4, 17, 1, 8, 'Agility GII Medium', '-', '-', NULL, 10, NULL),
-(135, 4, 17, 1, 9, 'Agility GII Small', '-', '-', NULL, 11, NULL),
-(136, 4, 17, 1, 10, 'Jumping GII Large', '-', '-', NULL, 23, NULL),
-(137, 4, 17, 1, 11, 'Jumping GII Medium', '-', '-', NULL, 24, NULL),
-(138, 4, 17, 1, 12, 'Jumping GII Small', '-', '-', NULL, 25, NULL),
-(139, 4, 17, 1, 13, 'Agility GIII Large', '-', '-', NULL, 12, NULL),
-(140, 4, 17, 1, 14, 'Agility GIII Medium', '-', '-', NULL, 13, NULL),
-(141, 4, 17, 1, 15, 'Agility GIII Small', '-', '-', NULL, 14, NULL),
-(142, 4, 17, 1, 16, 'Jumping GIII Large', '-', '-', NULL, 26, NULL),
-(143, 4, 17, 1, 17, 'Jumping GIII Medium', '-', '-', NULL, 27, NULL),
-(144, 4, 17, 1, 18, 'Jumping GIII Small', '-', '-', NULL, 28, NULL),
-(145, 4, 18, 1, 1, 'Agility-1 GI Large', '-', '-', NULL, 3, NULL),
-(146, 4, 18, 1, 2, 'Agility-1 GI Medium', '-', '-', NULL, 4, NULL),
-(147, 4, 18, 1, 3, 'Agility-1 GI Small', '-', '-', NULL, 5, NULL),
-(148, 4, 18, 1, 4, 'Agility-2 GI Large', '-', '-', NULL, 6, NULL),
-(149, 4, 18, 1, 5, 'Agility-2 GI Medium', '-', '-', NULL, 7, NULL),
-(150, 4, 18, 1, 6, 'Agility-2 GI Small', '-', '-', NULL, 8, NULL),
-(151, 4, 18, 1, 7, 'Agility GII Large', '-', '-', NULL, 9, NULL),
-(152, 4, 18, 1, 8, 'Agility GII Medium', '-', '-', NULL, 10, NULL),
-(153, 4, 18, 1, 9, 'Agility GII Small', '-', '-', NULL, 11, NULL),
-(154, 4, 18, 1, 10, 'Jumping GII Large', '-', '-', NULL, 23, NULL),
-(155, 4, 18, 1, 11, 'Jumping GII Medium', '-', '-', NULL, 24, NULL),
-(156, 4, 18, 1, 12, 'Jumping GII Small', '-', '-', NULL, 25, NULL),
-(157, 4, 18, 1, 13, 'Agility GIII Large', '-', '-', NULL, 12, NULL),
-(158, 4, 18, 1, 14, 'Agility GIII Medium', '-', '-', NULL, 13, NULL),
-(159, 4, 18, 1, 15, 'Agility GIII Small', '-', '-', NULL, 14, NULL),
-(160, 4, 18, 1, 16, 'Jumping GIII Large', '-', '-', NULL, 26, NULL),
-(161, 4, 18, 1, 17, 'Jumping GIII Medium', '-', '-', NULL, 27, NULL),
-(162, 4, 18, 1, 18, 'Jumping GIII Small', '-', '-', NULL, 28, NULL),
-(163, 6, 33, 1, 1, 'Agility-1 GI Large', '-', '-', NULL, 3, NULL),
-(164, 6, 33, 1, 2, 'Agility-1 GI Medium', '-', '-', NULL, 4, NULL),
-(165, 6, 33, 1, 3, 'Agility-1 GI Small', '-', '-', NULL, 5, NULL),
-(166, 6, 33, 1, 4, 'Agility-2 GI Large', '-', '-', NULL, 6, NULL),
-(167, 6, 33, 1, 5, 'Agility-2 GI Medium', '-', '-', NULL, 7, NULL),
-(168, 6, 33, 1, 6, 'Agility-2 GI Small', '-', '-', NULL, 8, NULL),
-(169, 6, 33, 1, 7, 'Agility GII Large', '-', '-', NULL, 9, NULL),
-(170, 6, 33, 1, 8, 'Agility GII Medium', '-', '-', NULL, 10, NULL),
-(171, 6, 33, 1, 9, 'Agility GII Small', '-', '-', NULL, 11, NULL),
-(172, 6, 33, 1, 10, 'Jumping GII Large', '-', '-', NULL, 23, NULL),
-(173, 6, 33, 1, 11, 'Jumping GII Medium', '-', '-', NULL, 24, NULL),
-(174, 6, 33, 1, 12, 'Jumping GII Small', '-', '-', NULL, 25, NULL),
-(175, 6, 33, 1, 13, 'Agility GIII Large', '-', '-', NULL, 12, NULL),
-(176, 6, 33, 1, 14, 'Agility GIII Medium', '-', '-', NULL, 13, NULL),
-(177, 6, 33, 1, 15, 'Agility GIII Small', '-', '-', NULL, 14, NULL),
-(178, 6, 33, 1, 16, 'Jumping GIII Large', '-', '-', NULL, 26, NULL),
-(179, 6, 33, 1, 17, 'Jumping GIII Medium', '-', '-', NULL, 27, NULL),
-(180, 6, 33, 1, 18, 'Jumping GIII Small', '-', '-', NULL, 28, NULL),
-(181, 6, 34, 1, 1, 'Agility-1 GI Large', '-', '-', NULL, 3, NULL),
-(182, 6, 34, 1, 2, 'Agility-1 GI Medium', '-', '-', NULL, 4, NULL),
-(183, 6, 34, 1, 3, 'Agility-1 GI Small', '-', '-', NULL, 5, NULL),
-(184, 6, 34, 1, 4, 'Agility-2 GI Large', '-', '-', NULL, 6, NULL),
-(185, 6, 34, 1, 5, 'Agility-2 GI Medium', '-', '-', NULL, 7, NULL),
-(186, 6, 34, 1, 6, 'Agility-2 GI Small', '-', '-', NULL, 8, NULL),
-(187, 6, 34, 1, 7, 'Agility GII Large', '-', '-', NULL, 9, NULL),
-(188, 6, 34, 1, 8, 'Agility GII Medium', '-', '-', NULL, 10, NULL),
-(189, 6, 34, 1, 9, 'Agility GII Small', '-', '-', NULL, 11, NULL),
-(190, 6, 34, 1, 10, 'Jumping GII Large', '-', '-', NULL, 23, NULL),
-(191, 6, 34, 1, 11, 'Jumping GII Medium', '-', '-', NULL, 24, NULL),
-(192, 6, 34, 1, 12, 'Jumping GII Small', '-', '-', NULL, 25, NULL),
-(193, 6, 34, 1, 13, 'Agility GIII Large', '-', '-', NULL, 12, NULL),
-(194, 6, 34, 1, 14, 'Agility GIII Medium', '-', '-', NULL, 13, NULL),
-(195, 6, 34, 1, 15, 'Agility GIII Small', '-', '-', NULL, 14, NULL),
-(196, 6, 34, 1, 16, 'Jumping GIII Large', '-', '-', NULL, 26, NULL),
-(197, 6, 34, 1, 17, 'Jumping GIII Medium', '-', '-', NULL, 27, NULL),
-(198, 6, 34, 1, 18, 'Jumping GIII Small', '-', '-', NULL, 28, NULL),
-(199, 2, 1, 1, 1, 'Pre-Agility 1', '-', '-', NULL, 1, NULL),
-(200, 2, 1, 1, 2, 'Pre-Agility 2', '-', '-', NULL, 2, NULL),
-(201, 2, 1, 1, 3, 'Agility-1 GI Large', '-', '-', NULL, 3, NULL),
-(202, 2, 1, 1, 4, 'Agility-1 GI Medium', '-', '-', NULL, 4, NULL),
-(203, 2, 1, 1, 5, 'Agility-1 GI Small', '-', '-', NULL, 5, NULL),
-(204, 2, 1, 1, 6, 'Agility-1 GI Tiny', '-', '-', NULL, 41, NULL),
-(205, 2, 1, 1, 7, 'Agility-2 GI Large', '-', '-', NULL, 6, NULL),
-(206, 2, 1, 1, 8, 'Agility-2 GI Medium', '-', '-', NULL, 7, NULL),
-(207, 2, 1, 1, 9, 'Agility-2 GI Small', '-', '-', NULL, 8, NULL),
-(208, 2, 1, 1, 10, 'Agility-2 GI Tiny', '-', '-', NULL, 42, NULL),
-(209, 2, 1, 1, 11, 'Agility GII Large', '-', '-', NULL, 9, NULL),
-(210, 2, 1, 1, 12, 'Agility GII Medium', '-', '-', NULL, 10, NULL),
-(211, 2, 1, 1, 13, 'Agility GII Small', '-', '-', NULL, 11, NULL),
-(212, 2, 1, 1, 14, 'Agility GII Tiny', '-', '-', NULL, 43, NULL),
-(213, 2, 1, 1, 15, 'Jumping GII Large', '-', '-', NULL, 23, NULL),
-(214, 2, 1, 1, 16, 'Jumping GII Medium', '-', '-', NULL, 24, NULL),
-(215, 2, 1, 1, 17, 'Jumping GII Small', '-', '-', NULL, 25, NULL),
-(216, 2, 1, 1, 18, 'Jumping GII Tiny', '-', '-', NULL, 49, NULL);
+(217, 2, 1, 1, 19, 'Pre-Agility 1', '-LMST', 'P.A.', NULL, 1, NULL),
+(218, 2, 1, 1, 20, 'Pre-Agility 2', '-LMST', 'P.A.', NULL, 2, NULL),
+(219, 2, 1, 1, 21, 'Agility-1 GI Large', 'L', 'GI', NULL, 3, NULL),
+(220, 2, 1, 1, 22, 'Agility-1 GI Medium', 'M', 'GI', NULL, 4, NULL),
+(221, 2, 1, 1, 23, 'Agility-1 GI Small', 'S', 'GI', NULL, 5, NULL),
+(222, 2, 1, 1, 24, 'Agility-1 GI Tiny', 'T', 'GI', NULL, 41, NULL),
+(223, 2, 1, 1, 25, 'Agility-2 GI Large', 'L', 'GI', NULL, 6, NULL),
+(224, 2, 1, 1, 26, 'Agility-2 GI Medium', 'M', 'GI', NULL, 7, NULL),
+(225, 2, 1, 1, 27, 'Agility-2 GI Small', 'S', 'GI', NULL, 8, NULL),
+(226, 2, 1, 1, 28, 'Agility-2 GI Tiny', 'T', 'GI', NULL, 42, NULL),
+(227, 2, 1, 1, 29, 'Agility GII Large', 'L', 'GII', NULL, 9, NULL),
+(228, 2, 1, 1, 30, 'Agility GII Medium', 'M', 'GII', NULL, 10, NULL),
+(229, 2, 1, 1, 31, 'Agility GII Small', 'S', 'GII', NULL, 11, NULL),
+(230, 2, 1, 1, 32, 'Agility GII Tiny', 'T', 'GII', NULL, 43, NULL),
+(231, 2, 1, 1, 33, 'Jumping GII Large', 'L', 'GII', NULL, 23, NULL),
+(232, 2, 1, 1, 34, 'Jumping GII Medium', 'M', 'GII', NULL, 24, NULL),
+(233, 2, 1, 1, 35, 'Jumping GII Small', 'S', 'GII', NULL, 25, NULL),
+(234, 2, 1, 1, 36, 'Jumping GII Tiny', 'T', 'GII', NULL, 49, NULL),
+(235, 3, 9, 1, 1, 'Pre-Agility 1', '-LMST', 'P.A.', NULL, 1, NULL),
+(236, 3, 9, 1, 2, 'Agility-1 GI Large', 'L', 'GI', NULL, 3, NULL),
+(237, 3, 9, 1, 3, 'Agility-1 GI Medium', 'M', 'GI', NULL, 4, NULL),
+(238, 3, 9, 1, 4, 'Agility-1 GI Small', 'S', 'GI', NULL, 5, NULL),
+(239, 3, 9, 1, 5, 'Agility-2 GI Large', 'L', 'GI', NULL, 6, NULL),
+(240, 3, 9, 1, 6, 'Agility-2 GI Medium', 'M', 'GI', NULL, 7, NULL),
+(241, 3, 9, 1, 7, 'Agility-2 GI Small', 'S', 'GI', NULL, 8, NULL),
+(242, 3, 9, 1, 8, 'Agility GII Large', 'L', 'GII', NULL, 9, NULL),
+(243, 3, 9, 1, 9, 'Agility GII Medium', 'M', 'GII', NULL, 10, NULL),
+(244, 3, 9, 1, 10, 'Agility GII Small', 'S', 'GII', NULL, 11, NULL),
+(245, 3, 9, 1, 11, 'Jumping GII Large', 'L', 'GII', NULL, 23, NULL),
+(246, 3, 9, 1, 12, 'Jumping GII Medium', 'M', 'GII', NULL, 24, NULL),
+(247, 3, 9, 1, 13, 'Jumping GII Small', 'S', 'GII', NULL, 25, NULL),
+(248, 3, 9, 1, 14, 'Agility GIII Large', 'L', 'GIII', NULL, 12, NULL),
+(249, 3, 9, 1, 15, 'Agility GIII Medium', 'M', 'GIII', NULL, 13, NULL),
+(250, 3, 9, 1, 16, 'Agility GIII Small', 'S', 'GIII', NULL, 14, NULL),
+(251, 3, 9, 1, 17, 'Jumping GIII Large', 'L', 'GIII', NULL, 26, NULL),
+(252, 3, 9, 1, 18, 'Jumping GIII Medium', 'M', 'GIII', NULL, 27, NULL),
+(253, 3, 9, 1, 19, 'Jumping GIII Small', 'S', 'GIII', NULL, 28, NULL),
+(254, 3, 10, 1, 1, 'Pre-Agility 1', '-LMST', 'P.A.', NULL, 1, NULL),
+(255, 3, 10, 1, 2, 'Agility-1 GI Large', 'L', 'GI', NULL, 3, NULL),
+(256, 3, 10, 1, 3, 'Agility-1 GI Medium', 'M', 'GI', NULL, 4, NULL),
+(257, 3, 10, 1, 4, 'Agility-1 GI Small', 'S', 'GI', NULL, 5, NULL),
+(258, 3, 10, 1, 5, 'Agility-2 GI Large', 'L', 'GI', NULL, 6, NULL),
+(259, 3, 10, 1, 6, 'Agility-2 GI Medium', 'M', 'GI', NULL, 7, NULL),
+(260, 3, 10, 1, 7, 'Agility-2 GI Small', 'S', 'GI', NULL, 8, NULL),
+(261, 3, 10, 1, 8, 'Agility GII Large', 'L', 'GII', NULL, 9, NULL),
+(262, 3, 10, 1, 9, 'Agility GII Medium', 'M', 'GII', NULL, 10, NULL),
+(263, 3, 10, 1, 10, 'Agility GII Small', 'S', 'GII', NULL, 11, NULL),
+(264, 3, 10, 1, 11, 'Jumping GII Large', 'L', 'GII', NULL, 23, NULL),
+(265, 3, 10, 1, 12, 'Jumping GII Medium', 'M', 'GII', NULL, 24, NULL),
+(266, 3, 10, 1, 13, 'Jumping GII Small', 'S', 'GII', NULL, 25, NULL),
+(267, 3, 10, 1, 14, 'Agility GIII Large', 'L', 'GIII', NULL, 12, NULL),
+(268, 3, 10, 1, 15, 'Agility GIII Medium', 'M', 'GIII', NULL, 13, NULL),
+(269, 3, 10, 1, 16, 'Agility GIII Small', 'S', 'GIII', NULL, 14, NULL),
+(270, 3, 10, 1, 17, 'Jumping GIII Large', 'L', 'GIII', NULL, 26, NULL),
+(271, 3, 10, 1, 18, 'Jumping GIII Medium', 'M', 'GIII', NULL, 27, NULL),
+(272, 3, 10, 1, 19, 'Jumping GIII Small', 'S', 'GIII', NULL, 28, NULL),
+(273, 5, 25, 1, 1, 'Pre-Agility 1', '-LMST', 'P.A.', NULL, 1, NULL),
+(274, 5, 25, 1, 2, 'Agility-1 GI Large', 'L', 'GI', NULL, 3, NULL),
+(275, 5, 25, 1, 3, 'Agility-1 GI Medium', 'M', 'GI', NULL, 4, NULL),
+(276, 5, 25, 1, 4, 'Agility-1 GI Small', 'S', 'GI', NULL, 5, NULL),
+(277, 5, 25, 1, 5, 'Agility-2 GI Large', 'L', 'GI', NULL, 6, NULL),
+(278, 5, 25, 1, 6, 'Agility-2 GI Medium', 'M', 'GI', NULL, 7, NULL),
+(279, 5, 25, 1, 7, 'Agility-2 GI Small', 'S', 'GI', NULL, 8, NULL),
+(280, 5, 25, 1, 8, 'Agility GII Large', 'L', 'GII', NULL, 9, NULL),
+(281, 5, 25, 1, 9, 'Agility GII Medium', 'M', 'GII', NULL, 10, NULL),
+(282, 5, 25, 1, 10, 'Agility GII Small', 'S', 'GII', NULL, 11, NULL),
+(283, 5, 25, 1, 11, 'Jumping GII Large', 'L', 'GII', NULL, 23, NULL),
+(284, 5, 25, 1, 12, 'Jumping GII Medium', 'M', 'GII', NULL, 24, NULL),
+(285, 5, 25, 1, 13, 'Jumping GII Small', 'S', 'GII', NULL, 25, NULL),
+(286, 5, 25, 1, 14, 'Agility GIII Large', 'L', 'GIII', NULL, 12, NULL),
+(287, 5, 25, 1, 15, 'Agility GIII Medium', 'M', 'GIII', NULL, 13, NULL),
+(288, 5, 25, 1, 16, 'Agility GIII Small', 'S', 'GIII', NULL, 14, NULL),
+(289, 5, 25, 1, 17, 'Jumping GIII Large', 'L', 'GIII', NULL, 26, NULL),
+(290, 5, 25, 1, 18, 'Jumping GIII Medium', 'M', 'GIII', NULL, 27, NULL),
+(291, 5, 25, 1, 19, 'Jumping GIII Small', 'S', 'GIII', NULL, 28, NULL),
+(292, 5, 26, 1, 1, 'Pre-Agility 1', '-LMST', 'P.A.', NULL, 1, NULL),
+(293, 5, 26, 1, 2, 'Agility-1 GI Large', 'L', 'GI', NULL, 3, NULL),
+(294, 5, 26, 1, 3, 'Agility-1 GI Medium', 'M', 'GI', NULL, 4, NULL),
+(295, 5, 26, 1, 4, 'Agility-1 GI Small', 'S', 'GI', NULL, 5, NULL),
+(296, 5, 26, 1, 5, 'Agility-2 GI Large', 'L', 'GI', NULL, 6, NULL),
+(297, 5, 26, 1, 6, 'Agility-2 GI Medium', 'M', 'GI', NULL, 7, NULL),
+(298, 5, 26, 1, 7, 'Agility-2 GI Small', 'S', 'GI', NULL, 8, NULL),
+(299, 5, 26, 1, 8, 'Agility GII Large', 'L', 'GII', NULL, 9, NULL),
+(300, 5, 26, 1, 9, 'Agility GII Medium', 'M', 'GII', NULL, 10, NULL),
+(301, 5, 26, 1, 10, 'Agility GII Small', 'S', 'GII', NULL, 11, NULL),
+(302, 5, 26, 1, 11, 'Jumping GII Large', 'L', 'GII', NULL, 23, NULL),
+(303, 5, 26, 1, 12, 'Jumping GII Medium', 'M', 'GII', NULL, 24, NULL),
+(304, 5, 26, 1, 13, 'Jumping GII Small', 'S', 'GII', NULL, 25, NULL),
+(305, 5, 26, 1, 14, 'Agility GIII Large', 'L', 'GIII', NULL, 12, NULL),
+(306, 5, 26, 1, 15, 'Agility GIII Medium', 'M', 'GIII', NULL, 13, NULL),
+(307, 5, 26, 1, 16, 'Agility GIII Small', 'S', 'GIII', NULL, 14, NULL),
+(308, 5, 26, 1, 17, 'Jumping GIII Large', 'L', 'GIII', NULL, 26, NULL),
+(309, 5, 26, 1, 18, 'Jumping GIII Medium', 'M', 'GIII', NULL, 27, NULL),
+(310, 5, 26, 1, 19, 'Jumping GIII Small', 'S', 'GIII', NULL, 28, NULL),
+(311, 4, 17, 1, 1, 'Agility-1 GI Large', 'L', 'GI', NULL, 3, NULL),
+(312, 4, 17, 1, 2, 'Agility-1 GI Medium', 'M', 'GI', NULL, 4, NULL),
+(313, 4, 17, 1, 3, 'Agility-1 GI Small', 'S', 'GI', NULL, 5, NULL),
+(314, 4, 17, 1, 4, 'Agility-2 GI Large', 'L', 'GI', NULL, 6, NULL),
+(315, 4, 17, 1, 5, 'Agility-2 GI Medium', 'M', 'GI', NULL, 7, NULL),
+(316, 4, 17, 1, 6, 'Agility-2 GI Small', 'S', 'GI', NULL, 8, NULL),
+(317, 4, 17, 1, 7, 'Agility GII Large', 'L', 'GII', NULL, 9, NULL),
+(318, 4, 17, 1, 8, 'Agility GII Medium', 'M', 'GII', NULL, 10, NULL),
+(319, 4, 17, 1, 9, 'Agility GII Small', 'S', 'GII', NULL, 11, NULL),
+(320, 4, 17, 1, 10, 'Jumping GII Large', 'L', 'GII', NULL, 23, NULL),
+(321, 4, 17, 1, 11, 'Jumping GII Medium', 'M', 'GII', NULL, 24, NULL),
+(322, 4, 17, 1, 12, 'Jumping GII Small', 'S', 'GII', NULL, 25, NULL),
+(323, 4, 17, 1, 13, 'Agility GIII Large', 'L', 'GIII', NULL, 12, NULL),
+(324, 4, 17, 1, 14, 'Agility GIII Medium', 'M', 'GIII', NULL, 13, NULL),
+(325, 4, 17, 1, 15, 'Agility GIII Small', 'S', 'GIII', NULL, 14, NULL),
+(326, 4, 17, 1, 16, 'Jumping GIII Large', 'L', 'GIII', NULL, 26, NULL),
+(327, 4, 17, 1, 17, 'Jumping GIII Medium', 'M', 'GIII', NULL, 27, NULL),
+(328, 4, 17, 1, 18, 'Jumping GIII Small', 'S', 'GIII', NULL, 28, NULL),
+(329, 4, 18, 1, 1, 'Agility-1 GI Large', 'L', 'GI', NULL, 3, NULL),
+(330, 4, 18, 1, 2, 'Agility-1 GI Medium', 'M', 'GI', NULL, 4, NULL),
+(331, 4, 18, 1, 3, 'Agility-1 GI Small', 'S', 'GI', NULL, 5, NULL),
+(332, 4, 18, 1, 4, 'Agility-2 GI Large', 'L', 'GI', NULL, 6, NULL),
+(333, 4, 18, 1, 5, 'Agility-2 GI Medium', 'M', 'GI', NULL, 7, NULL),
+(334, 4, 18, 1, 6, 'Agility-2 GI Small', 'S', 'GI', NULL, 8, NULL),
+(335, 4, 18, 1, 7, 'Agility GII Large', 'L', 'GII', NULL, 9, NULL),
+(336, 4, 18, 1, 8, 'Agility GII Medium', 'M', 'GII', NULL, 10, NULL),
+(337, 4, 18, 1, 9, 'Agility GII Small', 'S', 'GII', NULL, 11, NULL),
+(338, 4, 18, 1, 10, 'Jumping GII Large', 'L', 'GII', NULL, 23, NULL),
+(339, 4, 18, 1, 11, 'Jumping GII Medium', 'M', 'GII', NULL, 24, NULL),
+(340, 4, 18, 1, 12, 'Jumping GII Small', 'S', 'GII', NULL, 25, NULL),
+(341, 4, 18, 1, 13, 'Agility GIII Large', 'L', 'GIII', NULL, 12, NULL),
+(342, 4, 18, 1, 14, 'Agility GIII Medium', 'M', 'GIII', NULL, 13, NULL),
+(343, 4, 18, 1, 15, 'Agility GIII Small', 'S', 'GIII', NULL, 14, NULL),
+(344, 4, 18, 1, 16, 'Jumping GIII Large', 'L', 'GIII', NULL, 26, NULL),
+(345, 4, 18, 1, 17, 'Jumping GIII Medium', 'M', 'GIII', NULL, 27, NULL),
+(346, 4, 18, 1, 18, 'Jumping GIII Small', 'S', 'GIII', NULL, 28, NULL),
+(347, 6, 33, 1, 1, 'Agility-1 GI Large', 'L', 'GI', NULL, 3, NULL),
+(348, 6, 33, 1, 2, 'Agility-1 GI Medium', 'M', 'GI', NULL, 4, NULL),
+(349, 6, 33, 1, 3, 'Agility-1 GI Small', 'S', 'GI', NULL, 5, NULL),
+(350, 6, 33, 1, 4, 'Agility-2 GI Large', 'L', 'GI', NULL, 6, NULL),
+(351, 6, 33, 1, 5, 'Agility-2 GI Medium', 'M', 'GI', NULL, 7, NULL),
+(352, 6, 33, 1, 6, 'Agility-2 GI Small', 'S', 'GI', NULL, 8, NULL),
+(353, 6, 33, 1, 7, 'Agility GII Large', 'L', 'GII', NULL, 9, NULL),
+(354, 6, 33, 1, 8, 'Agility GII Medium', 'M', 'GII', NULL, 10, NULL),
+(355, 6, 33, 1, 9, 'Agility GII Small', 'S', 'GII', NULL, 11, NULL),
+(356, 6, 33, 1, 10, 'Jumping GII Large', 'L', 'GII', NULL, 23, NULL),
+(357, 6, 33, 1, 11, 'Jumping GII Medium', 'M', 'GII', NULL, 24, NULL),
+(358, 6, 33, 1, 12, 'Jumping GII Small', 'S', 'GII', NULL, 25, NULL),
+(359, 6, 33, 1, 13, 'Agility GIII Large', 'L', 'GIII', NULL, 12, NULL),
+(360, 6, 33, 1, 14, 'Agility GIII Medium', 'M', 'GIII', NULL, 13, NULL),
+(361, 6, 33, 1, 15, 'Agility GIII Small', 'S', 'GIII', NULL, 14, NULL),
+(362, 6, 33, 1, 16, 'Jumping GIII Large', 'L', 'GIII', NULL, 26, NULL),
+(363, 6, 33, 1, 17, 'Jumping GIII Medium', 'M', 'GIII', NULL, 27, NULL),
+(364, 6, 33, 1, 18, 'Jumping GIII Small', 'S', 'GIII', NULL, 28, NULL),
+(365, 6, 34, 1, 1, 'Agility-1 GI Large', 'L', 'GI', NULL, 3, NULL),
+(366, 6, 34, 1, 2, 'Agility-1 GI Medium', 'M', 'GI', NULL, 4, NULL),
+(367, 6, 34, 1, 3, 'Agility-1 GI Small', 'S', 'GI', NULL, 5, NULL),
+(368, 6, 34, 1, 4, 'Agility-2 GI Large', 'L', 'GI', NULL, 6, NULL),
+(369, 6, 34, 1, 5, 'Agility-2 GI Medium', 'M', 'GI', NULL, 7, NULL),
+(370, 6, 34, 1, 6, 'Agility-2 GI Small', 'S', 'GI', NULL, 8, NULL),
+(371, 6, 34, 1, 7, 'Agility GII Large', 'L', 'GII', NULL, 9, NULL),
+(372, 6, 34, 1, 8, 'Agility GII Medium', 'M', 'GII', NULL, 10, NULL),
+(373, 6, 34, 1, 9, 'Agility GII Small', 'S', 'GII', NULL, 11, NULL),
+(374, 6, 34, 1, 10, 'Jumping GII Large', 'L', 'GII', NULL, 23, NULL),
+(375, 6, 34, 1, 11, 'Jumping GII Medium', 'M', 'GII', NULL, 24, NULL),
+(376, 6, 34, 1, 12, 'Jumping GII Small', 'S', 'GII', NULL, 25, NULL),
+(377, 6, 34, 1, 13, 'Agility GIII Large', 'L', 'GIII', NULL, 12, NULL),
+(378, 6, 34, 1, 14, 'Agility GIII Medium', 'M', 'GIII', NULL, 13, NULL),
+(379, 6, 34, 1, 15, 'Agility GIII Small', 'S', 'GIII', NULL, 14, NULL),
+(380, 6, 34, 1, 16, 'Jumping GIII Large', 'L', 'GIII', NULL, 26, NULL),
+(381, 6, 34, 1, 17, 'Jumping GIII Medium', 'M', 'GIII', NULL, 27, NULL),
+(382, 6, 34, 1, 18, 'Jumping GIII Small', 'S', 'GIII', NULL, 28, NULL);
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `tipo_manga`
 --
--- Creación: 03-02-2015 a las 07:41:50
+-- Creación: 06-02-2015 a las 13:04:01
 --
 
 DROP TABLE IF EXISTS `tipo_manga`;
@@ -4073,7 +4069,7 @@ INSERT INTO `tipo_manga` (`ID`, `Descripcion`, `Grado`) VALUES
 --
 -- Estructura de tabla para la tabla `usuarios`
 --
--- Creación: 03-02-2015 a las 07:41:48
+-- Creación: 06-02-2015 a las 13:04:00
 --
 
 DROP TABLE IF EXISTS `usuarios`;
@@ -4210,7 +4206,7 @@ ALTER TABLE `sesiones`
 -- Indices de la tabla `tandas`
 --
 ALTER TABLE `tandas`
-  ADD PRIMARY KEY (`ID`), ADD KEY `Tandas_Prueba` (`Prueba`), ADD KEY `Tandas_Jornada` (`Jornada`), ADD KEY `Tandas_Sesion` (`Sesion`), ADD KEY `Tandas_Categoria` (`Categoria`), ADD KEY `Tandas_Grado` (`Grado`);
+  ADD PRIMARY KEY (`ID`), ADD KEY `Tandas_Prueba` (`Prueba`), ADD KEY `Tandas_Jornada` (`Jornada`), ADD KEY `Tandas_Sesion` (`Sesion`);
 
 --
 -- Indices de la tabla `tipo_manga`
@@ -4282,12 +4278,12 @@ ALTER TABLE `pruebas`
 -- AUTO_INCREMENT de la tabla `sesiones`
 --
 ALTER TABLE `sesiones`
-  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=75;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=76;
 --
 -- AUTO_INCREMENT de la tabla `tandas`
 --
 ALTER TABLE `tandas`
-  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=217;
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=383;
 --
 -- AUTO_INCREMENT de la tabla `tipo_manga`
 --
@@ -4385,9 +4381,7 @@ ADD CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` 
 ALTER TABLE `tandas`
 ADD CONSTRAINT `Tandas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `Tandas_ibfk_2` FOREIGN KEY (`Jornada`) REFERENCES `jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `Tandas_ibfk_3` FOREIGN KEY (`Sesion`) REFERENCES `sesiones` (`ID`) ON UPDATE CASCADE,
-ADD CONSTRAINT `Tandas_ibfk_4` FOREIGN KEY (`Categoria`) REFERENCES `categorias_perro` (`Categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `Tandas_ibfk_5` FOREIGN KEY (`Grado`) REFERENCES `grados_perro` (`Grado`) ON DELETE CASCADE ON UPDATE CASCADE;
+ADD CONSTRAINT `Tandas_ibfk_3` FOREIGN KEY (`Sesion`) REFERENCES `sesiones` (`ID`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `tipo_manga`

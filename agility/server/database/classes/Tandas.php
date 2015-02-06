@@ -575,10 +575,12 @@ class Tandas extends DBObject {
 			if ($obj!=null) $last=1+intval($obj->Last); // evaluate latest in order
 			// check for already inserted into Tandas
 			$obj=$this->__selectObject("*","Tandas","(Prueba=$p) AND (Jornada=$j) AND (Tipo=$tipo)");
-			if ($obj==null) { // insert into list at end. NOTICE Fake Categoria/Grado to mantain backwards compatibility
+			if ($obj==null) { // insert into list at end.
 				$n=Tandas::$tipo_tanda[$tipo]['Nombre'];
+				$c=Tandas::$tipo_tanda[$tipo]['Categoria'];
+				$g=Tandas::$tipo_tanda[$tipo]['Grado'];
 				$str="INSERT INTO Tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Categoria,Grado) 
-					VALUES ($tipo,$p,$j,1,$last,'$n','-','-')";
+					VALUES ($tipo,$p,$j,1,$last,'$n','$c','$g')";
 				$rs=$this->query($str);
 				if (!$rs) return $this->error($this->conn->error); 
 			} else { // move to the end of the list
@@ -601,16 +603,14 @@ class Tandas extends DBObject {
 		$r=$p->RSCE;
 		// actualizamos la lista de tandas de cada ronda
 		
-		// preagility necesita tratamiento especial. primero borramos
-		$this->insert_remove($r,1,false);
-		$this->insert_remove($r,2,false);
+		// preagility necesita tratamiento especial
 		if (($j->PreAgility2 != 0)){ // preagility2 also handles preagility1
-			$orden= $this->insert_remove($r,1,true);	// Pre-Agility Manga 1
-			$orden= $this->insert_remove($r,2,true);	// Pre-Agility Manga 2
+			$this->insert_remove($r,1,true);	// Pre-Agility Manga 1
+			$this->insert_remove($r,2,true);	// Pre-Agility Manga 2
 		}
 		if (($j->PreAgility != 0)){
-			$orden= $this->insert_remove($r,1,true);	// Pre-Agility Manga 1
-			$orden= $this->insert_remove($r,2,false);	// Pre-Agility Manga 2
+			$this->insert_remove($r,1,true);	// Pre-Agility Manga 1
+			$this->insert_remove($r,2,false);	// Pre-Agility Manga 2
 		}
 		$this->insert_remove($r,3,($j->Grado1 != 0)?true:false);		// Agility Grado I Manga 1
 		$this->insert_remove($r,4,($j->Grado1 != 0)?true:false);		// Agility Grado I Manga 2

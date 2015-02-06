@@ -508,7 +508,7 @@ function displayRowData(dg) {
 	var selected = dg.datagrid('getSelected');
 	if (!selected) return;
 	var index = dg.datagrid('getRowIndex', selected);
-	var w=$.messager.alert("Row Info",
+	var w=$.messager.alert(dg.attr('id')+" - Row Info",
 			"<p>Contenido de la fila<br /></p><p>"+print_r(selected)+"</p>",
 			"info",
 			function() {
