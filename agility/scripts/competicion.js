@@ -714,6 +714,21 @@ function evalOrdenSalida(mode) {
 			});
 		});
 	}
+	if (mode==='reverse') {
+		$.ajax({
+			type:'GET',
+			url:"/agility/server/database/ordenSalidaFunctions.php",
+			dataType:'json',
+			data: {
+				Prueba: workingData.prueba,
+				Jornada: workingData.jornada,
+				Manga: workingData.manga,
+				Operation: mode
+			}
+		}).done( function(msg) {
+			reloadOrdenSalida();
+		});
+	}
 }
 
 /**
