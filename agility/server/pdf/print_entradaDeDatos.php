@@ -115,18 +115,18 @@ class PDF extends PrintCommon {
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // color de fondo 2
 		$this->SetXY($x+15,$y); // restore cursor position
 		$this->SetFont('Arial','B',10); // bold 10px
-		$this->Cell(15,7,'',	'LTR',0,'L',true); // dorsal
-		$this->Cell(10,7,'',	'TR',0,'L',true); // celo
-		$this->Cell(15,7,'',	'TR',0,'L',true); // licencia
-		$this->Cell(35,7,'',	'TR',0,'L',true); // perro
-		$this->Cell(60,7,'',	'TR',0,'L',true); // guia
-		$this->Cell(40,7,'',	'TR',0,'L',true); // club
+		$this->Cell(15,6,'',	'LTR',0,'L',true); // dorsal
+		$this->Cell(10,6,'',	'TR',0,'L',true); // celo
+		$this->Cell(18,6,'',	'TR',0,'L',true); // licencia
+		$this->Cell(32,6,'',	'TR',0,'L',true); // perro
+		$this->Cell(60,6,'',	'TR',0,'L',true); // guia
+		$this->Cell(40,6,'',	'TR',0,'L',true); // club
 		// datos cabecera de celda
-		$this->SetXY($x+15,$y+3); // restore cursor position
+		$this->SetXY($x+15,$y+2); // restore cursor position
 		$this->Cell(15,4,$row['Dorsal'],		'',0,'R',false); // display order
 		$this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'R',false);
-		$this->Cell(15,4,$row['Licencia'],		'',0,'R',false);
-		$this->Cell(35,4,$row['Nombre'],		'',0,'R',false);
+		$this->Cell(18,4,$row['Licencia'],		'',0,'R',false);
+		$this->Cell(32,4,$row['Nombre'],		'',0,'R',false);
 		$this->Cell(60,4,$row['NombreGuia'],	'',0,'R',false);
 		$this->Cell(40,4,$row['NombreClub'],	'',0,'R',false);
 
@@ -136,28 +136,28 @@ class PDF extends PrintCommon {
 		$this->SetFont('Arial','I',8); // italic 8px
 		$this->Cell(15,4,'Dorsal',	'',0,'L',false); // display order
 		$this->Cell(10,4,'Celo',	'',0,'L',false);
-		$this->Cell(15,4,'Licencia','',0,'L',false);
-		$this->Cell(35,4,'Nombre',	'',0,'L',false);
+		$this->Cell(18,4,'Lic.','',0,'L',false);
+		$this->Cell(32,4,'Nombre',	'',0,'L',false);
 		$this->Cell(60,4,'Guia',	'',0,'L',false);
 		$this->Cell(40,4,'Club',	'',0,'L',false);
 		
 		// ahora pintamos zona de escritura de palotes
-		$this->SetXY($x+15,$y+7); 
-		$this->Cell(60,12,'','TRB',0,'',false); // palotes faltas
-		$this->Cell(40,12,'','TRB',0,'',false); // palotes rehuses
-		$this->Cell(25,12,'','TRB',0,'',false); // palotes tocados
-		$this->Cell(7, 12,'','TRB',0,'',false); // total faltas
-		$this->Cell(7, 12,'','TRB',0,'',false); // total rehuses
-		$this->Cell(7, 12,'','TRB',0,'',false); // total tocados
-		$this->Cell(29,12,'','TRB',0,'',false); // tiempo
-		$this->SetXY($x+15,$y+7); 
-		$this->Cell(60,7,'Faltas',	'',0,'L',false);
-		$this->Cell(40,7,'Rehuses',	'',0,'L',false);
-		$this->Cell(25,7,'Tocados',	'',0,'L',false);
-		$this->Cell(7, 7,'Flt.',	'',0,'C',false);
-		$this->Cell(7, 7,'Reh.',	'',0,'C',false);
-		$this->Cell(7, 7,'Toc.',	'',0,'C',false);
-		$this->Cell(29,7,'Tiempo',  '',0,'L',false);
+		$this->SetXY($x+15,$y+6); 
+		$this->Cell(60,13,'','TRB',0,'',false); // palotes faltas
+		$this->Cell(40,13,'','TRB',0,'',false); // palotes rehuses
+		$this->Cell(25,13,'','TRB',0,'',false); // palotes tocados
+		$this->Cell(7, 13,'','TRB',0,'',false); // total faltas
+		$this->Cell(7, 13,'','TRB',0,'',false); // total rehuses
+		$this->Cell(7, 13,'','TRB',0,'',false); // total tocados
+		$this->Cell(29,13,'','TRB',0,'',false); // tiempo
+		$this->SetXY($x+15,$y+6); 
+		$this->Cell(60,5,'Faltas',	'',0,'L',false);
+		$this->Cell(40,5,'Rehuses',	'',0,'L',false);
+		$this->Cell(25,5,'Tocados',	'',0,'L',false);
+		$this->Cell(7, 5,'Flt.',	'',0,'C',false);
+		$this->Cell(7, 5,'Reh.',	'',0,'C',false);
+		$this->Cell(7, 5,'Toc.',	'',0,'C',false);
+		$this->Cell(29,5,'Tiempo',  '',0,'L',false);
 		$this->Ln(15);
 	}
 	
