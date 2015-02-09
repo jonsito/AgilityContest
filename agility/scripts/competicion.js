@@ -854,8 +854,6 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
 			case 5: suffix='T'; break;
 			}
 			$('#dm'+idxmanga+'_Nombre').val(dat['manga'].TipoManga);
-			$('#dm'+idxmanga+'_Juez1').val('(juez 1 pendiente)');
-			$('#dm'+idxmanga+'_Juez2').val('(juez 2 pendiente)');
 			$('#dm'+idxmanga+'_DIST_'+suffix).val(dat['trs'].dist);
 			$('#dm'+idxmanga+'_OBST_'+suffix).val(dat['trs'].obst);
 			$('#dm'+idxmanga+'_TRS_'+suffix).val(dat['trs'].trs);
@@ -875,6 +873,11 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
 function resultados_doSelectRonda(row) {
 	var resultados=[];
 	var rsce=(workingData.datosPrueba.RSCE==0)?true:false;
+	// FASE 0 ajustamos los jueces de la ronda
+	$('#dm1_Juez1').val(row.Juez11);
+	$('#dm1_Juez2').val(row.Juez12);
+	$('#dm2_Juez1').val(row.Juez21);
+	$('#dm2_Juez2').val(row.Juez22);
     // FASE 1 Ajustamos en funcion del tipo de recorrido lo que debemos ver en las mangas
     // Recordatorio: ambas mangas tienen siempre el mismo tipo de recorrido
     switch(parseInt(row.Recorrido1)){
