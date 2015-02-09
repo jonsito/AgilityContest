@@ -138,6 +138,14 @@ Class Config {
 		foreach($this->config as $key => $val) {
 			if ( array_key_exists($key,$res)) $this->config[$key]=$res[$key];
 		}
+		// y ahora preparamos la internacionalizacion
+		$lang=$this->config['lang'];
+		putenv("LC_ALL=$lang");
+		setlocale(LC_ALL, $lang);
+		$domain="AgilityContest";
+		bindtextdomain($domain, __DIR__."/../../locale");
+		textdomain($domain);
+		bind_textdomain_codeset($domain, 'UTF-8');
 	}
 	
 	public function getEnv($key) {

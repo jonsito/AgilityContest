@@ -114,7 +114,7 @@ class PDF extends PrintCommon {
 	}
 	
 	function Header() {
-		$this->print_commonHeader("Clasificación Final");
+		$this->print_commonHeader(_("Clasificación Final"));
 	}
 	
 	// Pie de página: tampoco cabe
