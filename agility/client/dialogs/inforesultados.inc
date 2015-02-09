@@ -27,7 +27,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 					<input type="text" size="20" class="result_forms" readonly="readonly" id="dm1_Nombre">
 				</td>
 				<td colspan="3">
-					<span style="font-weight:bold">Juez:</span>
+					<span style="font-weight:bold">Jueces:</span>
 					<input type="text" size="15" class="result_forms" readonly="readonly" id="dm1_Juez1"> &nbsp;
 					<input type="text" size="15" class="result_forms" readonly="readonly" id="dm1_Juez2">
 				</td>
@@ -78,7 +78,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 					<input type="text" size="20" class="result_forms" readonly="readonly" id="dm2_Nombre">
 				</td>
 				<td colspan="3">
-					<span style="font-weight:bold">Juez:</span>
+					<span style="font-weight:bold">Jueces:</span>
 					<input type="text" size="15" class="result_forms" readonly="readonly" id="dm2_Juez1"> &nbsp;
 					<input type="text" size="15" class="result_forms" readonly="readonly" id="dm2_Juez2">
 				</td>

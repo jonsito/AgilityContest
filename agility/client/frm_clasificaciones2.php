@@ -185,7 +185,11 @@ $('#resultados-info-ronda').combogrid({
 		{ field:'Recorrido1',	hidden:true }, // tipo de recorrido	manga 1	
 		{ field:'Recorrido2',	hidden:true }, // tipo de recorrido	manga 2
 		{ field:'Rondas',		hidden:true }, // bitfield del tipo de rondas
-		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre' }
+		{ field:'Nombre',		width:40, sortable:false,   align:'right', title: 'Nombre' },
+	   	{ field:'Juez11',		hidden:true }, // Nombre primer juez primera manga
+		{ field:'Juez12',		hidden:true }, // Nombre segundo juez primera manga
+	   	{ field:'Juez21',		hidden:true }, // Nombre primer juez segunda manga
+		{ field:'Juez22',		hidden:true }  // Nombre segundo juez segunda manga 
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='rounds', 
@@ -204,10 +208,11 @@ $('#resultados-info-prueba').form('load',{
 	NombreClub:	workingData.datosPrueba.NombreClub,
 	Jornada: workingData.datosJornada.Nombre,
 	Fecha:	workingData.datosJornada.Fecha,
-	Ronda:	workingData.datosRonda.Nombre,
+	Ronda:	"", // to be filled later
 	Observaciones: workingData.datosPrueba.Observaciones
 });
 
+/*
 $('#resultados-manga1-trs-form').form({
 		onLoadSuccess: function (data) {
 			var j=" - "+workingData.datosRonda.Juez12;
@@ -235,7 +240,7 @@ $('#resultados-manga2-trs-form').form(
 		'load',
 		"/agility/server/database/mangaFunctions.php?Operation=getTRS&Jornada="+workingData.jornada+"&Manga="+workingData.datosRonda.Manga2
 		);
-
+*/
 //tooltips
 addTooltip($('#resultados-refreshBtn').linkbutton(),"Actualizar la tabla de clasificaciones");
 addTooltip($('#resultados-printBtn').linkbutton(),"Imprimir la clasificacion de la manga"); 

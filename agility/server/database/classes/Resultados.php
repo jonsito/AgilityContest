@@ -39,10 +39,6 @@ class Resultados extends DBObject {
 		}
 		// add some extra info
 		$obj->TipoManga=Mangas::$tipo_manga[$obj->Tipo][1];
-		$juez1=$this->selectByID("Jueces",$obj->Juez1);
-		$juez2=$this->selectByID("Jueces",$obj->Juez2);
-		$obj->NombreJuez1=$juez1->Nombre;
-		$obj->NombreJuez2=$juez2->Nombre;
 		$this->dmanga=$obj;
 		return $this->dmanga;
 	}
