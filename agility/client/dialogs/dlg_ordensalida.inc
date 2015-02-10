@@ -82,7 +82,7 @@ $('#ordensalida-datagrid').datagrid({
       		{ field:'Categoria',	width:10, sortable:false,   align:'center', title: 'Cat.' },
       		{ field:'NombreGuia',	width:50, sortable:false,   align:'right', title: 'Guia' },
       		{ field:'NombreClub',	width:30, sortable:false,   align:'right', title: 'Club' },
-      		{ field:'Celo',		    width:10, sortable:false,   align:'center', title: 'Celo' },
+      		{ field:'Celo',		    width:10, sortable:false, formatter: formatCelo,	align:'center', title: 'Celo' },
       		{ field:'Observaciones',width:30, sortable:false,   align:'right', title: 'Observaciones' }
     ]],
     rowStyler:function(index,row) { // colorize rows

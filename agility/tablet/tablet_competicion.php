@@ -121,7 +121,7 @@ function tablet_showPerrosByTanda(index,row){
 	            { field:'Licencia',		width:0, hidden:true },
 	            { field:'Pendiente',	width:0, hidden:true },
 	            { field:'Tanda',		width:0, hidden:true },
-	            { field:'Celo',			width:10, align:'center',	title: 'Celo', formatter:checkCelo},
+	            { field:'Celo',			width:10, align:'center',	title: 'Celo', formatter:formatCelo},
 	            { field:'Nombre',		width:20, align:'left',		title: 'Nombre'},
 	            { field:'NombreGuia',	width:45, align:'right',	title: 'Guia' },
 	            { field:'NombreClub',	width:30, align:'right',	title: 'Club' },
