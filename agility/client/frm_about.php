@@ -14,11 +14,14 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
-<div id="dlg_about" class="easyui-window" title="Acerca de" style="width:640px;padding:10px">
+<div id="dlg_about" class="easyui-window" style="width:640px;padding:10px">
 	<img src="/agility/images/AgilityContest.png" 
 		width="150" height="100" alt="AgilityContest Logo" 
 		style="border:1px solid #000000;margin:10px;float:right;padding:5px">
 	<dl>
+		<dt>
+			<strong>Version: </strong><span id="about_version">version</span> - <span id="about_date">date</span> 
+		</dt>
 		<dt>
 			<strong>AgilityContest</strong> es Copyright &copy; 2013-2015 de <em>Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em>
 		</dt>
@@ -58,6 +61,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 <script type="text/javascript">
         $('#dlg_about').window({
+            title: "Acerca de AgilityContest",
             collapsible:false,
             minimizable:false,
             maximizable:false,
@@ -65,6 +69,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             closable:true,
             modal:true,
             iconCls: 'icon-dog',
+            onOpen: function() { 
+                $('#about_version').html(ac_config.version_name);
+                $('#about_date').html(ac_config.version_date);
+            },  
             onClose: function() {loadContents('/agility/client/frm_main.php','');
             }
         })
