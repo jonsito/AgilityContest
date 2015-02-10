@@ -148,16 +148,16 @@ $('#inscripciones-jornadas').datagrid({
       		{ field:'Nombre',		width:70, sortable:false,   align:'right',  title: 'Nombre/Comentario' },
       		{ field:'Fecha',		width:40, sortable:false,	align:'right',  title: 'Fecha: ' },
       		{ field:'Hora',			width:30, sortable:false,	align:'right',  title: 'Hora.  ' },
-      		{ field:'Grado1',		width:15, sortable:false,	align:'center', title: 'G-I    ' },
-      		{ field:'Grado2',		width:15, sortable:false,	align:'center', title: 'G-II   ' },
-      		{ field:'Grado3',		width:15, sortable:false,	align:'center', title: 'G-III  ' },
-      		{ field:'Equipos3',		width:15, sortable:false,	align:'center', title: 'Eq. 3/4' },
-      		{ field:'Equipos4',		width:15, sortable:false,	align:'center', title: 'Eq. Conj.' },
-      		{ field:'PreAgility',	width:15, sortable:false,	align:'center', title: 'P.A. -1' },
-      		{ field:'PreAgility2',	width:15, sortable:false,	align:'center', title: 'P.A. -2' },
-      		{ field:'KO',			width:15, sortable:false,	align:'center', title: 'K.O.   ' },
-      		{ field:'Especial',		width:15, sortable:false,	align:'center', title: 'Especial' },
-      		{ field:'Cerrada',		width:20, sortable:false,	align:'center', title: 'Cerrada', formatter:identificaJornada }
+      		{ field:'Grado1',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'G-I    ' },
+      		{ field:'Grado2',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'G-II   ' },
+      		{ field:'Grado3',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'G-III  ' },
+      		{ field:'Equipos3',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Eq. 3/4' },
+      		{ field:'Equipos4',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Eq. Conj.' },
+      		{ field:'PreAgility',	width:15, sortable:false, formatter: formatOk,	align:'center', title: 'P.A. -1' },
+      		{ field:'PreAgility2',	width:15, sortable:false, formatter: formatOk,	align:'center', title: 'P.A. -2' },
+      		{ field:'KO',			width:15, sortable:false, formatter: formatOk,	align:'center', title: 'K.O.   ' },
+      		{ field:'Especial',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Especial' },
+      		{ field:'Cerrada',		width:20, sortable:false, formatter: formatCerrada,	align:'center', title: 'Cerrada' }
     ]],
     rowStyler:myRowStyler,
 	// on double click fireup editor dialog
@@ -189,11 +189,6 @@ $('#inscripciones-jornadas').datagrid('getPanel').panel('panel').attr('tabindex'
     case 13:	/* Enter */	editJornadaFromPrueba(workingData.prueba,'#inscripciones-jornadas'); return false;
     }
 });
-
-// esta funcion anyade un id al campo de jornada de manera que sea identificable
-function identificaJornada(val,row,index) {
-	return '<span id="jornada_cerrada-'+parseInt(index+1)+'" >'+val+'</span>';
-}
 
 // datos de la tabla de inscripciones
 // - tabla
@@ -239,15 +234,15 @@ $('#inscripciones-datagrid').datagrid({
     	{ field:'NombreClub',	width:15, sortable:true, align: 'right',	title: 'Club' },
     	{ field:'NombreEquipo',	width:10, sortable:true, align: 'right',	title: 'Equipo' },
     	{ field:'Observaciones',width:15,            title: 'Observaciones' },
-    	{ field:'Celo',		width:4, align:'center', title: 'Celo' },
-        { field:'J1',		width:2, align:'center', title: 'J1'},
-        { field:'J2',		width:2, align:'center', title: 'J2'},
-        { field:'J3',		width:2, align:'center', title: 'J3'},
-        { field:'J4',		width:2, align:'center', title: 'J4'},
-        { field:'J5',		width:2, align:'center', title: 'J5'},
-        { field:'J6',		width:2, align:'center', title: 'J6'},
-        { field:'J7',		width:2, align:'center', title: 'J7'},
-        { field:'J8',		width:2, align:'center', title: 'J8'},
+    	{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	 title: 'Celo' },
+        { field:'J1',		width:2, align:'center', formatter: formatOk,	 title: 'J1'},
+        { field:'J2',		width:2, align:'center', formatter: formatOk,	 title: 'J2'},
+        { field:'J3',		width:2, align:'center', formatter: formatOk,	 title: 'J3'},
+        { field:'J4',		width:2, align:'center', formatter: formatOk,	 title: 'J4'},
+        { field:'J5',		width:2, align:'center', formatter: formatOk,	 title: 'J5'},
+        { field:'J6',		width:2, align:'center', formatter: formatOk,	 title: 'J6'},
+        { field:'J7',		width:2, align:'center', formatter: formatOk,	 title: 'J7'},
+        { field:'J8',		width:2, align:'center', formatter: formatOk,	 title: 'J8'},
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:myRowStyler,

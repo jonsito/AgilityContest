@@ -45,16 +45,16 @@ function formatTF(val,row,idx) {
 	return (row.Penalizacion>=200)?"-":t.toFixed(2); 
 }
 
+function formatRSCE(val,row,idx) { return (parseInt(val)==0)?"RSCE":"RFEC"; }
+function formatOk(val,row,idx) { return (parseInt(val)==0)?"":"&#x2714;"; }
+function formatCerrada(val,row,idx) { return (parseInt(val)==0)?"":"&#x26D4;"; }
+
 /* stylers para formateo de celdas especificas */
 function formatBorder(val,row,idx) { return 'border-left: 1px solid #000;'; }
 
-function checkPending(val,row,idx) { 
-	return ( parseInt(row.Pendiente)!=0 )? 'color: #f00;': '';
-}
+function checkPending(val,row,idx) { return ( parseInt(row.Pendiente)!=0 )? 'color: #f00;': ''; }
 
-function checkCelo(val,row) {
-	return (parseInt(val)==0)?" ":"X";
-}
+function formatCelo(val,row,idx) { return (parseInt(val)==0)?" ":"&#x2665;"; }
 
 function getMode(rec,cat) {
 	var recorrido=parseInt(rec);

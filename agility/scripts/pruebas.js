@@ -17,11 +17,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 //***** gestion de pruebas		*********************************************************
 
-/**
- * formatter para indicar si la prueba es de canina o de caza
- */
-function formatRSCE(val,row,idx) {
-	return (val==0)?"RSCE":"RFEC"; }
 
 /**
  * Recalcula el formulario de pruebas anyadiendo parametros de busqueda

@@ -87,9 +87,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 { field:'Triptico',		width:10,					title:'URL del Tr&iacute;ptico'},
                 { field:'Cartel',		width:10,					title:'URL del Cartel'},
                 { field:'Observaciones',width:15,					title:'Observaciones'},
-                { field:'RSCE',			width:7, formatter:	formatRSCE, title:'Federacion', align: 'center'},
-                { field:'Selectiva',	width:7,					title:'Selectiva', align: 'center'},
-                { field:'Cerrada',		width:7,					title:'Cerrada', align: 'center'}
+                { field:'RSCE',			width:7, formatter:	formatRSCE,		title:'Federacion', align: 'center'},
+                { field:'Selectiva',	width:7, formatter:	formatOk,title:'Selectiva',	align: 'center'},
+                { field:'Cerrada',		width:7, formatter:	formatCerrada,	title:'Cerrada',	align: 'center'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:myRowStyler,
@@ -140,18 +140,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             		{ field:'Nombre',		width:20, sortable:false,   title: 'Nombre/Comentario' },
             		{ field:'Fecha',		width:12, sortable:true,	title: 'Fecha:' },
             		{ field:'Hora',			width:10, sortable:false,	title: 'Hora.' },
-            		{ field:'PreAgility',	width:8, sortable:false,   align:'center', title: 'P.A. -1' },
-            		{ field:'PreAgility2',	width:8, sortable:false,   align:'center', title: 'P.A. -2' },
-            		{ field:'Grado1',		width:8, sortable:false,   align:'center', title: 'G-I    ' },
-            		{ field:'Grado2',		width:8, sortable:false,   align:'center', title: 'G-II   ' },
-            		{ field:'Grado3',		width:8, sortable:false,   align:'center', title: 'G-III  ' },
-            		{ field:'Open',			width:8, sortable:false,   align:'center', title: 'Open   ' },
-            		{ field:'Equipos3',		width:8, sortable:false,   align:'center', title: 'Eq. 3x4' },
-            		{ field:'Equipos4',		width:8, sortable:false,   align:'center', title: 'Eq. 4x4' },
-            		{ field:'KO',			width:8, sortable:false,   align:'center', title: 'K.O.   ' },
-            		{ field:'Especial',	    width:8, sortable:false,   align:'center', title: 'Especial'},
+            		{ field:'PreAgility',	width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'P.A. -1' },
+            		{ field:'PreAgility2',	width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'P.A. -2' },
+            		{ field:'Grado1',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'G-I    ' },
+            		{ field:'Grado2',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'G-II   ' },
+            		{ field:'Grado3',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'G-III  ' },
+            		{ field:'Open',			width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Open   ' },
+            		{ field:'Equipos3',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Eq. 3x4' },
+            		{ field:'Equipos4',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Eq. 4x4' },
+            		{ field:'KO',			width:8, sortable:false, formatter:	formatOk,	   align:'center', title: 'K.O.   ' },
+            		{ field:'Especial',	    width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Especial'},
             	    { field:'Observaciones',hidden:true }, // texto para el caso de Manga especial
-            		{ field:'Cerrada',		width:8, sortable:false,   align:'center', title: 'Cerrada' }
+            		{ field:'Cerrada',		width:8, sortable:false, formatter:	formatCerrada,	align:'center', title: 'Cerrada' }
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             	rowStyler:myRowStyler,
