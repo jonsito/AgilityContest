@@ -111,7 +111,7 @@ class PrintCommon extends FPDF {
 		// Arial italic 8
 		$this->SetFont('Arial','I',8);
 		// Número de página
-		$this->Cell(0,10,'Página '.$this->PageNo().'/{nb}',0,0,'C');
+		$this->Cell(0,10,_('Página').' '.$this->PageNo().'/{nb}',0,0,'C');
 		// $this->myLogger->leave();
 	}
 

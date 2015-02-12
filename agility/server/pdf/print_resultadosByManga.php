@@ -42,12 +42,10 @@ class PDF extends PrintCommon {
 	protected $mode;
 	
 	// geometria de las celdas
-	protected $cellHeader
-					=array('Dorsal','Nombre','Lic.','Guía','Club','Cat/Grad','Falt.','Toc.','Reh.','Tiempo','Vel.','Penal','Calificacion', 'Puesto');
+	protected $cellHeader;	
 	protected $pos	=array(  12,     15,     10,     30,    25,     12,        7,      7,    7,       10,     7,    12,      22,			12 );
 	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
-	protected $fmt	=array(  'i',    's',    's',    's',   's',    's',       'i',   'i',   'i',     'f',    'f',  'f',     's',			'i');
-
+	
 	protected $modestr  
 		=array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
 	
@@ -63,11 +61,14 @@ class PDF extends PrintCommon {
 		$this->resultados=$resultados;
 		$this->mode=$mode;
 		$this->myLogger= new Logger("printResultadosByManga");
+		$this->cellHeader=
+			array(_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Cat/Grado'),_('Flt.'),_('Toc.'),_('Reh.'),_('Tiempo'),_('Vel.'),_('Penal.'),_('Calificación'),_('Puesto'));
+		
 	}
 	
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader("Resultados Parciales");
+		$this->print_commonHeader(_("Resultados Parciales"));
 		$this->print_identificacionManga($this->manga,$this->modestr[intval($this->mode)]);
 		
 		// Si es la primera hoja pintamos datos tecnicos de la manga
@@ -77,22 +78,22 @@ class PDF extends PrintCommon {
 		$jobj=new Jueces("print_resultadosByManga");
 		$juez1=$jobj->selectByID($this->manga->Juez1);
 		$juez2=$jobj->selectByID($this->manga->Juez2);
-		$this->Cell(20,7,"Juez 1:","LT",0,'L',false);
+		$this->Cell(20,7,_("Juez")." 1:","LT",0,'L',false);
 		$str=($juez1['Nombre']==="-- Sin asignar --")?"":$juez1['Nombre'];
 		$this->Cell(70,7,$str,"T",0,'L',false);
-		$this->Cell(20,7,"Juez 2:","T",0,'L',false);
+		$this->Cell(20,7,_("Juez")." 2:","T",0,'L',false);
 		$str=($juez2['Nombre']==="-- Sin asignar --")?"":$juez2['Nombre'];
 		$this->Cell(78,7,$str,"TR",0,'L',false);
 		$this->Ln(7);
-		$this->Cell(20,7,"Distancia:","LB",0,'L',false);
+		$this->Cell(20,7,_("Distancia").':',"LB",0,'L',false);
 		$this->Cell(25,7,"{$this->resultados['trs']['dist']} mts","B",0,'L',false);
-		$this->Cell(20,7,"Obstáculos:","B",0,'L',false);
+		$this->Cell(20,7,_("Obstáculos").':',"B",0,'L',false);
 		$this->Cell(25,7,$this->resultados['trs']['obst'],"B",0,'L',false);
 		$this->Cell(10,7,"TRS:","B",0,'L',false);
 		$this->Cell(20,7,"{$this->resultados['trs']['trs']} seg.","B",0,'L',false);
 		$this->Cell(10,7,"TRM:","B",0,'L',false);
 		$this->Cell(20,7,"{$this->resultados['trs']['trm']} seg.","B",0,'L',false);
-		$this->Cell(20,7,"Velocidad:","B",0,'L',false);
+		$this->Cell(20,7,_("Velocidad").':',"B",0,'L',false);
 		$this->Cell(18,7,"{$this->resultados['trs']['vel']} m/s","BR",0,'L',false);
 		$this->Ln(14); // en total tres lineas extras en la primera hoja
 	}

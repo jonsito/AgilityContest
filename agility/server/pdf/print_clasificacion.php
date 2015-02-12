@@ -78,7 +78,7 @@ class PDF extends PrintCommon {
 			$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria;
 
 		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(80,7,_("Jornada: ").$this->jornada->Nombre,0,0,'',false);
+		$this->Cell(80,7,_("Jornada").': '.$this->jornada->Nombre,0,0,'',false);
 		$this->SetFont('Arial','B',9); // bold 9px
 		$this->Cell(20,7,_("Juez")." 1:","LT",0,'L',false);
 		$n=$juez1['Nombre'];
@@ -89,7 +89,7 @@ class PDF extends PrintCommon {
 		$this->Ln();
 		$trs=$this->trs1;
 		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(80,7,_("Fecha: ").$this->jornada->Fecha,0,0,'',false);
+		$this->Cell(80,7,_("Fecha").': '.$this->jornada->Fecha,0,0,'',false);
 		$this->SetFont('Arial','B',9); // bold 9px
 		$this->Cell(70,7,$tm1,"LTB",0,'L',false);
 		$this->Cell(25,7,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
@@ -102,7 +102,7 @@ class PDF extends PrintCommon {
 		$trs=$this->trs2;
 		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
 		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(80,7,_("Ronda: ").$ronda." - ".$this->categoria,0,0,'',false);
+		$this->Cell(80,7,_("Ronda").': '.$ronda." - ".$this->categoria,0,0,'',false);
 		$this->SetFont('Arial','B',9); // bold 9px
 		$this->Cell(70,7,$tm2,"LTB",0,'L',false);
 		$this->Cell(25,7,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
@@ -136,7 +136,7 @@ class PDF extends PrintCommon {
 		$this->Cell(115,7,_('Datos del participante'),0,0,'L',true);
 		$this->Cell(59,7,$tm1,0,0,'C',true);
 		$this->Cell(59,7,$tm2,0,0,'C',true);
-		$this->Cell(42,7,_('Clasificaci&oacute;n'),0,0,'C',true);
+		$this->Cell(42,7,_('Clasificación'),0,0,'C',true);
 		$this->ln();
 		$this->SetFont('Arial','',8); // default font
 		// datos del participante

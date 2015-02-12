@@ -57,7 +57,7 @@ class PrintCatalogo extends PrintCommon {
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		$this->print_commonHeader("Catálogo de Participantes");
+		$this->print_commonHeader(_("Catálogo de Participantes"));
 		$this->Ln(5);
 		$this->myLogger->leave();
 	}
@@ -103,16 +103,16 @@ class PrintCatalogo extends PrintCommon {
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg2')); // negro
 		$this->SetFont('Arial','B',9);
 		$this->SetXY(35,18+$y);
-		$this->Cell( 40, 7, 'Nombre','LTB', 0, 'C',true);
-		$this->Cell( 35, 7, 'Raza','LTB', 0, 'C',true);
-		$this->Cell( 15, 7, 'Licencia','LTB', 0, 'C',true);
-		$this->Cell( 25, 7, 'Cat/Grado','LTB', 0, 'C',true);
-		$this->Cell( 50, 7, 'Guía','LTBR', 0, 'C',true);
+		$this->Cell( 40, 7, _('Nombre'),'LTB', 0, 'C',true);
+		$this->Cell( 35, 7, _('Raza'),'LTB', 0, 'C',true);
+		$this->Cell( 15, 7, _('Licencia'),'LTB', 0, 'C',true);
+		$this->Cell( 25, 7, _('Cat/Grado'),'LTB', 0, 'C',true);
+		$this->Cell( 50, 7, _('Guía'),'LTBR', 0, 'C',true);
 		$this->Ln();
 	}
 	
 	function printParticipante($pos,$row) {
-		$this->myLogger->trace("Position: ".$pos." Dorsal: ".$row['Dorsal']);
+		// $this->myLogger->trace("Position: ".$pos." Dorsal: ".$row['Dorsal']);
 		$fill = (($pos&0x01)==0)?true:false;
 
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
@@ -196,7 +196,7 @@ class PrintEstadisticas extends PrintCommon {
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		$this->print_commonHeader("Estadísticas");
+		$this->print_commonHeader(_("Estadísticas"));
 		$this->Ln(5);
 		$this->myLogger->leave();
 	}
@@ -357,11 +357,11 @@ class PrintEstadisticas extends PrintCommon {
 			$this->cell(30,7,'Large','TRB',0,'C',true);
 			$this->cell(30,7,'Medium','TRB',0,'C',true);
 			$this->cell(30,7,'Small','TRB',0,'C',true);
-			$this->cell(30,7,'Total','TRB',0,'C',true);
+			$this->cell(30,7,_('Total'),'TRB',0,'C',true);
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // pre-agility
-			$this->cell(30,7,'Pre-Agility','RB',0,'L',true);
+			$this->cell(30,7,_('Pre-Agility'),'RB',0,'L',true);
 			$this->ac_row(0,9);
 			$this->cell(30,7,$data[$name]['P.A.']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['P.A.']['M'],'RB',0,'C',true);
@@ -370,7 +370,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // grado I
-			$this->cell(30,7,'Grado I','RB',0,'L',true);
+			$this->cell(30,7,_('Grado I'),'RB',0,'L',true);
 			$this->ac_row(1,9);
 			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
@@ -379,7 +379,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado II
-			$this->cell(30,7,'Grado II','RB',0,'L',true);
+			$this->cell(30,7,_('Grado II'),'RB',0,'L',true);
 			$this->ac_row(2,9);
 			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
@@ -388,7 +388,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado III
-			$this->cell(30,7,'Grado III','RB',0,'L',true);
+			$this->cell(30,7,_('Grado III'),'RB',0,'L',true);
 			$this->ac_row(3,9);
 			$this->cell(30,7,$data[$name]['GIII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GIII']['M'],'RB',0,'C',true);
@@ -397,7 +397,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // Total
-			$this->cell(30,7,'Total','RB',0,'L',true);
+			$this->cell(30,7,_('Total'),'RB',0,'L',true);
 			$this->ac_row(4,9);
 			$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
@@ -412,11 +412,11 @@ class PrintEstadisticas extends PrintCommon {
 			$this->cell(30,7,'Medium','TRB',0,'C',true);
 			$this->cell(30,7,'Small','TRB',0,'C',true);
 			$this->cell(30,7,'Tiny','TRB',0,'C',true);
-			$this->cell(30,7,'Total','TRB',0,'C',true);
+			$this->cell(30,7,_('Total'),'TRB',0,'C',true);
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // pre-agility
-			$this->cell(30,7,'Grado 0','RB',0,'L',true);
+			$this->cell(30,7,_('Grado 0'),'RB',0,'L',true);
 			$this->ac_row(0,9);
 			$this->cell(30,7,$data[$name]['P.A.']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['P.A.']['M'],'RB',0,'C',true);
@@ -426,7 +426,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // grado I
-			$this->cell(30,7,'Grado I','RB',0,'L',true);
+			$this->cell(30,7,_('Grado I'),'RB',0,'L',true);
 			$this->ac_row(1,9);
 			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
@@ -436,7 +436,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado II
-			$this->cell(30,7,'Grado II','RB',0,'L',true);
+			$this->cell(30,7,_('Grado II'),'RB',0,'L',true);
 			$this->ac_row(2,9);
 			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
@@ -446,7 +446,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // Total
-			$this->cell(30,7,'Total','RB',0,'L',true);
+			$this->cell(30,7,_('Total'),'RB',0,'L',true);
 			$this->ac_row(3,9);
 			$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
@@ -461,7 +461,7 @@ class PrintEstadisticas extends PrintCommon {
 		$est=$this->evalData();
 		$this->addPage();
 		$count=0;
-		$this->printTableHeader($est,'Prueba','Datos globales de participación');
+		$this->printTableHeader($est,_('Prueba'),_('Datos globales de participación'));
 		$this->printTableData($est,'Prueba',$this->prueba->RSCE);
 		$count++;
 		foreach($this->jornadas as $jornada) {
@@ -480,11 +480,9 @@ class PrintInscritos extends PrintCommon {
 	protected $inscritos;
 
 	// geometria de las celdas
-	protected $cellHeader
-					=array('Dorsal','Nombre','Lic.','Guía','Club','Cat.','Grado','Celo','Observaciones','Sab.','Dom.');
+	protected $cellHeader;
 	protected $pos	=array(  10,       20,     10,    40,   30,    10,     10,     10,    30,    10,    10 );
 	protected $align=array(  'R',      'L',    'C',   'R',  'R',   'C',    'L',    'C',   'R',   'C',   'C');
-	protected $fmt	=array(  'i',      's',    's',   's',  's',   's',    's',    'b',   's',   'b',   'b');
 	
 	/**
 	 * Constructor
@@ -500,12 +498,14 @@ class PrintInscritos extends PrintCommon {
 		}
 		$this->inscritos=$inscritos['rows'];
 		$this->setPageName("inscritosByPrueba.pdf");
+		$this->cellHeader=
+			array(_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Cat.'),_('Grado'),_('Celo'),_('Observaciones'),_('Sab.'),_('Dom.'));
 	}
 	
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		$this->print_commonHeader("Listado de Participantes");
+		$this->print_commonHeader(_("Listado de Participantes"));
 		$this->Ln(5);
 		$this->myLogger->leave();
 	}

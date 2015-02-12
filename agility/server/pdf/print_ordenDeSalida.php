@@ -41,12 +41,11 @@ class PDF extends PrintCommon {
 	protected $categoria; // categoria que estamos listando
 	
 	// geometria de las celdas
-	protected $cellHeader
-					=array('Orden','Dorsal','Nombre','Lic.','Guia','Club','Celo','Observaciones');
-	protected $pos	=array(  12,      12,     30,     15,    50,   30,     10,    26);
-	protected $align=array(  'R',    'R',    'L',    'C',   'R',  'R',    'C',   'R');
-	protected $fmt	=array(  'i',    'i',    's',    's',   's',  's',    'b',   's');
-	protected $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
+	protected $cellHeader;
+					
+	protected $pos	=array(  12,      30,     12,     15,    50,   30,     10,    26);
+	protected $align=array(  'R',    'R',    'R',    'C',   'R',  'R',    'C',   'R');
+	protected $cat  =array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
 	 * Constructor
@@ -68,11 +67,13 @@ class PDF extends PrintCommon {
 		$os= $o->getData($prueba,$jornada,$manga);
 		$this->orden=$os['rows'];
 		$this->categoria="L";
+		$this->cellHeader=
+			array(_('Orden'),_('Nombre'),_('Dorsal'),_('Lic.'),_('Guía'),_('Club'),_('Celo'),_('Observaciones'));
 	}
 	
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader("Orden de Salida");
+		$this->print_commonHeader(_("Orden de Salida"));
 		$this->print_identificacionManga($this->manga,$this->cat[$this->categoria]);
 	}
 	
@@ -126,9 +127,10 @@ class PDF extends PrintCommon {
 			}
 			$this->SetFont('Arial','B',11); // bold 9px
 			$this->Cell($this->pos[0],6,($rowcount+1)." - ",'LR',0,$this->align[0],$fill); // display order
+			$this->SetFont('Arial','B',10); // remove bold 9px
+			$this->Cell($this->pos[1],6,$row['Nombre'],		'LR',0,$this->align[2],$fill);
 			$this->SetFont('Arial','',9); // remove bold 9px
-			$this->Cell($this->pos[1],6,$row['Dorsal'],		'LR',0,$this->align[1],$fill);
-			$this->Cell($this->pos[2],6,$row['Nombre'],		'LR',0,$this->align[2],$fill);
+			$this->Cell($this->pos[2],6,$row['Dorsal'],		'LR',0,$this->align[1],$fill);
 			$this->Cell($this->pos[3],6,$row['Licencia'],	'LR',0,$this->align[3],$fill);
 			$this->Cell($this->pos[4],6,$row['NombreGuia'],	'LR',0,$this->align[4],$fill);
 			$this->Cell($this->pos[5],6,$row['NombreClub'],	'LR',0,$this->align[5],$fill);

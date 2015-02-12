@@ -60,13 +60,13 @@ class PrintTandas extends PrintCommon {
 	// Cabecera de página
 	function Header() {
 		// cabecera comun
-		$this->print_commonHeader("Programa de la jornada");
+		$this->print_commonHeader(_("Programa de la jornada"));
 		// pintamos identificacion de la jornada
 		$this->SetFont('Arial','B',12); // Arial bold 15pt
-		$str  = "Jornada: {$this->jornada->Nombre} - {$this->jornada->Fecha}";
+		$str  = _("Jornada").': '.$this->jornada->Nombre.' - '.$this->jornada->Fecha;
 		$this->Cell(100,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
 		$this->Ln(5);
-		$str  = "Hora de comienzo: {$this->jornada->Hora}";
+		$str  = _("Hora de comienzo").': '.$this->jornada->Hora;
 		$this->Cell(90,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
 		$this->Ln(10);
 	}
@@ -77,7 +77,7 @@ class PrintTandas extends PrintCommon {
 		// Pone un warning sobre la hora estimada
 		$this->SetXY(10,-20);
 		$this->SetFont('Arial','IB',10);
-		$this->Cell(190,5,'(*) IMPORTANTE: La hora indicada es una estimación que NO TIENE consideración de horario oficial',0,0,'L');
+		$this->Cell(190,5,_('(*) IMPORTANTE: La hora indicada es una estimación que NO TIENE consideración de horario oficial'),0,0,'L');
 	}
 	
 	function evalTime($time) {
@@ -91,11 +91,11 @@ class PrintTandas extends PrintCommon {
 		$this->myLogger->enter();
 		$this->ac_header(1,10);
 		$this->setX(10);
-		$this->Cell(75,7,"Actividad",'TLBR',0,'L',true);
-		$this->Cell(25,7,"Ring",'TLB',0,'C',true);
-		$this->Cell(15,7,"# Participantes",'TLB',0,'C',true);
-		$this->Cell(60,7,"Observaciones",'TLB',0,'R',true);
-		$this->Cell(15,7,"Horario (*)",'TLBR',0,'C',true);
+		$this->Cell(75,7,_("Actividad"),'TLBR',0,'L',true);
+		$this->Cell(25,7,_("Ring"),'TLB',0,'C',true);
+		$this->Cell(15,7,_("# Participantes"),'TLB',0,'C',true);
+		$this->Cell(60,7,_("Observaciones"),'TLB',0,'R',true);
+		$this->Cell(15,7,_("Horario (*)"),'TLBR',0,'C',true);
 		$this->Ln();
 		$this->myLogger->leave();
 	}
