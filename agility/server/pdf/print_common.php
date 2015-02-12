@@ -108,10 +108,15 @@ class PrintCommon extends FPDF {
 		// $this->myLogger->enter();
 		// Posición: a 1,5 cm del final
 		$this->SetY(-15);
-		// Arial italic 8
-		$this->SetFont('Arial','I',8);
+		
+		// copyright
+		$ver=$this->config->getEnv("version_name");
+		$this->SetFont('Arial','I',6);
+		$this->Cell(50,10,"AgilityContest-$ver Copyright 2013-2015 by J.A.M.C.",0,0,'L');
+
 		// Número de página
-		$this->Cell(0,10,_('Página').' '.$this->PageNo().'/{nb}',0,0,'C');
+		$this->SetFont('Arial','IB',8);
+		$this->Cell(0,10,_('Página').' '.$this->PageNo().'/{nb}                  ',0,0,'R');
 		// $this->myLogger->leave();
 	}
 
