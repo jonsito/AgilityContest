@@ -133,7 +133,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 			// nos aseguramos de que existe una entrada 
 			$myLogger->info("Insertando Perro:$idperro Grado:$g en Resultados manga:$mid");
 			// en la tabla de resultados de esta manga para este perro
-			$res = $rs->insertByData($perro, $inscripcion['Dorsal']);
+			$res = $rs->insertByData($perro, $inscripcion);
 			if ($res!=="") {
 				// esta funcion es in "insert on duplicate key update"...
 				// no deberia fallar si ya existe una entrada en la tabla de resultados

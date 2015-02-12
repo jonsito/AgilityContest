@@ -176,34 +176,41 @@ class Resultados extends DBObject {
 		return $result;
 	}
 
-		
 	/**
 	 * Inserta perro en la lista de resultados de la manga
 	 * los datos del perro se toman de la tabla perroguiaclub
 	 * @param {array} $objperro datos perroguiaclub
-	 * @param {integer} $ndorsal Dorsal con el que compite
+	 * @param {array} $inscripcion datos de la inscripcion
 	 * @return "" on success; else error string
 	 */
-	function insertByData($objperro,$ndorsal) {
+	function insertByData($objperro,$inscripcion) {
 		$error="";
 		$idmanga=$this->IDManga;
 		$this->myLogger->enter();
-		if ($ndorsal<=0) return $this->error("No dorsal specified");
 		if ($this->isCerrada()) 
-			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);	
+			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
+
+		// remove previous entry (if any), and insert with new data
+		$p=$this->IDPrueba;
+		$j=$this->IDJornada;
+		$idp=$objperro['ID'];
+		$sql="DELETE FROM Resultados WHERE (Prueba=$p) AND (Jornada=$j) AND (Manga=$idmanga) AND (Perro=$idp)";
+		$rs=$this->query($sql);
+		if (!$rs) return $this->error($this->conn->error);
 		
 		// Insert into resultados. On duplicate ($manga,$idperro) key ignore
-		$sql="INSERT INTO Resultados (Prueba,Jornada,Manga,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
-				VALUES (?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Manga=Manga";
+		$sql="INSERT INTO Resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
+				VALUES (?,?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Manga=Manga";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->conn->error;
-		$res=$stmt->bind_param('iiiiissssss',$prueba,$jornada,$manga,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$guia,$club);
+		$res=$stmt->bind_param('iiiiiissssss',$prueba,$jornada,$manga,$equipo,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$guia,$club);
 		if (!$res) return $this->error($stmt->error);
-		$prueba=$this->IDPrueba;
-		$jornada=$this->IDJornada;
+		$prueba=$p;
+		$jornada=$j;
 		$manga=$idmanga;
-		$dorsal=$ndorsal;
-		$perro=$objperro['ID'];
+		$perro=$idp;
+		$equipo=$inscripcion['Equipo'];
+		$dorsal=$inscripcion['Dorsal'];
 		$nombre=$objperro['Nombre'];
 		$licencia=$objperro['Licencia'];
 		$categoria=$objperro['Categoria'];
@@ -219,20 +226,6 @@ class Resultados extends DBObject {
 	}
 	
 	/**
-	 * Inserta perro en la lista de resultados de la manga
-	 * @param {integer} $idperro ID del perro
-	 * @param {integer} $ndorsal Dorsal con el que compite
-	 * @return "" on success; else error string
-	 */
-	function insert($idperro,$ndorsal) {
-		// obtenemos los datos del perro
-		$pobj=new Dogs("Resultados::insert");
-		$perro=$pobj->selectByID($iderro);
-		if (!$perro) throw new Exception("No hay datos para el perro a inscribir con id: $idp");
-		return insertByData($perro,$idprueba,$ndorsal);
-	}
-	
-	/**
 	 * Borra el idperro de la lista de resultados de la manga
 	 * @param {integer} $idperro
 	 * @return "" on success; null on error
@@ -243,7 +236,7 @@ class Resultados extends DBObject {
 		if ($idperro<=0) return $this->error("No Perro ID specified");
 		if ($this->isCerrada()) 
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
-		$str="DELETE * FROM Resultados WHERE ( Perro=$idperro ) AND ( Manga=$idmanga)";
+		$str="DELETE FROM Resultados WHERE ( Perro=$idperro ) AND ( Manga=$idmanga)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
