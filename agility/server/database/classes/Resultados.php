@@ -189,26 +189,18 @@ class Resultados extends DBObject {
 		$this->myLogger->enter();
 		if ($this->isCerrada()) 
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
-
-		// remove previous entry (if any), and insert with new data
-		$p=$this->IDPrueba;
-		$j=$this->IDJornada;
-		$idp=$objperro['ID'];
-		$sql="DELETE FROM Resultados WHERE (Prueba=$p) AND (Jornada=$j) AND (Manga=$idmanga) AND (Perro=$idp)";
-		$rs=$this->query($sql);
-		if (!$rs) return $this->error($this->conn->error);
 		
-		// Insert into resultados. On duplicate ($manga,$idperro) key ignore
-		$sql="INSERT INTO Resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
-				VALUES (?,?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Manga=Manga";
+		// If row pkey(manga,perro) exists, just update; else insert
+		$sql="REPLACE INTO Resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
+				VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->conn->error;
 		$res=$stmt->bind_param('iiiiiissssss',$prueba,$jornada,$manga,$equipo,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$guia,$club);
 		if (!$res) return $this->error($stmt->error);
-		$prueba=$p;
-		$jornada=$j;
+		$prueba=$this->IDPrueba;
+		$jornada=$this->IDJornada;
 		$manga=$idmanga;
-		$perro=$idp;
+		$perro=$objperro['ID'];
 		$equipo=$inscripcion['Equipo'];
 		$dorsal=$inscripcion['Dorsal'];
 		$nombre=$objperro['Nombre'];
