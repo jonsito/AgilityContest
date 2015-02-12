@@ -21,6 +21,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * Several utility functions 
  */
 
+/* echo a gettext'd value */
+if( ! function_exists('_e')) {
+	function _e($var)	{
+		echo _($var);
+	}
+}
+
 /* boolval is only supported in PHP > 5.3 */
 if( ! function_exists('boolval')) {
 	function boolval($var)	{

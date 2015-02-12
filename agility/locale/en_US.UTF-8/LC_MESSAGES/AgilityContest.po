@@ -1,23 +1,139 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-02-12 14:30+0100\n"
-"PO-Revision-Date: 2015-02-12 14:32+0100\n"
-"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2015-02-12 23:37+0100\n"
+"PO-Revision-Date: 2015-02-13 00:05+0100\n"
+"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: jantonio <juansgaviota@gmail.com>\n"
 "Language: English\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
-"X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e\n"
 "X-Poedit-Basepath: /home/jantonio/work/agility/git-localrepo\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: agility\n"
 
+#: agility/index.php:168
+msgid "Men&uacute; de Operaciones"
+msgstr "Action&#8217;s menu"
+
+#: agility/index.php:174
+msgid "Iniciar sesi&oacute;n"
+msgstr "Init session"
+
+#: agility/index.php:178
+msgid "BASE DE DATOS"
+msgstr "Database"
+
+#: agility/index.php:180
+msgid "Gesti&oacute;n de la Base de Datos de Clubes"
+msgstr "Club&#8217;s database management"
+
+#: agility/index.php:180
+msgid "Clubes"
+msgstr "Clubs"
+
+#: agility/index.php:181
+msgid "Gesti&oacute;n de la Base de Datos de Gu&iacute;as"
+msgstr "Handler&#8217;s database management"
+
+#: agility/index.php:181
+msgid "Gu&iacute;as"
+msgstr "Handlers"
+
+#: agility/index.php:182
+msgid "Gesti&oacute;n de la base de datos de Perros"
+msgstr "Dog&#8217;s database management"
+
+#: agility/index.php:182
+msgid "Perros"
+msgstr "Dogs"
+
+#: agility/index.php:183
+msgid "Gesti&oacute;n de la Base de datos de Jueces"
+msgstr "Judge&#8217;s database management"
+
+#: agility/index.php:183
+msgid "Jueces"
+msgstr "Judges"
+
+#: agility/index.php:186
+msgid "PRUEBAS"
+msgstr "Contests"
+
+#: agility/index.php:188
+msgid "Creaci&oacute;n y edici&oacute;n de pruebas"
+msgstr "Create and edit contests"
+
+#: agility/index.php:188
+msgid "Creaci&oacute;n de pruebas"
+msgstr "Contest creation"
+
+#: agility/index.php:189
+msgid "Inscripciones - Selecci&oacute;n de prueba"
+msgstr "Inscriptions - Contest selection"
+
+#: agility/index.php:189
+msgid "Edici&oacute;n. Inscripciones"
+msgstr "Competitor&#8217;s Inscriptions"
+
+#: agility/index.php:190
+msgid "Competicion - Selecci&oacute;n de Prueba y Jornada"
+msgstr "Competition - Contest and Event selection"
+
+#: agility/index.php:190
+msgid "Desarrollo de la prueba"
+msgstr "Contest proccess"
+
+#: agility/index.php:193
+msgid "CONSULTAS"
+msgstr "RESULTS"
+
+#: agility/index.php:195
+msgid "Clasificaciones - Selecci&oacute;n de Prueba y Jornada"
+msgstr "Scores - Contest and Event Selection"
+
+#: agility/index.php:195
+msgid "Clasificaciones"
+msgstr "Scores"
+
+#: agility/index.php:196
+msgid "Estad&iacute;sticas"
+msgstr "Statistics"
+
+#: agility/index.php:200
+msgid "HERRAMIENTAS"
+msgstr "TOOLS"
+
+#: agility/index.php:202
+msgid "Administraci&oacute;n"
+msgstr "Admin Tasks"
+
+#: agility/index.php:203
+msgid "Acceso a BBDD"
+msgstr "Direct RBDMS Access"
+
+#: agility/index.php:206
+msgid "DOCUMENTACION"
+msgstr "DOCUMENTATION"
+
+#: agility/index.php:208
+msgid "Manual en l&iacute;nea"
+msgstr "OnLine Manual"
+
+#: agility/index.php:209
+msgid "Sobre la aplicaci&oacute;n..."
+msgstr "About AgilityContest..."
+
+#: agility/index.php:209
+msgid "Acerca de..."
+msgstr "About..."
+
 #: agility/server/pdf/print_clasificacion.php:81
-#: agility/server/pdf/print_podium.php:77
 #: agility/server/pdf/print_ordenTandas.php:66
+#: agility/server/pdf/print_podium.php:77
 msgid "Jornada"
 msgstr "Event"
 
@@ -50,26 +166,26 @@ msgid "Clasificación"
 msgstr "Score"
 
 #: agility/server/pdf/print_clasificacion.php:144
-#: agility/server/pdf/print_inscritosByPrueba.php:106
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-#: agility/server/pdf/print_podium.php:101
-#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_resultadosByManga.php:65
 #: agility/server/pdf/print_entradaDeDatos.php:137
 #: agility/server/pdf/print_entradaDeDatos.php:201
 #: agility/server/pdf/print_entradaDeDatos.php:277
-#: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_podium.php:101
+#: agility/server/pdf/print_inscritosByPrueba.php:106
+#: agility/server/pdf/print_inscritosByPrueba.php:502
 msgid "Nombre"
 msgstr "Name"
 
 #: agility/server/pdf/print_clasificacion.php:147
-#: agility/server/pdf/print_inscritosByPrueba.php:110
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-#: agility/server/pdf/print_podium.php:104
-#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_resultadosByManga.php:65
 #: agility/server/pdf/print_entradaDeDatos.php:138
 #: agility/server/pdf/print_entradaDeDatos.php:203
 #: agility/server/pdf/print_entradaDeDatos.php:279
-#: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_podium.php:104
+#: agility/server/pdf/print_inscritosByPrueba.php:110
+#: agility/server/pdf/print_inscritosByPrueba.php:502
 msgid "Guía"
 msgstr "Handler"
 
@@ -83,258 +199,86 @@ msgstr "Ref"
 #: agility/server/pdf/print_clasificacion.php:152
 #: agility/server/pdf/print_clasificacion.php:160
 #: agility/server/pdf/print_clasificacion.php:168
-#: agility/server/pdf/print_podium.php:109
-#: agility/server/pdf/print_podium.php:117
-#: agility/server/pdf/print_podium.php:125
+#: agility/server/pdf/print_resultadosByManga.php:65
 #: agility/server/pdf/print_entradaDeDatos.php:157
 #: agility/server/pdf/print_entradaDeDatos.php:217
 #: agility/server/pdf/print_entradaDeDatos.php:325
 #: agility/server/pdf/print_entradaDeDatos.php:346
-#: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_podium.php:109
+#: agility/server/pdf/print_podium.php:117
+#: agility/server/pdf/print_podium.php:125
 msgid "Tiempo"
 msgstr "Time"
 
 #: agility/server/pdf/print_clasificacion.php:171
-#: agility/server/pdf/print_podium.php:128
 #: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_podium.php:128
 msgid "Puesto"
 msgstr "Order"
 
-#: agility/server/pdf/print_inscritosByPrueba.php:60
-msgid "Catálogo de Participantes"
-msgstr "Competitor's Catalog"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:107
-msgid "Raza"
-msgstr "Breed"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:108
-#: agility/server/pdf/print_entradaDeDatos.php:202
-#: agility/server/pdf/print_entradaDeDatos.php:278
-msgid "Licencia"
-msgstr "License"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:109
-#: agility/server/pdf/print_podium.php:103
-#: agility/server/pdf/print_resultadosByManga.php:65
-msgid "Cat/Grado"
-msgstr "Cat/Grade"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:199
-msgid "Estadísticas"
-msgstr "Statistics"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:360
-#: agility/server/pdf/print_inscritosByPrueba.php:400
-#: agility/server/pdf/print_inscritosByPrueba.php:415
-#: agility/server/pdf/print_inscritosByPrueba.php:449
-msgid "Total"
-msgstr "Total"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:364
-msgid "Pre-Agility"
-msgstr "Pre-Agility"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:373
-#: agility/server/pdf/print_inscritosByPrueba.php:429
-msgid "Grado I"
-msgstr "Grade I"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:382
-#: agility/server/pdf/print_inscritosByPrueba.php:439
-msgid "Grado II"
-msgstr "Grade II"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:391
-msgid "Grado III"
-msgstr "Grade III"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:419
-msgid "Grado 0"
-msgstr "Grade 0"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:464
-msgid "Prueba"
-msgstr "Contest"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:464
-msgid "Datos globales de participación"
-msgstr "Global Accounting Info"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-#: agility/server/pdf/print_podium.php:100
-#: agility/server/pdf/print_ordenDeSalida.php:71
-#: agility/server/pdf/print_entradaDeDatos.php:134
-#: agility/server/pdf/print_entradaDeDatos.php:276
-#: agility/server/pdf/print_resultadosByManga.php:65
-msgid "Dorsal"
-msgstr "Dorsal"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-#: agility/server/pdf/print_podium.php:102
-#: agility/server/pdf/print_ordenDeSalida.php:71
-#: agility/server/pdf/print_entradaDeDatos.php:136
-#: agility/server/pdf/print_resultadosByManga.php:65
-msgid "Lic."
-msgstr "Lic."
-
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-#: agility/server/pdf/print_podium.php:105
-#: agility/server/pdf/print_ordenDeSalida.php:71
-#: agility/server/pdf/print_entradaDeDatos.php:139
-#: agility/server/pdf/print_entradaDeDatos.php:204
-#: agility/server/pdf/print_entradaDeDatos.php:280
-#: agility/server/pdf/print_resultadosByManga.php:65
-msgid "Club"
-msgstr "Club"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-msgid "Cat."
-msgstr "Cat."
-
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-msgid "Grado"
-msgstr "Grade"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-#: agility/server/pdf/print_ordenDeSalida.php:71
-#: agility/server/pdf/print_entradaDeDatos.php:135
-#: agility/server/pdf/print_entradaDeDatos.php:205
-#: agility/server/pdf/print_entradaDeDatos.php:281
-msgid "Celo"
-msgstr "Heat"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-#: agility/server/pdf/print_ordenDeSalida.php:71
-#: agility/server/pdf/print_entradaDeDatos.php:206
-#: agility/server/pdf/print_entradaDeDatos.php:282
-#: agility/server/pdf/print_ordenTandas.php:97
-msgid "Observaciones"
-msgstr "Comments"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-msgid "Sab."
-msgstr "Sat."
-
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-msgid "Dom."
-msgstr "Sun."
-
-#: agility/server/pdf/print_inscritosByPrueba.php:508
-msgid "Listado de Participantes"
-msgstr "Competitor's Listing"
-
-#: agility/server/pdf/print_podium.php:63
-msgid "Pódium"
-msgstr "Podium"
-
-#: agility/server/pdf/print_podium.php:107
-#: agility/server/pdf/print_podium.php:115
-msgid "F/T"
-msgstr "F/T"
-
-#: agility/server/pdf/print_podium.php:110
-#: agility/server/pdf/print_podium.php:118
-#: agility/server/pdf/print_resultadosByManga.php:65
-msgid "Vel."
-msgstr "Vel."
-
-#: agility/server/pdf/print_podium.php:111
-#: agility/server/pdf/print_podium.php:119
-#: agility/server/pdf/print_resultadosByManga.php:65
-msgid "Penal."
-msgstr "Penal."
-
-#: agility/server/pdf/print_podium.php:112
-#: agility/server/pdf/print_podium.php:120
-msgid "Calif."
-msgstr "Calif."
-
-#: agility/server/pdf/print_podium.php:126
-msgid "Penaliz."
-msgstr "Penaliz."
-
-#: agility/server/pdf/print_podium.php:127
-msgid "Calific."
-msgstr "Calific."
-
-#: agility/server/pdf/print_ordenDeSalida.php:71
-msgid "Orden"
-msgstr "Order"
-
-#: agility/server/pdf/print_ordenDeSalida.php:76
-msgid "Orden de Salida"
-msgstr "Starting order"
-
-#: agility/server/pdf/print_common.php:114
+#: agility/server/pdf/print_common.php:119
 msgid "Página"
 msgstr "Page"
 
-#: agility/server/pdf/print_entradaDeDatos.php:78
-msgid "Introducción de Datos"
-msgstr "Data results entry"
-
-#: agility/server/pdf/print_entradaDeDatos.php:151
-#: agility/server/pdf/print_entradaDeDatos.php:214
-#: agility/server/pdf/print_entradaDeDatos.php:308
-#: agility/server/pdf/print_entradaDeDatos.php:329
-msgid "Faltas"
-msgstr "Faults"
-
-#: agility/server/pdf/print_entradaDeDatos.php:152
-#: agility/server/pdf/print_entradaDeDatos.php:224
-#: agility/server/pdf/print_entradaDeDatos.php:312
-#: agility/server/pdf/print_entradaDeDatos.php:333
-msgid "Rehúses"
-msgstr "Refusals"
-
-#: agility/server/pdf/print_entradaDeDatos.php:153
-#: agility/server/pdf/print_entradaDeDatos.php:219
-#: agility/server/pdf/print_entradaDeDatos.php:316
-#: agility/server/pdf/print_entradaDeDatos.php:337
-msgid "Tocados"
-msgstr "Touched"
-
-#: agility/server/pdf/print_entradaDeDatos.php:154
 #: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_entradaDeDatos.php:134
+#: agility/server/pdf/print_entradaDeDatos.php:276
+#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_podium.php:100
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+msgid "Dorsal"
+msgstr "Dorsal"
+
+#: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_entradaDeDatos.php:136
+#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_podium.php:102
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+msgid "Lic."
+msgstr "Lic."
+
+#: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_entradaDeDatos.php:139
+#: agility/server/pdf/print_entradaDeDatos.php:204
+#: agility/server/pdf/print_entradaDeDatos.php:280
+#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_podium.php:105
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+msgid "Club"
+msgstr "Club"
+
+#: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_podium.php:103
+#: agility/server/pdf/print_inscritosByPrueba.php:109
+msgid "Cat/Grado"
+msgstr "Cat/Grade"
+
+#: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_entradaDeDatos.php:154
 msgid "Flt."
 msgstr "Flt."
 
-#: agility/server/pdf/print_entradaDeDatos.php:155
 #: agility/server/pdf/print_resultadosByManga.php:65
-msgid "Reh."
-msgstr "Ref."
-
 #: agility/server/pdf/print_entradaDeDatos.php:156
-#: agility/server/pdf/print_resultadosByManga.php:65
 msgid "Toc."
 msgstr "Tch."
 
-#: agility/server/pdf/print_entradaDeDatos.php:226
-msgid "Elim. "
-msgstr "Elim."
+#: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_entradaDeDatos.php:155
+msgid "Reh."
+msgstr "Ref."
 
-#: agility/server/pdf/print_entradaDeDatos.php:323
-#: agility/server/pdf/print_entradaDeDatos.php:344
-msgid "No Presentado"
-msgstr "Absent"
+#: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_podium.php:110
+#: agility/server/pdf/print_podium.php:118
+msgid "Vel."
+msgstr "Vel."
 
-#: agility/server/pdf/print_entradaDeDatos.php:324
-#: agility/server/pdf/print_entradaDeDatos.php:345
-msgid "Eliminado"
-msgstr "Eliminated"
-
-#: agility/server/pdf/print_entradaDeDatos.php:352
-#: agility/server/pdf/print_entradaDeDatos.php:353
-#: agility/server/pdf/print_entradaDeDatos.php:382
-msgid "Apunta"
-msgstr "Annotated By"
-
-#: agility/server/pdf/print_entradaDeDatos.php:354
-#: agility/server/pdf/print_entradaDeDatos.php:355
-#: agility/server/pdf/print_entradaDeDatos.php:384
-msgid "Revisa"
-msgstr "Revised By"
+#: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_podium.php:111
+#: agility/server/pdf/print_podium.php:119
+msgid "Penal."
+msgstr "Penal."
 
 #: agility/server/pdf/print_resultadosByManga.php:65
 msgid "Calificación"
@@ -384,12 +328,181 @@ msgstr "Ring"
 msgid "# Participantes"
 msgstr "# Competitors"
 
+#: agility/server/pdf/print_ordenTandas.php:97
+#: agility/server/pdf/print_entradaDeDatos.php:206
+#: agility/server/pdf/print_entradaDeDatos.php:282
+#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+msgid "Observaciones"
+msgstr "Comments"
+
 #: agility/server/pdf/print_ordenTandas.php:98
 msgid "Horario (*)"
 msgstr "Time (*)"
 
-#~ msgid "Clasificaci&oacute;n"
-#~ msgstr "Results"
+#: agility/server/pdf/print_entradaDeDatos.php:78
+msgid "Introducción de Datos"
+msgstr "Data results entry"
+
+#: agility/server/pdf/print_entradaDeDatos.php:135
+#: agility/server/pdf/print_entradaDeDatos.php:205
+#: agility/server/pdf/print_entradaDeDatos.php:281
+#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+msgid "Celo"
+msgstr "Heat"
+
+#: agility/server/pdf/print_entradaDeDatos.php:151
+#: agility/server/pdf/print_entradaDeDatos.php:214
+#: agility/server/pdf/print_entradaDeDatos.php:308
+#: agility/server/pdf/print_entradaDeDatos.php:329
+msgid "Faltas"
+msgstr "Faults"
+
+#: agility/server/pdf/print_entradaDeDatos.php:152
+#: agility/server/pdf/print_entradaDeDatos.php:224
+#: agility/server/pdf/print_entradaDeDatos.php:312
+#: agility/server/pdf/print_entradaDeDatos.php:333
+msgid "Rehúses"
+msgstr "Refusals"
+
+#: agility/server/pdf/print_entradaDeDatos.php:153
+#: agility/server/pdf/print_entradaDeDatos.php:219
+#: agility/server/pdf/print_entradaDeDatos.php:316
+#: agility/server/pdf/print_entradaDeDatos.php:337
+msgid "Tocados"
+msgstr "Touched"
+
+#: agility/server/pdf/print_entradaDeDatos.php:202
+#: agility/server/pdf/print_entradaDeDatos.php:278
+#: agility/server/pdf/print_inscritosByPrueba.php:108
+msgid "Licencia"
+msgstr "License"
+
+#: agility/server/pdf/print_entradaDeDatos.php:226
+msgid "Elim. "
+msgstr "Elim."
+
+#: agility/server/pdf/print_entradaDeDatos.php:323
+#: agility/server/pdf/print_entradaDeDatos.php:344
+msgid "No Presentado"
+msgstr "Absent"
+
+#: agility/server/pdf/print_entradaDeDatos.php:324
+#: agility/server/pdf/print_entradaDeDatos.php:345
+msgid "Eliminado"
+msgstr "Eliminated"
+
+#: agility/server/pdf/print_entradaDeDatos.php:352
+#: agility/server/pdf/print_entradaDeDatos.php:353
+#: agility/server/pdf/print_entradaDeDatos.php:382
+msgid "Apunta"
+msgstr "Annotated By"
+
+#: agility/server/pdf/print_entradaDeDatos.php:354
+#: agility/server/pdf/print_entradaDeDatos.php:355
+#: agility/server/pdf/print_entradaDeDatos.php:384
+msgid "Revisa"
+msgstr "Revised By"
+
+#: agility/server/pdf/print_ordenDeSalida.php:71
+msgid "Orden"
+msgstr "Order"
+
+#: agility/server/pdf/print_ordenDeSalida.php:76
+msgid "Orden de Salida"
+msgstr "Starting order"
+
+#: agility/server/pdf/print_podium.php:63
+msgid "Pódium"
+msgstr "Podium"
+
+#: agility/server/pdf/print_podium.php:107
+#: agility/server/pdf/print_podium.php:115
+msgid "F/T"
+msgstr "F/T"
+
+#: agility/server/pdf/print_podium.php:112
+#: agility/server/pdf/print_podium.php:120
+msgid "Calif."
+msgstr "Calif."
+
+#: agility/server/pdf/print_podium.php:126
+msgid "Penaliz."
+msgstr "Penaliz."
+
+#: agility/server/pdf/print_podium.php:127
+msgid "Calific."
+msgstr "Calific."
+
+#: agility/server/pdf/print_inscritosByPrueba.php:60
+msgid "Catálogo de Participantes"
+msgstr "Competitor's Catalog"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:107
+msgid "Raza"
+msgstr "Breed"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:199
+msgid "Estadísticas"
+msgstr "Statistics"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:360
+#: agility/server/pdf/print_inscritosByPrueba.php:400
+#: agility/server/pdf/print_inscritosByPrueba.php:415
+#: agility/server/pdf/print_inscritosByPrueba.php:449
+msgid "Total"
+msgstr "Total"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:364
+msgid "Pre-Agility"
+msgstr "Pre-Agility"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:373
+#: agility/server/pdf/print_inscritosByPrueba.php:429
+msgid "Grado I"
+msgstr "Grade I"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:382
+#: agility/server/pdf/print_inscritosByPrueba.php:439
+msgid "Grado II"
+msgstr "Grade II"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:391
+msgid "Grado III"
+msgstr "Grade III"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:419
+msgid "Grado 0"
+msgstr "Grade 0"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:464
+msgid "Prueba"
+msgstr "Contest"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:464
+msgid "Datos globales de participación"
+msgstr "Global Accounting Info"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+msgid "Cat."
+msgstr "Cat."
+
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+msgid "Grado"
+msgstr "Grade"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+msgid "Sab."
+msgstr "Sat."
+
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+msgid "Dom."
+msgstr "Sun."
+
+#: agility/server/pdf/print_inscritosByPrueba.php:508
+msgid "Listado de Participantes"
+msgstr "Competitor's Listing"
 
 #~ msgid "Tiempo."
 #~ msgstr "Time."

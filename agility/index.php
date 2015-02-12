@@ -2,6 +2,7 @@
 header("Access-Control-Allow-Origin: https//{$_SERVER['SERVER_ADDR']}/agility",false);
 header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",false);
 require_once(__DIR__."/server/auth/Config.php");
+require_once(__DIR__."/server/tools.php");
 $config =new Config()
 ?>
 <!DOCTYPE html>
@@ -24,7 +25,7 @@ $config =new Config()
 <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
 <script src="/agility/lib/jquery-easyui-1.4.1/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.1/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.1/locale/easyui-lang-<?php echo $config->getEnv('lang');?>.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-easyui-1.4.1/locale/easyui-lang-<?php echo substr($config->getEnv('lang'),0,2);?>.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.1/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.1/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.1/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
@@ -164,47 +165,48 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <!-- MENU LATERAL -->
 <div id="mysidebar">
 
-<div id="mymenu" class="easyui-panel" title="Men&uacute; de Operaciones"
+<div id="mymenu" class="easyui-panel" title="<?php _e('Men&uacute; de Operaciones'); ?>"
 	data-options="border:true,closable:false,collapsible:true,collapsed:true">
 <ul>
 <li>
 	<ul>
 	<li><a id="menu-Login" href="javascript:showLoginWindow();">
-		<span id="login_menu-text">Iniciar sesi&oacute;n</span></a>
+		<span id="login_menu-text"><?php _e('Iniciar sesi&oacute;n');?></span></a>
 	</li>
 	</ul>
 </li>
-<li>BASE DE DATOS
+<li><?php _e('BASE DE DATOS'); ?>
 	<ul>
-	<li><a href="javascript:loadContents('/agility/client/frm_clubes.php','Gesti&oacute;n de la Base de Datos de Clubes');">Clubes</a></li>
-	<li><a href="javascript:loadContents('/agility/client/frm_guias.php','Gesti&oacute;n de la Base de Datos de Gu&iacute;as');">Gu&iacute;as</a></li>
-	<li><a href="javascript:loadContents('/agility/client/frm_perros.php','Gesti&oacute;n de la base de datos de Perros');">Perros</a></li>
-	<li><a href="javascript:loadContents('/agility/client/frm_jueces.php','Gesti&oacute;n de la Base de datos de Jueces');">Jueces</a></li>
+	<li><a href="javascript:loadContents('/agility/client/frm_clubes.php','<?php _e('Gesti&oacute;n de la Base de Datos de Clubes');     ?>');"><?php _e('Clubes');?></a></li>
+	<li><a href="javascript:loadContents('/agility/client/frm_guias.php','<?php _e('Gesti&oacute;n de la Base de Datos de Gu&iacute;as');?>');"><?php _e('Gu&iacute;as');?></a></li>
+	<li><a href="javascript:loadContents('/agility/client/frm_perros.php','<?php _e('Gesti&oacute;n de la base de datos de Perros');     ?>');"><?php _e('Perros');?></a></li>
+	<li><a href="javascript:loadContents('/agility/client/frm_jueces.php','<?php _e('Gesti&oacute;n de la Base de datos de Jueces');     ?>');"><?php _e('Jueces');?></a></li>
 	</ul>
 </li>
-<li>PRUEBAS
+<li><?php _e('PRUEBAS'); ?>
 	<ul>
-	<li><a href="javascript:loadContents('/agility/client/frm_pruebas.php','Creaci&oacute;n y edici&oacute;n de pruebas');">Creaci&oacute;n de pruebas</a></li>
-	<li><a href="javascript:loadContents('/agility/client/frm_inscripciones.php','Inscripciones - Selecci&oacute;n de prueba');">Edici&oacute;n. Inscripciones</a></li>
-	<li><a href="javascript:loadContents('/agility/client/frm_competicion.php','Competicion - Selecci&oacute;n de Prueba y Jornada');">Desarrollo de la prueba</a></li>
+	<li><a href="javascript:loadContents('/agility/client/frm_pruebas.php','<?php _e('Creaci&oacute;n y edici&oacute;n de pruebas');     ?>');"><?php _e('Creaci&oacute;n de pruebas');?></a></li>
+	<li><a href="javascript:loadContents('/agility/client/frm_inscripciones.php','<?php _e('Inscripciones - Selecci&oacute;n de prueba');?>');"><?php _e('Edici&oacute;n. Inscripciones');?></a></li>
+	<li><a href="javascript:loadContents('/agility/client/frm_competicion.php','<?php _e('Competicion - Selecci&oacute;n de Prueba y Jornada');?>');"><?php _e('Desarrollo de la prueba');?></a></li>
 	</ul>
 </li>
-<li>CONSULTAS
+<li><?php _e('CONSULTAS'); ?>
 	<ul>
-	<li><a href="javascript:loadContents('/agility/client/frm_clasificaciones.php','Clasificaciones - Selecci&oacute;n de Prueba y Jornada');">Clasificaciones</a></li>
-	<li><a href="javascript:loadContents('/agility/client/frm_estadisticas.php','Estad&iacute;sticas');">Estad&iacute;sticas</a></li>
+	<li><a href="javascript:loadContents('/agility/client/frm_clasificaciones.php','<?php _e('Clasificaciones - Selecci&oacute;n de Prueba y Jornada');?>');"><?php _e('Clasificaciones');?></a></li>
+	<li><a href="javascript:loadContents('/agility/client/frm_estadisticas.php','<?php _e('Estad&iacute;sticas');?>');"><?php _e('Estad&iacute;sticas');?></a></li>
 	</ul>
 </li>
-<li>HERRAMIENTAS
+
+<li><?php _e('HERRAMIENTAS'); ?>
 	<ul>
-	<li> <a href="javascript:loadContents('/agility/client/frm_admin.php','Administraci&oacute;n')">Administraci&oacute;n</a></li>
-	<li><a id="menu-Login" href="javascript:showMyAdminWindow();">Acceso a BBDD</a></li>
+	<li> <a href="javascript:loadContents('/agility/client/frm_admin.php','<?php _e('Administraci&oacute;n');?>');"><?php _e('Administraci&oacute;n')?></a></li>
+	<li><a id="menu-Login" href="javascript:showMyAdminWindow();"><?php _e('Acceso a BBDD');?></a></li>
 	</ul>
 </li>
-<li>DOCUMENTACION
+<li><?php _e('DOCUMENTACION'); ?>
 	<ul>
-	<li> <a target="documentacion" href="/agility/client/manual.html">Manual en l&iacute;nea</a></li>
-	<li> <a href="javascript:loadContents('/agility/client/frm_about.php','Sobre la aplicaci&oacute;n...')">Acerca de...</a></li>
+	<li> <a target="documentacion" href="/agility/client/manual.html"><?php _e('Manual en l&iacute;nea');?></a></li>
+	<li> <a href="javascript:loadContents('/agility/client/frm_about.php','<?php _e('Sobre la aplicaci&oacute;n...');?>')"><?php _e('Acerca de...');?></a></li>
 	</ul>
 </li>
 </ul>
