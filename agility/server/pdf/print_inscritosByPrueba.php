@@ -555,7 +555,9 @@ class PrintInscritos extends PrintCommon {
 			// $this->Cell($this->pos[0],7,$rowcount+1,		'LR',	0,		$this->align[0],$fill); // display order instead of idperro
 
 			$this->Cell($this->pos[0],6,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
+			$this->SetFont('Arial','B',8); // bold 9px
 			$this->Cell($this->pos[1],6,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
+			$this->SetFont('Arial','',8); // bold 9px
 			$this->Cell($this->pos[2],6,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
 			$this->Cell($this->pos[3],6,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
 			$this->Cell($this->pos[4],6,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);

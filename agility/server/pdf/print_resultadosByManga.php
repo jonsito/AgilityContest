@@ -43,7 +43,7 @@ class PDF extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader;	
-	protected $pos	=array(  12,     15,     10,     30,    25,     12,        7,      7,    7,       10,     7,    12,      22,			12 );
+	protected $pos	=array(  9,     18,     10,     30,    25,     12,        7,      7,    7,       10,     7,    12,      22,			12 );
 	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
 	
 	protected $modestr  
@@ -151,7 +151,9 @@ class PDF extends PrintCommon {
 			// print row data
 			$this->SetFont('Arial','',8); // set data font size
 			$this->Cell($this->pos[0],6,$row['Dorsal'],			'LR',	0,		$this->align[0],	$fill);
+			$this->SetFont('Arial','B',9); // set data font size
 			$this->Cell($this->pos[1],6,$row['Nombre'],			'LR',	0,		$this->align[1],	$fill);
+			$this->SetFont('Arial','',8); // set data font size
 			$this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	$fill);
 			$this->Cell($this->pos[3],6,$row['NombreGuia'],		'LR',	0,		$this->align[3],	$fill);
 			$this->Cell($this->pos[4],6,$row['NombreClub'],		'LR',	0,		$this->align[4],	$fill);

@@ -152,7 +152,9 @@ class Print_Podium extends PrintCommon {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// datos del participante
 		$this->Cell(10,6,$row['Dorsal'],0,0,'R',true); 	// dorsal
+		$this->SetFont('Arial','B',10); // default font
 		$this->Cell(25,6,$row['Nombre'],0,0,'L',true);	// nombre (20,y
+		$this->SetFont('Arial','',10); // default font
 		$this->Cell(15,6,$row['Licencia'],0,0,'C',true);	// licencia
 		$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',true);	// categoria/grado
 		$this->Cell(35,6,$row['NombreGuia'],0,0,'R',true);	// nombreGuia
