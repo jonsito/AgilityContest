@@ -103,8 +103,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<h3>Configuraci&oacute;n general</h3>
 			<label for="lang">Idioma</label>
 			<select id="config_lang" name="lang">
-				<option value="es" selected="selected">Espa&ntilde;ol</option>
-				<option value="en">Ingl&eacute;s</option>
+				<!-- TODO: retrieve list of available langs -->
+				<option value="es_ES.UTF-8" selected="selected">Espa&ntilde;ol</option>
+				<option value="en_US.UTF-8">Ingl&eacute;s</option>
 			</select><br />
 			<label for="debug_level">Nivel de depuracion</label>
 			<select id="debug_level" name="debug_level">

@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: AgilityContest\n"
+"POT-Creation-Date: 2015-02-12 11:55+0100\n"
+"PO-Revision-Date: 2015-02-12 11:58+0100\n"
+"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
+"Language-Team: jantonio <juansgaviota@gmail.com>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
+"X-Poedit-Basepath: /home/jantonio/work/agility/git-localrepo\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: agility\n"
+
+#: agility/server/pdf/print_clasificacion.php:81
+msgid "Jornada: "
+msgstr "Event: "
+
+#: agility/server/pdf/print_clasificacion.php:83
+#: agility/server/pdf/print_clasificacion.php:86
+msgid "Juez"
+msgstr "Juzge"
+
+#: agility/server/pdf/print_clasificacion.php:92
+msgid "Fecha: "
+msgstr "Date: "
+
+#: agility/server/pdf/print_clasificacion.php:105
+msgid "Ronda: "
+msgstr "Series: "
+
+#: agility/server/pdf/print_clasificacion.php:117
+msgid "Clasificación Final"
+msgstr "Final Scores"
+
+#: agility/server/pdf/print_clasificacion.php:136
+msgid "Datos del participante"
+msgstr "Competitor's Info"
+
+#: agility/server/pdf/print_clasificacion.php:139
+msgid "Clasificaci&oacute;n"
+msgstr "Results"
+
+#: agility/server/pdf/print_clasificacion.php:144
+msgid "Nombre"
+msgstr "Name"
+
+#: agility/server/pdf/print_clasificacion.php:147
+msgid "Guía"
+msgstr "Handler"
+
+#: agility/server/pdf/print_clasificacion.php:151
+#: agility/server/pdf/print_clasificacion.php:159
+msgid "Reh"
+msgstr "Ref"
+
+#: agility/server/pdf/print_clasificacion.php:152
+#: agility/server/pdf/print_clasificacion.php:160
+#: agility/server/pdf/print_clasificacion.php:168
+msgid "Tiempo"
+msgstr "Time"
+
+#: agility/server/pdf/print_clasificacion.php:171
+msgid "Puesto"
+msgstr "Order"

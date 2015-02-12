@@ -24,7 +24,7 @@ $config =new Config()
 <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
 <script src="/agility/lib/jquery-easyui-1.4.1/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.1/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.1/locale/easyui-lang-es.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-easyui-1.4.1/locale/easyui-lang-<?php echo $config->getEnv('lang');?>.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.1/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.1/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.1/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
