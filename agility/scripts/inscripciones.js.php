@@ -14,6 +14,13 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
+?>
+
 //***** gestion de inscripciones de una prueba	*****************************************************
 
 /**
@@ -23,7 +30,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  *@param {function} onAccept what to do when a new inscription is created
  */
 function newInscripcion(dg,def,onAccept) {
-	$('#new_inscripcion-dialog').dialog('open').dialog('setTitle','Nueva(s) inscripciones');
+	$('#new_inscripcion-dialog').dialog('open').dialog('setTitle','<?php _e('Nueva(s) inscripciones');?>');
 	// let openEvent on dialog fire up form setup
 	if (onAccept!==undefined)$('#new_inscripcion-okBtn').one('click',onAccept);
 }
@@ -33,7 +40,7 @@ function editInscripcion() {
 	// obtenemos datos de la inscripcion seleccionada
 	var row= $('#inscripciones-datagrid').datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("No selection","!No ha seleccionado ninguna inscripción!","warning");
+    	$.messager.alert("No selection","<?php _e('!No ha seleccionado ninguna inscripción!');?>","warning");
     	return; // no hay ninguna inscripcion seleccionada. retornar
     }
     row.Operation='update';
@@ -74,15 +81,15 @@ function saveInscripcion(close) {
 function deleteInscripcion() {
 	var row = $('#inscripciones-datagrid').datagrid('getSelected');    
 	if (!row) {
-    	$.messager.alert("No selection","!No ha seleccionado ninguna inscripcion!","warning");
+    	$.messager.alert("No selection","<?php _e('!No ha seleccionado ninguna inscripción!');?>","warning");
     	return; // no hay ninguna inscripcion seleccionada. retornar
     }
 	$.messager.confirm('Confirm',
-			"<p><b>Importante:</b></p>" +
-			"<p>Si decide borrar la inscripcion <br/>" +
-			"<b>se perder&aacute;n</b> todos los datos y resultados de este participante<br />" +
-			"que afecten a jornadas que no hayan sido marcadas como <em>Cerradas</em><br/>" +
-			"Desea realmente borrar la inscripción seleccionada?</p>",
+			"<p><b><?php _e('Importante');?>:</b></p>" +
+			"<p><?php _e('Si decide borrar la inscripci&oacute;n');?> <br/>" +
+			"<b><?php _e('se perder&aacute;n</b> todos los datos y resultados de este participante');?><br />" +
+			"<?php _e('que afecten a jornadas que no hayan sido marcadas como <em>Cerradas</em>');?><br/>" +
+			"<?php _e('Desea realmente borrar la inscripción seleccionada?');?></p>",
 			function(r){
 				if (r){
 					$.get(
@@ -121,16 +128,16 @@ function insertInscripcion(dg) {
 	var count=1;
 	var size=selectedRows.length;
 	if(size==0) {
-    	$.messager.alert("No selection","!No ha marcado ningún perro para proceder a su inscripción!","warning");
+    	$.messager.alert("No selection","<?php _e('!No ha marcado ningún perro para proceder a su inscripción!');?>","warning");
     	return; // no hay ninguna inscripcion seleccionada. retornar
 	}
 	if (authInfo.Perms>2) {
-    	$.messager.alert("No permission","Sesion con insuficiente permiso para realizar inscripciones","error");
+    	$.messager.alert("No permission","<?php _e('Sesi&oacute;n con insuficientes permisos para realizar inscripciones');?>","error");
     	return; // no tiene permiso para realizar inscripciones. retornar
 	}
 	$('#new_inscripcion-progresswindow').window('open');
 	$.each(selectedRows, function(index,row) {
-		$('#new_inscripcion-progresslabel').text("Inscribiendo a: "+row.Nombre);
+		$('#new_inscripcion-progresslabel').text("<?php _e('Inscribiendo a');?>: "+row.Nombre);
 		$('#new_inscripcion-progressbar').progressbar('setValue',count*(100/size));
 		$.ajax({
 	        async: false,
@@ -197,9 +204,9 @@ function canInscribe(jornada) {
  */
 function printInscripciones() {
 	$.messager.radio(
-		'Selecciona modelo',
-		'Selecciona el tipo de documento a generar:',
-		{ 0:'Listado simple',1:'Catálogo',2:'Estadisticas'}, 
+		'<?php _e('Selecciona modelo');?>',
+		'<?php _e('Selecciona el tipo de documento a generar');?>:',
+		{ 0:'<?php _e('Listado simple');?>',1:'<?php _e('Cat&aacute;logo');?>',2:'<?php _e('Estad&iacute;sticas');?>'}, 
 		function(r){
 			if (!r) return;
 			var mode=parseInt(r);
@@ -208,8 +215,8 @@ function printInscripciones() {
 				{
 					httpMethod: 'GET',
 					data: { Prueba: workingData.prueba, Mode: mode },
-			        preparingMessageHtml: "Imprimiendo inscripciones; por favor espere...",
-			        failMessageHtml: "There was a problem generating your report, please try again."
+			        preparingMessageHtml: "<?php _e('Imprimiendo inscripciones; por favor espere...');?>",
+			        failMessageHtml: "<?php _e('Problemas en la generaci&oacute;n del fichero PDF. Por favor reintente');?>"
 				}
 			);
 		}

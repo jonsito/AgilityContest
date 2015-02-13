@@ -39,9 +39,9 @@ $config =new Config()
 <script src="/agility/scripts/usuarios.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/sesiones.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/tandas.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/equipos.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/equipos.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/pruebas.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/inscripciones.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/inscripciones.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript">

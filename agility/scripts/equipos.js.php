@@ -14,13 +14,40 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
+?>
 
 // ***** gestion de equipos de una prueba	*****************************************************
+
+/**
+ * request if a contest has or not Team events
+ * Tip: Instead of calling database, just analyze events datagrid
+ * 
+ * @param {integer} prueba PruebaID
+ * @return true: has Team events; otherwise false
+ */
+function hasTeamEvents(prueba) {
+	var rows=$('#inscripciones-jornadas').datagrid('getRows');
+	for (var n=0; n<rows.length; n++) {
+		if ( parseInt(rows[n].Equipos3)==1) return true;
+		if ( parseInt(rows[n].Equipos4)==1) return true;
+	}
+	return false;
+}
 
 /**
  * Abre un dialogo para declarar un nuevo equipo para la prueba 
  */
 function openTeamWindow(pruebaID) {
+	// if no Team event declared in this contest refuse to open
+	if (!hasTeamEvents(pruebaID)) {
+    	$.messager.alert("Error:","<?php _e('Esta prueba no tiene declaradas competiciones por equipos');?>","info");
+    	return;
+	}
+	// allright: open window
 	$('#team_datagrid-dialog').dialog('open');
 	$('#team_datagrid').datagrid('reload');
 }
@@ -33,7 +60,7 @@ function openTeamWindow(pruebaID) {
  */
 function newTeam(dg,def,onAccept){
 	var idprueba=$(dg).datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
-	$('#team_edit_dialog').dialog('open').dialog('setTitle','A&ntilde;adir nuevo equipo');
+	$('#team_edit_dialog').dialog('open').dialog('setTitle','<?php _e('A&ntilde;adir nuevo equipo');?>');
 	$('#team_edit_dialog-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill team Name
 	$('#team_edit_dialog-Operation').val('insert');
@@ -44,8 +71,12 @@ function newTeam(dg,def,onAccept){
 
 /* same as newTeam, but using a combogrid as parent element */
 function newTeam2(cg,def){
+	if (!hasTeamEvents(pruebaID)) {
+    	$.messager.alert("Error:","<?php _e('Esta prueba no tiene declaradas competiciones por equipos');?>","info");
+    	return; //
+	}
     var idprueba=$(cg).combogrid('grid').datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
-    $('#team_edit_dialog').dialog('open').dialog('setTitle','A&ntilde;adir nuevo equipo');
+    $('#team_edit_dialog').dialog('open').dialog('setTitle','<?php _e('A&ntilde;adir nuevo equipo');?>');
     $('#team_edit_dialog-form').form('clear');
     if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill team Name
     $('#team_edit_dialog-Operation').val('insert');
@@ -61,15 +92,15 @@ function editTeam(dg){
 	if ($('#team_datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","!No ha seleccionado ningun Equipo!","info");
-    	return; // no way to know which prueba is selected
+    	$.messager.alert("Edit Error:","<?php _e('!No ha seleccionado ningun Equipo!');?>","info");
+    	return;
     }
 
     if (row.Nombre==="-- Sin asignar --") {
-    	$.messager.alert("Edit Error:","El equipo por defecto NO se puede editar","info");
-    	return; // no way to know which prueba is selected
+    	$.messager.alert("Edit Error:","<?php _e('El equipo por defecto NO se puede editar');?>","info");
+    	return;
     }
-    $('#team_edit_dialog').dialog('open').dialog('setTitle','Modificar datos del equipo');
+    $('#team_edit_dialog').dialog('open').dialog('setTitle','<?php _e('Modificar datos del equipo');?>');
 	row.Operation="update";
     // tel window to be closed when "OK" clicked
     $('#team_edit_dialog-okBtn').one('click',function() {$('#team_edit_dialog').dialog('close');});
@@ -84,16 +115,17 @@ function editTeam(dg){
 function deleteTeam(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningun Equipo!","info");
+    	$.messager.alert("Delete Error:","<?php _e('!No ha seleccionado ningun Equipo!');?>","info");
     	return; // no way to know which prueba is selected
     }
     if (row.Nombre==="-- Sin asignar --") {
-    	$.messager.alert("Delete Error:","El equipo por defecto no puede borrarse","info");
+    	$.messager.alert("Delete Error:","<?php _e('El equipo por defecto NO se puede borrar');?>","info");
     	return; // no way to know which prueba is selected
     }
     $.messager.confirm('Confirm',
-    		"<p>Esta operaci&oacute;n borrar&aacute; el equipo y reasignar&aacute; los perros de &eacute;ste al equipo por defecto</p>" +
-    		"<p>Desea realmente eliminar el equipo '"+row.Nombre+"' de esta prueba?</p>",function(r){
+    		"<p><?php _e('Esta operaci&oacute;n borrar&aacute; el equipo de la prueba');?><br />"+
+    		"<?php _e('y reasignar&aacute; los perros de &eacute;ste al equipo por defecto');?></p>" +
+    		"<p><?php _e('Desea realmente eliminar el equipo');?> '"+row.Nombre+"' <?php _e('de esta prueba');?>?</p>",function(r){
         if (r){
             $.get('/agility/server/database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba},function(result){
                 if (result.success){
@@ -105,7 +137,7 @@ function deleteTeam(dg){
                 }
             },'json');
         }
-    });
+    }).window({width:500});
 }
 
 /**

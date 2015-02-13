@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-02-13 12:37+0100\n"
-"PO-Revision-Date: 2015-02-13 12:44+0100\n"
+"POT-Creation-Date: 2015-02-13 14:36+0100\n"
+"PO-Revision-Date: 2015-02-13 14:43+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: jantonio <juansgaviota@gmail.com>\n"
 "Language: English\n"
@@ -100,7 +100,7 @@ msgstr "Scores - Contest and Event Selection"
 msgid "Clasificaciones"
 msgstr "Scores"
 
-#: agility/index.php:196
+#: agility/index.php:196 agility/scripts/inscripciones.js.php:209
 msgid "Estad&iacute;sticas"
 msgstr "Statistics"
 
@@ -587,7 +587,7 @@ msgstr "Closed"
 
 #: agility/client/frm_inscripciones2.php:199
 msgid "Listado de inscritos en la prueba"
-msgstr "Inscription&#8217;s list"
+msgstr "List of registered competitors"
 
 #: agility/client/frm_inscripciones2.php:218
 msgid "Actualizando datos de inscripciones...."
@@ -743,6 +743,113 @@ msgstr "Session terminated successfully"
 #: agility/scripts/auth.js.php:124
 msgid "El usuario no tiene permisos de administrador"
 msgstr "User has no \"admin\" privileges"
+
+#: agility/scripts/equipos.js.php:47 agility/scripts/equipos.js.php:75
+msgid "Esta prueba no tiene declaradas competiciones por equipos"
+msgstr "This contest has no Team events declared"
+
+#: agility/scripts/equipos.js.php:63 agility/scripts/equipos.js.php:79
+msgid "A&ntilde;adir nuevo equipo"
+msgstr "Add new Team"
+
+#: agility/scripts/equipos.js.php:95 agility/scripts/equipos.js.php:118
+msgid "!No ha seleccionado ningun Equipo!"
+msgstr "There is no team selected!"
+
+#: agility/scripts/equipos.js.php:100
+msgid "El equipo por defecto NO se puede editar"
+msgstr "Default team cannot be deleted"
+
+#: agility/scripts/equipos.js.php:103
+msgid "Modificar datos del equipo"
+msgstr "Edit team information"
+
+#: agility/scripts/equipos.js.php:122
+msgid "El equipo por defecto NO se puede borrar"
+msgstr "Default team cannot be modified"
+
+#: agility/scripts/equipos.js.php:126
+msgid "Esta operaci&oacute;n borrar&aacute; el equipo de la prueba"
+msgstr "This operation will remove team from the contest"
+
+#: agility/scripts/equipos.js.php:127
+msgid "y reasignar&aacute; los perros de &eacute;ste al equipo por defecto"
+msgstr "And reassign dogs to default team"
+
+#: agility/scripts/equipos.js.php:128
+msgid "Desea realmente eliminar el equipo"
+msgstr "Do you really want to remove selected team"
+
+#: agility/scripts/equipos.js.php:128
+msgid "de esta prueba"
+msgstr "on this contest"
+
+#: agility/scripts/inscripciones.js.php:33
+msgid "Nueva(s) inscripciones"
+msgstr "Register new inscription(s)"
+
+#: agility/scripts/inscripciones.js.php:43
+#: agility/scripts/inscripciones.js.php:84
+msgid "!No ha seleccionado ninguna inscripción!"
+msgstr "There is no inscription selected!"
+
+#: agility/scripts/inscripciones.js.php:88
+msgid "Importante"
+msgstr "Important"
+
+#: agility/scripts/inscripciones.js.php:89
+msgid "Si decide borrar la inscripci&oacute;n"
+msgstr "If you agree to delete inscription"
+
+#: agility/scripts/inscripciones.js.php:90
+msgid ""
+"se perder&aacute;n</b> todos los datos y resultados de este participante"
+msgstr "You'll loose every related results and data on this competitor"
+
+#: agility/scripts/inscripciones.js.php:91
+msgid ""
+"que afecten a jornadas que no hayan sido marcadas como <em>Cerradas</em>"
+msgstr "belonging to non-closed events"
+
+#: agility/scripts/inscripciones.js.php:92
+msgid "Desea realmente borrar la inscripción seleccionada?"
+msgstr "Do you really want to remove selected inscription?"
+
+#: agility/scripts/inscripciones.js.php:131
+msgid "!No ha marcado ningún perro para proceder a su inscripción!"
+msgstr "There is no dog selected to be inscribed!"
+
+#: agility/scripts/inscripciones.js.php:135
+msgid "Sesi&oacute;n con insuficientes permisos para realizar inscripciones"
+msgstr "This session has not enought permission to create/edit inscriptions"
+
+#: agility/scripts/inscripciones.js.php:140
+msgid "Inscribiendo a"
+msgstr "Enrolling "
+
+#: agility/scripts/inscripciones.js.php:207
+msgid "Selecciona modelo"
+msgstr "Select form"
+
+#: agility/scripts/inscripciones.js.php:208
+msgid "Selecciona el tipo de documento a generar"
+msgstr "Select type of document to be generated"
+
+#: agility/scripts/inscripciones.js.php:209
+msgid "Listado simple"
+msgstr "Simple listing"
+
+#: agility/scripts/inscripciones.js.php:209
+msgid "Cat&aacute;logo"
+msgstr "Contest catalog"
+
+#: agility/scripts/inscripciones.js.php:218
+msgid "Imprimiendo inscripciones; por favor espere..."
+msgstr "Printing inscriptions. Please wait...."
+
+#: agility/scripts/inscripciones.js.php:219
+msgid "Problemas en la generaci&oacute;n del fichero PDF. Por favor reintente"
+msgstr "There was problems generating PDF document. Please retry "
 
 #~ msgid "Cerrar sesi&oacute;n"
 #~ msgstr "End session"
