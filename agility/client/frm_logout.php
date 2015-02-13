@@ -14,6 +14,13 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
+ 
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config()
+?>
+ 
 <!-- FORMULARIO DE finalizacion de sesion -->
 <img class="mainpage" src="/agility/server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle" />
 
@@ -21,13 +28,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<div id="selprueba-Layout" class="easyui-layout" data-options="fit:true'">
 		<!--  texto del panel de logout -->
 		<div data-options="region:'center',border:'true'">
-			Confirme que desea cerrar la sesion del usuario: <span id="login-UserName">Usuario</span>
+			<?php _e('Confirme que desea cerrar la sesion del usuario');?>: <span id="login-UserName">Usuario</span>
 		</div><!-- botones del menu de logout-->
 		<div id="logout-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
 		   	<a id="logout-okBtn" href="#" class="easyui-linkbutton" 
-		    	data-options="iconCls: 'icon-ok'" onclick="acceptLogout()">Aceptar</a>
+		    	data-options="iconCls: 'icon-ok'" onclick="acceptLogout()"><?php _e('Aceptar');?></a>
 		   	<a id="logout-cancelBtn" href="#" class="easyui-linkbutton" 
-		    	data-options="iconCls: 'icon-cancel'" onclick="cancelLogout()">Cancelar</a>
+		    	data-options="iconCls: 'icon-cancel'" onclick="cancelLogout()"><?php _e('Cancelar');?></a>
 		</div>
 	</div>
 </div> <!-- Dialog -->
@@ -35,7 +42,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <script type="text/javascript">
 
 $('#logout-window').window({
-	title:'Finalizar sesion',
+	title:'<?php _e('Finalizar sesi&oacute;n');?>',
 	iconCls:'icon-users',
 	collapsible:false,
 	minimizable:false,
@@ -49,7 +56,7 @@ $('#logout-window').window({
 	}
 });
 
-addTooltip($('#logout-okBtn').linkbutton(),"Cerrar la sesion del usuario actual");
-addTooltip($('#logout-cancelBtn').linkbutton(),"Cancelar cierre de sesion. Cerrar ventana");
+addTooltip($('#logout-okBtn').linkbutton(),"<?php _e('Cerrar la sesion del usuario actual');?>");
+addTooltip($('#logout-cancelBtn').linkbutton(),"<?php _e('Cancelar cierre de sesion. Cerrar ventana');?>");
 
 </script>

@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-02-12 23:37+0100\n"
-"PO-Revision-Date: 2015-02-13 00:05+0100\n"
-"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2015-02-13 11:05+0100\n"
+"PO-Revision-Date: 2015-02-13 11:07+0100\n"
+"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: jantonio <juansgaviota@gmail.com>\n"
 "Language: English\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,8 @@ msgstr ""
 msgid "Men&uacute; de Operaciones"
 msgstr "Action&#8217;s menu"
 
-#: agility/index.php:174
+#: agility/index.php:174 agility/scripts/auth.js.php:32
+#: agility/scripts/auth.js.php:93
 msgid "Iniciar sesi&oacute;n"
 msgstr "Init session"
 
@@ -132,8 +133,8 @@ msgid "Acerca de..."
 msgstr "About..."
 
 #: agility/server/pdf/print_clasificacion.php:81
-#: agility/server/pdf/print_ordenTandas.php:66
 #: agility/server/pdf/print_podium.php:77
+#: agility/server/pdf/print_ordenTandas.php:66
 msgid "Jornada"
 msgstr "Event"
 
@@ -166,26 +167,26 @@ msgid "Clasificación"
 msgstr "Score"
 
 #: agility/server/pdf/print_clasificacion.php:144
-#: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_inscritosByPrueba.php:106
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+#: agility/server/pdf/print_podium.php:101
+#: agility/server/pdf/print_ordenDeSalida.php:71
 #: agility/server/pdf/print_entradaDeDatos.php:137
 #: agility/server/pdf/print_entradaDeDatos.php:201
 #: agility/server/pdf/print_entradaDeDatos.php:277
-#: agility/server/pdf/print_ordenDeSalida.php:71
-#: agility/server/pdf/print_podium.php:101
-#: agility/server/pdf/print_inscritosByPrueba.php:106
-#: agility/server/pdf/print_inscritosByPrueba.php:502
+#: agility/server/pdf/print_resultadosByManga.php:65
 msgid "Nombre"
 msgstr "Name"
 
 #: agility/server/pdf/print_clasificacion.php:147
-#: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_inscritosByPrueba.php:110
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+#: agility/server/pdf/print_podium.php:104
+#: agility/server/pdf/print_ordenDeSalida.php:71
 #: agility/server/pdf/print_entradaDeDatos.php:138
 #: agility/server/pdf/print_entradaDeDatos.php:203
 #: agility/server/pdf/print_entradaDeDatos.php:279
-#: agility/server/pdf/print_ordenDeSalida.php:71
-#: agility/server/pdf/print_podium.php:104
-#: agility/server/pdf/print_inscritosByPrueba.php:110
-#: agility/server/pdf/print_inscritosByPrueba.php:502
+#: agility/server/pdf/print_resultadosByManga.php:65
 msgid "Guía"
 msgstr "Handler"
 
@@ -199,86 +200,258 @@ msgstr "Ref"
 #: agility/server/pdf/print_clasificacion.php:152
 #: agility/server/pdf/print_clasificacion.php:160
 #: agility/server/pdf/print_clasificacion.php:168
-#: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/server/pdf/print_podium.php:109
+#: agility/server/pdf/print_podium.php:117
+#: agility/server/pdf/print_podium.php:125
 #: agility/server/pdf/print_entradaDeDatos.php:157
 #: agility/server/pdf/print_entradaDeDatos.php:217
 #: agility/server/pdf/print_entradaDeDatos.php:325
 #: agility/server/pdf/print_entradaDeDatos.php:346
-#: agility/server/pdf/print_podium.php:109
-#: agility/server/pdf/print_podium.php:117
-#: agility/server/pdf/print_podium.php:125
+#: agility/server/pdf/print_resultadosByManga.php:65
 msgid "Tiempo"
 msgstr "Time"
 
 #: agility/server/pdf/print_clasificacion.php:171
-#: agility/server/pdf/print_resultadosByManga.php:65
 #: agility/server/pdf/print_podium.php:128
+#: agility/server/pdf/print_resultadosByManga.php:65
 msgid "Puesto"
 msgstr "Order"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:60
+msgid "Catálogo de Participantes"
+msgstr "Competitor's Catalog"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:107
+msgid "Raza"
+msgstr "Breed"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:108
+#: agility/server/pdf/print_entradaDeDatos.php:202
+#: agility/server/pdf/print_entradaDeDatos.php:278
+msgid "Licencia"
+msgstr "License"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:109
+#: agility/server/pdf/print_podium.php:103
+#: agility/server/pdf/print_resultadosByManga.php:65
+msgid "Cat/Grado"
+msgstr "Cat/Grade"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:199
+msgid "Estadísticas"
+msgstr "Statistics"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:360
+#: agility/server/pdf/print_inscritosByPrueba.php:400
+#: agility/server/pdf/print_inscritosByPrueba.php:415
+#: agility/server/pdf/print_inscritosByPrueba.php:449
+msgid "Total"
+msgstr "Total"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:364
+msgid "Pre-Agility"
+msgstr "Pre-Agility"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:373
+#: agility/server/pdf/print_inscritosByPrueba.php:429
+msgid "Grado I"
+msgstr "Grade I"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:382
+#: agility/server/pdf/print_inscritosByPrueba.php:439
+msgid "Grado II"
+msgstr "Grade II"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:391
+msgid "Grado III"
+msgstr "Grade III"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:419
+msgid "Grado 0"
+msgstr "Grade 0"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:464
+msgid "Prueba"
+msgstr "Contest"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:464
+msgid "Datos globales de participación"
+msgstr "Global Accounting Info"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+#: agility/server/pdf/print_podium.php:100
+#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_entradaDeDatos.php:134
+#: agility/server/pdf/print_entradaDeDatos.php:276
+#: agility/server/pdf/print_resultadosByManga.php:65
+msgid "Dorsal"
+msgstr "Dorsal"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+#: agility/server/pdf/print_podium.php:102
+#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_entradaDeDatos.php:136
+#: agility/server/pdf/print_resultadosByManga.php:65
+msgid "Lic."
+msgstr "Lic."
+
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+#: agility/server/pdf/print_podium.php:105
+#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_entradaDeDatos.php:139
+#: agility/server/pdf/print_entradaDeDatos.php:204
+#: agility/server/pdf/print_entradaDeDatos.php:280
+#: agility/server/pdf/print_resultadosByManga.php:65
+msgid "Club"
+msgstr "Club"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+msgid "Cat."
+msgstr "Cat."
+
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+msgid "Grado"
+msgstr "Grade"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_entradaDeDatos.php:135
+#: agility/server/pdf/print_entradaDeDatos.php:205
+#: agility/server/pdf/print_entradaDeDatos.php:281
+msgid "Celo"
+msgstr "Heat"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+#: agility/server/pdf/print_ordenDeSalida.php:71
+#: agility/server/pdf/print_entradaDeDatos.php:206
+#: agility/server/pdf/print_entradaDeDatos.php:282
+#: agility/server/pdf/print_ordenTandas.php:97
+msgid "Observaciones"
+msgstr "Comments"
+
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+msgid "Sab."
+msgstr "Sat."
+
+#: agility/server/pdf/print_inscritosByPrueba.php:502
+msgid "Dom."
+msgstr "Sun."
+
+#: agility/server/pdf/print_inscritosByPrueba.php:508
+msgid "Listado de Participantes"
+msgstr "Competitor's Listing"
+
+#: agility/server/pdf/print_podium.php:63
+msgid "Pódium"
+msgstr "Podium"
+
+#: agility/server/pdf/print_podium.php:107
+#: agility/server/pdf/print_podium.php:115
+msgid "F/T"
+msgstr "F/T"
+
+#: agility/server/pdf/print_podium.php:110
+#: agility/server/pdf/print_podium.php:118
+#: agility/server/pdf/print_resultadosByManga.php:65
+msgid "Vel."
+msgstr "Vel."
+
+#: agility/server/pdf/print_podium.php:111
+#: agility/server/pdf/print_podium.php:119
+#: agility/server/pdf/print_resultadosByManga.php:65
+msgid "Penal."
+msgstr "Penal."
+
+#: agility/server/pdf/print_podium.php:112
+#: agility/server/pdf/print_podium.php:120
+msgid "Calif."
+msgstr "Calif."
+
+#: agility/server/pdf/print_podium.php:126
+msgid "Penaliz."
+msgstr "Penaliz."
+
+#: agility/server/pdf/print_podium.php:127
+msgid "Calific."
+msgstr "Calific."
+
+#: agility/server/pdf/print_ordenDeSalida.php:71
+msgid "Orden"
+msgstr "Order"
+
+#: agility/server/pdf/print_ordenDeSalida.php:76
+msgid "Orden de Salida"
+msgstr "Starting order"
 
 #: agility/server/pdf/print_common.php:119
 msgid "Página"
 msgstr "Page"
 
-#: agility/server/pdf/print_resultadosByManga.php:65
-#: agility/server/pdf/print_entradaDeDatos.php:134
-#: agility/server/pdf/print_entradaDeDatos.php:276
-#: agility/server/pdf/print_ordenDeSalida.php:71
-#: agility/server/pdf/print_podium.php:100
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-msgid "Dorsal"
-msgstr "Dorsal"
+#: agility/server/pdf/print_entradaDeDatos.php:78
+msgid "Introducción de Datos"
+msgstr "Data results entry"
 
-#: agility/server/pdf/print_resultadosByManga.php:65
-#: agility/server/pdf/print_entradaDeDatos.php:136
-#: agility/server/pdf/print_ordenDeSalida.php:71
-#: agility/server/pdf/print_podium.php:102
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-msgid "Lic."
-msgstr "Lic."
+#: agility/server/pdf/print_entradaDeDatos.php:151
+#: agility/server/pdf/print_entradaDeDatos.php:214
+#: agility/server/pdf/print_entradaDeDatos.php:308
+#: agility/server/pdf/print_entradaDeDatos.php:329
+msgid "Faltas"
+msgstr "Faults"
 
-#: agility/server/pdf/print_resultadosByManga.php:65
-#: agility/server/pdf/print_entradaDeDatos.php:139
-#: agility/server/pdf/print_entradaDeDatos.php:204
-#: agility/server/pdf/print_entradaDeDatos.php:280
-#: agility/server/pdf/print_ordenDeSalida.php:71
-#: agility/server/pdf/print_podium.php:105
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-msgid "Club"
-msgstr "Club"
+#: agility/server/pdf/print_entradaDeDatos.php:152
+#: agility/server/pdf/print_entradaDeDatos.php:224
+#: agility/server/pdf/print_entradaDeDatos.php:312
+#: agility/server/pdf/print_entradaDeDatos.php:333
+msgid "Rehúses"
+msgstr "Refusals"
 
-#: agility/server/pdf/print_resultadosByManga.php:65
-#: agility/server/pdf/print_podium.php:103
-#: agility/server/pdf/print_inscritosByPrueba.php:109
-msgid "Cat/Grado"
-msgstr "Cat/Grade"
+#: agility/server/pdf/print_entradaDeDatos.php:153
+#: agility/server/pdf/print_entradaDeDatos.php:219
+#: agility/server/pdf/print_entradaDeDatos.php:316
+#: agility/server/pdf/print_entradaDeDatos.php:337
+msgid "Tocados"
+msgstr "Touched"
 
-#: agility/server/pdf/print_resultadosByManga.php:65
 #: agility/server/pdf/print_entradaDeDatos.php:154
+#: agility/server/pdf/print_resultadosByManga.php:65
 msgid "Flt."
 msgstr "Flt."
 
-#: agility/server/pdf/print_resultadosByManga.php:65
-#: agility/server/pdf/print_entradaDeDatos.php:156
-msgid "Toc."
-msgstr "Tch."
-
-#: agility/server/pdf/print_resultadosByManga.php:65
 #: agility/server/pdf/print_entradaDeDatos.php:155
+#: agility/server/pdf/print_resultadosByManga.php:65
 msgid "Reh."
 msgstr "Ref."
 
+#: agility/server/pdf/print_entradaDeDatos.php:156
 #: agility/server/pdf/print_resultadosByManga.php:65
-#: agility/server/pdf/print_podium.php:110
-#: agility/server/pdf/print_podium.php:118
-msgid "Vel."
-msgstr "Vel."
+msgid "Toc."
+msgstr "Tch."
 
-#: agility/server/pdf/print_resultadosByManga.php:65
-#: agility/server/pdf/print_podium.php:111
-#: agility/server/pdf/print_podium.php:119
-msgid "Penal."
-msgstr "Penal."
+#: agility/server/pdf/print_entradaDeDatos.php:226
+msgid "Elim. "
+msgstr "Elim."
+
+#: agility/server/pdf/print_entradaDeDatos.php:323
+#: agility/server/pdf/print_entradaDeDatos.php:344
+msgid "No Presentado"
+msgstr "Absent"
+
+#: agility/server/pdf/print_entradaDeDatos.php:324
+#: agility/server/pdf/print_entradaDeDatos.php:345
+msgid "Eliminado"
+msgstr "Eliminated"
+
+#: agility/server/pdf/print_entradaDeDatos.php:352
+#: agility/server/pdf/print_entradaDeDatos.php:353
+#: agility/server/pdf/print_entradaDeDatos.php:382
+msgid "Apunta"
+msgstr "Annotated By"
+
+#: agility/server/pdf/print_entradaDeDatos.php:354
+#: agility/server/pdf/print_entradaDeDatos.php:355
+#: agility/server/pdf/print_entradaDeDatos.php:384
+msgid "Revisa"
+msgstr "Revised By"
 
 #: agility/server/pdf/print_resultadosByManga.php:65
 msgid "Calificación"
@@ -328,181 +501,95 @@ msgstr "Ring"
 msgid "# Participantes"
 msgstr "# Competitors"
 
-#: agility/server/pdf/print_ordenTandas.php:97
-#: agility/server/pdf/print_entradaDeDatos.php:206
-#: agility/server/pdf/print_entradaDeDatos.php:282
-#: agility/server/pdf/print_ordenDeSalida.php:71
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-msgid "Observaciones"
-msgstr "Comments"
-
 #: agility/server/pdf/print_ordenTandas.php:98
 msgid "Horario (*)"
 msgstr "Time (*)"
 
-#: agility/server/pdf/print_entradaDeDatos.php:78
-msgid "Introducción de Datos"
-msgstr "Data results entry"
+#: agility/client/frm_login.php:32
+msgid "Algunas operaciones requieren la autenticaci&oacute;n del usuario."
+msgstr "Some operations require the operator to be authenticated"
 
-#: agility/server/pdf/print_entradaDeDatos.php:135
-#: agility/server/pdf/print_entradaDeDatos.php:205
-#: agility/server/pdf/print_entradaDeDatos.php:281
-#: agility/server/pdf/print_ordenDeSalida.php:71
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-msgid "Celo"
-msgstr "Heat"
+#: agility/client/frm_login.php:33
+msgid ""
+"Si &eacute;ste no se especifica, se asumir&aacute; acceso como \"invitado\""
+msgstr ""
+"If you don't specify user and password,  \"guest\" access will be assumed"
 
-#: agility/server/pdf/print_entradaDeDatos.php:151
-#: agility/server/pdf/print_entradaDeDatos.php:214
-#: agility/server/pdf/print_entradaDeDatos.php:308
-#: agility/server/pdf/print_entradaDeDatos.php:329
-msgid "Faltas"
-msgstr "Faults"
+#: agility/client/frm_login.php:40
+msgid "Nombre de usuario:"
+msgstr "User name:"
 
-#: agility/server/pdf/print_entradaDeDatos.php:152
-#: agility/server/pdf/print_entradaDeDatos.php:224
-#: agility/server/pdf/print_entradaDeDatos.php:312
-#: agility/server/pdf/print_entradaDeDatos.php:333
-msgid "Rehúses"
-msgstr "Refusals"
+#: agility/client/frm_login.php:45
+msgid "Contrase&ntilde;a:"
+msgstr "Password:"
 
-#: agility/server/pdf/print_entradaDeDatos.php:153
-#: agility/server/pdf/print_entradaDeDatos.php:219
-#: agility/server/pdf/print_entradaDeDatos.php:316
-#: agility/server/pdf/print_entradaDeDatos.php:337
-msgid "Tocados"
-msgstr "Touched"
+#: agility/client/frm_login.php:55 agility/client/frm_logout.php:35
+msgid "Aceptar"
+msgstr "Accept"
 
-#: agility/server/pdf/print_entradaDeDatos.php:202
-#: agility/server/pdf/print_entradaDeDatos.php:278
-#: agility/server/pdf/print_inscritosByPrueba.php:108
-msgid "Licencia"
-msgstr "License"
+#: agility/client/frm_login.php:57 agility/client/frm_logout.php:37
+msgid "Cancelar"
+msgstr "Cancel"
 
-#: agility/server/pdf/print_entradaDeDatos.php:226
-msgid "Elim. "
-msgstr "Elim."
+#: agility/client/frm_login.php:64
+msgid "Iniciar Sesi&oacute;n"
+msgstr "Init session"
 
-#: agility/server/pdf/print_entradaDeDatos.php:323
-#: agility/server/pdf/print_entradaDeDatos.php:344
-msgid "No Presentado"
-msgstr "Absent"
+#: agility/client/frm_login.php:80
+msgid "Iniciar sesi&oacute;n con el usuario seleccionado"
+msgstr "Initialize session with provided user"
 
-#: agility/server/pdf/print_entradaDeDatos.php:324
-#: agility/server/pdf/print_entradaDeDatos.php:345
-msgid "Eliminado"
-msgstr "Eliminated"
+#: agility/client/frm_login.php:81
+msgid "Cancelar apertura de sesion. Cerrar ventana"
+msgstr "Cancel init session. Close window"
 
-#: agility/server/pdf/print_entradaDeDatos.php:352
-#: agility/server/pdf/print_entradaDeDatos.php:353
-#: agility/server/pdf/print_entradaDeDatos.php:382
-msgid "Apunta"
-msgstr "Annotated By"
+#: agility/client/frm_logout.php:31
+msgid "Confirme que desea cerrar la sesion del usuario"
+msgstr "Please confirm terminate and close user session"
 
-#: agility/server/pdf/print_entradaDeDatos.php:354
-#: agility/server/pdf/print_entradaDeDatos.php:355
-#: agility/server/pdf/print_entradaDeDatos.php:384
-msgid "Revisa"
-msgstr "Revised By"
+#: agility/client/frm_logout.php:45 agility/scripts/auth.js.php:35
+#: agility/scripts/auth.js.php:67
+msgid "Finalizar sesi&oacute;n"
+msgstr "End session"
 
-#: agility/server/pdf/print_ordenDeSalida.php:71
-msgid "Orden"
-msgstr "Order"
+#: agility/client/frm_logout.php:59
+msgid "Cerrar la sesion del usuario actual"
+msgstr "Terminate current user session"
 
-#: agility/server/pdf/print_ordenDeSalida.php:76
-msgid "Orden de Salida"
-msgstr "Starting order"
+#: agility/client/frm_logout.php:60
+msgid "Cancelar cierre de sesion. Cerrar ventana"
+msgstr "Cancel terminate session. Close window"
 
-#: agility/server/pdf/print_podium.php:63
-msgid "Pódium"
-msgstr "Podium"
+#: agility/scripts/auth.js.php:41
+msgid "Acceso directo a la Base de Datos"
+msgstr "Direct access to DataBase manager"
 
-#: agility/server/pdf/print_podium.php:107
-#: agility/server/pdf/print_podium.php:115
-msgid "F/T"
-msgstr "F/T"
+#: agility/scripts/auth.js.php:48 agility/scripts/auth.js.php:106
+msgid "Datos Inv&aacute;lidos"
+msgstr "Invalid data"
 
-#: agility/server/pdf/print_podium.php:112
-#: agility/server/pdf/print_podium.php:120
-msgid "Calif."
-msgstr "Calif."
+#: agility/scripts/auth.js.php:48 agility/scripts/auth.js.php:106
+msgid "No ha indicado ning&uacute;n usuario"
+msgstr "No user specified"
 
-#: agility/server/pdf/print_podium.php:126
-msgid "Penaliz."
-msgstr "Penaliz."
+#: agility/scripts/auth.js.php:66 agility/scripts/auth.js.php:92
+msgid "Usuario"
+msgstr "User"
 
-#: agility/server/pdf/print_podium.php:127
-msgid "Calific."
-msgstr "Calific."
+#: agility/scripts/auth.js.php:66
+msgid "Sesi&oacute;n iniciada correctamente"
+msgstr "Session login successfully"
 
-#: agility/server/pdf/print_inscritosByPrueba.php:60
-msgid "Catálogo de Participantes"
-msgstr "Competitor's Catalog"
+#: agility/scripts/auth.js.php:92
+msgid "Sesi&oacute;n finalizada correctamente"
+msgstr "Session terminated successfully"
 
-#: agility/server/pdf/print_inscritosByPrueba.php:107
-msgid "Raza"
-msgstr "Breed"
+#: agility/scripts/auth.js.php:124
+msgid "El usuario no tiene permisos de administrador"
+msgstr "User has no \"admin\" privileges"
 
-#: agility/server/pdf/print_inscritosByPrueba.php:199
-msgid "Estadísticas"
-msgstr "Statistics"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:360
-#: agility/server/pdf/print_inscritosByPrueba.php:400
-#: agility/server/pdf/print_inscritosByPrueba.php:415
-#: agility/server/pdf/print_inscritosByPrueba.php:449
-msgid "Total"
-msgstr "Total"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:364
-msgid "Pre-Agility"
-msgstr "Pre-Agility"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:373
-#: agility/server/pdf/print_inscritosByPrueba.php:429
-msgid "Grado I"
-msgstr "Grade I"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:382
-#: agility/server/pdf/print_inscritosByPrueba.php:439
-msgid "Grado II"
-msgstr "Grade II"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:391
-msgid "Grado III"
-msgstr "Grade III"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:419
-msgid "Grado 0"
-msgstr "Grade 0"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:464
-msgid "Prueba"
-msgstr "Contest"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:464
-msgid "Datos globales de participación"
-msgstr "Global Accounting Info"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-msgid "Cat."
-msgstr "Cat."
-
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-msgid "Grado"
-msgstr "Grade"
-
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-msgid "Sab."
-msgstr "Sat."
-
-#: agility/server/pdf/print_inscritosByPrueba.php:502
-msgid "Dom."
-msgstr "Sun."
-
-#: agility/server/pdf/print_inscritosByPrueba.php:508
-msgid "Listado de Participantes"
-msgstr "Competitor's Listing"
+#~ msgid "Cerrar sesi&oacute;n"
+#~ msgstr "End session"
 
 #~ msgid "Tiempo."
 #~ msgstr "Time."
