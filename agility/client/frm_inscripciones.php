@@ -14,7 +14,11 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
- 
+<?php 
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config(); 
+?>
 <!-- background image -->
 <img class="mainpage" src="/agility/server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle"/>
 
@@ -24,16 +28,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<div id="selprueba-Content" data-options="region:'center',border:'true'">
 			<form id="selprueba-Prueba">
         		<div class="fitem">
-            		<label for="Search">Buscar:</label>
+            		<label for="Search"><?php _e('Buscar');?>:</label>
             		<select id="selprueba-Search" name="Search" style="width:200px"></select>
         		</div>
 			</form>
 		</div> <!-- contenido -->
 		<div id="selprueba-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
     	    <a id="selprueba-okBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-ok'" onclick="acceptSelectPrueba()">Aceptar</a>
+    	    	data-options="iconCls:'icon-ok'" onclick="acceptSelectPrueba()"><?php _e('Aceptar');?></a>
     	    <a id="selprueba-cancelBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-cancel'" onclick="cancelSelectPrueba()">Cancelar</a>
+    	    	data-options="iconCls:'icon-cancel'" onclick="cancelSelectPrueba()"><?php _e('Cancelar');?></a>
 		</div>	<!-- botones -->
 	</div> <!-- Layout -->
 </div> <!-- Window -->
@@ -41,7 +45,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <script type="text/javascript">
 
 $('#selprueba-window').window({
-	title: 'Selecciona la prueba activa',
+	title: '<?php _e('Selecciona la prueba activa');?>',
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,
@@ -51,8 +55,8 @@ $('#selprueba-window').window({
 	modal: true
 });
 
-addTooltip($('#selprueba-okBtn').linkbutton(),"Trabajar con la prueba seleccionada");
-addTooltip($('#selprueba-cancelBtn').linkbutton(),"Cancelar selecci&oacute;n. Cerrar ventana");
+addTooltip($('#selprueba-okBtn').linkbutton(),"<?php _e('Trabajar con la prueba seleccionada');?>");
+addTooltip($('#selprueba-cancelBtn').linkbutton(),"<?php _e('Cancelar selecci&oacute;n. Cerrar ventana');?>");
 
 $('#selprueba-Search').combogrid({
 	panelWidth: 450,
@@ -66,10 +70,10 @@ $('#selprueba-Search').combogrid({
 	editable: isMobileDevice()?false:true, //disable keyboard deploy on mobile devices
 	columns: [[
 	    {field:'ID',hidden:true},
-		{field:'Nombre',title:'Nombre',width:50,align:'right'},
+		{field:'Nombre',title:'<?php _e('Nombre');?>',width:50,align:'right'},
 		{field:'Club',hidden:true},
-		{field:'NombreClub',title:'Club',width:20,align:'right'},
-		{field:'Observaciones',title:'Observaciones.',width:30,align:'right'}
+		{field:'NombreClub',title:'<?php _e('Club');?>',width:20,align:'right'},
+		{field:'Observaciones',title:'<?php _e('Observaciones');?>.',width:30,align:'right'}
 	]],
 	multiple: false,
 	fitColumns: true,
@@ -87,12 +91,12 @@ function acceptSelectPrueba() {
 	var p=$('#selprueba-Search').combogrid('grid').datagrid('getSelected');
 	if (p==null) {
 		// indica error
-		$.messager.alert("Error","Debe indicar una prueba v&aacute;lida","error");
+		$.messager.alert("Error","<?php _e('Debe indicar una prueba v&aacute;lida');?>","error");
 		return;
 	} else {
 		setPrueba(p);
 		page="/agility/client/frm_inscripciones2.php";
-		title="Inscripciones - Formulario de registro";
+		title="<?php _e('Inscripciones - Formulario de registro');?>";
 	}
 	$('#selprueba-window').window('close');
 	loadContents(page,title,{'inscripciones':'#new_inscripcion-dialog', 'equipos':'#team_datagrid-dialog'});

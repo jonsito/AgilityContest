@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-02-13 11:05+0100\n"
-"PO-Revision-Date: 2015-02-13 11:07+0100\n"
+"POT-Creation-Date: 2015-02-13 12:37+0100\n"
+"PO-Revision-Date: 2015-02-13 12:44+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: jantonio <juansgaviota@gmail.com>\n"
 "Language: English\n"
@@ -70,7 +70,7 @@ msgstr "Create and edit contests"
 
 #: agility/index.php:188
 msgid "Creaci&oacute;n de pruebas"
-msgstr "Contest creation"
+msgstr "Creation"
 
 #: agility/index.php:189
 msgid "Inscripciones - Selecci&oacute;n de prueba"
@@ -78,7 +78,7 @@ msgstr "Inscriptions - Contest selection"
 
 #: agility/index.php:189
 msgid "Edici&oacute;n. Inscripciones"
-msgstr "Competitor&#8217;s Inscriptions"
+msgstr "Inscriptions"
 
 #: agility/index.php:190
 msgid "Competicion - Selecci&oacute;n de Prueba y Jornada"
@@ -86,7 +86,7 @@ msgstr "Competition - Contest and Event selection"
 
 #: agility/index.php:190
 msgid "Desarrollo de la prueba"
-msgstr "Contest proccess"
+msgstr "Procedures"
 
 #: agility/index.php:193
 msgid "CONSULTAS"
@@ -147,6 +147,7 @@ msgstr "Juzge"
 
 #: agility/server/pdf/print_clasificacion.php:92
 #: agility/server/pdf/print_podium.php:78
+#: agility/client/frm_inscripciones2.php:152
 msgid "Fecha"
 msgstr "Date"
 
@@ -175,6 +176,8 @@ msgstr "Score"
 #: agility/server/pdf/print_entradaDeDatos.php:201
 #: agility/server/pdf/print_entradaDeDatos.php:277
 #: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/client/frm_inscripciones2.php:233
+#: agility/client/frm_inscripciones.php:73
 msgid "Nombre"
 msgstr "Name"
 
@@ -187,6 +190,7 @@ msgstr "Name"
 #: agility/server/pdf/print_entradaDeDatos.php:203
 #: agility/server/pdf/print_entradaDeDatos.php:279
 #: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/client/frm_inscripciones2.php:236
 msgid "Guía"
 msgstr "Handler"
 
@@ -284,6 +288,7 @@ msgstr "Global Accounting Info"
 #: agility/server/pdf/print_entradaDeDatos.php:134
 #: agility/server/pdf/print_entradaDeDatos.php:276
 #: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/client/frm_inscripciones2.php:232
 msgid "Dorsal"
 msgstr "Dorsal"
 
@@ -302,6 +307,8 @@ msgstr "Lic."
 #: agility/server/pdf/print_entradaDeDatos.php:204
 #: agility/server/pdf/print_entradaDeDatos.php:280
 #: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/client/frm_inscripciones2.php:237
+#: agility/client/frm_inscripciones.php:75
 msgid "Club"
 msgstr "Club"
 
@@ -310,6 +317,7 @@ msgid "Cat."
 msgstr "Cat."
 
 #: agility/server/pdf/print_inscritosByPrueba.php:502
+#: agility/client/frm_inscripciones2.php:235
 msgid "Grado"
 msgstr "Grade"
 
@@ -318,6 +326,7 @@ msgstr "Grade"
 #: agility/server/pdf/print_entradaDeDatos.php:135
 #: agility/server/pdf/print_entradaDeDatos.php:205
 #: agility/server/pdf/print_entradaDeDatos.php:281
+#: agility/client/frm_inscripciones2.php:240
 msgid "Celo"
 msgstr "Heat"
 
@@ -326,6 +335,9 @@ msgstr "Heat"
 #: agility/server/pdf/print_entradaDeDatos.php:206
 #: agility/server/pdf/print_entradaDeDatos.php:282
 #: agility/server/pdf/print_ordenTandas.php:97
+#: agility/client/frm_inscripciones2.php:61
+#: agility/client/frm_inscripciones2.php:239
+#: agility/client/frm_inscripciones.php:76
 msgid "Observaciones"
 msgstr "Comments"
 
@@ -505,6 +517,158 @@ msgstr "# Competitors"
 msgid "Horario (*)"
 msgstr "Time (*)"
 
+#: agility/client/frm_inscripciones2.php:43
+msgid "Datos de la Prueba"
+msgstr "Contest data"
+
+#: agility/client/frm_inscripciones2.php:53
+msgid "Denominaci&oacute;n"
+msgstr "Denomination"
+
+#: agility/client/frm_inscripciones2.php:57
+msgid "Club Organizador"
+msgstr "Hosting club"
+
+#: agility/client/frm_inscripciones2.php:68
+msgid "Lista de jornadas de la prueba"
+msgstr "Event&#8217;s list for this contest"
+
+#: agility/client/frm_inscripciones2.php:87
+msgid "Nuevo"
+msgstr "New"
+
+#: agility/client/frm_inscripciones2.php:90
+msgid "Editar"
+msgstr "Edit"
+
+#: agility/client/frm_inscripciones2.php:93
+msgid "Borrar"
+msgstr "Delete"
+
+#: agility/client/frm_inscripciones2.php:99
+msgid "Reordenar"
+msgstr "Reorder"
+
+#: agility/client/frm_inscripciones2.php:102
+msgid "Equipos"
+msgstr "Teams"
+
+#: agility/client/frm_inscripciones2.php:105
+msgid "Imprimir"
+msgstr "Print"
+
+#: agility/client/frm_inscripciones2.php:112
+msgid "Limpiar"
+msgstr "Clear"
+
+#: agility/client/frm_inscripciones2.php:118
+msgid "Informaci&oacute;n de la prueba"
+msgstr "Contest Information"
+
+#: agility/client/frm_inscripciones2.php:146
+msgid "Actualizando datos de las jornadas..."
+msgstr "Updating event&#8217;s data"
+
+#: agility/client/frm_inscripciones2.php:151
+msgid "Nombre/Comentario"
+msgstr "Name/Comments"
+
+#: agility/client/frm_inscripciones2.php:153
+msgid "Hora"
+msgstr "Time"
+
+#: agility/client/frm_inscripciones2.php:162
+msgid "Especial"
+msgstr "Special"
+
+#: agility/client/frm_inscripciones2.php:163
+msgid "Cerrada"
+msgstr "Closed"
+
+#: agility/client/frm_inscripciones2.php:199
+msgid "Listado de inscritos en la prueba"
+msgstr "Inscription&#8217;s list"
+
+#: agility/client/frm_inscripciones2.php:218
+msgid "Actualizando datos de inscripciones...."
+msgstr "Updating inscription&#8217;s data"
+
+#: agility/client/frm_inscripciones2.php:234
+msgid "Cat"
+msgstr "Cat"
+
+#: agility/client/frm_inscripciones2.php:238
+msgid "Equipo"
+msgstr "Team"
+
+#: agility/client/frm_inscripciones2.php:261
+msgid "Registrar nueva(s) inscripciones"
+msgstr "Register new inscription(s)"
+
+#: agility/client/frm_inscripciones2.php:262
+msgid "Modificar la inscripción seleccionada"
+msgstr "Modify selected inscription"
+
+#: agility/client/frm_inscripciones2.php:263
+msgid "Eliminar la inscripción seleccionada de la BBDD"
+msgstr "Remove selected inscription from DataBase"
+
+#: agility/client/frm_inscripciones2.php:264
+msgid "Reasignar dorsales por orden de Club,Categoria,Grado, y Nombre"
+msgstr "Reassign dorsals ordered by Club,Category,Grade and Name"
+
+#: agility/client/frm_inscripciones2.php:265
+msgid "Abrir la ventana de gesti&oacute;n de equipos de esta prueba"
+msgstr "Open Team's management window on this contest "
+
+#: agility/client/frm_inscripciones2.php:266
+msgid "Imprimir la lista de inscritos en la prueba"
+msgstr "Print inscription list for this contest"
+
+#: agility/client/frm_inscripciones2.php:267
+msgid ""
+"Borrar la casilla de b&uacute;squeda<br/>Actualizar la lista de "
+"inscripciones para la prueba"
+msgstr "Clear search dialog. Update inscription list"
+
+#: agility/client/frm_inscripciones2.php:268
+msgid "Buscar inscripciones que coincidan con el texto indicado"
+msgstr "Search inscriptions that matches with search text"
+
+#: agility/client/frm_inscripciones.php:31
+msgid "Buscar"
+msgstr "Search"
+
+#: agility/client/frm_inscripciones.php:38 agility/client/frm_login.php:55
+#: agility/client/frm_logout.php:35
+msgid "Aceptar"
+msgstr "Accept"
+
+#: agility/client/frm_inscripciones.php:40 agility/client/frm_login.php:57
+#: agility/client/frm_logout.php:37
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: agility/client/frm_inscripciones.php:48
+msgid "Selecciona la prueba activa"
+msgstr "Select working contest"
+
+#: agility/client/frm_inscripciones.php:58
+msgid "Trabajar con la prueba seleccionada"
+msgstr "Operate with selected contest"
+
+#: agility/client/frm_inscripciones.php:59
+msgid "Cancelar selecci&oacute;n. Cerrar ventana"
+msgstr "Cancel selection. Close window"
+
+#: agility/client/frm_inscripciones.php:94
+msgid "Debe indicar una prueba v&aacute;lida"
+msgstr "You should select a valid contest"
+
+#: agility/client/frm_inscripciones.php:99
+msgid "Inscripciones - Formulario de registro"
+msgstr "Inscriptions - registration form"
+
 #: agility/client/frm_login.php:32
 msgid "Algunas operaciones requieren la autenticaci&oacute;n del usuario."
 msgstr "Some operations require the operator to be authenticated"
@@ -522,14 +686,6 @@ msgstr "User name:"
 #: agility/client/frm_login.php:45
 msgid "Contrase&ntilde;a:"
 msgstr "Password:"
-
-#: agility/client/frm_login.php:55 agility/client/frm_logout.php:35
-msgid "Aceptar"
-msgstr "Accept"
-
-#: agility/client/frm_login.php:57 agility/client/frm_logout.php:37
-msgid "Cancelar"
-msgstr "Cancel"
 
 #: agility/client/frm_login.php:64
 msgid "Iniciar Sesi&oacute;n"

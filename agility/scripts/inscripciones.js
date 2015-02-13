@@ -190,3 +190,30 @@ function canInscribe(jornada) {
 	if (jornada.Nombre === '-- Sin asignar --') result=false;
 	return result;
 }
+
+/**
+ * Imprime las inscripciones
+ * @returns {Boolean} true on success, otherwise false
+ */
+function printInscripciones() {
+	$.messager.radio(
+		'Selecciona modelo',
+		'Selecciona el tipo de documento a generar:',
+		{ 0:'Listado simple',1:'Catálogo',2:'Estadisticas'}, 
+		function(r){
+			if (!r) return;
+			var mode=parseInt(r);
+			$.fileDownload(
+				'/agility/server/pdf/print_inscritosByPrueba.php',
+				{
+					httpMethod: 'GET',
+					data: { Prueba: workingData.prueba, Mode: mode },
+			        preparingMessageHtml: "Imprimiendo inscripciones; por favor espere...",
+			        failMessageHtml: "There was a problem generating your report, please try again."
+				}
+			);
+		}
+	).window({width:250});
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+};
+
