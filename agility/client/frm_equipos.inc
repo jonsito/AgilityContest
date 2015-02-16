@@ -14,6 +14,13 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
+ 
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
+?>
+ 
 <!-- ventana de presentacion de los datos de los equipos de una prueba -->
 <div id="team_datagrid-dialog" style="width:600px;height:250px">
 	<!-- DECLARACION DE LA TABLA DE EQUIPOS -->
@@ -24,11 +31,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="team_datagrid-toolbar" style="width:100%;display:inline-block">
    	<span style="float:left;padding:5px">
    		<a id="team_datagrid-newBtn" href="#" class="easyui-linkbutton"	data-options="iconCls:'icon-add'"
-   			onclick="newTeam('#team_datagrid',$('#team_datagrid-search').val())">Nuevo</a>
+   			onclick="newTeam('#team_datagrid',$('#team_datagrid-search').val())"><?php _e('Nuevo');?></a>
    		<a id="team_datagrid-editBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'"
-   			onclick="editTeam('#team_datagrid')">Editar</a>
+   			onclick="editTeam('#team_datagrid')"><?php _e('Editar');?></a>
    		<a id="team_datagrid-delBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-trash'"
-   			onclick="deleteTeam('#team_datagrid')">Borrar</a>
+   			onclick="deleteTeam('#team_datagrid')"><?php _e('Borrar');?></a>
    		<input id="team_datagrid-search" type="text" value="---- Buscar ----" class="search_textfield" onchange="buscaEquipos()" />
    	</span>
    	<span style="float:right;padding:5px">
@@ -45,17 +52,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="team_datagrid-buttons" style="width:100%;display:inline-block">
 	<span style="float:right;padding:5px">
    		<a id="team_datagrid-doneBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
-   			onclick="javascript:$('#team_datagrid-dialog').dialog('close')">Hecho</a>
+   			onclick="javascript:$('#team_datagrid-dialog').dialog('close')"><?php _e('Hecho');?></a>
    	</span>
 </div>
 
 <script type="text/javascript">
-
-function buscaEquipos() {
-	$('#team_datagrid').datagrid( 'load', { 
-			where: ($('#team_datagrid-search').val()==='---- Buscar ----')? '' : $('#team_datagrid-search').val()
-		});
-}
 
 //TODO: estudiar por qué el "closed:true" en el data-options no funciona
 $('#team_datagrid-dialog').dialog({
@@ -67,7 +68,7 @@ $('#team_datagrid-dialog').dialog({
 	minimizable:false,
 	maximizable:false,
 	resizable:true,
-	title:"Gestion de Equipos de la prueba: '"+workingData.datosPrueba.Nombre+"'",
+	title:"<?php _e('Gestion de Equipos de la prueba');?>: '"+workingData.datosPrueba.Nombre+"'",
 	closed:true
 });
 
@@ -76,7 +77,7 @@ $('#team_datagrid').datagrid({
 	fit: true,
 	url: '/agility/server/database/equiposFunctions.php?Operation=select&Prueba='+workingData.prueba,
 	queryParams: { where: ''	},
-	loadMsg: 'Actualizando lista de equipos ...',
+	loadMsg: '<?php _e('Actualizando lista de equipos ...');?>',
     footer: '#team_datagrid-buttons',
     toolbar: '#team_datagrid-toolbar',
 	method: 'get',
@@ -87,8 +88,8 @@ $('#team_datagrid').datagrid({
     columns: [[
         { field:'ID',			hidden:true },
         { field:'Prueba',		hidden:true },
-        { field:'Nombre',		width:20, sortable:true,	title: 'Nombre:' },
-        { field:'Observaciones',width:80, sortable:true,	title: 'Observaciones'}
+        { field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Nombre');?>:' },
+        { field:'Observaciones',width:80, sortable:true,	title: '<?php _e('Observaciones');?>'}
     ]],
     pagination: false,
     rownumbers: true,
@@ -103,10 +104,10 @@ $('#team_datagrid').datagrid({
 // key handler
 addKeyHandler('#team_datagrid',newTeam,editTeam,deleteTeam);
 // - tooltips
-addTooltip($('#team_datagrid-search'),"Mostrar equipos que coincidan con el criterio de busqueda");
-addTooltip($('#team_datagrid-newBtn').linkbutton(),"Declarar un nuevo equipo para la prueba");
-addTooltip($('#team_datagrid-editBtn').linkbutton(),"Editar nombre/observaciones del equipo seleccionado");
-addTooltip($('#team_datagrid-delBtn').linkbutton(),"Eliminar datos del equipo en la prueba");
-addTooltip($('#team_datagrid-reloadBtn').linkbutton(),"Borrar casilla de busqueda. Actualizar listado de equipos");
-addTooltip($('#team_datagrid-doneBtn').linkbutton(),"Cerrar la ventana. Volver al menu anterior");
+addTooltip($('#team_datagrid-search'),"<?php _e('Mostrar equipos que coincidan con el criterio de busqueda');?>");
+addTooltip($('#team_datagrid-newBtn').linkbutton(),"<?php _e('Declarar un nuevo equipo para la prueba');?>");
+addTooltip($('#team_datagrid-editBtn').linkbutton(),"<?php _e('Editar nombre/observaciones del equipo seleccionado');?>");
+addTooltip($('#team_datagrid-delBtn').linkbutton(),"<?php _e('Eliminar datos del equipo en la prueba');?>");
+addTooltip($('#team_datagrid-reloadBtn').linkbutton(),"<?php _e('Borrar casilla de busqueda. Actualizar listado de equipos');?>");
+addTooltip($('#team_datagrid-doneBtn').linkbutton(),"<?php _e('Cerrar la ventana. Volver al menu anterior');?>");
 </script>

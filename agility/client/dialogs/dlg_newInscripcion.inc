@@ -24,7 +24,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!-- barra de tareas del dialogo -->
 <div id="new_inscripcion-datagrid-tools" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
-	   	<label for="Buscar">Buscar: </label>
+	   	<label for="Buscar"><?php _e('Buscar');?>: </label>
 		<input name="Buscar" type="text" id="new_inscripcion-search" style="width:150px" 
 			value="---- Buscar ----" class="search_textfield" onchange="listaNoInscritos();"/>
 	</span>
@@ -66,11 +66,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
        		<label id="new_inscripcion-J8lbl" 		for="J8">8</label>
         </span>
         <span style="float:right;padding:5px">  
-        	<label id="new_inscripcion_Equipolbl"	for="Equipo">Equipo: </label>       	    
+        	<label id="new_inscripcion_Equipolbl"	for="Equipo"><?php _e('Equipo');?>: </label>       	    
         	<span id="new_inscripcion-Equiposp">
         	   	<select id="new_inscripcion-Equipo" name="Equipo" style="width:130px"></select>
         	</span>
-        	<label id="new_inscripcion-Celolbl"	for="Celo">Celo:</label>
+        	<label id="new_inscripcion-Celolbl"	for="Celo"><?php _e('Celo');?>:</label>
    			<input id="new_inscripcion-Celo" type="hidden" name="Celo" value="0"/>
         	<input id="new_inscripcion-Celo2"		name="Celo2" class="easyui-checkbox" type="checkbox" value="1" 
         		onclick="$('#new_inscripcion-Celo').val( $('#new_inscripcion-Celo2').is(':checked')?'1':'0');"/>
@@ -84,22 +84,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<span style="float:left">
    		<a id="new_inscripcion-teamBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-huella'"
-   			onclick="newTeam2('#new_inscripcion-Equipo','nuevo equipo')">Nuevo Equipo</a>
+   			onclick="newTeam2('#new_inscripcion-Equipo','nuevo equipo')"><?php _e('Nuevo Equipo');?></a>
    		<a id="new_inscripcion-dogBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-dog'"
-   			onclick="newDog('#new_inscripcion-datagrid',$('#new_inscripcion-search').val())">Nuevo Perro</a>
+   			onclick="newDog('#new_inscripcion-datagrid',$('#new_inscripcion-search').val())"><?php _e('Nuevo Perro');?></a>
    	</span>
    	<span style="float:right">
 		<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-ok'" onclick="insertInscripcion('#new_inscripcion-datagrid')">Inscribir</a>
+   			data-options="iconCls:'icon-ok'" onclick="insertInscripcion('#new_inscripcion-datagrid')"><?php _e('Inscribir');?></a>
    		<a id="new_inscripcion-doneBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-cancel'" onclick="javascript:$('#new_inscripcion-dialog').dialog('close')">Hecho</a>
+   			data-options="iconCls:'icon-cancel'" onclick="javascript:$('#new_inscripcion-dialog').dialog('close')"><?php _e('Hecho');?></a>
    	</span>
 </div>
 	
 <!-- barra de progreso de actualizacion de inscripciones -->
 <div id="new_inscripcion-progresswindow">
-	<p id="new_inscripcion-progresslabel" style="align:center">Inscribiendo a:</p>
+	<p id="new_inscripcion-progresslabel" style="align:center"><?php _e('Inscribiendo a');?>:</p>
 	<div id="new_inscripcion-progressbar" style="align:center;"></div>
 </div>
 
@@ -130,7 +130,7 @@ $('#new_inscripcion-dialog').dialog({
 	minimizable:false,
 	maximizable:false,
 	resizable:false,
-	title:"A&ntilde;adir inscripciones a la prueba: '"+workingData.datosPrueba.Nombre+"'",
+	title:"<?php _e('A&ntilde;adir inscripciones a la prueba');?>: '"+workingData.datosPrueba.Nombre+"'",
 	buttons:'#new_inscripcion-buttons',
 	onOpen: newInscripcion_onOpenSuccess // on display setup jornada's 'checkboxes info
 	});
@@ -146,7 +146,7 @@ $('#new_inscripcion-datagrid').datagrid({
 	},
 	method: 'get',
 	mode: 'remote',
-	loadMsg: 'Actualizando lista de perros ...',
+	loadMsg: '<?php _e('Actualizando lista de perros ...');?>',
 	toolbar: '#new_inscripcion-datagrid-tools',
 	footer: '#new_inscripcion-datagrid-footer',
 	idField: 'ID',
@@ -154,11 +154,11 @@ $('#new_inscripcion-datagrid').datagrid({
 	   	{field:'ID',hidden:'true'},
 		{field:'Guia',hidden:'true'},
 		{field:'Club',hidden:'true'},
-		{field:'Nombre', sortable:true, title:'Perro',width:20,align:'right'},
-		{field:'Categoria', sortable:true, title:'Cat.',width:10,align:'center'},
-		{field:'Grado', title:'Grado', width:10,align:'center'},
-		{field:'NombreGuia', sortable:true, title:'Guia',width:40,align:'right'},
-		{field:'NombreClub',title:'Club',width:20,align:'right'}
+		{field:'Nombre', sortable:true, title:'<?php _e('Perro');?>',width:20,align:'right'},
+		{field:'Categoria', sortable:true, title:'<?php _e('Cat');?>.',width:10,align:'center'},
+		{field:'Grado', title:'<?php _e('Grado');?>', width:10,align:'center'},
+		{field:'NombreGuia', sortable:true, title:'<?php _e('Gu&iacute;a');?>',width:40,align:'right'},
+		{field:'NombreClub',title:'<?php _e('Club');?>',width:20,align:'right'}
 	]],
     rowStyler:myRowStyler,
 	multiple: true,
@@ -185,8 +185,8 @@ $('#new_inscripcion-Equipo').combogrid({
 	columns: [[
 	   	{field:'ID',hidden:'true'},
 		{field:'Prueba',hidden:'true'},
-		{field:'Nombre',title:'Nombre',width:20,align:'right'},
-		{field:'Observaciones',title:'Observaciones',width:40,align:'right'},
+		{field:'Nombre',title:'<?php _e('Nombre');?>',width:20,align:'right'},
+		{field:'Observaciones',title:'<?php _e('Observaciones');?>',width:40,align:'right'},
 	]],
 	multiple: false,
 	fitColumns: true,
@@ -252,16 +252,16 @@ function newInscripcion_onOpenSuccess() {
 	// select up default team (as alphabetic order '-- Sin asignar --' comes first :-)
 	$('#new_inscripcion-Equipo').combogrid('grid').datagrid('selectRow',0);
 	// validation flag makes this tooltip disappear, so reinit on every window open
-	addTooltip($('#new_inscripcion-search').linkbutton(),"Buscar posibles participantes<br /> que coincidan con el criterio de busqueda"); 
+	addTooltip($('#new_inscripcion-search').linkbutton(),"<?php _e('Buscar posibles participantes<br /> que coincidan con el criterio de busqueda')?>"); 
 }
 
 // tooltips de los sub-formularios
-addTooltip($('#new_inscripcion-okBtn').linkbutton(),"Inscribir el/los perro(s) seleccionado(s) en la prueba"); 
-addTooltip($('#new_inscripcion-doneBtn').linkbutton(),"Cerrar la ventana<br /> Volver a la ventana de gestion de inscripciones");
-addTooltip($('#new_inscripcion-reloadBtn').linkbutton(),"Borrar seleccion. Refrescar lista");
-addTooltip($('#new_inscripcion-teamBtn').linkbutton(),"Definir un nuevo equipo en esta prueba");
-addTooltip($('#new_inscripcion-dogBtn').linkbutton(),"Dar de alta un nuevo perro en la BBDD");
-addTooltip($('#new_inscripcion-Equipo').combogrid('textbox'),"Seleccionar el equipo <br />en el que se inscriben el/los perros marcados");
+addTooltip($('#new_inscripcion-okBtn').linkbutton(),"<?php _e('Inscribir el/los perro(s) seleccionado(s) en la prueba');?>"); 
+addTooltip($('#new_inscripcion-doneBtn').linkbutton(),"<?php _e('Cerrar la ventana<br /> Volver a la ventana de gesti&oacute;n de inscripciones');?>");
+addTooltip($('#new_inscripcion-reloadBtn').linkbutton(),"<?php _e('Borrar selecci&oacute;n. Refrescar lista');?>");
+addTooltip($('#new_inscripcion-teamBtn').linkbutton(),"<?php _e('Definir un nuevo equipo en esta prueba');?>");
+addTooltip($('#new_inscripcion-dogBtn').linkbutton(),"<?php _e('Dar de alta un nuevo perro en la Base de Datos');?>");
+addTooltip($('#new_inscripcion-Equipo').combogrid('textbox'),"<?php _e('Seleccionar el equipo <br />en el que se inscriben el/los perros marcados');?>");
 
 //ventana y barra de progreso de las inscripciones
 $('#new_inscripcion-progressbar').progressbar({
@@ -269,7 +269,7 @@ $('#new_inscripcion-progressbar').progressbar({
 	value: 0
 });
 $('#new_inscripcion-progresswindow').window({
-	 title:	'Procesando inscripciones...',
+	 title:	'<?php _e('Procesando inscripciones...');?>',
 	 width:		450,
 	 modal:		true,
 	 collapsable:false,

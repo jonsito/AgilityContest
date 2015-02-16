@@ -22,6 +22,12 @@ $config =new Config();
 
 // ***** gestion de equipos de una prueba	*****************************************************
 
+function buscaEquipos() {
+	$('#team_datagrid').datagrid( 'load', { 
+			where: ($('#team_datagrid-search').val()==='---- Buscar ----')? '' : $('#team_datagrid-search').val()
+		});
+}
+
 /**
  * request if a contest has or not Team events
  * Tip: Instead of calling database, just analyze events datagrid
@@ -71,11 +77,11 @@ function newTeam(dg,def,onAccept){
 
 /* same as newTeam, but using a combogrid as parent element */
 function newTeam2(cg,def){
-	if (!hasTeamEvents(pruebaID)) {
+    var idprueba=$(cg).combogrid('grid').datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
+	if (!hasTeamEvents(idprueba)) {
     	$.messager.alert("Error:","<?php _e('Esta prueba no tiene declaradas competiciones por equipos');?>","info");
     	return; //
 	}
-    var idprueba=$(cg).combogrid('grid').datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
     $('#team_edit_dialog').dialog('open').dialog('setTitle','<?php _e('A&ntilde;adir nuevo equipo');?>');
     $('#team_edit_dialog-form').form('clear');
     if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill team Name
