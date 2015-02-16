@@ -28,6 +28,7 @@ require_once(__DIR__."/classes/Inscripciones.php");
 		$am= new AuthManager("inscripcionesFunctions");
 		$operation=http_request("Operation","s",null);
 		$perro=http_request("Perro","i",0);
+		$equipo=http_request("Equipo","i",0);
 		if ($operation===null) throw new Exception("Call to inscripcionFunctions without 'Operation' requested");
 		switch ($operation) {
 			case "insert": $am->access(PERMS_OPERATOR); $result=$inscripciones->insert($perro); break; // nueva inscripcion
@@ -35,6 +36,7 @@ require_once(__DIR__."/classes/Inscripciones.php");
 			case "delete": $am->access(PERMS_OPERATOR); $result=$inscripciones->delete($perro); break; // borrar inscripcion
 			case "noinscritos": $result=$inscripciones->noinscritos(); break;
 			case "inscritos": $result=$inscripciones->inscritos(); break;
+			case "inscritosbyteam": $result=$inscripciones->inscritosByTeam($equipo); break;
 			case "reorder": $am->access(PERMS_OPERATOR); $result=$inscripciones->reorder(); break;
 			default: throw new Exception("inscripcionFunctions:: invalid operation: $operation provided");
 		}

@@ -346,6 +346,66 @@ class Inscripciones extends DBObject {
 	}
 	
 	/*
+	 * As inscritos, but dont use page nor search and list only those inscritos that belongs to provided team
+	 */
+	function inscritosByTeam($team) {
+		$this->myLogger->enter();
+		$result=array();
+		// evaluate offset and row count for query
+		$id = $this->pruebaID;
+		// FASE 0: cuenta el numero total de inscritos
+		$str="SELECT count(*)
+			FROM Inscripciones,PerroGuiaClub,Equipos
+			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID)
+			AND ( Inscripciones.Prueba=$id )
+			AND (Equipos.ID=Inscripciones.Equipo)
+			AND (Equipos.ID=$team)";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		$row=$rs->fetch_array();
+		$result["total"] = $row[0];
+		$rs->free();
+		// if (rowcount==0) no need to perform a second query
+		if ($result["total"]==0) {
+			$result["rows"]=array();
+			return $result;
+		}
+		// FASE 1: obtener lista de perros inscritos con sus datos
+		$str="SELECT 
+				Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal, 
+				Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
+				Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
+				NombreGuia, NombreClub, Equipos.ID AS Equipo,Equipos.Nombre AS NombreEquipo ,
+				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
+			FROM Inscripciones,PerroGuiaClub,Equipos
+			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) 
+				AND ( Inscripciones.Prueba=$id ) 
+				AND (Equipos.ID=Inscripciones.Equipo) 
+				AND (Equipos.ID=$team)";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		
+		// Fase 2: la tabla de resultados a devolver
+		$data = array(); // result { total(numberofrows), data(arrayofrows)
+		while($row = $rs->fetch_array(MYSQLI_ASSOC)) {
+		$row['J1']=($row['Jornadas']&0x0001)?1:0;
+		$row['J2']=($row['Jornadas']&0x0002)?1:0;
+				$row['J3']=($row['Jornadas']&0x0004)?1:0;
+						$row['J4']=($row['Jornadas']&0x0008)?1:0;
+								$row['J5']=($row['Jornadas']&0x0010)?1:0;
+								$row['J6']=($row['Jornadas']&0x0020)?1:0;
+										$row['J7']=($row['Jornadas']&0x0040)?1:0;
+										$row['J8']=($row['Jornadas']&0x0080)?1:0;
+										array_push($data,$row);
+		}
+		$rs->free();
+		$result['rows']=$data;
+		$this->myLogger->leave();
+		return $result;
+		
+	}
+	
+	/*
 	 * Reorder dorsales by mean of club,categoria,grado,nombre
 	 */
 	function reorder() {
