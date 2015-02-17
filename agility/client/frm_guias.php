@@ -14,6 +14,13 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
+  
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
+?>
+ 
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE GUIAS -->
 <div id="new_inscripcion-dialog" style="width:975px;height:550px;padding:5px">
     <!-- DECLARACION DE LA TABLA -->
@@ -25,13 +32,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<span style="float:left;padding:5px">
        	<a id="guias-newBtn" href="#" class="easyui-linkbutton"
        		data-options="iconCls:'icon-users'"
-       		onclick="newGuia($('#guias-datagrid-search').val(),reload_guiasDatagrid)">Nuevo Gu&iacute;a</a>
+       		onclick="newGuia($('#guias-datagrid-search').val(),reload_guiasDatagrid)"><?php _e('Nuevo Gu&iacute;a');?></a>
        	<a id="guias-editBtn" href="#" class="easyui-linkbutton"
        		data-options="iconCls:'icon-edit'"
-       		onclick="editGuia('#guias-datagrid')">Editar Gu&iacute;a</a>
+       		onclick="editGuia('#guias-datagrid')"><?php _e('Editar Gu&iacute;a');?></a>
        	<a id="guias-delBtn" href="#" class="easyui-linkbutton" 
        		data-options="iconCls:'icon-trash'"
-       		onclick="deleteGuia('#guias-datagrid')">Borrar gu&iacute;a</a>
+       		onclick="deleteGuia('#guias-datagrid')"><?php _e('Borrar gu&iacute;a');?></a>
    		<input id="guias-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield" />
 	</span>
 	<span style="float:right;padding:5px">
@@ -41,7 +48,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	        	// clear selection and reload table
    	    		$('#guias-datagrid-search').val('---- Buscar ----');
    	            $('#guias-datagrid').datagrid('load',{ where: '' });"
-   			>Limpiar</a>
+   			><?php _e('Limpiar');?></a>
 	</span>
 </div>
     
@@ -62,9 +69,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	collapsible: false,
             expansible: false,
         	collapsed: false,
-        	title: 'Gesti&oacute;n de datos de Gu&iacute;as',
+        	title: '<?php _e('Gesti&oacute;n de datos de Gu&iacute;as');?>',
         	url: '/agility/server/database/guiaFunctions.php?Operation=select',
-        	loadMsg: 'Actualizando lista de Gu&iacute;as...',
+        	loadMsg: '<?php _e('Actualizando lista de Gu&iacute;as...');?>',
         	method: 'get',
             toolbar: '#guias-toolbar',
             pagination: false,
@@ -77,12 +84,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             remoteSort: true,
             columns: [[
                 { field:'ID',			hidden:true },
-            	{ field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
+            	{ field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Nombre');?>' },
                 { field:'Club',			hidden:true},
-                { field:'NombreClub',	width:20, sortable:true,	title: 'Club'},
-            	{ field:'Telefono',		width:10, sortable:true,	title: 'Tel&eacute;fono' },
-            	{ field:'Email',		width:15, sortable:true,    title: 'Correo Electr&oacute;nico' },
-                { field:'Observaciones',width:30,					title: 'Observaciones'}
+                { field:'NombreClub',	width:20, sortable:true,	title: '<?php _e('Club');?>'},
+            	{ field:'Telefono',		width:10, sortable:true,	title: '<?php _e('Tel&eacute;fono');?>' },
+            	{ field:'Email',		width:15, sortable:true,    title: '<?php _e('Correo Electr&oacute;nico');?>' },
+                { field:'Observaciones',width:30,					title: '<?php _e('Observaciones');?>'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:myRowStyler,
@@ -101,11 +108,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		// key handler
        	addKeyHandler('#guias-datagrid',newGuia,editGuia,deleteGuia);
 		// tooltips
-		addTooltip($('#guias-newBtn').linkbutton(),"Dar de alta un nuevo gu&iacute;a <br/>en la Base de Datos"); 
-		addTooltip($('#guias-editBtn').linkbutton(),"Editar los datos del gu&iacute;a seleccionado");
-		addTooltip($('#guias-delBtn').linkbutton(),"Borrar el gu&iacute;a seleccionado de la BBDD");
-		addTooltip($('#guias-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
-		addTooltip($('#guias-datagrid-search'),"Mostrar gu&iacute;as que coincidan con el criterio de busqueda");
+		addTooltip($('#guias-newBtn').linkbutton(),"<?php _e('Dar de alta un nuevo gu&iacute;a <br/>en la Base de Datos');?>"); 
+		addTooltip($('#guias-editBtn').linkbutton(),"<?php _e('Editar los datos del gu&iacute;a seleccionado');?>");
+		addTooltip($('#guias-delBtn').linkbutton(),"<?php _e('Borrar el gu&iacute;a seleccionado de la BBDD');?>");
+		addTooltip($('#guias-reloadBtn').linkbutton(),"<?php _e('Borrar casilla de busqueda y actualizar tabla');?>");
+		addTooltip($('#guias-datagrid-search'),"<?php _e('Mostrar gu&iacute;as que coincidan con el criterio de b&uacute;squeda');?>");
 
 		// mostrar los perros asociados a un guia
         function showPerrosByGuia(index,guia){
@@ -113,24 +120,24 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	var mySelf='#guias-perros-datagrid-'+replaceAll(' ','_',guia.ID);
 			$(mySelf).datagrid({
             	width: 875,
-        		title: 'Perros registrados a nombre de '+guia.Nombre,
+        	    height: 'auto',
+        		title: '<?php _e('Perros registrados a nombre de');?> '+guia.Nombre,
        		    pagination: false,
         	    rownumbers: false,
         	    fitColumns: true,
         	    singleSelect: true,
-        	    loadMsg: 'Loading list of dogs',
-        	    height: 'auto',
+        	    loadMsg: '<?php _e('Actualizando lista de perros');?>',
         		url: '/agility/server/database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.ID },
         		method: 'get',
         	    columns: [[
             	    { field:'ID',	width:15, sortable:true,	title: 'ID'},
-            		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
-            		{ field:'Categoria',width:15, sortable:false,	title: 'Cat.' },
-            		{ field:'Grado',	width:25, sortable:false,   title: 'Grado' },
-            		{ field:'Raza',		width:25, sortable:false,   title: 'Raza' },
-            		{ field:'LOE_RRC',	width:25, sortable:true,    title: 'LOE / RRC' },
-            		{ field:'Licencia',	width:25, sortable:true,    title: 'Licencia' }
+            		{ field:'Nombre',	width:30, sortable:true,	title: '<?php _e('Nombre');?>:' },
+            		{ field:'Categoria',width:15, sortable:false,	title: '<?php _e('Cat');?>.' },
+            		{ field:'Grado',	width:25, sortable:false,   title: '<?php _e('Grado');?>' },
+            		{ field:'Raza',		width:25, sortable:false,   title: '<?php _e('Raza');?>' },
+            		{ field:'LOE_RRC',	width:25, sortable:true,    title: '<?php _e('LOE/RRC');?>' },
+            		{ field:'Licencia',	width:25, sortable:true,    title: '<?php _e('Licencia');?>' }
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             	rowStyler:myRowStyler,
@@ -152,22 +159,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     		// toolbar: '#perrosbyguia-toolbar', 
 			var toolbar = [{
 				id: 'perrosbyguia-newBtn'+guia.ID,
-				text: 'Asignar perro',
+				text: '<?php _e('Asignar perro');?>',
 				iconCls: 'icon-dog',
 				handler: function(){assignPerroToGuia(mySelf,guia); }
 			},{
 				id: 'perrosbyguia-editBtn'+guia.ID,
-				text: 'Editar datos',
+				text: '<?php _e('Editar datos');?>',
 				iconCls: 'icon-edit',
 				handler: function(){editPerroFromGuia(mySelf,guia); }
 			},{
 				id: 'perrosbyguia-delBtn'+guia.ID,
-				text: 'Desasignar perro',
+				text: '<?php _e('Desasignar perro');?>',
 				iconCls: 'icon-trash',
 				handler: function(){delPerroFromGuia(mySelf,guia); }
 			},{
 				id: 'perrosbyguia-reloadBtn'+guia.ID,
-        		text: 'Actualizar',
+        		text: '<?php _e('Actualizar')?>',
     			iconCls: 'icon-reload',
     			align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
    				handler: function(){ $(mySelf).datagrid('reload'); }    // reload the clubs data}
@@ -175,9 +182,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     		$(mySelf).datagrid('buildToolbar',toolbar); // programmatically add toolbar to datagrid
         	$('#guias-datagrid').datagrid('fixDetailRowHeight',index);
 			// tooltips de los sub-formularios
-			addTooltip($('#perrosbyguia-newBtn'+guia.ID).linkbutton(),"Asignar un nuevo perro a '"+guia.Nombre+"'"); 
-			addTooltip($('#perrosbyguia-delBtn'+guia.ID).linkbutton(),"Eliminar asignaci&oacute;n del perro a '"+guia.Nombre+"'"); 
-			addTooltip($('#perrosbyguia-editBtn'+guia.ID).linkbutton(),"Editar los datos del perro asignado a '"+guia.Nombre+"'");
-			addTooltip($('#perrosbyguia-reloadBtn'+guia.ID).linkbutton(),"Actualizar la lista de perros del gu&iacute;a '"+guia.Nombre+"'");
+			addTooltip($('#perrosbyguia-newBtn'+guia.ID).linkbutton(),"<?php _e('Asignar un nuevo perro a');?> '"+guia.Nombre+"'"); 
+			addTooltip($('#perrosbyguia-delBtn'+guia.ID).linkbutton(),"<?php _e('Eliminar asignaci&oacute;n del perro a');?> '"+guia.Nombre+"'"); 
+			addTooltip($('#perrosbyguia-editBtn'+guia.ID).linkbutton(),"<?php _e('Editar los datos del perro asignado a');?> '"+guia.Nombre+"'");
+			addTooltip($('#perrosbyguia-reloadBtn'+guia.ID).linkbutton(),"<?php _e('Actualizar la lista de perros del gu&iacute;a');?> '"+guia.Nombre+"'");
         } // end of showPerrosByGuia
 </script>

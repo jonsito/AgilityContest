@@ -170,3 +170,34 @@ function saveTeam() {
         }
     });
 }
+
+/**
+* Change team to selected one
+*/
+function changeTeam() {
+	// si no hay ninguna equipo valido seleccionada aborta
+	var p=$('#selteam-Equipo').combogrid('grid').datagrid('getSelected');
+	if (p==null) {
+		// indica error
+		$.messager.alert("Error","<?php _e('Debe indicar un equipo v&aacute;lida');?>","error");
+		return;
+	}
+    var frm = $('#selteam-Form');
+    if (! frm.form('validate')) return;
+    $.ajax({
+        type: 'GET',
+        url: '/agility/server/database/inscripcionFunctions.php',
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){ 
+            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+            } else {// on submit success, reload results
+            	var parent=$('#selteam-Parent').val();
+            	// on save done refresh related data/combo grids
+                $(parent).datagrid('reload');
+            }
+        }
+    });
+	$('#selteam-window').window('close');
+}

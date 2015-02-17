@@ -23,16 +23,17 @@ $config =new Config();
 <img class="mainpage" src="/agility/server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle"/>
 
 <!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->
-<div id="selprueba-window" class="easyui-window" style="position:relative;width:400px;height:150px;padding:20px 20px">
+<div id="selprueba-window" class="easyui-window" style="position:relative;width:400px;height:auto;padding:20px 20px">
 	<div id="selprueba-Layout" class="easyui-layout" data-options="fit:true'">
-		<div id="selprueba-Content" data-options="region:'center',border:'true'">
+		<div id="selprueba-Content" data-options="region:'north',border:'true'">
 			<form id="selprueba-Prueba">
         		<div class="fitem">
-            		<label for="Search"><?php _e('Buscar');?>:</label>
+            		<label for="Search"><?php _e('Selecciona Prueba');?>:</label>
             		<select id="selprueba-Search" name="Search" style="width:200px"></select>
         		</div>
 			</form>
 		</div> <!-- contenido -->
+		<div data-options="region:'center'"></div>
 		<div id="selprueba-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
     	    <a id="selprueba-okBtn" href="#" class="easyui-linkbutton" 
     	    	data-options="iconCls:'icon-ok'" onclick="acceptSelectPrueba()"><?php _e('Aceptar');?></a>

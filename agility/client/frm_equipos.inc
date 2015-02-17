@@ -24,7 +24,7 @@ $config =new Config();
 <!-- ventana de presentacion de los datos de los equipos de una prueba -->
 <div id="team_datagrid-dialog" style="width:800px;height:600px">
 	<!-- DECLARACION DE LA TABLA DE EQUIPOS -->
-	<table id="team_datagrid" class="easyui-datagrid"></table>
+	<table id="team_datagrid"></table>
 </div>	
 
 <!-- BARRA DE TAREAS DE LA TABLA DE Equipos -->
@@ -46,7 +46,7 @@ $config =new Config();
    	        	// clear selection and reload table
    	    		$('#team_datagrid-search').val('---- Buscar ----');	
    	            $('#team_datagrid').datagrid('load',{ where: '' });"
-   			>Limpiar</a>
+   			><?php _e('Limpiar');?></a>
    	</span>
 </div>
 
@@ -59,13 +59,18 @@ $config =new Config();
 </div>
 
 <!-- FORMULARIO DE ASIGNACION DE EQUIPO A UNA INSCRIPCION -->
-<div id="selteam-window" class="easyui-window" style="position:relative;width:350px;height:auto;padding:10px 10px">
+<div id="selteam-window" class="easyui-window" style="position:relative;width:400px;height:auto;padding:15px 15px">
 	<div id="selteam-Layout" class="easyui-layout" data-options="fit:true'">
 		<div id="selteam-Content" data-options="region:'north',border:'true'">
-			<form id="selteam-Team">
+			<form id="selteam-Form">
         		<div class="fitem">
+        			<input type="hidden" id="selteam-Parent" name="Parent"/> <!-- datagrid padre -->
+        			<input type="hidden" id="selteam-Operation" name="Operation" value="update"/>
+        			<input type="hidden" id="selteam-Prueba" name="Prueba"/>
+        			<input type="hidden" id="selteam-Jornadas" name="Jornadas"/>
         			<label for="Nombre"><?php _e('Perro');?>:</label>
         			<input type="text" id="selteam-Nombre" name="Nombre" readonly="readonly"/>
+        			<input type="hidden" id="selteam-Perro" name="Perro"/>
         		</div>
         		<div class="fitem">
         			<label for="NombreGuia"><?php _e('Gu&iacute;a');?>:</label>
@@ -79,14 +84,14 @@ $config =new Config();
         		</div>
         		<div class="fitem">
             		<label for="Search"><?php _e('Equipo');?>:</label>
-            		<select id="selteam-Search" name="Search"></select>
+            		<select id="selteam-Equipo" name="Equipo" style="width:200px"></select>
         		</div>
 			</form>
 		</div> <!-- contenido -->
 		<div data-options="region:'center'"></div>
 		<div id="selteam-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
     	    <a id="selteam-okBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-ok'" onclick="acceptSelectTeam()"><?php _e('Aceptar');?></a>
+    	    	data-options="iconCls:'icon-ok'" onclick="changeTeam()"><?php _e('Aceptar');?></a>
     	    <a id="selteam-cancelBtn" href="#" class="easyui-linkbutton" 
     	    	data-options="iconCls:'icon-cancel'" onclick="$('#selteam-window').window('close');"><?php _e('Cancelar');?></a>
 		</div>	<!-- botones -->
@@ -106,7 +111,8 @@ $('#team_datagrid-dialog').dialog({
 	maximizable:false,
 	resizable:true,
 	title:"<?php _e('Gesti&oacute;n de Equipos de la prueba');?>: '"+workingData.datosPrueba.Nombre+"'",
-	closed:true
+	closed:true,
+	onClose: function() { $('#inscripciones-datagrid').datagrid('reload'); }
 });
 
 // datos de la tabla de equipos
@@ -125,7 +131,7 @@ $('#team_datagrid').datagrid({
     columns: [[
         { field:'ID',			hidden:true },
         { field:'Prueba',		hidden:true },
-        { field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Nombre');?>:' },
+        { field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Nombre');?>' },
         { field:'Observaciones',width:80, sortable:true,	title: '<?php _e('Observaciones');?>'}
     ]],
     pagination: false,
@@ -133,7 +139,7 @@ $('#team_datagrid').datagrid({
     fitColumns: true,
     singleSelect: true,
     view: scrollview,
-    pageSize: 10,
+    pageSize: 50,
     rowStyler: myRowStyler, // function that personalize colors on alternate rows
     onDblClickRow:function() { editTeam('#team_datagrid'); }, // on double click fireup editor dialog        
     // especificamos un formateador especial para desplegar la tabla de inscritos por equipo
@@ -141,7 +147,6 @@ $('#team_datagrid').datagrid({
         return '<div style="padding:2px"><table id="team-incripcion-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
     },
     onExpandRow: function(idx,row) { showInscripcionesByTeam(idx,row); },
-    
 });
 
 // key handler
@@ -161,14 +166,15 @@ function showInscripcionesByTeam(index,team){
 	var mySelf='#team-incripcion-datagrid-'+replaceAll(' ','_',team.ID);
 	$(mySelf).datagrid({
     	width: '100%',
-    	height: 100,
+	    height: 'auto',
 		title: '<?php _e('Inscripciones registradas en el equipo');?>: '+team.Nombre,
 		    pagination: false,
 	    rownumbers: false,
 	    fitColumns: true,
 	    singleSelect: true,
+        pagination: false,
+        rownumbers: false,
 	    loadMsg: '<?php _e('Leyendo inscripciones....');?>',
-	    height: 'auto',
 		url: '/agility/server/database/inscripcionFunctions.php',
 		queryParams: { Operation: 'inscritosbyteam', Prueba: workingData.prueba, Equipo: team.ID },
 		method: 'get',
@@ -202,56 +208,26 @@ function showInscripcionesByTeam(index,team){
 	            { field:'J7',		hidden:true},
 	            { field:'J8',		hidden:true},
     	]],
-        pagination: false,
-        rownumbers: false,
-        fitColumns: true,
     	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     	rowStyler:myRowStyler,
     	// on double click fireup editor dialog
         onResize:function(){
-            $('#team-datagrid').datagrid('fixDetailRowHeight',index);
+            $('#team_datagrid').datagrid('fixDetailRowHeight',index);
         },
         onLoadSuccess:function(){
             setTimeout(function(){
-                $('#team-datagrid').datagrid('fixDetailRowHeight',index);
+                $('#team_datagrid').datagrid('fixDetailRowHeight',index);
             },0);
         },
-
-        onDblClickRow:function() { $('#selteam-window').window('open'); }, // on double click fireup selteam dialog
+        onDblClickRow:function(index,row) { // on double click fireup selteam dialog
+            $('#selteam-Form').form('load',row);
+            $('#selteam-Parent').val(mySelf);
+        	$('#selteam-Equipo').combogrid('setValue',row.Equipo); // special handling for combogrid
+            $('#selteam-window').window('open'); 
+        } 
 	}); // end of inscritos-by-team_team_id
-/*
-	// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
-	// toolbar: '#perrosbyguia-toolbar', 
-	var toolbar = [{
-		id: 'perrosbyguia-newBtn'+guia.ID,
-		text: 'Asignar perro',
-		iconCls: 'icon-dog',
-		handler: function(){assignPerroToGuia(mySelf,guia); }
-	},{
-		id: 'perrosbyguia-editBtn'+guia.ID,
-		text: 'Editar datos',
-		iconCls: 'icon-edit',
-		handler: function(){editPerroFromGuia(mySelf,guia); }
-	},{
-		id: 'perrosbyguia-delBtn'+guia.ID,
-		text: 'Desasignar perro',
-		iconCls: 'icon-trash',
-		handler: function(){delPerroFromGuia(mySelf,guia); }
-	},{
-		id: 'perrosbyguia-reloadBtn'+guia.ID,
-		text: 'Actualizar',
-		iconCls: 'icon-reload',
-		align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
-			handler: function(){ $(mySelf).datagrid('reload'); }    // reload the clubs data}
-	}];
-	$(mySelf).datagrid('buildToolbar',toolbar); // programmatically add toolbar to datagrid
-	$('#guias-datagrid').datagrid('fixDetailRowHeight',index);
-	// tooltips de los sub-formularios
-	addTooltip($('#perrosbyguia-newBtn'+guia.ID).linkbutton(),"Asignar un nuevo perro a '"+guia.Nombre+"'"); 
-	addTooltip($('#perrosbyguia-delBtn'+guia.ID).linkbutton(),"Eliminar asignaci&oacute;n del perro a '"+guia.Nombre+"'"); 
-	addTooltip($('#perrosbyguia-editBtn'+guia.ID).linkbutton(),"Editar los datos del perro asignado a '"+guia.Nombre+"'");
-	addTooltip($('#perrosbyguia-reloadBtn'+guia.ID).linkbutton(),"Actualizar la lista de perros del gu&iacute;a '"+guia.Nombre+"'");
-*/
+
+	$('#team_datagrid').datagrid('fixDetailRowHeight',index);
 } // end of showPerrosByGuia
 
 $('#selteam-window').window({
@@ -268,12 +244,11 @@ $('#selteam-window').window({
 addTooltip($('#selteam-okBtn').linkbutton(),"<?php _e('Asignar el participante al equipo seleccionado');?>");
 addTooltip($('#selteam-cancelBtn').linkbutton(),"<?php _e('Cancelar selecci&oacute;n. Cerrar ventana');?>");
 
-$('#selteam-Search').combogrid({
+$('#selteam-Equipo').combogrid({
 	panelWidth: 450,
 	panelHeight: 100,
 	idField: 'ID',
 	textField: 'Nombre',
-	fit: true,
 	url: '/agility/server/database/equiposFunctions.php',
 	queryParams: { Operation:'select', Prueba: workingData.prueba, where: ''	},
 	loadMsg: '<?php _e('Actualizando lista de equipos ...');?>',
@@ -284,27 +259,13 @@ $('#selteam-Search').combogrid({
 	columns: [[
 		{ field:'ID',			hidden:true },
 		{ field:'Prueba',		hidden:true },
-		{ field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Nombre');?>:' },
-		{ field:'Observaciones',width:80, sortable:true,	title: '<?php _e('Observaciones');?>'}
+		{ field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Nombre');?>:' },
+		{ field:'Observaciones',width:50, sortable:true,	title: '<?php _e('Observaciones');?>'}
 	]],
 	multiple: false,
 	fitColumns: true,
 	singleSelect: true,
-	selectOnNavigation: false,
-	onLoadSuccess: function(data) {
-	}
+	selectOnNavigation: false
 });
 
-function acceptSelectTeam() {
-	// si no hay ninguna equipo valido seleccionada aborta
-	var p=$('#selteam-Search').combogrid('grid').datagrid('getSelected');
-	if (p==null) {
-		// indica error
-		$.messager.alert("Error","<?php _e('Debe indicar un equipo v&aacute;lida');?>","error");
-		return;
-	} else {
-		alert("TODO: AcceptSelectTeam() write");
-	}
-	$('#selteam-window').window('close');
-}
 </script>

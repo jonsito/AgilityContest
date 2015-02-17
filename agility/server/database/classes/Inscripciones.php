@@ -123,7 +123,6 @@ class Inscripciones extends DBObject {
 		$pagado=http_request("Pagado","i",$res->Pagado);
 		$jornadas=http_request("Jornadas","i",$res->Jornadas);
 
-		// TODO: Make sure that form leaves unchanged Closed jornada's inscription state
 		// actualizamos bbdd
 		$str="UPDATE Inscripciones 
 			SET Celo=$celo, Observaciones='$observaciones', Equipo=$equipo, Jornadas=$jornadas, Pagado=$pagado
