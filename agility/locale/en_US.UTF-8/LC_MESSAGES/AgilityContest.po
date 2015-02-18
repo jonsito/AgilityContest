@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-02-18 11:37+0100\n"
-"PO-Revision-Date: 2015-02-18 11:42+0100\n"
+"POT-Creation-Date: 2015-02-18 12:36+0100\n"
+"PO-Revision-Date: 2015-02-18 12:48+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: jantonio <juansgaviota@gmail.com>\n"
 "Language: English\n"
@@ -559,6 +559,69 @@ msgstr "# Competitors"
 #: agility/server/pdf/print_ordenTandas.php:98
 msgid "Horario (*)"
 msgstr "Time (*)"
+
+#: agility/client/frm_competicion.php:44
+msgid "Equipos -3 mejores-"
+msgstr "Team -3 best of 4-"
+
+#: agility/client/frm_competicion.php:49
+msgid "Equipos -conjunta-"
+msgstr "Team -combined-"
+
+#: agility/client/frm_competicion.php:55
+msgid "Abierta"
+msgstr "Open"
+
+#: agility/client/frm_competicion.php:59
+msgid "Mangas K.O."
+msgstr "K.O. Round"
+
+#: agility/client/frm_competicion.php:62
+msgid "Desarrollo de la jornada"
+msgstr "Event progress"
+
+#: agility/client/frm_competicion2.php:32
+msgid "Mangas de la jornada"
+msgstr "Series on this event"
+
+#: agility/client/frm_competicion2.php:36
+#: agility/client/frm_competicion2.php:117
+msgid "Datos de la manga"
+msgstr "Round&#8217;s info"
+
+#: agility/client/frm_competicion2.php:49
+msgid "Programaci&oacute;n"
+msgstr "Event Timetable"
+
+#: agility/client/frm_competicion2.php:52
+msgid "Orden de salida"
+msgstr "Starting order"
+
+#: agility/client/frm_competicion2.php:55
+msgid "Entrada de datos"
+msgstr "Data entering"
+
+#: agility/client/frm_competicion2.php:58
+msgid "Resultados de la manga"
+msgstr "Series results"
+
+#: agility/client/frm_competicion2.php:129
+msgid ""
+"Ver/Ordenar la secuencia de <br/>Mangas/Categor&iacute;as/Grados de la "
+"jornada"
+msgstr "View/Sort round series, rings and timetable for this event"
+
+#: agility/client/frm_competicion2.php:130
+msgid "Ver/Editar el Orden de salida de la manga"
+msgstr "View/edit competitors order for this series"
+
+#: agility/client/frm_competicion2.php:131
+msgid "Insertar resultados de los participantes en la manga"
+msgstr "Enter in competitor&#8217;s results for this series"
+
+#: agility/client/frm_competicion2.php:132
+msgid "Ver los resultados parciales de la manga"
+msgstr "See partial scores on this series"
 
 #: agility/client/frm_inscripciones2.php:43
 #: agility/client/frm_clasificaciones2.php:25

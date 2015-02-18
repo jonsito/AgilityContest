@@ -621,9 +621,9 @@ class Tandas extends DBObject {
 		$this->insert_remove($r,7,($j->Open != 0)?true:false);			// Agility Abierta (Open)
 		$this->insert_remove($r,12,($j->Open != 0)?true:false);			// Jumping Abierta (Open)
 		$this->insert_remove($r,8,($j->Equipos3 != 0)?true:false);		// Agility Equipos (3 mejores)
-		$this->insert_remove($r,13,($j->Equipos3 != 0)?true:false);		// Jumping por Equipos (3 mejores)
+		$this->insert_remove($r,13,($j->Equipos3 != 0)?true:false);		// Jumping Equipos (3 mejores)
 		$this->insert_remove($r,9,($j->Equipos4 != 0)?true:false);		// Agility Equipos (Conjunta)
-		$this->insert_remove($r,14,($j->Equipos4 != 0)?true:false);		// Jumping por Equipos (Conjunta)
+		$this->insert_remove($r,14,($j->Equipos4 != 0)?true:false);		// Jumping Equipos (Conjunta)
 		$this->insert_remove($r,15,($j->KO != 0)?true:false);			// Ronda K.O.
 		$this->insert_remove($r,16,($j->Especial != 0)?true:false);		// Manga especial
 		$this->myLogger->leave();
