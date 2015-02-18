@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-02-17 12:37+0100\n"
-"PO-Revision-Date: 2015-02-17 12:38+0100\n"
+"POT-Creation-Date: 2015-02-18 11:37+0100\n"
+"PO-Revision-Date: 2015-02-18 11:42+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: jantonio <juansgaviota@gmail.com>\n"
 "Language: English\n"
@@ -56,7 +56,8 @@ msgstr "Dogs"
 msgid "Gesti&oacute;n de la Base de datos de Jueces"
 msgstr "Judge&#8217;s database management"
 
-#: agility/index.php:183
+#: agility/index.php:183 agility/client/dialogs/inforesultados.inc:34
+#: agility/client/dialogs/inforesultados.inc:85
 msgid "Jueces"
 msgstr "Judges"
 
@@ -135,6 +136,7 @@ msgstr "About..."
 #: agility/server/pdf/print_clasificacion.php:81
 #: agility/server/pdf/print_podium.php:77
 #: agility/server/pdf/print_ordenTandas.php:66
+#: agility/client/frm_clasificaciones2.php:39
 msgid "Jornada"
 msgstr "Event"
 
@@ -143,15 +145,17 @@ msgstr "Event"
 #: agility/server/pdf/print_resultadosByManga.php:81
 #: agility/server/pdf/print_resultadosByManga.php:84
 msgid "Juez"
-msgstr "Juzge"
+msgstr "Judge"
 
 #: agility/server/pdf/print_clasificacion.php:92
 #: agility/server/pdf/print_podium.php:78
 #: agility/client/frm_inscripciones2.php:152
+#: agility/client/frm_clasificaciones2.php:43
 msgid "Fecha"
 msgstr "Date"
 
 #: agility/server/pdf/print_clasificacion.php:105
+#: agility/client/frm_clasificaciones2.php:47
 msgid "Ronda"
 msgstr "Series"
 
@@ -160,6 +164,7 @@ msgid "Clasificación Final"
 msgstr "Final Scores"
 
 #: agility/server/pdf/print_clasificacion.php:136
+#: agility/client/frm_clasificaciones2.php:70
 msgid "Datos del participante"
 msgstr "Competitor's Info"
 
@@ -178,6 +183,8 @@ msgstr "Score"
 #: agility/server/pdf/print_resultadosByManga.php:65
 #: agility/client/frm_inscripciones2.php:233 agility/client/frm_guias.php:87
 #: agility/client/frm_guias.php:135 agility/client/frm_inscripciones.php:74
+#: agility/client/frm_clasificaciones2.php:80
+#: agility/client/frm_clasificaciones2.php:193
 #: agility/client/frm_equipos.inc:134 agility/client/frm_equipos.inc:194
 #: agility/client/frm_equipos.inc:262
 #: agility/client/dialogs/dlg_equipos.inc:32
@@ -218,12 +225,14 @@ msgstr "Ref"
 #: agility/server/pdf/print_entradaDeDatos.php:325
 #: agility/server/pdf/print_entradaDeDatos.php:346
 #: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/client/frm_clasificaciones2.php:98
 msgid "Tiempo"
 msgstr "Time"
 
 #: agility/server/pdf/print_clasificacion.php:171
 #: agility/server/pdf/print_podium.php:128
 #: agility/server/pdf/print_resultadosByManga.php:65
+#: agility/client/frm_clasificaciones2.php:101
 msgid "Puesto"
 msgstr "Order"
 
@@ -297,6 +306,7 @@ msgstr "Global Accounting Info"
 #: agility/server/pdf/print_entradaDeDatos.php:276
 #: agility/server/pdf/print_resultadosByManga.php:65
 #: agility/client/frm_inscripciones2.php:232
+#: agility/client/frm_clasificaciones2.php:79
 #: agility/client/frm_equipos.inc:193
 msgid "Dorsal"
 msgstr "Dorsal"
@@ -317,8 +327,9 @@ msgstr "Lic."
 #: agility/server/pdf/print_entradaDeDatos.php:280
 #: agility/server/pdf/print_resultadosByManga.php:65
 #: agility/client/frm_inscripciones2.php:237 agility/client/frm_guias.php:89
-#: agility/client/frm_inscripciones.php:76 agility/client/frm_equipos.inc:81
-#: agility/client/frm_equipos.inc:198
+#: agility/client/frm_inscripciones.php:76
+#: agility/client/frm_clasificaciones2.php:85
+#: agility/client/frm_equipos.inc:81 agility/client/frm_equipos.inc:198
 #: agility/client/dialogs/dlg_selectJornada.inc:84
 #: agility/client/dialogs/dlg_newInscripcion.inc:161
 msgid "Club"
@@ -353,8 +364,10 @@ msgstr "Heat"
 #: agility/server/pdf/print_ordenTandas.php:97
 #: agility/client/frm_inscripciones2.php:61
 #: agility/client/frm_inscripciones2.php:239 agility/client/frm_guias.php:92
-#: agility/client/frm_inscripciones.php:77 agility/client/frm_equipos.inc:135
-#: agility/client/frm_equipos.inc:200 agility/client/frm_equipos.inc:263
+#: agility/client/frm_inscripciones.php:77
+#: agility/client/frm_clasificaciones2.php:51
+#: agility/client/frm_equipos.inc:135 agility/client/frm_equipos.inc:200
+#: agility/client/frm_equipos.inc:263
 #: agility/client/dialogs/dlg_equipos.inc:37
 #: agility/client/dialogs/dlg_selectJornada.inc:85
 #: agility/client/dialogs/dlg_newInscripcion.inc:189
@@ -379,6 +392,8 @@ msgstr "Podium"
 
 #: agility/server/pdf/print_podium.php:107
 #: agility/server/pdf/print_podium.php:115
+#: agility/client/frm_clasificaciones2.php:86
+#: agility/client/frm_clasificaciones2.php:92
 msgid "F/T"
 msgstr "F/T"
 
@@ -494,6 +509,14 @@ msgid "Resultados Parciales"
 msgstr "Partial Scores"
 
 #: agility/server/pdf/print_resultadosByManga.php:88
+#: agility/client/dialogs/inforesultados.inc:41
+#: agility/client/dialogs/inforesultados.inc:49
+#: agility/client/dialogs/inforesultados.inc:57
+#: agility/client/dialogs/inforesultados.inc:65
+#: agility/client/dialogs/inforesultados.inc:92
+#: agility/client/dialogs/inforesultados.inc:100
+#: agility/client/dialogs/inforesultados.inc:108
+#: agility/client/dialogs/inforesultados.inc:116
 msgid "Distancia"
 msgstr "Distance"
 
@@ -538,14 +561,17 @@ msgid "Horario (*)"
 msgstr "Time (*)"
 
 #: agility/client/frm_inscripciones2.php:43
+#: agility/client/frm_clasificaciones2.php:25
 msgid "Datos de la Prueba"
 msgstr "Contest data"
 
 #: agility/client/frm_inscripciones2.php:53
+#: agility/client/frm_clasificaciones2.php:30
 msgid "Denominaci&oacute;n"
 msgstr "Denomination"
 
 #: agility/client/frm_inscripciones2.php:57
+#: agility/client/frm_clasificaciones2.php:35
 msgid "Club Organizador"
 msgstr "Hosting club"
 
@@ -574,6 +600,7 @@ msgid "Equipos"
 msgstr "Teams"
 
 #: agility/client/frm_inscripciones2.php:105
+#: agility/client/frm_clasificaciones2.php:142
 msgid "Imprimir"
 msgstr "Print"
 
@@ -616,6 +643,7 @@ msgid "Actualizando datos de inscripciones...."
 msgstr "Updating inscription&#8217;s data"
 
 #: agility/client/frm_inscripciones2.php:234 agility/client/frm_guias.php:136
+#: agility/client/frm_clasificaciones2.php:82
 #: agility/client/frm_equipos.inc:195
 #: agility/client/dialogs/dlg_newInscripcion.inc:158
 msgid "Cat"
@@ -733,6 +761,7 @@ msgid "Desasignar perro"
 msgstr "Unassign dog"
 
 #: agility/client/frm_guias.php:177
+#: agility/client/frm_clasificaciones2.php:113
 msgid "Actualizar"
 msgstr "Update"
 
@@ -750,7 +779,11 @@ msgstr "Edit data for dog assigned to"
 
 #: agility/client/frm_guias.php:188
 msgid "Actualizar la lista de perros del gu&iacute;a"
-msgstr "Updating list of dogs for this handler"
+msgstr "Update list of dogs for this handler"
+
+#: agility/client/frm_clasificaciones.php:42
+msgid "Resultados y Clasificaciones"
+msgstr "Results and Scores"
 
 #: agility/client/frm_inscripciones.php:31
 #: agility/client/dialogs/dlg_selectJornada.inc:29
@@ -789,6 +822,142 @@ msgstr "You should select a valid contest"
 #: agility/client/frm_inscripciones.php:100
 msgid "Inscripciones - Formulario de registro"
 msgstr "Inscriptions - registration form"
+
+#: agility/client/frm_clasificaciones2.php:58
+msgid "Datos t&eacute;cnicos de las Mangas de esta ronda"
+msgstr "Technical data about rounds on this Series"
+
+#: agility/client/frm_clasificaciones2.php:71
+#: agility/client/frm_clasificaciones2.php:72
+#: agility/client/dialogs/inforesultados.inc:30
+#: agility/client/dialogs/inforesultados.inc:81
+msgid "Manga"
+msgstr "Round"
+
+#: agility/client/frm_clasificaciones2.php:73
+msgid "Clasificaci&oacute;n"
+msgstr "Score"
+
+#: agility/client/frm_clasificaciones2.php:81
+msgid "Lic"
+msgstr "Lic"
+
+#: agility/client/frm_clasificaciones2.php:83
+msgid "Grad"
+msgstr "Grade"
+
+#: agility/client/frm_clasificaciones2.php:84
+#: agility/client/frm_equipos.inc:76
+#: agility/client/dialogs/dlg_newInscripcion.inc:160
+msgid "Gu&iacute;a"
+msgstr "Handler"
+
+#: agility/client/frm_clasificaciones2.php:87
+#: agility/client/frm_clasificaciones2.php:93
+msgid "R"
+msgstr "R"
+
+#: agility/client/frm_clasificaciones2.php:88
+#: agility/client/frm_clasificaciones2.php:94
+msgid "Tmp"
+msgstr "Time"
+
+#: agility/client/frm_clasificaciones2.php:89
+#: agility/client/frm_clasificaciones2.php:95
+#: agility/client/dialogs/inforesultados.inc:45
+#: agility/client/dialogs/inforesultados.inc:53
+#: agility/client/dialogs/inforesultados.inc:61
+#: agility/client/dialogs/inforesultados.inc:69
+#: agility/client/dialogs/inforesultados.inc:96
+#: agility/client/dialogs/inforesultados.inc:104
+#: agility/client/dialogs/inforesultados.inc:112
+#: agility/client/dialogs/inforesultados.inc:120
+msgid "Vel"
+msgstr "Vel"
+
+#: agility/client/frm_clasificaciones2.php:90
+#: agility/client/frm_clasificaciones2.php:96
+msgid "Penal"
+msgstr "Penal"
+
+#: agility/client/frm_clasificaciones2.php:91
+#: agility/client/frm_clasificaciones2.php:97
+msgid "Cal"
+msgstr "Cal"
+
+#: agility/client/frm_clasificaciones2.php:99
+msgid "Penaliz"
+msgstr "Penaliz"
+
+#: agility/client/frm_clasificaciones2.php:100
+msgid "Calif"
+msgstr "Calif"
+
+#: agility/client/frm_clasificaciones2.php:115
+msgid "Informes"
+msgstr "Reports"
+
+#: agility/client/frm_clasificaciones2.php:122
+msgid "Podium (PDF)"
+msgstr "Podium (PDF)"
+
+#: agility/client/frm_clasificaciones2.php:123
+msgid "Etiquetas (CSV)"
+msgstr "Stickers (CSV)"
+
+#: agility/client/frm_clasificaciones2.php:124
+msgid "Informe R.S.C.E. (Excel)"
+msgstr "R.S.C.E Report (Excel)"
+
+#: agility/client/frm_clasificaciones2.php:125
+msgid "Clasificación (PDF)"
+msgstr "Scores (PDF)"
+
+#: agility/client/frm_clasificaciones2.php:128
+msgid "Hojas de etiquetas (PDF)"
+msgstr "Sticker&#8217;s sheets (PDF)"
+
+#: agility/client/frm_clasificaciones2.php:129
+msgid "Etiquetas sueltas (PDF)"
+msgstr "Single stickers (PDF)"
+
+#: agility/client/frm_clasificaciones2.php:132
+msgid "Etiqueta inicial"
+msgstr "Initial Row"
+
+#: agility/client/frm_clasificaciones2.php:135
+msgid "Dorsales"
+msgstr "Dorsals"
+
+#: agility/client/frm_clasificaciones2.php:156
+msgid "Clasificaciones de la Jornada"
+msgstr "Event&#8217;s Scores"
+
+#: agility/client/frm_clasificaciones2.php:221
+msgid "Actualizar la tabla de clasificaciones"
+msgstr "Update score&#8217;s data"
+
+#: agility/client/frm_clasificaciones2.php:222
+msgid "Imprimir la clasificacion de la manga"
+msgstr "Print results on this series"
+
+#: agility/client/frm_clasificaciones2.php:223
+msgid "Imprimir los datos en el formato seleccionado"
+msgstr "Print data in selected format"
+
+#: agility/client/frm_clasificaciones2.php:224
+msgid ""
+"N&uacute;mero de la pegatina de comienzo de la impresi&oacute;n<br/> en la "
+"hoja de etiquetas"
+msgstr "Starting row on sticker&#8217;s sheet"
+
+#: agility/client/frm_clasificaciones2.php:225
+msgid "Lista de dorsales a imprimir, separados por comas"
+msgstr "Dorsal&#8217;s list to be printed, comma separated"
+
+#: agility/client/frm_clasificaciones2.php:237
+msgid "Actualizando resultados de la ronda..."
+msgstr "Updating round&#8217;s data..."
 
 #: agility/client/frm_login.php:32
 msgid "Algunas operaciones requieren la autenticaci&oacute;n del usuario."
@@ -991,11 +1160,6 @@ msgstr "Done"
 msgid "Perro"
 msgstr "Dog"
 
-#: agility/client/frm_equipos.inc:76
-#: agility/client/dialogs/dlg_newInscripcion.inc:160
-msgid "Gu&iacute;a"
-msgstr "Handler"
-
 #: agility/client/frm_equipos.inc:113
 msgid "Gesti&oacute;n de Equipos de la prueba"
 msgstr "Contest&#8217;s Team handling"
@@ -1047,6 +1211,39 @@ msgstr "Select new team"
 #: agility/client/frm_equipos.inc:244
 msgid "Asignar el participante al equipo seleccionado"
 msgstr "Assign to selected team"
+
+#: agility/client/dialogs/inforesultados.inc:42
+#: agility/client/dialogs/inforesultados.inc:50
+#: agility/client/dialogs/inforesultados.inc:58
+#: agility/client/dialogs/inforesultados.inc:66
+#: agility/client/dialogs/inforesultados.inc:93
+#: agility/client/dialogs/inforesultados.inc:101
+#: agility/client/dialogs/inforesultados.inc:109
+#: agility/client/dialogs/inforesultados.inc:117
+msgid "Obst&aacute;culos"
+msgstr "Obstacles"
+
+#: agility/client/dialogs/inforesultados.inc:43
+#: agility/client/dialogs/inforesultados.inc:51
+#: agility/client/dialogs/inforesultados.inc:59
+#: agility/client/dialogs/inforesultados.inc:67
+#: agility/client/dialogs/inforesultados.inc:94
+#: agility/client/dialogs/inforesultados.inc:102
+#: agility/client/dialogs/inforesultados.inc:110
+#: agility/client/dialogs/inforesultados.inc:118
+msgid "TRS"
+msgstr "SCT"
+
+#: agility/client/dialogs/inforesultados.inc:44
+#: agility/client/dialogs/inforesultados.inc:52
+#: agility/client/dialogs/inforesultados.inc:60
+#: agility/client/dialogs/inforesultados.inc:68
+#: agility/client/dialogs/inforesultados.inc:95
+#: agility/client/dialogs/inforesultados.inc:103
+#: agility/client/dialogs/inforesultados.inc:111
+#: agility/client/dialogs/inforesultados.inc:119
+msgid "TRM"
+msgstr "MCT"
 
 #: agility/client/dialogs/dlg_equipos.inc:26
 msgid "Datos del equipo"

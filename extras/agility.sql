@@ -1067,6 +1067,8 @@ CREATE TABLE IF NOT EXISTS `jornadas` (
   `ID` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL DEFAULT '1',
   `Numero` int(4) NOT NULL,
+  `SlaveOf` int(4) NOT NULL DEFAULT '0',
+  `Extra` int(4) NOT NULL DEFAULT '0',
   `Nombre` varchar(255) NOT NULL,
   `Fecha` date NOT NULL,
   `Hora` time NOT NULL,

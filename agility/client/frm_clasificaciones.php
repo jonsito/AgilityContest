@@ -14,7 +14,13 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
-<?php $allowClosed=1; require_once("dialogs/dlg_selectJornada.inc")?>
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
+$allowClosed=1; 
+require_once(__DIR__."/dialogs/dlg_selectJornada.inc");
+?>
 
 <script type="text/javascript">
 
@@ -33,7 +39,7 @@ $('#seljornada-window').window({
 		if (workingData.datosJornada.Equipos4==1) page="/agility/client/resultados_eq4.php";
 		if (workingData.datosJornada.Open==1) page="/agility/client/frm_clasificaciones2.php";
 		if (workingData.datosJornada.KO==1) page="/agility/client/resultados_ko.php";
-		loadContents(page,'Resultados y Clasificaciones');
+		loadContents(page,'<?php _e('Resultados y Clasificaciones');?>');
 	} 
 });
 
