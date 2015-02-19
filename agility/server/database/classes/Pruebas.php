@@ -124,8 +124,6 @@ class Pruebas extends DBObject {
 		$res=$this->query("DELETE FROM Resultados WHERE ( Prueba=$id)");
 		// Borramos inscripciones de esta prueba
 		$res=$this->query("DELETE FROM Inscripciones WHERE ( Prueba=$id)");
-		// Borramos equipos de esta prueba
-		$res=$this->query("DELETE FROM Equipos WHERE ( Prueba=$id)");
 		// Borramos las jornadas (y mangas) de esta prueba
 		$j=new Jornadas("Pruebas.php",$id);
 		$j->deleteByPrueba();
