@@ -4,7 +4,6 @@ DONE- implement addGuiaToClub() editGuiaFromClub()
 - collapse dog subform before delete guia
 DONE - add "pagado" field to inscripciones
 DONE - Do not delete "closed" jornadas; just move to "-- Sin Asignar --" Prueba
-DONE - AddJornadaToPrueba no pone bien la fecha
 DONE - after insert/update/delete jornadasbyprueba no actualiza contenido
 DONE - En prueba por equipos no permitir pruebas adicionales
 DONE - En prueba K.O. no permitir pruebas adicionales

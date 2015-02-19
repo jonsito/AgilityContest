@@ -54,12 +54,6 @@ class Pruebas extends DBObject {
 		$pruebaid=$this->conn->insert_id;
 		$stmt->close();
 		
-		// create default 'Equipos' entry for this contest
-		$str="INSERT INTO Equipos (Prueba,Nombre,Observaciones)
-				VALUES ($pruebaid,'-- Sin asignar --','NO BORRAR: PRUEBA $pruebaid - Equipo por defecto' )";
-		$res=$this->query($str);
-		if (!$res) return $this->error($this->conn->error);
-		
 		// create eight journeys per contest
 		for ($n=1;$n<9;$n++) {
 			$sql ="INSERT INTO Jornadas (Prueba,Numero,Nombre,Fecha,Hora)
@@ -68,7 +62,14 @@ class Pruebas extends DBObject {
 			if (!$res) return $this->error($this->conn->error);
 			// retrieve ID of inserted jornada
 			$jornadaid=$this->conn->insert_id;
-			// and regenerate Orden_Tandas field
+			
+			// create default team for each journey
+			$str="INSERT INTO Equipos (Prueba,Jornada,Nombre,Observaciones)
+			VALUES ($pruebaid,$jornadaid,'-- Sin asignar --','NO BORRAR: PRUEBA $pruebaid JORNADA $jornadaid - Equipo por defecto' )";
+			$res=$this->query($str);
+			if (!$res) return $this->error($this->conn->error);
+			
+			// regenerate Orden_Tandas field
 			$ot=new Tandas("Pruebas::Insert()",$pruebaid,$jornadaid);
 			$ot->populateJornada();
 		}

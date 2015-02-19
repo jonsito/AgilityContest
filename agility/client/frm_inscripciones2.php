@@ -73,7 +73,7 @@ $config =new Config();
 </div> 
 
 <!-- PANEL INFORMATIVO SOBRE LAS INSCRIPCIONES -->
-<div id="inscripciones-list" class="easyui-panel" style="width:100%;height:450px"
+<div id="inscripciones-list" class="easyui-panel" style="width:100%;height:400px"
 	data-options="noHeader:true,border:true,closable:false,collapsible:false,collapsed:false">
 	<!-- DECLARACION DE LA TABLA DE INSCRIPCIONES -->
 	<table id="inscripciones-datagrid"></table>
@@ -222,7 +222,6 @@ $('#inscripciones-datagrid').datagrid({
         { field:'Prueba',	hidden:true }, // prueba ID
         { field:'Jornadas',	hidden:true }, // bitmask de jornadas inscritas
         { field:'Perro',	hidden:true }, // dog ID
-        { field:'Equipo',	hidden:true }, // only used on Team contests
         { field:'Pagado', 	hidden:true }, // to store if handler paid :-)
         { field:'Guia', 	hidden:true }, // Guia ID
         { field:'Club',		hidden:true }, // Club ID
@@ -235,7 +234,6 @@ $('#inscripciones-datagrid').datagrid({
     	{ field:'Grado',	width:6,  sortable:true, align: 'center',  	title: '<?php _e('Grado');?>' },
     	{ field:'NombreGuia',	width:25, sortable:true, align: 'right',	title: '<?php _e('Guía');?>' },
     	{ field:'NombreClub',	width:15, sortable:true, align: 'right',	title: '<?php _e('Club');?>' },
-    	{ field:'NombreEquipo',	width:15, sortable:true, align: 'right',	title: '<?php _e('Equipo');?>' },
     	{ field:'Observaciones',width:10,            title: '<?php _e('Observaciones');?>' },
     	{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	 title: '<?php _e('Celo');?>' },
         { field:'J1',		width:2, align:'center', formatter: formatOk,	 title: 'J1'},

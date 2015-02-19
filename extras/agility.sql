@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `equipos` (
 --
 
 INSERT INTO `equipos` (`ID`, `Prueba`,`Jornada`, `Nombre`, `Observaciones`) VALUES
-(1, 6, 35, '-- Sin asignar --', 'NO BORRAR: PRUEBA 6 JORNADA - Equipo por defecto');
+(1, 6, 35, '-- Sin asignar --', 'NO BORRAR: PRUEBA 6 JORNADA 35 - Equipo por defecto');
 
 -- --------------------------------------------------------
 

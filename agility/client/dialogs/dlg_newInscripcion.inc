@@ -65,11 +65,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	<input id="new_inscripcion-J8" 			name="J8" class="easyui-checkbox" type="checkbox" value="128" onclick="evalJornadas(this);"/>
        		<label id="new_inscripcion-J8lbl" 		for="J8">8</label>
         </span>
-        <span style="float:right;padding:5px">  
-        	<label id="new_inscripcion_Equipolbl"	for="Equipo"><?php _e('Equipo');?>: </label>       	    
-        	<span id="new_inscripcion-Equiposp">
-        	   	<select id="new_inscripcion-Equipo" name="Equipo" style="width:130px"></select>
-        	</span>
+        <span style="float:right;padding:5px">
         	<label id="new_inscripcion-Celolbl"	for="Celo"><?php _e('Celo');?>:</label>
    			<input id="new_inscripcion-Celo" type="hidden" name="Celo" value="0"/>
         	<input id="new_inscripcion-Celo2"		name="Celo2" class="easyui-checkbox" type="checkbox" value="1" 
@@ -82,9 +78,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 <div id="new_inscripcion-buttons" style="width:100%;display:inline-block">
    	<span style="float:left">
-   		<a id="new_inscripcion-teamBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-huella'"
-   			onclick="newTeam2('#new_inscripcion-Equipo','nuevo equipo')"><?php _e('Nuevo Equipo');?></a>
    		<a id="new_inscripcion-dogBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-dog'"
    			onclick="newDog('#new_inscripcion-datagrid',$('#new_inscripcion-search').val())"><?php _e('Nuevo Perro');?></a>
@@ -172,27 +165,6 @@ $('#new_inscripcion-datagrid').datagrid({
 	selectOnNavigation: false
 });
 
-// busqueda dinamica de equipo
-$('#new_inscripcion-Equipo').combogrid({
-	panelWidth: 300,
-	panelHeight: 100,
-	idField: 'ID',
-	textField: 'Nombre',
-	url: '/agility/server/database/equiposFunctions.php?Operation=enumerate&Prueba='+workingData.prueba,
-	method: 'get',
-	mode: 'remote',
-	required: true,
-	columns: [[
-	   	{field:'ID',hidden:'true'},
-		{field:'Prueba',hidden:'true'},
-		{field:'Nombre',title:'<?php _e('Nombre');?>',width:20,align:'right'},
-		{field:'Observaciones',title:'<?php _e('Observaciones');?>',width:40,align:'right'},
-	]],
-	multiple: false,
-	fitColumns: true,
-	selectOnNavigation: false
-});
-
 // setup form on windows open
 function newInscripcion_onOpenSuccess() {
     // retrieve info on jornadas
@@ -249,8 +221,6 @@ function newInscripcion_onOpenSuccess() {
 	if ( canInscribe(jornadas[6]) ) val+=64;
 	if ( canInscribe(jornadas[7]) ) val+=128;
 	$('#new_inscripcion-Jornadas').val(val);
-	// select up default team (as alphabetic order '-- Sin asignar --' comes first :-)
-	$('#new_inscripcion-Equipo').combogrid('grid').datagrid('selectRow',0);
 	// validation flag makes this tooltip disappear, so reinit on every window open
 	addTooltip($('#new_inscripcion-search').linkbutton(),"<?php _e('Buscar posibles participantes<br /> que coincidan con el criterio de busqueda')?>"); 
 }
@@ -259,9 +229,7 @@ function newInscripcion_onOpenSuccess() {
 addTooltip($('#new_inscripcion-okBtn').linkbutton(),"<?php _e('Inscribir el/los perro(s) seleccionado(s) en la prueba');?>"); 
 addTooltip($('#new_inscripcion-doneBtn').linkbutton(),"<?php _e('Cerrar la ventana<br /> Volver a la ventana de gesti&oacute;n de inscripciones');?>");
 addTooltip($('#new_inscripcion-reloadBtn').linkbutton(),"<?php _e('Borrar selecci&oacute;n. Refrescar lista');?>");
-addTooltip($('#new_inscripcion-teamBtn').linkbutton(),"<?php _e('Definir un nuevo equipo en esta prueba');?>");
 addTooltip($('#new_inscripcion-dogBtn').linkbutton(),"<?php _e('Dar de alta un nuevo perro en la Base de Datos');?>");
-addTooltip($('#new_inscripcion-Equipo').combogrid('textbox'),"<?php _e('Seleccionar el equipo <br />en el que se inscriben el/los perros marcados');?>");
 
 //ventana y barra de progreso de las inscripciones
 $('#new_inscripcion-progressbar').progressbar({

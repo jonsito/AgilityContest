@@ -114,17 +114,6 @@ function deletePrueba(dg){
 // ***** gestion de jornadas	*********************************************************
 
 /**
- * Abre el formulario para jornadas a una prueba
- *@param prueba objeto que contiene los datos de la prueba
- */
-function addJornadaToPrueba(prueba) {
-	$('#jornadas-dialog').dialog('open').dialog('setTitle','A&ntilde;adir jornada a la prueba '+prueba.Nombre);
-	$('#jornadas-form').form('clear');
-	$('#jornadas-Prueba').val(prueba.ID);
-	$('#jornadas-Operation').val('insert');
-}
-
-/**
  * Edita la jornada seleccionada
  *@param pruebaID objeto que contiene los datos de la prueba
  *@param datagridID identificador del datagrid del que se toman los datos
@@ -182,33 +171,6 @@ function closeJornadaFromPrueba(pruebaID,datagridID) {
     	    	}
     		});
     w.window('resize',{width:400,height:150}).window('center');
-}
-
-/**
- * Quita la asignacion de la jornada indicada a la prueba asignada
- *@prueba objeto que contiene los datos de la prueba
- */
-function delJornadaFromPrueba(prueba,datagridID) {
-	var row= $(datagridID).datagrid('getSelected');
-    if (!row) {
-    	$.messager.alert("No selection","!No ha seleccionado ninguna jornada!","warning");
-    	return; // no hay ninguna jornada seleccionada. retornar
-    }
-    if (prueba.Cerrada==true) {
-        $.messager.show({width:300,heigh:200,title: 'Error',msg: 'No se pueden borrar jornadas de una prueba cerrada'});
-    }
-    $.messager.confirm('Confirm',"Borrar Jornada '"+row.ID+"' de la prueba '"+prueba.Nombre+"' ¿Seguro?'",function(r){
-        if (r){
-            $.get('/agility/server/database/jornadaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
-                if (result.success){
-                    $(datagridID).datagrid('reload');    // reload the pruebas data
-                    // $('#jornadas-datagrid-'+prueba.ID).datagrid('reload');    // reload the pruebas data
-                } else {
-                    $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
-                }
-            },'json');
-        }
-    });
 }
 
 /**

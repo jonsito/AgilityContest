@@ -75,21 +75,6 @@ function newTeam(dg,def,onAccept){
 	if (onAccept!==undefined)$('#team_edit_dialog-okBtn').one('click',onAccept);
 }
 
-/* same as newTeam, but using a combogrid as parent element */
-function newTeam2(cg,def){
-    var idprueba=$(cg).combogrid('grid').datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
-	if (!hasTeamEvents(idprueba)) {
-    	$.messager.alert("Error:","<?php _e('Esta prueba no tiene declaradas competiciones por equipos');?>","info");
-    	return; //
-	}
-    $('#team_edit_dialog').dialog('open').dialog('setTitle','<?php _e('A&ntilde;adir nuevo equipo');?>');
-    $('#team_edit_dialog-form').form('clear');
-    if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill team Name
-    $('#team_edit_dialog-Operation').val('insert');
-    $('#team_edit_dialog-Prueba').val(idprueba.Prueba);
-    $('#team_edit_dialog-okBtn').one('click',function() {$('#team_edit_dialog').dialog('close');});
-}
-
 /**
  * Open dialogo de modificacion de equipos
  * @param {string} dg datagrid ID de donde se obtiene el equipo a editar
