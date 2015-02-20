@@ -115,13 +115,10 @@ function deletePrueba(dg){
 
 /**
  * Edita la jornada seleccionada
- *@param pruebaID objeto que contiene los datos de la prueba
  *@param datagridID identificador del datagrid del que se toman los datos
+ *@param data datos de la jornada
  */
-function editJornadaFromPrueba(pruebaID,datagridID) {
-	// obtenemos datos de la JORNADA seleccionada
-	var row= $(datagridID).datagrid('getSelected');
-    // var row = $('#jornadas-datagrid-'+prueba.ID).datagrid('getSelected');
+function editJornadaFromPrueba(pruebaID,row) {
     if (!row) {
     	$.messager.alert("No selection","!No ha seleccionado ninguna jornada!","warning");
     	return; // no hay ninguna jornada seleccionada. retornar

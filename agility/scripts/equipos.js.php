@@ -33,9 +33,9 @@ function buscaEquipos() {
  * Tip: Instead of calling database, just analyze events datagrid
  * 
  * @param {integer} prueba PruebaID
- * @return true: has Team events; otherwise false
+ * @return {object} jornadaid:nombre
  */
-function hasTeamEvents(prueba) {
+function getTeamEvents(prueba) {
 	var rows=$('#inscripciones-jornadas').datagrid('getRows');
 	for (var n=0; n<rows.length; n++) {
 		if ( parseInt(rows[n].Equipos3)==1) return true;

@@ -140,7 +140,7 @@ $('#resultadosmanga-datagrid').datagrid({
 });
 
 //Activa tecla ESC (escape) para cerrar ventana,up,down y control+enter para ver fila
-addSimpleKeyHandler('#resultadosmanga-datagrid','#resultadosmanga-dialog');
+addSimpleKeyHandler('#resultadosmanga-datagrid');
 //- botones del panel de resultados de la manga
 addTooltip($('#resultadosmanga-reloadBtn').linkbutton(),"Actualizar datos de la manga/categoria seleccionada");
 addTooltip($('#resultadosmanga-printBtn').linkbutton(),"Imprimir resultados de la manga");

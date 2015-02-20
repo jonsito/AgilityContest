@@ -101,8 +101,8 @@ $config =new Config();
     		data-options="iconCls:'icon-huella'" 
     		onclick="openTeamWindow(workingData.prueba)"><?php _e('Equipos');?></a>
     	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton"
-    		data-options="iconCls:'icon-print'" onclick="printInscripciones();"
-    		><?php _e('Imprimir');?></a>
+    		data-options="iconCls:'icon-print'" 
+    		onclick="printInscripciones();"><?php _e('Imprimir');?></a>
    		<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-brush'"
    			onclick="
@@ -165,32 +165,8 @@ $('#inscripciones-jornadas').datagrid({
     rowStyler:myRowStyler,
 	// on double click fireup editor dialog
 	onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-    	editJornadaFromPrueba(workingData.prueba,'#inscripciones-jornadas');
+    	editJornadaFromPrueba('#inscripciones-jornadas',row);
 	}
-});
-
-//activa teclas up/down para navegar por el panel de gestion de jornadas
-$('#inscripciones-jornadas').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-    function selectRow(t,up){
-    	var count = t.datagrid('getRows').length;    // row count
-    	var selected = t.datagrid('getSelected');
-    	if (selected){
-        	var index = t.datagrid('getRowIndex', selected);
-        	index = index + (up ? -1 : 1);
-        	if (index < 0) index = 0;
-        	if (index >= count) index = count - 1;
-        	t.datagrid('clearSelections');
-        	t.datagrid('selectRow', index);
-    	} else {
-        	t.datagrid('selectRow', (up ? count-1 : 0));
-    	}
-	}
-	var t = $('#inscripciones-jornadas');
-    switch(e.keyCode){
-    case 38:	/* Up */	selectRow(t,true); return false;
-    case 40:    /* Down */	selectRow(t,false); return false;
-    case 13:	/* Enter */	editJornadaFromPrueba(workingData.prueba,'#inscripciones-jornadas'); return false;
-    }
 });
 
 // datos de la tabla de inscripciones
@@ -253,8 +229,10 @@ $('#inscripciones-datagrid').datagrid({
     }
 });
 
-// key handler
+// key handlers
+addSimpleKeyHandler('#inscripciones-jornadas',editJornadaFromPrueba);
 addKeyHandler('#inscripciones-datagrid',newInscripcion,editInscripcion,deleteInscripcion);
+
 // tooltips
 addTooltip($('#inscripciones-newBtn').linkbutton(),"<?php _e('Registrar nueva(s) inscripciones');?>"); 
 addTooltip($('#inscripciones-editBtn').linkbutton(),"<?php _e('Modificar la inscripción seleccionada');?>");

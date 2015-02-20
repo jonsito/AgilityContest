@@ -105,7 +105,7 @@ $('#ordensalida-datagrid').datagrid({
 });
 
 //activa teclas up/down para navegar por el panel , esc para cerrar y ctrl+shift+enter para ver fila
-addSimpleKeyHandler('#ordensalida-datagrid','#ordensalida-dialog');
+addSimpleKeyHandler('#ordensalida-datagrid');
 
 // botones
 addTooltip($('#ordensalida-checkBtn').linkbutton(),"Verificar 'alertas de proximidad' <br/>entre perros del mismo gu&iacute;a");
