@@ -45,7 +45,7 @@ $config =new Config();
    			onclick="
    	        	// clear selection and reload table
    	    		$('#team_datagrid-search').val('---- Buscar ----');	
-   	            $('#team_datagrid').datagrid('load',{ where: '' });"
+   	            $('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});"
    			><?php _e('Limpiar');?></a>
    	</span>
 </div>
@@ -119,7 +119,7 @@ $('#team_datagrid-dialog').dialog({
 $('#team_datagrid').datagrid({
 	fit: true,
 	url: '/agility/server/database/equiposFunctions.php',
-	queryParams: { Operation:'select', Prueba: workingData.prueba, where: ''	},
+	queryParams: { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''	},
 	loadMsg: '<?php _e('Actualizando lista de equipos ...');?>',
     footer: '#team_datagrid-buttons',
     toolbar: '#team_datagrid-toolbar',
@@ -131,8 +131,10 @@ $('#team_datagrid').datagrid({
     columns: [[
         { field:'ID',			hidden:true },
         { field:'Prueba',		hidden:true },
+        { field:'Jornada',		hidden:true },
         { field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Nombre');?>' },
-        { field:'Observaciones',width:80, sortable:true,	title: '<?php _e('Observaciones');?>'}
+        { field:'Categorias',	width:15, sortable:true,	title: '<?php _e('Categor&iacute;as');?>' },
+        { field:'Observaciones',width:65, sortable:true,	title: '<?php _e('Observaciones');?>'}
     ]],
     pagination: false,
     rownumbers: true,
@@ -176,7 +178,7 @@ function showInscripcionesByTeam(index,team){
         rownumbers: false,
 	    loadMsg: '<?php _e('Leyendo inscripciones....');?>',
 		url: '/agility/server/database/inscripcionFunctions.php',
-		queryParams: { Operation: 'inscritosbyteam', Prueba: workingData.prueba, Equipo: team.ID },
+		queryParams: { Operation: 'inscritosbyteam', Prueba:workingData.prueba, Jornada:workingData.jornada, Equipo: team.ID },
 		method: 'get',
 	    columns: [[
 	            { field:'ID',		hidden:true }, // inscripcion ID
@@ -250,7 +252,7 @@ $('#selteam-Equipo').combogrid({
 	idField: 'ID',
 	textField: 'Nombre',
 	url: '/agility/server/database/equiposFunctions.php',
-	queryParams: { Operation:'select', Prueba: workingData.prueba, where: ''	},
+	queryParams: { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where: '' },
 	loadMsg: '<?php _e('Actualizando lista de equipos ...');?>',
 	method: 'get',
 	mode: 'remote',

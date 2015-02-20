@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-02-20 11:11+0100\n"
-"PO-Revision-Date: 2015-02-20 11:12+0100\n"
+"POT-Creation-Date: 2015-02-20 14:11+0100\n"
+"PO-Revision-Date: 2015-02-20 14:11+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: jantonio <juansgaviota@gmail.com>\n"
 "Language: English\n"
@@ -186,9 +186,9 @@ msgstr "Score"
 #: agility/client/frm_guias.php:135 agility/client/frm_inscripciones.php:74
 #: agility/client/frm_clasificaciones2.php:80
 #: agility/client/frm_clasificaciones2.php:193
-#: agility/client/frm_equipos.inc:134 agility/client/frm_equipos.inc:194
-#: agility/client/frm_equipos.inc:262
-#: agility/client/dialogs/dlg_equipos.inc:32
+#: agility/client/frm_equipos.inc:135 agility/client/frm_equipos.inc:196
+#: agility/client/frm_equipos.inc:264
+#: agility/client/dialogs/dlg_equipos.inc:33
 #: agility/client/dialogs/dlg_selectJornada.inc:82
 msgid "Nombre"
 msgstr "Name"
@@ -203,7 +203,7 @@ msgstr "Name"
 #: agility/server/pdf/print_entradaDeDatos.php:279
 #: agility/server/pdf/print_resultadosByManga.php:65
 #: agility/client/frm_inscripciones2.php:211
-#: agility/client/frm_equipos.inc:197
+#: agility/client/frm_equipos.inc:199
 msgid "Guía"
 msgstr "Handler"
 
@@ -308,7 +308,7 @@ msgstr "Global Accounting Info"
 #: agility/server/pdf/print_resultadosByManga.php:65
 #: agility/client/frm_inscripciones2.php:207
 #: agility/client/frm_clasificaciones2.php:79
-#: agility/client/frm_equipos.inc:193
+#: agility/client/frm_equipos.inc:195
 msgid "Dorsal"
 msgstr "Dorsal"
 
@@ -330,7 +330,7 @@ msgstr "Lic."
 #: agility/client/frm_inscripciones2.php:212 agility/client/frm_guias.php:89
 #: agility/client/frm_inscripciones.php:76
 #: agility/client/frm_clasificaciones2.php:85
-#: agility/client/frm_equipos.inc:81 agility/client/frm_equipos.inc:198
+#: agility/client/frm_equipos.inc:81 agility/client/frm_equipos.inc:200
 #: agility/client/dialogs/dlg_selectJornada.inc:84
 #: agility/client/dialogs/dlg_newInscripcion.inc:154
 msgid "Club"
@@ -342,7 +342,7 @@ msgstr "Cat."
 
 #: agility/server/pdf/print_inscritosByPrueba.php:502
 #: agility/client/frm_inscripciones2.php:210 agility/client/frm_guias.php:137
-#: agility/client/frm_equipos.inc:196
+#: agility/client/frm_equipos.inc:198
 #: agility/client/dialogs/dlg_newInscripcion.inc:152
 #: agility/client/dialogs/dlg_jornadas.inc:65
 #: agility/client/dialogs/dlg_jornadas.inc:71
@@ -356,7 +356,7 @@ msgstr "Grade"
 #: agility/server/pdf/print_entradaDeDatos.php:205
 #: agility/server/pdf/print_entradaDeDatos.php:281
 #: agility/client/frm_inscripciones2.php:214
-#: agility/client/frm_equipos.inc:201
+#: agility/client/frm_equipos.inc:203
 #: agility/client/dialogs/dlg_newInscripcion.inc:69
 msgid "Celo"
 msgstr "Heat"
@@ -370,9 +370,9 @@ msgstr "Heat"
 #: agility/client/frm_inscripciones2.php:213 agility/client/frm_guias.php:92
 #: agility/client/frm_inscripciones.php:77
 #: agility/client/frm_clasificaciones2.php:51
-#: agility/client/frm_equipos.inc:135 agility/client/frm_equipos.inc:200
-#: agility/client/frm_equipos.inc:263
-#: agility/client/dialogs/dlg_equipos.inc:37
+#: agility/client/frm_equipos.inc:137 agility/client/frm_equipos.inc:202
+#: agility/client/frm_equipos.inc:265
+#: agility/client/dialogs/dlg_equipos.inc:46
 #: agility/client/dialogs/dlg_selectJornada.inc:85
 msgid "Observaciones"
 msgstr "Comments"
@@ -724,7 +724,7 @@ msgstr "Updating inscription&#8217;s data"
 
 #: agility/client/frm_inscripciones2.php:209 agility/client/frm_guias.php:136
 #: agility/client/frm_clasificaciones2.php:82
-#: agility/client/frm_equipos.inc:195
+#: agility/client/frm_equipos.inc:197
 #: agility/client/dialogs/dlg_newInscripcion.inc:151
 msgid "Cat"
 msgstr "Cat"
@@ -886,7 +886,7 @@ msgstr "Select working contest"
 msgid "Trabajar con la prueba seleccionada"
 msgstr "Operate with selected contest"
 
-#: agility/client/frm_inscripciones.php:60 agility/client/frm_equipos.inc:245
+#: agility/client/frm_inscripciones.php:60 agility/client/frm_equipos.inc:247
 #: agility/client/dialogs/dlg_selectJornada.inc:64
 msgid "Cancelar selecci&oacute;n. Cerrar ventana"
 msgstr "Cancel selection. Close window"
@@ -1122,7 +1122,7 @@ msgstr "Selected event has no team series declared"
 msgid "A&ntilde;adir nuevo equipo"
 msgstr "Add new Team"
 
-#: agility/scripts/equipos.js.php:77 agility/scripts/equipos.js.php:100
+#: agility/scripts/equipos.js.php:78 agility/scripts/equipos.js.php:105
 msgid "!No ha seleccionado ningun Equipo!"
 msgstr "There is no team selected!"
 
@@ -1134,27 +1134,27 @@ msgstr "Default team cannot be edited"
 msgid "Modificar datos del equipo"
 msgstr "Edit team information"
 
-#: agility/scripts/equipos.js.php:104
+#: agility/scripts/equipos.js.php:109
 msgid "El equipo por defecto NO se puede borrar"
 msgstr "Default team cannot be deleted"
 
-#: agility/scripts/equipos.js.php:108
-msgid "Esta operaci&oacute;n borrar&aacute; el equipo de la prueba"
-msgstr "This operation will remove team from the contest"
+#: agility/scripts/equipos.js.php:113
+msgid "Esta operaci&oacute;n borrar&aacute; el equipo de la jornada"
+msgstr "This operation will remove team from the event"
 
-#: agility/scripts/equipos.js.php:109
+#: agility/scripts/equipos.js.php:114
 msgid "y reasignar&aacute; los perros de &eacute;ste al equipo por defecto"
 msgstr "And reassign dogs to default team"
 
-#: agility/scripts/equipos.js.php:110
+#: agility/scripts/equipos.js.php:115
 msgid "Desea realmente eliminar el equipo"
 msgstr "Do you really want to remove selected team"
 
-#: agility/scripts/equipos.js.php:110
-msgid "de esta prueba"
-msgstr "on this contest"
+#: agility/scripts/equipos.js.php:115
+msgid "de esta jornada"
+msgstr "on this event"
 
-#: agility/scripts/equipos.js.php:158
+#: agility/scripts/equipos.js.php:174
 msgid "Debe indicar un equipo v&aacute;lida"
 msgstr "You should select a valid team"
 
@@ -1248,51 +1248,56 @@ msgstr "Team"
 msgid "Gesti&oacute;n de Equipos de la prueba"
 msgstr "Contest&#8217;s Team handling"
 
-#: agility/client/frm_equipos.inc:123 agility/client/frm_equipos.inc:254
+#: agility/client/frm_equipos.inc:123 agility/client/frm_equipos.inc:256
 msgid "Actualizando lista de equipos ..."
 msgstr "Updating Team&#8217;s list..."
 
-#: agility/client/frm_equipos.inc:155
+#: agility/client/frm_equipos.inc:136
+#: agility/client/dialogs/dlg_equipos.inc:38
+msgid "Categor&iacute;as"
+msgstr "Categories"
+
+#: agility/client/frm_equipos.inc:157
 msgid "Mostrar equipos que coincidan con el criterio de busqueda"
 msgstr "Look for teams that matches with search criteria"
 
-#: agility/client/frm_equipos.inc:156
+#: agility/client/frm_equipos.inc:158
 msgid "Declarar un nuevo equipo para la prueba"
 msgstr "Declare a new Team on this contest"
 
-#: agility/client/frm_equipos.inc:157
+#: agility/client/frm_equipos.inc:159
 msgid "Editar nombre/observaciones del equipo seleccionado"
 msgstr "Edit name/comments on selected team"
 
-#: agility/client/frm_equipos.inc:158
+#: agility/client/frm_equipos.inc:160
 msgid "Eliminar datos del equipo en la prueba"
 msgstr "Delete team data on this contest"
 
-#: agility/client/frm_equipos.inc:159
+#: agility/client/frm_equipos.inc:161
 msgid "Borrar casilla de busqueda. Actualizar listado de equipos"
 msgstr "Clear search dialog. Update team list"
 
-#: agility/client/frm_equipos.inc:160
+#: agility/client/frm_equipos.inc:162
 msgid "Comprobar equipos. Indicar los problemas encontrados"
 msgstr "Check declared teams. Show found problems"
 
-#: agility/client/frm_equipos.inc:161
+#: agility/client/frm_equipos.inc:163
 msgid "Cerrar la ventana. Volver al menu anterior"
 msgstr "Close window<br /> Return to last menu"
 
-#: agility/client/frm_equipos.inc:170
+#: agility/client/frm_equipos.inc:172
 msgid "Inscripciones registradas en el equipo"
 msgstr "List of inscriptions on this team"
 
-#: agility/client/frm_equipos.inc:177
+#: agility/client/frm_equipos.inc:179
 msgid "Leyendo inscripciones...."
 msgstr "Proccessing inscription(s)..."
 
-#: agility/client/frm_equipos.inc:234
+#: agility/client/frm_equipos.inc:236
 msgid "Selecciona nuevo equipo"
 msgstr "Select new team"
 
-#: agility/client/frm_equipos.inc:244
+#: agility/client/frm_equipos.inc:246
 msgid "Asignar el participante al equipo seleccionado"
 msgstr "Assign to selected team"
 
@@ -1333,20 +1338,20 @@ msgstr "MCT"
 msgid "Datos del equipo"
 msgstr "Team information"
 
-#: agility/client/dialogs/dlg_equipos.inc:46
+#: agility/client/dialogs/dlg_equipos.inc:55
 #: agility/client/dialogs/dlg_jornadas.inc:119
 msgid "Guardar"
 msgstr "Save"
 
-#: agility/client/dialogs/dlg_equipos.inc:48
+#: agility/client/dialogs/dlg_equipos.inc:57
 msgid "Cerrar"
 msgstr "Close"
 
-#: agility/client/dialogs/dlg_equipos.inc:71
+#: agility/client/dialogs/dlg_equipos.inc:81
 msgid "Registrar los datos del equipo.<br />Actualizar la BBDD"
 msgstr "Store team data. <br /> Update Data Base"
 
-#: agility/client/dialogs/dlg_equipos.inc:72
+#: agility/client/dialogs/dlg_equipos.inc:82
 msgid "Finalizar la operacion. Cerrar la ventana"
 msgstr "Cancel operation. Close window"
 

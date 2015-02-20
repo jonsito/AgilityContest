@@ -46,7 +46,7 @@ function openTeamWindow(pruebaID) {
 	// else marcamos jornada como activa y abrimos ventana
 	setJornada(row);
 	$('#team_datagrid-dialog').dialog('open');
-	$('#team_datagrid').datagrid('reload');
+	$('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
 }
 
 /**
@@ -56,12 +56,13 @@ function openTeamWindow(pruebaID) {
  *@param {function} onAccept what to do when a new team is created
  */
 function newTeam(dg,def,onAccept){
-	var idprueba=$(dg).datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
+	var firstRow=$(dg).datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
 	$('#team_edit_dialog').dialog('open').dialog('setTitle','<?php _e('A&ntilde;adir nuevo equipo');?>');
 	$('#team_edit_dialog-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill team Name
 	$('#team_edit_dialog-Operation').val('insert');
-	$('#team_edit_dialog-Prueba').val(idprueba.Prueba);
+	$('#team_edit_dialog-Prueba').val(firstRow.Prueba);
+	$('#team_edit_dialog-Jornada').val(firstRow.Jornada);
     // notice that on "new" window must be explicitely closed, so don't add close-on-ok() code
 	if (onAccept!==undefined)$('#team_edit_dialog-okBtn').one('click',onAccept);
 }
@@ -77,7 +78,6 @@ function editTeam(dg){
     	$.messager.alert("Edit Error:","<?php _e('!No ha seleccionado ningun Equipo!');?>","info");
     	return;
     }
-
     if (row.Nombre==="-- Sin asignar --") {
     	$.messager.alert("Edit Error:","<?php _e('El equipo por defecto NO se puede editar');?>","info");
     	return;
@@ -86,8 +86,13 @@ function editTeam(dg){
 	row.Operation="update";
     // tel window to be closed when "OK" clicked
     $('#team_edit_dialog-okBtn').one('click',function() {$('#team_edit_dialog').dialog('close');});
-    // and load team edit dialog with provided data
+    // load team edit dialog with provided data
     $('#team_edit_dialog-form').form('load',row);
+    // fill properly checkboxes
+    $('#team_edit_dialog-L').prop('checked',(row.Categorias.indexOf('L')<0)?false:true);
+    $('#team_edit_dialog-M').prop('checked',(row.Categorias.indexOf('M')<0)?false:true);
+    $('#team_edit_dialog-S').prop('checked',(row.Categorias.indexOf('S')<0)?false:true);
+    $('#team_edit_dialog-T').prop('checked',(row.Categorias.indexOf('T')<0)?false:true);
 }
 
 /**
@@ -105,19 +110,22 @@ function deleteTeam(dg){
     	return; // no way to know which prueba is selected
     }
     $.messager.confirm('Confirm',
-    		"<p><?php _e('Esta operaci&oacute;n borrar&aacute; el equipo de la prueba');?><br />"+
+    		"<p><?php _e('Esta operaci&oacute;n borrar&aacute; el equipo de la jornada');?><br />"+
     		"<?php _e('y reasignar&aacute; los perros de &eacute;ste al equipo por defecto');?></p>" +
-    		"<p><?php _e('Desea realmente eliminar el equipo');?> '"+row.Nombre+"' <?php _e('de esta prueba');?>?</p>",function(r){
+    		"<p><?php _e('Desea realmente eliminar el equipo');?> '"+row.Nombre+"' <?php _e('de esta jornada');?>?</p>",function(r){
         if (r){
-            $.get('/agility/server/database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba},function(result){
-                if (result.success){
-                    $(dg).datagrid('load');    // reload the prueba data 
-                    $('#new_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
-                    $('#edit_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
-                } else {
-                    $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
-                }
-            },'json');
+            $.get(
+            	'/agility/server/database/equiposFunctions.php',
+            	{Operation:'delete',ID:row.ID,Prueba:row.Prueba,Jornada:row.Jornada},
+            	function(result){
+                	if (result.success){
+                	    $(dg).datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});    // reload the prueba data 
+                	} else {
+                	    $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
+                	}
+            	},
+            	'json'
+            );
         }
     }).window({width:500});
 }
@@ -127,8 +135,16 @@ function deleteTeam(dg){
  * On success refresh every related datagrids
  */
 function saveTeam() {
+	// get and validate form data
     var frm = $('#team_edit_dialog-form');
     if (! frm.form('validate')) return;
+    // evaluate 'Categorias' field
+    var cat='';
+    if ( $('#team_edit_dialog-L').is(':checked') ) cat+='L';
+    if ( $('#team_edit_dialog-M').is(':checked') ) cat+='M';
+    if ( $('#team_edit_dialog-S').is(':checked') ) cat+='S';
+    if ( $('#team_edit_dialog-T').is(':checked') ) cat+='T';
+    $('#team_edit_dialog-Categorias').val(cat);
     $.ajax({
         type: 'GET',
         url: '/agility/server/database/equiposFunctions.php',
@@ -138,10 +154,8 @@ function saveTeam() {
             if (result.errorMsg){ 
             	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {// on submit success, reload results
-            	// on save done refresh related data/combo grids
-                $('#new_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
-                $('#edit_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
-                $('#team_datagrid').datagrid('load'); 
+            	$('#team_edit_dialog').dialog('close');
+                $('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''}); 
             }
         }
     });

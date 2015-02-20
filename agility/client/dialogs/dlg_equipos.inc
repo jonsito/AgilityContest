@@ -27,11 +27,20 @@ $config =new Config();
    	<form id="team_edit_dialog-form" class="easyui-form">
    		<input id="team_edit_dialog-ID" type="hidden" name="ID" value="0"/>
    		<input id="team_edit_dialog-Prueba" type="hidden" name="Prueba" value="0"/>
+   		<input id="team_edit_dialog-Jornada" type="hidden" name="Jornada" value="0"/>
    		<input id="team_edit_dialog-Operation" type="hidden" name="Operation" value="insert"/>
    	 	<div class="fitem">
 			<label for="Nombre" style="width:100px"><?php _e('Nombre');?>:</label>
 			<input id="team_edit_dialog-Nombre" name="Nombre" style="width:150px"
 				data-options="required:true,validType:'length[1,100]'"/>
+		</div>
+		<div class="fitem">
+			<label for="Categorias" style="width:100px"><?php _e('Categor&iacute;as');?>:</label>
+   			<input id="team_edit_dialog-Categorias" type="hidden" name="Categorias" value=""/>
+			<input type="checkbox" id="team_edit_dialog-L" name="L" value="L"/>Large
+			<input type="checkbox" id="team_edit_dialog-M" name="M" value="M"/>Medium
+			<input type="checkbox" id="team_edit_dialog-S" name="S" value="S"/>Small
+			<span id="team_edit_dialog-tiny"><input type="checkbox" id="team_edit_dialog-T" name="T" value="T"/>Tiny</span>
 		</div>
 		<div class="fitem">
 			<label for="Observaciones" style="width:100px"><?php _e('Observaciones');?>:</label>
@@ -60,7 +69,8 @@ $('#team_edit_dialog').dialog({
 	minimizable:false,
 	maximizable:false,
 	resizable:false,
-	buttons:'#team_dialog-buttons'
+	buttons:'#team_dialog-buttons',
+	onBeforeOpen:function(){ $('#team_edit_dialog-tiny').css('display',(workingData.datosPrueba.RSCE==0)?'none':'inherit');	}
 });
 
 $('#team_edit_dialog-Nombre').validatebox({

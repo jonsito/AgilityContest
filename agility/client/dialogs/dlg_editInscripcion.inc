@@ -57,10 +57,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <label id="edit_inscripcion-J7lbl" 		for="J7">J7</label>
             <input id="edit_inscripcion-J8" 		name="J8" class="easyui-checkbox" type="checkbox" value="128" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J8lbl" 		for="J8">J8</label>
-        	<label id="edit_inscripcion_Equipolbl"	for="Equipo">Equipo: </label>         	    
-            <span id="edit_inscripcion-Equiposp">
-            	<select id="edit_inscripcion-Equipo" 	name="Equipo" class="easyui-combogrid" style="width:130px"></select>
-            </span>
             <label id="edit_inscripcion-Celolbl"	for="Celo2">Celo:</label>
            	<input id="edit_inscripcion-Celo" 		name="Celo" type="hidden" value="0"/>
             <input id="edit_inscripcion-Celo2"		name="Celo2" class="easyui-checkbox" type="checkbox" value="1" />
@@ -148,26 +144,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     });
     
     // campos del formulario
-	
-    $('#edit_inscripcion-Equipo').combogrid({
-		panelWidth: 350,
-		panelHeight: 100,
-		idField: 'ID',
-		textField: 'Nombre',
-		url: '/agility/server/database/equiposFunctions.php?Operation=enumerate&Prueba='+workingData.prueba,
-		method: 'get',
-		mode: 'remote',
-		required: true,
-		columns: [[
-			{field:'ID',hidden:'true'},
-			{field:'Nombre',title:'Nombre',width:25,align:'right'},
-			{field:'Observaciones',title:'Observaciones',width:75,align:'right'}
-		]],
-		multiple: false,
-		fitColumns: true,
-		singleSelect: true,
-		selectOnNavigation: false
-    });
     
     function doMoney(obj) {
         // current values
@@ -213,8 +189,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	doLayout(dg,"#edit_inscripcion-J7lbl",			4,	7,	3,	1	);
 	doLayout(dg,"#edit_inscripcion-J8",				3,	8,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-J8lbl",			4,	8,	3,	1	);
-	doLayout(dg,"#edit_inscripcion_Equipolbl",		3,	9,	1,	1	);   	    
-	doLayout(dg,"#edit_inscripcion-Equiposp",		4,	9,	2,	1	); 
 	doLayout(dg,"#edit_inscripcion-Celolbl",		3,	10,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-Celo2",			4,	10,	1,	1	);
 	doLayout(dg,"#edit_inscripcion-Pagadolbl",		3,	11,	1,	1	);
