@@ -29,31 +29,22 @@ function buscaEquipos() {
 }
 
 /**
- * request if a contest has or not Team events
- * Tip: Instead of calling database, just analyze events datagrid
- * 
- * @param {integer} prueba PruebaID
- * @return {object} jornadaid:nombre
- */
-function getTeamEvents(prueba) {
-	var rows=$('#inscripciones-jornadas').datagrid('getRows');
-	for (var n=0; n<rows.length; n++) {
-		if ( parseInt(rows[n].Equipos3)==1) return true;
-		if ( parseInt(rows[n].Equipos4)==1) return true;
-	}
-	return false;
-}
-
-/**
  * Abre un dialogo para declarar un nuevo equipo para la prueba 
  */
 function openTeamWindow(pruebaID) {
-	// if no Team event declared in this contest refuse to open
-	if (!hasTeamEvents(pruebaID)) {
-    	$.messager.alert("Error:","<?php _e('Esta prueba no tiene declaradas competiciones por equipos');?>","info");
+	// buscamos la jornada seleccionada
+	var row=$('#inscripciones-jornadas').datagrid('getSelected');
+	// si no hay jornada por equipos seleccionada indicamos error
+	if (row===null) {
+		$.messager.alert("Error:","<?php _e('Debe seleccionar una jornada con competiciones por equipos');?>","error");
     	return;
 	}
-	// allright: open window
+	if ( (row.Equipos3==0) && (row.Equipos4==0) ) {
+		$.messager.alert("Error:","<?php _e('La jornada seleccionada no tiene competiciones por equipos');?>","error");
+    	return;
+	}
+	// else marcamos jornada como activa y abrimos ventana
+	setJornada(row);
 	$('#team_datagrid-dialog').dialog('open');
 	$('#team_datagrid').datagrid('reload');
 }

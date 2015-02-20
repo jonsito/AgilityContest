@@ -40,7 +40,7 @@ $config =new Config();
 	<div id="inscripciones-infolayout" class="easyui-layout" style="height:150px">
 	
 		<!-- PANEL IZQUIERDO: DATOS DE LA PRUEBA -->
-		<div data-options="region:'west',title:'<?php _e('Datos de la Prueba');?>',split:true,collapsed:false" 
+		<div data-options="region:'west',title:'<?php _e('Datos de la Prueba');?>',split:true,collapsed:false,collapsible:false" 
 			style="width:30%;padding:10px" class="c_inscripciones-datosprueba">
 			<form id="inscripciones-pruebas" method="get" >
 			<input type="hidden" name="ID"/>
@@ -119,7 +119,7 @@ $('#inscripciones-info').panel({
 	border:true,
 	closable:true,
 	closed:false,
-	collapsible:true,
+	collapsible:false,
 	collapsed:false,
 	// TODO: get this working :-(
 	// onExpand: function() {$('#inscripciones-list').panel('options').height='450px';},
@@ -134,7 +134,7 @@ $('#inscripciones-jornadas').datagrid({
 	fit: true,
 	border: false,
 	closable: false,
-	collapsible: true,
+	collapsible: false,
 	collapsed: false,
 	// propiedades especificas del datagrid
     pagination: false,
