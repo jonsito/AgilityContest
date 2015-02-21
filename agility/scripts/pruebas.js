@@ -163,7 +163,7 @@ function closeJornadaFromPrueba(pruebaID,datagridID) {
     	$.messager.alert("Invalid selection","No se puede cerrar una jornada que ya está marcada como cerrada","error");
         return;
     }
-    $.messager.defaults={ ok:"Cerrar", cancel:"Cancelar" };
+    // $.messager.defaults={ ok:"Cerrar", cancel:"Cancelar" };
     var w=$.messager.confirm(
     		"Aviso",
     		"Si marca una jornada como 'cerrada'<br />" +
