@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
+?>
+
 //***** gestion de pruebas		*********************************************************
 
 
@@ -53,10 +59,10 @@ function editPrueba(dg){
 	if ($('#pruebas-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","!No ha seleccionado ninga Prueba!","info");
+    	$.messager.alert("Edit Error:","!<?php _e('No ha seleccionado ninga Prueba');?>!","info");
     	return; // no way to know which prueba is selected
     }
-    $('#pruebas-dialog').dialog('open').dialog('setTitle','Modificar datos de la prueba');
+    $('#pruebas-dialog').dialog('open').dialog('setTitle','<?php _e('Modificar datos de la prueba');?>');
     $('#pruebas-form').form('load',row);
 }
 
@@ -92,13 +98,13 @@ function savePrueba() {
 function deletePrueba(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ninga Prueba!","info");
+    	$.messager.alert("Delete Error:","!<?php _e('No ha seleccionado ninga Prueba');?>!","info");
     	return; // no way to know which prueba is selected
     }
     $.messager.confirm('Confirm',
-    		"<p><strong>Importante:</strong></p>" +
-    		"<p>Si decide borrar la prueba <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta" +
-    		"</p><p>Desea realmente borrar la prueba seleccionada?</p>",function(r){
+    		"<p><strong><?php _e('Importante');?>:</strong></p>" +
+    		"<p><?php _e('Si decide borrar la prueba <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta');?>" +
+    		"</p><p><?php _e('Desea realmente borrar la prueba seleccionada');?>?</p>",function(r){
         if (r){
             $.get('/agility/server/database/pruebaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
@@ -120,11 +126,11 @@ function deletePrueba(dg){
  */
 function editJornadaFromPrueba(pruebaID,row) {
     if (!row) {
-    	$.messager.alert("No selection","!No ha seleccionado ninguna jornada!","warning");
+    	$.messager.alert("No selection","!<?php _e('No ha seleccionado ninga jornada');?>!","info");
     	return; // no hay ninguna jornada seleccionada. retornar
     }
     if (row.Cerrada==true) { // no permitir la edicion de pruebas cerradas
-    	$.messager.alert("Invalid selection","No se puede editar una jornada marcada como cerrada","error");
+    	$.messager.alert("Invalid selection","<?php _e('No se puede editar una jornada marcada como cerrada');?>","error");
         return;
     }
     // todo ok: abrimos ventana de dialogo
@@ -142,20 +148,18 @@ function closeJornadaFromPrueba(pruebaID,datagridID) {
 	var row= $(datagridID).datagrid('getSelected');
     // var row = $('#jornadas-datagrid-'+prueba.ID).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("No selection","!No ha seleccionado ninguna jornada!","warning");
+    	$.messager.alert("No selection","!<?php _e('No ha seleccionado ninga jornada');?>!","warning");
     	return; // no hay ninguna jornada seleccionada. retornar
     }
     if (row.Cerrada==true) { // no permitir la edicion de pruebas cerradas
-    	$.messager.alert("Invalid selection","No se puede cerrar una jornada que ya está marcada como cerrada","error");
+    	$.messager.alert("Invalid selection","<?php _e('No se puede cerrar una jornada que ya est&aacute; marcada como cerrada');?>","error");
         return;
     }
-    $.messager.defaults={ ok:"Cerrar", cancel:"Cancelar" };
     var w=$.messager.confirm(
-    		"Aviso",
-    		"Si marca una jornada como 'cerrada'<br />" +
-    		"no podrá modificar los datos de mangas, <br/>" +
-    		"inscripciones, o resultados<br />" +
-    		"¿Desea continuar?",
+    		"<?php _e('Aviso');?>",
+    		"<?php _e('Si marca una jornada como cerrada');?><br />" +
+    		"<?php _e('no podr&aacute; modificar los datos de mangas, <br/> inscripciones o resultados <br />');?>"
+    		"<?php _e('Desea continuar');?>?",
     		function(r) { 
     	    	if(r) {
     	            $.get('/agility/server/database/jornadaFunctions.php',{Operation:'close',ID:row.ID},function(result){
@@ -272,14 +276,14 @@ function checkPrueba(id,mask) {
 	// si estamos seleccionando una prueba ko/open/equipos, no permitir ninguna otra
 	if ( (mask & 0x01E0) != 0 ) {
 		if (mask!=pruebas) {
-			$.messager.alert('Error','Una prueba KO, un Open, o una prueba por equipos deben ser declaradas en jornadas independiente','error');
+			$.messager.alert('Error','<?php _e('Una ronda KO, un Open, o una prueba por equipos deben ser declaradas en jornadas independientes');?>','error');
 			$(id).prop('checked',false);
 			if (id==='#jornadas-EquiposChk') $('#jornadas-MangasEquipos').prop('disabled','disabled');
 			return;
 		}
 	} else {
 		if ( (pruebas & 0x01E0) != 0 ) {
-			$.messager.alert('Error','No se pueden añadir pruebas adicionales si hay declarado un Open, una jornada KO o una prueba por Equipos','error');
+			$.messager.alert('Error','<?php _e('No se pueden añadir rondas adicionales si hay declarado un Open, una ronda KO o una ronda por Equipos');?>','error');
 			$(id).prop('checked',false);
 			if (id==='#jornadas-PreAgilityChk') $('#jornadas-MangasPreAgility').prop('disabled','disabled');
 			if (id==='#jornadas-Especial') $('#jornadas-Observaciones').prop('disabled','disabled');

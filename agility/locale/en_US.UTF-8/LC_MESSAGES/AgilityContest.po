@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-02-20 14:11+0100\n"
-"PO-Revision-Date: 2015-02-20 14:11+0100\n"
+"POT-Creation-Date: 2015-02-23 09:13+0100\n"
+"PO-Revision-Date: 2015-02-23 09:20+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: jantonio <juansgaviota@gmail.com>\n"
 "Language: English\n"
@@ -1082,6 +1082,77 @@ msgstr "Terminate current user session"
 msgid "Cancelar cierre de sesion. Cerrar ventana"
 msgstr "Cancel terminate session. Close window"
 
+#: agility/scripts/pruebas.js.php:62 agility/scripts/pruebas.js.php:101
+msgid "No ha seleccionado ninga Prueba"
+msgstr "There is no contest selected!"
+
+#: agility/scripts/pruebas.js.php:65
+msgid "Modificar datos de la prueba"
+msgstr "Edit contest information"
+
+#: agility/scripts/pruebas.js.php:105 agility/scripts/inscripciones.js.php:88
+msgid "Importante"
+msgstr "Important"
+
+#: agility/scripts/pruebas.js.php:106
+msgid ""
+"Si decide borrar la prueba <b>se perder&aacute;n</b> todos los datos y "
+"resultados de &eacute;sta"
+msgstr ""
+"If You delete this contest, You'll loose every related results and data on it"
+
+#: agility/scripts/pruebas.js.php:107
+msgid "Desea realmente borrar la prueba seleccionada"
+msgstr "Do you really want to remove selected contest?"
+
+#: agility/scripts/pruebas.js.php:129 agility/scripts/pruebas.js.php:151
+msgid "No ha seleccionado ninga jornada"
+msgstr "There is no event selected!"
+
+#: agility/scripts/pruebas.js.php:133
+msgid "No se puede editar una jornada marcada como cerrada"
+msgstr "You cannot modify an event declared as &#8217;closed&#8217;"
+
+#: agility/scripts/pruebas.js.php:155
+msgid "No se puede cerrar una jornada que ya est&aacute; marcada como cerrada"
+msgstr "You cannot close an already closed event"
+
+#: agility/scripts/pruebas.js.php:159
+msgid "Aviso"
+msgstr "Warning"
+
+#: agility/scripts/pruebas.js.php:160
+msgid "Si marca una jornada como cerrada"
+msgstr "If you close an event"
+
+#: agility/scripts/pruebas.js.php:161
+msgid ""
+"no podr&aacute; modificar los datos de mangas, <br/> inscripciones o "
+"resultados <br />"
+msgstr ""
+"No data, inscriptions nor result on this event will be longer available to "
+"be modified <br />"
+
+#: agility/scripts/pruebas.js.php:162
+msgid "Desea continuar"
+msgstr "Continue"
+
+#: agility/scripts/pruebas.js.php:279
+msgid ""
+"Una ronda KO, un Open, o una prueba por equipos deben ser declaradas en "
+"jornadas independientes"
+msgstr ""
+"A K.O. series, an Open event, or a team round must be declared as separate "
+"events"
+
+#: agility/scripts/pruebas.js.php:286
+msgid ""
+"No se pueden añadir rondas adicionales si hay declarado un Open, una ronda "
+"KO o una ronda por Equipos"
+msgstr ""
+"You cannot declare aditional series if there is an Open, K.O round <br />or "
+"team events already declared in this event"
+
 #: agility/scripts/auth.js.php:41
 msgid "Acceso directo a la Base de Datos"
 msgstr "Direct access to DataBase manager"
@@ -1154,7 +1225,7 @@ msgstr "Do you really want to remove selected team"
 msgid "de esta jornada"
 msgstr "on this event"
 
-#: agility/scripts/equipos.js.php:174
+#: agility/scripts/equipos.js.php:172
 msgid "Debe indicar un equipo v&aacute;lida"
 msgstr "You should select a valid team"
 
@@ -1166,10 +1237,6 @@ msgstr "Register new inscription(s)"
 #: agility/scripts/inscripciones.js.php:84
 msgid "!No ha seleccionado ninguna inscripción!"
 msgstr "There is no inscription selected!"
-
-#: agility/scripts/inscripciones.js.php:88
-msgid "Importante"
-msgstr "Important"
 
 #: agility/scripts/inscripciones.js.php:89
 msgid "Si decide borrar la inscripci&oacute;n"
