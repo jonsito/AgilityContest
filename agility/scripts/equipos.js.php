@@ -75,7 +75,7 @@ function editTeam(dg){
 	if ($('#team_datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","<?php _e('!No ha seleccionado ningun Equipo!');?>","info");
+    	$.messager.alert("Edit Error:","<?php _e('No ha seleccionado ning&uacute;n Equipo');?>","info");
     	return;
     }
     if (row.Nombre==="-- Sin asignar --") {
@@ -102,7 +102,7 @@ function editTeam(dg){
 function deleteTeam(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","<?php _e('!No ha seleccionado ningun Equipo!');?>","info");
+    	$.messager.alert("Delete Error:","<?php _e('No ha seleccionado ning&uacute;n Equipo');?>","info");
     	return; // no way to know which prueba is selected
     }
     if (row.Nombre==="-- Sin asignar --") {
@@ -169,7 +169,7 @@ function changeTeam() {
 	var p=$('#selteam-Equipo').combogrid('grid').datagrid('getSelected');
 	if (p==null) {
 		// indica error
-		$.messager.alert("Error","<?php _e('Debe indicar un equipo v&aacute;lida');?>","error");
+		$.messager.alert("Error","<?php _e('Debe indicar un equipo v&aacute;lido');?>","error");
 		return;
 	}
     var frm = $('#selteam-Form');

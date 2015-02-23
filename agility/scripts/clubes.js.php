@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
+?>
+
 // ***** gestion de clubes		*********************************************************
 
 /**
@@ -110,7 +116,7 @@ function editClub(dg){
 	if ($('#clubes-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Update Error:","!No ha seleccionado ningún Club!","warning");
+    	$.messager.alert("Update Error:","!<?php _e('No ha seleccionado ning&uacute;n Club');?>!","warning");
     	return; // no way to know which dog is selected
     }
     row.Operation='update';
@@ -118,7 +124,7 @@ function editClub(dg){
     var time=new Date().getTime();
 	var nombre="/agility/server/database/clubFunctions.php?Operation=getlogo&ID="+row.ID+"&time="+time;
     $('#clubes-Logo').attr("src",nombre);
-    $('#clubes-dialog').dialog('open').dialog('setTitle','Modificar datos del club');
+    $('#clubes-dialog').dialog('open').dialog('setTitle','<?php _e('Modificar datos del club');?>');
     $('#clubes-form').form('load',row);
 }
 
@@ -154,14 +160,14 @@ function saveClub(){
 function deleteClub(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Club!","warning");
+    	$.messager.alert("Delete Error:","!<?php _e('No ha seleccionado ning&uacute;n Club');?>!","warning");
     	return; // no way to know which dog is selected
     }
     if (row.ID==1) {
-    	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
+    	$.messager.alert("Delete Error:","<?php _e('Esta entrada no se puede borrar');?>","error");
     	return; // cannot delete default club
     }
-    $.messager.confirm('Confirm','Borrar el club "'+row.Nombre+'" de la base de datos ¿Seguro?',function(r){
+    $.messager.confirm('Confirm','<?php _e('Borrar el club');?> "'+row.Nombre+'" <?php _e('de la base de datos');?>< br/><?php _e('Seguro');?>?',function(r){
         if (!r) return;
         $.get('/agility/server/database/clubFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){

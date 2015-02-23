@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-02-23 09:13+0100\n"
-"PO-Revision-Date: 2015-02-23 09:20+0100\n"
+"POT-Creation-Date: 2015-02-23 12:53+0100\n"
+"PO-Revision-Date: 2015-02-23 12:54+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: jantonio <juansgaviota@gmail.com>\n"
 "Language: English\n"
@@ -1083,8 +1083,8 @@ msgid "Cancelar cierre de sesion. Cerrar ventana"
 msgstr "Cancel terminate session. Close window"
 
 #: agility/scripts/pruebas.js.php:62 agility/scripts/pruebas.js.php:101
-msgid "No ha seleccionado ninga Prueba"
-msgstr "There is no contest selected!"
+msgid "No ha seleccionado ninguna prueba"
+msgstr "There is no contest selected"
 
 #: agility/scripts/pruebas.js.php:65
 msgid "Modificar datos de la prueba"
@@ -1106,8 +1106,8 @@ msgid "Desea realmente borrar la prueba seleccionada"
 msgstr "Do you really want to remove selected contest?"
 
 #: agility/scripts/pruebas.js.php:129 agility/scripts/pruebas.js.php:151
-msgid "No ha seleccionado ninga jornada"
-msgstr "There is no event selected!"
+msgid "No ha seleccionado ninguna jornada"
+msgstr "There is no event selected"
 
 #: agility/scripts/pruebas.js.php:133
 msgid "No se puede editar una jornada marcada como cerrada"
@@ -1153,6 +1153,72 @@ msgstr ""
 "You cannot declare aditional series if there is an Open, K.O round <br />or "
 "team events already declared in this event"
 
+#: agility/scripts/guias.js.php:38
+msgid "Reasignar/Declarar un gu&iacute;a como perteneciente al club"
+msgstr "Reassign/Declare that a handler belongs to this club"
+
+#: agility/scripts/guias.js.php:39
+msgid "Asignar/Registrar un gu&iacute;a"
+msgstr "Assign/Register Handler"
+
+#: agility/scripts/guias.js.php:53 agility/scripts/guias.js.php:76
+#: agility/scripts/guias.js.php:122 agility/scripts/guias.js.php:143
+msgid "No ha seleccionado ning&uacute;n Gu&iacute;a"
+msgstr "There is no handler selected!"
+
+#: agility/scripts/guias.js.php:61
+msgid "Modificar datos del gu&iacute;a inscrito en el club"
+msgstr "Edit data on selected handler for this club"
+
+#: agility/scripts/guias.js.php:79
+msgid "Borrar asignaci&oaucte;n del gu&iacute;a"
+msgstr "Remove handler assignation to selected club"
+
+#: agility/scripts/guias.js.php:79
+msgid "al club"
+msgstr "to this club"
+
+#: agility/scripts/guias.js.php:79 agility/scripts/guias.js.php:150
+#: agility/scripts/clubes.js.php:170
+msgid "Seguro"
+msgstr "Are you sure"
+
+#: agility/scripts/guias.js.php:105
+msgid "Nuevo gu&iacute;a"
+msgstr "New Handler"
+
+#: agility/scripts/guias.js.php:125
+msgid "Modificar datos del gu&iacute;a"
+msgstr "Edit handler&#8217;s information"
+
+#: agility/scripts/guias.js.php:147 agility/scripts/clubes.js.php:167
+msgid "Esta entrada no se puede borrar"
+msgstr "This entry cannot be deleted"
+
+#: agility/scripts/guias.js.php:150
+msgid "Confirmar"
+msgstr "Confirm"
+
+#: agility/scripts/guias.js.php:150
+msgid "Borrar datos del gu&iacute;a"
+msgstr "Remove Handler data"
+
+#: agility/scripts/clubes.js.php:119 agility/scripts/clubes.js.php:163
+msgid "No ha seleccionado ning&uacute;n Club"
+msgstr "There is no club selected!"
+
+#: agility/scripts/clubes.js.php:127
+msgid "Modificar datos del club"
+msgstr "Edit club information"
+
+#: agility/scripts/clubes.js.php:170
+msgid "Borrar el club"
+msgstr "Delete club"
+
+#: agility/scripts/clubes.js.php:170
+msgid "de la base de datos"
+msgstr "from database"
+
 #: agility/scripts/auth.js.php:41
 msgid "Acceso directo a la Base de Datos"
 msgstr "Direct access to DataBase manager"
@@ -1194,8 +1260,9 @@ msgid "A&ntilde;adir nuevo equipo"
 msgstr "Add new Team"
 
 #: agility/scripts/equipos.js.php:78 agility/scripts/equipos.js.php:105
-msgid "!No ha seleccionado ningun Equipo!"
-msgstr "There is no team selected!"
+#, fuzzy
+msgid "No ha seleccionado ning&uacute;n Equipo"
+msgstr "There is no team selected"
 
 #: agility/scripts/equipos.js.php:82
 msgid "El equipo por defecto NO se puede editar"
@@ -1226,7 +1293,7 @@ msgid "de esta jornada"
 msgstr "on this event"
 
 #: agility/scripts/equipos.js.php:172
-msgid "Debe indicar un equipo v&aacute;lida"
+msgid "Debe indicar un equipo v&aacute;lido"
 msgstr "You should select a valid team"
 
 #: agility/scripts/inscripciones.js.php:33

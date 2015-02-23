@@ -14,7 +14,11 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
-
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
+?>
 // ***** gestion de guias		*********************************************************
 
 /**
@@ -31,8 +35,8 @@ function assignGuiaToClub(dg,club) {
 	$('#chguias-newClub').val(club.ID); // id del club to assign
 	$('#chguias-Operation').val('update'); // operation
 	// finalmente desplegamos el formulario y ajustamos textos
-	$('#chguias-title').text('Reasignar/Declarar un guia como perteneciente al club '+club.Nombre);
-	$('#chguias-dialog').dialog('open').dialog('setTitle','Asignar/Registrar un gu&iacute;a');
+	$('#chguias-title').text('<?php _e('Reasignar/Declarar un gu&iacute;a como perteneciente al club');?> '+club.Nombre);
+	$('#chguias-dialog').dialog('open').dialog('setTitle','<?php _e('Asignar/Registrar un gu&iacute;a');?>');
 	// on click OK button, close dialog and refresh data
 	$('#chguias-okBtn').one('click',function () { $(dg).datagrid('reload'); } ); 
 	$('#chguias-newBtn').one('click',function () { $(dg).datagrid('reload'); } ); 
@@ -46,7 +50,7 @@ function assignGuiaToClub(dg,club) {
 function editGuiaFromClub(dg, club) {
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Guia!","warning");
+    	$.messager.alert("Delete Error:","!<?php _e('No ha seleccionado ning&uacute;n Gu&iacute;a');?>!","warning");
     	return; // no way to know which guia is selected
     }
     // add extra needed parameters to dialog
@@ -54,7 +58,7 @@ function editGuiaFromClub(dg, club) {
     row.NombreClub=club.Nombre;
     row.Operation='update';
     $('#guias-form').form('load',row);
-    $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre);
+    $('#guias-dialog').dialog('open').dialog('setTitle','<?php _e('Modificar datos del gu&iacute;a inscrito en el club');?> '+club.Nombre);
 	// on click OK button, close dialog and refresh data
 	$('#guias-okBtn').one('click',function () { $(dg).datagrid('reload'); } ); 
 }
@@ -69,10 +73,10 @@ function editGuiaFromClub(dg, club) {
 function delGuiaFromClub(dg,club) {
     var row = $(dg).datagrid('getSelected');
     if (!row){
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Guia!","warning");
+    	$.messager.alert("Delete Error:","!<?php _e('No ha seleccionado ning&uacute;n Gu&iacute;a');?>!","warning");
     	return; // no way to know which guia is selected
     }
-    $.messager.confirm('Confirm',"Borrar asignacion del gu&iacute;a '"+row.Nombre+"' al club '"+club.Nombre+"' ¿Seguro?'",function(r){
+    $.messager.confirm('Confirm',"<?php _e('Borrar asignaci&oaucte;n del gu&iacute;a');?> '"+row.Nombre+"' <?php _e('al club');?> '"+club.Nombre+"' <?php _e('Seguro');?>?'",function(r){
         if (r){
             $.get('/agility/server/database/guiaFunctions.php',{'Operation':'orphan','ID':row.ID},function(result){
                 if (result.success){
@@ -98,7 +102,7 @@ function reload_guiasDatagrid() {
  * @param {function} onAccept what to do (only once) when window gets closed
  */
 function newGuia(def,onAccept){
-	$('#guias-dialog').dialog('open').dialog('setTitle','Nuevo gu&iacute;a');
+	$('#guias-dialog').dialog('open').dialog('setTitle','<?php _e('Nuevo gu&iacute;a');?>');
 	$('#guias-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#guias-Nombre').val(def);
 	$('#guias-Operation').val('insert');
@@ -115,10 +119,10 @@ function editGuia(dg){
 	if ($('#guias-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","!No ha seleccionado ningún guía!","warning");
+    	$.messager.alert("Edit Error:","!<?php _e('No ha seleccionado ning&uacute;n Gu&iacute;a');?>!","warning");
     	return; // no way to know which dog is selected
     }
-    $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del gu&iacute;a');
+    $('#guias-dialog').dialog('open').dialog('setTitle','<?php _e('Modificar datos del gu&iacute;a');?>');
     // add extra required parameters to dialog
     row.Parent='';
     row.Operation='update';
@@ -136,14 +140,14 @@ function editGuia(dg){
 function deleteGuia(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningún guía!","warning");
+    	$.messager.alert("Delete Error:","!<?php _e('No ha seleccionado ning&uacute;n Gu&iacute;a');?>!","warning");
     	return; // no way to know which dog is selected
     }
     if (row.ID==1) {
-    	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
+    	$.messager.alert("Delete Error:","<?php _e('Esta entrada no se puede borrar');?>","error");
     	return; // cannot delete default entry
     }
-    $.messager.confirm('Confirm','Borrar datos del guia: '+ row.Nombre+'\n¿Seguro?',function(r){
+    $.messager.confirm('<?php _e('Confirmar');?>','<?php _e('Borrar datos del gu&iacute;a');?>: '+ row.Nombre+'\n<?php _e('Seguro');?>?',function(r){
     	if (!r) return;
     	$.get('/agility/server/database/guiaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
     		if (result.success){

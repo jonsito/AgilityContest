@@ -59,7 +59,7 @@ function editPrueba(dg){
 	if ($('#pruebas-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","!<?php _e('No ha seleccionado ninga Prueba');?>!","info");
+    	$.messager.alert("Edit Error:","!<?php _e('No ha seleccionado ninguna prueba');?>!","info");
     	return; // no way to know which prueba is selected
     }
     $('#pruebas-dialog').dialog('open').dialog('setTitle','<?php _e('Modificar datos de la prueba');?>');
@@ -98,7 +98,7 @@ function savePrueba() {
 function deletePrueba(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!<?php _e('No ha seleccionado ninga Prueba');?>!","info");
+    	$.messager.alert("Delete Error:","!<?php _e('No ha seleccionado ninguna prueba');?>!","info");
     	return; // no way to know which prueba is selected
     }
     $.messager.confirm('Confirm',
@@ -126,7 +126,7 @@ function deletePrueba(dg){
  */
 function editJornadaFromPrueba(pruebaID,row) {
     if (!row) {
-    	$.messager.alert("No selection","!<?php _e('No ha seleccionado ninga jornada');?>!","info");
+    	$.messager.alert("No selection","!<?php _e('No ha seleccionado ninguna jornada');?>!","info");
     	return; // no hay ninguna jornada seleccionada. retornar
     }
     if (row.Cerrada==true) { // no permitir la edicion de pruebas cerradas
@@ -148,7 +148,7 @@ function closeJornadaFromPrueba(pruebaID,datagridID) {
 	var row= $(datagridID).datagrid('getSelected');
     // var row = $('#jornadas-datagrid-'+prueba.ID).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("No selection","!<?php _e('No ha seleccionado ninga jornada');?>!","warning");
+    	$.messager.alert("No selection","!<?php _e('No ha seleccionado ninguna jornada');?>!","warning");
     	return; // no hay ninguna jornada seleccionada. retornar
     }
     if (row.Cerrada==true) { // no permitir la edicion de pruebas cerradas
@@ -158,7 +158,7 @@ function closeJornadaFromPrueba(pruebaID,datagridID) {
     var w=$.messager.confirm(
     		"<?php _e('Aviso');?>",
     		"<?php _e('Si marca una jornada como cerrada');?><br />" +
-    		"<?php _e('no podr&aacute; modificar los datos de mangas, <br/> inscripciones o resultados <br />');?>"
+    		"<?php _e('no podr&aacute; modificar los datos de mangas, <br/> inscripciones o resultados <br />');?>"+
     		"<?php _e('Desea continuar');?>?",
     		function(r) { 
     	    	if(r) {

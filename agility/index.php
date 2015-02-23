@@ -32,8 +32,8 @@ $config =new Config()
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/clubes.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/guias.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/clubes.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/guias.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/perros.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/jueces.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/usuarios.js" type="text/javascript" charset="utf-8" > </script>
