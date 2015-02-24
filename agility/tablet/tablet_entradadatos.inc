@@ -14,7 +14,11 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
-
+<?php
+require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/../server/auth/Config.php");
+$config =new Config()
+?>
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
 <div id="tdialog-window">
 	<div class="dialog_forms" style="background:white">
@@ -76,6 +80,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
        		<label id="tdialog-RehusesLbl" for="Rehuses">Rehuses</label>
        		<input id="tdialog-Rehuses" type="text" readonly="readonly" value="0" name="Rehuses" class="tablet_data"/>
        		<label id="tdialog-TiempoLbl" for="Tiempo">Tiempo</label>
+       		<span id="tdialog-timestamp" style="display:none"></span>
        		<input id="tdialog-Tiempo" type="text" readonly="readonly" value="00.00" name="Tiempo" class="tablet_data"/>
        		<label id="tdialog-NoPresentadoLbl" for="NoPresentadoStr">No Pr.</label>
        		<input id="tdialog-NoPresentado" type="hidden" name="NoPresentado" value="0"/>
@@ -88,8 +93,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     </div>
 </div>
 
+<!-- declare a tag to attach a chrono object to -->
+<div id="cronomanual"></div>
 
 <script type="text/javascript">
+
+	//create a Chronometer instance
+	if (ac_config.tablet_chrono) {
+		$('#cronomanual').Chrono( {
+			seconds_sel: '#tdialog-timestamp',
+			auto: false,
+			interval: 100,
+			showMode: 2,
+			onUpdate: function(elapsed) { $('#tdialog-Tiempo').val(parseFloat(elapsed/1000).toFixed(2)); return true;}
+		});
+	}
+	
     // declaracion del dialogo
     $('#tdialog-window').window({
         iconCls: 'icon-notes',

@@ -169,23 +169,24 @@ function vwls_showData(data) {
 }
 
 /**
+ * Maneja el cronometro manual
+ * @param oper 'start','stop','pause','resume','reset'
+ */
+function vwls_cronoManual(oper) {
+	$('#cronomanual').Chrono(oper);
+}
+
+/**
  * activa una secuencia de conteo hacia atras de 15 segundos
  */
 function vwls_counter(){
 	var myCounter = new Countdown({  
 	    seconds:15,  // number of seconds to count down
 	    onUpdateStatus: function(sec){ $('#vwls_Tiempo').html(sec); }, // callback for each second
-	    onCounterEnd: function(){  $('#vwls_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
+	    // onCounterEnd: function(){  $('#vwls_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
+	    onCounterEnd: function(){  vwls_cronoManual('start') } // at end of countdown start timer
 	});
 	myCounter.start();
-}
-
-/**
- * Maneja el cronometro manual
- * @param oper 'start','stop','pause','resume','reset'
- */
-function vwls_cronoManual(oper) {
-	$('#cronomanual').Chrono(oper);
 }
 
 /**

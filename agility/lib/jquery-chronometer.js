@@ -38,6 +38,7 @@
 		onBeforeReset	: function(){ return true; },
 		onBeforePause	: function(){ return true; },
 		onBeforeResume	: function(){ return true; },
+		onUpdate		: function(tstamp){ return true; }, // action to do on display new timestamp
 		
 		target			: "*", 		//selectors for the events target
 		auto			: true,		//true if plugin generate html chronometer
@@ -126,6 +127,7 @@
 	}
 	
 	function view_chrono(elapsed){
+		if (! config.onUpdate(elapsed)) return;
 		if (config.showMode==0) {
 			$(config.days_sel).html(view_format(config.days));
 			$(config.days_sel).data('days',config.days);
