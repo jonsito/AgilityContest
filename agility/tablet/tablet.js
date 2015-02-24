@@ -219,6 +219,18 @@ function tablet_elim() {
 		);
 }
 
+var myCounter = new Countdown({  
+    seconds:15,  // number of seconds to count down
+    onUpdateStatus: function(sec){ $('#tdialog-Tiempo').val(sec); }, // callback for each second
+    // onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
+    onCounterEnd: function(){  // at end of countdown start timer
+    	var time = new Date().getTime(); 
+		tablet_putEvent('start',{ 'Value' : time } );
+		$('#tdialog-StartStopBtn').val("Stop");
+		tablet_chrono('start');
+    }
+});
+
 function tablet_chrono(oper) {
 	if (ac_config.tablet_chrono) $('#cronomanual').Chrono(oper);
 }
@@ -229,6 +241,7 @@ function tablet_startstop() {
 	if ( $('#tdialog-StartStopBtn').val() === "Start" ) {
 		tablet_putEvent('start',{ 'Value' : time } );
 		$('#tdialog-StartStopBtn').val("Stop");
+		myCounter.stop();
 		tablet_chrono('start')
 	} else {
 		tablet_putEvent('stop',{ 'Value' : time } );
@@ -240,17 +253,6 @@ function tablet_startstop() {
 function tablet_salida() {
 	doBeep();
 	tablet_putEvent('salida',{ 'Value' : new Date().getTime() } );
-	var myCounter = new Countdown({  
-	    seconds:15,  // number of seconds to count down
-	    onUpdateStatus: function(sec){ $('#tdialog-Tiempo').val(sec); }, // callback for each second
-	    // onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
-	    onCounterEnd: function(){  // at end of countdown start timer
-	    	var time = new Date().getTime(); 
-			tablet_putEvent('start',{ 'Value' : time } );
-			$('#tdialog-StartStopBtn').val("Stop");
-			tablet_chrono('start');
-	    }
-	});
 	tablet_chrono('stop');
 	tablet_chrono('reset');
 	myCounter.start();
