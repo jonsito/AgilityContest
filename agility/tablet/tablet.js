@@ -219,6 +219,10 @@ function tablet_elim() {
 		);
 }
 
+function tablet_chrono(oper,time) {
+	if (ac_config.tablet_chrono) $('#cronomanual').Chrono(oper,time);
+}
+
 var myCounter = new Countdown({  
     seconds:15,  // number of seconds to count down
     onUpdateStatus: function(sec){ $('#tdialog-Tiempo').val(sec); }, // callback for each second
@@ -227,41 +231,35 @@ var myCounter = new Countdown({
     	var time = new Date().getTime(); 
 		tablet_putEvent('start',{ 'Value' : time } );
 		$('#tdialog-StartStopBtn').val("Stop");
-		tablet_chrono('start');
+		tablet_chrono('start',time);
     }
 });
 
-function tablet_chrono(oper) {
-	if (ac_config.tablet_chrono) $('#cronomanual').Chrono(oper);
-}
-
 function tablet_startstop() {
-	doBeep();
 	var time = new Date().getTime(); 
 	if ( $('#tdialog-StartStopBtn').val() === "Start" ) {
 		tablet_putEvent('start',{ 'Value' : time } );
 		$('#tdialog-StartStopBtn').val("Stop");
 		myCounter.stop();
-		tablet_chrono('start')
+		tablet_chrono('start',time)
 	} else {
 		tablet_putEvent('stop',{ 'Value' : time } );
 		$('#tdialog-StartStopBtn').val("Start");
-		tablet_chrono('stop');
+		tablet_chrono('stop',time);
 	}
+	doBeep();
 }
 
 function tablet_salida() {
-	doBeep();
 	tablet_putEvent('salida',{ 'Value' : new Date().getTime() } );
-	tablet_chrono('stop');
-	tablet_chrono('reset');
+	tablet_chrono('stop',0);
+	tablet_chrono('reset',0);
 	myCounter.start();
+	doBeep();
 }
 
 function tablet_cancel() {
 	doBeep();
-	tablet_chrono('stop');
-	tablet_chrono('reset');
 	// retrieve original data from parent datagrid
 	var dgname=$('#tdialog-Parent').val();
 	var row =$(dgname).datagrid('getSelected');
@@ -290,12 +288,13 @@ function tablet_cancel() {
 		});
 	}
 	// and close panel
+	tablet_chrono('stop',0);
+	tablet_chrono('reset',0);
 	$('#tdialog-window').window('close');
 }
 
 function tablet_accept() {
 	doBeep();
-	tablet_chrono('stop');
 	// save results 
 	tablet_updateResultados(0); // mark as result no longer pendiente
 	
@@ -329,5 +328,6 @@ function tablet_accept() {
 				'Eliminado'		:	row.Eliminado
 			} 
 		);
+	tablet_chrono('stop',0);
 }
 

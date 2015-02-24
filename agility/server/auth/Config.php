@@ -68,10 +68,9 @@ define('AC_PDF_ROWCOLOR2','#e0ebff');
 define('AC_PDF_LINECOLOR','#808080');
 
 /** personalizacion del tablet **/
-define('AC_TABLET_BEEP',false);
-define('AC_TABLET_DND',false);
-define('AC_TABLET_CHRONO',false);
-
+define('AC_TABLET_BEEP',"0");
+define('AC_TABLET_DND',"0");
+define('AC_TABLET_CHRONO',"0");
 
 Class Config {
 	
@@ -269,9 +268,9 @@ Class Config {
 		$data=testAndSet($data,'pdf_rowcolor2','s',AC_PDF_ROWCOLOR2);
 		$data=testAndSet($data,'pdf_linecolor','s',AC_PDF_LINECOLOR);
 		// tablet
-		$data=testAndSet($data,'tablet_beep','s',AC_TABLET_BEEP);
-		$data=testAndSet($data,'tablet_dnd','s',AC_TABLET_DND);
-		$data=testAndSet($data,'tablet_chrono','s',AC_TABLET_CHRONO);
+		$data['tablet_beep']=http_request('tablet_beep','s',AC_TABLET_BEEP);
+		$data['tablet_dnd']=http_request('tablet_dnd','s',AC_TABLET_DND);
+		$data['tablet_chrono']=http_request('tablet_chrono','s',AC_TABLET_CHRONO);
 		// Internacionalizacion. Idiomas
 		$data=testAndSet($data,'lang','s',AC_LANG);
 		// logging

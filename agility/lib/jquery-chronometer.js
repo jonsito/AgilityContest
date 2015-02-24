@@ -9,6 +9,7 @@
 	var running = false;
 	var pause = false;
 	var startTime = 0;
+	var stopTime = 0;
 	
 	var config = {
 		// initial values
@@ -48,26 +49,29 @@
 	
 	var methods= {
 		init: function(options) { $.extend(config,options); },
-		start: function() {
+		start: function(timestamp) {
 			var check = config.onBeforeStart();
 			if(check != false){
 				$(config.start).attr('disabled',true);
 				$(config.stop).attr('disabled',false);
 				$(config.resume).attr('disabled',true);
 				$(config.pause).attr('disabled',false);
-				startTime=new Date().getTime();
+				if(typeof timestamp === 'undefined') startTime=new Date().getTime();
+				else startTime=timestamp;
 				running = true;
 				run_chrono();
 			}
 			$(config.target).trigger('chronostart');
 		},
-		stop: function(){
+		stop: function(timestamp){
 			var check = config.onBeforeStop();
 			if(check != false){
 				$(config.start).attr('disabled',false);
 				$(config.stop).attr('disabled',true);
 				$(config.resume).attr('disabled',true);
 				$(config.pause).attr('disabled',true);
+				if(typeof timestamp === 'undefined') stopTime=new Date().getTime();
+				else stopTime=timestamp;
 				running = false;
 			}
 			$(config.target).trigger('chronostop');
@@ -110,6 +114,7 @@
 
 	function run_chrono(){
 		if (startTime==0) startTime=new Date().getTime();
+		if (stopTime==0) stopTime=new Date().getTime();
 		if(running){
 			var currentTime=new Date().getTime();
 			var elapsed		= currentTime-startTime;
@@ -122,6 +127,17 @@
 			config.days		= Math.floor(config.hours / 24);
 			config.hours    = config.hours % 24;
 			setTimeout(run_chrono,config.interval);
+			view_chrono(elapsed);
+		} else {
+			var elapsed		= stopTime-startTime;
+			config.mseconds	= elapsed % 1000;
+			config.seconds	= Math.floor(elapsed / 1000);
+			config.minutes	= Math.floor(config.seconds / 60);
+			config.seconds	= config.seconds % 60;
+			config.hours 	= Math.floor(config.minutes / 60);
+			config.minutes	= config.minutes % 60;
+			config.days		= Math.floor(config.hours / 24);
+			config.hours    = config.hours % 24;
 			view_chrono(elapsed);
 		}
 	}
