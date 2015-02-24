@@ -1,6 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: https//{$_SERVER['SERVER_ADDR']}/agility",false);
 header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",false);
+require_once(__DIR__."/server/tools.php");
 require_once(__DIR__."/server/auth/Config.php");
 require_once(__DIR__."/server/tools.php");
 $config =new Config()
@@ -117,9 +118,10 @@ var ac_config= {
 		'pdf_linecolor'		: '<?php echo $config->getEnv('pdf_linecolor'); ?>',
 		
 		// personalizacion del tablet
-		'tablet_beep'		: <?php echo $config->getEnv('tablet_beep'); ?>,
-		'tablet_dnd'		: <?php echo $config->getEnv('tablet_dnd'); ?>,
-		'tablet_crono'		: <?php echo $config->getEnv('tablet_crono'); ?>
+		// personalizacion del tablet
+		'tablet_beep'		: <?php echo toBoolean($config->getEnv('tablet_beep'))?'true':'false'; ?>,
+		'tablet_dnd'		: <?php echo toBoolean($config->getEnv('tablet_dnd'))?'true':'false'; ?>,
+		'tablet_chrono'		: <?php echo toBoolean($config->getEnv('tablet_chrono'))?'true':'false'; ?>
 }
 
 </script>

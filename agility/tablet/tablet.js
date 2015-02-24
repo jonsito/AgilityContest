@@ -103,7 +103,12 @@ function tablet_updateResultados(pendiente) {
     });
 }
 
+function doBeep() {
+	if (ac_config.tablet_beep) beep();
+}
+
 function tablet_add(val) {
+	doBeep();
 	var str=$('#tdialog-Tiempo').val();
 	if (parseInt(str)==0) str=''; // clear espurious zeroes
 	if(str.length>=6) return; // sss.xx 6 chars
@@ -118,6 +123,7 @@ function tablet_add(val) {
 }
 
 function tablet_dot() {
+	doBeep();
 	var str=$('#tdialog-Tiempo').val();
 	if (str.indexOf('.')>=0) return;
 	tablet_add('.');
@@ -126,6 +132,7 @@ function tablet_dot() {
 }
 
 function tablet_del() {
+	doBeep();
 	var str=$('#tdialog-Tiempo').val();
 	if (str==='') return;
 	$('#tdialog-Tiempo').val(str.substring(0, str.length-1));
@@ -134,6 +141,7 @@ function tablet_del() {
 }
 
 function tablet_up(id){
+	doBeep();
 	var n= 1+parseInt($(id).val());
 	var lbl = replaceAll('#tdialog-','',id);
 	var datos = {};
@@ -144,6 +152,7 @@ function tablet_up(id){
 }
 
 function tablet_down(id){
+	doBeep();
 	var n= parseInt($(id).val());
 	var m = (n<=0) ? 0 : n-1;
 	var lbl = replaceAll('#tdialog-','',id);
@@ -155,6 +164,7 @@ function tablet_down(id){
 }
 
 function tablet_np() {
+	doBeep();
 	var n= parseInt($('#tdialog-NoPresentado').val());
 	if (n==0) {
 		$('#tdialog-NoPresentado').val(1);
@@ -185,6 +195,7 @@ function tablet_np() {
 }
 
 function tablet_elim() {
+	doBeep();
 	var n= parseInt($('#tdialog-Eliminado').val());
 	if (n==0) {
 		$('#tdialog-Eliminado').val(1);
@@ -208,22 +219,49 @@ function tablet_elim() {
 		);
 }
 
+var myCounter = new Countdown({  
+    seconds:15,  // number of seconds to count down
+    onUpdateStatus: function(sec){ $('#tdialog-Tiempo').val(sec); }, // callback for each second
+    // onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
+    onCounterEnd: function(){  // at end of countdown start timer
+    	var time = new Date().getTime(); 
+		tablet_putEvent('start',{ 'Value' : time } );
+		$('#tdialog-StartStopBtn').val("Stop");
+		tablet_chrono('start');
+    }
+});
+
+function tablet_chrono(oper) {
+	if (ac_config.tablet_chrono) $('#cronomanual').Chrono(oper);
+}
+
 function tablet_startstop() {
-	var time = new Date().getTime();
+	doBeep();
+	var time = new Date().getTime(); 
 	if ( $('#tdialog-StartStopBtn').val() === "Start" ) {
 		tablet_putEvent('start',{ 'Value' : time } );
 		$('#tdialog-StartStopBtn').val("Stop");
+		myCounter.stop();
+		tablet_chrono('start')
 	} else {
 		tablet_putEvent('stop',{ 'Value' : time } );
 		$('#tdialog-StartStopBtn').val("Start");
+		tablet_chrono('stop');
 	}
 }
 
 function tablet_salida() {
+	doBeep();
 	tablet_putEvent('salida',{ 'Value' : new Date().getTime() } );
+	tablet_chrono('stop');
+	tablet_chrono('reset');
+	myCounter.start();
 }
 
 function tablet_cancel() {
+	doBeep();
+	tablet_chrono('stop');
+	tablet_chrono('reset');
 	// retrieve original data from parent datagrid
 	var dgname=$('#tdialog-Parent').val();
 	var row =$(dgname).datagrid('getSelected');
@@ -256,6 +294,8 @@ function tablet_cancel() {
 }
 
 function tablet_accept() {
+	doBeep();
+	tablet_chrono('stop');
 	// save results 
 	tablet_updateResultados(0); // mark as result no longer pendiente
 	

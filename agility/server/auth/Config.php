@@ -70,7 +70,7 @@ define('AC_PDF_LINECOLOR','#808080');
 /** personalizacion del tablet **/
 define('AC_TABLET_BEEP',false);
 define('AC_TABLET_DND',false);
-define('AC_TABLET_CRONO',false);
+define('AC_TABLET_CHRONO',false);
 
 
 Class Config {
@@ -126,7 +126,7 @@ Class Config {
 		// personalizacion del tablet
 		$this->config['tablet_beep'] =	AC_TABLET_BEEP;
 		$this->config['tablet_dnd'] =	AC_TABLET_DND;
-		$this->config['tablet_crono'] =	AC_TABLET_CRONO;
+		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
 		
 		// ahora intentamos leer el fichero de configuracion
 		$res=parse_ini_file(AC_CONFIG_FILE,false); // false: don't parse subsections
@@ -238,7 +238,7 @@ Class Config {
 		// tablet
 		$this->config['tablet_beep'] =	AC_TABLET_BEEP;
 		$this->config['tablet_dnd'] =	AC_TABLET_DND;
-		$this->config['tablet_crono'] =	AC_TABLET_CRONO;
+		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
 		// Internacionalizacion. Idiomas
 		$data['lang'] =	AC_LANG;
 		$res=array_merge($this->config,$data);
@@ -279,7 +279,7 @@ Class Config {
 		// tablet
 		$data=testAndSet($data,'tablet_beep','s',AC_TABLET_BEEP);
 		$data=testAndSet($data,'tablet_dnd','s',AC_TABLET_DND);
-		$data=testAndSet($data,'tablet_crono','s',AC_TABLET_CRONO);
+		$data=testAndSet($data,'tablet_chrono','s',AC_TABLET_CHRONO);
 		// Internacionalizacion. Idiomas
 		$data=testAndSet($data,'lang','s',AC_LANG);
 		// logging

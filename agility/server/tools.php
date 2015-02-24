@@ -71,6 +71,14 @@ function escapeString($str) {
 	return $res;
 }
 
+function toBoolean($var) {
+	if (is_null($var)) return false;
+	if (is_string($var)) $var=strtolower($var);
+	$t=array (1,true,"1","t","true","on","s","si","y","yes","ja","oui");
+	foreach($t as $item) { if ($var===$item) return true; }
+	return false;
+}
+
 /**
  * get a variable from _REQUEST array
  * @param {string} $name variable name
@@ -80,7 +88,6 @@ function escapeString($str) {
  * @return requested value (int,string,bool) or null if invalid type
  */
 function http_request($name,$type,$def,$esc=true) {
-	$t=array (1,true,"1","t","T","true","True","TRUE","on","On","ON","s","S","si","Si","SI","y","Y","yes","Yes","YES");
 	$a=$def;
 	if (isset($_REQUEST[$name])) $a=$_REQUEST[$name];
 	if ($a===null) return null;
@@ -91,8 +98,7 @@ function http_request($name,$type,$def,$esc=true) {
 		case "i": return intval($a);
 		case "b":
 			if ($a==="") return $def;
-			foreach($t as $item) { if ($a===$item) return true; }
-			return false;
+			return toBoolean($a);
 		case "d": 
 		case "f": return doubleval($a);
 	}

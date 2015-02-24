@@ -15,7 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-<?php include_once(__DIR__."/tablet_entradadatos.inc");?>
+<?php 
+include_once(__DIR__."/tablet_entradadatos.inc");
+require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/../server/auth/Config.php");
+$config =new Config()
+?>
 		
 <div id="tablet-window" style="margin:0px;padding:0px">
 	<!-- toolbar para orden de tandas -->
@@ -87,8 +92,9 @@ $('#tablet-datagrid').datagrid({
     detailFormatter:function(idx,row){
         return '<div style="padding:2px"><table id="tablet-datagrid-' + parseInt(row.ID) + '"></table></div>';
     },
-    onClickRow: function(idx,row) { tablet_updateSession(row);},
-    onExpandRow: function(idx,row) { if (row.Tipo!=0) tablet_showPerrosByTanda(idx,row); }
+	onClickRow: function(idx,row) { doBeep(); tablet_updateSession(row);},
+	onExpandRow: function(idx,row) { doBeep(); tablet_showPerrosByTanda(idx,row); },
+	onCollapseRow: function(idx,row) { doBeep(); }    
 });
 
 // mostrar los perros de una tanda
@@ -142,6 +148,7 @@ function tablet_showPerrosByTanda(index,row){
           	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
         rowStyler:myRowStyler,
         onClickRow: function(idx,data) {
+            doBeep();
 	    	data.Session=workingData.sesion;
             data.Parent=mySelf; // store datagrid reference
             $('#tdialog-form').form('load',data);
@@ -157,7 +164,9 @@ function tablet_showPerrosByTanda(index,row){
         		$(mySelf).datagrid('enableDnd');
     			$(mySelf).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
             }
-    	},
+    	}
+<?php if (toBoolean($config->getEnv('tablet_dnd'))) { ?>
+		,
         onDragEnter: function(dst,src) {
             if (dst.Manga!=src.Manga) return false;
             if (dst.Categoria!=src.Categoria) return false;
@@ -176,7 +185,9 @@ function tablet_showPerrosByTanda(index,row){
                     (updown==='top')?0:1,
                     function()  { $(mySelf).datagrid('reload'); }
              	);
+        	return false;
         }
+<?php } ?>
 	});
 	$('#tablet-datagrid').datagrid('fixDetailRowHeight',index);
 }
