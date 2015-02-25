@@ -23,6 +23,7 @@ class Equipos extends DBObject {
 
 	protected $pruebaID;
 	protected $jornadaID;
+	protected $teamsByJornada; // {array} array de datos de todos los equipos de esta jornada
 	protected $defaultTeam; //  {array} datos del equipo por defecto para esta prueba
 	
 	/**
@@ -39,32 +40,38 @@ class Equipos extends DBObject {
 		}
 		$this->pruebaID=$prueba;
 		$this->jornadaID=$jornada;
-		if ( $jornada<=0 ) {
+		$this->teamsByJornada=null;
+		$this->defaultTeam=null;
+		if ( $jornada<=0 ) { // a trick to handle special functions (queryByJornada)
 			$this->myLogger->info("Constructor with invalid jornada ID:0");
-			$this->defaultTeam=null;
 			return;
-		}
-		// obtenemos el equipo por defecto para esta prueba
-		$res= $this->__selectAsArray(
+		} 
+		// obtenemos los equipos de esta jornada
+		$res= $this->__select(
 				/* SELECT */ "*",
 				/* FROM */   "Equipos",
-				/* WHERE */ "( Prueba = $prueba ) AND ( Jornada = $jornada ) AND ( DefaultTeam = 1 )"
+				/* WHERE */ "( Prueba = $prueba ) AND ( Jornada = $jornada )"
 		);
 		if (!is_array($res)) {
-			$this->errormsg="$file::construct() cannot get default team data for prueba:$prueba jornada:$jornada" ;
+			$this->errormsg="$file::construct() cannot get team data for prueba:$prueba jornada:$jornada" ;
 			throw new Exception($this->errormsg);
 		}
-		$this->defaultTeam=$res;
+		$this->teamsByJornada=$res['rows'];
+		foreach ($this->teamsByJornada as $team) {
+			if ($team['DefaultTeam']==1) $this->defaultTeam=$team;
+		}
 	}
 	
 	function insert() {
 		$this->myLogger->enter();
+		$prueba=$this->pruebaID;
+		$jornada=$this->jornadaID;
 		// obtenemos el orden a insertar
-		$obj=$this->__selectObject("MAX(Orden) AS Last","Equipos","(Prueba={$this->pruebaID}) AND (Jornada={$this->jornadaID})");
+		$obj=$this->__selectObject("MAX(Orden) AS Last","Equipos","(Prueba=$prueba) AND (Jornada=$jornada)");
 		$ord=($obj!=null)?1+intval($obj->Last):1; // evaluate latest in order
 		
 		// componemos un prepared statement
-		$sql ="INSERT INTO Equipos (Prueba,Jornada,Orden,Categorias,Nombre,Observaciones,DefaultTeam) VALUES({$this->pruebaID},{$this->jornadaID},?,?,?,?,0)";
+		$sql ="INSERT INTO Equipos (Prueba,Jornada,Orden,Categorias,Nombre,Observaciones,DefaultTeam) VALUES($prueba,$jornada,?,?,?,?,0)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('isss',$orden,$categorias,$nombre,$observaciones);
@@ -75,7 +82,7 @@ class Equipos extends DBObject {
 		$categorias = http_request("Categorias","s",null,false); // may be null
 		$nombre 	= http_request("Nombre","s",null,false); // not null
 		$observaciones= http_request('Observaciones',"s",null,false); // may be null
-		$this->myLogger->info("Prueba:{$this->pruebaID} Jornada:{$this->jornadaID} Nombre:'$nombre' Observaciones:'$observaciones'");
+		$this->myLogger->info("Prueba:$prueba Jornada:$jornada Nombre:'$nombre' Observaciones:'$observaciones'");
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
@@ -113,13 +120,22 @@ class Equipos extends DBObject {
 	function delete($id) {
 		$this->myLogger->enter();
 		$def=$this->defaultTeam['ID'];
-		if ($id<1) return $this->error("Invalid Equipo ID:$id provided"); // cannot delete ID=1
+		if ($id<0) return $this->error("Invalid Equipo ID:$id provided");
 		if ($id==$def) return $this->error("Cannot delete default team for this Contest");
 
 		// fase 1: desasignamos los perros de este equipo (los asignamos al equipo por defecto de la jornada)
-		// TODO: write
-		
-		// fase 2: borramos el equipo de la base de datos
+		$lista="";
+		foreach ($this->teamsByJornada as $team) {
+			if ($team['ID']==$id) {$lista=$team['Miembros']; break; }
+		}
+		if ($lista==="") return $this->error("No encuentro el equipo $id en la lista de equipos de esta jornada");
+		$perros=explode(",",$lista);
+		foreach($perros as $perro) {
+			if ($perro==="BEGIN") continue;
+			if ($perro==="END") continue;
+			$this->insertInscripcion(intval($perro)); // don't use update, as no need to preserve old team
+		}
+		// fase 2: borramos el equipo antiguo de la base de datos
 		$res= $this->query("DELETE FROM Equipos WHERE (ID=$id)");
 		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
@@ -200,8 +216,8 @@ class Equipos extends DBObject {
 	 */
 	function dragAndDrop($from,$to,$where) {
 		$this->myLogger->enter();
-		$p=$this->prueba->ID;
-		$j=$this->jornada->ID;
+		$p=$this->pruebaID;
+		$j=$this->jornadaID;
 		// get from/to Tanda's ID
 		$f=$this->__selectObject("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (ID=$from)");
 		$t=$this->__selectObject("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (ID=$to)");
@@ -229,8 +245,8 @@ class Equipos extends DBObject {
 	 */
 	function swap($from,$to) {
 		$this->myLogger->enter();
-		$p=$this->prueba->ID;
-		$j=$this->jornada->ID;
+		$p=$this->pruebaID;
+		$j=$this->jornadaID;
 		// get from/to Tanda's ID
 		$f=$this->__selectObject("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (ID=$from)");
 		$t=$this->__selectObject("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (ID=$to)");
@@ -252,31 +268,65 @@ class Equipos extends DBObject {
 		return ""; // mark success
 	}
 	
-	function defaultTeam() {
-		
+	/**
+	 * Inscribe a un perro en el equipo indicado.
+	 * Si no se indica, lo inscribe en el equipo por defecto
+	 * @param {integer} $idperro ID Perro
+	 * @param {integer} $idteam ID equipo. 0: default team
+	 */
+	function insertInscripcion($idperro,$idteam=0) {
+		// si no idteam se coge el valor por defecto
+		if ($idteam==0) $idteam=$this->defaultTeam['ID'];
+		// comprobamos si el equipo pertenece a esta jornada
+		$team=null;
+		foreach($this->teamsByJornada as $equipo) {
+			if ($equipo['ID']==$idteam) {$team=$equipo; break;}
+		}
+		if ($team==null) return $this->error("El equipo:$idteam NO pertenece a la jornada:{$this->jornadaID}");
+		$ordenSalida=$team['Miembros'];
+		// lo borramos para evitar una posible doble insercion
+		$str = ",$idperro,";
+		$nuevoorden = str_replace ( $str, ",", $ordensalida );
+		// componemos el tag que hay que insertar
+		$myTag="$idperro,END";
+		// y lo insertamos en lugar que corresponde
+		$ordensalida = str_replace ( "END", $myTag, $nuevoorden );
+		// update database
+		$str="UPDATE Equipos SET Miembros='$ordensalida' (WHERE ID=$idteam})";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		return ""; // success
 	}
 	
-	/**
-	 * Inscribe a un perro en el equipo por defecto de la jornada
-	 * @param {integer} $perro IDPerro
-	 */
-	function insertInscripcion($perro) {
-		
-	}
 	/**
 	 * Borra a un perro de los equipos de la jornada
 	 * @param {integer} $perro IDPerro
 	 */
-	function removeInscripcion($perro) {
-		
+	function removeInscripcion($idperro) {
+		$str = ",$idperro,";
+		foreach($this->teamsByJornada as $team) {
+			$ordenSalida=$team['Miembros'];
+			$nuevoorden = str_replace ( $str, ",", $ordensalida );
+			if ($ordensalida===$nuevoorden) continue; // not inscribed in this team
+			// update database
+			$str="UPDATE Equipos SET Miembros='$nuevoorden' WHERE (ID={$team['ID']})";
+			$rs=$this->query($str);
+			if (!$rs) return $this->error($this->conn->error);
+		}
+		return "";
 	}
+	
 	/**
-	 * Cambia a un perro de equipo
-	 * @param {integer} $perro
-	 * @param {integer} $equipo
+	 * Cambia un perro de equipo
+	 * @param {integer} $idperro
+	 * @param {integer} $idequipo
 	 */
-	function updateInscripcion($perro,$equipo) {
-		
+	function updateInscripcion($idperro,$idequipo) {
+		// eliminamos inscripcion anterior
+		$this->removeInscripcion($idperro);
+		// e insertamos la nueva
+		$this->insertInscripcion($idperro,$idequipo);
+		return "";
 	}
 }
 	
