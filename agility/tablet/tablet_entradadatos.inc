@@ -105,7 +105,10 @@ $config =new Config()
 			auto: false,
 			interval: 100,
 			showMode: 2,
-			onUpdate: function(elapsed) { $('#tdialog-Tiempo').val(parseFloat(elapsed/1000).toFixed(2)); return true;}
+			onUpdate: function(elapsed,running,pause) { 
+				$('#tdialog-Tiempo').val(parseFloat(elapsed/1000).toFixed((running)?1:2)); 
+				return true;
+			}
 		});
 	}
 	
