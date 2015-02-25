@@ -39,11 +39,11 @@
 		onBeforeReset	: function(){ return true; },
 		onBeforePause	: function(){ return true; },
 		onBeforeResume	: function(){ return true; },
-		onUpdate		: function(tstamp){ return true; }, // action to do on display new timestamp
+		onUpdate		: function(tstamp,running,pause){ return true; }, // action to do on display new timestamp
 		
 		target			: "*", 		//selectors for the events target
 		auto			: true,		//true if plugin generate html chronometer
-		interval		: 1000,		// polling interval (msecs) default: 1 second
+		interval		: 500,		// polling interval (msecs) default: 0.5 second
 		showMode		: 0         // 0: use hh:mm:ss.xxx format else use decimal seconds format with provided precision
 	};
 	
@@ -128,7 +128,7 @@
 			config.hours    = config.hours % 24;
 			setTimeout(run_chrono,config.interval);
 			view_chrono(elapsed);
-		} else {
+		} else { // chrono stopped: show data at least once
 			var elapsed		= stopTime-startTime;
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);
@@ -143,7 +143,13 @@
 	}
 	
 	function view_chrono(elapsed){
-		if (! config.onUpdate(elapsed)) return;
+		if (! config.onUpdate(elapsed,running,pause)) return;
+		var digits=config.showMode;
+		var extra="";
+		if (running && config.showMode>0) {
+			digits=config.showMode-1;
+			extra="&nbsp;"; // add an space
+		}
 		if (config.showMode==0) {
 			$(config.days_sel).html(view_format(config.days));
 			$(config.days_sel).data('days',config.days);
@@ -163,7 +169,7 @@
 			$(config.hours_sel).data('hours',0);
 			$(config.minutes_sel).html("");
 			$(config.minutes_sel).data('minutes',0);
-			$(config.seconds_sel).html(parseFloat(elapsed/1000).toFixed(config.showMode));
+			$(config.seconds_sel).html(""+parseFloat(elapsed/1000).toFixed(digits)+extra);
 			$(config.seconds_sel).data('seconds', parseFloat(elapsed/1000) );
 			$(config.mseconds_sel).html("");
 			$(config.mseconds_sel).data('mseconds',0);			
@@ -192,6 +198,7 @@
 					'</span>'
 					);
 				}
+				if( config.shoMode<0) config.showMode=0;
 				if( config.days != 0 || config.hours != 0 || config.minutes != 0 || config.seconds != 0 || config.mseconds != 0 ){
 					// if initial data are not null assume clock assume chrono in "started" state
 					$(config.start).attr('disabled',true);
