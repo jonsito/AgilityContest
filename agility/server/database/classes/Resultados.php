@@ -184,17 +184,16 @@ class Resultados extends DBObject {
 	 * @param {integer} $ndorsal Dorsal con el que compite
 	 * @return "" on success; else error string
 	 */
-	function insertByData($objperro,$ndorsal) {
+	function insertByData($objperro,$inscripcion) {
 		$error="";
 		$idmanga=$this->IDManga;
 		$this->myLogger->enter();
-		if ($ndorsal<=0) return $this->error("No dorsal specified");
 		if ($this->isCerrada()) 
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);	
 		
-		// Insert into resultados. On duplicate ($manga,$idperro) key ignore
-		$sql="INSERT INTO Resultados (Prueba,Jornada,Manga,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
-				VALUES (?,?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE Manga=Manga";
+		// If row pkey(manga,perro) exists, just update; else insert
+		$sql="REPLACE INTO Resultados (Prueba,Jornada,Manga,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
+				VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->conn->error;
 		$res=$stmt->bind_param('iiiiissssss',$prueba,$jornada,$manga,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$guia,$club);
@@ -202,8 +201,8 @@ class Resultados extends DBObject {
 		$prueba=$this->IDPrueba;
 		$jornada=$this->IDJornada;
 		$manga=$idmanga;
-		$dorsal=$ndorsal;
 		$perro=$objperro['ID'];
+		$dorsal=$inscripcion['Dorsal'];
 		$nombre=$objperro['Nombre'];
 		$licencia=$objperro['Licencia'];
 		$categoria=$objperro['Categoria'];
@@ -219,20 +218,6 @@ class Resultados extends DBObject {
 	}
 	
 	/**
-	 * Inserta perro en la lista de resultados de la manga
-	 * @param {integer} $idperro ID del perro
-	 * @param {integer} $ndorsal Dorsal con el que compite
-	 * @return "" on success; else error string
-	 */
-	function insert($idperro,$ndorsal) {
-		// obtenemos los datos del perro
-		$pobj=new Dogs("Resultados::insert");
-		$perro=$pobj->selectByID($iderro);
-		if (!$perro) throw new Exception("No hay datos para el perro a inscribir con id: $idp");
-		return insertByData($perro,$idprueba,$ndorsal);
-	}
-	
-	/**
 	 * Borra el idperro de la lista de resultados de la manga
 	 * @param {integer} $idperro
 	 * @return "" on success; null on error
@@ -243,7 +228,7 @@ class Resultados extends DBObject {
 		if ($idperro<=0) return $this->error("No Perro ID specified");
 		if ($this->isCerrada()) 
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
-		$str="DELETE * FROM Resultados WHERE ( Perro=$idperro ) AND ( Manga=$idmanga)";
+		$str="DELETE FROM Resultados WHERE ( Perro=$idperro ) AND ( Manga=$idmanga)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
