@@ -47,6 +47,7 @@ function formatTF(val,row,idx) {
 
 function formatRSCE(val,row,idx) { return (parseInt(val)==0)?"RSCE":"RFEC"; }
 function formatOk(val,row,idx) { return (parseInt(val)==0)?"":"&#x2714;"; }
+function formatNotOk(val,row,idx) { return (parseInt(val)!=0)?"":"&#x2714;"; }
 function formatCerrada(val,row,idx) { return (parseInt(val)==0)?"":"&#x26D4;"; }
 
 /* stylers para formateo de celdas especificas */

@@ -28,6 +28,22 @@ function buscaEquipos() {
 		});
 }
 
+/*
+* Verifica los equipos chequeando numero de miembros y que no haya ningun perro asignado al equipo por defecto
+*/
+function checkTeams(datagrid) {
+		$.messager.alert("Error:","Equipos.js.php::checkTeams(): TODO pending","error");
+    	return;
+}
+
+/*
+* imprime los equipos de la jornada y los miembros de cada equipo
+*/
+function printTeams(datagrid) {
+		$.messager.alert("Error:","Equipos.js.php::printTeams(): TODO pending","error");
+    	return;
+}
+
 /**
  * Abre un dialogo para declarar un nuevo equipo para la prueba 
  */

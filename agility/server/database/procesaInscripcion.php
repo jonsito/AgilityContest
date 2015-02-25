@@ -27,6 +27,7 @@ require_once(__DIR__."/classes/Mangas.php");
 require_once(__DIR__."/classes/OrdenSalida.php");
 require_once(__DIR__."/classes/Resultados.php");
 require_once(__DIR__."/classes/Dogs.php");
+require_once(__DIR__."/classes/Equipos.php");
 
 /* 
  * Cada vez que se anyade/borra/edita una inscripcion, se ejecuta este script, que ajusta los datos
@@ -37,13 +38,14 @@ require_once(__DIR__."/classes/Dogs.php");
  * elimina las referencias de una inscripcion en la jornada dada
  * @param {object} $inscripcion Datos de la inscripcion
  * @param {object} $jornada Datos de la jornada
+ * @param {object} $perro Datos del perro
  */
 function borraPerroDeJornada($inscripcion,$jornada,$perro) {
 	$j=$jornada['ID'];
 	$p=$jornada['Prueba'];
 	// eliminamos al perro de los equipos de la jornada
 	$eobj =new Equipos("borraPerroDeJornada",$p,$j);
-	$eobj->removeInscripcion($perro);
+	$eobj->removeInscripcion($perro['ID']);
 	// buscamos la lista de mangas de esta jornada
 	$mobj=new Mangas("borraPerroDeJornada",$jornada['ID']);
 	$mangas=$mobj->selectByJornada();
@@ -64,6 +66,7 @@ function borraPerroDeJornada($inscripcion,$jornada,$perro) {
  * Comprueba y actualiza las referencias de una inscripcion en una jornada
  * @param {object} $inscripcion Datos de la inscripcion
  * @param {object} $jornada Datos de la jornada
+ * @param {object} $perro Datos del perro
  */
 function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 	$myLogger=new Logger("inscribePerroEnJornada");
@@ -71,6 +74,9 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 	$p=$jornada['Prueba'];
 	$idperro=$inscripcion['Perro'];
 	$g=$perro['Grado'];
+	// incluye al perro en el equipo por defecto de la jornada
+	$eqobj =new Equipos("inscribePerroEnJornada",$p,$j);
+	$equipo=$eqobj->insertInscripcion($perro['ID']);
 	// buscamos la lista de mangas de esta jornada
 	$mobj=new Mangas("inscribePerroEnJornada",$jornada['ID']);
 	$mangas=$mobj->selectByJornada();

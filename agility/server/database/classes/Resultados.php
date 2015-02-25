@@ -189,7 +189,9 @@ class Resultados extends DBObject {
 		$this->myLogger->enter();
 		if ($this->isCerrada()) 
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
-		
+		// extraemos informacion del equipo
+		$eqobj=new Equipos("Resultados::insertByData",$this->IDPrueba,$this->IDJornada);
+		$eq=$eqobj->getTeamByPerro($objperro['ID']);
 		// If row pkey(manga,perro) exists, just update; else insert
 		$sql="REPLACE INTO Resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
 				VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -201,7 +203,7 @@ class Resultados extends DBObject {
 		$jornada=$this->IDJornada;
 		$manga=$idmanga;
 		$perro=$objperro['ID'];
-		$equipo=$inscripcion['Equipo'];
+		$equipo=$eq['ID'];
 		$dorsal=$inscripcion['Dorsal'];
 		$nombre=$objperro['Nombre'];
 		$licencia=$objperro['Licencia'];

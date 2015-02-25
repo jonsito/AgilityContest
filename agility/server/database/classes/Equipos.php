@@ -48,9 +48,11 @@ class Equipos extends DBObject {
 		} 
 		// obtenemos los equipos de esta jornada
 		$res= $this->__select(
-				/* SELECT */ "*",
-				/* FROM */   "Equipos",
-				/* WHERE */ "( Prueba = $prueba ) AND ( Jornada = $jornada )"
+				/* SELECT */ 	"*",
+				/* FROM */   	"Equipos",
+				/* WHERE */ 	"( Prueba = $prueba ) AND ( Jornada = $jornada )",
+				/* ORDER BY */	"",
+				/* LIMIT */ 	""
 		);
 		if (!is_array($res)) {
 			$this->errormsg="$file::construct() cannot get team data for prueba:$prueba jornada:$jornada" ;
@@ -280,10 +282,10 @@ class Equipos extends DBObject {
 		// comprobamos si el equipo pertenece a esta jornada
 		$team=null;
 		foreach($this->teamsByJornada as $equipo) {
-			if ($equipo['ID']==$idteam) {$team=$equipo; break;}
+			if ($equipo['ID']==$idteam) {$team=&$equipo; break;}
 		}
 		if ($team==null) return $this->error("El equipo:$idteam NO pertenece a la jornada:{$this->jornadaID}");
-		$ordenSalida=$team['Miembros'];
+		$ordensalida=$team['Miembros'];
 		// lo borramos para evitar una posible doble insercion
 		$str = ",$idperro,";
 		$nuevoorden = str_replace ( $str, ",", $ordensalida );
@@ -292,7 +294,8 @@ class Equipos extends DBObject {
 		// y lo insertamos en lugar que corresponde
 		$ordensalida = str_replace ( "END", $myTag, $nuevoorden );
 		// update database
-		$str="UPDATE Equipos SET Miembros='$ordensalida' (WHERE ID=$idteam})";
+		$team['Miembros']=$ordensalida;
+		$str="UPDATE Equipos SET Miembros='$ordensalida' WHERE (ID=$idteam)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		return ""; // success
@@ -304,11 +307,12 @@ class Equipos extends DBObject {
 	 */
 	function removeInscripcion($idperro) {
 		$str = ",$idperro,";
-		foreach($this->teamsByJornada as $team) {
-			$ordenSalida=$team['Miembros'];
+		foreach($this->teamsByJornada as &$team) {
+			$ordensalida=$team['Miembros'];
 			$nuevoorden = str_replace ( $str, ",", $ordensalida );
 			if ($ordensalida===$nuevoorden) continue; // not inscribed in this team
 			// update database
+			$team['Miembros']=$nuevoorden;
 			$str="UPDATE Equipos SET Miembros='$nuevoorden' WHERE (ID={$team['ID']})";
 			$rs=$this->query($str);
 			if (!$rs) return $this->error($this->conn->error);
@@ -327,6 +331,13 @@ class Equipos extends DBObject {
 		// e insertamos la nueva
 		$this->insertInscripcion($idperro,$idequipo);
 		return "";
+	}
+	
+	function getTeamByPerro($idperro) {
+		$p=$this->pruebaID;
+		$j=$this->jornadaID;
+		$res=$this->__selectAsArray("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (Miembros LIKE ',$idperro,') ");
+		return $res;
 	}
 }
 	

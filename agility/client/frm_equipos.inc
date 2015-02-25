@@ -40,7 +40,9 @@ $config =new Config();
    	</span>
    	<span style="float:right;padding:5px">
    	   	<a id="team_datagrid-checkBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help'"
-   			onclick="deleteTeam('#team_datagrid')"><?php _e('Verificar');?></a>
+   			onclick="checkTeams('#team_datagrid')"><?php _e('Verificar');?></a>
+   	   	<a id="team_datagrid-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'"
+   			onclick="printTeams('#team_datagrid')"><?php _e('Imprimir');?></a>
    		<a id="team_datagrid-reloadBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-brush'"
    			onclick="
    	        	// clear selection and reload table
@@ -134,10 +136,10 @@ $('#team_datagrid').datagrid({
         { field:'Jornada',		hidden:true },
         { field:'Orden',		hidden:true },
         { field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Nombre');?>' },
-        { field:'Categorias',	width:15, sortable:true,	title: '<?php _e('Categor&iacute;as');?>' },
+        { field:'Categorias',	width:10, sortable:true,	title: '<?php _e('Categor&iacute;as');?>' },
         { field:'Observaciones',width:65, sortable:true,	title: '<?php _e('Observaciones');?>'},
         { field:'Miembros',		hidden:true },
-        { field:'DefaultTeam',	hidden:true },
+        { field:'DefaultTeam',	width:5, sortable:false,	align: 'center', title: 'Def', formatter:formatOk}
     ]],
     pagination: false,
     rownumbers: true,
@@ -163,6 +165,7 @@ addTooltip($('#team_datagrid-editBtn').linkbutton(),"<?php _e('Editar nombre/obs
 addTooltip($('#team_datagrid-delBtn').linkbutton(),"<?php _e('Eliminar datos del equipo en la prueba');?>");
 addTooltip($('#team_datagrid-reloadBtn').linkbutton(),"<?php _e('Borrar casilla de busqueda. Actualizar listado de equipos');?>");
 addTooltip($('#team_datagrid-checkBtn').linkbutton(),"<?php _e('Comprobar equipos. Indicar los problemas encontrados');?>");
+addTooltip($('#team_datagrid-printBtn').linkbutton(),"<?php _e('Imprimir la lista de equipos de la jornada <br />y los miembros de cada equipo');?>");
 addTooltip($('#team_datagrid-doneBtn').linkbutton(),"<?php _e('Cerrar la ventana. Volver al menu anterior');?>");
 
 // mostrar las inscripciones agrupadas por equipos
