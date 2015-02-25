@@ -41,14 +41,14 @@ class Equipos extends DBObject {
 		$this->jornadaID=$jornada;
 		if ( $jornada<=0 ) {
 			$this->myLogger->info("Constructor with invalid jornada ID:0");
-			$this->defaultTeam=0;
+			$this->defaultTeam=null;
 			return;
 		}
 		// obtenemos el equipo por defecto para esta prueba
 		$res= $this->__selectAsArray(
-				/* SELECT */ "ID",
+				/* SELECT */ "*",
 				/* FROM */   "Equipos",
-				/* WHERE */ "( Prueba = $prueba ) AND ( Jornada = $jornada ) AND ( Nombre = '-- Sin asignar --' )"
+				/* WHERE */ "( Prueba = $prueba ) AND ( Jornada = $jornada ) AND ( DefaultTeam = 1 )"
 		);
 		if (!is_array($res)) {
 			$this->errormsg="$file::construct() cannot get default team data for prueba:$prueba jornada:$jornada" ;
@@ -64,20 +64,18 @@ class Equipos extends DBObject {
 		$ord=($obj!=null)?1+intval($obj->Last):1; // evaluate latest in order
 		
 		// componemos un prepared statement
-		$sql ="INSERT INTO Equipos (Prueba,Jornada,Orden,Categorias,Nombre,Observaciones) VALUES(?,?,?,?,?,?)";
+		$sql ="INSERT INTO Equipos (Prueba,Jornada,Orden,Categorias,Nombre,Observaciones,DefaultTeam) VALUES({$this->pruebaID},{$this->jornadaID},?,?,?,?,0)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('iiisss',$prueba,$jornada,$orden,$categorias,$nombre,$observaciones);
+		$res=$stmt->bind_param('isss',$orden,$categorias,$nombre,$observaciones);
 		if (!$res) return $this->error($stmt->error);  
 		
 		// iniciamos los valores, chequeando su existencia
-		$prueba		= $this->pruebaID; // not null
-		$jornada	= $this->jornadaID; // not null
 		$orden		= $ord;
 		$categorias = http_request("Categorias","s",null,false); // may be null
 		$nombre 	= http_request("Nombre","s",null,false); // not null
 		$observaciones= http_request('Observaciones',"s",null,false); // may be null
-		$this->myLogger->info("Prueba ID:$prueba Nombre:'$nombre' Observaciones:'$observaciones'");
+		$this->myLogger->info("Prueba:{$this->pruebaID} Jornada:{$this->jornadaID} Nombre:'$nombre' Observaciones:'$observaciones'");
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
@@ -98,9 +96,9 @@ class Equipos extends DBObject {
 		if (!$res) return $this->error($stmt->error); 
 		
 		// iniciamos los valores, chequeando su existencia
-		$n = http_request("Nombre","s",null,false); 
-		$o = http_request('Observaciones',"s",null,false);
-		$c = http_request('Categorias',"s",null,false);
+		$n = http_request("Nombre","s",null,false); // not null
+		$o = http_request('Observaciones',"s",'',false);
+		$c = http_request('Categorias',"s",'',false);
 		
 		$this->myLogger->info("Team:$id Prueba:{$this->pruebaID} Jornada:{$this->jornadaID} Nombre:'$n' Observ:'$o' Categ:'$c'");
 		
@@ -254,6 +252,32 @@ class Equipos extends DBObject {
 		return ""; // mark success
 	}
 	
+	function defaultTeam() {
+		
+	}
+	
+	/**
+	 * Inscribe a un perro en el equipo por defecto de la jornada
+	 * @param {integer} $perro IDPerro
+	 */
+	function insertInscripcion($perro) {
+		
+	}
+	/**
+	 * Borra a un perro de los equipos de la jornada
+	 * @param {integer} $perro IDPerro
+	 */
+	function removeInscripcion($perro) {
+		
+	}
+	/**
+	 * Cambia a un perro de equipo
+	 * @param {integer} $perro
+	 * @param {integer} $equipo
+	 */
+	function updateInscripcion($perro,$equipo) {
+		
+	}
 }
 	
 ?>

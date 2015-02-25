@@ -41,6 +41,9 @@ require_once(__DIR__."/classes/Dogs.php");
 function borraPerroDeJornada($inscripcion,$jornada,$perro) {
 	$j=$jornada['ID'];
 	$p=$jornada['Prueba'];
+	// eliminamos al perro de los equipos de la jornada
+	$eobj =new Equipos("borraPerroDeJornada",$p,$j);
+	$eobj->removeInscripcion($perro);
 	// buscamos la lista de mangas de esta jornada
 	$mobj=new Mangas("borraPerroDeJornada",$jornada['ID']);
 	$mangas=$mobj->selectByJornada();

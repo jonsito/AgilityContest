@@ -79,7 +79,7 @@ function editTeam(dg){
     	return;
     }
     if (row.Nombre==="-- Sin asignar --") {
-    	$.messager.alert("Edit Error:","<?php _e('El equipo por defecto NO se puede editar');?>","info");
+    	$.messager.alert("Edit Error:","<?php _e('El equipo por defecto NO se puede editar');?>","error");
     	return;
     }
     $('#team_edit_dialog').dialog('open').dialog('setTitle','<?php _e('Modificar datos del equipo');?>');
@@ -106,7 +106,7 @@ function deleteTeam(dg){
     	return; // no way to know which prueba is selected
     }
     if (row.Nombre==="-- Sin asignar --") {
-    	$.messager.alert("Delete Error:","<?php _e('El equipo por defecto NO se puede borrar');?>","info");
+    	$.messager.alert("Delete Error:","<?php _e('El equipo por defecto NO se puede borrar');?>","error");
     	return; // no way to know which prueba is selected
     }
     $.messager.confirm('Confirm',

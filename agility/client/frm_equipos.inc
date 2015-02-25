@@ -137,6 +137,7 @@ $('#team_datagrid').datagrid({
         { field:'Categorias',	width:15, sortable:true,	title: '<?php _e('Categor&iacute;as');?>' },
         { field:'Observaciones',width:65, sortable:true,	title: '<?php _e('Observaciones');?>'},
         { field:'Miembros',		hidden:true },
+        { field:'DefaultTeam',	hidden:true },
     ]],
     pagination: false,
     rownumbers: true,
