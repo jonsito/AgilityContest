@@ -200,6 +200,7 @@ CREATE TABLE IF NOT EXISTS `equipos` (
   `ID` int(4) NOT NULL,
   `Prueba` int(4) NOT NULL,
   `Jornada` int(4) NOT NULL,
+  `Orden` int(4) NOT NULL DEFAULT 1,
   `Categorias` varchar(16) NOT NULL DEFAULT '-LMST',
   `Nombre` varchar(255) NOT NULL,
   `Observaciones` varchar(255) NOT NULL DEFAULT '',
@@ -218,23 +219,23 @@ CREATE TABLE IF NOT EXISTS `equipos` (
 -- Volcado de datos para la tabla `equipos`
 --
 
-INSERT INTO `equipos` (`ID`, `Prueba`, `Jornada`, `Categorias`, `Nombre`, `Observaciones`, `Miembros`) VALUES
-(1, 1, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 1 - Equipo por defecto', 'BEGIN,END'),
-(2, 1, 2, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 2 - Equipo por defecto', 'BEGIN,END'),
-(3, 1, 3, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 3 - Equipo por defecto', 'BEGIN,END'),
-(4, 1, 4, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 4 - Equipo por defecto', 'BEGIN,END'),
-(5, 1, 5, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 5 - Equipo por defecto', 'BEGIN,END'),
-(6, 1, 6, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 6 - Equipo por defecto', 'BEGIN,END'),
-(7, 1, 7, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 7 - Equipo por defecto', 'BEGIN,END'),
-(8, 1, 8, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 8 - Equipo por defecto', 'BEGIN,END'),
-(9, 2, 9, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 9 - Equipo por defecto', 'BEGIN,END'),
-(10, 2, 10, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 10 - Equipo por defecto', 'BEGIN,END'),
-(11, 2, 11, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 11 - Equipo por defecto', 'BEGIN,END'),
-(12, 2, 12, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 12 - Equipo por defecto', 'BEGIN,END'),
-(13, 2, 13, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 13 - Equipo por defecto', 'BEGIN,END'),
-(14, 2, 14, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 14 - Equipo por defecto', 'BEGIN,END'),
-(15, 2, 15, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 15 - Equipo por defecto', 'BEGIN,END'),
-(16, 2, 16, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 16 - Equipo por defecto', 'BEGIN,END');
+INSERT INTO `equipos` (`ID`, `Prueba`, `Jornada`, `Orden`, `Categorias`, `Nombre`, `Observaciones`, `Miembros`) VALUES
+(1, 1, 1, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 1 - Equipo por defecto', 'BEGIN,END'),
+(2, 1, 2, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 2 - Equipo por defecto', 'BEGIN,END'),
+(3, 1, 3, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 3 - Equipo por defecto', 'BEGIN,END'),
+(4, 1, 4, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 4 - Equipo por defecto', 'BEGIN,END'),
+(5, 1, 5, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 5 - Equipo por defecto', 'BEGIN,END'),
+(6, 1, 6, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 6 - Equipo por defecto', 'BEGIN,END'),
+(7, 1, 7, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 7 - Equipo por defecto', 'BEGIN,END'),
+(8, 1, 8, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 1 JORNADA 8 - Equipo por defecto', 'BEGIN,END'),
+(9, 2, 9, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 9 - Equipo por defecto', 'BEGIN,END'),
+(10, 2, 10, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 10 - Equipo por defecto', 'BEGIN,END'),
+(11, 2, 11, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 11 - Equipo por defecto', 'BEGIN,END'),
+(12, 2, 12, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 12 - Equipo por defecto', 'BEGIN,END'),
+(13, 2, 13, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 13 - Equipo por defecto', 'BEGIN,END'),
+(14, 2, 14, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 14 - Equipo por defecto', 'BEGIN,END'),
+(15, 2, 15, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 15 - Equipo por defecto', 'BEGIN,END'),
+(16, 2, 16, 1, '-LMST', '-- Sin asignar --', 'NO BORRAR: PRUEBA 2 JORNADA 16 - Equipo por defecto', 'BEGIN,END');
 
 -- --------------------------------------------------------
 

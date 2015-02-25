@@ -59,17 +59,21 @@ class Equipos extends DBObject {
 	
 	function insert() {
 		$this->myLogger->enter();
+		// obtenemos el orden a insertar
+		$obj=$this->__selectObject("MAX(Orden) AS Last","Equipos","(Prueba={$this->pruebaID}) AND (Jornada={$this->jornadaID})");
+		$ord=($obj!=null)?1+intval($obj->Last):1; // evaluate latest in order
 		
 		// componemos un prepared statement
-		$sql ="INSERT INTO Equipos (Prueba,Jornada,Categorias,Nombre,Observaciones) VALUES(?,?,?,?,?)";
+		$sql ="INSERT INTO Equipos (Prueba,Jornada,Orden,Categorias,Nombre,Observaciones) VALUES(?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('iisss',$prueba,$jornada,$categorias,$nombre,$observaciones);
+		$res=$stmt->bind_param('iiisss',$prueba,$jornada,$orden,$categorias,$nombre,$observaciones);
 		if (!$res) return $this->error($stmt->error);  
 		
 		// iniciamos los valores, chequeando su existencia
 		$prueba		= $this->pruebaID; // not null
 		$jornada	= $this->jornadaID; // not null
+		$orden		= $ord;
 		$categorias = http_request("Categorias","s",null,false); // may be null
 		$nombre 	= http_request("Nombre","s",null,false); // not null
 		$observaciones= http_request('Observaciones',"s",null,false); // may be null
@@ -187,6 +191,69 @@ class Equipos extends DBObject {
 		$this->myLogger->leave();
 		return $data;
 	}
+	
+	/**
+	 * insert $from before(where==false) or after(where=true) $to
+	 * This dnd routine uses a Orden shift'ng: increase every remaining row order,
+	 * and assign moved row orden to created hole
+	 * @param {integer} $from id to move
+	 * @param {integer} $to id to insert arounn
+	 * @param {boolean} $where false:insert before  / true:insert after
+	 */
+	function dragAndDrop($from,$to,$where) {
+		$this->myLogger->enter();
+		$p=$this->prueba->ID;
+		$j=$this->jornada->ID;
+		// get from/to Tanda's ID
+		$f=$this->__selectObject("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (ID=$from)");
+		$t=$this->__selectObject("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (ID=$to)");
+		if(!$f || !$t) {
+			$this->myLogger->error("Error: no ID for equipo's order '$from' and/or '$to' on prueba:$p jornada:$j");
+			return $this->errormsg;
+		}
+		$torder=$t->Orden;
+		$neworder=($where)?$torder+1/*after*/:$torder/*before*/;
+		$comp=($where)?">"/*after*/:">="/*before*/;
+		$str="UPDATE Equipos SET Orden=Orden+1 WHERE ( Prueba = $p ) AND ( Jornada = $j ) AND ( Orden $comp $torder )";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		$str="UPDATE Equipos SET Orden=$neworder WHERE ( Prueba = $p ) AND ( Jornada = $j ) AND ( ID = $from )";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		return "";
+	}
+	
+	/**
+	 * Swap orden between requested equipos
+	 * @param {integer} $from Equipo ID 1
+	 * @param {integer} $to Equipo ID 2
+	 * @return {string} error message or "" on success
+	 */
+	function swap($from,$to) {
+		$this->myLogger->enter();
+		$p=$this->prueba->ID;
+		$j=$this->jornada->ID;
+		// get from/to Tanda's ID
+		$f=$this->__selectObject("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (ID=$from)");
+		$t=$this->__selectObject("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (ID=$to)");
+		if(!$f || !$t) {
+			$this->myLogger->error("Error: no ID for equipo's order '$from' and/or '$to' on prueba:$p jornada:$j");
+			return $this->errormsg;
+		}
+		$forden=$f->Orden;
+		$torden=$t->Orden;
+		// perform swap update.
+		// TODO: make it inside a transaction
+		$str="UPDATE Equipos SET Orden=$torden WHERE (ID=$from)";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		$str="UPDATE Equipos SET Orden=$forder WHERE (ID=$to)";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		$this->myLogger->leave();
+		return ""; // mark success
+	}
+	
 }
 	
 ?>
