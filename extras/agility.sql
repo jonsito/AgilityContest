@@ -204,8 +204,8 @@ CREATE TABLE IF NOT EXISTS `equipos` (
   `Categorias` varchar(16) NOT NULL DEFAULT '-LMST',
   `Nombre` varchar(255) NOT NULL,
   `Observaciones` varchar(255) NOT NULL DEFAULT '',
-  `Miembros` text NOT NULL DEFAULT 'BEGIN,END',
-  `DefaultTeam` tinyint(1) NOT NULL DEFAULT 0,
+  `Miembros` text NOT NULL,
+  `DefaultTeam` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
