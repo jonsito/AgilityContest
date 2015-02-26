@@ -24,7 +24,7 @@ require_once(__DIR__."/../procesaInscripcion.php"); // to insert/remove inscript
 class Inscripciones extends DBObject {
 	
 	protected $pruebaID;
-	protected $insertid;
+	public $insertid;
 	
 	/**
 	 * Constructor
@@ -73,7 +73,7 @@ class Inscripciones extends DBObject {
 		$this->insertid=$this->conn->insert_id;
 		if (!$res) return $this->error($this->conn->error);
 		// una vez inscrito, vamos a repasar la lista de jornadas y actualizar en caso necesario
-		$inscripcionid=$this->conn->insert_id;
+		$inscripcionid=$this->insertid;
 		// los datos de las mangas y resultados
 		procesaInscripcion($prueba,$inscripcionid);
 		// all right return ok

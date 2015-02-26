@@ -73,7 +73,8 @@ class Equipos extends DBObject {
 		$ord=($obj!=null)?1+intval($obj->Last):1; // evaluate latest in order
 		
 		// componemos un prepared statement
-		$sql ="INSERT INTO Equipos (Prueba,Jornada,Orden,Categorias,Nombre,Observaciones,DefaultTeam) VALUES($prueba,$jornada,?,?,?,?,0)";
+		$sql ="INSERT INTO Equipos (Prueba,Jornada,Orden,Categorias,Nombre,Observaciones,DefaultTeam,Miembros) 
+					VALUES($prueba,$jornada,?,?,?,?,0,'BEGIN,END')";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('isss',$orden,$categorias,$nombre,$observaciones);
@@ -275,6 +276,7 @@ class Equipos extends DBObject {
 	 * Si no se indica, lo inscribe en el equipo por defecto
 	 * @param {integer} $idperro ID Perro
 	 * @param {integer} $idteam ID equipo. 0: default team
+	 * @return "" on success; else error String
 	 */
 	function insertInscripcion($idperro,$idteam=0) {
 		// si no idteam se coge el valor por defecto
@@ -345,6 +347,14 @@ class Equipos extends DBObject {
 	 */
 	function getTeamOrder() {
 		return usort( $this->teamsByJornada,function($a,$b){return $a['Orden'] - $b['Orden'];});
+	}
+	
+	/**
+	 * Obtiene los datos del equipo por defecto
+	 * @return {array} default Team data
+	 */
+	function getDefaultTeam() {
+		return $this->defaultTeam;
 	}
 	
 	/**

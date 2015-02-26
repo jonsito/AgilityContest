@@ -74,7 +74,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 	$g=$perro['Grado'];
 	// incluye al perro en el equipo por defecto de la jornada
 	$eqobj =new Equipos("inscribePerroEnJornada",$p,$j);
-	$equipo=$eqobj->insertInscripcion($perro['ID']);
+	$eqobj->insertInscripcion($perro['ID']);
 	// buscamos la lista de mangas de esta jornada
 	$mobj=new Mangas("inscribePerroEnJornada",$jornada['ID']);
 	$mangas=$mobj->selectByJornada();
@@ -124,7 +124,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 			$myLogger->info("Eliminando Perro:$idperro Grado:$g del orden de salida grado:$mgrado");
 			$os->removeFromList($idperro);	
 		} else {
-			$myLogger->info("Insertando Perro:$idperro Grado:$g en del orden de salida gradp:$mgrado");
+			$myLogger->info("Insertando Perro:$idperro Grado:$g en del orden de salida grado:$mgrado");
 			$os->insertIntoList($idperro);
 		}
 		$orden=$os->getOrden();
@@ -140,7 +140,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 			// nos aseguramos de que existe una entrada 
 			$myLogger->info("Insertando Perro:$idperro Grado:$g en Resultados manga:$mid");
 			// en la tabla de resultados de esta manga para este perro
-			$res = $rs->insertByData($perro, $inscripcion);
+			$res = $rs->insertByData($perro, $inscripcion,$eqobj->getDefaultTeam());
 			if ($res!=="") {
 				// esta funcion es in "insert on duplicate key update"...
 				// no deberia fallar si ya existe una entrada en la tabla de resultados

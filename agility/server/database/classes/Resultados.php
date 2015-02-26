@@ -181,17 +181,15 @@ class Resultados extends DBObject {
 	 * los datos del perro se toman de la tabla perroguiaclub
 	 * @param {array} $objperro datos perroguiaclub
 	 * @param {array} $inscripcion datos de la inscripcion
+	 * @param {array} $eqdata datos del equipo por defecto de la jornada
 	 * @return "" on success; else error string
 	 */
-	function insertByData($objperro,$inscripcion) {
+	function insertByData($objperro,$inscripcion,$eqdata) {
 		$error="";
 		$idmanga=$this->IDManga;
 		$this->myLogger->enter();
 		if ($this->isCerrada()) 
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
-		// extraemos informacion del equipo
-		$eqobj=new Equipos("Resultados::insertByData",$this->IDPrueba,$this->IDJornada);
-		$eq=$eqobj->getTeamByPerro($objperro['ID']);
 		// If row pkey(manga,perro) exists, just update; else insert
 		$sql="REPLACE INTO Resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,Celo,NombreGuia,NombreClub) 
 				VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -203,13 +201,13 @@ class Resultados extends DBObject {
 		$jornada=$this->IDJornada;
 		$manga=$idmanga;
 		$perro=$objperro['ID'];
-		$equipo=$eq['ID'];
+		$equipo=$eqdata['ID'];
 		$dorsal=$inscripcion['Dorsal'];
 		$nombre=$objperro['Nombre'];
 		$licencia=$objperro['Licencia'];
 		$categoria=$objperro['Categoria'];
 		$grado=$objperro['Grado'];
-		$celo=$objperro['Celo'];
+		$celo=$inscripcion['Celo'];
 		$guia=$objperro['NombreGuia'];
 		$club=$objperro['NombreClub'];
 		// ejecutamos el query

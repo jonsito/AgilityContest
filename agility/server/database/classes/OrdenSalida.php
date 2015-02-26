@@ -26,7 +26,7 @@ require_once("Inscripciones.php");
 class OrdenSalida extends DBObject {
 
 	// tablas utilizadas para componer e insertar los idperroes en el string de orden de salida
-	static $default_orden = "BEGIN,END";
+	public static $default_orden = "BEGIN,END";
 	
 	var $prueba=null; // {array} prueba data
 	var $jornada=null; // {array} jornada data
@@ -68,7 +68,7 @@ class OrdenSalida extends DBObject {
 	 * @return {string} orden de salida.
 	 */
 	function getOrden() {
-		return ($this->manga['Orden_Salida']==="")?$this->default_orden:$this->manga['Orden_Salida'];
+		return ($this->manga['Orden_Salida']==="")?OrdenSalida::$default_orden:$this->manga['Orden_Salida'];
 	}
 	
 	/**
@@ -83,7 +83,7 @@ class OrdenSalida extends DBObject {
 			$this->myLogger->error($this->errormsg);
 			return $this->errormsg;
 		}
-		$sql = "UPDATE Mangas SET Orden_Salida = '$orden' WHERE ( ID={$this->manga['ID']}] )";
+		$sql = "UPDATE Mangas SET Orden_Salida = '$orden' WHERE ( ID={$this->manga['ID']} )";
 		$rs = $this->query ($sql);
 		// do not call $rs->free() as no resultset returned
 		if (!$rs) return $this->error($this->conn->error);
