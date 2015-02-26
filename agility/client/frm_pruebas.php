@@ -115,6 +115,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         // ------------- submenu de jornadas asociadas a una prueba --------------------- //
         function showJornadasByPrueba (index,prueba) {
             var datagridID='#jornadas-datagrid-'+prueba.ID;
+            workingData.datosPrueba=prueba;
             $(datagridID).datagrid({
         		title: "Jornadas de que consta la prueba '"+prueba.Nombre+"'",
         		url: '/agility/server/database/jornadaFunctions.php',

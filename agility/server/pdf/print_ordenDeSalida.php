@@ -63,8 +63,8 @@ class PDF extends PrintCommon {
 		$m = new Mangas("printOrdenDeSalida",$jornada);
 		$this->manga= $m->selectByID($manga);
 		// Datos del orden de salida
-		$o = new OrdenSalida("printOrdenDeSalida");
-		$os= $o->getData($prueba,$jornada,$manga);
+		$o = new OrdenSalida("printOrdenDeSalida",$manga);
+		$os= $o->getData();
 		$this->orden=$os['rows'];
 		$this->categoria="L";
 		$this->cellHeader=

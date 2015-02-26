@@ -148,19 +148,20 @@ $('#inscripciones-jornadas').datagrid({
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Prueba',		hidden:true }, // ID de la prueba
       	    { field:'Numero',		width:10, sortable:false,	align:'center', title: '#'},
-      		{ field:'Nombre',		width:70, sortable:false,   align:'right',  title: '<?php _e('Nombre/Comentario');?>' },
-      		{ field:'Fecha',		width:40, sortable:false,	align:'right',  title: '<?php _e('Fecha');?>: ' },
-      		{ field:'Hora',			width:30, sortable:false,	align:'right',  title: '<?php _e('Hora');?>:  ' },
-      		{ field:'Grado1',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'G-I    ' },
-      		{ field:'Grado2',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'G-II   ' },
-      		{ field:'Grado3',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'G-III  ' },
-      		{ field:'Equipos3',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Eq. 3/4' },
-      		{ field:'Equipos4',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Eq. Conj.' },
-      		{ field:'PreAgility',	width:15, sortable:false, formatter: formatOk,	align:'center', title: 'P.A. -1' },
-      		{ field:'PreAgility2',	width:15, sortable:false, formatter: formatOk,	align:'center', title: 'P.A. -2' },
-      		{ field:'KO',			width:15, sortable:false, formatter: formatOk,	align:'center', title: 'K.O.   ' },
+      		{ field:'Nombre',		width:60, sortable:false,   align:'right',  title: '<?php _e('Nombre/Comentario');?>' },
+      		{ field:'Fecha',		width:30, sortable:false,	align:'right',  title: '<?php _e('Fecha');?>: ' },
+      		{ field:'Hora',			width:25, sortable:false,	align:'right',  title: '<?php _e('Hora');?>:  ' },
+      		{ field:'Grado1',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'G-I  ' },
+      		{ field:'Grado2',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'G-II ' },
+      		{ field:'Grado3',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'G-III' },
+      		{ field:'Equipos3',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Eq. 3' },
+      		{ field:'Equipos4',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Eq. 4' },
+      		{ field:'Open',			width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Open ' },
+      		{ field:'PreAgility',	width:15, sortable:false, formatter: formatOk,	align:'center', title: 'PA. 1' },
+      		{ field:'PreAgility2',	width:15, sortable:false, formatter: formatOk,	align:'center', title: 'PA. 2' },
+      		{ field:'KO',			width:15, sortable:false, formatter: formatOk,	align:'center', title: 'K.O. ' },
       		{ field:'Especial',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('Especial');?>' },
-      		{ field:'Cerrada',		width:20, sortable:false, formatter: formatCerrada,	align:'center', title: '<?php _e('Cerrada');?>' }
+      		{ field:'Cerrada',		width:10, sortable:false, formatter: formatCerrada,	align:'center', title: '<?php _e('Cerrada');?>' }
     ]],
     rowStyler:myRowStyler,
 	// on double click fireup editor dialog

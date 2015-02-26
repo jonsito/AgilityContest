@@ -409,8 +409,8 @@ try {
 	$m = new Mangas("printEntradaDeDatos",$jornada);
 	$mangas= $m->getHermanas($manga);
 	// Datos del orden de salida
-	$o = new OrdenSalida("printEntradaDeDatos");
-	$orden= $o->getData($prueba,$jornada,$manga);
+	$o = new OrdenSalida("printEntradaDeDatos",$manga);
+	$orden= $o->getData();
 	// Creamos generador de documento
 	$pdf = new PDF($prueba,$jornada,$mangas,$orden['rows'],$mode);
 	$pdf->AliasNbPages();

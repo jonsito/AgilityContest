@@ -124,6 +124,7 @@ $config=new Config();
 <script type="text/javascript">
     // datos del formulario de nuevo/edit jornada
     $('#jornadas-dialog').dialog({
+        modal:true,
         closed:true,
         buttons:'#jornadas-dlg-buttons'
     });

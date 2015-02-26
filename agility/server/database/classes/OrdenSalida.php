@@ -181,7 +181,7 @@ class OrdenSalida extends DBObject {
 		$p3=array();
 		foreach($equipos as $equipo) {
 			foreach ($p2 as $perro) {
-				if ($perro['Equipo']==$equipo['ID']) array_push(p3,$perro);
+				if ($perro['Equipo']==$equipo['ID']) array_push($p3,$perro);
 			}
 		}
 		// tercera pasada: ordenar por celo

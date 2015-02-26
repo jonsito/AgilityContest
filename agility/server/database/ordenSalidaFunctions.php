@@ -43,7 +43,7 @@ try {
 	$w = http_request("Where","i",0);
 	if (($p<=0) || ($j<=0) || ($m<=0)) 
 		throw new Exception("Call to ordenSalidaFunctions with Invalid Prueba:$p Jornada:$j or manga:$m ID");
-	$os=new OrdenSalida($file);
+	$os=new OrdenSalida($file,$m);
 	switch ($operation) {
 		case "random": $am->access(PERMS_OPERATOR);	$result = $os->random(); break;
 		case "reverse": $am->access(PERMS_OPERATOR); $result = $os->reverse(); break;

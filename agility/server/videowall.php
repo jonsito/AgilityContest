@@ -317,8 +317,8 @@ class VideoWall {
 	
 	function videowall_ordensalida() {
 		$lastCategoria="";
-		$osmgr=new OrdenSalida("Orden de salida");
-		$result = $osmgr->getData($this->prueba['ID'],$this->jornada['ID'],$this->mangaid)['rows']; // obtiene los 10 primeros perros pendientes
+		$osmgr=new OrdenSalida("Orden de salida",$this->mangaid);
+		$result = $osmgr->getData()['rows']; // obtiene los 10 primeros perros pendientes
 		$numero=0;
 		$this->generateHeaderInfo();
 		echo '<table class="vwc_callEntry">';
