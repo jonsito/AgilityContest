@@ -193,11 +193,11 @@ class Resultados extends DBObject {
 		$eqobj=new Equipos("Resultados::insertByData",$this->IDPrueba,$this->IDJornada);
 		$eq=$eqobj->getTeamByPerro($objperro['ID']);
 		// If row pkey(manga,perro) exists, just update; else insert
-		$sql="REPLACE INTO Resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub) 
-				VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+		$sql="REPLACE INTO Resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,Celo,NombreGuia,NombreClub) 
+				VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->conn->error;
-		$res=$stmt->bind_param('iiiiiissssss',$prueba,$jornada,$manga,$equipo,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$guia,$club);
+		$res=$stmt->bind_param('iiiiiissssiss',$prueba,$jornada,$manga,$equipo,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$celo,$guia,$club);
 		if (!$res) return $this->error($stmt->error);
 		$prueba=$this->IDPrueba;
 		$jornada=$this->IDJornada;
@@ -209,6 +209,7 @@ class Resultados extends DBObject {
 		$licencia=$objperro['Licencia'];
 		$categoria=$objperro['Categoria'];
 		$grado=$objperro['Grado'];
+		$celo=$objperro['Celo'];
 		$guia=$objperro['NombreGuia'];
 		$club=$objperro['NombreClub'];
 		// ejecutamos el query

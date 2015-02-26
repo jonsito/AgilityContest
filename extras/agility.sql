@@ -2198,6 +2198,7 @@ CREATE TABLE IF NOT EXISTS `resultados` (
   `Licencia` varchar(255) NOT NULL DEFAULT '--------',
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
   `Grado` varchar(16) NOT NULL DEFAULT '-',
+  `Celo` tinyint(1) NOT NULL DEFAULT '0',
   `NombreGuia` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
   `NombreClub` varchar(255) NOT NULL DEFAULT '-- Sin asignar --',
   `Entrada` timestamp NOT NULL DEFAULT '2014-01-01 00:00:00',

@@ -339,6 +339,38 @@ class Equipos extends DBObject {
 		$res=$this->__selectAsArray("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (Miembros LIKE ',$idperro,') ");
 		return $res;
 	}
+	
+	/**
+	 * Obtiene la lista de equipos de una jornada ajustada por orden de salida
+	 */
+	function getTeamOrder() {
+		return usort( $this->teamsByJornada,function($a,$b){return $a['Orden'] - $b['Orden'];});
+	}
+	
+	/**
+	 * Reordena al azar el campo 'orden' de los equipos de esta jornada
+	 */
+	function random() {
+		// reordenamos al azar el array de equipos
+		suffle($this->teamsByJornada);
+		// componemos un prepared statement
+		$sql ="UPDATE Equipos SET Orden=? WHERE (ID=?)";
+		$stmt=$this->conn->prepare($sql);
+		if (!$stmt) return $this->error($this->conn->error);
+		$res=$stmt->bind_param('ii',$orden,$equipo);
+		if (!$res) return $this->error($stmt->error);
+		// recorremos los equipos renumerando el orden
+		$count=1;
+		foreach ($this->teamsByJornada as $team) {
+			$orden=$count;
+			$equipo=$team['ID'];
+			$res=$stmt->execute();
+			if (!$res) return $this->error($stmt->error);
+			$count++;
+		} 
+		$stmt->close();
+		return "";
+	}
 }
 	
 ?>
