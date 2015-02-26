@@ -84,7 +84,7 @@ class Admin {
 			echo $line[$i];
 		}
 	}
-	
+
 	public function backup() {
 		
 		$dbname=$this->myConfig->getEnv('database_name');
@@ -93,8 +93,11 @@ class Admin {
 		$dbpass=$this->myConfig->getEnv('database_pass');
 		
 		$cmd="mysqldump"; // unix
-		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') $cmd='"\xampp\mysql\bin\mysqldump.exe"';
-		$cmd = "$cmd --opt -h $dbhost -u$dbuser -p$dbpass $dbname";
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+			$drive = substr(__FILE__, 0, 1);
+			$cmd='start /B '.$drive.':\xampp\mysql\bin\mysqldump.exe';
+		}
+		$cmd = "$cmd --opt --single-transaction -h $dbhost -u$dbuser -p$dbpass $dbname";
 		$this->myLogger->info("Ejecutando comando: '$cmd'");
 		$input = popen($cmd, 'r');
 		if ($input===FALSE) { $this->errorMsg="adminFunctions::popen() failed"; return null;}
