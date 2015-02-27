@@ -278,7 +278,7 @@ class Equipos extends DBObject {
 	 * @param {integer} $idteam ID equipo. 0: default team
 	 * @return "" on success; else error String
 	 */
-	function insertInscripcion($idperro,$idteam=0) {
+	function insertIntoTeam($idperro,$idteam=0) {
 		// si no idteam se coge el valor por defecto
 		if ($idteam==0) $idteam=$this->defaultTeam['ID'];
 		// comprobamos si el equipo pertenece a esta jornada
@@ -307,7 +307,7 @@ class Equipos extends DBObject {
 	 * Borra a un perro de los equipos de la jornada
 	 * @param {integer} $perro IDPerro
 	 */
-	function removeInscripcion($idperro) {
+	function removeFromTeam($idperro) {
 		$str = ",$idperro,";
 		foreach($this->teamsByJornada as &$team) {
 			$ordensalida=$team['Miembros'];
@@ -327,11 +327,15 @@ class Equipos extends DBObject {
 	 * @param {integer} $idperro
 	 * @param {integer} $idequipo
 	 */
-	function updateInscripcion($idperro,$idequipo) {
+	function updateTeam($idperro,$idequipo) {
 		// eliminamos inscripcion anterior
-		$this->removeInscripcion($idperro);
-		// e insertamos la nueva
-		$this->insertInscripcion($idperro,$idequipo);
+		$this->removeFromTeam($idperro);
+		// insertamos el nueva
+		$this->insertIntoTeam($idperro,$idequipo);
+		// actualizamos tabla de resultados
+		$str="UPDATE Resultados SET Equipo=$idequipo WHERE (Perro=$idperro) AND (Jornada={$this->jornadaID})";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
 		return "";
 	}
 	

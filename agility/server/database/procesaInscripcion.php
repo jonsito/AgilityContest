@@ -45,7 +45,7 @@ function borraPerroDeJornada($inscripcion,$jornada,$perro) {
 	$p=$jornada['Prueba'];
 	// eliminamos al perro de los equipos de la jornada
 	$eobj =new Equipos("borraPerroDeJornada",$p,$j);
-	$eobj->removeInscripcion($perro['ID']);
+	$eobj->removeFromTeam($perro['ID']);
 	// buscamos la lista de mangas de esta jornada
 	$mobj=new Mangas("borraPerroDeJornada",$jornada['ID']);
 	$mangas=$mobj->selectByJornada();
@@ -74,7 +74,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 	$g=$perro['Grado'];
 	// incluye al perro en el equipo por defecto de la jornada
 	$eqobj =new Equipos("inscribePerroEnJornada",$p,$j);
-	$eqobj->insertInscripcion($perro['ID']);
+	$eqobj->insertIntoTeam($perro['ID']);
 	// buscamos la lista de mangas de esta jornada
 	$mobj=new Mangas("inscribePerroEnJornada",$jornada['ID']);
 	$mangas=$mobj->selectByJornada();

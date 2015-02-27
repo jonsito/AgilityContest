@@ -59,10 +59,11 @@ function openTeamWindow(pruebaID) {
 		$.messager.alert("Error:","<?php _e('La jornada seleccionada no tiene competiciones por equipos');?>","error");
     	return;
 	}
-	// else marcamos jornada como activa y abrimos ventana
+	// else marcamos jornada como activa, recargamos lista de equipos y abrimos ventana
 	setJornada(row);
-	$('#team_datagrid-dialog').dialog('open');
+	// recargamos lista de equipos en datagrid principal
 	$('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
+	$('#team_datagrid-dialog').dialog('open');
 }
 
 /**
@@ -178,6 +179,23 @@ function saveTeam() {
 }
 
 /**
+* Open assign team dialog
+* @param {string} datagrid parent datagrid name
+* @param {array} row selected datagrid data
+*/
+function changeTeamDialog(datagrid,row) {
+	// cogemos datos de la inscripcion a modificar
+	// actualizamos lista de equipos en el combogrid
+	$('#selteam-Equipo').combogrid('grid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
+	// ajustamos variables extras del formulario
+    row.Parent=datagrid;
+	// recargamos el formulario con los datos de la fila seleccionada
+    $('#selteam-Form').form('load',row); // onLoadSuccess takes care on combogrid
+	// desplegamos formulario 
+    $('#selteam-window').window('open');
+}
+
+/**
 * Change team to selected one
 */
 function changeTeam() {
@@ -188,11 +206,12 @@ function changeTeam() {
 		$.messager.alert("Error","<?php _e('Debe indicar un equipo v&aacute;lido');?>","error");
 		return;
 	}
+	$('#selteam-ID').val(p.ID);
     var frm = $('#selteam-Form');
     if (! frm.form('validate')) return;
     $.ajax({
         type: 'GET',
-        url: '/agility/server/database/inscripcionFunctions.php',
+        url: '/agility/server/database/equiposFunctions.php',
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {

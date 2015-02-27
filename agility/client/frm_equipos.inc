@@ -61,18 +61,23 @@ $config =new Config();
 </div>
 
 <!-- FORMULARIO DE ASIGNACION DE EQUIPO A UNA INSCRIPCION -->
-<div id="selteam-window" class="easyui-window" style="position:relative;width:400px;height:auto;padding:15px 15px">
+<div id="selteam-window" style="position:relative;width:400px;height:auto;padding:15px 15px">
 	<div id="selteam-Layout" class="easyui-layout" data-options="fit:true'">
 		<div id="selteam-Content" data-options="region:'north',border:'true'">
 			<form id="selteam-Form">
         		<div class="fitem">
         			<input type="hidden" id="selteam-Parent" name="Parent"/> <!-- datagrid padre -->
-        			<input type="hidden" id="selteam-Operation" name="Operation" value="update"/>
+        			<input type="hidden" id="selteam-Operation" name="Operation" value="update_team"/>
         			<input type="hidden" id="selteam-Prueba" name="Prueba"/>
-        			<input type="hidden" id="selteam-Jornadas" name="Jornadas"/>
+        			<input type="hidden" id="selteam-Jornada" name="Jornada"/>
         			<label for="Nombre"><?php _e('Perro');?>:</label>
         			<input type="text" id="selteam-Nombre" name="Nombre" readonly="readonly"/>
         			<input type="hidden" id="selteam-Perro" name="Perro"/>
+        		</div>
+        		<div class="fitem">
+        			<label for="LongCategoria"><?php _e('Categor&iacute;a');?>:</label>
+        			<input type="text" id="selteam-LongCategoria" name="LongCategoria" readonly="readonly"/>
+        			<input type="hidden" id="selteam-Categoria" name="Categoria"/>
         		</div>
         		<div class="fitem">
         			<label for="NombreGuia"><?php _e('Gu&iacute;a');?>:</label>
@@ -87,6 +92,7 @@ $config =new Config();
         		<div class="fitem">
             		<label for="Search"><?php _e('Equipo');?>:</label>
             		<select id="selteam-Equipo" name="Equipo" style="width:200px"></select>
+        			<input type="hidden" id="selteam-ID" name="ID"/><!-- will be rewritten with team-ID on submit -->
         		</div>
 			</form>
 		</div> <!-- contenido -->
@@ -227,14 +233,10 @@ function showInscripcionesByTeam(index,team){
                 $('#team_datagrid').datagrid('fixDetailRowHeight',index);
             },0);
         },
-        onDblClickRow:function(index,row) { // on double click fireup selteam dialog
-            $('#selteam-Form').form('load',row);
-            $('#selteam-Parent').val(mySelf);
-        	$('#selteam-Equipo').combogrid('setValue',row.Equipo); // special handling for combogrid
-            $('#selteam-window').window('open'); 
-        } 
+        onDblClickRow:function(index,row) { changeTeamDialog(mySelf,row); }
 	}); // end of inscritos-by-team_team_id
-
+	
+	addSimpleKeyHandler(mySelf,changeTeamDialog);
 	$('#team_datagrid').datagrid('fixDetailRowHeight',index);
 } // end of showPerrosByGuia
 
@@ -252,6 +254,17 @@ $('#selteam-window').window({
 addTooltip($('#selteam-okBtn').linkbutton(),"<?php _e('Asignar el participante al equipo seleccionado');?>");
 addTooltip($('#selteam-cancelBtn').linkbutton(),"<?php _e('Cancelar selecci&oacute;n. Cerrar ventana');?>");
 
+// datos del formulario de asignacion de equipo
+// - declaracion del formulario
+$('#selteam-Form').form({
+	onLoadSuccess: function(data) {
+	    $('#selteam-LongCategoria').val(toLongCategoria(data.Categoria));
+	    // stupid combogrid that doesn't display right data after form load
+	    $('#selteam-Equipo').combogrid('clear');
+	    $('#selteam-Equipo').combogrid('setValue',data.Equipo);
+	}
+});
+
 $('#selteam-Equipo').combogrid({
 	panelWidth: 450,
 	panelHeight: 100,
@@ -267,7 +280,9 @@ $('#selteam-Equipo').combogrid({
 	columns: [[
 		{ field:'ID',			hidden:true },
 		{ field:'Prueba',		hidden:true },
-		{ field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Nombre');?>:' },
+		{ field:'Jornada',		hidden:true },
+		{ field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Nombre');?>' },
+		{ field:'Categorias',	width:15, sortable:true,	title: '<?php _e('Cat');?>' },
 		{ field:'Observaciones',width:50, sortable:true,	title: '<?php _e('Observaciones');?>'}
 	]],
 	multiple: false,

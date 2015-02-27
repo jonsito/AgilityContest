@@ -165,9 +165,8 @@ $('#inscripciones-jornadas').datagrid({
     ]],
     rowStyler:myRowStyler,
 	// on double click fireup editor dialog
-	onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-    	editJornadaFromPrueba('#inscripciones-jornadas',row);
-	}
+	onClickRow: function(idx,row) { setJornada(row); },
+	onDblClickRow: function(idx,row) { setJornada(row); editJornadaFromPrueba('#inscripciones-jornadas',row); }
 });
 
 // datos de la tabla de inscripciones

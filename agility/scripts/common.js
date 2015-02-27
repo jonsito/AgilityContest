@@ -33,6 +33,16 @@ var nombreCategorias = {
 		2: { 'L': '60',			'M': '50',		'S': '40',		'T': '30',	'logo': 'uca.png' }
 };
 
+function toLongCategoria(sort) {
+	switch (sort) {
+	case 'L': return 'Large';
+	case 'M': return 'Medium';
+	case 'S': return 'Small';
+	case 'T': return 'Tiny';
+	}
+	return sort;
+}
+
 var slaveDialogs = new Object();
 
 /**

@@ -156,15 +156,20 @@ class OrdenSalida extends DBObject {
 	 */
 	function getData() {
 		// obtenemos el orden de los equipos
-		$eq=$this->__select("*","Equipos","Jornada=$this->jornada['ID']","Orden ASC","");
+		$eq=$this->__select("*","Equipos","(Jornada={$this->jornada['ID']})","Orden ASC","");
 		if (!is_array($eq)) return $this->error($this->conn->error);
 		$equipos=$eq['rows'];
 		// obtenemos los perros de la manga
-		$rs= $this->__select("*","Resultados","(Manga={$this->manga['ID']}","","");
+		$rs= $this->__select("*","Resultados","(Manga={$this->manga['ID']})","","");
 		if(!is_array($rs)) return $this->error($this->conn->error);
-		// recreamos el array de perros anyadiendo el ID como clave
+		// recreamos el array de perros anyadiendo el ID del perro como clave, así como el nombre del equipo
 		$p1=array();
-		foreach ($rs['rows'] as $perro) { $p1[$perro['ID']]=$perro; }
+		foreach ($rs['rows'] as $resultado) {
+			foreach($equipos as $equipo) {
+				if ($equipo['ID']===$resultado['Equipo']) { $resultado['NombreEquipo']=$equipo['Nombre']; break;} 
+			} 
+			$p1[$resultado['Perro']]=$resultado; 
+		}
 		// primera pasada: ajustamos los perros segun el orden de salida que figura en Orden_Salida
 		$p2=array();
 		$orden=explode(',',$this->getOrden());

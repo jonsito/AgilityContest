@@ -26,6 +26,7 @@ $prueba=http_request("Prueba","i",0);
 $jornada=http_request("Jornada","i",0);
 $operation=http_request("Operation","s",null);
 $equipo=http_request("ID","i",0); // used on update/delete
+$perro=http_request("Perro","i",0); // used on update/delete
 
 try {
 	$result=null;
@@ -37,6 +38,7 @@ try {
 		case "update": $am->access("PERMS_OPERATOR"); $result=$equipos->update($equipo); break; // editar equipo
 		case "delete": $am->access("PERMS_OPERATOR"); $result=$equipos->delete($equipo); break; // borrar equipo
 		case "select": $result=$equipos->select(); break; // listado ordenado/bloques/busqueda
+		case "update_team": $am->access("PERMS_OPERATOR"); $result=$equipos->updateTeam($perro,$equipo); break; // reasignar equipo
 		case "enumerate": $result=$equipos->enumerate(); break; // listado solo busqueda
 		case "selectbyid": $result=$equipos->selectByID($equipo); break; // recupera entrada unica
 		default: throw new Exception("equiposFunctions:: invalid operation: $operation provided");

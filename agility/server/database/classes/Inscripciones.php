@@ -134,7 +134,7 @@ class Inscripciones extends DBObject {
 		if ($idperro<=0) return $this->error("Invalid Perro ID");
 		// fase 0: obtenemos el ID de la inscripcion
 		$res=$this->__selectAsArray("ID", "Inscripciones", "(Perro=$idperro) AND (Prueba=$p)");
-		if (!is_array($res)) return $this->error("El perro con id:$idperro no esta inscrito en la prueba:$p");
+		if (!is_array($res)) return $this->error("Inscripciones::delete(): El perro con id:$idperro no esta inscrito en la prueba:$p");
 		$i=$res['ID'];
 		// fase 1: actualizamos la DB para indicar que el perro no esta inscrito en ninguna jornada
 		$sql="UPDATE Inscripciones SET Jornadas = 0  WHERE (ID=$i)";
@@ -340,30 +340,33 @@ class Inscripciones extends DBObject {
 		$mask= 1 << ($jornadaobj->Numero -1 );
 		$prueba= $this->pruebaID;
 		$rows=array();
+		
 		// extraemos la lista de inscritos
+		$lista=$this->__select(
+			/*select*/	"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, {$teamobj->Jornada} AS Jornada,
+						Dorsal, Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
+						Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
+						NombreGuia, NombreClub, $team AS Equipo, '{$teamobj->Nombre}' AS NombreEquipo ,
+						Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
+			/* from */	"Inscripciones,PerroGuiaClub",
+			/* where */ "( Inscripciones.Perro = PerroGuiaClub.ID)	AND ( Inscripciones.Prueba=$prueba ) AND ( ((Inscripciones.Jornadas & $mask))<>0 )",
+			/* order */ "",
+			/* limit */ ""
+		);
+		// reindex using perro as index
+		$inscripciones=array();
+		foreach($lista['rows'] as $inscripcion){ $inscripciones[$inscripcion['Perro']]=$inscripcion; }
+		// ahora comprobamos consistencia de los listados de equipos
+		// y generamos el array de resultados
+		$rows=array();
 		$list=explode(',',$teamobj->Miembros); 
 		foreach ( $list as $perro) {
 			if (strpos($perro,"BEGIN")!==false) continue;
 			if (strpos($perro,"END")!==false) continue;
-			if (strpos($perro,"TAG")!==false) continue;
-			$inscripcion=$this->__selectAsArray(
-			/*select*/	"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, {$teamobj->Jornada} AS Jornada,
-						Dorsal, $perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
-						Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
-						NombreGuia, NombreClub, $team AS Equipo, {$teamobj->Nombre} AS NombreEquipo ,
-						Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
-			/* from */	"Inscripciones,PerroGuiaClub",
-			/* where */ "( Inscripciones.Perro = PerroGuiaClub.ID)	AND ( Inscripciones.Prueba=$prueba ) AND ( Inscripciones.Perro=$perro )",
-			/* order */ "",
-			/* limit */ ""
-					);
-			// comprobamos consistencia de los datos
-			if (!is_array($inscripcion))
-				return $this->error("El perro $perro del equipo $team no esta inscrito en la prueba $prueba");
-			if ( ($inscripcion[Jornadas]&$mask)==0 )
-				return $this->error("El perro $perro del equipo $team no esta inscrito en la jornada {$teamobj->Jornada} de la prueba $prueba");
+			if (!array_key_exists($perro,$inscripciones))
+				return $this->error("Inscripciones::inscritosByTeam():El perro $perro del equipo $team no esta inscrito en la jornada {$teamobj->Jornada} de la prueba $prueba");
 			// todo correcto: anyadimos el perro a la lista
-			array_push($rows,$inscripcion);
+			array_push($rows,$inscripciones[$perro]);
 		}
 		// ok: componemos resultado y retornamos
 		$result= array( 'total' => count($rows), 'rows' => $rows);
