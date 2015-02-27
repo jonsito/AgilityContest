@@ -363,8 +363,10 @@ class Inscripciones extends DBObject {
 		foreach ( $list as $perro) {
 			if (strpos($perro,"BEGIN")!==false) continue;
 			if (strpos($perro,"END")!==false) continue;
-			if (!array_key_exists($perro,$inscripciones))
-				return $this->error("Inscripciones::inscritosByTeam():El perro $perro del equipo $team no esta inscrito en la jornada {$teamobj->Jornada} de la prueba $prueba");
+			if (!array_key_exists($perro,$inscripciones)) {
+				$this->error("Inscripciones::inscritosByTeam():El perro $perro del equipo $team no esta inscrito en la jornada {$teamobj->Jornada} de la prueba $prueba");
+				$this->removeFromList($perro); // cleanup. should not be needed, but....
+			}
 			// todo correcto: anyadimos el perro a la lista
 			array_push($rows,$inscripciones[$perro]);
 		}

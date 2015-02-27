@@ -340,10 +340,11 @@ class Equipos extends DBObject {
 	}
 	
 	function getTeamByPerro($idperro) {
-		$p=$this->pruebaID;
-		$j=$this->jornadaID;
-		$res=$this->__selectAsArray("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (Miembros LIKE ',$idperro,') ");
-		return $res;
+		$str=",$idperro,";
+		foreach($this->teamsByJornada as $team) {
+			if (strpos('$str',$team['Miembros'])!==FALSE) return $team;
+		}
+		return $this->defaultTeam;
 	}
 	
 	/**

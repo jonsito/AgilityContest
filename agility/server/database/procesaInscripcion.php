@@ -140,7 +140,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 			// nos aseguramos de que existe una entrada 
 			$myLogger->info("Insertando Perro:$idperro Grado:$g en Resultados manga:$mid");
 			// en la tabla de resultados de esta manga para este perro
-			$res = $rs->insertByData($perro, $inscripcion,$eqobj->getDefaultTeam());
+			$res = $rs->insertByData($perro, $inscripcion,$eqobj->getTeamByPerro($idperro));
 			if ($res!=="") {
 				// esta funcion es in "insert on duplicate key update"...
 				// no deberia fallar si ya existe una entrada en la tabla de resultados
@@ -180,7 +180,7 @@ function procesaInscripcion($p,$i) {
 		$idp=$inscripcion['Perro'];
 
 		// obtenemos los datos del perro
-		$pobj=new Dogs("inscribePerroEnJornada");
+		$pobj=new Dogs("procesaInscripcion()");
 		$perro=$pobj->selectByID($idp);
 		if (!$perro) throw new Exception("No hay datos para el perro a inscribir con id: $idp");
 		

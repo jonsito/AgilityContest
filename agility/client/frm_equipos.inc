@@ -206,6 +206,7 @@ function showInscripcionesByTeam(index,team){
 	            { field:'Club',		hidden:true }, // Club ID
 	           	{ field:'Dorsal',	width:6,  sortable:true, align: 'right',	title: '<?php _e('Dorsal');?>' },
 	           	{ field:'Nombre',	width:15, sortable:true, align: 'right',	title: '<?php _e('Nombre');?>' },
+	           	{ field:'Licencia',	width:6,  sortable:true, align: 'center',  	title: '<?php _e('Lic');?>.' },
 	           	{ field:'Categoria',width:4,  sortable:true, align: 'center',  	title: '<?php _e('Cat');?>.' },
 	           	{ field:'Grado',	width:6,  sortable:true, align: 'center',  	title: '<?php _e('Grado');?>' },
 	           	{ field:'NombreGuia',	width:25, sortable:true, align: 'right',	title: '<?php _e('Guía');?>' },

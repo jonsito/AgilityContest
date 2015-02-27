@@ -178,6 +178,7 @@ class OrdenSalida extends DBObject {
 			if ($perro==="END") continue;
 			if (!array_key_exists($perro,$p1)) {
 				$this->myLogger->error("El perro $perro esta en el orden de salida pero no en los resultados");
+				// TODO: FIX this consistency error
 			} else {
 				array_push($p2,$p1[$perro]);
 			}
@@ -190,12 +191,22 @@ class OrdenSalida extends DBObject {
 			}
 		}
 		// tercera pasada: ordenar por celo
-		usort($p3,function($a,$b){return ($a['Celo']<$b['Celo'])?1:-1;});
+		$p4=array();
+		foreach(array(0,1) as $celo) {
+			foreach ($p3 as $perro) {
+				if ($perro['Celo']==$celo) array_push($p4,$perro);
+			}
+		}
 		// cuarta pasada: ordenar por categoria
-		usort($p3,function($a,$b){return strcmp($a['Categoria'],$b['Categoria']);});
+		$p5=array();
+		foreach(array('L','M','S','T') as $cat) {
+			foreach ($p4 as $perro) {
+				if ($perro['Categoria']==$cat) array_push($p5,$perro);
+			}
+		}
 		$result = array();
-		$result["total"] = count($p3);
-		$result["rows"] = $p3;
+		$result["total"] = count($p5);
+		$result["rows"] = $p5;
 		return $result;
 	}
 	

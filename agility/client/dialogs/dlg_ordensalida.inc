@@ -101,9 +101,9 @@ $('#ordensalida-datagrid').datagrid({
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
     },
     onDragEnter: function(dst,src) {
-        var from=src.Categoria+src.Celo;
-        var to=dst.Categoria+dst.Celo;
-        return (from==to)?true:false;
+        var from=":"+src.Equipo+":"+src.Categoria+":"+src.Celo+":";
+        var to=":"+dst.Equipo+":"+dst.Categoria+":"+dst.Celo+":";
+        return (from===to)?true:false;
     },
     onDrop: function(dst,src,updown) {
         dragAndDropOrdenSalida(src.Perro,dst.Perro,(updown==='top')?0:1,reloadOrdenSalida);
