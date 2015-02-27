@@ -145,19 +145,22 @@ $('#inscripciones-jornadas').datagrid({
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Prueba',		hidden:true }, // ID de la prueba
       	    { field:'Numero',		width:10, sortable:false,	align:'center', title: '#'},
-      		{ field:'Nombre',		width:70, sortable:false,   align:'right',  title: 'Nombre/Comentario' },
-      		{ field:'Fecha',		width:40, sortable:false,	align:'right',  title: 'Fecha: ' },
-      		{ field:'Hora',			width:30, sortable:false,	align:'right',  title: 'Hora.  ' },
+      		{ field:'Nombre',		width:60, sortable:false,   align:'right',  title: 'Nombre/Comentario' },
+      		{ field:'Fecha',		width:35, sortable:false,	align:'right',  title: 'Fecha: ' },
+      		{ field:'Hora',			width:25, sortable:false,	align:'right',  title: 'Hora.  ' },
       		{ field:'Grado1',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'G-I    ' },
       		{ field:'Grado2',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'G-II   ' },
       		{ field:'Grado3',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'G-III  ' },
-      		{ field:'Equipos3',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Eq. 3/4' },
-      		{ field:'Equipos4',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Eq. Conj.' },
+      		{ field:'Open',			width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Open   ' },
       		{ field:'PreAgility',	width:15, sortable:false, formatter: formatOk,	align:'center', title: 'P.A. -1' },
       		{ field:'PreAgility2',	width:15, sortable:false, formatter: formatOk,	align:'center', title: 'P.A. -2' },
+      		/*
+      		{ field:'Equipos3',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Eq. 3/4' },
+      		{ field:'Equipos4',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Eq. Conj.' },
       		{ field:'KO',			width:15, sortable:false, formatter: formatOk,	align:'center', title: 'K.O.   ' },
+      		*/
       		{ field:'Especial',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Especial' },
-      		{ field:'Cerrada',		width:20, sortable:false, formatter: formatCerrada,	align:'center', title: 'Cerrada' }
+      		{ field:'Cerrada',		width:10, sortable:false, formatter: formatCerrada,	align:'center', title: 'Cerrada' }
     ]],
     rowStyler:myRowStyler,
 	// on double click fireup editor dialog
