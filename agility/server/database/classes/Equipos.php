@@ -367,7 +367,7 @@ class Equipos extends DBObject {
 	 */
 	function random() {
 		// reordenamos al azar el array de equipos
-		suffle($this->teamsByJornada);
+		shuffle($this->teamsByJornada);
 		// componemos un prepared statement
 		$sql ="UPDATE Equipos SET Orden=? WHERE (ID=?)";
 		$stmt=$this->conn->prepare($sql);

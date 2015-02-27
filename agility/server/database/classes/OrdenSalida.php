@@ -216,20 +216,20 @@ class OrdenSalida extends DBObject {
 	 * @param	{int} $manga ID de manga
 	 * @return {string} nuevo orden de salida
 	 */
-	function random($jornada, $manga) {
+	function random() {
 		// fase 1 aleatorizamos la manga
 		$orden=$this->getOrden();
-		$this->myLogger->debug("OrdenSalida::Random() Manga:$manga Orden inicial: \n$orden");
-		$str=getInnerString($ordensalida,"BEGIN,",",END");
+		$this->myLogger->debug("OrdenSalida::Random() Manga:{$this->manga['ID']} Orden inicial: \n$orden");
+		$str=getInnerString($orden,"BEGIN,",",END");
 		if ($str!=="") { // si hay datos, reordena; si no no hagas nada
 			$str2 = implode(",",aleatorio(explode(",", $str)));
 			$str="BEGIN,$str2,END";
 			$this->setOrden($str);
 		}
 		$orden=$this->getOrden();
-		$this->myLogger->debug("OrdenSalida::Random() Manga:$manga Orden final: \n$orden");
+		$this->myLogger->debug("OrdenSalida::Random() Manga:{$this->manga['ID']} Orden final: \n$orden");
 		// fase 2: aleatorizamos los equipos de la jornada
-		$eq=new Equipos("OrdenSalida::random()",$this->prueba,$this->jornada);
+		$eq=new Equipos("OrdenSalida::random()",$this->prueba['ID'],$this->jornada['ID']);
 		$eq->random();
 		return $orden;
 	}
