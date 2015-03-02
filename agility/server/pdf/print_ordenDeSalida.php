@@ -39,6 +39,7 @@ class PDF extends PrintCommon {
 	protected $manga; // datos de la manga
 	protected $orden; // orden de salida
 	protected $categoria; // categoria que estamos listando
+	protected $teams; // lista de equipos de esta jornada
 	
 	// geometria de las celdas
 	protected $cellHeader;
@@ -69,6 +70,15 @@ class PDF extends PrintCommon {
 		$this->categoria="L";
 		$this->cellHeader=
 			array(_('Orden'),_('Nombre'),_('Dorsal'),_('Lic.'),_('Guía'),_('Club'),_('Celo'),_('Observaciones'));
+		$eq=new Equipos("print_ordenDeSalida",$prueba,$jornada);
+		$this->teams=$eq->getTeamsByJourney();
+	}
+	
+	private function isTeam() {
+		switch ($this->manga->Tipo) {
+			case 8: case 9: case 13: case 14: return true;
+			default: return false;
+		}
 	}
 	
 	// Cabecera de página
@@ -85,20 +95,22 @@ class PDF extends PrintCommon {
 	function writeTableHeader() {
 		$this->myLogger->enter();
 		// Colores, ancho de línea y fuente en negrita de la cabecera de tabla
-		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
-		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
-		$this->ac_SetDrawColor(0,0,0); // line color
-		$this->SetFont('Arial','B',9); // bold 9px
+		$this->ac_header(1,9);
 		for($i=0;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
 			$this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
 		}
-		// Restauración de colores y fuentes
-		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
-		$this->SetTextColor(0,0,0); // negro
-		$this->SetFont('Arial','',9); // remove bold
+		$this->ac_row(2,9);
 		$this->Ln();
 		$this->myLogger->leave();
+	}
+	
+	function printTeamInformation($team) {
+		$this->ac_header(2,9);
+		$nombre=$this->teams[$team]['Nombre'];
+		$this->Cell(185,6,_("Equipo").": $nombre",'LTBR',0,'L',true);
+		$this->ac_row(2,9);
+		$this->Ln();
 	}
 	
 	// Tabla coloreada
@@ -111,22 +123,41 @@ class PDF extends PrintCommon {
 		// Datos
 		$fill = false;
 		$rowcount=0;
+		$order=0;
+		$lastTeam=0;
 		foreach($this->orden as $row) {
+			$newTeam=intval($row['Equipo']);
+			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			// if change in categoria, reset orden counter and force page change
 			if ($row['Categoria'] !== $this->categoria) {
 				$this->categoria = $row['Categoria'];
 				$this->Cell(array_sum($this->pos),0,'','T'); // forzamos linea de cierre
 				$rowcount=0;
+				$order=0;
+				$lastTeam=0;
 			}
-			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			if( ($rowcount%37) == 0 ) { // assume 37 rows per page ( rowWidth = 6mmts )
-				if ($rowcount>0) 
+			if ($this->isTeam()) {
+				// team change: make sure that new team fits in page
+				if ($newTeam!=$lastTeam) {
+					if ($rowcount>=32) $rowcount=37; // team change: seek at end of page
+				}
+			}
+			if ( ($rowcount==0) || ($rowcount>=37) ) { // assume 38 rows per page ( rowWidth = 6mmts )
+				if ($rowcount>0)
 					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre en cambio de pagina
+				$rowcount=0;
 				$this->addPage();
 				$this->writeTableHeader();
+				$lastTeam=0; // force writting of team header information
+			}
+			// on team Events and team change add Team header information
+			if ( $this->isTeam() && ($newTeam!=$lastTeam) ) {
+				$lastTeam=$newTeam;
+				$this->printTeamInformation($lastTeam);
+				$rowcount++;
 			}
 			$this->SetFont('Arial','B',11); // bold 9px
-			$this->Cell($this->pos[0],6,($rowcount+1)." - ",'LR',0,$this->align[0],$fill); // display order
+			$this->Cell($this->pos[0],6,($order+1)." - ",'LR',0,$this->align[0],$fill); // display order
 			$this->SetFont('Arial','B',10); // remove bold 9px
 			$this->Cell($this->pos[1],6,$row['Nombre'],		'LR',0,$this->align[2],$fill);
 			$this->SetFont('Arial','',9); // remove bold 9px
@@ -134,11 +165,12 @@ class PDF extends PrintCommon {
 			$this->Cell($this->pos[3],6,$row['Licencia'],	'LR',0,$this->align[3],$fill);
 			$this->Cell($this->pos[4],6,$row['NombreGuia'],	'LR',0,$this->align[4],$fill);
 			$this->Cell($this->pos[5],6,$row['NombreClub'],	'LR',0,$this->align[5],$fill);
-			$this->Cell($this->pos[6],6,($row['Celo']==0)?"":"X",		'LR',0,$this->align[6],$fill);
+			$this->Cell($this->pos[6],6,($row['Celo']==0)?"":_("Celo"),		'LR',0,$this->align[6],$fill);
 			$this->Cell($this->pos[7],6,$row['Observaciones'],'LR',0,$this->align[7],$fill);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;
+			$order++;
 		}
 		// Línea de cierre
 		$this->Cell(array_sum($this->pos),0,'','T');
@@ -159,4 +191,4 @@ try {
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e.getMessage());
 };
-?>
+?>;

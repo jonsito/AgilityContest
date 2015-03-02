@@ -363,6 +363,15 @@ class Equipos extends DBObject {
 	}
 	
 	/**
+	 * Obtiene los datos de los equipos de la jornada indexados por el ID de equipo
+	 */
+	function getTeamsByJourney() {
+		$result=array();
+		foreach($this->teamsByJornada as $team) $result[$team['ID']]=$team;
+		return $result;	
+	}
+	
+	/**
 	 * Reordena al azar el campo 'orden' de los equipos de esta jornada
 	 */
 	function random() {

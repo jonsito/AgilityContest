@@ -112,7 +112,7 @@ class PrintCommon extends FPDF {
 		// copyright
 		$ver=$this->config->getEnv("version_name");
 		$this->SetFont('Arial','I',6);
-		$this->Cell(50,10,"AgilityContest-$ver Copyright 2013-2015 by J.A.M.C.",0,0,'L');
+		$this->Cell(60,10,"AgilityContest-$ver Copyright 2013-2015 by J.A.M.C.",0,0,'L');
 
 		// Número de página
 		$this->SetFont('Arial','IB',8);
