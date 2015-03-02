@@ -92,10 +92,8 @@ $('#ordensalida-datagrid').datagrid({
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
     onLoadSuccess: function(data) {
         // show/hide 'NombreEquipo' based of manga type
-        switch(parseInt(workingData.datosManga.Tipo)) {
-        	case 8: case 9: case 13: case 14: $('#ordensalida-datagrid').datagrid('showColumn','NombreEquipo'); break;
-        	default:  $('#ordensalida-datagrid').datagrid('hideColumn','NombreEquipo'); break;
-        }
+        if (isTeam(workingData.datosManga.Tipo) ) $('#ordensalida-datagrid').datagrid('showColumn','NombreEquipo');
+        else  $('#ordensalida-datagrid').datagrid('hideColumn','NombreEquipo');
         // get focus on datagrid (to bind keystrokes) and enable drag and drop
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();

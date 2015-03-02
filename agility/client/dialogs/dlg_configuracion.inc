@@ -51,6 +51,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<input type="checkbox" name="tablet_dnd" value="1"/><br />
 			<label for="tablet_chrono">Mostrar datos de cron&oacute;metro en tablet</label> 
 			<input type="checkbox" name="tablet_chrono" value="1"/><br />
+			<label for="tablet_next">Bot&oacute;n 'Aceptar' muestra siguiente participante </label> 
+			<input type="checkbox" name="tablet_next" value="1"/><br />
 		</div>
 		
 		<div title="VideoMarcadores" style="padding:10px">

@@ -152,9 +152,9 @@ class OrdenSalida extends DBObject {
 	 * De hecho perros de diferente categoria celo y equipo están mezclados, y hace falta que esta funcion
 	 * los ordene segun el resultado final deseado
 	 * 
-	 * La ordenación final la haremos de abajo a arriba
+	 * @param {boolean} teamview true->intercalar información de equipos en el listado 
 	 */
-	function getData() {
+	function getData($teamView=false) {
 		// obtenemos el orden de los equipos
 		$eq=$this->__select("*","Equipos","(Jornada={$this->jornada['ID']})","Orden ASC","");
 		if (!is_array($eq)) return $this->error($this->conn->error);
@@ -204,9 +204,30 @@ class OrdenSalida extends DBObject {
 				if ($perro['Categoria']==$cat) array_push($p5,$perro);
 			}
 		}
+		// quinta: intercalar informacion de equipos si se precisa
+		$p6=array();
+		if ($teamView) {
+			$equipo=0;
+			foreach ($p5 as $perro) {
+				if ($perro['Equipo']!=$equipo){
+					$equipo=$perro['Equipo'];
+					$a=array(
+						'Dorsal' => '*',
+						'Nombre'=>_('Equipo'),
+						'NombreGuia'=>$perro['NombreEquipo'],
+						'Eliminado'=>0,
+						'NoPresentado'=>0
+					);
+					array_push($p6,$a);
+				}
+				array_push($p6,$perro);
+			}
+		} else {
+			$p6=$p5;
+		}
 		$result = array();
-		$result["total"] = count($p5);
-		$result["rows"] = $p5;
+		$result["total"] = count($p6);
+		$result["rows"] = $p6;
 		return $result;
 	}
 	

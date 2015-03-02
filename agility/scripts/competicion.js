@@ -57,6 +57,12 @@ function checkPending(val,row,idx) { return ( parseInt(row.Pendiente)!=0 )? 'col
 
 function formatCelo(val,row,idx) { return (parseInt(val)==0)?" ":"&#x2665;"; }
 
+function competicionRowStyler(idx,row) {
+	var a=idx;
+	if (row.Dorsal=='*') a=-1;
+	return myRowStyler(a,row);
+}
+
 function getMode(rec,cat) {
 	var recorrido=parseInt(rec);
 	var categoria=parseInt(cat);
@@ -428,7 +434,8 @@ function reloadCompeticion() {
             	Prueba: workingData.prueba ,
             	Jornada: workingData.jornada , 
             	Manga: workingData.manga , 
-            	Operation: 'getData' 
+            	Operation: 'getData',
+                TeamView: isTeam(workingData.datosManga.Tipo)?'true':'false'
             }
     );
 }
@@ -475,6 +482,7 @@ function competicionKeyEventHandler(evt) {
 	function editRow(t) {
 		var selected = t.datagrid('getSelected');
 		if(!selected) return;
+		if(selected.Dorsal==="*") return; // not editable row
 		var index = t.datagrid('getRowIndex', selected);
         t.datagrid('beginEdit',index);
 		var ed = $(t).datagrid('getEditor', {index:index,field:'Faltas'});

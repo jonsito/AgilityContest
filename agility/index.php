@@ -74,8 +74,10 @@ function initialize() {
  */
 function myRowStyler(idx,row) {
 	var res="background-color:";
-	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
-	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
+	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>'; // even rows
+	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>'; // odd rows
+	var c3='<?php echo $config->getEnv('easyui_rowcolor3'); ?>'; // extra color for special rows
+	if (idx<0) return res+c3+";";
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; };
 }
 

@@ -43,6 +43,13 @@ function toLongCategoria(sort) {
 	return sort;
 }
 
+function isTeam(tipomanga) {
+    switch(parseInt(tipomanga)) {
+		case 8: case 9: case 13: case 14: return true;
+		default: return false;
+    }
+}
+
 var slaveDialogs = new Object();
 
 /**
