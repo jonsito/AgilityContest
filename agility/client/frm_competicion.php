@@ -42,12 +42,10 @@ $('#seljornada-window').window({
 		if (workingData.datosJornada.Equipos3==1) {
 			page="/agility/client/frm_competicion_equipos.php";
 			extra=" ( <?php _e('Equipos -3 mejores-');?> )";
-			dialogs= {};
 		}
 		if (workingData.datosJornada.Equipos4==1) {
 			page="/agility/client/frm_competicion_equipos.php";
 			extra=" ( <?php _e('Equipos -conjunta-');?> )";
-			dialogs= {};
 		}
 		if (workingData.datosJornada.Open==1) {
 			// an Open Contest is like a normal with no Grades but only categories
