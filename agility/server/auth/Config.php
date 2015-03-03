@@ -20,8 +20,8 @@
 define('AC_CONFIG_FILE',__DIR__."/config.ini");
 
 /** version */
-define('AC_VERSION_NAME','1.0');
-define('AC_VERSION_DATE','20130901_0000');
+define('AC_VERSION_NAME','1.1.1');
+define('AC_VERSION_DATE','20150303_1415');
 
 /** Internacionalizacion. Idiomas **/
 define ('AC_LANG','es');
@@ -45,6 +45,7 @@ define('AC_EASYUI_HDRCOLOR','#00ff00');
 define('AC_EASYUI_OPCOLOR','#c0c0c0');
 define('AC_EASYUI_ROWCOLOR1','#ffffff');
 define('AC_EASYUI_ROWCOLOR2','#c0c0c0');
+define('AC_EASYUI_ROWCOLOR3','#c0c0f0');
 
 /** personalizacion del videowall **/
 define('AC_VW_POLLTIME',5);
@@ -71,6 +72,7 @@ define('AC_PDF_LINECOLOR','#808080');
 define('AC_TABLET_BEEP',"0");
 define('AC_TABLET_DND',"0");
 define('AC_TABLET_CHRONO',"0");
+define('AC_TABLET_NEXT',"0");
 
 Class Config {
 	
@@ -102,6 +104,7 @@ Class Config {
 		$this->config['easyui_opcolor'] =	AC_EASYUI_OPCOLOR;
 		$this->config['easyui_rowcolor1'] =	AC_EASYUI_ROWCOLOR1;
 		$this->config['easyui_rowcolor2'] =	AC_EASYUI_ROWCOLOR2;
+		$this->config['easyui_rowcolor3'] =	AC_EASYUI_ROWCOLOR3;
 		// configuracion del videowall
 		$this->config['vw_polltime'] =	AC_VW_POLLTIME;
 		$this->config['vw_alpha'] =		AC_VW_ALPHA;
@@ -126,6 +129,7 @@ Class Config {
 		$this->config['tablet_beep'] =	AC_TABLET_BEEP;
 		$this->config['tablet_dnd'] =	AC_TABLET_DND;
 		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
+		$this->config['tablet_next'] =	AC_TABLET_NEXT;
 		
 		// ahora intentamos leer el fichero de configuracion
 		$res=parse_ini_file(AC_CONFIG_FILE,false); // false: don't parse subsections
@@ -216,6 +220,7 @@ Class Config {
 		$data['vw_hdrbg2'] =	AC_VW_HDRBG2;
 		$data['vw_rowcolor1'] =	AC_VW_ROWCOLOR1;
 		$data['vw_rowcolor2'] =	AC_VW_ROWCOLOR2;
+		$data['vw_rowcolor3'] =	AC_VW_ROWCOLOR3;
 		// generacion de PDF's
 		$data['pdf_topmargin'] = AC_PDF_TOPMARGIN;
 		$data['pdf_leftmargin'] = AC_PDF_LEFTMARGIN;
@@ -230,6 +235,7 @@ Class Config {
 		$this->config['tablet_beep'] =	AC_TABLET_BEEP;
 		$this->config['tablet_dnd'] =	AC_TABLET_DND;
 		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
+		$this->config['tablet_next'] =	AC_TABLET_NEXT;
 		// Internacionalizacion. Idiomas
 		$data['lang'] =	AC_LANG;
 		$res=array_merge($this->config,$data);
@@ -248,6 +254,7 @@ Class Config {
 		$data=testAndSet($data,'easyui_opcolor','s',AC_EASYUI_OPCOLOR);
 		$data=testAndSet($data,'easyui_rowcolor1','s',AC_EASYUI_ROWCOLOR1);
 		$data=testAndSet($data,'easyui_rowcolor2','s',AC_EASYUI_ROWCOLOR2);
+		$data=testAndSet($data,'easyui_rowcolor3','s',AC_EASYUI_ROWCOLOR3);
 		// configuracion del videowall
 		$data=testAndSet($data,'vw_polltime','i',AC_VW_POLLTIME);
 		$data=testAndSet($data,'vw_alpha','f',AC_VW_ALPHA);
@@ -271,6 +278,7 @@ Class Config {
 		$data['tablet_beep']=http_request('tablet_beep','s',AC_TABLET_BEEP);
 		$data['tablet_dnd']=http_request('tablet_dnd','s',AC_TABLET_DND);
 		$data['tablet_chrono']=http_request('tablet_chrono','s',AC_TABLET_CHRONO);
+		$data['tablet_next']=http_request('tablet_chrono','s',AC_TABLET_NEXT);
 		// Internacionalizacion. Idiomas
 		$data=testAndSet($data,'lang','s',AC_LANG);
 		// logging
