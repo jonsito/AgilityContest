@@ -299,10 +299,6 @@ function tablet_accept() {
 	// save results 
 	tablet_updateResultados(0); // mark as result no longer pendiente
 	
-	// close entradadatos window
-	// this must be done BEFORE datagrid contents update
-	// otherwise renderer will silently ignore actions
-	$('#tdialog-window').window('close'); // and close window
 	// retrieve original data from parent datagrid
 	var dgname = $('#tdialog-Parent').val();
 	var row = $(dgname).datagrid('getSelected');
@@ -329,5 +325,20 @@ function tablet_accept() {
 				'Eliminado'		:	row.Eliminado
 			} 
 		);
+    tablet_chrono('stop',0); // make sure manual chrono is stopped
+    if (!ac_config.tablet_next) { // no go to next row entry
+    	$('#tdialog-window').window('close'); // close window
+    	$(dgname).datagrid('refreshRow',rowindex);
+    	return;
+	}
+	var data=selectNextRow(dgname);
+	if (!data) { // no more data rows
+		$('#tdialog-window').window('close'); // close window
+		$(dgname).datagrid('refreshRow',rowindex);
+		return;
+	}
+	data.Session=workingData.sesion;
+	data.Parent=dgname; // store datagrid reference
+	$('#tdialog-form').form('load',data);
 }
 

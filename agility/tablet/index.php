@@ -82,6 +82,7 @@ var ac_config= {
 	'easyui_opcolor'	: '<?php echo $config->getEnv('easyui_opcolor'); ?>',
 	'easyui_rowcolor1'	: '<?php echo $config->getEnv('easyui_rowcolor1'); ?>',
 	'easyui_rowcolor2'	: '<?php echo $config->getEnv('easyui_rowcolor2'); ?>',
+	'easyui_rowcolor3'	: '<?php echo $config->getEnv('easyui_rowcolor3'); ?>',
 	// configuracion del videowall
 	'vw_polltime'		: <?php echo $config->getEnv('vw_polltime'); ?>,
 	'vw_alpha'			: <?php echo $config->getEnv('vw_alpha'); ?>,
@@ -104,7 +105,8 @@ var ac_config= {
 	// personalizacion del tablet
 	'tablet_beep'		: <?php echo toBoolean($config->getEnv('tablet_beep'))?'true':'false'; ?>,
 	'tablet_dnd'		: <?php echo toBoolean($config->getEnv('tablet_dnd'))?'true':'false'; ?>,
-	'tablet_chrono'		: <?php echo toBoolean($config->getEnv('tablet_chrono'))?'true':'false'; ?>
+	'tablet_chrono'		: <?php echo toBoolean($config->getEnv('tablet_chrono'))?'true':'false'; ?>,
+	'tablet_next'		: <?php echo toBoolean($config->getEnv('tablet_next'))?'true':'false'; ?>
 }
 </script>
 
