@@ -301,7 +301,7 @@ function tablet_accept() {
 	// close entradadatos window
 	// this must be done BEFORE datagrid contents update
 	// otherwise renderer will silently ignore actions
-	$('#tdialog-window').window('close'); // and close window
+	if (!ac_config.tablet_next) $('#tdialog-window').window('close'); // and close window
 	// retrieve original data from parent datagrid
 	var dgname = $('#tdialog-Parent').val();
 	var row = $(dgname).datagrid('getSelected');
@@ -315,7 +315,6 @@ function tablet_accept() {
 	obj.Pendiente=0;
 	// update row
 	$(dgname).datagrid('updateRow',{index: rowindex, row: obj});
-	$(dgname).datagrid('refreshRow',rowindex);
 	// and fire up accept event
 	tablet_putEvent(
 			'aceptar',
@@ -329,5 +328,19 @@ function tablet_accept() {
 			} 
 		);
 	tablet_chrono('stop',0);
+	if (!ac_config.tablet_next) { // no go to next row entry
+		$('#tdialog-window').window('close'); // close window
+		$(dgname).datagrid('refreshRow',rowindex);
+		return;
+	}
+	var data=selectNextRow(dgname);
+	if (!data) { // no more data rows
+		$('#tdialog-window').window('close'); // close window
+		$(dgname).datagrid('refreshRow',rowindex);
+		return;
+	}
+	data.Session=workingData.sesion;
+    data.Parent=dgname; // store datagrid reference
+    $('#tdialog-form').form('load',data);
 }
 

@@ -564,6 +564,29 @@ function addSimpleKeyHandler(datagrid,dialog,onEnter){
 }
 
 /**
+ * function to select next row in datagrid
+ * @param {string} datagrid name
+ * @return selected data or null
+ */
+function selectNextRow(datagrid) {
+	var t = $(datagrid);
+	var count = t.datagrid('getRows').length;    // row count
+	var selected = t.datagrid('getSelected');
+	if (selected){
+    	var index = t.datagrid('getRowIndex', selected);
+    	index = index+1;
+    	t.datagrid('clearSelections');
+    	if (index >= count) return null; // at end of rows
+    	t.datagrid('selectRow', index);
+    	return t.datagrid('getSelected');
+	} else {
+		// no row selected: choose first one
+    	t.datagrid('selectRow',0);
+    	return t.datagrid('getSelected');
+	}
+}
+
+/**
  * Generic function for adding key handling to datagrids
  * 
  * Create key bindings for edit,new,delete, and search actions on datagrid
