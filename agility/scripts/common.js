@@ -229,10 +229,10 @@ function initWorkingData(id) {
 	workingData.nombreTanda = ""; 
 	workingData.sesion=0; // ID de la sesion para videomarcadores
 	workingData.nombreSesion=""; // nombre de la sesion
-	workingData.datosPrueba= new Object(); // last selected prueba data
-	workingData.datosJornada= new Object(); // last selected jornada data
-	workingData.datosManga= new Object(); // last selected jornada data
-	workingData.datosRonda= new Object(); // last selected ronda (grade, manga1, manga2)
+	if (typeof(workingData.datosPrueba)==="undefined") workingData.datosPrueba= new Object(); // last selected prueba data
+	if (typeof(workingData.datosJornada)==="undefined") workingData.datosJornada= new Object(); // last selected jornada data
+	if (typeof(workingData.datosManga)==="undefined") workingData.datosManga= new Object(); // last selected jornada data
+	if (typeof(workingData.datosRonda)==="undefined") workingData.datosRonda= new Object(); // last selected ronda (grade, manga1, manga2)
 	if (id!==undefined) {
 		$.ajax({
 			url: '/agility/server/database/sessionFunctions.php',

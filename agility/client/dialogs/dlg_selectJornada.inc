@@ -59,7 +59,7 @@ addTooltip($('#seljornada-okBtn').linkbutton(),"Trabajar con la jornada seleccio
 addTooltip($('#seljornada-cancelBtn').linkbutton(),"Cancelar selecci&oacute;n. Cerrar ventana");
 
 $('#seljornada-Prueba').combogrid({
-	panelWidth: 400,
+	panelWidth: 450,
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
@@ -73,11 +73,12 @@ $('#seljornada-Prueba').combogrid({
 	selectOnNavigation: true, // let use cursor keys to interactive select
 	editable: isMobileDevice()?false:true, //disable keyboard deploy on mobile devices
 	columns: [[
-	   	    {field:'ID',hidden:true},
-			{field:'Nombre',title:'Nombre',width:50,align:'right'},
-			{field:'Club',hidden:true},
-			{field:'NombreClub',title:'Club',width:20,align:'right'},
-			{field:'Observaciones',title:'Observaciones.',width:30,align:'right'}
+	   	    {field:'ID',			hidden:true},
+			{field:'Nombre',		title:'Nombre',			width:50,	align:'right'},
+			{field:'Club',			hidden:true},
+			{field:'NombreClub',	title:'Club',			width:20,	align:'right'},
+			{field:'RSCE',			title:'Fed.',			width:15,	align:'center', formatter:formatRSCE},
+			{field:'Observaciones',	title:'Observaciones.',	width:30,	align:'right'}
 	]],
 	onChange:function(value){
 		var p=$('#seljornada-Prueba').combogrid('grid').datagrid('getSelected');
