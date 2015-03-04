@@ -1,4 +1,5 @@
 <?php 
+require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 $config =new Config();
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -32,6 +33,77 @@ header("Pragma: no-cache");
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/videowall/videowall.js" type="text/javascript" charset="utf-8" > </script>
+<script type="text/javascript" charset="utf-8">
+function initialize() {
+	// make sure that every ajax call provides sessionKey
+	$.ajaxSetup({
+	  beforeSend: function(jqXHR,settings) {
+		if ( typeof(authInfo.SessionKey)!=undefined && authInfo.SessionKey!=null) {
+			jqXHR.setRequestHeader('X-AC-SessionKey',authInfo.SessionKey);
+		}
+	    return true;
+	  }
+	});
+}
+
+/**
+ * Common rowStyler function for AgilityContest datagrids
+ * @paramm {integer} idx Row index
+ * @param {Object} row Row data
+ * @return {string} proper row style for given idx
+ */
+function myRowStyler(idx,row) {
+	var res="background-color:";
+	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
+	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
+	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
+}
+ 
+var ac_config= {
+	// version, logging y depuracion
+	'debug_level'		: '<?php echo $config->getEnv('debug_level'); ?>',
+	'version_name'		: '<?php echo $config->getEnv('version_name'); ?>',
+	'version_date'		: '<?php echo $config->getEnv('version_date'); ?>',
+	// Internacionalizacion. Idiomas
+	'lang'				: '<?php echo $config->getEnv('lang'); ?>',
+	// variables del sistema
+	'proximity_alert'	: <?php echo $config->getEnv('proximity_alert'); ?>,
+	'federation'		: <?php echo $config->getEnv('federation'); ?>,
+
+	// entorno grafico
+	'easyui_theme' 		: '<?php echo $config->getEnv('easyui_theme'); ?>',
+	'easyui_bgcolor'	: '<?php echo $config->getEnv('easyui_bgcolor'); ?>',
+	'easyui_hdrcolor'	: '<?php echo $config->getEnv('easyui_hdrcolor'); ?>',
+	'easyui_opcolor'	: '<?php echo $config->getEnv('easyui_opcolor'); ?>',
+	'easyui_rowcolor1'	: '<?php echo $config->getEnv('easyui_rowcolor1'); ?>',
+	'easyui_rowcolor2'	: '<?php echo $config->getEnv('easyui_rowcolor2'); ?>',
+	'easyui_rowcolor3'	: '<?php echo $config->getEnv('easyui_rowcolor3'); ?>',
+	// configuracion del videowall
+	'vw_polltime'		: <?php echo $config->getEnv('vw_polltime'); ?>,
+	'vw_alpha'			: <?php echo $config->getEnv('vw_alpha'); ?>,
+	'vw_hdrfg1'			: '<?php echo $config->getEnv('vw_hdrfg1'); ?>',
+	'vw_hdrbg1'			: '<?php echo $config->getEnv('vw_hdrbg1'); ?>',
+	'vw_hdrfg2'			: '<?php echo $config->getEnv('vw_hdrfg2'); ?>',
+	'vw_hdrbg2'			: '<?php echo $config->getEnv('vw_hdrbg2'); ?>',
+	'vw_rowcolor1'		: '<?php echo $config->getEnv('vw_rowcolor1'); ?>',
+	'vw_rowcolor2'		: '<?php echo $config->getEnv('vw_rowcolor2'); ?>',
+	// generacion de PDF's
+	'pdf_topmargin'		: '<?php echo $config->getEnv('pdf_topmargin'); ?>',
+	'pdf_leftmargin'	: '<?php echo $config->getEnv('pdf_leftmargin'); ?>',
+	'pdf_hdrfg1'		: '<?php echo $config->getEnv('pdf_hdrfg1'); ?>',
+	'pdf_hdrbg1'		: '<?php echo $config->getEnv('pdf_hdrbg1'); ?>',
+	'pdf_hdrfg2'		: '<?php echo $config->getEnv('pdf_hdrfg2'); ?>',
+	'pdf_hdrbg2'		: '<?php echo $config->getEnv('pdf_hdrbg2'); ?>',
+	'pdf_rowcolor1'		: '<?php echo $config->getEnv('pdf_rowcolor1'); ?>',
+	'pdf_rowcolor2'		: '<?php echo $config->getEnv('pdf_rowcolor2'); ?>',
+	'pdf_linecolor'		: '<?php echo $config->getEnv('pdf_linecolor'); ?>',
+	// personalizacion del tablet
+	'tablet_beep'		: <?php echo toBoolean($config->getEnv('tablet_beep'))?'true':'false'; ?>,
+	'tablet_dnd'		: <?php echo toBoolean($config->getEnv('tablet_dnd'))?'true':'false'; ?>,
+	'tablet_chrono'		: <?php echo toBoolean($config->getEnv('tablet_chrono'))?'true':'false'; ?>,
+	'tablet_next'		: <?php echo toBoolean($config->getEnv('tablet_next'))?'true':'false'; ?>
+}
+</script>
 <style>
 body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
 </style>

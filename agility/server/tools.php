@@ -35,6 +35,13 @@ if( ! function_exists('boolval')) {
 	}
 }
 
+/* echo a gettext'd value */
+if( ! function_exists('_e')) {
+	function _e($var)	{
+		echo _($var);
+	}
+}
+
 /* disable send compressed data to client from apache */
 function disable_gzip() {
 	@ini_set('zlib.output_compression', 'Off');
