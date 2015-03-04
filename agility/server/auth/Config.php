@@ -332,13 +332,22 @@ Class Config {
 	}
 
 	function _f($str,$fed=-1) {
-		if($fed==-1) $fed=$this->getEnv("federation");
 		if ($fed>2) return $str;
-		if (!array_key_exists(Config::$federations[$fed][$str])) return $str;
+		if($fed==-1) $fed=$this->getEnv("federation");
+		if (!array_key_exists($str,Config::$federations[$fed])) return $str;
 		return Config::$federations[$fed][$str];
 	}
 	
 	function _ef($str,$fed=-1) { echo _f($str,$fed); }
+	
+	function strToFederation($str,$fed=-1) {
+		if ($fed>2) return $str;
+		if($fed==-1) $fed=$this->getEnv("federation");
+		foreach(Config::$federations[$fed] as $key => $value) {
+			$str=str_replace($key,$value,$str);
+		}
+		return $str;
+	}
 }
 
 ?>
