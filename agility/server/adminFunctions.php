@@ -156,7 +156,7 @@ try {
 		case "backup": /* $am->access(PERMS_ADMIN); */ $result=$adm->backup(); break;
 		case "restore": $am->access(PERMS_ADMIN); $result=$adm->restore(); break;
 		case "reset": $am->access(PERMS_ADMIN); $result=$adm->factoryReset(); break;
-		case "federation": $result=$adm->setFederation(http_request("Federation","i",0));
+		case "federation": $result=$adm->setFederation(http_request("Federation","s","0"));
 		default: throw new Exception("adminFunctions:: invalid operation: '$operation' provided");
 	}
 	if ($result===null) // error

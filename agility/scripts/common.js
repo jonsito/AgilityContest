@@ -171,6 +171,7 @@ function isMobileDevice() {
  * @param {object} data prueba data
  */
 function setPrueba(data) {
+	alert(JSON.stringify(data));
 	var old=workingData.prueba;
 	workingData.prueba=Number(data.ID);
 	workingData.nombrePrueba=data.Nombre;
