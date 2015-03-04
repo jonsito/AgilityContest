@@ -87,6 +87,7 @@ var ac_config= {
 		'lang'				: '<?php echo $config->getEnv('lang'); ?>',
 		// variables del sistema
 		'proximity_alert'	: <?php echo $config->getEnv('proximity_alert'); ?>,
+		'federation'		: <?php echo $config->getEnv('federation'); ?>,
 		
 		// entorno grafico
 		'easyui_theme' 		: '<?php echo $config->getEnv('easyui_theme'); ?>',
