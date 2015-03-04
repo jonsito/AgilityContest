@@ -18,10 +18,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 define('FPDF_FONTPATH', __DIR__."/font/");
-require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../auth/Config.php");
+require_once(__DIR__."/fpdf.php");
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Clubes.php');
 require_once(__DIR__.'/../database/classes/Pruebas.php');
@@ -45,6 +45,13 @@ class PrintCommon extends FPDF {
 	protected $pageName; // name of file to be printed
 
 	protected $centro;
+	
+	function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='') {
+		$txt=utf8_decode($txt);
+		$txt=$this->config->strToFederation($txt);
+		parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link);
+	}
+	
 	/**
 	 * Constructor de la superclase 
 	 * @param unknown $prueba ID de la prueba
@@ -79,9 +86,14 @@ class PrintCommon extends FPDF {
 		// 		los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
 		if ($this->prueba->RSCE==0) {
 			$this->icon2=($this->icon==="rsce.png")?"fci.png":"rsce.png"; // to avoid duplicate head logos
-		} else {
+		}
+		if ($this->prueba->RSCE==1) {
 			$this->icon2="rfec.png";
 			$this->icon2=($this->icon==="rfec.png")?"csd.png":"rfec.png"; // to avoid duplicate head logos
+		}
+		if ($this->prueba->RSCE==2) {
+			$this->icon2="uca.png";
+			$this->icon2=($this->icon==="rfec.png")?"rfec.png":"uca.png"; // to avoid duplicate head logos
 		}
 		$this->SetXY(10,10); // margins are 10mm each
 		$this->Cell(25.4,25.4,$this->Image(__DIR__.'/../../images/logos/'.$this->icon,$this->getX(),$this->getY(),25.4),0,0,'L',false);
