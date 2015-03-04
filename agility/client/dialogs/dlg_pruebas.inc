@@ -35,6 +35,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             	Federaci&oacute;n:
             	<input id="pruebas-RSCE" type="radio" name="RSCE" value="0" checked="checked" />RSCE
             	<input id="pruebas-RFCE" type="radio" name="RSCE" value="1" />RFEC
+            	<input id="pruebas-UCA" type="radio" name="RSCE" value="2" />UCA
             	<span style="float:right">
             		<input id="pruebas-Selectiva" type="checkbox" name="Selectiva" value="1"/>Selectiva
             	</span>

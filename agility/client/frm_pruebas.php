@@ -103,7 +103,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 var oldRow=$('#pruebas-datagrid').datagrid('options').expandedRow;
                 if (oldRow!=-1) $('#pruebas-datagrid').datagrid('collapseRow',oldRow);
                 $('#pruebas-datagrid').datagrid('options').expandedRow=index;
-                workingData.datosPrueba=row;
+                setPrueba(row);
                 if (row.ID!=0) showJornadasByPrueba(index,row); 
             }
             

@@ -82,7 +82,7 @@ class PDF extends PrintCommon {
 	}
 	
 	function writeTableHeader() {
-		$this->myLogger->enter();
+		// $this->myLogger->enter();
 		// Colores, ancho de línea y fuente en negrita de la cabecera de tabla
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
@@ -97,7 +97,7 @@ class PDF extends PrintCommon {
 		$this->SetTextColor(0,0,0); // negro
 		$this->SetFont('Arial','',9); // remove bold
 		$this->Ln();
-		$this->myLogger->leave();
+		// $this->myLogger->leave();
 	}
 	
 	// Tabla coloreada

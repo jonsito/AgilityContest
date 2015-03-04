@@ -175,6 +175,16 @@ function setPrueba(data) {
 	workingData.prueba=Number(data.ID);
 	workingData.nombrePrueba=data.Nombre;
 	workingData.datosPrueba=data;
+	$.ajax({
+		url: '/agility/server/adminFunctions.php',
+		data: {'Operation':'federation','Federation':data.RSCE},
+		dataType: 'json',
+	    async: false,
+	    cache: false,
+	    timeout: 30000,
+		success: function(res) { initWorkingData(data);	},
+		error: function(msg){ alert("error setting federation info: "+msg);}
+		});
 	if(workingData.prueba!=old) {
 		workingData.jornada=0;
 		workingData.nombreJornada="";
