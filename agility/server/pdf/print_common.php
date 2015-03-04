@@ -48,7 +48,7 @@ class PrintCommon extends FPDF {
 	
 	function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='') {
 		$txt=utf8_decode($txt);
-		$txt=$this->config->strToFederation($txt);
+		$txt=$this->config->strToFederation($txt,$this->prueba->RSCE);
 		parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link);
 	}
 	

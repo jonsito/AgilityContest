@@ -71,7 +71,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<td colspan="3">Tiempo de recorrido M&aacute;ximo</td>
 		</tr>
 		<tr id="dmanga_LargeRow"> <!-- fila 3: recorrido comun datos standard -->
-			<td id="dmanga_LargeLbl">60</td>
+			<td id="dmanga_LargeLbl">Cat. 60</td>
 			<td><input type="text" id="dmanga_DistL" name="Dist_L" size="4" value="0" onChange="dmanga_setRecorridos_uca();"/></td>
 			<td><input type="text" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="dmanga_setRecorridos_uca();"/></td>
 			<!-- datos para TRS standard -->
@@ -105,7 +105,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			</td>
 		</tr>
 		<tr id="dmanga_MediumRow"> <!-- fila 4: recorrido std / mini+midi datos midi -->
-			<td id="dmanga_MediumLbl">50</td>
+			<td id="dmanga_MediumLbl">Cat. 50</td>
 			<td><input type="text" id="dmanga_DistM" name="Dist_M" size="4" value="0" onChange="dmanga_setRecorridos_uca();"/></td>
 			<td><input type="text" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="dmanga_setRecorridos_uca();"/></td>
 			<!-- datos para TRS medium -->
@@ -140,7 +140,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			</td>		
 		</tr>
 		<tr id="dmanga_SmallRow"> <!-- fila 5: recorrido std / mini / midi + datos mini -->
-			<td id="dmanga_SmallLbl">40</td>
+			<td id="dmanga_SmallLbl">Cat. 40</td>
 			<td><input type="text" id="dmanga_DistS" name="Dist_S" size="4" value="0" onChange="dmanga_setRecorridos_uca();"/></td>
 			<td><input type="text" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="dmanga_setRecorridos_uca();"/></td>
 			<!-- datos para TRS small -->
@@ -176,7 +176,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			</td>
 		</tr>
 		<tr id="dmanga_TinyRow"> <!-- fila 6: recorrido std / mini / midi / tiny datos tiny -->
-			<td id="dmanga_TinyLbl">30</td>
+			<td id="dmanga_TinyLbl">Cat. 30</td>
 			<td><input type="text" id="dmanga_DistT" name="Dist_T" size="4" value="0" onChange="dmanga_setRecorridos_uca();"/></td>
 			<td><input type="text" id="dmanga_ObstT" name="Obst_T" size="4" value="0" onChange="dmanga_setRecorridos_uca();"/></td>
 			<!-- datos para TRS small -->

@@ -391,10 +391,10 @@ function dmanga_setRecorridos_uca() {
 		$('#dmanga_MediumRow').css('display','table-row');
 		$('#dmanga_SmallRow').css('display','table-row');
 		$('#dmanga_TinyRow').css('display','table-row');
-		$('#dmanga_LargeLbl').html("60");
-		$('#dmanga_MediumLbl').html("50");
-		$('#dmanga_SmallLbl').html("40");
-		$('#dmanga_TinyLbl').html("30");
+		$('#dmanga_LargeLbl').html("Cat. 60");
+		$('#dmanga_MediumLbl').html("Cat. 50");
+		$('#dmanga_SmallLbl').html("Cat. 40");
+		$('#dmanga_TinyLbl').html("Cat. 30");
 		break;
 	}
 }
@@ -752,10 +752,10 @@ function setupResultadosWindow(recorrido) {
     	    	$('#resultadosmanga-TinyLbl').html("Tiny");
     	    	break;
     		case 2:
-    	    	$('#resultadosmanga-LargeLbl').html("60");
-    	    	$('#resultadosmanga-MediumLbl').html("50");
-    	    	$('#resultadosmanga-SmallLbl').html("40");
-    	    	$('#resultadosmanga-TinyLbl').html("30");
+    	    	$('#resultadosmanga-LargeLbl').html("Cat. 60");
+    	    	$('#resultadosmanga-MediumLbl').html("Cat. 50");
+    	    	$('#resultadosmanga-SmallLbl').html("Cat. 40");
+    	    	$('#resultadosmanga-TinyLbl').html("Cat. 30");
     	    	break;
     	}
     	break;
@@ -1079,10 +1079,10 @@ function resultados_doSelectRonda(row) {
 					[{mode:0,text:'Large',selected:true},{mode:1,text:'Medium'},{mode:2,text:'Small'},{mode:5,text:'Tiny'}]);
 			break;
 		case 2:
-	    	$('#datos_manga1-LargeLbl').html("Cat 60");
-	    	$('#datos_manga1-MediumLbl').html("Cat 50");
-	    	$('#datos_manga1-SmallLbl').html("Cat 40");
-	    	$('#datos_manga1-TinyLbl').html("Cat 30");
+	    	$('#datos_manga1-LargeLbl').html("Cat. 60");
+	    	$('#datos_manga1-MediumLbl').html("Cat. 50");
+	    	$('#datos_manga1-SmallLbl').html("Cat. 40");
+	    	$('#datos_manga1-TinyLbl').html("Cat. 30");
 			$('#resultados-selectCategoria').combobox('loadData',
 					[{mode:0,text:'Cat 60',selected:true},{mode:1,text:'Cat 50'},{mode:2,text:'Cat 40'},{mode:5,text:'Cat 30'}]);
 			break;
@@ -1115,10 +1115,10 @@ function resultados_doSelectRonda(row) {
         		$('#datos_manga2-TinylLbl').html("Tiny");
     			break;
     		case 2:
-        		$('#datos_manga2-LargeLbl').html("Cat 60");
-        		$('#datos_manga2-MediumLbl').html("Cat 50");
-        		$('#datos_manga2-SmallLbl').html("Cat 40");
-        		$('#datos_manga2-TinylLbl').html("Cat 30");
+        		$('#datos_manga2-LargeLbl').html("Cat. 60");
+        		$('#datos_manga2-MediumLbl').html("Cat. 50");
+        		$('#datos_manga2-SmallLbl').html("Cat. 40");
+        		$('#datos_manga2-TinylLbl').html("Cat. 30");
     			break;
     		}
     		resultados_fillForm(resultados,row.Manga2,'2',0);

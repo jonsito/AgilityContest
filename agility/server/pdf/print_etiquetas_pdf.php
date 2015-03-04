@@ -38,12 +38,8 @@ require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__.'/../database/classes/Clasificaciones.php');
 require_once(__DIR__."/print_common.php");
 
-class Etiquetas_PDF extends FPDF {
+class Etiquetas_PDF extends PrintCommon {
 	
-	public $myLogger;
-	protected $prueba;
-	protected $club;
-	protected $jornada;
 	protected $manga1;
 	protected $manga2;
 	public $resultados;
@@ -64,13 +60,8 @@ class Etiquetas_PDF extends FPDF {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$mangas) {
-		parent::__construct('Portrait','mm','A4');
-		$this->myLogger= new Logger("print_etiquetas_pdf");
-		$this->config=new Config();
+		parent::__construct('Portrait',$prueba,$jornada);
 		$dbobj=new DBObject("print_etiquetas_pdf");
-		$this->prueba=$dbobj->__getObject("Pruebas",$prueba);
-		$this->club=$dbobj->__getObject("Clubes",$this->prueba->Club);
-		$this->jornada=$dbobj->__getObject("Jornadas",$jornada);
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
 		// evaluage logo info

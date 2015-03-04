@@ -85,7 +85,7 @@ $('#seljornada-Prueba').combogrid({
 		if (p===null) return; // no selection
 		setPrueba(p); // retorna jornada, o 0 si la prueba ha cambiado
 		$('#seljornada-Jornada').combogrid('clear');
-		$('#seljornada-Jornada').combogrid('grid').datagrid('load',{Prueba:value});
+		$('#seljornada-Jornada').combogrid('grid').datagrid('load',{Prueba:p.ID});
 	},
 	onLoadSuccess: function(data) {
 		if (workingData.prueba!=0) $('#seljornada-Prueba').combogrid('setValue',workingData.prueba);

@@ -171,21 +171,10 @@ function isMobileDevice() {
  * @param {object} data prueba data
  */
 function setPrueba(data) {
-	alert(JSON.stringify(data));
 	var old=workingData.prueba;
 	workingData.prueba=Number(data.ID);
 	workingData.nombrePrueba=data.Nombre;
 	workingData.datosPrueba=data;
-	$.ajax({
-		url: '/agility/server/adminFunctions.php',
-		data: {'Operation':'federation','Federation':data.RSCE},
-		dataType: 'json',
-	    async: false,
-	    cache: false,
-	    timeout: 30000,
-		success: function(res) { initWorkingData(data);	},
-		error: function(msg){ alert("error setting federation info: "+msg);}
-		});
 	if(workingData.prueba!=old) {
 		workingData.jornada=0;
 		workingData.nombreJornada="";
@@ -237,7 +226,7 @@ function initWorkingData(id) {
 	if (id!==undefined) {
 		$.ajax({
 			url: '/agility/server/database/sessionFunctions.php',
-			data: { Operation: 'getByID', ID: id },
+			data: { Operation: 'getByID', ID: id.ID },
 			dataType: 'json',
 	        async: false,
 	        cache: false,
