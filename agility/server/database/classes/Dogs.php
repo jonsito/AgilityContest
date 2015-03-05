@@ -16,8 +16,8 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
-require_once("DBObject.php");
+require_once(__DIR__."/DBObject.php");
+require_once(__DIR__."/../procesaInscripcion.php"); // to insert/remove inscriptions from mangas
 
 class Dogs extends DBObject {
 	
@@ -52,19 +52,21 @@ class Dogs extends DBObject {
 		return "";
 		
 	}
-	
-	function updateResultados($id) {
-		$pgc=$this->__getObject("PerroGuiaClub",$id);
-		$str="UPDATE Resultados,Jornadas
-			SET Resultados.Nombre='{$pgc->Nombre}',
-				Resultados.NombreGuia='{$pgc->NombreGuia}',
-				Resultados.NombreClub='{$pgc->NombreClub}',
-				Resultados.Categoria='{$pgc->Categoria}',
-				Resultados.Grado='{$pgc->Grado}',
-				Resultados.Licencia='{$pgc->Licencia}'
-			WHERE (Jornadas.ID=Resultados.Jornada) AND (Jornadas.Cerrada=0) AND (Resultados.Perro=$id)";
-		$res=$this->query($str);
-		if (!$res) return $this->conn->error;
+
+	function updateInscripciones($id) {
+		// miramos las pruebas en las que el perro esta inscrito
+		$res=$this->__select(
+				/* SELECT */"Inscripciones.*",
+				/* FROM */	"Inscripciones,Pruebas",
+				/* WHERE */	"(Pruebas.ID=Inscripciones.Prueba) AND (Pruebas.Cerrada=0) AND (Perro=$id)",
+				/* ORDER BY */	"",
+				/* LIMIT*/	""
+		);
+		if (!is_array($res)) return $this->conn->error;
+		// actualizamos los datos de inscripcion de la prueba
+		foreach($res['rows'] as $inscripcion) {
+			procesaInscripcion($inscripcion['Prueba'],$inscripcion['ID']);
+		}
 		return "";
 	}
 	
@@ -99,9 +101,9 @@ class Dogs extends DBObject {
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error); 
 		$stmt->close();
-		// update data on table "Resultados"
+		// update data on inscripciones
+		return $this->updateInscripciones($id);
 		$this->myLogger->leave();
-		return $this->updateResultados($id);
 	}
 	
 	/**

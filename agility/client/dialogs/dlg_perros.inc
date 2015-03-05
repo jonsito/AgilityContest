@@ -63,9 +63,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         </form>
         <span id="perros-warning">
         <em>Aviso:</em><br/>
-        Los cambios en los datos de Categor&iacute;a o Grado<br/>
-        afectarán a los resultados de todas las pruebas y jornadas<br/>
-        en las que el perro esté inscrito y no hayan sido marcadas como 'cerradas'
+        Los cambios en los datos de Categor&iacute;a o Grado de un perro<br/>
+        afectar&aacute;n a los datos de todas las pruebas y jornadas<br/>
+        en las que el perro est&eacute; inscrito y no hayan sido marcadas como cerradas
         </span>
     </div>
 
