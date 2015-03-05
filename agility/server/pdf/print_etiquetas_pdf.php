@@ -38,12 +38,8 @@ require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__.'/../database/classes/Clasificaciones.php');
 require_once(__DIR__."/print_common.php");
 
-class Etiquetas_PDF extends FPDF {
-	
-	public $myLogger;
-	protected $prueba;
-	protected $club;
-	protected $jornada;
+class Etiquetas_PDF extends PrintCommon {
+
 	protected $manga1;
 	protected $manga2;
 	public $resultados;
@@ -64,13 +60,10 @@ class Etiquetas_PDF extends FPDF {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$mangas) {
-		parent::__construct('Portrait','mm','A4');
+		parent::__construct('Portrait',$prueba,$jornada);
 		$this->myLogger= new Logger("print_etiquetas_pdf");
 		$this->config=new Config();
 		$dbobj=new DBObject("print_etiquetas_pdf");
-		$this->prueba=$dbobj->__getObject("Pruebas",$prueba);
-		$this->club=$dbobj->__getObject("Clubes",$this->prueba->Club);
-		$this->jornada=$dbobj->__getObject("Jornadas",$jornada);
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
 		// evaluage logo info
@@ -167,6 +160,16 @@ class Etiquetas_PDF extends FPDF {
 		
 		// linea al final
 		$this->Line($left,$ynext,$left+190,$ynext);
+		
+		// en el margen izquierdo de las etiquetas
+		// ponemos info de perro guia y club
+		$this->SetFont('Arial','B',10); // font size for results data
+		$this->SetXY($left+165,$y1);
+		$this->Cell(25,5,$row['Nombre'],'',0,'L',false);
+		$this->SetXY($left+165,$y5);
+		$this->Cell(25,5,$row['NombreGuia'],'',0,'L',false);
+		$this->SetXY($left+165,$y9);
+		$this->Cell(25,5,$row['NombreClub'],'',0,'L',false);
 	}
 	
 	function composeTable($rowcount=0,$listadorsales="") {

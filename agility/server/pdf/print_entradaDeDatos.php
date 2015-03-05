@@ -286,14 +286,15 @@ class PDF extends PrintCommon {
 
 		// Datos de manga
 		$this->ac_header(1,15);
+		$strcat=$this->cat[$this->categoria];
 		if($this->manga!=null) {
 			$str=Mangas::$tipo_manga[$this->manga->Tipo][1];
-			$str="$str - {$this->categoria}";
+			$str="$str - $strcat";
 			$this->ac_Cell(10,85,90,10,$str,"LTBR","C",false);
 		}
 		if($this->manga2!=null) {
 			$str=Mangas::$tipo_manga[$this->manga2->Tipo][1];
-			$str="$str - {$this->categoria}";
+			$str="$str - $strcat";
 			$this->ac_Cell(110,85,90,10,$str,"LTBR","C",false);
 		}
 		
