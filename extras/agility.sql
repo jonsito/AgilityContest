@@ -178,7 +178,7 @@ INSERT INTO `clubes` (`ID`, `Nombre`, `Direccion1`, `Direccion2`, `Provincia`, `
 (85, 'Teocan', 'Rarís, s/n', '15883 Teo (La Coruña)', 'Coruña, A', '+ 34 627 93 72 81', '', '', '', '', 'adteocan@gmail.com', '', '', '', 'teocan.png', '', 0),
 (86, 'Los Angeles de San Antón', 'Camino del Tiro Pichón, 1', '11500 El Puerto de Santa María', 'Cádiz', '+ 34 667 48 61 06', '+ 34 617 41 06 52', '', '', '', 'cdagilityladsa@hotmail.com', '', '', '', 'ladsa.png', '', 0),
 (87, 'A-0', 'Cº de los Santos, s/n - Avda. de la Vega, s/n', '28500 Arganda del Rey', 'Madrid', '+ 34 626 43 68 18', '+ 34 646 79 51 55', '', '', '', '', '', '', '', 'logo_87.png', '', 0),
-(88, 'A. D. A. Pozuelo', 'Felipe de la Guerra, 7', '28224 Pozuelo de Alarcón', 'Madrid', '', '', '', '', '', '', '', '', '', 'logo_88.png', '', 0),
+(88, 'A. D. A. Pozuelo', 'Felipe de la Guerra, 7', '28224 Pozuelo de Alarcón', 'Madrid', '', '', '', '', '', '', '', '', '', 'pozuelo.png', '', 0),
 (89, 'El Campet de Pobla Llarga', 'Partida Codona, Pol. 1 parc. 78', '46670 La Poble Llarga', 'Valencia/Valéncia', '669 088 200', '606 428 438 ', '', '', '', 'agilityelcampet@gmail.com', '', '', '', 'logo_89.png', '', 0),
 (90, 'La Huella', 'Miguel Servet 80', '46540 El Puig de Santa Maria', 'Valencia/Valéncia', '', '', '', '', '', 'agilitylahuella@hotmail.com', '', '', '', 'rsce.png', '', 0),
 (91, 'Almussafes', 'Camí Burriaga s/n (Parque Rural de Almussafes)', '46440 Almussafes', 'Valencia/Valéncia', '', '', '', '', '', '', '', '', '', 'logo_91.png', '', 0),
