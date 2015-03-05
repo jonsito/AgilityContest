@@ -158,6 +158,16 @@ class Etiquetas_PDF extends PrintCommon {
 		
 		// linea al final
 		$this->Line($left,$ynext,$left+190,$ynext);
+		
+		// en el margen izquierdo de las etiquetas
+		// ponemos info de perro guia y club
+		$this->SetFont('Arial','B',10); // font size for results data
+		$this->SetXY($left+165,$y1);
+		$this->Cell(25,5,$row['Nombre'],'',0,'L',false);
+		$this->SetXY($left+165,$y5);
+		$this->Cell(25,5,$row['NombreGuia'],'',0,'L',false);
+		$this->SetXY($left+165,$y9);
+		$this->Cell(25,5,$row['NombreClub'],'',0,'L',false);
 	}
 	
 	function composeTable($rowcount=0,$listadorsales="") {
