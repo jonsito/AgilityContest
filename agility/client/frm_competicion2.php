@@ -113,11 +113,11 @@ $('#competicion-listamangas').datagrid({
         	$('#competicion_infolayout').layout('panel','center').panel('setTitle','Datos de la manga -- '+workingData.nombreManga);
         	// datos del panel lateral con informacion de la manga
         	reload_manga(workingData.manga);
+            // refresh orden de salida/competicion/resultados
+            reloadOrdenSalida();
+            reloadCompeticion();
+            setupResultadosWindow(row.Recorrido);
         });
-        // refresh orden de salida/competicion/resultados
-        reloadOrdenSalida();
-        reloadCompeticion();
-        setupResultadosWindow(row.Recorrido);
     }
 });
 
