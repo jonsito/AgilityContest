@@ -90,14 +90,14 @@ $('#competicion-listamangas').datagrid({
       	    { field:'Descripcion',	width:200, sortable:false, align:'right',
           	    formatter: function(val,row){ 
               	    // si manga especial, obtener texto del campo observaciones
-              	    if (row.Tipo!=16) return val;
+              	    if (parseInt(row.Tipo)!=16) return val;
               	    if (workingData.datosJornada.Observaciones==="") return val;
               	    return workingData.datosJornada.Observaciones;
           	    }
       	    }, // texto del tipo de manga
     ]],
     rowStyler:myRowStyler,
-    onSelect: function (index,row) {
+    onClickRow: function (index,row) {
         if (index<0) { // no manga selected
             $('#competicion-datosmanga').html("");
         	workingData.manga=0;
