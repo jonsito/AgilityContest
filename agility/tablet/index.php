@@ -28,9 +28,7 @@ $config =new Config()
 <link rel="stylesheet" type="text/css" href="/agility/css/tablet.css" />
 <script src="/agility/lib/jquery-easyui-1.4.1/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.1/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
-<?php if (toBoolean($config->getEnv('tablet_dnd'))) { ?>
 <script src="/agility/lib/jquery-easyui-1.4.1/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
-<?php } ?>
 <?php if (toBoolean($config->getEnv('tablet_chrono'))) { ?>
 <script src="/agility/lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
 <?php } ?>
@@ -75,7 +73,6 @@ var ac_config= {
 	'lang'				: '<?php echo $config->getEnv('lang'); ?>',
 	// variables del sistema
 	'proximity_alert'	: <?php echo $config->getEnv('proximity_alert'); ?>,
-	'federation'		: <?php echo $config->getEnv('federation'); ?>,
 
 	// entorno grafico
 	'easyui_theme' 		: '<?php echo $config->getEnv('easyui_theme'); ?>',
@@ -163,34 +160,6 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 $('#seltablet-form').form();
 
-$('#seltablet-Prueba').combogrid({
-	panelWidth: 400,
-	panelHeight: 150,
-	idField: 'ID',
-	textField: 'Nombre',
-	url: '/agility/server/database/pruebaFunctions.php?Operation=enumerate',
-	method: 'get',
-	mode: 'remote',
-	required: true,
-	multiple: false,
-	fitColumns: true,
-	singleSelect: true,
-	editable: false,  // to disable tablet keyboard popup
-	selectOnNavigation: true, // let use cursor keys to interactive select
-	columns: [[
-	   	    {field:'ID',hidden:true},
-			{field:'Nombre',title:'Nombre',width:50,align:'right'},
-			{field:'Club',hidden:true},
-			{field:'NombreClub',title:'Club',width:20,align:'right'},
-			{field:'Observaciones',title:'Observaciones.',width:30,align:'right'}
-	]],
-	onChange:function(value){
-		workingData.prueba=Number(value);
-		var g = $('#seltablet-Jornada').combogrid('grid');
-		g.datagrid('load',{Prueba:value});
-	}
-});
-
 $('#seltablet-Sesion').combogrid({
 	panelWidth: 500,
 	panelHeight: 150,
@@ -214,6 +183,37 @@ $('#seltablet-Sesion').combogrid({
 		param.Operation='select';
 		param.Hidden=0;
 		return true;
+	}
+});
+
+$('#seltablet-Prueba').combogrid({
+	panelWidth: 400,
+	panelHeight: 150,
+	idField: 'ID',
+	textField: 'Nombre',
+	url: '/agility/server/database/pruebaFunctions.php?Operation=enumerate',
+	method: 'get',
+	mode: 'remote',
+	required: true,
+	multiple: false,
+	fitColumns: true,
+	singleSelect: true,
+	editable: false,  // to disable tablet keyboard popup
+	selectOnNavigation: true, // let use cursor keys to interactive select
+	columns: [[
+		{field:'ID',			hidden:true},
+		{field:'Nombre',		title:'Nombre',			width:50,	align:'right'},
+		{field:'Club',			hidden:true},
+		{field:'NombreClub',	title:'Club',			width:20,	align:'right'},
+		{field:'RSCE',			title:'Fed.',			width:15,	align:'center', formatter:formatRSCE},
+		{field:'Observaciones',	title:'Observaciones.',	width:30,	align:'right'}
+	]],
+	onChange:function(value){
+		var p=$('#seltablet-Prueba').combogrid('grid').datagrid('getSelected');
+		if (p===null) return; // no selection
+		setPrueba(p); // retorna jornada, o 0 si la prueba ha cambiado
+		$('#seltablet-Jornada').combogrid('clear');
+		$('#seltablet-Jornada').combogrid('grid').datagrid('load',{Prueba:p.ID});
 	}
 });
 
@@ -312,7 +312,8 @@ function tablet_acceptSelectJornada() {
         	    	   	// los demas valores se actualizan en la linea anterior
         	    		workingData.nombreSesion=s.Nombre;
         	    		workingData.nombrePrueba=p.Nombre;
-        	    		workingData.nombreJornada=j.Nombre;	var page="/agility/tablet/tablet_competicion.php";
+        	    		workingData.nombreJornada=j.Nombre;	
+        	    		var page="/agility/tablet/tablet_competicion.php";
         	    		if (workingData.datosJornada.Equipos3==1) {
         	    			page="/agility/tablet/tablet_competicion_eq3.php";
         	    		}

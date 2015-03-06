@@ -157,13 +157,16 @@ function tablet_showPerrosByTanda(index,row){
         },
         onLoadSuccess:function(){
             setTimeout(function(){ $('#tablet-datagrid').datagrid('fixDetailRowHeight',index); },0);
-            if (! isMobileDevice() ) {
-        		$(mySelf).datagrid('enableDnd');
-    			$(mySelf).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
-            }
-    	}
 <?php if (toBoolean($config->getEnv('tablet_dnd'))) { ?>
-		,
+			$(mySelf).datagrid('enableDnd');
+			$(mySelf).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+<?php } else { /* if dnd is off enable only on PC */?>
+			if (! isMobileDevice() ) {
+				$(mySelf).datagrid('enableDnd');
+				$(mySelf).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+			}
+<?php } ?>
+    	},
         onDragEnter: function(dst,src) {
             if (dst.Manga!=src.Manga) return false;
             if (dst.Categoria!=src.Categoria) return false;
@@ -184,7 +187,6 @@ function tablet_showPerrosByTanda(index,row){
              	);
         	return false;
         }
-<?php } ?>
 	});
 	$('#tablet-datagrid').datagrid('fixDetailRowHeight',index);
 }

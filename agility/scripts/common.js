@@ -226,7 +226,7 @@ function initWorkingData(id) {
 	if (id!==undefined) {
 		$.ajax({
 			url: '/agility/server/database/sessionFunctions.php',
-			data: { Operation: 'getByID', ID: id.ID },
+			data: { Operation: 'getByID', ID: id },
 			dataType: 'json',
 	        async: false,
 	        cache: false,
