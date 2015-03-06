@@ -295,13 +295,10 @@ function tablet_cancel() {
 
 function tablet_accept() {
 	doBeep();
+	tablet_chrono('stop',0);
 	// save results 
 	tablet_updateResultados(0); // mark as result no longer pendiente
 	
-	// close entradadatos window
-	// this must be done BEFORE datagrid contents update
-	// otherwise renderer will silently ignore actions
-	if (!ac_config.tablet_next) $('#tdialog-window').window('close'); // and close window
 	// retrieve original data from parent datagrid
 	var dgname = $('#tdialog-Parent').val();
 	var row = $(dgname).datagrid('getSelected');
@@ -315,6 +312,7 @@ function tablet_accept() {
 	obj.Pendiente=0;
 	// update row
 	$(dgname).datagrid('updateRow',{index: rowindex, row: obj});
+	$(dgname).datagrid('refreshRow',rowindex);
 	// and fire up accept event
 	tablet_putEvent(
 			'aceptar',
