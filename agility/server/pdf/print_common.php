@@ -43,12 +43,28 @@ class PrintCommon extends FPDF {
 	protected $jornada; // datos de la jornada
 	protected $myDBObject;
 	protected $pageName; // name of file to be printed
+	protected $federation; // to handle data translation
 
 	protected $centro;
 	
+	/**
+	 * this method overrides standard fpdf Cell method
+	 * Convert from utf8 to iso latin1
+	 * Translate Federation related Texts into proper ones
+	 * Make text fit into Cell box
+	 * and then call real Cell parent method
+	 */
 	function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='') {
 		$txt=utf8_decode($txt);
-		$txt=$this->config->strToFederation($txt,$this->prueba->RSCE);
+		$txt=$this->federation->strToFederation($txt,$this->prueba->RSCE);
+		for($n=strlen($txt);$n>0;$n--) {
+			$str=substr($txt,0,$n);
+			$sw=$this->GetStringWidth($str);
+			if ($sw>=($w-1.5)) continue;
+			$txt=$str;
+			break;
+		}
+		// all right. Call parent
 		parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link);
 	}
 	
@@ -65,12 +81,13 @@ class PrintCommon extends FPDF {
 		$this->config=new Config();
 		$this->myDBObject=new DBObject("print_common_pdf");
 		$this->prueba=$this->myDBObject->__getObject("Pruebas",$prueba);
+		$this->federation=new Federation($this->prueba->RSCE);
 		$this->club=$this->myDBObject->__getObject("Clubes",$this->prueba->Club); // club organizador
 		if ($jornada!=0) $this->jornada=$this->myDBObject->__getObject("Jornadas",$jornada);
 		else $this->jornada=null;
 		// evaluage logo info
-		$this->icon="rsce.png";
-		$this->icon2="rsce.png";
+		$this->icon=$this->federation->getLogo();
+		$this->icon2=$this->federation->getLogo(); // same logo
 		if (isset($this->club)) $this->icon=$this->club->Logo;
 	}
 	/**
@@ -84,17 +101,9 @@ class PrintCommon extends FPDF {
 		// 		$this->Image(string file [, float x [, float y [, float w [, float h [, string type [, mixed link]]]]]])
 		// 		$this->Cell( width, height, data, borders, where, align, fill)
 		// 		los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
-		if ($this->prueba->RSCE==0) {
-			$this->icon2=($this->icon==="rsce.png")?"fci.png":"rsce.png"; // to avoid duplicate head logos
-		}
-		if ($this->prueba->RSCE==1) {
-			$this->icon2="rfec.png";
-			$this->icon2=($this->icon==="rfec.png")?"csd.png":"rfec.png"; // to avoid duplicate head logos
-		}
-		if ($this->prueba->RSCE==2) {
-			$this->icon2="uca.png";
-			$this->icon2=($this->icon==="rfec.png")?"rfec.png":"uca.png"; // to avoid duplicate head logos
-		}
+		//
+		// trick to avoid duplicate logos on page header
+		if ($this->icon===$this->icon2) $this->icon2=$this->federation->getParentLogo();
 		$this->SetXY(10,10); // margins are 10mm each
 		$this->Cell(25.4,25.4,$this->Image(__DIR__.'/../../images/logos/'.$this->icon,$this->getX(),$this->getY(),25.4),0,0,'L',false);
 		$this->SetXY($this->w - 35.4,10);
