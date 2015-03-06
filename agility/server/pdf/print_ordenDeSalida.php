@@ -93,7 +93,6 @@ class PDF extends PrintCommon {
 	}
 	
 	function writeTableHeader() {
-		$this->myLogger->enter();
 		// Colores, ancho de línea y fuente en negrita de la cabecera de tabla
 		$this->ac_header(1,9);
 		for($i=0;$i<count($this->cellHeader);$i++) {
@@ -102,7 +101,6 @@ class PDF extends PrintCommon {
 		}
 		$this->ac_row(2,9);
 		$this->Ln();
-		$this->myLogger->leave();
 	}
 	
 	function printTeamInformation($team) {
