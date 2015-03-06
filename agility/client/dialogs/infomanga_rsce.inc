@@ -71,7 +71,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<td colspan="3">Tiempo de recorrido M&aacute;ximo</td>
 		</tr>
 		<tr id="dmanga_LargeRow"> <!-- fila 3: recorrido comun datos standard -->
-			<td id="dmanga_LargeLbl">Large</td>
+			<td id="dmanga_LargeLbl">Standard</td>
 			<td><input type="text" id="dmanga_DistL" name="Dist_L" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
 			<td><input type="text" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
 			<!-- datos para TRS standard -->
@@ -105,7 +105,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			</td>
 		</tr>
 		<tr id="dmanga_MediumRow"> <!-- fila 4: recorrido std / mini+midi datos midi -->
-			<td id="dmanga_MediumLbl">Medium</td>
+			<td id="dmanga_MediumLbl">Midi</td>
 			<td><input type="text" id="dmanga_DistM" name="Dist_M" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
 			<td><input type="text" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
 			<!-- datos para TRS medium -->
@@ -140,7 +140,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			</td>		
 		</tr>
 		<tr id="dmanga_SmallRow"> <!-- fila 5: recorrido std / mini / midi + datos mini -->
-			<td id="dmanga_SmallLbl">Small</td>
+			<td id="dmanga_SmallLbl">Mini</td>
 			<td><input type="text" id="dmanga_DistS" name="Dist_S" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
 			<td><input type="text" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
 			<!-- datos para TRS small -->

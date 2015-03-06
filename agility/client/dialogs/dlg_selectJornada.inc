@@ -64,7 +64,7 @@ addTooltip($('#seljornada-okBtn').linkbutton(),"<?php _e('Trabajar con la jornad
 addTooltip($('#seljornada-cancelBtn').linkbutton(),"<?php _e('Cancelar selecci&oacute;n. Cerrar ventana');?>");
 
 $('#seljornada-Prueba').combogrid({
-	panelWidth: 400,
+	panelWidth: 450,
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
@@ -78,11 +78,12 @@ $('#seljornada-Prueba').combogrid({
 	selectOnNavigation: true, // let use cursor keys to interactive select
 	editable: isMobileDevice()?false:true, //disable keyboard deploy on mobile devices
 	columns: [[
-	   	    {field:'ID',hidden:true},
-			{field:'Nombre',title:'<?php _e('Nombre');?>',width:50,align:'right'},
-			{field:'Club',hidden:true},
-			{field:'NombreClub',title:'<?php _e('Club');?>',width:20,align:'right'},
-			{field:'Observaciones',title:'<?php _e('Observaciones');?>',width:30,align:'right'}
+		   	    {field:'ID',			hidden:true},
+				{field:'Nombre',		title:'Nombre',			width:50,	align:'right'},
+				{field:'Club',			hidden:true},
+				{field:'NombreClub',	title:'Club',			width:20,	align:'right'},
+				{field:'RSCE',			title:'Fed.',			width:15,	align:'center', formatter:formatRSCE},
+				{field:'Observaciones',	title:'Observaciones.',	width:30,	align:'right'}
 	]],
 	onChange:function(value){
 		var p=$('#seljornada-Prueba').combogrid('grid').datagrid('getSelected');
