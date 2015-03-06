@@ -171,8 +171,18 @@ function vwls_showData(data) {
 var myCounter = new Countdown({  
     seconds:15,  // number of seconds to count down
     onUpdateStatus: function(sec){ $('#vwls_Tiempo').html(sec); }, // callback for each second
-    onCounterEnd: function(){  $('#vwls_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
+    // onCounterEnd: function(){  $('#vwls_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
+    onCounterEnd: function(){  vwls_cronoManual('start',new Date().getTime()) } // at end of countdown start timer
 });
+
+/**
+ * Maneja el cronometro manual
+ * @param oper 'start','stop','pause','resume','reset'
+ */
+function vwls_cronoManual(oper,tstamp) {
+	myCounter.stop();
+	$('#cronomanual').Chrono(oper,tstamp);
+}
 
 /**
  * activa una secuencia de conteo hacia atras de 15 segundos
@@ -181,14 +191,7 @@ function vwls_counter(){
 	myCounter.start();
 }
 
-/**
- * Maneja el cronometro manual
- * @param oper 'start','stop','pause','resume','reset'
- */
-function vwls_cronoManual(oper) {
-	myCounter.stop();
-	$('#cronomanual').Chrono(oper);
-}
+/** NOTICE: vwi_updateInscripciones() has been moved to "public" infrastructure **/
 
 /**
  * Refresca periodicamente el orden de salida correspondiente
@@ -231,33 +234,33 @@ function vwc_processCombinada(id,evt) {
 		vwls_updateData(event);
 		return
 	case 'llamada':		// operador abre panel de entrada de datos
-		vwls_cronoManual('stop');
-		vwls_cronoManual('reset');
+		vwls_cronoManual('stop',event['Value']);
+		vwls_cronoManual('reset',event['Value']);
 		vwls_showOSD(1); 	// activa visualizacion de OSD
 		vwls_showData(event);
 		return
 	case 'salida':		// juez da orden de salida ( crono 15 segundos )
-		vwls_cronoManual('stop');
-		vwls_cronoManual('reset');
+		vwls_cronoManual('stop',event['Value']);
+		vwls_cronoManual('reset',event['Value']);
 		vwls_counter();
 		return;
 	case 'start':	// value: timestamp
-		vwls_cronoManual('start');
+		vwls_cronoManual('start',event['Value']);
 		return;
 	case 'stop':	// value: timestamp
-		vwls_cronoManual('stop');
+		vwls_cronoManual('stop',event['Value']);
 		return;
 	case 'cronoauto':  	// value: timestamp
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':		// operador pulsa aceptar
-		vwls_cronoManual('stop');  // nos aseguramos de que los cronos esten parados
+		vwls_cronoManual('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
 		vwls_showData(event); // actualiza pantall liveStream
 		vwc_updateResults(); // actualiza panel de resultados
 		vwc_updatePendingQueue(event,10); // actualiza panel de llamadas 
 		return;
 	case 'cancelar':	// operador pulsa cancelar
-		vwls_cronoManual('stop');
-		vwls_cronoManual('reset');
+		vwls_cronoManual('stop',event['Value']);
+		vwls_cronoManual('reset',event['Value']);
 		vwls_showOSD(0); // apaga el OSD
 		vwc_updatePendingQueue(event,10); // actualiza panel de llamadas 
 		return;
@@ -279,31 +282,31 @@ function vwls_processLiveStream(id,evt) {
 		vwls_updateData(event);
 		return
 	case 'llamada':		// operador abre panel de entrada de datos
-		vwls_cronoManual('stop');
-		vwls_cronoManual('reset');
+		vwls_cronoManual('stop',event['Value']);
+		vwls_cronoManual('reset',event['Value']);
 		vwls_showOSD(1); 	// activa visualizacion de OSD
 		vwls_showData(event);
 		return
 	case 'salida':		// juez da orden de salida ( crono 15 segundos )
-		vwls_cronoManual('stop');
-		vwls_cronoManual('reset');
+		vwls_cronoManual('stop',event['Value']);
+		vwls_cronoManual('reset',event['Value']);
 		vwls_counter();
 		return;
 	case 'start':	// value: timestamp
-		vwls_cronoManual('start');
+		vwls_cronoManual('start',event['Value']);
 		return;
 	case 'stop':	// value: timestamp
-		vwls_cronoManual('stop');
+		vwls_cronoManual('stop',event['Value']);
 		return;
 	case 'cronoauto':  	// value: timestamp nada que hacer
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':		// operador pulsa aceptar
-		vwls_cronoManual('stop');  // nos aseguramos de que los cronos esten parados
+		vwls_cronoManual('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
 		vwls_showData(event); // actualiza pantall liveStream
 		return;
 	case 'cancelar':	// operador pulsa cancelar
-		vwls_cronoManual('stop');
-		vwls_cronoManual('reset');
+		vwls_cronoManual('stop',event['Value']);
+		vwls_cronoManual('reset',event['Value']);
 		vwls_showOSD(0); // apaga el OSD
 		return;
 	}
