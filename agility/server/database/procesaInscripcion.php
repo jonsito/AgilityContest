@@ -61,6 +61,7 @@ function borraPerroDeJornada($inscripcion,$jornada,$perro) {
  * Comprueba y actualiza las referencias de una inscripcion en una jornada
  * @param {object} $inscripcion Datos de la inscripcion
  * @param {object} $jornada Datos de la jornada
+ * @param {object} $perro Datos del perro
  */
 function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 	$myLogger=new Logger("inscribePerroEnJornada");
