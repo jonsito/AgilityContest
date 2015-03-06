@@ -44,7 +44,7 @@ class PDF extends PrintCommon {
 	// geometria de las celdas
 	protected $cellHeader
 					=array('Dorsal','Nombre','Lic.','Guía','Club','Cat/Grad','Falt.','Toc.','Reh.','Tiempo','Vel.','Penal','Calificacion', 'Puesto');
-	protected $pos	=array(  10,     12,     10,     29,    31,     12,        7,      7,    7,       10,     7,    12,      22,			12 );
+	protected $pos	=array(  9,		18,		10,		30,		25,		12,		   7,      7,    7,       10,     7,    12,      22,			12 );
 	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
 	protected $fmt	=array(  'i',    's',    's',    's',   's',    's',       'i',   'i',   'i',     'f',    'f',  'f',     's',			'i');
 
@@ -150,7 +150,9 @@ class PDF extends PrintCommon {
 			// print row data
 			$this->SetFont('Arial','',8); // set data font size
 			$this->Cell($this->pos[0],6,$row['Dorsal'],			'LR',	0,		$this->align[0],	$fill);
+			$this->SetFont('Arial','B',8); // mark Nombre as bold
 			$this->Cell($this->pos[1],6,$row['Nombre'],			'LR',	0,		$this->align[1],	$fill);
+			$this->SetFont('Arial','',8); // set data font size
 			$this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	$fill);
 			$this->Cell($this->pos[3],6,$row['NombreGuia'],		'LR',	0,		$this->align[3],	$fill);
 			$this->Cell($this->pos[4],6,$row['NombreClub'],		'LR',	0,		$this->align[4],	$fill);
