@@ -19,6 +19,7 @@ require_once (__DIR__."/../logging.php");
 require_once (__DIR__."/../tools.php");
 require_once (__DIR__."/../database/classes/Sesiones.php");
 require_once (__DIR__."/../database/classes/Eventos.php");
+require_once (__DIR__."/Config.php");
 
 define ("PERMS_ROOT",0);
 define ("PERMS_ADMIN",1);
@@ -154,6 +155,13 @@ class AuthManager {
 		// That's all. Return generated result data
 		// $this->myLogger->info(json_encode($data));
 		$this->myLogger->leave();
+		// add registration data
+		$config=new Config();
+		$ri=$config->getRegistrationInfo();
+		$data["VersionName"]=$config->getEnv("version_name");
+		$data["VersionDate"]=$config->getEnv("version_date");
+		$data["RegisteredUser"]=$ri['name'];
+		$data["RegisteredClub"]=$ri['club'];
 		return $data;
 	}
 	
