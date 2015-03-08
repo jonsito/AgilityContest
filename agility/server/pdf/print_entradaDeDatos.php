@@ -35,8 +35,8 @@ require_once(__DIR__."/print_common.php");
 
 class PDF extends PrintCommon {
 
-	protected $manga; // datos de la manga
-	protected $manga2; // datos de la manga 2
+	protected $manga=null; // datos de la manga
+	protected $manga2=null; // datos de la manga 2
 	protected $numrows; // formato del pdf 0:1 1:5 2:15 perros/pagina
 	protected $categoria; // categoria que estamos listando
 
@@ -61,7 +61,7 @@ class PDF extends PrintCommon {
 			throw new Exception($this->errormsg);
 		}
 		$this->manga=$mangas[0];
-		$this->manga2=$mangas[1];
+		if (array_key_exists(1,$mangas)) $this->manga2=$mangas[1];
 		$this->orden=$orden;
 		$this->numrows=$numrows;
 		$this->categoria="L";

@@ -26,6 +26,16 @@ https://github.com/jonsito/AgilityContest/archive/master.zip
   
   Include "conf/extra/xampp_httpd.conf"
 
+- Editar el fichero F:\xampp\apache\conf\httpd.conf y añadir al final del fichero la linea:
+  
+  Include "conf/extra/xampp_httpd.conf"
+  
+- Activar la extensión de manejo de funciones de cifrado en php. Para ello hay que editar el fichero F:\xampp\php\php.ini:
+  * donde pone:
+  ; extension=php_openssl.dll
+  * debe poner:
+  extension=php_openssl.dll
+  
 - Arrancar el panel de control de xampp (ejecutar F:\xampp\xampp-control.exe)
 
 - Verificar que los servicios "Apache" y "MySQL" estan correctamente arrancados
