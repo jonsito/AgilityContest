@@ -58,8 +58,12 @@ function acceptLogin() {
        		if (data.errorMsg) { // error
        			$.messager.alert("Error",data.errorMsg,"error");
        			initAuthInfo();
-       		} else {// success: 
-       			$.messager.alert("Usuario"+data.Login,"Sesi&oacute;n iniciada correctamente","info");
+       		} else {// success:
+       			var str="AgilityContest version: "+data.VersionName+"-"+data.VersionDate+"<br />";
+       			str =str+"Copia registrada por: "+data.RegisteredUser+"<br />";
+       			str =str+"Para el club: "+data.RegisteredClub+"<br /><br />";
+       			str =str+"Usuario "+data.Login+": Sesi&oacute;n iniciada correctamente";
+       			$.messager.alert("Login",str,"info").window({width:400,height:175});
            		$('#login_menu-text').html("Cerrar sesi&oacute;n: <br />"+data.Login);
            		initAuthInfo(data);
        		} 

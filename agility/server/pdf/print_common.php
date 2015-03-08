@@ -117,19 +117,19 @@ class PrintCommon extends FPDF {
 	
 	// Pie de página
 	function print_commonFooter() {
-		// $this->myLogger->enter();
 		// Posición: a 1,5 cm del final
 		$this->SetY(-15);
-	
 		// copyright
 		$ver=$this->config->getEnv("version_name");
 		$this->SetFont('Arial','I',6);
 		$this->Cell(60,10,"AgilityContest-$ver Copyright 2013-2015 by J.A.M.C.",0,0,'L');
-	
 		// Número de página
 		$this->SetFont('Arial','IB',8);
-		$this->Cell(0,10,_('Página').' '.$this->PageNo().'/{nb}                  ',0,0,'R');
-		// $this->myLogger->leave();
+		$this->Cell(70,10,_('Página').' '.$this->PageNo().'/{nb}',0,0,'C');
+		// informacion de registro
+		$ri=$this->config->getRegistrationInfo();
+		$this->SetFont('Arial','I',6);
+		$this->Cell(60,10,"Copia registrada para el club: {$ri['club']}",0,0,'R');
 	}
 
 	// Identificacion de la Manga
