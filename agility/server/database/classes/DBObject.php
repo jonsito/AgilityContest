@@ -25,7 +25,6 @@ require_once (__DIR__."/DBConnection.php");
 class DBObject {
 	public $conn; // TODO: should be protected
 	protected $file;
-	protected $cache; // ['table'][id->object]
 	public $errormsg; // should be public to access to from caller
 	protected $myLogger;
 	
@@ -38,7 +37,6 @@ class DBObject {
 	function __construct($file) {
 		// connect database
 		$this->file=$file;
-		$this->cache=array();
 		$config=Config::getInstance();
 		$h=$config->getEnv("database_host");
 		$n=$config->getEnv("database_name");
@@ -159,12 +157,10 @@ class DBObject {
 	}
 
 	/**
-	 * Retrieves and caches objects from database by given (table,id) pair
+	 * Retrieves objects from database by given (table,id) pair
 	 * @param {string} $table where to search object from
 	 * @param {integer} $id primary key of requested object
 	 * @return {object/string} obj if found, else error string
-	 *
-	 * TODO: properly handle cache
 	 */
 	function __getObject($table,$id) { return $this->__selectObject("*",$table,"(ID=$id)"); }
 	function __getArray($table,$id) { return $this->__selectAsArray("*",$table,"(ID=$id)"); }
