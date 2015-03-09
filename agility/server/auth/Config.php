@@ -106,8 +106,15 @@ Class Config {
 	);
 	
 	var $config=array();
+
+	// singleton pattern
+	private static $instance=null;   
+	public static function getInstance() {
+		if (  !self::$instance instanceof self) self::$instance = new self;
+		return self::$instance;
+	}
 	
-	function __construct() {
+	private function __construct() {
 
 		/** cargamos los valores por defecto **/
 		

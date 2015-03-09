@@ -33,7 +33,7 @@ class Admin {
 		// connect database
 		$this->file=$file;
 		$this->myLogger= new Logger($file);
-		$this->myConfig=new Config();
+		$this->myConfig=Config::getInstance();
 	}
 	
 	// FROM: https://gist.github.com/lavoiesl/9a08e399fc9832d12794

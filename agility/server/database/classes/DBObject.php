@@ -39,7 +39,7 @@ class DBObject {
 		// connect database
 		$this->file=$file;
 		$this->cache=array();
-		$config=new Config();
+		$config=Config::getInstance();
 		$h=$config->getEnv("database_host");
 		$n=$config->getEnv("database_name");
 		$u=$config->getEnv("database_user");
