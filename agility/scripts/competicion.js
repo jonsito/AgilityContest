@@ -499,15 +499,15 @@ function proximityAlert() {
 		dist=idx-guias[NombreGuia].index;
 		if (dist>ac_config.proximity_alert) {
 			// declared but more than 5 dogs ahead. reset index and continue
-			guias[NombreGuia] = { 'index': idx+1, 'perro': data[idx].Nombre }; 
+			guias[NombreGuia] = { 'index': idx, 'perro': data[idx].Nombre }; 
 			continue;
 		}
 		// arriving here means that a dog is closer than 5 steps from previous one from same guia.
 		// store to notify later
 		lista = lista + NombreGuia+": " +
-				guias[NombreGuia].index+":" + guias[NombreGuia].perro +
+				(1+guias[NombreGuia].index)+":" + guias[NombreGuia].perro +
 				" ---  " + 
-				idx +":" + data[idx].Nombre + 
+				(1+idx) +":" + data[idx].Nombre + 
 				"<br />";
 	}
 	// arriving here means work done
