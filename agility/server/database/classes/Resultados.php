@@ -191,11 +191,11 @@ class Resultados extends DBObject {
 		if ($this->isCerrada()) 
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
 		// If row pkey(manga,perro) exists, just update; else insert
-		$sql="REPLACE INTO Resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Nombre,Licencia,Categoria,Grado,Celo,NombreGuia,NombreClub) 
-				VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		$sql="REPLACE INTO Resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Raza,Nombre,Licencia,Categoria,Grado,Celo,NombreGuia,NombreClub) 
+				VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->conn->error;
-		$res=$stmt->bind_param('iiiiiissssiss',$prueba,$jornada,$manga,$equipo,$dorsal,$perro,$nombre,$licencia,$categoria,$grado,$celo,$guia,$club);
+		$res=$stmt->bind_param('iiiiiisssssiss',$prueba,$jornada,$manga,$equipo,$dorsal,$perro,$raza,$nombre,$licencia,$categoria,$grado,$celo,$guia,$club);
 		if (!$res) return $this->error($stmt->error);
 		$prueba=$this->IDPrueba;
 		$jornada=$this->IDJornada;
@@ -204,6 +204,7 @@ class Resultados extends DBObject {
 		$equipo=$eqdata['ID'];
 		$dorsal=$inscripcion['Dorsal'];
 		$nombre=$objperro['Nombre'];
+		$raza=$objperro['Raza'];
 		$licencia=$objperro['Licencia'];
 		$categoria=$objperro['Categoria'];
 		$grado=$objperro['Grado'];

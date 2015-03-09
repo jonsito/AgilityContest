@@ -38,7 +38,6 @@ class Logger {
 	function __construct($name,$level=LEVEL_ALL) {
 		$this->basename=$name;
 		$this->setLevel($level);
-		error_log("Level is ".$this->level);
 	}	
 
 	function setLevel($level) {

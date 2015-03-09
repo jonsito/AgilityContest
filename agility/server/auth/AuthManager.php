@@ -37,7 +37,7 @@ class AuthManager {
 	protected $mySessionMgr;
 	
 	function __construct($file) {
-		$this->myLogger=new Logger($file);
+		$this->myLogger=new Logger($file,LEVEL_ERROR);
 		$this->mySessionMgr=new Sesiones("AuthManager");
 		/* try to retrieve session token */
 		$hdrs= getAllHeaders();

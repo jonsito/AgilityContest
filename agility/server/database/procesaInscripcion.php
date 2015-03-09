@@ -67,7 +67,8 @@ function borraPerroDeJornada($inscripcion,$jornada,$perro) {
  * @param {object} $perro Datos del perro
  */
 function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
-	$myLogger=new Logger("inscribePerroEnJornada");
+	$myConfig=Config::getInstance();
+	$myLogger=new Logger("inscribePerroEnJornada",$myConfig->getEnv('debug_level'));
 	$j=$jornada['ID'];
 	$p=$jornada['Prueba'];
 	$idperro=$inscripcion['Perro'];
@@ -160,7 +161,8 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
  * @param {integer} $i ID de inscripcion
  */
 function procesaInscripcion($p,$i) {
-	$myLogger=new Logger("procesaInscripcion");
+	$myConfig=Config::getInstance();
+	$myLogger=new Logger("procesaInscripcion",$myConfig->getEnv('debug_level'));
 	$am= new AuthManager("procesaInscripcion");
 	// si la prueba o la inscripcion son nulas genera error
 	try {

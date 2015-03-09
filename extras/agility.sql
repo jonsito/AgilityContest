@@ -2195,6 +2195,7 @@ CREATE TABLE IF NOT EXISTS `resultados` (
   `Perro` int(4) NOT NULL,
   `Equipo` int(4) NOT NULL DEFAULT '0',
   `Nombre` varchar(255) NOT NULL,
+  `Raza` varchar(255) NOT NULL DEFAULT '',
   `Licencia` varchar(255) NOT NULL DEFAULT '--------',
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
   `Grado` varchar(16) NOT NULL DEFAULT '-',
