@@ -497,9 +497,9 @@ function proximityAlert() {
 		// arriving here means that a dog is closer than 5 steps from previous one from same guia.
 		// store to notify later
 		lista = lista + NombreGuia+": " +
-				guias[NombreGuia].index+":" + guias[NombreGuia].perro +
+				(1+guias[NombreGuia].index)+":" + guias[NombreGuia].perro +
 				" ---  " + 
-				idx +":" + data[idx].Nombre + 
+				(1+idx) +":" + data[idx].Nombre + 
 				"<br />";
 	}
 	// arriving here means work done
@@ -869,8 +869,7 @@ function evalOrdenSalida(mode) {
 				reloadOrdenSalida();
 			});
 		});
-	}
-	if (mode==='reverse') {
+	} else {
 		$.ajax({
 			type:'GET',
 			url:"/agility/server/database/ordenSalidaFunctions.php",

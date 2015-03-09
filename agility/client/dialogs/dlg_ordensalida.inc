@@ -26,8 +26,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<span style="float:left;padding:5px">
 	   	<a id="ordensalida-randomBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls:'icon-dice'" onclick="evalOrdenSalida('random')">Aleatorio</a>
-	   	<a id="ordensalida-resultBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-updown'" onclick="evalOrdenSalida('reverse')">Manga anterior</a>
+	   	<a id="ordensalida-reverseBtn" href="#" class="easyui-linkbutton" 
+	   		data-options="iconCls:'icon-updown'" onclick="evalOrdenSalida('reverse')">Invertir</a>
+	   	<a id="ordensalida-cloneBtn" href="#" class="easyui-linkbutton" 
+	   		data-options="iconCls:'icon-downdown'" onclick="evalOrdenSalida('sameorder')">Clonar</a>
 	   	<a id="ordensalida-checkBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls:'icon-help'" onclick="reloadAndCheck()">Revisar</a>
    		</span>
@@ -110,7 +112,8 @@ addSimpleKeyHandler('#ordensalida-datagrid','#ordensalida-dialog');
 // botones
 addTooltip($('#ordensalida-checkBtn').linkbutton(),"Verificar 'alertas de proximidad' <br/>entre perros del mismo gu&iacute;a");
 addTooltip($('#ordensalida-randomBtn').linkbutton(),"Generar un nuevo orden de salida aleatorio");
-addTooltip($('#ordensalida-resultBtn').linkbutton(),"Orden de salida inverso a resultados de primera manga");
+addTooltip($('#ordensalida-reverseBtn').linkbutton(),"Orden de salida inverso a resultados de primera manga");
+addTooltip($('#ordensalida-cloneBtn').linkbutton(),"Clonar el orden de salida de la primera manga");
 addTooltip($('#ordensalida-printBtn').linkbutton(),"Imprimir el orden de salida");
 addTooltip($('#ordensalida-reloadBtn').linkbutton(),"Recargar orden de salida. Actualizar ventana");
 

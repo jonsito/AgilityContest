@@ -336,6 +336,26 @@ class OrdenSalida extends DBObject {
 	}
 	
 	/**
+	 * pone el mismo orden de salida que la manga hermana
+	 * @param {integer} $jornada ID De Jornada
+	 * @param {integer} $manga ID De la manga de la que hay que calcular el orden de salida
+	 * @return {string} nuevo orden de salida; null on error
+	*/
+	function sameorder($jornada,$manga) {
+		$this->myLogger->enter();
+		// fase 1: buscamos la "manga hermana"
+		$mhandler=new Mangas("OrdenSalida::sameorder()",$jornada);
+		$hermanas=$mhandler->getHermanas($manga);
+		if (!is_array($hermanas)) return $this->error("Error find hermanas info for jornada:$jornada and manga:$manga");
+		if ($hermanas[1]==null) return $this->error("Cannot get order: Manga:$manga of Jornada:$jornada has no brother");
+		// fase 2: clonamos orden de la manga hermana
+		$this->myLogger->trace("El orden de salida original para manga:{$this->manga['ID']} jornada:{$this->jornada['ID']} es:\n{$hermanas[0]->Orden_Salida}");
+		$this->setOrden($hermanas[1]->Orden_Salida);
+		$this->myLogger->leave();
+		return $hermanas[1]->Orden_Salida;
+	}
+	
+	/**
 	 * Calcula el orden de salida de una manga en funcion del orden inverso al resultado de su manga "hermana"
 	 * @param {integer} $jornada ID De Jornada
 	 * @param {integer} $manga ID De la manga de la que hay que calcular el orden de salida

@@ -47,6 +47,7 @@ try {
 	switch ($operation) {
 		case "random": $am->access(PERMS_OPERATOR);	$result = $os->random($j,$m); break;
 		case "reverse": $am->access(PERMS_OPERATOR); $result = $os->reverse($j,$m); break;
+		case "sameorder": $am->access(PERMS_OPERATOR); $result = $os->reverse($j,$m); break;
 		case "getData":	$result = $os->getData($p,$j,$m); break;
 		case "dnd": $am->access(PERMS_ASSISTANT); $result = $os->dragAndDrop($j,$m,$f,$t,$w); break;
 	}
