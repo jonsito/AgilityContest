@@ -331,8 +331,8 @@ class Mangas extends DBObject {
 
 	/**
 	 * Obtiene la manga "hermana" de la que tiene el ID dado
-	 * @param {integer} $id ID de la jornada
-	 * @return array[0:jornadaByID,1:jornadaHermana]
+	 * @param {integer} $id ID de la manga
+	 * @return array[0:IDmanga,1:IDmangahermana]
 	 */
 	function getHermanas($id) {
 		$this->myLogger->enter();
@@ -340,7 +340,6 @@ class Mangas extends DBObject {
 		// second query to retrieve $rows starting at $offset
 		$result=$this->__getObject("Mangas",$id);
 		if (!is_object($result)) return $this->error("Cannot locate Manga with ID=$id");
-		$hermanas=array($result);
 		$tipo=Mangas::$manga_hermana[$result->Tipo];
 		if ($tipo==0) {
 			$this->myLogger->info("La manga:$id de tipo:{$result->Tipo} no tiene hermana asociada");
@@ -352,6 +351,8 @@ class Mangas extends DBObject {
 			// inconsistency error muy serio 
 			return $this->error("Falta la manga hermana de tipo:$tipo para manga:$id de tipo:{$result->Tipo}");
 		}
+		$hermanas=array();
+		array_push($hermanas,$result); // manga original as index 0
 		foreach ($result2['rows'] as $index => $item) {
 			// iterate on every sisters found, converting it to Objects
 			array_push($hermanas,json_decode(json_encode($item), FALSE));

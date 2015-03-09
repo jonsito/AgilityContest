@@ -88,6 +88,9 @@
 .icon-updown{
 	background:url('icons/updown.png') no-repeat center center;
 }
+.icon-downdown{
+	background:url('icons/downdown.png') no-repeat center center;
+}
 .icon-whistle{
 	background:url('icons/whistle.png') no-repeat center center;
 }

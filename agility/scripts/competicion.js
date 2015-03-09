@@ -499,7 +499,7 @@ function proximityAlert() {
 		dist=idx-guias[NombreGuia].index;
 		if (dist>ac_config.proximity_alert) {
 			// declared but more than 5 dogs ahead. reset index and continue
-			guias[NombreGuia] = { 'index': idx, 'perro': data[idx].Nombre }; 
+			guias[NombreGuia] = { 'index': idx+1, 'perro': data[idx].Nombre }; 
 			continue;
 		}
 		// arriving here means that a dog is closer than 5 steps from previous one from same guia.
@@ -879,6 +879,20 @@ function evalOrdenSalida(mode) {
 			}).done( function(msg) {
 				reloadOrdenSalida();
 			});
+		});
+	} else {
+		$.ajax({
+			type:'GET',
+			url:"/agility/server/database/ordenSalidaFunctions.php",
+			dataType:'json',
+			data: {
+				Prueba: workingData.prueba,
+				Jornada: workingData.jornada,
+				Manga: workingData.manga,
+				Operation: mode
+			}
+		}).done( function(msg) {
+			reloadOrdenSalida();
 		});
 	}
 }
