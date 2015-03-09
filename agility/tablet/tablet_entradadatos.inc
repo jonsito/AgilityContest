@@ -17,7 +17,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
-$config =new Config()
+$config =Config::getInstance()
 ?>
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
 <div id="tdialog-window">

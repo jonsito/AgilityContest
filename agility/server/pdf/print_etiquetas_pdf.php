@@ -62,7 +62,7 @@ class Etiquetas_PDF extends PrintCommon {
 	function __construct($prueba,$jornada,$mangas) {
 		parent::__construct('Portrait',$prueba,$jornada);
 		$this->myLogger= new Logger("print_etiquetas_pdf");
-		$this->config=new Config();
+		$this->config=Config::getInstance();
 		$dbobj=new DBObject("print_etiquetas_pdf");
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);

@@ -1,6 +1,6 @@
 <?php header ("Content-type: text/css");
 require_once(__DIR__."/../server/auth/Config.php");
-$config = new Config();
+$config = Config::getInstance();
 ?>
 /*
 videowall_css.php

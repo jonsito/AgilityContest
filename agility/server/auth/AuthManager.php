@@ -156,7 +156,7 @@ class AuthManager {
 		// $this->myLogger->info(json_encode($data));
 		$this->myLogger->leave();
 		// add registration data
-		$config=new Config();
+		$config=Config::getInstance();
 		$ri=$config->getRegistrationInfo();
 		$data["VersionName"]=$config->getEnv("version_name");
 		$data["VersionDate"]=$config->getEnv("version_date");

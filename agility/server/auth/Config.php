@@ -80,11 +80,18 @@ define('AC_TABLET_NEXT',false);
 Class Config {
 	
 	var $config=array();
-	
-	function __construct() {
+
+	// singleton pattern
+	private static $instance=null;
+	public static function getInstance() {
+		if (  !self::$instance instanceof self) self::$instance = new self;
+		return self::$instance;
+	}
+
+	private function __construct() {
 
 		/** cargamos los valores por defecto **/
-		
+
 		// version, logging y depuracion
 		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
 		$this->config['version_name'] =	AC_VERSION_NAME;

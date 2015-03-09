@@ -31,7 +31,7 @@ require_once(__DIR__."/dialogs/dlg_newInscripcion.inc");
 require_once(__DIR__."/dialogs/dlg_editInscripcion.inc");
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/tools.php");
-$config =new Config();
+$config =Config::getInstance();
 ?>
 
 <!-- PANEL INFORMATIVO SOBRE LA PRUEBA Y JORNADAS ASOCIADAS -->

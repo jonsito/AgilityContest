@@ -40,7 +40,7 @@ class VideoWall {
 	
 	function __construct($sessionid,$pruebaid,$jornadaid,$mangaid,$tandatype,$mode) {
 		$this->myLogger=new Logger("VideoWall.php");
-		$this->config=new Config();
+		$this->config=Config::getInstance();
 		$this->myDBObject=new DBObject("Videowall");
 		if ($sessionid!=0) {
 			$this->session=$this->myDBObject->__getArray("Sesiones",$sessionid);

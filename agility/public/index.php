@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: https//{$_SERVER['SERVER_ADDR']}/agility",false);
 header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",false);
 require_once(__DIR__."/../server/auth/Config.php");
-$config =new Config()
+$config =Config::getInstance()
 ?>
 <!DOCTYPE html>
 <html>
