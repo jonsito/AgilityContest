@@ -43,6 +43,7 @@ function tablet_putEvent(type,data){
 	obj= {
 			'Operation':'putEvent',
 			'Type': 	type,
+			'TimeStamp': new Date().getTime(),
 			'Source':	'tablet_'+$('#tdialog-Session').val(),
 			'Session':	$('#tdialog-Session').val(),
 			'Prueba':	$('#tdialog-Prueba').val(),

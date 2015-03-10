@@ -81,7 +81,8 @@ class Eventos extends DBObject {
 		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores
-		$timestamp= date('Y-m-d G:i:s');
+		// $timestamp= date('Y-m-d G:i:s');
+		$timestamp= date('Y-m-d G:i:s',$data['TimeStamp']/1000);
 		$source=$data['Source'];
 		$type=$data['Type'];
 		$evtdata=json_encode($data);
