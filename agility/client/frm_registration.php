@@ -59,8 +59,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<div>   		
 		<a id="registration-okButton" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-key'"
-   			onclick="register_program()">Registro</a>
-		<input type="file" name="fichero"/><br/>
+   			onclick="send_regFile()">Registro</a>
+		<input type="file" name="fichero" required="required" onchange="read_regFile(this)"/><br/>
+		<input id="registrationData" type="hidden" name="Data" value="">
 	</div>
 	</form>
 </div>

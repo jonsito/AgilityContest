@@ -179,7 +179,36 @@ class AuthManager {
 	}
 	
 	function registerApp() {
-		// TODO: write
+		// extraemos los datos de registro
+		$data=http_request("Data","s",null);
+		if (!$data) return array("errorMsg" => "registerApp(): No registration data received");
+		if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
+			return array("errorMsg" => "registerApp(): Invalid received data format");
+		}
+		$type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
+		$regdata=base64_decode( $matches[2] ); // decodes received data
+		// cogemos los datos de registro y los guardamos en un fichero temporal
+		$tmpname = tempnam(sys_get_temp_dir(), 'reginfo');
+		$fd=fopen($tmpname,"w");
+		fwrite($fd,$regdata);
+		fclose($fd);
+		// comprobamos que el fichero temporal contiene datos de registro validos
+		$config=Config::getInstance();
+		$info=$config->getRegistrationInfo($tmpname);
+		if (!info) return array("errorMsg" => "registerApp(); Invalid registration data");
+		// ok: fichero de registro correcto. copiamos a su ubicacion final
+		copy(AC_REGINFO_FILE,AC_REGINFO_FILE_BACKUP);
+		rename($tmpname,AC_REGINFO_FILE);
+		// retornamos datos del nuevo registro
+		$result=array();
+		$result["VersionName"]=$info['version'];
+		$result["VersionDate"]=$info['date'];
+		$result["User"]=$info['name'];
+		$result["Email"]=$info['email'];
+		$result["Club"]=$info['club'];
+		$result["Serial"]=$info['serial'];
+		// $result['filename']=$tmpname;
+		return $result;
 	}
 	
 	function checkPassword($user,$pass) {

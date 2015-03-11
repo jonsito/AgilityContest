@@ -20,6 +20,7 @@
 define('AC_CONFIG_FILE',__DIR__."/config.ini");
 define('AC_PUBKEY_FILE',__DIR__."/AgilityContest_puk.pem");
 define('AC_REGINFO_FILE',__DIR__."/registration.info");
+define('AC_REGINFO_FILE_BACKUP',__DIR__."/registration.info.orig");
 
 /** version */
 define('AC_VERSION_NAME','1.1.1');
@@ -180,9 +181,9 @@ Class Config {
 		}
 	}
 
-	function getRegistrationInfo() {
+	function getRegistrationInfo($file=AC_REGINFO_FILE) {
 		$fp=fopen (AC_PUBKEY_FILE,"rb"); $pub_key=fread ($fp,8192); fclose($fp);
-		$fp=fopen (AC_REGINFO_FILE,"rb"); $data=fread ($fp,8192); fclose($fp);
+		$fp=fopen ($file,"rb"); $data=fread ($fp,8192); fclose($fp);
 		$key=openssl_get_publickey($pub_key);
 		if (!$key) { /* echo "Cannot get public key";*/	return null; }
 		$res=openssl_public_decrypt(base64_decode($data),$decrypted,$key);

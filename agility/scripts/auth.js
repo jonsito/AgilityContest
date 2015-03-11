@@ -145,3 +145,35 @@ function cancelMyAdmin() {
 	// close window
 	$('#myAdmin-window').window('close');
 }
+
+function read_regFile(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			$('#registrationData').val(e.target.result);
+		};
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
+function send_regFile() {
+    $.ajax({
+  		type: 'POST',
+    	url: '/agility/server/adminFunctions.php',
+    	dataType: 'json',
+    	data: {
+    		Operation: 'register',
+    		Data: $('#registrationData').val()
+    	},
+    	contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+    	success: function(data) {
+            if (data.errorMsg){
+                $.messager.show({ width:300, height:150, title: 'Error', msg: data.errorMsg });
+            } else {
+                $('#registration_data').form('load',data);
+            	$.messager.alert("Registro","Datos de registro guardados correctamente","info");
+            }
+    	},
+    	error: function() { alert("error");	}
+   	});
+}
