@@ -156,7 +156,7 @@ try {
 			$result=$adm->factoryReset();
 			break;
 		case "reginfo": 
-			$result=$am->registrationInfo(); 
+			$result=$am->getRegistrationInfo(); 
 			if ($result==null) $adm->errormsg=$am->errormsg; 
 			break;
 		case "register":

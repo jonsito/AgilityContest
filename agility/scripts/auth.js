@@ -59,9 +59,9 @@ function acceptLogin() {
        			$.messager.alert("Error",data.errorMsg,"error");
        			initAuthInfo();
        		} else {// success:
-       			var str="AgilityContest version: "+data.VersionName+"-"+data.VersionDate+"<br />";
-       			str =str+"Copia registrada por: "+data.RegisteredUser+"<br />";
-       			str =str+"Para el club: "+data.RegisteredClub+"<br /><br />";
+       			var str="AgilityContest version: "+ac_config.version_name+"-"+ac_config.version_date+"<br />";
+       			str =str+"Copia registrada por: "+data.User+"<br />";
+       			str =str+"Para el club: "+data.Club+"<br /><br />";
        			str =str+"Usuario "+data.Login+": Sesi&oacute;n iniciada correctamente";
        			$.messager.alert("Login",str,"info").window({width:400,height:175});
            		$('#login_menu-text').html("Cerrar sesi&oacute;n: <br />"+data.Login);

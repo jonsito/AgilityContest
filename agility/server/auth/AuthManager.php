@@ -21,12 +21,19 @@ require_once (__DIR__."/../database/classes/Sesiones.php");
 require_once (__DIR__."/../database/classes/Eventos.php");
 require_once (__DIR__."/Config.php");
 
+// permisos de acceso
 define ("PERMS_ROOT",0);
 define ("PERMS_ADMIN",1);
 define ("PERMS_OPERATOR",2);
 define ("PERMS_ASSISTANT",3);
 define ("PERMS_GUEST",4);
 define ("PERMS_NONE",5);
+
+// datos de registro
+define('AC_PUBKEY_FILE' , __DIR__."/AgilityContest_puk.pem");
+define('AC_REGINFO_FILE' , __DIR__."/registration.info");
+define('AC_REGINFO_FILE_BACKUP' , __DIR__."/registration.info.old");
+define('AC_REGINFO_FILE_DEFAULT' , __DIR__."/registration.info.default");
 
 class AuthManager {
 	
@@ -75,102 +82,22 @@ class AuthManager {
 		return $obj;
 	}
 	
-	/**
-	 * Authenticate user.
-	 * On Login success create session and if needed send login event
-	 * @param {string} $login user name
-	 * @param {string} $password user password
-	 * @param {integer} $sid requested session id to join to
-	 * @throws Exception if something goes wrong
-	 * @return {array} errorMessage or result data
-	 */
-	function login($login,$password,$sid=0,$nosession=false) {
-		/* access database to check user credentials */
-		$this->myLogger->enter();
-		$obj=$this->mySessionMgr->__selectObject("*","Usuarios","(Login='$login')");
-		if (!$obj) throw new Exception("Login: Unknown user: '$login'");
-		$pw=$obj->Password;
-		if (strstr('--UNDEF--',$pw)!==FALSE) 
-			throw new Exception("Seems that AgilityContest has not been properly configured. Please reinstall");
-		else if (strstr('--LOCK--',$pw)!==FALSE)
-			throw new Exception("Account '$login' is LOCKED");
-		else if (strstr('--NULL--',$pw)===FALSE) { // --NULL-- means no password required
-			// unencode stored password
-			$pass=base64_decode($pw);
-			if (!password_verify($password,$pass)) // check password against stored one
-				throw new Exception("Login: invalid password for account '$login'");
-		}
-		/* Arriving here means login success */ 
-		// get & store permission level
-		$this->level=$obj->Perms;
-		//create a random session key
-		$sk=random_password(16);
-		// compose data for a new session
-		$data=array (
-			// datos para el gestor de sesiones
-			'Operador'	=>	$obj->ID,
-			'SessionKey'=>  $sk,
-			'Nombre' 	=> 	http_request("Nombre","s",""),
-			'Prueba' 	=> 	http_request("Prueba","i",0),
-			'Jornada'	=>	http_request("Jornada","i",0),
-			'Manga'		=>	http_request("Manga","i",0),
-			'Tanda'		=>	http_request("Tanda","i",0),
-			'Perro'		=>	http_request("Perro","i",0),
-			// informacion de respuesta a la peticion
-			'UserID'	=>	$obj->ID,
-			'Login' 	=> 	$obj->Login,
-			'Password'	=>	'', // don't send back password :-)
-			'Gecos'		=>	$obj->Gecos,
-			'Phone'		=>	$obj->Phone,
-			'Email'		=>	$obj->Email,
-			'Perms'		=>	$obj->Perms,
-			// required for event manager
-			'Type'		=>  'init', /* ¿perhaps evtType should be 'login'¿ */
-			'Source' 	=> 	http_request("Source","s","AuthManager")
-		);
-		// if "nosession" is requested, just check password, do not create any session
-		if ($nosession==true) return $data;
-		// create/join to a session
-		if ($sid<=0) { //  if session id is not defined, create a new session
-			// remove all other console sessions from same user
-			$str="DELETE FROM Sesiones WHERE ( Nombre='Console' ) AND ( Operador={$obj->ID} )";
-			$this->mySessionMgr->query($str);
-			// insert new session
-			$data['Nombre']="Console";
-			$data['Comentario']=$obj->Login." - ".$obj->Gecos;
-			$this->mySessionMgr->insert($data);
-			// and retrieve new session ID
-			$data['SessionID']=$this->mySessionMgr->conn->insert_id;
-		} else {
-			// to join to a named session we need at least Assistant permission level
-			$this->access(PERMS_ASSISTANT); // on fail throw exception
-			unset($data['Nombre']); // to avoid override Session Name
-			// TODO: check and alert on busy session ID
-			// else join to declared session 
-			$this->mySessionMgr->update($sid,$data);
-			// and fire 'login' event
-			$evtMgr=new Eventos("AuthManager",$sid);
-			$evtMgr->putEvent($data);
-		}
-		// That's all. Return generated result data
-		// $this->myLogger->info(json_encode($data));
-		$this->myLogger->leave();
-		// add registration data
-		$config=Config::getInstance();
-		$ri=$config->getRegistrationInfo();
-		$data["VersionName"]=$config->getEnv("version_name");
-		$data["VersionDate"]=$config->getEnv("version_date");
-		$data["RegisteredUser"]=$ri['name'];
-		$data["RegisteredClub"]=$ri['club'];
-		return $data;
+	function checkRegistrationInfo( $file = AC_REGINFO_FILE ) {
+		$fp=fopen (AC_PUBKEY_FILE,"rb"); $pub_key=fread ($fp,8192); fclose($fp);
+		$fp=fopen ($file,"rb"); $data=fread ($fp,8192); fclose($fp);
+		$key=openssl_get_publickey($pub_key);
+		if (!$key) { /* echo "Cannot get public key";*/	return null; }
+		$res=openssl_public_decrypt(base64_decode($data),$decrypted,$key);
+		openssl_free_key($key);
+		if ($res) return json_decode($decrypted,true);
+		return null;
 	}
 	
-	function registrationInfo() {
-		// add registration data
-		$config=Config::getInstance();
-		$ri=$config->getRegistrationInfo();
-		$data["VersionName"]=$config->getEnv("version_name");
-		$data["VersionDate"]=$config->getEnv("version_date");
+	function getRegistrationInfo() {
+		// retrieve registration data
+		$ri=$this->checkRegistrationInfo();
+		$data["VersionName"]=$ri["version_name"];
+		$data["VersionDate"]=$ri["version_date"];
 		$data["User"]=$ri['name'];
 		$data["Email"]=$ri['email'];
 		$data["Club"]=$ri['club'];
@@ -193,9 +120,8 @@ class AuthManager {
 		fwrite($fd,$regdata);
 		fclose($fd);
 		// comprobamos que el fichero temporal contiene datos de registro validos
-		$config=Config::getInstance();
-		$info=$config->getRegistrationInfo($tmpname);
-		if (!info) return array("errorMsg" => "registerApp(); Invalid registration data");
+		$info=$this->getRegistrationInfo($tmpname);
+		if (!$info) return array("errorMsg" => "registerApp(); Invalid registration data");
 		// ok: fichero de registro correcto. copiamos a su ubicacion final
 		copy(AC_REGINFO_FILE,AC_REGINFO_FILE_BACKUP);
 		rename($tmpname,AC_REGINFO_FILE);
@@ -209,6 +135,89 @@ class AuthManager {
 		$result["Serial"]=$info['serial'];
 		// $result['filename']=$tmpname;
 		return $result;
+	}
+
+	/**
+	 * Authenticate user.
+	 * On Login success create session and if needed send login event
+	 * @param {string} $login user name
+	 * @param {string} $password user password
+	 * @param {integer} $sid requested session id to join to
+	 * @throws Exception if something goes wrong
+	 * @return {array} errorMessage or result data
+	 */
+	function login($login,$password,$sid=0,$nosession=false) {
+		/* access database to check user credentials */
+		$this->myLogger->enter();
+		$obj=$this->mySessionMgr->__selectObject("*","Usuarios","(Login='$login')");
+		if (!$obj) throw new Exception("Login: Unknown user: '$login'");
+		$pw=$obj->Password;
+		if (strstr('--UNDEF--',$pw)!==FALSE)
+			throw new Exception("Seems that AgilityContest has not been properly configured. Please reinstall");
+		else if (strstr('--LOCK--',$pw)!==FALSE)
+			throw new Exception("Account '$login' is LOCKED");
+		else if (strstr('--NULL--',$pw)===FALSE) { // --NULL-- means no password required
+			// unencode stored password
+			$pass=base64_decode($pw);
+			if (!password_verify($password,$pass)) // check password against stored one
+				throw new Exception("Login: invalid password for account '$login'");
+		}
+		/* Arriving here means login success */
+		// get & store permission level
+		$this->level=$obj->Perms;
+		//create a random session key
+		$sk=random_password(16);
+		// compose data for a new session
+		$data=array (
+				// datos para el gestor de sesiones
+				'Operador'	=>	$obj->ID,
+				'SessionKey'=>  $sk,
+				'Nombre' 	=> 	http_request("Nombre","s",""),
+				'Prueba' 	=> 	http_request("Prueba","i",0),
+				'Jornada'	=>	http_request("Jornada","i",0),
+				'Manga'		=>	http_request("Manga","i",0),
+				'Tanda'		=>	http_request("Tanda","i",0),
+				'Perro'		=>	http_request("Perro","i",0),
+				// informacion de respuesta a la peticion
+				'UserID'	=>	$obj->ID,
+				'Login' 	=> 	$obj->Login,
+				'Password'	=>	'', // don't send back password :-)
+				'Gecos'		=>	$obj->Gecos,
+				'Phone'		=>	$obj->Phone,
+				'Email'		=>	$obj->Email,
+				'Perms'		=>	$obj->Perms,
+				// required for event manager
+				'Type'		=>  'init', /* ¿perhaps evtType should be 'login'¿ */
+				'Source' 	=> 	http_request("Source","s","AuthManager")
+		);
+		// if "nosession" is requested, just check password, do not create any session
+		if ($nosession==true) return $data;
+		// create/join to a session
+		if ($sid<=0) { //  if session id is not defined, create a new session
+			// remove all other console sessions from same user
+			$str="DELETE FROM Sesiones WHERE ( Nombre='Console' ) AND ( Operador={$obj->ID} )";
+			$this->mySessionMgr->query($str);
+			// insert new session
+			$data['Nombre']="Console";
+			$data['Comentario']=$obj->Login." - ".$obj->Gecos;
+			$this->mySessionMgr->insert($data);
+			// and retrieve new session ID
+			$data['SessionID']=$this->mySessionMgr->conn->insert_id;
+		} else {
+			// to join to a named session we need at least Assistant permission level
+			$this->access(PERMS_ASSISTANT); // on fail throw exception
+			unset($data['Nombre']); // to avoid override Session Name
+			// TODO: check and alert on busy session ID
+			// else join to declared session
+			$this->mySessionMgr->update($sid,$data);
+			// and fire 'login' event
+			$evtMgr=new Eventos("AuthManager",$sid);
+			$evtMgr->putEvent($data);
+		}
+		// That's all. Return generated result data
+		// $this->myLogger->info(json_encode($data));
+		$this->myLogger->leave();
+		return $this->getRegistrationInfo();
 	}
 	
 	function checkPassword($user,$pass) {
