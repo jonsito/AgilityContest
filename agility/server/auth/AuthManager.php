@@ -93,11 +93,16 @@ class AuthManager {
 		return null;
 	}
 	
+	/**
+	 * Retrieve only non-critical subset of registration info stored data
+	 * @return NULL
+	 */
 	function getRegistrationInfo() {
 		// retrieve registration data
 		$ri=$this->checkRegistrationInfo();
-		$data["VersionName"]=$ri["version_name"];
-		$data["VersionDate"]=$ri["version_date"];
+		$data["Version"]=$ri["version"];
+		$data["Revision"]=$ri["revision"];
+		$data["Date"]=$ri["date"];
 		$data["User"]=$ri['name'];
 		$data["Email"]=$ri['email'];
 		$data["Club"]=$ri['club'];
@@ -120,15 +125,17 @@ class AuthManager {
 		fwrite($fd,$regdata);
 		fclose($fd);
 		// comprobamos que el fichero temporal contiene datos de registro validos
-		$info=$this->getRegistrationInfo($tmpname);
+		$info=$this->checkRegistrationInfo($tmpname);
 		if (!$info) return array("errorMsg" => "registerApp(); Invalid registration data");
+		umask(002);
 		// ok: fichero de registro correcto. copiamos a su ubicacion final
 		copy(AC_REGINFO_FILE,AC_REGINFO_FILE_BACKUP);
 		rename($tmpname,AC_REGINFO_FILE);
 		// retornamos datos del nuevo registro
 		$result=array();
-		$result["VersionName"]=$info['version'];
-		$result["VersionDate"]=$info['date'];
+		$result["Version"]=$info['version'];
+		$result["Revision"]=$info['revision'];
+		$result["Date"]=$info['date'];
 		$result["User"]=$info['name'];
 		$result["Email"]=$info['email'];
 		$result["Club"]=$info['club'];
@@ -217,7 +224,8 @@ class AuthManager {
 		// That's all. Return generated result data
 		// $this->myLogger->info(json_encode($data));
 		$this->myLogger->leave();
-		return $this->getRegistrationInfo();
+		$info=$this->getRegistrationInfo();
+		return array_merge($data,$info);
 	}
 	
 	function checkPassword($user,$pass) {

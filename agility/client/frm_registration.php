@@ -56,12 +56,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	</form>
 	<hr />&nbsp;<br />
 	<form id="register_file">
-	<div>   		
+	<div>
+		<span style="float:left">	
 		<a id="registration-okButton" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-key'"
    			onclick="send_regFile()">Registro</a>
 		<input type="file" name="fichero" required="required" onchange="read_regFile(this)"/><br/>
 		<input id="registrationData" type="hidden" name="Data" value="">
+		</span> 
+		<span style="float:right">
+			<a id="registration-cancelButton" href="#" class="easyui-linkbutton"
+   			data-options="iconCls:'icon-cancel'"
+   			onclick="$('#dlg_register').window('close');">Cerrar</a>
+		</span>
 	</div>
 	</form>
 </div>
@@ -85,5 +92,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             }
         })
         
-		addTooltip($('#registration-okButton').linkbutton(),"Incluir fichero de informacion de registro en la aplicaci&oacute;n"); 
+		addTooltip($('#registration-okButton').linkbutton(),"Incluir fichero de informacion de registro en la aplicaci&oacute;n");
+		addTooltip($('#registration-cancelButton').linkbutton(),"Cancelar operaci&oacute;n. Cerrar ventana"); 
 </script>

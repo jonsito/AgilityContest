@@ -1,0 +1,21 @@
+[11-Mar-2015 14:15:37 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/userFunctions.php::30::__construct() : No sessionKey found in request
+[11-Mar-2015 14:15:37 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/userFunctions.php::46::login() : Enter
+[11-Mar-2015 14:15:37 Europe/Madrid] QUERY AuthManager::__selectObject() :
+SELECT * FROM Usuarios WHERE (Login='admin')
+[11-Mar-2015 14:15:37 Europe/Madrid] QUERY AuthManager::login() :
+DELETE FROM Sesiones WHERE ( Nombre='Console' ) AND ( Operador=3 )
+[11-Mar-2015 14:15:37 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/auth/AuthManager.php::210::insert() : Enter
+[11-Mar-2015 14:15:37 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/auth/AuthManager.php::210::insert() : Leave
+[11-Mar-2015 14:15:37 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/userFunctions.php::46::login() : Leave
+[11-Mar-2015 14:15:43 Europe/Madrid] QUERY AuthManager::__selectObject() :
+SELECT * FROM Sesiones WHERE ( SessionKey='kPjUn0LNTXKEgW37')
+[11-Mar-2015 14:15:43 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/auth/AuthManager.php::59::getUserByKey() : SessionKey:'kPjUn0LNTXKEgW37' belongs to userid:'3'
+[11-Mar-2015 14:15:43 Europe/Madrid] QUERY AuthManager::__selectObject() :
+SELECT * FROM Usuarios WHERE (ID=3)
+[11-Mar-2015 14:15:43 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/adminFunctions.php::141::__construct() : Username:admin Perms:1
+[11-Mar-2015 14:15:48 Europe/Madrid] QUERY AuthManager::__selectObject() :
+SELECT * FROM Sesiones WHERE ( SessionKey='kPjUn0LNTXKEgW37')
+[11-Mar-2015 14:15:48 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/auth/AuthManager.php::59::getUserByKey() : SessionKey:'kPjUn0LNTXKEgW37' belongs to userid:'3'
+[11-Mar-2015 14:15:48 Europe/Madrid] QUERY AuthManager::__selectObject() :
+SELECT * FROM Usuarios WHERE (ID=3)
+[11-Mar-2015 14:15:48 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/adminFunctions.php::141::__construct() : Username:admin Perms:1
