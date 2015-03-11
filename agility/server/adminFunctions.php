@@ -146,6 +146,8 @@ try {
 		case "backup": /* $am->access(PERMS_ADMIN); */ $result=$adm->backup(); break;
 		case "restore": $am->access(PERMS_ADMIN); $result=$adm->restore(); break;
 		case "reset": $am->access(PERMS_ADMIN); $result=$adm->factoryReset(); break;
+		case "reginfo": $result=$am->registrationInfo(); break;
+		case "register": $result=$am->registerApp(); break;
 		default: throw new Exception("adminFunctions:: invalid operation: '$operation' provided");
 	}
 	if ($result===null) // error
@@ -157,6 +159,6 @@ try {
 } catch (Exception $e) {
 	do_log($e->getMessage());
 	$response = array('errorMsg'=>$e->getMessage());
-	echo json_encode($response);
 }
+echo json_encode($response);
 ?>

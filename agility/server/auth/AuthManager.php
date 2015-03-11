@@ -165,6 +165,23 @@ class AuthManager {
 		return $data;
 	}
 	
+	function registrationInfo() {
+		// add registration data
+		$config=Config::getInstance();
+		$ri=$config->getRegistrationInfo();
+		$data["VersionName"]=$config->getEnv("version_name");
+		$data["VersionDate"]=$config->getEnv("version_date");
+		$data["User"]=$ri['name'];
+		$data["Email"]=$ri['email'];
+		$data["Club"]=$ri['club'];
+		$data["Serial"]=$ri['serial'];
+		return $data;
+	}
+	
+	function registerApp() {
+		// TODO: write
+	}
+	
 	function checkPassword($user,$pass) {
 		return $this->login($user,$pass,0,true);	
 	}
