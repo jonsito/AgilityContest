@@ -97,12 +97,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	$('#perros-newGuiaBtn').bind('click',function() {
         newGuia(
             $('#perros-Guia').combogrid('getText'), // default name
-            function() { 
+            function() {
                 // on accept clear box, to allow reload from database
-            	// $('#perros-Guia').combogrid('reset');
-            	// line bellow doesn't work: no easy way to retrieve guia ID from newly created guia
-            	$('#perros-Guia').combogrid('setValue',$('#guias-ID').val());
-            	$('#perros-Guia').combogrid('setText',$('#guias-Nombre').val());
+            	$('#perros-Guia').combogrid('reset');
             });
     });
     
