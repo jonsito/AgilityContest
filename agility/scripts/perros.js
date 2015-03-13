@@ -216,6 +216,7 @@ function saveChDog(){
             if (result.errorMsg){
                 $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
             } else {
+            	if (result.insert_id ) $('#chperros-ID').val(result.insert_id);
             	$('#chperros-Search').combogrid('clear');  // clear search field
                 $('#chperros-dialog').dialog('close');    // close the dialog
             }
@@ -240,6 +241,7 @@ function saveDog(){
             } else {
                 // reload the dog data from inscripciones (if any)
             	if (isDefined('listaNoInscritos')) listaNoInscritos();
+            	if(result.insert_id && (frm.operation==="insert") ) $('#perros-ID').val(result.insert_id);
     	        // close the dialog
                 $('#perros-dialog').dialog('close'); 
             }

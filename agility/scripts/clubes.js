@@ -139,6 +139,7 @@ function saveClub(){
                 $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
             } else {
             	saveLogo();
+            	if(result.insert_id && (frm.operation==="insert") ) $('#clubes-ID').val(result.insert_id);
                 $('#clubes-dialog').dialog('close');        // close the dialog
                 $('#clubes-datagrid').datagrid('reload');    // reload the clubes data
             }

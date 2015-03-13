@@ -198,6 +198,7 @@ function saveChGuia(){
             if (result.errorMsg){
                 $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
             } else {
+            	if (result.insert_id ) $('#guias-ID').val(result.insert_id);
             	$('#chguias-Search').combogrid('clear');  // clear search field
                 $('#chguias-dialog').dialog('close');    // close the dialog
             }
@@ -222,6 +223,7 @@ function saveGuia(){
             	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {
             	// notice that onAccept() already refresh parent dialog
+            	if(result.insert_id && (frm.operation==="insert") ) $('#guias-ID').val(result.insert_id);
                 $('#guias-dialog').dialog('close');        // close the dialog
             }
         }

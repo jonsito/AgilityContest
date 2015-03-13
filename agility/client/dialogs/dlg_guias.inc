@@ -73,10 +73,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         $('#guias-newClubBtn').bind('click',function() {
             newClub( 
                 $('#guias-Club').combogrid('getText'), // default name
-                function() { // on accept clear box, to allow reload from database
-                	$('#guias-Club').combogrid('reset');
-                	// line bellow doesn't work: no easy way to retrieve club ID from newly created club
-                	// $('#guias-Club').combogrid('setValue',$('#clubes-Nombre').val());
+                function() { 
+                    // on accept clear box, to allow reload from database
+                	//$('#guias-Club').combogrid('reset');
+                	// fill combo with name an id
+                	$('#guias-Club').combogrid('setText',$('#clubes-Nombre').val());
+                	$('#guias-Club').combogrid('setValue',$('#clubes-ID').val());
                 });    
         });
         $('#guias-dialog').dialog({
