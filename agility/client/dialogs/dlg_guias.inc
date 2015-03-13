@@ -73,8 +73,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         $('#guias-newClubBtn').bind('click',function() {
             newClub( 
                 $('#guias-Club').combogrid('getText'), // default name
-                function() { 
-                    // on accept clear box, to allow reload from database
+                function() { // what to do on accept button pressed
                 	$('#guias-Club').combogrid('reset');
                 });    
         });

@@ -97,8 +97,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	$('#perros-newGuiaBtn').bind('click',function() {
         newGuia(
             $('#perros-Guia').combogrid('getText'), // default name
-            function() {
-                // on accept clear box, to allow reload from database
+            function() { // on accept repaint
             	$('#perros-Guia').combogrid('reset');
             });
     });
