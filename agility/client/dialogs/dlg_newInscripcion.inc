@@ -34,6 +34,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			onclick="
 	        	// clear selection and reload table
 	    		$('#new_inscripcion-search').val('---- Buscar ----');
+				$('#new_inscripcion-datagrid').datagrid('unselectAll');
 				listaNoInscritos();
 	            "
 			>Limpiar</a>
@@ -132,7 +133,8 @@ $('#new_inscripcion-dialog').dialog({
 	resizable:false,
 	title:"A&ntilde;adir inscripciones a la prueba: '"+workingData.datosPrueba.Nombre+"'",
 	buttons:'#new_inscripcion-buttons',
-	onOpen: newInscripcion_onOpenSuccess // on display setup jornada's 'checkboxes info
+	onOpen: newInscripcion_onOpenSuccess, // on display setup jornada's 'checkboxes info
+	onClose: function() {$('#new_inscripcion-datagrid').datagrid('unselectAll')}
 	});
 	
 // datagrid de inscripcion de participantes
