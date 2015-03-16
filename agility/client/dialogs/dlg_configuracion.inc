@@ -46,12 +46,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<div title="Tablet" style="padding:10px">
 			<h3>Funcionalidad del tablet del asistente de pista</h3>
 			<label for="tablet_beep">Se&ntilde;al sonora al pulsar el tablet</label> 
+			<input type="hidden" name="tablet_beep" value="0"/>
 			<input type="checkbox" name="tablet_beep" value="1"/><br />
 			<label for="tablet_dnd">Orden de salida ajustable desde el tablet</label> 
+			<input type="hidden" name="tablet_dnd" value="0"/>
 			<input type="checkbox" name="tablet_dnd" value="1"/><br />
 			<label for="tablet_chrono">Mostrar datos de cron&oacute;metro en tablet</label> 
+			<input type="hidden" name="tablet_chrono" value="0"/>
 			<input type="checkbox" name="tablet_chrono" value="1"/><br />
 			<label for="tablet_next">Bot&oacute;n 'Aceptar' muestra siguiente participante </label> 
+			<input type="hidden" name="tablet_next" value="0"/>
 			<input type="checkbox" name="tablet_next" value="1"/><br />
 		</div>
 		
@@ -121,6 +125,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<option value="7">Registrar trazas de ejecuci&oacute;n</option>
 				<option value="8">Registrar absolutamente todo</option>
 			</select><br />
+			<label for="register_events">Registrar en fichero operaciones en el tablet</label> 
+			<input type="hidden" name="register_events" value="0"/> <!-- trick for checkboxes -->
+			<input type="checkbox" name="register_events" value="1"/><br />
 			<label for="proximity_alert">Alerta de proximidad en orden de salida</label>
 			<input type="number" min="1" max="20" "size="2" value="5" name="proximity_alert"/> Perros<br />
 		</div>

@@ -69,16 +69,18 @@ class AuthManager {
 	 * @return object throw exception
 	 */
 	function getUserByKey($sk) {
-		$obj=$this->mySessionMgr->__selectObject("*","Sesiones","( SessionKey='$sk')");
+		$obj=$this->mySessionMgr->__selectObject("*","Sesiones,Usuarios","(Usuarios.ID=Sesiones.Operador) AND ( SessionKey='$sk')");
 		if (!$obj) throw new Exception ("Invalid session key: '$sk'");
 		$userid=$obj->Operador;
 		$this->myLogger->info("SessionKey:'$sk' belongs to userid:'$userid'");
-		/* if token expired throw exception */
+	/*	
+		// if token expired throw exception 
 		// TODO: write
 		// $lastModified=$obj->LastModified;
 		// else retrieve permission level
 		$obj=$this->mySessionMgr->__getObject("Usuarios",$userid);
 		if (!$obj) throw new Exception("Provided SessionKey:'$sk' gives invalid User ID: '$userid'");
+	*/
 		return $obj;
 	}
 	
@@ -195,7 +197,8 @@ class AuthManager {
 				'Perms'		=>	$obj->Perms,
 				// required for event manager
 				'Type'		=>  'init', /* ¿perhaps evtType should be 'login'¿ */
-				'Source' 	=> 	http_request("Source","s","AuthManager")
+				'Source' 	=> 	http_request("Source","s","AuthManager"),
+				'TimeStamp' => 	date('Y-m-d G:i:s')
 		);
 		// if "nosession" is requested, just check password, do not create any session
 		if ($nosession==true) return $data;

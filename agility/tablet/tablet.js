@@ -15,8 +15,6 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
-
 function tandasStyler(val,row,idx) {
 	var str="text-align:left; ";
 	str += "font-weight:bold; ";
@@ -313,7 +311,6 @@ function tablet_accept() {
 	obj.Pendiente=0;
 	// update row
 	$(dgname).datagrid('updateRow',{index: rowindex, row: obj});
-	$(dgname).datagrid('refreshRow',rowindex);
 	// and fire up accept event
 	tablet_putEvent(
 			'aceptar',

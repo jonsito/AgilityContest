@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
+require_once(__DIR__."/../../auth/Config.php");
 
 // How often to poll, in microseconds (1,000,000 μs equals 1 s)
 define('EVENT_POLL_MICROSECONDS', 500000);
@@ -97,9 +97,12 @@ class Eventos extends DBObject {
 		$stmt->close();
 		
 		// and save content to event file
-		$str=json_encode($data);
-		file_put_contents($this->sessionFile,$str."\n", FILE_APPEND | LOCK_EX);
-		
+		$cfg=Config::getInstance();
+		$flag=$cfg->getEnv("register_events");
+		if (boolval($flag)) {
+			$str=json_encode($data);
+			file_put_contents($this->sessionFile,$str."\n", FILE_APPEND | LOCK_EX);
+		}
 		// that's all.
 		$this->myLogger->leave();
 		return ""; 

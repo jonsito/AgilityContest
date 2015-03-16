@@ -28,12 +28,10 @@ define ('AC_LANG','es');
 
 /** logging **/
 define('AC_DEBUG_LEVEL',0);
+define('AC_REGISTER_EVENTS',"0");
 
 /** variables de la aplicacion principal **/
 define('AC_PROXIMITY_ALERT',5);
-
-/** variable para gestion de nombres en las federaciones **/
-define ('AC_FEDERATION',0); // 0:rsce 1:rfce 2:uca
 
 /** base de datos **/
 define('AC_DATABASE_NAME','agility');
@@ -118,6 +116,7 @@ Class Config {
 		
 		// version, logging y depuracion
 		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
+		$this->config['register_events'] =	AC_REGISTER_EVENTS;
 		$this->config['version_name'] =	AC_VERSION_NAME;
 		$this->config['version_date'] =	AC_VERSION_DATE;
 
@@ -125,7 +124,6 @@ Class Config {
 		$this->config['lang'] =	AC_LANG;
 		// variables del sistema
 		$this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
-		$this->config['federation'] =	AC_FEDERATION;
 		
 		// database
 		$this->config['database_name'] =	AC_DATABASE_NAME;
@@ -237,8 +235,8 @@ Class Config {
 		// skip version info/date as cannot be edited by user
 
 		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
+		$this->config['register_events'] =	AC_REGISTER_EVENTS;
 		$this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
-		$this->config['federation'] =	AC_FEDERATION;
 		
 		// configuracion de la consola
 		$data['easyui_theme'] = 	AC_EASYUI_THEME;
@@ -319,8 +317,8 @@ Class Config {
 		$data=testAndSet($data,'lang','s',AC_LANG);
 		// logging
 		$data=testAndSet($data,'debug_level','i',AC_DEBUG_LEVEL);
+		$data=testAndSet($data,'register_events','i',AC_REGISTER_EVENTS);
 		$data=testAndSet($data,'proximity_alert','i',AC_PROXIMITY_ALERT);
-		$data=testAndSet($data,'federation','i',AC_FEDERATION);
 		
 		// finally write file:
 		$res=array_merge($this->config,$data);
@@ -329,16 +327,16 @@ Class Config {
 		return "";
 	}
 
-	function _f($str,$fed=-1) {
+	function _f($str,$fed=0) {
 		if ($fed>2) return $str;
 		if($fed==-1) $fed=$this->getEnv("federation");
 		if (!array_key_exists($str,Config::$federations[$fed])) return $str;
 		return Config::$federations[$fed][$str];
 	}
 	
-	function _ef($str,$fed=-1) { echo _f($str,$fed); }
+	function _ef($str,$fed=0) { echo _f($str,$fed); }
 	
-	function strToFederation($str,$fed=-1) {
+	function strToFederation($str,$fed=0) {
 		if ($fed>2) return $str;
 		if($fed==-1) $fed=$this->getEnv("federation");
 		foreach(Config::$federations[$fed] as $key => $value) {
