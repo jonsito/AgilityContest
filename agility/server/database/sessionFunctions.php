@@ -51,9 +51,6 @@ try {
 		case "enumerate": $result=$sesion->enumerate(); break; // no select (yet)
 		case "getByNombre":	$result=$sesion->selectByNombre($data['Nombre']); break;
 		case "getByID":	$result=$sesion->selectByID($id); break;
-		case "loadConfig": $conf=Config::getInstance(); $result=$conf->loadConfig(); break;
-		case "saveConfig": $am->access(PERMS_ADMIN); $conf=Config::getInstance(); $result=$conf->saveConfig(); break;
-		case "defaultConfig": $am->access(PERMS_ADMIN); $conf=Config::getInstance(); $result=$conf->defaultConfig(); break;
 		default: throw new Exception("sessionFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) 

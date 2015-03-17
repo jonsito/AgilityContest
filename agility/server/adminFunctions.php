@@ -145,26 +145,23 @@ try {
 	switch ($operation) {
 		case "backup": 
 			/* $am->access(PERMS_ADMIN); */
-			$result=$adm->backup();
-			break;
+			$result=$adm->backup();	break;
 		case "restore":
-			$am->access(PERMS_ADMIN);
-			$result=$adm->restore();
-			break;
+			$am->access(PERMS_ADMIN); $result=$adm->restore(); break;
 		case "reset":
-			$am->access(PERMS_ADMIN);
-			$result=$adm->factoryReset();
-			break;
+			$am->access(PERMS_ADMIN); $result=$adm->factoryReset();	break;
 		case "reginfo": 
-			$result=$am->getRegistrationInfo(); 
-			if ($result==null) $adm->errormsg=$am->errormsg; 
-			break;
+			$result=$am->getRegistrationInfo(); if ($result==null) $adm->errormsg=$am->errormsg; break;
 		case "register":
-			$am->access(PERMS_ADMIN);
-			$result=$am->registerApp();
-			if ($result==null) $adm->errormsg=$am->errormsg; 
-			break;
-		default: throw new Exception("adminFunctions:: invalid operation: '$operation' provided");
+			$am->access(PERMS_ADMIN); $result=$am->registerApp(); if ($result==null) $adm->errormsg=$am->errormsg; break;
+		case "loadConfig": 
+			$conf=Config::getInstance(); $result=$conf->loadConfig(); break;
+		case "saveConfig": 
+			$am->access(PERMS_ADMIN); $conf=Config::getInstance(); $result=$conf->saveConfig(); break;
+		case "defaultConfig": 
+			$am->access(PERMS_ADMIN); $conf=Config::getInstance(); $result=$conf->defaultConfig(); break;
+		default: 
+			throw new Exception("adminFunctions:: invalid operation: '$operation' provided");
 	}
 	if ($result===null)	throw new Exception($adm->errormsg); // error
 	if ($result==="ok") return; // don't generate any aditional response 

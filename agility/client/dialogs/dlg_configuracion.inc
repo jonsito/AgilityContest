@@ -159,7 +159,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	    var frm = $('#config-form');
 	    $.ajax({
 	        type: 'GET',
-	        url: '/agility/server/database/sessionFunctions.php',
+	        url: '/agility/server/adminFunctions.php',
 	        data: frm.serialize(),
 	        dataType: 'json',
 	        success: function (result) {
@@ -179,12 +179,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	function defaultConfig() {
 		$.messager.confirm("Confirmar","Recuperar valores de f&aacute;brica.¿Seguro?",function(r){
 			if (r) {
-				$('#config-form').form('load','/agility/server/database/sessionFunctions.php?Operation=defaultConfig');
+				$('#config-form').form('load','/agility/server/adminFunctions.php?Operation=defaultConfig');
 			}
 		});
 	}
 	
 	function loadConfig() {
-		$('#config-form').form('load','/agility/server/database/sessionFunctions.php?Operation=loadConfig');
+		$('#config-form').form('load','/agility/server/adminFunctions.php?Operation=loadConfig');
 	}
 </script>
