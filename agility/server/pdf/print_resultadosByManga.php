@@ -62,7 +62,6 @@ class PDF extends PrintCommon {
 		$this->manga=$manga;
 		$this->resultados=$resultados;
 		$this->mode=$mode;
-		$this->myLogger= new Logger("printResultadosByManga");
 	}
 	
 	// Cabecera de página

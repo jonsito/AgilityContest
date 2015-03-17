@@ -44,7 +44,8 @@ class AuthManager {
 	protected $mySessionMgr;
 	
 	function __construct($file) {
-		$this->myLogger=new Logger($file);
+		$config=Config::getInstance();
+		$this->myLogger=new Logger($file,$config->getEnv("debug_level"));
 		$this->mySessionMgr=new Sesiones("AuthManager");
 		/* try to retrieve session token */
 		$hdrs= getAllHeaders();
@@ -113,6 +114,7 @@ class AuthManager {
 	}
 	
 	function registerApp() {
+		$this->myLogger->enter();
 		// extraemos los datos de registro
 		$data=http_request("Data","s",null);
 		if (!$data) return array("errorMsg" => "registerApp(): No registration data received");
@@ -143,6 +145,7 @@ class AuthManager {
 		$result["Club"]=$info['club'];
 		$result["Serial"]=$info['serial'];
 		// $result['filename']=$tmpname;
+		$this->myLogger->leave();
 		return $result;
 	}
 
@@ -257,6 +260,7 @@ class AuthManager {
 	 * @return string "" on success; else error message
 	 */
 	function setPassword($id,$pass,$sk) {
+		$this->myLogger->enter();
 		$u=$this->getUserByKey($sk);
 		switch ($u->Perms) {
 			case 5:
@@ -292,7 +296,7 @@ class AuthManager {
 				return "";
 			default: throw new Exception("Internal error: invalid permission level");
 		}
-		
+		$this->myLogger->leave();
 	}
 	
 	/*

@@ -62,8 +62,8 @@ class PrintCommon extends FPDF {
 	function __construct($orientacion,$prueba,$jornada=0) {
 		parent::__construct($orientacion,'mm','A4'); // Portrait or Landscape
 		$this->centro=($orientacion==='Portrait')?107:145;
-		$this->myLogger= new Logger("PrintCommon");
 		$this->config=Config::getInstance();
+		$this->myLogger= new Logger("PrintCommon",$this->config->getEnv("debug_level"));
 		$this->myDBObject=new DBObject("print_common_pdf");
 		$this->prueba=$this->myDBObject->__getObject("Pruebas",$prueba);
 		$this->club=$this->myDBObject->__getObject("Clubes",$this->prueba->Club); // club organizador

@@ -99,13 +99,11 @@ class CSV  {
 	}
 	
 	function composeTable($hdr) {
-		$this->myLogger->enter();
 		$result="";
 		if ($hdr) $result=$this->writeHeader();
 		foreach($this->resultados as $row) {
 			$result.=$this->writeCell($row);
 		}
-		$this->myLogger->leave();
 		return $result;
 	}
 }
