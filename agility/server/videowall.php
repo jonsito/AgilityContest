@@ -33,7 +33,7 @@ class VideoWall {
 	
 	function __construct($sessionid) {
 		$this->config=Config::getInstance();
-		$this->myLogger=new Logger("VideoWall.php",$this->myConfig->getEnv("debug_level"));
+		$this->myLogger=new Logger("VideoWall.php",$this->config->getEnv("debug_level"));
 		$this->myDBObject=new DBObject("Videowall");
 		$this->session=$this->myDBObject->__getArray("Sesiones",$sessionid);
 		$this->prueba=$this->myDBObject->__getArray("Pruebas",$this->session['Prueba']);
