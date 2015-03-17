@@ -103,7 +103,7 @@ function tablet_updateResultados(pendiente) {
 }
 
 function doBeep() {
-	if (ac_config.tablet_beep) beep();
+	if (ac_config.tablet_beep)	setTimeout(function() {beep();},0);
 }
 
 function tablet_add(val) {
@@ -119,6 +119,7 @@ function tablet_add(val) {
 	$('#tdialog-Tiempo').val(''+str+val);
 	tablet_updateResultados(1);
 	// dont send time event
+	return false;
 }
 
 function tablet_dot() {
@@ -128,6 +129,7 @@ function tablet_dot() {
 	tablet_add('.');
 	tablet_updateResultados(1);
 	// dont send time event
+	return false;
 }
 
 function tablet_del() {
@@ -137,6 +139,7 @@ function tablet_del() {
 	$('#tdialog-Tiempo').val(str.substring(0, str.length-1));
 	tablet_updateResultados(1);
 	// dont send time event
+	return false;
 }
 
 function tablet_up(id){
@@ -148,6 +151,7 @@ function tablet_up(id){
 	tablet_updateResultados(1);
 	datos[lbl]=$(id).val();
 	tablet_putEvent( 'datos', datos);
+	return false;
 }
 
 function tablet_down(id){
@@ -160,6 +164,7 @@ function tablet_down(id){
 	tablet_updateResultados(1);
 	datos[lbl]=$(id).val();
 	tablet_putEvent( 'datos', datos );
+	return false;
 }
 
 function tablet_np() {
@@ -191,6 +196,7 @@ function tablet_np() {
 		'Eliminado'		:	$('#tdialog-Eliminado').val()
 		}
 		);
+	return false;
 }
 
 function tablet_elim() {
@@ -216,6 +222,7 @@ function tablet_elim() {
 			'Eliminado'		:	$('#tdialog-Eliminado').val()
 			}
 		);
+	return false;
 }
 
 function tablet_chrono(oper,time) {
@@ -247,6 +254,7 @@ function tablet_startstop() {
 		tablet_chrono('stop',time);
 	}
 	doBeep();
+	return false;
 }
 
 function tablet_salida() {
@@ -255,6 +263,7 @@ function tablet_salida() {
 	tablet_chrono('reset',0);
 	myCounter.start();
 	doBeep();
+	return false;
 }
 
 function tablet_cancel() {
@@ -290,6 +299,7 @@ function tablet_cancel() {
 	tablet_chrono('stop',0);
 	tablet_chrono('reset',0);
 	$('#tdialog-window').window('close');
+	return false;
 }
 
 function tablet_accept() {
@@ -302,7 +312,7 @@ function tablet_accept() {
 	var dgname = $('#tdialog-Parent').val();
 	var dg=$(dgname);
 	var row = dg.datagrid('getSelected');
-	if (!row) return; // nothing to do. should mark error
+	if (!row) return false; // nothing to do. should mark error
 	
 	// now update and redraw data on
 	var rowindex= dg.datagrid("getRowIndex", row);
@@ -328,14 +338,14 @@ function tablet_accept() {
 	if (!ac_config.tablet_next) { // no go to next row entry
 		$('#tdialog-window').window('close'); // close window
 		dg.datagrid('refreshRow',rowindex);
-		return;
+		return false;
 	}
 	// seleccionamos fila siguiente
 	var count=dg.datagrid('getRows').length;    // row count
 	if ( (rowindex+1)>=count ) { // at end of datagrid
 		$('#tdialog-window').window('close'); // close window
 		dg.datagrid('refreshRow',rowindex);
-		return;
+		return false;
 	}
 	// dg.datagrid('clearSelections');
 	dg.datagrid('selectRow', rowindex+1);
@@ -343,4 +353,5 @@ function tablet_accept() {
 	data.Session=workingData.sesion;
     data.Parent=dgname; // store datagrid reference
     $('#tdialog-form').form('load',data);
+    return false; // prevent follow onClick event chain
 }
