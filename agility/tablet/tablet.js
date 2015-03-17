@@ -300,17 +300,18 @@ function tablet_accept() {
 	
 	// retrieve original data from parent datagrid
 	var dgname = $('#tdialog-Parent').val();
-	var row = $(dgname).datagrid('getSelected');
+	var dg=$(dgname);
+	var row = dg.datagrid('getSelected');
 	if (!row) return; // nothing to do. should mark error
 	
 	// now update and redraw data on
-	var rowindex= $(dgname).datagrid("getRowIndex", row);
+	var rowindex= dg.datagrid("getRowIndex", row);
 	// send back data to parent tablet datagrid form
 	var obj=formToObject('#tdialog-form');
 	// mark as no longer pending
 	obj.Pendiente=0;
 	// update row
-	$(dgname).datagrid('updateRow',{index: rowindex, row: obj});
+	dg.datagrid('updateRow',{index: rowindex, row: obj});
 	// and fire up accept event
 	tablet_putEvent(
 			'aceptar',
@@ -326,17 +327,20 @@ function tablet_accept() {
 	tablet_chrono('stop',0);
 	if (!ac_config.tablet_next) { // no go to next row entry
 		$('#tdialog-window').window('close'); // close window
-		$(dgname).datagrid('refreshRow',rowindex);
+		dg.datagrid('refreshRow',rowindex);
 		return;
 	}
-	var data=selectNextRow(dgname);
-	if (!data) { // no more data rows
+	// seleccionamos fila siguiente
+	var count=dg.datagrid('getRows').length;    // row count
+	if ( (rowindex+1)>=count ) { // at end of datagrid
 		$('#tdialog-window').window('close'); // close window
-		$(dgname).datagrid('refreshRow',rowindex);
+		dg.datagrid('refreshRow',rowindex);
 		return;
 	}
+	// dg.datagrid('clearSelections');
+	dg.datagrid('selectRow', rowindex+1);
+	var data=dg.datagrid('getSelected');
 	data.Session=workingData.sesion;
     data.Parent=dgname; // store datagrid reference
     $('#tdialog-form').form('load',data);
 }
-
