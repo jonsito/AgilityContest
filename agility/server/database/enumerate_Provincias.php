@@ -28,33 +28,13 @@ class Provincias extends DBObject {
 		// evaluate offset and row count for query
 		$q=http_request("q","s","");
 		$like = ($q!=="") ? " WHERE Provincia LIKE '%".$q."%'" : "";
-		$result = array();
-		
-		// execute first query to know how many elements
-		$rs=$this->conn->query("SELECT count(*) FROM Provincias ".$like);
-		if (!$rs) {
-			$this->errormsg="enumerate_provincias::select( count(*)) Error: ".$this->conn->error;
-			return null;
-		}
-		$row=$rs->fetch_row();
-		$rs->free();
-		$result["total"] = $row[0];
-		
-		// second query to retrieve $rows starting at $offset
-		$str="SELECT * FROM Provincias ".$like." ORDER BY Provincia ASC";
-		do_log("enumerate_provincias::query() $str");
-		$rs=$this->conn->query($str);
-		if (!$rs) {
-			$this->errormsg="enumerate_provincias::query() Error: ".$this->conn->error;
-			return null;
-		}
-		// retrieve result into an array
-		$items = array();
-		while($row = $rs->fetch_array(MYSQLI_ASSOC)){
-			array_push($items, $row);
-		}
-		$rs->free();
-		$result["rows"] = $items;
+		$result = $this->__select(
+			/* SELECT */ "*",
+			/* FROM */	"Provincias",
+			/* WHERE */	$like,
+			/* ORDER */ "Provincia ASC",
+			/* LIMIT */ ""
+		);
 		return $result;
 	}
 }
