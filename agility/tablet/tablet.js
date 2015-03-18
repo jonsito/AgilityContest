@@ -105,40 +105,43 @@ function tablet_updateResultados(pendiente) {
 }
 
 function doBeep() {
-	if (ac_config.tablet_beep) beep();
+	if (ac_config.tablet_beep) setTimeout(function() {beep();},0);
 }
 
 function tablet_add(val) {
 	doBeep();
 	var str=$('#tdialog-Tiempo').val();
 	if (parseInt(str)==0) str=''; // clear espurious zeroes
-	if(str.length>=6) return; // sss.xx 6 chars
+	if(str.length>=6) return false; // sss.xx 6 chars
 	var n=str.indexOf('.');
 	if (n>=0) {
 		var len=str.substring(n).length;
-		if (len>2) return; // only two decimal digits
+		if (len>2) return false ; // only two decimal digits
 	}
 	$('#tdialog-Tiempo').val(''+str+val);
 	tablet_updateResultados(1);
 	// dont send time event
+	return false;
 }
 
 function tablet_dot() {
 	doBeep();
 	var str=$('#tdialog-Tiempo').val();
-	if (str.indexOf('.')>=0) return;
+	if (str.indexOf('.')>=0) return false;
 	tablet_add('.');
 	tablet_updateResultados(1);
 	// dont send time event
+	return false;
 }
 
 function tablet_del() {
 	doBeep();
 	var str=$('#tdialog-Tiempo').val();
-	if (str==='') return;
+	if (str==='') return false;
 	$('#tdialog-Tiempo').val(str.substring(0, str.length-1));
 	tablet_updateResultados(1);
 	// dont send time event
+	return false;
 }
 
 function tablet_up(id){
@@ -150,6 +153,7 @@ function tablet_up(id){
 	tablet_updateResultados(1);
 	datos[lbl]=$(id).val();
 	tablet_putEvent( 'datos', datos);
+	return false;
 }
 
 function tablet_down(id){
@@ -162,6 +166,7 @@ function tablet_down(id){
 	tablet_updateResultados(1);
 	datos[lbl]=$(id).val();
 	tablet_putEvent( 'datos', datos );
+	return false;
 }
 
 function tablet_np() {
@@ -193,6 +198,7 @@ function tablet_np() {
 		'Eliminado'		:	$('#tdialog-Eliminado').val()
 		}
 		);
+	return false;
 }
 
 function tablet_elim() {
@@ -218,6 +224,7 @@ function tablet_elim() {
 			'Eliminado'		:	$('#tdialog-Eliminado').val()
 			}
 		);
+	return false;
 }
 
 function tablet_chrono(oper,time) {
@@ -249,6 +256,7 @@ function tablet_startstop() {
 		tablet_chrono('stop',time);
 	}
 	doBeep();
+	return false;
 }
 
 function tablet_salida() {
@@ -257,6 +265,7 @@ function tablet_salida() {
 	tablet_chrono('reset',0);
 	myCounter.start();
 	doBeep();
+	return false;
 }
 
 function tablet_cancel() {
@@ -292,6 +301,7 @@ function tablet_cancel() {
 	}
 	// and close panel
 	$('#tdialog-window').window('close');
+	return false;
 }
 
 function tablet_accept() {
@@ -302,18 +312,18 @@ function tablet_accept() {
 	
 	// retrieve original data from parent datagrid
 	var dgname = $('#tdialog-Parent').val();
-	var row = $(dgname).datagrid('getSelected');
-	if (!row) return; // nothing to do. should mark error
+	var dg=$(dgname);
+	var row = dg.datagrid('getSelected');
+	if (!row) return false; // nothing to do. should mark error
 	
 	// now update and redraw data on
-	var rowindex= $(dgname).datagrid("getRowIndex", row);
+	var rowindex= dg.datagrid("getRowIndex", row);
 	// send back data to parent tablet datagrid form
 	var obj=formToObject('#tdialog-form');
 	// mark as no longer pending
 	obj.Pendiente=0;
 	// update row
-	$(dgname).datagrid('updateRow',{index: rowindex, row: obj});
-	$(dgname).datagrid('refreshRow',rowindex);
+	dg.datagrid('updateRow',{index: rowindex, row: obj});
 	// and fire up accept event
 	tablet_putEvent(
 			'aceptar',
@@ -329,17 +339,22 @@ function tablet_accept() {
     tablet_chrono('stop',0); // make sure manual chrono is stopped
     if (!ac_config.tablet_next) { // no go to next row entry
     	$('#tdialog-window').window('close'); // close window
-    	$(dgname).datagrid('refreshRow',rowindex);
-    	return;
+    	dg.datagrid('refreshRow',rowindex);
+    	return false;
 	}
-	var data=selectNextRow(dgname);
-	if (!data) { // no more data rows
+	// seleccionamos fila siguiente
+	var count=dg.datagrid('getRows').length;    // row count
+	if ( (rowindex+1)>=count ) { // at end of datagrid
 		$('#tdialog-window').window('close'); // close window
-		$(dgname).datagrid('refreshRow',rowindex);
-		return;
+		dg.datagrid('refreshRow',rowindex);
+		return false;
 	}
+	// dg.datagrid('clearSelections');
+	dg.datagrid('selectRow', rowindex+1);
+	var data=dg.datagrid('getSelected');
 	data.Session=workingData.sesion;
-	data.Parent=dgname; // store datagrid reference
-	$('#tdialog-form').form('load',data);
+    data.Parent=dgname; // store datagrid reference
+    $('#tdialog-form').form('load',data);
+    return false; // prevent follow onClick event chain
 }
 
