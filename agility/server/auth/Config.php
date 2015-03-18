@@ -231,9 +231,10 @@ Class Config {
 		// skip version info/date as cannot be edited by user
 
 		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
+		$this->config['register_events'] =	AC_REGISTER_EVENTS;
 		$this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
 		
-		// configuracion de la consola
+		// entorno grafico
 		$data['easyui_theme'] = 	AC_EASYUI_THEME;
 		$data['easyui_bgcolor'] =	AC_EASYUI_BGCOLOR;
 		$data['easyui_hdrcolor'] =	AC_EASYUI_HDRCOLOR;
@@ -241,6 +242,7 @@ Class Config {
 		$data['easyui_rowcolor1'] =	AC_EASYUI_ROWCOLOR1;
 		$data['easyui_rowcolor2'] =	AC_EASYUI_ROWCOLOR2;
 		$data['easyui_rowcolor3'] =	AC_EASYUI_ROWCOLOR3;
+		
 		// configuracion del videowall
 		$data['vw_polltime'] =	AC_VW_POLLTIME;
 		$data['vw_alpha'] =		AC_VW_ALPHA;
@@ -250,6 +252,7 @@ Class Config {
 		$data['vw_hdrbg2'] =	AC_VW_HDRBG2;
 		$data['vw_rowcolor1'] =	AC_VW_ROWCOLOR1;
 		$data['vw_rowcolor2'] =	AC_VW_ROWCOLOR2;
+		
 		// generacion de PDF's
 		$data['pdf_topmargin'] = AC_PDF_TOPMARGIN;
 		$data['pdf_leftmargin'] = AC_PDF_LEFTMARGIN;
@@ -260,13 +263,17 @@ Class Config {
 		$data['pdf_rowcolor1'] =	AC_PDF_ROWCOLOR1;
 		$data['pdf_rowcolor2'] =	AC_PDF_ROWCOLOR2;
 		$data['pdf_linecolor'] =	AC_PDF_LINECOLOR;
+		
 		// tablet
 		$this->config['tablet_beep'] =	AC_TABLET_BEEP;
 		$this->config['tablet_dnd'] =	AC_TABLET_DND;
 		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
 		$this->config['tablet_next'] =	AC_TABLET_NEXT;
+		
 		// Internacionalizacion. Idiomas
 		$data['lang'] =	AC_LANG;
+		
+		// componemos array de datos y salvamos en fichero
 		$res=array_merge($this->config,$data);
 		$result=$this->write_ini_file($res,AC_CONFIG_FILE);
 		if ($result===FALSE) return "Error al generar el fichero de configuracion";
@@ -276,6 +283,7 @@ Class Config {
 	
 	public function saveConfig() {
 		$data=array();
+		
 		// entorno grafico
 		$data=testAndSet($data,'easyui_theme','s',AC_EASYUI_THEME);
 		$data=testAndSet($data,'easyui_bgcolor','s',AC_EASYUI_BGCOLOR);
@@ -284,6 +292,7 @@ Class Config {
 		$data=testAndSet($data,'easyui_rowcolor1','s',AC_EASYUI_ROWCOLOR1);
 		$data=testAndSet($data,'easyui_rowcolor2','s',AC_EASYUI_ROWCOLOR2);
 		$data=testAndSet($data,'easyui_rowcolor3','s',AC_EASYUI_ROWCOLOR3);
+		
 		// configuracion del videowall
 		$data=testAndSet($data,'vw_polltime','i',AC_VW_POLLTIME);
 		$data=testAndSet($data,'vw_alpha','f',AC_VW_ALPHA);
@@ -293,6 +302,7 @@ Class Config {
 		$data=testAndSet($data,'vw_hdrbg2','s',AC_VW_HDRBG2);
 		$data=testAndSet($data,'vw_rowcolor1','s',AC_VW_ROWCOLOR1);
 		$data=testAndSet($data,'vw_rowcolor2','s',AC_VW_ROWCOLOR2);
+		
 		// generacion de PDF's
 		$data=testAndSet($data,'pdf_topmargin','f',AC_PDF_TOPMARGIN);
 		$data=testAndSet($data,'pdf_leftmargin','f',AC_PDF_LEFTMARGIN);
@@ -303,15 +313,17 @@ Class Config {
 		$data=testAndSet($data,'pdf_rowcolor1','s',AC_PDF_ROWCOLOR1);
 		$data=testAndSet($data,'pdf_rowcolor2','s',AC_PDF_ROWCOLOR2);
 		$data=testAndSet($data,'pdf_linecolor','s',AC_PDF_LINECOLOR);
+
 		// tablet
-		$data=testAndSet($data,'tablet_beep','s',AC_TABLET_BEEP);
-		$data=testAndSet($data,'tablet_dnd','s',AC_TABLET_DND);
-		$data=testAndSet($data,'tablet_chrono','s',AC_TABLET_CHRONO);
-		$data=testAndSet($data,'tablet_next','s',AC_TABLET_NEXT);
-		// Internacionalizacion. Idiomas
+		$data['tablet_beep']=http_request('tablet_beep','s',AC_TABLET_BEEP);
+		$data['tablet_dnd']=http_request('tablet_dnd','s',AC_TABLET_DND);
+		$data['tablet_chrono']=http_request('tablet_chrono','s',AC_TABLET_CHRONO);
+		$data['tablet_next']=http_request('tablet_chrono','s',AC_TABLET_NEXT);
+		
+		// Sistema
 		$data=testAndSet($data,'lang','s',AC_LANG);
-		// logging
 		$data=testAndSet($data,'debug_level','i',AC_DEBUG_LEVEL);
+		$data['register_events']=http_request('register_events','s',AC_REGISTER_EVENTS);
 		$data=testAndSet($data,'proximity_alert','i',AC_PROXIMITY_ALERT);
 		
 		// finally write file:

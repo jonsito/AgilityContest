@@ -144,20 +144,32 @@ try {
 	$operation=http_request("Operation","s","");
 	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
 	switch ($operation) {
-		case "backup": /* $am->access(PERMS_ADMIN); */ $result=$adm->backup(); break;
-		case "restore": $am->access(PERMS_ADMIN); $result=$adm->restore(); break;
-		case "reset": $am->access(PERMS_ADMIN); $result=$adm->factoryReset(); break;
-		default: throw new Exception("adminFunctions:: invalid operation: '$operation' provided");
+		case "backup": 
+			/* $am->access(PERMS_ADMIN); */
+			$result=$adm->backup();	break;
+		case "restore":
+			$am->access(PERMS_ADMIN); $result=$adm->restore(); break;
+		case "reset":
+			$am->access(PERMS_ADMIN); $result=$adm->factoryReset();	break;
+		case "reginfo": 
+			$result=$am->getRegistrationInfo(); if ($result==null) $adm->errormsg=$am->errormsg; break;
+		case "register":
+			$am->access(PERMS_ADMIN); $result=$am->registerApp(); if ($result==null) $adm->errormsg=$am->errormsg; break;
+		case "loadConfig": 
+			$conf=Config::getInstance(); $result=$conf->loadConfig(); break;
+		case "saveConfig": 
+			$am->access(PERMS_ADMIN); $conf=Config::getInstance(); $result=$conf->saveConfig(); break;
+		case "defaultConfig": 
+			$am->access(PERMS_ADMIN); $conf=Config::getInstance(); $result=$conf->defaultConfig(); break;
+		default: 
+			throw new Exception("adminFunctions:: invalid operation: '$operation' provided");
 	}
-	if ($result===null) // error
-		throw new Exception($adm->errormsg);
-	if ($result==="") // success
-		$response= array('success'=>true); 
+	if ($result===null)	throw new Exception($adm->errormsg); // error
 	if ($result==="ok") return; // don't generate any aditional response 
-	else $response=$result;
+	if ($result==="") $result= array('success'=>true); // success
+	echo json_encode($result);
 } catch (Exception $e) {
 	do_log($e->getMessage());
-	$response = array('errorMsg'=>$e->getMessage());
-	echo json_encode($response);
+	echo json_encode(array('errorMsg'=>$e->getMessage()));
 }
 ?>
