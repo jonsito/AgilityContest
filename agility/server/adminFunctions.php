@@ -32,8 +32,8 @@ class Admin {
 	function __construct($file) {
 		// connect database
 		$this->file=$file;
-		$this->myLogger= new Logger($file);
 		$this->myConfig=Config::getInstance();
+		$this->myLogger= new Logger($file,$this->myConfig->getEnv("debug_level"));
 	}
 	
 	// FROM: https://gist.github.com/lavoiesl/9a08e399fc9832d12794

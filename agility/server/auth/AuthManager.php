@@ -37,7 +37,8 @@ class AuthManager {
 	protected $mySessionMgr;
 	
 	function __construct($file) {
-		$this->myLogger=new Logger($file,LEVEL_ERROR);
+		$config=Config::getInstance();
+		$this->myLogger=new Logger($file,$config->getEnv("debug_level"));
 		$this->mySessionMgr=new Sesiones("AuthManager");
 		/* try to retrieve session token */
 		$hdrs= getAllHeaders();
@@ -73,6 +74,70 @@ class AuthManager {
 		$obj=$this->mySessionMgr->__getObject("Usuarios",$userid);
 		if (!$obj) throw new Exception("Provided SessionKey:'$sk' gives invalid User ID: '$userid'");
 		return $obj;
+	}
+
+	function checkRegistrationInfo( $file = AC_REGINFO_FILE ) {
+		$fp=fopen (AC_PUBKEY_FILE,"rb"); $pub_key=fread ($fp,8192); fclose($fp);
+		$fp=fopen ($file,"rb"); $data=fread ($fp,8192); fclose($fp);
+		$key=openssl_get_publickey($pub_key);
+		if (!$key) { /* echo "Cannot get public key";*/	return null; }
+		$res=openssl_public_decrypt(base64_decode($data),$decrypted,$key);
+		openssl_free_key($key);
+		if ($res) return json_decode($decrypted,true);
+		return null;
+	}
+	
+	/**
+	 * Retrieve only non-critical subset of registration info stored data
+	 * @return NULL
+	 */
+	function getRegistrationInfo() {
+		// retrieve registration data
+		$ri=$this->checkRegistrationInfo();
+		$data["Version"]=$ri["version"];
+		$data["Revision"]=$ri["revision"];
+		$data["Date"]=$ri["date"];
+		$data["User"]=$ri['name'];
+		$data["Email"]=$ri['email'];
+		$data["Club"]=$ri['club'];
+		$data["Serial"]=$ri['serial'];
+		return $data;
+	}
+	
+	function registerApp() {
+		$this->myLogger->enter();
+		// extraemos los datos de registro
+		$data=http_request("Data","s",null);
+		if (!$data) return array("errorMsg" => "registerApp(): No registration data received");
+		if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
+			return array("errorMsg" => "registerApp(): Invalid received data format");
+		}
+		$type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
+		$regdata=base64_decode( $matches[2] ); // decodes received data
+		// cogemos los datos de registro y los guardamos en un fichero temporal
+		$tmpname = tempnam(sys_get_temp_dir(), 'reginfo');
+		$fd=fopen($tmpname,"w");
+		fwrite($fd,$regdata);
+		fclose($fd);
+		// comprobamos que el fichero temporal contiene datos de registro validos
+		$info=$this->checkRegistrationInfo($tmpname);
+		if (!$info) return array("errorMsg" => "registerApp(); Invalid registration data");
+		umask(002);
+		// ok: fichero de registro correcto. copiamos a su ubicacion final
+		copy(AC_REGINFO_FILE,AC_REGINFO_FILE_BACKUP);
+		rename($tmpname,AC_REGINFO_FILE);
+		// retornamos datos del nuevo registro
+		$result=array();
+		$result["Version"]=$info['version'];
+		$result["Revision"]=$info['revision'];
+		$result["Date"]=$info['date'];
+		$result["User"]=$info['name'];
+		$result["Email"]=$info['email'];
+		$result["Club"]=$info['club'];
+		$result["Serial"]=$info['serial'];
+		// $result['filename']=$tmpname;
+		$this->myLogger->leave();
+		return $result;
 	}
 	
 	/**
@@ -191,6 +256,7 @@ class AuthManager {
 	 * @return string "" on success; else error message
 	 */
 	function setPassword($id,$pass,$sk) {
+		$this->myLogger->enter();
 		$u=$this->getUserByKey($sk);
 		switch ($u->Perms) {
 			case 5:
@@ -226,7 +292,7 @@ class AuthManager {
 				return "";
 			default: throw new Exception("Internal error: invalid permission level");
 		}
-		
+		$this->myLogger->leave();
 	}
 	
 	/*

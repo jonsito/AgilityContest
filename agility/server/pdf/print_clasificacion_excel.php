@@ -212,13 +212,11 @@ class Excel {
 	}
 	
 	function composeTable($mangas,$result,$mode,$base) {
-		$this->myLogger->enter();
 		$base= $this->write_datosMangas($result,$base,$mode);
 		$base=$this->write_TableHeader( $base);
 		foreach($result['rows'] as $item) {
 			$base=$this->write_TableCell($base,$item);
 		}
-		$this->myLogger->leave();
 		return $base;
 	}
 }

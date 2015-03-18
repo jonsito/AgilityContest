@@ -60,7 +60,6 @@ class PDF extends PrintCommon {
 		$this->manga=$manga;
 		$this->resultados=$resultados;
 		$this->mode=$mode;
-		$this->myLogger= new Logger("printResultadosByManga");
 		$this->cellHeader=
 			array(_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Cat/Grado'),_('Flt.'),_('Toc.'),_('Reh.'),_('Tiempo'),_('Vel.'),_('Penal.'),_('Calificación'),_('Puesto'));
 		
