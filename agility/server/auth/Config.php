@@ -30,6 +30,7 @@ define ('AC_LANG','es_ES.UTF-8');
 
 /** logging **/
 define('AC_DEBUG_LEVEL',0);
+define('AC_REGISTER_EVENTS',"0");
 
 /** variables de la aplicacion principal **/
 define('AC_PROXIMITY_ALERT',5);
@@ -94,6 +95,7 @@ Class Config {
 
 		// version, logging y depuracion
 		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
+		$this->config['register_events'] = AC_REGISTER_EVENTS;
 		$this->config['version_name'] =	AC_VERSION_NAME;
 		$this->config['version_date'] =	AC_VERSION_DATE;
 

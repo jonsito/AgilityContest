@@ -50,6 +50,7 @@ function isTeam(tipomanga) {
     }
 }
 
+//lista de dialogos a limpiar cada vez que se recarga la pantalla
 var slaveDialogs = new Object();
 
 //musiquita para el tablet
