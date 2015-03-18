@@ -207,6 +207,9 @@ class PrintEstadisticas extends PrintCommon {
 	}
 	
 	function evalItem($jornada,&$data,$item) {
+		// do not account when undefined catetory or grade
+		if ($item['Categoria']==='-') return;
+		if ($item['Grado']==='-') return;
 		$data[$jornada]['G']['C']++;
 		$data[$jornada]['G'][$item['Categoria']]++;
 		$data[$jornada][$item['Grado']]['C']++;
