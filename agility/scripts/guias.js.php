@@ -225,7 +225,9 @@ function saveGuia(){
             if (result.errorMsg){ 
             	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {
+            	var oper=$('#guias-Operation').val();
             	// notice that onAccept() already refresh parent dialog
+            	if(result.insert_id && (oper==="insert") ) $('#guias-ID').val(result.insert_id);
                 $('#guias-dialog').dialog('close');        // close the dialog
             }
         }

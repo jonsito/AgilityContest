@@ -74,7 +74,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             newClub( 
                 $('#guias-Club').combogrid('getText'), // default name
                 function() { // what to do on accept button pressed
-                	$('#guias-Club').combogrid('setValue',$('#clubes-Nombre').val());
+                	$('#guias-Club').combogrid('reset');
                 });    
         });
         $('#guias-dialog').dialog({

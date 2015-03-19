@@ -125,7 +125,8 @@ $('#new_inscripcion-dialog').dialog({
 	resizable:false,
 	title:"<?php _e('A&ntilde;adir inscripciones a la prueba');?>: '"+workingData.datosPrueba.Nombre+"'",
 	buttons:'#new_inscripcion-buttons',
-	onOpen: newInscripcion_onOpenSuccess // on display setup jornada's 'checkboxes info
+	onOpen: newInscripcion_onOpenSuccess, // on display setup jornada's 'checkboxes info
+	onClose: function() {$('#new_inscripcion-datagrid').datagrid('unselectAll')}
 	});
 	
 // datagrid de inscripcion de participantes
