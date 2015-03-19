@@ -1,6 +1,6 @@
 -- MySQL dump 10.14  Distrib 5.5.41-MariaDB, for Linux (x86_64)
 --
--- Host: localhost    Database: agility
+-- Host: localhost    Database: agility2
 -- ------------------------------------------------------
 -- Server version	5.5.41-MariaDB
 
