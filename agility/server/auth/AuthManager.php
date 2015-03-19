@@ -227,16 +227,9 @@ class AuthManager {
 			$evtMgr->putEvent($data);
 		}
 		// That's all. Return generated result data
-		// $this->myLogger->info(json_encode($data));
+		$info=$this->getRegistrationInfo();
 		$this->myLogger->leave();
-		// add registration data
-		$config=Config::getInstance();
-		$ri=$config->getRegistrationInfo();
-		$data["VersionName"]=$config->getEnv("version_name");
-		$data["VersionDate"]=$config->getEnv("version_date");
-		$data["RegisteredUser"]=$ri['name'];
-		$data["RegisteredClub"]=$ri['club'];
-		return $data;
+		return array_merge($data,$info);
 	}
 	
 	function checkPassword($user,$pass) {
