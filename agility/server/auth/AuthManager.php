@@ -28,6 +28,12 @@ define ("PERMS_ASSISTANT",3);
 define ("PERMS_GUEST",4);
 define ("PERMS_NONE",5);
 
+// datos de registro
+define('AC_PUBKEY_FILE' , __DIR__."/AgilityContest_puk.pem");
+define('AC_REGINFO_FILE' , __DIR__."/registration.info");
+define('AC_REGINFO_FILE_BACKUP' , __DIR__."/registration.info.old");
+define('AC_REGINFO_FILE_DEFAULT' , __DIR__."/registration.info.default");
+
 class AuthManager {
 	
 	protected $myLogger;

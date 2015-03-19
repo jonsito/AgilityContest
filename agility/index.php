@@ -210,6 +210,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <li><?php _e('DOCUMENTACION'); ?>
 	<ul>
 	<li> <a target="documentacion" href="/agility/client/manual.html"><?php _e('Manual en l&iacute;nea');?></a></li>
+	<li> <a href="javascript:loadContents('/agility/client/frm_registration.php','Informaci&oacute;n de registro')">Datos de registro</a></li>
 	<li> <a href="javascript:loadContents('/agility/client/frm_about.php','<?php _e('Sobre la aplicaci&oacute;n...');?>')"><?php _e('Acerca de...');?></a></li>
 	</ul>
 </li>
