@@ -61,7 +61,7 @@ class Eventos extends DBObject {
 		}
 		$this->sessionID=$id;
 		$this->sessionFile=__DIR__."/../../../../logs/events.$id";
-		// nos aseguramos de que el fichero de sesion exista
+		// nos aseguramos de quere el fichero de sesion exista
 		if ( ! file_exists($this->sessionFile) ) touch($this->sessionFile);
 	}
 	
@@ -102,6 +102,8 @@ class Eventos extends DBObject {
 		if (boolval($flag)) {
 			$str=json_encode($data);
 			file_put_contents($this->sessionFile,$str."\n", FILE_APPEND | LOCK_EX);
+		} else {
+			touch($this->sessionFile);
 		}
 		// that's all.
 		$this->myLogger->leave();

@@ -338,6 +338,7 @@ class OrdenTandas extends DBObject {
 		$count=$pendientes;
 		$rows=array();
 		$oldmanga=0;
+		$manga=0;
 		$ordenmanga=null;
 		$perrosmanga=null;
 		$inloop=0;
