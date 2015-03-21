@@ -98,9 +98,13 @@ class Eventos extends DBObject {
 		// and save content to event file
 		$cfg=Config::getInstance();
 		$flag=$cfg->getEnv("register_events");
+		$str=json_encode($data);
 		if (boolval($flag)) {
-			$str=json_encode($data);
 			file_put_contents($this->sessionFile,$str."\n", FILE_APPEND | LOCK_EX);
+		} else {
+			// notice that touch doesn't work in SSD devices with 'no_atime' mount flag
+			// do not add contents, just replace
+			file_put_contents($this->sessionFile,$str."\n", LOCK_EX);
 		}
 		
 		// that's all.
