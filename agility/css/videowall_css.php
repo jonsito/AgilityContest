@@ -112,6 +112,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     width: 50px;
 	font-size: 30px;
 }
+.vwc_logo {
+	width: 50px;
+}
 .vwc_nombre {
     width: 200px;
 	font-size: 20px;
@@ -162,7 +165,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 /* subtabla de participantes en resultados parciales */
 .vwc_trparticipantes {
-	width: 350px;
+	width: 250px;
 	text-align: left;
 	font-weight: bold;
 }

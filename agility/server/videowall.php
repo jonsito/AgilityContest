@@ -223,7 +223,7 @@ class VideoWall {
 									background:url(\'/agility/images/logos/'.$logo.'\')no-repeat;
 									background-size:contain;
 									background-position:center;
-									font-size:600%">&nbsp;</div>
+									font-size:400%">&nbsp;</div>
 					</td>
 					<td class="vwc_callEntry vwc_callDatos">
 						Dorsal: '.$participante['Dorsal'].'<br />
@@ -307,7 +307,15 @@ class VideoWall {
 			echo '
 				<tr id="Resultado_'.$numero.'" style="background:'.$bg.'">
 					<td class="vwc_puesto">'.$resultado['Puesto'].'</td>
-					<td><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'" width="50" height="50"/></td>
+					<td class="vwc_logo">
+						<!-- trick to insert a resizeable image: use div+bgimage instead of img tag -->
+						<div style="height=100%;
+									position:relative;
+									background:url(\'/agility/images/logos/'.$logo.'\')no-repeat;
+									background-size:contain;
+									background-position:center;
+									font-size:400%">&nbsp;</div>
+					</td>
 					<td colspan="3">
 						<table class="vwc_trparticipantes">
 							<tr>
