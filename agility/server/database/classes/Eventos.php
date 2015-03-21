@@ -103,7 +103,9 @@ class Eventos extends DBObject {
 			$str=json_encode($data);
 			file_put_contents($this->sessionFile,$str."\n", FILE_APPEND | LOCK_EX);
 		} else {
-			touch($this->sessionFile);
+			// as touch() doesn't work if "no_atime" flag is enabled (SSD devices)
+			// just overwrite event file with last event
+			file_put_contents($this->sessionFile,$str."\n",LOCK_EX);
 		}
 		// that's all.
 		$this->myLogger->leave();
