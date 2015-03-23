@@ -49,6 +49,7 @@ function tablet_putEvent(type,data){
 			'Manga':	$('#tdialog-Manga').val(),
 			'Tanda':	$('#tdialog-ID').val(),
 			'Perro':	$('#tdialog-Perro').val(),
+			'Dorsal':	$('#tdialog-Dorsal').val(),
 			'Celo':		$('#tdialog-Celo').val()	
 	};
 	// send "update" event to every session listeners
@@ -118,7 +119,7 @@ function tablet_add(val) {
 	}
 	$('#tdialog-Tiempo').val(''+str+val);
 	tablet_updateResultados(1);
-	// dont send time event
+	// dont send event
 	return false;
 }
 
@@ -128,7 +129,7 @@ function tablet_dot() {
 	if (str.indexOf('.')>=0) return;
 	tablet_add('.');
 	tablet_updateResultados(1);
-	// dont send time event
+	// dont send  event
 	return false;
 }
 
@@ -138,7 +139,7 @@ function tablet_del() {
 	if (str==='') return;
 	$('#tdialog-Tiempo').val(str.substring(0, str.length-1));
 	tablet_updateResultados(1);
-	// dont send time event
+	// dont send event
 	return false;
 }
 

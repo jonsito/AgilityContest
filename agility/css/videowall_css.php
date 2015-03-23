@@ -85,7 +85,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .vwc_callNumero { /* numero de orden de llamada a pista */
 	width:10%;
 	text-align:center;
-	font-size:350%;
+	font-size:300%;
 	font-style:none;
 }
 .vwc_callLogo { /* Logo (tiene tratamiento especial en videowall.php */
@@ -93,18 +93,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 .vwc_callDatos { /* datos del participante */
 	width:15%;
-	font-size:100%;
+	font-size:75%;
 	padding-left:5px;
 }
 .vwc_callGuiaClub { /* nombre del guia y del club */
 	width:25%;
-	font-size:100%;
+	font-size:75%;
 	padding-left:5px;
 }
 .vwc_callNombre { /* nombre del perro */
 	width:40%;
 	text-align:center;
-	font-size:350%
+	font-size:300%
 }
 
 /*********** elementos individuales de la tabla de resultados parciales */

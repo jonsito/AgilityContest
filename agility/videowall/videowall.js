@@ -15,6 +15,30 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+
+function parseEvent(data) {
+	var response= eval('(' + data + ')' );
+	// si subconsulta expande
+	if ( typeof(response.Data)==="undefined") {
+		response.Prueba=response.Pru;
+		response.Jornada=response.Jor;
+		response.Manga=response.Mng;
+		response.Tanda=response.Tnd;
+		response.Perro=response.Dog;
+		response.Dorsal=response.Drs;
+		response.Celo=response.Hot;
+		response.Faltas=response.Flt;
+		response.Tocados=response.Toc;
+		response.Rehuses=response.Reh;
+		response.NoPresentado=response.NPr;
+		response.Eliminado=response.Eli;
+		response.Tiempo=response.Tim;
+		response.Value=response.Val;
+	}
+	// alert(JSON.stringify(response));
+	return response; 
+}
+
 /** 
  * Call "connect" to retrieve last "open" event for provided session ID
  * fill working data with received info
@@ -35,7 +59,7 @@ function startEventMgr(sesID,callback) {
 		async: true,
 		cache: false,
 		success: function(data){
-			var response= eval('(' + data + ')' );
+			var response= parseEvent(data);
 			if ( response['total']!=0) {
 				var row=response['rows'][0];
 				var evtID=row['ID'];
@@ -65,7 +89,7 @@ function waitForEvents(sesID,evtID,timestamp,callback){
 		async: true,
 		cache: false,
 		success: function(data){
-			var response= eval('(' + data + ')' );
+			var response= parseEvent(data);
 			var timestamp= response['TimeStamp'];
 			$.each(response['rows'],function(key,value){
 				evtID=value['ID']; // store last evt id
@@ -243,7 +267,7 @@ function vwos_updateOrdenSalida(data) {
 }
 
 function vwc_processCombinada(id,evt) {
-	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
+	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id;
 	switch (event['Type']) {
 	case 'null':		// null event: no action taken
@@ -293,7 +317,7 @@ function vwc_processCombinada(id,evt) {
 }
 
 function vwls_processLiveStream(id,evt) {
-	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
+	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id;
 	switch (event['Type']) {
 	case 'null':		// null event: no action taken
@@ -338,7 +362,7 @@ function vwls_processLiveStream(id,evt) {
 }
 
 function vw_processLlamada(id,evt) {
-	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
+	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id;
 	switch (event['Type']) {
 	case 'null': // null event: no action taken
@@ -372,7 +396,7 @@ function vw_processLlamada(id,evt) {
 }
 
 function vw_processParciales(id,evt) {
-	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
+	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id;
 	switch (event['Type']) {
 	case 'null': // null event: no action taken
@@ -420,10 +444,10 @@ function vwi_procesaInscripciones() {
 		async: true,
 		cache: false,
 		success: function(data){
-			var response= eval('(' + data + ')' );
+			var response= parseEvent(data);
 			if ( response['total']!=0) {
 				var row=response['rows'][0];
-				var info= eval('(' + row.Data + ')' );
+				var info= parseEvent(row.Data);
 				vwi_updateInscripciones(info);
 			}
 		},
@@ -450,10 +474,10 @@ function vwos_procesaOrdenSalida() {
 		async: true,
 		cache: false,
 		success: function(data){
-			var response= eval('(' + data + ')' );
+			var response= parseEvent(data);
 			if ( response['total']!=0) {
 				var row=response['rows'][0];
-				var info= eval('(' + row.Data + ')' );
+				var info= parseEvent(row.Data);
 				vwos_updateOrdenSalida(info);
 			}
 		},

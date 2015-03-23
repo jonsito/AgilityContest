@@ -226,7 +226,31 @@ class AuthManager {
 			$this->mySessionMgr->update($sid,$data);
 			// and fire 'login' event
 			$evtMgr=new Eventos("AuthManager",$sid);
-			$evtMgr->putEvent($data);
+			$event=array(
+					// datos identificativos del evento
+					"ID" => 0, 							// Event ID
+					"Session" => $sid,  				// Session (Ring) ID
+					"TimeStamp" => $data['TimeStamp'],	// TimeStamp - event time
+					"Type" => $data['Type'], 			// Event Type
+					"Source" => $data['Source'],		// Event Source
+					// datos asociados al contenido del evento
+					"Pru" => $data['Prueba'],	// Prueba,
+					"Jor" => $data['Jornada'],	// Jornada,
+					"Mng" => $data['Manga'],	// Manga,
+					"Tnd" => $data['Tanda'],	// Tanda,
+					"Dog" => $data['Perro'],	// Perro,
+					"Drs" => 0,					// Dorsal,
+					"Hot" => 0,					// Celo,
+					"Flt" => -1,				// Faltas,
+					"Toc" => -1,				// Tocados,
+					"Reh" => -1,				// Rehuses,
+					"NPr" => -1,				// NoPresentado,
+					"Eli" => -1,				// Eliminado,
+					"Tim" => -1,				// Tiempo,
+					// marca de tiempo en los eventos de crono
+					"Value" => 0				// Value
+			);
+			$evtMgr->putEvent($event);
 		}
 		// That's all. Return generated result data
 		// $this->myLogger->info(json_encode($data));

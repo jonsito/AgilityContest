@@ -124,7 +124,6 @@ class Sesiones extends DBObject {
 		if (isset($data['LiveStream2']))$sql .=", LiveStream2='{$data['LiveStream2']}' ";
 		if (isset($data['LiveStream3']))$sql .=", LiveStream3='{$data['LiveStream3']}' ";
 		$sql .= "WHERE (ID=$id);";
-		$this->myLogger->trace("Sesiones::update() query string:\n$sql");
 		$res= $this->query($sql);
 		if (!$res) return $this->error($this->conn->error);
 		$this->myLogger->leave();
