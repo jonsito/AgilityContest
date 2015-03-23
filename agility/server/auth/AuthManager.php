@@ -222,6 +222,7 @@ class AuthManager {
 			unset($data['Nombre']); // to avoid override Session Name
 			// TODO: check and alert on busy session ID
 			// else join to declared session
+			$data['SessionID']=$sid;
 			$this->mySessionMgr->update($sid,$data);
 			// and fire 'login' event
 			$evtMgr=new Eventos("AuthManager",$sid);

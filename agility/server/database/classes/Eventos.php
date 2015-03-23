@@ -99,8 +99,8 @@ class Eventos extends DBObject {
 		// and save content to event file
 		$cfg=Config::getInstance();
 		$flag=$cfg->getEnv("register_events");
+		$str=json_encode($data);
 		if (boolval($flag)) {
-			$str=json_encode($data);
 			file_put_contents($this->sessionFile,$str."\n", FILE_APPEND | LOCK_EX);
 		} else {
 			// as touch() doesn't work if "no_atime" flag is enabled (SSD devices)

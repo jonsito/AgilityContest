@@ -231,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `Source` varchar(255) NOT NULL,
   `Type` varchar(255) NOT NULL,
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Data` varchar(255) NOT NULL DEFAULT ''
+  `Data` TEXT NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
