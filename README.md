@@ -13,7 +13,7 @@ Features:
 - Definable User/roles (guest,assistant,operator,admin)*
 - Complete web-based DB management (handlers, dogs, clubs, and so )
 - On-line results entering with judge assistant WIFI tablet support
-- Persistent (lineprinter) event registering for juzge revision*
+- Persistent (lineprinter) event registering for judge revision*
 - RealTime VideoWall info panels (needs Ethernet/WIFI connection)
 - Support for external chrono events (needs extra hardware)*
 - Guest access from phones/tablet (with proper WIFI support)

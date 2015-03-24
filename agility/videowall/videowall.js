@@ -18,6 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 function parseEvent(data) {
 	var response= eval('(' + data + ')' );
+	console.log(JSON.stringify(response));
 	// si subconsulta expande
 	if ( typeof(response.Data)==="undefined") {
 		response.Prueba=response.Pru;
@@ -35,7 +36,6 @@ function parseEvent(data) {
 		response.Tiempo=response.Tim;
 		response.Value=response.Val;
 	}
-	// alert(JSON.stringify(response));
 	return response; 
 }
 
@@ -268,7 +268,7 @@ function vwos_updateOrdenSalida(data) {
 
 function vwc_processCombinada(id,evt) {
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
-	event['ID']=id;
+	event['ID']=id; // fix real id on stored eventData
 	switch (event['Type']) {
 	case 'null':		// null event: no action taken
 		return; 
@@ -318,7 +318,7 @@ function vwc_processCombinada(id,evt) {
 
 function vwls_processLiveStream(id,evt) {
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
-	event['ID']=id;
+	event['ID']=id; // fix real id on stored eventData
 	switch (event['Type']) {
 	case 'null':		// null event: no action taken
 		return; 
@@ -351,7 +351,7 @@ function vwls_processLiveStream(id,evt) {
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':		// operador pulsa aceptar
 		vwls_cronoManual('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
-		vwls_showData(event); // actualiza pantall liveStream
+		// vwls_showData(event); // actualiza pantall liveStream
 		return;
 	case 'cancelar':	// operador pulsa cancelar
 		vwls_cronoManual('stop',event['Value']);
@@ -363,7 +363,7 @@ function vwls_processLiveStream(id,evt) {
 
 function vw_processLlamada(id,evt) {
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
-	event['ID']=id;
+	event['ID']=id; // fix real id on stored eventData
 	switch (event['Type']) {
 	case 'null': // null event: no action taken
 		return; 
@@ -397,7 +397,7 @@ function vw_processLlamada(id,evt) {
 
 function vw_processParciales(id,evt) {
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
-	event['ID']=id;
+	event['ID']=id; // fix real id on stored eventData
 	switch (event['Type']) {
 	case 'null': // null event: no action taken
 		return; 

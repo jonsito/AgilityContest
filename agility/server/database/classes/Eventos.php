@@ -18,8 +18,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once(__DIR__."/../../auth/Config.php");
 
-// How often to poll, in microseconds (1,000,000 μs equals 1 s)
-define('EVENT_POLL_MICROSECONDS', 500000);
+// How often to poll, in micro-seconds
+define('EVENT_POLL_MICROSECONDS', 500000); 
 // How long to keep the Long Poll open, in seconds
 define('EVENT_TIMEOUT_SECONDS', 30);
 // Timeout padding in seconds, to avoid a premature timeout in case the last call in the loop is taking a while
@@ -132,7 +132,7 @@ class Eventos extends DBObject {
 		// retrieve timestamp from file and request
 		$current=filemtime($this->sessionFile);
 		$last=$data['TimeStamp'];
-		
+		$this->myLogger->info("Last timestamp is $last");
 		// Counter to manually keep track of time elapsed 
 		// (PHP's set_time_limit() is unrealiable while sleeping)
 		$counter = EVENT_TIMEOUT_SECONDS;
@@ -144,7 +144,7 @@ class Eventos extends DBObject {
 			if ( $current > $last ) {
 				// new data has arrived: get it
 				$res=$this->listEvents($data);
-				if ( is_array($res)) $res['TimeStamp']=$current; // data received: store timestamp in response
+				if ( is_array($res) ) $res['TimeStamp']=$current; // data received: store timestamp in response
 				break;
 			}
 			// Otherwise, sleep for the specified time, after which the loop runs again
