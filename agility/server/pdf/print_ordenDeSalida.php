@@ -105,7 +105,7 @@ class PDF extends PrintCommon {
 	function printTeamInformation($team) {
 		$this->ac_header(2,8);
 		$nombre=$this->teams[$team]['Nombre'];
-		$this->Cell(185,6,_("Equipo").": $nombre",'LTBR',0,'L',true);
+		$this->Cell(189,6,_("Equipo").": $nombre",'LTBR',0,'L',true);
 		$this->Ln();
 	}
 	

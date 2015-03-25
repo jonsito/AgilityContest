@@ -150,8 +150,8 @@ class PrintCommon extends FPDF {
 		$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
 		$tmanga= Mangas::$tipo_manga[$manga->Tipo][1];
 		$str2 = "$tmanga - $categoria";
-		$this->Cell(90,9,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
-		$this->Cell(90,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
+		$this->Cell(95,9,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
+		$this->Cell(95,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
 		$this->Ln(9);
 	}
 	
