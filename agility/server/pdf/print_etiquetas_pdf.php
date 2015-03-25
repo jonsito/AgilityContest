@@ -61,8 +61,6 @@ class Etiquetas_PDF extends PrintCommon {
 	 */
 	function __construct($prueba,$jornada,$mangas) {
 		parent::__construct('Portrait',$prueba,$jornada);
-		$this->myLogger= new Logger("print_etiquetas_pdf");
-		$this->config=Config::getInstance();
 		$dbobj=new DBObject("print_etiquetas_pdf");
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
@@ -145,18 +143,18 @@ class Etiquetas_PDF extends PrintCommon {
 		$this->Cell(17,8,$row['P2'],'L',0,'C',false);
 		//Calif1 (134,y,25,8) right
 		$this->SetXY($left+124,$y1); 
-		$this->Cell(25,7,$row['C1'],'LB',0,'C',false);
+		$this->Cell(24,7,$row['C1'],'LB',0,'C',false);
 		//Calif2 (134,y+8,25,9) right
 		$this->SetXY($left+124,$y8); 
-		$this->Cell(25,8,$row['C2'],'L',0,'C',false);
+		$this->Cell(24,8,$row['C2'],'L',0,'C',false);
 		
 		$this->SetFont('Arial','',10); // font size for results data
 		//Puesto1 (159,y,15,8) center
-		$this->SetXY($left+149,$y1); 
-		$this->Cell(15,7,"{$row['Puesto1']}º / ${row['Participantes']}",'LBR',0,'C',false);
+		$this->SetXY($left+148,$y1); 
+		$this->Cell(13,7,"{$row['Puesto1']}º / ${row['Participantes']}",'LBR',0,'C',false);
 		//Puesto2 (159,y+8,15,9) center
-		$this->SetXY($left+149,$y8); 
-		$this->Cell(15,8,"{$row['Puesto2']}º / ${row['Participantes']}",'LR',0,'C',false);
+		$this->SetXY($left+148,$y8); 
+		$this->Cell(13,8,"{$row['Puesto2']}º / ${row['Participantes']}",'LR',0,'C',false);
 		
 		// linea al final
 		$this->Line($left,$ynext,$left+190,$ynext);
@@ -164,9 +162,9 @@ class Etiquetas_PDF extends PrintCommon {
 		// en el margen izquierdo de las etiquetas
 		// ponemos info de perro guia y club
 		$this->SetFont('Arial','B',10); // font size for results data
-		$this->SetXY($left+165,$y1);
+		$this->SetXY($left+170,$y1);
 		$this->Cell(25,5,$row['Nombre'],'',0,'L',false);
-		$this->SetXY($left+165,$y5);
+		$this->SetXY($left+170,$y5);
 		$this->Cell(25,5,$row['NombreGuia'],'',0,'L',false);
 		$this->SetXY($left+165,$y9);
 		$this->Cell(25,5,$row['NombreClub'],'',0,'L',false);
