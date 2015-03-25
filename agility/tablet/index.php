@@ -4,6 +4,11 @@ header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 $config =Config::getInstance();
+
+/* check for properly installed xampp */
+if( ! function_exists('openssl_get_publickey')) {
+	die("Invalid configuration: please uncomment line 'module=php_openssl.dll' in file '\\xampp\\php\\php.ini'");
+}
 ?>
 <!DOCTYPE html>
 <html>
