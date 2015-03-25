@@ -15,8 +15,6 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
-
 function tandasStyler(val,row,idx) {
 	var str="text-align:left; ";
 	str += "font-weight:bold; ";
@@ -51,6 +49,7 @@ function tablet_putEvent(type,data){
 			'Manga':	$('#tdialog-Manga').val(),
 			'Tanda':	$('#tdialog-ID').val(),
 			'Perro':	$('#tdialog-Perro').val(),
+			'Dorsal':	$('#tdialog-Dorsal').val(),
 			'Celo':		$('#tdialog-Celo').val()	
 	};
 	// send "update" event to every session listeners

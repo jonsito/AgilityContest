@@ -19,7 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 include_once(__DIR__."/tablet_entradadatos.inc");
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
-$config =Config::getInstance()
+$config =Config::getInstance();
 ?>
 		
 <div id="tablet-window" style="margin:0px;padding:0px">
@@ -111,7 +111,7 @@ function tablet_showPerrosByTanda(index,row){
 	        Sesion: row.Sesion,
 	        ID:row.ID
 	    },
-	    loadMsg: "Actualizando orden de salida ...",
+	    loadMsg: _("Actualizando orden de salida ..."),
 	    pagination: false,
 	    rownumbers: true,
 	    fitColumns: true,
@@ -169,8 +169,7 @@ function tablet_showPerrosByTanda(index,row){
 			$(mySelf).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 		}
 <?php } ?>
-    	}
-		,
+    	},
         onDragEnter: function(dst,src) {
             if (dst.Manga!=src.Manga) return false;
             if (dst.Categoria!=src.Categoria) return false;

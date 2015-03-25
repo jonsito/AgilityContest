@@ -17,7 +17,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
-$config =Config::getInstance()
+$config =Config::getInstance();
 ?>
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
 <div id="tdialog-window">
@@ -180,18 +180,18 @@ $config =Config::getInstance()
     doLayout(dg,"#tdialog-Dot",				75,		125,	20,		15	);
     doLayout(dg,"#tdialog-DorsalLbl",		50,		31,		15,		8	);
     doLayout(dg,"#tdialog-Dorsal",			65,		31,		35,		8	);
-    doLayout(dg,"#tdialog-NombreLbl",		100,	31,		15,		8	);
-    doLayout(dg,"#tdialog-Nombre",			115,	31,		45,		8	);
+    doLayout(dg,"#tdialog-NombreLbl",		120,	31,		20,		8	);
+    doLayout(dg,"#tdialog-Nombre",			140,	31,		25,		8	);
     doLayout(dg,"#tdialog-GuiaLbl",			50,		39,		15,		8	);
-    doLayout(dg,"#tdialog-Guia",			65,		39,		35,		8	);
-    doLayout(dg,"#tdialog-ClubLbl",			100,	39,		15,		8	);
-    doLayout(dg,"#tdialog-Club",			115,	39,		45,		8	);
+    doLayout(dg,"#tdialog-Guia",			65,		39,		40,		8	);
+    doLayout(dg,"#tdialog-ClubLbl",			120,	39,		20,		8	);
+    doLayout(dg,"#tdialog-Club",			140,	39,		25,		8	);
     doLayout(dg,"#tdialog-CategoriaLbl",	50,		47,		15,		8	);
     doLayout(dg,"#tdialog-Categoria",		65,		47,		20,		8	);
     doLayout(dg,"#tdialog-GradoLbl",		90,		47,		15,		8	);
     doLayout(dg,"#tdialog-Grado",			105,	47,		20,		8	);
-    doLayout(dg,"#tdialog-CeloLbl",			140,	47,		10,		8	);
-    doLayout(dg,"#tdialog-Celo",			150,	47,		10,		8	);
+    doLayout(dg,"#tdialog-CeloLbl",			120,	47,		20,		8	);
+    doLayout(dg,"#tdialog-Celo",			140,	47,		15,		8	);
     doLayout(dg,"#tdialog-FaltasLbl",		50,		70,		10,		5	);
     doLayout(dg,"#tdialog-Faltas",			50,		55,		10,		15	);
     doLayout(dg,"#tdialog-TocadosLbl",		65,		70,		10,		5	);
