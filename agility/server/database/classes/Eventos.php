@@ -132,20 +132,30 @@ class Eventos extends DBObject {
 		// retrieve timestamp from file and request
 		$current=filemtime($this->sessionFile);
 		$last=$data['TimeStamp'];
+		// $this->myLogger->info("Last timestamp is $last");
 		
 		// Counter to manually keep track of time elapsed 
 		// (PHP's set_time_limit() is unrealiable while sleeping)
-		$counter = EVENT_TIMEOUT_SECONDS;
+		$counter = 0;
 		$res=null;
 		
 		// Poll for messages and hang if nothing is found, until the timeout is exhausted
-		while($counter > 0)	{
+		while($counter < EVENT_TIMEOUT_SECONDS ) {
 			// $this->myLogger->info("filemtime:$current lastquery:$last" );
 			if ( $current > $last ) {
 				// new data has arrived: get it
 				$res=$this->listEvents($data);
-				if ( is_array($res)) $res['TimeStamp']=$current; // data received: store timestamp in response
+				if ( is_array($res) ) $res['TimeStamp']=$current; // data received: store timestamp in response
 				break;
+			}
+			if ( ($current==$last) && ( $counter<1 ) ){
+				// poll at least first second to make sure no new data is available
+				// new data has arrived: get it
+				$res=$this->listEvents($data);
+				if ( is_array($res) && ($res['total']!=0) ) {
+					$res['TimeStamp']=$current; // data received: store timestamp in response
+					break;
+				}
 			}
 			// Otherwise, sleep for the specified time, after which the loop runs again
 			usleep(EVENT_POLL_MICROSECONDS);
@@ -153,7 +163,7 @@ class Eventos extends DBObject {
 			clearstatcache();
 			$current =filemtime($this->sessionFile);
 			// Decrement seconds from counter (the interval was set in μs, see above)
-			$counter -= EVENT_POLL_MICROSECONDS / 1000000;
+			$counter += EVENT_POLL_MICROSECONDS / 1000000;
 		}
 		// if no new events (timeout) create an empty result
 		if ($res===null) $res=array( 'total'=>0, 'rows'=>array(), 'TimeStamp' => $current );

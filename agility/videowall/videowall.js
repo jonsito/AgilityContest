@@ -14,6 +14,29 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+ 
+function parseEvent(data) {
+	var response= eval('(' + data + ')' );
+	console.log(JSON.stringify(response));
+	// si subconsulta expande
+	if ( typeof(response.Data)==="undefined") {
+		response.Prueba=response.Pru;
+		response.Jornada=response.Jor;
+		response.Manga=response.Mng;
+		response.Tanda=response.Tnd;
+		response.Perro=response.Dog;
+		response.Dorsal=response.Drs;
+		response.Celo=response.Hot;
+		response.Faltas=response.Flt;
+		response.Tocados=response.Toc;
+		response.Rehuses=response.Reh;
+		response.NoPresentado=response.NPr;
+		response.Eliminado=response.Eli;
+		response.Tiempo=response.Tim;
+		response.Value=response.Val;
+	}
+	return response; 
+}
 
 /** 
  * Call "connect" to retrieve last "open" event for provided session ID
@@ -35,7 +58,7 @@ function startEventMgr(sesID,callback) {
 		async: true,
 		cache: false,
 		success: function(data){
-			var response= eval('(' + data + ')' );
+			var response= parseEvent(data);
 			if ( response['total']!=0) {
 				var row=response['rows'][0];
 				var evtID=row['ID'];
@@ -65,7 +88,7 @@ function waitForEvents(sesID,evtID,timestamp,callback){
 		async: true,
 		cache: false,
 		success: function(data){
-			var response= eval('(' + data + ')' );
+			var response= parseEvent(data);
 			var timestamp= response['TimeStamp'];
 			$.each(response['rows'],function(key,value){
 				evtID=value['ID']; // store last evt id
@@ -218,8 +241,8 @@ function vwos_updateOrdenSalida(data) {
 }
 
 function vwc_processCombinada(id,evt) {
-	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
-	event['ID']=id;
+	var event=parseEvent(evt); // remember that event was coded in DB as an string
+	event['ID']=id; // fix real id on stored eventData
 	switch (event['Type']) {
 	case 'null':		// null event: no action taken
 		return; 
@@ -268,8 +291,8 @@ function vwc_processCombinada(id,evt) {
 }
 
 function vwls_processLiveStream(id,evt) {
-	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
-	event['ID']=id;
+	var event=parseEvent(evt); // remember that event was coded in DB as an string
+	event['ID']=id; // fix real id on stored eventData
 	switch (event['Type']) {
 	case 'null':		// null event: no action taken
 		return; 
@@ -302,7 +325,7 @@ function vwls_processLiveStream(id,evt) {
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':		// operador pulsa aceptar
 		vwls_cronoManual('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
-		vwls_showData(event); // actualiza pantall liveStream
+		// vwls_showData(event); // actualiza pantall liveStream
 		return;
 	case 'cancelar':	// operador pulsa cancelar
 		vwls_cronoManual('stop',event['Value']);
@@ -313,8 +336,8 @@ function vwls_processLiveStream(id,evt) {
 }
 
 function vw_processLlamada(id,evt) {
-	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
-	event['ID']=id;
+	var event=parseEvent(evt); // remember that event was coded in DB as an string
+	event['ID']=id; // fix real id on stored eventData
 	switch (event['Type']) {
 	case 'null': // null event: no action taken
 		return; 
@@ -347,8 +370,8 @@ function vw_processLlamada(id,evt) {
 }
 
 function vw_processParciales(id,evt) {
-	var event=eval('('+evt+')'); // remember that event was coded in DB as an string
-	event['ID']=id;
+	var event=parseEvent(evt); // remember that event was coded in DB as an string
+	event['ID']=id; // fix real id on stored eventData
 	switch (event['Type']) {
 	case 'null': // null event: no action taken
 		return; 
@@ -395,10 +418,10 @@ function vwos_procesaOrdenSalida() {
 		async: true,
 		cache: false,
 		success: function(data){
-			var response= eval('(' + data + ')' );
+			var response= parseEvent(data);
 			if ( response['total']!=0) {
 				var row=response['rows'][0];
-				var info= eval('(' + row.Data + ')' );
+				var info= parseEvent(row.Data);
 				vwos_updateOrdenSalida(info);
 			}
 		},
