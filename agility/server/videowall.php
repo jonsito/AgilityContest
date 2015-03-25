@@ -38,6 +38,11 @@ class VideoWall {
 	protected $tandatype;
 	protected $mode;
 	
+	private function getDefaultLogo() {
+			$fed=new Federation($this->prueba['RSCE']);
+			return $fed->getLogo();
+	}
+	
 	function __construct($sessionid,$pruebaid,$jornadaid,$mangaid,$tandatype,$mode) {
 		$this->config=Config::getInstance();
 		$this->myLogger=new Logger("VideoWall.php",$this->config->getEnv("debug_level"));
@@ -101,7 +106,7 @@ class VideoWall {
 			}
 			$numero++;
 			$logo=$otmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
-			if ($logo==="") $logo='rsce.png';
+			if ($logo==="") $logo=$this->getDefaultLogo();
 			$celo=($participante['Celo']==='1')?'Si':'No';
 			$bg=$this->getBackground($numero);
 			echo '
@@ -225,10 +230,19 @@ class VideoWall {
 			$numero++;
 			$bg=$this->getBackground($numero);
 			$logo=$resmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$resultado['Perro']})")['Logo'];
-			if ($logo==="") $logo='rsce.png';
+			if ($logo==="") $logo=$this->getDefaultLogo();
 			echo '
 				<tr id="Resultado_'.$numero.'" style="background:'.$bg.'">
-					<td><img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'" width="50" height="50"/></td>
+					<td class="vwc_logo">
+						<!-- trick to insert a resizeable image: use div+bgimage instead of img tag -->
+							<div style="height=100%;
+								position:relative;
+								background:url(\'/agility/images/logos/'.$logo.'\')no-repeat;
+								background-size:contain;
+								background-position:center;
+								font-size:400%">&nbsp;
+							</div>
+					</td>
 					<td colspan="2" class="vwc_nombre">'.$resultado['Nombre'].'</td>
 					<td colspan="3">
 						<table class="vwc_trparticipantes">
@@ -282,12 +296,15 @@ class VideoWall {
 				$fila=0;
 				// evaluamos logo
 				$logo=$imgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$i['Perro']})")['Logo'];
-				if ($logo==="") $logo='rsce.png';
+				if ($logo==="") $logo=$this->getDefaultLogo();
 				// pintamos cabecera	
 				echo '<tr><td colspan="6"><hr /></td></tr>';
 				echo "<tr id=\"Club_$club\">";
-				echo "<td colspan=\"1\" style=\"width:10%\" rowspan=\"2\">";
-				echo '	<img src="/agility/images/logos/'.$logo.'" alt="'.$logo.'" width="75" height="75"/>';
+				echo "<td colspan=\"1\" style=\"width:10%\" rowspan=\"2\" class=\"vwc_callEntry vwc_callLogo\">";
+				echo "<!-- trick to insert a resizeable image: use div+bgimage instead of img tag -->";
+				echo "<div style=\"height=100%; position:relative;background:url(\'/agility/images/logos/'.$logo.'\')no-repeat;background-size:contain;background-position:center;font-size:600%\">";
+				echo "&nbsp";
+				echo "</div>";
 				echo "</td>";
 				echo '<td colspan="5" class="vwi_club">'.$i['NombreClub'].'</td>';
 				echo "</tr>";
@@ -332,7 +349,7 @@ class VideoWall {
 			}
 			$numero++;
 			$logo=$osmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
-			if ($logo==="") $logo='rsce.png';
+			if ($logo==="") $logo=$this->getDefaultLogo();
 			$celo=($participante['Celo']==='1')?'Si':'No';
 			$pcolor=($participante['Pendiente']==0)?"#000000":"#FF0000"; // foreground color=red if pendiente
 			$bg=$this->getBackground($numero);
@@ -346,7 +363,8 @@ class VideoWall {
 									background:url(\'/agility/images/logos/'.$logo.'\')no-repeat;
 									background-size:contain;
 									background-position:center;
-									font-size:600%">&nbsp;</div>
+									font-size:600%">&nbsp;
+						</div>
 					</td>
 					<td class="vwc_callEntry vwc_callDatos">
 						Dorsal: '.$participante['Dorsal'].'<br />
