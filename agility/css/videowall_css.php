@@ -24,6 +24,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 /**** estilos asociados al panel "LiveStream" */
+/* font-size depende de si el livestream es combinado o autonomo */
 #vwls_common {
 	vertical-align: middle;
 	line-height: 25px;
@@ -52,7 +53,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .vwls_fondo {
     background-color: rgba(127,127,127,<?php echo $config->getEnv('vw_alpha')?>);
     border: 3px solid black;
-    border-radius: 25px;
+    border-radius: 10px;
 }
 
 #vwls_video {

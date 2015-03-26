@@ -22,14 +22,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false,resizable:true">
 		<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
 		<video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
-		   	poster="/agility/server/getRandomImage.php">
-    		<source src="/agility/videos/null.mp4" type='video/mp4; codecs="avc1,mp4a"' />
+			poster="http://guest:@192.168.122.168/videostream.cgi">
+			<!-- /agility/server/getRandomImage.php -->
     		<!-- ogv se ve muy mal en firefox
-    		<source src="/agility/videos/sample_video.ogv" type='video/ogg; codecs="theora,vorbis"' />
-    		<source src="/agility/videos/sample_video.webm" type='video/webm; codecs="vp8,vorbis"' />
+    			<source src="/agility/videos/sample_video.mp4" type='video/mp4; codecs="avc1,mp4a"' />
+    			<source src="/agility/videos/sample_video.ogv" type='video/ogg; codecs="theora,vorbis"' />
+    			<source src="/agility/videos/sample_video.webm" type='video/webm; codecs="vp8,vorbis"' />
     		-->
     	</video> 
-		<div id="vwls_common">
+		<div id="vwls_common" style="font-size:1.75em;display:inline-block;width:100%">
 			<!-- Recuadros de decoracion -->
 			<span class="vwls_fondo" id="vwls_Resultados">&nbsp;</span>
 			<span class="vwls_fondo" id="vwls_Datos">&nbsp;</span>
@@ -38,7 +39,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span class="vwls_data"  id="vwls_Faltas">0</span>
 			<span class="vwls_label" id="vwls_TocadosLbl">Tocados:</span>
 			<span class="vwls_data"  id="vwls_Tocados">0</span>
-			<span class="vwls_label" id="vwls_RehusesLbl">Rehuses:</span>
+			<span class="vwls_label" id="vwls_RehusesLbl">Reh&uacute;ses:</span>
 			<span class="vwls_data"  id="vwls_Rehuses">0</span>
 			<span class="vwls_label" id="vwls_TiempoLbl">Tiempo:</span>
 			<span class="vwls_data"  id="vwls_Tiempo">00.00</span>
@@ -47,9 +48,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<img id="vwls_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="vwls_logo"/>
 			<span class="vwls_label" id="vwls_Dorsal">Dorsal</span>
 			<span class="vwls_label" id="vwls_Nombre">Nombre</span>
-			<span class="vwls_label" id="vwls_NombreGuia">Guia</span>
+			<span class="vwls_label" id="vwls_NombreGuia">Gu&iacute;a</span>
 			<span class="vwls_label" id="vwls_NombreClub">Club</span>
-			<span class="vwls_label" id="vwls_Categoria">Categoria</span>
+			<span class="vwls_label" id="vwls_Categoria">Categor&iacute;a</span>
 			<span class="vwls_label" id="vwls_Grado">Grado</span>
 			<span class="vwls_label" id="vwls_Celo">Celo</span>
 		</div>
@@ -98,13 +99,13 @@ doLayout(layout,"#vwls_TiempoLbl",	630,	125,	50,		25	);
 doLayout(layout,"#vwls_Tiempo",		710,	125,	55,		25	);
 
 doLayout(layout,"#vwls_Logo",		30,		350,	80,		80	);
-doLayout(layout,"#vwls_Dorsal",		150,	350,	100,	40	);
-doLayout(layout,"#vwls_Nombre",		250,	350,	250,	40	);
-doLayout(layout,"#vwls_NombreGuia",	150,	390,	300,	40	);
-doLayout(layout,"#vwls_NombreClub",	450,	390,	250,	40	);
+doLayout(layout,"#vwls_Dorsal",		150,	350,	150,	40	);
+doLayout(layout,"#vwls_Nombre",		300,	350,	250,	40	);
+doLayout(layout,"#vwls_NombreGuia",	150,	390,	350,	40	);
+doLayout(layout,"#vwls_NombreClub",	500,	390,	250,	40	);
 doLayout(layout,"#vwls_Categoria",	550,	350,	100,	40	);
-doLayout(layout,"#vwls_Grado",		650,	350,	100,	40	);
-doLayout(layout,"#vwls_Celo",		700,	390,	50,		40	);
+doLayout(layout,"#vwls_Grado",		650,	350,	125,	40	);
+doLayout(layout,"#vwls_Celo",		700,	390,	75,		40	);
 
-jQuery('#vwls_LiveStream').fitText(0.035);
+jQuery('#vwls_common').fitText(0.02);
 </script>
