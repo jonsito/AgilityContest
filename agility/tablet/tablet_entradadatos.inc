@@ -125,11 +125,7 @@ $config =Config::getInstance();
     	maximizable:	false,
     	resizable:		false,
     	maximized: 		true,
-    	onOpen: function() {
-    		startEventMgr(workingData.sesion,tablet_processEvents);
-    	},
     	onClose:		function() { 
-    		stopEventMgr(tablet_processEvents);
         	$('#tablet-window').window('open'); 
         }
     });

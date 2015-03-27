@@ -65,6 +65,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	
 // create a Chronometer instance
 $('#cronomanual').Chrono( {
+	seconds_sel: '#vwls_Tiempo',
+	auto: false,
+	interval: 100,
+	showMode: 2
+});
+
+/*
+$('#cronomanual').Chrono( {
 	seconds_sel: '#vwls_timestamp',
 	auto: false,
 	interval: 100,
@@ -74,6 +82,7 @@ $('#cronomanual').Chrono( {
 		return true;
 	}
 });
+*/
 
 $('#vwls_LiveStream-window').window({
 	fit:true,

@@ -335,6 +335,9 @@ function tablet_acceptSelectJornada() {
         	    			page="/agility/tablet/tablet_competicion_ko.php";
         	    		}
         	    		$('#seltablet-dialog').dialog('close');
+        	    		// start event manager
+        	    		startEventMgr(workingData.sesion,tablet_processEvents);
+        	    		// and load page
         	    		$('#tablet_contenido').load(	
         	    				page,
         	    				function(response,status,xhr){
@@ -361,6 +364,8 @@ $('#seltablet-Password').bind('keypress', function (evt) {
     $('#seltablet-Sesion').next().find('input').focus();
     return false;
 });
+
+
 </script>
 </body>
 </html> 
