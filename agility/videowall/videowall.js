@@ -107,7 +107,7 @@ var myCounter = new Countdown({
     seconds:15,  // number of seconds to count down
     onUpdateStatus: function(sec){ $('#vwls_Tiempo').html(sec); }, // callback for each second
     // onCounterEnd: function(){  $('#vwls_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
-    onCounterEnd: function(){  vwls_cronoManual('start',new Date().getTime()) } // at end of countdown start timer
+    onCounterEnd: function(){  vwls_cronoManual('start',Date.now()) } // at end of countdown start timer
 });
 
 /**
@@ -123,9 +123,9 @@ function vwls_cronoAuto(tstamp) {// notice that automatic chrono just overrides 
 	if (tstamp==0) {
 		// arranca crono manual si no esta ya arrancado
 		// si el crono manual ya esta arrancado, lo resetea y vuelve a empezar
-		vwls_cronoManual('stop',0);
-		vwls_cronoManual('reset',0);
-		vwls_cronoManual('start',0);
+		vwls_cronoManual('stop');
+		vwls_cronoManual('reset');
+		vwls_cronoManual('start',Date.now());
 	} else {
 		// si value!=0 parar countdown y crono manual; y enviar tiempo al tablet 
 		vwls_cronoManual('stop',tstamp);
@@ -133,18 +133,11 @@ function vwls_cronoAuto(tstamp) {// notice that automatic chrono just overrides 
 }
 
 /**
- * activa una secuencia de conteo hacia atras de 15 segundos
- */
-function vwls_counter(){
-	myCounter.start();
-}
-
-/**
  * Imprime los inscritos en la jornada marcada por la sesion activa
  * @param jornada
  */
 function vwi_updateInscripciones(data) {
-	// var t=new Date().getTime();
+	// var t=Date.now();
 	// $('#vw_inscripcionesJornada').html('Jornada:'+jornada+' '+t);
 	$.ajax( {
 		type: "GET",
@@ -170,7 +163,7 @@ function vwi_updateInscripciones(data) {
  * Se indica tambien si el perro esta o no pendiente de salir
  */
 function vwos_updateOrdenSalida(data) {
-	// var t=new Date().getTime();
+	// var t=Date.now();
 	// $('#vw_inscripcionesJornada').html('Jornada:'+jornada+' '+t);
 	$.ajax( {
 		type: "GET",
@@ -207,15 +200,13 @@ function vwc_processCombinada(id,evt) {
 		vwls_updateData(event);
 		return
 	case 'llamada':		// operador abre panel de entrada de datos
-		vwls_cronoManual('stop',event['Value']);
-		vwls_cronoManual('reset',event['Value']);
+		vwls_cronoManual('stop');
+		vwls_cronoManual('reset');
 		vwls_showOSD(1); 	// activa visualizacion de OSD
 		vwls_showData(event);
 		return
 	case 'salida':		// juez da orden de salida ( crono 15 segundos )
-		vwls_cronoManual('stop',event['Value']);
-		vwls_cronoManual('reset',event['Value']);
-		vwls_counter();
+		myCounter.start();
 		return;
 	case 'start':	// value: timestamp
 		vwls_cronoManual('start',event['Value']);
@@ -233,7 +224,7 @@ function vwc_processCombinada(id,evt) {
 		return;
 	case 'cancelar':	// operador pulsa cancelar
 		vwls_cronoManual('stop',event['Value']);
-		vwls_cronoManual('reset',event['Value']);
+		vwls_cronoManual('reset');
 		vwls_showOSD(0); // apaga el OSD
 		vwc_updatePendingQueue(event,10); // actualiza panel de llamadas 
 		return;
@@ -255,15 +246,13 @@ function vwls_processLiveStream(id,evt) {
 		vwls_updateData(event);
 		return
 	case 'llamada':		// operador abre panel de entrada de datos
-		vwls_cronoManual('stop',event['Value']);
-		vwls_cronoManual('reset',event['Value']);
+		vwls_cronoManual('stop');
+		vwls_cronoManual('reset');
 		vwls_showOSD(1); 	// activa visualizacion de OSD
 		vwls_showData(event);
 		return
 	case 'salida':		// juez da orden de salida ( crono 15 segundos )
-		vwls_cronoManual('stop',event['Value']);
-		vwls_cronoManual('reset',event['Value']);
-		vwls_counter();
+		myCounter.start();
 		return;
 	case 'start':	// value: timestamp
 		vwls_cronoManual('start',event['Value']);
@@ -280,7 +269,7 @@ function vwls_processLiveStream(id,evt) {
 		return;
 	case 'cancelar':	// operador pulsa cancelar
 		vwls_cronoManual('stop',event['Value']);
-		vwls_cronoManual('reset',event['Value']);
+		vwls_cronoManual('reset');
 		vwls_showOSD(0); // apaga el OSD
 		return;
 	}

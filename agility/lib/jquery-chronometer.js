@@ -56,7 +56,7 @@
 				$(config.stop).attr('disabled',false);
 				$(config.resume).attr('disabled',true);
 				$(config.pause).attr('disabled',false);
-				if(typeof timestamp === 'undefined') startTime=new Date().getTime();
+				if(typeof timestamp === 'undefined') startTime=Date.now();
 				else startTime=timestamp;
 				running = true;
 				run_chrono();
@@ -70,7 +70,7 @@
 				$(config.stop).attr('disabled',true);
 				$(config.resume).attr('disabled',true);
 				$(config.pause).attr('disabled',true);
-				if(typeof timestamp === 'undefined') stopTime=new Date().getTime();
+				if(typeof timestamp === 'undefined') stopTime=Date.now();
 				else stopTime=timestamp;
 				running = false;
 			}
@@ -105,7 +105,8 @@
 			var check = config.onBeforeReset();
 			if(check != false){
 				// set elapsed time to 0. dont stop/pause if running
-				startTime=0;
+				startTime =0;
+				stopTime  =0;
 				// $.fn.Chrono.stop();
 			}
 			$(config.target).trigger('chronoreset');
@@ -113,10 +114,10 @@
 	};
 
 	function run_chrono(){
-		if (startTime==0) startTime=new Date().getTime();
-		if (stopTime==0) stopTime=new Date().getTime();
+		if (startTime==0) startTime=Date.now();
+		if (stopTime==0) stopTime=Date.now();
 		if(running){
-			var currentTime=new Date().getTime();
+			var currentTime=Date.now();
 			var elapsed		= currentTime-startTime;
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);
@@ -198,7 +199,7 @@
 					'</span>'
 					);
 				}
-				if( config.shoMode<0) config.showMode=0;
+				if( config.showMode<0) config.showMode=0;
 				if( config.days != 0 || config.hours != 0 || config.minutes != 0 || config.seconds != 0 || config.mseconds != 0 ){
 					// if initial data are not null assume clock assume chrono in "started" state
 					$(config.start).attr('disabled',true);
