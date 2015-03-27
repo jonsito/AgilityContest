@@ -125,7 +125,13 @@ $config =Config::getInstance();
     	maximizable:	false,
     	resizable:		false,
     	maximized: 		true,
-    	onClose:	function() { $('#tablet-window').window('open'); }
+    	onOpen: function() {
+    		startEventMgr(workingData.sesion,tablet_processEvents);
+    	},
+    	onClose:		function() { 
+    		stopEventMgr(tablet_processEvents);
+        	$('#tablet-window').window('open'); 
+        }
     });
 
     $('#tdialog-form').form({

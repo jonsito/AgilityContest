@@ -43,6 +43,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span class="vwls_data"  id="vwls_Rehuses">0</span>
 			<span class="vwls_label" id="vwls_TiempoLbl">Tiempo:</span>
 			<span class="vwls_data"  id="vwls_Tiempo">00.00</span>
+       		<span id="vwls_timestamp" style="display:none"></span>
 			<!-- Informacion del participante -->
 			<span style="display:none" id="vwls_Perro">0</span>
 			<img id="vwls_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="vwls_logo"/>
@@ -64,10 +65,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	
 // create a Chronometer instance
 $('#cronomanual').Chrono( {
-	seconds_sel: '#vwls_Tiempo',
+	seconds_sel: '#vwls_timestamp',
 	auto: false,
 	interval: 100,
-	showMode: 2
+	showMode: 2,
+	onUpdate: function(elapsed,running,pause) { 
+		$('#vwls_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:2));
+		return true;
+	}
 });
 
 $('#vwls_LiveStream-window').window({

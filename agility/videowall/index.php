@@ -32,7 +32,9 @@ header("Pragma: no-cache");
 <script src="/agility/lib/jquery-fittext-1.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/videowall/videowall.js" type="text/javascript" charset="utf-8" > </script>
+
 <script type="text/javascript" charset="utf-8">
 function initialize() {
 	// make sure that every ajax call provides sessionKey

@@ -15,95 +15,6 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
-function parseEvent(data) {
-	var response= eval('(' + data + ')' );
-	console.log(JSON.stringify(response));
-	// si subconsulta expande
-	if ( typeof(response.Data)==="undefined") {
-		response.Prueba=response.Pru;
-		response.Jornada=response.Jor;
-		response.Manga=response.Mng;
-		response.Tanda=response.Tnd;
-		response.Perro=response.Dog;
-		response.Dorsal=response.Drs;
-		response.Celo=response.Hot;
-		response.Faltas=response.Flt;
-		response.Tocados=response.Toc;
-		response.Rehuses=response.Reh;
-		response.NoPresentado=response.NPr;
-		response.Eliminado=response.Eli;
-		response.Tiempo=response.Tim;
-		response.Value=response.Val;
-	}
-	return response; 
-}
-
-/** 
- * Call "connect" to retrieve last "open" event for provided session ID
- * fill working data with received info
- * If no response wait two seconds and try again
- * On sucess invoke                                                                                                                                                                                                                            
- * @param sesID
- * @param callback
- */
-function startEventMgr(sesID,callback) {
-	var timeout=2000;
-	$.ajax({
-		type: "GET",
-		url: "/agility/server/database/eventFunctions.php",
-		data: {
-			'Operation' : 'connect',
-			'Session'	: sesID
-		},
-		async: true,
-		cache: false,
-		success: function(data){
-			var response= parseEvent(data);
-			if ( response['total']!=0) {
-				var row=response['rows'][0];
-				var evtID=row['ID'];
-				initWorkingData(row['Session']);
-				setTimeout(function(){ waitForEvents(sesID,evtID,0,callback);},0);
-			} else {
-				setTimeout(function(){ startEventMgr(sesID,callback);},timeout );
-			}
-		},
-		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("error: "+textStatus + " "+ errorThrown );
-			setTimeout(function(){  startEventMgr(sesID,callback);},timeout );
-		}
-	});
-}
-
-function waitForEvents(sesID,evtID,timestamp,callback){
-	$.ajax({
-		type: "GET",
-		url: "/agility/server/database/eventFunctions.php",
-		data: {
-			'Operation' : 'getEvents',
-			'ID'		: evtID,
-			'Session'	: sesID,
-			'TimeStamp' : timestamp
-		},
-		async: true,
-		cache: false,
-		success: function(data){
-			var response= parseEvent(data);
-			var timestamp= response['TimeStamp'];
-			$.each(response['rows'],function(key,value){
-				evtID=value['ID']; // store last evt id
-				callback(evtID,value['Data']);
-			});
-			setTimeout(function(){ waitForEvents(sesID,evtID,timestamp,callback);},500);
-		},
-		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			// alert("error: "+textStatus + " "+ errorThrown );
-			setTimeout(function(){ waitForEvents(sesID,evtID,timestamp,callback);},5000);
-		}
-	});
-}
-
 function vwls_showOSD(val) {
 	if (val==0) $('#vwls_common').css('display','none');
 	else $('#vwls_common').css('display','initial');
@@ -206,6 +117,19 @@ var myCounter = new Countdown({
 function vwls_cronoManual(oper,tstamp) {
 	myCounter.stop();
 	$('#cronomanual').Chrono(oper,tstamp);
+}
+
+function vwls_cronoAuto(tstamp) {// notice that automatic chrono just overrides manual crono
+	if (tstamp==0) {
+		// arranca crono manual si no esta ya arrancado
+		// si el crono manual ya esta arrancado, lo resetea y vuelve a empezar
+		vwls_cronoManual('stop',0);
+		vwls_cronoManual('reset',0);
+		vwls_cronoManual('start',0);
+	} else {
+		// si value!=0 parar countdown y crono manual; y enviar tiempo al tablet 
+		vwls_cronoManual('stop',tstamp);
+	}
 }
 
 /**
@@ -347,8 +271,9 @@ function vwls_processLiveStream(id,evt) {
 	case 'stop':	// value: timestamp
 		vwls_cronoManual('stop',event['Value']);
 		return;
-	case 'cronoauto':  	// value: timestamp nada que hacer
-		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
+	case 'cronoauto':  	// value: timestamp
+		vwls_cronoAuto(event['Value']);
+		return;
 	case 'aceptar':		// operador pulsa aceptar
 		vwls_cronoManual('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
 		// vwls_showData(event); // actualiza pantall liveStream

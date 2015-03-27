@@ -226,7 +226,7 @@ function tablet_elim() {
 	return false;
 }
 
-function tablet_chrono(oper,time) {
+function tablet_cronoManual(oper,time) {
 	if (ac_config.tablet_chrono) $('#cronomanual').Chrono(oper,time);
 }
 
@@ -238,7 +238,7 @@ var myCounter = new Countdown({
     	var time = new Date().getTime(); 
 		tablet_putEvent('start',{ 'Value' : time } );
 		$('#tdialog-StartStopBtn').val("Stop");
-		tablet_chrono('start',time);
+		tablet_cronoManual('start',time);
     }
 });
 
@@ -246,13 +246,8 @@ function tablet_startstop() {
 	var time = new Date().getTime(); 
 	if ( $('#tdialog-StartStopBtn').val() === "Start" ) {
 		tablet_putEvent('start',{ 'Value' : time } );
-		$('#tdialog-StartStopBtn').val("Stop");
-		myCounter.stop();
-		tablet_chrono('start',time)
 	} else {
 		tablet_putEvent('stop',{ 'Value' : time } );
-		$('#tdialog-StartStopBtn').val("Start");
-		tablet_chrono('stop',time);
 	}
 	doBeep();
 	return false;
@@ -260,9 +255,6 @@ function tablet_startstop() {
 
 function tablet_salida() {
 	tablet_putEvent('salida',{ 'Value' : new Date().getTime() } );
-	tablet_chrono('stop',0);
-	tablet_chrono('reset',0);
-	myCounter.start();
 	doBeep();
 	return false;
 }
@@ -297,18 +289,16 @@ function tablet_cancel() {
 		});
 	}
 	// and close panel
-	tablet_chrono('stop',0);
-	tablet_chrono('reset',0);
+	tablet_cronoManual('stop',0);
+	tablet_cronoManual('reset',0);
 	$('#tdialog-window').window('close');
 	return false;
 }
 
 function tablet_accept() {
 	doBeep();
-	tablet_chrono('stop',0);
 	// save results 
 	tablet_updateResultados(0); // mark as result no longer pendiente
-	
 	// retrieve original data from parent datagrid
 	var dgname = $('#tdialog-Parent').val();
 	var dg=$(dgname);
@@ -335,7 +325,8 @@ function tablet_accept() {
 				'Eliminado'		:	row.Eliminado
 			} 
 		);
-	tablet_chrono('stop',0);
+	tablet_cronoManual('stop',0);
+	tablet_cronoManual('reset',0);
 	if (!ac_config.tablet_next) { // no go to next row entry
 		$('#tdialog-window').window('close'); // close window
 		dg.datagrid('refreshRow',rowindex);
@@ -355,4 +346,74 @@ function tablet_accept() {
     data.Parent=dgname; // store datagrid reference
     $('#tdialog-form').form('load',data);
     return false; // prevent follow onClick event chain
+}
+
+function isExpected(event) {
+	// Si la manga y el perro no coinciden con el mostrado en el tablet, log error e ignora evento
+	if ( (event['Manga']!=$('#tdialog-Manga').val()) || (event['Perro']!=$('#tdialog-Perro').val()) ) return false;
+	return true;
+}
+
+function tablet_processEvents(id,evt) {
+	var event=parseEvent(evt); // remember that event was coded in DB as an string
+	event['ID']=id; // fix real id on stored eventData
+	var time=event['Value']; // miliseconds 
+	switch (event['Type']) {
+	case 'null': // null event: no action taken
+		return;
+	case 'init': // operator starts tablet application
+		return;
+	case 'open': // operator select tanda:
+		return;
+	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+		return;
+	case 'llamada':	// llamada a pista
+		return;
+	case 'salida': // orden de salida
+		if (!isExpected(event)) return;
+		tablet_cronoManual('stop',0);
+		tablet_cronoManual('reset',0);
+		myCounter.start();
+		return;
+	case 'start': // start crono manual
+		if (!isExpected(event)) return;
+		$('#tdialog-StartStopBtn').val("Stop");
+		myCounter.stop();
+		tablet_cronoManual('stop',0);
+		tablet_cronoManual('reset',0);
+		tablet_cronoManual('start',time);
+		return;
+	case 'stop': // stop crono manual
+		if (!isExpected(event)) return;
+		$('#tdialog-StartStopBtn').val("Start");
+		tablet_cronoManual('stop',time);
+		return;// Value contiene la marca de tiempo
+	case 'cronoauto':
+		// notice that automatic chrono just overrides manual crono, 
+		// except that bypasses configuration 'enabled' flag for it
+		if (!isExpected(event)) return;
+		if (time==0) {
+			// si value==0 parar countdown
+			$('#tdialog-StartStopBtn').val("Stop");
+			myCounter.stop(); 
+			// arranca crono manual si no esta ya arrancado
+			// si el crono manual ya esta arrancado, lo resetea y vuelve a empezar
+			$('#cronomanual').Chrono('stop',0);
+			$('#cronomanual').Chrono('reset',0);
+			$('#cronomanual').Chrono('start',0);
+		} else {
+			// si value!=0 parar countdown y crono manual; y enviar tiempo al crono del tablet 
+			myCounter.stop();
+			$('#tdialog-StartStopBtn').val("Start");
+			$('#cronomanual').Chrono('stop',time);
+		}
+		return;
+	case 'cancelar': // operador pulsa cancelar
+		return;
+	case 'aceptar':	// operador pulsa aceptar
+		return;
+	default:
+		alert("Unknow Event type: "+event['Type']);
+		return;
+	}
 }

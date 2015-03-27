@@ -43,7 +43,9 @@ if( ! function_exists('openssl_get_publickey')) {
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/auth.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/tablet/tablet.js" type="text/javascript" charset="utf-8" > </script>
+
 <script type="text/javascript" charset="utf-8">
 function initialize() {
 	// make sure that every ajax call provides sessionKey
