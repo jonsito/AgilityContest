@@ -30,8 +30,8 @@ function getFunctionName(fn) {
 }
 
 function parseEvent(data) {
-	var response= eval('(' + data + ')' );
-	// console.log(JSON.stringify(response));
+	// var response= eval('(' + data + ')' );
+	var response= JSON.parse(data);
 	// si subconsulta expande
 	if ( typeof(response.Data)==="undefined") {
 		response.Prueba=response.Pru;
@@ -47,7 +47,6 @@ function parseEvent(data) {
 		response.NoPresentado=response.NPr;
 		response.Eliminado=response.Eli;
 		response.Tiempo=response.Tim;
-		response.Value=response.Val;
 	}
 	return response; 
 }
@@ -71,8 +70,8 @@ function startEventMgr(sesID,callback) {
 		},
 		async: true,
 		cache: false,
-		success: function(data){
-			var response= parseEvent(data);
+		dataType: 'json',
+		success: function(response){
 			if ( response['total']!=0) {
 				var row=response['rows'][0];
 				var evtID=row['ID'];
