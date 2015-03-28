@@ -74,6 +74,7 @@ define('AC_TABLET_BEEP',"0");
 define('AC_TABLET_DND',"0");
 define('AC_TABLET_CHRONO',"0");
 define('AC_TABLET_NEXT',"0");
+define('AC_TABLET_COUNTDOWN',1); // 1:nada 2:crono 3:eliminado
 
 Class Config {
 	
@@ -163,6 +164,7 @@ Class Config {
 		$this->config['tablet_dnd'] =	AC_TABLET_DND;
 		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
 		$this->config['tablet_next'] =	AC_TABLET_NEXT;
+		$this->config['tablet_countdown'] =	AC_TABLET_COUNTDOWN;
 		
 		// ahora intentamos leer el fichero de configuracion
 		$res=parse_ini_file(AC_CONFIG_FILE,false); // false: don't parse subsections
@@ -270,6 +272,7 @@ Class Config {
 		$this->config['tablet_dnd'] =	AC_TABLET_DND;
 		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
 		$this->config['tablet_next'] =	AC_TABLET_NEXT;
+		$this->config['tablet_countdown'] =	AC_TABLET_COUNTDOWN;
 		// Internacionalizacion. Idiomas
 		$data['lang'] =	AC_LANG;
 		$res=array_merge($this->config,$data);
@@ -317,6 +320,7 @@ Class Config {
 		$data['tablet_dnd']=http_request('tablet_dnd','s',AC_TABLET_DND);
 		$data['tablet_chrono']=http_request('tablet_chrono','s',AC_TABLET_CHRONO);
 		$data['tablet_next']=http_request('tablet_chrono','s',AC_TABLET_NEXT);
+		$data['tablet_countdown']=http_request('tablet_countdown','i',AC_TABLET_COUNTDOWN);
 		
 		// Sistema
 		$data=testAndSet($data,'lang','s',AC_LANG);

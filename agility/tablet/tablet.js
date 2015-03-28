@@ -236,9 +236,18 @@ var myCounter = new Countdown({
     // onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
     onCounterEnd: function(){  // at end of countdown start timer
     	var time = Date.now(); 
-		tablet_putEvent('start',{ 'Value' : time } );
-		$('#tdialog-StartStopBtn').val("Stop");
-		tablet_cronoManual('start',time);
+    	switch (parseInt(ac_config.tablet_countdown)) {
+    		case 1: /* do nothing */ return;
+    		case 2: /* start crono */
+    			tablet_putEvent('start',{ 'Value' : time } );
+    			$('#tdialog-StartStopBtn').val("Stop");
+    			tablet_cronoManual('start',time);
+    			break;
+    		case 3: /* eliminado */
+    			$('#tdialog-Eliminado').val(0); //make sure that tablet sees not eliminado
+    			tablet_elim(); // call eliminado handler
+    			return;
+    	}
     }
 });
 

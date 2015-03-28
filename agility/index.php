@@ -125,7 +125,8 @@ var ac_config= {
 		// personalizacion del tablet
 		'tablet_beep'		: <?php echo toBoolean($config->getEnv('tablet_beep'))?'true':'false'; ?>,
 		'tablet_dnd'		: <?php echo toBoolean($config->getEnv('tablet_dnd'))?'true':'false'; ?>,
-		'tablet_chrono'		: <?php echo toBoolean($config->getEnv('tablet_chrono'))?'true':'false'; ?>
+		'tablet_chrono'		: <?php echo toBoolean($config->getEnv('tablet_chrono'))?'true':'false'; ?>,
+		'tablet_countdown'	: <?php echo $config->getEnv('tablet_countdown'); ?>
 }
 
 </script>

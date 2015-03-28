@@ -57,6 +57,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<label for="tablet_next">Bot&oacute;n 'Aceptar' muestra siguiente participante </label> 
 			<input type="hidden" name="tablet_next" value="0"/>
 			<input type="checkbox" name="tablet_next" value="1"/><br />
+			<label for="tablet_countdown">Acci&oacute;n al finalizar cuenta de 15 segundos</label>
+			<input type="radio" name="tablet_countdown" value="1">Ignorar</input>
+			<input type="radio" name="tablet_countdown" value="2" checked="checked">Crono manual</input>
+			<input type="radio" name="tablet_countdown" value="3">Eliminar</input><br />
 		</div>
 		
 		<div title="VideoMarcadores" style="padding:10px">
