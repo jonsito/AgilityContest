@@ -20,11 +20,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/database/classes/DBObject.php");
 
 // 2015-Mar-30: add Background field to 'Sesiones' table
-function addBackgroundField($dbobj) {
-	
+function addBackgroundField($conn) {
+	$sql="ALTER TABLE `Sesiones` ADD `Background` VARCHAR(255) NOT NULL DEFAULT '' AFTER `Tanda`;";
+	$conn->query($sql);
+	return 0;
 }
 
-$myDBObject=new DBObject("upgradeVersion");
-addBackgroundField($myDBObject);
-
+$conn = new mysqli("localhost","agility_admin","admin@cachorrera","agility");
+if ($conn->connect_error) die("Cannot perform upgrade process: database::dbConnect()");
+addBackgroundField($conn);
+$conn->close();
 ?>
