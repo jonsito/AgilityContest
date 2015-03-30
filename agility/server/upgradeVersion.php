@@ -26,8 +26,24 @@ function addBackgroundField($conn) {
 	return 0;
 }
 
+// 2015-Mar-30: add extra federation fields to be used in federation selection
+function addRsceFields($conn) {
+	$cmds=array(
+		// federations: bitmask 1<<federation 0:rsce 1:rfec 2:uca
+		"ALTER TABLE `Clubes` ADD `Federations` int(4) NOT NULL DEFAULT 1 AFTER `Logo`;",
+		"ALTER TABLE `Jueces` ADD `Federations` int(4) NOT NULL DEFAULT 1 AFTER `Email`;",
+		"ALTER TABLE `Guias` ADD `Federation` tinyint(1) NOT NULL DEFAULT 0 AFTER `Club`;",
+		"ALTER TABLE `Perros` ADD `Federation` tinyint(1) NOT NULL DEFAULT 0 AFTER `Guia`;"
+	);
+	foreach ($cmds as $query) {
+		$conn->query($query);
+	}
+	return 0;
+}
+
 $conn = new mysqli("localhost","agility_admin","admin@cachorrera","agility");
 if ($conn->connect_error) die("Cannot perform upgrade process: database::dbConnect()");
 addBackgroundField($conn);
+addRsceFields($conn);
 $conn->close();
 ?>
