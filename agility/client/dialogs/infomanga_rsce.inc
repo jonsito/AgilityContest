@@ -76,7 +76,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<td><input type="text" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
 			<!-- datos para TRS standard -->
 			<td colspan="2"> 
-				<select id="dmanga_TRS_L_Tipo" name="TRS_L_Tipo">
+				<select id="dmanga_TRS_L_Tipo" name="TRS_L_Tipo"
+					onChange="if(this.value==0) $('#dmanga_TRS_L_Unit').val('s');">
 				<option value="0" selected="selected">TRS Fijo</option>
 				<option value="1">Mejor recorrido + </option>
 				<option value="2">Media 3 mejores + </option>
@@ -91,7 +92,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			</td>
 			<!-- datos para TRM standard -->
 			<td>
-				<select id="dmanga_TRM_L_Tipo" name="TRM_L_Tipo">
+				<select id="dmanga_TRM_L_Tipo" name="TRM_L_Tipo"
+					onChange="if(this.value==0) $('#dmanga_TRM_L_Unit').val('s');">
 				<option value="0" selected="selected">TRM Fijo</option>
 				<option value="1">TRS + </option>
 				</select>
@@ -110,7 +112,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<td><input type="text" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
 			<!-- datos para TRS medium -->
 			<td colspan="2"> 
-				<select id="dmanga_TRS_M_Tipo" name="TRS_M_Tipo">
+				<select id="dmanga_TRS_M_Tipo" name="TRS_M_Tipo"
+					onChange="if(this.value==0) $('#dmanga_TRS_M_Unit').val('s');">
 				<option value="0" selected="selected">TRS Fijo</option>
 				<option value="1">Mejor recorrido + </option>
 				<option value="2">Media 3 mejores + </option>
@@ -126,7 +129,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			</td>
 			<!-- datos para TRM medium -->
 			<td>
-				<select id="dmanga_TRM_M_Tipo" name="TRM_M_Tipo">
+				<select id="dmanga_TRM_M_Tipo" name="TRM_M_Tipo"
+					onChange="if(this.value==0) $('#dmanga_TRM_M_Unit').val('s');">
 				<option value="0" selected="selected">TRM Fijo</option>
 				<option value="1">TRS + </option>
 				</select>
@@ -145,7 +149,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<td><input type="text" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
 			<!-- datos para TRS small -->
 			<td colspan="2"> 
-				<select id="dmanga_TRS_S_Tipo" name="TRS_S_Tipo">
+				<select id="dmanga_TRS_S_Tipo" name="TRS_S_Tipo"
+					onChange="if(this.value==0) $('#dmanga_TRS_S_Unit').val('s');">
 				<option value="0" selected="selected">TRS Fijo</option>
 				<option value="1">Mejor recorrido + </option>
 				<option value="2">Media 3 mejores + </option>
@@ -162,7 +167,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			</td>
 			<!-- datos para TRM small -->
 			<td>
-				<select id="dmanga_TRM_S_Tipo" name="TRM_S_Tipo">
+				<select id="dmanga_TRM_S_Tipo" name="TRM_S_Tipo"
+					onChange="if(this.value==0) $('#dmanga_TRM_S_Unit').val('s');">
 				<option value="0" selected="selected">TRM Fijo</option>
 				<option value="1">TRS + </option>
 				</select>
