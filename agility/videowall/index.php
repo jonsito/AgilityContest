@@ -6,7 +6,7 @@ require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 $config =Config::getInstance();
 // tool to perform automatic upgrades in database when needed
-require_once(__DIR__."/server/Upgrade.php");
+require_once(__DIR__."/../server/upgradeVersion.php");
 ?>
 <!DOCTYPE html>
 <html>
