@@ -2634,6 +2634,7 @@ CREATE TABLE IF NOT EXISTS `sesiones` (
   `Jornada` int(4) NOT NULL DEFAULT '0',
   `Manga` int(4) NOT NULL DEFAULT '0',
   `Tanda` int(4) NOT NULL DEFAULT '0',
+  `Background` varchar(255) DEFAULT NULL,
   `LiveStream` varchar(255) DEFAULT NULL,
   `LiveStream2` varchar(255) DEFAULT NULL,
   `LiveStream3` varchar(255) DEFAULT NULL,

@@ -44,6 +44,12 @@ function disable_gzip() {
 }
 // disable_gzip();
 
+// check if we are using HTTPS.
+// notice this may fail on extrange servers when https is not by mean of port 443
+function is_https(){
+	if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') return true;
+	return false;
+}
 
 /**
  * Parse provided string and escape special chars to avoid SQL injection problems

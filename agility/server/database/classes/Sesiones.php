@@ -59,7 +59,7 @@ class Sesiones extends DBObject {
 			$where=" ( Sesiones.Operador = Usuarios.ID ) AND (Nombre != 'Console') AND( (Nombre LIKE '%$search%') OR ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
 		}
 		$result=$this->__select(
-				/* SELECT */ "Sesiones.ID AS ID,Nombre,Comentario,Operador,Login,LiveStream,LiveStream2,LiveStream3",
+				/* SELECT */ "Sesiones.ID AS ID,Nombre,Comentario,Operador,Login,Background,LiveStream,LiveStream2,LiveStream3",
 				/* FROM */ "Sesiones,Usuarios",
 				/* WHERE */ $where,
 				/* ORDER BY */ $sort,
@@ -120,6 +120,7 @@ class Sesiones extends DBObject {
 		if (isset($data['Tanda']))		$sql .=", Tanda={$data['Tanda']} ";
 		if (isset($data['Operador']))	$sql .=", Operador={$data['Operador']} ";
 		if (isset($data['SessionKey']))	$sql .=", SessionKey='{$data['SessionKey']}' ";
+		if (isset($data['Background']))	$sql .=", Background='{$data['Background']}' ";
 		if (isset($data['LiveStream']))	$sql .=", LiveStream='{$data['LiveStream']}' ";
 		if (isset($data['LiveStream2']))$sql .=", LiveStream2='{$data['LiveStream2']}' ";
 		if (isset($data['LiveStream3']))$sql .=", LiveStream3='{$data['LiveStream3']}' ";

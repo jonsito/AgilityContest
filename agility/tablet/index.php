@@ -10,6 +10,10 @@ if( ! function_exists('openssl_get_publickey')) {
 	die("Invalid configuration: please uncomment line 'module=php_openssl.dll' in file '\\xampp\\php\\php.ini'");
 }
 
+if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
+	// en windows/android hay que usar https para que las cosas funcionen
+	if (!is_https()) die("You MUST use https protocol to access this application");
+}
 ?>
 <!DOCTYPE html>
 <html>

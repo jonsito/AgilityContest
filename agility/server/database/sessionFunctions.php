@@ -34,6 +34,7 @@ try {
 	$data=testAndSet($data,"Manga","i",0);
 	$data=testAndSet($data,"Tanda","i",0);
 	$data=testAndSet($data,"Operador","i",1);
+	$data=testAndSet($data,"Background","s","");
 	$data=testAndSet($data,"LiveStream","s","");
 	$data=testAndSet($data,"LiveStream2","s","");
 	$data=testAndSet($data,"LiveStream3","s","");
