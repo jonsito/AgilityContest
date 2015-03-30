@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS `clubes` (
   `Google` varchar(255) DEFAULT NULL,
   `Twitter` varchar(255) DEFAULT NULL,
   `Logo` varchar(255) DEFAULT 'rsce.png',
+  `Federations` int(4) NOT NULL DEFAULT 1,
   `Observaciones` varchar(255) DEFAULT NULL,
   `Baja` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8;
@@ -287,6 +288,7 @@ CREATE TABLE IF NOT EXISTS `guias` (
   `Telefono` varchar(16) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
   `Club` int(4) NOT NULL DEFAULT '1',
+  `Federation` tinyint(1) NOT NULL DEFAULT 0,
   `Observaciones` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=588 DEFAULT CHARSET=utf8;
 
@@ -1123,6 +1125,7 @@ CREATE TABLE IF NOT EXISTS `jueces` (
   `Internacional` tinyint(1) NOT NULL DEFAULT '0',
   `Practicas` tinyint(1) NOT NULL DEFAULT '0',
   `Email` varchar(255) DEFAULT NULL,
+  `Federations` int(4) NOT NULL DEFAULT 1,
   `Observaciones` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
@@ -1285,6 +1288,7 @@ CREATE TABLE IF NOT EXISTS `perros` (
   `Licencia` varchar(255) DEFAULT '--------',
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
   `Guia` int(4) NOT NULL DEFAULT '1',
+  `Federation` tinyint(1) NOT NULL DEFAULT 0,
   `Grado` varchar(16) DEFAULT '-'
 ) ENGINE=InnoDB AUTO_INCREMENT=744 DEFAULT CHARSET=utf8;
 
