@@ -288,8 +288,17 @@ class Clubes extends DBObject {
 		$name=$row->Logo;
 		// 4- si es igual a "rsce.png" lo cambiamos por "logo_id.png"
 		// 	y actualizamos el nombre en la bbdd 
-		if ($name==="rsce.png") {
-			$name="logo_$id.png";
+		if ( ($name==="rsce.png") || ($name==="uca.png") || ($name==="rfec") ){
+			// compose logo file name based in club name, instead (old) club ID
+			// Remove all (back)slashes from name
+			$name = str_replace('\\', '', $name);
+			$name = str_replace('/', '', $name);
+			// Remove all characters that are not the separator, a-z, 0-9, or whitespace
+			$name = preg_replace('![^'.preg_quote('-').'a-z0-_9\s]+!', '', strtolower($name));
+			// Replace all separator characters and whitespace by a single separator
+			$name = preg_replace('!['.preg_quote('-').'\s]+!u', '_', $name);
+			$name="logo_$name.png";
+			
 			$sql="UPDATE Clubes SET Logo='$name' WHERE (ID=$id)";
 			$res=$this->query($sql);
 			if (!$res) return $this->error($this->conn->error);
