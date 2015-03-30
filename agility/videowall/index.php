@@ -182,7 +182,9 @@ $('#selvw-Session').combogrid({
 	    { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
 		{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: 'Nombre' },
 		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' },
-		{ field:'LiveStream',	hidden:true }
+		{ field:'Background',	hidden:true },
+		{ field:'LiveStream2',	hidden:true },
+		{ field:'LiveStream3',	hidden:true }
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='select';
@@ -237,11 +239,18 @@ function vw_accept() {
 			page,
 			function(response,status,xhr){
 				if (status=='error') $('#vw_contenido').load('/agility/client/frm_notavailable.php');
-				else { 
+				else {
+					var bg=workingData.datosSesion.Background;
+					var ls1=workingData.datosSesion.LiveStream;
+					var ls2=workingData.datosSesion.LiveStream2;
+					var ls3=workingData.datosSesion.LiveStream3;
+					if ( bg !== '' ) $('#vwls_video').attr('poster', bg);
+					if ( ls1!== '' ) $('#vwls_videomp4').attr('src', ls1); else $('#vwls_videomp4').remove();
+					if ( ls2!== '' ) $('#vwls_videoogv').attr('src', ls2); else $('#vwls_videoogv').remove();
+					if ( ls3!== '' ) $('#vwls_videowebm').attr('src', ls3); else $('#vwls_videowebm').remove();
 					// if LiveStream is present load and play assigned session's livestream url
 					var video=$('#vwls_video')[0];
 					if (!video) return;
-					video.src = s.LiveStream;
 					video.load();
 					video.play();
 				}

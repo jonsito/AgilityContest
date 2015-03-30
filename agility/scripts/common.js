@@ -233,7 +233,7 @@ function initWorkingData(id) {
 			url: '/agility/server/database/sessionFunctions.php',
 			data: { Operation: 'getByID', ID: id },
 			dataType: 'json',
-	        async: false,
+	        async: false, // this may generate a warning in js interpreter; ignore it
 	        cache: false,
 	        timeout: 30000,
 			success: function(data) {
@@ -249,6 +249,7 @@ function initWorkingData(id) {
 				workingData.nombreTanda = ""; 
 				workingData.sesion	= data.ID;
 				workingData.nombreSesion	= data.Nombre;
+				workingData.datosSesion = data;
 			},
 			error: function(msg){ alert("error setting workingData: "+msg);}
 		});

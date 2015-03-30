@@ -164,13 +164,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     remoteSort: true,
     columns: [[
         { field:'ID',		hidden:true },
-        { field:'Nombre',		width:25, sortable:true,	title:'Nombre' },
-     	{ field:'Comentario',	width:55, sortable:true,	title:'Descripcion' },
+        { field:'Nombre',		width:25, sortable:true,title:'Nombre' },
+     	{ field:'Comentario',	width:55, sortable:true,title:'Descripcion' },
         { field:'Operador',		hidden:true },
-     	{ field:'Login',		width:25, sortable:true,	title:'Usuario' },
-     	{ field:'LiveStream',	width:40,				title:'Stream MP4' },
-     	{ field:'LiveStream2',	width:40,   			title:'Stream Ogg' },
-        { field:'LiveStream3',	width:40,				title:'Stream WebM' }
+     	{ field:'Login',		width:25, sortable:true,title:'Usuario' },
+     	{ field:'Background',	width:30,				title:'Background' },
+     	{ field:'LiveStream',	width:30,				title:'Stream MP4' },
+     	{ field:'LiveStream2',	width:30,   			title:'Stream Ogg' },
+        { field:'LiveStream3',	width:30,				title:'Stream WebM' }
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:myRowStyler,

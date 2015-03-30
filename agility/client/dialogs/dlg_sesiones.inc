@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE Sesiones -->
-    <div id="sesiones-dialog" style="width:550px;height:400px;padding:10px 20px">
+    <div id="sesiones-dialog" style="width:550px;height:auto;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n de la sesi&oacute;n</div>
         <form id="sesiones-form" method="get">
             <div class="fitem">
@@ -39,6 +39,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <div class="fitem">
                 <label for="Comentario">Comentarios</label>
                 <textarea id="sesiones-Comentario" name="Comentario" style="height:40px;width:375px"></textarea>
+            </div>
+            <div class="fitem">
+                <label for="Background">Imagen de fondo</label>
+                <input id="sesiones-Background" name="Background" type="text" style="width:375px" />
             </div>
             <div class="fitem">
                 <label for="LiveStream">Stream MPEG-4</label>

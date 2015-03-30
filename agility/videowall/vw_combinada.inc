@@ -14,7 +14,7 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
-
+ 
 <!-- Presentacion combinada de live stream, llamada a pista y resultados parciales -->
 <div id="vw_combinada-window">
 	<!-- paneles de lista de mangas y datos de cada manga -->
@@ -32,13 +32,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 						data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false,resizable:true">
 						<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
 					    <video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
-					    	poster="http://guest:@192.168.122.168/videostream.cgi">
-					    	<!-- /agility/server/getRandomImage.php -->
-    						<!-- ogv se ve muy mal en firefox
-    						<source src="/agility/videos/sample_video.mp4" type='video/mp4; codecs="avc1,mp4a"' />
-    						<source src="/agility/videos/sample_video.ogv" type='video/ogg; codecs="theora,vorbis"' />
-    						<source src="/agility/videos/sample_video.webm" type='video/webm; codecs="vp8,vorbis"' />
-    						-->
+					    	poster="/agility/server/getRandomImage.php">
+					    	<!-- http://guest:@192.168.122.168/videostream.cgi -->
+    						<source id="vwls_videomp4" src="" type='video/mp4'/>
+    						<source id="vwls_videoogv" src="" type='video/ogg'/>
+    						<source id="vwls_videowebm" src="" type='video/webm'/>
     					</video> 
 						<div id="vwls_common" style="font-size:1.00em;display:inline-block;width:100%">
 							<!-- Recuadros de decoracion -->
