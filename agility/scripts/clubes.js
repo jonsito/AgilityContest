@@ -16,6 +16,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 // ***** gestion de clubes		*********************************************************
+function clubesRSCE(val,row,idx) { return ( (parseInt(row.Federations)&1)==0)?" ":"&#x2714;"; }
+function clubesRFEC(val,row,idx) { return ( (parseInt(row.Federations)&2)==0)?" ":"&#x2714;"; }
+function clubesUCA(val,row,idx)  { return ( (parseInt(row.Federations)&4)==0)?" ":"&#x2714;"; }
+function clubesBaja(val,row,idx) { return ( parseInt(val)==0)?" ":"&#x26D4;"; }
 
 /**
  * Vista preliminar del logo
@@ -120,6 +124,10 @@ function editClub(dg){
     $('#clubes-Logo').attr("src",nombre);
     $('#clubes-dialog').dialog('open').dialog('setTitle','Modificar datos del club');
     $('#clubes-form').form('load',row);
+    // set up federation checkboxes
+    $('#clubes-RSCE').prop('checked',( (row.Federations & 1)!=0)?true:false);
+    $('#clubes-RFEC').prop('checked',( (row.Federations & 2)!=0)?true:false);
+    $('#clubes-UCA').prop('checked',( (row.Federations & 4)!=0)?true:false);
 }
 
 /**
@@ -129,6 +137,12 @@ function editClub(dg){
 function saveClub(){
     var frm = $('#clubes-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+    // evaluate federation checkboxes
+    $fed=0;
+    if ( $('#clubes-RSCE').is(':checked') ) $fed |=1;
+    if ( $('#clubes-RFEC').is(':checked') ) $fed |=2;
+    if ( $('#clubes-UCA').is(':checked') ) $fed |=4;
+    $('#clubes-Federations').val($fed);
     $.ajax({
         type: 'GET',
         url: '/agility/server/database/clubFunctions.php',
