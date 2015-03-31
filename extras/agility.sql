@@ -1045,9 +1045,9 @@ DROP TRIGGER IF EXISTS `Increase_Dorsal`;
 DELIMITER $$
 CREATE TRIGGER `Increase_Dorsal` BEFORE INSERT ON `inscripciones`
  FOR EACH ROW BEGIN
-     select count(*) into @rows from Inscripciones where Prueba = NEW.Prueba;
+     select count(*) into @rows from inscripciones where Prueba = NEW.Prueba;
      if @rows>0 then
-     select Dorsal + 1 into @newDorsal from Inscripciones where Prueba = NEW.Prueba order by Dorsal desc limit 1;
+     select Dorsal + 1 into @newDorsal from inscripciones where Prueba = NEW.Prueba order by Dorsal desc limit 1;
        set NEW.Dorsal = @newDorsal;
      else
        set NEW.Dorsal = 1;

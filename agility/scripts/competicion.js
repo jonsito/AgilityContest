@@ -504,7 +504,7 @@ function proximityAlert() {
 	}
 	// arriving here means work done
 	if (lista==="<br />") {
-		$.messager.alert('Correcto','No aparecen perros del mismo guia pro&oacute;imos','info');
+		$.messager.alert('Correcto','No aparecen perros del mismo gu&uiacute;a pro&oacute;ximos','info');
 	} else {
 		var w=$.messager.alert('Alerta de proximidad','<p>Lista de gu&iacute;as con perros demasiado juntos:</p><p>'+lista+'</p>','warning');
 		w.window('resize',{width:350}).window('center');
