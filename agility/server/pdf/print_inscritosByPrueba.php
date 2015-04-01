@@ -73,6 +73,10 @@ class PrintCatalogo extends PrintCommon {
 		$cmgr=new Clubes('printCatalogo');
 		$club=$cmgr->selectByID($id);
 		$icon=($club['Logo']==="")?'rsce.png':$club['Logo'];
+		if (!file_exists(__DIR__.'/../../images/logos/'.$icon)) {
+			$this->myLogger->error("inscritosByPrueba::printClub() club:$id {$club['Nombre']} logo '$icon' not found");
+			$icon='rsce.png';
+		}
 		$this->myLogger->trace("Position: ".$pos." ID:".$id." Club: ".$club['Nombre']);
 
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
