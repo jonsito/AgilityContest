@@ -485,13 +485,15 @@ class PrintEstadisticas extends PrintCommon {
 class PrintInscritos extends PrintCommon {
 	
 	protected $inscritos;
+	protected $jornadas;
 
 	// geometria de las celdas
 	protected $cellHeader
-					=array('Dorsal','Nombre','Lic.','Guía','Club','Cat.','Grado','Celo','Observaciones','Sab.','Dom.');
-	protected $pos	=array(  10,       20,     10,    40,   30,    10,     10,     10,    30,    10,    10 );
-	protected $align=array(  'R',      'L',    'C',   'R',  'R',   'C',    'L',    'C',   'R',   'C',   'C');
-	protected $fmt	=array(  'i',      's',    's',   's',  's',   's',    's',    'b',   's',   'b',   'b');
+				=array('Dorsal','Nombre','Lic.','Guía','Club','Cat.','Grado','Celo','Observaciones','1','2','3','4','5','6','7','8');
+	protected $pos	
+				=array(  11,       21,     11,    41,   31,     8,     8,     8,       12,     5,  5,  5,  5,  5,  5,  5,  5 );
+	protected $align
+				=array(  'R',      'L',    'C',   'R',  'R',   'C',    'L',   'C',    'L',    'C','C','C','C','C','C','C','C');
 	
 	/**
 	 * Constructor
@@ -506,6 +508,7 @@ class PrintInscritos extends PrintCommon {
 			throw new Exception($this->errormsg);
 		}
 		$this->inscritos=$inscritos['rows'];
+		$this->jornadas=$jornadas['rows'];
 		$this->setPageName("inscritosByPrueba.pdf");
 	}
 	
@@ -531,6 +534,7 @@ class PrintInscritos extends PrintCommon {
 		$this->SetFont('Arial','B',8); // bold 9px
 		for($i=0;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
+			if ($this->pos[$i]==0) continue;
 			$this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
 		}
 		// Restauración de colores y fuentes
@@ -547,6 +551,16 @@ class PrintInscritos extends PrintCommon {
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 		$this->SetLineWidth(.3);
 		
+		// contamos las jornadas sin asignar	
+		foreach($this->jornadas as $row => $jornada) {
+			if ($jornada['Nombre']==='-- Sin asignar --') {
+				$this->pos[8]+=5;
+				$this->pos[9+$row]=0;
+				continue;
+			} else {
+				$this->cellHeader[9+$row]=$jornada['Nombre'];
+			}
+		}
 		// Datos
 		$fill = false;
 		$rowcount=0;
@@ -571,9 +585,23 @@ class PrintInscritos extends PrintCommon {
 			$this->Cell($this->pos[5],6,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
 			$this->Cell($this->pos[6],6,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
 			$this->Cell($this->pos[7],6,($row['Celo']==0)?"":"X",'LR',0,	$this->align[7],	$fill);
-			$this->Cell($this->pos[8],6,$row['Observaciones'],'LR',	0,		$this->align[9],	$fill);
-			$this->Cell($this->pos[9],6,($row['J1']==0)?"":"X",	'LR',0,		$this->align[9],	$fill);
-			$this->Cell($this->pos[10],6,($row['J2']==0)?"":"X",'LR',0,		$this->align[10],	$fill);
+			$this->Cell($this->pos[8],6,$row['Observaciones'],'LR',	0,		$this->align[8],	$fill);
+			if ($this->pos[9]!=0)
+				$this->Cell($this->pos[9],6,($row['J1']==0)?"":"X",	'LR',0,		$this->align[9],	$fill);
+			if ($this->pos[10]!=0)
+				$this->Cell($this->pos[10],6,($row['J2']==0)?"":"X",'LR',0,		$this->align[10],	$fill);
+			if ($this->pos[11]!=0)
+				$this->Cell($this->pos[11],6,($row['J3']==0)?"":"X",'LR',0,		$this->align[11],	$fill);
+			if ($this->pos[12]!=0)
+				$this->Cell($this->pos[12],6,($row['J4']==0)?"":"X",'LR',0,		$this->align[12],	$fill);
+			if ($this->pos[13]!=0)
+				$this->Cell($this->pos[13],6,($row['J5']==0)?"":"X",'LR',0,		$this->align[13],	$fill);
+			if ($this->pos[14]!=0)
+				$this->Cell($this->pos[14],6,($row['J6']==0)?"":"X",'LR',0,		$this->align[14],	$fill);
+			if ($this->pos[15]!=0)
+				$this->Cell($this->pos[15],6,($row['J7']==0)?"":"X",'LR',0,		$this->align[15],	$fill);
+			if ($this->pos[16]!=0)
+				$this->Cell($this->pos[16],6,($row['J8']==0)?"":"X",'LR',0,		$this->align[16],	$fill);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;
