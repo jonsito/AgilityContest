@@ -86,9 +86,13 @@ class Etiquetas_PDF extends PrintCommon {
 		
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		//dorsal (10,y,20,17)
+		$y0=  $top+17*$idx;
 		$y1=  $top+17*$idx+1;
+		$y2=  $top+17*$idx+2;
+		$y3=  $top+17*$idx+3;
 		$y5=  $top+17*$idx+5;
 		$y10= $top+17*$idx+10;
+		$y7=  $top+17*$idx+7;
 		$y8=  $top+17*$idx+8;
 		$y9=  $top+17*$idx+9;
 		$ynext=$top+17*($idx+1);
@@ -148,13 +152,21 @@ class Etiquetas_PDF extends PrintCommon {
 		$this->SetXY($left+124,$y8); 
 		$this->Cell(24,8,$row['C2'],'L',0,'C',false);
 		
-		$this->SetFont('Arial','',10); // font size for results data
 		//Puesto1 (159,y,15,8) center
-		$this->SetXY($left+148,$y1); 
-		$this->Cell(13,7,"{$row['Puesto1']}º / ${row['Participantes']}",'LBR',0,'C',false);
+		$this->SetFont('Arial','B',20); // font size for results data
+		$this->ac_Cell($left+148.5,$y1,13,7,"/",'','C',false);
+		$this->SetFont('Arial','',10); // font size for results data
+		$this->ac_Cell($left+148,$y1,13,7,"",'LBR','C',false);
+		$this->ac_Cell($left+148,$y0,13,7,"{$row['Puesto1']}º",'','L',false);
+		$this->ac_Cell($left+148,$y2,13,7,"${row['Participantes']}",'','R',false);
+
 		//Puesto2 (159,y+8,15,9) center
-		$this->SetXY($left+148,$y8); 
-		$this->Cell(13,8,"{$row['Puesto2']}º / ${row['Participantes']}",'LR',0,'C',false);
+		$this->SetFont('Arial','B',20); // font size for results data
+		$this->ac_Cell($left+148.5,$y8,13,8,"/",'','C',false);
+		$this->SetFont('Arial','',10); // font size for results data
+		$this->ac_Cell($left+148,$y8,13,8,"",'LR','C',false);
+		$this->ac_Cell($left+148,$y7,13,8,"{$row['Puesto2']}º",'','L',false);
+		$this->ac_Cell($left+148,$y9,13,8,"${row['Participantes']}",'','R',false);
 		
 		// linea al final
 		$this->Line($left,$ynext,$left+190,$ynext);
@@ -222,6 +234,11 @@ try {
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
 	$prb=$dbobj->__getObject("Pruebas",$prueba);
 	$c= new Clasificaciones("print_podium_pdf",$prueba,$jornada);
+	
+	// obtenemos la clasificacion de la tanda seleccionada
+	$r=$c->clasificacionFinal($rondas,$mangas,$mode);
+	$result[0]=$r['rows'];
+	/*
 	$rsce=($prb->RSCE==0)?true:false;
 	switch($mng->Recorrido) {
 		case 0: // recorridos separados large medium small
@@ -259,6 +276,7 @@ try {
 			}
 			break;
 	}
+	*/
 	// juntamos las categorias
 	$res=array_merge($result[0],$result[1],$result[2],$result[3],$result[4],$result[5],$result[6],$result[7],$result[8]);
 	// y ordenamos los resultados por dorsales
