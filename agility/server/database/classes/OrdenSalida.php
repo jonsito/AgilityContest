@@ -349,8 +349,8 @@ class OrdenSalida extends DBObject {
 		if (!is_array($hermanas)) return $this->error("Error find hermanas info for jornada:$jornada and manga:$manga");
 		if ($hermanas[1]==null) return $this->error("Cannot get order: Manga:$manga of Jornada:$jornada has no brother");
 		// fase 2: clonamos orden de la manga hermana
-		$this->myLogger->trace("El orden de salida original para manga:{$this->manga['ID']} jornada:{$this->jornada['ID']} es:\n{$hermanas[0]->Orden_Salida}");
-		$this->setOrden($hermanas[1]->Orden_Salida);
+		$this->myLogger->trace("El orden de salida original para manga:$manga jornada:$jornada es:\n{$hermanas[0]->Orden_Salida}");
+		$this->setOrden($manga,$hermanas[1]->Orden_Salida);
 		$this->myLogger->leave();
 		return $hermanas[1]->Orden_Salida;
 	}
