@@ -343,13 +343,13 @@ function tablet_acceptSelectJornada() {
         	    			page="/agility/tablet/tablet_competicion_ko.php";
         	    		}
         	    		$('#seltablet-dialog').dialog('close');
-        	    		// start event manager
-        	    		startEventMgr(workingData.sesion,tablet_processEvents);
         	    		// and load page
         	    		$('#tablet_contenido').load(	
         	    				page,
         	    				function(response,status,xhr){
         	    					if (status=='error') $('#tablet_contenido').load('/agility/frm_notavailable.php');
+        	        	    		// start event manager
+        	        	    		startEventMgr(workingData.sesion,tablet_processEvents);
         	    				}
         	    			); // load
         	    	} // close dialog; open main window

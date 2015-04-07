@@ -1,0 +1,45 @@
+[07-Apr-2015 11:34:17 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::146::listEvents() : Enter
+[07-Apr-2015 11:34:17 Europe/Madrid] QUERY eventFunctions::__select() :
+SELECT * FROM Eventos  WHERE ( Session = 1 ) AND ( ID > 1736 )   ORDER BY ID 
+[07-Apr-2015 11:34:17 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::146::listEvents() : Leave
+[07-Apr-2015 11:34:17 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::57::getEvents() : Leave
+[07-Apr-2015 11:34:18 Europe/Madrid] QUERY AuthManager::__selectObject() :
+SELECT * FROM Sesiones,Usuarios WHERE (Usuarios.ID=Sesiones.Operador) AND ( SessionKey='N7iKDJyu0UTMqHt2')
+[07-Apr-2015 11:34:18 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/auth/AuthManager.php::60::getUserByKey() : SessionKey:'N7iKDJyu0UTMqHt2' belongs to userid:'5'
+[07-Apr-2015 11:34:18 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::28::__construct() : Username:assistant Perms:3
+[07-Apr-2015 11:34:18 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::57::getEvents() : Enter
+[07-Apr-2015 11:34:18 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::57::getEvents() : Last timestamp is 1428399257
+[07-Apr-2015 11:34:18 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::154::listEvents() : Enter
+[07-Apr-2015 11:34:18 Europe/Madrid] QUERY eventFunctions::__select() :
+SELECT * FROM Eventos  WHERE ( Session = 1 ) AND ( ID > 1736 )   ORDER BY ID 
+[07-Apr-2015 11:34:18 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::154::listEvents() : Leave
+[07-Apr-2015 11:34:18 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::154::listEvents() : Enter
+[07-Apr-2015 11:34:18 Europe/Madrid] QUERY eventFunctions::__select() :
+SELECT * FROM Eventos  WHERE ( Session = 1 ) AND ( ID > 1736 )   ORDER BY ID 
+[07-Apr-2015 11:34:18 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::154::listEvents() : Leave
+[07-Apr-2015 11:34:48 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::57::getEvents() : Leave
+[07-Apr-2015 11:34:48 Europe/Madrid] QUERY AuthManager::__selectObject() :
+SELECT * FROM Sesiones,Usuarios WHERE (Usuarios.ID=Sesiones.Operador) AND ( SessionKey='N7iKDJyu0UTMqHt2')
+[07-Apr-2015 11:34:48 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/auth/AuthManager.php::60::getUserByKey() : SessionKey:'N7iKDJyu0UTMqHt2' belongs to userid:'5'
+[07-Apr-2015 11:34:48 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::28::__construct() : Username:assistant Perms:3
+[07-Apr-2015 11:34:48 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::57::getEvents() : Enter
+[07-Apr-2015 11:34:48 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::57::getEvents() : Last timestamp is 0
+[07-Apr-2015 11:34:48 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::146::listEvents() : Enter
+[07-Apr-2015 11:34:48 Europe/Madrid] QUERY eventFunctions::__select() :
+SELECT * FROM Eventos  WHERE ( Session = 1 ) AND ( ID > 1736 )   ORDER BY ID 
+[07-Apr-2015 11:34:48 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::146::listEvents() : Leave
+[07-Apr-2015 11:34:48 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::57::getEvents() : Leave
+[07-Apr-2015 11:34:49 Europe/Madrid] QUERY AuthManager::__selectObject() :
+SELECT * FROM Sesiones,Usuarios WHERE (Usuarios.ID=Sesiones.Operador) AND ( SessionKey='N7iKDJyu0UTMqHt2')
+[07-Apr-2015 11:34:49 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/auth/AuthManager.php::60::getUserByKey() : SessionKey:'N7iKDJyu0UTMqHt2' belongs to userid:'5'
+[07-Apr-2015 11:34:49 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::28::__construct() : Username:assistant Perms:3
+[07-Apr-2015 11:34:49 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::57::getEvents() : Enter
+[07-Apr-2015 11:34:49 Europe/Madrid] INFO /home/jantonio/work/agility/git-localrepo/agility/server/database/eventFunctions.php::57::getEvents() : Last timestamp is 1428399257
+[07-Apr-2015 11:34:49 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::154::listEvents() : Enter
+[07-Apr-2015 11:34:49 Europe/Madrid] QUERY eventFunctions::__select() :
+SELECT * FROM Eventos  WHERE ( Session = 1 ) AND ( ID > 1736 )   ORDER BY ID 
+[07-Apr-2015 11:34:49 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::154::listEvents() : Leave
+[07-Apr-2015 11:34:50 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::154::listEvents() : Enter
+[07-Apr-2015 11:34:50 Europe/Madrid] QUERY eventFunctions::__select() :
+SELECT * FROM Eventos  WHERE ( Session = 1 ) AND ( ID > 1736 )   ORDER BY ID 
+[07-Apr-2015 11:34:50 Europe/Madrid] TRACE /home/jantonio/work/agility/git-localrepo/agility/server/database/classes/Eventos.php::154::listEvents() : Leave

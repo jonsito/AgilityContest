@@ -194,7 +194,7 @@ function vwc_processCombinada(id,evt) {
 		return;
 	case 'open':		// operator select tanda
 		vwc_updateResults(event); // actualiza panel de resultados
-		vwc_updatePendingQueue(event,10); // actualiza panel de llamadas 
+		vwc_updatePendingQueue(event,15); // actualiza panel de llamadas 
 		return;
 	case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
@@ -220,13 +220,13 @@ function vwc_processCombinada(id,evt) {
 		vwls_cronoManual('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
 		vwls_showData(event); // actualiza pantall liveStream
 		vwc_updateResults(); // actualiza panel de resultados
-		vwc_updatePendingQueue(event,10); // actualiza panel de llamadas 
+		vwc_updatePendingQueue(event,15); // actualiza panel de llamadas 
 		return;
 	case 'cancelar':	// operador pulsa cancelar
 		vwls_cronoManual('stop',event['Value']);
 		vwls_cronoManual('reset');
 		vwls_showOSD(0); // apaga el OSD
-		vwc_updatePendingQueue(event,10); // actualiza panel de llamadas 
+		vwc_updatePendingQueue(event,15); // actualiza panel de llamadas 
 		return;
 	}
 }

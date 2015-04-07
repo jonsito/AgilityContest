@@ -252,7 +252,7 @@ class VideoWall {
 		if ($this->prueba['RSCE']!=0) {
 			$mode=VideoWall::$modes_rfec[$this->session['Tanda']][$myManga->Recorrido];
 		}
-		$this->myLogger->trace("**** Mode es $mode");
+		$this->myLogger->trace("tanda:{$this->session['Tanda']} recorrido:{$myManga->Recorrido} **** Mode es $mode");
 		$result = $resmgr->getResultados($mode);
 		$numero=0;
 		$mangastr=VideoWall::$modes[$this->session['Tanda']][3]." - ".VideoWall::$modestr[$mode];
