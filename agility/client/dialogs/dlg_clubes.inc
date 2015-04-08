@@ -82,6 +82,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <input id="clubes-GPS" name="GPS" type="text" style="width:200px"/>
         </div>
         <div class="fitem">
+            <label for="Federations">Federaciones</label>
+            RSCE <input id="clubes-RSCE" type="checkbox" value="1" name="RSCE"/>
+            RFEC <input id="clubes-RFEC" type="checkbox" value="2" name="RFEC"/>
+            UCA<input id="clubes-UCA" type="checkbox" value="4" name="UCA"/>
+            <input id="clubes-Federations" name="Federations" type="hidden"/>
+        </div>
+        <div class="fitem">
             <label for="Web">P&aacute;gina Web</label>
             <input id="clubes-Web" name="Web" type="text" style="width:350px"/>
         </div>

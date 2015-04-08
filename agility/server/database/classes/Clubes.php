@@ -31,12 +31,12 @@ class Clubes extends DBObject {
 		$this->myLogger->enter();
 		// componemos un prepared statement
 		$sql ="INSERT INTO Clubes (Nombre,Direccion1,Direccion2,Provincia,Contacto1,Contacto2,Contacto3,GPS,
-				Web,Email,Facebook,Google,Twitter,Observaciones,Baja)
+				Web,Email,Federations,Facebook,Google,Twitter,Observaciones,Baja)
 			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('sssssssssssssss',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,
-				$web,$email,$facebook,$google,$twitter,$observaciones,$baja);
+		$res=$stmt->bind_param('ssssssssssisssss',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,
+				$web,$email,$federations,$facebook,$google,$twitter,$observaciones,$baja);
 		if (!$res)  return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
@@ -50,6 +50,7 @@ class Clubes extends DBObject {
 		$gps		= http_request('GPS',"s",null,false);
 		$web		= http_request('Web',"s",null,false);
 		$email		= http_request('Email',"s",null,false);
+		$federations= http_request('Federations',"i",1);
 		$facebook	= http_request('Facebook',"s",null,false);
 		$google		= http_request('Google',"s",null,false);
 		$twitter	= http_request('Twitter',"s",null,false);
@@ -76,16 +77,15 @@ class Clubes extends DBObject {
 		$sql ="UPDATE Clubes
 				SET Nombre=? , Direccion1=? , Direccion2=? , Provincia=? ,
 				Contacto1=? , Contacto2=? , Contacto3=? , GPS=? , Web=? ,
-				Email=? , Facebook=? , Google=? , Twitter=? , Observaciones=? , Baja=?
-				WHERE ( ID=? )";
+				Email=? , Federations=?, Facebook=? , Google=? , Twitter=? , Observaciones=? , Baja=?
+				WHERE ( ID=$id )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('ssssssssssssssis',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,
-				$web,$email,$facebook,$google,$twitter,$observaciones,$baja,$idclub);
+		$res=$stmt->bind_param('ssssssssssissssi',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,
+				$web,$email,$federations,$facebook,$google,$twitter,$observaciones,$baja);
 		if (!$res) return $this->error($stmt->error);
 		// iniciamos los valores, chequeando su existencia
 		$nombre 	= http_request("Nombre","s",null,false);
-		$idclub		= $id;
 		$direccion1 = http_request('Direccion1',"s",null,false);
 		$direccion2 = http_request('Direccion2',"s",null,false); 
 		$provincia	= http_request('Provincia',"s",null,false);
@@ -95,13 +95,14 @@ class Clubes extends DBObject {
 		$gps		= http_request('GPS',"s",null,false);
 		$web		= http_request('Web',"s",null,false);
 		$email		= http_request('Email',"s",null,false);
+		$federations= http_request('Federations',"i",2);
 		$facebook	= http_request('Facebook',"s",null,false);
 		$google		= http_request('Google',"s",null,false);
 		$twitter	= http_request('Twitter',"s",null,false);
 		$observaciones = http_request('Observaciones',"s",null,false);
 		$baja		= http_request('Baja',"i",0);
 		
-		$this->myLogger->debug("Nombre: $nombre ID: $idclub Provincia: $provincia Direccion1: $direccion1 Contacto1: $contacto1 ");
+		$this->myLogger->debug("Nombre: $nombre ID: $id Provincia: $provincia Direccion1: $direccion1 Contacto1: $contacto1 ");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error);
@@ -138,11 +139,27 @@ class Clubes extends DBObject {
 		$search=http_Request("where","s","");
 		$page=http_request("page","i",1);
 		$rows=http_request("rows","i",50);
+		$fed=http_request("Federation","i",-1); // -1: any 0:rsce 1:rfec 2:uca
+		$fedstr = "";
+		switch (intval($fed)) {
+			case -1: break; // any
+			case 0: $fedstr="((Federations & 1)!=0)"; break; // rsce
+			case 1: $fedstr="((Federations & 2)!=0)"; break; // rfec
+			case 2: $fedstr="((Federations & 4)!=0)"; break; // uca
+			default: return $this->error("Clubes::select() Invalid Federation:$fed");
+		}
 		$limit = "";
-		$where = "";
 		if ($page!=0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
+		}
+		$where="";
+		if ($fedstr==="") {
+			if ($search!=='') $where="( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') OR ( Facebook LIKE '%$search%') ) ";
+			else $where="";
+		} else {
+			if ($search!=='') $where="$fedstr AND ( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') OR ( Facebook LIKE '%$search%') ) ";
+			else $where=$fedstr;
 		}
 		if ($search!=='') $where="( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') OR ( Facebook LIKE '%$search%') ) ";
 		$result=$this->__select(
@@ -181,8 +198,26 @@ class Clubes extends DBObject {
 		$this->myLogger->enter();
 		// evaluate search query string
 		$q=http_request("q","s","");
+		$f=http_request("Federation","i",-1);
+		$fedstr = "";
+		switch (intval($f)) {
+			case -1: break; // any
+			case 0: $fedstr="((Federations & 1)!=0)"; break; // rsce
+			case 1: $fedstr="((Federations & 2)!=0)"; break; // rfec
+			case 2: $fedstr="((Federations & 4)!=0)"; break; // uca
+			default: return $this->error("Clubes::enumerate() Invalid Federation:$f");
+		}
 		$where="";
 		if ($q!=="") $where="Nombre LIKE '%".$q."%'";
+
+		$where="";
+		if ($fedstr==="") {
+			if ($q!=='') $where="( Nombre LIKE '%".$q."%' ) ";
+			else $where="";
+		} else {
+			if ($q!=='') $where="$fedstr AND ( Nombre LIKE '%".$q."%' ) ";
+			else $where=$fedstr;
+		}
 		$result=$this->__select(
 				/* SELECT */ "ID,Nombre,Provincia",
 				/* FROM */ "Clubes",
