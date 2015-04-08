@@ -30,18 +30,23 @@ require_once("DBObject.php");
 class Eventos extends DBObject {
 	
 	static $event_list = array (
-		0  => 'null',		// null event: no action taken
-		1  => 'init',		// operator starts tablet application
-		2  => 'open',		// operator selects tanda on tablet
-		3  => 'datos',		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-		4  => 'llamada',	// operador abre panel de entrada de datos
-		5  => 'salida',		// juez da orden de salida ( crono 15 segundos )
-		6  => 'start',		// Crono manual - value: timestamp
-		7  => 'stop',		// Crono manual - value: timestamp
-		8  => 'crono',  	// Crono electronico - value: timestamp
-		9  => 'aceptar',	// operador pulsa aceptar
-		10  => 'cancelar',	// operador pulsa cancelar
-		11 => 'login'		// operador hace login en el sistema
+		0	=> 'null',			// null event: no action taken
+		1	=> 'init',			// operator starts tablet application
+		2	=> 'login',			// operador hace login en el sistema
+		3	=> 'open',			// operator selects tanda on tablet
+		// eventos de crono manual
+		4	=> 'salida',		// juez da orden de salida ( crono 15 segundos )
+		5	=> 'start',			// Crono manual - value: timestamp
+		6	=> 'stop',			// Crono manual - value: timestamp
+		// en crono electronico se pasan dos valores 'Tim' Tiempo a mostrar 'Value': timestamp
+		7	=> 'crono_start',	// Arranque Crono electronico
+		8	=> 'crono_interm',	// Tiempo intermedio Crono electronico
+		9	=> 'crono_stop',	// Parada Crono electronico
+		// entrada de datos, dato siguiente, cancelar operacion
+		10	=> 'llamada',		// operador abre panel de entrada de datos
+		11	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+		12	=> 'aceptar',		// grabar datos finales
+		13	=> 'cancelar'		// restaurar datos originales
 	);
 	
 	protected $sessionID;

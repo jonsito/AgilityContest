@@ -335,6 +335,10 @@ class AuthManager {
 	 * check permissions on current session token against required level
 	 */
 	function access($requiredlevel) {
+		if ($requiredlevel==PERMS_CHRONO) {
+			// TODO: Chrono operation requires specical id handling
+			return true;
+		}
 		if ($requiredlevel>=$this->level) return true;
 		throw new Exception("Insufficient credentials:({$this->level}) required: $requiredlevel");
 	}
