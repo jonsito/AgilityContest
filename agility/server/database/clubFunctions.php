@@ -30,16 +30,16 @@ require_once(__DIR__."/classes/Clubes.php");
 		$idclub=http_request("ID","i",0);
 		if ($operation===null) throw new Exception("Call to clubFunctions without 'Operation' requested");
 		switch ($operation) {
-			case "insert": $am->access("PERMS_OPERATOR"); $result=$clubes->insert(); break;
-			case "update": $am->access("PERMS_OPERATOR"); $result=$clubes->update($idclub); break;
-			case "delete": $am->access("PERMS_OPERATOR"); $result=$clubes->delete($idclub); break;
+			case "insert": $am->access(PERMS_OPERATOR); $result=$clubes->insert(); break;
+			case "update": $am->access(PERMS_OPERATOR); $result=$clubes->update($idclub); break;
+			case "delete": $am->access(PERMS_OPERATOR); $result=$clubes->delete($idclub); break;
 			case "select": $result=$clubes->select(); break;
 			case "enumerate": $result=$clubes->enumerate(); break;
 			case "getlogo": // not a json function; just return an image 
 				$result=$clubes->getLogo($idclub);
 				return;
 			case "setlogo":
-				$am->access("PERMS_OPERATOR");
+				$am->access(PERMS_OPERATOR);
 				// this call provides an image in base64 encoded format. Needs special handling
 				$result=$clubes->setLogo($idclub);
 				return;

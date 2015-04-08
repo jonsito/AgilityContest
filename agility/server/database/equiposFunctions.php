@@ -30,9 +30,9 @@ require_once(__DIR__."/classes/Equipos.php");
 		$equipo=http_request("ID","i",0); // used on update/delete
 		if ($operation===null) throw new Exception("Call to inscripcionFunctions without 'Operation' requested");
 		switch ($operation) {
-			case "insert": $am->access("PERMS_OPERATOR"); $result=$equipos->insert(); break; // nuevo equipo
-			case "update": $am->access("PERMS_OPERATOR"); $result=$equipos->update($equipo); break; // editar equipo
-			case "delete": $am->access("PERMS_OPERATOR"); $result=$equipos->delete($equipo); break; // borrar equipo
+			case "insert": $am->access(PERMS_OPERATOR); $result=$equipos->insert(); break; // nuevo equipo
+			case "update": $am->access(PERMS_OPERATOR); $result=$equipos->update($equipo); break; // editar equipo
+			case "delete": $am->access(PERMS_OPERATOR); $result=$equipos->delete($equipo); break; // borrar equipo
 			case "select": $result=$equipos->select(); break; // listado ordenado/bloques/busqueda
 			case "enumerate": $result=$equipos->enumerate(); break; // listado solo busqueda
 			case "selectbyid": $result=$equipos->enumerate(); break; // recupera entrada unica
