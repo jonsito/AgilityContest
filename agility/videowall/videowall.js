@@ -119,19 +119,6 @@ function vwls_cronoManual(oper,tstamp) {
 	$('#cronomanual').Chrono(oper,tstamp);
 }
 
-function vwls_cronoAuto(tstamp) {// notice that automatic chrono just overrides manual crono
-	if (tstamp==0) {
-		// arranca crono manual si no esta ya arrancado
-		// si el crono manual ya esta arrancado, lo resetea y vuelve a empezar
-		vwls_cronoManual('stop');
-		vwls_cronoManual('reset');
-		vwls_cronoManual('start',Date.now());
-	} else {
-		// si value!=0 parar countdown y crono manual; y enviar tiempo al tablet 
-		vwls_cronoManual('stop',tstamp);
-	}
-}
-
 /**
  * Imprime los inscritos en la jornada marcada por la sesion activa
  * @param jornada

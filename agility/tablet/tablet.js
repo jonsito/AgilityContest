@@ -358,8 +358,10 @@ function tablet_accept() {
 }
 
 function isExpected(event) {
+	/*
 	// Si la manga y el perro no coinciden con el mostrado en el tablet, log error e ignora evento
 	if ( (event['Manga']!=$('#tdialog-Manga').val()) || (event['Perro']!=$('#tdialog-Perro').val()) ) return false;
+	*/
 	return true;
 }
 
