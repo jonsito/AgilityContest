@@ -40,7 +40,7 @@ class Eventos extends DBObject {
 		6	=> 'stop',			// Crono manual - value: timestamp
 		// en crono electronico se pasan dos valores 'Tim' Tiempo a mostrar 'Value': timestamp
 		7	=> 'crono_start',	// Arranque Crono electronico
-		8	=> 'crono_interm',	// Tiempo intermedio Crono electronico
+		8	=> 'crono_int',		// Tiempo intermedio Crono electronico
 		9	=> 'crono_stop',	// Parada Crono electronico
 		// entrada de datos, dato siguiente, cancelar operacion
 		10	=> 'llamada',		// operador abre panel de entrada de datos

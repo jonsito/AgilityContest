@@ -214,8 +214,19 @@ function vwc_processCombinada(id,evt) {
 	case 'stop':	// value: timestamp
 		vwls_cronoManual('stop',event['Value']);
 		return;
-	case 'cronoauto':  	// value: timestamp
-		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
+	case 'crono_start': // arranque crono electronico
+		myCounter.stop(); 
+		vwls_cronoManual('stop');
+		vwls_cronoManual('reset');
+		vwls_cronoManual('start',event['Value']);
+		return;
+	case 'crono_int':	// tiempo intermedio crono electronico
+		// TODO: write
+		return;
+	case 'crono_stop':	// parada crono electronico
+		myCounter.stop(); 
+		vwls_cronoManual('stop',event['Value']);
+		return;
 	case 'aceptar':		// operador pulsa aceptar
 		vwls_cronoManual('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
 		vwls_showData(event); // actualiza pantall liveStream
@@ -255,13 +266,27 @@ function vwls_processLiveStream(id,evt) {
 		myCounter.start();
 		return;
 	case 'start':	// value: timestamp
+		myCounter.stop(); 
+		vwls_cronoManual('stop');
+		vwls_cronoManual('reset');
 		vwls_cronoManual('start',event['Value']);
 		return;
 	case 'stop':	// value: timestamp
+		myCounter.stop(); 
 		vwls_cronoManual('stop',event['Value']);
 		return;
-	case 'cronoauto':  	// value: timestamp
-		vwls_cronoAuto(event['Value']);
+	case 'crono_start': // arranque crono electronico
+		myCounter.stop(); 
+		vwls_cronoManual('stop');
+		vwls_cronoManual('reset');
+		vwls_cronoManual('start',event['Value']);
+		return;
+	case 'crono_int':	// tiempo intermedio crono electronico
+		// TODO: write
+		return;
+	case 'crono_stop':	// parada crono electronico
+		myCounter.stop(); 
+		vwls_cronoManual('stop',event['Value']);
 		return;
 	case 'aceptar':		// operador pulsa aceptar
 		vwls_cronoManual('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
@@ -298,7 +323,9 @@ function vw_processLlamada(id,evt) {
 		return;
 	case 'stop': // stop crono manual
 		return;
-	case 'cronoauto':  	// value: timestamp nada que hacer
+	case 'crono_start':  // arranque crono automatico
+	case 'crono_int':  	// tiempo intermedio crono electronico
+	case 'crono_stop':  // parada crono electronico
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':	// operador pulsa aceptar
 		vwc_updatePendingQueue(event,25);
@@ -331,7 +358,9 @@ function vw_processParciales(id,evt) {
 		return;
 	case 'stop': // stop crono manual
 		return;
-	case 'cronoauto':  	// value: timestamp nada que hacer
+	case 'crono_start':  // arranque crono automatico
+	case 'crono_int':  	// tiempo intermedio crono electronico
+	case 'crono_stop':  // parada crono electronico
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':	// operador pulsa aceptar
 		vwc_updateResults(event);

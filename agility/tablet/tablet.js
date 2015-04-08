@@ -396,25 +396,27 @@ function tablet_processEvents(id,evt) {
 		$('#tdialog-StartStopBtn').val("Start");
 		tablet_cronoManual('stop',time);
 		return;// Value contiene la marca de tiempo
-	case 'cronoauto':
-		// notice that automatic chrono just overrides manual crono, 
+	case 'crono_start': // arranque crono electronico
+		// automatic chrono just overrides manual crono, 
 		// except that bypasses configuration 'enabled' flag for it
 		if (!isExpected(event)) return;
-		if (time==0) {
-			// si value==0 parar countdown
-			$('#tdialog-StartStopBtn').val("Stop");
-			myCounter.stop(); 
-			// arranca crono manual si no esta ya arrancado
-			// si el crono manual ya esta arrancado, lo resetea y vuelve a empezar
-			$('#cronomanual').Chrono('stop');
-			$('#cronomanual').Chrono('reset');
-			$('#cronomanual').Chrono('start',Date.now());
-		} else {
-			// si value!=0 parar countdown y crono manual; y enviar tiempo al crono del tablet 
-			myCounter.stop();
-			$('#tdialog-StartStopBtn').val("Start");
-			$('#cronomanual').Chrono('stop',time);
-		}
+		// parar countdown
+		$('#tdialog-StartStopBtn').val("Stop");
+		myCounter.stop(); 
+		// arranca crono manual si no esta ya arrancado
+		// si el crono manual ya esta arrancado, lo resetea y vuelve a empezar
+		$('#cronomanual').Chrono('stop');
+		$('#cronomanual').Chrono('reset');
+		$('#cronomanual').Chrono('start',time);
+		return;
+	case 'crono_int':	// tiempo intermedio crono electronico
+		// TODO: write
+		return;
+	case 'crono_stop':	// parada crono electronico
+		// si value!=0 parar countdown y crono manual; y enviar tiempo al crono del tablet 
+		myCounter.stop();
+		$('#tdialog-StartStopBtn').val("Start");
+		$('#cronomanual').Chrono('stop',time);
 		return;
 	case 'cancelar': // operador pulsa cancelar
 		return;
