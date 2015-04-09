@@ -65,7 +65,7 @@ function vwls_updateData(data) {
 function vwls_showData(data) {
 	var perro=$('#vwls_Perro').html();
 	var dorsal=data['Dorsal'];
-	var celo=data['Celo'];
+	var celo=parseInt(data['Celo']);
 	if (perro!==data['Perro']) {
 		// if datos del participante han cambiado actualiza
 		$.ajax({

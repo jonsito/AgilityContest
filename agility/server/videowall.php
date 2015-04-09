@@ -211,7 +211,7 @@ class VideoWall {
 			$numero++;
 			$logo=$otmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
 			if ($logo==="") $logo='rsce.png';
-			$celo=($participante['Celo']==='1')?'Si':'No';
+			$celo=($participante['Celo']==1)?'Si':'No';
 			$bg=$this->getBackground($numero);
 			echo '
 				<tr id="participante_'.$numero.'" style="background:'.$bg.';">
