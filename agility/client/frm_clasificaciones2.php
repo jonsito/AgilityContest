@@ -106,6 +106,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<span style="float:right;padding:5px">
    		<a id="resultados-refreshBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-reload'" onclick="reloadClasificaciones();">Refrescar</a>
+   		<a id="resultados-verifyBtn" href="#" class="easyui-linkbutton" 
+   			data-options="iconCls:'icon-search'" onclick="verifyClasificaciones();">Verificar</a>
    		<a id="resultados-printBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-print'" onclick="$('#resultados-printDialog').dialog('open');">Informes</a>
    	</span>
@@ -243,6 +245,7 @@ $('#resultados-manga2-trs-form').form(
 */
 //tooltips
 addTooltip($('#resultados-refreshBtn').linkbutton(),"Actualizar la tabla de clasificaciones");
+addTooltip($('#resultados-verifyBtn').linkbutton(),"Comprobar si quedan perros pendientes de introducir datos");
 addTooltip($('#resultados-printBtn').linkbutton(),"Imprimir la clasificacion de la manga"); 
 addTooltip($('#resultados-printDlgBtn').linkbutton(),"Imprimir los datos en el formato seleccionado"); 
 addTooltip($('#r_prfirstLbl'),"Numero de la pegatina de comienzo de la impresión<br/> en la hoja de etiquetas"); 

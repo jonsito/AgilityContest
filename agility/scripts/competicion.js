@@ -640,12 +640,29 @@ function competicionKeyEventHandler(evt) {
 	return true; // to allow follow key binding chain
 }
 
+function printParcial(mode) {
+	$.fileDownload(
+		'/agility/server/pdf/print_resultadosByManga.php',
+		{
+			httpMethod: 'GET',
+			data: { 
+				Prueba: workingData.prueba,
+				Jornada: workingData.jornada,
+				Manga: workingData.manga,
+				Mode: mode,
+				Operation: 'print'
+			},
+	        preparingMessageHtml: "We are preparing your report, please wait...",
+	        failMessageHtml: "There was a problem generating your report, please try again."
+		}
+	);
+}
 
 /**
  * imprime los resultados de la manga/categoria solicitadas
  * @param val 0:L 1:M 2:S 3:T
  */
-function printParcial(val) {
+function checkAndPrintParcial(val) {
 	var mode=0;
 	var value=parseInt(val); // stupid javascript!!
 	// obtenemos informacion sobre los datos a imprimir
@@ -658,32 +675,19 @@ function printParcial(val) {
 		success: function(data) {
 			if (parseInt(data['total'])==0) {
 				// No hay perros pendientes de salir: imprimimos los datos de la manga y categoria solicitada
-				$.fileDownload(
-					'/agility/server/pdf/print_resultadosByManga.php',
-					{
-						httpMethod: 'GET',
-						data: { 
-							Prueba: workingData.prueba,
-							Jornada: workingData.jornada,
-							Manga: workingData.manga,
-							Mode: mode,
-							Operation: 'print'
-						},
-				        preparingMessageHtml: "We are preparing your report, please wait...",
-				        failMessageHtml: "There was a problem generating your report, please try again."
-					}
-				);
+				printParcial(mode);
 			} else {
-				var str="Perros pendientes de introducci&oacute;n de datos:<ul>"
+				var str="<h3>Perros pendientes de introducci&oacute;n de datos:</h3>";
+				str +="<table><tr><th>Dorsal</th><th>Perro</th><th>Gu&iacute;a</th><th>Club</th></tr>";
 				// componemos mensaje de error
 				$.each(
 					data['rows'],
 					function(index,val) {
-						str+="<li>Dorsal: "+val['Dorsal']+" Nombre: "+val['Nombre']+" Guia: "+val['NombreGuia']+" Club: "+val['NombreClub']+"</li>";
+						str+="<tr><td>"+val['Dorsal']+"</td><td>"+val['Nombre']+"</td><td>"+val['NombreGuia']+"</td><td>"+val['NombreClub']+"</td></tr>";
 					}
 				);
-				str+="</ul>";
-				var w=$.messager.alert('Impresi&oacute;n no v&aacute;lida',str,'error');
+				str+="</table><br />Imprimir de todos modos?";
+				var w=$.messager.confirm('Datos no v&aacute;lidos',str,function(r){if (r) printParcial(mode);});
 				w.window('resize',{width:550}).window('center');
 			}
 		}
@@ -1481,6 +1485,82 @@ function resultados_doPrint() {
 		case 2: resultados_printEtiquetas(1,line,''); break;
 	}
 	return false; //this is critical to stop the click event which will trigger a normal file download!
+}
+
+
+function verifyCompose(data,manga) {
+	str="<h3>Perros pendientes de introducci&oacute;n de datos en manga "+manga+":</h3>";
+	str +="<table><tr><th>Dorsal</th><th>Perro</th><th>Gu&iacute;a</th><th>Club</th></tr>";
+	// componemos mensaje de error
+	$.each(
+		data['rows'],
+		function(index,val) {
+			str+="<tr><td>"+val['Dorsal']+"</td><td>"+val['Nombre']+"</td><td>"+val['NombreGuia']+"</td><td>"+val['NombreClub']+"</td></tr>";
+		}
+	);
+	str+="</table><br />";
+	return str;
+}
+
+function verifyClasificaciones() {
+	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
+	var url='/agility/server/pdf/print_clasificacion.php';
+	var mode=$('#resultados-selectCategoria').combobox('getValue');
+	var str1="";
+	var str2=""
+	if (ronda==null) {
+    	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+    	return false; // no way to know which ronda is selected
+	}
+	// verificamos manga 1
+	$.ajax({
+		type:'GET',
+		url:"/agility/server/database/resultadosFunctions.php",
+		dataType:'json',
+		data: {	
+			Operation:	'getPendientes', 
+			Prueba:	workingData.prueba, 
+			Jornada:workingData.jornada, 
+			Manga:ronda.Manga1, 
+			Mode: mode 
+		},
+		success: function(data) {
+			if (parseInt(data['total'])!=0) str1=verifyCompose(data,ronda.Manga1);
+			if (ronda.Manga2==0) {
+				// no hay segunda manga
+				if (str1==="") {
+					$.messager.alert("Verify OK","No se han encontrado perros sin datos registrados","info");
+				} else {
+					var w=$.messager.alert("Verify Error",str1,"error");
+					w.window('resize',{width:550}).window('center');
+				}
+				return;
+			}
+			// verificamos manga 2
+			$.ajax({
+				type:'GET',
+				url:"/agility/server/database/resultadosFunctions.php",
+				dataType:'json',
+				data: {	
+					Operation:	'getPendientes', 
+					Prueba:	workingData.prueba, 
+					Jornada:workingData.jornada, 
+					Manga:ronda.Manga2, 
+					Mode: mode 
+				},
+				success: function(data) {
+					if (parseInt(data['total'])!=0) str2=verifyCompose(data,ronda.Manga2);
+					if (str1==="" && str2==="") {
+						$.messager.alert("Verify OK","No se han encontrado perros sin datos registrados","info");
+					} else {
+						var w=$.messager.alert("Verify Error",str1+str2,"error");
+						w.window('resize',{width:550}).window('center');
+					}
+				}
+			});
+		}
+	});
+    return false; //this is critical to stop the click event which will trigger a normal file download!	
 }
 
 function reloadClasificaciones() {
