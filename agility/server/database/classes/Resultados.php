@@ -298,6 +298,37 @@ class Resultados extends DBObject {
 	}
 	
 	/**
+	 * Elabora una lista con los perros pendientes de salir en la manga
+	 */
+	function getPendientes($mode) {
+		$this->myLogger->enter();
+		$idmanga=$this->IDManga;
+		$where="(Manga=$idmanga) AND (Pendiente=1) "; // para comprobar pendientes
+		$cat="";
+		switch ($mode) {
+			case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
+			case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
+			case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
+			case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
+			case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
+			case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
+			case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
+			case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
+			case 8: /* L+M+S+T */	break; // no check categoria
+			default: return $this->error("modo de recorrido desconocido:$mode");
+		}
+		// FASE 0: comprobamos si hay perros pendientes de salir
+		return $this->__select(
+			/* SELECT */	"*",
+			/* FROM */		"Resultados",
+			/* WHERE */		"$where $cat",
+			/* ORDER BY */	"Nombre ASC",
+			/* LIMIT */		""
+		);
+		$this->myLogger->leave();
+	}
+	
+	/**
 	 * Presenta una tabla ordenada segun los resultados de la manga
 	 * @return null on error else array en formato easyui datagrid
 	 *@param {integer} mode 0:L 1:M 2:S 3:MS 4:LMS.
@@ -311,15 +342,16 @@ class Resultados extends DBObject {
 		// FASE 0: en funcion del tipo de recorrido y modo pedido
 		// ajustamos el criterio de busqueda de la tabla de resultados
 		$where="(Manga=$idmanga) AND (Pendiente=0) ";
+		$cat="";
 		switch ($mode) {
-			case 0: /* Large */		$where= "$where AND (Categoria='L')"; break;
-			case 1: /* Medium */	$where= "$where AND (Categoria='M')"; break;
-			case 2: /* Small */		$where= "$where AND (Categoria='S')"; break;
-			case 3: /* Med+Small */ $where= "$where AND ( (Categoria='M') OR (Categoria='S') )"; break;
-			case 4: /* L+M+S */ 	$where= "$where AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
-			case 5: /* Tiny */		$where= "$where AND (Categoria='T')"; break;
-			case 6: /* L+M */		$where= "$where AND ( (Categoria='L') OR (Categoria='M') )"; break;
-			case 7: /* S+T */		$where= "$where AND ( (Categoria='S') OR (Categoria='T') )"; break;
+			case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
+			case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
+			case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
+			case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
+			case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
+			case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
+			case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
+			case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
 			case 8: /* L+M+S+T */	break; // no check categoria
 			default: return $this->error("modo de recorrido desconocido:$mode");
 		}
@@ -329,7 +361,7 @@ class Resultados extends DBObject {
 					( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido,
 					0 AS PTiempo, 0 AS Penalizacion, '' AS Calificacion, 0 AS Velocidad", 
 				"Resultados", 
-				$where, 
+				"$where $cat", 
 				" PRecorrido ASC, Tiempo ASC", 
 				"");
 		if (!is_array($res))

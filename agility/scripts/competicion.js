@@ -650,22 +650,44 @@ function printParcial(val) {
 	var value=parseInt(val); // stupid javascript!!
 	// obtenemos informacion sobre los datos a imprimir
 	var mode=getMode(workingData.datosManga.Recorrido,value);
-	// imprimimos los datos de la manga y categoria solicitada
-	$.fileDownload(
-		'/agility/server/pdf/print_resultadosByManga.php',
-		{
-			httpMethod: 'GET',
-			data: { 
-				Prueba: workingData.prueba,
-				Jornada: workingData.jornada,
-				Manga: workingData.manga,
-				Mode: mode,
-				Operation: 'print'
-			},
-	        preparingMessageHtml: "We are preparing your report, please wait...",
-	        failMessageHtml: "There was a problem generating your report, please try again."
+	$.ajax({
+		type:'GET',
+		url:"/agility/server/database/resultadosFunctions.php",
+		dataType:'json',
+		data: {	Operation:'getPendientes', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:workingData.manga, Mode: mode },
+		success: function(data) {
+			if (parseInt(data['total'])==0) {
+				// No hay perros pendientes de salir: imprimimos los datos de la manga y categoria solicitada
+				$.fileDownload(
+					'/agility/server/pdf/print_resultadosByManga.php',
+					{
+						httpMethod: 'GET',
+						data: { 
+							Prueba: workingData.prueba,
+							Jornada: workingData.jornada,
+							Manga: workingData.manga,
+							Mode: mode,
+							Operation: 'print'
+						},
+				        preparingMessageHtml: "We are preparing your report, please wait...",
+				        failMessageHtml: "There was a problem generating your report, please try again."
+					}
+				);
+			} else {
+				var str="Perros pendientes de introducci&oacute;n de datos:<ul>"
+				// componemos mensaje de error
+				$.each(
+					data['rows'],
+					function(index,val) {
+						str+="<li>Dorsal: "+val['Dorsal']+" Nombre: "+val['Nombre']+" Guia: "+val['NombreGuia']+" Club: "+val['NombreClub']+"</li>";
+					}
+				);
+				str+="</ul>";
+				var w=$.messager.alert('Impresi&oacute;n no v&aacute;lida',str,'error');
+				w.window('resize',{width:550}).window('center');
+			}
 		}
-	);
+	});
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 

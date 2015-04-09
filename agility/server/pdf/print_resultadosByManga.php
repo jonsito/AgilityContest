@@ -185,7 +185,7 @@ try {
 	$mngobj= new Mangas("printResultadosByManga",$idjornada);
 	$manga=$mngobj->selectByID($idmanga);
 	$resobj= new Resultados("printResultadosByManga",$idprueba,$idmanga);
-	$resultados=$resobj->getResultados($mode);
+	$resultados=$resobj->getResultados($mode,true); // throw exception if pending dogs
 
 	// Creamos generador de documento
 	$pdf = new PDF($idprueba,$idjornada,$manga,$resultados,$mode);
@@ -193,6 +193,6 @@ try {
 	$pdf->composeTable();
 	$pdf->Output("resultadosByManga.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
-	die ("Error accessing database: ".$e.getMessage());
+	die($e->getMessage());
 }
 ?>

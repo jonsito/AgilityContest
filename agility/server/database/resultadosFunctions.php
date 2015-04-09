@@ -38,6 +38,7 @@ try {
 		case "update": $am->access(PERMS_ASSISTANT); $result=$resultados->update($idperro); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$resultados->delete($idperro); break;
 		case "select": $result=$resultados->select($idperro); break;
+		case "getPendientes": $result=$resultados->getPendientes($mode); break;
 		case "getResultados": $result=$resultados->getResultados($mode); break;
 		case "getTRS": $result=$resultados->getTRS($mode); break;
 		default: throw new Exception("resultadosFunctions:: invalid operation: $operation provided");

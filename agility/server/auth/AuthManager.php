@@ -28,6 +28,7 @@ define ("PERMS_OPERATOR",2);
 define ("PERMS_ASSISTANT",3);
 define ("PERMS_GUEST",4);
 define ("PERMS_NONE",5);
+define ("PERMS_CHRONO",6);
 
 // datos de registro
 define('AC_PUBKEY_FILE' , __DIR__."/AgilityContest_puk.pem");
