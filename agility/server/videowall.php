@@ -287,10 +287,10 @@ class VideoWall {
 			<thead>
 				<th>Puesto</th>
 				<th>&nbsp</th>
-				<th colspan="5">Participante</th>
-				<th>Flt.</th>
-				<th>Toc.</th>
-				<th>Reh.</th>
+				<th colspan="4">Participante</th>
+				<th>F</th>
+				<th>T</th>
+				<th>R</th>
 				<th>Tiempo</th>
 				<th>Vel.</th>
 				<th>Penal.</th>
@@ -306,8 +306,8 @@ class VideoWall {
 			if ($logo==="") $logo='rsce.png';
 			echo '
 				<tr id="Resultado_'.$numero.'" style="background:'.$bg.'">
-					<td class="vwc_puesto">'.$resultado['Puesto'].'</td>
-					<td class="vwc_logo">
+					<td class="vwc_Entry vwc_puesto">'.$resultado['Puesto'].'</td>
+					<td class="vwc_Entry vwc_logo">
 						<!-- trick to insert a resizeable image: use div+bgimage instead of img tag -->
 						<div style="height=100%;
 									position:relative;
@@ -316,28 +316,24 @@ class VideoWall {
 									background-position:center;
 									font-size:400%">&nbsp;</div>
 					</td>
-					<td colspan="3">
-						<table class="vwc_trparticipantes">
-							<tr>
-								<td>Dorsal:</td><td>'.$resultado['Dorsal'].'</td>
-								<td>Lic.:</td><td>'.$resultado['Licencia'].'</td>
-								<td>Grado:</td><td>'.$resultado['Grado'].'</td>
-								<td>Cat:</td><td>'.$resultado['Categoria'].'</td>
-							</tr>
-							<tr>
-								<td>Guia:</td><td colspan="4">'.$resultado['NombreGuia'].'</td>
-								<td>Club:</td><td colspan="2">'.$resultado['NombreClub'].'</td>
-							</tr>
-						</table>
+					<td class="vwc_Entry vwc_Datos">
+						Dorsal: '.$resultado['Dorsal'].'<br />
+						Lic. : '.$resultado['Licencia'].'<br />
+						Grado: '.$resultado['Grado'].'<br />	
+						Cat. : '.$resultado['Categoria'].'		
 					</td>
-					<td colspan="2" class="vwc_nombre">'.$resultado['Nombre'].'</td>
-					<td class="vwc_ftr">'.$resultado['Faltas'].'</td>
-					<td class="vwc_ftr">'.$resultado['Tocados'].'</td>
-					<td class="vwc_ftr">'.$resultado['Rehuses'].'</td>
-					<td class="vwc_rlarge">'.number_format($resultado['Tiempo'],2).'</td>
-					<td class="vwc_vel">'.number_format($resultado['Velocidad'],1).'</td>
-					<td class="vwc_rlarge">'.number_format($resultado['Penalizacion'],2).'</td>
-					<td colspan="2" class="vwc_calif">'.$resultado['Calificacion'].'</td>
+					<td class="vwc_Entry vwc_GuiaClub">
+						Gu&iacute;a: '.$resultado['NombreGuia'].'<br />
+						Club: '.$resultado['NombreClub'].'<br />
+					</td>
+					<td colspan="2" class="vwc_Entry vwc_nombre">'.$resultado['Nombre'].'</td>
+					<td class="vwc_Entry vwc_ftr">'.$resultado['Faltas'].'</td>
+					<td class="vwc_Entry vwc_ftr">'.$resultado['Tocados'].'</td>
+					<td class="vwc_Entry vwc_ftr">'.$resultado['Rehuses'].'</td>
+					<td class="vwc_Entry vwc_rlarge">'.number_format($resultado['Tiempo'],2).'</td>
+					<td class="vwc_Entry vwc_vel">'.number_format($resultado['Velocidad'],1).'</td>
+					<td class="vwc_Entry vwc_rlarge">'.number_format($resultado['Penalizacion'],2).'</td>
+					<td colspan="2" class="vwc_Entry vwc_calif">'.$resultado['Calificacion'].'</td>
 				</tr>
 			';
 		}

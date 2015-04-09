@@ -109,19 +109,41 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 
 /*********** elementos individuales de la tabla de resultados parciales */
+.vwc_Entry { /* elementos comunes */
+	width:100%;
+	border:0px;
+	padding:0px;
+	font-weight:bold;
+	font-style:italic;
+	text-align:left;
+}
+.vwc_Entry tr { /* anchura de cada entrada */
+	width:100%;
+	height:5%;
+}
 .vwc_puesto {
-    width: 50px;
-	font-size: 30px;
+    width: 30px;
+	font-size: 25px;
 }
 .vwc_logo {
-	width: 50px;
+	width: 70px;
+}
+.vwc_Datos { /* datos del participante */
+	width:150px;
+	font-size:75%;
+	padding-left:5px;
+}
+.vwc_GuiaClub { /* nombre del guia y del club */
+	width:250px;
+	font-size:75%;
+	padding-left:5px;
 }
 .vwc_nombre {
     width: 200px;
 	font-size: 20px;
 }
 .vwc_ftr {
-    width: 30px;
+    width: 20px;
 	font-size: 15px;
 }
 .vwc_vel {
@@ -161,13 +183,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .vwc_tresultados {
 	width: 100%;
 	text-align: center;
-	font-weight: bold;
-}
-
-/* subtabla de participantes en resultados parciales */
-.vwc_trparticipantes {
-	width: 250px;
-	text-align: left;
 	font-weight: bold;
 }
 
