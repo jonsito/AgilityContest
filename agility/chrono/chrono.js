@@ -48,11 +48,20 @@ function doBeep() {
 	if (ac_config.tablet_beep)	setTimeout(function() {beep();},0);
 }
 
-var myCounter = new Countdown({  
+var c_llamada = new Countdown({  
     seconds:15,  // number of seconds to count down
-    onUpdateStatus: function(sec){ $('#cdialog-Tiempo').val(sec); }, // callback for each second
+    onUpdateStatus: function(sec){ $('#chrono_Tiempo').html(sec); }, // callback for each second
     // onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
     onCounterEnd: function(){ /* empty: let the tablet do the work */    }
+});
+
+var c_reconocimiento = new Countdown({
+	seconds: 420, // 7 minutes
+    onUpdateStatus: function(sec){
+    	var time=sprintf('%02d:%02d', Math.floor(sec/60),sec%60);
+    	$('#chrono_Tiempo').html( time ); 
+    }, // callback for each second
+    onCounterEnd: function(){ /* empty */    }
 });
 
 function chrono_start() {
@@ -71,6 +80,11 @@ function chrono_intermediate() {
 	chrono_putEvent('crono_int',{ 'Value' : Date.now() } );
 	doBeep();
 	return false;
+}
+
+function chrono_reconocimiento() {
+	if (c_reconocimiento.val()!==0) c_reconocimiento.stop();
+	else c_reconocimiento.start();
 }
 
 function isExpected(event) {
@@ -96,7 +110,7 @@ function chrono_processEvents(id,evt) {
 		$('#cronoauto').Chrono('reset');
 		return;
 	case 'salida': // orden de salida
-		myCounter.start();
+		c_llamada.start();
 		return;
 	case 'start': // start crono manual
 		return;
@@ -107,7 +121,8 @@ function chrono_processEvents(id,evt) {
 		// except that bypasses configuration 'enabled' flag for it
 		if (!isExpected(event)) return;
 		// parar countdown
-		myCounter.stop(); 
+		c_llamada.stop(); 
+		c_reconocimiento.stop();
 		// arranca crono manual si no esta ya arrancado
 		// si el crono manual ya esta arrancado, lo resetea y vuelve a empezar
 		$('#cronoauto').Chrono('stop');
@@ -118,8 +133,8 @@ function chrono_processEvents(id,evt) {
 		// TODO: write
 		return;
 	case 'crono_stop':	// parada crono electronico
-		// si value!=0 parar countdown y crono manual; y enviar tiempo al crono del tablet 
-		myCounter.stop();
+		c_llamada.stop(); // not really needed, but...
+		c_reconocimiento.stop();// also, not really needed, but...
 		$('#cronoauto').Chrono('stop',time);
 		return;
 	case 'cancelar': // operador pulsa cancelar

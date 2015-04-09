@@ -44,13 +44,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	</div>
 </div>
 
-<div id="chrono-simButtons" style="text-align:right">
-   	<a id="chrono-startBtn" href="#" class="easyui-linkbutton" 
-   	   	data-options="iconCls: 'icon-on'" onclick="chrono_start()">Inicio</a>
-   	<a id="chrono-intBtn" href="#" class="easyui-linkbutton" 
-   	   	data-options="iconCls: 'icon-help'" onclick="chrono_intermediate()">Intermedio</a>
-   	<a id="chrono-stopBtn" href="#" class="easyui-linkbutton" 
-   	   	data-options="iconCls: 'icon-off'" onclick="chrono_stop()">Final</a>
+<div id="chrono-simButtons" style="text-align:right;width:100%;display:inline-block">
+	<span style="float:left;padding:5px;">
+   		<a id="chrono-recBtn" href="#" class="easyui-linkbutton" 
+   		   	data-options="iconCls: 'icon-huella'" onclick="chrono_reconocimiento()">Reconocimiento</a>
+	</span>
+	<span style="float:right;padding:5px;">
+   		<a id="chrono-startBtn" href="#" class="easyui-linkbutton" 
+   		   	data-options="iconCls: 'icon-on'" onclick="chrono_start()">Inicio</a>
+   		<a id="chrono-intBtn" href="#" class="easyui-linkbutton" 
+   		   	data-options="iconCls: 'icon-help'" onclick="chrono_intermediate()">Intermedio</a>
+   		<a id="chrono-stopBtn" href="#" class="easyui-linkbutton" 
+   		   	data-options="iconCls: 'icon-off'" onclick="chrono_stop()">Final</a>
+	</span>
 </div>	<!-- botones -->
 
 <!-- declare a tag to attach a chrono object to -->
@@ -83,6 +89,7 @@ $('#chrono_Screen-dialog').dialog({
 	buttons:'#chrono-simButtons'
 });
 
+addTooltip($('#chrono-recBtn').linkbutton(),"7 Minutos de reconocimiento de pista");
 addTooltip($('#chrono-startBtn').linkbutton(),"Arrancar el cron&oacute;metro");
 addTooltip($('#chrono-intBtn').linkbutton(),"Mostrar tiempo intermedio");
 addTooltip($('#chrono-stopBtn').linkbutton(),"Parar el cron&oacute;metro");

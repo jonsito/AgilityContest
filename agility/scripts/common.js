@@ -107,28 +107,32 @@ function Countdown(options) {
 	var timer=null;
 	var instance = this;
 	var seconds = options.seconds || 10;
+	var count = 0;
 	var updateStatus = options.onUpdateStatus || function () {};
 	var counterEnd = options.onCounterEnd || function () {};
 
 	function decrementCounter() {
-		updateStatus(seconds);
-		if (seconds === 0) {
+		updateStatus(count);
+		if (count <= 0) {
 			counterEnd();
 			instance.stop();
 		}
-		seconds--;
+		count--;
 	}
 
 	this.start = function () {
 		clearInterval(timer);
-		timer = 0;
-		seconds = options.seconds;
+		count = options.seconds;
 		timer = setInterval(decrementCounter, 1000);
 	};
 
 	this.stop = function () {
 		clearInterval(timer);
+		count=0;
+		updateStatus(seconds);
 	};
+	
+	this.val = function(secs) { if (typeof(secs) === 'undefined') return count; else count=secs; }
 }
 
 /**
@@ -136,7 +140,7 @@ function Countdown(options) {
  * @param {string} variable objeto buscar
  * @returns {Boolean} true si existe el objeto 'variable'
  */
-function isDefined(variable) { return (typeof(window[variable]) != "undefined");}
+function isDefined(variable) { return (typeof(window[variable]) !== "undefined");}
 
 /**
  * Convierte los campos de un formulario en un array
