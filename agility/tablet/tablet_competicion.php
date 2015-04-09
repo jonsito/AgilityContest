@@ -52,6 +52,7 @@ $('#tablet-window').window({
 
 $('#tablet-datagrid').datagrid({
 	// propiedades del panel asociado
+    expandedRow: -1, // added by jamc
 	fit: true,
 	border: false,
 	closable: false,
@@ -90,8 +91,20 @@ $('#tablet-datagrid').datagrid({
     detailFormatter:function(idx,row){
         return '<div style="padding:2px"><table id="tablet-datagrid-' + parseInt(row.ID) + '"></table></div>';
     },
-    onClickRow: function(idx,row) { doBeep(); tablet_updateSession(row);},
-    onExpandRow: function(idx,row) { doBeep(); tablet_showPerrosByTanda(idx,row); },
+    onClickRow: function(idx,row) { 
+        doBeep(); 
+        tablet_updateSession(row);
+    },
+    onExpandRow: function(idx,row) { 
+        doBeep();
+		// collapse previous expanded row
+        var oldRow=$('#tablet-datagrid').datagrid('options').expandedRow;
+        if (oldRow!=-1) $('#tablet-datagrid').datagrid('collapseRow',oldRow);
+        $('#tablet-datagrid').datagrid('options').expandedRow=idx;
+        // update session data
+        tablet_updateSession(row);
+        tablet_showPerrosByTanda(idx,row); 
+    },
     onCollapseRow: function(idx,row) { doBeep(); }
 });
 
