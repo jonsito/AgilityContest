@@ -50,13 +50,21 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	color: white;
 }
 
+.chrono_info {
+	text-align: left;
+	background-color: #c0c0c0;
+	font-size:0.75em;
+	color: white;
+}
+
 .chrono_tiempo {
 	text-align: center;
 	background-color: #c0c0c0;
 	color: red;
-	font-size: 5.5em;
+	font-size: 6.0em;
 	letter-spacing: 0.11em;
 }
+
 .chrono_fondo {
     background-color: rgba(127,127,127,<?php echo $config->getEnv('vw_alpha')?>);
     border: 3px solid black;

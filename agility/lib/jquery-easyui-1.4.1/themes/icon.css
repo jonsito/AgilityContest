@@ -139,6 +139,12 @@
 .icon-off{
 	background:url('icons/off.png') no-repeat center center;
 }
+.icon-hand{
+	background:url('icons/hand.png') no-repeat center center;
+}
+.icon-fist{
+	background:url('icons/fist.png') no-repeat center center;
+}
 
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;

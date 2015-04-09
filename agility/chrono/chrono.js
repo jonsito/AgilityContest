@@ -64,27 +64,59 @@ var c_reconocimiento = new Countdown({
     onCounterEnd: function(){ /* empty */    }
 });
 
-function chrono_start() {
-	chrono_putEvent('crono_start',{ 'Value' : Date.now() } );
-	doBeep();
-	return false;
+function c_updateData(data) {
+	if (data["Faltas"]!=-1) $('#chrono_Faltas').html(data["Faltas"]);
+	if (data["Tocados"]!=-1) $('#chrono_Tocados').html(data["Tocados"]);
+	if (data["Rehuses"]!=-1) $('#chrono_Rehuses').html(data["Rehuses"]);
+	// if (data["Tiempo"]!=-1) $('#chrono_Tiempo').html(data["Tiempo"]);
+	if (data["Eliminado"]==1)	$('#chrono_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
+	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red">NoPre.</span>');
 }
 
-function chrono_stop() {
-	chrono_putEvent('crono_stop',{ 'Value' : Date.now() } );
-	doBeep();
-	return false;
+function c_showData(data) {
+	var perro=$('#chrono_Perro').html();
+	var dorsal=data['Dorsal'];
+	var celo=data['Celo'];
+	if (perro!==data['Perro']) {
+		// if datos del participante han cambiado actualiza
+		$.ajax({
+			type: "GET",
+			url: "/agility/server/database/dogFunctions.php",
+			data: {
+				'Operation' : 'getbyidperro',
+				'ID'	: data['Perro']
+			},
+			async: true,
+			cache: false,
+			dataType: 'json',
+			success: function(data){
+				$('#chrono_Logo').attr("src","/agility/images/logos/"+data['LogoClub']);
+				$('#chrono_Dorsal').html("Dors: "+dorsal );
+				$('#chrono_Nombre').html(data["Nombre"]);
+				$('#chrono_NombreGuia').html("Guia: "+data["NombreGuia"]);
+				$('#chrono_NombreClub').html("Club: "+data["NombreClub"]);
+				$('#chrono_Categoria').html(data["NombreCategoria"].replace(/.* - /g,""));
+				$('#chrono_Grado').html(data["NombreGrado"]);
+				$('#chrono_Celo').html((celo==1)?'<span class="blink">Celo</span>':'');
+			},
+			error: function(XMLHttpRequest,textStatus,errorThrown) {
+				alert("error: "+textStatus + " "+ errorThrown );
+			}
+		});
+	}
+	// actualiza resultados del participante
+	$('#chrono_Faltas').html(data["Faltas"]);
+	$('#chrono_Tocados').html(data["Tocados"]);
+	$('#chrono_Rehuses').html(data["Rehuses"]);
+	$('#chrono_Tiempo').html(data["Tiempo"]);
+	if (data["Eliminado"]==1)	$('#chrono_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
+	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red">NoPre.</span>');
+	
 }
-
-function chrono_intermediate() {
-	chrono_putEvent('crono_int',{ 'Value' : Date.now() } );
+function chrono_button(event,data) {
+	data.Value=Date.now();
+	chrono_putEvent(event,data);
 	doBeep();
-	return false;
-}
-
-function chrono_reconocimiento() {
-	if (c_reconocimiento.val()!==0) c_reconocimiento.stop();
-	else c_reconocimiento.start();
 }
 
 function isExpected(event) {
@@ -104,10 +136,12 @@ function chrono_processEvents(id,evt) {
 	case 'open': // operator select tanda:
 		return;
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+		c_updateData(event);
 		return;
 	case 'llamada':	// llamada a pista
 		$('#cronoauto').Chrono('stop');
 		$('#cronoauto').Chrono('reset');
+		c_showData(event);
 		return;
 	case 'salida': // orden de salida
 		c_llamada.start();
@@ -137,9 +171,15 @@ function chrono_processEvents(id,evt) {
 		c_reconocimiento.stop();// also, not really needed, but...
 		$('#cronoauto').Chrono('stop',time);
 		return;
-	case 'cancelar': // operador pulsa cancelar
+	case 'crono_dat': // operador pulsa botonera del crono
 		return;
-	case 'aceptar':	// operador pulsa aceptar
+	case 'crono_rec': // reconocimiento de pista
+		if (c_reconocimiento.val()!==0) c_reconocimiento.stop();
+		else c_reconocimiento.start();
+		return;
+	case 'cancelar': // operador pulsa cancelar en tablet
+		return;
+	case 'aceptar':	// operador pulsa aceptar en tablet
 		return;
 	default:
 		alert("Unknow Event type: "+event['Type']);

@@ -129,7 +129,7 @@ function Countdown(options) {
 	this.stop = function () {
 		clearInterval(timer);
 		count=0;
-		updateStatus(seconds);
+		updateStatus(count);
 	};
 	
 	this.val = function(secs) { if (typeof(secs) === 'undefined') return count; else count=secs; }

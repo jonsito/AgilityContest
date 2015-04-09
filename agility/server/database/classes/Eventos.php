@@ -42,11 +42,13 @@ class Eventos extends DBObject {
 		7	=> 'crono_start',	// Arranque Crono electronico
 		8	=> 'crono_int',		// Tiempo intermedio Crono electronico
 		9	=> 'crono_stop',	// Parada Crono electronico
+		10 	=> 'crono_rec',		// Llamada a reconocimiento de pista
+		11  => 'crono_dat',     // Envio de Falta/Rehuse/Eliminado desde el crono
 		// entrada de datos, dato siguiente, cancelar operacion
-		10	=> 'llamada',		// operador abre panel de entrada de datos
-		11	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-		12	=> 'aceptar',		// grabar datos finales
-		13	=> 'cancelar'		// restaurar datos originales
+		12	=> 'llamada',		// operador abre panel de entrada de datos
+		13	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+		14	=> 'aceptar',		// grabar datos finales
+		15	=> 'cancelar'		// restaurar datos originales
 	);
 	
 	protected $sessionID;

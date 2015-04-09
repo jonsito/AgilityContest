@@ -420,6 +420,8 @@ function tablet_processEvents(id,evt) {
 		$('#tdialog-StartStopBtn').val("Start");
 		$('#cronomanual').Chrono('stop',time);
 		return;
+	case 'crono_dat':	// datos desde el crono electronico
+	case 'crono_rec':	// reconocimiento de pista desde crono electronico
 	case 'cancelar': // operador pulsa cancelar
 		return;
 	case 'aceptar':	// operador pulsa aceptar

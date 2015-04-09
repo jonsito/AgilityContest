@@ -23,22 +23,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<span class="chrono_fondo" id="chrono_ResultadosBg">&nbsp;</span>
 		<span class="chrono_fondo" id="chrono_DatosBg">&nbsp;</span>
 		<!-- datos de resultados -->
-		<span class="chrono_label" id="chrono_FaltasLbl">Faltas:</span>
+		<span class="chrono_label" id="chrono_FaltasLbl">Flt:</span>
 		<span class="chrono_data"  id="chrono_Faltas">0</span>
-		<span class="chrono_label" id="chrono_TocadosLbl">Tocados:</span>
+		<span class="chrono_label" id="chrono_TocadosLbl">Toc:</span>
 		<span class="chrono_data"  id="chrono_Tocados">0</span>
-		<span class="chrono_label" id="chrono_RehusesLbl">Reh&uacute;ses:</span>
+		<span class="chrono_label" id="chrono_RehusesLbl">Reh:</span>
 		<span class="chrono_data"  id="chrono_Rehuses">0</span>
 		<span class="chrono_tiempo" id="chrono_Tiempo">00.00</span>
 		<!-- Informacion del participante -->
 		<img id="chrono_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="chrono_logo"/>
-		<span class="chrono_label" id="chrono_Dorsal">Dorsal</span>
-		<span class="chrono_label" id="chrono_Nombre">Nombre</span>
-		<span class="chrono_label" id="chrono_NombreGuia">Gu&iacute;a</span>
-		<span class="chrono_label" id="chrono_NombreClub">Club</span>
-		<span class="chrono_label" id="chrono_Categoria">Categor&iacute;a</span>
-		<span class="chrono_label" id="chrono_Grado">Grado</span>
-		<span class="chrono_label" id="chrono_Celo">Celo</span>
+		<span class="chrono_info" id="chrono_Dorsal">Dorsal</span>
+		<span class="chrono_info" id="chrono_Nombre">Nombre</span>
+		<span class="chrono_info" id="chrono_NombreGuia">Gu&iacute;a</span>
+		<span class="chrono_info" id="chrono_NombreClub">Club</span>
+		<span class="chrono_info" id="chrono_Categoria">Categor&iacute;a</span>
+		<span class="chrono_info" id="chrono_Grado">Grado</span>
+		<span class="chrono_info" id="chrono_Celo">Celo</span>
     	<span id="chrono_timestamp" style="display:none"></span>
 		<span id="chrono_Perro" style="display:none" ></span>
 	</div>
@@ -47,15 +47,21 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="chrono-simButtons" style="text-align:right;width:100%;display:inline-block">
 	<span style="float:left;padding:5px;">
    		<a id="chrono-recBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-huella'" onclick="chrono_reconocimiento()">Reconocimiento</a>
+   		   	data-options="iconCls: 'icon-huella'" onclick="chrono_button('crono_rec',{})">Reconocimiento</a>
+   		<a id="chrono-fltBtn" href="#" class="easyui-linkbutton" 
+   		   	data-options="iconCls: 'icon-hand'" onclick="chrono_button('crono_dat',{'Falta':1})">Falta</a>
+   		<a id="chrono-rehBtn" href="#" class="easyui-linkbutton" 
+   		   	data-options="iconCls: 'icon-fist'" onclick="chrono_button('crono_dat',{'Rehuse':1})">Reh&uacute;se</a>
+   		<a id="chrono-elimBtn" href="#" class="easyui-linkbutton" 
+   		   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('crono_dat',{'Eliminado':1})">Eliminado</a>
 	</span>
 	<span style="float:right;padding:5px;">
    		<a id="chrono-startBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-on'" onclick="chrono_start()">Inicio</a>
+   		   	data-options="iconCls: 'icon-on'" onclick="chrono_button('crono_start',{})">Inicio</a>
    		<a id="chrono-intBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-help'" onclick="chrono_intermediate()">Intermedio</a>
+   		   	data-options="iconCls: 'icon-help'" onclick="chrono_button('crono_int',{})">Intermedio</a>
    		<a id="chrono-stopBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-off'" onclick="chrono_stop()">Final</a>
+   		   	data-options="iconCls: 'icon-off'" onclick="chrono_button('crono_stop',{})">Final</a>
 	</span>
 </div>	<!-- botones -->
 
@@ -89,6 +95,9 @@ $('#chrono_Screen-dialog').dialog({
 	buttons:'#chrono-simButtons'
 });
 
+addTooltip($('#chrono-fltBtn').linkbutton(),"Enviar falta/tocado desde botonera del crono");
+addTooltip($('#chrono-rehBtn').linkbutton(),"Enviar rehuse desde botonera del crono");
+addTooltip($('#chrono-elimBtn').linkbutton(),"Marcar eliminado desde la botonera del crono");
 addTooltip($('#chrono-recBtn').linkbutton(),"7 Minutos de reconocimiento de pista");
 addTooltip($('#chrono-startBtn').linkbutton(),"Arrancar el cron&oacute;metro");
 addTooltip($('#chrono-intBtn').linkbutton(),"Mostrar tiempo intermedio");
@@ -97,26 +106,26 @@ addTooltip($('#chrono-stopBtn').linkbutton(),"Parar el cron&oacute;metro");
 // layout
 var layout= {'cols':800, 'rows':300}; // declare base datagrid as A5 sheet
 
-doLayout(layout,"#chrono_TiempoBg",		5,		5,		550,	190	);
-doLayout(layout,"#chrono_ResultadosBg",	560,	5,		235,	190	);
-doLayout(layout,"#chrono_DatosBg",		5,		200,	790,	95	);
+doLayout(layout,"#chrono_TiempoBg",		5,		5,		620,	200	);
+doLayout(layout,"#chrono_ResultadosBg",	630,	5,		165,	200	);
+doLayout(layout,"#chrono_DatosBg",		5,		210,	790,	85	);
 
-doLayout(layout,"#chrono_FaltasLbl",	580,	25,		130,	55	);
-doLayout(layout,"#chrono_TocadosLbl",	580,	80,		130,	55	);
-doLayout(layout,"#chrono_RehusesLbl",	580,	135,	130,	55	);
+doLayout(layout,"#chrono_FaltasLbl",	650,	25,		60,		55	);
+doLayout(layout,"#chrono_TocadosLbl",	650,	80,		60,		55	);
+doLayout(layout,"#chrono_RehusesLbl",	650,	135,	60,		55	);
 doLayout(layout,"#chrono_Faltas",		740,	25,		25,		55	);
 doLayout(layout,"#chrono_Tocados",		740,	80,		25,		55	);
 doLayout(layout,"#chrono_Rehuses",		740,	135,	25,		55	);
 
-doLayout(layout,"#chrono_Tiempo",		10,		80,		540, 	105	);
+doLayout(layout,"#chrono_Tiempo",		10,		90,		610, 	105	);
 
-doLayout(layout,"#chrono_Logo",			10,		210,	85,		85	);
-doLayout(layout,"#chrono_Dorsal",		100,	210,	100,	40	);
-doLayout(layout,"#chrono_Nombre",		200,	210,	250,	40	);
-doLayout(layout,"#chrono_Categoria",	450,	210,	200,	40	);
-doLayout(layout,"#chrono_Grado",		650,	210,	125,	40	);
-doLayout(layout,"#chrono_NombreGuia",	100,	255,	350,	40	);
-doLayout(layout,"#chrono_NombreClub",	450,	255,	250,	40	);
-doLayout(layout,"#chrono_Celo",			700,	255,	75,		40	);
+doLayout(layout,"#chrono_Logo",			10,		215,	80,		80	);
+doLayout(layout,"#chrono_Dorsal",		100,	220,	100,	35	);
+doLayout(layout,"#chrono_Nombre",		200,	220,	250,	35	);
+doLayout(layout,"#chrono_Categoria",	450,	220,	200,	35	);
+doLayout(layout,"#chrono_Grado",		650,	220,	125,	35	);
+doLayout(layout,"#chrono_NombreGuia",	100,	255,	350,	35	);
+doLayout(layout,"#chrono_NombreClub",	450,	255,	250,	35	);
+doLayout(layout,"#chrono_Celo",			700,	255,	75,		35	);
 
 </script>
