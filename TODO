@@ -1,31 +1,18 @@
-DONE - implement addPerroToGuia() and editPerroFromGuia()
-DONE- implement addGuiaToClub() editGuiaFromClub()
-- solve expand grid rendering issues
-- collapse dog subform before delete guia
-DONE - add "pagado" field to inscripciones
-DONE - Do not delete "closed" jornadas; just move to "-- Sin Asignar --" Prueba
-DONE - AddJornadaToPrueba no pone bien la fecha
-DONE - after insert/update/delete jornadasbyprueba no actualiza contenido
-DONE - En prueba por equipos no permitir pruebas adicionales
-DONE - En prueba K.O. no permitir pruebas adicionales
-- Documentacion
-- assignDogToGuia() must leave dog as readonly
-- assignGuiaToClub() must leave guia as readonly
-- warn on change dog/handler name on reassign
-- Handle club logos
-- Prueba's Triptico & cartel should be URL's instead of blobs
-DONE - Limitar a ¿ocho? jornadas el contenido de una prueba
-DONE - No permitir desasignar perros del guia "-- Sin Asignar --"
-- Cerrar ventanas abiertas al cambiar de menu
-DONE - No permitir inscribir a perros ya inscritos
-DONE - ventana de aviso "No se podrán modificar..." al marcar una jornada como cerrada
-DONE - Añadir boton de "nuevo perro/guia/club en los formularios con combogrid, para no tener que cerrar
-DONE   todo e ir al menu correspondiente
-DONE - Al registrar inscripción, asignar el equipo default al perro
-DONE - Crear dialogo de new/edit/delete equipos. Avisar si se intenta desplegar en una prueba sin jornada por equipos
-DONE - La ordenacion por columnas en el datagrid de inscripciones no funciona
-DONE -  Ajustar automaticamente el campo "pagado" en función del numero de jornadas inscritas
-DONE - Datagrid de inscripciones no pagina correctamente (presenta todos en lugar de 10 en 10.
-DONE   hay que manejar correctamente los campos page,row y offset en la respuesta evaluada, no en la query SQL
-DONE - En dlg_selectPrueba y dlg_selectJornada, no permitir en los combogrid valores que no existan
-WONT - Cambiar los nombres de algunos campos de la DB, cambiando "ID" por "xxxID" para que sean más descriptivos 
+KNOWN_BUGS
+- Change single inscription should preserve non modified data
+- Unfinished rounds relies in printing failures. Warn to complete pending dogs before printing
+
+WISH_LIST
+- Add Time of 1st competitor to LiveStream OSD
+- Restrict features according license
+- DataBase merging tool
+- Optimize tablet rounds deployment
+
+TODO
+- Continue team works
+- Continue i18n
+- Prepare internet access
+- i18n must be client-aware
+- Write videowall sequencing code
+- Fix authentication from electronic chrono
+- Backup recovery. no longer done by hand
