@@ -97,7 +97,7 @@ class Admin {
 			$drive=substr(__FILE__, 0, 1);
 			$cmd='start /B '.$drive.':\xampp\mysql\bin\mysqldump.exe';
 		}
-		$cmd = "$cmd --opt --single-transaction -h $dbhost -u$dbuser -p$dbpass $dbname";
+		$cmd = "$cmd --opt --single-transaction --routines --triggers -h $dbhost -u$dbuser -p$dbpass $dbname";
 		$this->myLogger->info("Ejecutando comando: '$cmd'");
 		$input = popen($cmd, 'r');
 		if ($input===FALSE) { $this->errorMsg="adminFunctions::popen() failed"; return null;}
