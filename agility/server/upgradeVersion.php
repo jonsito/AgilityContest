@@ -31,7 +31,9 @@ function addRsceFields($conn) {
 	$cmds=array(
 		// federations: bitmask 1<<federation 0:rsce 1:rfec 2:uca
 		"ALTER TABLE `Clubes` ADD `Federations` int(4) NOT NULL DEFAULT 1 AFTER `Logo`;",
+		"UPDATE `Clubes` SET Federations=7 WHERE ID=1;", // default club belongs to all feds
 		"ALTER TABLE `Jueces` ADD `Federations` int(4) NOT NULL DEFAULT 1 AFTER `Email`;",
+		"UPDATE `Jueces` SET Federations=7 WHERE ID=1;", // default judge belongs to all feds
 		"ALTER TABLE `Guias` ADD `Federation` tinyint(1) NOT NULL DEFAULT 0 AFTER `Club`;",
 		"ALTER TABLE `Perros` ADD `Federation` tinyint(1) NOT NULL DEFAULT 0 AFTER `Guia`;"
 	);

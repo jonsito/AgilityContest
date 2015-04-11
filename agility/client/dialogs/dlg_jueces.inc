@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE JUECES -->
-    <div id="jueces-dialog" style="width:450px;height:450px;padding:10px 20px">
+    <div id="jueces-dialog" style="width:450px;height:auto;padding:10px 20px">
         <div class="ftitle">Informaci&oacute;n del juez</div>
         <form id="jueces-form" method="get" novalidate>
             <div class="fitem">
@@ -49,6 +49,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <label for="Practicas">Juez en pr&aacute;cticas:</label>
                 <input id="jueces-Practicas" name="Practicas" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
+        	<div class="fitem">
+        	    <label for="Federations">Federaciones:</label>
+        	    RSCE <input id="jueces-RSCE" type="checkbox" value="1" name="RSCE"/>
+        	    RFEC <input id="jueces-RFEC" type="checkbox" value="2" name="RFEC"/>
+        	    UCA<input id="jueces-UCA" type="checkbox" value="4" name="UCA"/>
+        	    <input id="jueces-Federations" name="Federations" type="hidden"/>
+        	</div>
             <div class="fitem">
                 <label for="Email">Correo electr&oacute;nico:</label>
                 <input id="jueces-Email" name="Email" class="easyui-validatebox" type="text" style="width:250px"/>

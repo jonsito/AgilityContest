@@ -209,7 +209,7 @@ function setPrueba(data) {
 	workingData.prueba=Number(data.ID);
 	workingData.nombrePrueba=data.Nombre;
 	workingData.datosPrueba=data;
-	setFederation(data.Federation);
+	setFederation(data.RSCE);
 	if(workingData.prueba!=old) {
 		workingData.jornada=0;
 		workingData.nombreJornada="";

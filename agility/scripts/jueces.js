@@ -17,6 +17,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 //***** gestion de jueces		*********************************************************
 
+function juecesRSCE(val,row,idx) { return ( (parseInt(row.Federations)&1)==0)?" ":"&#x2714;"; }
+function juecesRFEC(val,row,idx) { return ( (parseInt(row.Federations)&2)==0)?" ":"&#x2714;"; }
+function juecesUCA(val,row,idx)  { return ( (parseInt(row.Federations)&4)==0)?" ":"&#x2714;"; }
+function juecesBaja(val,row,idx) { return ( parseInt(val)==0)?" ":"&#x26D4;"; }
+
 /**
  * Open "New Juez dialog"
  *@param {string} dg datagrid ID de donde se obtiene el juez
@@ -48,6 +53,10 @@ function editJuez(dg){
     $('#jueces-dialog').dialog('open').dialog('setTitle','Modificar datos del juez');
     // and fill form with row data
     $('#jueces-form').form('load',row);
+    // set up federation checkboxes
+    $('#jueces-RSCE').prop('checked',( (row.Federations & 1)!=0)?true:false);
+    $('#jueces-RFEC').prop('checked',( (row.Federations & 2)!=0)?true:false);
+    $('#jueces-UCA').prop('checked',( (row.Federations & 4)!=0)?true:false);
 }
 
 /**
@@ -59,6 +68,12 @@ function saveJuez(){
     $('#jueces-Practicas').val( $('#jueces-Practicas').is(':checked')?'1':'0');
     var frm = $('#jueces-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
+    // evaluate federation checkboxes
+    $fed=0;
+    if ( $('#jueces-RSCE').is(':checked') ) $fed |=1;
+    if ( $('#jueces-RFEC').is(':checked') ) $fed |=2;
+    if ( $('#jueces-UCA').is(':checked') ) $fed |=4;
+    $('#jueces-Federations').val($fed);
     $.ajax({
         type: 'GET',
         url: '/agility/server/database/juezFunctions.php',

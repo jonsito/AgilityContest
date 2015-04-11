@@ -155,16 +155,21 @@ class Jueces extends DBObject {
 		return $result;
 	}
 	
-	function enumerate() { // like select but with fixed order
+	function enumerate($federation) { // like select but with fixed order
 		$this->myLogger->enter();
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
-		$where="";
-		if ($q!=="") $where="Nombre LIKE '%".$q."%'";
+		$where="1";
+		$fed="1";
+		if ( $federation>=0) {
+			$mask=1<<$federation;
+			$fed=" ( (Federations & $mask ) != 0 )";
+		};
+		if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Jueces",
-				/* WHERE */ $where,
+				/* WHERE */ "$where AND $fed",
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""
 		);
