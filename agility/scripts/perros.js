@@ -181,6 +181,7 @@ function assignDog() {
 	// set up guia
 	$('#chperros-Guia').val($('#chperros-newGuia').val());
     $('#chperros-Operation').val('update');
+    $('#chperros-Federation').val(workingData.federation);
     var frm = $('#chperros-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
@@ -206,6 +207,7 @@ function saveChDog(){
     var frm = $('#chperros-form');
     $('#chperros-Guia').val($('#chperros-newGuia').val());
     $('#chperros-Operation').val('insert');
+    $('#chperros-Federation').val(workingData.federation);
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
         type: 'GET',
@@ -229,6 +231,7 @@ function saveChDog(){
  */
 function saveDog(){
     var frm = $('#perros-form');
+    $('#perros-Federation').val(workingData.federation);
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
         type: 'GET',

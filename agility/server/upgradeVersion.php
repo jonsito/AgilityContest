@@ -35,7 +35,42 @@ function addRsceFields($conn) {
 		"ALTER TABLE `Jueces` ADD `Federations` int(4) NOT NULL DEFAULT 1 AFTER `Email`;",
 		"UPDATE `Jueces` SET Federations=7 WHERE ID=1;", // default judge belongs to all feds
 		"ALTER TABLE `Guias` ADD `Federation` tinyint(1) NOT NULL DEFAULT 0 AFTER `Club`;",
-		"ALTER TABLE `Perros` ADD `Federation` tinyint(1) NOT NULL DEFAULT 0 AFTER `Guia`;"
+		"ALTER TABLE `Perros` ADD `Federation` tinyint(1) NOT NULL DEFAULT 0 AFTER `Guia`;"		
+	);
+	foreach ($cmds as $query) {
+		$conn->query($query);
+	}
+	return 0;
+}
+
+// 1.2.1 - 2015-Abr-11: redefine perroGuiaClub to take care on Federations
+function updatePerroGuiaClub($conn) {
+	$cmds=array(
+		"DROP TABLE IF EXISTS `perroguiaclub`;",
+		"DROP VIEW IF EXISTS `perroguiaclub`;",
+		"CREATE VIEW `perroguiaclub` AS 
+			select `perros`.`ID` AS `ID`,
+				`perros`.`Federation` AS `Federation`,
+				`perros`.`Nombre` AS `Nombre`,
+				`perros`.`Raza` AS `Raza`,
+				`perros`.`Licencia` AS `Licencia`,
+				`perros`.`LOE_RRC` AS `LOE_RRC`,
+				`perros`.`Categoria` AS `Categoria`,
+				`categorias_perro`.`Observaciones` AS `NombreCategoria`,
+				`perros`.`Grado` AS `Grado`,
+				`grados_perro`.`Comentarios` AS `NombreGrado`,
+				`perros`.`Guia` AS `Guia`,
+				`guias`.`Nombre` AS `NombreGuia`,
+				`guias`.`Club` AS `Club`,
+				`clubes`.`Nombre` AS `NombreClub`,
+				`clubes`.`Logo` AS `LogoClub` 
+			from ((((`perros` join `guias`) join `clubes`) join `grados_perro`) join `categorias_perro`) 
+			where (
+				(`perros`.`Guia` = `guias`.`ID`) 
+				and (`guias`.`Club` = `clubes`.`ID`) 
+				and (`perros`.`Categoria` = `categorias_perro`.`Categoria`) 
+				and (`perros`.`Grado` = `grados_perro`.`Grado`)) 
+			order by `clubes`.`Nombre`,`perros`.`Categoria`,`perros`.`Nombre`;"
 	);
 	foreach ($cmds as $query) {
 		$conn->query($query);
@@ -74,5 +109,6 @@ addBackgroundField($conn);
 addRsceFields($conn);
 addTriggerPermissions($conn);
 createTrigger($conn);
+updatePerroGuiaClub($conn);
 $conn->close();
 ?>

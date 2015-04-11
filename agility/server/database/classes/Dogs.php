@@ -29,11 +29,11 @@ class Dogs extends DBObject {
 	function insert() {
 		$this->myLogger->enter();
 		// componemos un prepared statement (para evitar sql injection)
-		$sql ="INSERT INTO Perros (Nombre,Raza,LOE_RRC,Licencia,Categoria,Grado,Guia)
-			   VALUES(?,?,?,?,?,?,?)";
+		$sql ="INSERT INTO Perros (Nombre,Raza,LOE_RRC,Licencia,Categoria,Grado,Guia,Federation)
+			   VALUES(?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('sssssss',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia);
+		$res=$stmt->bind_param('sssssssi',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia,$federation);
 		if (!$res) return $this->error($this->conn->error);
 		// iniciamos los valores, chequeando su existencia
 		$nombre =	http_request("Nombre","s",null,false); 
@@ -43,8 +43,9 @@ class Dogs extends DBObject {
 		$categoria= http_request("Categoria","s",null,false); 
 		$grado =	http_request("Grado","s",null,false); 
 		$guia =		http_request("Guia","s",null,false); 
+		$federation=http_request("Federation","i",0);
 		
-		$this->myLogger->info("Nombre: $nombre Raza: $raza LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
+		$this->myLogger->info("Nombre:$nombre Raza:$raza LOE:$loe_rrc Categoria:$categoria Grado:$grado Guia:$guia Federation:$federation");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error);
@@ -152,17 +153,20 @@ class Dogs extends DBObject {
 		$search=http_request("where","s","");
 		$page=http_request("page","i",1);
 		$rows=http_request("rows","i",50);
-		$where = "";
+		$federation=http_request("Federation","i",-1);
+		$fed="1";
+		if ($federation >=0) $fed="( Federation = $federation )";
+		$where = "1";
 		$limit = "";
 		if ($page!=0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		if ($search!=="") $where="(Nombre LIKE '%$search%') OR ( NombreGuia LIKE '%$search%') OR ( NombreClub LIKE '%$search%')";
+		if ($search!=="") $where="( (Nombre LIKE '%$search%') OR ( NombreGuia LIKE '%$search%') OR ( NombreClub LIKE '%$search%') )";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "PerroGuiaClub",
-				/* WHERE */ $where,
+				/* WHERE */ "$fed AND $where",
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);
@@ -175,15 +179,18 @@ class Dogs extends DBObject {
 	 * @return NULL|multitype:multitype: unknown
 	 */
 	function enumerate() {
-		$this->myLogger->enter();	
+		$this->myLogger->enter();
+		$federation=http_request("Federation","i",-1);
+		$fed="1 ";
+		if ($federation >=0) $fed="( Federation = $federation )";
 		// evaluate search criteria for query
 		$q=http_request("q","s","");
-		$where =  ($q==="") ? "" : " ( ( Nombre LIKE '%$q%' ) OR ( NombreGuia LIKE '%$q%' ) OR ( NombreClub LIKE '%$q%' ) )";
+		$where =  ($q==="") ? "1" : " ( ( Nombre LIKE '%$q%' ) OR ( NombreGuia LIKE '%$q%' ) OR ( NombreClub LIKE '%$q%' ) )";
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "PerroGuiaClub",
-				/* WHERE */ $where,
+				/* WHERE */ "$fed AND $where",
 				/* ORDER BY */ "Club ASC, Guia ASC, Nombre ASC",
 				/* LIMIT */ ""
 		);
@@ -199,11 +206,14 @@ class Dogs extends DBObject {
 	function selectByGuia($idguia) {
 		$this->myLogger->enter();
 		if ($idguia<=0) return $this->error("Invalid Guia ID:$idguia");
+		$federation=http_request("Federation","i",-1);
+		$fed="";
+		if ($federation >=0) $fed="( Federation = $federation ) AND ";
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "PerroGuiaClub",
-				/* WHERE */ "( Guia = $idguia )",
+				/* WHERE */ "$fed ( Guia = $idguia )",
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""
 		);

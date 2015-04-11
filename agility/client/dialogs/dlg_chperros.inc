@@ -31,6 +31,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <div class="fitem">
                 <label for="Nombre">Nombre:</label>
                 <input id="chperros-ID" name="ID" type="hidden" /> <!-- dog id -->
+                <input id="chperros-Federation" name="Federation" type="hidden" />
                 <input id="chperros-Nombre" name="Nombre" class="easyui-validatebox" /> <!-- dog name -->
                 <input id="chperros-Operation" name="Operation" type="hidden" value="update"/> <!-- inser/update/delete -->
                 <input id="chperros-Guia" name="Guia" type="hidden" /> <!-- id of the guia -->

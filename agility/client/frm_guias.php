@@ -121,7 +121,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	    loadMsg: 'Loading list of dogs',
         	    height: 'auto',
         		url: '/agility/server/database/dogFunctions.php',
-        		queryParams: { Operation: 'getbyguia', Guia: guia.ID },
+        		queryParams: { Operation: 'getbyguia', Guia: guia.ID, Federation: workingData.federation },
         		method: 'get',
         	    columns: [[
             	    { field:'ID',	width:15, sortable:true,	title: 'ID'},

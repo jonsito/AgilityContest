@@ -116,6 +116,7 @@ function evalJornadas(obj) {
 function listaNoInscritos() {
 	$('#new_inscripcion-datagrid').datagrid('reload',{
 		Operation: 'noinscritos',
+		Federation: workingData.federation,
 		Prueba: workingData.prueba,
 		where: ($('#new_inscripcion-search').val()==='---- Buscar ----')?'':$('#new_inscripcion-search').val()
 	});

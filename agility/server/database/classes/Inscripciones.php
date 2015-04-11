@@ -203,6 +203,7 @@ class Inscripciones extends DBObject {
 		$this->myLogger->enter();
 		
 		$id = $this->pruebaID;
+		$fed =  http_request("Federation","i",0);
 		$search =  http_request("where","s","");
 		$extra = '';
 		if ($search!=='') $extra=" AND ( (PerroGuiaClub.Nombre LIKE '%$search%')
@@ -223,7 +224,7 @@ class Inscripciones extends DBObject {
 		$result= $this->__select(
 			/* SELECT */	"*",
 			/* FROM */		"PerroGuiaClub",
-			/* WHERE */		"ID NOT IN ( SELECT Perro FROM Inscripciones WHERE (Prueba=$id) ) $extra ",
+			/* WHERE */		"( Federation = $fed ) AND ID NOT IN ( SELECT Perro FROM Inscripciones WHERE (Prueba=$id) ) $extra ",
 			/* ORDER BY */	$order,
 			/* LIMIT */		$limit
 		);

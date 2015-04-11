@@ -1732,6 +1732,7 @@ INSERT INTO `mangas` (`ID`, `Jornada`, `Tipo`, `Grado`, `Recorrido`, `Dist_L`, `
 DROP VIEW IF EXISTS `perroguiaclub`;
 CREATE TABLE IF NOT EXISTS `perroguiaclub` (
 `ID` int(4)
+,`Federation` tinyint(1)
 ,`Nombre` varchar(255)
 ,`Raza` varchar(255)
 ,`Licencia` varchar(255)
@@ -5139,7 +5140,7 @@ INSERT INTO `usuarios` (`ID`, `Login`, `Password`, `Gecos`, `Phone`, `Email`, `P
 --
 DROP TABLE IF EXISTS `perroguiaclub`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `perroguiaclub` AS select `perros`.`ID` AS `ID`,`perros`.`Nombre` AS `Nombre`,`perros`.`Raza` AS `Raza`,`perros`.`Licencia` AS `Licencia`,`perros`.`LOE_RRC` AS `LOE_RRC`,`perros`.`Categoria` AS `Categoria`,`categorias_perro`.`Observaciones` AS `NombreCategoria`,`perros`.`Grado` AS `Grado`,`grados_perro`.`Comentarios` AS `NombreGrado`,`perros`.`Guia` AS `Guia`,`guias`.`Nombre` AS `NombreGuia`,`guias`.`Club` AS `Club`,`clubes`.`Nombre` AS `NombreClub`,`clubes`.`Logo` AS `LogoClub` from ((((`perros` join `guias`) join `clubes`) join `grados_perro`) join `categorias_perro`) where ((`perros`.`Guia` = `guias`.`ID`) and (`guias`.`Club` = `clubes`.`ID`) and (`perros`.`Categoria` = `categorias_perro`.`Categoria`) and (`perros`.`Grado` = `grados_perro`.`Grado`)) order by `clubes`.`Nombre`,`perros`.`Categoria`,`perros`.`Nombre`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `perroguiaclub` AS select `perros`.`ID` AS `ID`,`perros`.`Federation` AS `Federation`,`perros`.`Nombre` AS `Nombre`,`perros`.`Raza` AS `Raza`,`perros`.`Licencia` AS `Licencia`,`perros`.`LOE_RRC` AS `LOE_RRC`,`perros`.`Categoria` AS `Categoria`,`categorias_perro`.`Observaciones` AS `NombreCategoria`,`perros`.`Grado` AS `Grado`,`grados_perro`.`Comentarios` AS `NombreGrado`,`perros`.`Guia` AS `Guia`,`guias`.`Nombre` AS `NombreGuia`,`guias`.`Club` AS `Club`,`clubes`.`Nombre` AS `NombreClub`,`clubes`.`Logo` AS `LogoClub` from ((((`perros` join `guias`) join `clubes`) join `grados_perro`) join `categorias_perro`) where ((`perros`.`Guia` = `guias`.`ID`) and (`guias`.`Club` = `clubes`.`ID`) and (`perros`.`Categoria` = `categorias_perro`.`Categoria`) and (`perros`.`Grado` = `grados_perro`.`Grado`)) order by `clubes`.`Nombre`,`perros`.`Categoria`,`perros`.`Nombre`;
 
 --
 -- Índices para tablas volcadas
