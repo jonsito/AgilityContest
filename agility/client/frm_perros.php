@@ -64,7 +64,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	collapsible: false,
             expansible: false,
         	collapsed: false,
-        	title: 'Gesti&oacute;n de datos de Perros',
+        	title: 'Gesti&oacute;n de datos de Perros'+' - '+fedName(workingData.federation),
         	url: '/agility/server/database/dogFunctions.php',
         	queryParams: { Operation: 'select', Federation: workingData.federation },
         	loadMsg: 'Actualizando lista de perros ...',

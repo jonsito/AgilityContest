@@ -22,6 +22,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <div class="fitem">
                 <label for="Nombre">Nombre:</label>
                 <input id="guias-Nombre" name="Nombre" type="text" style="width:300px" />
+                <input id="guias-Federation" name="Federation" type="hidden" />
                 <input id="guias-ID" name="ID" type="hidden" /> <!-- primary key for update -->
                 <input id="guias-Parent" name="Parent" type="hidden" /> <!-- used to store parent datagrid -->
                 <input id="guias-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->

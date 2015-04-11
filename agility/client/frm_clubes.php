@@ -62,8 +62,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	collapsible: false,
             expansible: false,
         	collapsed: false,
-        	title: 'Gesti&oacute;n de datos de Clubes',
-        	url: '/agility/server/database/clubFunctions.php?Operation=select',
+        	title: 'Gesti&oacute;n de datos de Clubes'+' - '+fedName(workingData.federation),
+        	url: '/agility/server/database/clubFunctions.php',
+    		queryParams: { Operation: 'select' },
         	loadMsg: 'Actualizando lista de Clubes ...',
         	method: 'get',
             toolbar: '#clubes-toolbar',
@@ -132,7 +133,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	    // height: 'auto',
         		title: 'Gu&iacute;as inscritos en el club '+club.Nombre,
         	    loadMsg: 'Cargando lista de guias....',
-        		url: '/agility/server/database/guiaFunctions.php?Operation=getbyclub&Club='+club.ID,
+        		url: '/agility/server/database/guiaFunctions.php',
+        		queryParams: { 
+            		Operation:'getbyclub',
+            		Club: club.ID, 
+            		Federation: workingData.federation 
+            	},
         		method: 'get',
         	    columns: [[
         	        { field:'ID',			hidden:true },	

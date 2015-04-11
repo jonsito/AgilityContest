@@ -25,11 +25,11 @@ class Guias extends DBObject {
 		$this->myLogger->enter();
 		
 		// componemos un prepared statement
-		$sql ="INSERT INTO Guias (Nombre,Telefono,Email,Club,Observaciones)
-			   VALUES(?,?,?,?,?)";
+		$sql ="INSERT INTO Guias (Nombre,Telefono,Email,Club,Observaciones,Federation)
+			   VALUES(?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('sssss',$nombre,$telefono,$email,$club,$observaciones);
+		$res=$stmt->bind_param('sssssi',$nombre,$telefono,$email,$club,$observaciones,$federation);
 		if (!$res) return $this->error($stmt->error);  
 		
 		// iniciamos los valores, chequeando su existencia
@@ -38,6 +38,7 @@ class Guias extends DBObject {
 		$email = http_request('Email',"s",null,false);
 		$club	= http_request('Club',"s",null,false); // not null
 		$observaciones= http_request('Observaciones',"s",null,false);
+		$federation= http_request('Federation',"i",0);
 		$this->myLogger->info("Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
 		
 		// invocamos la orden SQL y devolvemos el resultado
@@ -118,13 +119,16 @@ class Guias extends DBObject {
 		if ($page!=0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
-		}	
+		}
+		$federation=http_request("Federation","i",-1);
+		$fed="1";
+		if ($federation >=0) $fed="( Federation = $federation )";
 		$where = "(Guias.Club=Clubes.ID)";
 		if ($search!=='') $where="(Guias.Club=Clubes.ID) AND ( (Guias.Nombre LIKE '%$search%') OR ( Clubes.Nombre LIKE '%$search%') ) ";
 		$result=$this->__select(
-				/* SELECT */ "Guias.ID, Guias.Nombre, Telefono, Guias.Email, Club, Clubes.Nombre AS NombreClub, Guias.Observaciones",
+				/* SELECT */ "Guias.ID, Guias.Federation, Guias.Nombre, Telefono, Guias.Email, Club, Clubes.Nombre AS NombreClub, Guias.Observaciones",
 				/* FROM */ "Guias,Clubes",
-				/* WHERE */ $where,
+				/* WHERE */ "$fed AND $where",
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);
@@ -136,12 +140,15 @@ class Guias extends DBObject {
 		$this->myLogger->enter();
 		// evaluate search string
 		$q=http_request("q","s","");
+		$federation=http_request("Federation","i",-1);
+		$fed="1";
+		if ($federation >=0) $fed="( Federation = $federation )";
 		$where="(Guias.Club=Clubes.ID)";
 		if ($q!=="") $where="(Guias.Club=Clubes.ID) AND ( ( Guias.Nombre LIKE '%$q%' ) OR ( Clubes.Nombre LIKE '%$q%' ) )";
 		$result=$this->__select(
-				/* SELECT */ "Guias.ID AS ID ,Guias.Nombre AS Nombre, Guias.Club AS Club,Clubes.Nombre AS NombreClub",
+				/* SELECT */ "Guias.ID AS ID, Guias.Federation AS Federation, Guias.Nombre AS Nombre, Guias.Club AS Club,Clubes.Nombre AS NombreClub",
 				/* FROM */ "Guias,Clubes",
-				/* WHERE */ $where,
+				/* WHERE */ "$fed AND $where",
 				/* ORDER BY */ "NombreClub ASC, Nombre ASC",
 				/* LIMIT */ ""
 		);
@@ -156,11 +163,14 @@ class Guias extends DBObject {
 	 */
 	function selectByClub($club) {
 		$this->myLogger->enter();
+		$federation=http_request("Federation","i",-1);
+		$fed="1";
+		if ($federation >=0) $fed="( Federation = $federation )";
 		if ($club<=0) return $this->error("Invalid Club ID provided");
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Guias",
-				/* WHERE */ "( Club=$club )",
+				/* WHERE */ "$fed AND ( Club=$club )",
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""
 		);

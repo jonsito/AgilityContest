@@ -163,6 +163,7 @@ function deleteGuia(dg){
 function assignGuia(){
 	$('#chguias-Club').val($('#chguias-newClub').val());
     $('#chguias-Operation').val('update');
+    $('#chguias-Federation').val(workingData.federation);
     var frm = $('#chguias-form');
     if (! frm.form('validate')) return;
     $.ajax({
@@ -188,6 +189,7 @@ function saveChGuia(){
     var frm = $('#chperros-form');
 	$('#chguias-Club').val($('#chguias-newClub').val());
     $('#chguias-Operation').val('insert');
+    $('#chguias-Federation').val(workingData.federation);
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     $.ajax({
         type: 'GET',
@@ -211,8 +213,10 @@ function saveChGuia(){
  */
 function saveGuia(){
 	// use $.ajax() instead of form('submit') to assure http request header is sent
+    $('#guias-Federation').val(workingData.federation);
     var frm = $('#guias-form');
     if (!frm.form('validate')) return;
+    
 	$.ajax({
         type: 'GET',
         url: '/agility/server/database/guiaFunctions.php',

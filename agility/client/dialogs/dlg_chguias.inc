@@ -30,6 +30,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <form id="chguias-form" method="get" novalidate>
             <div class="fitem">
                 <label for="Nombre">Nombre:</label>
+                <input id="chguias-Federation" name="Federation" type="hidden" />
                 <input id="chguias-ID" name="ID" type="hidden" value="" /> <!-- Guia ID -->
                 <input id="chguias-Nombre" name="Nombre" style="width:300px" />
                 <input id="chguias-Club" name="Club" type="hidden" value="" /> <!-- Club ID -->

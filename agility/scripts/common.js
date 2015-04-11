@@ -33,6 +33,9 @@ var nombreCategorias = {
 		2: { 'L': '60',			'M': '50',		'S': '40',		'T': '30',	'logo': 'uca.png' }
 };
 
+var nombreFederaciones = {0:'RSCE',1:'RFEC',2:'UCA'};
+function fedName(fed) { return nombreFederaciones[fed]; };
+
 // lista de dialogos a limpiar cada vez que se recarga la pantalla
 var slaveDialogs = new Object();
 

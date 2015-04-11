@@ -40,7 +40,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			onClick="
    	        	// clear selection and reload table
    	    		$('#guias-datagrid-search').val('---- Buscar ----');
-   	            $('#guias-datagrid').datagrid('load',{ where: '' });"
+   	            $('#guias-datagrid').datagrid('load',{ where: '', Operation:'select', Federation: workingData.federation });"
    			>Limpiar</a>
 	</span>
 </div>
@@ -62,8 +62,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	collapsible: false,
             expansible: false,
         	collapsed: false,
-        	title: 'Gesti&oacute;n de datos de Gu&iacute;as',
-        	url: '/agility/server/database/guiaFunctions.php?Operation=select',
+        	title: 'Gesti&oacute;n de datos de Gu&iacute;as'+' - '+fedName(workingData.federation),
+        	url: '/agility/server/database/guiaFunctions.php',
+    		queryParams: { Operation:'select', Federation: workingData.federation },
         	loadMsg: 'Actualizando lista de Gu&iacute;as...',
         	method: 'get',
             toolbar: '#guias-toolbar',
@@ -77,6 +78,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             remoteSort: true,
             columns: [[
                 { field:'ID',			hidden:true },
+                { field:'Federation',	hidden:true },
             	{ field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
                 { field:'Club',			hidden:true},
                 { field:'NombreClub',	width:20, sortable:true,	title: 'Club'},
@@ -124,7 +126,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         		queryParams: { Operation: 'getbyguia', Guia: guia.ID, Federation: workingData.federation },
         		method: 'get',
         	    columns: [[
-            	    { field:'ID',	width:15, sortable:true,	title: 'ID'},
+                   	{ field:'ID',	width:15, sortable:true,	title: 'ID'},
+                	{ field:'Federation',hidden:true},
             		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
             		{ field:'Categoria',width:15, sortable:false,	title: 'Cat.' },
             		{ field:'Grado',	width:25, sortable:false,   title: 'Grado' },

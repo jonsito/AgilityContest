@@ -112,11 +112,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		panelHeight: 200,
 		idField: 'ID',
 		textField: 'Nombre',
-		url: '/agility/server/database/dogFunctions.php?Operation=enumerate',
+		url: '/agility/server/database/dogFunctions.php',
+		queryParams: { Operation:'enumerate', Federation: workingData.federation },
 		method: 'get',
 		mode: 'remote',
 		columns: [[
 			{field:'ID',hidden:'true'},
+			{field:'Federation',hidden:'true'},
 			{field:'Nombre',title:'Perro',width:20,align:'right'},
 			{field:'Categoria',title:'Cat.',width:10,align:'center'},
 			{field:'Grado',title:'Grado',width:10,align:'center'},
@@ -144,7 +146,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	method: 'get',
     	mode: 'remote',
 		required: true,
-    	url:'/agility/server/database/dogFunctions.php?Operation=grados',
+    	url:'/agility/server/database/dogFunctions.php',
+		queryParams: { Operation:'grados', Federation: workingData.federation },
     	// TODO: this should work. study why doesn't
 		onLoadSuccess: function(data){
 			for(var i=0; i<data.length; i++){
@@ -164,6 +167,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		method: 'get',
 		mode: 'remote',
 		required: true,
-		url:'/agility/server/database/dogFunctions.php?Operation=categorias'
+		url:'/agility/server/database/dogFunctions.php',
+		queryParams: { Operation:'categorias', Federation: workingData.federation },
     });
     </script>
