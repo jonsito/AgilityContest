@@ -94,7 +94,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:myRowStyler,
     		// on double click fireup editor dialog
-        	onDblClickRow:function() { editPrueba('#pruebas-datagrid'); },
+        	onDblClickRow:function(index,row) { 
+            	setPrueba(row);
+            	editPrueba('#pruebas-datagrid');
+            },
             // especificamos un formateador especial para desplegar la tabla de jornadas por prueba
             detailFormatter:function(index,row){
                 return '<div style="padding:2px"><table id="jornadas-datagrid-' + row.ID + '"/></div>';
@@ -105,7 +108,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 $('#pruebas-datagrid').datagrid('options').expandedRow=index;
                 setPrueba(row);
                 if (row.ID!=0) showJornadasByPrueba(index,row); 
-            }
+            },
+            onClickRow: function(index,row) { setPrueba(row); }
             
         }); // end of pruebas-datagrid
         

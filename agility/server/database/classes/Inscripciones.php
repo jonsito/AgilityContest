@@ -276,6 +276,13 @@ class Inscripciones extends DBObject {
 	}
 	
 	/**
+	 * Tell how many dogs have inscription in this contest
+	 */
+	function howMany() {
+		return $this->__selectObject("count(*) AS Inscritos","Inscripciones","(Prueba={$this->pruebaID})");
+	}
+	
+	/**
 	 * retrieve all inscriptions of stored prueba
 	 */
 	function inscritos() {

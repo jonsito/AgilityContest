@@ -706,7 +706,8 @@ function addKeyHandler(dgid,insertfn,updatefn,deletefn) {
         if(event.keyCode != 13) return;
       	// reload data adding search criteria
         $(dgid).datagrid('load',{
-            where: $(dgid+'-search').val()
+            where: $(dgid+'-search').val(),
+            Federation: workingData.federation
         });
     });
 }

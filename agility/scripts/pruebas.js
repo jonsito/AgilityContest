@@ -39,10 +39,38 @@ function doSearchPrueba() {
 function newPrueba(dg,def,onAccept){
 	$('#pruebas-dialog').dialog('open').dialog('setTitle','Nueva Prueba');
 	$('#pruebas-form').form('clear');
-	$('#pruebas-RSCE').prop('checked',true);
+	switch(parseInt(workingData.federation)) {
+		case 0:$('#pruebas-RSCE').prop('checked',true); break;
+		case 1:$('#pruebas-RFEC').prop('checked',true); break;
+		case 2:$('#pruebas-UCA').prop('checked',true); break;
+		default: alert("Invalid federation.</br>Defaulting to RSCE");
+	}
 	if (!strpos(def,"Buscar")) $('#pruebas-Nombre').val(def);// fill prueba Name
 	$('#pruebas-Operation').val('insert');
 	if (onAccept!==undefined)$('#pruebas-okBtn').one('click',onAccept);
+}
+
+/**
+ * If there are any inscriptions in a contest, disable change of federation
+ * @param id
+ * @returns
+ */
+function hasInscripciones(id,callback) {
+    $.ajax({
+        type: 'GET',
+        url: '/agility/server/database/inscripcionFunctions.php',
+        data: { Operation: 'howmany', Prueba: id },
+        dataType: 'json',
+        // beforeSend: function(jqXHR,settings){ return frm.form('validate'); },
+        success: function (result) {
+            if (result.errorMsg){ 
+            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+            } else {
+            	var flag= (parseInt(result.Inscritos)!=0)?true:false;
+            	callback(flag);
+            }
+        }
+    });
 }
 
 /**

@@ -32,7 +32,7 @@ function assignGuiaToClub(dg,club) {
 	$('#chguias-Operation').val('update'); // operation
 	// finalmente desplegamos el formulario y ajustamos textos
 	$('#chguias-title').text('Reasignar/Declarar un guia como perteneciente al club '+club.Nombre);
-	$('#chguias-dialog').dialog('open').dialog('setTitle','Asignar/Registrar un gu&iacute;a');
+	$('#chguias-dialog').dialog('open').dialog('setTitle','Asignar/Registrar un gu&iacute;a'+' - '+fedName(workingData.federation));
 	// on click OK button, close dialog and refresh data
 	$('#chguias-okBtn').one('click',function () { $(dg).datagrid('reload'); } ); 
 	$('#chguias-newBtn').one('click',function () { $(dg).datagrid('reload'); } ); 
@@ -54,7 +54,7 @@ function editGuiaFromClub(dg, club) {
     row.NombreClub=club.Nombre;
     row.Operation='update';
     $('#guias-form').form('load',row);
-    $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre);
+    $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre+' - '+fedName(workingData.federation));
 	// on click OK button, close dialog and refresh data
 	$('#guias-okBtn').one('click',function () { $(dg).datagrid('reload'); } ); 
 }
@@ -89,7 +89,7 @@ function delGuiaFromClub(dg,club) {
 function reload_guiasDatagrid() {
 	var w=$('#guias-datagrid-search').val();
 	if (strpos(w,"Buscar")) w='';
-	$('#guias-datagrid').datagrid('load',{ where: w });
+	$('#guias-datagrid').datagrid('load',{ where: w, Federation: workingData.federation });
 }
 
 /**
@@ -98,7 +98,7 @@ function reload_guiasDatagrid() {
  * @param {function} onAccept what to do (only once) when window gets closed
  */
 function newGuia(def,onAccept){
-	$('#guias-dialog').dialog('open').dialog('setTitle','Nuevo gu&iacute;a');
+	$('#guias-dialog').dialog('open').dialog('setTitle','Nuevo gu&iacute;a'+' - '+fedName(workingData.federation));
 	$('#guias-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#guias-Nombre').val(def);
 	$('#guias-Operation').val('insert');
@@ -118,7 +118,7 @@ function editGuia(dg){
     	$.messager.alert("Edit Error:","!No ha seleccionado ningún guía!","warning");
     	return; // no way to know which dog is selected
     }
-    $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del gu&iacute;a');
+    $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del gu&iacute;a'+' - '+fedName(workingData.federation));
     // add extra required parameters to dialog
     row.Parent='';
     row.Operation='update';

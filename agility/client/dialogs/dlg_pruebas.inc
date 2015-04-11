@@ -34,7 +34,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <div class="fitem">
             	Federaci&oacute;n:
             	<input id="pruebas-RSCE" type="radio" name="RSCE" value="0" checked="checked" />RSCE
-            	<input id="pruebas-RFCE" type="radio" name="RSCE" value="1" />RFEC
+            	<input id="pruebas-RFEC" type="radio" name="RSCE" value="1" />RFEC
             	<input id="pruebas-UCA" type="radio" name="RSCE" value="2" />UCA
             	<span style="float:right">
             		<input id="pruebas-Selectiva" type="checkbox" name="Selectiva" value="1"/>Selectiva
@@ -84,6 +84,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	    $('#pruebas-Operation').val('update');
     	    $('#pruebas-Selectiva').prop('checked',(data.Selectiva==1)?true:false);
     	    $('#pruebas-RSCE').prop('checked',(data.RSCE==0)?true:false);
+    	    $('#pruebas-RFEC').prop('checked',(data.RSCE==1)?true:false);
+    	    $('#pruebas-UCA').prop('checked',(data.RSCE==2)?true:false);
+    	    hasInscripciones(
+    	    	    data.ID,
+    	    	    function(flag) {
+        	    		$('#pruebas-RSCE').attr('disabled',flag);
+        	    		$('#pruebas-RFEC').attr('disabled',flag);
+        	    		$('#pruebas-UCA').attr('disabled',flag);
+    	    		}
+    	    	);
     	}
     });
     
