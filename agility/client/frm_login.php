@@ -18,7 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <img class="mainpage" src="/agility/server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle" />
 
 <!-- FORMULARIO DE introduccion de usuario y contrasenya -->
-<div id="login-window" class="easyui-window" style="position:relative;width:500px;height:250px;padding:20px 20px">
+<div id="login-window" class="easyui-window" style="position:relative;width:500px;height:auto;padding:20px 20px">
 <!-- panel de login -->
 	<div id="login-Layout" class="easyui-layout" data-options="fit:true'">
 	<div style="padding:5px;" data-options="region:'north',border:'false'">
@@ -39,6 +39,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
        	   		<label for="Password">Contrase&ntilde;a:</label>
        	   		<input id="login-Password" name="Password" style="width:200px" type="password"
        	   			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
+       		</div>
+       		<div class="fitem">
+       	   		<label for="Federation">Federaci&oacute;n:</label>
+       	   		<select id="login-Federation" name="Federation" onChange="setFederation(this.value);">
+       	   			<option value="0" selected="selected">Real Sociedad Canina de Espa&ntilde;a (RSCE)</option>
+       	   			<option value="1">Real Federaci&oacute;n Espa&ntilde;ola de Caza (RFEC)</option>
+       	   			<option value="2">Uni&oacute;n de Clubes de Agility (UCA)</option>	
+       	   		</select>
        		</div>
 		</form>
 	</div>

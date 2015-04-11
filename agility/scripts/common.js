@@ -185,6 +185,20 @@ function isMobileDevice() {
 	 }
 }
 
+function setFederation(fed) { //0:RSCE 1:RFEC 2:UCA
+	var logo="rsce.png";
+	// check and set value
+	switch (parseInt(fed)) {
+	case 0: logo="rsce.png"; break;
+	case 1: logo="rfec.png"; break;
+	case 2: logo="uca.png"; break;
+	default: fed=0;logo="rsce.png"; break; // defaults to RSCE
+	}
+	workingData.federation=fed;
+	// set background logo
+	$('#logo_Federation').prop('src',"/agility/images/logos/"+logo);
+}
+
 /**
  * Set prueba from selection dialogs
  * On change also reset jornada info
@@ -195,6 +209,7 @@ function setPrueba(data) {
 	workingData.prueba=Number(data.ID);
 	workingData.nombrePrueba=data.Nombre;
 	workingData.datosPrueba=data;
+	setFederation(data.Federation);
 	if(workingData.prueba!=old) {
 		workingData.jornada=0;
 		workingData.nombreJornada="";
@@ -239,6 +254,7 @@ function initWorkingData(id) {
 	workingData.nombreTanda = ""; 
 	workingData.sesion=0; // ID de la sesion para videomarcadores
 	workingData.nombreSesion=""; // nombre de la sesion
+	setFederation(0); // defaults to RSCE;
 	if (typeof(workingData.datosPrueba)==="undefined") workingData.datosPrueba= new Object(); // last selected prueba data
 	if (typeof(workingData.datosJornada)==="undefined") workingData.datosJornada= new Object(); // last selected jornada data
 	if (typeof(workingData.datosManga)==="undefined") workingData.datosManga= new Object(); // last selected jornada data
