@@ -66,11 +66,11 @@ class Clasificaciones extends DBObject {
 	function evalFinal($c1,$c2,$mode) {
 		$final=array(); // puesto,dorsal, nombre, licencia,categoria,grado, nombreguia, nombreclub,
 						// F1,R1,T1,V1,P1,C1,F2,R2,T2,V2,P2,C2, Penalizacion,Calificacion
-		// Procesamos la primera manga
+		// Procesamos la primera manga y generamos una segunda manga "fake"
 		foreach($c1['rows'] as $item) {
 			$participante=array(
+				// datos del participante
 				'Participantes' => count($c1['rows']),
-				'Puesto' => 0, // to be evaluated
 				'Dorsal' => $item['Dorsal'],
 				'Nombre' => $item['Nombre'],
 				'Licencia' => $item['Licencia'],
@@ -78,6 +78,7 @@ class Clasificaciones extends DBObject {
 				'Grado' => $item['Grado'],
 				'NombreGuia' => $item['NombreGuia'],
 				'NombreClub' => $item['NombreClub'],
+				// datos manga 1
 				'F1' => $item['Faltas'] + $item['Tocados'],
 				'R1' => $item['Rehuses'],
 				'T1' => $item['Tiempo'],
@@ -85,13 +86,24 @@ class Clasificaciones extends DBObject {
 				'P1' => $item['Penalizacion'],
 				'C1' => $item['CShort'],
 				'Puesto1' => $item['Puesto'],
-				'Penalizacion' => 0,
-				'Calificacion' => ''
+				// datos fake manga 2 ( to be filled if so )
+				'F2' => 0,
+				'R2' => 0,
+				'T2' => 0,
+				'P2' => 0,
+				'V2' => 0,
+				'C2' => '',
+				'Puesto2' => 0,
+				// datos globales
+				'Tiempo' => $item['Tiempo'],
+				'Penalizacion' => $item['Penalizacion'],
+				'Calificacion' => $item['CShort'],
+				'Puntos' => '', // to be evaluated
+				'Puesto' => 0 // to be evaluated
 			);
 			$final[$item['Perro']]=$participante;
 		}
-		if ($c2!=null) {
-			// Procesamos la segunda manga
+		if ($c2!=null) { // Procesamos la segunda manga
 			foreach($c2['rows'] as $item) {
 				if (!isset($final[$item['Perro']])) {
 					$this->myLogger->error("El perro con ID:{$item['Perro']} no tiene datos en la primera manga.");
@@ -114,21 +126,6 @@ class Clasificaciones extends DBObject {
 					$final[$item['Perro']]['Calificacion'] = 
 						($final[$item['Perro']]['Penalizacion']==0.0)?'Pto.':'';
 				}
-			}
-		} else {
-			// en las rondas a una manga, debemos generar una segunda manga "fake"
-			foreach($c1['rows'] as $item) {
-				$final[$item['Perro']]['F2'] = 0;
-				$final[$item['Perro']]['R2'] = 0;
-				$final[$item['Perro']]['T2'] = 0;
-				$final[$item['Perro']]['V2'] = 0;
-				$final[$item['Perro']]['P2'] = 0;
-				$final[$item['Perro']]['C2'] = '';
-				$final[$item['Perro']]['Puesto2'] = 0;
-				$final[$item['Perro']]['Tiempo'] = $final[$item['Perro']]['T1'];
-				$final[$item['Perro']]['Penalizacion'] = $final[$item['Perro']]['P1'];
-				$final[$item['Perro']]['Calificacion'] = $final[$item['Perro']]['C1'];
-				$final[$item['Perro']]['Puntos'] = '';
 			}
 		}
 		// una vez ordenados, el índice perro ya no tiene sentido, con lo que vamos a eliminarlo

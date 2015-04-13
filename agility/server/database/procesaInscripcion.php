@@ -180,6 +180,7 @@ function procesaInscripcion($p,$i) {
 		$pobj=new Dogs("inscribePerroEnJornada");
 		$perro=$pobj->selectByID($idp);
 		if (!$perro) throw new Exception("No hay datos para el perro a inscribir con id: $idp");
+		// TODO: check Dog Federation against Prueba Federation
 		
 		// contrastamos la lista de jornadas de la prueba con la lista de jornadas en las que esta inscrito
 		foreach($jp['rows'] as $jornada) {

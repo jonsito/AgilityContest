@@ -1488,8 +1488,8 @@ function resultados_doPrint() {
 }
 
 
-function verifyCompose(data,manga) {
-	str="<h3>Perros pendientes de introducci&oacute;n de datos en manga "+manga+":</h3>";
+function verifyCompose(data,manga,nombre) {
+	str="<strong>Perros pendientes de introducci&oacute;n de datos en manga "+manga+" ( "+nombre+" )</strong>";
 	str +="<table><tr><th>Dorsal</th><th>Perro</th><th>Gu&iacute;a</th><th>Club</th></tr>";
 	// componemos mensaje de error
 	$.each(
@@ -1525,14 +1525,14 @@ function verifyClasificaciones() {
 			Mode: mode 
 		},
 		success: function(data) {
-			if (parseInt(data['total'])!=0) str1=verifyCompose(data,ronda.Manga1);
+			if (parseInt(data['total'])!=0) str1=verifyCompose(data,ronda.Manga1,ronda.NombreManga1);
 			if (ronda.Manga2==0) {
 				// no hay segunda manga
 				if (str1==="") {
 					$.messager.alert("Verify OK","No se han encontrado perros sin datos registrados","info");
 				} else {
 					var w=$.messager.alert("Verify Error",str1,"error");
-					w.window('resize',{width:550}).window('center');
+					w.window('resize',{width:600}).window('center');
 				}
 				return;
 			}
@@ -1549,12 +1549,12 @@ function verifyClasificaciones() {
 					Mode: mode 
 				},
 				success: function(data) {
-					if (parseInt(data['total'])!=0) str2=verifyCompose(data,ronda.Manga2);
+					if (parseInt(data['total'])!=0) str2=verifyCompose(data,ronda.Manga2,ronda.NombreManga2);
 					if (str1==="" && str2==="") {
 						$.messager.alert("Verify OK","No se han encontrado perros sin datos registrados","info");
 					} else {
 						var w=$.messager.alert("Verify Error",str1+str2,"error");
-						w.window('resize',{width:550}).window('center');
+						w.window('resize',{width:600}).window('center');
 					}
 				}
 			});
