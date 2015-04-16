@@ -319,28 +319,29 @@ class Clubes extends DBObject {
 		imagecopyresampled($newImage, $img, 0, 0, 0, 0, 150, 150, imagesx($img), imagesy($img));
 		
 		// 3- obtenemos el nombre del logo actual
-		$row=$this->__selectObject("Logo","Clubes","ID=$id");
+		$row=$this->__selectObject("Nombre,Logo","Clubes","ID=$id");
 		if (!$row) return $this->error($this->conn->error);
-		$name=$row->Logo;
-		// 4- si es igual a "rsce.png" lo cambiamos por "logo_id.png"
+		$logo=$row->Logo;
+		$name=$row->Nombre;
+		// 4- si es igual al default, generamos un nuevo nombre para el logo basado en el nombre del club
 		// 	y actualizamos el nombre en la bbdd 
-		if ( ($name==="rsce.png") || ($name==="uca.png") || ($name==="rfec") ){
+		if ( ($logo==="rsce.png") || ($logo==="uca.png") || ($logo==="rfec.png") ){
 			// compose logo file name based in club name, instead (old) club ID
 			// Remove all (back)slashes from name
-			$name = str_replace('\\', '', $name);
-			$name = str_replace('/', '', $name);
+			$logo = str_replace('\\', '', $name);
+			$logo = str_replace('/', '', $logo);
 			// Remove all characters that are not the separator, a-z, 0-9, or whitespace
-			$name = preg_replace('![^'.preg_quote('-').'a-z0-_9\s]+!', '', strtolower($name));
+			$logo = preg_replace('![^'.preg_quote('-').'a-z0-_9\s]+!', '', strtolower($logo));
 			// Replace all separator characters and whitespace by a single separator
-			$name = preg_replace('!['.preg_quote('-').'\s]+!u', '_', $name);
-			$name="logo_$name.png";
+			$logo = preg_replace('!['.preg_quote('-').'\s]+!u', '_', $logo);
+			$logo="$logo.png";
 			
-			$sql="UPDATE Clubes SET Logo='$name' WHERE (ID=$id)";
+			$sql="UPDATE Clubes SET Logo='$logo' WHERE (ID=$id)";
 			$res=$this->query($sql);
 			if (!$res) return $this->error($this->conn->error);
 		}
 		// 5- finalmente guardamos el logo en el fichero especificado en formato png
-		$fname=__DIR__."/../../../images/logos/$name";
+		$fname=__DIR__."/../../../images/logos/$logo";
 		// $this->myLogger->info("Trying to save png file to:'$fname'");
 		imagepng($newImage, $fname);
 		// seems that imagepng fails on save to file due to strange permission related issue
