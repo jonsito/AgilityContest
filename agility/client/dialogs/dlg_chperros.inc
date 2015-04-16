@@ -101,13 +101,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     $('#chperros-dialog').dialog({
     	closed: true,
     	buttons: '#chperros-dlg-buttons',
-        iconCls: 'icon-dog',
+        iconCls: 'icon-dog'/*,
         onBeforeOpen: function() { 
             var grads="/agility/server/database/dogFunctions.php?Operation=grados&Federation="+workingData.federation;
             var cats="/agility/server/database/dogFunctions.php?Operation=categorias&Federation="+workingData.federation;
             $('#chperros-Grados_Perro').combobox('reload',grads);
     		$('#chperros-Categorias_Perro').combobox('reload',cats);
         }
+        */
     });
     $('#chperros-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
     	if (e.keyCode == 27){ $('#chperros-dialog').dialog('close');
@@ -152,8 +153,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	method: 'get',
     	mode: 'remote',
 		required: true,
-    	url:'/agility/server/database/dogFunctions.php',
-		queryParams: { Operation:'grados', Federation: workingData.federation },
+    	url:'/agility/server/database/dogFunctions.php?Operation=grados',
     	// TODO: this should work. study why doesn't
 		onLoadSuccess: function(data){
 			for(var i=0; i<data.length; i++){
@@ -173,7 +173,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		method: 'get',
 		mode: 'remote',
 		required: true,
-		url:'/agility/server/database/dogFunctions.php',
-		queryParams: { Operation:'categorias', Federation: workingData.federation },
+		url:'/agility/server/database/dogFunctions.php?Operation=categorias'
     });
     </script>

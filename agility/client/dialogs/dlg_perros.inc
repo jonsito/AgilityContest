@@ -107,13 +107,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     $('#perros-dialog').dialog({
         closed:true,
         buttons:'#perros-dlg-buttons',
-        iconCls: 'icon-dog',
+        iconCls: 'icon-dog'/*,
         onBeforeOpen: function() { 
             var grads="/agility/server/database/dogFunctions.php?Operation=grados&Federation="+workingData.federation;
             var cats="/agility/server/database/dogFunctions.php?Operation=categorias&Federation="+workingData.federation;
             $('#perros-Grados_Perro').combobox('reload',grads);
     		$('#perros-Categorias_Perro').combobox('reload',cats);
         }
+        */
     });
     $('#perros-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
     	if (e.keyCode == 27){ $('#perros-dialog').dialog('close');
@@ -129,8 +130,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	textField:'Comentarios',
     	method: 'get',
     	mode: 'remote',
-    	url:'/agility/server/database/dogFunctions.php',
-    	queryParams: {Operation:'grados',Federation:workingData.federation	},
+    	url:'/agility/server/database/dogFunctions.php?Operation=grados',
     	// TODO: this should work. study why doesn't
 		onLoadSuccess: function(data){
 			for(var i=0; i<data.length; i++){
@@ -149,15 +149,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		textField:'Observaciones',
 		method: 'get',
 		mode: 'remote',
-		url:'/agility/server/database/dogFunctions.php',
-    	queryParams: {Operation:'categorias',Federation:workingData.federation	},
+		url:'/agility/server/database/dogFunctions.php?Operation=categorias'
     });
     $('#perros-Guia').combogrid({
 		panelWidth: 350,
 		panelHeight: 200,
 		idField: 'ID',
 		textField: 'Nombre',
-		url: '/agility/server/database/guiaFunctions.php?Operation=enumerate',
+		url: '/agility/server/database/guiaFunctions.php',
+    	queryParams: {Operation:'enumerate',Federation:workingData.federation},
 		method: 'get',
 		mode: 'remote',
 		required: true,
