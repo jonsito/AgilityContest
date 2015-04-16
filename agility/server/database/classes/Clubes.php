@@ -32,7 +32,7 @@ class Clubes extends DBObject {
 		// componemos un prepared statement
 		$sql ="INSERT INTO Clubes (Nombre,Direccion1,Direccion2,Provincia,Contacto1,Contacto2,Contacto3,GPS,
 				Web,Email,Federations,Facebook,Google,Twitter,Observaciones,Baja)
-			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('ssssssssssisssss',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,

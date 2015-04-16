@@ -27,7 +27,7 @@ class Provincias extends DBObject {
 	function select() {
 		// evaluate offset and row count for query
 		$q=http_request("q","s","");
-		$like = ($q!=="") ? " WHERE Provincia LIKE '%".$q."%'" : "";
+		$like = ($q!=="") ? "Provincia LIKE '%$q%'" : "";
 		$result = $this->__select(
 			/* SELECT */ "*",
 			/* FROM */	"Provincias",
