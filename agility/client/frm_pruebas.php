@@ -44,8 +44,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	    	onclick="
         		// clear selection and reload table
     			$('#pruebas_datagrid-search').val('---- Buscar ----');
-            	$('#pruebas_datagrid').datagrid('load',{ where: '' });"
-		>Limpiar</a>
+				reloadWithSearch('#pruebas-datagrid','select');
+			">Limpiar</a>
    	</span>
 </div>
     

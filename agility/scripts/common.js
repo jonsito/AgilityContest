@@ -564,6 +564,29 @@ function displayRowData(dg) {
 }
 
 /**
+ * reload main datagrid for perros/guias/clubes/jueces/pruebas/inscripciones
+ * adding search criteria
+ * @param {string} dg Datagrid name
+ * @param {string} op Operation
+ * @param {boolean} clear on true clear search field before query
+ */
+function reloadWithSearch(dg,op,clear) {
+	var w=$(dg+'-search').val();
+	if (strpos(w,"-- Buscar --")) w='';
+	if (clear==true) w='';
+    $(dg).datagrid(
+    	'load',
+    	{ 
+    	Operation: op, 
+    	where: w, 
+    	Federation: workingData.federation,
+    	Prueba: workingData.prueba
+    	} 
+    );
+    if (clear==true) $(dg+'-search').val('---- Buscar ----');
+}
+
+/**
  * activa teclas up/down para navegar por el panel , esc para cerrar y ctrl+shift+enter para ver fila
  * @param {string} datagrid '#datagrid-name'
  * @param {string} dialog '#dialog-name'
@@ -703,11 +726,7 @@ function addKeyHandler(dgid,insertfn,updatefn,deletefn) {
 
     // - activar la tecla "Enter" en la casilla de busqueda
     $(dgid+'-search').keydown(function(event){
-        if(event.keyCode != 13) return;
-      	// reload data adding search criteria
-        $(dgid).datagrid('load',{
-            where: $(dgid+'-search').val(),
-            Federation: workingData.federation
-        });
+      	// reload data adding search criteriar
+        if(event.keyCode == 13) reloadWithSearch(dgid,'select',false);
     });
 }

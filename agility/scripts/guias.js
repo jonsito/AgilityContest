@@ -89,7 +89,7 @@ function delGuiaFromClub(dg,club) {
 function reload_guiasDatagrid() {
 	var w=$('#guias-datagrid-search').val();
 	if (strpos(w,"Buscar")) w='';
-	$('#guias-datagrid').datagrid('load',{ where: w, Federation: workingData.federation });
+	$('#guias-datagrid').datagrid('load',{ Operation: 'select', where: w, Federation: workingData.federation });
 }
 
 /**

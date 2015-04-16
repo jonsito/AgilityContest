@@ -35,6 +35,7 @@ require_once(__DIR__."/classes/Inscripciones.php");
 			case "delete": $am->access(PERMS_OPERATOR); $result=$inscripciones->delete($perro); break; // borrar inscripcion
 			case "noinscritos": $result=$inscripciones->noinscritos(); break;
 			case "howmany": $result=$inscripciones->howMany(); break;
+			case "select": // same as inscritos, to properly handle search box
 			case "inscritos": $result=$inscripciones->inscritos(); break;
 			case "reorder": $am->access(PERMS_OPERATOR); $result=$inscripciones->reorder(); break;
 			default: throw new Exception("inscripcionFunctions:: invalid operation: $operation provided");

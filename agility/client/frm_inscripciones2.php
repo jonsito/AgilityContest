@@ -105,8 +105,8 @@ require_once("dialogs/dlg_editInscripcion.inc");
    			onclick="
    	        	// clear selection and reload table
    	    		$('#inscripciones-datagrid-search').val('---- Buscar ----');
-   	            $('#inscripciones-datagrid').datagrid('load',{ where: '' });"
-   		>Limpiar</a>
+				reloadWithSearch('#inscripciones-datagrid','inscritos');
+   	       " >Limpiar</a>
    	</span>
 </div>
 

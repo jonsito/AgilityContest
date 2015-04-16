@@ -37,10 +37,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<span style="float:right;padding:5px">
    		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"
    		data-options="iconCls:'icon-brush'"
-   		onClick="
-       	// clear selection and reload table
-   		$('#clubes-datagrid-search').val('---- Buscar ----');
-          $('#clubes-datagrid').datagrid('load',{ where: '' });">Limpiar</a>
+   		onClick="reloadWithSearch('#clubes-datagrid','select',true);">Limpiar</a>
    	</span>
 </div>   
 

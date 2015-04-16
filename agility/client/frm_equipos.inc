@@ -29,15 +29,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			onclick="editTeam('#team_datagrid')">Editar</a>
    		<a id="team_datagrid-delBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-trash'"
    			onclick="deleteTeam('#team_datagrid')">Borrar</a>
-   		<input id="team_datagrid-search" type="text" value="---- Buscar ----" class="search_textfield" onchange="buscaEquipos()" />
+   		<input id="team_datagrid-search" type="text" value="---- Buscar ----" 
+   			class="search_textfield" onchange="reloadWithSearch('#team_datagrid','select',false);" />
    	</span>
    	<span style="float:right;padding:5px">
    		<a id="team_datagrid-reloadBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-brush'"
-   			onclick="
-   	        	// clear selection and reload table
-   	    		$('#team_datagrid-search').val('---- Buscar ----');	
-   	            $('#team_datagrid').datagrid('load',{ where: '' });"
-   			>Limpiar</a>
+   			onclick="reloadWithSearch('#team_datagrid','select',true);">Limpiar</a>
    	</span>
 </div>
 
@@ -50,12 +47,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 
 <script type="text/javascript">
-
-function buscaEquipos() {
-	$('#team_datagrid').datagrid( 'load', { 
-			where: ($('#team_datagrid-search').val()==='---- Buscar ----')? '' : $('#team_datagrid-search').val()
-		});
-}
 
 //TODO: estudiar por qué el "closed:true" en el data-options no funciona
 $('#team_datagrid-dialog').dialog({
@@ -74,8 +65,8 @@ $('#team_datagrid-dialog').dialog({
 // datos de la tabla de equipos
 $('#team_datagrid').datagrid({
 	fit: true,
-	url: '/agility/server/database/equiposFunctions.php?Operation=select&Prueba='+workingData.prueba,
-	queryParams: { where: ''	},
+	url: '/agility/server/database/equiposFunctions.php',
+	queryParams: {Operation:'select',Prueba: workingData.prueba, where: ''	},
 	loadMsg: 'Actualizando lista de equipos ...',
     footer: '#team_datagrid-buttons',
     toolbar: '#team_datagrid-toolbar',

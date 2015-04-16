@@ -40,7 +40,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			onClick="
    	        	// clear selection and reload table
    	    		$('#guias-datagrid-search').val('---- Buscar ----');
-   	            $('#guias-datagrid').datagrid('load',{ where: '', Operation:'select', Federation: workingData.federation });"
+   				reloadWithSearch('#guias-datagrid','select');
+   				"
    			>Limpiar</a>
 	</span>
 </div>

@@ -41,7 +41,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			onclick="
    	        	// clear selection and reload table
    	    		$('#perros-datagrid-search').val('---- Buscar ----');
-   	            $('#perros-datagrid').datagrid('load',{ where: '' });"
+				reloadWithSearch('#perros-datagrid','select');
+   	            "
    		>Limpiar</a>
    	</span>
 </div>

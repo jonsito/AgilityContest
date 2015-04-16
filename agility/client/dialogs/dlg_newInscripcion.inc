@@ -25,17 +25,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="new_inscripcion-datagrid-tools" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
 	   	<label for="Buscar">Buscar: </label>
-		<input name="Buscar" type="text" id="new_inscripcion-search" style="width:150px" 
-			value="---- Buscar ----" class="search_textfield" onchange="listaNoInscritos();"/>
+		<input name="Buscar" type="text" id="new_inscripcion-datagrid-search" style="width:150px" value="---- Buscar ----"
+			class="search_textfield" onchange="reloadWithSearch('#new_inscripcion-datagrid','noinscritos');"/>
 	</span>
 	<span style="float:right;padding:5px">
 		<a id="new_inscripcion-reloadBtn" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-brush'"
 			onclick="
 	        	// clear selection and reload table
-	    		$('#new_inscripcion-search').val('---- Buscar ----');
+	    		$('#new_inscripcion-datagrid-search').val('---- Buscar ----');
 				$('#new_inscripcion-datagrid').datagrid('unselectAll');
-				listaNoInscritos();
+				reloadWithSearch('#new_inscripcion-datagrid','noinscritos');
 	            "
 			>Limpiar</a>
 	</span>
@@ -88,7 +88,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			onclick="newTeam2('#new_inscripcion-Equipo','nuevo equipo')">Nuevo Equipo</a>
    		<a id="new_inscripcion-dogBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-dog'"
-   			onclick="newDog('#new_inscripcion-datagrid',$('#new_inscripcion-search').val())">Nuevo Perro</a>
+   			onclick="newDog('#new_inscripcion-datagrid',$('new_inscripcion-datagrid-search').val())">Nuevo Perro</a>
    	</span>
    	<span style="float:right">
 		<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
@@ -111,15 +111,6 @@ function evalJornadas(obj) {
 	var val=$('#new_inscripcion-Jornadas').val();
 	if (obj.checked) $('#new_inscripcion-Jornadas').val(val | obj.value);
 	else $('#new_inscripcion-Jornadas').val(val & ~obj.value);
-}
-
-function listaNoInscritos() {
-	$('#new_inscripcion-datagrid').datagrid('reload',{
-		Operation: 'noinscritos',
-		Federation: workingData.federation,
-		Prueba: workingData.prueba,
-		where: ($('#new_inscripcion-search').val()==='---- Buscar ----')?'':$('#new_inscripcion-search').val()
-	});
 }
 	
 //TODO: estudiar por qué el "closed:true" en el data-options no funciona
@@ -145,7 +136,7 @@ $('#new_inscripcion-datagrid').datagrid({
 	queryParams: {
 		Operation: 'noinscritos',
 		Prueba: workingData.prueba,
-		where: ($('#new_inscripcion-search').val()==='---- Buscar ----')?'':$('#new_inscripcion-search').val()
+		where: ($('new_inscripcion-datagrid-search').val()==='---- Buscar ----')?'':$('new_inscripcion-datagrid-search').val()
 	},
 	method: 'get',
 	mode: 'remote',
@@ -208,12 +199,12 @@ function newInscripcion_onOpenSuccess() {
 	$('#new_inscripcion-form').form('clear');
 	
 	// setup initial search string, prueba ID and Operation
-	if (!strpos(def,"Buscar")) $('#new_inscripcion-search').val(def);// fill perro Name
+	if (!strpos(def,"Buscar")) $('new_inscripcion-datagrid-search').val(def);// fill perro Name
 	$('#new_inscripcion-Operation').val('insert');
 	$('#new_inscripcion-Prueba').val(workingData.prueba);
 
 	// reload datagrid with evaluated search value
-	listaNoInscritos();
+	reloadWithSearch('new_inscripcion-datagrid','noinscritos');
 	
     // mark checked as default every named jornadas
 	$('#new_inscripcion-J1').prop('checked', canInscribe(jornadas[0]) );
@@ -255,7 +246,7 @@ function newInscripcion_onOpenSuccess() {
 	// select up default team (as alphabetic order '-- Sin asignar --' comes first :-)
 	$('#new_inscripcion-Equipo').combogrid('grid').datagrid('selectRow',0);
 	// validation flag makes this tooltip disappear, so reinit on every window open
-	addTooltip($('#new_inscripcion-search').linkbutton(),"Buscar posibles participantes<br /> que coincidan con el criterio de busqueda"); 
+	addTooltip($('new_inscripcion-datagrid-search').linkbutton(),"Buscar posibles participantes<br /> que coincidan con el criterio de busqueda"); 
 }
 
 // tooltips de los sub-formularios

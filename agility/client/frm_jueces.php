@@ -41,7 +41,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			onclick="
    	        	// clear selection and reload table
    	    		$('#jueces-datagrid-search').val('---- Buscar ----');
-   	            $('#jueces-datagrid').datagrid('load',{ where: '' });"
+				reloadWithSearch('#jueces-datagrid','select');
+				"
    			>Limpiar</a>
    	</span>
 </div>
@@ -61,7 +62,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	collapsed: false,
         	title: 'Gesti&oacute;n de datos de Jueces',
         	// datos de la conexion ajax
-        	url: '/agility/server/database/juezFunctions.php?Operation=select',
+        	url: '/agility/server/database/juezFunctions.php',
+    		queryParams: { Operation: 'select' },
         	loadMsg: 'Actualizando lista de jueces ...',
         	method: 'get',
             toolbar: '#jueces-toolbar',

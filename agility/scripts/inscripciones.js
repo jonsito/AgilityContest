@@ -155,9 +155,8 @@ function insertInscripcion(dg) {
     // notice that some of these items may fail if dialog is not deployed. just ignore
 	// foreach finished, clean, close and refresh
 	$(dg).datagrid('clearSelections');
-	listaNoInscritos();
-    // reload the inscripciones table
-	$('#inscripciones-datagrid').datagrid('reload');
+	reloadWithSearch('#new_inscripcion-datagrid','noinscritos');
+	reloadWithSearch('#inscripciones-datagrid','inscritos');
 }
 
 /**

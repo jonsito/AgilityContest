@@ -20,7 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 function reload_perrosDatagrid() {
 	var w=$('#perros-datagrid-search').val();
 	if (strpos(w,"Buscar")) w='';
-	$('#perros-datagrid').datagrid('load',{ where: w, Federation: workingData.federation });
+	$('#perros-datagrid').datagrid('load',{Operation:'select', where: w, Federation: workingData.federation });
 }
 
 /**
@@ -71,7 +71,7 @@ function editInscribedDog(dg){
 		saveInscripcion(false);
 		// and refill dog changes with new data
 		$.ajax({
-			url: '/agility/server/database/dogFunctions.php?Operation=getbyidperro&ID='+id,
+			url: '/agility/server/database/dogFunctions.php',
 			data: { Operation: 'getbyidperro', ID: id },
 			dataType: 'json',
 			success: function(data) {
