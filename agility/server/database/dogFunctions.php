@@ -30,9 +30,10 @@ try {
 	$operation=http_request("Operation","s",null);
 	$idperro=http_request("ID","i",0);
 	$idguia=http_request("Guia","i",0);
+	$federation=http_request("Federation","i",-1);
 	if ($operation===null) throw new Exception("Call to dogFunctions without 'Operation' requested");
 	switch ($operation) {
-		case "insert": $am->access(PERMS_OPERATOR); $result=$perros->insert(); break;
+		case "insert": $am->access(PERMS_OPERATOR); $result=$perros->insert($federation); break;
 		case "update": $am->access(PERMS_OPERATOR); $result=$perros->update($idperro); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$perros->delete($idperro); break;
 		case "orphan": $am->access(PERMS_OPERATOR); $result=$perros->orphan($idperro); break; // unassign from handler
@@ -40,8 +41,8 @@ try {
 		case "enumerate":	$result=$perros->enumerate(); break; // list with where
 		case "getbyguia":	$result=$perros->selectByGuia($idguia); break;
 		case "getbyidperro":	$result=$perros->selectByID($idperro); break;
-		case "categorias":	$result=$perros->categoriasPerro(); break;
-		case "grados":		$result=$perros->gradosPerro(); break;
+		case "categorias":	$result=$perros->categoriasPerro($federation); break;
+		case "grados":		$result=$perros->gradosPerro($federation); break;
 		default: throw new Exception("dogFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) 

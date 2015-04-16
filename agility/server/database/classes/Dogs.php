@@ -26,8 +26,9 @@ class Dogs extends DBObject {
 	 * Insert a new dog into database
 	 * @return {string} "" if ok; null on error
 	 */
-	function insert() {
+	function insert($fed) {
 		$this->myLogger->enter();
+		if($fed<0) return $this->error("Dogs::insert() invalid federation value");
 		// componemos un prepared statement (para evitar sql injection)
 		$sql ="INSERT INTO Perros (Nombre,Raza,LOE_RRC,Licencia,Categoria,Grado,Guia,Federation)
 			   VALUES(?,?,?,?,?,?,?,?)";
@@ -43,7 +44,7 @@ class Dogs extends DBObject {
 		$categoria= http_request("Categoria","s",null,false); 
 		$grado =	http_request("Grado","s",null,false); 
 		$guia =		http_request("Guia","s",null,false); 
-		$federation=http_request("Federation","i",0);
+		$federation=$fed;
 		
 		$this->myLogger->info("Nombre:$nombre Raza:$raza LOE:$loe_rrc Categoria:$categoria Grado:$grado Guia:$guia Federation:$federation");
 		// invocamos la orden SQL y devolvemos el resultado
@@ -243,13 +244,16 @@ class Dogs extends DBObject {
 	/**
 	 * Enumerate categorias ( std, small, medium, tiny 
 	 * Notice that this is not a combogrid, just combobox, so dont result count
+	 * @param {integer} federation; 0:RSCE 1:RFEC 2:UCA -1:any
 	 * @return null on error; result on success
 	 */
-	function categoriasPerro() {
+	function categoriasPerro($fed=-1) {
 		$this->myLogger->enter();
+		// In RSCE There is no "Tiny" Categoria
+		$f= ($fed!=0)?"1":"(Categoria <> 'T') ";
 		// evaluate offset and row count for query
 		$q=http_request("q","s","");
-		$like =  ($q==="") ? "" : " WHERE Categoria LIKE '%".$q."%'";
+		$like =  ($q==="") ? "WHERE $f" : " WHERE $f AND Categoria LIKE '%".$q."%'";
 	
 		// query to retrieve table data
 		$sql="SELECT Categoria,Observaciones FROM Categorias_Perro ".$like." ORDER BY Categoria";
@@ -274,14 +278,22 @@ class Dogs extends DBObject {
 	
 	/**
 	 * Enumerate grados 
+	 * @param {integer} federation; 0:RSCE 1:RFEC 2:UCA -1:any
 	 * @return null on error; result on success
 	 * Notice that this is not a combogrid, just combobox, so dont result count
 	 */
-	function gradosPerro() {
+	function gradosPerro($fed=-1) {
 		$this->myLogger->enter();
+		// evaluate fed
+		$f= "1";
+		switch($fed){ // en RFEC y UCA no hay grado 3
+			case 1:
+			case 2:   $f="(Grado <> 'GIII') ";
+			break;
+		}
 		// evaluate offset and row count for query
 		$q=http_request("q","s","");
-		$like =  ($q==="") ? "" : " WHERE Grado LIKE '%".$q."%'";
+		$like =  ($q==="") ? "WHERE $f" : " WHERE $f AND ( Grado LIKE '%".$q."%' )";
 
 		// query to retrieve table data
 		$sql="SELECT Grado,Comentarios FROM Grados_Perro ".$like." ORDER BY Grado";
