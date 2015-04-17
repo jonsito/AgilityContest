@@ -199,7 +199,7 @@ class Clubes extends DBObject {
 		// evaluate search query string
 		$q=http_request("q","s","");
 		$f=http_request("Federation","i",-1);
-		$fedstr = "";
+		$fedstr = "1";
 		switch (intval($f)) {
 			case -1: break; // any
 			case 0: $fedstr="((Federations & 1)!=0)"; break; // rsce
@@ -207,21 +207,12 @@ class Clubes extends DBObject {
 			case 2: $fedstr="((Federations & 4)!=0)"; break; // uca
 			default: return $this->error("Clubes::enumerate() Invalid Federation:$f");
 		}
-		$where="";
-		if ($q!=="") $where="Nombre LIKE '%".$q."%'";
-
-		$where="";
-		if ($fedstr==="") {
-			if ($q!=='') $where="( Nombre LIKE '%".$q."%' ) ";
-			else $where="";
-		} else {
-			if ($q!=='') $where="$fedstr AND ( Nombre LIKE '%".$q."%' ) ";
-			else $where=$fedstr;
-		}
+		$where="1";
+		if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
 		$result=$this->__select(
 				/* SELECT */ "ID,Nombre,Provincia",
 				/* FROM */ "Clubes",
-				/* WHERE */ $where,
+				/* WHERE */ "$fedstr AND $where",
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""
 		);

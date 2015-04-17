@@ -92,6 +92,7 @@ function acceptLogout() {
        			$.messager.alert("Usuario"+user,"Sesi&oacute;n finalizada correctamente","info");
            		$('#login_menu-text').html("Iniciar sesi&oacute;n");
            		initAuthInfo();
+           		setFederation(0); // on logout defaults to RSCE
        		} 
        	},
    		error: function() { alert("error");	},
