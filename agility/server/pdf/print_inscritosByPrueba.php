@@ -36,7 +36,11 @@ require_once(__DIR__."/print_common.php");
 
 class PrintCatalogo extends PrintCommon {
 	protected $inscritos;
+	protected $jornadas;
 	protected $cat=array('-'=>'','L'=>'Large','M'=>'Medium','S'=>'Small','T'=>'Tiny');
+	
+	protected $width = array( 30,25,15,20,40,5,5,5,5,5,5,5,5); // anchos predefinidos de las celdas
+	protected $cellHeader = array( 'J1','J2','J3','J4','J5','J6','J7','J8');
 	
 	/**
 	 * Constructor
@@ -44,13 +48,14 @@ class PrintCatalogo extends PrintCommon {
 	 * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
 	 * @throws Exception
 	*/
-	function __construct($prueba,$inscritos) {
+	function __construct($prueba,$inscritos,$jornadas) {
 		parent::__construct('Portrait',$prueba,0);
 		if ( ($prueba==0) || ($inscritos===null) ) {
 			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
 			throw new Exception($this->errormsg);
 		}
 		$this->inscritos=$inscritos['rows'];
+		$this->jornadas=$jornadas['rows'];
 		$this->setPageName("catalogoInscripciones.pdf");
 	}
 	
@@ -68,7 +73,7 @@ class PrintCatalogo extends PrintCommon {
 	}
 
 	function printClub($pos,$id) {
-		$y=10*$pos;
+		$y=5+9*$pos;
 		// retrieve club data
 		$cmgr=new Clubes('printCatalogo');
 		$club=$cmgr->selectByID($id);
@@ -86,37 +91,43 @@ class PrintCatalogo extends PrintCommon {
 		
 		// pintamos logo
 		$this->SetXY(10,$y);
-		$this->Cell(25,25,'','LTB',0,'C',false);
-		$this->Image(__DIR__.'/../../images/logos/'.$icon,12.5,2.5+$y,20,20);
+		$this->Cell(22,22,'','LTB',0,'C',false);
+		$this->Image(__DIR__.'/../../images/logos/'.$icon,12,2+$y,18,18);
 
 		// pintamos info del club
 		$this->SetFont('Arial','B',9);
-		$this->SetXY(35,$y);
-		$this->Cell( 50, 6, $club['Direccion1'],	'LT', 0, 'L', true); // pintamos direccion1
-		$this->SetXY(35,6+$y);
-		$this->Cell( 50, 6, $club['Direccion2'],	'L', 0, 'L',	true);	// pintamos direccion2
-		$this->SetXY(35,12+$y);
-		$this->Cell( 50, 6, $club['Provincia'],	'L', 0, 'L',	true);	// pintamos provincia
+		$this->SetXY(32,$y);
+		$this->Cell( 50, 5, $club['Direccion1'],	'LT', 0, 'L', true); // pintamos direccion1
+		$this->SetXY(32,5+$y);
+		$this->Cell( 50, 5, $club['Direccion2'],	'L', 0, 'L',	true);	// pintamos direccion2
+		$this->SetXY(32,10+$y);
+		$this->Cell( 50, 5, $club['Provincia'],	'L', 0, 'L',	true);	// pintamos provincia
 		$this->SetFont('Arial','IB',24);
-		$this->SetXY(85,$y);
-		$this->Cell( 110, 18, $club['Nombre'],	'T', 0, 'R',	true);	// pintamos Nombre
-		$this->Cell( 5, 18, '',	'TR', 0, 'R',	true);	// caja vacia de relleno
+		$this->SetXY(82,$y);
+		$this->Cell( 110, 15, $club['Nombre'],	'T', 0, 'R',	true);	// pintamos Nombre
+		$this->Cell( 10, 15, '',	'TR', 0, 'R',	true);	// caja vacia de relleno
 		
 		// pintamos cabeceras de la tabla		
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2')); // gris
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg2')); // negro
 		$this->SetFont('Arial','B',9);
-		$this->SetXY(35,18+$y);
-		$this->Cell( 40, 7, 'Nombre','LTB', 0, 'C',true);
-		$this->Cell( 35, 7, 'Raza','LTB', 0, 'C',true);
-		$this->Cell( 15, 7, 'Licencia','LTB', 0, 'C',true);
-		$this->Cell( 25, 7, 'Cat/Grado','LTB', 0, 'C',true);
-		$this->Cell( 50, 7, 'Guía','LTBR', 0, 'C',true);
+		$this->SetXY(32,15+$y);
+		$this->Cell( $this->width[0], 7, 'Nombre','LTB', 0, 'C',true);
+		$this->Cell( $this->width[1], 7, 'Raza','LTB', 0, 'C',true);
+		$this->Cell( $this->width[2], 7, 'Licencia','LTB', 0, 'C',true);
+		$this->Cell( $this->width[3], 7, 'Cat/Grado','LTB', 0, 'C',true);
+		$this->Cell( $this->width[4], 7, 'Guía','LTBR', 0, 'C',true);
+		// print names of each declared journeys
+		for($i=5;$i<count($this->width);$i++) {
+			// en la cabecera texto siempre centrado
+			if ($this->width[$i]==0) continue;
+			$this->Cell($this->width[$i],7,$this->cellHeader[$i-5],1,0,'C',true);
+		}
 		$this->Ln();
 	}
 	
 	function printParticipante($pos,$row) {
-		$this->myLogger->trace("Position: ".$pos." Dorsal: ".$row['Dorsal']);
+		// $this->myLogger->trace("Position: ".$pos." Dorsal: ".$row['Dorsal']);
 		$fill = (($pos&0x01)==0)?true:false;
 
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
@@ -124,36 +135,58 @@ class PrintCatalogo extends PrintCommon {
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 		
 		$this->SetLineWidth(.3); // ancho de linea
-		$this->setXY(20,10*$pos-5); // posicion inicial
+		$this->setXY(17,9*$pos); // posicion inicial
 		// REMINDER: 
 		// $this->cell( width, height, data, borders, where, align, fill)
 		$this->SetFont('Arial','B',18); //
-		$this->Cell( 15, 10, $row['Dorsal'],	'LB', 0, 'C',	$fill);
-		$this->SetFont('Arial','BI',15); // bold 9px
-		$this->Cell( 40, 10, $row['Nombre'],	'LB', 0, 'C',	$fill);
-		$this->SetFont('Arial','',10); // bold 9px
-		$this->Cell( 35, 10, substr($row['Raza'],0,20),		'LB', 0, 'R',	$fill);
-		$this->Cell( 15, 10, $row['Licencia'],	'LB', 0, 'C',	$fill);
-		$this->Cell( 25, 10, $this->cat[$row['Categoria']]." - ".$row['Grado'],	'LB', 0, 'C',	$fill);
-		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell( 50, 10, substr($row['NombreGuia'],0,30),'LBR', 0, 'R',	$fill);
-		$this->Ln(10);
+		$this->Cell( 15, 9, $row['Dorsal'],	'LB', 0, 'C',	$fill);
+		$this->SetFont('Arial','BI',12); // bold 9px
+		$this->Cell( $this->width[0], 9, $row['Nombre'],	'LB', 0, 'C',	$fill);
+		$this->SetFont('Arial','',8); // bold 8px
+		$this->Cell( $this->width[1], 9, substr($row['Raza'],0,20),		'LB', 0, 'R',	$fill);
+		$this->Cell( $this->width[2], 9, $row['Licencia'],	'LB', 0, 'C',	$fill);
+		$this->Cell( $this->width[3], 9, $this->cat[$row['Categoria']]." - ".$row['Grado'],	'LB', 0, 'C',	$fill);
+		$this->SetFont('Arial','B',10); // bold 9px
+		$this->Cell( $this->width[4], 9, substr($row['NombreGuia'],0,30),'LBR', 0, 'R',	$fill);
+		
+		$this->SetFont('Arial','',8); // bold 8px
+		
+		// print inscrption data on each declared journeys
+		for($i=5;$i<count($this->width);$i++) {
+			// en la cabecera texto siempre centrado
+			if ($this->width[$i]==0) continue;
+			$j=$i-4;
+			$this->Cell($this->width[$i],9,($row["J$j"]==0)?"":"X",'BR',0,'C',$fill);
+		}
+		$this->Ln(9);
 	}
 	
 	function composeTable() {
 		$this->myLogger->enter();
+		
+		// contamos las jornadas sin asignar
+		foreach($this->jornadas as $row => $jornada) {
+			if ($jornada['Nombre']==='-- Sin asignar --') {
+				$this->cellHeader[$row]='';
+				$this->width[0]+=2;$this->width[1]+=1;$this->width[4]+=2;
+				$this->width[5+$row]=0;
+			} else {
+				$this->cellHeader[$row]=$jornada['Nombre'];
+			}
+		}
+		
 		$this->addPage(); // start page
 		$club=0;
 		$pos=4; // header takes 4 cmts
 		foreach($this->inscritos as $row) {
 			switch($pos) {
-				case 25: // check for new club
-				case 26:
-				case 27:
+				case 28: // check for new club
+				case 29:
+				case 30:
 					if ($club==$row['Club']) break;
 					// else cannot insert new club header
 					// no break
-				case 28: // force new page
+				case 31: // force new page
 					$this->addPage(); 
 					$pos=4;
 					// no break
@@ -626,7 +659,7 @@ try {
 	// Creamos generador de documento
 	switch ($mode) {
 		case 0: $pdf=new PrintInscritos($pruebaid,$inscritos,$jornadas); break;
-		case 1: $pdf=new PrintCatalogo($pruebaid,$inscritos); break;
+		case 1: $pdf=new PrintCatalogo($pruebaid,$inscritos,$jornadas); break;
 		case 2: $pdf=new PrintEstadisticas($pruebaid,$inscritos,$jornadas); break;
 		default: throw new Exception ("Inscripciones::print() Invalid print mode selected $mode");
 	}

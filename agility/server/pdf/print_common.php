@@ -61,6 +61,7 @@ class PrintCommon extends FPDF {
 	 */
 	function __construct($orientacion,$prueba,$jornada=0) {
 		parent::__construct($orientacion,'mm','A4'); // Portrait or Landscape
+		$this->SetAutoPageBreak(true,1.7); // default margin is 2cm. so enlarge a bit 
 		$this->centro=($orientacion==='Portrait')?107:145;
 		$this->config=Config::getInstance();
 		$this->myLogger= new Logger("PrintCommon",$this->config->getEnv("debug_level"));
@@ -71,8 +72,19 @@ class PrintCommon extends FPDF {
 		else $this->jornada=null;
 		// evaluage logo info
 		$this->icon="rsce.png";
-		$this->icon2="rsce.png";
+		$this->icon2="agilitycontest.png"; // default
 		if (isset($this->club)) $this->icon=$this->club->Logo;
+		switch ($this->prueba->RSCE){
+			case 0: // rsce
+				$this->icon2=($this->icon==="rsce.png")?"fci.png":"rsce.png"; // to avoid duplicate head logos
+				break;
+			case 1: // rfec
+				$this->icon2=($this->icon==="rfec.png")?"csd.png":"rfec.png"; // to avoid duplicate head logos
+				break;
+			case 2: // uca
+				$this->icon2=($this->icon==="rfec.png")?"rfec.png":"uca.png"; // to avoid duplicate head logos
+				break;
+		}
 	}
 	/**
 	 * Pinta la cabecera de pagina
@@ -85,17 +97,6 @@ class PrintCommon extends FPDF {
 		// 		$this->Image(string file [, float x [, float y [, float w [, float h [, string type [, mixed link]]]]]])
 		// 		$this->Cell( width, height, data, borders, where, align, fill)
 		// 		los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
-		if ($this->prueba->RSCE==0) {
-			$this->icon2=($this->icon==="rsce.png")?"fci.png":"rsce.png"; // to avoid duplicate head logos
-		}
-		if ($this->prueba->RSCE==1) {
-			$this->icon2="rfec.png";
-			$this->icon2=($this->icon==="rfec.png")?"csd.png":"rfec.png"; // to avoid duplicate head logos
-		}
-		if ($this->prueba->RSCE==2) {
-			$this->icon2="uca.png";
-			$this->icon2=($this->icon==="rfec.png")?"rfec.png":"uca.png"; // to avoid duplicate head logos
-		}
 		$this->SetXY(10,10); // margins are 10mm each
 		$this->Cell(25.4,25.4,$this->Image(__DIR__.'/../../images/logos/'.$this->icon,$this->getX(),$this->getY(),25.4),0,0,'L',false);
 		$this->SetXY($this->w - 35.4,10);
