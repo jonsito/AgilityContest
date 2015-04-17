@@ -92,9 +92,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     addTooltip($('#chperros-okBtn').linkbutton(),"Aceptar datos y actualizar la BBDD");
     addTooltip($('#chperros-cancelBtn').linkbutton(),"Cancelar asignacion. Cerrar ventana");
     $('#chperros-clearBtn').bind('click',function() {
-        $('#chperros-form').form('clear'); 
-        $('#chperros-Search').combogrid({ 'setValue' : '' });
-		$('#chperros-Operation').val('insert'); // mark operation as 'insert'
+        $('#chperros-header').form('clear'); // empty form
+        $('#chperros-form').form('reset'); // restore to initial values
     });
     
     // campos del formulario

@@ -76,10 +76,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	addTooltip($('#chguias-newBtn').linkbutton(),"Crear nuevo miembro del club con los datos especificados");
     	addTooltip($('#chguias-okBtn').linkbutton(),"Re-asignar el guia con los datos especificados al club");
     	$('#chguias-clearBtn').bind('click',function() {
-    	    $('#chguias-form').form('clear'); 
-    	    $('#chguias-Search').combogrid({ 'setValue' : '' });
-			$('#chguias-Operation').val('insert'); // mark operation as 'insert'
-			$('#chguias-Club').val($('#chguias-newClub').val()); // restore "Club" field
+    	    $('#chguias-header').form('clear'); // emtpy
+    	    $('#chguias-form').form('reset'); // restore to original values 
     	});
         
         // campos del formulario

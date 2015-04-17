@@ -34,7 +34,7 @@ class Dogs extends DBObject {
 			   VALUES(?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('sssssssi',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia,$federation);
+		$res=$stmt->bind_param('ssssssii',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia,$federation);
 		if (!$res) return $this->error($this->conn->error);
 		// iniciamos los valores, chequeando su existencia
 		$nombre =	http_request("Nombre","s",null,false); 
@@ -43,7 +43,7 @@ class Dogs extends DBObject {
 		$licencia = http_request("Licencia","s",null,false); 
 		$categoria= http_request("Categoria","s",null,false); 
 		$grado =	http_request("Grado","s",null,false); 
-		$guia =		http_request("Guia","s",null,false); 
+		$guia =		http_request("Guia","i",0); 
 		$federation=$fed;
 		
 		$this->myLogger->info("Nombre:$nombre Raza:$raza LOE:$loe_rrc Categoria:$categoria Grado:$grado Guia:$guia Federation:$federation");
@@ -96,7 +96,7 @@ class Dogs extends DBObject {
 		$licencia = http_request("Licencia","s",null,false);
 		$categoria= http_request("Categoria","s",null,false);
 		$grado =	http_request("Grado","s",null,false);
-		$guia =		http_request("Guia","i",0,false);
+		$guia =		http_request("Guia","i",0);
 		$idperro =	$id;
 
 		$this->myLogger->info("\nUPDATE dogs: ID: $id Nombre: $nombre Raza: $raza Licencia: $licencia LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
