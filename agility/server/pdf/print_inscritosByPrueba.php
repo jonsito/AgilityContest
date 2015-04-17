@@ -156,7 +156,7 @@ class PrintCatalogo extends PrintCommon {
 			// en la cabecera texto siempre centrado
 			if ($this->width[$i]==0) continue;
 			$j=$i-4;
-			$this->Cell($this->width[$i],9,($row["J$j"]==0)?"":"X",'BR',0,'C',$fill);
+			$this->Cell($this->width[$i],9,($row["J$j"]==0)?"":"X",'LBR',0,'C',$fill);
 		}
 		$this->Ln(9);
 	}
@@ -164,9 +164,11 @@ class PrintCatalogo extends PrintCommon {
 	function composeTable() {
 		$this->myLogger->enter();
 		
-		// contamos las jornadas sin asignar
+		// check for show journeys in configuration options
+		$skip=intval($this->config->getEnv('pdf_journeys')); 
 		foreach($this->jornadas as $row => $jornada) {
-			if ($jornada['Nombre']==='-- Sin asignar --') {
+			// contamos las jornadas sin asignar
+			if (($skip==0) || ($jornada['Nombre']==='-- Sin asignar --')) {
 				$this->cellHeader[$row]='';
 				$this->width[0]+=2;$this->width[1]+=1;$this->width[4]+=2;
 				$this->width[5+$row]=0;

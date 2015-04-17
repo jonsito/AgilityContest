@@ -61,6 +61,7 @@ define('AC_VW_ROWCOLOR2','#e0ebff');
 /** generacion de PDF's **/
 define('AC_PDF_TOPMARGIN', 10.0); // margen superior etiquetas
 define('AC_PDF_LEFTMARGIN', 10.0); // margen izquierdo etiquetas
+define('AC_PDF_JOURNEYS', "1"); // incluir jornadas en catalogo
 define('AC_PDF_HDRFG1','#000000');
 define('AC_PDF_HDRBG1','#00FF00');
 define('AC_PDF_HDRFG2','#0000ff');
@@ -74,7 +75,7 @@ define('AC_TABLET_BEEP',"0");
 define('AC_TABLET_DND',"0");
 define('AC_TABLET_CHRONO',"0");
 define('AC_TABLET_NEXT',"0");
-define('AC_TABLET_COUNTDOWN',1); // 1:nada 2:crono 3:eliminado
+define('AC_TABLET_COUNTDOWN',"1"); // 1:nada 2:crono 3:eliminado
 
 Class Config {
 	
@@ -151,6 +152,7 @@ Class Config {
 		// generacion de PDF's
 		$this->config['pdf_topmargin'] = AC_PDF_TOPMARGIN;
 		$this->config['pdf_leftmargin'] = AC_PDF_LEFTMARGIN;
+		$this->config['pdf_journeys'] = AC_PDF_JOURNEYS;
 		$this->config['pdf_hdrfg1'] =	AC_PDF_HDRFG1;
 		$this->config['pdf_hdrbg1'] =	AC_PDF_HDRBG1;
 		$this->config['pdf_hdrfg2'] =	AC_PDF_HDRFG2;
@@ -260,6 +262,7 @@ Class Config {
 		// generacion de PDF's
 		$data['pdf_topmargin'] = AC_PDF_TOPMARGIN;
 		$data['pdf_leftmargin'] = AC_PDF_LEFTMARGIN;
+		$data['pdf_journeys'] = AC_PDF_JOURNEYS;
 		$data['pdf_hdrfg1'] =	AC_PDF_HDRFG1;
 		$data['pdf_hdrbg1'] =	AC_PDF_HDRBG1;
 		$data['pdf_hdrfg2'] =	AC_PDF_HDRFG2;
@@ -307,6 +310,7 @@ Class Config {
 		// generacion de PDF's
 		$data=testAndSet($data,'pdf_topmargin','f',AC_PDF_TOPMARGIN);
 		$data=testAndSet($data,'pdf_leftmargin','f',AC_PDF_LEFTMARGIN);
+		$data['pdf_journeys']=http_request('pdf_journeys','i',AC_PDF_JOURNEYS);
 		$data=testAndSet($data,'pdf_hdrfg1','s',AC_PDF_HDRFG1);
 		$data=testAndSet($data,'pdf_hdrbg1','s',AC_PDF_HDRBG1);
 		$data=testAndSet($data,'pdf_hdrfg2','s',AC_PDF_HDRFG2);
