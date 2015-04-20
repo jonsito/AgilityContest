@@ -22,8 +22,11 @@ https://github.com/jonsito/AgilityContest/archive/master.zip
 - Copiar el fichero F:\AgilityContest-master\agility\extras\xampp_httpd.conf
   al directorio F:\xampp\apache\conf\extra\xampp_httpd.conf.
 
-- Editar el fichero F:\xampp\apache\conf\httpd.conf y añadir al final del fichero la linea:
-  
+- Editar el fichero F:\xampp\apache\conf\httpd.conf y añadir al final del fichero las lineas:
+
+  <IfModule mpm_winnt_module>
+    ThreadStackSize 8388608
+  </IfModule>
   Include "conf/extra/xampp_httpd.conf"
   
 - Activar la extensión de manejo de funciones de cifrado en php. Para ello hay que editar el fichero F:\xampp\php\php.ini:
