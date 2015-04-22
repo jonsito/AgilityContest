@@ -51,6 +51,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
 <script src="/agility/scripts/jueces.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/usuarios.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/sesiones.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/tandas.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/equipos.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/pruebas.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/inscripciones.js" type="text/javascript" charset="utf-8" > </script>

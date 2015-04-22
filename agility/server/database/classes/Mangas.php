@@ -67,16 +67,10 @@ class Mangas extends DBObject {
 	);
 	
 	public static $manga_recorridos= array(
-		0 => array('Large / Medium / Small','L/M/S'), // recorridos separados por categoria
-		1 => array('Large / Medium + Small','L/M+S'), // dos recorridos: large y M+S
-		2 => array('Large + Medium + Small','L+M+S')  // recorrido unico conjunto
-	);
-	
-	public static $manga_recorridos_rfec= array(
-			0 => array('Recorridos separados','L/M/S/T'), // recorridos separados por categoria
-			1 => array('Large+Medium / Small+Tiny','L+M/S+T'), // dos recorridos: LM y ST
-			2 => array('Recorrido comun','L+M+S+T')  // recorrido unico conjunto
-	);
+		0 => array(/*RSCE*/ 'Large / Medium / Small'	,'L/M/S',/*RFEC*/	'Recorridos separados',	'L/M/S/T' ), // recorridos separados por categoria
+		1 => array(/*RSCE*/ 'Large / Medium + Small'	,'L/M+S',/*RFEC*/	'Large+Medium / Small+Tiny','L+M/S+T'), // dos recorridos: large y M+S
+		2 => array(/*RSCE*/'Large + Medium + Small'		,'L+M+S', /*RFEC*/	'Recorrido comun',		'L+M+S+T')  // recorrido unico conjunto
+ 	);
 	
 	public static $manga_modes= array (
 		0 => array('Large','L'),

@@ -175,4 +175,96 @@ function getOrderString($sort,$order,$def) {
 	}
 	return $res;
 }
+
+
+
+/**
+ * Obtiene el "modo" de presentación en funcion de rsce/rfec tipoRecorrido y categoria
+ * @param {integer} $fed 0:RSCE 1:RFEC 2:UCA
+ * @param {integer} $recorrido 0:L/M/S/T separado 1:L/MS LM/ST mixto 2:LMS LMST conjunto
+ * @param {integer} $categoria 0:L 1:M 2:S 3:T
+ */
+function getMangaMode($fed,$recorrido,$categoria) {
+	$manga_modes= 
+		array( // federation/recorrido/categoria
+			array( /* RSCE */ array(/* separado */ 0,1,2,-1), array( /* mixto */ 0,3,3.-1), array(/* conjunto */ 4,4,4,-1) ),
+			array( /* RFEC */ array(/* separado */ 0,1,2,5),  array( /* mixto */ 6,6,7,7), array( /* conjunto */ 8,8,8,8)  ),
+			array( /* UCA  */ array(/* separado */ 0,1,2,5),  array( /* mixto */ 6,6,7,7), array( /* conjunto */ 8,8,8,8)  )
+		);
+	return $manga_modes[$fed][$recorrido][$categoria];
+}
+
+/**
+ * manejo de textos y datos referidos a cada federacion
+ * @author jantonio
+ */
+class Federation {
+
+	protected $federation=0;
+	public static $federations = array ( 'RSCE','RFEC','UCA');
+	public static $logos = array ( 'rsce.png','rfec.png','uca.png');
+	public static $parentLogos = array ( 'fci.png','csd.png','rfec.png');
+
+	public static $translations = array (
+			0 => array ( /* RSCE */
+					'Large' => 'Standard',
+					'Medium' => 'Midi',
+					'Small' => 'Mini',
+					'Tiny' => 'Enano',
+					'logo.png' => 'rsce.png'
+			),
+			1 => array ( /* RFCE */
+					'Large' => 'Large',
+					'Medium' => 'Medium',
+					'Small' => 'Small',
+					'Tiny' => 'Tiny',
+					'logo.png' => 'rfec.png'
+			),
+			2 => array ( /* UCA */
+					'Large' => '60',
+					'Medium' => '50',
+					'Small' => '40',
+					'Tiny' => '30',
+					'logo.png' => 'uca.png'
+			)
+	);
+
+	function __construct($fed=0){
+		$this->federation=$fed;
+	}
+	
+	function getLogo($fed=-1) {
+		if ($fed==-1)$fed=$this->federation;
+		return 	Federation::$logos[$fed];
+	}
+
+	function getParentLogo($fed=-1) {
+		if ($fed==-1)$fed=$this->federation;
+		return 	Federation::$parentLogos[$fed];
+	}
+
+	function getName($fed=-1) {
+		if ($fed==-1)$fed=$this->federation;
+		return 	Federation::$federations[$fed];
+	}
+
+	function _f($str,$fed=-1) {
+		if ($fed>2) return $str;
+		if($fed==-1) $fed=$this->federation;
+		if (!array_key_exists($str,Federation::$translations[$fed])) return $str;
+		return Federation::$translations[$fed][$str];
+	}
+
+	function _ef($str,$fed=-1) { echo _f($str,$fed); }
+
+	function strToFederation($str,$fed=-1) {
+		if ($fed>2) return $str;
+		if($fed==-1) $fed=$fed=$this->federation;
+		foreach(Federation::$translations[$fed] as $key => $value) {
+			$str=str_replace($key,$value,$str);
+		}
+		return $str;
+	}
+}
+
 ?>

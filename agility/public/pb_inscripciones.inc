@@ -1,5 +1,5 @@
 <!-- 
-vw_inscripciones.inc
+pb_inscripciones.inc
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -16,24 +16,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- Presentacion de las inscripciones de la jornada -->
-<div id="vw_inscripciones-window">
-	<div id="vw_inscripciones-layout" style="width:100%">
-		<div id="vwi_inscripciones-Cabecera" data-options="region:'north',split:false" style="height:10%" class="vw_floatingheader">
-		    <span style="float:left;" id="vw_inscripciones-infocabecera">Cabecera</span>
-			<span style="float:right;" id="vw_inscripciones-texto">Listado de inscritos</span>
+<div id="pb_inscripciones-window">
+	<div id="pb_inscripciones-layout" style="width:100%">
+		<div id="pb_inscripciones-Cabecera" data-options="region:'north',split:false" style="height:10%" class="vw_floatingheader">
+		    <span style="float:left;" id="pb_inscripciones-infocabecera">Cabecera</span>
+			<span style="float:right;" id="pb_inscripciones-texto">Listado de inscritos</span>
 		</div>
-		<div id="vwi_tabla" data-options="region:'center'">
-			<span id="vw_inscripcionesJornada"></span>
+		<div id="pb_tabla" data-options="region:'center'">
+			<span id="pb_inscripcionesJornada"></span>
 		</div>
 	</div>
-</div> <!-- vw_llamada-window -->
+</div> <!-- pb_inscripciones-window -->
 
 <script type="text/javascript">
-$('#vw_inscripciones-layout').layout({fit:true});
+$('#pb_inscripciones-layout').layout({fit:true});
 
-//add 'callback' property to store interval references
-$.extend($.fn.window.defaults,{callback:null});
-$('#vw_inscripciones-window').window({
+$('#pb_inscripciones-window').window({
 	fit:true,
 	noheader:true,
 	border:false,
@@ -45,8 +43,8 @@ $('#vw_inscripciones-window').window({
 	// 1 minute poll is enouth for this, as no expected changes during a session
 	onOpen: function() {
 		// call once and then fire as timed task
-		vwi_procesaInscripciones();
-		var a=setInterval(vwi_procesaInscripciones,10000);
+		pb_updateInscripciones();
+		var a=setInterval(pb_updateInscripciones,10000);
 		$(this).window.defaults.callback=a; 
 	},
 	onClose: function() { 

@@ -60,11 +60,12 @@ $('#tablet-datagrid').datagrid({
 	collapsed: false,
 	// propiedades del datagrid
 	method: 'get',
-	url: '/agility/server/database/ordenTandasFunctions.php',
+	url: '/agility/server/database/tandasFunctions.php',
     queryParams: {
         Operation: 'getTandas',
         Prueba: workingData.prueba,
-        Jornada: workingData.jornada
+		Jornada: workingData.jornada,
+		Sesion: workingData.sesion
     },
 	toolbar:'#tablet-toolbar',
     loadMsg: "Actualizando programa ...",
@@ -77,6 +78,7 @@ $('#tablet-datagrid').datagrid({
     pageSize: 100, // enought bit to make it senseless
     columns:[[ 
           	{ field:'ID',		hidden:true },
+			{ field:'Sesion',	hidden:true },
         	{ field:'Prueba',	hidden:true },
           	{ field:'Jornada',	hidden:true },
           	{ field:'Manga',	hidden:true },
@@ -103,7 +105,7 @@ $('#tablet-datagrid').datagrid({
         $('#tablet-datagrid').datagrid('options').expandedRow=idx;
         // update session data
         tablet_updateSession(row);
-        tablet_showPerrosByTanda(idx,row); 
+        if (row.Tipo!=0) tablet_showPerrosByTanda(idx,row);
     },
     onCollapseRow: function(idx,row) { doBeep(); }
 });
@@ -114,12 +116,13 @@ function tablet_showPerrosByTanda(index,row){
     var mySelf='#tablet-datagrid-'+row.ID;
 	$(mySelf).datagrid({
 		method: 'get',
-		url: '/agility/server/database/ordenTandasFunctions.php',
+		url: '/agility/server/database/tandasFunctions.php',
 	    queryParams: {
 	        Operation: 'getDataByTanda',
 	        Prueba: row.Prueba,
 	        Jornada: row.Jornada,
-	        Tanda:row.ID
+			Sesion: row.Sesion,
+			ID:row.ID
 	    },
 	    loadMsg: "Actualizando orden de salida ...",
 	    pagination: false,

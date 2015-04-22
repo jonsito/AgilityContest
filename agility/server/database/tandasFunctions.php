@@ -1,6 +1,6 @@
 <?php
 /*
-ordenTandasFunctions.php
+tandasFunctions.php
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -22,33 +22,46 @@ require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/DBConnection.php");
-require_once(__DIR__."/classes/OrdenTandas.php");
+require_once(__DIR__."/classes/Tandas.php");
 
-$file="ordenTandasFunctions";
+$file="tandasFunctions";
 
 try {
 	$result=null;
-	$ot=new OrdenTandas($file);
 	$am= new AuthManager($file);
 	// retrieve variables
 	$operation=http_request("Operation","s",null);
 	if ($operation===null) 
-		throw new Exception("Call to ordenTandasFunctions without 'Operation' requested");
+		throw new Exception("Call to tandasFunctions without 'Operation' requested");
+	// request prueba and jornada. invoke constructor
 	$p = http_request("Prueba","i",0);
 	$j = http_request("Jornada","i",0);
-	$td = http_request("Tanda","i",0);
+	$ot = new Tandas($file,$p,$j);
+	
+	// datos para listados, altas y bajas
+	$id = http_request("ID","i",0);
+	$s = http_request("Sesion","i",0); // default is no session
+	$a = http_request("Pendientes","i",0);
+	
 	// los siguiente campos se usan para drag and drop
 	$f = http_request("From","i",0);
 	$t = http_request("To","i",0);
 	$w = http_request("Where","i",0); // 0:up 1:down
-	$a = http_request("Pendientes","i",0); // 0: listado completo; else retorna hasta "n" perros pendientes
 	if ( ($p<=0) || ($j<=0) ) 
-		throw new Exception("Call to ordenTandasFunctions with Invalid Prueba:$p or Jornada:$j ID");
+		throw new Exception("Call to tandasFunctions with Invalid Prueba:$p or Jornada:$j ID");
 	switch ($operation) {
-		case "getTandas":$result = $ot->getTandas($p,$j); break;
-		case "getData":	$result = $ot->getData($p,$j,$a,$td); break;
-		case "getDataByTanda": $result = $ot->getDataByTanda($p,$j,$td); break;
-		case "dnd":	$am->access(PERMS_ASSISTANT); $result = $ot->dragAndDrop($p,$j,$f,$t,$w); break;
+		case "insert":	$am->access(PERMS_OPERATOR); $result = $ot->insert($ot->getHttpData()); break;
+		case "update":	$am->access(PERMS_ASSISTANT); $result = $ot->update($id,$ot->getHttpData()); break;
+		case "delete":	$am->access(PERMS_OPERATOR); $result = $ot->delete($id); break;
+		/* DO NOT CALL These functions from client side
+		case "populateJornada":
+		case "deleteJornada":
+		*/
+		case "getTandas":$result = $ot->getTandas($s); break;
+		case "getData":	$result = $ot->getData($s,$id,$p); break;
+		case "getDataByTanda": $result = $ot->getDataByTanda($s,$id); break;
+		case "swap": $result = $ot->swap($f,$t); break;
+		case "dnd":	$am->access(PERMS_ASSISTANT); $result = $ot->dragAndDrop($f,$t,$w); break;
 	}
 	// result may contain null (error),  "" success, or (any) data
 	if ($result===null) 

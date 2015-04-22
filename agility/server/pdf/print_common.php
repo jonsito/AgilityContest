@@ -48,8 +48,19 @@ class PrintCommon extends FPDF {
 	protected $centro;
 	
 	function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='') {
+		// convert to iso-latin1
 		$txt=utf8_decode($txt);
+		// translate federation related strings
 		$txt=$this->config->strToFederation($txt,$this->prueba->RSCE);
+		// let string fit into box
+		for($n=strlen($txt);$n>0;$n--) {
+			$str=substr($txt,0,$n);
+			$sw=$this->GetStringWidth($str);
+			if ($sw>=($w-1.5)) continue;
+			$txt=$str;
+			break;
+		}
+		// and finally call real parent Cell function
 		parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link);
 	}
 	

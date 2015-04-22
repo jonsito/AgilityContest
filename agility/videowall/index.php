@@ -143,13 +143,12 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
     	<div class="fitem">
        		<label for="Vista">Selecciona Vista:</label>
        		<select id="selvw-Vista" name="Vista" style="width:200px">
-       		<option value="0">Listado de Inscritos</option>
-       		<option value="1">Orden de Salida</option>
-       		<option value="2">Llamada a pista</option>
-       		<option value="3">Resultados Provisionales</option>
-       		<option value="4">Clasificaciones</option>
-       		<option value="5">Live Stream OSD</option>
-       		<option value="6">Vista Combinada</option>
+				<option value="0">Orden de Salida</option>
+				<option value="1">Llamada a pista</option>
+				<option value="2">Resultados Provisionales</option>
+				<option value="3">Clasificaciones</option>
+				<option value="4">Live Stream OSD</option>
+				<option value="5">Vista Combinada</option>
        		</select>
     	</div>
     	
@@ -164,6 +163,10 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 </div> <!-- contenido -->
 
 <script type="text/javascript">
+
+//add 'callback' property to store interval references
+$.extend($.fn.window.defaults,{callback:null});
+
 $('#selvw-dialog').dialog({
 	title: 'Datos de la Vista a desplegar',
 	collapsible: false,
@@ -228,25 +231,22 @@ function vw_accept() {
 	var page="'/agility/client/frm_notavailable.php";
 	var n=parseInt($('#selvw-Vista').val());
 	switch (n){
-	case 0: //Listado de Inscritos
-		page="/agility/videowall/vw_inscripciones.inc";
-		break;
-	case 1: // Ordenes de Salida
+	case 0: // Ordenes de Salida
 		page="/agility/videowall/vw_ordensalida.inc";
 		break;
-	case 2: // Llamada a pista
+	case 1: // Llamada a pista
 		page="/agility/videowall/vw_llamada.inc";
 		break;
-	case 3: // Resultados Parciales
+	case 2: // Resultados Parciales
 		page="/agility/videowall/vw_parciales.inc";
 		break;
-	case 4: // Clasificaciones
+	case 3: // Clasificaciones
 		page="/agility/videowall/vw_clasificaciones.inc";
 		break;
-	case 5: // Live Stream OSD
+	case 4: // Live Stream OSD
 		page="/agility/videowall/vw_livestream.inc";
 		break;
-	case 6: // Vista Combinada
+	case 5: // Vista Combinada
 		page="/agility/videowall/vw_combinada.inc";
 		break;
 	}
@@ -273,25 +273,6 @@ function vw_accept() {
 			}
 		);
 }
-
-/*
-//handle auto-resize font
-function vwls_setOSDScale() {
-	var factor = 0.25;
-	var height = $('#vwls_LiveStream').height();
-	var max = 600;
-	var min = 30;
-	var size = factor * height; //Multiply the width of the body by the scaling factor:
-	if (size > max) size = max;
-	if (size < min) size = min; //Enforce the minimum and maximums
-	$('#vwls_common').css('font-size',size+'%');
-}
-
-$(document).ready(function() {
-	// trigger resize event
-	$(window).resize(function(){ vwls_setOSDScale(); });
-});
-*/
 
 </script>
 </body>

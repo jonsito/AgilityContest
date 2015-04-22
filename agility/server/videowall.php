@@ -19,187 +19,78 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/logging.php");
 require_once(__DIR__."/auth/Config.php");
 require_once(__DIR__."/database/classes/DBObject.php");
-require_once(__DIR__."/database/classes/OrdenTandas.php");
+require_once(__DIR__."/database/classes/Tandas.php");
+require_once(__DIR__."/database/classes/Mangas.php");
 require_once(__DIR__."/database/classes/Sesiones.php");
 require_once(__DIR__."/database/classes/Inscripciones.php");
 
 class VideoWall {
 	protected $myLogger;
 	protected $myDBObject;
+	protected $sessionid;
 	protected $session;
 	protected $prueba;
 	protected $jornada;
+	protected $manga;
+	protected $tanda;
 	protected $config;
+	protected $mangaid;
+	protected $tandatype;
+	protected $mode;
 	
-	function __construct($sessionid) {
+	function __construct($sessionid,$pruebaid,$jornadaid,$mangaid,$tandatype,$mode) {
 		$this->config=Config::getInstance();
 		$this->myLogger=new Logger("VideoWall.php",$this->config->getEnv("debug_level"));
 		$this->myDBObject=new DBObject("Videowall");
-		$this->session=$this->myDBObject->__getArray("Sesiones",$sessionid);
-		$this->prueba=$this->myDBObject->__getArray("Pruebas",$this->session['Prueba']);
-		$this->jornada=$this->myDBObject->__getArray("Jornadas",$this->session['Jornada']);
+		if ($sessionid!=0) {
+			$this->session=$this->myDBObject->__getArray("Sesiones",$sessionid);
+			$this->sessionid=$sessionid;
+			$this->prueba=$this->myDBObject->__getArray("Pruebas",$this->session['Prueba']);
+			$this->jornada=$this->myDBObject->__getArray("Jornadas",$this->session['Jornada']);
+			$this->manga=$this->myDBObject->__getArray("Mangas",$this->session['Manga']);
+			$this->mangaid=$this->manga['ID'];
+			$this->tanda=$this->myDBObject->__getArray("Tandas",$this->session['Tanda']);
+			$this->tandatype=$this->tanda['Tipo'];
+			$this->mode=-1;
+		} else {
+			$this->session=null;
+			$this->sessionid=0;
+			$this->prueba=$this->myDBObject->__getArray("Pruebas",$pruebaid);
+			$this->jornada=$this->myDBObject->__getArray("Jornadas",$jornadaid);
+			$this->manga=$this->myDBObject->__getArray("Mangas",$mangaid);
+			$this->mangaid=$this->manga['ID'];
+			$this->tanda=null;
+			$this->tandatype=$tandatype;
+			$this->mode=$mode;	
+		}
+		$this->myLogger->info("sesion:$sessionid prueba:{$this->prueba['ID']} jornada:{$this->jornada['ID']} manga:{$this->mangaid} tanda:{$this->tandatype} mode:$mode");
 	}
 
 	public static $cat=array('-'=>'','L'=>'Large','M'=>'Medium','S'=>'Small','T'=>'Tiny');
 	public static $modestr  
 		=array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
-	
-	// matriz de modos a evaluar en funcion del tipo de recorrido y de la tanda
-	// recorridos:
-	// RSCE (0: l/m/s separados 1: l/m+s 2: l+m+s conjunto) RFEC( 0:l/m/s/t separados  1:l+m/s+t  2:l+m+s+t conjunto )
-	// modos:
-	// 0:large 1:medium 2:small 3:m+s 4:l+m+s 5:tiny 6:l+m 7:s+t 8:l+m+s+t -1:no valido
-	public static $modes=array(
-			0	=> array(-1,-1,-1, '-- Sin especificar --'),
-			// en pre-agility no hay categorias
-			1	=> array(-1, -1,  4, 'Pre-Agility 1'), // en pre agility-compiten todos juntos
-			2	=> array(-1, -1,  4, 'Pre-Agility 2'),
-			3	=> array( 0,  0,  4, 'Agility Grado I Manga 1'/* Large */),
-			4	=> array( 1,  3,  4, 'Agility Grado I Manga 1'/* Medium */),
-			5	=> array( 2,  3,  4, 'Agility Grado I Manga 1'/* Small */),
-			6	=> array( 0,  0,  4, 'Agility Grado I Manga 2'/* Large */),
-			7	=> array( 1,  3,  4, 'Agility Grado I Manga 2'/* Medium */),
-			8	=> array( 2,  3,  4, 'Agility Grado I Manga 2'/* Small */),
-			9	=> array( 0,  0,  4, 'Agility Grado II'/* Large */),
-			10	=> array( 1,  3,  4, 'Agility Grado II'/* Medium */),
-			11	=> array( 2,  3,  4, 'Agility Grado II'/* Small */),
-			12	=> array( 0,  0,  4, 'Agility Grado III'/* Large */),
-			13	=> array( 1,  3,  4, 'Agility Grado III'/* Medium */),
-			14	=> array( 2,  3,  4, 'Agility Grado III'/* Small */),
-			15	=> array( 0,  0,  4, 'Agility Abierta (Open)'/* Large */),
-			16	=> array( 1,  3,  4, 'Agility Abierta (Open)'/* Medium */),
-			17	=> array( 2,  3,  4, 'Agility Abierta (Open)'/* Small */),
-			18	=> array( 0,  0,  4, 'Agility Eq. (3 mejores)'/* Large */),
-			19	=> array(-1,  3,  4, 'Agility Eq. (3 mejores)'/* Medium */), // en equipos compiten m y s juntos
-			20	=> array(-1,  3,  4, 'Agility Eq. (3 mejores)'/* Small */),
-			21	=> array( 0,  0,  4, 'Agility. Eq. (4 conjunta)'/* Large */),
-			// en jornadas por equipos conjunta RSCE se mezclan categorias M y S
-			22	=> array(-1,  3,  4, 'Agility Eq. (4 conjunta)'/* Med/Small */),
-			23	=> array( 0,  0,  4, 'Jumping Grado II'/* Large */),
-			24	=> array( 1,  3,  4, 'Jumping Grado II'/* Medium */),
-			25	=> array( 2,  3,  4, 'Jumping Grado II'/* Small */),
-			26	=> array( 0,  0,  4, 'Jumping Grado III'/* Large */),
-			27	=> array( 1,  3,  4, 'Jumping Grado III'/* Medium */),
-			28	=> array( 2,  3,  4, 'Jumping Grado III'/* Small */),
-			29	=> array( 0,  0,  4, 'Jumping Abierta (Open)'/* Large */),
-			30	=> array( 1,  3,  4, 'Jumping Abierta (Open)'/* Medium */),
-			31	=> array( 2,  3,  4, 'Jumping Abierta (Open)'/* Small */),
-			32	=> array( 0,  0,  4, 'Jumping Eq. (3 mejores)'/* Large */),
-			33	=> array(-1,  3,  4, 'Jumping Eq. (3 mejores)'/* Medium */),
-			34	=> array(-1,  3,  4, 'Jumping Eq. (3 mejores)'/* Small */),
-			// en jornadas por equipos conjunta se mezclan categorias M y S
-			35	=> array( 0,  0,  4, 'Jumping. Eq. (4 conjunta)'/* Large */),
-			36	=> array(-1,  3,  4, 'Jumping. Eq. (4 conjunta)'/* Med/Small */),
-			// en las rondas KO, los perros compiten todos contra todos
-			37	=> array(-1, -1,  4, 'Manga K.O.'),
-			38	=> array( 0,  0,  4, 'Manga Especial'/* Large */),
-			39	=> array( 1,  3,  4, 'Manga Especial'/* Medium */),
-			40	=> array( 2,  3,  4, 'Manga Especial'/* Small */),
-			
-			// "Tiny" support for Pruebas RFEC
-			41	=> array( 5,  7,  8, 'Agility-1 GI' /* Tiny */),
-			42	=> array( 5,  7,  8, 'Agility-2 GI' /* Tiny */),
-			43	=> array( 5,  7,  8, 'Agility GII' /* Tiny */),
-			44	=> array( 5,  7,  8, 'Agility GIII' /* Tiny */),
-			45	=> array( 5,  7,  8, 'Agility Open' /* Tiny */),
-			46	=> array( 5,  7,  8, 'Agility Eq. 3' /* Tiny */),
-			// en equipos4  RFEC agrupamos por LM y ST
-			47	=> array( -1, 6,  8, 'Ag. Equipos 4'/* Large/Medium*/),
-			48	=> array( -1, 7,  8, 'Ag. Equipos 4'/* Small/Tiny*/),
-			49	=> array( 5,  7,  8, 'Jumping GII' /* Tiny */),
-			50	=> array( 5,  7,  8, 'Jumping GIII' /* Tiny */),
-			51	=> array( 5,  7,  8, 'Jumping Open' /* Tiny */),
-			52	=> array( 5,  7,  8, 'Jumping Eq. 3' /* Tiny */),
-			53	=> array( -1, 6,  8, 'Jp. Equipos 4'/* Large/Medium*/),
-			54	=> array( -1, 7,  8, 'Jp. Equipos 4'/* Small/Tiny*/),
-			55	=> array( 5,  7,  8, 'Manga Especial' /* Tiny */),
-	);
-	// matriz de modos a evaluar en funcion del tipo de recorrido y de la tanda
-	// recorridos:
-	// RSCE (0: l/m/s separados 1: l/m+s 2: l+m+s conjunto) RFEC( 0:l/m/s/t separados  1:l+m/s+t  2:l+m+s+t conjunto )
-	// modos:
-	// 0:large 1:medium 2:small 3:m+s 4:l+m+s 5:tiny 6:l+m 7:s+t 8:l+m+s+t -1:no valido
-	public static $modes_rfec=array(
-			0	=> array(-1,-1,-1, '-- Sin especificar --'),
-			// en pre-agility no hay categorias
-			1	=> array(-1, -1,  8, 'Pre-Agility 1'), // en pre agility-compiten todos juntos
-			2	=> array(-1, -1,  8, 'Pre-Agility 2'),
-			3	=> array( 0,  6,  8, 'Agility Grado I Manga 1'/* Large */),
-			4	=> array( 1,  6,  8, 'Agility Grado I Manga 1'/* Medium */),
-			5	=> array( 2,  7,  8, 'Agility Grado I Manga 1'/* Small */),
-			6	=> array( 0,  6,  8, 'Agility Grado I Manga 2'/* Large */),
-			7	=> array( 1,  6,  8, 'Agility Grado I Manga 2'/* Medium */),
-			8	=> array( 2,  7,  8, 'Agility Grado I Manga 2'/* Small */),
-			9	=> array( 0,  6,  8, 'Agility Grado II'/* Large */),
-			10	=> array( 1,  6,  8, 'Agility Grado II'/* Medium */),
-			11	=> array( 2,  7,  8, 'Agility Grado II'/* Small */),
-			12	=> array( 0,  6,  8, 'Agility Grado III'/* Large */),
-			13	=> array( 1,  6,  8, 'Agility Grado III'/* Medium */),
-			14	=> array( 2,  7,  8, 'Agility Grado III'/* Small */),
-			15	=> array( 0,  6,  8, 'Agility Abierta (Open)'/* Large */),
-			16	=> array( 1,  6,  8, 'Agility Abierta (Open)'/* Medium */),
-			17	=> array( 2,  7,  8, 'Agility Abierta (Open)'/* Small */),
-			18	=> array( 0,  6,  8, 'Agility Eq. (3 mejores)'/* Large */),	// en equipos compiten l y m juntos
-			19	=> array(-1,  6,  8, 'Agility Eq. (3 mejores)'/* Medium */), 
-			20	=> array(-1,  7,  8, 'Agility Eq. (3 mejores)'/* Small */), // en equipos compiten s y t juntos
-			21	=> array( 0,  6,  8, 'Agility. Eq. (4 conjunta)'/* Large */),
-			// en jornadas por equipos conjunta RFEC se mezclan categorias L/M y M/S
-			22	=> array(-1,  6,  8, 'Agility Eq. (4 conjunta)'/* Med/Small */),
-			23	=> array( 0,  6,  8, 'Jumping Grado II'/* Large */),
-			24	=> array( 1,  6,  8, 'Jumping Grado II'/* Medium */),
-			25	=> array( 2,  7,  8, 'Jumping Grado II'/* Small */),
-			26	=> array( 0,  6,  8, 'Jumping Grado III'/* Large */),
-			27	=> array( 1,  6,  8, 'Jumping Grado III'/* Medium */),
-			28	=> array( 2,  7,  8, 'Jumping Grado III'/* Small */),
-			29	=> array( 0,  6,  8, 'Jumping Abierta (Open)'/* Large */),
-			30	=> array( 1,  6,  8, 'Jumping Abierta (Open)'/* Medium */),
-			31	=> array( 2,  7,  8, 'Jumping Abierta (Open)'/* Small */),
-			32	=> array( 0,  6,  8, 'Jumping Eq. (3 mejores)'/* Large */),
-			33	=> array(-1,  6,  8, 'Jumping Eq. (3 mejores)'/* Medium */),
-			34	=> array(-1,  7,  8, 'Jumping Eq. (3 mejores)'/* Small */),
-			// en jornadas por equipos conjunta se mezclan categorias M y S
-			35	=> array( 0,  6,  8, 'Jumping. Eq. (4 conjunta)'/* Large */),
-			36	=> array(-1,  6,  8, 'Jumping. Eq. (4 conjunta)'/* Med/Small */),
-			// en las rondas KO, los perros compiten todos contra todos
-			37	=> array(-1, -1,  8, 'Manga K.O.'),
-			38	=> array( 0,  6,  8, 'Manga Especial'/* Large */),
-			39	=> array( 1,  6,  8, 'Manga Especial'/* Medium */),
-			40	=> array( 2,  7,  8, 'Manga Especial'/* Small */),
-				
-			// "Tiny" support for Pruebas RFEC
-			41	=> array( 5,  7,  8, 'Agility-1 GI' /* Tiny */),
-			42	=> array( 5,  7,  8, 'Agility-2 GI' /* Tiny */),
-			43	=> array( 5,  7,  8, 'Agility GII' /* Tiny */),
-			44	=> array( 5,  7,  8, 'Agility GIII' /* Tiny */),
-			45	=> array( 5,  7,  8, 'Agility Open' /* Tiny */),
-			46	=> array( 5,  7,  8, 'Agility Eq. 3' /* Tiny */),
-			// en equipos4  RFEC agrupamos por LM y ST
-			47	=> array( -1, 6,  8, 'Ag. Equipos 4'/* Large/Medium*/),
-			48	=> array( -1, 7,  8, 'Ag. Equipos 4'/* Small/Tiny*/),
-			49	=> array( 5,  7,  8, 'Jumping GII' /* Tiny */),
-			50	=> array( 5,  7,  8, 'Jumping GIII' /* Tiny */),
-			51	=> array( 5,  7,  8, 'Jumping Open' /* Tiny */),
-			52	=> array( 5,  7,  8, 'Jumping Eq. 3' /* Tiny */),
-			53	=> array( -1, 6,  8, 'Jp. Equipos 4'/* Large/Medium*/),
-			54	=> array( -1, 7,  8, 'Jp. Equipos 4'/* Small/Tiny*/),
-			55	=> array( 5,  7,  8, 'Manga Especial' /* Tiny */),
-	);
+
+	function getModeString($mode) {	return VideoWall::$modestr[$mode]; }
 	
 	function getBackground($row) {
 		return (($row%2)!=0)?$this->config->getEnv("vw_rowcolor1"):$this->config->getEnv("vw_rowcolor2");
 	}
 	
 	function generateHeaderInfo() {
+		$tandastr=Tandas::getTandaString($this->tandatype);
+		$sesname=($this->sessionid!=0)?$this->session['Nombre']:'';
+		echo '<input type="hidden" id="vw_NombreSesion" value="'.$sesname.'"/>';
 		echo '<input type="hidden" id="vw_NombreSesion" value="'.$this->session['Nombre'].'"/>';
 		echo '<input type="hidden" id="vw_NombrePrueba" value="'.$this->prueba['Nombre'].'"/>';
 		echo '<input type="hidden" id="vw_NombreJornada" value="'.$this->jornada['Nombre'].'"/>';
-		echo '<input type="hidden" id="vw_NombreManga" value="'.VideoWall::$modes[$this->session['Tanda']][3].'"/>';
+		echo '<input type="hidden" id="vw_NombreManga" value="'.$tandastr.'"/>';
+		echo '<input type="hidden" id="vw_NombreTanda" value="'.$tandastr.'"/>';
 	}
 	
 	function videowall_llamada($pendientes) {
 		$lastTanda="";
-		$otmgr=new OrdenTandas("Llamada a pista");
-		$result = $otmgr->getData($this->session['Prueba'],$this->session['Jornada'],$pendientes,$this->session['Tanda'])['rows']; // obtiene los 10 primeros perros pendientes
+		$otmgr=new Tandas("Llamada a pista",$this->prueba['ID'],$this->jornada['ID']);
+		$result = $otmgr->getData($this->sessionid,$this->tandaid,$pendientes)['rows']; // obtiene los $pendientes primeros perros pendientes
 		$numero=0;
 		$this->generateHeaderInfo();
 		echo '<table class="vwc_callEntry">';
@@ -245,19 +136,51 @@ class VideoWall {
 	}
 
 	function videowall_resultados() {
-		$resmgr=new Resultados("videowall_resultados",$this->session['Prueba'], $this->session['Manga'] );
-		// obtenemos modo de resultados asociado a la manga
-		$myManga=$this->myDBObject->__getObject("Mangas",$this->session['Manga']);
-		$mode=VideoWall::$modes[$this->session['Tanda']][$myManga->Recorrido];
-		if ($this->prueba['RSCE']!=0) {
-			$mode=VideoWall::$modes_rfec[$this->session['Tanda']][$myManga->Recorrido];
+		// anyade informacion extra en el resultado html
+		$this->generateHeaderInfo();
+		if ($this->mangaid==0) { // no manga defined yet
+			echo '
+			<!-- Datos de TRS y TRM -->
+			<div id="vwc_tablaTRS">
+				<table class="vwc_trs">
+					<thead>
+						<tr>
+							<th colspan="2" style="align:left">Resultados Provisionales</th>
+							<th colspan="3">&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr><td colspan="5">&nbsp</td></tr>
+						<tr style="align:right">
+							<td>Distancia:</td>
+							<td>Obst&aacute;culos:</td>
+							<td>T.R.Standard:</td>
+							<td>T.R.M&aacute;ximo:</td>
+							<td>Velocidad:</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			';
+			return 0;
+		}
+		$resmgr=new Resultados("videowall_resultados",$this->prueba['ID'], $this->mangaid );
+		$myManga=$this->myDBObject->__getObject("Mangas",$this->mangaid);
+		
+		// Si en lugar de TandaID tenemos definido el modo, obtenemos datos a partir de la manga
+		$mode=-1;
+		$mangastr="";
+		if ($this->mode>=0){
+			$mode=$this->mode;
+			$mangastr=Mangas::$tipo_manga[$myManga->Tipo][1]." - ".VideoWall::$modestr[$mode];
+		} else {
+			// obtenemos modo de resultados asociado a la manga en base a TandaID
+			$mode=Tandas::getModeByTanda($this->prueba['RSCE'],$myManga->Recorrido,$this->tandatype);
+			$mangastr=Tandas::getMangaStringByTanda($this->tandatype)." - ".VideoWall::$modestr[$mode];
 		}
 		$this->myLogger->trace("tanda:{$this->session['Tanda']} recorrido:{$myManga->Recorrido} **** Mode es $mode");
 		$result = $resmgr->getResultados($mode);
 		$numero=0;
-		$mangastr=VideoWall::$modes[$this->session['Tanda']][3]." - ".VideoWall::$modestr[$mode];
-		// cabecera de la tabla
-		$this->generateHeaderInfo();
 		echo '
 			<!-- Datos de TRS y TRM -->
 			<div id="vwc_tablaTRS">
@@ -399,8 +322,8 @@ class VideoWall {
 	
 	function videowall_ordensalida() {
 		$lastCategoria="";
-		$osmgr=new OrdenSalida("Llamada a pista");
-		$result = $osmgr->getData($this->session['Prueba'],$this->session['Jornada'],$this->session['Manga'])['rows']; // obtiene los 10 primeros perros pendientes
+		$osmgr=new OrdenSalida("Orden de salida");
+		$result = $osmgr->getData($this->prueba['ID'],$this->jornada['ID'],$this->mangaid)['rows']; // obtiene los 25 primeros perros pendientes
 		$numero=0;
 		$this->generateHeaderInfo();
 		echo '<table class="vwc_callEntry">';
@@ -408,7 +331,7 @@ class VideoWall {
 			if ($lastCategoria!==$participante['Categoria']){
 				$lastCategoria=$participante['Categoria'];
 				$categ=VideoWall::$cat[$lastCategoria];
-				$mangastr=VideoWall::$modes[$this->session['Tanda']][3];
+				$mangastr=Tandas::getMangaStringByTanda($this->tandatype);
 				echo '<tr><td colspan="5" class="vwc_callEntry vwc_callTanda">---- '.$mangastr.' - '.$categ.' ----</td></tr>';
 				$numero=0;
 			}
@@ -453,7 +376,13 @@ class VideoWall {
 $sesion = http_request("Session","i",0);
 $operacion = http_request("Operation","s",null);
 $pendientes = http_request("Pendientes","i",10);
-$vw=new VideoWall($sesion);
+// on session==0, use this elements as IDentifiers
+$prueba = http_request("Prueba","i",0);
+$jornada = http_request("Jornada","i",0);
+$manga = http_request("Manga","i",0);
+$tanda = http_request("Tanda","i",0);
+
+$vw=new VideoWall($sesion,$prueba,$jornada,$manga,$tanda,$mode);
 try {
 	if($operacion==="livestream") return $vw->videowall_livestream();
 	if($operacion==="llamada") return $vw->videowall_llamada($pendientes);

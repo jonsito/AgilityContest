@@ -20,7 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once("DBObject.php");
 require_once("Mangas.php");
-require_once("OrdenTandas.php");
+require_once("Tandas.php");
 
 class Jornadas extends DBObject {
 	
@@ -112,9 +112,8 @@ class Jornadas extends DBObject {
 		if (!$cerrada) {
 			$mangas =new Mangas("jornadaFunctions",$id);
 			$mangas->prepareMangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$especial,$observaciones);
-			$ot =new OrdenTandas("Jornadas::update");
-			$ot->updateOrden($id);
-		}
+			$ot= new Tandas("jornadas::update",$this->prueba,$id);
+			$ot->populateJornada();		}
 		$this->myLogger->leave();
 		return "";
 	}
@@ -134,6 +133,9 @@ class Jornadas extends DBObject {
 		foreach($res['rows'] as $manga) {
 			$mng->deleteByID($manga['ID']);
 		}
+		// borramos cada una de las tandas de la jornada
+		$tnd=new Tandas("jornadas::delete()",$this->prueba,$jornadaid);
+		$tnd->removeJornada();
 		// y borramos la propia jornada
 		$res= $this->query("DELETE FROM Jornadas WHERE ( ID = $jornadaid );");
 		if (!$res) return $this->error($this->conn->error); 

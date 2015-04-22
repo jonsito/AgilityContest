@@ -31,7 +31,7 @@ require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Pruebas.php');
 require_once(__DIR__.'/../database/classes/Jornadas.php');
 require_once(__DIR__.'/../database/classes/Mangas.php');
-require_once(__DIR__.'/../database/classes/OrdenTandas.php');
+require_once(__DIR__.'/../database/classes/Tandas.php');
 require_once(__DIR__."/print_common.php");
 
 class PrintTandas extends PrintCommon {
@@ -52,8 +52,8 @@ class PrintTandas extends PrintCommon {
 			throw new Exception($this->errormsg);
 		}
 		// Datos del orden de salida
-		$o = new OrdenTandas("PrintTandas");
-		$ot= $o->getTandas($prueba,$jornada);
+		$o = new Tandas("PrintTandas",$prueba,$jornada);
+		$ot= $o->getTandas();
 		$this->orden=$ot['rows'];
 	}
 	
@@ -64,10 +64,10 @@ class PrintTandas extends PrintCommon {
 		// pintamos identificacion de la jornada
 		$this->SetFont('Arial','B',12); // Arial bold 15pt
 		$str  = "Jornada: {$this->jornada->Nombre} - {$this->jornada->Fecha}";
-		$this->Cell(100,10,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
+		$this->Cell(100,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
 		$this->Ln(5);
 		$str  = "Hora de comienzo: {$this->jornada->Hora}";
-		$this->Cell(90,10,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
+		$this->Cell(90,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
 		$this->Ln(10);
 	}
 	
@@ -89,11 +89,13 @@ class PrintTandas extends PrintCommon {
 	
 	function writeTableHeader() {
 		$this->myLogger->enter();
-		$this->ac_header(1,15);
+		$this->ac_header(1,10);
 		$this->setX(10);
-		$this->Cell(100,10,"Secuencia de salida a pista",'TLBR',0,'L',true);
-		$this->Cell(40,10,"Participantes",'TB',0,'C',true);
-		$this->Cell(50,10,"Hora estimada (*)",'TLBR',0,'C',true);
+		$this->Cell(75,7,"Actividad",'TLBR',0,'L',true);
+		$this->Cell(25,7,"Ring",'TLB',0,'C',true);
+		$this->Cell(15,7,"# Participantes",'TLB',0,'C',true);
+		$this->Cell(60,7,"Observaciones",'TLB',0,'R',true);
+		$this->Cell(15,7,"Horario (*)",'TLBR',0,'C',true);
 		$this->Ln();
 		$this->myLogger->leave();
 	}
@@ -105,43 +107,43 @@ class PrintTandas extends PrintCommon {
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
 		$rowcount=0;
-		$time=0;
 		foreach($this->orden as $row) {
-			$time+=240; // asume 4min between tandas
 			// $this->cell(width,height,text,border,start,align,fill)
-			if (($rowcount%20)==0) {
+			if (($rowcount%30)==0) {
 				$this->addPage();
 				$this->writeTableHeader();
 			}
 			// imprimimos numero de orden
-			$this->ac_header(2,18);
-			$this->Cell(15,10,$rowcount+1,'LBR',0,'C',true);
+			$this->ac_header(2,12);
+			$this->Cell(10,7,$rowcount+1,'LBR',0,'C',true);
 			// imprimimos nombre de la tanda
-			$this->ac_row($rowcount,12);
-			$this->Cell(85,10,$row['Nombre'],'LBR',0,'R',true);
-			// TODO evaluar e imprimirel numero de inscritos en cada tanda
-			$str="( Prueba={$row['Prueba']} ) AND ( Jornada={$row['Jornada']} ) AND (Manga={$row['Manga']})";
-			$result=$this->myDBObject->__select("*","Resultados",$str,"","");
-			if (!is_array($result)) {
-			$this->myLogger->error($result);
-				return $result;
+			$this->ac_row($rowcount,8);
+			$this->SetFont('Arial','B',8);
+			$this->Cell(65,7,$row['Nombre'],'LBR',0,'R',true); // nombre en negritas
+			$this->SetFont('Arial','',8);
+			$this->Cell(25,7,$row['NombreSesion'],'LBR',0,'R',true);
+			if ($row['Tipo']!=0) {
+				$str="( Prueba={$row['Prueba']} ) AND ( Jornada={$row['Jornada']} ) AND (Manga={$row['Manga']})";
+				$result=$this->myDBObject->__select("*","Resultados",$str,"","");
+				if (!is_array($result)) {
+				$this->myLogger->error($result); return $result; }
+				// comparamos categoria y grado
+				$count=0;
+				foreach($result['rows'] as $item) {
+					// si la categoria es '-' se contabiliza. else si coincide categoria se contabiliza
+					if (($row['Grado']!=='-') && ($item['Categoria']!==$row['Categoria']) ) continue;
+					// comparamos grados
+					if ( strstr($row['Grado'],$item['Grado'])===false ) continue;
+					$count++;
+				}
+				$this->Cell(15,7,$count,'LBR',0,'C',true);
+			} else {
+				$this->Cell(15,7,"----",'LBR',0,'C',true);
 			}
-			// comparamos categoria y grado
-			$count=0;
-			$projectedTime=$this->evalTime($time);
-			foreach($result['rows'] as $item) {
-				// si la categoria es '-' se contabiliza. else si coincide categoria se contabiliza
-				if (($row['Grado']!=='-') && ($item['Categoria']!==$row['Categoria']) ) continue;
-				// comparamos grados
-				if ( strstr($row['Grado'],$item['Grado'])===false ) continue;
-				$count++;
-				$time+=80; // assume 80secs for each participante
-			}
-			$this->Cell(40,10,$count,'LBR',0,'C',true);
-			$this->Cell(40,10,$projectedTime,'LB',0,'R',true);
-			$this->Cell(10,10,"",'BR',0,0,true);
+			$this->Cell(60,7,$row['Comentario'],'LB',0,'C',true);
+			$this->Cell(15,7,$row['Horario'],'LBR',0,'C',true);
 			$rowcount++;
-			$this->Ln(10);
+			$this->Ln(7);
 		}
 		$this->myLogger->leave();
 	}

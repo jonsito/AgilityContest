@@ -172,7 +172,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 .vwc_trs th {
 	text-align:left;
-	font-size: 25px;
+	font-size: 20px;
 }
 .vwc_trs td {
 	text-align:right;
