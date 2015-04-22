@@ -90,7 +90,7 @@ class VideoWall {
 	function videowall_llamada($pendientes) {
 		$lastTanda="";
 		$otmgr=new Tandas("Llamada a pista",$this->prueba['ID'],$this->jornada['ID']);
-		$result = $otmgr->getData($this->sessionid,$this->tandaid,$pendientes)['rows']; // obtiene los $pendientes primeros perros pendientes
+		$result = $otmgr->getData($this->sessionid,$this->tanda['ID'],$pendientes)['rows']; // obtiene los 10 primeros perros pendientes
 		$numero=0;
 		$this->generateHeaderInfo();
 		echo '<table class="vwc_callEntry">';
@@ -134,7 +134,7 @@ class VideoWall {
 		echo '</table>';
 		return 0;
 	}
-
+			
 	function videowall_resultados() {
 		// anyade informacion extra en el resultado html
 		$this->generateHeaderInfo();
@@ -187,7 +187,7 @@ class VideoWall {
 			<table class="vwc_trs">
 				<thead>
 					<tr>
-						<th colspan="2" style="align:leftt">Resultados Provisionales</th>
+						<th colspan="2" style="align:left">Resultados Provisionales</th>
 						<th colspan="3">'.$mangastr.'</th>
 					</tr>
 				</thead>
@@ -208,9 +208,7 @@ class VideoWall {
 			<div id="vwc_tablaResultados">
 			<table class="vwc_tresultados">
 			<thead>
-				<th>Puesto</th>
-				<th>&nbsp</th>
-				<th colspan="4">Participante</th>
+				<th colspan="6">Participante</th>
 				<th>F</th>
 				<th>T</th>
 				<th>R</th>
@@ -218,6 +216,7 @@ class VideoWall {
 				<th>Vel.</th>
 				<th>Penal.</th>
 				<th colspan="2">Calificacion</th>
+				<th>Puesto</th>
 			</thead>
 			<tbody>
 			';
@@ -229,7 +228,6 @@ class VideoWall {
 			if ($logo==="") $logo='rsce.png';
 			echo '
 				<tr id="Resultado_'.$numero.'" style="background:'.$bg.'">
-					<td class="vwc_Entry vwc_puesto">'.$resultado['Puesto'].'</td>
 					<td class="vwc_Entry vwc_logo">
 						<!-- trick to insert a resizeable image: use div+bgimage instead of img tag -->
 						<div style="height=100%;
@@ -239,6 +237,7 @@ class VideoWall {
 									background-position:center;
 									font-size:400%">&nbsp;</div>
 					</td>
+					<td colspan="2" class="vwc_Entry vwc_nombre">'.$resultado['Nombre'].'</td>
 					<td class="vwc_Entry vwc_Datos">
 						Dorsal: '.$resultado['Dorsal'].'<br />
 						Lic. : '.$resultado['Licencia'].'<br />
@@ -249,7 +248,6 @@ class VideoWall {
 						Gu&iacute;a: '.$resultado['NombreGuia'].'<br />
 						Club: '.$resultado['NombreClub'].'<br />
 					</td>
-					<td colspan="2" class="vwc_Entry vwc_nombre">'.$resultado['Nombre'].'</td>
 					<td class="vwc_Entry vwc_ftr">'.$resultado['Faltas'].'</td>
 					<td class="vwc_Entry vwc_ftr">'.$resultado['Tocados'].'</td>
 					<td class="vwc_Entry vwc_ftr">'.$resultado['Rehuses'].'</td>
@@ -257,6 +255,7 @@ class VideoWall {
 					<td class="vwc_Entry vwc_vel">'.number_format($resultado['Velocidad'],1).'</td>
 					<td class="vwc_Entry vwc_rlarge">'.number_format($resultado['Penalizacion'],2).'</td>
 					<td colspan="2" class="vwc_Entry vwc_calif">'.$resultado['Calificacion'].'</td>
+					<td class="vwc_Entry vwc_puesto">'.$resultado['Puesto'].'</td>
 				</tr>
 			';
 		}
