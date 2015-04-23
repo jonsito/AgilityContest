@@ -31,33 +31,23 @@ function buscaEquipos() {
 }
 
 /**
- * request if a contest has or not Team events
- * Tip: Instead of calling database, just analyze events datagrid
- * 
- * @param {integer} prueba PruebaID
- * @return true: has Team events; otherwise false
- */
-function hasTeamEvents(prueba) {
-	var rows=$('#inscripciones-jornadas').datagrid('getRows');
-	for (var n=0; n<rows.length; n++) {
-		if ( parseInt(rows[n].Equipos3)==1) return true;
-		if ( parseInt(rows[n].Equipos4)==1) return true;
-	}
-	return false;
-}
-
-/**
  * Abre un dialogo para declarar un nuevo equipo para la prueba 
  */
 function openTeamWindow(pruebaID) {
-	// if no Team event declared in this contest refuse to open
-	if (!hasTeamEvents(pruebaID)) {
-		$.messager.alert("Error:","<?php _e('Esta prueba no tiene declaradas competiciones por equipos');?>","info");
+	// buscamos la jornada seleccionada
+	var row=$('#inscripciones-jornadas').datagrid('getSelected');
+	// si no hay jornada por equipos seleccionada indicamos error
+	if (row===null) {
+		$.messager.alert("Error:","<?php _e('Debe seleccionar una jornada con competiciones por equipos');?>","error");
 		return;
 	}
-	// allright: open window
+	if ( (row.Equipos3==0) && (row.Equipos4==0) ) {
+		$.messager.alert("Error:","<?php _e('La jornada seleccionada no tiene competiciones por equipos');?>","error");
+	}
+	// allright: set Jornada as active and open window
+	setJornada(row);
 	$('#team_datagrid-dialog').dialog('open');
-	$('#team_datagrid').datagrid('reload');
+	$('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
 }
 
 /**
@@ -67,12 +57,13 @@ function openTeamWindow(pruebaID) {
  *@param {function} onAccept what to do when a new team is created
  */
 function newTeam(dg,def,onAccept){
-	var idprueba=$(dg).datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
+	var firstRow=$(dg).datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
 	$('#team_edit_dialog').dialog('open').dialog('setTitle','A&ntilde;adir nuevo equipo');
 	$('#team_edit_dialog-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill team Name
 	$('#team_edit_dialog-Operation').val('insert');
-	$('#team_edit_dialog-Prueba').val(idprueba.Prueba);
+	$('#team_edit_dialog-Prueba').val(firstRow.Prueba);
+	$('#team_edit_dialog-Jornada').val(firstRow.Jornada);
     // notice that on "new" window must be explicitely closed, so don't add close-on-ok() code
 	if (onAccept!==undefined)$('#team_edit_dialog-okBtn').one('click',onAccept);
 }
@@ -88,7 +79,6 @@ function editTeam(dg){
     	$.messager.alert("Edit Error:","!No ha seleccionado ningun Equipo!","info");
     	return; // no way to know which prueba is selected
     }
-
     if (row.Nombre==="-- Sin asignar --") {
     	$.messager.alert("Edit Error:","El equipo por defecto NO se puede editar","info");
     	return; // no way to know which prueba is selected
@@ -97,8 +87,13 @@ function editTeam(dg){
 	row.Operation="update";
     // tel window to be closed when "OK" clicked
     $('#team_edit_dialog-okBtn').one('click',function() {$('#team_edit_dialog').dialog('close');});
-    // and load team edit dialog with provided data
-    $('#team_edit_dialog-form').form('load',row);
+	// load team edit dialog with provided data   
+	$('#team_edit_dialog-form').form('load',row);
+	// fill properly checkboxes
+	$('#team_edit_dialog-L').prop('checked',(row.Categorias.indexOf('L')<0)?false:true);
+	$('#team_edit_dialog-M').prop('checked',(row.Categorias.indexOf('M')<0)?false:true);
+	$('#team_edit_dialog-S').prop('checked',(row.Categorias.indexOf('S')<0)?false:true);
+	$('#team_edit_dialog-T').prop('checked',(row.Categorias.indexOf('T')<0)?false:true);
 }
 
 /**
@@ -116,12 +111,12 @@ function deleteTeam(dg){
     	return; // no way to know which prueba is selected
     }
     $.messager.confirm('Confirm',
-    		"<p>Esta operaci&oacute;n borrar&aacute; el equipo y reasignar&aacute; los perros de &eacute;ste al equipo por defecto</p>" +
-    		"<p>Desea realmente eliminar el equipo '"+row.Nombre+"' de esta prueba?</p>",function(r){
+			"<p><?php _e('Esta operaci&oacute;n borrar&aacute; el equipo de la jornada');?><br />"+
+			"<p><?php _e('Desea realmente eliminar el equipo');?> '"+row.Nombre+"' <?php _e('de esta jornada');?>?</p>",function(r){
         if (r){
             $.get('/agility/server/database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba},function(result){
                 if (result.success){
-                    $(dg).datagrid('load');    // reload the prueba data 
+                    $(dg).datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});    // reload the prueba data 
                     $('#new_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
                     $('#edit_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
                 } else {
@@ -137,8 +132,16 @@ function deleteTeam(dg){
  * On success refresh every related datagrids
  */
 function saveTeam() {
+	// get and validate form data
     var frm = $('#team_edit_dialog-form');
     if (! frm.form('validate')) return;
+	// evaluate 'Categorias' field
+	var cat='';
+	if ( $('#team_edit_dialog-L').is(':checked') ) cat+='L';
+	if ( $('#team_edit_dialog-M').is(':checked') ) cat+='M';
+	if ( $('#team_edit_dialog-S').is(':checked') ) cat+='S';
+	if ( $('#team_edit_dialog-T').is(':checked') ) cat+='T';
+	$('#team_edit_dialog-Categorias').val(cat);
     $.ajax({
         type: 'GET',
         url: '/agility/server/database/equiposFunctions.php',
@@ -149,9 +152,8 @@ function saveTeam() {
             	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {// on submit success, reload results
             	// on save done refresh related data/combo grids
-                $('#new_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
-                $('#edit_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
-                $('#team_datagrid').datagrid('load'); 
+				$('#team_edit_dialog').dialog('close');
+				$('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''}); 
             }
         }
     });

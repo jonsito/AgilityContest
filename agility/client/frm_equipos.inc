@@ -116,8 +116,8 @@ $('#team_datagrid-dialog').dialog({
 $('#team_datagrid').datagrid({
 	fit: true,
 	url: '/agility/server/database/equiposFunctions.php',
-	queryParams: { Operation:'select', Prueba: workingData.prueba, where: ''	},
-	loadMsg: 'Actualizando lista de equipos ...',
+	queryParams: { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''	},
+	loadMsg: '<?php _e('Actualizando lista de equipos');?> ...',
     footer: '#team_datagrid-buttons',
     toolbar: '#team_datagrid-toolbar',
 	method: 'get',
@@ -128,8 +128,10 @@ $('#team_datagrid').datagrid({
     columns: [[
         { field:'ID',			hidden:true },
         { field:'Prueba',		hidden:true },
+		{ field:'Jornada',		hidden:true },
  		{ field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Nombre');?>' },
-        { field:'Observaciones',width:80, sortable:true,	title: 'Observaciones'}
+		{ field:'Categorias',	width:15, sortable:true,	title: '<?php _e('Categor&iacute;as');?>' },
+		{ field:'Observaciones',width:65, sortable:true,	title: '<?php _e('Observaciones');?>'}
     ]],
     pagination: false,
     rownumbers: true,

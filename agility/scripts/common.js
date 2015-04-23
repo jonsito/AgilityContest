@@ -589,11 +589,11 @@ function reloadWithSearch(dg,op,clear) {
 /**
  * activa teclas up/down para navegar por el panel , esc para cerrar y ctrl+shift+enter para ver fila
  * @param {string} datagrid '#datagrid-name'
- * @param {string} dialog '#dialog-name'
+ * @param {string} dialog '#dialog-name' or null if no close on escape
  * @param {function} onEnter function to be called on enter press
  */
 function addSimpleKeyHandler(datagrid,dialog,onEnter){
-	
+// TODO: revise diffs between 1.2.X and new TandasHandler 2015-02-20	
 	$(datagrid).datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
 
 		// move cursor
@@ -614,11 +614,11 @@ function addSimpleKeyHandler(datagrid,dialog,onEnter){
 		//main code
 		var t = $(datagrid);
 	    switch(e.keyCode){
-	    case 27:    /* Esc */   $(dialog).window('close'); return false;
+	    case 27:    /* Esc */   if (dialog!==null) $(dialog).window('close'); return false;
 	    case 38:	/* Up */	selectRow(t,true); return false;
 	    case 40:    /* Down */	selectRow(t,false); return false;
 	    case 13:	/* Enter */	if (e.ctrlKey) { displayRowData(t); return false; }
-	    						if (typeof(onEnter)!=='undefined') onEnter(datagrid,dialog);
+	    			if (typeof(onEnter)!=='undefined') onEnter(datagrid,$(datagrid).datagrid('getSelected'));
 	    default:    // no break
 	    			return false;
 	    }

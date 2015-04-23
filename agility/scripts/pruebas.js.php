@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
+?>
+
 //***** gestion de pruebas		*********************************************************
 
 
@@ -144,12 +150,9 @@ function deletePrueba(dg){
 /**
  * Edita la jornada seleccionada
  *@param pruebaID objeto que contiene los datos de la prueba
- *@param datagridID identificador del datagrid del que se toman los datos
+ *@param row datos de la jornada
  */
-function editJornadaFromPrueba(pruebaID,datagridID) {
-	// obtenemos datos de la JORNADA seleccionada
-	var row= $(datagridID).datagrid('getSelected');
-    // var row = $('#jornadas-datagrid-'+prueba.ID).datagrid('getSelected');
+function editJornadaFromPrueba(pruebaID,row) {
     if (!row) {
     	$.messager.alert("No selection","!No ha seleccionado ninguna jornada!","warning");
     	return; // no hay ninguna jornada seleccionada. retornar

@@ -40,7 +40,7 @@ $config =new Config();
 	<div id="inscripciones-infolayout" class="easyui-layout" style="height:150px">
 	
 		<!-- PANEL IZQUIERDO: DATOS DE LA PRUEBA -->
-		<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" 
+		<div data-options="region:'west',title:'<?php _e('Datos de la Prueba');?>',split:true,collapsed:false,collapsible:false" 
 			style="width:30%;padding:10px" class="c_inscripciones-datosprueba">
 			<form id="inscripciones-pruebas" method="get" >
 			<input type="hidden" name="ID"/>
@@ -119,7 +119,7 @@ $('#inscripciones-info').panel({
 	border:true,
 	closable:true,
 	closed:false,
-	collapsible:true,
+	collapsible:false,
 	collapsed:false,
 	// TODO: get this working :-(
 	// onExpand: function() {$('#inscripciones-list').panel('options').height='450px';},
@@ -134,7 +134,7 @@ $('#inscripciones-jornadas').datagrid({
 	fit: true,
 	border: false,
 	closable: false,
-	collapsible: true,
+	collapsible: false,
 	collapsed: false,
 	// propiedades especificas del datagrid
     pagination: false,
@@ -166,32 +166,8 @@ $('#inscripciones-jornadas').datagrid({
     rowStyler:myRowStyler,
 	// on double click fireup editor dialog
 	onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-    	editJornadaFromPrueba(workingData.prueba,'#inscripciones-jornadas');
+    	editJornadaFromPrueba(workingData.prueba,row);
 	}
-});
-
-//activa teclas up/down para navegar por el panel de gestion de jornadas
-$('#inscripciones-jornadas').datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
-    function selectRow(t,up){
-    	var count = t.datagrid('getRows').length;    // row count
-    	var selected = t.datagrid('getSelected');
-    	if (selected){
-        	var index = t.datagrid('getRowIndex', selected);
-        	index = index + (up ? -1 : 1);
-        	if (index < 0) index = 0;
-        	if (index >= count) index = count - 1;
-        	t.datagrid('clearSelections');
-        	t.datagrid('selectRow', index);
-    	} else {
-        	t.datagrid('selectRow', (up ? count-1 : 0));
-    	}
-	}
-	var t = $('#inscripciones-jornadas');
-    switch(e.keyCode){
-    case 38:	/* Up */	selectRow(t,true); return false;
-    case 40:    /* Down */	selectRow(t,false); return false;
-    case 13:	/* Enter */	editJornadaFromPrueba(workingData.prueba,'#inscripciones-jornadas'); return false;
-    }
 });
 
 // datos de la tabla de inscripciones
@@ -256,7 +232,9 @@ $('#inscripciones-datagrid').datagrid({
 
 
 // key handler
+addSimpleKeyHandler('#inscripciones-jornadas',null,editJornadaFromPrueba);
 addKeyHandler('#inscripciones-datagrid',newInscripcion,editInscripcion,deleteInscripcion);
+
 // tooltips
 addTooltip($('#inscripciones-newBtn').linkbutton(),"Registrar nueva(s) inscripciones"); 
 addTooltip($('#inscripciones-editBtn').linkbutton(),"Modificar la inscripción seleccionada");

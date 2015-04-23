@@ -22,30 +22,37 @@ require_once("DBObject.php");
 class Equipos extends DBObject {
 	
 	protected $pruebaID;
+	protected $jornadaID;
 	protected $defaultTeam; //  {array} datos del equipo por defecto para esta prueba
 	
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
 	 * @param {integer} $prueba Prueba ID
+	 * @param {integer} $jornada Jornada ID
 	 * @throws Exception if cannot contact database or invalid prueba/jornada ID
 	 */
-	function __construct($file,$prueba) {
+	function __construct($file,$prueba,$jornada) {
 		parent::__construct($file);
 		if ( $prueba<=0 ) {
 			$this->errormsg="$file::construct() invalid prueba:$prueba ID";
 			throw new Exception($this->errormsg);
 		}
 		$this->pruebaID=$prueba;
-	
+		$this->jornadaID=$jornada;
+		if ( $jornada<=0 ) {
+			$this->myLogger->info("Constructor with invalid jornada ID:0");
+			$this->defaultTeam=0;
+			return;
+		}
 		// obtenemos el equipo por defecto para esta prueba
 		$res= $this->__selectAsArray(
 				/* SELECT */ "ID",
 				/* FROM */   "Equipos",
-				/* WHERE */ "( Prueba = $prueba ) AND ( Nombre = '-- Sin asignar --' )"
+				/* WHERE */ "( Prueba = $prueba ) AND  ( Jornada = $jornada ) AND ( Nombre = '-- Sin asignar --' )"
 		);
 		if (!is_array($res)) {
-			$this->errormsg="$file::construct() cannot get default team data for prueba ID:$prueba" ;
+			$this->errormsg="$file::construct() cannot get default team data for prueba:$prueba jornada:$jornada" ;
 			throw new Exception($this->errormsg);
 		}
 		$this->defaultTeam=$res;
@@ -55,16 +62,18 @@ class Equipos extends DBObject {
 		$this->myLogger->enter();
 		
 		// componemos un prepared statement
-		$sql ="INSERT INTO Equipos (Prueba,Nombre,Observaciones) VALUES(?,?,?)";
+		$sql ="INSERT INTO Equipos (Prueba,Jornada,Categorias,Nombre,Observaciones) VALUES(?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('iss',$prueba,$nombre,$observaciones);
+		$res=$stmt->bind_param('iisss',$prueba,$jornada,$categorias,$nombre,$observaciones);
 		if (!$res) return $this->error($stmt->error);  
 		
 		// iniciamos los valores, chequeando su existencia
-		$prueba		= $this->pruebaID;
+		$prueba		= $this->pruebaID; // not null
+		$jornada	= $this->jornadaID; // not null
+		$categorias = http_request("Categorias","s",null,false); // may be null
 		$nombre 	= http_request("Nombre","s",null,false); // not null
-		$observaciones= http_request('Observaciones',"s",null,false);
+		$observaciones= http_request('Observaciones',"s",null,false); // may be null
 		$this->myLogger->info("Prueba ID:$prueba Nombre:'$nombre' Observaciones:'$observaciones'");
 		
 		// invocamos la orden SQL y devolvemos el resultado
@@ -79,19 +88,18 @@ class Equipos extends DBObject {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Equipo ID provided");
 		// componemos un prepared statement. Do not mofify any field that not matches current pruebaID
-		$sql ="UPDATE Equipos SET Nombre=? , Observaciones=? WHERE ( ID=? ) AND ( Prueba=? )";
+		$sql ="UPDATE Equipos SET Nombre=? , Observaciones=?, Categorias=? WHERE ( ID=$id )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('ssii',$nombre,$observaciones,$equipoid,$pruebaid);
+		$res=$stmt->bind_param('sss',$n,$o,$c);
 		if (!$res) return $this->error($stmt->error); 
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre 	= http_request("Nombre","s",null,false); 
-		$observaciones= http_request('Observaciones',"s",null,false);
-		$equipoid = $id; // primary key
-		$pruebaid = $this->pruebaID;
+		$n = http_request("Nombre","s",null,false); 
+		$o = http_request('Observaciones',"s",null,false);
+		$c = http_request('Categorias',"s",null,false);
 		
-		$this->myLogger->info("TeamID:$id PruebaID:$pruebaid Nombre:'$nombre' Observaciones:'$observaciones'");
+		$this->myLogger->info("Team:$id Prueba:{$this->pruebaID} Jornada:{$this->jornadaID} Nombre:'$n' Observ:'$o' Categ:'$c'");
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
@@ -107,7 +115,7 @@ class Equipos extends DBObject {
 		if ($id<1) return $this->error("Invalid Equipo ID:$id provided"); // cannot delete ID=1
 		if ($id==$def) return $this->error("Cannot delete default team for this Contest");
 		// fase 1: desasignamos los perros de este equipo (los asignamos al equipo por defecto de la prueba)
-		$res= $this->query("UPDATE Inscripciones SET Equipo=$def WHERE ( Equipo=$id )");
+		$res= $this->query("UPDATE Inscripciones SET Equipo={$this->defaultTeam['ID']} WHERE ( Equipo=$id )");
 		if (!$res) return $this->error($this->conn->error); 
 		// fase 2: borramos el equipo de la base de datos
 		$res= $this->query("DELETE FROM Equipos WHERE (ID=$id)");
@@ -134,9 +142,8 @@ class Equipos extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		$pid=$this->pruebaID;
-		$where = "(Equipos.Prueba=$pid)";
-		if ($search!=='') $where="(Equipos.Prueba=$pid) AND ( (Equipos.Nombre LIKE '%$search%') OR ( Equipos.Observaciones LIKE '%$search%') ) ";
+		$where = "(Equipos.Prueba={$this->pruebaID}) AND (Equipos.Jornada={$this->jornadaID})";
+		if ($search!=='') $where=$where." AND ( (Equipos.Nombre LIKE '%$search%') OR ( Equipos.Observaciones LIKE '%$search%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Equipos",
@@ -152,9 +159,8 @@ class Equipos extends DBObject {
 		$this->myLogger->enter();
 		// evaluate search string
 		$q=http_request("q","s","");
-		$pid=$this->pruebaID;
-		$where = "(Equipos.Prueba=$pid)";
-		if ($q!=="") $where="(Equipos.Prueba=$pid) AND ( ( Equipos.Nombre LIKE '%$q%' ) OR ( Equipos.Observaciones LIKE '%$q%' ) )";
+		$where = "(Equipos.Prueba={$this->pruebaID}) AND (Equipos.Jornada={$this->jornadaID})";
+		if ($q!=="") $where=$where." AND ( ( Equipos.Nombre LIKE '%$q%' ) OR ( Equipos.Observaciones LIKE '%$q%' ) )";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Equipos",

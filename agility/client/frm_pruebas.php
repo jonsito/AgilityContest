@@ -154,7 +154,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             	rowStyler:myRowStyler,
             	// on double click fireup editor dialog
                 onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-                    editJornadaFromPrueba(prueba.ID,datagridID);
+                    editJornadaFromPrueba(prueba.ID,row);
                 },
                 onResize:function(){
                     $('#pruebas-datagrid').datagrid('fixDetailRowHeight',index);
@@ -175,7 +175,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     				id: 'jornadasbyprueba-editBtn'+prueba.ID,
             		text: 'Editar jornada',
         			iconCls: 'icon-edit',
-       				handler: function(){editJornadaFromPrueba(prueba.ID,datagridID);}
+					handler: function(){editJornadaFromPrueba(datagridID,$(datagridID).datagrid('getSelected'));}
     			},{
     				id: 'jornadasbyprueba-closeBtn'+prueba.ID,
             		text: 'Cerrar jornada',
@@ -190,7 +190,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     			}
     			];
     		$(datagridID).datagrid('buildToolbar',toolbar);
+    		
 			// tooltips de los sub-formularios
+			addSimpleKeyHandler(datagridID,null,editJornadaFromPrueba);
 			addTooltip($('#jornadasbyprueba-editBtn'+prueba.ID).linkbutton(),"Editar los datos la jornada seleccionada"); 
 			addTooltip($('#jornadasbyprueba-closeBtn'+prueba.ID).linkbutton(),"Cerrar la jornada seleccionada y Guardar datos permanentemente"); 
 			addTooltip($('#jornadasbyprueba-reloadBtn'+prueba.ID).linkbutton(),"Actualizar la lista de jornadas de esta prueba");
