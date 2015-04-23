@@ -46,7 +46,7 @@ class PDF extends PrintCommon {
 	protected $pos	=array(  15,       25,     15,    50,   45,     10,    30);
 	protected $align=array(  'C',      'R',    'C',   'L',  'R',    'C',   'R');
 	protected $fmt	=array(  'i',      's',    's',   's',  's',    'b',   's');
-	protected $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
+	protected $cat  =array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
 	 * Constructor
@@ -78,7 +78,7 @@ class PDF extends PrintCommon {
 	
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader("Introducción de Datos");
+		$this->print_commonHeader(_("Introducción de Datos"));
 		if($this->numrows!=1) { 
 			// normal/compacto: pinta id de la jornada y de la manga
 			$this->print_identificacionManga($this->manga,$this->cat[$this->categoria]);

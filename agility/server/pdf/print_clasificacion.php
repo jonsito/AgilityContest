@@ -25,9 +25,9 @@ header('Set-Cookie: fileDownload=true; path=/');
  * genera un CSV con los datos para las etiquetas
  */
 
-require_once(__DIR__."/fpdf.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__."/fpdf.php");
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Clubes.php');
 require_once(__DIR__.'/../database/classes/Pruebas.php');
@@ -197,7 +197,9 @@ class PDF extends PrintCommon {
 		$this->SetFont('Arial','',8); // default font
 		// datos del participante
 		$this->Cell(10,6,$row['Dorsal'],0,0,'L',$fill); 	// dorsal
+		$this->SetFont('Arial','B',8); // Display Nombre in bold typeface
 		$this->Cell(25,6,$row['Nombre'],0,0,'L',$fill);	// nombre (20,y
+		$this->SetFont('Arial','',8); // default font
 		$this->Cell(15,6,$row['Licencia'],0,0,'C',$fill);	// licencia
 		$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
 		$this->Cell(35,6,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia

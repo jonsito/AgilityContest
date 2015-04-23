@@ -15,12 +15,47 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
+?>
+
 // ***** gestion de equipos de una prueba	*****************************************************
+ 
+function buscaEquipos() {
+	$('#team_datagrid').datagrid( 'load', { 
+		where: ($('#team_datagrid-search').val()==='---- Buscar ----')? '' : $('#team_datagrid-search').val()
+		}
+	);
+}
+
+/**
+ * request if a contest has or not Team events
+ * Tip: Instead of calling database, just analyze events datagrid
+ * 
+ * @param {integer} prueba PruebaID
+ * @return true: has Team events; otherwise false
+ */
+function hasTeamEvents(prueba) {
+	var rows=$('#inscripciones-jornadas').datagrid('getRows');
+	for (var n=0; n<rows.length; n++) {
+		if ( parseInt(rows[n].Equipos3)==1) return true;
+		if ( parseInt(rows[n].Equipos4)==1) return true;
+	}
+	return false;
+}
 
 /**
  * Abre un dialogo para declarar un nuevo equipo para la prueba 
  */
 function openTeamWindow(pruebaID) {
+	// if no Team event declared in this contest refuse to open
+	if (!hasTeamEvents(pruebaID)) {
+		$.messager.alert("Error:","<?php _e('Esta prueba no tiene declaradas competiciones por equipos');?>","info");
+		return;
+	}
+	// allright: open window
 	$('#team_datagrid-dialog').dialog('open');
 	$('#team_datagrid').datagrid('reload');
 }
@@ -45,6 +80,10 @@ function newTeam(dg,def,onAccept){
 /* same as newTeam, but using a combogrid as parent element */
 function newTeam2(cg,def){
     var idprueba=$(cg).combogrid('grid').datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
+	if (!hasTeamEvents(idprueba)) {
+		$.messager.alert("Error:","<?php _e('Esta prueba no tiene declaradas competiciones por equipos');?>","info");
+		return;
+	}
     $('#team_edit_dialog').dialog('open').dialog('setTitle','A&ntilde;adir nuevo equipo');
     $('#team_edit_dialog-form').form('clear');
     if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill team Name
@@ -105,7 +144,7 @@ function deleteTeam(dg){
                 }
             },'json');
         }
-    });
+    }).window({width:500});
 }
 
 /**

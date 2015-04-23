@@ -42,11 +42,9 @@ class PDF extends PrintCommon {
 	protected $mode;
 	
 	// geometria de las celdas
-	protected $cellHeader
-					=array('Dorsal','Nombre','Lic.','Guía','Club','Cat/Grad','Falt.','Toc.','Reh.','Tiempo','Vel.','Penal','Calificacion', 'Puesto');
+	protected $cellHeader;
 	protected $pos	=array(  9,		18,		10,		30,		25,		12,		   7,      7,    7,       10,     7,    12,      22,			12 );
 	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
-	protected $fmt	=array(  'i',    's',    's',    's',   's',    's',       'i',   'i',   'i',     'f',    'f',  'f',     's',			'i');
 
 	protected $modestr  
 		=array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
@@ -62,11 +60,13 @@ class PDF extends PrintCommon {
 		$this->manga=$manga;
 		$this->resultados=$resultados;
 		$this->mode=$mode;
+		$this->cellHeader=
+			array(_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Cat/Grado'),_('Flt.'),_('Toc.'),_('Reh.'),_('Tiempo'),_('Vel.'),_('Penal.'),_('Calificación'),_('Puesto'));
 	}
 	
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader("Resultados Parciales");
+		$this->print_commonHeader(_("Resultados Parciales"));
 		$this->print_identificacionManga($this->manga,$this->modestr[intval($this->mode)]);
 		
 		// Si es la primera hoja pintamos datos tecnicos de la manga

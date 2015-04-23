@@ -14,6 +14,13 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
+
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
+?>
+
 //***** gestion de inscripciones de una prueba	*****************************************************
 
 /**
@@ -189,3 +196,29 @@ function canInscribe(jornada) {
 	if (jornada.Nombre === '-- Sin asignar --') result=false;
 	return result;
 }
+
+/**
+ * Imprime las inscripciones
+ * @returns {Boolean} true on success, otherwise false
+ */
+function printInscripciones() {
+	$.messager.radio(
+		'Selecciona modelo',
+		'Selecciona el tipo de documento a generar:',
+		{ 0:'Listado simple',1:'Catálogo',2:'Estadisticas'}, 
+		function(r){
+			if (!r) return;
+			var mode=parseInt(r);
+			$.fileDownload(
+					'/agility/server/pdf/print_inscritosByPrueba.php',
+					{
+						httpMethod: 'GET',
+						data: { Prueba: workingData.prueba, Mode: mode },
+						preparingMessageHtml: "Imprimiendo inscripciones; por favor espere...",
+						failMessageHtml: "There was a problem generating your report, please try again."
+					}
+			);
+		}
+	).window({width:250});
+	return false; //this is critical to stop the click event which will trigger a normal file download!
+};

@@ -354,6 +354,60 @@ class Inscripciones extends DBObject {
 	}
 	
 	/*
+	 * As inscritos, but dont use page nor search and list only those inscritos that belongs to provided team
+	 */
+	function inscritosByTeam($team) {
+		$this->myLogger->enter();
+		// obtenemos los datos del equipo
+		$teamobj=$this->__getObject("Equipos",$team);
+		if (!is_object($teamobj))
+			return $this->error("No puedo obtener datos del equipo con ID: $team");
+		// vemos el numero de la jornada asociada
+		$jornadaobj=$this->__getObject("Jornadas",$teamobj->Jornada);
+		if (!is_object($jornadaobj))
+			return $this->error("No puedo obtener datos de la jornada: {$teamobj->Jornada} asociada al equipo: $team");
+		$mask= 1 << ($jornadaobj->Numero -1 );
+		$prueba= $this->pruebaID;
+		$rows=array();
+	
+		// extraemos la lista de inscritos
+		$lista=$this->__select(
+				/*select*/	"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, {$teamobj->Jornada} AS Jornada,
+				Dorsal, Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
+				Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
+				NombreGuia, NombreClub, $team AS Equipo, '{$teamobj->Nombre}' AS NombreEquipo ,
+				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
+				/* from */	"Inscripciones,PerroGuiaClub",
+				/* where */ "( Inscripciones.Perro = PerroGuiaClub.ID)	AND ( Inscripciones.Prueba=$prueba ) AND ( ((Inscripciones.Jornadas & $mask))<>0 )",
+				/* order */ "",
+				/* limit */ ""
+			);
+		// reindex using perro as index
+		$inscripciones=array();
+		foreach($lista['rows'] as $inscripcion) { 
+			$inscripciones[$inscripcion['Perro']]=$inscripcion;
+		}
+		// ahora comprobamos consistencia de los listados de equipos
+		// y generamos el array de resultados
+		$rows=array();
+		$list=explode(',',$teamobj->Miembros);
+		foreach ( $list as $perro) {
+			if (strpos($perro,"BEGIN")!==false) continue;
+			if (strpos($perro,"END")!==false) continue;
+			if (!array_key_exists($perro,$inscripciones)) {
+				$this->error("Inscripciones::inscritosByTeam():El perro $perro del equipo $team no esta inscrito en la jornada {$teamobj->Jornada} de la prueba $prueba");
+				$this->removeFromList($perro); // cleanup. should not be needed, but....
+			}
+			// todo correcto: anyadimos el perro a la lista
+			array_push($rows,$inscripciones[$perro]);
+		}
+		// ok: componemos resultado y retornamos
+		$result= array( 'total' => count($rows), 'rows' => $rows);
+		$this->myLogger->leave();
+		return $result;
+	}
+			
+	/*
 	 * Reorder dorsales by mean of club,categoria,grado,nombre
 	 */
 	function reorder() {

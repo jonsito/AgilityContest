@@ -35,6 +35,7 @@ try {
 	$resultados= new Resultados("resultadosFunctions",$pruebaID,$mangaID);
 	$am= new AuthManager("resultadosFunctions");
 	switch ($operation) {
+		// no insert as done by mean of procesa_inscripcion
 		case "update": $am->access(PERMS_ASSISTANT); $result=$resultados->update($idperro); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$resultados->delete($idperro); break;
 		case "select": $result=$resultados->select($idperro); break;

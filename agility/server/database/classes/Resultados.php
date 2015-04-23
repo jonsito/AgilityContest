@@ -181,7 +181,7 @@ class Resultados extends DBObject {
 	 * Inserta perro en la lista de resultados de la manga
 	 * los datos del perro se toman de la tabla perroguiaclub
 	 * @param {array} $objperro datos perroguiaclub
-	 * @param {integer} $ndorsal Dorsal con el que compite
+	 * @param {array} $inscripcion datos de la inscripcion
 	 * @return "" on success; else error string
 	 */
 	function insertByData($objperro,$inscripcion) {

@@ -41,12 +41,11 @@ class PDF extends PrintCommon {
 	protected $categoria; // categoria que estamos listando
 	
 	// geometria de las celdas
-	protected $cellHeader
-					=array('Orden','Dorsal','Nombre','Lic.','Guia','Club','Celo','Observaciones');
+	protected $cellHeader;
 	protected $pos	=array(  12,      12,     30,     15,    50,   30,     10,    26);
 	protected $align=array(  'R',    'R',    'L',    'C',   'R',  'R',    'C',   'R');
 	protected $fmt	=array(  'i',    'i',    's',    's',   's',  's',    'b',   's');
-	protected $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
+	protected $cat  =array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
 	 * Constructor
@@ -68,11 +67,12 @@ class PDF extends PrintCommon {
 		$os= $o->getData($prueba,$jornada,$manga);
 		$this->orden=$os['rows'];
 		$this->categoria="L";
+		$this->cellHeader = array(_('Orden'),_('Nombre'),_('Dorsal'),_('Lic.'),_('Guía'),_('Club'),_('Celo'),_('Observaciones'));
 	}
 	
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader("Orden de Salida");
+		$this->print_commonHeader(_("Orden de Salida"));
 		$this->print_identificacionManga($this->manga,$this->cat[$this->categoria]);
 	}
 	

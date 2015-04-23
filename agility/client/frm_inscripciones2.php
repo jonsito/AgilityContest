@@ -21,14 +21,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 -->
 
 <?php
-require_once("dialogs/dlg_perros.inc");
-require_once("dialogs/dlg_guias.inc");
-require_once("dialogs/dlg_clubes.inc");
-require_once("dialogs/dlg_jornadas.inc");
-require_once("dialogs/dlg_equipos.inc");
-require_once("frm_equipos.inc");
-require_once("dialogs/dlg_newInscripcion.inc");
-require_once("dialogs/dlg_editInscripcion.inc");
+require_once(__DIR__."/dialogs/dlg_perros.inc");
+require_once(__DIR__."/dialogs/dlg_guias.inc");
+require_once(__DIR__."/dialogs/dlg_clubes.inc");
+require_once(__DIR__."/dialogs/dlg_jornadas.inc");
+require_once(__DIR__."/dialogs/dlg_equipos.inc");
+require_once(__DIR__."/frm_equipos.inc");
+require_once(__DIR__."/dialogs/dlg_newInscripcion.inc");
+require_once(__DIR__."/dialogs/dlg_editInscripcion.inc");
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
 ?>
 
 <!-- PANEL INFORMATIVO SOBRE LA PRUEBA Y JORNADAS ASOCIADAS -->
@@ -98,8 +101,8 @@ require_once("dialogs/dlg_editInscripcion.inc");
     		data-options="iconCls:'icon-huella'" 
     		onclick="openTeamWindow(workingData.prueba)">Equipos</a>
     	<a id="inscripciones-printBtn" href="#" class="easyui-linkbutton"
-    		data-options="iconCls:'icon-print'" 
-    		>Imprimir</a> <!-- onClick() is handled below -->
+    		data-options="iconCls:'icon-print'" onclick="printInscripciones();"
+    		>Imprimir</a>
    		<a id="inscripciones-reloadBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-brush'"
    			onclick="
@@ -265,29 +268,5 @@ addTooltip($('#inscripciones-teamBtn').linkbutton(),"Abrir la ventana de gesti&o
 addTooltip($('#inscripciones-printBtn').linkbutton(),"Imprimir la lista de inscritos en la prueba");
 addTooltip($('#inscripciones-reloadBtn').linkbutton(),"Borrar la casilla de b&uacute;squeda<br/>Actualizar la lista de inscripciones para la prueba");
 addTooltip($('#inscripciones-datagrid-search'),"Buscar inscripciones que coincidan con el texto indicado");
-
-// special handling for printing inscritos
-$('#inscripciones-printBtn').on("click", function () {
-	$.messager.radio(
-		'Selecciona modelo',
-		'Selecciona el tipo de documento a generar:',
-		{ 0:'Listado simple',1:'Catálogo',2:'Estadisticas'}, 
-		function(r){
-			if (!r) return;
-			var mode=parseInt(r);
-			$.fileDownload(
-				'/agility/server/pdf/print_inscritosByPrueba.php',
-				{
-					httpMethod: 'GET',
-					data: { Prueba: workingData.prueba, Mode: mode },
-			        preparingMessageHtml: "Imprimiendo inscripciones; por favor espere...",
-			        failMessageHtml: "There was a problem generating your report, please try again."
-				}
-			);
-		}
-	).window({width:250});
-    return false; //this is critical to stop the click event which will trigger a normal file download!
-});
-
 
 </script>

@@ -24,7 +24,7 @@ define('AC_VERSION_NAME','2.0.0b');
 define('AC_VERSION_DATE','20150422_2055');
 
 /** Internacionalizacion. Idiomas **/
-define ('AC_LANG','es');
+define ('AC_LANG','es_ES.UTF-8');
 
 /** logging **/
 define('AC_DEBUG_LEVEL',0);

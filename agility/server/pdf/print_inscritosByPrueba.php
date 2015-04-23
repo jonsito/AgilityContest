@@ -523,12 +523,9 @@ class PrintInscritos extends PrintCommon {
 	protected $jornadas;
 
 	// geometria de las celdas
-	protected $cellHeader
-				=array('Dorsal','Nombre','Lic.','Guía','Club','Cat.','Grado','Celo','Observaciones','1','2','3','4','5','6','7','8');
-	protected $pos	
-				=array(  11,       21,     11,    41,   31,     8,     8,     8,       12,     5,  5,  5,  5,  5,  5,  5,  5 );
-	protected $align
-				=array(  'R',      'L',    'C',   'R',  'R',   'C',    'L',   'C',    'L',    'C','C','C','C','C','C','C','C');
+	protected $cellHeader;
+	protected $pos =	array(  11,       21,     11,    41,   31,     8,     8,     8,       12,     5,  5,  5,  5,  5,  5,  5,  5 );
+	protected $align=	array(  'R',      'L',    'C',   'R',  'R',   'C',    'L',   'C',    'L',    'C','C','C','C','C','C','C','C');
 	
 	/**
 	 * Constructor
@@ -545,12 +542,14 @@ class PrintInscritos extends PrintCommon {
 		$this->inscritos=$inscritos['rows'];
 		$this->jornadas=$jornadas['rows'];
 		$this->setPageName("inscritosByPrueba.pdf");
+		$this->cellHeader=
+			array(_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Cat.'),_('Grado'),_('Celo'),_('Observaciones'),_('Sab.'),_('Dom.'));	
 	}
 	
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		$this->print_commonHeader("Listado de Participantes");
+		$this->print_commonHeader(_("Listado de Participantes"));
 		$this->Ln(5);
 		$this->myLogger->leave();
 	}

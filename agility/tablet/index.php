@@ -64,7 +64,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
 <script src="/agility/lib/jquery-easyui-1.4.1/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/auth.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/tablet/tablet.js" type="text/javascript" charset="utf-8" > </script>
