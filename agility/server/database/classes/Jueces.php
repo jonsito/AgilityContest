@@ -62,7 +62,7 @@ class Jueces extends DBObject {
 	 */
 	function update($id) {
 		$this->myLogger->enter();
-		if ($id==0) return $this->error("Invalid Juez ID");
+		if ($id<=1) return $this->error("No Juez or Invalid Juez ID: $id provided");
 		// componemos un prepared statement
 		$sql ="UPDATE Jueces SET Nombre=? , Direccion1=? , Direccion2=? , Telefono=? , Internacional=? , Practicas=? , Email=? , Observaciones=?
 		       WHERE ( ID=? )";

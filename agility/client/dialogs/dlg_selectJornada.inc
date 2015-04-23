@@ -18,7 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <?php
 require_once(__DIR__."/../../server/auth/Config.php");
 require_once(__DIR__."/../../server/tools.php");
-$config =new Config();
+$config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->

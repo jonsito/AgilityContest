@@ -51,7 +51,7 @@ class Guias extends DBObject {
 	
 	function update($id) {
 		$this->myLogger->enter();
-		if ($id<=0) return $this->error("Invalid Guia ID:$id provided");
+		if ($id<=1) return $this->error("No guia or Invalid Guia ID:$id provided");
 		// componemos un prepared statement
 		$sql ="UPDATE Guias SET Nombre=? , Telefono=? , Email=? , Club=? , Observaciones=? WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
