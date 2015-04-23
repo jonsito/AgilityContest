@@ -14,6 +14,13 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
+
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
+?>
+ 
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE GUIAS -->
 <div id="new_inscripcion-dialog" style="width:975px;height:550px;padding:5px">
     <!-- DECLARACION DE LA TABLA -->
@@ -116,13 +123,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	var mySelf='#guias-perros-datagrid-'+replaceAll(' ','_',guia.ID);
 			$(mySelf).datagrid({
             	width: 875,
+        	    height: 'auto',
         		title: 'Perros registrados a nombre de '+guia.Nombre,
        		    pagination: false,
         	    rownumbers: false,
         	    fitColumns: true,
         	    singleSelect: true,
-        	    loadMsg: 'Loading list of dogs',
-        	    height: 'auto',
+				loadMsg: '<?php _e('Actualizando lista de perros');?>',
         		url: '/agility/server/database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.ID, Federation: workingData.federation },
         		method: 'get',

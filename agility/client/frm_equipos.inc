@@ -24,7 +24,7 @@ $config =new Config();
 <!-- ventana de presentacion de los datos de los equipos de una prueba -->
 <div id="team_datagrid-dialog" style="width:600px;height:auto">
 	<!-- DECLARACION DE LA TABLA DE EQUIPOS -->
-	<table id="team_datagrid" class="easyui-datagrid"></table>
+	<table id="team_datagrid"></table>
 </div>	
 
 <!-- BARRA DE TAREAS DE LA TABLA DE Equipos -->
@@ -59,10 +59,15 @@ $config =new Config();
 <div id="selteam-window" class="easyui-window" style="position:relative;width:350px;height:auto;padding:10px 10px">
 	<div id="selteam-Layout" class="easyui-layout" data-options="fit:true'">
 		<div id="selteam-Content" data-options="region:'north',border:'true'">
-			<form id="selteam-Team">
+			<form id="selteam-Form">
 				<div class="fitem">
+					<input type="hidden" id="selteam-Parent" name="Parent"/> <!-- datagrid padre -->
+					<input type="hidden" id="selteam-Operation" name="Operation" value="update"/>
+					<input type="hidden" id="selteam-Prueba" name="Prueba"/>
+					<input type="hidden" id="selteam-Jornadas" name="Jornadas"/>
 					<label for="Nombre"><?php _e('Perro');?>:</label>
 					<input type="text" id="selteam-Nombre" name="Nombre" readonly="readonly"/>
+					<input type="hidden" id="selteam-Perro" name="Perro"/>
 				</div>
 				<div class="fitem">
 					<label for="NombreGuia"><?php _e('Gu&iacute;a');?>:</label>
@@ -75,15 +80,15 @@ $config =new Config();
 					<input type="hidden" id="selteam-Club" name="Club"/>
 				</div>
 				<div class="fitem">
-					<label for="Search"><?php _e('Equipo');?>:</label>
-					<select id="selteam-Search" name="Search"></select>
+					<label for="Equipo"><?php _e('Equipo');?>:</label>
+					<select id="selteam-Equipo" name="Equipo" style="width:200px"></select>
 				</div>
 			</form>
 		</div> <!-- contenido -->
 		<div data-options="region:'center'"></div>
 		<div id="selteam-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
 			<a id="selteam-okBtn" href="#" class="easyui-linkbutton" 
-				data-options="iconCls:'icon-ok'" onclick="acceptSelectTeam()"><?php _e('Aceptar');?></a>
+				data-options="iconCls:'icon-ok'" onclick="changeTeam()"><?php _e('Aceptar');?></a>
 			<a id="selteam-cancelBtn" href="#" class="easyui-linkbutton" 
 				data-options="iconCls:'icon-cancel'" onclick="$('#selteam-window').window('close');"><?php _e('Cancelar');?></a>
 		</div>	<!-- botones -->
@@ -103,7 +108,8 @@ $('#team_datagrid-dialog').dialog({
 	maximizable:false,
 	resizable:true,
 	title:"Gestion de Equipos de la prueba: '"+workingData.datosPrueba.Nombre+"'",
-	closed:true
+	closed:true,
+	onClose: function() { $('#inscripciones-datagrid').datagrid('reload'); }
 });
 
 // datos de la tabla de equipos
@@ -122,7 +128,7 @@ $('#team_datagrid').datagrid({
     columns: [[
         { field:'ID',			hidden:true },
         { field:'Prueba',		hidden:true },
-        { field:'Nombre',		width:20, sortable:true,	title: 'Nombre:' },
+ 		{ field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Nombre');?>' },
         { field:'Observaciones',width:80, sortable:true,	title: 'Observaciones'}
     ]],
     pagination: false,
@@ -130,7 +136,7 @@ $('#team_datagrid').datagrid({
     fitColumns: true,
     singleSelect: true,
     view: scrollview,
-    pageSize: 10,
+    pageSize: 50,
     rowStyler: myRowStyler, // function that personalize colors on alternate rows
 	onDblClickRow:function() { editTeam('#team_datagrid'); }, // on double click fireup editor dialog        
 	// especificamos un formateador especial para desplegar la tabla de inscritos por equipo
@@ -156,62 +162,62 @@ function showInscripcionesByTeam(index,team){
 	// - sub tabla de participantes asignados a un equipo
 	var mySelf='#team-incripcion-datagrid-'+replaceAll(' ','_',team.ID);
 	$(mySelf).datagrid({
- 	width: '100%',
-	    height: 'auto',
+		width: '100%',
+		height: 'auto',
 		title: '<?php _e('Inscripciones registradas en el equipo');?>: '+team.Nombre,
-		    pagination: false,
-	    rownumbers: false,
-	    fitColumns: true,
-	    singleSelect: true,
-     pagination: false,
-     rownumbers: false,
-	    loadMsg: '<?php _e('Leyendo inscripciones....');?>',
+		pagination: false,
+		rownumbers: false,
+		fitColumns: true,
+		singleSelect: true,
+		pagination: false,
+		rownumbers: false,
+		loadMsg: '<?php _e('Leyendo inscripciones....');?>',
 		url: '/agility/server/database/inscripcionFunctions.php',
 		queryParams: { Operation: 'inscritosbyteam', Prueba:workingData.prueba, Jornada:workingData.jornada, Equipo: team.ID },
 		method: 'get',
-	    columns: [[
-	            { field:'ID',		hidden:true }, // inscripcion ID
-	            { field:'Prueba',	hidden:true }, // prueba ID
-	            { field:'Jornadas',	hidden:true }, // bitmask de jornadas inscritas
-	            { field:'Perro',	hidden:true }, // dog ID
-	            { field:'Equipo',	hidden:true }, // only used on Team contests
-	            { field:'Pagado', 	hidden:true }, // to store if handler paid :-)
-	            { field:'Guia', 	hidden:true }, // Guia ID
-	            { field:'Club',		hidden:true }, // Club ID
-	            { field:'LOE_RRC',	hidden:true }, // LOE/RRC
-	            { field:'Licencia', hidden:true }, // LOE/RRC
-	            { field:'Club',		hidden:true }, // Club ID
-	           	{ field:'Dorsal',	width:6,  sortable:true, align: 'right',	title: '<?php _e('Dorsal');?>' },
-	           	{ field:'Nombre',	width:15, sortable:true, align: 'right',	title: '<?php _e('Nombre');?>' },
-	           	{ field:'Licencia',	width:6,  sortable:true, align: 'center',  	title: '<?php _e('Lic');?>.' },
-	           	{ field:'Categoria',width:4,  sortable:true, align: 'center',  	title: '<?php _e('Cat');?>.' },
-	           	{ field:'Grado',	width:6,  sortable:true, align: 'center',  	title: '<?php _e('Grado');?>' },
-	           	{ field:'NombreGuia',	width:25, sortable:true, align: 'right',	title: '<?php _e('Guía');?>' },
-	           	{ field:'NombreClub',	width:15, sortable:true, align: 'right',	title: '<?php _e('Club');?>' },
-	           	{ field:'NombreEquipo',	hidden:true },
-	           	{ field:'Observaciones',width:15,            title: '<?php _e('Observaciones');?>' },
-	           	{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	 title: '<?php _e('Celo');?>' },
-	            { field:'J1',		hidden:true},
-	            { field:'J2',		hidden:true},
-	            { field:'J3',		hidden:true},
-	            { field:'J4',		hidden:true},
-	            { field:'J5',		hidden:true},
-	            { field:'J6',		hidden:true},
-	            { field:'J7',		hidden:true},
-	            { field:'J8',		hidden:true},
- 	]],
- 	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
- 	rowStyler:myRowStyler,
- 	// on double click fireup editor dialog
-     onResize:function(){
-         $('#team_datagrid').datagrid('fixDetailRowHeight',index);
-     },
-     onLoadSuccess:function(){
-         setTimeout(function(){
-             $('#team_datagrid').datagrid('fixDetailRowHeight',index);
-         },0);
-     },
-     onDblClickRow:function(index,row) { changeTeamDialog(mySelf,row); }
+		columns: [[
+			{ field:'ID',		hidden:true }, // inscripcion ID
+			{ field:'Prueba',	hidden:true }, // prueba ID
+			{ field:'Jornadas',	hidden:true }, // bitmask de jornadas inscritas
+			{ field:'Perro',	hidden:true }, // dog ID
+			{ field:'Equipo',	hidden:true }, // only used on Team contests
+			{ field:'Pagado', 	hidden:true }, // to store if handler paid :-)
+			{ field:'Guia', 	hidden:true }, // Guia ID
+			{ field:'Club',		hidden:true }, // Club ID
+			{ field:'LOE_RRC',	hidden:true }, // LOE/RRC
+			{ field:'Licencia', hidden:true }, // LOE/RRC
+			{ field:'Club',		hidden:true }, // Club ID
+			{ field:'Dorsal',	width:6,  sortable:true, align: 'right',	title: '<?php _e('Dorsal');?>' },
+			{ field:'Nombre',	width:15, sortable:true, align: 'right',	title: '<?php _e('Nombre');?>' },
+			{ field:'Licencia',	width:6,  sortable:true, align: 'center',  	title: '<?php _e('Lic');?>.' },
+			{ field:'Categoria',width:4,  sortable:true, align: 'center',  	title: '<?php _e('Cat');?>.' },
+			{ field:'Grado',	width:6,  sortable:true, align: 'center',  	title: '<?php _e('Grado');?>' },
+			{ field:'NombreGuia',	width:25, sortable:true, align: 'right',	title: '<?php _e('Guía');?>' },
+			{ field:'NombreClub',	width:15, sortable:true, align: 'right',	title: '<?php _e('Club');?>' },
+			{ field:'NombreEquipo',	hidden:true },
+			{ field:'Observaciones',width:15,            title: '<?php _e('Observaciones');?>' },
+			{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	 title: '<?php _e('Celo');?>' },
+			{ field:'J1',		hidden:true},
+			{ field:'J2',		hidden:true},
+			{ field:'J3',		hidden:true},
+			{ field:'J4',		hidden:true},
+			{ field:'J5',		hidden:true},
+			{ field:'J6',		hidden:true},
+			{ field:'J7',		hidden:true},
+			{ field:'J8',		hidden:true},
+ 		]],
+		// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+		rowStyler:myRowStyler,	
+		// on double click fireup editor dialog
+		onResize:function(){
+			$('#team_datagrid').datagrid('fixDetailRowHeight',index);
+		},
+		onLoadSuccess:function(){
+			setTimeout(function(){
+				$('#team_datagrid').datagrid('fixDetailRowHeight',index);
+			},0);
+		},
+		onDblClickRow:function(index,row) { changeTeamDialog(mySelf,row); }
 	}); // end of inscritos-by-team_team_id
 	
 	addSimpleKeyHandler(mySelf,changeTeamDialog);

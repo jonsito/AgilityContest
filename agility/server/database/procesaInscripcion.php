@@ -102,8 +102,8 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 			case 11:// 'Jumping Grado III', 'GIII'
 				if ($g==='GIII') $inscribir=true; break;
 			case 12:// 'Jumping Abierta (Open)', '-'
-			case 13:// 'Jumping por Equipos (3 mejores)', '-'
-			case 14:// 'Jumping por Equipos (Conjunta)', '-'
+			case 13:// 'Jumping Equipos (3 mejores)', '-'
+			case 14:// 'Jumping Equipos (Conjunta)', '-'
 			case 15:// 'Ronda K.O.', '-'
 			case 16:// 'Manga especial', '-'
 				$inscribir=true; break;

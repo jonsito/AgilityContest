@@ -152,7 +152,6 @@ function insertInscripcion(dg) {
 				Perro: row.ID,
 				Jornadas: $('#new_inscripcion-Jornadas').val(),
 				Celo: $('#new_inscripcion-Celo').val(),
-				Equipo: $('#new_inscripcion-Equipo').combogrid('getValue'),
 				Pagado: $('#new_inscripcion-Pagado').val()
 			}
 		});

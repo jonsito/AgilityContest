@@ -2611,8 +2611,8 @@ INSERT INTO `tipo_manga` VALUES
 (10,'Jumping Grado II','GII'),
 (11,'Jumping Grado III','GIII'),
 (12,'Jumping Abierta (Open)','-'),
-(13,'Jumping por Equipos (3 mejores)','-'),
-(14,'Jumping por Equipos (Conjunta)','-'),
+(13,'Jumping Equipos (3 mejores)','-'),
+(14,'Jumping Equipos (Conjunta)','-'),
 (15,'Ronda K.O.','-'),
 (16,'Manga Especial','-');
 /*!40000 ALTER TABLE `tipo_manga` ENABLE KEYS */;

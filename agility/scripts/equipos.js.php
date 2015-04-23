@@ -77,21 +77,6 @@ function newTeam(dg,def,onAccept){
 	if (onAccept!==undefined)$('#team_edit_dialog-okBtn').one('click',onAccept);
 }
 
-/* same as newTeam, but using a combogrid as parent element */
-function newTeam2(cg,def){
-    var idprueba=$(cg).combogrid('grid').datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
-	if (!hasTeamEvents(idprueba)) {
-		$.messager.alert("Error:","<?php _e('Esta prueba no tiene declaradas competiciones por equipos');?>","info");
-		return;
-	}
-    $('#team_edit_dialog').dialog('open').dialog('setTitle','A&ntilde;adir nuevo equipo');
-    $('#team_edit_dialog-form').form('clear');
-    if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill team Name
-    $('#team_edit_dialog-Operation').val('insert');
-    $('#team_edit_dialog-Prueba').val(idprueba.Prueba);
-    $('#team_edit_dialog-okBtn').one('click',function() {$('#team_edit_dialog').dialog('close');});
-}
-
 /**
  * Open dialogo de modificacion de equipos
  * @param {string} dg datagrid ID de donde se obtiene el equipo a editar
@@ -170,4 +155,53 @@ function saveTeam() {
             }
         }
     });
+}
+
+/**
+* Open assign team dialog
+* @param {string} datagrid parent datagrid name
+* @param {array} row selected datagrid data
+*/
+function changeTeamDialog(datagrid,row) {
+	// cogemos datos de la inscripcion a modificar
+	// actualizamos lista de equipos en el combogrid
+	$('#selteam-Equipo').combogrid('grid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
+	// ajustamos variables extras del formulario
+    row.Parent=datagrid;
+	// recargamos el formulario con los datos de la fila seleccionada
+    $('#selteam-Form').form('load',row); // onLoadSuccess takes care on combogrid
+	// desplegamos formulario 
+    $('#selteam-window').window('open');
+}
+
+/**
+* Change team to selected one
+*/
+function changeTeam() {
+	// si no hay ninguna equipo valido seleccionada aborta
+	var p=$('#selteam-Equipo').combogrid('grid').datagrid('getSelected');
+	if (p==null) {
+		// indica error
+		$.messager.alert("Error","<?php _e('Debe indicar un equipo v&aacute;lido');?>","error");
+		return;
+	}
+	$('#selteam-ID').val(p.ID);
+    var frm = $('#selteam-Form');
+    if (! frm.form('validate')) return;
+    $.ajax({
+        type: 'GET',
+        url: '/agility/server/database/equiposFunctions.php',
+        data: frm.serialize(),
+        dataType: 'json',
+        success: function (result) {
+            if (result.errorMsg){ 
+            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+            } else {// on submit success, reload results
+            	var parent=$('#selteam-Parent').val();
+            	// on save done refresh related data/combo grids
+                $(parent).datagrid('reload');
+            }
+        }
+    });
+	$('#selteam-window').window('close');
 }

@@ -24,7 +24,6 @@ require_once(__DIR__."/../procesaInscripcion.php"); // to insert/remove inscript
 class Inscripciones extends DBObject {
 	
 	protected $pruebaID;
-	protected $defaultTeam; //  {array} datos del equipo por defecto para esta prueba
 	protected $insertid;
 	
 	/**
@@ -40,19 +39,7 @@ class Inscripciones extends DBObject {
 			throw new Exception($this->errormsg);
 		}
 		$this->pruebaID=$prueba;
-		
-		// obtenemos el equipo por defecto para esta prueba
-		$res= $this->__selectAsArray(
-			/* SELECT */ "ID",
-			/* FROM */   "Equipos",
-			/* WHERE */ "( Prueba = $prueba ) AND ( Nombre = '-- Sin asignar --' )"
-		);
-		if (!is_array($res)) {
-			$this->errormsg="$file::construct() cannot get default team data for this prueba";
-			throw new Exception($this->errormsg);
-		}
-		$this->defaultTeam=$res;
-		$this->insert_id=0; // initial value
+		$this->insertid=0; // initial value
 	}
 	
 	/**
@@ -77,13 +64,12 @@ class Inscripciones extends DBObject {
 		$prueba=$this->pruebaID;
 		$jornadas=http_request("Jornadas","i",0);
 		$pagado=http_request("Pagado","i",0);
-		$equipo=http_request("Equipo","i",$this->defaultTeam["ID"]);
 		$celo=http_request("Celo","i",0);
 		$observaciones="";
 		
 		// ok, ya tenemos todo. Vamos a inscribirle... pero solo en las jornadas abiertas
-		$str= "INSERT INTO Inscripciones (Prueba,Perro,Celo,Observaciones,Equipo,Jornadas,Pagado)
-			VALUES ($prueba,$idperro,$celo,'$observaciones',$equipo,$jornadas,$pagado)";
+		$str= "INSERT INTO Inscripciones (Prueba,Perro,Celo,Observaciones,Jornadas,Pagado)
+			VALUES ($prueba,$idperro,$celo,'$observaciones',$jornadas,$pagado)";
 		$res=$this->query($str);
 		$this->insertid=$this->conn->insert_id;
 		if (!$res) return $this->error($this->conn->error);
@@ -108,7 +94,7 @@ class Inscripciones extends DBObject {
 		// cogemos los datos actuales
 		$res=$this->__selectObject(
 						// idinscripcion, idprueba, idperro y dorsal no cambian
-			/* SELECT */	"ID, Celo, Observaciones, Equipo, Jornadas, Pagado", 
+			/* SELECT */	"ID, Celo, Observaciones, Jornadas, Pagado", 
 			/* FROM */		"Inscripciones",
 			/* WHERE */		"(Perro=$idperro) AND (Prueba=$p)"
 		);
@@ -119,14 +105,12 @@ class Inscripciones extends DBObject {
 		$id=$res->ID;
 		$celo=http_request("Celo","i",$res->Celo);
 		$observaciones=http_request("Observaciones","s",$res->Observaciones);
-		$equipo=http_request("Equipo","i",$res->Equipo);
 		$pagado=http_request("Pagado","i",$res->Pagado);
 		$jornadas=http_request("Jornadas","i",$res->Jornadas);
 
-		// TODO: Make sure that form leaves unchanged Closed jornada's inscription state
 		// actualizamos bbdd
 		$str="UPDATE Inscripciones 
-			SET Celo=$celo, Observaciones='$observaciones', Equipo=$equipo, Jornadas=$jornadas, Pagado=$pagado
+			SET Celo=$celo, Observaciones='$observaciones', Jornadas=$jornadas, Pagado=$pagado
 			WHERE ( ID=$id)";
 		
 		// actualizamos datos de inscripcion
@@ -245,13 +229,11 @@ class Inscripciones extends DBObject {
 		$str="SELECT Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal , 
 				Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
 				Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
-				NombreGuia, NombreClub, Equipos.ID AS Equipo,Equipos.Nombre AS NombreEquipo ,
-				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
-			FROM Inscripciones,PerroGuiaClub,Equipos
+				NombreGuia, NombreClub, Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
+			FROM Inscripciones,PerroGuiaClub
 			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) 
-				AND ( Inscripciones.Prueba=$id ) 
-				AND (Equipos.ID=Inscripciones.Equipo)
-				ORDER BY NombreClub ASC,Grado ASC, Categoria ASC, Nombre ASC";
+				AND ( Inscripciones.Prueba=$id )
+			ORDER BY NombreClub ASC,Grado ASC, Categoria ASC, Nombre ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 	
@@ -309,10 +291,9 @@ class Inscripciones extends DBObject {
 		);
 		// FASE 0: cuenta el numero total de inscritos
 		$str="SELECT count(*)
-		FROM Inscripciones,PerroGuiaClub,Equipos
+		FROM Inscripciones,PerroGuiaClub
 		WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) 
-			AND ( Inscripciones.Prueba=$id ) 
-			AND (Equipos.ID=Inscripciones.Equipo) $extra";
+			AND ( Inscripciones.Prueba=$id ) $extra";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$row=$rs->fetch_array();
@@ -326,11 +307,10 @@ class Inscripciones extends DBObject {
 		// FASE 1: obtener lista de perros inscritos con sus datos
 		$str="SELECT Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal, Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
 				Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club , 
-				NombreGuia, NombreClub, Equipos.ID AS Equipo,Equipos.Nombre AS NombreEquipo , 
-				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
-			FROM Inscripciones,PerroGuiaClub,Equipos
-			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) AND ( Inscripciones.Prueba=$id ) AND (Equipos.ID=Inscripciones.Equipo) $extra 
-			ORDER BY $order $limit"; 
+				NombreGuia, NombreClub, Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
+			FROM Inscripciones,PerroGuiaClub
+			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) AND ( Inscripciones.Prueba=$id ) $extra 
+		ORDER BY $order $limit"; 
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 	
@@ -412,7 +392,6 @@ class Inscripciones extends DBObject {
 	 */
 	function reorder() {
 		$this->myLogger->enter();
-		$this->myLogger->leave();
 		// ordenamos los perros por club, categoria grado
 		$inscritos=$this->__select(
 				"Perro,Nombre,NombreClub,Categoria,Grado",
@@ -480,12 +459,10 @@ class Inscripciones extends DBObject {
 		$result=$this->__select(
 			/* SELECT */"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Inscripciones.Perro AS Perro, Raza,
 				Dorsal, PerroGuiaClub.Nombre AS Nombre, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
-				NombreGuia, NombreClub, Equipos.ID AS Equipo,Equipos.Nombre AS NombreEquipo ,
-				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
-			/* FROM */	"Inscripciones,PerroGuiaClub,Equipos",
+				NombreGuia, NombreClub,	Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
+			/* FROM */	"Inscripciones,PerroGuiaClub",
 			/* WHERE */ "( Inscripciones.Perro = PerroGuiaClub.ID) AND 
-				( Inscripciones.Prueba=$pruebaid ) AND ( ( Inscripciones.Jornadas&$mask ) != 0 ) AND
-				(Equipos.ID=Inscripciones.Equipo)",
+				( Inscripciones.Prueba=$pruebaid ) AND ( ( Inscripciones.Jornadas&$mask ) != 0 ) ",
 			/* ORDER BY */ "NombreClub ASC, Grado ASC , Categoria ASC, Celo ASC",
 			/* LIMIT */ ""
 		);

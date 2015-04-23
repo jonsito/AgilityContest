@@ -15,8 +15,14 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+<?php
+require_once(__DIR__."/../../server/auth/Config.php");
+require_once(__DIR__."/../../server/tools.php");
+$config =new Config();
+?>
+
 <!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->
-<div id="seljornada-window" style="position:relative,width:500px;height:200px;padding:20px 20px">
+<div id="seljornada-window" style="position:relative,width:500px;height:auto;padding:20px 20px">
 	<div id="seljornada-Layout" class="easyui-layout" data-options="fit:'true'">
 		<form id="seljornada-Selection">
 			<div id="seljornada-Content" data-options="region:'north',border:'true'">

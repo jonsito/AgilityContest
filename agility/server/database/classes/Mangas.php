@@ -39,8 +39,8 @@ class Mangas extends DBObject {
 		10 =>	array( 10,'Jumping Grado II',			'GII',	'Jumping GII',	'Grado II'),
 		11 =>	array( 11,'Jumping Grado III',			'GIII',	'Jumping GIII',	'Grado III'),
 		12 =>	array( 12,'Jumping Abierta (Open)',		'-',	'Jumping Open',	'Abierta'),
-		13 =>	array( 13,'Jumping por Equipos (3 mejores)','-','Jumping Eq.',	'Abierta'),
-		14 =>	array( 14,'Jumping por Equipos (Conjunta)', '-','Jumping Eq.',	'Abierta'),
+		13 =>	array( 13,'Jumping Equipos (3 mejores)','-','Jumping Eq.',	'Abierta'),
+		14 =>	array( 14,'Jumping Equipos (Conjunta)', '-','Jumping Eq.',	'Abierta'),
 		15 =>	array( 15,'Ronda K.O.', 				'-',	'Ronda K.O.',	'Abierta'),
 		16 =>	array( 16,'Manga especial', 			'-',	'Manga Especial','Abierta')	
 	);
@@ -60,8 +60,8 @@ class Mangas extends DBObject {
 		5,	/* 10,'Jumping Grado II', 'GII' */
 		6,	/* 11,'Jumping Grado III', 'GIII' */
 		7,	/* 12,'Jumping Abierta (Open)', '-' */
-		8,	/* 13,'Jumping por Equipos (3 mejores)', '-' */
-		9,	/* 14,'Jumping por Equipos (Conjunta)', '-' */
+		8,	/* 13,'Jumping Equipos (3 mejores)', '-' */
+		9,	/* 14,'Jumping Equipos (Conjunta)', '-' */
 		0,	/* 15,'Ronda K.O.', '-' */
 		0	/* 16,'Manga Especial', '-' */
 	);
@@ -411,12 +411,12 @@ class Mangas extends DBObject {
 		else { $this->delete(7);	$this->delete(12); }
 
 		/* 8, 'Agility Equipos (3 mejores)', '-' */
-		/* 13,'Jumping por Equipos (3 mejores)', '-' */
+		/* 13,'Jumping Equipos (3 mejores)', '-' */
 		if ($equipos3) {	$this->insert(8,'-');	$this->insert(13,'-');	}
 		else { $this->delete(8);	$this->delete(13);	}
 
 		/* 9, 'Agility Equipos (Conjunta)', '-' */
-		/* 14,'Jumping por Equipos (Conjunta)', '-' */
+		/* 14,'Jumping Equipos (Conjunta)', '-' */
 		if ($equipos4) {	$this->insert(9,'-');	$this->insert(14,'-');	}
 		else { $this->delete(9);	$this->delete(14);	}
 

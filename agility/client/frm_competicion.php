@@ -15,7 +15,13 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
  
- <?php $allowClosed=0; require_once("dialogs/dlg_selectJornada.inc")?>
+<?php 
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config();
+$allowClosed=0; 
+require_once("dialogs/dlg_selectJornada.inc")
+?>
 
 <script type="text/javascript">
 
@@ -34,26 +40,27 @@ $('#seljornada-window').window({
 		}
 		page="/agility/client/frm_competicion2.php";
 		if (workingData.datosJornada.Equipos3==1) {
-			page="/agility/client/frm_competicion_eq3.php";
-			extra=" ( Equipos -3 mejores- )";
+			page="/agility/client/frm_competicion_equipos.php";
+			extra=" ( <?php _e('Equipos -3 mejores-');?> )";
 			dialogs= {};
 		}
 		if (workingData.datosJornada.Equipos4==1) {
-			page="/agility/client/frm_competicion_eq4.php";
-			extra=" ( Equipos -conjunta- )";
+			page="/agility/client/frm_competicion_equipos.php";
+			extra=" ( <?php _e('Equipos -conjunta-');?> )";
 			dialogs= {};
 		}
 		if (workingData.datosJornada.Open==1) {
 			// an Open Contest is like a normal with no Grades but only categories
 			page="/agility/client/frm_competicion2.php";
-			extra=" ( Abierta )";
+			extra=" ( <?php _e('Abierta');?> )";
+			dialogs= {};
 		}
 		if (workingData.datosJornada.KO==1) {
 			page="/agility/client/frm_competicion_ko.php";
-			extra=" ( Mangas K.O. )";
+			extra=" ( <?php _e('Mangas K.O.');?> )";
 			dialogs= {};
 		}
-		loadContents( page, 'Desarrollo de la jornada'+extra, dialogs );
+		loadContents( page, '<?php _e('Desarrollo de la jornada');?>'+extra, dialogs );
 	} 
 });
 

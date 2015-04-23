@@ -15,9 +15,15 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+<?php
+require_once(__DIR__."/../../server/auth/Config.php");
+require_once(__DIR__."/../../server/tools.php");
+$config=new Config();
+?>
+
 <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE JORNADAS -->
 <div id="jornadas-dialog" style="width:375px;padding:25px">
-        <div class="ftitle">Informaci&oacute;n de la Jornada<br /></div>
+		<div class="ftitle"><?php _e('Informaci&oacute;n de la Jornada');?><br /></div>
         <form id="jornadas-form" method="get" novalidate>
             <div class="fitem">
                 <label for="Nombre" style="width:250px">Nombre / Comentarios:</label>

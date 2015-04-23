@@ -57,7 +57,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         
         // datos de la tabla de pruebas
         $('#pruebas-datagrid').datagrid({
-            expandedRow: -1, // added by jamc
         	// propiedades del panel padre asociado
         	fit: true,
         	border: false,
@@ -102,14 +101,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             detailFormatter:function(index,row){
                 return '<div style="padding:2px"><table id="jornadas-datagrid-' + row.ID + '"/></div>';
             },
-            onExpandRow: function(index,row) {
-                var oldRow=$('#pruebas-datagrid').datagrid('options').expandedRow;
-                if (oldRow!=-1) $('#pruebas-datagrid').datagrid('collapseRow',oldRow);
-                $('#pruebas-datagrid').datagrid('options').expandedRow=index;
-                setPrueba(row);
-                if (row.ID!=0) showJornadasByPrueba(index,row); 
-            },
-            onClickRow: function(index,row) { setPrueba(row); }
+            onExpandRow: function(index,row) { showJornadasByPrueba(index,row); },
+            onClickRow: function(index,row) { setPrueba(row); } // mark prueba as active
             
         }); // end of pruebas-datagrid
         

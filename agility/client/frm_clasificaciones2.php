@@ -14,7 +14,14 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
- <!-- CLASIFICACIONES DE PRUEBA/JORNADA/RONDA -->
+ 
+<?php 
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =new Config(); 
+?>
+
+<!-- CLASIFICACIONES DE PRUEBA/JORNADA/RONDA -->
 <div id="resultados-info" style="width:100%">
 	<div id="resultados-infolayout" class="easyui-layout" style="height:200px;">
 		<div data-options="region:'west',title:'Datos de la Prueba',split:true,collapsed:false" style="width:300px;padding:10px;font-size:9px">
@@ -214,35 +221,6 @@ $('#resultados-info-prueba').form('load',{
 	Observaciones: workingData.datosPrueba.Observaciones
 });
 
-/*
-$('#resultados-manga1-trs-form').form({
-		onLoadSuccess: function (data) {
-			var j=" - "+workingData.datosRonda.Juez12;
-			$('#rm1t').val(workingData.datosRonda.Nombre1);
-			if (j===" - -- Sin asignar --") j=""; 
-			$('#rm1j').val(workingData.datosRonda.Juez11+j);
-			// data.Observaciones=workingData.datosRonda.Observaciones1;
-		}
-	});
-	
-$('#resultados-manga1-trs-form').form(
-		'load',
-		"/agility/server/database/mangaFunctions.php?Operation=getTRS&Jornada="+workingData.jornada+"&Manga="+workingData.datosRonda.Manga1
-		);
-$('#resultados-manga2-trs-form').form({
-	onLoadSuccess: function (data) {
-		var j=" - "+workingData.datosRonda.Juez22;
-		$('#rm2t').val(workingData.datosRonda.Nombre2);
-		if (j===" - -- Sin asignar --") j=""; 
-		$('#rm2j').val(workingData.datosRonda.Juez21+j);
-		// data.Observaciones=workingData.datosRonda.Observaciones2;
-	}
-});
-$('#resultados-manga2-trs-form').form(
-		'load',
-		"/agility/server/database/mangaFunctions.php?Operation=getTRS&Jornada="+workingData.jornada+"&Manga="+workingData.datosRonda.Manga2
-		);
-*/
 //tooltips
 addTooltip($('#resultados-refreshBtn').linkbutton(),"Actualizar la tabla de clasificaciones");
 addTooltip($('#resultados-verifyBtn').linkbutton(),"Comprobar si quedan perros pendientes de introducir datos");
@@ -261,7 +239,7 @@ $('#resultados-datagrid').datagrid({
 	// propiedades del datagrid
 	toolbar:'#resultados-toolbar',
 	// no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
-	loadMsg: "Actualizando resultados de la ronda...",
+	loadMsg: "<?php _e('Actualizando resultados de la ronda...');?>",
 	pagination: false,
 	rownumbers: false,
 	fitColumns: true,
