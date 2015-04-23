@@ -154,11 +154,9 @@ $('#inscripciones-jornadas').datagrid({
       		{ field:'Open',			width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Open   ' },
       		{ field:'PreAgility',	width:15, sortable:false, formatter: formatOk,	align:'center', title: 'P.A. -1' },
       		{ field:'PreAgility2',	width:15, sortable:false, formatter: formatOk,	align:'center', title: 'P.A. -2' },
-      		/*
       		{ field:'Equipos3',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Eq. 3/4' },
       		{ field:'Equipos4',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Eq. Conj.' },
       		{ field:'KO',			width:15, sortable:false, formatter: formatOk,	align:'center', title: 'K.O.   ' },
-      		*/
       		{ field:'Especial',		width:15, sortable:false, formatter: formatOk,	align:'center', title: 'Especial' },
       		{ field:'Cerrada',		width:10, sortable:false, formatter: formatCerrada,	align:'center', title: 'Cerrada' }
     ]],

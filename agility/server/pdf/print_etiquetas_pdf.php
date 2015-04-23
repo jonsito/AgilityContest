@@ -196,8 +196,8 @@ class Etiquetas_PDF extends PrintCommon {
 
 		foreach($this->resultados as $row) {
 			if ($listadorsales!=="") {
-				$aguja=",".$row['Dorsal'].",";
-				$pajar=",".$listadorsales.",";
+				$aguja=",{$row['Dorsal']},";
+				$pajar=",$listadorsales,";
 				if (strpos($pajar,$aguja)===FALSE) continue; // Dorsal not in list
 			}
 			if ( (($rowcount%16)==0) && ($rowcount!=0)) $this->addPage(); // 16 etiquetas por pagina

@@ -130,10 +130,10 @@ class PrintTandas extends PrintCommon {
 				// comparamos categoria y grado
 				$count=0;
 				foreach($result['rows'] as $item) {
-					// si la categoria es '-' se contabiliza. else si coincide categoria se contabiliza
-					if (($row['Grado']!=='-') && ($item['Categoria']!==$row['Categoria']) ) continue;
-					// comparamos grados
-					if ( strstr($row['Grado'],$item['Grado'])===false ) continue;
+					// si el grado es '-' se contabiliza. else si coincide grado se contabiliza
+					if (($row['Grado']!=='-') && ($item['Grado']!==$row['Grado']) ) continue;
+					// comparamos categorias
+					if ( strstr($row['Categoria'],$item['Categoria'])===false ) continue;
 					$count++;
 				}
 				$this->Cell(15,7,$count,'LBR',0,'C',true);
