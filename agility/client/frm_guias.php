@@ -124,7 +124,7 @@ $config =Config::getInstance();
 			$(mySelf).datagrid({
             	width: 875,
         	    height: 'auto',
-        		title: 'Perros registrados a nombre de '+guia.Nombre,
+        		title: 'Perros registrados a nombre de '+guia.Nombre+ ' - '+fedName(workingData.federation),
        		    pagination: false,
         	    rownumbers: false,
         	    fitColumns: true,

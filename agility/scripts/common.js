@@ -259,6 +259,7 @@ function setJornada(data) {
  * Initialize working data information object
  */
 function initWorkingData(id) {
+	workingData.logoChanged=false;
 	workingData.perro= 0; // IDPerro del perro en edicion
 	workingData.guia= 0; // ID del guia en edicion
 	workingData.club= 0; // ID del club activo

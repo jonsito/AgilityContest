@@ -140,7 +140,7 @@ class Clubes extends DBObject {
 		$page=http_request("page","i",1);
 		$rows=http_request("rows","i",50);
 		$fed=http_request("Federation","i",-1); // -1: any 0:rsce 1:rfec 2:uca
-		$fedstr = "";
+		$fedstr = "1";
 		switch (intval($fed)) {
 			case -1: break; // any
 			case 0: $fedstr="((Federations & 1)!=0)"; break; // rsce
@@ -153,19 +153,12 @@ class Clubes extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		$where="";
-		if ($fedstr==="") {
-			if ($search!=='') $where="( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') OR ( Facebook LIKE '%$search%') ) ";
-			else $where="";
-		} else {
-			if ($search!=='') $where="$fedstr AND ( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') OR ( Facebook LIKE '%$search%') ) ";
-			else $where=$fedstr;
-		}
+		$where="1";
 		if ($search!=='') $where="( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') OR ( Facebook LIKE '%$search%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Clubes",
-				/* WHERE */ $where,
+				/* WHERE */ "$fedstr AND $where",
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);

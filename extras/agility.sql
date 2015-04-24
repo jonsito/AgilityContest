@@ -74,7 +74,7 @@ CREATE TABLE `clubes` (
   KEY `Clubes_Nombre` (`Nombre`),
   KEY `Clubes_Provincia` (`Provincia`),
   CONSTRAINT `Clubes_ibfk_1` FOREIGN KEY (`Provincia`) REFERENCES `provincias` (`Provincia`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,67 +85,67 @@ LOCK TABLES `clubes` WRITE;
 /*!40000 ALTER TABLE `clubes` DISABLE KEYS */;
 INSERT INTO `clubes` VALUES 
 (1,'-- Sin asignar --','','','-- Sin asignar --','','','','','','','','','','rsce.png',7,'NO BORRAR ESTA ENTRADA. SE USARA PARA AQUELLOS GUIAS QUE NO TENGAN CLUB ASIGNADO',0),
-(2,'AA Y CIA','28609 Sevilla La Nueva (Madrid)','','Madrid','+ 34 619 29 03 98','','','','','arribas.anabel@gmail.com','','','','aaycia.png',1,'',0),
-(3,'ACADE','Salvadas, 41, 2º C','15705 Santiago de Compostela','Coruña, A','+ 34 620 29 58 31','+ 34 881 93 95 5','','','http://www.asociacionacade.com/','asociacioncansdeportistas@gmail.com','','','','acade.png',1,'',0),
+(2,'AA Y CIA','28609 Sevilla La Nueva (Madrid)','','Madrid','+ 34 619 29 03 98','','','','','arribas.anabel@gmail.com','','','','aaycia.png',3,'',0),
+(3,'ACADE','Salvadas, 41, 2º C','15705 Santiago de Compostela','Coruña, A','+ 34 620 29 58 31','+ 34 881 93 95 5','','','http://www.asociacionacade.com/','asociacioncansdeportistas@gmail.com','','','','acade.png',3,'',0),
 (4,'Agilcan','Paseo de los Olivos 10','28330 San Martin de la Vega','Madrid','634 417 893','918 946 096','659 146 878','','http://www.agilcan.es/','info@agilcan.es','','','','agilcan.png',7,'',0),
 (5,'Alhambra','Urano, 24','18200 Maracena (Granada)','Granada',' + 34 958 42 12 85 ','','','','','agilityalhambra@hotmail.com','','','','alhambra.png',1,'',0),
-(6,'Askizu','Caserio Benta - Barrio Askizu','20808 Getaria (Guipúzcoa)','Gipuzkoa/Guipúzcoa','+ 34 656 76 60 65','','','','http://www.agilityaskizu.com/','antonio@agilityaskizu.com','','','','askizu.png',1,'',0),
+(6,'Askizu','Caserio Benta - Barrio Askizu','20808 Getaria (Guipúzcoa)','Gipuzkoa/Guipúzcoa','+ 34 656 76 60 65','','','','http://www.agilityaskizu.com/','antonio@agilityaskizu.com','','','','askizu.png',3,'',0),
 (7,'Badalona','Camí del Xiprers, s/n','08916 Badalona (Barcelona)','Barcelona',' + 34 93 597 23 53 ',' + 34 676 48 99 40 ','','','http://www.agilitybadalona.con/','info@agilitybadalona.com','','','','badalona.png',1,'',0),
 (8,'Baix Llobregat','Enric Borras, 10','08820 El Prat de Llobregat (Barcelona)','Barcelona','+34 695 79 42 74','','','','http://www.agilitybaixllobregat.com/','agilitybaixllobregat@hotmail.com','','','','baix_llobregat.png',1,'',0),
-(9,'Campo de Gibraltar','Arbol de la Paz, 4','11205 Algeciras (Cádiz)','Cádiz',' + 34 647 80 32 64 ','','','','','villa-zahara@hotmail.com','','','','campo_de_gibraltar.png',1,'',0),
+(9,'Campo de Gibraltar','Arbol de la Paz, 4','11205 Algeciras (Cádiz)','Cádiz',' + 34 647 80 32 64 ','','','','','villa-zahara@hotmail.com','','','','campo_de_gibraltar.png',3,'',0),
 (10,'Camu','Párraco Pedro Lozano, 26','30007 Zarandona (Murcia)','Murcia','+ 34 636 25 19 39','','','','','clubagilitymurcia@hotmail.com','','','','camu.png',1,'',0),
-(11,'Can Natura','Peñella Baja, 1','33310 Cabranes (Asturias)','Asturias','+ 34 696 86 08 63','','','','http://www.cannatura.net/','cannatura@hotmail.com','','','','cannatura.png',1,'',0),
+(11,'Can Natura','Peñella Baja, 1','33310 Cabranes (Asturias)','Asturias','+ 34 696 86 08 63','','','','http://www.cannatura.net/','cannatura@hotmail.com','','','','cannatura.png',3,'',0),
 (12,'Canedupo','Serra de Ancares, 18','27004 Lugo','Lugo','636 507 468.','','','','','lugo@canedupo.com','','','','canedupo.png',1,'',0),
 (13,'Canic','Sant Pere, 10','08392 Llavaneres (Barcelona)','Barcelona','+ 34 93 792 76 55','','','','http://www.agilitycanic.cat/','info@agilitycanic.cat','','','','canic.png',1,'',0),
-(14,'Canino Algecireño','Los Naranjos, 8','11380 Tarifa (Cádiz)','Cádiz',' + 34 663 55 86 42 ','','','','','arquikm@gmail.com','','','','canino_algecireno.png',1,'',0),
+(14,'Canino Algecireño','Los Naranjos, 8','11380 Tarifa (Cádiz)','Cádiz',' + 34 663 55 86 42 ','','','','','arquikm@gmail.com','','','','canino_algecireno.png',3,'',0),
 (15,'Castellón','Mar Cantábrico, 2, 1º C','12100 Grao de Castellón (Castellón)','Castellón/Castelló','+ 34 964 28 61 52','+ 34 625 82 25 35','','','http://www.agilitycastellon.es/','agilitycastellon@gmx.es','','','','castellon.png',1,'',0),
 (16,'Cinco Huesos','Paseo de los Pozos, Km. 1,2','28813 Torres de la Alameda','Madrid','+ 34 91 832 83 00 ','+ 34 691 77 75 24 ','','','http://www.cincohuesos.com/','cincohuesos@gmail.com','','','','cinco_huesos.png',1,'Antiguo club \"Apata\"',0),
-(17,'Ciudad de Antequera','','','Málaga','','','','','','','','','','ciudad_de_antequera.png',1,'Baja 28-enero-2014',1),
+(17,'Ciudad de Antequera','','','Málaga','','','','','','losparejos@hotmail.com','','','','ciudad_de_antequera.png',2,'Baja 28-enero-2014 en RSCE',1),
 (18,'Ciutat Comtal','Escultor Llimona, 38-40, Entr. 2ª','08031 Barcelona','Barcelona',' + 34 645 85 10 06 ','','','','http://www.agilitybarcelona.com/','info@agilitybarcelona.com','','','','ciutat_comtal.png',1,'',0),
 (19,'Ciutat de Valencia','Sequia de Calvera, 33, Bajo','46910 Sedaví (Valencia)','Valencia/Valéncia','','','','','http://www.bichopeludo.com/ciutat_de_valencia.html','ciutatdevalencia@bichopeludo.com','','','','ciutat_de_valencia.png',1,'',0),
 (20,'Clotet','Apdo. de correos 517','12500 Vinaroz (Castellón)','Castellón/Castelló','+ 34 687 52 38 11','','','','http://www.degarrof.com/','declotet@hotmail.com','','','','clotet.png',1,'',0),
 (21,'Cornella','Mn. Andreu, 13-19','08940 Cornellà de Llobregat (Barcelona)','Barcelona','+ 34 638 98 75 91','','','','http://www.agilitycornella.com/','info@agilitycornella.com','','','','cornella.png',1,'',0),
 (22,'Correcan',' Lóndrés, 58, 1º D','28850 Torrejón de Ardoz (Madrid)','Madrid','+ 34 668 86 76 81','','','','http://www.correcan.es/','info@correcan.es','','','','correcan.png',1,'',0),
-(23,'Costa Azahar','Camino Caminas, 223 - Apdo. de correos 717','12080 Castellón','Castellón/Castelló','+ 34 964 76 60 83','','','','http://www.mediterraniacentrocanino.com/','info@mediterraniacentrocanino.com','','','','costa_azahar.png',1,'',0),
+(23,'Costa Azahar','Camino Caminas, 223 - Apdo. de correos 717','12080 Castellón','Castellón/Castelló','+ 34 964 76 60 83','','','','http://www.mediterraniacentrocanino.com/','info@mediterraniacentrocanino.com','','','','costa_azahar.png',3,'',0),
 (24,'Costa Blanca','C/ Baltasar Gracián Nº3, Urb. Montecid','03670 Monforte del Cid ','Alicante/Alacant',NULL,NULL,NULL,NULL,'http://www.agilitycostablanca.com/','agility@agilitycostablanca.com',NULL,NULL,NULL,'costa_blanca.png',1,NULL,0),
 (25,'Cousadecans','Lugar de Foxo, s/n - San Vicente de Vigo','15175 Carral (La Coruña)','Coruña, A','+ 34 652 83 28 34','+ 34 620 67 61 40','','','','cousadecans@gmail.com','','','','cousadecans.png',1,'',0),
 (26,'Cuatro Patas','Club social Urb/ El Socorro','Carmona','Sevilla','630 52 72 42 (Isaac) ','615 45 58 78 (Rafa)','','N 37.43865 - W 5.79858','','agiltiy4patas@hotmail.com','','','','cuatro_patas.png',1,'',1),
-(27,'Cubas','Paseo de los Cipreses s/n','Cubas de la Sagra','Madrid','918143395','619 56 43 49',NULL,NULL,'http://clubagilitycubas.es/','clubagilitycubas@terra.com',NULL,NULL,NULL,'cubas.png',1,NULL,0),
-(28,'Deporcan','Jazmín, 16, Entreplanta','28033 Madrid','Madrid','629 843 681',' + 34 91 302 44 35','','40.32132, -3.41895','http://www.clubagilityboadilla.org/','agility.deporcan@gmail.com','','','','deporcan.png',1,'Antiguo \"Club Boadilla\"',0),
-(29,'Depordog','Avd del Mueble s/n','11130 Chiclana','Cádiz','652 73 45 17',NULL,NULL,NULL,'http://www.clubagilitydepordog.es/','ildegolo@hotmail.com',NULL,NULL,NULL,'depordog.png',1,NULL,0),
+(27,'Cubas','Paseo de los Cipreses s/n','Cubas de la Sagra','Madrid','918143395','619 56 43 49','','','http://clubagilitycubas.es/','clubagilitycubas@terra.com','','','','cubas.png',3,'',0),
+(28,'Deporcan','Jazmín, 16, Entreplanta','28033 Madrid','Madrid','629 843 681',' + 34 91 302 44 35','','40.32132, -3.41895','http://www.clubagilityboadilla.org/','agility.deporcan@gmail.com','','','','deporcan.png',3,'Antiguo \"Club Boadilla\"',0),
+(29,'Depordog','Avd del Mueble s/n','11130 Chiclana','Cádiz','652 73 45 17','','','','http://www.clubagilitydepordog.es/','ildegolo@hotmail.com','','','','depordog.png',3,'',0),
 (30,'Educan','Mester de Juglaría, 20','28978 Cubas de la Sagra (Madrid)','Madrid','617 469 312','+ 34 676 67 76 38','','','http://www.madrid.educan.es/','agility.madrid@educan.es','','','','educan.png',1,'',0),
 (31,'El Hechizo del Border C.','Ctra. Monserrat, Km. 7\'5, nº 26','46900 Torrent ','Valencia/Valéncia','+ 34 96 156 56 75',NULL,NULL,NULL,'http://www.elhechizo.com/','elhechizobc@gmail.com',NULL,NULL,NULL,'el_hechizo_del_border_collie.png',1,NULL,0),
 (32,'El Nogueral','Cami del Camp, 23','03460 Beneixama','Alicante/Alacant','+ 34 695 45 23 69',NULL,NULL,NULL,'http://www.clubagility.es/','info@clubagility.es',NULL,NULL,NULL,'el_nogueral.png',1,NULL,0),
-(33,'El Tramusser Benifaio','Polígono 16 - Cami Prefasic','46450 Benifaió (Valencia)','Valencia/Valéncia','+ 34 678 57 47 86','','','','http://www.escuelacaninavalencia.com/','madamagility@hotmail.com','','','','el_tramusser_benifaio.png',1,'',0),
+(33,'El Tramusser Benifaio','Polígono 16 - Cami Prefasic','46450 Benifaió (Valencia)','Valencia/Valéncia','+ 34 678 57 47 86','','','','http://www.escuelacaninavalencia.com/','madamagility@hotmail.com','','','','el_tramusser_benifaio.png',3,'',0),
 (34,'Els Dimonis de Bascara','Apartado de correos 241','17600 Figueres (Gerona)','Girona/Gerona',' + 34 657 20 44 81','','','','http://www.dimonisdebascara.cat/','dimonisdebascara@hotmail.es','','','','els_dimonis_de_bascara.png',1,'',0),
 (35,'Eslón','Carretera de Carranque s/n','Serranillos del Valle','Madrid','657 209 274','','','','http://www.agilityeslon.com','info@agilityeslon.com','','','','eslon.png',3,'',0),
 (36,'Euskadi','CLUB DE AGILITY EUSKADI Beike Bidea, 2, 2º Dcha','48950 Asua - Erandio (Vizcaya)','Bizkaia/Vizcaya','619 423 720 - Pedro Martinez','','','',' www.agilityeuskadi.com','info@agilityeuskadi.com','','','','euskadi.png',1,'',0),
 (37,'Hoop Agility','Alberto Conti, 8, 7º C','28935 Móstoles (Madrid)','Madrid','+ 34 635 65 78 42','','','','http://www.agilityclub.es/','info@agilityclub.es','','','','hoop.png',1,'',0),
 (38,'Illa Blanca','Washington, 18, 2º','07820 San Antonio de Portmany (Ibiza)','Balears, Illes','+ 34 672 32 39 22',NULL,NULL,NULL,'http://www.agilityillablanca.com/','info@agilityillablanca.com',NULL,NULL,NULL,'illa_blanca.png',1,NULL,0),
-(39,'Indog Maria de Huerva','Calle Orfeón 13  Nave A','50410  Cuarte de Huerva','Zaragoza','','','','','http://www.agilityindog.com/','info@agilityindog.com','','','','indog.png',1,'',0),
+(39,'Indog Maria de Huerva','Calle Orfeón 13  Nave A','50410  Cuarte de Huerva','Zaragoza','','','','','http://www.agilityindog.com/','info@agilityindog.com','','','','indog.png',3,'',0),
 (40,'Junior','Calle de la Fuente, nº 8','16162-Villar del Horno','Cuenca','626389032','','','','http://www.agilityjunior.es/','agilityjunior@gmail.com','','','','junior.png',1,'Baja Enero 2015',1),
 (41,'Kai Argi','Oiartzun, 6, Entlo. B','20110 Pasaia San Pedro (Guipúzcoa)','Gipuzkoa/Guipúzcoa','+ 34 656 71 51 31','','','','http://www.kaiargi.com','kaiargi@kaiargi.com','','','','kai_argi.png',1,'',0),
 (42,'L\'Almozara','Camino de Pinseque, 147-A','50190 Garrapinillos (Zaragoza)','Zaragoza',' + 34 637 54 15 86','','','','','','','','','almozara.png',1,'',0),
 (43,'L\'Horta Nord','Vora Vía, 2','46132 Almassera (Valencia)','Valencia/Valéncia','+ 34 651 30 41 47','','','','http://clubagilitylhortanord.blogspot.com.es/','','https://www.facebook.com/agility.lhortanordvalencia','','','horta_nord.png',1,'',0),
 (44,'La Daga','25230 Mollerussa (Lérida)','','Lleida/Lérida',' + 34 660 72 04 90 ','','','','http://www.clubagilityladaga.blogspot.com/','niisia84@hotmail.com','','','','la_daga.png',1,'',0),
-(45,'La Dama','Partida de las Casicas, 5','03330 Crevillente (Alicante) – España','Alicante/Alacant',' +34 622 109 409','','',' 38° 10′ 44″ N – 0° 48′ 30″ W”','http://www.agilityladama.com/ladama/','agilityladama@gmail.com','','','','la_dama.png',1,'',0),
+(45,'La Dama','Partida de las Casicas, 5','03330 Crevillente (Alicante) – España','Alicante/Alacant',' +34 622 109 409','','',' 38° 10′ 44″ N – 0° 48′ 30″ W”','http://www.agilityladama.com/ladama/','agilityladama@gmail.com','','','','la_dama.png',3,'',0),
 (46,'La Manada','Partida Calvet, 37, Bajo','46120 Alboraia (Valencia)','Valencia/Valéncia','+ 34 659 89 78 40 (Vicent)','','','39° 29\' 47.55\'\' N - 0° 20\' 37.1\'\' W','http://www.la-manada.org/agility/','info@la-manada.org','','','','la_manada.png',1,'',0),
 (47,'La Palma','Paraje Los Pérez de Arriba','30593 La Palma - Cartagena (Murcia)','Murcia',' + 34 669 23 31 83','','','','http://www.agilitycartagena.com/','agilitycartagena@gmail.com','','','','la_palma.png',1,'',0),
 (48,'La Princesa','Ocaña, 104, Bajo','28047 Madrid','Madrid','+ 34 91 465 50 05 ','','','+40° 19\' 35,41\", -3° 50\' 50,61\" ','http://www.agilitylaprincesa.es/','agilitylaprincesa@gmail.com','','','','la_princesa.png',1,'',0),
 (49,'La Ribera','Plaza España, 11','50638 Cabañas de Ebro (Zaragoza)','Zaragoza',' + 34 976 75 86 33',' + 34 649 58 65 98 ','','','http://www.agilitylaribera.es/','agilitylaribera@hotmail.com','','','','la_ribera.png',1,'',0),
 (50,'La Selva','Carretera Vella de Riudarenes, s/n','17430 Santa Coloma de Farners (Gerona)','Girona/Gerona','+ 34 606 77 64 65',' + 34 629 36 37 39','','','http://www.asscaninalaselva.com/','agility@asscaninalaselva.com','','','','la_selva.png',1,'',0),
-(51,'Lealcan','José Luis Sampedro, 14, 2º D','28529 Rivas Vaciamadrid (Madrid)','Madrid',': + 34 646 44 45 55','','','','http://www.lealcan.com/','info@lealcan.com','','','','lealcan.png',1,'',0),
+(51,'Lealcan','José Luis Sampedro, 14, 2º D','28529 Rivas Vaciamadrid (Madrid)','Madrid',': + 34 646 44 45 55','','','','http://www.lealcan.com/','info@lealcan.com','','','','lealcan.png',3,'',0),
 (52,'Maresme','Santiago Rusiñol, 90','08340 Vilassar de Mar (Barcelona)','Barcelona',' + 34 93 759 70 54 ','','','','','agilitymaresme@telefonica.net','','','','maresme.png',1,'',0),
 (53,'Marvi','40 Pins, 36 - Urb. Roca II','08430 La Roca del Valles (Barcelona)','Barcelona','+ 34 93 842 21 05 ','','','','','Marvistel@hotmail.com','','','','marvi.png',1,'',0),
 (54,'Mediterráneo','Senda Estrecha, 14','30011 Murcia','Murcia','+ 34 968 25 77 83','+ 34 677 40 98 57','','','','','','','','mediterraneo.png',1,'',0),
-(55,'Mi Perro 10','Andalucía, 25','28750 San Agustín de Guadalix (Madrid)','Madrid','+ 34 651 91 41 46','','','','http://www.miperro10.com/','info@miperro10.com','','','','mi_perro_10.png',1,'',0),
+(55,'Mi Perro 10','Andalucía, 25','28750 San Agustín de Guadalix (Madrid)','Madrid','+ 34 651 91 41 46','','','','http://www.miperro10.com/','info@miperro10.com','','','','mi_perro_10.png',3,'',0),
 (56,'Miramar','Carrer del Llorer, 3','08789 La Torre de Claramunt (Barcelona)','Barcelona','+ 34 679 27 27 91 ','','','','','jmtorres323@gmail.com','','','','miramar.png',1,'',0),
-(57,'Negreira','Avda. Recinto Ferial, 2, 4º A','36540 Silleda (Pontevedra)','Pontevedra','+ 34 629 50 71 76','','','','','','','','','negreira.png',1,'',0),
+(57,'Negreira','Avda. Recinto Ferial, 2, 4º A','36540 Silleda (Pontevedra)','Pontevedra','+ 34 629 50 71 76','','','','','','','','','negreira.png',3,'',0),
 (58,'Neo Reus','Mª Aurelia Campany, 4, 6º, 2º','43204 Reus (Tarragona)','Tarragona','+ 34 616 44 62 41','','','','','agilityneo@hotmail.com','','','','neo_reus.png',1,'',0),
-(59,'Palaciego','Roble, 7','41720 Los Palacios y Villafranca (Sevilla)','Sevilla','+ 34 619 12 73 25 ','','','','http://www.actiweb.es/palaciego/','','https://www.facebook.com/pages/Club-Deportivo-Agility-Palaciego/192778427478835','','','palaciego.png',1,'',0),
+(59,'Palaciego','Roble, 7','41720 Los Palacios y Villafranca (Sevilla)','Sevilla','+ 34 619 12 73 25 ','','','','http://www.actiweb.es/palaciego/','','https://www.facebook.com/pages/Club-Deportivo-Agility-Palaciego/192778427478835','','','palaciego.png',3,'',0),
 (60,'Agility Cantabria','Barrio Las Torcas 93A chalet 5','39618 Pontejos','Cantabria','+ 34 625 65 67 96 ','','','','http://www.agilitycantabria.com/','agilitycantabria@gmail.com','','','','parbayon.png',1,'',0),
 (61,'Parque del Alamillo','Antonio Machín, 9, 1º Izda.','41009 Sevilla','Sevilla',' + 34 655 76 46 03','+ 34 95 443 45 77 ','','','http://www.clubagilityalamillo.com/','clubagilityalamillo@hotmail.com','','','','parque_del_alamillo.png',1,'',0),
-(62,'Pataplán',' N-320a carretera de Valencia Km.134.','','Cuenca',' Juan José González (Presidente del Club) - tfn: 639776502','	 Javier Martínez (Tesorero y Webmaster) - tfn: 605914763','','N40.033819,W2.11415','http://www.agilitypataplan.es/','info@agilitypataplan.es','','','','pataplan.png',1,'',0),
+(62,'Pataplán',' N-320a carretera de Valencia Km.134.','','Cuenca',' Juan José González (Presidente del Club) - tfn: 639776502','	 Javier Martínez (Tesorero y Webmaster) - tfn: 605914763','','N40.033819,W2.11415','http://www.agilitypataplan.es/','info@agilitypataplan.es','','','','pataplan.png',3,'',0),
 (63,'Patas','Ameixoada, 28C','36954 Moaña (Pontevedra)','Pontevedra','+ 34 986 31 10 13','+ 34 659 01 36 68 ','','','http://patas.blogaliza.org/','agilitypatas@hotmail.com','','','','patas.png',1,'',0),
 (64,'Paterna','Cid Campeador, 12-13','46980 Paterna (Valencia)','Valencia/Valéncia','+ 34 677 72 27 30','','','','http://www.agilitypaterna.com/','info@agilitypaterna.com','','','','paterna.png',1,'',0),
 (65,'Pican','Marqués de Dos Aguas, 39, p. 8','46220 Picassent (Valencia)','Valencia/Valéncia','+ 34 687 70 69 90','','','','','clubagilitypican@gmail.com','','','','pican.png',1,'',0),
@@ -153,16 +153,16 @@ INSERT INTO `clubes` VALUES
 (67,'Santa Quiteria','08410 Vilanova del Valles (Barcelona)','','Barcelona','+ 34 651 89 21 07','','','','http://www.agilitysantaquiteria.es/','info@agilitysantaquiteria.es','','','','santa_quiteria.png',1,'',0),
 (68,'Star Can','Avda. del Vincle, 28','03560 Campello (Alicante)','Alicante/Alacant','+ 34 96 563 01 60','(Ana Alonso) anastarcan@hotmail.com','','W 0º 33´ 03\" N 38º 22´31\"','http://www.starcan.es/','nsoler@starcan.es','','','','star_can.png',1,'',0),
 (69,'Talavera','Cervera - Local 39','45600 Talavera de la Reina (Toledo)','Toledo','+ 34 610 01 79 75 ','','','','','reinaboxtalavera@hotmail.com','','','','talavera.png',1,'',0),
-(70,'Tandem','Carretera M413 km 8,5 de Arroyomolinos a Moraleja de Enmedio','Madrid.','Madrid','687 964891','627 964845','','','','informacion@agilitytandem.es','','','','tandem.png',1,'',0),
-(71,'Tercans','Reibon, 192-A  -  Meira','36955 Moaña (Pontevedra)','Pontevedra',' + 34 617 34 07 63 ','','','','','tercans@gmail.com','','','','tercans.png',1,'',0),
-(72,'Torrevieja','Moriones, 43, 3º E','03182 Torrevieja (Alicante)','Alicante/Alacant','+ 34 635 41 30 31','','','','','info.agilitytorrevieja@gmail.com','','','','torrevieja.png',1,'',0),
+(70,'Tandem','Carretera M413 km 8,5 de Arroyomolinos a Moraleja de Enmedio','Madrid.','Madrid','687 964891','627 964845','','','','informacion@agilitytandem.es','','','','tandem.png',3,'',0),
+(71,'Tercans','Reibon, 192-A  -  Meira','36955 Moaña (Pontevedra)','Pontevedra',' + 34 617 34 07 63 ','','','','','tercans@gmail.com','','','','tercans.png',3,'',0),
+(72,'Torrevieja','Moriones, 43, 3º E','03182 Torrevieja (Alicante)','Alicante/Alacant','+ 34 635 41 30 31','','','','','info.agilitytorrevieja@gmail.com','','','','torrevieja.png',3,'',0),
 (73,'Toskahua','Cmno Santa Pau, 233 Garrapinillos-ZARAGOZA','','Zaragoza','Tel.- 976-780583 movil.-666-436111','','','','http://perso.wanadoo.es/vjuan/agility.htm','grupotoskahua@eresmas.com','','','','toskaua.png',1,'',0),
 (74,'Valles Club Cani','08140 Caldes de Montbui (Barcelona)','','Barcelona',' telèfon:    619 28 68 82 ','','',' N 41º 37\' 07\'\'    E 2º 10\' 31.7\'\'','','info@vallesgrupcani.org','','','','valles_club_cani.png',1,'',0),
 (75,'Vallgorguina','Vila Carina Ctra. C-61, Km. 15,5','08471 Vallgorguina (Barcelona)','Barcelona','+ 34 93 867 93 18 ','+ 34 600 00 54 99 ','','','','agilityvallgorguina@centrecani.cat','','','','vallgorguina.png',1,'',0),
 (76,'Vila-Real','Padre Lluis María Llop, 54, 1º B','12540 Vila-real (Castellón)','Castellón/Castelló','+ 34 964 52 40 09','','','','http://www.agilityvila-real.es/','agilityvilareal@gmail.com','','','','vila_real.png',1,'',0),
 (77,'Vilcan','Nou, 20','46270 Villanueva de Castellón (Valencia)','Valencia/Valéncia','+ 34 96 245 31 81','','','','','','','','','vilcan.png',1,'',0),
 (78,'Villena','Plaza El Rollo, 5','03400 Villena (Alicante)','Alicante/Alacant','+ 34 636 42 67 13','','','','http://clubagilityvillena.blogspot.com.es/','','','','','villena.png',1,'',0),
-(79,'W.E.L.P.E.','Polideportivo Municipal La Canaleja','Alcorcón','Madrid','+ 34 91 619 52 79',NULL,NULL,NULL,'http://www.grupowelpe.com','gwelpe@teleline.es','https://www.facebook.com/groups/484854411592829/',NULL,'@gwelpe','welpe.png',1,NULL,0),
+(79,'W.E.L.P.E.','Polideportivo Municipal La Canaleja','Alcorcón','Madrid','+ 34 91 619 52 79','','','','http://www.grupowelpe.com','gwelpe@teleline.es','https://www.facebook.com/groups/484854411592829/','','@gwelpe','welpe.png',3,'',0),
 (80,'Xanastur',' Baleares, 39, 3º D','33208 Gijón (Asturias)','Asturias','+ 34 607 11 90 56','','','','http://www.xanastur.org/','xanasturcentrocanino@gmail.com','','','','xanastur.png',1,'',0),
 (81,'Zampican','Río Navía, 2','12006 Castellón','Castellón/Castelló','+ 34 629 07 06 75','','','','http://www.agilityzampican.es/','','','','','zampican.png',1,'',0),
 (82,'Buscans','07810 Cala de San Vicente (Ibiza)','','Balears, Illes',' + 34 661 02 12 6','+34 637 13 62 73','','','','buscans@hotmail.com','','','','buscans.png',1,'',0),
@@ -170,8 +170,8 @@ INSERT INTO `clubes` VALUES
 (84,'Insular','Pablo Picasso','07820 San Antonio (Baleares)','Balears, Illes','+34 655 76 10 94','','','','http://www.agilityinsular.com/','agilityinsular@gmail.com','','','','insular.png',1,'',0),
 (85,'Teocan','Rarís, s/n','15883 Teo (La Coruña)','Coruña, A','+ 34 627 93 72 81','','','','','adteocan@gmail.com','','','','teocan.png',1,'',0),
 (86,'Los Angeles de San Antón','Camino del Tiro Pichón, 1','11500 El Puerto de Santa María','Cádiz','+ 34 667 48 61 06','+ 34 617 41 06 52','','','','cdagilityladsa@hotmail.com','','','','ladsa.png',1,'',0),
-(87,'A-0','Cº de los Santos, s/n - Avda. de la Vega, s/n','28500 Arganda del Rey','Madrid','+ 34 626 43 68 18','+ 34 646 79 51 55','','','','','','','','a_cero.png',1,'',0),
-(88,'A. D. A. Pozuelo','Felipe de la Guerra, 7','28224 Pozuelo de Alarcón','Madrid','','','','','','','','','','pozuelo.png',1,'',0),
+(87,'A-0','Cº de los Santos, s/n - Avda. de la Vega, s/n','28500 Arganda del Rey','Madrid','+ 34 626 43 68 18','+ 34 646 79 51 55','','','','','','','','a_cero.png',3,'',0),
+(88,'A. D. A. Pozuelo','Felipe de la Guerra, 7','28224 Pozuelo de Alarcón','Madrid','','','','','','','','','','pozuelo.png',3,'',0),
 (89,'El Campet de Pobla Llarga','Partida Codona, Pol. 1 parc. 78','46670 La Poble Llarga','Valencia/Valéncia','669 088 200','606 428 438 ','','','','agilityelcampet@gmail.com','','','','campet.png',1,'',0),
 (90,'La Huella','Miguel Servet 80','46540 El Puig de Santa Maria','Valencia/Valéncia','','','','','','agilitylahuella@hotmail.com','','','','rsce.png',1,'',0),
 (91,'Almussafes','Camí Burriaga s/n (Parque Rural de Almussafes)','46440 Almussafes','Valencia/Valéncia','','','','','','','','','','almussafes.png',1,'',0),
@@ -179,8 +179,10 @@ INSERT INTO `clubes` VALUES
 (93,'Tolouse Veto Agility','','','-- Sin asignar --','','','','','','','','','','rsce.png',1,'',0),
 (94,'Avila','Camino de Avila, 4','05289 San Esteban de los Patos','Ávila','619 36 47 21','','','','','agilityavila@gmail.com','https://www.facebook.com/profile.php?id=100008197471949','','','avila.png',7,'',0),
 (95,'Can Roja','Ctra. C-1415a, Km. 31,400 Can Ramoneda','08181 Senmenat','Barcelona','93 864 36 71','656 35 97 95','','','http://www.canroja.com/','canroja@canroja.com','','','','canroja.png',1,'',0),
-(96,'Trisquel','Ferralgo s/n','33450 - Piedras Blancas (Castrillón)','Asturias','+34 606 40 68 00','','','43º33\'22,68\'\' N - 5º57\'30,66\'\' W','http://www.asturbox.es','info@asturbox.es','https://www.facebook.com/trisquel.adiestramientocanino?fref=ts','','','trisquel.png',1,'',0),
-(97,'Kronos','Carretera Reus','Ruidoms kmt 2.7','Tarragona','','','','','','agilitykronos@gmail.com','','','','kronos.png',1,'',0);
+(96,'Trisquel','Ferralgo s/n','33450 - Piedras Blancas (Castrillón)','Asturias','+34 606 40 68 00','','','43º33\'22,68\'\' N - 5º57\'30,66\'\' W','http://www.asturbox.es','info@asturbox.es','https://www.facebook.com/trisquel.adiestramientocanino?fref=ts','','','trisquel.png',3,'',0),
+(97,'Kronos','Carretera Reus','Ruidoms kmt 2.7','Tarragona','','','','','','agilitykronos@gmail.com','','','','kronos.png',1,'',0),
+(98,'Alto Aragón','Barbastro','','Huesca','','','','','','clubagilityaltoaragon@gmail.com','','','','alto_aragn.png',2,'',0),
+(99,'Principado','Hipica Porceyo','Porceyo, Gijón','Asturias','630958559','664365264','','','http://www.agilityprincipado.com/','info@agilityprincipado.com','','','','principado.png',2,'',0);
 /*!40000 ALTER TABLE `clubes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,7 +209,7 @@ CREATE TABLE `equipos` (
   KEY `Equipos_Jornada` (`Jornada`),
   CONSTRAINT `Equipos_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Equipos_ibfk_2` FOREIGN KEY (`Jornada`) REFERENCES `jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -216,7 +218,7 @@ CREATE TABLE `equipos` (
 
 LOCK TABLES `equipos` WRITE;
 /*!40000 ALTER TABLE `equipos` DISABLE KEYS */;
-INSERT INTO `equipos` VALUES
+INSERT INTO `equipos` VALUES 
 (1,1,1,1,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 1 JORNADA 1 - Equipo por defecto','BEGIN,END',1),
 (2,1,2,1,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 1 JORNADA 2 - Equipo por defecto','BEGIN,END',1),
 (3,1,3,1,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 1 JORNADA 3 - Equipo por defecto','BEGIN,END',1),
@@ -241,7 +243,7 @@ CREATE TABLE `eventos` (
   `Source` varchar(255) NOT NULL,
   `Type` varchar(255) NOT NULL,
   `Timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `Data` text NOT NULL DEFAULT '',
+  `Data` text NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `Eventos_Session` (`Session`),
   CONSTRAINT `Eventos_ibfk_1` FOREIGN KEY (`Session`) REFERENCES `sesiones` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -1163,7 +1165,7 @@ CREATE TABLE `jornadas` (
 
 LOCK TABLES `jornadas` WRITE;
 /*!40000 ALTER TABLE `jornadas` DISABLE KEYS */;
-INSERT INTO `jornadas` VALUES
+INSERT INTO `jornadas` VALUES 
 (1,1,1,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)','BEGIN,END','BEGIN,END'),
 (2,1,2,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)','BEGIN,END','BEGIN,END'),
 (3,1,3,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)','BEGIN,END','BEGIN,END'),
@@ -2455,6 +2457,7 @@ CREATE TABLE `resultados` (
   `Perro` int(4) NOT NULL,
   `Equipo` int(4) NOT NULL DEFAULT '0',
   `Nombre` varchar(255) NOT NULL,
+  `Raza` varchar(255) NOT NULL DEFAULT '',
   `Licencia` varchar(255) NOT NULL DEFAULT '--------',
   `Categoria` varchar(1) NOT NULL DEFAULT '-',
   `Grado` varchar(16) NOT NULL DEFAULT '-',
@@ -2518,7 +2521,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=160 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2532,7 +2535,8 @@ INSERT INTO `sesiones` VALUES
 (2,'Ring 1','Mangas a realizar en el Ring de honor',5,'Q6eNHc2qzMnZFf0K',8,49,91,3,'http://192.168.122.168/videostream.cgi','','','','2015-04-01 21:34:45'),
 (3,'Ring 2','Mangas a realizar en el segundo ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (4,'Ring 3','Mangas a realizar en el tercer ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
-(5,'Ring 4','Mangas a realizar en el cuarto ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34');
+(5,'Ring 4','Mangas a realizar en el cuarto ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
+(163,'Console','admin - Administrador de la aplicacion',3,'PBLypiEcVqJtSFIH',0,0,0,0,'',NULL,NULL,NULL,'2015-04-24 12:26:06');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2686,4 +2690,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-20 12:52:57
+-- Dump completed on 2015-04-24 14:27:13
