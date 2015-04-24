@@ -24,6 +24,7 @@ $config =Config::getInstance();
 // tool to perform automatic upgrades in database when needed
 require_once(__DIR__."/../server/upgradeVersion.php");
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,9 +125,11 @@ var ac_config= {
 	'tablet_countdown'	: <?php echo $config->getEnv('tablet_countdown'); ?>
 }
 </script>
+
 <style>
 body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
 </style>
+
 </head>
 
 <body style="margin:0;padding:0;background-color:blue;font-size:100%">

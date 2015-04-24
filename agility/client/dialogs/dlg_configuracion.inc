@@ -41,6 +41,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<input name="easyui_rowcolor1" value="#e0e0e0" type="color"/><br />
 			<label for="easyui_rowcolor2">Color de filas impares en las tablas</label>
 			<input name="easyui_rowcolor2" value="#c0c0c0" type="color"/><br />
+			<label for="easyui_rowcolor3">Color de filas extras en las tablas</label>
+			<input name="easyui_rowcolor3" value="#c0c0f0" type="color"/><br />
 		</div>
 	
 		<div title="Tablet" style="padding:10px">
@@ -54,7 +56,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<label for="tablet_chrono">Mostrar datos de cron&oacute;metro en tablet</label> 
 			<input type="hidden" name="tablet_chrono" value="0"/>
 			<input type="checkbox" name="tablet_chrono" value="1"/><br />
-			<label for="tablet_next">Bot&oacute;n 'Aceptar' muestra siguiente participante </label> 
+			<label for="tablet_next">Bot&oacute;n 'Aceptar' guarda y muestra siguiente participante </label> 
 			<input type="hidden" name="tablet_next" value="0"/>
 			<input type="checkbox" name="tablet_next" value="1"/><br />
 			<label for="tablet_countdown">Acci&oacute;n al finalizar cuenta de 15 segundos</label>

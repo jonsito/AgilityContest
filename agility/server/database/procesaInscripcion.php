@@ -74,7 +74,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 	$p=$jornada['Prueba'];
 	$idperro=$inscripcion['Perro'];
 	$g=$perro['Grado'];
-	// incluye al perro en el equipo por defecto de la jornada
+	// nos aseguramos de que el perro tiene un equipo
 	$eqobj =new Equipos("inscribePerroEnJornada",$p,$j);
 	$eqobj->insertIntoTeam($perro['ID']);
 	// buscamos la lista de mangas de esta jornada
