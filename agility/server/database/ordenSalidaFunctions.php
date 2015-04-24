@@ -28,7 +28,6 @@ $file="ordenSalidaFunctions";
 
 try {
 	$result=null;
-	$os=new OrdenSalida($file);
 	$am= new AuthManager($file);
 	// retrieve variables
 	$operation=http_request("Operation","s",null);
@@ -42,14 +41,16 @@ try {
 	$f = http_request("From","i",0);
 	$t = http_request("To","i",0);
 	$w = http_request("Where","i",0);
+	$tv= http_request("TeamView","b",false);
 	if (($p<=0) || ($j<=0) || ($m<=0)) 
 		throw new Exception("Call to ordenSalidaFunctions with Invalid Prueba:$p Jornada:$j or manga:$m ID");
+	$os=new OrdenSalida($file,$m);
 	switch ($operation) {
-		case "random": $am->access(PERMS_OPERATOR);	$result = $os->random($j,$m); break;
-		case "reverse": $am->access(PERMS_OPERATOR); $result = $os->reverse($j,$m); break;
-		case "sameorder": $am->access(PERMS_OPERATOR); $result = $os->sameorder($j,$m); break;
-		case "getData":	$result = $os->getData($p,$j,$m); break;
-		case "dnd": $am->access(PERMS_ASSISTANT); $result = $os->dragAndDrop($j,$m,$f,$t,$w); break;
+		case "random": $am->access(PERMS_OPERATOR);	$result = $os->random(); break;
+		case "reverse": $am->access(PERMS_OPERATOR); $result = $os->reverse(); break;
+		case "sameorder": $am->access(PERMS_OPERATOR); $result = $os->sameorder(); break;
+		case "getData":	$result = $os->getData($tv); break;
+		case "dnd": $am->access(PERMS_ASSISTANT); $result = $os->dragAndDrop($f,$t,$w); break;
 	}
 	// result may contain null (error),  "" success, or (any) data
 	if ($result===null) 

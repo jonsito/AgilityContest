@@ -35,6 +35,7 @@ try {
 		case "insert": $am->access(PERMS_OPERATOR); $result=$equipos->insert(); break; // nuevo equipo
 		case "update": $am->access(PERMS_OPERATOR); $result=$equipos->update($equipo); break; // editar equipo
 		case "delete": $am->access(PERMS_OPERATOR); $result=$equipos->delete($equipo); break; // borrar equipo
+		case "update_team": $am->access("PERMS_OPERATOR"); $result=$equipos->updateTeam($perro,$equipo); break; // reasignar equipo
 		case "select": $result=$equipos->select(); break; // listado ordenado/bloques/busqueda
 		case "enumerate": $result=$equipos->enumerate(); break; // listado solo busqueda
 		case "selectbyid": $result=$equipos->enumerate(); break; // recupera entrada unica

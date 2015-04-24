@@ -30,6 +30,22 @@ function buscaEquipos() {
 	);
 }
 
+/*
+* Verifica los equipos chequeando numero de miembros y que no haya ningun perro asignado al equipo por defecto
+*/
+function checkTeams(datagrid) {
+	$.messager.alert("Error:","Equipos.js.php::checkTeams(): TODO pending","error");
+	return;
+}
+
+/*
+* imprime los equipos de la jornada y los miembros de cada equipo
+*/
+function printTeams(datagrid) {
+	$.messager.alert("Error:","Equipos.js.php::printTeams(): TODO pending","error");
+	return;
+}
+
 /**
  * Abre un dialogo para declarar un nuevo equipo para la prueba 
  */
@@ -44,10 +60,10 @@ function openTeamWindow(pruebaID) {
 	if ( (row.Equipos3==0) && (row.Equipos4==0) ) {
 		$.messager.alert("Error:","<?php _e('La jornada seleccionada no tiene competiciones por equipos');?>","error");
 	}
-	// allright: set Jornada as active and open window
+	// allright: marcamos jornada como activa, recargamos lista de equipos y abrimos ventana
 	setJornada(row);
-	$('#team_datagrid-dialog').dialog('open');
 	$('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
+	$('#team_datagrid-dialog').dialog('open');
 }
 
 /**
@@ -80,7 +96,7 @@ function editTeam(dg){
     	return; // no way to know which prueba is selected
     }
     if (row.Nombre==="-- Sin asignar --") {
-    	$.messager.alert("Edit Error:","El equipo por defecto NO se puede editar","info");
+	$.messager.alert("Edit Error:","<?php _e('El equipo por defecto NO se puede editar');?>","error");
     	return; // no way to know which prueba is selected
     }
     $('#team_edit_dialog').dialog('open').dialog('setTitle','Modificar datos del equipo');
@@ -107,7 +123,7 @@ function deleteTeam(dg){
     	return; // no way to know which prueba is selected
     }
     if (row.Nombre==="-- Sin asignar --") {
-    	$.messager.alert("Delete Error:","El equipo por defecto no puede borrarse","info");
+		$.messager.alert("Delete Error:","<?php _e('El equipo por defecto NO se puede borrar');?>","error");
     	return; // no way to know which prueba is selected
     }
     $.messager.confirm('Confirm',

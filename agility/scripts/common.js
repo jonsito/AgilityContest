@@ -33,6 +33,23 @@ var nombreCategorias = {
 		2: { 'L': '60',			'M': '50',		'S': '40',		'T': '30',	'logo': 'uca.png' }
 };
 
+function toLongCategoria(sort) {
+	switch (sort) {
+		case 'L': return 'Large';
+		case 'M': return 'Medium';
+		case 'S': return 'Small';
+		case 'T': return 'Tiny';
+		}
+	return sort;
+}
+
+function isTeam(tipomanga) {
+    switch(parseInt(tipomanga)) {
+		case 8: case 9: case 13: case 14: return true;
+		default: return false;
+    }
+}
+
 var nombreFederaciones = {0:'RSCE',1:'RFEC',2:'UCA'};
 function fedName(fed) { return nombreFederaciones[fed]; };
 

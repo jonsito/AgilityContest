@@ -63,8 +63,8 @@ class Pruebas extends DBObject {
 			// retrieve ID of inserted jornada
 			$jornadaid=$this->conn->insert_id;
 			// create default team for each journey
-			$str="INSERT INTO Equipos (Prueba,Jornada,Nombre,Observaciones)
-					VALUES ($pruebaid,$jornadaid,'-- Sin asignar --','NO BORRAR: PRUEBA $pruebaid JORNADA $jornadaid - Equipo por defecto' )";
+			$str="INSERT INTO Equipos (Prueba,Jornada,Orden,Nombre,Observaciones,Miembros,DefaultTeam)
+				VALUES ($pruebaid,$jornadaid,1,'-- Sin asignar --','NO BORRAR: PRUEBA $pruebaid JORNADA $jornadaid - Default Team','BEGIN,END',1 )";
 			$res=$this->query($str);
 			if (!$res) return $this->error($this->conn->error);
 			// regenerate Orden_Tandas field

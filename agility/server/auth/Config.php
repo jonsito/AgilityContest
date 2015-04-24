@@ -258,6 +258,7 @@ Class Config {
 		$data['easyui_opcolor'] =	AC_EASYUI_OPCOLOR;
 		$data['easyui_rowcolor1'] =	AC_EASYUI_ROWCOLOR1;
 		$data['easyui_rowcolor2'] =	AC_EASYUI_ROWCOLOR2;
+		$data['easyui_rowcolor3'] =	AC_EASYUI_ROWCOLOR3;
 		// configuracion del videowall
 		$data['vw_polltime'] =	AC_VW_POLLTIME;
 		$data['vw_alpha'] =		AC_VW_ALPHA;
@@ -267,7 +268,6 @@ Class Config {
 		$data['vw_hdrbg2'] =	AC_VW_HDRBG2;
 		$data['vw_rowcolor1'] =	AC_VW_ROWCOLOR1;
 		$data['vw_rowcolor2'] =	AC_VW_ROWCOLOR2;
-		$data['vw_rowcolor3'] =	AC_VW_ROWCOLOR3;
 		// generacion de PDF's
 		$data['pdf_topmargin'] = AC_PDF_TOPMARGIN;
 		$data['pdf_leftmargin'] = AC_PDF_LEFTMARGIN;

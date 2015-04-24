@@ -41,7 +41,9 @@ $config =Config::getInstance();
    	</span>
    	<span style="float:right;padding:5px">
 		<a id="team_datagrid-checkBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help'"
-			onclick="deleteTeam('#team_datagrid')"><?php _e('Verificar');?></a>
+			onclick="checkTeams('#team_datagrid')"><?php _e('Verificar');?></a>
+		<a id="team_datagrid-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'"
+			onclick="printTeams('#team_datagrid')"><?php _e('Imprimir');?></a>
    		<a id="team_datagrid-reloadBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-brush'"
    			onclick="reloadWithSearch('#team_datagrid','select',true);">Limpiar</a>
    	</span>
@@ -56,18 +58,23 @@ $config =Config::getInstance();
 </div>
  
 <!-- FORMULARIO DE ASIGNACION DE EQUIPO A UNA INSCRIPCION -->
-<div id="selteam-window" class="easyui-window" style="position:relative;width:350px;height:auto;padding:10px 10px">
+<div id="selteam-window" style="position:relative;width:400px;height:auto;padding:15px 15px">
 	<div id="selteam-Layout" class="easyui-layout" data-options="fit:true'">
 		<div id="selteam-Content" data-options="region:'north',border:'true'">
 			<form id="selteam-Form">
 				<div class="fitem">
 					<input type="hidden" id="selteam-Parent" name="Parent"/> <!-- datagrid padre -->
-					<input type="hidden" id="selteam-Operation" name="Operation" value="update"/>
+					<input type="hidden" id="selteam-Operation" name="Operation" value="update_team"/>
 					<input type="hidden" id="selteam-Prueba" name="Prueba"/>
-					<input type="hidden" id="selteam-Jornadas" name="Jornadas"/>
+					<input type="hidden" id="selteam-Jornada" name="Jornada"/>
 					<label for="Nombre"><?php _e('Perro');?>:</label>
 					<input type="text" id="selteam-Nombre" name="Nombre" readonly="readonly"/>
 					<input type="hidden" id="selteam-Perro" name="Perro"/>
+				</div>
+				<div class="fitem">
+					<label for="LongCategoria"><?php _e('Categor&iacute;a');?>:</label>
+					<input type="text" id="selteam-LongCategoria" name="LongCategoria" readonly="readonly"/>
+					<input type="hidden" id="selteam-Categoria" name="Categoria"/>
 				</div>
 				<div class="fitem">
 					<label for="NombreGuia"><?php _e('Gu&iacute;a');?>:</label>
@@ -82,6 +89,7 @@ $config =Config::getInstance();
 				<div class="fitem">
 					<label for="Equipo"><?php _e('Equipo');?>:</label>
 					<select id="selteam-Equipo" name="Equipo" style="width:200px"></select>
+					<input type="hidden" id="selteam-ID" name="ID"/><!-- will be rewritten with team-ID on submit -->
 				</div>
 			</form>
 		</div> <!-- contenido -->
@@ -129,9 +137,12 @@ $('#team_datagrid').datagrid({
         { field:'ID',			hidden:true },
         { field:'Prueba',		hidden:true },
 		{ field:'Jornada',		hidden:true },
+		{ field:'Orden',		hidden:true },
  		{ field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Nombre');?>' },
-		{ field:'Categorias',	width:15, sortable:true,	title: '<?php _e('Categor&iacute;as');?>' },
-		{ field:'Observaciones',width:65, sortable:true,	title: '<?php _e('Observaciones');?>'}
+		{ field:'Categorias',	width:10, sortable:true,	title: '<?php _e('Categor&iacute;as');?>' },
+		{ field:'Observaciones',width:65, sortable:true,	title: '<?php _e('Observaciones');?>'},
+		{ field:'Miembros',		hidden:true },
+		{ field:'DefaultTeam',	width:5, sortable:false,	align: 'center', title: 'Def', formatter:formatOk }
     ]],
     pagination: false,
     rownumbers: true,
@@ -157,6 +168,7 @@ addTooltip($('#team_datagrid-editBtn').linkbutton(),"Editar nombre/observaciones
 addTooltip($('#team_datagrid-delBtn').linkbutton(),"Eliminar datos del equipo en la prueba");
 addTooltip($('#team_datagrid-reloadBtn').linkbutton(),"Borrar casilla de busqueda. Actualizar listado de equipos");
 addTooltip($('#team_datagrid-checkBtn').linkbutton(),"<?php _e('Comprobar equipos. Indicar los problemas encontrados');?>");
+addTooltip($('#team_datagrid-printBtn').linkbutton(),"<?php _e('Imprimir la lista de equipos de la jornada <br />y los miembros de cada equipo');?>");
 addTooltip($('#team_datagrid-doneBtn').linkbutton(),"Cerrar la ventana. Volver al menu anterior");
 
 //mostrar las inscripciones agrupadas por equipos

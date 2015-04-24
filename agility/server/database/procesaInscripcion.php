@@ -28,6 +28,7 @@ require_once(__DIR__."/classes/Mangas.php");
 require_once(__DIR__."/classes/OrdenSalida.php");
 require_once(__DIR__."/classes/Resultados.php");
 require_once(__DIR__."/classes/Dogs.php");
+require_once(__DIR__."/classes/Equipos.php");
 
 /* 
  * Cada vez que se anyade/borra/edita una inscripcion, se ejecuta este script, que ajusta los datos
@@ -38,20 +39,22 @@ require_once(__DIR__."/classes/Dogs.php");
  * elimina las referencias de una inscripcion en la jornada dada
  * @param {object} $inscripcion Datos de la inscripcion
  * @param {object} $jornada Datos de la jornada
+ * @param {object} $perro Datos del perro
  */
 function borraPerroDeJornada($inscripcion,$jornada,$perro) {
 	$j=$jornada['ID'];
 	$p=$jornada['Prueba'];
+	// eliminamos al perro de los equipos de la jornada
+	$eobj =new Equipos("borraPerroDeJornada",$p,$j);
+	$eobj->removeFromTeam($perro['ID']);
 	// buscamos la lista de mangas de esta jornada
 	$mobj=new Mangas("borraPerroDeJornada",$jornada['ID']);
 	$mangas=$mobj->selectByJornada();
 	if (!$mangas) throw new Exception("No hay mangas definidas para la jornada $j de la prueba $p");
 	foreach($mangas['rows'] as $manga) {
 		// eliminamos el perro del orden de salida de todas las mangas de esta jornada
-		$os=new OrdenSalida("borraPerroDeJornada");
-		$orden=$os->getOrden($manga['ID']);
-		$neworden=$os->removeFromList($orden, $inscripcion['Perro']);
-		$os->setOrden($manga['ID'], $neworden);
+		$os=new OrdenSalida("borraPerroDeJornada",$manga['ID']);
+		$os->removeFromList($inscripcion['Perro']);
 		// eliminamos el perro de la tabla de resultados de todas las mangas de esta jornada
 		$rs=new Resultados("borraPerroDeJornada",$jornada['Prueba'],$manga['ID']);
 		$rs->delete($inscripcion['Perro']);
@@ -71,6 +74,9 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 	$p=$jornada['Prueba'];
 	$idperro=$inscripcion['Perro'];
 	$g=$perro['Grado'];
+	// incluye al perro en el equipo por defecto de la jornada
+	$eqobj =new Equipos("inscribePerroEnJornada",$p,$j);
+	$eqobj->insertIntoTeam($perro['ID']);
 	// buscamos la lista de mangas de esta jornada
 	$mobj=new Mangas("inscribePerroEnJornada",$jornada['ID']);
 	$mangas=$mobj->selectByJornada();
@@ -112,19 +118,20 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 				break;
 		}
 		
-		// Verificamos el orden de salida de la manga		
-		$os=new OrdenSalida("inscribePerroEnJornada");
-		$orden=$os->getOrden($manga['ID']);
+		// Verificamos el orden de salida de la manga	
+		$os=new OrdenSalida("inscribePerroEnJornada",$manga['ID']);
+		$orden=$os->getOrden();
 		$myLogger->info("OrdenDeSalida Prueba:$p Jornada:$j Manga:$mid Tipo:$mtype Grado:$mgrado es:\n$orden");
 		if ($inscribir==false) {
 			$myLogger->info("Eliminando Perro:$idperro Grado:$g del orden de salida grado:$mgrado");
-			$orden=$os->removeFromList($orden,$idperro);	
+			$orden=$os->removeFromList($idperro);	
 		} else {
 			$myLogger->info("Insertando Perro:$idperro Grado:$g en del orden de salida gradp:$mgrado");
-			$orden=$os->insertIntoList($orden, $idperro, $perro['Categoria'], $inscripcion['Celo']);
+			$os->insertIntoList($idperro);
+		
 		}
+		$orden=$os->getOrden();
 		$myLogger->info("Nuevo OrdenDeSalidada: \n$orden");
-		$os->setOrden($manga['ID'], $orden);
 		
 		// verificamos la tabla de resultados de esta manga
 		$rs=new Resultados("inscribePerroEnJornada::Resultados",$jornada['Prueba'],$mid);
@@ -136,7 +143,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 			// nos aseguramos de que existe una entrada 
 			$myLogger->info("Insertando Perro:$idperro Grado:$g en Resultados manga:$mid");
 			// en la tabla de resultados de esta manga para este perro
-			$res = $rs->insertByData($perro, $inscripcion);
+			$res = $rs->insertByData($perro, $inscripcion,$eqobj->getTeamByPerro($idperro));
 			if ($res!=="") {
 				// esta funcion es in "insert on duplicate key update"...
 				// no deberia fallar si ya existe una entrada en la tabla de resultados
@@ -177,7 +184,7 @@ function procesaInscripcion($p,$i) {
 		$idp=$inscripcion['Perro'];
 
 		// obtenemos los datos del perro
-		$pobj=new Dogs("inscribePerroEnJornada");
+		$pobj=new Dogs("procesaInscripcion()");
 		$perro=$pobj->selectByID($idp);
 		if (!$perro) throw new Exception("No hay datos para el perro a inscribir con id: $idp");
 		// TODO: check Dog Federation against Prueba Federation

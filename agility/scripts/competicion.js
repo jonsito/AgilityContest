@@ -53,6 +53,7 @@ function formatRSCE(val,row,idx) {
 	}
 }
 function formatOk(val,row,idx) { return (parseInt(val)==0)?"":"&#x2714;"; }
+function formatNotOk(val,row,idx) { return (parseInt(val)!=0)?"":"&#x2714;"; }
 function formatCerrada(val,row,idx) { return (parseInt(val)==0)?"":"&#x26D4;"; }
 
 /* stylers para formateo de celdas especificas */
@@ -61,6 +62,7 @@ function formatBorder(val,row,idx) { return 'border-left: 1px solid #000;'; }
 function checkPending(val,row,idx) { return ( parseInt(row.Pendiente)!=0 )? 'color: #f00;': ''; }
 
 function formatCelo(val,row,idx) { return (parseInt(val)==0)?" ":"&#x2665;"; }
+function competicionRowStyler(idx,row) { return (row.Dorsal=='*')? myRowStyler(-1,row) : myRowStyler(idx,row); }
 
 function getMode(rec,cat) {
 	var recorrido=parseInt(rec);
@@ -540,7 +542,8 @@ function reloadCompeticion() {
             	Prueba: workingData.prueba ,
             	Jornada: workingData.jornada , 
             	Manga: workingData.manga , 
-            	Operation: 'getData' 
+            	Operation: 'getData',
+            	TeamView: isTeam(workingData.datosManga.Tipo)?'true':'false'
             }
     );
 }
@@ -587,6 +590,7 @@ function competicionKeyEventHandler(evt) {
 	function editRow(t) {
 		var selected = t.datagrid('getSelected');
 		if(!selected) return;
+		if(selected.Dorsal==="*") return; // not editable row
 		var index = t.datagrid('getRowIndex', selected);
         t.datagrid('beginEdit',index);
 		var ed = $(t).datagrid('getEditor', {index:index,field:'Faltas'});

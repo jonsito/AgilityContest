@@ -73,7 +73,8 @@ $('#competicion-datagrid').datagrid({
         Operation: 'getData',
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
-        Manga: workingData.manga
+		Manga: workingData.manga,
+		TeamView: isTeam(workingData.datosManga.Tipo)?'true':'false'
     },
     loadMsg: "Actualizando datos de competicion ...",
     toolbar: '#competicion-toolbar',
@@ -86,6 +87,7 @@ $('#competicion-datagrid').datagrid({
     columns:[[
         { field:'Manga',		hidden:true },
         { field:'Perro',		hidden:true },
+		{ field:'Equipo',		hidden:true },
       	{ field:'Licencia',		hidden:true },
       	{ field:'Pendiente',	hidden:true },
         { field:'Dorsal',		width:10, align:'right',  title: 'Dorsal', styler:checkPending },
@@ -110,6 +112,7 @@ $('#competicion-datagrid').datagrid({
       	{ field:'Observaciones',width:20, align:'left',	 title: 'Observaciones',	editor:'text'  },
       	{ field:'action',		width:35, align:'center',title: '',
       		formatter:function(value,row,index){
+				if(row.Dorsal==='*') return "&nbsp;";
           		if (row.editing){
     				var s = '<a href="#" id="lnkb1_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="saverow(this);">Save</a> ';
     				var c = '<a href="#" id="lnkb2_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-undo\'" onclick="cancelrow(this);">Cancel</a>';
@@ -122,7 +125,7 @@ $('#competicion-datagrid').datagrid({
       		}
       	}	
     ]],
-    rowStyler:myRowStyler,
+    rowStyler:competicionRowStyler,
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
 	onLoadSuccess:function(){
 		// mark no row is being edited
@@ -133,6 +136,7 @@ $('#competicion-datagrid').datagrid({
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 	},
 	onDblClickRow:function(index,row) {
+		if(row.Dorsal==='*') return; // not on editable row
 		if( $(this).datagrid('options').editIndex!=-1) return; // on editing ignore double click
 		$(this).datagrid('beginEdit',index);
 		// focus and first field and select contents
@@ -143,7 +147,13 @@ $('#competicion-datagrid').datagrid({
 		// input.setSelectionRange(0, input.value.length);
 	},
 	// actualizacion de los iconos save/edit/delete/cancel
-	onBeforeEdit:function(index,row){ $(this).datagrid('options').editIndex=index; row.editing = true; updateActions(index); },
+	onBeforeEdit:function(index,row){
+		if(row.Dorsal==='*') return false;
+		$(this).datagrid('options').editIndex=index; 
+		row.editing = true; 
+		updateActions(index); 
+		return true;
+	},
 	onAfterEdit:function(index,row){ $(this).datagrid('options').editIndex=-1; row.editing = false; updateActions(index); },
 	onCancelEdit:function(index,row){ $(this).datagrid('options').editIndex=-1; row.editing = false; updateActions(index); }
 });

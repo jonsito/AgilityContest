@@ -24,7 +24,7 @@ require_once(__DIR__."/../procesaInscripcion.php"); // to insert/remove inscript
 class Inscripciones extends DBObject {
 	
 	protected $pruebaID;
-	protected $insertid;
+	public $insertid;
 	
 	/**
 	 * Constructor
@@ -74,7 +74,7 @@ class Inscripciones extends DBObject {
 		$this->insertid=$this->conn->insert_id;
 		if (!$res) return $this->error($this->conn->error);
 		// una vez inscrito, vamos a repasar la lista de jornadas y actualizar en caso necesario
-		$inscripcionid=$this->conn->insert_id;
+		$inscripcionid=$this->insertid;
 		// los datos de las mangas y resultados
 		procesaInscripcion($prueba,$inscripcionid);
 		// all right return ok
@@ -135,7 +135,7 @@ class Inscripciones extends DBObject {
 		if ($idperro<=0) return $this->error("Invalid Perro ID");
 		// fase 0: obtenemos el ID de la inscripcion
 		$res=$this->__selectAsArray("ID", "Inscripciones", "(Perro=$idperro) AND (Prueba=$p)");
-		if (!is_array($res)) return $this->error("El perro con id:$idperro no esta inscrito en la prueba:$p");
+		if (!is_array($res)) return $this->error("Inscripciones::delete(): El perro con id:$idperro no esta inscrito en la prueba:$p");
 		$i=$res['ID'];
 		// fase 1: actualizamos la DB para indicar que el perro no esta inscrito en ninguna jornada
 		$sql="UPDATE Inscripciones SET Jornadas = 0  WHERE (ID=$i)";

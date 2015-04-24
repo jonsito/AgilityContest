@@ -77,29 +77,33 @@ $('#ordensalida-datagrid').datagrid({
     singleSelect: true,
     // toolbar: '#ordensalida-toolbar',
     columns:[[
-        	{ field:'Perro',		hidden:true },
-          	{ field:'Dorsal',		width:10, sortable:false,	align:'left',  title: 'Dorsal'},
-          	{ field:'Nombre',		width:20, sortable:false,	align:'left',  title: 'Nombre'},
-      		{ field:'Licencia',		width:15, sortable:false,   align:'right', title: 'Licencia' },
-      		{ field:'Categoria',	width:10, sortable:false,   align:'center', title: 'Cat.' },
-      		{ field:'NombreGuia',	width:50, sortable:false,   align:'right', title: 'Guia' },
-      		{ field:'NombreClub',	width:30, sortable:false,   align:'right', title: 'Club' },
-      		{ field:'Celo',		    width:10, sortable:false, formatter: formatCelo,	align:'center', title: 'Celo' },
-      		{ field:'Observaciones',width:30, sortable:false,   align:'right', title: 'Observaciones' }
+		{ field:'Perro',		hidden:true },
+		{ field:'Equipo',		hidden:true },
+		{ field:'NombreEquipo',	width:35, sortable:false,	align:'left',  title: 'Equipo'},
+		{ field:'Dorsal',		width:15, sortable:false,	align:'center',  title: 'Dorsal'},
+		{ field:'Nombre',		width:25, sortable:false,	align:'left',  title: 'Nombre'},
+		{ field:'Licencia',		width:15, sortable:false,   align:'right', title: 'Licencia' },
+		{ field:'Categoria',	width:10, sortable:false,   align:'center', title: 'Cat.' },
+		{ field:'NombreGuia',	width:50, sortable:false,   align:'right', title: 'Guia' },
+		{ field:'NombreClub',	width:30, sortable:false,   align:'right', title: 'Club' },
+		{ field:'Celo',		    width:10, sortable:false, formatter: formatCelo,	align:'center', title: 'Celo' }
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
     },
     onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
     onLoadSuccess: function(data) {
+		// show/hide 'NombreEquipo' based of manga type
+		if (isTeam(workingData.datosManga.Tipo) ) $('#ordensalida-datagrid').datagrid('showColumn','NombreEquipo');
+		else  $('#ordensalida-datagrid').datagrid('hideColumn','NombreEquipo');
         // get focus on datagrid (to bind keystrokes) and enable drag and drop
     	$(this).datagrid('enableDnd');
 		$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
     },
     onDragEnter: function(dst,src) {
-        var from=src.Categoria+src.Celo;
-        var to=dst.Categoria+dst.Celo;
-        return (from==to)?true:false;
+        var from=":"+src.Equipo+":"+src.Categoria+":"+src.Celo+":";
+		var to=":"+dst.Equipo+":"+dst.Categoria+":"+dst.Celo+":";
+		return (from===to)?true:false;
     },
     onDrop: function(dst,src,updown) {
         dragAndDropOrdenSalida(src.Perro,dst.Perro,(updown==='top')?0:1,reloadOrdenSalida);
