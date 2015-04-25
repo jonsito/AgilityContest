@@ -128,7 +128,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	    singleSelect: true,
                 view: detailview,
         	    // height: 'auto',
-        		title: 'Gu&iacute;as inscritos en el club '+club.Nombre,
+        		title: 'Gu&iacute;as inscritos en el club '+club.Nombre+ ' - ' + fedName(workingData.federation),
         	    loadMsg: 'Cargando lista de guias....',
         		url: '/agility/server/database/guiaFunctions.php',
         		queryParams: { 
@@ -221,7 +221,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	    singleSelect: true,
         	    // height: 'auto',
         	    loadMsg: 'Loading list of dogs',
-        		title: 'Perros registrados a nombre de '+guia.Nombre,
+        		title: 'Perros registrados a nombre de '+guia.Nombre+' - '+fedName(workingData.federation),
         		url: '/agility/server/database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.ID, Federation: workingData.federation },
         		method: 'get',

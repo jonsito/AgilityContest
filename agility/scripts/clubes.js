@@ -44,6 +44,8 @@ function acceptLogoPreview() {
 		};
 		reader.readAsDataURL(input.files[0]);
 	}
+	// mark logo to be saved
+	workingData.logoChanged=true;
 	// and close logo dialog
 	$('#clubes-logo-dialog').dialog('close');
 }
@@ -71,7 +73,7 @@ function saveLogo() {
     		imagedata: canvas.toDataURL("image/png")
     	},
     	contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
-    	success: function(data) { },
+    	success: function(data) { workingData.logoChanged=false; },
     	error: function() { alert("error");	}
    	});
 }
@@ -152,7 +154,7 @@ function saveClub(){
             if (result.errorMsg){
                 $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
             } else {
-            	saveLogo();
+            	if (workingData.logoChanged==true) saveLogo();
             	var oper=$('#clubes-Operation').val();
             	if(result.insert_id && (oper==="insert") ) $('#clubes-ID').val(result.insert_id);
                 $('#clubes-dialog').dialog('close');        // close the dialog

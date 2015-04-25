@@ -116,7 +116,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	var mySelf='#guias-perros-datagrid-'+replaceAll(' ','_',guia.ID);
 			$(mySelf).datagrid({
             	width: 875,
-        		title: 'Perros registrados a nombre de '+guia.Nombre,
+        		title: 'Perros registrados a nombre de '+guia.Nombre+' - '+fedName(workingData.federation),
        		    pagination: false,
         	    rownumbers: false,
         	    fitColumns: true,
