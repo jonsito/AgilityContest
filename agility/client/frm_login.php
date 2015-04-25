@@ -49,7 +49,7 @@ $config =Config::getInstance();
        		<div class="fitem">
        	   		<label for="Federation">Federaci&oacute;n:</label>
        	   		<select id="login-Federation" name="Federation" onChange="setFederation(this.value);">
-       	   			<option value="0" selected="selected">Real Sociedad Canina de Espa&ntilde;a (RSCE)</option>
+       	   			<option value="0">Real Sociedad Canina de Espa&ntilde;a (RSCE)</option>
        	   			<option value="1">Real Federaci&oacute;n Espa&ntilde;ola de Caza (RFEC)</option>
        	   			<option value="2">Uni&oacute;n de Clubes de Agility (UCA)</option>	
        	   		</select>
@@ -81,6 +81,7 @@ $('#login-window').window({
 	onBeforeOpen: function () {
 		$('#login-Usuario').val('');
 		$('#login-Password').val('');
+		$('#login-Federation').val(workingData.federation);
 		return true;
 	}
 });

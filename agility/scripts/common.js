@@ -276,6 +276,7 @@ function initWorkingData(id) {
 	workingData.sesion=0; // ID de la sesion para videomarcadores
 	workingData.nombreSesion=""; // nombre de la sesion
 	setFederation(0); // defaults to RSCE;
+	if (typeof(workingData.federation)==="undefined") setFederation(0); // select RSCE as default federation
 	if (typeof(workingData.datosPrueba)==="undefined") workingData.datosPrueba= new Object(); // last selected prueba data
 	if (typeof(workingData.datosJornada)==="undefined") workingData.datosJornada= new Object(); // last selected jornada data
 	if (typeof(workingData.datosManga)==="undefined") workingData.datosManga= new Object(); // last selected jornada data
