@@ -105,7 +105,7 @@ function acceptLogout() {
 	});
 	$('#logout-window').window('close');	
 }
-ls
+
 function acceptMyAdmin() {
 	var user= $('#myAdmin-Username').val();
 	var pass=$('#myAdmin-Password').val();
