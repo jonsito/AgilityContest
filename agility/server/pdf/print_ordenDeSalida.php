@@ -50,8 +50,9 @@ class PDF extends PrintCommon {
 	
 	/**
 	 * Constructor
-	 * @param {integer} $prueba Prueba ID
-	 * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
+     * @param {integer} $prueba Prueba ID
+     * @param {integer} $jornada Jormada ID
+     * @param {integer} $manga Manga ID
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$manga) {
@@ -69,7 +70,7 @@ class PDF extends PrintCommon {
 		$this->orden=$os['rows'];
 		$this->categoria="L";
 		$this->cellHeader = 
-				array(_('Orden'),_('Nombre'),_('Dorsal'),_('Lic.'),_('Guía'),_('Club'),_('Celo'),_('Observaciones'));
+				array(_('Orden'),_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Celo'),_('Observaciones'));
 		$eq=new Equipos("print_ordenDeSalida",$prueba,$jornada);
 		$this->teams=$eq->getTeamsByJourney();
 	}
@@ -117,10 +118,12 @@ class PDF extends PrintCommon {
 	// Tabla coloreada
 	function composeTable() {
 		$this->myLogger->enter();
-		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
+        $bg1=$this->config->getEnv('pdf_rowcolor1');
+        $bg2=$this->config->getEnv('pdf_rowcolor2');
+        $this->ac_SetFillColor($bg1);
+        $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
 		// Datos
-		$fill = false;
 		$rowcount=0;
 		$order=0;
 		$lastTeam=0;
@@ -154,18 +157,18 @@ class PDF extends PrintCommon {
 				$this->printTeamInformation($lastTeam);
 				$rowcount++;
 			}
+            $this->ac_SetFillColor( (($order&0x01)==0)?$bg1:$bg2);
 			$this->SetFont('Arial','B',11); // bold 9px
-			$this->Cell($this->pos[0],6,($order+1)." - ",'LR',0,$this->align[0],$fill); // display order
+			$this->Cell($this->pos[0],6,($order+1)." - ",'LR',0,$this->align[0],true); // display order
 			$this->SetFont('Arial','',9); // remove bold 9px
-			$this->Cell($this->pos[1],6,$row['Dorsal'],		'LR',0,$this->align[1],$fill);
-			$this->Cell($this->pos[2],6,$row['Nombre'],		'LR',0,$this->align[2],$fill);
-			$this->Cell($this->pos[3],6,$row['Licencia'],	'LR',0,$this->align[3],$fill);
-			$this->Cell($this->pos[4],6,$row['NombreGuia'],	'LR',0,$this->align[4],$fill);
-			$this->Cell($this->pos[5],6,$row['NombreClub'],	'LR',0,$this->align[5],$fill);
-			$this->Cell($this->pos[6],6,($row['Celo']==0)?"":_("Celo"),	'LR',0,$this->align[6],$fill);
-			$this->Cell($this->pos[7],6,$row['Observaciones'],'LR',0,$this->align[7],$fill);
+			$this->Cell($this->pos[1],6,$row['Dorsal'],		'LR',0,$this->align[1],true);
+			$this->Cell($this->pos[2],6,$row['Nombre'],		'LR',0,$this->align[2],true);
+			$this->Cell($this->pos[3],6,$row['Licencia'],	'LR',0,$this->align[3],true);
+			$this->Cell($this->pos[4],6,$row['NombreGuia'],	'LR',0,$this->align[4],true);
+			$this->Cell($this->pos[5],6,$row['NombreClub'],	'LR',0,$this->align[5],true);
+			$this->Cell($this->pos[6],6,($row['Celo']==0)?"":_("Celo"),	'LR',0,$this->align[6],true);
+			$this->Cell($this->pos[7],6,$row['Observaciones'],'LR',0,$this->align[7],true);
 			$this->Ln();
-			$fill = ! $fill;
 			$rowcount++;
 			$order++;
 		}

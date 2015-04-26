@@ -25,6 +25,7 @@ require_once(__DIR__."/classes/Equipos.php");
 $prueba=http_request("Prueba","i",0);
 $jornada=http_request("Jornada","i",0);
 $operation=http_request("Operation","s",null);
+$perro=http_request("Perro","i",0);
 $equipo=http_request("ID","i",0); // used on update/delete
 try {
 	$result=null;

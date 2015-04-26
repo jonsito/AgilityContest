@@ -376,7 +376,8 @@ class Inscripciones extends DBObject {
 			if (strpos($perro,"END")!==false) continue;
 			if (!array_key_exists($perro,$inscripciones)) {
 				$this->error("Inscripciones::inscritosByTeam():El perro $perro del equipo $team no esta inscrito en la jornada {$teamobj->Jornada} de la prueba $prueba");
-				$this->removeFromList($perro); // cleanup. should not be needed, but....
+				// $this->removeFromList($perro); // cleanup. should not be needed, but....
+                continue;
 			}
 			// todo correcto: anyadimos el perro a la lista
 			array_push($rows,$inscripciones[$perro]);
@@ -445,7 +446,7 @@ class Inscripciones extends DBObject {
 		$j=new Jornadas("inscripciones::inscritosByJornada()",$this->pruebaID);
 		$jornadas=$j->searchByPrueba();
 		if ( ($jornadas===null) || ($jornadas==="") ) {
-			return $this->error("$file::updateOrdenSalida() cannot get list of open Jornadas for prueba:".$this->pruebaID);
+			return $this->error("{$this->file}::updateOrdenSalida() cannot get list of open Jornadas for prueba:".$this->pruebaID);
 		}
 		// por cada jornada abierta, miramos a ver si la ID coincide con la que buscamos
 		$mask=0;
@@ -453,7 +454,7 @@ class Inscripciones extends DBObject {
 			if ($jornada['ID']==$jornadaID) $mask=1<<($jornada['Numero']-1); // 1..8
 		}
 		if ($mask==0) {
-			return $this->error("$file::inscritosByJornada() cannot find open Jornada ID: $jornadaID in prueba:".$this->pruebaID);
+			return $this->error("{$this->file}::inscritosByJornada() cannot find open Jornada ID: $jornadaID in prueba:".$this->pruebaID);
 		}
 		// obtenemos la lista de perros inscritos con sus datos
 		$result=$this->__select(
