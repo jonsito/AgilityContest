@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
  
 <!-- ventana de presentacion de los datos de los equipos de una prueba -->
-<div id="team_datagrid-dialog" style="width:600px;height:auto">
+<div id="team_datagrid-dialog" style="width:800px;height:480px">
 	<!-- DECLARACION DE LA TABLA DE EQUIPOS -->
 	<table id="team_datagrid"></table>
 </div>	

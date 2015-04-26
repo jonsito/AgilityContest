@@ -35,7 +35,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- PANEL INFORMATIVO SOBRE LA PRUEBA Y JORNADAS ASOCIADAS -->
-<div id="inscripciones-infolayout" class="easyui-layout" data-options="fit:true,border:true" style="pading:10px">
+<div id="inscripciones-infolayout" class="easyui-layout" data-options="fit:true,border:true" style="padding:10px">
 	
 	<!-- PANEL IZQUIERDO: DATOS DE LA PRUEBA -->
 	<div data-options="region:'west',title:'<?php _e('Datos de la Prueba');?>',split:true,collapsed:false,collapsible:false"
@@ -204,7 +204,7 @@ $('#inscripciones-datagrid').datagrid({
         { field:'J5',		width:2, align:'center', formatter: formatOk,	 title: 'J5'},
         { field:'J6',		width:2, align:'center', formatter: formatOk,	 title: 'J6'},
         { field:'J7',		width:2, align:'center', formatter: formatOk,	 title: 'J7'},
-        { field:'J8',		width:2, align:'center', formatter: formatOk,	 title: 'J8'},
+        { field:'J8',		width:2, align:'center', formatter: formatOk,	 title: 'J8'}
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:myRowStyler,

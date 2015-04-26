@@ -59,6 +59,7 @@ function openTeamWindow(pruebaID) {
 	}
 	if ( (row.Equipos3==0) && (row.Equipos4==0) ) {
 		$.messager.alert("Error:","<?php _e('La jornada seleccionada no tiene competiciones por equipos');?>","error");
+        return;
 	}
 	// allright: marcamos jornada como activa, recargamos lista de equipos y abrimos ventana
 	setJornada(row);
