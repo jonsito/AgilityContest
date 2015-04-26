@@ -35,48 +35,44 @@ $config =Config::getInstance();
 ?>
 
 <!-- PANEL INFORMATIVO SOBRE LA PRUEBA Y JORNADAS ASOCIADAS -->
-<div id="inscripciones-info" style="width:100%">
+<div id="inscripciones-infolayout" class="easyui-layout" data-options="fit:true,border:true" style="pading:10px">
 	
-	<div id="inscripciones-infolayout" class="easyui-layout" style="height:150px">
-	
-		<!-- PANEL IZQUIERDO: DATOS DE LA PRUEBA -->
-		<div data-options="region:'west',title:'<?php _e('Datos de la Prueba');?>',split:true,collapsed:false,collapsible:false" 
-			style="width:30%;padding:10px" class="c_inscripciones-datosprueba">
-			<form id="inscripciones-pruebas" method="get" >
-			<input type="hidden" name="ID"/>
-			<input type="hidden" name="Club"/>
-			<input type="hidden" name="Ubicacion"/>
-			<input type="hidden" name="Triptico"/>
-			<input type="hidden" name="Cartel"/>
-			<input type="hidden" name="Cerrada"/>
-			<p>
-			<label for="Nombre" style="font-weight:bold">Denominaci&oacute;n:</label>
-			<input id="inscripciones-pnombre" type="text" name="Nombre" disabled="disabled" size="19"/>
-			</p>
-			<p>
-			<label for="Club" style="font-weight:bold">Club Organizador:</label>
-			<input id="inscripciones-pclub" type="text" name="NombreClub" disabled="disabled" size="15"/>
-			</p>
-			<p>
-			<label for="Observaciones" style="font-weight:bold">Observaciones:</label>
-			<input id="inscripciones-pcomments" type="text" name="Observaciones" disabled="disabled" size="33"/>
-			</p>
-			</form>
-		</div>
+	<!-- PANEL IZQUIERDO: DATOS DE LA PRUEBA -->
+	<div data-options="region:'west',title:'<?php _e('Datos de la Prueba');?>',split:true,collapsed:false,collapsible:false"
+		style="width:30%;padding:10px" class="c_inscripciones-datosprueba">
+		<form id="inscripciones-pruebas" method="get" >
+		<input type="hidden" name="ID"/>
+		<input type="hidden" name="Club"/>
+		<input type="hidden" name="Ubicacion"/>
+		<input type="hidden" name="Triptico"/>
+		<input type="hidden" name="Cartel"/>
+		<input type="hidden" name="Cerrada"/>
+		<p>
+		<label for="Nombre" style="font-weight:bold">Denominaci&oacute;n:</label>
+		<input id="inscripciones-pnombre" type="text" name="Nombre" disabled="disabled" size="19"/>
+		</p>
+		<p>
+		<label for="Club" style="font-weight:bold">Club Organizador:</label>
+		<input id="inscripciones-pclub" type="text" name="NombreClub" disabled="disabled" size="15"/>
+		</p>
+		<p>
+		<label for="Observaciones" style="font-weight:bold">Observaciones:</label>
+		<input id="inscripciones-pcomments" type="text" name="Observaciones" disabled="disabled" size="33"/>
+		</p>
+		</form>
+	</div>
 		
-		<!-- PANEL DERECHO: LISTA DE JORNADAS -->
-		<div data-options="region:'center',title:'Lista de jornadas de la prueba'" style="width:70%">
-			<table id="inscripciones-jornadas"></table>
-		</div>
-		
-	</div> 
-</div> 
+	<!-- PANEL DERECHO: LISTA DE JORNADAS -->
+	<div data-options="region:'center',title:'Lista de jornadas de la prueba',split:true,collapsed:false,collapsible:false"
+            style="width:70%;">
+		<table id="inscripciones-jornadas"></table>
+	</div>
 
-<!-- PANEL INFORMATIVO SOBRE LAS INSCRIPCIONES -->
-<div id="inscripciones-list" class="easyui-panel" style="width:100%;height:auto"
-	data-options="noHeader:true,border:true,closable:false,collapsible:false,collapsed:false">
-	<!-- DECLARACION DE LA TABLA DE INSCRIPCIONES -->
-	<table id="inscripciones-datagrid"></table>
+    <!-- PANEL INFERIOR: LISTADO DE INSCRIPCIONES -->
+    <div data-options="region:'south',title:'Listado de inscritos en la prueba',split:true,collapsed:false,collapsible:false"
+        style="height:80%;">
+        <table id="inscripciones-datagrid"></table>
+    </div>
 </div>
 
 <!-- BARRA DE TAREAS DE LA TABLA DE INSCRIPCIONES -->
@@ -114,20 +110,7 @@ $config =Config::getInstance();
 </div>
 
 <script type="text/javascript">
-$('#inscripciones-info').panel({
-	title:'Informaci&oacute;n de la prueba',
-	border:true,
-	closable:true,
-	closed:false,
-	collapsible:false,
-	collapsed:false,
-	// TODO: get this working :-(
-	// onExpand: function() {$('#inscripciones-list').panel('options').height='450px';},
-	// onCollapse: function() {$('#inscripciones-list').panel('options').height='600px';}
-	onClose: function() {$('#inscripciones-datagrid').datagrid('getPanel').panel('close'); }
-});
 
-$('#inscripciones-infolayout').layout();
 $('#inscripciones-pruebas').form('load','/agility/server/database/pruebaFunctions.php?Operation=getbyid&ID='+workingData.prueba);
 $('#inscripciones-jornadas').datagrid({
 	// propiedades del panel asociado
@@ -175,7 +158,6 @@ $('#inscripciones-jornadas').datagrid({
 // datos de la tabla de inscripciones
 // - tabla
 $('#inscripciones-datagrid').datagrid({
-	title: 'Listado de inscritos en la prueba',
 	// propiedades del panel asociado
 	fit: true,
 	border: false,
