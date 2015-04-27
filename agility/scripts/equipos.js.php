@@ -30,12 +30,56 @@ function buscaEquipos() {
 	);
 }
 
+/**
+* genera una tabla con encabezado
+*@param {array} data list of { team_name, #dogs }
+*@param {string} cabecera table header string
+*/
+function checkTeamsCompose(data,cabecera) {
+    str="<p><strong>"+cabecera+": "+data.length+"</strong>";
+    if (data.length==0) return str+"</p>";
+    str +="<table>";
+    // componemos lista de equipos y numero de perros
+    $.each(
+        data,
+        function(index,val) {
+            str+="<tr><td>Equipo: '"+val['Nombre']+"'</td><td>"+val['Numero']+" perro(s)</td></tr>";
+        }
+    );
+    str+="</table></p>";
+    return str;
+}
+
 /*
 * Verifica los equipos chequeando numero de miembros y que no haya ningun perro asignado al equipo por defecto
 */
 function checkTeams(datagrid) {
-	$.messager.alert("Error:","Equipos.js.php::checkTeams(): TODO pending","error");
-	return;
+    // verificamos que no haya participantes en el equipo por defecto
+    $.ajax({
+        type:'GET',
+        url:"/agility/server/database/equiposFunctions.php",
+        dataType:'json',
+        data: {
+        Operation:	'verify',
+        Prueba:	workingData.prueba,
+        Jornada:workingData.jornada
+        },
+        success: function(data) {
+            if (data.errorMsg) {
+                $.messager.alert("Error:",errorMsg,"error");
+                return false;
+            }
+            str ="<h4>Comprobaci&oacute;n de los equipos registrados<br />Jornada '"+workingData.datosJornada.Nombre+"'</h4>";
+            str +="<p><strong>N&uacute;mero de equipos: "+(data['teams'].length-1)+"</strong></p>";
+            str+="<p><strong>Perros sin equipo asignado: "+data['default'][0]['Numero']+"</strong></p>";
+            str+=checkTeamsCompose(data['more'],'Equipos con exceso de perros');
+            str+=checkTeamsCompose(data['less'],'Equipos incompletos');
+            var w=$.messager.alert("Verificar",str,"info");
+            w.window('resize',{width:450}).window('center');
+            return false; // prevent default fireup of event trigger
+        }
+    });
+    return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
 /*

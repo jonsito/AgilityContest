@@ -353,10 +353,12 @@ class Inscripciones extends DBObject {
 		// extraemos la lista de inscritos
 		$lista=$this->__select(
 				/*select*/	"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, {$teamobj->Jornada} AS Jornada,
-				Dorsal, Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
-				Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
-				NombreGuia, NombreClub, $team AS Equipo, '{$teamobj->Nombre}' AS NombreEquipo ,
-				Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
+				Inscripciones.Dorsal AS Dorsal, Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
+				PerroGuiaClub.Raza AS Raza, PerroGuiaClub.Licencia AS Licencia, PerroGuiaClub.LOE_RRC AS LOE_RRC,
+				PerroGuiaClub.Categoria AS Categoria, PerroGuiaClub.Grado AS Grado, Inscripciones.Celo AS Celo,
+				PerroGuiaClub.Guia AS Guia, PerroGuiaClub.Club AS Club, PerroGuiaClub.NombreGuia AS NombreGuia,
+                PerroGuiaClub.NombreClub AS NombreClub, $team AS Equipo, '{$teamobj->Nombre}' AS NombreEquipo ,
+				Inscripciones.Observaciones AS Observaciones, Inscripciones.Jornadas AS Jornadas, Inscripciones.Pagado AS Pagado",
 				/* from */	"Inscripciones,PerroGuiaClub",
 				/* where */ "( Inscripciones.Perro = PerroGuiaClub.ID)	AND ( Inscripciones.Prueba=$prueba ) AND ( ((Inscripciones.Jornadas & $mask))<>0 )",
 				/* order */ "",

@@ -208,26 +208,17 @@ function showInscripcionesByTeam(index,team){
 			{ field:'Guia', 	hidden:true }, // Guia ID
 			{ field:'Club',		hidden:true }, // Club ID
 			{ field:'LOE_RRC',	hidden:true }, // LOE/RRC
-			{ field:'Licencia', hidden:true }, // LOE/RRC
 			{ field:'Club',		hidden:true }, // Club ID
-			{ field:'Dorsal',	width:6,  sortable:true, align: 'right',	title: '<?php _e('Dorsal');?>' },
-			{ field:'Nombre',	width:15, sortable:true, align: 'right',	title: '<?php _e('Nombre');?>' },
-			{ field:'Licencia',	width:6,  sortable:true, align: 'center',  	title: '<?php _e('Lic');?>.' },
-			{ field:'Categoria',width:4,  sortable:true, align: 'center',  	title: '<?php _e('Cat');?>.' },
-			{ field:'Grado',	width:6,  sortable:true, align: 'center',  	title: '<?php _e('Grado');?>' },
-			{ field:'NombreGuia',	width:25, sortable:true, align: 'right',	title: '<?php _e('Guía');?>' },
-			{ field:'NombreClub',	width:15, sortable:true, align: 'right',	title: '<?php _e('Club');?>' },
+			{ field:'Dorsal',	width:6,        sortable:false, align: 'right',	title: '<?php _e('Dorsal'); ?>' },
+			{ field:'Nombre',	width:15,       sortable:false, align: 'right',	title: '<?php _e('Nombre'); ?>' },
+			{ field:'Licencia',	width:6,        sortable:false, align: 'center',title: '<?php _e('Lic');    ?>' },
+			{ field:'Categoria',width:4,        sortable:false, align: 'center',title: '<?php _e('Cat');    ?>' },
+			{ field:'Grado',	width:6,        sortable:false, align: 'center',title: '<?php _e('Grado');  ?>' },
+			{ field:'NombreGuia',	width:25,   sortable:false, align: 'right',	title: '<?php _e('Gu&iacute;a'); ?>' },
+			{ field:'NombreClub',	width:15,   sortable:false, align: 'right',	title: '<?php _e('Club');   ?>' },
 			{ field:'NombreEquipo',	hidden:true },
-			{ field:'Observaciones',width:15,            title: '<?php _e('Observaciones');?>' },
-			{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	 title: '<?php _e('Celo');?>' },
-			{ field:'J1',		hidden:true},
-			{ field:'J2',		hidden:true},
-			{ field:'J3',		hidden:true},
-			{ field:'J4',		hidden:true},
-			{ field:'J5',		hidden:true},
-			{ field:'J6',		hidden:true},
-			{ field:'J7',		hidden:true},
-			{ field:'J8',		hidden:true},
+			{ field:'Observaciones',width:15,                                   title: '<?php _e('Observaciones');?>' },
+			{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	title: '<?php _e('Celo');   ?>' }
  		]],
 		// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
 		rowStyler:myRowStyler,	
@@ -274,7 +265,7 @@ $('#selteam-Form').form({
 
 $('#selteam-Equipo').combogrid({
 	panelWidth: 450,
-	panelHeight: 100,
+	panelHeight: 200,
 	idField: 'ID',
 	textField: 'Nombre',
 	url: '/agility/server/database/equiposFunctions.php',

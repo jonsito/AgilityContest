@@ -37,7 +37,8 @@ try {
 		case "update": $am->access(PERMS_OPERATOR); $result=$equipos->update($equipo); break; // editar equipo
 		case "delete": $am->access(PERMS_OPERATOR); $result=$equipos->delete($equipo); break; // borrar equipo
 		case "update_team": $am->access("PERMS_OPERATOR"); $result=$equipos->updateTeam($perro,$equipo); break; // reasignar equipo
-		case "select": $result=$equipos->select(); break; // listado ordenado/bloques/busqueda
+        case "select": $result=$equipos->select(); break; // listado ordenado/bloques/busqueda
+        case "verify": $result=$equipos->verify(); break; // comprobar perros de cada equipo
 		case "enumerate": $result=$equipos->enumerate(); break; // listado solo busqueda
 		case "selectbyid": $result=$equipos->enumerate(); break; // recupera entrada unica
 		default: throw new Exception("equiposFunctions:: invalid operation: $operation provided");

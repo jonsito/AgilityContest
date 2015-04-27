@@ -52,7 +52,7 @@ class Equipos extends DBObject {
 		// obtenemos los equipos de esta jornada
 		$res= $this->__select("*","Equipos","( Prueba = $prueba ) AND ( Jornada = $jornada )","","");
 		if (!is_array($res)) {
-			return $this->error("$file::getTeamsByJornada() cannot get team data for prueba:$prueba jornada:$jornada");
+			return $this->error("{$this->$file}::getTeamsByJornada() cannot get team data for prueba:$prueba jornada:$jornada");
 		}
 		return $res['rows'];
 	}
@@ -201,9 +201,9 @@ class Equipos extends DBObject {
 	function selectByID($id) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Provided Equipo ID");
-		$obj=$this->__getObject("Equipos",$id);
+		$data=$this->__getObject("Equipos",$id);
 		if (!is_object($data))	return $this->error("No Equipo found with ID=$id");
-		$data= json_decode(json_encode($obj), true); // convert object to array
+		$data= json_decode(json_encode($data), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
 		return $data;
@@ -260,11 +260,10 @@ class Equipos extends DBObject {
 		$forden=$f->Orden;
 		$torden=$t->Orden;
 		// perform swap update.
-		// TODO: make it inside a transaction
 		$str="UPDATE Equipos SET Orden=$torden WHERE (ID=$from)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
-		$str="UPDATE Equipos SET Orden=$forder WHERE (ID=$to)";
+		$str="UPDATE Equipos SET Orden=$forden WHERE (ID=$to)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
@@ -394,6 +393,45 @@ class Equipos extends DBObject {
 		$stmt->close();
 		return "";
 	}
+
+    /**
+     * check teams on this journey and eval number of dogs belonging to each one
+     */
+    function verify() {
+        $this->myLogger->enter();
+        // comprobamos que la jornada sea correcta
+        $j=$this->__getObject("Jornadas",$this->jornadaID);
+        $max=4;
+        $min=3;
+        if ( intval($j->Equipos3)!=0) $min=3;
+        else  if ( intval($j->Equipos4)!=0) $min=4;
+        else return "La jornada {$j->jornadaID} - '{$j->Nombre}' no tiene declaradas pruebas por equipos";
+        $obj=$this->getTeamsByJornada();
+        if (!is_array($obj)) return $obj; // means error
+        $res=array();
+        $res['default']=array();
+        $res['teams']=array();
+        $res['more']=array();
+        $res['less']=array();
+        foreach ($obj as $team) {
+            $item= array('Nombre' => $team['Nombre'], 'Numero' => count(explode(",",$team['Miembros']))-2);
+            array_push($res['teams'],$item);
+            if ($team['DefaultTeam']==1) { // vemos el numero de perros que hay en el equipo por defecto
+                array_push($res['default'],$item);
+                continue;
+            }
+            if ($item['Numero']>$max) { // si el equipo pasa de 4 perros tomamos nota
+                array_push($res['more'],$item);
+                continue;
+            }
+            if ($item['Numero']<$min) { // si el equipo tiene menos de "min" perros tomamos nota
+                array_push($res['less'],$item);
+                continue;
+            }
+        }
+        $this->myLogger->leave();
+        return $res;
+    }
 }
 	
 ?>
