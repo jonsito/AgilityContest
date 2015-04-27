@@ -122,6 +122,8 @@ $('#team_datagrid-dialog').dialog({
 
 // datos de la tabla de equipos
 $('#team_datagrid').datagrid({
+    // propiedades del panel asociado
+    expandedRow: -1, // added by jamc
 	fit: true,
 	url: '/agility/server/database/equiposFunctions.php',
 	queryParams: { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''	},
@@ -156,7 +158,14 @@ $('#team_datagrid').datagrid({
 	detailFormatter:function(idx,row){
 		return '<div style="padding:2px"><table id="team-incripcion-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
 	},
-	onExpandRow: function(idx,row) { showInscripcionesByTeam(idx,row); }
+	onExpandRow: function(idx,row) {
+        var dg=$('#team_datagrid');
+        // collapse previous expanded row
+        var oldRow=dg.datagrid('options').expandedRow;
+        if ( (oldRow!=-1) && (oldRow!=idx) ) { dg.datagrid('collapseRow',oldRow); }
+        dg.datagrid('options').expandedRow=idx;
+        showInscripcionesByTeam(idx,row);
+    }
 });
 
 // key handler

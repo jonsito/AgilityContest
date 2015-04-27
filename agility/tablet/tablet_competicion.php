@@ -99,10 +99,11 @@ $('#tablet-datagrid').datagrid({
     },
     onExpandRow: function(idx,row) { 
         doBeep();
+        var dg=$('#tablet-datagrid');
 		// collapse previous expanded row
-        var oldRow=$('#tablet-datagrid').datagrid('options').expandedRow;
-        if (oldRow!=-1) $('#tablet-datagrid').datagrid('collapseRow',oldRow);
-        $('#tablet-datagrid').datagrid('options').expandedRow=idx;
+        var oldRow=dg.datagrid('options').expandedRow;
+        if ( (oldRow!=-1) && (oldRow!=idx) )  dg.datagrid('collapseRow',oldRow);
+        dg.datagrid('options').expandedRow=idx;
         // update session data
         tablet_updateSession(row);
         if (row.Tipo!=0) tablet_showPerrosByTanda(idx,row);
