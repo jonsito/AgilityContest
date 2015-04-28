@@ -46,18 +46,18 @@ class Equipos extends DBObject {
 		}
 	}
 	
-	private function getTeamsByJornada(){
+	function getTeamsByJornada(){
 		$prueba=$this->pruebaID;
 		$jornada=$this->jornadaID;
 		// obtenemos los equipos de esta jornada
-		$res= $this->__select("*","Equipos","( Prueba = $prueba ) AND ( Jornada = $jornada )","","");
+		$res= $this->__select("*","Equipos","( Prueba = $prueba ) AND ( Jornada = $jornada )","Nombre ASC","");
 		if (!is_array($res)) {
 			return $this->error("{$this->$file}::getTeamsByJornada() cannot get team data for prueba:$prueba jornada:$jornada");
 		}
 		return $res['rows'];
 	}
 	
-	private function getDefaultTeam() {
+	function getDefaultTeam() {
 		$prueba=$this->pruebaID;
 		$jornada=$this->jornadaID;
 		return $this->__selectAsArray("*","Equipos","( Prueba=$prueba ) AND ( Jornada=$jornada ) AND (DefaultTeam=1)");
@@ -358,16 +358,7 @@ class Equipos extends DBObject {
 	function getTeamOrder() {
 		return usort( $this->getTeamsByJornada(),function($a,$b){return $a['Orden'] - $b['Orden'];});
 	}
-	
-	/**
-	 * Obtiene los datos de los equipos de la jornada indexados por el ID de equipo
-	 */
-	function getTeamsByJourney() {
-		$result=array();
-		foreach($this->getTeamsByJornada() as $team) $result[$team['ID']]=$team;
-		return $result;	
-	}
-	
+
 	/**
 	 * Reordena al azar el campo 'orden' de los equipos de esta jornada
 	 */

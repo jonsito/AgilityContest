@@ -36,8 +36,7 @@ $config =Config::getInstance();
    			onclick="editTeam('#team_datagrid')">Editar</a>
    		<a id="team_datagrid-delBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-trash'"
    			onclick="deleteTeam('#team_datagrid')">Borrar</a>
-   		<input id="team_datagrid-search" type="text" value="---- Buscar ----" 
-   			class="search_textfield" onchange="reloadWithSearch('#team_datagrid','select',false);" />
+   		<input id="team_datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"/>
    	</span>
    	<span style="float:right;padding:5px">
 		<a id="team_datagrid-checkBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help'"
@@ -45,7 +44,7 @@ $config =Config::getInstance();
 		<a id="team_datagrid-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'"
 			onclick="printTeams('#team_datagrid')"><?php _e('Imprimir');?></a>
    		<a id="team_datagrid-reloadBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-brush'"
-   			onclick="reloadWithSearch('#team_datagrid','select',true);">Limpiar</a>
+   			onclick="$('#team_datagrid-search').val('---- Buscar ----');reloadWithSearch('#team_datagrid','select',true);">Limpiar</a>
    	</span>
 </div>
 

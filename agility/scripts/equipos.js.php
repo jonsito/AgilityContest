@@ -54,7 +54,8 @@ function checkTeamsCompose(data,cabecera) {
 * Verifica los equipos chequeando numero de miembros y que no haya ningun perro asignado al equipo por defecto
 */
 function checkTeams(datagrid) {
-    // verificamos que no haya participantes en el equipo por defecto
+    // verificamos que no haya participantes en el equipo por defecto,
+    // ni equipos con mas o menos perros de lo debido
     $.ajax({
         type:'GET',
         url:"/agility/server/database/equiposFunctions.php",
@@ -82,12 +83,63 @@ function checkTeams(datagrid) {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
+
 /*
 * imprime los equipos de la jornada y los miembros de cada equipo
 */
+function realPrintTeams() {
+    $.fileDownload(
+        '/agility/server/pdf/print_equiposByJornada.php',
+        {
+            httpMethod: 'GET',
+            data: { Prueba: workingData.prueba, Jornada: workingData.jornada },
+            preparingMessageHtml: "Imprimiendo listado de equipos; por favor espere...",
+            failMessageHtml: "There was a problem generating your report, please try again."
+        }
+    );
+}
+
+/*
+* Comprueba la consistencia de los datos de equipos y en caso
+* si no hay inconsistencias, manda imprimir
+* si hay inconsistencias, las presenta y pregunta si a pesar de todo se quiere imprimir
+*/
 function printTeams(datagrid) {
-	$.messager.alert("Error:","Equipos.js.php::printTeams(): TODO pending","error");
-	return;
+    // primero verificamos la lista de equipos
+    $.ajax({
+        type:'GET',
+        url:"/agility/server/database/equiposFunctions.php",
+        dataType:'json',
+        data: {
+        Operation:	'verify',
+        Prueba:	workingData.prueba,
+        Jornada:workingData.jornada
+        },
+        success: function(data) {
+            var flag=false;
+            if (data.errorMsg) {
+                $.messager.alert("Error:",errorMsg,"error");
+                return false;
+            }
+            str ="<h4>Comprobaci&oacute;n de los equipos registrados<br />Jornada '"+workingData.datosJornada.Nombre+"'</h4>";
+            str +="<p><strong>N&uacute;mero de equipos: "+(data['teams'].length-1)+"</strong></p>";
+            str+="<p><strong>Perros sin equipo asignado: "+data['default'][0]['Numero']+"</strong></p>";
+            str+=checkTeamsCompose(data['more'],'Equipos con exceso de perros');
+            str+=checkTeamsCompose(data['less'],'Equipos incompletos');
+            str+="<p><em>Imprimir de todos modos?</em></p>";
+            // si hay errores presentamos alerta y preguntamos si se quiere continuar
+            if (data['default'][0]['Numero']>0) flag=true;
+            if (data['more'].length>0) flag=true;
+            if (data['less'].length>0) flag=true;
+            if (flag==false) { realPrintTeams(); return false; }
+            var w=$.messager.confirm("Problemas encontrados",str,function(r){
+                if (r) realPrintTeams();
+            });
+            w.window('resize',{width:450}).window('center');
+            return false; // prevent default fireup of event trigger
+        }
+    });
+    return false; // this is critical to stop the click event which will trigger a normal file download!
 }
 
 /**
@@ -118,13 +170,12 @@ function openTeamWindow(pruebaID) {
  *@param {function} onAccept what to do when a new team is created
  */
 function newTeam(dg,def,onAccept){
-	var firstRow=$(dg).datagrid('getRows')[0]; // first row ('-- Sin asignar --') allways exist
 	$('#team_edit_dialog').dialog('open').dialog('setTitle','A&ntilde;adir nuevo equipo');
 	$('#team_edit_dialog-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#team_edit_dialog-Nombre').val(def);// fill team Name
 	$('#team_edit_dialog-Operation').val('insert');
-	$('#team_edit_dialog-Prueba').val(firstRow.Prueba);
-	$('#team_edit_dialog-Jornada').val(firstRow.Jornada);
+	$('#team_edit_dialog-Prueba').val(workingData.prueba);
+	$('#team_edit_dialog-Jornada').val(workingData.jornada);
     // notice that on "new" window must be explicitely closed, so don't add close-on-ok() code
 	if (onAccept!==undefined)$('#team_edit_dialog-okBtn').one('click',onAccept);
 }

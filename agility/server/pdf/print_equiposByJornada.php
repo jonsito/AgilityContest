@@ -1,6 +1,6 @@
 <?php
 /*
-print_ordenDeSalida.php
+print_equiposByJornada.php
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -21,7 +21,7 @@ header('Set-Cookie: fileDownload=true; path=/');
 // mandatory 'header' to be the first element to be echoed to stdout
 
 /**
- * genera un pdf ordenado por club, categoria y nombre con una pagina por cada jornada
+ * genera un pdf ordenado con los participantes en jornada de prueba por equipos
 */
 
 require_once(__DIR__."/fpdf.php");
@@ -30,22 +30,21 @@ require_once(__DIR__."/../logging.php");
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Pruebas.php');
 require_once(__DIR__.'/../database/classes/Jornadas.php');
-require_once(__DIR__.'/../database/classes/Mangas.php');
-require_once(__DIR__.'/../database/classes/OrdenSalida.php');
+require_once(__DIR__.'/../database/classes/Equipos.php');
 require_once(__DIR__."/print_common.php");
 
 class PDF extends PrintCommon {
 
-	protected $manga; // datos de la manga
-	protected $orden; // orden de salida
-	protected $categoria; // categoria que estamos listando
-	protected $teams; // lista de equipos de esta jornada
+	protected $prueba; // datos de la prueba
+	protected $jornada; // datos de la jornada
+	protected $equipos; // lista de equipos de esta jornada
+    protected $perros; // lista de participantes en esta jornada
 	
 	// geometria de las celdas
 	protected $cellHeader;
-    //                       orden    dorsal  nombre raza licencia guia club     celo   observaciones
-	protected $pos	=array(  12,      10,     25,     27,    10,    40,   25,     10,    26);
-	protected $align=array(  'R',    'R',    'C',    'R',    'C',   'R',  'R',    'C',   'R');
+    //                      Dorsal  nombre raza licencia Categoria guia club  celo  observaciones
+	protected $pos	=array( 10,     25,     27,    10,    15,      40,   25,  10,    26);
+	protected $align=array( 'R',    'C',    'R',    'C',  'L',     'R',  'R', 'C',   'R');
 	protected $cat  =array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
@@ -55,39 +54,39 @@ class PDF extends PrintCommon {
      * @param {integer} $manga Manga ID
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga) {
+	function __construct($prueba,$jornada) {
 		parent::__construct('Portrait',$prueba,$jornada);
-		if ( ($prueba<=0) || ($jornada<=0) || ($manga<=0) ) {
-			$this->errormsg="printOrdenDeSalida: either prueba/jornada/ manga/orden data are invalid";
+		if ( ($prueba<=0) || ($jornada<=0) ) {
+			$this->errormsg="print_teamsByJornada: either prueba or jornada data are invalid";
 			throw new Exception($this->errormsg);
 		}
-		// Datos de la manga
-		$m = new Mangas("printOrdenDeSalida",$jornada);
-		$this->manga= $m->selectByID($manga);
-		// Datos del orden de salida
-		$o = new OrdenSalida("printOrdenDeSalida",$manga);
-		$os= $o->getData();
-		$this->orden=$os['rows'];
-		$this->categoria="L";
+		// Datos de prueba y jornada
+        $m = new Pruebas("print_teamsByJornada");
+        $this->prueba= $m->selectByID($prueba);
+        $m = new Jornadas("print_teamsByJornada",$prueba);
+        $this->jornada= $m->selectByID($jornada);
+        // comprobamos que estamos en una jornada por equipos
+        $flag=intval($this->jornada['Equipos3'])+intval($this->jornada['Equipos4']);
+        if ($flag==0) {
+            $this->errormsg="print_teamsByJornada: Jornada $jornada has no Team competition declared";
+            throw new Exception($this->errormsg);
+        }
+		// Datos de equipos de la jornada
+        $m=new Equipos("print_teamsByJornada",$prueba,$jornada);
+        $this->teams=$m->getTeamsByJornada();
+        // Datos de los participantes (indexados por ID de perro)
+        $m=new DBObject("print_teamsByJornada");
+        $r=$m->__select("*","Resultados","(Jornada=$jornada)","","");
+        $this->perros=array();
+        foreach($r['rows'] as $item) $this->perros[$item['ID']]=$item;
+        // finalmente internacionalizamos cabeceras
 		$this->cellHeader = 
-				array(_('Orden'),_('Dorsal'),_('Nombre'),_('Raza'),_('Lic.'),_('Guía'),_('Club'),_('Celo'),_('Observaciones'));
-        // obtenemos los datos de equipos de la jornada indexados por el ID del equipo
-		$eq=new Equipos("print_ordenDeSalida",$prueba,$jornada);
-        $this->teams=array();
-        foreach($eq->getTeamsByJornada() as $team) $this->teams[$team['ID']]=$team;
-	}
-
-	private function isTeam() {
-		switch ($this->manga->Tipo) {
-			case 8: case 9: case 13: case 14: return true;
-			default: return false;
-		}
+				array(_('Dorsal'),_('Nombre'),_('Raza'),_('Lic.'),_('Cat.'),_('Guía'),_('Club'),_('Celo'),_('Observaciones'));
 	}
 	
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader(_("Orden de Salida"));
-		$this->print_identificacionManga($this->manga,$this->cat[$this->categoria]);
+		$this->print_commonHeader(_("Listado de Equipos"));
 	}
 	
 	// Pie de página
@@ -125,11 +124,7 @@ class PDF extends PrintCommon {
         $this->ac_SetFillColor($bg1);
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
-		// Datos
-		$rowcount=0;
-		$order=0;
-		$lastTeam=0;
-		foreach($this->orden as $row) {
+		foreach($this->teams as $team) {
 			$newTeam=intval($row['Equipo']);
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			// if change in categoria, reset orden counter and force page change
@@ -168,11 +163,12 @@ class PDF extends PrintCommon {
             $this->Cell($this->pos[2],6,$row['Nombre'],		'LR',0,$this->align[2],true);
             $this->SetFont('Arial','',9); // remove bold 9px
             $this->Cell($this->pos[3],6,$row['Raza'],		'LR',0,$this->align[3],true);
-			$this->Cell($this->pos[4],6,$row['Licencia'],	'LR',0,$this->align[4],true);
-			$this->Cell($this->pos[5],6,$row['NombreGuia'],	'LR',0,$this->align[5],true);
-			$this->Cell($this->pos[6],6,$row['NombreClub'],	'LR',0,$this->align[6],true);
-			$this->Cell($this->pos[7],6,($row['Celo']==0)?"":_("Celo"),	'LR',0,$this->align[7],true);
-			$this->Cell($this->pos[8],6,$row['Observaciones'],'LR',0,$this->align[8],true);
+            $this->Cell($this->pos[4],6,$row['Licencia'],	'LR',0,$this->align[4],true);
+            $this->Cell($this->pos[5],6,$row['Categoria'],	'LR',0,$this->align[5],true);
+			$this->Cell($this->pos[6],6,$row['NombreGuia'],	'LR',0,$this->align[6],true);
+			$this->Cell($this->pos[7],6,$row['NombreClub'],	'LR',0,$this->align[7],true);
+			$this->Cell($this->pos[8],6,($row['Celo']==0)?"":_("Celo"),	'LR',0,$this->align[8],true);
+			$this->Cell($this->pos[9],6,$row['Observaciones'],'LR',0,$this->align[9],true);
 			$this->Ln();
 			$rowcount++;
 			$order++;
@@ -187,12 +183,11 @@ class PDF extends PrintCommon {
 try {
 	$prueba=http_request("Prueba","i",0);
 	$jornada=http_request("Jornada","i",0);
-	$manga=http_request("Manga","i",0);
 	// 	Creamos generador de documento
-	$pdf = new PDF($prueba,$jornada,$manga);
+	$pdf = new PDF($prueba,$jornada);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("ordenDeSalida.pdf","D"); // "D" means open download dialog	
+	$pdf->Output("equiposByJornada.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());
 };
