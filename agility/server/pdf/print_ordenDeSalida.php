@@ -192,6 +192,6 @@ try {
 	$pdf->composeTable();
 	$pdf->Output("ordenDeSalida.pdf","D"); // "D" means open download dialog	
 } catch (Exception $e) {
-	die ("Error accessing database: ".$e.getMessage());
+	die ("Error accessing database: ".$e->getMessage());
 };
 ?>
