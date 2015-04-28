@@ -357,7 +357,7 @@ class Inscripciones extends DBObject {
 				PerroGuiaClub.Raza AS Raza, PerroGuiaClub.Licencia AS Licencia, PerroGuiaClub.LOE_RRC AS LOE_RRC,
 				PerroGuiaClub.Categoria AS Categoria, PerroGuiaClub.Grado AS Grado, Inscripciones.Celo AS Celo,
 				PerroGuiaClub.Guia AS Guia, PerroGuiaClub.Club AS Club, PerroGuiaClub.NombreGuia AS NombreGuia,
-                PerroGuiaClub.NombreClub AS NombreClub, $team AS Equipo, '{$teamobj->Nombre}' AS NombreEquipo ,
+                PerroGuiaClub.NombreClub AS NombreClub, $team AS Equipo,
 				Inscripciones.Observaciones AS Observaciones, Inscripciones.Jornadas AS Jornadas, Inscripciones.Pagado AS Pagado",
 				/* from */	"Inscripciones,PerroGuiaClub",
 				/* where */ "( Inscripciones.Perro = PerroGuiaClub.ID)	AND ( Inscripciones.Prueba=$prueba ) AND ( ((Inscripciones.Jornadas & $mask))<>0 )",
@@ -366,7 +366,8 @@ class Inscripciones extends DBObject {
 			);
 		// reindex using perro as index
 		$inscripciones=array();
-		foreach($lista['rows'] as $inscripcion) { 
+		foreach($lista['rows'] as $inscripcion) {
+            $inscripcion['NombreEquipo']=$teamobj->Nombre;
 			$inscripciones[$inscripcion['Perro']]=$inscripcion;
 		}
 		// ahora comprobamos consistencia de los listados de equipos
@@ -376,7 +377,7 @@ class Inscripciones extends DBObject {
 		foreach ( $list as $perro) {
 			if (strpos($perro,"BEGIN")!==false) continue;
 			if (strpos($perro,"END")!==false) continue;
-			if (!array_key_exists($perro,$inscripciones)) {
+			if (!array_key_exists(strval($perro),$inscripciones)) {
 				$this->error("Inscripciones::inscritosByTeam():El perro $perro del equipo $team no esta inscrito en la jornada {$teamobj->Jornada} de la prueba $prueba");
 				// $this->removeFromList($perro); // cleanup. should not be needed, but....
                 continue;
