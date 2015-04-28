@@ -92,9 +92,26 @@ class PDF extends PrintCommon {
 	}
 	
 	function printTeamInformation($rowcount,$team) {
+        // evaluate logos
+        $logos=array('null.png','null.png','null.png','null.png');
+        if ($team['Nombre']==="-- Sin asignar --") {
+            $logos[0]='agilitycontest.png';
+        } else {
+            $count=0;
+            foreach( explode(",",$team['Miembros']) as $miembro) {
+                if ($miembro==="BEGIN") continue;
+                if ($miembro==="END") continue;
+                $logo=$this->getLogoName(intval($miembro));
+                if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
+            }
+        }
         $this->SetXY(10,45+6*$rowcount);
 		$this->ac_header(1,18);
-        $this->Cell(180,12,$team['Nombre'],'LT',0,'R',true);
+        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),12),"LT",0,'C',($logos[0]==='null.png')?true:false);
+        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX(),$this->getY(),12),"T",0,'C',($logos[1]==='null.png')?true:false);
+        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX(),$this->getY(),12),"T",0,'C',($logos[2]==='null.png')?true:false);
+        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX(),$this->getY(),12),"T",0,'C',($logos[3]==='null.png')?true:false);
+        $this->Cell(132,12,$team['Nombre'],'T',0,'R',true);
         $this->Cell(10,12,'','TR',0,'R',true); // empty space at right of page
         $this->Ln();
         $this->ac_header(2,9);
