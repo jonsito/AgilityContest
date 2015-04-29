@@ -40,7 +40,7 @@ $('#seljornada-window').window({
 		}
         // default page and dialogs
 		page="/agility/client/frm_competicion2.php?tipo=std";
-        var dialogs= {'t':'#ordentandas-dialog','s':'#ordensalida-dialog','c':'#competicion-dialog'};
+        var dialogs= {'t':'#ordentandas-dialog','s':'#ordensalida-dialog','c':'#competicion-dialog','r':'#resultadosmanga-dialog'};
 		if (workingData.datosJornada.Equipos3==1) {
 			page="/agility/client/frm_competicion2.php?tipo=eq3";
 			extra=" ( <?php _e('Equipos -3 mejores-');?> )";
