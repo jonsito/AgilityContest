@@ -14,17 +14,30 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
- 
 <?php 
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 require_once("dialogs/dlg_ordentandas.inc");
 require_once("dialogs/dlg_ordensalida.inc");
-require_once("dialogs/dlg_competicion.inc");
-require_once("dialogs/dlg_resultadosManga.inc");
+switch(http_request("tipo","s","std")) {
+    case "eq3":
+        require_once("dialogs/dlg_competicion.inc");
+        require_once("dialogs/dlg_resultados_eq3.inc");
+        break;
+    case "eq4":
+        require_once("dialogs/dlg_competicion_eq4.inc");
+        require_once("dialogs/dlg_resultados_eq4.inc");
+        break;
+    case "std":
+    case "open":
+    default:
+        require_once("dialogs/dlg_competicion.inc");
+        require_once("dialogs/dlg_resultadosManga.inc");
+        break;
+}
 ?>
-	
+ 	
 <!-- PANEL INFORMATIVO SOBRE LA MANGAS DE ESTA JORNADA -->
 <div id="competicion_info" style="width:975px">
 
@@ -47,16 +60,16 @@ require_once("dialogs/dlg_resultadosManga.inc");
 	<span style="float:left;padding:10px">
 		<a id="competicion-ordentandasBtn" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-updown'" style="width:185px"
-			onclick="competicionDialog('ordentandas');">Programaci&oacute;n</a>
+			onclick="competicionDialog('ordentandas');"><?php _e('Programaci&oacute;n');?></a>
 		<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-order'" style="width:185px"
-			onclick="competicionDialog('ordensalida');">Orden de salida</a>
+			onclick="competicionDialog('ordensalida');"><?php _e('Orden de salida');?></a>
 		<a id="competicion-competicionBtn" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-table'" style="width:185px"
-			onclick="competicionDialog('competicion');">Entrada de datos</a>
+			onclick="competicionDialog('competicion');"><?php _e('Entrada de datos');?></a>
 		<a id="competicion-resultmangaBtn" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-endflag'" style="width:185px"
-			onclick="competicionDialog('resultadosmanga');">Resultados de la manga</a>
+			onclick="competicionDialog('resultadosmanga');"><?php _e('Resultados de la manga');?></a>
 	</span>
 </div>
 
@@ -112,11 +125,11 @@ $('#competicion-listamangas').datagrid({
         workingData.nombreManga=row.Descripcion;
         // cannot use loadcontents, because need to execute commands, _after_ html document load success
         var infomanga="/agility/client/dialogs/infomanga_rsce.inc";
-        if (workingData.datosPrueba.RSCE==1) infomanga="/agility/client/dialogs/infomanga_rfec.inc";  
-        if (workingData.datosPrueba.RSCE==2) infomanga="/agility/client/dialogs/infomanga_uca.inc";  
+        if (workingData.datosPrueba.RSCE==1) infomanga="/agility/client/dialogs/infomanga_rfec.inc";
+        if (workingData.datosPrueba.RSCE==2) infomanga="/agility/client/dialogs/infomanga_uca.inc";
         $('#competicion-datosmanga').load(infomanga, function() {
             // titulo del panel lateral con la informacion de la manga
-		$('#competicion_infolayout').layout('panel','center').panel('setTitle','<?php _e('Datos de la manga');?> -- '+workingData.nombreManga);
+        	$('#competicion_infolayout').layout('panel','center').panel('setTitle','<?php _e('Datos de la manga');?> -- '+workingData.nombreManga);
         	// datos del panel lateral con informacion de la manga
         	reload_manga(workingData.manga);
             // refresh orden de salida/competicion/resultados
@@ -128,10 +141,10 @@ $('#competicion-listamangas').datagrid({
 });
 
 //tooltips
-addTooltip($('#competicion-ordentandasBtn').linkbutton(),"Ver/Ordenar la secuencia de <br/>Mangas/Categorias/Grados de la prueba");
-addTooltip($('#competicion-ordensalidaBtn').linkbutton(),"Ver/Editar el Orden de salida de la manga");
-addTooltip($('#competicion-competicionBtn').linkbutton(),"Insertar resultados de los participantes en la manga");
-addTooltip($('#competicion-resultmangaBtn').linkbutton(),"Ver los resultados parciales de la manga"); 
+addTooltip($('#competicion-ordentandasBtn').linkbutton(),"<?php _e('Ver/Ordenar la secuencia de <br/>Mangas/Categor&iacute;as/Grados de la jornada')?>");
+addTooltip($('#competicion-ordensalidaBtn').linkbutton(),"<?php _e('Ver/Editar el Orden de salida de la manga');?>");
+addTooltip($('#competicion-competicionBtn').linkbutton(),"<?php _e('Insertar resultados de los participantes en la manga');?>Insertar resultados de los participantes en la manga");
+addTooltip($('#competicion-resultmangaBtn').linkbutton(),"<?php _e('Ver los resultados parciales de la manga');?>"); 
 
 </script>
     
