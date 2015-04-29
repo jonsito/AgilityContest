@@ -230,11 +230,6 @@ function setPrueba(data) {
 	workingData.nombrePrueba=data.Nombre;
 	workingData.datosPrueba=data;
 	setFederation(data.RSCE);
-	if(workingData.prueba!=old) {
-		workingData.jornada=0;
-		workingData.nombreJornada="";
-		workingData.datosJornada=new Object();
-	}
 }
 
 /**
@@ -247,11 +242,6 @@ function setJornada(data) {
 	workingData.jornada=Number(data.ID);
 	workingData.nombreJornada=data.Nombre;
 	workingData.datosJornada=data;
-	if(workingData.jornada!=old) {
-		workingData.manga=0;
-		workingData.nombreManga="";
-		workingData.datosJornada=new Object();
-	}
 }
 
 /**

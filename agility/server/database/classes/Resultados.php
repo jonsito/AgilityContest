@@ -27,6 +27,7 @@ class Resultados extends DBObject {
 	protected $IDJornada; // ID de la jornada
 	protected $dmanga=null; // datos de la manga
 	protected $djornada=null;  // datos de la jornada
+    protected $dequipos=null; // datos de los equipos
 
 	private function getDatosManga() {
 		if ($this->dmanga!=null) return $this->dmanga;
@@ -47,17 +48,25 @@ class Resultados extends DBObject {
 		if ($this->djornada!=null) return $this->djornada;
 		$manga=$this->getDatosManga();
 		$this->IDJornada=$manga->Jornada;
-		$idjornada=$this->IDJornada;
-		$idmanga=$this->IDManga;
 		$obj=$this->__getObject("Jornadas", $this->IDJornada);
 		if (!is_object($obj)) {
-			$this->error("Cannot locate JornadaID: $idjornada for MangaID:$idmanga in database");
+			$this->error("Cannot locate JornadaID: {$this->IDJornada} for MangaID:{$this->IDManga} in database");
 			return null;
 		}
 		$this->djornada=$obj;
 		return $this->djornada;
 	}
-	
+
+	private function getDatosEquipos() {
+        if ($this->dequipos!=null) return $this->dequipos;
+        if ($this->IDJornada==0) $this->getDatosJornada();
+        $eqobj=new Equipos("Resultados",$this->IDPrueba,$this->IDJornada);
+        $teams=$eqobj->getTeamsByJornada();
+        $this->dequipos=array(); // reindex teams by ID
+        foreach($teams as $team) $this->dequipos[$team['ID']]=$team;
+        return $this->dequipos;
+    }
+
 	private function isCerrada() {
 		$jrd=$this->getDatosJornada();
 		return 	($jrd->Cerrada!=0)? true:false;
@@ -85,9 +94,9 @@ class Resultados extends DBObject {
 		$this->IDPrueba=$prueba;
 		$this->IDJornada=0; // to be filled
 		$this->IDManga=$manga;
-		$this->dprueba=null;
 		$this->dmanga=null;
 		$this->djornada=null;
+        $this->dequipos=null;
 	}
 	
 	/**
@@ -287,12 +296,13 @@ class Resultados extends DBObject {
 			if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; $faltas=0; $rehuses=0; $tocados=0; }
 			if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
 		}
+        $this->myLogger->trace("Tiempo es '$tiempo' '");
 		// efectuamos el update, marcando "pendiente" como false
 		$sql="UPDATE Resultados 
 			SET Entrada='$entrada' , Comienzo='$comienzo' , 
 				Faltas=$faltas , Rehuses=$rehuses , Tocados=$tocados ,
 				NoPresentado=$nopresentado , Eliminado=$eliminado , 
-				Tiempo=$tiempo , Observaciones='$observaciones' , Pendiente=$pendiente
+				Tiempo='$tiempo' , Observaciones='$observaciones' , Pendiente=$pendiente
 			WHERE (Perro=$idperro) AND (Manga=$this->IDManga)";
 		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);
@@ -360,7 +370,7 @@ class Resultados extends DBObject {
 		}
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
-				"Dorsal,Perro,Nombre,Licencia,Categoria,Grado,NombreGuia,NombreClub,Faltas,Tocados,Rehuses,Tiempo,
+				"Dorsal,Perro,Nombre,Raza,Equipo,Licencia,Categoria,Grado,NombreGuia,NombreClub,Faltas,Tocados,Rehuses,Tiempo,
 					( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido,
 					0 AS PTiempo, 0 AS Penalizacion, '' AS Calificacion, 0 AS Velocidad", 
 				"Resultados", 
@@ -436,6 +446,11 @@ class Resultados extends DBObject {
 				$table[$idx]['Calificacion'] = "Excelente (p)";
 				$table[$idx]['CShort'] = "Ex P";
 			}
+
+            // anyadimos nombre del equipo
+            $dequipos=$this->getDatosEquipos();
+            $eqinfo=$dequipos[]=$dequipos[$table[$idx]['Equipo']];
+            $table[$idx]['NombreEquipo']=$eqinfo['Nombre'];
 		}
 		// FASE 4: re-ordenamos los datos en base a la puntuacion y calculamos campo "Puesto"
 		usort($table, function($a, $b) {

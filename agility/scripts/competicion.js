@@ -64,6 +64,11 @@ function checkPending(val,row,idx) { return ( parseInt(row.Pendiente)!=0 )? 'col
 function formatCelo(val,row,idx) { return (parseInt(val)==0)?" ":"&#x2665;"; }
 function competicionRowStyler(idx,row) { return (row.Dorsal=='*')? myRowStyler(-1,row) : myRowStyler(idx,row); }
 
+function formatTeamResults( value , rows ) {
+    // todo: check eq3 or eq4 contest and eval time and penalization
+    return "Equipo: "+value;
+}
+
 function getMode(rec,cat) {
 	var recorrido=parseInt(rec);
 	var categoria=parseInt(cat);

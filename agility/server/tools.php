@@ -106,7 +106,7 @@ function http_request($name,$type,$def,$esc=true) {
 			if ($a==="") return $def;
 			return toBoolean($a);
 		case "d": 
-		case "f": return doubleval($a);
+		case "f": return floatval(str_replace("," ,"." ,$a));
 	}
 	do_log("request() invalid type:$type requested"); 
 	return null; 

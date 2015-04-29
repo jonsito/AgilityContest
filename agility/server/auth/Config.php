@@ -183,7 +183,8 @@ Class Config {
 		$lang=$this->config['lang'];
 		putenv("LC_ALL=$lang");
 		setlocale(LC_ALL, $lang);
-		$domain="AgilityContest";
+        setlocale(LC_NUMERIC, 'en_US'); // Fix for float number with incorrect decimal separator.
+        $domain="AgilityContest";
 		bindtextdomain($domain, __DIR__."/../../locale");
 		textdomain($domain);
 		bind_textdomain_codeset($domain, 'UTF-8');
