@@ -66,7 +66,16 @@ function competicionRowStyler(idx,row) { return (row.Dorsal=='*')? myRowStyler(-
 
 function formatTeamResults( value , rows ) {
     // todo: check eq3 or eq4 contest and eval time and penalization
-    return 'Equipo: '+value+'';
+    var tiempo=0;
+    var penal=0
+    for (n=0;n<3;n++) {
+        if ( typeof(rows[n])==='undefined') { penal+=200;}
+        else {penal+=parseFloat(rows[n].Penalizacion); tiempo+=parseFloat(rows[n].Tiempo);}
+    }
+    return  '<table><tr><td style="width:325px">Equipo: '+value+
+            '</td><td style="width:200px">Tiempo: '+tiempo+
+            '</td><td style="width:200px">Penalizaci&oacute;n: '+penal+
+            '</td></tr></table>';
 }
 
 function getMode(rec,cat) {

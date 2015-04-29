@@ -1,8 +1,8 @@
--- MySQL dump 10.15  Distrib 10.0.17-MariaDB, for Linux (x86_64)
+-- MySQL dump 10.14  Distrib 5.5.41-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: agility
 -- ------------------------------------------------------
--- Server version	10.0.17-MariaDB
+-- Server version	5.5.41-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -1349,8 +1349,8 @@ CREATE TABLE `mangas` (
 LOCK TABLES `mangas` WRITE;
 /*!40000 ALTER TABLE `mangas` DISABLE KEYS */;
 INSERT INTO `mangas` VALUES 
-(1,9,8,'-',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,414,585,633,45,644,66,8,390,389,589,692,9,417,350,351,609,84,52,156,391,397,413,556,END'),
-(2,9,13,'-',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,633,644,585,390,389,66,9,417,589,8,414,45,692,350,351,609,84,52,156,391,397,413,556,END'),
+(1,9,8,'-',1,150,21,150,21,150,21,0,0,0,36,'s',1,50,'%',3,2,'s',1,50,'%',4,0,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,414,585,633,45,644,66,8,390,389,589,692,9,417,350,351,609,84,52,156,391,397,413,556,END'),
+(2,9,13,'-',1,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,633,644,585,390,389,66,9,417,589,8,414,45,692,350,351,609,84,52,156,391,397,413,556,END'),
 (3,10,3,'GI',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,633,644,692,556,END'),
 (4,10,4,'GI',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,633,644,692,556,END'),
 (5,10,5,'GII',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,585,390,389,66,589,8,414,351,609,84,52,156,391,397,413,END'),
@@ -2557,27 +2557,27 @@ LOCK TABLES `resultados` WRITE;
 /*!40000 ALTER TABLE `resultados` DISABLE KEYS */;
 INSERT INTO `resultados` VALUES 
 (2,9,1,12,8,18,'Thelma','Border Collie','824','L','GII',0,'Fabian Santolaya','A. D. A. Pozuelo','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
-(2,9,1,8,9,20,'Boss','','797','L','GIII',0,'Oscar Muñiz','A-0','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
-(2,9,1,14,45,20,'Asia','Border Collie','A364','L','GIII',0,'José Luis Romero','A. D. A. Pozuelo','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
-(2,9,1,21,52,21,'Mister','Border Collie','A250','L','GII',0,'Rubén García','Eslón','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
-(2,9,1,7,66,17,'Kora','P.B.Malinoise','A332','L','GII',0,'Pedro Delgado Fernandez','A-0','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
-(2,9,1,20,84,21,'Maty','Border Collie','A333','L','GII',0,'Cristina Cortijo','Eslón','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
-(2,9,1,22,156,21,'Lennon','A. Foxhound','A336','L','GII',0,'Miguel Angel García','Eslón','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
+(2,9,1,8,9,20,'Boss','','797','L','GIII',0,'Oscar Muñiz','A-0','2015-04-29 19:15:54','2015-04-29 19:15:54',0,0,0,0,0,36.8,'',0),
+(2,9,1,14,45,20,'Asia','Border Collie','A364','L','GIII',0,'José Luis Romero','A. D. A. Pozuelo','2015-04-29 19:16:17','2015-04-29 19:16:17',1,0,0,0,0,33.5,'',0),
+(2,9,1,21,52,21,'Mister','Border Collie','A250','L','GII',0,'Rubén García','Eslón','2015-04-29 19:33:04','2015-04-29 19:33:04',0,0,0,0,1,0,'',0),
+(2,9,1,7,66,17,'Kora','P.B.Malinoise','A332','L','GII',0,'Pedro Delgado Fernandez','A-0','2015-04-29 19:15:01','2015-04-29 19:15:01',1,0,0,0,0,40.5,'',0),
+(2,9,1,20,84,21,'Maty','Border Collie','A333','L','GII',0,'Cristina Cortijo','Eslón','2015-04-29 19:32:57','2015-04-29 19:32:57',0,0,0,0,0,45.2,'',0),
+(2,9,1,22,156,21,'Lennon','A. Foxhound','A336','L','GII',0,'Miguel Angel García','Eslón','2015-04-29 19:33:12','2015-04-29 19:33:12',0,0,0,0,0,38.3,'',0),
 (2,9,1,17,350,19,'Dama','Fox Terrier Wire','A641','M','GIII',0,'Juan Antonio Martinez','Eslón','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
 (2,9,1,18,351,19,'Flai','Fox Terrier Wire','A815','M','GII',0,'Juan Antonio Martinez','Eslón','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
-(2,9,1,5,389,20,'Dolce','Border Collie','A681','L','GII',0,'Andres Morilla Sánchez','A-0','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
-(2,9,1,4,390,17,'Dolce','','','L','GII',0,'Natividad Ruiz García','A-0','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
+(2,9,1,5,389,20,'Dolce','Border Collie','A681','L','GII',0,'Andres Morilla Sánchez','A-0','2015-04-29 19:16:19','2015-04-29 19:16:19',0,0,0,0,0,30.2,'',0),
+(2,9,1,4,390,17,'Dolce','','','L','GII',0,'Natividad Ruiz García','A-0','2015-04-29 19:15:04','2015-04-29 19:15:04',0,0,0,1,0,0,'',0),
 (2,9,1,6,391,9,'Gilda','Border Collie','A723','L','GII',1,'Natividad Ruiz García','A-0','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
 (2,9,1,11,397,18,'Milady','Border Collie','A791','L','GII',1,'Ricardo Santolaya','A. D. A. Pozuelo','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
 (2,9,1,15,413,19,'Lola','Jack Rusell','A633','S','GII',1,'Francisco de la Cruz','A. D. A. Pozuelo','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
 (2,9,1,13,414,18,'Yeny','Border Collie','A747','L','GII',0,'José Luis Romero','A. D. A. Pozuelo','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
-(2,9,1,9,417,20,'Crak','Border Collie','A719','L','GIII',0,'Oscar Muñiz','A-0','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
+(2,9,1,9,417,20,'Crak','Border Collie','A719','L','GIII',0,'Oscar Muñiz','A-0','2015-04-29 19:16:10','2015-04-29 19:16:10',0,0,0,0,0,36.7,'',0),
 (2,9,1,23,556,9,'botinera','','','L','GI',0,'Maria Jorge','AA Y CIA','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
-(2,9,1,3,585,17,'Ari','Border Collie','A894','L','GII',0,'Veronica Roda','A-0','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
+(2,9,1,3,585,17,'Ari','Border Collie','A894','L','GII',0,'Veronica Roda','A-0','2015-04-29 19:14:49','2015-04-29 19:14:49',0,0,0,0,0,33.4,'',0),
 (2,9,1,10,589,18,'Iris','Border Collie','','L','GII',0,'Sara Montila','A. D. A. Pozuelo','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
-(2,9,1,19,609,21,'Lumbre','Border Collie','A932','L','GII',0,'Arancha Ruipérez Moslares','Eslón','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
+(2,9,1,19,609,21,'Lumbre','Border Collie','A932','L','GII',0,'Arancha Ruipérez Moslares','Eslón','2015-04-29 19:32:52','2015-04-29 19:32:52',1,1,0,0,0,37.3,'',0),
 (2,9,1,1,633,9,'Asics','Pastor Belga Malinois','','L','GI',0,'Luis Miguel Rodrigo','A-0','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
-(2,9,1,2,644,17,'Boss','Border Collie','797','L','GI',0,'Álvaro Muñiz','A-0','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
+(2,9,1,2,644,17,'Boss','Border Collie','797','L','GI',0,'Álvaro Muñiz','A-0','2015-04-29 19:14:55','2015-04-29 19:14:55',0,0,0,0,0,37.2,'',0),
 (2,9,1,16,692,19,'Beltxi','','','S','GI',0,'Amaia Peña Gómez','A. D. A. Pozuelo','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
 (2,9,2,12,8,18,'Thelma','Border Collie','824','L','GII',0,'Fabian Santolaya','A. D. A. Pozuelo','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
 (2,9,2,8,9,20,'Boss','','797','L','GIII',0,'Oscar Muñiz','A-0','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1),
@@ -2722,7 +2722,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=204 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2737,7 +2737,7 @@ INSERT INTO `sesiones` VALUES
 (3,'Ring 2','Mangas a realizar en el segundo ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (4,'Ring 3','Mangas a realizar en el tercer ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (5,'Ring 4','Mangas a realizar en el cuarto ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
-(198,'Console','admin - Administrador de la aplicacion',3,'uPLO0ZvE6q2AoxlR',0,0,0,0,'',NULL,NULL,NULL,'2015-04-28 09:55:29');
+(203,'Console','admin - Administrador de la aplicacion',3,'PGT5xshqQj2VA9uJ',0,0,0,0,'',NULL,NULL,NULL,'2015-04-29 19:58:38');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3032,4 +3032,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-28 14:19:29
+-- Dump completed on 2015-04-29 22:23:02
