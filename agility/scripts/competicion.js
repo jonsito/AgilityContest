@@ -66,7 +66,7 @@ function competicionRowStyler(idx,row) { return (row.Dorsal=='*')? myRowStyler(-
 
 function formatTeamResults( value , rows ) {
     // todo: check eq3 or eq4 contest and eval time and penalization
-    return "Equipo: "+value;
+    return 'Equipo: '+value+'';
 }
 
 function getMode(rec,cat) {
