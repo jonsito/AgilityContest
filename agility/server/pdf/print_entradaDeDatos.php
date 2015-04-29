@@ -70,12 +70,6 @@ class PDF extends PrintCommon {
 		$this->categoria="L";
 	}
 	
-	function getLogoName($id) {
-		$row=$this->myDBObject->__selectObject("Logo","Perros,Guias,Clubes","(Perros.Guia=Guias.ID ) AND (Guias.Club=Clubes.ID) AND (Perros.ID=$id)");
-		if (!$row) return $this->icon; // failed in locate logo
-		return $row->Logo;
-	}
-	
 	// Cabecera de página
 	function Header() {
 		$this->print_commonHeader("Introducción de Datos");
@@ -421,6 +415,6 @@ try {
 	$pdf->composeTable();
 	$pdf->Output("entradaDeDatos.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
-	die ("Error accessing database: ".$e.getMessage());
+	die ("Error accessing database: ".$e->getMessage());
 };
 ?>

@@ -582,7 +582,8 @@ function reloadWithSearch(dg,op,clear) {
     	Operation: op, 
     	where: w, 
     	Federation: workingData.federation,
-    	Prueba: workingData.prueba
+    	Prueba: workingData.prueba,
+        Jornada: workingData.jornada
     	} 
     );
     if (clear==true) $(dg+'-search').val('---- Buscar ----');

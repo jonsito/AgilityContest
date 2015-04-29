@@ -136,6 +136,7 @@ $('#new_inscripcion-datagrid').datagrid({
 	queryParams: {
 		Operation: 'noinscritos',
 		Prueba: workingData.prueba,
+        Federation: workingData.federation,
 		where: ($('new_inscripcion-datagrid-search').val()==='---- Buscar ----')?'':$('new_inscripcion-datagrid-search').val()
 	},
 	method: 'get',

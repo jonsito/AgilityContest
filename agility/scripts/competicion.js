@@ -1534,7 +1534,7 @@ function verifyClasificaciones() {
 					var w=$.messager.alert("Verify Error",str1,"error");
 					w.window('resize',{width:600}).window('center');
 				}
-				return;
+				return false; // prevent default fireup of event trigger;
 			}
 			// verificamos manga 2
 			$.ajax({

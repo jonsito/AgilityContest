@@ -36,17 +36,18 @@ $('#seljornada-window').window({
 		if (workingData.datosJornada.Equipos3==1) {
 			page="/agility/client/frm_competicion_eq3.php";
 			extra=" ( Equipos -3 mejores- )";
-			dialogs= {};
+            // use default dialogs
 		}
 		if (workingData.datosJornada.Equipos4==1) {
 			page="/agility/client/frm_competicion_eq4.php";
 			extra=" ( Equipos -conjunta- )";
-			dialogs= {};
+            // use default dialogs
 		}
 		if (workingData.datosJornada.Open==1) {
 			// an Open Contest is like a normal with no Grades but only categories
 			page="/agility/client/frm_competicion2.php";
 			extra=" ( Abierta )";
+            // use default dialogs
 		}
 		if (workingData.datosJornada.KO==1) {
 			page="/agility/client/frm_competicion_ko.php";

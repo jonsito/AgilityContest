@@ -86,6 +86,18 @@ class PrintCommon extends FPDF {
 				break;
 		}
 	}
+
+    /**
+     * Gets the club logo based on Dog ID
+     * @param {integer} $id Dog ID
+     * @return {string} name of desired logo
+    */
+    function getLogoName($id) {
+        $row=$this->myDBObject->__selectObject("Logo","Perros,Guias,Clubes","(Perros.Guia=Guias.ID ) AND (Guias.Club=Clubes.ID) AND (Perros.ID=$id)");
+        if (!$row) return $this->icon; // failed in locate logo
+        return $row->Logo;
+    }
+
 	/**
 	 * Pinta la cabecera de pagina
 	 * @param {string} $title Titulo a imprimir en el cajetin

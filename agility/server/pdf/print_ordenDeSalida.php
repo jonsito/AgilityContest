@@ -43,9 +43,9 @@ class PDF extends PrintCommon {
 	// geometria de las celdas
 	protected $cellHeader
 					=array('Orden','Dorsal','Nombre','Lic.','Guia','Club','Celo','Observaciones');
-	protected $pos	=array(  12,      12,     30,     15,    50,   30,     10,    26);
-	protected $align=array(  'R',    'R',    'L',    'C',   'R',  'R',    'C',   'R');
-	protected $fmt	=array(  'i',    'i',    's',    's',   's',  's',    'b',   's');
+//                          orden    dorsal  nombre raza licencia guia club     celo   observaciones
+	protected $pos	=array(  12,      10,     25,    27,   10,    40,   25,     10,    26);
+	protected $align=array(  'R',    'R',    'C',    'R',  'C',  'R',   'R',    'C',   'R');
 	protected $cat  =array("-" => "Sin categoria","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
@@ -128,12 +128,15 @@ class PDF extends PrintCommon {
 			$this->Cell($this->pos[0],6,($rowcount+1)." - ",'LR',0,$this->align[0],$fill); // display order
 			$this->SetFont('Arial','',9); // remove bold 9px
 			$this->Cell($this->pos[1],6,$row['Dorsal'],		'LR',0,$this->align[1],$fill);
-			$this->Cell($this->pos[2],6,$row['Nombre'],		'LR',0,$this->align[2],$fill);
-			$this->Cell($this->pos[3],6,$row['Licencia'],	'LR',0,$this->align[3],$fill);
-			$this->Cell($this->pos[4],6,$row['NombreGuia'],	'LR',0,$this->align[4],$fill);
-			$this->Cell($this->pos[5],6,$row['NombreClub'],	'LR',0,$this->align[5],$fill);
-			$this->Cell($this->pos[6],6,($row['Celo']==0)?"":"X",		'LR',0,$this->align[6],$fill);
-			$this->Cell($this->pos[7],6,$row['Observaciones'],'LR',0,$this->align[7],$fill);
+            $this->SetFont('Arial','B',11); // bold 9px
+            $this->Cell($this->pos[2],6,$row['Nombre'],		'LR',0,$this->align[2],true);
+            $this->SetFont('Arial','',9); // remove bold 9px
+            $this->Cell($this->pos[3],6,$row['Raza'],		'LR',0,$this->align[3],true);
+            $this->Cell($this->pos[4],6,$row['Licencia'],	'LR',0,$this->align[4],true);
+            $this->Cell($this->pos[5],6,$row['NombreGuia'],	'LR',0,$this->align[5],true);
+            $this->Cell($this->pos[6],6,$row['NombreClub'],	'LR',0,$this->align[6],true);
+            $this->Cell($this->pos[7],6,($row['Celo']==0)?"":_("Celo"),	'LR',0,$this->align[7],true);
+            $this->Cell($this->pos[8],6,$row['Observaciones'],'LR',0,$this->align[8],true);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;
@@ -155,6 +158,6 @@ try {
 	$pdf->composeTable();
 	$pdf->Output("ordenDeSalida.pdf","D"); // "D" means open download dialog	
 } catch (Exception $e) {
-	die ("Error accessing database: ".$e.getMessage());
+	die ("Error accessing database: ".$e->getMessage());
 };
 ?>
