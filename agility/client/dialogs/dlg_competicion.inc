@@ -233,7 +233,7 @@ $('#competicion-printBtn').on("click", function () {
 		        failMessageHtml: "There was a problem generating your report, please try again."
 			}
 		);
-	}).window({width:300});
+	}).window('resize',{width:300});
     return false; //this is critical to stop the click event which will trigger a normal file download!
 });
 

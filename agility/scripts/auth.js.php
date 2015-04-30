@@ -69,7 +69,8 @@ function acceptLogin() {
        			str =str+"Copia registrada por: "+data.User+"<br />";
        			str =str+"Para el club: "+data.Club+"<br /><br />";
        			str =str+"Usuario "+data.Login+": Sesi&oacute;n iniciada correctamente";
-       			$.messager.alert("Login",str,"info").window({width:400,height:175});
+       			var w=$.messager.alert("Login",str,"info");
+                w.window('resize',{width:400,height:175}).window('center');
            		$('#login_menu-text').html("Cerrar sesi&oacute;n: <br />"+data.Login);
            		initAuthInfo(data);
        		} 

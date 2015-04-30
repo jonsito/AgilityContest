@@ -237,6 +237,7 @@ function setPrueba(data) {
  * On change also reset manga info
  * @param {object} data jornada info
  */
+
 function setJornada(data) {
 	var old=workingData.jornada;
 	workingData.jornada=Number(data.ID);

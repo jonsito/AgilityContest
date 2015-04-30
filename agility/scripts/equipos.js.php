@@ -236,7 +236,7 @@ function deleteTeam(dg){
                 }
             },'json');
         }
-    }).window({width:500});
+    }).window('resize',{width:500});
 }
 
 /**

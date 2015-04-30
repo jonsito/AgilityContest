@@ -116,7 +116,7 @@ function deleteInscripcion() {
 						'json'
 					);
 				} // if (r)
-		}).window({width:475});
+		}).window('resize',{width:475});
 }
 
 /**
@@ -218,6 +218,6 @@ function printInscripciones() {
 					}
 			);
 		}
-	).window({width:250});
+	).window('resize',{width:250});
 	return false; //this is critical to stop the click event which will trigger a normal file download!
 };
