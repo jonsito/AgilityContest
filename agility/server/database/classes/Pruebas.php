@@ -67,7 +67,7 @@ class Pruebas extends DBObject {
 				VALUES ($pruebaid,$jornadaid,1,'-- Sin asignar --','NO BORRAR: PRUEBA $pruebaid JORNADA $jornadaid - Default Team','BEGIN,END',1 )";
 			$res=$this->query($str);
 			if (!$res) return $this->error($this->conn->error);
-			// regenerate Orden_Tandas field
+			// regenerate Tandas table
 			$ot=new Tandas("Pruebas::Insert()",$pruebaid,$jornadaid);
 			$ot->populateJornada();
 		}

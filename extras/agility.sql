@@ -1139,20 +1139,18 @@ CREATE TABLE `jornadas` (
   `Nombre` varchar(255) NOT NULL,
   `Fecha` date NOT NULL,
   `Hora` time NOT NULL,
-  `Grado1` tinyint(1) NOT NULL DEFAULT '1',
-  `Grado2` tinyint(1) NOT NULL DEFAULT '1',
-  `Grado3` tinyint(1) NOT NULL DEFAULT '1',
+  `Grado1` tinyint(1) NOT NULL DEFAULT '0',
+  `Grado2` tinyint(1) NOT NULL DEFAULT '0',
+  `Grado3` tinyint(1) NOT NULL DEFAULT '0',
   `Open` tinyint(1) NOT NULL DEFAULT '0',
   `Equipos3` tinyint(1) NOT NULL DEFAULT '0',
   `Equipos4` tinyint(1) NOT NULL DEFAULT '0',
-  `PreAgility` tinyint(1) NOT NULL DEFAULT '1',
+  `PreAgility` tinyint(1) NOT NULL DEFAULT '0',
   `KO` tinyint(1) NOT NULL DEFAULT '0',
   `Especial` tinyint(1) NOT NULL DEFAULT '0',
   `PreAgility2` tinyint(1) NOT NULL DEFAULT '0',
   `Cerrada` tinyint(1) NOT NULL DEFAULT '0',
   `Observaciones` varchar(255) NOT NULL DEFAULT '',
-  `Orden_Tandas` text NOT NULL,
-  `Orden_Equipos` text NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `Jornadas_Prueba` (`Prueba`),
   CONSTRAINT `Jornadas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -1166,14 +1164,14 @@ CREATE TABLE `jornadas` (
 LOCK TABLES `jornadas` WRITE;
 /*!40000 ALTER TABLE `jornadas` DISABLE KEYS */;
 INSERT INTO `jornadas` VALUES 
-(1,1,1,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)','BEGIN,END','BEGIN,END'),
-(2,1,2,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)','BEGIN,END','BEGIN,END'),
-(3,1,3,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)','BEGIN,END','BEGIN,END'),
-(4,1,4,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)','BEGIN,END','BEGIN,END'),
-(5,1,5,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)','BEGIN,END','BEGIN,END'),
-(6,1,6,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)','BEGIN,END','BEGIN,END'),
-(7,1,7,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)','BEGIN,END','BEGIN,END'),
-(8,1,8,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)','BEGIN,END','BEGIN,END');
+(1,1,1,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)'),
+(2,1,2,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)'),
+(3,1,3,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)'),
+(4,1,4,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)'),
+(5,1,5,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)'),
+(6,1,6,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)'),
+(7,1,7,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)'),
+(8,1,8,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,1,'(sin especificar)');
 /*!40000 ALTER TABLE `jornadas` ENABLE KEYS */;
 UNLOCK TABLES;
 

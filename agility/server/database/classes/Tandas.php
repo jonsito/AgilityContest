@@ -327,10 +327,13 @@ class Tandas extends DBObject {
 		$n=$data['Nombre'];
 		$h=$data['Horario'];
 		$c=$data['Comentario'];
-		// TODO: if tipo!=0 cannot change name
-		$str= "UPDATE Tandas SET Nombre='$n', Sesion=$s, Horario='$h', Comentario='$c' WHERE (ID=$id)"; 
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
+        $str= "UPDATE Tandas SET Sesion=$s, Horario='$h', Comentario='$c' WHERE (ID=$id)";
+        $rs=$this->query($str);
+        if (!$rs) return $this->error($this->conn->error);
+        // if tipo!=0 cannot change name
+        $str= "UPDATE Tandas SET Nombre='$n' WHERE (ID=$id) AND (Tipo=0)";
+        $rs=$this->query($str);
+        if (!$rs) return $this->error($this->conn->error);
 		return "";
 	}
 	
@@ -607,11 +610,13 @@ class Tandas extends DBObject {
 		if (($j->PreAgility2 != 0)){ // preagility2 also handles preagility1
 			$this->insert_remove($r,1,true);	// Pre-Agility Manga 1
 			$this->insert_remove($r,2,true);	// Pre-Agility Manga 2
-		}
-		if (($j->PreAgility != 0)){
+		} else 	if (($j->PreAgility != 0)){
 			$this->insert_remove($r,1,true);	// Pre-Agility Manga 1
 			$this->insert_remove($r,2,false);	// Pre-Agility Manga 2
-		}
+		} else {
+            $this->insert_remove($r,1,false);	// Pre-Agility Manga 1
+            $this->insert_remove($r,2,false);	// Pre-Agility Manga 2
+        }
 		$this->insert_remove($r,3,($j->Grado1 != 0)?true:false);		// Agility Grado I Manga 1
 		$this->insert_remove($r,4,($j->Grado1 != 0)?true:false);		// Agility Grado I Manga 2
 		$this->insert_remove($r,5,($j->Grado2 != 0)?true:false);		// Agility Grado II
