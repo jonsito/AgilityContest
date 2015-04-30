@@ -255,7 +255,7 @@ class Federation {
 		return Federation::$translations[$fed][$str];
 	}
 
-	function _ef($str,$fed=-1) { echo _f($str,$fed); }
+	function _ef($str,$fed=-1) { echo $this->_f($str,$fed); }
 
 	function strToFederation($str,$fed=-1) {
 		if ($fed>2) return $str;

@@ -208,6 +208,7 @@ class VideoWall {
 			<div id="vwc_tablaResultados">
 			<table class="vwc_tresultados">
 			<thead>
+			    <tr>
 				<th colspan="6">Participante</th>
 				<th>F</th>
 				<th>T</th>
@@ -217,6 +218,7 @@ class VideoWall {
 				<th>Penal.</th>
 				<th colspan="2">Calificacion</th>
 				<th>Puesto</th>
+			    </tr>
 			</thead>
 			<tbody>
 			';

@@ -44,7 +44,6 @@ class Etiquetas_PDF extends PrintCommon {
 	protected $manga2;
 	public $resultados;
 	protected $icon;
-	protected $config;
 	
 	function ac_SetDrawColor($str) {
 		$val=intval(str_replace('#','0x',$str),0);

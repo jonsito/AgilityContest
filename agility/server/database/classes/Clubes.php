@@ -25,7 +25,7 @@ class Clubes extends DBObject {
 	
 	/**
 	 * insert a new club into database
-	 * @return empty string if ok; else null
+	 * @return {string} empty string if ok; else null
 	 */
 	function insert() {
 		$this->myLogger->enter();
@@ -232,6 +232,7 @@ class Clubes extends DBObject {
 		$size = getimagesize($fname);
 		header('Content-Type: '.$size['mime']);
 		readfile($fname);
+        return "";
 	}
 	
 	/**
@@ -253,6 +254,7 @@ class Clubes extends DBObject {
 		$size = getimagesize($fname);
 		header('Content-Type: '.$size['mime']);
 		readfile($fname);
+        return "";
 	}
 	
 	/**
@@ -274,6 +276,7 @@ class Clubes extends DBObject {
 		$size = getimagesize($fname);
 		header('Content-Type: '.$size['mime']);
 		readfile($fname);
+        return "";
 	}
 	
 	function setLogo($id) {
@@ -341,7 +344,7 @@ class Clubes extends DBObject {
 		return "";
 	}
 	
-	function testLogo() {
+	function testLogo($id) {
 		// just receive, resample and resend received image
 		$this->myLogger->enter();
 		// extraemos la imagen
@@ -378,6 +381,7 @@ class Clubes extends DBObject {
 		imagedestroy($img); 
 		imagedestroy($newImage);
 		$this->myLogger->leave();
+        return "";
 	}
 } /* end of class "Clubes" */
 

@@ -38,7 +38,7 @@ try {
 	$mode=http_request("Mode","i","0"); // 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
 	$c= new Clasificaciones("clasificacionesFunctions",$prueba,$jornada);
 	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
-	if ($result===null) throw new Exception($clasificaciones->errormsg);
+	if ($result===null) throw new Exception($c->errormsg);
 	if ($result==="") echo json_encode(array('success'=>true));
 	else echo json_encode($result);
 } catch (Exception $e) {

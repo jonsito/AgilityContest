@@ -44,8 +44,8 @@ class Inscripciones extends DBObject {
 	
 	/**
 	 * Create a new inscripcion
-	 * @param {integer} perro ID del perro
-	 * @return empty string if ok; else null
+	 * @param {int} perro ID del perro
+	 * @return {string} empty string if ok; else null
 	 */
 	function insert($idperro) {
 		$this->myLogger->enter();

@@ -348,24 +348,6 @@ Class Config {
 		if ($result===FALSE) return "Error al generar el fichero de configuracion";
 		return "";
 	}
-
-	function _f($str,$fed=0) {
-		if ($fed>2) return $str;
-		if($fed==-1) $fed=$this->getEnv("federation");
-		if (!array_key_exists($str,Config::$federations[$fed])) return $str;
-		return Config::$federations[$fed][$str];
-	}
-	
-	function _ef($str,$fed=0) { echo _f($str,$fed); }
-	
-	function strToFederation($str,$fed=0) {
-		if ($fed>2) return $str;
-		if($fed==-1) $fed=$this->getEnv("federation");
-		foreach(Config::$federations[$fed] as $key => $value) {
-			$str=str_replace($key,$value,$str);
-		}
-		return $str;
-	}
 }
 
 ?>

@@ -1413,7 +1413,7 @@ function _parsegif($file)
 	else
 	{
 		// Use temporary file
-		$tmp = tempnam('.','gif');
+		$tmp = tempnam(sys_get_temp_dir(),'gif');
 		if(!$tmp)
 			$this->Error('Unable to create a temporary file');
 		if(!imagepng($im,$tmp))

@@ -178,7 +178,7 @@ class Print_Podium extends PrintCommon {
 			$this->Cell(59,6,'',0,0,'C',true);	// espacio en blanco
 		}
 		// global
-		$this->Cell(12,6,$t1+$t2,0,0,'C',true);	// Tiempo
+		$this->Cell(12,6,"$t1$t2",0,0,'C',true);	// Tiempo
 		$this->Cell(12,6,$penal,0,0,'C',true);	// Penalizacion
 		$this->Cell(9,6,$row['Calificacion'],0,0,'C',true);	// Calificacion
 		$this->SetFont('Arial','B',9); // default font

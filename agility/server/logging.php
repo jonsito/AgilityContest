@@ -52,7 +52,7 @@ class Logger {
 	}
 	
 	function log($level,$msg) {
-		if ($level>$this->level) return;
+		if ($level>$this->level) return "";
 		$trace=debug_backtrace();
 		$str=Logger::$levels[$level]." ".$trace[2]['file']."::".$trace[2]['line']."::".$trace[2]['function']."() : ".$msg;
 		error_log($str);
@@ -72,7 +72,7 @@ class Logger {
 	function leave() { return ($this->log(LEVEL_TRACE,"Leave")); }
 
 	function query($msg) {
-		if ($this->level<=LEVEL_INFO) return;
+		if ($this->level<=LEVEL_INFO) return "";
 		$trace=debug_backtrace();
 		$tr=$trace[1];
 		if (array_key_exists(2,$trace)) $tr=$trace[2];

@@ -38,20 +38,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<strong>Informaci&oacute;n de registro:</strong>
 	<form id="registration_data">
 		<div class="fitem">
-			<label for="User">Nombre:</label>
-			<input type="text" readonly="readonly" name="User" /><br/>
+			<label for="rd_User">Nombre:</label>
+			<input id="rd_User" type="text" readonly="readonly" name="User" /><br/>
 		</div>
 		<div class="fitem">
-			<label for="Email">Contacto:</label>
-			<input type="text" readonly="readonly" name="Email" /><br/>
+			<label for="rd_Email">Contacto:</label>
+			<input id="rd_Email" type="text" readonly="readonly" name="Email" /><br/>
 		</div>
 		<div class="fitem">
-			<label for="Club">Club:</label>
-			<input type="text" readonly="readonly" name="Club" /><br/>
+			<label for="rd_Club">Club:</label>
+			<input id="rd_Club" type="text" readonly="readonly" name="Club" /><br/>
 		</div>
 		<div class="fitem">
-			<label for="Serial">Num. serie:</label>
-			<input type="text" readonly="readonly" name="Serial" /><br/>
+			<label for="rd_Serial">Num. serie:</label>
+			<input id="rd_Serial" type="text" readonly="readonly" name="Serial" /><br/>
 		</div>
 	</form>
 	<hr />&nbsp;<br />

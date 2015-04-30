@@ -44,7 +44,7 @@ require_once(__DIR__."/classes/Clubes.php");
 				$result=$clubes->setLogo($idclub);
 				return;
 			case "testlogo": // resize and resend received image. just for testing
-				$result=$clubes->testLogo();
+				$result=$clubes->testLogo($idclub);
 				return;
 			default: throw new Exception("clubFunctions:: invalid operation: '$operation' provided");
 		}

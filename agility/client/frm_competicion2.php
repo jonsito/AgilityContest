@@ -48,9 +48,7 @@ switch(http_request("tipo","s","std")) {
 			<table id="competicion-listamangas" style="padding:50px"></table>
 		</div>
 		<div data-options="region:'center',title:'<?php _e('Datos de la manga');?>'" style="width:600px;">
-			<font size="11"> <!--  take care on some stupid browsers -->
-			<span id="competicion-datosmanga" class="c_competicion-datosmanga"></span>
-			</font>
+			<span id="competicion-datosmanga" class="c_competicion-datosmanga" style="font-size:11px"></span>
 		</div> <!-- datos de la manga -->
 	</div> <!-- informacion de layout -->
 </div> <!-- panel de informacion -->  

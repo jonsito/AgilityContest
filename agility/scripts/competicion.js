@@ -215,7 +215,7 @@ function dmanga_setRecorridos_rfec() {
     var distl=0;
     var obstl=0;
     var dists=0;
-    var obsts=0
+    var obsts=0;
 	var val=$("input[name='Recorrido']:checked").val();
 	workingData.datosManga.Recorrido=val;
 	switch (val) {
@@ -326,7 +326,7 @@ function dmanga_setRecorridos_uca() {
     var distl=0;
     var obstl=0;
     var dists=0;
-    var obsts=0
+    var obsts=0;
 	workingData.datosManga.Recorrido=val;
 	switch (val) {
 	case '2': // recorrido comun para std, med, min, y tiny

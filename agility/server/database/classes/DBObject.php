@@ -126,9 +126,9 @@ class DBObject {
 	/**
 	 * Perform a query that returns first (and unique) element
 	 * as an Object
-	 * @param unknown $select SELECT clause (required)
-	 * @param unknown $from FROM clause (required)
-	 * @param string $where WHERE clause
+	 * @param {string} $select SELECT clause (required)
+	 * @param {string} $from FROM clause (required)
+	 * @param {string} $where WHERE clause
 	 */
 	function __selectObject($select,$from,$where) {
 		// compose SQL query
@@ -146,9 +146,9 @@ class DBObject {
 	/**
 	 * Perform a query that returns first (and unique) element
 	 * as an associative array
-	 * @param unknown $select SELECT clause (required)
-	 * @param unknown $from FROM clause (required)
-	 * @param string $where WHERE clause
+	 * @param {string} $select SELECT clause (required)
+	 * @param {string} $from FROM clause (required)
+	 * @param {string} $where WHERE clause
 	 */
 	function __selectAsArray($select,$from,$where="") {
 		$obj=$this->__selectObject($select,$from,$where);

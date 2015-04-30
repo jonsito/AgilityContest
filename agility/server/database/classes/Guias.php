@@ -159,7 +159,7 @@ class Guias extends DBObject {
 	/** 
 	 * Enumerate by club (exact match)
 	 * @param {integer} $club Club ID primary key
-	 * @return result on success; null on error
+	 * @return {array} result on success; null on error
 	 */
 	function selectByClub($club) {
 		$this->myLogger->enter();
@@ -181,7 +181,7 @@ class Guias extends DBObject {
 	/**
 	 * Select a (single) entry that matches with provided handler ID
 	 * @param {integer} $id Handler ID primary key
-	 * @return result on success; null on error
+	 * @return {array} result on success; null on error
 	 */
 	function selectByID($id) {
 		$this->myLogger->enter();

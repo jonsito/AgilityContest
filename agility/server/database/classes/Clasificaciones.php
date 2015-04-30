@@ -213,6 +213,8 @@ class Clasificaciones extends DBObject {
 				$c1=$r1->getResultados($mode);
 				return $this->evalFinal($c1,null,$mode);
 		}
+        // arriving here means error
+        return null;
 	}
 }
 ?>

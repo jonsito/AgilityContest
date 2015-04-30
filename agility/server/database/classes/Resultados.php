@@ -330,6 +330,7 @@ class Resultados extends DBObject {
 			case 8: /* L+M+S+T */	break; // no check categoria
 			default: return $this->error("modo de recorrido desconocido:$mode");
 		}
+        $this->myLogger->leave();
 		// FASE 0: comprobamos si hay perros pendientes de salir
 		return $this->__select(
 			/* SELECT */	"*",
@@ -338,7 +339,6 @@ class Resultados extends DBObject {
 			/* ORDER BY */	"Nombre ASC",
 			/* LIMIT */		""
 		);
-		$this->myLogger->leave();
 	}
 	
 	/**

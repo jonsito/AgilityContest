@@ -276,6 +276,7 @@ class AuthManager {
 			SET SessionKey=NULL, Operador=1, Prueba=0, Jornada=0, Manga=0, Tanda=0 
 			WHERE ( SessionKey='{$this->mySessionKey}' )";
 		$this->mySessionMgr->query($str);
+        return "";
 	}
 	
 	/**
@@ -293,6 +294,7 @@ class AuthManager {
 			case 4: throw new Exception("Guest accounts cannot change password");
 				// no break needeed
 			case 3:
+                // no break
 			case 2:	// comprobamos el user id
 				if ($id!=$this->operador) throw new Exception("User can only change their own password");
 				// comprobamos que la contrasenya antigua es correcta
@@ -319,10 +321,10 @@ class AuthManager {
 				$str="UPDATE Usuarios SET Password='$p' WHERE (ID=$id)";
 				$res=$this->mySessionMgr->query($str);
 				if ($res===FALSE) return $this->mySessionMgr->conn->error;
+                $this->myLogger->leave();
 				return "";
 			default: throw new Exception("Internal error: invalid permission level");
 		}
-		$this->myLogger->leave();
 	}
 	
 	/*

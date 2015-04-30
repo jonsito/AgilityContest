@@ -265,6 +265,7 @@ class Mangas extends DBObject {
 		$res=$this->query($sql);
 		if (!$res) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
+        return "";
 	}	
 	
 	/**
