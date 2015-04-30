@@ -26,7 +26,7 @@ $config =Config::getInstance();
 		<div class="ftitle"><?php _e('Informaci&oacute;n de la Jornada');?><br /></div>
         <form id="jornadas-form" method="get" novalidate>
             <div class="fitem">
-                <label for="Nombre" style="width:250px">Nombre / Comentarios:</label>
+                <label for="jornadas-Nombre" style="width:250px">Nombre / Comentarios:</label>
                 <input id="jornadas-Nombre" name="Nombre" type="text" class="easyui-validatebox" style="width:325px"/>
             </div>
         	<div class="fitem">
@@ -38,11 +38,11 @@ $config =Config::getInstance();
 				<input id="jornadas-Operation" type="hidden" name="Operation"/>
         	</div>
             <div class="fitem">
-                <label for="Fecha">Fecha</label>
+                <label for="jornadas-Fecha">Fecha</label>
                 <select id="jornadas-Fecha" name="Fecha" class="easyui-datebox" style="width:250px;text-align:right"></select>
             </div>
             <div class="fitem">
-                <label for="Hora">Hora</label>
+                <label for="jornadas-Hora">Hora</label>
                 <input id="jornadas-Hora" name="Hora" class="easyui-timespinner" style="width:250px;text-align:right"/>
             </div>
             <div class="fitem">
@@ -52,7 +52,7 @@ $config =Config::getInstance();
             <div class="fitem">
             	<input type="hidden" id="jornadas-PreAgility" name="PreAgility" value="1">
             	<input type="hidden" id="jornadas-PreAgility2" name="PreAgility2" value="2">
-                <label for="PreAgilityChk" style="width:150px" >Pre-Agility</label>
+                <label for="jornadas-PreAgilityChk" style="width:150px" >Pre-Agility</label>
                 <input id="jornadas-PreAgilityChk" name="PreAgilityChk" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-PreAgilityChk',0x0003)"/>
                 <select id="jornadas-MangasPreAgility" name="MangasPreAgility" style="width:130px">
@@ -62,25 +62,25 @@ $config =Config::getInstance();
             </div>
             
             <div class="fitem">
-                <label for="Grado1" style="width:150px" >Grado 1</label>
+                <label for="jornadas-Grado1" style="width:150px" >Grado 1</label>
                 <input id="jornadas-Grado1" name="Grado1" class="easyui-checkbox" 
                 type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado1',0x0004)"/>
             </div>
             
             <div class="fitem">
-                <label for="Grado2" style="width:150px" >Grado 2</label>
+                <label for="jornadas-Grado2" style="width:150px" >Grado 2</label>
                 <input id="jornadas-Grado2" name="Grado2" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado2',0x0008)"/>
             </div>
             
             <div class="fitem">
-                <label for="Grado3" style="width:150px" >Grado 3</label>
+                <label for="jornadas-Grado3" style="width:150px" >Grado 3</label>
                 <input id="jornadas-Grado3" name="Grado3" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado3',0x0010)"/>
             </div>
             
             <div class="fitem">
-                <label for="Open" style="width:150px" >Prueba Abierta (Open)</label>
+                <label for="jornadas-Open" style="width:150px" >Prueba Abierta (Open)</label>
                 <input id="jornadas-Open" name="Open" class="easyui-checkbox" 
                 	type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Open',0x0020)"/>
             </div>
@@ -88,7 +88,7 @@ $config =Config::getInstance();
              <div class="fitem">
             	<input type="hidden" id="jornadas-Equipos3" name="Equipos3" value="1">
             	<input type="hidden" id="jornadas-Equipos4" name="Equipos4" value="2">
-                <label for="EquiposChk" style="width:150px" >Equipos</label>
+                <label for="jornadas-EquiposChk" style="width:150px" >Equipos</label>
                 <input id="jornadas-EquiposChk" name="EquiposChk" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-EquiposChk',0x00C0)"/>
                 <select id="jornadas-MangasEquipos" name="MangasEquipos" style="width:130px">
@@ -98,13 +98,13 @@ $config =Config::getInstance();
             </div>
             
             <div class="fitem">
-                <label for="KO" style="width:150px" >Prueba K.O.</label>
+                <label for="jornadas-KO" style="width:150px" >Prueba K.O.</label>
                 <input id="jornadas-KO" name="KO" class="easyui-checkbox" 
                 	type="checkbox" value="1" onClick="checkPrueba('#jornadas-KO',0x0100);"/>
             </div>
             
             <div class="fitem">
-                <label for="Especial" style="width:150px" >Manga especial</label>
+                <label for="jornadas-Especial" style="width:150px" >Manga especial</label>
                 <input id="jornadas-Especial" name="Especial" class="easyui-checkbox" 
                 	type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Especial',0x0200)"/>
                 <input id="jornadas-Observaciones" name="Observaciones" type="text" value="(Especificar)" class="easyui-validatebox" style="width:125px"/>
