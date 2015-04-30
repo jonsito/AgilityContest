@@ -67,7 +67,7 @@ function competicionRowStyler(idx,row) { return (row.Dorsal=='*')? myRowStyler(-
 function formatTeamResults( value , rows ) {
     // todo: check eq3 or eq4 contest and eval time and penalization
     var tiempo=0;
-    var penal=0
+    var penal=0;
     for (n=0;n<3;n++) {
         if ( typeof(rows[n])==='undefined') { penal+=200;}
         else {penal+=parseFloat(rows[n].Penalizacion); tiempo+=parseFloat(rows[n].Tiempo);}
@@ -130,12 +130,16 @@ function getMode(rec,cat) {
  * para las pruebas de Canina
  */
 function dmanga_setRecorridos_rsce() {
+    var distl=0;
+    var obstl=0;
+    var distm=0;
+    var obstm=0;
 	var val=$("input[name='Recorrido']:checked").val();
 	workingData.datosManga.Recorrido=val;
 	switch (val) {
 	case '2': // recorrido comun para std, mini y midi
-		var distl=$('#dmanga_DistL').val();
-		var obstl=$('#dmanga_ObstL').val();
+		distl=$('#dmanga_DistL').val();
+		obstl=$('#dmanga_ObstL').val();
 		$('#dmanga_DistM').attr('readonly',true);
 		$('#dmanga_DistM').val(distl);
 		$('#dmanga_ObstM').attr('readonly',true);
@@ -165,8 +169,8 @@ function dmanga_setRecorridos_rsce() {
 		$('#dmanga_SmallLbl').html("&nbsp;");
 		break;
 	case '1': // un recorrido para std y otro para mini-midi
-		var distm=$('#dmanga_DistM').val();
-		var obstm=$('#dmanga_ObstM').val();
+		distm=$('#dmanga_DistM').val();
+		obstm=$('#dmanga_ObstM').val();
 		$('#dmanga_DistM').removeAttr('readonly');
 		$('#dmanga_ObstM').removeAttr('readonly');
 		$('#dmanga_DistS').attr('readonly',true);
@@ -208,12 +212,16 @@ function dmanga_setRecorridos_rsce() {
  * para las pruebas de Caza
  */
 function dmanga_setRecorridos_rfec() {
+    var distl=0;
+    var obstl=0;
+    var dists=0;
+    var obsts=0
 	var val=$("input[name='Recorrido']:checked").val();
 	workingData.datosManga.Recorrido=val;
 	switch (val) {
 	case '2': // recorrido comun para std, med, min, y tiny
-		var distl=$('#dmanga_DistL').val();
-		var obstl=$('#dmanga_ObstL').val();
+		distl=$('#dmanga_DistL').val();
+		obstl=$('#dmanga_ObstL').val();
 		$('#dmanga_DistM').attr('readonly',true);
 		$('#dmanga_DistM').val(distl);
 		$('#dmanga_ObstM').attr('readonly',true);
@@ -255,10 +263,10 @@ function dmanga_setRecorridos_rfec() {
 		$('#dmanga_TinyLbl').html("&nbsp;");
 		break;
 	case '1': // un recorrido para std/midi y otro para mini/tiny
-		var distl=$('#dmanga_DistL').val();
-		var obstl=$('#dmanga_ObstL').val();
-		var dists=$('#dmanga_DistS').val();
-		var obsts=$('#dmanga_ObstS').val();
+		distl=$('#dmanga_DistL').val();
+		obstl=$('#dmanga_ObstL').val();
+		dists=$('#dmanga_DistS').val();
+		obsts=$('#dmanga_ObstS').val();
 		$('#dmanga_DistM').attr('readonly',true);
 		$('#dmanga_DistM').val(distl);
 		$('#dmanga_ObstM').attr('readonly',true);
@@ -315,11 +323,15 @@ function dmanga_setRecorridos_rfec() {
  */
 function dmanga_setRecorridos_uca() {
 	var val=$("input[name='Recorrido']:checked").val();
+    var distl=0;
+    var obstl=0;
+    var dists=0;
+    var obsts=0
 	workingData.datosManga.Recorrido=val;
 	switch (val) {
 	case '2': // recorrido comun para std, med, min, y tiny
-		var distl=$('#dmanga_DistL').val();
-		var obstl=$('#dmanga_ObstL').val();
+		distl=$('#dmanga_DistL').val();
+		obstl=$('#dmanga_ObstL').val();
 		$('#dmanga_DistM').attr('readonly',true);
 		$('#dmanga_DistM').val(distl);
 		$('#dmanga_ObstM').attr('readonly',true);
@@ -361,10 +373,10 @@ function dmanga_setRecorridos_uca() {
 		$('#dmanga_TinyLbl').html("&nbsp;");
 		break;
 	case '1': // un recorrido para std/midi y otro para mini/tiny
-		var distl=$('#dmanga_DistL').val();
-		var obstl=$('#dmanga_ObstL').val();
-		var dists=$('#dmanga_DistS').val();
-		var obsts=$('#dmanga_ObstS').val();
+		distl=$('#dmanga_DistL').val();
+		obstl=$('#dmanga_ObstL').val();
+		dists=$('#dmanga_DistS').val();
+		obsts=$('#dmanga_ObstS').val();
 		$('#dmanga_DistM').attr('readonly',true);
 		$('#dmanga_DistM').val(distl);
 		$('#dmanga_ObstM').attr('readonly',true);
@@ -442,7 +454,7 @@ function dmanga_shareJuez() {
  * Guarda las modificaciones a los datos de una manga
  * Notese que esto no debería modificar ni los datos del
  * orden de salida ni resultados de la competicion
- * @param {Integer} id Identificador de la manga
+ * @param {int} id Identificador de la manga
  */
 function save_manga(id) {
     $('#dmanga_Operation').val('update');
@@ -493,7 +505,6 @@ function reloadOrdenTandas() {
 
 function proximityAlert() {
 	var data=$('#ordensalida-datagrid').datagrid('getRows');
-	var idx=0;
 	var guias= [];
 	var lista="<br />";
 	for (idx=0;idx<data.length;idx++) {
@@ -681,7 +692,6 @@ function printParcial(mode) {
  * @param val 0:L 1:M 2:S 3:T
  */
 function checkAndPrintParcial(val) {
-	var mode=0;
 	var value=parseInt(val); // stupid javascript!!
 	// obtenemos informacion sobre los datos a imprimir
 	var mode=getMode(workingData.datosManga.Recorrido,value);
@@ -716,7 +726,7 @@ function checkAndPrintParcial(val) {
 /** 
  * actualiza los datos de TRS y TRM de la fila especificada
  * Si se le indica, rellena tambien el datagrid re resultados parciales
- * @param {integer} mode 0:L 1:M 2:S 3:T
+ * @param {int} val 0:L 1:M 2:S 3:T
  * @param {boolean} fill true to fill resultados datagrid; else false
  */
 function reloadParcial(val,fill) {
@@ -1409,8 +1419,8 @@ function printOrdenTandas() {
 
 /**
  * Imprime los resultados finales de la ronda seleccionada en formato CSV para su conversion en etiquetas
- * @param {integer} mode 0:CSV 1:PDF
- * @param {integer} start if mode==PDF first line in output
+ * @param {int} flag 0:CSV 1:PDF
+ * @param {int} start if mode==PDF first line in output
  * @param {string} list CSV dorsal list
  * @returns {Boolean} false 
  */
@@ -1529,7 +1539,7 @@ function verifyClasificaciones() {
 	var url='/agility/server/pdf/print_clasificacion.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	var str1="";
-	var str2=""
+	var str2="";
 	if (ronda==null) {
     	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
     	return false; // no way to know which ronda is selected

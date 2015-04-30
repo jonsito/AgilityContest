@@ -70,8 +70,8 @@ function initialize() {
 
 /**
  * Common rowStyler function for AgilityContest datagrids
- * @paramm {integer} idx Row index
- * @param {Object} row Row data
+ * @param {int} idx Row index
+ * @param {object} row Row data
  * @return {string} proper row style for given idx
  */
 function myRowStyler(idx,row) {
@@ -138,7 +138,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 
-<div id="selvw-dialog" class="easyui-dialog" style="position:relative,width:500px;height:220px;padding:20px 20px">
+<div id="selvw-dialog" class="easyui-dialog" style="position:relative;width:500px;height:220px;padding:20px 20px">
 	<form id="selvw-Selection">
     	<div class="fitem">
        		<label for="Prueba">Selecciona Sesi&oacute;n:</label>

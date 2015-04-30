@@ -112,7 +112,8 @@ var myCounter = new Countdown({
 
 /**
  * Maneja el cronometro manual
- * @param oper 'start','stop','pause','resume','reset'
+ * @param {string} oper 'start','stop','pause','resume','reset'
+ * @param {int} tstamp timestamp mark
  */
 function vwls_cronoManual(oper,tstamp) {
 	myCounter.stop();
@@ -158,13 +159,13 @@ function vwc_processCombinada(id,evt) {
 		return;
 	case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
-		return
+		return;
 	case 'llamada':		// operador abre panel de entrada de datos
 		vwls_cronoManual('stop');
 		vwls_cronoManual('reset');
 		vwls_showOSD(1); 	// activa visualizacion de OSD
 		vwls_showData(event);
-		return
+		return;
 	case 'salida':		// juez da orden de salida ( crono 15 segundos )
 		myCounter.start();
 		return;
@@ -215,13 +216,13 @@ function vwls_processLiveStream(id,evt) {
 		return;
 	case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
-		return
+		return;
 	case 'llamada':		// operador abre panel de entrada de datos
 		vwls_cronoManual('stop');
 		vwls_cronoManual('reset');
 		vwls_showOSD(1); 	// activa visualizacion de OSD
 		vwls_showData(event);
-		return
+		return;
 	case 'salida':		// juez da orden de salida ( crono 15 segundos )
 		myCounter.start();
 		return;
@@ -274,9 +275,9 @@ function vw_processLlamada(id,evt) {
 		return;
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
-		return
+		return;
 	case 'llamada':	// llamada a pista
-		return
+		return;
 	case 'salida': // orden de salida
 		return;
 	case 'start': // start crono manual
@@ -309,9 +310,9 @@ function vw_processParciales(id,evt) {
 		vwc_updateResults(event);
 		return;
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-		return
+		return;
 	case 'llamada':	// llamada a pista
-		return
+		return;
 	case 'salida': // orden de salida
 		return;
 	case 'start': // start crono manual

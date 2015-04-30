@@ -38,7 +38,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	    <a id="password-okBtn" href="#" class="easyui-linkbutton" 
    	    	data-options="iconCls:'icon-ok'" onclick="savePassword()">Guardar</a>
    	    <a id="password-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#password-dialog').dialog('close')">Cancelar</a>
+   	    	data-options="iconCls:'icon-cancel'" onclick="$('#password-dialog').dialog('close')">Cancelar</a>
    	</div>
    	
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE Usuarios -->
@@ -82,7 +82,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	    <a id="usuarios-okBtn" href="#" class="easyui-linkbutton" 
    	    	data-options="iconCls:'icon-ok'" onclick="saveUser()">Guardar</a>
    	    <a id="usuarios-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#usuarios-dialog').dialog('close')">Cancelar</a>
+   	    	data-options="iconCls:'icon-cancel'" onclick="$('#usuarios-dialog').dialog('close')">Cancelar</a>
    	</div>
    	
 	<script type="text/javascript">

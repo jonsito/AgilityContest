@@ -72,7 +72,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
        	<a id="pruebas-okBtn" href="#" class="easyui-linkbutton" 
        		data-options="iconCls:'icon-ok'" onclick="savePrueba()">Guardar</a>
        	<a id="pruebas-cancelBtn" href="#" class="easyui-linkbutton" 
-       		data-options="iconCls:'icon-cancel'" onclick="javascript:$('#pruebas-dialog').dialog('close')">Cancelar</a>
+       		data-options="iconCls:'icon-cancel'" onclick="$('#pruebas-dialog').dialog('close')">Cancelar</a>
     </div>
     
     <script type="text/javascript">
@@ -135,7 +135,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		columns: [[
 		    {field:'ID',hidden:true}, 
 			{field:'Nombre',title:'Nombre del club',width:80,align:'right'},
-			{field:'Provincia',title:'Provincia',width:40,align:'right'},
+			{field:'Provincia',title:'Provincia',width:40,align:'right'}
 		]],
 		multiple: false,
 		fitColumns: true,

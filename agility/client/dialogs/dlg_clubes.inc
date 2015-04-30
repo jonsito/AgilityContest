@@ -22,7 +22,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<hr />
 	</div>
 	<div style="display:table;margin: 0 auto">
-		<img id="clubes-logo-preview" alt="vista preliminar del logotipo" width="120px" height="120px"/>
+		<img id="clubes-logo-preview" alt="vista preliminar del logotipo" width="120px" height="120px" src=""/>
 	</div>
 </div>
 
@@ -31,7 +31,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     <a id="clubes-logo-okBtn" href="#" class="easyui-linkbutton" 
       	data-options="iconCls: 'icon-ok'" onclick="acceptLogoPreview()">Actualizar</a>
     <a id="clubes-logo-cancelBtn" href="#" class="easyui-linkbutton" 
-       	data-options="iconCls: 'icon-cancel'"onclick="$('#clubes-logo-dialog').dialog('close')">Cancelar</a>
+       	data-options="iconCls: 'icon-cancel'" onclick="$('#clubes-logo-dialog').dialog('close')">Cancelar</a>
 </div>
 
 <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE CLUBES -->
@@ -124,7 +124,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     <a id="clubes-okBtn" href="#" class="easyui-linkbutton" 
       	data-options="iconCls: 'icon-ok'" onclick="saveClub()">Guardar</a>
     <a id="clubes-cancelBtn" href="#" class="easyui-linkbutton" 
-       	data-options="iconCls: 'icon-cancel'"onclick="javascript:$('#clubes-dialog').dialog('close')">Cancelar</a>
+       	data-options="iconCls:'icon-cancel'" onclick="$('#clubes-dialog').dialog('close')">Cancelar</a>
 </div>
     
 <script type="text/javascript">
@@ -150,7 +150,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			required: true,
 			columns: [[
     			{field:'Provincia',title:'Provincia',width:20,align:'right'},
-    			{field:'Comunidad',title:'Comunidad Autonoma',width:40,align:'right'},
+    			{field:'Comunidad',title:'Comunidad Autonoma',width:40,align:'right'}
 			]],
 			multiple: false,
 			fitColumns: true,

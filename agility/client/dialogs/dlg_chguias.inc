@@ -62,7 +62,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	    	<a id="chguias-okBtn" href="#" class="easyui-linkbutton" 
    	    		data-options="iconCls:'icon-ok'" onclick="assignGuia()">Reasignar</a>
    	    	<a id="chguias-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    		data-options="iconCls:'icon-cancel'" onclick="javascript:$('#chguias-dialog').dialog('close')">Cancelar</a>
+   	    		data-options="iconCls:'icon-cancel'" onclick="$('#chguias-dialog').dialog('close')">Cancelar</a>
    	    </span>
    	</div>
    	

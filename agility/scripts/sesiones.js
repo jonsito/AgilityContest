@@ -111,7 +111,7 @@ function session_logout() {
 function session_sequences() {
 	// TODO: write
     $.messager.alert("TODO","Edicion de secuencias pendiente de desarrollo","info");
-    return; // no way to know which dog is selected
+     // no way to know which dog is selected
 }
 
 function resetSession(dg) {

@@ -76,7 +76,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	<a id="chperros-okBtn" href="#" class="easyui-linkbutton" onclick="assignDog()"
         		data-options="iconCls:'icon-ok'">Reasignar</a>
         	<a id="chperros-cancelBtn" href="#" class="easyui-linkbutton"  
-        		onclick="javascript:$('#chperros-dialog').dialog('close')"
+        		onclick="$('#chperros-dialog').dialog('close')"
         		data-options="iconCls:'icon-cancel'">Cancelar</a>
         </span>
     </div>
@@ -129,7 +129,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			{field:'Categoria',title:'Cat.',width:10,align:'center'},
 			{field:'Grado',title:'Grado',width:10,align:'center'},
 			{field:'NombreGuia',title:'Guia',width:40,align:'right'},
-			{field:'NombreClub',title:'Club',width:20,align:'right'},
+			{field:'NombreClub',title:'Club',width:20,align:'right'}
 		]],
 		multiple: false,
 		fitColumns: true,

@@ -52,7 +52,7 @@ $config =Config::getInstance();
 <div id="team_datagrid-buttons" style="width:100%;display:inline-block">
 	<span style="float:right;padding:5px">
    		<a id="team_datagrid-doneBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
-   			onclick="javascript:$('#team_datagrid-dialog').dialog('close')">Hecho</a>
+   			onclick="$('#team_datagrid-dialog').dialog('close')">Hecho</a>
    	</span>
 </div>
  
@@ -191,8 +191,6 @@ function showInscripcionesByTeam(index,team){
 		rownumbers: false,
 		fitColumns: true,
 		singleSelect: true,
-		pagination: false,
-		rownumbers: false,
 		loadMsg: '<?php _e('Leyendo inscripciones....');?>',
 		url: '/agility/server/database/inscripcionFunctions.php',
 		queryParams: { Operation: 'inscritosbyteam', Prueba:workingData.prueba, Jornada:workingData.jornada, Equipo: team.ID },

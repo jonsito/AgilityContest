@@ -90,11 +90,11 @@ function startEventMgr(sesID,callback) {
 
 function setPollTime(callback,polltime) {
 	var name=getFunctionName(callback);
-	if ( name in ac_eventHandlers ) ac_eventHandlers.name = polltime // mark to stop
+	if ( name in ac_eventHandlers ) ac_eventHandlers.name = polltime; // mark to stop
 }
 
 function stopEventMgr(callback) {
-	setPollTime(callback, -1) // mark to stop
+	setPollTime(callback, -1); // mark to stop
 }
 
 function waitForEvents(sesID,evtID,timestamp,callback){

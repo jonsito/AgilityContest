@@ -51,10 +51,11 @@ function isTeam(tipomanga) {
 }
 
 var nombreFederaciones = {0:'RSCE',1:'RFEC',2:'UCA'};
-function fedName(fed) { return nombreFederaciones[fed]; };
-
+function fedName(fed) {
+    return nombreFederaciones[fed];
+}
 // lista de dialogos a limpiar cada vez que se recarga la pantalla
-var slaveDialogs = new Object();
+var slaveDialogs = {};
 
 
 //musiquita para el tablet
@@ -74,7 +75,7 @@ var Sound = (function () {
 // then do it
 // var snd = Sound("data:audio/wav;base64," + base64string);
 
-function beep() { var b= Sound(); }
+function beep() { Sound(); }
 
 /**
  * Load html contents from 'page' URL and set as contents on '#contenido' tag
@@ -104,8 +105,8 @@ function replaceAll(find,replace,from) {
  * Poor's man javascript implementation of php's strpos()
  * @param {string} pajar
  * @param {string} aguja
- * @param {integer} offset
- * @returns
+ * @param {int} offset
+ * @returns position or -1 if not found
  */
 function strpos (pajar, aguja, offset) {
 	var i = (pajar + '').indexOf(aguja, (offset || 0));
@@ -164,8 +165,8 @@ function isDefined(variable) { return (typeof(window[variable]) !== "undefined")
 
 /**
  * Convierte los campos de un formulario en un array
- * @param {#string} formId ID del formulario
- * @returns {obj} objeto que contiene los datos
+ * @param {string} formId ID del formulario
+ * @returns {object} objeto que contiene los datos
  */
 function formToObject(formId) {
     var formObj = {};
@@ -246,7 +247,7 @@ function setJornada(data) {
 }
 
 /**
- * @param {integer} id SessionID
+ * @param {int} id SessionID
  * Initialize working data information object
  */
 function initWorkingData(id) {
@@ -268,10 +269,10 @@ function initWorkingData(id) {
 	workingData.nombreSesion=""; // nombre de la sesion
 	setFederation(0); // defaults to RSCE;
 	if (typeof(workingData.federation)==="undefined") setFederation(0); // select RSCE as default federation
-	if (typeof(workingData.datosPrueba)==="undefined") workingData.datosPrueba= new Object(); // last selected prueba data
-	if (typeof(workingData.datosJornada)==="undefined") workingData.datosJornada= new Object(); // last selected jornada data
-	if (typeof(workingData.datosManga)==="undefined") workingData.datosManga= new Object(); // last selected jornada data
-	if (typeof(workingData.datosRonda)==="undefined") workingData.datosRonda= new Object(); // last selected ronda (grade, manga1, manga2)
+	if (typeof(workingData.datosPrueba)==="undefined") workingData.datosPrueba= {}; // last selected prueba data
+	if (typeof(workingData.datosJornada)==="undefined") workingData.datosJornada= {}; // last selected jornada data
+	if (typeof(workingData.datosManga)==="undefined") workingData.datosManga= {}; // last selected jornada data
+	if (typeof(workingData.datosRonda)==="undefined") workingData.datosRonda= {}; // last selected ronda (grade, manga1, manga2)
 	if (id!==undefined) {
 		$.ajax({
 			url: '/agility/server/database/sessionFunctions.php',
@@ -320,10 +321,10 @@ function initAuthInfo(id) {
 /**
  * Actualiza la sesion con el id dado en la tabla de sesiones de la bbdd
  * @param id id de la sesion
- * @param param parametros a actualizar en la sesion
+ * @param parameters parametros a actualizar en la sesion
  */
 function updateSessionInfo(id, parameters) {
-	parameters.Operation='update',
+	parameters.Operation='update';
 	parameters.ID=id;
 	$.ajax({
 		url: '/agility/server/database/sessionFunctions.php',
@@ -341,9 +342,9 @@ function updateSessionInfo(id, parameters) {
 /**
 * Declare and initialize Object to store working data primary keys
 */
-var workingData = new Object();
+var workingData = {};
 initWorkingData();
-var authInfo =new Object();
+var authInfo ={};
 initAuthInfo();
 
 /**
@@ -373,7 +374,7 @@ function doLayout(dg,id,x,y,w,h) {
 
 /**
  * Add a tooltip provided element, with given text
- * @param {easyui-object} obj Element suitable to add a tooltip
+ * @param {object} obj Element suitable to add a tooltip
  * @param {string} text Data text to be shown
  */
 function addTooltip(obj,text) {
@@ -447,14 +448,14 @@ function displayRowData(dg) {
 	var selected = dg.datagrid('getSelected');
 	if (!selected) return;
 	var index = dg.datagrid('getRowIndex', selected);
-	var w=$.messager.alert("Row Info",
+	$.messager.alert("Row Info",
 			"<p>Contenido de la fila<br /></p><p>"+print_r(selected)+"</p>",
 			"info",
 			function() {
 				dg.datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 				dg.datagrid('selectRow', index);
 			}
-		);    		
+	);
 }
 
 /**
@@ -514,6 +515,7 @@ function addSimpleKeyHandler(datagrid,dialog,onEnter){
 	    case 40:    /* Down */	selectRow(t,false); return false;
 	    case 13:	/* Enter */	if (e.ctrlKey) { displayRowData(t); return false; }
 	    			if (typeof(onEnter)!=='undefined') onEnter(datagrid,$(datagrid).datagrid('getSelected'));
+                    return false;
 	    default:    // no break
 	    			return false;
 	    }
@@ -551,9 +553,9 @@ function selectNextRow(datagrid) {
  * assume that search textbox has 'dgid'-search as id
  * Called functions have a pointer to base datagrid
  * @param {string} dgid id(ie xxxx-datagrid) 
- * @param {function(dgid,searchval} insertfn new/insert function
- * @param {function(dgid) } updatefn edit function
- * @param {function(dgid) } deletefn delete function
+ * @param {function} insertfn new/insert function(dgid,searchval)
+ * @param {function} updatefn edit function(dgid)
+ * @param {function} deletefn delete function(dgid)
  * @returns true on success, else false
  */
 function addKeyHandler(dgid,insertfn,updatefn,deletefn) {

@@ -87,14 +87,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-ok'" onclick="insertInscripcion('#new_inscripcion-datagrid')">Inscribir</a>
    		<a id="new_inscripcion-doneBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-cancel'" onclick="javascript:$('#new_inscripcion-dialog').dialog('close')">Hecho</a>
+   			data-options="iconCls:'icon-cancel'" onclick="$('#new_inscripcion-dialog').dialog('close')">Hecho</a>
    	</span>
 </div>
 	
 <!-- barra de progreso de actualizacion de inscripciones -->
 <div id="new_inscripcion-progresswindow">
-	<p id="new_inscripcion-progresslabel" style="align:center">Inscribiendo a:</p>
-	<div id="new_inscripcion-progressbar" style="align:center;"></div>
+	<p id="new_inscripcion-progresslabel" style="text-align:center">Inscribiendo a:</p>
+	<div id="new_inscripcion-progressbar" style="text-align:center;"></div>
 </div>
 
 <script type="text/javascript">

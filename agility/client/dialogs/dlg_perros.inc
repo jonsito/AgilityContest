@@ -75,7 +75,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <a id="perros-okBtn" href="#" class="easyui-linkbutton" 
         	data-options="iconCls:'icon-ok'" onclick="saveDog()">Guardar</a>
         <a id="perros-cancelBtn" href="#" class="easyui-linkbutton" 
-        	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#perros-dialog').dialog('close')">Cancelar</a>
+        	data-options="iconCls:'icon-cancel'" onclick="$('#perros-dialog').dialog('close')">Cancelar</a>
     </div>
     
     <script type="text/javascript">
@@ -165,7 +165,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		    {field:'ID', hidden:true},
 			{field:'Nombre',title:'Nombre del gu&iacute;a',width:80,align:'right'},
 		    {field:'Club', hidden:true},
-			{field:'NombreClub',title:'Club',width:40,align:'right'},
+			{field:'NombreClub',title:'Club',width:40,align:'right'}
 		]],
 		multiple: false,
 		fitColumns: true,

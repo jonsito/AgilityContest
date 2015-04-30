@@ -82,8 +82,8 @@ function initialize() {
 
 /**
  * Common rowStyler function for AgilityContest datagrids
- * @paramm {integer} idx Row index
- * @param {Object} row Row data
+ * @paramm {int} idx Row index
+ * @param {object} row Row data
  * @return {string} proper row style for given idx
  */
 function myRowStyler(idx,row) {
@@ -92,7 +92,11 @@ function myRowStyler(idx,row) {
 	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>'; // odd rows
 	var c3='<?php echo $config->getEnv('easyui_rowcolor3'); ?>'; // extra color for special rows
 	if (idx<0) return res+c3+";";
-	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; };
+    if ((idx & 0x01) == 0) {
+        return res + c1 + ";";
+    } else {
+        return res + c2 + ";";
+    }
 }
 
 var ac_config= {

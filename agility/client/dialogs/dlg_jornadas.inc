@@ -39,11 +39,11 @@ $config =Config::getInstance();
         	</div>
             <div class="fitem">
                 <label for="Fecha">Fecha</label>
-                <select id="jornadas-Fecha" name="Fecha" class="easyui-datebox" style="width:250px;align:right"></select>
+                <select id="jornadas-Fecha" name="Fecha" class="easyui-datebox" style="width:250px;text-align:right"></select>
             </div>
             <div class="fitem">
                 <label for="Hora">Hora</label>
-                <input id="jornadas-Hora" name="Hora" class="easyui-timespinner" style="width:250px;align:right"/>
+                <input id="jornadas-Hora" name="Hora" class="easyui-timespinner" style="width:250px;text-align:right"/>
             </div>
             <div class="fitem">
             	<label style="width:250px">Rondas de que consta la jornada:</label>
@@ -118,7 +118,7 @@ $config =Config::getInstance();
 	<a id="jornadas-okBtn" href="#" class="easyui-linkbutton" 
 		data-options="iconCls:'icon-ok'" onclick="saveJornada()">Guardar</a>
 	<a id="jornadas-cancelBtn" href="#" class="easyui-linkbutton" 
-		data-options="iconCls:'icon-cancel'" onclick="javascript:$('#jornadas-dialog').dialog('close')">Cancelar</a>
+		data-options="iconCls:'icon-cancel'" onclick="$('#jornadas-dialog').dialog('close')">Cancelar</a>
 </div>
 	
 <script type="text/javascript">

@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
-<div id="competicion-dialog"style="width:900px;height:450px;padding:5px">
+<div id="competicion-dialog" style="width:900px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
 	<table id="competicion-datagrid" style="padding:5px"></table>
 </div>
@@ -171,11 +171,10 @@ function updateActions(index){
 function getRowIndex(target){
 	var tr = $(target).closest('tr.datagrid-row');
 	return parseInt(tr.attr('datagrid-row-index'));
-};
-
+}
 function editrow(target){
 	$('#competicion-datagrid').datagrid('beginEdit', getRowIndex(target));
-};
+}
 function deleterow(target){
 	$.messager.confirm('Confirmar','Borrar resultados del participante <br/> ¿Seguro?',function(r){
 		if (r){
@@ -192,18 +191,17 @@ function deleterow(target){
 			saveCompeticionData(editIndex,data);	
 		}
 	});
-};
+}
 function saverow(target){
 	var editIndex=getRowIndex(target);
 	$('#competicion-datagrid').datagrid('endEdit', editIndex );
 	var data=$('#competicion-datagrid').datagrid('getRows')[editIndex];
 	data.Pendiente=0;
 	saveCompeticionData(editIndex,data);
-};
+}
 function cancelrow(target){
 	$('#competicion-datagrid').datagrid('cancelEdit', getRowIndex(target));
-};
-
+}
 //- botones del panel de entrada de datos
 addTooltip($('#competicion-reloadBtn').linkbutton(),"Recargar datos de competicion de la manga");
 addTooltip($('#competicion-printBtn').linkbutton(),"Imprimir formulario ayudante de pista");

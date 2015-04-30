@@ -85,8 +85,8 @@ function initialize() {
 
 /**
  * Common rowStyler function for AgilityContest datagrids
- * @paramm {integer} idx Row index
- * @param {Object} row Row data
+ * @param {int} idx Row index
+ * @param {object} row Row data
  * @return {string} proper row style for given idx
  */
 function myRowStyler(idx,row) {
@@ -279,10 +279,10 @@ $('#seltablet-Jornada').combogrid({
 		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'Pre. 1 ' },
 		{ field:'PreAgility2',	width:8, sortable:false,	align:'center', title: 'Pre. 2 ' },
 		{ field:'KO',			width:8, sortable:false,	align:'center', title: 'K.O.   ' },
-		{ field:'Especial',		width:8, sortable:false,	align:'center', title: 'Show   ' },
+		{ field:'Especial',		width:8, sortable:false,	align:'center', title: 'Show   ' }
 	]],
 	onBeforeLoad: function(param) { 
-		param.Operation='enumerate', 
+		param.Operation='enumerate';
 		param.Prueba=workingData.prueba;
 		param.AllowClosed=0;
 		param.HideUnassigned=1;
@@ -305,9 +305,8 @@ function tablet_acceptSelectJornada() {
 	if (!user || !user.length) {
 		$.messager.alert("Invalid data","No ha indicado ningún usuario","error");
 		return;
-	};
-
-	var parameters={ 
+    }
+    var parameters={
 		'Operation':'login',
 		'Username': user,
 		'Password': pass,
@@ -373,7 +372,7 @@ function tablet_acceptSelectJornada() {
         	    ); // alert calback
         	} // if no ajax error
     	}, // success function
-   		error: function() { alert("error");	},
+   		error: function() { alert("error");	}
 	}); // ajax call
 }
 

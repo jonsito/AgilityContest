@@ -197,6 +197,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			addTooltip($('#jornadasbyprueba-editBtn'+prueba.ID).linkbutton(),"Editar los datos la jornada seleccionada"); 
 			addTooltip($('#jornadasbyprueba-closeBtn'+prueba.ID).linkbutton(),"Cerrar la jornada seleccionada y Guardar datos permanentemente"); 
 			addTooltip($('#jornadasbyprueba-reloadBtn'+prueba.ID).linkbutton(),"Actualizar la lista de jornadas de esta prueba");
-        };
-        
+        }
+
 </script>

@@ -72,7 +72,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	    <a id="jueces-okBtn" href="#" class="easyui-linkbutton" 
    	    	data-options="iconCls:'icon-ok'" onclick="saveJuez()">Guardar</a>
    	    <a id="jueces-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#jueces-dialog').dialog('close')">Cancelar</a>
+   	    	data-options="iconCls:'icon-cancel'" onclick="$('#jueces-dialog').dialog('close')">Cancelar</a>
    	</div>
    	
 	<script type="text/javascript">

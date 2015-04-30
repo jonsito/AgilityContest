@@ -90,7 +90,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             },  
             onClose: function() {loadContents('/agility/client/frm_main.php','');
             }
-        })
+        });
         
 		addTooltip($('#registration-okButton').linkbutton(),"Incluir fichero de informacion de registro en la aplicaci&oacute;n");
 		addTooltip($('#registration-cancelButton').linkbutton(),"Cancelar operaci&oacute;n. Cerrar ventana"); 

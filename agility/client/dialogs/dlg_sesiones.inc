@@ -69,7 +69,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	    <a id="sesiones-okBtn" href="#" class="easyui-linkbutton" 
    	    	data-options="iconCls:'icon-ok'" onclick="saveSession()">Guardar</a>
    	    <a id="sesiones-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-cancel'" onclick="javascript:$('#sesiones-dialog').dialog('close')">Cancelar</a>
+   	    	data-options="iconCls:'icon-cancel'" onclick="$('#sesiones-dialog').dialog('close')">Cancelar</a>
    	</div>
    	
 	<script type="text/javascript">

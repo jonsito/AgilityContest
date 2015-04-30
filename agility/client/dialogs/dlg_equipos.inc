@@ -54,7 +54,7 @@ $config =Config::getInstance();
    	<a id="team_edit_dialog-okBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-save'" onclick="saveTeam()">Guardar</a>
 	<a id="team_edit_dialog-cancelBtn" href="#" class="easyui-linkbutton" 
-			data-options="iconCls:'icon-cancel'" onclick="javascript:$('#team_edit_dialog').dialog('close')">Cerrar</a>
+			data-options="iconCls:'icon-cancel'" onclick="$('#team_edit_dialog').dialog('close')">Cerrar</a>
 </div>
 
 <script type="text/javascript">
