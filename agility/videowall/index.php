@@ -47,6 +47,7 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fittext-1.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
