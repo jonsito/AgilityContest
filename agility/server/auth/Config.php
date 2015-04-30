@@ -79,30 +79,6 @@ define('AC_TABLET_COUNTDOWN',"1"); // 1:nada 2:crono 3:eliminado
 
 Class Config {
 	
-	public static $federations = array (
-		0 => array ( /* RSCE */
-				'Large' => 'Standard',
-				'Medium' => 'Midi',
-				'Small' => 'Mini',
-				'Tiny' => 'Enano',
-				'logo.png' => 'rsce.png'
-			),
-		1 => array ( /* RFCE */
-				'Large' => 'Large',
-				'Medium' => 'Medium',
-				'Small' => 'Small',
-				'Tiny' => 'Tiny',
-				'logo.png' => 'rfec.png'
-			), 
-		2 => array ( /* UCA */
-				'Large' => '60',
-				'Medium' => '50',
-				'Small' => '40',
-				'Tiny' => '30',
-				'logo.png' => 'uca.png'
-			)		
-	);
-	
 	var $config=array();
 
 	// singleton pattern

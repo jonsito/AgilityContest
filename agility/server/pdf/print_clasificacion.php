@@ -53,7 +53,7 @@ class PDF extends PrintCommon {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$mangas,$resultados,$mode) {
-		parent::__construct('Landscape',$prueba,$jornada);
+		parent::__construct('Landscape',"print_clasificacion",$prueba,$jornada);
 		$dbobj=new DBObject("print_clasificacion");
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=null;

@@ -37,6 +37,7 @@ class PrintCommon extends FPDF {
 	
 	protected $myLogger;
 	protected $config;
+    protected $federation;
 	protected $prueba; // datos de la prueba
 	protected $club;   // club orcanizadod
 	protected $icon;   // logo del club organizador
@@ -51,7 +52,7 @@ class PrintCommon extends FPDF {
 		// convert to iso-latin1
 		$txt=utf8_decode($txt);
 		// translate federation related strings
-		$txt=$this->config->strToFederation($txt,$this->prueba->RSCE);
+		$txt=$this->federation->strToFederation($txt,$this->prueba->RSCE);
 		// let string fit into box
 		for($n=strlen($txt);$n>0;$n--) {
 			$str=substr($txt,0,$n);
@@ -66,18 +67,20 @@ class PrintCommon extends FPDF {
 	
 	/**
 	 * Constructor de la superclase 
-	 * @param unknown $prueba ID de la prueba
-	 * @param unknown $jornada ID de la jornada
-	 * @param unknown $mangas array[{integer} con los IDs de las mangas
+	 * @param {string} orientacion 'landscape' o 'portrait'
+     * @param {string} file name of caller to be used in traces
+	 * @param {int} $prueba ID de la jornada
+	 * @param {int} jornada Jornada ID
 	 */
-	function __construct($orientacion,$prueba,$jornada=0) {
+	function __construct($orientacion,$file,$prueba,$jornada=0) {
 		parent::__construct($orientacion,'mm','A4'); // Portrait or Landscape
 		$this->SetAutoPageBreak(true,1.7); // default margin is 2cm. so enlarge a bit 
 		$this->centro=($orientacion==='Portrait')?107:145;
 		$this->config=Config::getInstance();
-		$this->myLogger= new Logger("PrintCommon",$this->config->getEnv("debug_level"));
-		$this->myDBObject=new DBObject("print_common_pdf");
+		$this->myLogger= new Logger($file,$this->config->getEnv("debug_level"));
+		$this->myDBObject=new DBObject($file);
 		$this->prueba=$this->myDBObject->__getObject("Pruebas",$prueba);
+        $this->federation=new Federation($this->prueba->RSCE);
 		$this->club=$this->myDBObject->__getObject("Clubes",$this->prueba->Club); // club organizador
 		if ($jornada!=0) $this->jornada=$this->myDBObject->__getObject("Jornadas",$jornada);
 		else $this->jornada=null;

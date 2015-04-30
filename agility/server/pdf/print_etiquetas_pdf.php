@@ -59,7 +59,7 @@ class Etiquetas_PDF extends PrintCommon {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$mangas) {
-		parent::__construct('Portrait',$prueba,$jornada);
+		parent::__construct('Portrait',"print_etiquetasPDF",$prueba,$jornada);
 		$dbobj=new DBObject("print_etiquetas_pdf");
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);

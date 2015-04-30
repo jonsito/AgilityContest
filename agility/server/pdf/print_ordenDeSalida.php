@@ -56,7 +56,7 @@ class PDF extends PrintCommon {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$manga) {
-		parent::__construct('Portrait',$prueba,$jornada);
+		parent::__construct('Portrait',"print_ordenDeSalida",$prueba,$jornada);
 		if ( ($prueba<=0) || ($jornada<=0) || ($manga<=0) ) {
 			$this->errormsg="printOrdenDeSalida: either prueba/jornada/ manga/orden data are invalid";
 			throw new Exception($this->errormsg);

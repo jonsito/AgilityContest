@@ -52,7 +52,7 @@ class PDF extends PrintCommon {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada) {
-		parent::__construct('Portrait',$prueba,$jornada);
+		parent::__construct('Portrait',"print_equiposByJornada",$prueba,$jornada);
 		if ( ($prueba<=0) || ($jornada<=0) ) {
 			$this->errormsg="print_teamsByJornada: either prueba or jornada data are invalid";
 			throw new Exception($this->errormsg);

@@ -46,7 +46,7 @@ class PrintTandas extends PrintCommon {
 	 */
 	function __construct($prueba,$jornada) {
 		date_default_timezone_set('Europe/Madrid');
-		parent::__construct('Portrait',$prueba,$jornada);
+		parent::__construct('Portrait',"print_ordenTandas",$prueba,$jornada);
 		if ( ($prueba<=0) || ($jornada<=0) ) {
 			$this->errormsg="printTandas: either prueba or jornada data are invalid";
 			throw new Exception($this->errormsg);
