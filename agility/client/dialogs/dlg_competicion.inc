@@ -126,7 +126,7 @@ $('#competicion-datagrid').datagrid({
       	}	
     ]],
     rowStyler:competicionRowStyler,
-    onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
+    onBeforeLoad: function(param) { return (workingData.manga > 0); }, // do not load if no manga selected
 	onLoadSuccess:function(){
 		// mark no row is being edited
 		$(this).datagrid('options').editIndex=-1;

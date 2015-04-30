@@ -256,7 +256,7 @@ class Jornadas extends DBObject {
 	
 	/** 
 	 * cache para evaluar los jueces de la llamada roundsByJornada
-	 * @param unknown $id
+	 * @param {int} $id
 	 */
 	private function fetchJuez($id) {
 		if (! array_key_exists("$id",$this->jueces)) {
@@ -268,8 +268,8 @@ class Jornadas extends DBObject {
 	
 	/**
 	 * Devuelve una lista de las rondas de que consta esta jornada (GI,GII,GIII, PreAgility..)
-	 * @param unknown $jornadaid ID de jornada
-	 * @return null on error, result in combogrid format "info,idManga1,idmanga2"
+	 * @param {int} $jornadaid ID de jornada
+	 * @return {array} null on error, result in combogrid format "info,idManga1,idmanga2"
 	 */
 	function roundsByJornada($jornadaid) {
 		$this->myLogger->enter();

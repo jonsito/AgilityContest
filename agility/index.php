@@ -61,10 +61,11 @@ if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
 
 <script type="text/javascript">
 function initialize() {
+    var mm=$('#mymenu');
 	// expand/collapse menu on mouse enter/exit
 	setHeader("");
-	$('#mymenu').mouseenter(function(){$('#mymenu').panel('expand');});
-	$('#mymenu').mouseleave(function(){$('#mymenu').panel('collapse');});
+	mm.mouseenter(function(){$('#mymenu').panel('expand');});
+	mm.mouseleave(function(){$('#mymenu').panel('collapse');});
 	
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
@@ -152,7 +153,7 @@ var ac_config= {
 body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
 
 /***** Datos de la cabecera ******/
-#mylogo { position: fixed; top: 0px; right: 10px; }
+#mylogo { position: fixed; top: 0; right: 10px; }
 #myheader {	position: fixed; top: 10px; left: 10px; }
 #myheader p { 
 	color: <?php echo $config->getEnv('easyui_hdrcolor'); ?>; 

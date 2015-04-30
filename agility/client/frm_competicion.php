@@ -64,9 +64,7 @@ $('#seljornada-window').window({
 		}
 		loadContents( page, '<?php _e('Desarrollo de la jornada');?>'+extra, dialogs );
 	} 
-});
-
-$('#seljornada-window').window('open');
+}).window('open');
 
 </script>
 

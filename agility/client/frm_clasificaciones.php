@@ -41,9 +41,7 @@ $('#seljornada-window').window({
 		if (workingData.datosJornada.KO==1) page="/agility/client/resultados_ko.php";
 		loadContents(page,'<?php _e('Resultados y Clasificaciones');?>');
 	} 
-});
-
-$('#seljornada-window').window('open');
+}).window('open');
 
 </script>
 

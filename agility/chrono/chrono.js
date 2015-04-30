@@ -19,12 +19,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 /**
  * send events
- * @param {string} type: Event Type
- * @param {object} data: Event data
+ * @param {string} type Event Type
+ * @param {object} data Event data
  */
 function chrono_putEvent(type,data){
 	// setup default elements for this event
-	obj= {
+	var obj= {
 			'Operation':'chronoEvent',
 			'Type': 	type,
 			'TimeStamp': Date.now(),
@@ -139,8 +139,9 @@ function chrono_processEvents(id,evt) {
 		c_updateData(event);
 		return;
 	case 'llamada':	// llamada a pista
-		$('#cronoauto').Chrono('stop');
-		$('#cronoauto').Chrono('reset');
+        var cra=$('#cronoauto');
+		cra.Chrono('stop');
+		cra.Chrono('reset');
 		c_showData(event);
 		return;
 	case 'salida': // orden de salida
@@ -157,11 +158,12 @@ function chrono_processEvents(id,evt) {
 		// parar countdown
 		c_llamada.stop(); 
 		c_reconocimiento.stop();
+        var cra=$('#cronoauto');
 		// arranca crono manual si no esta ya arrancado
 		// si el crono manual ya esta arrancado, lo resetea y vuelve a empezar
-		$('#cronoauto').Chrono('stop');
-		$('#cronoauto').Chrono('reset');
-		$('#cronoauto').Chrono('start',time);
+		cra.Chrono('stop');
+		cra.Chrono('reset');
+		cra.Chrono('start',time);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
 		// TODO: write

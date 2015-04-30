@@ -22,14 +22,14 @@ require_once(__DIR__."/../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
 		
-<div id="tablet-window" style="margin:0px;padding:0px">
+<div id="tablet-window" style="margin:0;padding:0">
 	<!-- toolbar para orden de tandas -->
 	<div id="tablet-toolbar" style="padding:5px">
 		<a id="tablet-reloadBtn" href="#" class="easyui-linkbutton" 
 			data-options="iconCls:'icon-reload'" onclick="$('#tablet-datagrid').datagrid('reload');">Actualizar</a>
 	</div>
 	<!-- Tabla desplegable para la entrada de datos desde el tablet -->
-	<table id="tablet-datagrid" style="margin:0px;padding:0px;"></table>
+	<table id="tablet-datagrid" style="margin:0;padding:0;"></table>
 </div> <!-- tandas / orden de salida -->
 		
 <script type="text/javascript">
@@ -114,8 +114,10 @@ $('#tablet-datagrid').datagrid({
 // mostrar los perros de una tanda
 function tablet_showPerrosByTanda(index,row){ 
 	// - sub tabla orden de salida de una tanda
-    var mySelf='#tablet-datagrid-'+row.ID;
-	$(mySelf).datagrid({
+    var tbt_dg=$('#tablet-datagrid');
+    var mySelfstr='#tablet-datagrid-'+row.ID;
+    var mySelf=$(mySelfstr);
+	mySelf.datagrid({
 		method: 'get',
 		url: '/agility/server/database/tandasFunctions.php',
 	    queryParams: {
@@ -164,23 +166,23 @@ function tablet_showPerrosByTanda(index,row){
         onClickRow: function(idx,data) {
             doBeep();
 	    	data.Session=workingData.sesion;
-            data.Parent=mySelf; // store datagrid reference
+            data.Parent=mySelfstr; // store datagrid reference
             $('#tdialog-form').form('load',data);
             $('#tablet-window').window('close');
             $('#tdialog-window').window('open');
         },
         onResize:function(){
-            $('#tablet-datagrid').datagrid('fixDetailRowHeight',index);
+            tbt_dg.datagrid('fixDetailRowHeight',index);
         },
         onLoadSuccess:function(){
-            setTimeout(function(){ $('#tablet-datagrid').datagrid('fixDetailRowHeight',index); },0);
+            setTimeout(function(){ tbt_dg.datagrid('fixDetailRowHeight',index); },0);
 <?php if (toBoolean($config->getEnv('tablet_dnd'))) { ?>
-			$(mySelf).datagrid('enableDnd');
-			$(mySelf).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+			mySelf.datagrid('enableDnd');
+			mySelf.datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 <?php } else { /* if dnd is off enable only on PC */?>
 			if (! isMobileDevice() ) {
-				$(mySelf).datagrid('enableDnd');
-				$(mySelf).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+				mySelf.datagrid('enableDnd');
+				mySelf.datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
 			}
 <?php } ?>
     	},
@@ -200,11 +202,11 @@ function tablet_showPerrosByTanda(index,row){
                     src.Perro,
                     dst.Perro,
                     (updown==='top')?0:1,
-                    function()  { $(mySelf).datagrid('reload'); }
+                    function()  { mySelf.datagrid('reload'); }
              	);
         	return false;
         }
 	});
-	$('#tablet-datagrid').datagrid('fixDetailRowHeight',index);
+	tbt_dg.datagrid('fixDetailRowHeight',index);
 }
 </script>

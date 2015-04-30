@@ -33,17 +33,18 @@ function tablet_showOrdenSalida() {
 
 /**
  * send events
- * @param {string} type: Event Type
- * @param {object} data: Event data
+ * @param {string} type Event Type
+ * @param {object} data Event data
  */
 function tablet_putEvent(type,data){
+    var tds=$('#tdialog-Session').val;
 	// setup default elements for this event
-	obj= {
+	var obj= {
 			'Operation':'putEvent',
 			'Type': 	type,
 			'TimeStamp': Date.now(),
-			'Source':	'tablet_'+$('#tdialog-Session').val(),
-			'Session':	$('#tdialog-Session').val(),
+			'Source':	'tablet_'+tds,
+			'Session':	tds,
 			'Prueba':	$('#tdialog-Prueba').val(),
 			'Jornada':	$('#tdialog-Jornada').val(),
 			'Manga':	$('#tdialog-Manga').val(),
@@ -109,7 +110,8 @@ function doBeep() {
 
 function tablet_add(val) {
 	doBeep();
-	var str=$('#tdialog-Tiempo').val();
+    var tdt=$('#tdialog-Tiempo');
+	var str=tdt.val();
 	if (parseInt(str)==0) str=''; // clear espurious zeroes
 	if(str.length>=6) return; // sss.xx 6 chars
 	var n=str.indexOf('.');
@@ -117,7 +119,7 @@ function tablet_add(val) {
 		var len=str.substring(n).length;
 		if (len>2) return; // only two decimal digits
 	}
-	$('#tdialog-Tiempo').val(''+str+val);
+	tdt.val(''+str+val);
 	tablet_updateResultados(1);
 	// dont send event
 	return false;
@@ -135,9 +137,10 @@ function tablet_dot() {
 
 function tablet_del() {
 	doBeep();
-	var str=$('#tdialog-Tiempo').val();
+    var tdt=$('#tdialog-Tiempo');
+	var str=tdt.val();
 	if (str==='') return;
-	$('#tdialog-Tiempo').val(str.substring(0, str.length-1));
+	tdt.val(str.substring(0, str.length-1));
 	tablet_updateResultados(1);
 	// dont send event
 	return false;
@@ -170,31 +173,39 @@ function tablet_down(id){
 
 function tablet_np() {
 	doBeep();
-	var n= parseInt($('#tdialog-NoPresentado').val());
+    var tde=$('#tdialog-Eliminado');
+    var tdestr=$('#tdialog-EliminadoStr');
+    var tdnp=$('#tdialog-NoPresentado');
+    var tdnpstr=$('#tdialog-NoPresentadoStr');
+    var tdtime=$('#tdialog-Tiempo');
+    var tdflt=$('#tdialog-Faltas');
+    var tdtoc=$('#tdialog-Rehuses');
+    var tdreh=$('#tdialog-Tocados');
+	var n= parseInt(tdnp.val());
 	if (n==0) {
-		$('#tdialog-NoPresentado').val(1);
-		$('#tdialog-NoPresentadoStr').val("NP");
+		tdnp.val(1);
+		tdnpstr.val("NP");
 		// si no presentado borra todos los demas datos
-		$('#tdialog-Eliminado').val(0);
-		$('#tdialog-EliminadoStr').val("");
-		$('#tdialog-Faltas').val(0);
-		$('#tdialog-Rehuses').val(0);
-		$('#tdialog-Tocados').val(0);
-		$('#tdialog-Tiempo').val(0);
+		tde.val(0);
+		tdestr.val("");
+		tdflt.val(0);
+		tdreh.val(0);
+		tdtoc.val(0);
+		tdtime.val(0);
 	} else {
-		$('#tdialog-NoPresentado').val(0);
-		$('#tdialog-NoPresentadoStr').val("");
+		tdnp.val(0);
+		tdnpstr.val("");
 	}
 	tablet_updateResultados(1);
 	tablet_putEvent(
 		'datos',
 		{
-		'NoPresentado'	:	$('#tdialog-NoPresentado').val(),
-		'Faltas'		:	$('#tdialog-Faltas').val(),
-		'Tocados'		:	$('#tdialog-Tocados').val(),
-		'Rehuses'		:	$('#tdialog-Rehuses').val(),
-		'Tiempo'		:	$('#tdialog-Tiempo').val(),
-		'Eliminado'		:	$('#tdialog-Eliminado').val()
+		'NoPresentado'	:	tdnp.val(),
+		'Faltas'		:	tdfltval(),
+		'Tocados'		:	tdtoc.val(),
+		'Rehuses'		:	tdreh.val(),
+		'Tiempo'		:	tdtime.val(),
+		'Eliminado'		:	tde.val()
 		}
 		);
 	return false;
@@ -202,25 +213,29 @@ function tablet_np() {
 
 function tablet_elim() {
 	doBeep();
-	var n= parseInt($('#tdialog-Eliminado').val());
+    var tde=$('#tdialog-Eliminado');
+    var tdestr=$('#tdialog-EliminadoStr');
+    var tdnp=$('#tdialog-NoPresentado');
+    var tdtime=$('#tdialog-Tiempo');
+	var n= parseInt(tde.val());
 	if (n==0) {
-		$('#tdialog-Eliminado').val(1);
-		$('#tdialog-EliminadoStr').val("EL");
+		tde.val(1);
+		tdestr.val("EL");
 		// si eliminado, poner nopresentado y tiempo a cero, conservar todo lo demas
-		$('#tdialog-NoPresentado').val(0);
+		tdnp.val(0);
 		$('#tdialog-NoPresentadoStr').val("");
-		$('#tdialog-Tiempo').val(0);
+		tdtime.val(0);
 	} else {
-		$('#tdialog-Eliminado').val(0);
-		$('#tdialog-EliminadoStr').val("");
+		tde.val(0);
+		tdestr.val("");
 	}
 	tablet_updateResultados(1);
 	tablet_putEvent(
 			'datos',
 			{
-			'NoPresentado'	:	$('#tdialog-NoPresentado').val(),
-			'Tiempo'		:	$('#tdialog-Tiempo').val(),
-			'Eliminado'		:	$('#tdialog-Eliminado').val()
+			'NoPresentado'	:	tdnp.val(),
+			'Tiempo'		:	tdtime.val(),
+			'Eliminado'		:	tde.val()
 			}
 		);
 	return false;
@@ -228,6 +243,14 @@ function tablet_elim() {
 
 function tablet_cronoManual(oper,time) {
 	if (ac_config.tablet_chrono) $('#cronomanual').Chrono(oper,time);
+}
+
+function tablet_restartCronoManual(time) {
+    if (!ac_config.tablet_chrono) return false;
+    var crm=$('#cronomanual');
+    crm.Chrono('stop',time);
+    crm.Chrono('reset',time);
+    crm.Chrono('start',time);
 }
 
 var myCounter = new Countdown({  
@@ -389,9 +412,7 @@ function tablet_processEvents(id,evt) {
 		if (!isExpected(event)) return;
 		$('#tdialog-StartStopBtn').val("Stop");
 		myCounter.stop();
-		tablet_cronoManual('stop');
-		tablet_cronoManual('reset');
-		tablet_cronoManual('start',time);
+        tablet_restartCronoManual(time);
 		return;
 	case 'stop': // stop crono manual
 		if (!isExpected(event)) return;
@@ -404,12 +425,13 @@ function tablet_processEvents(id,evt) {
 		if (!isExpected(event)) return;
 		// parar countdown
 		$('#tdialog-StartStopBtn').val("Stop");
-		myCounter.stop(); 
+		myCounter.stop();
+        var crm=$('#cronomanual');
 		// arranca crono manual si no esta ya arrancado
 		// si el crono manual ya esta arrancado, lo resetea y vuelve a empezar
-		$('#cronomanual').Chrono('stop');
-		$('#cronomanual').Chrono('reset');
-		$('#cronomanual').Chrono('start',time);
+		crm.Chrono('stop');
+		crm.Chrono('reset');
+		crm.Chrono('start',time);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
 		// TODO: write

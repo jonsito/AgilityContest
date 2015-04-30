@@ -16,7 +16,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!--  dialogo de presentacion de resultados parciales de una manga -->
-<div id="resultadosmanga-dialog" style="width:800px;height:450px;padding:0px 10px 100px 10px">
+<div id="resultadosmanga-dialog" style="width:800px;height:450px;padding:0 10px 100px 10px">
 
 	<!-- BARRA DE TAREAS DE RESULTADOS PARCIALES DE MANGA -->
 	<div id="resultadosmanga-toolbar">
@@ -133,7 +133,7 @@ $('#resultadosmanga-datagrid').datagrid({
       	{ field:'CShort', hidden:true}
     ]],
     rowStyler:myRowStyler,
-    onBeforeLoad: function(param) { return (param.Manga<=0)?false:true; }, // do not load if no manga selected
+    onBeforeLoad: function(param) { return (param.Manga > 0); }, // do not load if no manga selected
     onLoadSuccess: function() { // get focus on datagrid (to bind keystrokes)
     	$(this).datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
     }

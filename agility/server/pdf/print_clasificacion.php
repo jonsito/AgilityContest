@@ -48,8 +48,11 @@ class PDF extends PrintCommon {
 	protected $categoria;
 
 	 /** Constructor
-	 * @param {obj} $manga datos de la manga
-	 * @param {obj} $resultados resultados asociados a la manga/categoria pedidas
+      * @param {int} $prueba prueba id
+      * @param {int} $jornada jornada id
+	 * @param {array} $mangas datos de la manga
+	 * @param {array} $resultados resultados asociados a la manga/categoria pedidas
+      * @param {int} $mode manga mode
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$mangas,$resultados,$mode) {

@@ -102,7 +102,7 @@ $('#pb_enumerateFinales').combogrid({
 			{field:'NombreManga1',hidden:true},
 			{field:'NombreManga2',hidden:true},
 			{field:'Recorrido',hidden:true},
-			{field:'Mode',hidden:true},
+			{field:'Mode',hidden:true}
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='enumerateClasificaciones';

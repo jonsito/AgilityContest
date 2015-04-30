@@ -106,7 +106,7 @@ $('#competicion-listamangas').datagrid({
               	    if (workingData.datosJornada.Observaciones==="") return val;
               	    return workingData.datosJornada.Observaciones;
           	    }
-      	    }, // texto del tipo de manga
+      	    } // texto del tipo de manga
     ]],
     rowStyler:myRowStyler,
     onClickRow: function (index,row) {

@@ -91,7 +91,7 @@ $('#ordensalida-datagrid').datagrid({
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
     },
-    onBeforeLoad: function(param) { return (workingData.manga<=0)?false:true; }, // do not load if no manga selected
+    onBeforeLoad: function(param) { return (workingData.manga > 0); }, // do not load if no manga selected
     onLoadSuccess: function(data) {
 		// show/hide 'NombreEquipo' based of manga type
 		if (isTeam(workingData.datosManga.Tipo) ) $('#ordensalida-datagrid').datagrid('showColumn','NombreEquipo');
@@ -103,7 +103,7 @@ $('#ordensalida-datagrid').datagrid({
     onDragEnter: function(dst,src) {
         var from=":"+src.Equipo+":"+src.Categoria+":"+src.Celo+":";
 		var to=":"+dst.Equipo+":"+dst.Categoria+":"+dst.Celo+":";
-		return (from===to)?true:false;
+		return (from === to);
     },
     onDrop: function(dst,src,updown) {
         dragAndDropOrdenSalida(src.Perro,dst.Perro,(updown==='top')?0:1,reloadOrdenSalida);

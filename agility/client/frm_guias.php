@@ -104,7 +104,7 @@ $config =Config::getInstance();
             detailFormatter:function(idx,row){
                 return '<div style="padding:2px"><table id="guias-perros-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
             },
-            onExpandRow: function(idx,row) { showPerrosByGuia(idx,row); },
+            onExpandRow: function(idx,row) { showPerrosByGuia(idx,row); }
 
         }); // end of guias-datagrid
 

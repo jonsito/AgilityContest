@@ -64,16 +64,16 @@ function editJuez(dg){
  */
 function saveJuez(){
 	// take care on bool-to-int translation from checkboxes to database
-    $('#jueces-Internacional').val( $('#jueces-Internacional').is(':checked')?'1':'0');
-    $('#jueces-Practicas').val( $('#jueces-Practicas').is(':checked')?'1':'0');
+    var ji=$('#jueces-Internacional'); ji.val( ji.is(':checked')?'1':'0');
+    var jp=$('#jueces-Practicas'); jp.val( jp.is(':checked')?'1':'0');
     var frm = $('#jueces-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     // evaluate federation checkboxes
-    $fed=0;
-    if ( $('#jueces-RSCE').is(':checked') ) $fed |=1;
-    if ( $('#jueces-RFEC').is(':checked') ) $fed |=2;
-    if ( $('#jueces-UCA').is(':checked') ) $fed |=4;
-    $('#jueces-Federations').val($fed);
+    var fed=0;
+    if ( $('#jueces-RSCE').is(':checked') ) fed |=1;
+    if ( $('#jueces-RFEC').is(':checked') ) fed |=2;
+    if ( $('#jueces-UCA').is(':checked') ) fed |=4;
+    $('#jueces-Federations').val(fed);
     $.ajax({
         type: 'GET',
         url: '/agility/server/database/juezFunctions.php',

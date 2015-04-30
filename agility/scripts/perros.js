@@ -58,10 +58,9 @@ function editDog(dg){
 
 /**
  * Abre el dialogo para editar datos de un perro que se ha inscrito en una prueba
- * @param {string} dg datagrid ID de donde se obtiene el perro
  */
-function editInscribedDog(dg){
-	id=$('#edit_inscripcion-Perro').val();
+function editInscribedDog(){
+	var id=$('#edit_inscripcion-Perro').val();
 	$('#perros-form').form('load','/agility/server/database/dogFunctions.php?Operation=getbyidperro&ID='+id);
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro a inscribir'+' - '+fedName(workingData.federation));
     // add extra required data to form dialog
@@ -110,10 +109,11 @@ function deleteDog(dg){
 
 /**
  * Abre el formulario para anyadir/asignar perros a un guia
- *@param {string} ID identificador del datagrid que se actualiza
- *@param {object} guia: datos del guia
+ *@param {string} dgstr identificador del datagrid que se actualiza
+ *@param {object} guia datos del guia
  */
-function assignPerroToGuia(dg,guia) {
+function assignPerroToGuia(dgstr,guia) {
+    var dg=$(dgstr);
 	// clean previous dialog data
 	$('#chperros-header').form('clear');
 	$('#chperros-Search').combogrid('clear');
@@ -124,19 +124,19 @@ function assignPerroToGuia(dg,guia) {
 	// desplegar ventana y ajustar textos
 	$('#chperros-title').text('Buscar perro / Declarar un nuevo perro y asignarlo a '+guia.Nombre);
 	$('#chperros-dialog').dialog('open').dialog('setTitle',"Reasignar / Declarar perro"+' - '+fedName(workingData.federation));
-	$('#chperros-okBtn').one('click',function () { $(dg).datagrid('reload'); } );
-	$('#chperros-newBtn').one('click',function () { $(dg).datagrid('reload'); } );
+	$('#chperros-okBtn').one('click',function () { dg.datagrid('reload'); } );
+	$('#chperros-newBtn').one('click',function () { dg.datagrid('reload'); } );
 }
 
 /**
 * Abre el formulario para anyadir perros a un guia
-* @param {string} dg datagrid ID de donde se obtiene el perro
-* @param {object} guia: datos del guia
-* @param {function} onAccept what to do (only once) when window gets closed
+* @param {string} dgstr datagrid ID de donde se obtiene el perro
+* @param {object} guia datos del guia
 */
-function editPerroFromGuia(dg,guia) {
-	// try to locate which dog has been selected 
-    var row = $(dg).datagrid('getSelected');
+function editPerroFromGuia(dgstr,guia) {
+	// try to locate which dog has been selected
+    var dg=$(dgstr);
+    var row = dg.datagrid('getSelected');
     if (!row) {
     	$.messager.alert("Error","!No ha seleccionado ningún perro!","warning");
     	return; // no way to know which dog is selected
@@ -146,17 +146,17 @@ function editPerroFromGuia(dg,guia) {
     $('#perros-form').form('load',row);	// load form with row data. onLoadSuccess will fix comboboxes
     // finally display composed data
     $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro asignado a '+guia.Nombre+' - '+fedName(workingData.federation));
-	$('#perros-okBtn').one('click',function () { $(dg).datagrid('reload'); } );
+	$('#perros-okBtn').one('click',function () { dg.datagrid('reload'); } );
 }
 
 /**
  * Quita la asignacion del perro marcado al guia indicado
- * @param {string} dg datagrid ID de donde se obtiene el perro
- * @param {object} guia: datos del guia
- * @param {function} onAccept what to do (only once) when window gets closed
+ * @param {string} dgstr datagrid ID de donde se obtiene el perro
+ * @param {object} guia datos del guia
  */
-function delPerroFromGuia(dg,guia) {
-    var row = $(dg).datagrid('getSelected');
+function delPerroFromGuia(dgstr,guia) {
+    var dg=$(dgstr);
+    var row = dg.datagrid('getSelected');
     if (!row){
     	$.messager.alert("Error","!No ha seleccionado ningún perro!","warning");
     	return; // no way to know which dog is selected
@@ -165,7 +165,7 @@ function delPerroFromGuia(dg,guia) {
         if (r){
             $.get('/agility/server/database/dogFunctions.php',{Operation:'orphan',ID:row.ID},function(result){
                 if (result.success){
-                	$(dg).datagrid('reload');
+                	dg.datagrid('reload');
                 } else {
                     $.messager.show({title: 'Error', msg: result.errorMsg, width: 300,height:200 });
                 }

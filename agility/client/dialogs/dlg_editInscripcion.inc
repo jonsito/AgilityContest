@@ -28,7 +28,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <input id="edit_inscripcion-Raza" name="Raza" type="hidden" />
            	<input id="edit_inscripcion-Perro" name="Perro" type="hidden" />
            	<span  id="edit_inscripcion-dogInfo" 	class="ftitle">Informaci&oacute;n del perro:</span>
-           	<span  id="edit_inscripcion-inscInfo" 	class="ftitle" style="tex-align:center">Datos de la inscripci&oacute;n:</span>
+           	<span  id="edit_inscripcion-inscInfo" 	class="ftitle" style="text-align:center">Datos de la inscripci&oacute;n:</span>
            	<label id="edit_inscripcion-Nombrelbl"	for="Nombre">Nombre:</label>
            	<input id="edit_inscripcion-Nombre" 	name="Nombre" type="text" disabled="disabled" />
         	<label id="edit_inscripcion-Licencialbl" for="Licencia">Licencia: </label>
@@ -101,7 +101,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             // retrieve info on jornadas
         	var jornadas=$('#inscripciones-jornadas').datagrid('getData')['rows'];
             // evaluate celo checkbox status
-        	$('#edit_inscripcion-Celo2').prop('checked',(data.Celo!=0)?true:false);
+        	$('#edit_inscripcion-Celo2').prop('checked',(data.Celo != 0));
             // evaluate checked status of jornadas
         	$('#edit_inscripcion-J1').prop('checked',(data.Jornadas&0x0001)?true:false);
         	$('#edit_inscripcion-J2').prop('checked',(data.Jornadas&0x0002)?true:false);

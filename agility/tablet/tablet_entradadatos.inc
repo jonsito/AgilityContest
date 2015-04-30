@@ -59,33 +59,33 @@ $config =Config::getInstance();
        		<input id="tdialog-9" type="button" value="9" class="tablet_numbers" onclick="tablet_add(9);">
        		<input id="tdialog-Del" type="button" value="." class="tablet_numbers" onclick="tablet_dot();">
        		<input id="tdialog-Dot" type="button" value="Del" class="tablet_numbers" onclick="tablet_del();">
-       		<label id="tdialog-DorsalLbl" for="Dorsal" class="tablet_info">Dorsal</label>
+       		<label id="tdialog-DorsalLbl" for="tdialog-Dorsal" class="tablet_info">Dorsal</label>
        		<input id="tdialog-Dorsal" type="text" readonly="readonly" name="Dorsal" class="tablet_info"/>
-       		<label id="tdialog-NombreLbl" for="Nombre" class="tablet_info">Nombre</label>
+       		<label id="tdialog-NombreLbl" for="tdialog-Nombre" class="tablet_info">Nombre</label>
        		<input id="tdialog-Nombre" type="text" readonly="readonly" name="Nombre" class="tablet_info"/>
-       		<label id="tdialog-GuiaLbl" for="Guia" class="tablet_info">Gu&iacute;a</label>
+       		<label id="tdialog-GuiaLbl" for="tdialog-Guia" class="tablet_info">Gu&iacute;a</label>
        		<input id="tdialog-Guia" type="text" readonly="readonly" name="NombreGuia" class="tablet_info"/>
-       		<label id="tdialog-ClubLbl" for="Club" class="tablet_info">Club</label>
+       		<label id="tdialog-ClubLbl" for="tdialog-Club" class="tablet_info">Club</label>
        		<input id="tdialog-Club" type="text" readonly="readonly" name="NombreClub" class="tablet_info"/>
-       		<label id="tdialog-CategoriaLbl" for="Categoria" class="tablet_info">Cat.</label>
+       		<label id="tdialog-CategoriaLbl" for="tdialog-Categoria" class="tablet_info">Cat.</label>
        		<input id="tdialog-Categoria" type="text" readonly="readonly" name="Categoria" class="tablet_info"/>
-       		<label id="tdialog-GradoLbl" for="Grado" class="tablet_info">Grado</label>
+       		<label id="tdialog-GradoLbl" for="tdialog-Grado" class="tablet_info">Grado</label>
        		<input id="tdialog-Grado" type="text" readonly="readonly" name="Grado" class="tablet_info"/>
-       		<label id="tdialog-CeloLbl" for="Celo" class="tablet_info">Celo</label>
+       		<label id="tdialog-CeloLbl" for="tdialog-Celo" class="tablet_info">Celo</label>
        		<input id="tdialog-Celo" type="text" readonly="readonly" name="Celo" class="tablet_info"/>
-       		<label id="tdialog-FaltasLbl" for="Faltas">Faltas</label>
+       		<label id="tdialog-FaltasLbl" for="tdialog-Faltas">Faltas</label>
        		<input id="tdialog-Faltas" type="text" readonly="readonly" value="0" name="Faltas" class="tablet_data"/>
-       		<label id="tdialog-TocadosLbl" for="Tocados">Tocados</label>
+       		<label id="tdialog-TocadosLbl" for="tdialog-Tocados">Tocados</label>
        		<input id="tdialog-Tocados" type="text" readonly="readonly" value="0" name="Tocados" class="tablet_data"/>
-       		<label id="tdialog-RehusesLbl" for="Rehuses">Rehuses</label>
+       		<label id="tdialog-RehusesLbl" for="tdialog-Rehuses">Rehuses</label>
        		<input id="tdialog-Rehuses" type="text" readonly="readonly" value="0" name="Rehuses" class="tablet_data"/>
-       		<label id="tdialog-TiempoLbl" for="Tiempo">Tiempo</label>
+       		<label id="tdialog-TiempoLbl" for="tdialog-Tiempo">Tiempo</label>
        		<span id="tdialog-timestamp" style="display:none"></span>
        		<input id="tdialog-Tiempo" type="text" readonly="readonly" value="00.00" name="Tiempo" class="tablet_data"/>
-       		<label id="tdialog-NoPresentadoLbl" for="NoPresentadoStr">No Pr.</label>
+       		<label id="tdialog-NoPresentadoLbl" for="tdialog-NoPresentadoStr">No Pr.</label>
        		<input id="tdialog-NoPresentado" type="hidden" name="NoPresentado" value="0"/>
        		<input id="tdialog-NoPresentadoStr" type="text" readonly="readonly" value="" name="NoPresentadoStr" class="tablet_data"/>
-       		<label id="tdialog-EliminadoLbl" for="EliminadoStr">Elim.</label>
+       		<label id="tdialog-EliminadoLbl" for="tdialog-EliminadoStr">Elim.</label>
        		<input id="tdialog-Eliminado" type="hidden" value="0" name="Eliminado"/>
        		<input id="tdialog-EliminadoStr" type="text" readonly="readonly" value="" name="EliminadoStr" class="tablet_data"/>
        		<label id="tdialog-Rectangulo" class="tablet_rectangulo">&nbsp;</label>
@@ -140,14 +140,14 @@ $config =Config::getInstance();
             $('#tdialog-StartStopBtn').val("Start");
             tablet_putEvent('llamada', 
         		{ // setup initial data for event
-        		'NoPresentado'	:	$('#tdialog-NoPresentado').val(),
+        		'NoPresentado'	:	np,
         		'Faltas'		:	$('#tdialog-Faltas').val(),
         		'Tocados'		:	$('#tdialog-Tocados').val(),
         		'Rehuses'		:	$('#tdialog-Rehuses').val(),
         		'Tiempo'		:	$('#tdialog-Tiempo').val(),
-        		'Eliminado'		:	$('#tdialog-Eliminado').val(),
+        		'Eliminado'		:	el,
         		'Celo'			:	$('#tdialog-Celo').val(),
-        		'Dorsal'		:	$('#tdialog-Dorsal').val(),
+        		'Dorsal'		:	$('#tdialog-Dorsal').val()
         		}
             ) ;
         }

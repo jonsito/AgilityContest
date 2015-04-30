@@ -26,7 +26,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<span style="float:left;padding:5px">
 	   	<label for="Buscar">Buscar: </label>
 		<input name="Buscar" type="text" id="new_inscripcion-datagrid-search" style="width:150px" value="---- Buscar ----"
-			class="search_textfield" onchange="reloadWithSearch('#new_inscripcion-datagrid','noinscritos');"/>
+			class="search_textfield" onchange="reloadWithSearch('#new_inscripcion-datagrid','noinscritos',false);"/>
 	</span>
 	<span style="float:right;padding:5px">
 		<a id="new_inscripcion-reloadBtn" href="#" class="easyui-linkbutton"

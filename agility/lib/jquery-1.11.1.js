@@ -1475,7 +1475,7 @@ Sizzle.error = function( msg ) {
 
 /**
  * Document sorting and removing duplicates
- * @param {ArrayLike} results
+ * @param {array} results
  */
 Sizzle.uniqueSort = function( results ) {
 	var elem,

@@ -17,7 +17,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 /**
  * Imprime los inscritos en la jornada marcada por la sesion activa
- * @param jornada
  */
 function pb_updateInscripciones() {
 	// var t=new Date().getTime();

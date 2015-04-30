@@ -50,7 +50,7 @@ $('#pb_enumerateParciales').combogrid({
 			{field:'Jornada',hidden:true},
 			{field:'Manga',hidden:true},
 			{field:'TipoManga',hidden:true},
-			{field:'Mode',hidden:true},
+			{field:'Mode',hidden:true}
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='enumerateResultados';

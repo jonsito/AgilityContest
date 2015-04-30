@@ -422,4 +422,4 @@ $.extend({
     }
 });
 
-})(jQuery, this);
+})(jQuery);

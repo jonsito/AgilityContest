@@ -256,8 +256,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				id: 'perrosByGuiaByClub-newBtn'+guia.ID+'_'+club.ID,
 				text: 'Asignar perro',
 				iconCls: 'icon-dog',
-				handler: function(){ assignPerroToGuia(mySelf,guia ); },
-			},{
+				handler: function(){ assignPerroToGuia(mySelf,guia ); }
+            },{
 				id: 'perrosByGuiaByClub-editBtn'+guia.ID+'_'+club.ID,
 				text: 'Editar datos',
 				iconCls: 'icon-edit',

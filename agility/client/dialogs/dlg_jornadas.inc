@@ -144,12 +144,12 @@ $config =Config::getInstance();
                 $('#jornadas-PreAgilityChk').prop('checked',false);
             	$('#jornadas-MangasPreAgility').prop('disabled','disabled');
             }
-            $('#jornadas-PreAgility').prop('checked',(data.PreAgility==1)?true:false);
-            $('#jornadas-Grado1').prop('checked',(data.Grado1==1)?true:false);
-            $('#jornadas-Grado2').prop('checked',(data.Grado2==1)?true:false);
+            $('#jornadas-PreAgility').prop('checked',(data.PreAgility == 1));
+            $('#jornadas-Grado1').prop('checked',(data.Grado1 == 1));
+            $('#jornadas-Grado2').prop('checked',(data.Grado2 == 1));
             if (workingData.datosPrueba.RSCE==0) {
             	$('#jornadas-Grado3').prop('disabled',false);
-                $('#jornadas-Grado3').prop('checked',(data.Grado3==1)?true:false);
+                $('#jornadas-Grado3').prop('checked',(data.Grado3 == 1));
             } else {
             	$('#jornadas-Grado3').prop('disabled','disabled');
                 $('#jornadas-Grado3').prop('checked',false);
@@ -166,13 +166,13 @@ $config =Config::getInstance();
                 $('#jornadas-EquiposChk').prop('checked',false);
             	$('#jornadas-MangasEquipos').prop('disabled','disabled');
             }
-            $('#jornadas-Equipos3').prop('checked',(data.Equipos3==1)?true:false);
-            $('#jornadas-Equipos4').prop('checked',(data.Equipos4==1)?true:false);
-            $('#jornadas-Open').prop('checked',(data.Open==1)?true:false);
-            $('#jornadas-KO').prop('checked',(data.KO==1)?true:false);
-            $('#jornadas-Especial').prop('checked',(data.Especial==1)?true:false);
+            $('#jornadas-Equipos3').prop('checked',(data.Equipos3 == 1));
+            $('#jornadas-Equipos4').prop('checked',(data.Equipos4 == 1));
+            $('#jornadas-Open').prop('checked',(data.Open == 1));
+            $('#jornadas-KO').prop('checked',(data.KO == 1));
+            $('#jornadas-Especial').prop('checked',(data.Especial == 1));
         	$('#jornadas-Observaciones').prop('disabled',(data.Especial==1)?false:'disabled');
-            $('#jornadas-Cerrada').prop('checked',(data.Cerrada==1)?true:false);
+            $('#jornadas-Cerrada').prop('checked',(data.Cerrada == 1));
         	$('#jornadas-Prueba').val(data.Prueba);
         	$('#jornadas-Operation').val('update');
         }

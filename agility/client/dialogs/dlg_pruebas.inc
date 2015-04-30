@@ -82,10 +82,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	onLoadSuccess: function(data) {
         	// alert(JSON.stringify(data));
     	    $('#pruebas-Operation').val('update');
-    	    $('#pruebas-Selectiva').prop('checked',(data.Selectiva==1)?true:false);
-    	    $('#pruebas-RSCE').prop('checked',(data.RSCE==0)?true:false);
-    	    $('#pruebas-RFEC').prop('checked',(data.RSCE==1)?true:false);
-    	    $('#pruebas-UCA').prop('checked',(data.RSCE==2)?true:false);
+    	    $('#pruebas-Selectiva').prop('checked',(data.Selectiva == 1));
+    	    $('#pruebas-RSCE').prop('checked',(data.RSCE == 0));
+    	    $('#pruebas-RFEC').prop('checked',(data.RSCE == 1));
+    	    $('#pruebas-UCA').prop('checked',(data.RSCE == 2));
     	    hasInscripciones(
     	    	    data.ID,
     	    	    function(flag) {

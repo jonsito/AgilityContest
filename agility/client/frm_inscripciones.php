@@ -56,7 +56,7 @@ $('#selprueba-window').window({
 	closed: true,
 	shadow: true,
 	modal: true
-});
+}).window('open');
 
 addTooltip($('#selprueba-okBtn').linkbutton(),"Trabajar con la prueba seleccionada");
 addTooltip($('#selprueba-cancelBtn').linkbutton(),"Cancelar selecci&oacute;n. Cerrar ventana");
@@ -113,7 +113,5 @@ function cancelSelectPrueba() {
 	loadContents(page,title);
 }
 
-// display prueba selection dialog
-$('#selprueba-window').window('open');
 
 </script>

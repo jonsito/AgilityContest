@@ -81,8 +81,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         $('#jueces-form').form({
             onLoadSuccess: function(data) {
                 // take care on internacional & practice checkbox
-                $('#jueces-Internacional').prop('checked',(data.Internacional==1)?true:false);
-                $('#jueces-Practicas').prop('checked',(data.Practicas==1)?true:false);
+                $('#jueces-Internacional').prop('checked',(data.Internacional == 1));
+                $('#jueces-Practicas').prop('checked',(data.Practicas == 1));
             }
         });
         // - botones

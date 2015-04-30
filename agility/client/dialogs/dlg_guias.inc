@@ -61,9 +61,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         // - declaracion del formulario
         $('#guias-form').form({
         	onLoadSuccess: function(data) {
-        	    $('#guias-Club').combogrid('clear');
-        	    $('#guias-Club').combogrid('setValue',data.Club);
-        	    $('#guias-Club').combogrid('setText',data.NombreClub);
+                var gc= $('#guias-Club');
+                gc.combogrid('clear');
+        	    gc.combogrid('setValue',data.Club);
+        	    gc.combogrid('setText',data.NombreClub);
         	}   
         });
         // - botones

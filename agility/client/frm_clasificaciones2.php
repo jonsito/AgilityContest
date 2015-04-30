@@ -201,7 +201,7 @@ $('#resultados-info-ronda').combogrid({
 		{ field:'Juez22',		hidden:true }  // Nombre segundo juez segunda manga 
 	]],
 	onBeforeLoad: function(param) { 
-		param.Operation='rounds', 
+		param.Operation='rounds';
 		param.Prueba=workingData.prueba; 
 		param.ID=workingData.jornada; 
 		return true;

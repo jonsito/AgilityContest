@@ -55,7 +55,7 @@ function is_https(){
  * Parse provided string and escape special chars to avoid SQL injection problems
  * NOTICE: THIS IS ONLY VALID FOR MYSQL "native escape mode" on UTF-8 encoding
  * DO NOT FORCE "ANSI" escape mode
- * @param unknown $str
+ * @param {string} $str
  */
 function escapeString($str) {
 	$len=strlen($str);
@@ -140,7 +140,7 @@ function random_password($chars = 8) {
 /**
  * Randomize array content
  * @param {array} $a array a reordenar
- * @return shuffled array
+ * @return {array} shuffled array
  */
 function aleatorio($a) { shuffle($a); return $a; }
 

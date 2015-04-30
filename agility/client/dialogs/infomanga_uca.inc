@@ -252,8 +252,8 @@ $('#dmanga_Juez1').combogrid({
 	columns: [[
 	    {field:'ID', hidden:true},
 		{field:'Nombre',title:'Nombre del juez',width:70,align:'right'},
-		{field:'Email',title:'E-mail',width:50,align:'right'},
-	]],
+		{field:'Email',title:'E-mail',width:50,align:'right'}
+    ]],
 	multiple: false,
 	fitColumns: true,
 	selectOnNavigation: false
@@ -271,8 +271,8 @@ $('#dmanga_Juez2').combogrid({
 	columns: [[
 	   	{field:'ID', hidden:true},
 		{field:'Nombre',title:'Nombre del juez',width:70,align:'right'},
-		{field:'Email',title:'E-mail',width:50,align:'right'},
-	]],
+		{field:'Email',title:'E-mail',width:50,align:'right'}
+    ]],
 	multiple: false,
 	fitColumns: true,
 	selectOnNavigation: false

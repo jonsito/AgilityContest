@@ -20,9 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /***** Datos de la imagen de fondo ****/
 
 #en_construccion {
-	background-image: url('../images/en_construccion.png');
-	background-repeat: no-repeat;
-	background-position: center;
+    background: url('../images/en_construccion.png') no-repeat center;
 }
 
 /***** Datos del menu lateral *****/
@@ -37,8 +35,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 #mysidebar ul {
 	border: line;
     list-style-type: none;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
     font-size: 11pt;
 }

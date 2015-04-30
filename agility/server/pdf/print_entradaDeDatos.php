@@ -227,6 +227,10 @@ class PDF extends PrintCommon {
 		$this->Ln(14);
 	}
 
+    /**
+     * @param {int} $rowcount
+     * @param {array} $row
+     */
 	function writeTableCell_extendido($rowcount,$row) {
 
 		$logo=$this->getLogoName($row['Perro']);

@@ -84,13 +84,14 @@ function beep() { Sound(); }
  * @param slaves list of dialogs to .destroy() on next loadContents
  */
 function loadContents(page,title,slaves) {
+    var cont=$('#contenido');
 	$('#mymenu').panel('collapse');
 	$.each(slaveDialogs,function(key,val) {
 		$(val).dialog('panel').panel('clear'); 
 	} ); 
 	slaveDialogs=(typeof(slaves)==='undefined')?{}:slaves;
-	$('#contenido').panel('clear');
-	$('#contenido').panel('refresh',page);
+	cont.panel('clear');
+	cont.panel('refresh',page);
 	setHeader(title);
 }
 

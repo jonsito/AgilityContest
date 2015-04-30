@@ -45,7 +45,9 @@ class Print_Podium extends PrintCommon {
 	protected $resultados;
 
 	 /** Constructor
-	 * @param {array} $manga lista de mangaid's
+      * @param {int} $prueba
+      * @param {int} $jornada
+	 * @param {array} $mangas lista de mangaid's
 	 * @param {array} $resultados resultados asociados a la manga pedidas
 	 * @throws Exception
 	 */

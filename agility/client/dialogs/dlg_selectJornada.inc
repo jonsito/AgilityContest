@@ -131,10 +131,10 @@ $('#seljornada-Jornada').combogrid({
 		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'Pre. 1 ' },
 		{ field:'PreAgility2',	width:8, sortable:false,	align:'center', title: 'Pre. 2 ' },
 		{ field:'KO',			width:8, sortable:false,	align:'center', title: 'K.O.   ' },
-		{ field:'Especial',		width:8, sortable:false,	align:'center', title: 'Show   ' },
-	]],
+		{ field:'Especial',		width:8, sortable:false,	align:'center', title: 'Show   ' }
+    ]],
 	onBeforeLoad: function(param) { 
-		param.Operation='enumerate', 
+		param.Operation='enumerate';
 		param.Prueba=workingData.prueba;
 		param.AllowClosed=<?php echo $allowClosed;?>;
 		param.HideUnassigned=1;

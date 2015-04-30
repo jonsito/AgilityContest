@@ -297,8 +297,8 @@ class Mangas extends DBObject {
 	
 	/**
 	 * recupera los datos de una manga determinada
-	 * @param unknown $id id de la manga
-	 * @return null on error, data on success
+	 * @param {int} $id id de la manga
+	 * @return {array} null on error, data on success
 	 */
 	function selectByID($id) {
 		$this->myLogger->enter();

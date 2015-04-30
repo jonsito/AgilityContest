@@ -68,7 +68,7 @@ function formatTeamResults( value , rows ) {
     // todo: check eq3 or eq4 contest and eval time and penalization
     var tiempo=0;
     var penal=0;
-    for (n=0;n<3;n++) {
+    for (var n=0;n<3;n++) {
         if ( typeof(rows[n])==='undefined') { penal+=200;}
         else {penal+=parseFloat(rows[n].Penalizacion); tiempo+=parseFloat(rows[n].Tiempo);}
     }
@@ -507,7 +507,7 @@ function proximityAlert() {
 	var data=$('#ordensalida-datagrid').datagrid('getRows');
 	var guias= [];
 	var lista="<br />";
-	for (idx=0;idx<data.length;idx++) {
+	for (var idx=0;idx<data.length;idx++) {
 		var NombreGuia=data[idx].NombreGuia;
 		// not yet declared: store perro and orden
 		if ( !(NombreGuia in guias) ) {
@@ -515,7 +515,7 @@ function proximityAlert() {
 			continue; 
 		} 
 		// already declared: eval distance
-		dist=idx-guias[NombreGuia].index;
+		var dist=idx-guias[NombreGuia].index;
 		if (dist>ac_config.proximity_alert) {
 			// declared but more than 5 dogs ahead. reset index and continue
 			guias[NombreGuia] = { 'index': idx, 'perro': data[idx].Nombre }; 
@@ -1315,7 +1315,7 @@ function resultados_doSelectRonda(row) {
     	break;
     } 
     // FASE 2: cargamos informacion sobre resultados globales y la volcamos en el datagrid
-    mode=$('#resultados-selectCategoria').combobox('getValue');
+    var mode=$('#resultados-selectCategoria').combobox('getValue');
 	$.ajax({
 		type:'GET',
 		url:"/agility/server/database/clasificacionesFunctions.php",
@@ -1521,7 +1521,7 @@ function resultados_doPrint() {
 
 
 function verifyCompose(data,manga,nombre) {
-	str="<strong>Perros pendientes de introducci&oacute;n de datos en manga "+manga+" ( "+nombre+" )</strong>";
+	var str="<strong>Perros pendientes de introducci&oacute;n de datos en manga "+manga+" ( "+nombre+" )</strong>";
 	str +="<table><tr><th>Dorsal</th><th>Perro</th><th>Gu&iacute;a</th><th>Club</th></tr>";
 	// componemos mensaje de error
 	$.each(
