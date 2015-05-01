@@ -74,7 +74,7 @@ function formatTeamResults( value , rows ) {
     }
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
     return '<table class="team-results"><tbody><tr>'+
-        '<td>Team: '+value+'</td><td>Time: '+time+'</td><td>Penalization:'+penal+'</td>'+
+        '<td>Equipo: '+value+'</td><td>Tiempo: '+time+'</td><td>Penalizaci&oacute;n:'+penal+'</td>'+
         '</tr></tbody></table>';
 }
 

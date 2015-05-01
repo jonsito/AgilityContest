@@ -5,7 +5,7 @@
 	<title>jQuery EasyUI</title>
 	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
-	<script type="text/javascript" src="../../jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="../../jquery.min.js"></script>
 	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="datagrid-groupview.js"></script>
 	<script>
@@ -29,7 +29,7 @@
 				groupField:'productid',
 				view: groupview,
 				groupFormatter:function(value, rows){
-					return value + ' - ' + rows.length + ' Item(s)';
+					return '<table width="200"><tr><td>'+value + '</td><td>' + rows.length + ' Item(s)</td></tr></table>';
 				}
 			});
 		});
