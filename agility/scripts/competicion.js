@@ -72,10 +72,10 @@ function formatTeamResults( value , rows ) {
         if ( typeof(rows[n])==='undefined') { penal+=200;}
         else {penal+=parseFloat(rows[n].Penalizacion); time+=parseFloat(rows[n].Tiempo);}
     }
-    return "Equipo: "+value+" Tiempo: "+tiempo+" Penalizaci&oacute;n: "+penal;
-    // return '<table class="team-results"><tbody><tr>'+
-    //    '<td>Team: '+value+'</td><td>Time: '+time+'</td><td>Penalization:'+penal+'</td>'+
-    //    '</tr></tbody></table>';
+    // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
+    return '<table class="team-results"><tbody><tr>'+
+        '<td>Team: '+value+'</td><td>Time: '+time+'</td><td>Penalization:'+penal+'</td>'+
+        '</tr></tbody></table>';
 }
 
 function getMode(rec,cat) {
