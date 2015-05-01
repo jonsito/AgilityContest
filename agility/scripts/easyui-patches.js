@@ -135,3 +135,44 @@ $.extend($.fn.datagrid.methods, {
 		return win;
 	};
 })(jQuery);
+
+/**
+ * Extension del datagrid groupview para ordenar los grupos
+ */
+var gview = $.extend({}, groupview, {
+    onBeforeRender: function(target, rows){
+        groupview.onBeforeRender.call(this, target, rows);
+
+        var state = $.data(target, 'datagrid');
+        var opts = state.options;
+        var groups = this.groups;
+        groups.sort(function(a,b){
+            var p1 = sumValue(a.rows, 'Penalizacion');
+            var p2 = sumValue(b.rows, 'Penalizacion');
+            var t1 = sumValue(a.rows, 'Tiempo');
+            var t2 = sumValue(b.rows, 'Tiempo');
+            // compare penalization
+            if (p1!=p2) return (opts.sortOrder=='asc'?1:-1)*(p1>p2?1:-1);
+            // on equal penalization compare time
+            return (opts.sortOrder=='asc'?1:-1)*(t1>t2?1:-1);
+        });
+        var index = 0;
+        var newRows = [];
+        for(var i=0; i<groups.length; i++){
+            var group = groups[i];
+            group.startIndex = index;
+            index += group.rows.length;
+            newRows = newRows.concat(group.rows);
+        }
+        state.data.rows = newRows;
+
+        function sumValue(rows,field) {
+            var v = 0;
+            for (var n = 0; n < 3; n++) {
+                if (typeof(rows[n]) === 'undefined') { v += 200; }
+                else { v+=parseFloat(rows[n][field]); }
+            }
+            return v;
+        }
+    }
+})

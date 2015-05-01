@@ -111,7 +111,7 @@ $('#resultadosmanga-datagrid').datagrid({
     fitColumns: true,
     singleSelect: true,
     // toolbar: '#resultadosmanga-toolbar',
-    view: groupview,
+    view: gview,
     groupField: 'NombreEquipo',
     groupFormatter: formatTeamResults,
     columns:[[

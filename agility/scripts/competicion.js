@@ -72,10 +72,7 @@ function formatTeamResults( value , rows ) {
         if ( typeof(rows[n])==='undefined') { penal+=200;}
         else {penal+=parseFloat(rows[n].Penalizacion); tiempo+=parseFloat(rows[n].Tiempo);}
     }
-    return  '<table><tr><td style="width:325px">Equipo: '+value+
-            '</td><td style="width:200px">Tiempo: '+tiempo+
-            '</td><td style="width:200px">Penalizaci&oacute;n: '+penal+
-            '</td></tr></table>';
+    return "Equipo: "+value+" Tiempo: "+tiempo+" Penalizaci&oacute;n: "+penal;
 }
 
 function getMode(rec,cat) {
