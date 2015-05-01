@@ -125,10 +125,6 @@ $.extend($.fn.datagrid.methods, {
 		 };
 		 buttons[$.messager.defaults.cancel] = function(){
 		         win.window('close');
-		         if (fn){
-		                 fn();
-		                 return false;
-		         }
 		 };
 		var win = createDialog(title,content,buttons);
 		win.children('input.messager-input').focus();
