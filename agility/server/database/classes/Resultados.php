@@ -340,7 +340,36 @@ class Resultados extends DBObject {
 			/* LIMIT */		""
 		);
 	}
-	
+
+    /**
+     * Evalua los puntos de la manga en funcion de la federacion y de si es o no prueba selectiva
+     * @param {array} resultados de la manga
+     */
+    function evaluatePuntos(&$table) {
+        $prueba=$this->__getObject("Pruebas",$this->IDPrueba);
+        $fed=intval($prueba->RSCE);
+        $selectiva=intval($prueba->Selectiva);
+        switch ($fed) {
+            case 0: // RSCE
+                if ($selectiva==0) return;
+                // TODO: eval mangas en pruebas selectivas RSCE
+                return;
+            case 1: // RFEC
+                // TODO: buscar reglamentos
+                return;
+            case 2: // UCA
+            foreach ($table as &$perro) {
+                switch($perro['CSHORT']) {
+                    case 'Ex P':$perro["Puntos"]=5; break;
+                    case 'Exc ':$perro["Puntos"]=4; break;
+                    case "M.B.":$perro["Puntos"]=3; break;
+                    case "Bien":$perro["Puntos"]=2; break;
+                    default:    $perro["Puntos"]=0; break;
+                }
+            }
+        }
+    }
+
 	/**
 	 * Presenta una tabla ordenada segun los resultados de la manga
 	 * @return null on error else array en formato easyui datagrid
@@ -388,7 +417,8 @@ class Resultados extends DBObject {
 		$trm=$tdata['trm'];
 		// FASE 3: añadimos ptiempo, puntuacion y clasificacion
 		$size=count($table);
-		for ($idx=0;$idx<$size;$idx++ ){ 
+		for ($idx=0;$idx<$size;$idx++ ){
+            $table[$idx]['Puntos'] = 0; // to be re-evaluated later
 			// importante: las asignaciones se hacen en base a $table[$idx], 
 			// pues si no solo se actualiza la copia
 			
@@ -476,6 +506,10 @@ class Resultados extends DBObject {
 			if ($table[$idx]['Penalizacion']>=200) $table[$idx]['Puesto']="-";
 			*/
 		}
+
+        // evaluamos puntos en funcion de la federacion
+        $this->evaluatePuntos($table);
+
 		// finalmente anyadimos info de la manga y retornamos array
 		$this->myLogger->leave();
 		$res['rows']=$table;

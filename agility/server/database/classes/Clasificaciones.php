@@ -86,6 +86,7 @@ class Clasificaciones extends DBObject {
 				'P1' => $item['Penalizacion'],
 				'C1' => $item['CShort'],
 				'Puesto1' => $item['Puesto'],
+                'Pt1' => $item['Puntos'],
 				// datos fake manga 2 ( to be filled if so )
 				'F2' => 0,
 				'R2' => 0,
@@ -94,12 +95,14 @@ class Clasificaciones extends DBObject {
 				'V2' => 0,
 				'C2' => '',
 				'Puesto2' => 0,
+                'Pt2' => 0,
 				// datos globales
 				'Tiempo' => $item['Tiempo'],
 				'Penalizacion' => $item['Penalizacion'],
 				'Calificacion' => $item['CShort'],
 				'Puntos' => '', // to be evaluated
-				'Puesto' => 0 // to be evaluated
+                'Puesto' => 0, // to be evaluated
+				'Pcat' => 0 // to be evaluated
 			);
 			$final[$item['Perro']]=$participante;
 		}
@@ -120,12 +123,6 @@ class Clasificaciones extends DBObject {
 				$final[$item['Perro']]['Penalizacion'] = $final[$item['Perro']]['P1'] + $final[$item['Perro']]['P2'];
 				$final[$item['Perro']]['Calificacion'] = '';
 				$final[$item['Perro']]['Puntos'] = '';
-				// TODO: properly evaluate calificacion y puntos
-				$c=$final[$item['Perro']]['Grado'];
-				if (($c==="GII") || ($c=="GIII")) {
-					$final[$item['Perro']]['Calificacion'] = 
-						($final[$item['Perro']]['Penalizacion']==0.0)?'Pto.':'';
-				}
 			}
 		}
 		// una vez ordenados, el índice perro ya no tiene sentido, con lo que vamos a eliminarlo
@@ -139,16 +136,50 @@ class Clasificaciones extends DBObject {
 			if ( $a['Penalizacion'] == $b['Penalizacion'] )	return ($a['Tiempo'] > $b['Tiempo'])? 1:-1;
 			return ( $a['Penalizacion'] > $b['Penalizacion'])?1:-1;
 		});
-		// calculamos campo "Puesto"
+
+		// calculamos campo "Puesto", "Calificacion" y Puntos
+        $puestocat=array( 'C'=>1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1);
+        $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);
 		$size=count($final);
-		$puesto=1;
-		$last=0;
 		for($idx=0;$idx<$size;$idx++) {
-			// ajustamos puesto
+			// ajustamos puesto conjunto
 			$now=100*$final[$idx]['Penalizacion']+$final[$idx]['Tiempo'];
-			if ($last!=$now) { $last=$now; $puesto=1+$idx; }
-			$final[$idx]['Puesto']=$puesto;
+			if ($lastcat['C']!=$now) { $lastcat['C']=$now; $puestocat['C']=1+$idx; }
+			$final[$idx]['Puesto']=$puestocat['C'];
+
+            // ajustamos puesto de su categoria
+
+            // evaluamos calificacion y puntos en funcion de la federacion y de si es o no selectiva
+            switch(intval($this->prueba->RSCE)) {
+                case 0: // RSCE
+                    $c=$final[$item['Perro']]['Grado'];
+                    if (($c==="GII") || ($c=="GIII")) {
+                        $final[$item['Perro']]['Calificacion'] =
+                            ($final[$item['Perro']]['Penalizacion']==0.0)?'Pto.':'';
+                    }
+                    if (intval($this->prueba->Selectiva)==0) break;
+                    // TODO: evaluate puntos in selectivas.
+                    // Tener en cuenta mestizos y extranjeros
+                    break;
+                case 1: // RFEC
+                    // TODO:Obtener normativa.  evaluate puntos in selectivas
+                    break;
+                case 2: // UCA
+                    $pts=array("10","8","6","4","3","2","1");
+                    $pt1=$final[$item['Perro']]['Pt1'];
+                    $pt2=$final[$item['Perro']]['Pt2'];
+                    $str=($pt1==0)?" ":strval($pt1)." - ".($pt2==0)?" ":strval($pt2)." - ";
+                    // solo puntuan en la global los siete primeros con dobles excelentes
+                    if (($pt1<4) || ($pt2<4) || ($final[$item['Perro']]['Puesto']>7) ) {
+                        $final[$item['Perro']]['Calificacion']=$str;
+                    } else {
+                        // TODO fix real value of puesto by categoria
+                        $final[$item['Perro']]['Calificacion']= $str . $pts[$final[$item['Perro']]['Puesto']];
+                    }
+                    break;
+            }
 		}
+
 		// Esto es (casi) todo, amigos
 		$result=array();
 		$result['total']=$size;
@@ -206,7 +237,7 @@ class Clasificaciones extends DBObject {
 			case 0x0040: // equipos 3 mejores de 4
 			case 0x0080: // equipos 4 conjunta
 			case 0x0100: // ronda KO 1..9 vueltas
-				$this->errormsg= "Clasificaciones:: Ronda $ronda is not yet supported";
+				$this->errormsg= "Clasificaciones:: Ronda $rondas is not yet supported";
 				return null;
 			case 0x0200: // manga especial (una vuelta)
 				$r1= new Resultados("Clasificaciones::Manga Especial",$this->prueba->ID,$idmangas[0]);
