@@ -670,8 +670,11 @@ function competicionKeyEventHandler(evt) {
 }
 
 function printParcial(mode) {
+    var url='/agility/server/pdf/print_resultadosByManga.php';
+    if ( parseInt(workingData.datosJornada.Equipos3)!=0)
+        url='/agility/server/pdf/print_resultadosByEquipos.php';
 	$.fileDownload(
-		'/agility/server/pdf/print_resultadosByManga.php',
+		url,
 		{
 			httpMethod: 'GET',
 			data: { 
