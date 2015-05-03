@@ -81,7 +81,7 @@ class Clasificaciones extends DBObject {
 				// datos manga 1
 				'F1' => $item['Faltas'] + $item['Tocados'],
 				'R1' => $item['Rehuses'],
-				'T1' => $item['Tiempo'],
+				'T1' => floatval($item['Tiempo']),
 				'V1' => $item['Velocidad'],
 				'P1' => $item['Penalizacion'],
 				'C1' => $item['CShort'],
@@ -114,11 +114,12 @@ class Clasificaciones extends DBObject {
 				}
 				$final[$item['Perro']]['F2'] = $item['Faltas'] + $item['Tocados'];
 				$final[$item['Perro']]['R2'] = $item['Rehuses'];
-				$final[$item['Perro']]['T2'] = $item['Tiempo'];
+				$final[$item['Perro']]['T2'] = floatval($item['Tiempo']);
 				$final[$item['Perro']]['V2'] = $item['Velocidad'];
 				$final[$item['Perro']]['P2'] = $item['Penalizacion'];
 				$final[$item['Perro']]['C2'] = $item['CShort'];
-				$final[$item['Perro']]['Puesto2'] = $item['Puesto'];
+                $final[$item['Perro']]['Puesto2'] = $item['Puesto'];
+                $final[$item['Perro']]['Pt2'] = $item['Puntos'];
 				$final[$item['Perro']]['Tiempo'] = $final[$item['Perro']]['T1'] + $final[$item['Perro']]['T2'];
 				$final[$item['Perro']]['Penalizacion'] = $final[$item['Perro']]['P1'] + $final[$item['Perro']]['P2'];
 				$final[$item['Perro']]['Calificacion'] = '';
@@ -138,24 +139,32 @@ class Clasificaciones extends DBObject {
 		});
 
 		// calculamos campo "Puesto", "Calificacion" y Puntos
-        $puestocat=array( 'C'=>1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1);
-        $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);
+        $puestocat=array( 'C'=>1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
+        $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
+        $countcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
 		$size=count($final);
 		for($idx=0;$idx<$size;$idx++) {
-			// ajustamos puesto conjunto
-			$now=100*$final[$idx]['Penalizacion']+$final[$idx]['Tiempo'];
-			if ($lastcat['C']!=$now) { $lastcat['C']=$now; $puestocat['C']=1+$idx; }
+            // vemos la categoria y actualizamos contadores de categoria
+            $cat=$final[$idx]['Categoria'];
+            $countcat['C']++;
+            $countcat[$cat]++;
+            // obtenemos la penalizacion del perro actual
+            $now=100*$final[$idx]['Penalizacion']+$final[$idx]['Tiempo'];
+			// ajustamos puesto conjunto y guardamos resultado
+			if ($lastcat['C']!=$now) { $lastcat['C']=$now; $puestocat['C']=$countcat['C']; }
 			$final[$idx]['Puesto']=$puestocat['C'];
+            // ajustamos puesto por categoria y guardamos resultado
+            if ($lastcat[$cat]!=$now) { $lastcat[$cat]=$now; $puestocat[$cat]=$countcat[$cat]; }
 
             // ajustamos puesto de su categoria
 
             // evaluamos calificacion y puntos en funcion de la federacion y de si es o no selectiva
             switch(intval($this->prueba->RSCE)) {
                 case 0: // RSCE
-                    $c=$final[$item['Perro']]['Grado'];
+                    $c=$final[$idx]['Grado'];
                     if (($c==="GII") || ($c=="GIII")) {
-                        $final[$item['Perro']]['Calificacion'] =
-                            ($final[$item['Perro']]['Penalizacion']==0.0)?'Pto.':'';
+                        $final[$idx]['Calificacion'] =
+                            ($final[$idx]['Penalizacion']==0.0)?'Pto.':'';
                     }
                     if (intval($this->prueba->Selectiva)==0) break;
                     // TODO: evaluate puntos in selectivas.
@@ -166,15 +175,18 @@ class Clasificaciones extends DBObject {
                     break;
                 case 2: // UCA
                     $pts=array("10","8","6","4","3","2","1");
-                    $pt1=$final[$item['Perro']]['Pt1'];
-                    $pt2=$final[$item['Perro']]['Pt2'];
-                    $str=($pt1==0)?" ":strval($pt1)." - ".($pt2==0)?" ":strval($pt2)." - ";
+                    $pt1=$final[$idx]['Pt1'];
+                    $pt2=$final[$idx]['Pt2'];
+                    $str=($pt1==0)?" ":strval($pt1);
+                    $str.="-";
+                    $str.=($pt2==0)?" ":strval($pt2);
+                    $str.="-";
                     // solo puntuan en la global los siete primeros con dobles excelentes
-                    if (($pt1<4) || ($pt2<4) || ($final[$item['Perro']]['Puesto']>7) ) {
-                        $final[$item['Perro']]['Calificacion']=$str;
+                    if (($pt1<4) || ($pt2<4) || ($puestocat[$cat]>7) ) {
+                        $final[$idx]['Calificacion']=$str;
                     } else {
                         // TODO fix real value of puesto by categoria
-                        $final[$item['Perro']]['Calificacion']= $str . $pts[$final[$item['Perro']]['Puesto']];
+                        $final[$idx]['Calificacion']= $str . $pts[$puestocat[$cat]-1];
                     }
                     break;
             }

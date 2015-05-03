@@ -359,7 +359,7 @@ class Resultados extends DBObject {
                 return;
             case 2: // UCA
             foreach ($table as &$perro) {
-                switch($perro['CSHORT']) {
+                switch($perro['CShort']) {
                     case 'Ex P':$perro["Puntos"]=5; break;
                     case 'Exc ':$perro["Puntos"]=4; break;
                     case "M.B.":$perro["Puntos"]=3; break;

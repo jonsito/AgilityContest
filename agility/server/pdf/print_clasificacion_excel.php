@@ -204,7 +204,7 @@ class Excel {
 		$this->xlsNumber($base,16,$v2);
 		$this->xlsNumber($base,17,$p2);
 		$this->xlsLabel($base,18,$row['C2']);
-		$this->xlsNumber($base,19,"$t1$t2");
+		$this->xlsNumber($base,19,number_format($row['Tiempo'],2));
 		$this->xlsNumber($base,20,$penal);
 		$this->xlsLabel($base,21,$row['Calificacion']);
 		$this->xlsLabel($base,22,$puesto);

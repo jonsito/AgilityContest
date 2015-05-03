@@ -226,9 +226,9 @@ class PDF extends PrintCommon {
 			$this->Cell(59,6,'',0,0,'C',$fill);	// espacio en blanco
 		}
 		// global
-		$this->Cell(12,6,"$t1$t2",0,0,'C',$fill);	// Tiempo
-		$this->Cell(12,6,$penal,0,0,'C',$fill);	// Penalizacion
-		$this->Cell(9,6,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
+		$this->Cell(11,6,number_format($row['Tiempo'],2),0,0,'C',$fill);	// Tiempo
+		$this->Cell(11,6,$penal,0,0,'C',$fill);	// Penalizacion
+		$this->Cell(11,6,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
 		$this->SetFont('Arial','B',10); // default font
 		$this->Cell(9,6,$puesto,0,0,'C',$fill);	// Puesto
 		// lineas rojas
