@@ -115,9 +115,9 @@ function formatTeamClasificaciones(value,rows) {
     // !Por fin! componemos una tabla html como respuesta
     return '<table class="team-clasific"><tbody><tr>'+
         '<td class="team-clasific1">Equipo: '+value+'</td>' +
-        '<td class="team-clasific2"> T1: '+(manga1.time).toFixed(2)+' P1: '+(manga1.penal).toFixed(2)+'</td>'+
-        '<td class="team-clasific3"> T2: '+(manga2.time).toFixed(2)+' P2: '+(manga2.penal).toFixed(2)+'</td>'+
-        '<td class="team-clasific4"> TFin: '+(time).toFixed(2)+' PFin: '+(penal).toFixed(2)+'</td>'+
+        '<td class="team-clasific2"> T1: '+(manga1.time).toFixed(2)+' - P1: '+(manga1.penal).toFixed(2)+'</td>'+
+        '<td class="team-clasific3"> T2: '+(manga2.time).toFixed(2)+' - P2: '+(manga2.penal).toFixed(2)+'</td>'+
+        '<td class="team-clasific4"> Time: '+(time).toFixed(2)+' - Penal: '+(penal).toFixed(2)+'</td>'+
         '</tr></tbody></table>';
 }
 

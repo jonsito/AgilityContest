@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8e56fa58-9f30-44e0-af72-2550b8d2ca7e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agility/scripts/competicion.js" afterPath="$PROJECT_DIR$/agility/scripts/competicion.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agility/css/datagrid.css" afterPath="$PROJECT_DIR$/agility/css/datagrid.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="AgilityContest.iws" />
@@ -28,38 +27,7 @@
     <favorites_list name="AgilityContest" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="competicion.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agility/scripts/competicion.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1199" max-vertical-offset="24930">
-              <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="frm_clasificaciones_eq3.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agility/client/frm_clasificaciones_eq3.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-26.833334" vertical-offset="3091" max-vertical-offset="3885">
-              <caret line="249" column="45" selection-start-line="249" selection-start-column="45" selection-end-line="249" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="datagrid.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/agility/css/datagrid.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.80961186" vertical-offset="582" max-vertical-offset="1125">
-              <caret line="68" column="43" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -124,8 +92,8 @@
         <option value="$PROJECT_DIR$/agility/client/frm_clasificaciones.php" />
         <option value="$PROJECT_DIR$/agility/client/frm_clasificaciones_eq3.php" />
         <option value="$PROJECT_DIR$/agility/server/database/classes/Clasificaciones.php" />
-        <option value="$PROJECT_DIR$/agility/scripts/competicion.js" />
         <option value="$PROJECT_DIR$/agility/css/datagrid.css" />
+        <option value="$PROJECT_DIR$/agility/scripts/competicion.js" />
       </list>
     </option>
   </component>
@@ -449,7 +417,13 @@
       <option name="project" value="LOCAL" />
       <updated>1430761871068</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="frm_clasificaciones_eq3 finally works">
+      <created>1430770878976</created>
+      <option name="number" value="00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1430770878976</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -477,14 +451,14 @@
     <editor active="false" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3258294" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3258294" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900944" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900944" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295063" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24968474" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23770492" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23770492" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900944" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32624114" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -537,7 +511,8 @@
     <MESSAGE value="preliminary support for team clasificaciones. Fix DOM cleanups on team windows" />
     <MESSAGE value="continuesupport for team clasificaciones." />
     <MESSAGE value="continuesupport for team clasificaciones (2)" />
-    <option name="LAST_COMMIT_MESSAGE" value="continuesupport for team clasificaciones (2)" />
+    <MESSAGE value="frm_clasificaciones_eq3 finally works" />
+    <option name="LAST_COMMIT_MESSAGE" value="frm_clasificaciones_eq3 finally works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -884,26 +859,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/agility/css/datagrid.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="582" max-vertical-offset="1125">
+          <caret line="69" column="11" selection-start-line="69" selection-start-column="11" selection-end-line="69" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/agility/client/frm_clasificaciones_eq3.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-26.833334" vertical-offset="3091" max-vertical-offset="3885">
-          <caret line="249" column="45" selection-start-line="249" selection-start-column="45" selection-end-line="249" selection-end-column="45" />
+        <state vertical-scroll-proportion="-11.833333" vertical-offset="3181" max-vertical-offset="3885">
+          <caret line="231" column="13" selection-start-line="231" selection-start-column="13" selection-end-line="231" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agility/scripts/competicion.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1199" max-vertical-offset="24930">
-          <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/css/datagrid.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.80961186" vertical-offset="582" max-vertical-offset="1125">
-          <caret line="68" column="43" selection-start-line="68" selection-start-column="43" selection-end-line="68" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.8336414" vertical-offset="1199" max-vertical-offset="24930">
+          <caret line="125" column="10" selection-start-line="125" selection-start-column="10" selection-end-line="125" selection-end-column="10" />
           <folding />
         </state>
       </provider>
