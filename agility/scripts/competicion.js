@@ -81,8 +81,8 @@ function formatTeamResults( value , rows ) {
 function formatTeamClasificaciones(value,rows) {
 
     function sortResults(a,b) {
-        if (a.P= b.P) return (a.T> b.T)?1:-1;
-        return (a.P> b.P)?1:-1;
+        if (a.penal== b.penal) return (a.time - b.time);
+        return (a.penal - b.penal);
     }
 
     var time=0.0;
@@ -92,16 +92,16 @@ function formatTeamClasificaciones(value,rows) {
     var manga2={ time:0.0, penal:0.0, perros:[] };
     for (var n=0;n<4;n++) {
         if (typeof(rows[n]) === 'undefined') {
-            manga1.perros[n] = {time: 0.0, penal: 200.0};
-            manga2.perros[n] = {time: 0.0, penal: 200.0};
+            manga1.perros[n] = {time: parseFloat(0.0), penal: parseFloat(200.0)};
+            manga2.perros[n] = {time: parseFloat(0.0), penal: parseFloat(200.0)};
         } else {
-            manga1.perros[n] = {time: rows[n].T1, penal: rows[n].P1};
-            manga2.perros[n] = {time: rows[n].T2, penal: rows[n].P2};
+            manga1.perros[n] = {time: parseFloat(rows[n].T1), penal: parseFloat(rows[n].P1)};
+            manga2.perros[n] = {time: parseFloat(rows[n].T2), penal: parseFloat(rows[n].P2)};
         }
     }
     // ordenamos ahora las matrices de resultados
-    manga1.perros.sort(sortResults);
-    manga2.perros.sort(sortResults);
+    (manga1.perros).sort(sortResults);
+    (manga2.perros).sort(sortResults);
     // y sumamos los tres primeros ( 3 mejores ) resultados
     for (var n=0;n<3;n++) {
         manga1.time +=parseFloat(manga1.perros[n].time);
@@ -115,9 +115,9 @@ function formatTeamClasificaciones(value,rows) {
     // !Por fin! componemos una tabla html como respuesta
     return '<table class="team-clasific"><tbody><tr>'+
         '<td class="team-clasific1">Equipo: '+value+'</td>' +
-        '<td class="team-clasific2"> Tiempo: '+(manga1.time).toFixed(2)+' Penal: '+(manga1.penal).toFixed(2)+'</td>'+
-        '<td class="team-clasific3"> Tiempo: '+(manga2.time).toFixed(2)+' Penal: '+(manga2.penal).toFixed(2)+'</td>'+
-        '<td class="team-clasific4"> Tiempo: '+(time).toFixed(2)+' Penaliz.: '+(penal).toFixed(2)+'</td>'+
+        '<td class="team-clasific2"> T1: '+(manga1.time).toFixed(2)+' P1: '+(manga1.penal).toFixed(2)+'</td>'+
+        '<td class="team-clasific3"> T2: '+(manga2.time).toFixed(2)+' P2: '+(manga2.penal).toFixed(2)+'</td>'+
+        '<td class="team-clasific4"> TFin: '+(time).toFixed(2)+' PFin: '+(penal).toFixed(2)+'</td>'+
         '</tr></tbody></table>';
 }
 

@@ -65,6 +65,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .team-clasific {display:inline-block;table-layout:fixed;}/*Setting the table width is important!*/
 .team-clasific td {overflow:hidden;}/*Hide text outside the cell.*/
 .team-clasific1 {text-align:left; width:345px;}/* Team name.*/
-.team-clasific2 {text-align:right;width:200px;}/* Round 1 */
-.team-clasific3 {text-align:right;width:200px;}/* Round 2.*/
+.team-clasific2 {text-align:right;width:220px;}/* Round 1 */
+.team-clasific3 {text-align:right;width:180px;}/* Round 2.*/
 .team-clasific4  {text-align:right;width:215px;}/* Global*/
