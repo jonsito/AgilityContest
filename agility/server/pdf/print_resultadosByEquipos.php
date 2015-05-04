@@ -68,10 +68,10 @@ class PDF extends PrintCommon {
         // Datos de equipos de la jornada
         $m=new Equipos("print_resultadosEquipos3",$prueba,$jornada);
         $teams=$m->getTeamsByJornada();
-        // reindexamos por ID y cambiamos la lista de miembros por un array
+        // reindexamos por ID y anyadimos un campo extra con el array de resultados
         $this->equipos=array();
         foreach ($teams as &$equipo) {
-            $equipo['Miembros']=array();
+            $equipo['Resultados']=array();
             $equipo['Tiempo']=0.0;
             $equipo['Penalizacion']=0.0;
             $this->equipos[$equipo['ID']]=$equipo;
@@ -81,11 +81,25 @@ class PDF extends PrintCommon {
         foreach($this->resultados['rows'] as &$result) {
             $teamid=$result['Equipo'];
             $equipo=&$this->equipos[$teamid];
-            array_push($equipo['Miembros'],$result);
+            array_push($equipo['Resultados'],$result);
             // suma el tiempo y penalizaciones de los tres primeros
-            if (count($equipo['Miembros'])<4) {
+            if (count($equipo['Resultados'])<4) {
                 $equipo['Tiempo']+=floatval($result['Tiempo']);
                 $equipo['Penalizacion']+=floatval($result['Penalizacion']);
+            }
+        }
+        // rastrea los equipos con menos de tres participantes y marca los que faltan
+        // no presentados
+        foreach($this->equipos as &$equipo) {
+            switch(count($equipo['Resultados'])){
+                case 0: continue; // TODO: remove team from array as this team should not be shown
+                case 1: $equipo['Penalizacion']+=200.0; // add pending "No presentado"
+                    // no break
+                case 2: $equipo['Penalizacion']+=200.0; // add pending "No presentado"
+                    // no break;
+                case 3:case 4: break;
+                default:$this->myLogger->error("Equipo {$equipo['ID']} : '{$equipo['Nombre']}' con exceso de participantes:".count($equipo['Resultados']));
+                    break;
             }
         }
         // finally sort equipos by result instead of id
@@ -131,7 +145,41 @@ class PDF extends PrintCommon {
 	function Footer() {
 		$this->print_commonFooter();
 	}
-	
+
+    function printTeamInformation($rowcount,$team) {
+        // evaluate logos
+        $logos=array('null.png','null.png','null.png','null.png');
+        if ($team['Nombre']==="-- Sin asignar --") {
+            $logos[0]='agilitycontest.png';
+        } else {
+            $count=0;
+            foreach( explode(",",$team['Miembros']) as $miembro) {
+                if ($miembro==="BEGIN") continue;
+                if ($miembro==="END") continue;
+                $logo=$this->getLogoName(intval($miembro));
+                if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
+            }
+        }
+        $this->SetXY(10,45+6*$rowcount);
+        $this->ac_header(1,18);
+        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),12),"LT",0,'C',($logos[0]==='null.png')?true:false);
+        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX(),$this->getY(),12),"T",0,'C',($logos[1]==='null.png')?true:false);
+        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX(),$this->getY(),12),"T",0,'C',($logos[2]==='null.png')?true:false);
+        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX(),$this->getY(),12),"T",0,'C',($logos[3]==='null.png')?true:false);
+        $this->Cell(132,12,$team['Nombre'],'T',0,'R',true);
+        $this->Cell(10,12,'','TR',0,'R',true); // empty space at right of page
+        $this->Ln();
+        $this->ac_header(2,9);
+        for($i=0;$i<count($this->cellHeader);$i++) {
+            // en la cabecera texto siempre centrado
+            $this->Cell($this->pos[$i],6,$this->cellHeader[$i],1,0,'C',true);
+        }
+        $this->ac_row(2,9);
+        $this->Ln();
+        $rowcount+=3;
+        return $rowcount;
+    }
+
 	function writeTableHeader() {
 		$this->myLogger->enter();
 		// Colores, ancho de línea y fuente en negrita de la cabecera de tabla
