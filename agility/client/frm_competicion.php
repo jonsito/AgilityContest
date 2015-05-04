@@ -55,7 +55,7 @@ $('#seljornada-window').window({
 			// an Open Contest is like a normal with no Grades but only categories
 			page="/agility/client/frm_competicion2.php?tipo=open";
 			extra=" ( <?php _e('Abierta');?> )";
-			dialogs= {};
+			// use default dialogs
 		}
 		if (workingData.datosJornada.KO==1) {
 			page="/agility/client/frm_competicion_ko.php";

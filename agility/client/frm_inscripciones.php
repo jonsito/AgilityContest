@@ -25,7 +25,7 @@ $config =Config::getInstance();
 <img class="mainpage" src="/agility/server/getRandomImage.php" alt="wallpaper" width="640" height="480" align="middle"/>
 
 <!-- FORMULARIO DE SELECCION DE PRUEBAS ABIERTAS-->
-<div id="selprueba-window" class="easyui-window" style="position:relative;width:400px;height:auto;padding:20px 20px">
+<div id="selprueba-window" style="position:relative;width:400px;height:auto;padding:20px 20px">
 	<div id="selprueba-Layout" class="easyui-layout" data-options="fit:true'">
 		<div id="selprueba-Content" data-options="region:'north',border:'true'">
 			<form id="selprueba-Prueba">

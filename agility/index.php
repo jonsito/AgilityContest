@@ -211,7 +211,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <li>PRUEBAS
 	<ul>
 	<li><a href="javascript:loadContents('/agility/client/frm_pruebas.php','Creaci&oacute;n y edici&oacute;n de pruebas');">Creaci&oacute;n de pruebas</a></li>
-	<li><a href="javascript:loadContents('/agility/client/frm_inscripciones.php','Inscripciones - Selecci&oacute;n de prueba');">Edici&oacute;n. Inscripciones</a></li>
+	<li><a href="javascript:loadContents('/agility/client/frm_inscripciones.php','Inscripciones - Selecci&oacute;n de prueba',{'s':'#selprueba-window'});">Edici&oacute;n. Inscripciones</a></li>
 	<li><a href="javascript:loadContents('/agility/client/frm_competicion.php','Competicion - Selecci&oacute;n de Prueba y Jornada');">Desarrollo de la prueba</a></li>
 	</ul>
 </li>

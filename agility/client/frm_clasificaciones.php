@@ -35,7 +35,7 @@ $('#seljornada-window').window({
 			return;
 		}
 		page="/agility/client/frm_clasificaciones2.php";
-		if (workingData.datosJornada.Equipos3==1) page="/agility/client/resultados_eq3.php";
+		if (workingData.datosJornada.Equipos3==1) page="/agility/client/frm_clasificaciones_eq3.php";
 		if (workingData.datosJornada.Equipos4==1) page="/agility/client/resultados_eq4.php";
 		if (workingData.datosJornada.Open==1) page="/agility/client/frm_clasificaciones2.php";
 		if (workingData.datosJornada.KO==1) page="/agility/client/resultados_ko.php";

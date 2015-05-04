@@ -75,8 +75,11 @@ class Clasificaciones extends DBObject {
 				'Nombre' => $item['Nombre'],
 				'Licencia' => $item['Licencia'],
 				'Categoria' => $item['Categoria'],
-				'Grado' => $item['Grado'],
-				'NombreGuia' => $item['NombreGuia'],
+                'Grado' => $item['Grado'],
+                'Equipo' => $item['Equipo'],
+                'Grado' => $item['Grado'],
+                'NombreEquipo' => $item['NombreEquipo'],
+                'NombreGuia' => $item['NombreGuia'],
 				'NombreClub' => $item['NombreClub'],
 				// datos manga 1
 				'F1' => $item['Faltas'] + $item['Tocados'],
@@ -232,8 +235,8 @@ class Clasificaciones extends DBObject {
 			case 0x0008: // Grado II
 			case 0x0010: // Grado III
 			case 0x0020: // Open
-				$r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]);
-				$r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]);
+				$r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility
+				$r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping
 				$c1=$r1->getResultados($mode);
 				$c2=$r2->getResultados($mode);
 				return $this->evalFinal($c1,$c2,$mode);
@@ -247,6 +250,11 @@ class Clasificaciones extends DBObject {
 				$c2=$this->combina( $r2->getResultados($mode), $r4->getResultados($mode));
 				return $this->evalFinal($c1,$c2,$mode);
 			case 0x0040: // equipos 3 mejores de 4
+                $r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility Equipos 3
+                $r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping Equipos 3
+                $c1=$r1->getResultados($mode);
+                $c2=$r2->getResultados($mode);
+                return $this->evalFinal($c1,$c2,$mode);
 			case 0x0080: // equipos 4 conjunta
 			case 0x0100: // ronda KO 1..9 vueltas
 				$this->errormsg= "Clasificaciones:: Ronda $rondas is not yet supported";

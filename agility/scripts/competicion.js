@@ -78,6 +78,10 @@ function formatTeamResults( value , rows ) {
         '</tr></tbody></table>';
 }
 
+function formatTeamClasificaciones(value,rows) {
+return "Equipo: "+value;
+}
+
 function getMode(rec,cat) {
 	var recorrido=parseInt(rec);
 	var categoria=parseInt(cat);
