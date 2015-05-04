@@ -69,12 +69,12 @@ function formatTeamResults( value , rows ) {
     var time=0.0;
     var penal=0.0;
     for (var n=0;n<3;n++) {
-        if ( typeof(rows[n])==='undefined') { penal+=200;}
+        if ( typeof(rows[n])==='undefined') { penal+=200.0;}
         else {penal+=parseFloat(rows[n].Penalizacion); time+=parseFloat(rows[n].Tiempo);}
     }
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
     return '<table class="team-results"><tbody><tr>'+
-        '<td>Equipo: '+value+'</td><td>Tiempo: '+time+'</td><td>Penalizaci&oacute;n:'+penal+'</td>'+
+        '<td>Equipo: '+value+'</td><td>Tiempo: '+(time).toFixed(2)+'</td><td>Penalizaci&oacute;n:'+(penal).toFixed(2)+'</td>'+
         '</tr></tbody></table>';
 }
 
@@ -114,10 +114,10 @@ function formatTeamClasificaciones(value,rows) {
     penal=manga1.penal+manga2.penal;
     // !Por fin! componemos una tabla html como respuesta
     return '<table class="team-clasific"><tbody><tr>'+
-        '<td>Equipo: '+value+'</td>' +
-        '<td>T:'+manga1.time+' P:'+manga1.penal+'</td>'+
-        '<td>T:'+manga2.time+' P:'+manga2.penal+'</td>'+
-        '<td>Tiempo:'+time+' Penaliz.:'+penal+'</td>'+
+        '<td class="team-clasific1">Equipo: '+value+'</td>' +
+        '<td class="team-clasific2"> Tiempo: '+(manga1.time).toFixed(2)+' Penal: '+(manga1.penal).toFixed(2)+'</td>'+
+        '<td class="team-clasific3"> Tiempo: '+(manga2.time).toFixed(2)+' Penal: '+(manga2.penal).toFixed(2)+'</td>'+
+        '<td class="team-clasific4"> Tiempo: '+(time).toFixed(2)+' Penaliz.: '+(penal).toFixed(2)+'</td>'+
         '</tr></tbody></table>';
 }
 
