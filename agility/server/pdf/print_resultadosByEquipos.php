@@ -42,12 +42,31 @@ class PDF extends PrintCommon {
 	protected $resultados;
     protected $equipos;
 	protected $mode;
-	
+    protected $defaultPerro = array( // participante por defecto para garantizar que haya 4perros/equipo
+        'Dorsal' => '-',
+        'Perro' => 0,
+        'Nombre' => 'No inscrito',
+        'NombreGuia' => 'No inscrito',
+        'NombreClub' => 'No inscrito',
+        'Licencia' => '-',
+        'Categoria' => '-',
+        'Faltas' => 0,
+        'Tocados' => 0,
+        'Rehuses' => 0,
+        'Tiempo' => '-',
+        'Velocidad' => '-',
+        'Penalizacion' => 400,
+        'Calificacion' => 'No inscrito',
+        'CShort' => 'No inscrito',
+        'Puesto' => '-'
+    );
 	// geometria de las celdas
 	protected $cellHeader;
-	protected $pos	=array(  9,		18,		10,		30,		25,		12,		   7,      7,    7,       10,     7,    12,      22,			12 );
-	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
+                    //     Dors    Nombre  Lic     Guia   Club    Cat     Flt    Toc    Reh     Tiempo   vel   penal calif   puesto, equipo
+	protected $pos	=array(  7,		18,		10,		30,		25,	    7,	   5,      5,    5,       10,     7,    12,    10,	 7,  30);
+	protected $align=array(  'L',   'L',    'C',    'R',   'R',    'C',    'C',   'C',   'C',     'R',    'R',  'R',   'C',	 'C', 'R');
 
+    protected $cat  =array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	protected $modestr  
 		=array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
 	
@@ -63,7 +82,8 @@ class PDF extends PrintCommon {
 		$this->resultados=$resultados;
         $this->mode=$mode;
         $this->cellHeader=
-            array(_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Cat/Grado'),_('Flt.'),_('Toc.'),_('Reh.'),_('Tiempo'),_('Vel.'),_('Penal.'),_('Calificación'),_('Puesto'));
+            array(_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Cat.'),_('Flt.'),_('Toc.'),_('Reh.'),
+                  _('Tiempo'),_('Vel.'),_('Penal.'),_('Calificación'),_('Puesto'),_('Global Equipo'));
 
         // Datos de equipos de la jornada
         $m=new Equipos("print_resultadosEquipos3",$prueba,$jornada);
@@ -146,7 +166,7 @@ class PDF extends PrintCommon {
 		$this->print_commonFooter();
 	}
 
-    function printTeamInformation($rowcount,$team) {
+    function printTeamInformation($teamcount,$numrows,$team) {
         // evaluate logos
         $logos=array('null.png','null.png','null.png','null.png');
         if ($team['Nombre']==="-- Sin asignar --") {
@@ -160,45 +180,26 @@ class PDF extends PrintCommon {
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
-        $this->SetXY(10,45+6*$rowcount);
+        $offset=($this->PageNo()==1)?65:45;
+        $this->SetXY(10,$offset+40*($teamcount%$numrows));
         $this->ac_header(1,18);
-        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),12),"LT",0,'C',($logos[0]==='null.png')?true:false);
-        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX(),$this->getY(),12),"T",0,'C',($logos[1]==='null.png')?true:false);
-        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX(),$this->getY(),12),"T",0,'C',($logos[2]==='null.png')?true:false);
-        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX(),$this->getY(),12),"T",0,'C',($logos[3]==='null.png')?true:false);
-        $this->Cell(132,12,$team['Nombre'],'T',0,'R',true);
-        $this->Cell(10,12,'','TR',0,'R',true); // empty space at right of page
+        $this->Cell(15,10,strval(1+$teamcount)." -",'LT',0,'C',true); // imprime puesto del equipo
+        $this->Cell(10,10,$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),12),"T",0,'C',($logos[0]==='null.png')?true:false);
+        $this->Cell(10,10,$this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX(),$this->getY(),12),"T",0,'C',($logos[1]==='null.png')?true:false);
+        $this->Cell(10,10,$this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX(),$this->getY(),12),"T",0,'C',($logos[2]==='null.png')?true:false);
+        $this->Cell(10,10,$this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX(),$this->getY(),12),"T",0,'C',($logos[3]==='null.png')?true:false);
+        $this->Cell(125,10,$team['Nombre'],'T',0,'R',true);
+        $this->Cell(8,10,'','TR',0,'R',true); // empty space at right of page
         $this->Ln();
-        $this->ac_header(2,9);
+        $this->ac_header(2,8);
         for($i=0;$i<count($this->cellHeader);$i++) {
             // en la cabecera texto siempre centrado
-            $this->Cell($this->pos[$i],6,$this->cellHeader[$i],1,0,'C',true);
+            $this->Cell($this->pos[$i],5,$this->cellHeader[$i],1,0,'C',true);
         }
         $this->ac_row(2,9);
         $this->Ln();
-        $rowcount+=3;
-        return $rowcount;
     }
 
-	function writeTableHeader() {
-		$this->myLogger->enter();
-		// Colores, ancho de línea y fuente en negrita de la cabecera de tabla
-		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
-		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
-		$this->ac_SetDrawColor(0,0,0); // line color
-		$this->SetFont('Arial','B',8); // bold 9px
-		for($i=0;$i<count($this->cellHeader);$i++) {
-			// en la cabecera texto siempre centrado
-			$this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
-		}
-		// Restauración de colores y fuentes
-		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
-		$this->SetTextColor(0,0,0); // negro
-		$this->SetFont(''); // remove bold
-		$this->Ln();
-		$this->myLogger->leave();
-	}
-	
 	// Tabla coloreada
 	function composeTable() {
 		$this->myLogger->enter();
@@ -208,60 +209,66 @@ class PDF extends PrintCommon {
 		
 		// Datos
 		$fill = false;
-		$rowcount=0;
-		$numrows=($this->PageNo()==1)?30:33;
+		$teamcount=0;
         foreach($this->equipos as $equipo) {
+            $numrows=($this->PageNo()==1)?5:6;
             // si el equipo no tiene participantes es que la categoria no es válida: skip
-            if (count($equipo['Miembros'])==0) continue;
+            if (count($equipo['Resultados'])==0) continue;
+            // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+            if( ($teamcount%$numrows) == 0 ) { // assume 40mmts/team)
+                $this->addPage();
+            }
             // evaluate puesto del equipo
             $this->myLogger->trace("imprimiendo datos del equipo {$equipo['ID']} - {$equipo['Nombre']}");
+            $this->printTeamInformation($teamcount,$numrows,$equipo);
             // print team header/data
-            foreach($equipo['Miembros'] as $row) {
+            for ($n=0;$n<4;$n++) {
+                // con independencia de los perros del equipo imprimiremos siempre 4 columnas
+                $row=$this->defaultPerro;
+                if (array_key_exists($n,$equipo['Resultados'])) $row=$equipo['Resultados'][$n];
                 // print team member's result
                 $this->myLogger->trace("imprimiendo datos del perro {$row['Perro']} - {$row['Nombre']}");
-            }
-        }
-		foreach($this->resultados['rows'] as $row) {
-			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			if( ($rowcount%$numrows) == 0 ) { // assume $numrows rows per page ( rowWidth = 7mmts )
-				if ($rowcount>0) 
-					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
-				$this->addPage();
-				$this->writeTableHeader();
-			}
-			// properly format special fields
+                // properly format special fields
+                $puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
+                $veloc= ($row['Penalizacion']>=200)?"-":number_format($row['Velocidad'],1);
+                $tiempo= ($row['Penalizacion']>=200)?"-":number_format($row['Tiempo'],2);
+                $penal=number_format($row['Penalizacion'],2);
 
-			$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
-			$veloc= ($row['Penalizacion']>=200)?"-":number_format($row['Velocidad'],1);
-			$tiempo= ($row['Penalizacion']>=200)?"-":number_format($row['Tiempo'],2);
-			$penal=number_format($row['Penalizacion'],2);
-			
-			// print row data
-			$this->SetFont('Arial','',8); // set data font size
-			$this->Cell($this->pos[0],6,$row['Dorsal'],			'LR',	0,		$this->align[0],	$fill);
-			$this->SetFont('Arial','B',8); // mark Nombre as bold
-			$this->Cell($this->pos[1],6,$row['Nombre'],			'LR',	0,		$this->align[1],	$fill);
-			$this->SetFont('Arial','',8); // set data font size
-			$this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	$fill);
-			$this->Cell($this->pos[3],6,$row['NombreGuia'],		'LR',	0,		$this->align[3],	$fill);
-			$this->Cell($this->pos[4],6,$row['NombreClub'],		'LR',	0,		$this->align[4],	$fill);
-			$this->Cell($this->pos[5],6,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[5],	$fill);
-			$this->Cell($this->pos[6],6,$row['Faltas'],			'LR',	0,		$this->align[6],	$fill);
-			$this->Cell($this->pos[7],6,$row['Tocados'],		'LR',	0,		$this->align[7],	$fill);
-			$this->Cell($this->pos[8],6,$row['Rehuses'],		'LR',	0,		$this->align[8],	$fill);
-			$this->Cell($this->pos[9],6,$tiempo,				'LR',	0,		$this->align[9],	$fill);
-			$this->Cell($this->pos[10],6,$veloc,				'LR',	0,		$this->align[10],	$fill);
-			$this->Cell($this->pos[11],6,$penal,				'LR',	0,		$this->align[11],	$fill);
-			$this->Cell($this->pos[12],6,$row['Calificacion'],	'LR',	0,		$this->align[12],	$fill);
-			$this->SetFont('Arial','B',11); // bold 11px
-			$this->Cell($this->pos[13],6,$puesto,			'LR',	0,		$this->align[13],	$fill);
-			$this->Ln();
-			$fill = ! $fill;
-			$rowcount++;
-		}
-		// Línea de cierre
-		$this->Cell(array_sum($this->pos),0,'','T');
-		$this->myLogger->leave();
+                // print row data
+                $this->SetFont('Arial','',8); // set data font size
+                $this->Cell($this->pos[0],5,$row['Dorsal'],			'LBR',	0,		$this->align[0],	$fill);
+                $this->SetFont('Arial','B',8); // mark Nombre as bold
+                $this->Cell($this->pos[1],5,$row['Nombre'],			'LBR',	0,		$this->align[1],	$fill);
+                $this->SetFont('Arial','',8); // set data font size
+                $this->Cell($this->pos[2],5,$row['Licencia'],		'LBR',	0,		$this->align[2],	$fill);
+                $this->Cell($this->pos[3],5,$row['NombreGuia'],		'LBR',	0,		$this->align[3],	$fill);
+                $this->Cell($this->pos[4],5,$row['NombreClub'],		'LBR',	0,		$this->align[4],	$fill);
+                // en pruebas por equipos el grado se ignora
+                // $this->Cell($this->pos[5],6,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[5],	$fill);
+                $this->Cell($this->pos[5],5,$row['Categoria'],  	'LBR',	0,		$this->align[5],	$fill);
+                $this->Cell($this->pos[6],5,$row['Faltas'],			'LBR',	0,		$this->align[6],	$fill);
+                $this->Cell($this->pos[7],5,$row['Tocados'],		'LBR',	0,		$this->align[7],	$fill);
+                $this->Cell($this->pos[8],5,$row['Rehuses'],		'LBR',	0,		$this->align[8],	$fill);
+                $this->Cell($this->pos[9],5,$tiempo,				'LBR',	0,		$this->align[9],	$fill);
+                $this->Cell($this->pos[10],5,$veloc,				'LBR',	0,		$this->align[10],	$fill);
+                $this->Cell($this->pos[11],5,$penal,				'LBR',	0,		$this->align[11],	$fill);
+                $this->Cell($this->pos[12],5,$row['CShort'],	'LBR',	0,		$this->align[12],	$fill);
+                $this->Cell($this->pos[13],5,$puesto,			'LBR',	0,		$this->align[13],	$fill);
+                $this->ac_header(2,8);
+                // en las dos primeras filas imprimimos informacion de resultados del equipo
+                if ($n==0) {
+                    $this->Cell($this->pos[14],5,"Penaliz.: ".$equipo['Penalizacion'],	'LBR',	0,		$this->align[14],	true);
+                }
+                if ($n==1) {
+                    $this->Cell($this->pos[14],5,"Tiempo: ".$equipo['Tiempo'],	'LBR',	0,		$this->align[14],	true);
+                }
+                $this->ac_row(2,9);
+                $this->Ln();
+                $fill = ! $fill;
+            }
+            $teamcount++;
+        }
+        $this->myLogger->leave();
 	}
 }
 
