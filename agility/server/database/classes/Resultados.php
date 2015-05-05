@@ -266,7 +266,7 @@ class Resultados extends DBObject {
 	/**
 	 * Actualiza los resultados de la manga para el idperro indicado
 	 * @param {integer} $idperro
-	 * @return datos actualizados desde la DB; null on error
+	 * @return {array} datos actualizados desde la DB; null on error
 	 */
 	function update($idperro) {
 		$this->myLogger->enter();
@@ -374,7 +374,7 @@ class Resultados extends DBObject {
 	 * Presenta una tabla ordenada segun los resultados de la manga
 	 * @return null on error else array en formato easyui datagrid
 	 *@param {integer} mode 0:L 1:M 2:S 3:MS 4:LMS.
-	 *@return requested data or error
+	 *@return {array} requested data or error
 	 */
 	
 	function getResultados($mode) {

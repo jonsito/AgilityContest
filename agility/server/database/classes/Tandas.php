@@ -424,7 +424,7 @@ class Tandas extends DBObject {
 	/**
 	 * Obtiene el programa de la jornada
 	 * @param {integer} $s session id. $s==0 means "any session"
-	 * @return json aware array or string on error
+	 * @return {array} easyui-aware array or string on error
 	 */
 	function getTandas($s=0){
 		$p=$this->prueba->ID;

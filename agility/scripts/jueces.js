@@ -54,9 +54,9 @@ function editJuez(dg){
     // and fill form with row data
     $('#jueces-form').form('load',row);
     // set up federation checkboxes
-    $('#jueces-RSCE').prop('checked',( (row.Federations & 1)!=0)?true:false);
-    $('#jueces-RFEC').prop('checked',( (row.Federations & 2)!=0)?true:false);
-    $('#jueces-UCA').prop('checked',( (row.Federations & 4)!=0)?true:false);
+    $('#jueces-RSCE').prop('checked',( (row.Federations & 1) != 0));
+    $('#jueces-RFEC').prop('checked',( (row.Federations & 2) != 0));
+    $('#jueces-UCA').prop('checked',( (row.Federations & 4) != 0));
 }
 
 /**

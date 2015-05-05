@@ -38,7 +38,7 @@ require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__.'/../database/classes/Clasificaciones.php');
 require_once(__DIR__."/print_common.php");
 
-class PDF extends PrintCommon {
+class PrintClasificacion extends PrintCommon {
 	
 	protected $manga1;
 	protected $manga2;
@@ -51,20 +51,20 @@ class PDF extends PrintCommon {
       * @param {int} $prueba prueba id
       * @param {int} $jornada jornada id
 	 * @param {array} $mangas datos de la manga
-	 * @param {array} $resultados resultados asociados a la manga/categoria pedidas
+	 * @param {array} $results resultados asociados a la manga/categoria pedidas
       * @param {int} $mode manga mode
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$mangas,$resultados,$mode) {
+	function __construct($prueba,$jornada,$mangas,$results,$mode) {
 		parent::__construct('Landscape',"print_clasificacion",$prueba,$jornada);
 		$dbobj=new DBObject("print_clasificacion");
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=null;
 		if ($mangas[1]!=0) $this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
-		$this->resultados=$resultados['rows'];
-		$this->trs1=$resultados['trs1'];
+		$this->resultados=$results['rows'];
+		$this->trs1=$results['trs1'];
 		$this->trs2=null;
-		if ($mangas[1]!=0) $this->trs2=$resultados['trs2'];
+		if ($mangas[1]!=0) $this->trs2=$results['trs2'];
 		$this->categoria = Mangas::$manga_modes[$mode][0];
 	}
 	
@@ -297,7 +297,7 @@ try {
 	$result=$c->clasificacionFinal($rondas,$mangas,$mode);
 
 	// Creamos generador de documento
-	$pdf = new PDF($prueba,$jornada,$mangas,$result,$mode);
+	$pdf = new PrintClasificacion($prueba,$jornada,$mangas,$result,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("print_clasificacion.pdf","D"); // "D" means open download dialog

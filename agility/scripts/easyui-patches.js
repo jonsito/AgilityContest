@@ -171,4 +171,4 @@ var gview = $.extend({}, groupview, {
             return v;
         }
     }
-})
+});

@@ -36,7 +36,7 @@ require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__.'/../database/classes/Equipos.php');
 require_once(__DIR__."/print_common.php");
 
-class PDF extends PrintCommon {
+class ResultadosByEquipos extends PrintCommon {
 	
 	protected $manga;
 	protected $resultados;
@@ -284,7 +284,7 @@ try {
 	$resobj= new Resultados("printResultadosByManga",$idprueba,$idmanga);
 	$resultados=$resobj->getResultados($mode,true); // throw exception if pending dogs
 	// Creamos generador de documento
-	$pdf = new PDF($idprueba,$idjornada,$manga,$resultados,$mode);
+	$pdf = new ResultadosByEquipos($idprueba,$idjornada,$manga,$resultados,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("resultadosByManga.pdf","D"); // "D" means open download dialog

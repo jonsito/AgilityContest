@@ -146,6 +146,7 @@ class PrintTandas extends PrintCommon {
 			$this->Ln(7);
 		}
 		$this->myLogger->leave();
+        return "";
 	}
 }
 

@@ -129,8 +129,8 @@ function testAndSet($data,$name,$type,$def,$esc=true) {
 
 /**
  * Generate a random password of "n" characters
- * @param number $chars Number of characters. Default to 8
- * @return requested password
+ * @param {number} $chars Number of characters. Default to 8
+ * @return {string} requested password
  */
 function random_password($chars = 8) {
    $letters = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';

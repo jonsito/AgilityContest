@@ -81,8 +81,7 @@ $('#pb_parciales-window').window({
 	onOpen: function() {
 		// call once and then fire as timed task
 		pb_updateResults();
-		var a=setInterval(pb_updateResults,60000);
-		$(this).window.defaults.callback=a; 
+		$(this).window.defaults.callback = a=setInterval(pb_updateResults,60000);
 	},
 	onClose: function() { 
 		clearInterval($(this).window.defaults.callback);

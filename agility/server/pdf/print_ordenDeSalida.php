@@ -34,7 +34,7 @@ require_once(__DIR__.'/../database/classes/Mangas.php');
 require_once(__DIR__.'/../database/classes/OrdenSalida.php');
 require_once(__DIR__."/print_common.php");
 
-class PDF extends PrintCommon {
+class OrdenDeSalida extends PrintCommon {
 
 	protected $manga; // datos de la manga
 	protected $orden; // orden de salida
@@ -189,7 +189,7 @@ try {
 	$jornada=http_request("Jornada","i",0);
 	$manga=http_request("Manga","i",0);
 	// 	Creamos generador de documento
-	$pdf = new PDF($prueba,$jornada,$manga);
+	$pdf = new OrdenDeSalida($prueba,$jornada,$manga);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("ordenDeSalida.pdf","D"); // "D" means open download dialog	

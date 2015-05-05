@@ -99,7 +99,7 @@ class AuthManager {
 	
 	/**
 	 * Retrieve only non-critical subset of registration info stored data
-	 * @return NULL
+	 * @return {array} NULL
 	 */
 	function getRegistrationInfo() {
 		// retrieve registration data

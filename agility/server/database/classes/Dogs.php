@@ -177,7 +177,7 @@ class Dogs extends DBObject {
 	
 	/**
 	 * Like select but not provide ordered search
-	 * @return NULL|multitype:multitype: unknown
+	 * @return {array} NULL|multitype:multitype: unknown
 	 */
 	function enumerate() {
 		$this->myLogger->enter();

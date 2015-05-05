@@ -57,7 +57,7 @@ function editTanda(dg){
     // set up operation properly
     row.Operation='update';
     var type=parseInt(row.Tipo);
-    $('#ordentandas_nt-Nombre').textbox('readonly',(type==0)?false:true);
+    $('#ordentandas_nt-Nombre').textbox('readonly',(type != 0));
     // open dialog
     $('#ordentandas_newtanda-dialog').dialog('open').dialog('setTitle','Modificar datos de la actividad');
     // and fill form with row data

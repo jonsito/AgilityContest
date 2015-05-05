@@ -128,8 +128,7 @@ $('#pb_finales-window').window({
 	onOpen: function() {
 		// call once and then fire as timed task
 		pb_updateFinales();
-		var a=setInterval(pb_updateFinales,60000);
-		$(this).window.defaults.callback=a; 
+		$(this).window.defaults.callback = setInterval(pb_updateFinales,60000);
 	},
 	onClose: function() { 
 		clearInterval($(this).window.defaults.callback);

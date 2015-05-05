@@ -8,7 +8,7 @@
 		onDragOver: function(targetRow, sourceRow){},	// return false to deny drop
 		onDragLeave: function(targetRow, sourceRow){},
 		onBeforeDrop: function(targetRow, sourceRow, point){},
-		onDrop: function(targetRow, sourceRow, point){},	// point:'append','top','bottom'
+		onDrop: function(targetRow, sourceRow, point){}	// point:'append','top','bottom'
 	});
 	$.extend($.fn.datagrid.methods, {
 		_appendRow: function(jq, row){

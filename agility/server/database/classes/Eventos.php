@@ -181,7 +181,7 @@ class Eventos extends DBObject {
 	/**
 	 * As getEvents() but don't wait for new events, just list existing ones
 	 * @param {array} $data requested event info
-	 * @return available events for session $data['Session'] with id greater than $data['ID']
+	 * @return {array} available events for session $data['Session'] with id greater than $data['ID']
 	 */
 	function listEvents($data) {
 		if ($data['Session']<=0) return $this->error("No Session ID specified");

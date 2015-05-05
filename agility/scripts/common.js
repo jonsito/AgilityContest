@@ -247,6 +247,10 @@ function setJornada(data) {
 	workingData.datosJornada=data;
 }
 
+function isJornadaOpen() { return (workingData.datosJornada.Open==1); }
+function isJornadaEq3() { return (workingData.datosJornada.Equipos3==1); }
+function isJornadaEq4() { return (workingData.datosJornada.Equipos4==1); }
+
 /**
  * @param {int} id SessionID
  * Initialize working data information object

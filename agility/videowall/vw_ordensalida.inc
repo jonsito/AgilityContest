@@ -46,8 +46,7 @@ $('#vw_ordensalida-window').window({
 	onOpen: function() {
 		// call once and then fire as timed task
 		vwos_procesaOrdenSalida();
-		var a=setInterval(vwos_procesaOrdenSalida,10000);
-		$(this).window.defaults.callback=a; 
+		$(this).window.defaults.callback = setInterval(vwos_procesaOrdenSalida,10000);
 	},
 	onClose: function() { 
 		clearInterval($(this).window.defaults.callback);

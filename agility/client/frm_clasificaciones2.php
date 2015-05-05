@@ -143,7 +143,7 @@ $config =Config::getInstance();
 	&nbsp;<br />
 	<span  style="display:inline-block;width:100%">
 		<a id="resultados-printDlgBtn" href="#" class="easyui-linkbutton" style="float:right"
-   			data-options="iconCls:'icon-print'" onclick="resultados_doPrint();">Imprimir</a>
+   			data-options="iconCls:'icon-print'" onclick="clasificaciones_doPrint();">Imprimir</a>
 	</span>
 	</form>
 </div>

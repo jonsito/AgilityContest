@@ -33,7 +33,7 @@ require_once(__DIR__.'/../database/classes/Jornadas.php');
 require_once(__DIR__.'/../database/classes/Equipos.php');
 require_once(__DIR__."/print_common.php");
 
-class PDF extends PrintCommon {
+class EquiposByJornada extends PrintCommon {
 	protected $equipos; // lista de equipos de esta jornada
     protected $perros; // lista de participantes en esta jornada
 	
@@ -181,7 +181,7 @@ try {
 	$prueba=http_request("Prueba","i",0);
 	$jornada=http_request("Jornada","i",0);
 	// 	Creamos generador de documento
-	$pdf = new PDF($prueba,$jornada);
+	$pdf = new EquiposByJornada($prueba,$jornada);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("equiposByJornada.pdf","D"); // "D" means open download dialog

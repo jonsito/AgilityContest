@@ -33,10 +33,11 @@ require_once(__DIR__.'/../database/classes/Mangas.php');
 require_once(__DIR__.'/../database/classes/OrdenSalida.php');
 require_once(__DIR__."/print_common.php");
 
-class PDF extends PrintCommon {
+class EntradaDeDatos extends PrintCommon {
 
 	protected $manga=null; // datos de la manga
 	protected $manga2=null; // datos de la manga 2
+    protected $orden=null; // orden de salida de la manga
 	protected $numrows; // formato del pdf 0:1 1:5 2:15 perros/pagina
 	protected $categoria; // categoria que estamos listando
 
@@ -53,19 +54,19 @@ class PDF extends PrintCommon {
 	 * @param {integer} $prueba 
 	 * @param {integer} $jornada 
 	 * @param {array[object]} datos de la manga y (si existe) manga hermana
-	 * @param {array} $orden Lista de inscritos en formato jquery array[count,rows[]]
+	 * @param {array} $ordens Lista de inscritos en formato jquery array[count,rows[]]
 	 * @param {integer} $numrows numero de perros a imprimir por cada hoja
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$mangas,$orden,$numrows) {
+	function __construct($prueba,$jornada,$mangas,$ordens,$numrows) {
 		parent::__construct('Portrait',"print_entradaDeDatos",$prueba,$jornada);
-		if ( ($prueba<=0) || ($jornada<=0) || ($mangas===null) || ($orden===null) ) {
+		if ( ($prueba<=0) || ($jornada<=0) || ($mangas===null) || ($ordens===null) ) {
 			$this->errormsg="printEntradaDeDatos: either prueba/jornada/ manga/orden data are invalid";
 			throw new Exception($this->errormsg);
 		}
 		$this->manga=$mangas[0];
 		if(array_key_exists(1,$mangas)) $this->manga2=$mangas[1];
-		$this->orden=$orden;
+		$this->orden=$ordens;
 		$this->numrows=$numrows;
 		$this->categoria="L";
 	}
@@ -90,7 +91,11 @@ class PDF extends PrintCommon {
 	function Footer() {
 		$this->print_commonFooter();
 	}
-	
+
+    /**
+     * @param {number} $rowcount
+     * @param {array} $row
+     */
 	function writeTableCell_compacto($rowcount,$row) {
 		$logo=$this->getLogoName($row['Perro']);
 		$this->ac_header(1,20);
@@ -157,9 +162,9 @@ class PDF extends PrintCommon {
 	
 	/**
 	 * 
-	 * @param unknown $rowcount Row index
-	 * @param unknown $row Row data
-	 * @param number $f width factor (to be reused on extended print)
+	 * @param {number} $rowcount Row index
+	 * @param {number} $row Row data
+	 * @param {number} $f width factor (to be reused on extended print)
 	 */
 	function writeTableCell_normal($rowcount,$row,$f=1) {
 		// cada celda tiene una cabecera con los datos del participante
@@ -228,7 +233,7 @@ class PDF extends PrintCommon {
 	}
 
     /**
-     * @param {int} $rowcount
+     * @param {number} $rowcount
      * @param {array} $row
      */
 	function writeTableCell_extendido($rowcount,$row) {
@@ -414,7 +419,7 @@ try {
 	$o = new OrdenSalida("printEntradaDeDatos",$manga);
 	$orden= $o->getData();
 	// Creamos generador de documento
-	$pdf = new PDF($prueba,$jornada,$mangas,$orden['rows'],$mode);
+	$pdf = new EntradaDeDatos($prueba,$jornada,$mangas,$orden['rows'],$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("entradaDeDatos.pdf","D"); // "D" means open download dialog

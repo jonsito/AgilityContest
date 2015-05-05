@@ -44,8 +44,7 @@ $('#pb_inscripciones-window').window({
 	onOpen: function() {
 		// call once and then fire as timed task
 		pb_updateInscripciones();
-		var a=setInterval(pb_updateInscripciones,10000);
-		$(this).window.defaults.callback=a; 
+		$(this).window.defaults.callback = setInterval(pb_updateInscripciones,10000);
 	},
 	onClose: function() { 
 		clearInterval($(this).window.defaults.callback);

@@ -84,8 +84,8 @@ class Inscripciones extends DBObject {
 	
 	/**
 	 * Update an inscripcion
-	 * @param {integer} perro ID del perro
-	 * @return empty string if ok; else null
+	 * @param {int} perro ID del perro
+	 * @return {string} empty string if ok; else null
 	 */
 	function update($idperro) {
 		$this->myLogger->enter();

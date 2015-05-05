@@ -59,12 +59,12 @@
 	<script type="text/javascript">
 		var editIndex = undefined;
 		function endEditing(){
+            var dg=$('#dg');
 			if (editIndex == undefined){return true}
-			if ($('#dg').datagrid('validateRow', editIndex)){
-				var ed = $('#dg').datagrid('getEditor', {index:editIndex,field:'productid'});
-				var productname = $(ed.target).combobox('getText');
-				$('#dg').datagrid('getRows')[editIndex]['productname'] = productname;
-				$('#dg').datagrid('endEdit', editIndex);
+			if (dg.datagrid('validateRow', editIndex)){
+				var ed = dg.datagrid('getEditor', {index:editIndex,field:'productid'});
+				dg.datagrid('getRows')[editIndex]['productname'] = $(ed.target).combobox('getText');
+				dg.datagrid('endEdit', editIndex);
 				editIndex = undefined;
 				return true;
 			} else {
@@ -84,9 +84,10 @@
 		}
 		function append(){
 			if (endEditing()){
-				$('#dg').datagrid('appendRow',{status:'P'});
-				editIndex = $('#dg').datagrid('getRows').length-1;
-				$('#dg').datagrid('selectRow', editIndex)
+                var dg=$('#dg');
+				dg.datagrid('appendRow',{status:'P'});
+				editIndex = dg.datagrid('getRows').length-1;
+				dg.datagrid('selectRow', editIndex)
 						.datagrid('beginEdit', editIndex);
 			}
 		}

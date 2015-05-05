@@ -121,50 +121,23 @@ function formatTeamClasificaciones(value,rows) {
         '</tr></tbody></table>';
 }
 
-function getMode(rec,cat) {
-	var recorrido=parseInt(rec);
-	var categoria=parseInt(cat);
-	if (workingData.datosPrueba.RSCE==0) { // RSCE
-		switch(recorrido) {
-		case 0: // recorrido separado
-			if (categoria==0) return 0;
-			if (categoria==1) return 1;
-			if (categoria==2) return 2;
-			break;
-		case 1: // large / small+medium
-			if (categoria==0) return 0;
-			if (categoria==1) return 3;
-			if (categoria==2) return 3;
-			break;
-		case 2: // recorrido conjunto
-			if (categoria==0) return 4;
-			if (categoria==1) return 4;
-			if (categoria==2) return 4;
-			break;
-		}
-	} else { // RFEC & UCA
-		switch(recorrido) {
-		case 0: // recorrido separado
-			if (categoria==0) return 0;
-			if (categoria==1) return 1;
-			if (categoria==2) return 2;
-			if (categoria==3) return 5;
-			break;
-		case 1: // large+medium / small+tiny
-			if (categoria==0) return 6;
-			if (categoria==1) return 6;
-			if (categoria==2) return 7;
-			if (categoria==3) return 7;
-			break;
-		case 2: // recorrido conjunto
-			if (categoria==0) return 8;
-			if (categoria==1) return 8;
-			if (categoria==2) return 8;
-			if (categoria==3) return 8;
-			break;
-		}
-	}
-	return -1; // combinacion invalida
+/**
+ * Obtiene el modo de visualizacion de una manga determinada en funcion de la prueba, tipo de recorrido y categorias
+ * @param {int} fed
+ * @param {int} recorrido
+ * @param {int}categoria
+ * @returns {int} requested mode. -1 if invalid request
+ */
+function getMangaMode(fed,recorrido,categoria) {
+    var modes= [ // federation/recorrido/categoria
+        [/* RSCE */ [/* separado */ 0, 1, 2, -1], [/* mixto */ 0, 3, 3. -1], [/* conjunto */ 4, 4, 4, -1 ] ],
+        [/* RFEC */ [/* separado */ 0, 1, 2, 5 ], [/* mixto */ 6, 6, 7, 7 ], [/* conjunto */ 8, 8, 8, 8 ] ],
+        [/* UCA  */ [/* separado */ 0, 1, 2, 5 ], [/* mixto */ 6, 6, 7, 7 ], [/* conjunto */ 8, 8, 8, 8 ] ]
+    ];
+    if ( typeof (modes[fed]) === 'undefined' ) return -1;
+    if ( typeof (modes[fed][recorrido]) === 'undefined' ) return -1;
+    if ( typeof (modes[fed][recorrido][manga]) === 'undefined' ) return -1;
+    return modes[fed][recorrido][categoria];
 }
 
 /**
@@ -183,14 +156,10 @@ function dmanga_setRecorridos_rsce() {
 	case '2': // recorrido comun para std, mini y midi
 		distl=$('#dmanga_DistL').val();
 		obstl=$('#dmanga_ObstL').val();
-		$('#dmanga_DistM').attr('readonly',true);
-		$('#dmanga_DistM').val(distl);
-		$('#dmanga_ObstM').attr('readonly',true);
-		$('#dmanga_ObstM').val(obstl);
-		$('#dmanga_DistS').attr('readonly',true);
-		$('#dmanga_DistS').val(distl);
-		$('#dmanga_ObstS').attr('readonly',true);
-		$('#dmanga_ObstS').val(obstl);
+		$('#dmanga_DistM').attr('readonly',true).val(distl);
+		$('#dmanga_ObstM').attr('readonly',true).val(obstl);
+		$('#dmanga_DistS').attr('readonly',true).val(distl);
+		$('#dmanga_ObstS').attr('readonly',true).val(obstl);
 		
 		// set TRS and TRM for midi relative to Standard TRS
 		$('#dmanga_TRS_M_Tipo').val(3); 
@@ -216,10 +185,8 @@ function dmanga_setRecorridos_rsce() {
 		obstm=$('#dmanga_ObstM').val();
 		$('#dmanga_DistM').removeAttr('readonly');
 		$('#dmanga_ObstM').removeAttr('readonly');
-		$('#dmanga_DistS').attr('readonly',true);
-		$('#dmanga_DistS').val(distm);
-		$('#dmanga_ObstS').attr('readonly',true);
-		$('#dmanga_ObstS').val(obstm);
+		$('#dmanga_DistS').attr('readonly',true).val(distm);
+		$('#dmanga_ObstS').attr('readonly',true).val(obstm);
 		
 		// set Small TRS and TRM relative to Midi TRS
 		$('#dmanga_TRS_S_Tipo').val(4); 
@@ -265,18 +232,12 @@ function dmanga_setRecorridos_rfec() {
 	case '2': // recorrido comun para std, med, min, y tiny
 		distl=$('#dmanga_DistL').val();
 		obstl=$('#dmanga_ObstL').val();
-		$('#dmanga_DistM').attr('readonly',true);
-		$('#dmanga_DistM').val(distl);
-		$('#dmanga_ObstM').attr('readonly',true);
-		$('#dmanga_ObstM').val(obstl);
-		$('#dmanga_DistS').attr('readonly',true);
-		$('#dmanga_DistS').val(distl);
-		$('#dmanga_ObstS').attr('readonly',true);
-		$('#dmanga_ObstS').val(obstl);
-		$('#dmanga_DistT').attr('readonly',true);
-		$('#dmanga_DistT').val(distl);
-		$('#dmanga_ObstT').attr('readonly',true);
-		$('#dmanga_ObstT').val(obstl);
+		$('#dmanga_DistM').attr('readonly',true).val(distl);
+		$('#dmanga_ObstM').attr('readonly',true).val(obstl);
+		$('#dmanga_DistS').attr('readonly',true).val(distl);
+		$('#dmanga_ObstS').attr('readonly',true).val(obstl);
+		$('#dmanga_DistT').attr('readonly',true).val(distl);
+		$('#dmanga_ObstT').attr('readonly',true).val(obstl);
 		
 		// set TRS and TRM for midi relative to Standard TRS
 		$('#dmanga_TRS_M_Tipo').val(3); 
@@ -310,15 +271,11 @@ function dmanga_setRecorridos_rfec() {
 		obstl=$('#dmanga_ObstL').val();
 		dists=$('#dmanga_DistS').val();
 		obsts=$('#dmanga_ObstS').val();
-		$('#dmanga_DistM').attr('readonly',true);
-		$('#dmanga_DistM').val(distl);
-		$('#dmanga_ObstM').attr('readonly',true);
-		$('#dmanga_ObstM').val(obstl);
+		$('#dmanga_DistM').attr('readonly',true).val(distl);
+		$('#dmanga_ObstM').attr('readonly',true).val(obstl);
 		$('#dmanga_DistS').removeAttr('readonly');
-		$('#dmanga_DistT').attr('readonly',true);
-		$('#dmanga_DistT').val(dists);
-		$('#dmanga_ObstT').attr('readonly',true);
-		$('#dmanga_ObstT').val(obsts);
+		$('#dmanga_DistT').attr('readonly',true).val(dists);
+		$('#dmanga_ObstT').attr('readonly',true).val(obsts);
 		
 		// set TRS and TRM for midi relative to Standard TRS
 		$('#dmanga_TRS_M_Tipo').val(3); 
@@ -375,18 +332,12 @@ function dmanga_setRecorridos_uca() {
 	case '2': // recorrido comun para std, med, min, y tiny
 		distl=$('#dmanga_DistL').val();
 		obstl=$('#dmanga_ObstL').val();
-		$('#dmanga_DistM').attr('readonly',true);
-		$('#dmanga_DistM').val(distl);
-		$('#dmanga_ObstM').attr('readonly',true);
-		$('#dmanga_ObstM').val(obstl);
-		$('#dmanga_DistS').attr('readonly',true);
-		$('#dmanga_DistS').val(distl);
-		$('#dmanga_ObstS').attr('readonly',true);
-		$('#dmanga_ObstS').val(obstl);
-		$('#dmanga_DistT').attr('readonly',true);
-		$('#dmanga_DistT').val(distl);
-		$('#dmanga_ObstT').attr('readonly',true);
-		$('#dmanga_ObstT').val(obstl);
+		$('#dmanga_DistM').attr('readonly',true).val(distl);
+		$('#dmanga_ObstM').attr('readonly',true).val(obstl);
+		$('#dmanga_DistS').attr('readonly',true).val(distl);
+		$('#dmanga_ObstS').attr('readonly',true).val(obstl);
+		$('#dmanga_DistT').attr('readonly',true).val(distl);
+		$('#dmanga_ObstT').attr('readonly',true).val(obstl);
 		
 		// set TRS and TRM for midi relative to Standard TRS
 		$('#dmanga_TRS_M_Tipo').val(3); 
@@ -420,15 +371,11 @@ function dmanga_setRecorridos_uca() {
 		obstl=$('#dmanga_ObstL').val();
 		dists=$('#dmanga_DistS').val();
 		obsts=$('#dmanga_ObstS').val();
-		$('#dmanga_DistM').attr('readonly',true);
-		$('#dmanga_DistM').val(distl);
-		$('#dmanga_ObstM').attr('readonly',true);
-		$('#dmanga_ObstM').val(obstl);
+		$('#dmanga_DistM').attr('readonly',true).val(distl);
+		$('#dmanga_ObstM').attr('readonly',true).val(obstl);
 		$('#dmanga_DistS').removeAttr('readonly');
-		$('#dmanga_DistT').attr('readonly',true);
-		$('#dmanga_DistT').val(dists);
-		$('#dmanga_ObstT').attr('readonly',true);
-		$('#dmanga_ObstT').val(obsts);
+		$('#dmanga_DistT').attr('readonly',true).val(dists);
+		$('#dmanga_ObstT').attr('readonly',true).val(obsts);
 		
 		// set TRS and TRM for midi relative to Standard TRS
 		$('#dmanga_TRS_M_Tipo').val(3); 
@@ -740,7 +687,7 @@ function printParcial(mode) {
 function checkAndPrintParcial(val) {
 	var value=parseInt(val); // stupid javascript!!
 	// obtenemos informacion sobre los datos a imprimir
-	var mode=getMode(workingData.datosManga.Recorrido,value);
+	var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,value);
 	$.ajax({
 		type:'GET',
 		url:"/agility/server/database/resultadosFunctions.php",
@@ -777,7 +724,7 @@ function checkAndPrintParcial(val) {
  */
 function reloadParcial(val,fill) {
 	var value=parseInt(val); // stupid javascript!!
-	var mode=getMode(workingData.datosManga.Recorrido,value);
+	var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,value);
 	if (mode==-1) {
 		$.messager.alert('Error','Internal error: invalid RSCE/Recorrido/Categoria combination','error');
 		return;
@@ -820,7 +767,6 @@ function reloadParcial(val,fill) {
  * @param recorrido 0:L/M/S/T 1:L/M+S(RSCE) LM/ST(RFEC)  2:/L+M+S+T
  */
 function setupResultadosWindow(recorrido) {
-	var rsce=(workingData.datosPrueba.RSCE==0)?true:false;
 	var fed= parseInt(workingData.datosPrueba.RSCE);
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
@@ -862,8 +808,8 @@ function setupResultadosWindow(recorrido) {
     case 1: // RSCE: Large / Medium+Small --------- RFEC: Large+Medium / Tiny+Small
     	// ajustar visibilidad
     	$('#resultadosmanga-LargeRow').css('display','table-row');
-    	$('#resultadosmanga-MediumRow').css('display',(rsce)?'table-row':'none');
-    	$('#resultadosmanga-SmallRow').css('display',(rsce)?'none':'table-row');
+    	$('#resultadosmanga-MediumRow').css('display',(fed==0)?'table-row':'none');
+    	$('#resultadosmanga-SmallRow').css('display',(fed==0)?'none':'table-row');
     	$('#resultadosmanga-TinyRow').css('display','none');
     	// ajustar textos
     	switch(fed) {
@@ -896,13 +842,13 @@ function setupResultadosWindow(recorrido) {
     	// ajustar textos
     	switch(fed) {
     		case 0:
-    	    	$('#resultadosmanga-LargeLbl').html((rsce)?"Conjunta L+M+S":"Conjunta L+M+S+T");
+    	    	$('#resultadosmanga-LargeLbl').html((fed==0)?"Conjunta L+M+S":"Conjunta L+M+S+T");
     			break;
     		case 1:
-    	    	$('#resultadosmanga-LargeLbl').html((rsce)?"Conjunta L+M+S":"Conjunta L+M+S+T");
+    	    	$('#resultadosmanga-LargeLbl').html((fed==0)?"Conjunta L+M+S":"Conjunta L+M+S+T");
     			break;
     		case 2:
-    	    	$('#resultadosmanga-LargeLbl').html((rsce)?"Conjunta L+M+S":"Conjunta 6+5+4+3");
+    	    	$('#resultadosmanga-LargeLbl').html((fed==0)?"Conjunta L+M+S":"Conjunta 6+5+4+3");
     			break;
     	}
     	$('#resultadosmanga-MediumLbl').html("&nbsp;");
@@ -1142,7 +1088,6 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
  */
 function resultados_doSelectRonda(row) {
 	var resultados=[];
-	var rsce=(workingData.datosPrueba.RSCE==0)?true:false;
 	var fed=parseInt(workingData.datosPrueba.RSCE);
 	// FASE 0 ajustamos los jueces de la ronda
 	$('#dm1_Juez1').val(row.Juez11);
@@ -1157,12 +1102,12 @@ function resultados_doSelectRonda(row) {
     	$('#datos_manga1-LargeRow').css('display','table-row');
     	$('#datos_manga1-MediumRow').css('display','table-row');
     	$('#datos_manga1-SmallRow').css('display','table-row');
-		$('#datos_manga1-TinyRow').css('display',(rsce)?'none':'table-row');
+		$('#datos_manga1-TinyRow').css('display',(fed==0)?'none':'table-row');
 
 		resultados_fillForm(resultados,row.Manga1,'1',0);
 		resultados_fillForm(resultados,row.Manga1,'1',1);
 		resultados_fillForm(resultados,row.Manga1,'1',2);
-		if (!rsce) resultados_fillForm(resultados,row.Manga1,'1',5);
+		if (fed!=0) resultados_fillForm(resultados,row.Manga1,'1',5);
 		// set up categoria names and comboboxes
 		switch(fed){
 		case 0:
@@ -1203,7 +1148,7 @@ function resultados_doSelectRonda(row) {
 			$('#datos_manga2-LargeRow').css('display','table-row');
     		$('#datos_manga2-MediumRow').css('display','table-row');
     		$('#datos_manga2-SmallRow').css('display','table-row');
-    		$('#datos_manga2-TinyRow').css('display',(rsce)?'none':'table-row');
+    		$('#datos_manga2-TinyRow').css('display',(fed==0)?'none':'table-row');
     		switch (fed) {
     		case 0:
         		$('#datos_manga2-LargeLbl').html("Standard");
@@ -1227,14 +1172,14 @@ function resultados_doSelectRonda(row) {
     		resultados_fillForm(resultados,row.Manga2,'2',0);
     		resultados_fillForm(resultados,row.Manga2,'2',1);
     		resultados_fillForm(resultados,row.Manga2,'2',2);
-    		if (!rsce) resultados_fillForm(resultados,row.Manga2,'2',5);
+    		if (fed!=0) resultados_fillForm(resultados,row.Manga2,'2',5);
 		}
     	break;
     case 1: // Large / Medium+Small (RSCE ) ---- Large+Medium / Small+Tiny (RFEC)
     	// Manga 1
     	$('#datos_manga1-LargeRow').css('display','table-row');
-    	$('#datos_manga1-MediumRow').css('display',(rsce)?'table-row':'none');
-    	$('#datos_manga1-SmallRow').css('display',(rsce)?'none':'table-row');
+    	$('#datos_manga1-MediumRow').css('display',(fed==0)?'table-row':'none');
+    	$('#datos_manga1-SmallRow').css('display',(fed==0)?'none':'table-row');
     	$('#datos_manga1-TinyRow').css('display','none');
     	
     	switch(fed) {
@@ -1278,8 +1223,8 @@ function resultados_doSelectRonda(row) {
 			$('#datos_manga2-TinyRow').css('display','none');
 		} else {
 	    	$('#datos_manga2-LargeRow').css('display','table-row');
-	    	$('#datos_manga2-MediumRow').css('display',(rsce)?'table-row':'none');
-	    	$('#datos_manga2-SmallRow').css('display',(rsce)?'none':'table-row');
+	    	$('#datos_manga2-MediumRow').css('display',(fed==0)?'table-row':'none');
+	    	$('#datos_manga2-SmallRow').css('display',(fed==0)?'none':'table-row');
 	    	$('#datos_manga2-TinyRow').css('display','none');
 	    	switch(fed){
 	    	case 0:
@@ -1301,7 +1246,7 @@ function resultados_doSelectRonda(row) {
 		    	$('#datos_manga2-TinyLbl').html("&nbsp;");
 	    		break;
 	    	}
-			if (rsce) {
+			if (fed==0) {
 				resultados_fillForm(resultados,row.Manga2,'2',0);
 				resultados_fillForm(resultados,row.Manga2,'2',3);
 			} else {
@@ -1325,7 +1270,7 @@ function resultados_doSelectRonda(row) {
     	$('#datos_manga1-MediumLbl').html("&nbsp;");
     	$('#datos_manga1-SmallLbl').html("&nbsp;");
     	$('#datos_manga1-TinyLbl').html("&nbsp;");
-    	if (rsce) {
+    	if (fed==0) {
     		resultados_fillForm(resultados,row.Manga1,'1',4);
     		$('#resultados-selectCategoria').combobox('loadData',
     				[{mode:4,text:'Conjunta L+M+S',selected:true}]);
@@ -1355,7 +1300,7 @@ function resultados_doSelectRonda(row) {
 	    	$('#datos_manga2-MediumLbl').html("&nbsp;");
 	    	$('#datos_manga2-SmallLbl').html("&nbsp;");
 	    	$('#datos_manga2-TinyLbl').html("&nbsp;");
-			if (rsce) resultados_fillForm(resultados,row.Manga2,'2',4);
+			if (fed==0) resultados_fillForm(resultados,row.Manga2,'2',4);
 			else resultados_fillForm(resultados,row.Manga2,'2',8);
 		}
     	break;
@@ -1368,7 +1313,8 @@ function resultados_doSelectRonda(row) {
 		dataType:'json',
 		data: {	
 			Prueba:workingData.prueba,
-			Jornada:workingData.jornada,
+            Jornada:workingData.jornada,
+            Federation:fed,
 			Manga1:row.Manga1,
 			Manga2:row.Manga2,
 			Rondas: row.Rondas,
@@ -1383,11 +1329,32 @@ function resultados_doSelectRonda(row) {
 }
 
 /**
+ * Imprime la secuencia de tandas de la jornada
+ */
+function printOrdenTandas() {
+    $.fileDownload(
+        '/agility/server/pdf/print_ordenTandas.php',
+        {
+            httpMethod: 'GET',
+            data: {
+                Prueba: workingData.prueba,
+                Jornada: workingData.jornada
+            },
+            preparingMessageHtml: "We are preparing your report, please wait...",
+            failMessageHtml: "There was a problem generating your report, please try again."
+        }
+    );
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+}
+
+/**
  * Imprime una hoja con los podio de esta ronda
  */
-function resultados_printPodium() {
+function clasificaciones_printPodium() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='/agility/server/pdf/print_podium.php';
+    if (isJornadaEq3) url='/agility/server/pdf/print_podium_eq3.php';
+    if (isJornadaEq4) url='/agility/server/pdf/print_podium_eq4.php';
 	if (ronda==null) {
     	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
     	return false; // no way to know which ronda is selected
@@ -1413,7 +1380,7 @@ function resultados_printPodium() {
 /**
  * Imprime los resultados finales separados por categoria y grado, tal y como pide la RSCE
  */
-function resultados_printCanina() {
+function clasificaciones_printCanina() {
 	// Client-side excel conversion
 	// $('#resultados-datagrid').datagrid('toExcel',"clasificaciones.xls");
 	
@@ -1445,32 +1412,13 @@ function resultados_printCanina() {
 }
 
 /**
- * Imprime la secuencia de tandas de la jornada
- */
-function printOrdenTandas() {
-	$.fileDownload(
-			'/agility/server/pdf/print_ordenTandas.php',
-			{
-				httpMethod: 'GET',
-				data: { 
-					Prueba: workingData.prueba,
-					Jornada: workingData.jornada
-				},
-		        preparingMessageHtml: "We are preparing your report, please wait...",
-		        failMessageHtml: "There was a problem generating your report, please try again."
-			}
-		);
-	    return false; //this is critical to stop the click event which will trigger a normal file download!
-}
-
-/**
  * Imprime los resultados finales de la ronda seleccionada en formato CSV para su conversion en etiquetas
  * @param {int} flag 0:CSV 1:PDF
  * @param {int} start if mode==PDF first line in output
  * @param {string} list CSV dorsal list
  * @returns {Boolean} false 
  */
-function resultados_printEtiquetas(flag,start,list) {
+function clasificaciones_printEtiquetas(flag,start,list) {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='/agility/server/pdf/print_etiquetas_csv.php';
 	if (flag!=0) url='/agility/server/pdf/print_etiquetas_pdf.php';
@@ -1505,9 +1453,11 @@ function resultados_printEtiquetas(flag,start,list) {
  * Imprime los resultados finales de la ronda seleccionada en formato pdf
  * @return false
  */
-function resultados_printClasificacion() {
+function clasificaciones_printClasificacion() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='/agility/server/pdf/print_clasificacion.php';
+    if (isJornadaEq3) url='/agility/server/pdf/print_clasificacion_eq3.php';
+    if (isJornadaEq4) url='/agility/server/pdf/print_clasificacion_eq4.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	if (ronda==null) {
     	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
@@ -1536,31 +1486,33 @@ function resultados_printClasificacion() {
  * Ajusta el menu de seleccion de metodo de impresion en funcion de la opcion seleccionada
  */
 function r_selectOption(val) {
+    var prfirst= $('#r_prfirst');
+    var prlist=$('#r_prlist');
 	switch (parseInt(val)) {
 	case 0:
 	case 1:
 	case 3:
-	case 4: $('#r_prfirst').numberspinner('disable'); $('#r_prlist').numberspinner('disable'); break;
-	case 2: $('#r_prfirst').numberspinner('enable'); $('#r_prlist').numberspinner('disable'); break;
-	case 5: $('#r_prfirst').numberspinner('enable'); $('#r_prlist').numberspinner('enable'); break;
+	case 4: prfirst.numberspinner('disable'); prlist.numberspinner('disable'); break;
+	case 2: prfirst.numberspinner('enable'); prlist.numberspinner('disable'); break;
+	case 5: prfirst.numberspinner('enable'); prlist.numberspinner('enable'); break;
 	}
 }
 
 /**
  * Presenta un menu al usuario indicando que es lo que se quiere imprimir
  */
-function resultados_doPrint() {
+function clasificaciones_doPrint() {
 	var r=$('input:radio[name="r_prformat"]:checked').val();
 	var line=$('#r_prfirst').numberspinner('getValue');
 	var list=$('#r_prlist').textbox('getValue');
 	$('#resultados-printDialog').dialog('close');
 	switch(parseInt(r)) {
-		case 0: resultados_printPodium(); break;
-		case 1: resultados_printEtiquetas(0); break; // csv
-		case 3: resultados_printCanina(); break;
-		case 4: resultados_printClasificacion(); break; 
-		case 5: resultados_printEtiquetas(1,line,list); break;
-		case 2: resultados_printEtiquetas(1,line,''); break;
+		case 0: clasificaciones_printPodium(); break;
+		case 1: clasificaciones_printEtiquetas(0); break; // csv
+		case 3: clasificacioness_printCanina(); break;
+		case 4: clasificaciones_printClasificacion(); break;
+		case 5: clasificaciones_printEtiquetas(1,line,list); break;
+		case 2: clasificaciones_printEtiquetas(1,line,''); break;
 	}
 	return false; //this is critical to stop the click event which will trigger a normal file download!
 }

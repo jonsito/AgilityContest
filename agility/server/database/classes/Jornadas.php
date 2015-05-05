@@ -193,7 +193,7 @@ class Jornadas extends DBObject {
 	
 	/**
 	 * select all jornadas related to provided prueba 
-	 * @return unknown
+	 * @return {array} requested result
 	 */
 	function selectByPrueba() {
 		$this->myLogger->enter();
@@ -216,7 +216,7 @@ class Jornadas extends DBObject {
 	/**
 	 * search all jornadas related to provided prueba that matches provided criteria
 	 * @param {integer} $allowClosed 1:allow listing closed jornadas; 0:don't
-	 * @return unknown
+	 * @return {array} requested data
 	 */
 	function searchByPrueba($allowClosed=0,$hideUnassigned=0) {
 		$this->myLogger->enter();
@@ -244,7 +244,7 @@ class Jornadas extends DBObject {
 	 * @param {object} $mangas lista de las mangas de estajornada
 	 * @param {integer} $tipo campo Tipo a buscar en la tabla de mangas
 	 * @param {integer} $round En rondas K.O. indica el numero de la ronda deseada 0..7,8
-	 * @return datos de la manga pedida ; null if not found
+	 * @return {array} datos de la manga pedida ; null if not found
 	 */
 	private function fetchManga($mangas,$jornadaid,$tipo,$round=0) {
 		foreach ($mangas as $manga) {
