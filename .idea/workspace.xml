@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AnalysisUIOptions">
-    <option name="ANALYZE_TEST_SOURCES" value="false" />
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/agility/server/pdf/print_clasificacion_eq3.php" line="225" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14ab45e7-8ad8-437e-9774-106f89241576" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/agility/server/pdf/print_clasificacion_eq3.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agility/server/database/classes/Clasificaciones.php" afterPath="$PROJECT_DIR$/agility/server/database/classes/Clasificaciones.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agility/scripts/competicion.js" afterPath="$PROJECT_DIR$/agility/scripts/competicion.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agility/server/pdf/print_resultadosByEquipos.php" afterPath="$PROJECT_DIR$/agility/server/pdf/print_resultadosByEquipos.php" />
+    <list default="true" id="8e56fa58-9f30-44e0-af72-2550b8d2ca7e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="AgilityContest.iws" />
@@ -37,30 +33,18 @@
       <file leaf-file-name="print_clasificacion_eq3.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_clasificacion_eq3.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.551495" vertical-offset="5143" max-vertical-offset="6285">
-              <caret line="365" column="15" selection-start-line="365" selection-start-column="15" selection-end-line="365" selection-end-column="15" />
-              <folding>
-                <element signature="e#6#804#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="competicion.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agility/scripts/competicion.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="21424" max-vertical-offset="24210">
-              <caret line="1454" column="3" selection-start-line="1454" selection-start-column="3" selection-end-line="1454" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.3056133" vertical-offset="4893" max-vertical-offset="6435">
+              <caret line="351" column="46" selection-start-line="351" selection-start-column="46" selection-end-line="351" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/agility/scripts/common.js">
+      <file leaf-file-name="print_resultadosByEquipos.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_resultadosByEquipos.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3015" max-vertical-offset="9375">
-              <caret line="250" column="17" selection-start-line="250" selection-start-column="17" selection-end-line="250" selection-end-column="17" />
+            <state vertical-scroll-proportion="-3.75" vertical-offset="1635" max-vertical-offset="4275">
+              <caret line="130" column="5" selection-start-line="130" selection-start-column="5" selection-end-line="130" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -75,60 +59,63 @@
         <entry key="$PROJECT_DIR$" value="series-1.2.X" />
       </map>
     </option>
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/agility/server/logging.php" />
-        <option value="$PROJECT_DIR$/agility/server/database/classes/Mangas.php" />
-        <option value="$PROJECT_DIR$/agility/server/database/clasificacionesFunctions.php" />
-        <option value="$PROJECT_DIR$/agility/lib/jquery-1.11.1.js" />
-        <option value="$PROJECT_DIR$/agility/client/frm_competicion2.php" />
-        <option value="$PROJECT_DIR$/agility/server/videowall.php" />
-        <option value="$PROJECT_DIR$/agility/server/pdf/print_clasificacion_excel.php" />
-        <option value="$PROJECT_DIR$/agility/server/database/classes/DBObject.php" />
-        <option value="$PROJECT_DIR$/agility/server/database/classes/Guias.php" />
-        <option value="$PROJECT_DIR$/agility/server/database/clubFunctions.php" />
-        <option value="$PROJECT_DIR$/agility/server/database/classes/Clubes.php" />
-        <option value="$PROJECT_DIR$/agility/server/pdf/fpdf.php" />
-        <option value="$PROJECT_DIR$/agility/server/pdf/print_etiquetas_pdf.php" />
-        <option value="$PROJECT_DIR$/agility/server/pdf/print_inscritosByPrueba.php" />
-        <option value="$PROJECT_DIR$/agility/server/pdf/print_common.php" />
-        <option value="$PROJECT_DIR$/agility/server/auth/Config.php" />
+        <option value="$PROJECT_DIR$/agility/client/dialogs/dlg_jueces.inc" />
+        <option value="$PROJECT_DIR$/agility/client/dialogs/dlg_pruebas.inc" />
+        <option value="$PROJECT_DIR$/agility/client/dialogs/dlg_editInscripcion.inc" />
+        <option value="$PROJECT_DIR$/agility/client/dialogs/dlg_ordensalida.inc" />
+        <option value="$PROJECT_DIR$/agility/client/dialogs/dlg_competicion.inc" />
+        <option value="$PROJECT_DIR$/agility/client/dialogs/dlg_resultadosManga.inc" />
         <option value="$PROJECT_DIR$/agility/client/dialogs/dlg_jornadas.inc" />
-        <option value="$PROJECT_DIR$/agility/client/frm_clasificaciones_eq3.php" />
-        <option value="$PROJECT_DIR$/agility/client/frm_clasificaciones2.php" />
-        <option value="$PROJECT_DIR$/agility/scripts/common.js" />
-        <option value="$PROJECT_DIR$/agility/server/pdf/print_ordenTandas.php" />
-        <option value="$PROJECT_DIR$/agility/scripts/easyui-patches.js" />
-        <option value="$PROJECT_DIR$/agility/tablet/tablet_competicion.php" />
+        <option value="$PROJECT_DIR$/agility/css/style.css" />
+        <option value="$PROJECT_DIR$/agility/client/frm_competicion2.php" />
+        <option value="$PROJECT_DIR$/agility/client/frm_clubes.php" />
+        <option value="$PROJECT_DIR$/agility/client/dialogs/dlg_newInscripcion.inc" />
+        <option value="$PROJECT_DIR$/agility/server/pdf/fpdf.css" />
+        <option value="$PROJECT_DIR$/agility/client/dialogs/dlg_guias.inc" />
         <option value="$PROJECT_DIR$/agility/scripts/jueces.js" />
-        <option value="$PROJECT_DIR$/agility/scripts/tandas.js" />
-        <option value="$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/src/jquery.parser.js" />
-        <option value="$PROJECT_DIR$/agility/server/pdf/print_podium.php" />
-        <option value="$PROJECT_DIR$/agility/server/pdf/print_equiposByJornada.php" />
-        <option value="$PROJECT_DIR$/agility/server/pdf/print_ordenDeSalida.php" />
-        <option value="$PROJECT_DIR$/agility/server/pdf/print_resultadosByManga.php" />
-        <option value="$PROJECT_DIR$/agility/server/database/classes/Inscripciones.php" />
-        <option value="$PROJECT_DIR$/agility/server/tools.php" />
-        <option value="$PROJECT_DIR$/agility/server/database/classes/Dogs.php" />
-        <option value="$PROJECT_DIR$/agility/server/database/classes/Eventos.php" />
-        <option value="$PROJECT_DIR$/agility/server/database/classes/Jornadas.php" />
-        <option value="$PROJECT_DIR$/agility/server/database/classes/Resultados.php" />
-        <option value="$PROJECT_DIR$/agility/server/database/classes/Tandas.php" />
-        <option value="$PROJECT_DIR$/agility/public/pb_inscripciones.inc" />
-        <option value="$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/demo/combobox/customformat.html" />
-        <option value="$PROJECT_DIR$/agility/videowall/vw_ordensalida.inc" />
-        <option value="$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/demo/datagrid/rowediting.html" />
-        <option value="$PROJECT_DIR$/agility/public/pb_parciales.inc" />
+        <option value="$PROJECT_DIR$/agility/scripts/common.js" />
+        <option value="$PROJECT_DIR$/agility/tablet/tablet_competicion.php" />
+        <option value="$PROJECT_DIR$/agility/tablet/tablet_entradadatos.inc" />
+        <option value="$PROJECT_DIR$/agility/public/index.php" />
         <option value="$PROJECT_DIR$/agility/public/pb_finales.inc" />
-        <option value="$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" />
-        <option value="$PROJECT_DIR$/agility/server/auth/AuthManager.php" />
-        <option value="$PROJECT_DIR$/agility/server/pdf/print_clasificacion.php" />
+        <option value="$PROJECT_DIR$/agility/public/pb_parciales.inc" />
+        <option value="$PROJECT_DIR$/agility/scripts/perros.js" />
+        <option value="$PROJECT_DIR$/agility/lib/jquery-1.11.1.js" />
+        <option value="$PROJECT_DIR$/agility/public/public.js" />
+        <option value="$PROJECT_DIR$/agility/chrono/chrono.js" />
+        <option value="$PROJECT_DIR$/agility/tablet/tablet.js" />
+        <option value="$PROJECT_DIR$/agility/server/database/classes/Mangas.php" />
+        <option value="$PROJECT_DIR$/agility/server/database/classes/Jornadas.php" />
         <option value="$PROJECT_DIR$/agility/server/pdf/print_entradaDeDatos.php" />
+        <option value="$PROJECT_DIR$/agility/server/tools.php" />
+        <option value="$PROJECT_DIR$/extras/agility_teams_test.sql" />
+        <option value="$PROJECT_DIR$/agility/server/database/classes/Tandas.php" />
+        <option value="$PROJECT_DIR$/extras/agility.sql" />
+        <option value="$PROJECT_DIR$/agility/server/database/classes/Pruebas.php" />
+        <option value="$PROJECT_DIR$/agility/client/dialogs/dlg_resultados_eq3.inc" />
+        <option value="$PROJECT_DIR$/agility/scripts/easyui-patches.js" />
+        <option value="$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-groupview.html" />
+        <option value="$PROJECT_DIR$/agility/server/pdf/print_podium.php" />
+        <option value="$PROJECT_DIR$/agility/server/pdf/print_clasificacion.php" />
+        <option value="$PROJECT_DIR$/agility/server/database/classes/Resultados.php" />
+        <option value="$PROJECT_DIR$/agility/server/pdf/print_clasificacion_excel.php" />
+        <option value="$PROJECT_DIR$/agility/server/pdf/print_resultadosEquipos3.php" />
         <option value="$PROJECT_DIR$/agility/server/pdf/print_resultadosByEquipos.php" />
-        <option value="$PROJECT_DIR$/agility/scripts/competicion.js" />
+        <option value="$PROJECT_DIR$/agility/client/frm_inscripciones.php" />
+        <option value="$PROJECT_DIR$/agility/index.php" />
+        <option value="$PROJECT_DIR$/agility/client/frm_competicion.php" />
+        <option value="$PROJECT_DIR$/agility/client/frm_clasificaciones.php" />
+        <option value="$PROJECT_DIR$/agility/client/frm_clasificaciones_eq3.php" />
         <option value="$PROJECT_DIR$/agility/server/database/classes/Clasificaciones.php" />
+        <option value="$PROJECT_DIR$/agility/css/datagrid.css" />
+        <option value="$PROJECT_DIR$/agility/scripts/competicion.js" />
         <option value="$PROJECT_DIR$/agility/server/pdf/print_clasificacion_eq3.php" />
       </list>
     </option>
@@ -136,12 +123,28 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP 5.5" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="140" />
-    <option name="y" value="63" />
-    <option name="width" value="1510" />
-    <option name="height" value="953" />
+    <option name="x" value="205" />
+    <option name="y" value="326" />
+    <option name="width" value="1630" />
+    <option name="height" value="979" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Blade files</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -150,7 +153,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -253,55 +256,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AgilityContest" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AgilityContest" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agility" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="classes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AgilityContest" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="AgilityContest" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="agility" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -310,17 +265,17 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="FullScreen" value="false" />
-    <property name="options.lastSelected" value="preferences.keymap" />
+    <property name="options.lastSelected" value="Errors" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../git-localrepo" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FullScreen" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/agility/client" />
       <recent name="$PROJECT_DIR$/agility/server/pdf" />
-      <recent name="$PROJECT_DIR$/agility/scripts" />
-      <recent name="$PROJECT_DIR$/agility/client/dialogs" />
     </key>
   </component>
   <component name="RunManager">
@@ -347,7 +302,7 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server" server_id="87499e98-b60d-47c2-845f-0b973514f30e" server_name="Localhost">
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server" server_id="359c0a07-0534-45d3-83e9-1f24f98e5b59" server_name="Localhost">
       <method />
     </configuration>
     <list size="0" />
@@ -358,185 +313,204 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="14ab45e7-8ad8-437e-9774-106f89241576" name="Default" comment="" />
-      <created>1430119060227</created>
+      <changelist id="8e56fa58-9f30-44e0-af72-2550b8d2ca7e" name="Default" comment="" />
+      <created>1429951177487</created>
       <option name="number" value="Default" />
-      <updated>1430119060227</updated>
+      <updated>1429951177487</updated>
     </task>
-    <task id="LOCAL-00001" summary="tablet/equipos: Don't try to collapse an already collapsed subgrid">
-      <created>1430128270920</created>
+    <task id="LOCAL-00001" summary="Add PhpStorm Project related files">
+      <created>1429951943132</created>
       <option name="number" value="00001" />
       <option name="project" value="LOCAL" />
-      <updated>1430128270920</updated>
+      <updated>1429951943132</updated>
     </task>
-    <task id="LOCAL-00002" summary="VerifyTeam() done. Several bugfixes in frm_equipos related code">
-      <created>1430139890280</created>
+    <task id="LOCAL-00002" summary="revert typo">
+      <created>1429952071590</created>
       <option name="number" value="00002" />
       <option name="project" value="LOCAL" />
-      <updated>1430139890280</updated>
+      <updated>1429952071590</updated>
     </task>
-    <task id="LOCAL-00003" summary="Add 'Raza' to ordenSalida.pdf info">
-      <created>1430204620384</created>
+    <task id="LOCAL-00003" summary="Resultados::insert fix row field count for prepared statement. Add 'Raza'">
+      <created>1430034892616</created>
       <option name="number" value="00003" />
       <option name="project" value="LOCAL" />
-      <updated>1430204620384</updated>
+      <updated>1430034892616</updated>
     </task>
-    <task id="LOCAL-00004" summary="fix exception handling in pdf functions">
-      <created>1430204858052</created>
+    <task id="LOCAL-00004" summary="Fix &quot;inscripciones&quot; layout">
+      <created>1430045949142</created>
       <option name="number" value="00004" />
       <option name="project" value="LOCAL" />
-      <updated>1430204858052</updated>
+      <updated>1430045949142</updated>
     </task>
-    <task id="LOCAL-00005" summary="remove no longer compatible .sql files">
-      <created>1430205038011</created>
+    <task id="LOCAL-00005" summary="Fix openTeamWindows related issues">
+      <created>1430048300911</created>
       <option name="number" value="00005" />
       <option name="project" value="LOCAL" />
-      <updated>1430205038011</updated>
+      <updated>1430048300911</updated>
     </task>
-    <task id="LOCAL-00006" summary="client side print_equipos. Fixes with Team window. First work in serverside print_equipos">
-      <created>1430215071831</created>
+    <task id="LOCAL-00006" summary="Some Team handling bugs fixed. Prettyprint ordensalida. TODO: revise inscription related log errors">
+      <created>1430071975036</created>
       <option name="number" value="00006" />
       <option name="project" value="LOCAL" />
-      <updated>1430215071831</updated>
+      <updated>1430071975036</updated>
     </task>
-    <task id="LOCAL-00007" summary="print_equiposByJornada mostly done. TODO: add Club Logos">
-      <created>1430223492233</created>
+    <task id="LOCAL-00007" summary="dlg_resultados_eq3: fix group rendering. Update test database">
+      <created>1430339102802</created>
       <option name="number" value="00007" />
       <option name="project" value="LOCAL" />
-      <updated>1430223492233</updated>
+      <updated>1430339102802</updated>
     </task>
-    <task id="LOCAL-00008" summary="Add test database for checking team contests">
-      <created>1430223762589</created>
+    <task id="LOCAL-00008" summary="a bunch of warning and jquery selector optimization fixes">
+      <created>1430422117575</created>
       <option name="number" value="00008" />
       <option name="project" value="LOCAL" />
-      <updated>1430223762589</updated>
+      <updated>1430422117575</updated>
     </task>
-    <task id="LOCAL-00009" summary="Add Logos into team listings">
-      <created>1430225631599</created>
+    <task id="LOCAL-00009" summary="Tandas::populateJornada() Properly handle pre-agility. Database fixes">
+      <created>1430431251133</created>
       <option name="number" value="00009" />
       <option name="project" value="LOCAL" />
-      <updated>1430225631599</updated>
+      <updated>1430431251133</updated>
     </task>
-    <task id="LOCAL-00010" summary="Prepare frm_competicion2 to support team/open/ko contests">
-      <created>1430292626311</created>
+    <task id="LOCAL-00010" summary="Team results: show properly ordered datagrid groupview">
+      <created>1430439067916</created>
       <option name="number" value="00010" />
       <option name="project" value="LOCAL" />
-      <updated>1430292626311</updated>
+      <updated>1430439067916</updated>
     </task>
-    <task id="LOCAL-00011" summary="Only allow inscription for dog belonging active federation">
-      <created>1430293305688</created>
+    <task id="LOCAL-00011" summary="stupid bug in $.messager.radio">
+      <created>1430468584977</created>
       <option name="number" value="00011" />
       <option name="project" value="LOCAL" />
-      <updated>1430293305688</updated>
+      <updated>1430468584977</updated>
     </task>
-    <task id="LOCAL-00012" summary="Prepare new file dlg_resultados_eq3">
-      <created>1430296756975</created>
+    <task id="LOCAL-00012" summary="more team_results debbuging">
+      <created>1430475042254</created>
       <option name="number" value="00012" />
       <option name="project" value="LOCAL" />
-      <updated>1430296756975</updated>
+      <updated>1430475042254</updated>
     </task>
-    <task id="LOCAL-00013" summary="backport bugfixes from 2.0.0b master branch">
-      <created>1430298759285</created>
+    <task id="LOCAL-00013" summary="team_results expand/collapse issues finally works">
+      <created>1430476144736</created>
       <option name="number" value="00013" />
       <option name="project" value="LOCAL" />
-      <updated>1430298759285</updated>
+      <updated>1430476144736</updated>
     </task>
-    <task id="LOCAL-00014" summary="Fix LC_NUMERIC issue. Add TeamInfo to Resultados. New dlg_resultados_eq3 window">
-      <created>1430307363711</created>
+    <task id="LOCAL-00014" summary="Preliminary support for evaluate puntos in UCA">
+      <created>1430608159718</created>
       <option name="number" value="00014" />
       <option name="project" value="LOCAL" />
-      <updated>1430307363711</updated>
+      <updated>1430608159718</updated>
     </task>
-    <task id="LOCAL-00015" summary="properly reload dlg_resultados dialog on jornada change">
-      <created>1430310142295</created>
+    <task id="LOCAL-00015" summary="More on UCA/RFEC clasification points support">
+      <created>1430653719662</created>
       <option name="number" value="00015" />
       <option name="project" value="LOCAL" />
-      <updated>1430310142295</updated>
+      <updated>1430653719662</updated>
     </task>
-    <task id="LOCAL-00016" summary="css fixes for datagrid groupview">
-      <created>1430312214110</created>
+    <task id="LOCAL-00016" summary="print_teamResults: evaluate done. TODO: populate PDF">
+      <created>1430696046821</created>
       <option name="number" value="00016" />
       <option name="project" value="LOCAL" />
-      <updated>1430312214110</updated>
+      <updated>1430696046821</updated>
     </task>
-    <task id="LOCAL-00017" summary="Upgrade to jquery-easyui-1.4.2. Fix $.messager resizing issues">
-      <created>1430384216643</created>
+    <task id="LOCAL-00017" summary="print_teamResults: add extra &quot;No presentado&quot; when incomplete team results">
+      <created>1430719093699</created>
       <option name="number" value="00017" />
       <option name="project" value="LOCAL" />
-      <updated>1430384216643</updated>
+      <updated>1430719093699</updated>
     </task>
-    <task id="LOCAL-00018" summary="create a separate file for easyui patches">
-      <created>1430385039533</created>
+    <task id="LOCAL-00018" summary="print_teamResults mostly done">
+      <created>1430734047401</created>
       <option name="number" value="00018" />
       <option name="project" value="LOCAL" />
-      <updated>1430385039533</updated>
+      <updated>1430734047401</updated>
     </task>
-    <task id="LOCAL-00019" summary="more code cleanup">
-      <created>1430387202448</created>
+    <task id="LOCAL-00019" summary="preliminary support for team clasificaciones. Fix DOM cleanups on team windows">
+      <created>1430747531044</created>
       <option name="number" value="00019" />
       <option name="project" value="LOCAL" />
-      <updated>1430387202448</updated>
+      <updated>1430747531044</updated>
     </task>
-    <task id="LOCAL-00020" summary="even more code cleanup">
-      <created>1430391363724</created>
+    <task id="LOCAL-00020" summary="continuesupport for team clasificaciones.">
+      <created>1430750561823</created>
       <option name="number" value="00020" />
       <option name="project" value="LOCAL" />
-      <updated>1430391363724</updated>
+      <updated>1430750561823</updated>
     </task>
-    <task id="LOCAL-00021" summary="Use specific Federation php class instead by mean of Config.php">
-      <created>1430393727427</created>
+    <task id="LOCAL-00021" summary="continuesupport for team clasificaciones (2)">
+      <created>1430761871068</created>
       <option name="number" value="00021" />
       <option name="project" value="LOCAL" />
-      <updated>1430393727427</updated>
+      <updated>1430761871068</updated>
     </task>
-    <task id="LOCAL-00022" summary="Bughunting in jornadas definition">
-      <created>1430395965923</created>
+    <task id="LOCAL-00022" summary="frm_clasificaciones_eq3 finally works">
+      <created>1430770878976</created>
       <option name="number" value="00022" />
       <option name="project" value="LOCAL" />
-      <updated>1430395965923</updated>
+      <updated>1430770878976</updated>
     </task>
-    <task id="LOCAL-00023" summary="Add missing jquery-easyui-1.4.2 library to github">
-      <created>1430415826646</created>
+    <task id="LOCAL-00023" summary="a bit of  cosmetic changes">
+      <created>1430771836432</created>
       <option name="number" value="00023" />
       <option name="project" value="LOCAL" />
-      <updated>1430415826646</updated>
+      <updated>1430771836432</updated>
     </task>
-    <task id="LOCAL-00024" summary="A bunch of warnings and optimizations from code analyzer">
-      <created>1430820180417</created>
+    <task id="LOCAL-00024" summary="print_clasificacion_eq3 Done !hooray!">
+      <created>1430853258638</created>
       <option name="number" value="00024" />
       <option name="project" value="LOCAL" />
-      <updated>1430820180417</updated>
+      <updated>1430853258639</updated>
     </task>
     <option name="localTasksCounter" value="25" />
     <servers />
   </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="140" y="63" width="1510" height="953" extended-state="0" />
+    <frame x="205" y="326" width="1630" height="979" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="File Transfer" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18978103" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3258294" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900944" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900944" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295063" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3276699" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3276699" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296837" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24968474" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22510232" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30218446" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" x="224" y="113" width="1333" height="796" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24337958" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900944" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3258294" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900944" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39976415" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -554,499 +528,413 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="tablet/equipos: Don't try to collapse an already collapsed subgrid" />
-    <MESSAGE value="VerifyTeam() done. Several bugfixes in frm_equipos related code" />
-    <MESSAGE value="Add 'Raza' to ordenSalida.pdf info" />
-    <MESSAGE value="fix exception handling in pdf functions" />
-    <MESSAGE value="remove no longer compatible .sql files" />
-    <MESSAGE value="client side print_equipos. Fixes with Team window. First work in serverside print_equipos" />
-    <MESSAGE value="print_equiposByJornada mostly done. TODO: add Club Logos" />
-    <MESSAGE value="Add test database for checking team contests" />
-    <MESSAGE value="Add Logos into team listings" />
-    <MESSAGE value="Prepare frm_competicion2 to support team/open/ko contests" />
-    <MESSAGE value="Only allow inscription for dog belonging active federation" />
-    <MESSAGE value="Prepare new file dlg_resultados_eq3" />
-    <MESSAGE value="backport bugfixes from 2.0.0b master branch" />
-    <MESSAGE value="Fix LC_NUMERIC issue. Add TeamInfo to Resultados. New dlg_resultados_eq3 window" />
-    <MESSAGE value="properly reload dlg_resultados dialog on jornada change" />
-    <MESSAGE value="css fixes for datagrid groupview" />
-    <MESSAGE value="Upgrade to jquery-easyui-1.4.2. Fix $.messager resizing issues" />
-    <MESSAGE value="create a separate file for easyui patches" />
-    <MESSAGE value="code cleanup" />
-    <MESSAGE value="more code cleanup" />
-    <MESSAGE value="even more code cleanup" />
-    <MESSAGE value="Use specific Federation php class instead by mean of Config.php" />
-    <MESSAGE value="Bughunting in jornadas definition" />
-    <MESSAGE value="Add missing jquery-easyui-1.4.2 library to github" />
-    <MESSAGE value="A bunch of warnings and optimizations from code analyzer" />
-    <option name="LAST_COMMIT_MESSAGE" value="A bunch of warnings and optimizations from code analyzer" />
+    <MESSAGE value="Add PhpStorm Project related files" />
+    <MESSAGE value="revert typo" />
+    <MESSAGE value="Resultados::insert fix row field count for prepared statement. Add 'Raza'" />
+    <MESSAGE value="Fix &quot;inscripciones&quot; layout" />
+    <MESSAGE value="Fix openTeamWindows related issues" />
+    <MESSAGE value="Some Team handling bugs fixed. Prettyprint ordensalida. TODO: revise inscription related log errors" />
+    <MESSAGE value="dlg_resultados_eq3: fix group rendering. Update test database" />
+    <MESSAGE value="a bunch of warning and jquery selector optimization fixes" />
+    <MESSAGE value="Tandas::populateJornada() Properly handle pre-agility. Database fixes" />
+    <MESSAGE value="Team results: show properly ordered datagrid groupview" />
+    <MESSAGE value="stupid bug in $.messager.radio" />
+    <MESSAGE value="more team_results debbuging" />
+    <MESSAGE value="team_results expand/collapse issues finally works" />
+    <MESSAGE value="Preliminary support for evaluate puntos in UCA" />
+    <MESSAGE value="More on UCA/RFEC clasification points support" />
+    <MESSAGE value="print_teamResults: evaluate done. TODO: populate PDF" />
+    <MESSAGE value="print_teamResults: add extra &quot;No presentado&quot; when incomplete team results" />
+    <MESSAGE value="print_teamResults mostly done" />
+    <MESSAGE value="preliminary support for team clasificaciones" />
+    <MESSAGE value="preliminary support for team clasificaciones. Fix DOM cleanups on team windows" />
+    <MESSAGE value="continuesupport for team clasificaciones." />
+    <MESSAGE value="continuesupport for team clasificaciones (2)" />
+    <MESSAGE value="frm_clasificaciones_eq3 finally works" />
+    <MESSAGE value="a bit of  cosmetic changes" />
+    <MESSAGE value="print_clasificacion_eq3 Done !hooray!" />
+    <option name="LAST_COMMIT_MESSAGE" value="print_clasificacion_eq3 Done !hooray!" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="5" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/agility/server/database/mangaFunctions.php">
+    <entry file="file://$PROJECT_DIR$/agility/client/frm_jueces.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.375" vertical-offset="102" max-vertical-offset="660">
-          <caret line="40" column="56" selection-start-line="40" selection-start-column="56" selection-end-line="40" selection-end-column="56" />
+        <state vertical-scroll-proportion="-6.6666665" vertical-offset="260" max-vertical-offset="1725">
+          <caret line="28" column="28" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/database/clubFunctions.php">
+    <entry file="file://$PROJECT_DIR$/agility/client/frm_admin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.625" vertical-offset="282" max-vertical-offset="750">
-          <caret line="46" column="49" selection-start-line="46" selection-start-column="49" selection-end-line="46" selection-end-column="49" />
+        <state vertical-scroll-proportion="-6.6666665" vertical-offset="305" max-vertical-offset="3105">
+          <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/database/classes/Clubes.php">
+    <entry file="file://$PROJECT_DIR$/agility/client/dialogs/dlg_editInscripcion.inc">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-36.403847" vertical-offset="2307" max-vertical-offset="5670">
-          <caret line="295" column="66" selection-start-line="295" selection-start-column="63" selection-end-line="295" selection-end-column="66" />
+        <state vertical-scroll-proportion="-7.1666665" vertical-offset="1958" max-vertical-offset="3060">
+          <caret line="142" column="8" selection-start-line="142" selection-start-column="8" selection-end-line="142" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/client/dialogs/dlg_configuracion.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.041667" vertical-offset="2603" max-vertical-offset="3060">
+          <caret line="188" column="19" selection-start-line="188" selection-start-column="19" selection-end-line="188" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/chrono/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.6666665" vertical-offset="2660" max-vertical-offset="3255">
+          <caret line="188" column="24" selection-start-line="188" selection-start-column="24" selection-end-line="188" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/server/pdf/fpdf.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
+          <caret line="8" column="77" selection-start-line="8" selection-start-column="77" selection-end-line="8" selection-end-column="77" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agility/server/pdf/fpdf.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-201.59616" vertical-offset="10667" max-vertical-offset="27060">
-          <caret line="1416" column="17" selection-start-line="1416" selection-start-column="17" selection-end-line="1416" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_clasificacion_excel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-119.375" vertical-offset="0" max-vertical-offset="4455">
-          <caret line="206" column="42" selection-start-line="206" selection-start-column="42" selection-end-line="206" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_etiquetas_pdf.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.5" vertical-offset="270" max-vertical-offset="4320">
-          <caret line="61" column="60" selection-start-line="61" selection-start-column="60" selection-end-line="61" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/client/dialogs/dlg_jornadas.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.931596" vertical-offset="2611" max-vertical-offset="3405">
-          <caret line="95" column="58" selection-start-line="95" selection-start-column="58" selection-end-line="95" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/auth/Config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16123779" vertical-offset="861" max-vertical-offset="4785">
-          <caret line="79" column="14" selection-start-line="79" selection-start-column="14" selection-end-line="79" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_common.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53745925" vertical-offset="450" max-vertical-offset="3345">
-          <caret line="67" column="7" selection-start-line="67" selection-start-column="7" selection-end-line="67" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/database/clasificacionesFunctions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6403622" vertical-offset="0" max-vertical-offset="773">
-          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/client/frm_clasificaciones_eq3.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.791667" vertical-offset="1964" max-vertical-offset="3885">
-          <caret line="145" column="72" selection-start-line="145" selection-start-column="72" selection-end-line="145" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/client/frm_clasificaciones2.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.125" vertical-offset="2025" max-vertical-offset="3840">
-          <caret line="148" column="6" selection-start-line="148" selection-start-column="6" selection-end-line="148" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/adminFunctions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.458334" vertical-offset="1957" max-vertical-offset="2505">
-          <caret line="175" column="0" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/scripts/easyui-patches.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1895" max-vertical-offset="2475">
-          <caret line="173" column="2" selection-start-line="173" selection-start-column="2" selection-end-line="173" selection-end-column="2" />
-          <folding>
-            <marker date="1430818268756" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1430818268756" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/themes/metro/progressbar.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="570">
-          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/tablet/tablet_competicion.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.833333" vertical-offset="2698" max-vertical-offset="3270">
-          <caret line="194" column="11" selection-start-line="194" selection-start-column="11" selection-end-line="194" selection-end-column="11" />
-          <folding>
-            <marker date="1430806986071" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_ordenTandas.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-35.958332" vertical-offset="1132" max-vertical-offset="2325">
-          <caret line="148" column="18" selection-start-line="148" selection-start-column="18" selection-end-line="148" selection-end-column="18" />
-          <folding />
+        <state vertical-scroll-proportion="-6.6666665" vertical-offset="15560" max-vertical-offset="27060">
+          <caret line="1054" column="9" selection-start-line="1054" selection-start-column="9" selection-end-line="1054" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agility/scripts/jueces.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="448" max-vertical-offset="1635">
-          <caret line="57" column="37" selection-start-line="57" selection-start-column="37" selection-end-line="57" selection-end-column="37" />
-          <folding />
+        <state vertical-scroll-proportion="0.17671518" vertical-offset="695" max-vertical-offset="1635">
+          <caret line="67" column="34" selection-start-line="67" selection-start-column="34" selection-end-line="67" selection-end-column="34" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/src/jquery.parser.js">
+    <entry file="file://$PROJECT_DIR$/agility/client/dialogs/dlg_competicion.inc">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33211678" vertical-offset="3358" max-vertical-offset="5310">
-          <caret line="244" column="25" selection-start-line="244" selection-start-column="25" selection-end-line="244" selection-end-column="25" />
-          <folding>
-            <marker date="1425541369000" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
+        <state vertical-scroll-proportion="-2.522976" vertical-offset="2068" max-vertical-offset="3645">
+          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agility/scripts/tandas.js">
+    <entry file="file://$PROJECT_DIR$/agility/client/dialogs/dlg_guias.inc">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="478" max-vertical-offset="1575">
-          <caret line="59" column="51" selection-start-line="59" selection-start-column="51" selection-end-line="59" selection-end-column="51" />
-          <folding />
+        <state vertical-scroll-proportion="-0.6739606" vertical-offset="1403" max-vertical-offset="1860">
+          <caret line="73" column="19" selection-start-line="73" selection-start-column="19" selection-end-line="73" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/tablet/tablet_competicion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.416667" vertical-offset="2768" max-vertical-offset="3270">
+          <caret line="198" column="44" selection-start-line="198" selection-start-column="44" selection-end-line="198" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/tablet/tablet_entradadatos.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.0416667" vertical-offset="1678" max-vertical-offset="3225">
+          <caret line="107" column="47" selection-start-line="107" selection-start-column="47" selection-end-line="107" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/server/fileUpload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.3333335" vertical-offset="181" max-vertical-offset="825">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/client/frm_competicion2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.3333335" vertical-offset="283" max-vertical-offset="2295">
+          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/scripts/perros.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1925" max-vertical-offset="3660">
+          <caret line="154" column="23" selection-start-line="154" selection-start-column="23" selection-end-line="154" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/lib/jquery-1.11.1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="21815" max-vertical-offset="154530">
+          <caret line="1477" column="16" selection-start-line="1477" selection-start-column="16" selection-end-line="1477" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/chrono/chrono.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2700">
+          <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/tablet/tablet.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="155" max-vertical-offset="6675">
+          <caret line="36" column="19" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_inscritosByPrueba.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.0833335" vertical-offset="2455" max-vertical-offset="9960">
+        <state vertical-scroll-proportion="-6.3333335" vertical-offset="2473" max-vertical-offset="9960">
           <caret line="190" column="16" selection-start-line="190" selection-start-column="16" selection-end-line="190" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_equiposByJornada.php">
+    <entry file="file://$PROJECT_DIR$/agility/server/database/mangaFunctions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.166667" vertical-offset="2204" max-vertical-offset="2715">
-          <caret line="183" column="31" selection-start-line="183" selection-start-column="31" selection-end-line="183" selection-end-column="31" />
-          <folding />
+        <state vertical-scroll-proportion="-7.1666665" vertical-offset="203" max-vertical-offset="660">
+          <caret line="40" column="56" selection-start-line="40" selection-start-column="56" selection-end-line="40" selection-end-column="56" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_ordenDeSalida.php">
+    <entry file="file://$PROJECT_DIR$/agility/server/database/classes/Mangas.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.458334" vertical-offset="2311" max-vertical-offset="2835">
-          <caret line="197" column="2" selection-start-line="197" selection-start-column="2" selection-end-line="197" selection-end-column="2" />
-          <folding />
+        <state vertical-scroll-proportion="-9.375" vertical-offset="4050" max-vertical-offset="6390">
+          <caret line="300" column="23" selection-start-line="300" selection-start-column="23" selection-end-line="300" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_resultadosByManga.php">
+    <entry file="file://$PROJECT_DIR$/agility/server/database/classes/OrdenSalida.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6183953" vertical-offset="2309" max-vertical-offset="2820">
-          <caret line="190" column="32" selection-start-line="190" selection-start-column="32" selection-end-line="190" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/database/classes/Inscripciones.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3189824" vertical-offset="902" max-vertical-offset="7020">
-          <caret line="86" column="38" selection-start-line="86" selection-start-column="38" selection-end-line="86" selection-end-column="38" />
-          <folding>
-            <marker date="1430819772648" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1430819772648" expanded="true" signature="-1:-1" placeholder="UPDATE Inscr..." />
-            <marker date="1430819772648" expanded="true" signature="-1:-1" placeholder="UPDATE Inscr..." />
-            <marker date="1430819772648" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1430819772648" expanded="true" signature="-1:-1" placeholder="SELECT Inscr..Inscripciones..." />
-            <marker date="1430819772648" expanded="true" signature="-1:-1" placeholder="SELECT count..Inscripciones..." />
-            <marker date="1430819772648" expanded="true" signature="-1:-1" placeholder="SELECT Inscr..Inscripciones..." />
-            <marker date="1430819772648" expanded="true" signature="-1:-1" placeholder="UPDATE Inscr..." />
-            <marker date="1430819772648" expanded="true" signature="-1:-1" placeholder="UPDATE Resul..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/tools.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31870228" vertical-offset="1573" max-vertical-offset="3900">
-          <caret line="131" column="18" selection-start-line="131" selection-start-column="18" selection-end-line="131" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/database/classes/Jornadas.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.833333" vertical-offset="3295" max-vertical-offset="7020">
-          <caret line="260" column="37" selection-start-line="260" selection-start-column="37" selection-end-line="260" selection-end-column="37" />
-          <folding>
-            <marker date="1430819772556" expanded="true" signature="-1:-1" placeholder="UPDATE Jorna..." />
-            <marker date="1430819772556" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1430819772556" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1430819772556" expanded="true" signature="-1:-1" placeholder="UPDATE Jorna..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/database/classes/Resultados.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.19569471" vertical-offset="5515" max-vertical-offset="11955">
-          <caret line="376" column="22" selection-start-line="376" selection-start-column="22" selection-end-line="376" selection-end-column="22" />
-          <folding>
-            <marker date="1430819772680" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1430819772680" expanded="true" signature="-1:-1" placeholder="UPDATE Resul..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/database/classes/Tandas.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.3561644" vertical-offset="6347" max-vertical-offset="9600">
-          <caret line="426" column="30" selection-start-line="426" selection-start-column="30" selection-end-line="426" selection-end-column="30" />
-          <folding>
-            <marker date="1430819772684" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1430819772684" expanded="true" signature="-1:-1" placeholder="SELECT ID Fr..Tandas..." />
-            <marker date="1430819772684" expanded="true" signature="-1:-1" placeholder="UPDATE Tanda..." />
-            <marker date="1430819772684" expanded="true" signature="-1:-1" placeholder="UPDATE Tanda..." />
-            <marker date="1430819772684" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1430819772684" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1430819772684" expanded="true" signature="-1:-1" placeholder="UPDATE Tanda..." />
-            <marker date="1430819772684" expanded="true" signature="-1:-1" placeholder="UPDATE Tanda..." />
-            <marker date="1430819772684" expanded="true" signature="-1:-1" placeholder="UPDATE Tanda..." />
-            <marker date="1430819772684" expanded="true" signature="-1:-1" placeholder="UPDATE Tanda..." />
-            <marker date="1430819772684" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1430819772684" expanded="true" signature="-1:-1" placeholder="UPDATE Tanda..." />
-            <marker date="1430819772684" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/public/pb_inscripciones.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.083333" vertical-offset="337" max-vertical-offset="885">
-          <caret line="45" column="33" selection-start-line="45" selection-start-column="33" selection-end-line="45" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/demo/combobox/customformat.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.958333" vertical-offset="22" max-vertical-offset="555">
-          <caret line="27" column="71" selection-start-line="27" selection-start-column="71" selection-end-line="27" selection-end-column="71" />
-          <folding>
-            <marker date="1430819772547" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1430819772547" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/videowall/vw_ordensalida.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.458333" vertical-offset="382" max-vertical-offset="915">
-          <caret line="47" column="34" selection-start-line="47" selection-start-column="34" selection-end-line="47" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/demo/datagrid/rowediting.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30343512" vertical-offset="801" max-vertical-offset="1800">
-          <caret line="64" column="87" selection-start-line="64" selection-start-column="87" selection-end-line="64" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/database/classes/Dogs.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3483366" vertical-offset="2282" max-vertical-offset="4650">
-          <caret line="179" column="23" selection-start-line="179" selection-start-column="23" selection-end-line="179" selection-end-column="23" />
-          <folding>
-            <marker date="1430819772652" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-            <marker date="1430819772652" expanded="true" signature="-1:-1" placeholder="UPDATE Perro..." />
-            <marker date="1430819772652" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1430819772652" expanded="true" signature="-1:-1" placeholder="UPDATE Perro..." />
-            <marker date="1430819772652" expanded="true" signature="-1:-1" placeholder="SELECT Categ..Categorias_Perro..." />
-            <marker date="1430819772652" expanded="true" signature="-1:-1" placeholder="SELECT Grado..Grados_Perro..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/database/classes/Eventos.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34732825" vertical-offset="2338" max-vertical-offset="3225">
-          <caret line="183" column="23" selection-start-line="183" selection-start-column="23" selection-end-line="183" selection-end-column="23" />
-          <folding>
-            <marker date="1430819772562" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/plugins/jquery.draggable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="857" max-vertical-offset="4650">
-          <caret line="69" column="4" selection-start-line="69" selection-start-column="4" selection-end-line="69" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/public/pb_parciales.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.458333" vertical-offset="907" max-vertical-offset="1440">
-          <caret line="82" column="27" selection-start-line="82" selection-start-column="27" selection-end-line="82" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/demo/datagrid/cacheeditor.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.458333" vertical-offset="1468" max-vertical-offset="2310">
-          <caret line="113" column="20" selection-start-line="113" selection-start-column="20" selection-end-line="113" selection-end-column="20" />
-          <folding>
-            <marker date="1406253634000" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/public/pb_finales.inc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.5833335" vertical-offset="1753" max-vertical-offset="2400">
-          <caret line="129" column="27" selection-start-line="129" selection-start-column="27" selection-end-line="129" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/src/jquery.draggable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="898" max-vertical-offset="5895">
-          <caret line="80" column="12" selection-start-line="80" selection-start-column="12" selection-end-line="80" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/src/jquery.progressbar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="943" max-vertical-offset="1575">
-          <caret line="83" column="52" selection-start-line="83" selection-start-column="52" selection-end-line="83" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4620">
-          <caret line="10" column="55" selection-start-line="10" selection-start-column="55" selection-end-line="10" selection-end-column="55" />
-          <folding>
-            <marker date="1430819772667" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1430819772667" expanded="true" signature="-1:-1" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/auth/AuthManager.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.25" vertical-offset="3711" max-vertical-offset="5340">
-          <caret line="259" column="33" selection-start-line="259" selection-start-column="33" selection-end-line="259" selection-end-column="33" />
-          <folding>
-            <marker date="1430819772639" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1430819772639" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
-            <marker date="1430819772639" expanded="true" signature="-1:-1" placeholder="UPDATE Sesio..." />
-            <marker date="1430819772639" expanded="true" signature="-1:-1" placeholder="UPDATE Usuar..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_podium.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.083333" vertical-offset="3706" max-vertical-offset="4230">
-          <caret line="283" column="58" selection-start-line="283" selection-start-column="58" selection-end-line="283" selection-end-column="58" />
-          <folding />
+        <state vertical-scroll-proportion="-6.3333335" vertical-offset="3298" max-vertical-offset="5115">
+          <caret line="245" column="32" selection-start-line="245" selection-start-column="32" selection-end-line="245" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_entradaDeDatos.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.5717982" vertical-offset="0" max-vertical-offset="6300">
-          <caret line="96" column="22" selection-start-line="96" selection-start-column="22" selection-end-line="96" selection-end-column="22" />
-          <folding />
+        <state vertical-scroll-proportion="-2.9166667" vertical-offset="3170" max-vertical-offset="6225">
+          <caret line="231" column="22" selection-start-line="231" selection-start-column="22" selection-end-line="231" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agility/scripts/competicion.js">
+    <entry file="file://$PROJECT_DIR$/agility/server/auth/AuthManager.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="21424" max-vertical-offset="24210">
-          <caret line="1454" column="3" selection-start-line="1454" selection-start-column="3" selection-end-line="1454" selection-end-column="3" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3725" max-vertical-offset="5340">
+          <caret line="258" column="28" selection-start-line="258" selection-start-column="28" selection-end-line="258" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_resultadosByEquipos.php">
+    <entry file="file://$PROJECT_DIR$/agility/server/tools.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3986711" vertical-offset="0" max-vertical-offset="4275">
-          <caret line="31" column="56" selection-start-line="31" selection-start-column="56" selection-end-line="31" selection-end-column="56" />
-          <folding />
+        <state vertical-scroll-proportion="-24.791666" vertical-offset="1445" max-vertical-offset="3900">
+          <caret line="151" column="3" selection-start-line="151" selection-start-column="3" selection-end-line="151" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/agility/scripts/common.js">
+    <entry file="file://$PROJECT_DIR$/extras/agility.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3015" max-vertical-offset="9375">
-          <caret line="250" column="17" selection-start-line="250" selection-start-column="17" selection-end-line="250" selection-end-column="17" />
-          <folding />
+        <state vertical-scroll-proportion="0.5672269" vertical-offset="24150" max-vertical-offset="81480">
+          <caret line="1628" column="30" selection-start-line="1628" selection-start-column="30" selection-end-line="1628" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/server/database/classes/Jornadas.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="6.932039" vertical-offset="1830" max-vertical-offset="6960">
+          <caret line="375" column="20" selection-start-line="375" selection-start-column="20" selection-end-line="375" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/server/database/jornadaFunctions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.78640777" vertical-offset="0" max-vertical-offset="675">
+          <caret line="42" column="62" selection-start-line="42" selection-start-column="62" selection-end-line="42" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/server/database/classes/Pruebas.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9125249" vertical-offset="606" max-vertical-offset="3570">
+          <caret line="71" column="35" selection-start-line="71" selection-start-column="35" selection-end-line="71" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_podium.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-23.75" vertical-offset="1935" max-vertical-offset="4230">
+          <caret line="182" column="56" selection-start-line="182" selection-start-column="25" selection-end-line="182" selection-end-column="56" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_clasificacion.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="120.0" vertical-offset="3645" max-vertical-offset="4470">
-          <caret line="66" column="46" selection-start-line="66" selection-start-column="46" selection-end-line="66" selection-end-column="46" />
-          <folding />
+        <state vertical-scroll-proportion="-40.625" vertical-offset="2250" max-vertical-offset="4470">
+          <caret line="230" column="4" selection-start-line="230" selection-start-column="4" selection-end-line="230" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_clasificacion_excel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.66120905" vertical-offset="2295" max-vertical-offset="4455">
+          <caret line="203" column="39" selection-start-line="203" selection-start-column="39" selection-end-line="203" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_resultadosByManga.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-26.083334" vertical-offset="1954" max-vertical-offset="2820">
+          <caret line="187" column="86" selection-start-line="187" selection-start-column="86" selection-end-line="187" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/server/database/classes/Equipos.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="9.375" vertical-offset="225" max-vertical-offset="6270">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_equiposByJornada.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="2715">
+          <caret line="44" column="90" selection-start-line="43" selection-start-column="90" selection-end-line="44" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.58498025" vertical-offset="2899" max-vertical-offset="3810">
+          <caret line="213" column="131" selection-start-line="213" selection-start-column="131" selection-end-line="213" selection-end-column="131" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/client/frm_inscripciones.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7976879" vertical-offset="1236" max-vertical-offset="1845">
+          <caret line="110" column="21" selection-start-line="110" selection-start-column="21" selection-end-line="110" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/client/frm_clasificaciones.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46435452" vertical-offset="284" max-vertical-offset="810">
+          <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/client/frm_competicion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32177263" vertical-offset="493" max-vertical-offset="1155">
+          <caret line="44" column="8" selection-start-line="44" selection-start-column="8" selection-end-line="44" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/client/dialogs/dlg_selectJornada.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.4104047" vertical-offset="1956" max-vertical-offset="2565">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/scripts/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="639" max-vertical-offset="9315">
+          <caret line="79" column="3" selection-start-line="79" selection-start-column="3" selection-end-line="79" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/server/database/clasificacionesFunctions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.75" vertical-offset="66" max-vertical-offset="585">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/server/database/classes/Resultados.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="63.083332" vertical-offset="6974" max-vertical-offset="11955">
+          <caret line="379" column="35" selection-start-line="379" selection-start-column="35" selection-end-line="379" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/client/dialogs/dlg_resultados_eq3.inc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.5" vertical-offset="1530" max-vertical-offset="2385">
+          <caret line="98" column="18" selection-start-line="98" selection-start-column="18" selection-end-line="98" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agility/server/database/classes/Clasificaciones.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-47.5" vertical-offset="0" max-vertical-offset="3915">
-          <caret line="91" column="41" selection-start-line="91" selection-start-column="41" selection-end-line="91" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.24951644" vertical-offset="3276" max-vertical-offset="3915">
+          <caret line="242" column="22" selection-start-line="242" selection-start-column="22" selection-end-line="242" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/client/frm_clasificaciones2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3840">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/css/datagrid.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="582" max-vertical-offset="1125">
+          <caret line="69" column="11" selection-start-line="69" selection-start-column="11" selection-end-line="69" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/client/frm_clasificaciones_eq3.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.833333" vertical-offset="3181" max-vertical-offset="3885">
+          <caret line="231" column="13" selection-start-line="231" selection-start-column="13" selection-end-line="231" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/scripts/competicion.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8336414" vertical-offset="1199" max-vertical-offset="24930">
+          <caret line="125" column="10" selection-start-line="125" selection-start-column="10" selection-end-line="125" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_resultadosByEquipos.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.75" vertical-offset="1635" max-vertical-offset="4275">
+          <caret line="130" column="5" selection-start-line="130" selection-start-column="5" selection-end-line="130" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agility/server/pdf/print_clasificacion_eq3.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.551495" vertical-offset="5143" max-vertical-offset="6285">
-          <caret line="365" column="15" selection-start-line="365" selection-start-column="15" selection-end-line="365" selection-end-column="15" />
-          <folding>
-            <element signature="e#6#804#0#PHP" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.3056133" vertical-offset="4893" max-vertical-offset="6435">
+          <caret line="351" column="46" selection-start-line="351" selection-start-column="46" selection-end-line="351" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>
