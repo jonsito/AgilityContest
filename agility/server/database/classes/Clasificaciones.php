@@ -71,7 +71,8 @@ class Clasificaciones extends DBObject {
 			$participante=array(
 				// datos del participante
 				'Participantes' => count($c1['rows']),
-				'Dorsal' => $item['Dorsal'],
+                'Perro' => $item['Perro'],
+                'Dorsal' => $item['Dorsal'],
 				'Nombre' => $item['Nombre'],
 				'Licencia' => $item['Licencia'],
 				'Categoria' => $item['Categoria'],

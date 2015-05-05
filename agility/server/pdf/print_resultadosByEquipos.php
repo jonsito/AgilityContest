@@ -108,6 +108,7 @@ class ResultadosByEquipos extends PrintCommon {
                 $equipo['Penalizacion']+=floatval($result['Penalizacion']);
             }
         }
+
         // rastrea los equipos con menos de tres participantes y marca los que faltan
         // no presentados
         foreach($this->equipos as &$equipo) {
