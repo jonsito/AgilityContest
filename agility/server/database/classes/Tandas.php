@@ -431,7 +431,7 @@ class Tandas extends DBObject {
 		$j=$this->jornada->ID;
 		
 		// Ask dadabase to retrieve list of Tandas
-		$ses=(intval($s)>1)?"":" AND (Sesion=$s) ";
+		$ses=(intval($s)<=1)?"":" AND ( (Sesion=$s) OR (Sesion=1) )";
 		$res= $this->__select(
 				/* SELECT */	"*",
 				/* FROM */		"Tandas",

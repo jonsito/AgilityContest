@@ -37,7 +37,7 @@ $config =Config::getInstance();
 $('#tablet-reloadBtn').linkbutton();
 
 $('#tablet-window').window({
-	title: 'Orden de salida',
+	title: 'Programa de la jornada - '+workingData.datosSesion.Nombre,
 	fit: true,
 	collapsible:	false,
 	minimizable:	false,
