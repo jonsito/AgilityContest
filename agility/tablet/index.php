@@ -62,6 +62,7 @@ if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
 <script src="/agility/lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
 <?php } ?>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-groupview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
@@ -344,16 +345,13 @@ function tablet_acceptSelectJornada() {
         	    	   	// los demas valores se actualizan en la linea anterior
         	    		workingData.nombreSesion=s.Nombre;
         	    		workingData.nombrePrueba=p.Nombre;
-        	    		workingData.nombreJornada=j.Nombre;	
+                        workingData.datosJornada=j;
+                        workingData.datosSesion=s;
+        	    		workingData.nombreJornada=j.Nombre;
+                        // jornadas "normales", equipos3 y Open comparten el mismo fichero
         	    		var page="/agility/tablet/tablet_competicion.php";
-        	    		if (workingData.datosJornada.Equipos3==1) {
-        	    			page="/agility/tablet/tablet_competicion_eq3.php";
-        	    		}
         	    		if (workingData.datosJornada.Equipos4==1) {
         	    			page="/agility/tablet/tablet_competicion_eq4.php";
-        	    		}
-        	    		if (workingData.datosJornada.Open==1) {
-        	    			page="/agility/tablet/tablet_competicion_open.php";
         	    		}
         	    		if (workingData.datosJornada.KO==1) {
         	    			page="/agility/tablet/tablet_competicion_ko.php";

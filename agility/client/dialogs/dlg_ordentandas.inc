@@ -123,8 +123,6 @@ $('#ordentandas-datagrid').datagrid({
         	{ field:'Prueba',	hidden:true },
           	{ field:'Jornada',	hidden:true },
           	{ field:'Manga',	hidden:true },
-      		{ field:'From',		hidden:true },
-      		{ field:'To',		hidden:true },
       		{ field:'Nombre',	width:200, sortable:false, align:'left',title:'Actividad'},
       		{ field:'Sesion',	hidden:true },
       		{ field:'NombreSesion',width:100, sortable:false, align:'left',title:'Sesion - Ring'},

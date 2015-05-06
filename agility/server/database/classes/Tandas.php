@@ -39,69 +39,69 @@ class Tandas extends DBObject {
 	 * Grado:		Tanda's grado 
 	 */
 	public static $tipo_tanda = array (
-			0	=> array('Tipo'=>0,		'TipoManga'=>0,		'From'=>'',			'To'=>'',			'Nombre'=>'-- Sin especificar --','Categoria'=>'-',	'Grado'=>'-'),
+			0	=> array('Tipo'=>0,		'TipoManga'=>0,		'Nombre'=>'-- Sin especificar --',  'Categoria'=>'-',	'Grado'=>'-'),
 			// en pre-agility no hay categorias
-			1	=> array('Tipo'=>1,		'TipoManga'=> 1,	'From'=>'BEGIN,',	'To'=>',END',		'Nombre'=>'Pre-Agility 1',			'Categoria'=>'-LMST','Grado'=>'P.A.'),
-			2	=> array('Tipo'=>2,		'TipoManga'=> 2,	'From'=>'BEGIN,',	'To'=>',END',		'Nombre'=>'Pre-Agility 2',			'Categoria'=>'-LMST','Grado'=>'P.A.'),
-			3	=> array('Tipo'=>3,		'TipoManga'=> 3,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Agility-1 GI Large',		'Categoria'=>'L',	'Grado'=>'GI'),
-			4	=> array('Tipo'=>4,		'TipoManga'=> 3,	'From'=>'TAG_M0,',	'To'=>',TAG_S0',	'Nombre'=>'Agility-1 GI Medium',	'Categoria'=>'M',	'Grado'=>'GI'),
-			5	=> array('Tipo'=>5,		'TipoManga'=> 3,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Agility-1 GI Small',		'Categoria'=>'S',	'Grado'=>'GI'),
-			6	=> array('Tipo'=>6,		'TipoManga'=> 4,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Agility-2 GI Large',		'Categoria'=>'L',	'Grado'=>'GI'),
-			7	=> array('Tipo'=>7,		'TipoManga'=> 4,	'From'=>'TAG_M0,',	'To'=>',TAG_S0',	'Nombre'=>'Agility-2 GI Medium',	'Categoria'=>'M',	'Grado'=>'GI'),
-			8	=> array('Tipo'=>8,		'TipoManga'=> 4,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Agility-2 GI Small',		'Categoria'=>'S',	'Grado'=>'GI'),
-			9	=> array('Tipo'=>9,		'TipoManga'=> 5,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Agility GII Large',		'Categoria'=>'L',	'Grado'=>'GII'),
-			10	=> array('Tipo'=>10,	'TipoManga'=> 5,	'From'=>'TAG_M0,',	'To'=>',TAG_S0',	'Nombre'=>'Agility GII Medium',		'Categoria'=>'M',	'Grado'=>'GII'),
-			11	=> array('Tipo'=>11,	'TipoManga'=> 5,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Agility GII Small',		'Categoria'=>'S',	'Grado'=>'GII'),
-			12	=> array('Tipo'=>12,	'TipoManga'=> 6,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Agility GIII Large',		'Categoria'=>'L',	'Grado'=>'GIII'),
-			13	=> array('Tipo'=>13,	'TipoManga'=> 6,	'From'=>'TAG_M0,',	'To'=>',TAG_S0',	'Nombre'=>'Agility GIII Medium',	'Categoria'=>'M',	'Grado'=>'GIII'),
-			14	=> array('Tipo'=>14,	'TipoManga'=> 6,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Agility GIII Small',		'Categoria'=>'S',	'Grado'=>'GIII'),
-			15	=> array('Tipo'=>15,	'TipoManga'=> 7,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Agility Open Large',		'Categoria'=>'L',	'Grado'=>'-'),
-			16	=> array('Tipo'=>16,	'TipoManga'=> 7,	'From'=>'TAG_M0,',	'To'=>',TAG_S0',	'Nombre'=>'Agility Open Medium',	'Categoria'=>'M',	'Grado'=>'-'),
-			17	=> array('Tipo'=>17,	'TipoManga'=> 7,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Agility Open Small',		'Categoria'=>'S',	'Grado'=>'-'),
-			18	=> array('Tipo'=>18,	'TipoManga'=> 8,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Agility Eq. 3 Large',	'Categoria'=>'L',	'Grado'=>'-'),
-			19	=> array('Tipo'=>19,	'TipoManga'=> 8,	'From'=>'TAG_M0,',	'To'=>',TAG_S0',	'Nombre'=>'Agility Eq. 3 Medium',	'Categoria'=>'M',	'Grado'=>'-'),
-			20	=> array('Tipo'=>20,	'TipoManga'=> 8,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Agility Eq. 3 Small',	'Categoria'=>'S',	'Grado'=>'-'),
-			21	=> array('Tipo'=>21,	'TipoManga'=> 9,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Ag. Equipos 4 Large',	'Categoria'=>'M',	'Grado'=>'-'),
+			1	=> array('Tipo'=>1,		'TipoManga'=> 1,	'Nombre'=>'Pre-Agility 1',			'Categoria'=>'-LMST','Grado'=>'P.A.'),
+			2	=> array('Tipo'=>2,		'TipoManga'=> 2,	'Nombre'=>'Pre-Agility 2',			'Categoria'=>'-LMST','Grado'=>'P.A.'),
+			3	=> array('Tipo'=>3,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Large',		'Categoria'=>'L',	'Grado'=>'GI'),
+			4	=> array('Tipo'=>4,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Medium',	'Categoria'=>'M',	'Grado'=>'GI'),
+			5	=> array('Tipo'=>5,		'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Small',		'Categoria'=>'S',	'Grado'=>'GI'),
+			6	=> array('Tipo'=>6,		'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI Large',		'Categoria'=>'L',	'Grado'=>'GI'),
+			7	=> array('Tipo'=>7,		'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI Medium',	'Categoria'=>'M',	'Grado'=>'GI'),
+			8	=> array('Tipo'=>8,		'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI Small',		'Categoria'=>'S',	'Grado'=>'GI'),
+			9	=> array('Tipo'=>9,		'TipoManga'=> 5,	'Nombre'=>'Agility GII Large',		'Categoria'=>'L',	'Grado'=>'GII'),
+			10	=> array('Tipo'=>10,	'TipoManga'=> 5,	'Nombre'=>'Agility GII Medium',		'Categoria'=>'M',	'Grado'=>'GII'),
+			11	=> array('Tipo'=>11,	'TipoManga'=> 5,	'Nombre'=>'Agility GII Small',		'Categoria'=>'S',	'Grado'=>'GII'),
+			12	=> array('Tipo'=>12,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Large',		'Categoria'=>'L',	'Grado'=>'GIII'),
+			13	=> array('Tipo'=>13,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Medium',	'Categoria'=>'M',	'Grado'=>'GIII'),
+			14	=> array('Tipo'=>14,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Small',		'Categoria'=>'S',	'Grado'=>'GIII'),
+			15	=> array('Tipo'=>15,	'TipoManga'=> 7,	'Nombre'=>'Agility Open Large',		'Categoria'=>'L',	'Grado'=>'-'),
+			16	=> array('Tipo'=>16,	'TipoManga'=> 7,	'Nombre'=>'Agility Open Medium',	'Categoria'=>'M',	'Grado'=>'-'),
+			17	=> array('Tipo'=>17,	'TipoManga'=> 7,	'Nombre'=>'Agility Open Small',		'Categoria'=>'S',	'Grado'=>'-'),
+			18	=> array('Tipo'=>18,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Large',	'Categoria'=>'L',	'Grado'=>'-'),
+			19	=> array('Tipo'=>19,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Medium',	'Categoria'=>'M',	'Grado'=>'-'),
+			20	=> array('Tipo'=>20,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Small',	'Categoria'=>'S',	'Grado'=>'-'),
+			21	=> array('Tipo'=>21,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Large',	'Categoria'=>'M',	'Grado'=>'-'),
 			// en jornadas por equipos conjunta se mezclan categorias M y S
-			22	=> array('Tipo'=>22,	'TipoManga'=> 9,	'From'=>'TAG_M0,',	'To'=>',TAG_T0',	'Nombre'=>'Ag. Equipos 4 Med/Small','Categoria'=>'MS',	'Grado'=>'-'),
-			23	=> array('Tipo'=>23,	'TipoManga'=> 10,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Jumping GII Large',		'Categoria'=>'L',	'Grado'=>'GII'),
-			24	=> array('Tipo'=>24,	'TipoManga'=> 10,	'From'=>'TAG_M0,',	'To'=>',TAG_S0',	'Nombre'=>'Jumping GII Medium',		'Categoria'=>'M',	'Grado'=>'GII'),
-			25	=> array('Tipo'=>25,	'TipoManga'=> 10,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Jumping GII Small',		'Categoria'=>'S',	'Grado'=>'GII'),
-			26	=> array('Tipo'=>26,	'TipoManga'=> 11,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Jumping GIII Large',		'Categoria'=>'L',	'Grado'=>'GIII'),
-			27	=> array('Tipo'=>27,	'TipoManga'=> 11,	'From'=>'TAG_M0,',	'To'=>',TAG_S0',	'Nombre'=>'Jumping GIII Medium',	'Categoria'=>'M',	'Grado'=>'GIII'),
-			28	=> array('Tipo'=>28,	'TipoManga'=> 11,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Jumping GIII Small',		'Categoria'=>'S',	'Grado'=>'GIII'),
-			29	=> array('Tipo'=>29,	'TipoManga'=> 12,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Jumping Open Large',		'Categoria'=>'L',	'Grado'=>'-'),
-			30	=> array('Tipo'=>30,	'TipoManga'=> 12,	'From'=>'TAG_M0,',	'To'=>',TAG_S0',	'Nombre'=>'Jumping Open Medium',	'Categoria'=>'M',	'Grado'=>'-'),
-			31	=> array('Tipo'=>31,	'TipoManga'=> 12,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Jumping Open Small',		'Categoria'=>'S',	'Grado'=>'-'),
-			32	=> array('Tipo'=>32,	'TipoManga'=> 13,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Jumping Eq. 3 Large',	'Categoria'=>'L',	'Grado'=>'-'),
-			33	=> array('Tipo'=>33,	'TipoManga'=> 13,	'From'=>'TAG_M0,',	'To'=>',TAG_S0',	'Nombre'=>'Jumping Eq. 3 Medium',	'Categoria'=>'M',	'Grado'=>'-'),
-			34	=> array('Tipo'=>34,	'TipoManga'=> 13,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Jumping Eq. 3 Small',	'Categoria'=>'S',	'Grado'=>'-'),
+			22	=> array('Tipo'=>22,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Med/Small','Categoria'=>'MS',	'Grado'=>'-'),
+			23	=> array('Tipo'=>23,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Large',		'Categoria'=>'L',	'Grado'=>'GII'),
+			24	=> array('Tipo'=>24,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Medium',		'Categoria'=>'M',	'Grado'=>'GII'),
+			25	=> array('Tipo'=>25,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Small',		'Categoria'=>'S',	'Grado'=>'GII'),
+			26	=> array('Tipo'=>26,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Large',		'Categoria'=>'L',	'Grado'=>'GIII'),
+			27	=> array('Tipo'=>27,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Medium',	'Categoria'=>'M',	'Grado'=>'GIII'),
+			28	=> array('Tipo'=>28,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Small',		'Categoria'=>'S',	'Grado'=>'GIII'),
+			29	=> array('Tipo'=>29,	'TipoManga'=> 12,	'Nombre'=>'Jumping Open Large',		'Categoria'=>'L',	'Grado'=>'-'),
+			30	=> array('Tipo'=>30,	'TipoManga'=> 12,	'Nombre'=>'Jumping Open Medium',	'Categoria'=>'M',	'Grado'=>'-'),
+			31	=> array('Tipo'=>31,	'TipoManga'=> 12,	'Nombre'=>'Jumping Open Small',		'Categoria'=>'S',	'Grado'=>'-'),
+			32	=> array('Tipo'=>32,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. 3 Large',	'Categoria'=>'L',	'Grado'=>'-'),
+			33	=> array('Tipo'=>33,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. 3 Medium',	'Categoria'=>'M',	'Grado'=>'-'),
+			34	=> array('Tipo'=>34,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. 3 Small',	'Categoria'=>'S',	'Grado'=>'-'),
 			// en jornadas por equipos conjunta se mezclan categorias M y S
-			35	=> array('Tipo'=>35,	'TipoManga'=> 14,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Jp. Equipos 4 Large',	'Categoria'=>'M',	'Grado'=>'-'),
-			36	=> array('Tipo'=>36,	'TipoManga'=> 14,	'From'=>'TAG_M0,',	'To'=>',TAG_T0',	'Nombre'=>'Jp. Equipos 4 Med/Small','Categoria'=>'MS',	'Grado'=>'-'),
+			35	=> array('Tipo'=>35,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos 4 Large',	'Categoria'=>'M',	'Grado'=>'-'),
+			36	=> array('Tipo'=>36,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos 4 Med/Small','Categoria'=>'MS',	'Grado'=>'-'),
 			// en las rondas KO, los perros compiten todos contra todos
-			37	=> array('Tipo'=>37,	'TipoManga'=> 15,	'From'=>'BEGIN,',	'To'=>',END',		'Nombre'=>'Manga K.O.',				'Categoria'=>'-LMST','Grado'=>'-'),
-			38	=> array('Tipo'=>38,	'TipoManga'=> 16,	'From'=>'TAG_L0,',	'To'=>',TAG_M0',	'Nombre'=>'Manga Especial Large',	'Categoria'=>'L',	'Grado'=>'-'),
-			39	=> array('Tipo'=>39,	'TipoManga'=> 16,	'From'=>'TAG_M0,',	'To'=>',TAG_S0',	'Nombre'=>'Manga Especial Medium',	'Categoria'=>'M',	'Grado'=>'-'),
-			40	=> array('Tipo'=>40,	'TipoManga'=> 16,	'From'=>'TAG_S0,',	'To'=>',TAG_T0',	'Nombre'=>'Manga Especial Small',	'Categoria'=>'S',	'Grado'=>'-'),
+			37	=> array('Tipo'=>37,	'TipoManga'=> 15,	'Nombre'=>'Manga K.O.',				'Categoria'=>'-LMST','Grado'=>'-'),
+			38	=> array('Tipo'=>38,	'TipoManga'=> 16,	'Nombre'=>'Manga Especial Large',	'Categoria'=>'L',	'Grado'=>'-'),
+			39	=> array('Tipo'=>39,	'TipoManga'=> 16,	'Nombre'=>'Manga Especial Medium',	'Categoria'=>'M',	'Grado'=>'-'),
+			40	=> array('Tipo'=>40,	'TipoManga'=> 16,	'Nombre'=>'Manga Especial Small',	'Categoria'=>'S',	'Grado'=>'-'),
 	
 			// "Tiny" support for Pruebas RFEC
-			41	=> array('Tipo'=>41,	'TipoManga'=> 3,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Agility-1 GI Tiny',		'Categoria'=>'T',	'Grado'=>'GI'),
-			42	=> array('Tipo'=>42,	'TipoManga'=> 4,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Agility-2 GI Tiny',		'Categoria'=>'T',	'Grado'=>'GI'),
-			43	=> array('Tipo'=>43,	'TipoManga'=> 5,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Agility GII Tiny',		'Categoria'=>'T',	'Grado'=>'GII'),
-			44	=> array('Tipo'=>44,	'TipoManga'=> 6,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Agility GIII Tiny',		'Categoria'=>'T',	'Grado'=>'GIII'),
-			45	=> array('Tipo'=>45,	'TipoManga'=> 7,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Agility Open Tiny',		'Categoria'=>'T',	'Grado'=>'-'),
-			46	=> array('Tipo'=>46,	'TipoManga'=> 8,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Agility Eq. 3 Tiny',		'Categoria'=>'T',	'Grado'=>'-'),
+			41	=> array('Tipo'=>41,	'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Tiny',		'Categoria'=>'T',	'Grado'=>'GI'),
+			42	=> array('Tipo'=>42,	'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI Tiny',		'Categoria'=>'T',	'Grado'=>'GI'),
+			43	=> array('Tipo'=>43,	'TipoManga'=> 5,	'Nombre'=>'Agility GII Tiny',		'Categoria'=>'T',	'Grado'=>'GII'),
+			44	=> array('Tipo'=>44,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Tiny',		'Categoria'=>'T',	'Grado'=>'GIII'), // no existe
+			45	=> array('Tipo'=>45,	'TipoManga'=> 7,	'Nombre'=>'Agility Open Tiny',		'Categoria'=>'T',	'Grado'=>'-'),
+			46	=> array('Tipo'=>46,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Tiny',		'Categoria'=>'T',	'Grado'=>'-'),
 			// en equipos4  RFEC agrupamos por LM y ST
-			47	=> array('Tipo'=>47,	'TipoManga'=> 9,	'From'=>'TAG_L0,',	'To'=>',TAG_S0','Nombre'=>'Ag. Equipos 4 Large/Medium',	'Categoria'=>'LM',	'Grado'=>'-'),
-			48	=> array('Tipo'=>48,	'TipoManga'=> 9,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Ag. Equipos 4 Small/Tiny','Categoria'=>'ST',		'Grado'=>'-'),
-			49	=> array('Tipo'=>49,	'TipoManga'=> 10,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Jumping GII Tiny',		'Categoria'=>'T',		'Grado'=>'GII'),
-			50	=> array('Tipo'=>50,	'TipoManga'=> 11,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Jumping GIII Tiny',		'Categoria'=>'T',		'Grado'=>'GIII'),
-			51	=> array('Tipo'=>51,	'TipoManga'=> 12,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Jumping Open Tiny',		'Categoria'=>'T',		'Grado'=>'-'),
-			52	=> array('Tipo'=>52,	'TipoManga'=> 13,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Jumping Eq. 3 Tiny',		'Categoria'=>'T',		'Grado'=>'-'),
-			53	=> array('Tipo'=>53,	'TipoManga'=> 14,	'From'=>'TAG_L0,',	'To'=>',TAG_S0','Nombre'=>'Jp. Equipos 4 Large/Medium',	'Categoria'=>'LM',	'Grado'=>'-'),
-			54	=> array('Tipo'=>54,	'TipoManga'=> 14,	'From'=>'TAG_S0,',	'To'=>',END',	'Nombre'=>'Jp. Equipos 4 Small/Tiny','Categoria'=>'ST',		'Grado'=>'-'),
-			55	=> array('Tipo'=>55,	'TipoManga'=> 16,	'From'=>'TAG_T0,',	'To'=>',END',	'Nombre'=>'Manga Especial Tiny',	'Categoria'=>'T',		'Grado'=>'-'),
+			47	=> array('Tipo'=>47,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Large/Medium',	'Categoria'=>'LM',	'Grado'=>'-'),
+			48	=> array('Tipo'=>48,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Small/Tiny','Categoria'=>'ST',		'Grado'=>'-'),
+			49	=> array('Tipo'=>49,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Tiny',		'Categoria'=>'T',		'Grado'=>'GII'),
+			50	=> array('Tipo'=>50,	'TipoManga'=> 11,	'Nombre'=>'Jumping GIII Tiny',		'Categoria'=>'T',		'Grado'=>'GIII'), // no existe
+			51	=> array('Tipo'=>51,	'TipoManga'=> 12,	'Nombre'=>'Jumping Open Tiny',		'Categoria'=>'T',		'Grado'=>'-'),
+			52	=> array('Tipo'=>52,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. 3 Tiny',		'Categoria'=>'T',		'Grado'=>'-'),
+			53	=> array('Tipo'=>53,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos 4 Large/Medium',	'Categoria'=>'LM',	'Grado'=>'-'),
+			54	=> array('Tipo'=>54,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos 4 Small/Tiny','Categoria'=>'ST',		'Grado'=>'-'),
+			55	=> array('Tipo'=>55,	'TipoManga'=> 16,	'Nombre'=>'Manga Especial Tiny',	'Categoria'=>'T',		'Grado'=>'-'),
 	);
 
 	// matriz de modos a evaluar en funcion del tipo de recorrido y de la tanda
@@ -414,7 +414,7 @@ class Tandas extends DBObject {
 		$str="UPDATE Tandas SET Orden=$torden WHERE (ID=$from)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 
-		$str="UPDATE Tandas SET Orden=$forder WHERE (ID=$to)";	
+		$str="UPDATE Tandas SET Orden=$forden WHERE (ID=$to)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error); 
 		$this->myLogger->leave();
@@ -423,15 +423,15 @@ class Tandas extends DBObject {
 
 	/**
 	 * Obtiene el programa de la jornada
-	 * @param {integer} $s session id. $s==0 means "any session"
+	 * @param {integer} $s session id. $s==1 means "any session"
 	 * @return {array} easyui-aware array or string on error
 	 */
-	function getTandas($s=0){
+	function getTandas($s=1){
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
 		
 		// Ask dadabase to retrieve list of Tandas
-		$ses=(intval($s)==0)?"":" AND (Sesion=$s) ";
+		$ses=(intval($s)>1)?"":" AND (Sesion=$s) ";
 		$res= $this->__select(
 				/* SELECT */	"*",
 				/* FROM */		"Tandas",
@@ -440,7 +440,7 @@ class Tandas extends DBObject {
 				/* LIMIT */		""
 		);
 		if(!is_array($res)){
-			return $this->error("No encuentro tandas para la prueba:$p jornada:$j");
+			return $this->error("No encuentro tandas para la prueba:$p jornada:$j sesion:$s");
 		}
 		
 		// merge retrieved data with tipotanda info
@@ -453,7 +453,7 @@ class Tandas extends DBObject {
 			} else { // retrieve Manga ID and merge into result
 				$manga=$this->getMangaByTipo($res['rows'][$key]['TipoManga']);	
 				// add extra info to result
-				$res['rows'][$key]['Manga']=$manga['ID'];	
+				if (is_array($manga)) $res['rows'][$key]['Manga']=$manga['ID'];
 			}
 			$res['rows'][$key]['NombreSesion']=$this->getSessionName($res['rows'][$key]['Sesion']);
 		}
@@ -461,21 +461,20 @@ class Tandas extends DBObject {
 	}
 	
 	/**
-	 * Obtiene la lista ordenada de perros de esta jornada
-	 * @param number $s Sesion ID. $s!=0 -> muestra solo los perros de dicha sesion
-	 * @param number $t Tanda ID.
-	 *     $t=0; mira todos los perros de todas las tandas
+	 * Obtiene la lista ordenada de perros de esta jornada asociadas a la sesion, y tandas especificadas
+	 * @param {number} $s Sesion ID. $s>1 -> muestra solo los perros de dicha sesion (s==1->'--sin asignar--')
+	 * @param {number} $t Tanda ID.
+	 *     $t=0; mira todos los perros de todas las tandas de la sesion indicada
 	 *     $t>0; mira SOLO los perros de la tanda (-$t)
 	 *     $t<0; mira todos los perros A PARTIR DE la tanda $t
-	 * @param number $pendientes Pendientes $p=0 -> muestra todos los perros; else muestra los $p primeros pendientes de salir
+	 * @param {number} $pendientes Pendientes $p==0 -> muestra todos los perros; else muestra los $p primeros pendientes de salir
 	 */
 	private function getListaPerros($s=0,$t=0,$pendientes=0){
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
 		$count=$pendientes;	// contador de perros pendientes de listar
 		$manga=0;		// variable para controlar manga "activa"
-		$perrosmanga=null;	// lista de perros inscritos en una manga indexada por PerroID
-		$ordenmanga=null;	// CSV list of perros inscritos en una manga
+		$perrosmanga=null;	// {array} lista de perros ordenada segun ordensalida de la manga
 		$do_iterate=false;	// indica si debe analizar los perros de la tanda
 		$rows=array();		// donde iremos guardando los resultados
 		$result=array();	// resultado a devolver en formato json
@@ -495,48 +494,29 @@ class Tandas extends DBObject {
 			// comprobamos ahora si hay cambio de manga
 			if ($manga!=$tanda['Manga']) { // cambio de manga
 				$manga=$tanda['Manga'];
-				// en cada manga cogemos el orden de salida asociado
-				$os=new OrdenSalida("Tandas::getData()",$manga);
-				$ordenmanga=$os->getOrden($manga);
-				// cogemos tambien la lista de perros de cada manga, y la reindexamos segun el orden del perro
-				$res=$this->__select("*", "Resultados","(Prueba=$p) AND (Jornada=$j) AND (Manga=$manga)","","");
-				if (!is_array($res)) return $this->error($this->conn->error);
-				$perrosmanga=array();
-				foreach($res['rows'] as $item) {
-					$perrosmanga[$item['Perro']]=$item;
-				}
+				// en cada manga cogemos  los perros ordenados segun el orden de salida
+				$os=new OrdenSalida("Tandas::getListaPerros()",$manga);
+				$perrosmanga=$os->getData(false); // false: do not include extra team information rows
 			}
-			
-			// OK ya tenemos los perros de la manga. Ahora vamos a sacar la lista por cada tanda
-
-			// de cada tanda extraemos el substring definido entre 'from' y 'to'
-			$ordentanda=getInnerString($ordenmanga,$tanda['From'],$tanda['To']);
-				
-			// y generamos la lista ordenada de los perros inscritos a partir de estos datos
-			if($ordentanda==="") continue; // skip empty tandas
-			$orden=explode(',',$ordentanda);
-			$celo=0;
-			foreach($orden as $perro) {
-				// from manual: don't compare strpos against 'true'
-				if (strpos($perro,'TAG')!==false) { // separator. check for 'Celo' field
-					if (strpos($perro,'1')===false) $celo=0;
-					if (strpos($perro,'0')===false) $celo=1;
-					continue; // next search
-				}
-				$perrosmanga[$perro]['Celo']=$celo; // store celo info
-				$perrosmanga[$perro]['Tanda']=$tanda['Nombre'];
-				$perrosmanga[$perro]['ID']=$tanda['ID'];
-				if ($pendientes==0) { array_push($rows,$perrosmanga[$perro]); continue; } // include all
-				if ($perrosmanga[$perro]['Pendiente']==0) continue; // not pendiente: skip
-				if ($count > 0) { $count--; array_push($rows,$perrosmanga[$perro]); continue; } // not yet at count: insert
-				// arriving here means that every requested dogs are filled
-				$this->myLogger->debug("Tandas::getData() Already have $pendientes dogs");
-				// so return
-				$result['rows']=$rows;
-				$result['total']=count($rows);
-				$this->myLogger->leave();
-				return $result;
-			}			 
+			// OK ya tenemos la lista ordenada de los perros de cada manga
+			// Ahora vamos a sacar la lista por cada tanda
+            foreach($perrosmanga['rows'] as &$perro) {
+                // si el perro no pertenece a la tanda skip (comprobar categoria)
+                if (strpos($tanda['Categoria'],$perro['Categoria'])===false) continue;
+                $perro['Tanda']=$tanda['Nombre'];
+                $perro['ID']=$tanda['ID']; // replace resultadoID por tandaID TODO: revise why
+                if ($pendientes==0) { array_push($rows,$perro); continue; } // include all
+                if ($perro['Pendiente']==0) continue; // not pendiente: skip
+                if ($count > 0) { $count--; array_push($rows,$perro); continue; } // not yet at count: insert
+                // arriving here means that every requested dogs are filled
+                $this->myLogger->debug("Tandas::getListaPerros() Already have $pendientes dogs");
+                // so return
+                $result['rows']=$rows;
+                $result['total']=count($rows);
+                $this->myLogger->leave();
+                return $result;
+            }
+            // no more dogs in this tanda. go to next
 		}
 		$result['rows']=$rows;
 		$result['total']=count($rows);

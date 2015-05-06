@@ -280,6 +280,7 @@ class OrdenSalida extends DBObject {
 		}
 		// salvamos datos
 		$this->setOrden($ordensalida);
+        // TODO: ahora invertimos el orden de los equipos en funcion del resultado
 	}
 	
 	/**
@@ -298,6 +299,7 @@ class OrdenSalida extends DBObject {
 		$this->setOrden($hermanas[1]->Orden_Salida);
 		$this->myLogger->leave();
 		return $hermanas[1]->Orden_Salida;
+        // no hay que tocar para nada el orden de equipos
 	}
 	
 	/**
