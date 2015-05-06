@@ -50,6 +50,12 @@ function isTeam(tipomanga) {
     }
 }
 
+function isTeamByJornada(jornada) {
+    if (parseInt(jornada.Equipos3)!=0) return true;
+    if (parseInt(jornada.Equipos4)!=0) return true;
+    return false;
+}
+
 var nombreFederaciones = {0:'RSCE',1:'RFEC',2:'UCA'};
 function fedName(fed) {
     return nombreFederaciones[fed];

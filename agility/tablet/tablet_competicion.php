@@ -146,11 +146,13 @@ function tablet_showPerrosByTanda(index,row){
 	            { field:'Licencia',		width:0, hidden:true },
 	            { field:'Pendiente',	width:0, hidden:true },
 	            { field:'Tanda',		width:0, hidden:true },
-	            { field:'Dorsal',		width:12, align:'center',	title: 'Dorsal', styler:checkPending },
-	            { field:'Celo',			width:10, align:'center',	title: 'Celo', formatter:formatCelo},
+                { field:'Equipo',		width:0, hidden:true },
+                { field:'NombreEquipo',	width:20, align:'center',	title: 'Equipo' },
+	            { field:'Dorsal',		width:10, align:'center',	title: 'Dorsal', styler:checkPending },
 	            { field:'Nombre',		width:20, align:'left',		title: 'Nombre'},
-	            { field:'NombreGuia',	width:45, align:'right',	title: 'Guia' },
-	            { field:'NombreClub',	width:30, align:'right',	title: 'Club' },
+                { field:'Celo',			width:8, align:'center',	title: 'Celo', formatter:formatCelo},
+	            { field:'NombreGuia',	width:35, align:'right',	title: 'Guia' },
+	            { field:'NombreClub',	width:25, align:'right',	title: 'Club' },
 	            { field:'Categoria',	width:10, align:'center',	title: 'Categ.' },
 	            { field:'Grado',		width:10, align:'center',	title: 'Grado' },
 	            { field:'Faltas',		width:5, align:'center',	title: 'F'},
@@ -175,6 +177,10 @@ function tablet_showPerrosByTanda(index,row){
             tbt_dg.datagrid('fixDetailRowHeight',index);
         },
         onLoadSuccess:function(){
+            // show/hide team name
+            if (isTeamByJornada(workingData.datosJornada) ) mySelf.datagrid('showColumn','NombreEquipo');
+            else  mySelf.datagrid('hideColumn','NombreEquipo');
+            // auto resize columns
             setTimeout(function(){ tbt_dg.datagrid('fixDetailRowHeight',index); },0);
 <?php if (toBoolean($config->getEnv('tablet_dnd'))) { ?>
 			mySelf.datagrid('enableDnd');
