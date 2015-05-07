@@ -45,18 +45,21 @@ class Equipos extends DBObject {
 			return;
 		}
 	}
-	
-	function getTeamsByJornada(){
-		$prueba=$this->pruebaID;
-		$jornada=$this->jornadaID;
-		// obtenemos los equipos de esta jornada
-		$res= $this->__select("*","Equipos","( Prueba = $prueba ) AND ( Jornada = $jornada )","Nombre ASC","");
-		if (!is_array($res)) {
-			return $this->error("{$this->$file}::getTeamsByJornada() cannot get team data for prueba:$prueba jornada:$jornada");
-		}
-		return $res['rows'];
-	}
-	
+
+    function getTeamsBy($by) {
+        $prueba=$this->pruebaID;
+        $jornada=$this->jornadaID;
+        // obtenemos los equipos de esta jornada
+        $res= $this->__select("*","Equipos","( Prueba = $prueba ) AND ( Jornada = $jornada )","$by ASC","");
+        if (!is_array($res)) {
+            return $this->error("{$this->$file}::getTeamsByJornada() cannot get team data for prueba:$prueba jornada:$jornada");
+        }
+        return $res['rows'];
+    }
+
+    function getTeamsByJornada(){ return $this->getTeamsBy('Nombre'); }
+    function getTeamsByOrden(){ return $this->getTeamsBy('Orden'); }
+
 	function getDefaultTeam() {
 		$prueba=$this->pruebaID;
 		$jornada=$this->jornadaID;
@@ -351,20 +354,18 @@ class Equipos extends DBObject {
 		$this->myLogger->info("El perro $idperro no figura en ningun equipo de la jornada {$this->jornadaID}");
 		return $this->getDefaultTeam();
 	}
-	
-	/**
-	 * Obtiene la lista de equipos de una jornada ajustada por orden de salida
-	 */
-	function getTeamOrder() {
-		return usort( $this->getTeamsByJornada(),function($a,$b){return $a['Orden'] - $b['Orden'];});
-	}
+
 
 	/**
 	 * Reordena al azar el campo 'orden' de los equipos de esta jornada
 	 */
 	function random() {
 		// reordenamos al azar el array de equipos
-		$teams=$this->getTeamsByJornada();
+		$teams=$this->getTeamsByOrden();
+        // guardamos en Jornadas::Orden_Equipos el orden actual
+        $orden='BEGIN'; foreach($teams as $team) $orden .= ",{$team['ID']}"; $orden.=',END';
+        $sql="UPDATE Jornadas SET Orden_Equipos='$orden' WHERE ID={$this->jornadaID}";
+        $this->query($sql);
 		shuffle($teams);
 		// componemos un prepared statement
 		$sql ="UPDATE Equipos SET Orden=? WHERE (ID=?)";
@@ -384,6 +385,58 @@ class Equipos extends DBObject {
 		$stmt->close();
 		return "";
 	}
+
+    /**
+     * Ajusta el orden de salida al ultimo orden almacenado con "random" o "reverse"
+    */
+    function sameorder() {
+        // retrieve last orden from Jornadas::Orden_Equipos
+        $j=$this->__getObject('Jornadas',$this->jornadaID);
+        if ($j->Orden_Equipos==null || $j->Orden_Equipos=="" || $j->Orden_Equipos=="BEGIN,END") {
+            $this->myLogger.info("Equipos::sameorder() called without previous stored order");
+            return "";
+        }
+        $orden=explode(",",$j->Orden_Equipos);
+        $sql ="UPDATE Equipos SET Orden=? WHERE (ID=?)";
+        $stmt=$this->conn->prepare($sql);
+        if (!$stmt) return $this->error($this->conn->error);
+        $res=$stmt->bind_param('ii',$orden,$equipo);
+        if (!$res) return $this->error($stmt->error);
+        // recorremos los equipos renumerando el orden
+        $count=1;
+        foreach ($orden as $id) {
+            if ($id=='BEGIN') continue;
+            if ($id=='End') continue;
+            $orden=$count;
+            $equipo=intval($id);
+            $res=$stmt->execute();
+            if (!$res) return $this->error($stmt->error);
+            $count++;
+        }
+        $stmt->close();
+        return "";
+    }
+
+    /**
+     * ordena los equipos en orden inverso a la clasificacion obtenida
+     * @param $teams lista de equipos ordenada por resultados
+     */
+    function reverse($teams) {
+        $count=count($teams);
+        $sql ="UPDATE Equipos SET Orden=? WHERE (ID=?)";
+        $stmt=$this->conn->prepare($sql);
+        if (!$stmt) return $this->error($this->conn->error);
+        $res=$stmt->bind_param('ii',$orden,$equipo);
+        if (!$res) return $this->error($stmt->error);
+        for ($idx=count($teams)-1;$idx>=0;$idx--){
+            $orden=$idx;
+            $equipo=intval($teams[$idx]['ID']);
+            $res=$stmt->execute();
+            if (!$res) return $this->error($stmt->error);
+        }
+        $stmt->close();
+        return "";
+    }
 
     /**
      * check teams on this journey and eval number of dogs belonging to each one

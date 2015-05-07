@@ -263,7 +263,8 @@ class OrdenSalida extends DBObject {
 	 */
 	private function invierteResultados($from,$mode) {
 		$r =new Resultados("OrdenSalida::invierteResultados", $this->prueba['ID'],$from->ID);
-		$data=$r->getResultados($mode)['rows'];
+		$res=$r->getResultados($mode);
+        $data=$res['rows'];
 		$size= count($data);
 		// recorremos los resultados en orden inverso
 		$ordensalida=$this->getOrden();
@@ -281,6 +282,11 @@ class OrdenSalida extends DBObject {
 		// salvamos datos
 		$this->setOrden($ordensalida);
         // TODO: ahora invertimos el orden de los equipos en funcion del resultado
+        if (intval($this->jornada['Equipos3'])==0 ) return;
+        $this->myLogger->trace("invirtiendo orden de equipos");
+        $equipos=Resultados::getTeam3Results($res['rows'],$this->prueba['ID'],$this->jornada['ID']);
+        $eq=new Equipos("OrdenSalida",$this->prueba['ID'],$this->jornada['ID']);
+        $eq->reverse($equipos);
 	}
 	
 	/**

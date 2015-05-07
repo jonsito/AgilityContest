@@ -123,9 +123,9 @@ function formatTeamClasificaciones(value,rows) {
 
 /**
  * Obtiene el modo de visualizacion de una manga determinada en funcion de la prueba, tipo de recorrido y categorias
- * @param {int} fed
- * @param {int} recorrido
- * @param {int}categoria
+ * @param {int} fed 0:RSCE 1:RFEC 2:UCA
+ * @param {int} recorrido 0:separado 1:mixto 2:conjunto
+ * @param {int} categoria 0:L 1:M 2:S 3:T
  * @returns {int} requested mode. -1 if invalid request
  */
 function getMangaMode(fed,recorrido,categoria) {
@@ -136,7 +136,7 @@ function getMangaMode(fed,recorrido,categoria) {
     ];
     if ( typeof (modes[fed]) === 'undefined' ) return -1;
     if ( typeof (modes[fed][recorrido]) === 'undefined' ) return -1;
-    if ( typeof (modes[fed][recorrido][manga]) === 'undefined' ) return -1;
+    if ( typeof (modes[fed][recorrido][categoria]) === 'undefined' ) return -1;
     return modes[fed][recorrido][categoria];
 }
 

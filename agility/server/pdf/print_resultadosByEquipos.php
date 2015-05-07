@@ -84,50 +84,7 @@ class ResultadosByEquipos extends PrintCommon {
         $this->cellHeader=
             array(_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Cat.'),_('Flt.'),_('Toc.'),_('Reh.'),
                   _('Tiempo'),_('Vel.'),_('Penal.'),_('Calificación'),_('Puesto'),_('Global Equipo'));
-
-        // Datos de equipos de la jornada
-        $m=new Equipos("print_resultadosEquipos3",$prueba,$jornada);
-        $teams=$m->getTeamsByJornada();
-        // reindexamos por ID y anyadimos un campo extra con el array de resultados
-        $this->equipos=array();
-        foreach ($teams as &$equipo) {
-            $equipo['Resultados']=array();
-            $equipo['Tiempo']=0.0;
-            $equipo['Penalizacion']=0.0;
-            $this->equipos[$equipo['ID']]=$equipo;
-        }
-        // now fill team members array.
-        // notice that $resultados is already sorted by results
-        foreach($this->resultados['rows'] as &$result) {
-            $teamid=$result['Equipo'];
-            $equipo=&$this->equipos[$teamid];
-            array_push($equipo['Resultados'],$result);
-            // suma el tiempo y penalizaciones de los tres primeros
-            if (count($equipo['Resultados'])<4) {
-                $equipo['Tiempo']+=floatval($result['Tiempo']);
-                $equipo['Penalizacion']+=floatval($result['Penalizacion']);
-            }
-        }
-
-        // rastrea los equipos con menos de tres participantes y marca los que faltan
-        // no presentados
-        foreach($this->equipos as &$equipo) {
-            switch(count($equipo['Resultados'])){
-                case 0: continue; // TODO: remove team from array as this team should not be shown
-                case 1: $equipo['Penalizacion']+=200.0; // add pending "No presentado"
-                    // no break
-                case 2: $equipo['Penalizacion']+=200.0; // add pending "No presentado"
-                    // no break;
-                case 3:case 4: break;
-                default:$this->myLogger->error("Equipo {$equipo['ID']} : '{$equipo['Nombre']}' con exceso de participantes:".count($equipo['Resultados']));
-                    break;
-            }
-        }
-        // finally sort equipos by result instead of id
-        usort($this->equipos,function($a,$b){
-            if ($a['Penalizacion']==$b['Penalizacion']) return ($a['Tiempo']>$b['Tiempo'])?1:-1;
-            return ($a['Penalizacion']>$b['Penalizacion'])?1:-1;
-        });
+        $this->equipos=Resultados::getTeam3Results($resultados['rows'],$prueba,$jornada);
 	}
 	
 	// Cabecera de página
@@ -220,7 +177,7 @@ class ResultadosByEquipos extends PrintCommon {
                 $this->addPage();
             }
             // evaluate puesto del equipo
-            $this->myLogger->trace("imprimiendo datos del equipo {$equipo['ID']} - {$equipo['Nombre']}");
+            // $this->myLogger->trace("imprimiendo datos del equipo {$equipo['ID']} - {$equipo['Nombre']}");
             $this->printTeamInformation($teamcount,$numrows,$equipo);
             // print team header/data
             for ($n=0;$n<4;$n++) {
@@ -228,7 +185,7 @@ class ResultadosByEquipos extends PrintCommon {
                 $row=$this->defaultPerro;
                 if (array_key_exists($n,$equipo['Resultados'])) $row=$equipo['Resultados'][$n];
                 // print team member's result
-                $this->myLogger->trace("imprimiendo datos del perro {$row['Perro']} - {$row['Nombre']}");
+                // $this->myLogger->trace("imprimiendo datos del perro {$row['Perro']} - {$row['Nombre']}");
                 // properly format special fields
                 $puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
                 $veloc= ($row['Penalizacion']>=200)?"-":number_format($row['Velocidad'],1);

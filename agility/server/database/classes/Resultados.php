@@ -510,11 +510,11 @@ class Resultados extends DBObject {
         // evaluamos puntos en funcion de la federacion
         $this->evaluatePuntos($table);
 
-		// finalmente anyadimos info de la manga y retornamos array
-		$this->myLogger->leave();
-		$res['rows']=$table;
-		$res['manga']=$this->getDatosManga();
-		$res['trs']=$tdata;
+        // componemos datos del array a retornar
+        $res['rows']=$table;
+        $res['manga']=$this->getDatosManga();
+        $res['trs']=$tdata;
+        $this->myLogger->leave();
 		return $res;
 	}
 	
@@ -524,6 +524,64 @@ class Resultados extends DBObject {
 		$this->myLogger->leave();
 		return $trs;
 	}
+
+    /**
+     * Gestion de resultados en Equipos3
+     * Agrupa los resultados por equipos y genera una lista de equipos ordenados por resultados
+     * @param {array} resultados de la manga ordenados por participante
+     * @param {int} prueba PruebaID
+     * @param {int} jornada JornadaID
+     * @return {array} datos de equipos de la manga ordenados por resultados de equipo
+     */
+    static function getTeam3Results($resultados,$prueba,$jornada) {
+        // Datos de equipos de la jornada. obtenemos prueba y jornada del primer elemento del array
+        $m=new Equipos("getTeam3Results",$prueba,$jornada);
+        $teams=$m->getTeamsByOrden();
+        // reindexamos por ID y anyadimos un campos extra Tiempo, penalizacion y el array de resultados del equipo
+        $equipos=array();
+        foreach ($teams as &$equipo) {
+            $equipo['Resultados']=array();
+            $equipo['Tiempo']=0.0;
+            $equipo['Penalizacion']=0.0;
+            $equipos[$equipo['ID']]=$equipo;
+        }
+        // now fill team members array.
+        // notice that $resultados is already sorted by results
+        foreach($resultados as &$result) {
+            $teamid=$result['Equipo'];
+            $equipo=&$equipos[$teamid];
+            array_push($equipo['Resultados'],$result);
+            // suma el tiempo y penalizaciones de los tres primeros
+            if (count($equipo['Resultados'])<4) {
+                $equipo['Tiempo']+=floatval($result['Tiempo']);
+                $equipo['Penalizacion']+=floatval($result['Penalizacion']);
+            }
+        }
+
+        // rastrea los equipos con menos de tres participantes y marca los que faltan
+        // no presentados
+        foreach($equipos as &$equipo) {
+            switch(count($equipo['Resultados'])){
+                case 0: continue; // TODO: remove team from array as this team should not be shown
+                case 1: $equipo['Penalizacion']+=200.0; // add pending "No presentado"
+                // no break
+                case 2: $equipo['Penalizacion']+=200.0; // add pending "No presentado"
+                // no break;
+                case 3:case 4: break;
+                default:
+                    $myLogger=new Logger("Resultados::getTreamResults()");
+                    $myLogger->error("Equipo {$equipo['ID']} : '{$equipo['Nombre']}' con exceso de participantes:".count($equipo['Resultados']));
+                    break;
+            }
+        }
+        // finally sort equipos by result instead of id
+        usort($equipos,function($a,$b){
+            if ($a['Penalizacion']==$b['Penalizacion']) return ($a['Tiempo']>$b['Tiempo'])?1:-1;
+            return ($a['Penalizacion']>$b['Penalizacion'])?1:-1;
+        });
+        return $equipos;
+    }
+
 	static function enumerateResultados($jornadaid) {
 		if ($jornadaid<=0) { // no jornada id provided
 			return array('total'=>0,'rows'=>array());

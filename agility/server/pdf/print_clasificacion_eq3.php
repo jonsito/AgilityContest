@@ -75,7 +75,7 @@ class PrintClasificacionEq3 extends PrintCommon {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$mangas,$results,$mode) {
-		parent::__construct('Landscape',"print_clasificacion",$prueba,$jornada);
+		parent::__construct('Landscape',"print_clasificacion_eq3",$prueba,$jornada);
 		$dbobj=new DBObject("print_clasificacion");
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=null;
@@ -87,7 +87,7 @@ class PrintClasificacionEq3 extends PrintCommon {
 		$this->categoria = Mangas::$manga_modes[$mode][0];
 
         // Datos de equipos de la jornada
-        $m=new Equipos("print_resultadosEquipos3",$prueba,$jornada);
+        $m=new Equipos("print_clasificacion_Equipos3",$prueba,$jornada);
         $teams=$m->getTeamsByJornada();
         // reindexamos por ID y anyadimos un campo extra con el array de resultados de cada manga
         $this->equipos=array();
