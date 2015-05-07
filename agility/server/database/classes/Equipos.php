@@ -154,7 +154,7 @@ class Equipos extends DBObject {
 		$sort=getOrderString( 
 			http_request("sort","s",""),
 			http_request("order","s",""),
-			"Nombre ASC"
+			"Orden ASC"
 		);
 		// evaluate if any search criteria
 		$search=http_Request("where","s","");

@@ -140,7 +140,7 @@ $('#team_datagrid').datagrid({
 		{ field:'Jornada',		hidden:true },
 		{ field:'Orden',		hidden:true },
  		{ field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Nombre');?>' },
-		{ field:'Categorias',	width:10, sortable:true,	title: '<?php _e('Categor&iacute;as');?>' },
+		{ field:'Categorias',	width:10, sortable:true,	title: '<?php _e('Cat.');?>' },
 		{ field:'Observaciones',width:65, sortable:true,	title: '<?php _e('Observaciones');?>'},
 		{ field:'Miembros',		hidden:true },
 		{ field:'DefaultTeam',	width:5, sortable:false,	align: 'center', title: 'Def', formatter:formatOk }
@@ -164,7 +164,15 @@ $('#team_datagrid').datagrid({
         if ( (oldRow!=-1) && (oldRow!=idx) ) { dg.datagrid('collapseRow',oldRow); }
         dg.datagrid('options').expandedRow=idx;
         showInscripcionesByTeam(idx,row);
+    },
+    onLoadSuccess: function(data) { $(this).datagrid('enableDnd'); },
+    onDragEnter: function(dst,src) {
+        return (dst.DefaultTeam!=1 && src.DefaultTeam!=1) // allow dnd if not from/to default team
+    },
+    onDrop: function(dst,src,updown) {
+        dragAndDropOrdenEquipos(src.ID,dst.ID,(updown==='top')?0:1,reloadOrdenEquipos);
     }
+
 });
 
 // key handler

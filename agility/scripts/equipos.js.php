@@ -319,3 +319,30 @@ function changeTeam() {
     });
 	$('#selteam-window').window('close');
 }
+
+function reloadOrdenEquipos() {
+    if (workingData.jornada==0) return;
+    if (workingData.manga==0) return;
+    $('#team-datagrid').datagrid(
+        'load',
+        { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:'' }
+    );
+}
+
+// reajusta el orden de salida de los equipos
+// poniendo el idequipo "from" delante (where==0) o detras (where==1) del idequipo "to"
+// al retornar la funcion se invoca whenDone, que normalmente recargara el formulario padre
+function dragAndDropOrdenEquipos(from,to,where,whenDone) {
+    if (workingData.prueba==0) return;
+    if (workingData.jornada==0) return;
+    $.ajax({
+        type:'GET',
+        url:"/agility/server/database/equiposFunctions.php",
+        dataType:'json',
+        data: {
+            Operation: 'dnd', Prueba: workingData.prueba, Jornada: workingData.jornada, From: from,To: to,Where: where
+        }
+    }).done( function(msg) {
+        whenDone();
+    });
+}

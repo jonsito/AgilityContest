@@ -27,6 +27,9 @@ $jornada=http_request("Jornada","i",0);
 $operation=http_request("Operation","s",null);
 $perro=http_request("Perro","i",0);
 $equipo=http_request("ID","i",0); // used on update/delete
+$f = http_request("From","i",0);
+$t = http_request("To","i",0);
+$w = http_request("Where","i",0);
 try {
 	$result=null;
 	$equipos= new Equipos("equiposFunctions",$prueba,$jornada);
@@ -41,6 +44,7 @@ try {
         case "verify": $result=$equipos->verify(); break; // comprobar perros de cada equipo
 		case "enumerate": $result=$equipos->enumerate(); break; // listado solo busqueda
 		case "selectbyid": $result=$equipos->enumerate(); break; // recupera entrada unica
+        case "dnd": $am->access(PERMS_ASSISTANT); $result = $equipos->dragAndDrop($f,$t,$w); break;
 		default: throw new Exception("equiposFunctions:: invalid operation: $operation provided");
 	}
 	if ($result===null) 

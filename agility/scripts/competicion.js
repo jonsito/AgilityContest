@@ -971,6 +971,7 @@ function dragAndDropOrdenSalida(from,to,where,whenDone) {
 		whenDone();
 	});
 }
+
 //reajusta el programa de la jornada
 //poniendo la tanda "from" delante (where==0) o detras (where==1) de la tanda "to"
 function dragAndDropOrdenTandas(from,to,where) {
