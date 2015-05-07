@@ -209,7 +209,7 @@ class VideoWall {
 			<table class="vwc_tresultados">
 			<thead>
 			    <tr>
-				<th colspan="6">Participante</th>
+				<th colspan="5">Participante</th>
 				<th>F</th>
 				<th>T</th>
 				<th>R</th>
@@ -381,7 +381,8 @@ $pendientes = http_request("Pendientes","i",10);
 $prueba = http_request("Prueba","i",0);
 $jornada = http_request("Jornada","i",0);
 $manga = http_request("Manga","i",0);
-$tanda = http_request("Tanda","i",0);
+$tanda = http_request("Tanda","i",0); // used on access from videowall
+$mode = http_request("Mode","i",0); // used on access from public
 
 $vw=new VideoWall($sesion,$prueba,$jornada,$manga,$tanda,$mode);
 try {
