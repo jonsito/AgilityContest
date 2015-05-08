@@ -43,7 +43,7 @@ class ResultadosByManga extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader;
-	protected $pos	=array(  9,		18,		10,		30,		25,		12,		   7,      7,    7,       10,     7,    12,      22,			12 );
+	protected $pos	=array(  9,		18,		15,		30,		20,		12,		   7,      7,    7,       10,     7,    12,      22,			12 );
 	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
 
 	protected $modestr  
@@ -110,7 +110,7 @@ class ResultadosByManga extends PrintCommon {
 		$this->SetFont('Arial','B',8); // bold 9px
 		for($i=0;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
-			$this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
+			if ($this->pos[$i]!=0) $this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
 		}
 		// Restauración de colores y fuentes
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
@@ -126,9 +126,11 @@ class ResultadosByManga extends PrintCommon {
 		
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
-		
+		if ($this->federation->getFederation()==1) {
+            $this->pos[1]+=5;$this->pos[2]=0;$this->pos[3]+=5;$this->pos[4]+=5;
+        }
 		// Datos
-		$fill = false;
+
 		$rowcount=0;
 		$numrows=($this->PageNo()==1)?30:33;
 		foreach($this->resultados['rows'] as $row) {
@@ -145,28 +147,27 @@ class ResultadosByManga extends PrintCommon {
 			$veloc= ($row['Penalizacion']>=200)?"-":number_format($row['Velocidad'],1);
 			$tiempo= ($row['Penalizacion']>=200)?"-":number_format($row['Tiempo'],2);
 			$penal=number_format($row['Penalizacion'],2);
-			
+			$this->ac_row($rowcount,8);
 			// print row data
 			$this->SetFont('Arial','',8); // set data font size
-			$this->Cell($this->pos[0],6,$row['Dorsal'],			'LR',	0,		$this->align[0],	$fill);
+			$this->Cell($this->pos[0],6,$row['Dorsal'],			'LR',	0,		$this->align[0],	true);
 			$this->SetFont('Arial','B',8); // mark Nombre as bold
-			$this->Cell($this->pos[1],6,$row['Nombre'],			'LR',	0,		$this->align[1],	$fill);
+			$this->Cell($this->pos[1],6,$row['Nombre'],			'LR',	0,		$this->align[1],	true);
 			$this->SetFont('Arial','',8); // set data font size
-			$this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	$fill);
-			$this->Cell($this->pos[3],6,$row['NombreGuia'],		'LR',	0,		$this->align[3],	$fill);
-			$this->Cell($this->pos[4],6,$row['NombreClub'],		'LR',	0,		$this->align[4],	$fill);
-			$this->Cell($this->pos[5],6,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[5],	$fill);
-			$this->Cell($this->pos[6],6,$row['Faltas'],			'LR',	0,		$this->align[6],	$fill);
-			$this->Cell($this->pos[7],6,$row['Tocados'],		'LR',	0,		$this->align[7],	$fill);
-			$this->Cell($this->pos[8],6,$row['Rehuses'],		'LR',	0,		$this->align[8],	$fill);
-			$this->Cell($this->pos[9],6,$tiempo,				'LR',	0,		$this->align[9],	$fill);
-			$this->Cell($this->pos[10],6,$veloc,				'LR',	0,		$this->align[10],	$fill);
-			$this->Cell($this->pos[11],6,$penal,				'LR',	0,		$this->align[11],	$fill);
-			$this->Cell($this->pos[12],6,$row['Calificacion'],	'LR',	0,		$this->align[12],	$fill);
+			if ($this->pos[2]!=0) $this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	true);
+			$this->Cell($this->pos[3],6,$row['NombreGuia'],		'LR',	0,		$this->align[3],	true);
+			$this->Cell($this->pos[4],6,$row['NombreClub'],		'LR',	0,		$this->align[4],	true);
+			$this->Cell($this->pos[5],6,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[5],	true);
+			$this->Cell($this->pos[6],6,$row['Faltas'],			'LR',	0,		$this->align[6],	true);
+			$this->Cell($this->pos[7],6,$row['Tocados'],		'LR',	0,		$this->align[7],	true);
+			$this->Cell($this->pos[8],6,$row['Rehuses'],		'LR',	0,		$this->align[8],	true);
+			$this->Cell($this->pos[9],6,$tiempo,				'LR',	0,		$this->align[9],	true);
+			$this->Cell($this->pos[10],6,$veloc,				'LR',	0,		$this->align[10],	true);
+			$this->Cell($this->pos[11],6,$penal,				'LR',	0,		$this->align[11],	true);
+			$this->Cell($this->pos[12],6,$row['Calificacion'],	'LR',	0,		$this->align[12],	true);
 			$this->SetFont('Arial','B',11); // bold 11px
-			$this->Cell($this->pos[13],6,$puesto,			'LR',	0,		$this->align[13],	$fill);
+			$this->Cell($this->pos[13],6,$puesto,			'LR',	0,		$this->align[13],	true);
 			$this->Ln();
-			$fill = ! $fill;
 			$rowcount++;
 		}
 		// Línea de cierre

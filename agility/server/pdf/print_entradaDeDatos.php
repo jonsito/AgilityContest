@@ -44,7 +44,7 @@ class EntradaDeDatos extends PrintCommon {
 	// geometria de las celdas
 	protected $cellHeader
 					=array('Dorsal','Nombre','Lic.','Guía','Club','Celo', 'Observaciones');
-	protected $pos	=array(  15,       25,     15,    50,   45,     10,    30);
+	protected $pos	=array(  15,       25,     18,    50,   42,     10,    30);
 	protected $align=array(  'C',      'R',    'C',   'L',  'R',    'C',   'R');
 	protected $fmt	=array(  'i',      's',    's',   's',  's',    'b',   's');
 	protected $cat  =array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
@@ -97,6 +97,7 @@ class EntradaDeDatos extends PrintCommon {
      * @param {array} $row
      */
 	function writeTableCell_compacto($rowcount,$row) {
+        $caza=($this->federation->getFederation()==1)?true:false;
 		$logo=$this->getLogoName($row['Perro']);
 		$this->ac_header(1,20);
 		// save cursor position
@@ -116,16 +117,24 @@ class EntradaDeDatos extends PrintCommon {
 		$this->SetFont('Arial','B',10); // bold 10px
 		$this->Cell(15,6,'',	'LTR',0,'L',true); // dorsal
 		$this->Cell(10,6,'',	'TR',0,'L',true); // celo
-		$this->Cell(18,6,'',	'TR',0,'L',true); // licencia
-		$this->Cell(32,6,'',	'TR',0,'L',true); // perro
+        if ($caza) {
+            $this->Cell(50,6,'',	'TR',0,'L',true); // perro
+        } else {
+            $this->Cell(20, 6, '', 'TR', 0, 'L', true); // licencia
+            $this->Cell(30,6,'',	'TR',0,'L',true); // perro
+        }
 		$this->Cell(60,6,'',	'TR',0,'L',true); // guia
 		$this->Cell(40,6,'',	'TR',0,'L',true); // club
 		// datos cabecera de celda
 		$this->SetXY($x+15,$y+2); // restore cursor position
 		$this->Cell(15,4,$row['Dorsal'],		'',0,'R',false); // display order
 		$this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'R',false);
-		$this->Cell(18,4,$row['Licencia'],		'',0,'R',false);
-		$this->Cell(32,4,$row['Nombre'],		'',0,'R',false);
+        if ($caza) {
+            $this->Cell(50,4,$row['Nombre'],		'',0,'R',false);
+        } else {
+            $this->Cell(20,4,$row['Licencia'],		'',0,'R',false);
+            $this->Cell(30,4,$row['Nombre'],		'',0,'R',false);
+        }
 		$this->Cell(60,4,$row['NombreGuia'],	'',0,'R',false);
 		$this->Cell(40,4,$row['NombreClub'],	'',0,'R',false);
 
@@ -135,8 +144,12 @@ class EntradaDeDatos extends PrintCommon {
 		$this->SetFont('Arial','I',8); // italic 8px
 		$this->Cell(15,4,'Dorsal',	'',0,'L',false); // display order
 		$this->Cell(10,4,'Celo',	'',0,'L',false);
-		$this->Cell(18,4,'Lic.','',0,'L',false);
-		$this->Cell(32,4,'Nombre',	'',0,'L',false);
+        if ($caza) {
+            $this->Cell(50,4,'Nombre',	'',0,'L',false);
+        } else {
+            $this->Cell(20,4,'Lic.','',0,'L',false);
+            $this->Cell(30,4,'Nombre',	'',0,'L',false);
+        }
 		$this->Cell(60,4,'Guia',	'',0,'L',false);
 		$this->Cell(40,4,'Club',	'',0,'L',false);
 		
@@ -167,6 +180,10 @@ class EntradaDeDatos extends PrintCommon {
 	 * @param {number} $f width factor (to be reused on extended print)
 	 */
 	function writeTableCell_normal($rowcount,$row,$f=1) {
+        // remember that this method is called iteratively ... so make sure first time license goes to zero
+        if ($this->federation->getFederation()==1) {
+            $this->pos[1]+=$this->pos[2]; $this->pos[2]=0; // on caza skip license info
+        }
 		// cada celda tiene una cabecera con los datos del participante
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
@@ -176,11 +193,11 @@ class EntradaDeDatos extends PrintCommon {
 		$y=$this->GetY();
 		// fase 1: contenido de cada celda de la cabecera
 		$this->SetFont('Arial','B',20); // bold 9px
-		$this->Cell($this->pos[0],10,$row['Dorsal'],		'LTR',0,$this->align[0],true); // display order
+		$this->Cell($this->pos[0],10,$row['Dorsal'],		'LTR',0,$this->align[0],true); // dorsal
 		// pintamos cajas con fondo
-		$this->Cell($this->pos[1],10,'',		'LTR',0,$this->align[1],true);
-		$this->Cell($this->pos[2],10,'',		'LTR',0,$this->align[2],true);
-		$this->Cell($this->pos[3],10,'',	'LTR',0,$this->align[3],true);
+		$this->Cell($this->pos[1],10,'',		'LTR',0,$this->align[1],true); // nombre
+		if ($this->pos[2]!=0) $this->Cell($this->pos[2],10,'',		'LTR',0,$this->align[2],true); // licencia
+		$this->Cell($this->pos[3],10,'',	'LTR',0,$this->align[3],true); // guia
 		$this->Cell($this->pos[4],10,'',	'LTR',0,$this->align[4],true);
 		$this->Cell($this->pos[5],10,'','LTR',0,$this->align[5],true);
 		$this->Cell($this->pos[6],10,'',	'LTR',0,$this->align[6],true);
@@ -189,7 +206,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->SetXY($x+$this->pos[0],$y+3); // restore cursor position
 		$this->SetFont('Arial','B',12); // bold 9px
 		$this->Cell($this->pos[1],10-3,$row['Nombre'],		'',0,$this->align[1],false);
-		$this->Cell($this->pos[2],10-3,$row['Licencia'],		'',0,$this->align[2],false);
+        if ($this->pos[2]!=0) $this->Cell($this->pos[2],10-3,$row['Licencia'],		'',0,$this->align[2],false);
 		$this->Cell($this->pos[3],10-3,$row['NombreGuia'],	'',0,$this->align[3],false);
 		$this->Cell($this->pos[4],10-3,$row['NombreClub'],	'',0,$this->align[4],false);
 		$this->Cell($this->pos[5],10-3,($row['Celo']!=0)?"Celo":"",'',0,$this->align[5],false);
@@ -201,7 +218,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->SetFont('Arial','I',8); // italic 8px
 		$this->Cell($this->pos[0],5,'',			'',	0,'L',false); // Dorsal
 		$this->Cell($this->pos[1],5,'Nombre:',	'',	0,'L',false);
-		$this->Cell($this->pos[2],5,'Licencia:','',	0,'L',false);
+        if ($this->pos[2]!=0) $this->Cell($this->pos[2],5,'Licencia:','',	0,'L',false);
 		$this->Cell($this->pos[3],5,'Guia:',	'',	0,'L',false);
 		$this->Cell($this->pos[4],5,'Club:',	'',	0,'L',false);
 		$this->Cell($this->pos[5],5,'Celo:',	'',	0,'L',false);
@@ -237,7 +254,6 @@ class EntradaDeDatos extends PrintCommon {
      * @param {array} $row
      */
 	function writeTableCell_extendido($rowcount,$row) {
-
 		$logo=$this->getLogoName($row['Perro']);
 		// cada celda tiene una cabecera con los datos del participante
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
@@ -259,8 +275,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->SetXY($x+$this->pos[0],$y); // next cell position
 		// pintamos cajas con fondo
 		$this->Cell($this->pos[1],30,'',	'LTRB',0,$this->align[1],true);
-		$this->Cell($this->pos[2],30,'',	'TRB',0,$this->align[2],true);
-		$this->Cell($this->pos[3],30,'',	'TRB',0,$this->align[3],true);
+        $this->Cell($this->pos[2]+$this->pos[3],30,'',	'TRB',0,$this->align[3],true); // unify license and guia
 		$this->Cell($this->pos[4],30,'',	'TRB',0,$this->align[4],true);
 		$this->Cell($this->pos[5],30,'',	'TRB',0,$this->align[5],true);
 		$this->Cell($this->pos[6],30,'',	'TRB',0,$this->align[6],true);
@@ -268,10 +283,13 @@ class EntradaDeDatos extends PrintCommon {
 		// pintamos textos un poco desplazados hacia abajo y sin borde ni fondo
 		$this->SetXY($x+$this->pos[0],$y+3); // restore cursor position
 		$this->SetFont('Arial','B',12); // bold 9px
-		$this->Cell($this->pos[1],30-3,$row['Nombre'],		'',0,$this->align[1],false);
-		$this->Cell($this->pos[2],30-3,$row['Licencia'],		'',0,$this->align[2],false);
-		$this->Cell($this->pos[3],30-3,$row['NombreGuia'],	'',0,$this->align[3],false);
-		$this->Cell($this->pos[4],30-3,$row['NombreClub'],	'',0,$this->align[4],false);
+        $this->Cell($this->pos[1],30-3,$row['Nombre'],		'',0,$this->align[1],false);
+        $this->SetXY($x+$this->pos[0]+$this->pos[1],$y+3); // restore cursor position
+        $this->Cell($this->pos[2]+$this->pos[3],30-3,$row['NombreGuia'],	'',0,$this->align[3],false);
+        $this->SetXY($x+$this->pos[0]+$this->pos[1],$y+15); // restore cursor position
+        $this->Cell($this->pos[2]+$this->pos[3],30-15,$row['Licencia'],	'',0,$this->align[3],false);
+        $this->SetXY($x+$this->pos[0]+$this->pos[1]+$this->pos[2]+$this->pos[3],$y+3); // restore cursor position
+ 		$this->Cell($this->pos[4],30-3,$row['NombreClub'],	'',0,$this->align[4],false);
 		$this->Cell($this->pos[5],30-3,($row['Celo']!=0)?"Celo":"",'',0,$this->align[5],false);
 		$this->Cell($this->pos[6],30-3,$row['Observaciones'],	'',0,$this->align[6],false);
 		
@@ -281,8 +299,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->SetFont('Arial','I',8); // italic 8px
 		$this->Cell($this->pos[0],5,'Dorsal',	'',	0,'L',false); // Dorsal
 		$this->Cell($this->pos[1],5,'Nombre:',	'',	0,'L',false);
-		$this->Cell($this->pos[2],5,'Licencia:','',	0,'L',false);
-		$this->Cell($this->pos[3],5,'Guia:',	'',	0,'L',false);
+        $this->Cell($this->pos[2]+$this->pos[3],5,'Guia - Licencia',	'',	0,'L',false); // unify license and guia
 		$this->Cell($this->pos[4],5,'Club:',	'',	0,'L',false);
 		$this->Cell($this->pos[5],5,'Celo:',	'',	0,'L',false);
 		$this->Cell($this->pos[6],5,'Observaciones:','',0,'L',false);

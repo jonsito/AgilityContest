@@ -126,6 +126,7 @@ class PrintClasificacion extends PrintCommon {
 	}
 	
 	function writeTableHeader() {
+        $caza=($this->federation->getFederation()==1)?true:false;
 		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
 		$tm2=null;
 		if ($this->manga2!=null) $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
@@ -144,11 +145,11 @@ class PrintClasificacion extends PrintCommon {
 		$this->SetFont('Arial','',8); // default font
 		// datos del participante
 		$this->Cell(10,7,'Dorsal',0,0,'C',true); 	// dorsal
-		$this->Cell(25,7,'Nombre',0,0,'C',true);	// nombre (20,y
-		$this->Cell(15,7,'Lic.',0,0,'C',true);	// licencia
+		$this->Cell(($caza)?20:25,7,'Nombre',0,0,'C',true);	// nombre (20,y
+		$this->Cell(($caza)?30:15,7,'Lic.',0,0,'C',true);	// licencia
 		$this->Cell(10,7,'Cat./Gr.',0,0,'C',true);	// categoria/grado
-		$this->Cell(35,7,'Guía',0,0,'C',true);	// nombreGuia
-		$this->Cell(20,7,'Club',0,0,'C',true);	// nombreClub
+		$this->Cell(($caza)?30:35,7,'Guía',0,0,'C',true);	// nombreGuia
+		$this->Cell(($caza)?15:20,7,'Club',0,0,'C',true);	// nombreClub
 		// manga 1
 		$this->Cell(7,7,'F/T',0,0,'C',true);	// 1- Faltas+Tocados
 		$this->Cell(7,7,'Reh',0,0,'C',true);	// 1- Rehuses
@@ -180,6 +181,7 @@ class PrintClasificacion extends PrintCommon {
 	}
 	
 	function writeCell($idx,$row) {
+        $caza=($this->federation->getFederation()==1)?true:false;
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		$offset=($this->PageNo()==1)?80:55;
 		$this->SetXY(10, $offset + 6*$idx ); // first page has 3 extra header lines
@@ -201,12 +203,13 @@ class PrintClasificacion extends PrintCommon {
 		// datos del participante
 		$this->Cell(10,6,$row['Dorsal'],0,0,'L',$fill); 	// dorsal
 		$this->SetFont('Arial','B',8); // Display Nombre in bold typeface
-		$this->Cell(25,6,$row['Nombre'],0,0,'L',$fill);	// nombre (20,y
-		$this->SetFont('Arial','',8); // default font
-		$this->Cell(15,6,$row['Licencia'],0,0,'C',$fill);	// licencia
+		$this->Cell(($caza)?20:25,6,$row['Nombre'],0,0,'L',$fill);	// nombre (20,y
+		$this->SetFont('Arial','',($caza)?6:8); // default font
+		$this->Cell(($caza)?30:15,6,$row['Licencia'],0,0,'C',$fill);	// licencia
+        $this->SetFont('Arial','',8); // default font
 		$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
-		$this->Cell(35,6,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia
-		$this->Cell(20,6,$row['NombreClub'],0,0,'R',$fill);	// nombreClub
+		$this->Cell(($caza)?30:35,6,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia
+		$this->Cell(($caza)?15:20,6,$row['NombreClub'],0,0,'R',$fill);	// nombreClub
 		// manga 1
 		$this->Cell(7,6,$row['F1'],0,0,'C',$fill);	// 1- Faltas+Tocados
 		$this->Cell(7,6,$row['R1'],0,0,'C',$fill);	// 1- Rehuses

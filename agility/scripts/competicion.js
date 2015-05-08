@@ -782,7 +782,7 @@ function setupResultadosWindow(recorrido) {
     	$('#resultadosmanga-LargeRow').css('display','table-row');
     	$('#resultadosmanga-MediumRow').css('display','table-row');
     	$('#resultadosmanga-SmallRow').css('display','table-row');
-    	$('#resultadosmanga-TinyRow').css('display',(rsce)?'none':'table-row');
+    	$('#resultadosmanga-TinyRow').css('display',(fed==0)?'none':'table-row');
     	// ajustar textos
     	switch(fed) {
     		case 0:

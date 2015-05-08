@@ -133,6 +133,11 @@ class EquiposByJornada extends PrintCommon {
         $this->ac_SetFillColor($bg1);
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
+
+        // take care on RFEC contests
+        if ($this->federation->getFederation()==1) {
+            $this->pos[1]-=2; $this->pos[2]-=3; $this->pos[3]+=20; $this->pos[8]-=15;
+        }
         $order=0;
         $rowcount=0;
 		foreach($this->equipos as $equipo) {
@@ -157,7 +162,9 @@ class EquiposByJornada extends PrintCommon {
                 $this->Cell($this->pos[1],6,$row['Nombre'],		'LR',0,$this->align[1],true);
                 $this->SetFont('Arial','',9); // remove bold 9px
                 $this->Cell($this->pos[2],6,$row['Raza'],		'LR',0,$this->align[2],true);
+                if ($this->federation->getFederation()==1) $this->SetFont('Arial','',7);
                 $this->Cell($this->pos[3],6,$row['Licencia'],	'LR',0,$this->align[3],true);
+                $this->SetFont('Arial','',9); // remove bold 9px
                 $this->Cell($this->pos[4],6,$this->cat[$row['Categoria']],	'LR',0,$this->align[4],true);
     			$this->Cell($this->pos[5],6,$row['NombreGuia'],	'LR',0,$this->align[5],true);
     			$this->Cell($this->pos[6],6,$row['NombreClub'],	'LR',0,$this->align[6],true);

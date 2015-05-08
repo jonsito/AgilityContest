@@ -44,7 +44,7 @@ class OrdenDeSalida extends PrintCommon {
 	// geometria de las celdas
 	protected $cellHeader;
     //                       orden    dorsal  nombre raza licencia guia club     celo   observaciones
-	protected $pos	=array(  12,      10,     25,     27,    10,    40,   25,     10,    26);
+	protected $pos	=array(  12,      10,     25,     22,    15,    40,   25,     10,    26);
 	protected $align=array(  'R',    'R',    'C',    'R',    'C',   'R',  'R',    'C',   'R');
 	protected $cat  =array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
@@ -101,6 +101,7 @@ class OrdenDeSalida extends PrintCommon {
 		$this->ac_header(1,9);
 		for($i=0;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
+            if ($this->pos[$i]==0) continue; // on rfec suppress license info
 			$this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
 		}
 		// Restauración de colores y fuentes
@@ -120,11 +121,13 @@ class OrdenDeSalida extends PrintCommon {
 	// Tabla coloreada
 	function composeTable() {
 		$this->myLogger->enter();
-        $bg1=$this->config->getEnv('pdf_rowcolor1');
-        $bg2=$this->config->getEnv('pdf_rowcolor2');
-        $this->ac_SetFillColor($bg1);
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
+
+        // on rfec suppress license information
+        if ($this->federation->getFederation()==1) {
+            $this->pos[8]+=$this->pos[4]; $this->pos[4]=0;
+        }
 		// Datos
 		$rowcount=0;
 		$order=0;
@@ -159,7 +162,7 @@ class OrdenDeSalida extends PrintCommon {
 				$this->printTeamInformation($lastTeam);
 				$rowcount++;
 			}
-            $this->ac_SetFillColor( (($order&0x01)==0)?$bg1:$bg2);
+            $this->ac_row($order,9);
 			$this->SetFont('Arial','B',11); // bold 9px
 			$this->Cell($this->pos[0],6,($order+1)." - ",'LR',0,$this->align[0],true); // display order
 			$this->SetFont('Arial','',9); // remove bold 9px
@@ -168,7 +171,7 @@ class OrdenDeSalida extends PrintCommon {
             $this->Cell($this->pos[2],6,$row['Nombre'],		'LR',0,$this->align[2],true);
             $this->SetFont('Arial','',9); // remove bold 9px
             $this->Cell($this->pos[3],6,$row['Raza'],		'LR',0,$this->align[3],true);
-			$this->Cell($this->pos[4],6,$row['Licencia'],	'LR',0,$this->align[4],true);
+			if ($this->pos[4]!=0) $this->Cell($this->pos[4],6,$row['Licencia'],	'LR',0,$this->align[4],true);
 			$this->Cell($this->pos[5],6,$row['NombreGuia'],	'LR',0,$this->align[5],true);
 			$this->Cell($this->pos[6],6,$row['NombreClub'],	'LR',0,$this->align[6],true);
 			$this->Cell($this->pos[7],6,($row['Celo']==0)?"":_("Celo"),	'LR',0,$this->align[7],true);
