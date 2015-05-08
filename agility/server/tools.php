@@ -230,7 +230,7 @@ class Federation {
 	);
 
 	function __construct($fed=0){
-		$this->federation=$fed;
+		$this->federation=intval($fed);
 	}
 	
 	function getLogo($fed=-1) {
@@ -248,6 +248,7 @@ class Federation {
 		return 	Federation::$federations[$fed];
 	}
 
+    function getFederation() { return $this->federation; }
 	function _f($str,$fed=-1) {
 		if ($fed>2) return $str;
 		if($fed==-1) $fed=$this->federation;
@@ -259,7 +260,7 @@ class Federation {
 
 	function strToFederation($str,$fed=-1) {
 		if ($fed>2) return $str;
-		if($fed==-1) $fed=$fed=$this->federation;
+		if($fed==-1) $fed=$this->federation;
 		foreach(Federation::$translations[$fed] as $key => $value) {
 			$str=str_replace($key,$value,$str);
 		}

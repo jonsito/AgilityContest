@@ -49,7 +49,7 @@ class PrintCatalogo extends PrintCommon {
 	 * @throws Exception
 	*/
 	function __construct($prueba,$inscritos,$jornadas) {
-		parent::__construct('Portrait',"print_inscritosByPrueba",$prueba,0);
+		parent::__construct('Portrait',"print_catalogo",$prueba,0);
 		if ( ($prueba==0) || ($inscritos===null) ) {
 			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
 			throw new Exception($this->errormsg);
@@ -72,17 +72,21 @@ class PrintCatalogo extends PrintCommon {
 		$this->print_commonFooter();
 	}
 
-	function printClub($pos,$id) {
-		$y=5+9*$pos;
+	function printClub($id) {
+        $x=$this->GetX();
+        $y=$this->GetY();
 		// retrieve club data
 		$cmgr=new Clubes('printCatalogo');
 		$club=$cmgr->selectByID($id);
-		$icon=($club['Logo']==="")?'rsce.png':$club['Logo'];
-		if (!file_exists(__DIR__.'/../../images/logos/'.$icon)) {
-			$this->myLogger->error("inscritosByPrueba::printClub() club:$id {$club['Nombre']} logo '$icon' not found");
-			$icon='rsce.png';
-		}
-		$this->myLogger->trace("Position: ".$pos." ID:".$id." Club: ".$club['Nombre']);
+
+        // evaluate logo
+        $icon=$this->federation->getLogo();
+        if ( $club['Logo']==="") {
+            $this->myLogger->error("inscritosByPrueba::printClub() club:$id {$club['Nombre']} no logo declared");
+        } else if ( !file_exists(__DIR__.'/../../images/logos/'.$icon) ) {
+            $this->myLogger->error("inscritosByPrueba::printClub() club:$id {$club['Nombre']} logo '$icon' not found");
+        } else $icon=$club['Logo'];
+		$this->myLogger->trace("ID:".$id." Club: ".$club['Nombre']);
 
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
@@ -126,28 +130,27 @@ class PrintCatalogo extends PrintCommon {
 		$this->Ln();
 	}
 	
-	function printParticipante($pos,$row) {
+	function printParticipante($count,$row) {
 		// $this->myLogger->trace("Position: ".$pos." Dorsal: ".$row['Dorsal']);
-		$fill = (($pos&0x01)==0)?true:false;
-
-		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
+        $this->ac_row($count,10); // set proper row background
 		$this->SetTextColor(0,0,0); // negro
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
-		
-		$this->SetLineWidth(.3); // ancho de linea
-		$this->setXY(17,9*$pos); // posicion inicial
-		// REMINDER: 
-		// $this->cell( width, height, data, borders, where, align, fill)
-		$this->SetFont('Arial','B',18); //
-		$this->Cell( 15, 9, $row['Dorsal'],	'LB', 0, 'C',	$fill);
+        $this->SetLineWidth(.3); // ancho de linea
+
+        $this->SetX(17);
+		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+		$this->SetFont('Arial','B',15); //
+		$this->Cell( 15, 7, $row['Dorsal'],	'TLB', 0, 'C',	true);
 		$this->SetFont('Arial','BI',12); // bold 9px
-		$this->Cell( $this->width[0], 9, $row['Nombre'],	'LB', 0, 'C',	$fill);
+		$this->Cell( $this->width[0], 7, $row['Nombre'],	'LB', 0, 'C',	true);
 		$this->SetFont('Arial','',8); // bold 8px
-		$this->Cell( $this->width[1], 9, substr($row['Raza'],0,20),		'LB', 0, 'R',	$fill);
-		$this->Cell( $this->width[2], 9, $row['Licencia'],	'LB', 0, 'C',	$fill);
-		$this->Cell( $this->width[3], 9, $this->cat[$row['Categoria']]." - ".$row['Grado'],	'LB', 0, 'C',	$fill);
+		$this->Cell( $this->width[1], 7, substr($row['Raza'],0,20),		'LB', 0, 'R',	true);
+        if ($this->federation->getFederation()==1) $this->SetFont('Arial','',6); // bold 6px
+        $this->Cell( $this->width[2], 7, $row['Licencia'],	'LB', 0, 'C',	true);
+        $this->SetFont('Arial','',8); // bold 8px
+		$this->Cell( $this->width[3], 7, $this->cat[$row['Categoria']]." - ".$row['Grado'],	'LB', 0, 'C',	true);
 		$this->SetFont('Arial','B',10); // bold 9px
-		$this->Cell( $this->width[4], 9, substr($row['NombreGuia'],0,30),'LBR', 0, 'R',	$fill);
+		$this->Cell( $this->width[4], 7, substr($row['NombreGuia'],0,30),'LBR', 0, 'R',	true);
 		
 		$this->SetFont('Arial','',8); // bold 8px
 		
@@ -156,9 +159,9 @@ class PrintCatalogo extends PrintCommon {
 			// en la cabecera texto siempre centrado
 			if ($this->width[$i]==0) continue;
 			$j=$i-4;
-			$this->Cell($this->width[$i],9,($row["J$j"]==0)?"":"X",'LBR',0,'C',$fill);
+			$this->Cell($this->width[$i],7,($row["J$j"]==0)?"":"X",'LBR',0,'C',true);
 		}
-		$this->Ln(9);
+		$this->Ln(7);
 	}
 	
 	function composeTable() {
@@ -176,37 +179,33 @@ class PrintCatalogo extends PrintCommon {
 				$this->cellHeader[$row]=$jornada['Nombre'];
 			}
 		}
-		
+        // si la prueba es de caza ajustamos para que quepa la licencia
+        if ($this->federation->getFederation()==1) {
+            $this->width[0] -= 7;  $this->width[1] -= 7; $this->width[2] +=14;
+        }
 		$this->addPage(); // start page
 		$club=0;
-		$pos=4; // header takes 4 cmts
+        $count=0;
 		foreach($this->inscritos as $row) {
-			switch($pos) {
-				case 28: // check for new club
-				case 29:
-				case 30:
-					if ($club==$row['Club']) break;
-					// else cannot insert new club header
-					// no break
-				case 31: // force new page
-					$this->addPage(); 
-					$pos=4;
-					// no break
-				case 4: // always insert club data at top
-					$club=$row['Club'];
-					$this->printClub($pos,$club);
-					$pos+=3;
-					break;
-				default:
-					if ($club==$row['Club']) break;
-					$club=$row['Club'];
-					$this->printClub($pos,$club);
-					$pos+=3;
-					break;				
-			}
-			$this->printParticipante($pos,$row);
-			$pos+=1;	
-		}
+            $pos = $this->GetY();
+            if (($club == $row['Club'])) {
+                // no hay cambio de club
+                if ($pos > 270) {
+                    $this->addPage();
+                    $this->printClub($club);
+                    $count = 0;
+                }
+            } else {
+                $club = $row['Club'];
+                // cambio de club
+                $this->ln(7); // extra newline
+                if ($pos > 250) $this->addPage();
+                $this->printClub($club);
+                $count = 0;
+            }
+            $this->printParticipante($count, $row);
+            $count++;
+        }
 		$this->myLogger->leave();		
 	}
 }
@@ -222,7 +221,7 @@ class PrintEstadisticas extends PrintCommon {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$inscritos,$jornadas) {
-		parent::__construct('Portrait',$prueba,0);
+		parent::__construct('Portrait','print_Estadisticas',$prueba,0);
 		if ( ($prueba==0) || ($inscritos===null) ) {
 			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
 			throw new Exception($this->errormsg);
@@ -395,7 +394,7 @@ class PrintEstadisticas extends PrintCommon {
 		if ($rsce==0) {
 			$this->SetFont('Arial','B',9);
 			// $this->cell( width, height, data, borders, where, align, fill)
-			$this->cell(30,7,'','RB',0,'L',true);
+			$this->cell(30,7,'','LRB',0,'L',true);
 			$this->cell(30,7,'Large','TRB',0,'C',true);
 			$this->cell(30,7,'Medium','TRB',0,'C',true);
 			$this->cell(30,7,'Small','TRB',0,'C',true);
@@ -403,7 +402,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // pre-agility
-			$this->cell(30,7,'Pre-Agility','RB',0,'L',true);
+			$this->cell(30,7,'Pre-Agility','LRB',0,'L',true);
 			$this->ac_row(0,9);
 			$this->cell(30,7,$data[$name]['P.A.']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['P.A.']['M'],'RB',0,'C',true);
@@ -412,7 +411,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // grado I
-			$this->cell(30,7,'Grado I','RB',0,'L',true);
+			$this->cell(30,7,'Grado I','LRB',0,'L',true);
 			$this->ac_row(1,9);
 			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
@@ -421,7 +420,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado II
-			$this->cell(30,7,'Grado II','RB',0,'L',true);
+			$this->cell(30,7,'Grado II','LRB',0,'L',true);
 			$this->ac_row(2,9);
 			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
@@ -430,7 +429,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado III
-			$this->cell(30,7,'Grado III','RB',0,'L',true);
+			$this->cell(30,7,'Grado III','LRB',0,'L',true);
 			$this->ac_row(3,9);
 			$this->cell(30,7,$data[$name]['GIII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GIII']['M'],'RB',0,'C',true);
@@ -439,7 +438,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // Total
-			$this->cell(30,7,'Total','RB',0,'L',true);
+			$this->cell(30,7,'Total','LRB',0,'L',true);
 			$this->ac_row(4,9);
 			$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
@@ -449,7 +448,7 @@ class PrintEstadisticas extends PrintCommon {
 		} else {
 			$this->SetFont('Arial','B',9);
 			// $this->cell( width, height, data, borders, where, align, fill)
-			$this->cell(30,7,'','RB',0,'L',true);
+			$this->cell(30,7,'','LRB',0,'L',true);
 			$this->cell(30,7,'Large','TRB',0,'C',true);
 			$this->cell(30,7,'Medium','TRB',0,'C',true);
 			$this->cell(30,7,'Small','TRB',0,'C',true);
@@ -458,7 +457,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // pre-agility
-			$this->cell(30,7,'Grado 0','RB',0,'L',true);
+			$this->cell(30,7,'Grado 0','LRB',0,'L',true);
 			$this->ac_row(0,9);
 			$this->cell(30,7,$data[$name]['P.A.']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['P.A.']['M'],'RB',0,'C',true);
@@ -468,7 +467,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // grado I
-			$this->cell(30,7,'Grado I','RB',0,'L',true);
+			$this->cell(30,7,'Grado I','LRB',0,'L',true);
 			$this->ac_row(1,9);
 			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
@@ -478,7 +477,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado II
-			$this->cell(30,7,'Grado II','RB',0,'L',true);
+			$this->cell(30,7,'Grado II','LRB',0,'L',true);
 			$this->ac_row(2,9);
 			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
@@ -488,7 +487,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // Total
-			$this->cell(30,7,'Total','RB',0,'L',true);
+			$this->cell(30,7,'Total','LRB',0,'L',true);
 			$this->ac_row(3,9);
 			$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
@@ -534,7 +533,7 @@ class PrintInscritos extends PrintCommon {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$inscritos,$jornadas) {
-		parent::__construct('Portrait',$prueba,0);
+		parent::__construct('Portrait','print_inscritosByPrueba',$prueba,0);
 		if ( ($prueba==0) || ($inscritos===null) ) {
 			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
 			throw new Exception($this->errormsg);
@@ -595,6 +594,10 @@ class PrintInscritos extends PrintCommon {
 				$this->cellHeader[9+$row]=$jornada['Nombre'];
 			}
 		}
+        // si estamos en caza ajustamos para que quepa la licencia
+        if ($this->federation->getFederation()==1) {
+            $this->pos[0]-=1; $this->pos[1]-=2; $this->pos[2]+=20; $this->pos[3]-=5; $this->pos[4]-=5; $this->pos[8]-=7;
+        }
 		// Datos
 		$fill = false;
 		$rowcount=0;
@@ -612,8 +615,10 @@ class PrintInscritos extends PrintCommon {
 			$this->Cell($this->pos[0],6,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
 			$this->SetFont('Arial','B',8); // bold 8px
 			$this->Cell($this->pos[1],6,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
-			$this->SetFont('Arial','',8); // normal 8px
+            if ($this->federation->getFederation()==1) $this->SetFont('Arial','',7); // normal 7px
+            else $this->SetFont('Arial','',8); // normal 8px
 			$this->Cell($this->pos[2],6,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
+            $this->SetFont('Arial','',8); // normal 8px
 			$this->Cell($this->pos[3],6,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
 			$this->Cell($this->pos[4],6,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
 			$this->Cell($this->pos[5],6,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);

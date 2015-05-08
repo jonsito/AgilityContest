@@ -85,20 +85,12 @@ class PrintCommon extends FPDF {
 		if ($jornada!=0) $this->jornada=$this->myDBObject->__getObject("Jornadas",$jornada);
 		else $this->jornada=null;
 		// evaluage logo info
-		$this->icon="rsce.png";
-		$this->icon2="agilitycontest.png"; // default
-		if (isset($this->club)) $this->icon=$this->club->Logo;
-		switch ($this->prueba->RSCE){
-			case 0: // rsce
-				$this->icon2=($this->icon==="rsce.png")?"fci.png":"rsce.png"; // to avoid duplicate head logos
-				break;
-			case 1: // rfec
-				$this->icon2=($this->icon==="rfec.png")?"csd.png":"rfec.png"; // to avoid duplicate head logos
-				break;
-			case 2: // uca
-				$this->icon2=($this->icon==="rfec.png")?"rfec.png":"uca.png"; // to avoid duplicate head logos
-				break;
-		}
+        $this->icon=$this->federation->getLogo();
+        $this->icon2=$this->federation->getParentLogo();
+        if (isset($this->club)) {
+            $this->icon=$this->club->Logo;
+            $this->icon2=$this->federation->getLogo();
+        }
 	}
 
     /**
