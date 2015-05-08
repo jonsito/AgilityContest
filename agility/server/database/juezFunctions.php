@@ -28,7 +28,7 @@ try {
 	$jueces= new Jueces("juezFunctions");
 	$am= new AuthManager("juezFunctions");
 	$operation=http_request("Operation","s",null);
-	$federation=http_request("Federation","i",-1); // -1 defaults to all federations
+    $federation=http_request("Federation","i",-1); // -1 defaults to all federations
 	$idjuez=http_request("ID","i",0);
 	if ($operation===null) throw new Exception("Call to juezFunctions without 'Operation' requested");
 	switch ($operation) {
