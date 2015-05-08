@@ -91,7 +91,8 @@ $('#tablet-datagrid').datagrid({
     rowStyler: myRowStyler,            
     // especificamos un formateador especial para desplegar la tabla de perros por tanda
     detailFormatter:function(idx,row){
-        return '<div style="padding:2px"><table id="tablet-datagrid-' + parseInt(row.ID) + '"></table></div>';
+        var dg="tablet-datagrid-" + parseInt(row.ID);
+        return '<div style="padding:2px"><table id="' + dg + '"></table></div>';
     },
     onClickRow: function(idx,row) { 
         doBeep(); 
@@ -108,7 +109,11 @@ $('#tablet-datagrid').datagrid({
         tablet_updateSession(row);
         if (row.Tipo!=0) tablet_showPerrosByTanda(idx,row);
     },
-    onCollapseRow: function(idx,row) { doBeep(); }
+    onCollapseRow: function(idx,row) {
+        var dg="tablet-datagrid-" + parseInt(row.ID);
+        $(dg).remove();
+        doBeep();
+    }
 });
 
 // mostrar los perros de una tanda

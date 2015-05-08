@@ -102,9 +102,14 @@ $config =Config::getInstance();
             },        
             // especificamos un formateador especial para desplegar la tabla de perros por guia
             detailFormatter:function(idx,row){
-                return '<div style="padding:2px"><table id="guias-perros-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
+                var dg="guias-perros-datagrid-" + replaceAll(' ','_',row.ID);
+                return '<div style="padding:2px"><table id="'+dg+'"></table></div>';
             },
-            onExpandRow: function(idx,row) { showPerrosByGuia(idx,row); }
+            onExpandRow: function(idx,row) { showPerrosByGuia(idx,row); },
+            onCollapseRow: function(idx,row) {
+                var dg = "#guias-perros-datagrid-" + replaceAll(' ', '_', row.ID);
+                $(dg).remove();
+            }
 
         }); // end of guias-datagrid
 
