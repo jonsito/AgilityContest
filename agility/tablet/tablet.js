@@ -201,7 +201,7 @@ function tablet_np() {
 		'datos',
 		{
 		'NoPresentado'	:	tdnp.val(),
-		'Faltas'		:	tdfltval(),
+		'Faltas'		:	tdflt.val(),
 		'Tocados'		:	tdtoc.val(),
 		'Rehuses'		:	tdreh.val(),
 		'Tiempo'		:	tdtime.val(),
