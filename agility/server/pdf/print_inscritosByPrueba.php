@@ -523,7 +523,7 @@ class PrintInscritos extends PrintCommon {
 
 	// geometria de las celdas
 	protected $cellHeader;
-	protected $pos =	array(  11,       21,     11,    41,   31,     8,     8,     8,       12,     5,  5,  5,  5,  5,  5,  5,  5 );
+	protected $pos =	array(  11,       21,     16,    38,   29,     8,     8,     8,       12,     5,  5,  5,  5,  5,  5,  5,  5 );
 	protected $align=	array(  'R',      'L',    'C',   'R',  'R',   'C',    'L',   'C',    'L',    'C','C','C','C','C','C','C','C');
 	
 	/**

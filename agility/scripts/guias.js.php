@@ -189,10 +189,10 @@ function assignGuia(){
 }
 
 /**
- * Anyade (new) un nuevo perro desde el menu de reasignacion de perros
+ * Anyade (new) un nuevo guia desde el menu de reasignacion de guia
  */
 function saveChGuia(){
-    var frm = $('#chperros-form');
+    var frm = $('#chguias-form');
 	$('#chguias-Club').val($('#chguias-newClub').val());
     $('#chguias-Operation').val('insert');
     $('#chguias-Federation').val(workingData.federation);
