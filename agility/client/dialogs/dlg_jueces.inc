@@ -20,7 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div class="ftitle">Informaci&oacute;n del juez</div>
         <form id="jueces-form" method="get" novalidate>
             <div class="fitem">
-                <label for="Nombre">Nombre:</label>
+                <label for="jueces-Nombre">Nombre:</label>
                 <input id="jueces-Nombre" 
                 	name="Nombre" 
                 	type="text" 
@@ -30,38 +30,38 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="jueces-Operation" name="Operation" type="hidden" /> <!-- to store insert/update/delete operation -->
             </div>
             <div class="fitem">
-                <label for="Direccion1">Direccion 1:</label>
+                <label for="jueces-Direccion1">Direccion 1:</label>
                 <input id="jueces-Direccion1" class="easyui-validatebox" name="Direccion1" type="text" style="width:250px" />
             </div>
             <div class="fitem">
-                <label for="Direccion2">Direccion 2:</label>
+                <label for="jueces-Direccion2">Direccion 2:</label>
                 <input id="jueces-Direccion2" class="easyui-validatebox" name="Direccion2" type="text" style="width:250px" />
             </div>
             <div class="fitem">
-                <label for="Telefono">Tel&eacute;fono:</label>
+                <label for="jueces-Telefono">Tel&eacute;fono:</label>
                 <input id="jueces-Telefono" class="easyui-validatebox" name="Telefono" type="text" />
             </div>
             <div class="fitem">
-                <label for="Internacional">Juez internacional:</label>
+                <label for="jueces-Internacional">Juez internacional:</label>
                 <input id="jueces-Internacional" name="Internacional" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
             <div class="fitem">
-                <label for="Practicas">Juez en pr&aacute;cticas:</label>
+                <label for="jueces-Practicas">Juez en pr&aacute;cticas:</label>
                 <input id="jueces-Practicas" name="Practicas" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
         	<div class="fitem">
-        	    <label for="Federations">Federaciones:</label>
+        	    <label for="jueces-Federations">Federaciones:</label>
         	    RSCE <input id="jueces-RSCE" type="checkbox" value="1" name="RSCE"/>
         	    RFEC <input id="jueces-RFEC" type="checkbox" value="2" name="RFEC"/>
         	    UCA<input id="jueces-UCA" type="checkbox" value="4" name="UCA"/>
         	    <input id="jueces-Federations" name="Federations" type="hidden"/>
         	</div>
             <div class="fitem">
-                <label for="Email">Correo electr&oacute;nico:</label>
+                <label for="jueces-Email">Correo electr&oacute;nico:</label>
                 <input id="jueces-Email" name="Email" class="easyui-validatebox" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
-                <label for="Observaciones">Observaciones:</label>
+                <label for="jueces-Observaciones">Observaciones:</label>
                 <textarea id="jueces-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
             </div>
         </form>

@@ -26,7 +26,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<span style="float:left;padding:5px">
 	   	<a id="competicion-reloadBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls:'icon-reload'" onclick="reloadCompeticion()">Actualizar</a>
-	   	Auto:
+	   	<label for="competicion-autoUpdateBtn">Auto:</label>
 	   	<input id="competicion-autoUpdateBtn" type="checkbox" class="easyui-checkbox" value="0" onclick="autoUpdateCompeticion()"/>
    	</span>
    	<span style="float:right;padding:5px">
@@ -193,9 +193,10 @@ function deleterow(target){
 	});
 }
 function saverow(target){
+    var dg=$('#competicion-datagrid');
 	var editIndex=getRowIndex(target);
-	$('#competicion-datagrid').datagrid('endEdit', editIndex );
-	var data=$('#competicion-datagrid').datagrid('getRows')[editIndex];
+	dg.datagrid('endEdit', editIndex );
+	var data=dg.datagrid('getRows')[editIndex];
 	data.Pendiente=0;
 	saveCompeticionData(editIndex,data);
 }

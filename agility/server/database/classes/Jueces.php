@@ -47,7 +47,7 @@ class Jueces extends DBObject {
         $observaciones=	http_request("Observaciones","s",null,false);
         $feds=	        http_request("Federations","i",1);
 		
-		$this->myLogger->debug("Nombre: $nombre Dir1: $direccion1 Dir2: $Direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
+		$this->myLogger->debug("Nombre: $nombre Dir1: $direccion1 Dir2: $direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($this->conn->error);

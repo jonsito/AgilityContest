@@ -30,20 +30,22 @@ $config =Config::getInstance();
 		<input id="team_edit_dialog-Jornada" type="hidden" name="Jornada" value="0"/>
    		<input id="team_edit_dialog-Operation" type="hidden" name="Operation" value="insert"/>
    	 	<div class="fitem">
-			<label for="Nombre" style="width:100px">Nombre:</label>
+			<label for="team_edit_dialog-Nombre" style="width:100px">Nombre:</label>
 			<input id="team_edit_dialog-Nombre" name="Nombre" style="width:150px"
 				data-options="required:true,validType:'length[1,100]'"/>
 		</div>
 		<div class="fitem">
-			<label for="Categorias" style="width:100px"><?php _e('Categor&iacute;as');?>:</label>
+			<label for="team_edit_dialog-Categorias" style="width:100px"><?php _e('Categor&iacute;as');?>:</label>
 			<input id="team_edit_dialog-Categorias" type="hidden" name="Categorias" value=""/>
-			<input type="checkbox" id="team_edit_dialog-L" name="L" value="L"/>Large
-			<input type="checkbox" id="team_edit_dialog-M" name="M" value="M"/>Medium
-			<input type="checkbox" id="team_edit_dialog-S" name="S" value="S"/>Small
-			<span id="team_edit_dialog-tiny"><input type="checkbox" id="team_edit_dialog-T" name="T" value="T"/>Tiny</span>
+			<input type="checkbox" id="team_edit_dialog-L" name="L" value="L">Large</input>
+			<input type="checkbox" id="team_edit_dialog-M" name="M" value="M">Medium</input>
+			<input type="checkbox" id="team_edit_dialog-S" name="S" value="S">Small</input>
+			<span id="team_edit_dialog-tiny">
+                <input type="checkbox" id="team_edit_dialog-T" name="T" value="T">Tiny</input>
+            </span>
 		</div>
 		<div class="fitem">
-			<label for="Observaciones" style="width:100px">Observaciones:</label>
+			<label for="team_edit_dialog-Observaciones" style="width:100px">Observaciones:</label>
 			<input id="team_edit_dialog-Observaciones" name="Observaciones" style="width:300px"/>
 		</div>
    	</form>

@@ -20,7 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div id="chguias-title" class="ftitle">Reasignaci&oacute;n de un gu&iacute;a</div>
         <form id="chguias-header">
         	<div class="fitem">
-                <label for="Search">Buscar: </label>
+                <label for="chguias-Search">Buscar: </label>
                 <select id="chguias-Search" name="Search" style="width:200px"></select>&nbsp;
                 <a id="chguias-clearBtn" href="#" class="easyui-linkbutton"
                 	data-options="iconCls: 'icon-undo'">Limpiar</a>
@@ -29,7 +29,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <hr/>
         <form id="chguias-form" method="get" novalidate>
             <div class="fitem">
-                <label for="Nombre">Nombre:</label>
+                <label for="chguias-Nombre">Nombre:</label>
                 <input id="chguias-Federation" name="Federation" type="hidden" />
                 <input id="chguias-ID" name="ID" type="hidden" value="" /> <!-- Guia ID -->
                 <input id="chguias-Nombre" name="Nombre" style="width:300px" />
@@ -38,15 +38,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="chguias-Operation" name="Operation" type="hidden" value=""/> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
-                <label for="Email">Correo electr&oacute;nico:</label>
+                <label for="chguias-Email">Correo electr&oacute;nico:</label>
                 <input id="chguias-Email" name="Email" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
-                <label for="Telefono">Tel&eacute;fono:</label>
+                <label for="chguias-Telefono">Tel&eacute;fono:</label>
                 <input id="chguias-Telefono" name="Telefono" type="text" />
             </div>
             <div class="fitem">
-                <label for="Observaciones">Observaciones:</label>
+                <label for="chguias-Observaciones">Observaciones:</label>
                 <textarea id="chguias-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
             </div>
         </form>
