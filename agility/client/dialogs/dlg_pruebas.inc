@@ -20,7 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div class="ftitle">Informaci&oacute;n de la prueba</div>
         <form id="pruebas-form" method="get" novalidate>
             <div class="fitem">
-                <label for="Nombre" style="width:325px">Denominaci&oacute;n de la prueba:</label>
+                <label for="pruebas-Nombre" style="width:325px">Denominaci&oacute;n de la prueba:</label>
                 <input id="pruebas-Nombre" 
                 	name="Nombre" 
                 	type="text" 
@@ -42,25 +42,25 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </div>
             <div>&nbsp;<br /></div>
             <div class="fitem">
-                <label for="Club">Club:</label>
+                <label for="pruebas-Club">Club:</label>
                 <select id="pruebas-Club" name="Club" style="width:175px"></select>
                 <a id="pruebas-newClubBtn" href="#" class="easyui-linkbutton" 
                 	data-options="iconCls:'icon-flag'" style="float:right">Nuevo Club</a>
             </div>
             <div class="fitem">
-                <label for="Ubicacion">Lugar de realizaci&oacute;n</label>
+                <label for="pruebas-Ubicacion">Lugar de realizaci&oacute;n</label>
                 <input id="pruebas-Ubicacion" name="Ubicacion" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
-                <label for="Triptico">URL del tr&iacute;ptico</label>
+                <label for="pruebas-Triptico">URL del tr&iacute;ptico</label>
                 <input id="pruebas-Triptico" name="Triptico" class="easyui-validatebox" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
-                <label for="Cartel">URL del cartel</label>
+                <label for="pruebas-Cartel">URL del cartel</label>
                 <input id="pruebas-Cartel" name="Cartel" class="easyui-validatebox" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
-                <label for="Observaciones">Observaciones:</label>
+                <label for="pruebas-Observaciones">Observaciones:</label>
                 <textarea id="pruebas-Observaciones" name="Observaciones" style="height:50px;width:250px"></textarea>
             </div>
         </form>

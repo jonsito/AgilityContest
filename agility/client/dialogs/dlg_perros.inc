@@ -20,7 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div class="ftitle">Informaci&oacute;n del perro</div>
         <form id="perros-form" method="get" novalidate>
             <div class="fitem">
-                <label for="Nombre">Nombre:</label>
+                <label for="perros-Nombre">Nombre:</label>
                 <input id="perros-Nombre" 
                 	name="Nombre" 
                 	type="text" 
@@ -30,33 +30,33 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="perros-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
-                <label for="Raza">Raza:</label>
+                <label for="perros-Raza">Raza:</label>
                 <input id="perros-Raza" class="easyui-validatebox" name="Raza" type="text" />
             </div>
             <div class="fitem">
-                <label for="LOE_RRC">Num. LOE / RRC:</label>
+                <label for="perros-LOE_RRC">Num. LOE / RRC:</label>
                 <input id="perros-LOE_RRC" class="easyui-validatebox" name="LOE_RRC" type="text" />
             </div>
             <div class="fitem">
-                <label for="Licencia">Num. Licencia:</label>
+                <label for="perros-Licencia">Num. Licencia:</label>
                 <input id="perros-Licencia" class="easyui-validatebox" name="Licencia" type="text" />
             </div>
             <div class="fitem">
-                <label for="Categoria">Categor&iacute;a:</label>
+                <label for="perros-Categoria">Categor&iacute;a:</label>
                 <select id="perros-Categorias_Perro" 
                 		name="Categoria" 
                 		class="easyui-combobox" 
                 		style="width:155px"></select>
             </div>
             <div class="fitem">
-                <label for="Grado">Grado:</label>
+                <label for="perros-Grado">Grado:</label>
                 <select id="perros-Grados_Perro" 
                 		name="Grado" 
                 		class="easyui-combobox" 
                 		style="width:155px"></select>
             </div>
             <div class="fitem">
-                <label for="Guia">Gu&iacute;a:</label>
+                <label for="perros-Guia">Gu&iacute;a:</label>
                 <select id="perros-Guia" name="Guia" style="width:225px" class="easyui-combogrid"></select>
             	<a id="perros-newGuiaBtn" href="#" class="easyui-linkbutton" 
             		data-options="iconCls:'icon-users'" style="float:right">Nuevo Gu&iacute;a</a>
@@ -84,11 +84,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     // - declaracion del formulario
     $('#perros-form').form({
     	onLoadSuccess: function(data) {
+            var pg=$('#perros-Guia');
     	    $('#perros-Operation').val('update'); // mark "update" operation
     	    // stupid combogrid that doesn't display right data after form load
-    	    $('#perros-Guia').combogrid('clear');
-    	    $('#perros-Guia').combogrid('setValue',data.Guia);
-    	    $('#perros-Guia').combogrid('setText',data.NombreGuia);
+    	    pg.combogrid('clear');
+    	    pg.combogrid('setValue',data.Guia);
+    	    pg.combogrid('setText',data.NombreGuia);
     	}
 	});
     // - botones
@@ -107,15 +108,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     $('#perros-dialog').dialog({
         closed:true,
         buttons:'#perros-dlg-buttons',
-        iconCls: 'icon-dog'/*,
-        onBeforeOpen: function() { 
-            var grads="/agility/server/database/dogFunctions.php?Operation=grados&Federation="+workingData.federation;
-            var cats="/agility/server/database/dogFunctions.php?Operation=categorias&Federation="+workingData.federation;
-            $('#perros-Grados_Perro').combobox('reload',grads);
-    		$('#perros-Categorias_Perro').combobox('reload',cats);
-        }
-        */
+        iconCls: 'icon-dog'
     });
+
     $('#perros-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
     	if (e.keyCode == 27){ $('#perros-dialog').dialog('close');
     	}

@@ -428,7 +428,7 @@ function dmanga_shareJuez() {
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
-            if (result.errorMsg){ 
+            if (result.hasOwnProperty('errorMsg')){
             	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {// on submit success, reload results
     			var recorrido=$("input:radio[name=Recorrido]:checked").val();
@@ -457,7 +457,7 @@ function save_manga(id) {
         data: frm.serialize(),
         dataType: 'json',
         success: function (result) {
-            if (result.errorMsg){ 
+            if (result.hasOwnProperty('errorMsg')){
             	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {// on submit success, reload results
     			var recorrido=$("input:radio[name=Recorrido]:checked").val();
@@ -1354,8 +1354,8 @@ function printOrdenTandas() {
 function clasificaciones_printPodium() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	var url='/agility/server/pdf/print_podium.php';
-    if (isJornadaEq3) url='/agility/server/pdf/print_podium_eq3.php';
-    if (isJornadaEq4) url='/agility/server/pdf/print_podium_eq4.php';
+    if (isJornadaEq3()) url='/agility/server/pdf/print_podium_eq3.php';
+    if (isJornadaEq4()) url='/agility/server/pdf/print_podium_eq4.php';
 	if (ronda==null) {
     	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
     	return false; // no way to know which ronda is selected
