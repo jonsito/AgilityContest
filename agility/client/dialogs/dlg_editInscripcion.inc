@@ -29,40 +29,40 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
            	<input id="edit_inscripcion-Perro" name="Perro" type="hidden" />
            	<span  id="edit_inscripcion-dogInfo" 	class="ftitle">Informaci&oacute;n del perro:</span>
            	<span  id="edit_inscripcion-inscInfo" 	class="ftitle" style="text-align:center">Datos de la inscripci&oacute;n:</span>
-           	<label id="edit_inscripcion-Nombrelbl"	for="Nombre">Nombre:</label>
+           	<label id="edit_inscripcion-Nombrelbl"	for="edit_inscripcion-Nombre">Nombre:</label>
            	<input id="edit_inscripcion-Nombre" 	name="Nombre" type="text" disabled="disabled" />
-        	<label id="edit_inscripcion-Licencialbl" for="Licencia">Licencia: </label>
+        	<label id="edit_inscripcion-Licencialbl" for="edit_inscripcion-Licencia">Licencia: </label>
         	<input id="edit_inscripcion-Licencia"	name="Licencia" type="text" disabled="disabled"/>
-        	<label id="edit_inscripcion-Categorialbl" for="Categoria">Categoria: </label>
+        	<label id="edit_inscripcion-Categorialbl" for="edit_inscripcion-Categoria">Categoria: </label>
             <input id="edit_inscripcion-Categoria" 	name="Categoria" type="text" style="text-align:center" disabled="disabled"/>
-        	<label id="edit_inscripcion-Gradolbl"	for="Grado">Grado: </label>
+        	<label id="edit_inscripcion-Gradolbl"	for="edit_inscripcion-Grado">Grado: </label>
             <input id="edit_inscripcion-Grado" 		name="Grado" type="text" style="text-align:center" disabled="disabled" />
-            <label id="edit_inscripcion-NombreGuialbl"	for="NombreGuia">Gu&iacute;a: </label>
+            <label id="edit_inscripcion-NombreGuialbl"	for="edit_inscripcion-NombreGuia">Gu&iacute;a: </label>
             <input id="edit_inscripcion-NombreGuia" name="NombreGuia" type="text" disabled="disabled"/>
-            <label id="edit_inscripcion-NombreClublbl" for="NombreClub">Club: </label>
+            <label id="edit_inscripcion-NombreClublbl" for="edit_inscripcion-NombreClub">Club: </label>
            	<input id="edit_inscripcion-NombreClub" name="NombreClub" type="text" disabled="disabled" />
            	<input id="edit_inscripcion-J1" 		name="J1" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
-           	<label id="edit_inscripcion-J1lbl" 		for="J1">J1</label>
+           	<label id="edit_inscripcion-J1lbl" 		for="edit_inscripcion-J1">J1</label>
             <input id="edit_inscripcion-J2" 		name="J2" class="easyui-checkbox" type="checkbox" value="2" onclick="doMoney(this);"/>
-            <label id="edit_inscripcion-J2lbl" 		for="J2">J2</label>
+            <label id="edit_inscripcion-J2lbl" 		for="edit_inscripcion-J2">J2</label>
             <input id="edit_inscripcion-J3"			name="J3" class="easyui-checkbox" type="checkbox" value="4" onclick="doMoney(this);"/>
-            <label id="edit_inscripcion-J3lbl"		for="J3">J3</label>
+            <label id="edit_inscripcion-J3lbl"		for="edit_inscripcion-J3">J3</label>
             <input id="edit_inscripcion-J4"			name="J4" class="easyui-checkbox" type="checkbox" value="8" onclick="doMoney(this);"/>
- 	        <label id="edit_inscripcion-J4lbl"		for="J4">J4</label>
+ 	        <label id="edit_inscripcion-J4lbl"		for="edit_inscripcion-J4">J4</label>
             <input id="edit_inscripcion-J5"			name="J5" class="easyui-checkbox" type="checkbox" value="16" onclick="doMoney(this);"/>
-            <label id="edit_inscripcion-J5lbl" 		for="J5">J5</label>
+            <label id="edit_inscripcion-J5lbl" 		for="edit_inscripcion-J5">J5</label>
             <input id="edit_inscripcion-J6" 		name="J6" class="easyui-checkbox" type="checkbox" value="32" onclick="doMoney(this);"/>
-            <label id="edit_inscripcion-J6lbl" 		for="J6">J6</label>
+            <label id="edit_inscripcion-J6lbl" 		for="edit_inscripcion-J6">J6</label>
             <input id="edit_inscripcion-J7" 		name="J7" class="easyui-checkbox" type="checkbox" value="64" onclick="doMoney(this);"/>
-            <label id="edit_inscripcion-J7lbl" 		for="J7">J7</label>
+            <label id="edit_inscripcion-J7lbl" 		for="edit_inscripcion-J7">J7</label>
             <input id="edit_inscripcion-J8" 		name="J8" class="easyui-checkbox" type="checkbox" value="128" onclick="doMoney(this);"/>
-            <label id="edit_inscripcion-J8lbl" 		for="J8">J8</label>
-            <label id="edit_inscripcion-Celolbl"	for="Celo2">Celo:</label>
+            <label id="edit_inscripcion-J8lbl" 		for="edit_inscripcion-J8">J8</label>
+            <label id="edit_inscripcion-Celolbl"	for="edit_inscripcion-Celo2">Celo:</label>
            	<input id="edit_inscripcion-Celo" 		name="Celo" type="hidden" value="0"/>
             <input id="edit_inscripcion-Celo2"		name="Celo2" class="easyui-checkbox" type="checkbox" value="1" />
-	        <label id="edit_inscripcion-Observacioneslbl" for="Observaciones">Observaciones:</label>
+	        <label id="edit_inscripcion-Observacioneslbl" for="edit_inscripcion-Observaciones">Observaciones:</label>
 	        <input id="edit_inscripcion-Observaciones" type="text" name="Observaciones"/>
-	        <label id="edit_inscripcion-Pagadolbl"	for="Pagado">Pagado: </label>
+	        <label id="edit_inscripcion-Pagadolbl"	for="edit_inscripcion-Pagado">Pagado: </label>
  	  		<input id="edit_inscripcion-Pagado" 	name="Pagado" type="text" style="text-align:right;padding-right:5px"/>
  	  		<span id="edit_inscripcion-PagadoEuro">&euro;</span>
         </form> 

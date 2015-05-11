@@ -44,7 +44,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="ordentandas_newtanda-dialog" style="width:475px;height:auto;padding:10px 20px">
 	<form id="ordentandas_newtanda-form">
 	            <div class="fitem">
-                <label for="Nombre">Nombre:</label>
+                <label for="ordentandas_nt-Nombre">Nombre:</label>
                 <input id="ordentandas_nt-Nombre" name="Nombre"	type="text"	style="width:250px" />
                 <input id="ordentandas_nt-ID" name="ID" type="hidden" /> 
                 <input id="ordentandas_nt-Tipo" name="Tipo" type="hidden" /> 
@@ -54,15 +54,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="ordentandas_nt-Operation" name="Operation" type="hidden" /> <!-- to store insert/update/delete operation -->
             </div>
             <div class="fitem">
-                <label for="Sesion">Sesi&oacute;n/Ring</label>
+                <label for="ordentandas_nt-Sesion">Sesi&oacute;n/Ring</label>
                 <select id="ordentandas_nt-Sesion" name="Sesion" style="width:150px"></select>
             </div>
             <div class="fitem">
-                <label for="Horario">Horario</label>
+                <label for="ordentandas_nt-Horario">Horario</label>
                 <input id="ordentandas_nt-Horario" name="Horario" type="text" style="width:150px" />
             </div>
             <div class="fitem">
-                <label for="Comentarios">Comentarios</label>
+                <label for="ordentandas_nt-Comentario">Comentarios</label>
                 <input id="ordentandas_nt-Comentario" name="Comentario" type="text" style="width:300px"/>
             </div>
 	</form>

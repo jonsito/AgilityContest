@@ -29,7 +29,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <hr/>
         <form id="chperros-form" method="get" novalidate>
             <div class="fitem">
-                <label for="Nombre">Nombre:</label>
+                <label for="chperros-Nombre">Nombre:</label>
                 <input id="chperros-ID" name="ID" type="hidden" /> <!-- dog id -->
                 <input id="chperros-Federation" name="Federation" type="hidden" />
                 <input id="chperros-Nombre" name="Nombre" class="easyui-validatebox" /> <!-- dog name -->
@@ -38,26 +38,26 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="chperros-newGuia" name="NewGuia" type="hidden" /> <!-- id original of the guia -->
             </div>
             <div class="fitem">
-                <label for="Raza">Raza:</label>
+                <label for="chperros-Raza">Raza:</label>
                 <input id="chperros-Raza" class="easyui-validatebox" name="Raza" type="text" />
             </div>
             <div class="fitem">
-                <label for="LOE_RRC">Num. LOE / RRC:</label>
+                <label for="chperros-LOE_RRC">Num. LOE / RRC:</label>
                 <input id="chperros-LOE_RRC" class="easyui-validatebox" name="LOE_RRC" type="text" />
             </div>
             <div class="fitem">
-                <label for="Licencia">Num. Licencia:</label>
+                <label for="chperros-Licencia">Num. Licencia:</label>
                 <input id="chperros-Licencia" class="easyui-validatebox" name="Licencia" type="text" />
             </div>
             <div class="fitem">
-                <label for="Categoria">Categor&iacute;a:</label>
+                <label for="chperros-Categoria">Categor&iacute;a:</label>
                 <select id="chperros-Categorias_Perro" 
                 		name="Categoria" 
                 		class="easyui-combobox" 
                 		style="width:155px" ></select>
             </div>
             <div class="fitem">
-                <label for="Grado">Grado:</label>
+                <label for="chperros-Grado">Grado:</label>
                 <select id="chperros-Grados_Perro" 
                 		name="Grado" 
                 		class="easyui-combobox" 

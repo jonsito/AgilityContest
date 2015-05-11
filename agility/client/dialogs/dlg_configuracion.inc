@@ -24,7 +24,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 		<div title="Escritorio" style="padding:10px">		
 			<h3>Apariencia del escritorio</h3>
-			<label for="easyui_theme">Tema del escritorio</label>
+			<label for="config_theme">Tema del escritorio</label>
 			<select id="config_theme" name="easyui_theme">
 				<option value="default" selected="selected">Tema por defecto</option>
 				<option value="metro">Metro</option>
@@ -32,82 +32,82 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<option value="black">Negro</option>
 			</select><br />
 			<label for="easyui_bgcolor">Color del fondo del escritorio</label>
-			<input name="easyui_bgcolor" value="#0000ff" type="color"/><br />
+			<input id="easyui_bgcolor" name="easyui_bgcolor" value="#0000ff" type="color"/><br />
 			<label for="easyui_hdrcolor">Color del T&iacute;tulo de cabecera</label>
-			<input name="easyui_hdrcolor" value="#00ff00" type="color"/><br />
+			<input id="easyui_hdrcolor" name="easyui_hdrcolor" value="#00ff00" type="color"/><br />
 			<label for="easyui_opcolor">Color del T&iacute;tulo del men&uacute; activo</label>
-			<input name="easyui_opcolor" value="opcolor" type="color"/><br />
+			<input id="easyui_opcolor" name="easyui_opcolor" value="opcolor" type="color"/><br />
 			<label for="easyui_rowcolor1">Color de filas pares en las tablas</label>
-			<input name="easyui_rowcolor1" value="#e0e0e0" type="color"/><br />
+			<input id="easyui_rowcolor1" name="easyui_rowcolor1" value="#e0e0e0" type="color"/><br />
 			<label for="easyui_rowcolor2">Color de filas impares en las tablas</label>
-			<input name="easyui_rowcolor2" value="#c0c0c0" type="color"/><br />
+			<input id="easyui_rowcolor2" name="easyui_rowcolor2" value="#c0c0c0" type="color"/><br />
 			<label for="easyui_rowcolor3">Color de filas extras en las tablas</label>
-			<input name="easyui_rowcolor3" value="#c0c0f0" type="color"/><br />
+			<input id="easyui_rowcolor3" name="easyui_rowcolor3" value="#c0c0f0" type="color"/><br />
 		</div>
 	
 		<div title="Tablet" style="padding:10px">
 			<h3>Funcionalidad del tablet del asistente de pista</h3>
 			<label for="tablet_beep">Se&ntilde;al sonora al pulsar el tablet</label> 
 			<input type="hidden" name="tablet_beep" value="0"/>
-			<input type="checkbox" name="tablet_beep" value="1"/><br />
+			<input id="tablet_beep" name="tablet_beep" type="checkbox" value="1"/><br />
 			<label for="tablet_dnd">Orden de salida ajustable desde el tablet</label> 
 			<input type="hidden" name="tablet_dnd" value="0"/>
-			<input type="checkbox" name="tablet_dnd" value="1"/><br />
+			<input id="tablet_dnd" name="tablet_dnd" type="checkbox" value="1"/><br />
 			<label for="tablet_chrono">Mostrar datos de cron&oacute;metro en tablet</label> 
 			<input type="hidden" name="tablet_chrono" value="0"/>
-			<input type="checkbox" name="tablet_chrono" value="1"/><br />
+			<input id="tablet_chrono" name="tablet_chrono" type="checkbox" value="1"/><br />
 			<label for="tablet_next">Bot&oacute;n 'Aceptar' guarda y muestra siguiente participante </label> 
 			<input type="hidden" name="tablet_next" value="0"/>
-			<input type="checkbox" name="tablet_next" value="1"/><br />
-			<label for="tablet_countdown">Acci&oacute;n al finalizar cuenta de 15 segundos</label>
-			<input type="radio" name="tablet_countdown" value="1">Ignorar</input>
-			<input type="radio" name="tablet_countdown" value="2" checked="checked">Crono manual</input>
-			<input type="radio" name="tablet_countdown" value="3">Eliminar</input><br />
+			<input id="tablet_next" name="tablet_next" type="checkbox" value="1"/><br />
+			<label> Acci&oacute;n al finalizar cuenta de 15 segundos</label>
+            <input id="tcd1" type="radio" name="tablet_countdown" value="1" >Ignorar</input>
+            <input id="tcd2" type="radio" name="tablet_countdown" value="2" checked="checked">Crono manual</input>
+            <input id="tcd3" type="radio" name="tablet_countdown" value="3">Eliminar</input><br />
 		</div>
 		
 		<div title="VideoMarcadores" style="padding:10px">
 			<h3>Par&aacute;metros de los Video-marcadores</h3>
 			<label for="vw_polltime">Frecuencia de refresco (seg.)</label>
-			<input name="vw_polltime" type="text" size="2" value="5"/><br />
+			<input id="vw_polltime" name="vw_polltime" type="text" size="2" value="5"/><br />
 			<label for="vw_alpha">Transparencia del OnScreenDisplay (0.0-1.0)</label>
-			<input name="vw_alpha" type="text" size="3" value="0.5"/><br />
+			<input id="vw_alpha" name="vw_alpha" type="text" size="3" value="0.5"/><br />
 			<label for="vw_hdrbg1">Color de fondo de la cabecera principal</label>
-			<input name="vw_hdrbg1" type="color" value="#0000ff"/><br />
+			<input id="vw_hdrbg1" name="vw_hdrbg1" type="color" value="#0000ff"/><br />
 			<label for="vw_hdrfg1">Color del texto de la cabecera principal</label>
-			<input name="vw_hdrfg1" type="color" value="#ffffff"/><br />
+			<input id="vw_hdrfg1" name="vw_hdrfg1" type="color" value="#ffffff"/><br />
 			<label for="vw_hdrbg2">Color de fondo de la cabecera secundaria</label>
-			<input name="vw_hdrbg2" type="color" value="#c0c0c0"/><br />
+			<input id="vw_hdrbg2" name="vw_hdrbg2" type="color" value="#c0c0c0"/><br />
 			<label for="vw_hdrfg2">Color del texto de la cabecera secundaria</label>
-			<input name="vw_hdrfg2" type="color" value="#ffffff"/><br />
+			<input id="vw_hdrfg2" name="vw_hdrfg2" type="color" value="#ffffff"/><br />
 			<label for="vw_rowcolor1">Color de fondo de las filas pares</label>
-			<input name="vw_rowcolor1" type="color" value="#e0e0e0"/><br />
+			<input id="vw_rowcolor1" name="vw_rowcolor1" type="color" value="#e0e0e0"/><br />
 			<label for="vw_rowcolor2">Color de fondo las filas impares</label>
-			<input name="vw_rowcolor2" type="color" value="#c0c0c0"/><br />
+			<input id="vw_rowcolor2" name="vw_rowcolor2" type="color" value="#c0c0c0"/><br />
 		</div>
 		
 		<div title="Informes" style="padding:10px">		
 			<h3>Generaci&oacute;n de Informes y Formularios PDF</h3>
 			<label for="pdf_topmargin">Margen superior impr. etiquetas (mmts)</label>
-			<input name="pdf_topmargin" type="text" size="4" value="10.0"/><br />
+			<input id="pdf_topmargin" name="pdf_topmargin" type="text" size="4" value="10.0"/><br />
 			<label for="pdf_leftmargin">Margen izquierdo impr. etiquetas (mmts)</label>
-			<input name="pdf_leftmargin" type="text" size="4" value="10.0"/><br />
+			<input id="pdf_leftmargin" name="pdf_leftmargin" type="text" size="4" value="10.0"/><br />
 			<label for="pdf_journeys">Presentar datos de jornadas en el cat&aacute;logo</label>
 			<input type="hidden" name="pdf_journeys" value="0"/>
-			<input type="checkbox" name="pdf_journeys" value="1"/><br />
+			<input id="pdf_journeys" name="pdf_journeys" type="checkbox" value="1"/><br />
 			<label for="pdf_hdrbg1">Color de fondo de la cabecera principal</label>
-			<input name="pdf_hdrbg1" type="color" value="#ff8020"/><br />
+			<input id="pdf_hdrbg1" name="pdf_hdrbg1" type="color" value="#ff8020"/><br />
 			<label for="pdf_hdrfg1">Color del texto de la cabecera principal</label>
-			<input name="pdf_hdrfg1" type="color" value="#000000"/><br />
+			<input id="pdf_hdrfg1" name="pdf_hdrfg1" type="color" value="#000000"/><br />
 			<label for="pdf_hdrbg2">Color de fondo de la cabecera secundaria</label>
-			<input name="pdf_hdrbg2" type="color" value="#c0c0c0"/><br />
+			<input id="pdf_hdrbg2" name="pdf_hdrbg2" type="color" value="#c0c0c0"/><br />
 			<label for="pdf_hdrfg2">Color del texto de la cabecera secundaria</label>
-			<input name="pdf_hdrfg2" type="color" value="#ffffff"/><br />
+			<input id="pdf_hdrfg2" name="pdf_hdrfg2" type="color" value="#ffffff"/><br />
 			<label for="pdf_rowcolor1">Color de fondo de las filas pares</label>
-			<input name="pdf_rowcolor1" type="color" value="#ffffff"/><br />
+			<input id="pdf_rowcolor1" name="pdf_rowcolor1" type="color" value="#ffffff"/><br />
 			<label for="pdf_rowcolor2">Color de fondo las filas impares</label>
-			<input name="pdf_rowcolor2" type="color" value="#e0ebff"/><br />
+			<input id="pdf_rowcolor2" name="pdf_rowcolor2" type="color" value="#e0ebff"/><br />
 			<label for="pdf_linecolor">Color de las lineas de separaci&oacute;n</label>
-			<input name="pdf_linecolor" type="color" value="#808080"/><br />
+			<input id="pdf_linecolor" name="pdf_linecolor" type="color" value="#808080"/><br />
 		</div>
 		
 		<div title="Internet" style="padding:10px">
@@ -116,7 +116,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				
 		<div title="Sistema" style="padding:10px">
 			<h3>Configuraci&oacute;n general</h3>
-			<label for="lang">Idioma</label>
+			<label for="config_lang">Idioma</label>
 			<select id="config_lang" name="lang">
 				<option value="es" selected="selected">Espa&ntilde;ol</option>
 				<option value="en">Ingl&eacute;s</option>
@@ -136,9 +136,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			</select><br />
 			<label for="register_events">Registrar en fichero operaciones en el tablet</label> 
 			<input type="hidden" name="register_events" value="0"/> <!-- trick for checkboxes -->
-			<input type="checkbox" name="register_events" value="1"/><br />
+			<input type="checkbox" name="register_events" id="register_events" value="1"/><br />
 			<label for="proximity_alert">Alerta de proximidad en orden de salida</label>
-			<input type="number" min="1" max="20" "size="2" value="5" name="proximity_alert"/> Perros<br />
+			<input type="number" min="1" max="20" size="2" value="5" name="proximity_alert" id="proximity_alert"/> Perros<br />
 		</div>
 	</div>
 	</form>

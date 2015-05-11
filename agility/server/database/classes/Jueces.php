@@ -29,11 +29,11 @@ class Jueces extends DBObject {
 	function insert() {
 		$this->myLogger->enter();
 		// componemos un prepared statement
-		$sql ="INSERT INTO Jueces (Nombre,Direccion1,Direccion2,Telefono,Internacional,Practicas,Email,Observaciones)
-			   VALUES(?,?,?,?,?,?,?,?)";
+		$sql ="INSERT INTO Jueces (Nombre,Direccion1,Direccion2,Telefono,Internacional,Practicas,Email,Observaciones,Federations)
+			   VALUES(?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('ssssiiss',$nombre,$direccion1,$direccion2,$telefono,$internacional,$practicas,$email,$observaciones);
+		$res=$stmt->bind_param('ssssiissi',$nombre,$direccion1,$direccion2,$telefono,$internacional,$practicas,$email,$observaciones,$feds);
 		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
@@ -44,9 +44,10 @@ class Jueces extends DBObject {
 		$internacional= http_request("Internacional","i",0); // not null
 		$practicas =	http_request("Practicas","i",0);
 		$email =		http_request("Email","s",null,false); // not null
-		$observaciones=	http_request("Observaciones","s",null,false);
+        $observaciones=	http_request("Observaciones","s",null,false);
+        $feds=	        http_request("Federations","i",1);
 		
-		$this->myLogger->debug("Nombre: $nombre Dir1: $direccion1 Dir2: $Direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
+		$this->myLogger->debug("Nombre: $nombre Dir1: $direccion1 Dir2: $direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($this->conn->error);
@@ -64,16 +65,15 @@ class Jueces extends DBObject {
 		$this->myLogger->enter();
 		if ($id<=1) return $this->error("No Juez or Invalid Juez ID: $id provided");
 		// componemos un prepared statement
-		$sql ="UPDATE Jueces SET Nombre=? , Direccion1=? , Direccion2=? , Telefono=? , Internacional=? , Practicas=? , Email=? , Observaciones=?
-		       WHERE ( ID=? )";
+		$sql ="UPDATE Jueces SET Nombre=? , Direccion1=? , Direccion2=? , Telefono=? , Internacional=? , Practicas=? , Email=? , Observaciones=?, Federations=?
+		       WHERE ( ID=$id )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('ssssiisss',$nombre,$direccion1,$direccion2,$telefono,$internacional,$practicas,$email,$observaciones,$idjuez);
+		$res=$stmt->bind_param('ssssiissi',$nombre,$direccion1,$direccion2,$telefono,$internacional,$practicas,$email,$observaciones,$federations);
 		if (!$res) return $this->error($this->conn->error);
 		
 		// iniciamos los valores, chequeando su existencia
 		$nombre =		http_request("Nombre","s",null); // pkey not null
-		$idjuez =		$id;
 		$direccion1 =	http_request("Direccion1","s",null);
 		$direccion2 =	http_request("Direccion2","s",null);
 		$telefono = 	http_request("Telefono","s",null);
@@ -81,6 +81,7 @@ class Jueces extends DBObject {
 		$practicas =	http_request("Practicas","i",0);
 		$email =		http_request("Email","s",null); // not null
 		$observaciones=	http_request("Observaciones","s",null);
+        $federations =	http_request("Federations","i",1);
 		$this->myLogger->debug("ID: $id Nombre: $nombre Dir1: $direccion1 Dir2: $direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
 		
 		// invocamos la orden SQL y devolvemos el resultado

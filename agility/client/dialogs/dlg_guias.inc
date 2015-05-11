@@ -20,7 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div class="ftitle">Informaci&oacute;n del guia</div>
         <form id="guias-form" method="get" novalidate>
             <div class="fitem">
-                <label for="Nombre">Nombre:</label>
+                <label for="guias-Nombre">Nombre:</label>
                 <input id="guias-Nombre" name="Nombre" type="text" style="width:300px" />
                 <input id="guias-Federation" name="Federation" type="hidden" />
                 <input id="guias-ID" name="ID" type="hidden" /> <!-- primary key for update -->
@@ -28,21 +28,21 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="guias-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
-                <label for="Email">Correo electr&oacute;nico:</label>
+                <label for="guias-Email">Correo electr&oacute;nico:</label>
                 <input id="guias-Email" name="Email" class="easyui-validatebox" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
-                <label for="Telefono">Tel&eacute;fono:</label>
+                <label for="guias-Telefono">Tel&eacute;fono:</label>
                 <input id="guias-Telefono" name="Telefono" type="text" />
             </div>
             <div class="fitem">
-                <label for="Club">Club:</label>
+                <label for="guias-Club">Club:</label>
                 <select id="guias-Club" name="Club" style="width:200px"></select>
             	<a id="guias-newClubBtn" href="#" class="easyui-linkbutton" 
             		data-options="iconCls:'icon-flag'" style="float:right">Nuevo Club</a>
             </div>
             <div class="fitem">
-                <label for="Observaciones">Comentarios:</label>
+                <label for="guias-Observaciones">Comentarios:</label>
                 <textarea id="guias-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
             </div>
         </form>

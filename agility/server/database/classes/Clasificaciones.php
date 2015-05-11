@@ -174,7 +174,27 @@ class Clasificaciones extends DBObject {
                     // Tener en cuenta mestizos y extranjeros
                     break;
                 case 1: // RFEC
-                    // TODO:Obtener normativa.  evaluate puntos in selectivas
+                    $ptsmanga=array("5","4","3","2","1"); // puntos por manga y puesto
+                    $ptsglobal=array("15","12","9","7","6","5","4","3","2","1"); //puestos por general (si no NC o Elim en alguna manga)
+                    // manga 1
+                    $pt1=0;
+                    if ($final[$idx]['P1']<6.0) $pt1++; // 1 punto por excelente
+                    if ($final[$idx]['P1']==0.0) $pt1++; // 2 puntos por cero
+                    if ($final[$idx]['Puesto1']<6) $pt1+= $ptsmanga[$final[$idx]['Puesto1']-1]; // puntos a los cinco primeros de la manga
+                    // manga 2
+                    $pt2=0;
+                    if ($final[$idx]['P2']<6.0) $pt1++; // 1 punto por excelente
+                    if ($final[$idx]['P2']==0.0) $pt1++; // 2 puntos por cero
+                    if ($final[$idx]['Puesto2']<6) $pt1+= $ptsmanga[$final[$idx]['Puesto2']-1]; // puntos a los cinco primeros de la manga
+                    // conjunta
+                    $pfin=0;
+                    if ($puestocat[$cat]<11) {
+                        // solo puntuan los 10 primeros que no se hayan eliminado o no clasificado en algna manga
+                       if ( ($final[$idx]['P1']<=26.0) && ($final[$idx]['P2']<=26.0) ) {
+                            $pfin=$ptsglobal[$puestocat[$cat]-1];
+                        }
+                    }
+                    $final[$idx]['Calificacion']=$str=strval($pt1)."-".strval($pt2)."-".strval($pfin);
                     break;
                 case 2: // UCA
                     $pts=array("10","8","6","4","3","2","1");

@@ -41,21 +41,21 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     </div>
     <form id="clubes-form" method="get" novalidate>
         <div class="fitem">
-            <label for="Nombre">Nombre:</label>
+            <label for="clubes-Nombre">Nombre:</label>
             <input id="clubes-Nombre" name="Nombre"	type="text" style="width:350px"/>
             <input id="clubes-ID" name="ID" type="hidden" /> <!-- used to allow operator change club name -->
             <input id="clubes-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
         </div>
         <div class="fitem">
-            <label for="Direccion1">Direcci&oacute;n 1</label>
+            <label for="clubes-Direccion1">Direcci&oacute;n 1</label>
             <input id="clubes-Direccion1" name="Direccion1" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="Direccion2">Direcci&oacute;n 2</label>
+            <label for="clubes-Direccion2">Direcci&oacute;n 2</label>
             <input id="clubes-Direccion2" name="Direccion2" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="Provincia">Provincia</label>
+            <label for="clubes-Provincia">Provincia</label>
             <select id="clubes-Provincia" name="Provincia" style="width:200px"></select>
             <a href="#" onClick="$('#clubes-logo-dialog').dialog('open');">
     	        <img id="clubes-Logo"
@@ -66,54 +66,56 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </a>
         </div>
         <div class="fitem">
-            <label for="Contacto1">Contacto 1</label>
+            <label for="clubes-Contacto1">Contacto 1</label>
             <input id="clubes-Contacto1" name="Contacto1" type="text" style="width:200px"/>
         </div>
         <div class="fitem">
-            <label for="Contacto2">Contacto 2</label>
+            <label for="clubes-Contacto2">Contacto 2</label>
             <input id="clubes-Contacto2" name="Contacto2" type="text" style="width:200px"/>
         </div>
         <div class="fitem">
-            <label for="Contacto3">Contacto 3</label>
+            <label for="clubes-Contacto3">Contacto 3</label>
             <input id="clubes-Contacto3" name="Contacto3" type="text" style="width:200px"/>
         </div>
         <div class="fitem">
-            <label for="GPS">Coordenadas GPS</label>
+            <label for="clubes-GPS">Coordenadas GPS</label>
             <input id="clubes-GPS" name="GPS" type="text" style="width:200px"/>
         </div>
         <div class="fitem">
-            <label for="Federations">Federaciones</label>
-            RSCE <input id="clubes-RSCE" type="checkbox" value="1" name="RSCE"/>
-            RFEC <input id="clubes-RFEC" type="checkbox" value="2" name="RFEC"/>
-            UCA<input id="clubes-UCA" type="checkbox" value="4" name="UCA"/>
+            <label for="clubes-RSCE">RSCE</label>
+            <input id="clubes-RSCE" type="checkbox" value="1" name="RSCE"/>
+            <label for="clubes-RFEC">RFEC</label>
+            <input id="clubes-RFEC" type="checkbox" value="2" name="RFEC"/>
+            <label for="clubes-UCA">UCA</label>
+            <input id="clubes-UCA" type="checkbox" value="4" name="UCA"/>
             <input id="clubes-Federations" name="Federations" type="hidden"/>
         </div>
         <div class="fitem">
-            <label for="Web">P&aacute;gina Web</label>
+            <label for="clubes-Web">P&aacute;gina Web</label>
             <input id="clubes-Web" name="Web" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="Email">Correo electr&oacute;nico:</label>
+            <label for="clubes-Email">Correo electr&oacute;nico:</label>
             <input id="clubes-Email" name="Email" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="Facebook">Cuenta de Facebook:</label>
+            <label for="clubes-Facebook">Cuenta de Facebook:</label>
             <input id="clubes-Facebook" name="Facebook" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="Google">Cuenta de Google+:</label>
+            <label for="clubes-Google">Cuenta de Google+:</label>
             <input id="clubes-Google" name="Google" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="Twitter">Cuenta de Twitter:</label>
+            <label for="clubes-Twitter">Cuenta de Twitter:</label>
             <input id="clubes-Twitter" name="Twitter" type="text" style="width:350px"/>
         </div>
         <div class="fitem">
-            <label for="Observaciones">Observaciones:</label>
+            <label for="clubes-Observaciones">Observaciones:</label>
             <textarea id="clubes-Observaciones" name="Observaciones" style="height:50px;width:350px"></textarea>
         </div>
         <div class="fitem">
-            <label for="Baja">Baja del club:</label>
+            <label for="clubes-Baja">Baja del club:</label>
             <input id="clubes-Baja" name="Baja" class="easyui-checkbox" type="checkbox" value="1" />
         </div>
 	</form>  

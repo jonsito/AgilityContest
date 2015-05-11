@@ -100,10 +100,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 editClub('#clubes-datagrid');
             },        
             // especificamos un formateador especial para desplegar la tabla de guias por club
-            detailFormatter:function(index,club){
-                return '<div style="padding:2px"><table id="clubes-guias-datagrid-' + replaceAll(' ','_',club.ID) + '"></table></div>';
+            detailFormatter:function(index,row){
+                var dg = "clubes-guias-datagrid-" + replaceAll(' ', '_', row.ID);
+                return '<div style="padding:2px"><table id="'+dg+'"></table></div>';
             },
-            onExpandRow: function(idx,club) { showGuiasByClub(idx,club); }
+            onExpandRow: function(idx,row) { showGuiasByClub(idx,row); },
+            onCollapseRow: function(idx,row) {
+                var dg = "#clubes-guias-datagrid-" + replaceAll(' ', '_', row.ID);
+                $(dg).remove();
+            }
         }); // end of '#clubes-datagrid' declaration
 
 		// key handler
@@ -159,11 +164,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     editGuiaFromClub(mySelf,club );
                 },
                 // especificamos un formateador especial para desplegar la tabla de perros por guia
-                detailFormatter:function(index,guia){
-                    return '<div style="padding:2px"><table id="clubes-guias-perros-datagrid-' + replaceAll(' ','_',guia.ID) + '"></table></div>';
+                detailFormatter:function(index,row){
+                    var dg = "clubes-guias-perros-datagrid-" + replaceAll(' ', '_', row.ID);
+                    return '<div style="padding:2px"><table id="'+dg+'"></table></div>';
                 },
-                
-                onExpandRow: function(idx,guia) { showPerrosByGuiaByClub(idx,guia,club); },
+                onExpandRow: function(idx,row) { showPerrosByGuiaByClub(idx,row,club); },
+                onCollapseRow: function(idx,row) {
+                    var dg = "#clubes-guias-perros-datagrid-" + replaceAll(' ', '_', row.ID);
+                    $(dg).remove();
+                },
                 /* end of clubes-guias-dog subtable */
                 onResize:function(){
                     $('#clubes-datagrid').datagrid('fixDetailRowHeight',index);

@@ -19,15 +19,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<form id="password-form" method="get">
 			<div id="password-SameUser" class="fitem">
 				<input id="password-UserID" type="hidden" name="UserID" value="" />
-                <label for="CurrentPassword">Contrase&ntilde;a actual</label>
+                <label for="password-CurrentPassword">Contrase&ntilde;a actual</label>
                 <input id="password-CurrentPassword" name="CurrentPassword" type="password" style="height:25px;width:375px"/>
             </div>
             <div class="fitem">
-                <label for="NewPassword">Nueva contrase&ntilde;a</label>
+                <label for="password-NewPassword">Nueva contrase&ntilde;a</label>
                 <input id="password-NewPassword" name="NewPassword" type="password" style="height:25px;width:375px"/>
             </div>
             <div class="fitem">
-                <label for="NewPassword2">Nueva contrase&ntilde;a (otra vez)</label>
+                <label for="password-NewPassword2">Nueva contrase&ntilde;a (otra vez)</label>
                 <input id="password-NewPassword2" name="NewPassword2" type="password" style="height:25px;width:375px"/>
             </div>
 		</form>
@@ -46,7 +46,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div class="ftitle">Informaci&oacute;n del usuario</div>
         <form id="usuarios-form" method="get">
             <div class="fitem">
-                <label for="Login">Nombre</label>
+                <label for="usuarios-Login">Nombre</label>
                 <input id="usuarios-Login" class="easyui-validatebox" name="Login" type="text" style="width:250px" />
                 <a id="usuarios-passwdBtn" href="#" class="easyui-linkbutton" 
                 	data-options="iconCls:'icon-key'" onclick="setPassword('#usuarios-datagrid');">Contrase&ntilde;a</a>
@@ -54,20 +54,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="usuarios-Operation" name="Operation" type="hidden" /> <!-- insert/update/delete operation -->
             </div>
             <div class="fitem">
-                <label for="Gecos">Informaci&oacute;n</label>
+                <label for="usuarios-Gecos">Informaci&oacute;n</label>
                 <input id="usuarios-Gecos" name="Gecos" type="text" style="height:25px;width:375px"/>
             </div>
             <div class="fitem">
-                <label for="Phone">Tel&eacute;fono</label>
+                <label for="usuarios-Phone">Tel&eacute;fono</label>
                 <input id="usuarios-Phone" name="Phone" type="text" style="width:250px" />
             </div>
             <div class="fitem">
-                <label for="Email">E-Mail</label>
+                <label for="usuarios-Email">E-Mail</label>
                 <input id="usuarios-Email" class="easyui-validatebox" name="Email" type="text" style="width:250px" />
             </div>
             <div class="fitem">
-                <label for="Perms">Categor&iacute;a</label>
-                <select name="Perms">
+                <label for="usuarios-Perms">Categor&iacute;a</label>
+                <select id="usuarios-Perms" name="Perms">
                 <option value="1">Administrador</option>
                 <option value="2">Operador</option>
                 <option value="3">Asistente</option>

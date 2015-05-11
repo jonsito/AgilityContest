@@ -20,7 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div class="ftitle">Informaci&oacute;n de la sesi&oacute;n</div>
         <form id="sesiones-form" method="get">
             <div class="fitem">
-                <label for="Nombre">Nombre:</label>
+                <label for="sesiones-Nombre">Nombre:</label>
                 <input id="sesiones-Nombre" 
                 	name="Nombre" 
                 	type="text" 
@@ -31,32 +31,32 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </div>
             <div class="fitem">
                 <input id="sesiones-Operador" name="Operador" type="hidden" /> 
-                <label for="Login">Usuario</label>
+                <label for="sesiones-Login">Usuario</label>
                 <input id="sesiones-Login" class="easyui-validatebox" name="Login" readonly="readonly" type="text" style="width:250px" />
                 <a id="sesiones-logoutBtn" href="#" class="easyui-linkbutton" 
                 	data-options="iconCls:'icon-exit'" onclick="session_logout()">Desconectar</a>
             </div>
             <div class="fitem">
-                <label for="Comentario">Comentarios</label>
+                <label for="sesiones-Comentario">Comentarios</label>
                 <textarea id="sesiones-Comentario" name="Comentario" style="height:40px;width:375px"></textarea>
             </div>
             <div class="fitem">
-                <label for="Background">Imagen de fondo</label>
+                <label for="sesiones-Background">Imagen de fondo</label>
                 <input id="sesiones-Background" name="Background" type="text" style="width:375px" />
             </div>
             <div class="fitem">
-                <label for="LiveStream">Stream MPEG-4</label>
+                <label for="sesiones-Livestream">Stream MPEG-4</label>
                 <input id="sesiones-Livestream" name="LiveStream" type="text" style="width:375px" />
             </div>
             <div class="fitem">
-                <label for="LiveStream2">Stream OGV</label>
+                <label for="sesiones-LiveStream2">Stream OGV</label>
                 <input id="sesiones-LiveStream2" name="LiveStream2" type="text" style="width:375px" />
             </div>
             <div class="fitem">
-                <label for="LiveStream3">Stream Web-M</label>
+                <label for="sesiones-LiveStream3">Stream Web-M</label>
                 <input id="sesiones-LiveStream3" name="LiveStream3" type="text" style="width:375px" />
             </div>
-            <div class="fitem" style="position:inline-block;float:right; padding-right:40px">
+            <div class="fitem" style="display:inline-block;float:right; padding-right:40px">
 				<a id="sesiones-seqBtn" href="#" class="easyui-linkbutton" 
                 	data-options="iconCls:'icon-video-tv'" onclick="session_sequences()">Secuencias</a>
             </div>

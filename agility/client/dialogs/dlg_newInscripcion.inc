@@ -50,24 +50,24 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			<input id="new_inscripcion-Prueba" type="hidden" name="Prueba" value="0"/>
 			Jornadas:
         	<input id="new_inscripcion-J1" 			name="J1" class="easyui-checkbox" type="checkbox" value="1" onclick="evalJornadas(this);"/>
-        	<label id="new_inscripcion-J1lbl" 		for="J1">1</label>
+        	<label id="new_inscripcion-J1lbl" 		for="new_inscripcion-J1">1</label>
         	<input id="new_inscripcion-J2" 			name="J2" class="easyui-checkbox" type="checkbox" value="2" onclick="evalJornadas(this);"/>
-        	<label id="new_inscripcion-J2lbl" 		for="J2">2</label>
+        	<label id="new_inscripcion-J2lbl" 		for="new_inscripcion-J2">2</label>
        		<input id="new_inscripcion-J3"			name="J3" class="easyui-checkbox" type="checkbox" value="4" onclick="evalJornadas(this);"/>
-       		<label id="new_inscripcion-J3lbl"		for="J3">3</label>
+       		<label id="new_inscripcion-J3lbl"		for="new_inscripcion-J3">3</label>
        		<input id="new_inscripcion-J4"			name="J4" class="easyui-checkbox" type="checkbox" value="8" onclick="evalJornadas(this);"/>
- 	   		<label id="new_inscripcion-J4lbl"		for="J4">4</label>
+ 	   		<label id="new_inscripcion-J4lbl"		for="new_inscripcion-J4">4</label>
        		<input id="new_inscripcion-J5"			name="J5" class="easyui-checkbox" type="checkbox" value="16" onclick="evalJornadas(this);"/>
-        	<label id="new_inscripcion-J5lbl" 		for="J5">5</label>
+        	<label id="new_inscripcion-J5lbl" 		for="new_inscripcion-J5">5</label>
         	<input id="new_inscripcion-J6" 			name="J6" class="easyui-checkbox" type="checkbox" value="32" onclick="evalJornadas(this);"/>
-        	<label id="new_inscripcion-J6lbl" 		for="J6">6</label>
+        	<label id="new_inscripcion-J6lbl" 		for="new_inscripcion-J6">6</label>
         	<input id="new_inscripcion-J7" 			name="J7" class="easyui-checkbox" type="checkbox" value="64" onclick="evalJornadas(this);"/>
-        	<label id="new_inscripcion-J7lbl" 		for="J7">7</label>
+        	<label id="new_inscripcion-J7lbl" 		for="new_inscripcion-J7">7</label>
         	<input id="new_inscripcion-J8" 			name="J8" class="easyui-checkbox" type="checkbox" value="128" onclick="evalJornadas(this);"/>
-       		<label id="new_inscripcion-J8lbl" 		for="J8">8</label>
+       		<label id="new_inscripcion-J8lbl" 		for="new_inscripcion-J8">8</label>
         </span>
         <span style="float:right;padding:5px">
-        	<label id="new_inscripcion-Celolbl"	for="Celo">Celo:</label>
+        	<label id="new_inscripcion-Celolbl"	for="new_inscripcion-Celo">Celo:</label>
    			<input id="new_inscripcion-Celo" type="hidden" name="Celo" value="0"/>
         	<input id="new_inscripcion-Celo2"		name="Celo2" class="easyui-checkbox" type="checkbox" value="1" 
         		onclick="$('#new_inscripcion-Celo').val( $('#new_inscripcion-Celo2').is(':checked')?'1':'0');"/>
@@ -180,32 +180,40 @@ function newInscripcion_onOpenSuccess() {
 	reloadWithSearch('new_inscripcion-datagrid','noinscritos');
 	
     // mark checked as default every named jornadas
-	$('#new_inscripcion-J1').prop('checked', canInscribe(jornadas[0]) );
-	$('#new_inscripcion-J2').prop('checked', canInscribe(jornadas[1]) );
-	$('#new_inscripcion-J3').prop('checked', canInscribe(jornadas[2]) );
-	$('#new_inscripcion-J4').prop('checked', canInscribe(jornadas[3]) );
-	$('#new_inscripcion-J5').prop('checked', canInscribe(jornadas[4]) );
-	$('#new_inscripcion-J6').prop('checked', canInscribe(jornadas[5]) );
-	$('#new_inscripcion-J7').prop('checked', canInscribe(jornadas[6]) );
-	$('#new_inscripcion-J8').prop('checked', canInscribe(jornadas[7]) );
+    var j1=$('#new_inscripcion-J1');
+    var j2=$('#new_inscripcion-J2');
+    var j3=$('#new_inscripcion-J3');
+    var j4=$('#new_inscripcion-J4');
+    var j5=$('#new_inscripcion-J5');
+    var j6=$('#new_inscripcion-J6');
+    var j7=$('#new_inscripcion-J7');
+    var j8=$('#new_inscripcion-J8');
+	j1.prop('checked', canInscribe(jornadas[0]) );
+	j2.prop('checked', canInscribe(jornadas[1]) );
+	j3.prop('checked', canInscribe(jornadas[2]) );
+	j4.prop('checked', canInscribe(jornadas[3]) );
+	j5.prop('checked', canInscribe(jornadas[4]) );
+	j6.prop('checked', canInscribe(jornadas[5]) );
+	j7.prop('checked', canInscribe(jornadas[6]) );
+	j8.prop('checked', canInscribe(jornadas[7]) );
 	// evaluate enabled/disabled status by mean of check "Cerrada" and "-- Sin asignar --"
-	$('#new_inscripcion-J1').prop('disabled', ! canInscribe(jornadas[0]) );
-	$('#new_inscripcion-J2').prop('disabled', ! canInscribe(jornadas[1]) );
-	$('#new_inscripcion-J3').prop('disabled', ! canInscribe(jornadas[2]) );
-	$('#new_inscripcion-J4').prop('disabled', ! canInscribe(jornadas[3]) );
-	$('#new_inscripcion-J5').prop('disabled', ! canInscribe(jornadas[4]) );
-	$('#new_inscripcion-J6').prop('disabled', ! canInscribe(jornadas[5]) );
-	$('#new_inscripcion-J7').prop('disabled', ! canInscribe(jornadas[6]) );
-	$('#new_inscripcion-J8').prop('disabled', ! canInscribe(jornadas[7]) );
+	j1.prop('disabled', ! canInscribe(jornadas[0]) );
+	j2.prop('disabled', ! canInscribe(jornadas[1]) );
+	j3.prop('disabled', ! canInscribe(jornadas[2]) );
+	j4.prop('disabled', ! canInscribe(jornadas[3]) );
+	j5.prop('disabled', ! canInscribe(jornadas[4]) );
+	j6.prop('disabled', ! canInscribe(jornadas[5]) );
+	j7.prop('disabled', ! canInscribe(jornadas[6]) );
+	j8.prop('disabled', ! canInscribe(jornadas[7]) );
 	// fix tooltip for jornadas
-	addTooltip($('#new_inscripcion-J1'),'Jornada 1: '+jornadas[0].Nombre);
-	addTooltip($('#new_inscripcion-J2'),'Jornada 2: '+jornadas[1].Nombre);
-	addTooltip($('#new_inscripcion-J3'),'Jornada 3: '+jornadas[2].Nombre);
-	addTooltip($('#new_inscripcion-J4'),'Jornada 4: '+jornadas[3].Nombre);
-	addTooltip($('#new_inscripcion-J5'),'Jornada 5: '+jornadas[4].Nombre);
-	addTooltip($('#new_inscripcion-J6'),'Jornada 6: '+jornadas[5].Nombre);
-	addTooltip($('#new_inscripcion-J7'),'Jornada 7: '+jornadas[6].Nombre);
-	addTooltip($('#new_inscripcion-J8'),'Jornada 8: '+jornadas[7].Nombre);
+	addTooltip(j1,'Jornada 1: '+jornadas[0].Nombre);
+	addTooltip(j2,'Jornada 2: '+jornadas[1].Nombre);
+	addTooltip(j3,'Jornada 3: '+jornadas[2].Nombre);
+	addTooltip(j4,'Jornada 4: '+jornadas[3].Nombre);
+	addTooltip(j5,'Jornada 5: '+jornadas[4].Nombre);
+	addTooltip(j6,'Jornada 6: '+jornadas[5].Nombre);
+	addTooltip(j7,'Jornada 7: '+jornadas[6].Nombre);
+	addTooltip(j8,'Jornada 8: '+jornadas[7].Nombre);
 	// evaluate initial state for "Jornadas" field
 	if ( canInscribe(jornadas[0]) ) val+=1;
 	if ( canInscribe(jornadas[1]) ) val+=2;
