@@ -55,6 +55,8 @@ define('AC_VW_HDRFG1','#000000');
 define('AC_VW_HDRBG1','#FF7F00');
 define('AC_VW_HDRFG2','#0000ff');
 define('AC_VW_HDRBG2','#808080');
+define('AC_VW_HDRFG3','#000000');
+define('AC_VW_HDRBG3','#808080');
 define('AC_VW_ROWCOLOR1','#ffffff');
 define('AC_VW_ROWCOLOR2','#e0ebff');
 
@@ -121,8 +123,10 @@ Class Config {
 		$this->config['vw_alpha'] =		AC_VW_ALPHA;
 		$this->config['vw_hdrfg1'] =	AC_VW_HDRFG1;
 		$this->config['vw_hdrbg1'] =	AC_VW_HDRBG1;
-		$this->config['vw_hdrfg2'] =	AC_VW_HDRFG2;
-		$this->config['vw_hdrbg2'] =	AC_VW_HDRBG2;
+        $this->config['vw_hdrfg2'] =	AC_VW_HDRFG2;
+        $this->config['vw_hdrbg2'] =	AC_VW_HDRBG2;
+        $this->config['vw_hdrfg3'] =	AC_VW_HDRFG3;
+        $this->config['vw_hdrbg3'] =	AC_VW_HDRBG3;
 		$this->config['vw_rowcolor1'] =	AC_VW_ROWCOLOR1;
 		$this->config['vw_rowcolor2'] =	AC_VW_ROWCOLOR2;
 		// generacion de PDF's
@@ -241,8 +245,10 @@ Class Config {
 		$data['vw_alpha'] =		AC_VW_ALPHA;
 		$data['vw_hdrfg1'] =	AC_VW_HDRFG1;
 		$data['vw_hdrbg1'] =	AC_VW_HDRBG1;
-		$data['vw_hdrfg2'] =	AC_VW_HDRFG2;
-		$data['vw_hdrbg2'] =	AC_VW_HDRBG2;
+        $data['vw_hdrfg2'] =	AC_VW_HDRFG2;
+        $data['vw_hdrbg2'] =	AC_VW_HDRBG2;
+        $data['vw_hdrfg3'] =	AC_VW_HDRFG3;
+        $data['vw_hdrbg3'] =	AC_VW_HDRBG3;
 		$data['vw_rowcolor1'] =	AC_VW_ROWCOLOR1;
 		$data['vw_rowcolor2'] =	AC_VW_ROWCOLOR2;
 		// generacion de PDF's
@@ -288,8 +294,10 @@ Class Config {
 		$data=testAndSet($data,'vw_alpha','f',AC_VW_ALPHA);
 		$data=testAndSet($data,'vw_hdrfg1','s',AC_VW_HDRFG1);
 		$data=testAndSet($data,'vw_hdrbg1','s',AC_VW_HDRBG1);
-		$data=testAndSet($data,'vw_hdrfg2','s',AC_VW_HDRFG2);
-		$data=testAndSet($data,'vw_hdrbg2','s',AC_VW_HDRBG2);
+        $data=testAndSet($data,'vw_hdrfg2','s',AC_VW_HDRFG2);
+        $data=testAndSet($data,'vw_hdrbg2','s',AC_VW_HDRBG2);
+        $data=testAndSet($data,'vw_hdrfg3','s',AC_VW_HDRFG3);
+        $data=testAndSet($data,'vw_hdrbg3','s',AC_VW_HDRBG3);
 		$data=testAndSet($data,'vw_rowcolor1','s',AC_VW_ROWCOLOR1);
 		$data=testAndSet($data,'vw_rowcolor2','s',AC_VW_ROWCOLOR2);
 		

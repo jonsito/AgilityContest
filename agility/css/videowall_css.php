@@ -72,16 +72,21 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	text-align:left;
 }
 .vwc_callEntry tr { /* anchura de cada entrada */
-	width:100%;
 	height:5%;
 }
 .vwc_callTanda { /* fila de indicador de tanda */
-	width:100%;
-	background-color: <?php echo $config->getEnv('vw_hdrbg2')?>;
-	color: <?php echo $config->getEnv('vw_hdrfg2')?>;
-	text-align: right;
-	font-size: 200%;
-	padding:2%;
+    background-color: <?php echo $config->getEnv('vw_hdrbg2')?>;
+    color: <?php echo $config->getEnv('vw_hdrfg2')?>;
+    text-align: right;
+    font-size: 200%;
+    padding:1.5%;
+}
+.vwc_callTeam { /* fila de indicador de Equipo */
+    background-color: <?php echo $config->getEnv('vw_hdrbg3')?>;
+    color: <?php echo $config->getEnv('vw_hdrf32')?>;
+    text-align: left;
+    font-size: 175%;
+    padding:1%;
 }
 .vwc_callNumero { /* numero de orden de llamada a pista */
 	width:10%;

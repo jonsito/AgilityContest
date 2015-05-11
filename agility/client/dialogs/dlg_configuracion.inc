@@ -75,10 +75,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<input id="vw_hdrbg1" name="vw_hdrbg1" type="color" value="#0000ff"/><br />
 			<label for="vw_hdrfg1">Color del texto de la cabecera principal</label>
 			<input id="vw_hdrfg1" name="vw_hdrfg1" type="color" value="#ffffff"/><br />
+
 			<label for="vw_hdrbg2">Color de fondo de la cabecera secundaria</label>
 			<input id="vw_hdrbg2" name="vw_hdrbg2" type="color" value="#c0c0c0"/><br />
 			<label for="vw_hdrfg2">Color del texto de la cabecera secundaria</label>
 			<input id="vw_hdrfg2" name="vw_hdrfg2" type="color" value="#ffffff"/><br />
+
+            <label for="vw_hdrbg3">Color de fondo de la cabecera secundaria</label>
+            <input id="vw_hdrbg3" name="vw_hdrbg3" type="color" value="#c0c0c0"/><br />
+            <label for="vw_hdrfg3">Color del texto de la cabecera secundaria</label>
+            <input id="vw_hdrfg3" name="vw_hdrfg3" type="color" value="#000000"/><br />
+
 			<label for="vw_rowcolor1">Color de fondo de las filas pares</label>
 			<input id="vw_rowcolor1" name="vw_rowcolor1" type="color" value="#e0e0e0"/><br />
 			<label for="vw_rowcolor2">Color de fondo las filas impares</label>

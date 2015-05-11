@@ -70,6 +70,12 @@ class VideoWall {
 	public static $modestr  
 		=array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
 
+    function isTeam() {
+        if (intval($this->jornada['Equipos3'])==1) return true;
+        if (intval($this->jornada['Equipos4'])==1) return true;
+        return false;
+    }
+
 	function getModeString($mode) {	return VideoWall::$modestr[$mode]; }
 	
 	function getBackground($row) {
@@ -88,26 +94,39 @@ class VideoWall {
 	}
 	
 	function videowall_llamada($pendientes) {
-		$lastTanda="";
+        $lastTanda="";
+        $lastTeam=0;;
 		$otmgr=new Tandas("Llamada a pista",$this->prueba['ID'],$this->jornada['ID']);
-		$result = $otmgr->getData($this->sessionid,$this->tanda['ID'],$pendientes)['rows']; // obtiene los 10 primeros perros pendientes
+		$result = $otmgr->getData($this->sessionid,$this->tanda['ID'],$pendientes)['rows']; // obtiene los $pendientes primeros perros
 		$numero=0;
+        $logos=array(); // cache "NombreClub" => "Logo" to store logos
 		$this->generateHeaderInfo();
 		echo '<table class="vwc_callEntry">';
 		foreach ($result as $participante) {
 			if ($lastTanda!==$participante['Tanda']){
 				$lastTanda=$participante['Tanda'];
-				echo '<tr><td colspan="5" class="vwc_callEntry vwc_callTanda">---- '.$lastTanda.' ----</td></tr>';
+                $lastTeam=0; // make sure team's name is shown
+				echo '<tr><td colspan="5" class="vwc_callTanda">---- '.$lastTanda.' ----</td></tr>';
 			}
+            if ( $this->isTeam() && ($lastTeam!==$participante['Equipo']) ){
+                $lastTeam=$participante['Equipo'];
+                $team=$this->myDBObject->__getObject("Equipos",$lastTeam);
+                echo '<tr style="height:3%;"><td colspan="5" class="vwc_callTeam">Equipo: ' . $team->Nombre . '</td></tr>';
+            }
+
 			$numero++;
-			$logo=$otmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
+            if (!array_key_exists($participante['NombreClub'],$logos)) { // search logo in cache
+                $logos[$participante['NombreClub']]=
+                    $otmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
+            }
+            $logo=$logos[$participante['NombreClub']];
 			if ($logo==="") $logo='rsce.png';
 			$celo=($participante['Celo']==1)?'Si':'No';
 			$bg=$this->getBackground($numero);
 			echo '
 				<tr id="participante_'.$numero.'" style="background:'.$bg.';">
-					<td class="vwc_callEntry vwc_callNumero">'.$numero.'</td>
-					<td class="vwc_callEntry vwc_callLogo">
+					<td class="vwc_callNumero">'.$numero.'</td>
+					<td class="vwc_callLogo">
 						<!-- trick to insert a resizeable image: use div+bgimage instead of img tag -->
 						<div style="height=100%;
 									position:relative;
@@ -116,18 +135,18 @@ class VideoWall {
 									background-position:center;
 									font-size:400%">&nbsp;</div>
 					</td>
-					<td class="vwc_callEntry vwc_callDatos">
+					<td class="vwc_callDatos">
 						Dorsal: '.$participante['Dorsal'].'<br />
 						Lic. : '.$participante['Licencia'].'<br />
 						Grado: '.$participante['Grado'].'<br />	
 						Cat. : '.$participante['Categoria'].'		
 					</td>
-					<td class="vwc_callEntry vwc_callGuiaClub">
+					<td class="vwc_callGuiaClub">
 						Gu&iacute;a: '.$participante['NombreGuia'].'<br />
 						Club: '.$participante['NombreClub'].'<br />
 						Celo: '.$celo.'	
 					</td>				
-					<td class="vwc_callEntry vwc_callNombre">'.$participante['Nombre'].'</td>
+					<td class="vwc_callNombre">'.$participante['Nombre'].'</td>
 				</tr>
 			';
 		}
@@ -145,13 +164,13 @@ class VideoWall {
 				<table class="vwc_trs">
 					<thead>
 						<tr>
-							<th colspan="2" style="align:left">Resultados Provisionales</th>
+							<th colspan="2" style="text-align:left">Resultados Provisionales</th>
 							<th colspan="3">&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr><td colspan="5">&nbsp</td></tr>
-						<tr style="align:right">
+						<tr style="text-align:right">
 							<td>Distancia:</td>
 							<td>Obst&aacute;culos:</td>
 							<td>T.R.Standard:</td>
@@ -187,13 +206,13 @@ class VideoWall {
 			<table class="vwc_trs">
 				<thead>
 					<tr>
-						<th colspan="2" style="align:left">Resultados Provisionales</th>
+						<th colspan="2" style="text-align:left">Resultados Provisionales</th>
 						<th colspan="3">'.$mangastr.'</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr><td colspan="5">&nbsp</td></tr>
-					<tr style="align:right">
+					<tr style="text-align:right">
 						<td>Distancia: '.$result['trs']['dist'].'mts.</td>
 						<td>Obst&aacute;culos: '.$result['trs']['obst'].'</td>
 						<td>T.R.Standard: '.$result['trs']['trs'].'secs.</td>
