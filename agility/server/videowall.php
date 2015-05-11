@@ -43,6 +43,7 @@ class VideoWall {
 		$this->myLogger=new Logger("VideoWall.php",$this->config->getEnv("debug_level"));
 		$this->myDBObject=new DBObject("Videowall");
 		if ($sessionid!=0) {
+            // obtenemos los datos desde la sesion abierta en el tablet
 			$this->session=$this->myDBObject->__getArray("Sesiones",$sessionid);
 			$this->sessionid=$sessionid;
 			$this->prueba=$this->myDBObject->__getArray("Pruebas",$this->session['Prueba']);
@@ -53,6 +54,7 @@ class VideoWall {
 			$this->tandatype=$this->tanda['Tipo'];
 			$this->mode=-1;
 		} else {
+            // obtenemos los datos desde las variables recibidas por http
 			$this->session=null;
 			$this->sessionid=0;
 			$this->prueba=$this->myDBObject->__getArray("Pruebas",$pruebaid);

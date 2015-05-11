@@ -448,7 +448,7 @@ class Tandas extends DBObject {
 			// merge tipo_tanda info into result
 			$res['rows'][$key]=array_merge(Tandas::$tipo_tanda[$item['Tipo']],$item);
 			// evaluate and insert Manga ID
-			if ($res['rows'][$key]['Tipo']==0) { // User-Provided tandas has no Manga ID
+			if ($res['rows'][$key]['TipoManga']==0) { // User-Provided tandas has no Manga ID
 				$res['rows'][$key]['Manga']=0;
 			} else { // retrieve Manga ID and merge into result
 				$manga=$this->getMangaByTipo($res['rows'][$key]['TipoManga']);	
