@@ -48,7 +48,8 @@ class Eventos extends DBObject {
 		12	=> 'llamada',		// operador abre panel de entrada de datos
 		13	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		14	=> 'aceptar',		// grabar datos finales
-		15	=> 'cancelar'		// restaurar datos originales
+		15	=> 'cancelar',		// restaurar datos originales
+        16  => 'info'           // value: message
 	);
 	
 	protected $sessionID;
@@ -74,6 +75,7 @@ class Eventos extends DBObject {
 	
 	/**
 	 * Insert a new event into database
+     * @param {array} data dataset of key:value pairs to store in "data" field
 	 * @return {string} "" if ok; null on error
 	 */
 	function putEvent($data) {
@@ -118,14 +120,16 @@ class Eventos extends DBObject {
 		$this->myLogger->leave();
 		return ""; 
 	}
-	
-	/** 
-	 * (Server side implementation of LongCall ajax)
-	 * Ask for events
-	 * If no new events, wait for event available until timeout
-	 * @see http://www.nolithius.com/game-development/comet-long-polling-with-php-and-jquery
-	 * @see http://www.abrandao.com/2013/05/11/php-http-long-poll-server-push/
-	 */
+
+    /**
+     * (Server side implementation of LongCall ajax)
+     * Ask for events
+     * If no new events, wait for event available until timeout
+     * @see http://www.nolithius.com/game-development/comet-long-polling-with-php-and-jquery
+     * @see http://www.abrandao.com/2013/05/11/php-http-long-poll-server-push/
+     * @param {array} $data key:value pairs to extract "timestamp" from
+     * @return array|null
+     */
 	function getEvents($data) { 
 		$this->myLogger->enter();
 		
@@ -177,12 +181,14 @@ class Eventos extends DBObject {
 		$this->myLogger->leave();
 		return $res;
 	}
-	
-	/**
-	 * As getEvents() but don't wait for new events, just list existing ones
-	 * @param {array} $data requested event info
-	 * @return {array} available events for session $data['Session'] with id greater than $data['ID']
-	 */
+
+    /**
+     * As getEvents() but don't wait for new events, just list existing ones
+     * @param {array} $data key:value pairs to extract parameters from
+     * @return array|null {array} available events for session $data['Session'] with id greater than $data['ID']
+     * available events for session $data['Session'] with id greater than $data['ID']
+     * @internal param $ {array} $data requested event info $data requested event info
+     */
 	function listEvents($data) {
 		if ($data['Session']<=0) return $this->error("No Session ID specified");
 		$this->myLogger->enter();
@@ -205,6 +211,7 @@ class Eventos extends DBObject {
 	 * SELECT * from Eventos
 	 *		WHERE  ( Session = {$data['Session']} ) AND ( Type = 'open' )
 	 *		ORDER BY ID DESC LIMIT 1
+     * @param {array} $data key:value pairs to extract parameters from
 	 * @param {array} $data requested event info
 	 * @return {array} data about last "open" event with provided session id
 	 */

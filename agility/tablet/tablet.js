@@ -72,16 +72,24 @@ function tablet_updateSession(row) {
 			Manga: row.Manga,
 			Tanda: row.ID
 	};
+    if (parseInt(row.Manga)==0) {
+        // user clicked on UserDefined Tanda. send proper event
+    }
 	$.ajax({
 		type:	'GET',
 		url:	"/agility/server/database/sessionFunctions.php",
 		// dataType:'json',
 		data:	data,
 		success: function() {
-			// send event
-			data.Operation=	'putEvent';
-			data.Session=	data.ID;
-			tablet_putEvent('open',data);
+            data.Session=	data.ID;
+            data.Operation=	'putEvent';
+            // send proper event
+            if (parseInt(row.Manga)==0) { //user defined tanda
+                data.Nombre= row.Nombre;
+                tablet_putEvent('info',data);
+            } else {
+                tablet_putEvent('open',data);
+            }
 		}
 	});
 }
@@ -446,8 +454,10 @@ function tablet_processEvents(id,evt) {
 	case 'crono_rec':	// reconocimiento de pista desde crono electronico
 	case 'cancelar': // operador pulsa cancelar
 		return;
-	case 'aceptar':	// operador pulsa aceptar
-		return;
+    case 'aceptar':	// operador pulsa aceptar
+        return;
+    case 'info':	// click on user defined tandas
+        return;
 	default:
 		alert("Unknow Event type: "+event['Type']);
 		return;

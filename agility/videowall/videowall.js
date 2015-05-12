@@ -200,6 +200,8 @@ function vwc_processCombinada(id,evt) {
 		vwls_showOSD(0); // apaga el OSD
 		vwc_updatePendingQueue(event,15); // actualiza panel de llamadas 
 		return;
+    case 'info':	// click on user defined tandas
+        return;
 	}
 }
 
@@ -258,6 +260,8 @@ function vwls_processLiveStream(id,evt) {
 		vwls_cronoManual('reset');
 		vwls_showOSD(0); // apaga el OSD
 		return;
+    case 'info':	// click on user defined tandas
+        return;
 	}
 }
 
@@ -294,6 +298,8 @@ function vw_processLlamada(id,evt) {
 	case 'cancelar': // operador pulsa cancelar
 		vwc_updatePendingQueue(event,25);
 		return;
+    case 'info':	// click on user defined tandas
+        return;
 	}
 }
 
@@ -328,6 +334,8 @@ function vw_processParciales(id,evt) {
 		return;
 	case 'cancelar': // operador pulsa cancelar
 		return;
+    case 'info':	// click on user defined tandas
+        return;
 	}
 }
 

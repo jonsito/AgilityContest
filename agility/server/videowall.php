@@ -54,6 +54,8 @@ class VideoWall {
             $this->tandatype=$this->tanda['Tipo'];
             if ($this->session['Manga']==0) {
                 // take care on User-defined Tandas (Manga=0)
+                $this->manga=null;
+                $this->mangaid=0;
             } else {
                 // normal Tandas
                 $this->manga=$this->myDBObject->__getArray("Mangas",$this->session['Manga']);
@@ -96,21 +98,29 @@ class VideoWall {
 	function generateHeaderInfo() {
 		$tandastr=Tandas::getTandaString($this->tandatype);
 		$sesname=($this->sessionid!=0)?$this->session['Nombre']:'';
+        echo '<form id="vw_HiddenHeader">';
 		echo '<input type="hidden" id="vw_NombreSesion" value="'.$sesname.'"/>';
 		echo '<input type="hidden" id="vw_NombreSesion" value="'.$this->session['Nombre'].'"/>';
 		echo '<input type="hidden" id="vw_NombrePrueba" value="'.$this->prueba['Nombre'].'"/>';
 		echo '<input type="hidden" id="vw_NombreJornada" value="'.$this->jornada['Nombre'].'"/>';
 		echo '<input type="hidden" id="vw_NombreManga" value="'.$tandastr.'"/>';
 		echo '<input type="hidden" id="vw_NombreTanda" value="'.$tandastr.'"/>';
+        echo '</form>';
 	}
-	
+
+	function generateTandaInfo() {
+        $str=$this->tanda['Nombre'];
+        echo '<table class="vwc_callEntry"><tr><td colspan="5" class="vwc_callTanda">'.$str.'</td></tr></table>';
+    }
+
 	function videowall_llamada($pendientes) {
         $lastTanda="";
-        $lastTeam=0;;
+        $lastTeam=0;
+        $this->generateHeaderInfo();
+        if ($this->manga==null) $this->generateTandaInfo();
 		$otmgr=new Tandas("Llamada a pista",$this->prueba['ID'],$this->jornada['ID']);
 		$result = $otmgr->getData($this->sessionid,$this->tanda['ID'],$pendientes)['rows']; // obtiene los $pendientes primeros perros
 		$numero=0;
-		$this->generateHeaderInfo();
 		echo '<table class="vwc_callEntry">';
 		foreach ($result as $participante) {
 			if ($lastTanda!==$participante['Tanda']){
@@ -161,8 +171,8 @@ class VideoWall {
 			
 	function videowall_resultados() {
 		// anyade informacion extra en el resultado html
-		$this->generateHeaderInfo();
-		if ($this->mangaid==0) { // no manga defined yet
+        $this->generateHeaderInfo();
+		if ($this->manga==null) { // no manga defined yet
 			echo '
 			<!-- Datos de TRS y TRM -->
 			<div id="vwc_tablaTRS">
@@ -185,6 +195,7 @@ class VideoWall {
 					</tbody>
 				</table>
 			</div>
+            $this->generateTandaInfo();
 			';
 			return 0;
 		}
@@ -343,10 +354,14 @@ class VideoWall {
 	
 	function videowall_ordensalida() {
 		$lastCategoria="";
+        $this->generateHeaderInfo();
+        if ($this->manga==null) {
+            $this->generateTandaInfo();
+            return 0; // orden de salida has no sense when no manga active
+        }
 		$osmgr=new OrdenSalida("Orden de salida",$this->mangaid);
 		$result = $osmgr->getData()['rows']; // obtiene los primeros perros pendientes
 		$numero=0;
-		$this->generateHeaderInfo();
 		echo '<table class="vwc_callEntry">';
 		foreach ($result as $participante) {
 			if ($lastCategoria!==$participante['Categoria']){

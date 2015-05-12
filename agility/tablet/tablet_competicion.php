@@ -82,11 +82,13 @@ $('#tablet-datagrid').datagrid({
         	{ field:'Prueba',	hidden:true },
           	{ field:'Jornada',	hidden:true },
           	{ field:'Manga',	hidden:true },
-      		{ field:'From',		hidden:true },
-      		{ field:'To',		hidden:true },
-      		{ field:'Nombre',	width:200, sortable:false, align:'ledt',title:'Secuencia de salida a pista',styler:tandasStyler},
       		{ field:'Categoria',hidden:true },
-      		{ field:'Grado',	hidden:true }
+            { field:'Grado',	hidden:true },
+            { field:'Sesion',	hidden:true },
+            { field:'Tipo',	    hidden:true },
+            { field:'Horario',	width:50, sortable:false, align:'center', title:'Horario',styler:tandasStyler },
+            { field:'Nombre',	width:150, sortable:false, align:'left',title:'Actividad',styler:tandasStyler},
+            { field:'Comentario',	width:250, sortable:false, align:'left',title:'Comentarios',styler:tandasStyler},
     ]],
     rowStyler: myRowStyler,            
     // especificamos un formateador especial para desplegar la tabla de perros por tanda

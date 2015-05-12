@@ -183,6 +183,8 @@ function chrono_processEvents(id,evt) {
 		return;
 	case 'aceptar':	// operador pulsa aceptar en tablet
 		return;
+    case 'info':	// click on user defined tandas
+        return;
 	default:
 		alert("Unknow Event type: "+event['Type']);
 		return;
