@@ -43,9 +43,6 @@ require_once(__DIR__."/classes/Clubes.php");
 				// this call provides an image in base64 encoded format. Needs special handling
 				$result=$clubes->setLogo($idclub);
 				return;
-			case "testlogo": // resize and resend received image. just for testing
-				$result=$clubes->testLogo($idclub);
-				return;
 			default: throw new Exception("clubFunctions:: invalid operation: '$operation' provided");
 		}
 		if ($result===null) 

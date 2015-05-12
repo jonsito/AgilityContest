@@ -19,6 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/logging.php");
 require_once(__DIR__."/auth/Config.php");
 require_once(__DIR__."/database/classes/DBObject.php");
+require_once(__DIR__."/database/classes/Clubes.php");
 require_once(__DIR__."/database/classes/Tandas.php");
 require_once(__DIR__."/database/classes/Mangas.php");
 require_once(__DIR__."/database/classes/Sesiones.php");
@@ -37,7 +38,8 @@ class VideoWall {
 	protected $mangaid;
 	protected $tandatype;
 	protected $mode;
-	
+	protected $club;
+
 	function __construct($sessionid,$pruebaid,$jornadaid,$mangaid,$tandatype,$mode) {
 		$this->config=Config::getInstance();
 		$this->myLogger=new Logger("VideoWall.php",$this->config->getEnv("debug_level"));
@@ -65,8 +67,10 @@ class VideoWall {
 			$this->tandatype=$tandatype;
 			$this->mode=$mode;	
 		}
+        $this->club= new Clubes("videowall");
 		$this->myLogger->info("sesion:$sessionid prueba:{$this->prueba['ID']} jornada:{$this->jornada['ID']} manga:{$this->mangaid} tanda:{$this->tandatype} mode:$mode");
 	}
+
 
 	public static $cat=array('-'=>'','L'=>'Large','M'=>'Medium','S'=>'Small','T'=>'Tiny');
 	public static $modestr  
@@ -101,7 +105,6 @@ class VideoWall {
 		$otmgr=new Tandas("Llamada a pista",$this->prueba['ID'],$this->jornada['ID']);
 		$result = $otmgr->getData($this->sessionid,$this->tanda['ID'],$pendientes)['rows']; // obtiene los $pendientes primeros perros
 		$numero=0;
-        $logos=array(); // cache "NombreClub" => "Logo" to store logos
 		$this->generateHeaderInfo();
 		echo '<table class="vwc_callEntry">';
 		foreach ($result as $participante) {
@@ -117,12 +120,7 @@ class VideoWall {
             }
 
 			$numero++;
-            if (!array_key_exists($participante['NombreClub'],$logos)) { // search logo in cache
-                $logos[$participante['NombreClub']]=
-                    $otmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
-            }
-            $logo=$logos[$participante['NombreClub']];
-			if ($logo==="") $logo='rsce.png';
+            $logo=$this->club->getLogoName('NombreClub',$participante['NombreClub']);
 			$celo=($participante['Celo']==1)?'Si':'No';
 			$bg=$this->getBackground($numero);
 			echo '
@@ -247,8 +245,7 @@ class VideoWall {
 			error_log(json_encode($resultado));
 			$numero++;
 			$bg=$this->getBackground($numero);
-			$logo=$resmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$resultado['Perro']})")['Logo'];
-			if ($logo==="") $logo='rsce.png';
+            $logo=$this->club->getLogoName("NombreClub",$resultado['NombreClub']);
 			echo '
 				<tr id="Resultado_'.$numero.'" style="background:'.$bg.'">
 					<td class="vwc_Entry vwc_logo">
@@ -308,8 +305,7 @@ class VideoWall {
 				$club=$i['Club'];
 				$fila=0;
 				// evaluamos logo
-				$logo=$imgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$i['Perro']})")['Logo'];
-				if ($logo==="") $logo='rsce.png';
+                $logo=$this->club->getLogoName("Clubes",$i['Club']);
 				// pintamos cabecera	
 				echo '<tr><td colspan="6"><hr /></td></tr>';
 				echo "<tr id=\"Club_$club\">";
@@ -358,8 +354,7 @@ class VideoWall {
 				$numero=0;
 			}
 			$numero++;
-			$logo=$osmgr->__selectAsArray("Logo","Clubes,PerroGuiaClub","(Clubes.ID=PerroGuiaClub.Club) AND (PerroGuiaClub.ID={$participante['Perro']})")['Logo'];
-			if ($logo==="") $logo='rsce.png';
+            $logo=$this->club->getLogoName("NombreClub",$participante['NombreClub']);
 			$celo=($participante['Celo']==='1')?'Si':'No';
 			$pcolor=($participante['Pendiente']==0)?"#000000":"#FF0000"; // foreground color=red if pendiente
 			$bg=$this->getBackground($numero);

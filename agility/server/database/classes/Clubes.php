@@ -22,8 +22,10 @@ require_once("DBObject.php");
 class Clubes extends DBObject {
 
 	/* use parent constructor and destructors */
-	
-	/**
+
+    protected $logoCache=array( "Perros" => array(), "Guias" => array(), "Clubes" => array(), "NombreClub" => array() );
+
+    /**
 	 * insert a new club into database
 	 * @return {string} empty string if ok; else null
 	 */
@@ -212,12 +214,13 @@ class Clubes extends DBObject {
 		$this->myLogger->leave();
 		return $result;
 	}
-	
-	/** 
-	 * Retorna el logo asociado al club de id indicado
-	 * NOTA: esto no retorna una respuesta json, sino una imagen
-	 * @param {integer} $id club id
-	 */
+
+    /**
+     * Retorna el logo asociado al club de id indicado
+     * NOTA: esto no retorna una respuesta json, sino una imagen
+     * @param $id
+     * @return null|string {string} "" on success; else error string
+     */
 	function getLogo($id) {
 		$this->myLogger->enter();
 		if ($id==0) $id=1; // on insert, select default logo
@@ -239,6 +242,7 @@ class Clubes extends DBObject {
 	 * Retorna el logo del club asociado al guia del perro de id indicado
 	 * NOTA: esto no retorna una respuesta json, sino una imagen
 	 * @param {integer} $id perro id
+     * @return "" on success; else error string
 	 */
 	function getLogoByPerro($id) {
 		$this->myLogger->enter();
@@ -261,6 +265,7 @@ class Clubes extends DBObject {
 	 * Retorna el logo del club asociado al guia de id indicado
 	 * NOTA: esto no retorna una respuesta json, sino una imagen
 	 * @param {integer} $id perro id
+     * @return "" on success; else error string
 	 */
 	function getLogoByGuia($id) {
 		$this->myLogger->enter();
@@ -278,7 +283,12 @@ class Clubes extends DBObject {
 		readfile($fname);
         return "";
 	}
-	
+
+    /**
+     * Store logo image and name into database
+     * @param {integer} $id Club ID
+     * @return {string} "" on success; else error
+     */
 	function setLogo($id) {
 		$this->myLogger->enter();
 		// el logo 1 NO es editable y debe ser siempre "rsce.png"
@@ -343,46 +353,60 @@ class Clubes extends DBObject {
 		$this->myLogger->leave();
 		return "";
 	}
-	
-	function testLogo($id) {
-		// just receive, resample and resend received image
-		$this->myLogger->enter();
-		// extraemos la imagen
-		$imgstr=http_request("imagedata","s",null);
-		if (!$imgstr) return $this->error("No image data received for club ID:$id");
-		if (!preg_match('/data:([^;]*);base64,(.*)/', $imgstr, $matches)) {
-			return $this->error("Invalid received image string data:'$imgstr'");
-		}
-		$type=$matches[1]; // 'image/png' , 'image/jpeg', or whatever. Not really used
-		$image=base64_decode( str_replace(' ', '+', $matches[2]) ); // also replace '+' to spaces or newlines
-		$img=imagecreatefromstring($image);
-		if (!$img) return $this->error("Invalid received image string data:'$imgstr'");
-		
-		// creamos una imagen de 150x150, le anyadimos canal alfa, y hacemos un copyresampled
-		$newImage = imagecreatetruecolor(150,150);
-		imagealphablending($newImage, true);
-		imagesavealpha($newImage, true);
-		// Allocate a transparent color and fill the new image with it.
-		// Without this the image will have a black background instead of being transparent.
-		$transparent = imagecolorallocatealpha( $newImage, 0, 0, 0, 127 );
-		imagefill( $newImage, 0, 0, $transparent );
-		imagecopyresampled($newImage, $img, 0, 0, 0, 0, 150, 150, imagesx($img), imagesy($img));
-		
-		// Now, time to send image back to navigator
-		// due to stupid ajax, we need to base64 encode image before send it
-		ob_start();
-		// enable oytput buffering
-		imagepng($newImage);
-		$imagedata = ob_get_contents();	// Capture the output
-		ob_end_clean();	// Clear the output buffer
-		echo 'data:image/png;base64,'.base64_encode($imagedata); // y la reenviamos ya codificada
-		
-		// cleanup
-		imagedestroy($img); 
-		imagedestroy($newImage);
-		$this->myLogger->leave();
-        return "";
-	}
+
+    /**
+     * A sort of logo name cache to store and retrieve logo names
+     * @param {string} $key search family ( club, perro, guia, ...)
+     * @param {mixed} $id id or name
+     * @return {string} found logo, or federation related one
+     */
+    function getLogoName($key,$id) {
+        if (!array_key_exists($key,$this->logoCache)){
+            $this->myLogger->error("getLogoName(): invalid search key: $key");
+            return Federation::$logos[0]; // defaults to rsce. TODO: study how to select from proper federation
+        }
+        // if already exists just return
+        if (array_key_exists($id,$this->logoCache[$key])) {
+            $this->myLogger->trace("getLogoName(): cache hit '$key' => '$id' ");
+            return $this->logoCache[$key][$id];
+        }
+        // $this->myLogger->trace(json_encode($this->logoCache));
+        $this->myLogger->trace("getLogoName(): cache miss '$key' => '$id' ");
+        // else ask database and fill cache
+        switch($key) {
+            case "Perros": // $id= Dog ID
+                $data= $this->__selectAsArray("*","PerroGuiaClub","(PerroGuiaClub.ID=$id)");
+                $logo=$data['LogoClub'];
+                $this->logoCache['Perros'][$id] = $logo;
+                $this->logoCache['Guias'][$data['Guia']] =  $logo;
+                $this->logoCache['NombreClub'][$data['NombreClub']] = $logo;
+                $this->logoCache['Clubes'][$data['Club']] = $logo;
+                break;
+            case "Guias"; // $id: Guia ID
+                $data= $this->__selectAsArray(
+                    "Clubes.ID as Club, Clubes.Nombre AS NombreClub, Clubes.Logo as Logo",
+                    "Guias,Clubes",
+                    " (Guias.ID=$id) AND (Guias.Club=Clubes.ID) ");
+                $logo=$data['Logo'];
+                $this->logoCache['Guias'][$id] = $logo;
+                $this->logoCache['NombreClub'][$data['NombreClub']] = $logo;
+                $this->logoCache['Clubes'][$data['Club']] = $logo;
+                break;
+            case "Clubes": // provided Club ID
+                $data= $this->__selectAsArray("*","Clubes"," (ID=$id) ");
+                $logo=$data['Logo'];
+                $this->logoCache['NombreClub'][$data['Nombre']] = $logo;
+                $this->logoCache['Clubes'][$id] = $logo;
+                break;
+            case "NombreClub": // Provided Club Name
+                $data= $this->__selectAsArray("*","Clubes"," (Nombre LIKE '%$id%') ");
+                $logo=$data['Logo'];
+                $this->logoCache['NombreClub'][$id] =$logo;
+                $this->logoCache['Clubes'][$data['ID']] = $logo;
+                break;
+        }
+        return $this->logoCache[$key][$id];
+    }
 } /* end of class "Clubes" */
 
 ?>
