@@ -105,8 +105,10 @@ var ac_config= {
 	'vw_alpha'			: <?php echo $config->getEnv('vw_alpha'); ?>,
 	'vw_hdrfg1'			: '<?php echo $config->getEnv('vw_hdrfg1'); ?>',
 	'vw_hdrbg1'			: '<?php echo $config->getEnv('vw_hdrbg1'); ?>',
-	'vw_hdrfg2'			: '<?php echo $config->getEnv('vw_hdrfg2'); ?>',
-	'vw_hdrbg2'			: '<?php echo $config->getEnv('vw_hdrbg2'); ?>',
+    'vw_hdrfg2'			: '<?php echo $config->getEnv('vw_hdrfg2'); ?>',
+    'vw_hdrbg2'			: '<?php echo $config->getEnv('vw_hdrbg2'); ?>',
+    'vw_hdrfg3'			: '<?php echo $config->getEnv('vw_hdrfg3'); ?>',
+    'vw_hdrbg3'			: '<?php echo $config->getEnv('vw_hdrbg3'); ?>',
 	'vw_rowcolor1'		: '<?php echo $config->getEnv('vw_rowcolor1'); ?>',
 	'vw_rowcolor2'		: '<?php echo $config->getEnv('vw_rowcolor2'); ?>',
 	// generacion de PDF's
@@ -151,9 +153,8 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 				<option value="0">Orden de Salida</option>
 				<option value="1">Llamada a pista</option>
 				<option value="2">Resultados Provisionales</option>
-				<option value="3">Clasificaciones</option>
-				<option value="4">Live Stream OSD</option>
-				<option value="5">Vista Combinada</option>
+				<option value="3">Live Stream OSD</option>
+				<option value="4">Vista Combinada</option>
        		</select>
     	</div>
     	
@@ -245,13 +246,10 @@ function vw_accept() {
 	case 2: // Resultados Parciales
 		page="/agility/videowall/vw_parciales.inc";
 		break;
-	case 3: // Clasificaciones
-		page="/agility/videowall/vw_clasificaciones.inc";
-		break;
-	case 4: // Live Stream OSD
+	case 3: // Live Stream OSD
 		page="/agility/videowall/vw_livestream.inc";
 		break;
-	case 5: // Vista Combinada
+	case 4: // Vista Combinada
 		page="/agility/videowall/vw_combinada.inc";
 		break;
 	}

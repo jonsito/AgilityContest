@@ -37,7 +37,7 @@ function tablet_showOrdenSalida() {
  * @param {object} data Event data
  */
 function tablet_putEvent(type,data){
-    var tds=$('#tdialog-Session').val;
+    var tds=$('#tdialog-Session').val();
 	// setup default elements for this event
 	var obj= {
 			'Operation':'putEvent',

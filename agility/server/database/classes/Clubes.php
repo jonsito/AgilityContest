@@ -367,11 +367,11 @@ class Clubes extends DBObject {
         }
         // if already exists just return
         if (array_key_exists($id,$this->logoCache[$key])) {
-            $this->myLogger->trace("getLogoName(): cache hit '$key' => '$id' ");
+            // $this->myLogger->trace("getLogoName(): cache hit '$key' => '$id' ");
             return $this->logoCache[$key][$id];
         }
         // $this->myLogger->trace(json_encode($this->logoCache));
-        $this->myLogger->trace("getLogoName(): cache miss '$key' => '$id' ");
+        // $this->myLogger->trace("getLogoName(): cache miss '$key' => '$id' ");
         // else ask database and fill cache
         switch($key) {
             case "Perros": // $id= Dog ID

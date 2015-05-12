@@ -51,7 +51,7 @@ class AuthManager {
 		/* try to retrieve session token */
 		$hdrs= getAllHeaders();
 		if (!array_key_exists("X-AC-SessionKey",$hdrs)) {
-			$this->myLogger->info("No sessionKey found in request");
+			// $this->myLogger->info("No sessionKey found in request");
 			// no key found: assume anonymous login
 			$this->level=PERMS_GUEST;
 			return;

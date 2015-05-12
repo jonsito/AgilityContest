@@ -50,10 +50,15 @@ class VideoWall {
 			$this->sessionid=$sessionid;
 			$this->prueba=$this->myDBObject->__getArray("Pruebas",$this->session['Prueba']);
 			$this->jornada=$this->myDBObject->__getArray("Jornadas",$this->session['Jornada']);
-			$this->manga=$this->myDBObject->__getArray("Mangas",$this->session['Manga']);
-			$this->mangaid=$this->manga['ID'];
-			$this->tanda=$this->myDBObject->__getArray("Tandas",$this->session['Tanda']);
-			$this->tandatype=$this->tanda['Tipo'];
+            $this->tanda=$this->myDBObject->__getArray("Tandas",$this->session['Tanda']);
+            $this->tandatype=$this->tanda['Tipo'];
+            if ($this->session['Manga']==0) {
+                // take care on User-defined Tandas (Manga=0)
+            } else {
+                // normal Tandas
+                $this->manga=$this->myDBObject->__getArray("Mangas",$this->session['Manga']);
+                $this->mangaid=$this->manga['ID'];
+            }
 			$this->mode=-1;
 		} else {
             // obtenemos los datos desde las variables recibidas por http
@@ -187,8 +192,6 @@ class VideoWall {
 		$myManga=$this->myDBObject->__getObject("Mangas",$this->mangaid);
 		
 		// Si en lugar de TandaID tenemos definido el modo, obtenemos datos a partir de la manga
-		$mode=-1;
-		$mangastr="";
 		if ($this->mode>=0){
 			$mode=$this->mode;
 			$mangastr=Mangas::$tipo_manga[$myManga->Tipo][1]." - ".VideoWall::$modestr[$mode];
@@ -408,5 +411,6 @@ try {
 	if($operacion==="inscripciones") return $vw->videowall_inscripciones();
 	if($operacion==="ordensalida") return $vw->videowall_ordensalida();
 } catch (Exception $e) {
-	return "<p>Error:<br />".$e->getMessage()."</p>";
+	echo "<p>Error:<br />".$e->getMessage()."</p>";
+    return 0;
 }

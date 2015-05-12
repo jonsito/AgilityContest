@@ -101,7 +101,8 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
        		<option value="ordensalida">Orden de Salida</option>
        		<option value="parciales">Resultados Provisionales</option>
        		<option value="clasificaciones">Clasificaciones</option>
-       		<option value="podios">Podiums</option>
+            <option value="podios">Podiums</option>
+            <option value="programa">Programa de la jornada</option>
        		</select>
     	</div>
 	</form>
@@ -215,10 +216,13 @@ function public_acceptSelection() {
 	case 'clasificaciones':
 		page="/agility/public/pb_finales.inc";
 		break;
-	case 'podios':
-		page="/agility/public/pb_podios.inc";
-		break;
-	}
+    case 'podios':
+            page="/agility/public/pb_podios.inc";
+            break;
+    case 'programa':
+        page="/agility/public/pb_programa.inc";
+        break;
+    }
 	$('#public-dialog').dialog('close');
 	$('#public-contenido').load(	
 			page,
