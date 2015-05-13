@@ -238,6 +238,75 @@ function isMobileDevice() {
 	 }
 }
 
+/**
+ * A partir del ID de jornada obtiene y despliega los datos de la prueba y los equipos asociados
+ * @param {int} id Jornada ID
+ */
+function setupByJornada(prueba,jornada) {
+    $.ajax({
+        type:'GET',
+        url:"/agility/server/database/jornadaFunctions.php",
+        dataType:'json',
+        data: {
+            Operation: 'getbyid',
+            Prueba:	prueba,
+            ID:jornada
+        },
+        success: function(data) {
+            if (data.errorMsg) {
+                $.messager.alert("Error:",data.errorMsg,"error");
+                return false;
+            }
+            // store jornada data
+            setJornada(data);
+            // now retrieve jornada team's info
+            $.ajax({
+                type:'GET',
+                url:"/agility/server/database/equiposFunctions.php",
+                dataType:'json',
+                data: {
+                    Operation: 'enumerate',
+                    Prueba:	prueba,
+                    Jornada:jornada
+                },
+                success: function(teams) {
+                    if (teams.errorMsg) {
+                        $.messager.alert("Error:",teams.errorMsg,"error");
+                        return false;
+                    }
+                    workingData.teamsByJornada={};
+                    $.each(teams.rows, function(idx,row) {
+                        workingData.teamsByJornada[row.ID]=row;
+                    });
+                    return false; // prevent default fireup of event trigger
+                }
+            });
+            // and finally retrieve prueba team's info
+            $.ajax({
+                type:'GET',
+                url:"/agility/server/database/pruebaFunctions.php",
+                dataType:'json',
+                data: {
+                    Operation: 'getbyid',
+                    ID:	prueba
+                },
+                success: function(prueba) {
+                    if (prueba.errorMsg) {
+                        $.messager.alert("Error:",prueba.errorMsg,"error");
+                        return false;
+                    }
+                    // store prueba data
+                    setPrueba(prueba);
+                    return false; // prevent default fireup of event trigger
+                }
+            });
+        }
+    });
+
+
+
+}
+
 function setFederation(fed) { //0:RSCE 1:RFEC 2:UCA
 	var logo="rsce.png";
 	// check and set value

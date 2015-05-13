@@ -52,7 +52,6 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <script src="/agility/lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fittext-1.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/equipos.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/videowall/videowall.js" type="text/javascript" charset="utf-8" > </script>
@@ -219,7 +218,7 @@ $('#selvw-Session').combogrid({
 		param.Hidden=0;
 		return true;
 	},
-    onSelect: function(index,row) { getTeamsByJornada(row.Prueba,row.Jornada); }
+    onSelect: function(index,row) { setupByJornada(row.Prueba,row.Jornada); }
 });
 
 function vw_accept() {

@@ -156,6 +156,7 @@ function vwc_processCombinada(id,evt) {
 	case 'null':		// null event: no action taken
 		return; 
 	case 'init':		// operator starts tablet application
+        setupByJornada(event['Pru'],event['Jor']); // use shortname to ensure data exists
 		vwls_showOSD(0); 	// activa visualizacion de OSD
 		return;
 	case 'open':		// operator select tanda
@@ -217,9 +218,10 @@ function vwls_processLiveStream(id,evt) {
 	case 'null':		// null event: no action taken
 		return; 
 	case 'init':		// operator starts tablet application
+        setupByJornada(event['Pru'],event['Jor']); // use shortname to ensure data exists
 		vwls_showOSD(0); 	// activa visualizacion de OSD
 		return;
-	case 'open':		// operator select tanda: nothing to do here
+	case 'open':		// operator select tanda reset info
 		return;
 	case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
@@ -277,6 +279,7 @@ function vw_processLlamada(id,evt) {
 	case 'null': // null event: no action taken
 		return; 
 	case 'init': // operator starts tablet application
+        setupByJornada(event['Pru'],event['Jor']); // use shortname to ensure data exists
 		// TODO: muestra pendientes desde primera tanda
 		return;
 	case 'open': // operator select tanda:
@@ -315,6 +318,7 @@ function vw_processParciales(id,evt) {
 	case 'null': // null event: no action taken
 		return; 
 	case 'init': // operator starts tablet application
+        setupByJornada(event['Pru'],event['Jor']); // use shortname to ensure data exists
 		// TODO: muestra pendientes desde primera tanda
 		return;
 	case 'open': // operator select tanda:
