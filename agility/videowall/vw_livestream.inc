@@ -89,26 +89,26 @@ $('#vwls_LiveStream-window').window({
 // layout
 var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 
-doLayout(layout,"#vwls_Resultados",	620,	35,		155,	130	);
-doLayout(layout,"#vwls_Datos",		25,		345,	750,	80	);
+doLayout(layout,"#vwls_Resultados",	620,	20,		155,	100	);
+doLayout(layout,"#vwls_Datos",		25,		380,	750,	45	);
 
-doLayout(layout,"#vwls_FaltasLbl",	630,	50,		75,		25	);
-doLayout(layout,"#vwls_Faltas",		740,	50,		25,		25	);
-doLayout(layout,"#vwls_TocadosLbl",	630,	75,		75,		25	);
-doLayout(layout,"#vwls_Tocados",	740,	75,		25,		25	);
-doLayout(layout,"#vwls_RehusesLbl",	630,	100,	75,		25	);
-doLayout(layout,"#vwls_Rehuses",	740,	100,	25,		25	);
-doLayout(layout,"#vwls_TiempoLbl",	630,	125,	50,		25	);
-doLayout(layout,"#vwls_Tiempo",		710,	125,	55,		25	);
+doLayout(layout,"#vwls_FaltasLbl",	630,	30,		75,		20	);
+doLayout(layout,"#vwls_Faltas",		740,	30,		25,		20	);
+doLayout(layout,"#vwls_TocadosLbl",	630,	50,		75,		20	);
+doLayout(layout,"#vwls_Tocados",	740,	50,		25,		20	);
+doLayout(layout,"#vwls_RehusesLbl",	630,	70,	    75,		20	);
+doLayout(layout,"#vwls_Rehuses",	740,	70,	    25,		20	);
+doLayout(layout,"#vwls_TiempoLbl",	630,	90,     50,		20	);
+doLayout(layout,"#vwls_Tiempo",		710,	90,     55,		20	);
 
 doLayout(layout,"#vwls_Logo",		30,		350,	80,		80	);
-doLayout(layout,"#vwls_Dorsal",		150,	350,	150,	40	);
-doLayout(layout,"#vwls_Nombre",		300,	350,	250,	40	);
-doLayout(layout,"#vwls_NombreGuia",	150,	390,	350,	40	);
-doLayout(layout,"#vwls_NombreClub",	500,	390,	250,	40	);
-doLayout(layout,"#vwls_Categoria",	550,	350,	100,	40	);
-doLayout(layout,"#vwls_Grado",		650,	350,	125,	40	);
-doLayout(layout,"#vwls_Celo",		700,	390,	75,		40	);
+doLayout(layout,"#vwls_Dorsal",		120,	385,	110,	25	);
+doLayout(layout,"#vwls_Nombre",		230,	385,	270,	25	);
+doLayout(layout,"#vwls_NombreGuia",	120,	405,	380,	25	);
+doLayout(layout,"#vwls_NombreClub",	500,	405,	200,	25	);
+doLayout(layout,"#vwls_Categoria",	500,	385,	150,	25	);
+doLayout(layout,"#vwls_Grado",		650,	385,	125,	25	);
+doLayout(layout,"#vwls_Celo",		700,	405,	75,		25	);
 
 jQuery('#vwls_common').fitText(0.02);
 </script>

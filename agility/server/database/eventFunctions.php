@@ -41,7 +41,8 @@ try {
 			'Tnd'	=>	http_request("Tanda","i",0),
 			'Dog'	=>	http_request("Perro","i",0),
 			'Drs'	=>	http_request("Dorsal","i",0),
-			'Hot'	=>	http_request("Celo","i",0),
+            'Hot'	=>	http_request("Celo","i",0),
+            'Eqp'	=>	http_request("Equipo","i",0),
 			// el valor por defecto "-1" indica que no se debe utilizar dicho campo
 			'Flt'	=>	http_request("Faltas","i",-1),
 			'Toc'	=>	http_request("Tocados","i",-1),

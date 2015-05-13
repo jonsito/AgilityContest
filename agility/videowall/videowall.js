@@ -78,14 +78,19 @@ function vwls_showData(data) {
 			async: true,
 			cache: false,
 			dataType: 'json',
-			success: function(data){
-				$('#vwls_Logo').attr("src","/agility/images/logos/"+data['LogoClub']);
+			success: function(res){
+				$('#vwls_Logo').attr("src","/agility/images/logos/"+res['LogoClub']);
 				$('#vwls_Dorsal').html("Dorsal: "+dorsal );
-				$('#vwls_Nombre').html(data["Nombre"]);
-				$('#vwls_NombreGuia').html("Guia: "+data["NombreGuia"]);
-				$('#vwls_NombreClub').html("Club: "+data["NombreClub"]);
-				$('#vwls_Categoria').html(data["NombreCategoria"].replace(/.* - /g,""));
-				$('#vwls_Grado').html(data["NombreGrado"]);
+				$('#vwls_Nombre').html(res["Nombre"]);
+				$('#vwls_NombreGuia').html("Guia: "+res["NombreGuia"]);
+                $('#vwls_Categoria').html("Cat: "+toLongCategoria(res["Categoria"],res['Federation']));
+                // hide "Grado" Information if not applicable
+                $('#vwls_Grado').html(hasGradosByJornada(workingData.datosJornada)?res["NombreGrado"]:"");
+                // on Team events, show Team info instead of Club
+                var eq=workingData.teamsByJornada[data["Equipo"]].Nombre
+                // como en el videowall no tenemos datos de la jornada, lo que hacemos es
+                // contar el numero de equipos de esta para saber si es prueba por equipos o no
+                $('#vwls_NombreClub').html((Object.keys(workingData.teamsByJornada).length>1)?"Eq: "+eq:"Club: "+res["NombreClub"]);
 				$('#vwls_Celo').html((celo==1)?'<span class="blink">Celo</span>':'');
 			},
 			error: function(XMLHttpRequest,textStatus,errorThrown) {

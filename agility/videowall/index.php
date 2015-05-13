@@ -52,6 +52,7 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <script src="/agility/lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fittext-1.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/equipos.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/videowall/videowall.js" type="text/javascript" charset="utf-8" > </script>
@@ -207,6 +208,8 @@ $('#selvw-Session').combogrid({
 	    { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
 		{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: 'Nombre' },
 		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' },
+        { field:'Prueba',	    hidden:true },
+        { field:'Jornada',	    hidden:true },
 		{ field:'Background',	hidden:true },
 		{ field:'LiveStream2',	hidden:true },
 		{ field:'LiveStream3',	hidden:true }
@@ -215,7 +218,8 @@ $('#selvw-Session').combogrid({
 		param.Operation='select';
 		param.Hidden=0;
 		return true;
-	}
+	},
+    onSelect: function(index,row) { getTeamsByJornada(row.Prueba,row.Jornada); }
 });
 
 function vw_accept() {

@@ -22,7 +22,39 @@ $config =Config::getInstance();
 ?>
 
 // ***** gestion de equipos de una prueba	*****************************************************
- 
+
+/**
+* Obtiene la lista de equipos de una jornada
+* actualiza workingData con dicha lista
+* @param {int} prueba ID de prueba
+* @param {int} jornada ID de jornada
+* @return false to avoid event chaining
+*/
+function getTeamsByJornada(prueba,jornada) {
+    $.ajax({
+        type:'GET',
+        url:"/agility/server/database/equiposFunctions.php",
+        dataType:'json',
+        data: {
+            Operation:	'enumerate',
+            Prueba:	prueba,
+            Jornada:jornada
+        },
+        success: function(data) {
+                if (data.errorMsg) {
+                    $.messager.alert("Error:",errorMsg,"error");
+                    return false;
+                }
+                workingData.teamsByJornada={};
+                $.each(data.rows, function(idx,row) {
+                    workingData.teamsByJornada[row.ID]=row;
+                });
+                return false; // prevent default fireup of event trigger
+            }
+        });
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+}
+
 function buscaEquipos() {
 	$('#team_datagrid').datagrid( 'load', { 
 		where: ($('#team_datagrid-search').val()==='---- Buscar ----')? '' : $('#team_datagrid-search').val()

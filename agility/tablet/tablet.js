@@ -50,7 +50,8 @@ function tablet_putEvent(type,data){
 			'Manga':	$('#tdialog-Manga').val(),
 			'Tanda':	$('#tdialog-ID').val(),
 			'Perro':	$('#tdialog-Perro').val(),
-			'Dorsal':	$('#tdialog-Dorsal').val(),
+            'Dorsal':	$('#tdialog-Dorsal').val(),
+            'Equipo':	$('#tdialog-Equipo').val(),
 			'Celo':		$('#tdialog-Celo').val()	
 	};
 	// send "update" event to every session listeners

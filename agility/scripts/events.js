@@ -46,7 +46,8 @@ function parseEvent(data) {
 		response.Rehuses=response.Reh;
 		response.NoPresentado=response.NPr;
 		response.Eliminado=response.Eli;
-		response.Tiempo=response.Tim;
+        response.Tiempo=response.Tim;
+        response.Equipo=response.Eqp;
 	}
 	return response; 
 }

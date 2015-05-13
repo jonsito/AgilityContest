@@ -66,27 +66,27 @@ $config =Config::getInstance();
 					<input type="hidden" id="selteam-Operation" name="Operation" value="update_team"/>
 					<input type="hidden" id="selteam-Prueba" name="Prueba"/>
 					<input type="hidden" id="selteam-Jornada" name="Jornada"/>
-					<label for="Nombre"><?php _e('Perro');?>:</label>
+					<label for="selteam-Nombre"><?php _e('Perro');?>:</label>
 					<input type="text" id="selteam-Nombre" name="Nombre" readonly="readonly"/>
 					<input type="hidden" id="selteam-Perro" name="Perro"/>
 				</div>
 				<div class="fitem">
-					<label for="LongCategoria"><?php _e('Categor&iacute;a');?>:</label>
+					<label for="selteam-LongCategoria"><?php _e('Categor&iacute;a');?>:</label>
 					<input type="text" id="selteam-LongCategoria" name="LongCategoria" readonly="readonly"/>
 					<input type="hidden" id="selteam-Categoria" name="Categoria"/>
 				</div>
 				<div class="fitem">
-					<label for="NombreGuia"><?php _e('Gu&iacute;a');?>:</label>
+					<label for="selteam-NombreGuia"><?php _e('Gu&iacute;a');?>:</label>
 					<input type="text" id="selteam-NombreGuia" name="NombreGuia" readonly="readonly"/>
 					<input type="hidden" id="selteam-Guia" name="Guia"/>
 				</div>
 				<div class="fitem">
-				<label for="NombreClub"><?php _e('Club');?>:</label>
+				<label for="selteam-NombreClub"><?php _e('Club');?>:</label>
 					<input type="text" id="selteam-NombreClub" name="NombreClub" readonly="readonly"/>
 					<input type="hidden" id="selteam-Club" name="Club"/>
 				</div>
 				<div class="fitem">
-					<label for="Equipo"><?php _e('Equipo');?>:</label>
+					<label for="selteam-Equipo"><?php _e('Equipo');?>:</label>
 					<select id="selteam-Equipo" name="Equipo" style="width:200px"></select>
 					<input type="hidden" id="selteam-ID" name="ID"/><!-- will be rewritten with team-ID on submit -->
 				</div>
@@ -261,7 +261,7 @@ addTooltip($('#selteam-cancelBtn').linkbutton(),"<?php _e('Cancelar selecci&oacu
 //- declaracion del formulario
 $('#selteam-Form').form({
 	onLoadSuccess: function(data) {
-	    $('#selteam-LongCategoria').val(toLongCategoria(data.Categoria));
+	    $('#selteam-LongCategoria').val(toLongCategoria(data.Categoria,workingData.federation));
 	    // stupid combogrid that doesn't display right data after form load
 	    $('#selteam-Equipo').combogrid('clear');
 	    $('#selteam-Equipo').combogrid('setValue',data.Equipo);

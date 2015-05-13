@@ -30,7 +30,9 @@ $config =Config::getInstance();
         	<input id="tdialog-Jornada" name="Jornada" type="hidden">
         	<input id="tdialog-Manga" name="Manga" type="hidden">
         	<input id="tdialog-Perro" name="Perro" type="hidden">
-      		<input id="tdialog-Licencia" name="Licencia" type="hidden">
+            <input id="tdialog-Licencia" name="Licencia" type="hidden">
+            <input id="tdialog-Equipo" name="Equipo" type="hidden">
+            <input id="tdialog-NombreEquipo" name="NombreEquipo" type="hidden">
       		<input id="tdialog-Pendiente" name="Pendiente" type="hidden" value="0">
       		<input id="tdialog-Tanda" name="Tanda" type="hidden"> <!-- Tanda name -->
       		<input id="tdialog-Observacioens" name="Observaciones" type="hidden">

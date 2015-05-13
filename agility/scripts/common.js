@@ -25,22 +25,24 @@ function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); }
  * nombres de las categorias en funcion de la federacion
  */
 var nombreCategorias = {
-		'rsce': { 'L': 'Standard',	'M': 'Midi',	'S': 'Mini',	'T': '-',	'logo': 'rsce.png' },
-		'rfec': { 'L': 'Large',		'M': 'Medium',	'S': 'Small',	'T': 'Tiny','logo': 'rfec.png' },
-		'uca': 	{ 'L': '60',		'M': '50',		'S': '40',		'T': '30',	'logo': 'uca.png' },
-		0: { 'L': 'Standard',	'M': 'Midi',	'S': 'Mini',	'T': '-',	'logo': 'rsce.png' },
-		1: { 'L': 'Large',		'M': 'Medium',	'S': 'Small',	'T': 'Tiny','logo': 'rfec.png' },
-		2: { 'L': '60',			'M': '50',		'S': '40',		'T': '30',	'logo': 'uca.png' }
+		'rsce': { 'L': 'Standard',	'M': 'Midi',	'S': 'Mini',	'T': '-',	'logo': 'rsce.png',  'logo2': 'fci.png' },
+		'rfec': { 'L': 'Large',		'M': 'Medium',	'S': 'Small',	'T': 'Tiny','logo': 'rfec.png',  'logo2': 'csd.png' },
+		'uca': 	{ 'L': '60',		'M': '50',		'S': '40',		'T': '30',	'logo': 'uca.png',  'logo2': 'rfec.png' },
+		'0': { 'L': 'Standard',	'M': 'Midi',	'S': 'Mini',	'T': '-',	'logo': 'rsce.png',  'logo2': 'fci.png' },
+		'1': { 'L': 'Large',		'M': 'Medium',	'S': 'Small',	'T': 'Tiny','logo': 'rfec.png',  'logo2': 'csd.png' },
+		'2': { 'L': '60',			'M': '50',		'S': '40',		'T': '30',	'logo': 'uca.png',  'logo2': 'rfec.png' }
 };
 
-function toLongCategoria(sort) {
-	switch (sort) {
-		case 'L': return 'Large';
-		case 'M': return 'Medium';
-		case 'S': return 'Small';
-		case 'T': return 'Tiny';
-		}
-	return sort;
+/**
+ * returns Categoria's long string according provided categoria and fereration
+ * @param {string} cat Categoria
+ * @param {mixed} fed Federation, as indexed in nombreCategorias
+ * @returns {string} requested result, or original one if not found
+ */
+function toLongCategoria(cat,fed) {
+    var res=nombreCategorias[fed.toString()][cat];
+    if (typeof(res)===undefined) return cat;
+    return res;
 }
 
 function isTeam(tipomanga) {
@@ -50,19 +52,42 @@ function isTeam(tipomanga) {
     }
 }
 
+/**
+ * check if provided jornada has grades in their rounds
+ * @param {array} jornada Journey data
+ * @returns {boolean}
+ */
+function hasGradosByJornada(jornada) {
+    if (parseInt(jornada.Equipos3)!=0) return false;
+    if (parseInt(jornada.Equipos4)!=0) return false;
+    if (parseInt(jornada.Open)!=0) return false;
+    if (parseInt(jornada.KO)!=0) return false;
+    if (parseInt(jornada.Especial)!=0) return false;
+    return true;
+}
+
+/**
+ * Check if provided jornada has Team rounds
+ * @param {array} jornada Journey data
+ * @returns {boolean}
+ */
 function isTeamByJornada(jornada) {
     if (parseInt(jornada.Equipos3)!=0) return true;
     if (parseInt(jornada.Equipos4)!=0) return true;
     return false;
 }
 
+function isJornadaOpen() { return (workingData.datosJornada.Open==1); }
+function isJornadaEq3() { return (workingData.datosJornada.Equipos3==1); }
+function isJornadaEq4() { return (workingData.datosJornada.Equipos4==1); }
+
 var nombreFederaciones = {0:'RSCE',1:'RFEC',2:'UCA'};
 function fedName(fed) {
     return nombreFederaciones[fed];
 }
+
 // lista de dialogos a limpiar cada vez que se recarga la pantalla
 var slaveDialogs = {};
-
 
 //musiquita para el tablet
 // usamos closures para garantizar que se crea y libera correctamente
@@ -253,10 +278,6 @@ function setJornada(data) {
 	workingData.datosJornada=data;
 }
 
-function isJornadaOpen() { return (workingData.datosJornada.Open==1); }
-function isJornadaEq3() { return (workingData.datosJornada.Equipos3==1); }
-function isJornadaEq4() { return (workingData.datosJornada.Equipos4==1); }
-
 /**
  * @param {int} id SessionID
  * Initialize working data information object
@@ -283,7 +304,8 @@ function initWorkingData(id) {
 	if (typeof(workingData.datosPrueba)==="undefined") workingData.datosPrueba= {}; // last selected prueba data
 	if (typeof(workingData.datosJornada)==="undefined") workingData.datosJornada= {}; // last selected jornada data
 	if (typeof(workingData.datosManga)==="undefined") workingData.datosManga= {}; // last selected jornada data
-	if (typeof(workingData.datosRonda)==="undefined") workingData.datosRonda= {}; // last selected ronda (grade, manga1, manga2)
+    if (typeof(workingData.datosRonda)==="undefined") workingData.datosRonda= {}; // last selected ronda (grade, manga1, manga2)
+    if (typeof(workingData.teamsByJornada)==="undefined") workingData.teamsByJornada= {}; // last selected ronda (grade, manga1, manga2)
 	if (id!==undefined) {
 		$.ajax({
 			url: '/agility/server/database/sessionFunctions.php',

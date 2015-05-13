@@ -59,7 +59,7 @@ class Sesiones extends DBObject {
 			$where=" ( Sesiones.Operador = Usuarios.ID ) AND (Nombre != 'Console') AND( (Nombre LIKE '%$search%') OR ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
 		}
 		$result=$this->__select(
-				/* SELECT */ "Sesiones.ID AS ID,Nombre,Comentario,Operador,Login,Background,LiveStream,LiveStream2,LiveStream3",
+				/* SELECT */ "Sesiones.ID AS ID,Nombre,Comentario,Operador,Prueba,Jornada,Manga,Tanda,Login,Background,LiveStream,LiveStream2,LiveStream3",
 				/* FROM */ "Sesiones,Usuarios",
 				/* WHERE */ $where,
 				/* ORDER BY */ $sort,
