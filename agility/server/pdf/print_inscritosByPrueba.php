@@ -523,7 +523,7 @@ class PrintInscritos extends PrintCommon {
 
 	// geometria de las celdas
 	protected $cellHeader;
-	protected $pos =	array(  11,       21,     16,    38,   29,     8,     8,     8,       12,     5,  5,  5,  5,  5,  5,  5,  5 );
+	protected $pos =	array(  11,       21,     16,    38,   29,     8,     8,     9,       11,     5,  5,  5,  5,  5,  5,  5,  5 );
 	protected $align=	array(  'R',      'L',    'C',   'R',  'R',   'C',    'L',   'C',    'L',    'C','C','C','C','C','C','C','C');
 	
 	/**
@@ -564,11 +564,11 @@ class PrintInscritos extends PrintCommon {
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
 		$this->ac_SetDrawColor(0,0,0); // line color
-		$this->SetFont('Arial','B',8); // bold 9px
+		$this->SetFont('Arial','B',9); // bold 9px
 		for($i=0;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
 			if ($this->pos[$i]==0) continue;
-			$this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
+			$this->Cell($this->pos[$i],6,$this->cellHeader[$i],1,0,'C',true);
 		}
 		// Restauración de colores y fuentes
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
@@ -603,7 +603,7 @@ class PrintInscritos extends PrintCommon {
 		$rowcount=0;
 		foreach($this->inscritos as $row) {
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			if( ($rowcount%38) == 0 ) { // assume 39 rows per page ( rowWidth = 7mmts )
+			if( ($rowcount%39) == 0 ) { // assume 39 rows per page ( rowWidth = 7mmts )
 				if ($rowcount>0) 
 					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
 				$this->addPage();
