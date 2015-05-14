@@ -16,7 +16,31 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 /**
- * Imprime los inscritos en la jornada marcada por la sesion activa
+ * Imprime el orden de salida de la prueba y jornada seleccionada por el usuario
+ */
+function pb_updateOrdenSalida() {
+    $.ajax( {
+        type: "GET",
+        dataType: 'html',
+        url: "/agility/server/web/public.php",
+        data: {
+            Operation: 'ordensalida',
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada,
+            Manga: workingData.manga,
+            Tanda: workingData.tanda,
+            Mode: workingData.mode
+        },
+        success: function(data,status,jqxhr) {
+            $('#pb_ordensalidaData').html(data);
+            var str='Prueba: ' + $('#pb_NombrePrueba').val()+" <br /> Jornada: "+$('#pb_NombreJornada').val();
+            $('#pb_ordensalida-infocabecera').html(str);
+            $('#pb_ordensalida-logo').attr('src',$('#pb_LogoClub').val());
+        }
+    });
+}
+/**
+ * Imprime los inscritos en la prueba y jornada seleccionada por el usuario
  */
 function pb_updateInscripciones() {
 	$.ajax( {
@@ -32,6 +56,7 @@ function pb_updateInscripciones() {
 			$('#pb_inscripcionesJornada').html(data);
             var str='Prueba: ' + $('#pb_NombrePrueba').val()+" <br /> Jornada: "+$('#pb_NombreJornada').val();
 			$('#pb_inscripciones-infocabecera').html(str);
+            $('#pb_inscripciones-logo').attr('src',$('#pb_LogoClub').val());
 		}
 	});
 }

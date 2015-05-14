@@ -20,6 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <div id="pb_parciales-window">
 	<div id="pb_selector" style="float:right;padding:20px">
+        <label for="pb_enumerateParciales">&nbsp;</label>
 		<select id="pb_enumerateParciales" style="width:200px"></select>
 	</div>
 	<div id="pb_parciales-Resultados" class="easyui-panel"
@@ -81,7 +82,7 @@ $('#pb_parciales-window').window({
 	onOpen: function() {
 		// call once and then fire as timed task
 		pb_updateResults();
-		$(this).window.defaults.callback = a=setInterval(pb_updateResults,60000);
+		$(this).window.defaults.callback = setInterval(pb_updateResults,60000);
 	},
 	onClose: function() { 
 		clearInterval($(this).window.defaults.callback);

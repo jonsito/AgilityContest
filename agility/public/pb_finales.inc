@@ -20,6 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <div id="pb_finales-window">
 	<div id="pb_selector" style="float:right;padding:20px">
+        <label for="pb_enumerateFinales">&nbsp;</label>
 		<select id="pb_enumerateFinales" style="width:200px"></select>
 	</div>			
 	<!-- Datos de TRS y TRM -->
@@ -27,7 +28,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<table class="vwc_trs">
 			<thead>
 				<tr>
-					<th colspan="2" style="align:left">Clasificaci&oacute;n final</th>
+					<th colspan="2" style="text-align:left">Clasificaci&oacute;n final</th>
 					<th colspan="3">&nbsp;</th>
 				</tr>
 			</thead>

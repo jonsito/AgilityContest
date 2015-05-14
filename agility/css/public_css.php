@@ -27,7 +27,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .pb_floatingheader {
     margin-top:0px;
     margin-bottom:0px;
-    width:100%;
+    // width:100%;
     padding:10px;
     background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
     color: <?php echo $config->getEnv('vw_hdrfg1')?>;

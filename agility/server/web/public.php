@@ -254,7 +254,8 @@ class PublicWeb {
 	function publicweb_ordensalida() {
 		$lastCategoria="";
         $this->generateHeaderInfo();
-		$osmgr=new OrdenSalida("Orden de salida",$this->mangaid);
+        if ($this->mangaid==0) return ""; // no manga info yet, so don't return anything
+		$osmgr=new OrdenSalida("public_ordensalida",$this->mangaid);
 		$result = $osmgr->getData()['rows']; // obtiene los primeros perros pendientes
 		$numero=0;
 		echo '<table class="vwc_callEntry">';

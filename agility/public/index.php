@@ -49,7 +49,7 @@ function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
 	  beforeSend: function(jqXHR,settings) {
-		if ( typeof(authInfo.SessionKey)!=undefined && authInfo.SessionKey!=null) {
+		if ( typeof(authInfo.SessionKey)!==undefined && authInfo.SessionKey!=null) {
 			jqXHR.setRequestHeader('X-AC-SessionKey',authInfo.SessionKey);
 		}
 	    return true;
@@ -59,7 +59,7 @@ function initialize() {
 
 /**
  * Common rowStyler function for AgilityContest datagrids
- * @paramm {integer} idx Row index
+ * @paramm {int} idx Row index
  * @param {Object} row Row data
  * @return {string} proper row style for given idx
  */
@@ -88,21 +88,20 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 		maximizable:false, closable:true, closed:false, shadow:true, modal:true">
 	<form id="public-form">       		
     	<div class="fitem">
-       		<label for="Prueba">Prueba:</label>
+       		<label for="public-Prueba">Prueba:</label>
        		<select id="public-Prueba" name="Prueba" style="width:200px"></select>
     	</div>        		
     	<div class="fitem">
-       		<label for="Jornada">Jornada:</label>
+       		<label for="public-Jornada">Jornada:</label>
        		<select id="public-Jornada" name="Jornada" style="width:200px"></select>
     	</div>    	
     	<div class="fitem">
-       		<label for="Operation">Vista:</label>
+       		<label for="public-Operation">Vista:</label>
        		<select id="public-Operation" name="Operation" style="width:200px">
        		<option value="inscritos">Listado de Inscritos</option>
        		<option value="ordensalida">Orden de Salida</option>
        		<option value="parciales">Resultados Provisionales</option>
        		<option value="clasificaciones">Clasificaciones</option>
-            <option value="podios">Podiums</option>
             <option value="programa">Programa de la jornada</option>
        		</select>
     	</div>
@@ -178,7 +177,7 @@ $('#public-Jornada').combogrid({
 		{ field:'Especial',		width:8, sortable:false,	align:'center', title: 'Show   ' }
 	]],
 	onBeforeLoad: function(param) { 
-		param.Operation='enumerate', 
+		param.Operation='enumerate';
 		param.Prueba=workingData.prueba;
 		param.AllowClosed=0;
 		param.HideUnassigned=1;
@@ -217,9 +216,6 @@ function public_acceptSelection() {
 	case 'clasificaciones':
 		page="/agility/public/pb_finales.inc";
 		break;
-    case 'podios':
-            page="/agility/public/pb_podios.inc";
-            break;
     case 'programa':
         page="/agility/public/pb_programa.inc";
         break;
