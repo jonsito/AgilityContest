@@ -16,14 +16,14 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-require_once(__DIR__."/logging.php");
-require_once(__DIR__."/auth/Config.php");
-require_once(__DIR__."/database/classes/DBObject.php");
-require_once(__DIR__."/database/classes/Clubes.php");
-require_once(__DIR__."/database/classes/Tandas.php");
-require_once(__DIR__."/database/classes/Mangas.php");
-require_once(__DIR__."/database/classes/Sesiones.php");
-require_once(__DIR__."/database/classes/Inscripciones.php");
+require_once(__DIR__ . "/../logging.php");
+require_once(__DIR__ . "/../auth/Config.php");
+require_once(__DIR__ . "/../database/classes/DBObject.php");
+require_once(__DIR__ . "/../database/classes/Clubes.php");
+require_once(__DIR__ . "/../database/classes/Tandas.php");
+require_once(__DIR__ . "/../database/classes/Mangas.php");
+require_once(__DIR__ . "/../database/classes/Sesiones.php");
+require_once(__DIR__ . "/../database/classes/Inscripciones.php");
 
 class VideoWall {
 	protected $myLogger;
@@ -97,15 +97,16 @@ class VideoWall {
 	
 	function generateHeaderInfo() {
 		$tandastr=Tandas::getTandaString($this->tandatype);
+        $mangastr=($this->mangaid==0)?"":Mangas::$tipo_manga[$this->manga['Tipo']][1];
 		$sesname=($this->sessionid!=0)?$this->session['Nombre']:'';
-        echo '<form id="vw_HiddenHeader">';
+        echo '<div id="vw_HiddenHeader"><form id="vw_HiddenForm">';
 		echo '<input type="hidden" id="vw_NombreSesion" value="'.$sesname.'"/>';
 		echo '<input type="hidden" id="vw_NombreSesion" value="'.$this->session['Nombre'].'"/>';
 		echo '<input type="hidden" id="vw_NombrePrueba" value="'.$this->prueba['Nombre'].'"/>';
 		echo '<input type="hidden" id="vw_NombreJornada" value="'.$this->jornada['Nombre'].'"/>';
-		echo '<input type="hidden" id="vw_NombreManga" value="'.$tandastr.'"/>';
-		echo '<input type="hidden" id="vw_NombreTanda" value="'.$tandastr.'"/>';
-        echo '</form>';
+        echo '<input type="hidden" id="vw_NombreManga" value="'. $mangastr .'"/>';
+		echo '<input type="hidden" id="vw_NombreTanda" value="'. $tandastr . '"/>';
+        echo '</form></div';
 	}
 
 	function generateTandaInfo() {

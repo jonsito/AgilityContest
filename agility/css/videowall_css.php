@@ -129,6 +129,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .vwc_puesto {
     width: 30px;
 	font-size: 25px;
+    text-align: center;
 }
 .vwc_logo {
 	width: 70px;
@@ -189,6 +190,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	width: 100%;
 	text-align: center;
 	font-weight: bold;
+}
+
+.vwc_tresultados thead {
+    padding: 5px;
+    background-color: <?php echo $config->getEnv('vw_hdrbg2')?>;
+    color: <?php echo $config->getEnv('vw_hdrfg2')?>;
 }
 
 /**********  cabecera flotante para resultados parciales, inscripciones y llamada a pista **********/

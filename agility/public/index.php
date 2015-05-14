@@ -29,7 +29,8 @@ if( ! function_exists('openssl_get_publickey')) {
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
+    <link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
+    <link rel="stylesheet" type="text/css" href="/agility/css/public_css.php" />
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
@@ -227,7 +228,7 @@ function public_acceptSelection() {
 	$('#public-contenido').load(	
 			page,
 			function(response,status,xhr){
-				if (status=='error') $('#vw_contenido').load('/agility/client/frm_notavailable.php');
+				if (status=='error') $('#pb_contenido').load('/agility/client/frm_notavailable.php');
 			}
 		);
 }

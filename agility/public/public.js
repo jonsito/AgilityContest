@@ -19,12 +19,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * Imprime los inscritos en la jornada marcada por la sesion activa
  */
 function pb_updateInscripciones() {
-	// var t=new Date().getTime();
-	// $('#vw_inscripcionesJornada').html('Jornada:'+jornada+' '+t);
 	$.ajax( {
 		type: "GET",
 		dataType: 'html',
-		url: "/agility/server/videowall.php",
+		url: "/agility/server/web/public.php",
 		data: {
 			Operation: 'inscripciones',
 			Prueba: workingData.prueba,
@@ -32,17 +30,38 @@ function pb_updateInscripciones() {
 		},
 		success: function(data,status,jqxhr) {
 			$('#pb_inscripcionesJornada').html(data);
-			var str=$('#vw_NombrePrueba').val()+" - "+$('#vw_NombreJornada').val();
+            var str='Prueba: ' + $('#pb_NombrePrueba').val()+" <br /> Jornada: "+$('#pb_NombreJornada').val();
 			$('#pb_inscripciones-infocabecera').html(str);
 		}
 	});
 }
 
+/**
+ * imprime el programa de la jornada
+ */
+function pb_updatePrograma() {
+    $.ajax( {
+        type: "GET",
+        dataType: 'html',
+        url: "/agility/server/web/public.php",
+        data: {
+            Operation: 'programa',
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada
+        },
+        success: function(data,status,jqxhr) {
+            $('#pb_programa-Jornada').html(data);
+            var str='Prueba: ' + $('#pb_NombrePrueba').val()+" <br /> Jornada: "+$('#pb_NombreJornada').val();
+            $('#pb_programa-infocabecera').html(str);
+            $('#pb_programa-logo').attr('src',$('#pb_LogoClub').val());
+        }
+    });
+}
 function pb_updateResults() {
 	$.ajax( {
 		type: "GET",
 		dataType: 'html',
-		url: "/agility/server/videowall.php",
+		url: "/agility/server/web/public.php",
 		data: {
 			Operation: 'resultados',
 			Prueba: workingData.prueba,

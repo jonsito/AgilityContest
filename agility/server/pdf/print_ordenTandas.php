@@ -51,7 +51,7 @@ class PrintTandas extends PrintCommon {
 			$this->errormsg="printTandas: either prueba or jornada data are invalid";
 			throw new Exception($this->errormsg);
 		}
-		// Datos del orden de salida
+		// Datos del orden de tandas
 		$o = new Tandas("PrintTandas",$prueba,$jornada);
 		$ot= $o->getTandas();
 		$this->orden=$ot['rows'];
@@ -78,13 +78,6 @@ class PrintTandas extends PrintCommon {
 		$this->SetXY(10,-20);
 		$this->SetFont('Arial','IB',10);
 		$this->Cell(190,5,'(*) IMPORTANTE: La hora indicada es una estimación que NO TIENE consideración de horario oficial',0,0,'L');
-	}
-	
-	function evalTime($time) {
-		$str="{$this->jornada->Fecha} {$this->jornada->Hora}";
-		$timestamp= strtotime($str);
-		$timestamp+=$time;
-		return date("H:i:s",$timestamp);
 	}
 	
 	function writeTableHeader() {

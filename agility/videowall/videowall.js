@@ -24,7 +24,7 @@ function vwc_updateResults(event) {
 	$.ajax( {
 		type: "GET",
 		dataType: 'html',
-		url: "/agility/server/videowall.php",
+		url: "/agility/server/web/videowall.php",
 		data: {
 			Operation: 'resultados',
 			Session: workingData.sesion
@@ -39,7 +39,7 @@ function vwc_updatePendingQueue(event,pendientes) {
 	$.ajax( {
 		type: "GET",
 		dataType: 'html',
-		url: "/agility/server/videowall.php",
+		url: "/agility/server/web/videowall.php",
 		data: {
 			Operation: 'llamada',
 			Pendientes: pendientes,
@@ -134,7 +134,7 @@ function vwos_updateOrdenSalida(data) {
 	$.ajax( {
 		type: "GET",
 		dataType: 'html',
-		url: "/agility/server/videowall.php",
+		url: "/agility/server/web/videowall.php",
 		data: {
 			Operation: 'ordensalida',
 			Prueba: data.Prueba,

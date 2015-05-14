@@ -16,22 +16,23 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- Presentacion de las inscripciones de la jornada -->
-<div id="pb_inscripciones-window">
-	<div id="pb_inscripciones-layout" style="width:100%">
-		<div id="pb_inscripciones-Cabecera" data-options="region:'north',split:false" style="height:10%" class="pb_floatingheader">
-		    <span style="float:left;" id="pb_inscripciones-infocabecera">Cabecera</span>
-			<span style="float:right;" id="pb_inscripciones-texto">Listado de inscritos</span>
+<div id="pb_programa-window">
+	<div id="pb_programa-layout" style="width:100%">
+		<div id="pb_programa-Cabecera" data-options="region:'north',split:false" style="height:100px" class="pb_floatingheader">
+            <img id="pb_programa-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left"/>
+		    <span style="float:left;padding:10px" id="pb_programa-infocabecera">Cabecera</span>
+			<span style="float:right" id="pb_programa-texto">Programa de la Jornada</span>
 		</div>
 		<div id="pb_tabla" data-options="region:'center'">
-			<span id="pb_inscripcionesJornada"></span>
+			<span id="pb_programa-Jornada"></span>
 		</div>
 	</div>
 </div> <!-- pb_inscripciones-window -->
 
 <script type="text/javascript">
-$('#pb_inscripciones-layout').layout({fit:true});
+$('#pb_programa-layout').layout({fit:true});
 
-$('#pb_inscripciones-window').window({
+$('#pb_programa-window').window({
 	fit:true,
 	noheader:true,
 	border:false,
@@ -43,8 +44,8 @@ $('#pb_inscripciones-window').window({
 	// 1 minute poll is enouth for this, as no expected changes during a session
 	onOpen: function() {
 		// call once and then fire as timed task
-		pb_updateInscripciones();
-		$(this).window.defaults.callback = setInterval(pb_updateInscripciones,10000);
+		pb_updatePrograma();
+		$(this).window.defaults.callback = setInterval(pb_updatePrograma,10000);
 	},
 	onClose: function() { 
 		clearInterval($(this).window.defaults.callback);
