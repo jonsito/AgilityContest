@@ -467,7 +467,7 @@ class Inscripciones extends DBObject {
 			/* FROM */	"Inscripciones,PerroGuiaClub",
 			/* WHERE */ "( Inscripciones.Perro = PerroGuiaClub.ID) AND 
 				( Inscripciones.Prueba=$pruebaid ) AND ( ( Inscripciones.Jornadas&$mask ) != 0 ) ",
-			/* ORDER BY */ "NombreClub ASC, Grado ASC , Categoria ASC, Celo ASC",
+			/* ORDER BY */ "NombreClub ASC, Grado ASC , Categoria ASC, Nombre ASC, Celo ASC",
 			/* LIMIT */ ""
 		);
 		$this->myLogger->leave();

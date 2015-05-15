@@ -18,13 +18,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!-- Presentacion de las inscripciones de la jornada -->
 <div id="pb_inscripciones-window">
 	<div id="pb_inscripciones-layout" class="easyui-layout" data-options="fit:true" style="width:100%">
-		<div id="pb_inscripciones-Cabecera" data-options="region:'north',split:false" style="height:80px" class="pb_floatingheader">
-            <img id="pb_inscripciones-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
-		    <span style="float:left;padding:10px" id="pb_inscripciones-infocabecera">Cabecera</span>
-			<span style="float:right;" id="pb_inscripciones-texto">Listado de inscritos</span>
+		<div id="pb_inscripciones-Cabecera" data-options="region:'north',split:false" style="height:80px" >
+			<div class="pb_floatingheader">
+            	<img id="pb_inscripciones-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
+		    	<span style="float:left;padding:10px" id="pb_inscripciones-infocabecera">Cabecera</span>
+				<span style="float:right;" id="pb_inscripciones-texto">Listado de inscritos</span>
+			</div>
 		</div>
 		<div id="pb_tabla" data-options="region:'center'">
-			<span id="pb_inscripcionesJornada"></span>
+			<div id="pb_inscripciones-MainPanel" class="easyui-panel" 
+				data-options="fit:true,noheader:true,border:false,closable:false,collapsible:false,collapsed:false,resizable:true">
+				<span id="pb_inscripcionesJornada"></span>
+			</div>
 		</div>
 	</div>
 </div> <!-- pb_inscripciones-window -->
@@ -44,7 +49,7 @@ $('#pb_inscripciones-window').window({
 	onOpen: function() {
 		// call once and then fire as timed task
 		pb_updateInscripciones();
-		$(this).window.defaults.callback = setInterval(pb_updateInscripciones,10000);
+		$(this).window.defaults.callback = setInterval(pb_updateInscripciones,30000);
 	},
 	onClose: function() { 
 		clearInterval($(this).window.defaults.callback);
