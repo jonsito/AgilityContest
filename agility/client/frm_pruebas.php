@@ -101,7 +101,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             detailFormatter:function(index,row){
                 return '<div style="padding:2px"><table id="jornadas-datagrid-' + row.ID + '"/></div>';
             },
-            onExpandRow: function(index,row) { showJornadasByPrueba(index,row); },
+            onExpandRow: function(index,row) { 
+                setPrueba(row);
+                showJornadasByPrueba(index,row);
+            },
             onClickRow: function(index,row) { setPrueba(row); } // mark prueba as active
             
         }); // end of pruebas-datagrid

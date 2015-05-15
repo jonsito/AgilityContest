@@ -183,9 +183,9 @@ class Clasificaciones extends DBObject {
                     if ($final[$idx]['Puesto1']<6) $pt1+= $ptsmanga[$final[$idx]['Puesto1']-1]; // puntos a los cinco primeros de la manga
                     // manga 2
                     $pt2=0;
-                    if ($final[$idx]['P2']<6.0) $pt1++; // 1 punto por excelente
-                    if ($final[$idx]['P2']==0.0) $pt1++; // 2 puntos por cero
-                    if ($final[$idx]['Puesto2']<6) $pt1+= $ptsmanga[$final[$idx]['Puesto2']-1]; // puntos a los cinco primeros de la manga
+                    if ($final[$idx]['P2']<6.0) $pt2++; // 1 punto por excelente
+                    if ($final[$idx]['P2']==0.0) $pt2++; // 2 puntos por cero
+                    if ($final[$idx]['Puesto2']<6) $pt2+= $ptsmanga[$final[$idx]['Puesto2']-1]; // puntos a los cinco primeros de la manga
                     // conjunta
                     $pfin=0;
                     if ($puestocat[$cat]<11) {
