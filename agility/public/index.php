@@ -59,7 +59,7 @@ function initialize() {
 
 /**
  * Common rowStyler function for AgilityContest datagrids
- * @paramm {int} idx Row index
+ * @param {int} idx Row index
  * @param {Object} row Row data
  * @return {string} proper row style for given idx
  */
@@ -220,11 +220,11 @@ function public_acceptSelection() {
         page="/agility/public/pb_programa.inc";
         break;
     }
-	$('#public-dialog').dialog('close');
+	$('#public-dialog').dialog('close').remove();
 	$('#public-contenido').load(	
 			page,
 			function(response,status,xhr){
-				if (status=='error') $('#pb_contenido').load('/agility/client/frm_notavailable.php');
+				if (status=='error') $('#public_contenido').load('/agility/client/frm_notavailable.php');
 			}
 		);
 }
