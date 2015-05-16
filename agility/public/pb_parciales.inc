@@ -15,21 +15,33 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-
 <!-- Presentacion de resultados parciales -->
 
 <div id="pb_parciales-window">
-	<div id="pb_selector" style="float:right;padding:20px">
-        <label for="pb_enumerateParciales">&nbsp;</label>
-		<select id="pb_enumerateParciales" style="width:200px"></select>
-	</div>
-	<div id="pb_parciales-Resultados" class="easyui-panel"
-		data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
-			<span id="pb_resultadosParciales"></span>
-	</div>
+    <div id="pb_parciales-layout" style="width:100%">
+        <div id="pb_parciales-Cabecera" data-options="region:'north',split:false" style="height:95px" class="pb_floatingheader">
+            <img id="pb_parciales-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
+            <span style="float:left;padding:10px" id="pb_parciales-infocabecera">Cabecera</span>
+            <span style="float:right;padding:10px">
+                Resultados provisionales<br/>
+                <label for="pb_enumerateParciales" style="font-size:0.7em;">Manga:</label>
+                <select id="pb_enumerateParciales" style="width:200px"></select>
+            </span>
+        </div>
+        <div id="pb_parciales-data" data-options="region:'center'" >
+            <div id="pb_parciales-Resultados" class="easyui-panel"
+                 data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
+                <span id="pb_resultadosParciales"></span>
+            </div>
+        </div>
+        <div id="pb_parciales-footer" data-options="region:'south',split:false" style="height:95px" class="pb_floatingfooter">
+            <span id="pb_parciales-footerData"></span>
+        </div>
+    </div>
 </div> <!-- pb_parciales-window -->
 
 <script type="text/javascript">
+$('#pb_parciales-layout').layout({fit:true});
 
 $('#pb_enumerateParciales').combogrid({
 	panelWidth: 300,
@@ -60,6 +72,13 @@ $('#pb_enumerateParciales').combogrid({
 		param.Manga= 1; // fake data to get Resultados constructor working
 		return true;
 	},
+    onOpen: function() {
+        var logo=nombreCategorias[workingData.federation]['logo'];
+        $('#pb_parciales-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
+            $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
+        });
+        pb_updateResults(); // notice no results will still be reported. just to update header info
+    },
 	onChange:function(value){
 		var row=$('#pb_enumerateParciales').combogrid('grid').datagrid('getSelected');
 		if (!row) return;

@@ -96,12 +96,11 @@ class PublicWeb {
 				<table class="vwc_trs">
 					<thead>
 						<tr>
-							<th colspan="2" style="text-align:left">Resultados Provisionales</th>
-							<th colspan="3">&nbsp;</th>
+							<th colspan="3">(no hay manga seleccionada)</th>
+							<th colspan="2" style="text-align:left">&nbsp;</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr><td colspan="5">&nbsp</td></tr>
 						<tr style="text-align:right">
 							<td>Distancia:</td>
 							<td>Obst&aacute;culos:</td>
@@ -128,12 +127,11 @@ class PublicWeb {
 			<table class="vwc_trs">
 				<thead>
 					<tr>
-						<th colspan="2" style="text-align:left">Resultados Provisionales</th>
 						<th colspan="3">'.$mangastr.'</th>
+						<th colspan="2" style="text-align:left">&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr><td colspan="5">&nbsp</td></tr>
 					<tr style="text-align:right">
 						<td>Distancia: '.$result['trs']['dist'].'mts.</td>
 						<td>Obst&aacute;culos: '.$result['trs']['obst'].'</td>
