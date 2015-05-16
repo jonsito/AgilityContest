@@ -18,7 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!-- Presentacion de las inscripciones de la jornada -->
 <div id="pb_inscripciones-window">
 	<div id="pb_inscripciones-layout" style="width:100%">
-		<div id="pb_inscripciones-Cabecera" data-options="region:'north',split:false" style="height:95px" class="pb_floatingheader">
+		<div id="pb_inscripciones-Cabecera" data-options="region:'north',split:false" style="height:100px" class="pb_floatingheader">
             	<img id="pb_inscripciones-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
 		    	<span style="float:left;padding:10px" id="pb_inscripciones-infocabecera">Cabecera</span>
 				<span style="float:right;" id="pb_inscripciones-texto">Listado de inscritos</span>
@@ -26,7 +26,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<div id="pb_inscripciones-data" data-options="region:'center'" >
 				<span id="pb_inscripcionesJornada"></span>
 		</div>
-        <div id="pb_inscripciones-footer" data-options="region:'south',split:false" style="height:95px" class="pb_floatingfooter">
+        <div id="pb_inscripciones-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
             <span id="pb_inscripciones-footerData"></span>
         </div>
 	</div>

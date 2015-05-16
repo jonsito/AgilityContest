@@ -53,6 +53,7 @@ function pb_updateInscripciones() {
 			Jornada: workingData.jornada
 		},
 		success: function(data,status,jqxhr) {
+            $('#pb_inscripcionesJornada').html(data);
             var str='Prueba: ' + $('#pb_NombrePrueba').val()+" <br /> Jornada: "+$('#pb_NombreJornada').val();
             $('#pb_inscripciones-infocabecera').html(str);
             $('#pb_inscripciones-logo').attr('src',$('#pb_LogoClub').val());

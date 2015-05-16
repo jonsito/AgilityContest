@@ -19,7 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <div id="pb_parciales-window">
     <div id="pb_parciales-layout" style="width:100%">
-        <div id="pb_parciales-Cabecera" data-options="region:'north',split:false" style="height:95px" class="pb_floatingheader">
+        <div id="pb_parciales-Cabecera" data-options="region:'north',split:false" style="height:100px" class="pb_floatingheader">
             <img id="pb_parciales-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
             <span style="float:left;padding:10px" id="pb_parciales-infocabecera">Cabecera</span>
             <span style="float:right;padding:10px">
@@ -34,7 +34,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <span id="pb_resultadosParciales"></span>
             </div>
         </div>
-        <div id="pb_parciales-footer" data-options="region:'south',split:false" style="height:95px" class="pb_floatingfooter">
+        <div id="pb_parciales-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
             <span id="pb_parciales-footerData"></span>
         </div>
     </div>
@@ -73,10 +73,6 @@ $('#pb_enumerateParciales').combogrid({
 		return true;
 	},
     onOpen: function() {
-        var logo=nombreCategorias[workingData.federation]['logo'];
-        $('#pb_parciales-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
-            $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
-        });
         pb_updateResults(); // notice no results will still be reported. just to update header info
     },
 	onChange:function(value){
@@ -99,6 +95,10 @@ $('#pb_parciales-window').window({
 	resizable:true,
 	// 1 minute poll is enouth for this, as no expected changes during a session
 	onOpen: function() {
+        var logo=nombreCategorias[workingData.federation]['logo'];
+        $('#pb_parciales-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
+            $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
+        });
 		// call once and then fire as timed task
 		pb_updateResults();
 		$(this).window.defaults.callback = setInterval(pb_updateResults,60000);

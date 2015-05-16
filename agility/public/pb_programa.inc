@@ -17,8 +17,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <!-- Presentacion de las inscripciones de la jornada -->
 <div id="pb_programa-window">
-	<div id="pb_programa-layout" class="easyui-layout" data-options="fit:true" style="width:100%">
-		<div id="pb_programa-Cabecera" data-options="region:'north',split:false" style="height:80px" class="pb_floatingheader">
+	<div id="pb_programa-layout" style="width:100%">
+		<div id="pb_programa-Cabecera" data-options="region:'north',split:false" style="height:100px" class="pb_floatingheader">
             <img id="pb_programa-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left"/>
 		    <span style="float:left;padding:10px" id="pb_programa-infocabecera">Cabecera</span>
 			<span style="float:right" id="pb_programa-texto">Programa de la Jornada</span>
@@ -26,11 +26,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<div id="pb_tabla" data-options="region:'center'">
 			<span id="pb_programa-Jornada"></span>
 		</div>
+        <div id="pb_programa-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
+            <span id="pb_programa-footerData"></span>
+        </div>
 	</div>
 </div> <!-- pb_inscripciones-window -->
 
 <script type="text/javascript">
-
+$('#pb_programa-layout').layout({fit:true});
 $('#pb_programa-window').window({
 	fit:true,
 	noheader:true,
@@ -42,9 +45,13 @@ $('#pb_programa-window').window({
 	callback: null, 
 	// 1 minute poll is enouth for this, as no expected changes during a session
 	onOpen: function() {
+        var logo=nombreCategorias[workingData.federation]['logo'];
+        $('#pb_programa-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
+            $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
+        });
 		// call once and then fire as timed task
 		pb_updatePrograma();
-		$(this).window.defaults.callback = setInterval(pb_updatePrograma,10000);
+		$(this).window.defaults.callback = setInterval(pb_updatePrograma,30000);
 	},
 	onClose: function() { 
 		clearInterval($(this).window.defaults.callback);

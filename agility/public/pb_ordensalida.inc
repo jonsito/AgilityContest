@@ -17,8 +17,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <!-- Presentacion del orden de salida de la jornada -->
 <div id="pb_ordensalida-window">
-	<div id="pb_ordensalida-layout" class="easyui-layout" data-options="fit:true" style="width:100%">
-		<div id="pb_ordensalida-Cabecera" data-options="region:'north',split:false" style="height:80px" class="pb_floatingheader">
+	<div id="pb_ordensalida-layout" style="width:100%">
+		<div id="pb_ordensalida-Cabecera" data-options="region:'north',split:false" style="height:100px" class="pb_floatingheader">
             <img id="pb_ordensalida-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left"/>
 		    <span style="float:left;padding:10px;" id="pb_ordensalida-infocabecera">Cabecera</span>
 			<span style="float:right;" id="pb_ordensalida-texto">
@@ -30,10 +30,38 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<div id="pb_tabla" data-options="region:'center'">
 			<span id="pb_ordensalidaData"></span>
 		</div>
+        <div id="pb_ordensalida-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
+            <span id="pb_ordensalida-footerData"></span>hola
+        </div>
 	</div>
 </div> <!-- pb_ordensalida-window -->
 
 <script type="text/javascript">
+$('#pb_ordensalida-layout').layout({fit:true});
+
+$('#pb_ordensalida-window').window({
+    fit:true,
+    noheader:true,
+    border:false,
+    closable:false,
+    collapsible:false,
+    collapsed:false,
+    resizable:true,
+    callback: null,
+    // 1 minute poll is enouth for this, as no expected changes during a session
+    onOpen: function() {
+        var logo=nombreCategorias[workingData.federation]['logo'];
+        $('#pb_ordensalida-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
+            $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
+        });
+        // call once and then fire as timed task
+        pb_updateOrdenSalida();
+        $(this).window.defaults.callback = setInterval(pb_updateOrdenSalida,10000);
+    },
+    onClose: function() {
+        clearInterval($(this).window.defaults.callback);
+    }
+});
 
 $('#pb_enumerateMangas').combogrid({
     panelWidth: 350,
@@ -72,26 +100,6 @@ $('#pb_enumerateMangas').combogrid({
         workingData.mode=row.Mode;
         pb_updateOrdenSalida();
     }
-});
-
-$('#pb_ordensalida-window').window({
-	fit:true,
-	noheader:true,
-	border:false,
-	closable:false,
-	collapsible:false,
-	collapsed:false,
-	resizable:true,
-	callback: null, 
-	// 1 minute poll is enouth for this, as no expected changes during a session
-	onOpen: function() {
-        // call once and then fire as timed task
-		pb_updateOrdenSalida();
-		$(this).window.defaults.callback = setInterval(pb_updateOrdenSalida,10000);
-	},
-	onClose: function() { 
-		clearInterval($(this).window.defaults.callback);
-	}
 });
 
 </script>

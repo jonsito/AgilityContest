@@ -280,7 +280,7 @@ class PublicWeb {
 									background:url(\'/agility/images/logos/'.$logo.'\')no-repeat;
 									background-size:contain;
 									background-position:center;
-									font-size:600%">&nbsp;</div>
+									font-size:400%">&nbsp;</div>
 					</td>
 					<td class="vwc_callEntry vwc_callDatos">
 						Dorsal: '.$participante['Dorsal'].'<br />
