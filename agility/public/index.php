@@ -134,14 +134,17 @@ $('#public-Prueba').combogrid({
 	columns: [[
 	   	    {field:'ID',hidden:true},
 			{field:'Nombre',title:'Nombre',width:50,align:'right'},
-			{field:'Club',hidden:true},
+            {field:'Club',hidden:true},
 			{field:'NombreClub',title:'Club',width:20,align:'right'},
+            {field:'RSCE',			title:'Fed.',			width:15,	align:'center', formatter:formatRSCE},
 			{field:'Observaciones',title:'Observaciones.',width:30,align:'right'}
 	]],
 	onChange:function(value){
-		workingData.prueba=Number(value);
+        var p=$('#public-Prueba').combogrid('grid').datagrid('getSelected');
+        if (p===null) return; // no selection
+        setPrueba(p); // ajusta los datos de la prueba
 		var g = $('#public-Jornada').combogrid('grid');
-		g.datagrid('load',{Prueba:value});
+		g.datagrid('load',{Prueba:p.ID});
 	}
 });
 

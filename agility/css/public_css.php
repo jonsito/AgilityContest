@@ -23,7 +23,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 * Estilos asociados a las diversas pantallas de acceso internet
 */
 
-/**********  cabecera flotante para resultados parciales e inscripciones **********/
+/**********  cabeceras flotante para acceso publico **********/
 .pb_floatingheader {
     margin-top:0px;
     margin-bottom:0px;
@@ -36,6 +36,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     font-size:2.0em;
 }
 
+.pb_floatingfooter {
+    margin-top:0px;
+    margin-bottom:0px;
+    // width:100%;
+    padding:10px;
+    background-color: <?php echo $config->getEnv('vw_hdrbg3')?>;
+    color: <?php echo $config->getEnv('vw_hdrfg3')?>;
+    font-weight: bold;
+    font-style: italic;
+    font-size:2.0em;
+}
 /************************** Elementos de la tabla de inscritos a la prueba ************/
 
 td.pb_club {
