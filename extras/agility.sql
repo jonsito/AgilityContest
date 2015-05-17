@@ -2303,7 +2303,7 @@ INSERT INTO `perros` VALUES
 (519,'Dunah','Cocker Spaniel','','A635','M',28,0,'GII'),
 (520,'Aska','Border Collie','','A899','L',306,0,'GII'),
 (521,'Buck','Border Collie','','A877','L',81,0,'GII'),
-(522,'Merche','Schnauzer Gigante','','A989','L',303,0,'GII'),
+(522,'Merche','Schnauzer Gigante','','A898','L',303,0,'GII'),
 (523,'Bambú','Border Collie','','','L',217,0,'GI'),
 (524,'King','Caniche Toy','','A683','S',263,0,'GIII'),
 (525,'Toxo','','','A677','S',277,0,'GII'),

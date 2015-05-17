@@ -195,38 +195,34 @@ class Resultados extends DBObject {
 	 * @return "" on success; else error string
 	 */
 	function insertByData($objperro,$inscripcion,$eqdata) {
-		$error="";
-		$idmanga=$this->IDManga;
 		$this->myLogger->enter();
-		if ($this->isCerrada()) 
-			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
-		// If row pkey(manga,perro) exists, just update; else insert
-		$sql="REPLACE INTO Resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Raza,Nombre,Licencia,Categoria,Grado,Celo,NombreGuia,NombreClub)
-				VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		$stmt=$this->conn->prepare($sql);
-		if (!$stmt) return $this->conn->error;
-		$res=$stmt->bind_param('iiiiiisssssiss',$prueba,$jornada,$manga,$equipo,$dorsal,$perro,$raza,$nombre,$licencia,$categoria,$grado,$celo,$guia,$club);
-		if (!$res) return $this->error($stmt->error);
-		$prueba=$this->IDPrueba;
-		$jornada=$this->IDJornada;
-		$manga=$idmanga;
-		$perro=$objperro['ID'];
-		$equipo=$eqdata['ID'];
-		$dorsal=$inscripcion['Dorsal'];
+        $prueba=$this->IDPrueba;
+        $jobj=$this->getDatosJornada();
+        $jornada=$this->IDJornada;
+        $manga=$this->IDManga;
+        $perro=$objperro['ID'];
+        $equipo=$eqdata['ID'];
+        $dorsal=$inscripcion['Dorsal'];
         $nombre=$objperro['Nombre'];
         $raza=$objperro['Raza'];
-		$licencia=$objperro['Licencia'];
-		$categoria=$objperro['Categoria'];
-		$grado=$objperro['Grado'];
-		$celo=$inscripcion['Celo'];
-		$guia=$objperro['NombreGuia'];
-		$club=$objperro['NombreClub'];
-		// ejecutamos el query
-		$res=$stmt->execute();
-		if (!$res) $error=$stmt->error;
-		$stmt->close();
+        $licencia=$objperro['Licencia'];
+        $categoria=$objperro['Categoria'];
+        $grado=$objperro['Grado'];
+        $celo=$inscripcion['Celo'];
+        $guia=$objperro['NombreGuia'];
+        $club=$objperro['NombreClub'];
+		if ($this->isCerrada()) 
+			return $this->error("Manga $manga comes from closed Jornada:".$this->IDJornada);
+		// If row pkey(manga,perro) exists, just update; else insert
+        // remember Primary key: (manga,perro)
+		$sql="INSERT INTO Resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Raza,Nombre,Licencia,Categoria,Grado,Celo,NombreGuia,NombreClub)
+                VALUES ($prueba,$jornada,$manga,$equipo,$dorsal,$perro,'$raza','$nombre','$licencia','$categoria','$grado',$celo,'$guia','$club')
+                ON DUPLICATE KEY UPDATE Equipo=$equipo, Dorsal=$dorsal, Raza='$raza', Nombre='$nombre', Categoria='$categoria',
+                                        Grado='$grado', Celo=$celo, NombreGuia='$guia', NombreClub='$club' ";
+        $rs= $this->query($sql);
+        if (!$rs) return $this->error($this->conn->error);
 		$this->myLogger->leave();
-		return $error;
+		return "";
 	}
 	
 	/**
