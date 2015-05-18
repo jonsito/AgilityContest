@@ -19,9 +19,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_inscripciones-window">
 	<div id="pb_inscripciones-layout" style="width:100%">
 		<div id="pb_inscripciones-Cabecera" data-options="region:'north',split:false" style="height:100px" class="pb_floatingheader">
-            	<img id="pb_inscripciones-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
-		    	<span style="float:left;padding:10px" id="pb_inscripciones-infocabecera">Cabecera</span>
-				<span style="float:right;" id="pb_inscripciones-texto">Listado de inscritos</span>
+            	<img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
+		    	<span style="float:left;padding:10px" id="pb_header-infocabecera">Cabecera</span>
+				<span style="float:right;" id="pb_header-texto">Listado de inscritos</span>
 		</div>
 		<div id="pb_inscripciones-data" data-options="region:'center'" >
 				<span id="pb_inscripcionesJornada"></span>
@@ -45,6 +45,9 @@ $('#pb_inscripciones-window').window({
 	callback: null, 
 	// 1 minute poll is enouth for this, as no expected changes during a session
 	onOpen: function() {
+        // generate header
+        pb_getHeaderInfo();
+        // generate footer
         var logo=nombreCategorias[workingData.federation]['logo'];
         $('#pb_inscripciones-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
             $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);

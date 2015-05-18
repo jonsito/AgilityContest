@@ -19,19 +19,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_ordensalida-window">
 	<div id="pb_ordensalida-layout" style="width:100%">
 		<div id="pb_ordensalida-Cabecera" data-options="region:'north',split:false" style="height:100px" class="pb_floatingheader">
-            <img id="pb_ordensalida-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left"/>
-		    <span style="float:left;padding:10px;" id="pb_ordensalida-infocabecera">Cabecera</span>
-			<span style="float:right;" id="pb_ordensalida-texto">
+            <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left"/>
+		    <span style="float:left;padding:10px;" id="pb_header-infocabecera">Cabecera</span>
+			<span style="float:right;" id="pb_header-texto">
                 Orden de Salida<br />
                 <label for="pb_enumerateMangas">&nbsp;</label>
                 <select id="pb_enumerateMangas" style="width:200px"></select>
             </span>
 		</div>
 		<div id="pb_tabla" data-options="region:'center'">
-			<span id="pb_ordensalidaData"></span>
+			<table id="pb_ordensalida-datagrid"></table>
 		</div>
         <div id="pb_ordensalida-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
-            <span id="pb_ordensalida-footerData"></span>hola
+            <span id="pb_ordensalida-footerData"></span>
         </div>
 	</div>
 </div> <!-- pb_ordensalida-window -->
@@ -50,12 +50,15 @@ $('#pb_ordensalida-window').window({
     callback: null,
     // 1 minute poll is enouth for this, as no expected changes during a session
     onOpen: function() {
+        // update header
+        pb_getHeaderInfo();
+        // update footer
         var logo=nombreCategorias[workingData.federation]['logo'];
         $('#pb_ordensalida-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
             $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
         });
         // call once and then fire as timed task
-        pb_updateOrdenSalida();
+        // pb_updateOrdenSalida();
         $(this).window.defaults.callback = setInterval(pb_updateOrdenSalida,10000);
     },
     onClose: function() {
@@ -68,37 +71,91 @@ $('#pb_enumerateMangas').combogrid({
     panelHeight: 150,
     idField: 'ID',
     textField: 'Nombre',
-    url: '/agility/server/database/resultadosFunctions.php',
     method: 'get',
+    url: '/agility/server/database/tandasFunctions.php',
+    queryParams: {
+        Operation: 'getTandas',
+        Prueba: workingData.prueba,
+        Jornada: workingData.jornada,
+        Sesion: 0
+    },
     required: true,
     multiple: false,
     fitColumns: true,
     singleSelect: true,
     editable: false,  // to disable tablet keyboard popup
     selectOnNavigation: true, // let use cursor keys to interactive select
-    columns: [[
-        {field:'ID',hidden:true},
-        {field:'Nombre',title:'Mangas disponibles',width:50,align:'right'},
-        {field:'Prueba',hidden:true},
-        {field:'Jornada',hidden:true},
-        {field:'Manga',hidden:true},
-        {field:'TipoManga',hidden:true},
-        {field:'Mode',hidden:true}
+    columns:[[
+        { field:'ID',		hidden:true },
+        { field:'Sesion',	hidden:true },
+        { field:'Prueba',	hidden:true },
+        { field:'Jornada',	hidden:true },
+        { field:'Manga',	hidden:true },
+        { field:'Categoria',hidden:true },
+        { field:'Grado',	hidden:true },
+        { field:'Sesion',	hidden:true },
+        { field:'Tipo',	    hidden:true },
+        { field:'Horario',	hidden:true },
+        { field:'Nombre',	width:150, sortable:false, align:'left',title:'Lista de Tandas de la jornada'},
+        { field:'Comentario', hidden:true}
     ]],
-    onBeforeLoad: function(param) {
-        param.Operation='enumerateResultados';
-        param.Prueba= workingData.prueba;
-        param.Jornada= workingData.jornada;
-        param.Manga= 1; // fake data to get Resultados constructor working
-        return true;
+    rowStyler: myRowStyler,
+    onSelect: function(index,row) {
+        $('#pb_ordensalida-datagrid').datagrid('reload',{
+            Operation: 'getDataByTanda',
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada,
+            Sesion: 1, // defaults to "-- sin asignar --"
+            ID:  row.ID // Tanda ID
+        });
+    }
+});
+
+$('#pb_ordensalida-datagrid').datagrid({
+    method: 'get',
+    url: '/agility/server/database/tandasFunctions.php',
+    queryParams: {
+        Operation: 'getDataByTanda',
+        Prueba: workingData.prueba,
+        Jornada: workingData.jornada,
+        Sesion: 1, // defaults to "-- sin asignar --"
+        ID: 0 // Tanda 0 defaults to every tandas
     },
-    onChange:function(value){
-        var row=$('#pb_enumerateMangas').combogrid('grid').datagrid('getSelected');
-        if (!row) return;
-        workingData.manga=row.Manga;
-        workingData.tanda=0; // fake tanda. use manga+mode to evaluate results
-        workingData.mode=row.Mode;
-        pb_updateOrdenSalida();
+    loadMsg: "Actualizando orden de salida ...",
+    pagination: false,
+    rownumbers: true,
+    fitColumns: true,
+    singleSelect: true,
+    autoRowHeight: false,
+    width: '100%',
+    height: 'auto',
+    columns:[[
+        { field:'Prueba',		width:0, hidden:true }, // extra field to be used on form load/save
+        { field:'Jornada',		width:0, hidden:true }, // extra field to be used on form load/save
+        { field:'Manga',		width:0, hidden:true },
+        { field:'Tanda',		width:0, hidden:true }, // string with tanda's name
+        { field:'ID',			width:0, hidden:true }, // tanda ID
+        { field:'Perro',		width:0, hidden:true },
+        { field:'Licencia',		width:0, hidden:true },
+        { field:'Pendiente',	width:0, hidden:true },
+        { field:'Tanda',		width:0, hidden:true },
+        { field:'Equipo',		width:0, hidden:true },
+        { field:'NombreEquipo',	width:20, align:'center',	title: 'Equipo' },
+        { field:'Dorsal',		width:10, align:'center',	title: 'Dorsal', styler:checkPending },
+        { field:'Nombre',		width:20, align:'left',		title: 'Nombre'},
+        { field:'Celo',			width:8, align:'center',	title: 'Celo', formatter:formatCelo},
+        { field:'NombreGuia',	width:30, align:'right',	title: 'Guia' },
+        { field:'NombreClub',	width:25, align:'right',	title: 'Club' },
+        { field:'Categoria',	width:10, align:'center',	title: 'Categ.' },
+        { field:'Grado',		width:10, align:'center',	title: 'Grado' }
+    ]],
+    // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+    rowStyler:myRowStyler,
+    onLoadSuccess:function(){
+        mySelf=$('#pb_ordensalida-datagrid');
+        // show/hide team name
+        if (isTeamByJornada(workingData.datosJornada) ) mySelf.datagrid('showColumn','NombreEquipo');
+        else  mySelf.datagrid('hideColumn','NombreEquipo');
     }
 });
 

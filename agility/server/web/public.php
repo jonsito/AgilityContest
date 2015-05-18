@@ -86,6 +86,16 @@ class PublicWeb {
         echo '<table class="vwc_callEntry"><tr><td colspan="5" class="vwc_callTanda">'.$str.'</td></tr></table>';
     }
 
+    function publicweb_infodata() {
+        $res= array(
+            'Prueba' => $this->prueba,
+            'Jornada' => $this->jornada,
+            'Manga' => ($this->manga==null)? array() : $this->manga,
+            'Club' => $this->club // club organizador
+        );
+        echo json_encode($res);
+    }
+
 	function publicweb_resultados() {
 		// anyade informacion extra en el resultado html
         $this->generateHeaderInfo();
@@ -248,29 +258,35 @@ class PublicWeb {
 		echo '</tbody></table>';
 		return 0;
 	}
-	
-	function publicweb_ordensalida() {
-		$lastCategoria="";
+
+    function publicweb_ordensalida() {
+        $lastCategoria="";
         $this->generateHeaderInfo();
         if ($this->mangaid==0) return ""; // no manga info yet, so don't return anything
-		$osmgr=new OrdenSalida("public_ordensalida",$this->mangaid);
-		$result = $osmgr->getData()['rows']; // obtiene los primeros perros pendientes
-		$numero=0;
-		echo '<table class="vwc_callEntry">';
-		foreach ($result as $participante) {
-			if ($lastCategoria!==$participante['Categoria']){
-				$lastCategoria=$participante['Categoria'];
-				$categ=PublicWeb::$cat[$lastCategoria];
+        $isTeam=false;
+        if (intval($this->jornada['Equipos3'])!=0) $isTeam=true;
+        if (intval($this->jornada['Equipos4'])!=0) $isTeam=true;
+        $osmgr=new OrdenSalida("public_ordensalida",$this->mangaid);
+        $result = $osmgr->getData($isTeam)['rows']; // obtiene los primeros perros pendientes
+        $numero=0;
+        echo '<table class="vwc_callEntry">';
+        foreach ($result as $participante) {
+            if ($participante['Dorsal']=='*') {
+
+            }
+            if ($lastCategoria!==$participante['Categoria']){
+                $lastCategoria=$participante['Categoria'];
+                $categ=PublicWeb::$cat[$lastCategoria];
                 $mangastr=($this->mangaid==0)?"":Mangas::$tipo_manga[$this->manga['Tipo']][1];
-				echo '<tr><td colspan="5" class="vwc_callEntry vwc_callTanda">---- '.$mangastr.' - '.$categ.' ----</td></tr>';
-				$numero=0;
-			}
-			$numero++;
+                echo '<tr><td colspan="5" class="vwc_callEntry vwc_callTanda">---- '.$mangastr.' - '.$categ.' ----</td></tr>';
+                $numero=0;
+            }
+            $numero++;
             $logo=$this->myDBObject->getLogoName("NombreClub",$participante['NombreClub']);
-			$celo=($participante['Celo']==='1')?'Si':'No';
-			$pcolor=($participante['Pendiente']==0)?"#000000":"#FF0000"; // foreground color=red if pendiente
-			$bg=$this->getBackground($numero);
-			echo '
+            $celo=($participante['Celo']==='1')?'Si':'No';
+            $pcolor=($participante['Pendiente']==0)?"#000000":"#FF0000"; // foreground color=red if pendiente
+            $bg=$this->getBackground($numero);
+            echo '
 				<tr id="participante_{$numero}" style="background:'.$bg.';">
 					<td class="vwc_callEntry vwc_callNumero" style="color:'.$pcolor.';">'.$numero.'</td>
 					<td class="vwc_callEntry vwc_callLogo">
@@ -285,21 +301,21 @@ class PublicWeb {
 					<td class="vwc_callEntry vwc_callDatos">
 						Dorsal: '.$participante['Dorsal'].'<br />
 						Lic. : '.$participante['Licencia'].'<br />
-						Grado: '.$participante['Grado'].'<br />	
-						Cat. : '.$participante['Categoria'].'		
+						Grado: '.$participante['Grado'].'<br />
+						Cat. : '.$participante['Categoria'].'
 					</td>
 					<td class="vwc_callEntry vwc_callGuiaClub">
 						Gu&iacute;a: '.$participante['NombreGuia'].'<br />
 						Club: '.$participante['NombreClub'].'<br />
-						Celo: '.$celo.'	
-					</td>				
+						Celo: '.$celo.'
+					</td>
 					<td class="vwc_callEntry vwc_callNombre">'.$participante['Nombre'].'</td>
 				</tr>
 			';
-		}
-		echo '</table>';
-		return 0;
-	}
+        }
+        echo '</table>';
+        return 0;
+    }
 
     function publicweb_programa() {
         $this->generateHeaderInfo();
@@ -364,11 +380,13 @@ $mode = http_request("Mode","i",0); // used on access from public
 
 $vw=new PublicWeb($prueba,$jornada,$manga,$mode);
 try {
-	if($operacion==="resultados") return $vw->publicweb_resultados();
+    if($operacion==="infodata") return $vw->publicweb_infodata();
+    if($operacion==="resultados") return $vw->publicweb_resultados();
 	if($operacion==="inscripciones") return $vw->publicweb_inscripciones();
 	if($operacion==="ordensalida") return $vw->publicweb_ordensalida();
     if($operacion==="clasificaciones") return $vw->publicweb_clasificaciones();
     if($operacion==="programa") return $vw->publicweb_programa();
+    throw new Exception("public.php: operacion invalida:'$operacion'");
 } catch (Exception $e) {
 	echo "<p>Error:<br />".$e->getMessage()."</p>";
     return 0;

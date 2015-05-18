@@ -16,15 +16,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 /**
- * Imprime el orden de salida de la prueba y jornada seleccionada por el usuario
+ * Obtiene la informacion de la prueba para cabecera y pie de pagina
  */
-function pb_updateOrdenSalida() {
+function pb_getHeaderInfo() {
     $.ajax( {
         type: "GET",
-        dataType: 'html',
+        dataType: 'json',
         url: "/agility/server/web/public.php",
         data: {
-            Operation: 'ordensalida',
+            Operation: 'infodata',
             Prueba: workingData.prueba,
             Jornada: workingData.jornada,
             Manga: workingData.manga,
@@ -32,84 +32,84 @@ function pb_updateOrdenSalida() {
             Mode: workingData.mode
         },
         success: function(data,status,jqxhr) {
-            $('#pb_ordensalidaData').html(data);
-            var str='Prueba: ' + $('#pb_NombrePrueba').val()+" <br /> Jornada: "+$('#pb_NombreJornada').val();
-            $('#pb_ordensalida-infocabecera').html(str);
-            $('#pb_ordensalida-logo').attr('src',$('#pb_LogoClub').val());
+            var str='Prueba: ' + data.Prueba.Nombre+" <br /> Jornada: "+ data.Jornada.Nombre;
+            $('#pb_header-infocabecera').html(str);
+            // TODO: fix logo when undefined or invalid
+            $('#pb_header-logo').attr('src','/agility/images/logos/'+data.Club.Logo);
         }
     });
 }
+
+/**
+ * Funcion generica para efectuar todas las llamadas al servidor
+ * @param {string} url direccion web
+ * @param {string} id Identificador jquery donde insertar el resultado
+ */
+function pb_doRequest(url,operation,id) {
+    $.ajax({
+        type: "GET",
+        dataType: 'html',
+        url: url,
+        data: {
+            Operation: operation,
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada,
+            Manga: workingData.manga,
+            Tanda: workingData.tanda,
+            Mode: workingData.mode
+        },
+        success: function(data,status,jqxhr) {
+            $(id).html(data);
+        }
+    });
+}
+
+/**
+ * Imprime el orden de salida de la prueba y jornada seleccionada por el usuario
+ */
+function pb_updateOrdenSalida() {
+    var row=$('#pb_enumerateMangas').combogrid('grid').datagrid('getSelected');
+    if (!row) return;
+    $('#pb_ordensalida-datagrid').datagrid('reload',{
+        Operation: 'getDataByTanda',
+        Prueba: workingData.prueba,
+        Jornada: workingData.jornada,
+        Sesion: 1, // defaults to "-- sin asignar --"
+        ID:  row.ID // Tanda ID
+    });
+};
+
 /**
  * Imprime los inscritos en la prueba y jornada seleccionada por el usuario
  */
 function pb_updateInscripciones() {
-	$.ajax( {
-		type: "GET",
-		dataType: 'html',
-		url: "/agility/server/web/public.php",
-		data: {
-			Operation: 'inscripciones',
-			Prueba: workingData.prueba,
-			Jornada: workingData.jornada
-		},
-		success: function(data,status,jqxhr) {
-            $('#pb_inscripcionesJornada').html(data);
-            var str='Prueba: ' + $('#pb_NombrePrueba').val()+" <br /> Jornada: "+$('#pb_NombreJornada').val();
-            $('#pb_inscripciones-infocabecera').html(str);
-            $('#pb_inscripciones-logo').attr('src',$('#pb_LogoClub').val());
-		}
-	});
+    pb_doRequest("/agility/server/web/public.php",'inscripciones','#pb_inscripcionesJornada');
 }
 
 /**
  * imprime el programa de la jornada
  */
 function pb_updatePrograma() {
-    $.ajax( {
-        type: "GET",
-        dataType: 'html',
-        url: "/agility/server/web/public.php",
-        data: {
-            Operation: 'programa',
-            Prueba: workingData.prueba,
-            Jornada: workingData.jornada
-        },
-        success: function(data,status,jqxhr) {
-            $('#pb_programa-Jornada').html(data);
-            var str='Prueba: ' + $('#pb_NombrePrueba').val()+" <br /> Jornada: "+$('#pb_NombreJornada').val();
-            $('#pb_programa-infocabecera').html(str);
-            $('#pb_programa-logo').attr('src',$('#pb_LogoClub').val());
-        }
-    });
-}
-function pb_updateResults() {
-	$.ajax( {
-		type: "GET",
-		dataType: 'html',
-		url: "/agility/server/web/public.php",
-		data: {
-			Operation: 'resultados',
-			Prueba: workingData.prueba,
-			Jornada: workingData.jornada,
-			Manga: workingData.manga,
-			Tanda: workingData.tanda,
-			Mode: workingData.mode
-		},
-		success: function(data,status,jqxhr) {
-            var str='Prueba: ' + $('#pb_NombrePrueba').val()+" <br /> Jornada: "+$('#pb_NombreJornada').val();
-            $('#pb_parciales-infocabecera').html(str);
-            $('#pb_parciales-logo').attr('src',$('#pb_LogoClub').val());
-			$('#pb_resultadosParciales').html(data);
-		}
-	});
+    pb_doRequest("/agility/server/web/public.php",'programa','#pb_programa-Jornada');
 }
 
+/**
+ * Actualiza la informacion sobre resultados parciales
+ */
+function pb_updateResults() {
+    pb_doRequest("/agility/server/web/public.php",'resultados','#pb_resultadosParciales');
+}
+
+/**
+ * Actualiza datos de la clasificacion general
+ */
 function pb_updateFinales() {
 	var ronda=$('#pb_enumerateFinales').combogrid('grid').datagrid('getSelected');
 	if (ronda==null) {
     	// $.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
     	return; // no way to know which ronda is selected
 	}
+    // do not call pb_doResults cause expected json data
 	$.ajax({
 		type:'GET',
 		url:"/agility/server/database/clasificacionesFunctions.php",

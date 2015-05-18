@@ -423,15 +423,18 @@ class Tandas extends DBObject {
 
 	/**
 	 * Obtiene el programa de la jornada
-	 * @param {integer} $s session id. $s==1 means "any session"
+	 * @param {integer} $s session id.
+     *  $s==0 -> any not user defined tandas on any session
+     *  $s==1 -> means "any session"
 	 * @return {array} easyui-aware array or string on error
 	 */
 	function getTandas($s=1){
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
-		
+        if (intval($s)==0) $ses= " AND (Tipo!=0)";
+        if (intval($s)==1) $ses= "";
+        if (intval($s)>1)  $ses= " AND ( (Sesion=$s) OR (Sesion=1) )";
 		// Ask dadabase to retrieve list of Tandas
-		$ses=(intval($s)<=1)?"":" AND ( (Sesion=$s) OR (Sesion=1) )";
 		$res= $this->__select(
 				/* SELECT */	"*",
 				/* FROM */		"Tandas",
