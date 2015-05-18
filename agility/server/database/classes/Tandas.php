@@ -453,7 +453,7 @@ class Tandas extends DBObject {
 			} else { // retrieve Manga ID and merge into result
 				$manga=$this->getMangaByTipo($res['rows'][$key]['TipoManga']);	
 				// add extra info to result
-				if (is_array($manga)) $res['rows'][$key]['Manga']=$manga['ID'];
+				$res['rows'][$key]['Manga']=(is_array($manga))? $manga['ID']: 0 ;
 			}
 			$res['rows'][$key]['NombreSesion']=$this->getSessionName($res['rows'][$key]['Sesion']);
 		}

@@ -113,7 +113,6 @@ class VideoWall {
         $str=$this->tanda['Nombre'];
         echo '<table class="vwc_callEntry"><tr><td colspan="5" class="vwc_callTanda">'.$str.'</td></tr></table>';
     }
-
 	function videowall_llamada($pendientes) {
         $lastTanda="";
         $lastTeam=0;
