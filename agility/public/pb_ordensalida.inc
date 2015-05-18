@@ -59,7 +59,7 @@ $('#pb_ordensalida-window').window({
         });
         // call once and then fire as timed task
         // pb_updateOrdenSalida();
-        $(this).window.defaults.callback = setInterval(pb_updateOrdenSalida,10000);
+        $(this).window.defaults.callback = setInterval(pb_updateOrdenSalida,30000);
     },
     onClose: function() {
         clearInterval($(this).window.defaults.callback);
@@ -136,28 +136,40 @@ $('#pb_ordensalida-datagrid').datagrid({
         { field:'Manga',		width:0, hidden:true },
         { field:'Tanda',		width:0, hidden:true }, // string with tanda's name
         { field:'ID',			width:0, hidden:true }, // tanda ID
-        { field:'Perro',     	width:8, align:'center',	title: '#',formatter: formatOrdenSalida },
+        { field:'Perro',     	width:'5%', align:'center',	title: '#',formatter: formatOrdenSalida },
         { field:'Pendiente',	width:0, hidden:true },
         { field:'Tanda',		width:0, hidden:true },
         { field:'Equipo',		width:0, hidden:true },
-        { field:'Logo',     	width:5, align:'center',	title: '',formatter: formatLogo },
-        { field:'NombreEquipo',	width:20, align:'center',	title: 'Equipo' },
-        { field:'Dorsal',		width:10, align:'center',	title: 'Dorsal', styler:checkPending },
-        { field:'Nombre',		width:20, align:'left',		title: 'Nombre'},
-        { field:'Licencia',		width:10, align:'center',	title: 'Licencia'},
-        { field:'NombreGuia',	width:30, align:'right',	title: 'Guia' },
-        { field:'NombreClub',	width:25, align:'right',	title: 'Club' },
-        { field:'Categoria',	width:10, align:'center',	title: 'Categ.' },
-        { field:'Grado',		width:10, align:'center',	title: 'Grado' },
-        { field:'Celo',			width:8, align:'center',	title: 'Celo', formatter:formatCelo }
+        { field:'Logo',     	width:'5%', align:'center',	title: '',formatter: formatLogo },
+        { field:'NombreEquipo',	width:'12%', align:'center',title: 'Equipo',hidden:true},
+        { field:'Dorsal',		width:'5%', align:'center',	title: 'Dorsal', styler:checkPending },
+        { field:'Nombre',		width:'15%', align:'left',		title: 'Nombre'},
+        { field:'Licencia',		width:'5%', align:'center',	title: 'Licencia'},
+        { field:'NombreGuia',	width:'23%', align:'right',	title: 'Guia' },
+        { field:'NombreClub',	width:'19%', align:'right',	title: 'Club' },
+        { field:'Categoria',	width:'4%', align:'center',	title: 'Categ.' },
+        { field:'Grado',		width:'4%', align:'center',	title: 'Grado' },
+        { field:'Celo',			width:'4%', align:'center',	title: 'Celo', formatter:formatCelo },
+        { field:'Observaciones',width:'12%', align:'center',title: 'Observaciones' }
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:myRowStyler,
+    onBeforeLoad:function(param) {
+        var row=$('#pb_enumerateMangas').combogrid('grid').datagrid('getSelected');
+        if (!row) return false;
+        return true;
+    },
     onLoadSuccess:function(){
         mySelf=$('#pb_ordensalida-datagrid');
         // show/hide team name
-        if (isTeamByJornada(workingData.datosJornada) ) mySelf.datagrid('showColumn','NombreEquipo');
-        else  mySelf.datagrid('hideColumn','NombreEquipo');
+        if (isTeamByJornada(workingData.datosJornada) ) {
+            mySelf.datagrid('showColumn','NombreEquipo');
+            mySelf.datagrid('hideColumn','Observaciones');
+        } else  {
+            mySelf.datagrid('hideColumn','NombreEquipo');
+            mySelf.datagrid('showColumn','Observaciones');
+        }
+        mySelf.datagrid('fitColumns'); // expand to max width
     }
 });
 
