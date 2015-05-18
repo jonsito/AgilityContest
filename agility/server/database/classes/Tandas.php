@@ -453,11 +453,30 @@ class Tandas extends DBObject {
 			$res['rows'][$key]=array_merge(Tandas::$tipo_tanda[$item['Tipo']],$item);
 			// evaluate and insert Manga ID
 			if ($res['rows'][$key]['TipoManga']==0) { // User-Provided tandas has no Manga ID
-				$res['rows'][$key]['Manga']=0;
-			} else { // retrieve Manga ID and merge into result
+                $res['rows'][$key]['Manga']=0;
+                $res['rows'][$key]['Participantes']='';
+			} else {
+			    // retrieve Manga ID and merge into result
 				$manga=$this->getMangaByTipo($res['rows'][$key]['TipoManga']);	
+
 				// add extra info to result
 				$res['rows'][$key]['Manga']=(is_array($manga))? $manga['ID']: 0 ;
+
+                // and finally add number of participants
+                $str="( Prueba={$this->prueba->ID} ) AND ( Jornada={$this->jornada->ID} ) AND (Manga={$res['rows'][$key]['Manga']})";
+                $result=$this->__select("*","Resultados",$str,"","");
+                if (!is_array($result)) {
+                    $this->myLogger->error($result); return $result;
+                }
+                $count=0;
+                foreach($result['rows'] as $item) { // comparamos categoria y grado
+                    // si el grado es '-' se contabiliza. else si coincide grado se contabiliza
+                    if (($res['rows'][$key]['Grado']!=='-') && ($item['Grado']!==$res['rows'][$key]['Grado']) ) continue;
+                    // comparamos categorias
+                    if ( strstr($res['rows'][$key]['Categoria'],$item['Categoria'])===false ) continue;
+                    $count++;
+                }
+                $res['rows'][$key]['Participantes']=strval($count);// datos del participacion
 			}
 			$res['rows'][$key]['NombreSesion']=$this->getSessionName($res['rows'][$key]['Sesion']);
 		}

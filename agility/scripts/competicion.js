@@ -55,6 +55,7 @@ function formatRSCE(val,row,idx) {
 function formatOk(val,row,idx) { return (parseInt(val)==0)?"":"&#x2714;"; }
 function formatNotOk(val,row,idx) { return (parseInt(val)!=0)?"":"&#x2714;"; }
 function formatCerrada(val,row,idx) { return (parseInt(val)==0)?"":"&#x26D4;"; }
+function formatRing(val,row,idx) { return (val==='-- Sin asignar --')?"":val; }
 
 /* stylers para formateo de celdas especificas */
 function formatBorder(val,row,idx) { return 'border-left: 1px solid #000;'; }
@@ -63,8 +64,7 @@ function checkPending(val,row,idx) { return ( parseInt(row.Pendiente)!=0 )? 'col
 
 function formatCelo(val,row,idx) { return (parseInt(val)==0)?" ":"&#x2665;"; }
 function competicionRowStyler(idx,row) { return (row.Dorsal=='*')? myRowStyler(-1,row) : myRowStyler(idx,row); }
-
-function formatOrdenSalida(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+(1+idx)+'</span>'; }
+function formatOrdenSalida(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold;height:50px;line-height:50px">'+(1+idx)+'</span>'; }
 function formatLogo(val,row,idx) {
     if (typeof(val)==='undefined') return ""; // TODO: no idea why idx:0 has no logo declared
     return '<img width="50" height="50" alt="'+val+'" src="/agility/images/logos/'+val+'"/>';

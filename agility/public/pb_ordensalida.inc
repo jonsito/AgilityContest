@@ -58,7 +58,6 @@ $('#pb_ordensalida-window').window({
             $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
         });
         // call once and then fire as timed task
-        // pb_updateOrdenSalida();
         $(this).window.defaults.callback = setInterval(pb_updateOrdenSalida,30000);
     },
     onClose: function() {

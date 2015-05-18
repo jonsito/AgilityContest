@@ -90,7 +90,12 @@ function pb_updateInscripciones() {
  * imprime el programa de la jornada
  */
 function pb_updatePrograma() {
-    pb_doRequest("/agility/server/web/public.php",'programa','#pb_programa-Jornada');
+    $('#pb_programa-datagrid').datagrid('reload',{
+        Operation: 'getTandas',
+        Prueba: workingData.prueba,
+        Jornada: workingData.jornada,
+        Sesion: 1 // Set Session ID to 1 to include all
+    });
 }
 
 /**
