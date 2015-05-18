@@ -20,6 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once("DBObject.php");
 require_once("OrdenSalida.php");
+require_once("Clubes.php");
 
 class Tandas extends DBObject {
 	
@@ -484,7 +485,7 @@ class Tandas extends DBObject {
 		
 		// obtenemos la lista de tandas
 		$lista_tandas=$this->getTandas($s);
-		
+		$club= new Clubes("Tandas::getListaPerros");
 		// iteramos la lista de tandas
 		foreach ($lista_tandas['rows'] as $tanda) {
 			$this->myLogger->info("Analizando tanda \n".json_encode($tanda));
@@ -508,9 +509,18 @@ class Tandas extends DBObject {
                 if (strpos($tanda['Categoria'],$perro['Categoria'])===false) continue;
                 $perro['Tanda']=$tanda['Nombre'];
                 $perro['ID']=$tanda['ID']; // replace resultadoID por tandaID TODO: revise why
-                if ($pendientes==0) { array_push($rows,$perro); continue; } // include all
+                if ($pendientes==0) { // include all
+                    $perro['Logo']=$club->getLogoName('NombreClub',$perro['NombreClub']);
+                    array_push($rows,$perro);
+                    continue;
+                }
                 if ($perro['Pendiente']==0) continue; // not pendiente: skip
-                if ($count > 0) { $count--; array_push($rows,$perro); continue; } // not yet at count: insert
+                if ($count > 0) {  // not yet at count: insert
+                    $count--;
+                    $perro['Logo']=$club->getLogoName('NombreClub',$perro['NombreClub']);
+                    array_push($rows,$perro);
+                    continue;
+                }
                 // arriving here means that every requested dogs are filled
                 $this->myLogger->debug("Tandas::getListaPerros() Already have $pendientes dogs");
                 // so return

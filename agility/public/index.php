@@ -69,10 +69,11 @@ function myRowStyler(idx,row) {
 	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
+
 </script>
 
 <style>
-body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
+    body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
 </style>
 
 </head>

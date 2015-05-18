@@ -123,10 +123,11 @@ $('#pb_ordensalida-datagrid').datagrid({
     },
     loadMsg: "Actualizando orden de salida ...",
     pagination: false,
-    rownumbers: true,
+    rownumbers: false,
     fitColumns: true,
     singleSelect: true,
-    autoRowHeight: false,
+    autoRowHeight: true,
+    nowrap: false,
     width: '100%',
     height: 'auto',
     columns:[[
@@ -135,19 +136,20 @@ $('#pb_ordensalida-datagrid').datagrid({
         { field:'Manga',		width:0, hidden:true },
         { field:'Tanda',		width:0, hidden:true }, // string with tanda's name
         { field:'ID',			width:0, hidden:true }, // tanda ID
-        { field:'Perro',		width:0, hidden:true },
-        { field:'Licencia',		width:0, hidden:true },
+        { field:'Perro',     	width:8, align:'center',	title: '#',formatter: formatOrdenSalida },
         { field:'Pendiente',	width:0, hidden:true },
         { field:'Tanda',		width:0, hidden:true },
         { field:'Equipo',		width:0, hidden:true },
+        { field:'Logo',     	width:5, align:'center',	title: '',formatter: formatLogo },
         { field:'NombreEquipo',	width:20, align:'center',	title: 'Equipo' },
         { field:'Dorsal',		width:10, align:'center',	title: 'Dorsal', styler:checkPending },
         { field:'Nombre',		width:20, align:'left',		title: 'Nombre'},
-        { field:'Celo',			width:8, align:'center',	title: 'Celo', formatter:formatCelo},
+        { field:'Licencia',		width:10, align:'center',	title: 'Licencia'},
         { field:'NombreGuia',	width:30, align:'right',	title: 'Guia' },
         { field:'NombreClub',	width:25, align:'right',	title: 'Club' },
         { field:'Categoria',	width:10, align:'center',	title: 'Categ.' },
-        { field:'Grado',		width:10, align:'center',	title: 'Grado' }
+        { field:'Grado',		width:10, align:'center',	title: 'Grado' },
+        { field:'Celo',			width:8, align:'center',	title: 'Celo', formatter:formatCelo }
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:myRowStyler,

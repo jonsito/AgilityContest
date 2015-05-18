@@ -64,6 +64,12 @@ function checkPending(val,row,idx) { return ( parseInt(row.Pendiente)!=0 )? 'col
 function formatCelo(val,row,idx) { return (parseInt(val)==0)?" ":"&#x2665;"; }
 function competicionRowStyler(idx,row) { return (row.Dorsal=='*')? myRowStyler(-1,row) : myRowStyler(idx,row); }
 
+function formatOrdenSalida(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+(1+idx)+'</span>'; }
+function formatLogo(val,row,idx) {
+    if (typeof(val)==='undefined') return ""; // TODO: no idea why idx:0 has no logo declared
+    return '<img width="50" height="50" alt="'+val+'" src="/agility/images/logos/'+val+'"/>';
+}
+
 function formatTeamResults( value , rows ) {
     // todo: check eq3 or eq4 contest and eval time and penalization
     var time=0.0;
