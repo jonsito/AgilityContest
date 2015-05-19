@@ -67,15 +67,31 @@ function initialize() {
  */
 function myRowStyler(idx,row) {
 	var res="background-color:";
-	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
-	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
+	var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
+	var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
 </script>
 
 <style>
-    body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
+    body {
+        font-size: 100%;
+        background: <?php echo $config->getEnv('easyui_bgcolor'); ?>;
+    }
+    .datagrid-group {
+        font-size:1.5em;
+        font-weight:bold;
+        background-color:<?php echo $config->getEnv('vw_hdrfg2'); ?>;
+        color:<?php echo $config->getEnv('vw_hdrbg2'); ?>;
+    }
+    /*
+    .datagrid-group-title {
+        display:inline-block;
+        vertical-align: top;
+        padding:0;
+    }
+    */
 </style>
 
 </head>
@@ -210,9 +226,9 @@ function public_acceptSelection() {
     page='/agility/client/frm_notavailable.php';
 	switch (o){
 	case 'inscritos':
-        if (isJornadaEq3() ) page="/agility/public/pb_inscripciones_eq3.php";
-        else if (isJornadaEq4() ) page="/agility/public/pb_inscripciones_eq4.inc";
-        else page="/agility/public/pb_inscripciones.inc";
+        if (isJornadaEq3() ) page="/agility/public/pb_inscripciones_equipos.php";
+        else if (isJornadaEq4() ) page="/agility/public/pb_inscripciones_equipos.php";
+        else page="/agility/public/pb_inscripciones.php";
 		break;
 	case 'ordensalida':
 		page="/agility/public/pb_ordensalida.inc";

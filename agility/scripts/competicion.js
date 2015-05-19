@@ -64,11 +64,11 @@ function checkPending(val,row,idx) { return ( parseInt(row.Pendiente)!=0 )? 'col
 
 function formatCelo(val,row,idx) { return (parseInt(val)==0)?" ":"&#x2665;"; }
 function competicionRowStyler(idx,row) { return (row.Dorsal=='*')? myRowStyler(-1,row) : myRowStyler(idx,row); }
-function formatOrdenSalida(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold;height:50px;line-height:50px">'+(1+idx)+'</span>'; }
-function formatDorsal(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold;height:50px;line-height:50px">'+val+'</span>'; }
+function formatOrdenSalida(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold;height:40px;line-height:40px">'+(1+idx)+'</span>'; }
+function formatDorsal(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold;height:40px;line-height:40px">'+val+'</span>'; }
 function formatLogo(val,row,idx) {
     if (typeof(val)==='undefined') return ""; // TODO: no idea why idx:0 has no logo declared
-    return '<img width="50" height="50" alt="'+val+'" src="/agility/images/logos/'+val+'"/>';
+    return '<img width="40" height="40" alt="'+val+'" src="/agility/images/logos/'+val+'"/>';
 }
 
 function formatTeamResults( value , rows ) {

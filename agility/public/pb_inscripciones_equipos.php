@@ -82,7 +82,7 @@ $('#pb_equipos3-datagrid').datagrid({
         { field:'Prueba',		hidden:true },
         { field:'Jornada',		hidden:true },
         { field:'Orden',		hidden:true },
-        { field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Nombre');?>' },
+        { field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Equipo');?>' },
         { field:'Categorias',	width:10, sortable:true,	title: '<?php _e('Cat.');?>' },
         { field:'Observaciones',width:65, sortable:true,	title: '<?php _e('Observaciones');?>'},
         { field:'Miembros',		hidden:true },
@@ -93,7 +93,11 @@ $('#pb_equipos3-datagrid').datagrid({
     singleSelect: true,
     view: scrollview,
     pageSize: 50,
-    rowStyler: myRowStyler, // function that personalize colors on alternate rows
+    rowStyler: function(idx,row){ // set proper colors on team rows
+        var fg='<?php echo $config->getEnv('vw_hdrfg2'); ?>';
+        var bg='<?php echo $config->getEnv('vw_hdrbg2'); ?>';
+        return 'background-color:'+bg+';color:'+fg+';font-weight:bold;';
+    },
     // especificamos un formateador especial para desplegar la tabla de inscritos por equipo
     detailFormatter:function(idx,row){
         return '<div style="padding:2px"><table id="pb_equipos3-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
@@ -115,7 +119,6 @@ function showInscripcionesByTeam(index,team){
     $(mySelf).datagrid({
         width: '100%',
         height: 'auto',
-        title: '<?php _e('Inscripciones registradas en el equipo');?>: '+team.Nombre,
         pagination: false,
         rownumbers: false,
         fitColumns: true,
@@ -161,6 +164,6 @@ function showInscripcionesByTeam(index,team){
         }
     }); // end of inscritos-by-team_team_id
     $('#pb_equipos3-datagrid').datagrid('fixDetailRowHeight',index);
-} // end of showPerrosByGuia
+} // end of showPerrosByTeam
 
 </script>

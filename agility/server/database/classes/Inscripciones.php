@@ -462,7 +462,7 @@ class Inscripciones extends DBObject {
 		// obtenemos la lista de perros inscritos con sus datos
 		$result=$this->__select(
 			/* SELECT */"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Inscripciones.Perro AS Perro, Raza,
-				Dorsal, PerroGuiaClub.Nombre AS Nombre, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
+				Dorsal, PerroGuiaClub.Nombre AS Nombre, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club , LogoClub,
 				NombreGuia, NombreClub,	Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
 			/* FROM */	"Inscripciones,PerroGuiaClub",
 			/* WHERE */ "( Inscripciones.Perro = PerroGuiaClub.ID) AND 
