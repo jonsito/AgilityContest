@@ -59,22 +59,7 @@ function pb_setFooterInfo() {
  * @param {string} id Identificador jquery donde insertar el resultado
  */
 function pb_doRequest(url,operation,id) {
-    $.ajax({
-        type: "GET",
-        dataType: 'html',
-        url: url,
-        data: {
-            Operation: operation,
-            Prueba: workingData.prueba,
-            Jornada: workingData.jornada,
-            Manga: workingData.manga,
-            Tanda: workingData.tanda,
-            Mode: workingData.mode
-        },
-        success: function(data,status,jqxhr) {
-            $(id).html(data);
-        }
-    });
+
 }
 
 /**
@@ -90,17 +75,24 @@ function pb_updateOrdenSalida() {
         Sesion: 1, // defaults to "-- sin asignar --"
         ID:  row.ID // Tanda ID
     });
-};
+}
 
 /**
  * Imprime los inscritos en la prueba y jornada seleccionada por el usuario
  */
 function pb_updateInscripciones() {
-    pb_doRequest("/agility/server/web/public.php",'inscripciones','#pb_inscripcionesJornada');
+    $('#pb_inscripciones-datagrid').datagrid('reload', {
+        Operation:'inscritosbyjornada',
+        Prueba:workingData.prueba,
+        Jornada:workingData.jornada
+    });
 }
 
+/**
+ * Imprime los inscritos en la prueba y jornada por equipos seleccionada por el usuario
+ */
 function pb_updateInscripciones_eq3() {
-    $('#pb_equipos3-datagrid').datagrid('reload', {
+    $('#pb_inscripciones_eq3-datagrid').datagrid('reload', {
         Operation:'select',
         Prueba:workingData.prueba,
         Jornada:workingData.jornada,
@@ -123,8 +115,9 @@ function pb_updatePrograma() {
 /**
  * Actualiza los datos de TRS y TRM de la fila especificada
  * Rellena tambien el datagrid de resultados parciales
+ * @param {boolean} team true on team manga, else false
  */
-function pb_updateResults() {
+function pb_updateParciales(team) {
     // obtenemos la manga seleccionada. if no selection return
     var row=$('#pb_enumerateParciales').combogrid('grid').datagrid('getSelected');
     if (!row) return;
@@ -147,15 +140,17 @@ function pb_updateResults() {
             Mode:       row.Mode
         },
         success: function(dat) {
+            // informacion de la manga
             $('#pb_parciales-NombreManga').text(row.Nombre);
             $('#pb_parciales-Juez1').text((dat['manga'].Juez1<=1)?"":'Juez 1: ' + dat['manga'].NombreJuez1);
             $('#pb_parciales-Juez2').text((dat['manga'].Juez2<=1)?"":'Juez 2: ' + dat['manga'].NombreJuez2);
-            $('#pb_parciales-NombreManga').text(row.Nombre);
+            // datos de TRS
             $('#pb_parciales-Distancia').text('Distancia: ' + dat['trs'].dist + 'm.');
             $('#pb_parciales-Obstaculos').text('Obstaculos: ' + dat['trs'].obst);
             $('#pb_parciales-TRS').text('T.R.Standard: ' + dat['trs'].trs + 's.');
             $('#pb_parciales-TRM').text('T.T.Maximo: ' + dat['trs'].trm + 's.');
             $('#pb_parciales-Velocidad').text('Velocidad: ' + dat['trs'].vel + 'm/s');
+            // actualizar datagrid
             $('#pb_parciales-datagrid').datagrid('loadData',dat);
         }
     });

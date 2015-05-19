@@ -24,14 +24,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_inscripciones-window">
 	<div id="pb_inscripciones-layout" style="width:100%">
 		<div id="pb_inscripciones-Cabecera" data-options="region:'north',split:false" style="height:100px" class="pb_floatingheader">
-            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateInscripciones();" href="#" style="float:left">
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateInscripciones_eq3();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="75" />
             </a>
 		    <span style="float:left;padding:10px" id="pb_header-infocabecera">Cabecera</span>
 			<span style="float:right;" id="pb_header-texto">Listado de inscritos</span>
 		</div>
 		<div id="pb_inscripciones-data" data-options="region:'center'" >
-			<table id="pb_equipos3-datagrid"></table>
+			<table id="pb_inscriciones_eq3-datagrid"></table>
 		</div>
         <div id="pb_inscripciones-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>
@@ -57,9 +57,6 @@ $('#pb_inscripciones-window').window({
         pb_getHeaderInfo();
         // generate footer
         pb_setFooterInfo();
-		// call once and then fire as timed task
-		pb_updateInscripciones();
-		$(this).window.defaults.callback = setInterval(pb_updateInscripciones,30000);
 	},
 	onClose: function() { 
 		clearInterval($(this).window.defaults.callback);
@@ -67,7 +64,7 @@ $('#pb_inscripciones-window').window({
 });
 
 // datos de la tabla de equipos
-$('#pb_equipos3-datagrid').datagrid({
+$('#pb_inscripciones_eq3-datagrid').datagrid({
     fit: true,
     url: '/agility/server/database/equiposFunctions.php',
     queryParams: { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''	},

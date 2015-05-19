@@ -15,12 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-<!-- Presentacion de resultados parciales -->
+<!-- Presentacion de resultados parciales en pruebas por equipos (3 mejores de cuatro)  -->
 
 <div id="pb_parciales-window">
     <div id="pb_parciales-layout" style="width:100%">
-        <div id="pb_parciales-Cabecera" data-options="region:'north',split:false" style="height:100px" class="pb_floatingheader">
-            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateResults();" href="#" style="float:left">
+        <div id="pb_parciales-Cabecera" data-options="region:'north',split:false" style="height:175px" class="pb_floatingheader">
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateParciales(true);" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="75" />
             </a>
             <span style="float:left;padding:10px" id="pb_header-infocabecera">Cabecera</span>
@@ -28,12 +28,32 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 Resultados provisionales<br/>
                 <label for="pb_enumerateParciales" style="font-size:0.7em;">Manga:</label>
                 <select id="pb_enumerateParciales" style="width:200px"></select>
-            </span>
+            </span><br/>
+            <!-- Datos de TRS y TRM -->
+            <table class="pb_trs">
+                <thead>
+                <tr>
+                    <th id="pb_parciales-NombreManga" colspan="2">(no hay manga seleccionada)</th>
+                    <th id="pb_parciales-Juez1" colspan="2" style="text-align:center">Juez 1:</th>
+                    <th id="pb_parciales-Juez2" colspan="2" style="text-align:center">Juez 2:</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr style="text-align:right">
+                    <td>Datos de la manga:</td>
+                    <td id="pb_parciales-Distancia">Distancia:</td>
+                    <td id="pb_parciales-Obstaculos">Obst&aacute;culos:</td>
+                    <td id="pb_parciales-TRS">T.R.Standard:</td>
+                    <td id="pb_parciales-TRM">T.R.M&aacute;ximo:</td>
+                    <td id="pb_parciales-Velocidad">Velocidad:</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
         <div id="pb_parciales-data" data-options="region:'center'" >
             <div id="pb_parciales-Resultados" class="easyui-panel"
                  data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
-                <span id="pb_resultadosParciales"></span>
+                <table id="pb_parciales-datagrid"></table>
             </div>
         </div>
         <div id="pb_parciales-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
@@ -77,15 +97,10 @@ $('#pb_enumerateParciales').combogrid({
 		return true;
 	},
     onOpen: function() {
-        pb_updateResults(); // notice no results will still be reported. just to update header info
+        pb_updateParciales(true); // notice no results will still be reported. just to update header info
     },
 	onChange:function(value){
-		var row=$('#pb_enumerateParciales').combogrid('grid').datagrid('getSelected');
-		if (!row) return;
-		workingData.manga=row.Manga;
-		workingData.tanda=0; // fake tanda. use manga+mode to evaluate results
-		workingData.mode=row.Mode;
-		pb_updateResults();
+		pb_updateParciales(true);
 	}
 });
 
@@ -104,6 +119,65 @@ $('#pb_parciales-window').window({
         // update footer
         pb_setFooterInfo();
 	}
+});
+
+$('#pb_parciales-datagrid').datagrid({
+    // propiedades del panel asociado
+    fit: true,
+    border: false,
+    closable: false,
+    collapsible: false,
+    collapsed: false,
+    // propiedades del datagrid
+    method: 'get',
+    url: '/agility/server/database/resultadosFunctions.php',
+    queryParams: {
+        Prueba: workingData.prueba,
+        Jornada: workingData.jornada,
+        Manga: workingData.manga,
+        Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
+        Operation: 'getResultados'
+    },
+    loadMsg: "Actualizando resultados de la manga ...",
+    pagination: false,
+    rownumbers: false,
+    fitColumns: true,
+    singleSelect: true,
+    autoRowHeight:true,
+    // toolbar: '#resultadosmanga-toolbar',
+    view: gview,
+    groupField: 'NombreEquipo',
+    groupFormatter: formatTeamResults,
+    columns:[[
+        { field:'Manga',		hidden:true },
+        { field:'Perro',		hidden:true },
+        { field:'Dorsal',		hidden:true},
+        { field:'Licencia',		hidden:true },
+        { field:'Raza',		    hidden:true },
+        { field:'Equipo',		hidden:true },
+        { field:'NombreEquipo',	hidden:true },
+        { field:'Puesto',		width:12, align:'left',  title: 'Puesto', formatter:formatPuesto},
+        { field:'Nombre',		width:15, align:'left',  title: 'Nombre'},
+        { field:'NombreGuia',	width:35, align:'right', title: 'Guia' },
+        { field:'NombreClub',	width:25, align:'right', title: 'Club' },
+        { field:'Categoria',	width:10, align:'center',title: 'Cat.' },
+        { field:'Faltas',		width:10, align:'center', title: 'Faltas'},
+        { field:'Rehuses',		width:10, align:'center', title: 'Rehuses'},
+        { field:'Tocados',		width:10, align:'center', title: 'Tocados'},
+        { field:'PRecorrido',	hidden:true },
+        { field:'Tiempo',		width:15, align:'right', title: 'Tiempo', formatter:formatTiempo},
+        { field:'PTiempo',		hidden:true },
+        { field:'Velocidad',	width:10, align:'right', title: 'Vel.', formatter:formatVelocidad},
+        { field:'Penalizacion',	width:15, align:'right', title: 'Penal.', formatter:formatPenalizacion},
+        { field:'Calificacion',	width:30, align:'center',title: 'Calificacion'},
+        { field:'CShort', hidden:true}
+    ]],
+    rowStyler:myRowStyler,
+    onBeforeLoad: function(param) { // do not load if no manga selected
+        var row=$('#pb_enumerateParciales').combogrid('grid').datagrid('getSelected');
+        if (!row) return false;
+        return true;
+    }
 });
 
 </script>
