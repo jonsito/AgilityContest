@@ -2,6 +2,7 @@
 header("Access-Control-Allow-Origin: https//{$_SERVER['SERVER_ADDR']}/agility",false);
 header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",false);
 require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 
 /* check for properly installed xampp */
@@ -35,7 +36,8 @@ if( ! function_exists('openssl_get_publickey')) {
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-groupview.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-groupview.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
@@ -200,26 +202,31 @@ function public_acceptSelection() {
 		$.messager.alert("Error","Debe indicar los datos de prueba, jornada y vista seleccionada","error");
 		return;
 	}
-	workingData.prueba=p.ID;
-	workingData.datosPrueba=p;
-	workingData.jornada=j.ID;
-	workingData.datosJornada=j;
+    setPrueba(p);
+    setJornada(j);
 	workingData.manga=0;
 	workingData.tanda=0;
 	workingData.mode=-1;
+    page='/agility/client/frm_notavailable.php';
 	switch (o){
-	case 'inscritos': 
-		page="/agility/public/pb_inscripciones.inc";
+	case 'inscritos':
+        if (isJornadaEq3() ) page="/agility/public/pb_inscripciones_eq3.php";
+        else if (isJornadaEq4() ) page="/agility/public/pb_inscripciones_eq4.inc";
+        else page="/agility/public/pb_inscripciones.inc";
 		break;
 	case 'ordensalida':
 		page="/agility/public/pb_ordensalida.inc";
 		break;
-	case 'parciales': 
-		page="/agility/public/pb_parciales.inc";
+	case 'parciales':
+        if (isJornadaEq3() ) page="/agility/public/pb_parciales_eq3.inc";
+        else if (isJornadaEq4() ) page="/agility/public/pb_parciales_eq4.inc";
+        else page="/agility/public/pb_parciales.inc";
 		break;
 	case 'clasificaciones':
-		page="/agility/public/pb_finales.inc";
-		break;
+        if (isJornadaEq3() ) page="/agility/public/pb_finales_eq3.inc";
+        else if (isJornadaEq4() ) page="/agility/public/pb_finales_eq4.inc";
+        else page="/agility/public/pb_finales.inc";
+        break;
     case 'programa':
         page="/agility/public/pb_programa.inc";
         break;

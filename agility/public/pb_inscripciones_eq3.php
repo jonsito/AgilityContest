@@ -1,0 +1,166 @@
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =Config::getInstance();
+?>
+<!--
+pb_inscripciones_eq3.inc
+
+Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+
+This program is free software; you can redistribute it and/or modify it under the terms 
+of the GNU General Public License as published by the Free Software Foundation; 
+either version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; 
+without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this program; 
+if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ -->
+
+<!-- Presentacion de las inscripciones de la jornada -->
+<div id="pb_inscripciones-window">
+	<div id="pb_inscripciones-layout" style="width:100%">
+		<div id="pb_inscripciones-Cabecera" data-options="region:'north',split:false" style="height:100px" class="pb_floatingheader">
+            	<img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
+		    	<span style="float:left;padding:10px" id="pb_header-infocabecera">Cabecera</span>
+				<span style="float:right;" id="pb_header-texto">Listado de inscritos</span>
+		</div>
+		<div id="pb_inscripciones-data" data-options="region:'center'" >
+				<table id="pb_equipos3-datagrid"></table>
+		</div>
+        <div id="pb_inscripciones-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
+            <span id="pb_inscripciones-footerData"></span>
+        </div>
+	</div>
+</div> <!-- pb_inscripciones-window -->
+
+<script type="text/javascript">
+$('#pb_inscripciones-layout').layout({fit:true});
+$('#pb_inscripciones-window').window({
+	fit:true,
+	noheader:true,
+	border:false,
+	closable:false,
+	collapsible:false,
+	collapsed:false,
+	resizable:false,
+	callback: null, 
+	// 1 minute poll is enouth for this, as no expected changes during a session
+	onOpen: function() {
+        // generate header
+        pb_getHeaderInfo();
+        // generate footer
+        var logo=nombreCategorias[workingData.federation]['logo'];
+        $('#pb_inscripciones-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
+            $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
+        });
+		// call once and then fire as timed task
+		pb_updateInscripciones();
+		$(this).window.defaults.callback = setInterval(pb_updateInscripciones,30000);
+	},
+	onClose: function() { 
+		clearInterval($(this).window.defaults.callback);
+	}
+});
+
+// datos de la tabla de equipos
+$('#pb_equipos3-datagrid').datagrid({
+    fit: true,
+    url: '/agility/server/database/equiposFunctions.php',
+    queryParams: { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''	},
+    loadMsg: "<?php _e('Actualizando lista de equipos');?> ...",
+    method: 'get',
+    mode: 'remote',
+    multiSort: true,
+    remoteSort: true,
+    idField: 'ID',
+    columns: [[
+        { field:'ID',			hidden:true },
+        { field:'Prueba',		hidden:true },
+        { field:'Jornada',		hidden:true },
+        { field:'Orden',		hidden:true },
+        { field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Nombre');?>' },
+        { field:'Categorias',	width:10, sortable:true,	title: '<?php _e('Cat.');?>' },
+        { field:'Observaciones',width:65, sortable:true,	title: '<?php _e('Observaciones');?>'},
+        { field:'Miembros',		hidden:true },
+        { field:'DefaultTeam',	width:5, sortable:false,	align: 'center', title: 'Def', formatter:formatOk }
+    ]],
+    pagination: false,
+    fitColumns: true,
+    singleSelect: true,
+    view: scrollview,
+    pageSize: 50,
+    rowStyler: myRowStyler, // function that personalize colors on alternate rows
+    // especificamos un formateador especial para desplegar la tabla de inscritos por equipo
+    detailFormatter:function(idx,row){
+        return '<div style="padding:2px"><table id="pb_equipos3-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
+    },
+    onExpandRow: function(idx,row) {
+        showInscripcionesByTeam(idx,row);
+    },
+    onLoadSuccess: function(data) {
+        var dg = $('#pb_equipos3-datagrid');
+        var count = dg.datagrid('getRows').length;
+        for(var i=0; i<count; i++){ dg.datagrid('expandRow',i); }
+    }
+});
+
+//mostrar las inscripciones agrupadas por equipos
+function showInscripcionesByTeam(index,team){
+    // - sub tabla de participantes asignados a un equipo
+    var mySelf='#pb_equipos3-datagrid-'+replaceAll(' ','_',team.ID);
+    $(mySelf).datagrid({
+        width: '100%',
+        height: 'auto',
+        title: '<?php _e('Inscripciones registradas en el equipo');?>: '+team.Nombre,
+        pagination: false,
+        rownumbers: false,
+        fitColumns: true,
+        singleSelect: true,
+        loadMsg: '<?php _e('Leyendo inscripciones....');?>',
+        url: '/agility/server/database/inscripcionFunctions.php',
+        queryParams: { Operation: 'inscritosbyteam', Prueba:workingData.prueba, Jornada:workingData.jornada, Equipo: team.ID },
+        method: 'get',
+        autorowheight:true,
+        columns: [[
+            { field:'ID',		hidden:true }, // inscripcion ID
+            { field:'Prueba',	hidden:true }, // prueba ID
+            { field:'Jornadas',	hidden:true }, // bitmask de jornadas inscritas
+            { field:'Perro',	hidden:true }, // dog ID
+            { field:'Equipo',	hidden:true }, // only used on Team contests
+            { field:'Pagado', 	hidden:true }, // to store if handler paid :-)
+            { field:'Guia', 	hidden:true }, // Guia ID
+            { field:'Club',		hidden:true }, // Club ID
+            { field:'LOE_RRC',	hidden:true }, // LOE/RRC
+            { field:'Club',		hidden:true }, // Club ID
+            { field:'Dorsal',	    width:'10%',        sortable:false, align: 'center',	title: '<?php _e('Dorsal'); ?>',formatter:formatDorsal },
+            { field:'Logo',	        width:'7%',        sortable:false, align: 'center',	title: '',formatter:formatLogo },
+            { field:'Nombre',	    width:'15%',       sortable:false, align: 'right',	title: '<?php _e('Nombre'); ?>' },
+            { field:'Licencia',	    width:'10%',        sortable:false, align: 'center',title: '<?php _e('Lic');    ?>' },
+            { field:'Categoria',    width:'5%',        sortable:false, align: 'center',title: '<?php _e('Cat');    ?>' },
+            // { field:'Grado',	width:6,        sortable:false, align: 'center',title: '<?php _e('Grado');  ?>' },
+            { field:'NombreGuia',	width:'20%',   sortable:false, align: 'right',	title: '<?php _e('Gu&iacute;a'); ?>' },
+            { field:'NombreClub',	width:'18%',   sortable:false, align: 'right',	title: '<?php _e('Club');   ?>' },
+            { field:'NombreEquipo',	hidden:true },
+            { field:'Observaciones',width:'10%',                                   title: '<?php _e('Observaciones');?>' },
+            { field:'Celo',		    width:'5%', align:'center', formatter: formatCelo,	title: '<?php _e('Celo');   ?>' }
+        ]],
+        // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+        rowStyler:myRowStyler,
+        // on double click fireup editor dialog
+        onResize:function(){
+            $('#pb_equipos3-datagrid').datagrid('fixDetailRowHeight',index);
+        },
+        onLoadSuccess:function(){
+            setTimeout(function(){
+                $('#pb_equipos3-datagrid').datagrid('fixDetailRowHeight',index);
+            },0);
+        }
+    }); // end of inscritos-by-team_team_id
+    $('#pb_equipos3-datagrid').datagrid('fixDetailRowHeight',index);
+} // end of showPerrosByGuia
+
+</script>

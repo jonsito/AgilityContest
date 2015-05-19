@@ -86,6 +86,15 @@ function pb_updateInscripciones() {
     pb_doRequest("/agility/server/web/public.php",'inscripciones','#pb_inscripcionesJornada');
 }
 
+function pb_updateInscripciones_eq3() {
+    $('#pb_equipos3-datagrid').datagrid('reload', {
+        Operation:'select',
+        Prueba:workingData.prueba,
+        Jornada:workingData.jornada,
+        where:''
+    });
+}
+
 /**
  * imprime el programa de la jornada
  */
