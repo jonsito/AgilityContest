@@ -184,9 +184,25 @@ function pb_updateFinales() {
 			Mode: 	ronda.Mode
 		},
 		success: function(dat) {
-			$('#pb_resultados_thead_m1').text(ronda.NombreManga1);
-			$('#pb_resultados_thead_m2').text(ronda.NombreManga2);
-			$('#pb_resultados-datagrid').datagrid('loadData',dat);
+            // nombres de las mangas
+            $('#pb_resultados_thead_m1').text(ronda.NombreManga1);
+            $('#pb_resultados_thead_m2').text(ronda.NombreManga2);
+            // datos de trs manga 1
+            $('#pb_finales-Ronda1').text(ronda.NombreManga1);
+            $('#pb_finales-Distancia1').text('Distancia: ' + dat['trs1'].dist + 'm.');
+            $('#pb_finales-Obstaculos1').text('Obstaculos: ' + dat['trs1'].obst);
+            $('#pb_finales-TRS1').text('T.R.Standard: ' + dat['trs1'].trs + 's.');
+            $('#pb_finales-TRM1').text('T.T.Maximo: ' + dat['trs1'].trm + 's.');
+            $('#pb_finales-Velocidad1').text('Velocidad: ' + dat['trs1'].vel + 'm/s');
+            // datos de trs manga 2
+            $('#pb_finales-Ronda2').text(ronda.NombreManga2);
+            $('#pb_finales-Distancia2').text('Distancia: ' + dat['trs2'].dist + 'm.');
+            $('#pb_finales-Obstaculos2').text('Obstaculos: ' + dat['trs2'].obst);
+            $('#pb_finales-TRS2').text('T.R.Standard: ' + dat['trs2'].trs + 's.');
+            $('#pb_finales-TRM2').text('T.T.Maximo: ' + dat['trs2'].trm + 's.');
+            $('#pb_finales-Velocidad2').text('Velocidad: ' + dat['trs2'].vel + 'm/s');
+            // clasificaciones
+            $('#pb_resultados-datagrid').datagrid('loadData',dat);
 		}
 	});
 }

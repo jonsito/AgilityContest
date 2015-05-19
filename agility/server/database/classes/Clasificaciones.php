@@ -80,7 +80,8 @@ class Clasificaciones extends DBObject {
                 'Equipo' => $item['Equipo'],
                 'NombreEquipo' => $item['NombreEquipo'],
                 'NombreGuia' => $item['NombreGuia'],
-				'NombreClub' => $item['NombreClub'],
+                'NombreClub' => $item['NombreClub'],
+                'LogoClub' => $item['LogoClub'],
 				// datos manga 1
 				'F1' => $item['Faltas'] + $item['Tocados'],
 				'R1' => $item['Rehuses'],

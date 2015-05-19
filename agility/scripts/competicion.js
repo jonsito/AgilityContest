@@ -23,8 +23,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 /* formatters para el datagrid dlg_resultadosManga */
 
-function formatPuesto(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=200)?"-":val)+'</span>'; }
-function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=200)?"-":val)+'</span>'; }
+function formatPuesto(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
+function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
 function formatVelocidad(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFloat(val).toFixed(1); }
 function formatTiempo(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFloat(val).toFixed(2); }
 function formatPenalizacion(val,row,idx) { return parseFloat(val).toFixed(2); }
@@ -32,7 +32,8 @@ function formatEliminado(val,row,idx) { return (row.Eliminado==0)?"":"Elim"; }
 function formatNoPresentado(val,row,idx) { return (row.NoPresentado==0)?"":"N.P."; }
 
 /* formaters para el frm_clasificaciones */
-function formatPuestoFinal(val,row,idx) { return (row.Penalizacion>=200)?"-":row.Puesto; }
+function formatPuestoFinal(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=200)?"-":val)+'</span>'; }
+function formatPuestoFinalBig(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=200)?"-":val)+'</span>'; }
 function formatPenalizacionFinal(val,row,idx) { return parseFloat(val).toFixed(2); }
 
 function formatV1(val,row,idx) { return (row.P1>=200)?"-":parseFloat(val).toFixed(1); }
