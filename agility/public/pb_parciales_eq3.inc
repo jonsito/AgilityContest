@@ -51,10 +51,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </table>
         </div>
         <div id="pb_parciales-data" data-options="region:'center'" >
-            <div id="pb_parciales-Resultados" class="easyui-panel"
-                 data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
-                <table id="pb_parciales-datagrid"></table>
-            </div>
+            <table id="pb_parciales-datagrid"></table>
         </div>
         <div id="pb_parciales-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>
