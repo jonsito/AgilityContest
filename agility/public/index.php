@@ -76,9 +76,19 @@ function myRowStyler(idx,row) {
 
 <style>
     body {
+        /* default background from environment */
         font-size: 100%;
         background: <?php echo $config->getEnv('easyui_bgcolor'); ?>;
     }
+
+    /* remove underlines around footer imagelinks */
+    a,
+    a img {
+        text-decoration: none;
+        outline: none;
+        border: 0px none transparent;
+    }
+
 </style>
 
 </head>

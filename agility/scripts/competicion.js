@@ -23,7 +23,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 /* formatters para el datagrid dlg_resultadosManga */
 
-function formatPuesto(val,row,idx) { return (row.Penalizacion>=200)?"-":val; }
+function formatPuesto(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=200)?"-":val)+'</span>'; }
+function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=200)?"-":val)+'</span>'; }
 function formatVelocidad(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFloat(val).toFixed(1); }
 function formatTiempo(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFloat(val).toFixed(2); }
 function formatPenalizacion(val,row,idx) { return parseFloat(val).toFixed(2); }

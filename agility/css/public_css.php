@@ -27,7 +27,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .pb_floatingheader {
     margin-top:0px;
     margin-bottom:0px;
-    // width:100%;
     padding:10px;
     background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
     color: <?php echo $config->getEnv('vw_hdrfg1')?>;
@@ -39,7 +38,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .pb_floatingfooter {
     margin-top:0px;
     margin-bottom:0px;
-    // width:100%;
     padding:10px;
     background-color: <?php echo $config->getEnv('vw_hdrbg3')?>;
     color: <?php echo $config->getEnv('vw_hdrfg3')?>;
@@ -58,4 +56,23 @@ td.pb_club {
     font-style:italic;
     font-weight:bold;
     padding-right:25px;
+}
+
+/*************** cabecera de ventana de resultados ************ */
+.pb_trs {
+    width:100%;
+    padding:10px;
+    background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
+    color: <?php echo $config->getEnv('vw_hdrfg1')?>;
+    font-weight: bold;
+    font-style: italic;
+    table-layout: fixed;
+}
+.pb_trs th {
+    text-align:left;
+    font-size: 18px;
+}
+.pb_trs td {
+    text-align:right;
+    font-size: 12px;
 }

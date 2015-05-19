@@ -21,6 +21,8 @@ require_once("DBObject.php");
 require_once("OrdenSalida.php");
 require_once("Mangas.php");
 require_once("Jornadas.php");
+require_once("Clubes.php");
+require_once("Jueces.php");
 
 class Resultados extends DBObject {
 	protected $IDManga; // ID de la manga
@@ -39,6 +41,8 @@ class Resultados extends DBObject {
 			return null;
 		}
 		// add some extra info
+        $obj->NombreJuez1=$this->__getObject("Jueces",$obj->Juez1)->Nombre;
+        $obj->NombreJuez2=$this->__getObject("Jueces",$obj->Juez2)->Nombre;
 		$obj->TipoManga=Mangas::$tipo_manga[$obj->Tipo][1];
 		$this->dmanga=$obj;
 		return $this->dmanga;
@@ -411,7 +415,8 @@ class Resultados extends DBObject {
 		$res['trs']=$tdata; // store trs data into result
 		$trs=$tdata['trs'];
 		$trm=$tdata['trm'];
-		// FASE 3: añadimos ptiempo, puntuacion y clasificacion
+		// FASE 3: añadimos ptiempo, puntuacion, clasificacion y logo
+        $clubes=new Clubes("Resultados::getResultados");
 		$size=count($table);
 		for ($idx=0;$idx<$size;$idx++ ){
             $table[$idx]['Puntos'] = 0; // to be re-evaluated later
@@ -477,6 +482,8 @@ class Resultados extends DBObject {
             $dequipos=$this->getDatosEquipos();
             $eqinfo=$dequipos[]=$dequipos[$table[$idx]['Equipo']];
             $table[$idx]['NombreEquipo']=$eqinfo['Nombre'];
+            // anyadimos logotipo del club
+            $table[$idx]['LogoClub']=$clubes->getLogoName('NombreClub',$table[$idx]['NombreClub']);
 		}
 		// FASE 4: re-ordenamos los datos en base a la puntuacion y calculamos campo "Puesto"
 		usort($table, function($a, $b) {

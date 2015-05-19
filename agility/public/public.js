@@ -40,6 +40,19 @@ function pb_getHeaderInfo() {
     });
 }
 
+function pb_setFooterInfo() {
+    var logo=nombreCategorias[workingData.federation]['logo'];
+    var logo2=nombreCategorias[workingData.federation]['logo2'];
+    var url=nombreCategorias[workingData.federation]['url'];
+    var url2=nombreCategorias[workingData.federation]['url2'];
+    $('#pb_footer-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
+        $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
+        $('#pb_footer-urlFederation').attr('href',url);
+        $('#pb_footer-logoFederation2').attr('src','/agility/images/logos/'+logo2);
+        $('#pb_footer-urlFederation2').attr('href',url2);
+    });
+}
+
 /**
  * Funcion generica para efectuar todas las llamadas al servidor
  * @param {string} url direccion web
@@ -108,10 +121,44 @@ function pb_updatePrograma() {
 }
 
 /**
- * Actualiza la informacion sobre resultados parciales
+ * Actualiza los datos de TRS y TRM de la fila especificada
+ * Rellena tambien el datagrid de resultados parciales
  */
 function pb_updateResults() {
-    pb_doRequest("/agility/server/web/public.php",'resultados','#pb_resultadosParciales');
+    // obtenemos la manga seleccionada. if no selection return
+    var row=$('#pb_enumerateParciales').combogrid('grid').datagrid('getSelected');
+    if (!row) return;
+    workingData.manga=row.Manga;
+    workingData.datosManga=row;
+    workingData.tanda=0; // fake tanda. use manga+mode to evaluate results
+    workingData.mode=row.Mode;
+    // en lugar de invocar al datagrid, lo que vamos a hacer es
+    // una peticion ajax, para obtener a la vez los datos tecnicos de la manga
+    // y de los jueces
+    $.ajax({
+        type:'GET',
+        url:"/agility/server/database/resultadosFunctions.php",
+        dataType:'json',
+        data: {
+            Operation:	'getResultados',
+            Prueba:		row.Prueba,
+            Jornada:	row.Jornada,
+            Manga:		row.Manga,
+            Mode:       row.Mode
+        },
+        success: function(dat) {
+            $('#pb_parciales-NombreManga').text(row.Nombre);
+            $('#pb_parciales-Juez1').text((dat['manga'].Juez1<=1)?"":'Juez 1: ' + dat['manga'].NombreJuez1);
+            $('#pb_parciales-Juez2').text((dat['manga'].Juez2<=1)?"":'Juez 2: ' + dat['manga'].NombreJuez2);
+            $('#pb_parciales-NombreManga').text(row.Nombre);
+            $('#pb_parciales-Distancia').text('Distancia: ' + dat['trs'].dist + 'm.');
+            $('#pb_parciales-Obstaculos').text('Obstaculos: ' + dat['trs'].obst);
+            $('#pb_parciales-TRS').text('T.R.Standard: ' + dat['trs'].trs + 's.');
+            $('#pb_parciales-TRM').text('T.T.Maximo: ' + dat['trs'].trm + 's.');
+            $('#pb_parciales-Velocidad').text('Velocidad: ' + dat['trs'].vel + 'm/s');
+            $('#pb_parciales-datagrid').datagrid('loadData',dat);
+        }
+    });
 }
 
 /**

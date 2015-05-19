@@ -81,7 +81,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </div>
         </div>
         <div id="pb_finales-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
-            <span id="pb_finales-footerData"></span>
+            <span id="pb_footer-footerData"></span>
         </div>
     </div>
 </div> <!-- finales-window -->
@@ -139,10 +139,7 @@ $('#pb_finales-window').window({
         // update header
         pb_getHeaderInfo();
         // update footer info
-        var logo=nombreCategorias[workingData.federation]['logo'];
-        $('#pb_finales-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
-            $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
-        });
+        pb_setFooterInfo();
 		// call once and then fire as timed task
 		pb_updateFinales();
 		$(this).window.defaults.callback = setInterval(pb_updateFinales,60000);

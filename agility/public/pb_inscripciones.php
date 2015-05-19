@@ -33,7 +33,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span id="pb_inscripciones-datagrid"></span>
 		</div>
         <div id="pb_inscripciones-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
-            <span id="pb_inscripciones-footerData"></span>
+            <span id="pb_footer-footerData"></span>
         </div>
 	</div>
 </div> <!-- pb_inscripciones-window -->
@@ -55,10 +55,7 @@ $('#pb_inscripciones-window').window({
         // generate header
         pb_getHeaderInfo();
         // generate footer
-        var logo=nombreCategorias[workingData.federation]['logo'];
-        $('#pb_inscripciones-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
-            $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
-        });
+        pb_setFooterInfo();
 	}
 });
 

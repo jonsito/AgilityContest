@@ -34,7 +34,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<table id="pb_equipos3-datagrid"></table>
 		</div>
         <div id="pb_inscripciones-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
-            <span id="pb_inscripciones-footerData"></span>
+            <span id="pb_footer-footerData"></span>
         </div>
 	</div>
 </div> <!-- pb_inscripciones-window -->
@@ -56,10 +56,7 @@ $('#pb_inscripciones-window').window({
         // generate header
         pb_getHeaderInfo();
         // generate footer
-        var logo=nombreCategorias[workingData.federation]['logo'];
-        $('#pb_inscripciones-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
-            $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
-        });
+        pb_setFooterInfo();
 		// call once and then fire as timed task
 		pb_updateInscripciones();
 		$(this).window.defaults.callback = setInterval(pb_updateInscripciones,30000);

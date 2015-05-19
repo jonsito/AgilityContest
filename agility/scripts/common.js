@@ -25,12 +25,12 @@ function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); }
  * nombres de las categorias en funcion de la federacion
  */
 var nombreCategorias = {
-		'rsce': { 'L': 'Standard',	'M': 'Midi',	'S': 'Mini',	'T': '-',	'logo': 'rsce.png',  'logo2': 'fci.png' },
-		'rfec': { 'L': 'Large',		'M': 'Medium',	'S': 'Small',	'T': 'Tiny','logo': 'rfec.png',  'logo2': 'csd.png' },
-		'uca': 	{ 'L': '60',		'M': '50',		'S': '40',		'T': '30',	'logo': 'uca.png',  'logo2': 'rfec.png' },
-		'0': { 'L': 'Standard',	'M': 'Midi',	'S': 'Mini',	'T': '-',	'logo': 'rsce.png',  'logo2': 'fci.png' },
-		'1': { 'L': 'Large',		'M': 'Medium',	'S': 'Small',	'T': 'Tiny','logo': 'rfec.png',  'logo2': 'csd.png' },
-		'2': { 'L': '60',			'M': '50',		'S': '40',		'T': '30',	'logo': 'uca.png',  'logo2': 'rfec.png' }
+		'rsce': { 'L': 'Standard','M': 'Midi','S': 'Mini',	'T': '-',	'logo': 'rsce.png', 'logo2': 'fci.png', url:'http://www.rsce.es', url2:'http://www.fci.org'  },
+		'rfec': { 'L': 'Large',	'M': 'Medium','S': 'Small',	'T': 'Tiny','logo': 'rfec.png', 'logo2': 'csd.png', url:'http://www.fecaza.com', url2:'http://www.csd.gob.es'  },
+		'uca': 	{ 'L': '60',	'M': '50',	  'S': '40',	'T': '30',	'logo': 'uca.png',  'logo2': 'rfec.png',url:'http://www.agilityuca.org', url2:'http://www.fecaza.com'},
+		'0': { 'L': 'Standard',	'M': 'Midi',  'S': 'Mini',	'T': '-',	'logo': 'rsce.png', 'logo2': 'fci.png', url:'http://www.rsce.es', url2:'http://www.fci.org'  },
+		'1': { 'L': 'Large',	'M': 'Medium','S': 'Small',	'T': 'Tiny','logo': 'rfec.png', 'logo2': 'csd.png', url:'http://www.fecaza.com', url2:'http://www.csd.gob.es' },
+		'2': { 'L': '60',		'M': '50',	  'S': '40',	'T': '30',	'logo': 'uca.png',  'logo2': 'rfec.png', url:'http://www.agilityuca.org', url2:'http://www.fecaza.com'}
 };
 
 /**
