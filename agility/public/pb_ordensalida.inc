@@ -19,7 +19,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_ordensalida-window">
 	<div id="pb_ordensalida-layout" style="width:100%">
 		<div id="pb_ordensalida-Cabecera" data-options="region:'north',split:false" style="height:100px" class="pb_floatingheader">
-            <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left"/>
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateOrdenSalida();" href="#" style="float:left">
+                <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="75" />
+            </a>
 		    <span style="float:left;padding:10px;" id="pb_header-infocabecera">Cabecera</span>
 			<span style="float:right;" id="pb_header-texto">
                 Orden de Salida<br />
@@ -37,6 +39,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div> <!-- pb_ordensalida-window -->
 
 <script type="text/javascript">
+
+addTooltip($('#pb_header-link').linkbutton(),"Actualizar orden de salida");
 $('#pb_ordensalida-layout').layout({fit:true});
 
 $('#pb_ordensalida-window').window({
@@ -57,11 +61,6 @@ $('#pb_ordensalida-window').window({
         $('#pb_ordensalida-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
             $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
         });
-        // call once and then fire as timed task
-        $(this).window.defaults.callback = setInterval(pb_updateOrdenSalida,30000);
-    },
-    onClose: function() {
-        clearInterval($(this).window.defaults.callback);
     }
 });
 

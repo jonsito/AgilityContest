@@ -21,7 +21,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_finales-window">
     <div id="pb_finales-layout" style="width:100%">
         <div id="pb_finales-Cabecera" data-options="region:'north',split:false" style="height:100px" class="pb_floatingheader">
-            <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left"/>
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateInscripciones();" href="#" style="float:left">
+                <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="75" />
+            </a>
             <span style="float:left;padding:10px" id="pb_header-infocabecera">Cabecera</span>
             <span style="float:right" id="pb_header-texto">
                 Clasificaci&oacute;n final<br/>
@@ -86,6 +88,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
+addTooltip($('#pb_header-link').linkbutton(),"Actualizar clasificaciones");
 $('#pb_enumerateFinales').combogrid({
 	panelWidth: 300,
 	panelHeight: 150,

@@ -23,12 +23,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_inscripciones-window">
 	<div id="pb_inscripciones-layout" style="width:100%">
 		<div id="pb_inscripciones-Cabecera" data-options="region:'north',split:false" style="height:100px" class="pb_floatingheader">
-            	<img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
-		    	<span style="float:left;padding:10px" id="pb_header-infocabecera">Cabecera</span>
-				<span style="float:right;" id="pb_header-texto">Listado de inscritos</span>
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateInscripciones();" href="#" style="float:left">
+                <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="75" />
+            </a>
+		    <span style="float:left;padding:10px" id="pb_header-infocabecera">Cabecera</span>
+			<span style="float:right;" id="pb_header-texto">Listado de inscritos</span>
 		</div>
 		<div id="pb_inscripciones-data" data-options="region:'center'" >
-				<span id="pb_inscripciones-datagrid"></span>
+			<span id="pb_inscripciones-datagrid"></span>
 		</div>
         <div id="pb_inscripciones-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
             <span id="pb_inscripciones-footerData"></span>
@@ -37,6 +39,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div> <!-- pb_inscripciones-window -->
 
 <script type="text/javascript">
+addTooltip($('#pb_header-link').linkbutton(),"Actualizar listado de inscritos");
 $('#pb_inscripciones-layout').layout({fit:true});
 $('#pb_inscripciones-window').window({
 	fit:true,
@@ -56,10 +59,6 @@ $('#pb_inscripciones-window').window({
         $('#pb_inscripciones-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
             $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
         });
-		$(this).window.defaults.callback = setInterval(pb_updateInscripciones,30000);
-	},
-	onClose: function() { 
-		clearInterval($(this).window.defaults.callback);
 	}
 });
 

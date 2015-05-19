@@ -20,6 +20,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /* File used to insert logo, supporters,  head lines and so */
 ?>
 <div id="pb_footer">
-    <img id="pb_footer-logoFederation" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
-    <img id="pb_footer-logoAgilityContest" src="/agility/images/logos/agilitycontest.png" width="75" style="float:right;"/>
+    <span style="float:left">
+        <img id="pb_footer-logoFederation" src="/agility/images/logos/rsce.png" width="75"/>
+    </span>
+    <span style="float:right">
+        <a href="http://www.galican.com">
+            <img id="pb_footer-logoGalican" src="/agility/images/supporters/galican.png" width="75"/>
+        </a>
+        <a href="https://www.github.com/jonsito/AgilityContest">
+            <img id="pb_footer-logoAgilityContest" src="/agility/images/logos/agilitycontest.png" width="75"/>
+        </a>
+    </span>
 </div>
