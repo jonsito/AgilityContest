@@ -79,19 +79,6 @@ function myRowStyler(idx,row) {
         font-size: 100%;
         background: <?php echo $config->getEnv('easyui_bgcolor'); ?>;
     }
-    .datagrid-group {
-        font-size:1.5em;
-        font-weight:bold;
-        background-color:<?php echo $config->getEnv('vw_hdrfg2'); ?>;
-        color:<?php echo $config->getEnv('vw_hdrbg2'); ?>;
-    }
-    /*
-    .datagrid-group-title {
-        display:inline-block;
-        vertical-align: top;
-        padding:0;
-    }
-    */
 </style>
 
 </head>

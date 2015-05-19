@@ -75,8 +75,6 @@ $('#pb_inscripciones-datagrid').datagrid({
     queryParams: { Operation: 'inscritosbyjornada', Prueba:workingData.prueba, Jornada:workingData.jornada },
     method: 'get',
     autorowheight:true,
-    view: groupview,
-    groupField: 'NombreClub',
     columns: [[
         { field:'ID',		hidden:true }, // inscripcion ID
         { field:'Prueba',	hidden:true }, // prueba ID
@@ -87,12 +85,12 @@ $('#pb_inscripciones-datagrid').datagrid({
         { field:'Club',		hidden:true }, // Club ID
         { field:'LOE_RRC',	hidden:true }, // LOE/RRC
         { field:'Club',		hidden:true }, // Club ID
-        { field:'Dorsal',	    width:'7%',   sortable:false, align: 'center',	title: '<?php _e('Dorsal'); ?>',formatter:formatDorsal },
-        //{ field:'LogoClub',	width:'7%',    sortable:false, align: 'center',	title: '',formatter:formatLogo },
+        { field:'Dorsal',	    width:'5%',   sortable:false, align: 'center',	title: '<?php _e('Dorsal'); ?>',formatter:formatDorsal },
+        { field:'LogoClub',	    width:'5%',    sortable:false, align: 'center',	title: '',formatter:formatLogo },
         { field:'Nombre',	    width:'15%',   sortable:false, align: 'right',	title: '<?php _e('Nombre'); ?>' },
         { field:'Licencia',	    width:'10%',   sortable:false, align: 'center',title: '<?php _e('Lic');    ?>' },
         { field:'Categoria',    width:'5%',    sortable:false, align: 'center',title: '<?php _e('Cat');    ?>' },
-        { field:'Grado',	    width:'7%',    sortable:false, align: 'center',title: '<?php _e('Grado');  ?>' },
+        { field:'Grado',	    width:'5%',    sortable:false, align: 'center',title: '<?php _e('Grado');  ?>' },
         { field:'NombreGuia',	width:'20%',   sortable:false, align: 'right',	title: '<?php _e('Gu&iacute;a'); ?>' },
         { field:'NombreClub',	width:'18%',   sortable:false, align: 'right',	title: '<?php _e('Club');   ?>' },
         { field:'NombreEquipo',	hidden:true },
@@ -100,13 +98,7 @@ $('#pb_inscripciones-datagrid').datagrid({
         { field:'Celo',		    width:'5%', align:'center', formatter: formatCelo,	title: '<?php _e('Celo');   ?>' }
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-    rowStyler:myRowStyler,
-    groupFormatter: function(club,rows){ // set proper colors on team rows
-        var fg='<?php echo $config->getEnv('vw_hdrfg2'); ?>';
-        var bg='<?php echo $config->getEnv('vw_hdrbg2'); ?>';
-        var logo='<img width="40" height="40" alt="'+rows[0]['LogoClub']+'" src="/agility/images/logos/'+rows[0]['LogoClub']+'"/>'
-        return logo+'&nbsp;<span style="font-size:1.5em;font-weight:bold;background-color:' + bg + ';color:' + fg + ';font-weight:bold;">' +club+'</span>';
-    }
+    rowStyler:myRowStyler
 });
 
 </script>
