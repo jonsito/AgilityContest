@@ -35,7 +35,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <tbody>
                 <thead>
                 <tr>
-                    <th id="pb_finales-NombreManga" colspan="2">(No hay ronda seleccionada)</th>
+                    <th id="pb_finales-NombreRonda" colspan="2">(No hay ronda seleccionada)</th>
                     <th id="pb_finales-Juez1" colspan="2" style="text-align:center">Juez 1:</th>
                     <th id="pb_finales-Juez2" colspan="2" style="text-align:center">Juez 2:</th>
                 </tr>

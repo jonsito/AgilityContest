@@ -222,6 +222,7 @@ class Clasificaciones extends DBObject {
 		$result['rows']=$final;
 		$result['trs1']=$c1['trs'];
 		$result['trs2']=$c2['trs'];
+        $result['jueces']=array($c1['manga']->NombreJuez1,$c1['manga']->NombreJuez2);
 		return $result;
 	}
 	

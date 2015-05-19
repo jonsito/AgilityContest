@@ -185,8 +185,12 @@ function pb_updateFinales() {
 		},
 		success: function(dat) {
             // nombres de las mangas
+            $('#pb_finales-NombreRonda').text(ronda.Nombre);
             $('#pb_resultados_thead_m1').text(ronda.NombreManga1);
             $('#pb_resultados_thead_m2').text(ronda.NombreManga2);
+            // datos de los jueces
+            $('#pb_finales-Juez1').text((dat['jueces'][0]=="-- Sin asignar --")?"":'Juez 1: ' + dat['jueces'][0]);
+            $('#pb_finales-Juez2').text((dat['jueces'][1]=="-- Sin asignar --")?"":'Juez 2: ' + dat['jueces'][1]);
             // datos de trs manga 1
             $('#pb_finales-Ronda1').text(ronda.NombreManga1);
             $('#pb_finales-Distancia1').text('Distancia: ' + dat['trs1'].dist + 'm.');
