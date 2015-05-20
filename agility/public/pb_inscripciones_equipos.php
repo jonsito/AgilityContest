@@ -31,7 +31,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span style="float:right;" id="pb_header-texto">Listado de inscritos</span>
 		</div>
 		<div id="pb_inscripciones-data" data-options="region:'center'" >
-			<table id="pb_inscriciones_eq3-datagrid"></table>
+			<table id="pb_inscripciones_eq3-datagrid"></table>
 		</div>
         <div id="pb_inscripciones-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>
@@ -91,19 +91,23 @@ $('#pb_inscripciones_eq3-datagrid').datagrid({
     view: scrollview,
     pageSize: 50,
     rowStyler: function(idx,row){ // set proper colors on team rows
-        var fg='<?php echo $config->getEnv('vw_hdrfg2'); ?>';
-        var bg='<?php echo $config->getEnv('vw_hdrbg2'); ?>';
-        return 'background-color:'+bg+';color:'+fg+';font-weight:bold;';
+        // TODO study why this doesn't work
+        // return {'class':'pb_inscripciones_eq3_teamrow'};
+        return "background-color:<?php echo $config->getEnv('vw_hdrbg2')?>;"+
+            "color:<?php echo $config->getEnv('vw_hdrfg2')?>;"+
+            "font-weight:bold;"+
+            "height:40px;"+
+            "line-height: 40px;";
     },
     // especificamos un formateador especial para desplegar la tabla de inscritos por equipo
     detailFormatter:function(idx,row){
-        return '<div style="padding:2px"><table id="pb_equipos3-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
+        return '<div style="padding:2px"><table id="pb_inscripciones_eq3-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
     },
     onExpandRow: function(idx,row) {
         showInscripcionesByTeam(idx,row);
     },
     onLoadSuccess: function(data) {
-        var dg = $('#pb_equipos3-datagrid');
+        var dg = $('#pb_inscripciones_eq3-datagrid');
         var count = dg.datagrid('getRows').length;
         for(var i=0; i<count; i++){ dg.datagrid('expandRow',i); }
     }
@@ -112,7 +116,7 @@ $('#pb_inscripciones_eq3-datagrid').datagrid({
 //mostrar las inscripciones agrupadas por equipos
 function showInscripcionesByTeam(index,team){
     // - sub tabla de participantes asignados a un equipo
-    var mySelf='#pb_equipos3-datagrid-'+replaceAll(' ','_',team.ID);
+    var mySelf='#pb_inscripciones_eq3-datagrid-'+replaceAll(' ','_',team.ID);
     $(mySelf).datagrid({
         width: '100%',
         height: 'auto',
@@ -152,15 +156,15 @@ function showInscripcionesByTeam(index,team){
         rowStyler:myRowStyler,
         // on double click fireup editor dialog
         onResize:function(){
-            $('#pb_equipos3-datagrid').datagrid('fixDetailRowHeight',index);
+            $('#pb_inscripciones_eq3-datagrid').datagrid('fixDetailRowHeight',index);
         },
         onLoadSuccess:function(){
             setTimeout(function(){
-                $('#pb_equipos3-datagrid').datagrid('fixDetailRowHeight',index);
+                $('#pb_inscripciones_eq3-datagrid').datagrid('fixDetailRowHeight',index);
             },0);
         }
     }); // end of inscritos-by-team_team_id
-    $('#pb_equipos3-datagrid').datagrid('fixDetailRowHeight',index);
+    $('#pb_inscripciones_eq3-datagrid').datagrid('fixDetailRowHeight',index);
 } // end of showPerrosByTeam
 
 </script>

@@ -76,3 +76,29 @@ td.pb_club {
     text-align:right;
     font-size: 12px;
 }
+
+/************** datos de las tablas de clasificaciones por equipos */
+.pb_equipos3 {
+    border-width:0px;
+    table-layout:fixed;
+    width:1000px;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+.pb_equipos3 td {
+    display:inline-block;
+    padding-right: -5px;
+    text-align:right;
+    vertical-align:top;
+    width:20%;
+}
+
+/************* estilos de la tabla de inscripciones por equipos
+.pb_inscripciones_eq3_teamrow {
+    background-color:<?php echo $config->getEnv('vw_hdrbg2')?>;
+    color:<?php echo $config->getEnv('vw_hdrfg2')?>;
+    font-weight:bold;
+    height:40px;
+    line-height: 40px;
+}

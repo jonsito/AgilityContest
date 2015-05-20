@@ -21,8 +21,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 /************************** Gestion de datos de la ventana de manga activa */
 
-/* formatters para el datagrid dlg_resultadosManga */
+/* formatters generales */
 
+function formatBold(val,row,idx) { return '<span style="font-weight:bold">'+val+'</span>'; }
+function formatBoldBig(val,row,idx) { return '<span style="font-weight:bold;font-size:1.5em;">'+val+'</span>'; }
+function formatBorder(val,row,idx) { return 'border-left: 1px solid #000;'; }
+
+/* formatters para el datagrid dlg_resultadosManga */
 function formatPuesto(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
 function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
 function formatVelocidad(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFloat(val).toFixed(1); }
@@ -54,20 +59,17 @@ function formatRSCE(val,row,idx) {
 	default: return val;
 	}
 }
+/* stylers para formateo de celdas especificas */
 function formatOk(val,row,idx) { return (parseInt(val)==0)?"":"&#x2714;"; }
 function formatNotOk(val,row,idx) { return (parseInt(val)!=0)?"":"&#x2714;"; }
 function formatCerrada(val,row,idx) { return (parseInt(val)==0)?"":"&#x26D4;"; }
 function formatRing(val,row,idx) { return (val==='-- Sin asignar --')?"":val; }
-
-/* stylers para formateo de celdas especificas */
-function formatBorder(val,row,idx) { return 'border-left: 1px solid #000;'; }
-
-function checkPending(val,row,idx) { return ( parseInt(row.Pendiente)!=0 )? 'color: #f00;': ''; }
-
 function formatCelo(val,row,idx) { return (parseInt(val)==0)?" ":"&#x2665;"; }
+function checkPending(val,row,idx) { return ( parseInt(row.Pendiente)!=0 )? 'color: #f00;': ''; }
 function competicionRowStyler(idx,row) { return (row.Dorsal=='*')? myRowStyler(-1,row) : myRowStyler(idx,row); }
 function formatOrdenSalida(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold;height:40px;line-height:40px">'+(1+idx)+'</span>'; }
 function formatDorsal(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold;height:40px;line-height:40px">'+val+'</span>'; }
+
 function formatLogo(val,row,idx) {
     if (typeof(val)==='undefined') return ""; // TODO: no idea why idx:0 has no logo declared
     return '<img width="40" height="40" alt="'+val+'" src="/agility/images/logos/'+val+'"/>';
@@ -77,25 +79,49 @@ function formatTeamResults( value , rows ) {
     // todo: check eq3 or eq4 contest and eval time and penalization
     var time=0.0;
     var penal=0.0;
+    var logos="";
+
+    function addLogo(logo) {
+        if (logos.indexOf(logo)>=0) return;
+        logos = logos + '&nbsp;<img height="40px" src="/agility/images/logos/'+ logo + '"/>';
+    }
+
     for (var n=0;n<3;n++) {
-        if ( typeof(rows[n])==='undefined') { penal+=200.0;}
-        else {penal+=parseFloat(rows[n].Penalizacion); time+=parseFloat(rows[n].Tiempo);}
+        if ( typeof(rows[n])==='undefined') {
+            penal+=200.0;
+            logos = logos + '&nbsp';
+        } else {
+            penal+=parseFloat(rows[n].Penalizacion);
+            time+=parseFloat(rows[n].Tiempo);
+            addLogo(rows[n].LogoClub);
+        }
     }
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
-    return '<table class="team-results"><tbody><tr>'+
-        '<td>Equipo: '+value+'</td><td>Tiempo: '+(time).toFixed(2)+'</td><td>Penalizaci&oacute;n:'+(penal).toFixed(2)+'</td>'+
+    var res= '<table  class="pb_equipos3"><tbody><tr>'+
+        '<td style="width:10%;text-align:left;">'+logos+'</td>'+
+        '<td style="width:50%;text-align:left;">Equipo: '+value+'</td>' +
+        '<td style="width:20%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</td>' +
+        '<td style="width:20%;text-align:right;">Penalizaci&oacute;n:'+(penal).toFixed(2)+'</td>'+
         '</tr></tbody></table>';
+    return res;
 }
 
 function formatTeamClasificaciones(value,rows) {
+
+    var time=0.0;
+    var penal=0.0;
+    var logos="";
 
     function sortResults(a,b) {
         if (a.penal== b.penal) return (a.time - b.time);
         return (a.penal - b.penal);
     }
 
-    var time=0.0;
-    var penal=0.0;
+    function addLogo(logo) {
+        if (logos.indexOf(logo)>=0) return;
+        logos = logos + '&nbsp;<img height="40px" src="/agility/images/logos/'+ logo + '"/>';
+    }
+
     // cogemos y ordenamos los datos de cada manga
     var manga1={ time:0.0, penal:0.0, perros:[] };
     var manga2={ time:0.0, penal:0.0, perros:[] };
@@ -103,9 +129,11 @@ function formatTeamClasificaciones(value,rows) {
         if (typeof(rows[n]) === 'undefined') {
             manga1.perros[n] = {time: parseFloat(0.0), penal: parseFloat(200.0)};
             manga2.perros[n] = {time: parseFloat(0.0), penal: parseFloat(200.0)};
+            logos = logos + '&nbsp';
         } else {
             manga1.perros[n] = {time: parseFloat(rows[n].T1), penal: parseFloat(rows[n].P1)};
             manga2.perros[n] = {time: parseFloat(rows[n].T2), penal: parseFloat(rows[n].P2)};
+            addLogo(rows[n].LogoClub);
         }
     }
     // ordenamos ahora las matrices de resultados
@@ -122,12 +150,14 @@ function formatTeamClasificaciones(value,rows) {
     time=manga1.time+manga2.time;
     penal=manga1.penal+manga2.penal;
     // !Por fin! componemos una tabla html como respuesta
-    return '<table class="team-clasific"><tbody><tr>'+
-        '<td class="team-clasific1">Equipo: '+value+'</td>' +
-        '<td class="team-clasific2"> T1: '+(manga1.time).toFixed(2)+' - P1: '+(manga1.penal).toFixed(2)+'</td>'+
-        '<td class="team-clasific3"> T2: '+(manga2.time).toFixed(2)+' - P2: '+(manga2.penal).toFixed(2)+'</td>'+
-        '<td class="team-clasific4"> Time: '+(time).toFixed(2)+' - Penal: '+(penal).toFixed(2)+'</td>'+
+    var res= '<table class="pb_equipos3"><tbody><tr">'+
+        '<td style="width:10%;text-align:left;">'+logos+'</td>'+
+        '<td style="width:25%;text-align:left;"> Equipo: '+value+'</td>' +
+        '<td > T1: '+(manga1.time).toFixed(2)+' - P1: '+(manga1.penal).toFixed(2)+'</td>'+
+        '<td > T2: '+(manga2.time).toFixed(2)+' - P2: '+(manga2.penal).toFixed(2)+'</td>'+
+        '<td style="width:25%;"> Time: '+(time).toFixed(2)+' - Penal: '+(penal).toFixed(2)+'</td>'+
         '</tr></tbody></table>';
+    return res;
 }
 
 /**

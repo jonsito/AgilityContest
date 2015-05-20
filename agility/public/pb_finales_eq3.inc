@@ -72,15 +72,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                         <th colspan="4"> <span class="resultados_theader">Clasificaci&oacute;n</span></th>
                     </tr>
                     <tr>
-                        <!--
                         <th data-options="field:'Perro',		hidden:true " ></th>
-                         -->
                         <th data-options="field:'Dorsal',		width:20, align:'left'" > Dors.</th>
-                        <th data-options="field:'LogoClub',		width:20, align:'left',formatter:formatLogo" > &nbsp;</th>
-                        <th data-options="field:'Nombre',		width:35, align:'center'"> Nombre</th>
+                        <th data-options="field:'LogoClub',		hidden:true" ></th>
+                        <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold""> Nombre</th>
                         <th data-options="field:'Licencia',		width:15, align:'center'" > Lic.</th>
                         <th data-options="field:'Categoria',	width:15, align:'center'" > Cat.</th>
-                        <th data-options="field:'Grado',		width:15, align:'center'" > Grd.</th>
                         <th data-options="field:'NombreGuia',	width:50, align:'right'" > Guia</th>
                         <th data-options="field:'NombreClub',	width:45, align:'right'" > Club</th>
                         <th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"> F/T</th>
@@ -98,7 +95,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                         <th data-options="field:'Tiempo',		width:25, align:'right',formatter:formatTF,styler:formatBorder">Tiempo</th>
                         <th data-options="field:'Penalizacion',	width:25, align:'right',formatter:formatPenalizacionFinal" > Penaliz.</th>
                         <th data-options="field:'Calificacion',	width:20, align:'center'" > Calif.</th>
-                        <th data-options="field:'Puesto',		width:15, align:'center',formatter:formatPuestoFinalBig" > Puesto </th>
+                        <th data-options="field:'Puesto',		width:15, align:'center',formatter:formatBold" > Puesto </th>
                     </tr>
                     </thead>
                 </table>

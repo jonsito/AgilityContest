@@ -89,6 +89,21 @@ function myRowStyler(idx,row) {
         border: 0px none transparent;
     }
 
+    /* ajuste de las cabeceras de los datagrid groupview */
+    .datagrid-body .datagrid-group {
+        background-color: #ccc;
+        height:40px;
+        line-height: 40px;
+    }
+    .datagrid-body .datagrid-group .datagrid-group-title {
+        height:40px;
+        line-height: 40px;
+        font-weight: bold;
+    }
+    .datagrid-body .datagrid-group .datagrid-group-expander {
+        margin-top:7px;
+    }
+
 </style>
 
 </head>
