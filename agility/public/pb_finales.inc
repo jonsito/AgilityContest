@@ -63,7 +63,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </table>
         </div>
         <div id="pb_tabla" data-options="region:'center'">
-            <div id="pb_resultados-data" style="width:100%;height:800px">
                 <table id="pb_resultados-datagrid">
                     <thead>
                     <tr>
@@ -103,7 +102,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     </tr>
                     </thead>
                 </table>
-            </div>
         </div>
         <div id="pb_finales-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>

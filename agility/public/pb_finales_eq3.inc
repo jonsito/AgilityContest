@@ -63,7 +63,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </table>
         </div>
         <div id="pb_tabla" data-options="region:'center'">
-            <div id="pb_resultados-data" style="width:100%;height:800px">
                 <table id="pb_resultados-datagrid">
                     <thead>
                     <tr>
@@ -103,7 +102,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     </tr>
                     </thead>
                 </table>
-            </div>
         </div>
         <div id="pb_finales-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>
@@ -175,21 +173,23 @@ $('#pb_finales-window').window({
 });
 
 $('#pb_resultados-datagrid').datagrid({
-	// propiedades del panel asociado
-	fit: true,
-	border: false,
-	closable: false,
-	collapsible: false,
-	collapsed: false,
-	// propiedades del datagrid
-	toolbar:'#resultados-toolbar',
-	// no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
-	loadMsg: "Actualizando resultados de la ronda...",
-	pagination: false,
-	rownumbers: false,
-	fitColumns: true,
-	singleSelect: true,
-    autoRowHeight:true, // let the formatters decide the size
-	rowStyler:myRowStyler
+    // propiedades del panel asociado
+    fit: true,
+    border: false,
+    closable: false,
+    collapsible: false,
+    collapsed: false,
+    // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
+    loadMsg: "<?php _e('Actualizando clasificaciones de la ronda...');?>",
+    // propiedades del datagrid
+    pagination: false,
+    rownumbers: false,
+    fitColumns: true,
+    singleSelect: true,
+    rowStyler:myRowStyler,
+    view: gview,
+    groupField: 'NombreEquipo',
+    groupFormatter: formatTeamClasificaciones
 });
+
 </script>
