@@ -30,7 +30,7 @@ if( ! function_exists('openssl_get_publickey')) {
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
+<link rel="stylesheet" type="text/css" href="/agility/css/videowall_css_orig.php" />
 <link rel="stylesheet" type="text/css" href="/agility/css/public_css.php" />
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>

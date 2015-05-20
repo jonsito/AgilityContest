@@ -18,39 +18,110 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!-- Presentacion del orden de salida de la jornada -->
 <div id="vw_ordensalida-window">
 	<div id="vw_ordensalida-layout" style="width:100%">
-		<div id="vwi_ordensalida-Cabecera" data-options="region:'north',split:false" style="height:10%" class="vw_floatingheader">
-			<span style="float:left;" id="vw_ordensalida-infocabecera">Cabecera</span>
-			<span style="float:right;" id="vw_ordensalida-texto" >Orden de salida</span>
+		<div id="vw_ordensalida-Cabecera" data-options="region:'north',split:false" style="height:100px" class="vw_floatingheader">
+            <img id="vw_header-logo" src="/agility/images/logos/rsce.png" style="float:left;width:75px" />
+		    <span style="float:left;padding:10px;" id="vw_header-infocabecera">Cabecera</span>
+			<span style="float:right;" id="vw_header-texto">
+                Orden de Salida<br />
+                <span id="vw_ordensalida-NombreManga" style="width:200px">(Manga no definida)</span>
+            </span>
 		</div>
-		<div id="vwi_tabla" data-options="region:'center'">
-			<span id="vw_ordensalida-data"></span>
+		<div id="vw_tabla" data-options="region:'center'">
+			<table id="vw_ordensalida-datagrid"></table>
 		</div>
+        <div id="vw_ordensalida-footer" data-options="region:'south',split:false" style="height:100px" class="vw_floatingfooter">
+            <span id="vw_footer-footerData"></span>
+        </div>
 	</div>
-</div> <!-- vw_llamada-window -->
+</div> <!-- vw_ordensalida-window -->
 
 <script type="text/javascript">
+
 $('#vw_ordensalida-layout').layout({fit:true});
 
-//add 'callback' property to store interval references
-$.extend($.fn.window.defaults,{callback:null});
 $('#vw_ordensalida-window').window({
-	fit:true,
-	noheader:true,
-	border:false,
-	closable:false,
-	collapsible:false,
-	collapsed:false,
-	resizable:true,
-	callback: null, 
-	// 1 minute poll is enouth for this, as no expected changes during a session
-	onOpen: function() {
-		// call once and then fire as timed task
-		vwos_procesaOrdenSalida();
-		$(this).window.defaults.callback = setInterval(vwos_procesaOrdenSalida,10000);
-	},
-	onClose: function() { 
-		clearInterval($(this).window.defaults.callback);
-	}
+    fit:true,
+    noheader:true,
+    border:false,
+    closable:false,
+    collapsible:false,
+    collapsed:false,
+    resizable:true,
+    callback: null,
+    // 1 minute poll is enouth for this, as no expected changes during a session
+    onOpen: function() {
+        // update header
+        vw_getHeaderInfo();
+        // update footer
+        vw_setFooterInfo();
+        // call once and then fire as timed task
+        // 1 minute poll is enouth for this, as no expected changes during a session
+        vw_procesaOrdenSalida();
+        $(this).window.defaults.callback = setInterval(vw_procesaOrdenSalida,60000);
+    },
+    onClose: function() {
+        clearInterval($(this).window.defaults.callback);
+    }
+});
+
+$('#vw_ordensalida-datagrid').datagrid({
+    method: 'get',
+    url: '/agility/server/database/tandasFunctions.php',
+    queryParams: {
+        Operation: 'getDataByTanda',
+        Prueba: workingData.prueba,
+        Jornada: workingData.jornada,
+        Sesion: 1, // defaults to "-- sin asignar --"
+        ID: 0 // Tanda 0 defaults to every tandas
+    },
+    loadMsg: "Actualizando orden de salida ...",
+    pagination: false,
+    rownumbers: false,
+    fitColumns: true,
+    singleSelect: true,
+    autoRowHeight: true,
+    nowrap: false,
+    width: '100%',
+    height: 'auto',
+    columns:[[
+        { field:'Prueba',		width:0, hidden:true }, // extra field to be used on form load/save
+        { field:'Jornada',		width:0, hidden:true }, // extra field to be used on form load/save
+        { field:'Manga',		width:0, hidden:true },
+        { field:'Tanda',		width:0, hidden:true }, // string with tanda's name
+        { field:'ID',			width:0, hidden:true }, // tanda ID
+        { field:'Perro',     	width:'5%', align:'center',	title: '#',formatter: formatOrdenSalida },
+        { field:'Pendiente',	width:0, hidden:true },
+        { field:'Tanda',		width:0, hidden:true },
+        { field:'Equipo',		width:0, hidden:true },
+        { field:'Logo',     	width:'5%', align:'center',	title: '',formatter: formatLogo },
+        { field:'NombreEquipo',	width:'12%', align:'center',title: 'Equipo',hidden:true},
+        { field:'Dorsal',		width:'5%', align:'center',	title: 'Dorsal', styler:checkPending },
+        { field:'Nombre',		width:'15%', align:'left',		title: 'Nombre'},
+        { field:'Licencia',		width:'5%', align:'center',	title: 'Licencia'},
+        { field:'NombreGuia',	width:'23%', align:'right',	title: 'Guia' },
+        { field:'NombreClub',	width:'19%', align:'right',	title: 'Club' },
+        { field:'Categoria',	width:'4%', align:'center',	title: 'Categ.' },
+        { field:'Grado',		width:'4%', align:'center',	title: 'Grado' },
+        { field:'Celo',			width:'4%', align:'center',	title: 'Celo', formatter:formatCelo },
+        { field:'Observaciones',width:'12%', align:'center',title: 'Observaciones' }
+    ]],
+    // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+    rowStyler:myRowStyler,
+    onLoadSuccess:function(){
+        /*
+        mySelf=$('#vw_ordensalida-datagrid');
+        // show/hide team name
+        if (isTeamByJornada(workingData.datosJornada) ) {
+            mySelf.datagrid('showColumn','NombreEquipo');
+            mySelf.datagrid('hideColumn','Observaciones');
+        } else  {
+            mySelf.datagrid('hideColumn','NombreEquipo');
+            mySelf.datagrid('showColumn','Observaciones');
+        }
+        */
+        $('#vw_ordensalida-datagrid').datagrid('fitColumns'); // expand to max width
+
+    }
 });
 
 </script>

@@ -74,7 +74,7 @@ class VideoWall {
 			$this->tandatype=$tandatype;
 			$this->mode=$mode;	
 		}
-        $this->club= new Clubes("videowall");
+        $this->club= $this->myDBObject->__getArray("Clubes",$this->prueba['Club']);
 		$this->myLogger->info("sesion:$sessionid prueba:{$this->prueba['ID']} jornada:{$this->jornada['ID']} manga:{$this->mangaid} tanda:{$this->tandatype} mode:$mode");
 	}
 
@@ -406,6 +406,17 @@ class VideoWall {
 		echo '</table>';
 		return 0;
 	}
+
+    function videowall_infodata() {
+        $res= array(
+            'Prueba' => $this->prueba,
+            'Jornada' => $this->jornada,
+            'Manga' => ($this->manga==null)? array() : $this->manga,
+            'Club' => $this->club // club organizador
+        );
+        echo json_encode($res);
+    }
+
 } 
 
 $sesion = http_request("Session","i",0);
@@ -420,6 +431,7 @@ $mode = http_request("Mode","i",0); // used on access from public
 
 $vw=new VideoWall($sesion,$prueba,$jornada,$manga,$tanda,$mode);
 try {
+    if($operacion==="infodata") return $vw->videowall_infodata();
 	if($operacion==="livestream") return $vw->videowall_livestream();
 	if($operacion==="llamada") return $vw->videowall_llamada($pendientes);
 	if($operacion==="resultados") return $vw->videowall_resultados();

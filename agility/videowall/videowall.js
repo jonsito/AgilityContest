@@ -15,6 +15,44 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+/**
+ * Obtiene la informacion de la prueba para cabecera y pie de pagina
+ */
+function vw_getHeaderInfo() {
+    $.ajax( {
+        type: "GET",
+        dataType: 'json',
+        url: "/agility/server/web/videowall.php",
+        data: {
+            Operation: 'infodata',
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada,
+            Manga: workingData.manga,
+            Tanda: workingData.tanda,
+            Mode: workingData.mode
+        },
+        success: function(data,status,jqxhr) {
+            var str='Prueba: ' + data.Prueba.Nombre+" <br /> Jornada: "+ data.Jornada.Nombre;
+            $('#vw_header-infocabecera').html(str);
+            // TODO: fix logo when undefined or invalid
+            $('#vw_header-logo').attr('src','/agility/images/logos/'+data.Club.Logo);
+        }
+    });
+}
+
+function vw_setFooterInfo() {
+    var logo=nombreCategorias[workingData.federation]['logo'];
+    var logo2=nombreCategorias[workingData.federation]['logo2'];
+    var url=nombreCategorias[workingData.federation]['url'];
+    var url2=nombreCategorias[workingData.federation]['url2'];
+    $('#vw_footer-footerData').load("/agility/videowall/vw_footer.php",{},function(response,status,xhr){
+        $('#vw_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
+        $('#vw_footer-urlFederation').attr('href',url);
+        $('#vw_footer-logoFederation2').attr('src','/agility/images/logos/'+logo2);
+        $('#vw_footer-urlFederation2').attr('href',url2);
+    });
+}
+
 function vwls_showOSD(val) {
 	if (val==0) $('#vwls_common').css('display','none');
 	else $('#vwls_common').css('display','initial');
@@ -130,23 +168,15 @@ function vwls_cronoManual(oper,tstamp) {
  * a la seleccion especificada
  * Se indica tambien si el perro esta o no pendiente de salir
  */
-function vwos_updateOrdenSalida(data) {
-	$.ajax( {
-		type: "GET",
-		dataType: 'html',
-		url: "/agility/server/web/videowall.php",
-		data: {
-			Operation: 'ordensalida',
-			Prueba: data.Prueba,
-			Jornada: data.Jornada,
-			Session: data.Session
-		},
-		success: function(data,status,jqxhr) {
-			$('#vw_ordensalida-data').html(data);
-			var str=$('#vw_NombrePrueba').val()+" - "+$('#vw_NombreJornada').val()+" - "+$('#vw_NombreManga').val();
-			$('#vw_ordensalida-infocabecera').html(str);
-		}
-	});
+function vw_updateOrdenSalida(data) {
+    if (data.Tanda<=0) return; // no data yet
+    $('#vw_ordensalida-datagrid').datagrid('reload',{
+        Operation: 'getDataByTanda',
+        Prueba: data.Prueba,
+        Jornada: data.Jornada,
+        Sesion: 1, // defaults to "-- sin asignar --"
+        ID:  data.Tanda // Tanda ID
+    });
 }
 
 function vwc_processCombinada(id,evt) {
@@ -354,7 +384,7 @@ function vw_processParciales(id,evt) {
  * retrieve last 'connect' event for current sessionID
  * call updateInscripciones with retrieved data
  */
-function vwos_procesaOrdenSalida() {
+function vw_procesaOrdenSalida() {
 	$.ajax({
 		type: "GET",
 		url: "/agility/server/database/eventFunctions.php",
@@ -369,7 +399,7 @@ function vwos_procesaOrdenSalida() {
 			if ( response['total']!=0) {
 				var row=response['rows'][0];
 				var info= parseEvent(row.Data);
-				vwos_updateOrdenSalida(info);
+				vw_updateOrdenSalida(info);
 			}
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {

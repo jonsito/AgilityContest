@@ -131,7 +131,36 @@ var ac_config= {
 </script>
 
 <style>
-body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
+
+    body {
+        /* default background from environment */
+        font-size: 100%;
+        background: <?php echo $config->getEnv('easyui_bgcolor'); ?>;
+    }
+
+    /* remove underlines around footer imagelinks */
+    a,
+    a img {
+        text-decoration: none;
+        outline: none;
+        border: 0px none transparent;
+    }
+
+    /* ajuste de las cabeceras de los datagrid groupview */
+    .datagrid-body .datagrid-group {
+        background-color: #ccc;
+        height:40px;
+        line-height: 40px;
+    }
+    .datagrid-body .datagrid-group .datagrid-group-title {
+        height:40px;
+        line-height: 40px;
+        font-weight: bold;
+    }
+    .datagrid-body .datagrid-group .datagrid-group-expander {
+        margin-top:7px;
+    }
+
 </style>
 
 </head>
