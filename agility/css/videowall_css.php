@@ -86,7 +86,7 @@ td.vw_club {
     white-space:nowrap;
 }
 
-.vw_equipos3 td {
+.vw_equipos3 span {
     display:inline-block;
     padding-right: -5px;
     text-align:right;

@@ -96,9 +96,9 @@ $('#vw_parciales-datagrid').datagrid({
     fitColumns: true,
     singleSelect: true,
     autoRowHeight: true,
-    view: gview,
-    groupField: 'NombreEquipo',
-    groupFormatter: formatTeamResults,
+    // view: gview,
+    // groupField: 'NombreEquipo',
+    // groupFormatter: formatTeamResults,
     // toolbar: '#resultadosmanga-toolbar',
     columns:[[
         { field:'Manga',		hidden:true },

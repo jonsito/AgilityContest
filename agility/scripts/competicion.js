@@ -97,12 +97,13 @@ function formatTeamResults( value , rows ) {
         }
     }
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
-    var res= '<table  class="pb_equipos3"><tbody><tr>'+
-        '<td style="width:10%;text-align:left;">'+logos+'</td>'+
-        '<td style="width:50%;text-align:left;">Equipo: '+value+'</td>' +
-        '<td style="width:20%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</td>' +
-        '<td style="width:20%;text-align:right;">Penalizaci&oacute;n:'+(penal).toFixed(2)+'</td>'+
-        '</tr></tbody></table>';
+
+    var res= '<div class="vw_equipos3">'+
+        '<span style="width:15%;text-align:left;">'+logos+'</span>'+
+        '<span style="width:45%;text-align:left;">Equipo: '+value+'</span>' +
+        '<span style="width:20%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</span>' +
+        '<span style="width:20%;text-align:right;">Penalizaci&oacute;n:'+(penal).toFixed(2)+'</span>'+
+        '</div>';
     return res;
 }
 

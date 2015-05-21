@@ -86,7 +86,7 @@ td.pb_club {
     white-space:nowrap;
 }
 
-.pb_equipos3 td {
+.pb_equipos3 span {
     display:inline-block;
     padding-right: -5px;
     text-align:right;

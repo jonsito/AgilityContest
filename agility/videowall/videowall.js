@@ -45,6 +45,35 @@ function vw_updateWorkingData(evt,callback) {
 }
 
 /**
+ * Al recibir 'init' ajustamos el modo de visualización de la pantalla
+ * de resultados parciales para individual o equipos
+ * @param {object} evt Evento recibido. Debe ser de tipo init
+ * @param data informacion de la prueba,jornada, my manga
+ */
+function vw_initParcialesDatagrid(evt,data) {
+    var team=false;
+    var dg=$('#vw_parciales-datagrid');
+    var defaultView=$.fn.datagrid.defaults.view
+    if (parseInt(data.Jornada.Equipos3)==1) team=true;
+    if (parseInt(data.Jornada.Equipos4)==1) team=true;
+    if (team){
+        dg.datagrid({
+            view: gview,
+            groupField: 'NombreEquipo',
+            groupFormatter: formatTeamResults
+        });
+        dg.datagrid('hideColumn',"LogoClub");
+        dg.datagrid('hideColumn',"Grado");
+    } else {
+        dg.datagrid({view:$.fn.datagrid.defaults.view});
+        dg.datagrid('showColumn',"LogoClub");
+        dg.datagrid('showColumn',"Grado");
+    }
+    // clear datagrid
+    dg.datagrid('loadData', {"total":0,"rows":[]});
+}
+
+/**
  * update info on prueba, jornada...
  * set up header and footer
  * @param {object} evt received 'init' event
@@ -202,20 +231,7 @@ function vw_updateParciales(evt,data) {
             $('#vw_parciales-TRM').text('T.T.Maximo: ' + dat['trs'].trm + 's.');
             $('#vw_parciales-Velocidad').text('Velocidad: ' + dat['trs'].vel + 'm/s');
             // actualizar datagrid
-            var team=false;
-            var dg=$('#vw_parciales-datagrid');
-            if (parseInt(data['Jornada'].Equipos3)==1) team=true;
-            if (parseInt(data['Jornada'].Equipos4)==1) team=true;
-            if (team){
-                dg.datagrid({view:gview});
-                dg.datagrid('hideColumn',"LogoClub");
-                dg.datagrid('hideColumn',"Grado");
-            } else {
-                dg.datagrid({view:$.fn.datagrid.defaults.view});
-                dg.datagrid('showColumn',"LogoClub");
-                dg.datagrid('showColumn',"Grado");
-            }
-            dg.datagrid('loadData',dat);
+            $('#vw_parciales-datagrid').datagrid('loadData',dat);
         }
     });
 }
@@ -413,10 +429,10 @@ function vw_procesaParciales(id,evt) {
 		return; 
 	case 'init': // operator starts tablet application
         vw_updateWorkingData(event,function(e,d){
-            vw_updateDataInfo(e,d);
+            $('#vw_header-infoprueba').html("Cabecera");
             $('#vw_header-infomanga').html("(Manga no definida)");
-            // clear datagrid
-            $('#vw_parciales-datagrid').datagrid('loadData', {"total":0,"rows":[]});
+            vw_updateDataInfo(e,d);
+            vw_initParcialesDatagrid(e,d);
         });
         return;
 	case 'open': // operator select tanda:
