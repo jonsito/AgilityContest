@@ -70,8 +70,11 @@ function competicionRowStyler(idx,row) { return (row.Dorsal=='*')? myRowStyler(-
 function formatOrdenSalida(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold;height:40px;line-height:40px">'+(1+idx)+'</span>'; }
 function formatDorsal(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold;height:40px;line-height:40px">'+val+'</span>'; }
 
+function formatOrdenLlamadaPista(val,row,idx) { if (val<=0) return ""; return '<span style="font-weight:bold;font-size:1.5em;">'+val+'</span>'; }
+function formatLlamadaGuia(val,row,idx) { if (row.Orden>0) return val; return '<span style="font-weight:bold;font-size:1.4em;">'+val+'</span>'; }
 function formatLogo(val,row,idx) {
-    if (typeof(val)==='undefined') return ""; // TODO: no idea why idx:0 has no logo declared
+    // TODO: no idea why idx:0 has no logo declared
+    if (typeof(val)==='undefined') return '<img width="40" height="40" alt="empty.png" src="/agility/images/logos/empty.png"/>';
     return '<img width="40" height="40" alt="'+val+'" src="/agility/images/logos/'+val+'"/>';
 }
 

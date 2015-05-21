@@ -78,10 +78,22 @@ function initialize() {
 function myRowStyler(idx,row) {
 	var res="background-color:";
 	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
-	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
+    var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
- 
+
+/* same as above, but tracks tanda and team information */
+function myLlamadaRowStyler(idx,row) {
+    var res="background-color:";
+    var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
+    var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
+    var tnd='<?php echo $config->getEnv('vw_hdrbg2'); ?>';
+    var eqp='<?php echo $config->getEnv('vw_hdrbg3'); ?>';
+    if (parseInt(row.Orden)==-1) return res+tnd+";";
+    if (parseInt(row.Orden)==0) return res+eqp+";";
+    if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
+}
+
 var ac_config= {
 	// version, logging y depuracion
 	'debug_level'		: '<?php echo $config->getEnv('debug_level'); ?>',

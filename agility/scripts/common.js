@@ -259,7 +259,7 @@ function setupByJornada(prueba,jornada) {
             }
             // store jornada data
             setJornada(data);
-            // now retrieve jornada team's info
+            // now retrieve teams by jornada  info
             $.ajax({
                 type:'GET',
                 url:"/agility/server/database/equiposFunctions.php",
@@ -281,7 +281,7 @@ function setupByJornada(prueba,jornada) {
                     return false; // prevent default fireup of event trigger
                 }
             });
-            // and finally retrieve prueba team's info
+            // and finally retrieve prueba info
             $.ajax({
                 type:'GET',
                 url:"/agility/server/database/pruebaFunctions.php",

@@ -1,5 +1,5 @@
 <!-- 
-pb_parciales.inc
+vw_parciales.inc
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 

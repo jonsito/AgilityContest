@@ -105,24 +105,6 @@ function vwls_showOSD(val) {
 	else $('#vwls_common').css('display','initial');
 }
 
-function vwc_updatePendingQueue(event,pendientes) {
-	$.ajax( {
-		type: "GET",
-		dataType: 'html',
-		url: "/agility/server/web/videowall.php",
-		data: {
-			Operation: 'llamada',
-			Pendientes: pendientes,
-			Session: workingData.sesion
-		},
-		success: function(data,status,jqxhr) {
-			$('#vwc_listaPendientes').html(data);
-			var str=$('#vw_NombrePrueba').val()+" - "+$('#vw_NombreJornada').val();
-			$('#vw_llamada-infocabecera').html(str);
-		}
-	});
-}
-
 function vwls_updateData(data) {
 	if (data["Faltas"]!=-1) $('#vwls_Faltas').html(data["Faltas"]);
 	if (data["Tocados"]!=-1) $('#vwls_Tocados').html(data["Tocados"]);
@@ -193,6 +175,27 @@ var myCounter = new Countdown({
 function vwls_cronoManual(oper,tstamp) {
 	myCounter.stop();
 	$('#cronomanual').Chrono(oper,tstamp);
+}
+
+/**
+ * Actualiza el datagrid de llamada a pista con los datos recibidos
+ * @param {object} evt event
+ * @param {object} data system status data info
+ */
+function vw_updateLlamada(evt,data) {
+    $.ajax( {
+        type: "GET",
+        dataType: 'json',
+        url: "/agility/server/web/videowall.php",
+        data: {
+            Operation: 'llamada',
+            Pendientes: 25,
+            Session: workingData.sesion
+        },
+        success: function(dat,status,jqxhr) {
+            $('#vw_llamada-datagrid').datagrid('loadData',dat);
+        }
+    });
 }
 
 /**
@@ -381,18 +384,24 @@ function vwls_processLiveStream(id,evt) {
 	}
 }
 
-function vw_processLlamada(id,evt) {
+function vw_procesaLlamada(id,evt) {
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
 	switch (event['Type']) {
 	case 'null': // null event: no action taken
 		return; 
 	case 'init': // operator starts tablet application
-        setupByJornada(event['Pru'],event['Jor']); // use shortname to ensure data exists
+        vw_updateWorkingData(event,function(e,d){
+            $('#vw_header-infoprueba').html("Cabecera");
+            vw_updateDataInfo(e,d);
+        });
 		// TODO: muestra pendientes desde primera tanda
 		return;
 	case 'open': // operator select tanda:
-		vwc_updatePendingQueue(event,25);
+        vw_updateWorkingData(event,function(e,d){
+            vw_updateDataInfo(e,d);
+            vw_updateLlamada(e,d);
+        });
 		return;
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
@@ -410,10 +419,10 @@ function vw_processLlamada(id,evt) {
 	case 'crono_stop':  // parada crono electronico
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':	// operador pulsa aceptar
-		vwc_updatePendingQueue(event,25);
+        vw_updateWorkingData(event,vw_updateLlamada);
 		return;
 	case 'cancelar': // operador pulsa cancelar
-		vwc_updatePendingQueue(event,25);
+        vw_updateWorkingData(event,vw_updateLlamada);
 		return;
     case 'info':	// click on user defined tandas
         return;
