@@ -412,6 +412,7 @@ class VideoWall {
             'Prueba' => $this->prueba,
             'Jornada' => $this->jornada,
             'Manga' => ($this->manga==null)? array() : $this->manga,
+            'Tanda' => ($this->tanda==null)? array() : $this->tanda,
             'Club' => $this->club // club organizador
         );
         echo json_encode($res);

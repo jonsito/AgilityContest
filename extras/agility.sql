@@ -1418,7 +1418,7 @@ CREATE TABLE `jornadas` (
   `Open` tinyint(1) NOT NULL DEFAULT '0',
   `Equipos3` tinyint(1) NOT NULL DEFAULT '0',
   `Equipos4` tinyint(1) NOT NULL DEFAULT '0',
-  `PreAgility` tinyint(1) NOT NULL DEFAULT '1',
+  `PreAgility` tinyint(1) NOT NULL DEFAULT '0',
   `KO` tinyint(1) NOT NULL DEFAULT '0',
   `Especial` tinyint(1) NOT NULL DEFAULT '0',
   `PreAgility2` tinyint(1) NOT NULL DEFAULT '0',

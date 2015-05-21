@@ -488,8 +488,8 @@ class Tandas extends DBObject {
 	 * @param {number} $s Sesion ID. $s>1 -> muestra solo los perros de dicha sesion (s==1->'--sin asignar--')
 	 * @param {number} $t Tanda ID.
 	 *     $t=0; mira todos los perros de todas las tandas de la sesion indicada
-	 *     $t>0; mira SOLO los perros de la tanda (-$t)
-	 *     $t<0; mira todos los perros A PARTIR DE la tanda $t
+	 *     $t>0; mira SOLO los perros de la tanda
+	 *     $t<0; mira todos los perros A PARTIR DE la tanda (-$t)
 	 * @param {number} $pendientes Pendientes $p==0 -> muestra todos los perros; else muestra los $p primeros pendientes de salir
 	 */
 	private function getListaPerros($s=0,$t=0,$pendientes=0){

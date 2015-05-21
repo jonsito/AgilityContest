@@ -74,7 +74,7 @@ function tablet_updateSession(row) {
 			Tanda: row.ID
 	};
     if (parseInt(row.Manga)==0) {
-        // user clicked on UserDefined Tanda. send proper event
+        // TODO: user clicked on UserDefined Tanda. send proper event
     }
 	$.ajax({
 		type:	'GET',

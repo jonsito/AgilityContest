@@ -17,30 +17,50 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 /**
  * Obtiene la informacion de la prueba para cabecera y pie de pagina
+ * @param {object} evt Event data
+ * @param {function(event,data)} what to do with retrieved event and data
  */
-function vw_getHeaderInfo() {
+function vw_updateWorkingData(evt,callback) {
     $.ajax( {
         type: "GET",
         dataType: 'json',
         url: "/agility/server/web/videowall.php",
         data: {
             Operation: 'infodata',
-            Prueba: workingData.prueba,
-            Jornada: workingData.jornada,
-            Manga: workingData.manga,
-            Tanda: workingData.tanda,
-            Mode: workingData.mode
+            Prueba: evt.Prueba,
+            Jornada: evt.Jornada,
+            Manga: evt.Manga,
+            Tanda: evt.Tanda,
+            Session: workingData.sesion
         },
         success: function(data,status,jqxhr) {
-            var str='Prueba: ' + data.Prueba.Nombre+" <br /> Jornada: "+ data.Jornada.Nombre;
-            $('#vw_header-infocabecera').html(str);
-            // TODO: fix logo when undefined or invalid
-            $('#vw_header-logo').attr('src','/agility/images/logos/'+data.Club.Logo);
+            // common updates on every videowall:
+            setPrueba(data.Prueba);
+            setJornada(data.Jornada);
+            setManga(data.Manga);
+            // and finally invoke callback
+            callback(evt,data);
         }
     });
 }
 
-function vw_setFooterInfo() {
+/**
+ * update info on prueba, jornada...
+ * set up header and footer
+ * @param {object} evt received 'init' event
+ * @param {object} data data associated with event
+ */
+function vw_updateDataInfo(evt,data) {
+
+    // update header
+    var infoprueba='Prueba: ' + data.Prueba.Nombre+" <br /> Jornada: "+ data.Jornada.Nombre;
+    $('#vw_header-infoprueba').html(infoprueba);
+    $('#vw_header-logo').attr('src','/agility/images/logos/'+data.Club.Logo);
+    // this should be done in callback, as content is window dependent
+    // var infomanga=(typeof(data.Manga.Nombre)==='undefined')?'':data.Manga.Nombre
+    // $('#vw_header-infomanga').html(data.Manga.Nombre);
+
+    // update footer
     var logo=nombreCategorias[workingData.federation]['logo'];
     var logo2=nombreCategorias[workingData.federation]['logo2'];
     var url=nombreCategorias[workingData.federation]['url'];
@@ -167,15 +187,22 @@ function vwls_cronoManual(oper,tstamp) {
  * Refresca periodicamente el orden de salida correspondiente
  * a la seleccion especificada
  * Se indica tambien si el perro esta o no pendiente de salir
+ * @param {object} evt received event
+ * @param {object} data environment info
  */
-function vw_updateOrdenSalida(data) {
-    if (data.Tanda<=0) return; // no data yet
-    $('#vw_ordensalida-datagrid').datagrid('reload',{
+function vw_updateOrdenSalida(evt,data) {
+    if (data.Tanda.ID==0) return; // no data yet
+    // update header info
+    var infomanga=(typeof(data.Tanda.Nombre)==='undefined')?'':data.Tanda.Nombre;
+    $('#vw_header-infomanga').html(data.Tanda.Nombre);
+    // and update orden salida related to this tanda
+    $('#vw_ordensalida-datagrid').datagrid('load',{
         Operation: 'getDataByTanda',
-        Prueba: data.Prueba,
-        Jornada: data.Jornada,
-        Sesion: 1, // defaults to "-- sin asignar --"
-        ID:  data.Tanda // Tanda ID
+        Prueba: data.Prueba.ID,
+        Jornada:data.Jornada.ID,
+        Manga:data.Manga.ID,
+        Sesion: 0, // don't extract info from session, just use ours
+        ID:  data.Tanda.ID // Tanda ID
     });
 }
 
@@ -379,31 +406,47 @@ function vw_processParciales(id,evt) {
 }
 
 /**
- * (This process is executed every minute on 'ordensalida' videowall)
- * 
- * retrieve last 'connect' event for current sessionID
- * call updateInscripciones with retrieved data
+ * Tracks Tanda selection changes ('open' event) and updates related screen
  */
-function vw_procesaOrdenSalida() {
-	$.ajax({
-		type: "GET",
-		url: "/agility/server/database/eventFunctions.php",
-		data: {
-			'Operation' : 'connect',
-			'Session'	: workingData.sesion
-		},
-		async: true,
-		cache: false,
-		success: function(data){
-			var response= parseEvent(data);
-			if ( response['total']!=0) {
-				var row=response['rows'][0];
-				var info= parseEvent(row.Data);
-				vw_updateOrdenSalida(info);
-			}
-		},
-		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("error: "+textStatus + " "+ errorThrown );
-		}
-	});
+function vw_procesaOrdenSalida(id,evt) {
+    var event=parseEvent(evt); // remember that event was coded in DB as an string
+    event['ID']=id; // fix real id on stored eventData
+    switch (event['Type']) {
+        case 'null': // null event: no action taken
+            return;
+        case 'init': // operator starts tablet application
+            vw_updateWorkingData(event,function(evt,data){
+                vw_updateDataInfo(evt,data);
+                $('#vw_header-infomanga').html("(Manga no definida)");
+                // clear datagrid
+                $('#vw_ordensalida-datagrid').datagrid('loadData', {"total":0,"rows":[]});
+            });
+            return;
+        case 'open': // operator select tanda
+            vw_updateWorkingData(event,function(evt,data){
+                vw_updateDataInfo(evt,data);
+                vw_updateOrdenSalida(evt,data);
+            });
+            return;
+        case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+            return;
+        case 'llamada':	// llamada a pista
+            return;
+        case 'salida': // orden de salida
+            return;
+        case 'start': // start crono manual
+            return;
+        case 'stop': // stop crono manual
+            return;
+        case 'crono_start':  // arranque crono automatico
+        case 'crono_int':  	// tiempo intermedio crono electronico
+        case 'crono_stop':  // parada crono electronico
+            return; // nada que hacer aqui: el crono automatico se procesa en el tablet
+        case 'aceptar':	// operador pulsa aceptar
+            return;
+        case 'cancelar': // operador pulsa cancelar
+            return;
+        case 'info':	// click on user defined tandas
+            return;
+    }
 }

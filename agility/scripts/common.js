@@ -347,6 +347,18 @@ function setJornada(data) {
 	workingData.datosJornada=data;
 }
 
+function setManga(data) {
+    if (typeof(data) !== 'undefined') {
+        workingData.manga = data.ID;
+        workingData.nombreManga = data.Nombre;
+        workingData.datosManga = data
+    } else {
+        workingData.manga = 0;
+        workingData.nombreManga = "";
+        workingData.datosManga = {};
+    }
+}
+
 /**
  * @param {int} id SessionID
  * Initialize working data information object
