@@ -53,9 +53,10 @@ function vw_updateWorkingData(evt,callback) {
 function vw_initParcialesDatagrid(evt,data) {
     var team=false;
     var dg=$('#vw_parciales-datagrid');
-    var defaultView=$.fn.datagrid.defaults.view
     if (parseInt(data.Jornada.Equipos3)==1) team=true;
     if (parseInt(data.Jornada.Equipos4)==1) team=true;
+    // clear datagrid as data no longer valid
+    dg.datagrid('loadData', {"total":0,"rows":[]});
     if (team){
         dg.datagrid({
             view: gview,
@@ -69,8 +70,6 @@ function vw_initParcialesDatagrid(evt,data) {
         dg.datagrid('showColumn',"LogoClub");
         dg.datagrid('showColumn',"Grado");
     }
-    // clear datagrid
-    dg.datagrid('loadData', {"total":0,"rows":[]});
 }
 
 /**
