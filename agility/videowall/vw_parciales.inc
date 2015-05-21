@@ -96,10 +96,16 @@ $('#vw_parciales-datagrid').datagrid({
     fitColumns: true,
     singleSelect: true,
     autoRowHeight: true,
+    view: gview,
+    groupField: 'NombreEquipo',
+    groupFormatter: formatTeamResults,
     // toolbar: '#resultadosmanga-toolbar',
     columns:[[
         { field:'Manga',		hidden:true },
         { field:'Perro',		hidden:true },
+        { field:'Raza',		    hidden:true },
+        { field:'Equipo',		hidden:true },
+        { field:'NombreEquipo',	hidden:true },
         { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
         { field:'LogoClub',		width:'5%', align:'center', title: '', formatter:formatLogo},
         { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
@@ -118,7 +124,7 @@ $('#vw_parciales-datagrid').datagrid({
         { field:'Penalizacion',	width:'6%%', align:'right', title: 'Penal.', formatter:formatPenalizacion},
         { field:'Calificacion',	width:'7%', align:'center',title: 'Calificacion'},
         { field:'Puesto',		width:'4%', align:'center',  title: 'Puesto', formatter:formatPuestoBig},
-        { field:'CShort', hidden:true}
+        { field:'CShort',       hidden:true}
     ]],
     rowStyler:myRowStyler,
     onBeforeLoad: function(param) {

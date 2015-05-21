@@ -202,7 +202,20 @@ function vw_updateParciales(evt,data) {
             $('#vw_parciales-TRM').text('T.T.Maximo: ' + dat['trs'].trm + 's.');
             $('#vw_parciales-Velocidad').text('Velocidad: ' + dat['trs'].vel + 'm/s');
             // actualizar datagrid
-            $('#vw_parciales-datagrid').datagrid('loadData',dat);
+            var team=false;
+            var dg=$('#vw_parciales-datagrid');
+            if (parseInt(data['Jornada'].Equipos3)==1) team=true;
+            if (parseInt(data['Jornada'].Equipos4)==1) team=true;
+            if (team){
+                dg.datagrid({view:gview});
+                dg.datagrid('hideColumn',"LogoClub");
+                dg.datagrid('hideColumn',"Grado");
+            } else {
+                dg.datagrid({view:$.fn.datagrid.defaults.view});
+                dg.datagrid('showColumn',"LogoClub");
+                dg.datagrid('showColumn',"Grado");
+            }
+            dg.datagrid('loadData',dat);
         }
     });
 }
