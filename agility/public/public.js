@@ -115,9 +115,8 @@ function pb_updatePrograma() {
 /**
  * Actualiza los datos de TRS y TRM de la fila especificada
  * Rellena tambien el datagrid de resultados parciales
- * @param {boolean} team true on team manga, else false
  */
-function pb_updateParciales(team) {
+function pb_updateParciales() {
     // obtenemos la manga seleccionada. if no selection return
     var row=$('#pb_enumerateParciales').combogrid('grid').datagrid('getSelected');
     if (!row) return;

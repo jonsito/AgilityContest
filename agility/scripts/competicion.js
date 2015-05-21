@@ -175,10 +175,42 @@ function getMangaMode(fed,recorrido,categoria) {
     ];
     if ( typeof (modes[fed]) === 'undefined' ) return -1;
     if ( typeof (modes[fed][recorrido]) === 'undefined' ) return -1;
-    if ( typeof (modes[fed][recorrido][categoria]) === 'undefined' ) return -1;
+    if ( typeof (modes[fed][recorrido][categoria]) === 'undefined' ) {
+        switch(categoria) {
+            case '-':
+            case '-LMST':return modes[fed][2][0]; // same for all categories; just use first
+            case 'L':return modes[fed][recorrido][0];
+            case 'M':return modes[fed][recorrido][1];
+            case 'S':return modes[fed][recorrido][2];
+            case 'T':return modes[fed][recorrido][3];
+        }
+        return -1;
+    }
     return modes[fed][recorrido][categoria];
 }
 
+// Same as above but return mode string
+function getMangaModeString(fed,recorrido,categoria) {
+    var modes= [ // federation/recorrido/categoria
+        [/* RSCE */ [/* separado */ "Standard", "Midi", "Mini", "Invalid"], [/* mixto */ "Standard", "Midi+Mini", "Midi+Mini", "Invalid"], [/* conjunto */ "Conjunto", "Conjunto", "Conjunto", "Invalid" ] ],
+        [/* RFEC */ [/* separado */ "Large", "Medium", "Small", "Toy" ], [/* mixto */ "Large+Medium", "Large+Medium", "Small+Toy", "Small+Toy" ], [/* conjunto */ "Conjunto", "Conjunto", "Conjunto", "Conjunto" ] ],
+        [/* UCA  */ [/* separado */ "Cat 60", "Cat 50", "Cat 40", "Cat 30" ], [/* mixto */ "60+50", "60+50", "40+30", "40+30" ], [/* conjunto */ "60+50+40+30", "60+50+40+30", "60+50+40+30","60+50+40+30" ] ]
+    ];
+    if ( typeof (modes[fed]) === 'undefined' ) return -1;
+    if ( typeof (modes[fed][recorrido]) === 'undefined' ) return -1;
+    if ( typeof (modes[fed][recorrido][categoria]) === 'undefined' ) {
+        switch(categoria) {
+            case '-':
+            case '-LMST':return modes[fed][2][0]; // same for all categories; just use first
+            case 'L':return modes[fed][recorrido][0];
+            case 'M':return modes[fed][recorrido][1];
+            case 'S':return modes[fed][recorrido][2];
+            case 'T':return modes[fed][recorrido][3];
+        }
+        return -1;
+    }
+    return modes[fed][recorrido][categoria];
+}
 /**
  * Actualiza el modo de visualizacion del panel infomangas
  * en funcion del tipo de recorrido seleccionado

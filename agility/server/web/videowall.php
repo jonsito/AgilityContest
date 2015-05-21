@@ -114,6 +114,7 @@ class VideoWall {
         echo '<table class="vwc_callEntry"><tr><td colspan="5" class="vwc_callTanda">'.$str.'</td></tr></table>';
     }
 	function videowall_llamada($pendientes) {
+        $club=new Clubes("videowall_llamada");
         $lastTanda="";
         $lastTeam=0;
         $this->generateHeaderInfo();
@@ -135,7 +136,7 @@ class VideoWall {
             }
 
 			$numero++;
-            $logo=$this->club->getLogoName('NombreClub',$participante['NombreClub']);
+            $logo=$club->getLogoName('NombreClub',$participante['NombreClub']);
 			$celo=($participante['Celo']==1)?'Si':'No';
 			$bg=$this->getBackground($numero);
 			echo '
@@ -170,6 +171,7 @@ class VideoWall {
 	}
 			
 	function videowall_resultados() {
+        $club=new Clubes("videowall_resultados");
 		// anyade informacion extra en el resultado html
         $this->generateHeaderInfo();
 		if ($this->manga==null) { // no manga defined yet
@@ -259,7 +261,7 @@ class VideoWall {
 			error_log(json_encode($resultado));
 			$numero++;
 			$bg=$this->getBackground($numero);
-            $logo=$this->club->getLogoName("NombreClub",$resultado['NombreClub']);
+            $logo=$club->getLogoName("NombreClub",$resultado['NombreClub']);
 			echo '
 				<tr id="Resultado_'.$numero.'" style="background:'.$bg.'">
 					<td class="vwc_Entry vwc_logo">
@@ -308,6 +310,7 @@ class VideoWall {
 	}
 	
 	function videowall_inscripciones() {
+        $club=new Clubes("videowall_inscripciones");
 		$imgr=new Inscripciones("videowall_inscripciones",$this->prueba['ID']);
 		$result=$imgr->inscritosByJornada($this->jornada['ID']);
 		$club=0;
@@ -319,7 +322,7 @@ class VideoWall {
 				$club=$i['Club'];
 				$fila=0;
 				// evaluamos logo
-                $logo=$this->club->getLogoName("Clubes",$i['Club']);
+                $logo=$club->getLogoName("Clubes",$i['Club']);
 				// pintamos cabecera	
 				echo '<tr><td colspan="6"><hr /></td></tr>';
 				echo "<tr id=\"Club_$club\">";
@@ -353,6 +356,7 @@ class VideoWall {
 	}
 	
 	function videowall_ordensalida() {
+        $club=new Clubes("videowall_ordensalida");
 		$lastCategoria="";
         $this->generateHeaderInfo();
         if ($this->manga==null) {
@@ -372,7 +376,7 @@ class VideoWall {
 				$numero=0;
 			}
 			$numero++;
-            $logo=$this->club->getLogoName("NombreClub",$participante['NombreClub']);
+            $logo=$club->getLogoName("NombreClub",$participante['NombreClub']);
 			$celo=($participante['Celo']==='1')?'Si':'No';
 			$pcolor=($participante['Pendiente']==0)?"#000000":"#FF0000"; // foreground color=red if pendiente
 			$bg=$this->getBackground($numero);

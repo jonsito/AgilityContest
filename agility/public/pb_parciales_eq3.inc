@@ -20,7 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_parciales-window">
     <div id="pb_parciales-layout" style="width:100%">
         <div id="pb_parciales-Cabecera" data-options="region:'north',split:false" style="height:175px" class="pb_floatingheader">
-            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateParciales(true);" href="#" style="float:left">
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateParciales();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="75" />
             </a>
             <span style="float:left;padding:10px" id="pb_header-infocabecera">Cabecera</span>
@@ -94,10 +94,10 @@ $('#pb_enumerateParciales').combogrid({
 		return true;
 	},
     onOpen: function() {
-        pb_updateParciales(true); // notice no results will still be reported. just to update header info
+        pb_updateParciales(); // notice no results will still be reported. just to update header info
     },
 	onChange:function(value){
-		pb_updateParciales(true);
+		pb_updateParciales();
 	}
 });
 
@@ -140,7 +140,7 @@ $('#pb_parciales-datagrid').datagrid({
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
-    autoRowHeight:true,
+    autoRowHeight: true,
     // toolbar: '#resultadosmanga-toolbar',
     view: gview,
     groupField: 'NombreEquipo',

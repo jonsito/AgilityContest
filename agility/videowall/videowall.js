@@ -51,7 +51,6 @@ function vw_updateWorkingData(evt,callback) {
  * @param {object} data data associated with event
  */
 function vw_updateDataInfo(evt,data) {
-
     // update header
     var infoprueba='Prueba: ' + data.Prueba.Nombre+" <br /> Jornada: "+ data.Jornada.Nombre;
     $('#vw_header-infoprueba').html(infoprueba);
@@ -76,21 +75,6 @@ function vw_updateDataInfo(evt,data) {
 function vwls_showOSD(val) {
 	if (val==0) $('#vwls_common').css('display','none');
 	else $('#vwls_common').css('display','initial');
-}
-
-function vwc_updateResults(event) {
-	$.ajax( {
-		type: "GET",
-		dataType: 'html',
-		url: "/agility/server/web/videowall.php",
-		data: {
-			Operation: 'resultados',
-			Session: workingData.sesion
-		},
-		success: function(data,status,jqxhr) {
-			$('#vwc_resultadosParciales').html(data);
-		}
-	});
 }
 
 function vwc_updatePendingQueue(event,pendientes) {
@@ -181,6 +165,46 @@ var myCounter = new Countdown({
 function vwls_cronoManual(oper,tstamp) {
 	myCounter.stop();
 	$('#cronomanual').Chrono(oper,tstamp);
+}
+
+/**
+ * Actualiza el datagrid de resultados con los datos asociados al evento recibido
+ * @param {object} evt event
+ * @param {object} data system status data info
+ */
+function vw_updateParciales(evt,data) {
+    // en lugar de invocar al datagrid, lo que vamos a hacer es
+    // una peticion ajax, para obtener a la vez los datos tecnicos de la manga
+    // y de los jueces
+    var mode=getMangaMode(data.Prueba.RSCE,data.Manga.Recorrido,data.Tanda.Categoria);
+    var modestr=getMangaModeString(data.Prueba.RSCE,data.Manga.Recorrido,data.Tanda.Categoria);
+    $.ajax({
+        type:'GET',
+        url:"/agility/server/database/resultadosFunctions.php",
+        dataType:'json',
+        data: {
+            Operation:	'getResultados',
+            Prueba:		data.Prueba.ID,
+            Jornada:	data.Jornada.ID,
+            Manga:		data.Manga.ID,
+            Mode:       mode
+        },
+        success: function(dat) {
+            // informacion de la manga
+            var str=dat['manga'].TipoManga + " - " + modestr;
+            $('#vw_header-infomanga').text(str);
+            $('#vw_parciales-Juez1').text((dat['manga'].Juez1<=1)?"":'Juez 1: ' + dat['manga'].NombreJuez1);
+            $('#vw_parciales-Juez2').text((dat['manga'].Juez2<=1)?"":'Juez 2: ' + dat['manga'].NombreJuez2);
+            // datos de TRS
+            $('#vw_parciales-Distancia').text('Distancia: ' + dat['trs'].dist + 'm.');
+            $('#vw_parciales-Obstaculos').text('Obstaculos: ' + dat['trs'].obst);
+            $('#vw_parciales-TRS').text('T.R.Standard: ' + dat['trs'].trs + 's.');
+            $('#vw_parciales-TRM').text('T.T.Maximo: ' + dat['trs'].trm + 's.');
+            $('#vw_parciales-Velocidad').text('Velocidad: ' + dat['trs'].vel + 'm/s');
+            // actualizar datagrid
+            $('#vw_parciales-datagrid').datagrid('loadData',dat);
+        }
+    });
 }
 
 /**
@@ -368,18 +392,25 @@ function vw_processLlamada(id,evt) {
 	}
 }
 
-function vw_processParciales(id,evt) {
+function vw_procesaParciales(id,evt) {
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
 	switch (event['Type']) {
 	case 'null': // null event: no action taken
 		return; 
 	case 'init': // operator starts tablet application
-        setupByJornada(event['Pru'],event['Jor']); // use shortname to ensure data exists
-		// TODO: muestra pendientes desde primera tanda
-		return;
+        vw_updateWorkingData(event,function(e,d){
+            vw_updateDataInfo(e,d);
+            $('#vw_header-infomanga').html("(Manga no definida)");
+            // clear datagrid
+            $('#vw_parciales-datagrid').datagrid('loadData', {"total":0,"rows":[]});
+        });
+        return;
 	case 'open': // operator select tanda:
-		vwc_updateResults(event);
+        vw_updateWorkingData(event,function(e,d){
+            vw_updateDataInfo(e,d);
+            vw_updateParciales(e,d);
+        });
 		return;
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		return;
@@ -396,7 +427,7 @@ function vw_processParciales(id,evt) {
 	case 'crono_stop':  // parada crono electronico
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':	// operador pulsa aceptar
-		vwc_updateResults(event);
+        vw_updateWorkingData(event,vw_updateParciales);
 		return;
 	case 'cancelar': // operador pulsa cancelar
 		return;
