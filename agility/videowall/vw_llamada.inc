@@ -27,7 +27,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div id="vw_llamada-data" data-options="region:'center'" >
             <table id="vw_llamada-datagrid"></table>
         </div>
-        <div id="vw_llamada-footer" data-options="region:'south',split:false" style="height:100px" class="vw_floatingfooter">
+        <div id="vw_llamada-footer" data-options="region:'south',split:false" class="vw_floatingfooter">
             <span id="vw_footer-footerData"></span>
         </div>
     </div>

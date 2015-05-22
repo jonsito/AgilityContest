@@ -22,21 +22,21 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_footer">
     <span style="float:left">
         <a id="pb_footer-urlFederation" target="fed" href="" style="border:0 none;">
-            <img id="pb_footer-logoFederation" src="/agility/images/logos/rsce.png" alt="" width="75"/>
+            <img id="pb_footer-logoFederation" src="/agility/images/logos/rsce.png" alt="" width="50"/>
         </a>
         <a id="pb_footer-urlFederation2" target="fed2" href="">
-            <img id="pb_footer-logoFederation2" src="/agility/images/logos/fci.png" alt="" width="75"/>
+            <img id="pb_footer-logoFederation2" src="/agility/images/logos/fci.png" alt="" width="50"/>
         </a>
     </span>
     <span style="float:right">
         <a target="galican" href="http://www.galican.com">
-            <img id="pb_footer-logoGalican" src="/agility/images/supporters/galican.png" alt="galican" width="75"/>
+            <img id="pb_footer-logoGalican" src="/agility/images/supporters/galican.png" alt="galican" width="50"/>
         </a>
         <a target="xanastur" href="http://www.xanastur.org">
-            <img id="pb_footer-logoGalican" src="/agility/images/logos/xanastur.png" alt="xanastur" width="75"/>
+            <img id="pb_footer-logoGalican" src="/agility/images/logos/xanastur.png" alt="xanastur" width="50"/>
         </a>
         <a target="acontest" href="https://www.github.com/jonsito/AgilityContest">
-            <img id="pb_footer-logoAgilityContest" src="/agility/images/logos/agilitycontest.png" alt="agilitycontest" width="75"/>
+            <img id="pb_footer-logoAgilityContest" src="/agility/images/logos/agilitycontest.png" alt="agilitycontest" width="50"/>
         </a>
     </span>
 </div>

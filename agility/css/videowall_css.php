@@ -32,18 +32,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     color: <?php echo $config->getEnv('vw_hdrfg1')?>;
     font-weight: bold;
     font-style: italic;
-    font-size:2.0em;
+    font-size:1.8em;
 }
 
 .vw_floatingfooter {
+    height:60px
     margin-top:0px;
     margin-bottom:0px;
-    padding:10px;
+    padding:5px;
     background-color: <?php echo $config->getEnv('vw_hdrbg3')?>;
     color: <?php echo $config->getEnv('vw_hdrfg3')?>;
     font-weight: bold;
     font-style: italic;
-    font-size:2.0em;
+    font-size:1.8em;
 }
 /************************** Elementos de la tabla de inscritos a la prueba ************/
 

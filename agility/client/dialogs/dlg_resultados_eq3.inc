@@ -113,7 +113,7 @@ $('#resultadosmanga-datagrid').datagrid({
     // toolbar: '#resultadosmanga-toolbar',
     view: gview,
     groupField: 'NombreEquipo',
-    groupFormatter: formatTeamResults,
+    groupFormatter: formatTeamResultsConsole,
     columns:[[
         { field:'Manga',		hidden:true },
         { field:'Perro',		hidden:true },

@@ -83,12 +83,10 @@ function formatTeamResults( value , rows ) {
     var time=0.0;
     var penal=0.0;
     var logos="";
-
     function addLogo(logo) {
         if (logos.indexOf(logo)>=0) return;
         logos = logos + '&nbsp;<img height="40px" src="/agility/images/logos/'+ logo + '"/>';
     }
-
     for (var n=0;n<3;n++) {
         if ( typeof(rows[n])==='undefined') {
             penal+=200.0;
@@ -100,7 +98,6 @@ function formatTeamResults( value , rows ) {
         }
     }
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
-
     var res= '<div class="vw_equipos3">'+
         '<span style="width:15%;text-align:left;">'+logos+'</span>'+
         '<span style="width:45%;text-align:left;">Equipo: '+value+'</span>' +
@@ -110,22 +107,39 @@ function formatTeamResults( value , rows ) {
     return res;
 }
 
-function formatTeamClasificaciones(value,rows) {
+function formatTeamResultsConsole( value , rows ) {
+    // todo: check eq3 or eq4 contest and eval time and penalization
+    var time=0.0;
+    var penal=0.0;
+    for (var n=0;n<3;n++) {
+        if ( typeof(rows[n])==='undefined') {
+            penal+=200.0;
+        } else {
+            penal+=parseFloat(rows[n].Penalizacion);
+            time+=parseFloat(rows[n].Tiempo);
+        }
+    }
+    // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
+    var res= '<div class="vw_equipos3" style="width:640px">'+
+        '<span style="width:40%;text-align:left;">Equipo: '+value+'</span>' +
+        '<span style="width:30%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</span>' +
+        '<span style="width:30%;text-align:right;">Penalizaci&oacute;n:'+(penal).toFixed(2)+'</span>'+
+        '</div>';
+    return res;
+}
 
+function formatTeamClasificaciones(value,rows) {
     var time=0.0;
     var penal=0.0;
     var logos="";
-
     function sortResults(a,b) {
         if (a.penal== b.penal) return (a.time - b.time);
         return (a.penal - b.penal);
     }
-
     function addLogo(logo) {
         if (logos.indexOf(logo)>=0) return;
         logos = logos + '&nbsp;<img height="40px" src="/agility/images/logos/'+ logo + '"/>';
     }
-
     // cogemos y ordenamos los datos de cada manga
     var manga1={ time:0.0, penal:0.0, perros:[] };
     var manga2={ time:0.0, penal:0.0, perros:[] };
@@ -154,13 +168,56 @@ function formatTeamClasificaciones(value,rows) {
     time=manga1.time+manga2.time;
     penal=manga1.penal+manga2.penal;
     // !Por fin! componemos una tabla html como respuesta
-    var res= '<table class="pb_equipos3"><tbody><tr">'+
-        '<td style="width:10%;text-align:left;">'+logos+'</td>'+
-        '<td style="width:25%;text-align:left;"> Equipo: '+value+'</td>' +
-        '<td > T1: '+(manga1.time).toFixed(2)+' - P1: '+(manga1.penal).toFixed(2)+'</td>'+
-        '<td > T2: '+(manga2.time).toFixed(2)+' - P2: '+(manga2.penal).toFixed(2)+'</td>'+
-        '<td style="width:25%;"> Time: '+(time).toFixed(2)+' - Penal: '+(penal).toFixed(2)+'</td>'+
-        '</tr></tbody></table>';
+    var res= '<div class="pb_equipos3">'+
+        '<span style="width:10%;text-align:left;">'+logos+'</span>'+
+        '<span style="width:25%;text-align:left;"> Equipo: '+value+'</span>' +
+        '<span > T1: '+(manga1.time).toFixed(2)+' - P1: '+(manga1.penal).toFixed(2)+'</span>'+
+        '<span > T2: '+(manga2.time).toFixed(2)+' - P2: '+(manga2.penal).toFixed(2)+'</span>'+
+        '<span style="width:25%;"> Time: '+(time).toFixed(2)+' - Penal: '+(penal).toFixed(2)+'</span>'+
+        '</div>';
+    return res;
+}
+
+function formatTeamClasificacionesConsole(value,rows) {
+    var time=0.0;
+    var penal=0.0;
+    function sortResults(a,b) {
+        if (a.penal== b.penal) return (a.time - b.time);
+        return (a.penal - b.penal);
+    }
+    // cogemos y ordenamos los datos de cada manga
+    var manga1={ time:0.0, penal:0.0, perros:[] };
+    var manga2={ time:0.0, penal:0.0, perros:[] };
+    for (var n=0;n<4;n++) {
+        if (typeof(rows[n]) === 'undefined') {
+            manga1.perros[n] = {time: parseFloat(0.0), penal: parseFloat(200.0)};
+            manga2.perros[n] = {time: parseFloat(0.0), penal: parseFloat(200.0)};
+        } else {
+            manga1.perros[n] = {time: parseFloat(rows[n].T1), penal: parseFloat(rows[n].P1)};
+            manga2.perros[n] = {time: parseFloat(rows[n].T2), penal: parseFloat(rows[n].P2)};
+        }
+    }
+    // ordenamos ahora las matrices de resultados
+    (manga1.perros).sort(sortResults);
+    (manga2.perros).sort(sortResults);
+    // y sumamos los tres primeros ( 3 mejores ) resultados
+    for (var n=0;n<3;n++) {
+        manga1.time +=parseFloat(manga1.perros[n].time);
+        manga1.penal +=parseFloat(manga1.perros[n].penal);
+        manga2.time +=parseFloat(manga2.perros[n].time);
+        manga2.penal +=parseFloat(manga2.perros[n].penal);
+    }
+    // el resultado final es la suma de las mangas
+    time=manga1.time+manga2.time;
+    penal=manga1.penal+manga2.penal;
+
+    // !Por fin! componemos una tabla html como respuesta
+    var res= '<div class="pb_equipos3" style="width:800px">'+
+        '<span style="width:35%;text-align:left;"> Equipo: '+value+'</span>' +
+        '<span > T1: '+(manga1.time).toFixed(2)+' - P1: '+(manga1.penal).toFixed(2)+'</span>'+
+        '<span > T2: '+(manga2.time).toFixed(2)+' - P2: '+(manga2.penal).toFixed(2)+'</span>'+
+        '<span style="width:25%;"> Time: '+(time).toFixed(2)+' - Penal: '+(penal).toFixed(2)+'</span>'+
+        '</div>';
     return res;
 }
 

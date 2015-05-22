@@ -20,9 +20,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <div id="pb_finales-window">
     <div id="pb_finales-layout" style="width:100%">
-        <div id="pb_finales-Cabecera" data-options="region:'north',split:false" style="height:205px" class="pb_floatingheader">
+        <div id="pb_finales-Cabecera" data-options="region:'north',split:false" style="height:165px" class="pb_floatingheader">
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateInscripciones();" href="#" style="float:left">
-                <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="75" />
+                <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="50" />
             </a>
             <span style="float:left;padding:10px" id="pb_header-infocabecera">Cabecera</span>
             <span style="float:right" id="pb_header-texto">
@@ -33,15 +33,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <!-- Datos de TRS y TRM -->
             <table class="pb_trs">
                 <tbody>
-                <thead>
                 <tr>
                     <th id="pb_finales-NombreRonda" colspan="2">(No hay ronda seleccionada)</th>
                     <th id="pb_finales-Juez1" colspan="2" style="text-align:center">Juez 1:</th>
                     <th id="pb_finales-Juez2" colspan="2" style="text-align:center">Juez 2:</th>
                 </tr>
-                </thead>
-                <tbody>
-                <tr><td>&nbsp;</td></tr>
                 <tr style="text-align:right">
                     <td id="pb_finales-Ronda1">Datos de la manga 1:</td>
                     <td id="pb_finales-Distancia1">Distancia:</td>
@@ -58,7 +54,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     <td id="pb_finales-TRM2">T.R.M&aacute;ximo:</td>
                     <td id="pb_finales-Velocidad2">Velocidad:</td>
                 </tr>
-                </tbody>
                 </tbody>
             </table>
         </div>
@@ -100,7 +95,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     </thead>
                 </table>
         </div>
-        <div id="pb_finales-footer" data-options="region:'south',split:false" style="height:100px" class="pb_floatingfooter">
+        <div id="pb_finales-footer" data-options="region:'south',split:false" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>
         </div>
     </div>
