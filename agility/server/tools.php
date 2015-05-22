@@ -58,6 +58,7 @@ function is_https(){
  * @param {string} $str
  */
 function escapeString($str) {
+    // return mysqli_real_escape_string($str); // only works with msqli
 	$len=strlen($str);
 	$res="";
 	for($i=0;$i<$len;$i++) {

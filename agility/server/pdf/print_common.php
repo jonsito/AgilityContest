@@ -90,6 +90,7 @@ class PrintCommon extends FPDF {
         if (isset($this->club)) {
             $this->icon=$this->club->Logo;
             $this->icon2=$this->federation->getLogo();
+            if ($this->icon==$this->icon2) $this->icon2=$this->federation->getParentLogo();
         }
 	}
 

@@ -207,14 +207,14 @@ class Resultados extends DBObject {
         $perro=$objperro['ID'];
         $equipo=$eqdata['ID'];
         $dorsal=$inscripcion['Dorsal'];
-        $nombre=$objperro['Nombre'];
-        $raza=$objperro['Raza'];
+        $nombre=escapeString($objperro['Nombre']);
+        $raza=escapeString($objperro['Raza']);
         $licencia=$objperro['Licencia'];
         $categoria=$objperro['Categoria'];
         $grado=$objperro['Grado'];
         $celo=$inscripcion['Celo'];
-        $guia=$objperro['NombreGuia'];
-        $club=$objperro['NombreClub'];
+        $guia=escapeString($objperro['NombreGuia']);
+        $club=escapeString($objperro['NombreClub']);
 		if ($this->isCerrada()) 
 			return $this->error("Manga $manga comes from closed Jornada:".$this->IDJornada);
 		// If row pkey(manga,perro) exists, just update; else insert
