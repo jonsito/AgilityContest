@@ -227,11 +227,11 @@ function vw_updateParciales(evt,data) {
             $('#vw_parciales-Juez1').text((dat['manga'].Juez1<=1)?"":'Juez 1: ' + dat['manga'].NombreJuez1);
             $('#vw_parciales-Juez2').text((dat['manga'].Juez2<=1)?"":'Juez 2: ' + dat['manga'].NombreJuez2);
             // datos de TRS
-            $('#vw_parciales-Distancia').text('Distancia: ' + dat['trs'].dist + 'm.');
-            $('#vw_parciales-Obstaculos').text('Obstaculos: ' + dat['trs'].obst);
-            $('#vw_parciales-TRS').text('T.R.Standard: ' + dat['trs'].trs + 's.');
-            $('#vw_parciales-TRM').text('T.T.Maximo: ' + dat['trs'].trm + 's.');
-            $('#vw_parciales-Velocidad').text('Velocidad: ' + dat['trs'].vel + 'm/s');
+            $('#vw_parciales-Distancia').text(dat['trs'].dist + 'm.');
+            $('#vw_parciales-Obstaculos').text(dat['trs'].obst);
+            $('#vw_parciales-TRS').text(dat['trs'].trs + 's.');
+            $('#vw_parciales-TRM').text(dat['trs'].trm + 's.');
+            $('#vw_parciales-Velocidad').text( dat['trs'].vel + 'm/s');
             // actualizar datagrid
             $('#vw_parciales-datagrid').datagrid('loadData',dat);
         }
@@ -261,62 +261,56 @@ function vw_updateOrdenSalida(evt,data) {
     });
 }
 
-function vwc_processCombinada(id,evt) {
+function vw_procesaCombinada(id,evt) {
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
 	switch (event['Type']) {
 	case 'null':		// null event: no action taken
-		return; 
-	case 'init':		// operator starts tablet application
-        setupByJornada(event['Pru'],event['Jor']); // use shortname to ensure data exists
-		vwls_showOSD(0); 	// activa visualizacion de OSD
 		return;
-	case 'open':		// operator select tanda
-		vwc_updateResults(event); // actualiza panel de resultados
-		vwc_updatePendingQueue(event,15); // actualiza panel de llamadas 
-		return;
+    case 'init': // operator starts tablet application
+        $('#vw_header-infoprueba').html("Cabecera");
+        $('#vw_header-infomanga').html("(Manga no definida)");
+        vw_updateWorkingData(event,function(e,d){
+            vw_updateDataInfo(e,d);
+            vw_initParcialesDatagrid(e,d);
+            vw_updateLlamada(e,d);
+        });
+        return;
+    case 'open': // operator select tanda
+        vw_updateWorkingData(event,function(e,d){
+            vw_updateDataInfo(e,d);
+            vw_updateParciales(e,d);
+            vw_updateLlamada(e,d);
+        });
+        return;
 	case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
 		return;
 	case 'llamada':		// operador abre panel de entrada de datos
-		vwls_cronoManual('stop');
-		vwls_cronoManual('reset');
-		vwls_showOSD(1); 	// activa visualizacion de OSD
-		vwls_showData(event);
 		return;
 	case 'salida':		// juez da orden de salida ( crono 15 segundos )
-		myCounter.start();
 		return;
 	case 'start':	// value: timestamp
-		vwls_cronoManual('start',event['Value']);
 		return;
 	case 'stop':	// value: timestamp
-		vwls_cronoManual('stop',event['Value']);
 		return;
 	case 'crono_start': // arranque crono electronico
-		myCounter.stop(); 
-		vwls_cronoManual('stop');
-		vwls_cronoManual('reset');
-		vwls_cronoManual('start',event['Value']);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-		// TODO: write
 		return;
 	case 'crono_stop':	// parada crono electronico
-		myCounter.stop(); 
-		vwls_cronoManual('stop',event['Value']);
 		return;
 	case 'aceptar':		// operador pulsa aceptar
-		vwls_cronoManual('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
-		vwls_showData(event); // actualiza pantall liveStream
-		vwc_updateResults(); // actualiza panel de resultados
-		vwc_updatePendingQueue(event,15); // actualiza panel de llamadas 
+        vw_updateWorkingData(event,function(e,d){
+            vw_updateLlamada(e,d);
+            vw_updateParciales(e,d);
+        });
 		return;
 	case 'cancelar':	// operador pulsa cancelar
-		vwls_cronoManual('stop',event['Value']);
-		vwls_cronoManual('reset');
-		vwls_showOSD(0); // apaga el OSD
-		vwc_updatePendingQueue(event,15); // actualiza panel de llamadas 
+        vw_updateWorkingData(event,function(e,d){
+            vw_updateLlamada(e,d);
+            vw_updateParciales(e,d);
+        });
 		return;
     case 'info':	// click on user defined tandas
         return;

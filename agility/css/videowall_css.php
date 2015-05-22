@@ -36,7 +36,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 
 .vw_floatingfooter {
-    height:60px
+    height:60px;
     margin-top:0px;
     margin-bottom:0px;
     padding:5px;

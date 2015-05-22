@@ -30,19 +30,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <table class="vw_trs">
                 <thead>
                 <tr>
-                    <th id="vw_parciales-NombreManga" colspan="2">&nbsp;</th>
-                    <th id="vw_parciales-Juez1" colspan="2" style="text-align:center">Juez 1:</th>
-                    <th id="vw_parciales-Juez2" colspan="2" style="text-align:center">Juez 2:</th>
+                    <th id="vw_parciales-NombreManga" colspan="3">&nbsp;</th>
+                    <th id="vw_parciales-Juez1" colspan="4" style="text-align:center">Juez 1:</th>
+                    <th id="vw_parciales-Juez2" colspan="4" style="text-align:center">Juez 2:</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr style="text-align:right">
                     <td>Datos de la manga:</td>
-                    <td id="vw_parciales-Distancia">Distancia:</td>
-                    <td id="vw_parciales-Obstaculos">Obst&aacute;culos:</td>
-                    <td id="vw_parciales-TRS">T.R.Standard:</td>
-                    <td id="vw_parciales-TRM">T.R.M&aacute;ximo:</td>
-                    <td id="vw_parciales-Velocidad">Velocidad:</td>
+                    <td>Dist:</td><td id="vw_parciales-Distancia" style="text-align:left;">&nbsp;</td>
+                    <td>Obst:</td><td id="vw_parciales-Obstaculos" style="text-align:left;">&nbsp;</td>
+                    <td>TRS:</td><td id="vw_parciales-TRS" style="text-align:left;">&nbsp;</td>
+                    <td>TRM:</td><td id="vw_parciales-TRM" style="text-align:left;">&nbsp;</td>
+                    <td>Vel:</td><td id="vw_parciales-Velocidad" style="text-align:left;">&nbsp;</td>
                 </tr>
                 </tbody>
             </table>

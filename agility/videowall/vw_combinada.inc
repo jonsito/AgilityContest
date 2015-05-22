@@ -1,5 +1,5 @@
 <!-- 
-vw_combinada.inc
+vw_llamada.inc
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -14,102 +14,57 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
- 
-<!-- Presentacion combinada de live stream, llamada a pista y resultados parciales -->
+
+<!-- Pantalla de de visualizacion combinada llamada/parciales -->
+
 <div id="vw_combinada-window">
-	<!-- paneles de lista de mangas y datos de cada manga -->
-	<div id="vw_combinada-Layout1" class="easyui-layout" data-options="fit:true">
-		
-		<!-- marco izquierdo. top:livestream bottom:llamada-->
-		<div data-options="region:'west',split:true,border:false,collapsible:false,collapsed:false" 
-				style="width:40%"> <!-- dos quintos del ancho de pantalla -->
-		
-			<div id="vw_combinada-Layout2" class="easyui-layout" data-options="fit:true">
-			
-				<div data-options="region:'north',split:true,border:false,collapsible:false,collapsed:false" 
-					style="height:35%">
-					<div id="vwls_LiveStream" class="easyui-panel"
-						data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false,resizable:true">
-						<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
-					    <video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
-					    	poster="/agility/server/getRandomImage.php">
-					    	<!-- http://guest:@192.168.122.168/videostream.cgi -->
-    						<source id="vwls_videomp4" src="" type='video/mp4'/>
-    						<source id="vwls_videoogv" src="" type='video/ogg'/>
-    						<source id="vwls_videowebm" src="" type='video/webm'/>
-    					</video> 
-						<div id="vwls_common" style="font-size:1.00em;display:inline-block;width:100%">
-							<!-- Recuadros de decoracion -->
-							<span class="vwls_fondo" id="vwls_Resultados">&nbsp;</span>
-							<span class="vwls_fondo" id="vwls_Datos">&nbsp;</span>
-							<!-- datos de resultados -->
-							<span class="vwls_label" id="vwls_FaltasLbl">Faltas:</span>
-							<span class="vwls_data"  id="vwls_Faltas">0</span>
-							<span class="vwls_label" id="vwls_TocadosLbl">Tocados:</span>
-							<span class="vwls_data"  id="vwls_Tocados">0</span>
-							<span class="vwls_label" id="vwls_RehusesLbl">Reh&uacute;ses:</span>
-							<span class="vwls_data"  id="vwls_Rehuses">0</span>
-							<span class="vwls_label" id="vwls_TiempoLbl">Tiempo:</span>
-							<span class="vwls_data"  id="vwls_Tiempo">00.00</span>
-       						<span id="vwls_timestamp" style="display:none"></span>
-							<!-- Informacion del participante -->
-							<span style="display:none" id="vwls_Perro">0</span>
-							<img id="vwls_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="vwls_logo"/>
-							<span class="vwls_label" id="vwls_Dorsal">Dorsal</span>
-							<span class="vwls_label" id="vwls_Nombre">Nombre</span>
-							<span class="vwls_label" id="vwls_NombreGuia">Gu&iacute;a</span>
-							<span class="vwls_label" id="vwls_NombreClub">Club</span>
-							<span class="vwls_label" id="vwls_Categoria">Categor&iacute;a</span>
-							<span class="vwls_label" id="vwls_Grado">Grado</span>
-							<span class="vwls_label" id="vwls_Celo">Celo</span>
-						</div>
-					</div>
-				</div>
-				<div data-options="region:'center',split:true,border:false">
+    <div id="vw_combinada-layout" style="width:100%">
+        <div id="vw_combinada-Cabecera" data-options="region:'north',split:false" style="height:110px" class="vw_floatingheader">
+            <table style="width:100%">
+                <tr>
+                    <td style="text-align:left">
+                        <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="50" style="float:left;"/>
+                        <span style="float:left;padding:5px" id="vw_header-infoprueba">Cabecera</span>
+                    </td>
+                    <td style="text-align:right">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">Llamada a pista</td>
+                    <td style="text-align:right">
+                        Resultados Provisionales -
+                        <span id="vw_parciales-NombreManga">&nbsp;</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="vw_combinada-data" data-options="region:'west',split:true" style="width:50%" >
+            <table id="vw_llamada-datagrid"></table>
+        </div>
+        <div id="vw_combinada-data" data-options="region:'center'" >
+            <!-- Datos de TRS y TRM -->
+            <table class="vw_trs">
+                <tbody>
+                <tr style="text-align:right">
+                    <td>Datos:</td>
+                    <td>Dist:</td><td id="vw_parciales-Distancia" style="text-align:left;">&nbsp;</td>
+                    <td>Obst:</td><td id="vw_parciales-Obstaculos" style="text-align:left;">&nbsp;</td>
+                    <td>TRS:</td><td id="vw_parciales-TRS" style="text-align:left;">&nbsp;</td>
+                    <td>TRM:</td><td id="vw_parciales-TRM" style="text-align:left;">&nbsp;</td>
+                    <td>Vel:</td><td id="vw_parciales-Velocidad" style="text-align:left;">&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+            <table id="vw_parciales-datagrid"></table>
+        </div>
+        <div id="vw_combinada-footer" data-options="region:'south',split:false" class="vw_floatingfooter">
+            <span id="vw_footer-footerData"></span>
+        </div>
+    </div>
+</div> <!-- vw_combinada-window -->
 
-				<div id="vwc_llamada-layout" style="width:100%">
-					<div id="vwc_llamada-Cabecera" data-options="region:'north',split:false" style="height:10%" class="vw_floatingheader">
-						<span id="vwc_llamada-Texto">Llamada a pista</span>
-					</div>
-					<div id="vw_combinada-Pendientes" data-options="region:'center'">
-						<span id="vwc_listaPendientes"></span>
-					</div>
-				</div>
-					
-				</div>
-				
-			</div>
-		
-		</div> <!-- marco izquierdo  -->
-		
-		<!-- marco derecho: resultados parciales -->
-		<div data-options="region:'center'">
-			<div id="vw_combinada-Resultados" class="easyui-panel"
-				data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false">
-				<span id="vwc_resultadosParciales"></span>
-			</div>
-		</div> <!-- resultados parciales -->
-		
-	</div> <!-- combinada-Layout -->
-	
-</div> <!-- combinada-Panel -->
-
-<!-- declare a tag to attach a chrono object to -->
-<div id="cronomanual"></div>
-		
 <script type="text/javascript">
-	
-// create a Chronometer instance
-$('#cronomanual').Chrono( {
-	seconds_sel: '#vwls_timestamp',
-	auto: false,
-	interval: 100,
-	showMode: 2,
-	onUpdate: function(elapsed,running,pause) { 
-		$('#vwls_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:2));
-		return true;
-	}
-});
+
+$('#vw_combinada-layout').layout({fit:true});
 
 $('#vw_combinada-window').window({
 	fit:true,
@@ -118,38 +73,124 @@ $('#vw_combinada-window').window({
 	closable:false,
 	collapsible:false,
 	collapsed:false,
+	resizable:true,
 	onOpen: function() {
-		startEventMgr(workingData.sesion,vwc_processCombinada);
+        startEventMgr(workingData.sesion,vw_procesaCombinada);
 	}
 });
 
-$('#vw_combinada-Layout1').layout();
-$('#vw_combinada-Layout2').layout();
-$('#vwc_llamada-layout').layout({fit:true});
+$('#vw_llamada-datagrid').datagrid({
+    // propiedades del panel asociado
+    fit: true,
+    border: false,
+    closable: false,
+    collapsible: false,
+    collapsed: false,
+    // propiedades del datagrid
+    method: 'get',
+    url: '/agility/server/database/resultadosFunctions.php',
+    queryParams: {
+        Prueba: workingData.prueba,
+        Jornada: workingData.jornada,
+        Manga: workingData.manga,
+        Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
+        Operation: 'getResultados'
+    },
+    loadMsg: "Actualizando lista de equipos pendientes de salir...",
+    pagination: false,
+    rownumbers: false,
+    fitColumns: true,
+    singleSelect: true,
+    autoRowHeight: true,
+    columns:[[
+        { field:'Orden',		width:'5%', align:'center', title: '#', formatter:formatOrdenLlamadaPista},
+        { field:'Logo', 		width:'10%', align:'center', title: '', formatter:formatLogo},
+        { field:'Manga',		hidden:true },
+        { field:'Perro',		hidden:true },
+        { field:'Equipo',		hidden:true },
+        { field:'NombreEquipo',	hidden:true },
+        { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
+        { field:'Licencia',		width:'10%', align:'center',  title: 'Licencia'},
+        { field:'Nombre',		width:'15%', align:'center',  title: 'Nombre',formatter:formatBold},
+        { field:'NombreGuia',	width:'30%', align:'right', title: 'Guia',formatter:formatLlamadaGuia },
+        { field:'NombreClub',	width:'20%', align:'right', title: 'Club' },
+        { field:'Celo',	        width:'5%', align:'center', title: 'Celo.',formatter:formatCelo },
+    ]],
+    rowStyler:myLlamadaRowStyler,
+    onBeforeLoad: function(param) {
+        var mySelf=$('#vw_llamada-datagrid');
+        // show/hide team name
+        if (isTeamByJornada(workingData.datosJornada) ) {
+            mySelf.datagrid('hideColumn','Grado');
+        } else  {
+            mySelf.datagrid('showColumn','Grado');
+        }
+        mySelf.datagrid('fitColumns'); // expand to max width
+        // do not update until 'open' received
+        if( $('#vw_header-infoprueba').html()==='Cabecera') return false;
+        return true;
+    }
+});
 
-// layout
-var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
+$('#vw_parciales-datagrid').datagrid({
+    // propiedades del panel asociado
+    fit: true,
+    border: false,
+    closable: false,
+    collapsible: false,
+    collapsed: false,
+    // propiedades del datagrid
+    method: 'get',
+    url: '/agility/server/database/resultadosFunctions.php',
+    queryParams: {
+        Prueba: workingData.prueba,
+        Jornada: workingData.jornada,
+        Manga: workingData.manga,
+        Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
+        Operation: 'getResultados'
+    },
+    loadMsg: "Actualizando resultados de la manga ...",
+    pagination: false,
+    rownumbers: false,
+    fitColumns: true,
+    singleSelect: true,
+    autoRowHeight: true,
+    // view: gview,
+    // groupField: 'NombreEquipo',
+    // groupFormatter: formatTeamResults,
+    // toolbar: '#resultadosmanga-toolbar',
+    columns:[[
+        { field:'Manga',		hidden:true },
+        { field:'Perro',		hidden:true },
+        { field:'Raza',		    hidden:true },
+        { field:'Equipo',		hidden:true },
+        { field:'NombreEquipo',	hidden:true },
+        { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
+        { field:'LogoClub',		width:'5%', align:'center', title: '', formatter:formatLogo},
+        { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
+        { field:'Nombre',		width:'10%', align:'center',  title: 'Nombre'},
+        { field:'NombreGuia',	width:'15%', align:'right', title: 'Guia' },
+        { field:'NombreClub',	width:'12%', align:'right', title: 'Club' },
+        { field:'Categoria',	width:'4%', align:'center', title: 'Cat.' },
+        { field:'Grado',	    width:'4%', align:'center', title: 'Grad.' },
+        { field:'Faltas',		width:'4%', align:'center', title: 'Faltas'},
+        { field:'Rehuses',		width:'4%', align:'center', title: 'Rehuses'},
+        { field:'Tocados',		width:'4%', align:'center', title: 'Tocados'},
+        { field:'PRecorrido',	hidden:true },
+        { field:'Tiempo',		width:'6%', align:'right', title: 'Tiempo', formatter:formatTiempo},
+        { field:'PTiempo',		hidden:true },
+        { field:'Velocidad',	width:'4%', align:'right', title: 'Vel.', formatter:formatVelocidad},
+        { field:'Penalizacion',	width:'6%%', align:'right', title: 'Penal.', formatter:formatPenalizacion},
+        { field:'Calificacion',	width:'7%', align:'center',title: 'Calificacion'},
+        { field:'Puesto',		width:'4%', align:'center',  title: 'Puesto', formatter:formatPuestoBig},
+        { field:'CShort',       hidden:true}
+    ]],
+    rowStyler:myRowStyler,
+    onBeforeLoad: function(param) {
+        // do not update until 'open' received
+        if( $('#vw_header-infoprueba').html()==='Cabecera') return false;
+        return true;
+    }
+});
 
-doLayout(layout,"#vwls_Resultados",	625,	35,		150,	130	);
-doLayout(layout,"#vwls_Datos",		25,		345,	750,	80	);
-
-doLayout(layout,"#vwls_FaltasLbl",	635,	50,		75,		25	);
-doLayout(layout,"#vwls_Faltas",		735,	50,		25,		25	);
-doLayout(layout,"#vwls_TocadosLbl",	635,	75,		75,		25	);
-doLayout(layout,"#vwls_Tocados",	735,	75,		25,		25	);
-doLayout(layout,"#vwls_RehusesLbl",	635,	100,	75,		25	);
-doLayout(layout,"#vwls_Rehuses",	735,	100,	25,		25	);
-doLayout(layout,"#vwls_TiempoLbl",	635,	125,	50,		25	);
-doLayout(layout,"#vwls_Tiempo",		705,	125,	55,		25	);
-
-doLayout(layout,"#vwls_Logo",		30,		350,	80,		80	);
-doLayout(layout,"#vwls_Dorsal",		150,	350,	150,	40	);
-doLayout(layout,"#vwls_Nombre",		300,	350,	250,	40	);
-doLayout(layout,"#vwls_NombreGuia",	150,	390,	350,	40	);
-doLayout(layout,"#vwls_NombreClub",	500,	390,	250,	40	);
-doLayout(layout,"#vwls_Categoria",	550,	350,	100,	40	);
-doLayout(layout,"#vwls_Grado",		650,	350,	125,	40	);
-doLayout(layout,"#vwls_Celo",		700,	390,	75,		40	);
-
-jQuery('#vwls_LiveStream').fitText(0.04);
 </script>
