@@ -141,9 +141,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				<option value="7">Registrar trazas de ejecuci&oacute;n</option>
 				<option value="8">Registrar absolutamente todo</option>
 			</select><br />
-			<label for="register_events">Registrar en fichero operaciones en el tablet</label> 
-			<input type="hidden" name="register_events" value="0"/> <!-- trick for checkboxes -->
-			<input type="checkbox" name="register_events" id="register_events" value="1"/><br />
+            <label for="register_events">Registrar en fichero operaciones en el tablet</label>
+            <input type="hidden" name="register_events" value="0"/> <!-- trick for checkboxes -->
+            <input type="checkbox" name="register_events" id="register_events" value="1"/><br />
+            <label for="reset_events">Reiniciar registro al iniciar sesion en el tablet</label>
+            <input type="hidden" name="reset_events" value="0"/> <!-- trick for checkboxes -->
+            <input type="checkbox" name="reset_events" id="reset_events" value="1"/><br />
 			<label for="proximity_alert">Alerta de proximidad en orden de salida</label>
 			<input type="number" min="1" max="20" size="2" value="5" name="proximity_alert" id="proximity_alert"/> Perros<br />
 		</div>

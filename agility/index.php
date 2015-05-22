@@ -111,7 +111,9 @@ var ac_config= {
 		// Internacionalizacion. Idiomas
 		'lang'				: '<?php echo $config->getEnv('lang'); ?>',
 		// variables del sistema
-		'proximity_alert'	: <?php echo $config->getEnv('proximity_alert'); ?>,
+        'proximity_alert'	: <?php echo $config->getEnv('proximity_alert'); ?>,
+        'register_events'	: <?php echo $config->getEnv('register_events'); ?>,
+        'reset_events'	: <?php echo $config->getEnv('reset_events'); ?>,
 		
 		// entorno grafico
 		'easyui_theme' 		: '<?php echo $config->getEnv('easyui_theme'); ?>',

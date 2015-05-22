@@ -29,6 +29,7 @@ define ('AC_LANG','es_ES.UTF-8');
 /** logging **/
 define('AC_DEBUG_LEVEL',0);
 define('AC_REGISTER_EVENTS',"0");
+define('AC_RESET_EVENTS',"1");
 
 /** variables de la aplicacion principal **/
 define('AC_PROXIMITY_ALERT',5);
@@ -96,7 +97,8 @@ Class Config {
 		
 		// version, logging y depuracion
 		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
-		$this->config['register_events'] =	AC_REGISTER_EVENTS;
+        $this->config['register_events'] =	AC_REGISTER_EVENTS;
+        $this->config['reset_events'] =	AC_RESET_EVENTS;
 		$this->config['version_name'] =	AC_VERSION_NAME;
 		$this->config['version_date'] =	AC_VERSION_DATE;
 
@@ -229,7 +231,8 @@ Class Config {
 		// skip version info/date as cannot be edited by user
 
 		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
-		$this->config['register_events'] =	AC_REGISTER_EVENTS;
+        $this->config['register_events'] =	AC_REGISTER_EVENTS;
+        $this->config['reset_events'] =	AC_RESET_EVENTS;
 		$this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
 		
 		// configuracion de la consola
@@ -323,7 +326,8 @@ Class Config {
 		// Sistema
 		$data=testAndSet($data,'lang','s',AC_LANG);
 		$data=testAndSet($data,'debug_level','i',AC_DEBUG_LEVEL);
-		$data['register_events']=http_request('register_events','s',AC_REGISTER_EVENTS);
+        $data['register_events']=http_request('register_events','s',AC_REGISTER_EVENTS);
+        $data['reset_events']=http_request('reset_events','s',AC_RESET_EVENTS);
 		$data=testAndSet($data,'proximity_alert','i',AC_PROXIMITY_ALERT);
 		
 		// finally write file:

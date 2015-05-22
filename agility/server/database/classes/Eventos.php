@@ -80,8 +80,14 @@ class Eventos extends DBObject {
 	 */
 	function putEvent($data) {
 		$this->myLogger->enter();
+        $cfg=Config::getInstance();
 		$sid=$this->sessionID;
-		
+		// si el evento es "init" y el flag reset_events está a 1 borramos el historico de eventos antes de reinsertar
+        if ( ( intval($cfg->getEnv("reset_events")) == 1 ) && ( ($data['Type']==='init') )) {
+            $rs= $this->query("DELETE FROM Eventos WHERE (Session=$sid)");
+            if (!$rs) return $this->error($this->conn->error);
+            file_put_contents($this->sessionFile,"\n",LOCK_EX); // borra fichero de eventos
+        }
 		// prepare statement
 		$sql = "INSERT INTO Eventos ( TimeStamp,Session, Source, Type, Data ) VALUES (?,$sid,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
@@ -106,7 +112,6 @@ class Eventos extends DBObject {
 		$stmt->close();
 		
 		// and save content to event file
-		$cfg=Config::getInstance();
 		$flag=$cfg->getEnv("register_events");
 		$str=json_encode($data);
 		if (boolval($flag)) {
