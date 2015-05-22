@@ -83,6 +83,7 @@ function formatTeamResults( value , rows ) {
     var time=0.0;
     var penal=0.0;
     var logos="";
+    var width=($('#vw_header-combinadaFlag').text()==='true')?500:1000;
     function addLogo(logo) {
         if (logos.indexOf(logo)>=0) return;
         logos = logos + '&nbsp;<img height="40px" src="/agility/images/logos/'+ logo + '"/>';
@@ -98,11 +99,11 @@ function formatTeamResults( value , rows ) {
         }
     }
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
-    var res= '<div class="vw_equipos3">'+
-        '<span style="width:15%;text-align:left;">'+logos+'</span>'+
-        '<span style="width:45%;text-align:left;">Equipo: '+value+'</span>' +
-        '<span style="width:20%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</span>' +
-        '<span style="width:20%;text-align:right;">Penalizaci&oacute;n:'+(penal).toFixed(2)+'</span>'+
+    var res= '<div class="vw_equipos3" style="width:'+width+'px;">'+
+        '<span style="width:10%;text-align:left;">'+logos+'</span>'+
+        '<span style="width:30%;text-align:left;">Equipo: '+value+'</span>' +
+        '<span style="width:30%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</span>' +
+        '<span style="width:30%;text-align:right;">Penaliz.:'+(penal).toFixed(2)+'</span>'+
         '</div>';
     return res;
 }
@@ -123,7 +124,7 @@ function formatTeamResultsConsole( value , rows ) {
     var res= '<div class="vw_equipos3" style="width:640px">'+
         '<span style="width:40%;text-align:left;">Equipo: '+value+'</span>' +
         '<span style="width:30%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</span>' +
-        '<span style="width:30%;text-align:right;">Penalizaci&oacute;n:'+(penal).toFixed(2)+'</span>'+
+        '<span style="width:30%;text-align:right;">Penaliz.:'+(penal).toFixed(2)+'</span>'+
         '</div>';
     return res;
 }

@@ -20,10 +20,48 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 /*
-* Estilos asociados a las diversas pantallas de acceso internet
+* Estilos asociados a las diversas pantallas de videomarcadores
 */
+/********** Estilos de la pantalla liveStream *****************/
+#vwls_common {
+    vertical-align: middle;
+    line-height: 25px;
+    font-weight: bold;
+    border: none;
+    border-width: 0px;
+    z-index: 1;
+}
 
-/**********  cabeceras flotante para acceso publico **********/
+.vwls_label {
+    text-align: left;
+    background-color: transparent;
+    color: white;
+}
+
+.vwls_logo {
+    background-color: transparent;
+}
+
+.vwls_data {
+    text-align: center;
+    background-color: #c0c0c0;
+    color: white;
+}
+
+.vwls_fondo {
+    background-color: rgba(127,127,127,<?php echo $config->getEnv('vw_alpha')?>);
+    border: 3px solid black;
+    border-radius: 10px;
+}
+
+#vwls_video {
+    width: 100%;
+    height: auto;
+    z-index: -1;
+}
+
+
+/**********  cabeceras flotante para videomarcadores **********/
 .vw_floatingheader {
     margin-top:0px;
     margin-bottom:0px;

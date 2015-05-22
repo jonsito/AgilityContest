@@ -26,13 +26,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                         <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="50" style="float:left;"/>
                         <span style="float:left;padding:5px" id="vw_header-infoprueba">Cabecera</span>
                     </td>
-                    <td style="text-align:right">&nbsp;</td>
+                    <td style="text-align:right"><span id="vw_header-combinadaFlag" style="display:none">true</span></td>
                 </tr>
                 <tr>
                     <td style="text-align:left">Llamada a pista</td>
                     <td style="text-align:right">
                         Resultados Provisionales -
-                        <span id="vw_parciales-NombreManga">&nbsp;</span>
+                        <span id="vw_header-infomanga">&nbsp;</span>
                     </td>
                 </tr>
             </table>
@@ -67,16 +67,77 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 $('#vw_combinada-layout').layout({fit:true});
 
 $('#vw_combinada-window').window({
-	fit:true,
-	noheader:true,
-	border:false,
-	closable:false,
-	collapsible:false,
-	collapsed:false,
-	resizable:true,
-	onOpen: function() {
+    fit:true,
+    noheader:true,
+    border:false,
+    closable:false,
+    collapsible:false,
+    collapsed:false,
+    resizable:true,
+    onOpen: function() {
         startEventMgr(workingData.sesion,vw_procesaCombinada);
-	}
+    }
+});
+
+$('#vw_parciales-datagrid').datagrid({
+    // propiedades del panel asociado
+    fit: true,
+    border: false,
+    closable: false,
+    collapsible: false,
+    collapsed: false,
+    // propiedades del datagrid
+    method: 'get',
+    url: '/agility/server/database/resultadosFunctions.php',
+    queryParams: {
+        Prueba: workingData.prueba,
+        Jornada: workingData.jornada,
+        Manga: workingData.manga,
+        Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
+        Operation: 'getResultados'
+    },
+    loadMsg: "Actualizando resultados de la manga ...",
+    pagination: false,
+    rownumbers: false,
+    fitColumns: true,
+    singleSelect: true,
+    autoRowHeight: true,
+    // view: gview,
+    // groupField: 'NombreEquipo',
+    // groupFormatter: formatTeamResults,
+    // toolbar: '#resultadosmanga-toolbar',
+    columns:[[
+        { field:'Manga',		hidden:true },
+        { field:'Perro',		hidden:true },
+        { field:'Raza',		    hidden:true },
+        { field:'Equipo',		hidden:true },
+        { field:'NombreEquipo',	hidden:true },
+        // { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
+        { field:'LogoClub',		width:'10%', align:'center', title: '', formatter:formatLogo},
+        // { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
+        { field:'Nombre',		width:'10%', align:'center',  title: 'Nombre'},
+        { field:'NombreGuia',	width:'15%', align:'right', title: 'Guia' },
+        { field:'NombreClub',	width:'12%', align:'right', title: 'Club' },
+        { field:'Categoria',	width:'4%', align:'center', title: 'Cat.' },
+        { field:'Grado',	    width:'4%', align:'center', title: 'Grad.' },
+        { field:'Faltas',		width:'4%', align:'center', title: 'Faltas'},
+        { field:'Rehuses',		width:'4%', align:'center', title: 'Rehuses'},
+        { field:'Tocados',		width:'4%', align:'center', title: 'Tocados'},
+        { field:'PRecorrido',	hidden:true },
+        { field:'Tiempo',		width:'6%', align:'right', title: 'Tiempo', formatter:formatTiempo},
+        { field:'PTiempo',		hidden:true },
+        { field:'Velocidad',	width:'4%', align:'right', title: 'Vel.', formatter:formatVelocidad},
+        { field:'Penalizacion',	width:'6%', align:'right', title: 'Penal.', formatter:formatPenalizacion},
+        { field:'Calificacion',	width:'7%', align:'center',title: 'Calificacion'},
+        { field:'Puesto',		width:'4%', align:'center',  title: 'Puesto', formatter:formatPuesto},
+        { field:'CShort',       hidden:true}
+    ]],
+    rowStyler:myRowStyler,
+    onBeforeLoad: function(param) {
+        // do not update until 'open' received
+        if( $('#vw_header-infoprueba').html()==='Cabecera') return false;
+        return true;
+    }
 });
 
 $('#vw_llamada-datagrid').datagrid({
@@ -126,67 +187,6 @@ $('#vw_llamada-datagrid').datagrid({
             mySelf.datagrid('showColumn','Grado');
         }
         mySelf.datagrid('fitColumns'); // expand to max width
-        // do not update until 'open' received
-        if( $('#vw_header-infoprueba').html()==='Cabecera') return false;
-        return true;
-    }
-});
-
-$('#vw_parciales-datagrid').datagrid({
-    // propiedades del panel asociado
-    fit: true,
-    border: false,
-    closable: false,
-    collapsible: false,
-    collapsed: false,
-    // propiedades del datagrid
-    method: 'get',
-    url: '/agility/server/database/resultadosFunctions.php',
-    queryParams: {
-        Prueba: workingData.prueba,
-        Jornada: workingData.jornada,
-        Manga: workingData.manga,
-        Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
-        Operation: 'getResultados'
-    },
-    loadMsg: "Actualizando resultados de la manga ...",
-    pagination: false,
-    rownumbers: false,
-    fitColumns: true,
-    singleSelect: true,
-    autoRowHeight: true,
-    // view: gview,
-    // groupField: 'NombreEquipo',
-    // groupFormatter: formatTeamResults,
-    // toolbar: '#resultadosmanga-toolbar',
-    columns:[[
-        { field:'Manga',		hidden:true },
-        { field:'Perro',		hidden:true },
-        { field:'Raza',		    hidden:true },
-        { field:'Equipo',		hidden:true },
-        { field:'NombreEquipo',	hidden:true },
-        { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
-        { field:'LogoClub',		width:'5%', align:'center', title: '', formatter:formatLogo},
-        { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
-        { field:'Nombre',		width:'10%', align:'center',  title: 'Nombre'},
-        { field:'NombreGuia',	width:'15%', align:'right', title: 'Guia' },
-        { field:'NombreClub',	width:'12%', align:'right', title: 'Club' },
-        { field:'Categoria',	width:'4%', align:'center', title: 'Cat.' },
-        { field:'Grado',	    width:'4%', align:'center', title: 'Grad.' },
-        { field:'Faltas',		width:'4%', align:'center', title: 'Faltas'},
-        { field:'Rehuses',		width:'4%', align:'center', title: 'Rehuses'},
-        { field:'Tocados',		width:'4%', align:'center', title: 'Tocados'},
-        { field:'PRecorrido',	hidden:true },
-        { field:'Tiempo',		width:'6%', align:'right', title: 'Tiempo', formatter:formatTiempo},
-        { field:'PTiempo',		hidden:true },
-        { field:'Velocidad',	width:'4%', align:'right', title: 'Vel.', formatter:formatVelocidad},
-        { field:'Penalizacion',	width:'6%%', align:'right', title: 'Penal.', formatter:formatPenalizacion},
-        { field:'Calificacion',	width:'7%', align:'center',title: 'Calificacion'},
-        { field:'Puesto',		width:'4%', align:'center',  title: 'Puesto', formatter:formatPuestoBig},
-        { field:'CShort',       hidden:true}
-    ]],
-    rowStyler:myRowStyler,
-    onBeforeLoad: function(param) {
         // do not update until 'open' received
         if( $('#vw_header-infoprueba').html()==='Cabecera') return false;
         return true;
