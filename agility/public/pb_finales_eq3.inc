@@ -61,15 +61,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <table id="pb_resultados-datagrid">
                     <thead>
                     <tr>
-                        <th colspan="8"> <span class="resultados_theader">Datos del participante</span></th>
+                        <th colspan="6"> <span class="resultados_theader">Datos del participante</span></th>
                         <th colspan="6"> <span class="resultados_theader" id="pb_resultados_thead_m1">Manga 1</span></th>
                         <th colspan="6"> <span class="resultados_theader" id="pb_resultados_thead_m2">Manga 2</span></th>
                         <th colspan="4"> <span class="resultados_theader">Clasificaci&oacute;n</span></th>
                     </tr>
                     <tr>
+                        <!--
                         <th data-options="field:'Perro',		hidden:true " ></th>
+                        -->
                         <th data-options="field:'Dorsal',		width:20, align:'left'" > Dors.</th>
+                        <!--
                         <th data-options="field:'LogoClub',		hidden:true" ></th>
+                        -->
                         <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold""> Nombre</th>
                         <th data-options="field:'Licencia',		width:15, align:'center'" > Lic.</th>
                         <th data-options="field:'Categoria',	width:15, align:'center'" > Cat.</th>
