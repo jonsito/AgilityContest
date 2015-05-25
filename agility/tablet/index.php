@@ -91,7 +91,7 @@ function initialize() {
  * @return {string} proper row style for given idx
  */
 function myRowStyler(idx,row) {
-	var res="background-color:";
+	var res="height:35px;background-color:";
 	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
 	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
@@ -147,6 +147,7 @@ var ac_config= {
 
 <style>
 body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
+
 </style>
 
 </head>
@@ -216,7 +217,7 @@ $('#seltablet-Sesion').combogrid({
 			{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' }
 	]],
 	onBeforeLoad: function(param) { 
-		param.Operation='select';
+		param.Operation='selectring';
 		param.Hidden=0;
 		return true;
 	}

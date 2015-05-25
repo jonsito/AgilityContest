@@ -26,7 +26,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                         <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="50" style="float:left;"/>
                         <span style="float:left;padding:5px" id="vw_header-infoprueba">Cabecera</span>
                     </td>
-                    <td style="text-align:right"><span id="vw_header-combinadaFlag" style="display:none">true</span></td>
+                    <td style="text-align:right">
+                        <span id="vw_header-combinadaFlag" style="display:none">true</span> <!--indicador de combinada-->
+                        <span id="vw_header-ring">Ring</span>
+                    </td>
                 </tr>
                 <tr>
                     <td style="text-align:left">Llamada a pista</td>

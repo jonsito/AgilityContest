@@ -21,10 +21,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<div id="vw_ordensalida-Cabecera" data-options="region:'north',split:false" style="height:100px" class="vw_floatingheader">
             <img id="vw_header-logo" src="/agility/images/logos/rsce.png" style="float:left;width:75px" />
 		    <span style="float:left;padding:10px;" id="vw_header-infoprueba">Cabecera</span>
-			<span style="float:right;padding:10px;text-align:right;" id="vw_header-texto">
-                Orden de Salida<br />
+			<div style="float:right;padding:10px;text-align:right;">
+                <span id="vw_header-texto"></span> Orden de Salida</span>&nbsp;-&nbsp;
+                <span id="vw_header-ring">Ring</span>
+                <br />
                 <span id="vw_header-infomanga" style="width:200px">(Manga no definida)</span>
-            </span>
+            </div>
 		</div>
 		<div id="vw_tabla" data-options="region:'center'">
 			<table id="vw_ordensalida-datagrid"></table>

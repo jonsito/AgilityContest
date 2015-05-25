@@ -75,6 +75,13 @@ class VideoWall {
 			$this->mode=$mode;	
 		}
         $this->club= $this->myDBObject->__getArray("Clubes",$this->prueba['Club']);
+        if ($this->manga!=null) { // elimina parentesis del nombre
+            $str=Mangas::$tipo_manga[$this->manga['Tipo']][1];
+            $a=strpos($str,"(");
+            if($a!==FALSE) $str=substr($str,0,$a);
+            $this->manga['Nombre']=$str;
+        }
+
 		$this->myLogger->info("sesion:$sessionid prueba:{$this->prueba['ID']} jornada:{$this->jornada['ID']} manga:{$this->mangaid} tanda:{$this->tandatype} mode:$mode");
 	}
 
@@ -147,7 +154,8 @@ class VideoWall {
             'Jornada' => $this->jornada,
             'Manga' => ($this->manga==null)? array() : $this->manga,
             'Tanda' => ($this->tanda==null)? array() : $this->tanda,
-            'Club' => $this->club // club organizador
+            'Club' => $this->club, // club organizador
+            'Sesion' => $this->session
         );
         echo json_encode($res);
     }

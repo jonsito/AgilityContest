@@ -22,10 +22,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div id="vw_parciales-Cabecera" data-options="region:'north',split:false" style="height:175px" class="vw_floatingheader">
             <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
             <span style="float:left;padding:10px" id="vw_header-infoprueba">Cabecera</span>
-            <span style="float:right;padding:10px;text-align:right;" id="vw_header-texto">
-                Resultados provisionales<br/>
+
+            <div style="float:right;padding:10px;text-align:right;">
+                <span id="vw_header-texto">Resultados provisionales</span>&nbsp;-&nbsp;
+                <span id="vw_header-ring">Ring</span>
+                <br />
                 <span id="vw_header-infomanga" style="width:200px">(Manga no definida)</span>
-            </span><br/>
+            </div>
             <!-- Datos de TRS y TRM -->
             <table class="vw_trs">
                 <thead>

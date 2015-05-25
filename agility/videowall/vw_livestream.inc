@@ -31,7 +31,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<div id="vwls_common" style="font-size:1.75em;display:inline-block;width:100%">
 			<!-- Recuadros de decoracion -->
 			<span class="vwls_fondo" id="vwls_Resultados">&nbsp;</span>
-			<span class="vwls_fondo" id="vwls_Datos">&nbsp;</span>
+            <span class="vwls_fondo" id="vwls_Datos">&nbsp;</span>
+            <span class="vwls_fondo" id="vwls_InfoManga">&nbsp;</span>
 			<!-- datos de resultados -->
 			<span class="vwls_label" id="vwls_FaltasLbl">Faltas:</span>
 			<span class="vwls_data"  id="vwls_Faltas">0</span>
@@ -51,7 +52,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span class="vwls_label" id="vwls_NombreClub">Club</span>
 			<span class="vwls_label" id="vwls_Categoria">Categor&iacute;a</span>
 			<span class="vwls_label" id="vwls_Grado">Grado</span>
-			<span class="vwls_label" id="vwls_Celo">Celo</span>
+            <span class="vwls_label" id="vwls_Celo">Celo</span>
+            <!-- Informacion de la manga -->
+            <span class="vwls_label" id="vwls_Manga" style="text-align:center;">Manga</span>
 		</div>
 	</div>
 </div>
@@ -90,7 +93,8 @@ $('#vwls_LiveStream-window').window({
 var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 
 doLayout(layout,"#vwls_Resultados",	620,	20,		155,	100	);
-doLayout(layout,"#vwls_Datos",		25,		380,	750,	45	);
+doLayout(layout,"#vwls_Datos",		25,		390,	750,	45	);
+doLayout(layout,"#vwls_InfoManga",	25,	    20,	    250,	20	);
 
 doLayout(layout,"#vwls_FaltasLbl",	630,	30,		75,		20	);
 doLayout(layout,"#vwls_Faltas",		740,	30,		25,		20	);
@@ -101,14 +105,16 @@ doLayout(layout,"#vwls_Rehuses",	740,	70,	    25,		20	);
 doLayout(layout,"#vwls_TiempoLbl",	630,	90,     50,		20	);
 doLayout(layout,"#vwls_Tiempo",		710,	90,     55,		20	);
 
-doLayout(layout,"#vwls_Logo",		30,		350,	80,		80	);
-doLayout(layout,"#vwls_Dorsal",		120,	385,	110,	25	);
-doLayout(layout,"#vwls_Nombre",		230,	385,	270,	25	);
-doLayout(layout,"#vwls_NombreGuia",	120,	405,	380,	25	);
-doLayout(layout,"#vwls_NombreClub",	500,	405,	200,	25	);
-doLayout(layout,"#vwls_Categoria",	500,	385,	150,	25	);
-doLayout(layout,"#vwls_Grado",		650,	385,	125,	25	);
-doLayout(layout,"#vwls_Celo",		700,	405,	75,		25	);
+doLayout(layout,"#vwls_Logo",		30,		360,	80,		80	);
+doLayout(layout,"#vwls_Dorsal",		120,	395,	110,	25	);
+doLayout(layout,"#vwls_Nombre",		230,	395,	270,	25	);
+doLayout(layout,"#vwls_NombreGuia",	120,	415,	380,	25	);
+doLayout(layout,"#vwls_NombreClub",	500,	415,	200,	25	);
+doLayout(layout,"#vwls_Categoria",	500,	395,	150,	25	);
+doLayout(layout,"#vwls_Grado",		650,	395,	125,	25	);
+doLayout(layout,"#vwls_Celo",		700,	415,	75,		25	);
+
+doLayout(layout,"#vwls_Manga",		25, 	20,	    250,	15	);
 
 jQuery('#vwls_common').fitText(0.02);
 </script>

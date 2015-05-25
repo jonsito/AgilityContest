@@ -25,9 +25,10 @@ class Sesiones extends DBObject {
 	/**
 	 * retrieve list of stored sessions
      * @param {array} data received data query parameters
+     * @param {boolean} ring: if true exclude "-- Sin asignar --" session 1
 	 * @return session list in easyui json expected format, or error string
 	 */
-	function select($data) {
+	function select($data,$ring=false) {
 		$this->myLogger->enter();
 		//needed to properly handle multisort requests from datagrid
 		$sort=getOrderString(
@@ -46,6 +47,8 @@ class Sesiones extends DBObject {
 			$limit="".$offset.",".$rows;
 		}
 		// if hidden==0 hide console related sessions
+        $ringstr=" AND 1";
+        if ($ring) $ringstr=" AND (Sesiones.ID > 1)";
         $searchstr=" AND 1";
         if ($search!=="") $searchstr = "AND (Nombre LIKE '%$search%')  AND ( ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
         $hiddenstr=" AND 1";
@@ -53,14 +56,14 @@ class Sesiones extends DBObject {
 		$result=$this->__select(
 				/* SELECT */ "Sesiones.ID AS ID,Nombre,Comentario,Operador,Prueba,Jornada,Manga,Tanda,Login,Background,LiveStream,LiveStream2,LiveStream3",
 				/* FROM */ "Sesiones,Usuarios",
-				/* WHERE */ "( Sesiones.Operador = Usuarios.ID ) $hiddenstr $searchstr",
+				/* WHERE */ "( Sesiones.Operador = Usuarios.ID ) $hiddenstr $searchstr $ringstr",
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);
 		$this->myLogger->leave();
 		return $result;
 	}
-	
+
 	/**
 	 * Insert a new session into database
 	 * @return {string} "" if ok; null on error

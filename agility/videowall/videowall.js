@@ -39,7 +39,7 @@ function vw_updateWorkingData(evt,callback) {
             setJornada(data.Jornada);
             setManga(data.Manga);
             // and finally invoke callback
-            callback(evt,data);
+            if (typeof(callback)==='function') callback(evt,data);
         }
     });
 }
@@ -84,9 +84,12 @@ function vw_updateDataInfo(evt,data) {
     var infoprueba='Prueba: ' + data.Prueba.Nombre+" <br /> Jornada: "+ data.Jornada.Nombre;
     $('#vw_header-infoprueba').html(infoprueba);
     $('#vw_header-logo').attr('src','/agility/images/logos/'+data.Club.Logo);
+    $('#vw_header-ring').html(data.Sesion.Nombre);
+
     // this should be done in callback, as content is window dependent
-    // var infomanga=(typeof(data.Manga.Nombre)==='undefined')?'':data.Manga.Nombre
-    // $('#vw_header-infomanga').html(data.Manga.Nombre);
+    // actualiza informacion de manga
+    var infomanga=(typeof(data.Manga.Nombre)==='undefined')?'':data.Manga.Nombre;
+    $('#vwls_Manga').html(infomanga);
 
     // update footer
     var logo=nombreCategorias[workingData.federation]['logo'];
@@ -158,7 +161,6 @@ function vwls_showData(data) {
 	$('#vwls_Tiempo').html(data["Tiempo"]);
 	if (data["Eliminado"]==1)	$('#vwls_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
 	if (data["NoPresentado"]==1) $('#vwls_Tiempo').html('<span class="blink" style="color:red">N.P.</span>');
-	
 }
 
 var myCounter = new Countdown({  
@@ -328,7 +330,8 @@ function vwls_processLiveStream(id,evt) {
         setupByJornada(event['Pru'],event['Jor']); // use shortname to ensure data exists
 		vwls_showOSD(0); 	// activa visualizacion de OSD
 		return;
-	case 'open':		// operator select tanda reset info
+        case 'open':		// operator select tanda reset info
+        vw_updateWorkingData(event,function(e,d){vw_updateDataInfo(e,d);});
 		return;
 	case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);

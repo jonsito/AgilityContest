@@ -96,9 +96,9 @@ $('#tablet-datagrid').datagrid({
         var dg="tablet-datagrid-" + parseInt(row.ID);
         return '<div style="padding:2px"><table id="' + dg + '"></table></div>';
     },
-    onClickRow: function(idx,row) { 
-        doBeep(); 
+    onClickRow: function(idx,row) {
         tablet_updateSession(row);
+        var dg=$('#tablet-datagrid').datagrid('expandRow',idx);
     },
     onExpandRow: function(idx,row) { 
         doBeep();

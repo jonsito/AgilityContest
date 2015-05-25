@@ -44,7 +44,8 @@ try {
 	$sesion= new Sesiones("sessionFunctions");
 	$am= new AuthManager("sessionFunctions");
 	switch ($operation) {
-		case "select": $result=$sesion->select($data); break;
+        case "select": $result=$sesion->select($data,false); break;
+        case "selectring": $result=$sesion->select($data,true); break;
 		case "insert": $am->access(PERMS_OPERATOR); $result=$sesion->insert($data); break;
 		case "update": $am->access(PERMS_ASSISTANT); $result=$sesion->update($id,$data); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$sesion->delete($id); break;

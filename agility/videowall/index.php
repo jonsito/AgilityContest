@@ -257,7 +257,7 @@ $('#selvw-Session').combogrid({
 		{ field:'LiveStream3',	hidden:true }
 	]],
 	onBeforeLoad: function(param) { 
-		param.Operation='select';
+		param.Operation='selectring';
 		param.Hidden=0;
 		return true;
 	},
