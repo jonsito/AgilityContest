@@ -64,6 +64,20 @@ function editTanda(dg){
     $('#ordentandas_newtanda-form').form('load',row);
 }
 
+function reloadOrdenTandas() {
+    if (workingData.prueba==0) return;
+    if (workingData.jornada==0) return;
+    $('#ordentandas-datagrid').datagrid(
+        'load',
+        {
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada ,
+            Operation: 'getTandas',
+            Sesion: 0 // 0: Any
+        }
+    );
+}
+
 /**
  * Call json to Ask for commit new/edit actividad to server
  */
@@ -79,8 +93,7 @@ function saveTanda(dg){
             if (result.errorMsg){
                 $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
             } else {
-                $('#ordentandas_newtanda-dialog').dialog('close');        // close the dialog
-                $(dg).datagrid('reload');    // reload the session data
+                reloadOrdenTandas();
             }
         }
     });
@@ -102,9 +115,9 @@ function deleteTanda(dg){
     }
     $.messager.confirm('Confirm','Eliminar la actividad '+row.Nombre+'\n ¿Seguro?',function(r){
       	if (!r) return;
-        $.get('/agility/server/database/tandasFunction.php',{Operation:'delete',ID:row.ID},function(result){
+        $.get('/agility/server/database/tandasFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
-                $(dg).datagrid('reload');    // reload the session data
+                reloadOrdenTandas();
             } else {
             	// show error message
                 $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});

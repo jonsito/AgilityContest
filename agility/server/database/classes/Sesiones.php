@@ -24,6 +24,7 @@ class Sesiones extends DBObject {
 	
 	/**
 	 * retrieve list of stored sessions
+     * @param {array} data received data query parameters
 	 * @return session list in easyui json expected format, or error string
 	 */
 	function select($data) {
@@ -45,23 +46,14 @@ class Sesiones extends DBObject {
 			$limit="".$offset.",".$rows;
 		}
 		// if hidden==0 hide console related sessions
-		$where = "";
-		if ( ($search==="") and ($data['Hidden']!=0)) {
-			$where = "( Sesiones.Operador = Usuarios.ID )";
-		}
-		if ( ($search==="") and ($data['Hidden']==0)) {
-			$where= "( Sesiones.Operador = Usuarios.ID ) AND (Nombre != 'Console')";
-		}
-		if ( ($search!=="") and ($data['Hidden']!=0)) {
-			$where=" ( Sesiones.Operador = Usuarios.ID ) AND (Nombre LIKE '%$search%')  AND ( ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
-		}
-		if ( ($search!=="") and ($data['Hidden']==0)) {
-			$where=" ( Sesiones.Operador = Usuarios.ID ) AND (Nombre != 'Console') AND( (Nombre LIKE '%$search%') OR ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
-		}
+        $searchstr=" AND 1";
+        if ($search!=="") $searchstr = "AND (Nombre LIKE '%$search%')  AND ( ( Comentario LIKE '%$search%' ) OR ( Operador LIKE '%$search%') ) ";
+        $hiddenstr=" AND 1";
+        if ($data['Hidden']==0 ) $hiddenstr = "AND (Nombre != 'Console')";
 		$result=$this->__select(
 				/* SELECT */ "Sesiones.ID AS ID,Nombre,Comentario,Operador,Prueba,Jornada,Manga,Tanda,Login,Background,LiveStream,LiveStream2,LiveStream3",
 				/* FROM */ "Sesiones,Usuarios",
-				/* WHERE */ $where,
+				/* WHERE */ "( Sesiones.Operador = Usuarios.ID ) $hiddenstr $searchstr",
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);
@@ -75,6 +67,15 @@ class Sesiones extends DBObject {
 	 */
 	function insert($data) {
 		$this->myLogger->enter();
+        // extraemos los valores del parametro
+        $nombre =	$data['Nombre'];
+        $comentario=$data['Comentario'];
+        $prueba =	$data['Prueba'];
+        $jornada =  array_key_exists('Jornada',$data)? $data['Jornada']:0; // cannot be null
+        $manga = 	array_key_exists('Manga',$data)? $data['Manga']:0; // cannot be null
+        $tanda = 	array_key_exists('Tanda',$data)? $data['Tanda']:0; // cannot be null
+        $operador = array_key_exists('Operador',$data)? $data['Operador']:1; // cannot be null
+        $sessionkey=array_key_exists('SessionKey',$data)?$data['SessionKey']:null;
 		// componemos un prepared statement
 		$sql ="INSERT INTO Sesiones (Nombre,Comentario,Prueba,Jornada,Manga,Tanda,Operador,SessionKey)
 			   VALUES(?,?,?,?,?,?,?,?)";
@@ -82,16 +83,7 @@ class Sesiones extends DBObject {
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('ssiiiiis',$nombre,$comentario,$prueba,$jornada,$manga,$tanda,$operador,$sessionkey);
 		if (!$res) return $this->error($this->conn->error);	
-		
-		// extraemos los valores del parametro
-		$nombre =	$data['Nombre'];
-		$comentario=$data['Comentario'];
-		$prueba =	$data['Prueba'];
-		$jornada =  array_key_exists('Jornada',$data)? $data['Jornada']:0; // cannot be null
-		$manga = 	array_key_exists('Manga',$data)? $data['Manga']:0; // cannot be null
-		$tanda = 	array_key_exists('Tanda',$data)? $data['Tanda']:0; // cannot be null
-		$operador = array_key_exists('Operador',$data)? $data['Operador']:1; // cannot be null
-		$sessionkey=array_key_exists('SessionKey',$data)?$data['SessionKey']:null;
+
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();

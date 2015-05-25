@@ -613,18 +613,6 @@ function reload_manga(id) {
     $('#competicion-formdatosmanga').form('load',url);
 }
 
-function reloadOrdenTandas() {
-	if (workingData.prueba==0) return;
-	if (workingData.jornada==0) return;
-    $('#ordentandas-datagrid').datagrid(
-            'load',
-            { 
-            	Prueba: workingData.prueba,
-            	Jornada: workingData.jornada ,
-            	Operation: 'getTandas'
-            }
-    );
-}
 
 function proximityAlert() {
 	var data=$('#ordensalida-datagrid').datagrid('getRows');

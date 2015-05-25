@@ -70,7 +70,7 @@ $('#pb_programa-datagrid').datagrid({
         Operation: 'getTandas',
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
-        Sesion: 1 // include every item o this jornada
+        Sesion: 0 // include every item o this jornada
     },
     loadMsg: "Actualizando programa de la Jornada .....",
     pagination: false,

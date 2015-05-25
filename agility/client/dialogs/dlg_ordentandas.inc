@@ -110,7 +110,8 @@ $('#ordentandas-datagrid').datagrid({
     queryParams: {
         Operation: 'getTandas',
         Prueba: workingData.prueba,
-        Jornada: workingData.jornada
+        Jornada: workingData.jornada,
+        Sesion: 0 // 0: Any session
     },
     loadMsg: "Actualizando programa de la Jornada .....",
     toolbar: '#ordentandas-toolbar',

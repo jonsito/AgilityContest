@@ -72,7 +72,7 @@ $('#pb_enumerateMangas').combogrid({
         Operation: 'getTandas',
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
-        Sesion: 0
+        Sesion: 1 // show only non user defined tandas
     },
     required: true,
     multiple: false,

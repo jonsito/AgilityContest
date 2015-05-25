@@ -65,7 +65,7 @@ $('#tablet-datagrid').datagrid({
         Operation: 'getTandas',
         Prueba: workingData.prueba,
 		Jornada: workingData.jornada,
-		Sesion: workingData.sesion
+		Sesion: (workingData.sesion==1)?1:-(workingData.sesion)
     },
 	toolbar:'#tablet-toolbar',
     loadMsg: "Actualizando programa ...",

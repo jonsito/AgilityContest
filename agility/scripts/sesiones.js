@@ -45,6 +45,10 @@ function editSession(dg){
     	$.messager.alert("Edit Error:","!No ha seleccionado ninguna sesi&oacute;n!","warning");
     	return; // no way to know which dog is selected
     }
+    if (row.ID<=1) {
+        $.messager.alert("Delete Error:","Esta entrada no se puede editar","error");
+        return; // cannot delete default session
+    }
     // set up operation properly
     row.Operation='update';
     // open dialog
@@ -86,7 +90,7 @@ function deleteSession(dg){
     	$.messager.alert("Delete Error:","!No ha seleccionado ninguna Sesi&oacute;n!","info");
     	return; // no way to know which session is selected
     }
-    if (row.ID==1) {
+    if (row.ID<=2) {
     	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
     	return; // cannot delete default session
     }

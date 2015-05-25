@@ -275,7 +275,7 @@ class Tandas extends DBObject {
 		$data['InsertID']=http_request("InsertID","i",0);
 		$data['Tipo']=http_request("Tipo","i",0);
 		$data['Nombre']=http_request("Nombre","s","-- Sin nombre --");
-		$data['Sesion']=http_request("Sesion","i",1);
+		$data['Sesion']=http_request("Sesion","i",2); // defaults to Ring 1
 		$data['Horario']=http_request("Horario","s","");
 		$data['Comentario']=http_request("Comentario","s","");
 		return $data;
@@ -425,16 +425,25 @@ class Tandas extends DBObject {
 	/**
 	 * Obtiene el programa de la jornada
 	 * @param {integer} $s session id.
-     *  $s==0 -> any not user defined tandas on any session
-     *  $s==1 -> means "any session"
+     *    0: ANY sesion
+     *    1: ANY BUT User defined sessions
+     *   -1: User defined sessions
+     *    n: Session number "n"
+     *   -n: Session number "n" PLUS User defined sessions
 	 * @return {array} easyui-aware array or string on error
 	 */
-	function getTandas($s=1){
+	function getTandas($sessid=0){
+        $s=intval($sessid);
 		$p=$this->prueba->ID;
 		$j=$this->jornada->ID;
-        if (intval($s)==0) $ses= " AND (Tipo!=0)";
-        if (intval($s)==1) $ses= "";
-        if (intval($s)>1)  $ses= " AND ( (Sesion=$s) OR (Sesion=1) )";
+        if ($s==0) $ses="";
+        if ($s==1) $ses= " AND (Tipo!=0)";
+        if ($s==-1) $ses= " AND (Tipo=0)";
+        if ($s>1) $ses= " AND (Sesion=$s)";
+        if ($s<(-1)) {
+            $s=-$s;
+            $ses= " AND ( (Sesion=$s) OR (Sesion=1) )";
+        }
 		// Ask dadabase to retrieve list of Tandas
 		$res= $this->__select(
 				/* SELECT */	"*",
@@ -444,7 +453,7 @@ class Tandas extends DBObject {
 				/* LIMIT */		""
 		);
 		if(!is_array($res)){
-			return $this->error("No encuentro tandas para la prueba:$p jornada:$j sesion:$s");
+			return $this->error("No encuentro tandas para la prueba:$p jornada:$j sesion:$sessid");
 		}
 		
 		// merge retrieved data with tipotanda info
@@ -485,7 +494,12 @@ class Tandas extends DBObject {
 	
 	/**
 	 * Obtiene la lista ordenada de perros de esta jornada asociadas a la sesion, y tandas especificadas
-	 * @param {number} $s Sesion ID. $s>1 -> muestra solo los perros de dicha sesion (s==1->'--sin asignar--')
+     * @param {integer} $s session id.
+     *    0: ANY sesion
+     *    1: ANY BUT User defined sessions
+     *   -1: User defined sessions
+     *    n: Session number "n"
+     *   -n: Session number "n" PLUS User defined sessions
 	 * @param {number} $t Tanda ID.
 	 *     $t=0; mira todos los perros de todas las tandas de la sesion indicada
 	 *     $t>0; mira SOLO los perros de la tanda
@@ -595,7 +609,7 @@ class Tandas extends DBObject {
 				$c=Tandas::$tipo_tanda[$tipo]['Categoria'];
 				$g=Tandas::$tipo_tanda[$tipo]['Grado'];
 				$str="INSERT INTO Tandas (Tipo,Prueba,Jornada,Sesion,Orden,Nombre,Categoria,Grado) 
-					VALUES ($tipo,$p,$j,1,$last,'$n','$c','$g')";
+					VALUES ($tipo,$p,$j,2,$last,'$n','$c','$g')"; // Default session is 2->Ring 1
 				$rs=$this->query($str);
 				if (!$rs) return $this->error($this->conn->error); 
 			} else { // move to the end of the list

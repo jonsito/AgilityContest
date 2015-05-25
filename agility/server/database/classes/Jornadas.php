@@ -113,7 +113,8 @@ class Jornadas extends DBObject {
 			$mangas =new Mangas("jornadaFunctions",$id);
 			$mangas->prepareMangas($id,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$especial,$observaciones);
 			$ot= new Tandas("jornadas::update",$this->prueba,$id);
-			$ot->populateJornada();		}
+			$ot->populateJornada();
+        }
 		$this->myLogger->leave();
 		return "";
 	}

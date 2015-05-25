@@ -53,7 +53,7 @@ class PrintTandas extends PrintCommon {
 		}
 		// Datos del orden de tandas
 		$o = new Tandas("PrintTandas",$prueba,$jornada);
-		$ot= $o->getTandas();
+		$ot= $o->getTandas(0); // 0: any tanda
 		$this->orden=$ot['rows'];
 	}
 	

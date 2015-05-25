@@ -108,7 +108,7 @@ function pb_updatePrograma() {
         Operation: 'getTandas',
         Prueba: workingData.prueba,
         Jornada: workingData.jornada,
-        Sesion: 1 // Set Session ID to 1 to include all
+        Sesion: 0 // Set Session ID to 0 to include everything
     });
 }
 
