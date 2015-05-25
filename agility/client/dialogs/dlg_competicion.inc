@@ -31,7 +31,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	</span>
    	<span style="float:right;padding:5px">
    		<!-- estos elementos deben estar alineados a la derecha -->
-   		<a id="competicion-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'">Formularios</a>
+   		<a id="competicion-printBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-print'" onclick="print_asistente();">Formularios</a>
 	</span>
 </div>
 
@@ -210,30 +211,5 @@ addTooltip($('#competicion-autoUpdateBtn'),"(Des)activar actualizacion periodica
 
 // key handling
 $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).bind('keydown',competicionKeyEventHandler);
-
-$('#competicion-printBtn').on("click", function () {
-	 $.messager.radio(
-			 'Selecciona formulario',
-			 'Indica el tipo de formulario que quieres generar:', 
-			 {1:'Extendido (1 perro/pagina)',5:'Normal (5 perros/pagina)',10:'Compacto (10 perros/pagina)'}, 
-			 function(r){
-	 	if (!r) return;
-		$.fileDownload(
-			'/agility/server/pdf/print_entradaDeDatos.php',
-			{
-				httpMethod: 'GET',
-				data: { 
-					Prueba: workingData.prueba,
-					Jornada: workingData.jornada,
-					Manga: workingData.manga,
-					Mode: r
-				},
-		        preparingMessageHtml: "We are preparing your report, please wait...",
-		        failMessageHtml: "There was a problem generating your report, please try again."
-			}
-		);
-	}).window('resize',{width:300});
-    return false; //this is critical to stop the click event which will trigger a normal file download!
-});
 
 </script>

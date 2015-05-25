@@ -186,7 +186,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<td colspan="8"><input type="text" id="dmanga_Observaciones" name="Observaciones" size="75" value=""/></td>
 		</tr>
 		<tr> <!-- fila 7: botones reset y save -->
-			<td colspan="5">&nbsp;</td>
+            <td>
+                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'"
+                   id="dmanga_Templates" onclick="print_trsTemplates();">Plantillas</a>
+            </td>
+            <td colspan="4">&nbsp;</td>
 			<td>
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" 
 					id="dmanga_Restaurar" onclick="reload_manga(workingData.manga);">Restaurar</a>
@@ -250,6 +254,7 @@ addTooltip($('#dmanga_Juez2').combogrid('textbox'),"Datos del juez auxiliar/pr&a
 addTooltip($('#dmanga_Recorrido_0'),"Recorrido &uacute;nico para las tres categor&iacute;as");
 addTooltip($('#dmanga_Recorrido_1'),"Recorridos separados para Standard y Mini-Midi");
 addTooltip($('#dmanga_Recorrido_2'),"Recorridos independientes para cada cagegor&iacute;a");
+addTooltip($('#dmanga_Templates').linkbutton(),"Imprimir plantillas de calculo/datos del TRS");
 addTooltip($('#dmanga_Restaurar').linkbutton(),"Restaurar datos originales de la manga");
 addTooltip($('#dmanga_Guardar').linkbutton(),"Guardar los datos t&eacute;cnicos de la manga");
 addTooltip($('#dmanga_SameJuez').linkbutton(),"Asignar estos jueces a TODAS las mangas de la jornada");

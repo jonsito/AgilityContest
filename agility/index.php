@@ -59,7 +59,8 @@ if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
 <script src="/agility/scripts/equipos.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/pruebas.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/inscripciones.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
+    <script src="/agility/scripts/printer.js" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript">
 function initialize() {
