@@ -32,7 +32,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<span style="float:right;padding:5px">
    		<!-- estos elementos deben estar alineados a la derecha -->
    		<a id="competicion-printBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-print'" onclick="print_asistente();">Formularios</a>
+           data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(6);">Formularios</a>
 	</span>
 </div>
 

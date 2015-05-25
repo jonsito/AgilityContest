@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+if (typeof String.prototype.startsWith != 'function') {
+    String.prototype.startsWith = function (str){
+        return this.slice(0, str.length) == str;
+    };
+}
+
 /**
  * Set text of 'header' field on main window
  * @param {string} msg text to be shown

@@ -24,7 +24,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /**
  * Imprime la secuencia de tandas de la jornada
  */
-function printOrdenTandas() {
+function print_ordenTandas() {
     $.fileDownload(
         '/agility/server/pdf/print_ordenTandas.php',
         {
@@ -46,7 +46,7 @@ function printOrdenTandas() {
  * manda a la impresora el orden de salida
  * @returns {Boolean}
  */
-function printOrdenSalida() {
+function print_ordenSalida() {
     $.fileDownload(
         '/agility/server/pdf/print_ordenDeSalida.php',
         {
@@ -71,60 +71,45 @@ function printOrdenSalida() {
  * @returns {boolean} False to avoid key binding event chaining
  */
 function print_trsTemplates(mode) {
-
-    $.messager.radio(
-        'Selecciona modelo',
-        'Indica el tipo de plantilla que quieres generar:',
-        {0:'Hoja de calculo para evaluar el TRS y TRM',1:'Hoja para apuntar datos de las mangas'},
-        function(r){
-            if (!r) return;
-            $.fileDownload(
-                '/agility/server/pdf/print_trsTemplates.php',
-                {
-                    httpMethod: 'GET',
-                    data: {
-                        Prueba: workingData.prueba,
-                        Jornada: workingData.jornada,
-                        Manga: workingData.manga,
-                        Mode: r
-                    },
-                    preparingMessageHtml: "Imprimiendo orden de salida; por favor espere...",
-                    failMessageHtml: "There was a problem generating your report, please try again."
-                }
-            );
-        }).window('resize',{width:400});
+    $.fileDownload(
+        '/agility/server/pdf/print_trsTemplates.php',
+        {
+            httpMethod: 'GET',
+            data: {
+                Prueba: workingData.prueba,
+                Jornada: workingData.jornada,
+                Manga: workingData.manga,
+                Mode: mode
+            },
+            preparingMessageHtml: "Imprimiendo orden de salida; por favor espere...",
+            failMessageHtml: "There was a problem generating your report, please try again."
+        }
+    );
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
 /************************** Hojas del asistente del juez ****************/
-function print_asistente() {
-    $.messager.radio(
-        'Selecciona formulario',
-        'Indica el tipo de formulario que quieres generar:',
-        {1:'Extendido (1 perro/pagina)',5:'Normal (5 perros/pagina)',10:'Compacto (10 perros/pagina)'},
-        function(r){
-            if (!r) return;
-            $.fileDownload(
-                '/agility/server/pdf/print_entradaDeDatos.php',
-                {
-                    httpMethod: 'GET',
-                    data: {
-                        Prueba: workingData.prueba,
-                        Jornada: workingData.jornada,
-                        Manga: workingData.manga,
-                        Mode: r
-                    },
-                    preparingMessageHtml: "We are preparing your report, please wait...",
-                    failMessageHtml: "There was a problem generating your report, please try again."
-                }
-            );
-        }).window('resize',{width:300});
+function print_asistente(pages) {
+    $.fileDownload(
+        '/agility/server/pdf/print_entradaDeDatos.php',
+        {
+            httpMethod: 'GET',
+            data: {
+                Prueba: workingData.prueba,
+                Jornada: workingData.jornada,
+                Manga: workingData.manga,
+                Mode: pages
+            },
+            preparingMessageHtml: "We are preparing your report, please wait...",
+            failMessageHtml: "There was a problem generating your report, please try again."
+        }
+    );
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
 /********************** impresion de datos parciales ***************/
 
-function printParcial(mode) {
+function print_parcial(mode) {
     var url='/agility/server/pdf/print_resultadosByManga.php';
     if ( parseInt(workingData.datosJornada.Equipos3)!=0)
         url='/agility/server/pdf/print_resultadosByEquipos.php';
@@ -180,7 +165,57 @@ function checkAndPrintParcial(val) {
 	});
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
+/******************** Entrada comun para las operaciones de impresion del desarrollo de la jornada *******/
 
+/**
+ * Prints TRS templates
+ * @param {int} def default option
+ * @param {int} val (optional: categoria 0:L 1:M 2:S 3:T
+ * @returns {boolean} False to avoid key binding event chaining
+ */
+function print_commonDesarrollo(def,val) {
+
+    function checkCanPrint(oper) {
+        switch(parseInt(oper)){
+            case 0: case 2: case 3: return true;
+            case 1: case 4: case 5: case 6: case 7:
+                var row= $('#competicion-listamangas').datagrid('getSelected');
+                if (row )  return true;
+                $.messager.alert('Error','No hay ninguna manga seleccionada','error');
+                return false; // no hay ninguna manga seleccionada. retornar
+        }
+        return false;
+    }
+
+    $.messager.radio(
+        'Imprimir documento',
+        'Indica el tipo de documento que quieres generar:',
+            {
+                0:((def==0)?'*':'')+'Programa de actividades de la jornada',
+                1:((def==1)?'*':'')+'Orden de salida de la manga<br/>',
+                2:((def==2)?'*':'')+'Hoja de calculo para evaluar el TRS y TRM',
+                3:((def==3)?'*':'')+'Hoja para apuntar datos de las mangas<br/>',
+                4:((def==4)?'*':'')+'Hojas para el asistente de pista (1 perro/página)',
+                5:((def==5)?'*':'')+'Hojas para el asistente de pista (5 perros/página)',
+                6:((def==6)?'*':'')+'Hojas para el asistente de juez (10 perros/página)<br/>',
+                7:((def==7)?'*':'')+'Imprimir resultados parciales de la manga'
+            },
+        function(r){
+            if (!r) return false;
+            if (!checkCanPrint(r)) return false;
+            switch(parseInt(r)){
+                case 0: print_ordenTandas(); break;
+                case 1: print_ordenSalida(); break;
+                case 2: print_trsTemplates(0); break;
+                case 3: print_trsTemplates(1); break;
+                case 4: print_asistente(1); break;
+                case 5: print_asistente(5); break;
+                case 6: print_asistente(10); break;
+                case 7: checkAndPrintParcial(val); break;
+            }
+        }).window('resize',{width:450});
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+}
 /******************************** Datos de clasificacion general **********************/
 
 /**

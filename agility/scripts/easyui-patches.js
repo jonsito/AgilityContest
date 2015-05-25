@@ -107,7 +107,12 @@ $.extend($.fn.datagrid.methods, {
 	$.messager.radio = function(title,text, msg, fn){
 		var str="";
 		$.each(msg,function(val,optstr){
-			str +='<br /><input type="radio" name="messager-radio" value="'+val+'">&nbsp;'+optstr+'\n';
+            // if options starts with "*" mark as selected
+            if (optstr.startsWith("*")) {
+                str +='<br /><input type="radio" name="messager-radio" checked="checked" value="'+val+'">&nbsp;'+optstr.slice(1)+'\n';
+            } else {
+                str +='<br /><input type="radio" name="messager-radio" value="'+val+'">&nbsp;'+optstr+'\n';
+            }
 		});
 		 var content = '<div class="messager-icon messager-question"></div>'
 		                         + '<div>' + text + '</div>'

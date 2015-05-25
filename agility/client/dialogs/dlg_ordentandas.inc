@@ -37,7 +37,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	   	<a id="ordentandas-reloadBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas();">Actualizar</a>
    		<a id="ordentandas-printBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-print'" onclick="printOrdenTandas()">Imprimir</a>
+   			data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(0)">Imprimir</a>
 	</span>
 </div>
 

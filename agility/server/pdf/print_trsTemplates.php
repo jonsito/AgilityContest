@@ -34,7 +34,7 @@ require_once(__DIR__.'/../database/classes/Mangas.php');
 require_once(__DIR__.'/../database/classes/Tandas.php');
 require_once(__DIR__."/print_common.php");
 
-class PrintTandas extends PrintCommon {
+class PrintTRSTemplates extends PrintCommon {
 
 	protected $mode; // orden de tandas
 	
@@ -71,15 +71,38 @@ class PrintTandas extends PrintCommon {
             $this->Ln(5);
             $str  = "Hora de comienzo: {$this->jornada->Hora}";
             $this->Cell(90,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
-            $this->Ln(10);
         }
 	}
-	
+
+    function Footer() {
+        $this->print_commonFooter();
+    }
+
 	// Tabla coloreada
 	function composeTable() {
 		$this->myLogger->enter();
         $this->addPage();
         // TODO: write
+        // header
+        $count=0;
+        $this->SetXY(10,20);
+        $this->cell(10,5,"",'RB',0,'C',false);
+        for ($n=100;$n<=204;$n+=4) {
+            $this->ac_header(2,8);
+            $this->cell(10,5,strval($n),'RB',0,'C',true);
+        }
+        $this->ln();
+        // rows
+        for($vel=22;$vel<56;$vel++) {
+            $this->ac_header(2,8);
+            $this->cell(10,5,strval($vel/10.0),'RB',0,'C',true);
+            for ($n=100;$n<=204;$n+=4) {
+                $this->ac_row($count,8);
+                $this->cell(10,5,strval(ceil((10*$n)/$vel)),'RB',0,'C',true);
+            }
+            $this->ln();
+            $count++;
+        }
 		$this->myLogger->leave();
         return "";
 	}
@@ -91,7 +114,7 @@ try {
     $jornada=http_request("Jornada","i",0);
     $mode=http_request("Mode","i",0);
 	// 	Creamos generador de documento
-	$pdf = new PrintTandas($prueba,$jornada,$mode);
+	$pdf = new PrintTRSTemplates($prueba,$jornada,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("plantilla_datos.pdf","D"); // "D" means open download dialog

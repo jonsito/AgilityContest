@@ -188,7 +188,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<tr> <!-- fila 7: botones reset y save -->
             <td>
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'"
-                   id="dmanga_Templates" onclick="print_trsTemplates();">Plantillas</a>
+                   id="dmanga_Templates" onclick="print_commonDesarrollo(2);">Plantillas</a>
             </td>
             <td colspan="4">&nbsp;</td>
 			<td>
