@@ -138,9 +138,9 @@ class PrintClasificacion extends PrintCommon {
 		// first row of table header
 		$this->SetFont('Arial','BI',12); // default font
 		$this->Cell(115,7,'Datos del participante',0,0,'L',true);
-		$this->Cell(59,7,$tm1,0,0,'C',true);
-		$this->Cell(59,7,$tm2,0,0,'C',true);
-		$this->Cell(42,7,'Clasificación',0,0,'C',true);
+		$this->Cell(57,7,$tm1,0,0,'C',true);
+		$this->Cell(57,7,$tm2,0,0,'C',true);
+		$this->Cell(46,7,'Clasificación',0,0,'C',true);
 		$this->ln();
 		$this->SetFont('Arial','',8); // default font
 		// datos del participante
@@ -156,7 +156,7 @@ class PrintClasificacion extends PrintCommon {
 		$this->Cell(12,7,'Tiempo',0,0,'C',true);	// 1- Tiempo
 		$this->Cell(9,7,'Vel.',0,0,'C',true);	// 1- Velocidad
 		$this->Cell(12,7,'Penal',0,0,'C',true);	// 1- Penalizacion
-		$this->Cell(12,7,'Calif',0,0,'C',true);	// 1- calificacion
+		$this->Cell(10,7,'Calif',0,0,'C',true);	// 1- calificacion
 		// manga 2
 		if ($this->manga2!=null) {
 			$this->Cell(7,7,'F/T',0,0,'C',true);	// 2- Faltas+Tocados
@@ -164,14 +164,14 @@ class PrintClasificacion extends PrintCommon {
 			$this->Cell(12,7,'Tiempo',0,0,'C',true);	// 2- Tiempo
 			$this->Cell(9,7,'Vel.',0,0,'C',true);	// 2- Velocidad
 			$this->Cell(12,7,'Penal',0,0,'C',true);	// 2- Penalizacion
-			$this->Cell(12,7,'Calif',0,0,'C',true);	// 2- calificacion
+			$this->Cell(10,7,'Calif',0,0,'C',true);	// 2- calificacion
 		} else {
-			$this->Cell(59,7,'',0,0,'C',true);	// espacio en blanco
+			$this->Cell(57,7,'',0,0,'C',true);	// espacio en blanco
 		}
 		// global
 		$this->Cell(12,7,'Tiempo.',0,0,'C',true);	// Tiempo total
 		$this->Cell(12,7,'Penaliz.',0,0,'C',true);	// Penalizacion
-		$this->Cell(9,7,'Calific.',0,0,'C',true);	// Calificacion
+		$this->Cell(13,7,'Calific.',0,0,'C',true);	// Calificacion
 		$this->Cell(9,7,'Puesto',0,0,'C',true);	// Puesto	
 		$this->Ln();	
 		// restore colors
@@ -216,7 +216,7 @@ class PrintClasificacion extends PrintCommon {
 		$this->Cell(12,6,$t1,0,0,'C',$fill);	// 1- Tiempo
 		$this->Cell(9,6,$v1,0,0,'C',$fill);	// 1- Velocidad
 		$this->Cell(12,6,$p1,0,0,'C',$fill);	// 1- Penalizacion
-		$this->Cell(12,6,$row['C1'],0,0,'C',$fill);	// 1- calificacion
+		$this->Cell(10,6,$row['C1'],0,0,'C',$fill);	// 1- calificacion
 		// manga 2
 		if ($this->manga2!=null) {
 			$this->Cell(7,6,$row['F2'],0,0,'C',$fill);	// 2- Faltas+Tocados
@@ -224,22 +224,22 @@ class PrintClasificacion extends PrintCommon {
 			$this->Cell(12,6,$t2,0,0,'C',$fill);	// 2- Tiempo
 			$this->Cell(9,6,$v2,0,0,'C',$fill);	// 2- Velocidad
 			$this->Cell(12,6,$p2,0,0,'C',$fill);	// 2- Penalizacion
-			$this->Cell(12,6,$row['C2'],0,0,'C',$fill);	// 2- calificacion
+			$this->Cell(10,6,$row['C2'],0,0,'C',$fill);	// 2- calificacion
 		} else {
-			$this->Cell(59,6,'',0,0,'C',$fill);	// espacio en blanco
+			$this->Cell(57,6,'',0,0,'C',$fill);	// espacio en blanco
 		}
 		// global
 		$this->Cell(11,6,number_format($row['Tiempo'],2),0,0,'C',$fill);	// Tiempo
 		$this->Cell(11,6,$penal,0,0,'C',$fill);	// Penalizacion
-		$this->Cell(11,6,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
+		$this->Cell(15,6,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
 		$this->SetFont('Arial','B',10); // default font
 		$this->Cell(9,6,$puesto,0,0,'C',$fill);	// Puesto
 		// lineas rojas
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->Line(10,$offset + 6*$idx,10,$offset + 6*($idx+1));
 		$this->Line(10+115,$offset + 6*$idx,10+115,$offset + 6*($idx+1));
-		$this->Line(10+174,$offset + 6*$idx,10+174,$offset + 6*($idx+1));
-		$this->Line(10+233,$offset + 6*$idx,10+233,$offset + 6*($idx+1));
+		$this->Line(10+172,$offset + 6*$idx,10+172,$offset + 6*($idx+1));
+		$this->Line(10+229,$offset + 6*$idx,10+229,$offset + 6*($idx+1));
 		$this->Line(10+275,$offset + 6*$idx,10+275,$offset + 6*($idx+1));
 		
 		$this->Ln();

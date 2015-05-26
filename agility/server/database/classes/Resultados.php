@@ -494,11 +494,29 @@ class Resultados extends DBObject {
 		// format output data and take care con duplicated penalizacion and time
 		$puesto=1;
 		$last=0;
+
+        // calculamos campo "Puesto", "Calificacion" y Puntos
+        $puestocat=array( 'C'=>1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
+        $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
+        $countcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
+
 		for($idx=0;$idx<$size;$idx++) {
-			// ajustamos puesto
-			$now=100*$table[$idx]['Penalizacion']+$table[$idx]['Tiempo'];
-			if ($last!=$now) { $last=$now; $puesto=1+$idx; }
-			$table[$idx]['Puesto']=$puesto;
+            // vemos la categoria y actualizamos contadores de categoria
+            $cat=$table[$idx]['Categoria'];
+            $countcat['C']++; // Conjunta
+            $countcat[$cat]++; // Por categoria
+
+            // obtenemos la penalizacion del perro actual
+            $now=100*$table[$idx]['Penalizacion']+$table[$idx]['Tiempo'];
+
+            // ajustamos puesto conjunto y guardamos resultado
+            if ($lastcat['C']!=$now) { $lastcat['C']=$now; $puestocat['C']=$countcat['C']; }
+            $table[$idx]['Puesto']=$puestocat['C'];
+
+            // ajustamos puesto por categoria y guardamos resultado
+            if ($lastcat[$cat]!=$now) { $lastcat[$cat]=$now; $puestocat[$cat]=$countcat[$cat]; }
+            $table[$idx]['Pcat']=$puestocat[$cat];
+
 			/*
 			// This should be done at javascript view level
 			// ajustamos penalizacion y tiempo con 2 decimales

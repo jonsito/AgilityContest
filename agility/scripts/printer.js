@@ -158,7 +158,7 @@ function checkAndPrintParcial(val) {
 					}
 				);
 				str+="</table><br />Imprimir de todos modos?";
-				var w=$.messager.confirm('Datos no v&aacute;lidos',str,function(r){if (r) printParcial(mode);});
+				var w=$.messager.confirm('Datos no v&aacute;lidos',str,function(r){if (r) print_parcial(mode);});
 				w.window('resize',{width:550}).window('center');
 			}
 		}
@@ -170,10 +170,10 @@ function checkAndPrintParcial(val) {
 /**
  * Prints TRS templates
  * @param {int} def default option
- * @param {int} val (optional: categoria 0:L 1:M 2:S 3:T
+ *  // @param {int} val (optional: categoria 0:L 1:M 2:S 3:T
  * @returns {boolean} False to avoid key binding event chaining
  */
-function print_commonDesarrollo(def,val) {
+function print_commonDesarrollo(def) {
 
     function checkCanPrint(oper) {
         switch(parseInt(oper)){
@@ -197,8 +197,9 @@ function print_commonDesarrollo(def,val) {
                 3:((def==3)?'*':'')+'Hoja para apuntar datos de las mangas<br/>',
                 4:((def==4)?'*':'')+'Hojas para el asistente de pista (1 perro/página)',
                 5:((def==5)?'*':'')+'Hojas para el asistente de pista (5 perros/página)',
-                6:((def==6)?'*':'')+'Hojas para el asistente de juez (10 perros/página)<br/>',
-                7:((def==7)?'*':'')+'Imprimir resultados parciales de la manga'
+                6:((def==6)?'*':'')+'Hojas para el asistente de juez (10 perros/página)<br/>'
+                // As we need to select categoria, cannot directly access to print parciales
+                //7:((def==7)?'*':'')+'Imprimir resultados parciales de la manga'
             },
         function(r){
             if (!r) return false;
@@ -211,7 +212,7 @@ function print_commonDesarrollo(def,val) {
                 case 4: print_asistente(1); break;
                 case 5: print_asistente(5); break;
                 case 6: print_asistente(10); break;
-                case 7: checkAndPrintParcial(val); break;
+                // case 7: checkAndPrintParcial(val); break;
             }
         }).window('resize',{width:450});
     return false; //this is critical to stop the click event which will trigger a normal file download!

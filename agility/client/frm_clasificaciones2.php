@@ -246,5 +246,5 @@ $('#resultados-datagrid').datagrid({
 	singleSelect: true,
 	rowStyler:myRowStyler
 });
-
+addSimpleKeyHandler('#resultados-datagrid',null);
 </script>

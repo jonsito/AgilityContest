@@ -89,7 +89,8 @@ class Clasificaciones extends DBObject {
 				'V1' => $item['Velocidad'],
 				'P1' => $item['Penalizacion'],
 				'C1' => $item['CShort'],
-				'Puesto1' => $item['Puesto'],
+                'Puesto1' => $item['Puesto'], // puesto conjunto
+                'Pcat1' => $item['Pcat'], // puesto por categoria
                 'Pt1' => $item['Puntos'],
 				// datos fake manga 2 ( to be filled if so )
 				'F2' => 0,
@@ -98,7 +99,8 @@ class Clasificaciones extends DBObject {
 				'P2' => 0,
 				'V2' => 0,
 				'C2' => '',
-				'Puesto2' => 0,
+                'Puesto2' => 0,
+                'Pcat2' => 0,
                 'Pt2' => 0,
 				// datos globales
 				'Tiempo' => $item['Tiempo'],
@@ -123,6 +125,7 @@ class Clasificaciones extends DBObject {
 				$final[$item['Perro']]['P2'] = $item['Penalizacion'];
 				$final[$item['Perro']]['C2'] = $item['CShort'];
                 $final[$item['Perro']]['Puesto2'] = $item['Puesto'];
+                $final[$item['Perro']]['Pcat2'] = $item['Pcat'];
                 $final[$item['Perro']]['Pt2'] = $item['Puntos'];
 				$final[$item['Perro']]['Tiempo'] = $final[$item['Perro']]['T1'] + $final[$item['Perro']]['T2'];
 				$final[$item['Perro']]['Penalizacion'] = $final[$item['Perro']]['P1'] + $final[$item['Perro']]['P2'];
@@ -150,43 +153,77 @@ class Clasificaciones extends DBObject {
 		for($idx=0;$idx<$size;$idx++) {
             // vemos la categoria y actualizamos contadores de categoria
             $cat=$final[$idx]['Categoria'];
-            $countcat['C']++;
-            $countcat[$cat]++;
+            $countcat['C']++; // Conjunta
+            $countcat[$cat]++; // Por categoria
+
             // obtenemos la penalizacion del perro actual
             $now=100*$final[$idx]['Penalizacion']+$final[$idx]['Tiempo'];
+
 			// ajustamos puesto conjunto y guardamos resultado
 			if ($lastcat['C']!=$now) { $lastcat['C']=$now; $puestocat['C']=$countcat['C']; }
 			$final[$idx]['Puesto']=$puestocat['C'];
+
             // ajustamos puesto por categoria y guardamos resultado
             if ($lastcat[$cat]!=$now) { $lastcat[$cat]=$now; $puestocat[$cat]=$countcat[$cat]; }
-
-            // ajustamos puesto de su categoria
+            $final[$idx]['Pcat']=$puestocat[$cat];
 
             // evaluamos calificacion y puntos en funcion de la federacion y de si es o no selectiva
+            $c=$final[$idx]['Grado']; // cogemos la categoria
             switch(intval($this->prueba->RSCE)) {
                 case 0: // RSCE
-                    $c=$final[$idx]['Grado'];
-                    if (($c==="GII") || ($c=="GIII")) {
-                        $final[$idx]['Calificacion'] =
-                            ($final[$idx]['Penalizacion']==0.0)?'Pto.':'';
+                    if (intval($this->prueba->Selectiva)==0){
+                        if (($c==="GII") || ($c=="GIII"))
+                            $final[$idx]['Calificacion'] = ($final[$idx]['Penalizacion']==0.0)?'Pto.':'';
+                    } else { // selectiva
+                        if ($c==="GII") // grado dos puntua normalmente
+                            $final[$idx]['Calificacion'] = ($final[$idx]['Penalizacion']==0.0)?'Pto.':'';
+                        if ($c==="GIII") { // selectiva en grado III
+                            // comprobamos si el perro es mestizo
+                            if ( Dogs::isMixBreed($final[$idx]['Licencia']) ) {
+                                $final[$idx]['Calificacion'] = ($final[$idx]['Penalizacion']==0.0)?'Pto.':'';
+                            } else {
+                                // TODO: Tener en cuenta perros extranjeros
+                                $pts=array("20","16","12","8","7","6","5","4","3","2");
+                                // manga 1 - puntuan los 10 primeros en cada manga con excelente
+                                $pt1=" ";
+                                if ( ($final[$idx]['P1']<6.0) && ($final[$idx]['Pcat1']<10) ) {
+                                    $pt1=$pts[$final[$idx]['Pcat1']-1];
+                                }
+                                // manga 2 - puntuan los 10 primeros en cada manga con excelente
+                                $pt2=" ";
+                                if ( ($final[$idx]['P2']<6.0) && ($final[$idx]['Pcat2']<10) ) {
+                                    $pt2=$pts[$final[$idx]['Pcat2']-1];
+                                }
+                                // conjunta - puntuan los 10 primeros si tienen doble excelente
+                                $pfin=" ";
+                                if ( ($final[$idx]['P1']<6.0) && ($final[$idx]['P2']<6.0)  && ($final[$idx]['Pcat']<10) ) {
+                                    $pfin=$pts[$final[$idx]['Pcat']-1];
+                                }
+                                // finalmente componemos el string a presentar
+                                $final[$idx]['Calificacion']=$str=strval($pt1)."-".strval($pt2)."-".strval($pfin);
+
+                            }
+                        }
                     }
-                    if (intval($this->prueba->Selectiva)==0) break;
-                    // TODO: evaluate puntos in selectivas.
-                    // Tener en cuenta mestizos y extranjeros
                     break;
                 case 1: // RFEC
+                    if ($c!=="GII") { // solo se puntua en grado II
+                        $final[$idx]['Calificacion']=$final[$idx]['C1'];
+                        if ($final[$idx]['P1']<$final[$idx]['P2']) $final[$idx]['Calificacion']=$final[$idx]['C2'];
+                        break;
+                    }
                     $ptsmanga=array("5","4","3","2","1"); // puntos por manga y puesto
                     $ptsglobal=array("15","12","9","7","6","5","4","3","2","1"); //puestos por general (si no NC o Elim en alguna manga)
                     // manga 1
                     $pt1=0;
                     if ($final[$idx]['P1']<6.0) $pt1++; // 1 punto por excelente
                     if ($final[$idx]['P1']==0.0) $pt1++; // 2 puntos por cero
-                    if ($final[$idx]['Puesto1']<6) $pt1+= $ptsmanga[$final[$idx]['Puesto1']-1]; // puntos a los cinco primeros de la manga
+                    if ($final[$idx]['Pcat1']<5) $pt1+= $ptsmanga[$final[$idx]['Pcat1']-1]; // puntos a los 5 primeros por manga/categoria
                     // manga 2
                     $pt2=0;
                     if ($final[$idx]['P2']<6.0) $pt2++; // 1 punto por excelente
                     if ($final[$idx]['P2']==0.0) $pt2++; // 2 puntos por cero
-                    if ($final[$idx]['Puesto2']<6) $pt2+= $ptsmanga[$final[$idx]['Puesto2']-1]; // puntos a los cinco primeros de la manga
+                    if ($final[$idx]['Pcat2']<5) $pt2+= $ptsmanga[$final[$idx]['Pcat2']-1]; // puntos a los 5 primeros por manga/categoria
                     // conjunta
                     $pfin=0;
                     if ($puestocat[$cat]<11) {
@@ -195,22 +232,38 @@ class Clasificaciones extends DBObject {
                             $pfin=$ptsglobal[$puestocat[$cat]-1];
                         }
                     }
+                    // en las pruebas selectivas de caza (regional y nacional) se puntua doble
+                    if (intval($this->prueba->Selectiva)!=0) { $pt1*=2; $pt2*=2; $pfin*=2; }
+                    // finalmente componemos el string a presentar
                     $final[$idx]['Calificacion']=$str=strval($pt1)."-".strval($pt2)."-".strval($pfin);
                     break;
                 case 2: // UCA
+                    if ($c!=="GII") { // solo se puntua en grado II
+                        $final[$idx]['Calificacion']=$final[$idx]['C1'];
+                        if ($final[$idx]['P1']<$final[$idx]['P2']) $final[$idx]['Calificacion']=$final[$idx]['C2'];
+                        break;
+                    }
                     $pts=array("10","8","6","4","3","2","1");
-                    $pt1=$final[$idx]['Pt1'];
-                    $pt2=$final[$idx]['Pt2'];
-                    $str=($pt1==0)?" ":strval($pt1);
-                    $str.="-";
-                    $str.=($pt2==0)?" ":strval($pt2);
-                    $str.="-";
+                    $pt1=0;$pt2=0;$pfin=0;
+                    // manga 1
+                    if ($final[$idx]['P1']>=26) $pt1=0; // NC o eliminado: no puntua
+                    if ($final[$idx]['P1']<26) $pt1=2;
+                    if ($final[$idx]['P1']<16) $pt1=3;
+                    if ($final[$idx]['P1']<6) $pt1=4;
+                    if ($final[$idx]['P1']==0) $pt1=5;
+                    // manga 2
+                    if ($final[$idx]['P2']>=26) $pt2=0; // NC o eliminado: no puntua
+                    if ($final[$idx]['P2']<26) $pt2=2;
+                    if ($final[$idx]['P2']<16) $pt2=3;
+                    if ($final[$idx]['P2']<6) $pt2=4;
+                    if ($final[$idx]['P2']==0) $pt2=5;
+                    // final
+                    $str=$str=strval($pt1)."-".strval($pt2)."-";
                     // solo puntuan en la global los siete primeros con dobles excelentes
                     if (($pt1<4) || ($pt2<4) || ($puestocat[$cat]>7) ) {
                         $final[$idx]['Calificacion']=$str;
                     } else {
-                        // TODO fix real value of puesto by categoria
-                        $final[$idx]['Calificacion']= $str . $pts[$puestocat[$cat]-1];
+                        $final[$idx]['Calificacion']= $str . $pts[ $puestocat[$cat]-1 ];
                     }
                     break;
             }
