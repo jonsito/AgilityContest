@@ -36,6 +36,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    		<input id="perros-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
    	</span>
    	<span style="float:right;padding:5px">
+   		<a id="perros-printBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-print'"
+           onclick="print_listaPerros()">Imprimir</a>
    		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-brush'"
    			onclick="
@@ -107,6 +110,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		addTooltip($('#perros-newBtn').linkbutton(),"Registrar un nuevo perro <br/>en la Base de Datos"); 
 		addTooltip($('#perros-editBtn').linkbutton(),"Modificar los datos del perro seleccionado");
 		addTooltip($('#perros-delBtn').linkbutton(),"Eliminar el perro seleccionado de la BBDD");
-		addTooltip($('#perros-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
-		addTooltip($('#perros-datagrid-search'),"Buscar perros que cumplan con el criterio de busqueda");
+        addTooltip($('#perros-printBtn').linkbutton(),"Imprimir listado ordenado según la tabla actual");
+        addTooltip($('#perros-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
+        addTooltip($('#perros-datagrid-search'),"Buscar perros que cumplan con el criterio de busqueda");
 </script>

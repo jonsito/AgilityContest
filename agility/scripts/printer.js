@@ -19,6 +19,32 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * Funciones relacionadas con gestion de impresos del desarrollo de la competicion
  */
 
+/************************** listado de perros */
+
+/**
+ * Imprime el listado de los perros registrados en el orden especificado por #perros-datagrid
+ */
+function print_listaPerros() {
+    var options=$('#perros-datagrid').datagrid('options');
+    $.fileDownload(
+        '/agility/server/pdf/print_listaPerros.php',
+        {
+            httpMethod: 'GET',
+            data: {
+                Federation: workingData.federation,
+                where:$('#perros-datagrid-search').val(),
+                sort: options.sortName,
+                order: options.sortOrder,
+                page: 0,
+                rows: 0
+            },
+            preparingMessageHtml: "We are preparing your report, please wait...",
+            failMessageHtml: "There was a problem generating your report, please try again."
+        }
+    );
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+}
+
 /************************** programa de actividades **********/
 
 /**

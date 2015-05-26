@@ -57,7 +57,7 @@ class PrintCommon extends FPDF {
 		for($n=strlen($txt);$n>0;$n--) {
 			$str=substr($txt,0,$n);
 			$sw=$this->GetStringWidth($str);
-			if ($sw>=($w-1.5)) continue;
+			if ($sw>=($w-(1.5))) continue;
 			$txt=$str;
 			break;
 		}
@@ -124,8 +124,10 @@ class PrintCommon extends FPDF {
 		// pintamos nombre de la prueba
 		$this->SetXY($this->centro -50,10);
 		$this->SetFont('Arial','BI',10); // Arial bold italic 10
-		$str=$this->prueba->Nombre." - ".$this->club->Nombre;
-		$this->Cell(100,10,$str,0,0,'C',false);// Nombre de la prueba centrado 
+        if ($this->prueba-ID!=1) { // solo piuntamos nombre de la prueba si no es la prueba por defecto
+            $str=$this->prueba->Nombre." - ".$this->club->Nombre;
+            $this->Cell(100,10,$str,0,0,'C',false);// Nombre de la prueba centrado
+        }
 		$this->Ln(); // Salto de línea
 		
 		// pintamos el titulo en un recuadro
