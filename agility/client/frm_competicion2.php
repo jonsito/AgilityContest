@@ -85,7 +85,8 @@ $('#competicion_info').panel({
 $('#competicion_infolayout').layout();
 
 $('#competicion-listamangas').datagrid({
-	url: '/agility/server/database/mangaFunctions.php?Operation=enumerate&Jornada='+workingData.jornada,
+	url: '/agility/server/database/mangaFunctions.php',
+    queryParams: { Operation: 'enumerate', Jornada: workingData.jornada },
 	fit: true,
 	method: 'get',
     pagination: false,

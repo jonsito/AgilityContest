@@ -82,30 +82,109 @@ class PrintTRSTemplates extends PrintCommon {
 	function composeTable() {
 		$this->myLogger->enter();
         $this->addPage();
-        // TODO: write
         // header
         $count=0;
         $this->SetXY(10,20);
-        $this->cell(10,5,"",'RB',0,'C',false);
-        for ($n=100;$n<=204;$n+=4) {
-            $this->ac_header(2,8);
-            $this->cell(10,5,strval($n),'RB',0,'C',true);
+        $this->cell(7,5,"",0,0,'C',false);
+        for ($n=102;$n<=201;$n+=3) {
+            $this->ac_header(2,10);
+            $this->cell(8,5,strval($n),'RB',0,'C',true);
         }
-        $this->ln();
+        $this->Ln();
         // rows
         for($vel=22;$vel<56;$vel++) {
-            $this->ac_header(2,8);
-            $this->cell(10,5,strval($vel/10.0),'RB',0,'C',true);
-            for ($n=100;$n<=204;$n+=4) {
-                $this->ac_row($count,8);
-                $this->cell(10,5,strval(ceil((10*$n)/$vel)),'RB',0,'C',true);
+            $this->ac_header(2,10);
+            $this->cell(7,5,strval($vel/10.0),'RB',0,'C',true);
+            for ($n=102;$n<=201;$n+=3) {
+                // trace reference lines if needed
+                $this->ac_row($count,9);
+                $this->cell(8,5,strval(ceil((10*$n)/$vel)),'RB',0,'C',true);
             }
-            $this->ln();
+            if ($vel%5==0) {
+                $this->SetLineWidth(0.6);
+                $y=$this->GetY();
+                $this->Rect(10,$y+0.2,279,4.4);
+                $this->SetLineWidth(0.2);
+            }
+            $this->Ln();
             $count++;
         }
 		$this->myLogger->leave();
         return "";
 	}
+
+    function printFormulario(){
+        $cols=array("Categoria","Distancia","Obstaculos","Velocidad","TRS","TRM");
+        $size=array(20,15,12.5,12.5,15,15);
+        $mng=new Mangas("printFormularioTRS",$this->jornada->ID);
+        // obtenemos la lista de mangas de la jornada
+        $mangas=$mng->selectByJornada()['rows'];
+        for($count=0;$count<count($mangas);$count++) {
+            if ($count%8==0){
+                $this->AddPage();
+                $this->Ln(15);
+            }
+            $manga1=$mangas[$count];
+            $manga2=null;
+            if (array_key_exists($count+1,$mangas)) $manga2=$mangas[$count+1];
+            // cabecera
+            $this->ac_header(2,12);
+            $this->Cell(90,10,$manga1['Descripcion'],'LTBR',0,'L',true);
+            if ($manga2!=null) {
+                $this->Cell(10,10,"",0,0,0,false);
+                $this->Cell(90,10,$manga2['Descripcion'],'LTBR',0,'L',true);
+            }
+            $this->Ln();
+            // columnas
+            $this->ac_row(1,10);
+            $this->Cell(20,10,$cols[0],'LRB',0,'C',true);
+            for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,$cols[$n],"RB",0,"C",true);
+            if ($manga2!=null) {
+                $this->Cell(10,10,"",0,0,0,false);
+                $this->Cell(20,10,$cols[0],'LRB',0,'C',true);
+                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,$cols[$n],"RB",0,"C",true);
+            }
+            $this->Ln();
+            // datos
+            $this->ac_row(0,10);
+            $this->Cell(20,10,"Large",'LRB',0,'C',true);
+            for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
+            if ($manga2!=null) {
+                $this->Cell(10,10,"",0,0,0,false);
+                $this->Cell(20,10,"Large",'LRB',0,'C',true);
+                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
+            }
+            $this->Ln();
+            $this->Cell(20,10,"Medium",'LRB',0,'C',true);
+            for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
+            if ($manga2!=null) {
+                $this->Cell(10,10,"",0,0,0,false);
+                $this->Cell(20,10,"Medium",'LRB',0,'C',true);
+                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
+            }
+            $this->Ln();
+            $this->Cell(20,10,"Small",'LRB',0,'C',true);
+            for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
+            if ($manga2!=null) {
+                $this->Cell(10,10,"",0,0,0,false);
+                $this->Cell(20,10,"Small",'LRB',0,'C',true);
+                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
+            }
+            $this->Ln();
+            if(intval($this->prueba->RSCE)!=0) {
+                $this->Cell(20,10,"Tiny",'LRB',0,'C',true);
+                for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
+                if ($manga2!=null) {
+                    $this->Cell(10,10,"",0,0,0,false);
+                    $this->Cell(20,10,"Tiny",'LRB',0,'C',true);
+                    for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
+                }
+                $this->Ln();
+            }
+            $this->Ln(5);
+            $count++;
+        }
+    }
 }
 
 // Consultamos la base de datos
@@ -116,7 +195,8 @@ try {
 	// 	Creamos generador de documento
 	$pdf = new PrintTRSTemplates($prueba,$jornada,$mode);
 	$pdf->AliasNbPages();
-	$pdf->composeTable();
+	if ($mode==0) $pdf->composeTable();
+    else $pdf->printFormulario();
 	$pdf->Output("plantilla_datos.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());
