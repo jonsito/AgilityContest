@@ -93,6 +93,7 @@ function saveTanda(dg){
             if (result.errorMsg){
                 $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
             } else {
+                $('#ordentandas_newtanda-dialog').dialog('close');
                 reloadOrdenTandas();
             }
         }
