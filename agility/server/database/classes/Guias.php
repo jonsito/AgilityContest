@@ -33,11 +33,11 @@ class Guias extends DBObject {
 		if (!$res) return $this->error($stmt->error);  
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre 	= http_request("Nombre","s",null,false); // primary key
-		$telefono = http_request('Telefono',"s",null,false);
-		$email = http_request('Email',"s",null,false);
-		$club	= http_request('Club',"s",null,false); // not null
-		$observaciones= http_request('Observaciones',"s",null,false);
+		$nombre 	= http_request("Nombre","s",null); // primary key
+		$telefono = http_request('Telefono',"s",null);
+		$email = http_request('Email',"s",null);
+		$club	= http_request('Club',"s",null); // not null
+		$observaciones= http_request('Observaciones',"s",null);
 		$federation= http_request('Federation',"i",0);
 		$this->myLogger->info("Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
 		
@@ -60,11 +60,11 @@ class Guias extends DBObject {
 		if (!$res) return $this->error($stmt->error); 
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre 	= http_request("Nombre","s",null,false); 
-		$telefono = http_request('Telefono',"s",null,false);
-		$email = http_request('Email',"s",null,false);
-		$club	= http_request('Club',"s",null,false); // not null
-		$observaciones= http_request('Observaciones',"s",null,false);
+		$nombre 	= http_request("Nombre","s",null);
+		$telefono = http_request('Telefono',"s",null);
+		$email = http_request('Email',"s",null);
+		$club	= http_request('Club',"s",null); // not null
+		$observaciones= http_request('Observaciones',"s",null);
 		$guiaid 	= $id; // primary key
 		
 		$this->myLogger->info("ID: $id Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");

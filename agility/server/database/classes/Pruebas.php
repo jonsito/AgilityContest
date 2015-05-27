@@ -26,6 +26,18 @@ class Pruebas extends DBObject {
 	
 	function insert() {
 		$this->myLogger->enter();
+        // iniciamos los valores, chequeando su existencia
+        $nombre =	http_request("Nombre","s",null);
+        $club =		http_request("Club","i",0);
+        $ubicacion=	http_request("Ubicacion","s",null);
+        $triptico =	http_request("Triptico","s",null);
+        $cartel =	http_request("Cartel","s",null);
+        $observaciones = http_request("Observaciones","s",null);
+        $rsce =	http_request("RSCE","i",0);
+        $selectiva =	http_request("Selectiva","i",0);
+        $cerrada =	http_request("Cerrada","i",0);
+        $this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
+
 		// componemos un prepared statement
 		$sql ="INSERT INTO Pruebas (Nombre,Club,Ubicacion,Triptico,Cartel,Observaciones,RSCE,Selectiva,Cerrada)
 			   VALUES(?,?,?,?,?,?,?,?,?)";
@@ -33,18 +45,6 @@ class Pruebas extends DBObject {
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('sissssiii',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$rsce,$selectiva,$cerrada);
 		if (!$res) return $this->error($this->conn->error);
-		
-		// iniciamos los valores, chequeando su existencia
-		$nombre =	http_request("Nombre","s",null,false);
-		$club =		http_request("Club","i",0);
-		$ubicacion=	http_request("Ubicacion","s",null,false);
-		$triptico =	http_request("Triptico","s",null,false);
-		$cartel =	http_request("Cartel","s",null,false);
-		$observaciones = http_request("Observaciones","s",null,false);
-		$rsce =	http_request("RSCE","i",0);
-		$selectiva =	http_request("Selectiva","i",0);
-		$cerrada =	http_request("Cerrada","i",0);
-		$this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
@@ -79,6 +79,20 @@ class Pruebas extends DBObject {
 	function update($pruebaid) {
 		$this->myLogger->enter();
 		if ($pruebaid<=0) return $this->error("pruebas::update() Invalid Prueba ID:$pruebaid");
+
+        // iniciamos los valores, chequeando su existencia
+        $nombre =	http_request("Nombre","s",null);
+        $id =		$pruebaid;
+        $club =		http_request("Club","i",0);
+        $ubicacion=	http_request("Ubicacion","s",null);
+        $triptico =	http_request("Triptico","s",null);
+        $cartel =	http_request("Cartel","s",null);
+        $observaciones = http_request("Observaciones","s",null);
+        $rsce =	http_request("RSCE","i",0);
+        $selectiva =	http_request("Selectiva","i",0);
+        $cerrada =	http_request("Cerrada","i",0);
+        $this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
+
 		// componemos un prepared statement
 		$sql ="UPDATE Pruebas
 				SET Nombre=? , Club=? , Ubicacion=? , Triptico=? , Cartel=?, Observaciones=?, RSCE=?, Selectiva=?, Cerrada=?
@@ -87,20 +101,7 @@ class Pruebas extends DBObject {
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('sissssiiii',$nombre,$club,$ubicacion,$triptico,$cartel,$observaciones,$rsce,$selectiva,$cerrada,$id);
 		if (!$res) return $this->error($this->conn->error);
-		
-		// iniciamos los valores, chequeando su existencia
-		$nombre =	http_request("Nombre","s",null,false);
-		$id =		$pruebaid;
-		$club =		http_request("Club","i",0);
-		$ubicacion=	http_request("Ubicacion","s",null,false);
-		$triptico =	http_request("Triptico","s",null,false);
-		$cartel =	http_request("Cartel","s",null,false);
-		$observaciones = http_request("Observaciones","s",null,false);
-		$rsce =	http_request("RSCE","i",0);
-		$selectiva =	http_request("Selectiva","i",0);
-		$cerrada =	http_request("Cerrada","i",0);
-		$this->myLogger->debug("Nombre: $nombre Club: $club Ubicacion: $ubicacion Observaciones: $observaciones");
-		
+
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($this->conn->error);

@@ -21,6 +21,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../auth/AuthManager.php");
+require_once(__DIR__."/../i18n/Country.php");
 require_once(__DIR__."/classes/Jueces.php");
 
 try {
@@ -38,6 +39,7 @@ try {
 		case "selectbyid": $result=$jueces->selectByID($idjuez); break;
 		case "select": $result=$jueces->select(); break; // list with order, index, count and where
 		case "enumerate": $result=$jueces->enumerate($federation); break; // list with where
+        case "countries": $c=new Country(); $result=$c->enumerate(); break;
 		default: throw new Exception("juezFunctions:: invalid operation: '$operation' provided");
 	}
 	if ($result===null) 

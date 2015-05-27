@@ -31,33 +31,35 @@ class Clubes extends DBObject {
 	 */
 	function insert() {
 		$this->myLogger->enter();
+        // iniciamos los valores, chequeando su existencia
+        $nombre 	= http_request("Nombre","s",null);
+        $direccion1 = http_request('Direccion1',"s",null);
+        $direccion2 = http_request('Direccion2',"s",null);
+        $provincia	= http_request('Provincia',"s",null);
+        $pais	    = http_request('Pais',"s",'ES');
+        $contacto1	= http_request('Contacto1',"s",null);
+        $contacto2	= http_request('Contacto2',"s",null);
+        $contacto3	= http_request('Contacto3',"s",null);
+        $gps		= http_request('GPS',"s",null);
+        $web		= http_request('Web',"s",null);
+        $email		= http_request('Email',"s",null);
+        $federations= http_request('Federations',"i",1);
+        $facebook	= http_request('Facebook',"s",null);
+        $google		= http_request('Google',"s",null);
+        $twitter	= http_request('Twitter',"s",null);
+        $observaciones = http_request('Observaciones',"s",null);
+        $baja		= http_request('Baja',"i",0);
 		// componemos un prepared statement
-		$sql ="INSERT INTO Clubes (Nombre,Direccion1,Direccion2,Provincia,Contacto1,Contacto2,Contacto3,GPS,
+		$sql ="INSERT INTO Clubes (Nombre,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,
 				Web,Email,Federations,Facebook,Google,Twitter,Observaciones,Baja)
-			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('ssssssssssisssss',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,
+		$res=$stmt->bind_param('sssssssssssisssss',$nombre,$direccion1,$direccion2,$provincia,$pais,$contacto1,$contacto2,$contacto3,$gps,
 				$web,$email,$federations,$facebook,$google,$twitter,$observaciones,$baja);
 		if (!$res)  return $this->error($this->conn->error);
 		
-		// iniciamos los valores, chequeando su existencia
-		$nombre 	= http_request("Nombre","s",null,false);
-		$direccion1 = http_request('Direccion1',"s",null,false);
-		$direccion2 = http_request('Direccion2',"s",null,false); 
-		$provincia	= http_request('Provincia',"s",null,false);
-		$contacto1	= http_request('Contacto1',"s",null,false);
-		$contacto2	= http_request('Contacto2',"s",null,false);
-		$contacto3	= http_request('Contacto3',"s",null,false);
-		$gps		= http_request('GPS',"s",null,false);
-		$web		= http_request('Web',"s",null,false);
-		$email		= http_request('Email',"s",null,false);
-		$federations= http_request('Federations',"i",1);
-		$facebook	= http_request('Facebook',"s",null,false);
-		$google		= http_request('Google',"s",null,false);
-		$twitter	= http_request('Twitter',"s",null,false);
-		$observaciones = http_request('Observaciones',"s",null,false);
-		$baja		= http_request('Baja',"i",0);
+
 		$this->myLogger->debug("Nombre: $nombre Direccion1: $direccion1 Contacto1: $contacto1 Observaciones: $observaciones");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
@@ -75,34 +77,36 @@ class Clubes extends DBObject {
 		$this->myLogger->enter();
 		// cannot delete default club id or null club id
 		if ($id<=1)  return $this->error("No club or invalid Club ID '$id' provided");
+
+        // iniciamos los valores, chequeando su existencia
+        $nombre 	= http_request("Nombre","s",null);
+        $direccion1 = http_request('Direccion1',"s",null);
+        $direccion2 = http_request('Direccion2',"s",null);
+        $provincia	= http_request('Provincia',"s",null);
+        $pais	    = http_request('Pais',"s",'ES');
+        $contacto1	= http_request('Contacto1',"s",null);
+        $contacto2	= http_request('Contacto2',"s",null);
+        $contacto3	= http_request('Contacto3',"s",null);
+        $gps		= http_request('GPS',"s",null);
+        $web		= http_request('Web',"s",null);
+        $email		= http_request('Email',"s",null);
+        $federations= http_request('Federations',"i",2);
+        $facebook	= http_request('Facebook',"s",null);
+        $google		= http_request('Google',"s",null);
+        $twitter	= http_request('Twitter',"s",null);
+        $observaciones = http_request('Observaciones',"s",null);
+        $baja		= http_request('Baja',"i",0);
 		// componemos un prepared statement
 		$sql ="UPDATE Clubes
-				SET Nombre=? , Direccion1=? , Direccion2=? , Provincia=? ,
+				SET Nombre=? , Direccion1=? , Direccion2=? , Provincia=? , Pais=?
 				Contacto1=? , Contacto2=? , Contacto3=? , GPS=? , Web=? ,
 				Email=? , Federations=?, Facebook=? , Google=? , Twitter=? , Observaciones=? , Baja=?
 				WHERE ( ID=$id )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('ssssssssssissssi',$nombre,$direccion1,$direccion2,$provincia,$contacto1,$contacto2,$contacto3,$gps,
+		$res=$stmt->bind_param('ssssssssssissssi',$nombre,$direccion1,$direccion2,$provincia,$pais,$contacto1,$contacto2,$contacto3,$gps,
 				$web,$email,$federations,$facebook,$google,$twitter,$observaciones,$baja);
 		if (!$res) return $this->error($stmt->error);
-		// iniciamos los valores, chequeando su existencia
-		$nombre 	= http_request("Nombre","s",null,false);
-		$direccion1 = http_request('Direccion1',"s",null,false);
-		$direccion2 = http_request('Direccion2',"s",null,false); 
-		$provincia	= http_request('Provincia',"s",null,false);
-		$contacto1	= http_request('Contacto1',"s",null,false);
-		$contacto2	= http_request('Contacto2',"s",null,false);
-		$contacto3	= http_request('Contacto3',"s",null,false);
-		$gps		= http_request('GPS',"s",null,false);
-		$web		= http_request('Web',"s",null,false);
-		$email		= http_request('Email',"s",null,false);
-		$federations= http_request('Federations',"i",2);
-		$facebook	= http_request('Facebook',"s",null,false);
-		$google		= http_request('Google',"s",null,false);
-		$twitter	= http_request('Twitter',"s",null,false);
-		$observaciones = http_request('Observaciones',"s",null,false);
-		$baja		= http_request('Baja',"i",0);
 		
 		$this->myLogger->debug("Nombre: $nombre ID: $id Provincia: $provincia Direccion1: $direccion1 Contacto1: $contacto1 ");
 		// invocamos la orden SQL y devolvemos el resultado

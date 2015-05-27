@@ -20,6 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../auth/AuthManager.php");
+require_once(__DIR__."/../i18n/Country.php");
 require_once(__DIR__."/classes/Clubes.php");
 
 	try {
@@ -35,6 +36,7 @@ require_once(__DIR__."/classes/Clubes.php");
 			case "delete": $am->access(PERMS_OPERATOR); $result=$clubes->delete($idclub); break;
 			case "select": $result=$clubes->select(); break;
 			case "enumerate": $result=$clubes->enumerate(); break;
+            case "countries": $c=new Country(); $result=$c->enumerate(); break;
 			case "getlogo": // not a json function; just return an image 
 				$result=$clubes->getLogo($idclub);
 				return;

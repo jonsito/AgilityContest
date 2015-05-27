@@ -73,7 +73,13 @@ class Equipos extends DBObject {
 		// obtenemos el orden a insertar
 		$obj=$this->__selectObject("MAX(Orden) AS Last","Equipos","(Prueba=$prueba) AND (Jornada=$jornada)");
 		$ord=($obj!=null)?1+intval($obj->Last):1; // evaluate latest in order
-		
+
+        // iniciamos los valores, chequeando su existencia
+        $orden		= $ord;
+        $categorias = http_request("Categorias","s",null); // may be null
+        $nombre 	= http_request("Nombre","s",null); // not null
+        $observaciones= http_request('Observaciones',"s",null); // may be null
+        $this->myLogger->info("Prueba:$prueba Jornada:$jornada Nombre:'$nombre' Observaciones:'$observaciones'");
 		// componemos un prepared statement
 		$sql ="INSERT INTO Equipos (Prueba,Jornada,Orden,Categorias,Nombre,Observaciones,DefaultTeam,Miembros) 
 					VALUES($prueba,$jornada,?,?,?,?,0,'BEGIN,END')";
@@ -81,13 +87,7 @@ class Equipos extends DBObject {
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('isss',$orden,$categorias,$nombre,$observaciones);
 		if (!$res) return $this->error($stmt->error);  
-		
-		// iniciamos los valores, chequeando su existencia
-		$orden		= $ord;
-		$categorias = http_request("Categorias","s",null,false); // may be null
-		$nombre 	= http_request("Nombre","s",null,false); // not null
-		$observaciones= http_request('Observaciones',"s",null,false); // may be null
-		$this->myLogger->info("Prueba:$prueba Jornada:$jornada Nombre:'$nombre' Observaciones:'$observaciones'");
+
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();

@@ -70,6 +70,7 @@ class Sesiones extends DBObject {
 	 */
 	function insert($data) {
 		$this->myLogger->enter();
+
         // extraemos los valores del parametro
         $nombre =	$data['Nombre'];
         $comentario=$data['Comentario'];
@@ -79,6 +80,7 @@ class Sesiones extends DBObject {
         $tanda = 	array_key_exists('Tanda',$data)? $data['Tanda']:0; // cannot be null
         $operador = array_key_exists('Operador',$data)? $data['Operador']:1; // cannot be null
         $sessionkey=array_key_exists('SessionKey',$data)?$data['SessionKey']:null;
+
 		// componemos un prepared statement
 		$sql ="INSERT INTO Sesiones (Nombre,Comentario,Prueba,Jornada,Manga,Tanda,Operador,SessionKey)
 			   VALUES(?,?,?,?,?,?,?,?)";

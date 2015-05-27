@@ -44,6 +44,15 @@ class Dogs extends DBObject {
 	function insert($fed) {
 		$this->myLogger->enter();
 		if($fed<0) return $this->error("Dogs::insert() invalid federation value");
+        // iniciamos los valores, chequeando su existencia
+        $nombre =	http_request("Nombre","s",null);
+        $raza =		http_request("Raza","s",null);
+        $loe_rrc =	http_request("LOE_RRC","s",null);
+        $licencia = http_request("Licencia","s",null);
+        $categoria= http_request("Categoria","s",null);
+        $grado =	http_request("Grado","s",null);
+        $guia =		http_request("Guia","i",0);
+        $federation=$fed;
 		// componemos un prepared statement (para evitar sql injection)
 		$sql ="INSERT INTO Perros (Nombre,Raza,LOE_RRC,Licencia,Categoria,Grado,Guia,Federation)
 			   VALUES(?,?,?,?,?,?,?,?)";
@@ -51,15 +60,6 @@ class Dogs extends DBObject {
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('ssssssii',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia,$federation);
 		if (!$res) return $this->error($this->conn->error);
-		// iniciamos los valores, chequeando su existencia
-		$nombre =	http_request("Nombre","s",null,false); 
-		$raza =		http_request("Raza","s",null,false); 
-		$loe_rrc =	http_request("LOE_RRC","s",null,false); 
-		$licencia = http_request("Licencia","s",null,false); 
-		$categoria= http_request("Categoria","s",null,false); 
-		$grado =	http_request("Grado","s",null,false); 
-		$guia =		http_request("Guia","i",0); 
-		$federation=$fed;
 		
 		$this->myLogger->info("Nombre:$nombre Raza:$raza LOE:$loe_rrc Categoria:$categoria Grado:$grado Guia:$guia Federation:$federation");
 		// invocamos la orden SQL y devolvemos el resultado
@@ -95,7 +95,16 @@ class Dogs extends DBObject {
 	 */
 	function update($id) {
 		$this->myLogger->enter();
-		if ($id<=0) return $this->error("Invalid Dog ID:$id"); 
+		if ($id<=0) return $this->error("Invalid Dog ID:$id");
+        // iniciamos los valores, chequeando su existencia
+        $nombre =	http_request("Nombre","s",null);
+        $raza =		http_request("Raza","s",null);
+        $loe_rrc =	http_request("LOE_RRC","s",null);
+        $licencia = http_request("Licencia","s",null);
+        $categoria= http_request("Categoria","s",null);
+        $grado =	http_request("Grado","s",null);
+        $guia =		http_request("Guia","i",0);
+        $idperro =	$id;
 		// componemos un prepared statement
 		$sql ="UPDATE Perros SET Nombre=? , Raza=? , LOE_RRC=? , Licencia=? , Categoria=? , Grado=? , Guia=?
 		       WHERE ( ID=? )";
@@ -104,15 +113,6 @@ class Dogs extends DBObject {
 		$res=$stmt->bind_param('ssssssii',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia,$idperro);
 		if (!$res) return $this->error($this->conn->error);
 
-		// iniciamos los valores, chequeando su existencia
-		$nombre =	http_request("Nombre","s",null,false);
-		$raza =		http_request("Raza","s",null,false);
-		$loe_rrc =	http_request("LOE_RRC","s",null,false);
-		$licencia = http_request("Licencia","s",null,false);
-		$categoria= http_request("Categoria","s",null,false);
-		$grado =	http_request("Grado","s",null,false);
-		$guia =		http_request("Guia","i",0);
-		$idperro =	$id;
 
 		$this->myLogger->info("\nUPDATE dogs: ID: $id Nombre: $nombre Raza: $raza Licencia: $licencia LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
 		// invocamos la orden SQL y devolvemos el resultado
