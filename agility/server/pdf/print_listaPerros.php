@@ -112,7 +112,7 @@ try {
 	$pdf = new Print_ListaPerros();
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("ordenTandas.pdf","D"); // "D" means open download dialog
+	$pdf->Output("print_listaPerros.pdf","D"); // "D" means open download dialog
     return 0;
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());
