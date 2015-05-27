@@ -55,7 +55,7 @@ class Clubes extends DBObject {
 			   VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('sssssssssssisssss',$nombre,$direccion1,$direccion2,$provincia,$pais,$contacto1,$contacto2,$contacto3,$gps,
+		$res=$stmt->bind_param('sssssssssssissssi',$nombre,$direccion1,$direccion2,$provincia,$pais,$contacto1,$contacto2,$contacto3,$gps,
 				$web,$email,$federations,$facebook,$google,$twitter,$observaciones,$baja);
 		if (!$res)  return $this->error($this->conn->error);
 		
@@ -98,13 +98,13 @@ class Clubes extends DBObject {
         $baja		= http_request('Baja',"i",0);
 		// componemos un prepared statement
 		$sql ="UPDATE Clubes
-				SET Nombre=? , Direccion1=? , Direccion2=? , Provincia=? , Pais=?
+				SET Nombre=? , Direccion1=? , Direccion2=? , Provincia=? , Pais=?,
 				Contacto1=? , Contacto2=? , Contacto3=? , GPS=? , Web=? ,
 				Email=? , Federations=?, Facebook=? , Google=? , Twitter=? , Observaciones=? , Baja=?
 				WHERE ( ID=$id )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('ssssssssssissssi',$nombre,$direccion1,$direccion2,$provincia,$pais,$contacto1,$contacto2,$contacto3,$gps,
+		$res=$stmt->bind_param('sssssssssssissssi',$nombre,$direccion1,$direccion2,$provincia,$pais,$contacto1,$contacto2,$contacto3,$gps,
 				$web,$email,$federations,$facebook,$google,$twitter,$observaciones,$baja);
 		if (!$res) return $this->error($stmt->error);
 		

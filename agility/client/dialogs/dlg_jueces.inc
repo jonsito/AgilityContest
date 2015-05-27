@@ -38,6 +38,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="jueces-Direccion2" class="easyui-validatebox" name="Direccion2" type="text" style="width:250px" />
             </div>
             <div class="fitem">
+                <label for="jueces-Pais">Pa&iacute;s:</label>
+                <select id="jueces-Pais" name="Pais" class="easyui-validatebox" style="width:200px"></select>
+            </div>
+            <div class="fitem">
                 <label for="jueces-Telefono">Tel&eacute;fono:</label>
                 <input id="jueces-Telefono" class="easyui-validatebox" name="Telefono" type="text" />
             </div>
@@ -77,6 +81,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	
 	<script type="text/javascript">
         // datos del formulario de nuevo/edit jueces
+
         // - declaracion del formulario
         $('#jueces-form').form({
             onLoadSuccess: function(data) {
@@ -85,6 +90,27 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 $('#jueces-Practicas').prop('checked',(data.Practicas == 1));
             }
         });
+
+
+        // despliegue del selector de paises
+        $('#jueces-Pais').combogrid({
+            panelWidth: 300,
+            panelHeight: 200,
+            idField: 'ID',
+            textField: 'Country',
+            url: '/agility/server/database/juezFunctions.php?Operation=countries',
+            method: 'get',
+            mode: 'remote',
+            required: true,
+            columns: [[
+                {field:'ID',title:'ID',width:10,align:'right'},
+                {field:'Country',title:'Pais',width:40,align:'right'}
+            ]],
+            multiple: false,
+            fitColumns: true,
+            selectOnNavigation: false
+        });
+
         // - botones
 		addTooltip($('#jueces-okBtn').linkbutton(),"Registrar los datos del juez y actualizar la BBDD");
 		addTooltip($('#jueces-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");

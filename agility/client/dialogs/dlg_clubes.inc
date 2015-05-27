@@ -66,6 +66,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </a>
         </div>
         <div class="fitem">
+            <label for="clubes-Pais">Pa&iacute;s</label>
+            <select id="clubes-Pais" name="Pais" class="easyui-validatebox" style="width:200px"></select>
+        </div>
+        <div class="fitem">
             <label for="clubes-Contacto1">Contacto 1</label>
             <input id="clubes-Contacto1" name="Contacto1" type="text" style="width:200px"/>
         </div>
@@ -157,6 +161,25 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			multiple: false,
 			fitColumns: true,
 			selectOnNavigation: false
+        });
+
+        // despliegue del selector de paises
+        $('#clubes-Pais').combogrid({
+            panelWidth: 300,
+            panelHeight: 200,
+            idField: 'ID',
+            textField: 'Country',
+            url: '/agility/server/database/clubFunctions.php?Operation=countries',
+            method: 'get',
+            mode: 'remote',
+            required: true,
+            columns: [[
+                {field:'ID',title:'ID',width:10,align:'right'},
+                {field:'Country',title:'Pais',width:40,align:'right'}
+            ]],
+            multiple: false,
+            fitColumns: true,
+            selectOnNavigation: false
         });
 
         $('#clubes-logo-dialog').dialog( {

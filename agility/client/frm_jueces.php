@@ -79,7 +79,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 { field:'ID',			hidden:true },
                 { field:'Nombre',		width:40, sortable:true,	title: 'Nombre:' },
             	{ field:'Direccion1',	width:35,					title: 'Direcci&oacute;n 1:' },
-            	{ field:'Direccion2',	width:30,                   title: 'Direcci&oacute;n 2' },
+                { field:'Direccion2',	width:30,                   title: 'Direcci&oacute;n 2' },
+                { field:'Pais',	        width:7,  align:'center',   title: 'Pais' },
             	{ field:'Telefono',		width:25, sortable:true,	title: 'Tel&eacute;fono' },
               	{ field:'Federations',	hidden:true},
         		{ field:'RSCE',			width:7, sortable:true,    align: 'center', title: 'RSCE', formatter:juecesRSCE },
@@ -87,7 +88,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         		{ field:'UCA',			width:7, sortable:true,    align: 'center', title: 'UCA',  formatter:juecesUCA },
             	{ field:'Internacional',width:7, align:'center',	title: 'Int.' 	},
             	{ field:'Practicas',	width:7, align:'center',	title: 'Pract.' },
-            	{ field:'Email',		width:35, sortable:true,   align:'right', title: 'Correo Electr&oacute;nico' },
+            	{ field:'Email',		width:30, sortable:true,   align:'right', title: 'Correo Electr&oacute;nico' },
                 { field:'Observaciones',hidden:true }
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
