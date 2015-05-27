@@ -62,7 +62,7 @@ class Print_ListaPerros extends PrintCommon {
 	// Cabecera de página
 	function Header() {
 		// cabecera comun
-		$this->print_commonHeader("Lista de Perros");
+		$this->print_commonHeader("Lista de perros registrados");
 	}
 	
 	// Pie de página
@@ -73,7 +73,7 @@ class Print_ListaPerros extends PrintCommon {
 	function writeTableHeader() {
 		$this->myLogger->enter();
 		$this->ac_header(1,10);
-		$this->setXY(10,40);
+		$this->setXY(10,37.5);
         for ($n=0;$n<count(Print_ListaPerros::$cols);$n++){
             // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
             $this->Cell(Print_ListaPerros::$pos[$n],8,Print_ListaPerros::$cols[$n],'LTRB',0,'C',true);
@@ -89,11 +89,11 @@ class Print_ListaPerros extends PrintCommon {
 		$rowcount=0;
 		foreach($this->lista as $perro) {
 			// $this->cell(width,height,text,border,start,align,fill)
-			if (($rowcount%45)==0) {
+			if (($rowcount%47)==0) {
 				$this->addPage();
 				$this->writeTableHeader();
 			}
-            $this->ac_row($rowcount,8);
+            $this->ac_row($rowcount,8.5);
             $this->setX(10);
             for ($n=0;$n<count(Print_ListaPerros::$cols);$n++){
                 $this->Cell(Print_ListaPerros::$pos[$n],5,$perro[Print_ListaPerros::$fields[$n]],'LBR',0,Print_ListaPerros::$align[$n],true);

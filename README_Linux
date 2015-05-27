@@ -19,7 +19,7 @@ Tener instalados y funcionando
 - Reiniciar apache y comprobar que se accede a la pagina principal
 - En sistemas Fedora, y dependiendo de si se instala en un directorio bajo home, puede ser necesario ajustar SELinux
 
- root# chown -R ${USER}/apache ${BASE}
+ root# chown -R ${USER}.apache ${BASE}
  root# chmod -R g+w ${BASE}
  root# setsebool -P httpd_enable_homedirs on
  root# setsebool -P httpd_read_user_content on
