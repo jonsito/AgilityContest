@@ -29,15 +29,16 @@ class Guias extends DBObject {
 			   VALUES(?,?,?,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('sssssi',$nombre,$telefono,$email,$club,$observaciones,$federation);
+		$res=$stmt->bind_param('sssisi',$nombre,$telefono,$email,$club,$observaciones,$federation);
 		if (!$res) return $this->error($stmt->error);  
 		
 		// iniciamos los valores, chequeando su existencia
-		$nombre 	= http_request("Nombre","s",null); // primary key
-		$telefono = http_request('Telefono',"s",null);
-		$email = http_request('Email',"s",null);
-		$club	= http_request('Club',"s",null); // not null
-		$observaciones= http_request('Observaciones',"s",null);
+        // don't escape http data cause we're using prepared statements
+		$nombre 	= http_request("Nombre","s",null,false); // primary key
+		$telefono = http_request('Telefono',"s",null,false);
+		$email = http_request('Email',"s",null,false);
+		$club	= http_request('Club',"i",0); // not null
+		$observaciones= http_request('Observaciones',"s",null,false);
 		$federation= http_request('Federation',"i",0);
 		$this->myLogger->info("Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
 		
@@ -52,23 +53,23 @@ class Guias extends DBObject {
 	function update($id) {
 		$this->myLogger->enter();
 		if ($id<=1) return $this->error("No guia or Invalid Guia ID:$id provided");
+
+        // iniciamos los valores, chequeando su existencia
+        $nombre 	= http_request("Nombre","s",null,false);
+        $telefono = http_request('Telefono',"s",null,false);
+        $email = http_request('Email',"s",null,false);
+        $club	= http_request('Club',"i",0); // not null
+        $observaciones= http_request('Observaciones',"s",null,false);
+        $guiaid 	= $id; // primary key
+        $this->myLogger->info("ID: $id Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
+
 		// componemos un prepared statement
 		$sql ="UPDATE Guias SET Nombre=? , Telefono=? , Email=? , Club=? , Observaciones=? WHERE ( ID=? )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('sssisi',$nombre,$telefono,$email,$club,$observaciones,$guiaid);
 		if (!$res) return $this->error($stmt->error); 
-		
-		// iniciamos los valores, chequeando su existencia
-		$nombre 	= http_request("Nombre","s",null);
-		$telefono = http_request('Telefono',"s",null);
-		$email = http_request('Email',"s",null);
-		$club	= http_request('Club',"s",null); // not null
-		$observaciones= http_request('Observaciones',"s",null);
-		$guiaid 	= $id; // primary key
-		
-		$this->myLogger->info("ID: $id Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
-		
+
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error); 
@@ -149,7 +150,7 @@ class Guias extends DBObject {
 				/* SELECT */ "Guias.ID AS ID, Guias.Federation AS Federation, Guias.Nombre AS Nombre, Guias.Club AS Club,Clubes.Nombre AS NombreClub",
 				/* FROM */ "Guias,Clubes",
 				/* WHERE */ "$fed AND $where",
-				/* ORDER BY */ "NombreClub ASC, Nombre ASC",
+				/* ORDER BY */ "Nombre ASC, NombreClub ASC",
 				/* LIMIT */ ""
 		);
 		$this->myLogger->leave();

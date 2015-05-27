@@ -76,10 +76,11 @@ class Equipos extends DBObject {
 
         // iniciamos los valores, chequeando su existencia
         $orden		= $ord;
-        $categorias = http_request("Categorias","s",null); // may be null
-        $nombre 	= http_request("Nombre","s",null); // not null
-        $observaciones= http_request('Observaciones',"s",null); // may be null
+        $categorias = http_request("Categorias","s",null,false); // may be null
+        $nombre 	= http_request("Nombre","s",null,false); // not null
+        $observaciones= http_request('Observaciones',"s",null,false); // may be null
         $this->myLogger->info("Prueba:$prueba Jornada:$jornada Nombre:'$nombre' Observaciones:'$observaciones'");
+
 		// componemos un prepared statement
 		$sql ="INSERT INTO Equipos (Prueba,Jornada,Orden,Categorias,Nombre,Observaciones,DefaultTeam,Miembros) 
 					VALUES($prueba,$jornada,?,?,?,?,0,'BEGIN,END')";

@@ -72,7 +72,28 @@ class Jornadas extends DBObject {
 	function update($jornadaid) {
 		$this->myLogger->enter();
 		// if prueba or jornada are closed refuse to upate
-		if ($jornadaid<=0) return $this->error("Invalid jornada ID"); 
+		if ($jornadaid<=0) return $this->error("Invalid jornada ID");
+
+        // iniciamos los valores, chequeando su existencia
+        $prueba = $this->prueba;
+        $nombre = http_request("Nombre","s",null,false); // Name or comment for jornada
+        $fecha = str_replace("/","-",http_request("Fecha","s","",false)); // mysql requires format YYYY-MM-DD
+        $hora = http_request("Hora","s","",false);
+        $grado1 = http_request("Grado1","i",0);
+        $grado2 = http_request("Grado2","i",0);
+        $grado3 = http_request("Grado3","i",0);
+        $open = http_request("Open","i",0);
+        $equipos3 = http_request("Equipos3","i",0);
+        $equipos4 = http_request("Equipos4","i",0);
+        $preagility = http_request("PreAgility","i",0);
+        $preagility2 = http_request("PreAgility2","i",0);
+        $ko = http_request("KO","i",0);
+        $especial = http_request("Especial","i",0);
+        $observaciones = http_request("Observaciones","s","(sin especificar)",false);
+        $cerrada = http_request("Cerrada","i",0);
+        $id= $jornadaid;
+        $this->myLogger->info("ID: $id Prueba: $prueba Nombre: $nombre Fecha: $fecha Hora: $hora");
+
 		// componemos un prepared statement
 		$sql ="UPDATE Jornadas
 				SET Prueba=?, Nombre=?, Fecha=?, Hora=?, Grado1=?, Grado2=?, Grado3=?,
@@ -83,27 +104,7 @@ class Jornadas extends DBObject {
 		$res=$stmt->bind_param('isssiiiiiiiiiisii',
 				$prueba,$nombre,$fecha,$hora,$grado1,$grado2,$grado3,$open,$equipos3,$equipos4,$preagility,$preagility2,$ko,$especial,$observaciones,$cerrada,$id);
 		if (!$res) return $this->error($this->conn->error); 
-		
-		// iniciamos los valores, chequeando su existencia
-		$prueba = $this->prueba;
-		$nombre = http_request("Nombre","s",null,false); // Name or comment for jornada
-		$fecha = str_replace("/","-",http_request("Fecha","s","",false)); // mysql requires format YYYY-MM-DD
-		$hora = http_request("Hora","s","",false);
-		$grado1 = http_request("Grado1","i",0);
-		$grado2 = http_request("Grado2","i",0);
-		$grado3 = http_request("Grado3","i",0);
-		$open = http_request("Open","i",0);
-		$equipos3 = http_request("Equipos3","i",0);
-		$equipos4 = http_request("Equipos4","i",0);
-		$preagility = http_request("PreAgility","i",0);
-		$preagility2 = http_request("PreAgility2","i",0);
-		$ko = http_request("KO","i",0);
-		$especial = http_request("Especial","i",0);
-		$observaciones = http_request("Observaciones","s","(sin especificar)");
-		$cerrada = http_request("Cerrada","i",0);
-		$id= $jornadaid;
-		
-		$this->myLogger->info("ID: $id Prueba: $prueba Nombre: $nombre Fecha: $fecha Hora: $hora");
+
 		
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();

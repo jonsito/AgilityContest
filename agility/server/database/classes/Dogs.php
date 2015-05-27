@@ -45,12 +45,12 @@ class Dogs extends DBObject {
 		$this->myLogger->enter();
 		if($fed<0) return $this->error("Dogs::insert() invalid federation value");
         // iniciamos los valores, chequeando su existencia
-        $nombre =	http_request("Nombre","s",null);
-        $raza =		http_request("Raza","s",null);
-        $loe_rrc =	http_request("LOE_RRC","s",null);
-        $licencia = http_request("Licencia","s",null);
-        $categoria= http_request("Categoria","s",null);
-        $grado =	http_request("Grado","s",null);
+        $nombre =	http_request("Nombre","s",null,false);
+        $raza =		http_request("Raza","s",null,false);
+        $loe_rrc =	http_request("LOE_RRC","s",null,false);
+        $licencia = http_request("Licencia","s",null,false);
+        $categoria= http_request("Categoria","s",null,false);
+        $grado =	http_request("Grado","s",null,false);
         $guia =		http_request("Guia","i",0);
         $federation=$fed;
 		// componemos un prepared statement (para evitar sql injection)
@@ -97,12 +97,12 @@ class Dogs extends DBObject {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Dog ID:$id");
         // iniciamos los valores, chequeando su existencia
-        $nombre =	http_request("Nombre","s",null);
-        $raza =		http_request("Raza","s",null);
-        $loe_rrc =	http_request("LOE_RRC","s",null);
-        $licencia = http_request("Licencia","s",null);
-        $categoria= http_request("Categoria","s",null);
-        $grado =	http_request("Grado","s",null);
+        $nombre =	http_request("Nombre","s",null,false);
+        $raza =		http_request("Raza","s",null,false);
+        $loe_rrc =	http_request("LOE_RRC","s",null,false);
+        $licencia = http_request("Licencia","s",null,false);
+        $categoria= http_request("Categoria","s",null,false);
+        $grado =	http_request("Grado","s",null,false);
         $guia =		http_request("Guia","i",0);
         $idperro =	$id;
 		// componemos un prepared statement

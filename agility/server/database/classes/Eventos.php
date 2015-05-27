@@ -88,20 +88,21 @@ class Eventos extends DBObject {
             if (!$rs) return $this->error($this->conn->error);
             file_put_contents($this->sessionFile,"\n",LOCK_EX); // borra fichero de eventos
         }
+
+        // iniciamos los valores
+        // $timestamp= date('Y-m-d G:i:s');
+        $timestamp= date('Y-m-d G:i:s',$data['TimeStamp']/1000);
+        $source=$data['Source'];
+        $type=$data['Type'];
+        $evtdata=json_encode($data);
+
 		// prepare statement
 		$sql = "INSERT INTO Eventos ( TimeStamp,Session, Source, Type, Data ) VALUES (?,$sid,?,?,?)";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('ssss',$timestamp,$source,$type,$evtdata);
 		if (!$res) return $this->error($this->conn->error);
-		
-		// iniciamos los valores
-		// $timestamp= date('Y-m-d G:i:s');
-		$timestamp= date('Y-m-d G:i:s',$data['TimeStamp']/1000);
-		$source=$data['Source'];
-		$type=$data['Type'];
-		$evtdata=json_encode($data);
-		
+
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($this->conn->error);

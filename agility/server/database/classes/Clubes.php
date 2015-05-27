@@ -32,22 +32,23 @@ class Clubes extends DBObject {
 	function insert() {
 		$this->myLogger->enter();
         // iniciamos los valores, chequeando su existencia
-        $nombre 	= http_request("Nombre","s",null);
-        $direccion1 = http_request('Direccion1',"s",null);
-        $direccion2 = http_request('Direccion2',"s",null);
-        $provincia	= http_request('Provincia',"s",null);
+        // no need to escape strings as using prepared statements
+        $nombre 	= http_request("Nombre","s",null,false);
+        $direccion1 = http_request('Direccion1',"s",null,false);
+        $direccion2 = http_request('Direccion2',"s",null,false);
+        $provincia	= http_request('Provincia',"s",null,false);
         $pais	    = http_request('Pais',"s",'ES');
-        $contacto1	= http_request('Contacto1',"s",null);
-        $contacto2	= http_request('Contacto2',"s",null);
-        $contacto3	= http_request('Contacto3',"s",null);
-        $gps		= http_request('GPS',"s",null);
-        $web		= http_request('Web',"s",null);
-        $email		= http_request('Email',"s",null);
-        $federations= http_request('Federations',"i",1);
-        $facebook	= http_request('Facebook',"s",null);
-        $google		= http_request('Google',"s",null);
-        $twitter	= http_request('Twitter',"s",null);
-        $observaciones = http_request('Observaciones',"s",null);
+        $contacto1	= http_request('Contacto1',"s",null,false);
+        $contacto2	= http_request('Contacto2',"s",null,false);
+        $contacto3	= http_request('Contacto3',"s",null,false);
+        $gps		= http_request('GPS',"s",null,false);
+        $web		= http_request('Web',"s",null,false);
+        $email		= http_request('Email',"s",null,false);
+        $federations= http_request('Federations',"i",1,false);
+        $facebook	= http_request('Facebook',"s",null,false);
+        $google		= http_request('Google',"s",null,false);
+        $twitter	= http_request('Twitter',"s",null,false);
+        $observaciones = http_request('Observaciones',"s",null,false);
         $baja		= http_request('Baja',"i",0);
 		// componemos un prepared statement
 		$sql ="INSERT INTO Clubes (Nombre,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,
@@ -79,22 +80,23 @@ class Clubes extends DBObject {
 		if ($id<=1)  return $this->error("No club or invalid Club ID '$id' provided");
 
         // iniciamos los valores, chequeando su existencia
-        $nombre 	= http_request("Nombre","s",null);
-        $direccion1 = http_request('Direccion1',"s",null);
-        $direccion2 = http_request('Direccion2',"s",null);
-        $provincia	= http_request('Provincia',"s",null);
+        // no need to escape http data: using prepared statements
+        $nombre 	= http_request("Nombre","s",null,false);
+        $direccion1 = http_request('Direccion1',"s",null,false);
+        $direccion2 = http_request('Direccion2',"s",null,false);
+        $provincia	= http_request('Provincia',"s",null,false);
         $pais	    = http_request('Pais',"s",'ES');
-        $contacto1	= http_request('Contacto1',"s",null);
-        $contacto2	= http_request('Contacto2',"s",null);
-        $contacto3	= http_request('Contacto3',"s",null);
-        $gps		= http_request('GPS',"s",null);
-        $web		= http_request('Web',"s",null);
-        $email		= http_request('Email',"s",null);
+        $contacto1	= http_request('Contacto1',"s",null,false);
+        $contacto2	= http_request('Contacto2',"s",null,false);
+        $contacto3	= http_request('Contacto3',"s",null,false);
+        $gps		= http_request('GPS',"s",null,false);
+        $web		= http_request('Web',"s",null,false);
+        $email		= http_request('Email',"s",null,false);
         $federations= http_request('Federations',"i",2);
-        $facebook	= http_request('Facebook',"s",null);
-        $google		= http_request('Google',"s",null);
-        $twitter	= http_request('Twitter',"s",null);
-        $observaciones = http_request('Observaciones',"s",null);
+        $facebook	= http_request('Facebook',"s",null,false);
+        $google		= http_request('Google',"s",null,false);
+        $twitter	= http_request('Twitter',"s",null,false);
+        $observaciones = http_request('Observaciones',"s",null,false);
         $baja		= http_request('Baja',"i",0);
 		// componemos un prepared statement
 		$sql ="UPDATE Clubes

@@ -30,15 +30,15 @@ class Jueces extends DBObject {
 		$this->myLogger->enter();
 
         // iniciamos los valores, chequeando su existencia
-        $nombre =		http_request("Nombre","s",null); // pkey not null
-        $direccion1 =	http_request("Direccion1","s",null);
-        $direccion2 =	http_request("Direccion2","s",null);
-        $telefono = 	http_request("Telefono","s",null);
+        $nombre =		http_request("Nombre","s",null,false); // pkey not null
+        $direccion1 =	http_request("Direccion1","s","",false);
+        $direccion2 =	http_request("Direccion2","s","",false);
+        $telefono = 	http_request("Telefono","s","",false);
         $internacional= http_request("Internacional","i",0); // not null
-        $pais =		    http_request("Pais","s",'ES'); // not null
+        $pais =		    http_request("Pais","s",'ES',false); // not null
         $practicas =	http_request("Practicas","i",0);
-        $email =		http_request("Email","s",null); // not null
-        $observaciones=	http_request("Observaciones","s");
+        $email =		http_request("Email","s","",false); // not null
+        $observaciones=	http_request("Observaciones","s","",false);
         $feds=	        http_request("Federations","i",1);
 		// componemos un prepared statement
 		$sql ="INSERT INTO Jueces (Nombre,Direccion1,Direccion2,Telefono,Internacional,Pais,Practicas,Email,Observaciones,Federations)
@@ -68,15 +68,15 @@ class Jueces extends DBObject {
 		if ($id<=1) return $this->error("No Juez or Invalid Juez ID: $id provided");
 
         // iniciamos los valores, chequeando su existencia
-        $nombre =		http_request("Nombre","s",null); // pkey not null
-        $direccion1 =	http_request("Direccion1","s",null);
-        $direccion2 =	http_request("Direccion2","s",null);
-        $telefono = 	http_request("Telefono","s",null);
+        $nombre =		http_request("Nombre","s",null,false); // pkey not null
+        $direccion1 =	http_request("Direccion1","s","",false);
+        $direccion2 =	http_request("Direccion2","s","",false);
+        $telefono = 	http_request("Telefono","s","",false);
         $internacional= http_request("Internacional","i",0); // not null
-        $pais =		    http_request("Pais","s",'ES'); // not null
+        $pais =		    http_request("Pais","s",'ES',false); // not null
         $practicas =	http_request("Practicas","i",0);
-        $email =		http_request("Email","s",null); // not null
-        $observaciones=	http_request("Observaciones","s",null);
+        $email =		http_request("Email","s","",false); // not null
+        $observaciones=	http_request("Observaciones","s","",false);
         $federations =	http_request("Federations","i",1);
         $this->myLogger->debug("ID: $id Nombre: $nombre Dir1: $direccion1 Dir2: $direccion2 Tel: $telefono I: $internacional P: $practicas Email: $email Obs: $observaciones");
 

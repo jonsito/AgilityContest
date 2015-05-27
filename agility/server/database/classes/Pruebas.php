@@ -27,12 +27,12 @@ class Pruebas extends DBObject {
 	function insert() {
 		$this->myLogger->enter();
         // iniciamos los valores, chequeando su existencia
-        $nombre =	http_request("Nombre","s",null);
+        $nombre =	http_request("Nombre","s",null,false); // not null
         $club =		http_request("Club","i",0);
-        $ubicacion=	http_request("Ubicacion","s",null);
-        $triptico =	http_request("Triptico","s",null);
-        $cartel =	http_request("Cartel","s",null);
-        $observaciones = http_request("Observaciones","s",null);
+        $ubicacion=	http_request("Ubicacion","s","",false);
+        $triptico =	http_request("Triptico","s","",false);
+        $cartel =	http_request("Cartel","s","",false);
+        $observaciones = http_request("Observaciones","s","",false);
         $rsce =	http_request("RSCE","i",0);
         $selectiva =	http_request("Selectiva","i",0);
         $cerrada =	http_request("Cerrada","i",0);
@@ -81,13 +81,13 @@ class Pruebas extends DBObject {
 		if ($pruebaid<=0) return $this->error("pruebas::update() Invalid Prueba ID:$pruebaid");
 
         // iniciamos los valores, chequeando su existencia
-        $nombre =	http_request("Nombre","s",null);
+        $nombre =	http_request("Nombre","s",null,false); // not null
         $id =		$pruebaid;
         $club =		http_request("Club","i",0);
-        $ubicacion=	http_request("Ubicacion","s",null);
-        $triptico =	http_request("Triptico","s",null);
-        $cartel =	http_request("Cartel","s",null);
-        $observaciones = http_request("Observaciones","s",null);
+        $ubicacion=	http_request("Ubicacion","s","",false);
+        $triptico =	http_request("Triptico","s","",false);
+        $cartel =	http_request("Cartel","s","",false);
+        $observaciones = http_request("Observaciones","s","",false);
         $rsce =	http_request("RSCE","i",0);
         $selectiva =	http_request("Selectiva","i",0);
         $cerrada =	http_request("Cerrada","i",0);
