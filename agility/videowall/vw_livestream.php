@@ -1,4 +1,17 @@
-<!-- 
+<?php
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/auth/AuthManager.php");
+$config =Config::getInstance();
+$am = new AuthManager("Videowall::livestream");
+if ( ! $am->allowed(ENABLE_VIDEOWALL)) die("<h1>VideoWall feature is not allowed with current license</h1>");
+// tool to perform automatic upgrades in database when needed
+require_once(__DIR__."/../server/upgradeVersion.php");
+?>
+<!--
 livestream.inc
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )

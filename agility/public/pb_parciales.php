@@ -1,4 +1,18 @@
-<!-- 
+<?php
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/auth/AuthManager.php");
+$config =Config::getInstance();
+$am = new AuthManager("Public::parciales");
+if ( ! $am->allowed(ENABLE_PUBLIC)) die("<h1>Public access is not allowed for current license</h1>");
+// tool to perform automatic upgrades in database when needed
+require_once(__DIR__."/../server/upgradeVersion.php");
+?>
+
+<!--
 pb_parciales.inc
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )

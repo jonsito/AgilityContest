@@ -243,20 +243,20 @@ function public_acceptSelection() {
         else page="/agility/public/pb_inscripciones.php";
 		break;
 	case 'ordensalida':
-		page="/agility/public/pb_ordensalida.inc";
+		page="/agility/public/pb_ordensalida.php";
 		break;
 	case 'parciales':
-        if (isJornadaEq3() ) page="/agility/public/pb_parciales_eq3.inc";
-        else if (isJornadaEq4() ) page="/agility/public/pb_parciales_eq4.inc";
-        else page="/agility/public/pb_parciales.inc";
+        if (isJornadaEq3() ) page="/agility/public/pb_parciales_eq3.php";
+        else if (isJornadaEq4() ) page="/agility/public/pb_parciales_eq4.php";
+        else page="/agility/public/pb_parciales.php";
 		break;
 	case 'clasificaciones':
-        if (isJornadaEq3() ) page="/agility/public/pb_finales_eq3.inc";
-        else if (isJornadaEq4() ) page="/agility/public/pb_finales_eq4.inc";
-        else page="/agility/public/pb_finales.inc";
+        if (isJornadaEq3() ) page="/agility/public/pb_finales_eq3.php";
+        else if (isJornadaEq4() ) page="/agility/public/pb_finales_eq4.php";
+        else page="/agility/public/pb_finales.php";
         break;
     case 'programa':
-        page="/agility/public/pb_programa.inc";
+        page="/agility/public/pb_programa.php";
         break;
     }
 	$('#public-dialog').dialog('close').remove();

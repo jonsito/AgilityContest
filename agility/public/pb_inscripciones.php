@@ -1,7 +1,13 @@
 <?php
-require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
+$am = new AuthManager("Public::inscripciones");
+if ( ! $am->allowed(ENABLE_PUBLIC)) die("<h1>Public access is not allowed for current license</h1>");
+// tool to perform automatic upgrades in database when needed
+require_once(__DIR__."/../server/upgradeVersion.php");
+?>
 ?>
 
 <!--

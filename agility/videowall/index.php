@@ -284,19 +284,19 @@ function vw_accept() {
 	var n=parseInt($('#selvw-Vista').val());
 	switch (n){
 	case 0: // Ordenes de Salida
-		page="/agility/videowall/vw_ordensalida.inc";
+		page="/agility/videowall/vw_ordensalida.php";
 		break;
 	case 1: // Llamada a pista
-		page="/agility/videowall/vw_llamada.inc";
+		page="/agility/videowall/vw_llamada.php";
 		break;
 	case 2: // Resultados Parciales
-		page="/agility/videowall/vw_parciales.inc";
+		page="/agility/videowall/vw_parciales.php";
 		break;
 	case 3: // Live Stream OSD
-		page="/agility/videowall/vw_livestream.inc";
+		page="/agility/videowall/vw_livestream.php";
 		break;
 	case 4: // Vista Combinada
-		page="/agility/videowall/vw_combinada.inc";
+		page="/agility/videowall/vw_combinada.php";
 		break;
 	}
 	$('#selvw-dialog').dialog('close');

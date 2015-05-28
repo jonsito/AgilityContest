@@ -1,4 +1,18 @@
-<!-- 
+<?php
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/auth/AuthManager.php");
+$config =Config::getInstance();
+$am = new AuthManager("Public::programa");
+if ( ! $am->allowed(ENABLE_PUBLIC)) die("<h1>Public access is not allowed for current license</h1>");
+// tool to perform automatic upgrades in database when needed
+require_once(__DIR__."/../server/upgradeVersion.php");
+?>
+
+<!--
 pb_inscripciones.inc
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
@@ -14,7 +28,6 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
-
 <!-- Presentacion de las inscripciones de la jornada -->
 <div id="pb_programa-window">
 	<div id="pb_programa-layout" style="width:100%">
