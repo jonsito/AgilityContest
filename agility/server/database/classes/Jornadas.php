@@ -16,11 +16,10 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
-
 require_once("DBObject.php");
 require_once("Mangas.php");
 require_once("Tandas.php");
+require_once(__DIR__."/../../auth/AuthManager.php");
 
 class Jornadas extends DBObject {
 	
@@ -267,7 +266,26 @@ class Jornadas extends DBObject {
 		}
 		return $this->jueces["$id"];
 	}
-	
+
+    /**
+     * Check license for allow access to teams/KO events
+     * @param {AuthManager} $am authManager object
+     * @param {integer} $id jornada id
+     */
+    function checkAccess($am,$id) {
+        if ($id<=0) return $this->error("Jornada::checkAccess(): invalid Jornada ID");
+        $j=$this->__getObject("Jornadas",$id);
+        if (intval($j->Equipos3)!=0) $res=$am->allowed(ENABLE_TEAM3);
+        else if (intval($j->Equipos4)!=0) $res=$am->allowed(ENABLE_TEAM4);
+        else if (intval($j->KO)!=0) $res=$am->allowed(ENABLE_KO);
+        else $res=true;
+        if (!$res) {
+            $this->errormsg="Requested feature is disabled due to registration license terms";
+            return null;
+        }
+        return "";
+    }
+
 	/**
 	 * Devuelve una lista de las rondas de que consta esta jornada (GI,GII,GIII, PreAgility..)
 	 * @param {int} $jornadaid ID de jornada

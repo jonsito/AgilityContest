@@ -14,18 +14,22 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
-<?php 
-require_once(__DIR__."/../server/auth/Config.php");
+<?php
 require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
+$am = new AuthManager("Competicion");
 require_once("dialogs/dlg_ordentandas.inc");
 require_once("dialogs/dlg_ordensalida.inc");
 switch(http_request("tipo","s","std")) {
     case "eq3":
+        if ( ! $am->allowed(ENABLE_TEAM3)) die("<h1>Access to Team-3 Contest disabled with current license</h1>");
         require_once("dialogs/dlg_competicion.inc");
         require_once("dialogs/dlg_resultados_eq3.inc");
         break;
     case "eq4":
+        if ( ! $am->allowed(ENABLE_TEAM4)) die("<h1>Access to Team-4 Contest disabled with current license</h1>");
         require_once("dialogs/dlg_competicion_eq4.inc");
         require_once("dialogs/dlg_resultados_eq4.inc");
         break;
