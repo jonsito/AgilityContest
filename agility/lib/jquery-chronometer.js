@@ -9,6 +9,7 @@
 	var running = false;
 	var pause = false;
 	var startTime = 0;
+    var localTime = 0; // to avoid time offset problems
 	var stopTime = 0;
 	
 	var config = {
@@ -58,6 +59,7 @@
 				$(config.pause).attr('disabled',false);
 				if(typeof timestamp === 'undefined') startTime=Date.now();
 				else startTime=timestamp;
+                localTime=Date.now();
 				running = true;
 				run_chrono();
 			}
@@ -118,7 +120,7 @@
 		if (stopTime==0) stopTime=Date.now();
 		if(running){
 			var currentTime=Date.now();
-			var elapsed		= currentTime-startTime;
+			var elapsed		= currentTime-localTime; // use localTime to evaluate time lapse
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);
 			config.minutes	= Math.floor(config.seconds / 60);
@@ -130,7 +132,7 @@
 			setTimeout(run_chrono,config.interval);
 			view_chrono(elapsed);
 		} else { // chrono stopped: show data at least once
-			var elapsed		= stopTime-startTime;
+			var elapsed		= stopTime-startTime; // use real startTime instead of localTime
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);
 			config.minutes	= Math.floor(config.seconds / 60);
