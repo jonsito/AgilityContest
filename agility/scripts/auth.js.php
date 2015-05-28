@@ -185,3 +185,21 @@ function send_regFile() {
     	error: function() { alert("error");	}
    	});
 }
+
+function check_access(p,j,perms,callback) {
+    $.ajax({
+        type:'GET',
+        url:"/agility/server/database/jornadaFunctions.php",
+        dataType:'json',
+        data: {
+            Operation:	'access',
+            Prueba:	workingData.prueba,
+            ID:workingData.jornada,
+            Perms : perms
+        },
+        success: function(res) { callback(res); },
+        error: function(XMLHttpRequest,textStatus,errorThrown) {
+            $.messager.alert("Restricted","Error: "+textStatus + " "+ errorThrown,'error' );
+        }
+    });
+}

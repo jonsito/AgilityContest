@@ -272,15 +272,17 @@ class Jornadas extends DBObject {
      * @param {AuthManager} $am authManager object
      * @param {integer} $id jornada id
      */
-    function checkAccess($am,$id) {
+    function checkAccess($am,$id,$perms=0) {
         if ($id<=0) return $this->error("Jornada::checkAccess(): invalid Jornada ID");
         $j=$this->__getObject("Jornadas",$id);
-        if (intval($j->Equipos3)!=0) $res=$am->allowed(ENABLE_TEAM3);
+        if (intval($perms)!=0) $res=$am->allowed($perms); // check against user provided check access
+        // else check against jornada-dependent access permissions
+        else if (intval($j->Equipos3)!=0) $res=$am->allowed(ENABLE_TEAM3);
         else if (intval($j->Equipos4)!=0) $res=$am->allowed(ENABLE_TEAM4);
         else if (intval($j->KO)!=0) $res=$am->allowed(ENABLE_KO);
         else $res=true;
         if (!$res) {
-            $this->errormsg="Requested feature is disabled due to registration license terms";
+            $this->errormsg="Requested feature is disabled due to current license registration permissions";
             return null;
         }
         return "";

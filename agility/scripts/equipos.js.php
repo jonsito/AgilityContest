@@ -142,12 +142,6 @@ function printTeams(datagrid) {
     return false; // this is critical to stop the click event which will trigger a normal file download!
 }
 
-/*
-* Comprueba si la licencia permite pruebas por equipos
-*/
-function checkAccess(datagrid) {
-    return false; //this is critical to stop the click event which will trigger a normal file download!
-}
 
 /**
  * Abre un dialogo para declarar un nuevo equipo para la prueba 
@@ -166,26 +160,17 @@ function openTeamWindow(pruebaID) {
 	}
     // comprobamos si tenemos permiso para manejar jornadas por equipos
     setJornada(row);
-    $.ajax({
-        type:'GET',
-        url:"/agility/server/database/jornadaFunctions.php",
-        dataType:'json',
-        data: {
-            Operation:	'access',
-            Prueba:	workingData.prueba,
-            ID:workingData.jornada
-        },
-        success: function(res) {
-            if (res.errorMsg) {
-                $.messager.alert("Error:",res.errorMsg,"error");
-            } else {
-                // allright: marcamos jornada como activa, recargamos lista de equipos y abrimos ventana
-                $('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
-                $('#team_datagrid-dialog').dialog('open');
-            }
-            return false; // prevent default fireup of event trigger
+    check_access(workingData.prueba,workingData.jornada,0,function(res) {
+        if (res.errorMsg) {
+            $.messager.alert("Access denied:",res.errorMsg,"error");
+        } else {
+            // allright: marcamos jornada como activa, recargamos lista de equipos y abrimos ventana
+            $('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
+            $('#team_datagrid-dialog').dialog('open');
         }
+        return false; // prevent default fireup of event trigger
     });
+    return false;
 }
 
 /**

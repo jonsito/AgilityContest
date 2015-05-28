@@ -29,7 +29,8 @@ require_once(__DIR__."/classes/Jornadas.php");
 		$jornadas= new Jornadas("jornadaFunctions",http_request("Prueba","i",0));
 		$am= new AuthManager("jornadaFunctions");
 		$operation=http_request("Operation","s",null);
-		$jornadaid=http_request("ID","i",0);
+        $jornadaid=http_request("ID","i",0);
+        $perms=http_request("Perms","i",0);
 		$allowClosed=http_request("AllowClosed","i",0);
 		$hideUnassigned=http_request("HideUnassigned","i",0);
 		if ($operation===null) throw new Exception("Call to jornadaFunctions without 'Operation' requested");
@@ -42,7 +43,7 @@ require_once(__DIR__."/classes/Jornadas.php");
             case "getbyid": $result=$jornadas->selectByID($jornadaid); break;
 			case "enumerate": $result=$jornadas->searchByPrueba($allowClosed,$hideUnassigned); break;
 			case "rounds": $result=$jornadas->roundsByJornada($jornadaid); break;
-            case "access": $result=$jornadas->checkAccess($am,$jornadaid); break;
+            case "access": $result=$jornadas->checkAccess($am,$jornadaid,$perms); break;
 			default: throw new Exception("jornadaFunctions:: invalid operation: $operation provided");
 		}
 		if ($result===null) 

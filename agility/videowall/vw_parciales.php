@@ -7,7 +7,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Videowall::parciales");
-if ( ! $am->allowed(ENABLE_VIDEOWALL)) die("<h1>VideoWall feature is not allowed with current license</h1>");
+if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.html"); return 0;}
 // tool to perform automatic upgrades in database when needed
 require_once(__DIR__."/../server/upgradeVersion.php");
 ?>

@@ -39,6 +39,17 @@ var nombreCategorias = {
 		'2': { 'L': '60',		'M': '50',	  'S': '40',	'T': '30',	'logo': 'uca.png',  'logo2': 'rfec.png', url:'http://www.agilityuca.org', url2:'http://www.fecaza.com'}
 };
 
+// permisos de ejecucion
+var access_perms = {
+    ENABLE_TEAM3    :1,  // permite gestionar pruebas de equipos 3
+    ENABLE_TEAM4    :2,  // permite gestionar pruebas de equipos 4
+    ENABLE_KO       :4,  // permite gestionar pruebas K.O
+    ENABLE_SPECIAL  :8,  // permite gestionar pruebas de mangas multiples
+    ENABLE_VIDEOWALL:16, // permite acceso desde videomarcador
+    ENABLE_PUBLIC   :32, // permite acceso publico web
+    ENABLE_CHRONO   :64 // permite gestion desde cronometro
+}
+
 /**
  * returns Categoria's long string according provided categoria and fereration
  * @param {string} cat Categoria
