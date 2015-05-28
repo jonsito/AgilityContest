@@ -27,16 +27,28 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <a id="vw_footer-urlFederation2" target="fed2" href="">
             <img id="vw_footer-logoFederation2" src="/agility/images/logos/fci.png" alt="" width="50"/>
         </a>
+        <span style="padding:12px;font-size:10px;font-style:oblique">
+            Powered by AgilityContest-2.0.0 &copy; 2013-2015 JAMC
+        </span>
     </span>
     <span style="float:right">
+        <a  target="canastur" href="http://www.caninaasturiana.es/">
+            <img id="vw_footer-caninaAsturias" src="/agility/images/supporters/canina_asturiana.png" alt="canastur" height="50"/>
+        </a>
+        <a target="oviedo" href="http://www.oviedo.es">
+            <img id="vw_footer-aytoOviedo" src="/agility/images/supporters/oviedo.jpg" alt="oviedo" height="50"/>
+        </a>
         <a target="galican" href="http://www.galican.com">
-            <img id="vw_footer-logoGalican" src="/agility/images/supporters/galican.png" alt="galican" width="50"/>
+            <img id="vw_footer-logoGalican" src="/agility/images/supporters/galican.png" alt="galican" height="50"/>
+        </a>
+        <a target="arion" href="http://www.arion-petfood.es">
+            <img id="vw_footer-logoArion" src="/agility/images/supporters/arion.jpg" alt="arion" height="50"/>
         </a>
         <a target="xanastur" href="http://www.xanastur.org">
-            <img id="vw_footer-logoGalican" src="/agility/images/logos/xanastur.png" alt="xanastur" width="50"/>
+            <img id="vw_footer-logoGalican" src="/agility/images/logos/xanastur.png" alt="xanastur" height="50"/>
         </a>
         <a target="acontest" href="https://www.github.com/jonsito/AgilityContest">
-            <img id="vw_footer-logoAgilityContest" src="/agility/images/logos/agilitycontest.png" alt="agilitycontest" width="50"/>
+            <img id="vw_footer-logoAgilityContest" src="/agility/images/logos/agilitycontest.png" alt="agilitycontest" height="50"/>
         </a>
     </span>
 </div>

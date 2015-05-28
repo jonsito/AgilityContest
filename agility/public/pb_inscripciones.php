@@ -91,7 +91,7 @@ $('#pb_inscripciones-datagrid').datagrid({
         { field:'Club',		hidden:true }, // Club ID
         { field:'Dorsal',	    width:'5%',   sortable:false, align: 'center',	title: '<?php _e('Dorsal'); ?>',formatter:formatDorsal },
         { field:'LogoClub',	    width:'5%',    sortable:false, align: 'center',	title: '',formatter:formatLogo },
-        { field:'Nombre',	    width:'15%',   sortable:false, align: 'right',	title: '<?php _e('Nombre'); ?>' },
+        { field:'Nombre',	    width:'15%',   sortable:false, align: 'center',	title: '<?php _e('Nombre'); ?>',formatter:formatBoldBig },
         { field:'Licencia',	    width:'10%',   sortable:false, align: 'center',title: '<?php _e('Lic');    ?>' },
         { field:'Categoria',    width:'5%',    sortable:false, align: 'center',title: '<?php _e('Cat');    ?>' },
         { field:'Grado',	    width:'5%',    sortable:false, align: 'center',title: '<?php _e('Grado');  ?>' },

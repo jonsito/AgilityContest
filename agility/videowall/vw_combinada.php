@@ -131,7 +131,7 @@ $('#vw_parciales-datagrid').datagrid({
         // { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
         { field:'LogoClub',		width:'10%', align:'center', title: '', formatter:formatLogo},
         // { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
-        { field:'Nombre',		width:'10%', align:'center',  title: 'Nombre'},
+        { field:'Nombre',		width:'10%', align:'center',  title: 'Nombre',formatter:formatBoldBig},
         { field:'NombreGuia',	width:'15%', align:'right', title: 'Guia' },
         { field:'NombreClub',	width:'12%', align:'right', title: 'Club' },
         { field:'Categoria',	width:'4%', align:'center', title: 'Cat.' },

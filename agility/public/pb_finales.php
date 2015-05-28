@@ -85,7 +85,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                          -->
                         <th data-options="field:'Dorsal',		width:20, align:'left'" > Dors.</th>
                         <th data-options="field:'LogoClub',		width:20, align:'left',formatter:formatLogo" > &nbsp;</th>
-                        <th data-options="field:'Nombre',		width:35, align:'center'"> Nombre</th>
+                        <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold"> Nombre</th>
                         <th data-options="field:'Licencia',		width:15, align:'center'" > Lic.</th>
                         <th data-options="field:'Categoria',	width:15, align:'center'" > Cat.</th>
                         <th data-options="field:'Grado',		width:15, align:'center'" > Grd.</th>

@@ -151,7 +151,7 @@ $('#pb_ordensalida-datagrid').datagrid({
         { field:'Logo',     	width:'5%', align:'center',	title: '',formatter: formatLogo },
         { field:'NombreEquipo',	width:'12%', align:'center',title: 'Equipo',hidden:true},
         { field:'Dorsal',		width:'5%', align:'center',	title: 'Dorsal', styler:checkPending },
-        { field:'Nombre',		width:'15%', align:'left',		title: 'Nombre'},
+        { field:'Nombre',		width:'15%', align:'center',		title: 'Nombre',formatter: formatBoldBig},
         { field:'Licencia',		width:'5%', align:'center',	title: 'Licencia'},
         { field:'NombreGuia',	width:'23%', align:'right',	title: 'Guia' },
         { field:'NombreClub',	width:'19%', align:'right',	title: 'Club' },

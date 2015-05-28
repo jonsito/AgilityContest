@@ -98,7 +98,7 @@ $('#vw_llamada-datagrid').datagrid({
         { field:'NombreEquipo',	hidden:true },
         { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
         { field:'Licencia',		width:'7%%', align:'center',  title: 'Licencia'},
-        { field:'Nombre',		width:'15%', align:'center',  title: 'Nombre',formatter:formatBold},
+        { field:'Nombre',		width:'15%', align:'center',  title: 'Nombre',formatter:formatBoldBig},
         { field:'Raza',		    width:'10%', align:'center', title: 'Raza'},
         { field:'NombreGuia',	width:'22%', align:'right', title: 'Guia',formatter:formatLlamadaGuia },
         { field:'NombreClub',	width:'10%', align:'right', title: 'Club' },

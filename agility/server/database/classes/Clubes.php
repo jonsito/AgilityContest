@@ -405,7 +405,8 @@ class Clubes extends DBObject {
                 $this->logoCache['Clubes'][$id] = $logo;
                 break;
             case "NombreClub": // Provided Club Name
-                $data= $this->__selectAsArray("*","Clubes"," (Nombre LIKE '%$id%') ");
+                $nombre=escapeString($id); //escape to avoid sql errors
+                $data= $this->__selectAsArray("*","Clubes"," (Nombre LIKE '%$nombre%') ");
                 $logo=$data['Logo'];
                 $this->logoCache['NombreClub'][$id] =$logo;
                 $this->logoCache['Clubes'][$data['ID']] = $logo;
