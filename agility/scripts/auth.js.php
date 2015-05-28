@@ -31,16 +31,16 @@ $config =Config::getInstance();
 function showLoginWindow() {
 	if (typeof(authInfo.SessionKey)==undefined || (authInfo.SessionKey==null) ) {
 		$('#login-window').remove();
-		loadContents('/agility/client/frm_login.php','Iniciar sesion');
+		loadContents('/agility/console/frm_login.php','Iniciar sesion');
 	} else {
 		$('#logout-window').remove();
-		loadContents('/agility/client/frm_logout.php','Finalizar sesion');
+		loadContents('/agility/console/frm_logout.php','Finalizar sesion');
 	}
 }
 
 function showMyAdminWindow() {
 	$('#myAdmin-window').remove();
-	loadContents('/agility/client/frm_myAdmin.php','Acceso directo a la Base de Datos');
+	loadContents('/agility/console/frm_myAdmin.php','Acceso directo a la Base de Datos');
 }
 
 function acceptLogin() {

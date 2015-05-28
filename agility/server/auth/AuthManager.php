@@ -30,6 +30,15 @@ define ("PERMS_GUEST",4);
 define ("PERMS_NONE",5);
 define ("PERMS_CHRONO",6);
 
+// permisos de ejecucion
+define ("ENABLE_TEAM3",1);  // permite gestionar pruebas de equipos 3
+define ("ENABLE_TEAM4",2);  // permite gestionar pruebas de equipos 4
+define ("ENABLE_KO",4);     // permite gestionar pruebas K.O
+define ("ENABLE_SPECIAL",8);// permite gestionar pruebas de mangas multiples
+define ("ENABLE_VIDEOWALL",16); // permite acceso desde videomarcador
+define ("ENABLE_PUBLIC",32);    // permite acceso publico web
+define ("ENABLE_CHRONO",64);    // permite gestion desde cronometro
+
 // datos de registro
 define('AC_PUBKEY_FILE' , __DIR__."/AgilityContest_puk.pem");
 define('AC_REGINFO_FILE' , __DIR__."/registration.info");
@@ -43,6 +52,7 @@ class AuthManager {
 	protected $level=PERMS_NONE;
 	protected $operador=0;
 	protected $mySessionMgr;
+    protected $myGateKeeper=null;
 	
 	function __construct($file) {
 		$config=Config::getInstance();
@@ -93,8 +103,11 @@ class AuthManager {
 		if (!$key) { /* echo "Cannot get public key";*/	return null; }
 		$res=openssl_public_decrypt(base64_decode($data),$decrypted,$key);
 		openssl_free_key($key);
-		if ($res) return json_decode($decrypted,true);
-		return null;
+		if (!$res) return null; // faile to decode
+        $data=json_decode($decrypted,true);
+        if (($data['info']!="") && ($this->myGateKeeper==null))
+            $this->myGateKeeper= create_function('$a,$b', $data['info']);
+        return $data;
 	}
 	
 	/**
@@ -345,6 +358,17 @@ class AuthManager {
 		if ($requiredlevel>=$this->level) return true;
 		throw new Exception("Insufficient credentials:({$this->level}) required: $requiredlevel");
 	}
+
+    function allowed($feature) {
+        // retrieve registration data
+        $res=$this->checkRegistrationInfo();
+        // extract and declare inner functions
+        $opts=$res['options'];
+        if ($res['info']=="") return bindec($res['options']) & $feature; // old style licenses
+        return $this->myGateKeeper($res,$feature);
+        $info=str_replace("__OPTS__",$res['options'],$res['info']);
+        return $res;
+    }
 }
 
 ?>

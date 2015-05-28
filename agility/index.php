@@ -1,21 +1,13 @@
 <?php
 header("Access-Control-Allow-Origin: https//{$_SERVER['SERVER_ADDR']}/agility",false);
 header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",false);
-require_once(__DIR__."/server/tools.php");
-require_once(__DIR__."/server/auth/Config.php");
+require_once(__DIR__ . "/server/auth/Config.php");
+require_once(__DIR__ . "/server/tools.php");
 $config =Config::getInstance();
 
-// tool to perform automatic upgrades in database when needed
-require_once(__DIR__."/server/upgradeVersion.php");
- 
 /* check for properly installed xampp */
 if( ! function_exists('openssl_get_publickey')) {
 	die("Invalid configuration: please uncomment line 'module=php_openssl.dll' in file '\\xampp\\php\\php.ini'");
-}
-
-if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
-	// en windows/android hay que usar https para que las cosas funcionen
-	if (!is_https()) die("You MUST use https protocol to access this application");
 }
 ?>
 <!DOCTYPE html>
@@ -31,45 +23,31 @@ if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
 	content="This program is free software; you can redistribute it and/or modify it under the terms of the 
 		GNU General Public License as published by the Free Software Foundation; either version 2 of the License, 
 		or (at your option) any later version." />
-<title>AgilityContest (Console)</title>
+<!-- try to disable zoom in tablet on double click -->
+<meta content='width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no;' name='viewport' />
+<title>AgilityContest (Public)</title>
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/<?php echo $config->getEnv('easyui_theme'); ?>/easyui.css" />
 <link rel="stylesheet" type="text/css" href="/agility/lib/jquery-easyui-1.4.2/themes/icon.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
-<link rel="stylesheet" type="text/css" href="/agility/css/public_css.php" />
 <link rel="stylesheet" type="text/css" href="/agility/css/videowall_css.php" />
+<link rel="stylesheet" type="text/css" href="/agility/css/public_css.php" />
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/locale/easyui-lang-<?php echo substr($config->getEnv('lang'),0,2);?>.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-groupview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-groupview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/clubes.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/guias.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/perros.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/jueces.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/usuarios.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/sesiones.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/tandas.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/equipos.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/pruebas.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/inscripciones.js.php" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/scripts/printer.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/public/public.js" type="text/javascript" charset="utf-8" > </script>
+<script type="text/javascript" charset="utf-8">
 
-<script type="text/javascript">
+/* not really needed for public access, but stay here for compatibility */
 function initialize() {
-    var mm=$('#mymenu');
-	// expand/collapse menu on mouse enter/exit
-	setHeader("");
-	mm.mouseenter(function(){$('#mymenu').panel('expand');});
-	mm.mouseleave(function(){$('#mymenu').panel('collapse');});
-	
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
 	  beforeSend: function(jqXHR,settings) {
@@ -79,175 +57,217 @@ function initialize() {
 	    return true;
 	  }
 	});
-	
-	// load login page
-	loadContents("/agility/client/frm_login.php","");
 }
 
 /**
  * Common rowStyler function for AgilityContest datagrids
- * @paramm {int} idx Row index
- * @param {object} row Row data
+ * @param {int} idx Row index
+ * @param {Object} row Row data
  * @return {string} proper row style for given idx
  */
 function myRowStyler(idx,row) {
 	var res="background-color:";
-	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>'; // even rows
-	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>'; // odd rows
-	var c3='<?php echo $config->getEnv('easyui_rowcolor3'); ?>'; // extra color for special rows
-	if (idx<0) return res+c3+";";
-    if ((idx & 0x01) == 0) {
-        return res + c1 + ";";
-    } else {
-        return res + c2 + ";";
-    }
-}
-
-var ac_config= {
-		// version, logging y depuracion
-		'debug_level'		: '<?php echo $config->getEnv('debug_level'); ?>',
-		'version_name'		: '<?php echo $config->getEnv('version_name'); ?>',
-		'version_date'		: '<?php echo $config->getEnv('version_date'); ?>',
-
-		// Internacionalizacion. Idiomas
-		'lang'				: '<?php echo $config->getEnv('lang'); ?>',
-		// variables del sistema
-        'proximity_alert'	: <?php echo $config->getEnv('proximity_alert'); ?>,
-        'register_events'	: <?php echo $config->getEnv('register_events'); ?>,
-        'reset_events'	: <?php echo $config->getEnv('reset_events'); ?>,
-		
-		// entorno grafico
-		'easyui_theme' 		: '<?php echo $config->getEnv('easyui_theme'); ?>',
-		'easyui_bgcolor'	: '<?php echo $config->getEnv('easyui_bgcolor'); ?>',
-		'easyui_hdrcolor'	: '<?php echo $config->getEnv('easyui_hdrcolor'); ?>',
-		'easyui_opcolor'	: '<?php echo $config->getEnv('easyui_opcolor'); ?>',
-		'easyui_rowcolor1'	: '<?php echo $config->getEnv('easyui_rowcolor1'); ?>',
-		'easyui_rowcolor2'	: '<?php echo $config->getEnv('easyui_rowcolor2'); ?>',
-		// configuracion del videowall
-		'vw_polltime'		: <?php echo $config->getEnv('vw_polltime'); ?>,
-		'vw_alpha'			: <?php echo $config->getEnv('vw_alpha'); ?>,
-		'vw_hdrfg1'			: '<?php echo $config->getEnv('vw_hdrfg1'); ?>',
-		'vw_hdrbg1'			: '<?php echo $config->getEnv('vw_hdrbg1'); ?>',
-		'vw_hdrfg2'			: '<?php echo $config->getEnv('vw_hdrfg2'); ?>',
-		'vw_hdrbg2'			: '<?php echo $config->getEnv('vw_hdrbg2'); ?>',
-		'vw_rowcolor1'		: '<?php echo $config->getEnv('vw_rowcolor1'); ?>',
-		'vw_rowcolor2'		: '<?php echo $config->getEnv('vw_rowcolor2'); ?>',
-		// generacion de PDF's
-		'pdf_topmargin'		: '<?php echo $config->getEnv('pdf_topmargin'); ?>',
-		'pdf_leftmargin'	: '<?php echo $config->getEnv('pdf_leftmargin'); ?>',
-		'pdf_hdrfg1'		: '<?php echo $config->getEnv('pdf_hdrfg1'); ?>',
-		'pdf_hdrbg1'		: '<?php echo $config->getEnv('pdf_hdrbg1'); ?>',
-		'pdf_hdrfg2'		: '<?php echo $config->getEnv('pdf_hdrfg2'); ?>',
-		'pdf_hdrbg2'		: '<?php echo $config->getEnv('pdf_hdrbg2'); ?>',
-		'pdf_rowcolor1'		: '<?php echo $config->getEnv('pdf_rowcolor1'); ?>',
-		'pdf_rowcolor2'		: '<?php echo $config->getEnv('pdf_rowcolor2'); ?>',
-		'pdf_linecolor'		: '<?php echo $config->getEnv('pdf_linecolor'); ?>',
-		
-		// personalizacion del tablet
-		// personalizacion del tablet
-		'tablet_beep'		: <?php echo toBoolean($config->getEnv('tablet_beep'))?'true':'false'; ?>,
-		'tablet_dnd'		: <?php echo toBoolean($config->getEnv('tablet_dnd'))?'true':'false'; ?>,
-		'tablet_chrono'		: <?php echo toBoolean($config->getEnv('tablet_chrono'))?'true':'false'; ?>,
-		'tablet_countdown'	: <?php echo $config->getEnv('tablet_countdown'); ?>
+	var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
+	var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
+	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
 </script>
+
 <style>
-/* Common CSS tags for Agility Contest */
+    body {
+        /* default background from environment */
+        font-size: 100%;
+        background: <?php echo $config->getEnv('easyui_bgcolor'); ?>;
+    }
 
-body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor'); ?>; }
+    /* remove underlines around footer imagelinks */
+    a,
+    a img {
+        text-decoration: none;
+        outline: none;
+        border: 0px none transparent;
+    }
 
-/***** Datos de la cabecera ******/
-#mylogo { position: fixed; top: 0; right: 10px; }
-#myheader {	position: fixed; top: 10px; left: 10px; }
-#myheader p { 
-	color: <?php echo $config->getEnv('easyui_hdrcolor'); ?>; 
-	padding-left: 20px; 
-	font-family: Arial, sans-serif;
-    font-size: 28pt;
-    font-style: italic;
-    font-weight: bold;
-    display: table-cell;
-}
-#myheader p a:link {  text-decoration:none; color:<?php echo $config->getEnv('easyui_hdrcolor'); ?>; }      /* unvisited link */
-#myheader p a:visited { text-decoration:none; color:<?php echo $config->getEnv('easyui_hdrcolor'); ?>; }  /* visited link */
-#myheader p a:hover { text-decoration:none; color:<?php echo $config->getEnv('easyui_hdrcolor'); ?>; }  /* mouse over link */
-#myheader p a:active { text-decoration:none; color:<?php echo $config->getEnv('easyui_hdrcolor'); ?>; }  /* selected link */
-#myheader span p { font-size:24pt; padding-left: 250px; color:<?php echo $config->getEnv('easyui_opcolor'); ?>; }
+    /* ajuste de las cabeceras de los datagrid groupview */
+    .datagrid-body .datagrid-group {
+        background-color: #ccc;
+        height:40px;
+        line-height: 40px;
+    }
+    .datagrid-body .datagrid-group .datagrid-group-title {
+        height:40px;
+        line-height: 40px;
+        font-weight: bold;
+    }
+    .datagrid-body .datagrid-group .datagrid-group-expander {
+        margin-top:7px;
+    }
+
 </style>
 
 </head>
 
-<body onload="initialize();">
+<body style="margin:0;padding:0" onload="initialize();">
 
-<!-- CABECERA -->
-<div id="myheader">
-	<p> <a href="/agility/index.php">Agility Contest</a> </p>
-	<span id="Header_Operation"></span>
-</div>
+<div id="public-contenido" style="width:100%;height:100%;margin:0;padding:0"></div>
 
-<!-- LOGO -->
-<div id="mylogo">
-	<p><img id="logo_AgilityContest" src="/agility/images/AgilityContest.png" alt="AgilityContest" width="200" height="160"/></p>
-	<p><img id="logo_Federation" src="/agility/images/logos/rsce.png" alt="Federation" width="200" height="160"/></p>
-</div>
-
-<!-- MENU LATERAL -->
-<div id="mysidebar">
-
-<div id="mymenu" class="easyui-panel" title="Men&uacute; de Operaciones"
-	data-options="border:true,closable:false,collapsible:true,collapsed:true">
-<ul>
-<li>
-	<ul>
-	<li><a id="menu-Login" href="javascript:showLoginWindow();">
-		<span id="login_menu-text">Iniciar sesi&oacute;n</span></a>
-	</li>
-	</ul>
-</li>
-<li>BASE DE DATOS
-	<ul>
-	<li><a href="javascript:loadContents('/agility/client/frm_clubes.php','Gesti&oacute;n de la Base de Datos de Clubes');">Clubes</a></li>
-	<li><a href="javascript:loadContents('/agility/client/frm_guias.php','Gesti&oacute;n de la Base de Datos de Gu&iacute;as');">Gu&iacute;as</a></li>
-	<li><a href="javascript:loadContents('/agility/client/frm_perros.php','Gesti&oacute;n de la base de datos de Perros');">Perros</a></li>
-	<li><a href="javascript:loadContents('/agility/client/frm_jueces.php','Gesti&oacute;n de la Base de datos de Jueces');">Jueces</a></li>
-	</ul>
-</li>
-<li>PRUEBAS
-	<ul>
-	<li><a href="javascript:loadContents('/agility/client/frm_pruebas.php','Creaci&oacute;n y edici&oacute;n de pruebas');">Creaci&oacute;n de pruebas</a></li>
-	<li><a href="javascript:loadContents('/agility/client/frm_inscripciones.php','Inscripciones - Selecci&oacute;n de prueba',{'s':'#selprueba-window'});">Edici&oacute;n. Inscripciones</a></li>
-	<li><a href="javascript:loadContents('/agility/client/frm_competicion.php','Competicion - Selecci&oacute;n de Prueba y Jornada');">Desarrollo de la prueba</a></li>
-	</ul>
-</li>
-<li>CONSULTAS
-	<ul>
-	<li><a href="javascript:loadContents('/agility/client/frm_clasificaciones.php','Clasificaciones - Selecci&oacute;n de Prueba y Jornada');">Clasificaciones</a></li>
-	<li><a href="javascript:loadContents('/agility/client/frm_estadisticas.php','Estad&iacute;sticas');">Estad&iacute;sticas</a></li>
-	</ul>
-</li>
-<li>HERRAMIENTAS
-	<ul>
-	<li> <a href="javascript:loadContents('/agility/client/frm_admin.php','Administraci&oacute;n')">Administraci&oacute;n</a></li>
-	<li><a id="menu-Login" href="javascript:showMyAdminWindow();">Acceso a BBDD</a></li>
-	</ul>
-</li>
-<li>DOCUMENTACION
-	<ul>
-	<li> <a target="documentacion" href="/agility/client/manual.html">Manual en l&iacute;nea</a></li>
-	<li> <a href="javascript:loadContents('/agility/client/frm_registration.php','Informaci&oacute;n de registro')">Datos de registro</a></li>
-	<li> <a href="javascript:loadContents('/agility/client/frm_about.php','Sobre la aplicaci&oacute;n...')">Acerca de...</a></li>
-	</ul>
-</li>
-</ul>
-</div> <!-- mymenu -->
-</div> <!-- mysidebar -->
-	
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
-<div id="mycontent">
-	<div id="contenido" class="easyui-panel" style="background:none" data-options="width:'100%',fit:true,border:false,"></div>
-</div>
 
+<div id="public-dialog" style="width:350px;height:200px;padding:10px" class="easyui-dialog"
+	data-options="title: 'Indicar Prueba, Jornada y Vista',iconCls: 'icon-list',buttons: '#public-Buttons',collapsible:false, minimizable:false,
+		maximizable:false, closable:true, closed:false, shadow:true, modal:true">
+	<form id="public-form">       		
+    	<div class="fitem">
+       		<label for="public-Prueba">Prueba:</label>
+       		<select id="public-Prueba" name="Prueba" style="width:200px"></select>
+    	</div>        		
+    	<div class="fitem">
+       		<label for="public-Jornada">Jornada:</label>
+       		<select id="public-Jornada" name="Jornada" style="width:200px"></select>
+    	</div>    	
+    	<div class="fitem">
+       		<label for="public-Operation">Vista:</label>
+       		<select id="public-Operation" name="Operation" style="width:200px">
+       		<option value="inscritos">Listado de Inscritos</option>
+       		<option value="ordensalida">Orden de Salida</option>
+       		<option value="parciales">Resultados Provisionales</option>
+       		<option value="clasificaciones">Clasificaciones</option>
+            <option value="programa">Programa de la jornada</option>
+       		</select>
+    	</div>
+	</form>
+</div> <!-- Dialog -->
+
+<div id="public-Buttons" style="text-align:right;padding:5px;">
+   	<a id="public-okBtn" href="#" class="easyui-linkbutton" 
+   	   	data-options="iconCls:'icon-ok'" onclick="public_acceptSelection()">Aceptar</a>
+</div>	<!-- botones -->
+
+<script type="text/javascript">
+
+$('#public-form').form();
+
+$('#public-Prueba').combogrid({
+	panelWidth: 400,
+	panelHeight: 150,
+	idField: 'ID',
+	textField: 'Nombre',
+	url: '/agility/server/database/pruebaFunctions.php?Operation=enumerate',
+	method: 'get',
+	mode: 'remote',
+	required: true,
+	multiple: false,
+	fitColumns: true,
+	singleSelect: true,
+	editable: false,  // to disable tablet keyboard popup
+	selectOnNavigation: true, // let use cursor keys to interactive select
+	columns: [[
+	   	    {field:'ID',hidden:true},
+			{field:'Nombre',title:'Nombre',width:50,align:'right'},
+            {field:'Club',hidden:true},
+			{field:'NombreClub',title:'Club',width:20,align:'right'},
+            {field:'RSCE',			title:'Fed.',			width:15,	align:'center', formatter:formatRSCE},
+			{field:'Observaciones',title:'Observaciones.',width:30,align:'right'}
+	]],
+	onChange:function(value){
+        var p=$('#public-Prueba').combogrid('grid').datagrid('getSelected');
+        if (p===null) return; // no selection
+        setPrueba(p); // ajusta los datos de la prueba
+		var g = $('#public-Jornada').combogrid('grid');
+		g.datagrid('load',{Prueba:p.ID});
+	}
+});
+
+$('#public-Jornada').combogrid({
+	panelWidth: 550,
+	panelHeight: 150,
+	idField: 'ID',
+	textField: 'Nombre',
+	url: '/agility/server/database/jornadaFunctions.php',
+	method: 'get',
+	mode: 'remote',
+	required: true,
+	multiple: false,
+	fitColumns: true,
+	singleSelect: true,
+	editable: false, // to disable tablet keyboard popup
+	columns: [[
+	    { field:'ID',			hidden:true }, // ID de la jornada
+	    { field:'Prueba',		hidden:true }, // ID de la prueba
+	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
+		{ field:'Nombre',		width:30, sortable:false,   align:'right',  title: 'Nombre/Comentario' },
+		{ field:'Fecha',		hidden:true},
+		{ field:'Hora',			hidden:true},
+		{ field:'Grado1',		width:8, sortable:false,	align:'center', title: 'G-I    ' },
+		{ field:'Grado2',		width:8, sortable:false,	align:'center', title: 'G-II   ' },
+		{ field:'Grado3',		width:8, sortable:false,	align:'center', title: 'G-III  ' },
+		{ field:'Open',		    width:8, sortable:false,	align:'center', title: 'Open   ' },
+		{ field:'Equipos3',		width:8, sortable:false,	align:'center', title: 'Eq.3x4 ' },
+		{ field:'Equipos4',		width:8, sortable:false,	align:'center', title: 'Eq.Conj' },
+		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'Pre. 1 ' },
+		{ field:'PreAgility2',	width:8, sortable:false,	align:'center', title: 'Pre. 2 ' },
+		{ field:'KO',			width:8, sortable:false,	align:'center', title: 'K.O.   ' },
+		{ field:'Especial',		width:8, sortable:false,	align:'center', title: 'Show   ' }
+	]],
+	onBeforeLoad: function(param) { 
+		param.Operation='enumerate';
+		param.Prueba=workingData.prueba;
+		param.AllowClosed=0;
+		param.HideUnassigned=1;
+		return true;
+	}
+});
+
+function public_acceptSelection() {
+	var o=$('#public-Operation').val();
+	// si datos invalidos cancelamos operacion
+	var p=$('#public-Prueba').combogrid('grid').datagrid('getSelected');
+	var j=$('#public-Jornada').combogrid('grid').datagrid('getSelected');
+	var page="'/agility/console/frm_notavailable.php";
+	if ( (p==null) || (j==null) || (o==null)) {
+		// indica error
+		$.messager.alert("Error","Debe indicar los datos de prueba, jornada y vista seleccionada","error");
+		return;
+	}
+    setPrueba(p);
+    setJornada(j);
+	workingData.manga=0;
+	workingData.tanda=0;
+	workingData.mode=-1;
+    page='/agility/console/frm_notavailable.php';
+	switch (o){
+	case 'inscritos':
+        if (isJornadaEq3() ) page="/agility/public/pb_inscripciones_equipos.php";
+        else if (isJornadaEq4() ) page="/agility/public/pb_inscripciones_equipos.php";
+        else page="/agility/public/pb_inscripciones.php";
+		break;
+	case 'ordensalida':
+		page="/agility/public/pb_ordensalida.inc";
+		break;
+	case 'parciales':
+        if (isJornadaEq3() ) page="/agility/public/pb_parciales_eq3.inc";
+        else if (isJornadaEq4() ) page="/agility/public/pb_parciales_eq4.inc";
+        else page="/agility/public/pb_parciales.inc";
+		break;
+	case 'clasificaciones':
+        if (isJornadaEq3() ) page="/agility/public/pb_finales_eq3.inc";
+        else if (isJornadaEq4() ) page="/agility/public/pb_finales_eq4.inc";
+        else page="/agility/public/pb_finales.inc";
+        break;
+    case 'programa':
+        page="/agility/public/pb_programa.inc";
+        break;
+    }
+	$('#public-dialog').dialog('close').remove();
+	$('#public-contenido').load(	
+			page,
+			function(response,status,xhr){
+				if (status=='error') $('#public_contenido').load('/agility/console/frm_notavailable.php');
+			}
+		);
+}
+
+</script>
 </body>
-
 </html> 

@@ -91,7 +91,7 @@ $('#selprueba-Search').combogrid({
 function acceptSelectPrueba() {
 	// si no hay ninguna prueba valida seleccionada aborta
 	var title="";
-	var page="/agility/client/frm_main.php";
+	var page="/agility/console/frm_main.php";
 	var p=$('#selprueba-Search').combogrid('grid').datagrid('getSelected');
 	if (p==null) {
 		// indica error
@@ -99,7 +99,7 @@ function acceptSelectPrueba() {
 		return;
 	} else {
 		setPrueba(p);
-		page="/agility/client/frm_inscripciones2.php";
+		page="/agility/console/frm_inscripciones2.php";
 		title="Inscripciones - Formulario de registro";
 	}
 	$('#selprueba-window').window('close');
@@ -108,7 +108,7 @@ function acceptSelectPrueba() {
 
 function cancelSelectPrueba() {
 	var title="";
-	var page="/agility/client/frm_main.php";
+	var page="/agility/console/frm_main.php";
 	$('#selprueba-window').window('close');
 	loadContents(page,title);
 }

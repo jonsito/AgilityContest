@@ -30,7 +30,7 @@ $('#seljornada-window').window({
 	onClose: function () {
 		// default values
 		var extra="";
-		var page="/agility/client/frm_main.php";
+		var page="/agility/console/frm_main.php";
         // default dialogs
 		
 		// no jornada selected load main menu
@@ -39,26 +39,26 @@ $('#seljornada-window').window({
 			return;
 		}
         // default page and dialogs
-		page="/agility/client/frm_competicion2.php?tipo=std";
+		page="/agility/console/frm_competicion2.php?tipo=std";
         var dialogs= {'t':'#ordentandas-dialog','s':'#ordensalida-dialog','c':'#competicion-dialog','r':'#resultadosmanga-dialog'};
 		if (workingData.datosJornada.Equipos3==1) {
-			page="/agility/client/frm_competicion2.php?tipo=eq3";
+			page="/agility/console/frm_competicion2.php?tipo=eq3";
 			extra=" ( <?php _e('Equipos -3 mejores-');?> )";
             // mark default dialogs
 		}
 		if (workingData.datosJornada.Equipos4==1) {
-			page="/agility/client/frm_competicion2.php?tipo=eq4";
+			page="/agility/console/frm_competicion2.php?tipo=eq4";
 			extra=" ( <?php _e('Equipos -conjunta-');?> )";
             // mark default dialogs
 		}
 		if (workingData.datosJornada.Open==1) {
 			// an Open Contest is like a normal with no Grades but only categories
-			page="/agility/client/frm_competicion2.php?tipo=open";
+			page="/agility/console/frm_competicion2.php?tipo=open";
 			extra=" ( <?php _e('Abierta');?> )";
 			// use default dialogs
 		}
 		if (workingData.datosJornada.KO==1) {
-			page="/agility/client/frm_competicion_ko.php";
+			page="/agility/console/frm_competicion_ko.php";
 			extra=" ( <?php _e('Mangas K.O.');?> )";
 			dialogs= {};
 		}

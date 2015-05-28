@@ -73,7 +73,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 $('#about_version').html(ac_config.version_name);
                 $('#about_date').html(ac_config.version_date);
             },  
-            onClose: function() {loadContents('/agility/client/frm_main.php','');
+            onClose: function() {loadContents('/agility/console/frm_main.php','');
             }
         })
 </script>

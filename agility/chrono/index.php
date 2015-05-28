@@ -20,6 +20,7 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 // tool to perform automatic upgrades in database when needed
 require_once(__DIR__."/../server/upgradeVersion.php");
@@ -45,6 +46,7 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <link rel="stylesheet" type="text/css" href="/agility/css/chrono_css.php" />
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-groupview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
@@ -177,7 +179,7 @@ $('#chrono-Session').combogrid({
 		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' }
 	]],
 	onBeforeLoad: function(param) { 
-		param.Operation='select';
+		param.Operation='selectring';
 		param.Hidden=0;
 		return true;
 	}
@@ -198,12 +200,12 @@ function chrono_accept() {
 	workingData.sesion=s.ID;
 	workingData.nombreSesion=s.Nombre;
 	initWorkingData(s.ID);
-	var page='/agility/chrono/chrono.inc';
+	var page='/agility/chrono/chrono.inc.php';
 	$('#chrono-dialog').dialog('close');
 	$('#chrono-contenido').load(	
 			page,
 			function(response,status,xhr){
-				if (status=='error') $('#chrono-contenido').load('/agility/client/frm_notavailable.php');
+				if (status=='error') $('#chrono-contenido').load('/agility/console/frm_notavailable.php');
 			}
 		);
 }

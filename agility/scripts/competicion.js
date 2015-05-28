@@ -609,7 +609,7 @@ function save_manga(id) {
  */
 function reload_manga(id) {
 	// ventana de datos
-	var url='server/database/mangaFunctions.php?Operation=getbyid&Jornada='+workingData.jornada+"&Manga="+id;
+	var url='/agility/server/database/mangaFunctions.php?Operation=getbyid&Jornada='+workingData.jornada+"&Manga="+id;
     $('#competicion-formdatosmanga').form('load',url);
 }
 

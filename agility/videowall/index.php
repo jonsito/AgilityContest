@@ -280,7 +280,7 @@ function vw_accept() {
 	workingData.sesion=s.ID;
 	workingData.nombreSesion=s.Nombre;
 	initWorkingData(s.ID);
-	var page="'/agility/client/frm_notavailable.php";
+	var page="'/agility/console/frm_notavailable.php";
 	var n=parseInt($('#selvw-Vista').val());
 	switch (n){
 	case 0: // Ordenes de Salida
@@ -303,7 +303,7 @@ function vw_accept() {
 	$('#vw_contenido').load(	
 			page,
 			function(response,status,xhr){
-				if (status=='error') $('#vw_contenido').load('/agility/client/frm_notavailable.php');
+				if (status=='error') $('#vw_contenido').load('/agility/console/frm_notavailable.php');
 				else {
 					var bg=workingData.datosSesion.Background;
 					var ls1=workingData.datosSesion.LiveStream;

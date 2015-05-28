@@ -28,17 +28,17 @@ require_once(__DIR__."/dialogs/dlg_selectJornada.inc");
 
 $('#seljornada-window').window({
 	onClose: function () {
-		var page="/agility/client/frm_main.php";
+		var page="/agility/console/frm_main.php";
 		// no jornada selected load main menu
 		if (workingData.jornada==0) {
 			loadContents(page,"");
 			return;
 		}
-		page="/agility/client/frm_clasificaciones2.php";
-		if (workingData.datosJornada.Equipos3==1) page="/agility/client/frm_clasificaciones_eq3.php";
-		if (workingData.datosJornada.Equipos4==1) page="/agility/client/resultados_eq4.php";
-		if (workingData.datosJornada.Open==1) page="/agility/client/frm_clasificaciones2.php";
-		if (workingData.datosJornada.KO==1) page="/agility/client/resultados_ko.php";
+		page="/agility/console/frm_clasificaciones2.php";
+		if (workingData.datosJornada.Equipos3==1) page="/agility/console/frm_clasificaciones_eq3.php";
+		if (workingData.datosJornada.Equipos4==1) page="/agility/console/resultados_eq4.php";
+		if (workingData.datosJornada.Open==1) page="/agility/console/frm_clasificaciones2.php";
+		if (workingData.datosJornada.KO==1) page="/agility/console/resultados_ko.php";
 		loadContents(page,'<?php _e('Resultados y Clasificaciones');?>');
 	} 
 }).window('open');
