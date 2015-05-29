@@ -91,7 +91,7 @@ function myRowStyler(idx,row) {
 
     /* ajuste de las cabeceras de los datagrid groupview */
     .datagrid-body .datagrid-group {
-        background-color: #ccc;
+        background-color: <?php echo $config->getEnv('vw_hdrbg2'); ?>;
         height:40px;
         line-height: 40px;
     }

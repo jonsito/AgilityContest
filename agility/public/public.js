@@ -165,6 +165,7 @@ function pb_updateFinales() {
     	// $.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
     	return; // no way to know which ronda is selected
 	}
+    workingData.teamCounter=1; // reset team's puesto counter
     // do not call pb_doResults cause expected json data
 	$.ajax({
 		type:'GET',

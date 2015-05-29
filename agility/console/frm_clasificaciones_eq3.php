@@ -247,7 +247,11 @@ $('#resultados-datagrid').datagrid({
 	rowStyler:myRowStyler,
     view: gview,
     groupField: 'NombreEquipo',
-    groupFormatter: formatTeamClasificacionesConsole
+    groupFormatter: formatTeamClasificacionesConsole,
+    onBeforeLoad: function(param) {
+        workingData.teamCounter=1; // reset team's puesto counter
+        return true;
+    }
 });
 
 </script>
