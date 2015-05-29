@@ -120,6 +120,7 @@ function pb_updateParciales() {
     // obtenemos la manga seleccionada. if no selection return
     var row=$('#pb_enumerateParciales').combogrid('grid').datagrid('getSelected');
     if (!row) return;
+    workingData.teamCounter=1; // reset team's puesto counter
     workingData.manga=row.Manga;
     workingData.datosManga=row;
     workingData.tanda=0; // fake tanda. use manga+mode to evaluate results

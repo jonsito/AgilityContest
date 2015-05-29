@@ -100,7 +100,7 @@ $('#pb_enumerateParciales').combogrid({
 			{field:'TipoManga',hidden:true},
 			{field:'Mode',hidden:true}
 	]],
-	onBeforeLoad: function(param) { 
+	onBeforeLoad: function(param) {
 		param.Operation='enumerateResultados';
 		param.Prueba= workingData.prueba;
 		param.Jornada= workingData.jornada;

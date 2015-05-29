@@ -101,9 +101,10 @@ function formatTeamResults( value , rows ) {
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
     var res= '<div class="vw_equipos3" style="width:'+width+'px;">'+
         '<span style="width:10%;text-align:left;">'+logos+'</span>'+
-        '<span style="width:30%;text-align:left;">Equipo: '+value+'</span>' +
+        '<span style="width:25%;text-align:left;">Equipo: '+value+'</span>' +
         '<span style="width:30%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</span>' +
         '<span style="width:30%;text-align:right;">Penaliz.:'+(penal).toFixed(2)+'</span>'+
+        '<span style="width:5%;text-align:right;font-size:1.5em;">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
     return res;
 }
@@ -122,9 +123,10 @@ function formatTeamResultsConsole( value , rows ) {
     }
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
     var res= '<div class="vw_equipos3" style="width:640px">'+
-        '<span style="width:40%;text-align:left;">Equipo: '+value+'</span>' +
-        '<span style="width:30%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</span>' +
-        '<span style="width:30%;text-align:right;">Penaliz.:'+(penal).toFixed(2)+'</span>'+
+        '<span style="width:35%;text-align:left;">Equipo: '+value+'</span>' +
+        '<span style="width:25%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</span>' +
+        '<span style="width:25%;text-align:right;">Penaliz.:'+(penal).toFixed(2)+'</span>'+
+        '<span style="width:15%;text-align:right;font-size:1.5em">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
     return res;
 }
