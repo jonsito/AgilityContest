@@ -100,6 +100,7 @@ color: white;
     font-style: italic;
     font-size:1.8em;
 }
+
 /************************** Elementos de la tabla de inscritos a la prueba ************/
 
 td.vw_club {

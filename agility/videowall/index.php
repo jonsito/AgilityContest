@@ -196,7 +196,8 @@ var ac_config= {
 				<option value="0">Orden de Salida</option>
 				<option value="1">Llamada a pista</option>
 				<option value="2">Resultados Provisionales</option>
-				<option value="3">Live Stream OSD</option>
+                <option value="3">Live Stream OSD</option>
+                <option value="5">Live Stream Parciales</option>
 				<option value="4">Vista Combinada</option>
        		</select>
     	</div>
@@ -295,9 +296,12 @@ function vw_accept() {
 	case 3: // Live Stream OSD
 		page="/agility/videowall/vw_livestream.php";
 		break;
-	case 4: // Vista Combinada
-		page="/agility/videowall/vw_combinada.php";
-		break;
+    case 4: // Vista Combinada
+        page="/agility/videowall/vw_combinada.php";
+        break;
+    case 5: // resultados parciales con livestream
+        page="/agility/videowall/vwls_parciales.php";
+        break;
 	}
 	$('#selvw-dialog').dialog('close');
 	$('#vw_contenido').load(	

@@ -30,7 +30,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 <!-- Pantalla liveStream -->
-<div id="vwls_LiveStream-window" style="padding:10px">
+<div id="vwls_LiveStream-window" style="padding:0px">
 	<div id="vwls_LiveStream" class="easyui-panel"
 		data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false,resizable:true">
 		<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
