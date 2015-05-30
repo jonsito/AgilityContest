@@ -65,7 +65,7 @@ addTooltip($('#seljornada-okBtn').linkbutton(),"Trabajar con la jornada seleccio
 addTooltip($('#seljornada-cancelBtn').linkbutton(),"Cancelar selecci&oacute;n. Cerrar ventana");
 
 $('#seljornada-Prueba').combogrid({
-	panelWidth: 450,
+	panelWidth: 550,
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',

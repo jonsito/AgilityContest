@@ -42,15 +42,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <source id="vwls_videoogv" src="" type='video/ogg'/>
             <source id="vwls_videowebm" src="" type='video/webm'/>
         </video>
-        <div data-options="region:'north'" style="height:10%;background-color:transparent"></div>
-        <div data-options="region:'south'" style="height:10%;background-color:transparent"></div>
-        <div data-options="region:'east'" style="width:5%;background-color:transparent"></div>
-        <div data-options="region:'west'" style="width:30%;background-color:transparent"></div>
+        <div data-options="region:'north',border:false" style="height:10%;background-color:transparent;"></div>
+        <div data-options="region:'south',border:false" style="height:10%;background-color:transparent;"></div>
+        <div data-options="region:'east'" style="width:5%;background-color:transparent;"></div>
+        <div data-options="region:'west'" style="width:30%;background-color:transparent;"></div>
         <div data-options="region:'center',border:false" style="background-color:transparent;">
         <!-- ventana interior -->
             <div id="vw_parciales-layout">
                 <div id="vw_parciales-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader"
-                      style="height:160px;font-size:1.2em;background-color:transparent;" >
+                      style="height:170px;font-size:1.0em;opacity:0.5;" >
                     <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
                     <span style="float:left;padding:10px" id="vw_header-infoprueba">Cabecera</span>
 
@@ -61,7 +61,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     <span id="vw_header-infomanga" style="width:200px">(Manga no definida)</span>
                 </div>
                     <!-- Datos de TRS y TRM -->
-                    <table class="vw_trs">
+                <table class="vw_trs">
                     <thead>
                     <tr>
                         <th id="vw_parciales-NombreManga" colspan="3">&nbsp;</th>
@@ -80,14 +80,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     </tr>
                     </tbody>
                 </table>
+
                 </div>
 
-                <div id="vw_parciales-data" data-options="region:'center'" >
-                    <table id="vw_parciales-datagrid"></table>
+                <div id="vw_parciales-data" data-options="region:'center'" style="background-color:transparent;">
+                    <table id="vw_parciales-datagrid" class="datagrid_vw-class"></table>
                 </div>
 
                 <div id="vw_parciales-footer" data-options="region:'south',split:false" class="vw_floatingfooter"
-                    style="font-size:1.2em;background-color:transparent;">
+                    style="font-size:1.2em;opacity:0.5;">
                     <span id="vw_footer-footerData"></span>
                 </div>
             </div>
@@ -167,7 +168,7 @@ $('#vw_parciales-datagrid').datagrid({
         { field:'Puesto',		width:'4%', align:'center',  title: 'Puesto', formatter:formatPuestoBig},
         { field:'CShort',       hidden:true}
     ]],
-    rowStyler:myRowStyler,
+    rowStyler:myTransparentRowStyler,
     onBeforeLoad: function(param) {
         // do not update until 'open' received
         if( $('#vw_header-infoprueba').html()==='Cabecera') return false;
