@@ -47,14 +47,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <span class="vwls_fondo" id="vwls_Datos">&nbsp;</span>
             <span class="vwls_fondo" id="vwls_InfoManga">&nbsp;</span>
 			<!-- datos de resultados -->
-			<span class="vwls_label" id="vwls_FaltasLbl">Faltas:</span>
+			<span class="vwls_dlabel" id="vwls_FaltasLbl">F:</span>
 			<span class="vwls_data"  id="vwls_Faltas">0</span>
-			<span class="vwls_label" id="vwls_TocadosLbl">Tocados:</span>
+			<span class="vwls_dlabel" id="vwls_TocadosLbl">T:</span>
 			<span class="vwls_data"  id="vwls_Tocados">0</span>
-			<span class="vwls_label" id="vwls_RehusesLbl">Reh&uacute;ses:</span>
+			<span class="vwls_dlabel" id="vwls_RehusesLbl">R:</span>
 			<span class="vwls_data"  id="vwls_Rehuses">0</span>
-			<span class="vwls_label" id="vwls_TiempoLbl">Tiempo:</span>
-			<span class="vwls_data"  id="vwls_Tiempo">00.00</span>
+			<!-- <span class="vwls_dlabel" id="vwls_TiempoLbl">Time</span> -->
+			<span class="vwls_dtime"  id="vwls_Tiempo">00.00</span>
        		<span id="vwls_timestamp" style="display:none"></span>
 			<!-- Informacion del participante -->
 			<span style="display:none" id="vwls_Perro">0</span>
@@ -105,17 +105,17 @@ $('#vwls_LiveStream-window').window({
 // layout
 var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 
-doLayout(layout,"#vwls_Resultados",	620,	20,		155,	100	);
+doLayout(layout,"#vwls_Resultados",	700,	20,		75,	    100	);
 doLayout(layout,"#vwls_Datos",		25,		390,	750,	45	);
 doLayout(layout,"#vwls_InfoManga",	25,	    20,	    250,	20	);
 
-doLayout(layout,"#vwls_FaltasLbl",	630,	30,		75,		20	);
+doLayout(layout,"#vwls_FaltasLbl",	715,	30,		30,		20	);
 doLayout(layout,"#vwls_Faltas",		740,	30,		25,		20	);
-doLayout(layout,"#vwls_TocadosLbl",	630,	50,		75,		20	);
+doLayout(layout,"#vwls_TocadosLbl",	715,	50,		30,		20	);
 doLayout(layout,"#vwls_Tocados",	740,	50,		25,		20	);
-doLayout(layout,"#vwls_RehusesLbl",	630,	70,	    75,		20	);
+doLayout(layout,"#vwls_RehusesLbl",	715,	70,	    30,		20	);
 doLayout(layout,"#vwls_Rehuses",	740,	70,	    25,		20	);
-doLayout(layout,"#vwls_TiempoLbl",	630,	90,     50,		20	);
+// doLayout(layout,"#vwls_TiempoLbl",	710,	90,     30,		20	);
 doLayout(layout,"#vwls_Tiempo",		710,	90,     55,		20	);
 
 doLayout(layout,"#vwls_Logo",		30,		360,	80,		80	);

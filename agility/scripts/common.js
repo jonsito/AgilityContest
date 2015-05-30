@@ -500,7 +500,9 @@ function doLayout(dg,id,x,y,w,h) {
 	elem.css('left',  ((25+x*100)/dg.cols)+'%');
 	elem.css('top',   ((100+y*100)/dg.rows)+'%');
 	elem.css('width', ((w*100)/dg.cols)+'%');
-	elem.css('height',((h*100)/dg.rows)+'%');
+    elem.css('height',((h*100)/dg.rows)+'%');
+    // elem.css('line-height',((h*100)/dg.rows)+'%');
+    // elem.css('vertical-align','bottom');
 }
 
 /**

@@ -25,16 +25,37 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 /********** Estilos de la pantalla liveStream *****************/
 #vwls_common {
     vertical-align: middle;
-    line-height: 25px;
+    /*line-height: 25px; */
     font-weight: bold;
     border: none;
     border-width: 0px;
     z-index: 1;
 }
 
+/* datos de informacion del perro */
 .vwls_label {
     text-align: left;
     background-color: transparent;
+    color: white;
+}
+
+/* labels de F/T/R */
+.vwls_dlabel {
+    text-align: left;
+    background-color: transparent;
+    color: white;
+}
+
+/* datos de tiempo */
+.vwls_dtime {
+text-align: center;
+background-color: transparent;
+color: white;
+}
+
+/* datos de F/T/R */
+    .vwls_data {
+    text-align: center;
     color: white;
 }
 
@@ -42,11 +63,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     background-color: transparent;
 }
 
-.vwls_data {
-    text-align: center;
-    background-color: #c0c0c0;
-    color: white;
-}
 
 .vwls_fondo {
     background-color: rgba(127,127,127,<?php echo $config->getEnv('vw_alpha')?>);

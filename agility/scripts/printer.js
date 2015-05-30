@@ -172,7 +172,7 @@ function checkAndPrintParcial(val) {
 		success: function(data) {
 			if (parseInt(data['total'])==0) {
 				// No hay perros pendientes de salir: imprimimos los datos de la manga y categoria solicitada
-				printParcial(mode);
+				print_parcial(mode);
 			} else {
 				var str="<h3>Perros pendientes de introducci&oacute;n de datos:</h3>";
 				str +="<table><tr><th>Dorsal</th><th>Perro</th><th>Gu&iacute;a</th><th>Club</th></tr>";
