@@ -283,6 +283,12 @@ var myCounter = new Countdown({
     }
 });
 
+function tablet_reconocimiento() {
+    tablet_putEvent('chrono_rec',{ 'Value' : Date.now() } );
+    doBeep();
+    return false;
+}
+
 function tablet_startstop() {
 	var time = Date.now(); 
 	if ( $('#tdialog-StartStopBtn').val() === "Start" ) {

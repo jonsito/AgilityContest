@@ -363,7 +363,7 @@ function vwls_processLiveStream(id,evt) {
 		vwls_cronoManual('start',event['Value']);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-		// TODO: write
+        $('#cronomanual').Chrono('pause'); setTimeout(function(){$('#cronomanual').Chrono('resume');},3000);
 		return;
 	case 'crono_stop':	// parada crono electronico
 		myCounter.stop(); 

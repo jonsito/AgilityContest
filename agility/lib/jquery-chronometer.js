@@ -116,9 +116,11 @@
 	};
 
 	function run_chrono(){
-		if (startTime==0) startTime=Date.now();
-		if (stopTime==0) stopTime=Date.now();
-		if(running){
+        var now=Date.now();
+		if (startTime==0) startTime=now;
+        if (localTime==0) localTime=now;
+		if (stopTime==0) stopTime=now;
+		if(running || pause ){
 			var currentTime=Date.now();
 			var elapsed		= currentTime-localTime; // use localTime to evaluate time lapse
 			config.mseconds	= elapsed % 1000;
@@ -129,9 +131,10 @@
 			config.minutes	= config.minutes % 60;
 			config.days		= Math.floor(config.hours / 24);
 			config.hours    = config.hours % 24;
-			setTimeout(run_chrono,config.interval);
+			if (!pause) setTimeout(run_chrono,config.interval);
 			view_chrono(elapsed);
-		} else { // chrono stopped: show data at least once
+            return;
+		} else { // chrono stopped; show data at least once
 			var elapsed		= stopTime-startTime; // use real startTime instead of localTime
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);

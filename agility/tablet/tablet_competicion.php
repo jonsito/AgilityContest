@@ -21,16 +21,25 @@ require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 $config =Config::getInstance();
 ?>
-		
+
+
 <div id="tablet-window" style="margin:0;padding:0">
-	<!-- toolbar para orden de tandas -->
-	<div id="tablet-toolbar" style="padding:5px">
-		<a id="tablet-reloadBtn" href="#" class="easyui-linkbutton" 
-			data-options="iconCls:'icon-reload'" onclick="$('#tablet-datagrid').datagrid('reload');">Actualizar</a>
-	</div>
-	<!-- Tabla desplegable para la entrada de datos desde el tablet -->
-	<table id="tablet-datagrid" style="margin:0;padding:0;"></table>
+    <!-- Tabla desplegable para la entrada de datos desde el tablet -->
+    <table id="tablet-datagrid" style="margin:0;padding:0;"></table>
 </div> <!-- tandas / orden de salida -->
+
+<!-- toolbar para orden de tandas -->
+<div id="tablet-toolbar" style="width:100%;display:inline-block">
+    <span style="float:left">
+        <a id="tablet-reloadBtn" href="#" class="easyui-linkbutton"
+             data-options="iconCls:'icon-reload'" onclick="$('#tablet-datagrid').datagrid('reload');">Actualizar</a>
+    </span>
+    <span style="float:right">
+        <a id="tablet-recoBtn" href="#" class="easyui-linkbutton"
+                data-options="iconCls:'icon-search'" onclick="tablet_reconocimiento();">Reconocimiento</a>
+    </span>
+</div>
+
 		
 <script type="text/javascript">
 
@@ -222,4 +231,8 @@ function tablet_showPerrosByTanda(index,row){
 	});
 	tbt_dg.datagrid('fixDetailRowHeight',index);
 }
+
+addTooltip($('#tablet-reloadBtn').linkbutton(),"Actualizar datos de la sesion");
+addTooltip($('#tablet-recoBtn').linkbutton(),"Enviar señal de comienzo del reconocimiento de pista");
+
 </script>
