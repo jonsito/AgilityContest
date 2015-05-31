@@ -209,12 +209,19 @@ var ac_config= {
     	<div class="fitem">
        		<label for="Vista">Selecciona Vista:</label>
        		<select id="selvw-Vista" name="Vista" style="width:200px">
-				<option value="0">Orden de Salida</option>
-				<option value="1">Llamada a pista</option>
-				<option value="2">Resultados Provisionales</option>
-                <option value="3">Live Stream OSD</option>
-                <option value="5">Live Stream Parciales</option>
-				<option value="4">Vista Combinada</option>
+                <optgroup label="Video Marcadores">
+                    <!-- videowall -->
+                    <option value="0">Orden de Salida</option>
+                    <option value="1">Llamada a pista</option>
+                    <option value="2">Resultados Provisionales</option>
+                    <option value="3">Vista Combinada</option>
+                </optgroup>
+                <optgroup label="Live Stream">
+                    <!-- livestream -->
+                    <option value="4">On Screen Display</option>
+                    <option value="5">Resultados Provisionales</option>
+                    <option value="6">Orden de salida</option>
+                </optgroup>
        		</select>
     	</div>
     	
@@ -309,14 +316,17 @@ function vw_accept() {
 	case 2: // Resultados Parciales
 		page="/agility/videowall/vw_parciales.php";
 		break;
-	case 3: // Live Stream OSD
-		page="/agility/videowall/vw_livestream.php";
-		break;
-    case 4: // Vista Combinada
+    case 3: // Vista Combinada
         page="/agility/videowall/vw_combinada.php";
         break;
+	case 4: // Live Stream OSD
+		page="/agility/videowall/vw_livestream.php";
+		break;
     case 5: // resultados parciales con livestream
         page="/agility/videowall/vwls_parciales.php";
+        break;
+    case 6: // resultados parciales con livestream
+        page="/agility/videowall/vwls_ordensalida.php";
         break;
 	}
 	$('#selvw-dialog').dialog('close');

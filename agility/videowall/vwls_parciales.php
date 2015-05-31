@@ -51,7 +51,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <div id="vw_parciales-layout">
                 <div id="vw_parciales-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader"
                       style="height:170px;font-size:1.0em;opacity:0.5;" >
-                    <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
+                    <span style="float:left;background:rgba(255,255,255,0.5);">
+                        <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="75"/>
+                    </span>
                     <span style="float:left;padding:10px" id="vw_header-infoprueba">Cabecera</span>
 
                     <div style="float:right;padding:10px;text-align:right;">

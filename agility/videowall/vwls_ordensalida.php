@@ -6,13 +6,13 @@ require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
-$am = new AuthManager("Videowall::ordensalida");
+$am = new AuthManager("Videowall::parciales");
 if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.html"); return 0;}
 // tool to perform automatic upgrades in database when needed
 require_once(__DIR__."/../server/upgradeVersion.php");
 ?>
 <!--
-vw_ordensalida.inc
+vwls_ordensalida.inc
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -28,32 +28,62 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-<!-- Presentacion del orden de salida de la jornada -->
+<!-- Presentacion del orden de salida a traves de videostream -->
+
 <div id="vw_ordensalida-window">
-	<div id="vw_ordensalida-layout" style="width:100%">
-		<div id="vw_ordensalida-Cabecera" data-options="region:'north',split:false" style="height:100px" class="vw_floatingheader">
-            <img id="vw_header-logo" src="/agility/images/logos/rsce.png" style="float:left;width:75px" />
-		    <span style="float:left;padding:10px;" id="vw_header-infoprueba">Cabecera</span>
-			<div style="float:right;padding:10px;text-align:right;">
-                <span id="vw_header-texto"></span> Orden de Salida</span>&nbsp;-&nbsp;
-                <span id="vw_header-ring">Ring</span>
-                <br />
-                <span id="vw_header-infomanga" style="width:200px">(Manga no definida)</span>
+
+    <div id="vw_parent-layout" class="easyui-layout" style="width:100%;height:auto;">
+
+        <!-- imagen de fondo -->
+        <video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
+               poster="/agility/server/getRandomImage.php">
+            <!-- http://guest:@192.168.122.168/videostream.cgi -->
+            <source id="vwls_videomp4" src="" type='video/mp4'/>
+            <source id="vwls_videoogv" src="" type='video/ogg'/>
+            <source id="vwls_videowebm" src="" type='video/webm'/>
+        </video>
+        <div data-options="region:'north',border:false" style="height:10%;background-color:transparent;"></div>
+        <div data-options="region:'south',border:false" style="height:10%;background-color:transparent;"></div>
+        <div data-options="region:'east'" style="width:5%;background-color:transparent;"></div>
+        <div data-options="region:'west'" style="width:30%;background-color:transparent;"></div>
+        <div data-options="region:'center',border:false" style="background-color:transparent;">
+        <!-- ventana interior -->
+            <div id="vw_ordensalida-layout">
+                <div id="vw_ordensalida-Cabecera" data-options="region:'north',split:false" class="vw_floatingheader"
+                      style="height:75px;font-size:1.0em;opacity:0.5;" >
+                    <span style="float:left;background:rgba(255,255,255,0.5);">
+                        <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="50"/>
+                    </span>
+                    <span style="float:left;padding:10px" id="vw_header-infoprueba">Cabecera</span>
+
+                    <div style="float:right;padding:10px;text-align:right;">
+                        <span id="vw_header-texto">Resultados provisionales</span>&nbsp;-&nbsp;
+                        <span id="vw_header-ring">Ring</span>
+                        <br />
+                        <span id="vw_header-infomanga" style="width:200px">(Manga no definida)</span>
+                    </div>
+
+                </div>
+
+                <div id="vw_tabla" data-options="region:'center'">
+                    <a href="#vwls_bottom" id="vwls_top"></a>
+                    <table id="vw_ordensalida-datagrid"></table>
+                    <a href="#vwls_top" id="vwls_bottom"></a>
+                </div>
+
+                <div id="vw_ordensalida-footer" data-options="region:'south',split:false" class="vw_floatingfooter"
+                    style="font-size:1.2em;opacity:0.5;">
+                    <span id="vw_footer-footerData"></span>
+                </div>
             </div>
-		</div>
-		<div id="vw_tabla" data-options="region:'center'">
-            <a href="#vwls_bottom" id="vwls_top"></a>
-			<table id="vw_ordensalida-datagrid"></table>
-            <a href="#vwls_top" id="vwls_bottom"></a>
-		</div>
-        <div id="vw_ordensalida-footer" data-options="region:'south',split:false" class="vw_floatingfooter">
-            <span id="vw_footer-footerData"></span>
         </div>
-	</div>
+    </div>
+
 </div> <!-- vw_ordensalida-window -->
 
 <script type="text/javascript">
 
+$('#vw_parent-layout').layout({fit:true});
 $('#vw_ordensalida-layout').layout({fit:true});
 
 $('#vw_ordensalida-window').window({
@@ -128,9 +158,10 @@ $('#vw_ordensalida-datagrid').datagrid({
             mySelf.datagrid('showColumn','Observaciones');
         }
         mySelf.datagrid('fitColumns'); // expand to max width
-        // start autoscrolling
+        // and start autoscroll
         vw_autoscroll('#vw_tabla','#vwls_bottom');
     }
 });
+
 
 </script>

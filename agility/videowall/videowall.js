@@ -265,6 +265,12 @@ function vw_updateOrdenSalida(evt,data) {
     });
 }
 
+function vw_autoscroll(id,target) {
+    $(id).animate({
+        scrollTop: $(target).offset().top
+    }, 1000);
+}
+
 function vw_procesaCombinada(id,evt) {
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
