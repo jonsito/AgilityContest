@@ -57,7 +57,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     <span style="float:left;padding:10px" id="vw_header-infoprueba">Cabecera</span>
 
                     <div style="float:right;padding:10px;text-align:right;">
-                        <span id="vw_header-texto">Resultados provisionales</span>&nbsp;-&nbsp;
+                        <span id="vw_header-texto">Orden de Salida</span>&nbsp;-&nbsp;
                         <span id="vw_header-ring">Ring</span>
                         <br />
                         <span id="vw_header-infomanga" style="width:200px">(Manga no definida)</span>
