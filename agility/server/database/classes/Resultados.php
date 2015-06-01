@@ -136,7 +136,6 @@ class Resultados extends DBObject {
 		if (count($data)==1) { $best1=$data[0]['Tiempo']; $best3=$data[0]['Tiempo'];}
 		if (count($data)==2) { $best1=$data[0]['Tiempo']; $best3=($data[0]['Tiempo']+$data[1]['Tiempo'])/2.0;}
 		if (count($data)>=3) { $best1=$data[0]['Tiempo']; $best3=($data[0]['Tiempo']+$data[1]['Tiempo']+$data[2]['Tiempo'])/3.0;}
-        $this->myLogger->trace("T1: {$data[0]['Tiempo']} T2: {$data[1]['Tiempo']} T3 {$data[2]['Tiempo']} best {$best3}");
 		// Evaluamos TRS
         $factor=floatval($dmanga["TRS_{$suffix}_Factor"]);
 		switch ($dmanga["TRS_{$suffix}_Tipo"]) {

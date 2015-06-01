@@ -203,6 +203,9 @@ function showInscripcionesByTeam(index,team){
 		url: '/agility/server/database/inscripcionFunctions.php',
 		queryParams: { Operation: 'inscritosbyteam', Prueba:workingData.prueba, Jornada:workingData.jornada, Equipo: team.ID },
 		method: 'get',
+        mode: 'remote',
+        multiSort: 'true', // can sort only "-- Sin asignar --" team
+        remoteSort: 'true',
 		columns: [[
 			{ field:'ID',		hidden:true }, // inscripcion ID
 			{ field:'Prueba',	hidden:true }, // prueba ID
@@ -214,13 +217,13 @@ function showInscripcionesByTeam(index,team){
 			{ field:'Club',		hidden:true }, // Club ID
 			{ field:'LOE_RRC',	hidden:true }, // LOE/RRC
 			{ field:'Club',		hidden:true }, // Club ID
-			{ field:'Dorsal',	width:6,        sortable:false, align: 'right',	title: '<?php _e('Dorsal'); ?>' },
-			{ field:'Nombre',	width:15,       sortable:false, align: 'right',	title: '<?php _e('Nombre'); ?>' },
-			{ field:'Licencia',	width:6,        sortable:false, align: 'center',title: '<?php _e('Lic');    ?>' },
+			{ field:'Dorsal',	width:6,        sortable:true, align: 'right',	title: '<?php _e('Dorsal'); ?>' },
+			{ field:'Nombre',	width:15,       sortable:true, align: 'right',	title: '<?php _e('Nombre'); ?>' },
+			{ field:'Licencia',	width:6,        sortable:true, align: 'center',title: '<?php _e('Lic');    ?>' },
 			{ field:'Categoria',width:4,        sortable:false, align: 'center',title: '<?php _e('Cat');    ?>' },
 			{ field:'Grado',	width:6,        sortable:false, align: 'center',title: '<?php _e('Grado');  ?>' },
-			{ field:'NombreGuia',	width:25,   sortable:false, align: 'right',	title: '<?php _e('Gu&iacute;a'); ?>' },
-			{ field:'NombreClub',	width:15,   sortable:false, align: 'right',	title: '<?php _e('Club');   ?>' },
+			{ field:'NombreGuia',	width:25,   sortable:true, align: 'right',	title: '<?php _e('Gu&iacute;a'); ?>' },
+			{ field:'NombreClub',	width:15,   sortable:true, align: 'right',	title: '<?php _e('Club');   ?>' },
 			{ field:'NombreEquipo',	hidden:true },
 			{ field:'Observaciones',width:15,                                   title: '<?php _e('Observaciones');?>' },
 			{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	title: '<?php _e('Celo');   ?>' }
@@ -236,6 +239,11 @@ function showInscripcionesByTeam(index,team){
 				$('#team_datagrid').datagrid('fixDetailRowHeight',index);
 			},0);
 		},
+        // only allow sorting when default team
+        onBeforeSortColumn(sort,order) {
+            // only allow sort '-- Sin asignar --' team
+            return (team.Nombre=='-- Sin asignar --')?true:false;
+        },
 		onDblClickRow:function(index,row) { changeTeamDialog(mySelf,row); }
 	}); // end of inscritos-by-team_team_id
 	

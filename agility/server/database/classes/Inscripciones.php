@@ -349,7 +349,11 @@ class Inscripciones extends DBObject {
 		$mask= 1 << ($jornadaobj->Numero -1 );
 		$prueba= $this->pruebaID;
 		$rows=array();
-	
+        $order=getOrderString(
+            http_request("sort","s",""),
+            http_request("order","s",""),
+            "NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"
+        );
 		// extraemos la lista de inscritos
 		$lista=$this->__select(
 				/*select*/	"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, {$teamobj->Jornada} AS Jornada,
@@ -361,10 +365,17 @@ class Inscripciones extends DBObject {
 				Inscripciones.Observaciones AS Observaciones, Inscripciones.Jornadas AS Jornadas, Inscripciones.Pagado AS Pagado",
 				/* from */	"Inscripciones,PerroGuiaClub",
 				/* where */ "( Inscripciones.Perro = PerroGuiaClub.ID)	AND ( Inscripciones.Prueba=$prueba ) AND ( ((Inscripciones.Jornadas & $mask))<>0 )",
-				/* order */ "",
+				/* order */ $order,
 				/* limit */ ""
 			);
+        // si estamos en el equipo por defecto, usamos el orden solicitado
+        if (intval($teamobj->DefaultTeam)!=0) {
+            $this->myLogger->leave();
+            return $lista;
+        }
+        // si no, ordenamos según el orden de salida del equipo
 		// reindex using perro as index
+        // notice that this invalidates sort request
 		$inscripciones=array();
 		foreach($lista['rows'] as $inscripcion) {
             $inscripcion['NombreEquipo']=$teamobj->Nombre;
