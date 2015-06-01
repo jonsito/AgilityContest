@@ -22,6 +22,12 @@ require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
+if( ! function_exists('password_verify')) {
+    die("Invalid environment: You should have php-5.5.X or higher version installed");
+}
+if ( intval($config->getEnv('slave'))!=0) {
+    die("This is an SLAVE install: only basedir access is allowed");
+}
 // tool to perform automatic upgrades in database when needed
 require_once(__DIR__."/../server/upgradeVersion.php");
 ?>

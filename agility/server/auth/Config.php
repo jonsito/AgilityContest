@@ -21,7 +21,7 @@ define('AC_CONFIG_FILE',__DIR__."/config.ini");
 
 /** version */
 define('AC_VERSION_NAME','2.0.0b');
-define('AC_VERSION_DATE','20150422_2055');
+define('AC_VERSION_DATE','20150601_2251');
 
 /** Internacionalizacion. Idiomas **/
 define ('AC_LANG','es_ES.UTF-8');
@@ -33,6 +33,7 @@ define('AC_RESET_EVENTS',"1");
 
 /** variables de la aplicacion principal **/
 define('AC_PROXIMITY_ALERT',5);
+define('AC_SLAVE',0); // 0: master server, 1 only public access allowed
 
 /** base de datos **/
 define('AC_DATABASE_NAME','agility');
@@ -105,7 +106,8 @@ Class Config {
 		// Internacionalizacion. Idiomas
 		$this->config['lang'] =	AC_LANG;
 		// variables del sistema
-		$this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
+        $this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
+        $this->config['slave'] =	AC_SLAVE;
 		
 		// database
 		$this->config['database_name'] =	AC_DATABASE_NAME;
@@ -233,7 +235,8 @@ Class Config {
 		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
         $this->config['register_events'] =	AC_REGISTER_EVENTS;
         $this->config['reset_events'] =	AC_RESET_EVENTS;
-		$this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
+        $this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
+        $this->config['slave'] =	AC_SLAVE;
 		
 		// configuracion de la consola
 		$data['easyui_theme'] = 	AC_EASYUI_THEME;
@@ -328,7 +331,8 @@ Class Config {
 		$data=testAndSet($data,'debug_level','i',AC_DEBUG_LEVEL);
         $data['register_events']=http_request('register_events','s',AC_REGISTER_EVENTS);
         $data['reset_events']=http_request('reset_events','s',AC_RESET_EVENTS);
-		$data=testAndSet($data,'proximity_alert','i',AC_PROXIMITY_ALERT);
+        $data=testAndSet($data,'proximity_alert','i',AC_PROXIMITY_ALERT);
+        $data=testAndSet($data,'slave','i',AC_SLAVE);
 		
 		// finally write file:
 		$res=array_merge($this->config,$data);

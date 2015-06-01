@@ -193,7 +193,6 @@ class Eventos extends DBObject {
      * @param {array} $data key:value pairs to extract parameters from
      * @return array|null {array} available events for session $data['Session'] with id greater than $data['ID']
      * available events for session $data['Session'] with id greater than $data['ID']
-     * @internal param $ {array} $data requested event info $data requested event info
      */
 	function listEvents($data) {
 		if ($data['Session']<=0) return $this->error("No Session ID specified");
@@ -222,6 +221,11 @@ class Eventos extends DBObject {
 	 * @return {array} data about last "open" event with provided session id
 	 */
 	function connect($data) {
+        $config=Config::getInstance();
+        if (intval($config->getEnv('slave'))!=0) { // in slave config do not allow "connect" operations
+            header('HTTP/1.0 403 Forbidden');
+            die("You cannot use this server as event source");
+        }
 		if ($data['Session']<=0) return $this->error("No Session ID specified");
 		$this->myLogger->enter();
 		$result=$this->__select(

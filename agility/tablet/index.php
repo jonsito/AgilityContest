@@ -29,9 +29,17 @@ if( ! function_exists('openssl_get_publickey')) {
 	die("Invalid configuration: please uncomment line 'module=php_openssl.dll' in file '\\xampp\\php\\php.ini'");
 }
 
+/* Check operating system against requested protocol */
 if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
-	// en windows/android hay que usar https para que las cosas funcionen
-	if (!is_https()) die("You MUST use https protocol to access this application");
+    // en windows/android hay que usar https para que las cosas funcionen
+    if (!is_https()) die("You MUST use https protocol to access this application");
+}
+/* check for properly installed xampp */
+if( ! function_exists('password_verify')) {
+    die("Invalid environment: You should have php-5.5.X or higher version installed");
+}
+if ( intval($config->getEnv('slave'))!=0) {
+    die("This is an SLAVE install: only basedir access is allowed");
 }
 ?>
 <!DOCTYPE html>
