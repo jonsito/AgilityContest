@@ -63,7 +63,7 @@ addTooltip($('#selprueba-cancelBtn').linkbutton(),"Cancelar selecci&oacute;n. Ce
 
 $('#selprueba-Search').combogrid({
 	panelWidth: 450,
-	panelHeight: 100,
+	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
 	url: '/agility/server/database/pruebaFunctions.php?Operation=enumerate',
@@ -73,11 +73,11 @@ $('#selprueba-Search').combogrid({
 	editable: isMobileDevice()?false:true, //disable keyboard deploy on mobile devices
 	columns: [[
 	    {field:'ID',hidden:true},
-		{field:'Nombre',        title:'Nombre', width:40,align:'right'},
+		{field:'Nombre',        title:'Nombre', width:60,align:'right'},
 		{field:'Club',hidden:true},
-		{field:'NombreClub',    title:'Club',   width:25,align:'right'},
+		{field:'NombreClub',    title:'Club',   width:30,align:'right'},
         {field:'RSCE',			title:'Fed.',	width:10,	align:'center', formatter:formatRSCE},
-		{field:'Observaciones', title:'Observaciones.',width:20,align:'right'}
+		{field:'Observaciones', hidden:true }
 	]],
 	multiple: false,
 	fitColumns: true,

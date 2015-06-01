@@ -1569,7 +1569,7 @@ msgid "Dos Mangas"
 msgstr "Double Round"
 
 #: agility/console/dialogs/dlg_jornadas.inc:83
-msgid "Prueba Abierta (Open)"
+msgid "Prueba Abierta"
 msgstr "Open meeting"
 
 #: agility/console/dialogs/dlg_jornadas.inc:95

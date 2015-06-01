@@ -31,7 +31,7 @@ class Jornadas extends DBObject {
 		/* 3 */ array(4,	'Ronda de Grado I'),
 		/* 4 */ array(8,	'Ronda de Grado II'),
 		/* 5 */ array(16,	'Ronda de Grado III'),
-		/* 6 */ array(32,	'Ronda Abierta (Open)'),
+		/* 6 */ array(32,	'Ronda Abierta'),
 		/* 7 */ array(64,	'Equipos ( 3 mejores )'),
 		/* 8 */ array(128,	'Equipos ( 4 conjunta )'),
 		/* 9 */ array(256,	'Ronda K.O'),

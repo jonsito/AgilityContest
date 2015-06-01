@@ -187,15 +187,14 @@ $('#inscripciones-datagrid').datagrid({
         { field:'Guia', 	hidden:true }, // Guia ID
         { field:'Club',		hidden:true }, // Club ID
         { field:'LOE_RRC',	hidden:true }, // LOE/RRC
-        { field:'Licencia', hidden:true }, // LOE/RRC
         { field:'Club',		hidden:true }, // Club ID
     	{ field:'Dorsal',	width:6,  sortable:true, align: 'right',	title: 'Dorsal' },
-    	{ field:'Nombre',	width:15, sortable:true, align: 'right',	title: 'Nombre' },
+        { field:'Nombre',	width:15, sortable:true, align: 'right',	title: 'Nombre' },
+        { field:'Licencia',	width:8, sortable:true, align: 'center',	title: 'Lic' },
     	{ field:'Categoria',width:4,  sortable:true, align: 'center',  	title: 'Cat.' },
     	{ field:'Grado',	width:6,  sortable:true, align: 'center',  	title: 'Grado' },
-    	{ field:'NombreGuia',	width:25, sortable:true, align: 'right',	title: 'Guia' },
+    	{ field:'NombreGuia',	width:27, sortable:true, align: 'right',	title: 'Guia' },
     	{ field:'NombreClub',	width:15, sortable:true, align: 'right',	title: 'Club' },
-		{ field:'Observaciones',width:10,            title: '<?php _e('Observaciones');?>' },
     	{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	 title: 'Celo' },
         { field:'J1',		width:2, align:'center', formatter: formatOk,	 title: 'J1'},
         { field:'J2',		width:2, align:'center', formatter: formatOk,	 title: 'J2'},

@@ -99,7 +99,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 				if ($g==='GII') $inscribir=true; break;
 			case 6: // 'Agility Grado III', 'GIII'
 				if ($g==='GIII') $inscribir=true; break;
-			case 7: // 'Agility Abierta (Open)', '-'
+			case 7: // 'Agility Abierta', '-'
 			case 8: // 'Agility Equipos (3 mejores)', '-'
 			case 9: // 'Agility Equipos (Conjunta)', '-'
 				$inscribir=true; break;
@@ -107,7 +107,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 				if ($g==='GII') $inscribir=true; break;
 			case 11:// 'Jumping Grado III', 'GIII'
 				if ($g==='GIII') $inscribir=true; break;
-			case 12:// 'Jumping Abierta (Open)', '-'
+			case 12:// 'Jumping Abierta', '-'
 			case 13:// 'Jumping Equipos (3 mejores)', '-'
 			case 14:// 'Jumping Equipos (Conjunta)', '-'
 			case 15:// 'Ronda K.O.', '-'

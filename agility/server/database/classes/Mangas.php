@@ -33,12 +33,12 @@ class Mangas extends DBObject {
 		4 => 	array( 4, 'Agility Grado I Manga 2',	'GI',	'Agility-2 GI',	'Grado I'),
 		5 =>	array( 5, 'Agility Grado II', 			'GII',	'Agility GII',	'Grado II'),
 		6 =>	array( 6, 'Agility Grado III', 			'GIII',	'Agility GIII',	'Grado III'),
-		7 =>	array( 7, 'Agility Abierta (Open)', 	'-',	'Agility Open',	'Abierta'),
+		7 =>	array( 7, 'Agility Abierta', 	        '-',	'Agility Open',	'Abierta'),
 		8 =>	array( 8, 'Agility Equipos (3 mejores)','-',	'Agility Eq.',	'Abierta'),
 		9 =>	array( 9, 'Agility Equipos (Conjunta)', '-',	'Agility Eq.',	'Abierta'),
 		10 =>	array( 10,'Jumping Grado II',			'GII',	'Jumping GII',	'Grado II'),
 		11 =>	array( 11,'Jumping Grado III',			'GIII',	'Jumping GIII',	'Grado III'),
-		12 =>	array( 12,'Jumping Abierta (Open)',		'-',	'Jumping Open',	'Abierta'),
+		12 =>	array( 12,'Jumping Abierta',    		'-',	'Jumping Open',	'Abierta'),
 		13 =>	array( 13,'Jumping Equipos (3 mejores)','-','Jumping Eq.',	'Abierta'),
 		14 =>	array( 14,'Jumping Equipos (Conjunta)', '-','Jumping Eq.',	'Abierta'),
 		15 =>	array( 15,'Ronda K.O.', 				'-',	'Ronda K.O.',	'Abierta'),
@@ -54,12 +54,12 @@ class Mangas extends DBObject {
 		3,	/* 4, 'Agility Grado I Manga 2', 'GI' */
 		10,	/* 5, 'Agility Grado II', 'GII' */
 		11,	/* 6, 'Agility Grado III', 'GIII' */
-		12,	/* 7, 'Agility Abierta (Open)', '-' */
+		12,	/* 7, 'Agility Abierta', '-' */
 		13,	/* 8, 'Agility Equipos (3 mejores)', '-' */
 		14,	/* 9, 'Agility Equipos (Conjunta)', '-' */
 		5,	/* 10,'Jumping Grado II', 'GII' */
 		6,	/* 11,'Jumping Grado III', 'GIII' */
-		7,	/* 12,'Jumping Abierta (Open)', '-' */
+		7,	/* 12,'Jumping Abierta', '-' */
 		8,	/* 13,'Jumping Equipos (3 mejores)', '-' */
 		9,	/* 14,'Jumping Equipos (Conjunta)', '-' */
 		0,	/* 15,'Ronda K.O.', '-' */
@@ -367,7 +367,7 @@ class Mangas extends DBObject {
 	 * @param {integer} $grado1 la jornada tiene(1) o no (0) mangas de grado 1
 	 * @param {integer} $grado2 la jornada tiene (1) o no (0) mangas de grado 2
 	 * @param {integer} $grado3 la jornada tiene (1) o no (0) mangas de grado 3
-	 * @param {integer} $open la jornada tiene (1) o no (0) una prueba abierta (Open)
+	 * @param {integer} $open la jornada tiene (1) o no (0) una prueba abierta
 	 * @param {integer} $equipos3 la jornada tiene (1) o no (0) una manga por equipos (3 de 4)
 	 * @param {integer} $equipos4 la jornada tiene (1) o no (0) una manga por equipos (conjunta)
 	 * @param {integer} $preagility la jornada tiene (1) o no (0) manga de preagility a una vuelta
@@ -406,8 +406,8 @@ class Mangas extends DBObject {
 		if ($grado3) { $this->insert(6,'GIII'); $this->insert(11,'GIII'); }
 		else { $this->delete(6);	$this->delete(11); }
 
-		/* 7, 'Agility Abierta (Open)', '-' */
-		/* 12,'Jumping Abierta (Open)', '-' */
+		/* 7, 'Agility Abierta', '-' */
+		/* 12,'Jumping Abierta', '-' */
 		if ($open) { $this->insert(7,'-'); $this->insert(12,'-'); }
 		else { $this->delete(7);	$this->delete(12); }
 

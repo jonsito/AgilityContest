@@ -132,43 +132,45 @@ class Resultados extends DBObject {
 		// evaluamos mejor tiempo y media de los tres mejores
 		$best1=0;
 		$best3=0;
-		if (count($data)==0) { $best1=0; $best3=0;} // no hay ni resultados ni tiempos
+		if (count($data)==0) { $best1=0.0; $best3=0.0;} // no hay ni resultados ni tiempos
 		if (count($data)==1) { $best1=$data[0]['Tiempo']; $best3=$data[0]['Tiempo'];}
-		if (count($data)==2) { $best1=$data[0]['Tiempo']; $best3=($data[0]['Tiempo']+$data[1]['Tiempo'])/2;}
-		if (count($data)>=3) { $best1=$data[0]['Tiempo']; $best3=($data[0]['Tiempo']+$data[1]['Tiempo']+$data[2]['Tiempo'])/3;}
+		if (count($data)==2) { $best1=$data[0]['Tiempo']; $best3=($data[0]['Tiempo']+$data[1]['Tiempo'])/2.0;}
+		if (count($data)>=3) { $best1=$data[0]['Tiempo']; $best3=($data[0]['Tiempo']+$data[1]['Tiempo']+$data[2]['Tiempo'])/3.0;}
+        $this->myLogger->trace("T1: {$data[0]['Tiempo']} T2: {$data[1]['Tiempo']} T3 {$data[2]['Tiempo']} best {$best3}");
 		// Evaluamos TRS
+        $factor=floatval($dmanga["TRS_{$suffix}_Factor"]);
 		switch ($dmanga["TRS_{$suffix}_Tipo"]) {
 			// NOTA IMPORTANTE: 
 			// No se hace chequeo de tipos, con lo que si por error en un calculo de TRS standard se pide un tipo STD+XX
 			// la aplicacion entrará en un bucle infinito
 			case 0: // tiempo fijo
-				$result['trs']=$dmanga["TRS_{$suffix}_Factor"];
+				$result['trs']=$factor;
 				break;
 			case 1: // mejor tiempo
-				if ($dmanga["TRS_{$suffix}_Unit"]==="s") $result['trs']= $best1 + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
-				else $result['trs']= $best1 * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
+				if ($dmanga["TRS_{$suffix}_Unit"]==="s") $result['trs']= $best1 + $factor; // ( + X segundos )
+				else $result['trs']= $best1 * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
 			case 2: // media de los tres mejores tiempos
-				if ($dmanga["TRS_{$suffix}_Unit"]==="s") $result['trs']= $best3 + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
-				else $result['trs']= $best3 * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
+				if ($dmanga["TRS_{$suffix}_Unit"]==="s") $result['trs']= $best3 + $factor; // ( + X segundos )
+				else $result['trs']= $best3 * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
 			case 3: // trs standard +xxx						
 				$result_std=$this->getResultados(0)['trs'];
 				if ($dmanga["TRS_{$suffix}_Unit"]==="s") 
-					$result['trs']= $result_std['trs'] + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
-				else $result['trs']= $result_std['trs'] * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
+					$result['trs']= $result_std['trs'] + $factor; // ( + X segundos )
+				else $result['trs']= $result_std['trs'] * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
 			case 4: // trs medium + xx						
 				$result_med=$this->getResultados(1)['trs'];
 				if ($dmanga["TRS_{$suffix}_Unit"]==="s") 
-					$result['trs']= $result_med['trs'] + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
-				else $result['trs']= $result_med['trs'] * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
+					$result['trs']= $result_med['trs'] + $factor; // ( + X segundos )
+				else $result['trs']= $result_med['trs'] * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
 			case 5: // trs small + xx
 				$result_med=$this->getResultados(2)['trs'];
 				if ($dmanga["TRS_{$suffix}_Unit"]==="s")
-					$result['trs']= $result_med['trs'] + $dmanga["TRS_${suffix}_Factor"]; // ( + X segundos )
-				else $result['trs']= $result_med['trs'] * ( (100+$dmanga["TRS_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
+					$result['trs']= $result_med['trs'] + $factor; // ( + X segundos )
+				else $result['trs']= $result_med['trs'] * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
 		}
 		$result['trs']=ceil($result['trs']); // redondeamos hacia arriba
@@ -179,7 +181,7 @@ class Resultados extends DBObject {
 				break;
 			case 1: // TRS + (segs o porcentaje)
 				if ($dmanga["TRM_{$suffix}_Unit"]==="s") $result['trm']=$result['trs'] + $dmanga["TRM_{$suffix}_Factor"]; // ( + X segundos )
-				else $result['trm'] = $result['trs'] * ( (100+$dmanga["TRM_{$suffix}_Factor"]) / 100) ; // (+ X por ciento)
+				else $result['trm'] = $result['trs'] * ( (100.0+$dmanga["TRM_{$suffix}_Factor"]) / 100.0) ; // (+ X por ciento)
 				break;
 		}
 		$result['trm']=ceil($result['trm']); // redondeamos hacia arriba

@@ -127,9 +127,9 @@ class Tandas extends DBObject {
 			12	=> array( 0,  0,  4,  0,  6,  8, 'Agility Grado III'/* Large */),
 			13	=> array( 1,  3,  4,  1,  6,  8, 'Agility Grado III'/* Medium */),
 			14	=> array( 2,  3,  4,  2,  7,  8, 'Agility Grado III'/* Small */),
-			15	=> array( 0,  0,  4,  0,  6,  8, 'Agility Abierta (Open)'/* Large */),
-			16	=> array( 1,  3,  4,  1,  6,  8, 'Agility Abierta (Open)'/* Medium */),
-			17	=> array( 2,  3,  4,  2,  7,  8, 'Agility Abierta (Open)'/* Small */),
+			15	=> array( 0,  0,  4,  0,  6,  8, 'Agility Abierta'/* Large */),
+			16	=> array( 1,  3,  4,  1,  6,  8, 'Agility Abierta'/* Medium */),
+			17	=> array( 2,  3,  4,  2,  7,  8, 'Agility Abierta'/* Small */),
 			18	=> array( 0,  0,  4,  0,  6,  8, 'Agility Eq. (3 mejores)'/* Large */),	// en equipos compiten l y m juntos
 			19	=> array(-1,  3,  4, -1,  6,  8, 'Agility Eq. (3 mejores)'/* Medium */),
 			20	=> array(-1,  3,  4, -1,  7,  8, 'Agility Eq. (3 mejores)'/* Small */), // en equipos compiten s y t juntos
@@ -142,9 +142,9 @@ class Tandas extends DBObject {
 			26	=> array( 0,  0,  4,  0,  6,  8, 'Jumping Grado III'/* Large */),
 			27	=> array( 1,  3,  4,  1,  6,  8, 'Jumping Grado III'/* Medium */),
 			28	=> array( 2,  3,  4,  2,  7,  8, 'Jumping Grado III'/* Small */),
-			29	=> array( 0,  0,  4,  0,  6,  8, 'Jumping Abierta (Open)'/* Large */),
-			30	=> array( 1,  3,  4,  1,  6,  8, 'Jumping Abierta (Open)'/* Medium */),
-			31	=> array( 2,  3,  4,  2,  7,  8, 'Jumping Abierta (Open)'/* Small */),
+			29	=> array( 0,  0,  4,  0,  6,  8, 'Jumping Abierta'/* Large */),
+			30	=> array( 1,  3,  4,  1,  6,  8, 'Jumping Abierta'/* Medium */),
+			31	=> array( 2,  3,  4,  2,  7,  8, 'Jumping Abierta'/* Small */),
 			32	=> array( 0,  0,  4,  0,  6,  8, 'Jumping Eq. (3 mejores)'/* Large */),
 			33	=> array(-1,  3,  4, -1,  6,  8, 'Jumping Eq. (3 mejores)'/* Medium */),
 			34	=> array(-1,  3,  4, -1,  7,  8, 'Jumping Eq. (3 mejores)'/* Small */),
@@ -649,8 +649,8 @@ class Tandas extends DBObject {
 		$this->insert_remove($r,10,($j->Grado2 != 0)?true:false);		// Jumping Grado II
 		$this->insert_remove($r,6,($j->Grado3 != 0)?true:false);		// Agility Grado III
 		$this->insert_remove($r,11,($j->Grado3 != 0)?true:false);		// Jumping Grado III
-		$this->insert_remove($r,7,($j->Open != 0)?true:false);			// Agility Abierta (Open)
-		$this->insert_remove($r,12,($j->Open != 0)?true:false);			// Jumping Abierta (Open)
+		$this->insert_remove($r,7,($j->Open != 0)?true:false);			// Agility Abierta
+		$this->insert_remove($r,12,($j->Open != 0)?true:false);			// Jumping Abierta
 		$this->insert_remove($r,8,($j->Equipos3 != 0)?true:false);		// Agility Equipos (3 mejores)
 		$this->insert_remove($r,13,($j->Equipos3 != 0)?true:false);		// Jumping Equipos (3 mejores)
 		$this->insert_remove($r,9,($j->Equipos4 != 0)?true:false);		// Agility Equipos (Conjunta)
