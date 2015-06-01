@@ -92,13 +92,14 @@ $('#pb_inscripciones-datagrid').datagrid({
         { field:'Dorsal',	    width:'5%',   sortable:false, align: 'center',	title: '<?php _e('Dorsal'); ?>',formatter:formatDorsal },
         { field:'LogoClub',	    width:'5%',    sortable:false, align: 'center',	title: '',formatter:formatLogo },
         { field:'Nombre',	    width:'15%',   sortable:false, align: 'center',	title: '<?php _e('Nombre'); ?>',formatter:formatBoldBig },
-        { field:'Licencia',	    width:'10%',   sortable:false, align: 'center',title: '<?php _e('Lic');    ?>' },
-        { field:'Categoria',    width:'5%',    sortable:false, align: 'center',title: '<?php _e('Cat');    ?>' },
-        { field:'Grado',	    width:'5%',    sortable:false, align: 'center',title: '<?php _e('Grado');  ?>' },
+        { field:'Raza',         width:'10%',   sortable:false, align: 'right',  title: '<?php _e('Raza');   ?>' },
+        { field:'Licencia',	    width:'10%',   sortable:false, align: 'center', title: '<?php _e('Lic');    ?>' },
+        { field:'Categoria',    width:'5%',    sortable:false, align: 'center', title: '<?php _e('Cat');    ?>' },
+        { field:'Grado',	    width:'5%',    sortable:false, align: 'center', title: '<?php _e('Grado');  ?>' },
         { field:'NombreGuia',	width:'20%',   sortable:false, align: 'right',	title: '<?php _e('Gu&iacute;a'); ?>' },
         { field:'NombreClub',	width:'18%',   sortable:false, align: 'right',	title: '<?php _e('Club');   ?>' },
         { field:'NombreEquipo',	hidden:true },
-        { field:'Observaciones',width:'10%',                                   title: '<?php _e('Observaciones');?>' },
+        { field:'Observaciones',	hidden:true },
         { field:'Celo',		    width:'5%', align:'center', formatter: formatCelo,	title: '<?php _e('Celo');   ?>' }
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css

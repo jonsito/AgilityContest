@@ -151,14 +151,15 @@ $('#pb_ordensalida-datagrid').datagrid({
         { field:'Logo',     	width:'5%', align:'center',	title: '',formatter: formatLogo },
         { field:'NombreEquipo',	width:'12%', align:'center',title: 'Equipo',hidden:true},
         { field:'Dorsal',		width:'5%', align:'center',	title: 'Dorsal', styler:checkPending },
-        { field:'Nombre',		width:'15%', align:'center',		title: 'Nombre',formatter: formatBoldBig},
+        { field:'Nombre',		width:'15%', align:'center',title: 'Nombre',formatter: formatBoldBig},
+        { field:'Raza',         width:'12%', align:'center',title: 'Raza' },
         { field:'Licencia',		width:'5%', align:'center',	title: 'Licencia'},
         { field:'NombreGuia',	width:'23%', align:'right',	title: 'Guia' },
         { field:'NombreClub',	width:'19%', align:'right',	title: 'Club' },
         { field:'Categoria',	width:'4%', align:'center',	title: 'Categ.' },
         { field:'Grado',		width:'4%', align:'center',	title: 'Grado' },
         { field:'Celo',			width:'4%', align:'center',	title: 'Celo', formatter:formatCelo },
-        { field:'Observaciones',width:'12%', align:'center',title: 'Observaciones' }
+        { field:'Observaciones',width:0, hidden:true }
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:myRowStyler,
