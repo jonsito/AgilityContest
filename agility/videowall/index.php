@@ -176,7 +176,6 @@ var ac_config= {
 
     .datagrid_vw-class {
         background:transparent;
-        background-color: white;
         filter:alpha(opacity=60);
         -moz-opacity:0.6;
         opacity:0.6;
