@@ -330,6 +330,7 @@ function vw_procesaCombinada(id,evt) {
 function vwls_processLiveStream(id,evt) {
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
+    var time=event['Value'];
 	switch (event['Type']) {
 	case 'null':		// null event: no action taken
 		return; 
@@ -356,31 +357,31 @@ function vwls_processLiveStream(id,evt) {
 		myCounter.stop(); 
 		vwls_cronoManual('stop');
 		vwls_cronoManual('reset');
-		vwls_cronoManual('start',event['Value']);
+		vwls_cronoManual('start',time);
 		return;
 	case 'stop':	// value: timestamp
 		myCounter.stop(); 
-		vwls_cronoManual('stop',event['Value']);
+		vwls_cronoManual('stop',time);
 		return;
 	case 'crono_start': // arranque crono electronico
 		myCounter.stop(); 
 		vwls_cronoManual('stop');
 		vwls_cronoManual('reset');
-		vwls_cronoManual('start',event['Value']);
+		vwls_cronoManual('start',time);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-        $('#cronomanual').Chrono('pause'); setTimeout(function(){$('#cronomanual').Chrono('resume');},3000);
+        $('#cronomanual').Chrono('pause'); setTimeout(function(){$('#cronomanual').Chrono('resume');},5000);
 		return;
 	case 'crono_stop':	// parada crono electronico
 		myCounter.stop(); 
-		vwls_cronoManual('stop',event['Value']);
+		vwls_cronoManual('stop',time);
 		return;
 	case 'aceptar':		// operador pulsa aceptar
 		vwls_cronoManual('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
 		// vwls_showData(event); // actualiza pantall liveStream
 		return;
 	case 'cancelar':	// operador pulsa cancelar
-		vwls_cronoManual('stop',event['Value']);
+		vwls_cronoManual('stop',time);
 		vwls_cronoManual('reset');
 		vwls_showOSD(0); // apaga el OSD
 		return;

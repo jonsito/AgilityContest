@@ -449,7 +449,7 @@ function tablet_processEvents(id,evt) {
 		crm.Chrono('start',time);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-		// TODO: write
+        $('#cronomanual').Chrono('pause'); setTimeout(function(){$('#cronomanual').Chrono('resume');},5000);
 		return;
 	case 'crono_stop':	// parada crono electronico
 		// si value!=0 parar countdown y crono manual; y enviar tiempo al crono del tablet 

@@ -42,10 +42,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <source id="vwls_videoogv" src="" type='video/ogg'/>
             <source id="vwls_videowebm" src="" type='video/webm'/>
         </video>
-        <div data-options="region:'north',border:false" style="height:10%;background-color:transparent;"></div>
-        <div data-options="region:'south',border:false" style="height:10%;background-color:transparent;"></div>
-        <div data-options="region:'east'" style="width:5%;background-color:transparent;"></div>
-        <div data-options="region:'west'" style="width:30%;background-color:transparent;"></div>
+        <div data-options="region:'east',split:false,border:false" style="width:5%;background-color:transparent;"></div>
+        <div data-options="region:'west',split:false,border:false" style="width:30%;background-color:transparent;"></div>
         <div data-options="region:'center',border:false" style="background-color:transparent;">
         <!-- ventana interior -->
             <div id="vw_ordensalida-layout">

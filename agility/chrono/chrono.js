@@ -166,6 +166,7 @@ function chrono_processEvents(id,evt) {
 		cra.Chrono('start',time);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
+        $('#cronoauto').Chrono('pause'); setTimeout(function(){$('#cronoauto').Chrono('resume');},5000);
 		// TODO: write
 		return;
 	case 'crono_stop':	// parada crono electronico
