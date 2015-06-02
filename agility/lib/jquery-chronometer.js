@@ -57,9 +57,9 @@
 				$(config.stop).attr('disabled',false);
 				$(config.resume).attr('disabled',true);
 				$(config.pause).attr('disabled',false);
-				if(typeof timestamp === 'undefined') startTime=Date.now();
+				if(typeof timestamp === 'undefined') startTime=Date.now() & 0x00FFFFFF;
 				else startTime=timestamp;
-                localTime=Date.now();
+                localTime=Date.now() & 0x00FFFFFF;
 				running = true;
 				run_chrono();
 			}
@@ -72,7 +72,7 @@
 				$(config.stop).attr('disabled',true);
 				$(config.resume).attr('disabled',true);
 				$(config.pause).attr('disabled',true);
-				if(typeof timestamp === 'undefined') stopTime=Date.now();
+				if(typeof timestamp === 'undefined') stopTime=Date.now() & 0x00FFFFFF;
 				else stopTime=timestamp;
 				running = false;
 			}
@@ -116,12 +116,12 @@
 	};
 
 	function run_chrono(){
-        var now=Date.now();
+        var now=Date.now() & 0x00FFFFFF;
 		if (startTime==0) startTime=now;
         if (localTime==0) localTime=now;
 		if (stopTime==0) stopTime=now;
 		if(running || pause ){
-			var currentTime=Date.now();
+			var currentTime=Date.now() & 0x00FFFFFF;
 			var elapsed		= currentTime-localTime; // use localTime to evaluate time lapse
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);
