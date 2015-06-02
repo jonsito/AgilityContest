@@ -17,8 +17,14 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-/* specific easyui css changes for AgilityContest */
+/* patch from properly handle "border" property on layouts */
+/* http://www.jeasyui.com/forum/index.php?topic=4871.0 */
+.layout-body{
+    min-width: 1px;
+    min-height: 1px;
+}
 
+/* specific easyui css changes for AgilityContest */
 #fm{
     margin:0;
     padding:10px 30px;

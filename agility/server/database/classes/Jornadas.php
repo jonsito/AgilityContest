@@ -282,7 +282,8 @@ class Jornadas extends DBObject {
         else if (intval($j->KO)!=0) $res=$am->allowed(ENABLE_KO);
         else $res=true;
         if (!$res) {
-            $this->errormsg="Requested feature is disabled due to current license registration permissions";
+            $this->errormsg='<img src="/agility/images/sad_dog.png" width="75" alt="sad dog" style="float:right;"/>
+                    <p style="font-weight:bold;">Requested feature is disabled due to current license registration permissions</p>';
             return null;
         }
         return "";
