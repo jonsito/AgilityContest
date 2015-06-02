@@ -222,7 +222,7 @@ class Eventos extends DBObject {
 	 */
 	function connect($data) {
         $config=Config::getInstance();
-        if (intval($config->getEnv('slave'))!=0) { // in slave config do not allow "connect" operations
+        if (intval($config->getEnv('restricted'))!=0) { // in slave config do not allow "connect" operations
             header('HTTP/1.0 403 Forbidden');
             die("You cannot use this server as event source");
         }

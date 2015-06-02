@@ -21,8 +21,8 @@ if (strtoupper(substr(PHP_OS, 0, 3)) !== 'LIN') {
 if( ! function_exists('password_verify')) {
     die("Invalid environment: You should have php-5.5.X or higher version installed");
 }
-if ( intval($config->getEnv('slave'))!=0) {
-    die("This is an SLAVE install: only basedir access is allowed");
+if ( intval($config->getEnv('restricted'))!=0) {
+    die("Access other than public directory is not allowed");
 }
 
 ?>

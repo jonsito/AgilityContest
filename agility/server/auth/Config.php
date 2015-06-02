@@ -33,7 +33,7 @@ define('AC_RESET_EVENTS',"1");
 
 /** variables de la aplicacion principal **/
 define('AC_PROXIMITY_ALERT',5);
-define('AC_SLAVE',0); // 0: master server, 1 only public access allowed
+define('AC_RESTRICTED',0); // 0: unlimited, 1 only public access allowed
 
 /** base de datos **/
 define('AC_DATABASE_NAME','agility');
@@ -107,7 +107,7 @@ Class Config {
 		$this->config['lang'] =	AC_LANG;
 		// variables del sistema
         $this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
-        $this->config['slave'] =	AC_SLAVE;
+        $this->config['restricted'] =	AC_RESTRICTED;
 		
 		// database
 		$this->config['database_name'] =	AC_DATABASE_NAME;
@@ -236,7 +236,7 @@ Class Config {
         $this->config['register_events'] =	AC_REGISTER_EVENTS;
         $this->config['reset_events'] =	AC_RESET_EVENTS;
         $this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
-        $this->config['slave'] =	AC_SLAVE;
+        $this->config['restricted'] =	AC_RESTRICTED;
 		
 		// configuracion de la consola
 		$data['easyui_theme'] = 	AC_EASYUI_THEME;
@@ -332,7 +332,7 @@ Class Config {
         $data['register_events']=http_request('register_events','s',AC_REGISTER_EVENTS);
         $data['reset_events']=http_request('reset_events','s',AC_RESET_EVENTS);
         $data=testAndSet($data,'proximity_alert','i',AC_PROXIMITY_ALERT);
-        $data=testAndSet($data,'slave','i',AC_SLAVE);
+        $data=testAndSet($data,'restricted','i',AC_RESTRICTED);
 		
 		// finally write file:
 		$res=array_merge($this->config,$data);
