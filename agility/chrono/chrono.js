@@ -27,7 +27,7 @@ function chrono_putEvent(type,data){
 	var obj= {
 			'Operation':'chronoEvent',
 			'Type': 	type,
-			'TimeStamp': Date.now() & 0x00FFFFFF,
+			'TimeStamp': Date.now() - startDate,
 			'Source':	'chrono_'+workingData.sesion,
 			'Session':	workingData.sesion,
 			'Prueba':	workingData.prueba,
@@ -114,7 +114,7 @@ function c_showData(data) {
 	
 }
 function chrono_button(event,data) {
-	data.Value=Date.now() & 0x00FFFFFF;
+	data.Value=Date.now() - startDate;
 	chrono_putEvent(event,data);
 	doBeep();
 }

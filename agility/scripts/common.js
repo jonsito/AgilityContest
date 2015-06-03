@@ -22,6 +22,12 @@ if (typeof String.prototype.startsWith != 'function') {
 }
 
 /**
+ * Evaluate start Time (used as base time in tablet/chrono/videowall
+ */
+
+var startDate=Date.now();
+
+/**
  * Set text of 'header' field on main window
  * @param {string} msg text to be shown
  */

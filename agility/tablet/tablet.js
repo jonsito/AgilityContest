@@ -42,7 +42,7 @@ function tablet_putEvent(type,data){
 	var obj= {
 			'Operation':'putEvent',
 			'Type': 	type,
-			'TimeStamp': Date.now() & 0x00FFFFFF,
+			'TimeStamp': Date.now() - startDate,
 			'Source':	'tablet_'+tds,
 			'Session':	tds,
 			'Prueba':	$('#tdialog-Prueba').val(),
@@ -267,7 +267,7 @@ var myCounter = new Countdown({
     onUpdateStatus: function(sec){ $('#tdialog-Tiempo').val(sec); }, // callback for each second
     // onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
     onCounterEnd: function(){  // at end of countdown start timer
-    	var time = Date.now() & 0x00FFFFFF;
+    	var time = Date.now() - startDate;
     	switch (parseInt(ac_config.tablet_countdown)) {
     		case 1: /* do nothing */ return;
     		case 2: /* start crono */
@@ -284,13 +284,13 @@ var myCounter = new Countdown({
 });
 
 function tablet_reconocimiento() {
-    tablet_putEvent('chrono_rec',{ 'Value' : Date.now() & 0x00FFFFFF } );
+    tablet_putEvent('chrono_rec',{ 'Value' : Date.now() - startDate } );
     doBeep();
     return false;
 }
 
 function tablet_startstop() {
-	var time = Date.now() & 0x00FFFFFF;
+	var time = Date.now() - startDate;
 	if ( $('#tdialog-StartStopBtn').val() === "Start" ) {
 		tablet_putEvent('start',{ 'Value' : time } );
 	} else {
@@ -301,7 +301,7 @@ function tablet_startstop() {
 }
 
 function tablet_salida() {
-	tablet_putEvent('salida',{ 'Value' : Date.now() & 0x00FFFFFF } );
+	tablet_putEvent('salida',{ 'Value' : Date.now() - startDate } );
 	doBeep();
 	return false;
 }
