@@ -102,7 +102,7 @@ function createTrigger($conn) {
 	$conn->query($drop);
 	$conn->query($trigger);
 }
-
+/*
 $conn = new mysqli("localhost","agility_admin","admin@cachorrera","agility");
 if ($conn->connect_error) die("Cannot perform upgrade process: database::dbConnect()");
 // addBackgroundField($conn);
@@ -111,4 +111,5 @@ addTriggerPermissions($conn);
 // createTrigger($conn);
 // updatePerroGuiaClub($conn);
 $conn->close();
+*/
 ?>
