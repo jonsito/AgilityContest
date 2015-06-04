@@ -100,6 +100,6 @@ td.pb_club {
     background-color:<?php echo $config->getEnv('vw_hdrbg2')?>;
     color:<?php echo $config->getEnv('vw_hdrfg2')?>;
     font-weight:bold;
-    height:40px;
-    line-height: 40px;
+    height:30px;
+    line-height: 30px;
 }

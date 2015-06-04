@@ -148,7 +148,7 @@ $('#pb_ordensalida-datagrid').datagrid({
         { field:'Pendiente',	width:0, hidden:true },
         { field:'Tanda',		width:0, hidden:true },
         { field:'Equipo',		width:0, hidden:true },
-        { field:'Logo',     	width:'5%', align:'center',	title: '',formatter: formatLogo },
+        { field:'Logo',     	width:'5%', align:'center',	title: '',formatter: formatLogoPublic },
         { field:'NombreEquipo',	width:'12%', align:'center',title: 'Equipo',hidden:true},
         { field:'Dorsal',		width:'5%', align:'center',	title: 'Dorsal', styler:checkPending },
         { field:'Nombre',		width:'15%', align:'center',title: 'Nombre',formatter: formatBoldBig},

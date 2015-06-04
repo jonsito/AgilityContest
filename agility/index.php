@@ -66,10 +66,10 @@ function initialize() {
  * @return {string} proper row style for given idx
  */
 function myRowStyler(idx,row) {
-	var res="background-color:";
-	var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
-	var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
-	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
+    var res="background-color:";
+    var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
+    var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
+    if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
 }
 
 </script>
@@ -92,12 +92,12 @@ function myRowStyler(idx,row) {
     /* ajuste de las cabeceras de los datagrid groupview */
     .datagrid-body .datagrid-group {
         background-color: <?php echo $config->getEnv('vw_hdrbg2'); ?>;
-        height:40px;
-        line-height: 40px;
+        height:30px;
+        line-height: 30px;
     }
     .datagrid-body .datagrid-group .datagrid-group-title {
-        height:40px;
-        line-height: 40px;
+        height:30px;
+        line-height: 30px;
         font-weight: bold;
     }
     .datagrid-body .datagrid-group .datagrid-group-expander {

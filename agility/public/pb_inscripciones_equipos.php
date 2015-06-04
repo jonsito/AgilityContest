@@ -147,7 +147,7 @@ function showInscripcionesByTeam(index,team){
             { field:'LOE_RRC',	hidden:true }, // LOE/RRC
             { field:'Club',		hidden:true }, // Club ID
             { field:'Dorsal',	    width:'10%',        sortable:false, align: 'center',	title: '<?php _e('Dorsal'); ?>',formatter:formatDorsal },
-            { field:'Logo',	        width:'7%',        sortable:false, align: 'center',	title: '',formatter:formatLogo },
+            { field:'Logo',	        width:'7%',        sortable:false, align: 'center',	title: '',formatter:formatLogoPublic },
             { field:'Nombre',	    width:'15%',       sortable:false, align: 'center',	title: '<?php _e('Nombre'); ?>',formatter:formatBoldBig },
             { field:'Licencia',	    width:'10%',        sortable:false, align: 'center',title: '<?php _e('Lic');    ?>' },
             { field:'Categoria',    width:'5%',        sortable:false, align: 'center',title: '<?php _e('Cat');    ?>' },

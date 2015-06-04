@@ -162,7 +162,7 @@ $('#pb_parciales-datagrid').datagrid({
         { field:'Equipo',		hidden:true },
         { field:'NombreEquipo',	hidden:true },
         { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
-        { field:'LogoClub',		width:'5%', align:'center', title: '', formatter:formatLogo},
+        { field:'LogoClub',		width:'5%', align:'center', title: '', formatter:formatLogoPublic},
         { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
         { field:'Nombre',		width:'10%', align:'center',  title: 'Nombre',formatter:formatBoldBig},
         { field:'NombreGuia',	width:'15%', align:'right', title: 'Guia' },

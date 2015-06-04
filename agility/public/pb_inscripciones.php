@@ -90,7 +90,7 @@ $('#pb_inscripciones-datagrid').datagrid({
         { field:'LOE_RRC',	hidden:true }, // LOE/RRC
         { field:'Club',		hidden:true }, // Club ID
         { field:'Dorsal',	    width:'5%',   sortable:false, align: 'center',	title: '<?php _e('Dorsal'); ?>',formatter:formatDorsal },
-        { field:'LogoClub',	    width:'5%',    sortable:false, align: 'center',	title: '',formatter:formatLogo },
+        { field:'LogoClub',	    width:'5%',    sortable:false, align: 'center',	title: '',formatter:formatLogoPublic },
         { field:'Nombre',	    width:'15%',   sortable:false, align: 'center',	title: '<?php _e('Nombre'); ?>',formatter:formatBoldBig },
         { field:'Raza',         width:'10%',   sortable:false, align: 'right',  title: '<?php _e('Raza');   ?>' },
         { field:'Licencia',	    width:'10%',   sortable:false, align: 'center', title: '<?php _e('Lic');    ?>' },
