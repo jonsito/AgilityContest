@@ -150,7 +150,7 @@ $('#team_datagrid').datagrid({
     fitColumns: true,
     singleSelect: true,
     view: scrollview,
-    pageSize: 50,
+    pageSize: 25,
     rowStyler: myRowStyler, // function that personalize colors on alternate rows
 	onDblClickRow:function() { editTeam('#team_datagrid'); }, // on double click fireup editor dialog        
 	// especificamos un formateador especial para desplegar la tabla de inscritos por equipo
@@ -282,7 +282,7 @@ $('#selteam-Equipo').combogrid({
 	idField: 'ID',
 	textField: 'Nombre',
 	url: '/agility/server/database/equiposFunctions.php',
-	queryParams: { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where: '' },
+	queryParams: { Operation:'enumerate', Prueba:workingData.prueba, Jornada:workingData.jornada, where: '' },
 	loadMsg: '<?php _e('Actualizando lista de equipos ...');?>',
 	method: 'get',
 	mode: 'remote',

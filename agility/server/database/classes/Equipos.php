@@ -101,20 +101,20 @@ class Equipos extends DBObject {
 	function update($id) {
 		$this->myLogger->enter();
 		if ($id<=0) return $this->error("Invalid Equipo ID provided");
+
+        // iniciamos los valores, chequeando su existencia
+        $n = http_request("Nombre","s",null,false); // not null
+        $o = http_request('Observaciones',"s",'',false);
+        $c = http_request('Categorias',"s",'',false);
+        $this->myLogger->info("Team:$id Prueba:{$this->pruebaID} Jornada:{$this->jornadaID} Nombre:'$n' Observ:'$o' Categ:'$c'");
+
 		// componemos un prepared statement. Do not mofify any field that not matches current pruebaID
 		$sql ="UPDATE Equipos SET Nombre=? , Observaciones=?, Categorias=? WHERE ( ID=$id )";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('sss',$n,$o,$c);
 		if (!$res) return $this->error($stmt->error); 
-		
-		// iniciamos los valores, chequeando su existencia
-		$n = http_request("Nombre","s",null,false); // not null
-		$o = http_request('Observaciones',"s",'',false);
-		$c = http_request('Categorias',"s",'',false);
-		
-		$this->myLogger->info("Team:$id Prueba:{$this->pruebaID} Jornada:{$this->jornadaID} Nombre:'$n' Observ:'$o' Categ:'$c'");
-		
+
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error); 
@@ -161,7 +161,7 @@ class Equipos extends DBObject {
 		$search=http_Request("where","s","");
 		// evaluate offset and row count for query
 		$page=http_request("page","i",1);
-		$rows=http_request("rows","i",50);
+		$rows=http_request("rows","i",25);
 		$limit="";
 		if ($page!=0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;
