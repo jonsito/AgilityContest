@@ -69,7 +69,7 @@ $('#pb_inscripciones-window').window({
 
 $('#pb_inscripciones-datagrid').datagrid({
     width: '100%',
-    height: 'auto',
+    height: '100%',
     pagination: false,
     rownumbers: false,
     fitColumns: true,
@@ -79,6 +79,8 @@ $('#pb_inscripciones-datagrid').datagrid({
     queryParams: { Operation: 'inscritosbyjornada', Prueba:workingData.prueba, Jornada:workingData.jornada },
     method: 'get',
     autorowheight:true,
+    view: scrollview,
+    pageSize: 25,
     columns: [[
         { field:'ID',		hidden:true }, // inscripcion ID
         { field:'Prueba',	hidden:true }, // prueba ID

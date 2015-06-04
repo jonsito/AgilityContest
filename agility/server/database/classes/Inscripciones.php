@@ -470,6 +470,14 @@ class Inscripciones extends DBObject {
 		if ($mask==0) {
 			return $this->error("{$this->file}::inscritosByJornada() cannot find open Jornada ID: $jornadaID in prueba:".$this->pruebaID);
 		}
+        $page=http_request("page","i",1);
+        $rows=http_request("rows","i",50);
+
+        $limit="";
+        if ($page!=0 && $rows!=0 ) {
+            $offset=($page-1)*$rows;
+            $limit=$offset.",".$rows;
+        };
 		// obtenemos la lista de perros inscritos con sus datos
         $result=$this->__select(
 			/* SELECT */"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Inscripciones.Perro AS Perro, Raza,
@@ -479,7 +487,7 @@ class Inscripciones extends DBObject {
 			/* WHERE */ "( Inscripciones.Perro = PerroGuiaClub.ID) AND
 				( Inscripciones.Prueba=$pruebaid ) AND ( ( Inscripciones.Jornadas&$mask ) != 0 ) ",
 			/* ORDER BY */ "NombreClub ASC, Grado ASC , Categoria ASC, Nombre ASC, Celo ASC",
-			/* LIMIT */ ""
+			/* LIMIT */ $limit
 		);
 
 		$this->myLogger->leave();

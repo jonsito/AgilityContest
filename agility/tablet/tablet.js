@@ -74,7 +74,9 @@ function tablet_updateSession(row) {
 			Tanda: row.ID
 	};
     if (parseInt(row.Manga)==0) {
-        // TODO: user clicked on UserDefined Tanda. send proper event
+        var str= strval(row.Nombre).toLowerCase();
+        if ( strpos(str,"econo")>0 ) return false;
+        else tablet_reconocimiento();
     }
 	$.ajax({
 		type:	'GET',
@@ -284,7 +286,7 @@ var myCounter = new Countdown({
 });
 
 function tablet_reconocimiento() {
-    tablet_putEvent('chrono_rec',{
+    tablet_putEvent('crono_rec',{
         'Session': workingData.sesion,
         'Value' : Date.now() - startDate
     } );

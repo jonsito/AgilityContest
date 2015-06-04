@@ -107,7 +107,7 @@ var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 
 doLayout(layout,"#vwls_Resultados",	700,	20,		75,	    100	);
 doLayout(layout,"#vwls_Datos",		25,		390,	750,	45	);
-doLayout(layout,"#vwls_InfoManga",	25,	    20,	    150,	20	);
+doLayout(layout,"#vwls_InfoManga",	25,	    20,	    250,	20	);
 
 doLayout(layout,"#vwls_FaltasLbl",	715,	30,		30,		20	);
 doLayout(layout,"#vwls_Faltas",		740,	30,		25,		20	);
@@ -127,7 +127,7 @@ doLayout(layout,"#vwls_Categoria",	500,	395,	150,	25	);
 doLayout(layout,"#vwls_Grado",		650,	395,	125,	25	);
 doLayout(layout,"#vwls_Celo",		700,	415,	75,		25	);
 
-doLayout(layout,"#vwls_Manga",		25, 	25,	    150,	15	);
+doLayout(layout,"#vwls_Manga",		25, 	22,	    250,	15	);
 
 jQuery('#vwls_common').fitText(0.02);
 </script>

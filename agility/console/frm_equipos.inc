@@ -165,6 +165,11 @@ $('#team_datagrid').datagrid({
         dg.datagrid('options').expandedRow=idx;
         showInscripcionesByTeam(idx,row);
     },
+    onCollapseRow: function(idx,row) {
+        var dg="team-inscripcion-datagrid - replaceAll(' ','_',row.ID)";
+        $(dg).remove();
+        doBeep();
+    },
     onLoadSuccess: function(data) { $(this).datagrid('enableDnd'); },
     onDragEnter: function(dst,src) {
         return (dst.DefaultTeam!=1 && src.DefaultTeam!=1) // allow dnd if not from/to default team
