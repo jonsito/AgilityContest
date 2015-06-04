@@ -10,17 +10,3 @@ GRANT SELECT, INSERT, UPDATE, CREATE TEMPORARY TABLES, EXECUTE, SHOW VIEW ON `ag
 # Usuario 'guest' consultar datos (invitados)
 GRANT USAGE ON *.* TO 'agility_guest'@'localhost' IDENTIFIED BY PASSWORD '*A93683F47D32463876747B97C62B8BF4CDD14E7C';
 GRANT SELECT, EXECUTE, SHOW VIEW ON `agility`.* TO 'agility_guest'@'localhost';
-
-#
-# this permissions comes to database master server (192.168.122.1) for Asturcon Contest
-#
-GRANT ALL PRIVILEGES ON `agility`.* TO 'agility_admin'@'192.168.122.0/8' WITH GRANT OPTION;
-# Usuario 'operator' anyadir/borrar/modificar datos (sala de control)
-GRANT USAGE ON *.* TO 'agility_operator'@'192.168.122.0/8' IDENTIFIED BY PASSWORD '*133E83223499F08EAABCB24B71D08169FA241A9B';
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE TEMPORARY TABLES, LOCK TABLES, TRIGGER, EXECUTE, CREATE VIEW, SHOW VIEW, EVENT ON `agility`.* TO 'agility_operator'@'localhost';
-# Usuario 'user' insertar datos (ayudante de pista)
-GRANT USAGE ON *.* TO 'agility_user'@'192.168.122.0/8' IDENTIFIED BY PASSWORD '*FA79D4F71FE9C4BEF173D2D0D8535A9A38253676';
-GRANT SELECT, INSERT, UPDATE, CREATE TEMPORARY TABLES, EXECUTE, SHOW VIEW ON `agility`.* TO 'agility_user'@'192.168.122.0/8';
-# Usuario 'guest' consultar datos (invitados)
-GRANT USAGE ON *.* TO 'agility_guest'@'192.168.122.0/8' IDENTIFIED BY PASSWORD '*A93683F47D32463876747B97C62B8BF4CDD14E7C';
-GRANT SELECT, EXECUTE, SHOW VIEW ON `agility`.* TO 'agility_guest'@'localhost';
