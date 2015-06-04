@@ -17,7 +17,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 /*********************************************** funciones de formateo de pantalla */
 
-
 /**
  * Presenta el logo en pantalla
  * @param {int} val nombre delo logo
@@ -30,6 +29,7 @@ function formatLogoPublic(val,row,idx) {
     if (typeof(val)==='undefined') return '<img height="30" alt="empty.png" src="/agility/images/logos/empty.png"/>';
     return '<img height="30" alt="'+val+'" src="/agility/images/logos/'+val+'"/>';
 }
+
 /**
  * Obtiene la informacion de la prueba para cabecera y pie de pagina
  */

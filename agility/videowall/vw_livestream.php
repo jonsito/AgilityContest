@@ -34,13 +34,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<div id="vwls_LiveStream" class="easyui-panel"
 		data-options="noheader:true,border:false,closable:false,collapsible:false,collapsed:false,resizable:true">
 		<!-- http://rolandocaldas.com/html5/video-de-fondo-en-html5 -->
-		<video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted" loop="loop"
-			poster="/agility/server/getRandomImage.php">
-			<!-- http://guest:@192.168.122.168/videostream.cgi -->
-    		<source id="vwls_videomp4" src="" type='video/mp4'/>
-    		<source id="vwls_videoogv" src="" type='video/ogg'/>
-    		<source id="vwls_videowebm" src="" type='video/webm'/>
-    	</video> 
+            <video id="vwls_video" autoplay="autoplay" preload="auto" muted="muted"
+                   loop="loop" poster="/agility/server/getRandomImage.php" style="width=100%;height:auto">
+                <!-- http://guest:@192.168.122.168/videostream.cgi -->
+                <source id="vwls_videomp4" src="" type='video/mp4'/>
+                <source id="vwls_videoogv" src="" type='video/ogg'/>
+                <source id="vwls_videowebm" src="" type='video/webm'/>
+            </video>
 		<div id="vwls_common" style="font-size:1.75em;display:inline-block;width:100%">
 			<!-- Recuadros de decoracion -->
 			<span class="vwls_fondo" id="vwls_Resultados">&nbsp;</span>
