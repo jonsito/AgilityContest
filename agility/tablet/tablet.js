@@ -284,7 +284,10 @@ var myCounter = new Countdown({
 });
 
 function tablet_reconocimiento() {
-    tablet_putEvent('chrono_rec',{ 'Value' : Date.now() - startDate } );
+    tablet_putEvent('chrono_rec',{
+        'Session': workingData.sesion,
+        'Value' : Date.now() - startDate
+    } );
     doBeep();
     return false;
 }

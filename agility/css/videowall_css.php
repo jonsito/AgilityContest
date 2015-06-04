@@ -150,7 +150,7 @@ td.vw_club {
     width:20%;
 }
 
-/************* estilos de la tabla de inscripciones por equipos
+/************* estilos de la tabla de inscripciones por equipos */
 .vw_inscripciones_eq3_teamrow {
     background-color:<?php echo $config->getEnv('vw_hdrbg2')?>;
     color:<?php echo $config->getEnv('vw_hdrfg2')?>;

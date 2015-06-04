@@ -98,6 +98,7 @@ class Eventos extends DBObject {
 
 		// prepare statement
 		$sql = "INSERT INTO Eventos ( TimeStamp,Session, Source, Type, Data ) VALUES (?,$sid,?,?,?)";
+        $this->myLogger->trace($sql);
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error);
 		$res=$stmt->bind_param('ssss',$timestamp,$source,$type,$evtdata);
