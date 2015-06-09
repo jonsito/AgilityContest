@@ -8,8 +8,6 @@ require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Public::parciales_eq3");
 if ( ! $am->allowed(ENABLE_PUBLIC)) { include_once("unregistered.html"); return 0;}
-// tool to perform automatic upgrades in database when needed
-require_once(__DIR__."/../server/upgradeVersion.php");
 ?>
 
 <!--

@@ -9,6 +9,9 @@ $config =Config::getInstance();
 if( ! function_exists('openssl_get_publickey')) {
 	die("Invalid configuration: please uncomment line 'module=php_openssl.dll' in file '\\xampp\\php\\php.ini'");
 }
+// tool to perform automatic upgrades in database when needed
+require_once(__DIR__. "/server/upgradeVersion.php");
+
 ?>
 <!DOCTYPE html>
 <html>

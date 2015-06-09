@@ -17,99 +17,102 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+require_once(__DIR__."/tools.php");
+require_once(__DIR__."/logging.php");
+require_once(__DIR__."/auth/Config.php");
 require_once(__DIR__."/database/classes/DBObject.php");
 
-// 1.1.1 - 2015-Mar-30: add Background field to 'Sesiones' table
-function addBackgroundField($conn) {
-	$sql="ALTER TABLE `Sesiones` ADD `Background` VARCHAR(255) NOT NULL DEFAULT '' AFTER `Tanda`;";
-	$conn->query($sql);
-	return 0;
+define("MINVER","20150522_2300");
+
+class Updater {
+    protected $config;
+    public $current_version;
+    public $last_version;
+    protected $myLogger;
+    protected $conn;
+
+    function __construct() {
+        // extract version info from configuration file
+        $this->config=Config::getInstance();
+        $this->myLogger=new Logger("autoUpgrade",$this->config->getEnv("debug_level"));
+        $this->current_version=$this->config->getEnv("version_date");
+
+        // connect database with proper permissions
+        $this->conn = new mysqli("localhost","agility_admin","admin@cachorrera","agility");
+        if ($this->conn->connect_error) throw new Exception("Cannot perform upgrade process: database::dbConnect()");
+    }
+
+    function updateVersionHistory() {
+        $this->myLogger->enter();
+        // make sure database provides version history table
+        $cv="CREATE TABLE IF NOT EXISTS `VersionHistory` (
+          `Version` varchar(16) NOT NULL DEFAULT '{MINVER}',
+          `Updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (`Version`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8";
+        $res=$this->conn->query($cv);
+        if (!$res) throw new Exception ("upgrade::createHistoryTable(): ".$this->conn->error);
+
+        // Retrieve current database version from history table
+        $str="SELECT * FROM VersionHistory ORDER BY Version DESC LIMIT 1;";
+        $rs=$this->conn->query($str);
+        if (!$rs) throw new Exception ("upgrade::getVersionHistory(): ".$this->conn->error);
+        $res = $rs->fetch_array(MYSQLI_ASSOC);
+        $this->last_version = ($res)? $res['Version'] : MINVER;
+        $this->myLogger->trace("current: {$this->current_version} last_stored: {$this->last_version}");
+        if (strcmp($this->current_version,$this->last_version) > 0 ) {
+            // on version change update history table
+            $str="INSERT INTO VersionHistory (Version) VALUES ('{$this->current_version}') ";
+            $res=$this->conn->query($str);
+            if (!$res) throw new Exception ("upgrade::updateHistoryTable(): ".$this->conn->error);
+        }
+        $rs->free();
+        $this->myLogger->leave();
+    }
+
+    function addColumnUnlessExists($table,$field,$data) {
+        $this->myLogger->enter();
+        $drop = "DROP PROCEDURE IF EXISTS AddColumnUnlessExists;";
+        $create = "
+        CREATE PROCEDURE AddColumnUnlessExists()
+            BEGIN
+                IF NOT EXISTS (
+                    SELECT * FROM information_schema.COLUMNS
+                    WHERE column_name='$field'
+                        AND table_name='$table'
+                        AND table_schema='agility'
+                    )
+                THEN
+                    ALTER TABLE `agility`.`$table` ADD COLUMN `$field` $data;
+                END IF;
+            END;
+        ";
+        $call="CALL AddColumnUnlessExists()";
+        $this->conn->query($drop);
+        $this->conn->query($create);
+        $this->conn->query($call);
+        $this->myLogger->leave();
+    }
+
+    function populateOrdenEquipos() {
+        $this->myLogger->enter();
+        // clone orden equipos into every manga
+        $str="UPDATE Mangas
+                SET Mangas.Orden_Equipos= ( SELECT Jornadas.Orden_Equipos FROM Jornadas WHERE Jornadas.ID=Mangas.Jornada )
+                WHERE Mangas.Orden_Equipos IS NULL";
+        $this->conn->query($str);
+        $this->myLogger->leave();
+    }
 }
 
-// 1.1.1 - 2015-Mar-30: add extra federation fields to be used in federation selection
-function addRsceFields($conn) {
-	$cmds=array(
-		// federations: bitmask 1<<federation 0:rsce 1:rfec 2:uca
-		"ALTER TABLE `Clubes` ADD `Federations` int(4) NOT NULL DEFAULT 1 AFTER `Logo`;",
-		"UPDATE `Clubes` SET Federations=7 WHERE ID=1;", // default club belongs to all feds
-		"ALTER TABLE `Jueces` ADD `Federations` int(4) NOT NULL DEFAULT 1 AFTER `Email`;",
-		"UPDATE `Jueces` SET Federations=7 WHERE ID=1;", // default judge belongs to all feds
-		"ALTER TABLE `Guias` ADD `Federation` tinyint(1) NOT NULL DEFAULT 0 AFTER `Club`;",
-		"ALTER TABLE `Perros` ADD `Federation` tinyint(1) NOT NULL DEFAULT 0 AFTER `Guia`;"		
-	);
-	foreach ($cmds as $query) {
-		$conn->query($query);
-	}
-	return 0;
+$upg=new Updater();
+try {
+    $upg->updateVersionHistory();
+    if ( strcmp($upg->current_version, $upg->last_version) > 0) {
+        $upg->addColumnUnlessExists("Mangas","Orden_Equipos","TEXT");
+        $upg->populateOrdenEquipos();
+    }
+} catch (Exception $e) {
+    syslog(LOG_ERR,$e);
 }
-
-// 1.2.1 - 2015-Abr-11: redefine perroGuiaClub to take care on Federations
-function updatePerroGuiaClub($conn) {
-	$cmds=array(
-		"DROP TABLE IF EXISTS `perroguiaclub`;",
-		"DROP VIEW IF EXISTS `perroguiaclub`;",
-		"CREATE VIEW `perroguiaclub` AS 
-			select `perros`.`ID` AS `ID`,
-				`perros`.`Federation` AS `Federation`,
-				`perros`.`Nombre` AS `Nombre`,
-				`perros`.`Raza` AS `Raza`,
-				`perros`.`Licencia` AS `Licencia`,
-				`perros`.`LOE_RRC` AS `LOE_RRC`,
-				`perros`.`Categoria` AS `Categoria`,
-				`categorias_perro`.`Observaciones` AS `NombreCategoria`,
-				`perros`.`Grado` AS `Grado`,
-				`grados_perro`.`Comentarios` AS `NombreGrado`,
-				`perros`.`Guia` AS `Guia`,
-				`guias`.`Nombre` AS `NombreGuia`,
-				`guias`.`Club` AS `Club`,
-				`clubes`.`Nombre` AS `NombreClub`,
-				`clubes`.`Logo` AS `LogoClub` 
-			from ((((`perros` join `guias`) join `clubes`) join `grados_perro`) join `categorias_perro`) 
-			where (
-				(`perros`.`Guia` = `guias`.`ID`) 
-				and (`guias`.`Club` = `clubes`.`ID`) 
-				and (`perros`.`Categoria` = `categorias_perro`.`Categoria`) 
-				and (`perros`.`Grado` = `grados_perro`.`Grado`)) 
-			order by `clubes`.`Nombre`,`perros`.`Categoria`,`perros`.`Nombre`;"
-	);
-	foreach ($cmds as $query) {
-		$conn->query($query);
-	}
-	return 0;
-}
-
-// 1.2.0 - 2015-Apr-10: need to add trigger permission to correctly make backup for Dorsal setup trigger
-function addTriggerPermissions($conn) {
-	$sql="GRANT SELECT,INSERT,UPDATE,DELETE,CREATE TEMPORARY TABLES,LOCK TABLES,TRIGGER,EXECUTE,CREATE VIEW,SHOW VIEW,EVENT ON `agility`.* TO 'agility_operator'@'localhost';";
-	$conn->query($sql);
-	return 0;
-}
-
-// 1.2.0 - 2015-Apr-10: as old backups does not preserve triggers, we must ensure they are properly created
-function createTrigger($conn) {
-	$drop="DROP TRIGGER IF EXISTS `Increase_Dorsal`;";
-	$trigger="
-		CREATE TRIGGER `Increase_Dorsal` BEFORE INSERT ON `inscripciones`
-		FOR EACH ROW BEGIN
-			select count(*) into @rows from inscripciones where Prueba = NEW.Prueba;
-			if @rows>0 then
-				select Dorsal + 1 into @newDorsal from inscripciones where Prueba = NEW.Prueba order by Dorsal desc limit 1;
-				set NEW.Dorsal = @newDorsal;
-			else
-				set NEW.Dorsal = 1;
-			end if;
-		END";
-	$conn->query($drop);
-	$conn->query($trigger);
-}
-/*
-$conn = new mysqli("localhost","agility_admin","admin@cachorrera","agility");
-if ($conn->connect_error) die("Cannot perform upgrade process: database::dbConnect()");
-// addBackgroundField($conn);
-// addRsceFields($conn);
-addTriggerPermissions($conn);
-// createTrigger($conn);
-// updatePerroGuiaClub($conn);
-$conn->close();
-*/
 ?>

@@ -8,8 +8,6 @@ require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Videowall::livestream");
 if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.html"); return 0;}
-// tool to perform automatic upgrades in database when needed
-require_once(__DIR__."/../server/upgradeVersion.php");
 ?>
 <!--
 livestream.inc
@@ -122,7 +120,7 @@ doLayout(layout,"#vwls_Logo",		30,		360,	80,		80	);
 doLayout(layout,"#vwls_Dorsal",		120,	395,	110,	25	);
 doLayout(layout,"#vwls_Nombre",		230,	395,	270,	25	);
 doLayout(layout,"#vwls_NombreGuia",	120,	415,	380,	25	);
-doLayout(layout,"#vwls_NombreClub",	500,	415,	200,	25	);
+doLayout(layout,"#vwls_NombreClub",	500,	415,	300,	25	);
 doLayout(layout,"#vwls_Categoria",	500,	395,	150,	25	);
 doLayout(layout,"#vwls_Grado",		650,	395,	125,	25	);
 doLayout(layout,"#vwls_Celo",		700,	415,	75,		25	);
