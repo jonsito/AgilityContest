@@ -186,17 +186,17 @@ class Clasificaciones extends DBObject {
                                 $pts=array("20","16","12","8","7","6","5","4","3","2");
                                 // manga 1 - puntuan los 10 primeros en cada manga con excelente
                                 $pt1=" ";
-                                if ( ($final[$idx]['P1']<6.0) && ($final[$idx]['Pcat1']<10) ) {
+                                if ( ($final[$idx]['P1']<6.0) && ($final[$idx]['Pcat1']<=10) ) {
                                     $pt1=$pts[$final[$idx]['Pcat1']-1];
                                 }
                                 // manga 2 - puntuan los 10 primeros en cada manga con excelente
                                 $pt2=" ";
-                                if ( ($final[$idx]['P2']<6.0) && ($final[$idx]['Pcat2']<10) ) {
+                                if ( ($final[$idx]['P2']<6.0) && ($final[$idx]['Pcat2']<=10) ) {
                                     $pt2=$pts[$final[$idx]['Pcat2']-1];
                                 }
                                 // conjunta - puntuan los 10 primeros si tienen doble excelente
                                 $pfin=" ";
-                                if ( ($final[$idx]['P1']<6.0) && ($final[$idx]['P2']<6.0)  && ($final[$idx]['Pcat']<10) ) {
+                                if ( ($final[$idx]['P1']<6.0) && ($final[$idx]['P2']<6.0)  && ($final[$idx]['Pcat']<=10) ) {
                                     $pfin=$pts[$final[$idx]['Pcat']-1];
                                 }
                                 // finalmente componemos el string a presentar
