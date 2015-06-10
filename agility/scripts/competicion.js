@@ -797,6 +797,7 @@ function reloadParcial(val,fill) {
 		$.messager.alert('Error','Internal error: invalid RSCE/Recorrido/Categoria combination','error');
 		return;
 	}
+    workingData.teamCounter=1; // reset team's puesto counter
 	// reload resultados
 	// en lugar de invocar al datagrid, lo que vamos a hacer es
 	// una peticion ajax, para obtener a la vez los datos tecnicos de la manga
