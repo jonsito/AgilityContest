@@ -24,12 +24,18 @@ require_once("dialogs/dlg_ordentandas.inc");
 require_once("dialogs/dlg_ordensalida.inc");
 switch(http_request("tipo","s","std")) {
     case "eq3":
-        if ( ! $am->allowed(ENABLE_TEAM3)) die("<h1>Access to Team-3 Contest disabled with current license</h1>");
+        if ( ! $am->allowed(ENABLE_TEAM3)) {
+            require_once("unregistered.html");
+            return 0;
+        }
         require_once("dialogs/dlg_competicion.inc");
         require_once("dialogs/dlg_resultados_eq3.inc");
         break;
     case "eq4":
-        if ( ! $am->allowed(ENABLE_TEAM4)) die("<h1>Access to Team-4 Contest disabled with current license</h1>");
+        if ( ! $am->allowed(ENABLE_TEAM3)) {
+            require_once("unregistered.html");
+            return 0;
+        }
         require_once("dialogs/dlg_competicion_eq4.inc");
         require_once("dialogs/dlg_resultados_eq4.inc");
         break;

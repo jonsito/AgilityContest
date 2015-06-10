@@ -1,0 +1,25 @@
+<div id="access_denied-window" style="position:relative;width:550px;height:200px;padding:10px">
+    <span style="float:left"><img src="/agility/images/sad_dog.png" alt="triste"/></span><h1>Acceso denegado</h1>
+    <p>
+        La licencia actual no permite la gesti&oacute;n de competiciones por equipos
+    </p><p>
+        Por favor, revise y -en su caso- actualice los datos de registro y licencia de la aplicaci&oacute;n
+    </p>
+</div>
+
+<script type="text/javascript">
+    var w=$('#access_denied-window').window({
+        title:'Error',
+        border:true,
+        closable:true,
+        collapsible:false,
+        collapsed:false,
+        resizable:false,
+        maximizable:false,
+        minimizable:false,
+        modal:true,
+        // force "hard reset" cause no easy way to get everything properly cleaned
+        onClose:function() {window.location.href="/agility/console";}
+    });
+    w.window('center');
+</script>

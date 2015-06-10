@@ -289,7 +289,7 @@ function saveTeam() {
 function changeTeamDialog(datagrid,row) {
 	// cogemos datos de la inscripcion a modificar
 	// actualizamos lista de equipos en el combogrid
-	$('#selteam-Equipo').combogrid('grid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
+	$('#selteam-Equipo').combogrid('grid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada});
 	// ajustamos variables extras del formulario
     row.Parent=datagrid;
 	// recargamos el formulario con los datos de la fila seleccionada

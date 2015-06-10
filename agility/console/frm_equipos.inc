@@ -155,7 +155,8 @@ $('#team_datagrid').datagrid({
 	onDblClickRow:function() { editTeam('#team_datagrid'); }, // on double click fireup editor dialog        
 	// especificamos un formateador especial para desplegar la tabla de inscritos por equipo
 	detailFormatter:function(idx,row){
-		return '<div style="padding:2px"><table id="team-incripcion-datagrid-' + replaceAll(' ','_',row.ID) + '"></table></div>';
+        var dg="team-inscripcion-datagrid-"+ replaceAll(' ','_',row.ID);
+		return '<div style="padding:2px"><table id="' + dg + '"></table></div>';
 	},
 	onExpandRow: function(idx,row) {
         var dg=$('#team_datagrid');
@@ -166,9 +167,8 @@ $('#team_datagrid').datagrid({
         showInscripcionesByTeam(idx,row);
     },
     onCollapseRow: function(idx,row) {
-        var dg="team-inscripcion-datagrid - replaceAll(' ','_',row.ID)";
+        var dg="#team-inscripcion-datagrid-"+ replaceAll(' ','_',row.ID);
         $(dg).remove();
-        doBeep();
     },
     onLoadSuccess: function(data) { $(this).datagrid('enableDnd'); },
     onDragEnter: function(dst,src) {
@@ -195,7 +195,7 @@ addTooltip($('#team_datagrid-doneBtn').linkbutton(),"Cerrar la ventana. Volver a
 //mostrar las inscripciones agrupadas por equipos
 function showInscripcionesByTeam(index,team){
 	// - sub tabla de participantes asignados a un equipo
-	var mySelf='#team-incripcion-datagrid-'+replaceAll(' ','_',team.ID);
+	var mySelf='#team-inscripcion-datagrid-'+replaceAll(' ','_',team.ID);
 	$(mySelf).datagrid({
 		width: '100%',
 		height: 'auto',
@@ -234,8 +234,7 @@ function showInscripcionesByTeam(index,team){
 			{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	title: '<?php _e('Celo');   ?>' }
  		]],
 		// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-		rowStyler:myRowStyler,	
-		// on double click fireup editor dialog
+		rowStyler:myRowStyler,
 		onResize:function(){
 			$('#team_datagrid').datagrid('fixDetailRowHeight',index);
 		},
@@ -246,9 +245,9 @@ function showInscripcionesByTeam(index,team){
 		},
         // only allow sorting when default team
         onBeforeSortColumn(sort,order) {
-            // only allow sort '-- Sin asignar --' team
             return (team.Nombre=='-- Sin asignar --')?true:false;
         },
+        // on double click fireup editor dialog
 		onDblClickRow:function(index,row) { changeTeamDialog(mySelf,row); }
 	}); // end of inscritos-by-team_team_id
 	
@@ -287,7 +286,7 @@ $('#selteam-Equipo').combogrid({
 	idField: 'ID',
 	textField: 'Nombre',
 	url: '/agility/server/database/equiposFunctions.php',
-	queryParams: { Operation:'enumerate', Prueba:workingData.prueba, Jornada:workingData.jornada, where: '' },
+	queryParams: { Operation:'enumerate', Prueba:workingData.prueba, Jornada:workingData.jornada },
 	loadMsg: '<?php _e('Actualizando lista de equipos ...');?>',
 	method: 'get',
 	mode: 'remote',
@@ -304,7 +303,13 @@ $('#selteam-Equipo').combogrid({
 	multiple: false,
 	fitColumns: true,
 	singleSelect: true,
-	selectOnNavigation: false
+	selectOnNavigation: false,
+    onBeforeLoad:function (params) {
+        params.Operation = 'enumerate';
+        params.Prueba = workingData.prueba;
+        params.Jornada = workingData.jornada;
+        return true;
+    }
 });
 
 </script>
