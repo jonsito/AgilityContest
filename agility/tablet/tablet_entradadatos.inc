@@ -23,8 +23,9 @@ $config =Config::getInstance();
 <div id="tdialog-window">
 	<div class="dialog_forms" style="background:white">
         <form id="tdialog-form" method="get" novalidate="novalidate">
-			<input id="tdialog-Session" name="Session" type="hidden" value="0"> <!-- Session ID -->  
-			<input id="tdialog-Parent" name="Parent" type="hidden" value=""> <!-- name of parent datagrid -->       
+            <input id="tdialog-RowIndex" name="RowIndex" type="hidden" value="0"> <!-- datagrid row index -->
+            <input id="tdialog-Session" name="Session" type="hidden" value="0"> <!-- Session ID -->
+            <input id="tdialog-Parent" name="Parent" type="hidden" value=""> <!-- name of parent datagrid -->
         	<input id="tdialog-ID" name="ID" type="hidden">     <!-- Tanda ID -->
         	<input id="tdialog-Prueba" name="Prueba" type="hidden">
         	<input id="tdialog-Jornada" name="Jornada" type="hidden">

@@ -356,19 +356,22 @@ function tablet_accept() {
 	var dg=$(dgname);
 	var row = dg.datagrid('getSelected');
 	if (!row) return false; // nothing to do. should mark error
-	
-	// now update and redraw data on
-	var rowindex= dg.datagrid("getRowIndex", row);
+
 	// send back data to parent tablet datagrid form
 	var obj=formToObject('#tdialog-form');
 	// mark as no longer pending
 	obj.Pendiente=0;
+    // now update and redraw data on
+    // var rowindex= dg.datagrid("getRowIndex", row);
+    var rowindex=obj.RowIndex;
+
 	// update row
 	dg.datagrid('updateRow',{index: rowindex, row: obj});
 	// and fire up accept event
 	tablet_putEvent(
 			'aceptar',
-			{ 
+			{
+                // notice pass-by-reference: row now points to new values
 				'NoPresentado'	:	row.NoPresentado,
 				'Faltas'		:	row.Faltas,
 				'Tocados'		:	row.Tocados,
@@ -385,16 +388,18 @@ function tablet_accept() {
 		return false;
 	}
 	// seleccionamos fila siguiente
+    rowindex++;
 	var count=dg.datagrid('getRows').length;    // row count
-	if ( (rowindex+1)>=count ) { // at end of datagrid
+	if ( (rowindex)>=count ) { // at end of datagrid
 		$('#tdialog-window').window('close'); // close window
-		dg.datagrid('refreshRow',rowindex);
+		dg.datagrid('refreshRow',rowindex-1);
 		return false;
 	}
 	// dg.datagrid('clearSelections');
-	dg.datagrid('selectRow', rowindex+1);
+	dg.datagrid('selectRow', rowindex);
 	var data=dg.datagrid('getSelected');
 	data.Session=workingData.sesion;
+    data.RowIndex=rowindex;
     data.Parent=dgname; // store datagrid reference
     $('#tdialog-form').form('load',data);
     return false; // prevent follow onClick event chain

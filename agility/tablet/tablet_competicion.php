@@ -185,6 +185,7 @@ function tablet_showPerrosByTanda(index,row){
             doBeep();
 	    	data.Session=workingData.sesion;
             data.Parent=mySelfstr; // store datagrid reference
+            data.RowIndex=idx; // store row index
             $('#tdialog-form').form('load',data);
             $('#tablet-window').window('close');
             $('#tdialog-window').window('open');

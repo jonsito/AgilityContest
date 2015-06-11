@@ -41,7 +41,8 @@
 		onBeforePause	: function(){ return true; },
 		onBeforeResume	: function(){ return true; },
 		onUpdate		: function(tstamp,running,pause){ return true; }, // action to do on display new timestamp
-		
+
+        triggerEvents   : false,    // on true triggerEvents
 		target			: "*", 		//selectors for the events target
 		auto			: true,		//true if plugin generate html chronometer
 		interval		: 500,		// polling interval (msecs) default: 0.5 second
@@ -57,13 +58,13 @@
 				$(config.stop).attr('disabled',false);
 				$(config.resume).attr('disabled',true);
 				$(config.pause).attr('disabled',false);
-				if(typeof timestamp === 'undefined') startTime=Date.now() - startDate;
+				if(typeof timestamp === 'undefined') startTime=Date.now();
 				else startTime=timestamp;
-                localTime=Date.now() - startDate;
+                localTime=Date.now();
 				running = true;
 				run_chrono();
 			}
-			$(config.target).trigger('chronostart');
+			if (config.triggerEvents) $(config.target).trigger('chronostart');
 		},
 		stop: function(timestamp){
 			var check = config.onBeforeStop();
@@ -72,11 +73,11 @@
 				$(config.stop).attr('disabled',true);
 				$(config.resume).attr('disabled',true);
 				$(config.pause).attr('disabled',true);
-				if(typeof timestamp === 'undefined') stopTime=Date.now() - startDate;
+				if(typeof timestamp === 'undefined') stopTime=Date.now();
 				else stopTime=timestamp;
 				running = false;
 			}
-			$(config.target).trigger('chronostop');
+            if (config.triggerEvents) $(config.target).trigger('chronostop');
 		},
 		pause: function(){
 			var check = config.onBeforePause();
@@ -88,7 +89,7 @@
 				running = false;
 				pause = true;
 			}
-			$(config.target).trigger('chronopause');
+            if (config.triggerEvents) $(config.target).trigger('chronopause');
 		},
 		resume : function(){
 			var check = config.onBeforeResume();
@@ -101,7 +102,7 @@
 				pause = false;
 				run_chrono();
 			}
-			$(config.target).trigger('chronoresume');
+            if (config.triggerEvents) $(config.target).trigger('chronoresume');
 		},
 		reset : function(){
 			var check = config.onBeforeReset();
@@ -111,17 +112,17 @@
 				stopTime  =0;
 				// $.fn.Chrono.stop();
 			}
-			$(config.target).trigger('chronoreset');
+            if (config.triggerEvents) $(config.target).trigger('chronoreset');
 		}
 	};
 
 	function run_chrono(){
-        var now=Date.now() - startDate;
+        var now=Date.now();
 		if (startTime==0) startTime=now;
         if (localTime==0) localTime=now;
 		if (stopTime==0) stopTime=now;
 		if(running || pause ){
-			var currentTime=Date.now() - startDate;
+			var currentTime=Date.now();
 			var elapsed		= currentTime-localTime; // use localTime to evaluate time lapse
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);
