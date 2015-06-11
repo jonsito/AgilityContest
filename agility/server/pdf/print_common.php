@@ -45,6 +45,7 @@ class PrintCommon extends FPDF {
 	protected $jornada; // datos de la jornada
 	protected $myDBObject;
 	protected $pageName; // name of file to be printed
+    protected $authManager;
 
 	protected $centro;
 	
@@ -92,6 +93,9 @@ class PrintCommon extends FPDF {
             $this->icon2=$this->federation->getLogo();
             if ($this->icon==$this->icon2) $this->icon2=$this->federation->getParentLogo();
         }
+        $this->authManager=new AuthManager("print_common");
+        $ri=$this->authManager->getRegistrationInfo();
+        if ($ri['Serial']==="00000000") $this->icon="agilitycontest.png";
 	}
 
     /**
@@ -143,7 +147,6 @@ class PrintCommon extends FPDF {
 		// Posición: a 1,5 cm del final
 		$this->SetY(-15);
 		// copyright
-		$am=new AuthManager("print_common");
 		$ver=$this->config->getEnv("version_name");
 		$this->SetFont('Arial','I',6);
 		$this->Cell(60,10,"AgilityContest-$ver Copyright 2013-2015 by J.A.M.C.",0,0,'L');
@@ -151,7 +154,7 @@ class PrintCommon extends FPDF {
 		$this->SetFont('Arial','IB',8);
 		$this->Cell(70,10,_('Página').' '.$this->PageNo().'/{nb}',0,0,'C');
 		// informacion de registro
-		$ri=$am->getRegistrationInfo();
+		$ri=$this->authManager->getRegistrationInfo();
 		$this->SetFont('Arial','I',6);
 		$this->Cell(60,10,"Copia registrada para el club: {$ri['Club']}",0,0,'R');
 	}
