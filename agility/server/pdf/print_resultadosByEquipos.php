@@ -99,24 +99,24 @@ class ResultadosByEquipos extends PrintCommon {
 		$jobj=new Jueces("print_resultadosEquipos3");
 		$juez1=$jobj->selectByID($this->manga->Juez1);
 		$juez2=$jobj->selectByID($this->manga->Juez2);
-		$this->Cell(20,7,"Juez 1:","LT",0,'L',false);
+		$this->Cell(20,5,"Juez 1:","LT",0,'L',false);
 		$str=($juez1['Nombre']==="-- Sin asignar --")?"":$juez1['Nombre'];
-		$this->Cell(70,7,$str,"T",0,'L',false);
-		$this->Cell(20,7,"Juez 2:","T",0,'L',false);
+		$this->Cell(70,5,$str,"T",0,'L',false);
+		$this->Cell(20,5,"Juez 2:","T",0,'L',false);
 		$str=($juez2['Nombre']==="-- Sin asignar --")?"":$juez2['Nombre'];
-		$this->Cell(78,7,$str,"TR",0,'L',false);
-		$this->Ln(7);
-		$this->Cell(20,7,"Distancia:","LB",0,'L',false);
-		$this->Cell(25,7,"{$this->resultados['trs']['dist']} mts","B",0,'L',false);
-		$this->Cell(20,7,"Obstáculos:","B",0,'L',false);
-		$this->Cell(25,7,$this->resultados['trs']['obst'],"B",0,'L',false);
-		$this->Cell(10,7,"TRS:","B",0,'L',false);
-		$this->Cell(20,7,"{$this->resultados['trs']['trs']} seg.","B",0,'L',false);
-		$this->Cell(10,7,"TRM:","B",0,'L',false);
-		$this->Cell(20,7,"{$this->resultados['trs']['trm']} seg.","B",0,'L',false);
-		$this->Cell(20,7,"Velocidad:","B",0,'L',false);
-		$this->Cell(18,7,"{$this->resultados['trs']['vel']} m/s","BR",0,'L',false);
-		$this->Ln(14); // en total tres lineas extras en la primera hoja
+		$this->Cell(78,5,$str,"TR",0,'L',false);
+		$this->Ln(5);
+		$this->Cell(20,5,"Distancia:","LB",0,'L',false);
+		$this->Cell(25,5,"{$this->resultados['trs']['dist']} mts","B",0,'L',false);
+		$this->Cell(20,5,"Obstáculos:","B",0,'L',false);
+		$this->Cell(25,5,$this->resultados['trs']['obst'],"B",0,'L',false);
+		$this->Cell(10,5,"TRS:","B",0,'L',false);
+		$this->Cell(20,5,"{$this->resultados['trs']['trs']} seg.","B",0,'L',false);
+		$this->Cell(10,5,"TRM:","B",0,'L',false);
+		$this->Cell(20,5,"{$this->resultados['trs']['trm']} seg.","B",0,'L',false);
+		$this->Cell(20,5,"Velocidad:","B",0,'L',false);
+		$this->Cell(18,5,"{$this->resultados['trs']['vel']} m/s","BR",0,'L',false);
+		$this->Ln(5);
 	}
 	
 	// Pie de página
@@ -124,7 +124,7 @@ class ResultadosByEquipos extends PrintCommon {
 		$this->print_commonFooter();
 	}
 
-    function printTeamInformation($teamcount,$numrows,$team) {
+    function printTeamInformation($teamcount,$team) {
         // evaluate logos
         $logos=array('null.png','null.png','null.png','null.png');
         if ($team['Nombre']==="-- Sin asignar --") {
@@ -138,8 +138,8 @@ class ResultadosByEquipos extends PrintCommon {
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
-        $offset=($this->PageNo()==1)?65:45;
-        $this->SetXY(10,$offset+40*($teamcount%$numrows));
+        $offset=($this->PageNo()==1)?57:45;
+        $this->SetXY(10,$offset+38*($teamcount%6));
         $this->ac_header(1,18);
         $this->Cell(15,10,strval(1+$teamcount)." -",'LT',0,'C',true); // imprime puesto del equipo
         $this->Cell(10,10,$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),12),"T",0,'C',($logos[0]==='null.png')?true:false);
@@ -170,16 +170,15 @@ class ResultadosByEquipos extends PrintCommon {
 		// Datos
 		$teamcount=0;
         foreach($this->equipos as $equipo) {
-            $numrows=($this->PageNo()==1)?5:6;
+            // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
             // si el equipo no tiene participantes es que la categoria no es válida: skip
             if (count($equipo['Resultados'])==0) continue;
-            // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-            if( ($teamcount%$numrows) == 0 ) { // assume 40mmts/team)
+            if( ( $teamcount % 6) == 0 ) { // assume 40mmts/team)
                 $this->addPage();
             }
             // evaluate puesto del equipo
             // $this->myLogger->trace("imprimiendo datos del equipo {$equipo['ID']} - {$equipo['Nombre']}");
-            $this->printTeamInformation($teamcount,$numrows,$equipo);
+            $this->printTeamInformation($teamcount,$equipo);
             // print team header/data
             for ($n=0;$n<4;$n++) {
                 $this->ac_row($n,9);
@@ -217,13 +216,13 @@ class ResultadosByEquipos extends PrintCommon {
                 $this->ac_header(2,8);
                 // en las dos primeras filas imprimimos informacion de resultados del equipo
                 if ($n==0) {
-                    $this->Cell($this->pos[14],5,"Penaliz.: ".$equipo['Penalizacion'],	'LBR',	0,		$this->align[14],	true);
-                }
-                if ($n==1) {
                     $this->Cell($this->pos[14],5,"Tiempo: ".$equipo['Tiempo'],	'LBR',	0,		$this->align[14],	true);
                 }
+                if ($n==1) {
+                    $this->Cell($this->pos[14],5,"Penaliz.: ".$equipo['Penalizacion'],	'LBR',	0,		$this->align[14],	true);
+                }
                 $this->ac_row(2,9);
-                $this->Ln();
+                $this->Ln(5);
             }
             $teamcount++;
         }
