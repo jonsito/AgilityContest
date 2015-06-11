@@ -135,7 +135,9 @@ class ResultadosByEquipos extends PrintCommon {
                 if ($miembro==="BEGIN") continue;
                 if ($miembro==="END") continue;
                 $logo=$this->getLogoName(intval($miembro));
-                if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
+                if (file_exists(__DIR__.'/../../images/logos/'.$logo ) ){
+                    if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
+                }
             }
         }
         $offset=($this->PageNo()==1)?57:45;
