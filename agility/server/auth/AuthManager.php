@@ -38,6 +38,7 @@ define ("ENABLE_SPECIAL",8);// permite gestionar pruebas de mangas multiples
 define ("ENABLE_VIDEOWALL",16); // permite acceso desde videomarcador
 define ("ENABLE_PUBLIC",32);    // permite acceso publico web
 define ("ENABLE_CHRONO",64);    // permite gestion desde cronometro
+define ("ENABLE_ULIMIT",128);    // permite numero de inscripciones ilimitadas
 
 // datos de registro
 define('AC_PUBKEY_FILE' , __DIR__."/AgilityContest_puk.pem");
@@ -364,10 +365,17 @@ class AuthManager {
         $res=$this->checkRegistrationInfo();
         // extract and declare inner functions
         $opts=$res['options'];
-        if ($res['info']=="") return bindec($res['options']) & $feature; // old style licenses
+        if ($res['info']=="") return bindec($opts) & $feature; // old style licenses
         return $this->myGateKeeper($res,$feature);
-        $info=str_replace("__OPTS__",$res['options'],$res['info']);
+        $info=str_replace("__OPTS__",$opts,$res['info']);
         return $res;
+    }
+
+    function getUserLimit() {
+        $res=$this->checkRegistrationInfo();
+        if ($res['serial']==="00000000") return 75; // unregistered app
+        if (bindec($res['options']) & ENABLE_ULIMIT ) return 9999; // "unlimited"
+        return 200; // registered app, but no "unlimited" flag
     }
 }
 

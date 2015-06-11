@@ -251,11 +251,26 @@ $('#seltablet-Prueba').combogrid({
 		{field:'Club',			hidden:true},
 		{field:'NombreClub',	title:'Club',			width:20,	align:'right'},
 		{field:'RSCE',			title:'Fed.',			width:15,	align:'center', formatter:formatRSCE},
-		{field:'Observaciones',	title:'Observaciones.',	width:30,	align:'right'}
+		{field:'Observaciones',	title:'Observaciones.',	width:30,	align:'right'},
+        {field:'Inscritos',		hidden:true},
+        {field:'UserLimit',		hidden:true}
 	]],
 	onChange:function(value){
 		var p=$('#seltablet-Prueba').combogrid('grid').datagrid('getSelected');
 		if (p===null) return; // no selection
+        if (parseInt(p.Inscritos) > parseInt(p.UserLimit)) {
+            var message='<img src="/agility/images/sad_dog.png" width="100" alt="sad dog" style="float:right;"/>'+
+                '<p style="font-weight:bold;">Los permisos de la licencia instalada<br/> no permiten la gesti&oacute;n de pruebas</br> con m&aacute;s de '+p.UserLimit+' inscripciones</p>'
+            $.messager.alert({
+                title: 'Access denied',
+                msg: message,
+                icon: 'error',
+                width: 450
+            });
+            $('#seltablet-Prueba').combogrid('grid').datagrid('clearSelections');
+            $('#seltablet-Jornada').combogrid('grid').datagrid('clearSelections');
+            return; // forbidden selection
+        }
 		setPrueba(p); // retorna jornada, o 0 si la prueba ha cambiado
 		$('#seltablet-Jornada').combogrid('clear');
 		$('#seltablet-Jornada').combogrid('grid').datagrid('load',{Prueba:p.ID});

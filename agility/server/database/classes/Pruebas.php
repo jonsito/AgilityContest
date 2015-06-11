@@ -183,20 +183,24 @@ class Pruebas extends DBObject {
 	/** 
 	 * lista de pruebas abiertas.
 	 * As select but not sort criteria and show only open contests. Used in combogrids
+     * @param {object} $am AuthManager object
 	 */
-	function enumerate() {
+	function enumerate($am=null) {
 		$this->myLogger->enter();
-
+        if ($am==null) $am=new AuthManager("Pruebas::enumerate");
+        $limit=$am->getUserLimit();
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
-		$where= "(Pruebas.Club=Clubes.ID) && ( Pruebas.Cerrada=0 )";
-		if($q!=="") $where="(Pruebas.Club=Clubes.ID) && ( Cerrada=0 ) AND ( (Pruebas.Nombre LIKE '%$q%' ) OR (Clubes.Nombre LIKE '%$q%') OR (Pruebas.Observaciones LIKE '%$q%') )";
+		$where= "(Pruebas.Club=Clubes.ID) AND ( Pruebas.Cerrada=0 ) AND (Inscripciones.Prueba=Pruebas.ID) ";
+		if($q!=="") $where="$where AND ( (Pruebas.Nombre LIKE '%$q%' ) OR (Clubes.Nombre LIKE '%$q%') OR (Pruebas.Observaciones LIKE '%$q%') )";
+        $where ="$where GROUP BY Inscripciones.Prueba";
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
 							Pruebas.Ubicacion AS Ubicacion, Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
-							Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva, Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",
-				/* FROM */ "Pruebas,Clubes",
+							Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva, Pruebas.Cerrada AS Cerrada,
+							Pruebas.Observaciones AS Observaciones, count(Inscripciones.Dorsal) AS Inscritos, $limit as UserLimit",
+				/* FROM */ "Pruebas,Clubes,Inscripciones",
 				/* WHERE */ $where,
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""

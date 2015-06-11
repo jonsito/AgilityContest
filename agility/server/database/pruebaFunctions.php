@@ -34,7 +34,7 @@ try {
 		case "update": $am->access(PERMS_OPERATOR); $result=$pruebas->update($pruebaID); break;
 		case "delete": $am->access(PERMS_OPERATOR); $result=$pruebas->delete($pruebaID); break;
 		case "select": $result=$pruebas->select(); break;
-		case "enumerate": $result=$pruebas->enumerate(); break;
+		case "enumerate": $result=$pruebas->enumerate($am); break;
 		case "getbyid": $result=$pruebas->selectByID($pruebaID); break;
 		default: throw new Exception("pruebaFunctions:: invalid operation: $operation provided");
 	}
