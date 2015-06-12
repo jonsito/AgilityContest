@@ -138,7 +138,7 @@ $('#team_datagrid').datagrid({
         { field:'ID',			hidden:true },
         { field:'Prueba',		hidden:true },
 		{ field:'Jornada',		hidden:true },
-		{ field:'Orden',		hidden:true },
+		// { field:'Orden',		hidden:true },
  		{ field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Nombre');?>' },
 		{ field:'Categorias',	width:10, sortable:true,	title: '<?php _e('Cat.');?>' },
 		{ field:'Observaciones',width:65, sortable:true,	title: '<?php _e('Observaciones');?>'},
