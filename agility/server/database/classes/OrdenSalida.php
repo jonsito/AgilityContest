@@ -112,7 +112,8 @@ class OrdenSalida extends DBObject {
         if (preg_match("/BEGIN,([0-9]+,)*END/",$orden)!==1) {
             $this->errormsg="OrdenSalida::setOrdenEquipos(): orden de equipos invalido:'$orden'";
             $this->myLogger->error($this->errormsg);
-            return $this->errormsg;
+            // return $this->errormsg;
+            $orden=$this->getOrdenEquipos(); // use default order for backward compatibility
         }
         $sql = "UPDATE Mangas SET Orden_Equipos = '$orden' WHERE ( ID={$this->manga['ID']} )";
         $rs = $this->query ($sql);
@@ -429,13 +430,12 @@ class OrdenSalida extends DBObject {
 		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada['ID']);
 		$hermanas=$mhandler->getHermanas($this->manga['ID']);
 		if (!is_array($hermanas)) return $this->error("Error find hermanas info for jornada:{$this->jornada['ID']} and manga:{$this->manga['ID']}");
-		if ($hermanas[1]==null) return $this->error("Cannot reverse order: Manga:{$this->manga['ID']} of Jornada:{$this->jornada['ID']} has no brother");
+		if ($hermanas[1]==null) return $this->error("Cannot clone order: Manga:{$this->manga['ID']} of Jornada:{$this->jornada['ID']} has no brother");
 
 		// fase 2: clonamos orden de salida y de equipos de la manga hermana
 		$this->myLogger->trace("El orden de salida original para manga:{$this->manga['ID']} jornada:{$this->jornada['ID']} es:\n{$hermanas[0]->Orden_Salida}");
         $this->setOrden($hermanas[1]->Orden_Salida);
         $this->setOrdenEquipos($hermanas[1]->Orden_Equipos);
-
 		$this->myLogger->leave();
 		return $hermanas[1]->Orden_Salida;
 	}
