@@ -67,9 +67,12 @@ class Pruebas extends DBObject {
 				VALUES ($pruebaid,$jornadaid,1,'-- Sin asignar --','NO BORRAR: PRUEBA $pruebaid JORNADA $jornadaid - Default Team','BEGIN,END',1 )";
 			$res=$this->query($str);
 			if (!$res) return $this->error($this->conn->error);
-			// regenerate Tandas table
-			$ot=new Tandas("Pruebas::Insert()",$pruebaid,$jornadaid);
-			$ot->populateJornada();
+            // retrieve ID of inserted default team and insert into newly created jornada
+            // stupid loop, I know, but needed to preserve foreign keys integrity
+            $teamid=$this->conn->insert_id;
+            $str="UPDATE Jornadas SET Default_Team=$teamid WHERE (Jornada=$jornadaid)";
+            // notice that by default there are no mangas nor tandas in a newly created journey
+            // so no need to populate them (JAMC 12-Jun-2015 remove populateJornada() call )
 		}
 		// arriving here means everything ok. notify success
 		$this->myLogger->leave();

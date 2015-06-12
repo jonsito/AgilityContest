@@ -52,13 +52,12 @@ class Equipos extends DBObject {
         // obtenemos los equipos de esta jornada
         $res= $this->__select("*","Equipos","( Prueba = $prueba ) AND ( Jornada = $jornada )","$by ASC","");
         if (!is_array($res)) {
-            return $this->error("{$this->$file}::getTeamsByJornada() cannot get team data for prueba:$prueba jornada:$jornada");
+            return $this->error("{$this->file}::getTeamsByJornada() cannot get team data for prueba:$prueba jornada:$jornada");
         }
         return $res['rows'];
     }
 
     function getTeamsByJornada(){ return $this->getTeamsBy('Nombre'); }
-    function getTeamsByOrden(){ return $this->getTeamsBy('Orden'); }
 
 	function getDefaultTeam() {
 		$prueba=$this->pruebaID;
@@ -70,20 +69,16 @@ class Equipos extends DBObject {
 		$this->myLogger->enter();
 		$prueba=$this->pruebaID;
 		$jornada=$this->jornadaID;
-		// obtenemos el orden a insertar
-		$obj=$this->__selectObject("MAX(Orden) AS Last","Equipos","(Prueba=$prueba) AND (Jornada=$jornada)");
-		$ord=($obj!=null)?1+intval($obj->Last):1; // evaluate latest in order
 
         // iniciamos los valores, chequeando su existencia
-        $orden		= $ord;
         $categorias = http_request("Categorias","s",null,false); // may be null
         $nombre 	= http_request("Nombre","s",null,false); // not null
         $observaciones= http_request('Observaciones',"s",null,false); // may be null
         $this->myLogger->info("Prueba:$prueba Jornada:$jornada Nombre:'$nombre' Observaciones:'$observaciones'");
 
 		// componemos un prepared statement
-		$sql ="INSERT INTO Equipos (Prueba,Jornada,Orden,Categorias,Nombre,Observaciones,DefaultTeam,Miembros) 
-					VALUES($prueba,$jornada,?,?,?,?,0,'BEGIN,END')";
+		$sql ="INSERT INTO Equipos (Prueba,Jornada,Categorias,Nombre,Observaciones,DefaultTeam,Miembros)
+					VALUES($prueba,$jornada,?,?,?,0,'BEGIN,END')";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('isss',$orden,$categorias,$nombre,$observaciones);
@@ -155,7 +150,7 @@ class Equipos extends DBObject {
 		$sort=getOrderString( 
 			http_request("sort","s",""),
 			http_request("order","s",""),
-			"Orden ASC"
+			"ID ASC" // "Orden" no longer exists, so default sort order is by ID
 		);
 		// evaluate if any search criteria
 		$search=http_Request("where","s","");
@@ -212,68 +207,7 @@ class Equipos extends DBObject {
 		$this->myLogger->leave();
 		return $data;
 	}
-	
-	/**
-	 * insert $from before(where==false) or after(where=true) $to
-	 * This dnd routine uses a Orden shift'ng: increase every remaining row order,
-	 * and assign moved row orden to created hole
-	 * @param {integer} $from id to move
-	 * @param {integer} $to id to insert arounn
-	 * @param {boolean} $where false:insert before  / true:insert after
-	 */
-	function dragAndDrop($from,$to,$where) {
-		$this->myLogger->enter();
-		$p=$this->pruebaID;
-		$j=$this->jornadaID;
-		// get from/to Tanda's ID
-		$f=$this->__selectObject("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (ID=$from)");
-		$t=$this->__selectObject("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (ID=$to)");
-		if(!$f || !$t) {
-			$this->myLogger->error("Error: no ID for equipo's order '$from' and/or '$to' on prueba:$p jornada:$j");
-			return $this->errormsg;
-		}
-		$torder=$t->Orden;
-		$neworder=($where)?$torder+1/*after*/:$torder/*before*/;
-		$comp=($where)?">"/*after*/:">="/*before*/;
-		$str="UPDATE Equipos SET Orden=Orden+1 WHERE ( Prueba = $p ) AND ( Jornada = $j ) AND ( Orden $comp $torder )";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		$str="UPDATE Equipos SET Orden=$neworder WHERE ( Prueba = $p ) AND ( Jornada = $j ) AND ( ID = $from )";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		return "";
-	}
-	
-	/**
-	 * Swap orden between requested equipos
-	 * @param {integer} $from Equipo ID 1
-	 * @param {integer} $to Equipo ID 2
-	 * @return {string} error message or "" on success
-	 */
-	function swap($from,$to) {
-		$this->myLogger->enter();
-		$p=$this->pruebaID;
-		$j=$this->jornadaID;
-		// get from/to Tanda's ID
-		$f=$this->__selectObject("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (ID=$from)");
-		$t=$this->__selectObject("*","Equipos","(Prueba=$p) AND (Jornada=$j) AND (ID=$to)");
-		if(!$f || !$t) {
-			$this->myLogger->error("Error: no ID for equipo's order '$from' and/or '$to' on prueba:$p jornada:$j");
-			return $this->errormsg;
-		}
-		$forden=$f->Orden;
-		$torden=$t->Orden;
-		// perform swap update.
-		$str="UPDATE Equipos SET Orden=$torden WHERE (ID=$from)";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		$str="UPDATE Equipos SET Orden=$forden WHERE (ID=$to)";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		$this->myLogger->leave();
-		return ""; // mark success
-	}
-	
+
 	/**
 	 * Inscribe a un perro en el equipo indicado.
 	 * Si no se indica, lo inscribe en el equipo por defecto
@@ -313,7 +247,7 @@ class Equipos extends DBObject {
 	}
 	
 	/**
-	 * Borra a un perro de los equipos de la jornada
+	 * Borra a un perro de TODOS los equipos de la jornada
 	 * @param {integer} $perro IDPerro
 	 */
 	function removeFromTeam($idperro) {
@@ -321,11 +255,11 @@ class Equipos extends DBObject {
 		$teams=$this->getTeamsByJornada();
 		foreach($teams as $team) {
 			$idequipo=$team['ID'];
-			$ordensalida=$team['Miembros'];
-			$nuevoorden = str_replace ( $str, ",", $ordensalida );
-			if ($ordensalida===$nuevoorden) continue; // not inscribed in this team. no teed to update DB
+			$listamiembros=$team['Miembros'];
+			$nuevalista = str_replace ( $str, ",", $listamiembros );
+			if ($listamiembros===$nuevalista) continue; // not inscribed in this team. no teed to update DB
 			// update database
-			$str="UPDATE Equipos SET Miembros='$nuevoorden' WHERE (ID=$idequipo)";
+			$str="UPDATE Equipos SET Miembros='$nuevalista' WHERE (ID=$idequipo)";
 			$rs=$this->query($str);
 			if (!$rs) return $this->error($this->conn->error);
 		}
@@ -334,6 +268,7 @@ class Equipos extends DBObject {
 	
 	/**
 	 * Cambia un perro de equipo
+     * TODO: Asumimos que la jornada no está cerrada....
 	 * @param {integer} $idperro
 	 * @param {integer} $idequipo
 	 */
@@ -355,89 +290,6 @@ class Equipos extends DBObject {
 		$this->myLogger->info("El perro $idperro no figura en ningun equipo de la jornada {$this->jornadaID}");
 		return $this->getDefaultTeam();
 	}
-
-
-	/**
-	 * Reordena al azar el campo 'orden' de los equipos de esta jornada
-	 */
-	function random() {
-		// reordenamos al azar el array de equipos
-		$teams=$this->getTeamsByOrden();
-        // guardamos en Jornadas::Orden_Equipos el orden actual
-        $orden='BEGIN'; foreach($teams as $team) $orden .= ",{$team['ID']}"; $orden.=',END';
-        $sql="UPDATE Jornadas SET Orden_Equipos='$orden' WHERE ID={$this->jornadaID}";
-        $this->query($sql);
-		shuffle($teams);
-		// componemos un prepared statement
-		$sql ="UPDATE Equipos SET Orden=? WHERE (ID=?)";
-		$stmt=$this->conn->prepare($sql);
-		if (!$stmt) return $this->error($this->conn->error);
-		$res=$stmt->bind_param('ii',$orden,$equipo);
-		if (!$res) return $this->error($stmt->error);
-		// recorremos los equipos renumerando el orden
-		$count=1;
-		foreach ($teams as $team) {
-			$orden=$count;
-			$equipo=$team['ID'];
-			$res=$stmt->execute();
-			if (!$res) return $this->error($stmt->error);
-			$count++;
-		} 
-		$stmt->close();
-		return "";
-	}
-
-    /**
-     * Ajusta el orden de salida al ultimo orden almacenado con "random" o "reverse"
-    */
-    function sameorder() {
-        // retrieve last orden from Jornadas::Orden_Equipos
-        $j=$this->__getObject('Jornadas',$this->jornadaID);
-        if ($j->Orden_Equipos==null || $j->Orden_Equipos=="" || $j->Orden_Equipos=="BEGIN,END") {
-            $this->myLogger.info("Equipos::sameorder() called without previous stored order");
-            return "";
-        }
-        $orden=explode(",",$j->Orden_Equipos);
-        $sql ="UPDATE Equipos SET Orden=? WHERE (ID=?)";
-        $stmt=$this->conn->prepare($sql);
-        if (!$stmt) return $this->error($this->conn->error);
-        $res=$stmt->bind_param('ii',$orden,$equipo);
-        if (!$res) return $this->error($stmt->error);
-        // recorremos los equipos renumerando el orden
-        $count=1;
-        foreach ($orden as $id) {
-            if ($id=='BEGIN') continue;
-            if ($id=='End') continue;
-            $orden=$count;
-            $equipo=intval($id);
-            $res=$stmt->execute();
-            if (!$res) return $this->error($stmt->error);
-            $count++;
-        }
-        $stmt->close();
-        return "";
-    }
-
-    /**
-     * ordena los equipos en orden inverso a la clasificacion obtenida
-     * @param $teams lista de equipos ordenada por resultados
-     */
-    function reverse($teams) {
-        $count=count($teams);
-        $sql ="UPDATE Equipos SET Orden=? WHERE (ID=?)";
-        $stmt=$this->conn->prepare($sql);
-        if (!$stmt) return $this->error($this->conn->error);
-        $res=$stmt->bind_param('ii',$orden,$equipo);
-        if (!$res) return $this->error($stmt->error);
-        for ($idx=count($teams)-1;$idx>=0;$idx--){
-            $orden=$idx;
-            $equipo=intval($teams[$idx]['ID']);
-            $res=$stmt->execute();
-            if (!$res) return $this->error($stmt->error);
-        }
-        $stmt->close();
-        return "";
-    }
 
     /**
      * check teams on this journey and eval number of dogs belonging to each one

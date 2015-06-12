@@ -70,10 +70,21 @@ class OrdenSalida extends DBObject {
 	function getOrden() {
 		return ($this->manga['Orden_Salida']==="")?OrdenSalida::$default_orden:$this->manga['Orden_Salida'];
 	}
-	
+
+    /**
+     * Retrieve Mangas.Orden_Equipos
+     * @return {string} orden de salida.
+     */
+    function getOrdenEquipos() {
+        $defOrden="BEGIN,{$this->jornada['Default_Team']},END";
+        $orden=($this->manga['Orden_Equipos']==="")?$defOrden:$this->manga['Orden_Equipos'];
+        $this->myLogger->trace("orden de equipos: $orden");
+        return $orden;
+    }
+
 	/**
 	 * Update Mangas.Orden_Salida with new value
-	 * @param {string} $orden new ordensalida
+	 * @param {string} $orden new orden_salida
 	 * @return {string} "" if success; errormsg on error
 	 */
 	function setOrden($orden) {
@@ -90,7 +101,27 @@ class OrdenSalida extends DBObject {
 		$this->manga['Orden_Salida']=$orden;
 		return "";
 	}
-	
+
+    /**
+     * Update Mangas.Orden_Equipos with new value
+     * @param {string} $orden new orden_equipos
+     * @return {string} "" if success; errormsg on error
+     */
+    function setOrdenEquipos($orden) {
+        // TODO: check that $orden matches BEGIN,*,END
+        if (preg_match("/BEGIN,([0-9]+,)*END/",$orden)!==1) {
+            $this->errormsg="OrdenSalida::setOrdenEquipos(): orden de equipos invalido:'$orden'";
+            $this->myLogger->error($this->errormsg);
+            return $this->errormsg;
+        }
+        $sql = "UPDATE Mangas SET Orden_Equipos = '$orden' WHERE ( ID={$this->manga['ID']} )";
+        $rs = $this->query ($sql);
+        // do not call $rs->free() as no resultset returned
+        if (!$rs) return $this->error($this->conn->error);
+        $this->manga['Orden_Equipos']=$orden;
+        return "";
+    }
+
 	/**
 	 *  coge el string con el ID del perro y lo inserta al final
 	 *  @param {integer} idperro ID perro 
@@ -106,8 +137,25 @@ class OrdenSalida extends DBObject {
 		$ordensalida = str_replace ( "END", $myTag, $nuevoorden );
 		// update database
 		return $this->setOrden($ordensalida);
-	}	
-	
+	}
+
+    /**
+     *  coge el string con el ID del equipo y lo inserta al final
+     *  @param {integer} idteam ID del equipo
+     */
+    function insertIntoTeamList($idteam) {
+        $ordenequipos=$this->getOrdenEquipos();
+        // lo borramos para evitar una posible doble insercion
+        $str = ",$idteam,";
+        $nuevoorden = str_replace ( $str, ",", $ordenequipos );
+        // componemos el tag que hay que insertar
+        $myTag="$idteam,END";
+        // y lo insertamos en lugar que corresponde
+        $ordenequipos = str_replace ( "END", $myTag, $nuevoorden );
+        // update database
+        return $this->setOrdenEquipos($ordenequipos);
+    }
+
 	/**
 	 * Elimina un idperro del orden de salida
 	 * @param {integer} $idperro
@@ -121,6 +169,26 @@ class OrdenSalida extends DBObject {
 		return $this->setOrden($ordensalida);
 	}
 
+    /**
+     * Elimina un equipo del orden de equipos
+     * @param {integer} $idteam
+     * @return {string} "" on success; else error message
+     */
+    function removeFromTeamList($idteam) {
+        $ordenequipos=$this->getOrdenEquipos();
+        $str = ",$idteam,";
+        $nuevoorden = str_replace ( $str, ",", $ordenequipos );
+        // update database
+        return $this->setOrdenEquipos($ordenequipos);
+    }
+
+    /**
+     * Inserta un perro en el espacio indicado, sacandolo del sitio inicial
+     * @param {integer} $from sitio inicial (dog ID)
+     * @param {integer} $to sitio final
+     * @param {integer} $where insertart "encima" (0) o "debajo" (1)
+     * @return null|string
+     */
 	function dragAndDrop($from,$to,$where) {
 		if ( ($from<=0) || ($to<=0) ) {
 			return $this->error("dnd: SrcIDPerro:$from or DestIDPerro:$to are invalid");
@@ -138,7 +206,32 @@ class OrdenSalida extends DBObject {
 		$this->setOrden($ordensalida);
 		return "";
 	}
-	
+
+    /**
+     * Inserta un equipo en el espacio indicado, sacandolo del sitio inicial
+     * @param {integer} $from sitio inicial (team ID)
+     * @param {integer} $to sitio final
+     * @param {integer} $where insertart "encima" (0) o "debajo" (1)
+     * @return null|string
+     */
+    function dragAndDropEquipos($from,$to,$where) {
+        if ( ($from<=0) || ($to<=0) ) {
+            return $this->error("dnd: SrcIDTeam:$from or DestIDTeam:$to are invalid");
+        }
+        // recuperamos el orden de salida
+        $ordenequipos = $this->getOrdenEquipos();
+        // extraemos "from" de donde este y lo guardamos
+        $str = ",$from,";
+        $ordenequipos = str_replace ( $str , "," , $ordenequipos );
+        // insertamos 'from' encima o debajo de 'to' segun el flag 'where'
+        $str1 = ",$to,";
+        $str2 = ($where==0)? ",$from,$to," : ",$to,$from,";
+        $ordenequipos = str_replace( $str1 , $str2 , $ordenequipos );
+        // guardamos el resultado
+        $this->setOrdenEquipos($ordenequipos);
+        return "";
+    }
+
 	/**
 	 * Obtiene la lista (actualizada) de perros de una manga en el orden de salida correcto
 	 * En el proceso de inscripcion ya hemos creado la tabla de resultados, y el orden de salida
@@ -155,21 +248,23 @@ class OrdenSalida extends DBObject {
 	 * @param {boolean} teamview true->intercalar información de equipos en el listado 
 	 */
 	function getData($teamView=false) {
-		// obtenemos el orden de los equipos
-		$eq=$this->__select("*","Equipos","(Jornada={$this->jornada['ID']})","Orden ASC","");
+		// obtenemos los equipos de la jornada
+		$eq=$this->__select("*","Equipos","(Jornada={$this->jornada['ID']})","","");
 		if (!is_array($eq)) return $this->error($this->conn->error);
-		$equipos=$eq['rows'];
+        $equipos=$eq['rows'];
+
 		// obtenemos los perros de la manga
 		$rs= $this->__select("*","Resultados","(Manga={$this->manga['ID']})","","");
 		if(!is_array($rs)) return $this->error($this->conn->error);
 		// recreamos el array de perros anyadiendo el ID del perro como clave, así como el nombre del equipo
 		$p1=array();
 		foreach ($rs['rows'] as $resultado) {
-			foreach($equipos as $equipo) {
+			foreach($equipos as $equipo) { // a bit slow to iterate every team on every dog, but....
 				if ($equipo['ID']===$resultado['Equipo']) { $resultado['NombreEquipo']=$equipo['Nombre']; break;} 
 			} 
 			$p1[$resultado['Perro']]=$resultado; 
 		}
+
 		// primera pasada: ajustamos los perros segun el orden de salida que figura en Orden_Salida
 		$p2=array();
 		$orden=explode(',',$this->getOrden());
@@ -183,13 +278,18 @@ class OrdenSalida extends DBObject {
 				array_push($p2,$p1[$perro]);
 			}
 		}
+
 		// segunda pasada: ordenar segun el orden de equipos de la jornada
 		$p3=array();
-		foreach($equipos as $equipo) {
+        $oequipos=explode(',',$this->getOrdenEquipos());
+		foreach($oequipos as $equipo) {
+            if ($equipo==="BEGIN") continue;
+            if ($equipo==="END") continue;
 			foreach ($p2 as $perro) {
-				if ($perro['Equipo']==$equipo['ID']) array_push($p3,$perro);
+				if ($perro['Equipo']==$equipo) array_push($p3,$perro);
 			}
 		}
+
 		// tercera pasada: ordenar por celo
 		$p4=array();
 		foreach(array(0,1) as $celo) {
@@ -197,6 +297,7 @@ class OrdenSalida extends DBObject {
 				if ($perro['Celo']==$celo) array_push($p4,$perro);
 			}
 		}
+
 		// cuarta pasada: ordenar por categoria
 		$p5=array();
 		foreach(array('L','M','S','T') as $cat) {
@@ -204,6 +305,7 @@ class OrdenSalida extends DBObject {
 				if ($perro['Categoria']==$cat) array_push($p5,$perro);
 			}
 		}
+
 		// quinta: intercalar informacion de equipos si se precisa
 		$p6=array();
 		if ($teamView) {
@@ -249,9 +351,19 @@ class OrdenSalida extends DBObject {
 		}
 		$orden=$this->getOrden();
 		$this->myLogger->debug("OrdenSalida::Random() Manga:{$this->manga['ID']} Orden final: \n$orden");
+
 		// fase 2: aleatorizamos los equipos de la jornada
-		$eq=new Equipos("OrdenSalida::random()",$this->prueba['ID'],$this->jornada['ID']);
-		$eq->random();
+        $orden=$this->getOrdenEquipos();
+        $this->myLogger->debug("OrdenSalida::RandomTeam() Manga:{$this->manga['ID']} Orden inicial: \n$orden");
+        $str=getInnerString($orden,"BEGIN,",",END");
+        if ($str!=="") { // si hay datos, reordena; si no no hagas nada
+            $str2 = implode(",",aleatorio(explode(",", $str)));
+            $str="BEGIN,$str2,END";
+            $this->setOrdenEquipos($str);
+        }
+        $ordenequipos=$this->getOrdenEquipos();
+        $this->myLogger->debug("OrdenSalida::RandomTeam() Manga:{$this->manga['ID']} Orden final: \n$ordenequipos");
+
 		return $orden;
 	}
 	
@@ -262,6 +374,8 @@ class OrdenSalida extends DBObject {
 	 * @param {integer} $mode categorias de la manga (L,M,S,MS,LMS,T,LM,ST,LMST)
 	 */
 	private function invierteResultados($from,$mode) {
+
+        // FASE 1: invertimos orden de salida de perros
 		$r =new Resultados("OrdenSalida::invierteResultados", $this->prueba['ID'],$from->ID);
 		$res=$r->getResultados($mode);
         $data=$res['rows'];
@@ -281,31 +395,49 @@ class OrdenSalida extends DBObject {
 		}
 		// salvamos datos
 		$this->setOrden($ordensalida);
-        // TODO: ahora invertimos el orden de los equipos en funcion del resultado
+
+        // FASE 2: ahora invertimos el orden de los equipos en funcion del resultado
         if (intval($this->jornada['Equipos3'])==0 ) return;
         $this->myLogger->trace("invirtiendo orden de equipos");
-        $equipos=Resultados::getTeam3Results($res['rows'],$this->prueba['ID'],$this->jornada['ID']);
-        $eq=new Equipos("OrdenSalida",$this->prueba['ID'],$this->jornada['ID']);
-        $eq->reverse($equipos);
+        $res=Resultados::getTeam3Results($res['rows'],$this->prueba['ID'],$this->jornada['ID']);
+        $size= count($data);
+        // recorremos los resultados en orden inverso
+        $ordenequipos=$this->getOrdenEquipos();
+        // y reinsertamos los perros actualizando el orden
+        for($idx=$size-1; $idx>=0; $idx--) {
+            $equipo=intval($res[$idx]['ID']);
+            // lo borramos para evitar una posible doble insercion
+            $str = ",$equipo,";
+            $nuevoorden = str_replace ( $str, ",", $ordenequipos );
+            // componemos el tag que hay que insertar
+            $str="$equipo,END";
+            // y lo insertamos en lugar que corresponde (al final)
+            $ordenequipos = str_replace ( "END", $str, $nuevoorden );
+        }
+        // salvamos datos
+        $this->setOrdenEquipos($ordenequipos);
 	}
-	
+
 	/**
 	 * pone el mismo orden de salida que la manga hermana
 	 * @return {string} nuevo orden de salida; null on error
 	 */
 	function sameorder() {
 		$this->myLogger->enter();
+
 		// fase 1: buscamos la "manga hermana"
 		$mhandler=new Mangas("OrdenSalida::reverse()",$this->jornada['ID']);
 		$hermanas=$mhandler->getHermanas($this->manga['ID']);
 		if (!is_array($hermanas)) return $this->error("Error find hermanas info for jornada:{$this->jornada['ID']} and manga:{$this->manga['ID']}");
 		if ($hermanas[1]==null) return $this->error("Cannot reverse order: Manga:{$this->manga['ID']} of Jornada:{$this->jornada['ID']} has no brother");
-		// fase 2: clonamos orden de la manga hermana
+
+		// fase 2: clonamos orden de salida y de equipos de la manga hermana
 		$this->myLogger->trace("El orden de salida original para manga:{$this->manga['ID']} jornada:{$this->jornada['ID']} es:\n{$hermanas[0]->Orden_Salida}");
-		$this->setOrden($hermanas[1]->Orden_Salida);
+        $this->setOrden($hermanas[1]->Orden_Salida);
+        $this->setOrdenEquipos($hermanas[1]->Orden_Equipos);
+
 		$this->myLogger->leave();
 		return $hermanas[1]->Orden_Salida;
-        // no hay que tocar para nada el orden de equipos
 	}
 	
 	/**

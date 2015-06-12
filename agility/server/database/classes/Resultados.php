@@ -558,7 +558,8 @@ class Resultados extends DBObject {
     static function getTeam3Results($resultados,$prueba,$jornada) {
         // Datos de equipos de la jornada. obtenemos prueba y jornada del primer elemento del array
         $m=new Equipos("getTeam3Results",$prueba,$jornada);
-        $teams=$m->getTeamsByOrden();
+        $teams=$m->getTeamsByJornada();
+
         // reindexamos por ID y anyadimos un campos extra Tiempo, penalizacion y el array de resultados del equipo
         $equipos=array();
         foreach ($teams as &$equipo) {

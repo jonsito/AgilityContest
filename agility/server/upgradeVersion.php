@@ -93,16 +93,6 @@ class Updater {
         $this->conn->query($call);
         $this->myLogger->leave();
     }
-
-    function populateOrdenEquipos() {
-        $this->myLogger->enter();
-        // clone orden equipos into every manga
-        $str="UPDATE Mangas
-                SET Mangas.Orden_Equipos= ( SELECT Jornadas.Orden_Equipos FROM Jornadas WHERE Jornadas.ID=Mangas.Jornada )
-                WHERE Mangas.Orden_Equipos IS NULL";
-        $this->conn->query($str);
-        $this->myLogger->leave();
-    }
 }
 
 $upg=new Updater();
@@ -110,7 +100,6 @@ try {
     $upg->updateVersionHistory();
     if ( strcmp($upg->current_version, $upg->last_version) > 0) {
         $upg->addColumnUnlessExists("Mangas","Orden_Equipos","TEXT");
-        $upg->populateOrdenEquipos();
     }
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);

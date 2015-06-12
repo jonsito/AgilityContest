@@ -39,8 +39,8 @@ class Mangas extends DBObject {
 		10 =>	array( 10,'Jumping Grado II',			'GII',	'Jumping GII',	'Grado II'),
 		11 =>	array( 11,'Jumping Grado III',			'GIII',	'Jumping GIII',	'Grado III'),
 		12 =>	array( 12,'Jumping Abierta',    		'-',	'Jumping Open',	'Abierta'),
-		13 =>	array( 13,'Jumping Equipos (3 mejores)','-','Jumping Eq.',	'Abierta'),
-		14 =>	array( 14,'Jumping Equipos (Conjunta)', '-','Jumping Eq.',	'Abierta'),
+		13 =>	array( 13,'Jumping Equipos (3 mejores)','-',    'Jumping Eq.',	'Abierta'),
+		14 =>	array( 14,'Jumping Equipos (Conjunta)', '-',    'Jumping Eq.',	'Abierta'),
 		15 =>	array( 15,'Ronda K.O.', 				'-',	'Ronda K.O.',	'Abierta'),
 		16 =>	array( 16,'Manga especial', 			'-',	'Manga Especial','Abierta')	
 	);
@@ -123,8 +123,13 @@ class Mangas extends DBObject {
 		if ($res->Result>0){
 			$this->myLogger->info("Jornada:$j Manga:$tipo already exists");
 		} else {
+            // buscamos el equipo por defecto de la jornada y lo insertamos
+            $res=$this->__selectObject("*","Equipos","(Jornada=$j) AND (DefaultTeam=1)");
+            if(!is_object($res))
+                return $this->error("Cannot get default Team for Jornada:$j");
+            $team=$res->ID;
 			$observaciones = http_request("Observaciones","s","");
-			$str="INSERT INTO Mangas ( Jornada,Tipo,Grado,Observaciones,Orden_Salida ) VALUES ( $j,$tipo,'$grado','$observaciones','BEGIN,END' )";
+			$str="INSERT INTO Mangas ( Jornada,Tipo,Grado,Observaciones,Orden_Salida,Orden_Equipos ) VALUES ( $j,$tipo,'$grado','$observaciones','BEGIN,END','BEGIN,$team,END' )";
 			$rs=$this->query($str);
 			if (!$rs) return $this->error($this->conn->error); 
 		}

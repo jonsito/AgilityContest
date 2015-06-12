@@ -169,7 +169,7 @@ $('#team_datagrid').datagrid({
     onCollapseRow: function(idx,row) {
         var dg="#team-inscripcion-datagrid-"+ replaceAll(' ','_',row.ID);
         $(dg).remove();
-    },
+    } /* ,
     onLoadSuccess: function(data) { $(this).datagrid('enableDnd'); },
     onDragEnter: function(dst,src) {
         return (dst.DefaultTeam!=1 && src.DefaultTeam!=1) // allow dnd if not from/to default team
@@ -177,7 +177,7 @@ $('#team_datagrid').datagrid({
     onDrop: function(dst,src,updown) {
         dragAndDropOrdenEquipos(src.ID,dst.ID,(updown==='top')?0:1,reloadOrdenEquipos);
     }
-
+    */
 });
 
 // key handler
