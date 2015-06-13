@@ -26,7 +26,7 @@ require_once(__DIR__."/dialogs/dlg_guias.inc");
 require_once(__DIR__."/dialogs/dlg_clubes.inc");
 require_once(__DIR__."/dialogs/dlg_jornadas.inc");
 require_once(__DIR__."/dialogs/dlg_equipos.inc");
-require_once(__DIR__."/frm_equipos.inc");
+require_once(__DIR__."/frm_equipos.php");
 require_once(__DIR__."/dialogs/dlg_newInscripcion.inc");
 require_once(__DIR__."/dialogs/dlg_editInscripcion.inc");
 require_once(__DIR__."/../server/auth/Config.php");

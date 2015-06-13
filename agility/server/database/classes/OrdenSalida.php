@@ -68,7 +68,11 @@ class OrdenSalida extends DBObject {
 	 * @return {string} orden de salida.
 	 */
 	function getOrden() {
-		return ($this->manga['Orden_Salida']==="")?OrdenSalida::$default_orden:$this->manga['Orden_Salida'];
+        if ($this->manga['Orden_Salida']==="") {
+            $this->manga['Orden_Salida']=OrdenSalida::$default_orden;
+            $this->setOrden(OrdenSalida::$default_orden);
+        }
+		return $this->manga['Orden_Salida'];
 	}
 
     /**
@@ -77,9 +81,11 @@ class OrdenSalida extends DBObject {
      */
     function getOrdenEquipos() {
         $defOrden="BEGIN,{$this->jornada['Default_Team']},END";
-        $orden=($this->manga['Orden_Equipos']==="")?$defOrden:$this->manga['Orden_Equipos'];
-        $this->myLogger->trace("orden de equipos: $orden");
-        return $orden;
+        if ($this->manga['Orden_Equipos']==="") {
+            $this->manga['Orden_Equipos']= $defOrden;
+            $this->setOrdenEquipos($defOrden);
+        }
+        return $this->manga['Orden_Equipos'];
     }
 
 	/**
