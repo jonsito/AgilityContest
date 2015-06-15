@@ -21,27 +21,30 @@ require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Competicion");
 require_once("dialogs/dlg_ordentandas.inc");
-require_once("dialogs/dlg_ordensalida.inc");
 switch(http_request("tipo","s","std")) {
     case "eq3":
         if ( ! $am->allowed(ENABLE_TEAM3)) {
             require_once("unregistered.html");
             return 0;
         }
+        require_once("dialogs/dlg_ordensalida.inc");
+        require_once("dialogs/dlg_ordenequipos.inc");
         require_once("dialogs/dlg_competicion.inc");
         require_once("dialogs/dlg_resultados_eq3.inc");
         break;
     case "eq4":
-        if ( ! $am->allowed(ENABLE_TEAM3)) {
+        if ( ! $am->allowed(ENABLE_TEAM4)) {
             require_once("unregistered.html");
             return 0;
         }
+        require_once("dialogs/dlg_ordenequipos.inc");
         require_once("dialogs/dlg_competicion_eq4.inc");
         require_once("dialogs/dlg_resultados_eq4.inc");
         break;
     case "std":
     case "open":
     default:
+        require_once("dialogs/dlg_ordensalida.inc");
         require_once("dialogs/dlg_competicion.inc");
         require_once("dialogs/dlg_resultadosManga.inc");
         break;
@@ -69,9 +72,12 @@ switch(http_request("tipo","s","std")) {
 		<a id="competicion-ordentandasBtn" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-updown'" style="width:185px"
 			onclick="competicionDialog('ordentandas');"><?php _e('Programaci&oacute;n');?></a>
+		<a id="competicion-ordenequiposBtn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-huella'" style="width:185px"
+           onclick="competicionDialog('ordenequipos');"><?php _e('Orden de equipos');?></a>
 		<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton"
-			data-options="iconCls:'icon-order'" style="width:185px"
-			onclick="competicionDialog('ordensalida');"><?php _e('Orden de salida');?></a>
+           data-options="iconCls:'icon-order'" style="width:185px"
+           onclick="competicionDialog('ordensalida');"><?php _e('Orden de salida');?></a>
 		<a id="competicion-competicionBtn" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-table'" style="width:185px"
 			onclick="competicionDialog('competicion');"><?php _e('Entrada de datos');?></a>
@@ -120,6 +126,19 @@ $('#competicion-listamangas').datagrid({
       	    } // texto del tipo de manga
     ]],
     rowStyler:myRowStyler,
+    onLoadSuccess: function(data) {
+        // show/hide team/orden buttons according kind of journey
+        if (isJornadaEq3()) {
+            $('#competicion-ordenequiposBtn').css('display','inherit');
+            $('#competicion-ordensalidaBtn').css('display','inherit');
+        } else if (isJornadaEq4()){
+            $('#competicion-ordenequiposBtn').css('display','inherit');
+            $('#competicion-ordensalidaBtn').css('display','none');
+        } else {
+            $('#competicion-ordenequiposBtn').css('display','none');
+            $('#competicion-ordensalidaBtn').css('display','inherit');
+        }
+    },
     onClickRow: function (index,row) {
         if (index<0) { // no manga selected
             $('#competicion-datosmanga').html("");
@@ -151,6 +170,7 @@ $('#competicion-listamangas').datagrid({
 
 //tooltips
 addTooltip($('#competicion-ordentandasBtn').linkbutton(),"<?php _e('Ver/Ordenar la secuencia de <br/>Mangas/Categor&iacute;as/Grados de la jornada')?>");
+addTooltip($('#competicion-ordenequiposBtn').linkbutton(),"<?php _e('Ver/Editar el Orden de salida entre equipos');?>");
 addTooltip($('#competicion-ordensalidaBtn').linkbutton(),"<?php _e('Ver/Editar el Orden de salida de la manga');?>");
 addTooltip($('#competicion-competicionBtn').linkbutton(),"<?php _e('Insertar resultados de los participantes en la manga');?>Insertar resultados de los participantes en la manga");
 addTooltip($('#competicion-resultmangaBtn').linkbutton(),"<?php _e('Ver los resultados parciales de la manga');?>"); 

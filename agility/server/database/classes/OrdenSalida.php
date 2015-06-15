@@ -239,6 +239,91 @@ class OrdenSalida extends DBObject {
         return "";
     }
 
+    /**
+     * Obtiene la lista de equipos ordenada según el orden de salida de la manga
+     */
+    function getTeams() {
+        // obtenemos los equipos de la manga y reindexamos segun el ID
+        $eq=$this->__select("*","Equipos","(Jornada={$this->jornada['ID']})","","");
+        if (!is_array($eq)) return $this->error($this->conn->error);
+        $equipos=array();
+        foreach($eq['rows'] as $equipo) { $equipos[$equipo['ID']]=$equipo; }
+        // cogemos ahora el orden de salida de los equipos de esta manga
+        $res=array();
+        $oequipos=explode(',',$this->getOrdenEquipos());
+        foreach($oequipos as $equipo) {
+            // componemos la lista de equipos ordenada segun el orden de salida
+            if ($equipo==="BEGIN") continue;
+            if ($equipo==="END") continue;
+            if (!array_key_exists($equipo,$equipos)) {
+                $this->myLogger->error("El equipo $equipo no esta en la jornada {$this->jornada['ID']} pero figura en el orden de salida de la manga {$this->manga['ID']}");
+            } else {
+                $res[]=$equipos[$equipo];
+            }
+        }
+        return array('rows'=>$res,'total'=>count($res));
+    }
+
+    /**
+     * Obtiene la lista de perros del equipo indicado, ordenados segun el orden de salida
+     * @param {integer} $team ID del equipo a listar
+     */
+    function getDataByTeam($team) {
+        // obtenemos datos del equipo
+        $eq= $this->__selectObject("*","Equipos","(ID=$team) AND (Jornada={$this->jornada['ID']})");
+        if (!is_array($eq)) return $this->error($this->conn->error);
+        $equipos=$eq['rows'];
+
+        // obtenemos los perros de la manga/equipo
+        $rs= $this->__select("*","Resultados","(Manga={$this->manga['ID']}) AND (Equipo=$team)","","");
+        if(!is_array($rs)) return $this->error($this->conn->error);
+        // recreamos el array de perros anyadiendo el ID del perro como clave, así como el nombre del equipo
+        $p1=array();
+        foreach ($rs['rows'] as $resultado) {
+            foreach($equipos as $equipo) { // a bit slow to iterate every team on every dog, but....
+                if ($equipo['ID']===$resultado['Equipo']) { $resultado['NombreEquipo']=$equipo['Nombre']; break;}
+            }
+            $p1[$resultado['Perro']]=$resultado;
+        }
+
+        // NOTA: realmente el ajustar el orden solo es significativo en las competiciones de eq3
+        // pero en dicho caso ya existe un botón específico para ajustar el orden
+        // por consiguiente, estas pasadas se pueden eliminar, pero las dejamos para que la informacion
+        // quede coherente en ambas ventanas
+
+        // primera pasada: ajustamos los perros segun el orden de salida que figura en Orden_Salida
+        $p2=array();
+        $orden=explode(',',$this->getOrden());
+        foreach ($orden as $perro) {
+            if ($perro==="BEGIN") continue;
+            if ($perro==="END") continue;
+            if (!array_key_exists($perro,$p1)) {
+                $this->myLogger->error("El perro $perro esta en el orden de salida pero no en los resultados");
+                // TODO: FIX this consistency error
+            } else {
+                array_push($p2,$p1[$perro]);
+            }
+        }
+
+        // segunda pasada: ordenar por celo
+        $p3=array();
+        foreach(array(0,1) as $celo) {
+            foreach ($p2 as $perro) {
+                if ($perro['Celo']==$celo) array_push($p3,$perro);
+            }
+        }
+
+        // tercera pasada: ordenar por categoria
+        $p4=array();
+        foreach(array('L','M','S','T') as $cat) {
+            foreach ($p3 as $perro) {
+                if ($perro['Categoria']==$cat) array_push($p4,$perro);
+            }
+        }
+        $result = array('total'=>count($p4),'rows'=>$p4);
+        return $result;
+    }
+
 	/**
 	 * Obtiene la lista (actualizada) de perros de una manga en el orden de salida correcto
 	 * En el proceso de inscripcion ya hemos creado la tabla de resultados, y el orden de salida

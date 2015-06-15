@@ -333,9 +333,9 @@ function changeTeam() {
 function reloadOrdenEquipos() {
     if (workingData.jornada==0) return;
     if (workingData.manga==0) return;
-    $('#team-datagrid').datagrid(
+    $('#ordenequipos-datagrid').datagrid(
         'load',
-        { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:'' }
+        {  Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:workingData.manga, where:''	}
     );
 }
 

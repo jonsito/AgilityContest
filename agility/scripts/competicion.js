@@ -658,16 +658,30 @@ function reloadAndCheck() {
 }
 
 function reloadOrdenSalida() {
-	if (workingData.jornada==0) return;
-	if (workingData.manga==0) return;
+    if (workingData.jornada==0) return;
+    if (workingData.manga==0) return;
     $('#ordensalida-datagrid').datagrid(
-            'load',
-            { 
-            	Prueba: workingData.prueba,
-            	Jornada: workingData.jornada , 
-            	Manga: workingData.manga , 
-            	Operation: 'getData' 
-            }
+        'load',
+        {
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada ,
+            Manga: workingData.manga ,
+            Operation: 'getData'
+        }
+    );
+}
+
+function reloadOrdenEquipos() {
+    if (workingData.jornada==0) return;
+    if (workingData.manga==0) return;
+    $('#ordenequipos-datagrid').datagrid(
+        'load',
+        {
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada ,
+            Manga: workingData.manga ,
+            Operation: 'getTeams'
+        }
     );
 }
 
@@ -1058,6 +1072,7 @@ function competicionDialog(name) {
     }
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada;
     $('#ordentandas-dialog').dialog('close');
+    $('#ordensalida-equipos').dialog('close');
     $('#ordensalida-dialog').dialog('close');
     $('#competicion-dialog').dialog('close');
     $('#resultadosmanga-dialog').dialog('close');
@@ -1068,6 +1083,12 @@ function competicionDialog(name) {
         reloadOrdenTandas();
     }
     title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
+    if (name==='ordenequipos') {
+        // abrimos ventana de dialogo
+        $('#ordenequipos-dialog').dialog('open').dialog('setTitle'," Orden de equipos: "+title);
+        // cargamos ventana de orden de salida
+        reloadOrdenEquipos();
+    }
     if (name==='ordensalida') {
         // abrimos ventana de dialogo
         $('#ordensalida-dialog').dialog('open').dialog('setTitle'," Orden de Salida: "+title);
