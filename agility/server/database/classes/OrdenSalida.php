@@ -94,7 +94,6 @@ class OrdenSalida extends DBObject {
 	 * @return {string} "" if success; errormsg on error
 	 */
 	function setOrden($orden) {
-		// TODO: check that $orden matches BEGIN,*,END
 		if (preg_match("/BEGIN,([0-9]+,)*END/",$orden)!==1) {
 			$this->errormsg="OrdenSalida::setOrden(): orden de salida invalido:'$orden'";
 			$this->myLogger->error($this->errormsg);
@@ -114,7 +113,6 @@ class OrdenSalida extends DBObject {
      * @return {string} "" if success; errormsg on error
      */
     function setOrdenEquipos($orden) {
-        // TODO: check that $orden matches BEGIN,*,END
         if (preg_match("/BEGIN,([0-9]+,)*END/",$orden)!==1) {
             $this->errormsg="OrdenSalida::setOrdenEquipos(): orden de equipos invalido:'$orden'";
             $this->myLogger->error($this->errormsg);
@@ -488,7 +486,7 @@ class OrdenSalida extends DBObject {
         if (intval($this->jornada['Equipos3'])==0 ) return;
         $this->myLogger->trace("invirtiendo orden de equipos");
         $res=Resultados::getTeam3Results($res['rows'],$this->prueba['ID'],$this->jornada['ID']);
-        $size= count($data);
+        $size= count($res);
         // recorremos los resultados en orden inverso
         $ordenequipos=$this->getOrdenEquipos();
         // y reinsertamos los perros actualizando el orden

@@ -81,14 +81,37 @@ class Equipos extends DBObject {
 					VALUES($prueba,$jornada,?,?,?,0,'BEGIN,END')";
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param('isss',$orden,$categorias,$nombre,$observaciones);
-		if (!$res) return $this->error($stmt->error);  
-
-		
-		// invocamos la orden SQL y devolvemos el resultado
+		$res=$stmt->bind_param('sss',$categorias,$nombre,$observaciones);
+		if (!$res) return $this->error($stmt->error);
 		$res=$stmt->execute();
-		if (!$res) return $this->error($stmt->error); 
+		if (!$res) return $this->error($stmt->error);
+        $insert_id=$stmt->insert_id; // retrieve inserted team ID
 		$stmt->close();
+
+        // add team to Orden_Equipos in every related mangas
+        $sql="UPDATE Mangas SET Orden_Equipos=? WHERE ID=?";
+        $stmt=$this->conn->prepare($sql);
+        if (!$stmt) return $this->error($this->conn->error);
+        // list of mangas for this jornada
+        $mng=$this->__select("*","Mangas","(Jornada=$jornada)","","");
+        foreach($mng['rows'] as $manga) {
+                $this->myLogger->trace("Insertando al equipo $insert_id en Orden_Equipos jornada:$jornada manga:{$manga['ID']}");
+                $id=$manga['ID']; // ID de la manga
+                $oe=$manga['Orden_Equipos']; // Orden de equipos actual
+                // lo borramos para evitar una posible doble insercion
+                $str = ",$insert_id,";
+                $no = str_replace ( $str, ",", $oe );
+                // componemos el tag que hay que insertar
+                $myTag="$insert_id,END";
+                // y lo insertamos en lugar que corresponde
+                $oe = str_replace ( "END", $myTag, $no );
+                // update database
+                $res=$stmt->bind_param('si',$oe,$id);
+                if (!$res) return $this->error($stmt->error);
+                $res=$stmt->execute();
+                if (!$res) return $this->error($stmt->error);
+        }
+        $stmt->close();
 		$this->myLogger->leave();
 		return "";
 	}
@@ -108,38 +131,65 @@ class Equipos extends DBObject {
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('sss',$n,$o,$c);
-		if (!$res) return $this->error($stmt->error); 
-
-		// invocamos la orden SQL y devolvemos el resultado
+		if (!$res) return $this->error($stmt->error);
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error); 
 		$stmt->close();
+
+        // successful exit
 		$this->myLogger->leave();
 		return "";
 	}
 	
 	function delete($id) {
 		$this->myLogger->enter();
+        $jornada=$this->jornadaID;
 		if ($id<0) return $this->error("Equipos::delete():Invalid Equipo ID:$id provided");
-		// fase 1: buscamos datos del equipo
+
+		// fase 1: buscamos datos del equipo a borrar
 		$team=$this->__getArray("Equipos",$id);
 		if (!is_array($team)){
 			return $this->error("Equipos::delete(): No encuentro el equipo $id en la lista de equipos de esta jornada");
 		}
+
 		// fase 2: comprobamos que no sea el equipo por defecto
-		if ( intval($team['DefaultTeam'])==0 ) {
+		if ( intval($team['DefaultTeam'])!=0 ) {
 			return $this->error("Equipos::delete():Cannot delete default team for this Contest");
 		}
+
 		// fase 3: si este no es el equipo por defecto, reasignamos los perros
 		$perros=explode(",",$team['Miembros']);
 		foreach($perros as $perro) {
 			if ($perro==="BEGIN") continue;
 			if ($perro==="END") continue;
-			$this->insertInscripcion(intval($perro)); // don't use update, as no need to preserve old team
+			$this->insertIntoTeam(intval($perro)); // don't use update, as no need to preserve old team
 		}
+
 		// fase 4: borramos el equipo antiguo de la base de datos
 		$res= $this->query("DELETE FROM Equipos WHERE (ID=$id)");
-		if (!$res) return $this->error($this->conn->error); 
+		if (!$res) return $this->error($this->conn->error);
+
+        // fase 5: borramos el equipo del orden de salida de equipos de la manga
+        // add team to Orden_Equipos in every related mangas
+        $sql="UPDATE Mangas SET Orden_Equipos=? WHERE ID=?";
+        $stmt=$this->conn->prepare($sql);
+        if (!$stmt) return $this->error($this->conn->error);
+        // list of mangas for this jornada
+        $mng=$this->__select("*","Mangas","(Jornada=$jornada)","","");
+        foreach($mng['rows'] as $manga) {
+            $this->myLogger->trace("Eliminando el equipo:$id de Orden_Equipos jornada:$jornada manga:{$manga['ID']}");
+            $mid=$manga['ID']; // ID de la manga
+            $oe=$manga['Orden_Equipos']; // Orden de equipos actual
+            // borramos del orden de equipos el equipo a eliminar
+            $str = ",$id,";
+            $oe = str_replace ( $str, ",", $oe );
+            // update database
+            $res=$stmt->bind_param('si',$oe,$id);
+            if (!$res) return $this->error($stmt->error);
+            $res=$stmt->execute();
+            if (!$res) return $this->error($stmt->error);
+        }
+        $stmt->close();
 		$this->myLogger->leave();
 		return "";
 	}
@@ -216,31 +266,31 @@ class Equipos extends DBObject {
 	 * @return "" on success; else error String
 	 */
 	function insertIntoTeam($idperro,$idteam=0) {
-		$team=null;
-		if ($idteam==0) {
-			// si no id team buscamos el equipo al que pertenece (o el default)
-			$team=$this->getTeamByPerro($idperro);
-			$idteam=$team['ID'];
-		} else {
-			// obtenemos datos del equipo solicitado
-			$teams=$this->getTeamsByJornada();
-			foreach($teams as $equipo) { 
-				if ($equipo['ID']==$idteam) {$team=$equipo; break;}
-			}
-			if ($team==null) return $this->error("El equipo:$idteam NO pertenece a la jornada:{$this->jornadaID}");
+		if ($idteam==0) { // equipo no especificado: search default
+            $idteam=$this->getDefaultTeam();
 		}
+		// obtenemos datos del equipo solicitado
+        $team=null;
+		$teams=$this->getTeamsByJornada();
+		foreach($teams as $equipo) {
+			if ($equipo['ID']==$idteam) {$team=$equipo; break;}
+		}
+		if ($team==null) return $this->error("El equipo:$idteam NO pertenece a la jornada:{$this->jornadaID}");
+
 		// borramos el perro de todos los equipos de la jornada
 		$this->removeFromTeam($idperro);
-		$ordensalida=$team['Miembros'];
+
+        // y ahora lo insertamos en el nuevo equipo
+		$teammembers=$team['Miembros'];
 		// como esta copia no esta actualizada, hay que remover tambien de la lista
 		$str = ",$idperro,";
-		$nuevoorden = str_replace ( $str, ",", $ordensalida );
+		$newmembers = str_replace ( $str, ",", $teammembers );
 		// componemos el tag que hay que insertar
 		$myTag=",$idperro,END";
 		// y lo insertamos en lugar que corresponde
-		$ordensalida = str_replace ( ",END", $myTag, $nuevoorden );
+		$teammembers = str_replace ( ",END", $myTag, $newmembers );
 		// update database
-		$str="UPDATE Equipos SET Miembros='$ordensalida' WHERE (ID=$idteam)";
+		$str="UPDATE Equipos SET Miembros='$teammembers' WHERE (ID=$idteam)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 		return ""; // success
