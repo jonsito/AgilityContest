@@ -92,7 +92,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             return '<div style="padding:2px"><table id="' + dg + '"></table></div>';
         },
         onExpandRow: function(idx,row) {
-            var dg=$('#team_datagrid');
+            var dg=$('#ordenequipos-datagrid');
             // collapse previous expanded row
             var oldRow=dg.datagrid('options').expandedRow;
             if ( (oldRow!=-1) && (oldRow!=idx) ) { dg.datagrid('collapseRow',oldRow); }
@@ -121,14 +121,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         $(mySelf).datagrid({
             width: '100%',
             height: 'auto',
-            title: '<?php _e('Inscripciones registradas en el equipo');?>: '+team.Nombre,
+            title: '<?php _e('Participantes del equipo');?>: '+team.Nombre,
             pagination: false,
             rownumbers: false,
             fitColumns: true,
             singleSelect: true,
-            loadMsg: '<?php _e('Leyendo inscripciones....');?>',
-            url: '/agility/server/database/inscripcionFunctions.php',
-            queryParams: { Operation: 'inscritosbyteam', Prueba:workingData.prueba, Jornada:workingData.jornada, Equipo: team.ID },
+            loadMsg: '<?php _e('Leyendo orden de salida del equipo....');?>'+team.Nombre,
+            url: '/agility/server/database/ordenSalidaFunctions.php',
+            queryParams: {
+                Operation: 'getDataByTeam',
+                Prueba:workingData.prueba,
+                Jornada:workingData.jornada,
+                Manga: workingData.manga,
+                Equipo: team.ID
+            },
             method: 'get',
             mode: 'remote',
             multiSort: 'true', // can sort only "-- Sin asignar --" team
@@ -144,13 +150,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 { field:'Club',		hidden:true }, // Club ID
                 { field:'LOE_RRC',	hidden:true }, // LOE/RRC
                 { field:'Club',		hidden:true }, // Club ID
-                { field:'Dorsal',	width:6,        sortable:true, align: 'right',	title: '<?php _e('Dorsal'); ?>' },
-                { field:'Nombre',	width:15,       sortable:true, align: 'right',	title: '<?php _e('Nombre'); ?>' },
-                { field:'Licencia',	width:6,        sortable:true, align: 'center',title: '<?php _e('Lic');    ?>' },
-                { field:'Categoria',width:4,        sortable:false, align: 'center',title: '<?php _e('Cat');    ?>' },
-                { field:'Grado',	width:6,        sortable:false, align: 'center',title: '<?php _e('Grado');  ?>' },
-                { field:'NombreGuia',	width:25,   sortable:true, align: 'right',	title: '<?php _e('Gu&iacute;a'); ?>' },
-                { field:'NombreClub',	width:15,   sortable:true, align: 'right',	title: '<?php _e('Club');   ?>' },
+                { field:'Dorsal',	width:6,    align: 'right',	title: '<?php _e('Dorsal'); ?>' },
+                { field:'Nombre',	width:15,   align: 'right',	title: '<?php _e('Nombre'); ?>' },
+                { field:'Licencia',	width:6,    align: 'center',title: '<?php _e('Lic');    ?>' },
+                { field:'Categoria',width:4,    align: 'center',title: '<?php _e('Cat');    ?>' },
+                { field:'Grado',	width:6,    align: 'center',title: '<?php _e('Grado');  ?>' },
+                { field:'NombreGuia',	width:25,align: 'right',	title: '<?php _e('Gu&iacute;a'); ?>' },
+                { field:'NombreClub',	width:15,align: 'right',	title: '<?php _e('Club');   ?>' },
                 { field:'NombreEquipo',	hidden:true },
                 { field:'Observaciones',width:15,                                   title: '<?php _e('Observaciones');?>' },
                 { field:'Celo',		width:4, align:'center', formatter: formatCelo,	title: '<?php _e('Celo');   ?>' }
@@ -158,27 +164,21 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:myRowStyler,
             onResize:function(){
-                $('#team_datagrid').datagrid('fixDetailRowHeight',index);
+                $('#ordenequipos-datagrid').datagrid('fixDetailRowHeight',index);
             },
             onLoadSuccess:function(){
                 setTimeout(function(){
-                    $('#team_datagrid').datagrid('fixDetailRowHeight',index);
+                    $('#ordenequipos-datagrid').datagrid('fixDetailRowHeight',index);
                 },0);
-            },
-            // only allow sorting when default team
-            onBeforeSortColumn(sort,order) {
-                return (team.Nombre=='-- Sin asignar --')?true:false;
-            },
-            // on double click fireup editor dialog
-            onDblClickRow:function(index,row) { changeTeamDialog(mySelf,row); }
+            }
         }); // end of inscritos-by-team_team_id
 
-        addSimpleKeyHandler(mySelf,changeTeamDialog);
-        $('#team_datagrid').datagrid('fixDetailRowHeight',index);
+        addSimpleKeyHandler(mySelf,null); // to allow debugging rows
+        $('#ordenequipos-datagrid').datagrid('fixDetailRowHeight',index);
     } // end of showPerrosByGuia
 
     //activa teclas up/down para navegar por el panel , esc para cerrar y ctrl+shift+enter para ver fila
-    addSimpleKeyHandler('#ordenequipos-datagrid','#ordenequipos-dialog');
+    addSimpleKeyHandler('#ordenequipos-datagrid',null);
 
     // botones
     addTooltip($('#ordenequipos-checkBtn').linkbutton(),"Verificar 'alertas de proximidad' <br/>entre perros del mismo gu&iacute;a");

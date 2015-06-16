@@ -269,10 +269,10 @@ class OrdenSalida extends DBObject {
      * @param {integer} $team ID del equipo a listar
      */
     function getDataByTeam($team) {
+        $this->myLogger->enter();
         // obtenemos datos del equipo
-        $eq= $this->__selectObject("*","Equipos","(ID=$team) AND (Jornada={$this->jornada['ID']})");
-        if (!is_array($eq)) return $this->error($this->conn->error);
-        $equipos=$eq['rows'];
+        $eqdata= $this->__selectAsArray("*","Equipos","(ID=$team) AND (Jornada={$this->jornada['ID']})");
+        if (!is_array($eqdata)) return $this->error($this->conn->error);
 
         // obtenemos los perros de la manga/equipo
         $rs= $this->__select("*","Resultados","(Manga={$this->manga['ID']}) AND (Equipo=$team)","","");
@@ -280,9 +280,7 @@ class OrdenSalida extends DBObject {
         // recreamos el array de perros anyadiendo el ID del perro como clave, así como el nombre del equipo
         $p1=array();
         foreach ($rs['rows'] as $resultado) {
-            foreach($equipos as $equipo) { // a bit slow to iterate every team on every dog, but....
-                if ($equipo['ID']===$resultado['Equipo']) { $resultado['NombreEquipo']=$equipo['Nombre']; break;}
-            }
+            $resultado['NombreEquipo']=$eqdata['Nombre'];
             $p1[$resultado['Perro']]=$resultado;
         }
 
@@ -291,18 +289,15 @@ class OrdenSalida extends DBObject {
         // por consiguiente, estas pasadas se pueden eliminar, pero las dejamos para que la informacion
         // quede coherente en ambas ventanas
 
-        // primera pasada: ajustamos los perros segun el orden de salida que figura en Orden_Salida
+        // primera pasada: ajustamos los perros del equipo segun el orden de salida que figura en Orden_Salida
         $p2=array();
         $orden=explode(',',$this->getOrden());
         foreach ($orden as $perro) {
+            // esto es una guarreria: realmente parsea todos los perros de la manga
+            // para al final extraer solo cuatro perros.... pendiente de mejorar un poco
             if ($perro==="BEGIN") continue;
             if ($perro==="END") continue;
-            if (!array_key_exists($perro,$p1)) {
-                $this->myLogger->error("El perro $perro esta en el orden de salida pero no en los resultados");
-                // TODO: FIX this consistency error
-            } else {
-                array_push($p2,$p1[$perro]);
-            }
+            if (array_key_exists($perro,$p1)) array_push($p2,$p1[$perro]);
         }
 
         // segunda pasada: ordenar por celo
@@ -321,6 +316,7 @@ class OrdenSalida extends DBObject {
             }
         }
         $result = array('total'=>count($p4),'rows'=>$p4);
+        $this->myLogger->leave();
         return $result;
     }
 
