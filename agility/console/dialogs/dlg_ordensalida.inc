@@ -21,6 +21,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<table id="ordensalida-datagrid" style="padding:5px"></table>
 </div>
 
+<!--  dialogo de ajuste manual del orden de equipos en competiciones modalidad eq3 -->
+<div id="ordeneq3-dialog" style="width:640px;height:300px;padding:5px">
+    <!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
+    <table id="ordeneq3-datagrid" style="padding:5px"></table>
+</div>
+
 <!-- BARRA DE TAREAS DE ORDEN DE SALIDA -->
 <div id="ordensalida-toolbar" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
@@ -30,6 +36,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	   		data-options="iconCls:'icon-updown'" onclick="evalOrdenSalida('reverse')">Invertir</a>
 	   	<a id="ordensalida-cloneBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls:'icon-downdown'" onclick="evalOrdenSalida('sameorder')">Clonar</a>
+	   	<a id="ordensalida-eq3Btn" href="#" class="easyui-linkbutton"
+           data-options="iconCls:'icon-huella'" onclick="$('#ordeneq3-dialog').dialog('open');">Equipos</a>
 	   	<a id="ordensalida-checkBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls:'icon-help'" onclick="reloadAndCheck()">Revisar</a>
    		</span>
@@ -43,6 +51,59 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 
 <script type="text/javascript">
+
+$('#ordeneq3-dialog').dialog({
+    title:          "Ajuste manual del orden de los equipos de la manga",
+    collapsible:	false,
+    minimizable:	false,
+    maximizable:	false,
+    resizable:		true,
+    iconCls:		'icon-huella',
+    closed:			true,
+    modal:			true,
+    onBeforeOpen:   reloadSimpleOrdenEquipos
+});
+
+// datos de la tabla de equipos
+$('#ordeneq3-datagrid').datagrid({
+    // propiedades del panel asociado
+    fit: true,
+    url: '/agility/server/database/ordenSalidaFunctions.php',
+    queryParams: { Operation:'getTeams', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:workingData.manga, where:''	},
+    loadMsg: '<?php _e('Actualizando lista de equipos');?> ...',
+    method: 'get',
+    mode: 'remote',
+    multiSort: false,
+    remoteSort: false,
+    idField: 'ID',
+    columns: [[
+        { field:'ID',			hidden:true },
+        { field:'Prueba',		hidden:true },
+        { field:'Jornada',		hidden:true },
+        // { field:'Orden',		hidden:true },
+        { field:'Nombre',		width:20, title: '<?php _e('Nombre');?>' },
+        { field:'Categorias',	width:10, title: '<?php _e('Cat.');?>' },
+        { field:'Observaciones',width:65, title: '<?php _e('Observaciones');?>'},
+        { field:'Miembros',		hidden:true },
+        { field:'DefaultTeam',	width:5, align: 'center', title: 'Def', formatter:formatOk }
+    ]],
+    pagination: false,
+    rownumbers: true,
+    fitColumns: true,
+    singleSelect: true,
+    view: scrollview,
+    pageSize: 25,
+    rowStyler: myRowStyler, // function that personalize colors on alternate rows
+    onBeforeLoad: function (params) {return (workingData.manga>0) }, // do not load if no manga selected
+    onLoadSuccess: function(data) { $(this).datagrid('enableDnd'); },
+    onDragEnter: function(dst,src) {
+        return (dst.DefaultTeam!=1 && src.DefaultTeam!=1) // allow dnd if not from/to default team
+    },
+    onDrop: function(dst,src,updown) {
+        dragAndDropOrdenEquipos(src.ID,dst.ID,(updown==='top')?0:1,reloadSimpleOrdenEquipos);
+    }
+});
+
 $('#ordensalida-dialog').dialog({
 	collapsible:	false,
 	minimizable:	false,
@@ -118,6 +179,7 @@ addTooltip($('#ordensalida-checkBtn').linkbutton(),"Verificar 'alertas de proxim
 addTooltip($('#ordensalida-randomBtn').linkbutton(),"Generar un nuevo orden de salida aleatorio");
 addTooltip($('#ordensalida-reverseBtn').linkbutton(),"Orden de salida inverso a resultados de primera manga");
 addTooltip($('#ordensalida-cloneBtn').linkbutton(),"Clonar el orden de salida de la primera manga");
+addTooltip($('#ordensalida-eq3Btn').linkbutton(),"Ajuste manual del orden de salida por equipos");
 addTooltip($('#ordensalida-printBtn').linkbutton(),"Imprimir el orden de salida");
 addTooltip($('#ordensalida-reloadBtn').linkbutton(),"Recargar orden de salida. Actualizar ventana");
 

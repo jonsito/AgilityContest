@@ -165,11 +165,12 @@ $('#team_datagrid').datagrid({
         if ( (oldRow!=-1) && (oldRow!=idx) ) { dg.datagrid('collapseRow',oldRow); }
         dg.datagrid('options').expandedRow=idx;
         showInscripcionesByTeam(idx,row);
-    },
+    }
+    /* ,
     onCollapseRow: function(idx,row) {
         var dg="#team-inscripcion-datagrid-"+ replaceAll(' ','_',row.ID);
         $(dg).remove();
-    } /* ,
+    } *//* ,
     onLoadSuccess: function(data) { $(this).datagrid('enableDnd'); },
     onDragEnter: function(dst,src) {
         return (dst.DefaultTeam!=1 && src.DefaultTeam!=1) // allow dnd if not from/to default team

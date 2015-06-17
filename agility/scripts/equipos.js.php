@@ -335,12 +335,19 @@ function changeTeam() {
 }
 
 function reloadOrdenEquipos() {
-    if (workingData.jornada==0) return;
-    if (workingData.manga==0) return;
     $('#ordenequipos-datagrid').datagrid(
         'load',
-        {  Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:workingData.manga, where:''	}
+        {  Operation:'getTeams', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:workingData.manga, where:''	}
     );
+    return true;
+}
+
+function reloadSimpleOrdenEquipos() {
+    $('#ordeneq3-datagrid').datagrid(
+        'load',
+        {  Operation:'getTeams', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:workingData.manga, where:''	}
+    );
+    return true;
 }
 
 // reajusta el orden de salida de los equipos
@@ -349,14 +356,21 @@ function reloadOrdenEquipos() {
 function dragAndDropOrdenEquipos(from,to,where,whenDone) {
     if (workingData.prueba==0) return;
     if (workingData.jornada==0) return;
+    if (workingData.manga==0) return;
     $.ajax({
         type:'GET',
-        url:"/agility/server/database/equiposFunctions.php",
+        url:"/agility/server/database/ordenSalidaFunctions.php",
         dataType:'json',
         data: {
-            Operation: 'dnd', Prueba: workingData.prueba, Jornada: workingData.jornada, From: from,To: to,Where: where
+            Operation: 'dndTeams',
+            Prueba: workingData.prueba,
+            Jornada: workingData.jornada,
+            Manga: workingData.manga,
+            From: from,
+            To: to,
+            Where: where
         }
     }).done( function(msg) {
-        whenDone();
+        if (whenDone) whenDone();
     });
 }

@@ -28,7 +28,6 @@ switch(http_request("tipo","s","std")) {
             return 0;
         }
         require_once("dialogs/dlg_ordensalida.inc");
-        require_once("dialogs/dlg_ordenequipos.inc");
         require_once("dialogs/dlg_competicion.inc");
         require_once("dialogs/dlg_resultados_eq3.inc");
         break;
@@ -72,9 +71,6 @@ switch(http_request("tipo","s","std")) {
 		<a id="competicion-ordentandasBtn" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-updown'" style="width:185px"
 			onclick="competicionDialog('ordentandas');"><?php _e('Programaci&oacute;n');?></a>
-		<a id="competicion-ordenequiposBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-huella'" style="width:185px"
-           onclick="competicionDialog('ordenequipos');"><?php _e('Orden de equipos');?></a>
 		<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-order'" style="width:185px"
            onclick="competicionDialog('ordensalida');"><?php _e('Orden de salida');?></a>
@@ -170,7 +166,6 @@ $('#competicion-listamangas').datagrid({
 
 //tooltips
 addTooltip($('#competicion-ordentandasBtn').linkbutton(),"<?php _e('Ver/Ordenar la secuencia de <br/>Mangas/Categor&iacute;as/Grados de la jornada')?>");
-addTooltip($('#competicion-ordenequiposBtn').linkbutton(),"<?php _e('Ver/Editar el Orden de salida entre equipos');?>");
 addTooltip($('#competicion-ordensalidaBtn').linkbutton(),"<?php _e('Ver/Editar el Orden de salida de la manga');?>");
 addTooltip($('#competicion-competicionBtn').linkbutton(),"<?php _e('Insertar resultados de los participantes en la manga');?>Insertar resultados de los participantes en la manga");
 addTooltip($('#competicion-resultmangaBtn').linkbutton(),"<?php _e('Ver los resultados parciales de la manga');?>"); 

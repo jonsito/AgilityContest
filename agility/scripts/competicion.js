@@ -1083,17 +1083,20 @@ function competicionDialog(name) {
         reloadOrdenTandas();
     }
     title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
-    if (name==='ordenequipos') {
-        // abrimos ventana de dialogo
-        $('#ordenequipos-dialog').dialog('open').dialog('setTitle'," Orden de equipos: "+title);
-        // cargamos ventana de orden de salida
-        reloadOrdenEquipos();
-    }
     if (name==='ordensalida') {
-        // abrimos ventana de dialogo
-        $('#ordensalida-dialog').dialog('open').dialog('setTitle'," Orden de Salida: "+title);
-        // cargamos ventana de orden de salida
-        reloadOrdenSalida();
+        if (isJornadaEq4()) {
+            // abrimos ventana de dialogo
+            $('#ordenequipos-dialog').dialog('open').dialog('setTitle'," Orden de Salida: "+title);
+            // cargamos ventana de orden de salida
+            reloadOrdenEquipos();
+        } else {
+            // abrimos ventana de dialogo y ajustamos presencia o no del boton de equipos
+            var display=isJornadaEq3()?"inline-block":"none";
+            $('#ordensalida-dialog').dialog('open').dialog('setTitle'," Orden de Salida: "+title);
+            $('#ordensalida-eq3Btn').css('display',display);
+            // cargamos ventana de orden de salida
+            reloadOrdenSalida();
+        }
     }
     if (name==='competicion') {
         // abrimos ventana de dialogo
