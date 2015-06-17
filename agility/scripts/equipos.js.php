@@ -240,11 +240,10 @@ function deleteTeam(dg){
 			"<p><?php _e('Esta operaci&oacute;n borrar&aacute; el equipo de la jornada');?><br />"+
 			"<p><?php _e('Desea realmente eliminar el equipo');?> '"+row.Nombre+"' <?php _e('de esta jornada');?>?</p>",function(r){
         if (r){
-            $.get('/agility/server/database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba},function(result){
+            $.get('/agility/server/database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba,Jornada:row.Jornada},function(result){
                 if (result.success){
                     $(dg).datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});    // reload the prueba data 
-                    $('#new_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
-                    $('#edit_inscripcion-Equipo').combogrid('grid').datagrid('load'); 
+                    $('selteam-Equipo').combogrid('grid').datagrid('load'); // update assingment combogrid list
                 } else {
                     $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
                 }

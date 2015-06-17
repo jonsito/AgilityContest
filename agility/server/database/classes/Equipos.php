@@ -18,6 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 require_once("DBObject.php");
+require_once("OrdenSalida.php");
 
 class Equipos extends DBObject {
 
@@ -95,30 +96,14 @@ class Equipos extends DBObject {
         $insert_id=$stmt->insert_id; // retrieve inserted team ID
 		$stmt->close();
 
-        // add team to Orden_Equipos in every related mangas
-        $sql="UPDATE Mangas SET Orden_Equipos=? WHERE ID=?";
-        $stmt=$this->conn->prepare($sql);
-        if (!$stmt) return $this->error($this->conn->error);
         // list of mangas for this jornada
         $mng=$this->__select("*","Mangas","(Jornada=$jornada)","","");
         foreach($mng['rows'] as $manga) {
-                $this->myLogger->trace("Insertando al equipo $insert_id en Orden_Equipos jornada:$jornada manga:{$manga['ID']}");
-                $id=$manga['ID']; // ID de la manga
-                $oe=$manga['Orden_Equipos']; // Orden de equipos actual
-                // lo borramos para evitar una posible doble insercion
-                $str = ",$insert_id,";
-                $no = str_replace ( $str, ",", $oe );
-                // componemos el tag que hay que insertar
-                $myTag="$insert_id,END";
-                // y lo insertamos en lugar que corresponde
-                $oe = str_replace ( "END", $myTag, $no );
-                // update database
-                $res=$stmt->bind_param('si',$oe,$id);
-                if (!$res) return $this->error($stmt->error);
-                $res=$stmt->execute();
-                if (!$res) return $this->error($stmt->error);
+            $this->myLogger->trace("Insertando al equipo $insert_id en Orden_Equipos jornada:$jornada manga:{$manga['ID']}");
+            $osobj=new OrdenSalida("Equipos::insert",$manga['ID']);
+            // add team to Orden_Equipos in every related mangas
+            $osobj->insertIntoTeamList($insert_id);
         }
-        $stmt->close();
 		$this->myLogger->leave();
 		return "";
 	}
@@ -170,25 +155,13 @@ class Equipos extends DBObject {
         if (!$res) return $this->error($this->conn->error);
 
         // fase 4: borramos el equipo del orden de salida de equipos de la manga
-        // add team to Orden_Equipos in every related mangas
-        $sql="UPDATE Mangas SET Orden_Equipos=? WHERE ID=?";
-        $stmt=$this->conn->prepare($sql);
-        if (!$stmt) return $this->error($this->conn->error);
-        // list of mangas for this jornada
-        $mng=$this->__select("*","Mangas","(Jornada=$jornada)","","");
+        $mng=$this->__select("*","Mangas","(Jornada=$jornada)","",""); // list of mangas for this jornada
         foreach($mng['rows'] as $manga) {
             $this->myLogger->trace("Eliminando el equipo:$id de Orden_Equipos jornada:$jornada manga:{$manga['ID']}");
-            // borramos del orden de equipos el equipo a eliminar
-            $str = ",$id,";
-            $oe = str_replace ( $str, ",", $manga['Orden_Equipos'] );
-            $mid=$manga['ID']; // ID de la manga
-            // update database
-            $res=$stmt->bind_param('si',$oe,$mid);
-            if (!$res) return $this->error($stmt->error);
-            $res=$stmt->execute();
-            if (!$res) return $this->error($stmt->error);
+            $osobj=new OrdenSalida("Equipos::remove",$manga['ID']);
+            // add team to Orden_Equipos in every related mangas
+            $osobj->removeFromTeamList($id);
         }
-        $stmt->close();
 
         // fase 5: finalmente borramos el equipo antiguo de la base de datos
         $res= $this->query("DELETE FROM Equipos WHERE (ID=$id)");
