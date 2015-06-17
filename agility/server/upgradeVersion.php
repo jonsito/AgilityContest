@@ -93,11 +93,47 @@ class Updater {
         $this->conn->query($call);
         $this->myLogger->leave();
     }
+
+
+    //2.0.0b stupid mysql doesn't properly dump views
+    function updatePerroGuiaClub() {
+        $cmds=array(
+            "DROP TABLE IF EXISTS `perroguiaclub`;",
+            "DROP VIEW IF EXISTS `perroguiaclub`;",
+            "CREATE VIEW `perroguiaclub` AS
+                select `perros`.`ID` AS `ID`,
+                `perros`.`Federation` AS `Federation`,
+                `perros`.`Nombre` AS `Nombre`,
+                `perros`.`Raza` AS `Raza`,
+                `perros`.`Licencia` AS `Licencia`,
+                `perros`.`LOE_RRC` AS `LOE_RRC`,
+                `perros`.`Categoria` AS `Categoria`,
+                `categorias_perro`.`Observaciones` AS `NombreCategoria`,
+                `perros`.`Grado` AS `Grado`,
+                `grados_perro`.`Comentarios` AS `NombreGrado`,
+                `perros`.`Guia` AS `Guia`,
+                `guias`.`Nombre` AS `NombreGuia`,
+                `guias`.`Club` AS `Club`,
+                `clubes`.`Nombre` AS `NombreClub`,
+                `clubes`.`Logo` AS `LogoClub`
+                from ((((`perros` join `guias`) join `clubes`) join `grados_perro`) join `categorias_perro`)
+                where (
+                    (`perros`.`Guia` = `guias`.`ID`)
+                    and (`guias`.`Club` = `clubes`.`ID`)
+                    and (`perros`.`Categoria` = `categorias_perro`.`Categoria`)
+                    and (`perros`.`Grado` = `grados_perro`.`Grado`))
+                    order by `clubes`.`Nombre`,`perros`.`Categoria`,`perros`.`Nombre`;"
+        );
+        foreach ($cmds as $query) { $this->conn->query($query); }
+        return 0;
+    }
+
 }
 
 $upg=new Updater();
 try {
     $upg->updateVersionHistory();
+    $upg->updatePerroGuiaClub();
     if ( strcmp($upg->current_version, $upg->last_version) > 0) {
         $upg->addColumnUnlessExists("Mangas","Orden_Equipos","TEXT");
     }

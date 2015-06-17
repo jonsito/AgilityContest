@@ -7437,7 +7437,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=359 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=360 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -7453,7 +7453,7 @@ INSERT INTO `sesiones` VALUES
 (4,'Ring 3','Mangas a realizar en el tercer ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (5,'Ring 4','Mangas a realizar en el cuarto ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (344,'Console','operator - Operador de consola',4,'ljW1csmCZktSILaU',0,0,0,0,'',NULL,NULL,NULL,'2015-06-06 15:07:15'),
-(358,'Console','admin - Administrador de la aplicacion',3,'jkR9GFLYgcwS0eaT',0,0,0,0,'',NULL,NULL,NULL,'2015-06-12 11:58:31');
+(359,'Console','admin - Administrador de la aplicacion',3,'DqnOWPJ5cC6yfwrz',0,0,0,0,'',NULL,NULL,NULL,'2015-06-17 00:56:56');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -8079,7 +8079,8 @@ LOCK TABLES `versionhistory` WRITE;
 /*!40000 ALTER TABLE `versionhistory` DISABLE KEYS */;
 INSERT INTO `versionhistory` VALUES 
 ('20150609_1457','2015-06-10 12:19:56'),
-('20150611_1445','2015-06-11 12:46:13');
+('20150611_1445','2015-06-11 12:46:13'),
+('20150612_1421','2015-06-17 00:56:52');
 /*!40000 ALTER TABLE `versionhistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
