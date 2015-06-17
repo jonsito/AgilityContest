@@ -1,5 +1,5 @@
 <!-- 
-dlg_ordensalida.inc
+dlg_ordenequipos.inc
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-<!--  dialogo de orden de salida e introduccion de datos de una competicion -->
+<!--  dialogo de orden de salida e introduccion de datos de una competicion por equipos (4 conjunta) -->
 <div id="ordenequipos-dialog" style="width:800px;height:450px;padding:5px">
     <!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
     <table id="ordenequipos-datagrid" style="padding:5px"></table>
