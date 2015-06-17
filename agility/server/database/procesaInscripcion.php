@@ -71,9 +71,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 	$p=$jornada['Prueba'];
 	$idperro=$inscripcion['Perro'];
 	$g=$perro['Grado'];
-	// nos aseguramos de que el perro tiene un equipo
-	$eqobj =new Equipos("inscribePerroEnJornada",$p,$j);
-	$eqobj->updateTeam($perro['ID'],0); // 0: add to default team
+
 	// buscamos la lista de mangas de esta jornada
 	$mobj=new Mangas("inscribePerroEnJornada",$jornada['ID']);
 	$mangas=$mobj->selectByJornada();
@@ -137,6 +135,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 			// borramos entrada del perro en la tabla de resultados de la manga
 			$rs->delete($idperro);
 		} else {
+            $eqobj =new Equipos("inscribePerroEnJornada",$p,$j);
 			// nos aseguramos de que existe una entrada 
 			$myLogger->info("Insertando Perro:$idperro Grado:$g en Resultados manga:$mid");
 			// en la tabla de resultados de esta manga para este perro
