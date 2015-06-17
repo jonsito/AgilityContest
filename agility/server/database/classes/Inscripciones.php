@@ -346,60 +346,26 @@ class Inscripciones extends DBObject {
 		$jornadaobj=$this->__getObject("Jornadas",$teamobj->Jornada);
 		if (!is_object($jornadaobj))
 			return $this->error("No puedo obtener datos de la jornada: {$teamobj->Jornada} asociada al equipo: $team");
-		$mask= 1 << ($jornadaobj->Numero -1 );
-		$prueba= $this->pruebaID;
-		$rows=array();
         $order=getOrderString(
             http_request("sort","s",""),
             http_request("order","s",""),
             "NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"
         );
 		// extraemos la lista de inscritos
+        $tname=escapeString($teamobj->Nombre);
 		$lista=$this->__select(
-				/*select*/	"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, {$teamobj->Jornada} AS Jornada,
-				Inscripciones.Dorsal AS Dorsal, Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
-				PerroGuiaClub.Raza AS Raza, PerroGuiaClub.Licencia AS Licencia, PerroGuiaClub.LOE_RRC AS LOE_RRC,
-				PerroGuiaClub.Categoria AS Categoria, PerroGuiaClub.Grado AS Grado, Inscripciones.Celo AS Celo,
-				PerroGuiaClub.Guia AS Guia, PerroGuiaClub.Club AS Club, PerroGuiaClub.NombreGuia AS NombreGuia,
-                PerroGuiaClub.NombreClub AS NombreClub, PerroGuiaClub.LogoClub AS Logo, $team AS Equipo,
-				Inscripciones.Observaciones AS Observaciones, Inscripciones.Jornadas AS Jornadas, Inscripciones.Pagado AS Pagado",
-				/* from */	"Inscripciones,PerroGuiaClub",
-				/* where */ "( Inscripciones.Perro = PerroGuiaClub.ID)	AND ( Inscripciones.Prueba=$prueba ) AND ( ((Inscripciones.Jornadas & $mask))<>0 )",
+                /*select*/ "DISTINCT Resultados.Prueba,Resultados.Jornada, Resultados.Dorsal, Resultados.Perro,
+                            Resultados.Nombre, Resultados.Raza, Resultados.Licencia, Resultados.Categoria, Resultados.Grado,
+                            Resultados.Celo,Resultados.NombreGuia,Resultados.NombreClub, Resultados.Equipo,
+                            PerroGuiaClub.Club AS Club, PerroGuiaClub.Guia AS Guia,PerroGuiaClub.LogoClub AS Logo,
+                            '$tname' AS NombreEquipo",
+				/* from */	"Resultados,PerroGuiaClub",
+				/* where */ "( PerroGuiaClub.ID = Resultados.Perro)	AND ( Resultados.Jornada={$teamobj->Jornada} ) AND ( Resultados.Equipo=$team )",
 				/* order */ $order,
 				/* limit */ ""
 			);
-        // si estamos en el equipo por defecto, usamos el orden solicitado
-        if (intval($teamobj->DefaultTeam)!=0) {
-            $this->myLogger->leave();
-            return $lista;
-        }
-        // si no, ordenamos según el orden de salida del equipo
-		// reindex using perro as index
-        // notice that this invalidates sort request
-		$inscripciones=array();
-		foreach($lista['rows'] as $inscripcion) {
-            $inscripcion['NombreEquipo']=$teamobj->Nombre;
-			$inscripciones[$inscripcion['Perro']]=$inscripcion;
-		}
-		// ahora comprobamos consistencia de los listados de equipos
-		// y generamos el array de resultados
-		$rows=array();
-		$list=explode(',',$teamobj->Miembros);
-		foreach ( $list as $perro) {
-			if (strpos($perro,"BEGIN")!==false) continue;
-			if (strpos($perro,"END")!==false) continue;
-			if (!array_key_exists(strval($perro),$inscripciones)) {
-				$this->error("Inscripciones::inscritosByTeam():El perro $perro del equipo $team no esta inscrito en la jornada {$teamobj->Jornada} de la prueba $prueba");
-				// $this->removeFromList($perro); // cleanup. should not be needed, but....
-                continue;
-			}
-			// todo correcto: anyadimos el perro a la lista
-			array_push($rows,$inscripciones[$perro]);
-		}
-		// ok: componemos resultado y retornamos
-		$result= array( 'total' => count($rows), 'rows' => $rows);
-		$this->myLogger->leave();
-		return $result;
+        $this->myLogger->leave();
+        return $lista;
 	}
 			
 	/*

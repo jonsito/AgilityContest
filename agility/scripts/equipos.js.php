@@ -71,8 +71,10 @@ function checkTeams(datagrid) {
                 return false;
             }
             str ="<h4>Comprobaci&oacute;n de los equipos registrados<br />Jornada '"+workingData.datosJornada.Nombre+"'</h4>";
-            str +="<p><strong>N&uacute;mero de equipos: "+(data['teams'].length-1)+"</strong></p>";
-            str+="<p><strong>Perros sin equipo asignado: "+data['default'][0]['Numero']+"</strong></p>";
+            str +="<p><strong>N&uacute;mero de equipos: "+(data['teams'].length)+"</strong></p>";
+            if (typeof(data['default'][0])!=="undefined") {
+                str+="<p><strong>Perros sin equipo asignado: "+data['default'][0]['Numero']+"</strong></p>";
+            }
             str+=checkTeamsCompose(data['more'],'Equipos con exceso de perros');
             str+=checkTeamsCompose(data['less'],'Equipos incompletos');
             var w=$.messager.alert("Verificar",str,"info");
@@ -122,13 +124,15 @@ function printTeams(datagrid) {
                 return false;
             }
             str ="<h4>Comprobaci&oacute;n de los equipos registrados<br />Jornada '"+workingData.datosJornada.Nombre+"'</h4>";
-            str +="<p><strong>N&uacute;mero de equipos: "+(data['teams'].length-1)+"</strong></p>";
-            str+="<p><strong>Perros sin equipo asignado: "+data['default'][0]['Numero']+"</strong></p>";
+            str +="<p><strong>N&uacute;mero de equipos: "+(data['teams'].length)+"</strong></p>";
+            if (typeof(data['default'][0])!=="undefined") {
+                str+="<p><strong>Perros sin equipo asignado: "+data['default'][0]['Numero']+"</strong></p>";
+                flag=true;
+            }
             str+=checkTeamsCompose(data['more'],'Equipos con exceso de perros');
             str+=checkTeamsCompose(data['less'],'Equipos incompletos');
             str+="<p><em>Imprimir de todos modos?</em></p>";
             // si hay errores presentamos alerta y preguntamos si se quiere continuar
-            if (data['default'][0]['Numero']>0) flag=true;
             if (data['more'].length>0) flag=true;
             if (data['less'].length>0) flag=true;
             if (flag==false) { realPrintTeams(); return false; }

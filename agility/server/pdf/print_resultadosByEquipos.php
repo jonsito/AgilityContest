@@ -42,6 +42,7 @@ class ResultadosByEquipos extends PrintCommon {
 	protected $resultados;
     protected $equipos;
 	protected $mode;
+    protected $eqmgr;
     protected $defaultPerro = array( // participante por defecto para garantizar que haya 4perros/equipo
         'Dorsal' => '-',
         'Perro' => 0,
@@ -85,6 +86,7 @@ class ResultadosByEquipos extends PrintCommon {
             array(_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Cat.'),_('Flt.'),_('Toc.'),_('Reh.'),
                   _('Tiempo'),_('Vel.'),_('Penal.'),_('Calificación'),_('Puesto'),_('Global Equipo'));
         $this->equipos=Resultados::getTeam3Results($resultados['rows'],$prueba,$jornada);
+        $this->eqmgr=new Equipos("print_resultadosByEquipos",$prueba,$jornada);
 	}
 	
 	// Cabecera de página
@@ -130,14 +132,12 @@ class ResultadosByEquipos extends PrintCommon {
         if ($team['Nombre']==="-- Sin asignar --") {
             $logos[0]='agilitycontest.png';
         } else {
+            $miembros=$this->eqmgr->getPerrosByTeam($team['ID']);
             $count=0;
-            foreach( explode(",",$team['Miembros']) as $miembro) {
-                if ($miembro==="BEGIN") continue;
-                if ($miembro==="END") continue;
+            for ($n=0;$n<count($miembros);$n++) {
+                $miembro=$miembros[$n]['Perro'];
                 $logo=$this->getLogoName(intval($miembro));
-                if (file_exists(__DIR__.'/../../images/logos/'.$logo ) ){
-                    if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
-                }
+                if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
         $offset=($this->PageNo()==1)?57:45;

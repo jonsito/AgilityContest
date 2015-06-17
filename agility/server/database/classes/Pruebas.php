@@ -63,6 +63,7 @@ class Pruebas extends DBObject {
 			// retrieve ID of inserted jornada
 			$jornadaid=$this->conn->insert_id;
 			// create default team for each journey
+            // notice that "Miembros" is no longer used, just set not null for db integrity
 			$str="INSERT INTO Equipos (Prueba,Jornada,Orden,Nombre,Observaciones,Miembros,DefaultTeam)
 				VALUES ($pruebaid,$jornadaid,1,'-- Sin asignar --','NO BORRAR: PRUEBA $pruebaid JORNADA $jornadaid - Default Team','BEGIN,END',1 )";
 			$res=$this->query($str);

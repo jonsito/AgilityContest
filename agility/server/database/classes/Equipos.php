@@ -23,6 +23,8 @@ class Equipos extends DBObject {
 
 	protected $pruebaID;
 	protected $jornadaID;
+    protected $teamsByJornada;
+    protected $defaultTeam;
 	
 	/**
 	 * Constructor
@@ -46,23 +48,27 @@ class Equipos extends DBObject {
 		}
 	}
 
-    function getTeamsBy($by) {
-        $prueba=$this->pruebaID;
-        $jornada=$this->jornadaID;
-        // obtenemos los equipos de esta jornada
-        $res= $this->__select("*","Equipos","( Prueba = $prueba ) AND ( Jornada = $jornada )","$by ASC","");
-        if (!is_array($res)) {
-            return $this->error("{$this->file}::getTeamsByJornada() cannot get team data for prueba:$prueba jornada:$jornada");
+    function getTeamsByJornada(){
+        if ($this->teamsByJornada==null) {
+            $p=$this->pruebaID;
+            $j=$this->jornadaID;
+            // obtenemos los equipos de esta jornada
+            $res= $this->__select("*","Equipos","( Prueba = $p ) AND ( Jornada = $j )","Jornada ASC","");
+            if (!is_array($res)) {
+                $this->myLogger->error("{$this->file}::getTeamsByJornada() cannot get team data for prueba:$p jornada:$j");
+            }
+            $this->teamsByJornada=$res['rows'];
         }
-        return $res['rows'];
+        return $this->teamsByJornada;
     }
 
-    function getTeamsByJornada(){ return $this->getTeamsBy('Nombre'); }
-
 	function getDefaultTeam() {
-		$prueba=$this->pruebaID;
-		$jornada=$this->jornadaID;
-		return $this->__selectAsArray("*","Equipos","( Prueba=$prueba ) AND ( Jornada=$jornada ) AND (DefaultTeam=1)");
+        if ($this->defaultTeam==null) {
+            $prueba=$this->pruebaID;
+            $jornada=$this->jornadaID;
+            $this->defaultTeam=$this->__selectAsArray("*","Equipos","( Prueba=$prueba ) AND ( Jornada=$jornada ) AND (DefaultTeam=1)");
+        }
+        return $this->defaultTeam;
 	}
 	
 	function insert() {
@@ -77,6 +83,7 @@ class Equipos extends DBObject {
         $this->myLogger->info("Prueba:$prueba Jornada:$jornada Nombre:'$nombre' Observaciones:'$observaciones'");
 
 		// componemos un prepared statement
+        // Miembros is no longer used. just set not null for DB integrity
 		$sql ="INSERT INTO Equipos (Prueba,Jornada,Categorias,Nombre,Observaciones,DefaultTeam,Miembros)
 					VALUES($prueba,$jornada,?,?,?,0,'BEGIN,END')";
 		$stmt=$this->conn->prepare($sql);
@@ -157,19 +164,12 @@ class Equipos extends DBObject {
 			return $this->error("Equipos::delete():Cannot delete default team for this Contest");
 		}
 
-		// fase 3: si este no es el equipo por defecto, reasignamos los perros
-		$perros=explode(",",$team['Miembros']);
-		foreach($perros as $perro) {
-			if ($perro==="BEGIN") continue;
-			if ($perro==="END") continue;
-			$this->insertIntoTeam(intval($perro)); // don't use update, as no need to preserve old team
-		}
+		// fase 3: reasignamos los perros al equipo por defecto
+        $dteam=$this->getDefaultTeam()['ID'];
+        $res=$this->query("UPDATE Resultados SET Equipo=$dteam WHERE (Equipo=$id)");
+        if (!$res) return $this->error($this->conn->error);
 
-		// fase 4: borramos el equipo antiguo de la base de datos
-		$res= $this->query("DELETE FROM Equipos WHERE (ID=$id)");
-		if (!$res) return $this->error($this->conn->error);
-
-        // fase 5: borramos el equipo del orden de salida de equipos de la manga
+        // fase 4: borramos el equipo del orden de salida de equipos de la manga
         // add team to Orden_Equipos in every related mangas
         $sql="UPDATE Mangas SET Orden_Equipos=? WHERE ID=?";
         $stmt=$this->conn->prepare($sql);
@@ -178,18 +178,22 @@ class Equipos extends DBObject {
         $mng=$this->__select("*","Mangas","(Jornada=$jornada)","","");
         foreach($mng['rows'] as $manga) {
             $this->myLogger->trace("Eliminando el equipo:$id de Orden_Equipos jornada:$jornada manga:{$manga['ID']}");
-            $mid=$manga['ID']; // ID de la manga
-            $oe=$manga['Orden_Equipos']; // Orden de equipos actual
             // borramos del orden de equipos el equipo a eliminar
             $str = ",$id,";
-            $oe = str_replace ( $str, ",", $oe );
+            $oe = str_replace ( $str, ",", $manga['Orden_Equipos'] );
+            $mid=$manga['ID']; // ID de la manga
             // update database
-            $res=$stmt->bind_param('si',$oe,$id);
+            $res=$stmt->bind_param('si',$oe,$mid);
             if (!$res) return $this->error($stmt->error);
             $res=$stmt->execute();
             if (!$res) return $this->error($stmt->error);
         }
         $stmt->close();
+
+        // fase 5: finalmente borramos el equipo antiguo de la base de datos
+        $res= $this->query("DELETE FROM Equipos WHERE (ID=$id)");
+        if (!$res) return $this->error($this->conn->error);
+
 		$this->myLogger->leave();
 		return "";
 	}
@@ -261,13 +265,17 @@ class Equipos extends DBObject {
 	/**
 	 * Inscribe a un perro en el equipo indicado.
 	 * Si no se indica, lo inscribe en el equipo por defecto
+     * TODO: Asumimos que la jornada no está cerrada....
+     *
+     * Nota: El campo "Miembros" ya no se usa.
+     * Lo que haremos sera actualizar el campo "Equipo" de la tabla de resultados
 	 * @param {integer} $idperro ID Perro
 	 * @param {integer} $idteam ID equipo. 0: default team
 	 * @return "" on success; else error String
 	 */
-	function insertIntoTeam($idperro,$idteam=0) {
+	function updateTeam($idperro,$idteam=0) {
 		if ($idteam==0) { // equipo no especificado: search default
-            $idteam=$this->getDefaultTeam();
+            $idteam=$this->getDefaultTeam()['ID'];
 		}
 		// obtenemos datos del equipo solicitado
         $team=null;
@@ -277,69 +285,58 @@ class Equipos extends DBObject {
 		}
 		if ($team==null) return $this->error("El equipo:$idteam NO pertenece a la jornada:{$this->jornadaID}");
 
-		// borramos el perro de todos los equipos de la jornada
-		$this->removeFromTeam($idperro);
+        // asignamos el perro
+        $res=$this->query("UPDATE Resultados SET Equipo=$idteam WHERE (Perro=$idperro) AND (Jornada={$this->jornadaID})");
+        if (!$res) return $this->error($this->conn->error);
 
-        // y ahora lo insertamos en el nuevo equipo
-		$teammembers=$team['Miembros'];
-		// como esta copia no esta actualizada, hay que remover tambien de la lista
-		$str = ",$idperro,";
-		$newmembers = str_replace ( $str, ",", $teammembers );
-		// componemos el tag que hay que insertar
-		$myTag=",$idperro,END";
-		// y lo insertamos en lugar que corresponde
-		$teammembers = str_replace ( ",END", $myTag, $newmembers );
-		// update database
-		$str="UPDATE Equipos SET Miembros='$teammembers' WHERE (ID=$idteam)";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
 		return ""; // success
 	}
-	
-	/**
-	 * Borra a un perro de TODOS los equipos de la jornada
-	 * @param {integer} $perro IDPerro
-	 */
-	function removeFromTeam($idperro) {
-		$str = ",$idperro,";
-		$teams=$this->getTeamsByJornada();
-		foreach($teams as $team) {
-			$idequipo=$team['ID'];
-			$listamiembros=$team['Miembros'];
-			$nuevalista = str_replace ( $str, ",", $listamiembros );
-			if ($listamiembros===$nuevalista) continue; // not inscribed in this team. no teed to update DB
-			// update database
-			$str="UPDATE Equipos SET Miembros='$nuevalista' WHERE (ID=$idequipo)";
-			$rs=$this->query($str);
-			if (!$rs) return $this->error($this->conn->error);
-		}
-		return "";
-	}
-	
-	/**
-	 * Cambia un perro de equipo
-     * TODO: Asumimos que la jornada no está cerrada....
-	 * @param {integer} $idperro
-	 * @param {integer} $idequipo
-	 */
-	function updateTeam($idperro,$idequipo) {
-		// insertamos el nueva (remove implicito)
-		$this->insertIntoTeam($idperro,$idequipo);
-		// actualizamos tabla de resultados
-		$str="UPDATE Resultados SET Equipo=$idequipo WHERE (Perro=$idperro) AND (Jornada={$this->jornadaID})";
-		$rs=$this->query($str);
-		if (!$rs) return $this->error($this->conn->error);
-		return "";
-	}
-	
+
+    /**
+     * Obtiene los datos del equipo en el que esta inscrito el perro para esta jornada
+     * Si no los encuentra, indica error y retorna el equipo por defecto
+     * @param $idperro
+     * @return mixed|null|object|stdClass Errormsg o array con los datos
+     */
 	function getTeamByPerro($idperro) {
-		$prueba=$this->pruebaID;
 		$jornada=$this->jornadaID;
-		$team=$this->__selectAsArray("*","Equipos","( Prueba=$prueba ) AND ( Jornada=$jornada ) AND (Miembros LIKE '%,$idperro,%')");
+        $team=$this->__selectAsArray(
+            "DISTINCT Equipos.*",
+            "Equipos,Resultados",
+            "(Resultados.Jornada=$jornada) AND (Resultados.Perro=$idperro) AND
+             (Resultados.Jornada=Equipos.Jornada) AND (Resultados.Equipo=Equipos.ID)");
 		if (is_array($team)) return $team; 
 		$this->myLogger->info("El perro $idperro no figura en ningun equipo de la jornada {$this->jornadaID}");
 		return $this->getDefaultTeam();
 	}
+
+    // like Inscripciones::inscritosByTeam but no search nor order
+    function getPerrosByTeam($team) {
+        $this->myLogger->enter();
+        // obtenemos los datos del equipo
+        $teamobj=$this->__getObject("Equipos",$team);
+        if (!is_object($teamobj))
+            return $this->error("No puedo obtener datos del equipo con ID: $team");
+        // vemos el numero de la jornada asociada
+        $jornadaobj=$this->__getObject("Jornadas",$teamobj->Jornada);
+        if (!is_object($jornadaobj))
+            return $this->error("No puedo obtener datos de la jornada: {$teamobj->Jornada} asociada al equipo: $team");
+        // extraemos la lista de inscritos
+        $tname=escapeString($teamobj->Nombre);
+        $lista=$this->__select(
+        /*select*/ "DISTINCT Resultados.Prueba,Resultados.Jornada, Resultados.Dorsal, Resultados.Perro,
+                            Resultados.Nombre, Resultados.Raza, Resultados.Licencia, Resultados.Categoria, Resultados.Grado,
+                            Resultados.Celo,Resultados.NombreGuia,Resultados.NombreClub, Resultados.Equipo,
+                            PerroGuiaClub.Club AS Club, PerroGuiaClub.Guia AS Guia,PerroGuiaClub.LogoClub AS Logo,
+                            '$tname' AS NombreEquipo",
+            /* from */	"Resultados,PerroGuiaClub",
+            /* where */ "( PerroGuiaClub.ID = Resultados.Perro)	AND ( Resultados.Jornada={$teamobj->Jornada} ) AND ( Resultados.Equipo=$team )",
+            /* order */ "NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC",
+            /* limit */ ""
+        );
+        $this->myLogger->leave();
+        return $lista['rows'];
+    }
 
     /**
      * check teams on this journey and eval number of dogs belonging to each one
@@ -349,30 +346,37 @@ class Equipos extends DBObject {
         // comprobamos que la jornada sea correcta
         $j=$this->__getObject("Jornadas",$this->jornadaID);
         $max=4;
-        $min=3;
-        if ( intval($j->Equipos3)!=0) $min=3;
-        else  if ( intval($j->Equipos4)!=0) $min=4;
-        else return "La jornada {$j->jornadaID} - '{$j->Nombre}' no tiene declaradas pruebas por equipos";
-        $obj=$this->getTeamsByJornada();
-        if (!is_array($obj)) return $obj; // means error
+        $min=0;
+        if ( intval($j->Equipos3) !=0 ) $min=3;
+        if ( intval($j->Equipos4) !=0 ) $min=4;
+        if ($min==0) return "La jornada {$j->jornadaID} - '{$j->Nombre}' no tiene declaradas pruebas por equipos";
         $res=array();
         $res['default']=array();
         $res['teams']=array();
         $res['more']=array();
         $res['less']=array();
-        foreach ($obj as $team) {
-            $item= array('Nombre' => $team['Nombre'], 'Numero' => count(explode(",",$team['Miembros']))-2);
-            array_push($res['teams'],$item);
+        // extraemos la cuenta de equipos y componentes por equipos
+        $list=$this->__select(
+            /*select */ "Equipos.*,Resultados.Equipo, CONVERT(count(*)/2,UNSIGNED) AS Numero",
+            /* FROM */ "Equipos,Resultados",
+            /* WHERE */ "(Equipos.ID=Resultados.Equipo) AND (Equipos.JORNADA={$this->jornadaID})",
+            /* ORDER */ "",
+            /* LIMIT */ "",
+            /* GROUP */ "Equipo"
+        );
+        if (!is_array($list)) return $list; // means error
+        foreach ($list['rows'] as $team) {
+            array_push($res['teams'],$team);
             if ($team['DefaultTeam']==1) { // vemos el numero de perros que hay en el equipo por defecto
-                array_push($res['default'],$item);
+                array_push($res['default'],$team);
                 continue;
             }
-            if ($item['Numero']>$max) { // si el equipo pasa de 4 perros tomamos nota
-                array_push($res['more'],$item);
+            if ($team['Numero']>$max) { // si el equipo pasa de 4 perros tomamos nota
+                array_push($res['more'],$team);
                 continue;
             }
-            if ($item['Numero']<$min) { // si el equipo tiene menos de "min" perros tomamos nota
-                array_push($res['less'],$item);
+            if ($team['Numero']<$min) { // si el equipo tiene menos de "min" perros tomamos nota
+                array_push($res['less'],$team);
                 continue;
             }
         }

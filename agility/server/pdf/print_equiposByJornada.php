@@ -65,12 +65,21 @@ class EquiposByJornada extends PrintCommon {
         }
 		// Datos de equipos de la jornada
         $m=new Equipos("print_teamsByJornada",$prueba,$jornada);
-        $this->equipos=$m->getTeamsByJornada();
+        $teams=$m->getTeamsByJornada();
+        // reindexamos por ID y anyadimos un campo extra "Perros" con los perros del equipo
+        $this->equipos=array();
+        foreach ($teams as &$equipo) {
+            $equipo['Perros']=$m->getPerrosByTeam($equipo['ID']);
+            $this->equipos[$equipo['ID']]=$equipo;
+        }
+
         // Datos de los participantes (indexados por ID de perro)
         $m=new DBObject("print_teamsByJornada");
         $r=$m->__select("*","Resultados","(Jornada=$jornada)","","");
         $this->perros=array();
-        foreach($r['rows'] as $item) $this->perros[intval($item['Perro'])]=$item;
+        foreach($r['rows'] as $item) {
+            $this->perros[intval($item['Perro'])]=$item;
+        }
         // finalmente internacionalizamos cabeceras
 		$this->cellHeader = 
 				array(_('Dorsal'),_('Nombre'),_('Raza'),_('Lic.'),_('Cat.'),_('Guía'),_('Club'),_('Celo'),_('Observaciones'));
@@ -98,10 +107,8 @@ class EquiposByJornada extends PrintCommon {
             $logos[0]='agilitycontest.png';
         } else {
             $count=0;
-            foreach( explode(",",$team['Miembros']) as $miembro) {
-                if ($miembro==="BEGIN") continue;
-                if ($miembro==="END") continue;
-                $logo=$this->getLogoName(intval($miembro));
+            foreach($team['Perros'] as $miembro) {
+                $logo=$this->getLogoName(intval($miembro['Perro']));
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
@@ -141,21 +148,14 @@ class EquiposByJornada extends PrintCommon {
         $order=0;
         $rowcount=0;
 		foreach($this->equipos as $equipo) {
-            $miembros=explode(",",$equipo['Miembros']);
-            $num=count($miembros)-2;
+            $miembros=$equipo['Perros'];
+            $num=count($miembros);
             if ($num==0) continue; // skip empty teams
             // check for need newpage.
             if ( ($rowcount+3+$num) >40 ) $rowcount=0; // BUG: assume that num is allways less than 34
             if ($rowcount==0) $this->AddPage();
             $rowcount=$this->printTeamInformation($rowcount,$equipo);
-            foreach($miembros as $id) {
-                if ($id==="BEGIN") continue;
-                if ($id==="END") continue;
-                if (!array_key_exists(intval($id),$this->perros)) {
-                    $this->myLogger->error("El equipo {$equipo['ID']} declara perro $id no inscrito");
-                    continue;
-                }
-                $row=$this->perros[$id];
+            foreach($miembros as $row) {
                 $this->ac_SetFillColor( (($order&0x01)==0)?$bg1:$bg2);
     			$this->Cell($this->pos[0],6,$row['Dorsal'],		'LR',0,$this->align[0],true);
                 $this->SetFont('Arial','B',11); // bold 9px

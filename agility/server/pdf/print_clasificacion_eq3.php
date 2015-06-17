@@ -208,9 +208,8 @@ class PrintClasificacionEq3 extends PrintCommon {
             $logos[0]='agilitycontest.png';
         } else {
             $count=0;
-            foreach( explode(",",$team['Miembros']) as $miembro) {
-                if ($miembro==="BEGIN") continue;
-                if ($miembro==="END") continue;
+            for ($n=0;$n<count($team['Perros']);$n++) {
+                $miembro=$team['Perros'][$n]['Perro'];
                 $logo=$this->getLogoName(intval($miembro));
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
