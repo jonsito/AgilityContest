@@ -108,7 +108,7 @@ class EquiposByJornada extends PrintCommon {
         } else {
             $count=0;
             foreach($team['Perros'] as $miembro) {
-                $logo=$this->getLogoName(intval($miembro['Perro']));
+                $logo=$miembro['Logo'];
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
@@ -169,7 +169,7 @@ class EquiposByJornada extends PrintCommon {
     			$this->Cell($this->pos[5],6,$row['NombreGuia'],	'LR',0,$this->align[5],true);
     			$this->Cell($this->pos[6],6,$row['NombreClub'],	'LR',0,$this->align[6],true);
     			$this->Cell($this->pos[7],6,($row['Celo']==0)?"":_("Celo"),	'LR',0,$this->align[7],true);
-    			$this->Cell($this->pos[8],6,$row['Observaciones'],'LR',0,$this->align[8],true);
+    			$this->Cell($this->pos[8],6,/*$row['Observaciones']*/ "",'LR',0,$this->align[8],true);
     			$this->Ln();
     			$order++;
                 $rowcount++;

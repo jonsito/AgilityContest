@@ -135,8 +135,7 @@ class ResultadosByEquipos extends PrintCommon {
             $miembros=$this->eqmgr->getPerrosByTeam($team['ID']);
             $count=0;
             for ($n=0;$n<count($miembros);$n++) {
-                $miembro=$miembros[$n]['Perro'];
-                $logo=$this->getLogoName(intval($miembro));
+                $logo=$miembros[$n]['Logo'];
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
