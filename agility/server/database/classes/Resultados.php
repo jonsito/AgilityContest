@@ -355,35 +355,6 @@ class Resultados extends DBObject {
 		);
 	}
 
-    /**
-     * Evalua los puntos de la manga en funcion de la federacion y de si es o no prueba selectiva
-     * @param {array} resultados de la manga
-     */
-    function evaluatePuntos(&$table) {
-        $prueba=$this->__getObject("Pruebas",$this->IDPrueba);
-        $fed=intval($prueba->RSCE);
-        $selectiva=intval($prueba->Selectiva);
-        switch ($fed) {
-            case 0: // RSCE
-                if ($selectiva==0) return;
-                // TODO: eval mangas en pruebas selectivas RSCE
-                return;
-            case 1: // RFEC
-                // TODO: buscar reglamentos
-                return;
-            case 2: // UCA
-            foreach ($table as &$perro) {
-                switch($perro['CShort']) {
-                    case 'Ex P':$perro["Puntos"]=5; break;
-                    case 'Exc ':$perro["Puntos"]=4; break;
-                    case "M.B.":$perro["Puntos"]=3; break;
-                    case "Bien":$perro["Puntos"]=2; break;
-                    default:    $perro["Puntos"]=0; break;
-                }
-            }
-        }
-    }
-
 	/**
 	 * Presenta una tabla ordenada segun los resultados de la manga
 	 * @return null on error else array en formato easyui datagrid
@@ -542,9 +513,6 @@ class Resultados extends DBObject {
 			*/
 		}
 
-        // evaluamos puntos en funcion de la federacion
-        $this->evaluatePuntos($table);
-
         // componemos datos del array a retornar
         $res['rows']=$table;
         $res['manga']=$this->getDatosManga();
@@ -566,11 +534,12 @@ class Resultados extends DBObject {
      * @param {array} resultados de la manga ordenados por participante
      * @param {int} prueba PruebaID
      * @param {int} jornada JornadaID
+     * @param {int} $tmode 3 o 4
      * @return {array} datos de equipos de la manga ordenados por resultados de equipo
      */
-    static function getTeam3Results($resultados,$prueba,$jornada) {
+    static function getTeamResults($resultados,$prueba,$jornada,$tmode=3) {
         // Datos de equipos de la jornada. obtenemos prueba y jornada del primer elemento del array
-        $m=new Equipos("getTeam3Results",$prueba,$jornada);
+        $m=new Equipos("getTeamResults",$prueba,$jornada);
         $teams=$m->getTeamsByJornada();
 
         // reindexamos por ID y anyadimos un campos extra Tiempo, penalizacion y el array de resultados del equipo
@@ -587,8 +556,8 @@ class Resultados extends DBObject {
             $teamid=$result['Equipo'];
             $equipo=&$equipos[$teamid];
             array_push($equipo['Resultados'],$result);
-            // suma el tiempo y penalizaciones de los tres primeros
-            if (count($equipo['Resultados'])<4) {
+            // suma el tiempo y penalizaciones de los tres/cuatro primeros
+            if (count($equipo['Resultados'])<=$tmode) {
                 $equipo['Tiempo']+=floatval($result['Tiempo']);
                 $equipo['Penalizacion']+=floatval($result['Penalizacion']);
             }
@@ -603,7 +572,10 @@ class Resultados extends DBObject {
                 // no break
                 case 2: $equipo['Penalizacion']+=200.0; // add pending "No presentado"
                 // no break;
-                case 3:case 4: break;
+                case 3: if ($tmode==4) $equipo['Penalizacion']+=200.0; // add pending "No presentado"
+                // no break;
+                case 4:
+                    break;
                 default:
                     $myLogger=new Logger("Resultados::getTreamResults()");
                     $myLogger->error("Equipo {$equipo['ID']} : '{$equipo['Nombre']}' con exceso de participantes:".count($equipo['Resultados']));

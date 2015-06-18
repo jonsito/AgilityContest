@@ -91,7 +91,6 @@ class Clasificaciones extends DBObject {
 				'C1' => $item['CShort'],
                 'Puesto1' => $item['Puesto'], // puesto conjunto
                 'Pcat1' => $item['Pcat'], // puesto por categoria
-                'Pt1' => $item['Puntos'],
 				// datos fake manga 2 ( to be filled if so )
 				'F2' => 0,
 				'R2' => 0,
@@ -101,7 +100,6 @@ class Clasificaciones extends DBObject {
 				'C2' => '',
                 'Puesto2' => 0,
                 'Pcat2' => 0,
-                'Pt2' => 0,
 				// datos globales
 				'Tiempo' => $item['Tiempo'],
 				'Penalizacion' => $item['Penalizacion'],
@@ -126,7 +124,6 @@ class Clasificaciones extends DBObject {
 				$final[$item['Perro']]['C2'] = $item['CShort'];
                 $final[$item['Perro']]['Puesto2'] = $item['Puesto'];
                 $final[$item['Perro']]['Pcat2'] = $item['Pcat'];
-                $final[$item['Perro']]['Pt2'] = $item['Puntos'];
 				$final[$item['Perro']]['Tiempo'] = $final[$item['Perro']]['T1'] + $final[$item['Perro']]['T2'];
 				$final[$item['Perro']]['Penalizacion'] = $final[$item['Perro']]['P1'] + $final[$item['Perro']]['P2'];
 				$final[$item['Perro']]['Calificacion'] = '';

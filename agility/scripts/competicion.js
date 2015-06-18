@@ -84,11 +84,12 @@ function formatTeamResults( value , rows ) {
     var penal=0.0;
     var logos="";
     var width=($('#vw_header-combinadaFlag').text()==='true')?500:1000;
+    var tmode=(isJornadaEq3()?3:4);
     function addLogo(logo) {
         if (logos.indexOf(logo)>=0) return;
         logos = logos + '&nbsp;<img height="40px" src="/agility/images/logos/'+ logo + '"/>';
     }
-    for (var n=0;n<3;n++) {
+    for (var n=0;n<tmode;n++) {
         if ( typeof(rows[n])==='undefined') {
             penal+=200.0;
             logos = logos + '&nbsp';
@@ -113,7 +114,8 @@ function formatTeamResultsConsole( value , rows ) {
     // todo: check eq3 or eq4 contest and eval time and penalization
     var time=0.0;
     var penal=0.0;
-    for (var n=0;n<3;n++) {
+    var tmode=(isJornadaEq3()?3:4);
+    for (var n=0;n<tmode;n++) {
         if ( typeof(rows[n])==='undefined') {
             penal+=200.0;
         } else {
@@ -135,6 +137,7 @@ function formatTeamClasificaciones(value,rows) {
     var time=0.0;
     var penal=0.0;
     var logos="";
+    var tmode=(isJornadaEq3()?3:4);
     function sortResults(a,b) {
         if (a.penal== b.penal) return (a.time - b.time);
         return (a.penal - b.penal);
@@ -160,8 +163,8 @@ function formatTeamClasificaciones(value,rows) {
     // ordenamos ahora las matrices de resultados
     (manga1.perros).sort(sortResults);
     (manga2.perros).sort(sortResults);
-    // y sumamos los tres primeros ( 3 mejores ) resultados
-    for (var n=0;n<3;n++) {
+    // y sumamos los tres/cuatro primeros ( 3Mejores/Conjunta ) resultados
+    for (var n=0;n<tmode;n++) {
         manga1.time +=parseFloat(manga1.perros[n].time);
         manga1.penal +=parseFloat(manga1.perros[n].penal);
         manga2.time +=parseFloat(manga2.perros[n].time);
@@ -185,6 +188,7 @@ function formatTeamClasificaciones(value,rows) {
 function formatTeamClasificacionesConsole(value,rows) {
     var time=0.0;
     var penal=0.0;
+    var tmode=(isJornadaEq3()?3:4);
     function sortResults(a,b) {
         if (a.penal== b.penal) return (a.time - b.time);
         return (a.penal - b.penal);
@@ -204,8 +208,8 @@ function formatTeamClasificacionesConsole(value,rows) {
     // ordenamos ahora las matrices de resultados
     (manga1.perros).sort(sortResults);
     (manga2.perros).sort(sortResults);
-    // y sumamos los tres primeros ( 3 mejores ) resultados
-    for (var n=0;n<3;n++) {
+    // y sumamos los tres/cuatro primeros ( 3Mejores/Conjunta ) resultados
+    for (var n=0;n<tmode;n++) {
         manga1.time +=parseFloat(manga1.perros[n].time);
         manga1.penal +=parseFloat(manga1.perros[n].penal);
         manga2.time +=parseFloat(manga2.perros[n].time);

@@ -489,7 +489,8 @@ class OrdenSalida extends DBObject {
         // FASE 2: ahora invertimos el orden de los equipos en funcion del resultado
         if (intval($this->jornada['Equipos3'])==0 ) return;
         $this->myLogger->trace("invirtiendo orden de equipos");
-        $res=Resultados::getTeam3Results($res['rows'],$this->prueba['ID'],$this->jornada['ID']);
+        $tmode=($this->jornada['Equipos4']!=0)?4:3;
+        $res=Resultados::getTeamResults($res['rows'],$this->prueba['ID'],$this->jornada['ID'],$tmode);
         $size= count($res);
         // recorremos los resultados en orden inverso
         $ordenequipos=$this->getOrdenEquipos();
