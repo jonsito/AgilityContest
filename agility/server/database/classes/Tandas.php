@@ -62,8 +62,8 @@ class Tandas extends DBObject {
 			18	=> array('Tipo'=>18,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Large',	'Categoria'=>'L',	'Grado'=>'-'),
 			19	=> array('Tipo'=>19,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Medium',	'Categoria'=>'M',	'Grado'=>'-'),
 			20	=> array('Tipo'=>20,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Small',	'Categoria'=>'S',	'Grado'=>'-'),
+        // en jornadas por equipos conjunta se mezclan categorias M y S
 			21	=> array('Tipo'=>21,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Large',	'Categoria'=>'M',	'Grado'=>'-'),
-			// en jornadas por equipos conjunta se mezclan categorias M y S
 			22	=> array('Tipo'=>22,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Med/Small','Categoria'=>'MS',	'Grado'=>'-'),
 			23	=> array('Tipo'=>23,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Large',		'Categoria'=>'L',	'Grado'=>'GII'),
 			24	=> array('Tipo'=>24,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Medium',		'Categoria'=>'M',	'Grado'=>'GII'),
@@ -580,7 +580,7 @@ class Tandas extends DBObject {
 	
 	private function insert_remove($rsce,$tipomanga,$oper) {
 		foreach( $this->getTandasInfo('TipoManga',$tipomanga) as $item) {
-			$tipo=$item['Tipo'];
+            $tipo=$item['Tipo'];
 			if( ($rsce==0) && ($item['Categoria']==='T') ) {
 				// remove every "tiny" tandas on RSCE contests
 				$this->removeFromList($tipo);
@@ -591,7 +591,24 @@ class Tandas extends DBObject {
 				$this->removeFromList($tipo);
 				continue;
 			}
-			if ($oper==false) { // remove requested
+            // equipos 4 (tipomanga=9,14) tienen tratamiento especial
+            // pues mezclan categorias
+            if( ($rsce==0) && ( ($tipomanga==9)||($tipomanga==14) ) ) {
+                // remove every "uca/rfec" tandas on RSCE contests for equipos4 mode
+                if (($tipo==47) || ($tipo==48) || ($tipo==53) || ($tipo==54)) {
+                    $this->removeFromList($tipo);
+                    continue;
+                }
+            }
+            if( ($rsce!=0) && ( ($tipomanga==9)||($tipomanga==14) ) ) {
+                // remove every RSCE in contests for "uca/rfec" equipos4 mode
+                if (($tipo==21) || ($tipo==21) || ($tipo==35) || ($tipo==36)) {
+                    $this->removeFromList($tipo);
+                    continue;
+                }
+            }
+            // explicit remove requested
+			if ($oper==false) {
 				$this->removeFromList($tipo);
 				continue;
 			} 

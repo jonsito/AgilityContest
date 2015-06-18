@@ -21,14 +21,14 @@ require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Competicion");
 require_once("dialogs/dlg_ordentandas.inc");
+require_once("dialogs/dlg_ordensalida.inc");
+require_once("dialogs/dlg_competicion.inc");
 switch(http_request("tipo","s","std")) {
     case "eq3":
         if ( ! $am->allowed(ENABLE_TEAM3)) {
             require_once("unregistered.html");
             return 0;
         }
-        require_once("dialogs/dlg_ordensalida.inc");
-        require_once("dialogs/dlg_competicion.inc");
         require_once("dialogs/dlg_resultados_eq3.inc");
         break;
     case "eq4":
@@ -36,15 +36,11 @@ switch(http_request("tipo","s","std")) {
             require_once("unregistered.html");
             return 0;
         }
-        require_once("dialogs/dlg_ordenequipos.inc");
-        require_once("dialogs/dlg_competicion_eq4.inc");
         require_once("dialogs/dlg_resultados_eq4.inc");
         break;
     case "std":
     case "open":
     default:
-        require_once("dialogs/dlg_ordensalida.inc");
-        require_once("dialogs/dlg_competicion.inc");
         require_once("dialogs/dlg_resultadosManga.inc");
         break;
 }
@@ -122,19 +118,6 @@ $('#competicion-listamangas').datagrid({
       	    } // texto del tipo de manga
     ]],
     rowStyler:myRowStyler,
-    onLoadSuccess: function(data) {
-        // show/hide team/orden buttons according kind of journey
-        if (isJornadaEq3()) {
-            $('#competicion-ordenequiposBtn').css('display','inherit');
-            $('#competicion-ordensalidaBtn').css('display','inherit');
-        } else if (isJornadaEq4()){
-            $('#competicion-ordenequiposBtn').css('display','inherit');
-            $('#competicion-ordensalidaBtn').css('display','none');
-        } else {
-            $('#competicion-ordenequiposBtn').css('display','none');
-            $('#competicion-ordensalidaBtn').css('display','inherit');
-        }
-    },
     onClickRow: function (index,row) {
         if (index<0) { // no manga selected
             $('#competicion-datosmanga').html("");

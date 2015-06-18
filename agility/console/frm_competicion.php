@@ -42,16 +42,14 @@ $('#seljornada-window').window({
 		page="/agility/console/frm_competicion2.php?tipo=std";
         var dialogs={'t':'#ordentandas-dialog','s':'#ordensalida-dialog','c':'#competicion-dialog','r':'#resultadosmanga-dialog'};
 		if (workingData.datosJornada.Equipos3==1) {
-            dialogs={'t':'#ordentandas-dialog','e':'#ordeneq3-dialog','s':'#ordensalida-dialog','c':'#competicion-dialog','r':'#resultadosmanga-dialog'};
 			page="/agility/console/frm_competicion2.php?tipo=eq3";
 			extra=" ( <?php _e('Equipos -3 mejores-');?> )";
-            // mark default dialogs
+            // use default dialogs
 		}
 		if (workingData.datosJornada.Equipos4==1) {
-            dialogs={'t':'#ordentandas-dialog','e':'#ordenequipos-dialog','c':'#competicion-dialog','r':'#resultadosmanga-dialog'};
 			page="/agility/console/frm_competicion2.php?tipo=eq4";
 			extra=" ( <?php _e('Equipos -conjunta-');?> )";
-            // mark default dialogs
+            // use default dialogs
 		}
 		if (workingData.datosJornada.Open==1) {
 			// an Open Contest is like a normal with no Grades but only categories

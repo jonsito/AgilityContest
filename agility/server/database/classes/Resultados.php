@@ -288,14 +288,27 @@ class Resultados extends DBObject {
 		// si la actualizacion esta marcada como pendiente
 		$pendiente=http_request("Pendiente","i",1);
 		if ($pendiente==0) {
-			// comprobamos la coherencia de los datos recibidos y ajustamos
-			// NOTA: el orden de estas comprobaciones es MUY importante
-			if ($rehuses>=3) { $tiempo=0; $eliminado=1; $nopresentado=0;}
-			if ($tiempo>0) {$nopresentado=0;}
-			if ($eliminado==1) { $tiempo=0; $nopresentado=0; }
-			if ($nopresentado==1) { $tiempo=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0; }
-			if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; $faltas=0; $rehuses=0; $tocados=0; }
-			if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
+            // cuando pendiente es !=0 tenemos datos del recorrido definitivos.
+            //
+            // comprobamos la coherencia de los datos recibidos y ajustamos
+            // NOTA: el orden de estas comprobaciones es MUY importantee
+            $djornada=$this->getDatosJornada();
+            if ($djornada->Equipos4!=0) { // pruebas por equipos en modalidad de cuatro conjunta
+                if ($rehuses>=3) { $tiempo=0; $faltas=0; $tocados=0; $eliminado=1; $nopresentado=0;}
+                if ($tiempo>0) {$nopresentado=0;}
+                if ($eliminado==1) { $tiempo=0; $faltas=0; $tocados=0; $rehuses=0; $nopresentado=0; }
+                if ($nopresentado==1) { $tiempo=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0; }
+                // en este tipo de pruebas, el tiempo puede ser cero, pues solo se le apunta al ultimo del equipo
+                // if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; $faltas=0; $rehuses=0; $tocados=0; }
+                if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
+            } else { // pruebas "normales" y mangas ko
+                if ($rehuses>=3) { $tiempo=0; $eliminado=1; $nopresentado=0;}
+                if ($tiempo>0) {$nopresentado=0;}
+                if ($eliminado==1) { $tiempo=0; $nopresentado=0; }
+                if ($nopresentado==1) { $tiempo=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0; }
+                if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; $faltas=0; $rehuses=0; $tocados=0; }
+                if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
+            }
 		}
         $this->myLogger->trace("Tiempo es '$tiempo' '");
 		// efectuamos el update, marcando "pendiente" como false
@@ -310,7 +323,7 @@ class Resultados extends DBObject {
 		$this->myLogger->leave();
 		return $this->select($idperro);
 	}
-	
+
 	/**
 	 * Elabora una lista con los perros pendientes de salir en la manga
 	 */

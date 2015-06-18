@@ -36,7 +36,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	   		data-options="iconCls:'icon-updown'" onclick="evalOrdenSalida('reverse')">Invertir</a>
 	   	<a id="ordensalida-cloneBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls:'icon-downdown'" onclick="evalOrdenSalida('sameorder')">Clonar</a>
-	   	<a id="ordensalida-eq3Btn" href="#" class="easyui-linkbutton"
+	   	<a id="ordensalida-eqBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-huella'" onclick="$('#ordeneq3-dialog').dialog('open');">Equipos</a>
 	   	<a id="ordensalida-checkBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls:'icon-help'" onclick="reloadAndCheck()">Revisar</a>
@@ -163,7 +163,12 @@ $('#ordensalida-datagrid').datagrid({
     },
     onDragEnter: function(dst,src) {
         var from=":"+src.Equipo+":"+src.Categoria+":"+src.Celo+":";
-		var to=":"+dst.Equipo+":"+dst.Categoria+":"+dst.Celo+":";
+        var to=":"+dst.Equipo+":"+dst.Categoria+":"+dst.Celo+":";
+        if (isJornadaEq4()) {
+            // en jornadas por equipos conjunta, no hay que tener en cuenta ni categoria ni celo
+            from=":"+src.Equipo+":";
+            to=":"+dst.Equipo+":";
+        }
 		return (from === to);
     },
     onDrop: function(dst,src,updown) {
@@ -179,7 +184,7 @@ addTooltip($('#ordensalida-checkBtn').linkbutton(),"Verificar 'alertas de proxim
 addTooltip($('#ordensalida-randomBtn').linkbutton(),"Generar un nuevo orden de salida aleatorio");
 addTooltip($('#ordensalida-reverseBtn').linkbutton(),"Orden de salida inverso a resultados de primera manga");
 addTooltip($('#ordensalida-cloneBtn').linkbutton(),"Clonar el orden de salida de la primera manga");
-addTooltip($('#ordensalida-eq3Btn').linkbutton(),"Ajuste manual del orden de salida por equipos");
+addTooltip($('#ordensalida-eqBtn').linkbutton(),"Ajuste manual del orden de salida de los equipos");
 addTooltip($('#ordensalida-printBtn').linkbutton(),"Imprimir el orden de salida");
 addTooltip($('#ordensalida-reloadBtn').linkbutton(),"Recargar orden de salida. Actualizar ventana");
 

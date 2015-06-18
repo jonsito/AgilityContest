@@ -376,25 +376,31 @@ class OrdenSalida extends DBObject {
 			}
 		}
 
-		// tercera pasada: ordenar por celo
-		$p4=array();
-		foreach(array(0,1) as $celo) {
-			foreach ($p3 as $perro) {
-				if ($perro['Celo']==$celo) array_push($p4,$perro);
-			}
-		}
+        // en la modalidad equipos 4 los cuatro perros corren juntos,
+        // con independencia de celo/categoria
+        $p5=$p3;
+        if ($this->jornada['Equipos4']==0) {
+            // tercera pasada: ordenar por celo
+            $p4=array();
+            foreach(array(0,1) as $celo) {
+                foreach ($p3 as $perro) {
+                    if ($perro['Celo']==$celo) array_push($p4,$perro);
+                }
+            }
 
-		// cuarta pasada: ordenar por categoria
-		$p5=array();
-		foreach(array('L','M','S','T') as $cat) {
-			foreach ($p4 as $perro) {
-				if ($perro['Categoria']==$cat) array_push($p5,$perro);
-			}
-		}
+            // cuarta pasada: ordenar por categoria
+            $p5=array();
+            foreach(array('L','M','S','T') as $cat) {
+                foreach ($p4 as $perro) {
+                    if ($perro['Categoria']==$cat) array_push($p5,$perro);
+                }
+            }
+        }
 
 		// quinta: intercalar informacion de equipos si se precisa
-		$p6=array();
+		$p6=$p5;
 		if ($teamView) {
+            $p6=array();
 			$equipo=0;
 			foreach ($p5 as $perro) {
 				if ($perro['Equipo']!=$equipo){
@@ -410,8 +416,6 @@ class OrdenSalida extends DBObject {
 				}
 				array_push($p6,$perro);
 			}
-		} else {
-			$p6=$p5;
 		}
 		$result = array();
 		$result["total"] = count($p6);

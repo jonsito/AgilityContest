@@ -1072,7 +1072,6 @@ function competicionDialog(name) {
     }
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada;
     $('#ordentandas-dialog').dialog('close');
-    $('#ordensalida-equipos').dialog('close');
     $('#ordensalida-dialog').dialog('close');
     $('#competicion-dialog').dialog('close');
     $('#resultadosmanga-dialog').dialog('close');
@@ -1084,19 +1083,11 @@ function competicionDialog(name) {
     }
     title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
     if (name==='ordensalida') {
-        if (isJornadaEq4()) {
-            // abrimos ventana de dialogo
-            $('#ordenequipos-dialog').dialog('open').dialog('setTitle'," Orden de Salida: "+title);
-            // cargamos ventana de orden de salida
-            reloadOrdenEquipos();
-        } else {
-            // abrimos ventana de dialogo y ajustamos presencia o no del boton de equipos
-            var display=isJornadaEq3()?"inline-block":"none";
-            $('#ordensalida-dialog').dialog('open').dialog('setTitle'," Orden de Salida: "+title);
-            $('#ordensalida-eq3Btn').css('display',display);
-            // cargamos ventana de orden de salida
-            reloadOrdenSalida();
-        }
+        var display= (isJornadaEq3() || isJornadaEq4())?"inline-block":"none";
+        $('#ordensalida-dialog').dialog('open').dialog('setTitle'," Orden de Salida: "+title);
+        $('#ordensalida-eqBtn').css('display',display);
+        // cargamos ventana de orden de salida
+        reloadOrdenSalida();
     }
     if (name==='competicion') {
         // abrimos ventana de dialogo
