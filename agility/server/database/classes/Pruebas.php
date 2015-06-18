@@ -64,8 +64,8 @@ class Pruebas extends DBObject {
 			$jornadaid=$this->conn->insert_id;
 			// create default team for each journey
             // notice that "Miembros" is no longer used, just set not null for db integrity
-			$str="INSERT INTO Equipos (Prueba,Jornada,Orden,Nombre,Observaciones,Miembros,DefaultTeam)
-				VALUES ($pruebaid,$jornadaid,1,'-- Sin asignar --','NO BORRAR: PRUEBA $pruebaid JORNADA $jornadaid - Default Team','BEGIN,END',1 )";
+			$str="INSERT INTO Equipos (Prueba,Jornada,Nombre,Observaciones,Miembros,DefaultTeam)
+				VALUES ($pruebaid,$jornadaid,'-- Sin asignar --','NO BORRAR: PRUEBA $pruebaid JORNADA $jornadaid - Default Team','BEGIN,END',1 )";
 			$res=$this->query($str);
 			if (!$res) return $this->error($this->conn->error);
             // retrieve ID of inserted default team and insert into newly created jornada
@@ -191,24 +191,31 @@ class Pruebas extends DBObject {
 	 */
 	function enumerate($am=null) {
 		$this->myLogger->enter();
+        // retrieve number of inscriptions for this contest
         if ($am==null) $am=new AuthManager("Pruebas::enumerate");
         $limit=$am->getUserLimit();
+        $inscritos=$this->__select("Prueba, count(*) AS Inscritos","Inscripciones","1 GROUP BY Prueba","","");
+
 		// evaluate search criteria for query
 		$q=http_request("q","s",null);
-		$where= "(Pruebas.Club=Clubes.ID) AND ( Pruebas.Cerrada=0 ) AND (Inscripciones.Prueba=Pruebas.ID) ";
+		$where= "(Pruebas.Club=Clubes.ID) AND ( Pruebas.Cerrada=0 ) ";
 		if($q!=="") $where="$where AND ( (Pruebas.Nombre LIKE '%$q%' ) OR (Clubes.Nombre LIKE '%$q%') OR (Pruebas.Observaciones LIKE '%$q%') )";
-        $where ="$where GROUP BY Inscripciones.Prueba";
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
 							Pruebas.Ubicacion AS Ubicacion, Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel, 
 							Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva, Pruebas.Cerrada AS Cerrada,
-							Pruebas.Observaciones AS Observaciones, count(Inscripciones.Dorsal) AS Inscritos, $limit as UserLimit",
-				/* FROM */ "Pruebas,Clubes,Inscripciones",
+							Pruebas.Observaciones AS Observaciones, $limit as UserLimit",
+				/* FROM */ "Pruebas,Clubes",
 				/* WHERE */ $where,
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""
 		);
+        // parse result and add inscriptions count
+        foreach ($result['rows'] as &$item) { // pass by reference
+            $item['Inscritos']=0;
+            foreach($inscritos['rows'] as $data) { if ($data['Prueba']==$item['ID']) $item['Inscritos']=$data['Inscritor']; }
+        }
 		// return composed array
 		$this->myLogger->leave();
 		return $result;

@@ -72,7 +72,7 @@ $('#team_edit_dialog').dialog({
 	maximizable:false,
 	resizable:false,
 	buttons:'#team_dialog-buttons',
-	onBeforeOpen:function(){ $('#team_edit_dialog-tiny').css('display',(workingData.datosPrueba.RSCE==0)?'none':'inherit');	}
+	onBeforeOpen:function(){ $('#team_edit_dialog-tiny').css('display',(workingData.datosPrueba.RSCE==0)?'none':'inline');	}
 });
 
 $('#team_edit_dialog-Nombre').validatebox({
