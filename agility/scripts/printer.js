@@ -133,6 +133,26 @@ function print_asistente(pages) {
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
+/**
+ * En pruebas de equipos 4 conjunta se ofrece la opción de usar una única entrada para el equipo
+ */
+function print_asistenteEquipos() {
+    $.fileDownload(
+        '/agility/server/pdf/print_entradaDeDatosEquipos4.php',
+        {
+            httpMethod: 'GET',
+            data: {
+                Prueba: workingData.prueba,
+                Jornada: workingData.jornada,
+                Manga: workingData.manga
+            },
+            preparingMessageHtml: "We are preparing your report, please wait...",
+            failMessageHtml: "There was a problem generating your report, please try again."
+        }
+    );
+    return false; //this is critical to stop the click event which will trigger a normal file download!
+}
+
 /********************** impresion de datos parciales ***************/
 
 function print_parcial(mode) {
@@ -201,10 +221,22 @@ function checkAndPrintParcial(val) {
  */
 function print_commonDesarrollo(def) {
 
+    var options= {
+        0:((def==0)?'*':'')+'Programa de actividades de la jornada',
+        1:((def==1)?'*':'')+'Orden de salida de la manga<br/>',
+        2:((def==2)?'*':'')+'Hoja de calculo para evaluar el TRS y TRM',
+        3:((def==3)?'*':'')+'Hoja para apuntar datos de las mangas<br/>',
+        4:((def==4)?'*':'')+'Hojas para el asistente de pista (1 perro/página)',
+        5:((def==5)?'*':'')+'Hojas para el asistente de pista (5 perros/página)',
+        6:((def==6)?'*':'')+'Hojas para el asistente de juez (10 perros/página)<br/>'
+        // As we need to select categoria, cannot directly access to print parciales
+        //7:((def==7)?'*':'')+'Imprimir resultados parciales de la manga'
+    };
+
     function checkCanPrint(oper) {
         switch(parseInt(oper)){
             case 0: case 2: case 3: return true;
-            case 1: case 4: case 5: case 6: case 7:
+            case 1: case 4: case 5: case 6: case 7:case 8:
                 var row= $('#competicion-listamangas').datagrid('getSelected');
                 if (row )  return true;
                 $.messager.alert('Error','No hay ninguna manga seleccionada','error');
@@ -212,21 +244,13 @@ function print_commonDesarrollo(def) {
         }
         return false;
     }
-
+    if (isJornadaEq4()) {
+        options[8]=((def==8)?'*':'')+'Hojas para el asistente de pista (equipos-4)';
+    }
     $.messager.radio(
         'Imprimir documento',
         'Indica el tipo de documento que quieres generar:',
-            {
-                0:((def==0)?'*':'')+'Programa de actividades de la jornada',
-                1:((def==1)?'*':'')+'Orden de salida de la manga<br/>',
-                2:((def==2)?'*':'')+'Hoja de calculo para evaluar el TRS y TRM',
-                3:((def==3)?'*':'')+'Hoja para apuntar datos de las mangas<br/>',
-                4:((def==4)?'*':'')+'Hojas para el asistente de pista (1 perro/página)',
-                5:((def==5)?'*':'')+'Hojas para el asistente de pista (5 perros/página)',
-                6:((def==6)?'*':'')+'Hojas para el asistente de juez (10 perros/página)<br/>'
-                // As we need to select categoria, cannot directly access to print parciales
-                //7:((def==7)?'*':'')+'Imprimir resultados parciales de la manga'
-            },
+        options,
         function(r){
             if (!r) return false;
             if (!checkCanPrint(r)) return false;
@@ -239,10 +263,13 @@ function print_commonDesarrollo(def) {
                 case 5: print_asistente(5); break;
                 case 6: print_asistente(10); break;
                 // case 7: checkAndPrintParcial(val); break;
+                case 8: print_asistenteEquipos(); break;
             }
         }).window('resize',{width:450});
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
+
+
 /******************************** Datos de clasificacion general **********************/
 
 /**
