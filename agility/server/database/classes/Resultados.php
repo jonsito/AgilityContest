@@ -222,7 +222,7 @@ class Resultados extends DBObject {
         // remember Primary key: (manga,perro)
 		$sql="INSERT INTO Resultados (Prueba,Jornada,Manga,Equipo,Dorsal,Perro,Raza,Nombre,Licencia,Categoria,Grado,Celo,NombreGuia,NombreClub)
                 VALUES ($prueba,$jornada,$manga,$equipo,$dorsal,$perro,'$raza','$nombre','$licencia','$categoria','$grado',$celo,'$guia','$club')
-                ON DUPLICATE KEY UPDATE Equipo=$equipo, Dorsal=$dorsal, Raza='$raza', Nombre='$nombre', Categoria='$categoria',
+                ON DUPLICATE KEY UPDATE Equipo=$equipo, Dorsal=$dorsal, Raza='$raza', Nombre='$nombre', Licencia='$licencia', Categoria='$categoria',
                                         Grado='$grado', Celo=$celo, NombreGuia='$guia', NombreClub='$club' ";
         $rs= $this->query($sql);
         if (!$rs) return $this->error($this->conn->error);
