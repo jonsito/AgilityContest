@@ -214,7 +214,7 @@ class Pruebas extends DBObject {
         // parse result and add inscriptions count
         foreach ($result['rows'] as &$item) { // pass by reference
             $item['Inscritos']=0;
-            foreach($inscritos['rows'] as $data) { if ($data['Prueba']==$item['ID']) $item['Inscritos']=$data['Inscritor']; }
+            foreach($inscritos['rows'] as $data) { if ($data['Prueba']==$item['ID']) $item['Inscritos']=$data['Inscritos']; }
         }
 		// return composed array
 		$this->myLogger->leave();

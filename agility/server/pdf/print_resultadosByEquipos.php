@@ -82,10 +82,11 @@ class ResultadosByEquipos extends PrintCommon {
 		$this->manga=$manga;
 		$this->resultados=$resultados;
         $this->mode=$mode;
+        $tmode=($this->jornada->Equipos3!=0)?3:4;
         $this->cellHeader=
             array(_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Cat.'),_('Flt.'),_('Toc.'),_('Reh.'),
                   _('Tiempo'),_('Vel.'),_('Penal.'),_('Calificación'),_('Puesto'),_('Global Equipo'));
-        $this->equipos=Resultados::getTeam3Results($resultados['rows'],$prueba,$jornada);
+        $this->equipos=Resultados::getTeamResults($resultados['rows'],$prueba,$jornada,$tmode);
         $this->eqmgr=new Equipos("print_resultadosByEquipos",$prueba,$jornada);
 	}
 	

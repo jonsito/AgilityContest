@@ -75,7 +75,7 @@ class CSV  {
 	}
 	
 	function writeCell($row) {
-		$this->myLogger->trace(json_encode($row));
+		// $this->myLogger->trace(json_encode($row));
 		$line  ="";
 		$line .= $row['Dorsal'].":";
 		$line .= $this->prueba->Nombre.":";
