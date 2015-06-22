@@ -160,14 +160,16 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
         $this->ac_SetFillColor("#ffffff"); // white background
         $this->SetXY(71,7+$y);
         $this->Cell(49,10,"",'R',0,'L',true);
-        $this->Cell(30,10,"",'R',0,'L',true);
         $this->Cell(20,10,"",'R',0,'L',true);
+        $this->Cell(15,10,"",'R',0,'L',true);
+        $this->Cell(15,10,"",'R',0,'L',true);
         $this->Cell(29,10,"",'',0,'L',true);
         $this->SetXY(71,7+$y+1);
         $this->SetFont('Arial','I',8); // italic 8px
         $this->Cell(49,2.5,"Faltas",0,0,'L',false);
-        $this->Cell(30,2.5,"Rehuses",0,0,'L',false);
-        $this->Cell(20,2.5,"Tocados",0,'L',false);
+        $this->Cell(20,2.5,"Rehuses",0,0,'L',false);
+        $this->Cell(15,2.5,"Tocados",0,'L',false);
+        $this->Cell(15,2.5,"Eliminados",0,'L',false);
         $this->Cell(29,2.5,"Tiempo",0,0,'L',false);
         // TODO: write
 	}
