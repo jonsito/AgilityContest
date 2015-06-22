@@ -100,36 +100,61 @@ class EquiposByJornada extends PrintCommon {
 		$this->print_commonFooter();
 	}
 	
-	function printTeamInformation($rowcount,$team) {
+	function printTeamInfo($rowcount,$team,$members) {
         // evaluate logos
         $logos=array('null.png','null.png','null.png','null.png');
         if ($team['Nombre']==="-- Sin asignar --") {
             $logos[0]='agilitycontest.png';
         } else {
             $count=0;
-            foreach($team['Perros'] as $miembro) {
+            foreach($members as $miembro) {
                 $logo=$miembro['Logo'];
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
-        $this->SetXY(10,45+6*$rowcount);
-		$this->ac_header(1,18);
-        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),12),"LT",0,'C',($logos[0]==='null.png')?true:false);
-        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX(),$this->getY(),12),"T",0,'C',($logos[1]==='null.png')?true:false);
-        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX(),$this->getY(),12),"T",0,'C',($logos[2]==='null.png')?true:false);
-        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX(),$this->getY(),12),"T",0,'C',($logos[3]==='null.png')?true:false);
-        $this->Cell(132,12,$team['Nombre'],'T',0,'R',true);
-        $this->Cell(10,12,'','TR',0,'R',true); // empty space at right of page
-        $this->Ln();
-        $this->ac_header(2,9);
-        for($i=0;$i<count($this->cellHeader);$i++) {
-            // en la cabecera texto siempre centrado
-            $this->Cell($this->pos[$i],6,$this->cellHeader[$i],1,0,'C',true);
+        // posicion de la celda
+        $y=50+15*($rowcount%10);
+        $this->SetXY(10,$y);
+        // caja de datos de perros
+        $this->ac_header(2,16);
+        $this->Cell(12,12,1+$rowcount,'LTBR',0,'C',true);
+        $this->Cell(50,12,"","TBR",0,'C',true);
+        $this->SetY($y+1);
+        $this->ac_header(2,16);
+        foreach($members as $id => $perro) {
+            $this->SetX(22);
+            $this->ac_row($id,6);
+            $this->Cell(6,2.5,$perro['Dorsal'],'LTBR',0,'L',true);
+            $this->Cell(13,2.5,$perro['Nombre'],'LTBR',0,'C',true);
+            $this->Cell(28,2.5,$perro['NombreGuia'],'LTBR',0,'R',true);
+            $this->Ln(2.5);
         }
-		$this->ac_row(2,9);
-		$this->Ln();
-        $rowcount+=3;
-        return $rowcount;
+        // caja de datos del equipo
+        $this->SetXY(70,$y);
+        $this->ac_header(1,10);
+        $this->Cell(130,12,"","LTBR",0,'C',true);
+        $this->SetXY(71,$y+1);
+        $this->Cell(10,2.5,$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),2.5),"",0,'C',($logos[0]==='null.png')?true:false);
+        $this->Cell(10,2.5,$this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX(),$this->getY(),2.5),"",0,'C',($logos[1]==='null.png')?true:false);
+        $this->Cell(10,2.5,$this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX(),$this->getY(),2.5),"",0,'C',($logos[2]==='null.png')?true:false);
+        $this->Cell(10,2.5,$this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX(),$this->getY(),2.5),"",0,'C',($logos[3]==='null.png')?true:false);
+        $this->Cell(80,2.5,$team['Nombre'],'',0,'R',true);
+        $this->Cell(8,2.5,'','',0,'',true); // empty space at right of page
+        $this->Ln();
+        // caja de faltas/rehuses/tiempos
+        $this->ac_SetFillColor("#ffffff"); // white background
+        $this->SetXY(71,4+$y);
+        $this->Cell(49,7.5,"",'R',0,'L',true);
+        $this->Cell(30,7.5,"",'R',0,'L',true);
+        $this->Cell(20,7.5,"",'R',0,'L',true);
+        $this->Cell(29,7.5,"",'',0,'L',true);
+        $this->SetXY(71,4+$y+1);
+        $this->SetFont('Arial','I',8); // italic 8px
+        $this->Cell(49,2.5,"Faltas",0,0,'L',false);
+        $this->Cell(30,2.5,"Rehuses",0,0,'L',false);
+        $this->Cell(20,2.5,"Tocados",0,'L',false);
+        $this->Cell(29,2.5,"Tiempo",0,0,'L',false);
+        // TODO: write
 	}
 	
 	// Tabla coloreada
@@ -151,32 +176,17 @@ class EquiposByJornada extends PrintCommon {
             $miembros=$equipo['Perros'];
             $num=count($miembros);
             if ($num==0) continue; // skip empty teams
-            if ($rowcount%10==0) $this->AddPage();
-            $this->SetXY(10,50+25*($rowcount%10));
-            // pintamos el aspecto general de la celda
-            $this->printTeamCell($equipo);
-            $this->printTeamInfo($rowcount,$equipo);
-            foreach($miembros as $row) {
-                $this->ac_SetFillColor( (($order&0x01)==0)?$bg1:$bg2);
-    			$this->Cell($this->pos[0],6,$row['Dorsal'],		'LR',0,$this->align[0],true);
-                $this->SetFont('Arial','B',11); // bold 9px
-                $this->Cell($this->pos[1],6,$row['Nombre'],		'LR',0,$this->align[1],true);
-                $this->SetFont('Arial','',9); // remove bold 9px
-                $this->Cell($this->pos[2],6,$row['Raza'],		'LR',0,$this->align[2],true);
-                if ($this->federation->getFederation()==1) $this->SetFont('Arial','',7);
-                $this->Cell($this->pos[3],6,$row['Licencia'],	'LR',0,$this->align[3],true);
-                $this->SetFont('Arial','',9); // remove bold 9px
-                $this->Cell($this->pos[4],6,$this->cat[$row['Categoria']],	'LR',0,$this->align[4],true);
-    			$this->Cell($this->pos[5],6,$row['NombreGuia'],	'LR',0,$this->align[5],true);
-    			$this->Cell($this->pos[6],6,$row['NombreClub'],	'LR',0,$this->align[6],true);
-    			$this->Cell($this->pos[7],6,($row['Celo']==0)?"":_("Celo"),	'LR',0,$this->align[7],true);
-    			$this->Cell($this->pos[8],6,/*$row['Observaciones']*/ "",'LR',0,$this->align[8],true);
-    			$this->Ln();
-    			$order++;
-                $rowcount++;
+            if ($rowcount%10==0) {
+                $this->AddPage();
+                // indicamos nombre del operador que rellena la hoja
+                $this->ac_header(2,12);
+                $this->Cell(90,7,'Apunta:','LTBR',0,'L',true);
+                $this->Cell(10,7,'',0,'L',false);
+                $this->Cell(90,7,'Revisa:','LTBR',0,'L',true);
+                $this->Ln(8);
             }
-            $this->Cell(array_sum($this->pos),0,'','T'); // Línea de cierre
-            $this->Ln(); // add extra newline
+            // pintamos el aspecto general de la celda
+            $this->printTeamInfo($rowcount,$equipo,$miembros);
             $rowcount++;
 		}
 		// Línea de cierre
