@@ -54,7 +54,7 @@ class Equipos extends DBObject {
             $p=$this->pruebaID;
             $j=$this->jornadaID;
             // obtenemos los equipos de esta jornada
-            $res= $this->__select("*","Equipos","( Prueba = $p ) AND ( Jornada = $j )","Jornada ASC","");
+            $res= $this->__select("*","Equipos","( Prueba = $p ) AND ( Jornada = $j )","","");
             if (!is_array($res)) {
                 $this->myLogger->error("{$this->file}::getTeamsByJornada() cannot get team data for prueba:$p jornada:$j");
             }

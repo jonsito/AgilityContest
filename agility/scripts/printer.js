@@ -232,6 +232,16 @@ function print_commonDesarrollo(def) {
         // As we need to select categoria, cannot directly access to print parciales
         //7:((def==7)?'*':'')+'Imprimir resultados parciales de la manga'
     };
+    var options4= {
+        0:((def==0)?'*':'')+'Programa de actividades de la jornada',
+        1:((def==1)?'*':'')+'Orden de salida de la manga<br/>',
+        2:((def==2)?'*':'')+'Hoja de calculo para evaluar el TRS y TRM',
+        3:((def==3)?'*':'')+'Hoja para apuntar datos de las mangas<br/>',
+        4:((def==4)?'*':'')+'Hojas para el asistente de pista (1 perro/página)',
+        5:((def==5)?'*':'')+'Hojas para el asistente del juez (5 perros/página)',
+        6:((def==6)?'*':'')+'Hojas para el asistente de pista (10 perros/página)',
+        8:((def==8)?'*':'')+'Hojas para el asistente ( Conjunta para Equipos4 )<br/>'
+    };
 
     function checkCanPrint(oper) {
         switch(parseInt(oper)){
@@ -244,13 +254,10 @@ function print_commonDesarrollo(def) {
         }
         return false;
     }
-    if (isJornadaEq4()) {
-        options[8]=((def==8)?'*':'')+'Hojas para el asistente de pista (equipos-4)';
-    }
     $.messager.radio(
         'Imprimir documento',
         'Indica el tipo de documento que quieres generar:',
-        options,
+        isJornadaEq4()?options4:options,
         function(r){
             if (!r) return false;
             if (!checkCanPrint(r)) return false;

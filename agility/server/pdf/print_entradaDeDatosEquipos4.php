@@ -151,10 +151,11 @@ class EquiposByJornada extends PrintCommon {
             $miembros=$equipo['Perros'];
             $num=count($miembros);
             if ($num==0) continue; // skip empty teams
-            // check for need newpage.
-            if ( ($rowcount+3+$num) >40 ) $rowcount=0; // BUG: assume that num is allways less than 34
-            if ($rowcount==0) $this->AddPage();
-            $rowcount=$this->printTeamInformation($rowcount,$equipo);
+            if ($rowcount%10==0) $this->AddPage();
+            $this->SetXY(10,50+25*($rowcount%10));
+            // pintamos el aspecto general de la celda
+            $this->printTeamCell($equipo);
+            $this->printTeamInfo($rowcount,$equipo);
             foreach($miembros as $row) {
                 $this->ac_SetFillColor( (($order&0x01)==0)?$bg1:$bg2);
     			$this->Cell($this->pos[0],6,$row['Dorsal'],		'LR',0,$this->align[0],true);

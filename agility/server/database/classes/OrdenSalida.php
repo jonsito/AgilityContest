@@ -492,18 +492,19 @@ class OrdenSalida extends DBObject {
         $tmode=($this->jornada['Equipos4']!=0)?4:3;
         $res=Resultados::getTeamResults($res['rows'],$this->prueba['ID'],$this->jornada['ID'],$tmode);
         $size= count($res);
-        // recorremos los resultados en orden inverso
+        // recorremos los resultados en orden inverso generando el nuevo orden de equipos
         $ordenequipos=$this->getOrdenEquipos();
         // y reinsertamos los perros actualizando el orden
         for($idx=$size-1; $idx>=0; $idx--) {
             $equipo=intval($res[$idx]['ID']);
-            // lo borramos para evitar una posible doble insercion
-            $str = ",$equipo,";
-            $nuevoorden = str_replace ( $str, ",", $ordenequipos );
-            // componemos el tag que hay que insertar
-            $str="$equipo,END";
+            $this->myLogger->trace("Equipo: $equipo - ,{$res[$idx]['Nombre']}");
+            // eliminamos el equipo del puesto donde esta
+            $str=",$equipo,";
+            $ordenequipos = str_replace ( $str, ",", $ordenequipos );
+            // reinsertamos equipo al final
+            $str=",$equipo,END";
             // y lo insertamos en lugar que corresponde (al final)
-            $ordenequipos = str_replace ( "END", $str, $nuevoorden );
+            $ordenequipos = str_replace ( ",END", $str, $ordenequipos );
         }
         // salvamos datos
         $this->setOrdenEquipos($ordenequipos);

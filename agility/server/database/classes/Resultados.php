@@ -565,9 +565,10 @@ class Resultados extends DBObject {
 
         // rastrea los equipos con menos de tres participantes y marca los que faltan
         // no presentados
+        $teams=array();
         foreach($equipos as &$equipo) {
             switch(count($equipo['Resultados'])){
-                case 0: continue; // TODO: remove team from array as this team should not be shown
+                case 0: continue;
                 case 1: $equipo['Penalizacion']+=200.0; // add pending "No presentado"
                 // no break
                 case 2: $equipo['Penalizacion']+=200.0; // add pending "No presentado"
@@ -575,6 +576,7 @@ class Resultados extends DBObject {
                 case 3: if ($tmode==4) $equipo['Penalizacion']+=200.0; // add pending "No presentado"
                 // no break;
                 case 4:
+                    array_push($teams,$equipo); // add team to result to remove unused/empty teams
                     break;
                 default:
                     $myLogger=new Logger("Resultados::getTreamResults()");
@@ -583,11 +585,11 @@ class Resultados extends DBObject {
             }
         }
         // finally sort equipos by result instead of id
-        usort($equipos,function($a,$b){
+        usort($teams,function($a,$b){
             if ($a['Penalizacion']==$b['Penalizacion']) return ($a['Tiempo']>$b['Tiempo'])?1:-1;
             return ($a['Penalizacion']>$b['Penalizacion'])?1:-1;
         });
-        return $equipos;
+        return $teams;
     }
 
 	static function enumerateResultados($jornadaid) {

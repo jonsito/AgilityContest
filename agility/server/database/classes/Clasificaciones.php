@@ -187,8 +187,8 @@ class Clasificaciones extends DBObject {
                                     $pt1=$pts[$final[$idx]['Pcat1']-1];
                                 }
                                 // manga 2 - puntuan los 10 primeros en cada manga con excelente
-                                $pt2=" ";
-                                if ( ($final[$idx]['P2']<6.0) && ($final[$idx]['Pcat2']<=10) ) {
+                                $pt2=0;
+                                if ( ($c2!=null) && ($final[$idx]['P2']<6.0) && ($final[$idx]['Pcat2']<=10) ) {
                                     $pt2=$pts[$final[$idx]['Pcat2']-1];
                                 }
                                 // conjunta - puntuan los 10 primeros si tienen doble excelente
@@ -215,12 +215,16 @@ class Clasificaciones extends DBObject {
                     $pt1=0;
                     if ($final[$idx]['P1']<6.0) $pt1++; // 1 punto por excelente
                     if ($final[$idx]['P1']==0.0) $pt1++; // 2 puntos por cero
-                    if ($final[$idx]['Pcat1']<5) $pt1+= $ptsmanga[$final[$idx]['Pcat1']-1]; // puntos a los 5 primeros por manga/categoria
+                    // puntos a los 5 primeros por manga/categoria si no estan eliminados
+                    if ( ($final[$idx]['P1']<100) && ($final[$idx]['Pcat1']<5) ) $pt1+= $ptsmanga[$final[$idx]['Pcat1']-1];
                     // manga 2
                     $pt2=0;
-                    if ($final[$idx]['P2']<6.0) $pt2++; // 1 punto por excelente
-                    if ($final[$idx]['P2']==0.0) $pt2++; // 2 puntos por cero
-                    if ($final[$idx]['Pcat2']<5) $pt2+= $ptsmanga[$final[$idx]['Pcat2']-1]; // puntos a los 5 primeros por manga/categoria
+                    if ($c2=!null) {
+                        if ($final[$idx]['P2']<6.0) $pt2++; // 1 punto por excelente
+                        if ($final[$idx]['P2']==0.0) $pt2++; // 2 puntos por cero
+                        // puntos a los 5 primeros por manga/categoria si no estan eliminados
+                        if ( ($final[$idx]['P2']<100) && ($final[$idx]['Pcat2']<5) ) $pt2+= $ptsmanga[$final[$idx]['Pcat2']-1];
+                    }
                     // conjunta
                     $pfin=0;
                     if ($puestocat[$cat]<11) {
@@ -249,11 +253,14 @@ class Clasificaciones extends DBObject {
                     if ($final[$idx]['P1']<6) $pt1=4;
                     if ($final[$idx]['P1']==0) $pt1=5;
                     // manga 2
-                    if ($final[$idx]['P2']>=26) $pt2=0; // NC o eliminado: no puntua
-                    if ($final[$idx]['P2']<26) $pt2=2;
-                    if ($final[$idx]['P2']<16) $pt2=3;
-                    if ($final[$idx]['P2']<6) $pt2=4;
-                    if ($final[$idx]['P2']==0) $pt2=5;
+                    $pt2=0;
+                    if ($c2=!null) {
+                        if ($final[$idx]['P2']>=26) $pt2=0; // NC o eliminado: no puntua
+                        if ($final[$idx]['P2']<26) $pt2=2;
+                        if ($final[$idx]['P2']<16) $pt2=3;
+                        if ($final[$idx]['P2']<6) $pt2=4;
+                        if ($final[$idx]['P2']==0) $pt2=5;
+                    }
                     // final
                     $str=$str=strval($pt1)."-".strval($pt2)."-";
                     // solo puntuan en la global los siete primeros con dobles excelentes
