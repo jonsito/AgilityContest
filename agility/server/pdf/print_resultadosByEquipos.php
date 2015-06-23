@@ -36,7 +36,7 @@ require_once(__DIR__.'/../database/classes/Resultados.php');
 require_once(__DIR__.'/../database/classes/Equipos.php');
 require_once(__DIR__."/print_common.php");
 
-class ResultadosByEquipos extends PrintCommon {
+class ResultadosByEquipos3 extends PrintCommon {
 	
 	protected $manga;
 	protected $resultados;
@@ -164,6 +164,7 @@ class ResultadosByEquipos extends PrintCommon {
 	function composeTable() {
 		$this->myLogger->enter();
 		if ($this->federation->getFederation()==1) {
+            // en la cabecera texto siempre centrado. Si caza skip licencia
             $this->pos[1]+=5; $this->pos[2]=0; $this->pos[3]+=5;$this->pos[4]+=5;
         }
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
@@ -243,12 +244,13 @@ try {
 	$manga=$mngobj->selectByID($idmanga);
 	$resobj= new Resultados("printResultadosByManga",$idprueba,$idmanga);
 	$resultados=$resobj->getResultados($mode,true); // throw exception if pending dogs
+
 	// Creamos generador de documento
-	$pdf = new ResultadosByEquipos($idprueba,$idjornada,$manga,$resultados,$mode);
+	$pdf = new ResultadosByEquipos3($idprueba,$idjornada,$manga,$resultados,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("resultadosByManga.pdf","D"); // "D" means open download dialog
+	$pdf->Output("resultadosEquipos3.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
-	die($e->getMessage());
+    die ("Error accessing database: ".$e->getMessage());
 }
 ?>

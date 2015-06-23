@@ -33,20 +33,36 @@ require_once(__DIR__.'/../database/classes/Jornadas.php');
 require_once(__DIR__.'/../database/classes/Equipos.php');
 require_once(__DIR__."/print_common.php");
 
-class EntradaDeDatosEquipos4 extends PrintCommon {
-	protected $equipos; // lista de equipos de esta jornada
-    protected $perros; // lista de participantes en esta jornada
-    protected $manga; // datos de la manga
-    protected $categoria;
-	
-	// geometria de las celdas
-	protected $cellHeader;
-    //                      Dorsal  nombre raza licencia Categoria guia club  celo  observaciones
-	protected $pos	=array( 10,     25,     27,    10,    18,      40,   25,  10,    25);
-	protected $align=array( 'R',    'C',    'R',    'C',  'C',     'R',  'R', 'C',   'R');
-	protected $cat=
-        array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny","LM"=>"Large/Medium","ST"=>"Small/Tiny","MS"=>"Medium/Small");
-	
+class ResultadosByEquipos4 extends PrintCommon {
+
+    protected $manga; // informacion de la manga
+    protected $resultados; // tabla de resultados individuales
+    protected $equipos; // lista de equipos
+    protected $mode; // modo de la manga
+    protected $eqmgr; // objeto "Equipos"
+    protected $defaultPerro = array( // participante por defecto para garantizar que haya 4perros/equipo
+        'Dorsal' => '-',
+        'Perro' => 0,
+        'Nombre' => 'No inscrito',
+        'NombreGuia' => 'No inscrito',
+        'NombreClub' => 'No inscrito',
+        'Licencia' => '-',
+        'Categoria' => '-',
+        'Faltas' => 0,
+        'Tocados' => 0,
+        'Rehuses' => 0,
+        'Tiempo' => '-',
+        'Velocidad' => '-',
+        'Penalizacion' => 400,
+        'Calificacion' => 'No inscrito',
+        'CShort' => 'No inscrito',
+        'Puesto' => '-'
+    );
+
+    protected $cat  =array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
+    protected $modestr
+        =array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
+
 	/**
 	 * Constructor
      * @param {integer} $prueba Prueba ID
@@ -54,78 +70,46 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
      * @param {integer} $manga Manga ID
 	 * @throws Exception
 	 */
-	function __construct($prueba,$jornada,$manga) {
-		parent::__construct('Portrait',"print_entradaDeDatosEquipos4",$prueba,$jornada);
-		if ( ($prueba<=0) || ($jornada<=0) ) {
-			$this->errormsg="print_datosEquipos4: either prueba or jornada data are invalid";
-			throw new Exception($this->errormsg);
-		}
-        // comprobamos que estamos en una jornada por equipos
-        $flag=intval($this->jornada->Equipos3)+intval($this->jornada->Equipos4);
-        if ($flag==0) {
-            $this->errormsg="print_datosEquipos4: Jornada $jornada has no Team competition declared";
-            throw new Exception($this->errormsg);
-        }
-        // guardamos info de la manga
-        $this->manga=$this->myDBObject->__getObject("Mangas",$manga);
-        // Datos del orden de salida de equipos
-        $m = new OrdenSalida("entradaDeDatosEquipos4",$manga);
-        $teams= $m->getTeams();
-        $this->equipos=$teams['rows'];
-        // anyadimos el array de perros del equipo
-        foreach($this->equipos as &$equipo) {
-            $equipo['Perros']=array();
-            $equipo['faltas']=0;
-            $equipo['tocados']=0;
-            $equipo['rehuses']=0;
-            $equipo['eliminados']=0;
-            $equipo['nopresentados']=0;
-            $equipo['tiempo']=0;
-            $equipo['Penalizacion']=0;
-        }
-        $r= $this->myDBObject->__select("*","Resultados","(Manga=$manga)","","");
-        foreach($r['rows'] as $perro) {
-            foreach($this->equipos as &$equipo) {
-                if ($perro['Equipo']==$equipo['ID']) {
-                    array_push($equipo['Perros'],$perro);
-                    $equipo['faltas'] +=$perro['Faltas'];
-                    $equipo['tocados'] +=$perro['Tocados'];
-                    $equipo['rehuses'] +=$perro['Rehuses'];
-                    $equipo['eliminados'] +=$perro['Eliminado'];
-                    $equipo['nopresentados'] +=$perro['NoPresentado'];
-                    $equipo['tiempo'] +=$perro['Tiempo'];
-                    $penalizacion=5*$equipo['faltas']+5*$equipo['tocados']+5*$equipo['rehuses']+100*$equipo['eliminados']+200*$equipo['nopresentados'];
-                    $equipo['penalizacion'] += $penalizacion;
-                    break;
-                }
-            }
-        }
-        // finalmente ordenamos los equipos en funcion de penalizacion/tiempo
-        usort($this->equipos,function($a,$b){
-            return ($a['penalizacion']==$b['penalizacion'])? ($a['tiempo']-$b['tiempo']): ($a['tiempo']-$b['tiempo']);
-        });
+	function __construct($prueba,$jornada,$manga,$resultados,$mode) {
+        parent::__construct('Portrait',"print_resultadosEquipos4",$prueba,$jornada);
+        $this->manga=$manga;
+        $this->resultados=$resultados;
+        $this->mode=$mode;
+        $tmode=($this->jornada->Equipos3!=0)?3:4;
+        $this->equipos=Resultados::getTeamResults($resultados['rows'],$prueba,$jornada,$tmode);
+        $this->eqmgr=new Equipos("print_resultadosByEquipos4",$prueba,$jornada);
 	}
 	
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader(_("Result. Parciales (Equipos-4)"));
+        $this->print_commonHeader(_("Resultados Parciales"));
+        $this->print_identificacionManga($this->manga,$this->modestr[intval($this->mode)]);
 
-        // pintamos datos de la jornada
-        $this->SetFont('Arial','B',12); // Arial bold 15
-        $str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
-        $this->Cell(90,9,$str,0,0,'L',false);
+        // Si es la primera hoja pintamos datos tecnicos de la manga
+        if ($this->PageNo()!=1) return;
 
-        // pintamos tipo y categoria de la manga
-        $tmanga= Mangas::$tipo_manga[$this->manga->Tipo][1];
-        $categoria=$this->cat[$this->categoria];
-        $str2 = "$tmanga - $categoria";
-        $this->Cell(100,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
-        $this->Ln(10);
-        // indicamos nombre del operador que rellena la hoja
-        $this->ac_header(2,12);
-        $this->Cell(90,7,'Apunta:','LTBR',0,'L',true);
-        $this->Cell(10,7,'',0,'L',false);
-        $this->Cell(90,7,'Revisa:','LTBR',0,'L',true);
+        $this->SetFont('Arial','B',9); // bold 9px
+        $jobj=new Jueces("print_resultadosEquipos3");
+        $juez1=$jobj->selectByID($this->manga->Juez1);
+        $juez2=$jobj->selectByID($this->manga->Juez2);
+        $this->Cell(20,5,"Juez 1:","LT",0,'L',false);
+        $str=($juez1['Nombre']==="-- Sin asignar --")?"":$juez1['Nombre'];
+        $this->Cell(70,5,$str,"T",0,'L',false);
+        $this->Cell(20,5,"Juez 2:","T",0,'L',false);
+        $str=($juez2['Nombre']==="-- Sin asignar --")?"":$juez2['Nombre'];
+        $this->Cell(78,5,$str,"TR",0,'L',false);
+        $this->Ln(5);
+        $this->Cell(20,5,"Distancia:","LB",0,'L',false);
+        $this->Cell(25,5,"{$this->resultados['trs']['dist']} mts","B",0,'L',false);
+        $this->Cell(20,5,"Obstáculos:","B",0,'L',false);
+        $this->Cell(25,5,$this->resultados['trs']['obst'],"B",0,'L',false);
+        $this->Cell(10,5,"TRS:","B",0,'L',false);
+        $this->Cell(20,5,"{$this->resultados['trs']['trs']} seg.","B",0,'L',false);
+        $this->Cell(10,5,"TRM:","B",0,'L',false);
+        $this->Cell(20,5,"{$this->resultados['trs']['trm']} seg.","B",0,'L',false);
+        $this->Cell(20,5,"Velocidad:","B",0,'L',false);
+        $this->Cell(18,5,"{$this->resultados['trs']['vel']} m/s","BR",0,'L',false);
+        $this->Ln(5);
 	}
 	
 	// Pie de página
@@ -133,7 +117,16 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
 		$this->print_commonFooter();
 	}
 	
-	function printTeamInfo($rowcount,$index,$team,$members) {
+	function printTeamInfo($rowcount,$index,$team) {
+
+        // valores por defecto
+        $team['Faltas']=0;
+        $team['Tocados']=0;
+        $team['Rehuses']=0;
+        $team['Eliminados']=0;
+        $team['NoPresentados']=0;
+
+        $members=$team['Resultados'];
         // evaluate logos
         $logos=array('null.png','null.png','null.png','null.png');
         if ($team['Nombre']==="-- Sin asignar --") {
@@ -146,7 +139,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
             }
         }
         // posicion de la celda
-        $y=55+16*($rowcount);
+        $y=60+16*($rowcount);
         $this->SetXY(10,$y);
         // caja de datos de perros
         $this->ac_header(2,16);
@@ -155,6 +148,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
         $this->SetY($y+1);
         $this->ac_header(2,16);
         foreach($members as $id => $perro) {
+            // imprimimos datos del perro
             $this->SetX(22);
             $this->ac_row($id,8);
             $this->Cell(6,3,$perro['Dorsal'],'LTBR',0,'L',true);
@@ -163,18 +157,25 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
             $this->SetFont('Arial','',7);
             $this->Cell(28,3,$perro['NombreGuia'],'LTBR',0,'R',true);
             $this->Ln(3);
+            // sumamos faltas, tocados y rehuses
+            $team['Faltas']+=$perro['Faltas'];
+            $team['Tocados']+=$perro['Tocados'];
+            $team['Rehuses']+=$perro['Rehuses'];
+            $team['Eliminados']+=$perro['Eliminado'];
         }
+        $team['NoPresentados']=4-count($members);
+
         // caja de datos del equipo
         $this->SetXY(70,$y);
         $this->ac_header(1,14);
-        $this->Cell(130,14,"","LTBR",0,'C',true);
+        $this->Cell(128,14,"","LTBR",0,'C',true);
         $this->SetXY(71,$y+1);
         $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),5),"",0,'C',($logos[0]==='null.png')?true:false);
         $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX(),$this->getY(),5),"",0,'C',($logos[1]==='null.png')?true:false);
         $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX(),$this->getY(),5),"",0,'C',($logos[2]==='null.png')?true:false);
         $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX(),$this->getY(),5),"",0,'C',($logos[3]==='null.png')?true:false);
         $this->Cell(80,5,$team['Nombre'],'',0,'R',true);
-        $this->Cell(8,5,'','',0,'',true); // empty space at right of page
+        $this->Cell(6,5,'','',0,'',true); // empty space at right of page
         $this->Ln();
         // caja de faltas/rehuses/tiempos
         $this->ac_SetFillColor("#ffffff"); // white background
@@ -185,7 +186,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
         $this->Cell(15,6,"",'R',0,'L',true);
         $this->Cell(15,6,"",'R',0,'L',true);
         $this->Cell(25,6,"",'R',0,'L',true);
-        $this->Cell(28,6,"",'R',0,'L',true);
+        $this->Cell(26,6,"",'R',0,'L',true);
 
         $this->ac_SetFillColor("#c0c0c0"); // light gray
         $this->SetXY(71,7+$y+1);
@@ -196,17 +197,17 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
         $this->Cell(15,2.5,"Elim",0,'L',false);
         $this->Cell(15,2.5,"N.P.",0,'L',false);
         $this->Cell(25,2.5,"Tiempo",0,0,'L',false);
-        $this->Cell(28,2.5,"Penaliz.",0,0,'L',false);
+        $this->Cell(26,2.5,"Penaliz.",0,0,'L',false);
 
         $this->SetXY(71,6+$y+1);
         $this->SetFont('Arial','B',12); // italic 8px
-        $this->Cell(15,7,$team['faltas'],0,0,'R',false);
-        $this->Cell(15,7,$team['rehuses'],0,0,'R',false);
-        $this->Cell(15,7,$team['tocados'],0,0,'R',false);
-        $this->Cell(15,7,$team['eliminados'],0,0,'R',false);
-        $this->Cell(15,7,$team['nopresentados'],0,0,'R',false);
-        $this->Cell(25,7,$team['tiempo'],0,0,'R',false);
-        $this->Cell(28,7,$team['penalizacion'],0,0,'R',false);
+        $this->Cell(15,7,$team['Faltas'],0,0,'R',false);
+        $this->Cell(15,7,$team['Rehuses'],0,0,'R',false);
+        $this->Cell(15,7,$team['Tocados'],0,0,'R',false);
+        $this->Cell(15,7,$team['Eliminados'],0,0,'R',false);
+        $this->Cell(15,7,$team['NoPresentados'],0,0,'R',false);
+        $this->Cell(25,7,$team['Tiempo'],0,0,'R',false);
+        $this->Cell(26,7,$team['Penalizacion'],0,0,'R',false);
 	}
 	
 	// Tabla coloreada
@@ -218,28 +219,15 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
 
-        // take care on RFEC contests
-        if ($this->federation->getFederation()==1) {
-            $this->pos[1] -= 2;
-            $this->pos[2] -= 3;
-            $this->pos[3] += 20;
-            $this->pos[8] -= 15;
-        }
         $index=0;
         $rowcount=0;
-        $this->categoria="-";
 		foreach($this->equipos as $equipo) {
-            $miembros=$equipo['Perros'];
-            $num=count($miembros);
-            if ($num==0) continue; // skip empty teams
+            // si el equipo no tiene participantes es que la categoria no es válida: skip
+            if (count($equipo['Resultados'])==0) continue;
             // 14 teams/page
-            if ( ($rowcount%14==0) || ($equipo['Categorias']!=$this->categoria)) {
-                $rowcount=0;
-                $this->categoria=$equipo['Categorias'];
-                $this->AddPage();
-            }
+            if ( $rowcount%12==0) { $rowcount=0; $this->AddPage(); } // 12 teams /page
             // pintamos el aspecto general de la celda
-            $this->printTeamInfo($rowcount,$index,$equipo,$miembros);
+            $this->printTeamInfo($rowcount,$index,$equipo);
             $rowcount++;
             $index++;
 		}
@@ -250,15 +238,22 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
 
 // Consultamos la base de datos
 try {
-	$prueba=http_request("Prueba","i",0);
-	$jornada=http_request("Jornada","i",0);
-    $manga=http_request("Manga","i",0);
+	$idprueba=http_request("Prueba","i",0);
+	$idjornada=http_request("Jornada","i",0);
+    $idmanga=http_request("Manga","i",0);
+    $mode=http_request("Mode","i",0);
+
+    $mngobj= new Mangas("printResultadosByManga",$idjornada);
+    $manga=$mngobj->selectByID($idmanga);
+    $resobj= new Resultados("printResultadosByManga",$idprueba,$idmanga);
+    $resultados=$resobj->getResultados($mode,true); // throw exception if pending dogs
+
     // 	Creamos generador de documento
-    $pdf=new EntradaDeDatosEquipos4($prueba,$jornada,$manga);
+    $pdf=new ResultadosByEquipos4($idprueba,$idjornada,$manga,$resultados,$mode);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
-	$pdf->Output("entradaDeDatosEquipos4.pdf","D"); // "D" means open download dialog
+	$pdf->Output("resultadosEquipos4.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
-	die ("Error accessing database: ".$e->getMessage());
+    die ("Error accessing database: ".$e->getMessage());
 };
 ?>

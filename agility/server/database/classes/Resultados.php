@@ -384,7 +384,7 @@ class Resultados extends DBObject {
 		}
 		// FASE 1: recogemos resultados ordenados por precorrido y tiempo
 		$res=$this->__select(
-				"Dorsal,Perro,Nombre,Raza,Equipo,Licencia,Categoria,Grado,NombreGuia,NombreClub,Faltas,Tocados,Rehuses,Tiempo,
+				"Dorsal,Perro,Nombre,Raza,Equipo,Licencia,Categoria,Grado,NombreGuia,NombreClub,Faltas,Tocados,Rehuses,Tiempo,Eliminado,
 					( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido,
 					0 AS PTiempo, 0 AS Penalizacion, '' AS Calificacion, 0 AS Velocidad", 
 				"Resultados", 
@@ -529,7 +529,7 @@ class Resultados extends DBObject {
 	}
 
     /**
-     * Gestion de resultados en Equipos3
+     * Gestion de resultados en Equipos3/Equipos4
      * Agrupa los resultados por equipos y genera una lista de equipos ordenados por resultados
      * @param {array} resultados de la manga ordenados por participante
      * @param {int} prueba PruebaID
