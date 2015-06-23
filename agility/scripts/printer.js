@@ -159,6 +159,8 @@ function print_parcial(mode) {
     var url='/agility/server/pdf/print_resultadosByManga.php';
     if ( parseInt(workingData.datosJornada.Equipos3)!=0)
         url='/agility/server/pdf/print_resultadosByEquipos.php';
+    if ( parseInt(workingData.datosJornada.Equipos4)!=0)
+        url='/agility/server/pdf/print_resultadosByEquipos4.php';
 	$.fileDownload(
 		url,
 		{

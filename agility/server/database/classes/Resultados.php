@@ -568,7 +568,7 @@ class Resultados extends DBObject {
         $teams=array();
         foreach($equipos as &$equipo) {
             switch(count($equipo['Resultados'])){
-                case 0: continue;
+                case 0: continue; // ignore team
                 case 1: $equipo['Penalizacion']+=200.0; // add pending "No presentado"
                 // no break
                 case 2: $equipo['Penalizacion']+=200.0; // add pending "No presentado"

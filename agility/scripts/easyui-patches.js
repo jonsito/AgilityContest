@@ -168,8 +168,9 @@ var gview = $.extend({}, groupview, {
         state.data.rows = newRows;
 
         function sumValue(rows,field) {
+            var tmode=isJornadaEq3()?3:4;
             var v = 0;
-            for (var n = 0; n < 3; n++) {
+            for (var n = 0; n < tmode; n++) {
                 if (typeof(rows[n]) === 'undefined') { v += 200; }
                 else { v+=parseFloat(rows[n][field]); }
             }
