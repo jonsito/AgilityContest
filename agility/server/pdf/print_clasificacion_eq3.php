@@ -66,6 +66,7 @@ class PrintClasificacionEq3 extends PrintCommon {
         'CShort' => 'No inscrito',
         'Puesto' => '-'
     );
+
 	 /** Constructor
       * @param {int} $prueba prueba id
       * @param {int} $jornada jornada id
