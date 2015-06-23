@@ -241,13 +241,13 @@ class PrintClasificacionEq4 extends PrintCommon {
         // caja de faltas/rehuses/tiempos
         $this->ac_SetFillColor("#ffffff"); // white background
         $this->SetXY(71,7+$y);
-        $this->Cell(15,6,"",'R',0,'L',true);
-        $this->Cell(15,6,"",'R',0,'L',true);
-        $this->Cell(15,6,"",'R',0,'L',true);
-        $this->Cell(15,6,"",'R',0,'L',true);
-        $this->Cell(15,6,"",'R',0,'L',true);
-        $this->Cell(25,6,"",'R',0,'L',true);
-        $this->Cell(28,6,"",'R',0,'L',true);
+        $this->Cell(15,6,"",'R',0,'L',true); // Flt
+        $this->Cell(15,6,"",'R',0,'L',true); // Reh
+        $this->Cell(15,6,"",'R',0,'L',true); // Toc
+        $this->Cell(15,6,"",'R',0,'L',true); // Elim
+        $this->Cell(15,6,"",'R',0,'L',true); // N.P
+        $this->Cell(25,6,"",'R',0,'L',true); // tiempo
+        $this->Cell(28,6,"",'R',0,'L',true); // Penalizacion
 
         $this->ac_SetFillColor("#c0c0c0"); // light gray
         $this->SetXY(71,7+$y+1);
