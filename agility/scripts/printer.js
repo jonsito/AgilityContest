@@ -73,8 +73,10 @@ function print_ordenTandas() {
  * @returns {Boolean}
  */
 function print_ordenSalida() {
+    var url='/agility/server/pdf/print_ordenDeSalida.php';
+    if (isJornadaEq4()) url='/agility/server/pdf/print_ordenSalidaEquipos4.php';
     $.fileDownload(
-        '/agility/server/pdf/print_ordenDeSalida.php',
+        url,
         {
             httpMethod: 'GET',
             data: {
