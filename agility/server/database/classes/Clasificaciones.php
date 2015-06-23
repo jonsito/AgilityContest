@@ -335,7 +335,12 @@ class Clasificaciones extends DBObject {
                 $c2=$r2->getResultados($mode);
                 return $this->evalFinal($c1,$c2,$mode);
 			case 0x0080: // equipos 4 conjunta
-			case 0x0100: // ronda KO 1..9 vueltas
+                $r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility Equipos 4
+                $r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping Equipos 4
+                $c1=$r1->getResultados($mode);
+                $c2=$r2->getResultados($mode);
+                return $this->evalFinal($c1,$c2,$mode);
+			case 0x0100: // ronda KO 1..8 vueltas
 				$this->errormsg= "Clasificaciones:: Ronda $rondas is not yet supported";
 				return null;
 			case 0x0200: // manga especial (una vuelta)
