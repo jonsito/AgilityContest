@@ -73,16 +73,37 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
         $teams= $m->getTeams();
         $this->equipos=$teams['rows'];
         // anyadimos el array de perros del equipo
-        foreach($this->equipos as &$equipo) {$equipo['Perros']=array();}
+        foreach($this->equipos as &$equipo) {
+            $equipo['Perros']=array();
+            $equipo['faltas']=0;
+            $equipo['tocados']=0;
+            $equipo['rehuses']=0;
+            $equipo['eliminados']=0;
+            $equipo['nopresentados']=0;
+            $equipo['tiempo']=0;
+            $equipo['Penalizacion']=0;
+        }
         $r= $this->myDBObject->__select("*","Resultados","(Manga=$manga)","","");
         foreach($r['rows'] as $perro) {
             foreach($this->equipos as &$equipo) {
                 if ($perro['Equipo']==$equipo['ID']) {
                     array_push($equipo['Perros'],$perro);
+                    $equipo['faltas'] +=$perro['Faltas'];
+                    $equipo['tocados'] +=$perro['Tocados'];
+                    $equipo['rehuses'] +=$perro['Rehuses'];
+                    $equipo['eliminados'] +=$perro['Eliminado'];
+                    $equipo['nopresentados'] +=$perro['NoPresentado'];
+                    $equipo['tiempo'] +=$perro['Tiempo'];
+                    $penalizacion=5*$equipo['faltas']+5*$equipo['tocados']+5*$equipo['rehuses']+100*$equipo['eliminados']+200*$equipo['nopresentados'];
+                    $equipo['penalizacion'] += $penalizacion;
                     break;
                 }
             }
         }
+        // finalmente ordenamos los equipos en funcion de penalizacion/tiempo
+        usort($this->equipos,function($a,$b){
+            return ($a['penalizacion']==$b['penalizacion'])? ($a['tiempo']-$b['tiempo']): ($a['tiempo']-$b['tiempo']);
+        });
 	}
 	
 	// Cabecera de página
@@ -113,12 +134,6 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
 	}
 	
 	function printTeamInfo($rowcount,$index,$team,$members) {
-        $faltas=0;
-        $tocados=0;
-        $rehuses=0;
-        $eliminados=0;
-        $nopresentados=0;
-        $tiempo=0;
         // evaluate logos
         $logos=array('null.png','null.png','null.png','null.png');
         if ($team['Nombre']==="-- Sin asignar --") {
@@ -148,12 +163,6 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
             $this->SetFont('Arial','',7);
             $this->Cell(28,3,$perro['NombreGuia'],'LTBR',0,'R',true);
             $this->Ln(3);
-            $faltas +=$perro['Faltas'];
-            $tocados +=$perro['Tocados'];
-            $rehuses +=$perro['Rehuses'];
-            $eliminados +=$perro['Eliminado'];
-            $nopresentados +=$perro['NoPresentado'];
-            $tiempo +=$perro['Tiempo'];
         }
         // caja de datos del equipo
         $this->SetXY(70,$y);
@@ -191,14 +200,13 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
 
         $this->SetXY(71,6+$y+1);
         $this->SetFont('Arial','B',12); // italic 8px
-        $this->Cell(15,7,$faltas,0,0,'R',false);
-        $this->Cell(15,7,$rehuses,0,0,'R',false);
-        $this->Cell(15,7,$tocados,0,0,'R',false);
-        $this->Cell(15,7,$eliminados,0,0,'R',false);
-        $this->Cell(15,7,$nopresentados,0,0,'R',false);
-        $this->Cell(25,7,$tiempo,0,0,'R',false);
-        $penalizacion=5*$faltas+5*$tocados+5*$rehuses+100*$eliminados+200*$nopresentados;
-        $this->Cell(28,7,$penalizacion,0,0,'R',false);
+        $this->Cell(15,7,$team['faltas'],0,0,'R',false);
+        $this->Cell(15,7,$team['rehuses'],0,0,'R',false);
+        $this->Cell(15,7,$team['tocados'],0,0,'R',false);
+        $this->Cell(15,7,$team['eliminados'],0,0,'R',false);
+        $this->Cell(15,7,$team['nopresentados'],0,0,'R',false);
+        $this->Cell(25,7,$team['tiempo'],0,0,'R',false);
+        $this->Cell(28,7,$team['penalizacion'],0,0,'R',false);
 	}
 	
 	// Tabla coloreada
