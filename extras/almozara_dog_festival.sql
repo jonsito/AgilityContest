@@ -689,7 +689,7 @@ CREATE TABLE `jueces` (
   `Observaciones` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Jueces_Nombre` (`Nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -699,7 +699,11 @@ CREATE TABLE `jueces` (
 LOCK TABLES `jueces` WRITE;
 /*!40000 ALTER TABLE `jueces` DISABLE KEYS */;
 INSERT INTO `jueces` VALUES 
-(1,'-- Sin asignar --','--------','--------','ES','--------',1,1,'nobody@nomail.com',7,'NO BORRAR: Asignacion de juez por defecto');
+(1,'-- Sin asignar --','--------','--------','ES','--------',1,1,'nobody@nomail.com',7,'NO BORRAR: Asignacion de juez por defecto'),
+(2,'Francisco Alegre','','','ES','',1,0,'',1,''),
+(3,'Sandra Deidda','','','IT','',1,0,'',1,''),
+(4,'Alexander Beilt','','','DE','',1,0,'',1,''),
+(5,'Sascha Grunder','','','CH','',1,0,'',1,'');
 /*!40000 ALTER TABLE `jueces` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -775,8 +779,8 @@ LOCK TABLES `mangas` WRITE;
 /*!40000 ALTER TABLE `mangas` DISABLE KEYS */;
 INSERT INTO `mangas` VALUES 
 (1,9,16,'-',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'Jumping Especial','BEGIN,END','BEGIN,9,END'),
-(2,17,9,'-',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,END','BEGIN,17,END'),
-(3,17,14,'-',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,END','BEGIN,17,END'),
+(2,17,9,'-',1,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',4,0,'s',1,50,'%',0,0,'s',0,0,'s',5,4,'','BEGIN,END','BEGIN,17,END'),
+(3,17,14,'-',1,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,END','BEGIN,17,END'),
 (4,25,7,'-',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,END','BEGIN,25,END'),
 (5,25,12,'-',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,END','BEGIN,25,END'),
 (6,33,16,'-',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'Jumping Individual','BEGIN,END','BEGIN,33,END'),
@@ -1048,7 +1052,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1063,7 +1067,7 @@ INSERT INTO `sesiones` VALUES
 (3,'Ring 2','Mangas a realizar en el segundo ring',5,'RfACb3MEl5ieNkgr',13,97,0,0,'',NULL,NULL,NULL,'2015-06-05 16:38:46'),
 (4,'Ring 3','Mangas a realizar en el tercer ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (5,'Ring 4','Mangas a realizar en el cuarto ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
-(9,'Console','admin - Administrador de la aplicacion',3,'tEBrLYlaWUKTXmns',0,0,0,0,'',NULL,NULL,NULL,'2015-06-24 17:07:57');
+(10,'Console','admin - Administrador de la aplicacion',3,'0tONkF1H5M8rvlpL',0,0,0,0,'',NULL,NULL,NULL,'2015-06-24 17:16:24');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
