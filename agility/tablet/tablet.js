@@ -348,40 +348,44 @@ function tablet_cancel() {
 }
 
 function tablet_accept() {
-	doBeep();
-	// save results 
-	tablet_updateResultados(0); // mark as result no longer pendiente
-	// retrieve original data from parent datagrid
-	var dgname = $('#tdialog-Parent').val();
-	var dg=$(dgname);
-	var row = dg.datagrid('getSelected');
-	if (!row) return false; // nothing to do. should mark error
+    doBeep();
+    // save results
+    tablet_updateResultados(0); // mark as result no longer pendiente
+    // retrieve original data from parent datagrid
+    var dgname = $('#tdialog-Parent').val();
+    var dg = $(dgname);
+    var row = dg.datagrid('getSelected');
+    if (!row) return false; // nothing to do. should mark error
 
-	// send back data to parent tablet datagrid form
-	var obj=formToObject('#tdialog-form');
-	// mark as no longer pending
-	obj.Pendiente=0;
+    // send back data to parent tablet datagrid form
+    var obj = formToObject('#tdialog-form');
+    // mark as no longer pending
+    obj.Pendiente = 0;
     // now update and redraw data on
     // var rowindex= dg.datagrid("getRowIndex", row);
-    var rowindex=obj.RowIndex;
+    var rowindex = obj.RowIndex;
 
-	// update row
-	dg.datagrid('updateRow',{index: rowindex, row: obj});
-	// and fire up accept event
-	tablet_putEvent(
-			'aceptar',
-			{
-                // notice pass-by-reference: row now points to new values
-				'NoPresentado'	:	row.NoPresentado,
-				'Faltas'		:	row.Faltas,
-				'Tocados'		:	row.Tocados,
-				'Rehuses'		:	row.Rehuses,
-				'Tiempo'		:	row.Tiempo,
-				'Eliminado'		:	row.Eliminado
-			} 
-		);
-	tablet_cronoManual('stop');
-	tablet_cronoManual('reset');
+    // update row
+    dg.datagrid('updateRow', {index: rowindex, row: obj});
+    // and fire up accept event
+    tablet_putEvent(
+        'aceptar',
+        {
+            // notice pass-by-reference: row now points to new values
+            'NoPresentado': row.NoPresentado,
+            'Faltas': row.Faltas,
+            'Tocados': row.Tocados,
+            'Rehuses': row.Rehuses,
+            'Tiempo': row.Tiempo,
+            'Eliminado': row.Eliminado
+        }
+    );
+    // en jornadas por equipos 4 el crono sigue contando entre perro y perro
+    // por ello no reseteamos el crono en el cambio de equipo
+    if ( ! isJornadaEq4()) {
+        tablet_cronoManual('stop');
+        tablet_cronoManual('reset');
+    }
 	if (!ac_config.tablet_next) { // no go to next row entry
 		$('#tdialog-window').window('close'); // close window
 		dg.datagrid('refreshRow',rowindex);

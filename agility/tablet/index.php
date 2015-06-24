@@ -377,7 +377,7 @@ function tablet_acceptSelectJornada() {
                         // jornadas "normales", equipos3 y Open comparten el mismo fichero
         	    		var page="/agility/tablet/tablet_competicion.php";
         	    		if (workingData.datosJornada.Equipos4==1) {
-        	    			page="/agility/tablet/tablet_competicion_eq4.php";
+        	    			page="/agility/tablet/tablet_competicion.php"; // parche temporal
         	    		}
         	    		if (workingData.datosJornada.KO==1) {
         	    			page="/agility/tablet/tablet_competicion_ko.php";
