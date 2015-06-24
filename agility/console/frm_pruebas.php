@@ -79,13 +79,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             remoteSort: true,
             columns: [[
                 { field:'ID', hidden:true }, // primary key
-            	{ field:'Nombre',		width:20,	sortable:true,	title:'Nombre de la prueba:' },
+            	{ field:'Nombre',		width:30,	sortable:true,	title:'Nombre de la prueba:' },
             	{ field:'Club',			hidden:true },
             	{ field:'NombreClub',	width:15,	sortable:true,	title:'Club organizador' },
-            	{ field:'Ubicacion',	width:20,					title:'Lugar de celebraci&oacute;n' },
+            	{ field:'Ubicacion',	width:15,					title:'Lugar de celebraci&oacute;n' },
                 { field:'Triptico',		width:10,					title:'URL del Tr&iacute;ptico'},
                 { field:'Cartel',		width:10,					title:'URL del Cartel'},
-                { field:'Observaciones',width:15,					title:'Observaciones'},
+                { field:'Observaciones',width:10,					title:'Observaciones'},
                 { field:'RSCE',			width:7, formatter:	formatRSCE,		title:'Federacion', align: 'center'},
                 { field:'Selectiva',	width:7, formatter:	formatOk,title:'Selectiva',	align: 'center'},
                 { field:'Cerrada',		width:7, formatter:	formatCerrada,	title:'Cerrada',	align: 'center'}
