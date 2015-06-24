@@ -34,14 +34,14 @@ class Mangas extends DBObject {
 		5 =>	array( 5, 'Agility Grado II', 			'GII',	'Agility GII',	'Grado II'),
 		6 =>	array( 6, 'Agility Grado III', 			'GIII',	'Agility GIII',	'Grado III'),
 		7 =>	array( 7, 'Agility Abierta', 	        '-',	'Agility Open',	'Abierta'),
-		8 =>	array( 8, 'Agility Equipos (3 mejores)','-',	'Agility Eq.',	'Abierta'),
-		9 =>	array( 9, 'Agility Equipos (Conjunta)', '-',	'Agility Eq.',	'Abierta'),
+		8 =>	array( 8, 'Agility Equipos (3 mejores)','-',	'Agility Eq.',	'Equipos'),
+		9 =>	array( 9, 'Agility Equipos (4 Conjunta)', '-',	'Agility Eq.',	'Equipos'),
 		10 =>	array( 10,'Jumping Grado II',			'GII',	'Jumping GII',	'Grado II'),
 		11 =>	array( 11,'Jumping Grado III',			'GIII',	'Jumping GIII',	'Grado III'),
 		12 =>	array( 12,'Jumping Abierta',    		'-',	'Jumping Open',	'Abierta'),
-		13 =>	array( 13,'Jumping Equipos (3 mejores)','-',    'Jumping Eq.',	'Abierta'),
-		14 =>	array( 14,'Jumping Equipos (Conjunta)', '-',    'Jumping Eq.',	'Abierta'),
-		15 =>	array( 15,'Ronda K.O.', 				'-',	'Ronda K.O.',	'Abierta'),
+		13 =>	array( 13,'Jumping Equipos (3 mejores)','-',    'Jumping Eq.',	'Equipos'),
+		14 =>	array( 14,'Jumping Equipos (4 Conjunta)', '-',    'Jumping Eq.',	'Equipos'),
+		15 =>	array( 15,'Ronda K.O.', 				'-',	'Ronda K.O.',	'K.O.'),
 		16 =>	array( 16,'Manga especial', 			'-',	'Manga Especial','Abierta')	
 	);
 	

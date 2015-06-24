@@ -85,6 +85,8 @@ class Clasificaciones extends DBObject {
 				// datos manga 1
 				'F1' => $item['Faltas'] + $item['Tocados'],
 				'R1' => $item['Rehuses'],
+                'E1' => $item['Eliminado'],
+                'N1' => $item['NoPresentado'],
 				'T1' => floatval($item['Tiempo']),
 				'V1' => $item['Velocidad'],
 				'P1' => $item['Penalizacion'],
@@ -94,6 +96,8 @@ class Clasificaciones extends DBObject {
 				// datos fake manga 2 ( to be filled if so )
 				'F2' => 0,
 				'R2' => 0,
+                'E2' => 0,
+                'N2' => 0,
 				'T2' => 0,
 				'P2' => 0,
 				'V2' => 0,
@@ -117,7 +121,9 @@ class Clasificaciones extends DBObject {
 					continue;
 				}
 				$final[$item['Perro']]['F2'] = $item['Faltas'] + $item['Tocados'];
-				$final[$item['Perro']]['R2'] = $item['Rehuses'];
+                $final[$item['Perro']]['R2'] = $item['Rehuses'];
+                $final[$item['Perro']]['E2'] = $item['Eliminado'];
+                $final[$item['Perro']]['N2'] = $item['NoPresentado'];
 				$final[$item['Perro']]['T2'] = floatval($item['Tiempo']);
 				$final[$item['Perro']]['V2'] = $item['Velocidad'];
 				$final[$item['Perro']]['P2'] = $item['Penalizacion'];

@@ -46,8 +46,6 @@ class ResultadosByManga extends PrintCommon {
 	protected $pos	=array(  9,		18,		15,		30,		20,		12,		   7,      7,    7,       10,     7,    12,      22,			12 );
 	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
 
-	protected $modestr  
-		=array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
 	
 	/**
 	 * Constructor

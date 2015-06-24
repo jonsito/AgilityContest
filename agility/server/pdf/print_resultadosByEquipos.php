@@ -66,10 +66,6 @@ class ResultadosByEquipos3 extends PrintCommon {
                     //     Dors    Nombre  Lic     Guia   Club    Cat     Flt    Toc    Reh     Tiempo   vel   penal calif   puesto, equipo
 	protected $pos	=array(  7,		18,		15,		30,		25,	    7,	   5,      5,    5,       10,     7,    12,    10,	 7,  25);
 	protected $align=array(  'L',   'L',    'C',    'R',   'R',    'C',    'C',   'C',   'C',     'R',    'R',  'R',   'C',	 'C', 'R');
-
-    protected $cat  =array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
-	protected $modestr  
-		=array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
 	
 	/**
 	 * Constructor

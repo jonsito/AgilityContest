@@ -59,10 +59,6 @@ class ResultadosByEquipos4 extends PrintCommon {
         'Puesto' => '-'
     );
 
-    protected $cat  =array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
-    protected $modestr
-        =array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
-
 	/**
 	 * Constructor
      * @param {integer} $prueba Prueba ID
@@ -139,7 +135,7 @@ class ResultadosByEquipos4 extends PrintCommon {
             }
         }
         // posicion de la celda
-        $y=60+16*($rowcount);
+        $y=58+16*($rowcount);
         $this->SetXY(10,$y);
         // caja de datos de perros
         $this->ac_header(2,16);
@@ -162,8 +158,9 @@ class ResultadosByEquipos4 extends PrintCommon {
             $team['Tocados']+=$perro['Tocados'];
             $team['Rehuses']+=$perro['Rehuses'];
             $team['Eliminados']+=$perro['Eliminado'];
+            $team['NoPresentados']+=$perro['NoPresentado'];
         }
-        $team['NoPresentados']=4-count($members);
+        $team['NoPresentados'] += 4-count($members);
 
         // caja de datos del equipo
         $this->SetXY(70,$y);
@@ -200,7 +197,7 @@ class ResultadosByEquipos4 extends PrintCommon {
         $this->Cell(26,2.5,"Penaliz.",0,0,'L',false);
 
         $this->SetXY(71,6+$y+1);
-        $this->SetFont('Arial','B',12); // italic 8px
+        $this->SetFont('Arial','B',10); // italic 8px
         $this->Cell(15,7,$team['Faltas'],0,0,'R',false);
         $this->Cell(15,7,$team['Rehuses'],0,0,'R',false);
         $this->Cell(15,7,$team['Tocados'],0,0,'R',false);
@@ -225,7 +222,7 @@ class ResultadosByEquipos4 extends PrintCommon {
             // si el equipo no tiene participantes es que la categoria no es válida: skip
             if (count($equipo['Resultados'])==0) continue;
             // 14 teams/page
-            if ( $rowcount%12==0) { $rowcount=0; $this->AddPage(); } // 12 teams /page
+            if ( $rowcount%14==0) { $rowcount=0; $this->AddPage(); } // 14 teams /page
             // pintamos el aspecto general de la celda
             $this->printTeamInfo($rowcount,$index,$equipo);
             $rowcount++;

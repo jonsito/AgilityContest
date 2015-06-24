@@ -46,7 +46,6 @@ class OrdenDeSalida extends PrintCommon {
     //                       orden    dorsal  nombre raza licencia guia club     celo   observaciones
 	protected $pos	=array(  12,      10,     25,     22,    15,    40,   25,     10,    26);
 	protected $align=array(  'R',    'R',    'C',    'R',    'C',   'R',  'R',    'C',   'R');
-	protected $cat  =array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
 	 * Constructor

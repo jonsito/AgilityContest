@@ -34,7 +34,12 @@ require_once(__DIR__.'/../database/classes/Clasificaciones.php');
 require_once(__DIR__."/print_common.php");
 
 class PrintCommon extends FPDF {
-	
+
+    protected $modestr
+        =array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
+    protected $cat=
+        array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny","LM"=>"Large/Medium","ST"=>"Small/Tiny","MS"=>"Medium/Small","LMS" => 'Conjunta', "LMST",'Conjunta');
+
 	protected $myLogger;
 	protected $config;
     protected $federation;

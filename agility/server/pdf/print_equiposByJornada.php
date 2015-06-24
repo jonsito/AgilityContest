@@ -42,7 +42,6 @@ class EquiposByJornada extends PrintCommon {
     //                      Dorsal  nombre raza licencia Categoria guia club  celo  observaciones
 	protected $pos	=array( 10,     25,     27,    10,    18,      40,   25,  10,    25);
 	protected $align=array( 'R',    'C',    'R',    'C',  'C',     'R',  'R', 'C',   'R');
-	protected $cat  =array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
 	 * Constructor

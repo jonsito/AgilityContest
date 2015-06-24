@@ -47,7 +47,6 @@ class EntradaDeDatos extends PrintCommon {
 	protected $pos	=array(  15,       25,     18,    50,   42,     10,    30);
 	protected $align=array(  'C',      'R',    'C',   'L',  'R',    'C',   'R');
 	protected $fmt	=array(  'i',      's',    's',   's',  's',    'b',   's');
-	protected $cat  =array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny");
 	
 	/**
 	 * Constructor

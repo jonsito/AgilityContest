@@ -87,9 +87,17 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->equipos=array();
         foreach ($teams as &$equipo) {
             $equipo['Resultados1']=array();
+            $equipo['F1']=0;
+            $equipo['R1']=0;
+            $equipo['E1']=0;
+            $equipo['N1']=0;
             $equipo['T1']=0.0;
             $equipo['P1']=0.0;
             $equipo['Resultados2']=array();
+            $equipo['F2']=0;
+            $equipo['R2']=0;
+            $equipo['E2']=0;
+            $equipo['N2']=0;
             $equipo['T2']=0.0;
             $equipo['P2']=0.0;
             $equipo['Tiempo']=0.0;
@@ -101,31 +109,33 @@ class PrintClasificacionEq4 extends PrintCommon {
         foreach($this->resultados as &$result) {
             $teamid=&$result['Equipo'];
             $equipo=&$this->equipos[$teamid];
+            $equipo['F1']+=$result['F1'];
+            $equipo['F2']+=$result['F2'];
+            $equipo['R1']+=$result['R1'];
+            $equipo['R2']+=$result['R2'];
+            $equipo['E1']+=$result['E1'];
+            $equipo['E2']+=$result['E2'];
+            $equipo['N1']+=$result['N1'];
+            $equipo['N2']+=$result['N2'];
             array_push($equipo['Resultados1'],array( 'T' => $result['T1'], 'P'=> $result['P1']));
             array_push($equipo['Resultados2'],array( 'T' => $result['T2'], 'P'=> $result['P2']));
             array_push($equipo['Perros'],$result);
         }
-        // sort results on each manga
-        // and evaluate results and penalization by adding first 3 results
+        // Evaluate results and penalization by adding first 4 entries
         foreach($this->equipos as &$team) {
-            // finally sort equipos by result instead of id
-            usort($team['Resultados1'],function($a,$b){
-                return ($a['P']==$b['P'])? ($a['T']-$b['T']): ($a['P']-$b['P']);
-            });
-            usort($team['Resultados2'],function($a,$b){
-                return ($a['P']==$b['P'])? ($a['T']-$b['T']): ($a['P']-$b['P']);
-            });
-            // compose manga team's result
+            // compose manga team's result. no need to sort
             for ($n=0;$n<4;$n++) {
                 // TODO: si no hay participantes en el equipo, ignora
                 if (array_key_exists($n,$team['Resultados1'])) {
                     $team['P1']+=$team['Resultados1'][$n]['P'];
                     $team['T1']+=$team['Resultados1'][$n]['T'];
                 } else  $team['P1']+=200.0;
-                if (array_key_exists($n,$team['Resultados2'])) {
-                    $team['P2']+=$team['Resultados2'][$n]['P'];
-                    $team['T2']+=$team['Resultados2'][$n]['T'];
-                } else  $team['P2']+=200.0;
+                if ($this->manga2!=null) {
+                    if (array_key_exists($n,$team['Resultados2'])) {
+                        $team['P2']+=$team['Resultados2'][$n]['P'];
+                        $team['T2']+=$team['Resultados2'][$n]['T'];
+                    } else  $team['P2']+=200.0;
+                }
             }
             // and evaluate final team's results
             $team['Penalizacion']=$team['P1']+$team['P2'];
@@ -135,19 +145,20 @@ class PrintClasificacionEq4 extends PrintCommon {
         usort($this->equipos,function($a,$b){
             return ($a['Penalizacion']==$b['Penalizacion'])? ($a['Tiempo']-$b['Tiempo']): ($a['Penalizacion']-$b['Penalizacion']);
         });
+        // notice that teams from wrong manga are still here: they should be detected and removed by mean of count($team['Resultados'])
     }
 
     function print_datosMangas() {
         $this->setXY(10,40);
         $this->SetFont('Arial','B',9); // bold 9px
 
-        $jobj=new Jueces("print_Clasificaciones_eq3");
+        $jobj=new Jueces("print_Clasificaciones_eq4");
         $juez1=$jobj->selectByID($this->manga1->Juez1);
         $juez2=$jobj->selectByID($this->manga1->Juez2); // asume mismos jueces en dos mangas
-        $tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $this->categoria;
+        $tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $this->cat[$this->categoria];
         $tm2=null;
         if ($this->manga2!=null)
-            $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria;
+            $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->cat[$this->categoria];
 
         $this->SetFont('Arial','B',11); // bold 9px
         $this->Cell(80,5,"Jornada: {$this->jornada->Nombre}",0,0,'',false);
@@ -174,7 +185,7 @@ class PrintClasificacionEq4 extends PrintCommon {
         $trs=$this->trs2;
         $ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
         $this->SetFont('Arial','B',11); // bold 9px
-        $this->Cell(80,5,"Ronda: $ronda - {$this->categoria}",0,0,'',false);
+        $this->Cell(80,5,"Ronda: $ronda - {$this->cat[$this->categoria]}",0,0,'',false);
         $this->SetFont('Arial','B',9); // bold 9px
         $this->Cell(70,5,$tm2,"LTB",0,'L',false);
         $this->Cell(25,5,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
@@ -208,11 +219,13 @@ class PrintClasificacionEq4 extends PrintCommon {
             }
         }
         // posicion de la celda
-        $y=55+16*($rowcount);
+        $base=($this->PageNo()==1)?60:44;
+        $y=$base+16*($rowcount);
         $this->SetXY(10,$y);
         // caja de datos de perros
+        $this->ac_header(1,16);
+        $this->Cell(12,14,1+$index,'LTBR',0,'C',true);
         $this->ac_header(2,16);
-        $this->Cell(12,14,1+$index,'LTB',0,'C',true);
         $this->Cell(48,14,"","TBR",0,'C',true);
         $this->SetY($y+1);
         $this->ac_header(2,16);
@@ -229,46 +242,90 @@ class PrintClasificacionEq4 extends PrintCommon {
         // caja de datos del equipo
         $this->SetXY(70,$y);
         $this->ac_header(1,14);
-        $this->Cell(130,14,"","LTBR",0,'C',true);
-        $this->SetXY(71,$y+1);
-        $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),5),"",0,'C',($logos[0]==='null.png')?true:false);
-        $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX(),$this->getY(),5),"",0,'C',($logos[1]==='null.png')?true:false);
-        $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX(),$this->getY(),5),"",0,'C',($logos[2]==='null.png')?true:false);
-        $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX(),$this->getY(),5),"",0,'C',($logos[3]==='null.png')?true:false);
-        $this->Cell(80,5,$team['Nombre'],'',0,'R',true);
-        $this->Cell(8,5,'','',0,'',true); // empty space at right of page
+        $this->Cell(215,14,"","LTBR",0,'C',true);
+        $this->SetXY(70,$y);
+        $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),5),"LT",0,'C',($logos[0]==='null.png')?true:false);
+        $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX(),$this->getY(),5),"T",0,'C',($logos[1]==='null.png')?true:false);
+        $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX(),$this->getY(),5),"T",0,'C',($logos[2]==='null.png')?true:false);
+        $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX(),$this->getY(),5),"T",0,'C',($logos[3]==='null.png')?true:false);
+        $this->Cell(140,5,$team['Nombre'],'T',0,'R',true);
+        $this->Cell(18,5,'','',0,'',true); // empty space at right of page
+        // cabeceras de las celdas de resultados
+        $this->ac_header(2,8);
+        $this->SetXY(70,$y+5);
+        $tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $this->cat[$this->categoria];
+        $tm2=($this->manga2!=null)? Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->cat[$this->categoria] : "";
+        $this->Cell(88,3,$tm1,'LTRB',0,'C',true);
+        $this->Cell(2,3,"",'TR',0,'C',true);
+        $this->Cell(88,3,$tm2,'TRB',0,'C',true);
+        $this->Cell(2,3,"",'TR',0,'C',true);
+        $this->Cell(35,3,"Clasificacion Final",'TRB',0,'C',true);
         $this->Ln();
         // caja de faltas/rehuses/tiempos
         $this->ac_SetFillColor("#ffffff"); // white background
-        $this->SetXY(71,7+$y);
-        $this->Cell(15,6,"",'R',0,'L',true); // Flt
-        $this->Cell(15,6,"",'R',0,'L',true); // Reh
-        $this->Cell(15,6,"",'R',0,'L',true); // Toc
-        $this->Cell(15,6,"",'R',0,'L',true); // Elim
-        $this->Cell(15,6,"",'R',0,'L',true); // N.P
-        $this->Cell(25,6,"",'R',0,'L',true); // tiempo
-        $this->Cell(28,6,"",'R',0,'L',true); // Penalizacion
+        $this->SetXY(70,8+$y);
+        // manga 1
+        $this->Cell(12.5,6,"",'R',0,'L',true); // Flt
+        $this->Cell(12.5,6,"",'R',0,'L',true); // Reh
+        $this->Cell(12.5,6,"",'R',0,'L',true); // Elim
+        $this->Cell(12.5,6,"",'R',0,'L',true); // N.P
+        $this->Cell(20,6,"",'R',0,'L',true); // tiempo
+        $this->Cell(20,6,"",'R',0,'L',true); // Penalizacion
+        // manga 2
+        $this->Cell(12.5,6,"",'R',0,'L',true); // Flt
+        $this->Cell(12.5,6,"",'R',0,'L',true); // Reh
+        $this->Cell(12.5,6,"",'R',0,'L',true); // Elim
+        $this->Cell(12.5,6,"",'R',0,'L',true); // N.P
+        $this->Cell(20,6,"",'R',0,'L',true); // tiempo
+        $this->Cell(20,6,"",'R',0,'L',true); // Penalizacion
+        // final
+        $this->Cell(17,6,"",'R',0,'L',true); // tiempo
+        $this->Cell(18,6,"",'R',0,'L',true); // Penalizacion
 
-        $this->ac_SetFillColor("#c0c0c0"); // light gray
-        $this->SetXY(71,7+$y+1);
+        $this->SetXY(70,8+$y);
+        // manga 1
+        $this->SetFont('Arial','I',7); // italic 7px
+        $this->Cell(12.5,2.5,"Flt",0,0,'L',false);
+        $this->Cell(12.5,2.5,"Reh",0,0,'L',false);
+        $this->Cell(12.5,2.5,"Elim",0,0,'L',false);
+        $this->Cell(12.5,2.5,"N.P.",0,0,'L',false);
+        $this->Cell(20,2.5,"Tiempo",0,0,'L',false);
+        $this->Cell(20,2.5,"Penaliz.",0,0,'L',false);
+        // manga 2
         $this->SetFont('Arial','I',8); // italic 8px
-        $this->Cell(15,2.5,"Flt",0,0,'L',false);
-        $this->Cell(15,2.5,"Reh",0,0,'L',false);
-        $this->Cell(15,2.5,"Toc",0,'L',false);
-        $this->Cell(15,2.5,"Elim",0,'L',false);
-        $this->Cell(15,2.5,"N.P.",0,'L',false);
-        $this->Cell(25,2.5,"Tiempo",0,0,'L',false);
-        $this->Cell(28,2.5,"Penaliz.",0,0,'L',false);
+        $this->Cell(12.5,2.5,"Flt",0,0,'L',false);
+        $this->Cell(12.5,2.5,"Reh",0,0,'L',false);
+        $this->Cell(12.5,2.5,"Elim",0,0,'L',false);
+        $this->Cell(12.5,2.5,"N.P.",0,0,'L',false);
+        $this->Cell(20,2.5,"Tiempo",0,0,'L',false);
+        $this->Cell(20,2.5,"Penaliz.",0,0,'L',false);
+        // final
+        $this->Cell(17,2.5,"Tiempo",'R',0,'L',true); // tiempo
+        $this->Cell(18,2.5,"Penaliz.",'R',0,'L',true); // Penalizacion
 
-        $this->SetXY(71,6+$y+1);
-        $this->SetFont('Arial','B',12); // italic 8px
-        $this->Cell(15,7,$team['faltas'],0,0,'R',false);
-        $this->Cell(15,7,$team['rehuses'],0,0,'R',false);
-        $this->Cell(15,7,$team['tocados'],0,0,'R',false);
-        $this->Cell(15,7,$team['eliminados'],0,0,'R',false);
-        $this->Cell(15,7,$team['nopresentados'],0,0,'R',false);
-        $this->Cell(25,7,$team['tiempo'],0,0,'R',false);
-        $this->Cell(28,7,$team['penalizacion'],0,0,'R',false);
+        $this->SetXY(70,9+$y);
+        $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2'));
+        // manga 1
+        $this->SetFont('Arial','B',9); // italic 8px
+        $this->Cell(12.5,6,$team['F1'],0,0,'R',false);
+        $this->Cell(12.5,6,$team['R1'],0,0,'R',false);
+        $this->Cell(12.5,6,$team['E1'],0,0,'R',false);
+        $this->Cell(12.5,6,$team['N1'],0,0,'R',false);
+        $this->Cell(20,6,$team['T1'],0,0,'R',false);
+        $this->Cell(18,6,$team['P1'],0,0,'R',false);
+        $this->SetXY(158,8+$y); $this->Cell(2,6,"",0,0,'R',true); $this->SetXY(160,9+$y); // barra separadora
+        // manga 2
+        $this->Cell(12.5,6,$team['F2'],0,0,'R',false);
+        $this->Cell(12.5,6,$team['R2'],0,0,'R',false);
+        $this->Cell(12.5,6,$team['E2'],0,0,'R',false);
+        $this->Cell(12.5,6,$team['N2'],0,0,'R',false);
+        $this->Cell(20,6,$team['T2'],0,0,'R',false);
+        $this->Cell(18,6,$team['P2'],0,0,'R',false);
+        $this->SetXY(248,8+$y); $this->Cell(2,6,"",0,0,'R',true); $this->SetXY(250,9+$y); // barra separadora
+        // final
+        $this->SetFont('Arial','BI',10); // italic 8px
+        $this->Cell(17,6,$team['Tiempo'],0,0,'R',false);
+        $this->Cell(18,6,$team['Penalizacion'],0,0,'R',false);
 	}
 	
 	// Tabla coloreada
@@ -281,10 +338,9 @@ class PrintClasificacionEq4 extends PrintCommon {
             $miembros=$equipo['Perros'];
             $num=count($miembros);
             if ($num==0) continue; // skip empty teams
-            // 14 teams/page
-            if ( ($rowcount%14==0) || ($equipo['Categorias']!=$this->categoria)) {
+            $rp= ($this->PageNo()==1)?8:9; // number of rows per page
+            if ( $rowcount % $rp==0) {
                 $rowcount=0;
-                $this->categoria=$equipo['Categorias'];
                 $this->AddPage();
             }
             // pintamos el aspecto general de la celda
