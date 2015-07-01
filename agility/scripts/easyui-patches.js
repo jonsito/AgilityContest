@@ -141,26 +141,50 @@ $.extend($.fn.datagrid.methods, {
  * Extension del datagrid groupview para ordenar los grupos
  */
 var gview = $.extend({}, groupview, {
-    onBeforeRender: function(target, rows){
-        groupview.onBeforeRender.call(this, target, rows);
 
+
+    onBeforeRender: function(target, rows){
         var state = $.data(target, 'datagrid');
         var opts = state.options;
-        var groups = this.groups;
         var tmode = isJornadaEq3()?3:4;
-        groups.sort(function(a,b){
-            var p1 = 0; p2=0; t1=0; t2=0;
-            for (var n = 0; n < tmode; n++) {
-                p1+= (typeof(a.rows[n]) === 'undefined')? 200: parseFloat(a.rows[n]['Penalizacion']);
-                p2+= (typeof(b.rows[n]) === 'undefined')? 200: parseFloat(b.rows[n]['Penalizacion']);
-                t1+= (typeof(a.rows[n]) === 'undefined')? 200: parseFloat(a.rows[n]['Tiempo']);
-                t2+= (typeof(b.rows[n]) === 'undefined')? 200: parseFloat(b.rows[n]['Tiempo']);
+        var indexedGroups= {};
+        var groups = [];
+
+        initCss();
+
+        for(var i=0; i<rows.length; i++){
+            var row = rows[i];
+            var gField=row[opts.groupField];
+            var group = getGroup(gField);
+            if (!group){
+                group = {
+                    value: gField,
+                    rows: [row],
+                    p:0,
+                    t:0
+                };
+                indexedGroups[gField]=group;
+                groups.push(group);
+            } else {
+                group.rows.push(row);
             }
-            if (p1!=p2) return (opts.sortOrder=='asc'?1:-1)*(p1>p2?1:-1);
+            if (group.rows.length<=tmode) { // eval time and penal
+                group.p += parseFloat(row['Penalizacion']);
+                group.t += parseFloat(row['Tiempo']);
+            }
+        }
+
+        groups.sort(function(a,b){
+            // take care on "no presentados". Use loop to allow team members excess
+            var ap= a.p;
+            var bp= b.p;
+            for (var n= a.rows.length;n<tmode;n++) ap+=200;
+            for (var n= b.rows.length;n<tmode;n++) bp+=200;
+            if (ap!=bp) return (opts.sortOrder=='asc'?1:-1)*(ap> bp?1:-1);
             // on equal penalization compare time
-            return (opts.sortOrder=='asc'?1:-1)*(t1>t2?1:-1);
+            return (opts.sortOrder=='asc'?1:-1)*(a.t> b.t?1:-1);
         });
-        /*
+
         var index = 0;
         var newRows = [];
         for(var i=0; i<groups.length; i++){
@@ -168,10 +192,33 @@ var gview = $.extend({}, groupview, {
             group.startIndex = index;
             index += group.rows.length;
             // newRows = newRows.concat(group.rows);
-            // newRows.push.apply(group.rows); // add rows on this group
             for(var n=0;n<group.rows.length;n++) newRows.push(group.rows[n]);
         }
+
         state.data.rows = newRows;
-        */
+        this.groups = groups;
+        this.indexedGroups=indexedGroups;
+
+        var that = this;
+        setTimeout(function(){
+            that.bindEvents(target);
+        },0);
+
+        function getGroup(value){
+            if (value in indexedGroups) return indexedGroups[value];
+            return null;
+        }
+
+        function initCss(){
+            if (!$('#datagrid-group-style').length){
+                $('head').append(
+                    '<style id="datagrid-group-style">' +
+                    '.datagrid-group{height:25px;overflow:hidden;font-weight:bold;border-bottom:1px solid #ccc;}' +
+                    '.datagrid-group-title,.datagrid-group-expander{display:inline-block;vertical-align:bottom;height:25px;line-height:25px;padding:0 4px;}' +
+                    '.datagrid-row-expander{margin:4px 0;display:inline-block;width:16px;height:16px;cursor:pointer}' +
+                    '</style>'
+                );
+            }
+        }
     }
 });
