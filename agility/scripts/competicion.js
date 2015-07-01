@@ -139,8 +139,7 @@ function formatTeamClasificaciones(value,rows) {
     var logos="";
     var tmode=(isJornadaEq3()?3:4);
     function sortResults(a,b) {
-        if (a.penal== b.penal) return (a.time - b.time);
-        return (a.penal - b.penal);
+        return (a.penal== b.penal)? (a.time - b.time) : (a.penal - b.penal);
     }
     function addLogo(logo) {
         if (logos.indexOf(logo)>=0) return;
@@ -190,8 +189,7 @@ function formatTeamClasificacionesConsole(value,rows) {
     var penal=0.0;
     var tmode=(isJornadaEq3()?3:4);
     function sortResults(a,b) {
-        if (a.penal== b.penal) return (a.time - b.time);
-        return (a.penal - b.penal);
+        return (a.penal== b.penal)? (a.time - b.time) : (a.penal - b.penal);
     }
     // cogemos y ordenamos los datos de cada manga
     var manga1={ time:0.0, penal:0.0, perros:[] };

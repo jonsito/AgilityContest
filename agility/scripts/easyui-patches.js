@@ -147,34 +147,31 @@ var gview = $.extend({}, groupview, {
         var state = $.data(target, 'datagrid');
         var opts = state.options;
         var groups = this.groups;
+        var tmode = isJornadaEq3()?3:4;
         groups.sort(function(a,b){
-            var p1 = sumValue(a.rows, 'Penalizacion');
-            var p2 = sumValue(b.rows, 'Penalizacion');
-            var t1 = sumValue(a.rows, 'Tiempo');
-            var t2 = sumValue(b.rows, 'Tiempo');
-            // compare penalization
+            var p1 = 0; p2=0; t1=0; t2=0;
+            for (var n = 0; n < tmode; n++) {
+                p1+= (typeof(a.rows[n]) === 'undefined')? 200: parseFloat(a.rows[n]['Penalizacion']);
+                p2+= (typeof(b.rows[n]) === 'undefined')? 200: parseFloat(b.rows[n]['Penalizacion']);
+                t1+= (typeof(a.rows[n]) === 'undefined')? 200: parseFloat(a.rows[n]['Tiempo']);
+                t2+= (typeof(b.rows[n]) === 'undefined')? 200: parseFloat(b.rows[n]['Tiempo']);
+            }
             if (p1!=p2) return (opts.sortOrder=='asc'?1:-1)*(p1>p2?1:-1);
             // on equal penalization compare time
             return (opts.sortOrder=='asc'?1:-1)*(t1>t2?1:-1);
         });
+        /*
         var index = 0;
         var newRows = [];
         for(var i=0; i<groups.length; i++){
             var group = groups[i];
             group.startIndex = index;
             index += group.rows.length;
-            newRows = newRows.concat(group.rows);
+            // newRows = newRows.concat(group.rows);
+            // newRows.push.apply(group.rows); // add rows on this group
+            for(var n=0;n<group.rows.length;n++) newRows.push(group.rows[n]);
         }
         state.data.rows = newRows;
-
-        function sumValue(rows,field) {
-            var tmode=isJornadaEq3()?3:4;
-            var v = 0;
-            for (var n = 0; n < tmode; n++) {
-                if (typeof(rows[n]) === 'undefined') { v += 200; }
-                else { v+=parseFloat(rows[n][field]); }
-            }
-            return v;
-        }
+        */
     }
 });
