@@ -158,7 +158,8 @@ $('#new_inscripcion-datagrid').datagrid({
     multiSort: true,
     remoteSort: true,
     remoteFilter: true,
-	selectOnNavigation: false
+	selectOnNavigation: false,
+	onDblClickRow: function(idx,row) {insertInscripcion('#new_inscripcion-datagrid'); }
 });
 
 // setup form on windows open

@@ -576,6 +576,24 @@ class OrdenSalida extends DBObject {
 		return $nuevo;
 	}
 
+    /**
+     * Reasigna los dorsales de manera que coincida con el orden de salida
+     * ESTA FUNCION SOLO DEBE USARSE EN PRUEBAS EN QUE EL ORDEN DE SALIDA SEA EL MISMO PARA TODAS LAS MANGAS
+     */
+    function reassignDorsal() {
+        $o=explode(',',$this->getOrden());
+        $dorsal=1;
+        foreach($o as $perro){
+            if ($perro=="BEGIN") continue;
+            if ($perro=="END") continue;
+            echo "Prueba:{$this->prueba['ID']} Jornada:{$this->jornada['ID']} Manga:{$this->manga['ID']} Dorsal: $dorsal Perro:$perro\n";
+            $str1="UPDATE Inscripciones SET DORSAL=$dorsal WHERE (Prueba={$this->prueba['ID']}) AND (Perro=$perro)";
+            $this->query($str1);
+            $str2="UPDATE Resultados SET DORSAL=$dorsal WHERE (Jornada={$this->jornada['ID']}) AND (Perro=$perro)";
+            $this->query($str2);
+            $dorsal++;
+        }
+    }
 
 } // class
 
