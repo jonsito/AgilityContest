@@ -64,7 +64,8 @@ class ResultadosByManga extends PrintCommon {
 	
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader(_("Resultados Parciales"));
+        $str=($this->manga->Tipo==16)?_("Resultados"):_("Resultados Manga");
+		$this->print_commonHeader($str);
 		$this->print_identificacionManga($this->manga,$this->modestr[intval($this->mode)]);
 		
 		// Si es la primera hoja pintamos datos tecnicos de la manga
