@@ -171,7 +171,7 @@ class OrdenSalida extends DBObject {
 		$str = ",$idperro,";
 		$nuevoorden = str_replace ( $str, ",", $ordensalida );
 		// update database
-		return $this->setOrden($ordensalida);
+		return $this->setOrden($nuevoorden);
 	}
 
     /**
@@ -184,7 +184,7 @@ class OrdenSalida extends DBObject {
         $str = ",$idteam,";
         $nuevoorden = str_replace ( $str, ",", $ordenequipos );
         // update database
-        return $this->setOrdenEquipos($ordenequipos);
+        return $this->setOrdenEquipos($nuevoorden);
     }
 
     /**
