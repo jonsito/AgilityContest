@@ -149,28 +149,29 @@ var gview = $.extend({}, groupview, {
         var tmode = isJornadaEq3()?3:4;
         var indexedGroups= {};
         var groups = [];
+        var sortOrder=opts.sortOrder=='asc'?1:-1;
 
         initCss();
 
         for(var i=0; i<rows.length; i++){
             var row = rows[i];
             var gField=row[opts.groupField];
-            var group = getGroup(gField);
-            if (!group){
+            if (typeof(indexedGroups[gField])==='undefined') {
                 group = {
                     value: gField,
                     rows: [row],
-                    p:0,
-                    t:0
+                    p : parseFloat(row['Penalizacion']),
+                    t : parseFloat(row['Tiempo'])
                 };
                 indexedGroups[gField]=group;
                 groups.push(group);
             } else {
+                group=indexedGroups[gField];
                 group.rows.push(row);
-            }
-            if (group.rows.length<=tmode) { // eval time and penal
-                group.p += parseFloat(row['Penalizacion']);
-                group.t += parseFloat(row['Tiempo']);
+                if (group.rows.length<=tmode) { // eval time and penal
+                    group.p += parseFloat(row['Penalizacion']);
+                    group.t += parseFloat(row['Tiempo']);
+                }
             }
         }
 
@@ -180,9 +181,9 @@ var gview = $.extend({}, groupview, {
             var bp= b.p;
             for (var n= a.rows.length;n<tmode;n++) ap+=200;
             for (var n= b.rows.length;n<tmode;n++) bp+=200;
-            if (ap!=bp) return (opts.sortOrder=='asc'?1:-1)*(ap> bp?1:-1);
+            if (ap!=bp) return sortOrder*(ap> bp?1:-1);
             // on equal penalization compare time
-            return (opts.sortOrder=='asc'?1:-1)*(a.t> b.t?1:-1);
+            return sortOrder*(a.t> b.t?1:-1);
         });
 
         var index = 0;
@@ -203,11 +204,6 @@ var gview = $.extend({}, groupview, {
         setTimeout(function(){
             that.bindEvents(target);
         },0);
-
-        function getGroup(value){
-            if (value in indexedGroups) return indexedGroups[value];
-            return null;
-        }
 
         function initCss(){
             if (!$('#datagrid-group-style').length){
