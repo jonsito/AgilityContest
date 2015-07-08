@@ -91,19 +91,6 @@ $('#seljornada-Prueba').combogrid({
 	onChange:function(value){
 		var p=$('#seljornada-Prueba').combogrid('grid').datagrid('getSelected');
 		if (p===null) return; // no selection
-        if (parseInt(p.Inscritos) > parseInt(p.UserLimit)) {
-            var message='<img src="/agility/images/sad_dog.png" width="100" alt="sad dog" style="float:right;"/>'+
-                '<p style="font-weight:bold;">Los permisos de la licencia instalada<br/> no permiten la gesti&oacute;n de pruebas</br> con m&aacute;s de '+p.UserLimit+' inscripciones</p>'
-            $.messager.alert({
-                title: 'Access denied',
-                msg: message,
-                icon: 'error',
-                width: 450
-            });
-            $('#seljornada-Prueba').combogrid('grid').datagrid('clearSelections');
-            $('#seljornada-Jornada').combogrid('grid').datagrid('clearSelections');
-            return; // forbidden selection
-        }
 		setPrueba(p); // retorna jornada, o 0 si la prueba ha cambiado
 		$('#seljornada-Jornada').combogrid('clear');
 		$('#seljornada-Jornada').combogrid('grid').datagrid('load',{Prueba:p.ID});
@@ -169,6 +156,19 @@ function acceptSelectJornada() {
 		$.messager.alert("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
 		return;
 	}
+    if (parseInt(p.Inscritos) > parseInt(p.UserLimit)) {
+        var message='<img src="/agility/images/sad_dog.png" width="100" alt="sad dog" style="float:right;"/>'+
+            '<p style="font-weight:bold;">Los permisos de la licencia instalada<br/> no permiten la gesti&oacute;n de pruebas</br> con m&aacute;s de '+p.UserLimit+' inscripciones</p>'
+        $.messager.alert({
+            title: 'Access denied',
+            msg: message,
+            icon: 'error',
+            width: 450
+        });
+        $('#seljornada-Prueba').combogrid('grid').datagrid('clearSelections');
+        $('#seljornada-Jornada').combogrid('grid').datagrid('clearSelections');
+        return; // forbidden selection
+    }
 	// store selected data into global structure
 	setPrueba(p);
 	setJornada(j);
