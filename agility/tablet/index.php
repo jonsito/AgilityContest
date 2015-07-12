@@ -71,6 +71,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <?php } ?>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-detailview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-groupview.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-view/datagrid-scrollview.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/easyui-patches.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
@@ -247,11 +248,11 @@ $('#seltablet-Prueba').combogrid({
 	selectOnNavigation: true, // let use cursor keys to interactive select
 	columns: [[
 		{field:'ID',			hidden:true},
-		{field:'Nombre',		title:'Nombre',			width:50,	align:'right'},
+		{field:'Nombre',		title:'Nombre',			width:65,	align:'right'},
 		{field:'Club',			hidden:true},
-		{field:'NombreClub',	title:'Club',			width:20,	align:'right'},
+		{field:'NombreClub',	title:'Club',			width:25,	align:'right'},
 		{field:'RSCE',			title:'Fed.',			width:15,	align:'center', formatter:formatRSCE},
-		{field:'Observaciones',	title:'Observaciones.',	width:30,	align:'right'},
+		{field:'Observaciones',	title:'Observaciones.',	width:10,	align:'right'},
         {field:'Inscritos',		hidden:true},
         {field:'UserLimit',		hidden:true}
 	]],
@@ -294,19 +295,19 @@ $('#seltablet-Jornada').combogrid({
 	    { field:'ID',			hidden:true }, // ID de la jornada
 	    { field:'Prueba',		hidden:true }, // ID de la prueba
 	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-		{ field:'Nombre',		width:30, sortable:false,   align:'right',  title: 'Nombre/Comentario' },
+		{ field:'Nombre',		width:40, sortable:false,   align:'right',  title: 'Nombre/Comentario' },
 		{ field:'Fecha',		hidden:true},
 		{ field:'Hora',			hidden:true},
-		{ field:'Grado1',		width:8, sortable:false,	align:'center', title: 'G-I    ' },
-		{ field:'Grado2',		width:8, sortable:false,	align:'center', title: 'G-II   ' },
-		{ field:'Grado3',		width:8, sortable:false,	align:'center', title: 'G-III  ' },
-		{ field:'Open',		    width:8, sortable:false,	align:'center', title: 'Open   ' },
-		{ field:'Equipos3',		width:8, sortable:false,	align:'center', title: 'Eq.3x4 ' },
-		{ field:'Equipos4',		width:8, sortable:false,	align:'center', title: 'Eq.Conj' },
-		{ field:'PreAgility',	width:8, sortable:false,	align:'center', title: 'Pre. 1 ' },
-		{ field:'PreAgility2',	width:8, sortable:false,	align:'center', title: 'Pre. 2 ' },
-		{ field:'KO',			width:8, sortable:false,	align:'center', title: 'K.O.   ' },
-		{ field:'Especial',		width:8, sortable:false,	align:'center', title: 'Show   ' }
+		{ field:'Grado1',		width:7, sortable:false,	align:'center', title: 'G-I    ' },
+		{ field:'Grado2',		width:7, sortable:false,	align:'center', title: 'G-II   ' },
+		{ field:'Grado3',		width:7, sortable:false,	align:'center', title: 'G-III  ' },
+		{ field:'Open',		    width:7, sortable:false,	align:'center', title: 'Open   ' },
+		{ field:'Equipos3',		width:7, sortable:false,	align:'center', title: 'Eq.3x4 ' },
+		{ field:'Equipos4',		width:7, sortable:false,	align:'center', title: 'Eq.Conj' },
+		{ field:'PreAgility',	width:7, sortable:false,	align:'center', title: 'Pre. 1 ' },
+		{ field:'PreAgility2',	width:7, sortable:false,	align:'center', title: 'Pre. 2 ' },
+		{ field:'KO',			width:7, sortable:false,	align:'center', title: 'K.O.   ' },
+		{ field:'Especial',		width:7, sortable:false,	align:'center', title: 'Show   ' }
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='enumerate';

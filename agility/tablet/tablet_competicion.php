@@ -43,7 +43,8 @@ $config =Config::getInstance();
 		
 <script type="text/javascript">
 
-$('#tablet-reloadBtn').linkbutton();
+addTooltip($('#tablet-reloadBtn').linkbutton(),"Actualizar datos de la sesion");
+addTooltip($('#tablet-recoBtn').linkbutton(),"Enviar señal de comienzo del reconocimiento de pista");
 
 $('#tablet-window').window({
 	title: 'Programa de la jornada - '+workingData.datosSesion.Nombre,
@@ -149,8 +150,11 @@ function tablet_showPerrosByTanda(index,row){
 	    fitColumns: true,
 	    singleSelect: true,
 	    autoRowHeight: false,
+        remote:true,
+        view: scrollview,
+        pageSize: 20,
 	    width: '100%',
-	    height: 'auto',
+	    height: '400',
 		columns:[[
 		        { field:'Parent',		width:0, hidden:true }, // self reference to row index
 	            { field:'Prueba',		width:0, hidden:true }, // extra field to be used on form load/save
@@ -232,8 +236,5 @@ function tablet_showPerrosByTanda(index,row){
 	});
 	tbt_dg.datagrid('fixDetailRowHeight',index);
 }
-
-addTooltip($('#tablet-reloadBtn').linkbutton(),"Actualizar datos de la sesion");
-addTooltip($('#tablet-recoBtn').linkbutton(),"Enviar señal de comienzo del reconocimiento de pista");
 
 </script>

@@ -49,7 +49,7 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 			if (opts.detailFormatter){
 				table.push('<tr style="display:none;">');
 				if (frozen){
-					table.push('<td colspan=' + (fields.length+2) + ' style="border-right:0">');
+					table.push('<td colspan=' + (fields.length+(opts.rownumbers?1:0)) + ' style="border-right:0">');
 				} else {
 					table.push('<td colspan=' + (fields.length) + '>');
 				}
@@ -265,7 +265,7 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 			
 			function reload(){
 				var top = $(dc.body2).scrollTop();
-				var index = Math.floor(top/25);
+				var index = Math.floor(top/opts.rowHeight);
 				var page = Math.floor(index/opts.pageSize) + 1;
 				
 				this.getRows.call(this, target, page, function(rows){

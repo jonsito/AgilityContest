@@ -575,9 +575,18 @@ class Tandas extends DBObject {
 	}
 	
 	function getDataByTanda($s,$t) {
-		return $this->getListaPerros($s,$t,0);
+		$page=http_request("page","i",0);
+		$rows=http_request("rows","i",0);
+		$res=$this->getListaPerros($s,$t,0);
+		if (($page==0) || ($rows==0)) return $res;
+		if($res['total']==0) { $res['total']=1; return $res; }
+		// on scrollview, $res['total'] returns total number of rows
+		// but only $rows starting at $page*$rows are returned
+		$r=array_slice($res['rows'],($page-1)*$rows,$rows,false);
+		$res['rows']=$r;
+		return $res;
 	}
-	
+
 	private function insert_remove($rsce,$tipomanga,$oper) {
 		foreach( $this->getTandasInfo('TipoManga',$tipomanga) as $item) {
             $tipo=$item['Tipo'];
