@@ -393,15 +393,22 @@ function tablet_accept() {
 	}
 	// seleccionamos fila siguiente
     rowindex++;
+	/*
 	var count=dg.datagrid('getRows').length;    // row count
 	if ( (rowindex)>=count ) { // at end of datagrid
 		$('#tdialog-window').window('close'); // close window
 		dg.datagrid('refreshRow',rowindex-1);
 		return false;
 	}
-	// dg.datagrid('clearSelections');
+	*/
+	dg.datagrid('scrollTo',rowindex);
 	dg.datagrid('selectRow', rowindex);
 	var data=dg.datagrid('getSelected');
+	if (data==null) {// at end of datagrid
+		$('#tdialog-window').window('close'); // close window
+		dg.datagrid('refreshRow',rowindex-1);
+		return false;
+	}
 	data.Session=workingData.sesion;
     data.RowIndex=rowindex;
     data.Parent=dgname; // store datagrid reference
