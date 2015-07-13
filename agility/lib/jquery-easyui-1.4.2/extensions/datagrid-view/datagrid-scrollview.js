@@ -1,7 +1,27 @@
 $.extend($.fn.datagrid.defaults, {
 	rowHeight: 25,
 	onBeforeFetch: function(page){},
-	onFetch: function(page, rows){}
+	onFetch: function(page, rows){},
+	loader: function(param, success, error){
+		var opts = $(this).datagrid('options');
+		if (!opts.url) return false;
+		if (opts.view.type == 'scrollview'){
+			param.page = param.page || 1;
+			param.rows = param.rows || opts.pageSize;
+		}
+		$.ajax({
+			type: opts.method,
+			url: opts.url,
+			data: param,
+			dataType: 'json',
+			success: function(data){
+				success(data);
+			},
+			error: function(){
+				error.apply(this, arguments);
+			}
+		});
+	}
 });
 
 var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
@@ -354,7 +374,7 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 				if (data.rows && data.rows.length){
 					callback.call(opts.view, data.rows);
 				} else {
-					opts.onLoadSuccess.call(target, data);
+					if (data.total!=0) opts.onLoadSuccess.call(target, data);
 				}
 			}, function(){
 				$(target).datagrid('loaded');
