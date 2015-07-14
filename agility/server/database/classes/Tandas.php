@@ -579,7 +579,7 @@ class Tandas extends DBObject {
 		$rows=http_request("rows","i",0);
 		$res=$this->getListaPerros($s,$t,0);
 		if (($page==0) || ($rows==0)) return $res;
-		if($res['total']==0) { $res['total']=1; return $res; }
+		if($res['total']==0) return  $res;
 		// on scrollview, $res['total'] returns total number of rows
 		// but only $rows starting at $page*$rows are returned
 		$r=array_slice($res['rows'],($page-1)*$rows,$rows,false);

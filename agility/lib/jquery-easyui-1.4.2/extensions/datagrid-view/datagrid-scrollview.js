@@ -374,7 +374,7 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 				if (data.rows && data.rows.length){
 					callback.call(opts.view, data.rows);
 				} else {
-					opts.onLoadSuccess.call(target, data);
+					if (data.total!=0) opts.onLoadSuccess.call(target, data);
 				}
 			}, function(){
 				$(target).datagrid('loaded');
