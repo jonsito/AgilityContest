@@ -151,7 +151,8 @@ function tablet_showPerrosByTanda(index,row){
 	    singleSelect: true,
 	    autoRowHeight: false,
         remote:true,
-        view: scrollview,
+        idField:'Dorsal',
+        // view: scrollview,
         pageSize: 20,
 	    width: '100%',
 	    height: '400',
@@ -197,7 +198,8 @@ function tablet_showPerrosByTanda(index,row){
         onResize:function(){
             tbt_dg.datagrid('fixDetailRowHeight',index);
         },
-        onLoadSuccess:function(){
+        onLoadSuccess:function(data){
+            if (!data.total) return; // subgrid returns an empty array. Do nothing
             // show/hide team name
             if (isTeamByJornada(workingData.datosJornada) ) mySelf.datagrid('showColumn','NombreEquipo');
             else  mySelf.datagrid('hideColumn','NombreEquipo');

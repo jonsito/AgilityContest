@@ -80,6 +80,7 @@ $config =Config::getInstance();
             rownumbers: true,
             singleSelect: true,
             fitColumns: true,
+			idField: 'ID',
             view: scrollview,
             pageSize: 50,
             multiSort: true,

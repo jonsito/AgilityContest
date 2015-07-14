@@ -248,6 +248,9 @@ class PrintEstadisticas extends PrintCommon {
 		// do not account when undefined catetory or grade
 		if ($item['Categoria']==='-') return;
 		if ($item['Grado']==='-') return;
+		if ($item['Grado']==='P.B.') return; // perro en blanco no se toma en cuenta
+		if ($item['Grado']==='Baja') return; // TODO: no se deberia admitir la inscripcion
+		if ($item['Grado']==='Ret.') return; // TODO: no se deberia admitir la inscripcion
 		$data[$jornada]['G']['C']++;
 		$data[$jornada]['G'][$item['Categoria']]++;
 		$data[$jornada][$item['Grado']]['C']++;

@@ -362,8 +362,7 @@ function tablet_accept() {
     // mark as no longer pending
     obj.Pendiente = 0;
     // now update and redraw data on
-    // var rowindex= dg.datagrid("getRowIndex", row);
-    var rowindex = obj.RowIndex;
+    var rowindex= dg.datagrid("getRowIndex", row);
 
     // update row
     dg.datagrid('updateRow', {index: rowindex, row: obj});
@@ -392,7 +391,6 @@ function tablet_accept() {
 		return false;
 	}
 	// seleccionamos fila siguiente
-    rowindex++;
 	/*
 	var count=dg.datagrid('getRows').length;    // row count
 	if ( (rowindex)>=count ) { // at end of datagrid
@@ -401,16 +399,16 @@ function tablet_accept() {
 		return false;
 	}
 	*/
-	dg.datagrid('scrollTo',rowindex);
-	dg.datagrid('selectRow', rowindex);
+	dg.datagrid('scrollTo',rowindex+1);
+	dg.datagrid('selectRow', rowindex+1);
 	var data=dg.datagrid('getSelected');
 	if (data==null) {// at end of datagrid
 		$('#tdialog-window').window('close'); // close window
-		dg.datagrid('refreshRow',rowindex-1);
+		dg.datagrid('refreshRow',rowindex);
 		return false;
 	}
 	data.Session=workingData.sesion;
-    data.RowIndex=rowindex;
+    data.RowIndex=rowindex; // not really used, but....
     data.Parent=dgname; // store datagrid reference
     $('#tdialog-form').form('load',data);
     return false; // prevent follow onClick event chain
