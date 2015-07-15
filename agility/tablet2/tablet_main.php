@@ -30,75 +30,77 @@ $config =Config::getInstance();
         <div data-options="region:'center',fit:true">
             <div class="dialog_forms" style="background:white;">
                 <form id="tdialog-form" method="get" novalidate="novalidate">
-                    <input id="tdialog-RowIndex" name="RowIndex" type="hidden" value="0"> <!-- datagrid row index -->
-                    <input id="tdialog-Session" name="Session" type="hidden" value="0"> <!-- Session ID -->
-                    <input id="tdialog-Parent" name="Parent" type="hidden" value=""> <!-- name of parent datagrid -->
-                    <input id="tdialog-ID" name="ID" type="hidden">     <!-- Tanda ID -->
-                    <input id="tdialog-Prueba" name="Prueba" type="hidden">
-                    <input id="tdialog-Jornada" name="Jornada" type="hidden">
-                    <input id="tdialog-Manga" name="Manga" type="hidden">
-                    <input id="tdialog-Perro" name="Perro" type="hidden">
-                    <input id="tdialog-Licencia" name="Licencia" type="hidden">
-                    <input id="tdialog-Equipo" name="Equipo" type="hidden">
-                    <input id="tdialog-NombreEquipo" name="NombreEquipo" type="hidden">
-                    <input id="tdialog-Pendiente" name="Pendiente" type="hidden" value="0">
-                    <input id="tdialog-Tanda" name="Tanda" type="hidden"> <!-- Tanda name -->
-                    <input id="tdialog-Observacioens" name="Observaciones" type="hidden">
-                    <input id="tdialog-Operation" name="Operation" type="hidden" value="update">
-                    <input id="tdialog-FaltaUpBtn" type="button" value="Falta" onclick="tablet_up('#tdialog-Faltas');" class="tablet_button tb_falta">
-                    <input id="tdialog-FaltaDownBtn" type="button" value="Falta -" onclick="tablet_down('#tdialog-Faltas');">
-                    <input id="tdialog-RehuseUpBtn" type="button" value="Rehuse" onclick="tablet_up('#tdialog-Rehuses')" class="tablet_button tb_rehuse">
-                    <input id="tdialog-RehuseDownBtn" type="button" value="Rehuse -" onclick="tablet_down('#tdialog-Rehuses');">
-                    <input id="tdialog-TocadoUpBtn" type="button" value="Tocado" onclick="tablet_up('#tdialog-Tocados');" class="tablet_button tb_tocado">
-                    <input id="tdialog-TocadoDownBtn" type="button" value="Tocado -" onclick="tablet_down('#tdialog-Tocados');">
-                    <input id="tdialog-StartStopBtn" type="button" value="Start" onclick="tablet_startstop();" class="tablet_button tb_crono">
-                    <input id="tdialog-SalidaBtn" type="button" value="Salida" onclick="tablet_salida();" class="tablet_button tb_salida">
-                    <input id="tdialog-AcceptBtn" type="button" value="Aceptar" onclick="tablet_accept();" class="tablet_button tb_accept">
-                    <input id="tdialog-CancelBtn" type="button" value="Cancelar" onclick="tablet_cancel();" class="tablet_button tb_cancel">
-                    <input id="tdialog-NoPresentadoBtn" type="button" value="No Presentado" onclick="tablet_np();" class="tablet_button tb_nopresentado">
-                    <input id="tdialog-EliminadoBtn" type="button" value="Eliminado" onclick="tablet_elim('#tdialog-Eliminado');" class="tablet_button tb_eliminado">
-                    <input id="tdialog-0" type="button" value="0" class="tablet_numbers" onclick="tablet_add(0);">
-                    <input id="tdialog-1" type="button" value="1" class="tablet_numbers" onclick="tablet_add(1);">
-                    <input id="tdialog-2" type="button" value="2" class="tablet_numbers" onclick="tablet_add(2);">
-                    <input id="tdialog-3" type="button" value="3" class="tablet_numbers" onclick="tablet_add(3);">
-                    <input id="tdialog-4" type="button" value="4" class="tablet_numbers" onclick="tablet_add(4);">
-                    <input id="tdialog-5" type="button" value="5" class="tablet_numbers" onclick="tablet_add(5);">
-                    <input id="tdialog-6" type="button" value="6" class="tablet_numbers" onclick="tablet_add(6);">
-                    <input id="tdialog-7" type="button" value="7" class="tablet_numbers" onclick="tablet_add(7);">
-                    <input id="tdialog-8" type="button" value="8" class="tablet_numbers" onclick="tablet_add(8);">
-                    <input id="tdialog-9" type="button" value="9" class="tablet_numbers" onclick="tablet_add(9);">
-                    <input id="tdialog-Del" type="button" value="." class="tablet_numbers" onclick="tablet_dot();">
-                    <input id="tdialog-Dot" type="button" value="Del" class="tablet_numbers" onclick="tablet_del();">
-                    <label id="tdialog-DorsalLbl" for="tdialog-Dorsal" class="tablet_info">Dorsal</label>
-                    <input id="tdialog-Dorsal" type="text" readonly="readonly" name="Dorsal" class="tablet_info"/>
-                    <label id="tdialog-NombreLbl" for="tdialog-Nombre" class="tablet_info">Nombre</label>
-                    <input id="tdialog-Nombre" type="text" readonly="readonly" name="Nombre" class="tablet_info"/>
-                    <label id="tdialog-GuiaLbl" for="tdialog-Guia" class="tablet_info">Gu&iacute;a</label>
-                    <input id="tdialog-Guia" type="text" readonly="readonly" name="NombreGuia" class="tablet_info"/>
-                    <label id="tdialog-ClubLbl" for="tdialog-Club" class="tablet_info">Club</label>
-                    <input id="tdialog-Club" type="text" readonly="readonly" name="NombreClub" class="tablet_info"/>
-                    <label id="tdialog-CategoriaLbl" for="tdialog-Categoria" class="tablet_info">Cat.</label>
-                    <input id="tdialog-Categoria" type="text" readonly="readonly" name="Categoria" class="tablet_info"/>
-                    <label id="tdialog-GradoLbl" for="tdialog-Grado" class="tablet_info">Grado</label>
-                    <input id="tdialog-Grado" type="text" readonly="readonly" name="Grado" class="tablet_info"/>
-                    <label id="tdialog-CeloLbl" for="tdialog-Celo" class="tablet_info">Celo</label>
-                    <input id="tdialog-Celo" type="text" readonly="readonly" name="Celo" class="tablet_info"/>
-                    <label id="tdialog-FaltasLbl" for="tdialog-Faltas">Faltas</label>
-                    <input id="tdialog-Faltas" type="text" readonly="readonly" value="0" name="Faltas" class="tablet_data"/>
-                    <label id="tdialog-TocadosLbl" for="tdialog-Tocados">Tocados</label>
-                    <input id="tdialog-Tocados" type="text" readonly="readonly" value="0" name="Tocados" class="tablet_data"/>
-                    <label id="tdialog-RehusesLbl" for="tdialog-Rehuses">Rehuses</label>
-                    <input id="tdialog-Rehuses" type="text" readonly="readonly" value="0" name="Rehuses" class="tablet_data"/>
-                    <label id="tdialog-TiempoLbl" for="tdialog-Tiempo">Tiempo</label>
-                    <span id="tdialog-timestamp" style="display:none"></span>
-                    <input id="tdialog-Tiempo" type="text" readonly="readonly" value="00.00" name="Tiempo" class="tablet_data"/>
-                    <label id="tdialog-NoPresentadoLbl" for="tdialog-NoPresentadoStr">No Pr.</label>
-                    <input id="tdialog-NoPresentado" type="hidden" name="NoPresentado" value="0"/>
-                    <input id="tdialog-NoPresentadoStr" type="text" readonly="readonly" value="" name="NoPresentadoStr" class="tablet_data"/>
-                    <label id="tdialog-EliminadoLbl" for="tdialog-EliminadoStr">Elim.</label>
-                    <input id="tdialog-Eliminado" type="hidden" value="0" name="Eliminado"/>
-                    <input id="tdialog-EliminadoStr" type="text" readonly="readonly" value="" name="EliminadoStr" class="tablet_data"/>
-                    <label id="tdialog-Rectangulo" class="tablet_rectangulo">&nbsp;</label>
+                    <fieldset id="tdialog-fieldset" style="margin:0;padding:0;border:0">
+                        <input id="tdialog-RowIndex" name="RowIndex" type="hidden" value="0"> <!-- datagrid row index -->
+                        <input id="tdialog-Session" name="Session" type="hidden" value="0"> <!-- Session ID -->
+                        <input id="tdialog-Parent" name="Parent" type="hidden" value=""> <!-- name of parent datagrid -->
+                        <input id="tdialog-ID" name="ID" type="hidden">     <!-- Tanda ID -->
+                        <input id="tdialog-Prueba" name="Prueba" type="hidden">
+                        <input id="tdialog-Jornada" name="Jornada" type="hidden">
+                        <input id="tdialog-Manga" name="Manga" type="hidden">
+                        <input id="tdialog-Perro" name="Perro" type="hidden">
+                        <input id="tdialog-Licencia" name="Licencia" type="hidden">
+                        <input id="tdialog-Equipo" name="Equipo" type="hidden">
+                        <input id="tdialog-NombreEquipo" name="NombreEquipo" type="hidden">
+                        <input id="tdialog-Pendiente" name="Pendiente" type="hidden" value="0">
+                        <input id="tdialog-Tanda" name="Tanda" type="hidden"> <!-- Tanda name -->
+                        <input id="tdialog-Observacioens" name="Observaciones" type="hidden">
+                        <input id="tdialog-Operation" name="Operation" type="hidden" value="update">
+                        <input id="tdialog-FaltaUpBtn" type="button" value="Falta" onclick="tablet_up('#tdialog-Faltas');" class="tablet_button tb_falta">
+                        <input id="tdialog-FaltaDownBtn" type="button" value="Falta -" onclick="tablet_down('#tdialog-Faltas');">
+                        <input id="tdialog-RehuseUpBtn" type="button" value="Rehuse" onclick="tablet_up('#tdialog-Rehuses')" class="tablet_button tb_rehuse">
+                        <input id="tdialog-RehuseDownBtn" type="button" value="Rehuse -" onclick="tablet_down('#tdialog-Rehuses');">
+                        <input id="tdialog-TocadoUpBtn" type="button" value="Tocado" onclick="tablet_up('#tdialog-Tocados');" class="tablet_button tb_tocado">
+                        <input id="tdialog-TocadoDownBtn" type="button" value="Tocado -" onclick="tablet_down('#tdialog-Tocados');">
+                        <input id="tdialog-StartStopBtn" type="button" value="Start" onclick="tablet_startstop();" class="tablet_button tb_crono">
+                        <input id="tdialog-SalidaBtn" type="button" value="Salida" onclick="tablet_salida();" class="tablet_button tb_salida">
+                        <input id="tdialog-AcceptBtn" type="button" value="Aceptar" onclick="tablet_accept();" class="tablet_button tb_accept">
+                        <input id="tdialog-CancelBtn" type="button" value="Cancelar" onclick="tablet_cancel();" class="tablet_button tb_cancel">
+                        <input id="tdialog-NoPresentadoBtn" type="button" value="No Presentado" onclick="tablet_np();" class="tablet_button tb_nopresentado">
+                        <input id="tdialog-EliminadoBtn" type="button" value="Eliminado" onclick="tablet_elim('#tdialog-Eliminado');" class="tablet_button tb_eliminado">
+                        <input id="tdialog-0" type="button" value="0" class="tablet_numbers" onclick="tablet_add(0);">
+                        <input id="tdialog-1" type="button" value="1" class="tablet_numbers" onclick="tablet_add(1);">
+                        <input id="tdialog-2" type="button" value="2" class="tablet_numbers" onclick="tablet_add(2);">
+                        <input id="tdialog-3" type="button" value="3" class="tablet_numbers" onclick="tablet_add(3);">
+                        <input id="tdialog-4" type="button" value="4" class="tablet_numbers" onclick="tablet_add(4);">
+                        <input id="tdialog-5" type="button" value="5" class="tablet_numbers" onclick="tablet_add(5);">
+                        <input id="tdialog-6" type="button" value="6" class="tablet_numbers" onclick="tablet_add(6);">
+                        <input id="tdialog-7" type="button" value="7" class="tablet_numbers" onclick="tablet_add(7);">
+                        <input id="tdialog-8" type="button" value="8" class="tablet_numbers" onclick="tablet_add(8);">
+                        <input id="tdialog-9" type="button" value="9" class="tablet_numbers" onclick="tablet_add(9);">
+                        <input id="tdialog-Del" type="button" value="." class="tablet_numbers" onclick="tablet_dot();">
+                        <input id="tdialog-Dot" type="button" value="Del" class="tablet_numbers" onclick="tablet_del();">
+                        <label id="tdialog-DorsalLbl" for="tdialog-Dorsal" class="tablet_info">Dorsal</label>
+                        <input id="tdialog-Dorsal" type="text" readonly="readonly" name="Dorsal" class="tablet_info"/>
+                        <label id="tdialog-NombreLbl" for="tdialog-Nombre" class="tablet_info">Nombre</label>
+                        <input id="tdialog-Nombre" type="text" readonly="readonly" name="Nombre" class="tablet_info"/>
+                        <label id="tdialog-GuiaLbl" for="tdialog-Guia" class="tablet_info">Gu&iacute;a</label>
+                        <input id="tdialog-Guia" type="text" readonly="readonly" name="NombreGuia" class="tablet_info"/>
+                        <label id="tdialog-ClubLbl" for="tdialog-Club" class="tablet_info">Club</label>
+                        <input id="tdialog-Club" type="text" readonly="readonly" name="NombreClub" class="tablet_info"/>
+                        <label id="tdialog-CategoriaLbl" for="tdialog-Categoria" class="tablet_info">Cat.</label>
+                        <input id="tdialog-Categoria" type="text" readonly="readonly" name="Categoria" class="tablet_info"/>
+                        <label id="tdialog-GradoLbl" for="tdialog-Grado" class="tablet_info">Grado</label>
+                        <input id="tdialog-Grado" type="text" readonly="readonly" name="Grado" class="tablet_info"/>
+                        <label id="tdialog-CeloLbl" for="tdialog-Celo" class="tablet_info">Celo</label>
+                        <input id="tdialog-Celo" type="text" readonly="readonly" name="Celo" class="tablet_info"/>
+                        <label id="tdialog-FaltasLbl" for="tdialog-Faltas">Faltas</label>
+                        <input id="tdialog-Faltas" type="text" readonly="readonly" value="0" name="Faltas" class="tablet_data"/>
+                        <label id="tdialog-TocadosLbl" for="tdialog-Tocados">Tocados</label>
+                        <input id="tdialog-Tocados" type="text" readonly="readonly" value="0" name="Tocados" class="tablet_data"/>
+                        <label id="tdialog-RehusesLbl" for="tdialog-Rehuses">Rehuses</label>
+                        <input id="tdialog-Rehuses" type="text" readonly="readonly" value="0" name="Rehuses" class="tablet_data"/>
+                        <label id="tdialog-TiempoLbl" for="tdialog-Tiempo">Tiempo</label>
+                        <span id="tdialog-timestamp" style="display:none"></span>
+                        <input id="tdialog-Tiempo" type="text" readonly="readonly" value="00.00" name="Tiempo" class="tablet_data"/>
+                        <label id="tdialog-NoPresentadoLbl" for="tdialog-NoPresentadoStr">No Pr.</label>
+                        <input id="tdialog-NoPresentado" type="hidden" name="NoPresentado" value="0"/>
+                        <input id="tdialog-NoPresentadoStr" type="text" readonly="readonly" value="" name="NoPresentadoStr" class="tablet_data"/>
+                        <label id="tdialog-EliminadoLbl" for="tdialog-EliminadoStr">Elim.</label>
+                        <input id="tdialog-Eliminado" type="hidden" value="0" name="Eliminado"/>
+                        <input id="tdialog-EliminadoStr" type="text" readonly="readonly" value="" name="EliminadoStr" class="tablet_data"/>
+                        <label id="tdialog-Rectangulo" class="tablet_rectangulo">&nbsp;</label>
+                    </fieldset>
                 </form>
             </div>
         </div>
@@ -265,14 +267,26 @@ $config =Config::getInstance();
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:myRowStyler,
+            onSelect: function(index,data) {
+                if (index<0) return false; // no selection
+                if (data==null) {// at end of datagrid
+                    setDataEntryEnabled(false);
+                    mySelf.datagrid('refreshRow',index);
+                    return false;
+                }
+                data.Session=workingData.sesion;
+                data.RowIndex=index; // not really used, but....
+                data.Parent=mySelfstr; // store datagrid reference
+                $('#tdialog-form').form('load',data);
+                setDataEntryEnabled(true);
+            },
             onClickRow: function(idx,data) {
                 doBeep();
                 data.Session=workingData.sesion;
                 data.Parent=mySelfstr; // store datagrid reference
                 data.RowIndex=idx; // store row index
                 $('#tdialog-form').form('load',data);
-                // $('#tablet-window').window('close');
-                // $('#tdialog-window').window('open');
+                setDataEntryEnabled(true);
             },
             onResize:function(){
                 tbt_dg.datagrid('fixDetailRowHeight',index);
@@ -360,7 +374,7 @@ $config =Config::getInstance();
 
     // layout
     var dg= {'cols':210, 'rows':145}; // declare base datagrid as A5 sheet
-
+    doLayout(dg,"#tdialog-fieldset",        0,      0,      210,    145 );
     doLayout(dg,"#tdialog-FaltaUpBtn",		5,		10,		35,		90	);
     doLayout(dg,"#tdialog-FaltaDownBtn",	50,		10,		15,		20	);
     doLayout(dg,"#tdialog-RehuseUpBtn",		170,	10,		35,		90	);

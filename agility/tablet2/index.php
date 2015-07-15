@@ -391,6 +391,8 @@ function tablet_acceptSelectJornada() {
         	    					if (status=='error') $('#tablet_contenido').load('/agility/frm_notavailable.php');
         	        	    		// start event manager
         	        	    		startEventMgr(workingData.sesion,tablet_processEvents);
+									setDataEntryEnabled(false);
+                                    $('#tablet-layout').layout('panel','west').panel('setTitle',p.Nombre+" - "+ j.Nombre);
         	    				}
         	    			); // load
         	    	} // close dialog; open main window

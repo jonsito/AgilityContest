@@ -22,14 +22,19 @@ function tandasStyler(val,row,idx) {
 	return str;
 }
 
-/******************* funciones de manejo de las ventana de orden de tandas y orden de salida en el tablet *******************/
+/******************* funciones de manejo del panel de orden de tandas y orden de salida en el tablet *******************/
 
-function tablet_showOrdenSalida() {
-	$('#tablet-window').window('open');
-    $('#tdialog-window').window('close');
+/**
+ * expande/contrae activa/desactiva entrada de datos en el tablet
+ * @param {boolean} flag true if activate; false on deactivate
+ */
+function setDataEntryEnabled(flag) {
+	$('#tdialog-fieldset').prop('disabled',!flag);
+	if (flag) $('#tablet-layout').layout('collapse','west');
+	else $('#tablet-layout').layout('expand','west');
 }
 
-/******************* funciones de manejo de la ventana de entrada de resultados del tablet *****************/
+/******************* funciones de manejo del panel de entrada de resultados del tablet *****************/
 
 /**
  * send events
@@ -315,7 +320,8 @@ function tablet_cancel() {
 	doBeep();
 	// retrieve original data from parent datagrid
 	var dgname=$('#tdialog-Parent').val();
-	var row =$(dgname).datagrid('getSelected');
+    var dg=$(dgname).datagrid();
+	var row =dg.datagrid('getSelected');
 	if (row) {
 		// update database according row data
 		row.Operation='update';
@@ -339,11 +345,13 @@ function tablet_cancel() {
 					);
 			}
 		});
+        var index=row =dg.datagrid('getRowIndex',row);
+        dg.datagrid('scrollTo',index);
 	}
 	// and close panel
 	tablet_cronoManual('stop');
 	tablet_cronoManual('reset');
-	$('#tdialog-window').window('close');
+	setDataEntryEnabled(false);
 	return false;
 }
 
@@ -386,31 +394,13 @@ function tablet_accept() {
         tablet_cronoManual('reset');
     }
 	if (!ac_config.tablet_next) { // no go to next row entry
-		$('#tdialog-window').window('close'); // close window
+		setDataEntryEnabled(false);
 		dg.datagrid('refreshRow',rowindex);
 		return false;
 	}
-	// seleccionamos fila siguiente
-	/*
-	var count=dg.datagrid('getRows').length;    // row count
-	if ( (rowindex)>=count ) { // at end of datagrid
-		$('#tdialog-window').window('close'); // close window
-		dg.datagrid('refreshRow',rowindex-1);
-		return false;
-	}
-	*/
+	// seleccionamos fila siguiente (will fire selectEvent)
 	dg.datagrid('scrollTo',rowindex+1);
 	dg.datagrid('selectRow', rowindex+1);
-	var data=dg.datagrid('getSelected');
-	if (data==null) {// at end of datagrid
-		$('#tdialog-window').window('close'); // close window
-		dg.datagrid('refreshRow',rowindex);
-		return false;
-	}
-	data.Session=workingData.sesion;
-    data.RowIndex=rowindex; // not really used, but....
-    data.Parent=dgname; // store datagrid reference
-    $('#tdialog-form').form('load',data);
     return false; // prevent follow onClick event chain
 }
 
