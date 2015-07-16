@@ -267,19 +267,6 @@ $config =Config::getInstance();
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:myRowStyler,
-            onSelect: function(index,data) {
-                if (index<0) return false; // no selection
-                if (data==null) {// at end of datagrid
-                    setDataEntryEnabled(false);
-                    mySelf.datagrid('refreshRow',index);
-                    return false;
-                }
-                data.Session=workingData.sesion;
-                data.RowIndex=index; // not really used, but....
-                data.Parent=mySelfstr; // store datagrid reference
-                $('#tdialog-form').form('load',data);
-                setDataEntryEnabled(true);
-            },
             onClickRow: function(idx,data) {
                 doBeep();
                 data.Session=workingData.sesion;
