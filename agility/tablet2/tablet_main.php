@@ -214,6 +214,7 @@ $config =Config::getInstance();
         var mySelfstr='#tablet-datagrid-'+row.ID;
         var mySelf=$(mySelfstr);
         mySelf.datagrid({
+            numRows: 0, // added by JAMC to store number of dogs
             method: 'get',
             url: '/agility/server/database/tandasFunctions.php',
             queryParams: {
@@ -280,6 +281,7 @@ $config =Config::getInstance();
             },
             onLoadSuccess:function(data){
                 if (!data.total) return; // subgrid returns an empty array. Do nothing
+                mySelf.datagrid('options').numRows=data.total; // store total number of rows
                 // show/hide team name
                 if (isTeamByJornada(workingData.datosJornada) ) mySelf.datagrid('showColumn','NombreEquipo');
                 else  mySelf.datagrid('hideColumn','NombreEquipo');

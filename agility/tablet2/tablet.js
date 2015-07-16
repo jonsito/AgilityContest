@@ -359,14 +359,15 @@ function nextRow(dg,cb){
 	var opts = dg.datagrid('options');
 	var row = dg.datagrid('getSelected');
 	var index = dg.datagrid('getRowIndex', row);
-	dg.datagrid('scrollTo', index+1);
 	var onSelect = opts.onSelect;
-	opts.onSelect = function(index,row){
-		onSelect.call(dg[0], index, row);
+	opts.onSelect = function(idx,row){
+		onSelect.call(dg[0], idx, row);
 		opts.onSelect = onSelect;
-		cb(index,row);
-	}
+		setTimeout(function() {cb(idx,row);},0);
+	};
+    dg.datagrid('scrollTo', index+1);
 	dg.datagrid('selectRow', index+1);
+    return true;
 }
 
 function tablet_accept() {
@@ -414,18 +415,19 @@ function tablet_accept() {
 	}
 	// seleccionamos fila siguiente
 	nextRow(dg,function(index,data) {
-		if (index<0) return false; // no selection
-		if (data==null) {// at end of datagrid
-			setDataEntryEnabled(false);
-			dg.datagrid('refreshRow',index);
-			return false;
-		}
+        alert ("index:"+index+" data:"+JSON.stringify(data));
+        if (index<0) return false; // no selection
+        if (data==null) { // at end of rows. should not occurs
+            // dg.datagrid('scrollTo',rowindex);
+            // dg.datagrid('selectRow',rowindex);
+            setDataEntryEnabled(false);
+            return false;
+        }
 		data.Session=workingData.sesion;
 		data.RowIndex=index; // not really used, but....
 		data.Parent=dgname; // store datagrid reference
 		$('#tdialog-form').form('load',data);
 		setDataEntryEnabled(true);
-
 	});
     return false; // prevent follow onClick event chain
 }
