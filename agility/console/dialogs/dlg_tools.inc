@@ -42,18 +42,45 @@ function backupDatabase(){
 		    failMessageHtml: "There was a problem generating your backup, please try again."
 		}
 	);
+	$.messager.alert("TODO","Erase pruebas not yet supported. Sorry","error");
 	return false;
 }
 
 function restoreDatabase(){
-	$.messager.alert("TODO","Restore Database from Application is not yet supported. Sorry","error");
+	var l1="<strong>AVISO:</strong><br />";
+	var l2="Esta operaci&oacute;n <strong>BORRARA <em>TODOS</em> LOS DATOS ACTUALES</strong>. antes de intentar recuperar los nuevos<br />";
+	var l3="Aseg&uacute;rese de realizar una copia de seguridad antes de seguir<br /><br />";
+	var l4="Para continuar, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
+	$.messager.password('Recuperar base de datos',l1+l2+l3+l4 , function(r){
+		if (r){
+			$.messager.alert("TODO","Restore Database from Application is not yet supported. Sorry","error");
+		}
+	}).window('resize',{width:640});
 }
 
 function factoryReset(){
-	$.messager.alert("TODO","Factory Reset not yet supported. Sorry","error");
+	var l1="<strong>AVISO:</strong><br />";
+	var l2="Esta operaci&oacute;n restaura los valores de fabrica y <strong>BORRA <em>TODOS</em> LOS DATOS </strong><br />" +
+		"Incluyendo pruebas,inscripciones, resultados, jueces, perros, guias y clubes<br />" +
+		"Solo deberia usarse como paso previo a una importación de datos desde fichero excel<br /> ";
+	var l3="Aseg&uacute;rese de realizar una copia de seguridad antes de seguir<br/><br />";
+	var l4="Para continuar, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
+	$.messager.password('Factory Reset',l1+l2+l3+l4 , function(r){
+		if (r){
+			$.messager.alert("TODO","Factory Reset not yet supported. Sorry","error");
+		}
+	}).window('resize',{width:640});
 }
 function removePruebas(){
-	$.messager.alert("TODO","Erase pruebas not yet supported. Sorry","error");
+	var l1="<strong>AVISO:</strong><br />";
+	var l2="Esta operaci&oacute;n eliminar&aacute; todas las pruebas,";
+	var l3="competiciones y resultados almacenados<br/><br />";
+	var l4="Para continuar, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
+	$.messager.password('Borrar pruebas',l1+l2+l3+l4, function(r){
+		if (r){
+			$.messager.alert("TODO","Contest Clear not yet supported. Sorry","error");
+		}
+	}).window('resize',{width:640});
 }
 
 </script>
