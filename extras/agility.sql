@@ -4338,7 +4338,7 @@ INSERT INTO `provincias` VALUES
 ('Alicante/Alacant','Comunitat Valenciana',3),
 ('Almería','Andalucía',4),
 ('Araba/Álava','País Vasco',1),
-('Asturias','Cantabria',33),
+('Asturias','Principado de Asturias',33),
 ('Ávila','Castilla y León',5),
 ('Badajoz','Extremadura',6),
 ('Balears, Illes','Balears, Illes',7),

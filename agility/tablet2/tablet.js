@@ -355,18 +355,18 @@ function tablet_cancel() {
 	return false;
 }
 
-function nextRow(dg,cb){
+function nextRow(dg, cb){
 	var opts = dg.datagrid('options');
 	var row = dg.datagrid('getSelected');
 	var index = dg.datagrid('getRowIndex', row);
-	var onSelect = opts.onSelect;
-	opts.onSelect = function(idx,row){
-		onSelect.call(dg[0], idx, row);
-		opts.onSelect = onSelect;
-		setTimeout(function() {cb(idx,row);},0);
-	};
-    dg.datagrid('scrollTo', index+1);
-	dg.datagrid('selectRow', index+1);
+    if (index>=(opts.numRows-1)) return false;
+	dg.datagrid('scrollTo', {
+		index: index+1,
+		callback: function(index){
+			$(this).datagrid('selectRow', index);
+			cb(index, $(this).datagrid('getRows')[index]);
+		}
+	});
     return true;
 }
 
@@ -414,12 +414,11 @@ function tablet_accept() {
 		return false;
 	}
 	// seleccionamos fila siguiente
-	nextRow(dg,function(index,data) {
-        alert ("index:"+index+" data:"+JSON.stringify(data));
+	var res=nextRow(dg,function(index,data) {
+        // alert ("index:"+index+" data:"+JSON.stringify(data));
         if (index<0) return false; // no selection
         if (data==null) { // at end of rows. should not occurs
-            // dg.datagrid('scrollTo',rowindex);
-            // dg.datagrid('selectRow',rowindex);
+            dg.datagrid('scrollTo',rowindex);
             setDataEntryEnabled(false);
             return false;
         }
@@ -427,8 +426,11 @@ function tablet_accept() {
 		data.RowIndex=index; // not really used, but....
 		data.Parent=dgname; // store datagrid reference
 		$('#tdialog-form').form('load',data);
-		setDataEntryEnabled(true);
 	});
+    if (res==false) { // at end of list
+        setDataEntryEnabled(false);
+        dg.datagrid('refreshRow',rowindex);
+    }
     return false; // prevent follow onClick event chain
 }
 

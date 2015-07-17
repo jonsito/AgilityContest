@@ -374,7 +374,7 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 				if (data.rows && data.rows.length){
 					callback.call(opts.view, data.rows);
 				} else {
-					if (data.total!=0) opts.onLoadSuccess.call(target, data);
+					opts.onLoadSuccess.call(target, data);
 				}
 			}, function(){
 				$(target).datagrid('loaded');
@@ -443,10 +443,17 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 
 $.fn.datagrid.methods.baseScrollTo = $.fn.datagrid.methods.scrollTo;
 $.extend($.fn.datagrid.methods, {
-	gotoPage: function(jq, page, callback){
+	gotoPage: function(jq, param){
 		return jq.each(function(){
 			var target = this;
 			var opts = $(target).datagrid('options');
+			var page, callback;
+			if (typeof param == 'object'){
+				page = param.page;
+				callback = param.callback;
+			} else {
+				page = param;
+			}
 			opts.view.getRows.call(opts.view, target, page, function(rows){
 				this.index = (page-1)*opts.pageSize;
 				this.rows = rows;
@@ -455,29 +462,48 @@ $.extend($.fn.datagrid.methods, {
 				this.populate.call(this, target);
 				$(target).data('datagrid').dc.body2.scrollTop(this.index * opts.rowHeight);
 				if (callback){
-					callback();
+					callback.call(target, page);
 				}
 			});
 		});
 	},
-	scrollTo: function(jq, index){
+	scrollTo: function(jq, param){
 		return jq.each(function(){
 			var target = this;
 			var opts = $(target).datagrid('options');
+			var index, callback;
+			if (typeof param == 'object'){
+				index = param.index;
+				callback = param.callback;
+			} else {
+				index = param;
+			}
 			var view = opts.view;
 			if (view.type == 'scrollview'){
 				if (index >= view.index && index < view.index+view.rows.length){
 					$(target).datagrid('baseScrollTo', index);
+					if (callback){
+						callback.call(target, index);
+					}
 				} else if (index >= 0){
 					var page = Math.floor(index/opts.pageSize) + 1;
-					$.fn.datagrid.methods.gotoPage($(this), page, function(){
-						setTimeout(function(){
-							$(target).datagrid('baseScrollTo', index);
-						}, 0);
-					});				
+					$(target).datagrid('gotoPage', {
+						page: page,
+						callback: function(){
+							setTimeout(function(){
+								$(target).datagrid('baseScrollTo', index);
+								if (callback){
+									callback.call(target, index);
+								}
+							}, 0);							
+						}
+					});
 				}
 			} else {
 				$(target).datagrid('baseScrollTo', index);
+				if (callback){
+					callback.call(target, index);
+				}
 			}
 		});
 	}
