@@ -57,6 +57,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/lib/jquery-fileDownload-1.4.2.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/admin.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/clubes.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/guias.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/perros.js" type="text/javascript" charset="utf-8" > </script>
@@ -67,8 +68,8 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/scripts/equipos.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/pruebas.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/inscripciones.js.php" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
-    <script src="/agility/scripts/printer.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/printer.js" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript">
 function initialize() {
