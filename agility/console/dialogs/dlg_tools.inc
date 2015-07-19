@@ -9,7 +9,9 @@
 	<p> 
 		<span style="display:inline-block;width:350px">Restaurar copia de seguridad</span>
     	<a id="tools-restoreBtn" href="#" class="easyui-linkbutton" style="width:85px"
-		   	data-options="iconCls:'icon-db_restore'" onclick="restoreDatabase()">Restore</a>
+			data-options="iconCls:'icon-db_restore'" onclick="restoreDatabase()">Restore</a>
+		<input type="file" id="tools-restoreFile" name="restoreFile" accept="application/sql" required="required" onchange="read_restoreFile(this)">
+		<input id="tools-restoreData" type="hidden" name="restoreData" value="">
 	</p>
 	<p> 
 		<span style="display:inline-block;width:350px"> Restaurar aplicaci&oacute;n a valores de f&aacute;brica</span>

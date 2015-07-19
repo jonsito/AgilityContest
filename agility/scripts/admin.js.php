@@ -49,6 +49,38 @@ function backupDatabase(){
     return false;
 }
 
+function clearDatabase(oper,pass,callback) {
+    // comprobamos si el password es correcto
+    checkPassword(authInfo.Login,pass,function(data) {
+        if (data.errorMsg) { // error
+            $.messager.alert("Error",data.errorMsg,"error");
+        } else { // success:
+            // si password correcto invocamos la operacion
+            $.ajax({
+                type:'GET',
+                url:"/agility/server/adminFunctions.php",
+                dataType:'json',
+                data: {
+                    Operation: oper
+                },
+                success: function(res) { callback(res); },
+                error: function(XMLHttpRequest,textStatus,errorThrown) {
+                    $.messager.alert("Error: "+oper,"Error: "+textStatus + " "+ errorThrown,'error' );
+                }
+            });
+        }
+    });
+}
+
+function read_restoreFile(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('#tools-restoreData').val(e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 
 function restoreDatabase(){
     var l1="<strong>AVISO:</strong><br/>";
@@ -56,9 +88,40 @@ function restoreDatabase(){
     var l3="Aseg&uacute;rese de realizar una copia de seguridad antes de seguir<br/><br/>";
     var l4="Para continuar, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
     if (!checkForAdmin()) return;
-    $.messager.password('Recuperar base de datos',l1+l2+l3+l4 , function(r){
-        if (r){
-            $.messager.alert("TODO","Restore Database from Application is not yet supported. Sorry","error");
+    if ($('#tools-restoreFile').val()=="") {
+        $.messager.alert("Restore","Debe especificar un fichero '.sql' con un backup anterior","error");
+        return false;
+    }
+    $.messager.password('Recuperar base de datos',l1+l2+l3+l4 , function(pass){
+        if (pass){
+            // comprobamos si el password es correcto
+            checkPassword(authInfo.Login,pass,function(data) {
+                if (data.errorMsg) { // error
+                    $.messager.alert("Error",data.errorMsg,"error");
+                } else { // success:
+                    // si password correcto invocamos la operacion
+                    $.ajax({
+                        type:'POST', // use post to send file
+                        url:"/agility/server/adminFunctions.php",
+                        dataType:'json',
+                        data: {
+                            Operation: 'restore',
+                            Data: $('#tools-restoreData').val()
+                        },
+                        contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
+                        success: function(data) {
+                            if (data.errorMsg){
+                                $.messager.show({ width:300, height:150, title: 'Database Reset Error', msg: data.errorMsg });
+                            } else {
+                                $.messager.alert("Restore Database","Base de datos recuperada<br />Por favor reinicie la aplicación","info");
+                            }
+                        },
+                        error: function(XMLHttpRequest,textStatus,errorThrown) {
+                            $.messager.alert("DBRestore Error","Error: "+textStatus + " "+ errorThrown,'error' );
+                        }
+                    });
+                }
+            });
         }
     }).window('resize',{width:640});
 }
@@ -71,9 +134,15 @@ function factoryReset(){
     var l3="Aseg&uacute;rese de realizar una copia de seguridad antes de seguir<br/><br/>";
     var l4="Para continuar, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
     if (!checkForAdmin()) return;
-    $.messager.password('Factory Reset',l1+l2+l3+l4 , function(r){
-        if (r){
-            $.messager.alert("TODO","Factory Reset not yet supported. Sorry","error");
+    $.messager.password('Factory Reset',l1+l2+l3+l4 , function(pass){
+        if (pass){
+            clearDatabase('reset',pass,function(data){
+                if (data.errorMsg){
+                    $.messager.show({ width:300, height:150, title: 'Database Reset Error', msg: data.errorMsg });
+                } else {
+                    $.messager.alert("Reset Database","Base de datos vacía<br />Por favor reinicie la aplicación","info");
+                }
+            });
         }
     }).window('resize',{width:640});
 }
@@ -84,9 +153,15 @@ function removePruebas(){
     var l3="competiciones y resultados almacenados<br/><br/>";
     var l4="Para continuar, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
     if (!checkForAdmin()) return;
-    $.messager.password('Borrar pruebas',l1+l2+l3+l4, function(r){
-        if (r){
-            $.messager.alert("TODO","Contest Clear not yet supported. Sorry","error");
+    $.messager.password('Borrar pruebas',l1+l2+l3+l4, function(pass){
+        if (pass){
+            clearDatabase('clear',pass,function(data){
+                if (data.errorMsg){
+                    $.messager.show({ width:300, height:150, title: 'Contests clear Error', msg: data.errorMsg });
+                } else {
+                    $.messager.alert("Clear Database","Todas las competiciones han sido borradas<br />Por favor reinicie la aplicación","info");
+                }
+            });
         }
     }).window('resize',{width:640});
 }

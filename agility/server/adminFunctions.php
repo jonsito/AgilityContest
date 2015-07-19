@@ -145,7 +145,6 @@ try {
 	$result=null;
 	$adm= new Admin("adminFunctions");
 	$am= new AuthManager("adminFunctions");
-	$sk=http_request("SessionKey","s","");
 	$operation=http_request("Operation","s","");
 	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
 	switch ($operation) {
