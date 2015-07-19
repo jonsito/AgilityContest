@@ -25,6 +25,14 @@ $config =Config::getInstance();
 * Admin related functions from dlg_tools.inc
 */
 
+function checkForAdmin() {
+    if (parseInt(authInfo.Perms)>1) {
+        $.messager.alert("Invalid user","Current user '"+authInfo.Login+"' has not enought privileges","error");
+        return false;
+    }
+    return true;
+}
+
 function backupDatabase(){
     $.fileDownload(
         '/agility/server/adminFunctions.php',
@@ -47,6 +55,7 @@ function restoreDatabase(){
     var l2="Esta operaci&oacute;n <strong>BORRARA <em>TODOS</em> LOS DATOS ACTUALES</strong>. antes de intentar recuperar los nuevos<br/>";
     var l3="Aseg&uacute;rese de realizar una copia de seguridad antes de seguir<br/><br/>";
     var l4="Para continuar, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
+    if (!checkForAdmin()) return;
     $.messager.password('Recuperar base de datos',l1+l2+l3+l4 , function(r){
         if (r){
             $.messager.alert("TODO","Restore Database from Application is not yet supported. Sorry","error");
@@ -61,6 +70,7 @@ function factoryReset(){
         "Solo deberia usarse como paso previo a una importación de datos desde fichero excel<br/> ";
     var l3="Aseg&uacute;rese de realizar una copia de seguridad antes de seguir<br/><br/>";
     var l4="Para continuar, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
+    if (!checkForAdmin()) return;
     $.messager.password('Factory Reset',l1+l2+l3+l4 , function(r){
         if (r){
             $.messager.alert("TODO","Factory Reset not yet supported. Sorry","error");
@@ -73,6 +83,7 @@ function removePruebas(){
     var l2="Esta operaci&oacute;n eliminar&aacute; todas las pruebas,";
     var l3="competiciones y resultados almacenados<br/><br/>";
     var l4="Para continuar, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
+    if (!checkForAdmin()) return;
     $.messager.password('Borrar pruebas',l1+l2+l3+l4, function(r){
         if (r){
             $.messager.alert("TODO","Contest Clear not yet supported. Sorry","error");

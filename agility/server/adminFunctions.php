@@ -133,7 +133,11 @@ class Admin {
 		// re-create database
 		return "";
 	}
-	
+
+	public function clearContests() {
+		// TODO: write
+		return "";
+	}
 }
 
 $response="";
@@ -152,6 +156,8 @@ try {
 			$am->access(PERMS_ADMIN); $result=$adm->restore(); break;
 		case "reset":
 			$am->access(PERMS_ADMIN); $result=$adm->factoryReset();	break;
+		case "clear":
+			$am->access(PERMS_ADMIN); $result=$adm->clearContests(); break;
 		case "reginfo": 
 			$result=$am->getRegistrationInfo(); if ($result==null) $adm->errormsg=$am->errormsg; break;
 		case "register":
