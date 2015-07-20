@@ -27,6 +27,7 @@ require_once(__DIR__."/database/classes/DBObject.php");
 class Admin extends DBObject {
 	protected $myLogger;
 	protected $myConfig;
+    protected $myAuth;
 	protected $file;
 	public $errormsg;
 	private $dbname;
@@ -34,12 +35,13 @@ class Admin extends DBObject {
 	private $dbuser;
 	private $dbpass;
 
-	function __construct($file) {
+	function __construct($file,$am) {
         parent::__construct("adminFunctions");
 		// connect database
 		$this->file=$file;
 		$this->myConfig=Config::getInstance();
 		$this->myLogger= new Logger($file,$this->myConfig->getEnv("debug_level"));
+        $this->myAuth=$am;
 
 		$this->dbname=$this->myConfig->getEnv('database_name');
 		$this->dbhost=$this->myConfig->getEnv('database_host');
@@ -118,7 +120,11 @@ class Admin extends DBObject {
 		header('Cache-Control: max-age=60, must-revalidate');
 		header('Content-Type: text/plain; charset=utf-8');
 		header('Content-Disposition: attachment; filename="'.$fname.'"');
-		
+		// insert AgilityContest Info at begining of backup file
+        $ver=$this->myConfig->getEnv("version_name");
+        $rev=$this->myConfig->getEnv("version_date");
+        echo "-- AgilityContest Version: $ver Revision: $rev\n";
+        // now send to client database backup
 		while(!feof($input)) {
 			$line = fgets($input);
 			if (substr($line, 0, 6) === 'INSERT') {
@@ -158,8 +164,8 @@ class Admin extends DBObject {
 $response="";
 try {
 	$result=null;
-	$adm= new Admin("adminFunctions");
 	$am= new AuthManager("adminFunctions");
+    $adm= new Admin("adminFunctions",$am);
 	$operation=http_request("Operation","s","");
 	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
 	switch ($operation) {

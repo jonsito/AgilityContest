@@ -45,7 +45,6 @@ function backupDatabase(){
             failMessageHtml: "There was a problem generating your backup, please try again."
         }
     );
-    $.messager.alert("TODO","Erase pruebas not yet supported. Sorry","error");
     return false;
 }
 

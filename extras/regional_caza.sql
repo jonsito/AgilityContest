@@ -1,3 +1,4 @@
+-- AgilityContest Version: 2.0.0 Revision: 20150720_0148
 -- MySQL dump 10.13  Distrib 5.6.21, for Win32 (x86)
 --
 -- Host: localhost    Database: agility

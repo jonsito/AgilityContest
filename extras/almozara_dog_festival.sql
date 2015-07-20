@@ -1,3 +1,4 @@
+-- AgilityContest Version: 2.0.0 Revision: 20150720_0148
 -- MySQL dump 10.15  Distrib 10.0.19-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: agility
