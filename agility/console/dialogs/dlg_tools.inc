@@ -14,12 +14,12 @@
 		<input id="tools-restoreData" type="hidden" name="restoreData" value="">
 	</p>
 	<p> 
-		<span style="display:inline-block;width:350px"> Restaurar aplicaci&oacute;n a valores de f&aacute;brica</span>
+		<span style="display:inline-block;width:350px">Borrar el contenido de la base de datos</span>
     	<a id="tools-resetBtn" href="#" class="easyui-linkbutton" style="width:85px"
-	   		data-options="iconCls:'icon-on'" onclick="factoryReset()">&nbsp;Reset&nbsp;</a>
+	   		data-options="iconCls:'icon-on'" onclick="clearDatabase()">&nbsp;Reset&nbsp;</a>
 	</p>
 	<p> 
-		<span style="display:inline-block;width:350px"> Borrar pruebas registradas.</span>
+		<span style="display:inline-block;width:350px">Borrar pruebas registradas.</span>
     	<a id="tools-eraseBtn" href="#" class="easyui-linkbutton" style="width:85px"
 	   		data-options="iconCls:'icon-brush'" onclick="removePruebas()">Clear</a>
 	</p>

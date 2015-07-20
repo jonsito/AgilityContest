@@ -126,9 +126,9 @@ function restoreDatabase(){
     }).window('resize',{width:640});
 }
 
-function factoryReset(){
+function clearDatabase(){
     var l1="<strong>AVISO:</strong><br/>";
-    var l2="Esta operaci&oacute;n restaura los valores de fabrica y <strong>BORRA <em>TODOS</em> LOS DATOS </strong><br/>" +
+    var l2="Esta operaci&oacute;n <strong>BORRA <em>TODOS</em> LOS DATOS </strong><br/>" +
         "Incluyendo pruebas,inscripciones, resultados, jueces, perros, guias y clubes<br/>" +
         "Solo deberia usarse como paso previo a una importación de datos desde fichero excel<br/> ";
     var l3="Aseg&uacute;rese de realizar una copia de seguridad antes de seguir<br/><br/>";

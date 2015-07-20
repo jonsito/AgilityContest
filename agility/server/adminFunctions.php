@@ -22,18 +22,29 @@ require_once(__DIR__."/logging.php");
 require_once(__DIR__."/tools.php");
 require_once(__DIR__."/auth/Config.php");
 require_once(__DIR__."/auth/AuthManager.php");
+require_once(__DIR__."/database/classes/DBObject.php");
 
-class Admin {
+class Admin extends DBObject {
 	protected $myLogger;
 	protected $myConfig;
 	protected $file;
 	public $errormsg;
-	
+	private $dbname;
+	private $dbhost;
+	private $dbuser;
+	private $dbpass;
+
 	function __construct($file) {
+        parent::__construct("adminFunctions");
 		// connect database
 		$this->file=$file;
 		$this->myConfig=Config::getInstance();
 		$this->myLogger= new Logger($file,$this->myConfig->getEnv("debug_level"));
+
+		$this->dbname=$this->myConfig->getEnv('database_name');
+		$this->dbhost=$this->myConfig->getEnv('database_host');
+		$this->dbuser=$this->myConfig->getEnv('database_user');
+		$this->dbpass=$this->myConfig->getEnv('database_pass');
 	}
 	
 	// FROM: https://gist.github.com/lavoiesl/9a08e399fc9832d12794
@@ -87,10 +98,10 @@ class Admin {
 	
 	public function backup() {
 		
-		$dbname=$this->myConfig->getEnv('database_name');
-		$dbhost=$this->myConfig->getEnv('database_host');
-		$dbuser=$this->myConfig->getEnv('database_user');
-		$dbpass=$this->myConfig->getEnv('database_pass');
+		$dbname=$this->dbname;
+		$dbhost=$this->dbhost;
+		$dbuser=$this->dbuser;
+		$dbpass=$this->dbpass;
 		
 		$cmd="mysqldump"; // unix
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
@@ -125,18 +136,22 @@ class Admin {
 		return "";
 	}
 	
-	public function factoryReset() {
-		// TODO: write
-		
-		// reset configuration
-		// drop database
-		// re-create database
+	public function clearDatabase() {
+		// TODO: reset configuration
+		// drop pruebas
+        $this->clearContests();
+        // delete data
+        $this->query("DELETE FROM Jueces WHERE ID>1");
+        $this->query("DELETE FROM Perros WHERE ID>1");
+        $this->query("DELETE FROM Guias WHERE ID>1");
+        $this->query("DELETE FROM Clubes WHERE ID>1");
+        // do not delete users nor sessions
+        $this->query("DELETE FROM Eventos");
 		return "";
 	}
 
 	public function clearContests() {
-		// TODO: write
-		return "";
+        return $this->query("DELETE FROM Pruebas WHERE ID>1");
 	}
 }
 
@@ -154,7 +169,7 @@ try {
 		case "restore":
 			$am->access(PERMS_ADMIN); $result=$adm->restore(); break;
 		case "reset":
-			$am->access(PERMS_ADMIN); $result=$adm->factoryReset();	break;
+			$am->access(PERMS_ADMIN); $result=$adm->clearDatabase(); break;
 		case "clear":
 			$am->access(PERMS_ADMIN); $result=$adm->clearContests(); break;
 		case "reginfo": 
