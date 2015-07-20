@@ -128,6 +128,20 @@ class Updater {
         return 0;
     }
 
+    // 2.0.0 20150720_0135 add cascade to foreign keys on inscripciones
+    function updateInscripciones() {
+        $cmds=array(
+            "ALTER TABLE `Inscripciones` DROP FOREIGN KEY `Inscripciones_ibfk_1`;",
+            "ALTER TABLE `Inscripciones` ADD CONSTRAINT `Inscripciones_ibfk_1`
+                FOREIGN KEY (`Perro`) REFERENCES `Perros` (`ID`) ON UPDATE CASCADE;",
+            "ALTER TABLE `Inscripciones` DROP FOREIGN KEY `Inscripciones_ibfk_2`;",
+            "ALTER TABLE `Inscripciones` ADD CONSTRAINT `Inscripciones_ibfk_2`
+                FOREIGN KEY (`Prueba`) REFERENCES `Pruebas` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE;"
+        ,
+        );
+        foreach ($cmds as $query) { $this->conn->query($query); }
+        return 0;
+    }
 }
 
 $upg=new Updater();
@@ -136,6 +150,7 @@ try {
     $upg->updatePerroGuiaClub();
     if ( strcmp($upg->current_version, $upg->last_version) > 0) {
         $upg->addColumnUnlessExists("Mangas","Orden_Equipos","TEXT");
+        $upg->updateInscripciones();
     }
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
