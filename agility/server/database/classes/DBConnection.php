@@ -45,12 +45,10 @@ class DBConnection {
         return self::$connections[$key];
     }
 
-	// singleton pattern
-	private static $instance=null;
-	public static function getInstance() {
-		if (  !self::$instance instanceof self) self::$instance = new self;
-		return self::$instance;
-	}
+    public static function getRootConnection() {
+        // TODO: pass should be encrypted :-(
+        return self::getConnection("localhost","agility","agility_admin","admin@cachorrera");
+    }
 	
 	public static function closeConnection($conn) {
         foreach(self::$connections as $c) {

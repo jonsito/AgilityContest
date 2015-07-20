@@ -38,7 +38,7 @@ class Updater {
         $this->current_version=$this->config->getEnv("version_date");
 
         // connect database with proper permissions
-        $this->conn = new mysqli("localhost","agility_admin","admin@cachorrera","agility");
+        $this->conn = DBConnection::getRootConnection();
         if ($this->conn->connect_error) throw new Exception("Cannot perform upgrade process: database::dbConnect()");
     }
 

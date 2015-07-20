@@ -136,9 +136,51 @@ class Admin extends DBObject {
 		pclose($input);
 		return "ok";
 	}	
-	
+
+	private function dropAllTables($conn) {
+        $conn->query('SET foreign_key_checks = 0');
+        if ($result = $conn->query("SHOW TABLES")) {
+            while($row = $result->fetch_array(MYSQLI_NUM)) {
+                $conn->query('DROP TABLE IF EXISTS '.$row[0]);
+            }
+        }
+        $conn->query('SET foreign_key_checks = 1');
+    }
+
+    private function readIntoDB($conn,$filename) {
+        // Temporary variable, used to store current query
+        $templine = '';
+        // Read entire file into an array
+        $lines = file($filename);
+        // Loop through each line
+        foreach ($lines as $line) {
+        // Skip it if it's a comment
+            if (substr($line, 0, 2) == '--' || trim($line) == '') continue;
+            // Add this line to the current segment
+            $templine .= $line;
+            // If it has a semicolon at the end, it's the end of the query
+            if (substr(trim($line), -1, 1) == ';') {
+                // Perform the query
+                $conn->query($templine) or print('Error performing query \'<strong>' . $templine . '\': ' . mysql_error() . '<br /><br />');
+                // Reset temp variable to empty
+                $templine = '';
+            }
+        }
+        echo "Tables imported successfully";
+    }
+
 	public function restore() {
-		// TODO: write
+        // we need root database access to re-create tables
+        $rconn=DBConnection::getRootConnection();
+        if ($rconn->connect_error) throw new Exception("Cannot perform upgrade process: database::dbConnect()");
+		// phase 1: retrieve file from http request
+        // phase 2: verify received file
+        // phase 3: delete all tables and structures from database
+//        $this->dropAllTables($rconn);
+        // phase 4: parse sql file and populate tables into database
+//        $this->readIntoDB($rconn,$filename);
+        // phase 5 final tests
+        DBConnection::closeConnection($rconn);
 		return "";
 	}
 	
