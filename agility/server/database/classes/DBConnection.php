@@ -23,16 +23,39 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  *
  */
 class DBConnection {
-	
-	public static function openConnection($host,$name,$user,$pass) {
-		$conn = new mysqli($host,$user,$pass,$name);
-		if ($conn->connect_error) return null; 
-		$conn->query("SET NAMES 'utf8'");
-		return $conn;
+
+	private static $connections=array();
+
+    /**
+     * Singleton static method to create database connection
+     * @param $host
+     * @param $name
+     * @param $user
+     * @param $pass
+     * @return null
+     */
+    public static function getConnection($host,$name,$user,$pass) {
+        $key="$host:$name:$user";
+        if (!array_key_exists($key,self::$connections)) {
+            $conn = new mysqli($host,$user,$pass,$name);
+            if ($conn->connect_error) return null;
+            $conn->query("SET NAMES 'utf8'");
+            self::$connections[$key]=$conn;
+        }
+        return self::$connections[$key];
+    }
+
+	// singleton pattern
+	private static $instance=null;
+	public static function getInstance() {
+		if (  !self::$instance instanceof self) self::$instance = new self;
+		return self::$instance;
 	}
 	
 	public static function closeConnection($conn) {
-		return $conn->close();
+        foreach(self::$connections as $c) {
+            // if ($c===$conn) $c->close(); //TODO: what to do in close ?
+        }
 	}
 
 }

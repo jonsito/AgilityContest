@@ -44,7 +44,7 @@ class DBObject {
 		$p=$config->getEnv("database_pass");
 		$l=$config->getEnv("debug_level");
 		$this->myLogger= new Logger($file,$l);
-		$this->conn=DBConnection::openConnection($h,$n,$u,$p);
+		$this->conn=DBConnection::getConnection($h,$n,$u,$p);
 		if (!$this->conn) {
 			$this->errormsg="$file::construct() cannot contact database";
 			throw new Exception($this->errormsg);
