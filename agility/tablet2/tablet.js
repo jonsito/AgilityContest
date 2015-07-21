@@ -434,6 +434,11 @@ function tablet_accept() {
     return false; // prevent follow onClick event chain
 }
 
+function tablet_editByDorsal(dorsal) {
+	$.messager.alert("To be written","Search And Edit Dorsal: "+dorsal+"<br /> Work in Progress. Sorry","info");
+	$('#tablet-datagrid-search').val('---- Dorsal ----');
+}
+
 function isExpected(event) {
 	/*
 	// Si la manga y el perro no coinciden con el mostrado en el tablet, log error e ignora evento

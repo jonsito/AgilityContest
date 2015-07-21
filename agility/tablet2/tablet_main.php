@@ -112,10 +112,12 @@ $config =Config::getInstance();
     <span style="float:left">
         <a id="tablet-reloadBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-reload'" onclick="$('#tablet-datagrid').datagrid('reload');">Actualizar</a>
+   		<input id="tablet-datagrid-search" type="text" value="---- Dorsal ----" class="search_textfield"
+            onchange="tablet_editByDorsal(this.value);"/>
     </span>
     <span style="float:right">
         <a id="tablet-recoBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-search'" onclick="tablet_reconocimiento();">Reconocimiento</a>
+           data-options="iconCls:'icon-huella'" onclick="tablet_reconocimiento();">Reconocimiento</a>
     </span>
 </div>
 
@@ -360,6 +362,7 @@ $config =Config::getInstance();
 
     addTooltip($('#tablet-reloadBtn').linkbutton(),"Actualizar datos de la sesion");
     addTooltip($('#tablet-recoBtn').linkbutton(),"Enviar señal de comienzo del reconocimiento de pista");
+    addTooltip($('#tablet-datagrid-search'),"Activar la entrada de datos para el Dorsal especificado");
 
     // layout
     var dg= {'cols':210, 'rows':145}; // declare base datagrid as A5 sheet
