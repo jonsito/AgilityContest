@@ -25,7 +25,6 @@ require_once(__DIR__."/auth/AuthManager.php");
 require_once(__DIR__."/database/classes/DBObject.php");
 
 class Admin extends DBObject {
-	protected $myLogger;
 	protected $myConfig;
     protected $myAuth;
 	protected $file;
@@ -40,7 +39,6 @@ class Admin extends DBObject {
 		// connect database
 		$this->file=$file;
 		$this->myConfig=Config::getInstance();
-		$this->myLogger= new Logger($file,$this->myConfig->getEnv("debug_level"));
         $this->myAuth=$am;
 
 		$this->dbname=$this->myConfig->getEnv('database_name');
@@ -137,6 +135,18 @@ class Admin extends DBObject {
 		return "ok";
 	}	
 
+	private function retrieveDBFile() {
+		$this->myLogger->enter();
+		// extraemos los datos de registro
+		$data=http_request("Data","s",null);
+		if (!$data) return array("errorMsg" => "restoreDB(): No restoration data received");
+		if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
+			return array("errorMsg" => "restoreDatabase(): Invalid received data format");
+		}
+		$type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
+		return base64_decode( $matches[2] ); // decodes received data
+	}
+
 	private function dropAllTables($conn) {
         $conn->query('SET foreign_key_checks = 0');
         if ($result = $conn->query("SHOW TABLES")) {
@@ -147,17 +157,21 @@ class Admin extends DBObject {
         $conn->query('SET foreign_key_checks = 1');
     }
 
-    private function readIntoDB($conn,$filename) {
+    private function readIntoDB($conn,$data) {
         // Temporary variable, used to store current query
         $templine = '';
+        $trigger=false;
         // Read entire file into an array
-        $lines = file($filename);
+        $lines = explode("\n",$data); // remember use double quote
         // Loop through each line
         foreach ($lines as $line) {
-        // Skip it if it's a comment
+            // Skip it if it's a comment
             if (substr($line, 0, 2) == '--' || trim($line) == '') continue;
-            // Add this line to the current segment
-            $templine .= $line;
+            // properly handle "DELIMITER ;;" command
+            if (trim($line)=="DELIMITER ;;") { $trigger=true; continue; }
+            else if (trim($line)=="DELIMITER ;") { $trigger=false; }
+            else $templine .= $line;    // Add this line to the current segment
+            if ($trigger) continue;
             // If it has a semicolon at the end, it's the end of the query
             if (substr(trim($line), -1, 1) == ';') {
                 // Perform the query
@@ -166,7 +180,8 @@ class Admin extends DBObject {
                 $templine = '';
             }
         }
-        echo "Tables imported successfully";
+        $this->myLogger->info("database restore success");
+        return "";
     }
 
 	public function restore() {
@@ -174,11 +189,12 @@ class Admin extends DBObject {
         $rconn=DBConnection::getRootConnection();
         if ($rconn->connect_error) throw new Exception("Cannot perform upgrade process: database::dbConnect()");
 		// phase 1: retrieve file from http request
+        $data=$this->retrieveDBFile();
         // phase 2: verify received file
         // phase 3: delete all tables and structures from database
-//        $this->dropAllTables($rconn);
+        $this->dropAllTables($rconn);
         // phase 4: parse sql file and populate tables into database
-//        $this->readIntoDB($rconn,$filename);
+        $this->readIntoDB($rconn,$data);
         // phase 5 final tests
         DBConnection::closeConnection($rconn);
 		return "";

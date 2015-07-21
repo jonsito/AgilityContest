@@ -48,7 +48,7 @@ function backupDatabase(){
     return false;
 }
 
-function clearDatabase(oper,pass,callback) {
+function performClearDatabase(oper,pass,callback) {
     // comprobamos si el password es correcto
     checkPassword(authInfo.Login,pass,function(data) {
         if (data.errorMsg) { // error
@@ -135,7 +135,7 @@ function clearDatabase(){
     if (!checkForAdmin()) return;
     $.messager.password('Factory Reset',l1+l2+l3+l4 , function(pass){
         if (pass){
-            clearDatabase('reset',pass,function(data){
+            performClearDatabase('reset',pass,function(data){
                 if (data.errorMsg){
                     $.messager.show({ width:300, height:150, title: 'Database Reset Error', msg: data.errorMsg });
                 } else {
@@ -154,7 +154,7 @@ function removePruebas(){
     if (!checkForAdmin()) return;
     $.messager.password('Borrar pruebas',l1+l2+l3+l4, function(pass){
         if (pass){
-            clearDatabase('clear',pass,function(data){
+            performClearDatabase('clear',pass,function(data){
                 if (data.errorMsg){
                     $.messager.show({ width:300, height:150, title: 'Contests clear Error', msg: data.errorMsg });
                 } else {
