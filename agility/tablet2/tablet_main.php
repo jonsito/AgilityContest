@@ -192,6 +192,7 @@ $config =Config::getInstance();
             $('#tablet-datagrid').datagrid('expandRow',idx);
         },
         onExpandRow: function(idx,row) {
+            row.expanded=1;
             doBeep();
             var dg=$('#tablet-datagrid');
             // collapse previous expanded row
@@ -203,6 +204,7 @@ $config =Config::getInstance();
             if (row.Tipo!=0) tablet_showPerrosByTanda(idx,row);
         },
         onCollapseRow: function(idx,row) {
+            row.expanded=0;
             var dg="tablet-datagrid-" + parseInt(row.ID);
             $(dg).remove();
             doBeep();
