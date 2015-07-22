@@ -587,6 +587,19 @@ class Tandas extends DBObject {
 		return $res;
 	}
 
+	function getDataByDorsal($s,$t,$d) {
+		$res=$this->getListaPerros($s,$t,0);
+		if($res['total']==0) return  $res; // no data
+		$count=0;
+		foreach ($res['rows'] as $row) {
+			if ($row['Dorsal']==$d) { $row['RowIndex']="$count"; return $row; }
+			$count++;
+		}
+		// arriving here means that dorsal is not found in this tanda; notify error
+		$this->myLogger->info("Requested Dorsal:$d not found in Tanda:$t");
+		return array('RowIndex' => "-1" );
+	}
+
 	private function insert_remove($rsce,$tipomanga,$oper) {
 		foreach( $this->getTandasInfo('TipoManga',$tipomanga) as $item) {
             $tipo=$item['Tipo'];

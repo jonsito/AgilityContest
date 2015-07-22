@@ -370,6 +370,43 @@ function nextRow(dg, cb){
     return true;
 }
 
+/**
+ * retrieve from server data row on provided dorsal
+ * call to callback(idx,row) provided function
+ * @param {array} tanda current selected tanda
+ * @param {object} dg datagrid for current selected tanda
+ * @param {int} dorsal Dog dorsal to search for
+ * @param cb(page) what to do if Dorsal found in tanda
+ */
+function loadDorsalPage(tanda,dg,dorsal,cb) {
+		$.ajax({
+		type:	'GET',
+		url:	"/agility/server/database/tandasFunctions.php",
+		dataType:'json',
+		data: {
+			Operation: 'getDataByDorsal',
+			Prueba:		tanda.Prueba,
+			Jornada:	tanda.Jornada,
+			Sesion:		tanda.Sesion,
+			ID:			tanda.ID,
+			Dorsal:		dorsal
+		},
+		success: function(row) {
+            alert(JSON.stringify(row));
+			var idx=row.RowIndex;
+			if (idx<0) {
+				$.messager.alert("Not found","El perro con dorsal "+dorsal+" no participa en esta manga","info");
+				$('#tablet-datagrid-search').val('---- Dorsal ----');
+				return false;
+			}
+			dg.datagrid('gotoPage',{page: idx/20,callback:cb});
+		},
+		error: function(XMLHttpRequest,textStatus,errorThrown) {
+			alert("error: "+textStatus + " "+ errorThrown );
+		}
+	});
+}
+
 function tablet_accept() {
     doBeep();
     // save results
@@ -446,24 +483,26 @@ function tablet_editByDorsal(dorsal) {
 		// obtenemos el datagrid y buscamos el dorsal
 		var dgname='#tablet-datagrid-'+rows[i].ID;
 		var dg2=$(dgname);
-		var idx = dg2.datagrid('getRowIndex',dorsal);
-		if (idx<0) {
-			$.messager.alert("Not found","El perro con dorsal "+dorsal+" no participa en esta manga","info");
-		} else {
-			dg2.datagrid('scrollTo', {
-				index: idx,
-				callback: function (index) {
-					if (index < 0) return false; // no selection
-					dg2.datagrid('selectRow', index);
-					var data = dg2.datagrid('getRows')[index];
-					data.Session = workingData.sesion;
-					data.RowIndex = index; // not really used, but....
-					data.Parent = dgname; // store datagrid reference
-					$('#tdialog-form').form('load', data);
-					setDataEntryEnabled(true);
-				}
-			});
-		}
+        loadDorsalPage(rows[i],dg2,dorsal,function(page){
+            var idx = dg2.datagrid('getRowIndex',dorsal);
+            if (idx<0) {
+                $.messager.alert("Not found","El perro con dorsal "+dorsal+" no participa en esta manga","info");
+            } else {
+                dg2.datagrid('scrollTo', {
+                    index: idx,
+                    callback: function (index) {
+                        if (index < 0) return false; // no selection
+                        dg2.datagrid('selectRow', index);
+                        var data = dg2.datagrid('getRows')[index];
+                        data.Session = workingData.sesion;
+                        data.RowIndex = index; // not really used, but....
+                        data.Parent = dgname; // store datagrid reference
+                        $('#tdialog-form').form('load', data);
+                        setDataEntryEnabled(true);
+                    }
+                });
+            }
+        });
 		$('#tablet-datagrid-search').val('---- Dorsal ----');
 		return false;
 	}

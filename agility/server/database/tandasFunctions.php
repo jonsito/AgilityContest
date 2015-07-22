@@ -39,7 +39,8 @@ try {
 	$ot = new Tandas($file,$p,$j);
 	
 	// datos para listados, altas y bajas
-	$id = http_request("ID","i",0);
+	$id = http_request("ID","i",0); // tanda ID
+	$d = http_request("Dorsal","i",0);
 	$s = http_request("Sesion","i",0); // default is no session
 	$a = http_request("Pendientes","i",0);
 	
@@ -60,6 +61,7 @@ try {
 		case "getTandas":$result = $ot->getTandas($s); break;
 		case "getData":	$result = $ot->getData($s,$id,$p); break;
 		case "getDataByTanda": $result = $ot->getDataByTanda($s,$id); break;
+		case "getDataByDorsal": $result = $ot->getDataByDorsal($s,$id,$d); break;
 		case "swap": $result = $ot->swap($f,$t); break;
 		case "dnd":	$am->access(PERMS_ASSISTANT); $result = $ot->dragAndDrop($f,$t,$w); break;
 	}
