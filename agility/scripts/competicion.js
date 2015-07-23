@@ -719,23 +719,27 @@ function autoUpdateCompeticion() {
 }
 
 // search and edit the row matching specified dorsal
-function competicionEditByDorsal() {
-    var i,len;
-    var dg=$('#competicion-datagrid');
-    var drs=$('#competicion-search');
-    var rows=dg.datagrid('getRows');
-    var dorsal=parseInt(drs.val());
+function competicionSelectByDorsal() {
+    var dg = $('#competicion-datagrid');
+    var drs = $('#competicion-search');
+    var rows = dg.datagrid('getRows');
+    var dorsal = parseInt(drs.val());
+    drs.val("---- Dorsal ----");
     drs.blur();// remove focus to hide tooltip
-    var idx = dg.datagrid('getRowIndex', dorsal);
-    if (idx<0) {
-        $.messager.alert("No encontrado","No encuentro el perro con el dorsal indicado","warn");
-    }
-    dg.datagrid('scrollTo', {
-        index: idx,
-        callback: function(index){
-            $(this).datagrid('selectRow', index);
+    if (dorsal >= 0) {
+        var idx = dg.datagrid('getRowIndex', dorsal);
+        if (idx < 0) {
+            $.messager.alert("No encontrado", "No encuentro el perro con el dorsal indicado", "warn");
         }
-    });
+        dg.datagrid('scrollTo', {
+            index: idx,
+            callback: function (index) {
+                dg.datagrid('selectRow', index);
+                // enter focus into datagrid to allow key binding
+                dg.datagrid('getPanel').panel('panel').attr('tabindex',0).focus();
+            }
+        });
+    }
     return false;
 }
 
@@ -778,7 +782,7 @@ function competicionKeyEventHandler(evt) {
 	}
 	
 	var dg=$('#competicion-datagrid');
-    var seachbox=$('#competicion-search');
+    var searchbox=$('#competicion-search');
 	var editIndex=dg.datagrid('options').editIndex; // added by me
 	if (editIndex==-1) { // not editing
 		switch (evt.keyCode) {
@@ -789,8 +793,9 @@ function competicionKeyEventHandler(evt) {
             selectRow(dg,false); 
             return false;
         case 13:	/* Enter */  
-        	if (evt.ctrlKey) displayRowData(dg); else editRow(dg); 
-            return (searchbox.is(':focus'))?true:false; // to allow parse search by dorsal
+        	if (evt.ctrlKey) { displayRowData(dg); return false; }
+            if (! searchbox.is(':focus') ) { editRow(dg); return false; }
+            return true; // to allow parsing searchByDorsal textbox
         case 27:	/* Esc */
             // disable autorefresh if any
             $('#competicion-autoUpdateBtn').prop('checked',false);

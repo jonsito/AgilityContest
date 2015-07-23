@@ -28,7 +28,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	   		data-options="iconCls:'icon-reload'" onclick="reloadCompeticion()">Actualizar</a>
 	   	<label for="competicion-autoUpdateBtn">Auto:</label>
 	   	<input id="competicion-autoUpdateBtn" type="checkbox" class="easyui-checkbox" value="0" onclick="autoUpdateCompeticion()"/>
-   		<input id="competicion-search" type="text" value="---- Dorsal ----" class="search_textfield" onchange="competicionEditByDorsal();"/>
+   		<input id="competicion-search" type="text" value="---- Dorsal ----" class="search_textfield"  onchange="competicionSelectByDorsal();"/>
    	</span>
    	<span style="float:right;padding:5px">
    		<!-- estos elementos deben estar alineados a la derecha -->
@@ -163,6 +163,7 @@ $('#competicion-datagrid').datagrid({
 
 // update row contents on action requested: just force repaint row and reassign buttons
 function updateActions(index){
+    var editIndex=$('#competicion-datagrid').datagrid('options').editIndex;
 	$('#competicion-datagrid').datagrid('updateRow',{
 		index: index,
 		row:{}
@@ -170,7 +171,7 @@ function updateActions(index){
 	$('#lnkb1_'+index).linkbutton();
 	$('#lnkb2_'+index).linkbutton();
 	// enable/disable search textbox acording edit state
-	$('#competicion-search').prop('disabled',(index==-1)?false:true);
+	$('#competicion-search').prop('disabled',( editIndex==-1)?false:true);
 }
 
 function getRowIndex(target){
