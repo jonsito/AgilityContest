@@ -475,7 +475,7 @@ function tablet_editByDorsal() {
 	var dg=$('#tablet-datagrid');
     var drs=$('#tablet-datagrid-search');
 	var rows=dg.datagrid('getRows');
-	var dorsal=drs.val();
+	var dorsal=parseInt(drs.val());
     drs.blur();// remove focus to hide tooltip
 	// si no hay tandas activas muestra error e ignora
 	for (i=0,len=rows.length;i<len;i++) {

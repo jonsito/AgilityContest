@@ -718,6 +718,27 @@ function autoUpdateCompeticion() {
 	}
 }
 
+// search and edit the row matching specified dorsal
+function competicionEditByDorsal() {
+    var i,len;
+    var dg=$('#competicion-datagrid');
+    var drs=$('#competicion-search');
+    var rows=dg.datagrid('getRows');
+    var dorsal=parseInt(drs.val());
+    drs.blur();// remove focus to hide tooltip
+    var idx = dg.datagrid('getRowIndex', row);
+    if (idx<0) {
+        $.messager.alert("No encontrado","No encuentro el perro con el dorsal indicado","warn");
+    }
+    dg.datagrid('scrollTo', {
+        index: idx,
+        callback: function(index){
+            $(this).datagrid('selectRow', index);
+        }
+    });
+    return false;
+}
+
 /**
  * Key bindings para uso de teclas en el dialogo de entrada de datos
  * @param evt Key Event

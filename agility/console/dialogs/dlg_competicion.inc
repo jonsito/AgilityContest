@@ -28,6 +28,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	   		data-options="iconCls:'icon-reload'" onclick="reloadCompeticion()">Actualizar</a>
 	   	<label for="competicion-autoUpdateBtn">Auto:</label>
 	   	<input id="competicion-autoUpdateBtn" type="checkbox" class="easyui-checkbox" value="0" onclick="autoUpdateCompeticion()"/>
+   		<input id="competicion-search" type="text" value="---- Dorsal ----" class="search_textfield" onchange="competicionEditByDorsal();"/>
    	</span>
    	<span style="float:right;padding:5px">
    		<!-- estos elementos deben estar alineados a la derecha -->
@@ -208,6 +209,7 @@ function cancelrow(target){
 addTooltip($('#competicion-reloadBtn').linkbutton(),"Recargar datos de competicion de la manga");
 addTooltip($('#competicion-printBtn').linkbutton(),"Imprimir formulario ayudante de pista");
 addTooltip($('#competicion-autoUpdateBtn'),"(Des)activar actualizacion periodica de los datos");
+addTooltip($('#competicion-search'),"Buscar una entrada por dorsal");
 
 // key handling
 $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).bind('keydown',competicionKeyEventHandler);
