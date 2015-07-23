@@ -730,6 +730,7 @@ function competicionSelectByDorsal() {
         var idx = dg.datagrid('getRowIndex', dorsal);
         if (idx < 0) {
             $.messager.alert("No encontrado", "No encuentro el perro con el dorsal "+dorsal, "error");
+            return false;
         }
         dg.datagrid('scrollTo', {
             index: idx,
