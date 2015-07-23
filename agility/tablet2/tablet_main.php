@@ -113,7 +113,7 @@ $config =Config::getInstance();
         <a id="tablet-reloadBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-reload'" onclick="$('#tablet-datagrid').datagrid('reload');">Actualizar</a>
    		<input id="tablet-datagrid-search" type="text" value="---- Dorsal ----" class="search_textfield"
-            onchange="tablet_editByDorsal(this.value);"/>
+            onchange="tablet_editByDorsal();"/>
     </span>
     <span style="float:right">
         <a id="tablet-recoBtn" href="#" class="easyui-linkbutton"
