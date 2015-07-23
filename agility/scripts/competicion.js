@@ -726,7 +726,7 @@ function competicionEditByDorsal() {
     var rows=dg.datagrid('getRows');
     var dorsal=parseInt(drs.val());
     drs.blur();// remove focus to hide tooltip
-    var idx = dg.datagrid('getRowIndex', row);
+    var idx = dg.datagrid('getRowIndex', dorsal);
     if (idx<0) {
         $.messager.alert("No encontrado","No encuentro el perro con el dorsal indicado","warn");
     }
@@ -778,6 +778,7 @@ function competicionKeyEventHandler(evt) {
 	}
 	
 	var dg=$('#competicion-datagrid');
+    var seachbox=$('#competicion-search');
 	var editIndex=dg.datagrid('options').editIndex; // added by me
 	if (editIndex==-1) { // not editing
 		switch (evt.keyCode) {
@@ -789,7 +790,7 @@ function competicionKeyEventHandler(evt) {
             return false;
         case 13:	/* Enter */  
         	if (evt.ctrlKey) displayRowData(dg); else editRow(dg); 
-            return false;
+            return (searchbox.is(':focus'))?true:false; // to allow parse search by dorsal
         case 27:	/* Esc */
             // disable autorefresh if any
             $('#competicion-autoUpdateBtn').prop('checked',false);
@@ -797,8 +798,6 @@ function competicionKeyEventHandler(evt) {
             // and close window  	 
             $('#competicion-window').window('close'); 
             return false;
-        default: 
-        	return false;
 		}
 	} else { //on edit
 		switch (evt.keyCode) {

@@ -83,6 +83,7 @@ $('#competicion-datagrid').datagrid({
     pagination: false,
     rownumbers: false,
     fitColumns: true,
+	idField: 'Dorsal',
     singleSelect: true,
     editIndex: -1, // nonstandard added by me :-)
     // toolbar: '#competicion-toolbar',
@@ -151,7 +152,7 @@ $('#competicion-datagrid').datagrid({
 	// actualizacion de los iconos save/edit/delete/cancel
 	onBeforeEdit:function(index,row){
 		if(row.Dorsal==='*') return false;
-		$(this).datagrid('options').editIndex=index; 
+		$(this).datagrid('options').editIndex=index;
 		row.editing = true; 
 		updateActions(index); 
 		return true;
@@ -168,6 +169,8 @@ function updateActions(index){
 	});
 	$('#lnkb1_'+index).linkbutton();
 	$('#lnkb2_'+index).linkbutton();
+	// enable/disable search textbox acording edit state
+	$('#competicion-search').prop('disabled',(index==-1)?false:true);
 }
 
 function getRowIndex(target){
