@@ -18,6 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 require_once("DBObject.php");
+require_once(__DIR__."/../procesaInscripcion.php");// to update inscription data
 
 class Clubes extends DBObject {
 
@@ -69,7 +70,24 @@ class Clubes extends DBObject {
 		$this->myLogger->leave();
 		return ""; // return ok
 	}
-	
+
+	function updateInscripciones($id) {
+		// miramos las pruebas en las que el perro esta inscrito
+		$res=$this->__select(
+		/* SELECT */"Inscripciones.*",
+			/* FROM */	"Inscripciones,Pruebas,PerroGuiaClub",
+			/* WHERE */	"(Pruebas.ID=Inscripciones.Prueba) AND (Pruebas.Cerrada=0) AND (Inscripciones.Perro=PerroGuiaClub.ID) AND (Club=$id)",
+			/* ORDER BY */	"",
+			/* LIMIT*/	""
+		);
+		if (!is_array($res)) return $this->conn->error;
+		// actualizamos los datos de inscripcion de la prueba
+		foreach($res['rows'] as $inscripcion) {
+			procesaInscripcion($inscripcion['Prueba'],$inscripcion['ID']);
+		}
+		return "";
+	}
+
 	/**
 	 * Update entry in database table "Clubs"
 	 * @return string "" empty if ok; null on error
@@ -114,9 +132,11 @@ class Clubes extends DBObject {
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error);
-		$this->myLogger->leave();
 		$stmt->close();
-		return "";
+		// update data on inscripciones
+		$res=$this->updateInscripciones($id);
+		$this->myLogger->leave();
+		return $res;
 	}
 	
 	function delete($id) {

@@ -18,7 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 require_once(__DIR__."/DBObject.php");
-require_once(__DIR__."/../procesaInscripcion.php"); // to insert/remove inscriptions from mangas
+require_once(__DIR__."/../procesaInscripcion.php"); // to update inscription data
 
 class Dogs extends DBObject {
 
@@ -113,15 +113,15 @@ class Dogs extends DBObject {
 		$res=$stmt->bind_param('ssssssii',$nombre,$raza,$loe_rrc,$licencia,$categoria,$grado,$guia,$idperro);
 		if (!$res) return $this->error($this->conn->error);
 
-
 		$this->myLogger->info("\nUPDATE dogs: ID: $id Nombre: $nombre Raza: $raza Licencia: $licencia LOE: $loe_rrc Categoria: $categoria Grado: $grado Guia: $guia");
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error); 
 		$stmt->close();
 		// update data on inscripciones
+		$res=$this->updateInscripciones($id);
 		$this->myLogger->leave();
-		return $this->updateInscripciones($id);
+		return $res;
 	}
 	
 	/**

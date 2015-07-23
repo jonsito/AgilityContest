@@ -18,6 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 require_once("DBObject.php");
+require_once(__DIR__."/../procesaInscripcion.php");// to update inscription data
 
 class Guias extends DBObject {
 	
@@ -49,7 +50,24 @@ class Guias extends DBObject {
 		$this->myLogger->leave();
 		return "";
 	}
-	
+
+	function updateInscripciones($id) {
+		// miramos las pruebas en las que el perro esta inscrito
+		$res=$this->__select(
+		/* SELECT */"Inscripciones.*",
+			/* FROM */	"Inscripciones,Pruebas,PerroGuiaClub",
+			/* WHERE */	"(Pruebas.ID=Inscripciones.Prueba) AND (Pruebas.Cerrada=0) AND (Inscripciones.Perro=PerroGuiaClub.ID) AND (Guia=$id)",
+			/* ORDER BY */	"",
+			/* LIMIT*/	""
+		);
+		if (!is_array($res)) return $this->conn->error;
+		// actualizamos los datos de inscripcion de la prueba
+		foreach($res['rows'] as $inscripcion) {
+			procesaInscripcion($inscripcion['Prueba'],$inscripcion['ID']);
+		}
+		return "";
+	}
+
 	function update($id) {
 		$this->myLogger->enter();
 		if ($id<=1) return $this->error("No guia or Invalid Guia ID:$id provided");
@@ -74,9 +92,10 @@ class Guias extends DBObject {
 		$res=$stmt->execute();
 		if (!$res) return $this->error($stmt->error); 
 		$stmt->close();
+		// update data on inscripciones
+		$res=$this->updateInscripciones($id);
 		$this->myLogger->leave();
-		// TODO: study an easy way to propagate NombreGuia and NombreClub changes to Resultados table
-		return "";
+		return $res;
 	}
 	
 	function delete($id) {
