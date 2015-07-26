@@ -148,7 +148,7 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 					cc.push('<input type="checkbox" name="' + field + '" value="' + (value!=undefined ? value : '') + '">');
 				} else if (col.expander) {
 					//cc.push('<div style="text-align:center;width:16px;height:16px;">');
-					cc.push('<span class="datagrid-row-expander datagrid-row-expand" style="display:inline-block;width:16px;height:16px;cursor:pointer;" />');
+					cc.push('<span class="datagrid-row-expander datagrid-row-expand" style="display:inline-block;width:16px;height:16px;cursor:pointer;" ></span>');
 					//cc.push('</div>');
 				} else if (col.formatter){
 					cc.push(col.formatter(value, rowData, rowIndex));

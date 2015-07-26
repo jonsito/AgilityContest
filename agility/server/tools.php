@@ -92,7 +92,7 @@ function toBoolean($var) {
  * @param {string} $type default type (i,s,b)
  * @param {string} $def default value. may be null
  * @param {boolean} $esc true if variable should be MySQL escape'd to avoid SQL injection
- * @return requested value (int,string,bool) or null if invalid type
+ * @return {object} requested value (int,string,bool) or null if invalid type
  */
 function http_request($name,$type,$def,$esc=true) {
 	$a=$def;

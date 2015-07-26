@@ -26,7 +26,7 @@ class Sesiones extends DBObject {
 	 * retrieve list of stored sessions
      * @param {array} data received data query parameters
      * @param {boolean} ring: if true exclude "-- Sin asignar --" session 1
-	 * @return session list in easyui json expected format, or error string
+	 * @return {array} session list in easyui json expected format, or error string
 	 */
 	function select($data,$ring=false) {
 		$this->myLogger->enter();
@@ -186,7 +186,7 @@ class Sesiones extends DBObject {
 		if ($nombre==="") return $this->error("Invalid Session Name"); // session name should not be empty
 		// make query
 		$obj=$this->__selectObject("*","Sesiones","Nombre=$nombre");
-		if (!is_object($obj))	return $this->error("No Session found with provided ID=$id");
+		if (!is_object($obj))	return $this->error("No Session found with provided name='$nombre'");
 		$data= json_decode(json_encode($obj), true); // convert object to array
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();

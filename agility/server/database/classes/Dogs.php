@@ -22,6 +22,10 @@ require_once(__DIR__."/../procesaInscripcion.php"); // to update inscription dat
 
 class Dogs extends DBObject {
 
+	function __construct() {
+		parent::__construct("Dogs");
+	}
+
     /**
      * Evaluate if a dog has a mixBreed License
      * @param $lic

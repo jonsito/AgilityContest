@@ -95,7 +95,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     		panelHeight: 200,
     		idField: 'ID',
     		textField: 'Nombre',
-    		url: '/agility/server/database/guiaFunctions.php?Operation=enumerate',
+    		url: '/agility/server/database/guiaFunctions.php',
+            queryParams: { Operation:'enumerate', Federation: workingData.federation },
     		method: 'get',
     		mode: 'remote',
     		columns: [[

@@ -22,6 +22,9 @@ require_once(__DIR__."/../procesaInscripcion.php");// to update inscription data
 
 class Clubes extends DBObject {
 
+	function __construct() {
+		parent::__construct("Clubes");
+	}
 	/* use parent constructor and destructors */
 
     protected $logoCache=array( "Perros" => array(), "Guias" => array(), "Clubes" => array(), "NombreClub" => array() );

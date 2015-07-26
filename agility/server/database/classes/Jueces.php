@@ -21,7 +21,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 require_once("DBObject.php");
 
 class Jueces extends DBObject {
-	
+
+	function __construct() {
+		parent::__construct("Jueces");
+	}
+
 	/**
 	 * Insert a new juez into database
 	 * @return {string} "" if ok; null on error

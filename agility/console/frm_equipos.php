@@ -228,7 +228,7 @@ function showInscripcionesByTeam(index,team){
 			{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	title: '<?php _e('Celo');   ?>' }
  		]],
 		// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-		rowStyler:myRowStyler,
+		rowStyler: myRowStyler,
 		onResize:function(){
 			$('#team_datagrid').datagrid('fixDetailRowHeight',index);
 		},
@@ -238,7 +238,7 @@ function showInscripcionesByTeam(index,team){
 			},0);
 		},
         // only allow sorting when default team
-        onBeforeSortColumn(sort,order) {
+        onBeforeSortColumn: function(sort,order) {
             return (team.Nombre=='-- Sin asignar --')?true:false;
         },
         // on double click fireup editor dialog

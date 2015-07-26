@@ -23,7 +23,11 @@ require_once("Tandas.php");
 require_once("Jornadas.php");
 
 class Pruebas extends DBObject {
-	
+
+	function __construct() {
+		parent::__construct("Pruebas");
+	}
+
 	function insert() {
 		$this->myLogger->enter();
         // iniciamos los valores, chequeando su existencia

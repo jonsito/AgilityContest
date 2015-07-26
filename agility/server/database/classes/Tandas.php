@@ -478,11 +478,11 @@ class Tandas extends DBObject {
                     $this->myLogger->error($result); return $result;
                 }
                 $count=0;
-                foreach($result['rows'] as $item) { // comparamos categoria y grado
+                foreach($result['rows'] as $itm) { // comparamos categoria y grado
                     // si el grado es '-' se contabiliza. else si coincide grado se contabiliza
-                    if (($res['rows'][$key]['Grado']!=='-') && ($item['Grado']!==$res['rows'][$key]['Grado']) ) continue;
+                    if (($res['rows'][$key]['Grado']!=='-') && ($itm['Grado']!==$res['rows'][$key]['Grado']) ) continue;
                     // comparamos categorias
-                    if ( strstr($res['rows'][$key]['Categoria'],$item['Categoria'])===false ) continue;
+                    if ( strstr($res['rows'][$key]['Categoria'],$itm['Categoria'])===false ) continue;
                     $count++;
                 }
                 $res['rows'][$key]['Participantes']=strval($count);// datos del participacion

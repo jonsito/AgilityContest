@@ -21,10 +21,21 @@ require_once("DBObject.php");
 require_once(__DIR__."/../procesaInscripcion.php");// to update inscription data
 
 class Guias extends DBObject {
-	
+	function __construct() {
+		parent::__construct("Guias");
+	}
+
 	function insert() {
 		$this->myLogger->enter();
-		
+		// iniciamos los valores, chequeando su existencia
+		// don't escape http data cause we're using prepared statements
+		$nombre 	= http_request("Nombre","s",null,false); // primary key
+		$telefono = http_request('Telefono',"s",null,false);
+		$email = http_request('Email',"s",null,false);
+		$club	= http_request('Club',"i",0); // not null
+		$observaciones= http_request('Observaciones',"s",null,false);
+		$federation= http_request('Federation',"i",0);
+
 		// componemos un prepared statement
 		$sql ="INSERT INTO Guias (Nombre,Telefono,Email,Club,Observaciones,Federation)
 			   VALUES(?,?,?,?,?,?)";
@@ -32,15 +43,7 @@ class Guias extends DBObject {
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param('sssisi',$nombre,$telefono,$email,$club,$observaciones,$federation);
 		if (!$res) return $this->error($stmt->error);  
-		
-		// iniciamos los valores, chequeando su existencia
-        // don't escape http data cause we're using prepared statements
-		$nombre 	= http_request("Nombre","s",null,false); // primary key
-		$telefono = http_request('Telefono',"s",null,false);
-		$email = http_request('Email',"s",null,false);
-		$club	= http_request('Club',"i",0); // not null
-		$observaciones= http_request('Observaciones',"s",null,false);
-		$federation= http_request('Federation',"i",0);
+
 		$this->myLogger->info("Nombre: $nombre Telefono: $telefono Email: $email Club: $club Observaciones: $observaciones");
 		
 		// invocamos la orden SQL y devolvemos el resultado
