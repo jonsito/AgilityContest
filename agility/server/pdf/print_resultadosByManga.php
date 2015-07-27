@@ -105,7 +105,7 @@ class ResultadosByManga extends PrintCommon {
 		// Colores, ancho de línea y fuente en negrita de la cabecera de tabla
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
-		$this->ac_SetDrawColor(0,0,0); // line color
+		$this->ac_SetDrawColor("0x000000"); // line color
 		$this->SetFont('Arial','B',8); // bold 9px
 		for($i=0;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
@@ -185,7 +185,7 @@ try {
 	$mngobj= new Mangas("printResultadosByManga",$idjornada);
 	$manga=$mngobj->selectByID($idmanga);
 	$resobj= new Resultados("printResultadosByManga",$idprueba,$idmanga);
-	$resultados=$resobj->getResultados($mode,true); // throw exception if pending dogs
+	$resultados=$resobj->getResultados($mode); // throw exception if pending dogs
 
 	// Creamos generador de documento
 	$pdf = new ResultadosByManga($idprueba,$idjornada,$manga,$resultados,$mode);

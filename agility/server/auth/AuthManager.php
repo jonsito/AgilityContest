@@ -80,6 +80,7 @@ class AuthManager {
 	 * Localiza al usuario que tiene la SessionKey indicada
 	 * @param {string} $sk SessionKey
 	 * @return object throw exception
+	 * @throws Exception on invalid session key
 	 */
 	function getUserByKey($sk) {
 		$obj=$this->mySessionMgr->__selectObject("*","Sesiones,Usuarios","(Usuarios.ID=Sesiones.Operador) AND ( SessionKey='$sk')");
@@ -366,9 +367,12 @@ class AuthManager {
         // extract and declare inner functions
         $opts=$res['options'];
         if ($res['info']=="") return bindec($opts) & $feature; // old style licenses
+		/*
         return $this->myGateKeeper($res,$feature);
         $info=str_replace("__OPTS__",$opts,$res['info']);
         return $res;
+		*/
+		return 1; // TODO: implement new style license coding
     }
 
     function getUserLimit() {

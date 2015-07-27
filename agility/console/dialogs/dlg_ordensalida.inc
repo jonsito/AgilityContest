@@ -97,7 +97,7 @@ $('#ordeneq3-datagrid').datagrid({
     onBeforeLoad: function (params) {return (workingData.manga>0) }, // do not load if no manga selected
     onLoadSuccess: function(data) { $(this).datagrid('enableDnd'); },
     onDragEnter: function(dst,src) {
-        return (dst.DefaultTeam!=1 && src.DefaultTeam!=1) // allow dnd if not from/to default team
+        return (dst.DefaultTeam!=1 && src.DefaultTeam!=1); // allow dnd if not from/to default team
     },
     onDrop: function(dst,src,updown) {
         dragAndDropOrdenEquipos(src.ID,dst.ID,(updown==='top')?0:1,reloadSimpleOrdenEquipos);

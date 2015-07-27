@@ -40,6 +40,7 @@ require_once(__DIR__."/classes/Equipos.php");
  * @param {object} $inscripcion Datos de la inscripcion
  * @param {object} $jornada Datos de la jornada
  * @param {object} $perro Datos del perro
+ * @throws Exception on invalid jornada ID
  */
 function borraPerroDeJornada($inscripcion,$jornada,$perro) {
 	$j=$jornada['ID'];

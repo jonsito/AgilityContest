@@ -321,6 +321,7 @@ class Tandas extends DBObject {
 	 * Update Tanda in database
 	 * Only allow change "Nombre" field when tipo==0
 	 * @param {array} $data
+	 * @throws Exception on invalid tanda ID
 	 */
 	function update($id,$data){
 		if ($id<=0) throw new Exception ("Invalid Tanda ID:$id");

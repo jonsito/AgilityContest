@@ -1598,8 +1598,8 @@ function _putfonts()
 			// Descriptor
 			$this->_newobj();
 			$s = '<</Type /FontDescriptor /FontName /'.$name;
-			foreach($font['desc'] as $k=>$v)
-				$s .= ' /'.$k.' '.$v;
+			foreach($font['desc'] as $fdk=>$v)
+				$s .= ' /'.$fdk.' '.$v;
 			if(!empty($font['file']))
 				$s .= ' /FontFile'.($type=='Type1' ? '' : '2').' '.$this->FontFiles[$font['file']]['n'].' 0 R';
 			$this->_out($s.'>>');

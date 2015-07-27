@@ -54,7 +54,7 @@ var access_perms = {
     ENABLE_VIDEOWALL:16, // permite acceso desde videomarcador
     ENABLE_PUBLIC   :32, // permite acceso publico web
     ENABLE_CHRONO   :64 // permite gestion desde cronometro
-}
+};
 
 /**
  * returns Categoria's long string according provided categoria and fereration

@@ -261,7 +261,8 @@ $('#seltablet-Prueba').combogrid({
 		if (p===null) return; // no selection
         if (parseInt(p.Inscritos) > parseInt(p.UserLimit)) {
             var message='<img src="/agility/images/sad_dog.png" width="100" alt="sad dog" style="float:right;"/>'+
-                '<p style="font-weight:bold;">Los permisos de la licencia instalada<br/> no permiten la gesti&oacute;n de pruebas</br> con m&aacute;s de '+p.UserLimit+' inscripciones</p>'
+                '<p style="font-weight:bold;">Los permisos de la licencia instalada<br/> ' +
+				'no permiten la gesti&oacute;n de pruebas</br> con m&aacute;s de '+p.UserLimit+' inscripciones</p>';
             $.messager.alert({
                 title: 'Access denied',
                 msg: message,

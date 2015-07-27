@@ -38,10 +38,9 @@
 					{field:'progress',title:'Progress',width:120,
 					    formatter:function(value){
 					    	if (value){
-						    	var s = '<div style="width:100%;border:1px solid #ccc">' +
-						    			'<div style="width:' + value + '%;background:#cc0000;color:#fff">' + value + '%' + '</div>';
+						    	return  '<div style="width:100%;border:1px solid #ccc">' +
+						    			'	<div style="width:' + value + '%;background:#cc0000;color:#fff">' + value + '%' + '</div>'+
 						    			'</div>';
-						    	return s;
 					    	} else {
 						    	return '';
 					    	}

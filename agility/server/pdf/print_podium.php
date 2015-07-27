@@ -74,7 +74,7 @@ class Print_Podium extends PrintCommon {
 		$this->setXY(10,40);
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2')); // gris
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg2')); // negro
-		$this->ac_SetDrawColor(0,0,0); // line color
+		$this->ac_SetDrawColor("0x000000"); // line color
 		$this->SetFont('Arial','B',11); // bold 11px
 		$this->Cell(140,6,"Jornada: {$this->jornada->Nombre}",0,0,'L',true);
 		$this->Cell(135,6,"Fecha: {$this->jornada->Fecha}",0,0,'R',true);

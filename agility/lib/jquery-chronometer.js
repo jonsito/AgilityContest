@@ -134,7 +134,6 @@
 			config.hours    = config.hours % 24;
 			if (!pause) setTimeout(run_chrono,config.interval);
 			view_chrono(elapsed);
-            return;
 		} else { // chrono stopped; show data at least once
 			var elapsed		= stopTime-startTime; // use real startTime instead of localTime
 			config.mseconds	= elapsed % 1000;

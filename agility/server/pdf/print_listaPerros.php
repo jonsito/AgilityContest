@@ -116,5 +116,5 @@ try {
     return 0;
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());
-};
+}
 ?>
