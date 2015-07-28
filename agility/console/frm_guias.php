@@ -153,7 +153,7 @@ $config =Config::getInstance();
             	rowStyler:myRowStyler,
             	// on double click fireup editor dialog
                 onDblClickRow:function(idx,row) { //idx: selected row index; row selected row data
-                    editPerroFromGuia(mySelf,guia,function () { $(mySelf).datagrid('reload'); });
+                    editPerroFromGuia(mySelf,guia);
                 },
                 onResize:function(){
                     $('#guias-datagrid').datagrid('fixDetailRowHeight',index);

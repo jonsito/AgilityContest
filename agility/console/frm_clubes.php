@@ -106,11 +106,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 var dg = "clubes-guias-datagrid-" + replaceAll(' ', '_', row.ID);
                 return '<div style="padding:2px"><table id="'+dg+'"></table></div>';
             },
-            onExpandRow: function(idx,row) { showGuiasByClub(idx,row); },
+            onExpandRow: function(idx,row) { showGuiasByClub(idx,row); }/*,
             onCollapseRow: function(idx,row) {
                 var dg = "#clubes-guias-datagrid-" + replaceAll(' ', '_', row.ID);
                 $(dg).remove();
-            }
+            }*/
         }); // end of '#clubes-datagrid' declaration
 
 		// key handler
@@ -174,16 +174,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 onCollapseRow: function(idx,row) {
                     var dg = "#clubes-guias-perros-datagrid-" + replaceAll(' ', '_', row.ID);
                     $(dg).remove();
-                },
+                }
                 /* end of clubes-guias-dog subtable */
-                onResize:function(){
-                    $('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
-                },
-                onLoadSuccess:function(){
-                    setTimeout(function(){
-                        $('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
-                    },0);
-                } 
         	}); // end of '#clubes-guias-datagrid' declaration
         	// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         	var	toolbar= [{

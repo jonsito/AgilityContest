@@ -41,11 +41,6 @@ function assignGuiaToClub(dgname,club) {
     // finalmente desplegamos el formulario y ajustamos textos
 	$('#chguias-title').text('Reasignar/Declarar un guia como perteneciente al club '+club.Nombre);
 	$('#chguias-dialog').dialog('open').dialog('setTitle','Asignar/Registrar un gu&iacute;a'+' - '+fedName(workingData.federation));
-    // on click OK button, close dialog and refresh data
-    // TODO: this should be done by mean of onClose, or in action succes. but sometimes fails
-    // need to be fixed. is important
-    $('#chguias-okBtn').one('click',function () { $(dg).datagrid('reload'); } );
-    $('#chguias-newBtn').one('click',function () { $(dg).datagrid('reload'); } );
 }
 
 /**
@@ -186,8 +181,8 @@ function assignGuia(){
             	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {
                 // TODO: study why datagrid loses focus handling
-                // var dg=$('#chguias-parent').val();
-                // if (dg!="") $(dg).datagrid('load');
+                var dg=$('#chguias-parent').val();
+                if (dg!="") $(dg).datagrid('load');
                 $('#chguias-Search').combogrid('clear');  // clear search field
                 $('#chguias-dialog').dialog('close');        // close the dialog
             }
@@ -214,8 +209,8 @@ function saveChGuia(){
                 $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
             } else {
                 // TODO: study why load makes next use focus fail on new datagrid
-                // var dg=$('#chguias-parent').val();
-                // if (dg!="") $(dg).datagrid('load');
+                var dg=$('#chguias-parent').val();
+                if (dg!="") $(dg).datagrid('load');
             	if (result.insert_id ) $('#guias-ID').val(result.insert_id);
             	$('#chguias-Search').combogrid('clear');  // clear search field
                 $('#chguias-dialog').dialog('close');    // close the dialog

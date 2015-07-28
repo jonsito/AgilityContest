@@ -113,7 +113,6 @@ function deleteDog(dg){
  *@param {object} guia datos del guia
  */
 function assignPerroToGuia(dgstr,guia) {
-    var dg=$(dgstr);
 	// clean previous dialog data
 	$('#chperros-header').form('clear');
 	$('#chperros-Search').combogrid('clear');
@@ -125,10 +124,6 @@ function assignPerroToGuia(dgstr,guia) {
 	// desplegar ventana y ajustar textos
 	$('#chperros-title').text('Buscar perro / Declarar un nuevo perro y asignarlo a '+guia.Nombre);
 	$('#chperros-dialog').dialog('open').dialog('setTitle',"Reasignar / Declarar perro"+' - '+fedName(workingData.federation));
-    // TODO: this should be done on success, not on click.
-    // also suffer race conditions / datagrid focus errors. need to be fixed. important
-    $('#chperros-okBtn').one('click',function () { dg.datagrid('reload'); } );
-    $('#chperros-newBtn').one('click',function () { dg.datagrid('reload'); } );
 }
 
 /**
@@ -197,8 +192,8 @@ function assignDog() {
                 $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
             } else {
                 // TODO: this leave focus datagrid handling buggy. study why
-                // var dg=$('#chperros-parent').val();
-                // if (dg!="") $(dg).datagrid('load');
+                var dg=$('#chperros-parent').val();
+                if (dg!="") $(dg).datagrid('reload');
             	$('#chperros-Search').combogrid('clear');  // clear search field
                 $('#chperros-dialog').dialog('close');        // close the dialog
             }
@@ -225,8 +220,8 @@ function saveChDog(){
                 $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
             } else {
                 // TODO: this leave focus datagrid handling buggy. study why
-                // var dg=$('#chperros-parent').val();
-                // if (dg!="") $(dg).datagrid('load');
+                var dg=$('#chperros-parent').val();
+                if (dg!="") $(dg).datagrid('load');
             	if (result.insert_id ) $('#chperros-ID').val(result.insert_id);
             	$('#chperros-Search').combogrid('clear');  // clear search field
                 $('#chperros-dialog').dialog('close');    // close the dialog
