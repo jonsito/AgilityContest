@@ -63,7 +63,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/tablet.css" />
-<script src="/agility/lib/jquery-easyui-1.4.2/jquery.min.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/lib/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
 <?php if (toBoolean($config->getEnv('tablet_chrono'))) { ?>
