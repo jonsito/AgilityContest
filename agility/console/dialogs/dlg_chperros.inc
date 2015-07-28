@@ -20,7 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         <div id="chperros-title" class="ftitle">Reasignaci&oacute;n de un perro</div>
         <form id="chperros-header">
         	<div class="fitem">
-                <label for="Search">Buscar: </label>
+                <label for="chperros-Search">Buscar: </label>
                 <select id="chperros-Search" name="Search" style="width:250px"></select>&nbsp;
                 <a id="chperros-clearBtn" href="#" class="easyui-linkbutton"
                 	data-options="iconCls: 'icon-undo'">Limpiar</a>
@@ -50,20 +50,21 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="chperros-Licencia" class="easyui-validatebox" name="Licencia" type="text" />
             </div>
             <div class="fitem">
-                <label for="chperros-Categoria">Categor&iacute;a:</label>
+                <label for="chperros-Categorias_Perro">Categor&iacute;a:</label>
                 <select id="chperros-Categorias_Perro" 
                 		name="Categoria" 
                 		class="easyui-combobox" 
                 		style="width:155px" ></select>
             </div>
             <div class="fitem">
-                <label for="chperros-Grado">Grado:</label>
+                <label for="chperros-Grados_Perro">Grado:</label>
                 <select id="chperros-Grados_Perro" 
                 		name="Grado" 
                 		class="easyui-combobox" 
                 		style="width:155px" ></select>
             </div>
         </form>
+        <input id="chperros-parent" type="hidden" value="" />
     </div>
     
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
@@ -117,6 +118,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		panelWidth: 350,
 		panelHeight: 200,
 		idField: 'ID',
+        delay: 500,
 		textField: 'Nombre',
 		url: '/agility/server/database/dogFunctions.php',
 		queryParams: { Operation:'enumerate', Federation: workingData.federation },

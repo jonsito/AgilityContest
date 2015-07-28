@@ -25,10 +25,10 @@ $config =Config::getInstance();
 
 /**
  * Abre el formulario para anyadir guias a un club
- *@param {String} ID: Identificador del elemento ( datagrid) desde el que se invoca esta funcion
- *@param {object} data: datos del club
+ *@param {String} dgname: Identificador del elemento ( datagrid) desde el que se invoca esta funcion
+ *@param {object} club: datos del club
  */
-function assignGuiaToClub(dg,club) {
+function assignGuiaToClub(dgname,club) {
 	// clear data forms
 	$('#chguias-header').form('clear'); // erase header form
 	$('#chguias-Search').combogrid('clear'); // reset header combogrid
@@ -36,12 +36,16 @@ function assignGuiaToClub(dg,club) {
 	// fill default values
 	$('#chguias-newClub').val(club.ID); // id del club to assign
 	$('#chguias-Operation').val('update'); // operation
-	// finalmente desplegamos el formulario y ajustamos textos
+    $('#chguias-parent').val(dgname);
+
+    // finalmente desplegamos el formulario y ajustamos textos
 	$('#chguias-title').text('Reasignar/Declarar un guia como perteneciente al club '+club.Nombre);
 	$('#chguias-dialog').dialog('open').dialog('setTitle','Asignar/Registrar un gu&iacute;a'+' - '+fedName(workingData.federation));
-	// on click OK button, close dialog and refresh data
-	$('#chguias-okBtn').one('click',function () { $(dg).datagrid('reload'); } ); 
-	$('#chguias-newBtn').one('click',function () { $(dg).datagrid('reload'); } ); 
+    // on click OK button, close dialog and refresh data
+    // TODO: this should be done by mean of onClose, or in action succes. but sometimes fails
+    // need to be fixed. is important
+    $('#chguias-okBtn').one('click',function () { $(dg).datagrid('reload'); } );
+    $('#chguias-newBtn').one('click',function () { $(dg).datagrid('reload'); } );
 }
 
 /**
@@ -181,7 +185,10 @@ function assignGuia(){
             if (result.errorMsg){ 
             	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
             } else {
-            	// notice that onAccept() already refresh parent dialog
+                // TODO: study why datagrid loses focus handling
+                // var dg=$('#chguias-parent').val();
+                // if (dg!="") $(dg).datagrid('load');
+                $('#chguias-Search').combogrid('clear');  // clear search field
                 $('#chguias-dialog').dialog('close');        // close the dialog
             }
         }
@@ -206,6 +213,9 @@ function saveChGuia(){
             if (result.errorMsg){
                 $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
             } else {
+                // TODO: study why load makes next use focus fail on new datagrid
+                // var dg=$('#chguias-parent').val();
+                // if (dg!="") $(dg).datagrid('load');
             	if (result.insert_id ) $('#guias-ID').val(result.insert_id);
             	$('#chguias-Search').combogrid('clear');  // clear search field
                 $('#chguias-dialog').dialog('close');    // close the dialog
@@ -213,6 +223,7 @@ function saveChGuia(){
         }
     });
 }
+
 /**
  * Invoca a json para añadir/editar los datos del guia seleccionado en el formulario
  * Ask for commit new/edit guia to server

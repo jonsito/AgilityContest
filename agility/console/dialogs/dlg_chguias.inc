@@ -50,6 +50,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <textarea id="chguias-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
             </div>
         </form>
+        <input id="chguias-parent" type="hidden" value="" />
     </div>
 
    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
@@ -94,6 +95,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     		panelWidth: 350,
     		panelHeight: 200,
     		idField: 'ID',
+            delay: 500,
     		textField: 'Nombre',
     		url: '/agility/server/database/guiaFunctions.php',
             queryParams: { Operation:'enumerate', Federation: workingData.federation },
