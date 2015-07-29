@@ -59,28 +59,29 @@ $config =Config::getInstance();
 <?php require_once("dialogs/dlg_chperros.inc"); ?>
     
 <script type="text/javascript">
-        // tell jquery to convert declared elements to jquery easyui Objects
-        // datos de la tabla de guias
-        // - tabla
+    // tell jquery to convert declared elements to jquery easyui Objects
+    // datos de la tabla de guias
+    // - tabla
+    $(function(){
         $('#guias-datagrid').datagrid({
-        	// propiedades del panel padre asociado
-        	fit: true,
-        	border: false,
-        	closable: true,
-        	collapsible: false,
+            // propiedades del panel padre asociado
+            fit: true,
+            border: false,
+            closable: true,
+            collapsible: false,
             expansible: false,
-        	collapsed: false,
-        	title: 'Gesti&oacute;n de datos de Gu&iacute;as'+' - '+fedName(workingData.federation),
-        	url: '/agility/server/database/guiaFunctions.php',
-    		queryParams: { Operation:'select', Federation: workingData.federation },
-        	loadMsg: 'Actualizando lista de Gu&iacute;as...',
-        	method: 'get',
+            collapsed: false,
+            title: 'Gesti&oacute;n de datos de Gu&iacute;as'+' - '+fedName(workingData.federation),
+            url: '/agility/server/database/guiaFunctions.php',
+            queryParams: { Operation:'select', Federation: workingData.federation },
+            loadMsg: 'Actualizando lista de Gu&iacute;as...',
+            method: 'get',
             toolbar: '#guias-toolbar',
             pagination: false,
             rownumbers: true,
             singleSelect: true,
             fitColumns: true,
-			idField: 'ID',
+            idField: 'ID',
             view: scrollview,
             pageSize: 50,
             multiSort: true,
@@ -88,31 +89,32 @@ $config =Config::getInstance();
             columns: [[
                 { field:'ID',			hidden:true },
                 { field:'Federation',	hidden:true },
-            	{ field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
+                { field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
                 { field:'Club',			hidden:true},
                 { field:'NombreClub',	width:20, sortable:true,	title: 'Club'},
-            	{ field:'Telefono',		width:10, sortable:true,	title: 'Tel&eacute;fono' },
-            	{ field:'Email',		width:15, sortable:true,    title: 'Correo Electr&oacute;nico' },
+                { field:'Telefono',		width:10, sortable:true,	title: 'Tel&eacute;fono' },
+                { field:'Email',		width:15, sortable:true,    title: 'Correo Electr&oacute;nico' },
                 { field:'Observaciones',width:30,					title: 'Observaciones'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:myRowStyler,
-        	// on double click fireup editor dialog
-            onDblClickRow:function() { 
+            // on double click fireup editor dialog
+            onDblClickRow:function() {
                 editGuia('#guias-datagrid');
-            },        
+            },
             // especificamos un formateador especial para desplegar la tabla de perros por guia
             detailFormatter:function(idx,row){
                 var dg="guias-perros-datagrid-" + replaceAll(' ','_',row.ID);
                 return '<div style="padding:2px"><table id="'+dg+'"></table></div>';
             },
-            onExpandRow: function(idx,row) { showPerrosByGuia(idx,row); },
+            onExpandRow: function(idx,row) { showPerrosByGuia(idx,row); } /*,
             onCollapseRow: function(idx,row) {
                 var dg = "#guias-perros-datagrid-" + replaceAll(' ', '_', row.ID);
                 $(dg).remove();
-            }
+            }*/
 
         }); // end of guias-datagrid
+    });
 
 		// key handler
        	addKeyHandler('#guias-datagrid',newGuia,editGuia,deleteGuia);

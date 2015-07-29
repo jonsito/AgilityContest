@@ -49,69 +49,72 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
         
-        // datos de la tabla de clubes
-        // - tabla
-        $('#clubes-datagrid').datagrid({
-        	// propiedades del panel padre asociado
-        	fit: true,
-        	border: false,
-        	closable: true,
-        	collapsible: false,
-            expansible: false,
-        	collapsed: false,
-        	title: 'Gesti&oacute;n de datos de Clubes'+' - '+fedName(workingData.federation),
-        	url: '/agility/server/database/clubFunctions.php',
-    		queryParams: { Operation: 'select' },
-        	loadMsg: 'Actualizando lista de Clubes ...',
-        	method: 'get',
-            toolbar: '#clubes-toolbar',
-            pagination: false,
-            rownumbers: true,
-            fitColumns: true,
+	// datos de la tabla de clubes
+	// - tabla
+	$(function(){
+
+		$('#clubes-datagrid').datagrid({
+			// propiedades del panel padre asociado
+			fit: true,
+			border: false,
+			closable: true,
+			collapsible: false,
+			expansible: false,
+			collapsed: false,
+			title: 'Gesti&oacute;n de datos de Clubes'+' - '+fedName(workingData.federation),
+			url: '/agility/server/database/clubFunctions.php',
+			queryParams: { Operation: 'select' },
+			loadMsg: 'Actualizando lista de Clubes ...',
+			method: 'get',
+			toolbar: '#clubes-toolbar',
+			pagination: false,
+			rownumbers: true,
+			fitColumns: true,
 			idField: 'ID',
-            singleSelect: true,
-            view: scrollview,
-            pageSize: 50,
-            multiSort: true,
-            remoteSort: true,
-            columns: [[
-                  	{ field:'ID',			hidden:true},
-                   	{ field:'Nombre',		width:15, sortable:true,	title: 'Nombre:'},
-            		{ field:'Direccion1',	width:15, sortable:true,	title: 'Direcci&oacute;n 1:' },
-            		{ field:'Direccion2',	width:10, sortable:false,	title: 'Direcci&oacute;n 2' },
-                    { field:'Provincia',	width:7, sortable:false,    title: 'Provincia' },
-                    { field:'Pais',	        width:5, sortable:false,    align: 'center', title: 'Pais' },
-            		{ field:'Contacto1',	width:10, sortable:false,   title: 'Contacto 1' },
-            		{ field:'Contacto2',	width:10, sortable:true,    title: 'Contacto 2' },
-            		{ field:'Contacto3',	width:10, sortable:true,    title: 'Contacto 3' },
-            		{ field:'GPS',			hidden:true},
-            		{ field:'Web',			hidden:true},
-            		{ field:'Email',		hidden:true},
-                  	{ field:'Federations',	hidden:true},
-            		{ field:'RSCE',			width:3, sortable:true,    align: 'center', title: 'RSCE', formatter:clubesRSCE },
-            		{ field:'RFEC',			width:3, sortable:true,    align: 'center', title: 'RFEC', formatter:clubesRFEC },
-            		{ field:'UCA',			width:3, sortable:true,    align: 'center', title: 'UCA',  formatter:clubesUCA },
-            		// { field:'Logo',		width:2, sortable:true,    title: 'Logo club' },
-            		//{ field:'Observaciones',width:2, sortable:true,    title: 'Observaciones' },
-            		{ field:'Baja',			width:2, sortable:true,    align: 'center', title: 'Baja', formatter:clubesBaja }
-            ]],
-            // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
-            rowStyler:myRowStyler,
-        	// on double click fireup editor dialog
-            onDblClickRow:function() { 
-                editClub('#clubes-datagrid');
-            },        
-            // especificamos un formateador especial para desplegar la tabla de guias por club
-            detailFormatter:function(index,row){
-                var dg = "clubes-guias-datagrid-" + replaceAll(' ', '_', row.ID);
-                return '<div style="padding:2px"><table id="'+dg+'"></table></div>';
-            },
-            onExpandRow: function(idx,row) { showGuiasByClub(idx,row); }/*,
-            onCollapseRow: function(idx,row) {
-                var dg = "#clubes-guias-datagrid-" + replaceAll(' ', '_', row.ID);
-                $(dg).remove();
-            }*/
-        }); // end of '#clubes-datagrid' declaration
+			singleSelect: true,
+			view: scrollview,
+			pageSize: 50,
+			multiSort: true,
+			remoteSort: true,
+			columns: [[
+				{ field:'ID',			hidden:true},
+				{ field:'Nombre',		width:15, sortable:true,	title: 'Nombre:'},
+				{ field:'Direccion1',	width:15, sortable:true,	title: 'Direcci&oacute;n 1:' },
+				{ field:'Direccion2',	width:10, sortable:false,	title: 'Direcci&oacute;n 2' },
+				{ field:'Provincia',	width:7, sortable:false,    title: 'Provincia' },
+				{ field:'Pais',	        width:5, sortable:false,    align: 'center', title: 'Pais' },
+				{ field:'Contacto1',	width:10, sortable:false,   title: 'Contacto 1' },
+				{ field:'Contacto2',	width:10, sortable:true,    title: 'Contacto 2' },
+				{ field:'Contacto3',	width:10, sortable:true,    title: 'Contacto 3' },
+				{ field:'GPS',			hidden:true},
+				{ field:'Web',			hidden:true},
+				{ field:'Email',		hidden:true},
+				{ field:'Federations',	hidden:true},
+				{ field:'RSCE',			width:3, sortable:true,    align: 'center', title: 'RSCE', formatter:clubesRSCE },
+				{ field:'RFEC',			width:3, sortable:true,    align: 'center', title: 'RFEC', formatter:clubesRFEC },
+				{ field:'UCA',			width:3, sortable:true,    align: 'center', title: 'UCA',  formatter:clubesUCA },
+				// { field:'Logo',		width:2, sortable:true,    title: 'Logo club' },
+				//{ field:'Observaciones',width:2, sortable:true,    title: 'Observaciones' },
+				{ field:'Baja',			width:2, sortable:true,    align: 'center', title: 'Baja', formatter:clubesBaja }
+			]],
+			// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
+			rowStyler:myRowStyler,
+			// on double click fireup editor dialog
+			onDblClickRow:function() {
+				editClub('#clubes-datagrid');
+			},
+			// especificamos un formateador especial para desplegar la tabla de guias por club
+			detailFormatter:function(index,row){
+				var dg = "clubes-guias-datagrid-" + replaceAll(' ', '_', row.ID);
+				return '<div style="padding:2px"><table id="'+dg+'"></table></div>';
+			},
+			onExpandRow: function(idx,row) { showGuiasByClub(idx,row); }/*,
+			onCollapseRow: function(idx,row) {
+			    var dg = "#clubes-guias-datagrid-" + replaceAll(' ', '_', row.ID);
+			    $(dg).remove();
+			}*/
+		}); // end of '#clubes-datagrid' declaration
+	});
 
 		// key handler
        	addKeyHandler('#clubes-datagrid',newClub,editClub,deleteClub);
@@ -170,13 +173,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     var dg = "clubes-guias-perros-datagrid-" + replaceAll(' ', '_', row.ID);
                     return '<div style="padding:2px"><table id="'+dg+'"></table></div>';
                 },
-                onExpandRow: function(idx,row) { showPerrosByGuiaByClub(idx,row,club); },
+                onExpandRow: function(idx,row) { showPerrosByGuiaByClub(idx,row,club); } /*,
                 onCollapseRow: function(idx,row) {
                     var dg = "#clubes-guias-perros-datagrid-" + replaceAll(' ', '_', row.ID);
                     $(dg).remove();
-                }
+                } */
                 /* end of clubes-guias-dog subtable */
         	}); // end of '#clubes-guias-datagrid' declaration
+
         	// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         	var	toolbar= [{
             		id: 'guiasByClub-newBtn'+club.ID,
