@@ -172,26 +172,26 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 		maximizable:false, closable:true, closed:false, shadow:true, modal:true">
 	<form id="seltablet-form">
        	<div class="fitem">
-       		<label for="Username">Usuario:</label>
+       		<label for="seltablet-Username">Usuario:</label>
        		<input id="seltablet-Username" name="Username" style="width:200px" type="text"
        			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
        	</div>        		
        	<div class="fitem">
-       		<label for="Password">Contrase&ntilde;a:</label>
+       		<label for="seltablet-Password">Contrase&ntilde;a:</label>
        		<input id="seltablet-Password" name="Password" style="width:200px" type="password"
        			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
        	</div>
        	<div>&nbsp;</div>
     	<div class="fitem">
-       		<label for="Sesion">Sesi&oacute;n:</label>
+       		<label for="seltablet-Sesion">Sesi&oacute;n:</label>
        		<select id="seltablet-Sesion" name="Sesion" style="width:200px"></select>
     	</div>        		
     	<div class="fitem">
-       		<label for="Prueba">Prueba:</label>
+       		<label for="seltablet-Prueba">Prueba:</label>
        		<select id="seltablet-Prueba" name="Prueba" style="width:200px"></select>
     	</div>        		
     	<div class="fitem">
-       		<label for="Jornada">Jornada:</label>
+       		<label for="seltablet-Jornada">Jornada:</label>
        		<select id="seltablet-Jornada" name="Jornada" style="width:200px"></select>
     	</div>
 	</form>
@@ -257,11 +257,13 @@ $('#seltablet-Prueba').combogrid({
         {field:'UserLimit',		hidden:true}
 	]],
 	onChange:function(value){
-		var p=$('#seltablet-Prueba').combogrid('grid').datagrid('getSelected');
+		var pru=$('#seltablet-Prueba').combogrid('grid');
+		var p=pru.datagrid('getSelected');
+		var j=$('#seltablet-Jornada');
 		if (p===null) return; // no selection
         if (parseInt(p.Inscritos) > parseInt(p.UserLimit)) {
             var message='<img src="/agility/images/sad_dog.png" width="100" alt="sad dog" style="float:right;"/>'+
-                '<p style="font-weight:bold;">Los permisos de la licencia instalada<br /> ' +
+                '<p style="font-weight:bold;">Los permisos de la licencia instalada<br/> ' +
 				'no permiten la gesti&oacute;n de pruebas</br> con m&aacute;s de '+p.UserLimit+' inscripciones</p>';
             $.messager.alert({
                 title: 'Access denied',
@@ -269,13 +271,13 @@ $('#seltablet-Prueba').combogrid({
                 icon: 'error',
                 width: 450
             });
-            $('#seltablet-Prueba').combogrid('grid').datagrid('clearSelections');
-            $('#seltablet-Jornada').combogrid('grid').datagrid('clearSelections');
+            p.datagrid('clearSelections');
+            j.combogrid('grid').datagrid('clearSelections');
             return; // forbidden selection
         }
 		setPrueba(p); // retorna jornada, o 0 si la prueba ha cambiado
-		$('#seltablet-Jornada').combogrid('clear');
-		$('#seltablet-Jornada').combogrid('grid').datagrid('load',{Prueba:p.ID});
+		j.combogrid('clear');
+		j.combogrid('grid').datagrid('load',{Prueba:p.ID});
 	}
 });
 
@@ -377,12 +379,12 @@ function tablet_acceptSelectJornada() {
                         workingData.datosSesion=s;
         	    		workingData.nombreJornada=j.Nombre;
                         // jornadas "normales", equipos3 y Open comparten el mismo fichero
-        	    		var page="/agility/tablet/tablet_competicion.php";
+        	    		var page="/agility/tablet/tablet_main.php";
         	    		if (workingData.datosJornada.Equipos4==1) {
-        	    			page="/agility/tablet/tablet_competicion.php"; // parche temporal
+        	    			page="/agility/tablet/tablet_main.php"; // parche temporal
         	    		}
         	    		if (workingData.datosJornada.KO==1) {
-        	    			page="/agility/tablet/tablet_competicion_ko.php";
+        	    			page="/agility/tablet/tablet_main_ko.php";
         	    		}
         	    		$('#seltablet-dialog').dialog('close');
         	    		// and load page
@@ -392,6 +394,8 @@ function tablet_acceptSelectJornada() {
         	    					if (status=='error') $('#tablet_contenido').load('/agility/frm_notavailable.php');
         	        	    		// start event manager
         	        	    		startEventMgr(workingData.sesion,tablet_processEvents);
+									setDataEntryEnabled(false);
+                                    $('#tablet-layout').layout('panel','west').panel('setTitle',p.Nombre+" - "+ j.Nombre);
         	    				}
         	    			); // load
         	    	} // close dialog; open main window

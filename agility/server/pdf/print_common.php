@@ -51,6 +51,7 @@ class PrintCommon extends FPDF {
 	protected $myDBObject;
 	protected $pageName; // name of file to be printed
     protected $authManager;
+	protected $regInfo; // registration info from current license
 
 	protected $centro;
 	
@@ -99,8 +100,8 @@ class PrintCommon extends FPDF {
             if ($this->icon==$this->icon2) $this->icon2=$this->federation->getParentLogo();
         }
         $this->authManager=new AuthManager("print_common");
-        $ri=$this->authManager->getRegistrationInfo();
-        if ($ri['Serial']==="00000000") $this->icon="agilitycontest.png";
+        $this->regInfo=$this->authManager->getRegistrationInfo();
+        if ($this->regInfo['Serial']==="00000000") $this->icon="agilitycontest.png";
 	}
 
     /**

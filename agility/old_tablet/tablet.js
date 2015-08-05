@@ -22,19 +22,14 @@ function tandasStyler(val,row,idx) {
 	return str;
 }
 
-/******************* funciones de manejo del panel de orden de tandas y orden de salida en el tablet *******************/
+/******************* funciones de manejo de las ventana de orden de tandas y orden de salida en el tablet *******************/
 
-/**
- * expande/contrae activa/desactiva entrada de datos en el tablet
- * @param {boolean} flag true if activate; false on deactivate
- */
-function setDataEntryEnabled(flag) {
-	$('#tdialog-fieldset').prop('disabled',!flag);
-	if (flag) $('#tablet-layout').layout('collapse','west');
-	else $('#tablet-layout').layout('expand','west');
+function tablet_showOrdenSalida() {
+	$('#tablet-window').window('open');
+    $('#tdialog-window').window('close');
 }
 
-/******************* funciones de manejo del panel de entrada de resultados del tablet *****************/
+/******************* funciones de manejo de la ventana de entrada de resultados del tablet *****************/
 
 /**
  * send events
@@ -79,8 +74,8 @@ function tablet_updateSession(row) {
 			Tanda: row.ID
 	};
     if (parseInt(row.Manga)==0) {
-        var str= row.Nombre.toLowerCase();
-        if (str.indexOf("econo")>0) return false;
+        var str= strval(row.Nombre).toLowerCase();
+        if ( strpos(str,"econo")>0 ) return false;
         else tablet_reconocimiento();
     }
 	$.ajax({
@@ -320,8 +315,7 @@ function tablet_cancel() {
 	doBeep();
 	// retrieve original data from parent datagrid
 	var dgname=$('#tdialog-Parent').val();
-    var dg=$(dgname).datagrid();
-	var row =dg.datagrid('getSelected');
+	var row =$(dgname).datagrid('getSelected');
 	if (row) {
 		// update database according row data
 		row.Operation='update';
@@ -345,29 +339,12 @@ function tablet_cancel() {
 					);
 			}
 		});
-        var index=row =dg.datagrid('getRowIndex',row);
-        dg.datagrid('scrollTo',index);
 	}
 	// and close panel
 	tablet_cronoManual('stop');
 	tablet_cronoManual('reset');
-	setDataEntryEnabled(false);
+	$('#tdialog-window').window('close');
 	return false;
-}
-
-function nextRow(dg, cb){
-	var opts = dg.datagrid('options');
-	var row = dg.datagrid('getSelected');
-	var index = dg.datagrid('getRowIndex', row);
-    if (index>=(opts.numRows-1)) return false;
-	dg.datagrid('scrollTo', {
-		index: index+1,
-		callback: function(index){
-			$(this).datagrid('selectRow', index);
-			cb(index, $(this).datagrid('getRows')[index]);
-		}
-	});
-    return true;
 }
 
 function tablet_accept() {
@@ -409,102 +386,32 @@ function tablet_accept() {
         tablet_cronoManual('reset');
     }
 	if (!ac_config.tablet_next) { // no go to next row entry
-		setDataEntryEnabled(false);
+		$('#tdialog-window').window('close'); // close window
 		dg.datagrid('refreshRow',rowindex);
 		return false;
 	}
 	// seleccionamos fila siguiente
-	var res=nextRow(dg,function(index,data) {
-        // alert ("index:"+index+" data:"+JSON.stringify(data));
-        if (index<0) return false; // no selection
-        if (data==null) { // at end of rows. should not occurs
-            dg.datagrid('scrollTo',rowindex);
-            setDataEntryEnabled(false);
-            return false;
-        }
-		data.Session=workingData.sesion;
-		data.RowIndex=index; // not really used, but....
-		data.Parent=dgname; // store datagrid reference
-		$('#tdialog-form').form('load',data);
-	});
-    if (res==false) { // at end of list
-        setDataEntryEnabled(false);
-        dg.datagrid('refreshRow',rowindex);
-    }
-    return false; // prevent follow onClick event chain
-}
-
-/**
- * retrieve from server data row on provided dorsal
- * call to callback(idx,row) provided function
- * @param {array} tanda current selected tanda
- * @param {object} dg datagrid for current selected tanda
- * @param {int} dorsal Dog dorsal to search for
- * @param cb(page) what to do if Dorsal found in tanda
- */
-function loadDorsalPage(tanda,dg,dorsal,cb) {
-    $.ajax({
-        type:	'GET',
-        url:	"/agility/server/database/tandasFunctions.php",
-        dataType:'json',
-        data: {
-            Operation: 'getDataByDorsal',
-            Prueba:		tanda.Prueba,
-            Jornada:	tanda.Jornada,
-            Sesion:		tanda.Sesion,
-            ID:			tanda.ID,
-            Dorsal:		dorsal
-        },
-        success: function(row) {
-            var idx=row.RowIndex;
-            if (idx<0) {
-                $.messager.alert("Not found","El perro con dorsal "+dorsal+" no participa en esta manga","info");
-                $('#tablet-datagrid-search').val('---- Dorsal ----');
-                return false;
-            }
-            cb(idx);
-        },
-        error: function(XMLHttpRequest,textStatus,errorThrown) {
-            alert("error: "+textStatus + " "+ errorThrown );
-        }
-    });
-}
-
-function tablet_editByDorsal() {
-	var i,len;
-	var dg=$('#tablet-datagrid');
-    var drs=$('#tablet-datagrid-search');
-	var rows=dg.datagrid('getRows');
-	var dorsal=parseInt(drs.val());
-    drs.blur();// remove focus to hide tooltip
-	// si no hay tandas activas muestra error e ignora
-	for (i=0,len=rows.length;i<len;i++) {
-		if (typeof(rows[i].expanded)==="undefined") continue;
-		if (rows[i].expanded==0) continue;
-		// obtenemos el datagrid y buscamos el dorsal
-		var dgname='#tablet-datagrid-'+rows[i].ID;
-		var dg2=$(dgname);
-        loadDorsalPage(rows[i],dg2,dorsal,function(idx){
-            dg2.datagrid('scrollTo', {
-                index: idx,
-                callback: function (index) {
-                    if (index < 0) return false; // no selection
-                    dg2.datagrid('selectRow', index);
-                    var data = dg2.datagrid('getRows')[index];
-                    data.Session = workingData.sesion;
-                    data.RowIndex = index; // not really used, but....
-                    data.Parent = dgname; // store datagrid reference
-                    $('#tdialog-form').form('load', data);
-                    setDataEntryEnabled(true);
-                }
-            });
-        });
-		drs.val('---- Dorsal ----');
+	/*
+	var count=dg.datagrid('getRows').length;    // row count
+	if ( (rowindex)>=count ) { // at end of datagrid
+		$('#tdialog-window').window('close'); // close window
+		dg.datagrid('refreshRow',rowindex-1);
 		return false;
 	}
-	// arriving here means that there are no expanded row
-	$.messager.alert("No selection","No hay ninguna manga seleccionada","error");
-	drs.val('---- Dorsal ----');
+	*/
+	dg.datagrid('scrollTo',rowindex+1);
+	dg.datagrid('selectRow', rowindex+1);
+	var data=dg.datagrid('getSelected');
+	if (data==null) {// at end of datagrid
+		$('#tdialog-window').window('close'); // close window
+		dg.datagrid('refreshRow',rowindex);
+		return false;
+	}
+	data.Session=workingData.sesion;
+    data.RowIndex=rowindex; // not really used, but....
+    data.Parent=dgname; // store datagrid reference
+    $('#tdialog-form').form('load',data);
+    return false; // prevent follow onClick event chain
 }
 
 function isExpected(event) {

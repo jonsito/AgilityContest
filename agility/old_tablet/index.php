@@ -78,7 +78,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/tablet2/tablet.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/old_tablet/tablet.js" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript" charset="utf-8">
 function initialize() {
@@ -261,7 +261,7 @@ $('#seltablet-Prueba').combogrid({
 		if (p===null) return; // no selection
         if (parseInt(p.Inscritos) > parseInt(p.UserLimit)) {
             var message='<img src="/agility/images/sad_dog.png" width="100" alt="sad dog" style="float:right;"/>'+
-                '<p style="font-weight:bold;">Los permisos de la licencia instalada<br/> ' +
+                '<p style="font-weight:bold;">Los permisos de la licencia instalada<br /> ' +
 				'no permiten la gesti&oacute;n de pruebas</br> con m&aacute;s de '+p.UserLimit+' inscripciones</p>';
             $.messager.alert({
                 title: 'Access denied',
@@ -377,12 +377,12 @@ function tablet_acceptSelectJornada() {
                         workingData.datosSesion=s;
         	    		workingData.nombreJornada=j.Nombre;
                         // jornadas "normales", equipos3 y Open comparten el mismo fichero
-        	    		var page="/agility/tablet2/tablet_main.php";
+        	    		var page="/agility/tablet/tablet_competicion.php";
         	    		if (workingData.datosJornada.Equipos4==1) {
-        	    			page="/agility/tablet2/tablet_main.php"; // parche temporal
+        	    			page="/agility/tablet/tablet_competicion.php"; // parche temporal
         	    		}
         	    		if (workingData.datosJornada.KO==1) {
-        	    			page="/agility/tablet2/tablet_main_ko.php";
+        	    			page="/agility/tablet/tablet_competicion_ko.php";
         	    		}
         	    		$('#seltablet-dialog').dialog('close');
         	    		// and load page
@@ -392,8 +392,6 @@ function tablet_acceptSelectJornada() {
         	    					if (status=='error') $('#tablet_contenido').load('/agility/frm_notavailable.php');
         	        	    		// start event manager
         	        	    		startEventMgr(workingData.sesion,tablet_processEvents);
-									setDataEntryEnabled(false);
-                                    $('#tablet-layout').layout('panel','west').panel('setTitle',p.Nombre+" - "+ j.Nombre);
         	    				}
         	    			); // load
         	    	} // close dialog; open main window

@@ -43,15 +43,7 @@ class Etiquetas_PDF extends PrintCommon {
 	protected $manga1;
 	protected $manga2;
 	public $resultados;
-	protected $icon;
-	
-	function ac_SetDrawColor($str) {
-		$val=intval(str_replace('#','0x',$str),0);
-		$r=(0x00FF0000&$val)>>16;
-		$g=(0x0000FF00&$val)>>8;
-		$b=(0x000000FF&$val);
-		$this->SetDrawColor($r,$g,$b);
-	}
+	protected $serialno;
 	
 	 /** Constructor
 	 * @param {obj} $manga datos de la manga
@@ -63,9 +55,10 @@ class Etiquetas_PDF extends PrintCommon {
 		$dbobj=new DBObject("print_etiquetas_pdf");
 		$this->manga1=$dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2=$dbobj->__getObject("Mangas",$mangas[1]);
-		// evaluage logo info
-		$this->icon="rsce.png";
-		if (isset($this->club)) $this->icon=$this->club->Logo;
+        // add version date and license serial to every label
+        $ser= substr( $this->regInfo['Serial'],4,4);
+        $ver= substr( $this->config->getEnv("version_date"),2,6) ;
+        $this->serialno="{$ver}-${ser}";
 	}
 	
 	// No tenemos cabecera: no cabe
@@ -93,7 +86,8 @@ class Etiquetas_PDF extends PrintCommon {
 		$y10= $top+17*$idx+10;
 		$y7=  $top+17*$idx+7;
 		$y8=  $top+17*$idx+8;
-		$y9=  $top+17*$idx+9;
+        $y9=  $top+17*$idx+9;
+        $y12=  $top+17*$idx+12;
 		$ynext=$top+17*($idx+1);
 		
 		$this->SetFont('Arial','B',24); // bold 11px
@@ -119,6 +113,12 @@ class Etiquetas_PDF extends PrintCommon {
 		//Fecha (45,y+5,38,5) left
 		$this->SetXY($left+36,$y9); 
 		$this->Cell(38,5,$this->jornada->Fecha,0,0,'L',false);
+        // licencia
+        $this->SetFont('Arial','',5); // font for licencia
+        $this->SetXY($left+36,$y12);
+        $this->Cell(38,5,$this->serialno,0,0,'L',false);
+        $this->SetFont('Arial','I',8); // font for prueba,name
+
 		//Perro (45,y+10,38,7) right
 		$this->SetXY($left+36,$y10); 
 		$this->Cell(38,7,"{$row['Licencia']} - {$row['Nombre']}",0,0,'R',false);
@@ -232,7 +232,7 @@ try {
 	$dbobj=new DBObject("print_etiquetas_csv");
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
 	$prb=$dbobj->__getObject("Pruebas",$prueba);
-	$c= new Clasificaciones("print_podium_pdf",$prueba,$jornada);
+	$c= new Clasificaciones("print_etiquetas_pdf",$prueba,$jornada);
 	
 	// obtenemos la clasificacion de la tanda seleccionada
 	$r=$c->clasificacionFinal($rondas,$mangas,$mode);
