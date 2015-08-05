@@ -196,9 +196,22 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->Ln();
     }
 
+    // on second and consecutive pages print a short description to avoid sheet missorder
+    function print_datosMangas2() {
+        $this->SetXY(35,15);
+        $this->SetFont('Arial','B',11); // bold 9px
+        $this->Cell(80,7,"{$this->jornada->Nombre}",0,0,'',false);
+        $this->SetXY(35,20);
+        $this->Cell(80,7,"{$this->jornada->Fecha}",0,0,'',false);
+        $ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
+        $this->SetXY(35,25);
+        $this->Cell(80,7,"$ronda - {$this->categoria}",0,0,'',false);
+    }
+
     function Header() {
         $this->print_commonHeader(_("Clasificación Final"));
         if ($this->PageNo()==1) $this->print_datosMangas();
+        else $this->print_datosMangas2();
     }
 
     // Pie de página: tampoco cabe

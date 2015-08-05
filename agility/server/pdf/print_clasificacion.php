@@ -115,7 +115,19 @@ class PrintClasificacion extends PrintCommon {
 		$this->Cell(25,7,"Vel.: {$trs['vel']}m/s","LTBR",0,'L',false);
 		$this->Ln();
 	}
-	
+
+	// on second and consecutive pages print a short description to avoid sheet missorder
+	function print_datosMangas2() {
+		$this->SetXY(35,20);
+		$this->SetFont('Arial','B',11); // bold 9px
+		$this->Cell(80,7,"{$this->jornada->Nombre}",0,0,'',false);
+		$this->SetXY(35,25);
+		$this->Cell(80,7,"{$this->jornada->Fecha}",0,0,'',false);
+		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
+		$this->SetXY(35,30);
+		$this->Cell(80,7,"$ronda - {$this->categoria}",0,0,'',false);
+	}
+
 	function Header() {
 		$this->print_commonHeader(_("Clasificación Final"));
 	}
@@ -129,11 +141,15 @@ class PrintClasificacion extends PrintCommon {
         $caza=($this->federation->getFederation()==1)?true:false;
 		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
 		$tm2=null;
+		$firstpage=($this->PageNo()==1)?true:false;
 		if ($this->manga2!=null) $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
 		
 		$this->ac_header(1,12);
-		
-		$this->SetXY(10,($this->PageNo()==1)?65:40); // first page has 3 extra header lines
+		$this->SetXY(10,65);// first page has 3 extra header lines
+		if ($this->PageNo()!=1) {
+			$this->print_datosMangas2();
+			$this->SetXY(10,40);
+		}
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// first row of table header
 		$this->SetFont('Arial','BI',12); // default font
