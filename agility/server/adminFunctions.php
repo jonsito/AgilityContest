@@ -144,6 +144,7 @@ class Admin extends DBObject {
 			return array("errorMsg" => "restoreDatabase(): Invalid received data format");
 		}
 		$type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
+		$this->myLogger->leave();
 		return base64_decode( $matches[2] ); // decodes received data
 	}
 
@@ -191,6 +192,7 @@ class Admin extends DBObject {
 		// phase 1: retrieve file from http request
         $data=$this->retrieveDBFile();
         // phase 2: verify received file
+		// TODO: make sure that this is a correct AgilityContest Database file
         // phase 3: delete all tables and structures from database
         $this->dropAllTables($rconn);
         // phase 4: parse sql file and populate tables into database
