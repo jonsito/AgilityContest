@@ -26,22 +26,21 @@ require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/classes/DBObject.php");
 
 class csvHandler extends DBObject {
+    protected $headers=null;
     protected $myAuthManager;
     protected $prueba; // prueba object
-    protected $jornada; // jornada object
 
     protected $sep=','; // csv field separator
     protected $del='""'; // csv field delimiter
     protected $merge=true; // try to use pre-existing database data on import
 
-    function __construct($am,$j)
+    function __construct($am,$p)
     {
         parent::__construct("csvHandler");
         $this->myAuthManager = $am;
-        $this->jornada = $this->__getObject("Jornadas", $j);
-        if ($this->jornada === null) throw new Exception("csvHandler: cannot retrieve data for journey ID: $j");
-        $this->prueba = $this->__getObject("Pruebas", $this->jornada->Prueba);
-        if ($this->prueba === null) throw new Exception("csvHandler: cannot retrieve data for prueba ID: {$this->jornada->Prueba}");
+        if ($p<=0) throw new Exception("csvHandler: invalid Prueba ID:$p");
+        $this->prueba=$this->__getObject("Pruebas",$p);
+        if ($this->prueba === null) throw new Exception("csvHandler: cannot retrieve data for prueba ID:$p");
         // retrieve rest of parameters
         $this->sep = http_request("Separator", "s", ','); // retrieve separator - or use default comma if not
         $this->del = http_request("Delimiter", "s", '""'); // retrieve delimiter - or use default doublequote if not provided
@@ -49,19 +48,41 @@ class csvHandler extends DBObject {
     }
 
     /**
-     * Check that all required fields are present from first line of provided file
-     * @param {array} $hdr CSV data from first line of csv file
+     * comprobamos que tenemos todos los campos necesarios. En caso necesario junta nombre y apellido
+     * campos obligatorios:
+     * - Perro, Guia (Nombre/Apellidos), Club, Categoria, Jornadas
+     * Campos dependientes del tipo de jornada
+     * - Grado, Equipo
+     * Campos opcionales
+     * - Raza, Celo, Dorsal,
+     * @param $datos
+     * @return string "" on success else array(errorMsg => errorString)
      */
-    function parseHeader($hdr) {
-
+    function checkHeader($datos) {
+        $count=0;
+        // look for mandatory data
+        foreach($datos as $item) {
+            if ($item=="Perro") { $count++; continue; }
+            if ($item=="Guia") { $count++; continue; }
+            if ($item=="Club") { $count++; continue; }
+            if ($item=="Categoria") { $count++; continue; }
+            // TODO: evaluate required journeys
+            if ($item=="Jornadas") { $count++; continue; }
+        }
+        return "";
     }
 
     function importCSV() {
-        // Leemos del cliente los datos a importar
+        if ($this->prueba->Cerrada == 1) {
+            return array("errorMsg" => "csvHandler::import(): cannot import data into a closed contest");
+        }
+        // FASE 1: Leemos del cliente los datos a importar
         $data=http_request("Data","s",null);
-        if (!$data) return array("errorMsg" => "importCSV(): No inscription data received");
+        if (!$data) {
+            return array("errorMsg" => "importCSV(): No inscription data received");
+        }
         if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
-            return array("errorMsg" => "importCSV(): Invalid received data format");
+            return array("errorMsg" => "csvHandler::import(): Invalid received data format");
         }
         // $type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
         $contents=base64_decode( $matches[2] ); // decodes received data
@@ -70,16 +91,26 @@ class csvHandler extends DBObject {
         // ya tenemos los datos, ahora vamos a procesar linea por linea
         fseek($temp, 0);
         $lineno=1;
+        $entries=array();
         while (($datos = fgetcsv($temp, 0, $this->sep,$this->del)) !== FALSE) {
-            $numero = count($datos);
-            if ($lineno==1) $this->parseHeader($datos);
-            echo "$numero de campos en la línea $lineno:\n";
-            $lineno++;
-            for ($c=0; $c < $numero; $c++) {
-                echo $datos[$c] . "\n";
+            if ($this->headers==null) {
+                $res=$this->checkHeader($datos);
+                if ($res!== "" ) return $res;
+                $this->headers=$datos;
+                $headerlen = count($datos);
+                continue;
             }
+            $nitems=count($datos);
+            if ($nitems!=$headerlen) {
+                return array("errorMsg" => "csvHandler::import(): Invalid field count at line:$lineno found:$nitems expected:$headerlen");
+            }
+            array_push($entries,$datos);
         }
         fclose($temp); // this also removes temporary file
+        // FASE 2: normaliza datos
+        // FASE 3: calcula el Club ID
+        // FASE 4: calcula el Guia ID
+        // FASE 5: evalua Dorsales
         return "";
     }
 
@@ -93,8 +124,9 @@ try {
     $result=null;
     $am= new AuthManager("importFunctions");
     $operation=http_request("Operation","s","");
+    $prueba=http_request("Prueba","i",0);
     if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
-    $handler=new csvHandler($am,$prueba,$jornada);
+    $handler=new csvHandler($am,$prueba);
     switch ($operation) {
         case "import": $am->access(PERMS_OPERATOR); $result=$handler->importCSV(); break;
         case "export": $am->access(PERMS_OPERATOR); $result=$handler->exportCSV(); break;
