@@ -28,25 +28,26 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <img id="pb_footer-logoFederation2" src="/agility/images/logos/fci.png" alt="" height="50"/>
         </a>
         <span style="display:inline-block;padding:10px;font-size:10px;font-style:oblique">
-            Powered by AgilityContest-2.0.0<br/> Copyright &copy; 2013-2015 JAMC
+            Powered by AgilityContest-2.0.1<br/> Copyright &copy; 2013-2015 JAMC
         </span>
     </span>
     <span style="float:right">
-        <a  target="canastur" href="http://www.caninaasturiana.es/">
-            <img id="pb_footer-caninaAsturias" src="/agility/images/supporters/canina_asturiana.png" alt="canastur" height="50"/>
-        </a>
-        <a target="oviedo" href="http://www.oviedo.es">
-            <img id="pb_footer-aytoOviedo" src="/agility/images/supporters/oviedo.png" alt="oviedo" height="50"/>
-        </a>
-        <a target="galican" href="http://www.galican.com">
-            <img id="pb_footer-logoGalican" src="/agility/images/supporters/galican.png" alt="galican" height="50"/>
-        </a>
-        <a target="arion" href="http://www.arion-petfood.es">
-            <img id="pb_footer-logoArion" src="/agility/images/supporters/arion.png" alt="arion" height="50"/>
-        </a>
-        <a target="xanastur" href="http://www.xanastur.org">
-            <img id="pb_footer-logoGalican" src="/agility/images/supporters/xanastur.png" alt="xanastur" height="50"/>
-        </a>
+
+<?php
+        /* el fichero "supporters,csv" tiene el formato CSV: "patrocinador":"logo":"url" */
+        $file=fopen(__DIR__."/../images/supporters/supporters.csv","r");
+        if ($file) {
+            while (($datos = fgetcsv($file, 0, ':','"')) !== FALSE) {
+                $nitems=count($datos);
+                if ($nitems!=3) continue;
+                echo '<a  target="'.$datos[0].'" href="'.$datos[2].'">';
+                echo '<img id="vw_footer-'.$datos[0].'" src="/agility/images/supporters/'.$datos[1].'" alt="'.$datos[0].'" height="50"/>';
+                echo '</a>&nbsp;';
+            }
+            fclose($file); // this also removes temporary file
+        }
+?>
+        <!-- El logo de y URL de la aplicación siempre esta presente :-) -->
         <a target="acontest" href="https://www.github.com/jonsito/AgilityContest">
             <img id="pb_footer-logoAgilityContest" src="/agility/images/supporters/agilitycontest.png" alt="agilitycontest" height="50"/>
         </a>
