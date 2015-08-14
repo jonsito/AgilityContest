@@ -131,9 +131,10 @@ function restoreDatabase(){
                                 Operation: 'progress'
                             },
                             success: function(data) {
-                                pbar.progressbar('setValue',data.progress);
                                 if(data.progress!=="Done"){
-                                    getProgress();
+                                    var current=pbar.progressbar('getValue');
+                                    if (current !== data.progress) pbar.progressbar('setValue',data.progress);
+                                    setTimeout(getProgress,0);
                                 } else {
                                     progressinfo.css("display","none");
                                 }
