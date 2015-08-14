@@ -135,8 +135,15 @@ class Admin extends DBObject {
 		return "ok";
 	}	
 
+	private function handleSession($str) {
+		session_start();
+		$_SESSION["progress"]=$str;
+		session_write_close();
+	}
+
 	private function retrieveDBFile() {
 		$this->myLogger->enter();
+		$this->handleSession("download");
 		// extraemos los datos de registro
 		$data=http_request("Data","s",null);
 		if (!$data) return array("errorMsg" => "restoreDB(): No restoration data received");
@@ -152,6 +159,7 @@ class Admin extends DBObject {
         $conn->query('SET foreign_key_checks = 0');
         if ($result = $conn->query("SHOW TABLES")) {
             while($row = $result->fetch_array(MYSQLI_NUM)) {
+				$this->handleSession("Drop table ".$row[0]);
                 $conn->query('DROP TABLE IF EXISTS '.$row[0]);
             }
         }
@@ -164,8 +172,10 @@ class Admin extends DBObject {
         $trigger=false;
         // Read entire file into an array
         $lines = explode("\n",$data); // remember use double quote
+		$numlines=count($lines);
+		$timeout=ini_get('max_execution_time');
         // Loop through each line
-        foreach ($lines as $line) {
+        foreach ($lines as $idx => $line) {
             // Skip it if it's a comment
             if (substr($line, 0, 2) == '--' || trim($line) == '') continue;
             // properly handle "DELIMITER ;;" command
@@ -175,12 +185,16 @@ class Admin extends DBObject {
             if ($trigger) continue;
             // If it has a semicolon at the end, it's the end of the query
             if (substr(trim($line), -1, 1) == ';') {
+				$this->handleSession("".intval((100*$idx)/$numlines) );
+				// avoid php to be killed on very slow systems
+				set_time_limit($timeout);
                 // Perform the query
-                $conn->query($templine) or print('Error performing query \'<strong>' . $templine . '\': ' . mysql_error() . '<br /><br />');
+                $conn->query($templine) or print('Error performing query \'<strong>' . $templine . '\': ' . $conn->error() . '<br /><br />');
                 // Reset temp variable to empty
                 $templine = '';
             }
         }
+		$this->handleSession("Done");
         $this->myLogger->info("database restore success");
         return "";
     }
@@ -224,12 +238,18 @@ class Admin extends DBObject {
 $response="";
 try {
 	$result=null;
-	$am= new AuthManager("adminFunctions");
-    $adm= new Admin("adminFunctions",$am);
 	$operation=http_request("Operation","s","");
 	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
+	if ($operation==="progress") {
+		// special case: just retrieve session status and return
+		session_start();
+		echo json_encode( array( 'progress' => $_SESSION["progress"] ));
+		return;
+	}
+	$am= new AuthManager("adminFunctions");
+    $adm= new Admin("adminFunctions",$am);
 	switch ($operation) {
-		case "backup": 
+		case "backup":
 			/* $am->access(PERMS_ADMIN); */
 			$result=$adm->backup();	break;
 		case "restore":

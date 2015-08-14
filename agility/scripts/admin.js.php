@@ -98,6 +98,9 @@ function restoreDatabase(){
                 if (data.errorMsg) { // error
                     $.messager.alert("Error",data.errorMsg,"error");
                 } else { // success:
+                    var pbar=$("#tools-progress");
+                    var progressinfo=$("#tools-restoreinfo");
+                    progressinfo.css("display","inline");
                     // si password correcto invocamos la operacion
                     $.ajax({
                         type:'POST', // use post to send file
@@ -119,6 +122,25 @@ function restoreDatabase(){
                             $.messager.alert("DBRestore Error","Error: "+textStatus + " "+ errorThrown,'error' );
                         }
                     });
+                    // en paralelo arrancamos una tarea para leer el progreso de la operacion
+                    function getProgress(){
+                        $.ajax({
+                            url:"/agility/server/adminFunctions.php",
+                            dataType:'json',
+                            data: {
+                                Operation: 'progress'
+                            },
+                            success: function(data) {
+                                pbar.progressbar('setValue',data.progress);
+                                if(data.progress!=="Done"){
+                                    getProgress();
+                                } else {
+                                    progressinfo.css("display","none");
+                                }
+                            }
+                        });
+                    }
+                    getProgress();
                 }
             });
         }

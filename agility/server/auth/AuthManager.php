@@ -66,7 +66,7 @@ class AuthManager {
 			// no key found: assume anonymous login
 			$this->level=PERMS_GUEST;
 			return;
-		} 
+		}
 		/* if found evaluate for expiration and level */
 		$sk=$hdrs['X-AC-SessionKey'];
 		$obj=$this->getUserByKey($sk);

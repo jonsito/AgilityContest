@@ -23,6 +23,12 @@
     	<a id="tools-eraseBtn" href="#" class="easyui-linkbutton" style="width:85px"
 	   		data-options="iconCls:'icon-brush'" onclick="removePruebas()">Clear</a>
 	</p>
+	<div id="tools-restoreinfo" style="display:none;">
+		<p>
+		<span style="display:inline-block;width:350px;">Restore progress: </span>
+		<span id="tools-progress" class="easyui-progressbar" data-options="value:0" style="display:inline-block;width:85px;"></span>
+		</p>
+	</div>
 </div>
 
 <script type="text/javascript">
