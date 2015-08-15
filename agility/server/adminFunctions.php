@@ -143,7 +143,7 @@ class Admin extends DBObject {
 
 	private function retrieveDBFile() {
 		$this->myLogger->enter();
-		$this->handleSession("download");
+		$this->handleSession("Download");
 		// extraemos los datos de registro
 		$data=http_request("Data","s",null);
 		if (!$data) return array("errorMsg" => "restoreDB(): No restoration data received");
@@ -185,7 +185,7 @@ class Admin extends DBObject {
             if ($trigger) continue;
             // If it has a semicolon at the end, it's the end of the query
             if (substr(trim($line), -1, 1) == ';') {
-				$this->handleSession("".intval((100*$idx)/$numlines) );
+				$this->handleSession(intval((100*$idx)/$numlines) );
 				// avoid php to be killed on very slow systems
 				set_time_limit($timeout);
                 // Perform the query
@@ -203,6 +203,9 @@ class Admin extends DBObject {
         // we need root database access to re-create tables
         $rconn=DBConnection::getRootConnection();
         if ($rconn->connect_error) throw new Exception("Cannot perform upgrade process: database::dbConnect()");
+		session_start();
+		unset($_SESSION['progress']);
+		session_write_close();
 		// phase 1: retrieve file from http request
         $data=$this->retrieveDBFile();
         // phase 2: verify received file
@@ -243,7 +246,9 @@ try {
 	if ($operation==="progress") {
 		// special case: just retrieve session status and return
 		session_start();
-		echo json_encode( array( 'progress' => $_SESSION["progress"] ));
+		$sid="0";
+		if (isset($_SESSION["progress"])) $sid=$_SESSION["progress"];
+		echo json_encode( array( 'progress' => strval($sid) ) );
 		return;
 	}
 	$am= new AuthManager("adminFunctions");

@@ -98,9 +98,11 @@ function restoreDatabase(){
                 if (data.errorMsg) { // error
                     $.messager.alert("Error",data.errorMsg,"error");
                 } else { // success:
-                    var pbar=$("#tools-progress");
-                    var progressinfo=$("#tools-restoreinfo");
-                    progressinfo.css("display","inline");
+                    $.messager.progress({
+                        title: 'Restore',
+                        msg: 'Restaurando base de datos',
+                        interval: 0
+                    });
                     // si password correcto invocamos la operacion
                     $.ajax({
                         type:'POST', // use post to send file
@@ -113,13 +115,20 @@ function restoreDatabase(){
                         contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
                         success: function(data) {
                             if (data.errorMsg){
-                                $.messager.show({ width:300, height:150, title: 'Database Reset Error', msg: data.errorMsg });
+                                $.messager.show({ width:300, height:150, title: 'Database Restore Error', msg: data.errorMsg });
                             } else {
-                                $.messager.alert("Restore Database","Base de datos recuperada<br />Por favor reinicie la aplicación","info");
+                                $.messager.alert(
+                                    "Restore Database",
+                                    "Base de datos recuperada<br />Pulse Aceptar para reiniciar la aplicación",
+                                    "info",
+                                    function(){window.location.reload();} // reload application main page
+                                );
                             }
+                            $.messager.progress('close');
                         },
                         error: function(XMLHttpRequest,textStatus,errorThrown) {
                             $.messager.alert("DBRestore Error","Error: "+textStatus + " "+ errorThrown,'error' );
+                            $.messager.progress('close');
                         }
                     });
                     // en paralelo arrancamos una tarea para leer el progreso de la operacion
@@ -132,16 +141,16 @@ function restoreDatabase(){
                             },
                             success: function(data) {
                                 if(data.progress!=="Done"){
-                                    var current=pbar.progressbar('getValue');
-                                    if (current !== data.progress) pbar.progressbar('setValue',data.progress);
-                                    setTimeout(getProgress,0);
+                                    var bar = $.messager.progress('bar');  // get the progressbar object
+                                    bar.progressbar('setValue', data.progress);  // set new progress value
+                                    setTimeout(getProgress,200);
                                 } else {
-                                    progressinfo.css("display","none");
+                                    $.messager.progress('close');
                                 }
                             }
                         });
                     }
-                    getProgress();
+                    setTimeout(getProgress,200);
                 }
             });
         }
