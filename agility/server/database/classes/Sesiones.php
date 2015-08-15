@@ -16,9 +16,8 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
-
 require_once("DBObject.php");
+require_once("Eventos.php");
 
 class Sesiones extends DBObject {
 	
@@ -97,7 +96,39 @@ class Sesiones extends DBObject {
 		$this->myLogger->leave();
 		return ""; 
 	}
-	
+
+    // send events on change camera data
+    private function sendCameraEvents($id,$flags) {
+        // retrieve session data
+        $sdata=$this->__getObject("Sesiones",$id);
+        if (!$sdata) {
+            $this->myLogger->error("sendCameraEvents: invalid session id:$id");
+            return;
+        }
+        $evtmgr=new Eventos("Session::sendCameraEvents",$id);
+        $data=array (
+            // common data for senders and receivers
+            'ID'		=>	$id,
+            'Session'	=> 	$id,
+            'TimeStamp'	=> 	date('Y-m-d G:i:s'),
+            'Type' 		=> 	"camera",
+            'Source'	=> 	$sdata->Nombre,
+            // datos identificativos del evento que se envia
+            'Pru' 	=> 	$sdata->Prueba,
+            'Jor'	=>	$sdata->Jornada,
+            'Mng'	=>	$sdata->Manga,
+            'Tnd'	=>	$sdata->Tanda
+        );
+        if ($flags & 0x01)
+            $evtmgr->putEvent(array_merge($data,array("Mode"=>"bg","Value"=>$sdata->Background)));
+        if ($flags & 0x02)
+            $evtmgr->putEvent(array_merge($data,array("Mode"=>"h264","Value"=>$sdata->LiveStream)));
+        if ($flags & 0x04)
+            $evtmgr->putEvent(array_merge($data,array("Mode"=>"ogv","Value"=>$sdata->LiveStream2)));
+        if ($flags & 0x08)
+            $evtmgr->putEvent(array_merge($data,array("Mode"=>"webm","Value"=>$sdata->LiveStream3)));
+    }
+
 	/**
 	 * Update session data
 	 * @param {integer} $id session ID primary key
@@ -108,6 +139,7 @@ class Sesiones extends DBObject {
 		$this->myLogger->enter();
 		if ($id==0) return $this->error("Invalid Session ID:$id");
 		$now=date('Y-m-d G:i:s');
+		$evtflags=0;
 		$sql="UPDATE Sesiones SET LastModified='$now'";
 		if (isset($data['Nombre']))		$sql .=", Nombre='{$data['Nombre']}' ";
 		if (isset($data['Comentario']))	$sql .=", Comentario='{$data['Comentario']}' ";
@@ -117,13 +149,15 @@ class Sesiones extends DBObject {
 		if (isset($data['Tanda']))		$sql .=", Tanda={$data['Tanda']} ";
 		if (isset($data['Operador']))	$sql .=", Operador={$data['Operador']} ";
 		if (isset($data['SessionKey']))	$sql .=", SessionKey='{$data['SessionKey']}' ";
-		if (isset($data['Background']))	$sql .=", Background='{$data['Background']}' ";
-		if (isset($data['LiveStream']))	$sql .=", LiveStream='{$data['LiveStream']}' ";
-		if (isset($data['LiveStream2']))$sql .=", LiveStream2='{$data['LiveStream2']}' ";
-		if (isset($data['LiveStream3']))$sql .=", LiveStream3='{$data['LiveStream3']}' ";
+		if (isset($data['Background']))	 { $sql .=", Background='{$data['Background']}' "; $evtflags |= 1; }
+		if (isset($data['LiveStream']))	 { $sql .=", LiveStream='{$data['LiveStream']}' "; $evtflags |= 2; }
+		if (isset($data['LiveStream2'])) { $sql .=", LiveStream2='{$data['LiveStream2']}' "; $evtflags |= 4; }
+		if (isset($data['LiveStream3'])) { $sql .=", LiveStream3='{$data['LiveStream3']}' "; $evtflags |= 8; }
 		$sql .= "WHERE (ID=$id);";
 		$res= $this->query($sql);
 		if (!$res) return $this->error($this->conn->error);
+		// on camera data changes propagate generate camera events
+		if ($evtflags!=0) $this->sendCameraEvents($id,$evtflags);
 		$this->myLogger->leave();
 		return "";
 	}

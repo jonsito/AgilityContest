@@ -49,7 +49,10 @@ class Eventos extends DBObject {
 		13	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		14	=> 'aceptar',		// grabar datos finales
 		15	=> 'cancelar',		// restaurar datos originales
-        16  => 'info'           // value: message
+        16  => 'info',           // value: message
+		// eventos de cambio de camara para videomarcadores
+        // el campo data contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
+		17	=> 'camera',		// cambio de fuente de streaming
 	);
 	
 	protected $sessionID;
