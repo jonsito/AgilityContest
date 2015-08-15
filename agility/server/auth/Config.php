@@ -17,11 +17,8 @@
  */
 
 /** default values **/
-define('AC_CONFIG_FILE',__DIR__."/config.ini");
-
-/** version */
-define('AC_VERSION_NAME','2.0.0b');
-define('AC_VERSION_DATE','20150601_2251');
+define('AC_CONFIG_FILE',__DIR__."/config.ini"); // user definable configuration
+define('AC_SYSTEM_FILE',__DIR__."/system.ini"); // system configuration.
 
 /** Internacionalizacion. Idiomas **/
 define ('AC_LANG','es_ES.UTF-8');
@@ -33,13 +30,6 @@ define('AC_RESET_EVENTS',"1");
 
 /** variables de la aplicacion principal **/
 define('AC_PROXIMITY_ALERT',5);
-define('AC_RESTRICTED',0); // 0: unlimited, 1 only public access allowed
-
-/** base de datos **/
-define('AC_DATABASE_NAME','agility');
-define('AC_DATABASE_HOST','localhost');
-define('AC_DATABASE_USER','agility_operator');
-define('AC_DATABASE_PASS','operator@cachorrera');
 
 /** entorno grafico **/
 define('AC_EASYUI_THEME','default');
@@ -95,25 +85,30 @@ Class Config {
 	private function __construct() {
 
 		/** cargamos los valores por defecto **/
-		
+
+        // General
 		// version, logging y depuracion
 		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
         $this->config['register_events'] =	AC_REGISTER_EVENTS;
         $this->config['reset_events'] =	AC_RESET_EVENTS;
-		$this->config['version_name'] =	AC_VERSION_NAME;
-		$this->config['version_date'] =	AC_VERSION_DATE;
-
 		// Internacionalizacion. Idiomas
 		$this->config['lang'] =	AC_LANG;
-		// variables del sistema
         $this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
-        $this->config['restricted'] =	AC_RESTRICTED;
-		
-		// database
-		$this->config['database_name'] =	AC_DATABASE_NAME;
-		$this->config['database_host'] =	AC_DATABASE_HOST;
-		$this->config['database_user'] =	AC_DATABASE_USER;
-		$this->config['database_pass'] = 	AC_DATABASE_PASS;
+
+		// variables del sistema.
+        // just declared, no neccesarily real value
+        $this->config['restricted']     =	0;
+        $this->config['version_name']   =	"0.0";
+        $this->config['version_date']   =	"20150101_0000";
+		$this->config['database_name']  =	"agility";
+		$this->config['database_host']  =	"localhost";
+		$this->config['database_user']  =	"user";
+		$this->config['database_pass']  = 	"password";
+        $this->config['program_name']   = 	"Agilitycontest";
+        $this->config['author'] = 	"Juan Antonio Martinez";
+        $this->config['email'] = 	"juansgaviota@gmail.com";
+        $this->config['license'] = 	"GPL";
+
 		// entorno grafico
 		$this->config['easyui_theme'] = 	AC_EASYUI_THEME;
 		$this->config['easyui_bgcolor'] =	AC_EASYUI_BGCOLOR;
@@ -151,16 +146,19 @@ Class Config {
 		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
 		$this->config['tablet_next'] =	AC_TABLET_NEXT;
 		$this->config['tablet_countdown'] =	AC_TABLET_COUNTDOWN;
-		
-		// ahora intentamos leer el fichero de configuracion
+
+		// leemos fichero de sistema
+		$sys=parse_ini_file(AC_SYSTEM_FILE,false); // false: don't parse subsections
+		// leemos ahora el fichero de configuracion
 		$res=parse_ini_file(AC_CONFIG_FILE,false); // false: don't parse subsections
-		if ($res===FALSE) {
+		if ( ($res===FALSE) || ($sys===FALSE ) ){
 			$this->config['configured'] =false; // mark initialization code to be executed
 			return;
 		}
 		// cargamos los valores definidos en el fichero de configuracion
 		foreach($this->config as $key => $val) {
 			if ( array_key_exists($key,$res)) $this->config[$key]=$res[$key];
+			if ( array_key_exists($key,$sys)) $this->config[$key]=$sys[$key];
 		}
 
 		// y ahora preparamos la internacionalizacion
@@ -211,7 +209,22 @@ Class Config {
 				} else if($elem=="") {
 					$content .= $key." = \n";
 				} else {
-					$content .= $key." = \"".$elem."\"\n";
+					// skip system constants
+					switch ($key) {
+					case "restricted": break;
+					case "program_name": break;
+					case "author": break;
+					case "email": break;
+					case "license": break;
+					case "version_name": break;
+					case "version_date": break;
+					case "database_name": break;
+					case "database_host": break;
+					case "database_user": break;
+					case "database_pass": break;
+					default: $content .= $key." = \"".$elem."\"\n"; break;
+					}
+
 				}
 			}
 		}
@@ -236,7 +249,6 @@ Class Config {
         $this->config['register_events'] =	AC_REGISTER_EVENTS;
         $this->config['reset_events'] =	AC_RESET_EVENTS;
         $this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
-        $this->config['restricted'] =	AC_RESTRICTED;
 		
 		// configuracion de la consola
 		$data['easyui_theme'] = 	AC_EASYUI_THEME;
@@ -332,7 +344,6 @@ Class Config {
         $data['register_events']=http_request('register_events','s',AC_REGISTER_EVENTS);
         $data['reset_events']=http_request('reset_events','s',AC_RESET_EVENTS);
         $data=testAndSet($data,'proximity_alert','i',AC_PROXIMITY_ALERT);
-        $data=testAndSet($data,'restricted','i',AC_RESTRICTED);
 		
 		// finally write file:
 		$res=array_merge($this->config,$data);
