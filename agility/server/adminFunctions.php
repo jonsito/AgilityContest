@@ -236,6 +236,11 @@ class Admin extends DBObject {
 	public function clearContests() {
         return $this->query("DELETE FROM Pruebas WHERE ID>1");
 	}
+
+	public function upgradeApps() {
+		// TODO: write
+		return "";
+	}
 }
 
 $response="";
@@ -263,6 +268,8 @@ try {
 			$am->access(PERMS_ADMIN); $result=$adm->clearDatabase(); break;
 		case "clear":
 			$am->access(PERMS_ADMIN); $result=$adm->clearContests(); break;
+		case "upgrade":
+			$am->access(PERMS_ADMIN); $result=$adm->upgradeApp(); break;
 		case "reginfo": 
 			$result=$am->getRegistrationInfo(); if ($result==null) $adm->errormsg=$am->errormsg; break;
 		case "register":

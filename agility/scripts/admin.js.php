@@ -196,3 +196,11 @@ function removePruebas(){
         }
     }).window('resize',{width:640});
 }
+
+function upgradeApp() {
+    // retrieve last available version number
+    // compare against current
+    // if new version available
+    // request admin password and ask user to upgrade
+    $.messager.alert("Upgrade AgilityContest","Not available yet. Sorry","info");
+}

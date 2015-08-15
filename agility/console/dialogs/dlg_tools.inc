@@ -18,17 +18,16 @@
     	<a id="tools-resetBtn" href="#" class="easyui-linkbutton" style="width:85px"
 	   		data-options="iconCls:'icon-on'" onclick="clearDatabase()">&nbsp;Reset&nbsp;</a>
 	</p>
-	<p> 
+	<p>
 		<span style="display:inline-block;width:350px">Borrar pruebas registradas.</span>
-    	<a id="tools-eraseBtn" href="#" class="easyui-linkbutton" style="width:85px"
-	   		data-options="iconCls:'icon-brush'" onclick="removePruebas()">Clear</a>
+		<a id="tools-eraseBtn" href="#" class="easyui-linkbutton" style="width:85px"
+		   data-options="iconCls:'icon-brush'" onclick="removePruebas()">Clear</a>
 	</p>
-	<div id="tools-restoreinfo" style="display:none;">
-		<p>
-		<span style="display:inline-block;width:350px;">Restore progress: </span>
-		<span id="tools-progress" class="easyui-progressbar" data-options="value:0" style="display:inline-block;width:85px;"></span>
-		</p>
-	</div>
+	<p>
+		<span style="display:inline-block;width:350px">Buscar actualizaciones</span>
+		<a id="tools-upgradeBtn" href="#" class="easyui-linkbutton" style="width:85px"
+		   data-options="iconCls:'icon-reload'" onclick="upgradeApp()">Upgrade</a>
+	</p>
 </div>
 
 <script type="text/javascript">
@@ -37,5 +36,5 @@ addTooltip($('#tools-backupBtn').linkbutton(),"Descargar copia de seguridad de l
 addTooltip($('#tools-restoreBtn').linkbutton(),"Restaurar la base de datos desde la copia de seguridad");
 addTooltip($('#tools-resetBtn').linkbutton(),"Hacer un Factory Reset a la aplicación. Reiniciar BBDD");
 addTooltip($('#tools-eraseBtn').linkbutton(),"Borrar todas las pruebas de la BBDD<br />Dejar solo información de perros/guias/clubes/jueces");
-
+addTooltip($('#tools-upgradeBtn').linkbutton(),"Buscar e instalar actualizaciones de AgilityContest");
 </script>
