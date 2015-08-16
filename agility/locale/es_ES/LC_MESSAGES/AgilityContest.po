@@ -1,0 +1,453 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: AgilityContest\n"
+"POT-Creation-Date: 2015-08-16 19:43+0100\n"
+"PO-Revision-Date: 2015-08-16 19:44+0100\n"
+"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.1\n"
+"X-Poedit-Basepath: ../../../\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _e\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: lib\n"
+"X-Poedit-SearchPathExcluded-1: videos\n"
+"X-Poedit-SearchPathExcluded-2: images\n"
+
+#: console/frm_clasificaciones.php:42
+msgid "Results & Scores"
+msgstr "Resultados y Clasificaciones"
+
+#: console/frm_clasificaciones2.php:242
+#: console/frm_clasificaciones_eq3.php:242
+msgid "Actualizando resultados de la ronda..."
+msgstr "Actualizando resultados de la ronda..."
+
+#: console/frm_competicion.php:46
+msgid "Equipos -3 mejores-"
+msgstr "Equipos -3 mejores-"
+
+#: console/frm_competicion.php:51
+msgid "Equipos -conjunta-"
+msgstr "Equipos -conjunta-"
+
+#: console/frm_competicion.php:57
+msgid "Abierta"
+msgstr "Abierta"
+
+#: console/frm_competicion.php:62
+msgid "Mangas K.O."
+msgstr "Mangas K.O."
+
+#: console/frm_competicion.php:65
+msgid "Desarrollo de la jornada"
+msgstr "Desarrollo de la jornada"
+
+#: console/frm_competicion2.php:54
+msgid "Mangas de la jornada"
+msgstr "Mangas de la jornada"
+
+#: console/frm_competicion2.php:58 console/frm_competicion2.php:139
+msgid "Datos de la manga"
+msgstr "Datos de la manga"
+
+#: console/frm_competicion2.php:69
+msgid "Programaci&oacute;n"
+msgstr "Programaci&oacute;n"
+
+#: console/frm_competicion2.php:72
+msgid "Orden de salida"
+msgstr "Orden de salida"
+
+#: console/frm_competicion2.php:75
+msgid "Entrada de datos"
+msgstr "Entrada de datos"
+
+#: console/frm_competicion2.php:78
+msgid "Resultados de la manga"
+msgstr "Resultados de la manga"
+
+#: console/frm_competicion2.php:151
+msgid ""
+"Ver/Ordenar la secuencia de <br/>Mangas/Categor&iacute;as/Grados de la "
+"jornada"
+msgstr ""
+"Ver/Ordenar la secuencia de <br/>Mangas/Categor&iacute;as/Grados de la "
+"jornada"
+
+#: console/frm_competicion2.php:152
+msgid "Ver/Editar el Orden de salida de la manga"
+msgstr "Ver/Editar el Orden de salida de la manga"
+
+#: console/frm_competicion2.php:153
+msgid "Insertar resultados de los participantes en la manga"
+msgstr "Insertar resultados de los participantes en la manga"
+
+#: console/frm_competicion2.php:154
+msgid "Ver los resultados parciales de la manga"
+msgstr "Ver los resultados parciales de la manga"
+
+#: console/frm_equipos.php:43
+msgid "Verificar"
+msgstr "Verificar"
+
+#: console/frm_equipos.php:45
+msgid "Imprimir"
+msgstr "Imprimir"
+
+#: console/frm_equipos.php:69
+msgid "Perro"
+msgstr "Perro"
+
+#: console/frm_equipos.php:74
+msgid "Categor&iacute;a"
+msgstr "Categor&iacute;a"
+
+#: console/frm_equipos.php:79 console/frm_equipos.php:224
+#: public/pb_inscripciones.php:98 public/pb_inscripciones_equipos.php:153
+msgid "Gu&iacute;a"
+msgstr "Gu&iacute;a"
+
+#: console/frm_equipos.php:84 console/frm_equipos.php:225
+#: public/pb_inscripciones.php:99 public/pb_inscripciones_equipos.php:154
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:548
+#: server/pdf/print_ordenDeSalida.php:72
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Club"
+msgstr "Club"
+
+#: console/frm_equipos.php:89 public/pb_inscripciones_equipos.php:86
+#: server/database/classes/OrdenSalida.php:410
+msgid "Equipo"
+msgstr "Equipo"
+
+#: console/frm_equipos.php:98
+msgid "Aceptar"
+msgstr "Aceptar"
+
+#: console/frm_equipos.php:100
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#: console/frm_equipos.php:127 public/pb_inscripciones_equipos.php:75
+#: console/dialogs/dlg_ordensalida.inc:73
+msgid "Actualizando lista de equipos"
+msgstr "Actualizando lista de equipos"
+
+#: console/frm_equipos.php:140 console/frm_equipos.php:220
+#: console/frm_equipos.php:293 public/pb_inscripciones.php:93
+#: public/pb_inscripciones_equipos.php:149
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:548
+#: server/pdf/print_ordenDeSalida.php:72
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62
+#: console/dialogs/dlg_ordensalida.inc:84
+msgid "Nombre"
+msgstr "Nombre"
+
+#: console/frm_equipos.php:141 public/pb_inscripciones_equipos.php:87
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:548
+#: server/pdf/print_resultadosByEquipos.php:83
+#: console/dialogs/dlg_ordensalida.inc:85
+msgid "Cat."
+msgstr "Cat."
+
+#: console/frm_equipos.php:142 console/frm_equipos.php:227
+#: console/frm_equipos.php:295 public/pb_inscripciones_equipos.php:88
+#: public/pb_inscripciones_equipos.php:156
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:548
+#: server/pdf/print_ordenDeSalida.php:72
+#: console/dialogs/dlg_ordensalida.inc:86
+msgid "Observaciones"
+msgstr "Observaciones"
+
+#: console/frm_equipos.php:185
+msgid "Comprobar equipos. Indicar los problemas encontrados"
+msgstr "Comprobar equipos. Indicar los problemas encontrados"
+
+#: console/frm_equipos.php:186
+msgid ""
+"Imprimir la lista de equipos de la jornada <br />y los miembros de cada "
+"equipo"
+msgstr ""
+"Imprimir la lista de equipos de la jornada <br />y los miembros de cada "
+"equipo"
+
+#: console/frm_equipos.php:196
+msgid "Inscripciones registradas en el equipo"
+msgstr "Inscripciones registradas en el equipo"
+
+#: console/frm_equipos.php:201 public/pb_inscripciones.php:74
+#: public/pb_inscripciones_equipos.php:131
+msgid "Leyendo inscripciones...."
+msgstr "Leyendo inscripciones...."
+
+#: console/frm_equipos.php:219 public/pb_inscripciones.php:91
+#: public/pb_inscripciones_equipos.php:147
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:548
+#: server/pdf/print_ordenDeSalida.php:72
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Dorsal"
+msgstr "Dorsal"
+
+#: console/frm_equipos.php:221 public/pb_inscripciones.php:95
+#: public/pb_inscripciones_equipos.php:150
+msgid "Lic"
+msgstr "Lic"
+
+#: console/frm_equipos.php:222 console/frm_equipos.php:294
+#: public/pb_inscripciones.php:96 public/pb_inscripciones_equipos.php:151
+msgid "Cat"
+msgstr "Cat"
+
+#: console/frm_equipos.php:223 public/pb_inscripciones.php:97
+#: public/pb_inscripciones_equipos.php:152
+#: server/pdf/print_inscritosByPrueba.php:548
+msgid "Grado"
+msgstr "Grado"
+
+#: console/frm_equipos.php:228 public/pb_inscripciones.php:102
+#: public/pb_inscripciones_equipos.php:157
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_equiposByJornada.php:170
+#: server/pdf/print_inscritosByPrueba.php:548
+#: server/pdf/print_ordenDeSalida.php:72
+#: server/pdf/print_ordenDeSalida.php:176
+msgid "Celo"
+msgstr "Celo"
+
+#: console/frm_equipos.php:253
+msgid "Selecciona nuevo equipo"
+msgstr "Selecciona nuevo equipo"
+
+#: console/frm_equipos.php:263
+msgid "Asignar el participante al equipo seleccionado"
+msgstr "Asignar el participante al equipo seleccionado"
+
+#: console/frm_equipos.php:264
+msgid "Cancelar selecci&oacute;n. Cerrar ventana"
+msgstr "Cancelar selecci&oacute;n. Cerrar ventana"
+
+#: console/frm_equipos.php:284
+msgid "Actualizando lista de equipos ..."
+msgstr "Actualizando lista de equipos ..."
+
+#: console/frm_guias.php:140
+msgid "Actualizando lista de perros"
+msgstr "Actualizando lista de perros"
+
+#: console/frm_inscripciones.php:33
+msgid "Selecciona Prueba"
+msgstr "Selecciona Prueba"
+
+#: console/frm_inscripciones2.php:41
+msgid "Datos de la Prueba"
+msgstr "Datos de la Prueba"
+
+#: console/frm_inscripciones2.php:134
+msgid "Nombre/Comentario"
+msgstr "Nombre/Comentario"
+
+#: console/frm_inscripciones2.php:135
+msgid "Fecha"
+msgstr "Fecha"
+
+#: console/frm_inscripciones2.php:136
+msgid "Hora"
+msgstr "Hora"
+
+#: console/frm_inscripciones2.php:146
+msgid "Especial"
+msgstr "Especial"
+
+#: console/frm_inscripciones2.php:147
+msgid "Cerrada"
+msgstr "Cerrada"
+
+#: public/pb_finales_eq3.php:190
+msgid "Actualizando clasificaciones de la ronda..."
+msgstr "Actualizando clasificaciones de la ronda..."
+
+#: public/pb_inscripciones.php:94
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_ordenDeSalida.php:72
+msgid "Raza"
+msgstr "Raza"
+
+#: scripts/equipos.js.php:158
+msgid "Debe seleccionar una jornada con competiciones por equipos"
+msgstr "Debe seleccionar una jornada con competiciones por equipos"
+
+#: scripts/equipos.js.php:162
+msgid "La jornada seleccionada no tiene competiciones por equipos"
+msgstr "La jornada seleccionada no tiene competiciones por equipos"
+
+#: scripts/equipos.js.php:209
+msgid "El equipo por defecto NO se puede editar"
+msgstr "El equipo por defecto NO se puede editar"
+
+#: scripts/equipos.js.php:236
+msgid "El equipo por defecto NO se puede borrar"
+msgstr "El equipo por defecto NO se puede borrar"
+
+#: scripts/equipos.js.php:240
+msgid "Esta operaci&oacute;n borrar&aacute; el equipo de la jornada"
+msgstr "Esta operaci&oacute;n borrar&aacute; el equipo de la jornada"
+
+#: scripts/equipos.js.php:241
+msgid "Desea realmente eliminar el equipo"
+msgstr "Desea realmente eliminar el equipo"
+
+#: scripts/equipos.js.php:241
+msgid "de esta jornada"
+msgstr "de esta jornada"
+
+#: scripts/equipos.js.php:312
+msgid "Debe indicar un equipo v&aacute;lido"
+msgstr "Debe indicar un equipo v&aacute;lido"
+
+#: server/pdf/print_clasificacion.php:132
+#: server/pdf/print_clasificacion_eq3.php:208
+#: server/pdf/print_clasificacion_eq4.php:212
+msgid "Clasificación Final"
+msgstr "Clasificación Final"
+
+#: server/pdf/print_common.php:161
+msgid "Página"
+msgstr "Página"
+
+#: server/pdf/print_entradaDeDatos.php:75
+msgid "Introducción de Datos"
+msgstr "Introducción de Datos"
+
+#: server/pdf/print_entradaDeDatosEquipos4.php:88
+msgid "Entrada de datos (Equipos-4)"
+msgstr "Entrada de datos (Equipos-4)"
+
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:548
+#: server/pdf/print_ordenDeSalida.php:72
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Lic."
+msgstr "Lic."
+
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:548
+#: server/pdf/print_ordenDeSalida.php:72
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Guía"
+msgstr "Guía"
+
+#: server/pdf/print_equiposByJornada.php:89
+msgid "Listado de Equipos"
+msgstr "Listado de Equipos"
+
+#: server/pdf/print_inscritosByPrueba.php:548
+msgid "Sab."
+msgstr "Sab."
+
+#: server/pdf/print_inscritosByPrueba.php:548
+msgid "Dom."
+msgstr "Dom."
+
+#: server/pdf/print_inscritosByPrueba.php:554
+msgid "Listado de Participantes"
+msgstr "Listado de Participantes"
+
+#: server/pdf/print_ordenDeSalida.php:72
+msgid "Orden"
+msgstr "Orden"
+
+#: server/pdf/print_ordenDeSalida.php:88
+msgid "Orden de Salida"
+msgstr "Orden de Salida"
+
+#: server/pdf/print_ordenSalidaEquipos4.php:88
+msgid "Orden de Salida Equipos"
+msgstr "Orden de Salida Equipos"
+
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Flt."
+msgstr "Flt."
+
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Toc."
+msgstr "Toc."
+
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Reh."
+msgstr "Reh."
+
+#: server/pdf/print_resultadosByEquipos.php:84
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Tiempo"
+msgstr "Tiempo"
+
+#: server/pdf/print_resultadosByEquipos.php:84
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Vel."
+msgstr "Vel."
+
+#: server/pdf/print_resultadosByEquipos.php:84
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Penal."
+msgstr "Penal."
+
+#: server/pdf/print_resultadosByEquipos.php:84
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Calificación"
+msgstr "Calificación"
+
+#: server/pdf/print_resultadosByEquipos.php:84
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Puesto"
+msgstr "Puesto"
+
+#: server/pdf/print_resultadosByEquipos.php:84
+msgid "Global Equipo"
+msgstr "Global Equipo"
+
+#: server/pdf/print_resultadosByEquipos.php:91
+#: server/pdf/print_resultadosByEquipos4.php:81
+msgid "Resultados Parciales"
+msgstr "Resultados Parciales"
+
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Cat/Grado"
+msgstr "Cat/Grado"
+
+#: server/pdf/print_resultadosByManga.php:67
+msgid "Resultados"
+msgstr "Resultados"
+
+#: server/pdf/print_resultadosByManga.php:67
+msgid "Resultados Manga"
+msgstr "Resultados Manga"
+
+#: console/dialogs/dlg_equipos.inc:38
+msgid "Categor&iacute;as"
+msgstr "Categor&iacute;as"
+
+#: console/dialogs/dlg_jornadas.inc:26
+msgid "Informaci&oacute;n de la Jornada"
+msgstr "Informaci&oacute;n de la Jornada"
+
+#~ msgid "Resultados y Clasificaciones"
+#~ msgstr "Resultados y Clasificaciones"

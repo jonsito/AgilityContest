@@ -39,6 +39,13 @@ Class AgilityContestUpdater {
     var $version_date="20150101_0000";
     var $temp_file=TEMP_FILE;
 
+    // list of files to be preserved across updates
+    public static $user_files = array (
+        "config.ini" => __DIR__."/../server/auth/config.ini",
+        "registration.info" => __DIR__."/../server/auth/registration.info",
+        "supporters.csv" => __DIR__."/images/supporters/supporters.csv"
+    );
+
     /**
      * A replacement for file_get_contents to bypass
      * sites where allow_url_fopen is disabled in php.ini
@@ -82,26 +89,6 @@ Class AgilityContestUpdater {
         return $res;
     }
 
-    private function backupConfig($file) {
-        if ( ! file_exists(CONFIG_DIR.$file)) return 1;
-        $a=file_get_contents(CONFIG_DIR.$file);
-        $f=fopen(TEMP_DIR.$file,"w");
-        if (!$f) return -1;
-        fwrite($f,$a);
-        fclose($f);
-        return 0;
-    }
-
-    private function restoreConfig($file) {
-        if ( ! file_exists(TEMP_DIR.$file)) return 1;
-        $a=file_get_contents(TEMP_DIR.$file);
-        $f=fopen(CONFIG_DIR.$file,"w");
-        if (!$f) return -1;
-        fwrite($f,$a);
-        fclose($f);
-        return 0;
-    }
-
     public function __construct() {
         $info = $this->file_get(UPDATE_INFO);
         $info = str_replace("\r\n", "\n", $info);
@@ -122,16 +109,25 @@ Class AgilityContestUpdater {
 
     public function handleConfig($oper) {
         $res=true;
-        if ($oper==true) { // backup
-            if ($this->backupConfig("config.ini")<0) $res=false;
-            if ($this->backupConfig("registration.info")<0) $res=false;
-            if ($res==false) echo "FAILED ";
-            echo "BACKUP configuration <br />";
-        } else { // restore
-            if ($this->restoreConfig("config.ini")<0) $res=false;;
-            if ($this->restoreConfig("registration.info")<0) $res=false;
-            if ($res==false) echo "FAILED ";
-            echo "RESTORE configuration<br />";
+        foreach (AgilityContestUpdater::$user_files as $temp => $file) {
+            $from=($oper==true)?$file:TEMP_DIR.$temp;
+            $to=($oper==true)?TEMP_DIR.$temp:$file;
+            $str=($oper==true)?"BACKUP ":"RESTORE ";
+            // if $from doesn't exist notify and continue
+            if ( ! file_exists($from)) {
+                echo "SKIP ".$str.$temp." <br />";
+                continue;
+            };
+            // else try to copy
+            $a=file_get_contents($from);
+            $f=fopen($to,"w");
+            if (!$f) {
+                echo "FAILED ".$str.$temp." <br />";
+                $res=false;
+            }
+            fwrite($f,$a);
+            fclose($f);
+            echo $str.$temp." <br />";
         }
         return $res;
     }

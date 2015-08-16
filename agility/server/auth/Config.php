@@ -21,7 +21,7 @@ define('AC_CONFIG_FILE',__DIR__."/config.ini"); // user definable configuration
 define('AC_SYSTEM_FILE',__DIR__."/system.ini"); // system configuration.
 
 /** Internacionalizacion. Idiomas **/
-define ('AC_LANG','es_ES.UTF-8');
+define ('AC_LANG','es_ES');
 
 /** logging **/
 define('AC_DEBUG_LEVEL',0);
@@ -163,13 +163,14 @@ Class Config {
 
 		// y ahora preparamos la internacionalizacion
 		$lang=$this->config['lang'];
-		putenv("LC_ALL=$lang");
+		putenv("LANGUAGE=$lang");
+		putenv("LANG=$lang");
 		setlocale(LC_ALL, $lang);
         setlocale(LC_NUMERIC, 'en_US'); // Fix for float number with incorrect decimal separator.
         $domain="AgilityContest";
 		bindtextdomain($domain, __DIR__."/../../locale");
-		textdomain($domain);
 		bind_textdomain_codeset($domain, 'UTF-8');
+		textdomain($domain);
 	}
 	
 	public function getEnv($key) {
