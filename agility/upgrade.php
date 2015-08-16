@@ -196,7 +196,7 @@ echo "Upgrade to Version:".$up->getVersionName()." Revision:".$up->getVersionDat
 ?>
 </pre>
 <p>
-    Pulsa para reiniciar AgilityContest <input type="button" onClick="window.location='/agility/console';" value="Reiniciar" />
+    Pulsa el boton para reiniciar AgilityContest <input type="button" onClick="window.location='/agility/console';" value="Reiniciar" />
 </p>
 </body>
 </html>
