@@ -22,6 +22,8 @@ upgrade.php
 define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/agility/server/auth/system.ini');
 define ('UPDATE_FILE','https://codeload.github.com/jonsito/AgilityContest/zip/master');
 define ('TEMP_FILE', __DIR__."/../logs/AgilityContest-");
+define ('TEMP_DIR', __DIR__."/../logs/");
+define ('CONFIG_DIR', __DIR__."/../server/auth/");
 define ('POST_INSTALL', __DIR__."/../post-install.php");
 
 Class AgilityContestUpdater {
@@ -54,7 +56,7 @@ Class AgilityContestUpdater {
             return $data;
         }
         // arriving here means no way to load file from remote site
-        die ('Cannot retrieve update information. Check your internet connection');
+        die( 'Cannot retrieve update information. Check your internet connection');
     }
 
     // retrieve file from url and store as local one
@@ -66,9 +68,30 @@ Class AgilityContestUpdater {
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_ENCODING, "");
-        curl_exec($ch);
+        $res=curl_exec($ch);
         curl_close($ch);
         fclose($fp);
+        return $res;
+    }
+
+    private function backupConfig($file) {
+        if ( ! file_exists(CONFIG_DIR.$file)) return 1;
+        $a=file_get_contents(CONFIG_DIR.$file);
+        $f=fopen(TEMP_DIR.$file,"w");
+        if (!$f) return -1;
+        fwrite($f,$a);
+        fclose($f);
+        return 0;
+    }
+
+    private function restoreConfig($file) {
+        if ( ! file_exists(TEMP_DIR.$file)) return 1;
+        $a=file_get_contents(TEMP_DIR.$file);
+        $f=fopen(CONFIG_DIR.$file,"w");
+        if (!$f) return -1;
+        fwrite($f,$a);
+        fclose($f);
+        return 0;
     }
 
     public function __construct() {
@@ -89,17 +112,27 @@ Class AgilityContestUpdater {
 
     public function getVersionDate() { return $this->version_date; }
 
-    public function downloadFile() {
-        if (file_exists($this->temp_file)) return true; // no need to download
-        echo "Downloading file ".UPDATE_FILE;
-        $this->file_save(UPDATE_FILE,$this->temp_file);
+    public function handleConfig($oper) {
+        if ($oper==true) { // backup
+            if ($this->backupConfig("config.ini")<0) return false;
+            if ($this->backupConfig("registration.info")<0) return false;
+        } else { // restore
+            if ($this->restoreConfig("config.ini")<0) return false;
+            if ($this->restoreConfig("registration.info")<0) return false;
+        }
         return true;
+    }
+    public function downloadFile($force=false) {
+        if (file_exists($this->temp_file) && $force==false) return 0; // no need to download
+        echo "Downloading file ".UPDATE_FILE;
+        return $this->file_save(UPDATE_FILE,$this->temp_file);
     }
 
     public function doUpgrade() {
         $root=__DIR__ . "/../";
         // open zip file
         $zip = zip_open($this->temp_file);
+        if (!$zip) { echo "Open zipfile failed <br/>"; return false; }
         while ($aF = zip_read($zip) ) {
             // get file name and their directory
             $file_name = str_replace("AgilityContest-master/","",zip_entry_name($aF));
@@ -108,19 +141,20 @@ Class AgilityContestUpdater {
             if ( substr($file_name,-1,1) == '/') continue; // not a file
             //Make the directory if we need to...
             if ( !is_dir ( $root . $dir_name ) ) {
+                $res=mkdir ( $root . $dir_name );
+                if (!$res) echo "FAILED ";
                 echo "MAKEDIR: $dir_name<br />";
-                mkdir ( $root . $dir_name );
             }
             // create/overwrite file
             if ( !is_dir($root.$file_name) ) {
                 $contents = zip_entry_read($aF, zip_entry_filesize($aF));
-                if (file_exists($root.$file_name)) echo "UPDATE: $file_name<br />";
-                else echo "CREATE: $file_name<br />";
+                $oper=(file_exists($root.$file_name))?"UPDATE":"CREATE";
                 $file = fopen($root.$file_name, 'w');
                 if ($file) {
                     fwrite($file, $contents);
                     fclose($file);
-                }
+                    echo "$oper $file_name<br />";
+                } else  echo "FAILED $oper $file_name<br />";
                 unset($contents); // clear data from memory
             }
         }
@@ -131,11 +165,18 @@ Class AgilityContestUpdater {
             unlink(POST_INSTALL);
         }
         zip_close($zip);
+        return true;
     }
 };
 
 $up = new AgilityContestUpdater();
-$res=$up->downloadFile();
-if($res) $up->doUpgrade();
-
+$res=$up->downloadFile(false);
+if ($res===FALSE) { echo "Download failed<br />"; return; }
+$res=$up->handleConfig(true);
+if ($res===FALSE) { echo "Backup configuration failed <br/>"; return;}
+$res=$up->doUpgrade();
+if ($res===FALSE) { echo "Upgrade failed <br/>"; return; }
+$res =$up->handleConfig(false);
+if ($res===FALSE) { echo "Restore configuration failed <br/>"; return;}
+echo "Upgrade to Version:".$up->getVersionName()." Revision:".$up->getVersionDate()." Success<br />";
 ?>
