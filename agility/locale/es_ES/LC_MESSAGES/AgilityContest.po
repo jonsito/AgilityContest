@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-08-16 19:43+0100\n"
-"PO-Revision-Date: 2015-08-16 19:44+0100\n"
+"POT-Creation-Date: 2015-08-16 22:36+0100\n"
+"PO-Revision-Date: 2015-08-16 22:47+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -275,6 +275,10 @@ msgstr "Especial"
 #: console/frm_inscripciones2.php:147
 msgid "Cerrada"
 msgstr "Cerrada"
+
+#: console/index.php:42 server/auth/Config.php:174
+msgid "Hello World"
+msgstr "Hola Mundo"
 
 #: public/pb_finales_eq3.php:190
 msgid "Actualizando clasificaciones de la ronda..."

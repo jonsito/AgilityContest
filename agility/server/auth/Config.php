@@ -162,10 +162,14 @@ Class Config {
 		}
 
 		// y ahora preparamos la internacionalizacion
-		$lang=$this->config['lang'];
-		putenv("LANGUAGE=$lang");
-		putenv("LANG=$lang");
-		setlocale(LC_ALL, $lang);
+		$locale=$this->config['lang'];
+		$locales=array(
+			substr($locale,0,2),
+			$locale,
+			"$locale.UTF-8"
+		);
+		putenv("LC_ALL=$locale.UTF-8");
+		setlocale(LC_ALL, $locales);
         setlocale(LC_NUMERIC, 'en_US'); // Fix for float number with incorrect decimal separator.
         $domain="AgilityContest";
 		bindtextdomain($domain, __DIR__."/../../locale");
