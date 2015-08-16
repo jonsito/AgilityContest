@@ -214,6 +214,7 @@ class Admin extends DBObject {
 			$timeout = 5;
 			curl_setopt($ch, CURLOPT_HEADER, 0);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,0); // do not verify certificates. (Windows bug, sorry)
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
 			curl_setopt($ch, CURLOPT_URL, $url);
 			$data = curl_exec($ch);
@@ -265,8 +266,8 @@ class Admin extends DBObject {
 
 	public function checkForUpgrades() {
         $info = $this->file_get(UPDATE_INFO);
-        if ($info===false)
-            throw new Exception("checForUpgrade(): cannot retrieve version info from internet");
+        if ( ($info==null) || (!is_string($info)) )
+            throw new Exception("checkForUpgrade(): cannot retrieve version info from internet");
         $info = str_replace("\r\n", "\n", $info);
         $info = str_replace(" ", "", $info);
         $data = explode("\n",$info);
