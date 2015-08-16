@@ -64,7 +64,7 @@ Class AgilityContestUpdater {
             $timeout = 5;
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,0); // do not verify certificates. (Windows bug, sorry)
+            curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/server/auth/cacert.pem");
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
             curl_setopt($ch, CURLOPT_URL, $url);
             $data = curl_exec($ch);
@@ -84,7 +84,7 @@ Class AgilityContestUpdater {
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_ENCODING, "");
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,0); // do not verify certificates. (Windows bug, sorry)
+        curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/server/auth/cacert.pem");
         $res=curl_exec($ch);
         curl_close($ch);
         fclose($fp);

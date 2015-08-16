@@ -214,7 +214,7 @@ class Admin extends DBObject {
 			$timeout = 5;
 			curl_setopt($ch, CURLOPT_HEADER, 0);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,0); // do not verify certificates. (Windows bug, sorry)
+			curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/auth/cacert.pem");
 			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
 			curl_setopt($ch, CURLOPT_URL, $url);
 			$data = curl_exec($ch);
