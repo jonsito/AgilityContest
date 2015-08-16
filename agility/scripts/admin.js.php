@@ -197,6 +197,25 @@ function removePruebas(){
     }).window('resize',{width:640});
 }
 
+function askForUpgrade(msg){
+    var l1="<strong>AVISO:</strong><br/>";
+    var l2="Aseg&uacute;rese de realizar una copia de seguridad antes de seguir<br/><br/>";
+    var l3="Para actualizar AgilityContest, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
+    if (!checkForAdmin()) return;
+    $.messager.password('Actualizar AgilityContest',msg+l1+l2+l3 , function(pass) {
+        if (pass) {
+            // comprobamos si el password es correcto
+            checkPassword(authInfo.Login,pass,function(data) {
+                if (data.errorMsg) { // error
+                    $.messager.alert("Error", data.errorMsg, "error");
+                } else {
+                    window.location='/agility/upgrade.php';
+                }
+            });
+        }
+    }).window('resize',{width:480});;
+}
+
 function checkForUpgrades() {
     var msg="<p>Current Version: "+ac_config.version_name+"<br />Current Release: "+ac_config.version_date+"</p>";
     $.ajax({
@@ -214,15 +233,8 @@ function checkForUpgrades() {
                 msg = msg +"<p>AgilityContest est&aacute; actualizado</p>";
                 $.messager.alert("Version Info",msg,"info");
             }
-            if (data.version_date>ac_config.version_date) {
-                msg = msg +"<p>Last Version: "+data.version_name+"<br />Last Release: "+data.version_date+"</p>";
-                msg = msg +"<p>Actualizar?</p>";
-                $.messager.confirm("Upgrade available",msg,function(r){
-                    if (r) {
-                        window.location='/agility/upgrade.php';
-                    }
-                });
-            }
+            msg = msg +"<p>Last Version: "+data.version_name+"<br />Last Release: "+data.version_date+"</p>";
+            if (data.version_date>ac_config.version_date) askForUpgrade(msg);
         }
     });
 }
