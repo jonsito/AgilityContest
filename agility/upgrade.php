@@ -1,3 +1,11 @@
+<html>
+<head>
+    <title>Actualizador de AgilityContest</title>
+</head>
+<body>
+<h3>Actualizando AgilityContest...</h3>
+<pre>
+
 <?php
 /*
 upgrade.php
@@ -113,18 +121,24 @@ Class AgilityContestUpdater {
     public function getVersionDate() { return $this->version_date; }
 
     public function handleConfig($oper) {
+        $res=true;
         if ($oper==true) { // backup
-            if ($this->backupConfig("config.ini")<0) return false;
-            if ($this->backupConfig("registration.info")<0) return false;
+            if ($this->backupConfig("config.ini")<0) $res=false;
+            if ($this->backupConfig("registration.info")<0) $res=false;
+            if ($res==false) echo "FAILED ";
+            echo "BACKUP configuration <br />";
         } else { // restore
-            if ($this->restoreConfig("config.ini")<0) return false;
-            if ($this->restoreConfig("registration.info")<0) return false;
+            if ($this->restoreConfig("config.ini")<0) $res=false;;
+            if ($this->restoreConfig("registration.info")<0) $res=false;
+            if ($res==false) echo "FAILED ";
+            echo "RESTORE configuration<br />";
         }
-        return true;
+        return $res;
     }
+
     public function downloadFile($force=false) {
         if (file_exists($this->temp_file) && $force==false) return 0; // no need to download
-        echo "Downloading file ".UPDATE_FILE;
+        echo "DOWNLOAD ".UPDATE_FILE;
         return $this->file_save(UPDATE_FILE,$this->temp_file);
     }
 
@@ -172,11 +186,17 @@ Class AgilityContestUpdater {
 $up = new AgilityContestUpdater();
 $res=$up->downloadFile(false);
 if ($res===FALSE) { echo "Download failed<br />"; return; }
-$res=$up->handleConfig(true);
+$res=$up->handleConfig(true); // backup
 if ($res===FALSE) { echo "Backup configuration failed <br/>"; return;}
 $res=$up->doUpgrade();
 if ($res===FALSE) { echo "Upgrade failed <br/>"; return; }
-$res =$up->handleConfig(false);
+$res =$up->handleConfig(false); // restore
 if ($res===FALSE) { echo "Restore configuration failed <br/>"; return;}
 echo "Upgrade to Version:".$up->getVersionName()." Revision:".$up->getVersionDate()." Success<br />";
 ?>
+</pre>
+<p>
+    Pulsa para reiniciar AgilityContest <input type="button" onClick="window.location='/agility/console';" value="Reiniciar" />
+</p>
+</body>
+</html>
