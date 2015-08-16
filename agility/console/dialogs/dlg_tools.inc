@@ -26,7 +26,7 @@
 	<p>
 		<span style="display:inline-block;width:350px">Buscar actualizaciones</span>
 		<a id="tools-upgradeBtn" href="#" class="easyui-linkbutton" style="width:85px"
-		   data-options="iconCls:'icon-reload'" onclick="upgradeApp()">Upgrade</a>
+		   data-options="iconCls:'icon-reload'" onclick="checkForUpgrades()">Upgrade</a>
 	</p>
 </div>
 

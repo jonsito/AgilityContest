@@ -197,10 +197,32 @@ function removePruebas(){
     }).window('resize',{width:640});
 }
 
-function upgradeApp() {
-    // retrieve last available version number
-    // compare against current
-    // if new version available
-    // request admin password and ask user to upgrade
-    $.messager.alert("Upgrade AgilityContest","Not available yet. Sorry","info");
+function checkForUpgrades() {
+    var msg="<p>Current Version: "+ac_config.version_name+"<br />Current Release: "+ac_config.version_date+"</p>";
+    $.ajax({
+        url:"/agility/server/adminFunctions.php",
+        dataType:'json',
+        data: {
+            Operation: 'upgrade'
+        },
+        success: function(data) {
+            if (typeof(data.errorMsg)!=="undefined") {
+                $.messager.alert("Check for Upgrades",data.errorMsg,"error");
+                return;
+            }
+            if (data.version_date==ac_config.version_date) {
+                msg = msg +"<p>AgilityContest est&aacute; actualizado</p>";
+                $.messager.alert("Version Info",msg,"info");
+            }
+            if (data.version_date>ac_config.version_date) {
+                msg = msg +"<p>Last Version: "+data.version_name+"<br />Last Release: "+data.version_date+"</p>";
+                msg = msg +"<p>Actualizar?</p>";
+                $.messager.confirm("Upgrade available",msg,function(r){
+                    if (r) {
+                        window.location='/agility/upgrade.php';
+                    }
+                });
+            }
+        }
+    });
 }

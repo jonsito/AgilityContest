@@ -17,6 +17,9 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+// Github redirects links, and make curl fail.. so use real ones
+// define ('UPDATE_INFO','https://github.com/jonsito/AgilityContest/raw/master/agility/server/auth/system.ini');
+define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/agility/server/auth/system.ini');
 
 require_once(__DIR__."/logging.php");
 require_once(__DIR__."/tools.php");
@@ -199,6 +202,29 @@ class Admin extends DBObject {
         return "";
     }
 
+	// returns a file retrieved from an URL as a variable
+	private function file_get($url) {
+		// if enabled, use standard file_get_contents
+		if (ini_get('allow_url_fopen') == true) {
+			return file_get_contents($url);
+		}
+		// if not enable, try curl
+		if (function_exists('curl_init')) {
+			$ch = curl_init();
+			$timeout = 5;
+			curl_setopt($ch, CURLOPT_HEADER, 0);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,$timeout);
+			curl_setopt($ch, CURLOPT_URL, $url);
+			$data = curl_exec($ch);
+			curl_close($ch);
+			return $data;
+		}
+		// arriving here means no way to load file from remote site
+		$this->myLogger->error('Cannot retrieve update information. Check your internet connection');
+		return null;
+	}
+
 	public function restore() {
         // we need root database access to re-create tables
         $rconn=DBConnection::getRootConnection();
@@ -237,9 +263,22 @@ class Admin extends DBObject {
         return $this->query("DELETE FROM Pruebas WHERE ID>1");
 	}
 
-	public function upgradeApps() {
-		// TODO: write
-		return "";
+	public function checkForUpgrades() {
+        $info = $this->file_get(UPDATE_INFO);
+        if ($info===false)
+            throw new Exception("checForUpgrade(): cannot retrieve version info from internet");
+        $info = str_replace("\r\n", "\n", $info);
+        $info = str_replace(" ", "", $info);
+        $data = explode("\n",$info);
+        foreach ($data as $line) {
+            if (strpos($line,"version_name=")===0) $version_name = trim(substr($line,13),'"');
+            if (strpos($line,"version_date=")===0) $version_date = trim(substr($line,13),'"');
+        }
+        $res=array(
+            'version_name' => $version_name,
+            'version_date' => $version_date
+        );
+		return $res;
 	}
 }
 
@@ -269,7 +308,7 @@ try {
 		case "clear":
 			$am->access(PERMS_ADMIN); $result=$adm->clearContests(); break;
 		case "upgrade":
-			$am->access(PERMS_ADMIN); $result=$adm->upgradeApp(); break;
+			$am->access(PERMS_ADMIN); $result=$adm->checkForUpgrades(); break;
 		case "reginfo": 
 			$result=$am->getRegistrationInfo(); if ($result==null) $adm->errormsg=$am->errormsg; break;
 		case "register":
