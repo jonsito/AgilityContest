@@ -45,4 +45,4 @@ $('#seljornada-window').window({
 
 </script>
 
-<img class="mainpage" src="/agility/images/wallpapers/clasificaciones.jpg" alt="Clasificaciones" width="640" height="480" align="middle"/>
+<img class="mainpage" src="/agility/images/wallpapers/clasificaciones.jpg" alt="<?php _e('Scores'); ?>" width="640" height="480" align="middle"/>

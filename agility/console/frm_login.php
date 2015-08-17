@@ -29,25 +29,25 @@ $config =Config::getInstance();
 	<div id="login-Layout" class="easyui-layout" data-options="fit:true'">
 	<div style="padding:5px;" data-options="region:'north',border:'false'">
 		<p>
-		Algunas operaciones requieren la autenticaci&oacute;n del usuario.<br /> 
-		Si &eacute;ste no se especifica, se asumir&aacute; acceso como "invitado"
+		<?php _e('Some operations require a valid user to be logged in'); ?>.<br />
+		<?php _e('If no user is entered, you&#39;ll be logged as "guest"'); ?>
 		</p>
 	</div> 
 	<!-- formulario de datos de login -->
 	<div id="login-Form" style="padding:5px;" data-options="region:'center',border:'true'">
 		<form id="login-Selection">
     		<div class="fitem">
-    	   		<label for="Username">Nombre de usuario:</label>
+    	   		<label for="Username"><?php _e('User name'); ?>:</label>
        	   		<input id="login-Username" name="Username" style="width:200px" type="text"
         			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
        		</div>        		
        		<div class="fitem">
-       	   		<label for="Password">Contrase&ntilde;a:</label>
+       	   		<label for="Password"><?php _e('Password'); ?>:</label>
        	   		<input id="login-Password" name="Password" style="width:200px" type="password"
        	   			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
        		</div>
        		<div class="fitem">
-       	   		<label for="Federation">Federaci&oacute;n:</label>
+       	   		<label for="Federation"><?php _e('Federation'); ?>:</label>
        	   		<select id="login-Federation" name="Federation" onChange="setFederation(this.value);">
        	   			<option value="0">Real Sociedad Canina de Espa&ntilde;a (RSCE)</option>
        	   			<option value="1">Real Federaci&oacute;n Espa&ntilde;ola de Caza (RFEC)</option>
@@ -60,16 +60,16 @@ $config =Config::getInstance();
 	<!-- botones del menu de login-->
 	<div id="login-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
 		<a id="login-okBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls: 'icon-ok'" onclick="acceptLogin()">Aceptar</a>
+	   		data-options="iconCls: 'icon-ok'" onclick="acceptLogin()"><?php _e('Accept'); ?></a>
 		<a id="login-cancelBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls: 'icon-cancel'" onclick="cancelLogin()">Cancelar</a>
+	   		data-options="iconCls: 'icon-cancel'" onclick="cancelLogin()"><?php _e('Cancel'); ?></a>
 	</div>
 	</div>
 </div> <!-- Dialog -->
 <script type="text/javascript">
 
 $('#login-window').window({
-	title:'Iniciar Sesi&oacute;n',
+	title:'<?php _e('Session init'); ?>',
 	iconCls:'icon-users',
 	collapsible:false,
 	minimizable:false,
@@ -86,8 +86,8 @@ $('#login-window').window({
 	}
 });
 
-addTooltip($('#login-okBtn').linkbutton(),"Iniciar sesi&oacute;n con el usuario seleccionado");
-addTooltip($('#login-cancelBtn').linkbutton(),"Cancelar apertura de sesion. Cerrar ventana");
+addTooltip($('#login-okBtn').linkbutton(),'<?php _e("Start session with provided user privileges"); ?>');
+addTooltip($('#login-cancelBtn').linkbutton(),'<?php _e("Start session as &#39;guest&#39; user. Close window"); ?>');
 
 // on Enter key on login field focus on password
 $('#login-Username').bind('keypress', function (evt) {
