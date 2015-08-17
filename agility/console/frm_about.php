@@ -14,34 +14,41 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
-<div id="dlg_about" class="easyui-window" style="width:640px;padding:10px">
+<?php
+require_once(__DIR__ . "/../server/tools.php");
+require_once(__DIR__ . "/../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
+<div id="dlg_about" class="easyui-window" style="width:750px;padding:10px">
 	<img src="/agility/images/AgilityContest.png" 
 		width="150" height="100" alt="AgilityContest Logo" 
 		style="border:1px solid #000000;margin:10px;float:right;padding:5px">
 	<dl>
 		<dt>
-			<strong>Version: </strong><span id="about_version">version</span> - <span id="about_date">date</span> 
+			<strong><?php _e('Version'); ?>: </strong><span id="about_version"><?php _e('Version'); ?></span> - <span id="about_date"><?php _e('Date'); ?></span>
 		</dt>
 		<dt>
-			<strong>AgilityContest</strong> es Copyright &copy; 2013-2015 de <em>Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em>
+			<strong>AgilityContest</strong><?php _e(' is CopyRight &copy; 2013-2015 from '); ?><em>Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em>
 		</dt>
 		<dd>
-		El código fuente está disponible en <a href="https://github.com/jonsito/AgilityContest">https://github.com/jonsito/AgilityContest</a><br />
-		Se permite su uso, copia, modificación y redistribución bajo los t&eacute;rminos de la 
-		<a target="license" href="/agility/License">Licencia General P&uacute;blica de GNU</a>
+		<?php _e('Source code available at'); ?><a href="https://github.com/jonsito/AgilityContest">https://github.com/jonsito/AgilityContest</a><br />
+		<?php _e('Copy, modify and re-distribution is granted under terms of'); ?>
+		<a target="license" href="/agility/License"> <?php _e('GNU General Public License version 2'); ?></a>
 		</dd>
 		<dt>&nbsp;</dt>
 		<dt>
-			<strong>AgilityContest Logo</strong> está basado en un diseño original de <em>Britta Schweikl &lt;ltBritta.Schweikl@t-online.de&gt;</em>
+			<strong>AgilityContest Logo</strong> <?php _e('is derived from an original work of'); ?> <em>Britta Schweikl &lt;ltBritta.Schweikl@t-online.de&gt;</em>
 		</dt>
 		<dd>
-		El diseño original -y muchos otros- se encuentra en <a href="http://www.hundestempel.de/">http://www.hundestempel.de/</a>. <br />
-		Este logotipo se distrubuye con autorización del autor original. Esta nota de copyright debe ser incluída en toda copia y redistribución
+		<?php _e('Original design -an many others- can be found at'); ?> <a href="http://www.hundestempel.de/">http://www.hundestempel.de/</a>. <br />
+		<?php _e('This logo is distributed with authorization from original author.'); ?>
+		<?php _e('This copyright notice must be included in every copy'); ?>
 		</dd>
 	</dl>
 	<hr />
 	<p>
-	Inscrito en el Registro Territorial de la Propiedad Intelectual de Madrid. <em>Expediente: 09-RTPI-09439.4/2014</em> 
+	<?php _e('Registered in'); ?> Registro Territorial de la Propiedad Intelectual de Madrid. <em>Expediente: 09-RTPI-09439.4/2014</em>
 	</p>
 	<p>	
     This program is free software; you can redistribute it and/or modify
