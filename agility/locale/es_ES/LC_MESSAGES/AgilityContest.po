@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-08-17 15:45+0200\n"
-"PO-Revision-Date: 2015-08-17 15:50+0200\n"
+"POT-Creation-Date: 2015-08-17 16:50+0200\n"
+"PO-Revision-Date: 2015-08-17 16:51+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -38,8 +38,8 @@ msgstr "El c&oacute;digo fuente disponible en"
 #: console/frm_about.php:36
 msgid "Copy, modify and re-distribution is granted under terms of"
 msgstr ""
-"Se permite la copia, modificaci&oacute;n y re-distribuci&oacute;n bajo "
-"los terminos de"
+"Se permite la copia, modificaci&oacute;n y re-distribuci&oacute;n bajo los "
+"terminos de"
 
 #: console/frm_about.php:37
 msgid "GNU General Public License version 2"
@@ -55,8 +55,7 @@ msgstr "El dise&ntilde;o original -y muchos otros- se pueden obtener en"
 
 #: console/frm_about.php:45
 msgid "This logo is distributed with authorization from original author."
-msgstr ""
-"Este logo se distribuye con autorizaci&oacute;n del autor original"
+msgstr "Este logo se distribuye con autorizaci&oacute;n del autor original"
 
 #: console/frm_about.php:46
 msgid "This copyright notice must be included in every copy"
@@ -65,6 +64,139 @@ msgstr "Esta nota de CopyRight debe ser inclu&iacute;da en toda copia"
 #: console/frm_about.php:51
 msgid "Registered in"
 msgstr "Inscrito en"
+
+#: console/frm_admin.php:25
+msgid "Users"
+msgstr "Usuarios"
+
+#: console/frm_admin.php:38
+msgid "New user"
+msgstr "Nuevo usuario"
+
+#: console/frm_admin.php:41
+msgid "Edit user"
+msgstr "Editar usuario"
+
+#: console/frm_admin.php:44
+msgid "Delete user"
+msgstr "Borrar usuario"
+
+#: console/frm_admin.php:50
+msgid "Password"
+msgstr "contrase&ntilde;a"
+
+#: console/frm_admin.php:57 console/frm_admin.php:94
+msgid "Clear"
+msgstr "Limpiar"
+
+#: console/frm_admin.php:62
+msgid "Sessions"
+msgstr "Sesiones"
+
+#: console/frm_admin.php:75
+msgid "New session"
+msgstr "Nueva Sesi&oacute;n"
+
+#: console/frm_admin.php:78
+msgid "Edit session"
+msgstr "Editar Sesi&oacute;n"
+
+#: console/frm_admin.php:81
+msgid "Delete session"
+msgstr "Borrar Sesi&oacute;n"
+
+#: console/frm_admin.php:84
+msgid "Reset session"
+msgstr "Reniciar Sesi&oacute;n"
+
+#: console/frm_admin.php:99 console/index.php:240
+msgid "Configuration"
+msgstr "Configuraci&oacute;n"
+
+#: console/frm_admin.php:102
+msgid "Tools"
+msgstr "Herramientas"
+
+#: console/frm_admin.php:118
+msgid "User data management"
+msgstr "Gesti&oacute;n de usuarios"
+
+#: console/frm_admin.php:121
+msgid "Actualizando lista de usuarios"
+msgstr "Actualizando lista de usuarios"
+
+#: console/frm_admin.php:135
+msgid "Information"
+msgstr "Informaci&oacute;n"
+
+#: console/frm_admin.php:136
+msgid "Telephone"
+msgstr "Tel&eacute;fono"
+
+#: console/frm_admin.php:138
+msgid "Category"
+msgstr "Categor&iacute;a"
+
+#: console/frm_admin.php:157
+msgid "Session (ring) data management"
+msgstr "Gesti&oacute;n de sesiones (rings)"
+
+#: console/frm_admin.php:160
+msgid "Updating session list"
+msgstr "Actualizando lista de sesiones"
+
+#: console/frm_admin.php:173
+msgid "Name"
+msgstr "Nombre"
+
+#: console/frm_admin.php:174
+msgid "Description"
+msgstr "Descripci&oacute;n"
+
+#: console/frm_admin.php:176
+msgid "User"
+msgstr "Usuario"
+
+#: console/frm_admin.php:194
+msgid "Create and insert new user<br/> into database"
+msgstr "Crea y a&ntilde;ade nuevo usuario<br /> a la base de datos"
+
+#: console/frm_admin.php:195
+msgid "Modify data on selected user"
+msgstr "Modificar los datos del usuario seleccionado"
+
+#: console/frm_admin.php:196
+msgid "Remove selected user from database"
+msgstr "Borrar el usuario seleccionado de la base de datos"
+
+#: console/frm_admin.php:197 console/frm_admin.php:205
+msgid "Clear search box. Update data"
+msgstr "Borrar casilla de busqueda. Actualizar datos"
+
+#: console/frm_admin.php:198
+msgid "Change user password"
+msgstr "Cambiar la contrase&ntilde;a del usuario"
+
+#: console/frm_admin.php:201
+msgid "Add a new session (ring)<br/>into data base"
+msgstr ""
+"Crear y a&ntilde;adir una nueva sesi&oacute;n (ring)<br /> a la base de datos"
+
+#: console/frm_admin.php:202
+msgid "Modify data on selected session (ring)"
+msgstr "Modificar dats de la sesi&oacute;n (ring) seleccionada"
+
+#: console/frm_admin.php:203
+msgid "Remove selected session from database"
+msgstr "Borrar la sesi&oacute;n (ring) seleccionada de la BBDD"
+
+#: console/frm_admin.php:204
+msgid "Reset/Clear event log from selected session"
+msgstr "Vaciar el registro de eventos de la sesi&oacute;n seleccionada"
+
+#: console/frm_admin.php:206
+msgid "Look for sessions matching search criteria"
+msgstr "Buscar sesiones que coincidan con el criterio de busqueda"
 
 #: console/frm_clasificaciones.php:42
 msgid "Results & Scores"
@@ -411,10 +543,6 @@ msgstr "Estad&iacute;sticas"
 msgid "TOOLS"
 msgstr "HERRAMIENTAS"
 
-#: console/index.php:240
-msgid "Configuration"
-msgstr "Configuraci&oacute;n"
-
 #: console/index.php:241
 msgid "Direct DB Access"
 msgstr "Acceso directo a BBDD"
@@ -443,8 +571,7 @@ msgstr "Acerca de"
 msgid "Actualizando clasificaciones de la ronda..."
 msgstr "Actualizando clasificaciones de la ronda..."
 
-#: public/pb_inscripciones.php:94
-#: server/pdf/print_equiposByJornada.php:84
+#: public/pb_inscripciones.php:94 server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_ordenDeSalida.php:72
 msgid "Raza"
 msgstr "Raza"
