@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-08-16 22:36+0100\n"
-"PO-Revision-Date: 2015-08-16 22:47+0100\n"
+"POT-Creation-Date: 2015-08-17 11:28+0100\n"
+"PO-Revision-Date: 2015-08-17 11:29+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -276,9 +276,125 @@ msgstr "Especial"
 msgid "Cerrada"
 msgstr "Cerrada"
 
-#: console/index.php:42 server/auth/Config.php:174
-msgid "Hello World"
-msgstr "Hola Mundo"
+#: console/index.php:207
+msgid "Operations Menu"
+msgstr "Men&uacute; de operaciones"
+
+#: console/index.php:213
+msgid "Init Session"
+msgstr "Iniciar Sesi&oacute;n"
+
+#: console/index.php:217
+msgid "DATABASE"
+msgstr "BASE DE DATOS"
+
+#: console/index.php:219
+msgid "Clubs Database Managagement"
+msgstr "Gesti&oacute;n de Clubes"
+
+#: console/index.php:219
+msgid "Clubs"
+msgstr "Clubes"
+
+#: console/index.php:220
+msgid "Handlers Database Management"
+msgstr "Gesti&oacute;n de Gu&iacute;as"
+
+#: console/index.php:220
+msgid "Handlers"
+msgstr "Gu&iacute;as"
+
+#: console/index.php:221
+msgid "Dogs Database Management"
+msgstr "Gesti&oacute;n de Perros"
+
+#: console/index.php:221
+msgid "Dogs"
+msgstr "Perros"
+
+#: console/index.php:222
+msgid "Judges Database Management"
+msgstr "Gesti&oacute;n de Jueces"
+
+#: console/index.php:222
+msgid "Judges"
+msgstr "Jueces"
+
+#: console/index.php:225
+msgid "CONTESTS"
+msgstr "PRUEBAS"
+
+#: console/index.php:227
+msgid "Create and Edit Contests"
+msgstr "Creaci&oacute;n y Edici&oacute;n de Pruebas"
+
+#: console/index.php:227
+msgid "Create Contests"
+msgstr "Creaci&oacute;n de pruebas"
+
+#: console/index.php:228
+msgid "Inscriptions - Contest selection"
+msgstr "Inscripciones registradas en el equipo"
+
+#: console/index.php:228
+msgid "Handle Inscriptions"
+msgstr "Gesti&oacute;n de Inscripciones"
+
+#: console/index.php:229
+msgid "Competition - Contest and Journey selection"
+msgstr "Competici&oacute;n - Selecci&oacute;n de Prueba y Jornada"
+
+#: console/index.php:229
+msgid "Running Contests"
+msgstr "Desarrollo de la prueba"
+
+#: console/index.php:232
+msgid "REPORTS"
+msgstr "CLASIFICACIONES"
+
+#: console/index.php:234
+msgid "Scores - Contest and Journey selection"
+msgstr "Clasificaciones - Selecci&oacute;n de Prueba y Jornada"
+
+#: console/index.php:234
+msgid "Scores"
+msgstr "Clasificaciones"
+
+#: console/index.php:235
+msgid "Statistics"
+msgstr "Estad&iacute;sticas"
+
+#: console/index.php:238
+msgid "TOOLS"
+msgstr "HERRAMIENTAS"
+
+#: console/index.php:240
+msgid "Configuration"
+msgstr "Configuraci&oacute;n"
+
+#: console/index.php:241
+msgid "Direct DB Access"
+msgstr "Acceso directo a BBDD"
+
+#: console/index.php:244
+msgid "DOCUMENTATION"
+msgstr "DOCUMENTACION"
+
+#: console/index.php:246
+msgid "OnLine Manual"
+msgstr "Manual en L&iacute;nea"
+
+#: console/index.php:247
+msgid "License information"
+msgstr "Informaci&oacute;n de registro"
+
+#: console/index.php:248
+msgid "About AgilityContest"
+msgstr "Acerca de AgilityContest"
+
+#: console/index.php:248
+msgid "About"
+msgstr "Acerca de"
 
 #: public/pb_finales_eq3.php:190
 msgid "Actualizando clasificaciones de la ronda..."
@@ -452,6 +568,63 @@ msgstr "Categor&iacute;as"
 #: console/dialogs/dlg_jornadas.inc:26
 msgid "Informaci&oacute;n de la Jornada"
 msgstr "Informaci&oacute;n de la Jornada"
+
+#~ msgid "Men&uacute; de Operaciones"
+#~ msgstr "Men&uacute; de Operaciones"
+
+#~ msgid "Iniciar sesi&oacute;n"
+#~ msgstr "Iniciar sesi&oacute;n"
+
+#, fuzzy
+#~ msgid "Gu&iacute;as"
+#~ msgstr "Gu&iacute;a"
+
+#, fuzzy
+#~ msgid "Perros"
+#~ msgstr "Perro"
+
+#, fuzzy
+#~ msgid "Creaci&oacute;n de pruebas"
+#~ msgstr "Informaci&oacute;n de la Jornada"
+
+#, fuzzy
+#~ msgid "Competicion - Selecci&oacute;n de Prueba y Jornada"
+#~ msgstr "Informaci&oacute;n de la Jornada"
+
+#, fuzzy
+#~ msgid "Desarrollo de la prueba"
+#~ msgstr "Desarrollo de la jornada"
+
+#, fuzzy
+#~ msgid "Clasificaciones - Selecci&oacute;n de Prueba y Jornada"
+#~ msgstr "Informaci&oacute;n de la Jornada"
+
+#, fuzzy
+#~ msgid "Clasificaciones"
+#~ msgstr "Actualizando clasificaciones de la ronda..."
+
+#, fuzzy
+#~ msgid "Estad&iacute;sticas"
+#~ msgstr "Categor&iacute;as"
+
+#, fuzzy
+#~ msgid "Administraci&oacute;n"
+#~ msgstr "Programaci&oacute;n"
+
+#, fuzzy
+#~ msgid "Informaci&oacute;n de registro"
+#~ msgstr "Informaci&oacute;n de la Jornada"
+
+#, fuzzy
+#~ msgid "Datos de registro"
+#~ msgstr "Datos de la Prueba"
+
+#, fuzzy
+#~ msgid "Sobre la aplicaci&oacute;n..."
+#~ msgstr "Programaci&oacute;n"
+
+#~ msgid "Hello World"
+#~ msgstr "Hola Mundo"
 
 #~ msgid "Resultados y Clasificaciones"
 #~ msgstr "Resultados y Clasificaciones"

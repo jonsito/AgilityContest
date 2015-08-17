@@ -204,48 +204,48 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <!-- MENU LATERAL -->
 <div id="mysidebar">
 
-<div id="mymenu" class="easyui-panel" title="Men&uacute; de Operaciones"
+<div id="mymenu" class="easyui-panel" title="<?php _e('Operations Menu');?>"
 	data-options="border:true,closable:false,collapsible:true,collapsed:true">
 <ul>
 <li>
 	<ul>
 	<li><a id="menu-Login" href="javascript:showLoginWindow();">
-		<span id="login_menu-text">Iniciar sesi&oacute;n</span></a>
+		<span id="login_menu-text"><?php _e('Init Session');?></span></a>
 	</li>
 	</ul>
 </li>
-<li>BASE DE DATOS
+<li><?php _e('DATABASE'); ?>
 	<ul>
-	<li><a href="javascript:loadContents('/agility/console/frm_clubes.php','Gesti&oacute;n de la Base de Datos de Clubes');">Clubes</a></li>
-	<li><a href="javascript:loadContents('/agility/console/frm_guias.php','Gesti&oacute;n de la Base de Datos de Gu&iacute;as');">Gu&iacute;as</a></li>
-	<li><a href="javascript:loadContents('/agility/console/frm_perros.php','Gesti&oacute;n de la base de datos de Perros');">Perros</a></li>
-	<li><a href="javascript:loadContents('/agility/console/frm_jueces.php','Gesti&oacute;n de la Base de datos de Jueces');">Jueces</a></li>
+	<li><a href="javascript:loadContents('/agility/console/frm_clubes.php','<?php _e('Clubs Database Managagement');?>');"><?php _e('Clubs'); ?></a></li>
+	<li><a href="javascript:loadContents('/agility/console/frm_guias.php','<?php _e('Handlers Database Management');?>');"><?php _e('Handlers'); ?></a></li>
+	<li><a href="javascript:loadContents('/agility/console/frm_perros.php','<?php _e('Dogs Database Management');?>');"><?php _e('Dogs'); ?></a></li>
+	<li><a href="javascript:loadContents('/agility/console/frm_jueces.php','<?php _e('Judges Database Management');?>');"><?php _e('Judges'); ?></a></li>
 	</ul>
 </li>
-<li>PRUEBAS
+<li><?php _e('CONTESTS'); ?>
 	<ul>
-	<li><a href="javascript:loadContents('/agility/console/frm_pruebas.php','Creaci&oacute;n y edici&oacute;n de pruebas');">Creaci&oacute;n de pruebas</a></li>
-	<li><a href="javascript:loadContents('/agility/console/frm_inscripciones.php','Inscripciones - Selecci&oacute;n de prueba',{'s':'#selprueba-window'});">Edici&oacute;n. Inscripciones</a></li>
-	<li><a href="javascript:loadContents('/agility/console/frm_competicion.php','Competicion - Selecci&oacute;n de Prueba y Jornada');">Desarrollo de la prueba</a></li>
+	<li><a href="javascript:loadContents('/agility/console/frm_pruebas.php','<?php _e('Create and Edit Contests');?>');"><?php _e('Create Contests'); ?></a></li>
+	<li><a href="javascript:loadContents('/agility/console/frm_inscripciones.php','<?php _e('Inscriptions - Contest selection');?>',{'s':'#selprueba-window'});"><?php _e('Handle Inscriptions'); ?></a></li>
+	<li><a href="javascript:loadContents('/agility/console/frm_competicion.php','<?php _e('Competition - Contest and Journey selection');?>');"><?php _e('Running Contests'); ?></a></li>
 	</ul>
 </li>
-<li>CONSULTAS
+<li><?php _e('REPORTS'); ?>
 	<ul>
-	<li><a href="javascript:loadContents('/agility/console/frm_clasificaciones.php','Clasificaciones - Selecci&oacute;n de Prueba y Jornada');">Clasificaciones</a></li>
-	<li><a href="javascript:loadContents('/agility/console/frm_estadisticas.php','Estad&iacute;sticas');">Estad&iacute;sticas</a></li>
+	<li><a href="javascript:loadContents('/agility/console/frm_clasificaciones.php','<?php _e('Scores - Contest and Journey selection');?>');"><?php _e('Scores'); ?></a></li>
+	<li><a href="javascript:loadContents('/agility/console/frm_estadisticas.php','<?php _e('Statistics');?>');"><?php _e('Statistics'); ?></a></li>
 	</ul>
 </li>
-<li>HERRAMIENTAS
+<li><?php _e('TOOLS'); ?>
 	<ul>
-	<li> <a href="javascript:loadContents('/agility/console/frm_admin.php','Administraci&oacute;n')">Administraci&oacute;n</a></li>
-	<li><a id="menu-Login" href="javascript:showMyAdminWindow();">Acceso a BBDD</a></li>
+	<li> <a href="javascript:loadContents('/agility/console/frm_admin.php','<?php _e('Configuration');?>')"><?php _e('Configuration'); ?></a></li>
+	<li><a id="menu-Login" href="javascript:showMyAdminWindow();"><?php _e('Direct DB Access'); ?></a></li>
 	</ul>
 </li>
-<li>DOCUMENTACION
+<li><?php _e('DOCUMENTATION'); ?>
 	<ul>
-	<li> <a target="documentacion" href="/agility/console/manual.html">Manual en l&iacute;nea</a></li>
-	<li> <a href="javascript:loadContents('/agility/console/frm_registration.php','Informaci&oacute;n de registro')">Datos de registro</a></li>
-	<li> <a href="javascript:loadContents('/agility/console/frm_about.php','Sobre la aplicaci&oacute;n...')">Acerca de...</a></li>
+	<li> <a target="documentacion" href="/agility/console/manual.html"><?php _e('OnLine Manual'); ?></a></li>
+	<li> <a href="javascript:loadContents('/agility/console/frm_registration.php','<?php _e('License information');?>')"><?php _e('License information'); ?></a></li>
+	<li> <a href="javascript:loadContents('/agility/console/frm_about.php','<?php _e('About AgilityContest');?>...')"><?php _e('About'); ?>...</a></li>
 	</ul>
 </li>
 </ul>
