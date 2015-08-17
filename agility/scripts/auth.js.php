@@ -31,23 +31,23 @@ $config =Config::getInstance();
 function showLoginWindow() {
 	if (typeof(authInfo.SessionKey)==undefined || (authInfo.SessionKey==null) ) {
 		$('#login-window').remove();
-		loadContents('/agility/console/frm_login.php','Iniciar sesion');
+		loadContents('/agility/console/frm_login.php','<?php _e('Init session');?>');
 	} else {
 		$('#logout-window').remove();
-		loadContents('/agility/console/frm_logout.php','Finalizar sesion');
+		loadContents('/agility/console/frm_logout.php','<?php _e('End session');?>');
 	}
 }
 
 function showMyAdminWindow() {
 	$('#myAdmin-window').remove();
-	loadContents('/agility/console/frm_myAdmin.php','Acceso directo a la Base de Datos');
+	loadContents('/agility/console/frm_myAdmin.php','<?php _e('Direct access to DataBase');?>');
 }
 
 function acceptLogin() {
 	var user= $('#login-Username').val();
 	var pass=$('#login-Password').val();
 	if (!user || !user.length) {
-		$.messager.alert("Invalid data","No ha indicado ningún usuario","error");
+		$.messager.alert("Invalid data",'<?php _e("There is no user chosen");?>',"error");
 		return;
 	};
 	$.ajax({
@@ -66,12 +66,12 @@ function acceptLogin() {
        			initAuthInfo();
        		} else {// success:
        			var str="AgilityContest version: "+ac_config.version_name+"-"+ac_config.version_date+"<br />";
-       			str =str+"Copia registrada por: "+data.User+"<br />";
-       			str =str+"Para el club: "+data.Club+"<br /><br />";
-       			str =str+"Usuario "+data.Login+": Sesi&oacute;n iniciada correctamente";
+       			str =str+'<?php _e("License registered by");?>'+": "+data.User+"<br />";
+       			str =str+'<?php _e("For use at club");?>'+": "+data.Club+"<br /><br />";
+       			str =str+'<?php _e("User");?>'+" "+data.Login+": "+'<?php _e("session login success");?>';
        			var w=$.messager.alert("Login",str,"info");
                 w.window('resize',{width:400,height:175}).window('center');
-           		$('#login_menu-text').html("Cerrar sesi&oacute;n: <br />"+data.Login);
+           		$('#login_menu-text').html('<?php _e("End session");?>'+": <br />"+data.Login);
            		initAuthInfo(data);
        		} 
        	},
@@ -96,8 +96,8 @@ function acceptLogout() {
        		if (data.errorMsg) { // error
        			$.messager.alert("Error",data.errorMsg,"error");
        		} else {// success: 
-       			$.messager.alert("Usuario"+user,"Sesi&oacute;n finalizada correctamente","info");
-           		$('#login_menu-text').html("Iniciar sesi&oacute;n");
+       			$.messager.alert('<?php _e("User");?>'+" "+user,'<?php _e("Session has been closed by user");?>',"info");
+           		$('#login_menu-text').html('<?php _e("Init session");?>');
            		initAuthInfo();
            		setFederation(0); // on logout defaults to RSCE
        		} 
@@ -127,7 +127,7 @@ function acceptMyAdmin() {
 	var user= $('#myAdmin-Username').val();
 	var pass=$('#myAdmin-Password').val();
 	if (!user || !user.length) {
-		$.messager.alert("Invalid data","No ha indicado ningún usuario","error");
+		$.messager.alert("Invalid data",'<?php _e("No user specified");?>',"error");
 		return;
 	};
 	checkPassword(user,pass,function(data) {
@@ -135,7 +135,7 @@ function acceptMyAdmin() {
 			$.messager.alert("Error",data.errorMsg,"error");
 		} else { // success:
 			if (parseInt(data.Perms)<=1) window.open("/phpmyadmin","phpMyAdmin");
-			else $.messager.alert("Error","El usuario no tiene permisos de administrador","error");
+			else $.messager.alert("Error",'<?php _e("Current user has no &#39;admin&#39; privileges");?>',"error");
 		}
 	});
 	$('#myAdmin-window').window('close');
@@ -183,7 +183,7 @@ function send_regFile() {
                 $.messager.show({ width:300, height:150, title: 'Error', msg: data.errorMsg });
             } else {
                 $('#registration_data').form('load',data);
-            	$.messager.alert("Registro","Datos de registro guardados correctamente","info");
+            	$.messager.alert('<?php _e("Licensing");?>','<?php _e("Licensing data successfully loaded");?>',"info");
             }
     	},
     	error: function() { alert("error");	}

@@ -29,7 +29,7 @@ $config =Config::getInstance();
 			<table>
 			<tr>
 				<td colspan="2">
-					<label for="Nombre"><?php _e('Title'); ?></label><br />
+					<label for="Nombre"><?php _e('Title'); ?>:</label><br />
 					<input id="resultados-info-nombre" type="text" class="result_forms" readonly="readonly" name="Nombre" size="30"/>
 				</td>
 			</tr>

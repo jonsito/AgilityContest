@@ -28,13 +28,13 @@ $config =Config::getInstance();
 	<div id="selprueba-Layout" class="easyui-layout" data-options="fit:true'">
 		<!--  texto del panel de logout -->
 		<div data-options="region:'center',border:'true'">
-			Confirme que desea cerrar la sesion del usuario: <span id="login-UserName">Usuario</span>
+			<?php _e('Confirm logout on current session'); ?>: <span id="login-UserName"><?php _e('User'); ?></span>
 		</div><!-- botones del menu de logout-->
 		<div id="logout-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
 		   	<a id="logout-okBtn" href="#" class="easyui-linkbutton" 
-		    	data-options="iconCls: 'icon-ok'" onclick="acceptLogout()">Aceptar</a>
+		    	data-options="iconCls: 'icon-ok'" onclick="acceptLogout()"><?php _e('Accept'); ?></a>
 		   	<a id="logout-cancelBtn" href="#" class="easyui-linkbutton" 
-		    	data-options="iconCls: 'icon-cancel'" onclick="cancelLogout()">Cancelar</a>
+		    	data-options="iconCls: 'icon-cancel'" onclick="cancelLogout()"><?php _e('Cancel'); ?></a>
 		</div>
 	</div>
 </div> <!-- Dialog -->
@@ -42,7 +42,7 @@ $config =Config::getInstance();
 <script type="text/javascript">
 
 $('#logout-window').window({
-	title:'Finalizar sesion',
+	title:'<?php _e('Logout session');?>',
 	iconCls:'icon-users',
 	collapsible:false,
 	minimizable:false,
@@ -56,7 +56,7 @@ $('#logout-window').window({
 	}
 });
 
-addTooltip($('#logout-okBtn').linkbutton(),"Cerrar la sesion del usuario actual");
-addTooltip($('#logout-cancelBtn').linkbutton(),"Cancelar cierre de sesion. Cerrar ventana");
+addTooltip($('#logout-okBtn').linkbutton(),'<?php _e("Close current user session");?>');
+addTooltip($('#logout-cancelBtn').linkbutton(),'<?php _e("Cancel logout. Close window");?>');
 
 </script>

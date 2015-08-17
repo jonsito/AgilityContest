@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-08-17 18:14+0200\n"
-"PO-Revision-Date: 2015-08-17 18:17+0200\n"
-"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2015-08-18 00:53+0200\n"
+"PO-Revision-Date: 2015-08-18 00:53+0200\n"
+"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,7 @@ msgid "Version"
 msgstr "Versi&oacute;n"
 
 #: console/frm_about.php:29 console/frm_clasificaciones2.php:45
+#: console/frm_clasificaciones_eq3.php:45
 msgid "Date"
 msgstr "Fecha"
 
@@ -111,7 +112,7 @@ msgstr "Reniciar Sesi&oacute;n"
 
 #: console/frm_admin.php:99 console/index.php:240
 msgid "Configuration"
-msgstr "Configuraci&oacute;n"
+msgstr "Administraci&oacute;n"
 
 #: console/frm_admin.php:102
 msgid "Tools"
@@ -146,7 +147,8 @@ msgid "Updating session list"
 msgstr "Actualizando lista de sesiones"
 
 #: console/frm_admin.php:173 console/frm_clasificaciones2.php:82
-#: console/frm_clasificaciones2.php:197
+#: console/frm_clasificaciones2.php:197 console/frm_clasificaciones_eq3.php:82
+#: console/frm_clasificaciones_eq3.php:197
 msgid "Name"
 msgstr "Nombre"
 
@@ -154,7 +156,8 @@ msgstr "Nombre"
 msgid "Description"
 msgstr "Descripci&oacute;n"
 
-#: console/frm_admin.php:176
+#: console/frm_admin.php:176 console/frm_logout.php:31 scripts/auth.js.php:71
+#: scripts/auth.js.php:99
 msgid "User"
 msgstr "Usuario"
 
@@ -204,73 +207,77 @@ msgid "Results & Scores"
 msgstr "Resultados y Clasificaciones"
 
 #: console/frm_clasificaciones.php:48 console/frm_clasificaciones2.php:129
-#: console/index.php:234
+#: console/frm_clasificaciones_eq3.php:129 console/index.php:234
 msgid "Scores"
 msgstr "Clasificaciones"
 
-#: console/frm_clasificaciones2.php:27 console/frm_inscripciones2.php:41
+#: console/frm_clasificaciones2.php:27 console/frm_clasificaciones_eq3.php:27
+#: console/frm_inscripciones2.php:41
 msgid "Datos de la Prueba"
 msgstr "Datos de la Prueba"
 
-#: console/frm_clasificaciones2.php:32
+#: console/frm_clasificaciones2.php:32 console/frm_clasificaciones_eq3.php:32
 msgid "Title"
 msgstr "Denominaci&oacute;n"
 
-#: console/frm_clasificaciones2.php:37
+#: console/frm_clasificaciones2.php:37 console/frm_clasificaciones_eq3.php:37
 msgid "Organizing Club"
 msgstr "Club anfitri&oacute;n"
 
-#: console/frm_clasificaciones2.php:41
+#: console/frm_clasificaciones2.php:41 console/frm_clasificaciones_eq3.php:41
 msgid "Journey"
 msgstr "Jornada"
 
 #: console/frm_clasificaciones2.php:49 console/frm_clasificaciones2.php:73
-#: console/frm_clasificaciones2.php:74
+#: console/frm_clasificaciones2.php:74 console/frm_clasificaciones_eq3.php:49
+#: console/frm_clasificaciones_eq3.php:73
+#: console/frm_clasificaciones_eq3.php:74
 msgid "Round"
 msgstr "Manga"
 
-#: console/frm_clasificaciones2.php:53
+#: console/frm_clasificaciones2.php:53 console/frm_clasificaciones_eq3.php:53
 msgid "Comments"
 msgstr "Observaciones"
 
-#: console/frm_clasificaciones2.php:60
+#: console/frm_clasificaciones2.php:60 console/frm_clasificaciones_eq3.php:60
 msgid "Technical data on current round series"
 msgstr "Datos t&eacute;cnicos de las mangas"
 
-#: console/frm_clasificaciones2.php:72
+#: console/frm_clasificaciones2.php:72 console/frm_clasificaciones_eq3.php:72
 msgid "Competitor's data"
 msgstr "Datos del participante"
 
-#: console/frm_clasificaciones2.php:75
+#: console/frm_clasificaciones2.php:75 console/frm_clasificaciones_eq3.php:75
 msgid "Score"
 msgstr "Clasificaci&oacute;n"
 
-#: console/frm_clasificaciones2.php:81
+#: console/frm_clasificaciones2.php:81 console/frm_clasificaciones_eq3.php:81
 msgid "Dors"
 msgstr "Dors"
 
-#: console/frm_clasificaciones2.php:83 console/frm_equipos.php:221
-#: public/pb_inscripciones.php:95 public/pb_inscripciones_equipos.php:150
+#: console/frm_clasificaciones2.php:83 console/frm_clasificaciones_eq3.php:83
+#: console/frm_equipos.php:221 public/pb_inscripciones.php:95
+#: public/pb_inscripciones_equipos.php:150
 msgid "Lic"
 msgstr "Lic"
 
-#: console/frm_clasificaciones2.php:84 console/frm_equipos.php:222
-#: console/frm_equipos.php:294 public/pb_inscripciones.php:96
-#: public/pb_inscripciones_equipos.php:151
+#: console/frm_clasificaciones2.php:84 console/frm_clasificaciones_eq3.php:84
+#: console/frm_equipos.php:222 console/frm_equipos.php:294
+#: public/pb_inscripciones.php:96 public/pb_inscripciones_equipos.php:151
 msgid "Cat"
 msgstr "Cat"
 
-#: console/frm_clasificaciones2.php:85
+#: console/frm_clasificaciones2.php:85 console/frm_clasificaciones_eq3.php:85
 msgid "Grd"
 msgstr "Grd"
 
-#: console/frm_clasificaciones2.php:86
+#: console/frm_clasificaciones2.php:86 console/frm_clasificaciones_eq3.php:86
 msgid "Handler"
 msgstr "Gu&iacute;a"
 
-#: console/frm_clasificaciones2.php:87 console/frm_equipos.php:84
-#: console/frm_equipos.php:225 public/pb_inscripciones.php:99
-#: public/pb_inscripciones_equipos.php:154
+#: console/frm_clasificaciones2.php:87 console/frm_clasificaciones_eq3.php:87
+#: console/frm_equipos.php:84 console/frm_equipos.php:225
+#: public/pb_inscripciones.php:99 public/pb_inscripciones_equipos.php:154
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:548
 #: server/pdf/print_ordenDeSalida.php:72
@@ -281,125 +288,156 @@ msgstr "Club"
 
 # Abrev de Faltas/Tocados
 #: console/frm_clasificaciones2.php:88 console/frm_clasificaciones2.php:94
+#: console/frm_clasificaciones_eq3.php:88
+#: console/frm_clasificaciones_eq3.php:94
 msgid "F/T"
 msgstr "F/T"
 
 # Abreviatura de Rehuses
 #: console/frm_clasificaciones2.php:89 console/frm_clasificaciones2.php:95
+#: console/frm_clasificaciones_eq3.php:89
+#: console/frm_clasificaciones_eq3.php:95
 msgid "R"
 msgstr "R"
 
 #: console/frm_clasificaciones2.php:90 console/frm_clasificaciones2.php:96
+#: console/frm_clasificaciones_eq3.php:90
+#: console/frm_clasificaciones_eq3.php:96
 msgid "Tim"
 msgstr "Tmp"
 
 #: console/frm_clasificaciones2.php:91 console/frm_clasificaciones2.php:97
+#: console/frm_clasificaciones_eq3.php:91
+#: console/frm_clasificaciones_eq3.php:97
 msgid "Vel"
 msgstr "Vel"
 
 #: console/frm_clasificaciones2.php:92 console/frm_clasificaciones2.php:98
+#: console/frm_clasificaciones_eq3.php:92
+#: console/frm_clasificaciones_eq3.php:98
 msgid "Penal"
 msgstr "Penal"
 
 #: console/frm_clasificaciones2.php:93 console/frm_clasificaciones2.php:99
+#: console/frm_clasificaciones_eq3.php:93
+#: console/frm_clasificaciones_eq3.php:99
 msgid "Cal"
 msgstr "Cal"
 
 #: console/frm_clasificaciones2.php:100
+#: console/frm_clasificaciones_eq3.php:100
 msgid "Time"
 msgstr "Tiempo"
 
 #: console/frm_clasificaciones2.php:101
+#: console/frm_clasificaciones_eq3.php:101
 msgid "Penaliz"
 msgstr "Penal"
 
 #: console/frm_clasificaciones2.php:102
+#: console/frm_clasificaciones_eq3.php:102
 msgid "Calif"
 msgstr "Calif"
 
 #: console/frm_clasificaciones2.php:103
+#: console/frm_clasificaciones_eq3.php:103
 msgid "Place"
 msgstr "Puesto"
 
 #: console/frm_clasificaciones2.php:115
+#: console/frm_clasificaciones_eq3.php:115
 msgid "Refresh"
 msgstr "Actualizar"
 
 #: console/frm_clasificaciones2.php:117
+#: console/frm_clasificaciones_eq3.php:117
 msgid "Verify"
 msgstr "Verificar"
 
 #: console/frm_clasificaciones2.php:119
+#: console/frm_clasificaciones_eq3.php:119
 msgid "Reports"
 msgstr "Informes"
 
 #: console/frm_clasificaciones2.php:126
+#: console/frm_clasificaciones_eq3.php:126
 msgid "Podium"
 msgstr "Podium"
 
 #: console/frm_clasificaciones2.php:127
+#: console/frm_clasificaciones_eq3.php:127
 msgid "Text export"
 msgstr "Exportar como texto"
 
 #: console/frm_clasificaciones2.php:128
+#: console/frm_clasificaciones_eq3.php:128
 msgid "R.S.C.E. Report"
 msgstr "Informe R.S.C.E."
 
 #: console/frm_clasificaciones2.php:132
+#: console/frm_clasificaciones_eq3.php:132
 msgid "Label sheets"
 msgstr "Hojas de etiquetas"
 
 #: console/frm_clasificaciones2.php:133
+#: console/frm_clasificaciones_eq3.php:133
 msgid "Isolated labels"
 msgstr "Etiquetas sueltas"
 
 #: console/frm_clasificaciones2.php:136
+#: console/frm_clasificaciones_eq3.php:136
 msgid "Initial label"
 msgstr "Etiqueta inicial"
 
 #: console/frm_clasificaciones2.php:139
+#: console/frm_clasificaciones_eq3.php:139
 msgid "Dorsal list"
 msgstr "Lista de dorsales"
 
 #: console/frm_clasificaciones2.php:146
+#: console/frm_clasificaciones_eq3.php:146
 msgid "Print"
 msgstr "Imprimir"
 
 #: console/frm_clasificaciones2.php:160
+#: console/frm_clasificaciones_eq3.php:160
 msgid "Journey scores"
 msgstr "Resultados de la jornada"
 
 #: console/frm_clasificaciones2.php:225
+#: console/frm_clasificaciones_eq3.php:225
 msgid "Update score tables"
 msgstr "Actualizar tablas de resultados"
 
 #: console/frm_clasificaciones2.php:226
+#: console/frm_clasificaciones_eq3.php:226
 msgid "Check for dogs without registered data"
 msgstr "Comprobar si hay perros sin datos anotados"
 
 #: console/frm_clasificaciones2.php:227
+#: console/frm_clasificaciones_eq3.php:227
 msgid "Print scores on current round"
 msgstr "Imprimir clasificaci&oacute;n de la manga"
 
 #: console/frm_clasificaciones2.php:228
+#: console/frm_clasificaciones_eq3.php:228
 msgid "Print data in selected format"
 msgstr "Imprimir los datos en el formato seleccionado"
 
 #: console/frm_clasificaciones2.php:229
+#: console/frm_clasificaciones_eq3.php:229
 msgid "where to start printing<br/>in label&#39;s sheet"
 msgstr "Posici&oacute;n inicial <br /> en la hoja de etiquetas"
 
 #: console/frm_clasificaciones2.php:230
+#: console/frm_clasificaciones_eq3.php:230
 msgid "Comma separated list of dorsals to be printed"
 msgstr "Lista de dorsales a imprimir separada por comas"
 
 #: console/frm_clasificaciones2.php:242
+#: console/frm_clasificaciones_eq3.php:242
 msgid "Updating round scores"
 msgstr "Actualizando resultados de la manga"
-
-#: console/frm_clasificaciones_eq3.php:242
-msgid "Actualizando resultados de la ronda..."
-msgstr "Actualizando resultados de la ronda..."
 
 #: console/frm_competicion.php:46
 msgid "Equipos -3 mejores-"
@@ -500,6 +538,7 @@ msgid "Cancelar"
 msgstr "Cancelar"
 
 #: console/frm_equipos.php:127 public/pb_inscripciones_equipos.php:75
+#: console/dialogs/dlg_ordensalida.inc:73
 msgid "Actualizando lista de equipos"
 msgstr "Actualizando lista de equipos"
 
@@ -511,6 +550,7 @@ msgstr "Actualizando lista de equipos"
 #: server/pdf/print_ordenDeSalida.php:72
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62
+#: console/dialogs/dlg_ordensalida.inc:84
 msgid "Nombre"
 msgstr "Nombre"
 
@@ -518,6 +558,7 @@ msgstr "Nombre"
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:548
 #: server/pdf/print_resultadosByEquipos.php:83
+#: console/dialogs/dlg_ordensalida.inc:85
 msgid "Cat."
 msgstr "Cat."
 
@@ -527,6 +568,7 @@ msgstr "Cat."
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:548
 #: server/pdf/print_ordenDeSalida.php:72
+#: console/dialogs/dlg_ordensalida.inc:86
 msgid "Observaciones"
 msgstr "Observaciones"
 
@@ -639,11 +681,11 @@ msgstr "Nombre de usuario"
 msgid "Federation"
 msgstr "Federaci&oacute;n"
 
-#: console/frm_login.php:63
+#: console/frm_login.php:63 console/frm_logout.php:35
 msgid "Accept"
 msgstr "Aceptar"
 
-#: console/frm_login.php:65
+#: console/frm_login.php:65 console/frm_logout.php:37
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -659,6 +701,22 @@ msgstr "Iniciar sesi&oacute;n con el usuario indicado"
 msgid "Start session as &#39;guest&#39; user. Close window"
 msgstr "Iniciar sesi&oacute;n como invitado. Cerrar ventana"
 
+#: console/frm_logout.php:31
+msgid "Confirm logout on current session"
+msgstr "Confirme que desea cerrar la sesi&oacute;n actual"
+
+#: console/frm_logout.php:45
+msgid "Logout session"
+msgstr "Finalizar Sesi&oacute;n"
+
+#: console/frm_logout.php:59
+msgid "Close current user session"
+msgstr "Cerrar Sesi&oacute;n actual"
+
+#: console/frm_logout.php:60
+msgid "Cancel logout. Close window"
+msgstr "Cancelar fin de sesi&oacute;n. Cerrar ventana"
+
 #: console/index.php:207
 msgid "Operations Menu"
 msgstr "Men&uacute; de operaciones"
@@ -673,7 +731,7 @@ msgstr "BASE DE DATOS"
 
 #: console/index.php:219
 msgid "Clubs Database Managagement"
-msgstr "Gesti&oacute;n de Clubes"
+msgstr "Gesti&oacute;n de datos de Clubes"
 
 #: console/index.php:219
 msgid "Clubs"
@@ -681,7 +739,7 @@ msgstr "Clubes"
 
 #: console/index.php:220
 msgid "Handlers Database Management"
-msgstr "Gesti&oacute;n de Gu&iacute;as"
+msgstr "Gesti&oacute;n de datos de Gu&iacute;as"
 
 #: console/index.php:220
 msgid "Handlers"
@@ -689,7 +747,7 @@ msgstr "Gu&iacute;as"
 
 #: console/index.php:221
 msgid "Dogs Database Management"
-msgstr "Gesti&oacute;n de Perros"
+msgstr "Gesti&oacute;n de datos de Perros"
 
 #: console/index.php:221
 msgid "Dogs"
@@ -697,7 +755,7 @@ msgstr "Perros"
 
 #: console/index.php:222
 msgid "Judges Database Management"
-msgstr "Gesti&oacute;n de Jueces"
+msgstr "Gesti&oacute;n de datos de Jueces"
 
 #: console/index.php:222
 msgid "Judges"
@@ -779,6 +837,54 @@ msgstr "Actualizando clasificaciones de la ronda..."
 #: server/pdf/print_ordenDeSalida.php:72
 msgid "Raza"
 msgstr "Raza"
+
+#: scripts/auth.js.php:34 scripts/auth.js.php:100
+msgid "Init session"
+msgstr "Iniciar Sesi&oacute;n"
+
+#: scripts/auth.js.php:37 scripts/auth.js.php:74
+msgid "End session"
+msgstr "Editar Sesi&oacute;n"
+
+#: scripts/auth.js.php:43
+msgid "Direct access to DataBase"
+msgstr "Acceso directo a la base de datos"
+
+#: scripts/auth.js.php:50
+msgid "There is no user chosen"
+msgstr "No ha indicado ning&uacute;n usuario"
+
+#: scripts/auth.js.php:69
+msgid "License registered by"
+msgstr "Licencia registrada por"
+
+#: scripts/auth.js.php:70
+msgid "For use at club"
+msgstr "Para el club"
+
+#: scripts/auth.js.php:71
+msgid "session login success"
+msgstr "sesi&oacute;n iniciada correctamente"
+
+#: scripts/auth.js.php:99
+msgid "Session has been closed by user"
+msgstr "El usuario ha finalizado la sesi&oacute;n"
+
+#: scripts/auth.js.php:130
+msgid "No user specified"
+msgstr "No se ha indicado ning&uacute;n usuario"
+
+#: scripts/auth.js.php:138
+msgid "Current user has no &#39;admin&#39; privileges"
+msgstr "El usuario actual no tiene privilegios de administrador"
+
+#: scripts/auth.js.php:186
+msgid "Licensing"
+msgstr "Licencia"
+
+#: scripts/auth.js.php:186
+msgid "Licensing data successfully loaded"
+msgstr "Datos de la licencia actualizados correctamente"
 
 #: scripts/equipos.js.php:158
 msgid "Debe seleccionar una jornada con competiciones por equipos"
@@ -935,11 +1041,16 @@ msgstr "Resultados"
 msgid "Resultados Manga"
 msgstr "Resultados Manga"
 
-#~ msgid "Categor&iacute;as"
-#~ msgstr "Categor&iacute;as"
+#: console/dialogs/dlg_equipos.inc:38
+msgid "Categor&iacute;as"
+msgstr "Categor&iacute;as"
 
-#~ msgid "Informaci&oacute;n de la Jornada"
-#~ msgstr "Informaci&oacute;n de la Jornada"
+#: console/dialogs/dlg_jornadas.inc:26
+msgid "Informaci&oacute;n de la Jornada"
+msgstr "Informaci&oacute;n de la Jornada"
+
+#~ msgid "Actualizando resultados de la ronda..."
+#~ msgstr "Actualizando resultados de la ronda..."
 
 #~ msgid "Men&uacute; de Operaciones"
 #~ msgstr "Men&uacute; de Operaciones"
