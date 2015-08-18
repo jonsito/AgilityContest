@@ -1,21 +1,24 @@
 @echo off
 cd /d %~dp0\..\xampp
 echo AgilityContest Launch Script
-echo ----------------------------------------
-echo NO CERRAR ESTA VENTANA DURANTE LA SESION
-echo ----------------------------------------
 echo MySQL Database is trying to start
 echo Please wait  ...
 
 echo Starting MySQL Database server...
 start /B "" \xampp\mysql\bin\mysqld --defaults-file=mysql\bin\my.ini --standalone --console
+
 echo Starting Apache Web Server....
 start /B "" \xampp\apache\bin\httpd.exe
 
 echo Opening AgilityContest console...
 start /W /MAX "AgilityContest" https://localhost/agility/console
 
-pause Press enter to finish AgilityContest session
+echo Please wait for navigator window to show up...
+
+echo -------------------------------------------
+echo DO NOT CLOSE THIS WINDOW UNTIL SESSION END
+echo -------------------------------------------
+set /p key= Press enter to finish AgilityContest session
 
 echo Apache Web Server shutdowm ...
 \xampp\apache\bin\pv -f -k httpd.exe -q

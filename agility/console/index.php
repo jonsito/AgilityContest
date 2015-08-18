@@ -134,7 +134,7 @@ var ac_config= {
 		'easyui_rowcolor2'	: '<?php echo $config->getEnv('easyui_rowcolor2'); ?>',
 		// configuracion del videowall
 		'vw_polltime'		: <?php echo $config->getEnv('vw_polltime'); ?>,
-		'vw_alpha'			: <?php echo $config->getEnv('vw_alpha'); ?>,
+		'vw_alpha'			: '<?php echo $config->getEnv('vw_alpha'); ?>',
 		'vw_hdrfg1'			: '<?php echo $config->getEnv('vw_hdrfg1'); ?>',
 		'vw_hdrbg1'			: '<?php echo $config->getEnv('vw_hdrbg1'); ?>',
 		'vw_hdrfg2'			: '<?php echo $config->getEnv('vw_hdrfg2'); ?>',

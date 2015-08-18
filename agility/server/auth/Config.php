@@ -75,6 +75,11 @@ Class Config {
 	
 	var $config=array();
 
+	public static $locale_list= array( // stupid ms-windows :-(
+		"es_ES" => Array('es','es_ES','es_ES.UTF-8','spanish','spanish.1252'),
+		"en_US" => Array('en','en_US','en_US.UTF-8','english','english.1252')
+	);
+
 	// singleton pattern
 	private static $instance=null;   
 	public static function getInstance() {
@@ -162,18 +167,15 @@ Class Config {
 		}
 
 		// y ahora preparamos la internacionalizacion
+		$windows=(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')?true:false;
 		$locale=$this->config['lang'];
-		$locales=array(
-			substr($locale,0,2),
-			$locale,
-			"$locale.UTF-8"
-		);
-		putenv("LC_ALL=$locale.UTF-8");
-		setlocale(LC_ALL, $locales);
-        setlocale(LC_NUMERIC, 'en_US'); // Fix for float number with incorrect decimal separator.
+		$locales=Config::$locale_list[$locale];
+		$sel=setlocale(LC_ALL, $locales);
+		putenv("LC_ALL=$sel");
+        setlocale(LC_NUMERIC, ($windows)?'eng':'en_US'); // Fix for float number with incorrect decimal separator.
         $domain="AgilityContest";
 		bindtextdomain($domain, __DIR__."/../../locale");
-		bind_textdomain_codeset($domain, 'UTF-8');
+		if (!$windows) bind_textdomain_codeset($domain, 'UTF-8');
 		textdomain($domain);
 	}
 	

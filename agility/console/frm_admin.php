@@ -96,7 +96,7 @@ $config =Config::getInstance();
 		</div>
     	<?php require_once("dialogs/dlg_sesiones.inc")?>
    	</div>
-   	<div title="<?php _e('Configuration'); ?>" data-options="iconCls:'icon-setup'" style="padding:5px">
+   	<div title="<?php _e('Preferences'); ?>" data-options="iconCls:'icon-setup'" style="padding:5px">
     	<?php require_once("dialogs/dlg_configuracion.inc")?>
    	</div>
    	<div title="<?php _e('Tools'); ?>" data-options="iconCls:'icon-tools'" style="padding:5px">

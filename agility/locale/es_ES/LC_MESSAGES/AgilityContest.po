@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-08-18 00:53+0200\n"
-"PO-Revision-Date: 2015-08-18 00:53+0200\n"
+"POT-Creation-Date: 2015-08-18 02:00+0200\n"
+"PO-Revision-Date: 2015-08-18 02:00+0200\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -110,9 +110,9 @@ msgstr "Borrar Sesi&oacute;n"
 msgid "Reset session"
 msgstr "Reniciar Sesi&oacute;n"
 
-#: console/frm_admin.php:99 console/index.php:240
-msgid "Configuration"
-msgstr "Administraci&oacute;n"
+#: console/frm_admin.php:99
+msgid "Preferences"
+msgstr "Preferencias"
 
 #: console/frm_admin.php:102
 msgid "Tools"
@@ -804,6 +804,10 @@ msgstr "Estad&iacute;sticas"
 #: console/index.php:238
 msgid "TOOLS"
 msgstr "HERRAMIENTAS"
+
+#: console/index.php:240
+msgid "Configuration"
+msgstr "Administraci&oacute;n"
 
 #: console/index.php:241
 msgid "Direct DB Access"

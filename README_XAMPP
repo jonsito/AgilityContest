@@ -52,7 +52,7 @@ https://github.com/jonsito/AgilityContest/archive/master.zip
   * debe poner:
   extension=php_openssl.dll
 
-- Del mismo modo comprobar que la extensión "php_curl.dll" esta activada
+- Del mismo modo comprobar que las extensión "php_curl.dll" esta activada
 
 - Arrancar el panel de control de xampp (ejecutar F:\xampp\xampp-control.exe)
 
