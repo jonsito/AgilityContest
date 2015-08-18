@@ -15,6 +15,11 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE CLUBES -->
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =Config::getInstance();
+?>
 <div style="width:975px;height:550px;">
     <!-- DECLARACION DE LA TABLA -->
     <table id="clubes-datagrid"></table>
@@ -25,19 +30,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<span style="float:left;padding:5px">
 		<a id="clubes-newBtn" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-flag'"
-   			onclick="newClub('#clubes-datagrid',$('#clubes-datagrid-search').val())">Nuevo Club</a>
+   			onclick="newClub('#clubes-datagrid',$('#clubes-datagrid-search').val())"><?php _e('New Club'); ?></a>
    		<a id="clubes-editBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-edit'"
-   			onclick="editClub('#clubes-datagrid')">Editar Club</a>
+   			onclick="editClub('#clubes-datagrid')"><?php _e('Edit Club'); ?></a>
    		<a id="clubes-delBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-trash'"
-   			onclick="deleteClub('#clubes-datagrid')">Borrar Club</a>
+   			onclick="deleteClub('#clubes-datagrid')"><?php _e('Delete Club'); ?></a>
    		<input id="clubes-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"/>
    	</span>
    	<span style="float:right;padding:5px">
    		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"
    		data-options="iconCls:'icon-brush'"
-   		onClick="reloadWithSearch('#clubes-datagrid','select',true);">Limpiar</a>
+   		onClick="reloadWithSearch('#clubes-datagrid','select',true);"><?php _e('Clear'); ?></a>
    	</span>
 </div>   
 
@@ -61,10 +66,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			collapsible: false,
 			expansible: false,
 			collapsed: false,
-			title: 'Gesti&oacute;n de datos de Clubes'+' - '+fedName(workingData.federation),
+			title: '<?php _e('Clubs data management'); ?>' + ' - ' + fedName(workingData.federation),
 			url: '/agility/server/database/clubFunctions.php',
 			queryParams: { Operation: 'select' },
-			loadMsg: 'Actualizando lista de Clubes ...',
+			loadMsg: '<?php _e('Updating Club&#39;s list'); ?>'+' ...',
 			method: 'get',
 			toolbar: '#clubes-toolbar',
 			pagination: false,
@@ -78,14 +83,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			remoteSort: true,
 			columns: [[
 				{ field:'ID',			hidden:true},
-				{ field:'Nombre',		width:15, sortable:true,	title: 'Nombre:'},
-				{ field:'Direccion1',	width:15, sortable:true,	title: 'Direcci&oacute;n 1:' },
-				{ field:'Direccion2',	width:10, sortable:false,	title: 'Direcci&oacute;n 2' },
-				{ field:'Provincia',	width:7, sortable:false,    title: 'Provincia' },
-				{ field:'Pais',	        width:5, sortable:false,    align: 'center', title: 'Pais' },
-				{ field:'Contacto1',	width:10, sortable:false,   title: 'Contacto 1' },
-				{ field:'Contacto2',	width:10, sortable:true,    title: 'Contacto 2' },
-				{ field:'Contacto3',	width:10, sortable:true,    title: 'Contacto 3' },
+				{ field:'Nombre',		width:15, sortable:true,	title: '<?php _e('Name'); ?>'+':'},
+				{ field:'Direccion1',	width:15, sortable:true,	title: '<?php _e('Address'); ?>'+' 1:' },
+				{ field:'Direccion2',	width:10, sortable:false,	title: '<?php _e('Address'); ?>'+' 2:' },
+				{ field:'Provincia',	width:7, sortable:false,    title: '<?php _e('State'); ?>' },
+				{ field:'Pais',	        width:5, sortable:false,    align: 'center', title: '<?php _e('Country'); ?>' },
+				{ field:'Contacto1',	width:10, sortable:false,   title: '<?php _e('Contact'); ?>'+' 1' },
+				{ field:'Contacto2',	width:10, sortable:true,    title: '<?php _e('Contact'); ?>'+' 2' },
+				{ field:'Contacto3',	width:10, sortable:true,    title: '<?php _e('Contact'); ?>'+' 3' },
 				{ field:'GPS',			hidden:true},
 				{ field:'Web',			hidden:true},
 				{ field:'Email',		hidden:true},
@@ -95,7 +100,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				{ field:'UCA',			width:3, sortable:true,    align: 'center', title: 'UCA',  formatter:clubesUCA },
 				// { field:'Logo',		width:2, sortable:true,    title: 'Logo club' },
 				//{ field:'Observaciones',width:2, sortable:true,    title: 'Observaciones' },
-				{ field:'Baja',			width:2, sortable:true,    align: 'center', title: 'Baja', formatter:clubesBaja }
+				{ field:'Baja',			width:2, sortable:true,    align: 'center', title: '<?php _e('Out'); ?>', formatter:clubesBaja }
 			]],
 			// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
 			rowStyler:myRowStyler,
@@ -119,11 +124,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		// key handler
        	addKeyHandler('#clubes-datagrid',newClub,editClub,deleteClub);
 		// tooltips
-		addTooltip($('#clubes-newBtn').linkbutton(),"Dar de alta un nuevo club <br/>en la Base de Datos"); 
-		addTooltip($('#clubes-editBtn').linkbutton(),"Editar los datos del club seleccionado");
-		addTooltip($('#clubes-delBtn').linkbutton(),"Borrar el club seleccionado de la BBDD");
-		addTooltip($('#clubes-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
-		addTooltip($('#clubes-datagrid-search'),"Mostrar clubes que coincidan con el criterio de busqueda");
+		addTooltip($('#clubes-newBtn').linkbutton(),'<?php _e("Create a new club <br/>and insert into database"); ?>');
+		addTooltip($('#clubes-editBtn').linkbutton(),'<?php _e("Edit data on selected club"); ?>');
+		addTooltip($('#clubes-delBtn').linkbutton(),'<?php _e("Remove club from database"); ?>');
+		addTooltip($('#clubes-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update table"); ?>');
+		addTooltip($('#clubes-datagrid-search'),'<?php _e("Look for clubes matching search criteria"); ?>');
         
     	
         function showGuiasByClub(index,club){
@@ -138,8 +143,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	    singleSelect: true,
                 view: detailview,
         	    // height: 'auto',
-        		title: 'Gu&iacute;as inscritos en el club '+club.Nombre+ ' - '+fedName(workingData.federation),
-        	    loadMsg: 'Cargando lista de guias....',
+        		title: '<?php _e('Handlers belonging to club'); ?>'+' '+club.Nombre+ ' - '+fedName(workingData.federation),
+        	    loadMsg: '<?php _e('Loading handler&#39;s list'); ?>' +' ....',
         		url: '/agility/server/database/guiaFunctions.php',
         		queryParams: { 
             		Operation:'getbyclub',
@@ -149,10 +154,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         		method: 'get',
         	    columns: [[
         	        { field:'ID',			hidden:true },	
-        	    	{ field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
-        	    	{ field:'Telefono',	width:15, sortable:true,	title: 'Tel&eacute;fono' },
-        	    	{ field:'Email',		width:25, sortable:true,    title: 'Correo Electr&oacute;nico' },
-        	    	{ field:'Observaciones',width:15,					title: 'Observaciones'}
+        	    	{ field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Name'); ?>'+':' },
+        	    	{ field:'Telefono',	width:15, sortable:true,	title: '<?php _e('Telephone'); ?>'+':' },
+        	    	{ field:'Email',		width:25, sortable:true,    title: '<?php _e('Electronic mail'); ?>'+':' },
+        	    	{ field:'Observaciones',width:15,					title: '<?php _e('Comments'); ?>'+':'}
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             	rowStyler:myRowStyler,
@@ -184,22 +189,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	// definimos inline la sub-barra de tareas para que solo aparezca al desplegar el sub formulario
         	var	toolbar= [{
             		id: 'guiasByClub-newBtn'+club.ID,
-            		text: 'Asociar gu&iacute;a',
+            		text: '<?php _e('Join handler'); ?>',
         			iconCls: 'icon-users',
         			handler: function(){ assignGuiaToClub(mySelf,club); }
         		},{
             		id: 'guiasByClub-editBtn'+club.ID,
-            		text: 'Editar gu&iacute;a',
+            		text: '<?php _e('Edit handler'); ?>',
         			iconCls: 'icon-edit',
         			handler: function(){ editGuiaFromClub(mySelf,club); }
         		},{
             		id: 'guiasByClub-delBtn'+club.ID,
-            		text: 'Des-asociar gu&iacute;a',
+            		text: '<?php _e('Dettach handler'); ?>',
         			iconCls: 'icon-remove',
         			handler: function(){ delGuiaFromClub(mySelf,club); }
         		},{
     				id: 'guiasByClub-reloadBtn'+club.ID,
-            		text: 'Actualizar',
+            		text: '<?php _e('Update'); ?>',
         			iconCls: 'icon-reload',
         			align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
        				handler: function(){ $(mySelf).datagrid('reload'); }    // reload the clubs data}
@@ -207,10 +212,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     		$(mySelf).datagrid('buildToolbar',toolbar);
         	$('#clubes-datagrid').datagrid('fixDetailRowHeight',index);
 			// tooltips de los sub-formularios
-			addTooltip($('#guiasByClub-newBtn'+club.ID).linkbutton(),"Asociar/Crear nuevo guia en el club '"+club.Nombre+"'"); 
-			addTooltip($('#guiasByClub-editBtn'+club.ID).linkbutton(),"Editar datos del gu&iacute;a seleccionado del club '"+club.Nombre+"'"); 
-			addTooltip($('#guiasByClub-delBtn'+club.ID).linkbutton(),"Desasociar al gu&iacute;a seleccionado del club '"+club.Nombre+"'"); 
-			addTooltip($('#guiasByClub-reloadBtn'+club.ID).linkbutton(),"Actualizar la lista de gu&iacute;s del club '"+club.Nombre+"'");
+			addTooltip($('#guiasByClub-newBtn'+club.ID).linkbutton(),'<?php _e("Create/Assing handler to club"); ?>'+" '"+club.Nombre+"'");
+			addTooltip($('#guiasByClub-editBtn'+club.ID).linkbutton(),'<?php _e("Edit data on handler belonging club"); ?>'+" '"+club.Nombre+"'");
+			addTooltip($('#guiasByClub-delBtn'+club.ID).linkbutton(),'<?php _e("Unassign selected handler from club"); ?>'+" '"+club.Nombre+"'");
+			addTooltip($('#guiasByClub-reloadBtn'+club.ID).linkbutton(),'<?php _e("Update handler&#39;s list on club"); ?>'+" '"+club.Nombre+"'");
             	
         } // end of "showGuiasByClub"
         
@@ -227,19 +232,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	    fitColumns: true,
         	    singleSelect: true,
         	    // height: 'auto',
-        	    loadMsg: 'Loading list of dogs',
-        		title: 'Perros registrados a nombre de '+guia.Nombre+' - '+fedName(workingData.federation),
+        	    loadMsg: '<?php _e('Loading list of dogs'); ?>',
+        		title: '<?php _e('Registered dogs belonging to'); ?>'+' '+guia.Nombre+' - '+fedName(workingData.federation),
         		url: '/agility/server/database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.ID, Federation: workingData.federation },
         		method: 'get',
         	    columns: [[
             	    { field:'ID',		width:15, sortable:true,	title: 'ID' },
-            		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
-            		{ field:'Categoria',width:15, sortable:false,	title: 'Cat.' },
-            		{ field:'Grado',	width:25, sortable:false,   title: 'Grado' },
-            		{ field:'Raza',		width:25, sortable:false,   title: 'Raza' },
-            		{ field:'LOE_RRC',	width:25, sortable:true,    title: 'LOE / RRC' },
-            		{ field:'Licencia',	width:25, sortable:true,    title: 'Licencia' }
+            		{ field:'Nombre',	width:30, sortable:true,	title: '<?php _e('Name'); ?>' },
+            		{ field:'Categoria',width:15, sortable:false,	title: '<?php _e('Cat.'); ?>' },
+            		{ field:'Grado',	width:25, sortable:false,   title: '<?php _e('Grade'); ?>' },
+            		{ field:'Raza',		width:25, sortable:false,   title: '<?php _e('Breed'); ?>' },
+            		{ field:'LOE_RRC',	width:25, sortable:true,    title: '<?php _e('KC. dogID'); ?>' },
+            		{ field:'Licencia',	width:25, sortable:true,    title: '<?php _e('Ag. Licencse'); ?>' }
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             	rowStyler: myRowStyler,
@@ -261,22 +266,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     		// toolbar: '#perrosbyguia-toolbar', 
 			var toolbar=  [{
 				id: 'perrosByGuiaByClub-newBtn'+guia.ID+'_'+club.ID,
-				text: 'Asignar perro',
+				text: '<?php _e('Assign dog'); ?>',
 				iconCls: 'icon-dog',
 				handler: function(){ assignPerroToGuia(mySelf,guia ); }
             },{
 				id: 'perrosByGuiaByClub-editBtn'+guia.ID+'_'+club.ID,
-				text: 'Editar datos',
+				text: '<?php _e('Edit dog'); ?>',
 				iconCls: 'icon-edit',
 				handler: function(){editPerroFromGuia(mySelf,guia);}
 			},{
 				id: 'perrosByGuiaByClub-delBtn'+guia.ID+'_'+club.ID,
-				text: 'Desasignar perro',
+				text: '<?php _e('Dettach dog'); ?>',
 				iconCls: 'icon-remove',
 				handler: function(){delPerroFromGuia(mySelf,guia);}
 			},{
 				id: 'perrosByGuiaByClub-reloadBtn'+guia.ID+'_'+club.ID,
-        		text: 'Actualizar',
+        		text: '<?php _e('Update'); ?>',
     			iconCls: 'icon-reload',
     			align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
    				handler: function(){ $(mySelf).datagrid('reload'); }    // reload the clubs data}
@@ -287,10 +292,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	$(parent).datagrid('fixDetailRowHeight',index);
 
 			// tooltips de los sub-formularios
-			addTooltip($('#perrosByGuiaByClub-newBtn'+guia.ID+'_'+club.ID).linkbutton(),"Crear/Asignar un nuevo perro a '"+guia.Nombre+"'"); 
-			addTooltip($('#perrosByGuiaByClub-editBtn'+guia.ID+'_'+club.ID).linkbutton(),"Editar los datos del perro asignado a '"+guia.Nombre+"'"); 
-			addTooltip($('#perrosByGuiaByClub-delBtn'+guia.ID+'_'+club.ID).linkbutton(),"Eliminar asignaci&oacute;n del perro a '"+guia.Nombre+"'");
-			addTooltip($('#perrosByGuiaByClub-reloadBtn'+guia.ID+'_'+club.ID).linkbutton(),"Actualizar la lista de perros del gu&iacute;a '"+guia.Nombre+"'");
+			addTooltip($('#perrosByGuiaByClub-newBtn'+guia.ID+'_'+club.ID).linkbutton(),'<?php _e("Declare/Assign a dog to"); ?>'+" '"+guia.Nombre+"'");
+			addTooltip($('#perrosByGuiaByClub-editBtn'+guia.ID+'_'+club.ID).linkbutton(),'<?php _e("Edit data on dog belonging to"); ?>'+" '"+guia.Nombre+"'");
+			addTooltip($('#perrosByGuiaByClub-delBtn'+guia.ID+'_'+club.ID).linkbutton(),'<?php _e("Unassign selected dog from handler"); ?>'+" '"+guia.Nombre+"'");
+			addTooltip($('#perrosByGuiaByClub-reloadBtn'+guia.ID+'_'+club.ID).linkbutton(),'<?php _e("Update list of dogs belonging to"); ?>'+" '"+guia.Nombre+"'");
         } // end of showPerrosByGuia
 </script>
 

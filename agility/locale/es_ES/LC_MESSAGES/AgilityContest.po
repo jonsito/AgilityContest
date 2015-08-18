@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-08-18 09:06+0200\n"
-"PO-Revision-Date: 2015-08-18 09:07+0200\n"
-"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2015-08-18 17:04+0200\n"
+"PO-Revision-Date: 2015-08-18 17:05+0200\n"
+"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgstr "Borrar usuario"
 msgid "Password"
 msgstr "contrase&ntilde;a"
 
-#: console/frm_admin.php:57 console/frm_admin.php:94
+#: console/frm_admin.php:57 console/frm_admin.php:94 console/frm_clubes.php:45
 msgid "Clear"
 msgstr "Limpiar"
 
@@ -130,7 +130,7 @@ msgstr "Actualizando lista de usuarios"
 msgid "Information"
 msgstr "Informaci&oacute;n"
 
-#: console/frm_admin.php:136
+#: console/frm_admin.php:136 console/frm_clubes.php:158
 msgid "Telephone"
 msgstr "Tel&eacute;fono"
 
@@ -148,7 +148,8 @@ msgstr "Actualizando lista de sesiones"
 
 #: console/frm_admin.php:173 console/frm_clasificaciones2.php:82
 #: console/frm_clasificaciones2.php:197 console/frm_clasificaciones_eq3.php:82
-#: console/frm_clasificaciones_eq3.php:197
+#: console/frm_clasificaciones_eq3.php:197 console/frm_clubes.php:86
+#: console/frm_clubes.php:157 console/frm_clubes.php:242
 msgid "Name"
 msgstr "Nombre"
 
@@ -236,6 +237,7 @@ msgid "Round"
 msgstr "Manga"
 
 #: console/frm_clasificaciones2.php:53 console/frm_clasificaciones_eq3.php:53
+#: console/frm_clubes.php:160
 msgid "Comments"
 msgstr "Observaciones"
 
@@ -439,6 +441,171 @@ msgstr "Lista de dorsales a imprimir separada por comas"
 msgid "Updating round scores"
 msgstr "Actualizando resultados de la manga"
 
+#: console/frm_clubes.php:33
+msgid "New Club"
+msgstr "Nuevo Club"
+
+#: console/frm_clubes.php:36
+msgid "Edit Club"
+msgstr "Editar club"
+
+#: console/frm_clubes.php:39
+msgid "Delete Club"
+msgstr "Borrar club"
+
+#: console/frm_clubes.php:69
+msgid "Clubs data management"
+msgstr "Gesti&oacute;n de clubes"
+
+#: console/frm_clubes.php:72
+msgid "Updating Club&#39;s list"
+msgstr "Actualizando lista de clubes"
+
+#: console/frm_clubes.php:87 console/frm_clubes.php:88
+msgid "Address"
+msgstr "Direcci&oacute;n"
+
+#: console/frm_clubes.php:89
+msgid "State"
+msgstr "Provincia"
+
+#: console/frm_clubes.php:90
+msgid "Country"
+msgstr "Pa&iacute;s"
+
+#: console/frm_clubes.php:91 console/frm_clubes.php:92
+#: console/frm_clubes.php:93
+msgid "Contact"
+msgstr "Contacto"
+
+#: console/frm_clubes.php:103
+msgid "Out"
+msgstr "Baja"
+
+#: console/frm_clubes.php:127
+msgid "Create a new club <br/>and insert into database"
+msgstr "Crea y a&ntilde;ade nuevo club<br /> a la base de datos"
+
+#: console/frm_clubes.php:128
+msgid "Edit data on selected club"
+msgstr "Modificar los datos del club seleccionado"
+
+#: console/frm_clubes.php:129
+msgid "Remove club from database"
+msgstr "Borrar el club seleccionado de la base de datos"
+
+#: console/frm_clubes.php:130
+msgid "Clear search box. Update table"
+msgstr "Borrar casilla de b&uacute;squeda. Actualizar datos"
+
+#: console/frm_clubes.php:131
+msgid "Look for clubes matching search criteria"
+msgstr "Buscar clubes que coincidan con el criterio de b&uacute;squeda"
+
+#: console/frm_clubes.php:146
+msgid "Handlers belonging to club"
+msgstr "Gu&iacute;as pertenecientes al club"
+
+#: console/frm_clubes.php:147
+msgid "Loading handler&#39;s list"
+msgstr "Cargando lista de gu&iacute;as"
+
+#: console/frm_clubes.php:159
+msgid "Electronic mail"
+msgstr "Correo electr&oacute;nico"
+
+#: console/frm_clubes.php:192
+msgid "Join handler"
+msgstr "Asociar Gu&iacute;a"
+
+#: console/frm_clubes.php:197
+msgid "Edit handler"
+msgstr "Editar gu&iacute;a"
+
+#: console/frm_clubes.php:202
+msgid "Dettach handler"
+msgstr "Desasignar gu&iacute;a"
+
+#: console/frm_clubes.php:207 console/frm_clubes.php:284
+msgid "Update"
+msgstr "Actualizar"
+
+#: console/frm_clubes.php:215
+msgid "Create/Assing handler to club"
+msgstr "Crear/Asignar gu&iacute;a al club"
+
+#: console/frm_clubes.php:216
+msgid "Edit data on handler belonging club"
+msgstr "Editar datos del gu&iacute;a asociado al club"
+
+#: console/frm_clubes.php:217
+msgid "Unassign selected handler from club"
+msgstr "Desasignar el gu&iacute;a selecionado del club"
+
+#: console/frm_clubes.php:218
+msgid "Update handler&#39;s list on club"
+msgstr "Actualizar lista de gu&iacute;as del club"
+
+#: console/frm_clubes.php:235
+msgid "Loading list of dogs"
+msgstr "Cargando lista de perros"
+
+#: console/frm_clubes.php:236
+msgid "Registered dogs belonging to"
+msgstr "Lista de perros asignados a"
+
+#: console/frm_clubes.php:243 console/frm_equipos.php:141
+#: public/pb_inscripciones_equipos.php:87
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:548
+#: server/pdf/print_resultadosByEquipos.php:83
+msgid "Cat."
+msgstr "Cat."
+
+#: console/frm_clubes.php:244
+msgid "Grade"
+msgstr "Grado"
+
+#: console/frm_clubes.php:245
+msgid "Breed"
+msgstr "Raza"
+
+#: console/frm_clubes.php:246
+msgid "KC. dogID"
+msgstr "LOE / RRC"
+
+#: console/frm_clubes.php:247
+msgid "Ag. Licencse"
+msgstr "Licencia"
+
+#: console/frm_clubes.php:269
+msgid "Assign dog"
+msgstr "Asignar perro"
+
+#: console/frm_clubes.php:274
+msgid "Edit dog"
+msgstr "Editar perro"
+
+#: console/frm_clubes.php:279
+msgid "Dettach dog"
+msgstr "Desasignar perro"
+
+#: console/frm_clubes.php:295
+msgid "Declare/Assign a dog to"
+msgstr "Crear/Asignar perro a"
+
+#: console/frm_clubes.php:296
+msgid "Edit data on dog belonging to"
+msgstr "Editar datos del perro perteneciente a"
+
+#: console/frm_clubes.php:297
+msgid "Unassign selected dog from handler"
+msgstr "Desasignar perro seleccionado del gu&iacute;a"
+
+#: console/frm_clubes.php:298
+msgid "Update list of dogs belonging to"
+msgstr "Actualizar lista de perros asignados a"
+
 #: console/frm_competicion.php:46
 msgid "Equipos -3 mejores-"
 msgstr "Equipos -3 mejores-"
@@ -538,7 +705,6 @@ msgid "Cancelar"
 msgstr "Cancelar"
 
 #: console/frm_equipos.php:127 public/pb_inscripciones_equipos.php:75
-#: console/dialogs/dlg_ordensalida.inc:73
 msgid "Actualizando lista de equipos"
 msgstr "Actualizando lista de equipos"
 
@@ -550,17 +716,8 @@ msgstr "Actualizando lista de equipos"
 #: server/pdf/print_ordenDeSalida.php:72
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62
-#: console/dialogs/dlg_ordensalida.inc:84
 msgid "Nombre"
 msgstr "Nombre"
-
-#: console/frm_equipos.php:141 public/pb_inscripciones_equipos.php:87
-#: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_inscritosByPrueba.php:548
-#: server/pdf/print_resultadosByEquipos.php:83
-#: console/dialogs/dlg_ordensalida.inc:85
-msgid "Cat."
-msgstr "Cat."
 
 #: console/frm_equipos.php:142 console/frm_equipos.php:227
 #: console/frm_equipos.php:295 public/pb_inscripciones_equipos.php:88
@@ -568,7 +725,6 @@ msgstr "Cat."
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:548
 #: server/pdf/print_ordenDeSalida.php:72
-#: console/dialogs/dlg_ordensalida.inc:86
 msgid "Observaciones"
 msgstr "Observaciones"
 
@@ -1045,13 +1201,11 @@ msgstr "Resultados"
 msgid "Resultados Manga"
 msgstr "Resultados Manga"
 
-#: console/dialogs/dlg_equipos.inc:38
-msgid "Categor&iacute;as"
-msgstr "Categor&iacute;as"
+#~ msgid "Categor&iacute;as"
+#~ msgstr "Categor&iacute;as"
 
-#: console/dialogs/dlg_jornadas.inc:26
-msgid "Informaci&oacute;n de la Jornada"
-msgstr "Informaci&oacute;n de la Jornada"
+#~ msgid "Informaci&oacute;n de la Jornada"
+#~ msgstr "Informaci&oacute;n de la Jornada"
 
 #~ msgid "Actualizando resultados de la ronda..."
 #~ msgstr "Actualizando resultados de la ronda..."
