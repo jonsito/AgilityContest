@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-08-18 02:00+0200\n"
-"PO-Revision-Date: 2015-08-18 02:00+0200\n"
+"POT-Creation-Date: 2015-08-18 09:06+0200\n"
+"PO-Revision-Date: 2015-08-18 09:07+0200\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -848,7 +848,7 @@ msgstr "Iniciar Sesi&oacute;n"
 
 #: scripts/auth.js.php:37 scripts/auth.js.php:74
 msgid "End session"
-msgstr "Editar Sesi&oacute;n"
+msgstr "Finalizar Sesi&oacute;n"
 
 #: scripts/auth.js.php:43
 msgid "Direct access to DataBase"
