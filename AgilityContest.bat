@@ -1,4 +1,5 @@
 @echo off
+set LANG=es_ES
 cd /d %~dp0\..\xampp
 echo AgilityContest Launch Script
 echo MySQL Database is trying to start
