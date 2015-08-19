@@ -422,7 +422,7 @@ CREATE TABLE `guias` (
   KEY `Guias_Nombre` (`Nombre`),
   KEY `Guias_Club` (`Club`),
   CONSTRAINT `Guias_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `clubes` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1135 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1144 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -541,7 +541,7 @@ INSERT INTO `guias` VALUES
 (109,'David Alique','','',22,0,''),
 (110,'David Asenjo','','',42,0,''),
 (111,'David Escribano','','',27,0,''),
-(112,'David Ferrer','','',89,0,''),
+(112,'David Ferrer Tudó','','',89,0,''),
 (113,'David Flix Bermejo','','',67,0,''),
 (114,'David Gómez-Calcerrada','','',48,0,''),
 (115,'David Gonzalbo',NULL,NULL,31,0,NULL),
@@ -680,7 +680,7 @@ INSERT INTO `guias` VALUES
 (253,'José Miguel Morant',NULL,NULL,48,0,NULL),
 (254,'José Miguel Paredes',NULL,NULL,72,0,NULL),
 (255,'José Moreno','','',109,0,''),
-(256,'José Pavon Rodríguez','','',29,0,''),
+(256,'José Pavón Rodríguez','','',29,0,''),
 (257,'José Perís','','',7,0,''),
 (258,'Jose Ramón López','','',35,0,''),
 (259,'José Santos Luna','','',27,0,''),
@@ -981,7 +981,7 @@ INSERT INTO `guias` VALUES
 (557,'Miriam Fraile Gutiérrez','','',10,0,''),
 (559,'Noelia Lobato','','',39,0,''),
 (560,'Hur Ayo','','',36,0,''),
-(561,'Izaskun Garitaonaindia','','',36,0,''),
+(561,'Izaskun Garitaonandia','','',36,0,''),
 (562,'Alfredo Tuset','','',7,0,''),
 (563,'David Martinez','','',49,0,''),
 (564,'Beatriz Cascón','','',42,0,''),
@@ -1285,7 +1285,7 @@ INSERT INTO `guias` VALUES
 (867,'Wifredo Seller','','',24,0,''),
 (868,'Alan Blanchard','','',48,0,''),
 (869,'Carmen Valls','','',24,0,''),
-(870,'Salvador Aranda','','',89,0,''),
+(870,'Salvador Aranda Romero','','',89,0,''),
 (871,'Marian Campderros','','',45,0,''),
 (872,'Jesús López','','',73,0,''),
 (873,'Juan Pablo Ibáñez','','',45,0,''),
@@ -1362,7 +1362,7 @@ INSERT INTO `guias` VALUES
 (945,'Yolanda López','','',23,0,''),
 (946,'Tamara Trigueros','','',36,0,''),
 (947,'Pere Vicente Chovares','','',33,0,''),
-(948,'Maria Cervantes','','',61,0,''),
+(948,'Maria Cervantes','','',30,0,''),
 (949,'Teresa Torralbo','','',59,0,''),
 (950,'Dolores Gil','','',49,0,''),
 (951,'Estefanía Hernández','','',48,0,''),
@@ -1545,7 +1545,16 @@ INSERT INTO `guias` VALUES
 (1131,'Ana Soto','','',19,0,''),
 (1132,'Nacho Jordán','','',19,0,''),
 (1133,'Jorge Pires','','',112,0,''),
-(1134,'Elena Giner','','',23,0,'');
+(1134,'Elena Giner','','',23,0,''),
+(1135,'Ana Aguilella','','',23,0,''),
+(1136,'Carmen Jurado','','',29,0,''),
+(1137,'Aida Perez','','',29,0,''),
+(1138,'Celia Anton','','',30,0,''),
+(1139,'Fina Anduix','','',32,0,''),
+(1140,'Ana Bustamante','','',32,0,''),
+(1141,'Angel Hernán','','',36,0,''),
+(1142,'Leticia Caminos','','',36,0,''),
+(1143,'Mainé Postiglioni','','',36,0,'');
 /*!40000 ALTER TABLE `guias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1841,7 +1850,7 @@ CREATE TABLE `perros` (
   CONSTRAINT `Perros_ibfk_1` FOREIGN KEY (`Categoria`) REFERENCES `categorias_perro` (`Categoria`) ON UPDATE CASCADE,
   CONSTRAINT `Perros_ibfk_2` FOREIGN KEY (`Grado`) REFERENCES `grados_perro` (`Grado`) ON UPDATE CASCADE,
   CONSTRAINT `Perros_ibfk_3` FOREIGN KEY (`Guia`) REFERENCES `guias` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1503 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1518 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2270,7 +2279,7 @@ INSERT INTO `perros` VALUES
 (427,'Kala','Yorkshire Terrier','','1574','S',99,0,'GII'),
 (428,'Andy','Border Collie','120507','A671','L',317,0,'GII'),
 (429,'Beep','','2109166','A885','L',392,0,'GII'),
-(430,'Ella','Border collie','116980','A922','L',316,0,'GII'),
+(430,'Ella','Bearded collie','116980','A922','L',316,0,'GII'),
 (431,'Nya','Border Collie','','','L',3,0,'GI'),
 (432,'Tibet','','','','L',103,0,'GI'),
 (433,'Kenzo','','','','L',460,0,'GI'),
@@ -2288,7 +2297,7 @@ INSERT INTO `perros` VALUES
 (445,'C\'Inka','P.B. Malinoise','2090318','A699','L',100,0,'GIII'),
 (446,'Nupsi','Perro de Aguas Español','2081038','A694','L',75,0,'GII'),
 (447,'Inka','Border Collie','1926700','A381','L',386,0,'GIII'),
-(449,'Itoitz','','130042','A713','L',13,0,'GII'),
+(449,'Itoitz','R. Bodeguero Andaluz','130042','A713','L',13,0,'GII'),
 (450,'Xira','','127424','A567','L',5,0,'GII'),
 (452,'Luna','','136920','A809','L',50,0,'GII'),
 (453,'Lord-Enzo','Border Collie','2059952','A666','L',389,0,'GII'),
@@ -2318,7 +2327,7 @@ INSERT INTO `perros` VALUES
 (478,'Charli','','2018170','A655','L',63,0,'GII'),
 (479,'Lia','','','1563','L',304,0,'GII'),
 (480,'Nica','','139463','A875','S',157,0,'GII'),
-(482,'Ursus','','','1604','S',184,0,'GII'),
+(482,'Ursus','Mestizo','','1604','S',184,0,'GII'),
 (483,'Ela','','2024095','A618','S',363,0,'GII'),
 (484,'Lua','','134634','A786','S',61,0,'GII'),
 (485,'Wembley','','','A769','S',76,0,'GII'),
@@ -2368,7 +2377,7 @@ INSERT INTO `perros` VALUES
 (530,'Samba','','','A702','M',385,0,'GII'),
 (531,'Charlie','','129893','A532','S',385,0,'GIII'),
 (532,'Alan','Galgo','','','L',190,0,'GI'),
-(533,'Moly','','','1621','L',70,0,'GII'),
+(533,'Moly','Mestizo','','1621','L',70,0,'GII'),
 (534,'Pipa','','1843362','A718','S',297,0,'GII'),
 (535,'Chola','Cocker Spaniel','1651864','A691','M',329,0,'GII'),
 (536,'Blue','','','','S',21,0,'GI'),
@@ -2475,7 +2484,7 @@ INSERT INTO `perros` VALUES
 (644,'Boss','Border Collie','1528991','0797','L',530,0,'GI'),
 (646,'Nora','Border Coliie','120348','A624','L',265,0,'GII'),
 (647,'Maggie','Border Collie','137896','A817','L',406,0,'GIII'),
-(648,'karioka','','2086580','A534','L',35,0,'GIII'),
+(648,'Karioka','Border Collie','2086580','A534','L',35,0,'GIII'),
 (649,'Nikita','P.B. Malinoise','1745715','A087','L',532,0,'GIII'),
 (651,'Laila','P. B. Groenendael','2078172','A592','L',292,0,'GIII'),
 (652,'Panza-Ulima','Perro de Aguas Español','1482128','A614','M',189,0,'GIII'),
@@ -2510,7 +2519,7 @@ INSERT INTO `perros` VALUES
 (681,'Xesta','Border Collie','2138747','A948','L',277,0,'GII'),
 (682,'Ska','Border Collie','2091102','A888','L',181,0,'GII'),
 (683,'Luke Skywalker','Border Collie','132793','A935','L',551,0,'GII'),
-(684,'Blue Jazz','Border Collie','2108922','A854','L',182,0,'GII'),
+(684,'Blue Jazz','Border Collie','2108922','A854','L',1135,0,'GII'),
 (685,'Hanna','','','','M',424,0,'P.A.'),
 (686,'Ella','','','','S',552,0,'GI'),
 (687,'Mía','','','','S',552,0,'P.A.'),
@@ -2539,7 +2548,7 @@ INSERT INTO `perros` VALUES
 (714,'Gala','Border Collie','119634','A500','L',571,0,'GIII'),
 (715,'Cuco','','','1555','L',91,0,'GII'),
 (717,'Luna','','','1643','L',572,0,'GII'),
-(718,'Izar','','142043','A943','L',573,0,'GII'),
+(718,'Izar','Border Collie','142043','A943','L',573,0,'GII'),
 (719,'Mitsuko Kika','Border Collie','2182215','A996','L',143,0,'GII'),
 (720,'Duncan','Border Collie','2010902','A684','L',574,0,'GII'),
 (721,'Tom','P.B. Groenendael','','1648','L',575,0,'GII'),
@@ -2558,7 +2567,7 @@ INSERT INTO `perros` VALUES
 (735,'Ava','Caniche','125664','A667','S',583,0,'GII'),
 (736,'Alegra','Papillon','','A258','S',360,0,'GIII'),
 (738,'Ray','Pinscher','142794','B048','S',561,0,'GII'),
-(739,'Bruno','','128071','A951','S',585,0,'GII'),
+(739,'Bruno','Jack Russell','128071','A951','S',585,0,'GII'),
 (740,'Lua','Border Collie','2100422','A729','L',586,0,'GIII'),
 (741,'Maqui','','','1575','L',251,0,'GIII'),
 (742,'Shiro','Shetland Sheepdog','1998416','A799','M',587,0,'GIII'),
@@ -2619,7 +2628,7 @@ INSERT INTO `perros` VALUES
 (810,'Gustavo','Shetland','','','S',628,0,'GI'),
 (811,'Yuen','Border collie','','','S',307,0,'P.A.'),
 (812,'Argi','','','','L',632,0,'GI'),
-(813,'Mendi','Border collie','','','L',633,0,'GI'),
+(813,'Mendi','Border collie','','','L',633,0,'GII'),
 (814,'Xena','Border collie','','','L',560,0,'GI'),
 (815,'Frankie','Beagle','','','M',634,0,'GII'),
 (816,'Hartza','Beagle','','B010','M',635,0,'GII'),
@@ -2655,7 +2664,7 @@ INSERT INTO `perros` VALUES
 (851,'Rita','Jack rusell','','','S',664,0,'GI'),
 (852,'Thera','Carlino','130047','A720','S',665,0,'GII'),
 (854,'Bubu','Caniche','2113016','A934','S',667,0,'GII'),
-(855,'Oker','','','1655','L',668,0,'GII'),
+(855,'Oker','Mestizo','','1655','L',668,0,'GII'),
 (856,'Carbin','Border collie','','','S',669,0,'P.A.'),
 (857,'Tor','Labrador','','','S',670,0,'P.A.'),
 (858,'Bart','Border collie','','','S',671,0,'P.A.'),
@@ -3003,9 +3012,9 @@ INSERT INTO `perros` VALUES
 (1210,'Doc','','1875481','A762','L',575,0,'GII'),
 (1211,'Blau','','1977461','A771','M',918,0,'GII'),
 (1212,'Manchas','','134672','A772','L',470,0,'GII'),
-(1213,'Dandy','','137910','A774','L',256,0,'GIII'),
+(1213,'Dandy','Perro de Aguas Español','137910','A774','L',256,0,'GIII'),
 (1214,'Ginger','','135046','A776','S',919,0,'GII'),
-(1215,'Greta','','137911','A777','M',920,0,'GII'),
+(1215,'Greta','Perro de Aguas Español','137911','A777','M',920,0,'GIII'),
 (1216,'Gala','','2059993','A778','S',921,0,'GII'),
 (1217,'Tilo','','2127548','A779','L',922,0,'GII'),
 (1218,'Lia','','135488','A780','L',923,0,'GII'),
@@ -3017,7 +3026,7 @@ INSERT INTO `perros` VALUES
 (1224,'showa','','2074044','A810','L',926,0,'GII'),
 (1225,'Hugo','','131689','A814','M',927,0,'GII'),
 (1226,'Cleo','','2110488','A816','L',533,0,'GII'),
-(1227,'Lana','','131581','A818','M',928,0,'GII'),
+(1227,'Lana','Perro de Aguas Español','131581','A818','M',928,0,'GII'),
 (1228,'Verde','','1940533','A820','L',929,0,'GII'),
 (1229,'Greta','Border Collie','2123441','A822','L',250,0,'GII'),
 (1230,'Saphira','','135477','A827','S',930,0,'GII'),
@@ -3036,23 +3045,23 @@ INSERT INTO `perros` VALUES
 (1243,'Wish','','2116891','A858','M',366,0,'GII'),
 (1244,'Junior Stray','','137902','A864','L',940,0,'GII'),
 (1245,'Greta','Border Collie','2125840','A865','L',941,0,'GII'),
-(1246,'Pixar','','2080761','A866','S',942,0,'GII'),
+(1246,'Pixar','Jack Russell Terrier','2080761','A866','S',942,0,'GII'),
 (1247,'E.T.','Perro de Aguas Español','2107590','A867','L',943,0,'GII'),
 (1248,'Rauxa','Border Collie','2120702','A868','L',944,0,'GII'),
 (1249,'Vega','','132118','A871','L',945,0,'GII'),
 (1250,'Yi','','2020196','A872','L',946,0,'GII'),
 (1251,'La Roja','','2105643','A874','L',240,0,'GII'),
 (1252,'Bambam','','1678350','A878','L',947,0,'GII'),
-(1253,'Golfo','','137203','A879','S',948,0,'GII'),
+(1253,'Golfo','Bulldog Frances','137203','A879','S',948,0,'GII'),
 (1254,'Copo','','2015867','A881','L',949,0,'GII'),
 (1255,'Murguia Malu','','139471','A882','L',950,0,'GII'),
 (1256,'Afric','','139721','A884','M',951,0,'GII'),
 (1257,'Ayrton','P.B. Malinoise','2117525','A891','L',952,0,'GII'),
 (1258,'Lokan','','111761','A895','L',953,0,'GII'),
 (1259,'Simba','','127570','A896','L',954,0,'GII'),
-(1260,'Kai','','2122627','A902','L',955,0,'GII'),
+(1260,'Kai','Border Collie','2122627','A902','L',955,0,'GII'),
 (1261,'Freud','','2079904','A905','L',956,0,'GII'),
-(1262,'Rumba','','2151518','A907','L',918,0,'GII'),
+(1262,'Rumba','P.B. Malinoise','2151518','A907','L',918,0,'GIII'),
 (1263,'Eru','BorderCollie','2105642','A908','L',861,0,'GII'),
 (1264,'Nicky','','2209227','A909','M',958,0,'GII'),
 (1265,'Dana','','142227','A910','M',959,0,'GII'),
@@ -3064,7 +3073,7 @@ INSERT INTO `perros` VALUES
 (1271,'Bell','','1831577','A919','L',964,0,'GII'),
 (1272,'Sira','','140594','A921','L',965,0,'GII'),
 (1273,'Hartza','','142042','A923','L',966,0,'GII'),
-(1274,'India','','2122630','A925','L',967,0,'GII'),
+(1274,'India','Border Collie','2122630','A925','L',967,0,'GII'),
 (1275,'Nara','','2138748','A933','L',22,0,'GII'),
 (1276,'Pax','','1769945','A936','S',968,0,'GII'),
 (1277,'Kiara','','134733','A937','L',969,0,'GII'),
@@ -3284,7 +3293,22 @@ INSERT INTO `perros` VALUES
 (1499,'Chloe','Pomerania','','1677','S',1131,0,'GII'),
 (1500,'Sweet','Sheetland Sheepdog','','','S',1132,0,'Baja'),
 (1501,'Galli','Border Collie','','','L',1133,0,'GI'),
-(1502,'Lula','','','','M',1134,0,'P.A.');
+(1502,'Lula','','','','M',1134,0,'P.A.'),
+(1503,'Pua','Perro de Aguas Español','','B050','M',933,0,'GII'),
+(1504,'Sofi','Schnauzer miniatura','','B049','M',1134,0,'GII'),
+(1505,'Karen','Border Collie','','','L',920,0,'P.A.'),
+(1506,'Nushka','Border Collie','','','L',256,0,'GI'),
+(1507,'Leo','Perro de Aguas Español','','','M',1136,0,'GI'),
+(1508,'Blau','Perro de Aguas Español','','','M',1137,0,'GI'),
+(1509,'Zero','Parson Russel','','','S',1138,0,'P.A.'),
+(1510,'cooper','Jack Russel','','','S',948,0,'P.A.'),
+(1511,'Logan','Weimaraner','','','L',1138,0,'GI'),
+(1512,'Nora','Border Collie','','','L',1139,0,'GI'),
+(1513,'Templanza','Border Collie','','','L',1140,0,'GI'),
+(1514,'Viento','Border Collie','','','L',35,0,'GI'),
+(1515,'Dina ','Bretón Español','','','L',1141,0,'GII'),
+(1516,'Lobo','Mestizo','','','L',1142,0,'GII'),
+(1517,'Mina','Mestizo','','','S',1143,0,'GII');
 /*!40000 ALTER TABLE `perros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3482,7 +3506,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=396 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=399 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3497,8 +3521,8 @@ INSERT INTO `sesiones` VALUES
 (3,'Ring 2','Mangas a realizar en el segundo ring',5,'RfACb3MEl5ieNkgr',13,97,0,0,'',NULL,NULL,NULL,'2015-06-05 16:38:46'),
 (4,'Ring 3','Mangas a realizar en el tercer ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (5,'Ring 4','Mangas a realizar en el cuarto ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
-(394,'Console','admin - Administrador de la aplicacion',3,'YU3mflQByI0tCRF5',0,0,0,0,'',NULL,NULL,NULL,'2015-08-19 08:52:56'),
-(395,'Console','operator - Operador de consola',4,'DtlgxyqOB6M2f8Ri',0,0,0,0,'',NULL,NULL,NULL,'2015-08-19 09:53:53');
+(396,'Console','admin - Administrador de la aplicacion',3,'4oCPfylFje8s5Dni',0,0,0,0,'',NULL,NULL,NULL,'2015-08-19 13:23:29'),
+(398,'Console','operator - Operador de consola',4,'s0NPnImSY9q6pBQg',0,0,0,0,'',NULL,NULL,NULL,'2015-08-19 13:48:52');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
