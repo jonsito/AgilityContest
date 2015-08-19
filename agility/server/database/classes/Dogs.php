@@ -182,7 +182,7 @@ class Dogs extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		if ($search!=="") $where="( (Nombre LIKE '%$search%') OR ( NombreGuia LIKE '%$search%') OR ( NombreClub LIKE '%$search%') )";
+		if ($search!=="") $where="( (Nombre LIKE '%$search%') OR ( NombreGuia LIKE '%$search%') OR ( Licencia LIKE '%$search%') OR ( NombreClub LIKE '%$search%') )";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "PerroGuiaClub",
