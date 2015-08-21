@@ -31,20 +31,20 @@ $config =Config::getInstance();
 <div id="team_datagrid-toolbar" style="width:100%;display:inline-block">
    	<span style="float:left;padding:5px">
    		<a id="team_datagrid-newBtn" href="#" class="easyui-linkbutton"	data-options="iconCls:'icon-add'"
-   			onclick="newTeam('#team_datagrid',$('#team_datagrid-search').val())">Nuevo</a>
+   			onclick="newTeam('#team_datagrid',$('#team_datagrid-search').val())"><?php _e('New'); ?></a>
    		<a id="team_datagrid-editBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'"
-   			onclick="editTeam('#team_datagrid')">Editar</a>
+   			onclick="editTeam('#team_datagrid')"><?php _e('Edit'); ?></a>
    		<a id="team_datagrid-delBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-trash'"
-   			onclick="deleteTeam('#team_datagrid')">Borrar</a>
+   			onclick="deleteTeam('#team_datagrid')"><?php _e('Delete'); ?></a>
    		<input id="team_datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"/>
    	</span>
    	<span style="float:right;padding:5px">
 		<a id="team_datagrid-checkBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-help'"
-			onclick="checkTeams('#team_datagrid')"><?php _e('Verificar');?></a>
+			onclick="checkTeams('#team_datagrid')"><?php _e('Verify');?></a>
 		<a id="team_datagrid-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'"
-			onclick="printTeams('#team_datagrid')"><?php _e('Imprimir');?></a>
+			onclick="printTeams('#team_datagrid')"><?php _e('Print');?></a>
    		<a id="team_datagrid-reloadBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-brush'"
-   			onclick="$('#team_datagrid-search').val('---- Buscar ----');reloadWithSearch('#team_datagrid','select',true);">Limpiar</a>
+   			onclick="$('#team_datagrid-search').val('---- Buscar ----');reloadWithSearch('#team_datagrid','select',true);"><?php _e('Clear'); ?></a>
    	</span>
 </div>
 
@@ -52,7 +52,7 @@ $config =Config::getInstance();
 <div id="team_datagrid-buttons" style="width:100%;display:inline-block">
 	<span style="float:right;padding:5px">
    		<a id="team_datagrid-doneBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'"
-   			onclick="$('#team_datagrid-dialog').dialog('close')">Hecho</a>
+   			onclick="$('#team_datagrid-dialog').dialog('close')"><?php _e('Done'); ?></a>
    	</span>
 </div>
  
@@ -66,17 +66,17 @@ $config =Config::getInstance();
 					<input type="hidden" id="selteam-Operation" name="Operation" value="update_team"/>
 					<input type="hidden" id="selteam-Prueba" name="Prueba"/>
 					<input type="hidden" id="selteam-Jornada" name="Jornada"/>
-					<label for="selteam-Nombre"><?php _e('Perro');?>:</label>
+					<label for="selteam-Nombre"><?php _e('Dog');?>:</label>
 					<input type="text" id="selteam-Nombre" name="Nombre" readonly="readonly"/>
 					<input type="hidden" id="selteam-Perro" name="Perro"/>
 				</div>
 				<div class="fitem">
-					<label for="selteam-LongCategoria"><?php _e('Categor&iacute;a');?>:</label>
+					<label for="selteam-LongCategoria"><?php _e('Category');?>:</label>
 					<input type="text" id="selteam-LongCategoria" name="LongCategoria" readonly="readonly"/>
 					<input type="hidden" id="selteam-Categoria" name="Categoria"/>
 				</div>
 				<div class="fitem">
-					<label for="selteam-NombreGuia"><?php _e('Gu&iacute;a');?>:</label>
+					<label for="selteam-NombreGuia"><?php _e('Handler');?>:</label>
 					<input type="text" id="selteam-NombreGuia" name="NombreGuia" readonly="readonly"/>
 					<input type="hidden" id="selteam-Guia" name="Guia"/>
 				</div>
@@ -86,7 +86,7 @@ $config =Config::getInstance();
 					<input type="hidden" id="selteam-Club" name="Club"/>
 				</div>
 				<div class="fitem">
-					<label for="selteam-Equipo"><?php _e('Equipo');?>:</label>
+					<label for="selteam-Equipo"><?php _e('Team');?>:</label>
 					<select id="selteam-Equipo" name="Equipo" style="width:200px"></select>
 					<input type="hidden" id="selteam-ID" name="ID"/><!-- will be rewritten with team-ID on submit -->
 				</div>
@@ -95,9 +95,9 @@ $config =Config::getInstance();
 		<div data-options="region:'center'"></div>
 		<div id="selteam-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
 			<a id="selteam-okBtn" href="#" class="easyui-linkbutton" 
-				data-options="iconCls:'icon-ok'" onclick="changeTeam()"><?php _e('Aceptar');?></a>
+				data-options="iconCls:'icon-ok'" onclick="changeTeam()"><?php _e('Accept');?></a>
 			<a id="selteam-cancelBtn" href="#" class="easyui-linkbutton" 
-				data-options="iconCls:'icon-cancel'" onclick="$('#selteam-window').window('close');"><?php _e('Cancelar');?></a>
+				data-options="iconCls:'icon-cancel'" onclick="$('#selteam-window').window('close');"><?php _e('Cancel');?></a>
 		</div>	<!-- botones -->
 	</div> <!-- Layout -->
 </div> <!-- Window -->
@@ -114,7 +114,7 @@ $('#team_datagrid-dialog').dialog({
 	minimizable:false,
 	maximizable:false,
 	resizable:true,
-	title:"Gestion de Equipos de la prueba: '"+workingData.datosPrueba.Nombre+"'",
+	title:'<?php _e("Team management on contest");?>'+": '"+workingData.datosPrueba.Nombre+"'",
 	closed:true,
 	onClose: function() { $('#inscripciones-datagrid').datagrid('reload'); }
 });
@@ -124,7 +124,7 @@ $('#team_datagrid').datagrid({
 	fit: true,
 	url: '/agility/server/database/equiposFunctions.php',
 	queryParams: { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''	},
-	loadMsg: '<?php _e('Actualizando lista de equipos');?> ...',
+	loadMsg: '<?php _e('Updating team list');?> ...',
     footer: '#team_datagrid-buttons',
     toolbar: '#team_datagrid-toolbar',
 	method: 'get',
@@ -137,9 +137,9 @@ $('#team_datagrid').datagrid({
         { field:'Prueba',		hidden:true },
 		{ field:'Jornada',		hidden:true },
 		// { field:'Orden',		hidden:true },
- 		{ field:'Nombre',		width:50, sortable:true,	title: '<?php _e('Nombre');?>' },
-		{ field:'Categorias',	width:10, sortable:true,	title: '<?php _e('Cat.');?>' },
-		{ field:'Observaciones',width:35, sortable:true,	title: '<?php _e('Observaciones');?>'},
+ 		{ field:'Nombre',		width:50, sortable:true,	title: '<?php _e('Name');?>' },
+		{ field:'Categorias',	width:10, sortable:true,	title: '<?php _e('Cat');?>.' },
+		{ field:'Observaciones',width:35, sortable:true,	title: '<?php _e('Comments');?>'},
 		{ field:'Miembros',		hidden:true },
 		{ field:'DefaultTeam',	width:5, sortable:false,	align: 'center', title: 'Def', formatter:formatOk }
     ]],
@@ -177,14 +177,14 @@ $('#team_datagrid').datagrid({
 // key handler
 addKeyHandler('#team_datagrid',newTeam,editTeam,deleteTeam);
 // - tooltips
-addTooltip($('#team_datagrid-search'),"Mostrar equipos que coincidan con el criterio de busqueda");
-addTooltip($('#team_datagrid-newBtn').linkbutton(),"Declarar un nuevo equipo para la prueba");
-addTooltip($('#team_datagrid-editBtn').linkbutton(),"Editar nombre/observaciones del equipo seleccionado");
-addTooltip($('#team_datagrid-delBtn').linkbutton(),"Eliminar datos del equipo en la prueba");
-addTooltip($('#team_datagrid-reloadBtn').linkbutton(),"Borrar casilla de busqueda. Actualizar listado de equipos");
+addTooltip($('#team_datagrid-search'),'<?php _e("Show teams matching search criteria");?>');
+addTooltip($('#team_datagrid-newBtn').linkbutton(),'<?php _e("Declare a new team on this contest");?>');
+addTooltip($('#team_datagrid-editBtn').linkbutton(),'<?php _e("Edit data on selected team");?>');
+addTooltip($('#team_datagrid-delBtn').linkbutton(),'<?php _e("Remove team on this contest");?>');
+addTooltip($('#team_datagrid-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update team list");?>');
 addTooltip($('#team_datagrid-checkBtn').linkbutton(),"<?php _e('Comprobar equipos. Indicar los problemas encontrados');?>");
 addTooltip($('#team_datagrid-printBtn').linkbutton(),"<?php _e('Imprimir la lista de equipos de la jornada <br />y los miembros de cada equipo');?>");
-addTooltip($('#team_datagrid-doneBtn').linkbutton(),"Cerrar la ventana. Volver al menu anterior");
+addTooltip($('#team_datagrid-doneBtn').linkbutton(),'<?php _e("Close windows. Return to previous menu");?>');
 
 //mostrar las inscripciones agrupadas por equipos
 function showInscripcionesByTeam(index,team){
@@ -193,12 +193,12 @@ function showInscripcionesByTeam(index,team){
 	$(mySelf).datagrid({
 		width: '100%',
 		height: 'auto',
-		title: '<?php _e('Inscripciones registradas en el equipo');?>: '+team.Nombre,
+		title: '<?php _e('Registered inscriptions on team');?>: '+team.Nombre,
 		pagination: false,
 		rownumbers: false,
 		fitColumns: true,
 		singleSelect: true,
-		loadMsg: '<?php _e('Leyendo inscripciones....');?>',
+		loadMsg: '<?php _e('Reading inscription list');?>...',
 		url: '/agility/server/database/inscripcionFunctions.php',
 		queryParams: { Operation: 'inscritosbyteam', Prueba:workingData.prueba, Jornada:workingData.jornada, Equipo: team.ID },
 		method: 'get',
@@ -217,15 +217,15 @@ function showInscripcionesByTeam(index,team){
 			{ field:'LOE_RRC',	hidden:true }, // LOE/RRC
 			{ field:'Club',		hidden:true }, // Club ID
 			{ field:'Dorsal',	width:6,        sortable:true, align: 'right',	title: '<?php _e('Dorsal'); ?>' },
-			{ field:'Nombre',	width:15,       sortable:true, align: 'right',	title: '<?php _e('Nombre'); ?>' },
-			{ field:'Licencia',	width:6,        sortable:true, align: 'center',title: '<?php _e('Lic');    ?>' },
+			{ field:'Nombre',	width:15,       sortable:true, align: 'right',	title: '<?php _e('Name'); ?>' },
+			{ field:'Licencia',	width:6,        sortable:true, align: 'center', title: '<?php _e('Lic');    ?>' },
 			{ field:'Categoria',width:4,        sortable:false, align: 'center',title: '<?php _e('Cat');    ?>' },
-			{ field:'Grado',	width:6,        sortable:false, align: 'center',title: '<?php _e('Grado');  ?>' },
-			{ field:'NombreGuia',	width:25,   sortable:true, align: 'right',	title: '<?php _e('Gu&iacute;a'); ?>' },
+			{ field:'Grado',	width:6,        sortable:false, align: 'center',title: '<?php _e('Grade');  ?>' },
+			{ field:'NombreGuia',	width:25,   sortable:true, align: 'right',	title: '<?php _e('Handler'); ?>' },
 			{ field:'NombreClub',	width:15,   sortable:true, align: 'right',	title: '<?php _e('Club');   ?>' },
 			{ field:'NombreEquipo',	hidden:true },
-			{ field:'Observaciones',width:15,                                   title: '<?php _e('Observaciones');?>' },
-			{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	title: '<?php _e('Celo');   ?>' }
+			{ field:'Observaciones',width:15,                                   title: '<?php _e('Comments');?>' },
+			{ field:'Celo',		width:4, align:'center', formatter: formatCelo,	title: '<?php _e('Heat');   ?>' }
  		]],
 		// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
 		rowStyler: myRowStyler,
@@ -250,7 +250,7 @@ function showInscripcionesByTeam(index,team){
 } // end of showPerrosByGuia
 
 $('#selteam-window').window({
-	title: '<?php _e('Selecciona nuevo equipo');?>',
+	title: '<?php _e('Select new team');?>',
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,
@@ -260,8 +260,8 @@ $('#selteam-window').window({
 	modal: true
 });
 
-addTooltip($('#selteam-okBtn').linkbutton(),"<?php _e('Asignar el participante al equipo seleccionado');?>");
-addTooltip($('#selteam-cancelBtn').linkbutton(),"<?php _e('Cancelar selecci&oacute;n. Cerrar ventana');?>");
+addTooltip($('#selteam-okBtn').linkbutton(),"<?php _e('Assing competitor to selected team');?>");
+addTooltip($('#selteam-cancelBtn').linkbutton(),"<?php _e('Cancel selection. Close window');?>");
 
 //datos del formulario de asignacion de equipo
 //- declaracion del formulario
@@ -269,8 +269,7 @@ $('#selteam-Form').form({
 	onLoadSuccess: function(data) {
 	    $('#selteam-LongCategoria').val(toLongCategoria(data.Categoria,workingData.federation));
 	    // stupid combogrid that doesn't display right data after form load
-	    $('#selteam-Equipo').combogrid('clear');
-	    $('#selteam-Equipo').combogrid('setValue',data.Equipo);
+	    $('#selteam-Equipo').combogrid('clear').combogrid('setValue',data.Equipo);
 	}
 });
 
@@ -281,7 +280,7 @@ $('#selteam-Equipo').combogrid({
 	textField: 'Nombre',
 	url: '/agility/server/database/equiposFunctions.php',
 	queryParams: { Operation:'enumerate', Prueba:workingData.prueba, Jornada:workingData.jornada },
-	loadMsg: '<?php _e('Actualizando lista de equipos ...');?>',
+	loadMsg: '<?php _e('Updating team list');?>...',
 	method: 'get',
 	mode: 'remote',
 	required: true,
@@ -290,9 +289,9 @@ $('#selteam-Equipo').combogrid({
 		{ field:'ID',			hidden:true },
 		{ field:'Prueba',		hidden:true },
 		{ field:'Jornada',		hidden:true },
-		{ field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Nombre');?>' },
+		{ field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Name');?>' },
 		{ field:'Categorias',	width:15, sortable:true,	title: '<?php _e('Cat');?>' },
-		{ field:'Observaciones',width:50, sortable:true,	title: '<?php _e('Observaciones');?>'}
+		{ field:'Observaciones',width:50, sortable:true,	title: '<?php _e('Comments');?>'}
 	]],
 	multiple: false,
 	fitColumns: true,

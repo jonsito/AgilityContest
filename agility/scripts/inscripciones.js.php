@@ -138,7 +138,7 @@ function insertInscripcion(dg) {
 	$('#new_inscripcion-progresswindow').window('open');
 	$.each(selectedRows, function(index,row) {
 		$('#new_inscripcion-progresslabel').text("Inscribiendo a: "+row.Nombre);
-		$('#new_inscripcion-progressbar').progressbar('setValue',count*(100/size));
+		$('#new_inscripcion-progressbar').progressbar('setValue',(count*(100/size)).toFixed(2));
 		$.ajax({
 	        async: false,
 	        cache: false,

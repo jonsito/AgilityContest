@@ -32,13 +32,13 @@ $config =Config::getInstance();
    	<span style="float:left;padding:5px">
        	<a id="guias-newBtn" href="#" class="easyui-linkbutton"
        		data-options="iconCls:'icon-users'"
-       		onclick="newGuia($('#guias-datagrid-search').val(),reload_guiasDatagrid)">Nuevo Gu&iacute;a</a>
+       		onclick="newGuia($('#guias-datagrid-search').val(),reload_guiasDatagrid)"><?php _e('New handler'); ?></a>
        	<a id="guias-editBtn" href="#" class="easyui-linkbutton"
        		data-options="iconCls:'icon-edit'"
-       		onclick="editGuia('#guias-datagrid')">Editar Gu&iacute;a</a>
+       		onclick="editGuia('#guias-datagrid')"><?php _e('Edit handler'); ?></a>
        	<a id="guias-delBtn" href="#" class="easyui-linkbutton" 
        		data-options="iconCls:'icon-trash'"
-       		onclick="deleteGuia('#guias-datagrid')">Borrar gu&iacute;a</a>
+       		onclick="deleteGuia('#guias-datagrid')"><?php _e('Delete handler'); ?></a>
    		<input id="guias-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield" />
 	</span>
 	<span style="float:right;padding:5px">
@@ -49,7 +49,7 @@ $config =Config::getInstance();
    	    		$('#guias-datagrid-search').val('---- Buscar ----');
    				reloadWithSearch('#guias-datagrid','select');
    				"
-   			>Limpiar</a>
+   			><?php _e('Clear'); ?></a>
 	</span>
 </div>
     
@@ -71,10 +71,10 @@ $config =Config::getInstance();
             collapsible: false,
             expansible: false,
             collapsed: false,
-            title: 'Gesti&oacute;n de datos de Gu&iacute;as'+' - '+fedName(workingData.federation),
+            title: '<?php _e('Handler&#39;s data management');?>'+' - '+fedName(workingData.federation),
             url: '/agility/server/database/guiaFunctions.php',
             queryParams: { Operation:'select', Federation: workingData.federation },
-            loadMsg: 'Actualizando lista de Gu&iacute;as...',
+            loadMsg: '<?php _e('Updating handler&#39;s list');?>'+'...',
             method: 'get',
             toolbar: '#guias-toolbar',
             pagination: false,
@@ -89,12 +89,12 @@ $config =Config::getInstance();
             columns: [[
                 { field:'ID',			hidden:true },
                 { field:'Federation',	hidden:true },
-                { field:'Nombre',		width:30, sortable:true,	title: 'Nombre:' },
+                { field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Name');?>' },
                 { field:'Club',			hidden:true},
-                { field:'NombreClub',	width:20, sortable:true,	title: 'Club'},
-                { field:'Telefono',		width:10, sortable:true,	title: 'Tel&eacute;fono' },
-                { field:'Email',		width:15, sortable:true,    title: 'Correo Electr&oacute;nico' },
-                { field:'Observaciones',width:30,					title: 'Observaciones'}
+                { field:'NombreClub',	width:20, sortable:true,	title: '<?php _e('Club');?>'},
+                { field:'Telefono',		width:10, sortable:true,	title: '<?php _e('Phone');?>' },
+                { field:'Email',		width:15, sortable:true,    title: '<?php _e('E-mail');?>' },
+                { field:'Observaciones',width:30,					title: '<?php _e('Comments');?>'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:myRowStyler,
@@ -119,11 +119,11 @@ $config =Config::getInstance();
 		// key handler
        	addKeyHandler('#guias-datagrid',newGuia,editGuia,deleteGuia);
 		// tooltips
-		addTooltip($('#guias-newBtn').linkbutton(),"Dar de alta un nuevo gu&iacute;a <br/>en la Base de Datos"); 
-		addTooltip($('#guias-editBtn').linkbutton(),"Editar los datos del gu&iacute;a seleccionado");
-		addTooltip($('#guias-delBtn').linkbutton(),"Borrar el gu&iacute;a seleccionado de la BBDD");
-		addTooltip($('#guias-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
-		addTooltip($('#guias-datagrid-search'),"Mostrar gu&iacute;as que coincidan con el criterio de busqueda");
+		addTooltip($('#guias-newBtn').linkbutton(),'<?php _e("Insert a new handler<br/>into DataBase");?>');
+		addTooltip($('#guias-editBtn').linkbutton(),'<?php _e("Edit data on selected handler");?>');
+		addTooltip($('#guias-delBtn').linkbutton(),'<?php _e("Remove selected handler from Database");?>');
+		addTooltip($('#guias-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update table");?>');
+		addTooltip($('#guias-datagrid-search'),'<?php _e("Show handlers matching search criteria");?>');
 
 		// mostrar los perros asociados a un guia
         function showPerrosByGuia(index,guia){
@@ -132,24 +132,24 @@ $config =Config::getInstance();
 			$(mySelf).datagrid({
             	width: 875,
         	    height: 'auto',
-        		title: 'Perros registrados a nombre de '+guia.Nombre+ ' - '+fedName(workingData.federation),
+        		title: '<?php _e('Dogs registered to');?>'+' '+guia.Nombre+ ' - '+fedName(workingData.federation),
        		    pagination: false,
         	    rownumbers: false,
         	    fitColumns: true,
         	    singleSelect: true,
-				loadMsg: '<?php _e('Actualizando lista de perros');?>',
+				loadMsg: '<?php _e('Updating dogs list');?>',
         		url: '/agility/server/database/dogFunctions.php',
         		queryParams: { Operation: 'getbyguia', Guia: guia.ID, Federation: workingData.federation },
         		method: 'get',
         	    columns: [[
                    	{ field:'ID',	width:15, sortable:true,	title: 'ID'},
                 	{ field:'Federation',hidden:true},
-            		{ field:'Nombre',	width:30, sortable:true,	title: 'Nombre:' },
-            		{ field:'Categoria',width:15, sortable:false,	title: 'Cat.' },
-            		{ field:'Grado',	width:25, sortable:false,   title: 'Grado' },
-            		{ field:'Raza',		width:25, sortable:false,   title: 'Raza' },
-            		{ field:'LOE_RRC',	width:25, sortable:true,    title: 'LOE / RRC' },
-            		{ field:'Licencia',	width:25, sortable:true,    title: 'Licencia' }
+            		{ field:'Nombre',	width:30, sortable:true,	title: '<?php _e('Name');?>' },
+            		{ field:'Categoria',width:15, sortable:false,	title: '<?php _e('Cat');?>' },
+            		{ field:'Grado',	width:25, sortable:false,   title: '<?php _e('Grade');?>' },
+            		{ field:'Raza',		width:25, sortable:false,   title: '<?php _e('Breed');?>' },
+            		{ field:'LOE_RRC',	width:25, sortable:true,    title: '<?php _e('KC. dogID');?>' },
+            		{ field:'Licencia',	width:25, sortable:true,    title: '<?php _e('License');?>' }
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             	rowStyler:myRowStyler,
@@ -171,22 +171,22 @@ $config =Config::getInstance();
     		// toolbar: '#perrosbyguia-toolbar', 
 			var toolbar = [{
 				id: 'perrosbyguia-newBtn'+guia.ID,
-				text: 'Asignar perro',
+				text: '<?php _e('Assign dog');?>',
 				iconCls: 'icon-dog',
 				handler: function(){assignPerroToGuia(mySelf,guia); }
 			},{
 				id: 'perrosbyguia-editBtn'+guia.ID,
-				text: 'Editar datos',
+				text: '<?php _e('Edit dog');?>',
 				iconCls: 'icon-edit',
 				handler: function(){editPerroFromGuia(mySelf,guia); }
 			},{
 				id: 'perrosbyguia-delBtn'+guia.ID,
-				text: 'Desasignar perro',
+				text: '<?php _e('Dettach dog');?>',
 				iconCls: 'icon-trash',
 				handler: function(){delPerroFromGuia(mySelf,guia); }
 			},{
 				id: 'perrosbyguia-reloadBtn'+guia.ID,
-        		text: 'Actualizar',
+        		text: '<?php _e('Update');?>',
     			iconCls: 'icon-reload',
     			align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
    				handler: function(){ $(mySelf).datagrid('reload'); }    // reload the clubs data}
@@ -194,9 +194,9 @@ $config =Config::getInstance();
     		$(mySelf).datagrid('buildToolbar',toolbar); // programmatically add toolbar to datagrid
         	$('#guias-datagrid').datagrid('fixDetailRowHeight',index);
 			// tooltips de los sub-formularios
-			addTooltip($('#perrosbyguia-newBtn'+guia.ID).linkbutton(),"Asignar un nuevo perro a '"+guia.Nombre+"'"); 
-			addTooltip($('#perrosbyguia-delBtn'+guia.ID).linkbutton(),"Eliminar asignaci&oacute;n del perro a '"+guia.Nombre+"'"); 
-			addTooltip($('#perrosbyguia-editBtn'+guia.ID).linkbutton(),"Editar los datos del perro asignado a '"+guia.Nombre+"'");
-			addTooltip($('#perrosbyguia-reloadBtn'+guia.ID).linkbutton(),"Actualizar la lista de perros del gu&iacute;a '"+guia.Nombre+"'");
+			addTooltip($('#perrosbyguia-newBtn'+guia.ID).linkbutton(),'<?php _e("Assing dog to handler");?>'+" '"+guia.Nombre+"'");
+			addTooltip($('#perrosbyguia-delBtn'+guia.ID).linkbutton(),'<?php _e("Dettach dog from handler");?>'+" '"+guia.Nombre+"'");
+			addTooltip($('#perrosbyguia-editBtn'+guia.ID).linkbutton(),'<?php _e("Editar data on dog assigned to");?>'+" '"+guia.Nombre+"'");
+			addTooltip($('#perrosbyguia-reloadBtn'+guia.ID).linkbutton(),'<?php _e("Update dog list from handler");?>'+" '"+guia.Nombre+"'");
         } // end of showPerrosByGuia
 </script>

@@ -20,6 +20,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Competicion");
+
 require_once("dialogs/dlg_ordentandas.inc");
 require_once("dialogs/dlg_ordensalida.inc");
 require_once("dialogs/dlg_competicion.inc");
@@ -51,11 +52,11 @@ switch(http_request("tipo","s","std")) {
 
 	<!-- paneles de lista de mangas y datos de cada manga -->
 	<div id="competicion_infolayout" class="easyui-layout" style="height:400px">
-		<div data-options="region:'west',title:'<?php _('Mangas de la jornada');?>',split:true,collapsed:false" style="width:250px">
+		<div data-options="region:'west',title:'<?php _e('Journey rounds');?>',split:true,collapsed:false" style="width:250px">
 			<!-- Tabla que contiene la lista de Mangas de la jornada -->
 			<table id="competicion-listamangas" style="padding:50px"></table>
 		</div>
-		<div data-options="region:'center',title:'<?php _e('Datos de la manga');?>'" style="width:600px;">
+		<div data-options="region:'center',title:'<?php _e('Round Data');?>'" style="width:600px;">
 			<span id="competicion-datosmanga" class="c_competicion-datosmanga" style="font-size:11px"></span>
 		</div> <!-- datos de la manga -->
 	</div> <!-- informacion de layout -->
@@ -66,16 +67,16 @@ switch(http_request("tipo","s","std")) {
 	<span style="float:left;padding:10px">
 		<a id="competicion-ordentandasBtn" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-updown'" style="width:185px"
-			onclick="competicionDialog('ordentandas');"><?php _e('Programaci&oacute;n');?></a>
+			onclick="competicionDialog('ordentandas');"><?php _e('Planning');?></a>
 		<a id="competicion-ordensalidaBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-order'" style="width:185px"
-           onclick="competicionDialog('ordensalida');"><?php _e('Orden de salida');?></a>
+           onclick="competicionDialog('ordensalida');"><?php _e('Starting order');?></a>
 		<a id="competicion-competicionBtn" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-table'" style="width:185px"
-			onclick="competicionDialog('competicion');"><?php _e('Entrada de datos');?></a>
+			onclick="competicionDialog('competicion');"><?php _e('Data entry');?></a>
 		<a id="competicion-resultmangaBtn" href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-endflag'" style="width:185px"
-			onclick="competicionDialog('resultadosmanga');"><?php _e('Resultados de la manga');?></a>
+			onclick="competicionDialog('resultadosmanga');"><?php _e('Round results');?></a>
 	</span>
 </div>
 
@@ -148,10 +149,10 @@ $('#competicion-listamangas').datagrid({
 });
 
 //tooltips
-addTooltip($('#competicion-ordentandasBtn').linkbutton(),"<?php _e('Ver/Ordenar la secuencia de <br/>Mangas/Categor&iacute;as/Grados de la jornada')?>");
-addTooltip($('#competicion-ordensalidaBtn').linkbutton(),"<?php _e('Ver/Editar el Orden de salida de la manga');?>");
-addTooltip($('#competicion-competicionBtn').linkbutton(),"<?php _e('Insertar resultados de los participantes en la manga');?>Insertar resultados de los participantes en la manga");
-addTooltip($('#competicion-resultmangaBtn').linkbutton(),"<?php _e('Ver los resultados parciales de la manga');?>"); 
+addTooltip($('#competicion-ordentandasBtn').linkbutton(),"<?php _e('View/Edit Rounds and series order<br />on this journey')?>");
+addTooltip($('#competicion-ordensalidaBtn').linkbutton(),"<?php _e('View/Edit Starting order on selected round');?>");
+addTooltip($('#competicion-competicionBtn').linkbutton(),"<?php _e('Insert/Edit competitor&#39;s results');?>");
+addTooltip($('#competicion-resultmangaBtn').linkbutton(),"<?php _e('Review Partial results on selected round');?>");
 
 </script>
     

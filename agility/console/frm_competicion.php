@@ -43,26 +43,26 @@ $('#seljornada-window').window({
         var dialogs={'t':'#ordentandas-dialog','s':'#ordensalida-dialog','c':'#competicion-dialog','r':'#resultadosmanga-dialog'};
 		if (workingData.datosJornada.Equipos3==1) {
 			page="/agility/console/frm_competicion2.php?tipo=eq3";
-			extra=" ( <?php _e('Equipos -3 mejores-');?> )";
+			extra=" ( <?php _e('Teams 3');?> )";
             // use default dialogs
 		}
 		if (workingData.datosJornada.Equipos4==1) {
 			page="/agility/console/frm_competicion2.php?tipo=eq4";
-			extra=" ( <?php _e('Equipos -conjunta-');?> )";
+			extra=" ( <?php _e('Teams 4');?> )";
             // use default dialogs
 		}
 		if (workingData.datosJornada.Open==1) {
 			// an Open Contest is like a normal with no Grades but only categories
 			page="/agility/console/frm_competicion2.php?tipo=open";
-			extra=" ( <?php _e('Abierta');?> )";
+			extra=" ( <?php _e('Open');?> )";
 			// use default dialogs
 		}
 		if (workingData.datosJornada.KO==1) {
 			page="/agility/console/frm_competicion_ko.php";
-			extra=" ( <?php _e('Mangas K.O.');?> )";
+			extra=" ( <?php _e('K.O. Rounds');?> )";
 			dialogs= {};
 		}
-		loadContents( page, '<?php _e('Desarrollo de la jornada');?>'+extra, dialogs );
+		loadContents( page, '<?php _e('Journey deployment');?>'+extra, dialogs );
 	} 
 }).window('open');
 

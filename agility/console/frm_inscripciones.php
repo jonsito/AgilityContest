@@ -30,7 +30,7 @@ $config =Config::getInstance();
 		<div id="selprueba-Content" data-options="region:'north',border:'true'">
 			<form id="selprueba-Prueba">
         		<div class="fitem">
-					<label for="Search"><?php _e('Selecciona Prueba');?>:</label>
+					<label for="Search"><?php _e('Select contest');?>:</label>
             		<select id="selprueba-Search" name="Search" style="width:200px"></select>
         		</div>
 			</form>
@@ -38,9 +38,9 @@ $config =Config::getInstance();
 		<div data-options="region:'center'"></div>
 		<div id="selprueba-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
     	    <a id="selprueba-okBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-ok'" onclick="acceptSelectPrueba()">Aceptar</a>
+    	    	data-options="iconCls:'icon-ok'" onclick="acceptSelectPrueba()"><?php _e('Accept'); ?></a>
     	    <a id="selprueba-cancelBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls:'icon-cancel'" onclick="cancelSelectPrueba()">Cancelar</a>
+    	    	data-options="iconCls:'icon-cancel'" onclick="cancelSelectPrueba()"><?php _e('Cancel'); ?></a>
 		</div>	<!-- botones -->
 	</div> <!-- Layout -->
 </div> <!-- Window -->
@@ -48,7 +48,7 @@ $config =Config::getInstance();
 <script type="text/javascript">
 
 $('#selprueba-window').window({
-	title: 'Selecciona la prueba activa',
+	title: '<?php _e('Select active contest');?>',
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,
@@ -58,8 +58,8 @@ $('#selprueba-window').window({
 	modal: true
 }).window('open');
 
-addTooltip($('#selprueba-okBtn').linkbutton(),"Trabajar con la prueba seleccionada");
-addTooltip($('#selprueba-cancelBtn').linkbutton(),"Cancelar selecci&oacute;n. Cerrar ventana");
+addTooltip($('#selprueba-okBtn').linkbutton(),'<?php _e("Continue working with selected contest");?>');
+addTooltip($('#selprueba-cancelBtn').linkbutton(),'<?php _e("Cancel selection. close window");?>');
 
 $('#selprueba-Search').combogrid({
 	panelWidth: 450,
@@ -73,10 +73,10 @@ $('#selprueba-Search').combogrid({
 	editable: isMobileDevice()?false:true, //disable keyboard deploy on mobile devices
 	columns: [[
 	    {field:'ID',hidden:true},
-		{field:'Nombre',        title:'Nombre', width:60,align:'right'},
+		{field:'Nombre',        title:'<?php _e('Name');?>', width:60,align:'right'},
 		{field:'Club',hidden:true},
-		{field:'NombreClub',    title:'Club',   width:30,align:'right'},
-        {field:'RSCE',			title:'Fed.',	width:10,	align:'center', formatter:formatRSCE},
+		{field:'NombreClub',    title:'<?php _e('Club');?>',   width:30,align:'right'},
+        {field:'RSCE',			title:'<?php _e('Fed');?>.',	width:10,	align:'center', formatter:formatRSCE},
 		{field:'Observaciones', hidden:true }
 	]],
 	multiple: false,
@@ -95,12 +95,12 @@ function acceptSelectPrueba() {
 	var p=$('#selprueba-Search').combogrid('grid').datagrid('getSelected');
 	if (p==null) {
 		// indica error
-		$.messager.alert("Error","Debe indicar una prueba v&aacute;lida","error");
+		$.messager.alert("Error",'<?php _e("You should select a valid contest");?>',"error");
 		return;
 	} else {
 		setPrueba(p);
 		page="/agility/console/frm_inscripciones2.php";
-		title="Inscripciones - Formulario de registro";
+		title='<?php _e("Inscriptions - Registering form");?>';
 	}
 	$('#selprueba-window').window('close');
 	loadContents(page,title,{'inscripciones':'#new_inscripcion-dialog', 'equipos':'#team_datagrid-dialog'});
