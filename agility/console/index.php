@@ -216,7 +216,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 </li>
 <li><?php _e('DATABASE'); ?>
 	<ul>
-	<li><a href="javascript:loadContents('/agility/console/frm_clubes.php','<?php _e('Clubs Database Managagement');?>');"><?php _e('Clubs'); ?></a></li>
+	<li><a href="javascript:loadContents('/agility/console/frm_clubes.php','<?php _e('Clubs Database Management');?>');"><?php _e('Clubs'); ?></a></li>
 	<li><a href="javascript:loadContents('/agility/console/frm_guias.php','<?php _e('Handlers Database Management');?>');"><?php _e('Handlers'); ?></a></li>
 	<li><a href="javascript:loadContents('/agility/console/frm_perros.php','<?php _e('Dogs Database Management');?>');"><?php _e('Dogs'); ?></a></li>
 	<li><a href="javascript:loadContents('/agility/console/frm_jueces.php','<?php _e('Judges Database Management');?>');"><?php _e('Judges'); ?></a></li>

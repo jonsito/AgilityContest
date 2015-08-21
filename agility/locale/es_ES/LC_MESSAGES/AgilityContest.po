@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-08-21 16:43+0200\n"
-"PO-Revision-Date: 2015-08-21 16:43+0200\n"
+"POT-Creation-Date: 2015-08-21 16:59+0200\n"
+"PO-Revision-Date: 2015-08-21 16:59+0200\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -585,8 +585,8 @@ msgstr "Raza"
 msgid "KC. dogID"
 msgstr "LOE / RRC"
 
-#: console/frm_clubes.php:247
-msgid "Ag. Licencse"
+#: console/frm_clubes.php:247 console/frm_guias.php:152
+msgid "License"
 msgstr "Licencia"
 
 #: console/frm_clubes.php:269 console/frm_guias.php:174
@@ -841,10 +841,6 @@ msgstr "Perros registrados a"
 msgid "Updating dogs list"
 msgstr "Actualizando lista de perros"
 
-#: console/frm_guias.php:152
-msgid "License"
-msgstr "Licencia"
-
 #: console/frm_guias.php:197
 msgid "Assing dog to handler"
 msgstr "Asignar perro al gu&iacute;a"
@@ -968,7 +964,7 @@ msgid "DATABASE"
 msgstr "BASE DE DATOS"
 
 #: console/index.php:219
-msgid "Clubs Database Managagement"
+msgid "Clubs Database Management"
 msgstr "Gesti&oacute;n de datos de Clubes"
 
 #: console/index.php:219
@@ -1341,6 +1337,9 @@ msgstr "Categor&iacute;as"
 #: console/dialogs/dlg_jornadas.inc:26
 msgid "Informaci&oacute;n de la Jornada"
 msgstr "Informaci&oacute;n de la Jornada"
+
+#~ msgid "Ag. Licencse"
+#~ msgstr "Licencia"
 
 #~ msgid "KC dogID"
 #~ msgstr "LOE / RRC"

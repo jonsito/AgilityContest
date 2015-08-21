@@ -244,7 +244,7 @@ $config =Config::getInstance();
             		{ field:'Grado',	width:25, sortable:false,   title: '<?php _e('Grade'); ?>' },
             		{ field:'Raza',		width:25, sortable:false,   title: '<?php _e('Breed'); ?>' },
             		{ field:'LOE_RRC',	width:25, sortable:true,    title: '<?php _e('KC. dogID'); ?>' },
-            		{ field:'Licencia',	width:25, sortable:true,    title: '<?php _e('Ag. Licencse'); ?>' }
+            		{ field:'Licencia',	width:25, sortable:true,    title: '<?php _e('License'); ?>' }
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             	rowStyler: myRowStyler,
