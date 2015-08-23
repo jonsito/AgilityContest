@@ -96,7 +96,7 @@ $('#new_inscripcion-progresswindow').window({
 });
 <!-- barra de progreso de actualizacion de inscripciones -->
 <div id="new_inscripcion-progresswindow" class="easyui-window"
-	data-options="title:'Procesando inscripciones...',width:450,modal:true,collapsable:false,minimizable:false,maximizable:false,closable:false,closed:true">
+	data-options="title:'Procesando inscripciones...',width:300,modal:true,collapsable:false,minimizable:false,maximizable:false,closable:false,closed:true">
 	<p id="new_inscripcion-progresslabel" style="text-align:center">Inscribiendo a:</p>
 	<div id="new_inscripcion-progressbar" class="easyui-progressbar" style="width:300px;text-align:center;" data-options="value:0"></div>
 </div>

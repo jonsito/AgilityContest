@@ -353,9 +353,6 @@ function tablet_acceptSelectJornada() {
 		'Tanda'   : 0,
 		'Perro'   : 0
 	};
-
-	// call login
-	// updateSessionInfo(s.ID,{Nombre: s.Nombre,Prueba:p.ID, Jornada:j.ID});
 	
 	$.ajax({
 		type: 'POST',

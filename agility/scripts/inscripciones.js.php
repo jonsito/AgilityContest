@@ -124,9 +124,39 @@ function deleteInscripcion() {
  * @param {string} dg datagrid to retrieve selections from
  */
 function insertInscripcion(dg) {
+	function handleInscription(rows,index,size) {
+		if (index>=size){
+            // recursive call finished, clean, close and refresh
+            pwindow.window('close');
+            $(dg).datagrid('clearSelections');
+            reloadWithSearch('#new_inscripcion-datagrid','noinscritos');
+            reloadWithSearch('#inscripciones-datagrid','inscritos');
+			return;
+		}
+		$('#new_inscripcion-progresslabel').text("Inscribiendo a: "+rows[index].Nombre);
+		$('#new_inscripcion-progressbar').progressbar('setValue', (100.0*(index+1)/size).toFixed(2));
+		$.ajax({
+			cache: false,
+			timeout: 10000, // 10 segundos
+			type:'GET',
+			url:"/agility/server/database/inscripcionFunctions.php",
+			dataType:'json',
+			data: {
+				Prueba: workingData.prueba,
+				Operation: 'insert',
+				Perro: rows[index].ID,
+				Jornadas: $('#new_inscripcion-Jornadas').val(),
+				Celo: $('#new_inscripcion-Celo').val(),
+				Pagado: $('#new_inscripcion-Pagado').val()
+			},
+			success: function(result) {
+                handleInscription(rows,index+1,size);
+            }
+		});
+	}
+
 	var pwindow=$('#new_inscripcion-progresswindow');
 	var selectedRows= $(dg).datagrid('getSelections');
-	var count=1;
 	var size=selectedRows.length;
 	if(size==0) {
     	$.messager.alert("No selection","!No ha marcado ningún perro para proceder a su inscripción!","warning");
@@ -137,33 +167,7 @@ function insertInscripcion(dg) {
     	return; // no tiene permiso para realizar inscripciones. retornar
 	}
 	pwindow.window('open');
-	$.each(selectedRows, function(index,row) {
-		$('#new_inscripcion-progresslabel').text("Inscribiendo a: "+row.Nombre);
-		$('#new_inscripcion-progressbar').progressbar('setValue',(count*(100/size)).toFixed(2));
-		$.ajax({
-	        async: false,
-	        cache: false,
-	        timeout: 10000, // 10 segundos
-			type:'GET',
-			url:"/agility/server/database/inscripcionFunctions.php",
-			dataType:'json',
-			data: {
-				Prueba: workingData.prueba,
-				Operation: 'insert',
-				Perro: row.ID,
-				Jornadas: $('#new_inscripcion-Jornadas').val(),
-				Celo: $('#new_inscripcion-Celo').val(),
-				Pagado: $('#new_inscripcion-Pagado').val()
-			}
-		});
-		count++;
-	});
-	pwindow.window('close');
-    // notice that some of these items may fail if dialog is not deployed. just ignore
-	// foreach finished, clean, close and refresh
-	$(dg).datagrid('clearSelections');
-	reloadWithSearch('#new_inscripcion-datagrid','noinscritos');
-	reloadWithSearch('#inscripciones-datagrid','inscritos');
+	handleInscription(selectedRows,0,size);
 }
 
 /**
@@ -171,8 +175,8 @@ function insertInscripcion(dg) {
  * @param idprueba ID de la prueba
  */
 function reorderInscripciones(idprueba) {
+    $.messager.progress({title:'<?php _e("Sort"); ?>',text:'<?php _e("Re-ordering Dorsals");?>'});
 	$.ajax({
-        async: false,
         cache: false,
         timeout: 10000, // 10 segundos
 		type:'GET',
@@ -182,7 +186,10 @@ function reorderInscripciones(idprueba) {
 			Prueba: idprueba,
 			Operation: 'reorder'
 		},
-		success: function(data) {$('#inscripciones-datagrid').datagrid('reload'); }
+		success: function(data) {
+            $('#inscripciones-datagrid').datagrid('reload');
+            $.messager.progress('close');
+        }
 	});
 }
 

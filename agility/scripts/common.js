@@ -456,27 +456,6 @@ function initAuthInfo(id) {
 }
 
 /**
- * Actualiza la sesion con el id dado en la tabla de sesiones de la bbdd
- * @param id id de la sesion
- * @param parameters parametros a actualizar en la sesion
- */
-function updateSessionInfo(id, parameters) {
-	parameters.Operation='update';
-	parameters.ID=id;
-	$.ajax({
-		url: '/agility/server/database/sessionFunctions.php',
-		data: parameters,
-		dataType: 'json',
-	    async: false,
-	    cache: false,
-	    timeout: 30000,
-		success: function(data) { initWorkingData(id);	},
-		error: function(msg){ alert("error setting sessionDatabase: "+msg);}
-		});
-	return true;
-}
-
-/**
 * Declare and initialize Object to store working data primary keys
 */
 var workingData = {};
