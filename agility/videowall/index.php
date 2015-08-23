@@ -291,6 +291,9 @@ $('#selvw-Session').combogrid({
 		param.Hidden=0;
 		return true;
 	},
+	onLoadSuccess: function(data) {
+		$('#selvw-Session').combogrid('setValue',2); // by default select session 2 (ring 1)
+	},
     onSelect: function(index,row) { setupByJornada(row.Prueba,row.Jornada); }
 });
 

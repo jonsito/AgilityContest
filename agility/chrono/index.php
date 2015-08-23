@@ -188,6 +188,9 @@ $('#chrono-Session').combogrid({
 		param.Operation='selectring';
 		param.Hidden=0;
 		return true;
+	},
+	onLoadSuccess: function(data) {
+		$('#chrono-Session').combogrid('setValue',2); // by default select session 2 (ring 1)
 	}
 });
 

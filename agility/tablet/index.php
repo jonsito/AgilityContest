@@ -229,6 +229,9 @@ $('#seltablet-Sesion').combogrid({
 		param.Operation='selectring';
 		param.Hidden=0;
 		return true;
+	},
+	onLoadSuccess: function(data) {
+		$('#seltablet-Sesion').combogrid('setValue',2);
 	}
 });
 

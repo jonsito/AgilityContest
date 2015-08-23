@@ -124,6 +124,7 @@ function deleteInscripcion() {
  * @param {string} dg datagrid to retrieve selections from
  */
 function insertInscripcion(dg) {
+	var pwindow=$('#new_inscripcion-progresswindow');
 	var selectedRows= $(dg).datagrid('getSelections');
 	var count=1;
 	var size=selectedRows.length;
@@ -135,7 +136,7 @@ function insertInscripcion(dg) {
     	$.messager.alert("No permission","Sesion con insuficiente permiso para realizar inscripciones","error");
     	return; // no tiene permiso para realizar inscripciones. retornar
 	}
-	$('#new_inscripcion-progresswindow').window('open');
+	pwindow.window('open');
 	$.each(selectedRows, function(index,row) {
 		$('#new_inscripcion-progresslabel').text("Inscribiendo a: "+row.Nombre);
 		$('#new_inscripcion-progressbar').progressbar('setValue',(count*(100/size)).toFixed(2));
@@ -157,7 +158,7 @@ function insertInscripcion(dg) {
 		});
 		count++;
 	});
-	$('#new_inscripcion-progresswindow').window('close');
+	pwindow.window('close');
     // notice that some of these items may fail if dialog is not deployed. just ignore
 	// foreach finished, clean, close and refresh
 	$(dg).datagrid('clearSelections');
@@ -220,4 +221,4 @@ function printInscripciones() {
 		}
 	).window('resize',{width:250});
 	return false; //this is critical to stop the click event which will trigger a normal file download!
-};
+}

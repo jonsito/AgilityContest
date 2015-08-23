@@ -90,11 +90,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			data-options="iconCls:'icon-cancel'" onclick="$('#new_inscripcion-dialog').dialog('close')">Hecho</a>
    	</span>
 </div>
-	
+
+$('#new_inscripcion-progresswindow').window({
+
+});
 <!-- barra de progreso de actualizacion de inscripciones -->
-<div id="new_inscripcion-progresswindow">
+<div id="new_inscripcion-progresswindow" class="easyui-window"
+	data-options="title:'Procesando inscripciones...',width:450,modal:true,collapsable:false,minimizable:false,maximizable:false,closable:false,closed:true">
 	<p id="new_inscripcion-progresslabel" style="text-align:center">Inscribiendo a:</p>
-	<div id="new_inscripcion-progressbar" style="text-align:center;"></div>
+	<div id="new_inscripcion-progressbar" class="easyui-progressbar" style="width:300px;text-align:center;" data-options="value:0"></div>
 </div>
 
 <script type="text/javascript">
@@ -236,20 +240,6 @@ addTooltip($('#new_inscripcion-doneBtn').linkbutton(),"Cerrar la ventana<br /> V
 addTooltip($('#new_inscripcion-reloadBtn').linkbutton(),"Borrar seleccion. Refrescar lista");
 addTooltip($('#new_inscripcion-dogBtn').linkbutton(),"Dar de alta un nuevo perro en la BBDD");
 
-//ventana y barra de progreso de las inscripciones
-$('#new_inscripcion-progressbar').progressbar({
-	width: 300,
-	value: 0
-});
-$('#new_inscripcion-progresswindow').window({
-	 title:	'Procesando inscripciones...',
-	 width:		450,
-	 modal:		true,
-	 collapsable:false,
-	 minimizable:false,
-	 maximizable:false,
-	 closable:	false,
-	 closed:	true
-});
+
 
 </script>

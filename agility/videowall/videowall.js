@@ -123,12 +123,14 @@ function vwls_showOSD(val) {
 }
 
 function vwls_updateData(data) {
-	if (data["Faltas"]!=-1) $('#vwls_Faltas').html(data["Faltas"]);
-	if (data["Tocados"]!=-1) $('#vwls_Tocados').html(data["Tocados"]);
-	if (data["Rehuses"]!=-1) $('#vwls_Rehuses').html(data["Rehuses"]);
-	if (data["Tiempo"]!=-1) $('#vwls_Tiempo').html(data["Tiempo"]);
-	if (data["Eliminado"]==1)	$('#vwls_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
-	if (data["NoPresentado"]==1) $('#vwls_Tiempo').html('<span class="blink" style="color:red">N.P.</span>');
+    // some versions of Safari and Chrome doesn't properly take care on html dom changes
+    // so stupid .hide().show(0) is needed to take care on this
+	if (data["Faltas"]!=-1) $('#vwls_Faltas').html(data["Faltas"]).hide().show(0);
+	if (data["Tocados"]!=-1) $('#vwls_Tocados').html(data["Tocados"]).hide().show(0);;
+	if (data["Rehuses"]!=-1) $('#vwls_Rehuses').html(data["Rehuses"]).hide().show(0);;
+	if (data["Tiempo"]!=-1) $('#vwls_Tiempo').html(data["Tiempo"]).hide().show(0);;
+	if (data["Eliminado"]==1)	$('#vwls_Tiempo').html('<span class="blink" style="color:red">Elim.</span>').hide().show(0);;
+	if (data["NoPresentado"]==1) $('#vwls_Tiempo').html('<span class="blink" style="color:red">N.P.</span>').hide().show(0);;
 }
 
 function vwls_showData(data) {
