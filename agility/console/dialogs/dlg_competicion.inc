@@ -25,13 +25,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="competicion-toolbar" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
 	   	<a id="competicion-reloadBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-reload'" onclick="reloadCompeticion()">Actualizar</a>
+	   		data-options="iconCls:'icon-reload'" onclick="reloadCompeticion()"><?php _e('Update'); ?></a>
 	   	<label for="competicion-autoUpdateBtn">Auto:</label>
 	   	<input id="competicion-autoUpdateBtn" type="checkbox" class="easyui-checkbox" value="0" onclick="autoUpdateCompeticion()"/>
    		<input id="competicion-search" type="text" value="---- Dorsal ----" class="search_textfield"  onchange="competicionSelectByDorsal();"/>
    	</span>
    	<span style="float:right;padding:5px">
    		<!-- estos elementos deben estar alineados a la derecha -->
+	   	<a id="competicion-resetBtn" href="#" class="easyui-linkbutton"
+		   data-options="iconCls:'icon-brush'" onclick="resetCompeticion()"><?php _e('Reset'); ?></a>
    		<a id="competicion-printBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(6);">Formularios</a>
 	</span>
@@ -211,6 +213,7 @@ function cancelrow(target){
 }
 //- botones del panel de entrada de datos
 addTooltip($('#competicion-reloadBtn').linkbutton(),"Recargar datos de competicion de la manga");
+addTooltip($('#competicion-resetBtn').linkbutton(),"Poner a cero todos los resultados de la manga");
 addTooltip($('#competicion-printBtn').linkbutton(),"Imprimir formulario ayudante de pista");
 addTooltip($('#competicion-autoUpdateBtn'),"(Des)activar actualizacion periodica de los datos");
 addTooltip($('#competicion-search'),"Buscar una entrada por dorsal");

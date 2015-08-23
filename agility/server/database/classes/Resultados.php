@@ -247,7 +247,21 @@ class Resultados extends DBObject {
 		$this->myLogger->leave();
 		return "";
 	}
-	
+
+	function reset() {
+		$this->myLogger->enter();
+		$idmanga=$this->IDManga;
+		if ($this->isCerrada())
+			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
+		$str="UPDATE Resultados
+				SET Faltas=0, Tocados=0, Rehuses=0, Eliminado=0, NoPresentado=0, Tiempo=0, Observaciones='', Pendiente=1
+				WHERE ( Manga=$idmanga)";
+		$rs=$this->query($str);
+		if (!$rs) return $this->error($this->conn->error);
+		$this->myLogger->leave();
+		return "";
+	}
+
 	/**
 	 * selecciona los datos del idperro indicado desde la lista de resultados de la manga
 	 * @param {integer} $idperro

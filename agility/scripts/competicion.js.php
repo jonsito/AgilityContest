@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =Config::getInstance();
+?>
+
 /**
  * Funciones relacionadas con la ventana de competicion
  */
@@ -691,7 +697,10 @@ function reloadCompeticion() {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
 	// si hay alguna celda en edicion, ignorar
-	if ($('#competicion-datagrid').datagrid('options').editIndex!=-1) return;
+	if ($('#competicion-datagrid').datagrid('options').editIndex!=-1) {
+        $.messager.alert("Busy",'<?php _e("Cannot update: a cell is being edited"); ?>',"error");
+        return;
+    }
     $('#competicion-datagrid').datagrid(
             'load',
             { 
@@ -702,6 +711,35 @@ function reloadCompeticion() {
             	TeamView: isTeam(workingData.datosManga.Tipo)?'true':'false'
             }
     );
+}
+
+function resetCompeticion() {
+    if (workingData.jornada==0) return;
+    if (workingData.manga==0) return;
+    // si hay alguna celda en edicion, ignorar
+    if ($('#competicion-datagrid').datagrid('options').editIndex!=-1) {
+        $.messager.alert("Busy",'<?php _e("Cannot reset: a cell is being edited"); ?>',"error");
+        return;
+    }
+    msg='Se perderan <strong>TODOS</strong> los datos introducidos<br />'+
+        'en todas las categorias de esta manga<br />'+
+        'Realmente desae continuar ?';
+    $.messager.confirm('<?php _e("Erase results");?>', msg, function(r){
+        if (!r) return;
+        $.ajax({
+            type:'GET',
+            url:"/agility/server/database/resultadosFunctions.php",
+            dataType:'json',
+            data: {
+                Prueba: workingData.prueba,
+                Jornada: workingData.jornada,
+                Manga: workingData.manga,
+                Operation: 'reset'
+            }
+        }).done( function(msg) {
+            reloadCompeticion();
+        });
+    });
 }
 
 var autoUpdateID=null;

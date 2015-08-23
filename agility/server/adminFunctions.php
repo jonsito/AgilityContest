@@ -111,6 +111,10 @@ class Admin extends DBObject {
 			$drive=substr(__FILE__, 0, 1);
 			$cmd='start /B '.$drive.':\xampp\mysql\bin\mysqldump.exe';
 		}
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'DAR') { // Darwin (MacOSX)
+			$drive=substr(__FILE__, 0, 1);
+			$cmd='/Applications/XAMPP/xamppfiles/bin/mysqldump';
+		}
 		$cmd = "$cmd --opt --single-transaction --routines --triggers -h $dbhost -u$dbuser -p$dbpass $dbname";
 		$this->myLogger->info("Ejecutando comando: '$cmd'");
 		$input = popen($cmd, 'r');

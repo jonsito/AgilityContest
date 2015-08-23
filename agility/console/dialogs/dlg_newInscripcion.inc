@@ -91,9 +91,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	</span>
 </div>
 
-$('#new_inscripcion-progresswindow').window({
-
-});
 <!-- barra de progreso de actualizacion de inscripciones -->
 <div id="new_inscripcion-progresswindow" class="easyui-window"
 	data-options="title:'Procesando inscripciones...',width:300,modal:true,collapsable:false,minimizable:false,maximizable:false,closable:false,closed:true">
