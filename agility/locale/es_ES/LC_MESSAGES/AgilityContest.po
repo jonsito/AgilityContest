@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-08-21 16:59+0200\n"
-"PO-Revision-Date: 2015-08-21 16:59+0200\n"
+"POT-Creation-Date: 2015-08-23 19:03+0200\n"
+"PO-Revision-Date: 2015-08-23 19:04+0200\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -24,7 +24,7 @@ msgid "Version"
 msgstr "Versi&oacute;n"
 
 #: console/frm_about.php:29 console/frm_clasificaciones2.php:45
-#: console/frm_clasificaciones_eq3.php:45
+#: console/frm_clasificaciones_eq3.php:45 console/frm_inscripciones2.php:134
 msgid "Date"
 msgstr "Fecha"
 
@@ -88,6 +88,7 @@ msgstr "contrase&ntilde;a"
 
 #: console/frm_admin.php:57 console/frm_admin.php:94 console/frm_clubes.php:45
 #: console/frm_equipos.php:47 console/frm_guias.php:52
+#: console/frm_inscripciones2.php:107
 msgid "Clear"
 msgstr "Limpiar"
 
@@ -124,7 +125,7 @@ msgid "User data management"
 msgstr "Gesti&oacute;n de usuarios"
 
 #: console/frm_admin.php:121
-msgid "Actualizando lista de usuarios"
+msgid "Updating users list"
 msgstr "Actualizando lista de usuarios"
 
 #: console/frm_admin.php:135
@@ -154,6 +155,7 @@ msgstr "Actualizando lista de sesiones"
 #: console/frm_equipos.php:140 console/frm_equipos.php:220
 #: console/frm_equipos.php:292 console/frm_guias.php:92
 #: console/frm_guias.php:147 console/frm_inscripciones.php:76
+#: console/frm_inscripciones2.php:191
 msgid "Name"
 msgstr "Nombre"
 
@@ -217,15 +219,16 @@ msgid "Scores"
 msgstr "Clasificaciones"
 
 #: console/frm_clasificaciones2.php:27 console/frm_clasificaciones_eq3.php:27
-#: console/frm_inscripciones2.php:41
 msgid "Datos de la Prueba"
 msgstr "Datos de la Prueba"
 
 #: console/frm_clasificaciones2.php:32 console/frm_clasificaciones_eq3.php:32
+#: console/frm_inscripciones2.php:51
 msgid "Title"
 msgstr "Denominaci&oacute;n"
 
 #: console/frm_clasificaciones2.php:37 console/frm_clasificaciones_eq3.php:37
+#: console/frm_inscripciones2.php:55
 msgid "Organizing Club"
 msgstr "Club anfitri&oacute;n"
 
@@ -243,7 +246,7 @@ msgstr "Manga"
 #: console/frm_clasificaciones2.php:53 console/frm_clasificaciones_eq3.php:53
 #: console/frm_clubes.php:160 console/frm_equipos.php:142
 #: console/frm_equipos.php:227 console/frm_equipos.php:294
-#: console/frm_guias.php:97
+#: console/frm_guias.php:97 console/frm_inscripciones2.php:59
 msgid "Comments"
 msgstr "Observaciones"
 
@@ -252,7 +255,7 @@ msgid "Technical data on current round series"
 msgstr "Datos t&eacute;cnicos de las mangas"
 
 #: console/frm_clasificaciones2.php:72 console/frm_clasificaciones_eq3.php:72
-msgid "Competitor's data"
+msgid "Competitor&#39;s data"
 msgstr "Datos del participante"
 
 #: console/frm_clasificaciones2.php:75 console/frm_clasificaciones_eq3.php:75
@@ -264,15 +267,16 @@ msgid "Dors"
 msgstr "Dors"
 
 #: console/frm_clasificaciones2.php:83 console/frm_clasificaciones_eq3.php:83
-#: console/frm_equipos.php:221 public/pb_inscripciones.php:95
-#: public/pb_inscripciones_equipos.php:150
+#: console/frm_equipos.php:221 console/frm_inscripciones2.php:192
+#: public/pb_inscripciones.php:95 public/pb_inscripciones_equipos.php:150
 msgid "Lic"
 msgstr "Lic"
 
 #: console/frm_clasificaciones2.php:84 console/frm_clasificaciones_eq3.php:84
 #: console/frm_equipos.php:141 console/frm_equipos.php:222
 #: console/frm_equipos.php:293 console/frm_guias.php:148
-#: public/pb_inscripciones.php:96 public/pb_inscripciones_equipos.php:151
+#: console/frm_inscripciones2.php:193 public/pb_inscripciones.php:96
+#: public/pb_inscripciones_equipos.php:151
 msgid "Cat"
 msgstr "Cat"
 
@@ -282,13 +286,15 @@ msgstr "Grd"
 
 #: console/frm_clasificaciones2.php:86 console/frm_clasificaciones_eq3.php:86
 #: console/frm_equipos.php:79 console/frm_equipos.php:224
+#: console/frm_inscripciones2.php:195
 msgid "Handler"
 msgstr "Gu&iacute;a"
 
 #: console/frm_clasificaciones2.php:87 console/frm_clasificaciones_eq3.php:87
 #: console/frm_equipos.php:84 console/frm_equipos.php:225
 #: console/frm_guias.php:94 console/frm_inscripciones.php:78
-#: public/pb_inscripciones.php:99 public/pb_inscripciones_equipos.php:154
+#: console/frm_inscripciones2.php:196 public/pb_inscripciones.php:99
+#: public/pb_inscripciones_equipos.php:154
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:548
 #: server/pdf/print_ordenDeSalida.php:72
@@ -336,7 +342,7 @@ msgid "Cal"
 msgstr "Cal"
 
 #: console/frm_clasificaciones2.php:100
-#: console/frm_clasificaciones_eq3.php:100
+#: console/frm_clasificaciones_eq3.php:100 console/frm_inscripciones2.php:135
 msgid "Time"
 msgstr "Tiempo"
 
@@ -407,6 +413,7 @@ msgstr "Lista de dorsales"
 
 #: console/frm_clasificaciones2.php:146
 #: console/frm_clasificaciones_eq3.php:146 console/frm_equipos.php:45
+#: console/frm_inscripciones2.php:100
 msgid "Print"
 msgstr "Imprimir"
 
@@ -536,7 +543,7 @@ msgid "Dettach handler"
 msgstr "Desasignar gu&iacute;a"
 
 #: console/frm_clubes.php:207 console/frm_clubes.php:284
-#: console/frm_guias.php:189
+#: console/frm_guias.php:189 console/dialogs/dlg_competicion.inc:28
 msgid "Update"
 msgstr "Actualizar"
 
@@ -573,7 +580,7 @@ msgid "Cat."
 msgstr "Cat."
 
 #: console/frm_clubes.php:244 console/frm_equipos.php:223
-#: console/frm_guias.php:149
+#: console/frm_guias.php:149 console/frm_inscripciones2.php:194
 msgid "Grade"
 msgstr "Grado"
 
@@ -681,15 +688,15 @@ msgstr "Introducci&oacute;n de resultados de cada participante"
 msgid "Review Partial results on selected round"
 msgstr "Ver resultados parciales de la manga seleccionada"
 
-#: console/frm_equipos.php:34
+#: console/frm_equipos.php:34 console/frm_inscripciones2.php:83
 msgid "New"
 msgstr "Nuevo"
 
-#: console/frm_equipos.php:36
+#: console/frm_equipos.php:36 console/frm_inscripciones2.php:86
 msgid "Edit"
 msgstr "Editar"
 
-#: console/frm_equipos.php:38
+#: console/frm_equipos.php:38 console/frm_inscripciones2.php:89
 msgid "Delete"
 msgstr "Borrar"
 
@@ -767,8 +774,8 @@ msgstr "Inscripciones registradas en el equipo"
 msgid "Reading inscription list"
 msgstr "Leyendo lista de inscritos"
 
-#: console/frm_equipos.php:219 public/pb_inscripciones.php:91
-#: public/pb_inscripciones_equipos.php:147
+#: console/frm_equipos.php:219 console/frm_inscripciones2.php:190
+#: public/pb_inscripciones.php:91 public/pb_inscripciones_equipos.php:147
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:548
 #: server/pdf/print_ordenDeSalida.php:72
@@ -777,7 +784,7 @@ msgstr "Leyendo lista de inscritos"
 msgid "Dorsal"
 msgstr "Dorsal"
 
-#: console/frm_equipos.php:228
+#: console/frm_equipos.php:228 console/frm_inscripciones2.php:197
 msgid "Heat"
 msgstr "Celo"
 
@@ -885,25 +892,115 @@ msgstr "Debe seleccionar una prueba v&aacute;lida"
 msgid "Inscriptions - Registering form"
 msgstr "Inscripciones - Formulario de registro"
 
-#: console/frm_inscripciones2.php:134
-msgid "Nombre/Comentario"
-msgstr "Nombre/Comentario"
+#: console/frm_inscripciones2.php:41
+msgid "Contest\\&#39;s data"
+msgstr "Datos de la prueba"
 
-#: console/frm_inscripciones2.php:135
-msgid "Fecha"
-msgstr "Fecha"
+#: console/frm_inscripciones2.php:66
+msgid "Journey list for this contest"
+msgstr "Lista de jornadas de esta prueba"
+
+#: console/frm_inscripciones2.php:72
+msgid "Inscription list on this contest"
+msgstr "Inscripciones registradas en la prueba"
+
+#: console/frm_inscripciones2.php:95
+msgid "Reorder"
+msgstr "Reordenar"
+
+#: console/frm_inscripciones2.php:98
+msgid "Teams"
+msgstr "Equipos"
+
+#: console/frm_inscripciones2.php:128
+msgid "Updating journey&#39;s data"
+msgstr "Actualizando datos de la jornada"
+
+#: console/frm_inscripciones2.php:133
+msgid "Name/Comment"
+msgstr "Nombre/Observaciones"
 
 #: console/frm_inscripciones2.php:136
-msgid "Hora"
-msgstr "Hora"
+msgid "G-I  "
+msgstr "G-I  "
 
-#: console/frm_inscripciones2.php:146
-msgid "Especial"
+#: console/frm_inscripciones2.php:137
+msgid "G-II "
+msgstr "G-II "
+
+#: console/frm_inscripciones2.php:138
+msgid "G-III"
+msgstr "G-III"
+
+#: console/frm_inscripciones2.php:139
+msgid "Team3"
+msgstr "Eq. 3"
+
+#: console/frm_inscripciones2.php:140
+msgid "Team4"
+msgstr "Eq. 4"
+
+#: console/frm_inscripciones2.php:141
+msgid "Open "
+msgstr "Abierta"
+
+#: console/frm_inscripciones2.php:142
+msgid "PA. 1"
+msgstr "PA. 1"
+
+#: console/frm_inscripciones2.php:143
+msgid "PA. 2"
+msgstr "PA. 2"
+
+#: console/frm_inscripciones2.php:144
+msgid "K.O. "
+msgstr "K.O."
+
+#: console/frm_inscripciones2.php:145
+msgid "Special"
 msgstr "Especial"
 
-#: console/frm_inscripciones2.php:147
-msgid "Cerrada"
+#: console/frm_inscripciones2.php:146
+msgid "Closed"
 msgstr "Cerrada"
+
+#: console/frm_inscripciones2.php:178
+msgid "Updating inscriptio&#39;s data"
+msgstr "Actualizando datos de la inscripci&oacute;n"
+
+#: console/frm_inscripciones2.php:221
+msgid "Register new inscriptions"
+msgstr "Introducir nuevas inscripciones"
+
+#: console/frm_inscripciones2.php:222
+msgid "Modify selected inscription"
+msgstr "Modificar la inscripci&oacute;n seleccionada"
+
+#: console/frm_inscripciones2.php:223
+msgid "Remove selected inscription from database"
+msgstr "Borrar la inscripci&oacute;n seleccionada de la BBDD"
+
+#: console/frm_inscripciones2.php:224
+msgid "Reassign dorsals ordering by Club,Category,Grade, and Name"
+msgstr ""
+"Reasignar dorsales ordenando por Club, Categor&iacute;a, Grado y Nombre"
+
+#: console/frm_inscripciones2.php:225
+msgid "Open Team handling window for selected journey"
+msgstr ""
+"Abrir ventana de gesti&oacute;n de equipos para la jornada seleccionada"
+
+#: console/frm_inscripciones2.php:226
+msgid "Print inscription&#39;s list on this contest"
+msgstr "Imprimir lista de inscritos en esta prueba"
+
+#: console/frm_inscripciones2.php:227
+msgid "Clear search box<br/>Update inscriptions list"
+msgstr "Borrar casilla de b&uacute;squeda. Actualizar lista de inscritos"
+
+#: console/frm_inscripciones2.php:228
+msgid "Search inscriptions matching search criteria"
+msgstr "Buscar inscripciones que coincidan con el criterio de b&uacute;squeda"
 
 #: console/frm_login.php:32
 msgid "Some operations require a valid user to be logged in"
@@ -1175,6 +1272,18 @@ msgstr "Licencia"
 msgid "Licensing data successfully loaded"
 msgstr "Datos de la licencia actualizados correctamente"
 
+#: scripts/competicion.js.php:701
+msgid "Cannot update: a cell is being edited"
+msgstr "No se puede actualizar: hay una edici&oacute;n activa"
+
+#: scripts/competicion.js.php:721
+msgid "Cannot reset: a cell is being edited"
+msgstr "No se puede borrar: hay una edici&oacute;n activa"
+
+#: scripts/competicion.js.php:727
+msgid "Erase results"
+msgstr "Borrar resultados"
+
 #: scripts/equipos.js.php:158
 msgid "Debe seleccionar una jornada con competiciones por equipos"
 msgstr "Debe seleccionar una jornada con competiciones por equipos"
@@ -1206,6 +1315,14 @@ msgstr "de esta jornada"
 #: scripts/equipos.js.php:312
 msgid "Debe indicar un equipo v&aacute;lido"
 msgstr "Debe indicar un equipo v&aacute;lido"
+
+#: scripts/inscripciones.js.php:178
+msgid "Sort"
+msgstr "Ordenar"
+
+#: scripts/inscripciones.js.php:178
+msgid "Re-ordering Dorsals"
+msgstr "Reasignar dorsales"
 
 #: server/pdf/print_clasificacion.php:132
 #: server/pdf/print_clasificacion_eq3.php:208
@@ -1330,6 +1447,10 @@ msgstr "Resultados"
 msgid "Resultados Manga"
 msgstr "Resultados Manga"
 
+#: console/dialogs/dlg_competicion.inc:36
+msgid "Reset"
+msgstr "Borrado"
+
 #: console/dialogs/dlg_equipos.inc:38
 msgid "Categor&iacute;as"
 msgstr "Categor&iacute;as"
@@ -1337,6 +1458,24 @@ msgstr "Categor&iacute;as"
 #: console/dialogs/dlg_jornadas.inc:26
 msgid "Informaci&oacute;n de la Jornada"
 msgstr "Informaci&oacute;n de la Jornada"
+
+#~ msgid "Eq. 3"
+#~ msgstr "Tm"
+
+#~ msgid "Actualizando lista de usuarios"
+#~ msgstr "Actualizando lista de usuarios"
+
+#~ msgid "Nombre/Comentario"
+#~ msgstr "Nombre/Comentario"
+
+#~ msgid "Fecha"
+#~ msgstr "Fecha"
+
+#~ msgid "Hora"
+#~ msgstr "Hora"
+
+#~ msgid "Cerrada"
+#~ msgstr "Cerrada"
 
 #~ msgid "Ag. Licencse"
 #~ msgstr "Licencia"

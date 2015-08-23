@@ -118,7 +118,7 @@ $config =Config::getInstance();
  	title: '<?php _e('User data management'); ?>',
  	// datos de la conexion ajax
  	url: '/agility/server/database/userFunctions.php?Operation=select',
- 	loadMsg: '<?php _e('Actualizando lista de usuarios'); ?>',
+ 	loadMsg: '<?php _e('Updating users list'); ?>',
  	method: 'get',
     toolbar: '#usuarios-toolbar',
     pagination: false,
