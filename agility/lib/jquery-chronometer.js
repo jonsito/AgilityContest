@@ -113,6 +113,9 @@
 				// $.fn.Chrono.stop();
 			}
             if (config.triggerEvents) $(config.target).trigger('chronoreset');
+		},
+		started : function() {
+			return ( running || pause );
 		}
 	};
 

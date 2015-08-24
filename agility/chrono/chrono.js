@@ -70,7 +70,7 @@ function c_updateData(data) {
 	if (data["Rehuses"]!=-1) $('#chrono_Rehuses').html(data["Rehuses"]);
 	// if (data["Tiempo"]!=-1) $('#chrono_Tiempo').html(data["Tiempo"]);
 	if (data["Eliminado"]==1)	$('#chrono_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
-	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red">NoPre.</span>');
+	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red">NoPr.</span>');
 }
 
 function c_showData(data) {
@@ -122,6 +122,64 @@ function chrono_button(event,data) {
 function isExpected(event) {
 	// TODO: write
 	return true;
+}
+
+function bindKeysToChrono() {
+	// parse keypress event on every  button
+	$(document).keydown(function(e) {
+		switch(e.which) {
+			// reconocimiento de pista
+			case 55: // '7' -> comienzo del reconocimiento
+			case 48: // '0' -> fin del reconocimiento
+				chrono_button('crono_rec',{});
+				break;
+			// entrada de datos desde crono
+			case 70: // 'F' -> falta
+				chrono_button('crono_dat',{'Falta':1})
+				break;
+			case 82: // 'R' -> rehuse
+				chrono_button('crono_dat',{'Rehuse':1})
+				break;
+			case 84: // 'T' -> tocado
+				chrono_button('crono_dat',{'Tocado':1})
+				break;
+			case 69: // 'E' -> eliminado
+				chrono_button('crono_dat',{'Eliminado':1})
+				break;
+			case 78: // 'N' -> no presentado
+				chrono_button('crono_dat',{'NoPresentado':1})
+				break;
+			// arranque parada del crono
+            case 8: // 'Del' -> chrono reset
+                var cra=$('#cronoauto');
+                cra.Chrono('stop');
+                cra.Chrono('reset');
+                break;
+			case 36: // 'Begin' -> chrono start
+				chrono_button('crono_start',{});
+				break;
+			case 19: // 'Pause' -> chrono intermediate
+				chrono_button('crono_int',{});
+				break;
+			case 35: // 'End' -> chrono stop
+				chrono_button('crono_stop',{});
+				break;
+			case 13: // 'Enter' -> chrono start/stop
+			case 83: // 'S' -> alternate chrono start/stop
+				if ($('#cronoauto').Chrono('started')) chrono_button('crono_stop',{});
+				else chrono_button('crono_start',{});
+                break;
+            case 27: // 'Esc' show/hide buttons
+                var b=$('#chrono-simButtons');
+                if(b.is(':visible')) b.css('display','none');
+                else  b.css('display','inline-block');
+                break;
+            default:
+                alert("Unknow key code: "+ e.which);
+                break;
+		}
+		return false;
+	});
 }
 
 function chrono_processEvents(id,evt) {

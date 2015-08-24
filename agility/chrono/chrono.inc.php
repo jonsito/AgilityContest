@@ -27,7 +27,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- Pantalla simulador de cronometro -->
-<div id="chrono_Screen-dialog" style="position:relative;width:820px;height:350px;padding:5px 5px">
+<div id="chrono_Screen-dialog" style="position:relative;width:90%;height:480px;padding:5px 5px">
 	<div id="chrono_common" style="font-size:2.0em;display:inline-block;width:100%">
 		<!-- Recuadros de decoracion -->
 		<span class="chrono_fondo" id="chrono_TiempoBg">&nbsp;</span>
@@ -102,6 +102,7 @@ $('#chrono_Screen-dialog').dialog({
 	resizable:true,
 	onOpen: function() {
 		startEventMgr(workingData.sesion,chrono_processEvents);
+		bindKeysToChrono();
 	},
 	buttons:'#chrono-simButtons'
 });
