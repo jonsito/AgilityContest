@@ -27,33 +27,33 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  -->
 
 <!-- Pantalla simulador de cronometro -->
-<div id="chrono_Screen-dialog" style="position:relative;width:90%;height:480px;padding:5px 5px">
-	<div id="chrono_common" style="font-size:2.0em;display:inline-block;width:100%">
-		<!-- Recuadros de decoracion -->
-		<span class="chrono_fondo" id="chrono_TiempoBg">&nbsp;</span>
-		<span class="chrono_fondo" id="chrono_ResultadosBg">&nbsp;</span>
-		<span class="chrono_fondo" id="chrono_DatosBg">&nbsp;</span>
-		<!-- datos de resultados -->
-		<span class="chrono_label" id="chrono_FaltasLbl">Flt:</span>
-		<span class="chrono_data"  id="chrono_Faltas">0</span>
-		<span class="chrono_label" id="chrono_TocadosLbl">Toc:</span>
-		<span class="chrono_data"  id="chrono_Tocados">0</span>
-		<span class="chrono_label" id="chrono_RehusesLbl">Reh:</span>
-		<span class="chrono_data"  id="chrono_Rehuses">0</span>
-		<span class="chrono_tiempo" id="chrono_Tiempo">00.00</span>
-		<!-- Informacion del participante -->
-		<img id="chrono_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="chrono_logo"/>
-		<span class="chrono_info" id="chrono_Dorsal">Dorsal</span>
-		<span class="chrono_info" id="chrono_Nombre">Nombre</span>
-		<span class="chrono_info" id="chrono_NombreGuia">Gu&iacute;a</span>
-		<span class="chrono_info" id="chrono_NombreClub">Club</span>
-		<span class="chrono_info" id="chrono_Categoria">Categor&iacute;a</span>
-		<span class="chrono_info" id="chrono_Grado">Grado</span>
-		<span class="chrono_info" id="chrono_Celo">Celo</span>
-    	<span id="chrono_timestamp" style="display:none"></span>
-		<span id="chrono_Perro" style="display:none" ></span>
+	<div id="chrono_Screen-dialog">
+		<div id="chrono_common" style="font-size:2.0em;display:inline-block;width:100%">
+			<!-- Recuadros de decoracion -->
+			<span class="chrono_fondo" id="chrono_TiempoBg">&nbsp;</span>
+			<span class="chrono_fondo" id="chrono_ResultadosBg">&nbsp;</span>
+			<span class="chrono_fondo" id="chrono_DatosBg">&nbsp;</span>
+			<!-- datos de resultados -->
+			<span class="chrono_label" id="chrono_FaltasLbl">Flt:</span>
+			<span class="chrono_data"  id="chrono_Faltas">0</span>
+			<span class="chrono_label" id="chrono_TocadosLbl">Toc:</span>
+			<span class="chrono_data"  id="chrono_Tocados">0</span>
+			<span class="chrono_label" id="chrono_RehusesLbl">Reh:</span>
+			<span class="chrono_data"  id="chrono_Rehuses">0</span>
+			<span class="chrono_tiempo" id="chrono_Tiempo">00.00</span>
+			<!-- Informacion del participante -->
+			<img id="chrono_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="chrono_logo"/>
+			<span class="chrono_info" id="chrono_Dorsal">Dorsal</span>
+			<span class="chrono_info" id="chrono_Nombre">Nombre</span>
+			<span class="chrono_info" id="chrono_NombreGuia">Gu&iacute;a</span>
+			<span class="chrono_info" id="chrono_NombreClub">Club</span>
+			<span class="chrono_info" id="chrono_Categoria">Categor&iacute;a</span>
+			<span class="chrono_info" id="chrono_Grado">Grado</span>
+			<span class="chrono_info" id="chrono_Celo">Celo</span>
+    		<span id="chrono_timestamp" style="display:none"></span>
+			<span id="chrono_Perro" style="display:none" ></span>
+		</div>
 	</div>
-</div>
 
 <div id="chrono-simButtons" style="text-align:right;width:100%;display:inline-block">
 	<span style="float:left;padding:5px;">
@@ -68,11 +68,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	</span>
 	<span style="float:right;padding:5px;">
    		<a id="chrono-startBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-on'" onclick="chrono_button('crono_start',{})">Inicio</a>
+   		   	data-options="iconCls: 'icon-on'" onclick="chrono_sensor('crono_start',{},4000)">Inicio</a>
    		<a id="chrono-intBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-help'" onclick="chrono_button('crono_int',{})">Intermedio</a>
+   		   	data-options="iconCls: 'icon-help'" onclick="chrono_sensor('crono_int',{},4000)">Intermedio</a>
    		<a id="chrono-stopBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-off'" onclick="chrono_button('crono_stop',{})">Final</a>
+   		   	data-options="iconCls: 'icon-off'" onclick="chrono_sensor('crono_stop',{},4000)">Final</a>
 	</span>
 </div>	<!-- botones -->
 
@@ -129,7 +129,7 @@ doLayout(layout,"#chrono_Faltas",		740,	25,		25,		55	);
 doLayout(layout,"#chrono_Tocados",		740,	80,		25,		55	);
 doLayout(layout,"#chrono_Rehuses",		740,	135,	25,		55	);
 
-doLayout(layout,"#chrono_Tiempo",		10,		90,		610, 	105	);
+doLayout(layout,"#chrono_Tiempo",		10,		100,	610, 	90	);
 
 doLayout(layout,"#chrono_Logo",			10,		215,	80,		80	);
 doLayout(layout,"#chrono_Dorsal",		100,	220,	100,	35	);

@@ -23,6 +23,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 * Estilos asociados a las diversas pantallas de visualizacion
 */
 
+/**** handle 16:9 aspect ratio */
+#chrono_Screen-dialog {
+	position:relative;
+	width:90%;
+	height:480px;
+	padding:5px 5px
+}
+
 /**** estilos asociados al panel "LiveStream" */
 /* font-size depende de si el livestream es combinado o autonomo */
 #chrono_common {
@@ -61,7 +69,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	text-align: center;
 	background-color: #c0c0c0;
 	color: red;
-	font-size: 6.0em;
+	font-size: 10.0em;
 	letter-spacing: 0.11em;
 }
 

@@ -128,7 +128,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 </head>
 
 <body style="margin:0;padding:0;background-color:blue;font-size:100%">
-<div id="chrono-contenido" style="width:inherit;height:inherit;margin:0;padding:0">
+<div id="chrono-contenido">
 
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 

@@ -64,6 +64,8 @@ var c_reconocimiento = new Countdown({
     onCounterEnd: function(){ /* empty */    }
 });
 
+var c_sensorDate = 0;
+
 function c_updateData(data) {
 	if (data["Faltas"]!=-1) $('#chrono_Faltas').html(data["Faltas"]);
 	if (data["Tocados"]!=-1) $('#chrono_Tocados').html(data["Tocados"]);
@@ -113,8 +115,32 @@ function c_showData(data) {
 	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red">NoPre.</span>');
 	
 }
+
+/**
+ * send events from chronometer to console
+ * @param {string} event type
+ * @param {array} data event data
+ */
 function chrono_button(event,data) {
 	data.Value=Date.now() - startDate;
+	chrono_putEvent(event,data);
+	doBeep();
+}
+
+/**
+ * same as chrono_button, but do nothing if guard time hasn't expired
+ * @param {string} Event type
+ * @param {array} data Event data
+ * @param {integer} guard Guard time
+ */
+function chrono_sensor(event,data,guard) {
+	var cur= Date.now() - startDate;
+	if ( (cur-c_sensorDate) < guard ) {
+		// not yet guard time: ignore key/button
+		return;
+	}
+	c_sensorDate=cur;
+	data.Value=cur;
 	chrono_putEvent(event,data);
 	doBeep();
 }
@@ -156,18 +182,18 @@ function bindKeysToChrono() {
                 cra.Chrono('reset');
                 break;
 			case 36: // 'Begin' -> chrono start
-				chrono_button('crono_start',{});
+				chrono_sensor('crono_start',{},4000);
 				break;
 			case 19: // 'Pause' -> chrono intermediate
-				chrono_button('crono_int',{});
+				chrono_sensor('crono_int',{},4000);
 				break;
 			case 35: // 'End' -> chrono stop
-				chrono_button('crono_stop',{});
+				chrono_sensor('crono_stop',{},4000);
 				break;
 			case 13: // 'Enter' -> chrono start/stop
 			case 83: // 'S' -> alternate chrono start/stop
-				if ($('#cronoauto').Chrono('started')) chrono_button('crono_stop',{});
-				else chrono_button('crono_start',{});
+				if ($('#cronoauto').Chrono('started')) chrono_sensor('crono_stop',{},4000);
+				else chrono_sensor('crono_start',{},4000);
                 break;
             case 27: // 'Esc' show/hide buttons
                 var b=$('#chrono-simButtons');
@@ -175,8 +201,9 @@ function bindKeysToChrono() {
                 else  b.css('display','inline-block');
                 break;
             default:
-                alert("Unknow key code: "+ e.which);
-                break;
+                // alert("Unknow key code: "+ e.which);
+				// pass to upper layer to caught and process
+                return true;
 		}
 		return false;
 	});
