@@ -104,10 +104,10 @@ def main():
 
 	# and enter into infinite loop setting led on/off
 	while True:
-	    GPIO.output(GP_LED,True)
-        time.sleep(1)
-        GPIO.output(GP_LED,False)
-        time.sleep(1)
+		GPIO.output(GP_LED,True)
+		time.sleep(1)
+		GPIO.output(GP_LED,False)
+		time.sleep(1)
 
 try:
 	main()
