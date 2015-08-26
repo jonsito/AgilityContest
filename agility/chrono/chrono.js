@@ -184,7 +184,7 @@ function bindKeysToChrono() {
 			case 36: // 'Begin' -> chrono start
 				chrono_sensor('crono_start',{},4000);
 				break;
-			case 19: // 'Pause' -> chrono intermediate
+			case 73: // 'I' -> chrono intermediate
 				chrono_sensor('crono_int',{},4000);
 				break;
 			case 35: // 'End' -> chrono stop

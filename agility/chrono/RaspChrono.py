@@ -32,7 +32,7 @@ import uinput
 # KEY_BACKSPACE : Reset chrono
 # KEY_HOME  : Start chrono count
 # KEY_END   : End chrono
-# KEY_PAUSE : Mark Intermediate time
+# KEY_I	    : Mark Intermediate time
 # KEY_ENTER : Start/Stop
 # KEY_S     : Alternate Start/Stop
 
@@ -56,6 +56,10 @@ key_state = [False,False,False,False,False,False]
 
 # Event handler. By default, on interrupt poll state on all buttons
 def event_handler(pin):
+	global btn_state
+	global key_state
+	global device
+	global events
 	# Catch all the buttons pressed before pressing related keys
 	for idx, val in enumerate(BTN):
 		if GPIO.input(val) == False:
@@ -88,26 +92,31 @@ def ac_gpio_setup():
 
 def main():
 	# Setup uinput. Notice that Start and Stop pins are mapped to same (Start/Stop) Key, to allow reversal of first/last jump
-	events = ( uinput.KEY_0,    uinput.KEY_7,   uinput.KEY_BACKSPACE,   uinput.KEY_ENTER,   uinput.KEY_ENTER,   uinput.KEY_PAUSE )
+	global events
+	global device
+	events = ( uinput.KEY_0,    uinput.KEY_7,   uinput.KEY_BACKSPACE,   uinput.KEY_ENTER,   uinput.KEY_ENTER,   uinput.KEY_I )
 	device = uinput.Device(events)
 	# let the kernel to take enought time to create user input device and initialize
 	time.sleep(3) # seconds
 	ac_gpio_setup()
 
-	# listen for events and share callback. Use 100ms for button bounce time
-	GPIO.add_event_detect(GP_0,     GPIO.BOTH, callback=event_handler, bouncetime=100)
-	GPIO.add_event_detect(GP_7,     GPIO.BOTH, callback=event_handler, bouncetime=100)
-	GPIO.add_event_detect(GP_Reset, GPIO.BOTH, callback=event_handler, bouncetime=100)
-	GPIO.add_event_detect(GP_Start, GPIO.BOTH, callback=event_handler, bouncetime=100)
-	GPIO.add_event_detect(GP_Stop,  GPIO.BOTH, callback=event_handler, bouncetime=100)
-	GPIO.add_event_detect(GP_Int,   GPIO.BOTH, callback=event_handler, bouncetime=100)
+	# listen for events and share callback. Use 1s for button bounce time
+	GPIO.add_event_detect(GP_0,     GPIO.BOTH, callback=event_handler, bouncetime=1000)
+	GPIO.add_event_detect(GP_7,     GPIO.BOTH, callback=event_handler, bouncetime=1000)
+	GPIO.add_event_detect(GP_Reset, GPIO.BOTH, callback=event_handler, bouncetime=1000)
+	GPIO.add_event_detect(GP_Start, GPIO.BOTH, callback=event_handler, bouncetime=1000)
+	GPIO.add_event_detect(GP_Stop,  GPIO.BOTH, callback=event_handler, bouncetime=1000)
+	GPIO.add_event_detect(GP_Int,   GPIO.BOTH, callback=event_handler, bouncetime=1000)
 
 	# and enter into infinite loop setting led on/off
+	count = 0
 	while True:
 		GPIO.output(GP_LED,True)
 		time.sleep(1)
 		GPIO.output(GP_LED,False)
 		time.sleep(1)
+		count += 1
+		print ( count )
 
 try:
 	main()
