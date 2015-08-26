@@ -196,9 +196,10 @@ function bindKeysToChrono() {
 				else chrono_sensor('crono_start',{},4000);
                 break;
             case 27: // 'Esc' show/hide buttons
-                var b=$('#chrono-simButtons');
-                if(b.is(':visible')) b.css('display','none');
-                else  b.css('display','inline-block');
+				var b=$('#chrono-buttons');
+				var c=$('#chrono-copyright');
+                if(b.is(':visible')) { b.css('display','none'); c.css('display','inline-block'); }
+                else  { b.css('display','inline-block'); c.css('display','none'); }
                 break;
             default:
                 // alert("Unknow key code: "+ e.which);

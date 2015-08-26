@@ -8,6 +8,7 @@ require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Chrono");
 if ( ! $am->allowed(ENABLE_CHRONO)) { include_once("unregistered.html"); return 0;}
+$linfo=$am->getRegistrationInfo();
 ?>
 <!--
 chrono.inc
@@ -55,25 +56,35 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		</div>
 	</div>
 
-<div id="chrono-simButtons" style="text-align:right;width:100%;display:inline-block">
-	<span style="float:left;padding:5px;">
-   		<a id="chrono-recBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-huella'" onclick="chrono_button('crono_rec',{})">Reconocimiento</a>
-   		<a id="chrono-fltBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-hand'" onclick="chrono_button('crono_dat',{'Falta':1})">Falta</a>
-   		<a id="chrono-rehBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-fist'" onclick="chrono_button('crono_dat',{'Rehuse':1})">Reh&uacute;se</a>
-   		<a id="chrono-elimBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('crono_dat',{'Eliminado':1})">Eliminado</a>
-	</span>
-	<span style="float:right;padding:5px;">
-   		<a id="chrono-startBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-on'" onclick="chrono_sensor('crono_start',{},4000)">Inicio</a>
-   		<a id="chrono-intBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-help'" onclick="chrono_sensor('crono_int',{},4000)">Intermedio</a>
-   		<a id="chrono-stopBtn" href="#" class="easyui-linkbutton" 
-   		   	data-options="iconCls: 'icon-off'" onclick="chrono_sensor('crono_stop',{},4000)">Final</a>
-	</span>
+<div id="chrono-simButtons">
+	<div id="chrono-copyright" style="width:100%;display:none">
+		<span style="float:left;padding:5px;">
+			<em>AgilityContest-<?php echo $config->getEnv('version_name'); ?>. &copy; 2015 by JAMC</em>
+		</span>
+		<span style="float:right;padding:5px;">
+			<em>Copia licenciada para el club: <?php echo $linfo['Club']; ?></em>
+		</span>
+	</div>
+	<div id="chrono-buttons" style="width:100%;display:inline-block">
+		<span style="float:left;padding:5px;">
+   			<a id="chrono-recBtn" href="#" class="easyui-linkbutton"
+   			   	data-options="iconCls: 'icon-huella'" onclick="chrono_button('crono_rec',{})">Reconocimiento</a>
+   			<a id="chrono-fltBtn" href="#" class="easyui-linkbutton"
+   			   	data-options="iconCls: 'icon-hand'" onclick="chrono_button('crono_dat',{'Falta':1})">Falta</a>
+   			<a id="chrono-rehBtn" href="#" class="easyui-linkbutton"
+   			   	data-options="iconCls: 'icon-fist'" onclick="chrono_button('crono_dat',{'Rehuse':1})">Reh&uacute;se</a>
+   			<a id="chrono-elimBtn" href="#" class="easyui-linkbutton"
+   			   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('crono_dat',{'Eliminado':1})">Eliminado</a>
+		</span>
+		<span style="float:right;padding:5px;">
+   			<a id="chrono-startBtn" href="#" class="easyui-linkbutton"
+   			   	data-options="iconCls: 'icon-on'" onclick="chrono_sensor('crono_start',{},4000)">Inicio</a>
+   			<a id="chrono-intBtn" href="#" class="easyui-linkbutton"
+   			   	data-options="iconCls: 'icon-help'" onclick="chrono_sensor('crono_int',{},4000)">Intermedio</a>
+   			<a id="chrono-stopBtn" href="#" class="easyui-linkbutton"
+   			   	data-options="iconCls: 'icon-off'" onclick="chrono_sensor('crono_stop',{},4000)">Final</a>
+		</span>
+	</div>
 </div>	<!-- botones -->
 
 <!-- declare a tag to attach a chrono object to -->
@@ -99,7 +110,9 @@ $('#chrono_Screen-dialog').dialog({
 	closable:false,
 	collapsible:false,
 	collapsed:false,
-	resizable:true,
+	resizable:false,
+	maximizable:false,
+	maximized:true,
 	onOpen: function() {
 		startEventMgr(workingData.sesion,chrono_processEvents);
 		bindKeysToChrono();
@@ -107,6 +120,7 @@ $('#chrono_Screen-dialog').dialog({
 	buttons:'#chrono-simButtons'
 });
 
+// buttons
 addTooltip($('#chrono-fltBtn').linkbutton(),"Enviar falta/tocado desde botonera del crono");
 addTooltip($('#chrono-rehBtn').linkbutton(),"Enviar rehuse desde botonera del crono");
 addTooltip($('#chrono-elimBtn').linkbutton(),"Marcar eliminado desde la botonera del crono");
