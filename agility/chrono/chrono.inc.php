@@ -30,16 +30,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!-- Pantalla simulador de cronometro -->
 	<div id="chrono_Screen-dialog">
 		<div id="chrono_common" style="font-size:2.0em;display:inline-block;width:100%">
+			<!-- logotipo del club organizador -->
+			<img id="chrono_Club" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="chrono_logo"/>
 			<!-- Recuadros de decoracion -->
-			<span class="chrono_fondo" id="chrono_TiempoBg">&nbsp;</span>
+			<span class="chrono_fondo2" id="chrono_TiempoBg">&nbsp;</span>
 			<span class="chrono_fondo" id="chrono_ResultadosBg">&nbsp;</span>
 			<span class="chrono_fondo" id="chrono_DatosBg">&nbsp;</span>
 			<!-- datos de resultados -->
-			<span class="chrono_label" id="chrono_FaltasLbl">Flt:</span>
+			<span class="chrono_label" id="chrono_FaltasLbl">F:</span>
 			<span class="chrono_data"  id="chrono_Faltas">0</span>
-			<span class="chrono_label" id="chrono_TocadosLbl">Toc:</span>
+			<span class="chrono_label" id="chrono_TocadosLbl">T:</span>
 			<span class="chrono_data"  id="chrono_Tocados">0</span>
-			<span class="chrono_label" id="chrono_RehusesLbl">Reh:</span>
+			<span class="chrono_label" id="chrono_RehusesLbl">R:</span>
 			<span class="chrono_data"  id="chrono_Rehuses">0</span>
 			<span class="chrono_tiempo" id="chrono_Tiempo">00.00</span>
 			<!-- Informacion del participante -->
@@ -132,20 +134,22 @@ addTooltip($('#chrono-stopBtn').linkbutton(),"Parar el cron&oacute;metro");
 // layout
 var layout= {'cols':800, 'rows':300}; // declare base datagrid as A5 sheet
 
-doLayout(layout,"#chrono_TiempoBg",		5,		5,		620,	200	);
-doLayout(layout,"#chrono_ResultadosBg",	630,	5,		165,	200	);
+doLayout(layout,"#chrono_TiempoBg",		5,		5,		675,	200	);
+doLayout(layout,"#chrono_ResultadosBg",	685,	80,		110,	125	);
 doLayout(layout,"#chrono_DatosBg",		5,		210,	790,	85	);
 
-doLayout(layout,"#chrono_FaltasLbl",	650,	25,		60,		55	);
-doLayout(layout,"#chrono_TocadosLbl",	650,	80,		60,		55	);
-doLayout(layout,"#chrono_RehusesLbl",	650,	135,	60,		55	);
-doLayout(layout,"#chrono_Faltas",		740,	25,		25,		55	);
-doLayout(layout,"#chrono_Tocados",		740,	80,		25,		55	);
-doLayout(layout,"#chrono_Rehuses",		740,	135,	25,		55	);
+doLayout(layout,"#chrono_Club",			695,	10,		95,		60	);
 
-doLayout(layout,"#chrono_Tiempo",		10,		100,	610, 	90	);
+doLayout(layout,"#chrono_FaltasLbl",	700,	100,	50,		30	);
+doLayout(layout,"#chrono_TocadosLbl",	700,	135,	50,		30	);
+doLayout(layout,"#chrono_RehusesLbl",	700,	170,	50,		30	);
+doLayout(layout,"#chrono_Faltas",		750,	100,	35,		30	);
+doLayout(layout,"#chrono_Tocados",		750,	135,	35,		30	);
+doLayout(layout,"#chrono_Rehuses",		750,	170,	35,		30	);
 
-doLayout(layout,"#chrono_Logo",			10,		215,	80,		80	);
+doLayout(layout,"#chrono_Tiempo",		10,		100,	665, 	90	);
+
+doLayout(layout,"#chrono_Logo",			10,		215,	80,		55	);
 doLayout(layout,"#chrono_Dorsal",		100,	220,	100,	35	);
 doLayout(layout,"#chrono_Nombre",		200,	220,	250,	35	);
 doLayout(layout,"#chrono_Categoria",	450,	220,	200,	35	);

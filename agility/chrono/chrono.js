@@ -91,14 +91,19 @@ function c_showData(data) {
 			async: true,
 			cache: false,
 			dataType: 'json',
-			success: function(data){
-				$('#chrono_Logo').attr("src","/agility/images/logos/"+data['LogoClub']);
-				$('#chrono_Dorsal').html("Dors: "+dorsal );
-				$('#chrono_Nombre').html(data["Nombre"]);
-				$('#chrono_NombreGuia').html("Guia: "+data["NombreGuia"]);
-				$('#chrono_NombreClub').html("Club: "+data["NombreClub"]);
-				$('#chrono_Categoria').html(data["NombreCategoria"].replace(/.* - /g,""));
-				$('#chrono_Grado').html(data["NombreGrado"]);
+			success: function(res){
+				$('#chrono_Logo').attr("src","/agility/images/logos/"+res['LogoClub']);
+				$('#chrono_Dorsal').html("Dorsal: "+dorsal );
+				$('#chrono_Nombre').html(res["Nombre"]);
+				$('#chrono_NombreGuia').html("Guia: "+res["NombreGuia"]);
+				$('#chrono_Categoria').html("Cat: "+toLongCategoria(res["Categoria"],res['Federation']));
+				// hide "Grado" Information if not applicable
+				$('#chrono_Grado').html(hasGradosByJornada(workingData.datosJornada)?res["NombreGrado"]:"");
+				// on Team events, show Team info instead of Club
+				var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
+				// como en el videowall no tenemos datos de la jornada, lo que hacemos es
+				// contar el numero de equipos de esta para saber si es prueba por equipos o no
+				$('#chrono_NombreClub').html((Object.keys(workingData.teamsByJornada).length>1)?"Eq: "+eq:"Club: "+res["NombreClub"]);
 				$('#chrono_Celo').html((celo==1)?'<span class="blink">Celo</span>':'');
 			},
 			error: function(XMLHttpRequest,textStatus,errorThrown) {

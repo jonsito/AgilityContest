@@ -67,7 +67,7 @@ function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
 	  beforeSend: function(jqXHR,settings) {
-		if ( typeof(authInfo.SessionKey)!=undefined && authInfo.SessionKey!=null) {
+		if ( typeof(authInfo.SessionKey)!=='undefined' && authInfo.SessionKey!=null) {
 			jqXHR.setRequestHeader('X-AC-SessionKey',authInfo.SessionKey);
 		}
 	    return true;
@@ -135,7 +135,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <div id="chrono-dialog" class="easyui-dialog" style="position:relative;width:350px;height:auto;padding:10px 10px">
 	<form id="chrono-Selection">
     	<div class="fitem">
-       		<label for="Prueba">Ring:</label>
+       		<label for="chrono-Session">Ring:</label>
        		<select id="chrono-Session" name="Session" style="width:200px"></select>
     	</div>
 	</form>
@@ -182,7 +182,9 @@ $('#chrono-Session').combogrid({
 	columns: [[
 	    { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
 		{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: 'Nombre' },
-		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' }
+		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' },
+		{ field:'Prueba', hidden:true },
+		{ field:'Jornada', hidden:true }
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='selectring';
@@ -190,25 +192,24 @@ $('#chrono-Session').combogrid({
 		return true;
 	},
 	onLoadSuccess: function(data) {
-		$('#chrono-Session').combogrid('setValue',2); // by default select session 2 (ring 1)
-	}
+		var cs=$('#chrono-Session');
+		var def= cs.combogrid('grid').datagrid('getRows')[0].ID; // get first ID
+		cs.combogrid('setValue',def);
+	},
+	onSelect: function(index,row) { setupByJornada(row.Prueba,row.Jornada); }
 });
 
 function chrono_accept() {
-	// si prueba invalida cancelamos operacion
-	var s=$('#chrono-Session').combogrid('grid').datagrid('getSelected');
-	if ( s===null ) {
+	// si sesion invalida cancelamos operacion
+	var sid=$('#chrono-Session').combogrid('getValue');
+	if ( sid===null ) {
 		// indica error
 		$.messager.alert("Error","Debe indicar una sesion v&aacute;lidas","error");
 		return;
 	}
-	// clear selection to make sure next time gets empty
-	$('#chrono-Session').combogrid('setValue','');
 	
 	// store selected data into global structure
-	workingData.sesion=s.ID;
-	workingData.nombreSesion=s.Nombre;
-	initWorkingData(s.ID);
+	initWorkingData(sid);
 	var page='/agility/chrono/chrono.inc.php';
 	$('#chrono-dialog').dialog('close');
 	$('#chrono-contenido').load(	

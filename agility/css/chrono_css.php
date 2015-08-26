@@ -45,7 +45,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .chrono_label {
 	text-align: left;
 	background-color: transparent;
-	color: white;
+	font-size:2.0em;
+	color: black;
 }
 
 .chrono_logo {
@@ -55,21 +56,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 .chrono_data {
 	text-align: center;
 	background-color: #c0c0c0;
-	color: white;
+	font-size:2.0em;
+	color: black;
 }
 
 .chrono_info {
 	text-align: left;
 	background-color: #c0c0c0;
-	font-size:0.75em;
-	color: white;
+	font-size:1.2em;
+	color: black;
 }
 
 .chrono_tiempo {
 	text-align: center;
-	background-color: #c0c0c0;
+	/* background-color: rgba(192,192,192,<?php echo $config->getEnv('vw_alpha')?>); */
 	color: red;
-	font-size: 10.0em;
+	font-size: 11.0em;
 	letter-spacing: 0.11em;
 }
 
@@ -77,6 +79,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     background-color: rgba(127,127,127,<?php echo $config->getEnv('vw_alpha')?>);
     border: 3px solid black;
     border-radius: 10px;
+}
+
+.chrono_fondo2 {
+	background-color: rgba(192,192,192,<?php echo $config->getEnv('vw_alpha')?>);
+	border: 3px solid black;
+	border-radius: 10px;
 }
 
 #chrono_video {

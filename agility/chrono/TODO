@@ -1,0 +1,6 @@
+- Fix Organizer Club Logo
+- Mark manual & intermediate time flags when appropiate
+- Add supporters logo info
+- Write API manual
+- Allow direct ring selection from URL
+- Raspberry: use ajax calls insteadd of key events
