@@ -33,16 +33,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<!-- logotipo del club organizador -->
 			<img id="chrono_Club" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="chrono_logo"/>
 			<!-- Recuadros de decoracion -->
-			<span class="chrono_fondo2" id="chrono_TiempoBg">&nbsp;</span>
-			<span class="chrono_fondo" id="chrono_ResultadosBg">&nbsp;</span>
-			<span class="chrono_fondo" id="chrono_DatosBg">&nbsp;</span>
-			<!-- datos de resultados -->
-			<span class="chrono_label" id="chrono_FaltasLbl">F:</span>
+			<span class="chrono_fondo chrono_fheader" id="chrono_PruebaBg">&nbsp;</span>
+			<span class="chrono_fondo chrono_ftiempo" id="chrono_TiempoBg">&nbsp;</span>
+			<span class="chrono_fondo chrono_fdata" id="chrono_ResultadosBg">&nbsp;</span>
+			<span class="chrono_fondo chrono_finfo" id="chrono_DatosBg">&nbsp;</span>
+			<!-- Informacion de la prueba -->
+			<span class="chrono_info" id="chrono_PruebaLbl"><em>Datos de la prueba - Datos de la jornada - Datos de la manga</em></span>
+			<!-- Datos de resultados -->
+			<span class="chrono_data chrono_dataLbl" id="chrono_FaltasLbl">F:</span>
 			<span class="chrono_data"  id="chrono_Faltas">0</span>
-			<span class="chrono_label" id="chrono_TocadosLbl">T:</span>
+			<span class="chrono_data chrono_dataLbl" id="chrono_TocadosLbl">T:</span>
 			<span class="chrono_data"  id="chrono_Tocados">0</span>
-			<span class="chrono_label" id="chrono_RehusesLbl">R:</span>
+			<span class="chrono_data chrono_dataLbl" id="chrono_RehusesLbl">R:</span>
 			<span class="chrono_data"  id="chrono_Rehuses">0</span>
+			<!-- Cronometro -->
 			<span class="chrono_tiempo" id="chrono_Tiempo">00.00</span>
 			<!-- Informacion del participante -->
 			<img id="chrono_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="chrono_logo"/>
@@ -134,10 +138,12 @@ addTooltip($('#chrono-stopBtn').linkbutton(),"Parar el cron&oacute;metro");
 // layout
 var layout= {'cols':800, 'rows':300}; // declare base datagrid as A5 sheet
 
-doLayout(layout,"#chrono_TiempoBg",		5,		5,		675,	200	);
+doLayout(layout,"#chrono_PruebaBg",		5,		2,		675,	17	);
+doLayout(layout,"#chrono_TiempoBg",		5,		25,		675,	180	);
 doLayout(layout,"#chrono_ResultadosBg",	685,	80,		110,	125	);
 doLayout(layout,"#chrono_DatosBg",		5,		210,	790,	85	);
 
+doLayout(layout,"#chrono_PruebaLbl",	10,		5,		665,	17	);
 doLayout(layout,"#chrono_Club",			695,	10,		95,		60	);
 
 doLayout(layout,"#chrono_FaltasLbl",	700,	100,	50,		30	);

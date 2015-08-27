@@ -42,50 +42,49 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	z-index: 1;
 }
 
-.chrono_label {
-	text-align: left;
-	background-color: transparent;
-	font-size:2.0em;
-	color: black;
-}
-
 .chrono_logo {
 	background-color: transparent;
 }
 
 .chrono_data {
 	text-align: center;
-	background-color: #c0c0c0;
+	background-color: transparent;
 	font-size:2.0em;
-	color: black;
+	color: <?php echo $config->getEnv('vw_hdrfg2'); ?>;
 }
+.chrono_dataLbl { text-align: left; }
 
 .chrono_info {
 	text-align: left;
-	background-color: #c0c0c0;
+	background-color: transparent;
 	font-size:1.2em;
-	color: black;
+	color: <?php echo $config->getEnv('vw_hdrfg3'); ?>;
+}
+
+.chrono_header {
+	text-align: left;
+	background-color: transparent;
+	font-size:1.2em;
+	color: <?php echo $config->getEnv('vw_hdrfg1'); ?>;
 }
 
 .chrono_tiempo {
 	text-align: center;
-	/* background-color: rgba(192,192,192,<?php echo $config->getEnv('vw_alpha')?>); */
+	background-color: transparent;
 	color: red;
 	font-size: 11.0em;
 	letter-spacing: 0.11em;
 }
 
 .chrono_fondo {
-    background-color: rgba(127,127,127,<?php echo $config->getEnv('vw_alpha')?>);
     border: 3px solid black;
     border-radius: 10px;
 }
 
-.chrono_fondo2 {
-	background-color: rgba(192,192,192,<?php echo $config->getEnv('vw_alpha')?>);
-	border: 3px solid black;
-	border-radius: 10px;
-}
+.chrono_fheader { background-color: <?php echo $config->getEnv('vw_hdrbg1'); ?>; }
+.chrono_ftiempo { background-color: rgba(192,192,192,<?php echo $config->getEnv('vw_alpha')?>); }
+.chrono_fdata {	background-color: <?php echo $config->getEnv('vw_hdrbg2'); ?>; }
+.chrono_finfo {	background-color: <?php echo $config->getEnv('vw_hdrbg3'); ?>; }
 
 #chrono_video {
 	width: 100%;
