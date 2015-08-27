@@ -95,7 +95,7 @@ function c_showData(data) {
 				$('#chrono_Logo').attr("src","/agility/images/logos/"+res['LogoClub']);
 				$('#chrono_Dorsal').html("Dorsal: "+dorsal );
 				$('#chrono_Nombre').html(res["Nombre"]);
-				$('#chrono_NombreGuia').html("Guia: "+res["NombreGuia"]);
+				$('#chrono_NombreGuia').html("Gu&iacute;a: "+res["NombreGuia"]);
 				$('#chrono_Categoria').html("Cat: "+toLongCategoria(res["Categoria"],res['Federation']));
 				// hide "Grado" Information if not applicable
 				$('#chrono_Grado').html(hasGradosByJornada(workingData.datosJornada)?res["NombreGrado"]:"");

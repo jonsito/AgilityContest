@@ -221,9 +221,11 @@ $('#seltablet-Sesion').combogrid({
 	singleSelect: true,
 	editable: false,  // to disable tablet keyboard popup
 	columns: [[
-	   	    { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
-			{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: 'Nombre' },
-			{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' }
+	   	{ field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
+		{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: 'Nombre' },
+		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' },
+		{ field:'Prueba', hidden:true },
+		{ field:'Jornada', hidden:true }
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='selectring';
@@ -231,7 +233,9 @@ $('#seltablet-Sesion').combogrid({
 		return true;
 	},
 	onLoadSuccess: function(data) {
-		$('#seltablet-Sesion').combogrid('setValue',2);
+		var ts=$('#seltablet-Sesion');
+		var def= ts.combogrid('grid').datagrid('getRows')[0].ID; // get first ID
+		ts.combogrid('setValue',def);
 	}
 });
 

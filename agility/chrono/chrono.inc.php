@@ -150,12 +150,12 @@ doLayout(layout,"#chrono_Rehuses",		750,	170,	35,		30	);
 doLayout(layout,"#chrono_Tiempo",		10,		100,	665, 	90	);
 
 doLayout(layout,"#chrono_Logo",			10,		215,	80,		55	);
-doLayout(layout,"#chrono_Dorsal",		100,	220,	100,	35	);
-doLayout(layout,"#chrono_Nombre",		200,	220,	250,	35	);
-doLayout(layout,"#chrono_Categoria",	450,	220,	200,	35	);
-doLayout(layout,"#chrono_Grado",		650,	220,	125,	35	);
-doLayout(layout,"#chrono_NombreGuia",	100,	255,	350,	35	);
-doLayout(layout,"#chrono_NombreClub",	450,	255,	250,	35	);
-doLayout(layout,"#chrono_Celo",			700,	255,	75,		35	);
+doLayout(layout,"#chrono_Dorsal",		100,	225,	100,	25	);
+doLayout(layout,"#chrono_Nombre",		200,	225,	250,	25	);
+doLayout(layout,"#chrono_Categoria",	450,	225,	200,	25	);
+doLayout(layout,"#chrono_Grado",		650,	225,	125,	25	);
+doLayout(layout,"#chrono_NombreGuia",	100,	250,	350,	20	);
+doLayout(layout,"#chrono_NombreClub",	450,	250,	250,	20	);
+doLayout(layout,"#chrono_Celo",			700,	250,	75,		20	);
 
 </script>

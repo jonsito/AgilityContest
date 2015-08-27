@@ -292,7 +292,9 @@ $('#selvw-Session').combogrid({
 		return true;
 	},
 	onLoadSuccess: function(data) {
-		$('#selvw-Session').combogrid('setValue',2); // by default select session 2 (ring 1)
+		var vs=$('#selvw-Session');
+		var def= vs.combogrid('grid').datagrid('getRows')[0].ID; // get first ID ( usually ring 1 )
+		vs.combogrid('setValue',def);
 	},
     onSelect: function(index,row) { setupByJornada(row.Prueba,row.Jornada); }
 });
