@@ -87,6 +87,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     border-radius: 10px;
 }
 
+.chrono_flogo { background-color: '#ffffff'; }
 .chrono_fheader { background-color: <?php echo $config->getEnv('vw_hdrbg1'); ?>; }
 .chrono_ftiempo { background-color: rgba(192,192,192,<?php echo $config->getEnv('vw_alpha')?>); }
 .chrono_fdata {	background-color: <?php echo $config->getEnv('vw_hdrbg2'); ?>; }

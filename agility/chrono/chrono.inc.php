@@ -34,6 +34,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span id="chrono_Club" style="display:none" ></span>
 			<img id="chrono_LogoClub" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="chrono_logo"/>
 			<!-- Recuadros de decoracion -->
+			<span class="chrono_fondo chrono_flogo" id="chrono_LogoClubBg">&nbsp;</span>
 			<span class="chrono_fondo chrono_fheader" id="chrono_PruebaBg">&nbsp;</span>
 			<span class="chrono_fondo chrono_ftiempo" id="chrono_TiempoBg">&nbsp;</span>
 			<span class="chrono_fondo chrono_fdata" id="chrono_ResultadosBg">&nbsp;</span>
@@ -143,6 +144,7 @@ addTooltip($('#chrono-stopBtn').linkbutton(),"Parar el cron&oacute;metro");
 // layout
 var layout= {'cols':800, 'rows':300}; // declare base datagrid as A5 sheet
 
+doLayout(layout,"#chrono_LogoClubBg",	685,	2,		110,	75	);
 doLayout(layout,"#chrono_PruebaBg",		5,		2,		675,	17	);
 doLayout(layout,"#chrono_TiempoBg",		5,		25,		675,	180	);
 doLayout(layout,"#chrono_ResultadosBg",	685,	80,		110,	125	);
@@ -159,7 +161,7 @@ doLayout(layout,"#chrono_Tocados",		750,	135,	35,		30	);
 doLayout(layout,"#chrono_Rehuses",		750,	170,	35,		30	);
 
 doLayout(layout,"#chrono_Manual",		600,	30,	    55, 	10	);
-doLayout(layout,"#chrono_Intermedio",	600,	40,	    55, 	10	);
+doLayout(layout,"#chrono_Intermedio",	580,	40,	    75, 	10	);
 doLayout(layout,"#chrono_Tiempo",		10,		100,	665, 	90	);
 
 doLayout(layout,"#chrono_Logo",			10,		215,	80,		55	);
