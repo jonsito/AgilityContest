@@ -301,7 +301,9 @@ function tablet_reconocimiento() {
 
 function tablet_startstop() {
 	var time = Date.now() - startDate;
-	if ( $('#tdialog-StartStopBtn').val() === "Start" ) {
+	var ssb=$('#tdialog-StartStopBtn').val();
+	if ( ssb==='Auto' ) return;  // crono auto started. ignore
+	if ( ssb === "Start" ) {
 		tablet_putEvent('start',{ 'Value' : time } );
 	} else {
 		tablet_putEvent('stop',{ 'Value' : time } );
@@ -311,7 +313,10 @@ function tablet_startstop() {
 }
 
 function tablet_salida() {
-	tablet_putEvent('salida',{ 'Value' : Date.now() - startDate } );
+	var time = Date.now() - startDate;
+	var ssb=$('#tdialog-StartStopBtn').val();
+	if ( ssb==='Auto' ) return; // crono auto started. ignore
+	tablet_putEvent('salida',{ 'Value' : time } );
 	doBeep();
 	return false;
 }
@@ -507,15 +512,9 @@ function tablet_editByDorsal() {
 	drs.val('---- Dorsal ----');
 }
 
-function isExpected(event) {
-	/*
-	// Si la manga y el perro no coinciden con el mostrado en el tablet, log error e ignora evento
-	if ( (event['Manga']!=$('#tdialog-Manga').val()) || (event['Perro']!=$('#tdialog-Perro').val()) ) return false;
-	*/
-	return true;
-}
-
 function tablet_processEvents(id,evt) {
+	var ssb=$('#tdialog-StartStopBtn');
+	var crm=$('#cronomanual');
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
 	var time=event['Value']; // miliseconds 
@@ -531,29 +530,29 @@ function tablet_processEvents(id,evt) {
 	case 'llamada':	// llamada a pista
 		tablet_cronoManual('stop');
 		tablet_cronoManual('reset');
+		ssb.val('Start');
 		return;
 	case 'salida': // orden de salida
 		myCounter.start();
 		return;
 	case 'start': // start crono manual
-		if (!isExpected(event)) return;
-		$('#tdialog-StartStopBtn').val("Stop");
+		// si crono automatico, ignora
+		if (ssb.val()==="Auto") return;
+		ssb.val("Stop");
 		myCounter.stop();
         tablet_restartCronoManual(time);
 		return;
 	case 'stop': // stop crono manual
-		if (!isExpected(event)) return;
-		$('#tdialog-StartStopBtn').val("Start");
+		// si crono automatico, ignora
+		if (ssb.val()==="Auto") return;
+		ssb.val("Start");
 		tablet_cronoManual('stop',time);
 		return;// Value contiene la marca de tiempo
 	case 'crono_start': // arranque crono electronico
-		// automatic chrono just overrides manual crono, 
-		// except that bypasses configuration 'enabled' flag for it
-		if (!isExpected(event)) return;
+		// automatic chrono just overrides manual crono,
 		// parar countdown
-		$('#tdialog-StartStopBtn').val("Stop");
 		myCounter.stop();
-        var crm=$('#cronomanual');
+		ssb.val('Auto');
 		// arranca crono manual si no esta ya arrancado
 		// si el crono manual ya esta arrancado, lo resetea y vuelve a empezar
 		crm.Chrono('stop');
@@ -561,13 +560,13 @@ function tablet_processEvents(id,evt) {
 		crm.Chrono('start',time);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-        $('#cronomanual').Chrono('pause'); setTimeout(function(){$('#cronomanual').Chrono('resume');},5000);
+        crm.Chrono('pause'); setTimeout(function(){crm.Chrono('resume');},5000);
 		return;
 	case 'crono_stop':	// parada crono electronico
 		// si value!=0 parar countdown y crono manual; y enviar tiempo al crono del tablet 
 		myCounter.stop();
-		$('#tdialog-StartStopBtn').val("Start");
-		$('#cronomanual').Chrono('stop',time);
+		ssb.val("Start");
+		crm.Chrono('stop',time);
 		return;
 	case 'crono_dat':	// datos desde el crono electronico
 	case 'crono_rec':	// reconocimiento de pista desde crono electronico

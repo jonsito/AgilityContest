@@ -108,8 +108,10 @@ $config =Config::getInstance();
 			auto: false,
 			interval: 100,
 			showMode: 2,
-			onUpdate: function(elapsed,running,pause) { 
-				$('#tdialog-Tiempo').val(parseFloat(elapsed/1000).toFixed((running)?1:2)); 
+			onBeforePause: function() { $('#tdialog-TiempoLbl').text('Tiempo (intermedio)').addClass('blink'); return true; },
+			onBeforeResume: function() { $('#tdialog-TiempoLbl').text('Tiempo').remmoveClass('blink'); return true; },
+			onUpdate: function(elapsed,running,pause) {
+				$('#tdialog-Tiempo').val(parseFloat(elapsed/1000).toFixed((running)?1:2));
 				return true;
 			}
 		});
@@ -185,18 +187,18 @@ $config =Config::getInstance();
     doLayout(dg,"#tdialog-Dot",				75,		125,	20,		15	);
     doLayout(dg,"#tdialog-DorsalLbl",		50,		31,		15,		8	);
     doLayout(dg,"#tdialog-Dorsal",			65,		31,		35,		8	);
-    doLayout(dg,"#tdialog-NombreLbl",		120,	31,		20,		8	);
-    doLayout(dg,"#tdialog-Nombre",			140,	31,		25,		8	);
+    doLayout(dg,"#tdialog-NombreLbl",		120,	31,		10,		8	);
+    doLayout(dg,"#tdialog-Nombre",			130,	31,		25,		8	);
     doLayout(dg,"#tdialog-GuiaLbl",			50,		39,		15,		8	);
     doLayout(dg,"#tdialog-Guia",			65,		39,		40,		8	);
-    doLayout(dg,"#tdialog-ClubLbl",			120,	39,		20,		8	);
-    doLayout(dg,"#tdialog-Club",			140,	39,		25,		8	);
+    doLayout(dg,"#tdialog-ClubLbl",			120,	39,		10,		8	);
+    doLayout(dg,"#tdialog-Club",			130,	39,		20,		8	);
     doLayout(dg,"#tdialog-CategoriaLbl",	50,		47,		15,		8	);
     doLayout(dg,"#tdialog-Categoria",		65,		47,		20,		8	);
     doLayout(dg,"#tdialog-GradoLbl",		90,		47,		15,		8	);
     doLayout(dg,"#tdialog-Grado",			105,	47,		20,		8	);
-    doLayout(dg,"#tdialog-CeloLbl",			120,	47,		20,		8	);
-    doLayout(dg,"#tdialog-Celo",			140,	47,		15,		8	);
+    doLayout(dg,"#tdialog-CeloLbl",			120,	47,		10,		8	);
+    doLayout(dg,"#tdialog-Celo",			130,	47,		15,		8	);
     doLayout(dg,"#tdialog-FaltasLbl",		50,		70,		10,		5	);
     doLayout(dg,"#tdialog-Faltas",			50,		55,		10,		15	);
     doLayout(dg,"#tdialog-TocadosLbl",		65,		70,		10,		5	);
@@ -208,6 +210,6 @@ $config =Config::getInstance();
     doLayout(dg,"#tdialog-NoPresentadoLbl",	135,	70,		10,		5	);
     doLayout(dg,"#tdialog-NoPresentadoStr",	135,	55,		10,		15	);
     doLayout(dg,"#tdialog-EliminadoLbl",	150,	70,		10,		5	);
-    doLayout(dg,"#tdialog-EliminadoStr",	150,	55,		10,		15	);
+	doLayout(dg,"#tdialog-EliminadoStr",	150,	55,		10,		15	);
     doLayout(dg,"#tdialog-Rectangulo",		45,		32,		120,	46  );
 </script>

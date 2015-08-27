@@ -83,6 +83,11 @@ img.mainpage{
 	font-weight:bold;
 }
 
+.dialog_forms span {
+	line-height: 25px;
+	font-weight:bold;
+}
+
 /**** tamanyo de los select del formulario de datos de la manga manga */
 .c_competicion-datosmanga {
 	font-size: 11px;

@@ -126,6 +126,7 @@ $('#chrono_Screen-dialog').dialog({
 	onOpen: function() {
 		startEventMgr(workingData.sesion,chrono_processEvents);
 		bindKeysToChrono();
+		$('#chrono_PruebaLbl').html( workingData.datosPrueba.Nombre + ' - ' + workingData.datosJornada.Nombre );
 	},
 	buttons:'#chrono-simButtons'
 });
