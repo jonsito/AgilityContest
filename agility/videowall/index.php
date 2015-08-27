@@ -296,7 +296,7 @@ $('#selvw-Session').combogrid({
 		var def= vs.combogrid('grid').datagrid('getRows')[0].ID; // get first ID ( usually ring 1 )
 		vs.combogrid('setValue',def);
 	},
-    onSelect: function(index,row) { setupByJornada(row.Prueba,row.Jornada); }
+    onSelect: function(index,row) {setupWorkingData(row.Prueba,row.Jornada,(row.manga>0)?row.manga:1);}
 });
 
 function vw_accept() {

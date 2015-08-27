@@ -350,10 +350,10 @@ function vwls_processLiveStream(id,evt) {
 	case 'null':		// null event: no action taken
 		return; 
 	case 'init':		// operator starts tablet application
-        setupByJornada(event['Pru'],event['Jor']); // use shortname to ensure data exists
+        setupWorkingData(event['Pru'],event['Jor'],(event['Mng']>0)?event['Mng']:1); // use shortname to ensure data exists
 		vwls_showOSD(0); 	// activa visualizacion de OSD
 		return;
-        case 'open':		// operator select tanda reset info
+	case 'open':		// operator select tanda reset info
         vw_updateWorkingData(event,function(e,d){vw_updateDataInfo(e,d);});
 		return;
 	case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)

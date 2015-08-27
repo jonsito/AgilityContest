@@ -196,7 +196,7 @@ $('#chrono-Session').combogrid({
 		var def= cs.combogrid('grid').datagrid('getRows')[0].ID; // get first ID
 		cs.combogrid('setValue',def);
 	},
-	onSelect: function(index,row) { setupByJornada(row.Prueba,row.Jornada); }
+	onSelect: function(index,row) { setupWorkingData(row.Prueba,row.Jornada,(row.manga>0)?row.manga:1); }
 });
 
 function chrono_accept() {
@@ -207,9 +207,8 @@ function chrono_accept() {
 		$.messager.alert("Error","Debe indicar una sesion v&aacute;lidas","error");
 		return;
 	}
-	
 	// store selected data into global structure
-	initWorkingData(sid);
+	initWorkingData(sid); // TODO: replace with proper setupWorkingData call
 	var page='/agility/chrono/chrono.inc.php';
 	$('#chrono-dialog').dialog('close');
 	$('#chrono-contenido').load(	

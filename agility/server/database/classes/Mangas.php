@@ -40,7 +40,7 @@ class Mangas extends DBObject {
 		11 =>	array( 11,'Jumping Grado III',			'GIII',	'Jumping GIII',	'Grado III'),
 		12 =>	array( 12,'Jumping Abierta',    		'-',	'Jumping Open',	'Abierta'),
 		13 =>	array( 13,'Jumping Equipos (3 mejores)','-',    'Jumping Eq.',	'Equipos'),
-		14 =>	array( 14,'Jumping Equipos (4 Conjunta)', '-',    'Jumping Eq.',	'Equipos'),
+		14 =>	array( 14,'Jumping Equipos (4 Conjunta)', '-',  'Jumping Eq.',	'Equipos'),
 		15 =>	array( 15,'Ronda K.O.', 				'-',	'Ronda K.O.',	'K.O.'),
 		16 =>	array( 16,'Manga especial', 			'-',	'Manga Especial','Abierta')	
 	);
@@ -159,33 +159,8 @@ class Mangas extends DBObject {
 	
 	function update($mangaid) {
 		$this->myLogger->enter();
-		if ($mangaid <=0) return $this->error("Invalid Manga ID"); 
-		// preparamos la query SQL
-		$sql= "UPDATE Mangas SET
- 			Recorrido=? ,
-			Dist_L=? , Obst_L=? , Dist_M=? , Obst_M=? , Dist_S=? , Obst_S=? , Dist_T=? , Obst_T=? ,
-			TRS_L_Tipo=? , TRS_L_Factor=? , TRS_L_Unit=? , TRM_L_Tipo=? , TRM_L_Factor=? , TRM_L_Unit=? ,
-			TRS_M_Tipo=? , TRS_M_Factor=? , TRS_M_Unit=? , TRM_M_Tipo=? , TRM_M_Factor=? , TRM_M_Unit=? ,
-			TRS_S_Tipo=? , TRS_S_Factor=? , TRS_S_Unit=? , TRM_S_Tipo=? , TRM_S_Factor=? , TRM_S_Unit=? ,
-			TRS_T_Tipo=? , TRS_T_Factor=? , TRS_T_Unit=? , TRM_T_Tipo=? , TRM_T_Factor=? , TRM_T_Unit=? ,
-			Juez1=? , Juez2=? ,
-			Observaciones=?
-			WHERE (ID=?)";
-		
-		$stmt=$this->conn->prepare($sql);
-		if (!$stmt) return $this->error($this->conn->error); 
-		$res=$stmt->bind_param(
-			'iiiiiiiiiiisiisiisiisiisiisiisiisiisi',
-			$recorrido,
-			$dist_l,	$obst_l,	$dist_m,	$obst_m,	$dist_s,	$obst_s, 	$dist_t,	$obst_t,// distancias y obstaculos
-			$trs_l_tipo,	$trs_l_factor,	$trs_l_unit,	$trm_l_tipo,	$trm_l_factor,	$trm_l_unit,// TRS y TRM Large
-			$trs_m_tipo,	$trs_m_factor,	$trs_m_unit,	$trm_m_tipo,	$trm_m_factor,	$trm_m_unit,// TRS Y TRM Medium
-			$trs_s_tipo,	$trs_s_factor,	$trs_s_unit,	$trm_s_tipo,	$trm_s_factor,	$trm_s_unit,// TRS y TRM Small
-			$trs_t_tipo,	$trs_t_factor,	$trs_t_unit,	$trm_t_tipo,	$trm_t_factor,	$trm_t_unit,// TRS y TRM Small
-			$juez1, 		$juez2, 		$observaciones,	$id		
-		);
-		if (!$res) return $this->error($this->conn->error); 
-		
+		if ($mangaid <=0) return $this->error("Invalid Manga ID");
+
 		// retrieve http request variables
 		/*
 		 * ID		(PRIMARY KEY)
@@ -209,7 +184,7 @@ class Mangas extends DBObject {
 		$dist_s = http_request("Dist_S","i",0);
 		$dist_t = http_request("Dist_T","i",0);
 		// obstaculos
-		$obst_l = http_request("Obst_L","i",0); 
+		$obst_l = http_request("Obst_L","i",0);
 		$obst_m = http_request("Obst_M","i",0);
 		$obst_s = http_request("Obst_S","i",0);
 		$obst_t = http_request("Obst_T","i",0);
@@ -247,7 +222,33 @@ class Mangas extends DBObject {
 		$juez1 = http_request("Juez1","i",1);
 		$juez2 = http_request("Juez2","i",1);
 		$observaciones = http_request("Observaciones","s",null,false);
-		
+
+		// preparamos la query SQL
+		$sql= "UPDATE Mangas SET
+ 			Recorrido=? ,
+			Dist_L=? , Obst_L=? , Dist_M=? , Obst_M=? , Dist_S=? , Obst_S=? , Dist_T=? , Obst_T=? ,
+			TRS_L_Tipo=? , TRS_L_Factor=? , TRS_L_Unit=? , TRM_L_Tipo=? , TRM_L_Factor=? , TRM_L_Unit=? ,
+			TRS_M_Tipo=? , TRS_M_Factor=? , TRS_M_Unit=? , TRM_M_Tipo=? , TRM_M_Factor=? , TRM_M_Unit=? ,
+			TRS_S_Tipo=? , TRS_S_Factor=? , TRS_S_Unit=? , TRM_S_Tipo=? , TRM_S_Factor=? , TRM_S_Unit=? ,
+			TRS_T_Tipo=? , TRS_T_Factor=? , TRS_T_Unit=? , TRM_T_Tipo=? , TRM_T_Factor=? , TRM_T_Unit=? ,
+			Juez1=? , Juez2=? ,
+			Observaciones=?
+			WHERE (ID=$id)";
+
+		$stmt=$this->conn->prepare($sql);
+		if (!$stmt) return $this->error($this->conn->error); 
+		$res=$stmt->bind_param(
+			'iiiiiiiiiiisiisiisiisiisiisiisiisiis',
+			$recorrido,
+			$dist_l,	$obst_l,	$dist_m,	$obst_m,	$dist_s,	$obst_s, 	$dist_t,	$obst_t,// distancias y obstaculos
+			$trs_l_tipo,	$trs_l_factor,	$trs_l_unit,	$trm_l_tipo,	$trm_l_factor,	$trm_l_unit,// TRS y TRM Large
+			$trs_m_tipo,	$trs_m_factor,	$trs_m_unit,	$trm_m_tipo,	$trm_m_factor,	$trm_m_unit,// TRS Y TRM Medium
+			$trs_s_tipo,	$trs_s_factor,	$trs_s_unit,	$trm_s_tipo,	$trm_s_factor,	$trm_s_unit,// TRS y TRM Small
+			$trs_t_tipo,	$trs_t_factor,	$trs_t_unit,	$trm_t_tipo,	$trm_t_factor,	$trm_t_unit,// TRS y TRM Small
+			$juez1, 		$juez2, 		$observaciones
+		);
+		if (!$res) return $this->error($this->conn->error); 
+
 		// ejecutamos el query
 		// invocamos la orden SQL y devolvemos el resultado
 		$res=$stmt->execute();
@@ -312,6 +313,7 @@ class Mangas extends DBObject {
 		$result=$this->__getObject("Mangas",$id);
 		$result->Manga=$id;
 		$result->Jornada=$this->jornada;
+		$result->Nombre=Mangas::$tipo_manga[$result->Tipo][1];
 		$result->Operation="update";
 		$this->myLogger->leave();
 		return $result;

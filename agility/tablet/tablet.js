@@ -569,7 +569,12 @@ function tablet_processEvents(id,evt) {
 		crm.Chrono('stop',time);
 		return;
 	case 'crono_dat':	// datos desde el crono electronico
+		// at this moment, every crono_dat events are ignored:
+		// this is a sample implementation and this crono is not designed
+		// to work without tablet; so no sense to take care
+		// on 'crono_dat' events: just use 'datos' event from tablet instead
 	case 'crono_rec':	// reconocimiento de pista desde crono electronico
+		// ignored, just for get noticed at chrono display
 	case 'cancelar': // operador pulsa cancelar
 		return;
     case 'aceptar':	// operador pulsa aceptar

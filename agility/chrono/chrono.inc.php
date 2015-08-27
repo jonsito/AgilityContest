@@ -31,7 +31,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<div id="chrono_Screen-dialog">
 		<div id="chrono_common" style="font-size:2.0em;display:inline-block;width:100%">
 			<!-- logotipo del club organizador -->
-			<img id="chrono_Club" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="chrono_logo"/>
+			<span id="chrono_Club" style="display:none" ></span>
+			<img id="chrono_LogoClub" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="chrono_logo"/>
 			<!-- Recuadros de decoracion -->
 			<span class="chrono_fondo chrono_fheader" id="chrono_PruebaBg">&nbsp;</span>
 			<span class="chrono_fondo chrono_ftiempo" id="chrono_TiempoBg">&nbsp;</span>
@@ -126,7 +127,6 @@ $('#chrono_Screen-dialog').dialog({
 	onOpen: function() {
 		startEventMgr(workingData.sesion,chrono_processEvents);
 		bindKeysToChrono();
-		$('#chrono_PruebaLbl').html( workingData.datosPrueba.Nombre + ' - ' + workingData.datosJornada.Nombre );
 	},
 	buttons:'#chrono-simButtons'
 });
@@ -149,7 +149,7 @@ doLayout(layout,"#chrono_ResultadosBg",	685,	80,		110,	125	);
 doLayout(layout,"#chrono_DatosBg",		5,		210,	790,	85	);
 
 doLayout(layout,"#chrono_PruebaLbl",	10,		5,		665,	17	);
-doLayout(layout,"#chrono_Club",			695,	10,		95,		60	);
+doLayout(layout,"#chrono_LogoClub",		695,	10,		95,		60	);
 
 doLayout(layout,"#chrono_FaltasLbl",	700,	100,	50,		30	);
 doLayout(layout,"#chrono_TocadosLbl",	700,	135,	50,		30	);

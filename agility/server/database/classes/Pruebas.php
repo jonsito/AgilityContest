@@ -236,7 +236,7 @@ class Pruebas extends DBObject {
 
 		// make query
 		$data= $this->__selectAsArray(
-				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub,
+				/* SELECT */ "Pruebas.ID AS ID, Pruebas.Nombre AS Nombre, Pruebas.Club AS Club,Clubes.Nombre AS NombreClub, Clubes.Logo AS LogoClub,
 					Pruebas.Ubicacion AS Ubicacion,Pruebas.Triptico AS Triptico, Pruebas.Cartel AS Cartel,
 					Pruebas.RSCE AS RSCE, Pruebas.Selectiva AS Selectiva,
 					Pruebas.Cerrada AS Cerrada, Pruebas.Observaciones AS Observaciones",

@@ -66,6 +66,17 @@ var c_reconocimiento = new Countdown({
 
 var c_sensorDate = 0;
 
+function c_updateHeader() {
+	var mng=workingData.datosManga.Nombre;
+	var jor=workingData.datosJornada.Nombre;
+	var pru=workingData.datosPrueba.Nombre;
+	var club=workingData.datosPrueba.NombreClub
+	var logo=workingData.datosPrueba.LogoClub;
+	$('#chrono_PruebaLbl').html( pru + ' - ' + jor + ' - ' + mng );
+	$('#chrono_LogoClub').attr('src','/agility/images/logos/'+logo);
+	$('#chrono_Club').html(club);
+}
+
 function c_updateData(data) {
 	if (data["Faltas"]!=-1) $('#chrono_Faltas').html(data["Faltas"]);
 	if (data["Tocados"]!=-1) $('#chrono_Tocados').html(data["Tocados"]);
@@ -227,7 +238,10 @@ function chrono_processEvents(id,evt) {
 		return;
 	case 'init': // operator starts tablet application
 		return;
-	case 'open': // operator select tanda:
+		case 'open': // operator select tanda:
+		// update working data. when done update header
+	 	setupWorkingData(event['Pru'],event['Jor'],(event['Mng']>0)?event['Mng']:1,c_updateHeader);
+		// actualizar datos de prueba, jornada, manga y logotipo del club
 		return;
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		c_updateData(event);
@@ -278,7 +292,11 @@ function chrono_processEvents(id,evt) {
 		c_reconocimiento.stop();// also, not really needed, but...
 		cra.Chrono('stop',time);
 		return;
-	case 'crono_dat': // operador pulsa botonera del crono
+		case 'crono_dat': // operador pulsa botonera del crono
+			// at this moment, every crono_dat events are ignored:
+			// this is a sample implementation and this crono is not designed
+			// to work without tablet; so no sense to take care
+			// on 'crono_dat' events: just use 'datos' event from tablet instead
 		return;
 	case 'crono_rec': // reconocimiento de pista
 		if (c_reconocimiento.val()!==0) c_reconocimiento.stop();
