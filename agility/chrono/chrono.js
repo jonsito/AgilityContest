@@ -150,11 +150,6 @@ function chrono_sensor(event,data,guard) {
 	doBeep();
 }
 
-function isExpected(event) {
-	// TODO: write
-	return true;
-}
-
 function bindKeysToChrono() {
 	// parse keypress event on every  button
 	$(document).keydown(function(e) {
@@ -196,9 +191,15 @@ function bindKeysToChrono() {
 				chrono_sensor('crono_stop',{},4000);
 				break;
 			case 13: // 'Enter' -> chrono start/stop
-			case 83: // 'S' -> alternate chrono start/stop
-				if ($('#cronoauto').Chrono('started')) chrono_sensor('crono_stop',{},4000);
-				else chrono_sensor('crono_start',{},4000);
+            case 83: // 'S' -> alternate chrono start/stop
+                // si crono manual started: start crono auto
+                if ($('#chrono_Manual').text() !== '' ) {
+                    chrono_sensor('crono_start',{},4000);
+                } else {
+                    // else handle
+                    if ($('#cronoauto').Chrono('started')) chrono_sensor('crono_stop',{},4000);
+                    else chrono_sensor('crono_start',{},4000);
+                }
                 break;
             case 27: // 'Esc' show/hide buttons
 				var b=$('#chrono-buttons');
@@ -216,6 +217,8 @@ function bindKeysToChrono() {
 }
 
 function chrono_processEvents(id,evt) {
+	var cra=$('#cronoauto');
+	var crm=$('#chrono_Manual');
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
 	var time=event['Value']; // miliseconds 
@@ -230,40 +233,50 @@ function chrono_processEvents(id,evt) {
 		c_updateData(event);
 		return;
 	case 'llamada':	// llamada a pista
-        var cra=$('#cronoauto');
 		cra.Chrono('stop');
 		cra.Chrono('reset');
+		crm.text('').removeClass('blink');
 		c_showData(event);
 		return;
 	case 'salida': // orden de salida
 		c_llamada.start();
 		return;
 	case 'start': // start crono manual
+		// si crono auto arrancado ignore
+		if ( cra.Chrono('started') ) return;
+		c_llamada.stop();
+		c_reconocimiento.stop();
+		crm.text('Manual').addClass('blink'); // add 'Manual' mark
+		cra.Chrono('stop');
+		cra.Chrono('reset');
+		cra.Chrono('start',time);
 		return;
 	case 'stop': // stop crono manual
+		// si crono manual esta arrancado, paramos; else ignore
+		if (crm.text() == '') return;
+		c_llamada.stop(); // not really needed, but...
+		c_reconocimiento.stop();// also, not really needed, but...
+		cra.Chrono('stop',time);
 		return;// Value contiene la marca de tiempo
 	case 'crono_start': // arranque crono electronico
-		// automatic chrono just overrides manual crono, 
-		// except that bypasses configuration 'enabled' flag for it
-		if (!isExpected(event)) return;
+		// automatic chrono just overrides manual crono,
 		// parar countdown
 		c_llamada.stop(); 
 		c_reconocimiento.stop();
-        var cra=$('#cronoauto');
-		// arranca crono manual si no esta ya arrancado
-		// si el crono manual ya esta arrancado, lo resetea y vuelve a empezar
+		crm.text('').removeClass('blink'); // clear 'Manual' mark
 		cra.Chrono('stop');
 		cra.Chrono('reset');
 		cra.Chrono('start',time);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-        $('#cronoauto').Chrono('pause'); setTimeout(function(){$('#cronoauto').Chrono('resume');},5000);
+        cra.Chrono('pause'); setTimeout(function(){$('#cronoauto').Chrono('resume');},5000);
 		// TODO: write
 		return;
-	case 'crono_stop':	// parada crono electronico
+        case 'crono_stop':	// parada crono electronico
+        // si crono manual arrancado, ignora if (crm.text() !=='') return;
 		c_llamada.stop(); // not really needed, but...
 		c_reconocimiento.stop();// also, not really needed, but...
-		$('#cronoauto').Chrono('stop',time);
+		cra.Chrono('stop',time);
 		return;
 	case 'crono_dat': // operador pulsa botonera del crono
 		return;

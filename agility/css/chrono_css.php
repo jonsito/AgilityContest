@@ -76,6 +76,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	letter-spacing: 0.11em;
 }
 
+.chrono_flags {
+	text-align: right;
+	background-color: transparent;
+	color: red;
+	font-size: 0.9em;
+}
 .chrono_fondo {
     border: 3px solid black;
     border-radius: 10px;

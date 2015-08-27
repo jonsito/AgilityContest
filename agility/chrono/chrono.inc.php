@@ -47,6 +47,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span class="chrono_data chrono_dataLbl" id="chrono_RehusesLbl">R:</span>
 			<span class="chrono_data"  id="chrono_Rehuses">0</span>
 			<!-- Cronometro -->
+			<span class="chrono_flags" id="chrono_Manual"></span>
+			<span class="chrono_flags" id="chrono_Intermedio"></span>
 			<span class="chrono_tiempo" id="chrono_Tiempo">00.00</span>
 			<!-- Informacion del participante -->
 			<img id="chrono_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="chrono_logo"/>
@@ -104,6 +106,8 @@ $('#cronoauto').Chrono( {
 	auto: false,
 	interval: 100,
 	showMode: 2,
+	onBeforePause: function() { $('#chrono_Intermedio').text('Intermedio').addClass('blink'); return true; },
+	onBeforeResume: function() { $('#chrono_Intermedio').text('').removeClass('blink'); return true; },
 	onUpdate: function(elapsed,running,pause) { 
 		$('#chrono_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:2));
 		return true;
@@ -153,6 +157,8 @@ doLayout(layout,"#chrono_Faltas",		750,	100,	35,		30	);
 doLayout(layout,"#chrono_Tocados",		750,	135,	35,		30	);
 doLayout(layout,"#chrono_Rehuses",		750,	170,	35,		30	);
 
+doLayout(layout,"#chrono_Manual",		600,	30,	    55, 	10	);
+doLayout(layout,"#chrono_Intermedio",	600,	40,	    55, 	10	);
 doLayout(layout,"#chrono_Tiempo",		10,		100,	665, 	90	);
 
 doLayout(layout,"#chrono_Logo",			10,		215,	80,		55	);
