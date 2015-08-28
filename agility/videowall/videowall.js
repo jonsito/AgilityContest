@@ -325,6 +325,8 @@ function vw_procesaCombinada(id,evt) {
 		return;
 	case 'crono_stop':	// parada crono electronico
 		return;
+	case 'crono_reset':  // puesta a cero del crono electronico
+		return;
 	case 'aceptar':		// operador pulsa aceptar
         vw_updateWorkingData(event,function(e,d){
             vw_updateLlamada(e,d);
@@ -391,6 +393,11 @@ function vwls_processLiveStream(id,evt) {
 		myCounter.stop(); 
 		vwls_cronoManual('stop',time);
 		return;
+	case 'crono_reset':  // puesta a cero del crono electronico
+		myCounter.stop();
+		vwls_cronoManual('stop');
+		vwls_cronoManual('reset');
+		return;
 	case 'aceptar':		// operador pulsa aceptar
 		vwls_cronoManual('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
 		// vwls_showData(event); // actualiza pantall liveStream
@@ -438,6 +445,7 @@ function vw_procesaLlamada(id,evt) {
 	case 'crono_start':  // arranque crono automatico
 	case 'crono_int':  	// tiempo intermedio crono electronico
 	case 'crono_stop':  // parada crono electronico
+	case 'crono_reset':  // puesta a cero del crono electronico
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':	// operador pulsa aceptar
         vw_updateWorkingData(event,vw_updateLlamada);
@@ -483,6 +491,7 @@ function vw_procesaParciales(id,evt) {
 	case 'crono_start':  // arranque crono automatico
 	case 'crono_int':  	// tiempo intermedio crono electronico
 	case 'crono_stop':  // parada crono electronico
+	case 'crono_reset':  // puesta a cero del crono electronico
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':	// operador pulsa aceptar
         vw_updateWorkingData(event,vw_updateParciales);
@@ -529,7 +538,8 @@ function vw_procesaOrdenSalida(id,evt) {
             return;
         case 'crono_start':  // arranque crono automatico
         case 'crono_int':  	// tiempo intermedio crono electronico
-        case 'crono_stop':  // parada crono electronico
+		case 'crono_stop':  // parada crono electronico
+		case 'crono_reset':  // puesta a cero del crono electronico
             return; // nada que hacer aqui: el crono automatico se procesa en el tablet
         case 'aceptar':	// operador pulsa aceptar
             return;

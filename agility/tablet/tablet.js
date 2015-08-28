@@ -568,6 +568,12 @@ function tablet_processEvents(id,evt) {
 		ssb.val("Start");
 		crm.Chrono('stop',time);
 		return;
+	case 'crono_reset': // puesta a cero incondicional
+		ssb.val("Stop");
+		myCounter.stop();
+		tablet_cronoManual('stop');
+		tablet_cronoManual('reset');
+		return;
 	case 'crono_dat':	// datos desde el crono electronico
 		// at this moment, every crono_dat events are ignored:
 		// this is a sample implementation and this crono is not designed

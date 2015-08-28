@@ -44,15 +44,16 @@ class Eventos extends DBObject {
 		9	=> 'crono_stop',	// Parada Crono electronico
 		10 	=> 'crono_rec',		// Llamada a reconocimiento de pista
 		11  => 'crono_dat',     // Envio de Falta/Rehuse/Eliminado desde el crono
+		12  => 'crono_reset',	// puesta a cero del contador
 		// entrada de datos, dato siguiente, cancelar operacion
-		12	=> 'llamada',		// operador abre panel de entrada de datos
-		13	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-		14	=> 'aceptar',		// grabar datos finales
-		15	=> 'cancelar',		// restaurar datos originales
-        16  => 'info',           // value: message
+		13	=> 'llamada',		// operador abre panel de entrada de datos
+		14	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+		15	=> 'aceptar',		// grabar datos finales
+		16	=> 'cancelar',		// restaurar datos originales
+        17  => 'info',           // value: message
 		// eventos de cambio de camara para videomarcadores
         // el campo data contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
-		17	=> 'camera',		// cambio de fuente de streaming
+		18	=> 'camera',		// cambio de fuente de streaming
 	);
 	
 	protected $sessionID;
