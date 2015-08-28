@@ -86,6 +86,12 @@ input.tablet_info {
 	font-size: 2.0em;
 }
 
+.tb_reset {
+	background: #0000ff url(/agility/images/reset.png) no-repeat center;
+	background-size: contain;
+	font-size: 2.0em;
+}
+
 .tb_crono {
 	background: #00a0a0 url(/agility/images/crono.png) no-repeat center;
 	background-size: contain;

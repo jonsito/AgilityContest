@@ -53,6 +53,7 @@ $config =Config::getInstance();
                         <input id="tdialog-TocadoUpBtn" type="button" value="Tocado" onclick="tablet_up('#tdialog-Tocados');" class="tablet_button tb_tocado">
                         <input id="tdialog-TocadoDownBtn" type="button" value="Tocado -" onclick="tablet_down('#tdialog-Tocados');">
                         <input id="tdialog-StartStopBtn" type="button" value="Start" onclick="tablet_startstop();" class="tablet_button tb_crono">
+                        <input id="tdialog-ResetBtn" type="button" value="     " onclick="tablet_resetchrono();" class="tablet_button tb_reset">
                         <input id="tdialog-SalidaBtn" type="button" value="Salida" onclick="tablet_salida();" class="tablet_button tb_salida">
                         <input id="tdialog-AcceptBtn" type="button" value="Aceptar" onclick="tablet_accept();" class="tablet_button tb_accept">
                         <input id="tdialog-CancelBtn" type="button" value="Cancelar" onclick="tablet_cancel();" class="tablet_button tb_cancel">
@@ -375,7 +376,8 @@ $config =Config::getInstance();
     doLayout(dg,"#tdialog-RehuseDownBtn",	145,	10,		15,		20	);
     doLayout(dg,"#tdialog-TocadoUpBtn",		10,		110,	30,		30	);
     doLayout(dg,"#tdialog-TocadoDownBtn",	50,		120,	15,		20	);
-    doLayout(dg,"#tdialog-SalidaBtn",		50,		85,		15,		15	);
+    doLayout(dg,"#tdialog-SalidaBtn",		50,		80,		15,		13	);
+    doLayout(dg,"#tdialog-ResetBtn",		50,		97,		15,		13	);
     doLayout(dg,"#tdialog-StartStopBtn",	145,	85,		15,		15	);
     doLayout(dg,"#tdialog-AcceptBtn",		170,	120,	30,		20	);
     doLayout(dg,"#tdialog-CancelBtn",		145,	120,	15,		20	);

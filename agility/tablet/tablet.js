@@ -321,6 +321,13 @@ function tablet_salida() {
 	return false;
 }
 
+function tablet_resetchrono() {
+	var time = Date.now() - startDate;
+	tablet_putEvent('crono_reset',{ 'Value' : time } );
+	doBeep();
+	return false;
+}
+
 function tablet_cancel() {
 	doBeep();
 	// retrieve original data from parent datagrid
@@ -569,10 +576,10 @@ function tablet_processEvents(id,evt) {
 		crm.Chrono('stop',time);
 		return;
 	case 'crono_reset': // puesta a cero incondicional
-		ssb.val("Stop");
 		myCounter.stop();
 		tablet_cronoManual('stop');
 		tablet_cronoManual('reset');
+		ssb.val("Start");
 		return;
 	case 'crono_dat':	// datos desde el crono electronico
 		// at this moment, every crono_dat events are ignored:
