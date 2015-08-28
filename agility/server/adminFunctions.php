@@ -283,6 +283,10 @@ class Admin extends DBObject {
             'version_name' => $version_name,
             'version_date' => $version_date
         );
+		// mark filesystem to allow upgrade
+		$f=fopen(__DIR__."/../../logs/do_upgrade","w");
+		fwrite($f,$this->myAuth->getSessionKey());
+		fclose($f);
 		return $res;
 	}
 }

@@ -181,6 +181,25 @@ Class AgilityContestUpdater {
     }
 };
 
+// allow only localhost access
+$white_list= array ("localhost","127.0.0.1","::1",$_SERVER['SERVER_ADDR']);
+if (!in_array($_SERVER['REMOTE_ADDR'],$white_list)) {
+    die("<p>Esta operacion debe ser realizada desde la consola del servidor</p></pre>");
+}
+// check for previous update request
+$f=fopen(TEMP_DIR."do_upgrade",'r');
+if ( !$f || !is_set($_REQUEST['sessionkey'])) {
+    die("<p>Debe solicitar la actualizacion desde el panel de administracion</p></pre>");
+}
+// check session key
+$sk=fread($f);
+fclose($f);
+if ( $sk !== $_REQUEST['sessionkey']) {
+    die("<p>No ha proporcionado un identificador de sesion valido</p></pre>");
+}
+// remove "need-to-upgrade" mark
+unlink(TEMP_DIR."do_upgrade");
+
 $up = new AgilityContestUpdater();
 $res=$up->downloadFile(false);
 if ($res===FALSE) { echo "Download failed<br />"; return; }
@@ -190,7 +209,7 @@ $res=$up->doUpgrade();
 if ($res===FALSE) { echo "Upgrade failed <br/>"; return; }
 $res =$up->handleConfig(false); // restore
 if ($res===FALSE) { echo "Restore configuration failed <br/>"; return;}
-echo "Upgrade to Version:".$up->getVersionName()." Revision:".$up->getVersionDate()." Success<br />";
+echo "<Upgrade to Version:".$up->getVersionName()." Revision:".$up->getVersionDate()." Success<br />";
 ?>
 </pre>
 <p>

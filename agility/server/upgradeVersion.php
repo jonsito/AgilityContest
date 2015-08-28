@@ -142,10 +142,17 @@ class Updater {
         foreach ($cmds as $query) { $this->conn->query($query); }
         return 0;
     }
+
+    // clear (if any) Application Upgrade request
+    function removeUpdateMark() {
+        $f=__DIR__."/../../logs/do_upgrade";
+        if (file_exists($f)) unlink($f);
+    }
 }
 
 $upg=new Updater();
 try {
+    $upg->removeUpdateMark();
     $upg->updateVersionHistory();
     $upg->updatePerroGuiaClub();
     if ( strcmp($upg->current_version, $upg->last_version) > 0) {

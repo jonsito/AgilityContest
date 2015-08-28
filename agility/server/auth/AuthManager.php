@@ -111,7 +111,11 @@ class AuthManager {
             $this->myGateKeeper= create_function('$a,$b', $data['info']);
         return $data;
 	}
-	
+
+	function getSessionKey() {
+		return $this->mySessionKey;
+	}
+
 	/**
 	 * Retrieve only non-critical subset of registration info stored data
 	 * @return {array} NULL

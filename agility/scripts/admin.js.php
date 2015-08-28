@@ -209,7 +209,7 @@ function askForUpgrade(msg){
                 if (data.errorMsg) { // error
                     $.messager.alert("Error", data.errorMsg, "error");
                 } else {
-                    window.location='/agility/upgrade.php';
+                    window.location='/agility/upgrade.php?sessionkey='+authInfo.SessionKey;
                 }
             });
         }
