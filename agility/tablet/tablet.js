@@ -68,6 +68,14 @@ function tablet_putEvent(type,data){
 	});
 }
 
+function need_resetChrono(data) {
+	if (! isJornadaEq4()) return true;
+	// en equipos4 resetea si cambio de equipo
+	var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
+	if ($('#tdialog-Club').html()!==$eq) return false;
+	return true;
+}
+
 function tablet_updateSession(row) {
 	// update sesion info in database
 	var data = {
@@ -535,9 +543,12 @@ function tablet_processEvents(id,evt) {
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		return;
 	case 'llamada':	// llamada a pista
-		tablet_cronoManual('stop');
-		tablet_cronoManual('reset');
-		ssb.val('Start');
+		// todo: en 4 conjunta solo para crono si cambio de equipo
+		if (need_resetChrono()) {
+			tablet_cronoManual('stop');
+			tablet_cronoManual('reset');
+			ssb.val('Start');
+		}
 		return;
 	case 'salida': // orden de salida
 		myCounter.start();

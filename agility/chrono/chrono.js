@@ -44,6 +44,14 @@ function chrono_putEvent(type,data){
 	});
 }
 
+function need_resetChrono(data) {
+	if (! isJornadaEq4()) return true;
+	// en equipos4 resetea si cambio de equipo
+	var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
+	if ($('#chrono_NombreClub').html()!==$eq) return false;
+	return true;
+}
+
 function doBeep() {
 	if (ac_config.tablet_beep)	setTimeout(function() {beep();},0);
 }
@@ -247,9 +255,12 @@ function chrono_processEvents(id,evt) {
 		c_updateData(event);
 		return;
 	case 'llamada':	// llamada a pista
-		cra.Chrono('stop');
-		cra.Chrono('reset');
-		crm.text('').removeClass('blink');
+		// todo: en 4 conjunta solo para crono si cambio de equipo
+		if (need_resetChrono()) {
+			cra.Chrono('stop');
+			cra.Chrono('reset');
+			crm.text('').removeClass('blink');
+		}
 		c_showData(event);
 		return;
 	case 'salida': // orden de salida
