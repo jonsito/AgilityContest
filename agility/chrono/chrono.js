@@ -282,17 +282,25 @@ function chrono_processEvents(id,evt) {
 		cra.Chrono('reset');
 		cra.Chrono('start',time);
 		return;
+	case 'crono_reset': //puesta a cero del crono
+		// parar countdown
+		c_llamada.stop();
+		c_reconocimiento.stop();
+		crm.text('').removeClass('blink'); // clear 'Manual' mark
+		cra.Chrono('stop');
+		cra.Chrono('reset');
+		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
         cra.Chrono('pause'); setTimeout(function(){cra.Chrono('resume');},5000);
 		// TODO: write
 		return;
-        case 'crono_stop':	// parada crono electronico
+    case 'crono_stop':	// parada crono electronico
         // si crono manual arrancado, ignora if (crm.text() !=='') return;
 		c_llamada.stop(); // not really needed, but...
 		c_reconocimiento.stop();// also, not really needed, but...
 		cra.Chrono('stop',time);
 		return;
-		case 'crono_dat': // operador pulsa botonera del crono
+	case 'crono_dat': // operador pulsa botonera del crono
 			// at this moment, every crono_dat events are ignored:
 			// this is a sample implementation and this crono is not designed
 			// to work without tablet; so no sense to take care
