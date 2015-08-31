@@ -95,8 +95,8 @@ class EntradaDeDatos extends PrintCommon {
      * @param {number} $rowcount
      * @param {array} $row
      */
-	function writeTableCell_compacto($rowcount,$row) {
-        $caza=($this->federation->getFederation()==1)?true:false;
+	function writeTableCell_compacto($row) {
+        $caza=($this->federation->getFederation()==1)?true:false; // use long cell for license
 		$logo=$this->getLogoName($row['Perro']);
 		$this->ac_header(1,20);
 		// save cursor position
@@ -178,7 +178,7 @@ class EntradaDeDatos extends PrintCommon {
 	 * @param {number} $row Row data
 	 * @param {number} $f width factor (to be reused on extended print)
 	 */
-	function writeTableCell_normal($rowcount,$row,$f=1) {
+	function writeTableCell_normal($row,$f=1) {
         // remember that this method is called iteratively ... so make sure first time license goes to zero
         if ($this->federation->getFederation()==1) {
             $this->pos[1]+=$this->pos[2]; $this->pos[2]=0; // on caza skip license info
@@ -252,7 +252,7 @@ class EntradaDeDatos extends PrintCommon {
      * @param {number} $rowcount
      * @param {array} $row
      */
-	function writeTableCell_extendido($rowcount,$row) {
+	function writeTableCell_extendido($row) {
 		$logo=$this->getLogoName($row['Perro']);
 		// cada celda tiene una cabecera con los datos del participante
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
@@ -409,9 +409,9 @@ class EntradaDeDatos extends PrintCommon {
 				}
 			}
 			switch($this->numrows) {
-				case 1: $this->writeTableCell_extendido($rowcount,$row);break;
-				case 5: $this->writeTableCell_normal($rowcount,$row);break;
-				case 10: $this->writeTableCell_compacto($rowcount,$row);break;
+				case 1: $this->writeTableCell_extendido($row);break;
+				case 5: $this->writeTableCell_normal($row);break;
+				case 10: $this->writeTableCell_compacto($row);break;
 			}
 			$rowcount++;
 		}

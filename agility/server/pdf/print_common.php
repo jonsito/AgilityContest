@@ -111,7 +111,14 @@ class PrintCommon extends FPDF {
      */
     function getLogoName($id) {
         $row=$this->myDBObject->__selectObject("Logo","Perros,Guias,Clubes","(Perros.Guia=Guias.ID ) AND (Guias.Club=Clubes.ID) AND (Perros.ID=$id)");
-        if (!$row) return $this->icon; // failed in locate logo
+        if (!$row) {
+			$this->myLogger->error("getLogoName(): no associated guia/club for Dog ID: $id");
+			return $this->icon;
+		}
+		if (!file_exists(__DIR__.'/../../images/logos/'.$row->logo)) {
+			$this->myLogger->error("getLogoName(): Dog ID:$id cannot find associated logo file:{$row->logo}");
+			return $this->icon;
+		}
         return $row->Logo;
     }
 
