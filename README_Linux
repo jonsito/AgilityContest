@@ -14,7 +14,7 @@ Tener instalados y funcionando
 - Descomprimir el fichero .zip en el directorio ${BASE}
 
 2a- Instalacion y configuración (ficheros)
-- Copiar el fichero ${BASE}/agility/extras/linux_httpd.conf a /etc/httpd/conf.d/agility.conf
+- Copiar el fichero ${BASE}/agility/extras/AgilityContest_linux.conf a /etc/httpd/conf.d/AgilityContest_linux.conf
 - Editar el fichero ajustando los campos Alias y Directory
 - Reiniciar apache y comprobar que se accede a la pagina principal
 - En sistemas Fedora, y dependiendo de si se instala en un directorio bajo home, puede ser necesario ajustar SELinux
@@ -49,5 +49,5 @@ Tener instalados y funcionando
   quit
 
 3- Comprobación
-- Abrir la página "http://localhost/agility" desde el navegador para comprobar que todo funciona
+- Abrir la página "http://localhost/agility" desde el navegador para comprobar que funciona con normalidad
 
