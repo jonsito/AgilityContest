@@ -138,6 +138,7 @@ var ac_config= {
 	// generacion de PDF's
 	'pdf_topmargin'		: '<?php echo $config->getEnv('pdf_topmargin'); ?>',
 	'pdf_leftmargin'	: '<?php echo $config->getEnv('pdf_leftmargin'); ?>',
+	'pdf_labelheight'	: '<?php echo $config->getEnv('pdf_labelheight'); ?>',
 	'pdf_hdrfg1'		: '<?php echo $config->getEnv('pdf_hdrfg1'); ?>',
 	'pdf_hdrbg1'		: '<?php echo $config->getEnv('pdf_hdrbg1'); ?>',
 	'pdf_hdrfg2'		: '<?php echo $config->getEnv('pdf_hdrfg2'); ?>',

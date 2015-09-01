@@ -75,20 +75,21 @@ class Etiquetas_PDF extends PrintCommon {
 	function writeCell($idx,$row) {
 		$top=$this->config->getEnv('pdf_topmargin');
 		$left=$this->config->getEnv('pdf_leftmargin');
-		$height=$this->config->getEnv('pdf_labelheight');
+		$height=$this->config->getEnv('pdf_labelheight'); // 17 or 20 mmts ==> 16 or 13 labels/sheet
 		
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		//dorsal (10,y,20,17)
 		$y0=  $top + $height * $idx;
-		$y1=  $top + $height * $idx+1;
-		$y2=  $top + $height * $idx+2;
-		$y3=  $top + $height * $idx+3;
-		$y5=  $top + $height * $idx+5;
-		$y10= $top + $height * $idx+10;
-		$y7=  $top + $height * $idx+7;
-		$y8=  $top + $height * $idx+8;
-        $y9=  $top + $height * $idx+9;
-        $y12=  $top+ $height * $idx+12;
+		$y1=  $top + $height * $idx + 1;
+		$y2=  $top + $height * $idx + 2;
+		$y3=  $top + $height * $idx + 3;
+		$y5=  $top + $height * $idx + 5;
+		$y10= $top + $height * $idx + 10;
+		$y7=  $top + $height * $idx + 7;
+		$y8=  $top + $height * $idx + 8;
+        $y9=  $top + $height * $idx + 9;
+        $y12=  $top+ $height * $idx + 12;
+		$y17=  $top+ $height * $idx + 17;
 		$ynext=$top+ $height * ($idx+1);
 		
 		$this->SetFont('Arial','B',24); // bold 11px
@@ -167,8 +168,9 @@ class Etiquetas_PDF extends PrintCommon {
 		$this->ac_Cell($left+148,$y8,13,8,"",'LR','C',false);
 		$this->ac_Cell($left+148,$y7,13,8,"{$row['Puesto2']}º",'','L',false);
 		$this->ac_Cell($left+148,$y9,13,8,"${row['Participantes']}",'','R',false);
-		
-		// linea al final
+		// si 13 etiquetas/pagina, linea al final de la celda
+		if ($height==20) $this->Line($left,$y17,$left+190,$y17);
+		// linea al principio de celda siguiente
 		$this->Line($left,$ynext,$left+190,$ynext);
 		
 		// en el margen izquierdo de las etiquetas

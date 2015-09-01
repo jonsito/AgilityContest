@@ -114,11 +114,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<h3>Impresi&oacute;n de etiquetas</h3>
             <label>Formato de las etiquetas (num. etiquetas/hoja)</label>
             <label for="pdf_labelheight16" style="width:130px;">
-                <input type="radio" id="pdf_labelheight16" name="pdf_labelheight" value="16" checked="checked"/>
+                <input type="radio" id="pdf_labelheight16" name="pdf_labelheight" value="17" checked="checked" onclick="$('#pdf_topmargin').val('10.0');"/>
                 145x17 (16)
             </label>
             <label for="pdf_labelheight13" style="width:130px;">
-                <input type="radio" id="pdf_labelheight13" name="pdf_labelheight" value="13" />
+                <input type="radio" id="pdf_labelheight13" name="pdf_labelheight" value="20" onclick="$('#pdf_topmargin').val('15.0');"/>
                 147x20 (13)
             </label>
             <br />
