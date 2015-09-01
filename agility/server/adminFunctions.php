@@ -20,6 +20,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 // Github redirects links, and make curl fail.. so use real ones
 // define ('UPDATE_INFO','https://github.com/jonsito/AgilityContest/raw/master/agility/server/auth/system.ini');
 define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/agility/server/auth/system.ini');
+define ('RESTORE_LOG',__DIR__."/../../logs/restore.log");
 
 require_once(__DIR__."/logging.php");
 require_once(__DIR__."/tools.php");
@@ -143,9 +144,10 @@ class Admin extends DBObject {
 	}	
 
 	private function handleSession($str) {
-		session_start();
-		$_SESSION["progress"]=$str;
-		session_write_close();
+        $f=fopen(RESTORE_LOG,"a"); // open for append-only
+        if (!$f) { $this->myLogger->error("fopen() cannot create file: ".RESTORE_LOG); return;}
+		fwrite($f,"$str\n");
+        fclose($f);
 	}
 
 	private function retrieveDBFile() {
@@ -196,7 +198,9 @@ class Admin extends DBObject {
 				// avoid php to be killed on very slow systems
 				set_time_limit($timeout);
                 // Perform the query
-                $conn->query($templine) or print('Error performing query \'<strong>' . $templine . '\': ' . $conn->error() . '<br /><br />');
+                if (! $conn->query($templine) ){
+					$this->myLogger->error('Error performing query \'<strong>' . $templine . '\': ' . $conn->error . '<br />');
+				}
                 // Reset temp variable to empty
                 $templine = '';
             }
@@ -297,11 +301,9 @@ try {
 	$operation=http_request("Operation","s","");
 	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
 	if ($operation==="progress") {
-		// special case: just retrieve session status and return
-		session_start();
-		$sid="0";
-		if (isset($_SESSION["progress"])) $sid=$_SESSION["progress"];
-		echo json_encode( array( 'progress' => strval($sid) ) );
+        // retrieve last line of progress file
+        $lines=file(RESTORE_LOG,FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+		echo json_encode( array( 'progress' => strval($lines[count($lines)-1]) ) );
 		return;
 	}
 	$am= new AuthManager("adminFunctions");
