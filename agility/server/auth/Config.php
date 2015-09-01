@@ -55,6 +55,7 @@ define('AC_VW_ROWCOLOR2','#e0ebff');
 /** generacion de PDF's **/
 define('AC_PDF_TOPMARGIN', 10.0); // margen superior etiquetas
 define('AC_PDF_LEFTMARGIN', 10.0); // margen izquierdo etiquetas
+define('AC_PDF_LABELHEIGHT', 17.0); // Altura de las pegatinas mmts
 define('AC_PDF_JOURNEYS', "1"); // incluir jornadas en catalogo
 define('AC_PDF_HDRFG1','#000000');
 define('AC_PDF_HDRBG1','#00FF00');
@@ -136,6 +137,7 @@ Class Config {
 		// generacion de PDF's
 		$this->config['pdf_topmargin'] = AC_PDF_TOPMARGIN;
 		$this->config['pdf_leftmargin'] = AC_PDF_LEFTMARGIN;
+		$this->config['pdf_labelheight'] = AC_PDF_LABELHEIGHT;
 		$this->config['pdf_journeys'] = AC_PDF_JOURNEYS;
 		$this->config['pdf_hdrfg1'] =	AC_PDF_HDRFG1;
 		$this->config['pdf_hdrbg1'] =	AC_PDF_HDRBG1;
@@ -279,6 +281,7 @@ Class Config {
 		// generacion de PDF's
 		$data['pdf_topmargin'] = AC_PDF_TOPMARGIN;
 		$data['pdf_leftmargin'] = AC_PDF_LEFTMARGIN;
+		$data['pdf_labelheight'] = AC_PDF_LABELHEIGHT;
 		$data['pdf_journeys'] = AC_PDF_JOURNEYS;
 		$data['pdf_hdrfg1'] =	AC_PDF_HDRFG1;
 		$data['pdf_hdrbg1'] =	AC_PDF_HDRBG1;
@@ -329,6 +332,7 @@ Class Config {
 		// generacion de PDF's
 		$data=testAndSet($data,'pdf_topmargin','f',AC_PDF_TOPMARGIN);
 		$data=testAndSet($data,'pdf_leftmargin','f',AC_PDF_LEFTMARGIN);
+		$data=testAndSet($data,'pdf_labelheight','f',AC_PDF_LABELHEIGHT);
 		$data['pdf_journeys']=http_request('pdf_journeys','i',AC_PDF_JOURNEYS);
 		$data=testAndSet($data,'pdf_hdrfg1','s',AC_PDF_HDRFG1);
 		$data=testAndSet($data,'pdf_hdrbg1','s',AC_PDF_HDRBG1);

@@ -94,10 +94,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		
 		<div title="Informes" style="padding:10px">		
 			<h3>Generaci&oacute;n de Informes y Formularios PDF</h3>
-			<label for="pdf_topmargin">Margen superior impr. etiquetas (mmts)</label>
-			<input id="pdf_topmargin" name="pdf_topmargin" type="text" size="4" value="10.0"/><br />
-			<label for="pdf_leftmargin">Margen izquierdo impr. etiquetas (mmts)</label>
-			<input id="pdf_leftmargin" name="pdf_leftmargin" type="text" size="4" value="10.0"/><br />
 			<label for="pdf_journeys">Presentar datos de jornadas en el cat&aacute;logo</label>
 			<input type="hidden" name="pdf_journeys" value="0"/>
 			<input id="pdf_journeys" name="pdf_journeys" type="checkbox" value="1"/><br />
@@ -115,6 +111,21 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<input id="pdf_rowcolor2" name="pdf_rowcolor2" type="color" value="#e0ebff"/><br />
 			<label for="pdf_linecolor">Color de las lineas de separaci&oacute;n</label>
 			<input id="pdf_linecolor" name="pdf_linecolor" type="color" value="#808080"/><br />
+			<h3>Impresi&oacute;n de etiquetas</h3>
+            <label>Formato de las etiquetas (num. etiquetas/hoja)</label>
+            <label for="pdf_labelheight16" style="width:130px;">
+                <input type="radio" id="pdf_labelheight16" name="pdf_labelheight" value="16" checked="checked"/>
+                145x17 (16)
+            </label>
+            <label for="pdf_labelheight13" style="width:130px;">
+                <input type="radio" id="pdf_labelheight13" name="pdf_labelheight" value="13" />
+                147x20 (13)
+            </label>
+            <br />
+			<label for="pdf_topmargin">Margen superior impr. etiquetas (mmts)</label>
+			<input id="pdf_topmargin" name="pdf_topmargin" type="text" size="4" value="10.0"/><br />
+			<label for="pdf_leftmargin">Margen izquierdo impr. etiquetas (mmts)</label>
+			<input id="pdf_leftmargin" name="pdf_leftmargin" type="text" size="4" value="10.0"/><br />
 		</div>
 		
 		<div title="Internet" style="padding:10px">
