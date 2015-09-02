@@ -43,7 +43,7 @@ function doSearchPrueba() {
  *@param {function} onAccept what to do when a new prueba is created
  */
 function newPrueba(dg,def,onAccept){
-	$('#pruebas-dialog').dialog('open').dialog('setTitle','Nueva Prueba');
+	$('#pruebas-dialog').dialog('open').dialog('setTitle','<?php _e('Nueva Prueba'); ?>');
 	$('#pruebas-form').form('clear');
 	switch(parseInt(workingData.federation)) {
 		case 0:$('#pruebas-RSCE').prop('checked',true); break;
@@ -87,7 +87,7 @@ function editPrueba(dg){
 	if ($('#pruebas-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","!No ha seleccionado ninga Prueba!","info");
+    	$.messager.alert("Edit Error:","!No ha seleccionado ninguna Prueba!","info");
     	return; // no way to know which prueba is selected
     }
     $('#pruebas-dialog').dialog('open').dialog('setTitle','Modificar datos de la prueba');
@@ -126,7 +126,7 @@ function savePrueba() {
 function deletePrueba(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ninga Prueba!","info");
+    	$.messager.alert("Delete Error:","!No ha seleccionado ninguna Prueba!","info");
     	return; // no way to know which prueba is selected
     }
     $.messager.confirm('Confirm',
