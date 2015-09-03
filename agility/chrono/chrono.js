@@ -40,7 +40,10 @@ function chrono_putEvent(type,data){
 		type:'GET',
 		url:"/agility/server/database/eventFunctions.php",
 		dataType:'json',
-		data: $.extend({},obj,data)
+		data: $.extend({},obj,data),
+		success: function(data) {
+			if (data.errorMsg)  $.messager.show({ width:300, height:150, title: 'Error', msg: data.errorMsg });
+		}
 	});
 }
 
@@ -146,7 +149,7 @@ function c_showData(data) {
  * @param {array} data event data
  */
 function chrono_button(event,data) {
-	data.Value=Date.now() - startDate;
+    data.Value=Date.now() - startDate;
 	chrono_putEvent(event,data);
 	doBeep();
 }
@@ -158,19 +161,19 @@ function chrono_button(event,data) {
  * @param {integer} guard Guard time
  */
 function chrono_sensor(event,data,guard) {
-	var cur= Date.now() - startDate;
+    var cur= Date.now() - startDate;
 	if ( (cur-c_sensorDate) < guard ) {
 		// not yet guard time: ignore key/button
 		return;
 	}
 	c_sensorDate=cur;
-	data.Value=cur;
+    data.Value=cur;
 	chrono_putEvent(event,data);
 	doBeep();
 }
 
 function bindKeysToChrono() {
-	// parse keypress event on every  button
+    // parse keypress event on every  button
 	$(document).keydown(function(e) {
 		switch(e.which) {
 			// reconocimiento de pista
@@ -196,9 +199,7 @@ function bindKeysToChrono() {
 				break;
 			// arranque parada del crono
             case 8: // 'Del' -> chrono reset
-                var cra=$('#cronoauto');
-                cra.Chrono('stop');
-                cra.Chrono('reset');
+                chrono_button('crono_reset',{});
                 break;
 			case 36: // 'Begin' -> chrono start
 				chrono_sensor('crono_start',{},4000);

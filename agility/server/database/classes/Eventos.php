@@ -116,7 +116,7 @@ class Eventos extends DBObject {
 			case 'crono_reset':	// puesta a cero del contador
 				if (!$this->myAuth->allowed(ENABLE_CHRONO)) {
 					$this->myLogger->info("Ignore chrono events: licencse forbids");
-					return "";
+					return array('errorMsg' => 'Current license does not allow chrono handling');
 				} // silently ignore
 				break;
 			// entrada de datos, dato siguiente, cancelar operacion
@@ -131,7 +131,7 @@ class Eventos extends DBObject {
 			case 'camera':		// cambio de fuente de streaming
 				if (!$this->myAuth->allowed(ENABLE_VIDEOWALL)) {
 					$this->myLogger->info("Ignore chrono events: licencse forbids");
-					return "";
+					return array('errorMsg' => 'Current license does not allow LiveStream handling');
 				} // silently ignore
 				break;
 			default:
