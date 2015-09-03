@@ -53,7 +53,7 @@ try {
 			'Value'	=>	http_request("Value","i",-1)
 	);
 	if ($operation===null) throw new Exception("Call to eventFunctions without 'Operation' requested");
-	$eventmgr= new Eventos("eventFunctions",$data['Session']);
+	$eventmgr= new Eventos("eventFunctions",$data['Session'],$am);
 	switch ($operation) {
 		case "getEvents": $result=$eventmgr->getEvents($data); break;
 		case "putEvent": $am->access(PERMS_ASSISTANT); $result=$eventmgr->putEvent($data); break;

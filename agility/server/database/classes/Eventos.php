@@ -58,20 +58,23 @@ class Eventos extends DBObject {
 	
 	protected $sessionID;
 	protected $sessionFile;
+	protected $myAuth;
 	
 	/**
 	 * Constructor
 	 * @param {string} $file caller for this object
 	 * @param {integer} $id Session ID
+	 * @param {object} $am AuthManager Object
 	 * @throws Exception if cannot contact database or invalid Session ID
 	 */
-	function __construct($file,$id) {
+	function __construct($file,$id,$am) {
 		parent::__construct($file);
 		if ( $id<=0 ) {
 			$this->errormsg="$file::construct() invalid Session:$id ID";
 			throw new Exception($this->errormsg);
 		}
 		$this->sessionID=$id;
+		$this->myAuth=$am;
 		$this->sessionFile=__DIR__."/../../../../logs/events.$id";
 		// nos aseguramos de quere el fichero de sesion exista
 		if ( ! file_exists($this->sessionFile) ) touch($this->sessionFile);
@@ -92,7 +95,49 @@ class Eventos extends DBObject {
             if (!$rs) return $this->error($this->conn->error);
             file_put_contents($this->sessionFile,"\n",LOCK_EX); // borra fichero de eventos
         }
-
+		// comprueba los permisos de los diversos eventos antes de aceptarlos:
+		switch($data['Type']) {
+			case 'null':			// null event: no action taken
+			case 'init':			// operator starts tablet application
+			case 'login':			// operador hace login en el sistema
+			case 'open':			// operator selects tanda on tablet
+				break;
+			// eventos de crono manual
+			case 'salida':		// juez da orden de salida ( crono 15 segundos )
+			case 'start':			// Crono manual - value: timestamp
+			case 'stop':			// Crono manual - value: timestamp
+				break;
+			// en crono electronico se pasan dos valores 'Tim' Tiempo a mostrar 'Value': timestamp
+			case 'crono_start':	// Arranque Crono electronico
+			case 'crono_int':		// Tiempo intermedio Crono electronico
+			case 'crono_stop':	// Parada Crono electronico
+			case 'crono_rec':		// Llamada a reconocimiento de pista
+			case 'crono_dat':     // Envio de Falta/Rehuse/Eliminado desde el crono
+			case 'crono_reset':	// puesta a cero del contador
+				if (!$this->myAuth->allowed(ENABLE_CHRONO)) {
+					$this->myLogger->info("Ignore chrono events: licencse forbids");
+					return "";
+				} // silently ignore
+				break;
+			// entrada de datos, dato siguiente, cancelar operacion
+			case 'llamada':		// operador abre panel de entrada de datos
+			case 'datos':			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+			case 'aceptar':		// grabar datos finales
+			case 'cancelar':		// restaurar datos originales
+			case 'info':           // value: message
+				break;
+			// eventos de cambio de camara para videomarcadores
+			// el campo data contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
+			case 'camera':		// cambio de fuente de streaming
+				if (!$this->myAuth->allowed(ENABLE_VIDEOWALL)) {
+					$this->myLogger->info("Ignore chrono events: licencse forbids");
+					return "";
+				} // silently ignore
+				break;
+			default:
+				$this->myLogger->error("Unknown event type:".$data['Type']);
+				return "";
+		}
         // iniciamos los valores
         // $timestamp= date('Y-m-d G:i:s');
         $timestamp= date('Y-m-d G:i:s',$data['TimeStamp']/1000);
