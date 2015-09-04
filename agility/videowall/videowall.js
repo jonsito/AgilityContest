@@ -327,6 +327,8 @@ function vw_procesaCombinada(id,evt) {
 		return;
 	case 'crono_reset':  // puesta a cero del crono electronico
 		return;
+	case 'crono_error':  // puesta a cero del crono electronico
+		return;
 	case 'aceptar':		// operador pulsa aceptar
         vw_updateWorkingData(event,function(e,d){
             vw_updateLlamada(e,d);
@@ -398,6 +400,8 @@ function vwls_processLiveStream(id,evt) {
 		vwls_cronoManual('stop');
 		vwls_cronoManual('reset');
 		return;
+	case 'crono_error':  // fallo en los sensores de paso
+		return; // TODO: what to do in videowall with sensor errors ?
 	case 'aceptar':		// operador pulsa aceptar
 		vwls_cronoManual('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
 		// vwls_showData(event); // actualiza pantall liveStream
@@ -446,6 +450,7 @@ function vw_procesaLlamada(id,evt) {
 	case 'crono_int':  	// tiempo intermedio crono electronico
 	case 'crono_stop':  // parada crono electronico
 	case 'crono_reset':  // puesta a cero del crono electronico
+	case 'crono_error':  // fallo en los sensores de paso
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':	// operador pulsa aceptar
         vw_updateWorkingData(event,vw_updateLlamada);
@@ -492,6 +497,7 @@ function vw_procesaParciales(id,evt) {
 	case 'crono_int':  	// tiempo intermedio crono electronico
 	case 'crono_stop':  // parada crono electronico
 	case 'crono_reset':  // puesta a cero del crono electronico
+	case 'crono_error':  // fallo en los sensores de paso
 		return; // nada que hacer aqui: el crono automatico se procesa en el tablet
 	case 'aceptar':	// operador pulsa aceptar
         vw_updateWorkingData(event,vw_updateParciales);
@@ -540,6 +546,7 @@ function vw_procesaOrdenSalida(id,evt) {
         case 'crono_int':  	// tiempo intermedio crono electronico
 		case 'crono_stop':  // parada crono electronico
 		case 'crono_reset':  // puesta a cero del crono electronico
+		case 'crono_error':  // fallo en los sensores de paso
             return; // nada que hacer aqui: el crono automatico se procesa en el tablet
         case 'aceptar':	// operador pulsa aceptar
             return;

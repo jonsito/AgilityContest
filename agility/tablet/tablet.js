@@ -528,6 +528,7 @@ function tablet_editByDorsal() {
 }
 
 function tablet_processEvents(id,evt) {
+	var tbox=$('#tdialog-Tiempo');
 	var ssb=$('#tdialog-StartStopBtn');
 	var crm=$('#cronomanual');
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
@@ -590,6 +591,7 @@ function tablet_processEvents(id,evt) {
 		myCounter.stop();
 		tablet_cronoManual('stop');
 		tablet_cronoManual('reset');
+		tbox.removeClass('blink');
 		ssb.val("Start");
 		return;
 	case 'crono_dat':	// datos desde el crono electronico
@@ -597,8 +599,14 @@ function tablet_processEvents(id,evt) {
 		// this is a sample implementation and this crono is not designed
 		// to work without tablet; so no sense to take care
 		// on 'crono_dat' events: just use 'datos' event from tablet instead
+		return;
 	case 'crono_rec':	// reconocimiento de pista desde crono electronico
 		// ignored, just for get noticed at chrono display
+		return;
+	case 'crono_error': // sensor alignment failed
+		tbox.addClass('blink');
+		return;
+		// show error message. Use reset to clear
 	case 'cancelar': // operador pulsa cancelar
 		return;
     case 'aceptar':	// operador pulsa aceptar

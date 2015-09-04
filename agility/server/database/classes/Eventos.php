@@ -45,15 +45,16 @@ class Eventos extends DBObject {
 		10 	=> 'crono_rec',		// Llamada a reconocimiento de pista
 		11  => 'crono_dat',     // Envio de Falta/Rehuse/Eliminado desde el crono
 		12  => 'crono_reset',	// puesta a cero del contador
+		13	=> 'crono_error',	// error en alineamiento de sensores
 		// entrada de datos, dato siguiente, cancelar operacion
-		13	=> 'llamada',		// operador abre panel de entrada de datos
-		14	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-		15	=> 'aceptar',		// grabar datos finales
-		16	=> 'cancelar',		// restaurar datos originales
-        17  => 'info',           // value: message
+		14	=> 'llamada',		// operador abre panel de entrada de datos
+		15	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+		16	=> 'aceptar',		// grabar datos finales
+		17	=> 'cancelar',		// restaurar datos originales
+        18  => 'info',           // value: message
 		// eventos de cambio de camara para videomarcadores
         // el campo data contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
-		18	=> 'camera',		// cambio de fuente de streaming
+		19	=> 'camera',		// cambio de fuente de streaming
 	);
 	
 	protected $sessionID;
@@ -113,7 +114,8 @@ class Eventos extends DBObject {
 			case 'crono_stop':	// Parada Crono electronico
 			case 'crono_rec':		// Llamada a reconocimiento de pista
 			case 'crono_dat':     // Envio de Falta/Rehuse/Eliminado desde el crono
-			case 'crono_reset':	// puesta a cero del contador
+            case 'crono_reset':	// puesta a cero del contador
+            case 'crono_error':	// error en alineamiento de sensores
 				if (!$this->myAuth->allowed(ENABLE_CHRONO)) {
 					$this->myLogger->info("Ignore chrono events: licencse forbids");
 					return array('errorMsg' => 'Current license does not allow chrono handling');

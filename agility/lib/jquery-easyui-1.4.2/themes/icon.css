@@ -149,6 +149,9 @@
 .icon-fist{
     background:url('icons/fist.png') no-repeat center center;
 }
+.icon-alert{
+    background:url('icons/alert.png') no-repeat center center;
+}
 /* end added icons */
 .icon-mini-add{
 	background:url('icons/mini_add.png') no-repeat center center;

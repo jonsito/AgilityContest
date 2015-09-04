@@ -239,6 +239,7 @@ function bindKeysToChrono() {
 function chrono_processEvents(id,evt) {
 	var cra=$('#cronoauto');
 	var crm=$('#chrono_Manual');
+	var cre=$('#chrono_Error');
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
 	var time=event['Value']; // miliseconds 
@@ -299,12 +300,15 @@ function chrono_processEvents(id,evt) {
 		c_llamada.stop();
 		c_reconocimiento.stop();
 		crm.text('').removeClass('blink'); // clear 'Manual' mark
+		cre.text('').removeClass('blink'); // clear 'Sensor Error' mark
 		cra.Chrono('stop');
 		cra.Chrono('reset');
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
         cra.Chrono('pause'); setTimeout(function(){cra.Chrono('resume');},5000);
-		// TODO: write
+		return;
+	case 'crono_error': // sensor error detected
+		cre.text('Fallo Sensores').addClass('blink'); // clear 'Manual' mark
 		return;
     case 'crono_stop':	// parada crono electronico
         // si crono manual arrancado, ignora if (crm.text() !=='') return;

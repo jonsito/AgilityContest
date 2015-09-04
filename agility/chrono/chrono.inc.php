@@ -51,6 +51,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<!-- Cronometro -->
 			<span class="chrono_flags" id="chrono_Manual"></span>
 			<span class="chrono_flags" id="chrono_Intermedio"></span>
+			<span class="chrono_flags" id="chrono_Error"></span>
 			<span class="chrono_tiempo" id="chrono_Tiempo">00.00</span>
 			<!-- Informacion del participante -->
 			<img id="chrono_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="chrono_logo"/>
@@ -85,10 +86,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			   	data-options="iconCls: 'icon-fist'" onclick="chrono_button('crono_dat',{'Rehuse':1})">Reh&uacute;se</a>
    			<a id="chrono-elimBtn" href="#" class="easyui-linkbutton"
    			   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('crono_dat',{'Eliminado':1})">Eliminado</a>
+   			<a id="chrono-errorBtn" href="#" class="easyui-linkbutton"
+			   data-options="iconCls: 'icon-alert'" onclick="chrono_sensor('crono_error',{},4000)">Error</a>
+   			<a id="chrono-resetBtn" href="#" class="easyui-linkbutton"
+			   data-options="iconCls: 'icon-undo'" onclick="chrono_sensor('crono_reset',{},4000)">Reset</a>
 		</span>
 		<span style="float:right;padding:5px;">
    			<a id="chrono-startBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-on'" onclick="chrono_sensor('crono_start',{},4000)">Inicio</a>
+			   data-options="iconCls: 'icon-on'" onclick="chrono_sensor('crono_start',{},4000)">Inicio</a>
    			<a id="chrono-intBtn" href="#" class="easyui-linkbutton"
    			   	data-options="iconCls: 'icon-help'" onclick="chrono_sensor('crono_int',{},4000)">Intermedio</a>
    			<a id="chrono-stopBtn" href="#" class="easyui-linkbutton"
@@ -140,6 +145,8 @@ addTooltip($('#chrono-recBtn').linkbutton(),"7 Minutos de reconocimiento de pist
 addTooltip($('#chrono-startBtn').linkbutton(),"Arrancar el cron&oacute;metro");
 addTooltip($('#chrono-intBtn').linkbutton(),"Mostrar tiempo intermedio");
 addTooltip($('#chrono-stopBtn').linkbutton(),"Parar el cron&oacute;metro");
+addTooltip($('#chrono-errorBtn').linkbutton(),"Enviar fallo en alineaci&oacute;n de sensores");
+addTooltip($('#chrono-resetBtn').linkbutton(),"Resetear el cron&oacute;metro. Poner valores a cero");
 
 // layout
 var layout= {'cols':800, 'rows':300}; // declare base datagrid as A5 sheet
@@ -162,6 +169,7 @@ doLayout(layout,"#chrono_Rehuses",		750,	170,	35,		30	);
 
 doLayout(layout,"#chrono_Manual",		600,	30,	    55, 	10	);
 doLayout(layout,"#chrono_Intermedio",	580,	40,	    75, 	10	);
+doLayout(layout,"#chrono_Error",		560,	50,	    115, 	10	);
 doLayout(layout,"#chrono_Tiempo",		10,		100,	665, 	90	);
 
 doLayout(layout,"#chrono_Logo",			10,		215,	80,		55	);
