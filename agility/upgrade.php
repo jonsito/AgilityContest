@@ -192,7 +192,7 @@ if ( !$f || !isset($_REQUEST['sessionkey'])) {
     die("<p>Debe solicitar la actualizacion desde el panel de administracion</p></pre>");
 }
 // check session key
-$sk=fread($f);
+$sk=fread($f,1024);
 fclose($f);
 if ( $sk !== $_REQUEST['sessionkey']) {
     die("<p>No ha proporcionado un identificador de sesion valido</p></pre>");
