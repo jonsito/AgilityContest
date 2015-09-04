@@ -18,10 +18,8 @@
 #       Start           Stop            Sel0            Int         #
 #                                                                   #
 #####################################################################
-
-import json
-import urllib2
-import RPIO
+import requests
+import RPi.GPIO as GPIO
 import datetime
 import time
 
@@ -29,31 +27,29 @@ import time
 # WARNING: this pinout is only valid in RPi Models B+ and 2. 
 # Either models A,Brev1,and Brev2 have different pinout meaning for some gpios (
 
-# LED assignment GPIO Number =  # pin number - BreakoutBoard ID
-LED_Rec	=	8	# 3 - LED_1	// Reconocimiento de pista
-LED_Run =	9	# 5 - LED_2	// Crono running
+# LED assignment pin Number =  # gpio number - BreakoutBoard ID
+LED_Rec	=	3	# 8 - LED_1	// Reconocimiento de pista
+LED_Run =	5	# 9 - LED_2	// Crono running
 LED_Int =	7	# 7 - LED_3	// Intermediate time
-LED_Err	=	11	# 26 - LED_4	// Sensor error
+LED_Err	=	26	# 11 - LED_4	// Sensor error
 
-LED_Sel1=	10	# 24 - LED_5	// Selected Ring MSB
-LED_Sel0=	13	# 21 - LED_6	// Selected Ring LSB
+LED_Sel1=	24	# 10 - LED_5	// Selected Ring MSB
+LED_Sel0=	21	# 13 - LED_6	// Selected Ring LSB
 
-LED_Btn =	12	# 19 - LED_7	// Button Pressed
+LED_Btn =	19	# 12 - LED_7	// Button Pressed
 
-LED_Pwr	=	14	# 23 - LED_8	// (Flashing) PWR On
+LED_Pwr	=	23	# 14 - LED_8	// (Flashing) PWR On
 
 # Chrono action buttons
 
-BTN_Rec1 = 16	# 10 - Button_1 //	Start Reconocimiento
-BTN_Rec2 = 0	# 11 - Button_2 //	End Reconocimiento
-
-BTN_Sel1 = 1	# 12 - Button_3 //	Ring selection MSB
-BTN_Sel0 = 5	# 18 - Button_7 //	Ring selection LSB
-
-BTN_Reset= 2	# 13 - Button_4 //	Reset Chrono
-BTN_Start= 3	# 15 - Button_5 //	Start chrono
-BTN_Inter= 6	# 22 - Button_8 //	Intermediate Chrono
-BTN_Stop = 4	# 16 - Button_6 //	End chrono
+BTN_Rec1 = 10	# 16 - Button_1 //	Start Reconocimiento
+BTN_Rec2 = 11	# 0  - Button_2 //	End Reconocimiento
+BTN_Sel1 = 12	# 1  - Button_3 //	Ring selection MSB
+BTN_Reset= 13	# 2  - Button_4 //	Reset Chrono
+BTN_Start= 15	# 3  - Button_5 //	Start chrono
+BTN_Stop = 16	# 4  - Button_6 //	End chrono
+BTN_Sel0 = 18	# 5  - Button_7 //	Ring selection LSB
+BTN_Inter= 22	# 6  - Button_8 //	Intermediate Chrono
 
 # AgilityContest chrono json request based sensor monitor
 #Request to server are made by sending json request to:
@@ -75,7 +71,7 @@ BTN_Stop = 4	# 16 - Button_6 //	End chrono
 # Timestamp= Timestamp. same value as "Value" ( obsoleted, but still needed )
 #
 # ?Operation=chronoEvent&Type=crono_rec&TimeStamp=150936&Source=chrono_2&Session=2&Value=150936
-# data = json.load( urllib2.urlopen('http://ip.addr.of.server/agility/server/database/eventFunctions.php') + arguments )
+# data = json.load( urllib.urlopen('http://ip.addr.of.server/agility/server/database/eventFunctions.php') + arguments )
 
 ##### default server config
 SERVER = "192.168.122.1"	# TODO: auto detect by mean to iterate "connect" operation on every subnet IP
@@ -83,127 +79,172 @@ SESSION_ID = 2			# TODO: retrieve from server and evaluate according GPIO Sel[10
 SESSION_NAME = "Chrono_2"	# should be generated from evaluated session ID
 DEBUG=True
 
-# Button used during event processing
-BTN = [ BTN_Rec1, BTN_Rec2, BTN_Reset, BTN_Start, BTN_Stop, BTN_Inter ]
-
-button_pressed = 0
-
-# store datetime from program start
-start_time = datetime.datetime.now()
-ring = SESSION_ID
+# some global variables
+button_state = 0			# countdown var to control LED_Btn status
+start_time = datetime.datetime.now()	# to store datetime from program start
+ring = SESSION_ID			# session (ring) to be sent to server
+open_time = 0				# seconds since last closed state detected on start/stop/int sensor
 
 # returns the elapsed milliseconds since the start of the program
 def millis():
-   dt = datetime.now() - start_time
+   dt = datetime.datetime.now() - start_time
    ms = (dt.days * 24 * 60 * 60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
    return ms
 
-def json_reques(type):
+# change power led status, to get it blinking
+def blink_powerled():
+	state = GPIO.input(LED_Pwr) # read led status
+	GPIO.output(LED_Pwr, not state )
+		
+# perform json request to send event to server
+def json_request(type):
 	global ring
 	val = millis()
-	print "Request:'" + type+ "' Session:"+ str(ring) + " Value:" + str(val)
 	# compose json request
 	args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(val)+"&Source=" +SESSION_NAME
 	args = args + "&Session="+str(ring)+"&Value="+str(val)
 	url="http://"+SERVER+"/agility/server/database/eventFunctions.php"
+	print( "JSON Request: " + url + "" + args)
 	# send request . It is safe to ignore response
-	#json.load( urllib2.urlopen( url + args ) )
+	response = requests.get(url+args)
+
+# take care on how much time a button has been pressed
+# return True on success, False on sensor error
+def check_sensors():
+	global open_time
+	# remember that pull-ups let buttons high as iddle state
+	state = GPIO.input(BTN_Start) and GPIO.input(BTN_Stop) and GPIO.input(BTN_Inter)
+	if state == True: # no hay nada pulsado: todo correcto
+		GPIO.output(LED_Err,False)
+		open_time=0
+		return True
+	# hay algo pulsado: incrementa contador y comprueba si ha llegado al limite
+	open_time = open_time + 1
+	if open_time == 10: # send error to server
+		json_request("crono_error")
+	if open_time>=10:
+		print("ERROR: Comprobar sensores")
+		GPIO.output(LED_Err,True)
+		return False
+	else:
+		GPIO.output(LED_Err,False)
+		return True
 
 # indica que se ha pulsado boton
-def button_pressed(val):
+def button_pressed(val,pin):
 	global button_state
-	if val != 0 :
+	if (button_state==0) and (val==0): # end of countdown
+		GPIO.output(LED_Btn,False)
+		return False
+	if (button_state==0) and (val!=0): # ready for key: accept
+		GPIO.output(LED_Btn,True)
+		print( "Pressed PIN:"+str(pin))
 		button_state = val
-
-	if button_state != 0 :
-		RPIO.output(LED_Btn,True)
+		return True
+	if (button_state!=0) and (val==0): # countdown 
+		GPIO.output(LED_Btn,True)
 		button_state = button_state - 1
-
+		return False
+	if (button_state!=0) and (val!=0): # not ready for key: ignore
+		GPIO.output(LED_Btn,True)
+		return False
+	
 # Reconocimiento de pista / Fin de reconocimiento
 def handle_rec(pin):
-	button_pressed(2) # mark key pressed
-	state = RPIO.input(LED_Rec) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
-	RPIO.output(LED_Rec, not state )
+	if not button_pressed(1,pin):
+		return False
+	state = GPIO.input(LED_Rec) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
+	GPIO.output(LED_Rec, not state )
 	#and send event to server
-	json_request("crono_rec")
+	return json_request("crono_rec")
 
 # Reset del cronometro
 def handle_reset(pin):
-	button_pressed(2)
-	json_request("crono_reset")
+	if not button_pressed(1,pin):
+		return False
+	return json_request("crono_reset")
 
 # Arranque / parada del cronometro
 def handle_startstop(pin):
-	button_pressed(2)
-	state = RPIO.input(LED_Run) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
-	RPIO.output(LED_Run, not state )
+	if not button_pressed(1,pin):
+		return False
+	state = GPIO.input(LED_Run) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
+	GPIO.output(LED_Run, not state )
 	#and send event to server
 	if state == True :
-		json_request("crono_stop")
-
+		return json_request("crono_stop")
 	if state == False :
-		json_request("crono_start")
+		return json_request("crono_start")
 
 
 # Tiempo intermedio
 def handle_int(pin):
-	button_pressed(2)
-	json_request("crono_int")
+	if not button_pressed(1,pin):
+		return False
+	return json_request("crono_int")
 
 #Setup the DPad module pins and pull-ups
 def ac_gpio_setup():
 	global ring
 	# set up leds
 	leds = ( LED_Rec, LED_Run, LED_Int, LED_Err, LED_Sel1, LED_Sel0, LED_Btn, LED_Pwr )
-	lnames = ( "Rec", "Run", "Interm.", "Error", "Sel1", "Sel0", "Button", "Power" )
-	for idx in range (0,7):
-		print "Led:"+ str(idx+1) + " GPIO:" + str(leds[idx]) + " - " + lnames[idx]
-		RPIO.setup(leds[idx], RPIO.OUT) # set up as output
-		RPIO.output(leds[idx], False) # turn off
+	names = ( "Rec", "Run", "Interm.", "Error", "Sel1", "Sel0", "Button", "Power" )
+	numbers = ( "1", "2","3","4","5","6","7","8" )
+	gpios = ( "8", "9","7","11","10","13","12","14" )
+	for led, name, number,gpio in zip(leds,names,numbers,gpios):
+		print( "Led:"+ number + " PIN:" + str(led) + " - GPIO:"+gpio +" - "+ name)
+		GPIO.setup(led, GPIO.OUT) # set up as output
+		GPIO.output(led, GPIO.LOW) # turn off
 
 	# set up buttons
-	buttons = ( BTN_Rec1, BTN_Rec2,  BTN_Sel1, BTN_Sel0, BTN_Reset, BTN_Start, BTN_Inter,  BTN_Stop )
-	for button in buttons:
-		print "Button: "+ str(button)
-		RPIO.setup(button, RPIO.IN, pull_up_down=RPIO.PUD_UP ) # set up as input; default pull up
+	buttons = ( BTN_Rec1, BTN_Rec2,  BTN_Sel1, BTN_Reset,BTN_Start, BTN_Stop, BTN_Sel0, BTN_Inter )
+	names = ( "StartRec", "EndRec", "Sel1.", "Reset", "Start", "Stop", "Sel0","Intermediate" )
+	numbers = ( "1", "2","3","4","5","6","7","8" )
+	gpios = ( "16", "0","1","2","3","4","5","6" )
+	for button,name,number,gpio in zip(buttons,names,numbers,gpios):
+		print( "Button: "+ number + " PIN:" +str(button) + " - GPIO:"+gpio +" - "+ name)
+		GPIO.setup(button, GPIO.IN,pull_up_down=GPIO.PUD_UP) # set up as input
+
 	time.sleep(.1)
 	# read ring information. Notice that pull-up makes default to be "11"
-	ring = 0x03 ^ ( ( RPIO.input(BTN_Sel1) << 1 ) | RPIO.input(BTN_Sel0) )
+	ring = 0x03 ^ ( ( GPIO.input(BTN_Sel1) << 1 ) | GPIO.input(BTN_Sel0) )
+	print( "Session Ring: "+str(ring+2) ) #defaults to "2"
 
+def ac_gpio_addevents():
+	# listen for events and share callback.
+	print( "add callback for Rec1")
+	GPIO.add_event_detect(BTN_Rec1,	GPIO.FALLING,callback=handle_rec,	bouncetime=250)
+	print( "add callback for Rec2")
+	GPIO.add_event_detect(BTN_Rec2,	GPIO.FALLING,callback=handle_rec,	bouncetime=250)
+	print( "add callback for Intermediate")
+	GPIO.add_event_detect(BTN_Inter,GPIO.FALLING,callback=handle_int,	bouncetime=250)
+	print( "add callback for Reset")
+	GPIO.add_event_detect(BTN_Reset,GPIO.FALLING,callback=handle_reset,	bouncetime=250)
+	print( "add callback for Start")
+	GPIO.add_event_detect(BTN_Start,GPIO.FALLING,callback=handle_startstop, bouncetime=250)
+	print( "add callback for Stop")
+	GPIO.add_event_detect(BTN_Stop,	GPIO.FALLING,callback=handle_startstop, bouncetime=250)
+	time.sleep(0.1)
 
 def main():
 	global button_state
-	# set up the wiring by BroadCom pinout number instead of pin socket number
-	RPIO.setmode(RPIO.BCM) # seems that RPIO does not properly handle RPIO.BOARD
 	# Setup breakout board
+	GPIO.setmode(GPIO.BOARD)
 	ac_gpio_setup()
-	# listen for events and share callback. Use 1s for button bounce time
-	print "add callback for Rec1"
-	RPIO.add_interrupt_callback(BTN_Rec1,  handle_rec, edge='falling', debounce_timeout_ms=100)
-	print "add callback for Rec2"
-	RPIO.add_interrupt_callback(BTN_Rec2,  handle_rec, edge='falling', debounce_timeout_ms=100)
-	print "add callback for Intermediate"
-	RPIO.add_interrupt_callback(BTN_Inter, handle_int, edge='falling', debounce_timeout_ms=100)
-	print "add callback for Reset"
-	RPIO.add_interrupt_callback(BTN_Reset, handle_reset, edge='falling', debounce_timeout_ms=100)
-	print "add callback for Start"
-	RPIO.add_interrupt_callback(BTN_Start, handle_startstop, edge='falling', debounce_timeout_ms=100)
-	print "add callback for Stop"
-	RPIO.add_interrupt_callback(BTN_Stop,  handle_startstop, edge='falling', debounce_timeout_ms=100)
-	print "wait for interrupts"
-	RPIO.wait_for_interrupts(Threaded=True)	
+	# add event listeners
+	ac_gpio_addevents()
+	print( "wait for interrupts")
 
 	# and enter into infinite loop setting handling buttonPressed and Power Leds
 	while True:
-		button_pressed(0)
-		RPIO.output(LED_Pwr,True)
-		time.sleep(1)
-		button_pressed(0)
-		RPIO.output(LED_Pwr,False)
-		time.sleep(1)
+		blink_powerled() # make led power blink
+		button_pressed(0,0) # countdown keypressed led
+		check_sensors() # check for permanently closed start/stop/intermediate sensors
+		time.sleep(0.5) # delay and loop again
 
 try:
 	main()
+	
 finally:
-	RPIO.cleanup()
+	GPIO.cleanup()
 # End
