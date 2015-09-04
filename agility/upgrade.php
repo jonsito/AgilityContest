@@ -188,7 +188,7 @@ if (!in_array($_SERVER['REMOTE_ADDR'],$white_list)) {
 }
 // check for previous update request
 $f=fopen(TEMP_DIR."do_upgrade",'r');
-if ( !$f || !is_set($_REQUEST['sessionkey'])) {
+if ( !$f || !isset($_REQUEST['sessionkey'])) {
     die("<p>Debe solicitar la actualizacion desde el panel de administracion</p></pre>");
 }
 // check session key
