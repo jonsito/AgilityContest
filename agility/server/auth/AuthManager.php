@@ -245,7 +245,7 @@ class AuthManager {
 			$data['SessionID']=$sid;
 			$this->mySessionMgr->update($sid,$data);
 			// and fire 'login' event
-			$evtMgr=new Eventos("AuthManager",$sid);
+			$evtMgr=new Eventos("AuthManager",$sid,$this);
 			$event=array(
 					// datos identificativos del evento
 					"ID" => 0, 							// Event ID

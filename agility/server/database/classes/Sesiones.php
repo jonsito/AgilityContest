@@ -18,6 +18,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 require_once("DBObject.php");
 require_once("Eventos.php");
+require_once(__DIR__."/../../auth/AuthManager.php");
 
 class Sesiones extends DBObject {
 	
@@ -105,7 +106,7 @@ class Sesiones extends DBObject {
             $this->myLogger->error("sendCameraEvents: invalid session id:$id");
             return;
         }
-        $evtmgr=new Eventos("Session::sendCameraEvents",$id);
+        $evtmgr=new Eventos("Session::sendCameraEvents",$id,new AuhtManager("Sesiones::sendCameraEvent"));
         $data=array (
             // common data for senders and receivers
             'ID'		=>	$id,
