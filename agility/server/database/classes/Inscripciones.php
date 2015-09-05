@@ -67,13 +67,21 @@ class Inscripciones extends DBObject {
 		$celo=http_request("Celo","i",0);
 		$observaciones="";
 		
-		// ok, ya tenemos todo. Vamos a inscribirle... pero solo en las jornadas abiertas
+		// ok, ya tenemos lo necesario. Vamos a inscribirle... pero solo en las jornadas abiertas
 		$str= "INSERT INTO Inscripciones (Prueba,Perro,Celo,Observaciones,Jornadas,Pagado)
 			VALUES ($prueba,$idperro,$celo,'$observaciones',$jornadas,$pagado)";
 		$res=$this->query($str);
 		$this->insertid=$this->conn->insert_id;
 		if (!$res) return $this->error($this->conn->error);
-		// una vez inscrito, vamos a repasar la lista de jornadas y actualizar en caso necesario
+		// vamos a evaluar el Dorsal. Se supone que hay un trigger que ya lo hace,
+		// pero se ha debido perder por el camino en alguna actualizacion
+        // so get last dorsal, increase and update.... but only if trigger does not work
+		$obj=$this->__selectObject("1 + Max(Dorsal) AS LastDorsal","Inscripciones","(Prueba=$prueba)");
+		$str="UPDATE Inscripciones SET Dorsal={$obj->LastDorsal} WHERE (Prueba=$prueba) AND (Perro=$idperro) AND (Dorsal=0)";
+		$res=$this->query($str);
+		if (!$res) return $this->error($this->conn->error);
+
+		// una vez inscrito y ajustado el dorsal vamos a repasar la lista de jornadas/resultados y actualizar en caso necesario
 		$inscripcionid=$this->insertid;
 		// los datos de las mangas y resultados
 		procesaInscripcion($prueba,$inscripcionid);
@@ -233,7 +241,7 @@ class Inscripciones extends DBObject {
 			FROM Inscripciones,PerroGuiaClub
 			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) 
 				AND ( Inscripciones.Prueba=$id )
-			ORDER BY NombreClub ASC,Grado ASC, Categoria ASC, Nombre ASC";
+			ORDER BY NombreClub ASC,Categoria ASC, Grado ASC, Nombre ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 	
@@ -378,7 +386,7 @@ class Inscripciones extends DBObject {
 				"Perro,Nombre,NombreClub,Categoria,Grado",
 				"Inscripciones,PerroGuiaClub",
 				"(Inscripciones.Prueba={$this->pruebaID}) AND (Inscripciones.Perro=PerroGuiaClub.ID)", 
-				"NombreClub ASC,Grado ASC, Categoria ASC, Nombre ASC", 
+				"NombreClub ASC,Categoria ASC, Grado ASC, Nombre ASC",
 				"");
 		if (!is_array($inscritos))
 			return $this->error("reorder(): Canot retrieve list of inscritos");
@@ -452,7 +460,7 @@ class Inscripciones extends DBObject {
 			/* FROM */	"Inscripciones,PerroGuiaClub",
 			/* WHERE */ "( Inscripciones.Perro = PerroGuiaClub.ID) AND
 				( Inscripciones.Prueba=$pruebaid ) AND ( ( Inscripciones.Jornadas&$mask ) != 0 ) ",
-			/* ORDER BY */ "NombreClub ASC, Grado ASC , Categoria ASC, Nombre ASC, Celo ASC",
+			/* ORDER BY */ "NombreClub ASC, Categoria ASC , Grado ASC, Nombre ASC, Celo ASC",
 			/* LIMIT */ $limit
 		);
 

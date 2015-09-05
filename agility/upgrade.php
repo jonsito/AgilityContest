@@ -110,6 +110,7 @@ Class AgilityContestUpdater {
     public function getVersionDate() { return $this->version_date; }
 
     public function handleConfig($oper) {
+        set_time_limit(ini_get('max_execution_time'));
         $res=true;
         foreach (AgilityContestUpdater::$user_files as $temp => $file) {
             $from=($oper==true)?$file:TEMP_DIR.$temp;
@@ -135,6 +136,7 @@ Class AgilityContestUpdater {
     }
 
     public function downloadFile($force=false) {
+        set_time_limit(ini_get('max_execution_time'));
         if (file_exists($this->temp_file) && $force==false) return 0; // no need to download
         echo "DOWNLOAD ".UPDATE_FILE;
         return $this->file_save(UPDATE_FILE,$this->temp_file);
@@ -146,6 +148,7 @@ Class AgilityContestUpdater {
         $zip = zip_open($this->temp_file);
         if (!$zip) { echo "Open zipfile failed <br/>"; return false; }
         while ($aF = zip_read($zip) ) {
+            set_time_limit(ini_get('max_execution_time'));
             // get file name and their directory
             $file_name = str_replace("AgilityContest-master/","",zip_entry_name($aF));
             $dir_name = dirname($file_name);
@@ -200,6 +203,7 @@ if ( $sk !== $_REQUEST['sessionkey']) {
 // remove "need-to-upgrade" mark
 unlink(TEMP_DIR."do_upgrade");
 
+set_time_limit(ini_get('max_execution_time'));
 $up = new AgilityContestUpdater();
 $res=$up->downloadFile(false);
 if ($res===FALSE) { echo "Download failed<br />"; return; }
