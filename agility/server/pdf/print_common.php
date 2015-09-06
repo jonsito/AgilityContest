@@ -115,8 +115,8 @@ class PrintCommon extends FPDF {
 			$this->myLogger->error("getLogoName(): no associated guia/club for Dog ID: $id");
 			return $this->icon;
 		}
-		if (!file_exists(__DIR__.'/../../images/logos/'.$row->logo)) {
-			$this->myLogger->error("getLogoName(): Dog ID:$id cannot find associated logo file:{$row->logo}");
+		if (!file_exists(__DIR__.'/../../images/logos/'.$row->Logo)) {
+			$this->myLogger->error("getLogoName(): Dog ID:$id cannot find associated logo file:{$row->Logo}");
 			return $this->icon;
 		}
         return $row->Logo;
