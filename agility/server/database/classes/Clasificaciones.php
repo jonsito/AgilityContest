@@ -260,7 +260,7 @@ class Clasificaciones extends DBObject {
                     if ($final[$idx]['P1']==0) $pt1=5;
                     // manga 2
                     $pt2=0;
-                    if ($c2=!null) {
+                    if ($c2!=null) {
                         if ($final[$idx]['P2']>=26) $pt2=0; // NC o eliminado: no puntua
                         if ($final[$idx]['P2']<26) $pt2=2;
                         if ($final[$idx]['P2']<16) $pt2=3;
