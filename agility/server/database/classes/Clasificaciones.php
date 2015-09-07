@@ -225,7 +225,7 @@ class Clasificaciones extends DBObject {
                     if ( ($final[$idx]['P1']<100) && ($final[$idx]['Pcat1']<5) ) $pt1+= $ptsmanga[$final[$idx]['Pcat1']-1];
                     // manga 2
                     $pt2=0;
-                    if ($c2=!null) {
+                    if ($c2!=null) {
                         if ($final[$idx]['P2']<6.0) $pt2++; // 1 punto por excelente
                         if ($final[$idx]['P2']==0.0) $pt2++; // 2 puntos por cero
                         // puntos a los 5 primeros por manga/categoria si no estan eliminados
