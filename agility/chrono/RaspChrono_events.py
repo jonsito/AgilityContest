@@ -1,9 +1,35 @@
 #!/usr/bin/python3
+#RaspChrono_events.py
+#
+# Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+#
+# This program is free software; you can redistribute it and/or modify it under the terms
+# of the GNU General Public License as published by the Free Software Foundation;
+# either version 2 of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+# without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with this program;
+# if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+#
+
 #######################################################################
 # Monitorize Raspberry PI GPIO pins and translate state changes into
-# AgilityContest Chrono keyboard event keys
+# AgilityContest Chrono Event messages using AgilityContest Chrono API Protocol
 #
-# we are using LED&Button breakout board from AdaFruit for testing and led&button assignment
+# THIS IS A REFERENCE IMPLEMENTATION. DO NOT USE IN REAL ENVIRONMENTS
+# THIS IS A REFERENCE IMPLEMENTATION. DO NOT USE IN REAL ENVIRONMENTS
+# THIS IS A REFERENCE IMPLEMENTATION. DO NOT USE IN REAL ENVIRONMENTS
+# THIS IS A REFERENCE IMPLEMENTATION. DO NOT USE IN REAL ENVIRONMENTS
+#
+# Reasons:
+# - written in python. an interpreted language -> cannot guarantee response time and accuracy
+# - runs on a rasperry: has no realtime clock, and poor clock stability in the long time running
+# - requires an specific hardware.
+#
+# We are using LED&Button breakout board from AdaFruit for testing and led&button assignment
 # http://www.modmypi.com/raspberry-pi/breakout-boards/mypishop/mypi-push-your-pi-8-led-and-8-button-breakout-board
 #
 #####################################################################
@@ -33,13 +59,13 @@ LED_Rec	=	3	# 8 - LED_1	// Reconocimiento de pista
 LED_Run =	5	# 9 - LED_2	// Crono running
 LED_Int =	7	# 7 - LED_3	// Intermediate time
 LED_Err	=	26	# 11 - LED_4	// Sensor error
-
 LED_Sel1=	24	# 10 - LED_5	// Selected Ring MSB
 LED_Sel0=	21	# 13 - LED_6	// Selected Ring LSB
-
 LED_Btn =	19	# 12 - LED_7	// Button Pressed
-
 LED_Pwr	=	23	# 14 - LED_8	// (Flashing) PWR On
+
+# use them as array in server search process
+LEDS=(LED_Rec,LED_Run,LED_Int,LED_Err,LED_Sel1,LED_Sel0,LED_Btn,LED_Pwr)
 
 # Chrono action buttons
 
@@ -66,9 +92,9 @@ BTN_Inter= 22	# 6  - Button_8 //	Intermediate Chrono
 #		'crono_rec',	// comienzo/fin del reconocimiento de pista
 #		'crono_dat',    // Envio de Falta/Rehuse/Eliminado desde el crono
 #		'crono_reset',	// puesta a cero del contador
-# Session= Session ID to join. "2" means normally ring 1
+# Session= Session ID to join. You should retrieve a list of available session ID's from server
 # Source= Chronometer ID. should be in form "chrono_sessid"
-# Value= Timestamp. Number of milliseconds since chrono started to run
+# Value= Timestamp. Number of milliseconds since this application started running
 # Timestamp= Timestamp. same value as "Value" ( obsoleted, but still needed )
 #
 # ?Operation=chronoEvent&Type=crono_rec&TimeStamp=150936&Source=chrono_2&Session=2&Value=150936
@@ -110,13 +136,22 @@ def json_request(type):
 	# send request . It is safe to ignore response
 	response = requests.get(url+args)
 
+# use leds as progress bar. on value<0 turn all of them off
+def kitt(value):
+	for i in range(0,7):
+		GPIO.output(LEDS[i],False) # turn off all leds
+	if (value >= 0):
+		GPIO.output( LEDS[value%8],True) # turn on requested led
+
 # scan local network to look for server
 def lookForServer():
 	global ETH_DEVICE
 	# look for IPv4 addresses on ETH_DEVICE [0]->use first IPv4 address found on this interface
 	netinfo=ni.ifaddresses(ETH_DEVICE)[ni.AF_INET][0]
 	# iterate on every hosts on this network/netmask. Use strict=False to ignore ip address host bits
+	count=0
 	for i in ipaddress.IPv4Network(netinfo['addr']+"/"+netinfo['netmask'],strict=False).hosts()
+		kitt(count)
 		server = str(i)
 		print( "Checking..."+server)
 		response = requests.get("http://"+server+"/agility/server/database/sessionFunctions.php?Operation=selectring")
