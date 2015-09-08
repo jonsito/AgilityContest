@@ -22,7 +22,7 @@ import requests 			# to handle json http requests
 import RPi.GPIO as GPIO		# to handle Raspberry PI GPIO pins
 import datetime
 import time					# to get and process timestamps
-import socket				# to explore network and discover AgilityContest server
+import netifaces as ni		# to discover ip address/network/netmask
 
 ##### GPIO PIN Assignment
 # WARNING: this pinout is only valid in RPi Models B+ and 2. 
@@ -74,33 +74,18 @@ BTN_Inter= 22	# 6  - Button_8 //	Intermediate Chrono
 # ?Operation=chronoEvent&Type=crono_rec&TimeStamp=150936&Source=chrono_2&Session=2&Value=150936
 # data = json.load( urllib.urlopen('http://ip.addr.of.server/agility/server/database/eventFunctions.php') + arguments )
 
-##### default server config
-SERVER = "192.168.1.35"	# TODO: auto detect by mean to iterate "connect" operation on every subnet IP
-SESSION_ID = 2			# TODO: retrieve from server and evaluate according GPIO Sel[10] Switches
+##### Some constants
 SESSION_NAME = "Chrono_2"	# should be generated from evaluated session ID
 DEBUG=True
+ETH_DEVICE='eth0'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT ALL!!)
 
 # some global variables
+server = "192.168.1.35"		# to be evaluated later by querying network
 button_state = 0			# countdown var to control LED_Btn status
 start_time = datetime.datetime.now()	# to store datetime from program start
-ring = SESSION_ID			# session (ring) to be sent to server
+rings = (2,3,4,5)			# array of session id's received from server . To be re-evaluated later from server response
+session_id = rings[0]		# TODO: retrieve from server and evaluate according GPIO Sel[10] Switches
 open_time = 0				# seconds since last closed state detected on start/stop/int sensor
-
-# retrieve local host name. take care on skip 127.0.0.1
-# warn: this may fail in multi-homed hosts... should not to be the case of a Raspberry
-def getLocalHost():
-	return [(s.connect(('8.8.8.8', 80)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]
-
-
-# scan local network to look for server
-def lookForServer():
-	localhost=getLocalHost()	# get local host IP
-	# TODO: write
-	# extract network address and mask
-	# loop on every host ips (except 0,255, and ourself) on the net by perform getSessionList() request
-	# on received answer retrieve Session ID from declared rings
-	# and finally setup server IP
-	return SERVER
 
 # returns the elapsed milliseconds since the start of the program
 def millis():
@@ -115,15 +100,32 @@ def blink_powerled():
 		
 # perform json request to send event to server
 def json_request(type):
-	global ring
+	global session_id
 	val = millis()
 	# compose json request
 	args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(val)+"&Source=" +SESSION_NAME
-	args = args + "&Session="+str(ring)+"&Value="+str(val)
+	args = args + "&Session="+str(session_id)+"&Value="+str(val)
 	url="http://"+SERVER+"/agility/server/database/eventFunctions.php"
 	print( "JSON Request: " + url + "" + args)
 	# send request . It is safe to ignore response
 	response = requests.get(url+args)
+
+# scan local network to look for server
+def lookForServer():
+	global ETH_DEVICE
+	# look for IPv4 addresses on ETH_DEVICE [0]->use first IPv4 address found on this interface
+	netinfo=ni.ifaddresses(ETH_DEVICE)[ni.AF_INET][0]
+	# iterate on every hosts on this network/netmask. Use strict=False to ignore ip address host bits
+	for i in ipaddress.IPv4Network(netinfo['addr']+"/"+netinfo['netmask'],strict=False).hosts()
+		server = str(i)
+		print( "Checking..."+server)
+		response = requests.get("http://"+server+"/agility/server/database/sessionFunctions.php?Operation=selectring")
+	else:
+		# arriving here means server not found
+		return "0.0.0.0"
+	# on received answer retrieve Session ID from declared rings
+	# and finally setup server IP
+	return server
 
 # take care on how much time a button has been pressed
 # return True on success, False on sensor error
@@ -131,7 +133,7 @@ def check_sensors():
 	global open_time
 	# remember that pull-ups let buttons high as iddle state
 	state = GPIO.input(BTN_Start) and GPIO.input(BTN_Stop) and GPIO.input(BTN_Inter)
-	if state == True: # no hay nada pulsado: todo correcto
+	if state == True: # no hay nada pulsado: all right
 		GPIO.output(LED_Err,False)
 		open_time=0
 		return True
@@ -202,7 +204,7 @@ def handle_int(pin):
 
 #Setup the DPad module pins and pull-ups
 def ac_gpio_setup():
-	global ring
+	global rings
 	# set up leds
 	leds = ( LED_Rec, LED_Run, LED_Int, LED_Err, LED_Sel1, LED_Sel0, LED_Btn, LED_Pwr )
 	names = ( "Rec", "Run", "Interm.", "Error", "Sel1", "Sel0", "Button", "Power" )
@@ -225,8 +227,8 @@ def ac_gpio_setup():
 	time.sleep(.1)
 	# read ring information. Notice that pull-up makes default to be "11"
 	ring = 0x03 ^ ( ( GPIO.input(BTN_Sel1) << 1 ) | GPIO.input(BTN_Sel0) )
-	ring = ring + 2 # TODO: retrieve ring from connect json query
-	print( "Session Ring: "+str(ring) ) 
+	session_id = rings[ring];
+	print( "Ring: "+str(ring)+ " Session ID: "+str(session_id) )
 
 def ac_gpio_addevents():
 	# listen for events and share callback.
