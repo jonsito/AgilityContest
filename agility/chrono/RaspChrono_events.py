@@ -18,10 +18,11 @@
 #       Start           Stop            Sel0            Int         #
 #                                                                   #
 #####################################################################
-import requests
-import RPi.GPIO as GPIO
+import requests 			# to handle json http requests
+import RPi.GPIO as GPIO		# to handle Raspberry PI GPIO pins
 import datetime
-import time
+import time					# to get and process timestamps
+import socket				# to explore network and discover AgilityContest server
 
 ##### GPIO PIN Assignment
 # WARNING: this pinout is only valid in RPi Models B+ and 2. 
@@ -74,7 +75,7 @@ BTN_Inter= 22	# 6  - Button_8 //	Intermediate Chrono
 # data = json.load( urllib.urlopen('http://ip.addr.of.server/agility/server/database/eventFunctions.php') + arguments )
 
 ##### default server config
-SERVER = "192.168.122.1"	# TODO: auto detect by mean to iterate "connect" operation on every subnet IP
+SERVER = "192.168.1.35"	# TODO: auto detect by mean to iterate "connect" operation on every subnet IP
 SESSION_ID = 2			# TODO: retrieve from server and evaluate according GPIO Sel[10] Switches
 SESSION_NAME = "Chrono_2"	# should be generated from evaluated session ID
 DEBUG=True
@@ -85,11 +86,27 @@ start_time = datetime.datetime.now()	# to store datetime from program start
 ring = SESSION_ID			# session (ring) to be sent to server
 open_time = 0				# seconds since last closed state detected on start/stop/int sensor
 
+# retrieve local host name. take care on skip 127.0.0.1
+# warn: this may fail in multi-homed hosts... should not to be the case of a Raspberry
+def getLocalHost():
+	return [(s.connect(('8.8.8.8', 80)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]
+
+
+# scan local network to look for server
+def lookForServer():
+	localhost=getLocalHost()	# get local host IP
+	# TODO: write
+	# extract network address and mask
+	# loop on every host ips (except 0,255, and ourself) on the net by perform getSessionList() request
+	# on received answer retrieve Session ID from declared rings
+	# and finally setup server IP
+	return SERVER
+
 # returns the elapsed milliseconds since the start of the program
 def millis():
    dt = datetime.datetime.now() - start_time
    ms = (dt.days * 24 * 60 * 60 + dt.seconds) * 1000 + dt.microseconds / 1000.0
-   return ms
+   return int(ms)
 
 # change power led status, to get it blinking
 def blink_powerled():
@@ -208,7 +225,8 @@ def ac_gpio_setup():
 	time.sleep(.1)
 	# read ring information. Notice that pull-up makes default to be "11"
 	ring = 0x03 ^ ( ( GPIO.input(BTN_Sel1) << 1 ) | GPIO.input(BTN_Sel0) )
-	print( "Session Ring: "+str(ring+2) ) #defaults to "2"
+	ring = ring + 2 # TODO: retrieve ring from connect json query
+	print( "Session Ring: "+str(ring) ) 
 
 def ac_gpio_addevents():
 	# listen for events and share callback.
@@ -227,7 +245,8 @@ def ac_gpio_addevents():
 	time.sleep(0.1)
 
 def main():
-	global button_state
+	# look for server
+	lookForServer()
 	# Setup breakout board
 	GPIO.setmode(GPIO.BOARD)
 	ac_gpio_setup()
