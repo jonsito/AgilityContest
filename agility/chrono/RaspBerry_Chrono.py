@@ -44,6 +44,7 @@
 #       Start           Stop            Sel0            Int         #
 #                                                                   #
 #####################################################################
+import threading            # to receive event messages from server
 import requests 			# to handle json http requests
 import RPi.GPIO as GPIO		# to handle Raspberry PI GPIO pins
 import datetime
@@ -110,7 +111,7 @@ ETH_DEVICE='eth0'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT
 server = "192.168.1.35"		# to be evaluated later by querying network
 button_state = 0			# countdown var to control LED_Btn status
 start_time = datetime.datetime.now()	# to store datetime from program start
-session_id = 0		        # TODO: retrieve from server and evaluate according GPIO Sel[10] Switches
+session_id = 0		        # to be retrieved from server and evaluate according GPIO Sel[10] Switches
 open_time = 0				# seconds since last closed state detected on start/stop/int sensor
 
 # returns the elapsed milliseconds since the start of the program
@@ -284,6 +285,7 @@ def ac_gpio_setup():
 		GPIO.setup(button, GPIO.IN,pull_up_down=GPIO.PUD_UP) # set up as input
 	time.sleep(.1)
 
+# declare and trigger events for each button
 def ac_gpio_addevents():
 	# listen for events and share callback.
 	print( "add callback for Rec1")
@@ -300,6 +302,57 @@ def ac_gpio_addevents():
 	GPIO.add_event_detect(BTN_Stop,	GPIO.FALLING,callback=handle_startstop, bouncetime=250)
 	time.sleep(0.1)
 
+# wait for network event messages
+# this method runs in a separate thread
+def eventParser():
+	global server
+	global session_id
+	event_id=0 # event ID of last "open" call in current session
+	# call to "connect", to retrieve last event id and timeout
+	print( "Connecting event manager on server ...")
+	while True:
+		try:
+			response = requests.get("http://" + server + "/agility/server/database/eventFunctions.php?Operation=connect&Session="+session_id)
+		except requests.exceptions.RequestException as ex:
+			print ( "Connect() error:" + str(ex) )
+			time.sleep(5) # wait 5 seconds and try again
+			continue
+		# if response failed, try next IP address
+		if response.status_code != 200:
+			time.sleep(5) # wait 5 seconds and retry
+			continue
+		# response ok: retrieve event ID of last "open" call
+		data=response.json()
+		if data['total'] != 0:
+			time.sleep(5) # no data available. Sleep and retry
+			continue
+		event_id = data['rows'][0]['ID']
+		break
+	# connect done, now, enter in an infinite "getEvents" request loop
+	print( "Connected. Waiting for Server events ...")
+	timestamp=0
+	while True:
+		# TODO: finish write
+		try:
+			args="?Operation=getEvents&Session=" + session_id + "&ID=" + event_id + "&TimeStamp=" + timestamp
+			response = requests.get("http://" + server + "/agility/server/database/eventFunctions.php"+args)
+		except requests.exceptions.RequestException as ex:
+			print ( "getEvents() error:" + str(ex) )
+			time.sleep(5) # wait 5 seconds and try again
+			continue
+		# if response failed, try next IP address
+		if response.status_code != 200:
+			time.sleep(5) # wait 5 seconds and retry
+			continue
+		# response ok: retrieve event ID of last "open" call
+		data=response.json()
+		if data['total'] != 0:
+			time.sleep(5) # no data available. Sleep and retry
+			continue
+		event_id = data['rows'][0]['ID']
+		break
+
+
 def main():
 	# Setup breakout board
 	GPIO.setmode(GPIO.BOARD)
@@ -308,9 +361,13 @@ def main():
 	lookForServer()
 	# add event listeners
 	ac_gpio_addevents()
-	print( "wait for interrupts")
+	# add thread for receive events from server
+	w = threading.Thread(target=eventParser, name=‘EventParser’)
+	w.start();
+
 
 	# and enter into infinite loop setting handling buttonPressed and Power Leds
+	print( "waiting for GPIO's ...")
 	while True:
 		blink_powerled() # make led power blink
 		button_pressed(0,0,"") # countdown keypressed led
