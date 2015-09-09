@@ -305,7 +305,9 @@ function chrono_processEvents(id,evt) {
 		cra.Chrono('reset');
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-        cra.Chrono('pause'); setTimeout(function(){cra.Chrono('resume');},5000);
+		// si crono no esta activo, ignorar
+		if (!cra.Chrono('started')) return;
+		cra.Chrono('pause'); setTimeout(function(){cra.Chrono('resume');},5000);
 		return;
 	case 'crono_error': // sensor error detected
 		cre.text('Fallo Sensores').addClass('blink'); // clear 'Manual' mark
@@ -322,7 +324,9 @@ function chrono_processEvents(id,evt) {
 			// to work without tablet; so no sense to take care
 			// on 'crono_dat' events: just use 'datos' event from tablet instead
 		return;
-	case 'crono_rec': // reconocimiento de pista
+		case 'crono_rec': // reconocimiento de pista
+		// si crono esta activo, ignorar
+		if (cra.Chrono('started')) return;
 		if (c_reconocimiento.val()!==0) c_reconocimiento.stop();
 		else c_reconocimiento.start();
 		return;

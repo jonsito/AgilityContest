@@ -49,6 +49,7 @@ import RPi.GPIO as GPIO		# to handle Raspberry PI GPIO pins
 import datetime
 import time					# to get and process timestamps
 import netifaces as ni		# to discover ip address/network/netmask
+import ipaddress            # to deal with IPv4 addresses
 
 ##### GPIO PIN Assignment
 # WARNING: this pinout is only valid in RPi Models B+ and 2. 
@@ -109,8 +110,7 @@ ETH_DEVICE='eth0'		# this should be modified if using Wifi (!!NOT RECOMMENDED AT
 server = "192.168.1.35"		# to be evaluated later by querying network
 button_state = 0			# countdown var to control LED_Btn status
 start_time = datetime.datetime.now()	# to store datetime from program start
-rings = (2,3,4,5)			# array of session id's received from server . To be re-evaluated later from server response
-session_id = rings[0]		# TODO: retrieve from server and evaluate according GPIO Sel[10] Switches
+session_id = 0		        # TODO: retrieve from server and evaluate according GPIO Sel[10] Switches
 open_time = 0				# seconds since last closed state detected on start/stop/int sensor
 
 # returns the elapsed milliseconds since the start of the program
@@ -131,34 +131,60 @@ def json_request(type):
 	# compose json request
 	args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(val)+"&Source=" +SESSION_NAME
 	args = args + "&Session="+str(session_id)+"&Value="+str(val)
-	url="http://"+SERVER+"/agility/server/database/eventFunctions.php"
-	print( "JSON Request: " + url + "" + args)
-	# send request . It is safe to ignore response
-	response = requests.get(url+args)
+	url="http://"+server+"/agility/server/database/eventFunctions.php"
+	# print( "JSON Request: " + url + "" + args)
+	response = requests.get(url+args)	# send request . It is safe to ignore response
 
 # use leds as progress bar. on value<0 turn all of them off
 def kitt(value):
-	for i in range(0,7):
+	for i in range(8):
 		GPIO.output(LEDS[i],False) # turn off all leds
 	if (value >= 0):
 		GPIO.output( LEDS[value%8],True) # turn on requested led
+	return value+1
 
 # scan local network to look for server
 def lookForServer():
+	global server
 	global ETH_DEVICE
+	global session_id
+	rings = [2,3,4,5] # array of session id's received from server To be re-evaluated later from server response
 	# look for IPv4 addresses on ETH_DEVICE [0]->use first IPv4 address found on this interface
 	netinfo=ni.ifaddresses(ETH_DEVICE)[ni.AF_INET][0]
 	# iterate on every hosts on this network/netmask. Use strict=False to ignore ip address host bits
 	count=0
-	for i in ipaddress.IPv4Network(netinfo['addr']+"/"+netinfo['netmask'],strict=False).hosts()
-		kitt(count)
-		server = str(i)
-		print( "Checking..."+server)
-		response = requests.get("http://"+server+"/agility/server/database/sessionFunctions.php?Operation=selectring")
+	for i in ipaddress.IPv4Network(netinfo['addr']+"/"+netinfo['netmask'],strict=False).hosts():
+		count = kitt(count)
+		ip = str(i)
+		print( "Looking for server at: " + ip)
+		try:
+			response = requests.get("http://" + ip + "/agility/server/database/sessionFunctions.php?Operation=selectring",timeout=0.5)
+		except requests.exceptions.RequestException as ex:
+			# print ( "Http request error:" + str(ex) )
+			continue
+		# if response failed, try next IP address
+		if response.status_code != 200:
+			continue
+		# response ok
+		data=response.json()
+		# store server
+		server = ip
+		# retrieve session id for each ring
+		for id in range (0,3):
+			rings[id]=data['rows'][id]['ID']
+		# clear leds and return
+		print ("Found AgilityContest server at IP address: "+ip)
+		kitt(-1)
+		break
 	else:
 		# arriving here means server not found
+		session_id=0 # invalid sid
 		return "0.0.0.0"
 	# on received answer retrieve Session ID from declared rings
+	# read ring information. Notice that pull-up makes default to be "11"
+	ring = 0x03 ^ ( ( GPIO.input(BTN_Sel1) << 1 ) | GPIO.input(BTN_Sel0) )
+	session_id = rings[ring];
+	print( "Ring: "+str(ring)+ " Session ID: "+str(session_id) )
 	# and finally setup server IP
 	return server
 
@@ -185,14 +211,14 @@ def check_sensors():
 		return True
 
 # indica que se ha pulsado boton
-def button_pressed(val,pin):
+def button_pressed(val,pin,txt):
 	global button_state
 	if (button_state==0) and (val==0): # end of countdown
 		GPIO.output(LED_Btn,False)
 		return False
 	if (button_state==0) and (val!=0): # ready for key: accept
 		GPIO.output(LED_Btn,True)
-		print( "Pressed PIN:"+str(pin))
+		print( "Pressed PIN:" + str(pin) + " - " + txt )
 		button_state = val
 		return True
 	if (button_state!=0) and (val==0): # countdown 
@@ -205,7 +231,7 @@ def button_pressed(val,pin):
 	
 # Reconocimiento de pista / Fin de reconocimiento
 def handle_rec(pin):
-	if not button_pressed(1,pin):
+	if not button_pressed(1,pin,"Reconocimiento"):
 		return False
 	state = GPIO.input(LED_Rec) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
 	GPIO.output(LED_Rec, not state )
@@ -214,13 +240,13 @@ def handle_rec(pin):
 
 # Reset del cronometro
 def handle_reset(pin):
-	if not button_pressed(1,pin):
+	if not button_pressed(1,pin,"Reset"):
 		return False
 	return json_request("crono_reset")
 
 # Arranque / parada del cronometro
 def handle_startstop(pin):
-	if not button_pressed(1,pin):
+	if not button_pressed(1,pin,"Start/Stop"):
 		return False
 	state = GPIO.input(LED_Run) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
 	GPIO.output(LED_Run, not state )
@@ -230,40 +256,33 @@ def handle_startstop(pin):
 	if state == False :
 		return json_request("crono_start")
 
-
 # Tiempo intermedio
 def handle_int(pin):
-	if not button_pressed(1,pin):
+	if not button_pressed(1,pin,"T. Intermedio"):
 		return False
 	return json_request("crono_int")
 
 #Setup the DPad module pins and pull-ups
 def ac_gpio_setup():
-	global rings
 	# set up leds
 	leds = ( LED_Rec, LED_Run, LED_Int, LED_Err, LED_Sel1, LED_Sel0, LED_Btn, LED_Pwr )
 	names = ( "Rec", "Run", "Interm.", "Error", "Sel1", "Sel0", "Button", "Power" )
 	numbers = ( "1", "2","3","4","5","6","7","8" )
 	gpios = ( "8", "9","7","11","10","13","12","14" )
 	for led, name, number,gpio in zip(leds,names,numbers,gpios):
-		print( "Led:"+ number + " PIN:" + str(led) + " - GPIO:"+gpio +" - "+ name)
+		print( "Led:"+ number + " Pin:" + str(led) + " - GPIO:"+gpio +" - "+ name)
 		GPIO.setup(led, GPIO.OUT) # set up as output
 		GPIO.output(led, GPIO.LOW) # turn off
 
 	# set up buttons
-	buttons = ( BTN_Rec1, BTN_Rec2,  BTN_Sel1, BTN_Reset,BTN_Start, BTN_Stop, BTN_Sel0, BTN_Inter )
+	buttons = ( BTN_Rec1, BTN_Rec2,  BTN_Sel1, BTN_Reset, BTN_Start, BTN_Stop, BTN_Sel0, BTN_Inter )
 	names = ( "StartRec", "EndRec", "Sel1.", "Reset", "Start", "Stop", "Sel0","Intermediate" )
 	numbers = ( "1", "2","3","4","5","6","7","8" )
 	gpios = ( "16", "0","1","2","3","4","5","6" )
 	for button,name,number,gpio in zip(buttons,names,numbers,gpios):
-		print( "Button: "+ number + " PIN:" +str(button) + " - GPIO:"+gpio +" - "+ name)
+		print( "Button: "+ number + " Pin:" +str(button) + " - GPIO:"+gpio +" - "+ name)
 		GPIO.setup(button, GPIO.IN,pull_up_down=GPIO.PUD_UP) # set up as input
-
 	time.sleep(.1)
-	# read ring information. Notice that pull-up makes default to be "11"
-	ring = 0x03 ^ ( ( GPIO.input(BTN_Sel1) << 1 ) | GPIO.input(BTN_Sel0) )
-	session_id = rings[ring];
-	print( "Ring: "+str(ring)+ " Session ID: "+str(session_id) )
 
 def ac_gpio_addevents():
 	# listen for events and share callback.
@@ -282,11 +301,11 @@ def ac_gpio_addevents():
 	time.sleep(0.1)
 
 def main():
-	# look for server
-	lookForServer()
 	# Setup breakout board
 	GPIO.setmode(GPIO.BOARD)
 	ac_gpio_setup()
+	# look for server
+	lookForServer()
 	# add event listeners
 	ac_gpio_addevents()
 	print( "wait for interrupts")
@@ -294,7 +313,7 @@ def main():
 	# and enter into infinite loop setting handling buttonPressed and Power Leds
 	while True:
 		blink_powerled() # make led power blink
-		button_pressed(0,0) # countdown keypressed led
+		button_pressed(0,0,"") # countdown keypressed led
 		check_sensors() # check for permanently closed start/stop/intermediate sensors
 		time.sleep(0.5) # delay and loop again
 
