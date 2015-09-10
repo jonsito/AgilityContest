@@ -100,7 +100,7 @@ BTN_Inter= 22	# 6  - Button_8 //	Intermediate Chrono
 # Timestamp= Timestamp. same value as "Value" ( obsoleted, but still needed )
 #
 # ?Operation=chronoEvent&Type=crono_rec&TimeStamp=150936&Source=chrono_2&Session=2&Value=150936
-# data = json.load( urllib.urlopen('http://ip.addr.of.server/agility/server/database/eventFunctions.php') + arguments )
+# data = json.load( urllib.urlopen('httsp://ip.addr.of.server/agility/server/database/eventFunctions.php') + arguments, verify=False )
 
 ##### Some constants
 SESSION_NAME = "Chrono_2"	# should be generated from evaluated session ID
@@ -131,8 +131,8 @@ def json_request(type):
 	val = millis()
 	# compose json request
 	args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(val)+"&Source=" +SESSION_NAME
-	args = args + "&Session="+str(session_id)+"&Value="+str(val)
-	url="http://"+server+"/agility/server/database/eventFunctions.php"
+	args = args + "&Session=" + session_id + "&Value="+str(val)
+	url="https://"+server+"/agility/server/database/eventFunctions.php"
 	# print( "JSON Request: " + url + "" + args)
 	response = requests.get(url+args, verify=False)	# send request . It is safe to ignore response
 
@@ -149,7 +149,7 @@ def lookForServer():
 	global server
 	global ETH_DEVICE
 	global session_id
-	rings = [2,3,4,5] # array of session id's received from server To be re-evaluated later from server response
+	rings = ["2","3","4","5"] # array of session id's received from server To be re-evaluated later from server response
 	# look for IPv4 addresses on ETH_DEVICE [0]->use first IPv4 address found on this interface
 	netinfo=ni.ifaddresses(ETH_DEVICE)[ni.AF_INET][0]
 	# iterate on every hosts on this network/netmask. Use strict=False to ignore ip address host bits
@@ -325,7 +325,7 @@ def eventParser():
 			continue
 		# response ok: retrieve event ID of last "open" call
 		data=response.json()
-		if data['total'] != 0:
+		if data['total'] == 0:
 			time.sleep(5) # no data available. Sleep and retry
 			continue
 		event_id = data['rows'][0]['ID']
@@ -336,7 +336,7 @@ def eventParser():
 	while True:
 		# TODO: finish write
 		try:
-			args="?Operation=getEvents&Session=" + session_id + "&ID=" + event_id + "&TimeStamp=" + timestamp
+			args="?Operation=getEvents&Session=" + session_id + "&ID=" + str(event_id) + "&TimeStamp=" + str(timestamp)
 			response = requests.get("https://" + server + "/agility/server/database/eventFunctions.php"+args, verify=False )
 		except requests.exceptions.RequestException as ex:
 			print ( "getEvents() error:" + str(ex) )
@@ -348,11 +348,13 @@ def eventParser():
 			continue
 		# response ok: retrieve event ID of last "open" call
 		data=response.json()
-		if data['total'] != 0:
+		if data['total'] == 0:
 			time.sleep(5) # no data available. Sleep and retry
 			continue
-		event_id = data['rows'][0]['ID']
-		break
+		timestamp=data['TimeStamp']
+		for i in data['rows']:
+			event_id=i['ID']
+			print ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+i['Type'])
 
 
 def main():
@@ -364,8 +366,8 @@ def main():
 	# add event listeners
 	ac_gpio_addevents()
 	# add thread for receive events from server
-	w = threading.Thread(target=eventParser, name=‘EventParser’)
-	w.start();
+	w = threading.Thread(target=eventParser)
+	w.start()
 
 
 	# and enter into infinite loop setting handling buttonPressed and Power Leds
@@ -377,6 +379,8 @@ def main():
 		time.sleep(0.5) # delay and loop again
 
 try:
+	# do not throw exception on check certifcate
+	requests.packages.urllib3.disable_warnings()
 	main()
 	
 finally:
