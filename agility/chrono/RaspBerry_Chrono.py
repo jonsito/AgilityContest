@@ -113,6 +113,14 @@ button_state = 0			# countdown var to control LED_Btn status
 start_time = datetime.datetime.now()	# to store datetime from program start
 session_id = 0		        # to be retrieved from server and evaluate according GPIO Sel[10] Switches
 open_time = 0				# seconds since last closed state detected on start/stop/int sensor
+start_run = 0				# to store crono_start event timestamp
+intermediate_time = 0		# seconds since Intermediate time received
+
+def debug(str):
+	global DEBUG
+	if DEBUG==True:
+		print (str)
+
 
 # returns the elapsed milliseconds since the start of the program
 def millis():
@@ -133,7 +141,7 @@ def json_request(type):
 	args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(val)+"&Source=" +SESSION_NAME
 	args = args + "&Session=" + session_id + "&Value="+str(val)
 	url="https://"+server+"/agility/server/database/eventFunctions.php"
-	# print( "JSON Request: " + url + "" + args)
+	# debug( "JSON Request: " + url + "" + args)
 	response = requests.get(url+args, verify=False)	# send request . It is safe to ignore response
 
 # use leds as progress bar. on value<0 turn all of them off
@@ -157,12 +165,12 @@ def lookForServer():
 	for i in ipaddress.IPv4Network(netinfo['addr']+"/"+netinfo['netmask'],strict=False).hosts():
 		count = kitt(count)
 		ip = str(i)
-		print( "Looking for server at: " + ip)
+		debug( "Looking for server at: " + ip)
 		try:
 			args= "?Operation=selectring"
 			response = requests.get("https://" + ip + "/agility/server/database/sessionFunctions.php"+args,verify=False,timeout=0.5)
 		except requests.exceptions.RequestException as ex:
-			# print ( "Http request error:" + str(ex) )
+			# debug ( "Http request error:" + str(ex) )
 			continue
 		# if response failed, try next IP address
 		if response.status_code != 200:
@@ -175,7 +183,7 @@ def lookForServer():
 		for id in range (0,3):
 			rings[id]=data['rows'][id]['ID']
 		# clear leds and return
-		print ("Found AgilityContest server at IP address: "+ip)
+		debug ("Found AgilityContest server at IP address: "+ip)
 		kitt(-1)
 		break
 	else:
@@ -186,9 +194,18 @@ def lookForServer():
 	# read ring information. Notice that pull-up makes default to be "11"
 	ring = 0x03 ^ ( ( GPIO.input(BTN_Sel1) << 1 ) | GPIO.input(BTN_Sel0) )
 	session_id = rings[ring];
-	print( "Ring: "+str(ring)+ " Session ID: "+str(session_id) )
+	debug( "Ring: "+str(ring)+ " Session ID: "+str(session_id) )
 	# and finally setup server IP
 	return server
+
+def handle_intermediate_time():
+	global intermediate_time
+	state = GPIO.input(LED_Int) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
+	if state == True:
+		intermediate_time = intermediate_time -1
+	if intermediate_time <= 0:
+		GPIO.output(LED_Int,False) # end of countdown: turn of led
+		intermediate_time = 0 # not really needed, but...
 
 # take care on how much time a button has been pressed
 # return True on success, False on sensor error
@@ -205,8 +222,7 @@ def check_sensors():
 	if open_time == 10: # send error to server
 		json_request("crono_error")
 	if open_time>=10:
-		print("ERROR: Comprobar sensores")
-		GPIO.output(LED_Err,True)
+		debug("ERROR: Comprobar sensores")
 		return False
 	else:
 		GPIO.output(LED_Err,False)
@@ -220,7 +236,7 @@ def button_pressed(val,pin,txt):
 		return False
 	if (button_state==0) and (val!=0): # ready for key: accept
 		GPIO.output(LED_Btn,True)
-		print( "Pressed PIN:" + str(pin) + " - " + txt )
+		debug( "Pressed PIN:" + str(pin) + " - " + txt )
 		button_state = val
 		return True
 	if (button_state!=0) and (val==0): # countdown 
@@ -235,9 +251,6 @@ def button_pressed(val,pin,txt):
 def handle_rec(pin):
 	if not button_pressed(1,pin,"Reconocimiento"):
 		return False
-	state = GPIO.input(LED_Rec) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
-	GPIO.output(LED_Rec, not state )
-	#and send event to server
 	return json_request("crono_rec")
 
 # Reset del cronometro
@@ -251,7 +264,6 @@ def handle_startstop(pin):
 	if not button_pressed(1,pin,"Start/Stop"):
 		return False
 	state = GPIO.input(LED_Run) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
-	GPIO.output(LED_Run, not state )
 	#and send event to server
 	if state == True :
 		return json_request("crono_stop")
@@ -272,7 +284,7 @@ def ac_gpio_setup():
 	numbers = ( "1", "2","3","4","5","6","7","8" )
 	gpios = ( "8", "9","7","11","10","13","12","14" )
 	for led, name, number,gpio in zip(leds,names,numbers,gpios):
-		print( "Led:"+ number + " Pin:" + str(led) + " - GPIO:"+gpio +" - "+ name)
+		debug( "Led:"+ number + " Pin:" + str(led) + " - GPIO:"+gpio +" - "+ name)
 		GPIO.setup(led, GPIO.OUT) # set up as output
 		GPIO.output(led, GPIO.LOW) # turn off
 
@@ -282,24 +294,24 @@ def ac_gpio_setup():
 	numbers = ( "1", "2","3","4","5","6","7","8" )
 	gpios = ( "16", "0","1","2","3","4","5","6" )
 	for button,name,number,gpio in zip(buttons,names,numbers,gpios):
-		print( "Button: "+ number + " Pin:" +str(button) + " - GPIO:"+gpio +" - "+ name)
+		debug( "Button: "+ number + " Pin:" +str(button) + " - GPIO:"+gpio +" - "+ name)
 		GPIO.setup(button, GPIO.IN,pull_up_down=GPIO.PUD_UP) # set up as input
 	time.sleep(.1)
 
 # declare and trigger events for each button
 def ac_gpio_addevents():
 	# listen for events and share callback.
-	print( "add callback for Rec1")
+	debug( "add callback for Rec1")
 	GPIO.add_event_detect(BTN_Rec1,	GPIO.FALLING,callback=handle_rec,	bouncetime=250)
-	print( "add callback for Rec2")
+	debug( "add callback for Rec2")
 	GPIO.add_event_detect(BTN_Rec2,	GPIO.FALLING,callback=handle_rec,	bouncetime=250)
-	print( "add callback for Intermediate")
+	debug( "add callback for Intermediate")
 	GPIO.add_event_detect(BTN_Inter,GPIO.FALLING,callback=handle_int,	bouncetime=250)
-	print( "add callback for Reset")
+	debug( "add callback for Reset")
 	GPIO.add_event_detect(BTN_Reset,GPIO.FALLING,callback=handle_reset,	bouncetime=250)
-	print( "add callback for Start")
+	debug( "add callback for Start")
 	GPIO.add_event_detect(BTN_Start,GPIO.FALLING,callback=handle_startstop, bouncetime=250)
-	print( "add callback for Stop")
+	debug( "add callback for Stop")
 	GPIO.add_event_detect(BTN_Stop,	GPIO.FALLING,callback=handle_startstop, bouncetime=250)
 	time.sleep(0.1)
 
@@ -308,15 +320,16 @@ def ac_gpio_addevents():
 def eventParser():
 	global server
 	global session_id
+	global start_run
 	event_id=0 # event ID of last "open" call in current session
 	# call to "connect", to retrieve last event id and timeout
-	print( "Connecting event manager on server ...")
+	debug( "Connecting event manager on server ...")
 	while True:
 		try:
 			args = "?Operation=connect&Session="+session_id
 			response = requests.get("https://" + server + "/agility/server/database/eventFunctions.php"+args, verify=False)
 		except requests.exceptions.RequestException as ex:
-			print ( "Connect() error:" + str(ex) )
+			debug ( "Connect() error:" + str(ex) )
 			time.sleep(5) # wait 5 seconds and try again
 			continue
 		# if response failed, try next IP address
@@ -331,15 +344,14 @@ def eventParser():
 		event_id = data['rows'][0]['ID']
 		break
 	# connect done, now, enter in an infinite "getEvents" request loop
-	print( "Connected. Waiting for Server events ...")
+	debug( "Connected. Waiting for Server events ...")
 	timestamp=0
 	while True:
-		# TODO: finish write
 		try:
 			args="?Operation=getEvents&Session=" + session_id + "&ID=" + str(event_id) + "&TimeStamp=" + str(timestamp)
 			response = requests.get("https://" + server + "/agility/server/database/eventFunctions.php"+args, verify=False )
 		except requests.exceptions.RequestException as ex:
-			print ( "getEvents() error:" + str(ex) )
+			debug ( "getEvents() error:" + str(ex) )
 			time.sleep(5) # wait 5 seconds and try again
 			continue
 		# if response failed, try next IP address
@@ -354,8 +366,71 @@ def eventParser():
 		timestamp=data['TimeStamp']
 		for i in data['rows']:
 			event_id=i['ID']
-			print ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+i['Type'])
-
+			type=i['Type']
+			debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type)
+			# Eventos generales
+			if type == 'null':				# null event: no action taken
+				continue
+			if type == 'init':				# operator starts tablet application
+				continue
+			if type == 'login':				# operador hace login en el sistema
+				continue
+			if type == 'open':				# operator selects tanda on tablet
+				continue
+			# eventos de crono manual
+			if type == 'salida':			# juez da orden de salida ( crono 15 segundos )
+				continue
+			if type == 'start':				# Crono manual - value: timestamp
+				continue
+			if type == 'stop':				# Crono manual - value: timestamp
+				continue
+			# en crono electronico los campos "Value" y "TimeStamp" contienen la marca de tiempo del sistema
+			# en el momento en que se capturo el evento
+			if type == 'crono_start':		# Arranque Crono electronico
+				start_run=timestamp		# store timestamp mark
+				GPIO.output(LED_Run, True )
+				continue
+			if type == 'crono_int':			# Tiempo intermedio Crono electronico
+				global intermediate_time
+				intermediate_time=10
+				GPIO.output(LED_Int, True ) # turn led on and start countdown
+				continue
+			if type == 'crono_stop':		# Parada Crono electronico
+				GPIO.output(LED_Run, False )
+				debug("End of course. Total time: "+ str(timestamp-start_run)
+				continue
+			if type == 'crono_rec':			# Llamada a reconocimiento de pista
+				state = GPIO.input(LED_Rec) # read led status
+				GPIO.output(LED_Rec, not state )
+				continue
+			if type == 'crono_dat':			# Envio de Falta/Rehuse/Eliminado desde el crono
+				continue
+			if type == 'crono_reset':		# puesta a cero del contador
+				GPIO.output(LED_Rec, False )
+				GPIO.output(LED_Run, False )
+				GPIO.output(LED_Int, False )
+				GPIO.output(LED_Error, False )
+				continue
+			if type == 'crono_error':		# error en alineamiento de sensores
+				GPIO.output(LED_Err, True )
+				continue
+			# entrada de datos, dato siguiente, cancelar operacion
+			if type == 'llamada':			# operador abre panel de entrada de datos
+				continue
+			if type == 'datos':				# actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+				continue
+			if type == 'aceptar':			# grabar datos finales
+				continue
+			if type == 'cancelar':			# restaurar datos originales
+				continue
+			if type == 'info':				# value: message
+				continue
+			# eventos de cambio de camara para gestion de Live Stream
+			# el campo "data" contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
+			if type == 'camera':			# cambio de fuente de streaming
+				continue
+			# Si llega hasta aqui tenemos un error desconocido. Notificar e ignorar
+			debug("Error: Unknown event type:"+type )
 
 def main():
 	# Setup breakout board
@@ -371,11 +446,12 @@ def main():
 
 
 	# and enter into infinite loop setting handling buttonPressed and Power Leds
-	print( "waiting for GPIO's ...")
+	debug( "waiting for GPIO's ...")
 	while True:
 		blink_powerled() # make led power blink
 		button_pressed(0,0,"") # countdown keypressed led
 		check_sensors() # check for permanently closed start/stop/intermediate sensors
+		handle_intermediate_time() # check coundount on intermediate time led
 		time.sleep(0.5) # delay and loop again
 
 try:
