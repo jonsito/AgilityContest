@@ -134,7 +134,7 @@ def json_request(type):
 	args = args + "&Session="+str(session_id)+"&Value="+str(val)
 	url="http://"+server+"/agility/server/database/eventFunctions.php"
 	# print( "JSON Request: " + url + "" + args)
-	response = requests.get(url+args)	# send request . It is safe to ignore response
+	response = requests.get(url+args, verify=False)	# send request . It is safe to ignore response
 
 # use leds as progress bar. on value<0 turn all of them off
 def kitt(value):
@@ -159,7 +159,8 @@ def lookForServer():
 		ip = str(i)
 		print( "Looking for server at: " + ip)
 		try:
-			response = requests.get("http://" + ip + "/agility/server/database/sessionFunctions.php?Operation=selectring",timeout=0.5)
+			args= "?Operation=selectring"
+			response = requests.get("https://" + ip + "/agility/server/database/sessionFunctions.php"+args,verify=False,timeout=0.5)
 		except requests.exceptions.RequestException as ex:
 			# print ( "Http request error:" + str(ex) )
 			continue
@@ -312,7 +313,8 @@ def eventParser():
 	print( "Connecting event manager on server ...")
 	while True:
 		try:
-			response = requests.get("http://" + server + "/agility/server/database/eventFunctions.php?Operation=connect&Session="+session_id)
+			args = "?Operation=connect&Session="+session_id
+			response = requests.get("https://" + server + "/agility/server/database/eventFunctions.php"+args, verify=False)
 		except requests.exceptions.RequestException as ex:
 			print ( "Connect() error:" + str(ex) )
 			time.sleep(5) # wait 5 seconds and try again
@@ -335,7 +337,7 @@ def eventParser():
 		# TODO: finish write
 		try:
 			args="?Operation=getEvents&Session=" + session_id + "&ID=" + event_id + "&TimeStamp=" + timestamp
-			response = requests.get("http://" + server + "/agility/server/database/eventFunctions.php"+args)
+			response = requests.get("https://" + server + "/agility/server/database/eventFunctions.php"+args, verify=False )
 		except requests.exceptions.RequestException as ex:
 			print ( "getEvents() error:" + str(ex) )
 			time.sleep(5) # wait 5 seconds and try again
