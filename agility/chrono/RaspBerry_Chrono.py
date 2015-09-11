@@ -346,7 +346,7 @@ def eventParser():
 			continue
 		# response ok: retrieve event ID of last "open" call
 		data=response.json()
-		if data['total'] == "0":
+		if data['total'] == 0:
 			time.sleep(5) # no data available. Sleep and retry
 			continue
 		event_id = data['rows'][0]['ID']
@@ -422,7 +422,7 @@ def eventParser():
 				GPIO.output(LED_Err, False )
 				continue
 			if type == 'crono_error':		# error en alineamiento de sensores
-				if value=='1':
+				if value==1:
 					GPIO.output(LED_Err, True ) # check_sensors() will turn of when solved
 				continue
 			# entrada de datos, dato siguiente, cancelar operacion
