@@ -44,6 +44,7 @@
 #       Start           Stop            Sel0            Int         #
 #                                                                   #
 #####################################################################
+
 import threading            # to receive event messages from server
 import json					# to parse Data field on event responses
 import requests 			# to handle json http requests
@@ -81,27 +82,31 @@ BTN_Stop = 16	# 4  - Button_6 //	End chrono
 BTN_Sel0 = 18	# 5  - Button_7 //	Ring selection LSB
 BTN_Inter= 22	# 6  - Button_8 //	Intermediate Chrono
 
-# AgilityContest chrono json request based sensor monitor
-#Request to server are made by sending json request to:
+# AgilityContest chrono json request parameter definition
+# ================================================================
+# Request to server are made by sending json request to:
 #
 # http://ip.addr.of.server/agility/server/database/eventFunctions.php
 #
 # Parameter list
 # Operation=chronoEvent
 # Type= one of : ( from server/database/Eventos.php )
-#		'crono_start',	// Arranque Crono electronico
-#		'crono_int',	// Tiempo intermedio Crono electronico
-#		'crono_stop',	// Parada Crono electronico
-#		'crono_rec',	// comienzo/fin del reconocimiento de pista
-#		'crono_dat',    // Envio de Falta/Rehuse/Eliminado desde el crono
-#		'crono_reset',	// puesta a cero del contador
-# Session= Session ID to join. You should retrieve a list of available session ID's from server
+#		'crono_start'	// Arranque Crono electronico
+#		'crono_int'		// Tiempo intermedio Crono electronico
+#		'crono_stop'	// Parada Crono electronico
+#		'crono_rec'		// comienzo/fin del reconocimiento de pista
+#		'crono_dat'	    // Envio de Falta/Rehuse/Eliminado desde el crono
+#		'crono_reset'	// puesta a cero del contador
+#		'crono_error'	// sensor error detected (Value=1) or solved (Value=0)
+# Session= Session ID to join. You should select it from retrieved list of available session ID's from server
 # Source= Chronometer ID. should be in form "chrono_sessid"
-# Value= Timestamp. Number of milliseconds since this application started running
-# Timestamp= Timestamp. same value as "Value" ( obsoleted, but still needed )
+# Value= start/stop/int: time of event detection
+#		  error: 1: detected 0:solved
+# Timestamp= time mark of last event parsed as received from server
 #
+# example
 # ?Operation=chronoEvent&Type=crono_rec&TimeStamp=150936&Source=chrono_2&Session=2&Value=150936
-# data = json.load( urllib.urlopen('httsp://ip.addr.of.server/agility/server/database/eventFunctions.php') + arguments, verify=False )
+# data = json.load( urllib.urlopen('https://ip.addr.of.server/agility/server/database/eventFunctions.php') + arguments, verify=False )
 
 ##### Some constants
 SESSION_NAME = "Chrono_2"	# should be generated from evaluated session ID

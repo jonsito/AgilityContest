@@ -1,13 +1,55 @@
 #!/usr/bin/python3
 #######################################################################
 # Monitorize Raspberry PI GPIO pins and translate state changes into
-# AgilityContest Chrono keyboard event keys
+# AgilityContest Chrono web page keyboard event keys
+#
+# THIS IS AN ALTERNATE BUGGY WAY TO TRANSLATE GPIO's TO KEYS to for working
+# with AC Chrono web page when viewed from Raspberry PI
+#
+# USE ONLY FOR TESTING.
+# USE ONLY FOR TESTING
+# USE ONLY FOR TESTING.
+# USE ONLY FOR TESTING
+# USE ONLY FOR TESTING.
+# USE ONLY FOR TESTING
+# USE ONLY FOR TESTING.
+# USE ONLY FOR TESTING
+# USE ONLY FOR TESTING.
+# USE ONLY FOR TESTING
 #
 # Based in gpiokeys.py from "Raspberry PI CookBook for python programmers"
 # and code from http://raspberrywebserver.com/gpio/using-interrupt-driven-gpio.html
 #
 # Notice: uinput kernel module must be modprobe'd before calling this program
+#(revisar lista de paquetes)
+# sudo apt-get install python3 python3-pip python3-gpio
+# sudo apt-get install libudev-dev
 #
+# compile from sources
+# git clone https://github.com/tuomasjjrasanen/python-uinput.git
+# sudo python setup.py install --prefix=/usr/local
+#
+# install from pip
+# bash$ sudo pip-3.2 install python-uinput
+#
+# configure system
+# bash$ sudo modprobe uinput
+# bash$ sudo sh -c 'echo "uinput" >> /etc/modules'
+# bash$ sudo echo 'SUBSYSTEM=="misc", KERNEL=="uinput", MODE="0660", GROUP="uinput"' > /etc/udev/rules.d/40-uinput.rules
+# bash$ sudo addgroup uinput
+# bash$ sudo adduser $USER uinput
+# bash$ sudo reboot
+#
+# # configure X windows
+# bash$ sudo mkdir -p /etc/X11/xorg.conf.d
+# bash$ sudo vi /etc/X11/xorg.conf.d/00-python-uinput.conf
+# Section "InputClass"
+# 	Identifier	"AgilityContest chrono keyboard"
+# 	MatchProduct	"python-uinput"
+# 	Driver		"evdev"
+# EndSection
+
+
 import time
 import RPi.GPIO as GPIO
 import uinput
