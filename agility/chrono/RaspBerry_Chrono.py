@@ -27,7 +27,7 @@
 # Reasons:
 # - written in python. an interpreted language -> cannot guarantee response time and accuracy
 # - runs on a rasperry: has no realtime clock, and poor clock stability in the long time running
-# - requires an specific hardware.
+# - requires an juaspecific hardware.
 #
 # We are using LED&Button breakout board from AdaFruit for testing and led&button assignment
 # http://www.modmypi.com/raspberry-pi/breakout-boards/mypishop/mypi-push-your-pi-8-led-and-8-button-breakout-board
