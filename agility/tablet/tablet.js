@@ -42,7 +42,7 @@ function setDataEntryEnabled(flag) {
  * @param {object} data Event data
  */
 function tablet_putEvent(type,data){
-    var tds=$('#tdialog-Session').val();
+	var tds=$('#tdialog-Session').val();
 	// setup default elements for this event
 	var obj= {
 			'Operation':'putEvent',
@@ -55,9 +55,10 @@ function tablet_putEvent(type,data){
 			'Manga':	$('#tdialog-Manga').val(),
 			'Tanda':	$('#tdialog-ID').val(),
 			'Perro':	$('#tdialog-Perro').val(),
-            'Dorsal':	$('#tdialog-Dorsal').val(),
-            'Equipo':	$('#tdialog-Equipo').val(),
-			'Celo':		$('#tdialog-Celo').val()	
+			'Dorsal':	$('#tdialog-Dorsal').val(),
+			'Equipo':	$('#tdialog-Equipo').val(),
+			'Celo':		$('#tdialog-Celo').val(),
+			'Value':	0 // may be overriden with 'data' contents
 	};
 	// send "update" event to every session listeners
 	$.ajax({
@@ -86,46 +87,46 @@ function tablet_updateSession(row) {
 			Manga: row.Manga,
 			Tanda: row.ID
 	};
-    if (parseInt(row.Manga)==0) {
-        var str= row.Nombre.toLowerCase();
-        if (str.indexOf("econo")>0) return false;
-        else tablet_reconocimiento();
-    }
+	if (parseInt(row.Manga)==0) {
+		var str= row.Nombre.toLowerCase();
+		if (str.indexOf("econo")>0) return false;
+		else tablet_reconocimiento();
+	}
 	$.ajax({
 		type:	'GET',
 		url:	"/agility/server/database/sessionFunctions.php",
 		// dataType:'json',
 		data:	data,
 		success: function() {
-            data.Session=	data.ID;
-            data.Operation=	'putEvent';
-            // send proper event
-            if (parseInt(row.Manga)==0) { //user defined tanda
-                data.Nombre= row.Nombre;
-                tablet_putEvent('info',data);
-            } else {
-                tablet_putEvent('open',data);
-            }
+			data.Session=	data.ID;
+			data.Operation=	'putEvent';
+			// send proper event
+			if (parseInt(row.Manga)==0) { //user defined tanda
+				data.Nombre= row.Nombre;
+				tablet_putEvent('info',data);
+			} else {
+				tablet_putEvent('open',data);
+			}
 		}
 	});
 }
 
 function tablet_updateResultados(pendiente) {
 	$('#tdialog-Pendiente').val(pendiente);
-    var frm = $('#tdialog-form');
-    $.ajax({
-        type: 'GET',
-        url: '/agility/server/database/resultadosFunctions.php',
-        data: frm.serialize(),
-        dataType: 'json',
-        success: function (result) {
-            if (result.errorMsg){
-                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
-            } 
-        	// NOTE: do not update parent tablet row on success 
-        	// as form('reset') seems not to work as we want, we use it as backup
-        }
-    });
+	var frm = $('#tdialog-form');
+	$.ajax({
+		type: 'GET',
+		url: '/agility/server/database/resultadosFunctions.php',
+		data: frm.serialize(),
+		dataType: 'json',
+		success: function (result) {
+			if (result.errorMsg){
+				$.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
+			}
+			// NOTE: do not update parent tablet row on success
+			// as form('reset') seems not to work as we want, we use it as backup
+		}
+	});
 }
 
 function doBeep() {
@@ -134,7 +135,7 @@ function doBeep() {
 
 function tablet_add(val) {
 	doBeep();
-    var tdt=$('#tdialog-Tiempo');
+	var tdt=$('#tdialog-Tiempo');
 	var str=tdt.val();
 	if (parseInt(str)==0) str=''; // clear espurious zeroes
 	if(str.length>=6) return; // sss.xx 6 chars
@@ -161,7 +162,7 @@ function tablet_dot() {
 
 function tablet_del() {
 	doBeep();
-    var tdt=$('#tdialog-Tiempo');
+	var tdt=$('#tdialog-Tiempo');
 	var str=tdt.val();
 	if (str==='') return;
 	tdt.val(str.substring(0, str.length-1));
@@ -197,14 +198,14 @@ function tablet_down(id){
 
 function tablet_np() {
 	doBeep();
-    var tde=$('#tdialog-Eliminado');
-    var tdestr=$('#tdialog-EliminadoStr');
-    var tdnp=$('#tdialog-NoPresentado');
-    var tdnpstr=$('#tdialog-NoPresentadoStr');
-    var tdtime=$('#tdialog-Tiempo');
-    var tdflt=$('#tdialog-Faltas');
-    var tdtoc=$('#tdialog-Rehuses');
-    var tdreh=$('#tdialog-Tocados');
+	var tde=$('#tdialog-Eliminado');
+	var tdestr=$('#tdialog-EliminadoStr');
+	var tdnp=$('#tdialog-NoPresentado');
+	var tdnpstr=$('#tdialog-NoPresentadoStr');
+	var tdtime=$('#tdialog-Tiempo');
+	var tdflt=$('#tdialog-Faltas');
+	var tdtoc=$('#tdialog-Rehuses');
+	var tdreh=$('#tdialog-Tocados');
 	var n= parseInt(tdnp.val());
 	if (n==0) {
 		tdnp.val(1);
@@ -237,10 +238,10 @@ function tablet_np() {
 
 function tablet_elim() {
 	doBeep();
-    var tde=$('#tdialog-Eliminado');
-    var tdestr=$('#tdialog-EliminadoStr');
-    var tdnp=$('#tdialog-NoPresentado');
-    var tdtime=$('#tdialog-Tiempo');
+	var tde=$('#tdialog-Eliminado');
+	var tdestr=$('#tdialog-EliminadoStr');
+	var tdnp=$('#tdialog-NoPresentado');
+	var tdtime=$('#tdialog-Tiempo');
 	var n= parseInt(tde.val());
 	if (n==0) {
 		tde.val(1);
@@ -270,41 +271,41 @@ function tablet_cronoManual(oper,time) {
 }
 
 function tablet_restartCronoManual(time) {
-    if (!ac_config.tablet_chrono) return false;
-    var crm=$('#cronomanual');
-    crm.Chrono('stop',time);
-    crm.Chrono('reset',time);
-    crm.Chrono('start',time);
+	if (!ac_config.tablet_chrono) return false;
+	var crm=$('#cronomanual');
+	crm.Chrono('stop',time);
+	crm.Chrono('reset',time);
+	crm.Chrono('start',time);
 }
 
 var myCounter = new Countdown({  
-    seconds:15,  // number of seconds to count down
-    onUpdateStatus: function(sec){ $('#tdialog-Tiempo').val(sec); }, // callback for each second
-    // onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
-    onCounterEnd: function(){  // at end of countdown start timer
-    	var time = Date.now() - startDate;
-    	switch (parseInt(ac_config.tablet_countdown)) {
-    		case 1: /* do nothing */ return;
-    		case 2: /* start crono */
-    			tablet_putEvent('start',{ 'Value' : time } );
-    			$('#tdialog-StartStopBtn').val("Stop");
-    			tablet_cronoManual('start',time);
-    			break;
-    		case 3: /* eliminado */
-    			$('#tdialog-Eliminado').val(0); //make sure that tablet sees not eliminado
-    			tablet_elim(); // call eliminado handler
-    			return;
-    	}
-    }
+	seconds:15,  // number of seconds to count down
+	onUpdateStatus: function(sec){ $('#tdialog-Tiempo').val(sec); }, // callback for each second
+	// onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
+	onCounterEnd: function(){  // at end of countdown start timer
+		var time = Date.now() - startDate;
+		switch (parseInt(ac_config.tablet_countdown)) {
+			case 1: /* do nothing */ return;
+			case 2: /* start crono */
+				tablet_putEvent('start',{ 'Value' : time } );
+				$('#tdialog-StartStopBtn').val("Stop");
+				tablet_cronoManual('start',time);
+				break;
+			case 3: /* eliminado */
+				$('#tdialog-Eliminado').val(0); //make sure that tablet sees not eliminado
+				tablet_elim(); // call eliminado handler
+				return;
+		}
+	}
 });
 
 function tablet_reconocimiento() {
-    tablet_putEvent('crono_rec',{
-        'Session': workingData.sesion,
-        'Value' : Date.now() - startDate
-    } );
-    doBeep();
-    return false;
+	tablet_putEvent('crono_rec',{
+		'Session': workingData.sesion,
+		'Value' : Date.now() - startDate
+	} );
+	doBeep();
+	return false;
 }
 
 function tablet_startstop() {
@@ -340,7 +341,7 @@ function tablet_cancel() {
 	doBeep();
 	// retrieve original data from parent datagrid
 	var dgname=$('#tdialog-Parent').val();
-    var dg=$(dgname).datagrid();
+	var dg=$(dgname).datagrid();
 	var row =dg.datagrid('getSelected');
 	if (row) {
 		// update database according row data
@@ -365,8 +366,8 @@ function tablet_cancel() {
 					);
 			}
 		});
-        var index=row =dg.datagrid('getRowIndex',row);
-        dg.datagrid('scrollTo',index);
+		var index=row =dg.datagrid('getRowIndex',row);
+		dg.datagrid('scrollTo',index);
 	}
 	// and close panel
 	tablet_cronoManual('stop');
@@ -379,7 +380,7 @@ function nextRow(dg, cb){
 	var opts = dg.datagrid('options');
 	var row = dg.datagrid('getSelected');
 	var index = dg.datagrid('getRowIndex', row);
-    if (index>=(opts.numRows-1)) return false;
+	if (index>=(opts.numRows-1)) return false;
 	dg.datagrid('scrollTo', {
 		index: index+1,
 		callback: function(index){
@@ -387,47 +388,47 @@ function nextRow(dg, cb){
 			cb(index, $(this).datagrid('getRows')[index]);
 		}
 	});
-    return true;
+	return true;
 }
 
 function tablet_accept() {
-    doBeep();
-    // save results
-    tablet_updateResultados(0); // mark as result no longer pendiente
-    // retrieve original data from parent datagrid
-    var dgname = $('#tdialog-Parent').val();
-    var dg = $(dgname);
-    var row = dg.datagrid('getSelected');
-    if (!row) return false; // nothing to do. should mark error
+	doBeep();
+	// save results
+	tablet_updateResultados(0); // mark as result no longer pendiente
+	// retrieve original data from parent datagrid
+	var dgname = $('#tdialog-Parent').val();
+	var dg = $(dgname);
+	var row = dg.datagrid('getSelected');
+	if (!row) return false; // nothing to do. should mark error
 
-    // send back data to parent tablet datagrid form
-    var obj = formToObject('#tdialog-form');
-    // mark as no longer pending
-    obj.Pendiente = 0;
-    // now update and redraw data on
-    var rowindex= dg.datagrid("getRowIndex", row);
+	// send back data to parent tablet datagrid form
+	var obj = formToObject('#tdialog-form');
+	// mark as no longer pending
+	obj.Pendiente = 0;
+	// now update and redraw data on
+	var rowindex= dg.datagrid("getRowIndex", row);
 
-    // update row
-    dg.datagrid('updateRow', {index: rowindex, row: obj});
-    // and fire up accept event
-    tablet_putEvent(
-        'aceptar',
-        {
-            // notice pass-by-reference: row now points to new values
-            'NoPresentado': row.NoPresentado,
-            'Faltas': row.Faltas,
-            'Tocados': row.Tocados,
-            'Rehuses': row.Rehuses,
-            'Tiempo': row.Tiempo,
-            'Eliminado': row.Eliminado
-        }
-    );
-    // en jornadas por equipos 4 el crono sigue contando entre perro y perro
-    // por ello no reseteamos el crono en el cambio de equipo
-    if ( ! isJornadaEq4()) {
-        tablet_cronoManual('stop');
-        tablet_cronoManual('reset');
-    }
+	// update row
+	dg.datagrid('updateRow', {index: rowindex, row: obj});
+	// and fire up accept event
+	tablet_putEvent(
+		'aceptar',
+		{
+			// notice pass-by-reference: row now points to new values
+			'NoPresentado': row.NoPresentado,
+			'Faltas': row.Faltas,
+			'Tocados': row.Tocados,
+			'Rehuses': row.Rehuses,
+			'Tiempo': row.Tiempo,
+			'Eliminado': row.Eliminado
+		}
+	);
+	// en jornadas por equipos 4 el crono sigue contando entre perro y perro
+	// por ello no reseteamos el crono en el cambio de equipo
+	if ( ! isJornadaEq4()) {
+		tablet_cronoManual('stop');
+		tablet_cronoManual('reset');
+	}
 	if (!ac_config.tablet_next) { // no go to next row entry
 		setDataEntryEnabled(false);
 		dg.datagrid('refreshRow',rowindex);
@@ -435,23 +436,23 @@ function tablet_accept() {
 	}
 	// seleccionamos fila siguiente
 	var res=nextRow(dg,function(index,data) {
-        // alert ("index:"+index+" data:"+JSON.stringify(data));
-        if (index<0) return false; // no selection
-        if (data==null) { // at end of rows. should not occurs
-            dg.datagrid('scrollTo',rowindex);
-            setDataEntryEnabled(false);
-            return false;
-        }
+		// alert ("index:"+index+" data:"+JSON.stringify(data));
+		if (index<0) return false; // no selection
+		if (data==null) { // at end of rows. should not occurs
+			dg.datagrid('scrollTo',rowindex);
+			setDataEntryEnabled(false);
+			return false;
+		}
 		data.Session=workingData.sesion;
 		data.RowIndex=index; // not really used, but....
 		data.Parent=dgname; // store datagrid reference
 		$('#tdialog-form').form('load',data);
 	});
-    if (res==false) { // at end of list
-        setDataEntryEnabled(false);
-        dg.datagrid('refreshRow',rowindex);
-    }
-    return false; // prevent follow onClick event chain
+	if (res==false) { // at end of list
+		setDataEntryEnabled(false);
+		dg.datagrid('refreshRow',rowindex);
+	}
+	return false; // prevent follow onClick event chain
 }
 
 /**
@@ -463,40 +464,40 @@ function tablet_accept() {
  * @param cb(page) what to do if Dorsal found in tanda
  */
 function loadDorsalPage(tanda,dg,dorsal,cb) {
-    $.ajax({
-        type:	'GET',
-        url:	"/agility/server/database/tandasFunctions.php",
-        dataType:'json',
-        data: {
-            Operation: 'getDataByDorsal',
-            Prueba:		tanda.Prueba,
-            Jornada:	tanda.Jornada,
-            Sesion:		tanda.Sesion,
-            ID:			tanda.ID,
-            Dorsal:		dorsal
-        },
-        success: function(row) {
-            var idx=row.RowIndex;
-            if (idx<0) {
-                $.messager.alert("Not found","El perro con dorsal "+dorsal+" no participa en esta manga","info");
-                $('#tablet-datagrid-search').val('---- Dorsal ----');
-                return false;
-            }
-            cb(idx);
-        },
-        error: function(XMLHttpRequest,textStatus,errorThrown) {
-            alert("error: "+textStatus + " "+ errorThrown );
-        }
-    });
+	$.ajax({
+		type:	'GET',
+		url:	"/agility/server/database/tandasFunctions.php",
+		dataType:'json',
+		data: {
+			Operation: 'getDataByDorsal',
+			Prueba:		tanda.Prueba,
+			Jornada:	tanda.Jornada,
+			Sesion:		tanda.Sesion,
+			ID:			tanda.ID,
+			Dorsal:		dorsal
+		},
+		success: function(row) {
+			var idx=row.RowIndex;
+			if (idx<0) {
+				$.messager.alert("Not found","El perro con dorsal "+dorsal+" no participa en esta manga","info");
+				$('#tablet-datagrid-search').val('---- Dorsal ----');
+				return false;
+			}
+			cb(idx);
+		},
+		error: function(XMLHttpRequest,textStatus,errorThrown) {
+			alert("error: "+textStatus + " "+ errorThrown );
+		}
+	});
 }
 
 function tablet_editByDorsal() {
 	var i,len;
 	var dg=$('#tablet-datagrid');
-    var drs=$('#tablet-datagrid-search');
+	var drs=$('#tablet-datagrid-search');
 	var rows=dg.datagrid('getRows');
 	var dorsal=parseInt(drs.val());
-    drs.blur();// remove focus to hide tooltip
+	drs.blur();// remove focus to hide tooltip
 	// si no hay tandas activas muestra error e ignora
 	for (i=0,len=rows.length;i<len;i++) {
 		if (typeof(rows[i].expanded)==="undefined") continue;
@@ -504,21 +505,21 @@ function tablet_editByDorsal() {
 		// obtenemos el datagrid y buscamos el dorsal
 		var dgname='#tablet-datagrid-'+rows[i].ID;
 		var dg2=$(dgname);
-        loadDorsalPage(rows[i],dg2,dorsal,function(idx){
-            dg2.datagrid('scrollTo', {
-                index: idx,
-                callback: function (index) {
-                    if (index < 0) return false; // no selection
-                    dg2.datagrid('selectRow', index);
-                    var data = dg2.datagrid('getRows')[index];
-                    data.Session = workingData.sesion;
-                    data.RowIndex = index; // not really used, but....
-                    data.Parent = dgname; // store datagrid reference
-                    $('#tdialog-form').form('load', data);
-                    setDataEntryEnabled(true);
-                }
-            });
-        });
+		loadDorsalPage(rows[i],dg2,dorsal,function(idx){
+			dg2.datagrid('scrollTo', {
+				index: idx,
+				callback: function (index) {
+					if (index < 0) return false; // no selection
+					dg2.datagrid('selectRow', index);
+					var data = dg2.datagrid('getRows')[index];
+					data.Session = workingData.sesion;
+					data.RowIndex = index; // not really used, but....
+					data.Parent = dgname; // store datagrid reference
+					$('#tdialog-form').form('load', data);
+					setDataEntryEnabled(true);
+				}
+			});
+		});
 		drs.val('---- Dorsal ----');
 		return false;
 	}
@@ -559,7 +560,7 @@ function tablet_processEvents(id,evt) {
 		if (ssb.val()==="Auto") return;
 		ssb.val("Stop");
 		myCounter.stop();
-        tablet_restartCronoManual(time);
+		tablet_restartCronoManual(time);
 		return;
 	case 'stop': // stop crono manual
 		// si crono automatico, ignora
@@ -579,7 +580,7 @@ function tablet_processEvents(id,evt) {
 		crm.Chrono('start',time);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-        crm.Chrono('pause'); setTimeout(function(){crm.Chrono('resume');},5000);
+		crm.Chrono('pause'); setTimeout(function(){crm.Chrono('resume');},5000);
 		return;
 	case 'crono_stop':	// parada crono electronico
 		// si value!=0 parar countdown y crono manual; y enviar tiempo al crono del tablet 
@@ -604,15 +605,16 @@ function tablet_processEvents(id,evt) {
 		// ignored, just for get noticed at chrono display
 		return;
 	case 'crono_error': // sensor alignment failed
-		tbox.addClass('blink');
+		if (event['Value']==1) tbox.addClass('blink');
+		else tbox.removeClass('blink');
 		return;
 		// show error message. Use reset to clear
 	case 'cancelar': // operador pulsa cancelar
 		return;
-    case 'aceptar':	// operador pulsa aceptar
-        return;
-    case 'info':	// click on user defined tandas
-        return;
+	case 'aceptar':	// operador pulsa aceptar
+		return;
+	case 'info':	// click on user defined tandas
+		return;
 	default:
 		alert("Unknow Event type: "+event['Type']);
 		return;

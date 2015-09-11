@@ -87,7 +87,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			<a id="chrono-elimBtn" href="#" class="easyui-linkbutton"
    			   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('crono_dat',{'Eliminado':1})">Eliminado</a>
    			<a id="chrono-errorBtn" href="#" class="easyui-linkbutton"
-			   data-options="iconCls: 'icon-alert'" onclick="chrono_sensor('crono_error',{},4000)">Error</a>
+			   data-options="iconCls: 'icon-alert'" onclick="chrono_error()">Error</a>
    			<a id="chrono-resetBtn" href="#" class="easyui-linkbutton"
 			   data-options="iconCls: 'icon-undo'" onclick="chrono_sensor('crono_reset',{},4000)">Reset</a>
 		</span>
@@ -174,7 +174,7 @@ doLayout(layout,"#chrono_Tiempo",		10,		100,	665, 	90	);
 
 doLayout(layout,"#chrono_Logo",			10,		215,	80,		55	);
 doLayout(layout,"#chrono_Dorsal",		100,	225,	100,	25	);
-doLayout(layout,"#chrono_Nombre",		200,	225,	250,	25	);
+doLayout(layout,"#chrono_Nombre",		220,	225,	230,	25	);
 doLayout(layout,"#chrono_Categoria",	450,	225,	200,	25	);
 doLayout(layout,"#chrono_Grado",		650,	225,	125,	25	);
 doLayout(layout,"#chrono_NombreGuia",	100,	250,	350,	20	);

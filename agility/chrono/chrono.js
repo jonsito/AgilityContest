@@ -33,7 +33,8 @@ function chrono_putEvent(type,data){
 			'Prueba':	workingData.prueba,
 			'Jornada':	workingData.jornada,
 			'Manga':	workingData.manga,
-			'Tanda':	workingData.tanda	
+			'Tanda':	workingData.tanda,
+			'Value':	0 // may be overridden by received 'data' contents
 	};
 	// send "update" event to every session listeners
 	$.ajax({
@@ -152,6 +153,14 @@ function chrono_button(event,data) {
     data.Value=Date.now() - startDate;
 	chrono_putEvent(event,data);
 	doBeep();
+}
+
+/**
+ * handle sensor errors
+ */
+function chrono_error(event) {
+	if($('#chrono_Error').text()==="") chrono_putEvent('crono_error',{Value:"1"});
+	else chrono_putEvent('crono_error',{Value:"0"});
 }
 
 /**
@@ -310,7 +319,10 @@ function chrono_processEvents(id,evt) {
 		cra.Chrono('pause'); setTimeout(function(){cra.Chrono('resume');},5000);
 		return;
 	case 'crono_error': // sensor error detected
-		cre.text('Fallo Sensores').addClass('blink'); // clear 'Manual' mark
+		if (event['Value']==1)
+			cre.text('Fallo Sensores').addClass('blink'); // error: show it
+		else
+			cre.text('').removeClass('blink'); // error solved
 		return;
     case 'crono_stop':	// parada crono electronico
         // si crono manual arrancado, ignora if (crm.text() !=='') return;

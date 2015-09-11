@@ -45,6 +45,7 @@
 #                                                                   #
 #####################################################################
 import threading            # to receive event messages from server
+import json					# to parse Data field on event responses
 import requests 			# to handle json http requests
 import RPi.GPIO as GPIO		# to handle Raspberry PI GPIO pins
 import datetime
@@ -134,12 +135,11 @@ def blink_powerled():
 	GPIO.output(LED_Pwr, not state )
 		
 # perform json request to send event to server
-def json_request(type):
+def json_request(type,value):
 	global session_id
-	val = millis()
 	# compose json request
-	args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(val)+"&Source=" +SESSION_NAME
-	args = args + "&Session=" + session_id + "&Value="+str(val)
+	args = "?Operation=chronoEvent&Type="+type+"&TimeStamp="+str(millis())+"&Source=" +SESSION_NAME
+	args = args + "&Session=" + session_id + "&Value="+value
 	url="https://"+server+"/agility/server/database/eventFunctions.php"
 	# debug( "JSON Request: " + url + "" + args)
 	response = requests.get(url+args, verify=False)	# send request . It is safe to ignore response
@@ -215,12 +215,14 @@ def check_sensors():
 	state = GPIO.input(BTN_Start) and GPIO.input(BTN_Stop) and GPIO.input(BTN_Inter)
 	if state == True: # no hay nada pulsado: all right
 		GPIO.output(LED_Err,False)
+		if open_time!=0:
+			json_request("crono_error","0") # mark error solved
 		open_time=0
 		return True
 	# hay algo pulsado: incrementa contador y comprueba si ha llegado al limite
 	open_time = open_time + 1
 	if open_time == 10: # send error to server
-		json_request("crono_error")
+		json_request("crono_error","1")
 	if open_time>=10:
 		debug("ERROR: Comprobar sensores")
 		return False
@@ -251,13 +253,13 @@ def button_pressed(val,pin,txt):
 def handle_rec(pin):
 	if not button_pressed(1,pin,"Reconocimiento"):
 		return False
-	return json_request("crono_rec")
+	return json_request("crono_rec",str(millis()))
 
 # Reset del cronometro
 def handle_reset(pin):
 	if not button_pressed(1,pin,"Reset"):
 		return False
-	return json_request("crono_reset")
+	return json_request("crono_reset",str(millis()))
 
 # Arranque / parada del cronometro
 def handle_startstop(pin):
@@ -266,15 +268,15 @@ def handle_startstop(pin):
 	state = GPIO.input(LED_Run) # read led status (oh, yeah: it's an output, but rpi allows us to do this )
 	#and send event to server
 	if state == True :
-		return json_request("crono_stop")
+		return json_request("crono_stop",str(millis()))
 	if state == False :
-		return json_request("crono_start")
+		return json_request("crono_start",str(millis()))
 
 # Tiempo intermedio
 def handle_int(pin):
 	if not button_pressed(1,pin,"T. Intermedio"):
 		return False
-	return json_request("crono_int")
+	return json_request("crono_int",str(millis()))
 
 #Setup the DPad module pins and pull-ups
 def ac_gpio_setup():
@@ -334,11 +336,12 @@ def eventParser():
 			continue
 		# if response failed, try next IP address
 		if response.status_code != 200:
+			debug("Invalid response. Try again")
 			time.sleep(5) # wait 5 seconds and retry
 			continue
 		# response ok: retrieve event ID of last "open" call
 		data=response.json()
-		if data['total'] == 0:
+		if data['total'] == "0":
 			time.sleep(5) # no data available. Sleep and retry
 			continue
 		event_id = data['rows'][0]['ID']
@@ -367,7 +370,8 @@ def eventParser():
 		for i in data['rows']:
 			event_id=i['ID']
 			type=i['Type']
-			debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type)
+			value=json.loads(i['Data'])['Value']
+			debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type+ " Value:"+str(value))
 			# Eventos generales
 			if type == 'null':				# null event: no action taken
 				continue
@@ -387,7 +391,7 @@ def eventParser():
 			# en crono electronico los campos "Value" y "TimeStamp" contienen la marca de tiempo del sistema
 			# en el momento en que se capturo el evento
 			if type == 'crono_start':		# Arranque Crono electronico
-				start_run=timestamp		# store timestamp mark
+				start_run=value		# store timestamp mark
 				GPIO.output(LED_Run, True )
 				continue
 			if type == 'crono_int':			# Tiempo intermedio Crono electronico
@@ -397,7 +401,8 @@ def eventParser():
 				continue
 			if type == 'crono_stop':		# Parada Crono electronico
 				GPIO.output(LED_Run, False )
-				debug("End of course. Total time: "+ str(timestamp-start_run)
+				elapsed= (value-start_run) # miliseconds
+				debug("End of course. Total time: %.2f" % (elapsed/1000.0) )
 				continue
 			if type == 'crono_rec':			# Llamada a reconocimiento de pista
 				state = GPIO.input(LED_Rec) # read led status
@@ -409,10 +414,11 @@ def eventParser():
 				GPIO.output(LED_Rec, False )
 				GPIO.output(LED_Run, False )
 				GPIO.output(LED_Int, False )
-				GPIO.output(LED_Error, False )
+				GPIO.output(LED_Err, False )
 				continue
 			if type == 'crono_error':		# error en alineamiento de sensores
-				GPIO.output(LED_Err, True )
+				if value=='1':
+					GPIO.output(LED_Err, True ) # check_sensors() will turn of when solved
 				continue
 			# entrada de datos, dato siguiente, cancelar operacion
 			if type == 'llamada':			# operador abre panel de entrada de datos
