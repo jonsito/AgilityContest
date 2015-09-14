@@ -195,14 +195,6 @@ function vwls_cronometro(oper,tstamp) {
 	$('#cronometro').Chrono(oper,tstamp);
 }
 
-function vwls_restartCronometro(time) {
-	myCounter.stop();
-	var crm=$('#cronometro');
-	crm.Chrono('stop',time);
-	crm.Chrono('reset',time);
-	crm.Chrono('start',time);
-}
-
 /**
  * Actualiza el datagrid de llamada a pista con los datos recibidos
  * @param {object} evt event
@@ -387,7 +379,9 @@ function vwls_processLiveStream(id,evt) {
 		// si crono automatico, ignora
 		if (ssf.text()==="Auto") return;
 		ssf.text("Stop");
-		vwls_restartCronometro(time);
+		crm.Chrono('stop');
+		crm.Chrono('reset');
+		crm.Chrono('start',time);
 		return;
 	case 'stop':	// value: timestamp
 		ssf.text("Start");
@@ -396,7 +390,7 @@ function vwls_processLiveStream(id,evt) {
 		return;
 	case 'crono_start': // arranque crono electronico
 		// si esta parado, arranca en modo automatico
-		if (!crm.Chono('active')) {
+		if (!crm.Chrono('started')) {
 			myCounter.stop();
 			ssf.text('Auto');
 			crm.Chrono('stop');
@@ -405,7 +399,7 @@ function vwls_processLiveStream(id,evt) {
 			return
 		}
 		// si esta arrancado en manual, pasa a automatico
-		if (ssf.textl()==="Stop") {
+		if (ssf.text()==="Stop") {
 			ssf.text('Auto');
 			return;
 		}
@@ -414,10 +408,10 @@ function vwls_processLiveStream(id,evt) {
 		crm.Chrono('reset');
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
+		if (!cra.Chrono('started')) return;	// si crono no esta activo, ignorar
         $('#cronometro').Chrono('pause'); setTimeout(function(){$('#cronometro').Chrono('resume');},5000);
 		return;
 	case 'crono_stop':	// parada crono electronico
-		myCounter.stop();
 		ssf.text("Start");
 		vwls_cronometro('stop',time);
 		return;

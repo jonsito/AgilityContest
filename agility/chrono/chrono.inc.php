@@ -87,7 +87,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			<a id="chrono-elimBtn" href="#" class="easyui-linkbutton"
    			   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('crono_dat',{'Eliminado':1})">Eliminado</a>
    			<a id="chrono-errorBtn" href="#" class="easyui-linkbutton"
-			   data-options="iconCls: 'icon-alert'" onclick="chrono_error()">Error</a>
+			   data-options="iconCls: 'icon-alert'" onclick="chrono_markError()">Error</a>
    			<a id="chrono-resetBtn" href="#" class="easyui-linkbutton"
 			   data-options="iconCls: 'icon-undo'" onclick="chrono_sensor('crono_reset',{},4000)">Reset</a>
 		</span>
