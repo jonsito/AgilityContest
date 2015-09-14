@@ -103,7 +103,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>	<!-- botones -->
 
 <!-- declare a tag to attach a chrono object to -->
-<div id="cronoauto"></div>
+<div id="cronoauto"><span id="chrono_StartStopFlag" style="display:none">Start</span></div>
 		
 <script type="text/javascript">
 	

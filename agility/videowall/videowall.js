@@ -190,9 +190,17 @@ var myCounter = new Countdown({
  * @param {string} oper 'start','stop','pause','resume','reset'
  * @param {int} tstamp timestamp mark
  */
-function vwls_cronoManual(oper,tstamp) {
+function vwls_cronometro(oper,tstamp) {
 	myCounter.stop();
-	$('#cronomanual').Chrono(oper,tstamp);
+	$('#cronometro').Chrono(oper,tstamp);
+}
+
+function vwls_restartCronometro(time) {
+	myCounter.stop();
+	var crm=$('#cronometro');
+	crm.Chrono('stop',time);
+	crm.Chrono('reset',time);
+	crm.Chrono('start',time);
 }
 
 /**
@@ -350,6 +358,8 @@ function vwls_processLiveStream(id,evt) {
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
     var time=event['Value'];
+	var ssf=$('#vwls_StartStopFlag');
+	var crm=$('#cronometro');
 	switch (event['Type']) {
 	case 'null':		// null event: no action taken
 		return; 
@@ -364,51 +374,68 @@ function vwls_processLiveStream(id,evt) {
 		vwls_updateData(event);
 		return;
 	case 'llamada':		// operador abre panel de entrada de datos
-		vwls_cronoManual('stop');
-		vwls_cronoManual('reset');
+		myCounter.stop();
+		vwls_cronometro('stop');
+		vwls_cronometro('reset');
 		vwls_showOSD(1); 	// activa visualizacion de OSD
 		vwls_showData(event);
 		return;
 	case 'salida':		// juez da orden de salida ( crono 15 segundos )
 		myCounter.start();
 		return;
-	case 'start':	// value: timestamp
-		myCounter.stop(); 
-		vwls_cronoManual('stop');
-		vwls_cronoManual('reset');
-		vwls_cronoManual('start',time);
+	case 'start':	// arranque manual del cronometro
+		// si crono automatico, ignora
+		if (ssf.text()==="Auto") return;
+		ssf.text("Stop");
+		vwls_restartCronometro(time);
 		return;
 	case 'stop':	// value: timestamp
+		ssf.text("Start");
 		myCounter.stop(); 
-		vwls_cronoManual('stop',time);
+		vwls_cronometro('stop',time);
 		return;
 	case 'crono_start': // arranque crono electronico
-		myCounter.stop(); 
-		vwls_cronoManual('stop');
-		vwls_cronoManual('reset');
-		vwls_cronoManual('start',time);
+		// si esta parado, arranca en modo automatico
+		if (!crm.Chono('active')) {
+			myCounter.stop();
+			ssf.text('Auto');
+			crm.Chrono('stop');
+			crm.Chrono('reset');
+			crm.Chrono('start',time);
+			return
+		}
+		// si esta arrancado en manual, pasa a automatico
+		if (ssf.textl()==="Stop") {
+			ssf.text('Auto');
+			return;
+		}
+		// si llega aqui, resetea el crono y sigue contando
+		ssf.text('Auto');
+		crm.Chrono('reset');
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-        $('#cronomanual').Chrono('pause'); setTimeout(function(){$('#cronomanual').Chrono('resume');},5000);
+        $('#cronometro').Chrono('pause'); setTimeout(function(){$('#cronometro').Chrono('resume');},5000);
 		return;
 	case 'crono_stop':	// parada crono electronico
-		myCounter.stop(); 
-		vwls_cronoManual('stop',time);
+		myCounter.stop();
+		ssf.text("Start");
+		vwls_cronometro('stop',time);
 		return;
 	case 'crono_reset':  // puesta a cero del crono electronico
 		myCounter.stop();
-		vwls_cronoManual('stop');
-		vwls_cronoManual('reset');
+		ssf.text("Start");
+		vwls_cronometro('stop');
+		vwls_cronometro('reset');
 		return;
 	case 'crono_error':  // fallo en los sensores de paso
 		return; // TODO: what to do in videowall with sensor errors ?
 	case 'aceptar':		// operador pulsa aceptar
-		vwls_cronoManual('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
+		vwls_cronometro('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
 		// vwls_showData(event); // actualiza pantall liveStream
 		return;
 	case 'cancelar':	// operador pulsa cancelar
-		vwls_cronoManual('stop',time);
-		vwls_cronoManual('reset');
+		vwls_cronometro('stop',time);
+		vwls_cronometro('reset');
 		vwls_showOSD(0); // apaga el OSD
 		return;
     case 'info':	// click on user defined tandas

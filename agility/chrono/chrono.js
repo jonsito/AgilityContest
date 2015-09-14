@@ -247,8 +247,9 @@ function bindKeysToChrono() {
 
 function chrono_processEvents(id,evt) {
 	var cra=$('#cronoauto');
-	var crm=$('#chrono_Manual');
-	var cre=$('#chrono_Error');
+	var crm=$('#chrono_Manual'); // Texto "manual"
+	var cre=$('#chrono_Error');  // Textro "comprobar sensores"
+	var ssf=$('#chrono_StartStopFlag');
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
 	var time=event['Value']; // miliseconds 
@@ -277,8 +278,11 @@ function chrono_processEvents(id,evt) {
 	case 'salida': // orden de salida
 		c_llamada.start();
 		return;
-	case 'start': // start crono manual
-		// si crono auto arrancado ignore
+	case 'start': // arranque manual del cronometro
+		if (ssf.text()==="Auto") return; // si crono automatico, ignora
+		ssf.text("Stop");
+		vwls_restartCronometro(time);
+		return;
 		if ( cra.Chrono('started') ) return;
 		c_llamada.stop();
 		c_reconocimiento.stop();
@@ -287,7 +291,7 @@ function chrono_processEvents(id,evt) {
 		cra.Chrono('reset');
 		cra.Chrono('start',time);
 		return;
-	case 'stop': // stop crono manual
+	case 'stop': // parada manual del cronometro
 		// si crono manual esta arrancado, paramos; else ignore
 		if (crm.text() == '') return;
 		c_llamada.stop(); // not really needed, but...
@@ -336,7 +340,7 @@ function chrono_processEvents(id,evt) {
 			// to work without tablet; so no sense to take care
 			// on 'crono_dat' events: just use 'datos' event from tablet instead
 		return;
-		case 'crono_rec': // reconocimiento de pista
+	case 'crono_rec': // reconocimiento de pista
 		// si crono esta activo, ignorar
 		if (cra.Chrono('started')) return;
 		if (c_reconocimiento.val()!==0) c_reconocimiento.stop();

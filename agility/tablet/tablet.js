@@ -266,13 +266,13 @@ function tablet_elim() {
 	return false;
 }
 
-function tablet_cronoManual(oper,time) {
-	if (ac_config.tablet_chrono) $('#cronomanual').Chrono(oper,time);
+function tablet_cronometro(oper,time) {
+	if (ac_config.tablet_chrono) $('#cronometro').Chrono(oper,time);
 }
 
-function tablet_restartCronoManual(time) {
+function tablet_restartCronometro(time) {
 	if (!ac_config.tablet_chrono) return false;
-	var crm=$('#cronomanual');
+	var crm=$('#cronometro');
 	crm.Chrono('stop',time);
 	crm.Chrono('reset',time);
 	crm.Chrono('start',time);
@@ -289,7 +289,7 @@ var myCounter = new Countdown({
 			case 2: /* start crono */
 				tablet_putEvent('start',{ 'Value' : time } );
 				$('#tdialog-StartStopBtn').val("Stop");
-				tablet_cronoManual('start',time);
+				tablet_cronometro('start',time);
 				break;
 			case 3: /* eliminado */
 				$('#tdialog-Eliminado').val(0); //make sure that tablet sees not eliminado
@@ -370,8 +370,8 @@ function tablet_cancel() {
 		dg.datagrid('scrollTo',index);
 	}
 	// and close panel
-	tablet_cronoManual('stop');
-	tablet_cronoManual('reset');
+	tablet_cronometro('stop');
+	tablet_cronometro('reset');
 	setDataEntryEnabled(false);
 	return false;
 }
@@ -426,8 +426,8 @@ function tablet_accept() {
 	// en jornadas por equipos 4 el crono sigue contando entre perro y perro
 	// por ello no reseteamos el crono en el cambio de equipo
 	if ( ! isJornadaEq4()) {
-		tablet_cronoManual('stop');
-		tablet_cronoManual('reset');
+		tablet_cronometro('stop');
+		tablet_cronometro('reset');
 	}
 	if (!ac_config.tablet_next) { // no go to next row entry
 		setDataEntryEnabled(false);
@@ -531,7 +531,7 @@ function tablet_editByDorsal() {
 function tablet_processEvents(id,evt) {
 	var tbox=$('#tdialog-Tiempo');
 	var ssb=$('#tdialog-StartStopBtn');
-	var crm=$('#cronomanual');
+	var crm=$('#cronometro');
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
 	var time=event['Value']; // miliseconds 
@@ -547,51 +547,56 @@ function tablet_processEvents(id,evt) {
 	case 'llamada':	// llamada a pista
 		// todo: en 4 conjunta solo para crono si cambio de equipo
 		if (need_resetChrono()) {
-			tablet_cronoManual('stop');
-			tablet_cronoManual('reset');
+			tablet_cronometro('stop');
+			tablet_cronometro('reset');
 			ssb.val('Start');
 		}
 		return;
 	case 'salida': // orden de salida
 		myCounter.start();
 		return;
-	case 'start': // start crono manual
+	case 'start': // arranque manual del cronometro
 		// si crono automatico, ignora
 		if (ssb.val()==="Auto") return;
 		ssb.val("Stop");
 		myCounter.stop();
-		tablet_restartCronoManual(time);
+		tablet_restartCronometro(time);
 		return;
-	case 'stop': // stop crono manual
-		// si crono automatico, ignora
-		if (ssb.val()==="Auto") return;
+	case 'stop': // parada manual del cronometro
 		ssb.val("Start");
-		tablet_cronoManual('stop',time);
+		tablet_cronometro('stop',time);
 		return;// Value contiene la marca de tiempo
 	case 'crono_start': // arranque crono electronico
-		// automatic chrono just overrides manual crono,
-		// parar countdown
-		myCounter.stop();
+		// si esta parado, arranca en modo automatico
+		if (!crm.Chrono('active')) {
+			myCounter.stop();
+			ssb.val('Auto');
+			crm.Chrono('stop');
+			crm.Chrono('reset');
+			crm.Chrono('start',time);
+			return
+		}
+		// si esta arrancado en manual, pasa a automatico
+		if (ssb.val()==="Stop") {
+			ssb.val('Auto');
+			return;
+		}
+		// si llega aqui, resetea el crono
 		ssb.val('Auto');
-		// arranca crono manual si no esta ya arrancado
-		// si el crono manual ya esta arrancado, lo resetea y vuelve a empezar
-		crm.Chrono('stop');
 		crm.Chrono('reset');
-		crm.Chrono('start',time);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
 		crm.Chrono('pause'); setTimeout(function(){crm.Chrono('resume');},5000);
 		return;
-	case 'crono_stop':	// parada crono electronico
-		// si value!=0 parar countdown y crono manual; y enviar tiempo al crono del tablet 
-		myCounter.stop();
+    case 'crono_stop':	// parada crono electronico
+		myCounter.stop(); // no deberia ser necesario, pero nunca esta de mas
 		ssb.val("Start");
 		crm.Chrono('stop',time);
 		return;
 	case 'crono_reset': // puesta a cero incondicional
 		myCounter.stop();
-		tablet_cronoManual('stop');
-		tablet_cronoManual('reset');
+		tablet_cronometro('stop');
+		tablet_cronometro('reset');
 		tbox.removeClass('blink');
 		ssb.val("Start");
 		return;

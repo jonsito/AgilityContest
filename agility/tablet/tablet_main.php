@@ -123,7 +123,7 @@ $config =Config::getInstance();
 </div>
 
 <!-- declare a tag to attach a chrono object to -->
-<div id="cronomanual"></div>
+<div id="cronometro"></div>
 
 
 <script type="text/javascript">
@@ -351,7 +351,7 @@ $config =Config::getInstance();
 
     //create a Chronometer instance
     if (ac_config.tablet_chrono) {
-        $('#cronomanual').Chrono( {
+        $('#cronometro').Chrono( {
             seconds_sel: '#tdialog-timestamp',
             auto: false,
             interval: 100,

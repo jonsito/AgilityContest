@@ -71,12 +71,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div>
 
 <!-- declare a tag to attach a chrono object to -->
-<div id="cronomanual"></div>
+<div id="cronometro"><span id="vwls_StartStopFlag" style="display:none">Start</span></div>
 		
 <script type="text/javascript">
 	
 // create a Chronometer instance
-$('#cronomanual').Chrono( {
+$('#cronometro').Chrono( {
 	seconds_sel: '#vwls_timestamp',
 	auto: false,
 	interval: 100,
