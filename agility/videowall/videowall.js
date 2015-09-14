@@ -378,6 +378,7 @@ function vwls_processLiveStream(id,evt) {
 	case 'start':	// arranque manual del cronometro
 		// si crono automatico, ignora
 		if (ssf.text()==="Auto") return;
+		myCounter.stop();
 		ssf.text("Stop");
 		crm.Chrono('stop');
 		crm.Chrono('reset');
@@ -401,6 +402,7 @@ function vwls_processLiveStream(id,evt) {
 		// si esta arrancado en manual, pasa a automatico
 		if (ssf.text()==="Stop") {
 			ssf.text('Auto');
+			crm.Chrono('resync',time);
 			return;
 		}
 		// si llega aqui, resetea el crono y sigue contando
@@ -409,7 +411,7 @@ function vwls_processLiveStream(id,evt) {
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
 		if (!cra.Chrono('started')) return;	// si crono no esta activo, ignorar
-        $('#cronometro').Chrono('pause'); setTimeout(function(){$('#cronometro').Chrono('resume');},5000);
+        crm.Chrono('pause'); setTimeout(function(){crm.Chrono('resume');},5000);
 		return;
 	case 'crono_stop':	// parada crono electronico
 		ssf.text("Start");

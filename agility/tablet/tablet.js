@@ -572,6 +572,7 @@ function tablet_processEvents(id,evt) {
 		// si esta arrancado en manual, pasa a automatico
 		if (ssb.val()==="Stop") {
 			ssb.val('Auto');
+			crm.Chrono('resync',time);
 			return;
 		}
 		// si llega aqui, resetea el crono

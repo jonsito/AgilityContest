@@ -309,6 +309,7 @@ function chrono_processEvents(id,evt) {
 		// si esta ya arrancado en manual, pasa a automatico
 		if (ssf.text()==="Stop") {
 			ssf.text('Auto');
+			cra.Chrono('resync',time);
 			return;
 		}
 		// si llega aqui, resetea el crono y sigue contando
