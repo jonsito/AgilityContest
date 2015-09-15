@@ -560,26 +560,30 @@ function tablet_processEvents(id,evt) {
 		tablet_cronometro('stop',time);
 		return;// Value contiene la marca de tiempo
 	case 'crono_start': // arranque crono electronico
+		myCounter.stop();
+		ssb.val('Auto');
 		// si esta parado, arranca en modo automatico
 		if (!crm.Chrono('started')) {
-			myCounter.stop();
-			ssb.val('Auto');
 			crm.Chrono('stop');
 			crm.Chrono('reset');
 			crm.Chrono('start',time);
 			return
 		}
-		// si esta arrancado en manual, pasa a automatico
-		if (ssb.val()==="Stop") {
-			ssb.val('Auto');
-			crm.Chrono('resync',time);
-			return;
+		// si no resync, resetea el crono y vuelve a contar
+		if (ac_config.crono_resync==0) {
+			crm.Chrono('reset');
+			crm.Chrono('start',time);
+		} else {
+			// send restart event. Use event queue to avoid blocking event parsing
+			setTimeout(
+				function() {
+					tablet_putEvent("crono_restart",{'stop':(Date.now()-startDate), 'start':time } );
+				}
+			,0);
 		}
-		// si llega aqui, resetea el crono
-		ssb.val('Auto');
-		crm.Chrono('reset');
 		return;
 	case 'crono_restart': // paso de tiempo intermedio a manual
+		crm.Chrono('resync',event['stop'],event['start']);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
 		crm.Chrono('pause'); setTimeout(function(){crm.Chrono('resume');},5000);

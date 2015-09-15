@@ -105,11 +105,11 @@
 			}
             if (config.triggerEvents) $(config.target).trigger('chronoresume');
 		},
-		resync: function (timestamp) {
+		resync: function (timestop,timestart) {
 			var check = config.onBeforeResync();
 			if(check != false){
-				var elapsed=Date.now()-localTime;
-				startTime=timestamp-elapsed;
+				var elapsed=timestop-startTime; // time of manual chrono
+				startTime=timestart-elapsed; // adjust start time on auto chrono
 			}
 			if (config.triggerEvents) $(config.target).trigger('chronoresync');
 
@@ -120,7 +120,7 @@
 				// set elapsed time to 0. dont stop/pause if running
 				startTime =0;
 				stopTime  =0;
-				// $.fn.Chrono.stop();
+				localTime =0;
 			}
             if (config.triggerEvents) $(config.target).trigger('chronoreset');
 		},

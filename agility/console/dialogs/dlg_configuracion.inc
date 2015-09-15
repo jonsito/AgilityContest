@@ -45,7 +45,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<input id="easyui_rowcolor3" name="easyui_rowcolor3" value="#c0c0f0" type="color"/><br />
 		</div>
 	
-		<div title="Tablet" style="padding:10px">
+		<div title="Tablet &amp; Crono" style="padding:10px">
 			<h3>Funcionalidad del tablet del asistente de pista</h3>
 			<label for="tablet_beep">Se&ntilde;al sonora al pulsar el tablet</label> 
 			<input type="hidden" name="tablet_beep" value="0"/>
@@ -53,16 +53,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<label for="tablet_dnd">Orden de salida ajustable desde el tablet</label> 
 			<input type="hidden" name="tablet_dnd" value="0"/>
 			<input id="tablet_dnd" name="tablet_dnd" type="checkbox" value="1"/><br />
-			<label for="tablet_chrono">Mostrar datos de cron&oacute;metro en tablet</label> 
-			<input type="hidden" name="tablet_chrono" value="0"/>
-			<input id="tablet_chrono" name="tablet_chrono" type="checkbox" value="1"/><br />
 			<label for="tablet_next">Bot&oacute;n 'Aceptar' guarda y muestra siguiente participante </label> 
 			<input type="hidden" name="tablet_next" value="0"/>
 			<input id="tablet_next" name="tablet_next" type="checkbox" value="1"/><br />
+			<h3>Funcionamiento del Cron&oacute;metro</h3>
+			<label for="tablet_chrono">Mostrar datos de cron&oacute;metro en el tablet</label>
+			<input type="hidden" name="tablet_chrono" value="0"/>
+			<input id="tablet_chrono" name="tablet_chrono" type="checkbox" value="1"/><br />
 			<label> Acci&oacute;n al finalizar cuenta de 15 segundos</label>
             <input id="tcd1" type="radio" name="tablet_countdown" value="1" >Ignorar</input>
             <input id="tcd2" type="radio" name="tablet_countdown" value="2" checked="checked">Crono manual</input>
             <input id="tcd3" type="radio" name="tablet_countdown" value="3">Eliminar</input><br />
+			<label for="crono_resync">Al paso por crono electr&oacute;nico con crono manual activo</label>
+			<input id="crs1" type="radio" name="crono_resync" value="0"  checked="checked">Recomenzar con crono a cero</input>
+			<input id="crs2" type="radio" name="crono_resync" value="1">Continuar con cuenta manual</input>
 		</div>
 		
 		<div title="VideoMarcadores" style="padding:10px">

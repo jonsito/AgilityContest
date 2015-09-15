@@ -392,29 +392,25 @@ function vwls_processLiveStream(id,evt) {
 		vwls_cronometro('stop',time);
 		return;
 	case 'crono_start': // arranque crono electronico
+		myCounter.stop();
+		ssf.text('Auto');
 		// si esta parado, arranca en modo automatico
 		if (!crm.Chrono('started')) {
-			myCounter.stop();
-			ssf.text('Auto');
 			crm.Chrono('stop');
 			crm.Chrono('reset');
 			crm.Chrono('start',time);
 			return
 		}
-		// si esta arrancado en manual, pasa a automatico
-		if (ssf.text()==="Stop") {
-			ssf.text('Auto');
-			crm.Chrono('resync',time);
-			return;
-		}
-		// si llega aqui, resetea el crono y sigue contando
-		ssf.text('Auto');
-		crm.Chrono('reset');
+		if (ac_config.crono_resync==0) {
+			crm.Chrono('reset'); // si no resync, resetea el crono y vuelve a contar
+			crm.Chrono('start',time);
+		} // else wait for chrono restart event
 		return;
 	case 'crono_restart': // paso de tiempo intermedio a manual
+		crm.Chrono('resync',event['stop'],event['start']);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-		if (!cra.Chrono('started')) return;	// si crono no esta activo, ignorar
+		if (!crm.Chrono('started')) return;	// si crono no esta activo, ignorar
         crm.Chrono('pause'); setTimeout(function(){crm.Chrono('resume');},5000);
 		return;
 	case 'crono_stop':	// parada crono electronico

@@ -158,7 +158,8 @@ var ac_config= {
 		'tablet_beep'		: <?php echo toBoolean($config->getEnv('tablet_beep'))?'true':'false'; ?>,
 		'tablet_dnd'		: <?php echo toBoolean($config->getEnv('tablet_dnd'))?'true':'false'; ?>,
 		'tablet_chrono'		: <?php echo toBoolean($config->getEnv('tablet_chrono'))?'true':'false'; ?>,
-		'tablet_countdown'	: <?php echo $config->getEnv('tablet_countdown'); ?>
+		'tablet_countdown'	: <?php echo $config->getEnv('tablet_countdown'); ?>,
+		'crono_resync'		: <?php echo $config->getEnv('crono_resync'); ?>
 }
 
 </script>

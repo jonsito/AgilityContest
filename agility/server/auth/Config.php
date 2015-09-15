@@ -66,11 +66,12 @@ define('AC_PDF_ROWCOLOR2','#e0ebff');
 define('AC_PDF_LINECOLOR','#808080');
 
 /** personalizacion del tablet **/
-define('AC_TABLET_BEEP',"0");
-define('AC_TABLET_DND',"0");
-define('AC_TABLET_CHRONO',"0");
-define('AC_TABLET_NEXT',"0");
-define('AC_TABLET_COUNTDOWN',"1"); // 1:nada 2:crono 3:eliminado
+define('AC_TABLET_BEEP',"0");		// habilitar señal sonora al pulsar tecla (1) o deshabilita (0)
+define('AC_TABLET_DND',"0");		// habilita cambiar orden de salida desde tablet (1) o deshabilita(0)
+define('AC_TABLET_CHRONO',"0");		// habilita mostrar crono en tablet (1) o no (0)
+define('AC_TABLET_NEXT',"0");		// acept vuelve a menu (0) o pasa al siguiente (1)
+define('AC_TABLET_COUNTDOWN',"1");	// accion tras cuenta de 15 segundos 1:nada 2:crono 3:eliminado
+define('AC_CRONO_RESYNC',"0");		// si crono manual continua (1) o restart (0) al paso por crono electronico
 
 Class Config {
 	
@@ -87,7 +88,12 @@ Class Config {
 		if (  !self::$instance instanceof self) self::$instance = new self;
 		return self::$instance;
 	}
-	
+	private function do_log($msg) {
+		$stderr = fopen('php://stderr', 'w');
+		fwrite($stderr,$msg);
+		fclose($stderr);
+	}
+
 	private function __construct() {
 
 		/** cargamos los valores por defecto **/
@@ -153,6 +159,7 @@ Class Config {
 		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
 		$this->config['tablet_next'] =	AC_TABLET_NEXT;
 		$this->config['tablet_countdown'] =	AC_TABLET_COUNTDOWN;
+		$this->config['crono_resync'] =	AC_CRONO_RESYNC;
 
 		// leemos fichero de sistema
 		$sys=parse_ini_file(AC_SYSTEM_FILE,false); // false: don't parse subsections
@@ -252,7 +259,8 @@ Class Config {
 	function defaultConfig() {
 		$data=array();
 
-		// skip version info/date as cannot be edited by user
+		// due to some extrange int/string interactions,
+		// use $this->config to store numeric data instead of direct $data store
 
 		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
         $this->config['register_events'] =	AC_REGISTER_EVENTS;
@@ -296,6 +304,7 @@ Class Config {
 		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
 		$this->config['tablet_next'] =	AC_TABLET_NEXT;
 		$this->config['tablet_countdown'] =	AC_TABLET_COUNTDOWN;
+		$this->config['crono_resync'] =	AC_CRONO_RESYNC;
 		// Internacionalizacion. Idiomas
 		$data['lang'] =	AC_LANG;
 		$res=array_merge($this->config,$data);
@@ -348,7 +357,9 @@ Class Config {
 		$data['tablet_chrono']=http_request('tablet_chrono','s',AC_TABLET_CHRONO);
 		$data['tablet_next']=http_request('tablet_chrono','s',AC_TABLET_NEXT);
 		$data['tablet_countdown']=http_request('tablet_countdown','i',AC_TABLET_COUNTDOWN);
-		
+		$data['crono_resync']=http_request('crono_resync','s',AC_CRONO_RESYNC);
+		// $data=testAndSet($data,'crono_resync','i',AC_CRONO_RESYNC);
+
 		// Sistema
 		$data=testAndSet($data,'lang','s',AC_LANG);
 		$data=testAndSet($data,'debug_level','i',AC_DEBUG_LEVEL);
@@ -358,6 +369,7 @@ Class Config {
 		
 		// finally write file:
 		$res=array_merge($this->config,$data);
+		// $this->do_log("CronoResync is: {$data['crono_resync']}");
 		$result=$this->write_ini_file($res,AC_CONFIG_FILE);
 		if ($result===FALSE) return "Error al generar el fichero de configuracion";
 		return "";

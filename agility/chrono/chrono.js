@@ -267,15 +267,16 @@ function chrono_processEvents(id,evt) {
 		c_updateData(event);
 		return;
 	case 'llamada':	// llamada a pista
+        crm.text('').removeClass('blink');
 		// todo: en 4 conjunta solo para crono si cambio de equipo
 		if (need_resetChrono()) {
 			cra.Chrono('stop');
 			cra.Chrono('reset');
-			crm.text('').removeClass('blink');
 		}
 		c_showData(event);
 		return;
 	case 'salida': // orden de salida
+        crm.text('').removeClass('blink');
 		c_llamada.start();
 		return;
 	case 'start': // arranque manual del cronometro
@@ -295,27 +296,27 @@ function chrono_processEvents(id,evt) {
 		cra.Chrono('stop',time);
 		return;// Value contiene la marca de tiempo
 	case 'crono_start': // arranque crono electronico
-		crm.text('').removeClass('blink'); // clear 'Manual' mark
+		c_llamada.stop();
+		c_reconocimiento.stop();
+		ssf.text('Auto');
 		// si esta parado, arranca en modo automatico
 		if (!cra.Chrono('started')) {
-			c_llamada.stop();
-			c_reconocimiento.stop();
-			ssf.text('Auto');
+			crm.text('').removeClass('blink'); // clear 'Manual' mark
 			cra.Chrono('stop');
 			cra.Chrono('reset');
 			cra.Chrono('start',time);
 			return;
 		}
-		// si esta ya arrancado en manual, pasa a automatico
-		if (ssf.text()==="Stop") {
-			ssf.text('Auto');
-			cra.Chrono('resync',time);
-			return;
-		}
-		// si llega aqui, resetea el crono y sigue contando
-		ssf.text('Auto');
-		cra.Chrono('reset');
+		// si no resync, resetea el crono y vuelve a contar
+		if (ac_config.crono_resync==0) {
+			crm.text('').removeClass('blink'); // clear 'Manual' mark
+			cra.Chrono('reset');
+            cra.Chrono('start',time);
+		} // else wait for chrono restart event
 		return;
+    case 'crono_restart': // paso de tiempo intermedio a manual
+        cra.Chrono('resync',event['stop'],event['start']);
+        return;
 	case 'crono_reset': //puesta a cero del crono
 		// parar countdown
 		c_llamada.stop();

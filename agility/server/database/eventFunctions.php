@@ -50,7 +50,10 @@ try {
 			'NPr'	=>	http_request("NoPresentado","i",-1),
 			'Eli'	=>	http_request("Eliminado","i",-1),
 			'Tim'	=>	http_request("Tiempo","d",-1),
-			'Value'	=>	http_request("Value","i",-1)
+			'Value'	=>	http_request("Value","i",-1),
+			// data related to crono operations
+			'stop'	=>	http_request("stop","i",0),
+			'start'	=>	http_request("start","i",0)
 	);
 	if ($operation===null) throw new Exception("Call to eventFunctions without 'Operation' requested");
 	$eventmgr= new Eventos("eventFunctions",$data['Session'],$am);
