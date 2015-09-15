@@ -329,6 +329,8 @@ function vw_procesaCombinada(id,evt) {
 		return;
 	case 'crono_start': // arranque crono electronico
 		return;
+	case 'crono_restart': // paso de tiempo intermedio a manual
+		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
 		return;
 	case 'crono_stop':	// parada crono electronico
@@ -413,8 +415,10 @@ function vwls_processLiveStream(id,evt) {
 		ssf.text('Auto');
 		crm.Chrono('reset');
 		return;
+	case 'crono_restart': // paso de tiempo intermedio a manual
+		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-        $('#cronometro').Chrono('pause'); setTimeout(function(){$('#cronometro').Chrono('resume');},5000);
+        crm.Chrono('pause'); setTimeout(function(){crm.Chrono('resume');},5000);
 		return;
 	case 'crono_stop':	// parada crono electronico
 		myCounter.stop();
@@ -474,6 +478,7 @@ function vw_procesaLlamada(id,evt) {
 	case 'stop': // stop crono manual
 		return;
 	case 'crono_start':  // arranque crono automatico
+	case 'crono_restart': // paso de tiempo intermedio a manual
 	case 'crono_int':  	// tiempo intermedio crono electronico
 	case 'crono_stop':  // parada crono electronico
 	case 'crono_reset':  // puesta a cero del crono electronico
@@ -521,6 +526,7 @@ function vw_procesaParciales(id,evt) {
 	case 'stop': // stop crono manual
 		return;
 	case 'crono_start':  // arranque crono automatico
+	case 'crono_restart': // paso de tiempo intermedio a manual
 	case 'crono_int':  	// tiempo intermedio crono electronico
 	case 'crono_stop':  // parada crono electronico
 	case 'crono_reset':  // puesta a cero del crono electronico
@@ -570,6 +576,7 @@ function vw_procesaOrdenSalida(id,evt) {
         case 'stop': // stop crono manual
             return;
         case 'crono_start':  // arranque crono automatico
+		case 'crono_restart': // paso de tiempo intermedio a manual
         case 'crono_int':  	// tiempo intermedio crono electronico
 		case 'crono_stop':  // parada crono electronico
 		case 'crono_reset':  // puesta a cero del crono electronico

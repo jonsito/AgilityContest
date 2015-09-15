@@ -585,6 +585,8 @@ function tablet_processEvents(id,evt) {
 		ssb.val('Auto');
 		crm.Chrono('reset');
 		return;
+	case 'crono_restart': // paso de tiempo intermedio a manual
+		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
 		crm.Chrono('pause'); setTimeout(function(){crm.Chrono('resume');},5000);
 		return;

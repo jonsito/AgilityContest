@@ -38,23 +38,24 @@ class Eventos extends DBObject {
 		4	=> 'salida',		// juez da orden de salida ( crono 15 segundos )
 		5	=> 'start',			// Crono manual - value: timestamp
 		6	=> 'stop',			// Crono manual - value: timestamp
-		// en crono electronico se pasan dos valores 'Tim' Tiempo a mostrar 'Value': timestamp
+		// eventos de crono electronico. Siempre llevan Value=timestamp como argumento
 		7	=> 'crono_start',	// Arranque Crono electronico
-		8	=> 'crono_int',		// Tiempo intermedio Crono electronico
-		9	=> 'crono_stop',	// Parada Crono electronico
-		10 	=> 'crono_rec',		// Llamada a reconocimiento de pista
-		11  => 'crono_dat',     // Envio de Falta/Rehuse/Eliminado desde el crono
-		12  => 'crono_reset',	// puesta a cero del contador
-		13	=> 'crono_error',	// error en alineamiento de sensores
+		8	=> 'crono_restart',	// Paso de crono manual a crono electronico
+		9	=> 'crono_int',		// Tiempo intermedio Crono electronico
+		10	=> 'crono_stop',	// Parada Crono electronico
+		11 	=> 'crono_rec',		// Llamada a reconocimiento de pista
+		12  => 'crono_dat',     // Envio de Falta/Rehuse/Eliminado desde el crono
+		13  => 'crono_reset',	// puesta a cero del contador
+		14	=> 'crono_error',	// error en alineamiento de sensores
 		// entrada de datos, dato siguiente, cancelar operacion
-		14	=> 'llamada',		// operador abre panel de entrada de datos
-		15	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-		16	=> 'aceptar',		// grabar datos finales
-		17	=> 'cancelar',		// restaurar datos originales
-        18  => 'info',           // value: message
+		15	=> 'llamada',		// operador abre panel de entrada de datos
+		16	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+		17	=> 'aceptar',		// grabar datos finales
+		18	=> 'cancelar',		// restaurar datos originales
+        19  => 'info',           // value: message
 		// eventos de cambio de camara para videomarcadores
         // el campo data contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
-		19	=> 'camera',		// cambio de fuente de streaming
+		20	=> 'camera',		// cambio de fuente de streaming
 	);
 	
 	protected $sessionID;
@@ -104,18 +105,19 @@ class Eventos extends DBObject {
 			case 'open':			// operator selects tanda on tablet
 				break;
 			// eventos de crono manual
-			case 'salida':		// juez da orden de salida ( crono 15 segundos )
+			case 'salida':			// juez da orden de salida ( crono 15 segundos )
 			case 'start':			// Crono manual - value: timestamp
 			case 'stop':			// Crono manual - value: timestamp
 				break;
 			// en crono electronico se pasan dos valores 'Tim' Tiempo a mostrar 'Value': timestamp
-			case 'crono_start':	// Arranque Crono electronico
+			case 'crono_start':		// Arranque Crono electronico
+			case 'crono_restart':	// manual to auto transition
 			case 'crono_int':		// Tiempo intermedio Crono electronico
-			case 'crono_stop':	// Parada Crono electronico
+			case 'crono_stop':		// Parada Crono electronico
 			case 'crono_rec':		// Llamada a reconocimiento de pista
-			case 'crono_dat':     // Envio de Falta/Rehuse/Eliminado desde el crono
-            case 'crono_reset':	// puesta a cero del contador
-            case 'crono_error':	// error en alineamiento de sensores
+			case 'crono_dat':     	// Envio de Falta/Rehuse/Eliminado desde el crono
+            case 'crono_reset':		// puesta a cero del contador
+            case 'crono_error':		// error en alineamiento de sensores
 				if (!$this->myAuth->allowed(ENABLE_CHRONO)) {
 					$this->myLogger->info("Ignore chrono events: licencse forbids");
 					return array('errorMsg' => 'Current license does not allow chrono handling');
