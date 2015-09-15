@@ -158,9 +158,9 @@ function chrono_button(event,data) {
 /**
  * handle sensor errors
  */
-function chrono_error(event) {
-	if($('#chrono_Error').text()==="") chrono_putEvent('crono_error',{Value:"1"});
-	else chrono_putEvent('crono_error',{Value:"0"});
+function chrono_markError() {
+	if($('#chrono_Error').text()==="") chrono_putEvent('crono_error',{Value:1});
+	else chrono_putEvent('crono_error',{Value:0});
 }
 
 /**
@@ -280,33 +280,41 @@ function chrono_processEvents(id,evt) {
 		return;
 	case 'start': // arranque manual del cronometro
 		if (ssf.text()==="Auto") return; // si crono automatico, ignora
-		ssf.text("Stop");
-		vwls_restartCronometro(time);
-		return;
-		if ( cra.Chrono('started') ) return;
 		c_llamada.stop();
 		c_reconocimiento.stop();
+		ssf.text("Stop");
 		crm.text('Manual').addClass('blink'); // add 'Manual' mark
 		cra.Chrono('stop');
 		cra.Chrono('reset');
 		cra.Chrono('start',time);
 		return;
 	case 'stop': // parada manual del cronometro
-		// si crono manual esta arrancado, paramos; else ignore
-		if (crm.text() == '') return;
 		c_llamada.stop(); // not really needed, but...
 		c_reconocimiento.stop();// also, not really needed, but...
+		ssf.text("Start");
 		cra.Chrono('stop',time);
 		return;// Value contiene la marca de tiempo
 	case 'crono_start': // arranque crono electronico
-		// automatic chrono just overrides manual crono,
-		// parar countdown
-		c_llamada.stop(); 
-		c_reconocimiento.stop();
 		crm.text('').removeClass('blink'); // clear 'Manual' mark
-		cra.Chrono('stop');
+		// si esta parado, arranca en modo automatico
+		if (!cra.Chrono('started')) {
+			c_llamada.stop();
+			c_reconocimiento.stop();
+			ssf.text('Auto');
+			cra.Chrono('stop');
+			cra.Chrono('reset');
+			cra.Chrono('start',time);
+			return;
+		}
+		// si esta ya arrancado en manual, pasa a automatico
+		if (ssf.text()==="Stop") {
+			ssf.text('Auto');
+			cra.Chrono('resync',time);
+			return;
+		}
+		// si llega aqui, resetea el crono y sigue contando
+		ssf.text('Auto');
 		cra.Chrono('reset');
-		cra.Chrono('start',time);
 		return;
 	case 'crono_reset': //puesta a cero del crono
 		// parar countdown
@@ -318,8 +326,7 @@ function chrono_processEvents(id,evt) {
 		cra.Chrono('reset');
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-		// si crono no esta activo, ignorar
-		if (!cra.Chrono('started')) return;
+		if (!cra.Chrono('started')) return;		// si crono no esta activo, ignorar
 		cra.Chrono('pause'); setTimeout(function(){cra.Chrono('resume');},5000);
 		return;
 	case 'crono_error': // sensor error detected
@@ -329,9 +336,7 @@ function chrono_processEvents(id,evt) {
 			cre.text('').removeClass('blink'); // error solved
 		return;
     case 'crono_stop':	// parada crono electronico
-        // si crono manual arrancado, ignora if (crm.text() !=='') return;
-		c_llamada.stop(); // not really needed, but...
-		c_reconocimiento.stop();// also, not really needed, but...
+		ssf.text("Start");
 		cra.Chrono('stop',time);
 		return;
 	case 'crono_dat': // operador pulsa botonera del crono

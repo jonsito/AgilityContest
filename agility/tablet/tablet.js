@@ -270,14 +270,6 @@ function tablet_cronometro(oper,time) {
 	if (ac_config.tablet_chrono) $('#cronometro').Chrono(oper,time);
 }
 
-function tablet_restartCronometro(time) {
-	if (!ac_config.tablet_chrono) return false;
-	var crm=$('#cronometro');
-	crm.Chrono('stop',time);
-	crm.Chrono('reset',time);
-	crm.Chrono('start',time);
-}
-
 var myCounter = new Countdown({  
 	seconds:15,  // number of seconds to count down
 	onUpdateStatus: function(sec){ $('#tdialog-Tiempo').val(sec); }, // callback for each second
@@ -556,11 +548,12 @@ function tablet_processEvents(id,evt) {
 		myCounter.start();
 		return;
 	case 'start': // arranque manual del cronometro
-		// si crono automatico, ignora
-		if (ssb.val()==="Auto") return;
+		if (ssb.val()==="Auto") return;		// si crono automatico, ignora
 		ssb.val("Stop");
 		myCounter.stop();
-		tablet_restartCronometro(time);
+		crm.Chrono('stop');
+		crm.Chrono('reset');
+		crm.Chrono('start',time);
 		return;
 	case 'stop': // parada manual del cronometro
 		ssb.val("Start");
@@ -568,7 +561,7 @@ function tablet_processEvents(id,evt) {
 		return;// Value contiene la marca de tiempo
 	case 'crono_start': // arranque crono electronico
 		// si esta parado, arranca en modo automatico
-		if (!crm.Chrono('active')) {
+		if (!crm.Chrono('started')) {
 			myCounter.stop();
 			ssb.val('Auto');
 			crm.Chrono('stop');
@@ -579,6 +572,7 @@ function tablet_processEvents(id,evt) {
 		// si esta arrancado en manual, pasa a automatico
 		if (ssb.val()==="Stop") {
 			ssb.val('Auto');
+			crm.Chrono('resync',time);
 			return;
 		}
 		// si llega aqui, resetea el crono
@@ -591,7 +585,6 @@ function tablet_processEvents(id,evt) {
 		crm.Chrono('pause'); setTimeout(function(){crm.Chrono('resume');},5000);
 		return;
     case 'crono_stop':	// parada crono electronico
-		myCounter.stop(); // no deberia ser necesario, pero nunca esta de mas
 		ssb.val("Start");
 		crm.Chrono('stop',time);
 		return;

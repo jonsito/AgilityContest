@@ -38,6 +38,7 @@
 		onBeforeStart	: function(){ return true; },
 		onBeforeStop	: function(){ return true; },
 		onBeforeReset	: function(){ return true; },
+		onBeforeResync	: function(){ return true; },
 		onBeforePause	: function(){ return true; },
 		onBeforeResume	: function(){ return true; },
 		onUpdate		: function(tstamp,running,pause){ return true; }, // action to do on display new timestamp
@@ -58,9 +59,9 @@
 				$(config.stop).attr('disabled',false);
 				$(config.resume).attr('disabled',true);
 				$(config.pause).attr('disabled',false);
-				if(typeof timestamp === 'undefined') startTime=Date.now();
+				localTime=Date.now();
+				if(typeof timestamp === 'undefined') startTime=localTime;
 				else startTime=timestamp;
-                localTime=Date.now();
 				running = true;
 				run_chrono();
 			}
@@ -104,6 +105,15 @@
 			}
             if (config.triggerEvents) $(config.target).trigger('chronoresume');
 		},
+		resync: function (timestamp) {
+			var check = config.onBeforeResync();
+			if(check != false){
+				var elapsed=Date.now()-localTime;
+				startTime=timestamp-elapsed;
+			}
+			if (config.triggerEvents) $(config.target).trigger('chronoresync');
+
+		},
 		reset : function(){
 			var check = config.onBeforeReset();
 			if(check != false){
@@ -125,8 +135,7 @@
         if (localTime==0) localTime=now;
 		if (stopTime==0) stopTime=now;
 		if(running || pause ){
-			var currentTime=Date.now();
-			var elapsed		= currentTime-localTime; // use localTime to evaluate time lapse
+			var elapsed		= now-localTime; // use localTime to evaluate time lapse
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);
 			config.minutes	= Math.floor(config.seconds / 60);
