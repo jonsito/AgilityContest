@@ -88,6 +88,7 @@ Class Config {
 		if (  !self::$instance instanceof self) self::$instance = new self;
 		return self::$instance;
 	}
+
 	private function do_log($msg) {
 		$stderr = fopen('php://stderr', 'w');
 		fwrite($stderr,$msg);
@@ -253,7 +254,14 @@ Class Config {
 	}
 	
 	public function loadConfig() {
-		return $this->config;
+		// skip system.ini data
+		$data=$this->config; // php copy by value, not by reference
+		unset($data["database_name"]);
+		unset($data["database_host"]);
+		unset($data["database_user"]);
+		unset($data["database_pass"]);
+		unset($data["restricted"]);
+		return $data;
 	}
 	
 	function defaultConfig() {
@@ -309,12 +317,17 @@ Class Config {
 		$data['lang'] =	AC_LANG;
 		$res=array_merge($this->config,$data);
 		$result=$this->write_ini_file($res,AC_CONFIG_FILE);
-		if ($result===FALSE) return "Error al generar el fichero de configuracion";
+		if ($result===FALSE) {
+			$msg="Error al generar el fichero de configuracion";
+			$this->do_log($msg);
+			return $msg;
+		}
 		$this->config=$res;
 		return $res;
 	}
 	
 	public function saveConfig() {
+		// TODO: uniformize elements to use testAndSet
 		$data=array();
 		
 		// entorno grafico

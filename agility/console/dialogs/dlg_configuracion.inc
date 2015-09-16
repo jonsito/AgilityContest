@@ -205,6 +205,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 				            "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"+
 				            " para que los cambios tengan efecto",
 				            "info");
+					loadConfiguration();
 	            }
 	        }
 	    });

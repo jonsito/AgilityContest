@@ -98,10 +98,6 @@ function stopEventMgr(callback) {
 	setPollTime(callback, -1); // mark to stop
 }
 
-function handle_reconfigEvent() {
-	// TODO: write
-}
-
 function waitForEvents(sesID,evtID,timestamp,callback){
 	$.ajax({
 		type: "GET",
@@ -119,7 +115,7 @@ function waitForEvents(sesID,evtID,timestamp,callback){
 			var timestamp= response['TimeStamp'];
 			$.each(response['rows'],function(key,value){
 				evtID=value['ID']; // store last evt id
-				if (value['Type']==='reconfig') handle_reconfigEvent();
+				if (value['Type']==='reconfig') setTimeout(loadConfiguration,0);
 				else callback(evtID,value['Data']);
 			});
 			// analyze event handler list to get poll time

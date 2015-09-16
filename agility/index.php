@@ -77,6 +77,7 @@ function initialize() {
 	    return true;
 	  }
 	});
+	loadConfiguration();
 }
 
 /**

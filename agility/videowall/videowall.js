@@ -401,7 +401,7 @@ function vwls_processLiveStream(id,evt) {
 			crm.Chrono('start',time);
 			return
 		}
-		if (ac_config.crono_resync==0) {
+		if (ac_config.crono_resync==="0") {
 			crm.Chrono('reset'); // si no resync, resetea el crono y vuelve a contar
 			crm.Chrono('start',time);
 		} // else wait for chrono restart event

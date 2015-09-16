@@ -131,6 +131,31 @@ var Sound = (function () {
 
 function beep() { Sound(); }
 
+var ac_config={};
+
+function loadConfiguration() {
+	$.ajax({
+		type: "GET",
+		url: "/agility/server/adminFunctions.php",
+		data: {
+			'Operation' : 'loadConfig'
+		},
+		async: true,
+		cache: false,
+		dataType: 'json',
+		success: function(config){
+			if ( typeof (config.program_name) !== "undefined") {
+				ac_config=config;
+			} else {
+				$.messager.alert("Error","LoadConfig(): cannot retrieve configuration from server","error")
+			}
+		},
+		error: function(XMLHttpRequest,textStatus,errorThrown) {
+			alert("error: "+textStatus + " "+ errorThrown );
+		}
+	});
+}
+
 /**
  * Load html contents from 'page' URL and set as contents on '#contenido' tag
  * @param page URL where to retrieve HTML data
@@ -614,7 +639,6 @@ function reloadWithSearch(dg,op,clear) {
  * @param {function} onEnter function to be called on enter press
  */
 function addSimpleKeyHandler(datagrid,dialog,onEnter){
-// TODO: revise diffs between 1.2.X and new TandasHandler 2015-02-20	
 	$(datagrid).datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
 
 		// move cursor

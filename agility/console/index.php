@@ -88,7 +88,8 @@ function initialize() {
 	    return true;
 	  }
 	});
-	
+	// load configuration
+	loadConfiguration();
 	// load login page
 	loadContents("/agility/console/frm_login.php","");
 }
@@ -110,56 +111,6 @@ function myRowStyler(idx,row) {
     } else {
         return res + c2 + ";";
     }
-}
-
-var ac_config= {
-		// version, logging y depuracion
-		'debug_level'		: '<?php echo $config->getEnv('debug_level'); ?>',
-		'version_name'		: '<?php echo $config->getEnv('version_name'); ?>',
-		'version_date'		: '<?php echo $config->getEnv('version_date'); ?>',
-
-		// Internacionalizacion. Idiomas
-		'lang'				: '<?php echo $config->getEnv('lang'); ?>',
-		// variables del sistema
-        'proximity_alert'	: <?php echo $config->getEnv('proximity_alert'); ?>,
-        'register_events'	: <?php echo $config->getEnv('register_events'); ?>,
-        'reset_events'	: <?php echo $config->getEnv('reset_events'); ?>,
-		
-		// entorno grafico
-		'easyui_theme' 		: '<?php echo $config->getEnv('easyui_theme'); ?>',
-		'easyui_bgcolor'	: '<?php echo $config->getEnv('easyui_bgcolor'); ?>',
-		'easyui_hdrcolor'	: '<?php echo $config->getEnv('easyui_hdrcolor'); ?>',
-		'easyui_opcolor'	: '<?php echo $config->getEnv('easyui_opcolor'); ?>',
-		'easyui_rowcolor1'	: '<?php echo $config->getEnv('easyui_rowcolor1'); ?>',
-		'easyui_rowcolor2'	: '<?php echo $config->getEnv('easyui_rowcolor2'); ?>',
-		// configuracion del videowall
-		'vw_polltime'		: <?php echo $config->getEnv('vw_polltime'); ?>,
-		'vw_alpha'			: '<?php echo $config->getEnv('vw_alpha'); ?>',
-		'vw_hdrfg1'			: '<?php echo $config->getEnv('vw_hdrfg1'); ?>',
-		'vw_hdrbg1'			: '<?php echo $config->getEnv('vw_hdrbg1'); ?>',
-		'vw_hdrfg2'			: '<?php echo $config->getEnv('vw_hdrfg2'); ?>',
-		'vw_hdrbg2'			: '<?php echo $config->getEnv('vw_hdrbg2'); ?>',
-		'vw_rowcolor1'		: '<?php echo $config->getEnv('vw_rowcolor1'); ?>',
-		'vw_rowcolor2'		: '<?php echo $config->getEnv('vw_rowcolor2'); ?>',
-		// generacion de PDF's
-		'pdf_topmargin'		: '<?php echo $config->getEnv('pdf_topmargin'); ?>',
-		'pdf_leftmargin'	: '<?php echo $config->getEnv('pdf_leftmargin'); ?>',
-		'pdf_labelheight'	: '<?php echo $config->getEnv('pdf_labelheight'); ?>',
-		'pdf_hdrfg1'		: '<?php echo $config->getEnv('pdf_hdrfg1'); ?>',
-		'pdf_hdrbg1'		: '<?php echo $config->getEnv('pdf_hdrbg1'); ?>',
-		'pdf_hdrfg2'		: '<?php echo $config->getEnv('pdf_hdrfg2'); ?>',
-		'pdf_hdrbg2'		: '<?php echo $config->getEnv('pdf_hdrbg2'); ?>',
-		'pdf_rowcolor1'		: '<?php echo $config->getEnv('pdf_rowcolor1'); ?>',
-		'pdf_rowcolor2'		: '<?php echo $config->getEnv('pdf_rowcolor2'); ?>',
-		'pdf_linecolor'		: '<?php echo $config->getEnv('pdf_linecolor'); ?>',
-		
-		// personalizacion del tablet
-		// personalizacion del tablet
-		'tablet_beep'		: <?php echo toBoolean($config->getEnv('tablet_beep'))?'true':'false'; ?>,
-		'tablet_dnd'		: <?php echo toBoolean($config->getEnv('tablet_dnd'))?'true':'false'; ?>,
-		'tablet_chrono'		: <?php echo toBoolean($config->getEnv('tablet_chrono'))?'true':'false'; ?>,
-		'tablet_countdown'	: <?php echo $config->getEnv('tablet_countdown'); ?>,
-		'crono_resync'		: <?php echo $config->getEnv('crono_resync'); ?>
 }
 
 </script>

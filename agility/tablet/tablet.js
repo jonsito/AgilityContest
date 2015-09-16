@@ -130,7 +130,7 @@ function tablet_updateResultados(pendiente) {
 }
 
 function doBeep() {
-	if (ac_config.tablet_beep)	setTimeout(function() {beep();},0);
+	if (ac_config.tablet_beep==="1")	setTimeout(function() {beep();},0);
 }
 
 function tablet_add(val) {
@@ -267,7 +267,7 @@ function tablet_elim() {
 }
 
 function tablet_cronometro(oper,time) {
-	if (ac_config.tablet_chrono) $('#cronometro').Chrono(oper,time);
+	if (ac_config.tablet_chrono==="1") $('#cronometro').Chrono(oper,time);
 }
 
 var myCounter = new Countdown({  
@@ -421,7 +421,7 @@ function tablet_accept() {
 		tablet_cronometro('stop');
 		tablet_cronometro('reset');
 	}
-	if (!ac_config.tablet_next) { // no go to next row entry
+	if (ac_config.tablet_next==="0") { // no go to next row entry
 		setDataEntryEnabled(false);
 		dg.datagrid('refreshRow',rowindex);
 		return false;
@@ -570,7 +570,7 @@ function tablet_processEvents(id,evt) {
 			return
 		}
 		// si no resync, resetea el crono y vuelve a contar
-		if (ac_config.crono_resync==0) {
+		if (ac_config.crono_resync==="0") {
 			crm.Chrono('reset');
 			crm.Chrono('start',time);
 		} else {

@@ -639,7 +639,7 @@ function proximityAlert() {
 		} 
 		// already declared: eval distance
 		var dist=idx-guias[NombreGuia].index;
-		if (dist>ac_config.proximity_alert) {
+		if (dist>parseInt(ac_config.proximity_alert)) {
 			// declared but more than 5 dogs ahead. reset index and continue
 			guias[NombreGuia] = { 'index': idx, 'perro': data[idx].Nombre }; 
 			continue;

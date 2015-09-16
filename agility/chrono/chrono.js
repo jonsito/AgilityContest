@@ -57,7 +57,7 @@ function need_resetChrono(data) {
 }
 
 function doBeep() {
-	if (ac_config.tablet_beep)	setTimeout(function() {beep();},0);
+	if (ac_config.tablet_beep==="1")	setTimeout(function() {beep();},0);
 }
 
 var c_llamada = new Countdown({  
@@ -308,7 +308,7 @@ function chrono_processEvents(id,evt) {
 			return;
 		}
 		// si no resync, resetea el crono y vuelve a contar
-		if (ac_config.crono_resync==0) {
+		if (ac_config.crono_resync==="0") {
 			crm.text('').removeClass('blink'); // clear 'Manual' mark
 			cra.Chrono('reset');
             cra.Chrono('start',time);
