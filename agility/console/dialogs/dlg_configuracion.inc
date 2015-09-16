@@ -64,7 +64,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <input id="tcd1" type="radio" name="tablet_countdown" value="1" >Ignorar</input>
             <input id="tcd2" type="radio" name="tablet_countdown" value="2" checked="checked">Crono manual</input>
             <input id="tcd3" type="radio" name="tablet_countdown" value="3">Eliminar</input><br />
-			<label for="crono_resync">Al paso por crono electr&oacute;nico con crono manual activo</label>
+			<label for="crono_resync">Al paso por fotoc&eacute;lulas con crono manual activo</label>
 			<input id="crs1" type="radio" name="crono_resync" value="0"  checked="checked">Recomenzar con crono a cero</input>
 			<input id="crs2" type="radio" name="crono_resync" value="1">Continuar con cuenta manual</input>
 		</div>
