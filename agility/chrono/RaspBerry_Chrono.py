@@ -442,6 +442,8 @@ def eventParser():
 			# el campo "data" contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
 			if type == 'camera':			# cambio de fuente de streaming
 				continue
+			if type == 'reconfig':			# reconfiguracion del servidor
+				continue
 			# Si llega hasta aqui tenemos un error desconocido. Notificar e ignorar
 			debug("Error: Unknown event type:"+type )
 

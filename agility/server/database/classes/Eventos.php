@@ -56,6 +56,7 @@ class Eventos extends DBObject {
 		// eventos de cambio de camara para videomarcadores
         // el campo data contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
 		20	=> 'camera',		// cambio de fuente de streaming
+		21	=> 'reconfig'		// se ha cambiado la configuracion en el servidor
 	);
 	
 	protected $sessionID;
@@ -134,9 +135,15 @@ class Eventos extends DBObject {
 			// el campo data contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
 			case 'camera':		// cambio de fuente de streaming
 				if (!$this->myAuth->allowed(ENABLE_VIDEOWALL)) {
-					$this->myLogger->info("Ignore chrono events: licencse forbids");
+					$this->myLogger->info("Ignore camera events: licencse forbids");
 					return array('errorMsg' => 'Current license does not allow LiveStream handling');
 				} // silently ignore
+				break;
+			case 'reconfig':	// cambio en la configuracion del servidor
+				if (!$this->myAuth->access(PERMS_ADMIN)) {
+					$this->myLogger->info("Ignore reconfig events: not enough permissions");
+					return array('errorMsg' => 'Only Admin users cand send reconfiguration events');
+				}
 				break;
 			default:
 				$this->myLogger->error("Unknown event type:".$data['Type']);
@@ -179,6 +186,14 @@ class Eventos extends DBObject {
 		// that's all.
 		$this->myLogger->leave();
 		return ""; 
+	}
+
+	/**
+	 * send 'reconfig' event to every sessions
+	 */
+	function reconfigure() {
+		$data= array("Type"=>"reconfig", "Source"=>"Console", "ID"=>0, "TimeStamp"=>1000*time());
+		return $this->putEvent($data);
 	}
 
     /**
@@ -256,7 +271,7 @@ class Eventos extends DBObject {
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Eventos",
-				/* WHERE */ "( Session = {$data['Session']} ) AND ( ID > {$data['ID']} ) $extra",
+				/* WHERE */ "( ( Type = 'reconfig' ) OR ( Session = {$data['Session']} ) ) AND ( ID > {$data['ID']} ) $extra",
 				/* ORDER BY */ "ID",
 				/* LIMIT */ ""
 		);

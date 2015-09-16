@@ -327,9 +327,19 @@ try {
 		case "loadConfig": 
 			$conf=Config::getInstance(); $result=$conf->loadConfig(); break;
 		case "saveConfig": 
-			$am->access(PERMS_ADMIN); $conf=Config::getInstance(); $result=$conf->saveConfig(); break;
+			$am->access(PERMS_ADMIN);
+			$conf=Config::getInstance();
+			$result=$conf->saveConfig();
+			$ev=new Eventos("SaveConfig",1,$am);
+			$ev->reconfigure();
+			break;
 		case "defaultConfig": 
-			$am->access(PERMS_ADMIN); $conf=Config::getInstance(); $result=$conf->defaultConfig(); break;
+			$am->access(PERMS_ADMIN);
+			$conf=Config::getInstance();
+			$result=$conf->defaultConfig();
+			$ev=new Eventos("DefaultConfig",1,$am);
+			$ev->reconfigure();
+			break;
 		default: 
 			throw new Exception("adminFunctions:: invalid operation: '$operation' provided");
 	}
