@@ -58,29 +58,29 @@ import ipaddress            # to deal with IPv4 addresses
 # WARNING: this pinout is only valid in RPi Models B+ and 2. 
 # Either models A,Brev1,and Brev2 have different pinout meaning for some gpios (
 
-# LED assignment pin Number =  # gpio number - BreakoutBoard ID
-LED_Rec	=	3	# 8 - LED_1	// Reconocimiento de pista
-LED_Run =	5	# 9 - LED_2	// Crono running
-LED_Int =	7	# 7 - LED_3	// Intermediate time
-LED_Err	=	26	# 11 - LED_4	// Sensor error
-LED_Sel1=	24	# 10 - LED_5	// Selected Ring MSB
-LED_Sel0=	21	# 13 - LED_6	// Selected Ring LSB
-LED_Btn =	19	# 12 - LED_7	// Button Pressed
-LED_Pwr	=	23	# 14 - LED_8	// (Flashing) PWR On
+# LED assignment pin Number =  # gpio/broadcom number (altfunction) - BreakoutBoard ID
+LED_Rec	=	3	# BCM02 (SDA)	- LED_1	// Reconocimiento de pista
+LED_Run =	5	# BCM03 (SCL)	- LED_2	// Crono running
+LED_Int =	7	# BCM04 (GPCLK0)- LED_3	// Intermediate time
+LED_Err	=	26	# BCM07 (CE1)	- LED_4	// Sensor error
+LED_Sel1=	24	# BCM08 (CE0)	- LED_5	// Selected Ring MSB
+LED_Sel0=	21	# BCM09 (MISO)	- LED_6	// Selected Ring LSB
+LED_Btn =	19	# BCM10 (MOSI)	- LED_7	// Button Pressed
+LED_Pwr	=	23	# BCM11 (SCLK)	- LED_8	// (Flashing) PWR On
 
 # use them as array in server search process
 LEDS=(LED_Rec,LED_Run,LED_Int,LED_Err,LED_Sel1,LED_Sel0,LED_Btn,LED_Pwr)
 
 # Chrono action buttons
 
-BTN_Rec1 = 10	# 16 - Button_1 //	Start Reconocimiento
-BTN_Rec2 = 11	# 0  - Button_2 //	End Reconocimiento
-BTN_Sel1 = 12	# 1  - Button_3 //	Ring selection MSB
-BTN_Reset= 13	# 2  - Button_4 //	Reset Chrono
-BTN_Start= 15	# 3  - Button_5 //	Start chrono
-BTN_Stop = 16	# 4  - Button_6 //	End chrono
-BTN_Sel0 = 18	# 5  - Button_7 //	Ring selection LSB
-BTN_Inter= 22	# 6  - Button_8 //	Intermediate Chrono
+BTN_Rec1 =	10	# BCM15 (RxD)	- Button_1 //	Start Reconocimiento
+BTN_Rec2 =	11	# BCM17		- Button_2 //	End Reconocimiento
+BTN_Sel1 =	12	# BCM18 (PCM_C)	- Button_3 //	Ring selection MSB
+BTN_Reset=	13	# BCM27 (PCM_D)	- Button_4 //	Reset Chrono
+BTN_Start=	15	# BCM22		- Button_5 //	Start chrono
+BTN_Stop =	16	# BCM23		- Button_6 //	End chrono
+BTN_Sel0 =	18	# BCM24		- Button_7 //	Ring selection LSB
+BTN_Inter=	22	# BCM25		- Button_8 //	Intermediate Chrono
 
 # AgilityContest chrono json request parameter definition
 # ================================================================
@@ -415,6 +415,8 @@ def eventParser():
 				continue
 			if type == 'crono_dat':			# Envio de Falta/Rehuse/Eliminado desde el crono
 				continue
+			if type == 'crono_restart':		# paso de crono manual a automatico (not supported here)
+				continue			
 			if type == 'crono_reset':		# puesta a cero del contador
 				GPIO.output(LED_Rec, False )
 				GPIO.output(LED_Run, False )
