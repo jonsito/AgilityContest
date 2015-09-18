@@ -335,15 +335,17 @@ $config =Config::getInstance();
             $('#tdialog-NoPresentadoStr').val((np==0)?"":"NP");
             $('#tdialog-StartStopBtn').val("Start");
             tablet_putEvent('llamada',
-                    { // setup initial data for event
-                        'NoPresentado'	:	np,
-                        'Faltas'		:	$('#tdialog-Faltas').val(),
-                        'Tocados'		:	$('#tdialog-Tocados').val(),
-                        'Rehuses'		:	$('#tdialog-Rehuses').val(),
-                        'Tiempo'		:	$('#tdialog-Tiempo').val(),
-                        'Eliminado'		:	el,
-                        'Celo'			:	$('#tdialog-Celo').val(),
-                        'Dorsal'		:	$('#tdialog-Dorsal').val()
+                    { // setup initial data for event,
+                        'TimeStamp'     : Date.now() - startDate,
+                        'NoPresentado'	: np,
+                        'Faltas'		: $('#tdialog-Faltas').val(),
+                        'Tocados'		: $('#tdialog-Tocados').val(),
+                        'Rehuses'		: $('#tdialog-Rehuses').val(),
+                        'Tiempo'		: $('#tdialog-Tiempo').val(),
+                        'Eliminado'		: el,
+                        'Celo'			: $('#tdialog-Celo').val(),
+                        'Dorsal'		: $('#tdialog-Dorsal').val(),
+                        'Value'         : 0
                     }
             ) ;
         }

@@ -178,7 +178,7 @@ doLayout(layout,"#chrono_Nombre",		220,	225,	230,	25	);
 doLayout(layout,"#chrono_Categoria",	450,	225,	200,	25	);
 doLayout(layout,"#chrono_Grado",		650,	225,	125,	25	);
 doLayout(layout,"#chrono_NombreGuia",	100,	250,	350,	20	);
-doLayout(layout,"#chrono_NombreClub",	450,	250,	250,	20	);
-doLayout(layout,"#chrono_Celo",			700,	250,	75,		20	);
+doLayout(layout,"#chrono_NombreClub",	450,	250,	270,	20	);
+doLayout(layout,"#chrono_Celo",			720,	250,	55,		20	);
 
 </script>

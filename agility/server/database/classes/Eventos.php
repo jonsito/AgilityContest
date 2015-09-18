@@ -192,7 +192,7 @@ class Eventos extends DBObject {
 	 * send 'reconfig' event to every sessions
 	 */
 	function reconfigure() {
-		$data= array("Type"=>"reconfig", "Source"=>"Console", "ID"=>0, "TimeStamp"=>1000*time());
+		$data= array("Type"=>"reconfig", "Source"=>"Console", "ID"=>0, "TimeStamp"=>1000*time(),"Value"=>0);
 		return $this->putEvent($data);
 	}
 

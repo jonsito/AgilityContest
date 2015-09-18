@@ -116,7 +116,7 @@ function c_showData(data) {
 			dataType: 'json',
 			success: function(res){
 				$('#chrono_Logo').attr("src","/agility/images/logos/"+res['LogoClub']);
-				$('#chrono_Dorsal').html("Dorsal: "+dorsal );
+				$('#chrono_Dorsal').html("Dors: "+dorsal );
 				$('#chrono_Nombre').html(res["Nombre"]);
 				$('#chrono_NombreGuia').html("Gu&iacute;a: "+res["NombreGuia"]);
 				$('#chrono_Categoria').html("Cat: "+toLongCategoria(res["Categoria"],res['Federation']));
@@ -140,7 +140,7 @@ function c_showData(data) {
 	$('#chrono_Rehuses').html(data["Rehuses"]);
 	$('#chrono_Tiempo').html(data["Tiempo"]);
 	if (data["Eliminado"]==1)	$('#chrono_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
-	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red">NoPre.</span>');
+	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red">NoPr.</span>');
 	
 }
 

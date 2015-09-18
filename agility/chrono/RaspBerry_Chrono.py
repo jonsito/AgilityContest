@@ -220,7 +220,7 @@ def check_sensors():
 	state = GPIO.input(BTN_Start) and GPIO.input(BTN_Stop) and GPIO.input(BTN_Inter)
 	if state == True: # no hay nada pulsado: all right
 		GPIO.output(LED_Err,False)
-		if open_time!=0:
+		if open_time>=10:
 			json_request("crono_error","0") # mark error solved
 		open_time=0
 		return True
@@ -346,7 +346,7 @@ def eventParser():
 			continue
 		# response ok: retrieve event ID of last "open" call
 		data=response.json()
-		if data['total'] == 0:
+		if data['total'] == "0":
 			time.sleep(5) # no data available. Sleep and retry
 			continue
 		event_id = data['rows'][0]['ID']
@@ -368,14 +368,20 @@ def eventParser():
 			continue
 		# response ok: retrieve event ID of last "open" call
 		data=response.json()
-		if data['total'] == 0:
+		if data['total'] == "0":
 			time.sleep(5) # no data available. Sleep and retry
 			continue
-		timestamp=data['TimeStamp']
+		if 'TimeStamp' in data:
+			timestamp=data['TimeStamp']
+		else:
+			debug ("ERROR: Reveived Event without Timestamp. ID:"+str(event_id)+" Type:"+type+ " Value:"+str(value))
 		for i in data['rows']:
 			event_id=i['ID']
 			type=i['Type']
-			value=json.loads(i['Data'])['Value']
+			evtdata=json.loads(i['Data'])
+			value=0
+			if 'Value' in evtdata:			# some events does not provide "Value" in data
+				value=evtdata['Value']
 			debug ("Reveived Event ID:"+str(event_id)+" TimeStamp:"+str(timestamp)+ " Type:"+type+ " Value:"+str(value))
 			# Eventos generales
 			if type == 'null':				# null event: no action taken
