@@ -145,8 +145,10 @@ function acceptMyAdmin() {
 function cancelLogin() {
 	$('#login-Usuario').val('');
 	$('#login-Password').val('');
-	// close window
-	$('#login-window').window('close');
+	var w=$.messager.alert("Login","<?php _e('No user provided');?>"+"<br />"+"<?php _e('Starting session read-only (guest)');?>","warning",function(){
+		// close window
+		$('#login-window').window('close');
+	});
 }
 
 function cancelLogout() {
