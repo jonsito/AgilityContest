@@ -106,14 +106,13 @@ function formatTeamResults( value , rows ) {
         }
     }
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
-    var res= '<div class="vw_equipos3" style="width:'+width+'px;">'+
+    return '<div class="vw_equipos3" style="width:'+width+'px;">'+
         '<span style="width:10%;text-align:left;">'+logos+'</span>'+
         '<span style="width:25%;text-align:left;">Eq: '+value+'</span>' +
         '<span style="width:30%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</span>' +
         '<span style="width:30%;text-align:right;">Penaliz.:'+(penal).toFixed(2)+'</span>'+
         '<span style="width:5%;text-align:right;font-size:1.5em;">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
-    return res;
 }
 
 function formatTeamResultsConsole( value , rows ) {
@@ -130,13 +129,12 @@ function formatTeamResultsConsole( value , rows ) {
         }
     }
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
-    var res= '<div class="vw_equipos3" style="width:640px">'+
+    return '<div class="vw_equipos3" style="width:640px">'+
         '<span style="width:35%;text-align:left;">Eq: '+value+'</span>' +
         '<span style="width:25%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</span>' +
         '<span style="width:25%;text-align:right;">Penaliz.:'+(penal).toFixed(2)+'</span>'+
         '<span style="width:15%;text-align:right;font-size:1.5em">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
-    return res;
 }
 
 function formatTeamClasificaciones(value,rows) {
@@ -179,7 +177,7 @@ function formatTeamClasificaciones(value,rows) {
     time=manga1.time+manga2.time;
     penal=manga1.penal+manga2.penal;
     // !Por fin! componemos una tabla html como respuesta
-    var res= '<div class="pb_equipos3">'+
+    return '<div class="pb_equipos3">'+
         '<span style="width:10%;text-align:left;">'+logos+'</span>'+
         '<span style="width:20%;text-align:left;"> Eq: '+value+'</span>' +
         '<span > T1: '+(manga1.time).toFixed(2)+' - P1: '+(manga1.penal).toFixed(2)+'</span>'+
@@ -187,7 +185,6 @@ function formatTeamClasificaciones(value,rows) {
         '<span style="width:25%;"> Time: '+(time).toFixed(2)+' - Penal: '+(penal).toFixed(2)+'</span>'+
         '<span style="width:5%;text-align:right;font-size:1.5em">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
-    return res;
 }
 
 function formatTeamClasificacionesConsole(value,rows) {
@@ -224,14 +221,13 @@ function formatTeamClasificacionesConsole(value,rows) {
     penal=manga1.penal+manga2.penal;
 
     // !Por fin! componemos una tabla html como respuesta
-    var res= '<div class="pb_equipos3" style="width:800px">'+
+    return '<div class="pb_equipos3" style="width:800px">'+
         '<span style="width:30%;text-align:left;"> Eq: '+value+'</span>' +
         '<span > T1: '+(manga1.time).toFixed(2)+' - P1: '+(manga1.penal).toFixed(2)+'</span>'+
         '<span > T2: '+(manga2.time).toFixed(2)+' - P2: '+(manga2.penal).toFixed(2)+'</span>'+
         '<span style="width:20%;"> Time: '+(time).toFixed(2)+' - Penal: '+(penal).toFixed(2)+'</span>'+
         '<span style="width:10%;text-align:right;">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
-    return res;
 }
 
 /**

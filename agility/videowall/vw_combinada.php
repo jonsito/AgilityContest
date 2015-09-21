@@ -189,7 +189,7 @@ $('#vw_llamada-datagrid').datagrid({
         { field:'Nombre',		width:'15%', align:'center',  title: 'Nombre',formatter:formatBold},
         { field:'NombreGuia',	width:'30%', align:'right', title: 'Guia',formatter:formatLlamadaGuia },
         { field:'NombreClub',	width:'20%', align:'right', title: 'Club' },
-        { field:'Celo',	        width:'5%', align:'center', title: 'Celo.',formatter:formatCelo },
+        { field:'Celo',	        width:'5%', align:'center', title: 'Celo.',formatter:formatCelo }
     ]],
     rowStyler:myLlamadaRowStyler,
     onBeforeLoad: function(param) {

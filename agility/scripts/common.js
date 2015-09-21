@@ -310,7 +310,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 			if (data.errorMsg) {$.messager.alert("Error:", data.errorMsg, "error");	return false; }
 			setManga(data);
 			return false;
-		},
+		}
 	}).always(function(){
 		// obtenemos datos de la jornada
 		$.ajax({
@@ -570,7 +570,7 @@ function print_r(arr,level) {
 	var level_padding = "";
 	for(var j=0;j<level+1;j++) level_padding += "    ";
 	
-	if(typeof(arr) == 'object') { //Array/Hashes/Objects 
+	if(typeof(arr) === 'object') { //Array/Hashes/Objects
 		for(var item in arr) {
 			var value = arr[item];
 			

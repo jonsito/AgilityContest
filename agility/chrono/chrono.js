@@ -82,7 +82,7 @@ function c_updateHeader() {
 	var mng=workingData.datosManga.Nombre;
 	var jor=workingData.datosJornada.Nombre;
 	var pru=workingData.datosPrueba.Nombre;
-	var club=workingData.datosPrueba.NombreClub
+	var club=workingData.datosPrueba.NombreClub;
 	var logo=workingData.datosPrueba.LogoClub;
 	$('#chrono_PruebaLbl').html( pru + ' - ' + jor + ' - ' + mng );
 	$('#chrono_LogoClub').attr('src','/agility/images/logos/'+logo);
@@ -165,9 +165,9 @@ function chrono_markError() {
 
 /**
  * same as chrono_button, but do nothing if guard time hasn't expired
- * @param {string} Event type
+ * @param {string} event Event type
  * @param {object} data Event data
- * @param {integer} guard Guard time
+ * @param {int} guard Guard time
  */
 function chrono_sensor(event,data,guard) {
     var cur= Date.now() - startDate;
@@ -192,19 +192,19 @@ function bindKeysToChrono() {
 				break;
 			// entrada de datos desde crono
 			case 70: // 'F' -> falta
-				chrono_button('crono_dat',{'Falta':1})
+				chrono_button('crono_dat',{'Falta':1});
 				break;
 			case 82: // 'R' -> rehuse
-				chrono_button('crono_dat',{'Rehuse':1})
+				chrono_button('crono_dat',{'Rehuse':1});
 				break;
 			case 84: // 'T' -> tocado
-				chrono_button('crono_dat',{'Tocado':1})
+				chrono_button('crono_dat',{'Tocado':1});
 				break;
 			case 69: // 'E' -> eliminado
-				chrono_button('crono_dat',{'Eliminado':1})
+				chrono_button('crono_dat',{'Eliminado':1});
 				break;
 			case 78: // 'N' -> no presentado
-				chrono_button('crono_dat',{'NoPresentado':1})
+				chrono_button('crono_dat',{'NoPresentado':1});
 				break;
 			// arranque parada del crono
             case 8: // 'Del' -> chrono reset

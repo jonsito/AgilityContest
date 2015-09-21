@@ -309,7 +309,6 @@ function checkPrueba(id,mask) {
 			$.messager.alert('Error','Una prueba KO, un Open, o una prueba por equipos deben ser declaradas en jornadas independiente','error');
 			$(id).prop('checked',false);
 			if (id==='#jornadas-EquiposChk') $('#jornadas-MangasEquipos').prop('disabled','disabled');
-			return;
 		}
 	} else {
 		if ( (pruebas & 0x01E0) != 0 ) {
@@ -317,7 +316,6 @@ function checkPrueba(id,mask) {
 			$(id).prop('checked',false);
 			if (id==='#jornadas-PreAgilityChk') $('#jornadas-MangasPreAgility').prop('disabled','disabled');
 			if (id==='#jornadas-Especial') $('#jornadas-Observaciones').prop('disabled','disabled');
-			return;
 		}
 	}
 }

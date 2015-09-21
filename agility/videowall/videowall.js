@@ -31,7 +31,7 @@ function formatLogoVideoWall(val,row,idx) {
 /**
  * Obtiene la informacion de la prueba para cabecera y pie de pagina
  * @param {object} evt Event data
- * @param {function(event,data)} what to do with retrieved event and data
+ * @param {function(event,data)} callback what to do with retrieved event and data
  */
 function vw_updateWorkingData(evt,callback) {
     $.ajax( {
@@ -135,6 +135,7 @@ function vwls_updateData(data) {
 
 function vwls_showData(data) {
 	var perro=$('#vwls_Perro').html();
+	var vwls_tiempo=$('#vwls_Tiempo');
 	var dorsal=data['Dorsal'];
 	var celo=parseInt(data['Celo']);
 	if (perro!==data['Perro']) {
@@ -173,9 +174,9 @@ function vwls_showData(data) {
 	$('#vwls_Faltas').html(data["Faltas"]);
 	$('#vwls_Tocados').html(data["Tocados"]);
 	$('#vwls_Rehuses').html(data["Rehuses"]);
-	$('#vwls_Tiempo').html(data["Tiempo"]);
-	if (data["Eliminado"]==1)	$('#vwls_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
-	if (data["NoPresentado"]==1) $('#vwls_Tiempo').html('<span class="blink" style="color:red">N.P.</span>');
+	vwls_tiempo.html(data["Tiempo"]);
+	if (data["Eliminado"]==1)	 vwls_tiempo.html('<span class="blink" style="color:red">Elim.</span>');
+	if (data["NoPresentado"]==1) vwls_tiempo.html('<span class="blink" style="color:red">N.P.</span>');
 }
 
 var myCounter = new Countdown({  
@@ -424,7 +425,7 @@ function vwls_processLiveStream(id,evt) {
 		vwls_cronometro('reset',time);
 		return;
 	case 'crono_error':  // fallo en los sensores de paso
-		return; // TODO: what to do in videowall with sensor errors ?
+		return; // no need to show sensor fail in videowall, just in chrono / tablet
 	case 'aceptar':		// operador pulsa aceptar
 		vwls_cronometro('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
 		// vwls_showData(event); // actualiza pantall liveStream
@@ -450,7 +451,6 @@ function vw_procesaLlamada(id,evt) {
             $('#vw_header-infoprueba').html("Cabecera");
             vw_updateDataInfo(e,d);
         });
-		// TODO: muestra pendientes desde primera tanda
 		return;
 	case 'open': // operator select tanda:
         vw_updateWorkingData(event,function(e,d){

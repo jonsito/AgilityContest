@@ -450,7 +450,7 @@ function tablet_accept() {
 /**
  * retrieve from server data row on provided dorsal
  * call to callback(idx,row) provided function
- * @param {array} tanda current selected tanda
+ * @param {object} tanda current selected tanda
  * @param {object} dg datagrid for current selected tanda
  * @param {int} dorsal Dog dorsal to search for
  * @param cb(page) what to do if Dorsal found in tanda
