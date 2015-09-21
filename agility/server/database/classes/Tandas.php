@@ -508,8 +508,6 @@ class Tandas extends DBObject {
 	 * @param {number} $pendientes Pendientes $p==0 -> muestra todos los perros; else muestra los $p primeros pendientes de salir
 	 */
 	private function getListaPerros($s=0,$t=0,$pendientes=0){
-		$p=$this->prueba->ID;
-		$j=$this->jornada->ID;
 		$count=$pendientes;	// contador de perros pendientes de listar
 		$manga=0;		// variable para controlar manga "activa"
 		$perrosmanga=null;	// {array} lista de perros ordenada segun ordensalida de la manga

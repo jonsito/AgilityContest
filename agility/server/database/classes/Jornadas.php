@@ -139,6 +139,7 @@ class Jornadas extends DBObject {
 		$tnd->removeJornada();
 		// Borramos equipos de esta prueba/jornada
 		$res=$this->query("DELETE FROM Equipos WHERE ( Jornada = $jornadaid );");
+		if (!$res) return $this->error($this->conn->error);
 		// y borramos la propia jornada
 		$res= $this->query("DELETE FROM Jornadas WHERE ( ID = $jornadaid );");
 		if (!$res) return $this->error($this->conn->error); 
@@ -198,9 +199,6 @@ class Jornadas extends DBObject {
 	 */
 	function selectByPrueba() {
 		$this->myLogger->enter();
-		$result = array();
-		$items = array();
-		
 		// retrieve result from parent __select() call
 		$result= $this->__select(
 				/* SELECT */ "*",

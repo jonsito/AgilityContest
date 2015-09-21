@@ -70,8 +70,10 @@ class Updater {
         $this->myLogger->leave();
     }
 
-    function addColumnUnlessExists($table,$field,$data) {
+    function addColumnUnlessExists($table,$field,$data,$def=null) {
         $this->myLogger->enter();
+        $str="";
+        if ($def!=null) $str=" NOT NULL DEFAULT $def";
         $drop = "DROP PROCEDURE IF EXISTS AddColumnUnlessExists;";
         $create = "
         CREATE PROCEDURE AddColumnUnlessExists()
@@ -83,7 +85,7 @@ class Updater {
                         AND table_schema='agility'
                     )
                 THEN
-                    ALTER TABLE `agility`.`$table` ADD COLUMN `$field` $data;
+                    ALTER TABLE `agility`.`$table` ADD COLUMN `$field` $data $str;
                 END IF;
             END;
         ";
@@ -157,6 +159,9 @@ try {
     $upg->updatePerroGuiaClub();
     if ( strcmp($upg->current_version, $upg->last_version) > 0) {
         $upg->addColumnUnlessExists("Mangas","Orden_Equipos","TEXT");
+        $upg->addColumnUnlessExists("Resultados","TIntermedio","double","0.0");
+        $upg->addColumnUnlessExists("Perros","NombreLargo","varchar(255)");
+        $upg->addColumnUnlessExists("Perros","Genero","varchar(16)");
         $upg->updateInscripciones();
     }
 } catch (Exception $e) {

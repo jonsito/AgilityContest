@@ -82,12 +82,14 @@ class Etiquetas_PDF extends PrintCommon {
 		$y0=  $top + $height * $idx;
 		$y1=  $top + $height * $idx + 1;
 		$y2=  $top + $height * $idx + 2;
-		$y3=  $top + $height * $idx + 3;
+		// $y3=  $top + $height * $idx + 3;
+		// $y4=  $top + $height * $idx + 4;
 		$y5=  $top + $height * $idx + 5;
-		$y10= $top + $height * $idx + 10;
+		// $y6=  $top + $height * $idx + 6;
 		$y7=  $top + $height * $idx + 7;
 		$y8=  $top + $height * $idx + 8;
         $y9=  $top + $height * $idx + 9;
+		$y10= $top + $height * $idx + 10;
         $y12=  $top+ $height * $idx + 12;
 		$y17=  $top+ $height * $idx + 17;
 		$ynext=$top+ $height * ($idx+1);

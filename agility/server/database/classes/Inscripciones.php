@@ -180,7 +180,6 @@ class Inscripciones extends DBObject {
 	 */
 	function selectByID($id) {
 		$this->myLogger->enter();
-		$prueba=$this->pruebaID;
 		$obj=$this->__getObject("Inscripciones",$id);
 		if (!is_object($obj))	return $this->error("No Inscripcion found with ID=$id");
 		$data= json_decode(json_encode($obj), true); // convert object to array

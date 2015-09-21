@@ -73,7 +73,6 @@ class PrintCatalogo extends PrintCommon {
 	}
 
 	function printClub($id) {
-        $x=$this->GetX();
         $y=$this->GetY();
 		// retrieve club data
 		$cmgr=new Clubes('printCatalogo');

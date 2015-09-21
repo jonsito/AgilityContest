@@ -298,8 +298,6 @@ class PrintClasificacionEq3 extends PrintCommon {
 	function writeCell($idx,$row,$team) {
         $caza=($this->federation->getFederation()==1)?true:false;
         $this->ac_row($idx,8);
-        // store cursor position
-        $x=$this->GetX(); $y=$this->GetY();
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// fomateamos datos
 		$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";

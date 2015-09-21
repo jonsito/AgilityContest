@@ -176,7 +176,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
 	function composeTable() {
 		$this->myLogger->enter();
         $bg1=$this->config->getEnv('pdf_rowcolor1');
-        $bg2=$this->config->getEnv('pdf_rowcolor2');
+        // $bg2=$this->config->getEnv('pdf_rowcolor2');
         $this->ac_SetFillColor($bg1);
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);

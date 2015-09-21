@@ -106,7 +106,7 @@ class Sesiones extends DBObject {
             $this->myLogger->error("sendCameraEvents: invalid session id:$id");
             return;
         }
-        $evtmgr=new Eventos("Session::sendCameraEvents",$id,new AuhtManager("Sesiones::sendCameraEvent"));
+        $evtmgr=new Eventos("Session::sendCameraEvents",$id,new AuthManager("Sesiones::sendCameraEvent"));
         $data=array (
             // common data for senders and receivers
             'ID'		=>	$id,

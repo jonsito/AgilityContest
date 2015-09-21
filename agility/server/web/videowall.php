@@ -158,6 +158,7 @@ class VideoWall {
             'Sesion' => $this->session
         );
         echo json_encode($res);
+        return 0;
     }
 
 } 

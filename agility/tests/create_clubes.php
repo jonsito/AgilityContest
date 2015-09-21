@@ -1,6 +1,6 @@
 <?php
 
-class Country {
+class CountryList {
 public static $countryList = array(
 "AF" => "Afghanistan",
 "AL" => "Albania",
@@ -273,7 +273,7 @@ public static $countryList = array(
      */
     function enumerate() {
         $data=array();
-        foreach(Country::$countryList as $key => $val) {
+        foreach(CountryList::$countryList as $key => $val) {
             array_push($data,array( 'ID' => $key, "Country" => $val ));
         }
         $result=array('total'=>count($data),'rows'=>$data);
@@ -283,7 +283,7 @@ public static $countryList = array(
 $count=3;
 echo "INSERT INTO CLUBES(ID,Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja) VALUES \n";
 echo "(2,'L\'Almozara','','Camino de Pinseque, 147-A','50190 Garrapinillos (Zaragoza)','-- Sin Asignar --','ES',' + 34 637 54 15 86','','','','','','','','','almozara.png',1,'',0),\n";
-foreach(Country::$countryList as $key => $pais) {
+foreach(CountryList::$countryList as $key => $pais) {
                 echo "($count,'$pais','','','','-- Sin asignar --','$key','','','','','','','','','','../../server/i18n/$key.png',1,'',0),\n";
     $count++;
 }

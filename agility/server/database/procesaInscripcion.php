@@ -120,7 +120,7 @@ function inscribePerroEnJornada($inscripcion,$jornada,$perro) {
 		$myLogger->info("OrdenDeSalida Prueba:$p Jornada:$j Manga:$mid Tipo:$mtype Grado:$mgrado es:\n$orden");
 		if ($inscribir==false) {
 			$myLogger->info("Eliminando Perro:$idperro Grado:$g del orden de salida grado:$mgrado");
-			$orden=$os->removeFromList($idperro);	
+			$os->removeFromList($idperro);
 		} else {
 			$myLogger->info("Insertando Perro:$idperro Grado:$g en del orden de salida gradp:$mgrado");
 			$os->insertIntoList($idperro);

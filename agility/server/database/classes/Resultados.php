@@ -202,7 +202,7 @@ class Resultados extends DBObject {
 	function insertByData($objperro,$inscripcion,$eqdata) {
 		$this->myLogger->enter();
         $prueba=$this->IDPrueba;
-        $jobj=$this->getDatosJornada();
+        // $jobj=$this->getDatosJornada();
         $jornada=$this->IDJornada;
         $manga=$this->IDManga;
         $perro=$objperro['ID'];
@@ -491,9 +491,6 @@ class Resultados extends DBObject {
 		});
 		
 		// format output data and take care con duplicated penalizacion and time
-		$puesto=1;
-		$last=0;
-
         // calculamos campo "Puesto", "Calificacion" y Puntos
         $puestocat=array( 'C'=>1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
         $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria

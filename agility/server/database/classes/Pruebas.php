@@ -76,8 +76,8 @@ class Pruebas extends DBObject {
             // stupid loop, I know, but needed to preserve foreign keys integrity
             $teamid=$this->conn->insert_id;
             $str="UPDATE Jornadas SET Default_Team=$teamid WHERE (Jornada=$jornadaid)";
-            // notice that by default there are no mangas nor tandas in a newly created journey
-            // so no need to populate them (JAMC 12-Jun-2015 remove populateJornada() call )
+			$res=$this->query($str);
+			if (!$res) return $this->error($this->conn->error);
 		}
 		// arriving here means everything ok. notify success
 		$this->myLogger->leave();
@@ -129,13 +129,16 @@ class Pruebas extends DBObject {
 		if ($id<=1) return $this->error("pruebas::delete() Invalid Prueba ID:$id");
 		// Borramos resultados asociados a esta prueba
 		$res=$this->query("DELETE FROM Resultados WHERE ( Prueba=$id)");
+		if (!$res) return $this->error($this->conn->error);
 		// Borramos inscripciones de esta prueba
 		$res=$this->query("DELETE FROM Inscripciones WHERE ( Prueba=$id)");
+		if (!$res) return $this->error($this->conn->error);
 		// Borramos las jornadas (y mangas) de esta prueba
 		$j=new Jornadas("Pruebas.php",$id);
 		$j->deleteByPrueba();
 		// Borramos tambien las tandas de las jornadas de esta prueba
 		$res=$this->query("DELETE FROM Tandas WHERE ( Prueba=$id)");
+		if (!$res) return $this->error($this->conn->error);
 		// finalmente intentamos eliminar la prueba
 		$res= $this->query("DELETE FROM Pruebas WHERE (ID=$id)");
 		if (!$res) return $this->error($this->conn->error); 
