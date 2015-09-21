@@ -551,7 +551,7 @@ function tablet_processEvents(id,evt) {
 		if (ssb.val()==="Auto") return;		// si crono automatico, ignora
 		ssb.val("Stop");
 		myCounter.stop();
-		crm.Chrono('stop');
+		crm.Chrono('stop',time);
 		crm.Chrono('reset');
 		crm.Chrono('start',time);
 		return;
@@ -564,7 +564,7 @@ function tablet_processEvents(id,evt) {
 		ssb.val('Auto');
 		// si esta parado, arranca en modo automatico
 		if (!crm.Chrono('started')) {
-			crm.Chrono('stop');
+			crm.Chrono('stop',time);
 			crm.Chrono('reset');
 			crm.Chrono('start',time);
 			return
@@ -586,7 +586,7 @@ function tablet_processEvents(id,evt) {
 		crm.Chrono('resync',event['stop'],event['start']);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-		crm.Chrono('pause'); setTimeout(function(){crm.Chrono('resume');},5000);
+		crm.Chrono('pause',time); setTimeout(function(){crm.Chrono('resume');},5000);
 		return;
     case 'crono_stop':	// parada crono electronico
 		ssb.val("Start");
@@ -594,7 +594,7 @@ function tablet_processEvents(id,evt) {
 		return;
 	case 'crono_reset': // puesta a cero incondicional
 		myCounter.stop();
-		tablet_cronometro('stop');
+		tablet_cronometro('stop',time);
 		tablet_cronometro('reset');
 		tbox.removeClass('blink');
 		ssb.val("Start");

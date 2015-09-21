@@ -11,6 +11,7 @@
 	var startTime = 0;
     var localTime = 0; // to avoid time offset problems
 	var stopTime = 0;
+	var pauseTime = 0;
 	
 	var config = {
 		// initial values
@@ -80,13 +81,15 @@
 			}
             if (config.triggerEvents) $(config.target).trigger('chronostop');
 		},
-		pause: function(){
+		pause: function(timestamp){
 			var check = config.onBeforePause();
 			if(check != false){
 				$(config.start).attr('disabled',false);
 				$(config.stop).attr('disabled',true);
 				$(config.resume).attr('disabled',false);
 				$(config.pause).attr('disabled',true);
+				if(typeof timestamp === 'undefined') pauseTime=Date.now();
+				else pauseTime=timestamp;
 				running = false;
 				pause = true;
 			}
@@ -134,7 +137,19 @@
 		if (startTime==0) startTime=now;
         if (localTime==0) localTime=now;
 		if (stopTime==0) stopTime=now;
-		if(running || pause ){
+		if (pauseTime==0) pauseTime=now;
+		if (pause) {
+			var elapsed		= pauseTime-startTime; // use localTime to evaluate time lapse
+			config.mseconds	= elapsed % 1000;
+			config.seconds	= Math.floor(elapsed / 1000);
+			config.minutes	= Math.floor(config.seconds / 60);
+			config.seconds	= config.seconds % 60;
+			config.hours 	= Math.floor(config.minutes / 60);
+			config.minutes	= config.minutes % 60;
+			config.days		= Math.floor(config.hours / 24);
+			config.hours    = config.hours % 24;
+			view_chrono(elapsed);
+		} else if (running ) {
 			var elapsed		= now-localTime; // use localTime to evaluate time lapse
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);
@@ -161,6 +176,7 @@
 	}
 	
 	function view_chrono(elapsed){
+		if (elapsed<0) elapsed=0; // to avoid bogus data in screen
 		if (! config.onUpdate(elapsed,running,pause)) return;
 		var digits=config.showMode;
 		var extra="";

@@ -270,7 +270,7 @@ function chrono_processEvents(id,evt) {
         crm.text('').removeClass('blink');
 		// todo: en 4 conjunta solo para crono si cambio de equipo
 		if (need_resetChrono()) {
-			cra.Chrono('stop');
+			cra.Chrono('stop',time);
 			cra.Chrono('reset');
 		}
 		c_showData(event);
@@ -285,7 +285,7 @@ function chrono_processEvents(id,evt) {
 		c_reconocimiento.stop();
 		ssf.text("Stop");
 		crm.text('Manual').addClass('blink'); // add 'Manual' mark
-		cra.Chrono('stop');
+		cra.Chrono('stop',time);
 		cra.Chrono('reset');
 		cra.Chrono('start',time);
 		return;
@@ -302,7 +302,7 @@ function chrono_processEvents(id,evt) {
 		// si esta parado, arranca en modo automatico
 		if (!cra.Chrono('started')) {
 			crm.text('').removeClass('blink'); // clear 'Manual' mark
-			cra.Chrono('stop');
+			cra.Chrono('stop',time);
 			cra.Chrono('reset');
 			cra.Chrono('start',time);
 			return;
@@ -323,12 +323,12 @@ function chrono_processEvents(id,evt) {
 		c_reconocimiento.stop();
 		crm.text('').removeClass('blink'); // clear 'Manual' mark
 		cre.text('').removeClass('blink'); // clear 'Sensor Error' mark
-		cra.Chrono('stop');
+		cra.Chrono('stop',time);
 		cra.Chrono('reset');
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
 		if (!cra.Chrono('started')) return;		// si crono no esta activo, ignorar
-		cra.Chrono('pause'); setTimeout(function(){cra.Chrono('resume');},5000);
+		cra.Chrono('pause',time); setTimeout(function(){cra.Chrono('resume');},5000);
 		return;
 	case 'crono_error': // sensor error detected
 		if (event['Value']==1)

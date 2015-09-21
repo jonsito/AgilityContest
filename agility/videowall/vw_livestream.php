@@ -84,7 +84,10 @@ $('#cronometro').Chrono( {
 	onUpdate: function(elapsed,running,pause) { 
 		$('#vwls_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:2));
 		return true;
-	}
+	},
+	onBeforePause:function() { $('#vwls_Tiempo').addClass('blink'); return true; },
+	onBeforeResume: function() { $('#vwls_Tiempo').removeClass('blink'); return true; },
+	onBeforeReset: function() { $('#vwls_Tiempo').removeClass('blink'); return true; }
 });
 
 $('#vwls_LiveStream-window').window({

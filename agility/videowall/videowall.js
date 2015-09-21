@@ -369,8 +369,8 @@ function vwls_processLiveStream(id,evt) {
 		return;
 	case 'llamada':		// operador abre panel de entrada de datos
 		myCounter.stop();
-		vwls_cronometro('stop');
-		vwls_cronometro('reset');
+		vwls_cronometro('stop',time);
+		vwls_cronometro('reset',time);
 		vwls_showOSD(1); 	// activa visualizacion de OSD
 		vwls_showData(event);
 		return;
@@ -382,7 +382,7 @@ function vwls_processLiveStream(id,evt) {
 		if (ssf.text()==="Auto") return;
 		myCounter.stop();
 		ssf.text("Stop");
-		crm.Chrono('stop');
+		crm.Chrono('stop',time);
 		crm.Chrono('reset');
 		crm.Chrono('start',time);
 		return;
@@ -396,7 +396,7 @@ function vwls_processLiveStream(id,evt) {
 		ssf.text('Auto');
 		// si esta parado, arranca en modo automatico
 		if (!crm.Chrono('started')) {
-			crm.Chrono('stop');
+			crm.Chrono('stop',time);
 			crm.Chrono('reset');
 			crm.Chrono('start',time);
 			return
@@ -411,7 +411,7 @@ function vwls_processLiveStream(id,evt) {
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
 		if (!crm.Chrono('started')) return;	// si crono no esta activo, ignorar
-        crm.Chrono('pause'); setTimeout(function(){crm.Chrono('resume');},5000);
+        crm.Chrono('pause',time); setTimeout(function(){crm.Chrono('resume');},5000);
 		return;
 	case 'crono_stop':	// parada crono electronico
 		ssf.text("Start");
@@ -420,8 +420,8 @@ function vwls_processLiveStream(id,evt) {
 	case 'crono_reset':  // puesta a cero del crono electronico
 		myCounter.stop();
 		ssf.text("Start");
-		vwls_cronometro('stop');
-		vwls_cronometro('reset');
+		vwls_cronometro('stop',time);
+		vwls_cronometro('reset',time);
 		return;
 	case 'crono_error':  // fallo en los sensores de paso
 		return; // TODO: what to do in videowall with sensor errors ?
@@ -431,7 +431,7 @@ function vwls_processLiveStream(id,evt) {
 		return;
 	case 'cancelar':	// operador pulsa cancelar
 		vwls_cronometro('stop',time);
-		vwls_cronometro('reset');
+		vwls_cronometro('reset',time);
 		vwls_showOSD(0); // apaga el OSD
 		return;
     case 'info':	// click on user defined tandas
