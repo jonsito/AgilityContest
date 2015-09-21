@@ -60,7 +60,7 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <script src="/agility/lib/sprintf.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/chrono/chrono.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/chrono/chrono.js.php" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript" charset="utf-8">
 function initialize() {
@@ -90,7 +90,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 <div id="chrono-dialog" class="easyui-dialog" style="position:relative;width:350px;height:auto;padding:10px 10px">
 	<form id="chrono-Selection">
     	<div class="fitem">
-       		<label for="chrono-Session">Ring:</label>
+       		<label for="chrono-Session"><?php _e('Ring');?>:</label>
        		<select id="chrono-Session" name="Session" style="width:200px"></select>
     	</div>
 	</form>
@@ -98,14 +98,14 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <div id="chrono-Buttons" style="text-align:right">
    	<a id="chrono-okBtn" href="#" class="easyui-linkbutton" 
-   	   	data-options="iconCls: 'icon-ok'" onclick="chrono_accept()">Aceptar</a>
+   	   	data-options="iconCls: 'icon-ok'" onclick="chrono_accept()"><?php _e('Accept');?></a>
 </div>	<!-- botones -->
 
 </div> <!-- contenido -->
 
 <script type="text/javascript">
 $('#chrono-dialog').dialog({
-	title: 'Selecciona ring',
+	title: "<?php _e('Select ring');?>",
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,
@@ -118,7 +118,7 @@ $('#chrono-dialog').dialog({
 
 $('#chrono-form').form();
 
-addTooltip($('#chrono-okBtn').linkbutton(),"Trabajar con la sesi&oacute;n seleccionada");
+addTooltip($('#chrono-okBtn').linkbutton(),"<?php _e('Work with selected ring/session');?>");
 
 $('#chrono-Session').combogrid({
 	panelWidth: 500,
@@ -136,8 +136,8 @@ $('#chrono-Session').combogrid({
 	editable: false, // avoid keyboard deploy
 	columns: [[
 	    { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
-		{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: 'Nombre' },
-		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' },
+		{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: "<?php _e('Name');?>" },
+		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: "<?php _e('Comments');?>" },
 		{ field:'Prueba', hidden:true },
 		{ field:'Jornada', hidden:true }
 	]],
@@ -159,7 +159,7 @@ function chrono_accept() {
 	var sid=$('#chrono-Session').combogrid('getValue');
 	if ( sid===null ) {
 		// indica error
-		$.messager.alert("Error","Debe indicar una sesion v&aacute;lidas","error");
+		$.messager.alert("Error","<?php _e('You should select a valid session/ring');?>","error");
 		return;
 	}
 	// store selected data into global structure

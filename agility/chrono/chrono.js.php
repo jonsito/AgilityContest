@@ -1,3 +1,7 @@
+<?php
+require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/../server/auth/Config.php");
+?>
 /*
 chrono.js
 
@@ -94,8 +98,8 @@ function c_updateData(data) {
 	if (data["Tocados"]!=-1) $('#chrono_Tocados').html(data["Tocados"]);
 	if (data["Rehuses"]!=-1) $('#chrono_Rehuses').html(data["Rehuses"]);
 	// if (data["Tiempo"]!=-1) $('#chrono_Tiempo').html(data["Tiempo"]);
-	if (data["Eliminado"]==1)	$('#chrono_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
-	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red">NoPr.</span>');
+	if (data["Eliminado"]==1)	$('#chrono_Tiempo').html('<span class="blink" style="color:red"><?php _e("Elim");?>.</span>');
+	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red"><?php _e("NoPr");?>.</span>');
 }
 
 function c_showData(data) {
@@ -116,18 +120,18 @@ function c_showData(data) {
 			dataType: 'json',
 			success: function(res){
 				$('#chrono_Logo').attr("src","/agility/images/logos/"+res['LogoClub']);
-				$('#chrono_Dorsal').html("Dors: "+dorsal );
+				$('#chrono_Dorsal').html("<?php _e('Dors');?>: "+dorsal );
 				$('#chrono_Nombre').html(res["Nombre"]);
-				$('#chrono_NombreGuia').html("Gu&iacute;a: "+res["NombreGuia"]);
-				$('#chrono_Categoria').html("Cat: "+toLongCategoria(res["Categoria"],res['Federation']));
+				$('#chrono_NombreGuia').html("<?php _e('Hndlr');?>: "+res["NombreGuia"]);
+				$('#chrono_Categoria').html("<?php _e('Cat');?>: "+toLongCategoria(res["Categoria"],res['Federation']));
 				// hide "Grado" Information if not applicable
 				$('#chrono_Grado').html(hasGradosByJornada(workingData.datosJornada)?res["NombreGrado"]:"");
 				// on Team events, show Team info instead of Club
 				var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
 				// como en el videowall no tenemos datos de la jornada, lo que hacemos es
 				// contar el numero de equipos de esta para saber si es prueba por equipos o no
-				$('#chrono_NombreClub').html((Object.keys(workingData.teamsByJornada).length>1)?"Eq: "+eq:"Club: "+res["NombreClub"]);
-				$('#chrono_Celo').html((celo==1)?'<span class="blink">Celo</span>':'');
+				$('#chrono_NombreClub').html((Object.keys(workingData.teamsByJornada).length>1)?"<?php _e('Team')?>: "+eq:"<?php _e('Club');?>: "+res["NombreClub"]);
+				$('#chrono_Celo').html((celo==1)?'<span class="blink"><?php _e("Heat");?></span>':'');
 			},
 			error: function(XMLHttpRequest,textStatus,errorThrown) {
 				alert("error: "+textStatus + " "+ errorThrown );
@@ -284,7 +288,7 @@ function chrono_processEvents(id,evt) {
 		c_llamada.stop();
 		c_reconocimiento.stop();
 		ssf.text("Stop");
-		crm.text('Manual').addClass('blink'); // add 'Manual' mark
+		crm.text("<?php _e('Manual');?>").addClass('blink'); // add 'Manual' mark
 		cra.Chrono('stop',time);
 		cra.Chrono('reset');
 		cra.Chrono('start',time);
@@ -332,7 +336,7 @@ function chrono_processEvents(id,evt) {
 		return;
 	case 'crono_error': // sensor error detected
 		if (event['Value']==1)
-			cre.text('Fallo Sensores').addClass('blink'); // error: show it
+			cre.text('<?php _e("Sensor failure");?>').addClass('blink'); // error: show it
 		else
 			cre.text('').removeClass('blink'); // error solved
 		return;

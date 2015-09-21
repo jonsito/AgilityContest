@@ -40,13 +40,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span class="chrono_fondo chrono_fdata" id="chrono_ResultadosBg">&nbsp;</span>
 			<span class="chrono_fondo chrono_finfo" id="chrono_DatosBg">&nbsp;</span>
 			<!-- Informacion de la prueba -->
-			<span class="chrono_info" id="chrono_PruebaLbl"><em>Datos de la prueba - Datos de la jornada - Datos de la manga</em></span>
+			<span class="chrono_info" id="chrono_PruebaLbl">
+				<em><?php _e('Contest data');?> - <?php _e('Journey data');?> - <?php _e('Series data');?></em>
+			</span>
 			<!-- Datos de resultados -->
-			<span class="chrono_data chrono_dataLbl" id="chrono_FaltasLbl">F:</span>
+			<span class="chrono_data chrono_dataLbl" id="chrono_FaltasLbl"><?php _e('F');?>:</span>
 			<span class="chrono_data"  id="chrono_Faltas">0</span>
-			<span class="chrono_data chrono_dataLbl" id="chrono_TocadosLbl">T:</span>
+			<span class="chrono_data chrono_dataLbl" id="chrono_TocadosLbl"><?php _e('T');?>:</span>
 			<span class="chrono_data"  id="chrono_Tocados">0</span>
-			<span class="chrono_data chrono_dataLbl" id="chrono_RehusesLbl">R:</span>
+			<span class="chrono_data chrono_dataLbl" id="chrono_RehusesLbl"><?php _e('T');?>:</span>
 			<span class="chrono_data"  id="chrono_Rehuses">0</span>
 			<!-- Cronometro -->
 			<span class="chrono_flags" id="chrono_Manual"></span>
@@ -55,13 +57,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span class="chrono_tiempo" id="chrono_Tiempo">00.00</span>
 			<!-- Informacion del participante -->
 			<img id="chrono_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="chrono_logo"/>
-			<span class="chrono_info" id="chrono_Dorsal">Dorsal</span>
-			<span class="chrono_info" id="chrono_Nombre">Nombre</span>
-			<span class="chrono_info" id="chrono_NombreGuia">Gu&iacute;a</span>
-			<span class="chrono_info" id="chrono_NombreClub">Club</span>
-			<span class="chrono_info" id="chrono_Categoria">Categor&iacute;a</span>
-			<span class="chrono_info" id="chrono_Grado">Grado</span>
-			<span class="chrono_info" id="chrono_Celo">Celo</span>
+			<span class="chrono_info" id="chrono_Dorsal"><?php _e('Dorsal');?></span>
+			<span class="chrono_info" id="chrono_Nombre"><?php _e('Dog');?></span>
+			<span class="chrono_info" id="chrono_NombreGuia"><?php _e('Handler');?></span>
+			<span class="chrono_info" id="chrono_NombreClub"><?php _e('Club');?></span>
+			<span class="chrono_info" id="chrono_Categoria"><?php _e('Category');?></span>
+			<span class="chrono_info" id="chrono_Grado"><?php _e('Grade');?></span>
+			<span class="chrono_info" id="chrono_Celo"><?php _e('Heat');?></span>
     		<span id="chrono_timestamp" style="display:none"></span>
 			<span id="chrono_Perro" style="display:none" ></span>
 		</div>
@@ -73,31 +75,31 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<em>AgilityContest-<?php echo $config->getEnv('version_name'); ?>. &copy; 2015 by JAMC</em>
 		</span>
 		<span style="float:right;padding:5px;">
-			<em>Copia licenciada para el club: <?php echo $linfo['Club']; ?></em>
+			<em><?php _e('Copy licensed to club');?>: <?php echo $linfo['Club']; ?></em>
 		</span>
 	</div>
 	<div id="chrono-buttons" style="width:100%;display:inline-block">
 		<span style="float:left;padding:5px;">
    			<a id="chrono-recBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-huella'" onclick="chrono_button('crono_rec',{})">Reconocimiento</a>
+   			   	data-options="iconCls: 'icon-huella'" onclick="chrono_button('crono_rec',{})"><?php _e('Course walk'); ?></a>
    			<a id="chrono-fltBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-hand'" onclick="chrono_button('crono_dat',{'Falta':1})">Falta</a>
+   			   	data-options="iconCls: 'icon-hand'" onclick="chrono_button('crono_dat',{'Falta':1})"><?php _e('Fault'); ?></a>
    			<a id="chrono-rehBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-fist'" onclick="chrono_button('crono_dat',{'Rehuse':1})">Reh&uacute;se</a>
+   			   	data-options="iconCls: 'icon-fist'" onclick="chrono_button('crono_dat',{'Rehuse':1})"><?php _e('Refusal'); ?></a>
    			<a id="chrono-elimBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('crono_dat',{'Eliminado':1})">Eliminado</a>
+   			   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('crono_dat',{'Eliminado':1})"><?php _e('Eliminated'); ?></a>
    			<a id="chrono-errorBtn" href="#" class="easyui-linkbutton"
-			   data-options="iconCls: 'icon-alert'" onclick="chrono_markError()">Error</a>
+			   data-options="iconCls: 'icon-alert'" onclick="chrono_markError()"><?php _e('Error'); ?></a>
    			<a id="chrono-resetBtn" href="#" class="easyui-linkbutton"
-			   data-options="iconCls: 'icon-undo'" onclick="chrono_sensor('crono_reset',{},4000)">Reset</a>
+			   data-options="iconCls: 'icon-undo'" onclick="chrono_sensor('crono_reset',{},4000)"><?php _e('Reset'); ?></a>
 		</span>
 		<span style="float:right;padding:5px;">
    			<a id="chrono-startBtn" href="#" class="easyui-linkbutton"
-			   data-options="iconCls: 'icon-on'" onclick="chrono_sensor('crono_start',{},4000)">Inicio</a>
+			   data-options="iconCls: 'icon-on'" onclick="chrono_sensor('crono_start',{},4000)"><?php _e('Begin'); ?></a>
    			<a id="chrono-intBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-help'" onclick="chrono_sensor('crono_int',{},4000)">Intermedio</a>
+   			   	data-options="iconCls: 'icon-help'" onclick="chrono_sensor('crono_int',{},4000)"><?php _e('Intermediate'); ?></a>
    			<a id="chrono-stopBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-off'" onclick="chrono_sensor('crono_stop',{},4000)">Final</a>
+   			   	data-options="iconCls: 'icon-off'" onclick="chrono_sensor('crono_stop',{},4000)"><?php _e('End'); ?></a>
 		</span>
 	</div>
 </div>	<!-- botones -->
@@ -113,7 +115,7 @@ $('#cronoauto').Chrono( {
 	auto: false,
 	interval: 100,
 	showMode: 2,
-	onBeforePause: function() { $('#chrono_Intermedio').text('Intermedio').addClass('blink'); return true; },
+	onBeforePause: function() { $('#chrono_Intermedio').text('<?php _e("Intermediate");?>').addClass('blink'); return true; },
 	onBeforeResume: function() { $('#chrono_Intermedio').text('').removeClass('blink'); return true; },
 	onUpdate: function(elapsed,running,pause) { 
 		$('#chrono_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:2));
@@ -138,15 +140,15 @@ $('#chrono_Screen-dialog').dialog({
 });
 
 // buttons
-addTooltip($('#chrono-fltBtn').linkbutton(),"Enviar falta/tocado desde botonera del crono");
-addTooltip($('#chrono-rehBtn').linkbutton(),"Enviar rehuse desde botonera del crono");
-addTooltip($('#chrono-elimBtn').linkbutton(),"Marcar eliminado desde la botonera del crono");
-addTooltip($('#chrono-recBtn').linkbutton(),"7 Minutos de reconocimiento de pista");
-addTooltip($('#chrono-startBtn').linkbutton(),"Arrancar el cron&oacute;metro");
-addTooltip($('#chrono-intBtn').linkbutton(),"Mostrar tiempo intermedio");
-addTooltip($('#chrono-stopBtn').linkbutton(),"Parar el cron&oacute;metro");
-addTooltip($('#chrono-errorBtn').linkbutton(),"Enviar fallo en alineaci&oacute;n de sensores");
-addTooltip($('#chrono-resetBtn').linkbutton(),"Resetear el cron&oacute;metro. Poner valores a cero");
+addTooltip($('#chrono-fltBtn').linkbutton(),"<?php _e('Send fault/touch from chrono remote control');?>");
+addTooltip($('#chrono-rehBtn').linkbutton(),"<?php _e('Send refusal from chrono remote control');?>");
+addTooltip($('#chrono-elimBtn').linkbutton(),"<?php _e('Send eliminated from chrono remote control');?>");
+addTooltip($('#chrono-recBtn').linkbutton(),"<?php _e('Start/stop 7 minutes course walk');?>");
+addTooltip($('#chrono-startBtn').linkbutton(),"<?php _e('Start chronometer');?>");
+addTooltip($('#chrono-intBtn').linkbutton(),"<?php _e('Mark intermediate time');?>");
+addTooltip($('#chrono-stopBtn').linkbutton(),"<?php _e('Stop chronometer');?>");
+addTooltip($('#chrono-errorBtn').linkbutton(),"<?php _e('Simulate chrono sensors alignment failure');?>");
+addTooltip($('#chrono-resetBtn').linkbutton(),"<?php _e('Reset chronometer. Set count to zero');?>");
 
 // layout
 var layout= {'cols':800, 'rows':300}; // declare base datagrid as A5 sheet

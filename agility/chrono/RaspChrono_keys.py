@@ -56,7 +56,7 @@ import uinput
 
 #HARDWARE SETUP
 
-# AgilityContest chrono mapping keys from chrono.js
+# AgilityContest chrono mapping keys from chrono.js.php
 ### Course learning
 # we can use any of these keys to start/stop course learning
 # KEY_0 : Course learning end
