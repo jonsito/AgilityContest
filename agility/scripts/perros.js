@@ -19,7 +19,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 function reload_perrosDatagrid() {
 	var w=$('#perros-datagrid-search').val();
-	if (strpos(w,"Buscar")) w='';
+	if (strpos(w,"Buscar",0)) w='';
 	$('#perros-datagrid').datagrid('load',{Operation:'select', where: w, Federation: workingData.federation });
 }
 

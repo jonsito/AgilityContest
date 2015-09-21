@@ -166,7 +166,7 @@ function chrono_markError() {
 /**
  * same as chrono_button, but do nothing if guard time hasn't expired
  * @param {string} Event type
- * @param {array} data Event data
+ * @param {object} data Event data
  * @param {integer} guard Guard time
  */
 function chrono_sensor(event,data,guard) {

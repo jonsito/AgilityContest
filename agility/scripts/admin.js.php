@@ -213,7 +213,7 @@ function askForUpgrade(msg){
                 }
             });
         }
-    }).window('resize',{width:480});;
+    }).window('resize',{width:480});
 }
 
 function checkForUpgrades() {

@@ -29,7 +29,7 @@ $config =Config::getInstance();
  * Abre el frame de login o logout dependiendo de si se ha iniciado o no la sesion
  */
 function showLoginWindow() {
-	if (typeof(authInfo.SessionKey)==undefined || (authInfo.SessionKey==null) ) {
+	if (typeof(authInfo.SessionKey)==="undefined" || (authInfo.SessionKey==null) ) {
 		$('#login-window').remove();
 		loadContents('/agility/console/frm_login.php','<?php _e('Init session');?>');
 	} else {
@@ -49,7 +49,7 @@ function acceptLogin() {
 	if (!user || !user.length) {
 		$.messager.alert("Invalid data",'<?php _e("There is no user chosen");?>',"error");
 		return;
-	};
+	}
 	$.ajax({
 		type: 'POST',
   		url: 'https://'+window.location.hostname+'/agility/server/database/userFunctions.php',
@@ -57,7 +57,7 @@ function acceptLogin() {
    		data: {
    			Operation: 'login',
    			Username: user,
-   			Password: pass,
+   			Password: pass
    		},
    		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
    		success: function(data) {
@@ -69,13 +69,14 @@ function acceptLogin() {
        			str =str+'<?php _e("License registered by");?>'+": "+data.User+"<br />";
        			str =str+'<?php _e("For use at club");?>'+": "+data.Club+"<br /><br />";
        			str =str+'<?php _e("User");?>'+" "+data.Login+": "+'<?php _e("session login success");?>';
-       			var w=$.messager.alert("Login",str,"info");
+       			var w=$.messager.alert("Login",str,"info",function(){
+					$('#login_menu-text').html('<?php _e("End session");?>'+": <br />"+data.Login);
+					initAuthInfo(data);
+				});
                 w.window('resize',{width:400,height:175}).window('center');
-           		$('#login_menu-text').html('<?php _e("End session");?>'+": <br />"+data.Login);
-           		initAuthInfo(data);
        		} 
        	},
-   		error: function() { alert("error");	},
+   		error: function() { alert("error");	}
 	});
 	$('#login-window').window('close');
 }
@@ -89,7 +90,7 @@ function acceptLogout() {
    		data: {
    			Operation: 'logout',
    			Username: user,
-   			Password: "",
+   			Password: ""
    		},
    		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
    		success: function(data) {
@@ -102,7 +103,7 @@ function acceptLogout() {
            		setFederation(0); // on logout defaults to RSCE
        		} 
        	},
-   		error: function() { alert("error");	},
+   		error: function() { alert("error");	}
 	});
 	$('#logout-window').window('close');	
 }
@@ -115,11 +116,11 @@ function checkPassword(user,pass,callback) {
 		data: {
 			Operation: 'pwcheck',
 			Username: user,
-			Password: pass,
+			Password: pass
 		},
 		contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
 		success: function(data) { callback(data); },
-		error: function() { alert("error");	},
+		error: function() { alert("error");	}
 	});
 }
 
@@ -129,7 +130,7 @@ function acceptMyAdmin() {
 	if (!user || !user.length) {
 		$.messager.alert("Invalid data",'<?php _e("No user specified");?>',"error");
 		return;
-	};
+	}
 	checkPassword(user,pass,function(data) {
 		if (data.errorMsg) { // error
 			$.messager.alert("Error",data.errorMsg,"error");

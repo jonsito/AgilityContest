@@ -444,7 +444,7 @@ function clasificaciones_doPrint() {
 	$('#resultados-printDialog').dialog('close');
 	switch(parseInt(r)) {
 		case 0: clasificaciones_printPodium(); break;
-		case 1: clasificaciones_printEtiquetas(0); break; // csv
+		case 1: clasificaciones_printEtiquetas(0,line,''); break; // csv
 		case 3: clasificaciones_printCanina(); break;
 		case 4: clasificaciones_printClasificacion(); break;
 		case 5: clasificaciones_printEtiquetas(1,line,list); break;
