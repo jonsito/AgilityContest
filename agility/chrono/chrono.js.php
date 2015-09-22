@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
+$config =Config::getInstance();
 ?>
 /*
 chrono.js
@@ -73,6 +74,14 @@ var c_llamada = new Countdown({
 
 var c_reconocimiento = new Countdown({
 	seconds: 420, // 7 minutes
+	onStart: function () {
+		var crr=$('#chrono_Reconocimiento');  // Textro "reconocimiento de pista"
+		crr.text('<?php _e('Course walk');?>').addClass('blink');
+	},
+	onStop: function () {
+		var crr=$('#chrono_Reconocimiento');  // Textro "reconocimiento de pista"
+		crr.text('').removeClass('blink');
+	},
     onUpdateStatus: function(sec){
     	var time=sprintf('%02d:%02d', Math.floor(sec/60),sec%60);
     	$('#chrono_Tiempo').html( time ); 

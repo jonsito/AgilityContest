@@ -211,6 +211,8 @@ function Countdown(options) {
 	var count = 0;
 	var updateStatus = options.onUpdateStatus || function () {};
 	var counterEnd = options.onCounterEnd || function () {};
+	var onstart = options.onStart || function () {};
+	var onstop = options.onStop || function () {};
 
 	function decrementCounter() {
 		updateStatus(count);
@@ -222,12 +224,14 @@ function Countdown(options) {
 	}
 
 	this.start = function () {
+		onstart();
 		clearInterval(timer);
 		count = options.seconds;
 		timer = setInterval(decrementCounter, 1000);
 	};
 
 	this.stop = function () {
+		onstop();
 		clearInterval(timer);
 		count=0;
 		updateStatus(count);
