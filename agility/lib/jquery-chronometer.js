@@ -47,7 +47,7 @@
         triggerEvents   : false,    // on true triggerEvents
 		target			: "*", 		//selectors for the events target
 		auto			: true,		//true if plugin generate html chronometer
-		interval		: 500,		// polling interval (msecs) default: 0.5 second
+		interval		: 100,		// polling interval (msecs) default: 0.1 second
 		showMode		: 0         // 0: use hh:mm:ss.xxx format else use decimal seconds format with provided precision
 	};
 	
@@ -134,12 +134,13 @@
 
 	function run_chrono(){
         var now=Date.now();
+		var elapsed=0;
 		if (startTime==0) startTime=now;
         if (localTime==0) localTime=now;
 		if (stopTime==0) stopTime=now;
 		if (pauseTime==0) pauseTime=now;
 		if (pause) {
-			var elapsed		= pauseTime-startTime; // use localTime to evaluate time lapse
+			elapsed		= pauseTime-startTime; // use localTime to evaluate time lapse
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);
 			config.minutes	= Math.floor(config.seconds / 60);
@@ -150,7 +151,7 @@
 			config.hours    = config.hours % 24;
 			view_chrono(elapsed);
 		} else if (running ) {
-			var elapsed		= now-localTime; // use localTime to evaluate time lapse
+			elapsed		= now-localTime; // use localTime to evaluate time lapse
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);
 			config.minutes	= Math.floor(config.seconds / 60);
@@ -162,7 +163,7 @@
 			if (!pause) setTimeout(run_chrono,config.interval);
 			view_chrono(elapsed);
 		} else { // chrono stopped; show data at least once
-			var elapsed		= stopTime-startTime; // use real startTime instead of localTime
+			elapsed		= stopTime-startTime; // use real startTime instead of localTime
 			config.mseconds	= elapsed % 1000;
 			config.seconds	= Math.floor(elapsed / 1000);
 			config.minutes	= Math.floor(config.seconds / 60);

@@ -114,7 +114,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 $('#cronoauto').Chrono( {
 	seconds_sel: '#chrono_timestamp',
 	auto: false,
-	interval: 100,
+	interval: 50,
 	showMode: 2,
 	onBeforePause: function() { $('#chrono_Intermedio').text('<?php _e("Intermediate");?>').addClass('blink'); return true; },
 	onBeforeResume: function() { $('#chrono_Intermedio').text('').removeClass('blink'); return true; },

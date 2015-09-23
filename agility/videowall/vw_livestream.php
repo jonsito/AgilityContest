@@ -79,7 +79,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 $('#cronometro').Chrono( {
 	seconds_sel: '#vwls_timestamp',
 	auto: false,
-	interval: 100,
+	interval: 50,
 	showMode: 2,
 	onUpdate: function(elapsed,running,pause) { 
 		$('#vwls_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:2));

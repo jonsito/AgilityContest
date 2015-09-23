@@ -356,7 +356,7 @@ $config =Config::getInstance();
         $('#cronometro').Chrono( {
             seconds_sel: '#tdialog-timestamp',
             auto: false,
-            interval: 100,
+            interval: 50,
             showMode: 2,
             onUpdate: function(elapsed,running,pause) {
                 $('#tdialog-Tiempo').val(parseFloat(elapsed/1000).toFixed((running)?1:2));
