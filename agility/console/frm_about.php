@@ -32,7 +32,7 @@ $config =Config::getInstance();
 			<strong>AgilityContest</strong><?php _e(' is CopyRight &copy; 2013-2015 from '); ?><em>Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em>
 		</dt>
 		<dd>
-		<?php _e('Source code available at'); ?><a href="https://github.com/jonsito/AgilityContest">https://github.com/jonsito/AgilityContest</a><br />
+		<?php _e('Source code available at'); ?> <a href="https://github.com/jonsito/AgilityContest">https://github.com/jonsito/AgilityContest</a><br />
 		<?php _e('Copy, modify and re-distribution is granted under terms of'); ?>
 		<a target="license" href="/agility/License"> <?php _e('GNU General Public License version 2'); ?></a>
 		</dd>
