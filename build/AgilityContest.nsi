@@ -1,5 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Instalador para SDK3000
+; Instalador para AgilityContest
 ; Juan Antonio Martinez
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -181,9 +181,9 @@ Section "Desktop Shortcut"
         StrCpy $PATH "${PROGRAM_NAME}"
         SetOutPath $INSTDIR\$PATH
 	SetShellVarContext all
-        CreateShortcut "$DESKTOP\TL3000 module monitor.lnk" \
-                       "$INSTDIR\$PATH\sdk3000.bat" "" \
-                       "$INSTDIR\$PATH\lib\sdk3000.ico" 0 SW_SHOWMINIMIZED
+        CreateShortcut "$DESKTOP\AgilityContest.lnk" \
+                       "$INSTDIR\$PATH\AgilityContest.bat" "" \
+                       "$INSTDIR\$PATH\extras\AgilityContest.ico" 0 SW_SHOWMINIMIZED
 SectionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;
