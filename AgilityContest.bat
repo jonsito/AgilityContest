@@ -5,11 +5,33 @@ echo AgilityContest Launch Script
 echo MySQL Database is trying to start
 echo Please wait  ...
 
-echo Starting MySQL Database server...
-start /B "" \xampp\mysql\bin\mysqld --defaults-file=mysql\bin\my.ini --standalone --console
+rem on first install move directories
+if not exists ..\logs\first_install GOTO mysql_start
+echo "Configuring first boot of XAMPP"
+set PHP_BIN=php\php.exe
+set CONFIG_PHP=install\install.php
+%PHP_BIN% -n -d output_buffering=0 -q %CONFIG_PHP% usb
 
+:mysql_start
+echo Starting MySQL Database server...
+start /B "" mysql\bin\mysqld --defaults-file=mysql\bin\my.ini --standalone --console
+
+rem check for first install
+if not exists ..\logs\first_install GOTO apache_start
+echo Creating AgilityContest Databases
+echo DROP DATABASE IF EXISTS agility; > ..\logs\install.sql
+echo CREATE DATABASE agility; >> ..\logs\install.sql
+echo USE agility; >> ..\logs\install.sql
+type ..\extras\agility.sql >> ..\logs\install.sql
+type ..\extras\users.sql >> ..\logs\install.sql
+echo quit; >> ..\logs\install.sql
+mysql\bin\mysql -u root agility < ..\logs\install.sql
+del ..\logs\install.sql
+del ..\logs\first_install
+
+:apache_start
 echo Starting Apache Web Server....
-start /B "" \xampp\apache\bin\httpd.exe
+start /B "" apache\bin\httpd.exe
 
 echo Opening AgilityContest console...
 start /W /MAX "AgilityContest" https://localhost/agility/console
@@ -22,13 +44,13 @@ echo -------------------------------------------
 set /p key= Press enter to finish AgilityContest session
 
 echo Apache Web Server shutdowm ...
-\xampp\apache\bin\pv -f -k httpd.exe -q
+apache\bin\pv -f -k httpd.exe -q
 if not exist apache\logs\httpd.pid GOTO stop_mysql
 del apache\logs\httpd.pid
 
 :stop_mysql
 echo MySQL DataBase shutdowm ...
-\xampp\apache\bin\pv -f -k mysqld.exe -q
+apache\bin\pv -f -k mysqld.exe -q
 
 if not exist mysql\data\%computername%.pid GOTO finish
 echo Delete %computername%.pid ...

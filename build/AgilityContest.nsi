@@ -73,7 +73,7 @@ Var PATH_ACCESO_DIRECTO
 Var installedVersion
 
 ;Nuestro instalador se llamara si la version fuera la 1.0: Ejemplo-1.0-win32.exe
-OutFile ${PROGRAM_NAME}-${VERSION}${TIMESTAMP}.exe
+OutFile ${PROGRAM_NAME}-${VERSION}-${TIMESTAMP}.exe
 
 ;Aqui comprobamos que en la version Inglesa se muestra correctamente el mensaje:
 ;Welcome to the $Name Setup Wizard
@@ -189,18 +189,15 @@ SectionEnd
 ;;;;;;;;;;;;;;;;;;;;;;
 
 Section "Uninstall"
-        StrCpy $PATH "${PROGRAM_NAME}"
-        StrCpy $PATH_ACCESO_DIRECTO "${PROGRAM_NAME}"
-        SetShellVarContext all
+    SetShellVarContext all
 	; make sure to preserve user config for versions <=1.17
-        RMDir /r $SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO
-        RMDir /r $INSTDIR\$PATH
-	RMDir /r $APPDATA\AgilityContest\$PATH
-        Delete "$INSTDIR\uninstall_AgilityContest.exe"
+    RMDir /r $SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO
+    RMDir /r $INSTDIR
+    Delete "$INSTDIR\uninstall_AgilityContest.exe"
 	Delete "$DESKTOP\AgilityContest.lnk"
-        DeleteRegKey HKLM SOFTWARE\AgilityContest\$PATH
-        DeleteRegKey HKLM \
-            Software\Microsoft\Windows\CurrentVersion\Uninstall\$PATH
+    DeleteRegKey HKLM SOFTWARE\AgilityContest\$PATH
+    DeleteRegKey HKLM \
+        Software\Microsoft\Windows\CurrentVersion\Uninstall\$PATH
 SectionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

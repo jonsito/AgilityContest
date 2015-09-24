@@ -69,6 +69,7 @@ sed -i "s/;extension=php_openssl.dll/extension=php_openssl.dll/g" ${BUILD_DIR}/x
 echo "Copying AgilityContest files ..."
 (cd ${BASE_DIR}; tar cfBp - agility extras logs AgilityContest.bat COPYING README.md ) |\
     ( cd ${BUILD_DIR}; tar xfBp - )
+touch ${BUILD_DIR}/logs/firs_install
 
 # create directory for docs (some day...)
 mkdir -p ${BUILD_DIR}/docs
@@ -83,7 +84,7 @@ echo "Prepare and execute makensis..."
 VERSION=`grep version_name ${BUILD_DIR}/agility/server/auth/system.ini | sed -e 's/^.*= "/"/g'`
 DATE=`grep version_date ${BUILD_DIR}/agility/server/auth/system.ini | sed -e 's/^.*= "/"/g'`
 sed -e "s/__VERSION__/${VERSION}/g" -e "s/__TIMESTAMP__/${DATE}/g" ${NSIS} > ${BUILD_DIR}/AgilityContest.nsi
-cp ${BASE_DIR}/build/{installer.bmp,License.txt,wallpaper.bmp} ${BUILD_DIR}
+cp ${BASE_DIR}/build/{installer.bmp,License.txt,wellcome.bmp} ${BUILD_DIR}
 # (cd ${BUILD_DIR}; makensis AgilityContest.nsi )
 
 echo "That's all folks!"
