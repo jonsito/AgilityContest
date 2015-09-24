@@ -146,7 +146,7 @@ Class AgilityContestUpdater {
         $root=__DIR__ . "/../";
         // open zip file
         $zip = zip_open($this->temp_file);
-        if (!$zip) { echo "Open zipfile failed <br/>"; return false; }
+        if (! is_resource($zip) ) { echo "Open zipfile failed errno:$zip<br/>"; return false; }
         while ($aF = zip_read($zip) ) {
             set_time_limit(ini_get('max_execution_time'));
             // get file name and their directory
