@@ -96,7 +96,7 @@ XPStyle on
 
 ;Indicamos cual sera el directorio por defecto donde instalaremos nuestra
 ;aplicacion, el usuario puede cambiar este valor en tiempo de ejecucion.
-InstallDir "$PROGRAMFILES\AgilityContest"
+InstallDir "\AgilityContest"
 
 ; check if the program has already been installed, if so, take this dir
 ; as install dir
@@ -124,66 +124,64 @@ UninstallText "${PROGRAM_NAME} will be uninstalled from the following folder. Cl
 Section "Programs"
 StrCpy $PATH "${PROGRAM_NAME}"
 StrCpy $PATH_ACCESO_DIRECTO "${PROGRAM_NAME}"
-SetOutPath $INSTDIR\$PATH
+SetOutPath $INSTDIR
 
 ;Incluimos todos los ficheros que componen nuestra aplicacion
 File AgilityContest.bat
 File License.txt
-SetOutPath $INSTDIR\$PATH
-File /r /x workspace /x linux /x web3000 /x www /x extra_pkgs /x backups ..\..\lib
-File /r /x workspace /x linux /x web3000 /x www /x extra_pkgs /x backups ..\..\database
+File COPYING
+FILE README.md
+File /r agility
+File /r docs
+FILE /r extras
+FILE /r logs
+FILE /r xampp
+SetOutPath $INSTDIR
 
 ;Hacemos que la instalacion se realice para todos los usuarios del sistema
 SetShellVarContext all
 ;Creamos los directorios, acesos directos y claves del registro que queramos...
-  CreateDirectory "$SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO"
-        CreateShortCut "$SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO\AgilityContest.lnk" \
-                       "$INSTDIR\$PATH\AgilityContest.bat" "" \
-           "$INSTDIR\$PATH\extras\AgilityContest.ico" 0 SW_SHOWMINIMIZED
+    CreateDirectory "$SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO"
+    CreateShortCut "$SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO\AgilityContest.lnk" \
+                    "$INSTDIR\$PATH\AgilityContest.bat" "" \
+                    "$INSTDIR\$PATH\extras\AgilityContest.ico" 0 SW_SHOWMINIMIZED
+
 ;Datos del registr de Windows
-        WriteRegStr HKLM \
+    WriteRegStr HKLM \
             SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$PATH \
             "DisplayName" "${PROGRAM_NAME} ${VERSION}"
-        WriteRegStr HKLM \
+    WriteRegStr HKLM \
             SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$PATH \
             "UninstallString" '"$INSTDIR\uninstall_AgilityContest.exe"'
-        WriteUninstaller "uninstall_AgilityContest.exe"
+    WriteUninstaller "uninstall_AgilityContest.exe"
 
-        WriteRegStr HKLM SOFTWARE\AgilityContest\${PROGRAM_NAME} "InstallDir" $INSTDIR
+    WriteRegStr HKLM SOFTWARE\AgilityContest\${PROGRAM_NAME} "InstallDir" $INSTDIR
        
-        WriteRegStr HKLM SOFTWARE\AgilityContest\${PROGRAM_NAME} "Version" ${VERSION}
-SectionEnd
+    WriteRegStr HKLM SOFTWARE\AgilityContest\${PROGRAM_NAME} "Version" ${VERSION}
 
-Section "${PROGRAM_NAME} card database"
-        StrCpy $PATH ${PROGRAM_NAME}
+; permisos de escritura en determinados directorios
 	SetShellVarContext all
-	CreateDirectory $APPDATA\AgilityContest\$PATH\database
-        CopyFiles $INSTDIR\$PATH\database\*.* $APPDATA\AgilityContest\$PATH\database
-	; ajusta permisos para que todo el mundo pueda leer/escribir/modificar
-        Push "Marker" 
-	; Access control for database files
-        AccessControl::GrantOnFile "$APPDATA\AgilityContest\$PATH\database" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
-	; Access control for log files
-        AccessControl::GrantOnFile "$APPDATA\AgilityContest\$PATH" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
+	; directorio de logs
+    AccessControl::GrantOnFile "$INSTDIR\logs" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
+	; Access control for image logos
+    AccessControl::GrantOnFile "$INSTDIR\agility\images\logos" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
 	; Access control for configuration files
-	; Use "albala base directory" to get these files dont removed on update
-        AccessControl::GrantOnFile "$APPDATA\AgilityContest" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
-        Pop $0 ; get "Marker" or error msg
-        StrCmp $0 "Marker" Continue
-        MessageBox MB_OK|MB_ICONSTOP "Error setting access control for $APPDATA\AgilityContest directories: $0"
-        Pop $0 ; pop "Marker"
-        Continue:
+	AccessControl::GrantOnFile "$INSTDIR\agility\server\auth" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
+    Pop $0 ; get "Marker" or error msg
+    StrCmp $0 "Marker" Continue
+    MessageBox MB_OK|MB_ICONSTOP "Error setting access control for AgilityContest directories: $0"
+    Pop $0 ; pop "Marker"
+    Continue:
 SectionEnd
 
 ; Optional section (can be disabled by the user)
 Section "Desktop Shortcut"
 	; set up paths to tell app where to be invoked from
-        StrCpy $PATH "${PROGRAM_NAME}"
-        SetOutPath $INSTDIR\$PATH
+        SetOutPath $INSTDIR
 	SetShellVarContext all
         CreateShortcut "$DESKTOP\AgilityContest.lnk" \
-                       "$INSTDIR\$PATH\AgilityContest.bat" "" \
-                       "$INSTDIR\$PATH\extras\AgilityContest.ico" 0 SW_SHOWMINIMIZED
+                       "$INSTDIR\AgilityContest.bat" "" \
+                       "$INSTDIR\extras\AgilityContest.ico" 0 SW_SHOWMINIMIZED
 SectionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -228,11 +226,7 @@ Function .onInit
  
 ;Run the uninstaller
 uninst:
-  ; backup session files
-  StrCpy $PATH "${PROGRAM_NAME}"
-  StrCpy $PATH_ACCESO_DIRECTO "${PROGRAM_NAME}"
-  SetShellVarContext all
-  CopyFiles $APPDATA\AgilityContest\$PATH\*.ses $APPDATA\AgilityContest
+  ; TODO: backup session files
   ClearErrors
   ; invoke uninstaller
   ExecWait '$R0 /S _?=$INSTDIR' ;Do not copy the uninstaller to a temp file
@@ -261,8 +255,5 @@ Function .onMouseOverSection
 
     StrCmp $0 1 "" +2
         SendMessage $R0 ${WM_SETTEXT} 0 "STR:Desktop icon (Optional)"
-        
-    StrCmp $0 2 "" +2
-        SendMessage $R0 ${WM_SETTEXT} 0 "STR:Reinstall database (Optional)"
 
 FunctionEnd
