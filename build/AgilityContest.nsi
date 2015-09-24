@@ -11,7 +11,7 @@
 
 ;--------------------------------
 ;Include Modern UI
-  !include "MUI.nsh"
+  !include "MUI2.nsh"
 ;Include String functions to check version
   !include "WordFunc.nsh"
     !insertmacro VersionCompare
@@ -28,10 +28,12 @@ SetCompressor lzma
 
 ;--------------------------------
 ; definimos la imagen de la pagina de bienvenida del instalador
-  !define MUI_WELCOMEFINISHPAGE_BITMAP "wellcome.bmp"
-  !define MUI_UNWELCOMEFINISHPAGE_BITMAP "wellcome.bmp"
-  !define MUI_HEADERIMAGE
-  !define MUI_HEADERIMAGE_BITMAP "installer.bmp" ; optional
+    !define MUI_ICON "${NSISDIR}/Contrib/Graphics/Icons/modern-install.ico"
+    !define MUI_UNICON "${NSISDIR}/Contrib/Graphics/Icons/modern-uninstall.ico"
+    !define MUI_WELCOMEFINISHPAGE_BITMAP "wellcome.bmp"
+    !define MUI_UNWELCOMEFINISHPAGE_BITMAP "wellcome.bmp"
+    !define MUI_HEADERIMAGE
+    !define MUI_HEADERIMAGE_BITMAP "installer.bmp" ; optional
 
 ;--------------------------------
 ;Pages
@@ -96,7 +98,7 @@ XPStyle on
 
 ;Indicamos cual sera el directorio por defecto donde instalaremos nuestra
 ;aplicacion, el usuario puede cambiar este valor en tiempo de ejecucion.
-InstallDir "\AgilityContest"
+InstallDir "C:\AgilityContest"
 
 ; check if the program has already been installed, if so, take this dir
 ; as install dir
@@ -161,18 +163,12 @@ SetShellVarContext all
 
 ; permisos de escritura en determinados directorios
 	SetShellVarContext all
-	Push "Marker"
 	; Access control for log directory
     AccessControl::GrantOnFile "$INSTDIR\logs" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
 	; Access control for image logos
     AccessControl::GrantOnFile "$INSTDIR\agility\images\logos" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
 	; Access control for configuration files
 	AccessControl::GrantOnFile "$INSTDIR\agility\server\auth" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
-    Pop $0 ; get "Marker" or error msg
-    StrCmp $0 "Marker" Continue
-    MessageBox MB_OK|MB_ICONSTOP "Error setting access control for AgilityContest directories: $0"
-    Pop $0 ; pop "Marker"
-    Continue:
 SectionEnd
 
 ; Optional section (can be disabled by the user)
@@ -190,6 +186,8 @@ SectionEnd
 ;;;;;;;;;;;;;;;;;;;;;;
 
 Section "Uninstall"
+    StrCpy $PATH "${PROGRAM_NAME}"
+    StrCpy $PATH_ACCESO_DIRECTO "${PROGRAM_NAME}"
     SetShellVarContext all
 	; make sure to preserve user config for versions <=1.17
     RMDir /r $SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO

@@ -48,12 +48,13 @@ echo "Extracting xampp ... "
 # notice that relocation will be done at nsi install time with "setup_xampp.bat"
 echo "Setting up apache.conf ..."
 cp ${BUILD_DIR}/xampp/apache/conf/httpd.conf ${BUILD_DIR}/xampp/apache/conf/httpd.conf.orig
-echo <<__EOF >>${BUILD_DIR}/xampp/apache/conf/httpd.conf
+cat <<__EOF >>${BUILD_DIR}/xampp/apache/conf/httpd.conf
 <IfModule mpm_winnt_module>
     ThreadStackSize 8388608
 </IfModule>
 Include "conf/extra/AgilityContest_xampp.conf"
 __EOF
+unix2dos ${BUILD_DIR}/xampp/apache/conf/httpd.conf
 
 # add AC config file and remove "/" to use relative paths
 echo "Adding AgilityContest config file ..."
@@ -68,9 +69,13 @@ sed -i "s/;extension=php_openssl.dll/extension=php_openssl.dll/g" ${BUILD_DIR}/x
 # fix options for mysql
 echo "Setting up mysql/my.ini ..."
 cp ${BUILD_DIR}/xampp/mysql/my-default.ini  ${BUILD_DIR}/xampp/mysql/my.ini
-echo "lower_case_table_names = 1" >> ${BUILD_DIR}/xampp/mysql/my.ini
-echo "key_buffer_size = 16M" >> ${BUILD_DIR}/xampp/mysql/my.ini
-echo "explicit_defaults_for_timestamp = 1" >> ${BUILD_DIR}/xampp/mysql/my.ini
+# default my.ini is empty and only has section [mysqld]. So it's safe to append at eof
+cat <<__EOF >>${BUILD_DIR}/xampp/mysql/my.ini
+lower_case_table_names = 1
+key_buffer_size = 16M
+explicit_defaults_for_timestamp = 1
+__EOF
+unix2dos ${BUILD_DIR}/xampp/mysql/my.ini
 
 # ok. time to add AgilityContest files
 echo "Copying AgilityContest files ..."
