@@ -85,6 +85,6 @@ VERSION=`grep version_name ${BUILD_DIR}/agility/server/auth/system.ini | sed -e 
 DATE=`grep version_date ${BUILD_DIR}/agility/server/auth/system.ini | sed -e 's/^.*= "/"/g'`
 sed -e "s/__VERSION__/${VERSION}/g" -e "s/__TIMESTAMP__/${DATE}/g" ${NSIS} > ${BUILD_DIR}/AgilityContest.nsi
 cp ${BASE_DIR}/build/{installer.bmp,License.txt,wellcome.bmp} ${BUILD_DIR}
-# (cd ${BUILD_DIR}; makensis AgilityContest.nsi )
+(cd ${BUILD_DIR}; makensis AgilityContest.nsi )
 
 echo "That's all folks!"
