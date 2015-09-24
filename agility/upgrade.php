@@ -113,22 +113,23 @@ Class AgilityContestUpdater {
         set_time_limit(ini_get('max_execution_time'));
         $res=true;
         foreach (AgilityContestUpdater::$user_files as $temp => $file) {
-            $from=($oper==true)?$file:TEMP_DIR.$temp;
-            $to=($oper==true)?TEMP_DIR.$temp:$file;
-            $str=($oper==true)?"BACKUP ":"RESTORE ";
+            $from = ($oper == true) ? $file : TEMP_DIR . $temp;
+            $to = ($oper == true) ? TEMP_DIR . $temp : $file;
+            $str = ($oper == true) ? "BACKUP " : "RESTORE ";
             // if $from doesn't exist notify and continue
-            if ( ! file_exists($from)) {
-                echo "SKIP ".$str.$temp." <br />";
+            if (!file_exists($from)) {
+                echo "SKIP " . $str . $temp . " <br />";
                 continue;
             };
             // else try to copy
-            $a=file_get_contents($from);
-            $f=fopen($to,"w");
-            if (!$f) {
-                echo "FAILED ".$str.$temp." <br />";
-                $res=false;
+            $a = file_get_contents($from);
+            $f = fopen($to, "w");
+            if (!is_resource($f)) {
+                echo "FAILED " . $str . $temp . " <br />";
+                $res = false;
+                continue;
             }
-            fwrite($f,$a);
+            fwrite($f, $a);
             fclose($f);
             echo $str.$temp." <br />";
         }
@@ -165,7 +166,7 @@ Class AgilityContestUpdater {
                 $contents = zip_entry_read($aF, zip_entry_filesize($aF));
                 $oper=(file_exists($root.$file_name))?"UPDATE":"CREATE";
                 $file = fopen($root.$file_name, 'w');
-                if ($file) {
+                if (is_resource($file)) {
                     fwrite($file, $contents);
                     fclose($file);
                     echo "$oper $file_name<br />";
