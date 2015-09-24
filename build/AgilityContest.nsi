@@ -143,8 +143,8 @@ SetShellVarContext all
 ;Creamos los directorios, acesos directos y claves del registro que queramos...
     CreateDirectory "$SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO"
     CreateShortCut "$SMPROGRAMS\AgilityContest\$PATH_ACCESO_DIRECTO\AgilityContest.lnk" \
-                    "$INSTDIR\$PATH\AgilityContest.bat" "" \
-                    "$INSTDIR\$PATH\extras\AgilityContest.ico" 0 SW_SHOWMINIMIZED
+                    "$INSTDIR\AgilityContest.bat" "" \
+                    "$INSTDIR\extras\AgilityContest.ico" 0 SW_SHOWMINIMIZED
 
 ;Datos del registr de Windows
     WriteRegStr HKLM \
@@ -161,7 +161,8 @@ SetShellVarContext all
 
 ; permisos de escritura en determinados directorios
 	SetShellVarContext all
-	; directorio de logs
+	Push "Marker"
+	; Access control for log directory
     AccessControl::GrantOnFile "$INSTDIR\logs" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
 	; Access control for image logos
     AccessControl::GrantOnFile "$INSTDIR\agility\images\logos" "(S-1-5-11)" "GenericRead + GenericWrite + Delete"
@@ -177,9 +178,9 @@ SectionEnd
 ; Optional section (can be disabled by the user)
 Section "Desktop Shortcut"
 	; set up paths to tell app where to be invoked from
-        SetOutPath $INSTDIR
+    SetOutPath $INSTDIR
 	SetShellVarContext all
-        CreateShortcut "$DESKTOP\AgilityContest.lnk" \
+    CreateShortcut "$DESKTOP\AgilityContest.lnk" \
                        "$INSTDIR\AgilityContest.bat" "" \
                        "$INSTDIR\extras\AgilityContest.ico" 0 SW_SHOWMINIMIZED
 SectionEnd

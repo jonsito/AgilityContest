@@ -1,31 +1,28 @@
-@echo off
+rem @echo off
 set LANG=es_ES
-cd /d %~dp0\..\xampp
+cd /d %~dp0\xampp
 echo AgilityContest Launch Script
-echo MySQL Database is trying to start
-echo Please wait  ...
 
-rem on first install move directories
-if not exists ..\logs\first_install GOTO mysql_start
-echo "Configuring first boot of XAMPP"
+if not exist ..\logs\first_install GOTO mysql_start
+echo Configuring first boot of XAMPP
 set PHP_BIN=php\php.exe
 set CONFIG_PHP=install\install.php
 %PHP_BIN% -n -d output_buffering=0 -q %CONFIG_PHP% usb
 
 :mysql_start
-echo Starting MySQL Database server...
+echo MySQL Database is trying to start
+echo Please wait  ...
 start /B "" mysql\bin\mysqld --defaults-file=mysql\bin\my.ini --standalone --console
 
-rem check for first install
-if not exists ..\logs\first_install GOTO apache_start
+if not exist ..\logs\first_install GOTO apache_start
 echo Creating AgilityContest Databases
 echo DROP DATABASE IF EXISTS agility; > ..\logs\install.sql
 echo CREATE DATABASE agility; >> ..\logs\install.sql
 echo USE agility; >> ..\logs\install.sql
 type ..\extras\agility.sql >> ..\logs\install.sql
 type ..\extras\users.sql >> ..\logs\install.sql
-echo quit; >> ..\logs\install.sql
-mysql\bin\mysql -u root agility < ..\logs\install.sql
+echo quit >> ..\logs\install.sqltelnet
+mysql\bin\mysql -u root < ..\logs\install.sql
 del ..\logs\install.sql
 del ..\logs\first_install
 

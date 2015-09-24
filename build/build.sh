@@ -48,7 +48,7 @@ echo "Extracting xampp ... "
 # notice that relocation will be done at nsi install time with "setup_xampp.bat"
 echo "Setting up apache.conf ..."
 cp ${BUILD_DIR}/xampp/apache/conf/httpd.conf ${BUILD_DIR}/xampp/apache/conf/httpd.conf.orig
-echo <<__EOF >${BUILD_DIR}/xampp/apache/conf/httpd.conf
+echo <<__EOF >>${BUILD_DIR}/xampp/apache/conf/httpd.conf
 <IfModule mpm_winnt_module>
     ThreadStackSize 8388608
 </IfModule>
@@ -61,15 +61,22 @@ cp ${CONF_DIR}/AgilityContest_xampp.conf ${BUILD_DIR}/xampp/apache/conf/extra
 sed -i "s:/AgilityContest-master:/AgilityContest:g" ${BUILD_DIR}/xampp/apache/conf/extra/AgilityContest_xampp.conf
 
 # enable OpenSSL support into php
-echo "Setting up php.ini ..."
+echo "Setting up php/php.ini ..."
 cp ${BUILD_DIR}/xampp/php/php.ini  ${BUILD_DIR}/xampp/php/php.ini.orig
 sed -i "s/;extension=php_openssl.dll/extension=php_openssl.dll/g" ${BUILD_DIR}/xampp/php/php.ini
+
+# fix options for mysql
+echo "Setting up mysql/my.ini ..."
+cp ${BUILD_DIR}/xampp/mysql/my-default.ini  ${BUILD_DIR}/xampp/mysql/my.ini
+echo "lower_case_table_names = 1" >> ${BUILD_DIR}/xampp/mysql/my.ini
+echo "key_buffer_size = 16M" >> ${BUILD_DIR}/xampp/mysql/my.ini
+echo "explicit_defaults_for_timestamp = 1" >> ${BUILD_DIR}/xampp/mysql/my.ini
 
 # ok. time to add AgilityContest files
 echo "Copying AgilityContest files ..."
 (cd ${BASE_DIR}; tar cfBp - agility extras logs AgilityContest.bat COPYING README.md ) |\
     ( cd ${BUILD_DIR}; tar xfBp - )
-touch ${BUILD_DIR}/logs/firs_install
+touch ${BUILD_DIR}/logs/first_install
 
 # create directory for docs (some day...)
 mkdir -p ${BUILD_DIR}/docs
