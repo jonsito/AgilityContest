@@ -21,7 +21,6 @@ echo CREATE DATABASE agility; >> ..\logs\install.sql
 echo USE agility; >> ..\logs\install.sql
 type ..\extras\agility.sql >> ..\logs\install.sql
 type ..\extras\users.sql >> ..\logs\install.sql
-echo quit >> ..\logs\install.sqltelnet
 mysql\bin\mysql -u root < ..\logs\install.sql
 del ..\logs\install.sql
 del ..\logs\first_install
