@@ -3,18 +3,24 @@ set LANG=es_ES
 cd /d %~dp0\xampp
 echo AgilityContest Launch Script
 
-if not exist ..\logs\first_install GOTO mysql_start
+if not exist ..\logs\first_install GOTO apache_start
 echo Configuring first boot of XAMPP
 set PHP_BIN=php\php.exe
 set CONFIG_PHP=install\install.php
 %PHP_BIN% -n -d output_buffering=0 -q %CONFIG_PHP% usb
 
+:apache_start
+echo Starting Apache Web Server....
+start /B "" apache\bin\httpd.exe
+timeout /t 5
+
 :mysql_start
 echo MySQL Database is trying to start
 echo Please wait  ...
 start /B "" mysql\bin\mysqld --defaults-file=mysql\bin\my.ini --standalone --console
+timeout /t 5
 
-if not exist ..\logs\first_install GOTO apache_start
+if not exist ..\logs\first_install GOTO browser_start
 echo Creating AgilityContest Databases
 echo DROP DATABASE IF EXISTS agility; > ..\logs\install.sql
 echo CREATE DATABASE agility; >> ..\logs\install.sql
@@ -25,10 +31,7 @@ mysql\bin\mysql -u root < ..\logs\install.sql
 del ..\logs\install.sql
 del ..\logs\first_install
 
-:apache_start
-echo Starting Apache Web Server....
-start /B "" apache\bin\httpd.exe
-
+:browser_start
 echo Opening AgilityContest console...
 start /W /MAX "AgilityContest" https://localhost/agility/console
 
