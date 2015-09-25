@@ -16,7 +16,7 @@ timeout /t 5
 
 :mysql_start
 echo MySQL Database is trying to start
-echo Please wait  ...
+echo Please wait  ....
 start /B "" mysql\bin\mysqld --defaults-file=mysql\bin\my.ini --standalone --console
 timeout /t 5
 
