@@ -54,6 +54,8 @@ Class AgilityContestUpdater {
      * @return {object}readed data
      */
     private function file_get($url) {
+        $timeout = 300;
+        set_time_limit(350);
         // if enabled, use standard file_get_contents
         if (ini_get('allow_url_fopen') == true) {
             return file_get_contents($url);
@@ -61,7 +63,6 @@ Class AgilityContestUpdater {
         // if not enable, try curl
         if (function_exists('curl_init')) {
             $ch = curl_init();
-            $timeout = 5;
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //Set curl to return the data instead of printing it to the browser.
             curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/server/auth/cacert.pem");
@@ -80,11 +81,12 @@ Class AgilityContestUpdater {
         $ch = curl_init();
         $fp = fopen ($local, 'w+');
         curl_setopt($ch, CURLOPT_URL, $remote);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 50);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 300);
         curl_setopt($ch, CURLOPT_FILE, $fp);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_ENCODING, "");
         curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/server/auth/cacert.pem");
+        set_time_limit(350);
         $res=curl_exec($ch);
         curl_close($ch);
         fclose($fp);
