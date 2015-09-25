@@ -379,7 +379,9 @@ Class Config {
         $data['register_events']=http_request('register_events','s',AC_REGISTER_EVENTS);
         $data['reset_events']=http_request('reset_events','s',AC_RESET_EVENTS);
         $data=testAndSet($data,'proximity_alert','i',AC_PROXIMITY_ALERT);
-		
+
+		// notice that "ip_address" parameter is also received from console. just ignore it
+
 		// finally write file:
 		$res=array_merge($this->config,$data);
 		// $this->do_log("CronoResync is: {$data['crono_resync']}");

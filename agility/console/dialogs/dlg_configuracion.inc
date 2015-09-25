@@ -164,6 +164,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <input type="checkbox" name="reset_events" id="reset_events" value="1"/><br />
 			<label for="proximity_alert">Alerta de proximidad en orden de salida</label>
 			<input type="number" min="1" max="20" size="2" value="5" name="proximity_alert" id="proximity_alert"/> Perros<br />
+			<h3>Informaci&oacute;n adicional sobre el servidor</h3>
+			<label for="ip_address">Direcci&oacute;n(es) IP</label>
+			<input id="ip_address" name="ip_address" type="text" readonly="readonly" size="45"
+				   value="<?php $a=new networkInterfaces(); echo implode(", ",$a->get_interfaces());?>" />
 		</div>
 	</div>
 	</form>

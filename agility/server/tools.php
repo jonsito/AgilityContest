@@ -269,4 +269,42 @@ class Federation {
 	}
 }
 
+/**
+ * Clase para enumerar los interfaces de red del servidor
+ */
+class networkInterfaces {
+	var $osName;
+	var $interfaces;
+
+	function networkInterfaces() {
+		$this->osName = strtoupper(PHP_OS);
+	}
+
+	function get_interfaces() {
+		if ($this->interfaces){
+			return $this->interfaces;
+		}
+        $ipPattern="";
+        $ipRes="";
+		switch ($this->osName) {
+            case 'WINDOWS':
+            case 'WIN32':
+			case 'WINNT': $ipRes = shell_exec('ipconfig');
+				$ipPattern = '/IPv4[^:]+: ([\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3})/';
+				break;
+			case 'LINUX': $ipRes = shell_exec('ifconfig');
+				$ipPattern = '/inet ([\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3})/';
+				break;
+            case 'DARWIN': $ipRes = shell_exec('ifconfig'); // TODO: check correctness
+                $ipPattern = '/inet ([\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3})/';
+                break;
+			default     : break;
+		}
+		if (preg_match_all($ipPattern, $ipRes,$matches)) {
+			$this->interfaces = $matches[1];
+			return $this->interfaces;
+		}
+        return array();
+	}
+}
 ?>
