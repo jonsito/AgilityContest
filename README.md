@@ -9,8 +9,8 @@ Features:
 - Platform independent server ( Win/Linux/Mac )
 - Written in HTML5 / CSS3 / JS (client) PHP-5.3+ / MySQL-5.5+ (server)
 - Suport for multiple simultaneous contests/sessions
-- Plays Agility / Jumping / K.O.* / Teams* rounds
-- Definable User/roles (guest,assistant,operator,admin)*
+- Plays Agility / Jumping / K.O.* / Teams rounds
+- Definable User/roles (guest,assistant,operator,admin)
 - Complete web-based DB management (handlers, dogs, clubs, and so )
 - On-line results entering with judge assistant WIFI tablet support
 - Persistent (lineprinter) event registering for judge revision*
