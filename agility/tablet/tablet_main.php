@@ -23,7 +23,7 @@ $config =Config::getInstance();
 
 <div id="tablet-window" style="margin:0;padding:0">
     <div id="tablet-layout">
-        <div data-options="region:'west',split:true" title="Programa de la jornada" style="width:40%;">
+        <div data-options="region:'west',split:true" title="<?php _e('Activities on this journey');?>" style="width:40%;">
             <!-- Tabla desplegable para la entrada de datos desde el tablet -->
             <table id="tablet-datagrid" style="margin:0;padding:0;"></table>
         </div>
@@ -46,19 +46,19 @@ $config =Config::getInstance();
                         <input id="tdialog-Tanda" name="Tanda" type="hidden"> <!-- Tanda name -->
                         <input id="tdialog-Observacioens" name="Observaciones" type="hidden">
                         <input id="tdialog-Operation" name="Operation" type="hidden" value="update">
-                        <input id="tdialog-FaltaUpBtn" type="button" value="Falta" onclick="tablet_up('#tdialog-Faltas');" class="tablet_button tb_falta">
-                        <input id="tdialog-FaltaDownBtn" type="button" value="Falta -" onclick="tablet_down('#tdialog-Faltas');">
-                        <input id="tdialog-RehuseUpBtn" type="button" value="Rehuse" onclick="tablet_up('#tdialog-Rehuses')" class="tablet_button tb_rehuse">
-                        <input id="tdialog-RehuseDownBtn" type="button" value="Rehuse -" onclick="tablet_down('#tdialog-Rehuses');">
-                        <input id="tdialog-TocadoUpBtn" type="button" value="Tocado" onclick="tablet_up('#tdialog-Tocados');" class="tablet_button tb_tocado">
-                        <input id="tdialog-TocadoDownBtn" type="button" value="Tocado -" onclick="tablet_down('#tdialog-Tocados');">
+                        <input id="tdialog-FaltaUpBtn" type="button" value="<?php _e('Fault');?>" onclick="tablet_up('#tdialog-Faltas');" class="tablet_button tb_falta">
+                        <input id="tdialog-FaltaDownBtn" type="button" value="<?php _e('Fault');?> -" onclick="tablet_down('#tdialog-Faltas');">
+                        <input id="tdialog-RehuseUpBtn" type="button" value="<?php _e('Refusal');?>" onclick="tablet_up('#tdialog-Rehuses')" class="tablet_button tb_rehuse">
+                        <input id="tdialog-RehuseDownBtn" type="button" value="<?php _e('Refusal');?> -" onclick="tablet_down('#tdialog-Rehuses');">
+                        <input id="tdialog-TocadoUpBtn" type="button" value="<?php _e('Touch');?>" onclick="tablet_up('#tdialog-Tocados');" class="tablet_button tb_tocado">
+                        <input id="tdialog-TocadoDownBtn" type="button" value="<?php _e('Touch');?> -" onclick="tablet_down('#tdialog-Tocados');">
                         <input id="tdialog-StartStopBtn" type="button" value="Start" onclick="tablet_startstop();" class="tablet_button tb_crono">
                         <input id="tdialog-ResetBtn" type="button" value="     " onclick="tablet_resetchrono();" class="tablet_button tb_reset">
-                        <input id="tdialog-SalidaBtn" type="button" value="Salida" onclick="tablet_salida();" class="tablet_button tb_salida">
-                        <input id="tdialog-AcceptBtn" type="button" value="Aceptar" onclick="tablet_accept();" class="tablet_button tb_accept">
-                        <input id="tdialog-CancelBtn" type="button" value="Cancelar" onclick="tablet_cancel();" class="tablet_button tb_cancel">
-                        <input id="tdialog-NoPresentadoBtn" type="button" value="No Presentado" onclick="tablet_np();" class="tablet_button tb_nopresentado">
-                        <input id="tdialog-EliminadoBtn" type="button" value="Eliminado" onclick="tablet_elim('#tdialog-Eliminado');" class="tablet_button tb_eliminado">
+                        <input id="tdialog-SalidaBtn" type="button" value="<?php _e('Begin');?>" onclick="tablet_salida();" class="tablet_button tb_salida">
+                        <input id="tdialog-AcceptBtn" type="button" value="<?php _e('Accept');?>" onclick="tablet_accept();" class="tablet_button tb_accept">
+                        <input id="tdialog-CancelBtn" type="button" value="<?php _e('Cancel');?>" onclick="tablet_cancel();" class="tablet_button tb_cancel">
+                        <input id="tdialog-NoPresentadoBtn" type="button" value="<?php _e('Not Present');?>" onclick="tablet_np();" class="tablet_button tb_nopresentado">
+                        <input id="tdialog-EliminadoBtn" type="button" value="<?php _e('Eliminated');?>" onclick="tablet_elim('#tdialog-Eliminado');" class="tablet_button tb_eliminado">
                         <input id="tdialog-0" type="button" value="0" class="tablet_numbers" onclick="tablet_add(0);">
                         <input id="tdialog-1" type="button" value="1" class="tablet_numbers" onclick="tablet_add(1);">
                         <input id="tdialog-2" type="button" value="2" class="tablet_numbers" onclick="tablet_add(2);">
@@ -72,32 +72,32 @@ $config =Config::getInstance();
                         <input id="tdialog-Del" type="button" value="." class="tablet_numbers" onclick="tablet_dot();">
                         <input id="tdialog-Dot" type="button" value="Del" class="tablet_numbers" onclick="tablet_del();">
                         <label id="tdialog-DorsalLbl" for="tdialog-Dorsal" class="tablet_info">Dorsal</label>
-                        <input id="tdialog-Dorsal" type="text" readonly="readonly" name="Dorsal" class="tablet_info"/>
-                        <label id="tdialog-NombreLbl" for="tdialog-Nombre" class="tablet_info">Nombre</label>
+                        <input id="tdialog-Dorsal" type="text" readonly="readonly" name="<?php _e('Dorsal');?>" class="tablet_info"/>
+                        <label id="tdialog-NombreLbl" for="tdialog-Nombre" class="tablet_info"><?php _e('Name'); ?></label>
                         <input id="tdialog-Nombre" type="text" readonly="readonly" name="Nombre" class="tablet_info"/>
-                        <label id="tdialog-GuiaLbl" for="tdialog-Guia" class="tablet_info">Gu&iacute;a</label>
+                        <label id="tdialog-GuiaLbl" for="tdialog-Guia" class="tablet_info"><?php _e('Handler'); ?></label>
                         <input id="tdialog-Guia" type="text" readonly="readonly" name="NombreGuia" class="tablet_info"/>
-                        <label id="tdialog-ClubLbl" for="tdialog-Club" class="tablet_info">Club</label>
+                        <label id="tdialog-ClubLbl" for="tdialog-Club" class="tablet_info"><?php _e('Club'); ?></label>
                         <input id="tdialog-Club" type="text" readonly="readonly" name="NombreClub" class="tablet_info"/>
-                        <label id="tdialog-CategoriaLbl" for="tdialog-Categoria" class="tablet_info">Cat.</label>
+                        <label id="tdialog-CategoriaLbl" for="tdialog-Categoria" class="tablet_info"><?php _e('Cat'); ?>.</label>
                         <input id="tdialog-Categoria" type="text" readonly="readonly" name="Categoria" class="tablet_info"/>
-                        <label id="tdialog-GradoLbl" for="tdialog-Grado" class="tablet_info">Grado</label>
+                        <label id="tdialog-GradoLbl" for="tdialog-Grado" class="tablet_info"><?php _e('Grade'); ?></label>
                         <input id="tdialog-Grado" type="text" readonly="readonly" name="Grado" class="tablet_info"/>
-                        <label id="tdialog-CeloLbl" for="tdialog-Celo" class="tablet_info">Celo</label>
+                        <label id="tdialog-CeloLbl" for="tdialog-Celo" class="tablet_info"><?php _e('Heat'); ?></label>
                         <input id="tdialog-Celo" type="text" readonly="readonly" name="Celo" class="tablet_info"/>
-                        <label id="tdialog-FaltasLbl" for="tdialog-Faltas">Faltas</label>
+                        <label id="tdialog-FaltasLbl" for="tdialog-Faltas"><?php _e('Faults'); ?></label>
                         <input id="tdialog-Faltas" type="text" readonly="readonly" value="0" name="Faltas" class="tablet_data"/>
-                        <label id="tdialog-TocadosLbl" for="tdialog-Tocados">Tocados</label>
+                        <label id="tdialog-TocadosLbl" for="tdialog-Tocados"><?php _e('Touchs'); ?></label>
                         <input id="tdialog-Tocados" type="text" readonly="readonly" value="0" name="Tocados" class="tablet_data"/>
-                        <label id="tdialog-RehusesLbl" for="tdialog-Rehuses">Rehuses</label>
+                        <label id="tdialog-RehusesLbl" for="tdialog-Rehuses"><?php _e('Refusals'); ?></label>
                         <input id="tdialog-Rehuses" type="text" readonly="readonly" value="0" name="Rehuses" class="tablet_data"/>
-                        <label id="tdialog-TiempoLbl" for="tdialog-Tiempo">Tiempo</label>
+                        <label id="tdialog-TiempoLbl" for="tdialog-Tiempo"><?php _e('Time'); ?></label>
                         <span id="tdialog-timestamp" style="display:none"></span>
                         <input id="tdialog-Tiempo" type="text" readonly="readonly" value="00.00" name="Tiempo" class="tablet_data"/>
-                        <label id="tdialog-NoPresentadoLbl" for="tdialog-NoPresentadoStr">No Pr.</label>
+                        <label id="tdialog-NoPresentadoLbl" for="tdialog-NoPresentadoStr"><?php _e('No Pr'); ?>.</label>
                         <input id="tdialog-NoPresentado" type="hidden" name="NoPresentado" value="0"/>
                         <input id="tdialog-NoPresentadoStr" type="text" readonly="readonly" value="" name="NoPresentadoStr" class="tablet_data"/>
-                        <label id="tdialog-EliminadoLbl" for="tdialog-EliminadoStr">Elim.</label>
+                        <label id="tdialog-EliminadoLbl" for="tdialog-EliminadoStr"><?php _e('Elim'); ?>.</label>
                         <input id="tdialog-Eliminado" type="hidden" value="0" name="Eliminado"/>
                         <input id="tdialog-EliminadoStr" type="text" readonly="readonly" value="" name="EliminadoStr" class="tablet_data"/>
                         <label id="tdialog-Rectangulo" class="tablet_rectangulo">&nbsp;</label>
@@ -112,13 +112,13 @@ $config =Config::getInstance();
 <div id="tablet-toolbar" style="width:100%;display:inline-block">
     <span style="float:left">
         <a id="tablet-reloadBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-reload'" onclick="$('#tablet-datagrid').datagrid('reload');">Actualizar</a>
+           data-options="iconCls:'icon-reload'" onclick="$('#tablet-datagrid').datagrid('reload');"><?php _e('Refresh'); ?></a>
    		<input id="tablet-datagrid-search" type="text" value="---- Dorsal ----" class="search_textfield"
             onchange="tablet_editByDorsal();"/>
     </span>
     <span style="float:right">
         <a id="tablet-recoBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-huella'" onclick="tablet_reconocimiento();">Reconocimiento</a>
+           data-options="iconCls:'icon-huella'" onclick="tablet_reconocimiento();"><?php _e('Course walk'); ?></a>
     </span>
 </div>
 
@@ -160,7 +160,7 @@ $config =Config::getInstance();
             Sesion: (workingData.sesion==1)?1:-(workingData.sesion)
         },
         toolbar:'#tablet-toolbar',
-        loadMsg: "Actualizando programa ...",
+        loadMsg: "<?php _e('Updating series order');?>"+" ...",
         pagination: false,
         rownumbers: false,
         fitColumns: true,
@@ -178,9 +178,9 @@ $config =Config::getInstance();
             { field:'Grado',	hidden:true },
             { field:'Sesion',	hidden:true },
             { field:'Tipo',	    hidden:true },
-            { field:'Horario',	width:50, sortable:false, align:'center', title:'Hora',styler:tandasStyler },
-            { field:'Nombre',	width:300, sortable:false, align:'left',title:'Actividad',styler:tandasStyler},
-            { field:'Comentario',	width:100, sortable:false, align:'left',title:'Comentarios',styler:tandasStyler}
+            { field:'Horario',	width:50, sortable:false, align:'center', title:'<?php _e('Time');?>',styler:tandasStyler },
+            { field:'Nombre',	width:300, sortable:false, align:'left',title:'<?php _e('Activity');?>',styler:tandasStyler},
+            { field:'Comentario',	width:100, sortable:false, align:'left',title:'<?php _e('Comments');?>',styler:tandasStyler}
         ]],
         rowStyler: myRowStyler,
         // especificamos un formateador especial para desplegar la tabla de perros por tanda
@@ -229,7 +229,7 @@ $config =Config::getInstance();
                 Sesion: row.Sesion,
                 ID:row.ID
             },
-            loadMsg: "Actualizando orden de salida ...",
+            loadMsg: '<?php _e("Update starting order");?>'+" ...",
             pagination: false,
             rownumbers: true,
             // expand to all 800pixels, do not fitColums to available space
@@ -255,18 +255,18 @@ $config =Config::getInstance();
                 { field:'Pendiente',	width:0, hidden:true },
                 { field:'Tanda',		width:0, hidden:true },
                 { field:'Equipo',		width:0, hidden:true },
-                { field:'NombreEquipo',	width:20, align:'center',	title: 'Equipo' },
-                { field:'Dorsal',		width:10, align:'center',	title: 'Dorsal', styler:checkPending },
-                { field:'Nombre',		width:20, align:'left',		title: 'Nombre'},
-                { field:'Celo',			width:8, align:'center',	title: 'Celo', formatter:formatCelo},
-                { field:'NombreGuia',	width:35, align:'right',	title: 'Guia' },
-                { field:'NombreClub',	width:25, align:'right',	title: 'Club' },
-                { field:'Categoria',	width:10, align:'center',	title: 'Categ.' },
-                { field:'Grado',		width:10, align:'center',	title: 'Grado' },
+                { field:'NombreEquipo',	width:20, align:'center',	title: '<?php _e('Team');?>' },
+                { field:'Dorsal',		width:10, align:'center',	title: '<?php _e('Dorsal');?>', styler:checkPending },
+                { field:'Nombre',		width:20, align:'left',		title: '<?php _e('Name');?>'},
+                { field:'Celo',			width:8, align:'center',	title: '<?php _e('Heat');?>', formatter:formatCelo},
+                { field:'NombreGuia',	width:35, align:'right',	title: '<?php _e('Handler');?>' },
+                { field:'NombreClub',	width:25, align:'right',	title: '<?php _e('Club');?>' },
+                { field:'Categoria',	width:10, align:'center',	title: '<?php _e('Cat');?>.' },
+                { field:'Grado',		width:10, align:'center',	title: '<?php _e('Grade');?>' },
                 { field:'Faltas',		width:5, align:'center',	title: 'F'},
                 { field:'Rehuses',		width:5, align:'center',	title: 'R'},
                 { field:'Tocados',		width:5, align:'center',	title: 'T'},
-                { field:'Tiempo',		width:15, align:'right',	title: 'Tiempo'	},
+                { field:'Tiempo',		width:15, align:'right',	title: '<?php _e('Time');?>'	},
                 { field:'Eliminado',	width:5, align:'center',	formatter:formatEliminado,	title: 'EL.'},
                 { field:'NoPresentado',	width:5, align:'center',	formatter:formatNoPresentado,	title: 'NP'},
                 { field:'Observaciones',width:0, hidden:true }
@@ -365,9 +365,9 @@ $config =Config::getInstance();
         });
     }
 
-    addTooltip($('#tablet-reloadBtn').linkbutton(),"Actualizar datos de la sesion");
-    addTooltip($('#tablet-recoBtn').linkbutton(),"Enviar señal de comienzo del reconocimiento de pista");
-    addTooltip($('#tablet-datagrid-search'),"Activar la entrada de datos para el Dorsal especificado");
+    addTooltip($('#tablet-reloadBtn').linkbutton(),'<?php _e("Update session data");?>');
+    addTooltip($('#tablet-recoBtn').linkbutton(),'<?php _e("Tell chronometer to start Course walk");?>');
+    addTooltip($('#tablet-datagrid-search'),'<?php _e("Activate data entry panel on selected dorsal");?>');
 
     // layout
     var dg= {'cols':210, 'rows':145}; // declare base datagrid as A5 sheet

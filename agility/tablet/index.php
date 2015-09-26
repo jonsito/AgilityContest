@@ -65,6 +65,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <link rel="stylesheet" type="text/css" href="/agility/css/tablet.css" />
 <script src="/agility/lib/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
+<script src="/agility/lib/jquery-easyui-1.4.2/locale/easyui-lang-<?php echo substr($config->getEnv('lang'),0,2);?>.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/extensions/datagrid-dnd/datagrid-dnd.js" type="text/javascript" charset="utf-8" > </script>
 <?php if (toBoolean($config->getEnv('tablet_chrono'))) { ?>
 <script src="/agility/lib/jquery-chronometer.js" type="text/javascript" charset="utf-8" > </script>
@@ -78,7 +79,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/tablet/tablet.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/tablet/tablet.js.php" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript" charset="utf-8">
 function initialize() {
@@ -122,31 +123,31 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 
-<div id="seltablet-dialog" style="width:350px;height:275px;padding:10px" class="easyui-dialog"
-	data-options="title: 'Datos de Usuario, Prueba y Jornada',iconCls: 'icon-list',buttons: '#seltablet-Buttons',collapsible:false, minimizable:false,
+<div id="seltablet-dialog" style="width:400px;height:275px;padding:10px" class="easyui-dialog"
+	data-options="title: '<?php _e('User,Ring,Contest and Journey selection'); ?>',iconCls: 'icon-list',buttons: '#seltablet-Buttons',collapsible:false, minimizable:false,
 		maximizable:false, closable:true, closed:false, shadow:true, modal:true">
 	<form id="seltablet-form">
        	<div class="fitem">
-       		<label for="seltablet-Username">Usuario:</label>
+       		<label for="seltablet-Username"><?php _e('User'); ?>:</label>
        		<input id="seltablet-Username" name="Username" style="width:200px" type="text"
        			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
        	</div>        		
        	<div class="fitem">
-       		<label for="seltablet-Password">Contrase&ntilde;a:</label>
+       		<label for="seltablet-Password"><?php _e('Password'); ?>:</label>
        		<input id="seltablet-Password" name="Password" style="width:200px" type="password"
        			class="easyui-validatebox" data-options="required:true,validType:'length[1,255]'"/>
        	</div>
        	<div>&nbsp;</div>
     	<div class="fitem">
-       		<label for="seltablet-Sesion">Sesi&oacute;n:</label>
+       		<label for="seltablet-Sesion"><?php _e('Session'); ?>:</label>
        		<select id="seltablet-Sesion" name="Sesion" style="width:200px"></select>
     	</div>        		
     	<div class="fitem">
-       		<label for="seltablet-Prueba">Prueba:</label>
+       		<label for="seltablet-Prueba"><?php _e('Contest'); ?>:</label>
        		<select id="seltablet-Prueba" name="Prueba" style="width:200px"></select>
     	</div>        		
     	<div class="fitem">
-       		<label for="seltablet-Jornada">Jornada:</label>
+       		<label for="seltablet-Jornada"><?php _e('Journey'); ?>:</label>
        		<select id="seltablet-Jornada" name="Jornada" style="width:200px"></select>
     	</div>
 	</form>
@@ -177,8 +178,8 @@ $('#seltablet-Sesion').combogrid({
 	editable: false,  // to disable tablet keyboard popup
 	columns: [[
 	   	{ field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
-		{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: 'Nombre' },
-		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' },
+		{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: '<?php _e('Name');?>' },
+		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: '<?php _e('Comments');?>' },
 		{ field:'Prueba', hidden:true },
 		{ field:'Jornada', hidden:true }
 	]],
@@ -210,11 +211,11 @@ $('#seltablet-Prueba').combogrid({
 	selectOnNavigation: true, // let use cursor keys to interactive select
 	columns: [[
 		{field:'ID',			hidden:true},
-		{field:'Nombre',		title:'Nombre',			width:65,	align:'right'},
+		{field:'Nombre',		title:'<?php _e('Name');?>',		width:65,	align:'right'},
 		{field:'Club',			hidden:true},
-		{field:'NombreClub',	title:'Club',			width:25,	align:'right'},
-		{field:'RSCE',			title:'Fed.',			width:15,	align:'center', formatter:formatRSCE},
-		{field:'Observaciones',	title:'Observaciones.',	width:10,	align:'right'},
+		{field:'NombreClub',	title:'<?php _e('Club');?>',		width:25,	align:'right'},
+		{field:'RSCE',			title:'<?php _e('Fed');?>',			width:15,	align:'center', formatter:formatRSCE},
+		{field:'Observaciones',	title:'<?php _e('Comments');?>',	width:10,	align:'right'},
         {field:'Inscritos',		hidden:true},
         {field:'UserLimit',		hidden:true}
 	]],
@@ -225,8 +226,8 @@ $('#seltablet-Prueba').combogrid({
 		if (p===null) return; // no selection
         if (parseInt(p.Inscritos) > parseInt(p.UserLimit)) {
             var message='<img src="/agility/images/sad_dog.png" width="100" alt="sad dog" style="float:right;"/>'+
-                '<p style="font-weight:bold;">Los permisos de la licencia instalada<br/> ' +
-				'no permiten la gesti&oacute;n de pruebas</br> con m&aacute;s de '+p.UserLimit+' inscripciones</p>';
+                '<p style="font-weight:bold;"><?php _e('Current license permissions'); ?><br/> ' +
+				'<?php _e('does not allow handling of contests'); ?></br><?php _e('with more than'); ?> '+p.UserLimit+' <?php _e('inscriptions'); ?></p>';
             $.messager.alert({
                 title: 'Access denied',
                 msg: message,
@@ -260,7 +261,7 @@ $('#seltablet-Jornada').combogrid({
 	    { field:'ID',			hidden:true }, // ID de la jornada
 	    { field:'Prueba',		hidden:true }, // ID de la prueba
 	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-		{ field:'Nombre',		width:40, sortable:false,   align:'right',  title: 'Nombre/Comentario' },
+		{ field:'Nombre',		width:40, sortable:false,   align:'right',  title: '<?php _e('Name/Comment');?>' },
 		{ field:'Fecha',		hidden:true},
 		{ field:'Hora',			hidden:true},
 		{ field:'Grado1',		width:7, sortable:false,	align:'center', title: 'G-I    ' },
@@ -292,11 +293,11 @@ function tablet_acceptSelectJornada() {
 	var pass=$('#seltablet-Password').val();
 	if ( (p==null) || (j==null) ) {
 		// indica error
-		$.messager.alert("Error","Debe<br />- Indicar la sesión para los videomarcadores<br />- Seleccionar prueba/jornada para manejo de datos","error");
+		$.messager.alert("Error","<?php _e('You must'); ?><br />- <?php _e('Select session/ring for videowall and chrono'); ?><br />- <?php _e('Select contest/journey to play with'); ?>","error");
 		return;
 	}
 	if (!user || !user.length) {
-		$.messager.alert("Invalid data","No ha indicado ningún usuario","error");
+		$.messager.alert("Invalid data",'<?php _e("No user has been selected");?>',"error");
 		return;
     }
     var parameters={
@@ -325,8 +326,8 @@ function tablet_acceptSelectJornada() {
         		initAuthInfo(); // initialize to null
         	} else {
         		$.messager.alert(
-        	    	"Usuario: "+data.Login,
-        	    	"Sesi&oacute;n iniciada correctamente",
+        	    	"<?php _e('User');?>: "+data.Login,
+        	    	'<?php _e("Session successfully started");?>',
         	    	"info",
         	    	function() {
         	    	   	initAuthInfo(data);

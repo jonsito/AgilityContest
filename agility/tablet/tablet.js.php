@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+<?php
+require_once(__DIR__ . "/../server/tools.php");
+require_once(__DIR__ . "/../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
 function tandasStyler(val,row,idx) {
 	var str="text-align:left; ";
 	str += "font-weight:bold; ";
@@ -471,7 +477,7 @@ function loadDorsalPage(tanda,dg,dorsal,cb) {
 		success: function(row) {
 			var idx=row.RowIndex;
 			if (idx<0) {
-				$.messager.alert("Not found","El perro con dorsal "+dorsal+" no participa en esta manga","info");
+				$.messager.alert("Not found",'<?php _e("Dog with dorsal");?>'+": "+dorsal+" "+'<?php _e("does not run in this series");?>',"info");
 				$('#tablet-datagrid-search').val('---- Dorsal ----');
 				return false;
 			}
@@ -516,7 +522,7 @@ function tablet_editByDorsal() {
 		return false;
 	}
 	// arriving here means that there are no expanded row
-	$.messager.alert("No selection","No hay ninguna manga seleccionada","error");
+	$.messager.alert("No selection",'<?php _e("There is no selected round");?>',"error");
 	drs.val('---- Dorsal ----');
 }
 
