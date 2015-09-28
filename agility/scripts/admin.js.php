@@ -27,7 +27,7 @@ $config =Config::getInstance();
 
 function checkForAdmin() {
     if (parseInt(authInfo.Perms)>1) {
-        $.messager.alert("Invalid user","Current user '"+authInfo.Login+"' has not enought privileges","error");
+        $.messager.alert('<?php _e("Invalid user"); ?>','<?php _e("Current user"); ?>'+" '"+authInfo.Login+"' "+'<?php _e("has not enought privileges"); ?>',"error");
         return false;
     }
     return true;
@@ -41,8 +41,8 @@ function backupDatabase(){
             data: {
                 Operation: 'backup'
             },
-            preparingMessageHtml: "We are preparing your backup, please wait...",
-            failMessageHtml: "There was a problem generating your backup, please try again."
+            preparingMessageHtml: '<?php _e("We are preparing your backup, please wait"); ?>'+"...",
+            failMessageHtml: '<?php _e("There was a problem generating your backup, please try again."); ?>'
         }
     );
     return false;
@@ -82,16 +82,16 @@ function read_restoreFile(input) {
 }
 
 function restoreDatabase(){
-    var l1="<strong>AVISO:</strong><br/>";
-    var l2="Esta operaci&oacute;n <strong>BORRARA <em>TODOS</em> LOS DATOS ACTUALES</strong>. antes de intentar recuperar los nuevos<br/>";
-    var l3="Aseg&uacute;rese de realizar una copia de seguridad antes de seguir<br/><br/>";
-    var l4="Para continuar, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
+    var l1='<?php _e("<strong>Notice:</strong><br/>"); ?>';
+    var l2='<?php _e("This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>. before trying restore<br/>"); ?>';
+    var l3='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';
+    var l4='<?php _e("To continue enter administrator password and press<em>Accept</em>"); ?>';
     if (!checkForAdmin()) return;
     if ($('#tools-restoreFile').val()=="") {
-        $.messager.alert("Restore","Debe especificar un fichero '.sql' con un backup anterior","error");
+        $.messager.alert("Restore",'<?php _e("You should specify an <em>.sql</em> file with a previous backup"); ?>',"error");
         return false;
     }
-    $.messager.password('Recuperar base de datos',l1+l2+l3+l4 , function(pass){
+    $.messager.password('<?php _e('DataBase restore'); ?>',l1+l2+l3+l4 , function(pass){
         if (pass){
             // comprobamos si el password es correcto
             checkPassword(authInfo.Login,pass,function(data) {
@@ -100,7 +100,7 @@ function restoreDatabase(){
                 } else { // success:
                     $.messager.progress({
                         title: 'Restore',
-                        msg: 'Restaurando base de datos',
+                        msg: '<?php _e('Restoreing database'); ?>',
                         interval: 0
                     });
                     // si password correcto invocamos la operacion
@@ -115,11 +115,11 @@ function restoreDatabase(){
                         contentType: 'application/x-www-form-urlencoded;charset=UTF-8',
                         success: function(data) {
                             if (data.errorMsg){
-                                $.messager.show({ width:300, height:150, title: 'Database Restore Error', msg: data.errorMsg });
+                                $.messager.show({ width:300, height:150, title: '<?php _e('Database Restore Error'); ?>', msg: data.errorMsg });
                             } else {
                                 $.messager.alert(
-                                    "Restore Database",
-                                    "Base de datos recuperada<br />Pulse Aceptar para reiniciar la aplicación",
+                                    '<?php _e("Restore Database"); ?>',
+                                    '<?php _e("Database restore success<br />Press Accept to re-init application"); ?>',
                                     "info",
                                     function(){window.location.reload();} // reload application main page
                                 );
@@ -158,20 +158,20 @@ function restoreDatabase(){
 }
 
 function clearDatabase(){
-    var l1="<strong>AVISO:</strong><br/>";
-    var l2="Esta operaci&oacute;n <strong>BORRA <em>TODOS</em> LOS DATOS </strong><br/>" +
-        "Incluyendo pruebas,inscripciones, resultados, jueces, perros, guias y clubes<br/>" +
-        "Solo deberia usarse como paso previo a una importación de datos desde fichero excel<br/> ";
-    var l3="Aseg&uacute;rese de realizar una copia de seguridad antes de seguir<br/><br/>";
-    var l4="Para continuar, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
+    var l1='<?php _e("<strong>Notice:</strong><br/>"); ?>';
+    var l2='<?php _e("This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>.<br/>"); ?>'+
+        '<?php _e("Including contests, inscriptions, scores, judges, dogs, handlers and clubs<br/>"); ?>' +
+        '<?php _e("This is intended to be used ONLY as a previous step from importing new data from Excel file<br/> "); ?>';
+    var l3='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';
+    var l4='<?php _e("To continue enter administrator password and press<em>Accept</em>"); ?>';
     if (!checkForAdmin()) return;
-    $.messager.password('Factory Reset',l1+l2+l3+l4 , function(pass){
+    $.messager.password('<?php _e('Factory Reset'); ?>',l1+l2+l3+l4 , function(pass){
         if (pass){
             performClearDatabase('reset',pass,function(data){
                 if (data.errorMsg){
-                    $.messager.show({ width:300, height:150, title: 'Database Reset Error', msg: data.errorMsg });
+                    $.messager.show({ width:300, height:150, title:'<?php _e( 'Database Reset Error'); ?>', msg: data.errorMsg });
                 } else {
-                    $.messager.alert("Reset Database","Base de datos vacía<br />Por favor reinicie la aplicación","info");
+                    $.messager.alert('<?php _e("Reset Database"); ?>','<?php _e("Data base cleared<br />Please reinit application"); ?>',"info");
                 }
             });
         }
@@ -179,18 +179,18 @@ function clearDatabase(){
 }
 
 function removePruebas(){
-    var l1="<strong>AVISO:</strong><br/>";
-    var l2="Esta operaci&oacute;n eliminar&aacute; todas las pruebas,";
-    var l3="competiciones y resultados almacenados<br/><br/>";
-    var l4="Para continuar, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
+    var l1='<?php _e("<strong>Notice:</strong><br/>"); ?>';
+    var l2='<?php _e("This operation WILL ERASE every contests,"); ?>';
+    var l3='<?php _e("inscriptions and scores from data base<br/><br/>"); ?>';
+    var l4='<?php _e("To continue enter administrator password and press<em>Accept</em>"); ?>';
     if (!checkForAdmin()) return;
-    $.messager.password('Borrar pruebas',l1+l2+l3+l4, function(pass){
+    $.messager.password('<?php _e('Erase contests'); ?>',l1+l2+l3+l4, function(pass){
         if (pass){
             performClearDatabase('clear',pass,function(data){
                 if (data.errorMsg){
-                    $.messager.show({ width:300, height:150, title: 'Contests clear Error', msg: data.errorMsg });
+                    $.messager.show({ width:300, height:150, title: '<?php _e('Contests clear Error'); ?>', msg: data.errorMsg });
                 } else {
-                    $.messager.alert("Clear Database","Todas las competiciones han sido borradas<br />Por favor reinicie la aplicación","info");
+                    $.messager.alert('<?php _e("Erase contests"); ?>','<?php _e("Every contests have been erased<br />Please, reinit application"); ?>',"info");
                 }
             });
         }
@@ -198,11 +198,11 @@ function removePruebas(){
 }
 
 function askForUpgrade(msg){
-    var l1="<strong>AVISO:</strong><br/>";
-    var l2="Aseg&uacute;rese de realizar una copia de seguridad antes de seguir<br/><br/>";
-    var l3="Para actualizar AgilityContest, introduzca la contrase&ntilde;a del usuario administrador, y pulse <em>Aceptar</em>";
+    var l1='<?php _e("<strong>Notice:</strong><br/>"); ?>';
+    var l2='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';
+    var l3='<?php _e("To proceed with AgilityContest update, enter administrator password and press<em>Accept</em>"); ?>';
     if (!checkForAdmin()) return;
-    $.messager.password('Actualizar AgilityContest',msg+l1+l2+l3 , function(pass) {
+    $.messager.password('<?php _e('Update AgilityContest'); ?>',msg+l1+l2+l3 , function(pass) {
         if (pass) {
             // comprobamos si el password es correcto
             checkPassword(authInfo.Login,pass,function(data) {
@@ -217,7 +217,7 @@ function askForUpgrade(msg){
 }
 
 function checkForUpgrades() {
-    var msg="<p>Current Version: "+ac_config.version_name+"<br />Current Release: "+ac_config.version_date+"</p>";
+    var msg="<p>"+'<?php _e("Current Version"); ?>'+": "+ac_config.version_name+"<br />"+'<?php _e("Current Release"); ?>'+": "+ac_config.version_date+"</p>";
     $.ajax({
         url:"/agility/server/adminFunctions.php",
         dataType:'json',
@@ -226,14 +226,14 @@ function checkForUpgrades() {
         },
         success: function(data) {
             if (typeof(data.errorMsg)!=="undefined") {
-                $.messager.alert("Check for Upgrades",data.errorMsg,"error");
+                $.messager.alert('<?php _e("Check for Upgrades"); ?>',data.errorMsg,"error");
                 return;
             }
             if (data.version_date==ac_config.version_date) {
-                msg = msg +"<p>AgilityContest est&aacute; actualizado</p>";
+                msg = msg +'<?php _e("<p>AgilityContest is upto date</p>"); ?>';
                 $.messager.alert("Version Info",msg,"info");
             }
-            msg = msg +"<p>Last Version: "+data.version_name+"<br />Last Release: "+data.version_date+"</p>";
+            msg = msg +"<p>"+'<?php _e("Last Version"); ?>'+": "+data.version_name+"<br />"+'<?php _e('Last Release');?>'+": "+data.version_date+"</p>";
             if (data.version_date>ac_config.version_date) askForUpgrade(msg);
         }
     });

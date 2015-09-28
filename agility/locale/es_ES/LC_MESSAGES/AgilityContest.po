@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-28 15:58+0200\n"
-"PO-Revision-Date: 2015-09-28 15:59+0200\n"
+"POT-Creation-Date: 2015-09-28 19:42+0200\n"
+"PO-Revision-Date: 2015-09-28 19:43+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -1629,6 +1629,175 @@ msgid ""
 msgstr ""
 " Por favor, revise y -en su caso- actualice los datos de registro y licencia "
 "de la aplicaci&oacute;n"
+
+#: scripts/admin.js.php:30
+msgid "Invalid user"
+msgstr "Usuario no v&aacute;lido"
+
+#: scripts/admin.js.php:30
+msgid "Current user"
+msgstr "El usuario actual"
+
+#: scripts/admin.js.php:30
+msgid "has not enought privileges"
+msgstr "no tiene suficientes permisos"
+
+#: scripts/admin.js.php:44
+msgid "We are preparing your backup, please wait"
+msgstr "Preparando la copia de seguridad, por favor, espere"
+
+#: scripts/admin.js.php:45
+msgid "There was a problem generating your backup, please try again."
+msgstr ""
+"Hubo un problema en la generaci&oacute;n del backup. Por favor pruebe de "
+"nuevo"
+
+#: scripts/admin.js.php:85 scripts/admin.js.php:161 scripts/admin.js.php:182
+#: scripts/admin.js.php:201
+msgid "<strong>Notice:</strong><br/>"
+msgstr "<strong>Aviso:</strong><br/>"
+
+#: scripts/admin.js.php:86
+msgid ""
+"This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>. "
+"before trying restore<br/>"
+msgstr ""
+"Esta operaci&oacute;n <strong>BORRARRA <em>TODOS</em> LOS DATOS</"
+"strong>antes de restaurar<br/>"
+
+#: scripts/admin.js.php:87 scripts/admin.js.php:165 scripts/admin.js.php:202
+msgid "Be aware of making a backup copy before continue<br/><br/>"
+msgstr "Asegurese de hacer una copia de seguridad antes de seguir<br/><br/>"
+
+#: scripts/admin.js.php:88 scripts/admin.js.php:166 scripts/admin.js.php:185
+msgid "To continue enter administrator password and press<em>Accept</em>"
+msgstr ""
+"Para proceder, introduzca la contrase&ntilde;a del usuario administrador y "
+"pulse<em>Aceptar</em>"
+
+#: scripts/admin.js.php:91
+msgid "You should specify an <em>.sql</em> file with a previous backup"
+msgstr "Debe especificar un fichero <em>.sql</em> con un backup anterior"
+
+#: scripts/admin.js.php:94
+msgid "DataBase restore"
+msgstr "Restaurar base de datos"
+
+#: scripts/admin.js.php:103
+msgid "Restoreing database"
+msgstr "Recuperando base de datos"
+
+#: scripts/admin.js.php:118
+msgid "Database Restore Error"
+msgstr "Error en recuperacion de base de datos"
+
+#: scripts/admin.js.php:121
+msgid "Restore Database"
+msgstr "Restaurar base de datos"
+
+#: scripts/admin.js.php:122
+msgid "Database restore success<br />Press Accept to re-init application"
+msgstr ""
+"Recuperaci&oacute;n de base de datos completa<br /> pulse Aceptar para "
+"reiniciar aplicaci&oacute;n"
+
+#: scripts/admin.js.php:162
+msgid ""
+"This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>.<br/>"
+msgstr ""
+"Esta operaci&oacute;n <strong>BORRARRA <em>TODOS</em> LOS DATOS</strong>.<br/"
+">"
+
+#: scripts/admin.js.php:163
+msgid ""
+"Including contests, inscriptions, scores, judges, dogs, handlers and "
+"clubs<br/>"
+msgstr ""
+"Incluyendo pruebas, inscripciones, resultados, jueces, perros, gu&iacute;s y "
+"clubes<br/>"
+
+#: scripts/admin.js.php:164
+msgid ""
+"This is intended to be used ONLY as a previous step from importing new data "
+"from Excel file<br/> "
+msgstr ""
+"SOLO debe ser usada como paso previo a una importaci&oacute;n de datos desde "
+"un fichero Excel<br/>"
+
+#: scripts/admin.js.php:168
+msgid "Factory Reset"
+msgstr "Reset de f&aacute;brica"
+
+#: scripts/admin.js.php:172
+msgid "Database Reset Error"
+msgstr "Error en borrado de base de datos"
+
+#: scripts/admin.js.php:174
+msgid "Reset Database"
+msgstr "Borrar base de datos"
+
+#: scripts/admin.js.php:174
+msgid "Data base cleared<br />Please reinit application"
+msgstr ""
+"Base de datos vac&iacute;a<br />Por favor, reinicie la aplicaci&oacute;n"
+
+#: scripts/admin.js.php:183
+msgid "This operation WILL ERASE every contests,"
+msgstr "Esta operaci&oacute;n BORRARA todas las pruebas,"
+
+#: scripts/admin.js.php:184
+msgid "inscriptions and scores from data base<br/><br/>"
+msgstr "inscripciones y resultados de la base de datos<br/><br/>"
+
+#: scripts/admin.js.php:187 scripts/admin.js.php:193
+msgid "Erase contests"
+msgstr "Borrar pruebas"
+
+#: scripts/admin.js.php:191
+msgid "Contests clear Error"
+msgstr "Error en borrado de pruebas"
+
+#: scripts/admin.js.php:193
+msgid "Every contests have been erased<br />Please, reinit application"
+msgstr ""
+"Todas las pruebas han sido borradas<br />Por favor, reinicie la "
+"aplicaci&oacute;n"
+
+#: scripts/admin.js.php:203
+msgid ""
+"To proceed with AgilityContest update, enter administrator password and "
+"press<em>Accept</em>"
+msgstr ""
+"Para proceder con la actualizaci&oacute;n, introduzca la contrase&ntilde;a "
+"del usuario administrador y pulse<em>Aceptar</em>"
+
+#: scripts/admin.js.php:205
+msgid "Update AgilityContest"
+msgstr "Actualizar AgilityContest"
+
+#: scripts/admin.js.php:220
+msgid "Current Version"
+msgstr "Versi&oacute;n actual"
+
+#: scripts/admin.js.php:220
+msgid "Current Release"
+msgstr "Revisi&oacute;n actual"
+
+#: scripts/admin.js.php:229
+msgid "Check for Upgrades"
+msgstr "Buscar actualizaciones"
+
+#: scripts/admin.js.php:233
+msgid "<p>AgilityContest is upto date</p>"
+msgstr "<p>AgilityContest est&aacute; actualizado</p>"
+
+#: scripts/admin.js.php:236
+msgid "Last Version"
+msgstr "Nueva Versi&oacute;n"
+
+#: scripts/admin.js.php:236
+msgid "Last Release"
+msgstr "Nueva revisi&oacute;n"
 
 #: scripts/auth.js.php:34 scripts/auth.js.php:101
 msgid "Init session"
