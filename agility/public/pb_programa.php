@@ -7,7 +7,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Public::programa");
-if ( ! $am->allowed(ENABLE_PUBLIC)) { include_once("unregistered.html"); return 0;}
+if ( ! $am->allowed(ENABLE_PUBLIC)) { include_once("unregistered.php"); return 0;}
 ?>
 
 <!--
@@ -33,8 +33,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updatePrograma();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="50" />
             </a>
-		    <span style="float:left;padding:10px" id="pb_header-infocabecera">Cabecera</span>
-			<span style="float:right" id="pb_header-texto">Programa de la Jornada</span>
+		    <span style="float:left;padding:10px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
+			<span style="float:right" id="pb_header-texto"><?php _e('Journey activities info'); ?></span>
 		</div>
 		<div id="pb_tabla" data-options="region:'center'">
             <table id="pb_programa-datagrid"></table>
@@ -47,7 +47,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
-addTooltip($('#pb_header-link').linkbutton(),"Actualizar informaci&aocute;n del programa");
+addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update schedule info on this journey"); ?>');
 
 $('#pb_programa-layout').layout({fit:true});
 $('#pb_programa-window').window({
@@ -83,7 +83,7 @@ $('#pb_programa-datagrid').datagrid({
         Jornada: workingData.jornada,
         Sesion: 0 // include every item o this jornada
     },
-    loadMsg: "Actualizando programa de la Jornada .....",
+    loadMsg: "<?php _e('Updating schedule time on this journey'); ?> ...",
     pagination: false,
     rownumbers: false,
     fitColumns: true,
@@ -94,12 +94,12 @@ $('#pb_programa-datagrid').datagrid({
         { field:'Prueba',	hidden:true },
         { field:'Jornada',	hidden:true },
         { field:'Manga',	hidden:true },
-        { field:'Horario',	width:'10%', sortable:false, align:'center',title:'Horario'},
-        { field:'Nombre',	width:'35%', sortable:false, align:'left',title:'Actividad'},
+        { field:'Horario',	width:'10%', sortable:false, align:'center',title:'<?php _e('Timetable'); ?>'},
+        { field:'Nombre',	width:'35%', sortable:false, align:'left',title:'<?php _e('Activity'); ?>'},
         { field:'Sesion',	hidden:true },
-        { field:'NombreSesion',width:'15%', sortable:false, align:'left',title:'Sesion - Ring', formatter: formatRing},
-        { field:'Participantes',width:'5%', sortable:false, align:'center',title:'# Equip.'},
-        { field:'Comentario',width:'30%', sortable:false, align:'right',title:'Observaciones'},
+        { field:'NombreSesion',width:'15%', sortable:false, align:'left',title:'<?php _e('Session - Ring'); ?>', formatter: formatRing},
+        { field:'Participantes',width:'5%', sortable:false, align:'center',title:'# <?php _e('Dogs');?>'},
+        { field:'Comentario',width:'30%', sortable:false, align:'right',title:'<?php _e('Comments'); ?>'},
         { field:'Categoria',hidden:true },
         { field:'Grado',	hidden:true }
     ]],

@@ -1,9 +1,14 @@
+<?php
+require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/../server/auth/Config.php");
+$config =Config::getInstance();
+?>
 <div id="access_denied-window" style="position:relative;width:550px;height:200px;padding:10px">
     <span style="float:left"><img src="/agility/images/sad_dog.png" alt="triste"/></span><h1>Acceso denegado</h1>
     <p>
-        La licencia actual no permite las operaciones de consulta y acceso p&uacute;blico.
+        <?php _e('Current license does not allow public (internet) access operations');?>
     </p><p>
-        Por favor, revise y -en su caso- actualice los datos de registro y licencia de la aplicaci&oacute;n
+        <?php _e('Please, review, and -if desired- update AgilityContest registration license data');?>
     </p>
 </div>
 

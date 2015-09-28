@@ -7,7 +7,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Public::parciales_eq3");
-if ( ! $am->allowed(ENABLE_PUBLIC)) { include_once("unregistered.html"); return 0;}
+if ( ! $am->allowed(ENABLE_PUBLIC)) { include_once("unregistered.php"); return 0;}
 ?>
 
 <!--
@@ -35,29 +35,29 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateParciales();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="50" />
             </a>
-            <span style="float:left;padding:10px" id="pb_header-infocabecera">Cabecera</span>
+            <span style="float:left;padding:10px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
             <span style="float:right;padding:10px" id="pb_header-texto">
-                Resultados provisionales<br/>
-                <label for="pb_enumerateParciales" style="font-size:0.7em;">Manga:</label>
+                <?php _e('Partial scores'); ?><br/>
+                <label for="pb_enumerateParciales" style="font-size:0.7em;"><?php _e('Round'); ?>:</label>
                 <select id="pb_enumerateParciales" style="width:200px"></select>
             </span><br/>
             <!-- Datos de TRS y TRM -->
             <table class="pb_trs">
                 <thead>
                 <tr>
-                    <th id="pb_parciales-NombreManga" colspan="2">(no hay manga seleccionada)</th>
-                    <th id="pb_parciales-Juez1" colspan="2" style="text-align:center">Juez 1:</th>
-                    <th id="pb_parciales-Juez2" colspan="2" style="text-align:center">Juez 2:</th>
+                    <th id="pb_parciales-NombreManga" colspan="2">(<?php _e('No round selected'); ?>)</th>
+                    <th id="pb_parciales-Juez1" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 1:</th>
+                    <th id="pb_parciales-Juez2" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 2:</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr style="text-align:right">
-                    <td>Datos de la manga:</td>
-                    <td id="pb_parciales-Distancia">Distancia:</td>
-                    <td id="pb_parciales-Obstaculos">Obst&aacute;culos:</td>
-                    <td id="pb_parciales-TRS">T.R.Standard:</td>
-                    <td id="pb_parciales-TRM">T.R.M&aacute;ximo:</td>
-                    <td id="pb_parciales-Velocidad">Velocidad:</td>
+                    <td><?php _e('Round data info'); ?>:</td>
+                    <td id="pb_parciales-Distancia"><?php _e('Distance'); ?>:</td>
+                    <td id="pb_parciales-Obstaculos"><?php _e('Obstacles'); ?>:</td>
+                    <td id="pb_parciales-TRS"><?php _e('Standard C. Time'); ?>:</td>
+                    <td id="pb_parciales-TRM"><?php _e('Maximum C. Time'); ?>:</td>
+                    <td id="pb_parciales-Velocidad"><?php _e('Speed'); ?>:</td>
                 </tr>
                 </tbody>
             </table>
@@ -73,7 +73,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
-addTooltip($('#pb_header-link').linkbutton(),"Actualizar datos de resultados parciales");
+addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update partial scores table"); ?>');
 $('#pb_parciales-layout').layout({fit:true});
 
 $('#pb_enumerateParciales').combogrid({
@@ -91,7 +91,7 @@ $('#pb_enumerateParciales').combogrid({
 	selectOnNavigation: true, // let use cursor keys to interactive select
 	columns: [[
 	   	    {field:'ID',hidden:true},
-			{field:'Nombre',title:'Resultados disponibles',width:50,align:'right'},
+			{field:'Nombre',title:'<?php _e('Available scores'); ?>',width:50,align:'right'},
 			{field:'Prueba',hidden:true},
 			{field:'Jornada',hidden:true},
 			{field:'Manga',hidden:true},
@@ -147,7 +147,7 @@ $('#pb_parciales-datagrid').datagrid({
         Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
         Operation: 'getResultados'
     },
-    loadMsg: "Actualizando resultados de la manga ...",
+    loadMsg: "<?php _e('Updating partial scores');?> ...",
     pagination: false,
     rownumbers: false,
     fitColumns: true,
@@ -162,24 +162,24 @@ $('#pb_parciales-datagrid').datagrid({
         { field:'Raza',		    hidden:true },
         { field:'Equipo',		hidden:true },
         { field:'NombreEquipo',	hidden:true },
-        { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
+        { field:'Dorsal',		width:'5%', align:'center', title: '<?php _e('Dorsal'); ?>'},
         { field:'LogoClub',		hidden:true},
-        { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
-        { field:'Nombre',		width:'10%', align:'center',  title: 'Nombre',formatter:formatBoldBig},
-        { field:'NombreGuia',	width:'15%', align:'right', title: 'Guia' },
-        { field:'NombreClub',	width:'12%', align:'right', title: 'Club' },
-        { field:'Categoria',	width:'4%', align:'center', title: 'Cat.' },
+        { field:'Licencia',		width:'5%%', align:'center',  title: '<?php _e('License'); ?>'},
+        { field:'Nombre',		width:'10%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBoldBig},
+        { field:'NombreGuia',	width:'15%', align:'right', title: '<?php _e('Handler'); ?>' },
+        { field:'NombreClub',	width:'12%', align:'right', title: '<?php _e('Club'); ?>' },
+        { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.' },
         { field:'Grado',	    hidden:true },
-        { field:'Faltas',		width:'4%', align:'center', title: 'Faltas'},
-        { field:'Rehuses',		width:'4%', align:'center', title: 'Rehuses'},
-        { field:'Tocados',		width:'4%', align:'center', title: 'Tocados'},
+        { field:'Faltas',		width:'4%', align:'center', title: '<?php _e('Fault'); ?>'},
+        { field:'Rehuses',		width:'4%', align:'center', title: '<?php _e('Refusal'); ?>'},
+        { field:'Tocados',		width:'4%', align:'center', title: '<?php _e('Touch'); ?>'},
         { field:'PRecorrido',	hidden:true },
-        { field:'Tiempo',		width:'6%', align:'right', title: 'Tiempo', formatter:formatTiempo},
+        { field:'Tiempo',		width:'6%', align:'right', title:   '<?php _e('Time'); ?>', formatter:formatTiempo},
         { field:'PTiempo',		hidden:true },
-        { field:'Velocidad',	width:'4%', align:'right', title: 'Vel.', formatter:formatVelocidad},
-        { field:'Penalizacion',	width:'6%%', align:'right', title: 'Penal.', formatter:formatPenalizacion},
-        { field:'Calificacion',	width:'7%', align:'center',title: 'Calificacion'},
-        { field:'Puesto',		width:'4%', align:'center',  title: 'Puesto', formatter:formatPuestoBig},
+        { field:'Velocidad',	width:'4%', align:'right', title:   '<?php _e('Vel'); ?>.', formatter:formatVelocidad},
+        { field:'Penalizacion',	width:'6%%', align:'right', title:  '<?php _e('Penal'); ?>.', formatter:formatPenalizacion},
+        { field:'Calificacion',	width:'7%', align:'center',title:   '<?php _e('Calification'); ?>'},
+        { field:'Puesto',		width:'4%', align:'center',  title: '<?php _e('Position'); ?>', formatter:formatPuestoBig},
         { field:'CShort',       hidden:true}
     ]],
     rowStyler:myRowStyler,

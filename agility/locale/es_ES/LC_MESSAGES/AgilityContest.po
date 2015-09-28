@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-28 09:23+0200\n"
-"PO-Revision-Date: 2015-09-28 09:23+0200\n"
+"POT-Creation-Date: 2015-09-28 11:17+0200\n"
+"PO-Revision-Date: 2015-09-28 11:25+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -41,7 +41,8 @@ msgstr "T"
 
 #: chrono/chrono.inc.php:61 console/frm_equipos.php:219
 #: console/frm_inscripciones2.php:190 public/pb_inscripciones.php:91
-#: public/pb_inscripciones_equipos.php:147
+#: public/pb_inscripciones_equipos.php:147 public/pb_ordensalida.php:151
+#: public/pb_parciales.php:162 public/pb_parciales_eq3.php:165
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72
@@ -59,7 +60,10 @@ msgstr "Perro"
 #: console/frm_clasificaciones_eq3.php:86 console/frm_equipos.php:79
 #: console/frm_equipos.php:224 console/frm_inscripciones2.php:195
 #: public/pb_finales.php:90 public/pb_finales_eq3.php:91
-#: tablet/tablet_main.php:78 tablet/tablet_main.php:262
+#: public/pb_inscripciones.php:98 public/pb_inscripciones_equipos.php:154
+#: public/pb_ordensalida.php:155 public/pb_parciales.php:166
+#: public/pb_parciales_eq3.php:169 tablet/tablet_main.php:78
+#: tablet/tablet_main.php:262
 msgid "Handler"
 msgstr "Gu&iacute;a"
 
@@ -69,7 +73,8 @@ msgstr "Gu&iacute;a"
 #: console/frm_guias.php:94 console/frm_inscripciones.php:78
 #: console/frm_inscripciones2.php:196 public/pb_finales.php:91
 #: public/pb_finales_eq3.php:92 public/pb_inscripciones.php:99
-#: public/pb_inscripciones_equipos.php:154
+#: public/pb_inscripciones_equipos.php:155 public/pb_ordensalida.php:156
+#: public/pb_parciales.php:167 public/pb_parciales_eq3.php:170
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72
@@ -86,14 +91,18 @@ msgstr "Categor&iacute;a"
 
 #: chrono/chrono.inc.php:66 console/frm_clubes.php:244
 #: console/frm_equipos.php:223 console/frm_guias.php:149
-#: console/frm_inscripciones2.php:194 tablet/tablet_main.php:84
+#: console/frm_inscripciones2.php:194 public/pb_inscripciones.php:97
+#: public/pb_inscripciones_equipos.php:153 public/pb_ordensalida.php:158
+#: public/pb_parciales.php:169 tablet/tablet_main.php:84
 #: tablet/tablet_main.php:265
 msgid "Grade"
 msgstr "Grado"
 
 #: chrono/chrono.inc.php:67 chrono/chrono.js.php:143
 #: console/frm_equipos.php:228 console/frm_inscripciones2.php:197
-#: tablet/tablet_main.php:86 tablet/tablet_main.php:261
+#: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:158
+#: public/pb_ordensalida.php:159 tablet/tablet_main.php:86
+#: tablet/tablet_main.php:261
 msgid "Heat"
 msgstr "Celo"
 
@@ -105,12 +114,14 @@ msgstr "Copia registrada para el club"
 msgid "Course walk"
 msgstr "Reconocimiento de pista"
 
-#: chrono/chrono.inc.php:87 tablet/tablet_main.php:49
+#: chrono/chrono.inc.php:87 public/pb_parciales.php:170
+#: public/pb_parciales_eq3.php:173 tablet/tablet_main.php:49
 #: tablet/tablet_main.php:50
 msgid "Fault"
 msgstr "Falta"
 
-#: chrono/chrono.inc.php:89 tablet/tablet_main.php:51
+#: chrono/chrono.inc.php:89 public/pb_parciales.php:171
+#: public/pb_parciales_eq3.php:174 tablet/tablet_main.php:51
 #: tablet/tablet_main.php:52
 msgid "Refusal"
 msgstr "Reh&uacute;se"
@@ -198,12 +209,15 @@ msgstr "Gu&iacute;a"
 #: console/frm_equipos.php:222 console/frm_equipos.php:293
 #: console/frm_guias.php:148 console/frm_inscripciones2.php:193
 #: public/pb_finales.php:88 public/pb_finales_eq3.php:90
-#: public/pb_inscripciones.php:96 public/pb_inscripciones_equipos.php:151
+#: public/pb_inscripciones.php:96 public/pb_inscripciones_equipos.php:87
+#: public/pb_inscripciones_equipos.php:152 public/pb_ordensalida.php:157
+#: public/pb_parciales.php:168 public/pb_parciales_eq3.php:171
 #: tablet/tablet_main.php:82 tablet/tablet_main.php:264
 msgid "Cat"
 msgstr "Cat"
 
 #: chrono/chrono.js.php:142 console/frm_equipos.php:89
+#: public/pb_inscripciones_equipos.php:86 public/pb_ordensalida.php:150
 #: tablet/tablet_main.php:258
 msgid "Team"
 msgstr "Equipo"
@@ -243,8 +257,11 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/frm_equipos.php:292 console/frm_guias.php:92
 #: console/frm_guias.php:147 console/frm_inscripciones.php:76
 #: console/frm_inscripciones2.php:191 public/pb_finales.php:86
-#: public/pb_finales_eq3.php:88 tablet/index.php:181 tablet/index.php:214
-#: tablet/tablet_main.php:76 tablet/tablet_main.php:260
+#: public/pb_finales_eq3.php:88 public/pb_inscripciones.php:93
+#: public/pb_inscripciones_equipos.php:149 public/pb_ordensalida.php:152
+#: public/pb_parciales.php:165 public/pb_parciales_eq3.php:168
+#: tablet/index.php:181 tablet/index.php:214 tablet/tablet_main.php:76
+#: tablet/tablet_main.php:260
 msgid "Name"
 msgstr "Nombre"
 
@@ -252,8 +269,9 @@ msgstr "Nombre"
 #: console/frm_clasificaciones_eq3.php:53 console/frm_clubes.php:160
 #: console/frm_equipos.php:142 console/frm_equipos.php:227
 #: console/frm_equipos.php:294 console/frm_guias.php:97
-#: console/frm_inscripciones2.php:59 tablet/index.php:182 tablet/index.php:218
-#: tablet/tablet_main.php:183
+#: console/frm_inscripciones2.php:59 public/pb_inscripciones_equipos.php:88
+#: public/pb_inscripciones_equipos.php:157 public/pb_programa.php:102
+#: tablet/index.php:182 tablet/index.php:218 tablet/tablet_main.php:183
 msgid "Comments"
 msgstr "Observaciones"
 
@@ -470,7 +488,8 @@ msgstr "Jornada"
 #: console/frm_clasificaciones_eq3.php:73
 #: console/frm_clasificaciones_eq3.php:74 public/pb_finales.php:76
 #: public/pb_finales.php:77 public/pb_finales_eq3.php:76
-#: public/pb_finales_eq3.php:77
+#: public/pb_finales_eq3.php:77 public/pb_parciales.php:41
+#: public/pb_parciales_eq3.php:41
 msgid "Round"
 msgstr "Manga"
 
@@ -489,7 +508,7 @@ msgstr "Clasificaci&oacute;n"
 #: console/frm_clasificaciones2.php:83 console/frm_clasificaciones_eq3.php:83
 #: console/frm_equipos.php:221 console/frm_inscripciones2.php:192
 #: public/pb_finales.php:87 public/pb_finales_eq3.php:89
-#: public/pb_inscripciones.php:95 public/pb_inscripciones_equipos.php:150
+#: public/pb_inscripciones.php:95 public/pb_inscripciones_equipos.php:151
 msgid "Lic"
 msgstr "Lic"
 
@@ -525,7 +544,8 @@ msgstr "Tmp"
 #: console/frm_clasificaciones_eq3.php:91
 #: console/frm_clasificaciones_eq3.php:97 public/pb_finales.php:95
 #: public/pb_finales.php:101 public/pb_finales_eq3.php:96
-#: public/pb_finales_eq3.php:102
+#: public/pb_finales_eq3.php:102 public/pb_parciales.php:176
+#: public/pb_parciales_eq3.php:179
 msgid "Vel"
 msgstr "Vel"
 
@@ -533,7 +553,8 @@ msgstr "Vel"
 #: console/frm_clasificaciones_eq3.php:92
 #: console/frm_clasificaciones_eq3.php:98 public/pb_finales.php:96
 #: public/pb_finales.php:102 public/pb_finales_eq3.php:97
-#: public/pb_finales_eq3.php:103
+#: public/pb_finales_eq3.php:103 public/pb_parciales.php:177
+#: public/pb_parciales_eq3.php:180 scripts/competicion.js.php:185
 msgid "Penal"
 msgstr "Penal"
 
@@ -550,8 +571,9 @@ msgstr "Cal"
 #: public/pb_finales.php:94 public/pb_finales.php:100
 #: public/pb_finales.php:104 public/pb_finales_eq3.php:95
 #: public/pb_finales_eq3.php:101 public/pb_finales_eq3.php:105
-#: tablet/tablet_main.php:94 tablet/tablet_main.php:181
-#: tablet/tablet_main.php:269
+#: public/pb_parciales.php:174 public/pb_parciales_eq3.php:177
+#: scripts/competicion.js.php:185 tablet/tablet_main.php:94
+#: tablet/tablet_main.php:181 tablet/tablet_main.php:269
 msgid "Time"
 msgstr "Tiempo"
 
@@ -783,14 +805,15 @@ msgstr "Cargando lista de perros"
 msgid "Registered dogs belonging to"
 msgstr "Lista de perros asignados a"
 
-#: console/frm_clubes.php:243 public/pb_inscripciones_equipos.php:87
-#: server/pdf/print_equiposByJornada.php:84
+#: console/frm_clubes.php:243 server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_resultadosByEquipos.php:83
 msgid "Cat."
 msgstr "Cat."
 
 #: console/frm_clubes.php:245 console/frm_guias.php:150
+#: public/pb_inscripciones.php:94 public/pb_inscripciones_equipos.php:150
+#: public/pb_ordensalida.php:153
 msgid "Breed"
 msgstr "Raza"
 
@@ -799,6 +822,8 @@ msgid "KC. dogID"
 msgstr "LOE / RRC"
 
 #: console/frm_clubes.php:247 console/frm_guias.php:152
+#: public/pb_ordensalida.php:154 public/pb_parciales.php:164
+#: public/pb_parciales_eq3.php:167
 msgid "License"
 msgstr "Licencia"
 
@@ -862,7 +887,7 @@ msgstr "Datos de la manga"
 msgid "Planning"
 msgstr "Programa"
 
-#: console/frm_competicion2.php:73
+#: console/frm_competicion2.php:73 public/pb_ordensalida.php:38
 msgid "Starting order"
 msgstr "Orden de salida"
 
@@ -1256,7 +1281,7 @@ msgstr "Gu&iacute;as"
 msgid "Dogs Database Management"
 msgstr "Gesti&oacute;n de datos de Perros"
 
-#: console/index.php:174
+#: console/index.php:174 public/pb_programa.php:101
 msgid "Dogs"
 msgstr "Perros"
 
@@ -1341,6 +1366,9 @@ msgid "About"
 msgstr "Acerca de"
 
 #: public/pb_finales.php:38 public/pb_finales_eq3.php:38
+#: public/pb_inscripciones.php:34 public/pb_inscripciones_equipos.php:34
+#: public/pb_ordensalida.php:36 public/pb_parciales.php:38
+#: public/pb_parciales_eq3.php:38 public/pb_programa.php:36
 msgid "Header"
 msgstr "Cabecera"
 
@@ -1354,11 +1382,14 @@ msgid "Series"
 msgstr "Manga"
 
 #: public/pb_finales.php:48 public/pb_finales_eq3.php:48
+#: public/pb_parciales.php:48 public/pb_parciales_eq3.php:48
 msgid "No round selected"
 msgstr "No se ha indicado ninguna manga"
 
 #: public/pb_finales.php:49 public/pb_finales.php:50
 #: public/pb_finales_eq3.php:49 public/pb_finales_eq3.php:50
+#: public/pb_parciales.php:49 public/pb_parciales.php:50
+#: public/pb_parciales_eq3.php:49 public/pb_parciales_eq3.php:50
 msgid "Judge"
 msgstr "Juez"
 
@@ -1369,26 +1400,31 @@ msgstr "Datos de la manga"
 
 #: public/pb_finales.php:54 public/pb_finales.php:62
 #: public/pb_finales_eq3.php:54 public/pb_finales_eq3.php:62
+#: public/pb_parciales.php:56 public/pb_parciales_eq3.php:56
 msgid "Distance"
 msgstr "Distancia"
 
 #: public/pb_finales.php:55 public/pb_finales.php:63
 #: public/pb_finales_eq3.php:55 public/pb_finales_eq3.php:63
+#: public/pb_parciales.php:57 public/pb_parciales_eq3.php:57
 msgid "Obstacles"
 msgstr "Obst&aacute;culos"
 
 #: public/pb_finales.php:56 public/pb_finales.php:64
 #: public/pb_finales_eq3.php:56 public/pb_finales_eq3.php:64
+#: public/pb_parciales.php:58 public/pb_parciales_eq3.php:58
 msgid "Standard C. Time"
 msgstr "T. R. Standard"
 
 #: public/pb_finales.php:57 public/pb_finales.php:65
 #: public/pb_finales_eq3.php:57 public/pb_finales_eq3.php:65
+#: public/pb_parciales.php:59 public/pb_parciales_eq3.php:59
 msgid "Maximum C. Time"
 msgstr "T. R. M&aacute;ximo"
 
 #: public/pb_finales.php:58 public/pb_finales.php:66
 #: public/pb_finales_eq3.php:58 public/pb_finales_eq3.php:66
+#: public/pb_parciales.php:60 public/pb_parciales_eq3.php:60
 msgid "Speed"
 msgstr "Velocidad"
 
@@ -1397,6 +1433,7 @@ msgid "Competitor data"
 msgstr "Datos del participante"
 
 #: public/pb_finales.php:107 public/pb_finales_eq3.php:108
+#: public/pb_parciales.php:179 public/pb_parciales_eq3.php:182
 msgid "Position"
 msgstr "Puesto"
 
@@ -1405,61 +1442,97 @@ msgid "Update scores"
 msgstr "Actualizar resultados"
 
 #: public/pb_finales.php:135 public/pb_finales_eq3.php:136
+#: public/pb_parciales.php:94 public/pb_parciales_eq3.php:94
 msgid "Available scores"
 msgstr "Resultados disponibles"
 
-#: public/pb_inscripciones.php:74 public/pb_inscripciones_equipos.php:131
-msgid "Leyendo inscripciones...."
-msgstr "Leyendo inscripciones...."
+#: public/pb_inscripciones.php:35 public/pb_inscripciones_equipos.php:35
+msgid "Inscription list"
+msgstr "Listado de inscritos"
 
-#: public/pb_inscripciones.php:93 public/pb_inscripciones_equipos.php:149
-#: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_ordenDeSalida.php:72
-#: server/pdf/print_resultadosByEquipos.php:83
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Nombre"
-msgstr "Nombre"
+#: public/pb_inscripciones.php:47 public/pb_inscripciones_equipos.php:47
+msgid "Update inscription list"
+msgstr "Actualizar listado de inscritos"
 
-#: public/pb_inscripciones.php:94 server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_ordenDeSalida.php:72
-msgid "Raza"
-msgstr "Raza"
+#: public/pb_inscripciones.php:74 public/pb_inscripciones_equipos.php:75
+#: public/pb_inscripciones_equipos.php:131
+msgid "Updating inscriptions"
+msgstr "Actualizando inscripciones"
 
-#: public/pb_inscripciones.php:97 public/pb_inscripciones_equipos.php:152
-#: server/pdf/print_inscritosByPrueba.php:547
-msgid "Grado"
-msgstr "Grado"
+#: public/pb_ordensalida.php:54 tablet/tablet_main.php:232
+msgid "Update starting order"
+msgstr "Actualizando orden de salida"
 
-#: public/pb_inscripciones.php:98 public/pb_inscripciones_equipos.php:153
-msgid "Gu&iacute;a"
-msgstr "Gu&iacute;a"
+#: public/pb_ordensalida.php:105
+msgid "List of rounds in this journey"
+msgstr "Lista de mangas de la jornada"
 
-#: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:157
-#: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_equiposByJornada.php:170
-#: server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_ordenDeSalida.php:72
-#: server/pdf/print_ordenDeSalida.php:176
-msgid "Celo"
-msgstr "Celo"
+#: public/pb_ordensalida.php:130
+msgid "Updating starting order"
+msgstr "Actualizando orden de salida"
 
-#: public/pb_inscripciones_equipos.php:75
-msgid "Actualizando lista de equipos"
-msgstr "Actualizando lista de equipos"
+#: public/pb_parciales.php:40 public/pb_parciales_eq3.php:40
+msgid "Partial scores"
+msgstr "Clasificaci&oacute;n parcial"
 
-#: public/pb_inscripciones_equipos.php:86
-#: server/database/classes/OrdenSalida.php:410
-msgid "Equipo"
-msgstr "Equipo"
+#: public/pb_parciales.php:55 public/pb_parciales_eq3.php:55
+msgid "Round data info"
+msgstr "Datos de la manga"
 
-#: public/pb_inscripciones_equipos.php:88
-#: public/pb_inscripciones_equipos.php:156
-#: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_ordenDeSalida.php:72
-msgid "Observaciones"
-msgstr "Observaciones"
+#: public/pb_parciales.php:76 public/pb_parciales_eq3.php:76
+msgid "Update partial scores table"
+msgstr "Actualizar resultados parciales"
+
+#: public/pb_parciales.php:147 public/pb_parciales_eq3.php:150
+msgid "Updating partial scores"
+msgstr "Actualizando resultados de la manga"
+
+#: public/pb_parciales.php:172 public/pb_parciales_eq3.php:175
+#: tablet/tablet_main.php:53 tablet/tablet_main.php:54
+msgid "Touch"
+msgstr "Tocado"
+
+#: public/pb_parciales.php:178 public/pb_parciales_eq3.php:181
+msgid "Calification"
+msgstr "Calificaci&oacute;n"
+
+#: public/pb_programa.php:37
+msgid "Journey activities info"
+msgstr "Programa de la jornada"
+
+#: public/pb_programa.php:50
+msgid "Update schedule info on this journey"
+msgstr "Actualizar programa de la jornada"
+
+#: public/pb_programa.php:86
+msgid "Updating schedule time on this journey"
+msgstr "Actualizando el programa de la jornada"
+
+#: public/pb_programa.php:97
+msgid "Timetable"
+msgstr "Horario"
+
+#: public/pb_programa.php:98 tablet/tablet_main.php:182
+msgid "Activity"
+msgstr "Actividad"
+
+#: public/pb_programa.php:100
+msgid "Session - Ring"
+msgstr "Sesi&oacute;n - Ring"
+
+#: public/unregistered.php:9
+msgid "Current license does not allow public (internet) access operations"
+msgstr ""
+"La licencia actual no permite las operaciones de consulta y acceso p&uacute;"
+"blico"
+
+#: public/unregistered.php:11
+msgid ""
+"Please, review, and -if desired- update AgilityContest registration license "
+"data"
+msgstr ""
+" Por favor, revise y -en su caso- actualice los datos de registro y licencia "
+"de la aplicaci&oacute;n"
 
 #: scripts/auth.js.php:34 scripts/auth.js.php:101
 msgid "Init session"
@@ -1573,6 +1646,10 @@ msgstr "Reasignar dorsales"
 msgid "Nueva Prueba"
 msgstr "Nueva Prueba"
 
+#: server/database/classes/OrdenSalida.php:410
+msgid "Equipo"
+msgstr "Equipo"
+
 #: server/pdf/print_clasificacion.php:132
 #: server/pdf/print_clasificacion_eq3.php:208
 #: server/pdf/print_clasificacion_eq4.php:212
@@ -1596,6 +1673,19 @@ msgstr "Entrada de datos (Equipos-4)"
 #: server/pdf/print_ordenDeSalida.php:72
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62
+msgid "Nombre"
+msgstr "Nombre"
+
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_ordenDeSalida.php:72
+msgid "Raza"
+msgstr "Raza"
+
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_ordenDeSalida.php:72
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62
 msgid "Lic."
 msgstr "Lic."
 
@@ -1607,9 +1697,27 @@ msgstr "Lic."
 msgid "Guía"
 msgstr "Guía"
 
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_equiposByJornada.php:170
+#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_ordenDeSalida.php:72
+#: server/pdf/print_ordenDeSalida.php:176
+msgid "Celo"
+msgstr "Celo"
+
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_ordenDeSalida.php:72
+msgid "Observaciones"
+msgstr "Observaciones"
+
 #: server/pdf/print_equiposByJornada.php:89
 msgid "Listado de Equipos"
 msgstr "Listado de Equipos"
+
+#: server/pdf/print_inscritosByPrueba.php:547
+msgid "Grado"
+msgstr "Grado"
 
 #: server/pdf/print_inscritosByPrueba.php:547
 msgid "Sab."
@@ -1760,10 +1868,6 @@ msgstr "No hay ninguna manga seleccionada"
 msgid "Activities on this journey"
 msgstr "Programa de la jornada"
 
-#: tablet/tablet_main.php:53 tablet/tablet_main.php:54
-msgid "Touch"
-msgstr "Tocado"
-
 #: tablet/tablet_main.php:60
 msgid "Not Present"
 msgstr "No Presentado"
@@ -1788,14 +1892,6 @@ msgstr "No Pr"
 msgid "Updating series order"
 msgstr "Actualizando orden de mangas"
 
-#: tablet/tablet_main.php:182
-msgid "Activity"
-msgstr "Actividad"
-
-#: tablet/tablet_main.php:232
-msgid "Update starting order"
-msgstr "Actualizando orden de salida"
-
 #: tablet/tablet_main.php:368
 msgid "Update session data"
 msgstr "Actualizar datos de la sesi&oacute;n"
@@ -1807,6 +1903,15 @@ msgstr "Indicar al crono comienzo/fin de reconocimiento de pista"
 #: tablet/tablet_main.php:370
 msgid "Activate data entry panel on selected dorsal"
 msgstr "Abrir el panel de entrada de datos para el dorsal seleccionado"
+
+#~ msgid "Leyendo inscripciones...."
+#~ msgstr "Leyendo inscripciones...."
+
+#~ msgid "Gu&iacute;a"
+#~ msgstr "Gu&iacute;a"
+
+#~ msgid "Actualizando lista de equipos"
+#~ msgstr "Actualizando lista de equipos"
 
 #~ msgid "Actualizando clasificaciones de la ronda..."
 #~ msgstr "Actualizando clasificaciones de la ronda..."

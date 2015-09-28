@@ -16,7 +16,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 /*********************************************** funciones de formateo de pantalla */
-
+<?php
+require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/../server/auth/Config.php");
+$config =Config::getInstance();
+?>
 /**
  * Presenta el logo en pantalla
  * @param {int} val nombre delo logo
@@ -47,7 +51,7 @@ function pb_getHeaderInfo() {
             Mode: workingData.mode
         },
         success: function(data,status,jqxhr) {
-            var str='Prueba: ' + data.Prueba.Nombre+" <br /> Jornada: "+ data.Jornada.Nombre;
+            var str='Prueba: ' + data.Prueba.Nombre+" <br /> <?php _e('Journey'); ?>: "+ data.Jornada.Nombre;
             $('#pb_header-infocabecera').html(str);
             // TODO: fix logo when undefined or invalid
             $('#pb_header-logo').attr('src','/agility/images/logos/'+data.Club.Logo);
@@ -157,14 +161,14 @@ function pb_updateParciales() {
         success: function(dat) {
             // informacion de la manga
             $('#pb_parciales-NombreManga').text(row.Nombre);
-            $('#pb_parciales-Juez1').text((dat['manga'].Juez1<=1)?"":'Juez 1: ' + dat['manga'].NombreJuez1);
-            $('#pb_parciales-Juez2').text((dat['manga'].Juez2<=1)?"":'Juez 2: ' + dat['manga'].NombreJuez2);
+            $('#pb_parciales-Juez1').text((dat['manga'].Juez1<=1)?"":'<?php _e('Judge');?> 1: ' + dat['manga'].NombreJuez1);
+            $('#pb_parciales-Juez2').text((dat['manga'].Juez2<=1)?"":'<?php _e('Judge');?> 2: ' + dat['manga'].NombreJuez2);
             // datos de TRS
-            $('#pb_parciales-Distancia').text('Distancia: ' + dat['trs'].dist + 'm.');
-            $('#pb_parciales-Obstaculos').text('Obstaculos: ' + dat['trs'].obst);
-            $('#pb_parciales-TRS').text('T.R.Standard: ' + dat['trs'].trs + 's.');
-            $('#pb_parciales-TRM').text('T.T.Maximo: ' + dat['trs'].trm + 's.');
-            $('#pb_parciales-Velocidad').text('Velocidad: ' + dat['trs'].vel + 'm/s');
+            $('#pb_parciales-Distancia').text('<?php _e('Distance');?>: ' + dat['trs'].dist + 'm.');
+            $('#pb_parciales-Obstaculos').text('<?php _e('Obstacles');?>: ' + dat['trs'].obst);
+            $('#pb_parciales-TRS').text('<?php _e('Standard C. Time');?>: ' + dat['trs'].trs + 's.');
+            $('#pb_parciales-TRM').text('<?php _e('Maximum C. Time');?>: ' + dat['trs'].trm + 's.');
+            $('#pb_parciales-Velocidad').text('<?php _e('Speed');?>: ' + dat['trs'].vel + 'm/s');
             // actualizar datagrid
             $('#pb_parciales-datagrid').datagrid('loadData',dat);
         }
@@ -200,22 +204,22 @@ function pb_updateFinales() {
             $('#pb_resultados_thead_m1').text(ronda.NombreManga1);
             $('#pb_resultados_thead_m2').text(ronda.NombreManga2);
             // datos de los jueces
-            $('#pb_finales-Juez1').text((dat['jueces'][0]=="-- Sin asignar --")?"":'Juez 1: ' + dat['jueces'][0]);
-            $('#pb_finales-Juez2').text((dat['jueces'][1]=="-- Sin asignar --")?"":'Juez 2: ' + dat['jueces'][1]);
+            $('#pb_finales-Juez1').text((dat['jueces'][0]=="-- Sin asignar --")?"":'<?php _e('Judge');?> 1: ' + dat['jueces'][0]);
+            $('#pb_finales-Juez2').text((dat['jueces'][1]=="-- Sin asignar --")?"":'<?php _e('Judge');?> 2: ' + dat['jueces'][1]);
             // datos de trs manga 1
             $('#pb_finales-Ronda1').text(ronda.NombreManga1);
-            $('#pb_finales-Distancia1').text('Distancia: ' + dat['trs1'].dist + 'm.');
-            $('#pb_finales-Obstaculos1').text('Obstaculos: ' + dat['trs1'].obst);
-            $('#pb_finales-TRS1').text('T.R.Standard: ' + dat['trs1'].trs + 's.');
-            $('#pb_finales-TRM1').text('T.T.Maximo: ' + dat['trs1'].trm + 's.');
-            $('#pb_finales-Velocidad1').text('Velocidad: ' + dat['trs1'].vel + 'm/s');
+            $('#pb_finales-Distancia1').text('<?php _e('Distance');?>: ' + dat['trs1'].dist + 'm.');
+            $('#pb_finales-Obstaculos1').text('<?php _e('Obstacles');?>: ' + dat['trs1'].obst);
+            $('#pb_finales-TRS1').text('<?php _e('Standard C. Time');?>: ' + dat['trs1'].trs + 's.');
+            $('#pb_finales-TRM1').text('<?php _e('Maximum C. Time');?>: ' + dat['trs1'].trm + 's.');
+            $('#pb_finales-Velocidad1').text('<?php _e('Speed');?>: ' + dat['trs1'].vel + 'm/s');
             // datos de trs manga 2
             $('#pb_finales-Ronda2').text(ronda.NombreManga2);
-            $('#pb_finales-Distancia2').text('Distancia: ' + dat['trs2'].dist + 'm.');
-            $('#pb_finales-Obstaculos2').text('Obstaculos: ' + dat['trs2'].obst);
-            $('#pb_finales-TRS2').text('T.R.Standard: ' + dat['trs2'].trs + 's.');
-            $('#pb_finales-TRM2').text('T.T.Maximo: ' + dat['trs2'].trm + 's.');
-            $('#pb_finales-Velocidad2').text('Velocidad: ' + dat['trs2'].vel + 'm/s');
+            $('#pb_finales-Distancia2').text('<?php _e('Distance');?>: ' + dat['trs2'].dist + 'm.');
+            $('#pb_finales-Obstaculos2').text('<?php _e('Obstacles');?>: ' + dat['trs2'].obst);
+            $('#pb_finales-TRS2').text('<?php _e('Standard C. Time');?>: ' + dat['trs2'].trs + 's.');
+            $('#pb_finales-TRM2').text('<?php _e('Maximum C. Time');?>: ' + dat['trs2'].trm + 's.');
+            $('#pb_finales-Velocidad2').text('<?php _e('Speed');?>: ' + dat['trs2'].vel + 'm/s');
             // clasificaciones
             $('#pb_resultados-datagrid').datagrid('loadData',dat);
 		}

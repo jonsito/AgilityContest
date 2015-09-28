@@ -7,7 +7,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Public::ordensalida");
-if ( ! $am->allowed(ENABLE_PUBLIC)) { include_once("unregistered.html"); return 0;}
+if ( ! $am->allowed(ENABLE_PUBLIC)) { include_once("unregistered.php"); return 0;}
 ?>
 <!--
 pb_ordensalida.inc
@@ -33,9 +33,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateOrdenSalida();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="50" />
             </a>
-		    <span style="float:left;padding:10px;" id="pb_header-infocabecera">Cabecera</span>
+		    <span style="float:left;padding:10px;" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
 			<span style="float:right;" id="pb_header-texto">
-                Orden de Salida<br />
+                <?php _e('Starting order'); ?><br />
                 <label for="pb_enumerateMangas">&nbsp;</label>
                 <select id="pb_enumerateMangas" style="width:200px"></select>
             </span>
@@ -51,7 +51,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
-addTooltip($('#pb_header-link').linkbutton(),"Actualizar orden de salida");
+addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update starting order"); ?>');
 $('#pb_ordensalida-layout').layout({fit:true});
 
 $('#pb_ordensalida-window').window({
@@ -102,7 +102,7 @@ $('#pb_enumerateMangas').combogrid({
         { field:'Sesion',	hidden:true },
         { field:'Tipo',	    hidden:true },
         { field:'Horario',	hidden:true },
-        { field:'Nombre',	width:150, sortable:false, align:'left',title:'Lista de Tandas de la jornada'},
+        { field:'Nombre',	width:150, sortable:false, align:'left',title:'<?php _e('List of rounds in this journey'); ?>'},
         { field:'Comentario', hidden:true}
     ]],
     rowStyler: myRowStyler,
@@ -127,7 +127,7 @@ $('#pb_ordensalida-datagrid').datagrid({
         Sesion: 1, // defaults to "-- sin asignar --"
         ID: 0 // Tanda 0 defaults to every tandas
     },
-    loadMsg: "Actualizando orden de salida ...",
+    loadMsg: "<?php _e('Updating starting order');?> ...",
     pagination: false,
     rownumbers: false,
     fitColumns: true,
@@ -147,16 +147,16 @@ $('#pb_ordensalida-datagrid').datagrid({
         { field:'Tanda',		width:0, hidden:true },
         { field:'Equipo',		width:0, hidden:true },
         { field:'Logo',     	width:'5%', align:'center',	title: '',formatter: formatLogoPublic },
-        { field:'NombreEquipo',	width:'12%', align:'center',title: 'Equipo',hidden:true},
-        { field:'Dorsal',		width:'5%', align:'center',	title: 'Dorsal', styler:checkPending },
-        { field:'Nombre',		width:'15%', align:'center',title: 'Nombre',formatter: formatBoldBig},
-        { field:'Raza',         width:'12%', align:'center',title: 'Raza' },
-        { field:'Licencia',		width:'5%', align:'center',	title: 'Licencia'},
-        { field:'NombreGuia',	width:'23%', align:'right',	title: 'Guia' },
-        { field:'NombreClub',	width:'19%', align:'right',	title: 'Club' },
-        { field:'Categoria',	width:'4%', align:'center',	title: 'Categ.' },
-        { field:'Grado',		width:'4%', align:'center',	title: 'Grado' },
-        { field:'Celo',			width:'4%', align:'center',	title: 'Celo', formatter:formatCelo },
+        { field:'NombreEquipo',	width:'12%', align:'center',title: '<?php _e('Team'); ?>',hidden:true},
+        { field:'Dorsal',		width:'5%', align:'center',	title: '<?php _e('Dorsal'); ?>', styler:checkPending },
+        { field:'Nombre',		width:'15%', align:'center',title: '<?php _e('Name'); ?>',formatter: formatBoldBig},
+        { field:'Raza',         width:'12%', align:'center',title: '<?php _e('Breed'); ?>' },
+        { field:'Licencia',		width:'5%', align:'center',	title: '<?php _e('License'); ?>'},
+        { field:'NombreGuia',	width:'23%', align:'right',	title: '<?php _e('Handler'); ?>' },
+        { field:'NombreClub',	width:'19%', align:'right',	title: '<?php _e('Club'); ?>' },
+        { field:'Categoria',	width:'4%', align:'center',	title: '<?php _e('Cat'); ?>.' },
+        { field:'Grado',		width:'4%', align:'center',	title: '<?php _e('Grade'); ?>' },
+        { field:'Celo',			width:'4%', align:'center',	title: '<?php _e('Heat'); ?>', formatter:formatCelo },
         { field:'Observaciones',width:0, hidden:true }
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css

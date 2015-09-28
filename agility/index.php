@@ -63,7 +63,7 @@ require_once(__DIR__. "/server/upgradeVersion.php");
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/auth.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/public/public.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/public/public.js.php" type="text/javascript" charset="utf-8" > </script>
 <script type="text/javascript" charset="utf-8">
 
 /* not really needed for public access, but stay here for compatibility */
