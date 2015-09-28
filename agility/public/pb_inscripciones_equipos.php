@@ -31,8 +31,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateInscripciones_eq3();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="50" />
             </a>
-		    <span style="float:left;padding:10px" id="pb_header-infocabecera">Cabecera</span>
-			<span style="float:right;" id="pb_header-texto">Listado de inscritos</span>
+		    <span style="float:left;padding:10px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
+			<span style="float:right;" id="pb_header-texto"><?php _e('Inscription list'); ?></span>
 		</div>
 		<div id="pb_inscripciones-data" data-options="region:'center'" >
 			<table id="pb_inscripciones_eq3-datagrid"></table>
@@ -44,7 +44,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div> <!-- pb_inscripciones-window -->
 
 <script type="text/javascript">
-addTooltip($('#pb_header-link').linkbutton(),"Actualizar listado de inscritos");
+addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update inscription list"); ?>');
 $('#pb_inscripciones-layout').layout({fit:true});
 $('#pb_inscripciones-window').window({
 	fit:true,
@@ -72,7 +72,7 @@ $('#pb_inscripciones_eq3-datagrid').datagrid({
     fit: true,
     url: '/agility/server/database/equiposFunctions.php',
     queryParams: { Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''	},
-    loadMsg: "<?php _e('Actualizando lista de equipos');?> ...",
+    loadMsg: "<?php _e('Updating inscriptions');?> ...",
     method: 'get',
     mode: 'remote',
     multiSort: true,
@@ -83,9 +83,9 @@ $('#pb_inscripciones_eq3-datagrid').datagrid({
         { field:'Prueba',		hidden:true },
         { field:'Jornada',		hidden:true },
         { field:'Orden',		hidden:true },
-        { field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Equipo');?>' },
-        { field:'Categorias',	width:10, sortable:true,	title: '<?php _e('Cat.');?>' },
-        { field:'Observaciones',width:65, sortable:true,	title: '<?php _e('Observaciones');?>'},
+        { field:'Nombre',		width:20, sortable:true,	title: '<?php _e('Team');?>' },
+        { field:'Categorias',	width:10, sortable:true,	title: '<?php _e('Cat');?>.' },
+        { field:'Observaciones',width:65, sortable:true,	title: '<?php _e('Comments');?>'},
         { field:'Miembros',		hidden:true },
         { field:'DefaultTeam',	width:5, sortable:false,	align: 'center', title: 'Def', formatter:formatOk }
     ]],
@@ -128,7 +128,7 @@ function showInscripcionesByTeam(index,team){
         rownumbers: false,
         fitColumns: true,
         singleSelect: true,
-        loadMsg: '<?php _e('Leyendo inscripciones....');?>',
+        loadMsg: '<?php _e('Updating inscriptions');?> ...',
         url: '/agility/server/database/inscripcionFunctions.php',
         queryParams: { Operation: 'inscritosbyteam', Prueba:workingData.prueba, Jornada:workingData.jornada, Equipo: team.ID },
         method: 'get',
@@ -144,17 +144,18 @@ function showInscripcionesByTeam(index,team){
             { field:'Club',		hidden:true }, // Club ID
             { field:'LOE_RRC',	hidden:true }, // LOE/RRC
             { field:'Club',		hidden:true }, // Club ID
-            { field:'Dorsal',	    width:'10%',        sortable:false, align: 'center',	title: '<?php _e('Dorsal'); ?>',formatter:formatDorsal },
+            { field:'Dorsal',	    width:'5%',        sortable:false, align: 'center',	title: '<?php _e('Dorsal'); ?>',formatter:formatDorsal },
             { field:'Logo',	        width:'7%',        sortable:false, align: 'center',	title: '',formatter:formatLogoPublic },
-            { field:'Nombre',	    width:'15%',       sortable:false, align: 'center',	title: '<?php _e('Nombre'); ?>',formatter:formatBoldBig },
-            { field:'Licencia',	    width:'10%',        sortable:false, align: 'center',title: '<?php _e('Lic');    ?>' },
-            { field:'Categoria',    width:'5%',        sortable:false, align: 'center',title: '<?php _e('Cat');    ?>' },
-            // { field:'Grado',	width:6,        sortable:false, align: 'center',title: '<?php _e('Grado');  ?>' },
-            { field:'NombreGuia',	width:'20%',   sortable:false, align: 'right',	title: '<?php _e('Gu&iacute;a'); ?>' },
+            { field:'Nombre',	    width:'15%',       sortable:false, align: 'center',	title: '<?php _e('Name'); ?>',formatter:formatBoldBig },
+            { field:'Raza',	        width:'15%',        sortable:false, align: 'center',title: '<?php _e('Breed');    ?>' },
+            { field:'Licencia',	    width:'7%',        sortable:false, align: 'center',title: '<?php _e('Lic');    ?>' },
+            { field:'Categoria',    width:'3%',        sortable:false, align: 'center',title: '<?php _e('Cat');    ?>' },
+            // { field:'Grado',	width:6,        sortable:false, align: 'center',title: '<?php _e('Grade');  ?>' },
+            { field:'NombreGuia',	width:'18%',   sortable:false, align: 'right',	title: '<?php _e('Handler'); ?>' },
             { field:'NombreClub',	width:'18%',   sortable:false, align: 'right',	title: '<?php _e('Club');   ?>' },
             { field:'NombreEquipo',	hidden:true },
-            { field:'Observaciones',width:'10%',                                   title: '<?php _e('Observaciones');?>' },
-            { field:'Celo',		    width:'5%', align:'center', formatter: formatCelo,	title: '<?php _e('Celo');   ?>' }
+            { field:'Observaciones',width:'7%',                                   title: '<?php _e('Comments');?>' },
+            { field:'Celo',		    width:'5%', align:'center', formatter: formatCelo,	title: '<?php _e('Heat');   ?>' }
         ]],
         // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
         rowStyler:myRowStyler,
