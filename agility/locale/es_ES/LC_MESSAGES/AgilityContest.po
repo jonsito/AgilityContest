@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-28 19:42+0200\n"
-"PO-Revision-Date: 2015-09-28 19:43+0200\n"
+"POT-Creation-Date: 2015-09-28 20:47+0200\n"
+"PO-Revision-Date: 2015-09-28 20:49+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -44,7 +44,7 @@ msgstr "T"
 #: console/frm_inscripciones2.php:190 public/pb_inscripciones.php:91
 #: public/pb_inscripciones_equipos.php:147 public/pb_ordensalida.php:151
 #: public/pb_parciales.php:162 public/pb_parciales_eq3.php:165
-#: server/pdf/print_equiposByJornada.php:84
+#: scripts/competicion.js.php:1459 server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72
 #: server/pdf/print_resultadosByEquipos.php:83
@@ -58,6 +58,7 @@ msgid "Dorsal"
 msgstr "Dorsal"
 
 #: chrono/chrono.inc.php:62 console/frm_equipos.php:69
+#: scripts/competicion.js.php:1459
 msgid "Dog"
 msgstr "Perro"
 
@@ -67,12 +68,13 @@ msgstr "Perro"
 #: public/pb_finales.php:90 public/pb_finales_eq3.php:91
 #: public/pb_inscripciones.php:98 public/pb_inscripciones_equipos.php:154
 #: public/pb_ordensalida.php:155 public/pb_parciales.php:166
-#: public/pb_parciales_eq3.php:169 tablet/tablet_main.php:78
-#: tablet/tablet_main.php:262 videowall/videowall.js.php:163
-#: videowall/vw_combinada.php:133 videowall/vw_combinada.php:190
-#: videowall/vw_livestream.php:62 videowall/vw_llamada.php:101
-#: videowall/vw_ordensalida.php:105 videowall/vw_parciales.php:127
-#: videowall/vwls_ordensalida.php:133 videowall/vwls_parciales.php:153
+#: public/pb_parciales_eq3.php:169 scripts/competicion.js.php:1459
+#: tablet/tablet_main.php:78 tablet/tablet_main.php:262
+#: videowall/videowall.js.php:163 videowall/vw_combinada.php:133
+#: videowall/vw_combinada.php:190 videowall/vw_livestream.php:62
+#: videowall/vw_llamada.php:101 videowall/vw_ordensalida.php:105
+#: videowall/vw_parciales.php:127 videowall/vwls_ordensalida.php:133
+#: videowall/vwls_parciales.php:153
 msgid "Handler"
 msgstr "Gu&iacute;a"
 
@@ -84,7 +86,7 @@ msgstr "Gu&iacute;a"
 #: public/pb_finales_eq3.php:92 public/pb_inscripciones.php:99
 #: public/pb_inscripciones_equipos.php:155 public/pb_ordensalida.php:156
 #: public/pb_parciales.php:167 public/pb_parciales_eq3.php:170
-#: server/pdf/print_equiposByJornada.php:84
+#: scripts/competicion.js.php:1459 server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72
 #: server/pdf/print_resultadosByEquipos.php:83
@@ -150,7 +152,13 @@ msgstr "Reh&uacute;se"
 msgid "Eliminated"
 msgstr "Eliminado"
 
-#: chrono/chrono.inc.php:93
+#: chrono/chrono.inc.php:93 scripts/common.js.php:156
+#: scripts/common.js.php:320 scripts/common.js.php:332
+#: scripts/common.js.php:344 scripts/common.js.php:359
+#: scripts/competicion.js.php:573 scripts/competicion.js.php:602
+#: scripts/competicion.js.php:873 scripts/competicion.js.php:1118
+#: scripts/competicion.js.php:1132 scripts/competicion.js.php:1478
+#: scripts/competicion.js.php:1535
 msgid "Error"
 msgstr "Error"
 
@@ -206,7 +214,8 @@ msgstr "Simular fallo de alineamiento de sensores"
 msgid "Reset chronometer. Set count to zero"
 msgstr "Reset del cron&oacute;metro. Poner contadores a cero"
 
-#: chrono/chrono.js.php:110 tablet/tablet_main.php:100
+#: chrono/chrono.js.php:110 scripts/competicion.js.php:42
+#: tablet/tablet_main.php:100
 msgid "Elim"
 msgstr "Elim"
 
@@ -241,8 +250,8 @@ msgstr "Cat"
 
 #: chrono/chrono.js.php:142 console/frm_equipos.php:89
 #: public/pb_inscripciones_equipos.php:86 public/pb_ordensalida.php:150
-#: tablet/tablet_main.php:258 videowall/vw_ordensalida.php:100
-#: videowall/vwls_ordensalida.php:128
+#: scripts/competicion.js.php:133 tablet/tablet_main.php:258
+#: videowall/vw_ordensalida.php:100 videowall/vwls_ordensalida.php:128
 msgid "Team"
 msgstr "Equipo"
 
@@ -513,7 +522,8 @@ msgid "Organizing Club"
 msgstr "Club anfitri&oacute;n"
 
 #: console/frm_clasificaciones2.php:41 console/frm_clasificaciones_eq3.php:41
-#: index.php:147 public/public.js.php:54 tablet/index.php:150
+#: index.php:147 public/public.js.php:54 scripts/competicion.js.php:1142
+#: tablet/index.php:150
 msgid "Journey"
 msgstr "Jornada"
 
@@ -592,7 +602,8 @@ msgstr "Vel"
 #: console/frm_clasificaciones_eq3.php:98 public/pb_finales.php:96
 #: public/pb_finales.php:102 public/pb_finales_eq3.php:97
 #: public/pb_finales_eq3.php:103 public/pb_parciales.php:177
-#: public/pb_parciales_eq3.php:180 scripts/competicion.js.php:185
+#: public/pb_parciales_eq3.php:180 scripts/competicion.js.php:135
+#: scripts/competicion.js.php:185 scripts/competicion.js.php:228
 #: videowall/vw_combinada.php:144 videowall/vw_parciales.php:138
 #: videowall/vwls_parciales.php:164
 msgid "Penal"
@@ -612,7 +623,8 @@ msgstr "Cal"
 #: public/pb_finales.php:104 public/pb_finales_eq3.php:95
 #: public/pb_finales_eq3.php:101 public/pb_finales_eq3.php:105
 #: public/pb_parciales.php:174 public/pb_parciales_eq3.php:177
-#: scripts/competicion.js.php:185 tablet/tablet_main.php:94
+#: scripts/competicion.js.php:134 scripts/competicion.js.php:185
+#: scripts/competicion.js.php:228 tablet/tablet_main.php:94
 #: tablet/tablet_main.php:181 tablet/tablet_main.php:269
 #: videowall/vw_combinada.php:141 videowall/vw_parciales.php:135
 #: videowall/vwls_parciales.php:161
@@ -935,16 +947,17 @@ msgid "Planning"
 msgstr "Programa"
 
 #: console/frm_competicion2.php:73 index.php:154 public/pb_ordensalida.php:38
-#: videowall/index.php:173 videowall/index.php:182
-#: videowall/vw_ordensalida.php:36 videowall/vwls_ordensalida.php:56
+#: scripts/competicion.js.php:1149 videowall/index.php:173
+#: videowall/index.php:182 videowall/vw_ordensalida.php:36
+#: videowall/vwls_ordensalida.php:56
 msgid "Starting order"
 msgstr "Orden de salida"
 
-#: console/frm_competicion2.php:76
+#: console/frm_competicion2.php:76 scripts/competicion.js.php:1156
 msgid "Data entry"
 msgstr "Introducci&oacute;n de datos"
 
-#: console/frm_competicion2.php:79
+#: console/frm_competicion2.php:79 scripts/competicion.js.php:1162
 msgid "Round results"
 msgstr "Resultados de la manga"
 
@@ -1670,7 +1683,7 @@ msgid "Be aware of making a backup copy before continue<br/><br/>"
 msgstr "Asegurese de hacer una copia de seguridad antes de seguir<br/><br/>"
 
 #: scripts/admin.js.php:88 scripts/admin.js.php:166 scripts/admin.js.php:185
-msgid "To continue enter administrator password and press<em>Accept</em>"
+msgid "To continue enter administrator password and press <em>Accept</em>"
 msgstr ""
 "Para proceder, introduzca la contrase&ntilde;a del usuario administrador y "
 "pulse<em>Aceptar</em>"
@@ -1766,7 +1779,7 @@ msgstr ""
 #: scripts/admin.js.php:203
 msgid ""
 "To proceed with AgilityContest update, enter administrator password and "
-"press<em>Accept</em>"
+"press <em>Accept</em>"
 msgstr ""
 "Para proceder con la actualizaci&oacute;n, introduzca la contrase&ntilde;a "
 "del usuario administrador y pulse<em>Aceptar</em>"
@@ -1788,7 +1801,7 @@ msgid "Check for Upgrades"
 msgstr "Buscar actualizaciones"
 
 #: scripts/admin.js.php:233
-msgid "<p>AgilityContest is upto date</p>"
+msgid "<p>AgilityContest is up to date</p>"
 msgstr "<p>AgilityContest est&aacute; actualizado</p>"
 
 #: scripts/admin.js.php:236
@@ -1855,6 +1868,84 @@ msgstr "Licencia"
 msgid "Licensing data successfully loaded"
 msgstr "Datos de la licencia actualizados correctamente"
 
+#: scripts/clubes.js.php:125
+msgid "Edit Error"
+msgstr "Error de edici&oacute;n"
+
+#: scripts/clubes.js.php:125 scripts/clubes.js.php:181
+msgid "There is no club selected"
+msgstr "No hay ning&uacute;n club seleccionado"
+
+#: scripts/clubes.js.php:133
+msgid "Modify club data"
+msgstr "Editar datos del club"
+
+#: scripts/clubes.js.php:181 scripts/clubes.js.php:185
+msgid "Delete Error"
+msgstr "Error de borrado"
+
+#: scripts/clubes.js.php:185
+msgid "This entry cannot be erased"
+msgstr "Esta entrada no se puede borrar"
+
+#: scripts/clubes.js.php:188 scripts/competicion.js.php:1047
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: scripts/clubes.js.php:188
+msgid "Clear club"
+msgstr "Borrar club"
+
+#: scripts/clubes.js.php:188
+msgid "from database. Sure?"
+msgstr "de la base de datos. ¿Seguro?"
+
+#: scripts/common.js.php:156
+msgid "LoadConfig(): cannot retrieve configuration from server"
+msgstr ""
+"LoadConfig(): no puedo recuperar la configuraci&oacute;n desde el servidor"
+
+#: scripts/competicion.js.php:43
+msgid "N.P."
+msgstr "N.P."
+
+#: scripts/competicion.js.php:576
+msgid "Data exported"
+msgstr "Datos exportados"
+
+#: scripts/competicion.js.php:576
+msgid "Judge data exported to all rounds"
+msgstr "Datos de jueces exportados a todas las mangas"
+
+#: scripts/competicion.js.php:605
+msgid "Data saved"
+msgstr "Datos guardados"
+
+#: scripts/competicion.js.php:605
+msgid "Data on current round stored"
+msgstr "Datos de la manga guardados"
+
+#: scripts/competicion.js.php:653
+msgid "OK"
+msgstr "OK"
+
+#: scripts/competicion.js.php:653
+msgid "There are no dogs from same handler close together"
+msgstr ""
+"No se encuentran perros del mismo gu&iacute;a demasiado pr&oacute;ximos"
+
+#: scripts/competicion.js.php:655
+msgid "Proximity alert"
+msgstr "Aviso de proximidad"
+
+#: scripts/competicion.js.php:655
+msgid "List of handlers with dogs so close together"
+msgstr "Lista de gu&iacute;as con perros demasiado juntos"
+
+#: scripts/competicion.js.php:697 scripts/competicion.js.php:717
+msgid "Busy"
+msgstr "Ocupado"
+
 #: scripts/competicion.js.php:697
 msgid "Cannot update: a cell is being edited"
 msgstr "No se puede actualizar: hay una edici&oacute;n activa"
@@ -1863,9 +1954,81 @@ msgstr "No se puede actualizar: hay una edici&oacute;n activa"
 msgid "Cannot reset: a cell is being edited"
 msgstr "No se puede borrar: hay una edici&oacute;n activa"
 
+#: scripts/competicion.js.php:720
+msgid "Youll lost <strong>EVERY</strong> inserted results"
+msgstr "Se perder&aacute;n <strong>TODOS</strong> los datos de la manga"
+
+#: scripts/competicion.js.php:721
+msgid "in every categories on this round"
+msgstr "en todas las categor&iacute;as de esta manga"
+
+#: scripts/competicion.js.php:722
+msgid "Do you really want to continue?"
+msgstr "Realmende desea continuar?"
+
 #: scripts/competicion.js.php:723
 msgid "Erase results"
 msgstr "Borrar resultados"
+
+#: scripts/competicion.js.php:766
+msgid "Not found"
+msgstr "No encontrado"
+
+#: scripts/competicion.js.php:766
+msgid "Cannot find dog with dorsal"
+msgstr "No encuentro al perro con dorsal"
+
+#: scripts/competicion.js.php:873
+msgid "Internal error: invalid Federation/Course/Category combination"
+msgstr ""
+"Error interno: combinaci&oacute;n de Federacion/Recorrido/Categor&iacute;a "
+"inv&aacute;lida"
+
+#: scripts/competicion.js.php:990 scripts/competicion.js.php:993
+#: scripts/competicion.js.php:996 scripts/competicion.js.php:1392
+#: scripts/competicion.js.php:1402 scripts/competicion.js.php:1422
+msgid "Combined L+M+S"
+msgstr "Conjunta L+M+S"
+
+#: scripts/competicion.js.php:990 scripts/competicion.js.php:993
+#: scripts/competicion.js.php:1393 scripts/competicion.js.php:1406
+#: scripts/competicion.js.php:1423
+msgid "Combined L+M+S+T"
+msgstr "Conjunta L+M+S+T"
+
+#: scripts/competicion.js.php:996 scripts/competicion.js.php:1394
+#: scripts/competicion.js.php:1424
+msgid "Combined 6+5+4+3"
+msgstr "Conjunta 3+4+5+6"
+
+#: scripts/competicion.js.php:1047
+msgid "Every changes done till now will be lost<br />Continue?"
+msgstr "Se perder&aacute;n todos los ajustes hechos hasta ahora<br/>Continuar?"
+
+#: scripts/competicion.js.php:1132
+msgid "There is no round selected"
+msgstr "No se ha indicado ninguna manga"
+
+#: scripts/competicion.js.php:1458
+msgid "<strong>These dogs are pending to provide course data in round"
+msgstr ""
+"<strong>Hay perros pendientes de introducci&oacute;n de datos en la manga"
+
+#: scripts/competicion.js.php:1478 scripts/competicion.js.php:1535
+msgid "There is no selected round for this journey"
+msgstr "No hay ninguna manga seleccionada en la jornada"
+
+#: scripts/competicion.js.php:1498 scripts/competicion.js.php:1520
+msgid "Verify OK"
+msgstr "Verificaci&oacute;n correcta"
+
+#: scripts/competicion.js.php:1498 scripts/competicion.js.php:1520
+msgid "No dogs found without their course results"
+msgstr "No se han encontrado perros sin datos de la manga"
+
+#: scripts/competicion.js.php:1522
+msgid "Verify Error"
+msgstr "Error al verificar"
 
 #: scripts/equipos.js.php:158
 msgid "Debe seleccionar una jornada con competiciones por equipos"
@@ -2246,6 +2409,9 @@ msgstr "Orden"
 #: videowall/vwls_ordensalida.php:135
 msgid "Categ"
 msgstr "Categ"
+
+#~ msgid "Tm"
+#~ msgstr "Eq"
 
 #~ msgid "Round Data"
 #~ msgstr "Datos de la manga"

@@ -122,7 +122,7 @@ function editClub(dg){
 	if ($('#clubes-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Update Error:","!No ha seleccionado ningún Club!","warning");
+    	$.messager.alert("<?php _e('Edit Error');?>:",'<?php _e("There is no club selected"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
     row.Operation='update';
@@ -130,7 +130,7 @@ function editClub(dg){
     var time=new Date().getTime();
 	var nombre="/agility/server/database/clubFunctions.php?Operation=getlogo&ID="+row.ID+"&time="+time;
     $('#clubes-Logo').attr("src",nombre);
-    $('#clubes-dialog').dialog('open').dialog('setTitle','Modificar datos del club');
+    $('#clubes-dialog').dialog('open').dialog('setTitle','<?php _e('Modify club data'); ?>');
     $('#clubes-form').form('load',row);
     // set up federation checkboxes
     $('#clubes-RSCE').prop('checked',( (row.Federations & 1)!=0)?true:false);
@@ -178,14 +178,14 @@ function saveClub(){
 function deleteClub(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Club!","warning");
+    	$.messager.alert("<?php _e('Delete Error');?>:",'<?php _e("There is no club selected"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
     if (row.ID==1) {
-    	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
+    	$.messager.alert("<?php _e('Delete Error');?>:",'<?php _e("This entry cannot be erased"); ?>',"error");
     	return; // cannot delete default club
     }
-    $.messager.confirm('Confirm','Borrar el club "'+row.Nombre+'" de la base de datos ¿Seguro?',function(r){
+    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Clear club');?> "'+row.Nombre+'" <?php _e('from database. Sure?');?>',function(r){
         if (!r) return;
         $.get('/agility/server/database/clubFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){

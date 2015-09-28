@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =Config::getInstance();
+?>
+
 if (typeof String.prototype.startsWith != 'function') {
     String.prototype.startsWith = function (str){
         return this.slice(0, str.length) == str;
@@ -147,7 +153,7 @@ function loadConfiguration() {
 			if ( typeof (config.program_name) !== "undefined") {
 				ac_config=config;
 			} else {
-				$.messager.alert("Error","LoadConfig(): cannot retrieve configuration from server","error")
+				$.messager.alert('<?php _e("Error"); ?>','<?php _e("LoadConfig(): cannot retrieve configuration from server"); ?>',"error")
 			}
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
@@ -311,7 +317,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 		dataType: 'json',
 		data: {Operation: 'getbyid', Jornada: jornada, Manga: manga},
 		success: function (data) {
-			if (data.errorMsg) {$.messager.alert("Error:", data.errorMsg, "error");	return false; }
+			if (data.errorMsg) {$.messager.alert('<?php _e("Error"); ?>', data.errorMsg, "error");	return false; }
 			setManga(data);
 			return false;
 		}
@@ -323,7 +329,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 			dataType: 'json',
 			data: {Operation: 'getbyid', Prueba: prueba, ID: jornada},
 			success: function (data) {
-				if (data.errorMsg) { $.messager.alert("Error:", data.errorMsg, "error"); return false; }
+				if (data.errorMsg) { $.messager.alert('<?php _e("Error"); ?>', data.errorMsg, "error"); return false; }
 				setJornada(data);
 				return false;
 			}
@@ -335,7 +341,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 				dataType: 'json',
 				data: {Operation: 'enumerate', Prueba: prueba, Jornada: jornada},
 				success: function (teams) {
-					if (teams.errorMsg) { $.messager.alert("Error:", teams.errorMsg, "error"); return false; }
+					if (teams.errorMsg) { $.messager.alert('<?php _e("Error"); ?>', teams.errorMsg, "error"); return false; }
 					workingData.teamsByJornada = {};
 					$.each(teams.rows, function (idx, row) {
 						workingData.teamsByJornada[row.ID] = row;
@@ -350,7 +356,7 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 					dataType: 'json',
 					data: {Operation: 'getbyid', ID: prueba},
 					success: function (prueba) {
-						if (prueba.errorMsg) { $.messager.alert("Error:", prueba.errorMsg, "error"); return false; }
+						if (prueba.errorMsg) { $.messager.alert('<?php _e("Error"); ?>', prueba.errorMsg, "error"); return false; }
 						// store prueba data
 						setPrueba(prueba);
 						return false; // prevent default fireup of event trigger

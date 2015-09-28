@@ -39,8 +39,8 @@ function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5em;fon
 function formatVelocidad(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFloat(val).toFixed(1); }
 function formatTiempo(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFloat(val).toFixed(2); }
 function formatPenalizacion(val,row,idx) { return parseFloat(val).toFixed(2); }
-function formatEliminado(val,row,idx) { return (row.Eliminado==0)?"":"Elim"; }
-function formatNoPresentado(val,row,idx) { return (row.NoPresentado==0)?"":"N.P."; }
+function formatEliminado(val,row,idx) { return (row.Eliminado==0)?"":'<?php _e("Elim"); ?>'; }
+function formatNoPresentado(val,row,idx) { return (row.NoPresentado==0)?"":'<?php _e("N.P."); ?>'; }
 
 /* formaters para el frm_clasificaciones */
 function formatPuestoFinal(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=200)?"-":val)+'</span>'; }
@@ -130,9 +130,9 @@ function formatTeamResultsConsole( value , rows ) {
     }
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
     return '<div class="vw_equipos3" style="width:640px">'+
-        '<span style="width:35%;text-align:left;">Eq: '+value+'</span>' +
-        '<span style="width:25%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</span>' +
-        '<span style="width:25%;text-align:right;">Penaliz.:'+(penal).toFixed(2)+'</span>'+
+        '<span style="width:35%;text-align:left;"><?php _e('Team'); ?>: '+value+'</span>' +
+        '<span style="width:25%;text-align:right;"><?php _e('Time'); ?>: '+(time).toFixed(2)+'</span>' +
+        '<span style="width:25%;text-align:right;"><?php _e('Penal'); ?>.:'+(penal).toFixed(2)+'</span>'+
         '<span style="width:15%;text-align:right;font-size:1.5em">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
 }
@@ -210,7 +210,7 @@ function formatTeamClasificacionesConsole(value,rows) {
     (manga1.perros).sort(sortResults);
     (manga2.perros).sort(sortResults);
     // y sumamos los tres/cuatro primeros ( 3Mejores/Conjunta ) resultados
-    for (var n=0;n<tmode;n++) {
+    for (n=0;n<tmode;n++) {
         manga1.time +=parseFloat(manga1.perros[n].time);
         manga1.penal +=parseFloat(manga1.perros[n].penal);
         manga2.time +=parseFloat(manga2.perros[n].time);
@@ -225,7 +225,7 @@ function formatTeamClasificacionesConsole(value,rows) {
         '<span style="width:30%;text-align:left;"> Eq: '+value+'</span>' +
         '<span > T1: '+(manga1.time).toFixed(2)+' - P1: '+(manga1.penal).toFixed(2)+'</span>'+
         '<span > T2: '+(manga2.time).toFixed(2)+' - P2: '+(manga2.penal).toFixed(2)+'</span>'+
-        '<span style="width:20%;"> Time: '+(time).toFixed(2)+' - Penal: '+(penal).toFixed(2)+'</span>'+
+        '<span style="width:20%;"> <?php _e('Time'); ?>: '+(time).toFixed(2)+' - <?php _e('Penal');?>: '+(penal).toFixed(2)+'</span>'+
         '<span style="width:10%;text-align:right;">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
 }
@@ -570,10 +570,10 @@ function dmanga_shareJuez() {
         dataType: 'json',
         success: function (result) {
             if (result.hasOwnProperty('errorMsg')){
-            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+            	$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
             } else {// on submit success, reload results
     			var recorrido=$("input:radio[name=Recorrido]:checked").val();
-    			$.messager.alert('Data saved','Exportados los datos de jueces','info');
+    			$.messager.alert('<?php _e('Data exported'); ?>','<?php _e('Judge data exported to all rounds'); ?>','info');
     			workingData.datosManga.Recorrido=recorrido;
     			setupResultadosWindow(recorrido);
             }
@@ -599,10 +599,10 @@ function save_manga(id) {
         dataType: 'json',
         success: function (result) {
             if (result.hasOwnProperty('errorMsg')){
-            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+            	$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
             } else {// on submit success, reload results
     			var recorrido=$("input:radio[name=Recorrido]:checked").val();
-    			$.messager.alert('Data saved','Datos de la manga almacenados','info');
+    			$.messager.alert('<?php _e('Data saved'); ?>','<?php _e('Data on current round stored'); ?>','info');
     			workingData.datosManga.Recorrido=recorrido;
     			setupResultadosWindow(recorrido);
             }
@@ -650,9 +650,9 @@ function proximityAlert() {
 	}
 	// arriving here means work done
 	if (lista==="<br />") {
-		$.messager.alert('Correcto','No aparecen perros del mismo gu&uiacute;a pro&oacute;ximos','info');
+		$.messager.alert('<?php _e('OK'); ?>','<?php _e('There are no dogs from same handler close together'); ?>','info');
 	} else {
-		var w=$.messager.alert('Alerta de proximidad','<p>Lista de gu&iacute;as con perros demasiado juntos:</p><p>'+lista+'</p>','warning');
+		var w=$.messager.alert('<?php _e('Proximity alert'); ?>','<p>'+'<?php _e('List of handlers with dogs so close together'); ?>'+':</p><p>'+lista+'</p>','warning');
 		w.window('resize',{width:350}).window('center');
 	}
 }
@@ -694,7 +694,7 @@ function reloadCompeticion() {
 	if (workingData.manga==0) return;
 	// si hay alguna celda en edicion, ignorar
 	if ($('#competicion-datagrid').datagrid('options').editIndex!=-1) {
-        $.messager.alert("Busy",'<?php _e("Cannot update: a cell is being edited"); ?>',"error");
+        $.messager.alert('<?php _e("Busy"); ?>','<?php _e("Cannot update: a cell is being edited"); ?>',"error");
         return;
     }
     $('#competicion-datagrid').datagrid(
@@ -714,12 +714,12 @@ function resetCompeticion() {
     if (workingData.manga==0) return;
     // si hay alguna celda en edicion, ignorar
     if ($('#competicion-datagrid').datagrid('options').editIndex!=-1) {
-        $.messager.alert("Busy",'<?php _e("Cannot reset: a cell is being edited"); ?>',"error");
+        $.messager.alert('<?php _e("Busy"); ?>','<?php _e("Cannot reset: a cell is being edited"); ?>',"error");
         return;
     }
-    msg='Se perderan <strong>TODOS</strong> los datos introducidos<br />'+
-        'en todas las categorias de esta manga<br />'+
-        'Realmente desae continuar ?';
+    msg='<?php _e('Youll lost <strong>EVERY</strong> inserted results'); ?>'+'<br />'+
+        '<?php _e('in every categories on this round'); ?>'+'<br />'+
+        '<?php _e('Do you really want to continue?'); ?>';
     $.messager.confirm('<?php _e("Erase results");?>', msg, function(r){
         if (!r) return;
         $.ajax({
@@ -763,7 +763,7 @@ function competicionSelectByDorsal() {
     if (dorsal >= 0) {
         var idx = dg.datagrid('getRowIndex', dorsal);
         if (idx < 0) {
-            $.messager.alert("No encontrado", "No encuentro el perro con el dorsal "+dorsal, "error");
+            $.messager.alert('<?php _e("Not found"); ?>', '<?php _e("Cannot find dog with dorsal"); ?>'+" "+dorsal, "error");
             return false;
         }
         dg.datagrid('scrollTo', {
@@ -870,7 +870,7 @@ function reloadParcial(val,fill) {
 	var value=parseInt(val); // stupid javascript!!
 	var mode=getMangaMode(workingData.datosPrueba.RSCE,workingData.datosManga.Recorrido,value);
 	if (mode==-1) {
-		$.messager.alert('Error','Internal error: invalid RSCE/Recorrido/Categoria combination','error');
+		$.messager.alert('<?php _e('Error'); ?>','<?php _e('Internal error: invalid Federation/Course/Category combination'); ?>','error');
 		return;
 	}
     workingData.teamCounter=1; // reset team's puesto counter
@@ -987,13 +987,13 @@ function setupResultadosWindow(recorrido) {
     	// ajustar textos
     	switch(fed) {
     		case 0:
-    	    	$('#resultadosmanga-LargeLbl').html((fed==0)?"Conjunta L+M+S":"Conjunta L+M+S+T");
+    	    	$('#resultadosmanga-LargeLbl').html((fed==0)?'<?php _e("Combined L+M+S"); ?>':'<?php _e("Combined L+M+S+T"); ?>');
     			break;
     		case 1:
-    	    	$('#resultadosmanga-LargeLbl').html((fed==0)?"Conjunta L+M+S":"Conjunta L+M+S+T");
+    	    	$('#resultadosmanga-LargeLbl').html((fed==0)?'<?php _e("Combined L+M+S"); ?>':'<?php _e("Combined L+M+S+T"); ?>');
     			break;
     		case 2:
-    	    	$('#resultadosmanga-LargeLbl').html((fed==0)?"Conjunta L+M+S":"Conjunta 6+5+4+3");
+    	    	$('#resultadosmanga-LargeLbl').html((fed==0)?'<?php _e("Combined L+M+S"); ?>':'<?php _e("Combined 6+5+4+3"); ?>');
     			break;
     	}
     	$('#resultadosmanga-MediumLbl').html("&nbsp;");
@@ -1044,7 +1044,7 @@ function evalOrdenSalida(mode) {
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
 	if (mode==='random') {
-		$.messager.confirm('Confirmar', 'Se perderan todos los ajustes hechos a mano<br />Desea continuar?', function(r){
+		$.messager.confirm('<?php _e('Confirm'); ?>', '<?php _e('Every changes done till now will be lost<br />Continue?'); ?>', function(r){
 			if (!r) return;
 			$.ajax({
 				type:'GET',
@@ -1115,7 +1115,7 @@ function dragAndDropOrdenTandas(from,to,where) {
 		},
 		success: function (result) {
 				if (result.errorMsg){ 
-					$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+					$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
 				}
 				reloadOrdenTandas();
 		}
@@ -1129,7 +1129,7 @@ function competicionDialog(name) {
 	// obtenemos datos de la manga seleccionada
 	var row= $('#competicion-listamangas').datagrid('getSelected');
     if (!row && name!== 'ordentandas') {
-    	$.messager.alert('Error','No hay ninguna manga seleccionada','info');
+    	$.messager.alert('<?php _e('Error'); ?>','<?php _e('There is no round selected'); ?>','info');
     	return; // no hay ninguna manga seleccionada. retornar
     }
     var title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada;
@@ -1139,27 +1139,27 @@ function competicionDialog(name) {
     $('#resultadosmanga-dialog').dialog('close');
     if (name==='ordentandas') {
         // abrimos ventana de dialogo
-        $('#ordentandas-dialog').dialog('open').dialog('setTitle',"Jornada: "+title);
+        $('#ordentandas-dialog').dialog('open').dialog('setTitle',' <?php _e("Journey"); ?>'+": "+title);
         // cargamos ventana de orden de salida
         reloadOrdenTandas();
     }
     title = workingData.nombrePrueba + ' -- ' + workingData.nombreJornada + ' -- ' + workingData.nombreManga;
     if (name==='ordensalida') {
         var display= (isJornadaEq3() || isJornadaEq4())?"inline-block":"none";
-        $('#ordensalida-dialog').dialog('open').dialog('setTitle'," Orden de Salida: "+title);
+        $('#ordensalida-dialog').dialog('open').dialog('setTitle',' <?php _e("Starting order"); ?>'+": "+title);
         $('#ordensalida-eqBtn').css('display',display);
         // cargamos ventana de orden de salida
         reloadOrdenSalida();
     }
     if (name==='competicion') {
         // abrimos ventana de dialogo
-        $('#competicion-dialog').dialog('open').dialog('setTitle'," Entrada de datos: "+title);
+        $('#competicion-dialog').dialog('open').dialog('setTitle',' <?php _e("Data entry"); ?>'+": "+title);
         // cargamos ventana de entrada de datos
         reloadCompeticion();
     }
     if (name==='resultadosmanga') {
         // abrimos ventana de dialogo
-        $('#resultadosmanga-dialog').dialog('open').dialog('setTitle'," Resultados de la manga: "+title);
+        $('#resultadosmanga-dialog').dialog('open').dialog('setTitle',' <?php _e("Round results"); ?>'+": "+title);
         // iniciamls ventana de presentacion de resultados parciales acorde al tipo de prueba (RSCE/RFEC) y recorrido
         setupResultadosWindow(row.Recorrido);
         // marcamos la primera opcion como seleccionada
@@ -1389,9 +1389,9 @@ function resultados_doSelectRonda(row) {
     	$('#datos_manga1-TinyRow').css('display','none');
     	
     	switch(fed){
-    	case 0:	$('#datos_manga1-LargeLbl').html('Conjunta L+M+S');	break;
-    	case 1:	$('#datos_manga1-LargeLbl').html('Conjunta L+M+S+T'); break;
-    	case 2:	$('#datos_manga1-LargeLbl').html('Conjunta 6+5+4+3'); break;
+    	case 0:	$('#datos_manga1-LargeLbl').html('<?php _e('Combined L+M+S'); ?>');	break;
+    	case 1:	$('#datos_manga1-LargeLbl').html('<?php _e('Combined L+M+S+T'); ?>'); break;
+    	case 2:	$('#datos_manga1-LargeLbl').html('<?php _e('Combined 6+5+4+3'); ?>'); break;
     	}
     	$('#datos_manga1-MediumLbl').html("&nbsp;");
     	$('#datos_manga1-SmallLbl').html("&nbsp;");
@@ -1399,11 +1399,11 @@ function resultados_doSelectRonda(row) {
     	if (fed==0) {
     		resultados_fillForm(resultados,row.Manga1,'1',4);
     		$('#resultados-selectCategoria').combobox('loadData',
-    				[{mode:4,text:'Conjunta L+M+S',selected:true}]);
+    				[{mode:4,text:'<?php _e('Combined L+M+S'); ?>',selected:true}]);
     	} else {
     		resultados_fillForm(resultados,row.Manga1,'1',8);
     		$('#resultados-selectCategoria').combobox('loadData',
-    				[{mode:8,text:'Conjunta L+M+S+T',selected:true}]);
+    				[{mode:8,text:'<?php _e('Combined L+M+S+T'); ?>',selected:true}]);
     	}
     	// Manga 2
 		if (row.Manga2<=0) {
@@ -1419,9 +1419,9 @@ function resultados_doSelectRonda(row) {
 	    	$('#datos_manga2-TinyRow').css('display','none');
 	    	
 	    	switch(fed){
-	    	case 0:	$('#datos_manga2-LargeLbl').html('Conjunta L+M+S');	break;
-	    	case 1:	$('#datos_manga2-LargeLbl').html('Conjunta L+M+S+T'); break;
-	    	case 2:	$('#datos_manga2-LargeLbl').html('Conjunta 6+5+4+3'); break;
+	    	case 0:	$('#datos_manga2-LargeLbl').html('<?php _e('Combined L+M+S'); ?>');	break;
+	    	case 1:	$('#datos_manga2-LargeLbl').html('<?php _e('Combined L+M+S+T'); ?>'); break;
+	    	case 2:	$('#datos_manga2-LargeLbl').html('<?php _e('Combined 6+5+4+3'); ?>'); break;
 	    	}
 	    	$('#datos_manga2-MediumLbl').html("&nbsp;");
 	    	$('#datos_manga2-SmallLbl').html("&nbsp;");
@@ -1455,8 +1455,8 @@ function resultados_doSelectRonda(row) {
 }
 
 function verifyCompose(data,manga,nombre) {
-	var str="<strong>Perros pendientes de introducci&oacute;n de datos en manga "+manga+" ( "+nombre+" )</strong>";
-	str +="<table><tr><th>Dorsal</th><th>Perro</th><th>Gu&iacute;a</th><th>Club</th></tr>";
+	var str='<?php _e("<strong>These dogs are pending to provide course data in round"); ?> '+manga+" ( "+nombre+" )</strong>";
+	str +="<table><tr><th><?php _e('Dorsal'); ?></th><th><?php _e('Dog');?></th><th><?php _e('Handler');?></th><th><?php _e('Club');?></th></tr>";
 	// componemos mensaje de error
 	$.each(
 		data['rows'],
@@ -1475,7 +1475,7 @@ function verifyClasificaciones() {
 	var str1="";
 	var str2="";
 	if (ronda==null) {
-    	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+    	$.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round for this journey"); ?>',"warning");
     	return false; // no way to know which ronda is selected
 	}
 	// verificamos manga 1
@@ -1495,7 +1495,7 @@ function verifyClasificaciones() {
 			if (ronda.Manga2==0) {
 				// no hay segunda manga
 				if (str1==="") {
-					$.messager.alert("Verify OK","No se han encontrado perros sin datos registrados","info");
+					$.messager.alert('<?php _e("Verify OK"); ?>','<?php _e("No dogs found without their course results"); ?>',"info");
 				} else {
 					var w=$.messager.alert("Verify Error",str1,"error");
 					w.window('resize',{width:600}).window('center');
@@ -1517,9 +1517,9 @@ function verifyClasificaciones() {
 				success: function(data) {
 					if (parseInt(data['total'])!=0) str2=verifyCompose(data,ronda.Manga2,ronda.NombreManga2);
 					if (str1==="" && str2==="") {
-						$.messager.alert("Verify OK","No se han encontrado perros sin datos registrados","info");
+						$.messager.alert('<?php _e("Verify OK"); ?>','<?php _e("No dogs found without their course results"); ?>',"info");
 					} else {
-						var w=$.messager.alert("Verify Error",str1+str2,"error");
+						var w=$.messager.alert('<?php _e("Verify Error"); ?>',str1+str2,"error");
 						w.window('resize',{width:600}).window('center');
 					}
 				}
@@ -1532,7 +1532,7 @@ function verifyClasificaciones() {
 function reloadClasificaciones() {
 	var ronda=$('#resultados-info-ronda').combogrid('grid').datagrid('getSelected');
 	if (ronda==null) {
-    	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+    	$.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round for this journey"); ?>',"warning");
     	return; // no way to know which ronda is selected
 	}
     workingData.teamCounter=1; // reset team's puesto counter

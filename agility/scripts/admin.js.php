@@ -85,7 +85,7 @@ function restoreDatabase(){
     var l1='<?php _e("<strong>Notice:</strong><br/>"); ?>';
     var l2='<?php _e("This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>. before trying restore<br/>"); ?>';
     var l3='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';
-    var l4='<?php _e("To continue enter administrator password and press<em>Accept</em>"); ?>';
+    var l4='<?php _e("To continue enter administrator password and press <em>Accept</em>"); ?>';
     if (!checkForAdmin()) return;
     if ($('#tools-restoreFile').val()=="") {
         $.messager.alert("Restore",'<?php _e("You should specify an <em>.sql</em> file with a previous backup"); ?>',"error");
@@ -163,7 +163,7 @@ function clearDatabase(){
         '<?php _e("Including contests, inscriptions, scores, judges, dogs, handlers and clubs<br/>"); ?>' +
         '<?php _e("This is intended to be used ONLY as a previous step from importing new data from Excel file<br/> "); ?>';
     var l3='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';
-    var l4='<?php _e("To continue enter administrator password and press<em>Accept</em>"); ?>';
+    var l4='<?php _e("To continue enter administrator password and press <em>Accept</em>"); ?>';
     if (!checkForAdmin()) return;
     $.messager.password('<?php _e('Factory Reset'); ?>',l1+l2+l3+l4 , function(pass){
         if (pass){
@@ -182,7 +182,7 @@ function removePruebas(){
     var l1='<?php _e("<strong>Notice:</strong><br/>"); ?>';
     var l2='<?php _e("This operation WILL ERASE every contests,"); ?>';
     var l3='<?php _e("inscriptions and scores from data base<br/><br/>"); ?>';
-    var l4='<?php _e("To continue enter administrator password and press<em>Accept</em>"); ?>';
+    var l4='<?php _e("To continue enter administrator password and press <em>Accept</em>"); ?>';
     if (!checkForAdmin()) return;
     $.messager.password('<?php _e('Erase contests'); ?>',l1+l2+l3+l4, function(pass){
         if (pass){
@@ -200,7 +200,7 @@ function removePruebas(){
 function askForUpgrade(msg){
     var l1='<?php _e("<strong>Notice:</strong><br/>"); ?>';
     var l2='<?php _e("Be aware of making a backup copy before continue<br/><br/>"); ?>';
-    var l3='<?php _e("To proceed with AgilityContest update, enter administrator password and press<em>Accept</em>"); ?>';
+    var l3='<?php _e("To proceed with AgilityContest update, enter administrator password and press <em>Accept</em>"); ?>';
     if (!checkForAdmin()) return;
     $.messager.password('<?php _e('Update AgilityContest'); ?>',msg+l1+l2+l3 , function(pass) {
         if (pass) {
@@ -230,7 +230,7 @@ function checkForUpgrades() {
                 return;
             }
             if (data.version_date==ac_config.version_date) {
-                msg = msg +'<?php _e("<p>AgilityContest is upto date</p>"); ?>';
+                msg = msg +'<?php _e("<p>AgilityContest is up to date</p>"); ?>';
                 $.messager.alert("Version Info",msg,"info");
             }
             msg = msg +"<p>"+'<?php _e("Last Version"); ?>'+": "+data.version_name+"<br />"+'<?php _e('Last Release');?>'+": "+data.version_date+"</p>";
