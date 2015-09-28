@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =Config::getInstance();
+?>
+
 //***** gestion de sesiones	*********************************************************
 
 /**
@@ -24,7 +30,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  *@param {function} onAccept what to do when a new Session is created
  */
 function newSession(dg,def,onAccept){
-	$('#sesiones-dialog').dialog('open').dialog('setTitle','Nueva Sesi&oacute;n'); // open dialog
+	$('#sesiones-dialog').dialog('open').dialog('setTitle','<?php _e('New session'); ?>'); // open dialog
 	$('#sesiones-form').form('clear');// clear old data (if any)
 	if (!strpos(def,"Buscar")) $('#sesiones-Nombre').val(def);// fill session Name
 	$('#sesiones-Operation').val('insert');// set up operation
@@ -42,17 +48,17 @@ function editSession(dg){
 	if ($('#sesiones-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","!No ha seleccionado ninguna sesi&oacute;n!","warning");
+    	$.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no session selected"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
     if (row.ID<=1) {
-        $.messager.alert("Delete Error:","Esta entrada no se puede editar","error");
+        $.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("This entry cannot be modified"); ?>',"error");
         return; // cannot delete default session
     }
     // set up operation properly
     row.Operation='update';
     // open dialog
-    $('#sesiones-dialog').dialog('open').dialog('setTitle','Modificar datos de la sesi&oacute;n');
+    $('#sesiones-dialog').dialog('open').dialog('setTitle','<?php _e('Modify session data'); ?>');
     // and fill form with row data
     $('#sesiones-form').form('load',row);
 	$('#sesiones-Logout').linkbutton('enable'); // let us logout user from session
@@ -71,7 +77,7 @@ function saveSession(){
         dataType: 'json',
         success: function (result) {
             if (result.errorMsg){
-                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
+                $.messager.show({ width:300, height:200, title: '<?php _e('Error'); ?>', msg: result.errorMsg });
             } else {
                 $('#sesiones-dialog').dialog('close');        // close the dialog
                 $('#sesiones-datagrid').datagrid('reload');    // reload the session data
@@ -87,14 +93,14 @@ function saveSession(){
 function deleteSession(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ninguna Sesi&oacute;n!","info");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no session selected"); ?>',"warning");
     	return; // no way to know which session is selected
     }
     if (row.ID<=2) {
-    	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
     	return; // cannot delete default session
     }
-    $.messager.confirm('Confirm','Eliminar la sesi&oacute;n:'+row.Nombre+'\n ¿Seguro?',function(r){
+    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete session'); ?>'+':'+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){
       	if (!r) return;
         $.get('/agility/server/database/sessionFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
@@ -121,17 +127,17 @@ function session_sequences() {
 function resetSession(dg) {
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ninguna Sesi&oacute;n!","info");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no session selected"); ?>',"warning");
     	return; // no way to know which session is selected
     }
-    $.messager.confirm('Confirm','Borrar historial de eventos de la sesi&oacute;n:'+row.Nombre+'\n ¿Seguro?',function(r){
+    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete event history on session'); ?>'+':'+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){
       	if (!r) return;
         $.get('/agility/server/database/sessionFunctions.php',{Operation:'reset',ID:row.ID},function(result){
             if (result.success){
                 $(dg).datagrid('reload');    // reload the session data
             } else {
             	// show error message
-                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
+                $.messager.show({width:300,height:200,title:'<?php _e( 'Error'); ?>',msg: result.errorMsg});
             }
         },'json');
     });

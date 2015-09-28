@@ -15,17 +15,23 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =Config::getInstance();
+?>
+
 //***** gestion de usuarios		*********************************************************
 
 function formatPermissions(val,row,idx) {
 	switch (row.Perms) {
 	case "0": return 'Root';
-	case "1": return 'Administrador';
-	case "2": return 'Operador';
-	case "3": return 'Asistente';
+	case "1": return '<?php _e('Administrator'); ?>';
+	case "2": return '<?php _e('Operator'); ?>';
+	case "3": return '<?php _e('Assistant'); ?>';
 	case "4": 
-	case "5": return 'Invitado';
-	default: return 'Desconocido';
+	case "5": return '<?php _e('Guest'); ?>';
+	default: return '<?php _e('Unknown'); ?>';
 	}
 }
 
@@ -36,7 +42,7 @@ function formatPermissions(val,row,idx) {
  *@param {function} onAccept what to do when a new User is created
  */
 function newUser(dg,def,onAccept){
-	$('#usuarios-dialog').dialog('open').dialog('setTitle','Nuevo usuario'); // open dialog
+	$('#usuarios-dialog').dialog('open').dialog('setTitle','<?php _e('New user'); ?>'); // open dialog
 	$('#usuarios-form').form('clear');// clear old data (if any)
 	if (!strpos(def,"Buscar")) $('#usuarios-Nombre').val(def);// fill user Name
 	$('#usuarios-Operation').val('insert');// set up operation
@@ -52,13 +58,13 @@ function editUser(dg){
 	if ($('#usuarios-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","!No ha seleccionado ningún Usuario!","warning");
+    	$.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no user selected"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
     // set up operation properly
     row.Operation='update';
     // open dialog
-    $('#usuarios-dialog').dialog('open').dialog('setTitle','Modificar datos del usuario');
+    $('#usuarios-dialog').dialog('open').dialog('setTitle','<?php _e('Modify user data'); ?>');
     // and fill form with row data
     $('#usuarios-form').form('load',row);
 	$('#usuarios-passwdBtn').linkbutton('enable');
@@ -77,7 +83,7 @@ function saveUser(){
         dataType: 'json',
         success: function (result) {
             if (result.errorMsg){
-                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
+                $.messager.show({ width:300, height:200, title: '<?php _e('Error'); ?>', msg: result.errorMsg });
             } else {
                 $('#usuarios-dialog').dialog('close');        // close the dialog
                 $('#usuarios-datagrid').datagrid('reload');    // reload the user data
@@ -93,14 +99,14 @@ function saveUser(){
 function deleteUser(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Usuario!","info");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no user selected"); ?>',"warning");
     	return; // no way to know which user is selected
     }
     if (row.ID==1) {
-    	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
     	return; // cannot delete default user
     }
-    $.messager.confirm('Confirm','Borrar datos del usuario:'+row.Login+'\n ¿Seguro?',function(r){
+    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete data on user'); ?>'+': '+row.Login+'\n '+'<?php _e('Sure?'); ?>',function(r){
       	if (!r) return;
         $.get('/agility/server/database/userFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
@@ -116,7 +122,7 @@ function deleteUser(dg){
 function setPassword(dg) {
 	var row = $(dg).datagrid('getSelected');
 	if (!row) {
-		$.messager.alert("Delete Error:","!No ha seleccionado ningún Usuario!","info");
+		$.messager.alert('<?php _e("Password Error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
 		return; // no way to know which user is selected
 	}
 	if (authInfo.Perms<=1) { 
@@ -126,7 +132,7 @@ function setPassword(dg) {
 		// else if current user != selected user forbid operation
 		$('#password-SameUser').css('display','inherit');
 		if (authInfo.ID != row.ID) { 
-			$.messager.alert("Permisos insuficientes:","Solo un administrador puede cambiar la contrase&ntilde;a de otro usuario","error");
+			$.messager.alert('<?php _e("Not enought permissions"); ?>','<?php _e("Only admin users can change passwords on another user"); ?>',"error");
 			return;
 		}
 	}
@@ -141,7 +147,7 @@ function savePassword() {
 	var np=$('#password-NewPassword').val();
 	var np2=$('#password-NewPassword2').val();
 	if (np!=np2) {
-		$.messager.show({ width:300, height:200, title: 'Error', msg: 'Las contrase&ntilde;as no coinciden' });
+		$.messager.show({ width:300, height:200, title: '<?php _e('Error'); ?>', msg: '<?php _e('Passwords does not match'); ?>' });
 		return;
 	}
     $.ajax({
@@ -163,7 +169,7 @@ function savePassword() {
             if (result.errorMsg){
                 $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
             } else {
-            	$.messager.alert('Info', 'Contrase&ntilde;a cambiada correctamente','info');
+            	$.messager.alert('<?php _e('Info'); ?>', '<?php _e('Password changed successfully'); ?>','info');
             }
         	$('#password-dialog').dialog('close');
         }

@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =Config::getInstance();
+?>
+
 //***** gestion de actividades (programa de la jornada)	*********************************************************
 
 /**
@@ -29,7 +35,7 @@ function newTanda(dg,def,onAccept){
 	var insertID=0;
 	if (row) insertID=row.ID;
 	 // open dialog
-	$('#ordentandas_newtanda-dialog').dialog('open').dialog('setTitle','Nueva Actividad');
+	$('#ordentandas_newtanda-dialog').dialog('open').dialog('setTitle','<?php _e('New activity'); ?>');
 	// en nueva entrada, el nombre debe ser editable
 	$('#ordentandas_nt-Nombre').textbox('readonly',false);
 	// limpiamos formularios y ponemos valores por defecto para nueva entrada
@@ -51,7 +57,7 @@ function newTanda(dg,def,onAccept){
 function editTanda(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","!No ha seleccionado ninguna actividad","warning");
+    	$.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no activity selected"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
     // set up operation properly
@@ -59,7 +65,7 @@ function editTanda(dg){
     var type=parseInt(row.Tipo);
     $('#ordentandas_nt-Nombre').textbox('readonly',(type != 0));
     // open dialog
-    $('#ordentandas_newtanda-dialog').dialog('open').dialog('setTitle','Modificar datos de la actividad');
+    $('#ordentandas_newtanda-dialog').dialog('open').dialog('setTitle','<?php _e('Modify activity information'); ?>');
     // and fill form with row data
     $('#ordentandas_newtanda-form').form('load',row);
 }
@@ -91,7 +97,7 @@ function saveTanda(dg){
         dataType: 'json',
         success: function (result) {
             if (result.errorMsg){
-                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
+                $.messager.show({ width:300, height:200, title: '<?php _e('Error'); ?>', msg: result.errorMsg });
             } else {
                 $('#ordentandas_newtanda-dialog').dialog('close');
                 reloadOrdenTandas();
@@ -107,21 +113,21 @@ function saveTanda(dg){
 function deleteTanda(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ninguna actividad","info");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no activity selected"); ?>',"warning");
     	return; // no way to know which session is selected
     }
     if (row.Tipo!=0) {
-    	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
     	return; // cannot delete default session
     }
-    $.messager.confirm('Confirm','Eliminar la actividad '+row.Nombre+'\n ¿Seguro?',function(r){
+    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Remove activity'); ?>'+' '+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){
       	if (!r) return;
         $.get('/agility/server/database/tandasFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
                 reloadOrdenTandas();
             } else {
             	// show error message
-                $.messager.show({width:300,height:200,title: 'Error',msg: result.errorMsg});
+                $.messager.show({width:300,height:200,title: '<?php _e('Error'); ?>',msg: result.errorMsg});
             }
         },'json');
     });

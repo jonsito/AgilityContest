@@ -87,10 +87,10 @@ function editPrueba(dg){
 	if ($('#pruebas-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","!No ha seleccionado ninguna Prueba!","info");
+    	$.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no contest selected"); ?>',"warning");
     	return; // no way to know which prueba is selected
     }
-    $('#pruebas-dialog').dialog('open').dialog('setTitle','Modificar datos de la prueba');
+    $('#pruebas-dialog').dialog('open').dialog('setTitle','<?php _e('Modify contest data'); ?>');
     $('#pruebas-form').form('load',row);
 }
 
@@ -110,7 +110,7 @@ function savePrueba() {
         // beforeSend: function(jqXHR,settings){ return frm.form('validate'); },
         success: function (result) {
             if (result.errorMsg){ 
-            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+            	$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
             } else {
                 $('#pruebas-dialog').dialog('close');        // close the dialog
                 $('#pruebas-datagrid').datagrid('reload');    // reload the prueba data
@@ -126,19 +126,19 @@ function savePrueba() {
 function deletePrueba(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ninguna Prueba!","info");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no contest selected"); ?>',"warning");
     	return; // no way to know which prueba is selected
     }
-    $.messager.confirm('Confirm',
-    		"<p><strong>Importante:</strong></p>" +
-    		"<p>Si decide borrar la prueba <b>se perder&aacute;n</b> todos los datos y resultados de &eacute;sta" +
-    		"</p><p>Desea realmente borrar la prueba seleccionada?</p>",function(r){
+    $.messager.confirm('<?php _e('Confirm'); ?>',
+    		"<p><strong><?php _e('Notice'); ?>:</strong></p>" +
+    		'<?php _e("<p>By deleting this contest <b>youll loose</b> every associated data and scores"); ?>' +
+    		"</p><p><?php _e('Do you really want to delete this contest'); ?>?</p>",function(r){
         if (r){
             $.get('/agility/server/database/pruebaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
                 if (result.success){
                     $(dg).datagrid('reload');    // reload the prueba data
                 } else {
-                    $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
+                    $.messager.show({ width:300, height:200, title:'<?php _e('Error'); ?>', msg:result.errorMsg });
                 }
             },'json');
         }
@@ -154,15 +154,15 @@ function deletePrueba(dg){
  */
 function editJornadaFromPrueba(pruebaID,row) {
     if (!row) {
-    	$.messager.alert("No selection","!No ha seleccionado ninguna jornada!","warning");
+        $.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no journey selected"); ?>',"warning");
     	return; // no hay ninguna jornada seleccionada. retornar
     }
     if (row.Cerrada==true) { // no permitir la edicion de pruebas cerradas
-    	$.messager.alert("Invalid selection","No se puede editar una jornada marcada como cerrada","error");
+    	$.messager.alert('<?php _e("Invalid selection"); ?>','<?php _e("Cannot edit a journey stated as closed"); ?>',"error");
         return;
     }
     // todo ok: abrimos ventana de dialogo
-    $('#jornadas-dialog').dialog('open').dialog('setTitle','Modificar datos de la jornada');
+    $('#jornadas-dialog').dialog('open').dialog('setTitle','<?php _e('Modify journey data'); ?>');
     $('#jornadas-form').form('load',row); // will trigger onLoadSuccess in dlg_pruebas
 }
 
@@ -176,27 +176,27 @@ function closeJornadaFromPrueba(pruebaID,datagridID) {
 	var row= $(datagridID).datagrid('getSelected');
     // var row = $('#jornadas-datagrid-'+prueba.ID).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("No selection","!No ha seleccionado ninguna jornada!","warning");
+        $.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no journey selected"); ?>',"warning");
     	return; // no hay ninguna jornada seleccionada. retornar
     }
     if (row.Cerrada==true) { // no permitir la edicion de pruebas cerradas
-    	$.messager.alert("Invalid selection","No se puede cerrar una jornada que ya está marcada como cerrada","error");
+    	$.messager.alert('<?php _e("Invalid selection"); ?>','<?php _e("Cannot close an already closed journey"); ?>',"error");
         return;
     }
     // $.messager.defaults={ ok:"Cerrar", cancel:"Cancelar" };
     var w=$.messager.confirm(
-    		"Aviso",
-    		"Si marca una jornada como 'cerrada'<br />" +
-    		"no podrá modificar los datos de mangas, <br/>" +
-    		"inscripciones, o resultados<br />" +
-    		"¿Desea continuar?",
+    		'<?php _e("Notice"); ?>',
+    		'<?php _e("Setting a journey as closed"); ?><br/>' +
+    		'<?php _e("Youll be no longer able to edit,delete or modify,"); ?><br/>' +
+    		'<?php _e("inscriptions or scores"); ?><br/>' +
+    		'<?php _e("Continue?"); ?>',
     		function(r) { 
     	    	if(r) {
     	            $.get('/agility/server/database/jornadaFunctions.php',{Operation:'close',ID:row.ID},function(result){
     	                if (result.success){
     	                    $(datagridID).datagrid('reload');    // reload the pruebas data
     	                } else {
-    	                    $.messager.show({ width:300, height:200, title:'Error', msg:result.errorMsg });
+    	                    $.messager.show({ width:300, height:200, title:'<?php _e('Error'); ?>', msg:result.errorMsg });
     	                }
     	            },'json');
     	    	}
@@ -306,13 +306,13 @@ function checkPrueba(id,mask) {
 	// si estamos seleccionando una prueba ko/open/equipos, no permitir ninguna otra
 	if ( (mask & 0x01E0) != 0 ) {
 		if (mask!=pruebas) {
-			$.messager.alert('Error','Una prueba KO, un Open, o una prueba por equipos deben ser declaradas en jornadas independiente','error');
+			$.messager.alert('<?php _e('Error'); ?>','<?php _e('KO, Open, or team rounds must be declared in a separate journey'); ?>','error');
 			$(id).prop('checked',false);
 			if (id==='#jornadas-EquiposChk') $('#jornadas-MangasEquipos').prop('disabled','disabled');
 		}
 	} else {
 		if ( (pruebas & 0x01E0) != 0 ) {
-			$.messager.alert('Error','No se pueden añadir pruebas adicionales si hay declarado un Open, una jornada KO o una prueba por Equipos','error');
+			$.messager.alert('<?php _e('Error'); ?>','<?php _e('You cannot add additional rounds when KO,Open or team rounds are already declared in a journey'); ?>','error');
 			$(id).prop('checked',false);
 			if (id==='#jornadas-PreAgilityChk') $('#jornadas-MangasPreAgility').prop('disabled','disabled');
 			if (id==='#jornadas-Especial') $('#jornadas-Observaciones').prop('disabled','disabled');

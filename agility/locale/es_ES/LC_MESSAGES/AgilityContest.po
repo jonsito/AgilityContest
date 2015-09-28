@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-29 00:22+0200\n"
-"PO-Revision-Date: 2015-09-29 00:25+0200\n"
+"POT-Creation-Date: 2015-09-29 01:11+0200\n"
+"PO-Revision-Date: 2015-09-29 01:14+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -168,6 +168,12 @@ msgstr "Eliminado"
 #: scripts/perros.js.php:253 scripts/printer.js.php:264
 #: scripts/printer.js.php:303 scripts/printer.js.php:336
 #: scripts/printer.js.php:372 scripts/printer.js.php:407
+#: scripts/pruebas.js.php:113 scripts/pruebas.js.php:141
+#: scripts/pruebas.js.php:199 scripts/pruebas.js.php:309
+#: scripts/pruebas.js.php:315 scripts/sesiones.js.php:80
+#: scripts/sesiones.js.php:140 scripts/tandas.js.php:100
+#: scripts/tandas.js.php:130 scripts/usuarios.js.php:86
+#: scripts/usuarios.js.php:150
 msgid "Error"
 msgstr "Error"
 
@@ -382,7 +388,7 @@ msgstr "Inscrito en"
 msgid "Users"
 msgstr "Usuarios"
 
-#: console/frm_admin.php:38
+#: console/frm_admin.php:38 scripts/usuarios.js.php:45
 msgid "New user"
 msgstr "Nuevo usuario"
 
@@ -408,7 +414,7 @@ msgstr "Limpiar"
 msgid "Sessions"
 msgstr "Sesiones"
 
-#: console/frm_admin.php:75
+#: console/frm_admin.php:75 scripts/sesiones.js.php:33
 msgid "New session"
 msgstr "Nueva Sesi&oacute;n"
 
@@ -416,7 +422,7 @@ msgstr "Nueva Sesi&oacute;n"
 msgid "Edit session"
 msgstr "Editar Sesi&oacute;n"
 
-#: console/frm_admin.php:81
+#: console/frm_admin.php:81 scripts/sesiones.js.php:103
 msgid "Delete session"
 msgstr "Borrar Sesi&oacute;n"
 
@@ -1879,7 +1885,9 @@ msgstr "Datos de la licencia actualizados correctamente"
 
 #: scripts/clubes.js.php:125 scripts/equipos.js.php:205
 #: scripts/equipos.js.php:209 scripts/guias.js.php:123
-#: scripts/jueces.js.php:53 scripts/perros.js.php:54
+#: scripts/jueces.js.php:53 scripts/perros.js.php:54 scripts/pruebas.js.php:90
+#: scripts/sesiones.js.php:51 scripts/sesiones.js.php:55
+#: scripts/tandas.js.php:60 scripts/usuarios.js.php:61
 msgid "Edit Error"
 msgstr "Error de edici&oacute;n"
 
@@ -1896,6 +1904,10 @@ msgstr "Editar datos del club"
 #: scripts/guias.js.php:54 scripts/guias.js.php:77 scripts/guias.js.php:144
 #: scripts/guias.js.php:148 scripts/jueces.js.php:106
 #: scripts/jueces.js.php:110 scripts/perros.js.php:101
+#: scripts/pruebas.js.php:129 scripts/sesiones.js.php:96
+#: scripts/sesiones.js.php:100 scripts/sesiones.js.php:130
+#: scripts/tandas.js.php:116 scripts/tandas.js.php:120
+#: scripts/usuarios.js.php:102 scripts/usuarios.js.php:106
 msgid "Delete Error"
 msgstr "Error de borrado"
 
@@ -1906,6 +1918,9 @@ msgstr "Esta entrada no se puede borrar"
 #: scripts/clubes.js.php:188 scripts/competicion.js.php:1047
 #: scripts/guias.js.php:80 scripts/guias.js.php:151 scripts/jueces.js.php:113
 #: scripts/perros.js.php:104 scripts/perros.js.php:168
+#: scripts/pruebas.js.php:132 scripts/sesiones.js.php:103
+#: scripts/sesiones.js.php:133 scripts/tandas.js.php:123
+#: scripts/usuarios.js.php:109
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -2157,6 +2172,8 @@ msgstr "al club"
 
 #: scripts/guias.js.php:80 scripts/guias.js.php:151 scripts/jueces.js.php:113
 #: scripts/perros.js.php:104 scripts/perros.js.php:168
+#: scripts/sesiones.js.php:103 scripts/sesiones.js.php:133
+#: scripts/tandas.js.php:123 scripts/usuarios.js.php:109
 msgid "Sure?"
 msgstr "¿Seguro?"
 
@@ -2165,6 +2182,8 @@ msgid "Modify handler data"
 msgstr "Editar datos del gu&iacute;a"
 
 #: scripts/guias.js.php:148 scripts/jueces.js.php:110
+#: scripts/sesiones.js.php:100 scripts/tandas.js.php:120
+#: scripts/usuarios.js.php:106 scripts/usuarios.js.php:125
 msgid "This entry cannot be deleted"
 msgstr "Esta entrada no se puede borrar"
 
@@ -2314,6 +2333,175 @@ msgstr "No hay ninguna manga seleccionada en la jornada"
 #: scripts/pruebas.js.php:46
 msgid "Nueva Prueba"
 msgstr "Nueva Prueba"
+
+#: scripts/pruebas.js.php:90 scripts/pruebas.js.php:129
+msgid "There is no contest selected"
+msgstr "No hay ninguna prueba seleccionada"
+
+#: scripts/pruebas.js.php:93
+msgid "Modify contest data"
+msgstr "Modificar datos de la prueba"
+
+#: scripts/pruebas.js.php:133 scripts/pruebas.js.php:188
+msgid "Notice"
+msgstr "Aviso"
+
+#: scripts/pruebas.js.php:134
+msgid ""
+"<p>By deleting this contest <b>youll loose</b> every associated data and "
+"scores"
+msgstr ""
+"<p>Si borra la prueba<b>se perder&aacute;n</b>todas las inscripciones, "
+"equipos y resultados asociados"
+
+#: scripts/pruebas.js.php:135
+msgid "Do you really want to delete this contest"
+msgstr "Realmente desea borrar esta prueba"
+
+#: scripts/pruebas.js.php:157 scripts/pruebas.js.php:179
+msgid "No selection"
+msgstr "No seleccionado"
+
+#: scripts/pruebas.js.php:157 scripts/pruebas.js.php:179
+msgid "There is no journey selected"
+msgstr "No se ha seleccionado ninguna jornada"
+
+#: scripts/pruebas.js.php:161 scripts/pruebas.js.php:183
+msgid "Invalid selection"
+msgstr "Selecci&oacute;n inv&aacute;lida"
+
+#: scripts/pruebas.js.php:161
+msgid "Cannot edit a journey stated as closed"
+msgstr "No se puede modificar una jornada marcada como cerrada"
+
+#: scripts/pruebas.js.php:165
+msgid "Modify journey data"
+msgstr "Editar datos de de la jornada"
+
+#: scripts/pruebas.js.php:183
+msgid "Cannot close an already closed journey"
+msgstr "No se puede cerrar una jornada ya cerrada"
+
+#: scripts/pruebas.js.php:189
+msgid "Setting a journey as closed"
+msgstr "Marcando la jornada como cerrada"
+
+#: scripts/pruebas.js.php:190
+msgid "Youll be no longer able to edit,delete or modify,"
+msgstr "No ser&aacute; posible editar o borrar datos de esta"
+
+#: scripts/pruebas.js.php:191
+msgid "inscriptions or scores"
+msgstr "inscripciones o resultados"
+
+#: scripts/pruebas.js.php:192
+msgid "Continue?"
+msgstr "Realmente desea continuar?"
+
+#: scripts/pruebas.js.php:309
+msgid "KO, Open, or team rounds must be declared in a separate journey"
+msgstr ""
+"Una ronda KO, una prueba Open, o una prueba por equipos deben ser declaradas "
+"en una jornada aparte"
+
+#: scripts/pruebas.js.php:315
+msgid ""
+"You cannot add additional rounds when KO,Open or team rounds are already "
+"declared in a journey"
+msgstr ""
+"No se pueden a&ntilde;adir mangas adicionales cuando hay una prueba KO, un "
+"open, o una prueba por equipos en una jornada"
+
+#: scripts/sesiones.js.php:51 scripts/sesiones.js.php:96
+#: scripts/sesiones.js.php:130
+msgid "There is no session selected"
+msgstr "No se ha indicado ninguna sesi&oacute;n"
+
+#: scripts/sesiones.js.php:55
+msgid "This entry cannot be modified"
+msgstr "Esta entrada no se puede editar"
+
+#: scripts/sesiones.js.php:61
+msgid "Modify session data"
+msgstr "Editar informaci&oacute;n de la sesi&oacute;n"
+
+#: scripts/sesiones.js.php:133
+msgid "Delete event history on session"
+msgstr "Borrar historial de eventos de esta sesi&oacute;n"
+
+#: scripts/tandas.js.php:38
+msgid "New activity"
+msgstr "Nueva actividad"
+
+#: scripts/tandas.js.php:60 scripts/tandas.js.php:116
+msgid "There is no activity selected"
+msgstr "No hay ninguna actividad seleccionada"
+
+#: scripts/tandas.js.php:68
+msgid "Modify activity information"
+msgstr "Modificar la actividad seleccionada"
+
+#: scripts/tandas.js.php:123
+msgid "Remove activity"
+msgstr "Eliminar la actividad"
+
+#: scripts/usuarios.js.php:29
+msgid "Administrator"
+msgstr "Administrador"
+
+#: scripts/usuarios.js.php:30
+msgid "Operator"
+msgstr "Operador"
+
+#: scripts/usuarios.js.php:31
+msgid "Assistant"
+msgstr "Asistente"
+
+#: scripts/usuarios.js.php:33
+msgid "Guest"
+msgstr "Invitado"
+
+#: scripts/usuarios.js.php:34
+msgid "Unknown"
+msgstr "Desconocido"
+
+#: scripts/usuarios.js.php:61 scripts/usuarios.js.php:102
+msgid "There is no user selected"
+msgstr "No se ha seleccionado ning&uacute;n usuario"
+
+#: scripts/usuarios.js.php:67
+msgid "Modify user data"
+msgstr "Editar datos del usuario"
+
+#: scripts/usuarios.js.php:109
+msgid "Delete data on user"
+msgstr "Borrar datos del usuario"
+
+#: scripts/usuarios.js.php:125
+msgid "Password Error"
+msgstr "Error en contrase&ntilde;a"
+
+#: scripts/usuarios.js.php:135
+msgid "Not enought permissions"
+msgstr "Permisos insuficientes"
+
+#: scripts/usuarios.js.php:135
+msgid "Only admin users can change passwords on another user"
+msgstr ""
+"Solo un usuario con permisos de administrador puede cambiar la "
+"contrase&ntilde;a de otro usuario"
+
+#: scripts/usuarios.js.php:150
+msgid "Passwords does not match"
+msgstr "Las contrase&ntilde;as no coinciden"
+
+#: scripts/usuarios.js.php:172
+msgid "Info"
+msgstr "Info"
+
+#: scripts/usuarios.js.php:172
+msgid "Password changed successfully"
+msgstr "Contrase&ntilde;a cambiada con &eacute;xito"
 
 #: server/database/classes/OrdenSalida.php:410
 msgid "Equipo"
@@ -2856,10 +3044,6 @@ msgstr "Categ"
 #, fuzzy
 #~ msgid "Estad&iacute;sticas"
 #~ msgstr "Categor&iacute;as"
-
-#, fuzzy
-#~ msgid "Administraci&oacute;n"
-#~ msgstr "Programaci&oacute;n"
 
 #, fuzzy
 #~ msgid "Informaci&oacute;n de registro"
