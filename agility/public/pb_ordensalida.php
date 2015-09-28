@@ -150,7 +150,7 @@ $('#pb_ordensalida-datagrid').datagrid({
         { field:'NombreEquipo',	width:'12%', align:'center',title: '<?php _e('Team'); ?>',hidden:true},
         { field:'Dorsal',		width:'5%', align:'center',	title: '<?php _e('Dorsal'); ?>', styler:checkPending },
         { field:'Nombre',		width:'15%', align:'center',title: '<?php _e('Name'); ?>',formatter: formatBoldBig},
-        { field:'Raza',         width:'12%', align:'center',title: '<?php _e('Breed'); ?>' },
+        { field:'Raza',         width:'10%', align:'center',title: '<?php _e('Breed'); ?>' },
         { field:'Licencia',		width:'5%', align:'center',	title: '<?php _e('License'); ?>'},
         { field:'NombreGuia',	width:'23%', align:'right',	title: '<?php _e('Handler'); ?>' },
         { field:'NombreClub',	width:'19%', align:'right',	title: '<?php _e('Club'); ?>' },

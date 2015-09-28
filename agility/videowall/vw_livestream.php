@@ -7,7 +7,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Videowall::livestream");
-if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.html"); return 0;}
+if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.php"); return 0;}
 ?>
 <!--
 livestream.inc
@@ -45,11 +45,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <span class="vwls_fondo" id="vwls_Datos">&nbsp;</span>
             <span class="vwls_fondo" id="vwls_InfoManga">&nbsp;</span>
 			<!-- datos de resultados -->
-			<span class="vwls_dlabel" id="vwls_FaltasLbl">F:</span>
+			<span class="vwls_dlabel" id="vwls_FaltasLbl"><?php _e('F'); ?>:</span>
 			<span class="vwls_data"  id="vwls_Faltas">0</span>
-			<span class="vwls_dlabel" id="vwls_TocadosLbl">T:</span>
+			<span class="vwls_dlabel" id="vwls_TocadosLbl"><?php _e('T'); ?>:</span>
 			<span class="vwls_data"  id="vwls_Tocados">0</span>
-			<span class="vwls_dlabel" id="vwls_RehusesLbl">R:</span>
+			<span class="vwls_dlabel" id="vwls_RehusesLbl"><?php _e('R'); ?>:</span>
 			<span class="vwls_data"  id="vwls_Rehuses">0</span>
 			<!-- <span class="vwls_dlabel" id="vwls_TiempoLbl">Time</span> -->
 			<span class="vwls_dtime"  id="vwls_Tiempo">00.00</span>
@@ -57,15 +57,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<!-- Informacion del participante -->
 			<span style="display:none" id="vwls_Perro">0</span>
 			<img id="vwls_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="vwls_logo"/>
-			<span class="vwls_label" id="vwls_Dorsal">Dorsal</span>
-			<span class="vwls_label" id="vwls_Nombre">Nombre</span>
-			<span class="vwls_label" id="vwls_NombreGuia">Gu&iacute;a</span>
-			<span class="vwls_label" id="vwls_NombreClub">Club</span>
-			<span class="vwls_label" id="vwls_Categoria">Categor&iacute;a</span>
-			<span class="vwls_label" id="vwls_Grado">Grado</span>
-            <span class="vwls_label" id="vwls_Celo">Celo</span>
+			<span class="vwls_label" id="vwls_Dorsal"><?php _e('Dorsal'); ?></span>
+			<span class="vwls_label" id="vwls_Nombre"><?php _e('Name'); ?></span>
+			<span class="vwls_label" id="vwls_NombreGuia"><?php _e('Handler'); ?></span>
+			<span class="vwls_label" id="vwls_NombreClub"><?php _e('Club'); ?></span>
+			<span class="vwls_label" id="vwls_Categoria"><?php _e('Category'); ?></span>
+			<span class="vwls_label" id="vwls_Grado"><?php _e('Grade'); ?></span>
+            <span class="vwls_label" id="vwls_Celo"><?php _e('Heat'); ?></span>
             <!-- Informacion de la manga -->
-            <span class="vwls_label" id="vwls_Manga" style="text-align:center;">Manga</span>
+            <span class="vwls_label" id="vwls_Manga" style="text-align:center;"><?php _e('Round'); ?></span>
 		</div>
 	</div>
 </div>

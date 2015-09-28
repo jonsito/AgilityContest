@@ -61,7 +61,7 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <script src="/agility/scripts/common.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/videowall/videowall.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/videowall/videowall.js.php" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript" charset="utf-8">
 function initialize() {
@@ -162,24 +162,24 @@ function myLlamadaRowStyler(idx,row) {
 <div id="selvw-dialog" class="easyui-dialog" style="position:relative;width:500px;height:220px;padding:20px 20px">
 	<form id="selvw-Selection">
     	<div class="fitem">
-       		<label for="Prueba">Selecciona Sesi&oacute;n:</label>
+       		<label for="Prueba"><?php _e('Select Session/Ring'); ?>:</label>
        		<select id="selvw-Session" name="Session" style="width:200px"></select>
     	</div>
     	<div class="fitem">
-       		<label for="Vista">Selecciona Vista:</label>
+       		<label for="Vista"><?php _e('Select View'); ?>:</label>
        		<select id="selvw-Vista" name="Vista" style="width:200px">
                 <optgroup label="Video Marcadores">
                     <!-- videowall -->
-                    <option value="0">Orden de Salida</option>
-                    <option value="1">Llamada a pista</option>
-                    <option value="2">Resultados Provisionales</option>
-                    <option value="3">Vista Combinada</option>
+                    <option value="0"><?php _e('Starting order'); ?></option>
+                    <option value="1"><?php _e('Call to ring'); ?></option>
+                    <option value="2"><?php _e('Partial scores'); ?></option>
+                    <option value="3"><?php _e('Combo view'); ?></option>
                 </optgroup>
                 <optgroup label="Live Stream">
                     <!-- livestream -->
-                    <option value="4">On Screen Display</option>
-                    <option value="5">Resultados Provisionales</option>
-                    <option value="6">Orden de salida</option>
+                    <option value="4"><?php _e('On Screen Display'); ?></option>
+                    <option value="5"><?php _e('Partial scores'); ?></option>
+                    <option value="6"><?php _e('Starting order'); ?></option>
                 </optgroup>
        		</select>
     	</div>
@@ -189,7 +189,7 @@ function myLlamadaRowStyler(idx,row) {
 
 <div id="selvw-Buttons" style="text-align:right">
    	<a id="selvw-okBtn" href="#" class="easyui-linkbutton" 
-   	   	data-options="iconCls: 'icon-ok'" onclick="vw_accept()">Aceptar</a>
+   	   	data-options="iconCls: 'icon-ok'" onclick="vw_accept()"><?php _e('Accept'); ?></a>
 </div>	<!-- botones -->
 
 </div> <!-- contenido -->
@@ -200,7 +200,7 @@ function myLlamadaRowStyler(idx,row) {
 $.extend($.fn.window.defaults,{callback:null});
 
 $('#selvw-dialog').dialog({
-	title: 'Datos de la Vista a desplegar',
+	title: '<?php _e('View to deploy'); ?>',
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,
@@ -213,7 +213,7 @@ $('#selvw-dialog').dialog({
 
 $('#selvw-form').form();
 
-addTooltip($('#selvw-okBtn').linkbutton(),"Trabajar con la sesión seleccionada");
+addTooltip($('#selvw-okBtn').linkbutton(),'<?php _e("Use selected as working session"); ?>');
 
 $('#selvw-Session').combogrid({
 	panelWidth: 500,
@@ -231,8 +231,8 @@ $('#selvw-Session').combogrid({
 	editable: false, // avoid keyboard deploy
 	columns: [[
 	    { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
-		{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: 'Nombre' },
-		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' },
+		{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: '<?php _e('Name'); ?>' },
+		{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: '<?php _e('Comments'); ?>' },
         { field:'Prueba',	    hidden:true },
         { field:'Jornada',	    hidden:true },
 		{ field:'Background',	hidden:true },
@@ -257,7 +257,7 @@ function vw_accept() {
 	var s=$('#selvw-Session').combogrid('grid').datagrid('getSelected');
 	if ( s===null ) {
 		// indica error
-		$.messager.alert("Error","Debe indicar una sesion v&aacute;lidas","error");
+		$.messager.alert("Error",'<?php _e("You should select a valid session"); ?>',"error");
 		return;
 	}
 	// clear selection to make sure next time gets empty

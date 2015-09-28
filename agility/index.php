@@ -135,7 +135,7 @@ function myRowStyler(idx,row) {
 
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 
-<div id="public-dialog" style="width:350px;height:200px;padding:10px" class="easyui-dialog"
+<div id="public-dialog" style="width:400px;height:200px;padding:10px" class="easyui-dialog"
 	data-options="title: 'Indicar Prueba, Jornada y Vista',iconCls: 'icon-list',buttons: '#public-Buttons',collapsible:false, minimizable:false,
 		maximizable:false, closable:true, closed:false, shadow:true, modal:true">
 	<form id="public-form">       		
@@ -148,7 +148,7 @@ function myRowStyler(idx,row) {
        		<select id="public-Jornada" name="Jornada" style="width:200px"></select>
     	</div>    	
     	<div class="fitem">
-       		<label for="public-Operation"><?php _e('View'); ?>:</label>
+       		<label for="public-Operation"><?php _e('Select View'); ?>:</label>
        		<select id="public-Operation" name="Operation" style="width:200px">
        		<option value="inscritos"><?php _e('Inscription list'); ?></option>
        		<option value="ordensalida"><?php _e('Starting order'); ?></option>
@@ -170,7 +170,7 @@ function myRowStyler(idx,row) {
 $('#public-form').form();
 
 $('#public-Prueba').combogrid({
-	panelWidth: 450,
+	panelWidth: 500,
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',

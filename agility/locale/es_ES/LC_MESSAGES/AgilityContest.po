@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-28 11:44+0200\n"
-"PO-Revision-Date: 2015-09-28 11:45+0200\n"
+"POT-Creation-Date: 2015-09-28 15:58+0200\n"
+"PO-Revision-Date: 2015-09-28 15:59+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -31,11 +31,12 @@ msgstr "Datos de la jornada"
 msgid "Series data"
 msgstr "Datos de la manga"
 
-#: chrono/chrono.inc.php:47
+#: chrono/chrono.inc.php:47 videowall/vw_livestream.php:48
 msgid "F"
 msgstr "F"
 
 #: chrono/chrono.inc.php:49 chrono/chrono.inc.php:51
+#: videowall/vw_livestream.php:50
 msgid "T"
 msgstr "T"
 
@@ -48,7 +49,11 @@ msgstr "T"
 #: server/pdf/print_ordenDeSalida.php:72
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62 tablet/tablet_main.php:75
-#: tablet/tablet_main.php:259
+#: tablet/tablet_main.php:259 videowall/videowall.js.php:161
+#: videowall/vw_combinada.php:187 videowall/vw_livestream.php:60
+#: videowall/vw_llamada.php:97 videowall/vw_ordensalida.php:101
+#: videowall/vw_parciales.php:123 videowall/vwls_ordensalida.php:129
+#: videowall/vwls_parciales.php:149
 msgid "Dorsal"
 msgstr "Dorsal"
 
@@ -63,7 +68,11 @@ msgstr "Perro"
 #: public/pb_inscripciones.php:98 public/pb_inscripciones_equipos.php:154
 #: public/pb_ordensalida.php:155 public/pb_parciales.php:166
 #: public/pb_parciales_eq3.php:169 tablet/tablet_main.php:78
-#: tablet/tablet_main.php:262
+#: tablet/tablet_main.php:262 videowall/videowall.js.php:163
+#: videowall/vw_combinada.php:133 videowall/vw_combinada.php:190
+#: videowall/vw_livestream.php:62 videowall/vw_llamada.php:101
+#: videowall/vw_ordensalida.php:105 videowall/vw_parciales.php:127
+#: videowall/vwls_ordensalida.php:133 videowall/vwls_parciales.php:153
 msgid "Handler"
 msgstr "Gu&iacute;a"
 
@@ -81,11 +90,17 @@ msgstr "Gu&iacute;a"
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62 tablet/index.php:216
 #: tablet/tablet_main.php:80 tablet/tablet_main.php:263
+#: videowall/videowall.js.php:171 videowall/vw_combinada.php:134
+#: videowall/vw_combinada.php:191 videowall/vw_livestream.php:63
+#: videowall/vw_llamada.php:102 videowall/vw_ordensalida.php:106
+#: videowall/vw_parciales.php:128 videowall/vwls_ordensalida.php:134
+#: videowall/vwls_parciales.php:154
 msgid "Club"
 msgstr "Club"
 
 #: chrono/chrono.inc.php:65 console/frm_admin.php:138
-#: console/frm_equipos.php:74
+#: console/frm_equipos.php:74 videowall/vw_livestream.php:64
+#: videowall/vw_ordensalida.php:107
 msgid "Category"
 msgstr "Categor&iacute;a"
 
@@ -94,7 +109,10 @@ msgstr "Categor&iacute;a"
 #: console/frm_inscripciones2.php:194 public/pb_inscripciones.php:97
 #: public/pb_inscripciones_equipos.php:153 public/pb_ordensalida.php:158
 #: public/pb_parciales.php:169 tablet/tablet_main.php:84
-#: tablet/tablet_main.php:265
+#: tablet/tablet_main.php:265 videowall/vw_combinada.php:136
+#: videowall/vw_livestream.php:65 videowall/vw_llamada.php:104
+#: videowall/vw_ordensalida.php:108 videowall/vw_parciales.php:130
+#: videowall/vwls_ordensalida.php:136 videowall/vwls_parciales.php:156
 msgid "Grade"
 msgstr "Grado"
 
@@ -102,7 +120,9 @@ msgstr "Grado"
 #: console/frm_equipos.php:228 console/frm_inscripciones2.php:197
 #: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:158
 #: public/pb_ordensalida.php:159 tablet/tablet_main.php:86
-#: tablet/tablet_main.php:261
+#: tablet/tablet_main.php:261 videowall/vw_combinada.php:192
+#: videowall/vw_livestream.php:66 videowall/vw_llamada.php:105
+#: videowall/vw_ordensalida.php:109 videowall/vwls_ordensalida.php:137
 msgid "Heat"
 msgstr "Celo"
 
@@ -213,12 +233,16 @@ msgstr "Gu&iacute;a"
 #: public/pb_inscripciones_equipos.php:152 public/pb_ordensalida.php:157
 #: public/pb_parciales.php:168 public/pb_parciales_eq3.php:171
 #: tablet/tablet_main.php:82 tablet/tablet_main.php:264
+#: videowall/videowall.js.php:164 videowall/vw_combinada.php:135
+#: videowall/vw_llamada.php:103 videowall/vw_parciales.php:129
+#: videowall/vwls_parciales.php:155
 msgid "Cat"
 msgstr "Cat"
 
 #: chrono/chrono.js.php:142 console/frm_equipos.php:89
 #: public/pb_inscripciones_equipos.php:86 public/pb_ordensalida.php:150
-#: tablet/tablet_main.php:258
+#: tablet/tablet_main.php:258 videowall/vw_ordensalida.php:100
+#: videowall/vwls_ordensalida.php:128
 msgid "Team"
 msgstr "Equipo"
 
@@ -230,13 +254,16 @@ msgstr "Manual"
 msgid "Sensor failure"
 msgstr "Fallo de sensores"
 
-#: chrono/index.php:93
+#: chrono/index.php:93 videowall/vw_combinada.php:42
+#: videowall/vw_llamada.php:38 videowall/vw_ordensalida.php:37
+#: videowall/vw_parciales.php:39 videowall/vwls_ordensalida.php:57
+#: videowall/vwls_parciales.php:57
 msgid "Ring"
 msgstr "Ring"
 
 #: chrono/index.php:101 console/frm_equipos.php:98
 #: console/frm_inscripciones.php:41 console/frm_login.php:63
-#: console/frm_logout.php:35 tablet/tablet_main.php:58
+#: console/frm_logout.php:35 tablet/tablet_main.php:58 videowall/index.php:192
 msgid "Accept"
 msgstr "Aceptar"
 
@@ -262,6 +289,11 @@ msgstr "Trabajar con el ring seleccionado"
 #: public/pb_ordensalida.php:152 public/pb_parciales.php:165
 #: public/pb_parciales_eq3.php:168 tablet/index.php:181 tablet/index.php:214
 #: tablet/tablet_main.php:76 tablet/tablet_main.php:260
+#: videowall/index.php:234 videowall/vw_combinada.php:132
+#: videowall/vw_combinada.php:189 videowall/vw_livestream.php:61
+#: videowall/vw_llamada.php:99 videowall/vw_ordensalida.php:102
+#: videowall/vw_parciales.php:126 videowall/vwls_ordensalida.php:130
+#: videowall/vwls_parciales.php:152
 msgid "Name"
 msgstr "Nombre"
 
@@ -273,6 +305,7 @@ msgstr "Nombre"
 #: public/pb_inscripciones_equipos.php:88
 #: public/pb_inscripciones_equipos.php:157 public/pb_programa.php:102
 #: tablet/index.php:182 tablet/index.php:218 tablet/tablet_main.php:183
+#: videowall/index.php:235 videowall/vw_llamada.php:106
 msgid "Comments"
 msgstr "Observaciones"
 
@@ -490,7 +523,7 @@ msgstr "Jornada"
 #: console/frm_clasificaciones_eq3.php:74 public/pb_finales.php:76
 #: public/pb_finales.php:77 public/pb_finales_eq3.php:76
 #: public/pb_finales_eq3.php:77 public/pb_parciales.php:41
-#: public/pb_parciales_eq3.php:41
+#: public/pb_parciales_eq3.php:41 videowall/vw_livestream.php:68
 msgid "Round"
 msgstr "Manga"
 
@@ -532,6 +565,7 @@ msgstr "F/T"
 #: console/frm_clasificaciones_eq3.php:89
 #: console/frm_clasificaciones_eq3.php:95 public/pb_finales.php:93
 #: public/pb_finales.php:99 public/pb_finales_eq3.php:100
+#: videowall/vw_livestream.php:52
 msgid "R"
 msgstr "R"
 
@@ -546,7 +580,10 @@ msgstr "Tmp"
 #: console/frm_clasificaciones_eq3.php:97 public/pb_finales.php:95
 #: public/pb_finales.php:101 public/pb_finales_eq3.php:96
 #: public/pb_finales_eq3.php:102 public/pb_parciales.php:176
-#: public/pb_parciales_eq3.php:179
+#: public/pb_parciales_eq3.php:179 videowall/vw_combinada.php:67
+#: videowall/vw_combinada.php:143 videowall/vw_parciales.php:59
+#: videowall/vw_parciales.php:137 videowall/vwls_parciales.php:77
+#: videowall/vwls_parciales.php:163
 msgid "Vel"
 msgstr "Vel"
 
@@ -556,6 +593,8 @@ msgstr "Vel"
 #: public/pb_finales.php:102 public/pb_finales_eq3.php:97
 #: public/pb_finales_eq3.php:103 public/pb_parciales.php:177
 #: public/pb_parciales_eq3.php:180 scripts/competicion.js.php:185
+#: videowall/vw_combinada.php:144 videowall/vw_parciales.php:138
+#: videowall/vwls_parciales.php:164
 msgid "Penal"
 msgstr "Penal"
 
@@ -575,6 +614,8 @@ msgstr "Cal"
 #: public/pb_parciales.php:174 public/pb_parciales_eq3.php:177
 #: scripts/competicion.js.php:185 tablet/tablet_main.php:94
 #: tablet/tablet_main.php:181 tablet/tablet_main.php:269
+#: videowall/vw_combinada.php:141 videowall/vw_parciales.php:135
+#: videowall/vwls_parciales.php:161
 msgid "Time"
 msgstr "Tiempo"
 
@@ -814,7 +855,8 @@ msgstr "Cat."
 
 #: console/frm_clubes.php:245 console/frm_guias.php:150
 #: public/pb_inscripciones.php:94 public/pb_inscripciones_equipos.php:150
-#: public/pb_ordensalida.php:153
+#: public/pb_ordensalida.php:153 videowall/vw_llamada.php:100
+#: videowall/vw_ordensalida.php:103 videowall/vwls_ordensalida.php:131
 msgid "Breed"
 msgstr "Raza"
 
@@ -824,7 +866,10 @@ msgstr "LOE / RRC"
 
 #: console/frm_clubes.php:247 console/frm_guias.php:152
 #: public/pb_ordensalida.php:154 public/pb_parciales.php:164
-#: public/pb_parciales_eq3.php:167
+#: public/pb_parciales_eq3.php:167 videowall/vw_combinada.php:188
+#: videowall/vw_llamada.php:98 videowall/vw_ordensalida.php:104
+#: videowall/vw_parciales.php:125 videowall/vwls_ordensalida.php:132
+#: videowall/vwls_parciales.php:151
 msgid "License"
 msgstr "Licencia"
 
@@ -880,8 +925,9 @@ msgstr "Desarrollo de la jornada"
 msgid "Journey rounds"
 msgstr "Mangas de la jornada"
 
-#: console/frm_competicion2.php:59
-msgid "Round Data"
+#: console/frm_competicion2.php:59 videowall/vw_parciales.php:54
+#: videowall/vwls_parciales.php:72
+msgid "Round data"
 msgstr "Datos de la manga"
 
 #: console/frm_competicion2.php:70
@@ -889,6 +935,8 @@ msgid "Planning"
 msgstr "Programa"
 
 #: console/frm_competicion2.php:73 index.php:154 public/pb_ordensalida.php:38
+#: videowall/index.php:173 videowall/index.php:182
+#: videowall/vw_ordensalida.php:36 videowall/vwls_ordensalida.php:56
 msgid "Starting order"
 msgstr "Orden de salida"
 
@@ -1370,9 +1418,9 @@ msgstr "Acerca de"
 msgid "Contest"
 msgstr "Prueba"
 
-#: index.php:151
-msgid "View"
-msgstr "Vista"
+#: index.php:151 videowall/index.php:169
+msgid "Select View"
+msgstr "Selecciona vista"
 
 #: index.php:153 public/pb_inscripciones.php:35
 #: public/pb_inscripciones_equipos.php:35
@@ -1380,6 +1428,9 @@ msgid "Inscription list"
 msgstr "Listado de inscritos"
 
 #: index.php:155 public/pb_parciales.php:40 public/pb_parciales_eq3.php:40
+#: videowall/index.php:175 videowall/index.php:181
+#: videowall/vw_combinada.php:48 videowall/vw_parciales.php:38
+#: videowall/vwls_parciales.php:56
 msgid "Partial scores"
 msgstr "Clasificaci&oacute;n parcial"
 
@@ -1400,6 +1451,14 @@ msgstr "Debe seleccionar prueba, jornada y vista para continuar"
 #: public/pb_inscripciones.php:34 public/pb_inscripciones_equipos.php:34
 #: public/pb_ordensalida.php:36 public/pb_parciales.php:38
 #: public/pb_parciales_eq3.php:38 public/pb_programa.php:36
+#: videowall/videowall.js.php:303 videowall/videowall.js.php:457
+#: videowall/videowall.js.php:504 videowall/vw_combinada.php:38
+#: videowall/vw_combinada.php:152 videowall/vw_combinada.php:205
+#: videowall/vw_llamada.php:35 videowall/vw_llamada.php:119
+#: videowall/vw_ordensalida.php:34 videowall/vw_parciales.php:35
+#: videowall/vw_parciales.php:146 videowall/vwls_ordensalida.php:53
+#: videowall/vwls_ordensalida.php:143 videowall/vwls_parciales.php:53
+#: videowall/vwls_parciales.php:172
 msgid "Header"
 msgstr "Cabecera"
 
@@ -1409,6 +1468,10 @@ msgstr "Manga"
 
 #: public/pb_finales.php:48 public/pb_finales_eq3.php:48
 #: public/pb_parciales.php:48 public/pb_parciales_eq3.php:48
+#: videowall/videowall.js.php:304 videowall/videowall.js.php:505
+#: videowall/videowall.js.php:555 videowall/vw_ordensalida.php:39
+#: videowall/vw_parciales.php:41 videowall/vwls_ordensalida.php:59
+#: videowall/vwls_parciales.php:59
 msgid "No round selected"
 msgstr "No se ha indicado ninguna manga"
 
@@ -1417,7 +1480,10 @@ msgstr "No se ha indicado ninguna manga"
 #: public/pb_parciales.php:49 public/pb_parciales.php:50
 #: public/pb_parciales_eq3.php:49 public/pb_parciales_eq3.php:50
 #: public/public.js.php:164 public/public.js.php:165 public/public.js.php:207
-#: public/public.js.php:208
+#: public/public.js.php:208 videowall/videowall.js.php:253
+#: videowall/videowall.js.php:254 videowall/vw_parciales.php:48
+#: videowall/vw_parciales.php:49 videowall/vwls_parciales.php:66
+#: videowall/vwls_parciales.php:67
 msgid "Judge"
 msgstr "Juez"
 
@@ -1467,6 +1533,8 @@ msgstr "Datos del participante"
 
 #: public/pb_finales.php:107 public/pb_finales_eq3.php:108
 #: public/pb_parciales.php:179 public/pb_parciales_eq3.php:182
+#: videowall/vw_combinada.php:146 videowall/vw_parciales.php:140
+#: videowall/vwls_parciales.php:166
 msgid "Position"
 msgstr "Puesto"
 
@@ -1496,7 +1564,8 @@ msgstr "Actualizando orden de salida"
 msgid "List of rounds in this journey"
 msgstr "Lista de mangas de la jornada"
 
-#: public/pb_ordensalida.php:130
+#: public/pb_ordensalida.php:130 videowall/vw_ordensalida.php:80
+#: videowall/vwls_ordensalida.php:108
 msgid "Updating starting order"
 msgstr "Actualizando orden de salida"
 
@@ -1518,6 +1587,8 @@ msgid "Touch"
 msgstr "Tocado"
 
 #: public/pb_parciales.php:178 public/pb_parciales_eq3.php:181
+#: videowall/vw_combinada.php:145 videowall/vw_parciales.php:139
+#: videowall/vwls_parciales.php:165
 msgid "Calification"
 msgstr "Calificaci&oacute;n"
 
@@ -1551,7 +1622,7 @@ msgstr ""
 "La licencia actual no permite las operaciones de consulta y acceso p&uacute;"
 "blico"
 
-#: public/unregistered.php:11
+#: public/unregistered.php:11 videowall/unregistered.php:12
 msgid ""
 "Please, review, and -if desired- update AgilityContest registration license "
 "data"
@@ -1893,15 +1964,18 @@ msgstr "Programa de la jornada"
 msgid "Not Present"
 msgstr "No Presentado"
 
-#: tablet/tablet_main.php:88
+#: tablet/tablet_main.php:88 videowall/vw_combinada.php:137
+#: videowall/vw_parciales.php:131 videowall/vwls_parciales.php:157
 msgid "Faults"
 msgstr "Faltas"
 
-#: tablet/tablet_main.php:90
+#: tablet/tablet_main.php:90 videowall/vw_combinada.php:139
+#: videowall/vw_parciales.php:133 videowall/vwls_parciales.php:159
 msgid "Touchs"
 msgstr "Tocados"
 
-#: tablet/tablet_main.php:92
+#: tablet/tablet_main.php:92 videowall/vw_combinada.php:138
+#: videowall/vw_parciales.php:132 videowall/vwls_parciales.php:158
 msgid "Refusals"
 msgstr "Reh&uacute;ses"
 
@@ -1924,6 +1998,95 @@ msgstr "Indicar al crono comienzo/fin de reconocimiento de pista"
 #: tablet/tablet_main.php:370
 msgid "Activate data entry panel on selected dorsal"
 msgstr "Abrir el panel de entrada de datos para el dorsal seleccionado"
+
+#: videowall/index.php:165
+msgid "Select Session/Ring"
+msgstr "Selecciona Ring"
+
+#: videowall/index.php:174 videowall/vw_combinada.php:46
+#: videowall/vw_llamada.php:37
+msgid "Call to ring"
+msgstr "Llamada a pista"
+
+#: videowall/index.php:176
+msgid "Combo view"
+msgstr "Vista combinada"
+
+#: videowall/index.php:180
+msgid "On Screen Display"
+msgstr "Datos en pantalla (O.S.D.)"
+
+#: videowall/index.php:203
+msgid "View to deploy"
+msgstr "Vista a desplegar"
+
+#: videowall/index.php:216
+msgid "Use selected as working session"
+msgstr "Trabajar con el la sesi&oacute;n seleccionada"
+
+#: videowall/index.php:260
+msgid "You should select a valid session"
+msgstr "Debe seleccionar una sesi&oacute;n v&aacute;lida"
+
+#: videowall/unregistered.php:10
+msgid "Current license does not allow handling of videowall operations"
+msgstr ""
+"La licencia actual no permite las operaciones de manejo de video-marcadores"
+
+#: videowall/videowall.js.php:171
+msgid "Eq"
+msgstr "Tm"
+
+#: videowall/vw_combinada.php:62
+msgid "Data"
+msgstr "Datos"
+
+#: videowall/vw_combinada.php:63 videowall/vw_parciales.php:55
+#: videowall/vwls_parciales.php:73
+msgid "Dist"
+msgstr "Dist"
+
+#: videowall/vw_combinada.php:64 videowall/vw_parciales.php:56
+#: videowall/vwls_parciales.php:74
+msgid "Obst"
+msgstr "Obst"
+
+#: videowall/vw_combinada.php:65 videowall/vw_parciales.php:57
+#: videowall/vwls_parciales.php:75
+msgid "SCT"
+msgstr "TRS"
+
+#: videowall/vw_combinada.php:66 videowall/vw_parciales.php:58
+#: videowall/vwls_parciales.php:76
+msgid "MCT"
+msgstr "TRM"
+
+#: videowall/vw_combinada.php:113 videowall/vw_parciales.php:107
+#: videowall/vwls_parciales.php:133
+msgid "Updating round results"
+msgstr "Actualizando resultados de la manga"
+
+#: videowall/vw_combinada.php:174 videowall/vw_llamada.php:84
+msgid "Updating list of teams to be called to ring"
+msgstr "Actualizando orden de llamada a pista"
+
+#: videowall/vw_llamada.php:91
+msgid "Order"
+msgstr "Orden"
+
+#: videowall/vwls_ordensalida.php:135
+msgid "Categ"
+msgstr "Categ"
+
+#~ msgid "Round Data"
+#~ msgstr "Datos de la manga"
+
+#, fuzzy
+#~ msgid "Heat."
+#~ msgstr "Celo"
+
+#~ msgid "View"
+#~ msgstr "Vista"
 
 #~ msgid "Leyendo inscripciones...."
 #~ msgstr "Leyendo inscripciones...."

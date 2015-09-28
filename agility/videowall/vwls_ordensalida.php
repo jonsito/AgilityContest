@@ -7,7 +7,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Videowall::parciales");
-if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.html"); return 0;}
+if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.php"); return 0;}
 ?>
 <!--
 vwls_ordensalida.inc
@@ -50,13 +50,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                     <span style="float:left;background:rgba(255,255,255,0.5);">
                         <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="50"/>
                     </span>
-                    <span style="float:left;padding:10px" id="vw_header-infoprueba">Cabecera</span>
+                    <span style="float:left;padding:10px" id="vw_header-infoprueba"><?php _e('Header'); ?></span>
 
                     <div style="float:right;padding:10px;text-align:right;">
-                        <span id="vw_header-texto">Orden de Salida</span>&nbsp;-&nbsp;
-                        <span id="vw_header-ring">Ring</span>
+                        <span id="vw_header-texto"><?php _e('Starting order'); ?></span>&nbsp;-&nbsp;
+                        <span id="vw_header-ring"><?php _e('Ring'); ?></span>
                         <br />
-                        <span id="vw_header-infomanga" style="width:200px">(Manga no definida)</span>
+                        <span id="vw_header-infomanga" style="width:200px">(<?php _e('No round selected'); ?>)</span>
                     </div>
 
                 </div>
@@ -105,7 +105,7 @@ $('#vw_ordensalida-datagrid').datagrid({
         Jornada: workingData.jornada,
         Sesion: workingData.sesion // used only at startup. then use TandaID
     },
-    loadMsg: "Actualizando orden de salida ...",
+    loadMsg: "<?php _e('Updating starting order');?> ...",
     pagination: false,
     rownumbers: false,
     fitColumns: true,
@@ -125,22 +125,22 @@ $('#vw_ordensalida-datagrid').datagrid({
         { field:'Tanda',		width:0, hidden:true },
         { field:'Equipo',		width:0, hidden:true },
         { field:'Logo',     	width:'5%', align:'center',	title: '',formatter: formatLogoVideoWall },
-        { field:'NombreEquipo',	width:'12%', align:'center',title: 'Equipo',hidden:true},
-        { field:'Dorsal',		width:'5%', align:'center',	title: 'Dorsal', styler:checkPending },
-        { field:'Nombre',		width:'15%', align:'left',	title: 'Nombre', formatter: formatBoldBig},
-        { field:'Raza',         width:'12%', align:'center',title: 'Raza' },
-        { field:'Licencia',		width:'5%', align:'center',	title: 'Licencia'},
-        { field:'NombreGuia',	width:'23%', align:'right',	title: 'Guia' },
-        { field:'NombreClub',	width:'19%', align:'right',	title: 'Club' },
-        { field:'Categoria',	width:'4%', align:'center',	title: 'Categ.' },
-        { field:'Grado',		width:'4%', align:'center',	title: 'Grado' },
-        { field:'Celo',			width:'4%', align:'center',	title: 'Celo', formatter:formatCelo }
+        { field:'NombreEquipo',	width:'12%', align:'center',title: '<?php _e('Team'); ?>',hidden:true},
+        { field:'Dorsal',		width:'5%', align:'center',	title: '<?php _e('Dorsal'); ?>', styler:checkPending },
+        { field:'Nombre',		width:'15%', align:'left',	title: '<?php _e('Name'); ?>', formatter: formatBoldBig},
+        { field:'Raza',         width:'12%', align:'center',title: '<?php _e('Breed'); ?>' },
+        { field:'Licencia',		width:'5%', align:'center',	title: '<?php _e('License'); ?>'},
+        { field:'NombreGuia',	width:'23%', align:'right',	title: '<?php _e('Handler'); ?>' },
+        { field:'NombreClub',	width:'19%', align:'right',	title: '<?php _e('Club'); ?>' },
+        { field:'Categoria',	width:'4%', align:'center',	title: '<?php _e('Categ'); ?>.' },
+        { field:'Grado',		width:'4%', align:'center',	title: '<?php _e('Grade'); ?>' },
+        { field:'Celo',			width:'4%', align:'center',	title: '<?php _e('Heat'); ?>', formatter:formatCelo }
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:myRowStyler,
     onBeforeLoad:function(params) {
         // do not update until 'open' received
-        if( $('#vw_header-infoprueba').html()==='Cabecera') return false;
+        if( $('#vw_header-infoprueba').html()==='<?php _e('Header'); ?>') return false;
         return true;
     },
     onLoadSuccess:function(){

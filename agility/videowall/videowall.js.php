@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+<?php
+require_once(__DIR__."/../server/tools.php");
+require_once(__DIR__."/../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
 /**
  * Presenta el logo en pantalla
  * @param {int} val nombre delo logo
@@ -52,7 +58,7 @@ function vw_updateWorkingData(evt,callback) {
             setJornada(data.Jornada);
             setManga(data.Manga);
             // and finally invoke callback
-            if (typeof(callback)==='function') callback(evt,data);
+            if ( typeof(callback)==='function' ) callback(evt,data);
         }
     });
 }
@@ -152,17 +158,17 @@ function vwls_showData(data) {
 			dataType: 'json',
 			success: function(res){
 				$('#vwls_Logo').attr("src","/agility/images/logos/"+res['LogoClub']);
-				$('#vwls_Dorsal').html("Dorsal: "+dorsal );
+				$('#vwls_Dorsal').html("<?php _e('Dorsal');?>: "+dorsal );
 				$('#vwls_Nombre').html(res["Nombre"]);
-				$('#vwls_NombreGuia').html("Guia: "+res["NombreGuia"]);
-                $('#vwls_Categoria').html("Cat: "+toLongCategoria(res["Categoria"],res['Federation']));
+				$('#vwls_NombreGuia').html("<?php _e('Handler');?>: "+res["NombreGuia"]);
+                $('#vwls_Categoria').html("<?php _e('Cat');?>: "+toLongCategoria(res["Categoria"],res['Federation']));
                 // hide "Grado" Information if not applicable
                 $('#vwls_Grado').html(hasGradosByJornada(workingData.datosJornada)?res["NombreGrado"]:"");
                 // on Team events, show Team info instead of Club
                 var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
                 // como en el videowall no tenemos datos de la jornada, lo que hacemos es
                 // contar el numero de equipos de esta para saber si es prueba por equipos o no
-                $('#vwls_NombreClub').html((Object.keys(workingData.teamsByJornada).length>1)?"Eq: "+eq:"Club: "+res["NombreClub"]);
+                $('#vwls_NombreClub').html((Object.keys(workingData.teamsByJornada).length>1)?"<?php _e('Eq');?>: "+eq:"<?php _e('Club');?>: "+res["NombreClub"]);
 				$('#vwls_Celo').html((celo==1)?'<span class="blink">Celo</span>':'');
 			},
 			error: function(XMLHttpRequest,textStatus,errorThrown) {
@@ -244,8 +250,8 @@ function vw_updateParciales(evt,data) {
             // informacion de la manga
             var str=dat['manga'].TipoManga + " - " + modestr;
             $('#vw_header-infomanga').text(str);
-            $('#vw_parciales-Juez1').text((dat['manga'].Juez1<=1)?"":'Juez 1: ' + dat['manga'].NombreJuez1);
-            $('#vw_parciales-Juez2').text((dat['manga'].Juez2<=1)?"":'Juez 2: ' + dat['manga'].NombreJuez2);
+            $('#vw_parciales-Juez1').text((dat['manga'].Juez1<=1)?"":'<?php _e('Judge');?> 1: ' + dat['manga'].NombreJuez1);
+            $('#vw_parciales-Juez2').text((dat['manga'].Juez2<=1)?"":'<?php _e('Judge');?> 2: ' + dat['manga'].NombreJuez2);
             // datos de TRS
             $('#vw_parciales-Distancia').text(dat['trs'].dist + 'm.');
             $('#vw_parciales-Obstaculos').text(dat['trs'].obst);
@@ -294,8 +300,8 @@ function vw_procesaCombinada(id,evt) {
 	case 'null':		// null event: no action taken
 		return;
     case 'init': // operator starts tablet application
-        $('#vw_header-infoprueba').html("Cabecera");
-        $('#vw_header-infomanga').html("(Manga no definida)");
+        $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
+        $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
         vw_updateWorkingData(event,function(e,d){
             vw_updateDataInfo(e,d);
             vw_initParcialesDatagrid(e,d);
@@ -448,7 +454,7 @@ function vw_procesaLlamada(id,evt) {
 		return; 
 	case 'init': // operator starts tablet application
         vw_updateWorkingData(event,function(e,d){
-            $('#vw_header-infoprueba').html("Cabecera");
+            $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
             vw_updateDataInfo(e,d);
         });
 		return;
@@ -495,8 +501,8 @@ function vw_procesaParciales(id,evt) {
 		return; 
 	case 'init': // operator starts tablet application
         vw_updateWorkingData(event,function(e,d){
-            $('#vw_header-infoprueba').html("Cabecera");
-            $('#vw_header-infomanga').html("(Manga no definida)");
+            $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
+            $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
             vw_updateDataInfo(e,d);
             vw_initParcialesDatagrid(e,d);
         });
@@ -546,7 +552,7 @@ function vw_procesaOrdenSalida(id,evt) {
         case 'init': // operator starts tablet application
             vw_updateWorkingData(event,function(evt,data){
                 vw_updateDataInfo(evt,data);
-                $('#vw_header-infomanga').html("(Manga no definida)");
+                $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
                 // clear datagrid
                 $('#vw_ordensalida-datagrid').datagrid('loadData', {"total":0,"rows":[]});
             });

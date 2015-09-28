@@ -56,7 +56,7 @@ switch(http_request("tipo","s","std")) {
 			<!-- Tabla que contiene la lista de Mangas de la jornada -->
 			<table id="competicion-listamangas" style="padding:50px"></table>
 		</div>
-		<div data-options="region:'center',title:'<?php _e('Round Data');?>'" style="width:600px;">
+		<div data-options="region:'center',title:'<?php _e('Round data');?>'" style="width:600px;">
 			<span id="competicion-datosmanga" class="c_competicion-datosmanga" style="font-size:11px"></span>
 		</div> <!-- datos de la manga -->
 	</div> <!-- informacion de layout -->

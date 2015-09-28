@@ -123,7 +123,7 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 
 <!--  CUERPO PRINCIPAL DE LA PAGINA (se modifica con el menu) -->
 
-<div id="seltablet-dialog" style="width:400px;height:275px;padding:10px" class="easyui-dialog"
+<div id="seltablet-dialog" style="width:450px;height:275px;padding:10px" class="easyui-dialog"
 	data-options="title: '<?php _e('User,Ring,Contest and Journey selection'); ?>',iconCls: 'icon-list',buttons: '#seltablet-Buttons',collapsible:false, minimizable:false,
 		maximizable:false, closable:true, closed:false, shadow:true, modal:true">
 	<form id="seltablet-form">

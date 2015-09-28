@@ -7,7 +7,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Videowall::combinada");
-if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.html"); return 0;}
+if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.php"); return 0;}
 ?>
 <!--
 vw_llamada.inc
@@ -35,17 +35,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <tr>
                     <td style="text-align:left">
                         <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="50" style="float:left;"/>
-                        <span style="float:left;padding:5px" id="vw_header-infoprueba">Cabecera</span>
+                        <span style="float:left;padding:5px" id="vw_header-infoprueba"><?php _e('Header'); ?></span>
                     </td>
                     <td style="text-align:right">
                         <span id="vw_header-combinadaFlag" style="display:none">true</span> <!--indicador de combinada-->
-                        <span id="vw_header-ring">Ring</span>
+                        <span id="vw_header-ring"><?php _e('Ring'); ?></span>
                     </td>
                 </tr>
                 <tr>
-                    <td style="text-align:left">Llamada a pista</td>
+                    <td style="text-align:left"><?php _e('Call to ring'); ?></td>
                     <td style="text-align:right">
-                        Resultados Provisionales -
+                        <?php _e('Partial scores'); ?> -
                         <span id="vw_header-infomanga">&nbsp;</span>
                     </td>
                 </tr>
@@ -59,12 +59,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <table class="vw_trs">
                 <tbody>
                 <tr style="text-align:right">
-                    <td>Datos:</td>
-                    <td>Dist:</td><td id="vw_parciales-Distancia" style="text-align:left;">&nbsp;</td>
-                    <td>Obst:</td><td id="vw_parciales-Obstaculos" style="text-align:left;">&nbsp;</td>
-                    <td>TRS:</td><td id="vw_parciales-TRS" style="text-align:left;">&nbsp;</td>
-                    <td>TRM:</td><td id="vw_parciales-TRM" style="text-align:left;">&nbsp;</td>
-                    <td>Vel:</td><td id="vw_parciales-Velocidad" style="text-align:left;">&nbsp;</td>
+                    <td><?php _e('Data'); ?>:</td>
+                    <td><?php _e('Dist'); ?>:</td><td id="vw_parciales-Distancia" style="text-align:left;">&nbsp;</td>
+                    <td><?php _e('Obst'); ?>:</td><td id="vw_parciales-Obstaculos" style="text-align:left;">&nbsp;</td>
+                    <td><?php _e('SCT'); ?>:</td><td id="vw_parciales-TRS" style="text-align:left;">&nbsp;</td>
+                    <td><?php _e('MCT'); ?>:</td><td id="vw_parciales-TRM" style="text-align:left;">&nbsp;</td>
+                    <td><?php _e('Vel'); ?>:</td><td id="vw_parciales-Velocidad" style="text-align:left;">&nbsp;</td>
                 </tr>
                 </tbody>
             </table>
@@ -110,7 +110,7 @@ $('#vw_parciales-datagrid').datagrid({
         Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
         Operation: 'getResultados'
     },
-    loadMsg: "Actualizando resultados de la manga ...",
+    loadMsg: "<?php _e('Updating round results');?> ...",
     pagination: false,
     rownumbers: false,
     fitColumns: true,
@@ -129,27 +129,27 @@ $('#vw_parciales-datagrid').datagrid({
         // { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
         { field:'LogoClub',		width:'10%', align:'center', title: '', formatter:formatLogo},
         // { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
-        { field:'Nombre',		width:'10%', align:'center',  title: 'Nombre',formatter:formatBoldBig},
-        { field:'NombreGuia',	width:'15%', align:'right', title: 'Guia' },
-        { field:'NombreClub',	width:'12%', align:'right', title: 'Club' },
-        { field:'Categoria',	width:'4%', align:'center', title: 'Cat.' },
-        { field:'Grado',	    width:'4%', align:'center', title: 'Grad.' },
-        { field:'Faltas',		width:'4%', align:'center', title: 'Faltas'},
-        { field:'Rehuses',		width:'4%', align:'center', title: 'Rehuses'},
-        { field:'Tocados',		width:'4%', align:'center', title: 'Tocados'},
+        { field:'Nombre',		width:'12%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBoldBig},
+        { field:'NombreGuia',	width:'17%', align:'right', title: '<?php _e('Handler'); ?>' },
+        { field:'NombreClub',	width:'14%', align:'right', title: '<?php _e('Club'); ?>' },
+        { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.' },
+        { field:'Grado',	    width:'4%', align:'center', title: '<?php _e('Grade'); ?>' },
+        { field:'Faltas',		width:'4%', align:'center', title: '<?php _e('Faults'); ?>'},
+        { field:'Rehuses',		width:'4%', align:'center', title: '<?php _e('Refusals'); ?>'},
+        { field:'Tocados',		width:'4%', align:'center', title: '<?php _e('Touchs'); ?>'},
         { field:'PRecorrido',	hidden:true },
-        { field:'Tiempo',		width:'6%', align:'right', title: 'Tiempo', formatter:formatTiempo},
+        { field:'Tiempo',		width:'6%', align:'right', title: '<?php _e('Time'); ?>', formatter:formatTiempo},
         { field:'PTiempo',		hidden:true },
-        { field:'Velocidad',	width:'4%', align:'right', title: 'Vel.', formatter:formatVelocidad},
-        { field:'Penalizacion',	width:'6%', align:'right', title: 'Penal.', formatter:formatPenalizacion},
-        { field:'Calificacion',	width:'7%', align:'center',title: 'Calificacion'},
-        { field:'Puesto',		width:'4%', align:'center',  title: 'Puesto', formatter:formatPuesto},
+        { field:'Velocidad',	width:'4%', align:'right', title: '<?php _e('Vel'); ?>.', formatter:formatVelocidad},
+        { field:'Penalizacion',	width:'6%', align:'right', title: '<?php _e('Penal'); ?>.', formatter:formatPenalizacion},
+        { field:'Calificacion',	width:'7%', align:'center',title: '<?php _e('Calification'); ?>'},
+        { field:'Puesto',		width:'6%', align:'center',  title: '<?php _e('Position'); ?>', formatter:formatPuesto},
         { field:'CShort',       hidden:true}
     ]],
     rowStyler:myRowStyler,
     onBeforeLoad: function(param) {
         // do not update until 'open' received
-        if( $('#vw_header-infoprueba').html()==='Cabecera') return false;
+        if( $('#vw_header-infoprueba').html()==='<?php _e('Header'); ?>') return false;
         return true;
     }
 });
@@ -171,7 +171,7 @@ $('#vw_llamada-datagrid').datagrid({
         Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
         Operation: 'getResultados'
     },
-    loadMsg: "Actualizando lista de equipos pendientes de salir...",
+    loadMsg: "<?php _e('Updating list of teams to be called to ring');?> ...",
     pagination: false,
     rownumbers: false,
     fitColumns: true,
@@ -184,12 +184,12 @@ $('#vw_llamada-datagrid').datagrid({
         { field:'Perro',		hidden:true },
         { field:'Equipo',		hidden:true },
         { field:'NombreEquipo',	hidden:true },
-        { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
-        { field:'Licencia',		width:'10%', align:'center',  title: 'Licencia'},
-        { field:'Nombre',		width:'15%', align:'center',  title: 'Nombre',formatter:formatBold},
-        { field:'NombreGuia',	width:'30%', align:'right', title: 'Guia',formatter:formatLlamadaGuia },
-        { field:'NombreClub',	width:'20%', align:'right', title: 'Club' },
-        { field:'Celo',	        width:'5%', align:'center', title: 'Celo.',formatter:formatCelo }
+        { field:'Dorsal',		width:'5%', align:'center', title: '<?php _e('Dorsal'); ?>'},
+        { field:'Licencia',		width:'10%', align:'center',  title: '<?php _e('License'); ?>'},
+        { field:'Nombre',		width:'15%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
+        { field:'NombreGuia',	width:'30%', align:'right', title: '<?php _e('Handler'); ?>',formatter:formatLlamadaGuia },
+        { field:'NombreClub',	width:'20%', align:'right', title: '<?php _e('Club'); ?>' },
+        { field:'Celo',	        width:'5%', align:'center', title: '<?php _e('Heat'); ?>',formatter:formatCelo }
     ]],
     rowStyler:myLlamadaRowStyler,
     onBeforeLoad: function(param) {
@@ -202,7 +202,7 @@ $('#vw_llamada-datagrid').datagrid({
         }
         mySelf.datagrid('fitColumns'); // expand to max width
         // do not update until 'open' received
-        if( $('#vw_header-infoprueba').html()==='Cabecera') return false;
+        if( $('#vw_header-infoprueba').html()==='<?php _e('Header'); ?>') return false;
         return true;
     }
 });

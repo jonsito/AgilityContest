@@ -7,7 +7,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 $am = new AuthManager("Videowall::llamada");
-if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.html"); return 0;}
+if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.php"); return 0;}
 ?>
 <!--
 vw_llamada.inc
@@ -32,10 +32,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     <div id="vw_llamada-layout" style="width:100%">
         <div id="vw_llamada-Cabecera" data-options="region:'north',split:false" style="height:100px" class="vw_floatingheader">
             <img id="vw_header-logo" src="/agility/images/logos/rsce.png" width="75" style="float:left;"/>
-            <span style="float:left;padding:10px" id="vw_header-infoprueba">Cabecera</span>
+            <span style="float:left;padding:10px" id="vw_header-infoprueba"><?php _e('Header'); ?></span>
             <div style="float:right;padding:10px;text-align:right;">
-                <span id="vw_header-texto">Llamada a pista</span>&nbsp;-&nbsp;
-                <span id="vw_header-ring">Ring</span>
+                <span id="vw_header-texto"><?php _e('Call to ring'); ?></span>&nbsp;-&nbsp;
+                <span id="vw_header-ring"><?php _e('Ring'); ?></span>
             </div>
         </div>
         <div id="vw_llamada-data" data-options="region:'center'" >
@@ -81,29 +81,29 @@ $('#vw_llamada-datagrid').datagrid({
         Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
         Operation: 'getResultados'
     },
-    loadMsg: "Actualizando lista de equipos pendientes de salir...",
+    loadMsg: "<?php _e('Updating list of teams to be called to ring');?> ...",
     pagination: false,
     rownumbers: false,
     fitColumns: true,
     singleSelect: true,
     autoRowHeight: true,
     columns:[[
-        { field:'Orden',		width:'5%', align:'center', title: 'Orden', formatter:formatOrdenLlamadaPista},
+        { field:'Orden',		width:'5%', align:'center', title: '<?php _e('Order'); ?>', formatter:formatOrdenLlamadaPista},
         { field:'Logo', 		width:'5%', align:'center', title: '', formatter:formatLogo},
         { field:'Manga',		hidden:true },
         { field:'Perro',		hidden:true },
         { field:'Equipo',		hidden:true },
         { field:'NombreEquipo',	hidden:true },
-        { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
-        { field:'Licencia',		width:'7%%', align:'center',  title: 'Licencia'},
-        { field:'Nombre',		width:'15%', align:'center',  title: 'Nombre',formatter:formatBoldBig},
-        { field:'Raza',		    width:'10%', align:'center', title: 'Raza'},
-        { field:'NombreGuia',	width:'22%', align:'right', title: 'Guia',formatter:formatLlamadaGuia },
-        { field:'NombreClub',	width:'10%', align:'right', title: 'Club' },
-        { field:'Categoria',	width:'4%', align:'center', title: 'Cat.' },
-        { field:'Grado',	    width:'4%', align:'center', title: 'Grado' },
-        { field:'Celo',	        width:'4%', align:'center', title: 'Celo.',formatter:formatCelo },
-        { field:'Observaciones',width:'8%', align:'center', title: 'Observaciones' }
+        { field:'Dorsal',		width:'5%', align:'center', title: '<?php _e('Dorsal'); ?>'},
+        { field:'Licencia',		width:'7%%', align:'center',  title: '<?php _e('License'); ?>'},
+        { field:'Nombre',		width:'15%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBoldBig},
+        { field:'Raza',		    width:'10%', align:'center', title: '<?php _e('Breed'); ?>'},
+        { field:'NombreGuia',	width:'22%', align:'right', title: '<?php _e('Handler'); ?>',formatter:formatLlamadaGuia },
+        { field:'NombreClub',	width:'10%', align:'right', title: '<?php _e('Club'); ?>' },
+        { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.' },
+        { field:'Grado',	    width:'4%', align:'center', title: '<?php _e('Grade'); ?>' },
+        { field:'Celo',	        width:'4%', align:'center', title: '<?php _e('Heat'); ?>.',formatter:formatCelo },
+        { field:'Observaciones',width:'8%', align:'center', title: '<?php _e('Comments'); ?>' }
     ]],
     rowStyler:myLlamadaRowStyler,
     onBeforeLoad: function(param) {
@@ -116,7 +116,7 @@ $('#vw_llamada-datagrid').datagrid({
         }
         mySelf.datagrid('fitColumns'); // expand to max width
         // do not update until 'open' received
-        if( $('#vw_header-infoprueba').html()==='Cabecera') return false;
+        if( $('#vw_header-infoprueba').html()==='<?php _e('Header'); ?>') return false;
         return true;
     }
 });
