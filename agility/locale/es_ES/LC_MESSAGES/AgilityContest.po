@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-26 11:38+0200\n"
-"PO-Revision-Date: 2015-09-26 11:44+0200\n"
-"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2015-09-28 08:42+0200\n"
+"PO-Revision-Date: 2015-09-28 08:42+0200\n"
+"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,8 @@ msgstr "Perro"
 #: chrono/chrono.inc.php:63 console/frm_clasificaciones2.php:86
 #: console/frm_clasificaciones_eq3.php:86 console/frm_equipos.php:79
 #: console/frm_equipos.php:224 console/frm_inscripciones2.php:195
-#: tablet/tablet_main.php:78 tablet/tablet_main.php:262
+#: public/pb_finales.php:90 tablet/tablet_main.php:78
+#: tablet/tablet_main.php:262
 msgid "Handler"
 msgstr "Gu&iacute;a"
 
@@ -66,8 +67,8 @@ msgstr "Gu&iacute;a"
 #: console/frm_clasificaciones2.php:87 console/frm_clasificaciones_eq3.php:87
 #: console/frm_equipos.php:84 console/frm_equipos.php:225
 #: console/frm_guias.php:94 console/frm_inscripciones.php:78
-#: console/frm_inscripciones2.php:196 public/pb_inscripciones.php:99
-#: public/pb_inscripciones_equipos.php:154
+#: console/frm_inscripciones2.php:196 public/pb_finales.php:91
+#: public/pb_inscripciones.php:99 public/pb_inscripciones_equipos.php:154
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72
@@ -121,7 +122,7 @@ msgstr "Eliminado"
 msgid "Error"
 msgstr "Error"
 
-#: chrono/chrono.inc.php:95 console/dialogs/dlg_competicion.inc:36
+#: chrono/chrono.inc.php:95
 msgid "Reset"
 msgstr "Reset"
 
@@ -182,7 +183,7 @@ msgid "NoPr"
 msgstr "NoPr"
 
 #: chrono/chrono.js.php:132 console/frm_clasificaciones2.php:81
-#: console/frm_clasificaciones_eq3.php:81
+#: console/frm_clasificaciones_eq3.php:81 public/pb_finales.php:84
 msgid "Dors"
 msgstr "Dors"
 
@@ -194,8 +195,9 @@ msgstr "Gu&iacute;a"
 #: console/frm_clasificaciones_eq3.php:84 console/frm_equipos.php:141
 #: console/frm_equipos.php:222 console/frm_equipos.php:293
 #: console/frm_guias.php:148 console/frm_inscripciones2.php:193
-#: public/pb_inscripciones.php:96 public/pb_inscripciones_equipos.php:151
-#: tablet/tablet_main.php:82 tablet/tablet_main.php:264
+#: public/pb_finales.php:88 public/pb_inscripciones.php:96
+#: public/pb_inscripciones_equipos.php:151 tablet/tablet_main.php:82
+#: tablet/tablet_main.php:264
 msgid "Cat"
 msgstr "Cat"
 
@@ -238,8 +240,9 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/frm_equipos.php:140 console/frm_equipos.php:220
 #: console/frm_equipos.php:292 console/frm_guias.php:92
 #: console/frm_guias.php:147 console/frm_inscripciones.php:76
-#: console/frm_inscripciones2.php:191 tablet/index.php:181
-#: tablet/index.php:214 tablet/tablet_main.php:76 tablet/tablet_main.php:260
+#: console/frm_inscripciones2.php:191 public/pb_finales.php:86
+#: tablet/index.php:181 tablet/index.php:214 tablet/tablet_main.php:76
+#: tablet/tablet_main.php:260
 msgid "Name"
 msgstr "Nombre"
 
@@ -463,7 +466,8 @@ msgstr "Jornada"
 #: console/frm_clasificaciones2.php:49 console/frm_clasificaciones2.php:73
 #: console/frm_clasificaciones2.php:74 console/frm_clasificaciones_eq3.php:49
 #: console/frm_clasificaciones_eq3.php:73
-#: console/frm_clasificaciones_eq3.php:74
+#: console/frm_clasificaciones_eq3.php:74 public/pb_finales.php:76
+#: public/pb_finales.php:77
 msgid "Round"
 msgstr "Manga"
 
@@ -481,25 +485,29 @@ msgstr "Clasificaci&oacute;n"
 
 #: console/frm_clasificaciones2.php:83 console/frm_clasificaciones_eq3.php:83
 #: console/frm_equipos.php:221 console/frm_inscripciones2.php:192
-#: public/pb_inscripciones.php:95 public/pb_inscripciones_equipos.php:150
+#: public/pb_finales.php:87 public/pb_inscripciones.php:95
+#: public/pb_inscripciones_equipos.php:150
 msgid "Lic"
 msgstr "Lic"
 
 #: console/frm_clasificaciones2.php:85 console/frm_clasificaciones_eq3.php:85
+#: public/pb_finales.php:89
 msgid "Grd"
 msgstr "Grd"
 
 # Abrev de Faltas/Tocados
 #: console/frm_clasificaciones2.php:88 console/frm_clasificaciones2.php:94
 #: console/frm_clasificaciones_eq3.php:88
-#: console/frm_clasificaciones_eq3.php:94
+#: console/frm_clasificaciones_eq3.php:94 public/pb_finales.php:92
+#: public/pb_finales.php:98
 msgid "F/T"
 msgstr "F/T"
 
 # Abreviatura de Rehuses
 #: console/frm_clasificaciones2.php:89 console/frm_clasificaciones2.php:95
 #: console/frm_clasificaciones_eq3.php:89
-#: console/frm_clasificaciones_eq3.php:95
+#: console/frm_clasificaciones_eq3.php:95 public/pb_finales.php:93
+#: public/pb_finales.php:99
 msgid "R"
 msgstr "R"
 
@@ -511,36 +519,40 @@ msgstr "Tmp"
 
 #: console/frm_clasificaciones2.php:91 console/frm_clasificaciones2.php:97
 #: console/frm_clasificaciones_eq3.php:91
-#: console/frm_clasificaciones_eq3.php:97
+#: console/frm_clasificaciones_eq3.php:97 public/pb_finales.php:95
+#: public/pb_finales.php:101
 msgid "Vel"
 msgstr "Vel"
 
 #: console/frm_clasificaciones2.php:92 console/frm_clasificaciones2.php:98
 #: console/frm_clasificaciones_eq3.php:92
-#: console/frm_clasificaciones_eq3.php:98
+#: console/frm_clasificaciones_eq3.php:98 public/pb_finales.php:96
+#: public/pb_finales.php:102
 msgid "Penal"
 msgstr "Penal"
 
 #: console/frm_clasificaciones2.php:93 console/frm_clasificaciones2.php:99
 #: console/frm_clasificaciones_eq3.php:93
-#: console/frm_clasificaciones_eq3.php:99
+#: console/frm_clasificaciones_eq3.php:99 public/pb_finales.php:97
+#: public/pb_finales.php:103
 msgid "Cal"
 msgstr "Cal"
 
 #: console/frm_clasificaciones2.php:100
 #: console/frm_clasificaciones_eq3.php:100 console/frm_inscripciones2.php:135
-#: tablet/tablet_main.php:94 tablet/tablet_main.php:181
-#: tablet/tablet_main.php:269
+#: public/pb_finales.php:94 public/pb_finales.php:100
+#: public/pb_finales.php:104 tablet/tablet_main.php:94
+#: tablet/tablet_main.php:181 tablet/tablet_main.php:269
 msgid "Time"
 msgstr "Tiempo"
 
 #: console/frm_clasificaciones2.php:101
-#: console/frm_clasificaciones_eq3.php:101
+#: console/frm_clasificaciones_eq3.php:101 public/pb_finales.php:105
 msgid "Penaliz"
 msgstr "Penal"
 
 #: console/frm_clasificaciones2.php:102
-#: console/frm_clasificaciones_eq3.php:102
+#: console/frm_clasificaciones_eq3.php:102 public/pb_finales.php:106
 msgid "Calif"
 msgstr "Calif"
 
@@ -641,7 +653,7 @@ msgid "Comma separated list of dorsals to be printed"
 msgstr "Lista de dorsales a imprimir separada por comas"
 
 #: console/frm_clasificaciones2.php:242
-#: console/frm_clasificaciones_eq3.php:242
+#: console/frm_clasificaciones_eq3.php:242 public/pb_finales.php:191
 msgid "Updating round scores"
 msgstr "Actualizando resultados de la manga"
 
@@ -731,7 +743,7 @@ msgid "Dettach handler"
 msgstr "Desasignar gu&iacute;a"
 
 #: console/frm_clubes.php:207 console/frm_clubes.php:284
-#: console/frm_guias.php:189 console/dialogs/dlg_competicion.inc:28
+#: console/frm_guias.php:189
 msgid "Update"
 msgstr "Actualizar"
 
@@ -763,7 +775,6 @@ msgstr "Lista de perros asignados a"
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_resultadosByEquipos.php:83
-#: console/dialogs/dlg_ordensalida.inc:85
 msgid "Cat."
 msgstr "Cat."
 
@@ -1317,6 +1328,66 @@ msgstr "Acerca de AgilityContest"
 msgid "About"
 msgstr "Acerca de"
 
+#: public/pb_finales.php:38
+msgid "Header"
+msgstr "Cabecera"
+
+#: public/pb_finales.php:40
+msgid "Final scores"
+msgstr "Resultado final"
+
+#: public/pb_finales.php:41
+msgid "Series"
+msgstr "Manga"
+
+#: public/pb_finales.php:48
+msgid "No round selected"
+msgstr "No se ha indicado ninguna manga"
+
+#: public/pb_finales.php:49 public/pb_finales.php:50
+msgid "Judge"
+msgstr "Juez"
+
+#: public/pb_finales.php:53 public/pb_finales.php:61
+msgid "Data info for round"
+msgstr "Datos de la manga"
+
+#: public/pb_finales.php:54 public/pb_finales.php:62
+msgid "Distance"
+msgstr "Distancia"
+
+#: public/pb_finales.php:55 public/pb_finales.php:63
+msgid "Obstacles"
+msgstr "Obst&aacute;culos"
+
+#: public/pb_finales.php:56 public/pb_finales.php:64
+msgid "Standard C. Time"
+msgstr "T. R. Standard"
+
+#: public/pb_finales.php:57 public/pb_finales.php:65
+msgid "Maximum C. Time"
+msgstr "T. R. M&aacute;ximo"
+
+#: public/pb_finales.php:58 public/pb_finales.php:66
+msgid "Speed"
+msgstr "Velocidad"
+
+#: public/pb_finales.php:75
+msgid "Competitor data"
+msgstr "Datos del participante"
+
+#: public/pb_finales.php:107
+msgid "Position"
+msgstr "Puesto"
+
+#: public/pb_finales.php:120
+msgid "Update scores"
+msgstr "Actualizar resultados"
+
+#: public/pb_finales.php:135
+msgid "Available scores"
+msgstr "Resultados disponibles"
+
 #: public/pb_finales_eq3.php:190
 msgid "Actualizando clasificaciones de la ronda..."
 msgstr "Actualizando clasificaciones de la ronda..."
@@ -1331,7 +1402,6 @@ msgstr "Leyendo inscripciones...."
 #: server/pdf/print_ordenDeSalida.php:72
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62
-#: console/dialogs/dlg_ordensalida.inc:84
 msgid "Nombre"
 msgstr "Nombre"
 
@@ -1359,7 +1429,6 @@ msgid "Celo"
 msgstr "Celo"
 
 #: public/pb_inscripciones_equipos.php:75
-#: console/dialogs/dlg_ordensalida.inc:73
 msgid "Actualizando lista de equipos"
 msgstr "Actualizando lista de equipos"
 
@@ -1373,7 +1442,6 @@ msgstr "Equipo"
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72
-#: console/dialogs/dlg_ordensalida.inc:86
 msgid "Observaciones"
 msgstr "Observaciones"
 
@@ -1724,13 +1792,11 @@ msgstr "Indicar al crono comienzo/fin de reconocimiento de pista"
 msgid "Activate data entry panel on selected dorsal"
 msgstr "Abrir el panel de entrada de datos para el dorsal seleccionado"
 
-#: console/dialogs/dlg_equipos.inc:38
-msgid "Categor&iacute;as"
-msgstr "Categor&iacute;as"
+#~ msgid "Categor&iacute;as"
+#~ msgstr "Categor&iacute;as"
 
-#: console/dialogs/dlg_jornadas.inc:26
-msgid "Informaci&oacute;n de la Jornada"
-msgstr "Informaci&oacute;n de la Jornada"
+#~ msgid "Informaci&oacute;n de la Jornada"
+#~ msgstr "Informaci&oacute;n de la Jornada"
 
 #, fuzzy
 #~ msgid "Coourse walk"

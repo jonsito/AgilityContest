@@ -35,35 +35,35 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateInscripciones();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="50" />
             </a>
-            <span style="float:left;padding:10px" id="pb_header-infocabecera">Cabecera</span>
+            <span style="float:left;padding:10px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
             <span style="float:right" id="pb_header-texto">
-                Clasificaci&oacute;n final<br/>
-                <label for="pb_enumerateFinales" style="font-size:0.7em">Ronda:</label>
+                <?php _e('Final scores'); ?><br/>
+                <label for="pb_enumerateFinales" style="font-size:0.7em"><?php _e('Series'); ?>:</label>
 		        <select id="pb_enumerateFinales" style="width:200px"></select>
             </span>
             <!-- Datos de TRS y TRM -->
             <table class="pb_trs">
                 <tbody>
                 <tr>
-                    <th id="pb_finales-NombreRonda" colspan="2">(No hay ronda seleccionada)</th>
-                    <th id="pb_finales-Juez1" colspan="2" style="text-align:center">Juez 1:</th>
-                    <th id="pb_finales-Juez2" colspan="2" style="text-align:center">Juez 2:</th>
+                    <th id="pb_finales-NombreRonda" colspan="2">(<?php _e('No round selected'); ?>)</th>
+                    <th id="pb_finales-Juez1" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 1:</th>
+                    <th id="pb_finales-Juez2" colspan="2" style="text-align:center"><?php _e('Judge'); ?> 2:</th>
                 </tr>
                 <tr style="text-align:right">
-                    <td id="pb_finales-Ronda1">Datos de la manga 1:</td>
-                    <td id="pb_finales-Distancia1">Distancia:</td>
-                    <td id="pb_finales-Obstaculos1">Obst&aacute;culos:</td>
-                    <td id="pb_finales-TRS1">T.R.Standard:</td>
-                    <td id="pb_finales-TRM1">T.R.M&aacute;ximo:</td>
-                    <td id="pb_finales-Velocidad1">Velocidad:</td>
+                    <td id="pb_finales-Ronda1"><?php _e('Data info for round'); ?> 1:</td>
+                    <td id="pb_finales-Distancia1"><?php _e('Distance'); ?>:</td>
+                    <td id="pb_finales-Obstaculos1"><?php _e('Obstacles'); ?>:</td>
+                    <td id="pb_finales-TRS1"><?php _e('Standard C. Time'); ?>:</td>
+                    <td id="pb_finales-TRM1"><?php _e('Maximum C. Time'); ?>:</td>
+                    <td id="pb_finales-Velocidad1"><?php _e('Speed'); ?>:</td>
                 </tr>
                 <tr style="text-align:right">
-                    <td id="pb_finales-Ronda2">Datos de la manga 2:</td>
-                    <td id="pb_finales-Distancia2">Distancia:</td>
-                    <td id="pb_finales-Obstaculos2">Obst&aacute;culos:</td>
-                    <td id="pb_finales-TRS2">T.R.Standard:</td>
-                    <td id="pb_finales-TRM2">T.R.M&aacute;ximo:</td>
-                    <td id="pb_finales-Velocidad2">Velocidad:</td>
+                    <td id="pb_finales-Ronda2"><?php _e('Data info for round'); ?> 2:</td>
+                    <td id="pb_finales-Distancia2"><?php _e('Distance'); ?>:</td>
+                    <td id="pb_finales-Obstaculos2"><?php _e('Obstacles'); ?>:</td>
+                    <td id="pb_finales-TRS2"><?php _e('Standard C. Time'); ?>:</td>
+                    <td id="pb_finales-TRM2"><?php _e('Maximum C. Time'); ?>:</td>
+                    <td id="pb_finales-Velocidad2"><?php _e('Speed'); ?>:</td>
                 </tr>
                 </tbody>
             </table>
@@ -72,39 +72,39 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <table id="pb_resultados-datagrid">
                     <thead>
                     <tr>
-                        <th colspan="8"> <span class="resultados_theader">Datos del participante</span></th>
-                        <th colspan="6"> <span class="resultados_theader" id="pb_resultados_thead_m1">Manga 1</span></th>
-                        <th colspan="6"> <span class="resultados_theader" id="pb_resultados_thead_m2">Manga 2</span></th>
+                        <th colspan="8"> <span class="resultados_theader"><?php _e('Competitor data'); ?></span></th>
+                        <th colspan="6"> <span class="resultados_theader" id="pb_resultados_thead_m1"><?php _e('Round'); ?> 1</span></th>
+                        <th colspan="6"> <span class="resultados_theader" id="pb_resultados_thead_m2"><?php _e('Round'); ?> 2</span></th>
                         <th colspan="4"> <span class="resultados_theader">Clasificaci&oacute;n</span></th>
                     </tr>
                     <tr>
                         <!--
                         <th data-options="field:'Perro',		hidden:true " ></th>
                          -->
-                        <th data-options="field:'Dorsal',		width:20, align:'left'" > Dors.</th>
+                        <th data-options="field:'Dorsal',		width:20, align:'left'" > <?php _e('Dors'); ?>.</th>
                         <th data-options="field:'LogoClub',		width:20, align:'left',formatter:formatLogoPublic" > &nbsp;</th>
-                        <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold"> Nombre</th>
-                        <th data-options="field:'Licencia',		width:15, align:'center'" > Lic.</th>
-                        <th data-options="field:'Categoria',	width:15, align:'center'" > Cat.</th>
-                        <th data-options="field:'Grado',		width:15, align:'center'" > Grd.</th>
-                        <th data-options="field:'NombreGuia',	width:50, align:'right'" > Guia</th>
-                        <th data-options="field:'NombreClub',	width:45, align:'right'" > Club</th>
-                        <th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"> F/T</th>
-                        <th data-options="field:'R1',			width:15, align:'center'"> R.</th>
-                        <th data-options="field:'T1',			width:25, align:'right',formatter:formatT1"> Tmp.</th>
-                        <th data-options="field:'V1',			width:15, align:'right',formatter:formatV1"> Vel</th>
-                        <th data-options="field:'P1',			width:20, align:'right',formatter:formatP1"> Penal.</th>
-                        <th data-options="field:'C1',			width:25, align:'center'"> Cal.</th>
-                        <th data-options="field:'F2',			width:15, align:'center',styler:formatBorder"> F/T</th>
-                        <th data-options="field:'R2',			width:15, align:'center'"> R.</th>
-                        <th data-options="field:'T2',			width:25, align:'right',formatter:formatT2"> Tmp.</th>
-                        <th data-options="field:'V2',			width:15, align:'right',formatter:formatV2"> Vel.</th>
-                        <th data-options="field:'P2',			width:20, align:'right',formatter:formatP2"> Penal.</th>
-                        <th data-options="field:'C2',			width:25, align:'center'"> Cal.</th>
-                        <th data-options="field:'Tiempo',		width:25, align:'right',formatter:formatTF,styler:formatBorder">Tiempo</th>
-                        <th data-options="field:'Penalizacion',	width:25, align:'right',formatter:formatPenalizacionFinal" > Penaliz.</th>
-                        <th data-options="field:'Calificacion',	width:20, align:'center'" > Calif.</th>
-                        <th data-options="field:'Puesto',		width:15, align:'center',formatter:formatPuestoFinalBig" > Puesto </th>
+                        <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
+                        <th data-options="field:'Licencia',		width:15, align:'center'" > <?php _e('Lic'); ?>.</th>
+                        <th data-options="field:'Categoria',	width:15, align:'center'" > <?php _e('Cat'); ?>.</th>
+                        <th data-options="field:'Grado',		width:15, align:'center'" > <?php _e('Grd'); ?>.</th>
+                        <th data-options="field:'NombreGuia',	width:50, align:'right'" > <?php _e('Handler'); ?></th>
+                        <th data-options="field:'NombreClub',	width:45, align:'right'" > <?php _e('Club'); ?></th>
+                        <th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
+                        <th data-options="field:'R1',			width:15, align:'center'"> <?php _e('R'); ?>.</th>
+                        <th data-options="field:'T1',			width:25, align:'right',formatter:formatT1"> <?php _e('Time'); ?>.</th>
+                        <th data-options="field:'V1',			width:15, align:'right',formatter:formatV1"> <?php _e('Vel'); ?>.</th>
+                        <th data-options="field:'P1',			width:20, align:'right',formatter:formatP1"> <?php _e('Penal'); ?>.</th>
+                        <th data-options="field:'C1',			width:25, align:'center'"> <?php _e('Cal'); ?>.</th>
+                        <th data-options="field:'F2',			width:15, align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
+                        <th data-options="field:'R2',			width:15, align:'center'"> <?php _e('R'); ?>.</th>
+                        <th data-options="field:'T2',			width:25, align:'right',formatter:formatT2"> <?php _e('Time'); ?>.</th>
+                        <th data-options="field:'V2',			width:15, align:'right',formatter:formatV2"> <?php _e('Vel'); ?>.</th>
+                        <th data-options="field:'P2',			width:20, align:'right',formatter:formatP2"> <?php _e('Penal'); ?>.</th>
+                        <th data-options="field:'C2',			width:25, align:'center'"> <?php _e('Cal'); ?>.</th>
+                        <th data-options="field:'Tiempo',		width:25, align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
+                        <th data-options="field:'Penalizacion',	width:25, align:'right',formatter:formatPenalizacionFinal" > <?php _e('Penaliz'); ?>.</th>
+                        <th data-options="field:'Calificacion',	width:20, align:'center'" > <?php _e('Calif'); ?>.</th>
+                        <th data-options="field:'Puesto',		width:15, align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
                     </tr>
                     </thead>
                 </table>
@@ -117,7 +117,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
-addTooltip($('#pb_header-link').linkbutton(),"Actualizar clasificaciones");
+addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update scores"); ?>');
 $('#pb_enumerateFinales').combogrid({
 	panelWidth: 300,
 	panelHeight: 150,
@@ -132,7 +132,7 @@ $('#pb_enumerateFinales').combogrid({
 	editable: false,  // to disable tablet keyboard popup
 	selectOnNavigation: true, // let use cursor keys to interactive select
 	columns: [[
-			{field:'Nombre',title:'Clasificaciones disponibles',width:50,align:'right'},
+			{field:'Nombre',title:'<?php _e('Available scores'); ?>',width:50,align:'right'},
 			{field:'Prueba',hidden:true},
 			{field:'Jornada',hidden:true},
 			{field:'Manga1',hidden:true},
@@ -188,7 +188,7 @@ $('#pb_resultados-datagrid').datagrid({
 	// propiedades del datagrid
 	toolbar:'#resultados-toolbar',
 	// no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
-	loadMsg: "Actualizando resultados de la ronda...",
+	loadMsg: "<?php _e('Updating round scores');?>...",
 	pagination: false,
 	rownumbers: false,
 	fitColumns: true,
