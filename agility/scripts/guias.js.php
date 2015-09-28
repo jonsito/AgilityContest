@@ -39,8 +39,8 @@ function assignGuiaToClub(dgname,club) {
     $('#chguias-parent').val(dgname);
 
     // finalmente desplegamos el formulario y ajustamos textos
-	$('#chguias-title').text('Reasignar/Declarar un guia como perteneciente al club '+club.Nombre);
-	$('#chguias-dialog').dialog('open').dialog('setTitle','Asignar/Registrar un gu&iacute;a'+' - '+fedName(workingData.federation));
+	$('#chguias-title').text('<?php _e('Reassign/Declare a handler as belonging to club'); ?>'+' '+club.Nombre);
+	$('#chguias-dialog').dialog('open').dialog('setTitle','<?php _e('Assign/Register a handler'); ?>'+' - '+fedName(workingData.federation));
 }
 
 /**
@@ -51,7 +51,7 @@ function assignGuiaToClub(dgname,club) {
 function editGuiaFromClub(dg, club) {
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Guia!","warning");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
     	return; // no way to know which guia is selected
     }
     // add extra needed parameters to dialog
@@ -59,7 +59,7 @@ function editGuiaFromClub(dg, club) {
     row.NombreClub=club.Nombre;
     row.Operation='update';
     $('#guias-form').form('load',row);
-    $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del guia inscrito en el club '+club.Nombre+' - '+fedName(workingData.federation));
+    $('#guias-dialog').dialog('open').dialog('setTitle','<?php _e('Modify data on handler belonging to club'); ?>'+' '+club.Nombre+' - '+fedName(workingData.federation));
 	// on click OK button, close dialog and refresh data
 	$('#guias-okBtn').one('click',function () { $(dg).datagrid('reload'); } ); 
 }
@@ -74,17 +74,17 @@ function editGuiaFromClub(dg, club) {
 function delGuiaFromClub(dg,club) {
     var row = $(dg).datagrid('getSelected');
     if (!row){
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Guia!","warning");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
     	return; // no way to know which guia is selected
     }
-    $.messager.confirm('Confirm',"Borrar asignacion del gu&iacute;a '"+row.Nombre+"' al club '"+club.Nombre+"' ¿Seguro?'",function(r){
+    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e("Delete assignation for handler"); ?>'+" '"+row.Nombre+"' "+'<?php _e("to club"); ?>'+" '"+club.Nombre+"' "+'<?php _e("Sure?"); ?>'+"'",function(r){
         if (r){
             $.get('/agility/server/database/guiaFunctions.php',{'Operation':'orphan','ID':row.ID},function(result){
                 if (result.success){
                 	$(dg).datagrid('reload');
                 } else {
                 	// show error message
-                    $.messager.show({ title: 'Error', width: 300, height: 200, msg: result.errorMsg });
+                    $.messager.show({ title: '<?php _e('Error'); ?>', width: 300, height: 200, msg: result.errorMsg });
                 }
             },'json');
         }
@@ -103,7 +103,7 @@ function reload_guiasDatagrid() {
  * @param {function} onAccept what to do (only once) when window gets closed
  */
 function newGuia(def,onAccept){
-	$('#guias-dialog').dialog('open').dialog('setTitle','Nuevo gu&iacute;a'+' - '+fedName(workingData.federation));
+	$('#guias-dialog').dialog('open').dialog('setTitle','<?php _e('New handler'); ?>'+' - '+fedName(workingData.federation));
 	$('#guias-form').form('clear');
 	if (!strpos(def,"Buscar")) $('#guias-Nombre').val(def);
 	$('#guias-Operation').val('insert');
@@ -120,10 +120,10 @@ function editGuia(dg){
 	if ($('#guias-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","!No ha seleccionado ningún guía!","warning");
+    	$.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
-    $('#guias-dialog').dialog('open').dialog('setTitle','Modificar datos del gu&iacute;a'+' - '+fedName(workingData.federation));
+    $('#guias-dialog').dialog('open').dialog('setTitle','<?php _e('Modify handler data'); ?>'+' - '+fedName(workingData.federation));
     // add extra required parameters to dialog
     row.Parent='';
     row.Operation='update';
@@ -141,21 +141,21 @@ function editGuia(dg){
 function deleteGuia(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningún guía!","warning");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
     if (row.ID==1) {
-    	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
     	return; // cannot delete default entry
     }
-    $.messager.confirm('Confirm','Borrar datos del guia: '+ row.Nombre+'\n¿Seguro?',function(r){
+    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete data on handler'); ?>'+': '+ row.Nombre+'\n'+'<?php _e('Sure?'); ?>',function(r){
     	if (!r) return;
     	$.get('/agility/server/database/guiaFunctions.php',{Operation:'delete',ID:row.ID},function(result){
     		if (result.success){
     			$(dg).datagrid('reload');    // reload the guia data
     		} else {
     			// show error message
-    			$.messager.show({ title:'Error', width:300, height:200, msg:result.errorMsg });
+    			$.messager.show({ title:'<?php _e('Error'); ?>', width:300, height:200, msg:result.errorMsg });
     		}
     	},'json');
     });
@@ -178,7 +178,7 @@ function assignGuia(){
         dataType: 'json',
         success: function (result) {
             if (result.errorMsg){ 
-            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+            	$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
             } else {
                 // TODO: study why datagrid loses focus handling
                 var dg=$('#chguias-parent').val();
@@ -206,7 +206,7 @@ function saveChGuia(){
         dataType: 'json',
         success: function (result) {
             if (result.errorMsg){
-                $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
+                $.messager.show({ width:300,height:200, title: '<?php _e('Error'); ?>', msg: result.errorMsg });
             } else {
                 // TODO: study why load makes next use focus fail on new datagrid
                 var dg=$('#chguias-parent').val();
@@ -236,7 +236,7 @@ function saveGuia(){
         dataType: 'json',
         success: function (result) {
             if (result.errorMsg){ 
-            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+            	$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
             } else {
             	var oper=$('#guias-Operation').val();
             	// notice that onAccept() already refresh parent dialog

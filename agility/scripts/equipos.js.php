@@ -67,16 +67,16 @@ function checkTeams(datagrid) {
         },
         success: function(data) {
             if (data.errorMsg) {
-                $.messager.alert("Error:",data.errorMsg,"error");
+                $.messager.alert('<?php _e("Error"); ?>',data.errorMsg,"error");
                 return false;
             }
-            str ="<h4>Comprobaci&oacute;n de los equipos registrados<br />Jornada '"+workingData.datosJornada.Nombre+"'</h4>";
-            str +="<p><strong>N&uacute;mero de equipos: "+(data['teams'].length)+"</strong></p>";
+            str ="<h4><?php _e('Registered teams revision'); ?><br /><?php _e('Journey');?> '"+workingData.datosJornada.Nombre+"'</h4>";
+            str +="<p><strong><?php _e('Number of teams'); ?>: "+(data['teams'].length)+"</strong></p>";
             if (typeof(data['default'][0])!=="undefined") {
-                str+="<p><strong>Perros sin equipo asignado: "+data['default'][0]['Numero']+"</strong></p>";
+                str+="<p><strong><?php _e('Dogs without assigned team'); ?>: "+data['default'][0]['Numero']+"</strong></p>";
             }
-            str+=checkTeamsCompose(data['more'],'Equipos con exceso de perros');
-            str+=checkTeamsCompose(data['less'],'Equipos incompletos');
+            str+=checkTeamsCompose(data['more'],'<?php _e('Teams with excess dogs'); ?>');
+            str+=checkTeamsCompose(data['less'],'<?php _e('Incomplete teams'); ?>');
             var w=$.messager.alert("Verificar",str,"info");
             w.window('resize',{width:450}).window('center');
             return false; // prevent default fireup of event trigger
@@ -95,8 +95,8 @@ function realPrintTeams() {
         {
             httpMethod: 'GET',
             data: { Prueba: workingData.prueba, Jornada: workingData.jornada },
-            preparingMessageHtml: "Imprimiendo listado de equipos; por favor espere...",
-            failMessageHtml: "There was a problem generating your report, please try again."
+            preparingMessageHtml: '<?php _e("Printing team lists; please wait"); ?> ...',
+            failMessageHtml: '<?php _e("There was a problem generating your report, please try again."); ?>'
         }
     );
 }
@@ -120,23 +120,23 @@ function printTeams(datagrid) {
         success: function(data) {
             var flag=false;
             if (data.errorMsg) {
-                $.messager.alert("Error:",data.errorMsg,"error");
+                $.messager.alert('<?php _e("Error"); ?>',data.errorMsg,"error");
                 return false;
             }
-            str ="<h4>Comprobaci&oacute;n de los equipos registrados<br />Jornada '"+workingData.datosJornada.Nombre+"'</h4>";
-            str +="<p><strong>N&uacute;mero de equipos: "+(data['teams'].length)+"</strong></p>";
+            str ="<h4><?php _e('Registered teams revision'); ?><br /><?php _e('Journey');?> '"+workingData.datosJornada.Nombre+"'</h4>";
+            str +="<p><strong><?php _e('Number of teams'); ?>: "+(data['teams'].length)+"</strong></p>";
             if (typeof(data['default'][0])!=="undefined") {
-                str+="<p><strong>Perros sin equipo asignado: "+data['default'][0]['Numero']+"</strong></p>";
+                str+="<p><strong><?php _e('Dogs without assigned team'); ?>: "+data['default'][0]['Numero']+"</strong></p>";
                 flag=true;
             }
-            str+=checkTeamsCompose(data['more'],'Equipos con exceso de perros');
-            str+=checkTeamsCompose(data['less'],'Equipos incompletos');
+            str+=checkTeamsCompose(data['more'],'<?php _e('Teams with excess dogs'); ?>');
+            str+=checkTeamsCompose(data['less'],'<?php _e('Incomplete teams'); ?>');
             str+="<p><em>Imprimir de todos modos?</em></p>";
             // si hay errores presentamos alerta y preguntamos si se quiere continuar
             if (data['more'].length>0) flag=true;
             if (data['less'].length>0) flag=true;
             if (flag==false) { realPrintTeams(); return false; }
-            var w=$.messager.confirm("Problemas encontrados",str,function(r){
+            var w=$.messager.confirm('<?php _e("Found problems"); ?>',str,function(r){
                 if (r) realPrintTeams();
             });
             w.window('resize',{width:450}).window('center');
@@ -155,18 +155,18 @@ function openTeamWindow(pruebaID) {
 	var row=$('#inscripciones-jornadas').datagrid('getSelected');
 	// si no hay jornada por equipos seleccionada indicamos error
 	if (row===null) {
-		$.messager.alert("Error:","<?php _e('Debe seleccionar una jornada con competiciones por equipos');?>","error");
+		$.messager.alert("Error:","<?php _e('You must select a journey with team rounds');?>","error");
 		return;
 	}
 	if ( (row.Equipos3==0) && (row.Equipos4==0) ) {
-		$.messager.alert("Error:","<?php _e('La jornada seleccionada no tiene competiciones por equipos');?>","error");
+		$.messager.alert("Error:","<?php _e('Selected journey has no team rounds');?>","error");
         return;
 	}
     // comprobamos si tenemos permiso para manejar jornadas por equipos
     setJornada(row);
     check_access(workingData.prueba,workingData.jornada,0,function(res) {
         if (res.errorMsg) {
-            $.messager.alert("Access denied:",res.errorMsg,"error");
+            $.messager.alert('<?php _e("Access denied"); ?>',res.errorMsg,"error");
         } else {
             // allright: marcamos jornada como activa, recargamos lista de equipos y abrimos ventana
             $('#team_datagrid').datagrid('load',{ Operation:'select', Prueba:workingData.prueba, Jornada:workingData.jornada, where:''});
@@ -202,14 +202,14 @@ function editTeam(dg){
 	if ($('#team_datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","!No ha seleccionado ningun Equipo!","info");
+    	$.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no team selected"); ?>',"info");
     	return; // no way to know which prueba is selected
     }
     if (row.Nombre==="-- Sin asignar --") {
-	$.messager.alert("Edit Error:","<?php _e('El equipo por defecto NO se puede editar');?>","error");
+	$.messager.alert('<?php _e("Edit Error"); ?>',"<?php _e('Default team cannot be edited');?>","error");
     	return; // no way to know which prueba is selected
     }
-    $('#team_edit_dialog').dialog('open').dialog('setTitle','Modificar datos del equipo');
+    $('#team_edit_dialog').dialog('open').dialog('setTitle','<?php _e('Modify team data'); ?>');
 	row.Operation="update";
     // tel window to be closed when "OK" clicked
     $('#team_edit_dialog-okBtn').one('click',function() {$('#team_edit_dialog').dialog('close');});
@@ -229,16 +229,16 @@ function editTeam(dg){
 function deleteTeam(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningun Equipo!","info");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no team selected"); ?>',"info");
     	return; // no way to know which prueba is selected
     }
     if (row.Nombre==="-- Sin asignar --") {
-		$.messager.alert("Delete Error:","<?php _e('El equipo por defecto NO se puede borrar');?>","error");
+		$.messager.alert('<?php _e("Delete Error"); ?>',"<?php _e('Default team cannot be deleted');?>","error");
     	return; // no way to know which prueba is selected
     }
     $.messager.confirm('Confirm',
-			"<p><?php _e('Esta operaci&oacute;n borrar&aacute; el equipo de la jornada');?><br />"+
-			"<p><?php _e('Desea realmente eliminar el equipo');?> '"+row.Nombre+"' <?php _e('de esta jornada');?>?</p>",function(r){
+			"<p><?php _e('This operation will remove selected team from journey');?><br />"+
+			"<p><?php _e('Do you really want to delete team');?> '"+row.Nombre+"' <?php _e('from this journey');?>?</p>",function(r){
         if (r){
             $.get('/agility/server/database/equiposFunctions.php',{Operation:'delete',ID:row.ID,Prueba:row.Prueba,Jornada:row.Jornada},function(result){
                 if (result.success){
@@ -309,7 +309,7 @@ function changeTeam() {
 	var p=$('#selteam-Equipo').combogrid('grid').datagrid('getSelected');
 	if (p==null) {
 		// indica error
-		$.messager.alert("Error","<?php _e('Debe indicar un equipo v&aacute;lido');?>","error");
+		$.messager.alert('<?php _e("Error"); ?>',"<?php _e('You must select a valid team');?>","error");
 		return;
 	}
 	$('#selteam-ID').val(p.ID);

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-28 20:47+0200\n"
-"PO-Revision-Date: 2015-09-28 20:49+0200\n"
+"POT-Creation-Date: 2015-09-28 23:30+0200\n"
+"PO-Revision-Date: 2015-09-28 23:32+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -158,7 +158,10 @@ msgstr "Eliminado"
 #: scripts/competicion.js.php:573 scripts/competicion.js.php:602
 #: scripts/competicion.js.php:873 scripts/competicion.js.php:1118
 #: scripts/competicion.js.php:1132 scripts/competicion.js.php:1478
-#: scripts/competicion.js.php:1535
+#: scripts/competicion.js.php:1535 scripts/equipos.js.php:70
+#: scripts/equipos.js.php:123 scripts/equipos.js.php:312
+#: scripts/guias.js.php:87 scripts/guias.js.php:158 scripts/guias.js.php:181
+#: scripts/guias.js.php:209 scripts/guias.js.php:239
 msgid "Error"
 msgstr "Error"
 
@@ -523,7 +526,7 @@ msgstr "Club anfitri&oacute;n"
 
 #: console/frm_clasificaciones2.php:41 console/frm_clasificaciones_eq3.php:41
 #: index.php:147 public/public.js.php:54 scripts/competicion.js.php:1142
-#: tablet/index.php:150
+#: scripts/equipos.js.php:73 scripts/equipos.js.php:126 tablet/index.php:150
 msgid "Journey"
 msgstr "Jornada"
 
@@ -1067,7 +1070,7 @@ msgstr "Asignar competidor al equipo seleccionado"
 msgid "Cancel selection. Close window"
 msgstr "Cancelar selecci&oacute;n. Cerrar ventana"
 
-#: console/frm_guias.php:35
+#: console/frm_guias.php:35 scripts/guias.js.php:106
 msgid "New handler"
 msgstr "Nuevo Gu&iacute;a"
 
@@ -1868,7 +1871,8 @@ msgstr "Licencia"
 msgid "Licensing data successfully loaded"
 msgstr "Datos de la licencia actualizados correctamente"
 
-#: scripts/clubes.js.php:125
+#: scripts/clubes.js.php:125 scripts/equipos.js.php:205
+#: scripts/equipos.js.php:209 scripts/guias.js.php:123
 msgid "Edit Error"
 msgstr "Error de edici&oacute;n"
 
@@ -1881,6 +1885,9 @@ msgid "Modify club data"
 msgstr "Editar datos del club"
 
 #: scripts/clubes.js.php:181 scripts/clubes.js.php:185
+#: scripts/equipos.js.php:232 scripts/equipos.js.php:236
+#: scripts/guias.js.php:54 scripts/guias.js.php:77 scripts/guias.js.php:144
+#: scripts/guias.js.php:148
 msgid "Delete Error"
 msgstr "Error de borrado"
 
@@ -1889,6 +1896,7 @@ msgid "This entry cannot be erased"
 msgstr "Esta entrada no se puede borrar"
 
 #: scripts/clubes.js.php:188 scripts/competicion.js.php:1047
+#: scripts/guias.js.php:80 scripts/guias.js.php:151
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -2030,37 +2038,124 @@ msgstr "No se han encontrado perros sin datos de la manga"
 msgid "Verify Error"
 msgstr "Error al verificar"
 
+#: scripts/equipos.js.php:73 scripts/equipos.js.php:126
+msgid "Registered teams revision"
+msgstr "Comprobaci&oacute;n de los equipos"
+
+#: scripts/equipos.js.php:74 scripts/equipos.js.php:127
+msgid "Number of teams"
+msgstr "N&uacute;mero de equipos"
+
+#: scripts/equipos.js.php:76 scripts/equipos.js.php:129
+msgid "Dogs without assigned team"
+msgstr "Perros sin equipo asignado"
+
+#: scripts/equipos.js.php:78 scripts/equipos.js.php:132
+msgid "Teams with excess dogs"
+msgstr "Equipos con exceso de perros"
+
+#: scripts/equipos.js.php:79 scripts/equipos.js.php:133
+msgid "Incomplete teams"
+msgstr "Equipos incompletos"
+
+#: scripts/equipos.js.php:98
+msgid "Printing team lists; please wait"
+msgstr "Imprimiendo lista de equipos. Por favor, espere"
+
+#: scripts/equipos.js.php:99
+msgid "There was a problem generating your report, please try again."
+msgstr ""
+"Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
+"nuevo"
+
+#: scripts/equipos.js.php:139
+msgid "Found problems"
+msgstr "Problemas encontrados"
+
 #: scripts/equipos.js.php:158
-msgid "Debe seleccionar una jornada con competiciones por equipos"
-msgstr "Debe seleccionar una jornada con competiciones por equipos"
+msgid "You must select a journey with team rounds"
+msgstr "Debe seleccionar una jornada con pruebas por equipos"
 
 #: scripts/equipos.js.php:162
-msgid "La jornada seleccionada no tiene competiciones por equipos"
-msgstr "La jornada seleccionada no tiene competiciones por equipos"
+msgid "Selected journey has no team rounds"
+msgstr "La jornada seleccionada no tiene pruebas por equipos"
+
+#: scripts/equipos.js.php:169
+msgid "Access denied"
+msgstr "Acceso denegado"
+
+#: scripts/equipos.js.php:205 scripts/equipos.js.php:232
+msgid "There is no team selected"
+msgstr "No hay ning&uacute;n equipo seleccionado"
 
 #: scripts/equipos.js.php:209
-msgid "El equipo por defecto NO se puede editar"
-msgstr "El equipo por defecto NO se puede editar"
+msgid "Default team cannot be edited"
+msgstr "El equipo por defecto no se puede editar"
+
+#: scripts/equipos.js.php:212
+msgid "Modify team data"
+msgstr "Editar datos del equipo"
 
 #: scripts/equipos.js.php:236
-msgid "El equipo por defecto NO se puede borrar"
-msgstr "El equipo por defecto NO se puede borrar"
+msgid "Default team cannot be deleted"
+msgstr "El equipo por defecto no se puede borrar"
 
 #: scripts/equipos.js.php:240
-msgid "Esta operaci&oacute;n borrar&aacute; el equipo de la jornada"
-msgstr "Esta operaci&oacute;n borrar&aacute; el equipo de la jornada"
+msgid "This operation will remove selected team from journey"
+msgstr "Esta operacion borrar&aacute; el equipo seleccionado de la jornada"
 
 #: scripts/equipos.js.php:241
-msgid "Desea realmente eliminar el equipo"
-msgstr "Desea realmente eliminar el equipo"
+msgid "Do you really want to delete team"
+msgstr "Realmende desea borrar el equipo"
 
 #: scripts/equipos.js.php:241
-msgid "de esta jornada"
+msgid "from this journey"
 msgstr "de esta jornada"
 
 #: scripts/equipos.js.php:312
-msgid "Debe indicar un equipo v&aacute;lido"
-msgstr "Debe indicar un equipo v&aacute;lido"
+msgid "You must select a valid team"
+msgstr "Debe seleccionar un equipo v&aacute;lido"
+
+#: scripts/guias.js.php:42
+msgid "Reassign/Declare a handler as belonging to club"
+msgstr "Reasignar/Declarar un gu&iacute;a como perteneciente al club"
+
+#: scripts/guias.js.php:43
+msgid "Assign/Register a handler"
+msgstr "Asignar/Registrar un gu&iacute;a"
+
+#: scripts/guias.js.php:54 scripts/guias.js.php:77 scripts/guias.js.php:123
+#: scripts/guias.js.php:144
+msgid "There is no handler selected"
+msgstr "No se ha seleccionado ningun gu&iacute;a"
+
+#: scripts/guias.js.php:62
+msgid "Modify data on handler belonging to club"
+msgstr "Editar datos del gu&iacute;a asociado al club"
+
+#: scripts/guias.js.php:80
+msgid "Delete assignation for handler"
+msgstr "Borrar asignaci&oacute;n del gu&iacute;a"
+
+#: scripts/guias.js.php:80
+msgid "to club"
+msgstr "al club"
+
+#: scripts/guias.js.php:80 scripts/guias.js.php:151
+msgid "Sure?"
+msgstr "¿Seguro?"
+
+#: scripts/guias.js.php:126
+msgid "Modify handler data"
+msgstr "Editar datos del gu&iacute;a"
+
+#: scripts/guias.js.php:148
+msgid "This entry cannot be deleted"
+msgstr "Esta entrada no se puede borrar"
+
+#: scripts/guias.js.php:151
+msgid "Delete data on handler"
+msgstr "Borrar datos del gu&iacute;a"
 
 #: scripts/inscripciones.js.php:178
 msgid "Sort"
@@ -2409,6 +2504,34 @@ msgstr "Orden"
 #: videowall/vwls_ordensalida.php:135
 msgid "Categ"
 msgstr "Categ"
+
+#, fuzzy
+#~ msgid "Error:"
+#~ msgstr "Error"
+
+#~ msgid "Debe seleccionar una jornada con competiciones por equipos"
+#~ msgstr "Debe seleccionar una jornada con competiciones por equipos"
+
+#~ msgid "La jornada seleccionada no tiene competiciones por equipos"
+#~ msgstr "La jornada seleccionada no tiene competiciones por equipos"
+
+#~ msgid "El equipo por defecto NO se puede editar"
+#~ msgstr "El equipo por defecto NO se puede editar"
+
+#~ msgid "El equipo por defecto NO se puede borrar"
+#~ msgstr "El equipo por defecto NO se puede borrar"
+
+#~ msgid "Esta operaci&oacute;n borrar&aacute; el equipo de la jornada"
+#~ msgstr "Esta operaci&oacute;n borrar&aacute; el equipo de la jornada"
+
+#~ msgid "Desea realmente eliminar el equipo"
+#~ msgstr "Desea realmente eliminar el equipo"
+
+#~ msgid "de esta jornada"
+#~ msgstr "de esta jornada"
+
+#~ msgid "Debe indicar un equipo v&aacute;lido"
+#~ msgstr "Debe indicar un equipo v&aacute;lido"
 
 #~ msgid "Tm"
 #~ msgstr "Eq"
