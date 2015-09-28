@@ -252,7 +252,7 @@ function print_commonDesarrollo(def) {
         4:((def==4)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
         5:((def==5)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
         6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (10 dogs/page)'); ?>',
-        8:((def==8)?'*':'')+'<?php _e('Judge assistant sheets (combined for team 4)'); ?>'<br/>'
+        8:((def==8)?'*':'')+'<?php _e('Judge assistant sheets (combined for team 4)'); ?><br/>'
     };
 
     function checkCanPrint(oper) {
