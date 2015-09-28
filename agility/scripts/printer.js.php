@@ -19,6 +19,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * Funciones relacionadas con gestion de impresos del desarrollo de la competicion
  */
 
+
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =Config::getInstance();
+?>
+
 /************************** listado de perros */
 
 /**
@@ -38,8 +45,8 @@ function print_listaPerros() {
                 page: 0,
                 rows: 0
             },
-            preparingMessageHtml: "We are preparing your report, please wait...",
-            failMessageHtml: "There was a problem generating your report, please try again."
+            preparingMessageHtml: '(dog list) <?php _e("We are preparing your report, please wait"); ?> ...',
+            failMessageHtml: '(dog list) <?php _e("There was a problem generating your report, please try again."); ?>'
         }
     );
     return false; //this is critical to stop the click event which will trigger a normal file download!
@@ -59,8 +66,8 @@ function print_ordenTandas() {
                 Prueba: workingData.prueba,
                 Jornada: workingData.jornada
             },
-            preparingMessageHtml: "We are preparing your report, please wait...",
-            failMessageHtml: "There was a problem generating your report, please try again."
+            preparingMessageHtml:'(rounds order) <?php _e("We are preparing your report, please wait"); ?> ...',
+            failMessageHtml: '(rounds order) <?php _e("There was a problem generating your report, please try again."); ?>'
         }
     );
     return false; //this is critical to stop the click event which will trigger a normal file download!
@@ -84,8 +91,8 @@ function print_ordenSalida() {
                 Jornada: workingData.jornada,
                 Manga: workingData.manga
             },
-            preparingMessageHtml: "Imprimiendo orden de salida; por favor espere...",
-            failMessageHtml: "There was a problem generating your report, please try again."
+            preparingMessageHtml: '(Starting order) <?php _e("We are preparing your report, please wait"); ?> ...',
+            failMessageHtml: '(Starting order) <?php _e("There was a problem generating your report, please try again."); ?>'
         }
     );
     return false; //this is critical to stop the click event which will trigger a normal file download!
@@ -109,8 +116,8 @@ function print_trsTemplates(mode) {
                 Manga: workingData.manga,
                 Mode: mode
             },
-            preparingMessageHtml: "Imprimiendo orden de salida; por favor espere...",
-            failMessageHtml: "There was a problem generating your report, please try again."
+            preparingMessageHtml: '(sct template) <?php _e("We are preparing your report, please wait"); ?> ...',
+            failMessageHtml: '(sct template) <?php _e("There was a problem generating your report, please try again."); ?>'
         }
     );
     return false; //this is critical to stop the click event which will trigger a normal file download!
@@ -128,8 +135,8 @@ function print_asistente(pages) {
                 Manga: workingData.manga,
                 Mode: pages
             },
-            preparingMessageHtml: "We are preparing your report, please wait...",
-            failMessageHtml: "There was a problem generating your report, please try again."
+            preparingMessageHtml:'(assistant sheets) <?php _e("We are preparing your report, please wait"); ?> ...',
+            failMessageHtml:'(assistant sheets) <?php _e("There was a problem generating your report, please try again."); ?>'
         }
     );
     return false; //this is critical to stop the click event which will trigger a normal file download!
@@ -148,8 +155,8 @@ function print_asistenteEquipos() {
                 Jornada: workingData.jornada,
                 Manga: workingData.manga
             },
-            preparingMessageHtml: "We are preparing your report, please wait...",
-            failMessageHtml: "There was a problem generating your report, please try again."
+            preparingMessageHtml: '(assistant team sheets) <?php _e("We are preparing your report, please wait"); ?> ...',
+            failMessageHtml:'(assistant team sheets) <?php _e("There was a problem generating your report, please try again."); ?>'
         }
     );
     return false; //this is critical to stop the click event which will trigger a normal file download!
@@ -174,8 +181,8 @@ function print_parcial(mode) {
 				Mode: mode,
 				Operation: 'print'
 			},
-	        preparingMessageHtml: "We are preparing your report, please wait...",
-	        failMessageHtml: "There was a problem generating your report, please try again."
+	        preparingMessageHtml: '(partial scores) <?php _e("We are preparing your report, please wait"); ?> ...',
+	        failMessageHtml:'(partial scores) <?php _e("There was a problem generating your report, please try again."); ?>'
 		}
 	);
 }
@@ -198,8 +205,8 @@ function checkAndPrintParcial(val) {
 				// No hay perros pendientes de salir: imprimimos los datos de la manga y categoria solicitada
 				print_parcial(mode);
 			} else {
-				var str="<h3>Perros pendientes de introducci&oacute;n de datos:</h3>";
-				str +="<table><tr><th>Dorsal</th><th>Perro</th><th>Gu&iacute;a</th><th>Club</th></tr>";
+				var str='<h3><?php _e("Dogs with pending data to be entered"); ?>:</h3>';
+				str +="<table><tr><th><?php _e('Dorsal'); ?></th><th><?php _e('Dog');?></th><th><?php _e('Handler');?></th><th>Club</th></tr>";
 				// componemos mensaje de error
 				$.each(
 					data['rows'],
@@ -207,14 +214,15 @@ function checkAndPrintParcial(val) {
 						str+="<tr><td>"+val['Dorsal']+"</td><td>"+val['Nombre']+"</td><td>"+val['NombreGuia']+"</td><td>"+val['NombreClub']+"</td></tr>";
 					}
 				);
-				str+="</table><br />Imprimir de todos modos?";
-				var w=$.messager.confirm('Datos no v&aacute;lidos',str,function(r){if (r) print_parcial(mode);});
+				str+="</table><br /><?php _e('Print anyway'); ?>?";
+				var w=$.messager.confirm('<?php _e('Invalid data'); ?>',str,function(r){if (r) print_parcial(mode);});
 				w.window('resize',{width:550}).window('center');
 			}
 		}
 	});
     return false; //this is critical to stop the click event which will trigger a normal file download!
 }
+
 /******************** Entrada comun para las operaciones de impresion del desarrollo de la jornada *******/
 
 /**
@@ -226,25 +234,25 @@ function checkAndPrintParcial(val) {
 function print_commonDesarrollo(def) {
 
     var options= {
-        0:((def==0)?'*':'')+'Programa de actividades de la jornada',
-        1:((def==1)?'*':'')+'Orden de salida de la manga<br/>',
-        2:((def==2)?'*':'')+'Hoja de calculo para evaluar el TRS y TRM',
-        3:((def==3)?'*':'')+'Hoja para apuntar datos de las mangas<br/>',
-        4:((def==4)?'*':'')+'Hojas para el asistente de pista (1 perro/página)',
-        5:((def==5)?'*':'')+'Hojas para el asistente de pista (5 perros/página)',
-        6:((def==6)?'*':'')+'Hojas para el asistente de juez (10 perros/página)<br/>'
+        0:((def==0)?'*':'')+'<?php _e('Activities and timetable on this journey'); ?>',
+        1:((def==1)?'*':'')+'<?php _e('Starting order on this round'); ?><br/>',
+        2:((def==2)?'*':'')+'<?php _e('SheetCalc to evaluate SCT and MCT'); ?>',
+        3:((def==3)?'*':'')+'<?php _e('Sheet to anotate data on rounds'); ?><br/>',
+        4:((def==4)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
+        5:((def==5)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
+        6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (10 dogs/page)'); ?><br/>'
         // As we need to select categoria, cannot directly access to print parciales
         //7:((def==7)?'*':'')+'Imprimir resultados parciales de la manga'
     };
     var options4= {
-        0:((def==0)?'*':'')+'Programa de actividades de la jornada',
-        1:((def==1)?'*':'')+'Orden de salida de la manga<br/>',
-        2:((def==2)?'*':'')+'Hoja de calculo para evaluar el TRS y TRM',
-        3:((def==3)?'*':'')+'Hoja para apuntar datos de las mangas<br/>',
-        4:((def==4)?'*':'')+'Hojas para el asistente de pista (1 perro/página)',
-        5:((def==5)?'*':'')+'Hojas para el asistente del juez (5 perros/página)',
-        6:((def==6)?'*':'')+'Hojas para el asistente de pista (10 perros/página)',
-        8:((def==8)?'*':'')+'Hojas para el asistente ( Conjunta para Equipos4 )<br/>'
+        0:((def==0)?'*':'')+'<?php _e('Activities and timetable on this journey'); ?>',
+        1:((def==1)?'*':'')+'<?php _e('Starting order on this round'); ?><br/>',
+        2:((def==2)?'*':'')+'<?php _e('SheetCalc to evaluate SCT and MCT'); ?>',
+        3:((def==3)?'*':'')+'<?php _e('Sheet to anotate data on rounds'); ?><br/>',
+        4:((def==4)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
+        5:((def==5)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
+        6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (10 dogs/page)'); ?>',
+        8:((def==8)?'*':'')+'<?php _e('Judge assistant sheets (combined for team 4)'); ?>'<br/>'
     };
 
     function checkCanPrint(oper) {
@@ -253,14 +261,14 @@ function print_commonDesarrollo(def) {
             case 1: case 4: case 5: case 6: case 7:case 8:
                 var row= $('#competicion-listamangas').datagrid('getSelected');
                 if (row )  return true;
-                $.messager.alert('Error','No hay ninguna manga seleccionada','error');
+                $.messager.alert('<?php _e('Error'); ?>','<?php _e('There is no selected round'); ?>','error');
                 return false; // no hay ninguna manga seleccionada. retornar
         }
         return false;
     }
     $.messager.radio(
-        'Imprimir documento',
-        'Indica el tipo de documento que quieres generar:',
+        '<?php _e('Print form'); ?>',
+        '<?php _e('Select document type to be generated'); ?>:',
         isJornadaEq4()?options4:options,
         function(r){
             if (!r) return false;
@@ -292,7 +300,7 @@ function clasificaciones_printPodium() {
     if (isJornadaEq3()) url='/agility/server/pdf/print_podium_eq3.php';
     if (isJornadaEq4()) url='/agility/server/pdf/print_podium_eq4.php';
 	if (ronda==null) {
-    	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+    	$.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");
     	return false; // no way to know which ronda is selected
 	}
 	$.fileDownload(
@@ -306,8 +314,8 @@ function clasificaciones_printPodium() {
 				Manga2:ronda.Manga2,
 				Rondas: ronda.Rondas
 			},
-	        preparingMessageHtml: "Generando PDF con los podios. Por favor, espere...",
-	        failMessageHtml: "Ha habido problemas en la generacion del formulario\n. Por favor, intentelo de nuevo."
+	        preparingMessageHtml:'(podium) <?php _e("We are preparing your report, please wait"); ?> ...',
+	        failMessageHtml:'(podium) <?php _e("There was a problem generating your report, please try again."); ?>'
 		}
 	);
     return false; //this is critical to stop the click event which will trigger a normal file download!
@@ -325,7 +333,7 @@ function clasificaciones_printCanina() {
 	var url='/agility/server/pdf/print_clasificacion_excel.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	if (ronda==null) {
-    	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+    	$.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");
     	return false; // no way to know which ronda is selected
 	}
 	$.fileDownload(
@@ -340,8 +348,8 @@ function clasificaciones_printCanina() {
 				Rondas: ronda.Rondas,
 				Mode: mode
 			},
-	        preparingMessageHtml: "Generando fichero Excel con las clasificaciones. Por favor, espere...",
-	        failMessageHtml: "Ha habido problemas en la generacion del fichero\n. Por favor, intentelo de nuevo."
+	        preparingMessageHtml:'(excel) <?php _e("We are preparing your report, please wait"); ?> ...',
+	        failMessageHtml: '(excel) <?php _e("There was a problem generating your report, please try again."); ?>'
 		}
 	);
     return false; //this is critical to stop the click event which will trigger a normal file download!
@@ -361,7 +369,7 @@ function clasificaciones_printEtiquetas(flag,start,list) {
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	var strt=parseInt(start)-1;
 	if (ronda==null) {
-    	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+        $.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");
     	return false; // no way to know which ronda is selected
 	}
 	$.fileDownload(
@@ -378,8 +386,8 @@ function clasificaciones_printEtiquetas(flag,start,list) {
 				Start: strt,
 				List: list
 			},
-	        preparingMessageHtml: "Generando formulario con las etiquetas. Por favor, espere...",
-	        failMessageHtml: "Ha habido problemas en la generacion del formulario\n. Por favor, intentelo de nuevo."
+	        preparingMessageHtml: '(labels) <?php _e("We are preparing your report, please wait"); ?> ...',
+	        failMessageHtml: '(labels) <?php _e("There was a problem generating your report, please try again."); ?>'
 		}
 	);
     return false; //this is critical to stop the click event which will trigger a normal file download!
@@ -396,7 +404,7 @@ function clasificaciones_printClasificacion() {
     if (isJornadaEq4()) url='/agility/server/pdf/print_clasificacion_eq4.php';
 	var mode=$('#resultados-selectCategoria').combobox('getValue');
 	if (ronda==null) {
-    	$.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
+        $.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected round on this journey"); ?>',"warning");
     	return false; // no way to know which ronda is selected
 	}
 	$.fileDownload(
@@ -411,8 +419,8 @@ function clasificaciones_printClasificacion() {
 				Rondas: ronda.Rondas,
 				Mode: mode
 			},
-	        preparingMessageHtml: "Generando PDF con las clasificaciones. Por favor, espere...",
-	        failMessageHtml: "Ha habido problemas en la generacion del formulario\n. Por favor, intentelo de nuevo."
+	        preparingMessageHtml: '(scores) <?php _e("We are preparing your report, please wait"); ?> ...',
+	        failMessageHtml:'(scores) <?php _e("There was a problem generating your report, please try again."); ?>'
 		}
 	);
     return false; //this is critical to stop the click event which will trigger a normal file download!

@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =Config::getInstance();
+?>
+
 //***** gestion de jueces		*********************************************************
 
 function juecesRSCE(val,row,idx) { return ( (parseInt(row.Federations)&1)==0)?" ":"&#x2714;"; }
@@ -29,7 +35,7 @@ function juecesBaja(val,row,idx) { return ( parseInt(val)==0)?" ":"&#x26D4;"; }
  *@param {function} onAccept what to do when a new Juez is created
  */
 function newJuez(dg,def,onAccept){
-	$('#jueces-dialog').dialog('open').dialog('setTitle','Nuevo juez'); // open dialog
+	$('#jueces-dialog').dialog('open').dialog('setTitle','<?php _e('New judge'); ?>'); // open dialog
 	$('#jueces-form').form('clear');// clear old data (if any)
 	if (!strpos(def,"Buscar")) $('#jueces-Nombre').val(def);// fill juez Name
 	$('#jueces-Operation').val('insert');// set up operation
@@ -44,13 +50,13 @@ function editJuez(dg){
 	if ($('#jueces-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","!No ha seleccionado ningún Juez!","warning");
+    	$.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no judge selected"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
     // set up operation properly
     row.Operation='update';
     // open dialog
-    $('#jueces-dialog').dialog('open').dialog('setTitle','Modificar datos del juez');
+    $('#jueces-dialog').dialog('open').dialog('setTitle','<?php _e('Modify judge data'); ?>');
     // and fill form with row data
     $('#jueces-form').form('load',row);
     // set up federation checkboxes
@@ -81,7 +87,7 @@ function saveJuez(){
         dataType: 'json',
         success: function (result) {
             if (result.errorMsg){
-                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
+                $.messager.show({ width:300, height:200, title: '<?php _e('Error'); ?>', msg: result.errorMsg });
             } else {
                 $('#jueces-dialog').dialog('close');        // close the dialog
                 $('#jueces-datagrid').datagrid('reload');    // reload the juez data
@@ -97,14 +103,14 @@ function saveJuez(){
 function deleteJuez(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningún Juez!","info");
+        $.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no judge selected"); ?>',"info");
     	return; // no way to know which juez is selected
     }
     if (row.ID==1) {
-    	$.messager.alert("Delete Error:","Esta entrada no se puede borrar","error");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
     	return; // cannot delete default juez
     }
-    $.messager.confirm('Confirm','Borrar datos del juez:'+row.Nombre+'\n ¿Seguro?',function(r){
+    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete data on judge'); ?>'+':'+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){
       	if (!r) return;
         $.get('/agility/server/database/juezFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){

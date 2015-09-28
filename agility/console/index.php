@@ -60,8 +60,8 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/scripts/admin.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/clubes.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/guias.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/perros.js" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/jueces.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/perros.js.php" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/jueces.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/usuarios.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/sesiones.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/tandas.js" type="text/javascript" charset="utf-8" > </script>
@@ -69,7 +69,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/scripts/pruebas.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/inscripciones.js.php" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/scripts/competicion.js.php" type="text/javascript" charset="utf-8" > </script>
-<script src="/agility/scripts/printer.js" type="text/javascript" charset="utf-8" > </script>
+<script src="/agility/scripts/printer.js.php" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript">
 function initialize() {

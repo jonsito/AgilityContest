@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+<?php
+require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/tools.php");
+$config =Config::getInstance();
+?>
+
 // ***** gestion de perros		*********************************************************
 
 function reload_perrosDatagrid() {
@@ -29,7 +35,7 @@ function reload_perrosDatagrid() {
  * @param def nombre por defecto que se asigna al perro en el formulario
  */
 function newDog(dg,def){
-	$('#perros-dialog').dialog('open').dialog('setTitle','Nuevo perro'+' - '+fedName(workingData.federation));
+	$('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('New dog'); ?>'+' - '+fedName(workingData.federation));
 	$('#perros-form').form('clear'); // start with an empty form
 	if (!strpos(def,"Buscar")) $('#perros-Nombre').val(def);
 	$('#perros-Operation').val('insert');
@@ -45,10 +51,10 @@ function editDog(dg){
 	if ($('#perros-datagrid-search').is(":focus")) return; // on enter key in search input ignore
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Edit Error:","!No ha seleccionado ningún perro!","warning");
+    	$.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no selected dog"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
-    $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro'+' - '+fedName(workingData.federation));
+    $('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('Modify data on dog'); ?>'+' - '+fedName(workingData.federation));
     // add extra required data to form dialog
     row.Operation='update';
     $('#perros-form').form('load',row);// load form with row data
@@ -62,7 +68,7 @@ function editDog(dg){
 function editInscribedDog(){
 	var id=$('#edit_inscripcion-Perro').val();
 	$('#perros-form').form('load','/agility/server/database/dogFunctions.php?Operation=getbyidperro&ID='+id);
-    $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro a inscribir'+' - '+fedName(workingData.federation));
+    $('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('Modify data on dog to be inscribed'); ?>'+' - '+fedName(workingData.federation));
     // add extra required data to form dialog
 	$('#perros-warning').css('visibility','visible');
 	$('#perros-okBtn').one('click',function() {
@@ -92,10 +98,10 @@ function editInscribedDog(){
 function deleteDog(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Delete Error:","!No ha seleccionado ningún perro!","info");
+    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no selected dog"); ?>',"info");
     	return; // no way to know which dog is selected
     }
-    $.messager.confirm('Confirm','Borrar el perro: "'+ row.Nombre+'" de la base de datos.\n¿Seguro?',function(r){
+    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete dog'); ?>'+': "'+ row.Nombre+'" '+'<?php _e('from database'); ?>'+'.\n'+'<?php _e('Sure?'); ?>',function(r){
        	if (!r) return;
         $.get('/agility/server/database/dogFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){
@@ -122,8 +128,8 @@ function assignPerroToGuia(dgstr,guia) {
     $('#chperros-Operation').val('update');
     $('#chperros-parent').val(dgstr);
 	// desplegar ventana y ajustar textos
-	$('#chperros-title').text('Buscar perro / Declarar un nuevo perro y asignarlo a '+guia.Nombre);
-	$('#chperros-dialog').dialog('open').dialog('setTitle',"Reasignar / Declarar perro"+' - '+fedName(workingData.federation));
+	$('#chperros-title').text('<?php _e('Search dog/Declare new dog and assign to'); ?>'+' '+guia.Nombre);
+	$('#chperros-dialog').dialog('open').dialog('setTitle','<?php _e("Reassign / Declare dog"); ?>'+' - '+fedName(workingData.federation));
 }
 
 /**
@@ -136,14 +142,14 @@ function editPerroFromGuia(dgstr,guia) {
     var dg=$(dgstr);
     var row = dg.datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("Error","!No ha seleccionado ningún perro!","warning");
+    	$.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected dog"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
     // add extra required data to form dialog
     row.Operation='update';
     $('#perros-form').form('load',row);	// load form with row data. onLoadSuccess will fix comboboxes
     // finally display composed data
-    $('#perros-dialog').dialog('open').dialog('setTitle','Modificar datos del perro asignado a '+guia.Nombre+' - '+fedName(workingData.federation));
+    $('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('Modify data on dog assigned to'); ?>'+' '+guia.Nombre+' - '+fedName(workingData.federation));
 	$('#perros-okBtn').one('click',function () { dg.datagrid('reload'); } );
 }
 
@@ -156,16 +162,16 @@ function delPerroFromGuia(dgstr,guia) {
     var dg=$(dgstr);
     var row = dg.datagrid('getSelected');
     if (!row){
-    	$.messager.alert("Error","!No ha seleccionado ningún perro!","warning");
+    	$.messager.alert('<?php _e("Error"); ?>','<?php _e("There is no selected dog"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
-    $.messager.confirm('Confirm',"Borrar asignacion del perro '"+row.Nombre+"' al guia '"+guia.Nombre+"' ¿Seguro?'",function(r){
+    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e("Delete assignment from dog"); ?>'+" '"+row.Nombre+"' '+'<?php _e('to handler');?>'+' '"+guia.Nombre+"' "+'<?php _e('Sure?');?>',function(r){
         if (r){
             $.get('/agility/server/database/dogFunctions.php',{Operation:'orphan',ID:row.ID},function(result){
                 if (result.success){
                 	dg.datagrid('reload');
                 } else {
-                    $.messager.show({title: 'Error', msg: result.errorMsg, width: 300,height:200 });
+                    $.messager.show({title: '<?php _e('Error'); ?>', msg: result.errorMsg, width: 300,height:200 });
                 }
             },'json');
         }
@@ -217,7 +223,7 @@ function saveChDog(){
         dataType: 'json',
         success: function (result) {
             if (result.errorMsg){
-                $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
+                $.messager.show({ width:300,height:200, title: '<?php _e('Error'); ?>', msg: result.errorMsg });
             } else {
                 // TODO: this leave focus datagrid handling buggy. study why
                 var dg=$('#chperros-parent').val();
@@ -244,7 +250,7 @@ function saveDog(){
         dataType: 'json',
         success: function (result) {
             if (result.errorMsg){
-                $.messager.show({ width:300,height:200, title: 'Error', msg: result.errorMsg });
+                $.messager.show({ width:300,height:200, title: '<?php _e('Error'); ?>', msg: result.errorMsg });
             } else {
                 // reload the dog data from inscripciones (if any)
             	if (isDefined('listaNoInscritos')) listaNoInscritos();

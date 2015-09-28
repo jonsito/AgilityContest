@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-28 23:30+0200\n"
-"PO-Revision-Date: 2015-09-28 23:32+0200\n"
+"POT-Creation-Date: 2015-09-29 00:22+0200\n"
+"PO-Revision-Date: 2015-09-29 00:25+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -44,7 +44,8 @@ msgstr "T"
 #: console/frm_inscripciones2.php:190 public/pb_inscripciones.php:91
 #: public/pb_inscripciones_equipos.php:147 public/pb_ordensalida.php:151
 #: public/pb_parciales.php:162 public/pb_parciales_eq3.php:165
-#: scripts/competicion.js.php:1459 server/pdf/print_equiposByJornada.php:84
+#: scripts/competicion.js.php:1459 scripts/printer.js.php:209
+#: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72
 #: server/pdf/print_resultadosByEquipos.php:83
@@ -58,7 +59,7 @@ msgid "Dorsal"
 msgstr "Dorsal"
 
 #: chrono/chrono.inc.php:62 console/frm_equipos.php:69
-#: scripts/competicion.js.php:1459
+#: scripts/competicion.js.php:1459 scripts/printer.js.php:209
 msgid "Dog"
 msgstr "Perro"
 
@@ -69,12 +70,12 @@ msgstr "Perro"
 #: public/pb_inscripciones.php:98 public/pb_inscripciones_equipos.php:154
 #: public/pb_ordensalida.php:155 public/pb_parciales.php:166
 #: public/pb_parciales_eq3.php:169 scripts/competicion.js.php:1459
-#: tablet/tablet_main.php:78 tablet/tablet_main.php:262
-#: videowall/videowall.js.php:163 videowall/vw_combinada.php:133
-#: videowall/vw_combinada.php:190 videowall/vw_livestream.php:62
-#: videowall/vw_llamada.php:101 videowall/vw_ordensalida.php:105
-#: videowall/vw_parciales.php:127 videowall/vwls_ordensalida.php:133
-#: videowall/vwls_parciales.php:153
+#: scripts/printer.js.php:209 tablet/tablet_main.php:78
+#: tablet/tablet_main.php:262 videowall/videowall.js.php:163
+#: videowall/vw_combinada.php:133 videowall/vw_combinada.php:190
+#: videowall/vw_livestream.php:62 videowall/vw_llamada.php:101
+#: videowall/vw_ordensalida.php:105 videowall/vw_parciales.php:127
+#: videowall/vwls_ordensalida.php:133 videowall/vwls_parciales.php:153
 msgid "Handler"
 msgstr "Gu&iacute;a"
 
@@ -161,7 +162,12 @@ msgstr "Eliminado"
 #: scripts/competicion.js.php:1535 scripts/equipos.js.php:70
 #: scripts/equipos.js.php:123 scripts/equipos.js.php:312
 #: scripts/guias.js.php:87 scripts/guias.js.php:158 scripts/guias.js.php:181
-#: scripts/guias.js.php:209 scripts/guias.js.php:239
+#: scripts/guias.js.php:209 scripts/guias.js.php:239 scripts/jueces.js.php:90
+#: scripts/perros.js.php:145 scripts/perros.js.php:165
+#: scripts/perros.js.php:174 scripts/perros.js.php:226
+#: scripts/perros.js.php:253 scripts/printer.js.php:264
+#: scripts/printer.js.php:303 scripts/printer.js.php:336
+#: scripts/printer.js.php:372 scripts/printer.js.php:407
 msgid "Error"
 msgstr "Error"
 
@@ -1873,6 +1879,7 @@ msgstr "Datos de la licencia actualizados correctamente"
 
 #: scripts/clubes.js.php:125 scripts/equipos.js.php:205
 #: scripts/equipos.js.php:209 scripts/guias.js.php:123
+#: scripts/jueces.js.php:53 scripts/perros.js.php:54
 msgid "Edit Error"
 msgstr "Error de edici&oacute;n"
 
@@ -1887,7 +1894,8 @@ msgstr "Editar datos del club"
 #: scripts/clubes.js.php:181 scripts/clubes.js.php:185
 #: scripts/equipos.js.php:232 scripts/equipos.js.php:236
 #: scripts/guias.js.php:54 scripts/guias.js.php:77 scripts/guias.js.php:144
-#: scripts/guias.js.php:148
+#: scripts/guias.js.php:148 scripts/jueces.js.php:106
+#: scripts/jueces.js.php:110 scripts/perros.js.php:101
 msgid "Delete Error"
 msgstr "Error de borrado"
 
@@ -1896,7 +1904,8 @@ msgid "This entry cannot be erased"
 msgstr "Esta entrada no se puede borrar"
 
 #: scripts/clubes.js.php:188 scripts/competicion.js.php:1047
-#: scripts/guias.js.php:80 scripts/guias.js.php:151
+#: scripts/guias.js.php:80 scripts/guias.js.php:151 scripts/jueces.js.php:113
+#: scripts/perros.js.php:104 scripts/perros.js.php:168
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -2062,7 +2071,12 @@ msgstr "Equipos incompletos"
 msgid "Printing team lists; please wait"
 msgstr "Imprimiendo lista de equipos. Por favor, espere"
 
-#: scripts/equipos.js.php:99
+#: scripts/equipos.js.php:99 scripts/printer.js.php:49
+#: scripts/printer.js.php:70 scripts/printer.js.php:95
+#: scripts/printer.js.php:120 scripts/printer.js.php:139
+#: scripts/printer.js.php:159 scripts/printer.js.php:185
+#: scripts/printer.js.php:318 scripts/printer.js.php:352
+#: scripts/printer.js.php:390 scripts/printer.js.php:423
 msgid "There was a problem generating your report, please try again."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
@@ -2141,7 +2155,8 @@ msgstr "Borrar asignaci&oacute;n del gu&iacute;a"
 msgid "to club"
 msgstr "al club"
 
-#: scripts/guias.js.php:80 scripts/guias.js.php:151
+#: scripts/guias.js.php:80 scripts/guias.js.php:151 scripts/jueces.js.php:113
+#: scripts/perros.js.php:104 scripts/perros.js.php:168
 msgid "Sure?"
 msgstr "¿Seguro?"
 
@@ -2149,7 +2164,7 @@ msgstr "¿Seguro?"
 msgid "Modify handler data"
 msgstr "Editar datos del gu&iacute;a"
 
-#: scripts/guias.js.php:148
+#: scripts/guias.js.php:148 scripts/jueces.js.php:110
 msgid "This entry cannot be deleted"
 msgstr "Esta entrada no se puede borrar"
 
@@ -2164,6 +2179,137 @@ msgstr "Ordenar"
 #: scripts/inscripciones.js.php:178
 msgid "Re-ordering Dorsals"
 msgstr "Reasignar dorsales"
+
+#: scripts/jueces.js.php:38
+msgid "New judge"
+msgstr "Nuevo juez"
+
+#: scripts/jueces.js.php:53 scripts/jueces.js.php:106
+msgid "There is no judge selected"
+msgstr "No se ha seleccionado ning&uacute;n juez"
+
+#: scripts/jueces.js.php:59
+msgid "Modify judge data"
+msgstr "Editar datos del juez"
+
+#: scripts/jueces.js.php:113
+msgid "Delete data on judge"
+msgstr "Borrar datos del juez"
+
+#: scripts/perros.js.php:38
+msgid "New dog"
+msgstr "Nuevo perro"
+
+#: scripts/perros.js.php:54 scripts/perros.js.php:101
+#: scripts/perros.js.php:145 scripts/perros.js.php:165
+msgid "There is no selected dog"
+msgstr "No hay ning&uacute;n perro seleccionado"
+
+#: scripts/perros.js.php:57
+msgid "Modify data on dog"
+msgstr "Modificar los datos del perro"
+
+#: scripts/perros.js.php:71
+msgid "Modify data on dog to be inscribed"
+msgstr "Editar datos del perro a inscribir"
+
+#: scripts/perros.js.php:104
+msgid "Delete dog"
+msgstr "Borrar perro"
+
+#: scripts/perros.js.php:104
+msgid "from database"
+msgstr "de la base de datos"
+
+#: scripts/perros.js.php:131
+msgid "Search dog/Declare new dog and assign to"
+msgstr "Buscar perro / Declarar nuevo perro y asignarlo a"
+
+#: scripts/perros.js.php:132
+msgid "Reassign / Declare dog"
+msgstr "Reasignar / Declarar perro"
+
+#: scripts/perros.js.php:152
+msgid "Modify data on dog assigned to"
+msgstr "Editar datos del perro perteneciente a"
+
+#: scripts/perros.js.php:168
+msgid "Delete assignment from dog"
+msgstr "Borrar asignaci&oacute;n del perro"
+
+#: scripts/perros.js.php:168
+msgid "to handler"
+msgstr "al gu&iacute;a"
+
+#: scripts/printer.js.php:48 scripts/printer.js.php:69
+#: scripts/printer.js.php:94 scripts/printer.js.php:119
+#: scripts/printer.js.php:138 scripts/printer.js.php:158
+#: scripts/printer.js.php:184 scripts/printer.js.php:317
+#: scripts/printer.js.php:351 scripts/printer.js.php:389
+#: scripts/printer.js.php:422
+msgid "We are preparing your report, please wait"
+msgstr "Preparando el informe, por favor, espere"
+
+#: scripts/printer.js.php:208
+msgid "Dogs with pending data to be entered"
+msgstr "Perros pendientes de introducci&oacute;n de datos"
+
+#: scripts/printer.js.php:217
+msgid "Print anyway"
+msgstr "Imprimir de todas maneras"
+
+#: scripts/printer.js.php:218
+msgid "Invalid data"
+msgstr "Datos inv&aacute;lidos"
+
+#: scripts/printer.js.php:237 scripts/printer.js.php:248
+msgid "Activities and timetable on this journey"
+msgstr "Programa de actividades y horarios de la jornada"
+
+#: scripts/printer.js.php:238 scripts/printer.js.php:249
+msgid "Starting order on this round"
+msgstr "Orden de Salida de la manga"
+
+#: scripts/printer.js.php:239 scripts/printer.js.php:250
+msgid "SheetCalc to evaluate SCT and MCT"
+msgstr "Hoja de c&aacute;lculo para el TRS y TRM"
+
+#: scripts/printer.js.php:240 scripts/printer.js.php:251
+msgid "Sheet to anotate data on rounds"
+msgstr "Hoja para apuntar datos de las mangas"
+
+#: scripts/printer.js.php:241 scripts/printer.js.php:252
+msgid "Judge assistant sheets (1 dog/page)"
+msgstr "Hojas del asistente de pista (1 perro/p&aacute;gina)"
+
+#: scripts/printer.js.php:242 scripts/printer.js.php:253
+msgid "Judge assistant sheets (5 dogs/page)"
+msgstr "Hojas del asistente de pista (5 perros/p&aacute;gina)"
+
+#: scripts/printer.js.php:243 scripts/printer.js.php:254
+msgid "Judge assistant sheets (10 dogs/page)"
+msgstr "Hojas del asistente de pista (10 perros/p&aacute;gina)"
+
+#: scripts/printer.js.php:255
+msgid "Judge assistant sheets (combined for team 4)"
+msgstr "Hojas del asistente de pista (pruebas equipos 4)"
+
+#: scripts/printer.js.php:264 tablet/tablet.js.php:525
+msgid "There is no selected round"
+msgstr "No hay ninguna manga seleccionada"
+
+#: scripts/printer.js.php:270
+msgid "Print form"
+msgstr "Imprimir formulario"
+
+#: scripts/printer.js.php:271
+msgid "Select document type to be generated"
+msgstr "Selecciona el tipo de documento a generar"
+
+#: scripts/printer.js.php:303 scripts/printer.js.php:336
+#: scripts/printer.js.php:372 scripts/printer.js.php:407
+msgid "There is no selected round on this journey"
+msgstr "No hay ninguna manga seleccionada en la jornada"
 
 #: scripts/pruebas.js.php:46
 msgid "Nueva Prueba"
@@ -2378,10 +2524,6 @@ msgstr "El perro con dorsal"
 #: tablet/tablet.js.php:480
 msgid "does not run in this series"
 msgstr "no participa en esta manga"
-
-#: tablet/tablet.js.php:525
-msgid "There is no selected round"
-msgstr "No hay ninguna manga seleccionada"
 
 #: tablet/tablet_main.php:26
 msgid "Activities on this journey"
