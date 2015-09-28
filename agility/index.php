@@ -140,21 +140,21 @@ function myRowStyler(idx,row) {
 		maximizable:false, closable:true, closed:false, shadow:true, modal:true">
 	<form id="public-form">       		
     	<div class="fitem">
-       		<label for="public-Prueba">Prueba:</label>
+       		<label for="public-Prueba"><?php _e('Contest'); ?>:</label>
        		<select id="public-Prueba" name="Prueba" style="width:200px"></select>
     	</div>        		
     	<div class="fitem">
-       		<label for="public-Jornada">Jornada:</label>
+       		<label for="public-Jornada"><?php _e('Journey'); ?>:</label>
        		<select id="public-Jornada" name="Jornada" style="width:200px"></select>
     	</div>    	
     	<div class="fitem">
-       		<label for="public-Operation">Vista:</label>
+       		<label for="public-Operation"><?php _e('View'); ?>:</label>
        		<select id="public-Operation" name="Operation" style="width:200px">
-       		<option value="inscritos">Listado de Inscritos</option>
-       		<option value="ordensalida">Orden de Salida</option>
-       		<option value="parciales">Resultados Provisionales</option>
-       		<option value="clasificaciones">Clasificaciones</option>
-            <option value="programa">Programa de la jornada</option>
+       		<option value="inscritos"><?php _e('Inscription list'); ?></option>
+       		<option value="ordensalida"><?php _e('Starting order'); ?></option>
+       		<option value="parciales"><?php _e('Partial scores'); ?></option>
+       		<option value="clasificaciones"><?php _e('Final scores'); ?></option>
+            <option value="programa"><?php _e('Journey activities timetable'); ?></option>
        		</select>
     	</div>
 	</form>
@@ -185,10 +185,10 @@ $('#public-Prueba').combogrid({
 	selectOnNavigation: true, // let use cursor keys to interactive select
 	columns: [[
 	   	    {field:'ID',hidden:true},
-			{field:'Nombre',        title:'Nombre',width:'50%',align:'right'},
+			{field:'Nombre',        title:'<?php _e('Name'); ?>',width:'50%',align:'right'},
             {field:'Club',hidden:true},
-			{field:'NombreClub',    title:'Club',width:'30%',align:'right'},
-            {field:'RSCE',			title:'Fed.',	width:'10%',	align:'center', formatter:formatRSCE},
+			{field:'NombreClub',    title:'<?php _e('Club'); ?>',width:'30%',align:'right'},
+            {field:'RSCE',			title:'<?php _e('Fed'); ?>.',	width:'10%',	align:'center', formatter:formatRSCE},
 			{field:'Observaciones',hidden:true }
 	]],
 	onChange:function(value){
@@ -217,7 +217,7 @@ $('#public-Jornada').combogrid({
 	    { field:'ID',			hidden:true }, // ID de la jornada
 	    { field:'Prueba',		hidden:true }, // ID de la prueba
 	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-		{ field:'Nombre',		width:30, sortable:false,   align:'right',  title: 'Nombre/Comentario' },
+		{ field:'Nombre',		width:30, sortable:false,   align:'right',  title: '<?php _e('Name');?>/<?php _e('Comments');?>' },
 		{ field:'Fecha',		hidden:true},
 		{ field:'Hora',			hidden:true},
 		{ field:'Grado1',		width:8, sortable:false,	align:'center', title: 'G-I    ' },
@@ -248,7 +248,7 @@ function public_acceptSelection() {
 	var page="'/agility/console/frm_notavailable.php";
 	if ( (p==null) || (j==null) || (o==null)) {
 		// indica error
-		$.messager.alert("Error","Debe indicar los datos de prueba, jornada y vista seleccionada","error");
+		$.messager.alert("Error",'<?php _e("You should select contest, journey and view to continue"); ?>',"error");
 		return;
 	}
     setPrueba(p);

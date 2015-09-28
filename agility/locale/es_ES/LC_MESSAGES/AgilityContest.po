@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-28 11:17+0200\n"
-"PO-Revision-Date: 2015-09-28 11:25+0200\n"
+"POT-Creation-Date: 2015-09-28 11:44+0200\n"
+"PO-Revision-Date: 2015-09-28 11:45+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -71,7 +71,7 @@ msgstr "Gu&iacute;a"
 #: console/frm_clasificaciones2.php:87 console/frm_clasificaciones_eq3.php:87
 #: console/frm_equipos.php:84 console/frm_equipos.php:225
 #: console/frm_guias.php:94 console/frm_inscripciones.php:78
-#: console/frm_inscripciones2.php:196 public/pb_finales.php:91
+#: console/frm_inscripciones2.php:196 index.php:190 public/pb_finales.php:91
 #: public/pb_finales_eq3.php:92 public/pb_inscripciones.php:99
 #: public/pb_inscripciones_equipos.php:155 public/pb_ordensalida.php:156
 #: public/pb_parciales.php:167 public/pb_parciales_eq3.php:170
@@ -256,12 +256,12 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/frm_equipos.php:140 console/frm_equipos.php:220
 #: console/frm_equipos.php:292 console/frm_guias.php:92
 #: console/frm_guias.php:147 console/frm_inscripciones.php:76
-#: console/frm_inscripciones2.php:191 public/pb_finales.php:86
-#: public/pb_finales_eq3.php:88 public/pb_inscripciones.php:93
-#: public/pb_inscripciones_equipos.php:149 public/pb_ordensalida.php:152
-#: public/pb_parciales.php:165 public/pb_parciales_eq3.php:168
-#: tablet/index.php:181 tablet/index.php:214 tablet/tablet_main.php:76
-#: tablet/tablet_main.php:260
+#: console/frm_inscripciones2.php:191 index.php:188 index.php:220
+#: public/pb_finales.php:86 public/pb_finales_eq3.php:88
+#: public/pb_inscripciones.php:93 public/pb_inscripciones_equipos.php:149
+#: public/pb_ordensalida.php:152 public/pb_parciales.php:165
+#: public/pb_parciales_eq3.php:168 tablet/index.php:181 tablet/index.php:214
+#: tablet/tablet_main.php:76 tablet/tablet_main.php:260
 msgid "Name"
 msgstr "Nombre"
 
@@ -269,7 +269,8 @@ msgstr "Nombre"
 #: console/frm_clasificaciones_eq3.php:53 console/frm_clubes.php:160
 #: console/frm_equipos.php:142 console/frm_equipos.php:227
 #: console/frm_equipos.php:294 console/frm_guias.php:97
-#: console/frm_inscripciones2.php:59 public/pb_inscripciones_equipos.php:88
+#: console/frm_inscripciones2.php:59 index.php:220
+#: public/pb_inscripciones_equipos.php:88
 #: public/pb_inscripciones_equipos.php:157 public/pb_programa.php:102
 #: tablet/index.php:182 tablet/index.php:218 tablet/tablet_main.php:183
 msgid "Comments"
@@ -479,7 +480,7 @@ msgid "Organizing Club"
 msgstr "Club anfitri&oacute;n"
 
 #: console/frm_clasificaciones2.php:41 console/frm_clasificaciones_eq3.php:41
-#: tablet/index.php:150
+#: index.php:147 public/public.js.php:54 tablet/index.php:150
 msgid "Journey"
 msgstr "Jornada"
 
@@ -887,7 +888,7 @@ msgstr "Datos de la manga"
 msgid "Planning"
 msgstr "Programa"
 
-#: console/frm_competicion2.php:73 public/pb_ordensalida.php:38
+#: console/frm_competicion2.php:73 index.php:154 public/pb_ordensalida.php:38
 msgid "Starting order"
 msgstr "Orden de salida"
 
@@ -1085,7 +1086,7 @@ msgstr "Trabajar con la prueba seleccionada"
 msgid "Cancel selection. close window"
 msgstr "Cancelar selecci&oacute;n. Cerrar ventana"
 
-#: console/frm_inscripciones.php:79 tablet/index.php:217
+#: console/frm_inscripciones.php:79 index.php:191 tablet/index.php:217
 msgid "Fed"
 msgstr "Fed"
 
@@ -1365,17 +1366,42 @@ msgstr "Acerca de AgilityContest"
 msgid "About"
 msgstr "Acerca de"
 
+#: index.php:143 tablet/index.php:146
+msgid "Contest"
+msgstr "Prueba"
+
+#: index.php:151
+msgid "View"
+msgstr "Vista"
+
+#: index.php:153 public/pb_inscripciones.php:35
+#: public/pb_inscripciones_equipos.php:35
+msgid "Inscription list"
+msgstr "Listado de inscritos"
+
+#: index.php:155 public/pb_parciales.php:40 public/pb_parciales_eq3.php:40
+msgid "Partial scores"
+msgstr "Clasificaci&oacute;n parcial"
+
+#: index.php:156 public/pb_finales.php:40 public/pb_finales.php:78
+#: public/pb_finales_eq3.php:40 public/pb_finales_eq3.php:78
+msgid "Final scores"
+msgstr "Clasificaci&oacute;n final"
+
+#: index.php:157
+msgid "Journey activities timetable"
+msgstr "Programa de la jornada"
+
+#: index.php:251
+msgid "You should select contest, journey and view to continue"
+msgstr "Debe seleccionar prueba, jornada y vista para continuar"
+
 #: public/pb_finales.php:38 public/pb_finales_eq3.php:38
 #: public/pb_inscripciones.php:34 public/pb_inscripciones_equipos.php:34
 #: public/pb_ordensalida.php:36 public/pb_parciales.php:38
 #: public/pb_parciales_eq3.php:38 public/pb_programa.php:36
 msgid "Header"
 msgstr "Cabecera"
-
-#: public/pb_finales.php:40 public/pb_finales.php:78
-#: public/pb_finales_eq3.php:40 public/pb_finales_eq3.php:78
-msgid "Final scores"
-msgstr "Clasificaci&oacute;n final"
 
 #: public/pb_finales.php:41 public/pb_finales_eq3.php:41
 msgid "Series"
@@ -1390,6 +1416,8 @@ msgstr "No se ha indicado ninguna manga"
 #: public/pb_finales_eq3.php:49 public/pb_finales_eq3.php:50
 #: public/pb_parciales.php:49 public/pb_parciales.php:50
 #: public/pb_parciales_eq3.php:49 public/pb_parciales_eq3.php:50
+#: public/public.js.php:164 public/public.js.php:165 public/public.js.php:207
+#: public/public.js.php:208
 msgid "Judge"
 msgstr "Juez"
 
@@ -1401,30 +1429,35 @@ msgstr "Datos de la manga"
 #: public/pb_finales.php:54 public/pb_finales.php:62
 #: public/pb_finales_eq3.php:54 public/pb_finales_eq3.php:62
 #: public/pb_parciales.php:56 public/pb_parciales_eq3.php:56
+#: public/public.js.php:167 public/public.js.php:211 public/public.js.php:218
 msgid "Distance"
 msgstr "Distancia"
 
 #: public/pb_finales.php:55 public/pb_finales.php:63
 #: public/pb_finales_eq3.php:55 public/pb_finales_eq3.php:63
 #: public/pb_parciales.php:57 public/pb_parciales_eq3.php:57
+#: public/public.js.php:168 public/public.js.php:212 public/public.js.php:219
 msgid "Obstacles"
 msgstr "Obst&aacute;culos"
 
 #: public/pb_finales.php:56 public/pb_finales.php:64
 #: public/pb_finales_eq3.php:56 public/pb_finales_eq3.php:64
 #: public/pb_parciales.php:58 public/pb_parciales_eq3.php:58
+#: public/public.js.php:169 public/public.js.php:213 public/public.js.php:220
 msgid "Standard C. Time"
 msgstr "T. R. Standard"
 
 #: public/pb_finales.php:57 public/pb_finales.php:65
 #: public/pb_finales_eq3.php:57 public/pb_finales_eq3.php:65
 #: public/pb_parciales.php:59 public/pb_parciales_eq3.php:59
+#: public/public.js.php:170 public/public.js.php:214 public/public.js.php:221
 msgid "Maximum C. Time"
 msgstr "T. R. M&aacute;ximo"
 
 #: public/pb_finales.php:58 public/pb_finales.php:66
 #: public/pb_finales_eq3.php:58 public/pb_finales_eq3.php:66
 #: public/pb_parciales.php:60 public/pb_parciales_eq3.php:60
+#: public/public.js.php:171 public/public.js.php:215 public/public.js.php:222
 msgid "Speed"
 msgstr "Velocidad"
 
@@ -1446,10 +1479,6 @@ msgstr "Actualizar resultados"
 msgid "Available scores"
 msgstr "Resultados disponibles"
 
-#: public/pb_inscripciones.php:35 public/pb_inscripciones_equipos.php:35
-msgid "Inscription list"
-msgstr "Listado de inscritos"
-
 #: public/pb_inscripciones.php:47 public/pb_inscripciones_equipos.php:47
 msgid "Update inscription list"
 msgstr "Actualizar listado de inscritos"
@@ -1470,10 +1499,6 @@ msgstr "Lista de mangas de la jornada"
 #: public/pb_ordensalida.php:130
 msgid "Updating starting order"
 msgstr "Actualizando orden de salida"
-
-#: public/pb_parciales.php:40 public/pb_parciales_eq3.php:40
-msgid "Partial scores"
-msgstr "Clasificaci&oacute;n parcial"
 
 #: public/pb_parciales.php:55 public/pb_parciales_eq3.php:55
 msgid "Round data info"
@@ -1811,10 +1836,6 @@ msgstr "Selecci&oacute;n de usuario, ring, prueba y jornada"
 #: tablet/index.php:142
 msgid "Session"
 msgstr "Sesi&oacute;n"
-
-#: tablet/index.php:146
-msgid "Contest"
-msgstr "Prueba"
 
 #: tablet/index.php:229
 msgid "Current license permissions"
