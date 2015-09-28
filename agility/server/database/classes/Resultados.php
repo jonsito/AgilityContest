@@ -534,7 +534,7 @@ class Resultados extends DBObject {
 	
 	function getTRS($mode) {
 		$this->myLogger->enter();
-		$trs=getResultados($mode)['trs'];
+		$trs=$this->getResultados($mode)['trs'];
 		$this->myLogger->leave();
 		return $trs;
 	}

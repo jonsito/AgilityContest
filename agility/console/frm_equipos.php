@@ -239,7 +239,7 @@ function showInscripcionesByTeam(index,team){
 		},
         // only allow sorting when default team
         onBeforeSortColumn: function(sort,order) {
-            return (team.Nombre=='-- Sin asignar --')?true:false;
+            return (team.Nombre==='-- Sin asignar --')?true:false;
         },
         // on double click fireup editor dialog
 		onDblClickRow:function(index,row) { changeTeamDialog(mySelf,row); }
