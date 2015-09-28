@@ -182,7 +182,7 @@ function formatTeamClasificaciones(value,rows) {
         '<span style="width:20%;text-align:left;"> Eq: '+value+'</span>' +
         '<span > T1: '+(manga1.time).toFixed(2)+' - P1: '+(manga1.penal).toFixed(2)+'</span>'+
         '<span > T2: '+(manga2.time).toFixed(2)+' - P2: '+(manga2.penal).toFixed(2)+'</span>'+
-        '<span style="width:25%;"> Time: '+(time).toFixed(2)+' - Penal: '+(penal).toFixed(2)+'</span>'+
+        '<span style="width:25%;"> <?php _e('Time');?>: '+(time).toFixed(2)+' - <?php _e('Penal');?>: '+(penal).toFixed(2)+'</span>'+
         '<span style="width:5%;text-align:right;font-size:1.5em">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
 }
