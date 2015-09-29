@@ -18,13 +18,18 @@ header("Access-Control-Allow-Origin: https://{$_SERVER['SERVER_NAME']}/agility",
  if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-require_once(__DIR__ . "/server/auth/Config.php");
 require_once(__DIR__ . "/server/tools.php");
+require_once(__DIR__ . "/server/auth/Config.php");
+require_once(__DIR__ . "/server/auth/AuthManager.php");
 $config =Config::getInstance();
 
 /* check for properly installed xampp */
 if( ! function_exists('openssl_get_publickey')) {
 	die("Invalid configuration: please uncomment line 'module=php_openssl.dll' in file '\\xampp\\php\\php.ini'");
+}
+$am=new AuthManager("Public");
+if (!$am->allowed(ENABLE_PUBLIC)) {
+	die("Current license has no permissions to handle public (web) access related functions");
 }
 // tool to perform automatic upgrades in database when needed
 require_once(__DIR__. "/server/upgradeVersion.php");

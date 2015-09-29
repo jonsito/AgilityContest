@@ -370,7 +370,8 @@ class AuthManager {
         $res=$this->checkRegistrationInfo();
         // extract and declare inner functions
         $opts=$res['options'];
-        if ($res['info']=="") return bindec($opts) & $feature; // old style licenses
+		// $this->myLogger->trace("opts:$opts feature:$feature");
+        if ($res['info']==="") return bindec($opts) & $feature; // old style licenses
 		/*
         return $this->myGateKeeper($res,$feature);
         $info=str_replace("__OPTS__",$opts,$res['info']);

@@ -20,6 +20,7 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 require_once(__DIR__."/../server/tools.php");
 require_once(__DIR__."/../server/auth/Config.php");
+require_once(__DIR__."/../server/auth/AuthManager.php");
 $config =Config::getInstance();
 /* check for properly installed xampp */
 if( ! function_exists('password_verify')) {
@@ -27,6 +28,10 @@ if( ! function_exists('password_verify')) {
 }
 if ( intval($config->getEnv('restricted'))!=0) {
     die("Access other than public directory is not allowed");
+}
+$am=new AuthManager("VideoWall");
+if (!$am->allowed(ENABLE_VIDEOWALL)) {
+	die("Current license has no permissions to handle videowall related functions");
 }
 // tool to perform automatic upgrades in database when needed
 require_once(__DIR__."/../server/upgradeVersion.php");
