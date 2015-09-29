@@ -15,12 +15,17 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+<?php
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+$config =Config::getInstance();
+?>
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE Sesiones -->
     <div id="sesiones-dialog" style="width:550px;height:auto;padding:10px 20px">
-        <div class="ftitle">Informaci&oacute;n de la sesi&oacute;n</div>
+        <div class="ftitle"><?php _e('Session information'); ?></div>
         <form id="sesiones-form" method="get">
             <div class="fitem">
-                <label for="sesiones-Nombre">Nombre:</label>
+                <label for="sesiones-Nombre"><?php _e('Name'); ?>:</label>
                 <input id="sesiones-Nombre" 
                 	name="Nombre" 
                 	type="text" 
@@ -31,34 +36,34 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </div>
             <div class="fitem">
                 <input id="sesiones-Operador" name="Operador" type="hidden" /> 
-                <label for="sesiones-Login">Usuario</label>
+                <label for="sesiones-Login"><?php _e('User'); ?></label>
                 <input id="sesiones-Login" class="easyui-validatebox" name="Login" readonly="readonly" type="text" style="width:250px" />
                 <a id="sesiones-logoutBtn" href="#" class="easyui-linkbutton" 
-                	data-options="iconCls:'icon-exit'" onclick="session_logout()">Desconectar</a>
+                	data-options="iconCls:'icon-exit'" onclick="session_logout()"><?php _e('Disconnect'); ?></a>
             </div>
             <div class="fitem">
-                <label for="sesiones-Comentario">Comentarios</label>
+                <label for="sesiones-Comentario"><?php _e('Comments'); ?></label>
                 <textarea id="sesiones-Comentario" name="Comentario" style="height:40px;width:375px"></textarea>
             </div>
             <div class="fitem">
-                <label for="sesiones-Background">Imagen de fondo</label>
+                <label for="sesiones-Background"><?php _e('Background image/mjpeg'); ?></label>
                 <input id="sesiones-Background" name="Background" type="text" style="width:375px" />
             </div>
             <div class="fitem">
-                <label for="sesiones-Livestream">Stream MPEG-4</label>
+                <label for="sesiones-Livestream"><?php _e('Stream MPEG-4'); ?></label>
                 <input id="sesiones-Livestream" name="LiveStream" type="text" style="width:375px" />
             </div>
             <div class="fitem">
-                <label for="sesiones-LiveStream2">Stream OGV</label>
+                <label for="sesiones-LiveStream2"><?php _e('Stream OGV'); ?></label>
                 <input id="sesiones-LiveStream2" name="LiveStream2" type="text" style="width:375px" />
             </div>
             <div class="fitem">
-                <label for="sesiones-LiveStream3">Stream Web-M</label>
+                <label for="sesiones-LiveStream3"><?php _e('Stream Web-M'); ?></label>
                 <input id="sesiones-LiveStream3" name="LiveStream3" type="text" style="width:375px" />
             </div>
             <div class="fitem" style="display:inline-block;float:right; padding-right:40px">
 				<a id="sesiones-seqBtn" href="#" class="easyui-linkbutton" 
-                	data-options="iconCls:'icon-video-tv'" onclick="session_sequences()">Secuencias</a>
+                	data-options="iconCls:'icon-video-tv'" onclick="session_sequences()"><?php _e('Sequences'); ?></a>
             </div>
             
         </form>
@@ -67,9 +72,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
    	<div id="sesiones-dlg-buttons">
    	    <a id="sesiones-okBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-ok'" onclick="saveSession()">Guardar</a>
+   	    	data-options="iconCls:'icon-ok'" onclick="saveSession()"><?php _e('Save'); ?></a>
    	    <a id="sesiones-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-cancel'" onclick="$('#sesiones-dialog').dialog('close')">Cancelar</a>
+   	    	data-options="iconCls:'icon-cancel'" onclick="$('#sesiones-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	</div>
    	
 	<script type="text/javascript">
@@ -77,10 +82,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		$('#sesiones-dialog').dialog({ closed:true, buttons:'#sesiones-dlg-buttons', iconCls:'icon-order', modal:true });
 		$('#sesiones-form').form({novalidate:true});
         // - botones
-		addTooltip($('#sesiones-logoutBtn').linkbutton(),"Desconectar este usuario de la sesi&oacute;n");
-		addTooltip($('#sesiones-seqBtn').linkbutton(),"Ver/editar las secuencias para <br />los videomarcadores de esta sesi&oacute;n");
-		addTooltip($('#sesiones-okBtn').linkbutton(),"Registrar los datos de la sesi&oacute;n y actualizar la BBDD");
-		addTooltip($('#sesiones-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
+		addTooltip($('#sesiones-logoutBtn').linkbutton(),'<?php _e("Disconnect current user from session"); ?>');
+		addTooltip($('#sesiones-seqBtn').linkbutton(),'<?php _e("View/Edit sequences for"); ?>'+" <br />"+'<?php _e("videowall attached to this session"); ?>');
+		addTooltip($('#sesiones-okBtn').linkbutton(),'<?php _e("Register session information. Upate database"); ?>');
+		addTooltip($('#sesiones-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
         // on ESC key close session
         $('#sesiones-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
         	if (e.keyCode == 27){ $('#sesiones-dialog').dialog('close');
@@ -90,4 +95,4 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             required: true,
             validType: 'length[1,255]'
         });
-        </script>
+    </script>

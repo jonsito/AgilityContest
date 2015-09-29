@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-29 13:49+0200\n"
-"PO-Revision-Date: 2015-09-29 13:50+0200\n"
+"POT-Creation-Date: 2015-09-29 14:17+0200\n"
+"PO-Revision-Date: 2015-09-29 14:18+0200\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -126,7 +126,7 @@ msgstr "Club"
 #: console/frm_equipos.php:74 videowall/vw_livestream.php:64
 #: videowall/vw_ordensalida.php:107 console/dialogs/dlg_chperros.inc:59
 #: console/dialogs/dlg_editInscripcion.inc:42
-#: console/dialogs/dlg_perros.inc:51
+#: console/dialogs/dlg_perros.inc:51 console/dialogs/dlg_usuarios.inc:75
 msgid "Category"
 msgstr "Categor&iacute;a"
 
@@ -211,6 +211,7 @@ msgid "Error"
 msgstr "Error"
 
 #: chrono/chrono.inc.php:95 console/dialogs/dlg_competicion.inc:42
+#: console/dialogs/dlg_tools.inc:19
 msgid "Reset"
 msgstr "Reset"
 
@@ -375,6 +376,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/dialogs/dlg_resultados_eq3.inc:132
 #: console/dialogs/dlg_resultados_eq4.inc:132
 #: console/dialogs/dlg_selectJornada.inc:83
+#: console/dialogs/dlg_sesiones.inc:28 console/dialogs/dlg_usuarios.inc:55
 msgid "Name"
 msgstr "Nombre"
 
@@ -397,6 +399,7 @@ msgstr "Nombre"
 #: console/dialogs/dlg_ordentandas.inc:137
 #: console/dialogs/dlg_ordentandas.inc:170 console/dialogs/dlg_pruebas.inc:69
 #: console/dialogs/dlg_selectJornada.inc:87
+#: console/dialogs/dlg_sesiones.inc:45
 msgid "Comments"
 msgstr "Observaciones"
 
@@ -469,13 +472,15 @@ msgid "Delete user"
 msgstr "Borrar usuario"
 
 #: console/frm_admin.php:50 console/frm_login.php:45 tablet/index.php:136
+#: console/dialogs/dlg_usuarios.inc:58
 msgid "Password"
-msgstr "contrase&ntilde;a"
+msgstr "Contrase&ntilde;a"
 
 #: console/frm_admin.php:57 console/frm_admin.php:94 console/frm_clubes.php:45
 #: console/frm_equipos.php:47 console/frm_guias.php:52
 #: console/frm_inscripciones2.php:107 console/dialogs/dlg_chguias.inc:32
 #: console/dialogs/dlg_chperros.inc:32 console/dialogs/dlg_competicion.inc:133
+#: console/dialogs/dlg_tools.inc:24
 msgid "Clear"
 msgstr "Limpiar"
 
@@ -515,13 +520,13 @@ msgstr "Gesti&oacute;n de usuarios"
 msgid "Updating users list"
 msgstr "Actualizando lista de usuarios"
 
-#: console/frm_admin.php:135
+#: console/frm_admin.php:135 console/dialogs/dlg_usuarios.inc:63
 msgid "Information"
 msgstr "Informaci&oacute;n"
 
 #: console/frm_admin.php:136 console/frm_clubes.php:158
 #: console/dialogs/dlg_chguias.inc:51 console/dialogs/dlg_guias.inc:41
-#: console/dialogs/dlg_jueces.inc:52
+#: console/dialogs/dlg_jueces.inc:52 console/dialogs/dlg_usuarios.inc:67
 msgid "Telephone"
 msgstr "Tel&eacute;fono"
 
@@ -539,6 +544,7 @@ msgstr "Descripci&oacute;n"
 
 #: console/frm_admin.php:176 console/frm_logout.php:31 scripts/auth.js.php:71
 #: scripts/auth.js.php:100 tablet/index.php:131 tablet/index.php:329
+#: console/dialogs/dlg_sesiones.inc:39
 msgid "User"
 msgstr "Usuario"
 
@@ -558,7 +564,7 @@ msgstr "Borrar el usuario seleccionado de la base de datos"
 msgid "Clear search box. Update data"
 msgstr "Borrar casilla de busqueda. Actualizar datos"
 
-#: console/frm_admin.php:198
+#: console/frm_admin.php:198 console/dialogs/dlg_usuarios.inc:102
 msgid "Change user password"
 msgstr "Cambiar la contrase&ntilde;a del usuario"
 
@@ -937,7 +943,7 @@ msgstr "Cargando lista de gu&iacute;as"
 
 #: console/frm_clubes.php:159 console/dialogs/dlg_chguias.inc:47
 #: console/dialogs/dlg_clubes.inc:109 console/dialogs/dlg_guias.inc:37
-#: console/dialogs/dlg_jueces.inc:71
+#: console/dialogs/dlg_jueces.inc:71 console/dialogs/dlg_usuarios.inc:71
 msgid "Electronic mail"
 msgstr "Correo electr&oacute;nico"
 
@@ -1140,6 +1146,8 @@ msgstr "Hecho"
 #: console/dialogs/dlg_jornadas.inc:121 console/dialogs/dlg_jueces.inc:86
 #: console/dialogs/dlg_ordentandas.inc:81 console/dialogs/dlg_perros.inc:84
 #: console/dialogs/dlg_pruebas.inc:81 console/dialogs/dlg_selectJornada.inc:44
+#: console/dialogs/dlg_sesiones.inc:77 console/dialogs/dlg_usuarios.inc:47
+#: console/dialogs/dlg_usuarios.inc:91
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -2614,15 +2622,15 @@ msgstr "Eliminar la actividad"
 msgid "Administrator"
 msgstr "Administrador"
 
-#: scripts/usuarios.js.php:30
+#: scripts/usuarios.js.php:30 console/dialogs/dlg_usuarios.inc:78
 msgid "Operator"
 msgstr "Operador"
 
-#: scripts/usuarios.js.php:31
+#: scripts/usuarios.js.php:31 console/dialogs/dlg_usuarios.inc:79
 msgid "Assistant"
 msgstr "Asistente"
 
-#: scripts/usuarios.js.php:33
+#: scripts/usuarios.js.php:33 console/dialogs/dlg_usuarios.inc:80
 msgid "Guest"
 msgstr "Invitado"
 
@@ -3053,6 +3061,8 @@ msgstr "Limpiar formulario"
 #: console/dialogs/dlg_guias.inc:79 console/dialogs/dlg_jornadas.inc:219
 #: console/dialogs/dlg_jueces.inc:123 console/dialogs/dlg_ordentandas.inc:189
 #: console/dialogs/dlg_perros.inc:103 console/dialogs/dlg_pruebas.inc:108
+#: console/dialogs/dlg_sesiones.inc:88 console/dialogs/dlg_usuarios.inc:104
+#: console/dialogs/dlg_usuarios.inc:107
 msgid "Cancel operation. Close window"
 msgstr "Cancelar operaci&oacute;n. Cerrar ventana"
 
@@ -3196,6 +3206,8 @@ msgstr "Toc"
 #: console/dialogs/dlg_equipos.inc:57 console/dialogs/dlg_guias.inc:60
 #: console/dialogs/dlg_jornadas.inc:119 console/dialogs/dlg_jueces.inc:84
 #: console/dialogs/dlg_perros.inc:82 console/dialogs/dlg_pruebas.inc:79
+#: console/dialogs/dlg_sesiones.inc:75 console/dialogs/dlg_usuarios.inc:45
+#: console/dialogs/dlg_usuarios.inc:89
 msgid "Save"
 msgstr "Guardar"
 
@@ -3506,7 +3518,7 @@ msgstr "Informaci&oacute;n adicional del servidor"
 msgid "IP address(es)"
 msgstr "Direcci&oacute;n(es) IP"
 
-#: console/dialogs/dlg_configuracion.inc:188
+#: console/dialogs/dlg_configuracion.inc:188 console/dialogs/dlg_tools.inc:12
 msgid "Restore"
 msgstr "Restaurar"
 
@@ -3925,6 +3937,130 @@ msgstr "Debe seleccionar una prueba y jornada v&aacute;lidas"
 #: console/dialogs/dlg_selectJornada.inc:162
 msgid "forbids handling of contests</br> with more than"
 msgstr "no permiten la gesti&oacute;n de pruebas<br/> con m&aacute;s de"
+
+#: console/dialogs/dlg_sesiones.inc:25
+msgid "Session information"
+msgstr "Informaci&oacute;n de la sesi&oacute;n"
+
+#: console/dialogs/dlg_sesiones.inc:42
+msgid "Disconnect"
+msgstr "Desconectar"
+
+#: console/dialogs/dlg_sesiones.inc:49
+msgid "Background image/mjpeg"
+msgstr "Imagen de fondo / mjpeg"
+
+#: console/dialogs/dlg_sesiones.inc:53
+msgid "Stream MPEG-4"
+msgstr "Stream MPEG-4"
+
+#: console/dialogs/dlg_sesiones.inc:57
+msgid "Stream OGV"
+msgstr "Stream OGV"
+
+#: console/dialogs/dlg_sesiones.inc:61
+msgid "Stream Web-M"
+msgstr "Stream Web-M"
+
+#: console/dialogs/dlg_sesiones.inc:66
+msgid "Sequences"
+msgstr "Secuencias"
+
+#: console/dialogs/dlg_sesiones.inc:85
+msgid "Disconnect current user from session"
+msgstr "Desconectar al usuario activo en esta sesi&oacute;n"
+
+#: console/dialogs/dlg_sesiones.inc:86
+msgid "View/Edit sequences for"
+msgstr "Ver/Editar secuencias para"
+
+#: console/dialogs/dlg_sesiones.inc:86
+msgid "videowall attached to this session"
+msgstr "los videomarcadores de esta sesi&oacute;n"
+
+#: console/dialogs/dlg_sesiones.inc:87
+msgid "Register session information. Upate database"
+msgstr "Guardar la informaci&oacute;n de la sesi&oacute;n en la base de datos"
+
+#: console/dialogs/dlg_tools.inc:5
+msgid "Create database backup"
+msgstr "Copia de seguridad de la BBDD"
+
+#: console/dialogs/dlg_tools.inc:7
+msgid "Backup"
+msgstr "Backup"
+
+#: console/dialogs/dlg_tools.inc:10
+msgid "Restore database backup"
+msgstr "Restaurar base de datos"
+
+#: console/dialogs/dlg_tools.inc:17
+msgid "Erase database contents"
+msgstr "Borrar base de datos"
+
+#: console/dialogs/dlg_tools.inc:22
+msgid "Delete stored contests"
+msgstr "Borrar pruebas almacenadas"
+
+#: console/dialogs/dlg_tools.inc:27
+msgid "Search for updates"
+msgstr "Buscar actualizaciones"
+
+#: console/dialogs/dlg_tools.inc:35
+msgid "Create and download a database backup copy"
+msgstr "Generar y descargar una copia de seguridad de la base de datos"
+
+#: console/dialogs/dlg_tools.inc:36
+msgid "Restore database contents from previous backup"
+msgstr "Restaurar la base de datos desde un backup previo"
+
+#: console/dialogs/dlg_tools.inc:37
+msgid "Factory reset. Clear EVERY content on database"
+msgstr "Reset de f&aacute;brica. Borrar TODO el contenido de la base de datos"
+
+#: console/dialogs/dlg_tools.inc:38
+msgid "Clear contests from database"
+msgstr "Borrar las pruebas registradas en la base de datos"
+
+#: console/dialogs/dlg_tools.inc:38
+msgid "leaving only dogs/handlers/judges/clubs information"
+msgstr "dejando solo datos sobre perros, gu&iacute;as, clubes y jueces"
+
+#: console/dialogs/dlg_tools.inc:39
+msgid "Search and install AgilityContest updates"
+msgstr "Buscar e instalar actualizaciones de AgilityContest"
+
+#: console/dialogs/dlg_usuarios.inc:24
+msgid "Password change"
+msgstr "Cambio de ontrase&ntilde;a"
+
+#: console/dialogs/dlg_usuarios.inc:28
+msgid "Current password"
+msgstr "Contrase&ntilde;a actual"
+
+#: console/dialogs/dlg_usuarios.inc:32 console/dialogs/dlg_usuarios.inc:36
+msgid "New password"
+msgstr "Nueva contrase&ntilde;a"
+
+#: console/dialogs/dlg_usuarios.inc:36
+msgid "again"
+msgstr "otra vez"
+
+#: console/dialogs/dlg_usuarios.inc:52
+msgid "User information"
+msgstr "Informaci&oacute;n del usuario"
+
+#: console/dialogs/dlg_usuarios.inc:77
+msgid "Admin"
+msgstr "Administrador"
+
+#: console/dialogs/dlg_usuarios.inc:103
+msgid "Store user information into database"
+msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
+
+#: console/dialogs/dlg_usuarios.inc:106
+msgid "Change password"
+msgstr "Cambiar la contrase&ntilde;a"
 
 #~ msgid "Actualizando lista de equipos"
 #~ msgstr "Actualizando lista de equipos"

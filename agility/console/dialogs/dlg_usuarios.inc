@@ -14,20 +14,26 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
+
+<?php
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+$config =Config::getInstance();
+?>
 	<div id="password-dialog" style="width:550px;height:300px;padding:10px 20px">
-		<div class="ftitle">Cambio de contrase&ntilde;a</div>
+		<div class="ftitle"><?php _e('Password change'); ?></div>
 		<form id="password-form" method="get">
 			<div id="password-SameUser" class="fitem">
 				<input id="password-UserID" type="hidden" name="UserID" value="" />
-                <label for="password-CurrentPassword">Contrase&ntilde;a actual</label>
+                <label for="password-CurrentPassword"><?php _e('Current password'); ?></label>
                 <input id="password-CurrentPassword" name="CurrentPassword" type="password" style="height:25px;width:375px"/>
             </div>
             <div class="fitem">
-                <label for="password-NewPassword">Nueva contrase&ntilde;a</label>
+                <label for="password-NewPassword"><?php _e('New password'); ?></label>
                 <input id="password-NewPassword" name="NewPassword" type="password" style="height:25px;width:375px"/>
             </div>
             <div class="fitem">
-                <label for="password-NewPassword2">Nueva contrase&ntilde;a (otra vez)</label>
+                <label for="password-NewPassword2"><?php _e('New password'); ?> (<?php _e('again'); ?>)</label>
                 <input id="password-NewPassword2" name="NewPassword2" type="password" style="height:25px;width:375px"/>
             </div>
 		</form>
@@ -36,42 +42,42 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE CAMBIO DE CONTRASENYA -->
    	<div id="password-dlg-buttons">
    	    <a id="password-okBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-ok'" onclick="savePassword()">Guardar</a>
+   	    	data-options="iconCls:'icon-ok'" onclick="savePassword()"><?php _e('Save'); ?></a>
    	    <a id="password-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-cancel'" onclick="$('#password-dialog').dialog('close')">Cancelar</a>
+   	    	data-options="iconCls:'icon-cancel'" onclick="$('#password-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	</div>
    	
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE Usuarios -->
     <div id="usuarios-dialog" style="width:550px;height:300px;padding:10px 20px">
-        <div class="ftitle">Informaci&oacute;n del usuario</div>
+        <div class="ftitle"><?php _e('User information'); ?></div>
         <form id="usuarios-form" method="get">
             <div class="fitem">
-                <label for="usuarios-Login">Nombre</label>
+                <label for="usuarios-Login"><?php _e('Name'); ?></label>
                 <input id="usuarios-Login" class="easyui-validatebox" name="Login" type="text" style="width:250px" />
                 <a id="usuarios-passwdBtn" href="#" class="easyui-linkbutton" 
-                	data-options="iconCls:'icon-key'" onclick="setPassword('#usuarios-datagrid');">Contrase&ntilde;a</a>
+                	data-options="iconCls:'icon-key'" onclick="setPassword('#usuarios-datagrid');"><?php _e('Password'); ?></a>
                 <input id="usuarios-ID" name="ID" type="hidden" /> 
                 <input id="usuarios-Operation" name="Operation" type="hidden" /> <!-- insert/update/delete operation -->
             </div>
             <div class="fitem">
-                <label for="usuarios-Gecos">Informaci&oacute;n</label>
+                <label for="usuarios-Gecos"><?php _e('Information'); ?></label>
                 <input id="usuarios-Gecos" name="Gecos" type="text" style="height:25px;width:375px"/>
             </div>
             <div class="fitem">
-                <label for="usuarios-Phone">Tel&eacute;fono</label>
+                <label for="usuarios-Phone"><?php _e('Telephone'); ?></label>
                 <input id="usuarios-Phone" name="Phone" type="text" style="width:250px" />
             </div>
             <div class="fitem">
-                <label for="usuarios-Email">E-Mail</label>
+                <label for="usuarios-Email"><?php _e('Electronic mail'); ?></label>
                 <input id="usuarios-Email" class="easyui-validatebox" name="Email" type="text" style="width:250px" />
             </div>
             <div class="fitem">
-                <label for="usuarios-Perms">Categor&iacute;a</label>
+                <label for="usuarios-Perms"><?php _e('Category'); ?></label>
                 <select id="usuarios-Perms" name="Perms">
-                <option value="1">Administrador</option>
-                <option value="2">Operador</option>
-                <option value="3">Asistente</option>
-                <option value="4">Invitado</option>
+                <option value="1"><?php _e('Admin'); ?></option>
+                <option value="2"><?php _e('Operator'); ?></option>
+                <option value="3"><?php _e('Assistant'); ?></option>
+                <option value="4"><?php _e('Guest'); ?></option>
                 </select>
             </div>
         </form>
@@ -80,9 +86,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
    	<div id="usuarios-dlg-buttons">
    	    <a id="usuarios-okBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-ok'" onclick="saveUser()">Guardar</a>
+   	    	data-options="iconCls:'icon-ok'" onclick="saveUser()"><?php _e('Save'); ?></a>
    	    <a id="usuarios-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-cancel'" onclick="$('#usuarios-dialog').dialog('close')">Cancelar</a>
+   	    	data-options="iconCls:'icon-cancel'" onclick="$('#usuarios-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	</div>
    	
 	<script type="text/javascript">
@@ -93,12 +99,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		$('#password-form').form({novalidate:true});
 		
         // - botones
-		addTooltip($('#usuarios-passwdBtn').linkbutton(),"Cambiar la contrase&ntilde;a del usuario");
-		addTooltip($('#usuarios-okBtn').linkbutton(),"Guardar datos del usuario y actualizar la BBDD");
-		addTooltip($('#usuarios-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
+		addTooltip($('#usuarios-passwdBtn').linkbutton(),'<?php _e("Change user password"); ?>');
+		addTooltip($('#usuarios-okBtn').linkbutton(),'<?php _e("Store user information into database"); ?>');
+		addTooltip($('#usuarios-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 
-		addTooltip($('#password-okBtn').linkbutton(),"Cambiar la contrase&ntilde;a");
-		addTooltip($('#password-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
+		addTooltip($('#password-okBtn').linkbutton(),'<?php _e("Change password"); ?>');
+		addTooltip($('#password-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 		
         // on ESC key close session
         $('#usuarios-dialog').dialog('dialog').attr('tabIndex','-1').bind('keydown',function(e){
