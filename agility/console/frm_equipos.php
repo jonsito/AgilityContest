@@ -182,8 +182,8 @@ addTooltip($('#team_datagrid-newBtn').linkbutton(),'<?php _e("Declare a new team
 addTooltip($('#team_datagrid-editBtn').linkbutton(),'<?php _e("Edit data on selected team");?>');
 addTooltip($('#team_datagrid-delBtn').linkbutton(),'<?php _e("Remove team on this contest");?>');
 addTooltip($('#team_datagrid-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update team list");?>');
-addTooltip($('#team_datagrid-checkBtn').linkbutton(),"<?php _e('Comprobar equipos. Indicar los problemas encontrados');?>");
-addTooltip($('#team_datagrid-printBtn').linkbutton(),"<?php _e('Imprimir la lista de equipos de la jornada <br />y los miembros de cada equipo');?>");
+addTooltip($('#team_datagrid-checkBtn').linkbutton(),"<?php _e('Verify teams. Enumerate found problems');?>");
+addTooltip($('#team_datagrid-printBtn').linkbutton(),"<?php _e('Print team list on this journey');?>"+' <br />'+"<?php _e('and their team members');?>");
 addTooltip($('#team_datagrid-doneBtn').linkbutton(),'<?php _e("Close windows. Return to previous menu");?>');
 
 //mostrar las inscripciones agrupadas por equipos

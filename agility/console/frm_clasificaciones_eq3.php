@@ -121,7 +121,7 @@ $config =Config::getInstance();
 </div>
 
 <div id="resultados-printDialog" class="easyui-dialog" 
-	data-options="title:'Selecciona formato',closable:true,closed:true,width:'450px',height:'250px'">
+	data-options="title:'<?php _e('Select format'); ?>',closable:true,closed:true,width:'450px',height:'250px'">
 	<form style="padding:10px" id="resultados-printForm">
         <input type="radio" name="r_prformat" value="0" onclick="r_selectOption(0);"/><?php _e('Podium'); ?> (PDF)<br />
         <input type="radio" name="r_prformat" value="1" onclick="r_selectOption(1);"/><?php _e('Text export'); ?> (CSV)<br />

@@ -50,7 +50,7 @@ $config =Config::getInstance();
 <div id="ordentandas_newtanda-dialog" style="width:475px;height:auto;padding:10px 20px">
 	<form id="ordentandas_newtanda-form">
 	            <div class="fitem">
-                <label for="ordentandas_nt-Nombre">Nombre:</label>
+                <label for="ordentandas_nt-Nombre"><?php _e('Name'); ?>:</label>
                 <input id="ordentandas_nt-Nombre" name="Nombre"	type="text"	style="width:250px" />
                 <input id="ordentandas_nt-ID" name="ID" type="hidden" /> 
                 <input id="ordentandas_nt-Tipo" name="Tipo" type="hidden" /> 

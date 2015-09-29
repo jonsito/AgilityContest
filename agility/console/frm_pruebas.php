@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+<?php
+require_once(__DIR__ . "/../server/tools.php");
+require_once(__DIR__ . "/../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE Pruebas -->
 <div style="width:975px;height:550px">    
     <!-- DECLARACION DE LA TABLA -->
@@ -26,17 +32,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<span style="float:left;padding:5px">
    	    <a id="pruebas-newBtn" href="#" class="easyui-linkbutton" 
    	    	data-options="iconCls:'icon-add'"
-   	    	onclick="newPrueba('#pruebas-datagrid',$('#pruebas-datagrid-search').val())">Nueva prueba</a>
+   	    	onclick="newPrueba('#pruebas-datagrid',$('#pruebas-datagrid-search').val())"><?php _e('New contest'); ?></a>
    	    <a id="pruebas-editBtn" href="#" class="easyui-linkbutton"
    	    	data-options="iconCls:'icon-edit'"
-   	    	onclick="editPrueba('#pruebas-datagrid')">Editar prueba</a>
+   	    	onclick="editPrueba('#pruebas-datagrid')"><?php _e('Edit contest'); ?></a>
    	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" 
    	    	data-options="iconCls:'icon-remove'"
-   	    	onclick="deletePrueba('#pruebas-datagrid')">Borrar prueba</a>
+   	    	onclick="deletePrueba('#pruebas-datagrid')"><?php _e('Remove contest'); ?></a>
    		<input id="pruebas-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"/>
    	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox"
    	    	data-options="iconCls:'icon-search'" 
-   	    	onclick="doSearchPrueba()"/>Incl. Cerradas
+   	    	onclick="doSearchPrueba()"/><?php _e('Incl. closed'); ?>
    	</span>
    	<span style="float:right;padding:5px">
    		<a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton" 
@@ -45,7 +51,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         		// clear selection and reload table
     			$('#pruebas_datagrid-search').val('---- Buscar ----');
 				reloadWithSearch('#pruebas-datagrid','select');
-			">Limpiar</a>
+			"><?php _e('Clear'); ?></a>
    	</span>
 </div>
     
@@ -64,9 +70,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	collapsible: false,
             expansible: false,
         	collapsed: false,        	
-        	title: 'Gesti&oacute;n de datos de pruebas',
+        	title: '<?php _e('Contest data handling'); ?>',
         	url: '/agility/server/database/pruebaFunctions.php?Operation=select',
-        	loadMsg: 'Actualizando lista de Pruebas ...',
+        	loadMsg: '<?php _e('Updating contest list'); ?> ...',
         	method: 'get',
             toolbar: '#pruebas-toolbar',
             pagination: false,
@@ -80,16 +86,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             remoteSort: true,
             columns: [[
                 { field:'ID', hidden:true }, // primary key
-            	{ field:'Nombre',		width:30,	sortable:true,	title:'Nombre de la prueba:' },
+            	{ field:'Nombre',		width:30,	sortable:true,	title:'<?php _e('Contest name'); ?>' },
             	{ field:'Club',			hidden:true },
-            	{ field:'NombreClub',	width:15,	sortable:true,	title:'Club organizador' },
-            	{ field:'Ubicacion',	width:15,					title:'Lugar de celebraci&oacute;n' },
-                { field:'Triptico',		width:10,					title:'URL del Tr&iacute;ptico'},
-                { field:'Cartel',		width:10,					title:'URL del Cartel'},
-                { field:'Observaciones',width:10,					title:'Observaciones'},
-                { field:'RSCE',			width:7, formatter:	formatRSCE,		title:'Federacion', align: 'center'},
-                { field:'Selectiva',	width:7, formatter:	formatOk,title:'Selectiva',	align: 'center'},
-                { field:'Cerrada',		width:7, formatter:	formatCerrada,	title:'Cerrada',	align: 'center'}
+            	{ field:'NombreClub',	width:15,	sortable:true,	title:'<?php _e('Organizing club'); ?>' },
+            	{ field:'Ubicacion',	width:15,					title:'<?php _e('Event location'); ?>' },
+                { field:'Triptico',		width:10,					title:'<?php _e('Triptych URL'); ?>'},
+                { field:'Cartel',		width:10,					title:'<?php _e('Brochure URL'); ?>'},
+                { field:'Observaciones',width:10,					title:'<?php _e('Comments'); ?>'},
+                { field:'RSCE',			width:7, formatter:	formatRSCE,		title:'<?php _e('Federation'); ?>', align: 'center'},
+                { field:'Selectiva',	width:7, formatter:	formatOk,title:'<?php _e('Selective'); ?>',	align: 'center'},
+                { field:'Cerrada',		width:7, formatter:	formatCerrada,	title:'<?php _e('Closed'); ?>',	align: 'center'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:myRowStyler,
@@ -113,19 +119,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		// key handler
        	addKeyHandler('#pruebas-datagrid',newPrueba,editPrueba,deletePrueba);
 		// tooltips
-		addTooltip($('#pruebas-newBtn').linkbutton(),"Crear y guardar una nueva prueba<br/> en la Base de Datos"); 
-		addTooltip($('#pruebas-editBtn').linkbutton(),"Editar los datos de la prueba seleccionada");
-		addTooltip($('#pruebas-delBtn').linkbutton(),"Eliminar la prueba seleccionada");
-		addTooltip($('#pruebas-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
-		addTooltip($('#pruebas-openBox').linkbutton(),"Incluir en el listado las pruebas finalizadas (cerradas)");
-		addTooltip($('#pruebas-datagrid-search'),"Buscar pruebas coincidentes con el criterio de busqueda indicado");
+		addTooltip($('#pruebas-newBtn').linkbutton(),'<?php _e("Declare a new contest and include into database"); ?>');
+		addTooltip($('#pruebas-editBtn').linkbutton(),'<?php _e("Edit information on selected contest"); ?>');
+		addTooltip($('#pruebas-delBtn').linkbutton(),'<?php _e("Remove selected contest"); ?>');
+		addTooltip($('#pruebas-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update list"); ?>');
+		addTooltip($('#pruebas-openBox').linkbutton(),'<?php _e("Include finished (closed) contest into listing"); ?>');
+		addTooltip($('#pruebas-datagrid-search'),'<?php _e("Look for contests matching search criteria"); ?>');
 
         // ------------- submenu de jornadas asociadas a una prueba --------------------- //
         function showJornadasByPrueba (index,prueba) {
             var datagridID='#jornadas-datagrid-'+prueba.ID;
 			workingData.datosPrueba=prueba;
             $(datagridID).datagrid({
-        		title: "Jornadas de que consta la prueba '"+prueba.Nombre+"'",
+        		title: '<?php _e("Journeys on this contest"); ?>'+" '"+prueba.Nombre+"'",
         		url: '/agility/server/database/jornadaFunctions.php',
         		queryParams: { Operation: 'select', Prueba: prueba.ID },
         		method: 'get',
@@ -133,15 +139,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	    rownumbers: false,
         	    fitColumns: true,
         	    singleSelect: true,
-        	    loadMsg: 'Loading list of journeys',
+        	    loadMsg: '<?php _e('Loading list of journeys'); ?>...',
         	    height: 'auto',
         	    columns: [[
                    	{ field:'ID',			hidden:true }, // ID de la jornada
             	    { field:'Prueba',		hidden:true }, // ID de la prueba
             	    { field:'Numero',		width:4, sortable:true,		align:'center', title: '#'},
-            		{ field:'Nombre',		width:20, sortable:false,   title: 'Nombre/Comentario' },
-            		{ field:'Fecha',		width:12, sortable:true,	title: 'Fecha:' },
-            		{ field:'Hora',			width:10, sortable:false,	title: 'Hora.' },
+            		{ field:'Nombre',		width:20, sortable:false,   title: '<?php _e('Name'); ?>'+'/'+'<?php _e('Comments'); ?>' },
+            		{ field:'Fecha',		width:12, sortable:true,	title: '<?php _e('Date'); ?>' },
+            		{ field:'Hora',			width:10, sortable:false,	title: '<?php _e('Time'); ?>' },
             		{ field:'PreAgility',	width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'P.A. -1' },
             		{ field:'PreAgility2',	width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'P.A. -2' },
             		{ field:'Grado1',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'G-I    ' },
@@ -151,9 +157,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             		{ field:'Equipos3',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Eq. 3x4' },
             		{ field:'Equipos4',		width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Eq. 4x4' },
             		{ field:'KO',			width:8, sortable:false, formatter:	formatOk,	   align:'center', title: 'K.O.   ' },
-            		{ field:'Especial',	    width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'Especial'},
+            		{ field:'Especial',	    width:8, sortable:false, formatter:	formatOk,	align:'center', title: '<?php _e('Special'); ?>'},
             	    { field:'Observaciones',hidden:true }, // texto para el caso de Manga especial
-            		{ field:'Cerrada',		width:8, sortable:false, formatter:	formatCerrada,	align:'center', title: 'Cerrada' }
+            		{ field:'Cerrada',		width:8, sortable:false, formatter:	formatCerrada,	align:'center', title: '<?php _e('Closed'); ?>' }
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             	rowStyler:myRowStyler,
@@ -178,17 +184,17 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     		var toolbar=  [
     	        {
     				id: 'jornadasbyprueba-editBtn'+prueba.ID,
-            		text: 'Editar jornada',
+            		text: '<?php _e('Edit journey'); ?>',
         			iconCls: 'icon-edit',
 					handler: function(){editJornadaFromPrueba(datagridID,$(datagridID).datagrid('getSelected'));}
     			},{
     				id: 'jornadasbyprueba-closeBtn'+prueba.ID,
-            		text: 'Cerrar jornada',
+            		text: '<?php _e('Close journey'); ?>',
         			iconCls: 'icon-forbidden',
        				handler: function(){closeJornadaFromPrueba(prueba.ID,datagridID);}
     			},{
     				id: 'jornadasbyprueba-reloadBtn'+prueba.ID,
-            		text: 'Actualizar',
+            		text: '<?php _e('Update'); ?>',
         			iconCls: 'icon-reload',
         			align: 'right', // notice that this property is handled by our own 'buildToolbar extended method'
        				handler: function(){$(datagridID).datagrid('reload');}    // reload the pruebas data}
@@ -198,9 +204,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     		
 			// tooltips de los sub-formularios
 			addSimpleKeyHandler(datagridID,null,editJornadaFromPrueba);
-			addTooltip($('#jornadasbyprueba-editBtn'+prueba.ID).linkbutton(),"Editar los datos la jornada seleccionada"); 
-			addTooltip($('#jornadasbyprueba-closeBtn'+prueba.ID).linkbutton(),"Cerrar la jornada seleccionada y Guardar datos permanentemente"); 
-			addTooltip($('#jornadasbyprueba-reloadBtn'+prueba.ID).linkbutton(),"Actualizar la lista de jornadas de esta prueba");
+			addTooltip($('#jornadasbyprueba-editBtn'+prueba.ID).linkbutton(),'<?php _e("Edit data on selected journey"); ?>');
+			addTooltip($('#jornadasbyprueba-closeBtn'+prueba.ID).linkbutton(),'<?php _e("Close journey. Store data as inmutable"); ?>');
+			addTooltip($('#jornadasbyprueba-reloadBtn'+prueba.ID).linkbutton(),'<?php _e("Update journey list for this contest"); ?>');
         }
 
 </script>

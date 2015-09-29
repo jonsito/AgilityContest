@@ -30,7 +30,7 @@ $config =Config::getInstance();
  *@param {function} onAccept what to do when a new inscription is created
  */
 function newInscripcion(dg,def,onAccept) {
-	$('#new_inscripcion-dialog').dialog('open').dialog('setTitle','Nueva(s) inscripciones');
+	$('#new_inscripcion-dialog').dialog('open').dialog('setTitle','<?php _e('New inscriptions'); ?>');
 	// let openEvent on dialog fire up form setup
 	if (onAccept!==undefined)$('#new_inscripcion-okBtn').one('click',onAccept);
 }
@@ -40,7 +40,7 @@ function editInscripcion() {
 	// obtenemos datos de la inscripcion seleccionada
 	var row= $('#inscripciones-datagrid').datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("No selection","!No ha seleccionado ninguna inscripción!","warning");
+    	$.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no inscription(s) selected"); ?>',"warning");
     	return; // no hay ninguna inscripcion seleccionada. retornar
     }
     row.Operation='update';
@@ -65,7 +65,7 @@ function saveInscripcion(close) {
         dataType: 'json',
         success: function (result) {
             if (result.errorMsg){ 
-            	$.messager.show({width:300, height:200, title:'Error',msg: result.errorMsg });
+            	$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: result.errorMsg });
             } else {
             	// on save done refresh related data/combo grids and close dialog
             	$('#inscripciones-datagrid').datagrid('reload');
@@ -81,15 +81,15 @@ function saveInscripcion(close) {
 function deleteInscripcion() {
 	var row = $('#inscripciones-datagrid').datagrid('getSelected');    
 	if (!row) {
-    	$.messager.alert("No selection","!No ha seleccionado ninguna inscripcion!","warning");
+		$.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no inscription(s) selected"); ?>',"warning");
     	return; // no hay ninguna inscripcion seleccionada. retornar
     }
 	$.messager.confirm('Confirm',
-			"<p><b>Importante:</b></p>" +
-			"<p>Si decide borrar la inscripcion <br/>" +
-			"<b>se perder&aacute;n</b> todos los datos y resultados de este participante<br />" +
-			"que afecten a jornadas que no hayan sido marcadas como <em>Cerradas</em><br/>" +
-			"Desea realmente borrar la inscripción seleccionada?</p>",
+			"<p><b><?php _e('Notice'); ?>:</b></p>" +
+			"<p><?php _e('If you delete this inscription'); ?> <br/>" +
+			"<?php _e('<b>youll loose</b> every related results and data on this contest'); ?><br />" +
+			"<?php _e('afecting journeys not marked as <em>closed</em>'); ?><br/>" +
+			"<?php _e('Really want to delete selected inscription'); ?>?</p>",
 			function(r){
 				if (r){
 					$.get(
@@ -133,7 +133,7 @@ function insertInscripcion(dg) {
             reloadWithSearch('#inscripciones-datagrid','inscritos');
 			return;
 		}
-		$('#new_inscripcion-progresslabel').text("Inscribiendo a: "+rows[index].Nombre);
+		$('#new_inscripcion-progresslabel').text('<?php _e("Enrolling"); ?>'+": "+rows[index].Nombre);
 		$('#new_inscripcion-progressbar').progressbar('setValue', (100.0*(index+1)/size).toFixed(2));
 		$.ajax({
 			cache: false,
@@ -159,11 +159,11 @@ function insertInscripcion(dg) {
 	var selectedRows= $(dg).datagrid('getSelections');
 	var size=selectedRows.length;
 	if(size==0) {
-    	$.messager.alert("No selection","!No ha marcado ningún perro para proceder a su inscripción!","warning");
+		$.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no marked dog to be inscribed"); ?>',"warning");
     	return; // no hay ninguna inscripcion seleccionada. retornar
 	}
 	if (authInfo.Perms>2) {
-    	$.messager.alert("No permission","Sesion con insuficiente permiso para realizar inscripciones","error");
+    	$.messager.alert('<?php _e("No permission"); ?>','<?php _e("Current user has not enought permissions to handle inscriptions"); ?>',"error");
     	return; // no tiene permiso para realizar inscripciones. retornar
 	}
 	pwindow.window('open');
@@ -210,9 +210,9 @@ function canInscribe(jornada) {
  */
 function printInscripciones() {
 	$.messager.radio(
-		'Selecciona modelo',
-		'Selecciona el tipo de documento a generar:',
-		{ 0:'Listado simple',1:'Catálogo',2:'Estadisticas'}, 
+		'<?php _e('Select form'); ?>',
+		'<?php _e('Select type of document to be generated'); ?>:',
+		{ 0:'<?php _e('Simple listing'); ?>',1:'<?php _e('Catalogue'); ?>',2:'<?php _e('Statistics'); ?>'},
 		function(r){
 			if (!r) return;
 			var mode=parseInt(r);
@@ -221,8 +221,8 @@ function printInscripciones() {
 					{
 						httpMethod: 'GET',
 						data: { Prueba: workingData.prueba, Mode: mode },
-						preparingMessageHtml: "Imprimiendo inscripciones; por favor espere...",
-						failMessageHtml: "There was a problem generating your report, please try again."
+						preparingMessageHtml: '<?php _e("Printing inscriptions. Please wait"); ?> ...',
+						failMessageHtml: '<?php _e("There was a problem generating your report, please try again"); ?>.'
 					}
 			);
 		}

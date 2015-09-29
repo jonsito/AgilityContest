@@ -43,7 +43,7 @@ $config =Config::getInstance();
 				$('#new_inscripcion-datagrid').datagrid('unselectAll');
 				reloadWithSearch('#new_inscripcion-datagrid','noinscritos');
 	            "
-			>Limpiar</a>
+			><?php _e('Clear'); ?></a>
 	</span>
 </div>
    		

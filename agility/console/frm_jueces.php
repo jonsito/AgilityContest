@@ -14,7 +14,13 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
- 
+
+<?php
+require_once(__DIR__ . "/../server/tools.php");
+require_once(__DIR__ . "/../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE JUECES -->
 <div  style="width:975px;height:550px">   
     <!-- DECLARACION DE LA TABLA DE JUECES -->
@@ -26,13 +32,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  	<span style="float:left;padding:5px">
    		<a id="jueces-newBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-whistle'"
-   			onclick="newJuez('#jueces-datagrid',$('#jueces-datagrid-search').val())">Nuevo Juez</a>
+   			onclick="newJuez('#jueces-datagrid',$('#jueces-datagrid-search').val())"><?php _e('New judge'); ?></a>
    		<a id="jueces-editBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-edit'"
-   			onclick="editJuez('#jueces-datagrid')">Editar Juez</a>
+   			onclick="editJuez('#jueces-datagrid')"><?php _e('Edit judge'); ?></a>
    		<a id="jueces-delBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-trash'"
-   			onclick="deleteJuez('#jueces-datagrid')">Borrar Juez</a>
+   			onclick="deleteJuez('#jueces-datagrid')"><?php _e('Delete judge'); ?></a>
    		<input id="jueces-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
    	</span>
    	<span style="float:right;padding:5px">
@@ -43,7 +49,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	    		$('#jueces-datagrid-search').val('---- Buscar ----');
 				reloadWithSearch('#jueces-datagrid','select');
 				"
-   			>Limpiar</a>
+   			><?php _e('Clear'); ?></a>
    	</span>
 </div>
 
@@ -60,11 +66,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	collapsible: false,
             expansible: false,
         	collapsed: false,
-        	title: 'Gesti&oacute;n de datos de Jueces',
+        	title: '<?php _e('Judge database handling'); ?>',
         	// datos de la conexion ajax
         	url: '/agility/server/database/juezFunctions.php',
     		queryParams: { Operation: 'select' },
-        	loadMsg: 'Actualizando lista de jueces ...',
+        	loadMsg: '<?php _e('Updating judge list'); ?> ...',
         	method: 'get',
             toolbar: '#jueces-toolbar',
             pagination: false,
@@ -78,18 +84,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             remoteSort: true,
             columns: [[
                 { field:'ID',			hidden:true },
-                { field:'Nombre',		width:40, sortable:true,	title: 'Nombre:' },
-            	{ field:'Direccion1',	width:35,					title: 'Direcci&oacute;n 1:' },
-                { field:'Direccion2',	width:30,                   title: 'Direcci&oacute;n 2' },
-                { field:'Pais',	        width:7,  align:'center',   title: 'Pais' },
-            	{ field:'Telefono',		width:25, sortable:true,	title: 'Tel&eacute;fono' },
+                { field:'Nombre',		width:40, sortable:true,	title: '<?php _e('Name'); ?>:' },
+            	{ field:'Direccion1',	width:35,					title: '<?php _e('Address'); ?> 1:' },
+                { field:'Direccion2',	width:30,                   title: '<?php _e('Address'); ?> 2:' },
+                { field:'Pais',	        width:7,  align:'center',   title: '<?php _e('Country'); ?>' },
+            	{ field:'Telefono',		width:25, sortable:true,	title: '<?php _e('Telephone'); ?>' },
               	{ field:'Federations',	hidden:true},
-        		{ field:'RSCE',			width:7, sortable:true,    align: 'center', title: 'RSCE', formatter:juecesRSCE },
-        		{ field:'RFEC',			width:7, sortable:true,    align: 'center', title: 'RFEC', formatter:juecesRFEC },
-        		{ field:'UCA',			width:7, sortable:true,    align: 'center', title: 'UCA',  formatter:juecesUCA },
-            	{ field:'Internacional',width:7, align:'center',	title: 'Int.' 	},
-            	{ field:'Practicas',	width:7, align:'center',	title: 'Pract.' },
-            	{ field:'Email',		width:30, sortable:true,   align:'right', title: 'Correo Electr&oacute;nico' },
+        		{ field:'RSCE',			width:7, sortable:true,    align: 'center', title: '<?php _e('RSCE'); ?>', formatter:juecesRSCE },
+        		{ field:'RFEC',			width:7, sortable:true,    align: 'center', title: '<?php _e('RFEC'); ?>', formatter:juecesRFEC },
+        		{ field:'UCA',			width:7, sortable:true,    align: 'center', title: '<?php _e('UCA'); ?>',  formatter:juecesUCA },
+            	{ field:'Internacional',width:7, align:'center',	title: '<?php _e('Intl'); ?>.' 	},
+            	{ field:'Practicas',	width:7, align:'center',	title: '<?php _e('Pract'); ?>.' },
+            	{ field:'Email',		width:30, sortable:true,   align:'right', title: '<?php _e('Electronic mail'); ?>' },
                 { field:'Observaciones',hidden:true }
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
@@ -103,10 +109,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		// key handler
        	addKeyHandler('#jueces-datagrid',newJuez,editJuez,deleteJuez);
 		// tooltips
-		addTooltip($('#jueces-newBtn').linkbutton(),"Añadir un nuevo juez<br/> a la Base de Datos"); 
-		addTooltip($('#jueces-editBtn').linkbutton(),"Modificar los datos del juez seleccionado");
-		addTooltip($('#jueces-delBtn').linkbutton(),"Eliminar el juez seleccionado de la BBDD");
-		addTooltip($('#jueces-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
-		addTooltip($('#jueces-datagrid-search'),"Buscar jueces que coincidan con el criterio de busqueda");
+		addTooltip($('#jueces-newBtn').linkbutton(),'<?php _e("Add a new judge to database"); ?>');
+		addTooltip($('#jueces-editBtn').linkbutton(),'<?php _e("Modify data on selected judge"); ?>');
+		addTooltip($('#jueces-delBtn').linkbutton(),'<?php _e("Remove selected judge from database"); ?>');
+		addTooltip($('#jueces-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update list"); ?>');
+		addTooltip($('#jueces-datagrid-search'),'<?php _e("Look for judges matching search criteria"); ?>');
 
 </script>
