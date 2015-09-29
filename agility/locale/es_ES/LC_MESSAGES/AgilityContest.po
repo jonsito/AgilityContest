@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-29 01:18+0200\n"
-"PO-Revision-Date: 2015-09-29 01:18+0200\n"
-"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2015-09-29 09:05+0200\n"
+"PO-Revision-Date: 2015-09-29 09:05+0200\n"
+"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -60,6 +60,7 @@ msgstr "Dorsal"
 
 #: chrono/chrono.inc.php:62 console/frm_equipos.php:69
 #: scripts/competicion.js.php:1459 scripts/printer.js.php:209
+#: console/dialogs/dlg_chperros.inc:136
 msgid "Dog"
 msgstr "Perro"
 
@@ -76,6 +77,7 @@ msgstr "Perro"
 #: videowall/vw_livestream.php:62 videowall/vw_llamada.php:101
 #: videowall/vw_ordensalida.php:105 videowall/vw_parciales.php:127
 #: videowall/vwls_ordensalida.php:133 videowall/vwls_parciales.php:153
+#: console/dialogs/dlg_chperros.inc:139
 msgid "Handler"
 msgstr "Gu&iacute;a"
 
@@ -97,13 +99,14 @@ msgstr "Gu&iacute;a"
 #: videowall/vw_combinada.php:191 videowall/vw_livestream.php:63
 #: videowall/vw_llamada.php:102 videowall/vw_ordensalida.php:106
 #: videowall/vw_parciales.php:128 videowall/vwls_ordensalida.php:134
-#: videowall/vwls_parciales.php:154
+#: videowall/vwls_parciales.php:154 console/dialogs/dlg_chguias.inc:114
+#: console/dialogs/dlg_chperros.inc:140
 msgid "Club"
 msgstr "Club"
 
 #: chrono/chrono.inc.php:65 console/frm_admin.php:138
 #: console/frm_equipos.php:74 videowall/vw_livestream.php:64
-#: videowall/vw_ordensalida.php:107
+#: videowall/vw_ordensalida.php:107 console/dialogs/dlg_chperros.inc:59
 msgid "Category"
 msgstr "Categor&iacute;a"
 
@@ -116,6 +119,7 @@ msgstr "Categor&iacute;a"
 #: videowall/vw_livestream.php:65 videowall/vw_llamada.php:104
 #: videowall/vw_ordensalida.php:108 videowall/vw_parciales.php:130
 #: videowall/vwls_ordensalida.php:136 videowall/vwls_parciales.php:156
+#: console/dialogs/dlg_chperros.inc:66 console/dialogs/dlg_chperros.inc:138
 msgid "Grade"
 msgstr "Grado"
 
@@ -177,7 +181,7 @@ msgstr "Eliminado"
 msgid "Error"
 msgstr "Error"
 
-#: chrono/chrono.inc.php:95
+#: chrono/chrono.inc.php:95 console/dialogs/dlg_competicion.inc:36
 msgid "Reset"
 msgstr "Reset"
 
@@ -259,7 +263,7 @@ msgstr "Gu&iacute;a"
 #: tablet/tablet_main.php:82 tablet/tablet_main.php:264
 #: videowall/videowall.js.php:164 videowall/vw_combinada.php:135
 #: videowall/vw_llamada.php:103 videowall/vw_parciales.php:129
-#: videowall/vwls_parciales.php:155
+#: videowall/vwls_parciales.php:155 console/dialogs/dlg_chperros.inc:137
 msgid "Cat"
 msgstr "Cat"
 
@@ -288,6 +292,7 @@ msgstr "Ring"
 #: chrono/index.php:101 console/frm_equipos.php:98
 #: console/frm_inscripciones.php:41 console/frm_login.php:63
 #: console/frm_logout.php:35 tablet/tablet_main.php:58 videowall/index.php:192
+#: console/dialogs/dlg_clubes.inc:138
 msgid "Accept"
 msgstr "Aceptar"
 
@@ -317,7 +322,9 @@ msgstr "Trabajar con el ring seleccionado"
 #: videowall/vw_combinada.php:189 videowall/vw_livestream.php:61
 #: videowall/vw_llamada.php:99 videowall/vw_ordensalida.php:102
 #: videowall/vw_parciales.php:126 videowall/vwls_ordensalida.php:130
-#: videowall/vwls_parciales.php:152
+#: videowall/vwls_parciales.php:152 console/dialogs/dlg_chguias.inc:38
+#: console/dialogs/dlg_chguias.inc:112 console/dialogs/dlg_chperros.inc:38
+#: console/dialogs/dlg_clubes.inc:51
 msgid "Name"
 msgstr "Nombre"
 
@@ -330,6 +337,7 @@ msgstr "Nombre"
 #: public/pb_inscripciones_equipos.php:157 public/pb_programa.php:102
 #: tablet/index.php:182 tablet/index.php:218 tablet/tablet_main.php:183
 #: videowall/index.php:235 videowall/vw_llamada.php:106
+#: console/dialogs/dlg_chguias.inc:55 console/dialogs/dlg_clubes.inc:125
 msgid "Comments"
 msgstr "Observaciones"
 
@@ -406,7 +414,8 @@ msgstr "contrase&ntilde;a"
 
 #: console/frm_admin.php:57 console/frm_admin.php:94 console/frm_clubes.php:45
 #: console/frm_equipos.php:47 console/frm_guias.php:52
-#: console/frm_inscripciones2.php:107
+#: console/frm_inscripciones2.php:107 console/dialogs/dlg_chguias.inc:32
+#: console/dialogs/dlg_chperros.inc:32
 msgid "Clear"
 msgstr "Limpiar"
 
@@ -451,6 +460,7 @@ msgid "Information"
 msgstr "Informaci&oacute;n"
 
 #: console/frm_admin.php:136 console/frm_clubes.php:158
+#: console/dialogs/dlg_chguias.inc:51
 msgid "Telephone"
 msgstr "Tel&eacute;fono"
 
@@ -781,6 +791,7 @@ msgid "Updating Club&#39;s list"
 msgstr "Actualizando lista de clubes"
 
 #: console/frm_clubes.php:87 console/frm_clubes.php:88
+#: console/dialogs/dlg_clubes.inc:57 console/dialogs/dlg_clubes.inc:61
 msgid "Address"
 msgstr "Direcci&oacute;n"
 
@@ -788,12 +799,14 @@ msgstr "Direcci&oacute;n"
 msgid "State"
 msgstr "Provincia"
 
-#: console/frm_clubes.php:90
+#: console/frm_clubes.php:90 console/dialogs/dlg_clubes.inc:76
+#: console/dialogs/dlg_clubes.inc:186
 msgid "Country"
 msgstr "Pa&iacute;s"
 
 #: console/frm_clubes.php:91 console/frm_clubes.php:92
-#: console/frm_clubes.php:93
+#: console/frm_clubes.php:93 console/dialogs/dlg_clubes.inc:80
+#: console/dialogs/dlg_clubes.inc:84 console/dialogs/dlg_clubes.inc:88
 msgid "Contact"
 msgstr "Contacto"
 
@@ -829,7 +842,8 @@ msgstr "Gu&iacute;as pertenecientes al club"
 msgid "Loading handler&#39;s list"
 msgstr "Cargando lista de gu&iacute;as"
 
-#: console/frm_clubes.php:159
+#: console/frm_clubes.php:159 console/dialogs/dlg_chguias.inc:47
+#: console/dialogs/dlg_clubes.inc:109
 msgid "Electronic mail"
 msgstr "Correo electr&oacute;nico"
 
@@ -846,7 +860,8 @@ msgid "Dettach handler"
 msgstr "Desasignar gu&iacute;a"
 
 #: console/frm_clubes.php:207 console/frm_clubes.php:284
-#: console/frm_guias.php:189
+#: console/frm_guias.php:189 console/dialogs/dlg_clubes.inc:39
+#: console/dialogs/dlg_competicion.inc:28
 msgid "Update"
 msgstr "Actualizar"
 
@@ -877,6 +892,7 @@ msgstr "Lista de perros asignados a"
 #: console/frm_clubes.php:243 server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_resultadosByEquipos.php:83
+#: console/dialogs/dlg_ordensalida.inc:85
 msgid "Cat."
 msgstr "Cat."
 
@@ -884,6 +900,7 @@ msgstr "Cat."
 #: public/pb_inscripciones.php:94 public/pb_inscripciones_equipos.php:150
 #: public/pb_ordensalida.php:153 videowall/vw_llamada.php:100
 #: videowall/vw_ordensalida.php:103 videowall/vwls_ordensalida.php:131
+#: console/dialogs/dlg_chperros.inc:47
 msgid "Breed"
 msgstr "Raza"
 
@@ -997,6 +1014,7 @@ msgid "Review Partial results on selected round"
 msgstr "Ver resultados parciales de la manga seleccionada"
 
 #: console/frm_equipos.php:34 console/frm_inscripciones2.php:83
+#: console/dialogs/dlg_chguias.inc:66 console/dialogs/dlg_chperros.inc:80
 msgid "New"
 msgstr "Nuevo"
 
@@ -1014,7 +1032,9 @@ msgstr "Hecho"
 
 #: console/frm_equipos.php:100 console/frm_inscripciones.php:43
 #: console/frm_login.php:65 console/frm_logout.php:37
-#: tablet/tablet_main.php:59
+#: tablet/tablet_main.php:59 console/dialogs/dlg_chguias.inc:72
+#: console/dialogs/dlg_chperros.inc:87 console/dialogs/dlg_clubes.inc:41
+#: console/dialogs/dlg_clubes.inc:140
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -2530,6 +2550,7 @@ msgstr "Entrada de datos (Equipos-4)"
 #: server/pdf/print_ordenDeSalida.php:72
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62
+#: console/dialogs/dlg_ordensalida.inc:84
 msgid "Nombre"
 msgstr "Nombre"
 
@@ -2565,6 +2586,7 @@ msgstr "Celo"
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72
+#: console/dialogs/dlg_ordensalida.inc:86
 msgid "Observaciones"
 msgstr "Observaciones"
 
@@ -2835,6 +2857,144 @@ msgstr "Orden"
 msgid "Categ"
 msgstr "Categ"
 
+#: console/dialogs/dlg_chguias.inc:26
+msgid "Handler re-asignation"
+msgstr "Re-asignacion de gu&iacute;s"
+
+#: console/dialogs/dlg_chguias.inc:29 console/dialogs/dlg_chperros.inc:29
+msgid "Search"
+msgstr "Buscar"
+
+#: console/dialogs/dlg_chguias.inc:70
+msgid "Reassign"
+msgstr "Reasignar"
+
+#: console/dialogs/dlg_chguias.inc:81
+msgid "Clear form"
+msgstr "Limpiar formulario"
+
+#: console/dialogs/dlg_chguias.inc:82 console/dialogs/dlg_chperros.inc:100
+#: console/dialogs/dlg_clubes.inc:148 console/dialogs/dlg_clubes.inc:150
+msgid "Cancel operation. Close window"
+msgstr "Cancelar operaci&oacute;n. Cerrar ventana"
+
+#: console/dialogs/dlg_chguias.inc:83
+msgid "Use provided data to create a new club member"
+msgstr "Usar los datos del formulario para crear un nuevo miembro del club"
+
+#: console/dialogs/dlg_chguias.inc:84
+msgid "Re-assign selected handler to be member of club"
+msgstr "Reasignar el gu&iacute;a selecionado como miembro del club"
+
+#: console/dialogs/dlg_chperros.inc:26
+msgid "Dog re-assignation"
+msgstr "Re-asignaci&oacute;n de perros"
+
+#: console/dialogs/dlg_chperros.inc:51
+msgid "Kennel Club ID"
+msgstr "Num. LOE/RRC"
+
+#: console/dialogs/dlg_chperros.inc:55
+msgid "Ag. License"
+msgstr "Lic. de Agility"
+
+#: console/dialogs/dlg_chperros.inc:84
+msgid "Re-assign"
+msgstr "Reasignar"
+
+#: console/dialogs/dlg_chperros.inc:97
+msgid "Clear dog search to be re-assignated form"
+msgstr ""
+"Borrar formulario de b&uacute;squeda para reasignaci&oacute;n de perros"
+
+#: console/dialogs/dlg_chperros.inc:98
+msgid "Declare a new dog belonging to selected handler"
+msgstr "Crear nuevo perro asignado al gu&iacute;a seleccionado"
+
+#: console/dialogs/dlg_chperros.inc:99
+msgid "Re-assign select dog to belong this handler"
+msgstr "Reasignar el perro seleccionado al gu&iacute;a"
+
+#: console/dialogs/dlg_clubes.inc:47
+msgid "Club information"
+msgstr "Informaci&oacute;n del club"
+
+#: console/dialogs/dlg_clubes.inc:65 console/dialogs/dlg_clubes.inc:166
+msgid "Province"
+msgstr "Provincia"
+
+#: console/dialogs/dlg_clubes.inc:92
+msgid "GPS coordinates"
+msgstr "Coordenadas GPS"
+
+#: console/dialogs/dlg_clubes.inc:96
+msgid "RSCE"
+msgstr "RSCE"
+
+#: console/dialogs/dlg_clubes.inc:98
+msgid "RFEC"
+msgstr "RFEC"
+
+#: console/dialogs/dlg_clubes.inc:100
+msgid "UCA"
+msgstr "UCA"
+
+#: console/dialogs/dlg_clubes.inc:105
+msgid "Web page"
+msgstr "P&aacute;gina web"
+
+#: console/dialogs/dlg_clubes.inc:113
+msgid "Facebook account"
+msgstr "Cuenta de Facebook"
+
+#: console/dialogs/dlg_clubes.inc:117
+msgid "Google+ account"
+msgstr "Cuenta en Google+"
+
+#: console/dialogs/dlg_clubes.inc:121
+msgid "Twitter account"
+msgstr "Cuenta de Twitter"
+
+#: console/dialogs/dlg_clubes.inc:147
+msgid "Register data on new club. Update database"
+msgstr "Registrar datos del nuevo club. Actualizar base de datos"
+
+#: console/dialogs/dlg_clubes.inc:149
+msgid "Validate logo. Store and update database"
+msgstr "Validar logotipo. Guardar y actualizar base de datos"
+
+#: console/dialogs/dlg_clubes.inc:151
+msgid "Choosen image should be of type <em>.png</em>"
+msgstr "La imagen seleccionada debe ser de tipo <em>.png</em>"
+
+#: console/dialogs/dlg_clubes.inc:152
+msgid "150x150 pixel size and transparent background"
+msgstr "Tama&ntilde;o 150x150 pixels con fondo transparente"
+
+#: console/dialogs/dlg_clubes.inc:153
+msgid "Press on image to change club logo"
+msgstr "Pulsa sobre la imagen para cambiar el logotipo del club"
+
+#: console/dialogs/dlg_clubes.inc:167
+msgid "Region/State"
+msgstr "Comunidada aut&oacute;noma"
+
+#: console/dialogs/dlg_clubes.inc:194
+msgid "New logo"
+msgstr "Nuevo logotipo"
+
+#: console/dialogs/dlg_equipos.inc:38
+msgid "Categor&iacute;as"
+msgstr "Categor&iacute;as"
+
+#: console/dialogs/dlg_jornadas.inc:26
+msgid "Informaci&oacute;n de la Jornada"
+msgstr "Informaci&oacute;n de la Jornada"
+
+#: console/dialogs/dlg_ordensalida.inc:73
+msgid "Actualizando lista de equipos"
+msgstr "Actualizando lista de equipos"
+
 #, fuzzy
 #~ msgid "Error:"
 #~ msgstr "Error"
@@ -2882,17 +3042,8 @@ msgstr "Categ"
 #~ msgid "Gu&iacute;a"
 #~ msgstr "Gu&iacute;a"
 
-#~ msgid "Actualizando lista de equipos"
-#~ msgstr "Actualizando lista de equipos"
-
 #~ msgid "Actualizando clasificaciones de la ronda..."
 #~ msgstr "Actualizando clasificaciones de la ronda..."
-
-#~ msgid "Categor&iacute;as"
-#~ msgstr "Categor&iacute;as"
-
-#~ msgid "Informaci&oacute;n de la Jornada"
-#~ msgstr "Informaci&oacute;n de la Jornada"
 
 #, fuzzy
 #~ msgid "Coourse walk"
@@ -2918,9 +3069,6 @@ msgstr "Categ"
 
 #~ msgid "Cerrada"
 #~ msgstr "Cerrada"
-
-#~ msgid "Ag. Licencse"
-#~ msgstr "Licencia"
 
 #~ msgid "KC dogID"
 #~ msgstr "LOE / RRC"

@@ -15,21 +15,27 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+<?php
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
 <!-- FORMULARIO DE REASIGNACION DE UN PERRO-->
     <div id="chperros-dialog" style="width:550px;height:400px;padding:10px 20px">
-        <div id="chperros-title" class="ftitle">Reasignaci&oacute;n de un perro</div>
+        <div id="chperros-title" class="ftitle"><?php _e('Dog re-assignation'); ?></div>
         <form id="chperros-header">
         	<div class="fitem">
-                <label for="chperros-Search">Buscar: </label>
+                <label for="chperros-Search"><?php _e('Search'); ?>: </label>
                 <select id="chperros-Search" name="Search" style="width:250px"></select>&nbsp;
                 <a id="chperros-clearBtn" href="#" class="easyui-linkbutton"
-                	data-options="iconCls: 'icon-undo'">Limpiar</a>
+                	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
         	</div>
         </form>
         <hr/>
         <form id="chperros-form" method="get" novalidate>
             <div class="fitem">
-                <label for="chperros-Nombre">Nombre:</label>
+                <label for="chperros-Nombre"><?php _e('Name'); ?>:</label>
                 <input id="chperros-ID" name="ID" type="hidden" /> <!-- dog id -->
                 <input id="chperros-Federation" name="Federation" type="hidden" />
                 <input id="chperros-Nombre" name="Nombre" class="easyui-validatebox" /> <!-- dog name -->
@@ -38,26 +44,26 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="chperros-newGuia" name="NewGuia" type="hidden" /> <!-- id original of the guia -->
             </div>
             <div class="fitem">
-                <label for="chperros-Raza">Raza:</label>
+                <label for="chperros-Raza"><?php _e('Breed'); ?>:</label>
                 <input id="chperros-Raza" class="easyui-validatebox" name="Raza" type="text" />
             </div>
             <div class="fitem">
-                <label for="chperros-LOE_RRC">Num. LOE / RRC:</label>
+                <label for="chperros-LOE_RRC"><?php _e('Kennel Club ID'); ?>:</label>
                 <input id="chperros-LOE_RRC" class="easyui-validatebox" name="LOE_RRC" type="text" />
             </div>
             <div class="fitem">
-                <label for="chperros-Licencia">Num. Licencia:</label>
+                <label for="chperros-Licencia"><?php _e('Ag. License'); ?>:</label>
                 <input id="chperros-Licencia" class="easyui-validatebox" name="Licencia" type="text" />
             </div>
             <div class="fitem">
-                <label for="chperros-Categorias_Perro">Categor&iacute;a:</label>
+                <label for="chperros-Categorias_Perro"><?php _e('Category'); ?>:</label>
                 <select id="chperros-Categorias_Perro" 
                 		name="Categoria" 
                 		class="easyui-combobox" 
                 		style="width:155px" ></select>
             </div>
             <div class="fitem">
-                <label for="chperros-Grados_Perro">Grado:</label>
+                <label for="chperros-Grados_Perro"><?php _e('Grade'); ?>:</label>
                 <select id="chperros-Grados_Perro" 
                 		name="Grado" 
                 		class="easyui-combobox" 
@@ -71,14 +77,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     <div id="chperros-dlg-buttons" style="display:inline-block">
     	<span style="float:left">
         	<a id="chperros-newBtn" href="#" class="easyui-linkbutton" onclick="saveChDog()"
-        		data-options="iconCls:'icon-dog'">Nuevo</a>
+        		data-options="iconCls:'icon-dog'"><?php _e('New'); ?></a>
         </span>
         <span style="float:right">
         	<a id="chperros-okBtn" href="#" class="easyui-linkbutton" onclick="assignDog()"
-        		data-options="iconCls:'icon-ok'">Reasignar</a>
+        		data-options="iconCls:'icon-ok'"><?php _e('Re-assign'); ?></a>
         	<a id="chperros-cancelBtn" href="#" class="easyui-linkbutton"  
         		onclick="$('#chperros-dialog').dialog('close')"
-        		data-options="iconCls:'icon-cancel'">Cancelar</a>
+        		data-options="iconCls:'icon-cancel'"><?php _e('Cancel'); ?></a>
         </span>
     </div>
     
@@ -88,10 +94,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     // - declaracion del formulario
     $('#chperros-form').form();
     // - botones
-    addTooltip($('#chperros-clearBtn').linkbutton(),"Limpiar formulario de reasignacion de perro");
-    addTooltip($('#chperros-newBtn').linkbutton(),"Crear un nuevo perro para este guía en la base de datos");
-    addTooltip($('#chperros-okBtn').linkbutton(),"Aceptar datos y actualizar la BBDD");
-    addTooltip($('#chperros-cancelBtn').linkbutton(),"Cancelar asignacion. Cerrar ventana");
+    addTooltip($('#chperros-clearBtn').linkbutton(),'<?php _e("Clear dog search to be re-assignated form"); ?>');
+    addTooltip($('#chperros-newBtn').linkbutton(),'<?php _e("Declare a new dog belonging to selected handler"); ?>');
+    addTooltip($('#chperros-okBtn').linkbutton(),'<?php _e("Re-assign select dog to belong this handler"); ?>');
+    addTooltip($('#chperros-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
     $('#chperros-clearBtn').bind('click',function() {
         $('#chperros-header').form('clear'); // empty form
         $('#chperros-form').form('reset'); // restore to initial values
@@ -127,11 +133,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		columns: [[
 			{field:'ID',hidden:'true'},
 			{field:'Federation',hidden:'true'},
-			{field:'Nombre',title:'Perro',width:20,align:'right'},
-			{field:'Categoria',title:'Cat.',width:10,align:'center'},
-			{field:'Grado',title:'Grado',width:10,align:'center'},
-			{field:'NombreGuia',title:'Guia',width:40,align:'right'},
-			{field:'NombreClub',title:'Club',width:20,align:'right'}
+			{field:'Nombre',title:'<?php _e('Dog'); ?>',width:20,align:'right'},
+			{field:'Categoria',title:'<?php _e('Cat'); ?>.',width:10,align:'center'},
+			{field:'Grado',title:'<?php _e('Grade'); ?>',width:10,align:'center'},
+			{field:'NombreGuia',title:'<?php _e('Handler'); ?>',width:40,align:'right'},
+			{field:'NombreClub',title:'<?php _e('Club'); ?>',width:20,align:'right'}
 		]],
 		multiple: false,
 		fitColumns: true,

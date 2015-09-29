@@ -15,21 +15,27 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+<?php
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
 <!-- FORMULARIO DE REASIGNACION DE GUIAS -->
     <div id="chguias-dialog" style="width:550px;height:350px;padding:10px 20px">
-        <div id="chguias-title" class="ftitle">Reasignaci&oacute;n de un gu&iacute;a</div>
+        <div id="chguias-title" class="ftitle"><?php _e('Handler re-asignation'); ?></div>
         <form id="chguias-header">
         	<div class="fitem">
-                <label for="chguias-Search">Buscar: </label>
+                <label for="chguias-Search"><?php _e('Search'); ?>: </label>
                 <select id="chguias-Search" name="Search" style="width:200px"></select>&nbsp;
                 <a id="chguias-clearBtn" href="#" class="easyui-linkbutton"
-                	data-options="iconCls: 'icon-undo'">Limpiar</a>
+                	data-options="iconCls: 'icon-undo'"><?php _e('Clear'); ?></a>
         	</div>
         </form>
         <hr/>
         <form id="chguias-form" method="get" novalidate>
             <div class="fitem">
-                <label for="chguias-Nombre">Nombre:</label>
+                <label for="chguias-Nombre"><?php _e('Name'); ?>:</label>
                 <input id="chguias-Federation" name="Federation" type="hidden" />
                 <input id="chguias-ID" name="ID" type="hidden" value="" /> <!-- Guia ID -->
                 <input id="chguias-Nombre" name="Nombre" style="width:300px" />
@@ -38,15 +44,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="chguias-Operation" name="Operation" type="hidden" value=""/> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
-                <label for="chguias-Email">Correo electr&oacute;nico:</label>
+                <label for="chguias-Email"><?php _e('Electronic mail'); ?>:</label>
                 <input id="chguias-Email" name="Email" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
-                <label for="chguias-Telefono">Tel&eacute;fono:</label>
+                <label for="chguias-Telefono"><?php _e('Telephone'); ?>:</label>
                 <input id="chguias-Telefono" name="Telefono" type="text" />
             </div>
             <div class="fitem">
-                <label for="chguias-Observaciones">Observaciones:</label>
+                <label for="chguias-Observaciones"><?php _e('Comments'); ?>:</label>
                 <textarea id="chguias-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
             </div>
         </form>
@@ -57,13 +63,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<div id="chguias-dlg-buttons" style="display:inline-block">
    	    <span style="float:left">
         	<a id="chguias-newBtn" href="#" class="easyui-linkbutton" onclick="saveChGuia()"
-        		data-options="iconCls:'icon-users'">Nuevo</a>
+        		data-options="iconCls:'icon-users'"><?php _e('New'); ?></a>
         </span>
         <span style="float:right">
    	    	<a id="chguias-okBtn" href="#" class="easyui-linkbutton" 
-   	    		data-options="iconCls:'icon-ok'" onclick="assignGuia()">Reasignar</a>
+   	    		data-options="iconCls:'icon-ok'" onclick="assignGuia()"><?php _e('Reassign'); ?></a>
    	    	<a id="chguias-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    		data-options="iconCls:'icon-cancel'" onclick="$('#chguias-dialog').dialog('close')">Cancelar</a>
+   	    		data-options="iconCls:'icon-cancel'" onclick="$('#chguias-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	    </span>
    	</div>
    	
@@ -72,10 +78,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         // - declaracion del formulario
         $('#chguias-form').form();
         // - botones
-    	addTooltip($('#chguias-clearBtn').linkbutton(),"Limpiar formulario");
-    	addTooltip($('#chguias-cancelBtn').linkbutton(),"Anular operaci&oacute;n. Cerrar ventana");
-    	addTooltip($('#chguias-newBtn').linkbutton(),"Crear nuevo miembro del club con los datos especificados");
-    	addTooltip($('#chguias-okBtn').linkbutton(),"Re-asignar el guia con los datos especificados al club");
+    	addTooltip($('#chguias-clearBtn').linkbutton(),'<?php _e("Clear form"); ?>');
+    	addTooltip($('#chguias-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
+    	addTooltip($('#chguias-newBtn').linkbutton(),'<?php _e("Use provided data to create a new club member"); ?>');
+    	addTooltip($('#chguias-okBtn').linkbutton(),'<?php _e("Re-assign selected handler to be member of club"); ?>');
     	$('#chguias-clearBtn').bind('click',function() {
     	    $('#chguias-header').form('clear'); // emtpy
     	    $('#chguias-form').form('reset'); // restore to original values 
@@ -103,9 +109,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     		mode: 'remote',
     		columns: [[
     	    	{field:'ID',hidden:true},
-    			{field:'Nombre',title:'Nombre',sortable:true,width:60,align:'right'},
+    			{field:'Nombre',title:'<?php _e('Name'); ?>',sortable:true,width:60,align:'right'},
     			{field:'Club',hidden:true},
-    			{field:'NombreClub',title:'Club',sortable:true,width:40,align:'right'}
+    			{field:'NombreClub',title:'<?php _e('Club'); ?>',sortable:true,width:40,align:'right'}
     		]],
     		multiple: false,
     		fitColumns: true,
