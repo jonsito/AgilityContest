@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+<?php
+require_once(__DIR__ . "/../server/tools.php");
+require_once(__DIR__ . "/../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE PERROS -->
 <div style="width:100%;height:550px;">
     <!-- DECLARACION DE LA TABLA -->
@@ -26,19 +32,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<span style="float:left;padding:5px">
    		<a id="perros-newBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-dog'"
-   			onclick="newDog('#perros-datagrid',$('#perros-datagrid-search').val())">Nuevo Perro</a>
+   			onclick="newDog('#perros-datagrid',$('#perros-datagrid-search').val())"><?php _e('New dog'); ?></a>
    		<a id="perros-editBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-edit'"
-   			onclick="editDog('#perros-datagrid')">Editar Perro</a>
+   			onclick="editDog('#perros-datagrid')"><?php _e('Edit dog'); ?></a>
    		<a id="perros-delBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-trash'"
-   			onclick="deleteDog('#perros-datagrid')">Borrar Perro</a>
+   			onclick="deleteDog('#perros-datagrid')"><?php _e('Delete dog'); ?></a>
    		<input id="perros-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
    	</span>
    	<span style="float:right;padding:5px">
    		<a id="perros-printBtn" href="#" class="easyui-linkbutton"
            data-options="iconCls:'icon-print'"
-           onclick="print_listaPerros()">Imprimir</a>
+           onclick="print_listaPerros()"><?php _e('Print'); ?></a>
    		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-brush'"
    			onclick="
@@ -46,7 +52,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	    		$('#perros-datagrid-search').val('---- Buscar ----');
 				reloadWithSearch('#perros-datagrid','select');
    	            "
-   		>Limpiar</a>
+   		><?php _e('Clear'); ?></a>
    	</span>
 </div>
     
@@ -68,10 +74,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         	collapsible: false,
             expansible: false,
         	collapsed: false,
-        	title: 'Gesti&oacute;n de datos de Perros'+' - '+fedName(workingData.federation),
+        	title: '<?php _e('Database dog handling'); ?>'+' - '+fedName(workingData.federation),
         	url: '/agility/server/database/dogFunctions.php',
         	queryParams: { Operation: 'select', Federation: workingData.federation },
-        	loadMsg: 'Actualizando lista de perros ...',
+        	loadMsg: '<?php _e('Updating dog list'); ?>...',
         	method: 'get',
             toolbar: '#perros-toolbar',
             pagination: false,
@@ -86,16 +92,16 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             columns: [[
                 { field:'ID',   hidden:true },
                 { field:'Federation', hidden:true },
-            	{ field:'Nombre',   width:30, sortable:true,  align: 'right', title: 'Nombre' },
-            	{ field:'Raza',     width:25,                align: 'right', title: 'Raza' },
-            	{ field:'LOE_RRC',  width:20, sortable:true, align: 'right', title: 'LOE / RRC' },
-            	{ field:'Licencia', width:15, sortable:true, align: 'right', title: 'Lic.' },
-            	{ field:'Categoria',width:10,                 align:'center', title: 'Cat.' },
-            	{ field:'Grado',    width:10,                 align:'center', title: 'Grado' },
+            	{ field:'Nombre',   width:30, sortable:true,  align: 'right', title: '<?php _e('Name'); ?>' },
+            	{ field:'Raza',     width:25,                align: 'right', title: '<?php _e('Breed'); ?>' },
+            	{ field:'LOE_RRC',  width:20, sortable:true, align: 'right', title: '<?php _e('KC. dogID'); ?>' },
+            	{ field:'Licencia', width:15, sortable:true, align: 'right', title: '<?php _e('Lic'); ?>.' },
+            	{ field:'Categoria',width:10,                 align:'center', title: '<?php _e('Cat'); ?>.' },
+            	{ field:'Grado',    width:10,                 align:'center', title: '<?php _e('Grade'); ?>' },
             	{ field:'Guia',   hidden:true },
-                { field:'NombreGuia',     width:50, sortable:true, title: 'Nombre del Gu&iacute;a'},
+                { field:'NombreGuia',     width:50, sortable:true, title: '<?php _e('Handler name'); ?>'},
             	{ field:'Club',   hidden:true },
-                { field:'NombreClub',     width:35, sortable:true, title: 'Nombre del Club'}
+                { field:'NombreClub',     width:35, sortable:true, title: '<?php _e('Club name'); ?>'}
             ]],
             // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             rowStyler:myRowStyler,
@@ -108,10 +114,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		// key handler
        	addKeyHandler('#perros-datagrid',newDog,editDog,deleteDog);
 		// tooltips
-		addTooltip($('#perros-newBtn').linkbutton(),"Registrar un nuevo perro <br/>en la Base de Datos"); 
-		addTooltip($('#perros-editBtn').linkbutton(),"Modificar los datos del perro seleccionado");
-		addTooltip($('#perros-delBtn').linkbutton(),"Eliminar el perro seleccionado de la BBDD");
-        addTooltip($('#perros-printBtn').linkbutton(),"Imprimir listado ordenado según la tabla actual");
-        addTooltip($('#perros-reloadBtn').linkbutton(),"Borrar casilla de busqueda y actualizar tabla");
-        addTooltip($('#perros-datagrid-search'),"Buscar perros que cumplan con el criterio de busqueda");
+		addTooltip($('#perros-newBtn').linkbutton(),'<?php _e("Insert new dog <br/>into database"); ?>');
+		addTooltip($('#perros-editBtn').linkbutton(),'<?php _e("Modify data on selected dog"); ?>');
+		addTooltip($('#perros-delBtn').linkbutton(),'<?php _e("Remove selected dog from database"); ?>');
+        addTooltip($('#perros-printBtn').linkbutton(),'<?php _e("Print dog list with current search/sort criteria"); ?>');
+        addTooltip($('#perros-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update list"); ?>');
+        addTooltip($('#perros-datagrid-search'),'<?php _e("Look into database for dogs matching search criteria"); ?>');
 </script>
