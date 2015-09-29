@@ -15,12 +15,18 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+<?php
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
    <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE PRUEBAS -->
     <div id="pruebas-dialog" style="width:450px;height:450px;padding:10px 20px">
-        <div class="ftitle">Informaci&oacute;n de la prueba</div>
+        <div class="ftitle"><?php _e('Contest information'); ?></div>
         <form id="pruebas-form" method="get" novalidate>
             <div class="fitem">
-                <label for="pruebas-Nombre" style="width:325px">Denominaci&oacute;n de la prueba:</label>
+                <label for="pruebas-Nombre" style="width:325px"><?php _e('Name of this contest'); ?>:</label>
                 <input id="pruebas-Nombre" 
                 	name="Nombre" 
                 	type="text" 
@@ -32,35 +38,35 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             </div>
             <div>&nbsp;<br /></div>
             <div class="fitem">
-            	Federaci&oacute;n:
-            	<input id="pruebas-RSCE" type="radio" name="RSCE" value="0" checked="checked" />RSCE
-            	<input id="pruebas-RFEC" type="radio" name="RSCE" value="1" />RFEC
-            	<input id="pruebas-UCA" type="radio" name="RSCE" value="2" />UCA
+            	<?php _e('Federation'); ?>:
+            	<input id="pruebas-RSCE" type="radio" name="RSCE" value="0" checked="checked" /><?php _e('RSCE'); ?>
+            	<input id="pruebas-RFEC" type="radio" name="RSCE" value="1" /><?php _e('RFEC'); ?>
+            	<input id="pruebas-UCA" type="radio" name="RSCE" value="2" /><?php _e('UCA'); ?>
             	<span style="float:right">
-            		<input id="pruebas-Selectiva" type="checkbox" name="Selectiva" value="1"/>Selectiva
+            		<input id="pruebas-Selectiva" type="checkbox" name="Selectiva" value="1"/><?php _e('Selective'); ?>
             	</span>
             </div>
             <div>&nbsp;<br /></div>
             <div class="fitem">
-                <label for="pruebas-Club">Club:</label>
+                <label for="pruebas-Club"><?php _e('Club'); ?>:</label>
                 <select id="pruebas-Club" name="Club" style="width:175px"></select>
                 <a id="pruebas-newClubBtn" href="#" class="easyui-linkbutton" 
-                	data-options="iconCls:'icon-flag'" style="float:right">Nuevo Club</a>
+                	data-options="iconCls:'icon-flag'" style="float:right"><?php _e('New Club'); ?></a>
             </div>
             <div class="fitem">
-                <label for="pruebas-Ubicacion">Lugar de realizaci&oacute;n</label>
+                <label for="pruebas-Ubicacion"><?php _e('Event location'); ?></label>
                 <input id="pruebas-Ubicacion" name="Ubicacion" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
-                <label for="pruebas-Triptico">URL del tr&iacute;ptico</label>
+                <label for="pruebas-Triptico"><?php _e('Triptych URL'); ?></label>
                 <input id="pruebas-Triptico" name="Triptico" class="easyui-validatebox" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
-                <label for="pruebas-Cartel">URL del cartel</label>
+                <label for="pruebas-Cartel"><?php _e('Brochure URL'); ?></label>
                 <input id="pruebas-Cartel" name="Cartel" class="easyui-validatebox" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
-                <label for="pruebas-Observaciones">Observaciones:</label>
+                <label for="pruebas-Observaciones"><?php _e('Comments'); ?>:</label>
                 <textarea id="pruebas-Observaciones" name="Observaciones" style="height:50px;width:250px"></textarea>
             </div>
         </form>
@@ -70,9 +76,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 	<div id="pruebas-dlg-buttons">
        	<a id="pruebas-okBtn" href="#" class="easyui-linkbutton" 
-       		data-options="iconCls:'icon-ok'" onclick="savePrueba()">Guardar</a>
+       		data-options="iconCls:'icon-ok'" onclick="savePrueba()"><?php _e('Save'); ?></a>
        	<a id="pruebas-cancelBtn" href="#" class="easyui-linkbutton" 
-       		data-options="iconCls:'icon-cancel'" onclick="$('#pruebas-dialog').dialog('close')">Cancelar</a>
+       		data-options="iconCls:'icon-cancel'" onclick="$('#pruebas-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
     </div>
     
     <script type="text/javascript">
@@ -98,9 +104,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     });
     
     // - botones
-	addTooltip($('#pruebas-okBtn').linkbutton(),"Aceptar datos. Registrar prueba en la BBDD");
-	addTooltip($('#pruebas-cancelBtn').linkbutton(),"Anular operaci&oacute;n. Cerrar ventana");
-	addTooltip($('#pruebas-newClubBtn').linkbutton(),"Registrar un nuevo club en la BBDD");
+	addTooltip($('#pruebas-okBtn').linkbutton(),'<?php _e("Accept data. Register contest into database"); ?>');
+	addTooltip($('#pruebas-cancelBtn').linkbutton(),"<?php _e('Cancel operation. Close window'); ?>");
+	addTooltip($('#pruebas-newClubBtn').linkbutton(),'<?php _e("Register new club into database"); ?>');
     $('#pruebas-newClubBtn').bind('click',function() {
         $('#pruebas-Club').combogrid({ 'setValue' : '' });
         newClub();
@@ -134,8 +140,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		required: true,
 		columns: [[
 		    {field:'ID',hidden:true}, 
-			{field:'Nombre',title:'Nombre del club',width:80,align:'right'},
-			{field:'Provincia',title:'Provincia',width:40,align:'right'}
+			{field:'Nombre',title:'<?php _e('Club name'); ?>',width:80,align:'right'},
+			{field:'Provincia',title:'<?php _e('Province'); ?>',width:40,align:'right'}
 		]],
 		multiple: false,
 		fitColumns: true,

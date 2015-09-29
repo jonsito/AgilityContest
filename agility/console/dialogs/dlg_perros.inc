@@ -14,13 +14,19 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
- 
+
+<?php
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
     <!-- FORMULARIO DE ALTA/MODIFICACION DE LA BBDD DE PERROS -->
     <div id="perros-dialog" style="width:550px;padding:10px 20px">
-        <div class="ftitle">Informaci&oacute;n del perro</div>
+        <div class="ftitle"><?php _e('Dog information'); ?></div>
         <form id="perros-form" method="get" novalidate>
             <div class="fitem">
-                <label for="perros-Nombre">Nombre:</label>
+                <label for="perros-Nombre"><?php _e('Name'); ?>:</label>
                 <input id="perros-Nombre" 
                 	name="Nombre" 
                 	type="text" 
@@ -30,52 +36,52 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="perros-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
-                <label for="perros-Raza">Raza:</label>
+                <label for="perros-Raza"><?php _e('Breed'); ?>:</label>
                 <input id="perros-Raza" class="easyui-validatebox" name="Raza" type="text" />
             </div>
             <div class="fitem">
-                <label for="perros-LOE_RRC">Num. LOE / RRC:</label>
+                <label for="perros-LOE_RRC"><?php _e('Kennel Club ID'); ?>:</label>
                 <input id="perros-LOE_RRC" class="easyui-validatebox" name="LOE_RRC" type="text" />
             </div>
             <div class="fitem">
-                <label for="perros-Licencia">Num. Licencia:</label>
+                <label for="perros-Licencia"><?php _e('Ag. License'); ?>:</label>
                 <input id="perros-Licencia" class="easyui-validatebox" name="Licencia" type="text" />
             </div>
             <div class="fitem">
-                <label for="perros-Categoria">Categor&iacute;a:</label>
+                <label for="perros-Categoria"><?php _e('Category'); ?>:</label>
                 <select id="perros-Categorias_Perro" 
                 		name="Categoria" 
                 		class="easyui-combobox" 
                 		style="width:155px"></select>
             </div>
             <div class="fitem">
-                <label for="perros-Grado">Grado:</label>
+                <label for="perros-Grado"><?php _e('Grade'); ?>:</label>
                 <select id="perros-Grados_Perro" 
                 		name="Grado" 
                 		class="easyui-combobox" 
                 		style="width:155px"></select>
             </div>
             <div class="fitem">
-                <label for="perros-Guia">Gu&iacute;a:</label>
+                <label for="perros-Guia"><?php _e('Handler'); ?>:</label>
                 <select id="perros-Guia" name="Guia" style="width:225px" class="easyui-combogrid"></select>
             	<a id="perros-newGuiaBtn" href="#" class="easyui-linkbutton" 
-            		data-options="iconCls:'icon-users'" style="float:right">Nuevo Gu&iacute;a</a>
+            		data-options="iconCls:'icon-users'" style="float:right"><?php _e('New handler'); ?></a>
             </div>
         </form>
         <span id="perros-warning">
-        <em>Aviso:</em><br/>
-			Los cambios en los datos de Categor&iacute;a o Grado de un perro<br/>
-			afectar&aacute;n a los datos de todas las pruebas y jornadas<br/>
-			en las que el perro est&eacute; inscrito y no hayan sido marcadas como cerradas
+        <em><?php _e('Notice'); ?>:</em><br/>
+			<?php _e('Changes on Grade or Category for a dog'); ?><br/>
+			<?php _e('will affect to every non closed contest and journeys'); ?><br/>
+			<?php _e('where dog have been inscribed'); ?>
         </span>
     </div>
 
     <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
     <div id="perros-dlg-buttons">
         <a id="perros-okBtn" href="#" class="easyui-linkbutton" 
-        	data-options="iconCls:'icon-ok'" onclick="saveDog()">Guardar</a>
+        	data-options="iconCls:'icon-ok'" onclick="saveDog()"><?php _e('Save'); ?></a>
         <a id="perros-cancelBtn" href="#" class="easyui-linkbutton" 
-        	data-options="iconCls:'icon-cancel'" onclick="$('#perros-dialog').dialog('close')">Cancelar</a>
+        	data-options="iconCls:'icon-cancel'" onclick="$('#perros-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
     </div>
     
     <script type="text/javascript">
@@ -93,9 +99,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	}
 	});
     // - botones
-	addTooltip($('#perros-okBtn').linkbutton(),"Aceptar datos del perro y actualizar la BBDD");
-	addTooltip($('#perros-cancelBtn').linkbutton(),"Cancelar edicion. Cerrar ventana");
-	addTooltip($('#perros-newGuiaBtn').linkbutton(),"Dar de alta un nuevo gu&iacute;a");
+	addTooltip($('#perros-okBtn').linkbutton(),'<?php _e("Register dog information. Update database"); ?>');
+	addTooltip($('#perros-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
+	addTooltip($('#perros-newGuiaBtn').linkbutton(),'<?php _e("Register a new handler"); ?>');
 	$('#perros-newGuiaBtn').bind('click',function() {
         newGuia(
             $('#perros-Guia').combogrid('getText'), // default name
@@ -158,9 +164,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		required: true,
 		columns: [[
 		    {field:'ID', hidden:true},
-			{field:'Nombre',title:'Nombre del gu&iacute;a',width:80,align:'right'},
+			{field:'Nombre',title:'<?php _e('Handler name'); ?>',width:80,align:'right'},
 		    {field:'Club', hidden:true},
-			{field:'NombreClub',title:'Club',width:40,align:'right'}
+			{field:'NombreClub',title:'<?php _e('Club'); ?>',width:40,align:'right'}
 		]],
 		multiple: false,
 		fitColumns: true,

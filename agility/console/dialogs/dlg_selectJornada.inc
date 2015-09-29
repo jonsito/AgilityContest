@@ -27,11 +27,11 @@ $config =Config::getInstance();
 		<form id="seljornada-Selection">
 			<div id="seljornada-Content" data-options="region:'north',border:'true'">
         		<div class="fitem">
-            		<label for="Prueba">Selecciona Prueba:</label>
+            		<label for="Prueba"><?php _e('Select contest'); ?>:</label>
             		<select id="seljornada-Prueba" name="Prueba" style="width:200px"></select>
         		</div>        		
         		<div class="fitem">
-            		<label for="Jornada">Selecciona Jornada:</label>
+            		<label for="Jornada"><?php _e('Select journey'); ?>:</label>
             		<select id="seljornada-Jornada" name="Jornada" style="width:200px"></select>
         		</div>
 			</div> <!-- contenido -->
@@ -39,16 +39,16 @@ $config =Config::getInstance();
 		<div data-options="region:'center'"></div>
 		<div id="seljornada-Buttons" data-options="region:'south',border:false" style="text-align:right;padding:5px 0 0;">
     	    <a id="seljornada-okBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls: 'icon-ok'" onclick="acceptSelectJornada()">Aceptar</a>
+    	    	data-options="iconCls: 'icon-ok'" onclick="acceptSelectJornada()"><?php _e('Accept'); ?></a>
     	    <a id="seljornada-cancelBtn" href="#" class="easyui-linkbutton" 
-    	    	data-options="iconCls: 'icon-cancel'" onclick="cancelSelectJornada()">Cancelar</a>
+    	    	data-options="iconCls: 'icon-cancel'" onclick="cancelSelectJornada()"><?php _e('Cancel'); ?></a>
 		</div>	<!-- botones -->
 	</div> <!-- Layout -->
 </div> <!-- Window -->
 
 <script type="text/javascript">
 $('#seljornada-window').window({
-	title: 'Selecciona la Prueba y Jornada a desplegar',
+	title: "<?php _e('Select contest and journey to work with'); ?>",
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,
@@ -61,8 +61,8 @@ $('#seljornada-window').window({
 $('#seljornada-form').form();
 $('#seljornada-layout').layout();
 
-addTooltip($('#seljornada-okBtn').linkbutton(),"Trabajar con la jornada seleccionada");
-addTooltip($('#seljornada-cancelBtn').linkbutton(),"Cancelar selecci&oacute;n. Cerrar ventana");
+addTooltip($('#seljornada-okBtn').linkbutton(),'<?php _e("Update results on selected round/category"); ?>');
+addTooltip($('#seljornada-cancelBtn').linkbutton(),'<?php _e("Print round results"); ?>');
 
 $('#seljornada-Prueba').combogrid({
 	panelWidth: 550,
@@ -80,11 +80,11 @@ $('#seljornada-Prueba').combogrid({
 	editable: isMobileDevice()?false:true, //disable keyboard deploy on mobile devices
 	columns: [[
 	   	    {field:'ID',			hidden:true},
-			{field:'Nombre',		title:'Nombre',			width:50,	align:'right'},
+			{field:'Nombre',		title:'<?php _e('Name'); ?>',			width:50,	align:'right'},
             {field:'Club',			hidden:true},
-			{field:'NombreClub',	title:'Club',			width:20,	align:'right'},
-			{field:'RSCE',			title:'Fed.',			width:15,	align:'center', formatter:formatRSCE},
-			{field:'Observaciones',	title:'Observaciones.',	width:30,	align:'right'},
+			{field:'NombreClub',	title:'<?php _e('Club'); ?>',			width:20,	align:'right'},
+			{field:'RSCE',			title:'<?php _e('Fed'); ?>.',			width:15,	align:'center', formatter:formatRSCE},
+			{field:'Observaciones',	title:'<?php _e('Comments'); ?>',	width:30,	align:'right'},
             {field:'Inscritos',		hidden:true},
             {field:'UserLimit',		hidden:true}
 	]],
@@ -121,7 +121,7 @@ $('#seljornada-Jornada').combogrid({
 	    { field:'ID',			hidden:true }, // ID de la jornada
 	    { field:'Prueba',		hidden:true }, // ID de la prueba
 	    { field:'Numero',		width:4, sortable:false,	align:'center', title: '#'},
-		{ field:'Nombre',		width:30, sortable:false,   align:'right',  title: 'Nombre/Comentario' },
+		{ field:'Nombre',		width:30, sortable:false,   align:'right',  title: '<?php _e('Name/Comments'); ?>' },
 		{ field:'Fecha',		hidden:true},
 		{ field:'Hora',			hidden:true},
 		{ field:'Grado1',		width:8, sortable:false,	align:'center', title: 'G-I    ' },
@@ -153,13 +153,13 @@ function acceptSelectJornada() {
 	var j=$('#seljornada-Jornada').combogrid('grid').datagrid('getSelected');
 	if ( (p==null) || (j==null) ) {
 		// indica error
-		$.messager.alert("Error","Debe indicar una prueba y jornada v&aacute;lidas","error");
+		$.messager.alert('<?php _e("Error"); ?>','<?php _e("You must select a valid contest/journey"); ?>',"error");
 		return;
 	}
     if (parseInt(p.Inscritos) > parseInt(p.UserLimit)) {
         var message='<img src="/agility/images/sad_dog.png" width="100" alt="sad dog" style="float:right;"/>'+
-            '<p style="font-weight:bold;">Los permisos de la licencia instalada<br />"' +
-			' no permiten la gesti&oacute;n de pruebas</br> con m&aacute;s de '+p.UserLimit+' inscripciones</p>';
+            '<p style="font-weight:bold;"><?php _e('Current license permissions'); ?><br />"' +
+			' <?php _e('forbids handling of contests</br> with more than'); ?> '+p.UserLimit+' <?php _e('inscriptions'); ?></p>';
         $.messager.alert({
             title: 'Access denied',
             msg: message,
