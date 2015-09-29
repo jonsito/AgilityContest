@@ -132,9 +132,9 @@ $('#competicion-listamangas').datagrid({
         workingData.manga=row.ID;
         workingData.nombreManga=row.Descripcion;
         // cannot use loadcontents, because need to execute commands, _after_ html document load success
-        var infomanga="/agility/console/dialogs/infomanga_rsce.inc";
-        if (workingData.datosPrueba.RSCE==1) infomanga="/agility/console/dialogs/infomanga_rfec.inc";
-        if (workingData.datosPrueba.RSCE==2) infomanga="/agility/console/dialogs/infomanga_uca.inc";
+        var infomanga="/agility/console/dialogs/infomanga_rsce.php";
+        if (workingData.datosPrueba.RSCE==1) infomanga="/agility/console/dialogs/infomanga_rfec.php";
+        if (workingData.datosPrueba.RSCE==2) infomanga="/agility/console/dialogs/infomanga_uca.php";
         $('#competicion-datosmanga').load(infomanga, function() {
             // titulo del panel lateral con la informacion de la manga
         	$('#competicion_infolayout').layout('panel','center').panel('setTitle','<?php _e('Datos de la manga');?> -- '+workingData.nombreManga);
