@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+<?php
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
 <!-- FORMULARIO DE ALTA DE INSCRIPCIONES EN UNA PRUEBA -->
 <div id="new_inscripcion-dialog" style="width:640px;height:400px;padding:5px">
    	<!--  tabla que contiene el resultado de la seleccion del formulario -->
@@ -24,7 +30,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!-- barra de tareas del dialogo -->
 <div id="new_inscripcion-datagrid-tools" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
-	   	<label for="Buscar">Buscar: </label>
+	   	<label for="Buscar"><?php _e('Search'); ?>: </label>
 		<input name="Buscar" type="text" id="new_inscripcion-datagrid-search" style="width:150px" value="---- Buscar ----"
 			class="search_textfield" onchange="reloadWithSearch('#new_inscripcion-datagrid','noinscritos',false);"/>
 	</span>
@@ -48,7 +54,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<span style="float:left;padding:5px">
    			<input id="new_inscripcion-Operation" name="Operation" type="hidden" value="insert"/>
    			<input id="new_inscripcion-Prueba" type="hidden" name="Prueba" value="0"/>
-			Jornadas:
+			<?php _e('Journeys'); ?>:
         	<input id="new_inscripcion-J1" 			name="J1" class="easyui-checkbox" type="checkbox" value="1" onclick="evalJornadas(this);"/>
         	<label id="new_inscripcion-J1lbl" 		for="new_inscripcion-J1">1</label>
         	<input id="new_inscripcion-J2" 			name="J2" class="easyui-checkbox" type="checkbox" value="2" onclick="evalJornadas(this);"/>
@@ -67,7 +73,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
        		<label id="new_inscripcion-J8lbl" 		for="new_inscripcion-J8">8</label>
         </span>
         <span style="float:right;padding:5px">
-        	<label id="new_inscripcion-Celolbl"	for="new_inscripcion-Celo">Celo:</label>
+        	<label id="new_inscripcion-Celolbl"	for="new_inscripcion-Celo"><?php _e('Heat'); ?>:</label>
    			<input id="new_inscripcion-Celo" type="hidden" name="Celo" value="0"/>
         	<input id="new_inscripcion-Celo2"		name="Celo2" class="easyui-checkbox" type="checkbox" value="1" 
         		onclick="$('#new_inscripcion-Celo').val( $('#new_inscripcion-Celo2').is(':checked')?'1':'0');"/>
@@ -81,20 +87,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<span style="float:left">
    		<a id="new_inscripcion-dogBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-dog'"
-   			onclick="newDog('#new_inscripcion-datagrid',$('new_inscripcion-datagrid-search').val())">Nuevo Perro</a>
+   			onclick="newDog('#new_inscripcion-datagrid',$('new_inscripcion-datagrid-search').val())"><?php _e('New dog'); ?></a>
    	</span>
    	<span style="float:right">
 		<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-ok'" onclick="insertInscripcion('#new_inscripcion-datagrid')">Inscribir</a>
+   			data-options="iconCls:'icon-ok'" onclick="insertInscripcion('#new_inscripcion-datagrid')"><?php _e('Inscribe'); ?></a>
    		<a id="new_inscripcion-doneBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-cancel'" onclick="$('#new_inscripcion-dialog').dialog('close')">Hecho</a>
+   			data-options="iconCls:'icon-cancel'" onclick="$('#new_inscripcion-dialog').dialog('close')"><?php _e('Done'); ?></a>
    	</span>
 </div>
 
 <!-- barra de progreso de actualizacion de inscripciones -->
 <div id="new_inscripcion-progresswindow" class="easyui-window"
 	data-options="title:'Procesando inscripciones...',width:300,modal:true,collapsable:false,minimizable:false,maximizable:false,closable:false,closed:true">
-	<p id="new_inscripcion-progresslabel" style="text-align:center">Inscribiendo a:</p>
+	<p id="new_inscripcion-progresslabel" style="text-align:center"><?php _e('Enrolling'); ?>:</p>
 	<div id="new_inscripcion-progressbar" class="easyui-progressbar" style="width:300px;text-align:center;" data-options="value:0"></div>
 </div>
 
@@ -117,7 +123,7 @@ $('#new_inscripcion-dialog').dialog({
 	minimizable:false,
 	maximizable:false,
 	resizable:false,
-	title:"A&ntilde;adir inscripciones a la prueba: '"+workingData.datosPrueba.Nombre+"'",
+	title:'<?php _e("Add inscriptions to contest"); ?>'+": '"+workingData.datosPrueba.Nombre+"'",
 	buttons:'#new_inscripcion-buttons',
 	onOpen: newInscripcion_onOpenSuccess, // on display setup jornada's 'checkboxes info
 	onClose: function() {$('#new_inscripcion-datagrid').datagrid('unselectAll')}
@@ -135,7 +141,7 @@ $('#new_inscripcion-datagrid').datagrid({
 	},
 	method: 'get',
 	mode: 'remote',
-	loadMsg: 'Actualizando lista de perros ...',
+	loadMsg: '<?php _e('Updating dog list'); ?>'+' ...',
 	toolbar: '#new_inscripcion-datagrid-tools',
 	footer: '#new_inscripcion-datagrid-footer',
 	idField: 'ID',
@@ -143,12 +149,12 @@ $('#new_inscripcion-datagrid').datagrid({
 	   	{field:'ID',hidden:'true'},
 		{field:'Guia',hidden:'true'},
 		{field:'Club',hidden:'true'},
-        {field:'Nombre', sortable:true, title:'Perro',width:20,align:'right'},
-        {field:'Licencia', sortable:true, title:'Lic.',width:10,align:'right'},
-		{field:'Categoria', sortable:true, title:'Cat.',width:5,align:'center'},
-		{field:'Grado', title:'Grado', width:5,align:'center'},
-		{field:'NombreGuia', sortable:true, title:'Guia',width:35,align:'right'},
-		{field:'NombreClub',title:'Club',width:20,align:'right'}
+        {field:'Nombre', sortable:true, title:'<?php _e('Dog'); ?>',width:20,align:'right'},
+        {field:'Licencia', sortable:true, title:'<?php _e('Lic'); ?>.',width:10,align:'right'},
+		{field:'Categoria', sortable:true, title:'<?php _e('Cat'); ?>.',width:5,align:'center'},
+		{field:'Grado', title:'<?php _e('Grade'); ?>', width:5,align:'center'},
+		{field:'NombreGuia', sortable:true, title:'<?php _e('Handler'); ?>',width:35,align:'right'},
+		{field:'NombreClub',title:'<?php _e('Club'); ?>',width:20,align:'right'}
 	]],
     rowStyler:myRowStyler,
 	multiple: true,
@@ -228,14 +234,14 @@ function newInscripcion_onOpenSuccess() {
 	if ( canInscribe(jornadas[7]) ) val+=128;
 	$('#new_inscripcion-Jornadas').val(val);
 	// validation flag makes this tooltip disappear, so reinit on every window open
-	addTooltip($('new_inscripcion-datagrid-search').linkbutton(),"Buscar posibles participantes<br /> que coincidan con el criterio de busqueda"); 
+	addTooltip($('new_inscripcion-datagrid-search').linkbutton(),'<?php _e("Search available competitors"); ?>'+"<br />"+'<?php _e("matching search criteria"); ?>');
 }
 
 // tooltips de los sub-formularios
-addTooltip($('#new_inscripcion-okBtn').linkbutton(),"Inscribir el/los perro(s) seleccionado(s) en la prueba"); 
-addTooltip($('#new_inscripcion-doneBtn').linkbutton(),"Cerrar la ventana<br /> Volver a la ventana de gestion de inscripciones");
-addTooltip($('#new_inscripcion-reloadBtn').linkbutton(),"Borrar seleccion. Refrescar lista");
-addTooltip($('#new_inscripcion-dogBtn').linkbutton(),"Dar de alta un nuevo perro en la BBDD");
+addTooltip($('#new_inscripcion-okBtn').linkbutton(),'<?php _e("Inscribe selected dog(s) into contest"); ?>');
+addTooltip($('#new_inscripcion-doneBtn').linkbutton(),'<?php _e("Close window"); ?>'+"<br />"+'<?php _e("Return to inscription handling form"); ?>');
+addTooltip($('#new_inscripcion-reloadBtn').linkbutton(),'<?php _e("Clear selection. Refresh list"); ?>');
+addTooltip($('#new_inscripcion-dogBtn').linkbutton(),'<?php _e("Insert a new dog into database"); ?>');
 
 
 

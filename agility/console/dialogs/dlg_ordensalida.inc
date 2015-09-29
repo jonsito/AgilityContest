@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+<?php
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
 <div id="ordensalida-dialog" style="width:800px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
@@ -31,29 +37,29 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="ordensalida-toolbar" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
 	   	<a id="ordensalida-randomBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-dice'" onclick="evalOrdenSalida('random')">Aleatorio</a>
+	   		data-options="iconCls:'icon-dice'" onclick="evalOrdenSalida('random')"><?php _e('Random'); ?></a>
 	   	<a id="ordensalida-reverseBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-updown'" onclick="evalOrdenSalida('reverse')">Invertir</a>
+	   		data-options="iconCls:'icon-updown'" onclick="evalOrdenSalida('reverse')"><?php _e('Reverse'); ?></a>
 	   	<a id="ordensalida-cloneBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-downdown'" onclick="evalOrdenSalida('sameorder')">Clonar</a>
+	   		data-options="iconCls:'icon-downdown'" onclick="evalOrdenSalida('sameorder')"><?php _e('Clone'); ?></a>
 	   	<a id="ordensalida-eqBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-huella'" onclick="$('#ordeneq3-dialog').dialog('open');">Equipos</a>
+           data-options="iconCls:'icon-huella'" onclick="$('#ordeneq3-dialog').dialog('open');"><?php _e('Teams'); ?></a>
 	   	<a id="ordensalida-checkBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-help'" onclick="reloadAndCheck()">Revisar</a>
+	   		data-options="iconCls:'icon-help'" onclick="reloadAndCheck()"><?php _e('Check'); ?></a>
    		</span>
    		<span style="float:right;padding:5px">
    		<!-- estos elementos deben estar alineados a la derecha -->
    		<a id="ordensalida-reloadBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-reload'" onclick="reloadOrdenSalida();">Actualizar</a>
+   			data-options="iconCls:'icon-reload'" onclick="reloadOrdenSalida();"><?php _e('Refresh'); ?></a>
    		<a id="ordensalida-printBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(1);">Imprimir</a>
+   			data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(1);"><?php _e('Print'); ?></a>
 	</span>
 </div>
 
 <script type="text/javascript">
 
 $('#ordeneq3-dialog').dialog({
-    title:          "Ajuste manual del orden de los equipos de la manga",
+    title:         '<?php _e( "Manual setting of teams order for this round"); ?>',
     collapsible:	false,
     minimizable:	false,
     maximizable:	false,
@@ -70,7 +76,7 @@ $('#ordeneq3-datagrid').datagrid({
     fit: true,
     url: '/agility/server/database/ordenSalidaFunctions.php',
     queryParams: { Operation:'getTeams', Prueba:workingData.prueba, Jornada:workingData.jornada, Manga:workingData.manga, where:''	},
-    loadMsg: '<?php _e('Actualizando lista de equipos');?> ...',
+    loadMsg: '<?php _e('Updating teams starting order');?> ...',
     method: 'get',
     mode: 'remote',
     multiSort: false,
@@ -81,11 +87,11 @@ $('#ordeneq3-datagrid').datagrid({
         { field:'Prueba',		hidden:true },
         { field:'Jornada',		hidden:true },
         // { field:'Orden',		hidden:true },
-        { field:'Nombre',		width:20, title: '<?php _e('Nombre');?>' },
-        { field:'Categorias',	width:10, title: '<?php _e('Cat.');?>' },
-        { field:'Observaciones',width:65, title: '<?php _e('Observaciones');?>'},
+        { field:'Nombre',		width:20, title: '<?php _e('Name');?>' },
+        { field:'Categorias',	width:10, title: '<?php _e('Cat');?>.' },
+        { field:'Observaciones',width:65, title: '<?php _e('Comments');?>'},
         { field:'Miembros',		hidden:true },
-        { field:'DefaultTeam',	width:5, align: 'center', title: 'Def', formatter:formatOk }
+        { field:'DefaultTeam',	width:5, align: 'center', title: '<?php _e('Def'); ?>', formatter:formatOk }
     ]],
     pagination: false,
     rownumbers: true,
@@ -130,7 +136,7 @@ $('#ordensalida-datagrid').datagrid({
         Jornada: workingData.jornada,
         Manga: workingData.manga
     },
-    loadMsg: "Actualizando orden de salida...",
+    loadMsg: '<?php _e("Updating starting order"); ?> ...',
     toolbar: '#ordensalida-toolbar',
     pagination: false,
     rownumbers: true,
@@ -140,14 +146,14 @@ $('#ordensalida-datagrid').datagrid({
     columns:[[
 		{ field:'Perro',		hidden:true },
 		{ field:'Equipo',		hidden:true },
-		{ field:'NombreEquipo',	width:35, sortable:false,	align:'left',  title: 'Equipo'},
-		{ field:'Dorsal',		width:15, sortable:false,	align:'center',  title: 'Dorsal'},
-		{ field:'Nombre',		width:25, sortable:false,	align:'left',  title: 'Nombre'},
-		{ field:'Licencia',		width:15, sortable:false,   align:'right', title: 'Licencia' },
-		{ field:'Categoria',	width:10, sortable:false,   align:'center', title: 'Cat.' },
-		{ field:'NombreGuia',	width:50, sortable:false,   align:'right', title: 'Guia' },
-		{ field:'NombreClub',	width:30, sortable:false,   align:'right', title: 'Club' },
-		{ field:'Celo',		    width:10, sortable:false, formatter: formatCelo,	align:'center', title: 'Celo' }
+		{ field:'NombreEquipo',	width:35, sortable:false,	align:'left',  title: '<?php _e('Team'); ?>'},
+		{ field:'Dorsal',		width:15, sortable:false,	align:'center',  title: '<?php _e('Dorsal'); ?>'},
+		{ field:'Nombre',		width:25, sortable:false,	align:'left',  title: '<?php _e('Name'); ?>'},
+		{ field:'Licencia',		width:15, sortable:false,   align:'right', title: '<?php _e('License'); ?>' },
+		{ field:'Categoria',	width:10, sortable:false,   align:'center', title: '<?php _e('Cat'); ?>.' },
+		{ field:'NombreGuia',	width:50, sortable:false,   align:'right', title: '<?php _e('Handler'); ?>' },
+		{ field:'NombreClub',	width:30, sortable:false,   align:'right', title: '<?php _e('Club'); ?>' },
+		{ field:'Celo',		    width:10, sortable:false, formatter: formatCelo,	align:'center', title:'<?php _e('Heat'); ?>'}
     ]],
     rowStyler:function(index,row) { // colorize rows
         return ((index&0x01)==0)?'background-color:#ccc;':'background-color:#eee;';
@@ -180,12 +186,12 @@ $('#ordensalida-datagrid').datagrid({
 addSimpleKeyHandler('#ordensalida-datagrid','#ordensalida-dialog');
 
 // botones
-addTooltip($('#ordensalida-checkBtn').linkbutton(),"Verificar 'alertas de proximidad' <br/>entre perros del mismo gu&iacute;a");
-addTooltip($('#ordensalida-randomBtn').linkbutton(),"Generar un nuevo orden de salida aleatorio");
-addTooltip($('#ordensalida-reverseBtn').linkbutton(),"Orden de salida inverso a resultados de primera manga");
-addTooltip($('#ordensalida-cloneBtn').linkbutton(),"Clonar el orden de salida de la primera manga");
-addTooltip($('#ordensalida-eqBtn').linkbutton(),"Ajuste manual del orden de salida de los equipos");
-addTooltip($('#ordensalida-printBtn').linkbutton(),"Imprimir el orden de salida");
-addTooltip($('#ordensalida-reloadBtn').linkbutton(),"Recargar orden de salida. Actualizar ventana");
+addTooltip($('#ordensalida-checkBtn').linkbutton(),'<?php _e("Look for <em>proximity alerts</em>"); ?>'+" <br/>"+'<?php _e("with dogs belonging same handler"); ?>');
+addTooltip($('#ordensalida-randomBtn').linkbutton(),'<?php _e("Generate a new, random, starting order"); ?>');
+addTooltip($('#ordensalida-reverseBtn').linkbutton(),'<?php _e("Reverse starting order according with results in the coupled round"); ?>');
+addTooltip($('#ordensalida-cloneBtn').linkbutton(),'<?php _e("Clone starting order from coupled round"); ?>');
+addTooltip($('#ordensalida-eqBtn').linkbutton(),'<?php _e("Manual setting of teams starting order"); ?>');
+addTooltip($('#ordensalida-printBtn').linkbutton(),'<?php _e("Print starting order"); ?>');
+addTooltip($('#ordensalida-reloadBtn').linkbutton(),'<?php _e("Reload starting order. Update window"); ?>');
 
 </script>

@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+<?php
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
 <!--  dialogo de orden de tandas e introduccion de datos de una competicion -->
 <div id="ordentandas-dialog" style="width:700px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
@@ -26,18 +32,18 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<!-- estos elementos deben estar alineados a la inzquierda -->
 	<span style="float:left;padding:5px">
 	   	<a id="ordentandas-newBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-notes'" onclick="newTanda('#ordentandas-datagrid','')">Insertar</a>
+	   		data-options="iconCls:'icon-notes'" onclick="newTanda('#ordentandas-datagrid','')"><?php _e('Insert'); ?></a>
 	   	<a id="ordentandas-editBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-edit'" onclick="editTanda('#ordentandas-datagrid')">Editar</a>
+	   		data-options="iconCls:'icon-edit'" onclick="editTanda('#ordentandas-datagrid')"><?php _e('Edit'); ?></a>
 	   	<a id="ordentandas-removeBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-remove'" onclick="deleteTanda('#ordentandas-datagrid')">Borrar</a>
+	   		data-options="iconCls:'icon-remove'" onclick="deleteTanda('#ordentandas-datagrid')"><?php _e('Delete'); ?></a>
    	</span>
    	<!-- estos elementos deben estar alineados a la derecha -->
    	<span style="float:right;padding:5px">
 	   	<a id="ordentandas-reloadBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas();">Actualizar</a>
+	   		data-options="iconCls:'icon-reload'" onclick="reloadOrdenTandas();"><?php _e('Update'); ?></a>
    		<a id="ordentandas-printBtn" href="#" class="easyui-linkbutton"
-   			data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(0)">Imprimir</a>
+   			data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(0)"><?php _e('Print'); ?></a>
 	</span>
 </div>
 
@@ -54,15 +60,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="ordentandas_nt-Operation" name="Operation" type="hidden" /> <!-- to store insert/update/delete operation -->
             </div>
             <div class="fitem">
-                <label for="ordentandas_nt-Sesion">Sesi&oacute;n/Ring</label>
+                <label for="ordentandas_nt-Sesion"><?php _e('Session - Ring'); ?></label>
                 <select id="ordentandas_nt-Sesion" name="Sesion" style="width:150px"></select>
             </div>
             <div class="fitem">
-                <label for="ordentandas_nt-Horario">Horario</label>
+                <label for="ordentandas_nt-Horario"><?php _e('Timetable'); ?></label>
                 <input id="ordentandas_nt-Horario" name="Horario" type="text" style="width:150px" />
             </div>
             <div class="fitem">
-                <label for="ordentandas_nt-Comentario">Comentarios</label>
+                <label for="ordentandas_nt-Comentario"><?php _e('Comments'); ?></label>
                 <input id="ordentandas_nt-Comentario" name="Comentario" type="text" style="width:300px"/>
             </div>
 	</form>
@@ -70,15 +76,15 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <div id="ordentandas_newtanda-buttons">
 	   	<a id="ordentandas-okBtn" href="#" class="easyui-linkbutton" 
-	   		data-options="iconCls:'icon-ok'" onclick="saveTanda('#ordentandas-datagrid')" >Aceptar</a>
+	   		data-options="iconCls:'icon-ok'" onclick="saveTanda('#ordentandas-datagrid')" ><?php _e('Accept'); ?></a>
    		<a id="ordentandas-cancelBtn" href="#" class="easyui-linkbutton" 
-   			data-options="iconCls:'icon-cancel'" onclick="$('#ordentandas_newtanda-dialog').dialog('close')" >Cancelar</a>
+   			data-options="iconCls:'icon-cancel'" onclick="$('#ordentandas_newtanda-dialog').dialog('close')" ><?php _e('Cancel'); ?></a>
 </div>
 
 <script type="text/javascript">
 $('#ordentandas_newtanda-dialog').dialog({
 	iconCls:'icon-notes',
-	title:'Nueva actividad',
+	title:'<?php _e('New activity'); ?>',
 	closed:true,
 	buttons:'#ordentandas_newtanda-buttons',
 	modal:true,
@@ -113,7 +119,7 @@ $('#ordentandas-datagrid').datagrid({
         Jornada: workingData.jornada,
         Sesion: 0 // 0: Any session
     },
-    loadMsg: "Actualizando programa de la Jornada .....",
+    loadMsg: '<?php _e("Updating activities and timetable on journey"); ?> ...',
     toolbar: '#ordentandas-toolbar',
     pagination: false,
     rownumbers: true,
@@ -124,11 +130,11 @@ $('#ordentandas-datagrid').datagrid({
         	{ field:'Prueba',	hidden:true },
           	{ field:'Jornada',	hidden:true },
           	{ field:'Manga',	hidden:true },
-      		{ field:'Nombre',	width:200, sortable:false, align:'left',title:'Actividad'},
+      		{ field:'Nombre',	width:200, sortable:false, align:'left',title:'<?php _e('Activity'); ?>'},
       		{ field:'Sesion',	hidden:true },
-      		{ field:'NombreSesion',width:100, sortable:false, align:'left',title:'Sesion - Ring'},
-      		{ field:'Horario',	width:50, sortable:false, align:'center',title:'Horario'},
-      		{ field:'Comentario',width:160, sortable:false, align:'left',title:'Observaciones'},
+      		{ field:'NombreSesion',width:100, sortable:false, align:'left',title:'<?php _e('Session - Ring'); ?>'},
+      		{ field:'Horario',	width:50, sortable:false, align:'center',title:'<?php _e('Timetable'); ?>'},
+      		{ field:'Comentario',width:160, sortable:false, align:'left',title:'<?php _e('Comments'); ?>'},
       		{ field:'Categoria',hidden:true },
       		{ field:'Grado',	hidden:true }
     ]],
@@ -160,8 +166,8 @@ $('#ordentandas_nt-Sesion').combogrid({
 	editable: false,  // to disable tablet keyboard popup
 	columns: [[
 	   	    { field:'ID',			width:'5%', sortable:false, align:'center', title:'ID' }, // Session ID
-			{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: 'Nombre' },
-			{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: 'Observaciones' }
+			{ field:'Nombre',		width:'25%', sortable:false,   align:'center',  title: '<?php _e('Name'); ?>' },
+			{ field:'Comentario',	width:'60%', sortable:false,   align:'left',  title: '<?php _e('Comments'); ?>' }
 	]],
 	onBeforeLoad: function(param) { 
 		param.Operation='select';
@@ -174,12 +180,12 @@ $('#ordentandas_nt-Sesion').combogrid({
 addKeyHandler('#ordentandas-datagrid',newTanda,editTanda,deleteTanda);
 
 // botones
-addTooltip($('#ordentandas-newBtn').linkbutton(),"Añadir una nueva actividad al programa de la jornada<br/>delante de la actividad seleccionada");
-addTooltip($('#ordentandas-editBtn').linkbutton(),"Editar la actividad seleccionada");
-addTooltip($('#ordentandas-removeBtn').linkbutton(),"Eliminar la actividad del programa de la jornada");
-addTooltip($('#ordentandas-reloadBtn').linkbutton(),"Actualizar el programa de la jornada desde base de datos");
-addTooltip($('#ordentandas-printBtn').linkbutton(),"Imprimir el programa de la jornada");
-addTooltip($('#ordentandas-okBtn').linkbutton(),"Guardar la información de la actividad en la base de Datos");
-addTooltip($('#ordentandas-cancelBtn').linkbutton(),"Cancelar operacion. Cerrar ventana");
+addTooltip($('#ordentandas-newBtn').linkbutton(),'<?php _e("Add a new activity into journey timetable"); ?>'+"<br/>"+"before selected activity");
+addTooltip($('#ordentandas-editBtn').linkbutton(),'<?php _e("Edit selected activity"); ?>');
+addTooltip($('#ordentandas-removeBtn').linkbutton(),'<?php _e("Remove activity from journey timetable"); ?>');
+addTooltip($('#ordentandas-reloadBtn').linkbutton(),'<?php _e("Refresh journey timetable from database"); ?>');
+addTooltip($('#ordentandas-printBtn').linkbutton(),'<?php _e("Print journey activities timetable"); ?>');
+addTooltip($('#ordentandas-okBtn').linkbutton(),'<?php _e("Store activity information into database"); ?>');
+addTooltip($('#ordentandas-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 
 </script>

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-29 11:55+0200\n"
-"PO-Revision-Date: 2015-09-29 11:56+0200\n"
+"POT-Creation-Date: 2015-09-29 12:44+0200\n"
+"PO-Revision-Date: 2015-09-29 12:46+0200\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -55,12 +55,14 @@ msgstr "T"
 #: videowall/vw_llamada.php:97 videowall/vw_ordensalida.php:101
 #: videowall/vw_parciales.php:123 videowall/vwls_ordensalida.php:129
 #: videowall/vwls_parciales.php:149 console/dialogs/dlg_competicion.inc:104
+#: console/dialogs/dlg_ordensalida.inc:150
 msgid "Dorsal"
 msgstr "Dorsal"
 
 #: chrono/chrono.inc.php:62 console/frm_equipos.php:69
 #: scripts/competicion.js.php:1459 scripts/printer.js.php:209
 #: console/dialogs/dlg_chperros.inc:136
+#: console/dialogs/dlg_newInscripcion.inc:152
 msgid "Dog"
 msgstr "Perro"
 
@@ -80,6 +82,8 @@ msgstr "Perro"
 #: console/dialogs/dlg_chperros.inc:139
 #: console/dialogs/dlg_competicion.inc:106
 #: console/dialogs/dlg_editInscripcion.inc:46
+#: console/dialogs/dlg_newInscripcion.inc:156
+#: console/dialogs/dlg_ordensalida.inc:154
 msgid "Handler"
 msgstr "Gu&iacute;a"
 
@@ -105,6 +109,8 @@ msgstr "Gu&iacute;a"
 #: console/dialogs/dlg_chperros.inc:140
 #: console/dialogs/dlg_competicion.inc:107
 #: console/dialogs/dlg_editInscripcion.inc:48 console/dialogs/dlg_guias.inc:45
+#: console/dialogs/dlg_newInscripcion.inc:157
+#: console/dialogs/dlg_ordensalida.inc:155
 msgid "Club"
 msgstr "Club"
 
@@ -128,6 +134,7 @@ msgstr "Categor&iacute;a"
 #: console/dialogs/dlg_editInscripcion.inc:44
 #: console/dialogs/dlg_jornadas.inc:65 console/dialogs/dlg_jornadas.inc:71
 #: console/dialogs/dlg_jornadas.inc:77
+#: console/dialogs/dlg_newInscripcion.inc:155
 msgid "Grade"
 msgstr "Grado"
 
@@ -139,6 +146,8 @@ msgstr "Grado"
 #: videowall/vw_livestream.php:66 videowall/vw_llamada.php:105
 #: videowall/vw_ordensalida.php:109 videowall/vwls_ordensalida.php:137
 #: console/dialogs/dlg_editInscripcion.inc:66
+#: console/dialogs/dlg_newInscripcion.inc:76
+#: console/dialogs/dlg_ordensalida.inc:156
 msgid "Heat"
 msgstr "Celo"
 
@@ -274,6 +283,9 @@ msgstr "Gu&iacute;a"
 #: videowall/vw_llamada.php:103 videowall/vw_parciales.php:129
 #: videowall/vwls_parciales.php:155 console/dialogs/dlg_chperros.inc:137
 #: console/dialogs/dlg_competicion.inc:108
+#: console/dialogs/dlg_newInscripcion.inc:154
+#: console/dialogs/dlg_ordensalida.inc:91
+#: console/dialogs/dlg_ordensalida.inc:153
 msgid "Cat"
 msgstr "Cat"
 
@@ -281,6 +293,7 @@ msgstr "Cat"
 #: public/pb_inscripciones_equipos.php:86 public/pb_ordensalida.php:150
 #: scripts/competicion.js.php:133 tablet/tablet_main.php:258
 #: videowall/vw_ordensalida.php:100 videowall/vwls_ordensalida.php:128
+#: console/dialogs/dlg_ordensalida.inc:149
 msgid "Team"
 msgstr "Equipo"
 
@@ -304,6 +317,7 @@ msgstr "Ring"
 #: console/frm_logout.php:35 tablet/tablet_main.php:58 videowall/index.php:192
 #: console/dialogs/dlg_clubes.inc:138
 #: console/dialogs/dlg_editInscripcion.inc:90
+#: console/dialogs/dlg_ordentandas.inc:79
 msgid "Accept"
 msgstr "Aceptar"
 
@@ -338,7 +352,10 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/dialogs/dlg_clubes.inc:51 console/dialogs/dlg_competicion.inc:105
 #: console/dialogs/dlg_editInscripcion.inc:38
 #: console/dialogs/dlg_equipos.inc:33 console/dialogs/dlg_guias.inc:29
-#: console/dialogs/dlg_jornadas.inc:29
+#: console/dialogs/dlg_jornadas.inc:29 console/dialogs/dlg_jueces.inc:30
+#: console/dialogs/dlg_ordensalida.inc:90
+#: console/dialogs/dlg_ordensalida.inc:151
+#: console/dialogs/dlg_ordentandas.inc:169
 msgid "Name"
 msgstr "Nombre"
 
@@ -355,7 +372,11 @@ msgstr "Nombre"
 #: console/dialogs/dlg_competicion.inc:123
 #: console/dialogs/dlg_editInscripcion.inc:69
 #: console/dialogs/dlg_equipos.inc:48 console/dialogs/dlg_guias.inc:51
-#: console/dialogs/dlg_jornadas.inc:29
+#: console/dialogs/dlg_jornadas.inc:29 console/dialogs/dlg_jueces.inc:75
+#: console/dialogs/dlg_ordensalida.inc:92
+#: console/dialogs/dlg_ordentandas.inc:71
+#: console/dialogs/dlg_ordentandas.inc:137
+#: console/dialogs/dlg_ordentandas.inc:170
 msgid "Comments"
 msgstr "Observaciones"
 
@@ -480,6 +501,7 @@ msgstr "Informaci&oacute;n"
 
 #: console/frm_admin.php:136 console/frm_clubes.php:158
 #: console/dialogs/dlg_chguias.inc:51 console/dialogs/dlg_guias.inc:41
+#: console/dialogs/dlg_jueces.inc:52
 msgid "Telephone"
 msgstr "Tel&eacute;fono"
 
@@ -597,6 +619,7 @@ msgstr "Clasificaci&oacute;n"
 #: console/frm_equipos.php:221 console/frm_inscripciones2.php:192
 #: public/pb_finales.php:87 public/pb_finales_eq3.php:89
 #: public/pb_inscripciones.php:95 public/pb_inscripciones_equipos.php:151
+#: console/dialogs/dlg_newInscripcion.inc:153
 msgid "Lic"
 msgstr "Lic"
 
@@ -695,6 +718,7 @@ msgstr "Puesto"
 
 #: console/frm_clasificaciones2.php:115
 #: console/frm_clasificaciones_eq3.php:115 tablet/tablet_main.php:115
+#: console/dialogs/dlg_ordensalida.inc:53
 msgid "Refresh"
 msgstr "Actualizar"
 
@@ -746,7 +770,8 @@ msgstr "Lista de dorsales"
 
 #: console/frm_clasificaciones2.php:146
 #: console/frm_clasificaciones_eq3.php:146 console/frm_equipos.php:45
-#: console/frm_inscripciones2.php:100
+#: console/frm_inscripciones2.php:100 console/dialogs/dlg_ordensalida.inc:55
+#: console/dialogs/dlg_ordentandas.inc:46
 msgid "Print"
 msgstr "Imprimir"
 
@@ -813,6 +838,7 @@ msgstr "Actualizando lista de clubes"
 
 #: console/frm_clubes.php:87 console/frm_clubes.php:88
 #: console/dialogs/dlg_clubes.inc:57 console/dialogs/dlg_clubes.inc:61
+#: console/dialogs/dlg_jueces.inc:40 console/dialogs/dlg_jueces.inc:44
 msgid "Address"
 msgstr "Direcci&oacute;n"
 
@@ -821,7 +847,8 @@ msgid "State"
 msgstr "Provincia"
 
 #: console/frm_clubes.php:90 console/dialogs/dlg_clubes.inc:76
-#: console/dialogs/dlg_clubes.inc:186
+#: console/dialogs/dlg_clubes.inc:186 console/dialogs/dlg_jueces.inc:48
+#: console/dialogs/dlg_jueces.inc:114
 msgid "Country"
 msgstr "Pa&iacute;s"
 
@@ -865,6 +892,7 @@ msgstr "Cargando lista de gu&iacute;as"
 
 #: console/frm_clubes.php:159 console/dialogs/dlg_chguias.inc:47
 #: console/dialogs/dlg_clubes.inc:109 console/dialogs/dlg_guias.inc:37
+#: console/dialogs/dlg_jueces.inc:71
 msgid "Electronic mail"
 msgstr "Correo electr&oacute;nico"
 
@@ -883,6 +911,7 @@ msgstr "Desasignar gu&iacute;a"
 #: console/frm_clubes.php:207 console/frm_clubes.php:284
 #: console/frm_guias.php:189 console/dialogs/dlg_clubes.inc:39
 #: console/dialogs/dlg_competicion.inc:34
+#: console/dialogs/dlg_ordentandas.inc:44
 msgid "Update"
 msgstr "Actualizar"
 
@@ -913,7 +942,6 @@ msgstr "Lista de perros asignados a"
 #: console/frm_clubes.php:243 server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_resultadosByEquipos.php:83
-#: console/dialogs/dlg_ordensalida.inc:85
 msgid "Cat."
 msgstr "Cat."
 
@@ -935,6 +963,7 @@ msgstr "LOE / RRC"
 #: videowall/vw_llamada.php:98 videowall/vw_ordensalida.php:104
 #: videowall/vw_parciales.php:125 videowall/vwls_ordensalida.php:132
 #: videowall/vwls_parciales.php:151 console/dialogs/dlg_editInscripcion.inc:40
+#: console/dialogs/dlg_ordensalida.inc:152
 msgid "License"
 msgstr "Licencia"
 
@@ -1041,14 +1070,16 @@ msgstr "Nuevo"
 
 #: console/frm_equipos.php:36 console/frm_inscripciones2.php:86
 #: console/dialogs/dlg_competicion.inc:132
+#: console/dialogs/dlg_ordentandas.inc:37
 msgid "Edit"
 msgstr "Editar"
 
 #: console/frm_equipos.php:38 console/frm_inscripciones2.php:89
+#: console/dialogs/dlg_ordentandas.inc:39
 msgid "Delete"
 msgstr "Borrar"
 
-#: console/frm_equipos.php:55
+#: console/frm_equipos.php:55 console/dialogs/dlg_newInscripcion.inc:96
 msgid "Done"
 msgstr "Hecho"
 
@@ -1058,7 +1089,8 @@ msgstr "Hecho"
 #: console/dialogs/dlg_chperros.inc:87 console/dialogs/dlg_clubes.inc:41
 #: console/dialogs/dlg_clubes.inc:140 console/dialogs/dlg_competicion.inc:129
 #: console/dialogs/dlg_editInscripcion.inc:88 console/dialogs/dlg_guias.inc:62
-#: console/dialogs/dlg_jornadas.inc:121
+#: console/dialogs/dlg_jornadas.inc:121 console/dialogs/dlg_jueces.inc:86
+#: console/dialogs/dlg_ordentandas.inc:81
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -1231,6 +1263,7 @@ msgid "Reorder"
 msgstr "Reordenar"
 
 #: console/frm_inscripciones2.php:98 console/dialogs/dlg_jornadas.inc:91
+#: console/dialogs/dlg_ordensalida.inc:46
 msgid "Teams"
 msgstr "Equipos"
 
@@ -1638,7 +1671,7 @@ msgid "List of rounds in this journey"
 msgstr "Lista de mangas de la jornada"
 
 #: public/pb_ordensalida.php:130 videowall/vw_ordensalida.php:80
-#: videowall/vwls_ordensalida.php:108
+#: videowall/vwls_ordensalida.php:108 console/dialogs/dlg_ordensalida.inc:139
 msgid "Updating starting order"
 msgstr "Actualizando orden de salida"
 
@@ -1677,15 +1710,18 @@ msgstr "Actualizar programa de la jornada"
 msgid "Updating schedule time on this journey"
 msgstr "Actualizando el programa de la jornada"
 
-#: public/pb_programa.php:97
+#: public/pb_programa.php:97 console/dialogs/dlg_ordentandas.inc:67
+#: console/dialogs/dlg_ordentandas.inc:136
 msgid "Timetable"
 msgstr "Horario"
 
 #: public/pb_programa.php:98 tablet/tablet_main.php:182
+#: console/dialogs/dlg_ordentandas.inc:133
 msgid "Activity"
 msgstr "Actividad"
 
-#: public/pb_programa.php:100
+#: public/pb_programa.php:100 console/dialogs/dlg_ordentandas.inc:63
+#: console/dialogs/dlg_ordentandas.inc:135
 msgid "Session - Ring"
 msgstr "Sesi&oacute;n - Ring"
 
@@ -2262,7 +2298,7 @@ msgstr "Editar datos del juez"
 msgid "Delete data on judge"
 msgstr "Borrar datos del juez"
 
-#: scripts/perros.js.php:38
+#: scripts/perros.js.php:38 console/dialogs/dlg_newInscripcion.inc:90
 msgid "New dog"
 msgstr "Nuevo perro"
 
@@ -2476,7 +2512,7 @@ msgstr "Editar informaci&oacute;n de la sesi&oacute;n"
 msgid "Delete event history on session"
 msgstr "Borrar historial de eventos de esta sesi&oacute;n"
 
-#: scripts/tandas.js.php:38
+#: scripts/tandas.js.php:38 console/dialogs/dlg_ordentandas.inc:87
 msgid "New activity"
 msgstr "Nueva actividad"
 
@@ -2577,7 +2613,6 @@ msgstr "Entrada de datos (Equipos-4)"
 #: server/pdf/print_ordenDeSalida.php:72
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62
-#: console/dialogs/dlg_ordensalida.inc:84
 msgid "Nombre"
 msgstr "Nombre"
 
@@ -2613,7 +2648,6 @@ msgstr "Celo"
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72
-#: console/dialogs/dlg_ordensalida.inc:86
 msgid "Observaciones"
 msgstr "Observaciones"
 
@@ -2889,6 +2923,7 @@ msgid "Handler re-asignation"
 msgstr "Re-asignacion de gu&iacute;s"
 
 #: console/dialogs/dlg_chguias.inc:29 console/dialogs/dlg_chperros.inc:29
+#: console/dialogs/dlg_newInscripcion.inc:33
 msgid "Search"
 msgstr "Buscar"
 
@@ -2903,6 +2938,7 @@ msgstr "Limpiar formulario"
 #: console/dialogs/dlg_chguias.inc:82 console/dialogs/dlg_chperros.inc:100
 #: console/dialogs/dlg_clubes.inc:148 console/dialogs/dlg_clubes.inc:150
 #: console/dialogs/dlg_guias.inc:79 console/dialogs/dlg_jornadas.inc:219
+#: console/dialogs/dlg_jueces.inc:123 console/dialogs/dlg_ordentandas.inc:189
 msgid "Cancel operation. Close window"
 msgstr "Cancelar operaci&oacute;n. Cerrar ventana"
 
@@ -3044,7 +3080,7 @@ msgstr "Toc"
 #: console/dialogs/dlg_configuracion.inc:194
 #: console/dialogs/dlg_configuracion.inc:215
 #: console/dialogs/dlg_equipos.inc:57 console/dialogs/dlg_guias.inc:60
-#: console/dialogs/dlg_jornadas.inc:119
+#: console/dialogs/dlg_jornadas.inc:119 console/dialogs/dlg_jueces.inc:84
 msgid "Save"
 msgstr "Guardar"
 
@@ -3514,9 +3550,169 @@ msgstr "Manga especial"
 msgid "Register journey into database"
 msgstr "Registrar datos de la jornada en la base de datos"
 
-#: console/dialogs/dlg_ordensalida.inc:73
-msgid "Actualizando lista de equipos"
-msgstr "Actualizando lista de equipos"
+#: console/dialogs/dlg_jueces.inc:27
+msgid "Judge information"
+msgstr "Datos del juez"
+
+#: console/dialogs/dlg_jueces.inc:56
+msgid "International judge"
+msgstr "Juez internacional"
+
+#: console/dialogs/dlg_jueces.inc:60
+msgid "Learning judge"
+msgstr "Juez en pr&aacute;cticas"
+
+#: console/dialogs/dlg_jueces.inc:64
+msgid "Federations"
+msgstr "Federaciones"
+
+#: console/dialogs/dlg_jueces.inc:122
+msgid "Register judge information into database"
+msgstr "Registrar informaci&oacute;n del juez en la base de datos"
+
+#: console/dialogs/dlg_newInscripcion.inc:57
+msgid "Journeys"
+msgstr "Jornadas"
+
+#: console/dialogs/dlg_newInscripcion.inc:94
+msgid "Inscribe"
+msgstr "Inscribir"
+
+#: console/dialogs/dlg_newInscripcion.inc:103
+msgid "Enrolling"
+msgstr "Inscribiendo a"
+
+#: console/dialogs/dlg_newInscripcion.inc:126
+msgid "Add inscriptions to contest"
+msgstr "A&ntilde;adir inscripciones a la prueba"
+
+#: console/dialogs/dlg_newInscripcion.inc:144
+msgid "Updating dog list"
+msgstr "Actualizando lista de perros"
+
+#: console/dialogs/dlg_newInscripcion.inc:237
+msgid "Search available competitors"
+msgstr "Buscar posibles participantes"
+
+#: console/dialogs/dlg_newInscripcion.inc:237
+msgid "matching search criteria"
+msgstr "que coincidan con el criterio de b&uacute;squeda"
+
+#: console/dialogs/dlg_newInscripcion.inc:241
+msgid "Inscribe selected dog(s) into contest"
+msgstr "Inscribir el/los perro(s) seleccionados en la prueba"
+
+#: console/dialogs/dlg_newInscripcion.inc:242
+msgid "Close window"
+msgstr "Cerrar ventana"
+
+#: console/dialogs/dlg_newInscripcion.inc:242
+msgid "Return to inscription handling form"
+msgstr "Volver a la pantalla de gesti&oacute;n de inscripciones"
+
+#: console/dialogs/dlg_newInscripcion.inc:243
+msgid "Clear selection. Refresh list"
+msgstr "Borrar selecci&oacute;n. Actualizar lista"
+
+#: console/dialogs/dlg_newInscripcion.inc:244
+msgid "Insert a new dog into database"
+msgstr "A&ntilde;adir un nuevo perro en la base de datos"
+
+#: console/dialogs/dlg_ordensalida.inc:40
+msgid "Random"
+msgstr "Aleatorio"
+
+#: console/dialogs/dlg_ordensalida.inc:42
+msgid "Reverse"
+msgstr "Inverso"
+
+#: console/dialogs/dlg_ordensalida.inc:44
+msgid "Clone"
+msgstr "Clonar"
+
+#: console/dialogs/dlg_ordensalida.inc:48
+msgid "Check"
+msgstr "Verificar"
+
+#: console/dialogs/dlg_ordensalida.inc:62
+msgid "Manual setting of teams order for this round"
+msgstr "Ajuste manual del orden de salida de equipos de esta manga"
+
+#: console/dialogs/dlg_ordensalida.inc:79
+msgid "Updating teams starting order"
+msgstr "Actualizando orden de salida de equipos"
+
+#: console/dialogs/dlg_ordensalida.inc:94
+msgid "Def"
+msgstr "Def"
+
+#: console/dialogs/dlg_ordensalida.inc:189
+msgid "Look for <em>proximity alerts</em>"
+msgstr "Buscar alertas de proximidad"
+
+#: console/dialogs/dlg_ordensalida.inc:189
+msgid "with dogs belonging same handler"
+msgstr "con perros pertenecientes al mismo gu&iacute;a"
+
+#: console/dialogs/dlg_ordensalida.inc:190
+msgid "Generate a new, random, starting order"
+msgstr "Generar un nuevo orden de salida aleatorio"
+
+#: console/dialogs/dlg_ordensalida.inc:191
+msgid "Reverse starting order according with results in the coupled round"
+msgstr ""
+"Invertir el orden de salida respecto de los resultados de la otra manga"
+
+#: console/dialogs/dlg_ordensalida.inc:192
+msgid "Clone starting order from coupled round"
+msgstr "Seleccionar el mismo orden de salida que la otra manga"
+
+#: console/dialogs/dlg_ordensalida.inc:193
+msgid "Manual setting of teams starting order"
+msgstr "Ajuste manual del orden de salida de equipos"
+
+#: console/dialogs/dlg_ordensalida.inc:194
+msgid "Print starting order"
+msgstr "Imprimir orden de salida"
+
+#: console/dialogs/dlg_ordensalida.inc:195
+msgid "Reload starting order. Update window"
+msgstr "Recargar orden de salida. Refrescar ventana"
+
+#: console/dialogs/dlg_ordentandas.inc:35
+msgid "Insert"
+msgstr "Insertar"
+
+#: console/dialogs/dlg_ordentandas.inc:122
+msgid "Updating activities and timetable on journey"
+msgstr "Actualizando programa de actividades de la jornada"
+
+#: console/dialogs/dlg_ordentandas.inc:183
+msgid "Add a new activity into journey timetable"
+msgstr "A&ntilde;adir una nueva actividad al programa de la jornada"
+
+#: console/dialogs/dlg_ordentandas.inc:184
+msgid "Edit selected activity"
+msgstr "Editar actividad seleccionada"
+
+#: console/dialogs/dlg_ordentandas.inc:185
+msgid "Remove activity from journey timetable"
+msgstr "Borrar la actividad del programa de la jornada"
+
+#: console/dialogs/dlg_ordentandas.inc:186
+msgid "Refresh journey timetable from database"
+msgstr "Refrescar programa de la jornada desde la base de datos"
+
+#: console/dialogs/dlg_ordentandas.inc:187
+msgid "Print journey activities timetable"
+msgstr "Imprimir el programa de la jornada"
+
+#: console/dialogs/dlg_ordentandas.inc:188
+msgid "Store activity information into database"
+msgstr "Guardar actividad en la base de datos"
+
+#~ msgid "Actualizando lista de equipos"
+#~ msgstr "Actualizando lista de equipos"
 
 #~ msgid "Informaci&oacute;n de la Jornada"
 #~ msgstr "Informaci&oacute;n de la Jornada"

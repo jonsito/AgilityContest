@@ -15,12 +15,19 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+
+ <?php
+ require_once(__DIR__ . "/../../server/tools.php");
+ require_once(__DIR__ . "/../../server/auth/Config.php");
+ $config =Config::getInstance();
+ ?>
+
     <!-- FORMULARIO DE ALTA/BAJA/MODIFICACION DE LA BBDD DE JUECES -->
     <div id="jueces-dialog" style="width:450px;height:auto;padding:10px 20px">
-        <div class="ftitle">Informaci&oacute;n del juez</div>
+        <div class="ftitle"><?php _e('Judge information'); ?></div>
         <form id="jueces-form" method="get" novalidate>
             <div class="fitem">
-                <label for="jueces-Nombre">Nombre:</label>
+                <label for="jueces-Nombre"><?php _e('Name'); ?>:</label>
                 <input id="jueces-Nombre" 
                 	name="Nombre" 
                 	type="text" 
@@ -30,42 +37,42 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <input id="jueces-Operation" name="Operation" type="hidden" /> <!-- to store insert/update/delete operation -->
             </div>
             <div class="fitem">
-                <label for="jueces-Direccion1">Direccion 1:</label>
+                <label for="jueces-Direccion1"><?php _e('Address'); ?> 1:</label>
                 <input id="jueces-Direccion1" class="easyui-validatebox" name="Direccion1" type="text" style="width:250px" />
             </div>
             <div class="fitem">
-                <label for="jueces-Direccion2">Direccion 2:</label>
+                <label for="jueces-Direccion2"><?php _e('Address'); ?> 2:</label>
                 <input id="jueces-Direccion2" class="easyui-validatebox" name="Direccion2" type="text" style="width:250px" />
             </div>
             <div class="fitem">
-                <label for="jueces-Pais">Pa&iacute;s:</label>
+                <label for="jueces-Pais"><?php _e('Country'); ?>:</label>
                 <select id="jueces-Pais" name="Pais" class="easyui-validatebox" style="width:200px"></select>
             </div>
             <div class="fitem">
-                <label for="jueces-Telefono">Tel&eacute;fono:</label>
+                <label for="jueces-Telefono"><?php _e('Telephone'); ?>:</label>
                 <input id="jueces-Telefono" class="easyui-validatebox" name="Telefono" type="text" />
             </div>
             <div class="fitem">
-                <label for="jueces-Internacional">Juez internacional:</label>
+                <label for="jueces-Internacional"><?php _e('International judge'); ?>:</label>
                 <input id="jueces-Internacional" name="Internacional" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
             <div class="fitem">
-                <label for="jueces-Practicas">Juez en pr&aacute;cticas:</label>
+                <label for="jueces-Practicas"><?php _e('Learning judge'); ?>:</label>
                 <input id="jueces-Practicas" name="Practicas" class="easyui-checkbox" type="checkbox" value="1" />
             </div>
         	<div class="fitem">
-        	    <label for="jueces-Federations">Federaciones:</label>
+        	    <label for="jueces-Federations"><?php _e('Federations'); ?>:</label>
         	    RSCE <input id="jueces-RSCE" type="checkbox" value="1" name="RSCE"/>
         	    RFEC <input id="jueces-RFEC" type="checkbox" value="2" name="RFEC"/>
         	    UCA<input id="jueces-UCA" type="checkbox" value="4" name="UCA"/>
         	    <input id="jueces-Federations" name="Federations" type="hidden"/>
         	</div>
             <div class="fitem">
-                <label for="jueces-Email">Correo electr&oacute;nico:</label>
+                <label for="jueces-Email"><?php _e('Electronic mail'); ?>:</label>
                 <input id="jueces-Email" name="Email" class="easyui-validatebox" type="text" style="width:250px"/>
             </div>
             <div class="fitem">
-                <label for="jueces-Observaciones">Observaciones:</label>
+                <label for="jueces-Observaciones"><?php _e('Comments'); ?>:</label>
                 <textarea id="jueces-Observaciones" name="Observaciones" style="height:50px;width:300px"></textarea>
             </div>
         </form>
@@ -74,9 +81,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    	<!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
    	<div id="jueces-dlg-buttons">
    	    <a id="jueces-okBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-ok'" onclick="saveJuez()">Guardar</a>
+   	    	data-options="iconCls:'icon-ok'" onclick="saveJuez()"><?php _e('Save'); ?></a>
    	    <a id="jueces-cancelBtn" href="#" class="easyui-linkbutton" 
-   	    	data-options="iconCls:'icon-cancel'" onclick="$('#jueces-dialog').dialog('close')">Cancelar</a>
+   	    	data-options="iconCls:'icon-cancel'" onclick="$('#jueces-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
    	</div>
    	
 	<script type="text/javascript">
@@ -104,7 +111,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             required: true,
             columns: [[
                 {field:'ID',title:'ID',width:10,align:'right'},
-                {field:'Country',title:'Pais',width:40,align:'right'}
+                {field:'Country',title:'<?php _e('Country'); ?>',width:40,align:'right'}
             ]],
             multiple: false,
             fitColumns: true,
@@ -112,8 +119,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         });
 
         // - botones
-		addTooltip($('#jueces-okBtn').linkbutton(),"Registrar los datos del juez y actualizar la BBDD");
-		addTooltip($('#jueces-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
+		addTooltip($('#jueces-okBtn').linkbutton(),'<?php _e("Register judge information into database"); ?>');
+		addTooltip($('#jueces-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
         // campos del formulario
         $('#jueces-dialog').dialog({
             closed: true,
