@@ -14,43 +14,50 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
-<div id="dlg_register" class="easyui-window" style="width:640px;padding:10px">
+
+<?php
+require_once(__DIR__ . "/../server/tools.php");
+require_once(__DIR__ . "/../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
+<div id="dlg_register" style="width:640px;padding:10px">
 	<img src="/agility/images/AgilityContest.png" 
 		width="150" height="100" alt="AgilityContest Logo" 
 		style="border:1px solid #000000;margin:10px;float:right;padding:5px">
 	<dl>
 		<dt>
-			<strong>Version: </strong><span id="reg_version">version</span> - <span id="reg_date">date</span> 
+			<strong><?php _e('Version'); ?>: </strong><span id="reg_version">version</span> - <span id="reg_date">date</span>
 		</dt>
 		<dt>
-			<strong>AgilityContest</strong> es Copyright &copy; 2013-2015 de <em>Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em>
+			<strong>AgilityContest</strong> <?php _e('is Copyright &copy; 2013-2015 by'); ?> <em> Juan Antonio Martínez &lt;juansgaviota@gmail.com&gt;</em>
 		</dt>
 		<dd>
-		El código fuente está disponible en <a href="https://github.com/jonsito/AgilityContest">https://github.com/jonsito/AgilityContest</a><br />
-		Se permite su uso, copia, modificación y redistribución bajo los t&eacute;rminos de la 
-		<a target="license" href="/agility/License">Licencia General P&uacute;blica de GNU</a>
+		<?php _e('Source code is available at'); ?> <a href="https://github.com/jonsito/AgilityContest">https://github.com/jonsito/AgilityContest</a><br />
+		<?php _e('You can use, copy, modify and re-distribute under terms of'); ?>
+		<a target="license" href="/agility/License"><?php _e('GNU General Public License'); ?></a>
 		</dd>
 	</dl>
 	<p>
-	Inscrito en el Registro Territorial de la Propiedad Intelectual de Madrid. <em>Expediente: 09-RTPI-09439.4/2014</em> 
+	<?php _e('Registered at'); ?> 'Registro Territorial de la Propiedad Intelectual de Madrid'. <em>Expediente: 09-RTPI-09439.4/2014</em>
 	</p>
 	<hr />&nbsp;<br />
-	<strong>Informaci&oacute;n de registro:</strong>
+	<strong><?php _e('Licensing information'); ?>:</strong>
 	<form id="registration_data">
 		<div class="fitem">
-			<label for="rd_User">Nombre:</label>
+			<label for="rd_User"><?php _e('Name'); ?>:</label>
 			<input id="rd_User" type="text" readonly="readonly" name="User" /><br/>
 		</div>
 		<div class="fitem">
-			<label for="rd_Email">Contacto:</label>
+			<label for="rd_Email"><?php _e('E-mail'); ?>:</label>
 			<input id="rd_Email" type="text" readonly="readonly" name="Email" /><br/>
 		</div>
 		<div class="fitem">
-			<label for="rd_Club">Club:</label>
+			<label for="rd_Club"><?php _e('Club'); ?>:</label>
 			<input id="rd_Club" type="text" readonly="readonly" name="Club" /><br/>
 		</div>
 		<div class="fitem">
-			<label for="rd_Serial">Num. serie:</label>
+			<label for="rd_Serial"><?php _e('Serial num'); ?>:</label>
 			<input id="rd_Serial" type="text" readonly="readonly" name="Serial" /><br/>
 		</div>
 	</form>
@@ -60,14 +67,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<span style="float:left">	
 		<a id="registration-okButton" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-key'"
-   			onclick="send_regFile()">Registro</a>
+   			onclick="send_regFile()"><?php _e('Register'); ?></a>
 		<input type="file" name="fichero" required="required" onchange="read_regFile(this)"/><br/>
 		<input id="registrationData" type="hidden" name="Data" value="">
 		</span> 
 		<span style="float:right">
 			<a id="registration-cancelButton" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-cancel'"
-   			onclick="$('#dlg_register').window('close');">Cerrar</a>
+   			onclick="$('#dlg_register').window('close');"><?php _e('Close'); ?></a>
 		</span>
 	</div>
 	</form>
@@ -75,7 +82,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
         $('#dlg_register').window({
-            title: "Informaci&oacute;n de registro",
+            title: '<?php _e("Licensing information"); ?>',
             collapsible:false,
             minimizable:false,
             maximizable:false,
@@ -88,10 +95,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 $('#reg_date').html(ac_config.version_date);
                 $('#registration_data').form('load','/agility/server/adminFunctions.php?Operation=reginfo');
             },  
-            onClose: function() {loadContents('/agility/console/frm_main.php','');
+            onClose: function() {loadContents('/agility/console/frm_main.php','',{'registration':'#dlg_register'});
             }
         });
         
-		addTooltip($('#registration-okButton').linkbutton(),"Incluir fichero de informacion de registro en la aplicaci&oacute;n");
-		addTooltip($('#registration-cancelButton').linkbutton(),"Cancelar operaci&oacute;n. Cerrar ventana"); 
+		addTooltip($('#registration-okButton').linkbutton(),'<?php _e("Import license file into application"); ?>');
+		addTooltip($('#registration-cancelButton').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 </script>

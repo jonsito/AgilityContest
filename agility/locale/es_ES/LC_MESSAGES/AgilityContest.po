@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-29 19:34+0200\n"
-"PO-Revision-Date: 2015-09-29 19:34+0200\n"
+"POT-Creation-Date: 2015-09-29 23:42+0200\n"
+"PO-Revision-Date: 2015-09-29 23:42+0200\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -94,11 +94,12 @@ msgstr "Gu&iacute;a"
 #: console/frm_clasificaciones2.php:87 console/frm_clasificaciones_eq3.php:87
 #: console/frm_equipos.php:84 console/frm_equipos.php:225
 #: console/frm_guias.php:94 console/frm_inscripciones.php:78
-#: console/frm_inscripciones2.php:196 index.php:190 public/pb_finales.php:91
-#: public/pb_finales_eq3.php:92 public/pb_inscripciones.php:99
-#: public/pb_inscripciones_equipos.php:155 public/pb_ordensalida.php:156
-#: public/pb_parciales.php:167 public/pb_parciales_eq3.php:170
-#: scripts/competicion.js.php:1459 server/pdf/print_equiposByJornada.php:84
+#: console/frm_inscripciones2.php:196 console/frm_registration.php:56
+#: index.php:195 public/pb_finales.php:91 public/pb_finales_eq3.php:92
+#: public/pb_inscripciones.php:99 public/pb_inscripciones_equipos.php:155
+#: public/pb_ordensalida.php:156 public/pb_parciales.php:167
+#: public/pb_parciales_eq3.php:170 scripts/competicion.js.php:1459
+#: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72
 #: server/pdf/print_resultadosByEquipos.php:83
@@ -325,16 +326,16 @@ msgstr "Manual"
 msgid "Sensor failure"
 msgstr "Fallo de sensores"
 
-#: chrono/index.php:93 videowall/vw_combinada.php:42
+#: chrono/index.php:97 videowall/vw_combinada.php:42
 #: videowall/vw_llamada.php:38 videowall/vw_ordensalida.php:37
 #: videowall/vw_parciales.php:39 videowall/vwls_ordensalida.php:57
 #: videowall/vwls_parciales.php:57
 msgid "Ring"
 msgstr "Ring"
 
-#: chrono/index.php:101 console/frm_equipos.php:98
+#: chrono/index.php:105 console/frm_equipos.php:98
 #: console/frm_inscripciones.php:41 console/frm_login.php:63
-#: console/frm_logout.php:35 tablet/tablet_main.php:58 videowall/index.php:192
+#: console/frm_logout.php:35 tablet/tablet_main.php:58 videowall/index.php:197
 #: console/dialogs/dlg_clubes.inc:138
 #: console/dialogs/dlg_editInscripcion.inc:90
 #: console/dialogs/dlg_ordentandas.inc:79
@@ -342,15 +343,15 @@ msgstr "Ring"
 msgid "Accept"
 msgstr "Aceptar"
 
-#: chrono/index.php:108
+#: chrono/index.php:112
 msgid "Select ring"
 msgstr "Selecciona ring"
 
-#: chrono/index.php:121
+#: chrono/index.php:125
 msgid "Work with selected ring/session"
 msgstr "Trabajar con el ring seleccionado"
 
-#: chrono/index.php:139 console/frm_admin.php:173
+#: chrono/index.php:143 console/frm_admin.php:173
 #: console/frm_clasificaciones2.php:82 console/frm_clasificaciones2.php:197
 #: console/frm_clasificaciones_eq3.php:82
 #: console/frm_clasificaciones_eq3.php:197 console/frm_clubes.php:86
@@ -359,13 +360,14 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/frm_equipos.php:292 console/frm_guias.php:92
 #: console/frm_guias.php:147 console/frm_inscripciones.php:76
 #: console/frm_inscripciones2.php:191 console/frm_jueces.php:87
-#: console/frm_perros.php:95 console/frm_pruebas.php:148 index.php:188
-#: index.php:220 public/pb_finales.php:86 public/pb_finales_eq3.php:88
+#: console/frm_perros.php:95 console/frm_pruebas.php:148
+#: console/frm_registration.php:48 index.php:193 index.php:225
+#: public/pb_finales.php:86 public/pb_finales_eq3.php:88
 #: public/pb_inscripciones.php:93 public/pb_inscripciones_equipos.php:149
 #: public/pb_ordensalida.php:152 public/pb_parciales.php:165
 #: public/pb_parciales_eq3.php:168 tablet/index.php:181 tablet/index.php:214
 #: tablet/tablet_main.php:76 tablet/tablet_main.php:260
-#: videowall/index.php:234 videowall/vw_combinada.php:132
+#: videowall/index.php:239 videowall/vw_combinada.php:132
 #: videowall/vw_combinada.php:189 videowall/vw_livestream.php:61
 #: videowall/vw_llamada.php:99 videowall/vw_ordensalida.php:102
 #: videowall/vw_parciales.php:126 videowall/vwls_ordensalida.php:130
@@ -387,16 +389,16 @@ msgstr "Trabajar con el ring seleccionado"
 msgid "Name"
 msgstr "Nombre"
 
-#: chrono/index.php:140 console/dialogs/infomanga_rfec.php:230
+#: chrono/index.php:144 console/dialogs/infomanga_rfec.php:230
 #: console/frm_clasificaciones2.php:53 console/frm_clasificaciones_eq3.php:53
 #: console/frm_clubes.php:160 console/frm_equipos.php:142
 #: console/frm_equipos.php:227 console/frm_equipos.php:294
 #: console/frm_guias.php:97 console/frm_inscripciones2.php:59
-#: console/frm_pruebas.php:95 console/frm_pruebas.php:148 index.php:220
+#: console/frm_pruebas.php:95 console/frm_pruebas.php:148 index.php:225
 #: public/pb_inscripciones_equipos.php:88
 #: public/pb_inscripciones_equipos.php:157 public/pb_programa.php:102
 #: tablet/index.php:182 tablet/index.php:218 tablet/tablet_main.php:183
-#: videowall/index.php:235 videowall/vw_llamada.php:106
+#: videowall/index.php:240 videowall/vw_llamada.php:106
 #: console/dialogs/dlg_chguias.inc:55 console/dialogs/dlg_clubes.inc:125
 #: console/dialogs/dlg_competicion.inc:123
 #: console/dialogs/dlg_editInscripcion.inc:69
@@ -411,7 +413,7 @@ msgstr "Nombre"
 msgid "Comments"
 msgstr "Observaciones"
 
-#: chrono/index.php:162
+#: chrono/index.php:166
 msgid "You should select a valid session/ring"
 msgstr "Debe seleccionar un ring v&aacute;lido"
 
@@ -666,7 +668,7 @@ msgstr "Nombre del juez"
 #: console/dialogs/infomanga_rsce.php:226
 #: console/dialogs/infomanga_rsce.php:245
 #: console/dialogs/infomanga_uca.php:259 console/dialogs/infomanga_uca.php:278
-#: console/frm_guias.php:96
+#: console/frm_guias.php:96 console/frm_registration.php:52
 msgid "E-mail"
 msgstr "Correo Electr&oacute;nico"
 
@@ -738,7 +740,7 @@ msgstr "Recorridos separados para Standard y Mini-Midi"
 msgid "Separate courses 60/50 and 40/30"
 msgstr "Recorridos separados para 60/50 y 40/30"
 
-#: console/frm_about.php:29
+#: console/frm_about.php:29 console/frm_registration.php:30
 msgid "Version"
 msgstr "Versi&oacute;n"
 
@@ -948,7 +950,7 @@ msgid "Organizing Club"
 msgstr "Club anfitri&oacute;n"
 
 #: console/frm_clasificaciones2.php:41 console/frm_clasificaciones_eq3.php:41
-#: index.php:147 public/public.js.php:54 scripts/competicion.js.php:1142
+#: index.php:152 public/public.js.php:54 scripts/competicion.js.php:1142
 #: scripts/equipos.js.php:73 scripts/equipos.js.php:126 tablet/index.php:150
 msgid "Journey"
 msgstr "Jornada"
@@ -1435,9 +1437,9 @@ msgstr "Datos de la manga"
 msgid "Planning"
 msgstr "Programa"
 
-#: console/frm_competicion2.php:73 index.php:154 public/pb_ordensalida.php:38
-#: scripts/competicion.js.php:1149 videowall/index.php:173
-#: videowall/index.php:182 videowall/vw_ordensalida.php:36
+#: console/frm_competicion2.php:73 index.php:159 public/pb_ordensalida.php:38
+#: scripts/competicion.js.php:1149 videowall/index.php:178
+#: videowall/index.php:187 videowall/vw_ordensalida.php:36
 #: videowall/vwls_ordensalida.php:56
 msgid "Starting order"
 msgstr "Orden de salida"
@@ -1645,7 +1647,7 @@ msgstr "Trabajar con la prueba seleccionada"
 msgid "Cancel selection. close window"
 msgstr "Cancelar selecci&oacute;n. Cerrar ventana"
 
-#: console/frm_inscripciones.php:79 index.php:191 tablet/index.php:217
+#: console/frm_inscripciones.php:79 index.php:196 tablet/index.php:217
 #: console/dialogs/dlg_selectJornada.inc:86
 msgid "Fed"
 msgstr "Fed"
@@ -2021,6 +2023,58 @@ msgstr "Cerrar jornada. Marcar esta jornada como no-modificable"
 msgid "Update journey list for this contest"
 msgstr "Actualizar la lista de jornadas de esta prueba"
 
+#: console/frm_registration.php:33
+msgid "is Copyright &copy; 2013-2015 by"
+msgstr " es CopyRight &copy; 2013-2015 de "
+
+#: console/frm_registration.php:36
+msgid "Source code is available at"
+msgstr "El c&oacute;digo fuente disponible en"
+
+#: console/frm_registration.php:37
+msgid "You can use, copy, modify and re-distribute under terms of"
+msgstr ""
+"Se permite la copia, modificaci&oacute;n y re-distribuci&oacute;n bajo los "
+"t&eacute;rminos de"
+
+#: console/frm_registration.php:38
+msgid "GNU General Public License"
+msgstr "Licencia General P&uacute;blica de GNU versi&oacute;n 2"
+
+#: console/frm_registration.php:42
+msgid "Registered at"
+msgstr "Inscrito en el"
+
+#: console/frm_registration.php:45 console/frm_registration.php:85
+msgid "Licensing information"
+msgstr "Informaci&oacute;n de registro"
+
+#: console/frm_registration.php:60
+msgid "Serial num"
+msgstr "Num. serie"
+
+#: console/frm_registration.php:70
+msgid "Register"
+msgstr "Registrar"
+
+#: console/frm_registration.php:77 console/dialogs/dlg_equipos.inc:59
+msgid "Close"
+msgstr "Cerrar"
+
+#: console/frm_registration.php:102
+msgid "Import license file into application"
+msgstr "Importar fichero de licencia en la aplicaci&oacute;n"
+
+#: console/frm_registration.php:103 console/dialogs/dlg_chguias.inc:82
+#: console/dialogs/dlg_chperros.inc:100 console/dialogs/dlg_clubes.inc:148
+#: console/dialogs/dlg_clubes.inc:150 console/dialogs/dlg_guias.inc:79
+#: console/dialogs/dlg_jornadas.inc:219 console/dialogs/dlg_jueces.inc:123
+#: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:103
+#: console/dialogs/dlg_pruebas.inc:108 console/dialogs/dlg_sesiones.inc:88
+#: console/dialogs/dlg_usuarios.inc:104 console/dialogs/dlg_usuarios.inc:107
+msgid "Cancel operation. Close window"
+msgstr "Cancelar operaci&oacute;n. Cerrar ventana"
+
 #: console/index.php:160
 msgid "Operations Menu"
 msgstr "Men&uacute; de operaciones"
@@ -2139,36 +2193,36 @@ msgstr "Acerca de AgilityContest"
 msgid "About"
 msgstr "Acerca de"
 
-#: index.php:143 tablet/index.php:146
+#: index.php:148 tablet/index.php:146
 msgid "Contest"
 msgstr "Prueba"
 
-#: index.php:151 videowall/index.php:169
+#: index.php:156 videowall/index.php:174
 msgid "Select View"
 msgstr "Selecciona vista"
 
-#: index.php:153 public/pb_inscripciones.php:35
+#: index.php:158 public/pb_inscripciones.php:35
 #: public/pb_inscripciones_equipos.php:35
 msgid "Inscription list"
 msgstr "Listado de inscritos"
 
-#: index.php:155 public/pb_parciales.php:40 public/pb_parciales_eq3.php:40
-#: videowall/index.php:175 videowall/index.php:181
+#: index.php:160 public/pb_parciales.php:40 public/pb_parciales_eq3.php:40
+#: videowall/index.php:180 videowall/index.php:186
 #: videowall/vw_combinada.php:48 videowall/vw_parciales.php:38
 #: videowall/vwls_parciales.php:56
 msgid "Partial scores"
 msgstr "Clasificaci&oacute;n parcial"
 
-#: index.php:156 public/pb_finales.php:40 public/pb_finales.php:78
+#: index.php:161 public/pb_finales.php:40 public/pb_finales.php:78
 #: public/pb_finales_eq3.php:40 public/pb_finales_eq3.php:78
 msgid "Final scores"
 msgstr "Clasificaci&oacute;n final"
 
-#: index.php:157
+#: index.php:162
 msgid "Journey activities timetable"
 msgstr "Programa de la jornada"
 
-#: index.php:251
+#: index.php:256
 msgid "You should select contest, journey and view to continue"
 msgstr "Debe seleccionar prueba, jornada y vista para continuar"
 
@@ -3507,32 +3561,32 @@ msgstr "Indicar al crono comienzo/fin de reconocimiento de pista"
 msgid "Activate data entry panel on selected dorsal"
 msgstr "Abrir el panel de entrada de datos para el dorsal seleccionado"
 
-#: videowall/index.php:165
+#: videowall/index.php:170
 msgid "Select Session/Ring"
 msgstr "Selecciona Ring"
 
-#: videowall/index.php:174 videowall/vw_combinada.php:46
+#: videowall/index.php:179 videowall/vw_combinada.php:46
 #: videowall/vw_llamada.php:37
 msgid "Call to ring"
 msgstr "Llamada a pista"
 
-#: videowall/index.php:176
+#: videowall/index.php:181
 msgid "Combo view"
 msgstr "Vista combinada"
 
-#: videowall/index.php:180
+#: videowall/index.php:185
 msgid "On Screen Display"
 msgstr "Datos en pantalla (O.S.D.)"
 
-#: videowall/index.php:203
+#: videowall/index.php:208
 msgid "View to deploy"
 msgstr "Vista a desplegar"
 
-#: videowall/index.php:216
+#: videowall/index.php:221
 msgid "Use selected as working session"
 msgstr "Trabajar con el la sesi&oacute;n seleccionada"
 
-#: videowall/index.php:260
+#: videowall/index.php:265
 msgid "You should select a valid session"
 msgstr "Debe seleccionar una sesi&oacute;n v&aacute;lida"
 
@@ -3614,16 +3668,6 @@ msgstr "Reasignar"
 #: console/dialogs/dlg_chguias.inc:81
 msgid "Clear form"
 msgstr "Limpiar formulario"
-
-#: console/dialogs/dlg_chguias.inc:82 console/dialogs/dlg_chperros.inc:100
-#: console/dialogs/dlg_clubes.inc:148 console/dialogs/dlg_clubes.inc:150
-#: console/dialogs/dlg_guias.inc:79 console/dialogs/dlg_jornadas.inc:219
-#: console/dialogs/dlg_jueces.inc:123 console/dialogs/dlg_ordentandas.inc:189
-#: console/dialogs/dlg_perros.inc:103 console/dialogs/dlg_pruebas.inc:108
-#: console/dialogs/dlg_sesiones.inc:88 console/dialogs/dlg_usuarios.inc:104
-#: console/dialogs/dlg_usuarios.inc:107
-msgid "Cancel operation. Close window"
-msgstr "Cancelar operaci&oacute;n. Cerrar ventana"
 
 #: console/dialogs/dlg_chguias.inc:83
 msgid "Use provided data to create a new club member"
@@ -4137,10 +4181,6 @@ msgstr "Datos del equipo"
 #: console/dialogs/dlg_equipos.inc:38
 msgid "Categories"
 msgstr "Categor&iacute;as"
-
-#: console/dialogs/dlg_equipos.inc:59
-msgid "Close"
-msgstr "Cerrar"
 
 #: console/dialogs/dlg_equipos.inc:83
 msgid "Register team data.<br />Update database"
