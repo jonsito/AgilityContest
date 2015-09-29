@@ -23,10 +23,10 @@ $config =Config::getInstance();
 
 <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE JORNADAS -->
 <div id="jornadas-dialog" style="width:375px;padding:25px">
-		<div class="ftitle"><?php _e('Informaci&oacute;n de la Jornada');?><br /></div>
+		<div class="ftitle"><?php _e('Journey information');?><br /></div>
         <form id="jornadas-form" method="get" novalidate>
             <div class="fitem">
-                <label for="jornadas-Nombre" style="width:250px">Nombre / Comentarios:</label>
+                <label for="jornadas-Nombre" style="width:250px"><?php _e('Name'); ?> / <?php _e('Comments'); ?>:</label>
                 <input id="jornadas-Nombre" name="Nombre" type="text" class="easyui-validatebox" style="width:325px"/>
             </div>
         	<div class="fitem">
@@ -38,15 +38,15 @@ $config =Config::getInstance();
 				<input id="jornadas-Operation" type="hidden" name="Operation"/>
         	</div>
             <div class="fitem">
-                <label for="jornadas-Fecha">Fecha</label>
+                <label for="jornadas-Fecha"><?php _e('Date'); ?></label>
                 <select id="jornadas-Fecha" name="Fecha" class="easyui-datebox" style="width:250px;text-align:right"></select>
             </div>
             <div class="fitem">
-                <label for="jornadas-Hora">Hora</label>
+                <label for="jornadas-Hora"><?php _e('Time'); ?></label>
                 <input id="jornadas-Hora" name="Hora" class="easyui-timespinner" style="width:250px;text-align:right"/>
             </div>
             <div class="fitem">
-            	<label style="width:250px">Rondas de que consta la jornada:</label>
+            	<label style="width:250px"><?php _e('Rounds on this journey'); ?>:</label>
             </div>
             
             <div class="fitem">
@@ -56,31 +56,31 @@ $config =Config::getInstance();
                 <input id="jornadas-PreAgilityChk" name="PreAgilityChk" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-PreAgilityChk',0x0003)"/>
                 <select id="jornadas-MangasPreAgility" name="MangasPreAgility" style="width:130px">
-                <option value="1"> Manga única </option>
-                <option value="2"> Dos Mangas</option>
+                <option value="1"> <?php _e('Single round'); ?> </option>
+                <option value="2"> <?php _e('Double round'); ?></option>
                 </select>
             </div>
             
             <div class="fitem">
-                <label for="jornadas-Grado1" style="width:150px" >Grado 1</label>
+                <label for="jornadas-Grado1" style="width:150px" ><?php _e('Grade'); ?> 1</label>
                 <input id="jornadas-Grado1" name="Grado1" class="easyui-checkbox" 
                 type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado1',0x0004)"/>
             </div>
             
             <div class="fitem">
-                <label for="jornadas-Grado2" style="width:150px" >Grado 2</label>
+                <label for="jornadas-Grado2" style="width:150px" ><?php _e('Grade'); ?> 2</label>
                 <input id="jornadas-Grado2" name="Grado2" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado2',0x0008)"/>
             </div>
             
             <div class="fitem">
-                <label for="jornadas-Grado3" style="width:150px" >Grado 3</label>
+                <label for="jornadas-Grado3" style="width:150px" ><?php _e('Grade'); ?> 3</label>
                 <input id="jornadas-Grado3" name="Grado3" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1" onClick="checkPrueba('#jornadas-Grado3',0x0010)"/>
             </div>
             
             <div class="fitem">
-                <label for="jornadas-Open" style="width:150px" >Prueba Abierta (Sin grados)</label>
+                <label for="jornadas-Open" style="width:150px" ><?php _e('Open contest (no grades)'); ?></label>
                 <input id="jornadas-Open" name="Open" class="easyui-checkbox" 
                 	type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Open',0x0020)"/>
             </div>
@@ -88,23 +88,23 @@ $config =Config::getInstance();
              <div class="fitem">
             	<input type="hidden" id="jornadas-Equipos3" name="Equipos3" value="1">
             	<input type="hidden" id="jornadas-Equipos4" name="Equipos4" value="2">
-                <label for="jornadas-EquiposChk" style="width:150px" >Equipos</label>
+                <label for="jornadas-EquiposChk" style="width:150px" ><?php _e('Teams'); ?></label>
                 <input id="jornadas-EquiposChk" name="EquiposChk" class="easyui-checkbox" 
                 	type="checkbox" checked="checked" value="1"  onClick="checkPrueba('#jornadas-EquiposChk',0x00C0)"/>
                 <select id="jornadas-MangasEquipos" name="MangasEquipos" style="width:130px">
-                <option value="1">3 mejores de 4</option>
-                <option value="2">Cuatro conjunta</option>
+                <option value="1"><?php _e('3 best of 4'); ?></option>
+                <option value="2"><?php _e('4 combined'); ?></option>
                 </select>
             </div>
             
             <div class="fitem">
-                <label for="jornadas-KO" style="width:150px" >Prueba K.O.</label>
+                <label for="jornadas-KO" style="width:150px" ><?php _e('K.O. Round'); ?></label>
                 <input id="jornadas-KO" name="KO" class="easyui-checkbox" 
                 	type="checkbox" value="1" onClick="checkPrueba('#jornadas-KO',0x0100);"/>
             </div>
             
             <div class="fitem">
-                <label for="jornadas-Especial" style="width:150px" >Manga especial</label>
+                <label for="jornadas-Especial" style="width:150px" ><?php _e('Special round'); ?></label>
                 <input id="jornadas-Especial" name="Especial" class="easyui-checkbox" 
                 	type="checkbox" value="1"  onClick="checkPrueba('#jornadas-Especial',0x0200)"/>
                 <input id="jornadas-Observaciones" name="Observaciones" type="text" value="(Especificar)" class="easyui-validatebox" style="width:125px"/>
@@ -116,9 +116,9 @@ $config =Config::getInstance();
 <!-- BOTONES DE ACEPTAR / CANCELAR DEL CUADRO DE DIALOGO -->
 <div id="jornadas-dlg-buttons" style="padding:5px">
 	<a id="jornadas-okBtn" href="#" class="easyui-linkbutton" 
-		data-options="iconCls:'icon-ok'" onclick="saveJornada()">Guardar</a>
+		data-options="iconCls:'icon-ok'" onclick="saveJornada()"><?php _e('Save'); ?></a>
 	<a id="jornadas-cancelBtn" href="#" class="easyui-linkbutton" 
-		data-options="iconCls:'icon-cancel'" onclick="$('#jornadas-dialog').dialog('close')">Cancelar</a>
+		data-options="iconCls:'icon-cancel'" onclick="$('#jornadas-dialog').dialog('close')"><?php _e('Cancel'); ?></a>
 </div>
 	
 <script type="text/javascript">
@@ -215,7 +215,7 @@ $config =Config::getInstance();
         validType: 'length[1,255]'
     });
 
-	addTooltip($('#jornadas-okBtn').linkbutton(),"Registrar la entrada en la Base de Datos");
-	addTooltip($('#jornadas-cancelBtn').linkbutton(),"Cancelar la operaci&oacute;n. Cerrar ventana");
+	addTooltip($('#jornadas-okBtn').linkbutton(),'<?php _e("Register journey into database"); ?>';
+	addTooltip($('#jornadas-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
     
 </script>

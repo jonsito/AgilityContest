@@ -14,7 +14,15 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
- 
+
+<?php
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
+<!-- Formularios del menu de configuracion de la aplicacion -->
+
  <div id="config-panel" class="easyui-panel" style="width:550px;height:300px;padding:10px 20px"
 	data-options="fit:true,footer:'#config-dlg-buttons',onOpen:loadConfig">
 	<form id="config-form" name="configuracion" class="easyui-form">
@@ -22,101 +30,101 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<input id="config-Operation" type="hidden" name="Operation" value="saveConfig"/>
 		<!-- TODO: Los parametros de la base de datos solo se deben presentar en el primer arranque -->
 
-		<div title="Escritorio" style="padding:10px">		
-			<h3>Apariencia del escritorio</h3>
-			<label for="config_theme">Tema del escritorio</label>
+		<div title="<?php _e('Desktop'); ?>" style="padding:10px">
+			<h3><?php _e('Desktop look and feel'); ?></h3>
+			<label for="config_theme"><?php _e('Dekstop theme'); ?></label>
 			<select id="config_theme" name="easyui_theme">
-				<option value="default" selected="selected">Tema por defecto</option>
-				<option value="metro">Metro</option>
-				<option value="gray">Gris</option>
-				<option value="black">Negro</option>
+				<option value="default" selected="selected"><?php _e('Default theme'); ?></option>
+				<option value="metro"><?php _e('Metro'); ?></option>
+				<option value="gray"><?php _e('Grey'); ?></option>
+				<option value="black"><?php _e('Black'); ?></option>
 			</select><br />
-			<label for="easyui_bgcolor">Color del fondo del escritorio</label>
+			<label for="easyui_bgcolor"><?php _e('Desktop background color'); ?></label>
 			<input id="easyui_bgcolor" name="easyui_bgcolor" value="#0000ff" type="color"/><br />
-			<label for="easyui_hdrcolor">Color del T&iacute;tulo de cabecera</label>
+			<label for="easyui_hdrcolor"><?php _e('Header title color'); ?></label>
 			<input id="easyui_hdrcolor" name="easyui_hdrcolor" value="#00ff00" type="color"/><br />
-			<label for="easyui_opcolor">Color del T&iacute;tulo del men&uacute; activo</label>
+			<label for="easyui_opcolor"><?php _e('Active menu header color'); ?></label>
 			<input id="easyui_opcolor" name="easyui_opcolor" value="opcolor" type="color"/><br />
-			<label for="easyui_rowcolor1">Color de filas pares en las tablas</label>
+			<label for="easyui_rowcolor1"><?php _e('Color for even rows in tables'); ?></label>
 			<input id="easyui_rowcolor1" name="easyui_rowcolor1" value="#e0e0e0" type="color"/><br />
-			<label for="easyui_rowcolor2">Color de filas impares en las tablas</label>
+			<label for="easyui_rowcolor2"><?php _e('Color for odd rows in tables'); ?></label>
 			<input id="easyui_rowcolor2" name="easyui_rowcolor2" value="#c0c0c0" type="color"/><br />
-			<label for="easyui_rowcolor3">Color de filas extras en las tablas</label>
+			<label for="easyui_rowcolor3"><?php _e('Color for extra rows in tables'); ?></label>
 			<input id="easyui_rowcolor3" name="easyui_rowcolor3" value="#c0c0f0" type="color"/><br />
 		</div>
 	
-		<div title="Tablet &amp; Crono" style="padding:10px">
-			<h3>Funcionalidad del tablet del asistente de pista</h3>
-			<label for="tablet_beep">Se&ntilde;al sonora al pulsar el tablet</label> 
+		<div title="<?php _e('Tablet &amp; Chrono'); ?>" style="padding:10px">
+			<h3><?php _e('Judge assistant tablet configuration'); ?></h3>
+			<label for="tablet_beep"><?php _e('Emit beep on key pressed'); ?></label>
 			<input type="hidden" name="tablet_beep" value="0"/>
 			<input id="tablet_beep" name="tablet_beep" type="checkbox" value="1"/><br />
-			<label for="tablet_dnd">Orden de salida ajustable desde el tablet</label> 
+			<label for="tablet_dnd"><?php _e('Allow modify starting order from tablet'); ?></label>
 			<input type="hidden" name="tablet_dnd" value="0"/>
 			<input id="tablet_dnd" name="tablet_dnd" type="checkbox" value="1"/><br />
-			<label for="tablet_next">Bot&oacute;n 'Aceptar' guarda y muestra siguiente participante </label> 
+			<label for="tablet_next"><?php _e('Accept button save data and goes to next participant'); ?></label>
 			<input type="hidden" name="tablet_next" value="0"/>
 			<input id="tablet_next" name="tablet_next" type="checkbox" value="1"/><br />
-			<h3>Funcionamiento del Cron&oacute;metro</h3>
-			<label for="tablet_chrono">Mostrar datos de cron&oacute;metro en el tablet</label>
+			<h3><?php _e('Electronic chronometer behaviour'); ?></h3>
+			<label for="tablet_chrono"><?php _e('Show chrono data on tablet'); ?></label>
 			<input type="hidden" name="tablet_chrono" value="0"/>
 			<input id="tablet_chrono" name="tablet_chrono" type="checkbox" value="1"/><br />
-			<label> Acci&oacute;n al finalizar cuenta de 15 segundos</label>
-            <input id="tcd1" type="radio" name="tablet_countdown" value="1" >Ignorar</input>
-            <input id="tcd2" type="radio" name="tablet_countdown" value="2" checked="checked">Crono manual</input>
-            <input id="tcd3" type="radio" name="tablet_countdown" value="3">Eliminar</input><br />
-			<label for="crono_resync">Al paso por fotoc&eacute;lulas con crono manual activo</label>
-			<input id="crs1" type="radio" name="crono_resync" value="0"  checked="checked">Recomenzar con crono a cero</input>
-			<input id="crs2" type="radio" name="crono_resync" value="1">Continuar con cuenta manual</input>
+			<label> <?php _e('Action to perform at 15sec countdown end'); ?></label>
+            <input id="tcd1" type="radio" name="tablet_countdown" value="1" ><?php _e('Ignore'); ?></input>
+            <input id="tcd2" type="radio" name="tablet_countdown" value="2" checked="checked"><?php _e('Start manual chrono'); ?></input>
+            <input id="tcd3" type="radio" name="tablet_countdown" value="3"><?php _e('Eliminate team'); ?></input><br />
+			<label for="crono_resync"><?php _e('On sensor detection when manual chrono is active'); ?></label>
+			<input id="crs1" type="radio" name="crono_resync" value="0"  checked="checked"><?php _e('Restart counter from zero'); ?></input>
+			<input id="crs2" type="radio" name="crono_resync" value="1"><?php _e('Continue with manual chrono count'); ?></input>
 		</div>
 		
-		<div title="VideoMarcadores" style="padding:10px">
-			<h3>Par&aacute;metros de los Video-marcadores</h3>
-			<label for="vw_polltime">Frecuencia de refresco (seg.)</label>
+		<div title="<?php _e('VideoWall'); ?>" style="padding:10px">
+			<h3><?php _e('Video wall configurable parameters'); ?></h3>
+			<label for="vw_polltime"><?php _e('Refresh period (seg.)'); ?></label>
 			<input id="vw_polltime" name="vw_polltime" type="text" size="2" value="5"/><br />
-			<label for="vw_alpha">Transparencia del OnScreenDisplay (0.0-1.0)</label>
-			<input id="vw_alpha" name="vw_alpha" type="text" size="3" value="0.5"/><br />
-			<label for="vw_hdrbg1">Color de fondo de la cabecera principal</label>
+			<label for="vw_alpha"><?php _e('Transparency level for OnScreenDisplay'); ?></label>
+			<input id="vw_alpha" name="vw_alpha" type="text" size="3" value="0.5"/> (0.0-1.0)<br />
+			<label for="vw_hdrbg1"><?php _e('Background color for main header'); ?></label>
 			<input id="vw_hdrbg1" name="vw_hdrbg1" type="color" value="#0000ff"/><br />
-			<label for="vw_hdrfg1">Color del texto de la cabecera principal</label>
+			<label for="vw_hdrfg1"><?php _e('Text color for main header'); ?></label>
 			<input id="vw_hdrfg1" name="vw_hdrfg1" type="color" value="#ffffff"/><br />
 
-			<label for="vw_hdrbg2">Color de fondo de la cabecera secundaria</label>
+			<label for="vw_hdrbg2"><?php _e('Background color for secondary header'); ?></label>
 			<input id="vw_hdrbg2" name="vw_hdrbg2" type="color" value="#c0c0c0"/><br />
-			<label for="vw_hdrfg2">Color del texto de la cabecera secundaria</label>
+			<label for="vw_hdrfg2"><?php _e('Text color for secondary header'); ?></label>
 			<input id="vw_hdrfg2" name="vw_hdrfg2" type="color" value="#ffffff"/><br />
 
-            <label for="vw_hdrbg3">Color de fondo de la cabecera secundaria</label>
+            <label for="vw_hdrbg3"><?php _e('Background color for tertiary header'); ?></label>
             <input id="vw_hdrbg3" name="vw_hdrbg3" type="color" value="#c0c0c0"/><br />
-            <label for="vw_hdrfg3">Color del texto de la cabecera secundaria</label>
+            <label for="vw_hdrfg3"><?php _e('Text color for tertiary header'); ?></label>
             <input id="vw_hdrfg3" name="vw_hdrfg3" type="color" value="#000000"/><br />
 
-			<label for="vw_rowcolor1">Color de fondo de las filas pares</label>
+			<label for="vw_rowcolor1"><?php _e('Background color for tables even rows'); ?></label>
 			<input id="vw_rowcolor1" name="vw_rowcolor1" type="color" value="#e0e0e0"/><br />
-			<label for="vw_rowcolor2">Color de fondo las filas impares</label>
+			<label for="vw_rowcolor2"><?php _e('Background color for tables odd rows'); ?></label>
 			<input id="vw_rowcolor2" name="vw_rowcolor2" type="color" value="#c0c0c0"/><br />
 		</div>
 		
-		<div title="Informes" style="padding:10px">		
-			<h3>Generaci&oacute;n de Informes y Formularios PDF</h3>
-			<label for="pdf_journeys">Presentar datos de jornadas en el cat&aacute;logo</label>
+		<div title="<?php _e('Reports'); ?>" style="padding:10px">
+			<h3><?php _e('PDF forms and reports generation'); ?></h3>
+			<label for="pdf_journeys"><?php _e('Show journey info when printing catalog'); ?></label>
 			<input type="hidden" name="pdf_journeys" value="0"/>
 			<input id="pdf_journeys" name="pdf_journeys" type="checkbox" value="1"/><br />
-			<label for="pdf_hdrbg1">Color de fondo de la cabecera principal</label>
+			<label for="pdf_hdrbg1"><?php _e('Background color for main header'); ?></label>
 			<input id="pdf_hdrbg1" name="pdf_hdrbg1" type="color" value="#ff8020"/><br />
-			<label for="pdf_hdrfg1">Color del texto de la cabecera principal</label>
+			<label for="pdf_hdrfg1"><?php _e('Text color on main header'); ?></label>
 			<input id="pdf_hdrfg1" name="pdf_hdrfg1" type="color" value="#000000"/><br />
-			<label for="pdf_hdrbg2">Color de fondo de la cabecera secundaria</label>
+			<label for="pdf_hdrbg2"><?php _e('Background color for secondary header'); ?></label>
 			<input id="pdf_hdrbg2" name="pdf_hdrbg2" type="color" value="#c0c0c0"/><br />
-			<label for="pdf_hdrfg2">Color del texto de la cabecera secundaria</label>
+			<label for="pdf_hdrfg2"><?php _e('Text color for secondary header'); ?></label>
 			<input id="pdf_hdrfg2" name="pdf_hdrfg2" type="color" value="#ffffff"/><br />
-			<label for="pdf_rowcolor1">Color de fondo de las filas pares</label>
+			<label for="pdf_rowcolor1"><?php _e('Background color for tables even rows'); ?></label>
 			<input id="pdf_rowcolor1" name="pdf_rowcolor1" type="color" value="#ffffff"/><br />
-			<label for="pdf_rowcolor2">Color de fondo las filas impares</label>
+			<label for="pdf_rowcolor2"><?php _e('Background color for tables odd rows'); ?></label>
 			<input id="pdf_rowcolor2" name="pdf_rowcolor2" type="color" value="#e0ebff"/><br />
-			<label for="pdf_linecolor">Color de las lineas de separaci&oacute;n</label>
+			<label for="pdf_linecolor"><?php _e('Color for separation lines'); ?></label>
 			<input id="pdf_linecolor" name="pdf_linecolor" type="color" value="#808080"/><br />
-			<h3>Impresi&oacute;n de etiquetas</h3>
-            <label>Formato de las etiquetas (num. etiquetas/hoja)</label>
+			<h3><?php _e('Label printing'); ?></h3>
+            <label><?php _e('Label sheet format (# labels/sheet)'); ?></label>
             <label for="pdf_labelheight16" style="width:130px;">
                 <input type="radio" id="pdf_labelheight16" name="pdf_labelheight" value="17" checked="checked" onclick="$('#pdf_topmargin').val('10.0');"/>
                 145x17 (16)
@@ -126,46 +134,46 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 147x20 (13)
             </label>
             <br />
-			<label for="pdf_topmargin">Margen superior impr. etiquetas (mmts)</label>
+			<label for="pdf_topmargin"><?php _e('Label sheet upper margin (mmts)'); ?></label>
 			<input id="pdf_topmargin" name="pdf_topmargin" type="text" size="4" value="10.0"/><br />
-			<label for="pdf_leftmargin">Margen izquierdo impr. etiquetas (mmts)</label>
+			<label for="pdf_leftmargin"><?php _e('Label sheet right margin (mmts)'); ?></label>
 			<input id="pdf_leftmargin" name="pdf_leftmargin" type="text" size="4" value="10.0"/><br />
 		</div>
 		
-		<div title="Internet" style="padding:10px">
-		<h3>Acceso p&uacute;blico v&iacute;a web</h3>
+		<div title="<?php _e('Internet'); ?>" style="padding:10px">
+		<h3><?php _e('Public access from internet'); ?></h3>
 		</div>
 				
-		<div title="Sistema" style="padding:10px">
-			<h3>Configuraci&oacute;n general</h3>
-			<label for="config_lang">Idioma</label>
+		<div title="<?php _e('System'); ?>" style="padding:10px">
+			<h3><?php _e('General configuration'); ?></h3>
+			<label for="config_lang"><?php _e('Language'); ?></label>
 			<select id="config_lang" name="lang">
-				<option value="es_ES" selected="selected">Espa&ntilde;ol</option>
-				<option value="en_US">Ingl&eacute;s</option>
+				<option value="es_ES" selected="selected"><?php _e('Spanish'); ?></option>
+				<option value="en_US"><?php _e('English'); ?></option>
 			</select><br />
-			<label for="debug_level">Nivel de depuracion</label>
+			<label for="debug_level"><?php _e('Debug level'); ?></label>
 			<select id="debug_level" name="debug_level">
 				<!-- "PANIC","ALERT","ERROR","WARN","NOTICE","INFO","DEBUG","TRACE","ALL" -->
-				<option value="0" >Ninguno.</option>
-				<option value="1" >Alertas de sistema inutilizable</option>
-				<option value="2" selected="selected">Errores no recuperables</option>
-				<option value="3" >Errores recuperables</option>
-				<option value="4" >Avisos a tener en cuenta</option>
-				<option value="5" >Mensajes informativos</option>
-				<option value="6">Informaci&oacute;n de depuraci&oacute;n</option>
-				<option value="7">Registrar trazas de ejecuci&oacute;n</option>
-				<option value="8">Registrar absolutamente todo</option>
+				<option value="0" ><?php _e('None'); ?>.</option>
+				<option value="1" ><?php _e('Unusable syetem'); ?></option>
+				<option value="2" selected="selected"><?php _e('Non recoverable errors'); ?></option>
+				<option value="3" ><?php _e('Recoverable error'); ?></option>
+				<option value="4" ><?php _e('Notice alerts'); ?></option>
+				<option value="5" ><?php _e('Informative messages'); ?></option>
+				<option value="6" ><?php _e('Debugging information'); ?></option>
+				<option value="7" ><?php _e('Execution trace registering'); ?></option>
+				<option value="8" ><?php _e('Register everything'); ?></option>
 			</select><br />
-            <label for="register_events">Registrar en fichero operaciones en el tablet</label>
+            <label for="register_events"><?php _e('Provide raw file copy for system events'); ?></label>
             <input type="hidden" name="register_events" value="0"/> <!-- trick for checkboxes -->
             <input type="checkbox" name="register_events" id="register_events" value="1"/><br />
-            <label for="reset_events">Reiniciar registro al iniciar sesion en el tablet</label>
+            <label for="reset_events"><?php _e('Clear event registration on tablet init session'); ?></label>
             <input type="hidden" name="reset_events" value="0"/> <!-- trick for checkboxes -->
             <input type="checkbox" name="reset_events" id="reset_events" value="1"/><br />
-			<label for="proximity_alert">Alerta de proximidad en orden de salida</label>
-			<input type="number" min="1" max="20" size="2" value="5" name="proximity_alert" id="proximity_alert"/> Perros<br />
-			<h3>Informaci&oacute;n adicional sobre el servidor</h3>
-			<label for="ip_address">Direcci&oacute;n(es) IP</label>
+			<label for="proximity_alert"><?php _e('Proximity alert on starting order'); ?></label>
+			<input type="number" min="1" max="20" size="2" value="5" name="proximity_alert" id="proximity_alert"/> <?php _e('Dogs'); ?><br />
+			<h3><?php _e('Additional server information'); ?></h3>
+			<label for="ip_address"><?php _e('IP address(es)'); ?></label>
 			<input id="ip_address" name="ip_address" type="text" readonly="readonly" size="45"
 				   value="<?php $a=new networkInterfaces(); echo implode(", ",$a->get_interfaces());?>" />
 		</div>
@@ -177,20 +185,20 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="config-dlg-buttons">
 	<span  style="float:left;padding:5px">
     <a id="config-resetBtn" href="#" class="easyui-linkbutton" 
-    	data-options="iconCls:'icon-reload'" onclick="loadConfig()">Restaurar</a>
+    	data-options="iconCls:'icon-reload'" onclick="loadConfig()"><?php _e('Restore'); ?></a>
     <a id="config-defaultBtn" href="#" class="easyui-linkbutton" 
-    	data-options="iconCls:'icon-setup'" onclick="defaultConfig()">Default</a>
+    	data-options="iconCls:'icon-setup'" onclick="defaultConfig()"><?php _e('Default'); ?></a>
     </span>
 	<span  style="float:right;padding:5px">
     <a id="config-okBtn" href="#" class="easyui-linkbutton" 
-    	data-options="iconCls:'icon-save'" onclick="saveConfig()">Guardar</a>
+    	data-options="iconCls:'icon-save'" onclick="saveConfig()"><?php _e('Save'); ?></a>
     </span>
 </div>
 
 <script type="text/javascript">
-	addTooltip($('#config-resetBtn').linkbutton(),"Anula modificaciones. Recupera datos desde el servidor.");
-	addTooltip($('#config-defaultBtn').linkbutton(),"Recuperar valores de fabrica de la aplicaci&oacute;n");
-	addTooltip($('#config-okBtn').linkbutton(),"Aceptar datos. Guardar nueva configuraci&oacute;n");
+	addTooltip($('#config-resetBtn').linkbutton(),'<?php _e("Cancel changes. Restore information from server"); ?>');
+	addTooltip($('#config-defaultBtn').linkbutton(),'<?php _e("Factory reset. Configure with default data"); ?>');
+	addTooltip($('#config-okBtn').linkbutton(),'<?php _e("Accept changes. Save as new configuration"); ?>');
 	
 	function saveConfig() {
 		$('#config-Operation').val('saveConfig');
@@ -204,10 +212,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	            if (result.errorMsg){
 	                $.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
 	            } else {
-		            $.messager.alert("Save",
-				            "Configuraci&oacute;n guardada correctamente. <br />"+
-				            "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"+
-				            " para que los cambios tengan efecto",
+		            $.messager.alert('<?php _e("Save"); ?>',
+				            '<?php _e("New configuration successfully saved"); ?>'+" <br />"+
+				            '<?php _e("You should close session and reload page"); ?> '+
+				            '<?php _e("for changes to become active"); ?>',
 				            "info");
 					loadConfiguration();
 	            }
@@ -216,7 +224,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	}	
 
 	function defaultConfig() {
-		$.messager.confirm("Confirmar","Recuperar valores de f&aacute;brica.¿Seguro?",function(r){
+		$.messager.confirm('<?php _e("Confirm"); ?>','<?php _e("Restore factory default values. Sure?"); ?>',function(r){
 			if (r) {
 				$('#config-form').form('load','/agility/server/adminFunctions.php?Operation=defaultConfig');
 			}

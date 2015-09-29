@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+<?php
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
 <!-- FORMULARIO DE EDICION DE INSCRIPCIONES -->
 <div id="edit_inscripcion-dialog" style="width:500px;height:475px;padding:5px">
 	<div class="easyui-panel" data-options="fit:true">
@@ -27,19 +33,19 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <input id="edit_inscripcion-LOE_RRC" name="LOE_RRC" type="hidden" />
             <input id="edit_inscripcion-Raza" name="Raza" type="hidden" />
            	<input id="edit_inscripcion-Perro" name="Perro" type="hidden" />
-           	<span  id="edit_inscripcion-dogInfo" 	class="ftitle">Informaci&oacute;n del perro:</span>
-           	<span  id="edit_inscripcion-inscInfo" 	class="ftitle" style="text-align:center">Datos de la inscripci&oacute;n:</span>
-           	<label id="edit_inscripcion-Nombrelbl"	for="edit_inscripcion-Nombre">Nombre:</label>
+           	<span  id="edit_inscripcion-dogInfo" 	class="ftitle"><?php _e('Dog information'); ?>:</span>
+           	<span  id="edit_inscripcion-inscInfo" 	class="ftitle" style="text-align:center"><?php _e('Inscription data'); ?>:</span>
+           	<label id="edit_inscripcion-Nombrelbl"	for="edit_inscripcion-Nombre"><?php _e('Name'); ?>:</label>
            	<input id="edit_inscripcion-Nombre" 	name="Nombre" type="text" disabled="disabled" />
-        	<label id="edit_inscripcion-Licencialbl" for="edit_inscripcion-Licencia">Licencia: </label>
+        	<label id="edit_inscripcion-Licencialbl" for="edit_inscripcion-Licencia"><?php _e('License'); ?>: </label>
         	<input id="edit_inscripcion-Licencia"	name="Licencia" type="text" disabled="disabled"/>
-        	<label id="edit_inscripcion-Categorialbl" for="edit_inscripcion-Categoria">Categoria: </label>
+        	<label id="edit_inscripcion-Categorialbl" for="edit_inscripcion-Categoria"><?php _e('Category'); ?>: </label>
             <input id="edit_inscripcion-Categoria" 	name="Categoria" type="text" style="text-align:center" disabled="disabled"/>
-        	<label id="edit_inscripcion-Gradolbl"	for="edit_inscripcion-Grado">Grado: </label>
+        	<label id="edit_inscripcion-Gradolbl"	for="edit_inscripcion-Grado"><?php _e('Grade'); ?>: </label>
             <input id="edit_inscripcion-Grado" 		name="Grado" type="text" style="text-align:center" disabled="disabled" />
-            <label id="edit_inscripcion-NombreGuialbl"	for="edit_inscripcion-NombreGuia">Gu&iacute;a: </label>
+            <label id="edit_inscripcion-NombreGuialbl"	for="edit_inscripcion-NombreGuia"><?php _e('Handler'); ?>: </label>
             <input id="edit_inscripcion-NombreGuia" name="NombreGuia" type="text" disabled="disabled"/>
-            <label id="edit_inscripcion-NombreClublbl" for="edit_inscripcion-NombreClub">Club: </label>
+            <label id="edit_inscripcion-NombreClublbl" for="edit_inscripcion-NombreClub"><?php _e('Club'); ?>: </label>
            	<input id="edit_inscripcion-NombreClub" name="NombreClub" type="text" disabled="disabled" />
            	<input id="edit_inscripcion-J1" 		name="J1" class="easyui-checkbox" type="checkbox" value="1" onclick="doMoney(this);"/>
            	<label id="edit_inscripcion-J1lbl" 		for="edit_inscripcion-J1">J1</label>
@@ -57,12 +63,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <label id="edit_inscripcion-J7lbl" 		for="edit_inscripcion-J7">J7</label>
             <input id="edit_inscripcion-J8" 		name="J8" class="easyui-checkbox" type="checkbox" value="128" onclick="doMoney(this);"/>
             <label id="edit_inscripcion-J8lbl" 		for="edit_inscripcion-J8">J8</label>
-            <label id="edit_inscripcion-Celolbl"	for="edit_inscripcion-Celo2">Celo:</label>
+            <label id="edit_inscripcion-Celolbl"	for="edit_inscripcion-Celo2"><?php _e('Heat'); ?>:</label>
            	<input id="edit_inscripcion-Celo" 		name="Celo" type="hidden" value="0"/>
             <input id="edit_inscripcion-Celo2"		name="Celo2" class="easyui-checkbox" type="checkbox" value="1" />
-	        <label id="edit_inscripcion-Observacioneslbl" for="edit_inscripcion-Observaciones">Observaciones:</label>
+	        <label id="edit_inscripcion-Observacioneslbl" for="edit_inscripcion-Observaciones"><?php _e('Comments'); ?>:</label>
 	        <input id="edit_inscripcion-Observaciones" type="text" name="Observaciones"/>
-	        <label id="edit_inscripcion-Pagadolbl"	for="edit_inscripcion-Pagado">Pagado: </label>
+	        <label id="edit_inscripcion-Pagadolbl"	for="edit_inscripcion-Pagado"><?php _e('Paid out'); ?>: </label>
  	  		<input id="edit_inscripcion-Pagado" 	name="Pagado" type="text" style="text-align:right;padding-right:5px"/>
  	  		<span id="edit_inscripcion-PagadoEuro">&euro;</span>
         </form> 
@@ -75,13 +81,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<div id="edit_inscripcion-dlg-buttons" style="width:100%;display:inline-block;padding:5px">
 		<span style="float:left;">
 	   		<a id="edit_inscripcion-editDogBtn" href="#" class="easyui-linkbutton"
-	   			data-options="iconCls:'icon-dog'">Modificar</a>
+	   			data-options="iconCls:'icon-dog'"><?php _e('Modify'); ?></a>
 	   	</span>
 	   	<span style="float:right;">  	
 			<a id="edit_inscripcion-cancelBtn" href="#" class="easyui-linkbutton"
-				data-options="iconCls:'icon-cancel'" onclick="$('#edit_inscripcion-dialog').dialog('close');">Cancelar</a>
+				data-options="iconCls:'icon-cancel'" onclick="$('#edit_inscripcion-dialog').dialog('close');"><?php _e('Cancel'); ?></a>
        		<a id="edit_inscripcion-okBtn" href="#" class="easyui-linkbutton" onclick="saveInscripcion(true)" 
-       			data-options="iconCls:'icon-save'">Aceptar</a>
+       			data-options="iconCls:'icon-save'"><?php _e('Accept'); ?></a>
        	</span>
     </div>
     
@@ -92,7 +98,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	closed:true,
     	modal:true,
     	buttons:'#edit_inscripcion-dlg-buttons',
-    	title:'Editar inscripcion'
+    	title:'<?php _e('Edit inscription'); ?>'
     });
     
     // declaracion del formulario
@@ -133,9 +139,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     });
     
     // tooltips
-    addTooltip($('#edit_inscripcion-editDogBtn').linkbutton(),"Modificar la información del perro<br/>en la Base de Datos");
-    addTooltip($('#edit_inscripcion-okBtn').linkbutton(),"Aceptar cambios<br/> Actualizar datos de la inscripci&oacute;n");
-    addTooltip($('#edit_inscripcion-cancelBtn').linkbutton(),"Cancelar cambios. Cerrar la ventana");
+    addTooltip($('#edit_inscripcion-editDogBtn').linkbutton(),'<?php _e("Change dog data"); ?>'+"<br/>"+'<?php _e("into database"); ?>');
+    addTooltip($('#edit_inscripcion-okBtn').linkbutton(),'<?php _e("Accept changes"); ?>'+"<br/>"+'<?php _e("Update inscription data"); ?>');
+    addTooltip($('#edit_inscripcion-cancelBtn').linkbutton(),'<?php _e("Cancel changes. Close window"); ?>');
     
  	// acciones de los botones
 

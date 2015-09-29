@@ -15,6 +15,12 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
+<?php
+require_once(__DIR__ . "/../../server/tools.php");
+require_once(__DIR__ . "/../../server/auth/Config.php");
+$config =Config::getInstance();
+?>
+
 <!--  dialogo de orden de salida e introduccion de datos de una competicion -->
 <div id="competicion-dialog" style="width:900px;height:450px;padding:5px">
 	<!-- TABLA DE INTRODUCCION DE RESULTADOS DE CADA MANGA -->
@@ -26,7 +32,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<span style="float:left;padding:5px">
 	   	<a id="competicion-reloadBtn" href="#" class="easyui-linkbutton" 
 	   		data-options="iconCls:'icon-reload'" onclick="reloadCompeticion()"><?php _e('Update'); ?></a>
-	   	<label for="competicion-autoUpdateBtn">Auto:</label>
+	   	<label for="competicion-autoUpdateBtn"><?php _e('Auto'); ?>:</label>
 	   	<input id="competicion-autoUpdateBtn" type="checkbox" class="easyui-checkbox" value="0" onclick="autoUpdateCompeticion()"/>
    		<input id="competicion-search" type="text" value="---- Dorsal ----" class="search_textfield"  onchange="competicionSelectByDorsal();"/>
    	</span>
@@ -35,7 +41,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	   	<a id="competicion-resetBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-brush'" onclick="resetCompeticion()"><?php _e('Reset'); ?></a>
    		<a id="competicion-printBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(6);">Formularios</a>
+           data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(6);"><?php _e('Printer forms'); ?></a>
 	</span>
 </div>
 
@@ -58,7 +64,7 @@ $('#competicion-dialog').dialog({
 			return true;
 		}
 		// do not allow close on editing active
-		$.messager.alert('Error','Debe guardar o cancelar la edición antes de cerrar la ventana','error');
+		$.messager.alert('<?php _e('Error'); ?>','<?php _e('Please cancel or save changes before closing window'); ?>','error');
 		return false;
 	}
 });
@@ -80,7 +86,7 @@ $('#competicion-datagrid').datagrid({
 		Manga: workingData.manga,
 		TeamView: isTeam(workingData.datosManga.Tipo)?'true':'false'
     },
-    loadMsg: "Actualizando datos de competicion ...",
+    loadMsg: '<?php _e("Updating competition data"); ?> ....',
     toolbar: '#competicion-toolbar',
     pagination: false,
     rownumbers: false,
@@ -95,15 +101,15 @@ $('#competicion-datagrid').datagrid({
 		{ field:'Equipo',		hidden:true },
       	{ field:'Licencia',		hidden:true },
       	{ field:'Pendiente',	hidden:true },
-        { field:'Dorsal',		width:10, align:'right',  title: 'Dorsal', styler:checkPending },
-        { field:'Nombre',		width:20, align:'left',  title: 'Nombre'},
-        { field:'NombreGuia',	width:40, align:'right', title: 'Guia' },
-        { field:'NombreClub',	width:30, align:'right', title: 'Club' },
-      	{ field:'Categoria',	width:10, align:'center',title: 'Cat.' },
-      	{ field:'Faltas',		width:7, align:'right', title: 'Flt',	editor:'numberbox' },
-      	{ field:'Rehuses',		width:7, align:'right', title: 'Reh.',	editor:'numberbox' },
-      	{ field:'Tocados',		width:7, align:'right', title: 'Toc.',	editor:'numberbox' },
-      	{ field:'Tiempo',		width:15, align:'right', title: 'Tiempo',
+        { field:'Dorsal',		width:10, align:'right',  title: '<?php _e('Dorsal'); ?>', styler:checkPending },
+        { field:'Nombre',		width:20, align:'left',  title: '<?php _e('Name'); ?>'},
+        { field:'NombreGuia',	width:40, align:'right', title: '<?php _e('Handler'); ?>' },
+        { field:'NombreClub',	width:30, align:'right', title: '<?php _e('Club'); ?>' },
+      	{ field:'Categoria',	width:10, align:'center',title: '<?php _e('Cat'); ?>.' },
+      	{ field:'Faltas',		width:7, align:'right', title: '<?php _e('Flt'); ?>.',	editor:'numberbox' },
+      	{ field:'Rehuses',		width:7, align:'right', title: '<?php _e('Ref'); ?>.',	editor:'numberbox' },
+      	{ field:'Tocados',		width:7, align:'right', title: '<?php _e('Tch.'); ?>.',	editor:'numberbox' },
+      	{ field:'Tiempo',		width:15, align:'right', title: '<?php _e('Time'); ?>',
           	editor:{
           		type:'numberbox',
           		options:{		
@@ -112,19 +118,19 @@ $('#competicion-datagrid').datagrid({
             	}
           	}
         }, 
-      	{ field:'Eliminado',	width:10, align:'center',title: 'Elim.',formatter:formatEliminado,	editor:{type:'checkbox',options:{on:1,off:0}}	},
-      	{ field:'NoPresentado',	width:10, align:'center',title: 'N.P.',formatter:formatNoPresentado,	editor:{type:'checkbox',options:{on:1,off:0}}	}, 
-      	{ field:'Observaciones',width:20, align:'left',	 title: 'Observaciones',	editor:'text'  },
+      	{ field:'Eliminado',	width:10, align:'center',title: '<?php _e('Elim'); ?>.',formatter:formatEliminado,	editor:{type:'checkbox',options:{on:1,off:0}}	},
+      	{ field:'NoPresentado',	width:10, align:'center',title: '<?php _e('N.P.'); ?>',formatter:formatNoPresentado,	editor:{type:'checkbox',options:{on:1,off:0}}	},
+      	{ field:'Observaciones',width:20, align:'left',	 title: '<?php _e('Comments'); ?>',	editor:'text'  },
       	{ field:'action',		width:35, align:'center',title: '',
       		formatter:function(value,row,index){
 				if(row.Dorsal==='*') return "&nbsp;";
           		if (row.editing){
-    				var s = '<a href="#" id="lnkb1_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="saverow(this);">Save</a> ';
-    				var c = '<a href="#" id="lnkb2_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-undo\'" onclick="cancelrow(this);">Cancel</a>';
+    				var s = '<a href="#" id="lnkb1_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-save\'" onclick="saverow(this);"><?php _e('Save'); ?></a> ';
+    				var c = '<a href="#" id="lnkb2_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-undo\'" onclick="cancelrow(this);"><?php _e('Cancel'); ?></a>';
     				return s+c;
     			} else {
-    				var e = '<a href="#" id="lnkb1_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-edit\'" onclick="editrow(this);">Edit</a> ';
-    				var d = '<a href="#" id="lnkb2_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-trash\'" onclick="deleterow(this);">Clear</a>';
+    				var e = '<a href="#" id="lnkb1_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-edit\'" onclick="editrow(this);"><?php _e('Edit'); ?></a> ';
+    				var d = '<a href="#" id="lnkb2_'+index+'" class="easyui-linkbutton" data-options="iconCls:\'icon-trash\'" onclick="deleterow(this);"><?php _e('Clear'); ?></a>';
     				return e+d;
     			}
       		}
@@ -165,8 +171,9 @@ $('#competicion-datagrid').datagrid({
 
 // update row contents on action requested: just force repaint row and reassign buttons
 function updateActions(index){
-    var editIndex=$('#competicion-datagrid').datagrid('options').editIndex;
-	$('#competicion-datagrid').datagrid('updateRow',{
+	var cdg=$('#competicion-datagrid');
+    var editIndex=cdg.datagrid('options').editIndex;
+	cdg.datagrid('updateRow',{
 		index: index,
 		row:{}
 	});
@@ -184,7 +191,7 @@ function editrow(target){
 	$('#competicion-datagrid').datagrid('beginEdit', getRowIndex(target));
 }
 function deleterow(target){
-	$.messager.confirm('Confirmar','Borrar resultados del participante <br/> ¿Seguro?',function(r){
+	$.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Clear competitor results');?>'+'<br/>'+'<?php _e('Sure?'); ?>',function(r){
 		if (r){
 			var editIndex=getRowIndex(target);
 			var data=$('#competicion-datagrid').datagrid('getRows')[editIndex];
@@ -212,11 +219,11 @@ function cancelrow(target){
 	$('#competicion-datagrid').datagrid('cancelEdit', getRowIndex(target));
 }
 //- botones del panel de entrada de datos
-addTooltip($('#competicion-reloadBtn').linkbutton(),"Recargar datos de competicion de la manga");
-addTooltip($('#competicion-resetBtn').linkbutton(),"Poner a cero todos los resultados de la manga");
-addTooltip($('#competicion-printBtn').linkbutton(),"Imprimir formulario ayudante de pista");
-addTooltip($('#competicion-autoUpdateBtn'),"(Des)activar actualizacion periodica de los datos");
-addTooltip($('#competicion-search'),"Buscar una entrada por dorsal");
+addTooltip($('#competicion-reloadBtn').linkbutton(),'<?php _e("Reload competition data on this round"); ?>');
+addTooltip($('#competicion-resetBtn').linkbutton(),'<?php _e("Delete every competitors data on this round"); ?>');
+addTooltip($('#competicion-printBtn').linkbutton(),'<?php _e("Print judge assistant forms"); ?>');
+addTooltip($('#competicion-autoUpdateBtn'),'<?php _e("(de)activate periodic refresh of results for this round"); ?>');
+addTooltip($('#competicion-search'),'<?php _e("Search a competitor by entering dorsal"); ?>');
 
 // key handling
 $('#competicion-datagrid').datagrid('getPanel').panel('panel').attr('tabindex',0).bind('keydown',competicionKeyEventHandler);
