@@ -215,7 +215,7 @@ $config =Config::getInstance();
         validType: 'length[1,255]'
     });
 
-	addTooltip($('#jornadas-okBtn').linkbutton(),'<?php _e("Register journey into database"); ?>';
+	addTooltip($('#jornadas-okBtn').linkbutton(),'<?php _e("Register journey into database"); ?>');
 	addTooltip($('#jornadas-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
     
 </script>
