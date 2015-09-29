@@ -75,7 +75,7 @@ class Pruebas extends DBObject {
             // retrieve ID of inserted default team and insert into newly created jornada
             // stupid loop, I know, but needed to preserve foreign keys integrity
             $teamid=$this->conn->insert_id;
-            $str="UPDATE Jornadas SET Default_Team=$teamid WHERE (Jornada=$jornadaid)";
+            $str="UPDATE Jornadas SET Default_Team=$teamid WHERE (ID=$jornadaid)";
 			$res=$this->query($str);
 			if (!$res) return $this->error($this->conn->error);
 		}
