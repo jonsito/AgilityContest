@@ -1,6 +1,6 @@
 KNOWN_BUGS
-- Change single inscription should preserve non modified data
-- Unfinished rounds relies in printing failures. Warn to complete pending dogs before printing
+- Update process is a very slow process, due to online download of zipfile.
+  Need to be able to update from local previously loaded file
 
 WISH_LIST
 - Add Time of 1st competitor to LiveStream OSD
@@ -9,9 +9,11 @@ WISH_LIST
 - Optimize tablet rounds deployment
 
 TODO
-- Continue team works
+- KO rounds
+- rounds with more than 2 series
+- Easy contest data import from excel files
+- Update wizard window
 - Continue i18n
-- Prepare internet access
 - i18n must be client-aware
 - Write videowall sequencing code
 - Fix authentication from electronic chrono

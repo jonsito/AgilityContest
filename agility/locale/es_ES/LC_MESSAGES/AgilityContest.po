@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-29 23:42+0200\n"
-"PO-Revision-Date: 2015-09-29 23:42+0200\n"
-"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2015-09-30 09:47+0200\n"
+"PO-Revision-Date: 2015-09-30 09:47+0200\n"
+"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -335,7 +335,8 @@ msgstr "Ring"
 
 #: chrono/index.php:105 console/frm_equipos.php:98
 #: console/frm_inscripciones.php:41 console/frm_login.php:63
-#: console/frm_logout.php:35 tablet/tablet_main.php:58 videowall/index.php:197
+#: console/frm_logout.php:35 console/frm_myAdmin.php:65
+#: tablet/tablet_main.php:58 videowall/index.php:197
 #: console/dialogs/dlg_clubes.inc:138
 #: console/dialogs/dlg_editInscripcion.inc:90
 #: console/dialogs/dlg_ordentandas.inc:79
@@ -804,7 +805,8 @@ msgstr "Editar usuario"
 msgid "Delete user"
 msgstr "Borrar usuario"
 
-#: console/frm_admin.php:50 console/frm_login.php:45 tablet/index.php:136
+#: console/frm_admin.php:50 console/frm_login.php:45
+#: console/frm_myAdmin.php:55 tablet/index.php:136
 #: console/dialogs/dlg_usuarios.inc:58
 msgid "Password"
 msgstr "Contrase&ntilde;a"
@@ -1494,9 +1496,10 @@ msgstr "Hecho"
 
 #: console/frm_equipos.php:100 console/frm_inscripciones.php:43
 #: console/frm_login.php:65 console/frm_logout.php:37
-#: tablet/tablet_main.php:59 console/dialogs/dlg_chguias.inc:72
-#: console/dialogs/dlg_chperros.inc:87 console/dialogs/dlg_clubes.inc:41
-#: console/dialogs/dlg_clubes.inc:140 console/dialogs/dlg_competicion.inc:129
+#: console/frm_myAdmin.php:67 tablet/tablet_main.php:59
+#: console/dialogs/dlg_chguias.inc:72 console/dialogs/dlg_chperros.inc:87
+#: console/dialogs/dlg_clubes.inc:41 console/dialogs/dlg_clubes.inc:140
+#: console/dialogs/dlg_competicion.inc:129
 #: console/dialogs/dlg_editInscripcion.inc:88 console/dialogs/dlg_guias.inc:62
 #: console/dialogs/dlg_jornadas.inc:121 console/dialogs/dlg_jueces.inc:86
 #: console/dialogs/dlg_ordentandas.inc:81 console/dialogs/dlg_perros.inc:84
@@ -1879,6 +1882,67 @@ msgstr "Cerrar Sesi&oacute;n actual"
 msgid "Cancel logout. Close window"
 msgstr "Cancelar fin de sesi&oacute;n. Cerrar ventana"
 
+#: console/frm_myAdmin.php:31 scripts/inscripciones.js.php:88
+#: scripts/pruebas.js.php:133 scripts/pruebas.js.php:188
+#: console/dialogs/dlg_perros.inc:72
+msgid "Notice"
+msgstr "Aviso"
+
+#: console/frm_myAdmin.php:34
+msgid "Direct database access is a delicate operation"
+msgstr "El manejo directo de la base de datos es una operaci&oacute;n delicada"
+
+#: console/frm_myAdmin.php:35
+msgid ""
+"and should be performed <br />by people with <em>real</em> knowledge about "
+"AgilityContest internals"
+msgstr ""
+"que solo deber&iacute;a ser realizada<br/> por gente con conocimiento "
+"<em>real</em> del funcionamiento de AgilityContest"
+
+#: console/frm_myAdmin.php:39
+msgid ""
+"Incorrect handing of database contents may result in data loss and "
+"inconsistencies"
+msgstr ""
+"El manejo incorrecto de la base de datos puede derivar en p&eacute;rdida de "
+"datos e inconsistencias"
+
+#: console/frm_myAdmin.php:40
+msgid "and let the application un-usable"
+msgstr "y dejar la aplicacion inutilizable"
+
+#: console/frm_myAdmin.php:43
+msgid ""
+"Please provide username and password for an user with<em> admin permissions</"
+"em> to continue"
+msgstr ""
+"Por favor, indique nombre de usuario y contrase&ntilde;a  de un usuario con "
+"permisos de administraci&oacute;n  para continuar"
+
+#: console/frm_myAdmin.php:50
+msgid "Admin user"
+msgstr "Usuario administrador"
+
+#: console/frm_myAdmin.php:74 console/index.php:194
+msgid "Direct DB Access"
+msgstr "Acceso directo a BBDD"
+
+#: console/frm_myAdmin.php:90
+msgid "Validate user. Open phpMyAdmin database manager panel"
+msgstr "Validar usuario. Abrir consola de gesti&oacute;n de BBDD phpMyAdmin"
+
+#: console/frm_myAdmin.php:91 console/frm_registration.php:103
+#: console/dialogs/dlg_chguias.inc:82 console/dialogs/dlg_chperros.inc:100
+#: console/dialogs/dlg_clubes.inc:148 console/dialogs/dlg_clubes.inc:150
+#: console/dialogs/dlg_guias.inc:79 console/dialogs/dlg_jornadas.inc:219
+#: console/dialogs/dlg_jueces.inc:123 console/dialogs/dlg_ordentandas.inc:189
+#: console/dialogs/dlg_perros.inc:103 console/dialogs/dlg_pruebas.inc:108
+#: console/dialogs/dlg_sesiones.inc:88 console/dialogs/dlg_usuarios.inc:104
+#: console/dialogs/dlg_usuarios.inc:107
+msgid "Cancel operation. Close window"
+msgstr "Cancelar operaci&oacute;n. Cerrar ventana"
+
 #: console/frm_perros.php:35 scripts/perros.js.php:38
 #: console/dialogs/dlg_newInscripcion.inc:90
 msgid "New dog"
@@ -2065,16 +2129,6 @@ msgstr "Cerrar"
 msgid "Import license file into application"
 msgstr "Importar fichero de licencia en la aplicaci&oacute;n"
 
-#: console/frm_registration.php:103 console/dialogs/dlg_chguias.inc:82
-#: console/dialogs/dlg_chperros.inc:100 console/dialogs/dlg_clubes.inc:148
-#: console/dialogs/dlg_clubes.inc:150 console/dialogs/dlg_guias.inc:79
-#: console/dialogs/dlg_jornadas.inc:219 console/dialogs/dlg_jueces.inc:123
-#: console/dialogs/dlg_ordentandas.inc:189 console/dialogs/dlg_perros.inc:103
-#: console/dialogs/dlg_pruebas.inc:108 console/dialogs/dlg_sesiones.inc:88
-#: console/dialogs/dlg_usuarios.inc:104 console/dialogs/dlg_usuarios.inc:107
-msgid "Cancel operation. Close window"
-msgstr "Cancelar operaci&oacute;n. Cerrar ventana"
-
 #: console/index.php:160
 msgid "Operations Menu"
 msgstr "Men&uacute; de operaciones"
@@ -2168,10 +2222,6 @@ msgstr "HERRAMIENTAS"
 #: console/index.php:193
 msgid "Configuration"
 msgstr "Administraci&oacute;n"
-
-#: console/index.php:194
-msgid "Direct DB Access"
-msgstr "Acceso directo a BBDD"
 
 #: console/index.php:197
 msgid "DOCUMENTATION"
@@ -2570,8 +2620,8 @@ msgid "End session"
 msgstr "Finalizar Sesi&oacute;n"
 
 #: scripts/auth.js.php:43
-msgid "Direct access to DataBase"
-msgstr "Acceso directo a la base de datos"
+msgid "Direct database access"
+msgstr "Acceso directo a Base de Datos"
 
 #: scripts/auth.js.php:50
 msgid "There is no user chosen"
@@ -2940,11 +2990,6 @@ msgstr "No seleccionado"
 #: scripts/inscripciones.js.php:43 scripts/inscripciones.js.php:84
 msgid "There is no inscription(s) selected"
 msgstr "No hay ninguna inscripci&oacute;n seleccionada"
-
-#: scripts/inscripciones.js.php:88 scripts/pruebas.js.php:133
-#: scripts/pruebas.js.php:188 console/dialogs/dlg_perros.inc:72
-msgid "Notice"
-msgstr "Aviso"
 
 #: scripts/inscripciones.js.php:89
 msgid "If you delete this inscription"
@@ -4601,6 +4646,9 @@ msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
 #: console/dialogs/dlg_usuarios.inc:106
 msgid "Change password"
 msgstr "Cambiar la contrase&ntilde;a"
+
+#~ msgid "Direct access to DataBase"
+#~ msgstr "Acceso directo a la base de datos"
 
 #~ msgid "Comprobar equipos. Indicar los problemas encontrados"
 #~ msgstr "Comprobar equipos. Indicar los problemas encontrados"

@@ -40,7 +40,7 @@ function showLoginWindow() {
 
 function showMyAdminWindow() {
 	$('#myAdmin-window').remove();
-	loadContents('/agility/console/frm_myAdmin.php','<?php _e('Direct access to DataBase');?>');
+	loadContents('/agility/console/frm_myAdmin.php','<?php _e('Direct database access');?>');
 }
 
 function acceptLogin() {
