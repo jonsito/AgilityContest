@@ -26,6 +26,7 @@ header('Set-Cookie: fileDownload=true; path=/');
 
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Clubes.php');
 require_once(__DIR__.'/../database/classes/Pruebas.php');
@@ -45,6 +46,7 @@ class CSV  {
 	protected $manga2;
 	protected $resultados;
 	protected $icon;
+	protected $config;
 	
 	 /** Constructor
 	 * @param {obj} $manga datos de la manga
@@ -53,6 +55,7 @@ class CSV  {
 	 */
 	function __construct($prueba,$jornada,$mangas,$resultados) {
 		$this->myLogger= new Logger("print_etiquetas_csv");
+		$this->config=Config::getInstance();
 		$dbobj=new DBObject("print_etiquetas_pdf");
 		$this->prueba=$dbobj->__getObject("Pruebas",$prueba);
 		$this->club=$dbobj->__getObject("Clubes",$this->prueba->Club);
@@ -67,9 +70,9 @@ class CSV  {
 	
 	// No tenemos cabecera: no cabe
 	function writeHeader() {
-		$str ="Dorsal:Prueba:Fecha:Licencia:Nombre:Guia:Club:Categoria:Grado:";
-		$str.="TipoManga1:Penalizacion1:Calificacion1:Puesto1:";
-		$str.="TipoManga2:Penalizacion2:Calificacion2:Puesto2";
+		$str =_("Dorsal:Contest:Date:License:Name:Handler:Club:Category:Grade:");
+		$str.=_("Round1:Penalization1:Calification1:Position1:");
+		$str.=_("Round2:Penalization2:Calification2:Position2");
 		$str.="\n";
 		return $str;
 	}
@@ -132,7 +135,7 @@ try {
 	$dbobj=new DBObject("print_etiquetas_csv");
 	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
 	$prb=$dbobj->__getObject("Pruebas",$prueba);
-	$c= new Clasificaciones("print_podium_pdf",$prueba,$jornada);
+	$c= new Clasificaciones("print_etiquetas_csv",$prueba,$jornada);
 	$result=array();
 	$rsce=($prb->RSCE==0)?true:false;
 	switch($mng->Recorrido) {

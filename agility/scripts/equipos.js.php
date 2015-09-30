@@ -131,7 +131,7 @@ function printTeams(datagrid) {
             }
             str+=checkTeamsCompose(data['more'],'<?php _e('Teams with excess dogs'); ?>');
             str+=checkTeamsCompose(data['less'],'<?php _e('Incomplete teams'); ?>');
-            str+="<p><em>Imprimir de todos modos?</em></p>";
+            str+="<p><em><?php _e('Print anyway'); ?>?</em></p>";
             // si hay errores presentamos alerta y preguntamos si se quiere continuar
             if (data['more'].length>0) flag=true;
             if (data['less'].length>0) flag=true;

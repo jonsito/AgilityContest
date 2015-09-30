@@ -27,6 +27,7 @@ header('Set-Cookie: fileDownload=true; path=/');
 
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Clubes.php');
 require_once(__DIR__.'/../database/classes/Pruebas.php');
@@ -44,6 +45,7 @@ class Excel {
 	protected $jornada;
 	protected $manga1;
 	protected $manga2; // in RSCE excel must allways exists (no single round)
+	protected $myConfig;
 
 	 /** Constructor
 	 * @param {obj} $manga datos de la manga
@@ -51,13 +53,14 @@ class Excel {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$jornada,$mangas) {
-		$this->myLogger= new Logger("PrintExcel");
-		$this->dbobj=new DBObject("print_clasificacion_excel");
-		$this->prueba	=$this->dbobj->__getObject("Pruebas",$prueba);
-		$this->club		=$this->dbobj->__getObject("Clubes",$this->prueba->Club); // club organizador
-		$this->jornada	=$this->dbobj->__getObject("Jornadas",$jornada);
-		$this->manga1	=$this->dbobj->__getObject("Mangas",$mangas[0]);
-		$this->manga2	=$this->dbobj->__getObject("Mangas",$mangas[1]);
+		$this->myLogger	= new Logger("PrintExcel");
+		$this->dbobj	= new DBObject("print_clasificacion_excel");
+		$this->prueba	= $this->dbobj->__getObject("Pruebas",$prueba);
+		$this->club		= $this->dbobj->__getObject("Clubes",$this->prueba->Club); // club organizador
+		$this->jornada	= $this->dbobj->__getObject("Jornadas",$jornada);
+		$this->manga1	= $this->dbobj->__getObject("Mangas",$mangas[0]);
+		$this->manga2	= $this->dbobj->__getObject("Mangas",$mangas[1]);
+		$this->myConfig = Config::getInstance();
 	}
 	
 	// This one makes the beginning of the xls file
@@ -90,15 +93,15 @@ class Excel {
 	function write_pageHeader($prueba,$jornada,$mangas) {
 		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
 		// starts at 0
-		$this->xlsLabel(0,0,"Prueba");
+		$this->xlsLabel(0,0,_("Contest"));
 		$this->xlsLabel(0,1,iconv( "UTF-8", "ISO-8859-1",$this->prueba->Nombre));
-		$this->xlsLabel(1,0,"Club");
+		$this->xlsLabel(1,0,_("Club"));
 		$this->xlsLabel(1,1,iconv( "UTF-8", "ISO-8859-1",$this->club->Nombre));
-		$this->xlsLabel(2,0,"Jornada");
+		$this->xlsLabel(2,0,_("Journey"));
 		$this->xlsLabel(2,1,iconv( "UTF-8", "ISO-8859-1",$this->jornada->Nombre));
-		$this->xlsLabel(3,0,"Fecha");
+		$this->xlsLabel(3,0,_("Date"));
 		$this->xlsLabel(3,1,$this->jornada->Fecha);
-		$this->xlsLabel(4,0,"Ronda");
+		$this->xlsLabel(4,0,("Round"));
 		$this->xlsLabel(4,1, iconv("UTF-8", "ISO-8859-1",$ronda));
 		return 5;
 	}
@@ -113,26 +116,26 @@ class Excel {
 		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $categoria;
 		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $categoria;
 		
-		$this->xlsLabel($row,0,"Juez 1");
+		$this->xlsLabel($row,0,_("Judge")." 1");
 			$this->xlsLabel($row,1,iconv( "UTF-8", "ISO-8859-1",($j1==="-- Sin asignar --")?"":$j1));
-		$this->xlsLabel($row+1,0,"Juez 2");
+		$this->xlsLabel($row+1,0,_("Judge")." 2");
 			$this->xlsLabel($row+1,1,iconv( "UTF-8", "ISO-8859-1",($j2==="-- Sin asignar --")?"":$j2));
-		$this->xlsLabel($row+2,0,"Manga 1");
+		$this->xlsLabel($row+2,0,_("Round")." 1");
 			$trs=$result['trs1'];
 			$this->xlsLabel($row+2,1,$tm1);
-			$this->xlsLabel($row+2,2,"Dist.: {$trs['dist']}m");
-			$this->xlsLabel($row+2,3,"Obst.: {$trs['obst']}");
-			$this->xlsLabel($row+2,4,"TRS: {$trs['trs']}s");
-			$this->xlsLabel($row+2,5,"TRM: {$trs['trm']}s");
-			$this->xlsLabel($row+2,6,"Vel.: {$trs['vel']}m/s");
-		$this->xlsLabel($row+3,0,"Manga 2");
+			$this->xlsLabel($row+2,2,_("Dist").".: {$trs['dist']}m");
+			$this->xlsLabel($row+2,3,_("Obst").".: {$trs['obst']}");
+			$this->xlsLabel($row+2,4,_("SCT").": {$trs['trs']}s");
+			$this->xlsLabel($row+2,5,_("MCT").": {$trs['trm']}s");
+			$this->xlsLabel($row+2,6,_("Vel").".: {$trs['vel']}m/s");
+		$this->xlsLabel($row+3,0,_("Round")." 2");
 			$trs=$result['trs2'];
 			$this->xlsLabel($row+3,1,$tm2);
-			$this->xlsLabel($row+3,2,"Dist.: {$trs['dist']}m");
-			$this->xlsLabel($row+3,3,"Obst.: {$trs['obst']}");
-			$this->xlsLabel($row+3,4,"TRS: {$trs['trs']}s");
-			$this->xlsLabel($row+3,5,"TRM: {$trs['trm']}s");
-			$this->xlsLabel($row+3,6,"Vel.: {$trs['vel']}m/s");
+			$this->xlsLabel($row+3,2,_("Dist").".: {$trs['dist']}m");
+			$this->xlsLabel($row+3,3,_("Obst").".: {$trs['obst']}");
+			$this->xlsLabel($row+3,4,_("SCT").": {$trs['trs']}s");
+			$this->xlsLabel($row+3,5,_("MCT").": {$trs['trm']}s");
+			$this->xlsLabel($row+3,6,_("Vel").".: {$trs['vel']}m/s");
 		return $row+4;
 	}
 	
@@ -141,35 +144,35 @@ class Excel {
 		// primera cabecera
 		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
 		$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
-		$this->xlsLabel($base,0,"Datos del participante");
+		$this->xlsLabel($base,0,_("Competitor data"));
 		$this->xlsLabel($base,7,$tm1);
 		$this->xlsLabel($base,13,$tm2);
-		$this->xlsLabel($base,19,"Clasificacion");
+		$this->xlsLabel($base,19,_("Scores"));
 		
 		$base++; // segunda cabecera
-		$this->xlsLabel($base,0,"Dorsal");
-		$this->xlsLabel($base,1,"Nombre");
-		$this->xlsLabel($base,2,"Licencia");
-		$this->xlsLabel($base,3,"Categoria");
-		$this->xlsLabel($base,4,"Grado");
-		$this->xlsLabel($base,5,"Guia");
-		$this->xlsLabel($base,6,"Club");
-		$this->xlsLabel($base,7,"Faltas");
-		$this->xlsLabel($base,8,"Rehuses");
-		$this->xlsLabel($base,9,"Tiempo");
-		$this->xlsLabel($base,10,"Velocidad");
-		$this->xlsLabel($base,11,"Penalizacion");
-		$this->xlsLabel($base,12,"Calificacion");
-		$this->xlsLabel($base,13,"Faltas");
-		$this->xlsLabel($base,14,"Rehuses");
-		$this->xlsLabel($base,15,"Tiempo");
-		$this->xlsLabel($base,16,"Velocidad");
-		$this->xlsLabel($base,17,"Penalizacion");
-		$this->xlsLabel($base,18,"Calificacion");
-		$this->xlsLabel($base,19,"Tiempo");
-		$this->xlsLabel($base,20,"Penalizacion");
-		$this->xlsLabel($base,21,"Calificacion");
-		$this->xlsLabel($base,22,"Puesto");
+		$this->xlsLabel($base,0,_("Dorsal"));
+		$this->xlsLabel($base,1,_("Name"));
+		$this->xlsLabel($base,2,_("License"));
+		$this->xlsLabel($base,3,_("Category"));
+		$this->xlsLabel($base,4,_("Grade"));
+		$this->xlsLabel($base,5,_("Handler"));
+		$this->xlsLabel($base,6,_("Club"));
+		$this->xlsLabel($base,7,_("Faults"));
+		$this->xlsLabel($base,8,_("Refusals"));
+		$this->xlsLabel($base,9,_("Time"));
+		$this->xlsLabel($base,10,_("Speed"));
+		$this->xlsLabel($base,11,_("Penaliz"));
+		$this->xlsLabel($base,12,_("Score"));
+		$this->xlsLabel($base,13,_("Faults"));
+		$this->xlsLabel($base,14,_("Refusals"));
+		$this->xlsLabel($base,15,_("Time"));
+		$this->xlsLabel($base,16,_("Speed"));
+		$this->xlsLabel($base,17,_("Penaliz"));
+		$this->xlsLabel($base,18,_("Score"));
+		$this->xlsLabel($base,19,_("Time"));
+		$this->xlsLabel($base,20,_("Penaliz"));
+		$this->xlsLabel($base,21,_("Score"));
+		$this->xlsLabel($base,22,_("Position"));
 		return $base+1;
 	}
 	

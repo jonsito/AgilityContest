@@ -81,12 +81,12 @@ class EquiposByJornada extends PrintCommon {
         }
         // finalmente internacionalizamos cabeceras
 		$this->cellHeader = 
-				array(_('Dorsal'),_('Nombre'),_('Raza'),_('Lic.'),_('Cat.'),_('Guía'),_('Club'),_('Celo'),_('Observaciones'));
+				array(_('Dorsal'),_('Name'),_('Breed'),_('Lic'),_('Cat'),_('Handler'),_('Club'),_('Heat'),_('Comments'));
 	}
 	
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader(_("Listado de Equipos"));
+		$this->print_commonHeader(_("List of teams"));
         // pintamos "identificacion de la manga"
         $this->SetFont('Arial','B',12); // Arial bold 15
         $str  = "Jornada: ". $this->jornada->Nombre . " - " . $this->jornada->Fecha;
@@ -111,16 +111,16 @@ class EquiposByJornada extends PrintCommon {
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
-        $this->SetXY(10,45+6*$rowcount);
-		$this->ac_header(1,18);
-        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),12),"LT",0,'C',($logos[0]==='null.png')?true:false);
-        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX(),$this->getY(),12),"T",0,'C',($logos[1]==='null.png')?true:false);
-        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX(),$this->getY(),12),"T",0,'C',($logos[2]==='null.png')?true:false);
-        $this->Cell(12,12,$this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX(),$this->getY(),12),"T",0,'C',($logos[3]==='null.png')?true:false);
-        $this->Cell(132,12,$team['Nombre'],'T',0,'R',true);
-        $this->Cell(10,12,'','TR',0,'R',true); // empty space at right of page
+        $this->SetXY(10,45+5*$rowcount);
+		$this->ac_header(1,17);
+        $this->Cell(10,9,$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),9),"LT",0,'C',($logos[0]==='null.png')?true:false);
+        $this->Cell(10,9,$this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX(),$this->getY(),9),"T",0,'C',($logos[1]==='null.png')?true:false);
+        $this->Cell(10,9,$this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX(),$this->getY(),9),"T",0,'C',($logos[2]==='null.png')?true:false);
+        $this->Cell(10,9,$this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX(),$this->getY(),9),"T",0,'C',($logos[3]==='null.png')?true:false);
+        $this->Cell(140,9,$team['Nombre'],'T',0,'R',true);
+        $this->Cell(10,9,'','TR',0,'R',true); // empty space at right of page
         $this->Ln();
-        $this->ac_header(2,9);
+        $this->ac_header(2,8);
         for($i=0;$i<count($this->cellHeader);$i++) {
             // en la cabecera texto siempre centrado
             $this->Cell($this->pos[$i],6,$this->cellHeader[$i],1,0,'C',true);
@@ -150,25 +150,25 @@ class EquiposByJornada extends PrintCommon {
             $miembros=$equipo['Perros'];
             $num=count($miembros);
             if ($num==0) continue; // skip empty teams
-            // check for need newpage.
-            if ( ($rowcount+3+$num) >40 ) $rowcount=0; // BUG: assume that num is allways less than 34
+            // check for need newpage. each row has 5mm,so can handle up to 47 rows
+            if ( ($rowcount+3+$num) >47 ) $rowcount=0;  // teamheader takes 3 rows
             if ($rowcount==0) $this->AddPage();
             $rowcount=$this->printTeamInformation($rowcount,$equipo);
             foreach($miembros as $row) {
                 $this->ac_SetFillColor( (($order&0x01)==0)?$bg1:$bg2);
-    			$this->Cell($this->pos[0],6,$row['Dorsal'],		'LR',0,$this->align[0],true);
-                $this->SetFont('Arial','B',11); // bold 9px
-                $this->Cell($this->pos[1],6,$row['Nombre'],		'LR',0,$this->align[1],true);
-                $this->SetFont('Arial','',9); // remove bold 9px
-                $this->Cell($this->pos[2],6,$row['Raza'],		'LR',0,$this->align[2],true);
+    			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',0,$this->align[0],true);
+                $this->SetFont('Arial','B',10); // bold 9px
+                $this->Cell($this->pos[1],5,$row['Nombre'],		'LR',0,$this->align[1],true);
+                $this->SetFont('Arial','',8); // remove bold 9px
+                $this->Cell($this->pos[2],5,$row['Raza'],		'LR',0,$this->align[2],true);
                 if ($this->federation->getFederation()==1) $this->SetFont('Arial','',7);
-                $this->Cell($this->pos[3],6,$row['Licencia'],	'LR',0,$this->align[3],true);
-                $this->SetFont('Arial','',9); // remove bold 9px
-                $this->Cell($this->pos[4],6,$this->cat[$row['Categoria']],	'LR',0,$this->align[4],true);
-    			$this->Cell($this->pos[5],6,$row['NombreGuia'],	'LR',0,$this->align[5],true);
-    			$this->Cell($this->pos[6],6,$row['NombreClub'],	'LR',0,$this->align[6],true);
-    			$this->Cell($this->pos[7],6,($row['Celo']==0)?"":_("Celo"),	'LR',0,$this->align[7],true);
-    			$this->Cell($this->pos[8],6,/*$row['Observaciones']*/ "",'LR',0,$this->align[8],true);
+                $this->Cell($this->pos[3],5,$row['Licencia'],	'LR',0,$this->align[3],true);
+                $this->SetFont('Arial','',8); // restore normal size after rfec license
+                $this->Cell($this->pos[4],5,$this->cat[$row['Categoria']],	'LR',0,$this->align[4],true);
+    			$this->Cell($this->pos[5],5,$row['NombreGuia'],	'LR',0,$this->align[5],true);
+    			$this->Cell($this->pos[6],5,$row['NombreClub'],	'LR',0,$this->align[6],true);
+    			$this->Cell($this->pos[7],5,($row['Celo']==0)?"":_("Celo"),	'LR',0,$this->align[7],true);
+    			$this->Cell($this->pos[8],5,/*$row['Observaciones']*/ "",'LR',0,$this->align[8],true);
     			$this->Ln();
     			$order++;
                 $rowcount++;
