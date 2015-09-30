@@ -45,9 +45,9 @@ class PrintClasificacionEq4 extends PrintCommon {
     protected $defaultPerro = array( // participante por defecto para garantizar que haya 4perros/equipo
         'Dorsal' => '-',
         'Perro' => 0,
-        'Nombre' => 'No inscrito',
-        'NombreGuia' => 'No inscrito',
-        'NombreClub' => 'No inscrito',
+        'Nombre' => '-',
+        'NombreGuia' => '-',
+        'NombreClub' => '-',
         'Licencia' => '-',
         'Categoria' => '-','Grado' => '-',
         'F1' => 0, 'T1' => 0, 'R1' => 0, 'P1' => 0, 'V1' => 0, 'C1' => '',
@@ -55,8 +55,8 @@ class PrintClasificacionEq4 extends PrintCommon {
         'Tiempo' => '0.0',
         'Velocidad' => '0.0',
         'Penalizacion' => 400.0,
-        'Calificacion' => 'No inscrito',
-        'CShort' => 'No inscrito',
+        'Calificacion' => '-',
+        'CShort' => '-',
         'Puesto' => '-'
     );
 
@@ -161,38 +161,38 @@ class PrintClasificacionEq4 extends PrintCommon {
             $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->cat[$this->categoria];
 
         $this->SetFont('Arial','B',11); // bold 9px
-        $this->Cell(80,5,"Jornada: {$this->jornada->Nombre}",0,0,'',false);
+        $this->Cell(80,5,_("Journey").": {$this->jornada->Nombre}",0,0,'',false);
         $this->SetFont('Arial','B',9); // bold 9px
-        $this->Cell(20,5,"Juez 1:","LT",0,'L',false);
+        $this->Cell(20,5,_("Judge")." 1:","LT",0,'L',false);
         $n=$juez1['Nombre'];
         $this->Cell(75,5,($n==="-- Sin asignar --")?"":$n,"T",0,'L',false);
-        $this->Cell(20,5,"Juez 2:","T",0,'L',false);
+        $this->Cell(20,5,_("Judge")." 2:","T",0,'L',false);
         $n=$juez2['Nombre'];
         $this->Cell(80,5,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
         $this->Ln();
         $trs=$this->trs1;
         $this->SetFont('Arial','B',11); // bold 9px
-        $this->Cell(80,5,"Fecha: {$this->jornada->Fecha}",0,0,'',false);
+        $this->Cell(80,5,_("Date").": {$this->jornada->Fecha}",0,0,'',false);
         $this->SetFont('Arial','B',9); // bold 9px
         $this->Cell(70,5,$tm1,"LTB",0,'L',false);
-        $this->Cell(25,5,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
-        $this->Cell(25,5,"Obst.: {$trs['obst']}","LTB",0,'L',false);
-        $this->Cell(25,5,"TRS: {$trs['trs']}s","LTB",0,'L',false);
-        $this->Cell(25,5,"TRM: {$trs['trm']}s","LTB",0,'L',false);
-        $this->Cell(25,5,"Vel.: {$trs['vel']}m/s","LTRB",0,'L',false);
+        $this->Cell(25,5,_("Dist").".: {$trs['dist']}m","LTB",0,'L',false);
+        $this->Cell(25,5,_("Obst").".: {$trs['obst']}","LTB",0,'L',false);
+        $this->Cell(25,5,_("SCT").": {$trs['trs']}s","LTB",0,'L',false);
+        $this->Cell(25,5,_("MCT").": {$trs['trm']}s","LTB",0,'L',false);
+        $this->Cell(25,5,_("Vel").".: {$trs['vel']}m/s","LTRB",0,'L',false);
         $this->Ln();
         if ($this->trs2==null) { $this->Ln(); return; }
         $trs=$this->trs2;
         $ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
         $this->SetFont('Arial','B',11); // bold 9px
-        $this->Cell(80,5,"Ronda: $ronda - {$this->cat[$this->categoria]}",0,0,'',false);
+        $this->Cell(80,5,_("Round").": $ronda - {$this->cat[$this->categoria]}",0,0,'',false);
         $this->SetFont('Arial','B',9); // bold 9px
         $this->Cell(70,5,$tm2,"LTB",0,'L',false);
-        $this->Cell(25,5,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
-        $this->Cell(25,5,"Obst.: {$trs['obst']}","LTB",0,'L',false);
-        $this->Cell(25,5,"TRS: {$trs['trs']}s","LTB",0,'L',false);
-        $this->Cell(25,5,"TRM: {$trs['trm']}s","LTB",0,'L',false);
-        $this->Cell(25,5,"Vel.: {$trs['vel']}m/s","LTBR",0,'L',false);
+        $this->Cell(25,5,_("Dist").".: {$trs['dist']}m","LTB",0,'L',false);
+        $this->Cell(25,5,_("Obst").".: {$trs['obst']}","LTB",0,'L',false);
+        $this->Cell(25,5,_("SCT").": {$trs['trs']}s","LTB",0,'L',false);
+        $this->Cell(25,5,_("MCT").": {$trs['trm']}s","LTB",0,'L',false);
+        $this->Cell(25,5,_("Vel").".: {$trs['vel']}m/s","LTBR",0,'L',false);
         $this->Ln();
     }
 
@@ -209,7 +209,7 @@ class PrintClasificacionEq4 extends PrintCommon {
     }
 
     function Header() {
-        $this->print_commonHeader(_("Clasificación Final"));
+        $this->print_commonHeader(_("Final scores"));
         if ($this->PageNo()==1) $this->print_datosMangas();
         else $this->print_datosMangas2();
     }
@@ -272,7 +272,7 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->Cell(2,3,"",'TR',0,'C',true);
         $this->Cell(88,3,$tm2,'TRB',0,'C',true);
         $this->Cell(2,3,"",'TR',0,'C',true);
-        $this->Cell(35,3,"Clasificacion Final",'TRB',0,'C',true);
+        $this->Cell(35,3,_("Final scores"),'TRB',0,'C',true);
         $this->Ln();
         // caja de faltas/rehuses/tiempos
         $this->ac_SetFillColor("#ffffff"); // white background
@@ -298,23 +298,23 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->SetXY(70,8+$y);
         // manga 1
         $this->SetFont('Arial','I',7); // italic 7px
-        $this->Cell(12.5,2.5,"Flt",0,0,'L',false);
-        $this->Cell(12.5,2.5,"Reh",0,0,'L',false);
-        $this->Cell(12.5,2.5,"Elim",0,0,'L',false);
-        $this->Cell(12.5,2.5,"N.P.",0,0,'L',false);
-        $this->Cell(20,2.5,"Tiempo",0,0,'L',false);
-        $this->Cell(20,2.5,"Penaliz.",0,0,'L',false);
+        $this->Cell(12.5,2.5,_("Flt"),0,0,'L',false);
+        $this->Cell(12.5,2.5,_("Ref"),0,0,'L',false);
+        $this->Cell(12.5,2.5,_("Elim"),0,0,'L',false);
+        $this->Cell(12.5,2.5,_("N.P."),0,0,'L',false);
+        $this->Cell(20,2.5,_("Time"),0,0,'L',false);
+        $this->Cell(20,2.5,_("Penaliz"),0,0,'L',false);
         // manga 2
         $this->SetFont('Arial','I',8); // italic 8px
-        $this->Cell(12.5,2.5,"Flt",0,0,'L',false);
-        $this->Cell(12.5,2.5,"Reh",0,0,'L',false);
-        $this->Cell(12.5,2.5,"Elim",0,0,'L',false);
-        $this->Cell(12.5,2.5,"N.P.",0,0,'L',false);
-        $this->Cell(20,2.5,"Tiempo",0,0,'L',false);
-        $this->Cell(20,2.5,"Penaliz.",0,0,'L',false);
+        $this->Cell(12.5,2.5,_("Flt"),0,0,'L',false);
+        $this->Cell(12.5,2.5,_("Ref"),0,0,'L',false);
+        $this->Cell(12.5,2.5,_("Elim"),0,0,'L',false);
+        $this->Cell(12.5,2.5,_("N.P."),0,0,'L',false);
+        $this->Cell(20,2.5,_("Time"),0,0,'L',false);
+        $this->Cell(20,2.5,_("Penaliz"),0,0,'L',false);
         // final
-        $this->Cell(17,2.5,"Tiempo",'R',0,'L',true); // tiempo
-        $this->Cell(18,2.5,"Penaliz.",'R',0,'L',true); // Penalizacion
+        $this->Cell(17,2.5,_("Time"),'R',0,'L',true); // tiempo
+        $this->Cell(18,2.5,_("Penaliz"),'R',0,'L',true); // Penalizacion
 
         $this->SetXY(70,9+$y);
         $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2'));

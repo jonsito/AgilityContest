@@ -81,38 +81,38 @@ class PrintClasificacion extends PrintCommon {
 			$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria;
 
 		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(80,7,"Jornada: {$this->jornada->Nombre}",0,0,'',false);
+		$this->Cell(80,7,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
 		$this->SetFont('Arial','B',9); // bold 9px
-		$this->Cell(20,7,"Juez 1:","LT",0,'L',false);
+		$this->Cell(20,7,_('Judge')." 1:","LT",0,'L',false);
 		$n=$juez1['Nombre'];
 		$this->Cell(75,7,($n==="-- Sin asignar --")?"":$n,"T",0,'L',false);
-		$this->Cell(20,7,"Juez 2:","T",0,'L',false);
+		$this->Cell(20,7,_('Judge')." 2:","T",0,'L',false);
 		$n=$juez2['Nombre'];
 		$this->Cell(80,7,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
 		$this->Ln();
 		$trs=$this->trs1;
 		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(80,7,"Fecha: {$this->jornada->Fecha}",0,0,'',false);
+		$this->Cell(80,7,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
 		$this->SetFont('Arial','B',9); // bold 9px
 		$this->Cell(70,7,$tm1,"LTB",0,'L',false);
-		$this->Cell(25,7,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
-		$this->Cell(25,7,"Obst.: {$trs['obst']}","LTB",0,'L',false);
-		$this->Cell(25,7,"TRS: {$trs['trs']}s","LTB",0,'L',false);
-		$this->Cell(25,7,"TRM: {$trs['trm']}s","LTB",0,'L',false);
-		$this->Cell(25,7,"Vel.: {$trs['vel']}m/s","LTRB",0,'L',false);
+		$this->Cell(25,7,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
+		$this->Cell(25,7,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
+		$this->Cell(25,7,_('SCT').": {$trs['trs']}s","LTB",0,'L',false);
+		$this->Cell(25,7,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
+		$this->Cell(25,7,_('Vel').".: {$trs['vel']}m/s","LTRB",0,'L',false);
 		$this->Ln();
 		if ($this->trs2==null) { $this->Ln(); return; }
 		$trs=$this->trs2;
 		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
 		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(80,7,"Ronda: $ronda - {$this->categoria}",0,0,'',false);
+		$this->Cell(80,7,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
 		$this->SetFont('Arial','B',9); // bold 9px
 		$this->Cell(70,7,$tm2,"LTB",0,'L',false);
-		$this->Cell(25,7,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
-		$this->Cell(25,7,"Obst.: {$trs['obst']}","LTB",0,'L',false);
-		$this->Cell(25,7,"TRS: {$trs['trs']}s","LTB",0,'L',false);
-		$this->Cell(25,7,"TRM: {$trs['trm']}s","LTB",0,'L',false);
-		$this->Cell(25,7,"Vel.: {$trs['vel']}m/s","LTBR",0,'L',false);
+		$this->Cell(25,7,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
+		$this->Cell(25,7,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
+		$this->Cell(25,7,_('SCT').": {$trs['trs']}s","LTB",0,'L',false);
+		$this->Cell(25,7,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
+		$this->Cell(25,7,_('Vel').".: {$trs['vel']}m/s","LTBR",0,'L',false);
 		$this->Ln();
 	}
 
@@ -129,7 +129,7 @@ class PrintClasificacion extends PrintCommon {
 	}
 
 	function Header() {
-		$this->print_commonHeader(_("Clasificación Final"));
+		$this->print_commonHeader(_("Final scores"));
 	}
 	
 	// Pie de página: tampoco cabe
@@ -152,42 +152,42 @@ class PrintClasificacion extends PrintCommon {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// first row of table header
 		$this->SetFont('Arial','BI',12); // default font
-		$this->Cell(115,7,'Datos del participante',0,0,'L',true);
+		$this->Cell(115,7,_('Competitor data'),0,0,'L',true);
 		$this->Cell(57,7,$tm1,0,0,'C',true);
 		$this->Cell(57,7,$tm2,0,0,'C',true);
-		$this->Cell(46,7,'Clasificación',0,0,'C',true);
+		$this->Cell(46,7,_('Scores'),0,0,'C',true);
 		$this->ln();
 		$this->SetFont('Arial','',8); // default font
 		// datos del participante
-		$this->Cell(10,7,'Dorsal',0,0,'C',true); 	// dorsal
-		$this->Cell(($caza)?20:25,7,'Nombre',0,0,'C',true);	// nombre (20,y
-		$this->Cell(($caza)?30:15,7,'Lic.',0,0,'C',true);	// licencia
-		$this->Cell(10,7,'Cat./Gr.',0,0,'C',true);	// categoria/grado
-		$this->Cell(($caza)?30:35,7,'Guía',0,0,'C',true);	// nombreGuia
-		$this->Cell(($caza)?15:20,7,'Club',0,0,'C',true);	// nombreClub
+		$this->Cell(10,7,_('Dorsal'),0,0,'C',true); 	// dorsal
+		$this->Cell(($caza)?20:25,7,_('Name'),0,0,'C',true);	// nombre (20,y
+		$this->Cell(($caza)?30:15,7,_('Lic'),0,0,'C',true);	// licencia
+		$this->Cell(10,7,_('Cat/Gr'),0,0,'C',true);	// categoria/grado
+		$this->Cell(($caza)?30:35,7,_('Handler'),0,0,'C',true);	// nombreGuia
+		$this->Cell(($caza)?15:20,7,_('Club'),0,0,'C',true);	// nombreClub
 		// manga 1
-		$this->Cell(7,7,'F/T',0,0,'C',true);	// 1- Faltas+Tocados
-		$this->Cell(7,7,'Reh',0,0,'C',true);	// 1- Rehuses
-		$this->Cell(12,7,'Tiempo',0,0,'C',true);	// 1- Tiempo
-		$this->Cell(9,7,'Vel.',0,0,'C',true);	// 1- Velocidad
-		$this->Cell(12,7,'Penal',0,0,'C',true);	// 1- Penalizacion
-		$this->Cell(10,7,'Calif',0,0,'C',true);	// 1- calificacion
+		$this->Cell(7,7,_('F/T'),0,0,'C',true);	// 1- Faltas+Tocados
+		$this->Cell(7,7,_('Ref'),0,0,'C',true);	// 1- Rehuses
+		$this->Cell(12,7,_('Time'),0,0,'C',true);	// 1- Tiempo
+		$this->Cell(9,7,_('Vel'),0,0,'C',true);	// 1- Velocidad
+		$this->Cell(12,7,_('Penal'),0,0,'C',true);	// 1- Penalizacion
+		$this->Cell(10,7,_('Calif'),0,0,'C',true);	// 1- calificacion
 		// manga 2
 		if ($this->manga2!=null) {
-			$this->Cell(7,7,'F/T',0,0,'C',true);	// 2- Faltas+Tocados
-			$this->Cell(7,7,'Reh',0,0,'C',true);	// 2- Rehuses
-			$this->Cell(12,7,'Tiempo',0,0,'C',true);	// 2- Tiempo
-			$this->Cell(9,7,'Vel.',0,0,'C',true);	// 2- Velocidad
-			$this->Cell(12,7,'Penal',0,0,'C',true);	// 2- Penalizacion
-			$this->Cell(10,7,'Calif',0,0,'C',true);	// 2- calificacion
+			$this->Cell(7,7,_('F/T'),0,0,'C',true);	// 2- Faltas+Tocados
+			$this->Cell(7,7,_('Ref'),0,0,'C',true);	// 2- Rehuses
+			$this->Cell(12,7,_('Time'),0,0,'C',true);	// 2- Tiempo
+			$this->Cell(9,7,_('Vel'),0,0,'C',true);	// 2- Velocidad
+			$this->Cell(12,7,_('Penal'),0,0,'C',true);	// 2- Penalizacion
+			$this->Cell(10,7,_('Calif'),0,0,'C',true);	// 2- calificacion
 		} else {
 			$this->Cell(57,7,'',0,0,'C',true);	// espacio en blanco
 		}
 		// global
-		$this->Cell(12,7,'Tiempo.',0,0,'C',true);	// Tiempo total
-		$this->Cell(12,7,'Penaliz.',0,0,'C',true);	// Penalizacion
-		$this->Cell(13,7,'Calific.',0,0,'C',true);	// Calificacion
-		$this->Cell(9,7,'Puesto',0,0,'C',true);	// Puesto	
+		$this->Cell(12,7,_('Time'),0,0,'C',true);	// Tiempo total
+		$this->Cell(12,7,_('Penaliz'),0,0,'C',true);	// Penalizacion
+		$this->Cell(13,7,_('Calific'),0,0,'C',true);	// Calificacion
+		$this->Cell(9,7,_('Position'),0,0,'C',true);	// Puesto
 		$this->Ln();	
 		// restore colors
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle

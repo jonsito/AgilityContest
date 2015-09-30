@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-30 09:47+0200\n"
-"PO-Revision-Date: 2015-09-30 09:47+0200\n"
+"POT-Creation-Date: 2015-09-30 12:08+0200\n"
+"PO-Revision-Date: 2015-09-30 12:15+0200\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -45,6 +45,8 @@ msgstr "T"
 #: public/pb_inscripciones_equipos.php:147 public/pb_ordensalida.php:151
 #: public/pb_parciales.php:162 public/pb_parciales_eq3.php:165
 #: scripts/competicion.js.php:1459 scripts/printer.js.php:209
+#: server/pdf/print_clasificacion.php:162
+#: server/pdf/print_clasificacion_eq3.php:262
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72
@@ -73,7 +75,8 @@ msgstr "Perro"
 #: public/pb_inscripciones.php:98 public/pb_inscripciones_equipos.php:154
 #: public/pb_ordensalida.php:155 public/pb_parciales.php:166
 #: public/pb_parciales_eq3.php:169 scripts/competicion.js.php:1459
-#: scripts/printer.js.php:209 tablet/tablet_main.php:78
+#: scripts/printer.js.php:209 server/pdf/print_clasificacion.php:166
+#: server/pdf/print_clasificacion_eq3.php:266 tablet/tablet_main.php:78
 #: tablet/tablet_main.php:262 videowall/videowall.js.php:163
 #: videowall/vw_combinada.php:133 videowall/vw_combinada.php:190
 #: videowall/vw_livestream.php:62 videowall/vw_llamada.php:101
@@ -99,6 +102,8 @@ msgstr "Gu&iacute;a"
 #: public/pb_inscripciones.php:99 public/pb_inscripciones_equipos.php:155
 #: public/pb_ordensalida.php:156 public/pb_parciales.php:167
 #: public/pb_parciales_eq3.php:170 scripts/competicion.js.php:1459
+#: server/pdf/print_clasificacion.php:167
+#: server/pdf/print_clasificacion_eq3.php:267
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72
@@ -269,7 +274,9 @@ msgid "Reset chronometer. Set count to zero"
 msgstr "Reset del cron&oacute;metro. Poner contadores a cero"
 
 #: chrono/chrono.js.php:110 scripts/competicion.js.php:42
-#: tablet/tablet_main.php:100 console/dialogs/dlg_competicion.inc:121
+#: server/pdf/print_clasificacion_eq4.php:303
+#: server/pdf/print_clasificacion_eq4.php:311 tablet/tablet_main.php:100
+#: console/dialogs/dlg_competicion.inc:121
 msgid "Elim"
 msgstr "Elim"
 
@@ -296,10 +303,11 @@ msgstr "Gu&iacute;a"
 #: public/pb_inscripciones_equipos.php:87
 #: public/pb_inscripciones_equipos.php:152 public/pb_ordensalida.php:157
 #: public/pb_parciales.php:168 public/pb_parciales_eq3.php:171
-#: tablet/tablet_main.php:82 tablet/tablet_main.php:264
-#: videowall/videowall.js.php:164 videowall/vw_combinada.php:135
-#: videowall/vw_llamada.php:103 videowall/vw_parciales.php:129
-#: videowall/vwls_parciales.php:155 console/dialogs/dlg_chperros.inc:137
+#: server/pdf/print_clasificacion_eq3.php:265 tablet/tablet_main.php:82
+#: tablet/tablet_main.php:264 videowall/videowall.js.php:164
+#: videowall/vw_combinada.php:135 videowall/vw_llamada.php:103
+#: videowall/vw_parciales.php:129 videowall/vwls_parciales.php:155
+#: console/dialogs/dlg_chperros.inc:137
 #: console/dialogs/dlg_competicion.inc:108
 #: console/dialogs/dlg_newInscripcion.inc:154
 #: console/dialogs/dlg_ordensalida.inc:91
@@ -366,8 +374,9 @@ msgstr "Trabajar con el ring seleccionado"
 #: public/pb_finales.php:86 public/pb_finales_eq3.php:88
 #: public/pb_inscripciones.php:93 public/pb_inscripciones_equipos.php:149
 #: public/pb_ordensalida.php:152 public/pb_parciales.php:165
-#: public/pb_parciales_eq3.php:168 tablet/index.php:181 tablet/index.php:214
-#: tablet/tablet_main.php:76 tablet/tablet_main.php:260
+#: public/pb_parciales_eq3.php:168 server/pdf/print_clasificacion.php:163
+#: server/pdf/print_clasificacion_eq3.php:263 tablet/index.php:181
+#: tablet/index.php:214 tablet/tablet_main.php:76 tablet/tablet_main.php:260
 #: videowall/index.php:239 videowall/vw_combinada.php:132
 #: videowall/vw_combinada.php:189 videowall/vw_livestream.php:61
 #: videowall/vw_llamada.php:99 videowall/vw_ordensalida.php:102
@@ -426,7 +435,12 @@ msgstr "Debe seleccionar un ring v&aacute;lido"
 #: public/pb_parciales.php:49 public/pb_parciales.php:50
 #: public/pb_parciales_eq3.php:49 public/pb_parciales_eq3.php:50
 #: public/public.js.php:164 public/public.js.php:165 public/public.js.php:207
-#: public/public.js.php:208 videowall/videowall.js.php:253
+#: public/public.js.php:208 server/pdf/print_clasificacion.php:86
+#: server/pdf/print_clasificacion.php:89
+#: server/pdf/print_clasificacion_eq3.php:162
+#: server/pdf/print_clasificacion_eq3.php:165
+#: server/pdf/print_clasificacion_eq4.php:166
+#: server/pdf/print_clasificacion_eq4.php:169 videowall/videowall.js.php:253
 #: videowall/videowall.js.php:254 videowall/vw_parciales.php:48
 #: videowall/vw_parciales.php:49 videowall/vwls_parciales.php:66
 #: videowall/vwls_parciales.php:67
@@ -588,7 +602,13 @@ msgstr "TRM fijo"
 #: console/dialogs/infomanga_uca.php:157 console/dialogs/infomanga_uca.php:158
 #: console/dialogs/infomanga_uca.php:173 console/dialogs/infomanga_uca.php:195
 #: console/dialogs/infomanga_uca.php:196 console/dialogs/infomanga_uca.php:197
-#: console/dialogs/infomanga_uca.php:212 videowall/vw_combinada.php:65
+#: console/dialogs/infomanga_uca.php:212
+#: server/pdf/print_clasificacion.php:100
+#: server/pdf/print_clasificacion.php:113
+#: server/pdf/print_clasificacion_eq3.php:176
+#: server/pdf/print_clasificacion_eq3.php:189
+#: server/pdf/print_clasificacion_eq4.php:180
+#: server/pdf/print_clasificacion_eq4.php:193 videowall/vw_combinada.php:65
 #: videowall/vw_parciales.php:57 videowall/vwls_parciales.php:75
 #: console/dialogs/dlg_resultadosManga.inc:47
 #: console/dialogs/dlg_resultadosManga.inc:56
@@ -747,7 +767,10 @@ msgstr "Versi&oacute;n"
 
 #: console/frm_about.php:29 console/frm_clasificaciones2.php:45
 #: console/frm_clasificaciones_eq3.php:45 console/frm_inscripciones2.php:134
-#: console/frm_pruebas.php:149 console/dialogs/dlg_jornadas.inc:41
+#: console/frm_pruebas.php:149 server/pdf/print_clasificacion.php:95
+#: server/pdf/print_clasificacion_eq3.php:171
+#: server/pdf/print_clasificacion_eq4.php:175
+#: console/dialogs/dlg_jornadas.inc:41
 msgid "Date"
 msgstr "Fecha"
 
@@ -933,6 +956,7 @@ msgstr "Resultados y Clasificaciones"
 
 #: console/frm_clasificaciones.php:48 console/frm_clasificaciones2.php:129
 #: console/frm_clasificaciones_eq3.php:129 console/index.php:187
+#: server/pdf/print_clasificacion.php:158
 msgid "Scores"
 msgstr "Clasificaciones"
 
@@ -953,7 +977,10 @@ msgstr "Club anfitri&oacute;n"
 
 #: console/frm_clasificaciones2.php:41 console/frm_clasificaciones_eq3.php:41
 #: index.php:152 public/public.js.php:54 scripts/competicion.js.php:1142
-#: scripts/equipos.js.php:73 scripts/equipos.js.php:126 tablet/index.php:150
+#: scripts/equipos.js.php:73 scripts/equipos.js.php:126
+#: server/pdf/print_clasificacion.php:84
+#: server/pdf/print_clasificacion_eq3.php:160
+#: server/pdf/print_clasificacion_eq4.php:164 tablet/index.php:150
 msgid "Journey"
 msgstr "Jornada"
 
@@ -963,7 +990,10 @@ msgstr "Jornada"
 #: console/frm_clasificaciones_eq3.php:74 public/pb_finales.php:76
 #: public/pb_finales.php:77 public/pb_finales_eq3.php:76
 #: public/pb_finales_eq3.php:77 public/pb_parciales.php:41
-#: public/pb_parciales_eq3.php:41 videowall/vw_livestream.php:68
+#: public/pb_parciales_eq3.php:41 server/pdf/print_clasificacion.php:108
+#: server/pdf/print_clasificacion_eq3.php:184
+#: server/pdf/print_clasificacion_eq3.php:292
+#: server/pdf/print_clasificacion_eq4.php:188 videowall/vw_livestream.php:68
 #: console/dialogs/inforesultados.inc:32 console/dialogs/inforesultados.inc:83
 msgid "Round"
 msgstr "Manga"
@@ -985,6 +1015,8 @@ msgstr "Clasificaci&oacute;n"
 #: console/frm_perros.php:98 public/pb_finales.php:87
 #: public/pb_finales_eq3.php:89 public/pb_inscripciones.php:95
 #: public/pb_inscripciones_equipos.php:151
+#: server/pdf/print_clasificacion.php:164
+#: server/pdf/print_clasificacion_eq3.php:264
 #: console/dialogs/dlg_newInscripcion.inc:153
 msgid "Lic"
 msgstr "Lic"
@@ -999,7 +1031,10 @@ msgstr "Grd"
 #: console/frm_clasificaciones_eq3.php:88
 #: console/frm_clasificaciones_eq3.php:94 public/pb_finales.php:92
 #: public/pb_finales.php:98 public/pb_finales_eq3.php:93
-#: public/pb_finales_eq3.php:99
+#: public/pb_finales_eq3.php:99 server/pdf/print_clasificacion.php:169
+#: server/pdf/print_clasificacion.php:177
+#: server/pdf/print_clasificacion_eq3.php:269
+#: server/pdf/print_clasificacion_eq3.php:277
 msgid "F/T"
 msgstr "F/T"
 
@@ -1023,7 +1058,16 @@ msgstr "Tmp"
 #: console/frm_clasificaciones_eq3.php:97 public/pb_finales.php:95
 #: public/pb_finales.php:101 public/pb_finales_eq3.php:96
 #: public/pb_finales_eq3.php:102 public/pb_parciales.php:176
-#: public/pb_parciales_eq3.php:179 videowall/vw_combinada.php:67
+#: public/pb_parciales_eq3.php:179 server/pdf/print_clasificacion.php:102
+#: server/pdf/print_clasificacion.php:115
+#: server/pdf/print_clasificacion.php:172
+#: server/pdf/print_clasificacion.php:180
+#: server/pdf/print_clasificacion_eq3.php:178
+#: server/pdf/print_clasificacion_eq3.php:191
+#: server/pdf/print_clasificacion_eq3.php:272
+#: server/pdf/print_clasificacion_eq3.php:280
+#: server/pdf/print_clasificacion_eq4.php:182
+#: server/pdf/print_clasificacion_eq4.php:195 videowall/vw_combinada.php:67
 #: videowall/vw_combinada.php:143 videowall/vw_parciales.php:59
 #: videowall/vw_parciales.php:137 videowall/vwls_parciales.php:77
 #: videowall/vwls_parciales.php:163 console/dialogs/dlg_resultadosManga.inc:49
@@ -1057,8 +1101,11 @@ msgstr "Vel"
 #: public/pb_finales_eq3.php:103 public/pb_parciales.php:177
 #: public/pb_parciales_eq3.php:180 scripts/competicion.js.php:135
 #: scripts/competicion.js.php:185 scripts/competicion.js.php:228
-#: videowall/vw_combinada.php:144 videowall/vw_parciales.php:138
-#: videowall/vwls_parciales.php:164
+#: server/pdf/print_clasificacion.php:173
+#: server/pdf/print_clasificacion.php:181
+#: server/pdf/print_clasificacion_eq3.php:273
+#: server/pdf/print_clasificacion_eq3.php:281 videowall/vw_combinada.php:144
+#: videowall/vw_parciales.php:138 videowall/vwls_parciales.php:164
 #: console/dialogs/dlg_resultadosManga.inc:137
 #: console/dialogs/dlg_resultados_eq3.inc:143
 #: console/dialogs/dlg_resultados_eq4.inc:143
@@ -1081,10 +1128,20 @@ msgstr "Cal"
 #: public/pb_finales_eq3.php:105 public/pb_parciales.php:174
 #: public/pb_parciales_eq3.php:177 scripts/competicion.js.php:134
 #: scripts/competicion.js.php:185 scripts/competicion.js.php:228
-#: tablet/tablet_main.php:94 tablet/tablet_main.php:181
-#: tablet/tablet_main.php:269 videowall/vw_combinada.php:141
-#: videowall/vw_parciales.php:135 videowall/vwls_parciales.php:161
-#: console/dialogs/dlg_competicion.inc:112 console/dialogs/dlg_jornadas.inc:45
+#: server/pdf/print_clasificacion.php:171
+#: server/pdf/print_clasificacion.php:179
+#: server/pdf/print_clasificacion.php:187
+#: server/pdf/print_clasificacion_eq3.php:271
+#: server/pdf/print_clasificacion_eq3.php:279
+#: server/pdf/print_clasificacion_eq3.php:287
+#: server/pdf/print_clasificacion_eq3.php:293
+#: server/pdf/print_clasificacion_eq4.php:305
+#: server/pdf/print_clasificacion_eq4.php:313
+#: server/pdf/print_clasificacion_eq4.php:316 tablet/tablet_main.php:94
+#: tablet/tablet_main.php:181 tablet/tablet_main.php:269
+#: videowall/vw_combinada.php:141 videowall/vw_parciales.php:135
+#: videowall/vwls_parciales.php:161 console/dialogs/dlg_competicion.inc:112
+#: console/dialogs/dlg_jornadas.inc:45
 #: console/dialogs/dlg_resultadosManga.inc:134
 #: console/dialogs/dlg_resultados_eq3.inc:140
 #: console/dialogs/dlg_resultados_eq4.inc:140
@@ -1093,13 +1150,21 @@ msgstr "Tiempo"
 
 #: console/frm_clasificaciones2.php:101
 #: console/frm_clasificaciones_eq3.php:101 public/pb_finales.php:105
-#: public/pb_finales_eq3.php:106
+#: public/pb_finales_eq3.php:106 server/pdf/print_clasificacion.php:188
+#: server/pdf/print_clasificacion_eq3.php:288
+#: server/pdf/print_clasificacion_eq3.php:294
+#: server/pdf/print_clasificacion_eq4.php:306
+#: server/pdf/print_clasificacion_eq4.php:314
+#: server/pdf/print_clasificacion_eq4.php:317
 msgid "Penaliz"
 msgstr "Penal"
 
 #: console/frm_clasificaciones2.php:102
 #: console/frm_clasificaciones_eq3.php:102 public/pb_finales.php:106
-#: public/pb_finales_eq3.php:107
+#: public/pb_finales_eq3.php:107 server/pdf/print_clasificacion.php:174
+#: server/pdf/print_clasificacion.php:182
+#: server/pdf/print_clasificacion_eq3.php:274
+#: server/pdf/print_clasificacion_eq3.php:282
 msgid "Calif"
 msgstr "Calif"
 
@@ -2265,6 +2330,10 @@ msgstr "Clasificaci&oacute;n parcial"
 
 #: index.php:161 public/pb_finales.php:40 public/pb_finales.php:78
 #: public/pb_finales_eq3.php:40 public/pb_finales_eq3.php:78
+#: server/pdf/print_clasificacion.php:132
+#: server/pdf/print_clasificacion_eq3.php:208
+#: server/pdf/print_clasificacion_eq4.php:212
+#: server/pdf/print_clasificacion_eq4.php:275
 msgid "Final scores"
 msgstr "Clasificaci&oacute;n final"
 
@@ -2331,13 +2400,16 @@ msgid "Speed"
 msgstr "Velocidad"
 
 #: public/pb_finales.php:75 public/pb_finales_eq3.php:75
+#: server/pdf/print_clasificacion.php:155
+#: server/pdf/print_clasificacion_eq3.php:254
 msgid "Competitor data"
 msgstr "Datos del participante"
 
 #: public/pb_finales.php:107 public/pb_finales_eq3.php:108
 #: public/pb_parciales.php:179 public/pb_parciales_eq3.php:182
-#: videowall/vw_combinada.php:146 videowall/vw_parciales.php:140
-#: videowall/vwls_parciales.php:166
+#: server/pdf/print_clasificacion.php:190
+#: server/pdf/print_clasificacion_eq3.php:290 videowall/vw_combinada.php:146
+#: videowall/vw_parciales.php:140 videowall/vwls_parciales.php:166
 #: console/dialogs/dlg_resultadosManga.inc:125
 #: console/dialogs/dlg_resultados_eq3.inc:131
 #: console/dialogs/dlg_resultados_eq4.inc:131
@@ -2722,7 +2794,9 @@ msgid "LoadConfig(): cannot retrieve configuration from server"
 msgstr ""
 "LoadConfig(): no puedo recuperar la configuraci&oacute;n desde el servidor"
 
-#: scripts/competicion.js.php:43 console/dialogs/dlg_competicion.inc:122
+#: scripts/competicion.js.php:43 server/pdf/print_clasificacion_eq4.php:304
+#: server/pdf/print_clasificacion_eq4.php:312
+#: console/dialogs/dlg_competicion.inc:122
 msgid "N.P."
 msgstr "N.P."
 
@@ -3348,11 +3422,86 @@ msgstr "Contrase&ntilde;a cambiada con &eacute;xito"
 msgid "Equipo"
 msgstr "Equipo"
 
-#: server/pdf/print_clasificacion.php:132
-#: server/pdf/print_clasificacion_eq3.php:208
-#: server/pdf/print_clasificacion_eq4.php:212
-msgid "Clasificación Final"
-msgstr "Clasificación Final"
+#: server/pdf/print_clasificacion.php:98
+#: server/pdf/print_clasificacion.php:111
+#: server/pdf/print_clasificacion_eq3.php:174
+#: server/pdf/print_clasificacion_eq3.php:187
+#: server/pdf/print_clasificacion_eq4.php:178
+#: server/pdf/print_clasificacion_eq4.php:191 videowall/vw_combinada.php:63
+#: videowall/vw_parciales.php:55 videowall/vwls_parciales.php:73
+msgid "Dist"
+msgstr "Dist"
+
+#: server/pdf/print_clasificacion.php:99
+#: server/pdf/print_clasificacion.php:112
+#: server/pdf/print_clasificacion_eq3.php:175
+#: server/pdf/print_clasificacion_eq3.php:188
+#: server/pdf/print_clasificacion_eq4.php:179
+#: server/pdf/print_clasificacion_eq4.php:192 videowall/vw_combinada.php:64
+#: videowall/vw_parciales.php:56 videowall/vwls_parciales.php:74
+msgid "Obst"
+msgstr "Obst"
+
+#: server/pdf/print_clasificacion.php:101
+#: server/pdf/print_clasificacion.php:114
+#: server/pdf/print_clasificacion_eq3.php:177
+#: server/pdf/print_clasificacion_eq3.php:190
+#: server/pdf/print_clasificacion_eq4.php:181
+#: server/pdf/print_clasificacion_eq4.php:194 videowall/vw_combinada.php:66
+#: videowall/vw_parciales.php:58 videowall/vwls_parciales.php:76
+#: console/dialogs/dlg_resultadosManga.inc:48
+#: console/dialogs/dlg_resultadosManga.inc:57
+#: console/dialogs/dlg_resultadosManga.inc:66
+#: console/dialogs/dlg_resultadosManga.inc:75
+#: console/dialogs/dlg_resultados_eq3.inc:48
+#: console/dialogs/dlg_resultados_eq3.inc:57
+#: console/dialogs/dlg_resultados_eq3.inc:66
+#: console/dialogs/dlg_resultados_eq3.inc:75
+#: console/dialogs/dlg_resultados_eq4.inc:48
+#: console/dialogs/dlg_resultados_eq4.inc:57
+#: console/dialogs/dlg_resultados_eq4.inc:66
+#: console/dialogs/dlg_resultados_eq4.inc:75
+#: console/dialogs/inforesultados.inc:46 console/dialogs/inforesultados.inc:54
+#: console/dialogs/inforesultados.inc:62 console/dialogs/inforesultados.inc:70
+#: console/dialogs/inforesultados.inc:97
+#: console/dialogs/inforesultados.inc:105
+#: console/dialogs/inforesultados.inc:113
+#: console/dialogs/inforesultados.inc:121
+msgid "MCT"
+msgstr "TRM"
+
+#: server/pdf/print_clasificacion.php:165
+msgid "Cat/Gr"
+msgstr "Cat./Grado"
+
+#: server/pdf/print_clasificacion.php:170
+#: server/pdf/print_clasificacion.php:178
+#: server/pdf/print_clasificacion_eq3.php:270
+#: server/pdf/print_clasificacion_eq3.php:278
+#: server/pdf/print_clasificacion_eq4.php:302
+#: server/pdf/print_clasificacion_eq4.php:310
+#: console/dialogs/dlg_competicion.inc:110
+msgid "Ref"
+msgstr "Reh"
+
+#: server/pdf/print_clasificacion.php:189
+#: server/pdf/print_clasificacion_eq3.php:289
+msgid "Calific"
+msgstr "Calif"
+
+#: server/pdf/print_clasificacion_eq3.php:257
+msgid "Scr. Individual"
+msgstr "Cl. individual"
+
+#: server/pdf/print_clasificacion_eq3.php:258
+msgid "Scr. Teams"
+msgstr "Cl Equipos"
+
+#: server/pdf/print_clasificacion_eq4.php:301
+#: server/pdf/print_clasificacion_eq4.php:309
+#: console/dialogs/dlg_competicion.inc:109
+msgid "Flt"
+msgstr "Flt"
 
 #: server/pdf/print_common.php:168
 msgid "Página"
@@ -3648,38 +3797,6 @@ msgstr "Tm"
 msgid "Data"
 msgstr "Datos"
 
-#: videowall/vw_combinada.php:63 videowall/vw_parciales.php:55
-#: videowall/vwls_parciales.php:73
-msgid "Dist"
-msgstr "Dist"
-
-#: videowall/vw_combinada.php:64 videowall/vw_parciales.php:56
-#: videowall/vwls_parciales.php:74
-msgid "Obst"
-msgstr "Obst"
-
-#: videowall/vw_combinada.php:66 videowall/vw_parciales.php:58
-#: videowall/vwls_parciales.php:76 console/dialogs/dlg_resultadosManga.inc:48
-#: console/dialogs/dlg_resultadosManga.inc:57
-#: console/dialogs/dlg_resultadosManga.inc:66
-#: console/dialogs/dlg_resultadosManga.inc:75
-#: console/dialogs/dlg_resultados_eq3.inc:48
-#: console/dialogs/dlg_resultados_eq3.inc:57
-#: console/dialogs/dlg_resultados_eq3.inc:66
-#: console/dialogs/dlg_resultados_eq3.inc:75
-#: console/dialogs/dlg_resultados_eq4.inc:48
-#: console/dialogs/dlg_resultados_eq4.inc:57
-#: console/dialogs/dlg_resultados_eq4.inc:66
-#: console/dialogs/dlg_resultados_eq4.inc:75
-#: console/dialogs/inforesultados.inc:46 console/dialogs/inforesultados.inc:54
-#: console/dialogs/inforesultados.inc:62 console/dialogs/inforesultados.inc:70
-#: console/dialogs/inforesultados.inc:97
-#: console/dialogs/inforesultados.inc:105
-#: console/dialogs/inforesultados.inc:113
-#: console/dialogs/inforesultados.inc:121
-msgid "MCT"
-msgstr "TRM"
-
 #: videowall/vw_combinada.php:113 videowall/vw_parciales.php:107
 #: videowall/vwls_parciales.php:133
 msgid "Updating round results"
@@ -3823,14 +3940,6 @@ msgstr "Por favor, cancele o guarde los cambios antes de cerrar la ventana"
 #: console/dialogs/dlg_competicion.inc:89
 msgid "Updating competition data"
 msgstr "Actualizando datos de la competici&oacute;n"
-
-#: console/dialogs/dlg_competicion.inc:109
-msgid "Flt"
-msgstr "Flt"
-
-#: console/dialogs/dlg_competicion.inc:110
-msgid "Ref"
-msgstr "Reh"
 
 #: console/dialogs/dlg_competicion.inc:111
 msgid "Tch."
@@ -4646,6 +4755,12 @@ msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
 #: console/dialogs/dlg_usuarios.inc:106
 msgid "Change password"
 msgstr "Cambiar la contrase&ntilde;a"
+
+#~ msgid "Clasificación Final"
+#~ msgstr "Clasificación Final"
+
+#~ msgid "Final score"
+#~ msgstr "Clasificaci&oacute;n final"
 
 #~ msgid "Direct access to DataBase"
 #~ msgstr "Acceso directo a la base de datos"

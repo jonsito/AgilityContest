@@ -52,9 +52,9 @@ class PrintClasificacionEq3 extends PrintCommon {
     protected $defaultPerro = array( // participante por defecto para garantizar que haya 4perros/equipo
         'Dorsal' => '-',
         'Perro' => 0,
-        'Nombre' => 'No inscrito',
-        'NombreGuia' => 'No inscrito',
-        'NombreClub' => 'No inscrito',
+        'Nombre' => '-',
+        'NombreGuia' => '-',
+        'NombreClub' => '-',
         'Licencia' => '-',
         'Categoria' => '-','Grado' => '-',
         'F1' => 0, 'T1' => 0, 'R1' => 0, 'P1' => 0, 'V1' => 0, 'C1' => '',
@@ -62,8 +62,8 @@ class PrintClasificacionEq3 extends PrintCommon {
         'Tiempo' => '0.0',
         'Velocidad' => '0.0',
         'Penalizacion' => 400.0,
-        'Calificacion' => 'No inscrito',
-        'CShort' => 'No inscrito',
+        'Calificacion' => '-',
+        'CShort' => '-',
         'Puesto' => '-'
     );
 
@@ -157,38 +157,38 @@ class PrintClasificacionEq3 extends PrintCommon {
 			$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria;
 
 		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(80,5,"Jornada: {$this->jornada->Nombre}",0,0,'',false);
+		$this->Cell(80,5,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
 		$this->SetFont('Arial','B',9); // bold 9px
-		$this->Cell(20,5,"Juez 1:","LT",0,'L',false);
+		$this->Cell(20,5,_('Judge')." 1:","LT",0,'L',false);
 		$n=$juez1['Nombre'];
 		$this->Cell(75,5,($n==="-- Sin asignar --")?"":$n,"T",0,'L',false);
-		$this->Cell(20,5,"Juez 2:","T",0,'L',false);
+		$this->Cell(20,5,_('Judge')." 2:","T",0,'L',false);
 		$n=$juez2['Nombre'];
 		$this->Cell(80,5,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
 		$this->Ln();
 		$trs=$this->trs1;
 		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(80,5,"Fecha: {$this->jornada->Fecha}",0,0,'',false);
+		$this->Cell(80,5,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
 		$this->SetFont('Arial','B',9); // bold 9px
 		$this->Cell(70,5,$tm1,"LTB",0,'L',false);
-		$this->Cell(25,5,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
-		$this->Cell(25,5,"Obst.: {$trs['obst']}","LTB",0,'L',false);
-		$this->Cell(25,5,"TRS: {$trs['trs']}s","LTB",0,'L',false);
-		$this->Cell(25,5,"TRM: {$trs['trm']}s","LTB",0,'L',false);
-		$this->Cell(25,5,"Vel.: {$trs['vel']}m/s","LTRB",0,'L',false);
+		$this->Cell(25,5,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
+		$this->Cell(25,5,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
+		$this->Cell(25,5,_('SCT').": {$trs['trs']}s","LTB",0,'L',false);
+		$this->Cell(25,5,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
+		$this->Cell(25,5,_('Vel').".: {$trs['vel']}m/s","LTRB",0,'L',false);
 		$this->Ln();
 		if ($this->trs2==null) { $this->Ln(); return; }
 		$trs=$this->trs2;
 		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
 		$this->SetFont('Arial','B',11); // bold 9px
-		$this->Cell(80,5,"Ronda: $ronda - {$this->categoria}",0,0,'',false);
+		$this->Cell(80,5,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
 		$this->SetFont('Arial','B',9); // bold 9px
 		$this->Cell(70,5,$tm2,"LTB",0,'L',false);
-		$this->Cell(25,5,"Dist.: {$trs['dist']}m","LTB",0,'L',false);
-		$this->Cell(25,5,"Obst.: {$trs['obst']}","LTB",0,'L',false);
-		$this->Cell(25,5,"TRS: {$trs['trs']}s","LTB",0,'L',false);
-		$this->Cell(25,5,"TRM: {$trs['trm']}s","LTB",0,'L',false);
-		$this->Cell(25,5,"Vel.: {$trs['vel']}m/s","LTBR",0,'L',false);
+		$this->Cell(25,5,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
+		$this->Cell(25,5,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
+		$this->Cell(25,5,_('SCT').": {$trs['trs']}s","LTB",0,'L',false);
+		$this->Cell(25,5,_('MCT').": {$trs['trm']}s","LTB",0,'L',false);
+		$this->Cell(25,5,_('Vel').".: {$trs['vel']}m/s","LTBR",0,'L',false);
 		$this->Ln();
 	}
 
@@ -205,7 +205,7 @@ class PrintClasificacionEq3 extends PrintCommon {
 	}
 
 	function Header() {
-		$this->print_commonHeader(_("Clasificación Final"));
+		$this->print_commonHeader(_("Final scores"));
         if ($this->PageNo()==1) $this->print_datosMangas();
 		else $this->print_datosMangas2();
 	}
@@ -251,47 +251,47 @@ class PrintClasificacionEq3 extends PrintCommon {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// first row of table header
 		$this->SetFont('Arial','BI',10); // default font
-        $this->Cell( ($caza)?110:95,4,'Datos del participante','L',0,'L',true);
+        $this->Cell( ($caza)?110:95,4,_('Competitor data'),'L',0,'L',true);
 		$this->Cell(47,4,$tm1,0,0,'C',true);
 		$this->Cell(47,4,$tm2,0,0,'C',true);
-        $this->Cell(34,4,'Cl. Individual','0',0,'C',true);
-        $this->Cell(($caza)?37:52,4,'Cl. Equipos','R',0,'C',true);
+        $this->Cell(34,4,_('Scr. Individual'),'0',0,'C',true);
+        $this->Cell(($caza)?37:52,4,_('Scr. Teams'),'R',0,'C',true);
 		$this->ln();
 		$this->SetFont('Arial','',8); // default font
 		// datos del participante
-		$this->Cell(8,4,'Dorsal','BL',0,'C',true); 	// dorsal
-		$this->Cell(20,4,'Nombre','B',0,'C',true);	// nombre (20,y
-		$this->Cell(($caza)?28:13,4,'Lic.','B',0,'C',true);	// licencia
-		$this->Cell(8,4,'Cat.','B',0,'C',true);	// categoria ( en equipos no se considera el grado )
-		$this->Cell(30,4,'Guía','B',0,'C',true);	// nombreGuia
-		$this->Cell(16,4,'Club','B',0,'C',true);	// nombreClub
+		$this->Cell(8,4,_('Dorsal'),'BL',0,'C',true); 	// dorsal
+		$this->Cell(20,4,_('Name'),'B',0,'C',true);	// nombre (20,y
+		$this->Cell(($caza)?28:13,4,_('Lic'),'B',0,'C',true);	// licencia
+		$this->Cell(8,4,_('Cat'),'B',0,'C',true);	// categoria ( en equipos no se considera el grado )
+		$this->Cell(30,4,_('Handler'),'B',0,'C',true);	// nombreGuia
+		$this->Cell(16,4,_('Club'),'B',0,'C',true);	// nombreClub
 		// manga 1
-		$this->Cell(5,4,'F/T','B',0,'C',true);	// 1- Faltas+Tocados
-		$this->Cell(5,4,'Reh','B',0,'C',true);	// 1- Rehuses
-		$this->Cell(10,4,'Tiempo','B',0,'C',true);	// 1- Tiempo
-		$this->Cell(7,4,'Vel.','B',0,'C',true);	// 1- Velocidad
-		$this->Cell(10,4,'Penal','B',0,'C',true);	// 1- Penalizacion
-		$this->Cell(10,4,'Calif','B',0,'C',true);	// 1- calificacion
+		$this->Cell(5,4,_('F/T'),'B',0,'C',true);	// 1- Faltas+Tocados
+		$this->Cell(5,4,_('Ref'),'B',0,'C',true);	// 1- Rehuses
+		$this->Cell(10,4,_('Time'),'B',0,'C',true);	// 1- Tiempo
+		$this->Cell(7,4,_('Vel'),'B',0,'C',true);	// 1- Velocidad
+		$this->Cell(10,4,_('Penal'),'B',0,'C',true);	// 1- Penalizacion
+		$this->Cell(10,4,_('Calif'),'B',0,'C',true);	// 1- calificacion
 		// manga 2
 		if ($this->manga2!=null) {
-			$this->Cell(5,4,'F/T','B',0,'C',true);	// 2- Faltas+Tocados
-			$this->Cell(5,4,'Reh','B',0,'C',true);	// 2- Rehuses
-			$this->Cell(10,4,'Tiempo','B',0,'C',true);	// 2- Tiempo
-			$this->Cell(7,4,'Vel.','B',0,'C',true);	// 2- Velocidad
-			$this->Cell(10,4,'Penal','B',0,'C',true);	// 2- Penalizacion
-			$this->Cell(10,4,'Calif','B',0,'C',true);	// 2- calificacion
+			$this->Cell(5,4,_('F/T'),'B',0,'C',true);	// 2- Faltas+Tocados
+			$this->Cell(5,4,_('Ref'),'B',0,'C',true);	// 2- Rehuses
+			$this->Cell(10,4,_('Time'),'B',0,'C',true);	// 2- Tiempo
+			$this->Cell(7,4,_('Vel'),'B',0,'C',true);	// 2- Velocidad
+			$this->Cell(10,4,_('Penal'),'B',0,'C',true);	// 2- Penalizacion
+			$this->Cell(10,4,_('Calif'),'B',0,'C',true);	// 2- calificacion
 		} else {
 			$this->Cell(59,4,'','B',0,'C',true);	// espacio en blanco
 		}
 		// global individual
-		$this->Cell(9,4,'Tiempo.','B',0,'C',true);	// Tiempo total
-		$this->Cell(9,4,'Penaliz.','B',0,'C',true);	// Penalizacion
-		$this->Cell(9,4,'Calific.','B',0,'C',true);	// Calificacion
-		$this->Cell(7,4,'Puesto','B',0,'C',true);	// Puesto
+		$this->Cell(9,4,_('Time'),'B',0,'C',true);	// Tiempo total
+		$this->Cell(9,4,_('Penaliz'),'B',0,'C',true);	// Penalizacion
+		$this->Cell(9,4,_('Calific'),'B',0,'C',true);	// Calificacion
+		$this->Cell(7,4,_('Position'),'B',0,'C',true);	// Puesto
         // global equipos
-        $this->Cell(($caza)?17:22,4,'Manga','B',0,'C',true);	// Puesto
-        $this->Cell(($caza)?10:15,4,'Tiempo','B',0,'C',true);	// Puesto
-        $this->Cell(($caza)?10:15,4,'Penaliz.','BR',0,'C',true);	// Puesto
+        $this->Cell(($caza)?17:22,4,_('Round'),'B',0,'C',true);	// Puesto
+        $this->Cell(($caza)?10:15,4,_('Time'),'B',0,'C',true);	// Puesto
+        $this->Cell(($caza)?10:15,4,_('Penaliz'),'BR',0,'C',true);	// Puesto
 		$this->Ln();
 	}
 	
