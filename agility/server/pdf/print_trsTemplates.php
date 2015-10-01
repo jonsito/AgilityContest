@@ -60,16 +60,16 @@ class PrintTRSTemplates extends PrintCommon {
         if ($this->mode==0) {
             $this->ac_header(1,12);
             $this->SetXY(10,10);
-            $this->Cell(100,7,'Hoja de Cálculo para el TRS y TRM','LTBR',0,'C',true); // cabecera muy simple :-)
+            $this->Cell(100,7,_('SheetCalc to evaluate SCT and MCT'),'LTBR',0,'C',true); // cabecera muy simple :-)
         } else {
             // cabecera comun
-            $this->print_commonHeader("Datos de TRS y TRM");
+            $this->print_commonHeader(_("SCT / MCT data form"));
             // pintamos identificacion de la jornada
             $this->SetFont('Arial','B',12); // Arial bold 15pt
-            $str  = "Jornada: {$this->jornada->Nombre} - {$this->jornada->Fecha}";
+            $str  = _("Journey").": {$this->jornada->Nombre} - {$this->jornada->Fecha}";
             $this->Cell(100,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
             $this->Ln(5);
-            $str  = "Hora de comienzo: {$this->jornada->Hora}";
+            $str  = _("Start time").": {$this->jornada->Hora}";
             $this->Cell(90,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
         }
 	}
@@ -114,7 +114,7 @@ class PrintTRSTemplates extends PrintCommon {
 	}
 
     function printFormulario(){
-        $cols=array("Categoria","Distancia","Obstaculos","Velocidad","TRS","TRM");
+        $cols=array(_("Category"),_("Distance"),_("Obstacles"),_("Speed"),_("SCT"),_("MCT"));
         $size=array(20,15,12.5,12.5,15,15);
         $mng=new Mangas("printFormularioTRS",$this->jornada->ID);
         // obtenemos la lista de mangas de la jornada

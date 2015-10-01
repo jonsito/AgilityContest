@@ -62,7 +62,7 @@ class Print_Podium extends PrintCommon {
 
 	function Header() {
 		$grado=Mangas::$tipo_manga[$this->manga1->Tipo][4];
-		$this->print_commonHeader("Pódium $grado");
+		$this->print_commonHeader(_("Podium")." $grado");
 	}
 	
 	// Pie de página: tampoco cabe
@@ -76,8 +76,8 @@ class Print_Podium extends PrintCommon {
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg2')); // negro
 		$this->ac_SetDrawColor("0x000000"); // line color
 		$this->SetFont('Arial','B',11); // bold 11px
-		$this->Cell(140,6,"Jornada: {$this->jornada->Nombre}",0,0,'L',true);
-		$this->Cell(135,6,"Fecha: {$this->jornada->Fecha}",0,0,'R',true);
+		$this->Cell(140,6,_("Journey").": {$this->jornada->Nombre}",0,0,'L',true);
+		$this->Cell(135,6,_("Date").": {$this->jornada->Fecha}",0,0,'R',true);
 		$this->ln(10); // TODO: write jornada / fecha / grado
 	}
 	
@@ -95,39 +95,39 @@ class Print_Podium extends PrintCommon {
 		$this->Cell(115,6,Mangas::$manga_modes[$mode][0],0,0,'L',true);
 		$this->Cell(59,6,$tm1,0,0,'C',true);
 		$this->Cell(59,6,$tm2,0,0,'C',true);
-		$this->Cell(42,6,'Clasificación',0,0,'C',true);
+		$this->Cell(42,6,_('Score'),0,0,'C',true);
 		$this->ln();
 		$this->SetFont('Arial','',8); // default font
 		// datos del participante
-		$this->Cell(10,6,'Dorsal',0,0,'C',true); 	// dorsal
-		$this->Cell(25,6,'Nombre',0,0,'C',true);	// nombre (20,y
-		$this->Cell(15,6,'Lic.',0,0,'C',true);	// licencia
-		$this->Cell(10,6,'Cat./Gr.',0,0,'C',true);	// categoria/grado
-		$this->Cell(35,6,'Guía',0,0,'C',true);	// nombreGuia
-		$this->Cell(20,6,'Club',0,0,'C',true);	// nombreClub
+		$this->Cell(10,6,_('Dorsal'),0,0,'C',true); 	// dorsal
+		$this->Cell(25,6,_('Name'),0,0,'C',true);	// nombre (20,y
+		$this->Cell(15,6,_('Lic').'.',0,0,'C',true);	// licencia
+		$this->Cell(10,6,_('Cat').'/'._('Grd'),0,0,'C',true);	// categoria/grado
+		$this->Cell(35,6,_('Handler'),0,0,'C',true);	// nombreGuia
+		$this->Cell(20,6,_('Club'),0,0,'C',true);	// nombreClub
 		// manga 1
-		$this->Cell(7,6,'F/T',0,0,'C',true);	// 1- Faltas+Tocados
-		$this->Cell(7,6,'Reh',0,0,'C',true);	// 1- Rehuses
-		$this->Cell(12,6,'Tiempo',0,0,'C',true);	// 1- Tiempo
-		$this->Cell(9,6,'Vel.',0,0,'C',true);	// 1- Velocidad
-		$this->Cell(12,6,'Penal',0,0,'C',true);	// 1- Penalizacion
+		$this->Cell(7,6,_('F/T'),0,0,'C',true);	// 1- Faltas+Tocados
+		$this->Cell(7,6,_('Ref'),0,0,'C',true);	// 1- Rehuses
+		$this->Cell(12,6,_('Time'),0,0,'C',true);	// 1- Tiempo
+		$this->Cell(9,6,_('Vel'),0,0,'C',true);	// 1- Velocidad
+		$this->Cell(12,6,_('Penal'),0,0,'C',true);	// 1- Penalizacion
 		$this->Cell(12,6,'Calif',0,0,'C',true);	// 1- calificacion
 		// manga 2
 		if ($this->manga2!=null) {
-			$this->Cell(7,6,'F/T',0,0,'C',true);	// 2- Faltas+Tocados
-			$this->Cell(7,6,'Reh',0,0,'C',true);	// 2- Rehuses
-			$this->Cell(12,6,'Tiempo',0,0,'C',true);	// 2- Tiempo
-			$this->Cell(9,6,'Vel.',0,0,'C',true);	// 2- Velocidad
-			$this->Cell(12,6,'Penal',0,0,'C',true);	// 2- Penalizacion
-			$this->Cell(12,6,'Calif',0,0,'C',true);	// 2- calificacion
+			$this->Cell(7,6,_('F/T'),0,0,'C',true);	// 2- Faltas+Tocados
+			$this->Cell(7,6,_('Ref'),0,0,'C',true);	// 2- Rehuses
+			$this->Cell(12,6,_('Time'),0,0,'C',true);	// 2- Tiempo
+			$this->Cell(9,6,_('Vel'),0,0,'C',true);	// 2- Velocidad
+			$this->Cell(12,6,_('Penal'),0,0,'C',true);	// 2- Penalizacion
+			$this->Cell(12,6,_('Calif'),0,0,'C',true);	// 2- calificacion
 		} else {
 			$this->Cell(59,6,'',0,0,'C',true);	// espacio en blanco
 		}
 		// global
-		$this->Cell(12,6,'Tiempo.',0,0,'C',true);	// Tiempo total
-		$this->Cell(12,6,'Penaliz.',0,0,'C',true);	// Penalizacion
-		$this->Cell(9,6,'Calific.',0,0,'C',true);	// Calificacion
-		$this->Cell(9,6,'Puesto',0,0,'C',true);	// Puesto	
+		$this->Cell(12,6,_('Time'),0,0,'C',true);	// Tiempo total
+		$this->Cell(12,6,_('Penaliz'),0,0,'C',true);	// Penalizacion
+		$this->Cell(9,6,_('Calific'),0,0,'C',true);	// Calificacion
+		$this->Cell(9,6,_('Position'),0,0,'C',true);	// Puesto
 		$this->Ln();	
 		// restore colors
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle

@@ -169,7 +169,7 @@ class PrintCommon extends FPDF {
 		// informacion de registro
 		$ri=$this->authManager->getRegistrationInfo();
 		$this->SetFont('Arial','I',6);
-		$this->Cell(60,10,"Copia registrada para el club: {$ri['Club']}",0,0,'R');
+		$this->Cell(60,10,_("This copy is lincensed to club").": {$ri['Club']}",0,0,'R');
 	}
 
 	// Identificacion de la Manga

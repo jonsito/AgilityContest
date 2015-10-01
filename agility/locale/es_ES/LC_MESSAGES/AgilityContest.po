@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-10-01 12:58+0200\n"
-"PO-Revision-Date: 2015-10-01 12:58+0200\n"
+"POT-Creation-Date: 2015-10-01 14:32+0200\n"
+"PO-Revision-Date: 2015-10-01 14:32+0200\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -52,7 +52,7 @@ msgstr "T"
 #: server/pdf/print_entradaDeDatos.php:299
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_ordenDeSalida.php:72
+#: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:102
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62 tablet/tablet_main.php:75
 #: tablet/tablet_main.php:259 videowall/videowall.js.php:161
@@ -87,7 +87,9 @@ msgstr "Perro"
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:122
 #: server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_ordenDeSalida.php:72 tablet/tablet_main.php:78
+#: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:106
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62 tablet/tablet_main.php:78
 #: tablet/tablet_main.php:262 videowall/videowall.js.php:163
 #: videowall/vw_combinada.php:133 videowall/vw_combinada.php:190
 #: videowall/vw_livestream.php:62 videowall/vw_llamada.php:101
@@ -122,7 +124,7 @@ msgstr "Gu&iacute;a"
 #: server/pdf/print_entradaDeDatos.php:302
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_ordenDeSalida.php:72
+#: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:107
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62 tablet/index.php:216
 #: tablet/tablet_main.php:80 tablet/tablet_main.php:263
@@ -147,7 +149,8 @@ msgstr "Club"
 #: chrono/chrono.inc.php:65 console/dialogs/infomanga_rfec.php:73
 #: console/dialogs/infomanga_rsce.php:73 console/dialogs/infomanga_uca.php:67
 #: console/frm_admin.php:138 console/frm_equipos.php:74
-#: server/pdf/print_clasificacion_excel.php:156 videowall/vw_livestream.php:64
+#: server/pdf/print_clasificacion_excel.php:156
+#: server/pdf/print_trsTemplates.php:117 videowall/vw_livestream.php:64
 #: videowall/vw_ordensalida.php:107 console/dialogs/dlg_chperros.inc:59
 #: console/dialogs/dlg_editInscripcion.inc:42
 #: console/dialogs/dlg_perros.inc:51 console/dialogs/dlg_usuarios.inc:75
@@ -166,7 +169,8 @@ msgstr "Categor&iacute;a"
 #: server/pdf/print_inscritosByPrueba.php:434
 #: server/pdf/print_inscritosByPrueba.php:462
 #: server/pdf/print_inscritosByPrueba.php:472
-#: server/pdf/print_inscritosByPrueba.php:482 tablet/tablet_main.php:84
+#: server/pdf/print_inscritosByPrueba.php:482
+#: server/pdf/print_resultadosByManga.php:62 tablet/tablet_main.php:84
 #: tablet/tablet_main.php:265 videowall/vw_combinada.php:136
 #: videowall/vw_livestream.php:65 videowall/vw_llamada.php:104
 #: videowall/vw_ordensalida.php:108 videowall/vw_parciales.php:130
@@ -306,7 +310,8 @@ msgstr "Reset del cron&oacute;metro. Poner contadores a cero"
 #: chrono/chrono.js.php:110 scripts/competicion.js.php:42
 #: server/pdf/print_clasificacion_eq4.php:303
 #: server/pdf/print_clasificacion_eq4.php:311
-#: server/pdf/print_entradaDeDatos.php:244 tablet/tablet_main.php:100
+#: server/pdf/print_entradaDeDatos.php:244
+#: server/pdf/print_resultadosByEquipos4.php:194 tablet/tablet_main.php:100
 #: console/dialogs/dlg_competicion.inc:121
 msgid "Elim"
 msgstr "Elim"
@@ -337,7 +342,9 @@ msgstr "Gu&iacute;a"
 #: server/pdf/print_clasificacion_eq3.php:265
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:121
-#: server/pdf/print_inscritosByPrueba.php:547 tablet/tablet_main.php:82
+#: server/pdf/print_inscritosByPrueba.php:547 server/pdf/print_podium.php:105
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62 tablet/tablet_main.php:82
 #: tablet/tablet_main.php:264 videowall/videowall.js.php:164
 #: videowall/vw_combinada.php:135 videowall/vw_llamada.php:103
 #: videowall/vw_parciales.php:129 videowall/vwls_parciales.php:155
@@ -418,7 +425,9 @@ msgstr "Trabajar con el ring seleccionado"
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:118
 #: server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_ordenDeSalida.php:72 tablet/index.php:181
+#: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:103
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62 tablet/index.php:181
 #: tablet/index.php:214 tablet/tablet_main.php:76 tablet/tablet_main.php:260
 #: videowall/index.php:239 videowall/vw_combinada.php:132
 #: videowall/vw_combinada.php:189 videowall/vw_livestream.php:61
@@ -490,7 +499,11 @@ msgstr "Debe seleccionar un ring v&aacute;lido"
 #: server/pdf/print_clasificacion_eq4.php:166
 #: server/pdf/print_clasificacion_eq4.php:169
 #: server/pdf/print_clasificacion_excel.php:119
-#: server/pdf/print_clasificacion_excel.php:121 videowall/videowall.js.php:253
+#: server/pdf/print_clasificacion_excel.php:121
+#: server/pdf/print_resultadosByEquipos.php:101
+#: server/pdf/print_resultadosByEquipos.php:104
+#: server/pdf/print_resultadosByEquipos4.php:91
+#: server/pdf/print_resultadosByEquipos4.php:94 videowall/videowall.js.php:253
 #: videowall/videowall.js.php:254 videowall/vw_parciales.php:48
 #: videowall/vw_parciales.php:49 videowall/vwls_parciales.php:66
 #: videowall/vwls_parciales.php:67
@@ -517,6 +530,9 @@ msgstr "Recorrido com&uacute;n"
 #: public/pb_finales_eq3.php:62 public/pb_parciales.php:56
 #: public/pb_parciales_eq3.php:56 public/public.js.php:167
 #: public/public.js.php:211 public/public.js.php:218
+#: server/pdf/print_resultadosByEquipos.php:108
+#: server/pdf/print_resultadosByEquipos4.php:98
+#: server/pdf/print_trsTemplates.php:117
 #: console/dialogs/dlg_resultadosManga.inc:45
 #: console/dialogs/dlg_resultadosManga.inc:54
 #: console/dialogs/dlg_resultadosManga.inc:63
@@ -544,6 +560,9 @@ msgstr "Distancia"
 #: public/pb_finales_eq3.php:63 public/pb_parciales.php:57
 #: public/pb_parciales_eq3.php:57 public/public.js.php:168
 #: public/public.js.php:212 public/public.js.php:219
+#: server/pdf/print_resultadosByEquipos.php:110
+#: server/pdf/print_resultadosByEquipos4.php:100
+#: server/pdf/print_trsTemplates.php:117
 #: console/dialogs/dlg_resultadosManga.inc:46
 #: console/dialogs/dlg_resultadosManga.inc:55
 #: console/dialogs/dlg_resultadosManga.inc:64
@@ -660,7 +679,10 @@ msgstr "TRM fijo"
 #: server/pdf/print_clasificacion_eq4.php:180
 #: server/pdf/print_clasificacion_eq4.php:193
 #: server/pdf/print_clasificacion_excel.php:128
-#: server/pdf/print_clasificacion_excel.php:136 videowall/vw_combinada.php:65
+#: server/pdf/print_clasificacion_excel.php:136
+#: server/pdf/print_resultadosByEquipos.php:112
+#: server/pdf/print_resultadosByEquipos4.php:102
+#: server/pdf/print_trsTemplates.php:117 videowall/vw_combinada.php:65
 #: videowall/vw_parciales.php:57 videowall/vwls_parciales.php:75
 #: console/dialogs/dlg_resultadosManga.inc:47
 #: console/dialogs/dlg_resultadosManga.inc:56
@@ -822,7 +844,7 @@ msgstr "Versi&oacute;n"
 #: console/frm_pruebas.php:149 server/pdf/print_clasificacion.php:95
 #: server/pdf/print_clasificacion_eq3.php:171
 #: server/pdf/print_clasificacion_eq4.php:175
-#: server/pdf/print_clasificacion_excel.php:102
+#: server/pdf/print_clasificacion_excel.php:102 server/pdf/print_podium.php:80
 #: console/dialogs/dlg_jornadas.inc:41
 msgid "Date"
 msgstr "Fecha"
@@ -1036,7 +1058,8 @@ msgstr "Club anfitri&oacute;n"
 #: server/pdf/print_clasificacion_eq3.php:160
 #: server/pdf/print_clasificacion_eq4.php:164
 #: server/pdf/print_clasificacion_excel.php:100
-#: server/pdf/print_ordenTandas.php:66 tablet/index.php:150
+#: server/pdf/print_ordenTandas.php:66 server/pdf/print_podium.php:79
+#: server/pdf/print_trsTemplates.php:69 tablet/index.php:150
 msgid "Journey"
 msgstr "Jornada"
 
@@ -1067,7 +1090,7 @@ msgstr "Datos del participante"
 #: console/frm_clasificaciones2.php:75 console/frm_clasificaciones_eq3.php:75
 #: server/pdf/print_clasificacion_excel.php:165
 #: server/pdf/print_clasificacion_excel.php:171
-#: server/pdf/print_clasificacion_excel.php:174
+#: server/pdf/print_clasificacion_excel.php:174 server/pdf/print_podium.php:98
 msgid "Score"
 msgstr "Clasificaci&oacute;n"
 
@@ -1081,13 +1104,15 @@ msgstr "Clasificaci&oacute;n"
 #: server/pdf/print_entradaDeDatos.php:149
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_ordenDeSalida.php:72
+#: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:104
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62
 #: console/dialogs/dlg_newInscripcion.inc:153
 msgid "Lic"
 msgstr "Lic"
 
 #: console/frm_clasificaciones2.php:85 console/frm_clasificaciones_eq3.php:85
-#: public/pb_finales.php:89
+#: public/pb_finales.php:89 server/pdf/print_podium.php:105
 msgid "Grd"
 msgstr "Grd"
 
@@ -1099,7 +1124,8 @@ msgstr "Grd"
 #: public/pb_finales_eq3.php:99 server/pdf/print_clasificacion.php:169
 #: server/pdf/print_clasificacion.php:177
 #: server/pdf/print_clasificacion_eq3.php:269
-#: server/pdf/print_clasificacion_eq3.php:277
+#: server/pdf/print_clasificacion_eq3.php:277 server/pdf/print_podium.php:109
+#: server/pdf/print_podium.php:117
 msgid "F/T"
 msgstr "F/T"
 
@@ -1134,7 +1160,10 @@ msgstr "Tmp"
 #: server/pdf/print_clasificacion_eq4.php:182
 #: server/pdf/print_clasificacion_eq4.php:195
 #: server/pdf/print_clasificacion_excel.php:130
-#: server/pdf/print_clasificacion_excel.php:138 videowall/vw_combinada.php:67
+#: server/pdf/print_clasificacion_excel.php:138
+#: server/pdf/print_podium.php:112 server/pdf/print_podium.php:120
+#: server/pdf/print_resultadosByEquipos.php:84
+#: server/pdf/print_resultadosByManga.php:62 videowall/vw_combinada.php:67
 #: videowall/vw_combinada.php:143 videowall/vw_parciales.php:59
 #: videowall/vw_parciales.php:137 videowall/vwls_parciales.php:77
 #: videowall/vwls_parciales.php:163 console/dialogs/dlg_resultadosManga.inc:49
@@ -1171,7 +1200,9 @@ msgstr "Vel"
 #: server/pdf/print_clasificacion.php:173
 #: server/pdf/print_clasificacion.php:181
 #: server/pdf/print_clasificacion_eq3.php:273
-#: server/pdf/print_clasificacion_eq3.php:281 videowall/vw_combinada.php:144
+#: server/pdf/print_clasificacion_eq3.php:281 server/pdf/print_podium.php:113
+#: server/pdf/print_podium.php:121 server/pdf/print_resultadosByEquipos.php:84
+#: server/pdf/print_resultadosByManga.php:62 videowall/vw_combinada.php:144
 #: videowall/vw_parciales.php:138 videowall/vwls_parciales.php:164
 #: console/dialogs/dlg_resultadosManga.inc:137
 #: console/dialogs/dlg_resultados_eq3.inc:143
@@ -1213,7 +1244,12 @@ msgstr "Cal"
 #: server/pdf/print_entradaDeDatos.php:348
 #: server/pdf/print_entradaDeDatos.php:369
 #: server/pdf/print_entradaDeDatosEquipos4.php:171
-#: server/pdf/print_ordenTandas.php:91 tablet/tablet_main.php:94
+#: server/pdf/print_ordenTandas.php:91 server/pdf/print_podium.php:111
+#: server/pdf/print_podium.php:119 server/pdf/print_podium.php:127
+#: server/pdf/print_resultadosByEquipos.php:84
+#: server/pdf/print_resultadosByEquipos.php:218
+#: server/pdf/print_resultadosByEquipos4.php:196
+#: server/pdf/print_resultadosByManga.php:62 tablet/tablet_main.php:94
 #: tablet/tablet_main.php:181 tablet/tablet_main.php:269
 #: videowall/vw_combinada.php:141 videowall/vw_parciales.php:135
 #: videowall/vwls_parciales.php:161 console/dialogs/dlg_competicion.inc:112
@@ -1235,6 +1271,9 @@ msgstr "Tiempo"
 #: server/pdf/print_clasificacion_excel.php:164
 #: server/pdf/print_clasificacion_excel.php:170
 #: server/pdf/print_clasificacion_excel.php:173
+#: server/pdf/print_podium.php:128
+#: server/pdf/print_resultadosByEquipos.php:221
+#: server/pdf/print_resultadosByEquipos4.php:197
 msgid "Penaliz"
 msgstr "Penal"
 
@@ -1243,7 +1282,7 @@ msgstr "Penal"
 #: public/pb_finales_eq3.php:107 server/pdf/print_clasificacion.php:174
 #: server/pdf/print_clasificacion.php:182
 #: server/pdf/print_clasificacion_eq3.php:274
-#: server/pdf/print_clasificacion_eq3.php:282
+#: server/pdf/print_clasificacion_eq3.php:282 server/pdf/print_podium.php:122
 msgid "Calif"
 msgstr "Calif"
 
@@ -1275,7 +1314,7 @@ msgid "Select format"
 msgstr "Selecciona formato"
 
 #: console/frm_clasificaciones2.php:126
-#: console/frm_clasificaciones_eq3.php:126
+#: console/frm_clasificaciones_eq3.php:126 server/pdf/print_podium.php:65
 msgid "Podium"
 msgstr "Podium"
 
@@ -1491,7 +1530,7 @@ msgstr "Cargando lista de perros"
 msgid "Registered dogs belonging to"
 msgstr "Lista de perros asignados a"
 
-#: console/frm_clubes.php:243 server/pdf/print_resultadosByEquipos.php:83
+#: console/frm_clubes.php:243
 msgid "Cat."
 msgstr "Cat."
 
@@ -1827,6 +1866,8 @@ msgstr "Reordenar"
 
 #: console/frm_inscripciones2.php:98
 #: server/pdf/print_ordenSalidaEquipos4.php:88
+#: server/pdf/print_resultadosByEquipos.php:91
+#: server/pdf/print_resultadosByEquipos4.php:81
 #: console/dialogs/dlg_jornadas.inc:91 console/dialogs/dlg_ordensalida.inc:46
 msgid "Teams"
 msgstr "Equipos"
@@ -2486,6 +2527,9 @@ msgstr "T. R. M&aacute;ximo"
 #: public/public.js.php:171 public/public.js.php:215 public/public.js.php:222
 #: server/pdf/print_clasificacion_excel.php:163
 #: server/pdf/print_clasificacion_excel.php:169
+#: server/pdf/print_resultadosByEquipos.php:116
+#: server/pdf/print_resultadosByEquipos4.php:106
+#: server/pdf/print_trsTemplates.php:117
 msgid "Speed"
 msgstr "Velocidad"
 
@@ -2500,7 +2544,9 @@ msgstr "Datos del participante"
 #: public/pb_parciales.php:179 public/pb_parciales_eq3.php:182
 #: server/pdf/print_clasificacion.php:190
 #: server/pdf/print_clasificacion_eq3.php:290
-#: server/pdf/print_clasificacion_excel.php:175 videowall/vw_combinada.php:146
+#: server/pdf/print_clasificacion_excel.php:175
+#: server/pdf/print_podium.php:130 server/pdf/print_resultadosByEquipos.php:84
+#: server/pdf/print_resultadosByManga.php:62 videowall/vw_combinada.php:146
 #: videowall/vw_parciales.php:140 videowall/vwls_parciales.php:166
 #: console/dialogs/dlg_resultadosManga.inc:125
 #: console/dialogs/dlg_resultados_eq3.inc:131
@@ -2557,8 +2603,9 @@ msgid "Touch"
 msgstr "Tocado"
 
 #: public/pb_parciales.php:178 public/pb_parciales_eq3.php:181
-#: videowall/vw_combinada.php:145 videowall/vw_parciales.php:139
-#: videowall/vwls_parciales.php:165
+#: server/pdf/print_resultadosByEquipos.php:84
+#: server/pdf/print_resultadosByManga.php:62 videowall/vw_combinada.php:145
+#: videowall/vw_parciales.php:139 videowall/vwls_parciales.php:165
 #: console/dialogs/dlg_resultadosManga.inc:138
 #: console/dialogs/dlg_resultados_eq3.inc:144
 #: console/dialogs/dlg_resultados_eq4.inc:144
@@ -2889,6 +2936,7 @@ msgstr ""
 #: scripts/competicion.js.php:43 server/pdf/print_clasificacion_eq4.php:304
 #: server/pdf/print_clasificacion_eq4.php:312
 #: server/pdf/print_entradaDeDatos.php:245
+#: server/pdf/print_resultadosByEquipos4.php:195
 #: console/dialogs/dlg_competicion.inc:122
 msgid "N.P."
 msgstr "N.P."
@@ -3306,6 +3354,7 @@ msgid "Starting order on this round"
 msgstr "Orden de Salida de la manga"
 
 #: scripts/printer.js.php:239 scripts/printer.js.php:250
+#: server/pdf/print_trsTemplates.php:63
 msgid "SheetCalc to evaluate SCT and MCT"
 msgstr "Hoja de c&aacute;lculo para el TRS y TRM"
 
@@ -3546,7 +3595,9 @@ msgstr "Obst"
 #: server/pdf/print_clasificacion_eq4.php:181
 #: server/pdf/print_clasificacion_eq4.php:194
 #: server/pdf/print_clasificacion_excel.php:129
-#: server/pdf/print_clasificacion_excel.php:137 videowall/vw_combinada.php:66
+#: server/pdf/print_clasificacion_excel.php:137
+#: server/pdf/print_resultadosByEquipos.php:114
+#: server/pdf/print_trsTemplates.php:117 videowall/vw_combinada.php:66
 #: videowall/vw_parciales.php:58 videowall/vwls_parciales.php:76
 #: console/dialogs/dlg_resultadosManga.inc:48
 #: console/dialogs/dlg_resultadosManga.inc:57
@@ -3579,13 +3630,16 @@ msgstr "Cat./Grado"
 #: server/pdf/print_clasificacion_eq3.php:278
 #: server/pdf/print_clasificacion_eq4.php:302
 #: server/pdf/print_clasificacion_eq4.php:310
-#: server/pdf/print_entradaDeDatos.php:169
+#: server/pdf/print_entradaDeDatos.php:169 server/pdf/print_podium.php:110
+#: server/pdf/print_podium.php:118 server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByEquipos4.php:192
+#: server/pdf/print_resultadosByManga.php:62
 #: console/dialogs/dlg_competicion.inc:110
 msgid "Ref"
 msgstr "Reh"
 
 #: server/pdf/print_clasificacion.php:189
-#: server/pdf/print_clasificacion_eq3.php:289
+#: server/pdf/print_clasificacion_eq3.php:289 server/pdf/print_podium.php:129
 msgid "Calific"
 msgstr "Calif"
 
@@ -3600,6 +3654,9 @@ msgstr "Cl Equipos"
 #: server/pdf/print_clasificacion_eq4.php:301
 #: server/pdf/print_clasificacion_eq4.php:309
 #: server/pdf/print_entradaDeDatos.php:168
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByEquipos4.php:191
+#: server/pdf/print_resultadosByManga.php:62
 #: console/dialogs/dlg_competicion.inc:109
 msgid "Flt"
 msgstr "Flt"
@@ -3638,6 +3695,10 @@ msgstr "Reh&uacute;ses"
 msgid "Página"
 msgstr "Página"
 
+#: server/pdf/print_common.php:172
+msgid "This copy is lincensed to club"
+msgstr "Copia licenciada para el club"
+
 #: server/pdf/print_entradaDeDatos.php:167
 #: server/pdf/print_entradaDeDatos.php:237
 #: server/pdf/print_entradaDeDatos.php:335
@@ -3652,6 +3713,9 @@ msgid "Touchs"
 msgstr "Tocados"
 
 #: server/pdf/print_entradaDeDatos.php:170
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByEquipos4.php:193
+#: server/pdf/print_resultadosByManga.php:62
 msgid "Tch"
 msgstr "Toc"
 
@@ -3740,7 +3804,7 @@ msgstr "Orden"
 msgid "Journey timetable"
 msgstr "Programa de la jornada"
 
-#: server/pdf/print_ordenTandas.php:69
+#: server/pdf/print_ordenTandas.php:69 server/pdf/print_trsTemplates.php:72
 msgid "Start time"
 msgstr "Hora de comienzo"
 
@@ -3755,81 +3819,24 @@ msgstr ""
 msgid "Competitors"
 msgstr "Participantes"
 
-#: server/pdf/print_resultadosByEquipos.php:83
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Nombre"
-msgstr "Nombre"
-
-#: server/pdf/print_resultadosByEquipos.php:83
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Lic."
-msgstr "Lic."
-
-#: server/pdf/print_resultadosByEquipos.php:83
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Guía"
-msgstr "Guía"
-
-#: server/pdf/print_resultadosByEquipos.php:83
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Flt."
-msgstr "Flt."
-
-#: server/pdf/print_resultadosByEquipos.php:83
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Toc."
-msgstr "Toc."
-
-#: server/pdf/print_resultadosByEquipos.php:83
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Reh."
-msgstr "Reh."
-
 #: server/pdf/print_resultadosByEquipos.php:84
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Tiempo"
-msgstr "Tiempo"
-
-#: server/pdf/print_resultadosByEquipos.php:84
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Vel."
-msgstr "Vel."
-
-#: server/pdf/print_resultadosByEquipos.php:84
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Penal."
-msgstr "Penal."
-
-#: server/pdf/print_resultadosByEquipos.php:84
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Calificación"
-msgstr "Calificación"
-
-#: server/pdf/print_resultadosByEquipos.php:84
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Puesto"
-msgstr "Puesto"
-
-#: server/pdf/print_resultadosByEquipos.php:84
-msgid "Global Equipo"
-msgstr "Global Equipo"
+msgid "Team global"
+msgstr "Gobal equipo"
 
 #: server/pdf/print_resultadosByEquipos.php:91
 #: server/pdf/print_resultadosByEquipos4.php:81
-msgid "Resultados Parciales"
-msgstr "Resultados Parciales"
-
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Cat/Grado"
-msgstr "Cat/Grado"
+#: server/pdf/print_resultadosByManga.php:67
+msgid "Round scores"
+msgstr "Resultados de la manga"
 
 #: server/pdf/print_resultadosByManga.php:67
 msgid "Resultados"
 msgstr "Resultados"
 
-#: server/pdf/print_resultadosByManga.php:67
-msgid "Resultados Manga"
-msgstr "Resultados Manga"
+#: server/pdf/print_trsTemplates.php:66
+#, fuzzy
+msgid "SCT / MCT data form"
+msgstr "Datos de TRS y TRM"
 
 #: tablet/index.php:127
 msgid "User,Ring,Contest and Journey selection"
@@ -4903,6 +4910,54 @@ msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
 #: console/dialogs/dlg_usuarios.inc:106
 msgid "Change password"
 msgstr "Cambiar la contrase&ntilde;a"
+
+#~ msgid "DataSheet to evaluate SCT /MCT"
+#~ msgstr "Hoja para el c&aacute;lculo del TRS y el TRM"
+
+#~ msgid "Nombre"
+#~ msgstr "Nombre"
+
+#~ msgid "Lic."
+#~ msgstr "Lic."
+
+#~ msgid "Guía"
+#~ msgstr "Guía"
+
+#~ msgid "Cat/Grado"
+#~ msgstr "Cat/Grado"
+
+#~ msgid "Flt."
+#~ msgstr "Flt."
+
+#~ msgid "Toc."
+#~ msgstr "Toc."
+
+#~ msgid "Reh."
+#~ msgstr "Reh."
+
+#~ msgid "Tiempo"
+#~ msgstr "Tiempo"
+
+#~ msgid "Vel."
+#~ msgstr "Vel."
+
+#~ msgid "Penal."
+#~ msgstr "Penal."
+
+#~ msgid "Calificación"
+#~ msgstr "Calificación"
+
+#~ msgid "Puesto"
+#~ msgstr "Puesto"
+
+#~ msgid "Resultados Manga"
+#~ msgstr "Resultados Manga"
+
+#~ msgid "Global Equipo"
+#~ msgstr "Global Equipo"
+
+#~ msgid "Resultados Parciales"
+#~ msgstr "Resultados Parciales"
 
 #~ msgid "Orden de Salida Equipos"
 #~ msgstr "Orden de Salida Equipos"

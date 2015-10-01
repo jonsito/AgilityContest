@@ -46,9 +46,9 @@ class ResultadosByEquipos3 extends PrintCommon {
     protected $defaultPerro = array( // participante por defecto para garantizar que haya 4perros/equipo
         'Dorsal' => '-',
         'Perro' => 0,
-        'Nombre' => 'No inscrito',
-        'NombreGuia' => 'No inscrito',
-        'NombreClub' => 'No inscrito',
+        'Nombre' => '-',
+        'NombreGuia' => '-',
+        'NombreClub' => '-',
         'Licencia' => '-',
         'Categoria' => '-',
         'Faltas' => 0,
@@ -57,8 +57,8 @@ class ResultadosByEquipos3 extends PrintCommon {
         'Tiempo' => '-',
         'Velocidad' => '-',
         'Penalizacion' => 400,
-        'Calificacion' => 'No inscrito',
-        'CShort' => 'No inscrito',
+        'Calificacion' => '-',
+        'CShort' => '-',
         'Puesto' => '-'
     );
 	// geometria de las celdas
@@ -80,15 +80,15 @@ class ResultadosByEquipos3 extends PrintCommon {
         $this->mode=$mode;
         $tmode=($this->jornada->Equipos3!=0)?3:4;
         $this->cellHeader=
-            array(_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Cat.'),_('Flt.'),_('Toc.'),_('Reh.'),
-                  _('Tiempo'),_('Vel.'),_('Penal.'),_('Calificación'),_('Puesto'),_('Global Equipo'));
+            array(_('Dorsal'),_('Name'),_('Lic').'.',_('Handler'),_('Club'),_('Cat').'.',_('Flt').'.',_('Tch').'.',_('Ref').'.',
+                  _('Time'),_('Vel').'.',_('Penal').'.',_('Calification'),_('Position'),_('Team global'));
         $this->equipos=Resultados::getTeamResults($resultados['rows'],$prueba,$jornada,$tmode);
         $this->eqmgr=new Equipos("print_resultadosByEquipos",$prueba,$jornada);
 	}
 	
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader(_("Resultados Parciales"));
+		$this->print_commonHeader(_("Round scores")." ("._("Teams").")");
 		$this->print_identificacionManga($this->manga,$this->modestr[intval($this->mode)]);
 		
 		// Si es la primera hoja pintamos datos tecnicos de la manga
@@ -98,22 +98,22 @@ class ResultadosByEquipos3 extends PrintCommon {
 		$jobj=new Jueces("print_resultadosEquipos3");
 		$juez1=$jobj->selectByID($this->manga->Juez1);
 		$juez2=$jobj->selectByID($this->manga->Juez2);
-		$this->Cell(20,5,"Juez 1:","LT",0,'L',false);
+		$this->Cell(20,5,_("Judge")." 1:","LT",0,'L',false);
 		$str=($juez1['Nombre']==="-- Sin asignar --")?"":$juez1['Nombre'];
 		$this->Cell(70,5,$str,"T",0,'L',false);
-		$this->Cell(20,5,"Juez 2:","T",0,'L',false);
+		$this->Cell(20,5,_("Judge")." 2:","T",0,'L',false);
 		$str=($juez2['Nombre']==="-- Sin asignar --")?"":$juez2['Nombre'];
 		$this->Cell(78,5,$str,"TR",0,'L',false);
 		$this->Ln(5);
-		$this->Cell(20,5,"Distancia:","LB",0,'L',false);
+		$this->Cell(20,5,_("Distance").":","LB",0,'L',false);
 		$this->Cell(25,5,"{$this->resultados['trs']['dist']} mts","B",0,'L',false);
-		$this->Cell(20,5,"Obstáculos:","B",0,'L',false);
+		$this->Cell(20,5,_("Obstacles").":","B",0,'L',false);
 		$this->Cell(25,5,$this->resultados['trs']['obst'],"B",0,'L',false);
-		$this->Cell(10,5,"TRS:","B",0,'L',false);
+		$this->Cell(10,5,_("SCT").":","B",0,'L',false);
 		$this->Cell(20,5,"{$this->resultados['trs']['trs']} seg.","B",0,'L',false);
-		$this->Cell(10,5,"TRM:","B",0,'L',false);
+		$this->Cell(10,5,_("MCT").":","B",0,'L',false);
 		$this->Cell(20,5,"{$this->resultados['trs']['trm']} seg.","B",0,'L',false);
-		$this->Cell(20,5,"Velocidad:","B",0,'L',false);
+		$this->Cell(20,5,_("Speed").":","B",0,'L',false);
 		$this->Cell(18,5,"{$this->resultados['trs']['vel']} m/s","BR",0,'L',false);
 		$this->Ln(5);
 	}
@@ -215,10 +215,10 @@ class ResultadosByEquipos3 extends PrintCommon {
                 $this->ac_header(2,8);
                 // en las dos primeras filas imprimimos informacion de resultados del equipo
                 if ($n==0) {
-                    $this->Cell($this->pos[14],5,"Tiempo: ".$equipo['Tiempo'],	'LBR',	0,		$this->align[14],	true);
+                    $this->Cell($this->pos[14],5,_("Time").": ".$equipo['Tiempo'],	'LBR',	0,		$this->align[14],	true);
                 }
                 if ($n==1) {
-                    $this->Cell($this->pos[14],5,"Penaliz.: ".$equipo['Penalizacion'],	'LBR',	0,		$this->align[14],	true);
+                    $this->Cell($this->pos[14],5,_("Penaliz").".: ".$equipo['Penalizacion'],	'LBR',	0,		$this->align[14],	true);
                 }
                 $this->ac_row(2,9);
                 $this->Ln(5);

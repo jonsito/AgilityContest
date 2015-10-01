@@ -43,9 +43,9 @@ class ResultadosByEquipos4 extends PrintCommon {
     protected $defaultPerro = array( // participante por defecto para garantizar que haya 4perros/equipo
         'Dorsal' => '-',
         'Perro' => 0,
-        'Nombre' => 'No inscrito',
-        'NombreGuia' => 'No inscrito',
-        'NombreClub' => 'No inscrito',
+        'Nombre' => '-',
+        'NombreGuia' => '-',
+        'NombreClub' => '-',
         'Licencia' => '-',
         'Categoria' => '-',
         'Faltas' => 0,
@@ -54,8 +54,8 @@ class ResultadosByEquipos4 extends PrintCommon {
         'Tiempo' => '-',
         'Velocidad' => '-',
         'Penalizacion' => 400,
-        'Calificacion' => 'No inscrito',
-        'CShort' => 'No inscrito',
+        'Calificacion' => '-',
+        'CShort' => '-',
         'Puesto' => '-'
     );
 
@@ -78,7 +78,7 @@ class ResultadosByEquipos4 extends PrintCommon {
 	
 	// Cabecera de página
 	function Header() {
-        $this->print_commonHeader(_("Resultados Parciales"));
+        $this->print_commonHeader(_("Round scores")." ("._("Teams").")");
         $this->print_identificacionManga($this->manga,$this->modestr[intval($this->mode)]);
 
         // Si es la primera hoja pintamos datos tecnicos de la manga
@@ -88,22 +88,22 @@ class ResultadosByEquipos4 extends PrintCommon {
         $jobj=new Jueces("print_resultadosEquipos3");
         $juez1=$jobj->selectByID($this->manga->Juez1);
         $juez2=$jobj->selectByID($this->manga->Juez2);
-        $this->Cell(20,5,"Juez 1:","LT",0,'L',false);
+        $this->Cell(20,5,_("Judge")." 1:","LT",0,'L',false);
         $str=($juez1['Nombre']==="-- Sin asignar --")?"":$juez1['Nombre'];
         $this->Cell(70,5,$str,"T",0,'L',false);
-        $this->Cell(20,5,"Juez 2:","T",0,'L',false);
+        $this->Cell(20,5,_("Judge")." 2:","T",0,'L',false);
         $str=($juez2['Nombre']==="-- Sin asignar --")?"":$juez2['Nombre'];
         $this->Cell(78,5,$str,"TR",0,'L',false);
         $this->Ln(5);
-        $this->Cell(20,5,"Distancia:","LB",0,'L',false);
+        $this->Cell(20,5,_("Distance").":","LB",0,'L',false);
         $this->Cell(25,5,"{$this->resultados['trs']['dist']} mts","B",0,'L',false);
-        $this->Cell(20,5,"Obstáculos:","B",0,'L',false);
+        $this->Cell(20,5,_("Obstacles").":","B",0,'L',false);
         $this->Cell(25,5,$this->resultados['trs']['obst'],"B",0,'L',false);
-        $this->Cell(10,5,"TRS:","B",0,'L',false);
+        $this->Cell(10,5,_("SCT").":","B",0,'L',false);
         $this->Cell(20,5,"{$this->resultados['trs']['trs']} seg.","B",0,'L',false);
-        $this->Cell(10,5,"TRM:","B",0,'L',false);
+        $this->Cell(10,5,"MCT".":","B",0,'L',false);
         $this->Cell(20,5,"{$this->resultados['trs']['trm']} seg.","B",0,'L',false);
-        $this->Cell(20,5,"Velocidad:","B",0,'L',false);
+        $this->Cell(20,5,_("Speed").":","B",0,'L',false);
         $this->Cell(18,5,"{$this->resultados['trs']['vel']} m/s","BR",0,'L',false);
         $this->Ln(5);
 	}
@@ -188,13 +188,13 @@ class ResultadosByEquipos4 extends PrintCommon {
         $this->ac_SetFillColor("#c0c0c0"); // light gray
         $this->SetXY(71,7+$y+1);
         $this->SetFont('Arial','I',8); // italic 8px
-        $this->Cell(15,2.5,"Flt",0,0,'L',false);
-        $this->Cell(15,2.5,"Reh",0,0,'L',false);
-        $this->Cell(15,2.5,"Toc",0,'L',false);
-        $this->Cell(15,2.5,"Elim",0,'L',false);
-        $this->Cell(15,2.5,"N.P.",0,'L',false);
-        $this->Cell(25,2.5,"Tiempo",0,0,'L',false);
-        $this->Cell(26,2.5,"Penaliz.",0,0,'L',false);
+        $this->Cell(15,2.5,_("Flt"),0,0,'L',false);
+        $this->Cell(15,2.5,_("Ref"),0,0,'L',false);
+        $this->Cell(15,2.5,_("Tch"),0,'L',false);
+        $this->Cell(15,2.5,_("Elim"),0,'L',false);
+        $this->Cell(15,2.5,_("N.P."),0,'L',false);
+        $this->Cell(25,2.5,_("Time"),0,0,'L',false);
+        $this->Cell(26,2.5,_("Penaliz"),0,0,'L',false);
 
         $this->SetXY(71,6+$y+1);
         $this->SetFont('Arial','B',10); // italic 8px

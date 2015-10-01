@@ -59,12 +59,12 @@ class ResultadosByManga extends PrintCommon {
 		$this->resultados=$resultados;
 		$this->mode=$mode;
 		$this->cellHeader=
-			array(_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Cat/Grado'),_('Flt.'),_('Toc.'),_('Reh.'),_('Tiempo'),_('Vel.'),_('Penal.'),_('Calificación'),_('Puesto'));
+			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),_('Club'),_('Cat').'/'._('Grade'),_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Position'));
 	}
 	
 	// Cabecera de página
 	function Header() {
-        $str=($this->manga->Tipo==16)?_("Resultados"):_("Resultados Manga");
+        $str=($this->manga->Tipo==16)?_("Resultados"):_("Round scores");
 		$this->print_commonHeader($str);
 		$this->print_identificacionManga($this->manga,$this->modestr[intval($this->mode)]);
 		
