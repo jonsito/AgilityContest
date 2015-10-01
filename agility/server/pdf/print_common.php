@@ -56,8 +56,9 @@ class PrintCommon extends FPDF {
 	protected $centro;
 	
 	function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='') {
-		// convert to iso-latin1
-		$txt=utf8_decode($txt);
+		if (!is_string($txt)) { parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link); return; }
+		// convert to iso-latin1 from html
+		$txt=utf8_decode(html_entity_decode($txt));
 		// translate federation related strings
 		$txt=$this->federation->strToFederation($txt,$this->prueba->RSCE);
 		// let string fit into box
