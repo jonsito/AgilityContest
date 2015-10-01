@@ -13,8 +13,9 @@ TODO
 - rounds with more than 2 series
 - Easy contest data import from excel files
 - Update wizard window
-- Continue i18n
+- Revise i18n
 - i18n must be client-aware
 - Write videowall sequencing code
 - Fix authentication from electronic chrono
 - Backup recovery. no longer done by hand
+- Empty form for assistant data entry
