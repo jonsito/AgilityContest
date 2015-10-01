@@ -19,6 +19,7 @@
 /** default values **/
 define('AC_CONFIG_FILE',__DIR__."/config.ini"); // user definable configuration
 define('AC_SYSTEM_FILE',__DIR__."/system.ini"); // system configuration.
+define('AC_BATCH_FILE',__DIR__."/../../../settings.bat"); // to store lang info in windoze
 
 /** Internacionalizacion. Idiomas **/
 define ('AC_LANG','es_ES');
@@ -245,11 +246,17 @@ Class Config {
 				}
 			}
 		}
-		if (!$handle = fopen($path, 'w')) {
-			return false;
-		}
+		$handle = fopen($path, 'w');
+        if (!is_resource($handle)) return false;
 		$success = fwrite($handle, $content);
     	fclose($handle);
+		// for windows (sucks) systems, also write to settings.bat to setup language
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            $handle=fopen(AC_BATCH_FILE,'wb'); // force binary mode
+            if (!is_resource($handle)) return false;
+            fwrite($handle,"SET LANG=${assoc_arr['lang']}\r\n");
+            fclose($handle);
+        }
 		return $success;
 	}
 	

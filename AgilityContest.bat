@@ -1,6 +1,5 @@
 @echo off
-set LANG=en_US
-REM set LANG=es_ES
+call settings.bat
 cd /d %~dp0\xampp
 echo AgilityContest Launch Script
 
