@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-10-01 14:32+0200\n"
-"PO-Revision-Date: 2015-10-01 14:32+0200\n"
-"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2015-10-02 00:15+0200\n"
+"PO-Revision-Date: 2015-10-02 00:15+0200\n"
+"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -3691,12 +3691,12 @@ msgstr "Faltas"
 msgid "Refusals"
 msgstr "Reh&uacute;ses"
 
-#: server/pdf/print_common.php:168
-msgid "Página"
-msgstr "Página"
+#: server/pdf/print_common.php:169
+msgid "Page"
+msgstr "P&aacute;gina"
 
-#: server/pdf/print_common.php:172
-msgid "This copy is lincensed to club"
+#: server/pdf/print_common.php:173
+msgid "This copy is licensed to club"
 msgstr "Copia licenciada para el club"
 
 #: server/pdf/print_entradaDeDatos.php:167
@@ -3834,7 +3834,6 @@ msgid "Resultados"
 msgstr "Resultados"
 
 #: server/pdf/print_trsTemplates.php:66
-#, fuzzy
 msgid "SCT / MCT data form"
 msgstr "Datos de TRS y TRM"
 
@@ -4910,6 +4909,9 @@ msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
 #: console/dialogs/dlg_usuarios.inc:106
 msgid "Change password"
 msgstr "Cambiar la contrase&ntilde;a"
+
+#~ msgid "Página"
+#~ msgstr "Página"
 
 #~ msgid "DataSheet to evaluate SCT /MCT"
 #~ msgstr "Hoja para el c&aacute;lculo del TRS y el TRM"

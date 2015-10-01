@@ -143,13 +143,13 @@ class PrintCatalogo extends PrintCommon {
 		$this->SetFont('Helvetica','BI',12); // bold 9px
 		$this->Cell( $this->width[0], 7, $row['Nombre'],	'LB', 0, 'C',	true);
 		$this->SetFont('Helvetica','',8); // bold 8px
-		$this->Cell( $this->width[1], 7, substr($row['Raza'],0,20),		'LB', 0, 'R',	true);
+		$this->Cell( $this->width[1], 7, $row['Raza'],		'LB', 0, 'R',	true);
         if ($this->federation->getFederation()==1) $this->SetFont('Helvetica','',6); // bold 6px
         $this->Cell( $this->width[2], 7, $row['Licencia'],	'LB', 0, 'C',	true);
         $this->SetFont('Helvetica','',8); // bold 8px
 		$this->Cell( $this->width[3], 7, $this->cat[$row['Categoria']]." - ".$row['Grado'],	'LB', 0, 'C',	true);
 		$this->SetFont('Helvetica','B',10); // bold 9px
-		$this->Cell( $this->width[4], 7, substr($row['NombreGuia'],0,30),'LBR', 0, 'R',	true);
+		$this->Cell( $this->width[4], 7, $row['NombreGuia'],'LBR', 0, 'R',	true);
 		
 		$this->SetFont('Helvetica','',8); // bold 8px
 		

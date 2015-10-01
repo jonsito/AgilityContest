@@ -56,7 +56,8 @@ class PrintCommon extends FPDF {
 	protected $centro;
 	
 	function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='') {
-		if (!is_string($txt)) { parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link); return; }
+		if (is_null($txt)) $txt="";
+		if (is_string($txt)===FALSE) { return; } // Cell is only valid with strings
 		// convert to iso-latin1 from html
 		$txt=utf8_decode(html_entity_decode($txt));
 		// translate federation related strings
@@ -135,9 +136,9 @@ class PrintCommon extends FPDF {
 		// 		$this->Cell( width, height, data, borders, where, align, fill)
 		// 		los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
 		$this->SetXY(10,10); // margins are 10mm each
-		$this->Cell(25.4,25.4,$this->Image(__DIR__.'/../../images/logos/'.$this->icon,$this->getX(),$this->getY(),25.4),0,0,'L',false);
+		$this->Image(__DIR__.'/../../images/logos/'.$this->icon,$this->GetX(),$this->GetY(),25.4);
 		$this->SetXY($this->w - 35.4,10);
-		$this->Cell(25.4,25.4,$this->Image(__DIR__.'/../../images/logos/'.$this->icon2,$this->getX(),$this->getY(),25.4),0,0,'R',false);
+		$this->Image(__DIR__.'/../../images/logos/'.$this->icon2,$this->GetX(),$this->GetY(),25.4);
 	
 		// pintamos nombre de la prueba
 		$this->SetXY($this->centro -50,10);
@@ -166,11 +167,11 @@ class PrintCommon extends FPDF {
 		$this->Cell(60,10,"AgilityContest-$ver Copyright 2013-2015 by J.A.M.C.",0,0,'L');
 		// Número de página
 		$this->SetFont('Helvetica','IB',8);
-		$this->Cell(70,10,_('Página').' '.$this->PageNo().'/{nb}',0,0,'C');
+		$this->Cell(70,10,_('Page').' '.$this->PageNo().'/{nb}',0,0,'C');
 		// informacion de registro
 		$ri=$this->authManager->getRegistrationInfo();
 		$this->SetFont('Helvetica','I',6);
-		$this->Cell(60,10,_("This copy is lincensed to club").": {$ri['Club']}",0,0,'R');
+		$this->Cell(60,10,_("This copy is licensed to club").": {$ri['Club']}",0,0,'R');
 	}
 
 	// Identificacion de la Manga

@@ -257,11 +257,12 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->ac_header(1,14);
         $this->Cell(215,14,"","LTBR",0,'C',true);
         $this->SetXY(70,$y);
-        $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),5),"LT",0,'C',($logos[0]==='null.png')?true:false);
-        $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX(),$this->getY(),5),"T",0,'C',($logos[1]==='null.png')?true:false);
-        $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX(),$this->getY(),5),"T",0,'C',($logos[2]==='null.png')?true:false);
-        $this->Cell(10,5,$this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX(),$this->getY(),5),"T",0,'C',($logos[3]==='null.png')?true:false);
-        $this->Cell(140,5,$team['Nombre'],'T',0,'R',true);
+        $this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),5);
+        $this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX()+5,$this->getY(),5);
+        $this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX()+10,$this->getY(),5);
+        $this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX()+15,$this->getY(),5);
+        $this->SetX($this->GetX()+20);
+        $this->Cell(160,5,$team['Nombre'],'T',0,'R',true);
         $this->Cell(18,5,'','',0,'',true); // empty space at right of page
         // cabeceras de las celdas de resultados
         $this->ac_header(2,8);
