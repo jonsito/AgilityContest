@@ -88,7 +88,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
 		$this->print_commonHeader(_("Data entry (Teams-4)"));
 
         // pintamos datos de la jornada
-        $this->SetFont('Arial','B',12); // Arial bold 15
+        $this->SetFont('Helvetica','B',12); // Helvetica bold 15
         $str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
         $this->Cell(90,9,$str,0,0,'L',false);
 
@@ -136,9 +136,9 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
             $this->SetX(22);
             $this->ac_row($id,8);
             $this->Cell(6,4,$perro['Dorsal'],'LTBR',0,'L',true);
-            $this->SetFont('Arial','B',8);
+            $this->SetFont('Helvetica','B',8);
             $this->Cell(13,4,$perro['Nombre'],'LTBR',0,'C',true);
-            $this->SetFont('Arial','',7);
+            $this->SetFont('Helvetica','',7);
             $this->Cell(28,4,$perro['NombreGuia'],'LTBR',0,'R',true);
             $this->Ln(4);
         }
@@ -163,7 +163,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
         $this->Cell(15,10,"",'R',0,'L',true);
         $this->Cell(29,10,"",'',0,'L',true);
         $this->SetXY(71,7+$y+1);
-        $this->SetFont('Arial','I',8); // italic 8px
+        $this->SetFont('Helvetica','I',8); // italic 8px
         $this->Cell(49,2.5,_("Faults"),0,0,'L',false);
         $this->Cell(20,2.5,_("Refusals"),0,0,'L',false);
         $this->Cell(15,2.5,_("Touchs"),0,'L',false);

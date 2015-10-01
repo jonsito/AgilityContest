@@ -98,14 +98,14 @@ class PrintCatalogo extends PrintCommon {
 		$this->Image(__DIR__.'/../../images/logos/'.$icon,12,2+$y,18,18);
 
 		// pintamos info del club
-		$this->SetFont('Arial','B',9);
+		$this->SetFont('Helvetica','B',9);
 		$this->SetXY(32,$y);
 		$this->Cell( 50, 5, $club['Direccion1'],	'LT', 0, 'L', true); // pintamos direccion1
 		$this->SetXY(32,5+$y);
 		$this->Cell( 50, 5, $club['Direccion2'],	'L', 0, 'L',	true);	// pintamos direccion2
 		$this->SetXY(32,10+$y);
 		$this->Cell( 50, 5, $club['Provincia'],	'L', 0, 'L',	true);	// pintamos provincia
-		$this->SetFont('Arial','IB',24);
+		$this->SetFont('Helvetica','IB',24);
 		$this->SetXY(82,$y);
 		$this->Cell( 110, 15, $club['Nombre'],	'T', 0, 'R',	true);	// pintamos Nombre
 		$this->Cell( 10, 15, '',	'TR', 0, 'R',	true);	// caja vacia de relleno
@@ -113,7 +113,7 @@ class PrintCatalogo extends PrintCommon {
 		// pintamos cabeceras de la tabla		
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg2')); // gris
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg2')); // negro
-		$this->SetFont('Arial','B',9);
+		$this->SetFont('Helvetica','B',9);
 		$this->SetXY(32,15+$y);
 		$this->Cell( $this->width[0], 7, _('Name'),'LTB', 0, 'C',true);
 		$this->Cell( $this->width[1], 7, _('Breed'),'LTB', 0, 'C',true);
@@ -138,20 +138,20 @@ class PrintCatalogo extends PrintCommon {
 
         $this->SetX(17);
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-		$this->SetFont('Arial','B',15); //
+		$this->SetFont('Helvetica','B',15); //
 		$this->Cell( 15, 7, $row['Dorsal'],	'TLB', 0, 'C',	true);
-		$this->SetFont('Arial','BI',12); // bold 9px
+		$this->SetFont('Helvetica','BI',12); // bold 9px
 		$this->Cell( $this->width[0], 7, $row['Nombre'],	'LB', 0, 'C',	true);
-		$this->SetFont('Arial','',8); // bold 8px
+		$this->SetFont('Helvetica','',8); // bold 8px
 		$this->Cell( $this->width[1], 7, substr($row['Raza'],0,20),		'LB', 0, 'R',	true);
-        if ($this->federation->getFederation()==1) $this->SetFont('Arial','',6); // bold 6px
+        if ($this->federation->getFederation()==1) $this->SetFont('Helvetica','',6); // bold 6px
         $this->Cell( $this->width[2], 7, $row['Licencia'],	'LB', 0, 'C',	true);
-        $this->SetFont('Arial','',8); // bold 8px
+        $this->SetFont('Helvetica','',8); // bold 8px
 		$this->Cell( $this->width[3], 7, $this->cat[$row['Categoria']]." - ".$row['Grado'],	'LB', 0, 'C',	true);
-		$this->SetFont('Arial','B',10); // bold 9px
+		$this->SetFont('Helvetica','B',10); // bold 9px
 		$this->Cell( $this->width[4], 7, substr($row['NombreGuia'],0,30),'LBR', 0, 'R',	true);
 		
-		$this->SetFont('Arial','',8); // bold 8px
+		$this->SetFont('Helvetica','',8); // bold 8px
 		
 		// print inscrption data on each declared journeys
 		for($i=5;$i<count($this->width);$i++) {
@@ -394,7 +394,7 @@ class PrintEstadisticas extends PrintCommon {
 		$this->ac_header(2,9);
 		$this->SetX(10);
 		if ($rsce==0) {
-			$this->SetFont('Arial','B',9);
+			$this->SetFont('Helvetica','B',9);
 			// $this->cell( width, height, data, borders, where, align, fill)
 			$this->cell(30,7,'','LRB',0,'L',true);
 			$this->cell(30,7,'Large','TRB',0,'C',true);
@@ -448,7 +448,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->cell(30,7,$data[$name]['G']['C'],'RB',0,'C',true);
 			$this->Ln(10);
 		} else {
-			$this->SetFont('Arial','B',9);
+			$this->SetFont('Helvetica','B',9);
 			// $this->cell( width, height, data, borders, where, align, fill)
 			$this->cell(30,7,'','LRB',0,'L',true);
 			$this->cell(30,7,'Large','TRB',0,'C',true);
@@ -566,7 +566,7 @@ class PrintInscritos extends PrintCommon {
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
 		$this->ac_SetDrawColor("0x000000"); // line color
-		$this->SetFont('Arial','B',9); // bold 9px
+		$this->SetFont('Helvetica','B',9); // bold 9px
 		for($i=0;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
 			if ($this->pos[$i]==0) continue;
@@ -615,12 +615,12 @@ class PrintInscritos extends PrintCommon {
 			// $this->Cell($this->pos[0],7,$rowcount+1,		'LR',	0,		$this->align[0],$fill); // display order instead of idperro
 
 			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
-			$this->SetFont('Arial','B',8); // bold 8px
+			$this->SetFont('Helvetica','B',8); // bold 8px
 			$this->Cell($this->pos[1],5,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
-            if ($this->federation->getFederation()==1) $this->SetFont('Arial','',7); // normal 7px
-            else $this->SetFont('Arial','',8); // normal 8px
+            if ($this->federation->getFederation()==1) $this->SetFont('Helvetica','',7); // normal 7px
+            else $this->SetFont('Helvetica','',8); // normal 8px
 			$this->Cell($this->pos[2],5,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
-            $this->SetFont('Arial','',8); // normal 8px
+            $this->SetFont('Helvetica','',8); // normal 8px
 			$this->Cell($this->pos[3],5,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
 			$this->Cell($this->pos[4],5,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
 			$this->Cell($this->pos[5],5,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);

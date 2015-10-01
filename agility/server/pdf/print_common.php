@@ -141,7 +141,7 @@ class PrintCommon extends FPDF {
 	
 		// pintamos nombre de la prueba
 		$this->SetXY($this->centro -50,10);
-		$this->SetFont('Arial','BI',10); // Arial bold italic 10
+		$this->SetFont('Helvetica','BI',10); // Helvetica bold italic 10
         if (intval($this->prueba->ID)>1) { // solo apuntamos nombre de la prueba si no es la prueba por defecto
             $str=$this->prueba->Nombre." - ".$this->club->Nombre;
             $this->Cell(100,10,$str,0,0,'C',false);// Nombre de la prueba centrado
@@ -149,7 +149,7 @@ class PrintCommon extends FPDF {
 		$this->Ln(); // Salto de línea
 		
 		// pintamos el titulo en un recuadro
-		$this->SetFont('Arial','B',20); // Arial bold 20
+		$this->SetFont('Helvetica','B',20); // Helvetica bold 20
 		$this->SetXY($this->centro -50,20);
 		$this->Cell(100,10,$title,1,0,'C',false);// Nombre de la prueba centrado
 		$this->Ln(15); // Salto de línea
@@ -162,21 +162,21 @@ class PrintCommon extends FPDF {
 		$this->SetY(-15);
 		// copyright
 		$ver=$this->config->getEnv("version_name");
-		$this->SetFont('Arial','I',6);
+		$this->SetFont('Helvetica','I',6);
 		$this->Cell(60,10,"AgilityContest-$ver Copyright 2013-2015 by J.A.M.C.",0,0,'L');
 		// Número de página
-		$this->SetFont('Arial','IB',8);
+		$this->SetFont('Helvetica','IB',8);
 		$this->Cell(70,10,_('Página').' '.$this->PageNo().'/{nb}',0,0,'C');
 		// informacion de registro
 		$ri=$this->authManager->getRegistrationInfo();
-		$this->SetFont('Arial','I',6);
+		$this->SetFont('Helvetica','I',6);
 		$this->Cell(60,10,_("This copy is lincensed to club").": {$ri['Club']}",0,0,'R');
 	}
 
 	// Identificacion de la Manga
 	function print_identificacionManga($manga,$categoria) {
 		// pintamos "identificacion de la manga"
-		$this->SetFont('Arial','B',12); // Arial bold 15
+		$this->SetFont('Helvetica','B',12); // Helvetica bold 15
 		$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
 		$tmanga= Mangas::$tipo_manga[$manga->Tipo][1];
 		$str2 = "$tmanga - $categoria";
@@ -219,7 +219,7 @@ class PrintCommon extends FPDF {
 	}
 	
 	function ac_header($idx,$size) {
-		$this->SetFont('Arial','B',$size);
+		$this->SetFont('Helvetica','B',$size);
 		if($idx==1) {
 			$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // naranja
 			$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // negro
@@ -234,7 +234,7 @@ class PrintCommon extends FPDF {
 	function ac_row($idx,$size) {
 		$bg=$this->config->getEnv('pdf_rowcolor1');
 		if ( ($idx&0x01)==1)$bg=$this->config->getEnv('pdf_rowcolor2');
-		$this->SetFont('Arial','',$size);
+		$this->SetFont('Helvetica','',$size);
 		$this->ac_SetFillColor($bg); // color de la fila
 		$this->ac_SetTextColor('#000000'); // negro
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color

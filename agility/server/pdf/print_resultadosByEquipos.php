@@ -94,7 +94,7 @@ class ResultadosByEquipos3 extends PrintCommon {
 		// Si es la primera hoja pintamos datos tecnicos de la manga
 		if ($this->PageNo()!=1) return;
 
-		$this->SetFont('Arial','B',9); // bold 9px
+		$this->SetFont('Helvetica','B',9); // bold 9px
 		$jobj=new Jueces("print_resultadosEquipos3");
 		$juez1=$jobj->selectByID($this->manga->Juez1);
 		$juez2=$jobj->selectByID($this->manga->Juez2);
@@ -193,11 +193,11 @@ class ResultadosByEquipos3 extends PrintCommon {
                 $penal=number_format($row['Penalizacion'],2);
 
                 // print row data
-                $this->SetFont('Arial','',8); // set data font size
+                $this->SetFont('Helvetica','',8); // set data font size
                 $this->Cell($this->pos[0],5,$row['Dorsal'],			'LBR',	0,		$this->align[0],	true);
-                $this->SetFont('Arial','B',8); // mark Nombre as bold
+                $this->SetFont('Helvetica','B',8); // mark Nombre as bold
                 $this->Cell($this->pos[1],5,$row['Nombre'],			'LBR',	0,		$this->align[1],	true);
-                $this->SetFont('Arial','',8); // set data font size
+                $this->SetFont('Helvetica','',8); // set data font size
                 if ($this->pos[2]!=0) $this->Cell($this->pos[2],5,$row['Licencia'],		'LBR',	0,		$this->align[2],	true);
                 $this->Cell($this->pos[3],5,$row['NombreGuia'],		'LBR',	0,		$this->align[3],	true);
                 $this->Cell($this->pos[4],5,$row['NombreClub'],		'LBR',	0,		$this->align[4],	true);

@@ -78,7 +78,7 @@ class EntradaDeDatos extends PrintCommon {
 			$this->print_identificacionManga($this->manga,$this->cat[$this->categoria]);
 		} else {
 			// modo extendido: pinta solo identificacion de la jornada
-			$this->SetFont('Arial','B',12); // Arial bold 15
+			$this->SetFont('Helvetica','B',12); // Helvetica bold 15
 			$str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
 			$this->Cell(90,9,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
 			$this->Ln(9);
@@ -113,7 +113,7 @@ class EntradaDeDatos extends PrintCommon {
 		// bordes cabecera de celda
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // color de fondo 2
 		$this->SetXY($x+15,$y); // restore cursor position
-		$this->SetFont('Arial','B',10); // bold 10px
+		$this->SetFont('Helvetica','B',10); // bold 10px
 		$this->Cell(15,6,'',	'LTR',0,'L',true); // dorsal
 		$this->Cell(10,6,'',	'TR',0,'L',true); // celo
         if ($caza) {
@@ -140,7 +140,7 @@ class EntradaDeDatos extends PrintCommon {
 		// titulos cabecera de celda
 		$this->SetXY($x+15,$y); // restore cursor position
 		$this->SetTextColor(0,0,0); // negro
-		$this->SetFont('Arial','I',8); // italic 8px
+		$this->SetFont('Helvetica','I',8); // italic 8px
 		$this->Cell(15,4,_('Dorsal'),	'',0,'L',false); // display order
 		$this->Cell(10,4,_('Heat'),	'',0,'L',false);
         if ($caza) {
@@ -191,7 +191,7 @@ class EntradaDeDatos extends PrintCommon {
 		$x=$this->getX();
 		$y=$this->GetY();
 		// fase 1: contenido de cada celda de la cabecera
-		$this->SetFont('Arial','B',20); // bold 9px
+		$this->SetFont('Helvetica','B',20); // bold 9px
 		$this->Cell($this->pos[0],10,$row['Dorsal'],		'LTR',0,$this->align[0],true); // dorsal
 		// pintamos cajas con fondo
 		$this->Cell($this->pos[1],10,'',		'LTR',0,$this->align[1],true); // nombre
@@ -203,7 +203,7 @@ class EntradaDeDatos extends PrintCommon {
 		
 		// pintamos textos un poco desplazados hacia abajo y sin borde ni fondo
 		$this->SetXY($x+$this->pos[0],$y+3); // restore cursor position
-		$this->SetFont('Arial','B',12); // bold 9px
+		$this->SetFont('Helvetica','B',12); // bold 9px
 		$this->Cell($this->pos[1],10-3,$row['Nombre'],		'',0,$this->align[1],false);
         if ($this->pos[2]!=0) $this->Cell($this->pos[2],10-3,$row['Licencia'],		'',0,$this->align[2],false);
 		$this->Cell($this->pos[3],10-3,$row['NombreGuia'],	'',0,$this->align[3],false);
@@ -214,7 +214,7 @@ class EntradaDeDatos extends PrintCommon {
 		// nombre nombre de cada celda de la cabecera
 		$this->SetXY($x,$y); // restore cursor position
 		$this->SetTextColor(0,0,0); // negro
-		$this->SetFont('Arial','I',8); // italic 8px
+		$this->SetFont('Helvetica','I',8); // italic 8px
 		$this->Cell($this->pos[0],5,'',			'',	0,'L',false); // Dorsal
 		$this->Cell($this->pos[1],5,_('Name').':',	'',	0,'L',false);
         if ($this->pos[2]!=0) $this->Cell($this->pos[2],5,_('License').':','',	0,'L',false);
@@ -263,7 +263,7 @@ class EntradaDeDatos extends PrintCommon {
 		$y=$this->GetY();
 		
 		// pintamos celda de dorsal y logo del club
-		$this->SetFont('Arial','B',22); // bold 9px
+		$this->SetFont('Helvetica','B',22); // bold 9px
 		$this->Cell($this->pos[0],15,$row['Dorsal'],		'LTRB',0,$this->align[0],true); // display order
 		$this->SetXY($x,$y+15); // logo border
 		$this->Cell($this->pos[0],15,'','LB',0,false);
@@ -281,7 +281,7 @@ class EntradaDeDatos extends PrintCommon {
 		
 		// pintamos textos un poco desplazados hacia abajo y sin borde ni fondo
 		$this->SetXY($x+$this->pos[0],$y+3); // restore cursor position
-		$this->SetFont('Arial','B',12); // bold 9px
+		$this->SetFont('Helvetica','B',12); // bold 9px
         $this->Cell($this->pos[1],30-3,$row['Nombre'],		'',0,$this->align[1],false);
         $this->SetXY($x+$this->pos[0]+$this->pos[1],$y+3); // restore cursor position
         $this->Cell($this->pos[2]+$this->pos[3],30-3,$row['NombreGuia'],	'',0,$this->align[3],false);
@@ -295,7 +295,7 @@ class EntradaDeDatos extends PrintCommon {
 		// nombre nombre de cada celda de la cabecera
 		$this->SetXY($x,$y); // restore cursor position
 		$this->SetTextColor(0,0,0); // negro
-		$this->SetFont('Arial','I',8); // italic 8px
+		$this->SetFont('Helvetica','I',8); // italic 8px
 		$this->Cell($this->pos[0],5,_('Dorsal'),	'',	0,'L',false); // Dorsal
 		$this->Cell($this->pos[1],5,_('Name'),	'',	0,'L',false);
         $this->Cell($this->pos[2]+$this->pos[3],5,_('Handler').' - '._('License'),	'',	0,'L',false); // unify license and guia

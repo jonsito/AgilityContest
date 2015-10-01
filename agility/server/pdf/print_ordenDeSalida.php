@@ -162,13 +162,13 @@ class OrdenDeSalida extends PrintCommon {
 				$rowcount++;
 			}
             $this->ac_row($order,9);
-			$this->SetFont('Arial','B',11); // bold 9px
+			$this->SetFont('Helvetica','B',11); // bold 9px
 			$this->Cell($this->pos[0],6,($order+1)." - ",'LR',0,$this->align[0],true); // display order
-			$this->SetFont('Arial','',9); // remove bold 9px
+			$this->SetFont('Helvetica','',9); // remove bold 9px
 			$this->Cell($this->pos[1],6,$row['Dorsal'],		'LR',0,$this->align[1],true);
-            $this->SetFont('Arial','B',11); // bold 9px
+            $this->SetFont('Helvetica','B',11); // bold 9px
             $this->Cell($this->pos[2],6,$row['Nombre'],		'LR',0,$this->align[2],true);
-            $this->SetFont('Arial','',9); // remove bold 9px
+            $this->SetFont('Helvetica','',9); // remove bold 9px
             $this->Cell($this->pos[3],6,$row['Raza'],		'LR',0,$this->align[3],true);
 			if ($this->pos[4]!=0) $this->Cell($this->pos[4],6,$row['Licencia'],	'LR',0,$this->align[4],true);
 			$this->Cell($this->pos[5],6,$row['NombreGuia'],	'LR',0,$this->align[5],true);

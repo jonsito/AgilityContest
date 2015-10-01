@@ -65,7 +65,7 @@ class PrintTRSTemplates extends PrintCommon {
             // cabecera comun
             $this->print_commonHeader(_("SCT / MCT data form"));
             // pintamos identificacion de la jornada
-            $this->SetFont('Arial','B',12); // Arial bold 15pt
+            $this->SetFont('Helvetica','B',12); // Helvetica bold 15pt
             $str  = _("Journey").": {$this->jornada->Nombre} - {$this->jornada->Fecha}";
             $this->Cell(100,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
             $this->Ln(5);

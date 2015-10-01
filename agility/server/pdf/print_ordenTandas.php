@@ -62,7 +62,7 @@ class PrintTandas extends PrintCommon {
 		// cabecera comun
 		$this->print_commonHeader(_("Journey timetable"));
 		// pintamos identificacion de la jornada
-		$this->SetFont('Arial','B',12); // Arial bold 15pt
+		$this->SetFont('Helvetica','B',12); // Helvetica bold 15pt
 		$str  = _("Journey").": {$this->jornada->Nombre} - {$this->jornada->Fecha}";
 		$this->Cell(100,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
 		$this->Ln(5);
@@ -76,7 +76,7 @@ class PrintTandas extends PrintCommon {
 		$this->print_commonFooter();
 		// Pone un warning sobre la hora estimada
 		$this->SetXY(10,-20);
-		$this->SetFont('Arial','IB',10);
+		$this->SetFont('Helvetica','IB',10);
 		$this->Cell(190,5,'(*) '._('Notice').' : '._('Provided time is only an estimation and cannot be considered as official'),0,0,'L');
 	}
 	
@@ -111,9 +111,9 @@ class PrintTandas extends PrintCommon {
 			$this->Cell(10,7,$rowcount+1,'LBR',0,'C',true);
 			// imprimimos nombre de la tanda
 			$this->ac_row($rowcount,8);
-			$this->SetFont('Arial','B',8);
+			$this->SetFont('Helvetica','B',8);
 			$this->Cell(65,7,$row['Nombre'],'LBR',0,'R',true); // nombre en negritas
-			$this->SetFont('Arial','',8);
+			$this->SetFont('Helvetica','',8);
 			$this->Cell(25,7,$row['NombreSesion'],'LBR',0,'R',true);
 			if ($row['Tipo']!=0) {
 				$str="( Prueba={$row['Prueba']} ) AND ( Jornada={$row['Jornada']} ) AND (Manga={$row['Manga']})";

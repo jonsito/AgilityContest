@@ -71,7 +71,7 @@ class ResultadosByManga extends PrintCommon {
 		// Si es la primera hoja pintamos datos tecnicos de la manga
 		if ($this->PageNo()!=1) return;
 
-		$this->SetFont('Arial','B',9); // bold 9px
+		$this->SetFont('Helvetica','B',9); // bold 9px
 		$jobj=new Jueces("print_resultadosByManga");
 		$juez1=$jobj->selectByID($this->manga->Juez1);
 		$juez2=$jobj->selectByID($this->manga->Juez2);
@@ -106,7 +106,7 @@ class ResultadosByManga extends PrintCommon {
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
 		$this->ac_SetDrawColor("0x000000"); // line color
-		$this->SetFont('Arial','B',8); // bold 9px
+		$this->SetFont('Helvetica','B',8); // bold 9px
 		for($i=0;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
 			if ($this->pos[$i]!=0) $this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
@@ -148,11 +148,11 @@ class ResultadosByManga extends PrintCommon {
 			$penal=number_format($row['Penalizacion'],2);
 			$this->ac_row($rowcount,8);
 			// print row data
-			$this->SetFont('Arial','',8); // set data font size
+			$this->SetFont('Helvetica','',8); // set data font size
 			$this->Cell($this->pos[0],6,$row['Dorsal'],			'LR',	0,		$this->align[0],	true);
-			$this->SetFont('Arial','B',8); // mark Nombre as bold
+			$this->SetFont('Helvetica','B',8); // mark Nombre as bold
 			$this->Cell($this->pos[1],6,$row['Nombre'],			'LR',	0,		$this->align[1],	true);
-			$this->SetFont('Arial','',8); // set data font size
+			$this->SetFont('Helvetica','',8); // set data font size
 			if ($this->pos[2]!=0) $this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	true);
 			$this->Cell($this->pos[3],6,$row['NombreGuia'],		'LR',	0,		$this->align[3],	true);
 			$this->Cell($this->pos[4],6,$row['NombreClub'],		'LR',	0,		$this->align[4],	true);
@@ -164,7 +164,7 @@ class ResultadosByManga extends PrintCommon {
 			$this->Cell($this->pos[10],6,$veloc,				'LR',	0,		$this->align[10],	true);
 			$this->Cell($this->pos[11],6,$penal,				'LR',	0,		$this->align[11],	true);
 			$this->Cell($this->pos[12],6,$row['Calificacion'],	'LR',	0,		$this->align[12],	true);
-			$this->SetFont('Arial','B',11); // bold 11px
+			$this->SetFont('Helvetica','B',11); // bold 11px
 			$this->Cell($this->pos[13],6,$puesto,			'LR',	0,		$this->align[13],	true);
 			$this->Ln();
 			$rowcount++;

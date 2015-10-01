@@ -88,7 +88,7 @@ class OrdenSalidaEquipos4 extends PrintCommon {
 		$this->print_commonHeader(_("Starting order")." ("._("Teams").")");
 
         // pintamos datos de la jornada
-        $this->SetFont('Arial','B',12); // Arial bold 15
+        $this->SetFont('Helvetica','B',12); // Helvetica bold 15
         $str  = $this->jornada->Nombre . " - " . $this->jornada->Fecha;
         $this->Cell(90,9,$str,0,0,'L',false);
 
@@ -130,15 +130,15 @@ class OrdenSalidaEquipos4 extends PrintCommon {
             $this->SetX(23);
             $this->ac_row($id,8);
             $this->Cell(6,4,$perro['Dorsal'],'LTBR',0,'L',true);
-            $this->SetFont('Arial','B',8);
+            $this->SetFont('Helvetica','B',8);
             $this->Cell(13,4,$perro['Nombre'],'LTBR',0,'C',true);
-            $this->SetFont('Arial','',7);
+            $this->SetFont('Helvetica','',7);
             $this->Cell(20,4,$perro['Raza'],'LTBR',0,'R',true);
-            $this->SetFont('Arial','',7);
+            $this->SetFont('Helvetica','',7);
             $this->Cell(15,4,$this->cat[$perro['Categoria']],'LTBR',0,'C',true);
-            $this->SetFont('Arial','',7);
+            $this->SetFont('Helvetica','',7);
             $this->Cell(27,4,$perro['NombreGuia'],'LTBR',0,'R',true);
-            $this->SetFont('Arial','',7);
+            $this->SetFont('Helvetica','',7);
             $this->Cell(20,4,$perro['NombreClub'],'LTBR',0,'R',true);
             $this->Ln(4);
         }

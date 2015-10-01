@@ -88,7 +88,7 @@ class EquiposByJornada extends PrintCommon {
 	function Header() {
 		$this->print_commonHeader(_("List of teams"));
         // pintamos "identificacion de la manga"
-        $this->SetFont('Arial','B',12); // Arial bold 15
+        $this->SetFont('Helvetica','B',12); // Helvetica bold 15
         $str  = "Jornada: ". $this->jornada->Nombre . " - " . $this->jornada->Fecha;
         $this->Cell(90,6,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
         $this->Ln(6);
@@ -157,13 +157,13 @@ class EquiposByJornada extends PrintCommon {
             foreach($miembros as $row) {
                 $this->ac_SetFillColor( (($order&0x01)==0)?$bg1:$bg2);
     			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',0,$this->align[0],true);
-                $this->SetFont('Arial','B',10); // bold 9px
+                $this->SetFont('Helvetica','B',10); // bold 9px
                 $this->Cell($this->pos[1],5,$row['Nombre'],		'LR',0,$this->align[1],true);
-                $this->SetFont('Arial','',8); // remove bold 9px
+                $this->SetFont('Helvetica','',8); // remove bold 9px
                 $this->Cell($this->pos[2],5,$row['Raza'],		'LR',0,$this->align[2],true);
-                if ($this->federation->getFederation()==1) $this->SetFont('Arial','',7);
+                if ($this->federation->getFederation()==1) $this->SetFont('Helvetica','',7);
                 $this->Cell($this->pos[3],5,$row['Licencia'],	'LR',0,$this->align[3],true);
-                $this->SetFont('Arial','',8); // restore normal size after rfec license
+                $this->SetFont('Helvetica','',8); // restore normal size after rfec license
                 $this->Cell($this->pos[4],5,$this->cat[$row['Categoria']],	'LR',0,$this->align[4],true);
     			$this->Cell($this->pos[5],5,$row['NombreGuia'],	'LR',0,$this->align[5],true);
     			$this->Cell($this->pos[6],5,$row['NombreClub'],	'LR',0,$this->align[6],true);

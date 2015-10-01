@@ -70,7 +70,7 @@ class PrintClasificacion extends PrintCommon {
 	
 	function print_datosMangas() {
 		$this->setXY(10,40);
-		$this->SetFont('Arial','B',9); // bold 9px
+		$this->SetFont('Helvetica','B',9); // bold 9px
 		
 		$jobj=new Jueces("print_Clasificaciones");
 		$juez1=$jobj->selectByID($this->manga1->Juez1);
@@ -80,9 +80,9 @@ class PrintClasificacion extends PrintCommon {
 		if ($this->manga2!=null)
 			$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria;
 
-		$this->SetFont('Arial','B',11); // bold 9px
+		$this->SetFont('Helvetica','B',11); // bold 9px
 		$this->Cell(80,7,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
-		$this->SetFont('Arial','B',9); // bold 9px
+		$this->SetFont('Helvetica','B',9); // bold 9px
 		$this->Cell(20,7,_('Judge')." 1:","LT",0,'L',false);
 		$n=$juez1['Nombre'];
 		$this->Cell(75,7,($n==="-- Sin asignar --")?"":$n,"T",0,'L',false);
@@ -91,9 +91,9 @@ class PrintClasificacion extends PrintCommon {
 		$this->Cell(80,7,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
 		$this->Ln();
 		$trs=$this->trs1;
-		$this->SetFont('Arial','B',11); // bold 9px
+		$this->SetFont('Helvetica','B',11); // bold 9px
 		$this->Cell(80,7,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
-		$this->SetFont('Arial','B',9); // bold 9px
+		$this->SetFont('Helvetica','B',9); // bold 9px
 		$this->Cell(70,7,$tm1,"LTB",0,'L',false);
 		$this->Cell(25,7,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
 		$this->Cell(25,7,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
@@ -104,9 +104,9 @@ class PrintClasificacion extends PrintCommon {
 		if ($this->trs2==null) { $this->Ln(); return; }
 		$trs=$this->trs2;
 		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
-		$this->SetFont('Arial','B',11); // bold 9px
+		$this->SetFont('Helvetica','B',11); // bold 9px
 		$this->Cell(80,7,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
-		$this->SetFont('Arial','B',9); // bold 9px
+		$this->SetFont('Helvetica','B',9); // bold 9px
 		$this->Cell(70,7,$tm2,"LTB",0,'L',false);
 		$this->Cell(25,7,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
 		$this->Cell(25,7,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
@@ -119,7 +119,7 @@ class PrintClasificacion extends PrintCommon {
 	// on second and consecutive pages print a short description to avoid sheet missorder
 	function print_datosMangas2() {
 		$this->SetXY(35,20);
-		$this->SetFont('Arial','B',11); // bold 9px
+		$this->SetFont('Helvetica','B',11); // bold 9px
 		$this->Cell(80,7,"{$this->jornada->Nombre}",0,0,'',false);
 		$this->SetXY(35,25);
 		$this->Cell(80,7,"{$this->jornada->Fecha}",0,0,'',false);
@@ -151,13 +151,13 @@ class PrintClasificacion extends PrintCommon {
 		}
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// first row of table header
-		$this->SetFont('Arial','BI',12); // default font
+		$this->SetFont('Helvetica','BI',12); // default font
 		$this->Cell(115,7,_('Competitor data'),0,0,'L',true);
 		$this->Cell(57,7,$tm1,0,0,'C',true);
 		$this->Cell(57,7,$tm2,0,0,'C',true);
 		$this->Cell(46,7,_('Scores'),0,0,'C',true);
 		$this->ln();
-		$this->SetFont('Arial','',8); // default font
+		$this->SetFont('Helvetica','',8); // default font
 		// datos del participante
 		$this->Cell(10,7,_('Dorsal'),0,0,'C',true); 	// dorsal
 		$this->Cell(($caza)?20:25,7,_('Name'),0,0,'C',true);	// nombre (20,y
@@ -214,14 +214,14 @@ class PrintClasificacion extends PrintCommon {
 		
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 
-		$this->SetFont('Arial','',8); // default font
+		$this->SetFont('Helvetica','',8); // default font
 		// datos del participante
 		$this->Cell(10,6,$row['Dorsal'],0,0,'L',$fill); 	// dorsal
-		$this->SetFont('Arial','B',8); // Display Nombre in bold typeface
+		$this->SetFont('Helvetica','B',8); // Display Nombre in bold typeface
 		$this->Cell(($caza)?20:25,6,$row['Nombre'],0,0,'L',$fill);	// nombre (20,y
-		$this->SetFont('Arial','',($caza)?6:8); // default font
+		$this->SetFont('Helvetica','',($caza)?6:8); // default font
 		$this->Cell(($caza)?30:15,6,$row['Licencia'],0,0,'C',$fill);	// licencia
-        $this->SetFont('Arial','',8); // default font
+        $this->SetFont('Helvetica','',8); // default font
 		$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
 		$this->Cell(($caza)?30:35,6,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia
 		$this->Cell(($caza)?15:20,6,$row['NombreClub'],0,0,'R',$fill);	// nombreClub
@@ -247,7 +247,7 @@ class PrintClasificacion extends PrintCommon {
 		$this->Cell(11,6,number_format($row['Tiempo'],2),0,0,'C',$fill);	// Tiempo
 		$this->Cell(11,6,$penal,0,0,'C',$fill);	// Penalizacion
 		$this->Cell(15,6,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
-		$this->SetFont('Arial','B',10); // default font
+		$this->SetFont('Helvetica','B',10); // default font
 		$this->Cell(9,6,$puesto,0,0,'C',$fill);	// Puesto
 		// lineas rojas
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
@@ -265,7 +265,7 @@ class PrintClasificacion extends PrintCommon {
 
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
 		$this->SetTextColor(0,0,0); // negro
-		$this->SetFont('Arial','',8); // default font		
+		$this->SetFont('Helvetica','',8); // default font		
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
 		$this->SetLineWidth(.3);
 		

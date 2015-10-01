@@ -146,7 +146,7 @@ class PrintClasificacionEq3 extends PrintCommon {
 	
 	function print_datosMangas() {
 		$this->setXY(10,40);
-		$this->SetFont('Arial','B',9); // bold 9px
+		$this->SetFont('Helvetica','B',9); // bold 9px
 		
 		$jobj=new Jueces("print_Clasificaciones_eq3");
 		$juez1=$jobj->selectByID($this->manga1->Juez1);
@@ -156,9 +156,9 @@ class PrintClasificacionEq3 extends PrintCommon {
 		if ($this->manga2!=null)
 			$tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->categoria;
 
-		$this->SetFont('Arial','B',11); // bold 9px
+		$this->SetFont('Helvetica','B',11); // bold 9px
 		$this->Cell(80,5,_('Journey').": {$this->jornada->Nombre}",0,0,'',false);
-		$this->SetFont('Arial','B',9); // bold 9px
+		$this->SetFont('Helvetica','B',9); // bold 9px
 		$this->Cell(20,5,_('Judge')." 1:","LT",0,'L',false);
 		$n=$juez1['Nombre'];
 		$this->Cell(75,5,($n==="-- Sin asignar --")?"":$n,"T",0,'L',false);
@@ -167,9 +167,9 @@ class PrintClasificacionEq3 extends PrintCommon {
 		$this->Cell(80,5,($n==="-- Sin asignar --")?"":$n,"TR",0,'L',false);
 		$this->Ln();
 		$trs=$this->trs1;
-		$this->SetFont('Arial','B',11); // bold 9px
+		$this->SetFont('Helvetica','B',11); // bold 9px
 		$this->Cell(80,5,_('Date').": {$this->jornada->Fecha}",0,0,'',false);
-		$this->SetFont('Arial','B',9); // bold 9px
+		$this->SetFont('Helvetica','B',9); // bold 9px
 		$this->Cell(70,5,$tm1,"LTB",0,'L',false);
 		$this->Cell(25,5,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
 		$this->Cell(25,5,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
@@ -180,9 +180,9 @@ class PrintClasificacionEq3 extends PrintCommon {
 		if ($this->trs2==null) { $this->Ln(); return; }
 		$trs=$this->trs2;
 		$ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
-		$this->SetFont('Arial','B',11); // bold 9px
+		$this->SetFont('Helvetica','B',11); // bold 9px
 		$this->Cell(80,5,_('Round').": $ronda - {$this->categoria}",0,0,'',false);
-		$this->SetFont('Arial','B',9); // bold 9px
+		$this->SetFont('Helvetica','B',9); // bold 9px
 		$this->Cell(70,5,$tm2,"LTB",0,'L',false);
 		$this->Cell(25,5,_('Dist').".: {$trs['dist']}m","LTB",0,'L',false);
 		$this->Cell(25,5,_('Obst').".: {$trs['obst']}","LTB",0,'L',false);
@@ -195,7 +195,7 @@ class PrintClasificacionEq3 extends PrintCommon {
 	// on second and consecutive pages print a short description to avoid sheet missorder
 	function print_datosMangas2() {
 		$this->SetXY(35,15);
-		$this->SetFont('Arial','B',11); // bold 9px
+		$this->SetFont('Helvetica','B',11); // bold 9px
 		$this->Cell(80,7,"{$this->jornada->Nombre}",0,0,'',false);
 		$this->SetXY(35,20);
 		$this->Cell(80,7,"{$this->jornada->Fecha}",0,0,'',false);
@@ -250,14 +250,14 @@ class PrintClasificacionEq3 extends PrintCommon {
 		$this->ac_header(2,8);
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// first row of table header
-		$this->SetFont('Arial','BI',10); // default font
+		$this->SetFont('Helvetica','BI',10); // default font
         $this->Cell( ($caza)?110:95,4,_('Competitor data'),'L',0,'L',true);
 		$this->Cell(47,4,$tm1,0,0,'C',true);
 		$this->Cell(47,4,$tm2,0,0,'C',true);
         $this->Cell(34,4,_('Scr. Individual'),'0',0,'C',true);
         $this->Cell(($caza)?37:52,4,_('Scr. Teams'),'R',0,'C',true);
 		$this->ln();
-		$this->SetFont('Arial','',8); // default font
+		$this->SetFont('Helvetica','',8); // default font
 		// datos del participante
 		$this->Cell(8,4,_('Dorsal'),'BL',0,'C',true); 	// dorsal
 		$this->Cell(20,4,_('Name'),'B',0,'C',true);	// nombre (20,y
@@ -311,14 +311,14 @@ class PrintClasificacionEq3 extends PrintCommon {
 		
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 
-		$this->SetFont('Arial','',8); // default font
+		$this->SetFont('Helvetica','',8); // default font
 		// datos del participante
 		$this->Cell(8,4,$row['Dorsal'],'L',0,'L',true); 	// dorsal
-		$this->SetFont('Arial','B',8); // Display Nombre in bold typeface
+		$this->SetFont('Helvetica','B',8); // Display Nombre in bold typeface
 		$this->Cell(20,4,$row['Nombre'],0,0,'L',true);	// nombre (20,y
-		$this->SetFont('Arial','',($caza)?6:8); // default font for licencia
+		$this->SetFont('Helvetica','',($caza)?6:8); // default font for licencia
 		$this->Cell(($caza)?28:13,4,$row['Licencia'],0,0,'C',true);	// licencia
-        $this->SetFont('Arial','',8); // default font
+        $this->SetFont('Helvetica','',8); // default font
 		$this->Cell(8,4,"{$row['Categoria']}",0,0,'C',true);	// categoria/grado
 		$this->Cell(30,4,$row['NombreGuia'],0,0,'R',true);	// nombreGuia
 		$this->Cell(16,4,$row['NombreClub'],0,0,'R',true);	// nombreClub
@@ -344,30 +344,30 @@ class PrintClasificacionEq3 extends PrintCommon {
 		$this->Cell(9,4,number_format($row['Tiempo'],2),'L',0,'C',true);	// Tiempo
 		$this->Cell(9,4,$penal,0,0,'C',true);	// Penalizacion
 		$this->Cell(9,4,$row['Calificacion'],0,0,'C',true);	// Calificacion
-		$this->SetFont('Arial','B',8); // mark "puesto" in bold typeface
+		$this->SetFont('Helvetica','B',8); // mark "puesto" in bold typeface
 		$this->Cell(7,4,$puesto,'R',0,'C',true);	// Puesto
         // equipos
         $this->ac_header(2,8);
         switch($idx){
             case 0: // manga 1
-                $this->SetFont('Arial','BI',8); // default font
+                $this->SetFont('Helvetica','BI',8); // default font
                 $this->Cell(($caza)?17:22,4,Mangas::$tipo_manga[$this->manga1->Tipo][3],0,0,'L',true);	// nombre manga 1
-                $this->SetFont('Arial','',8); // default font
+                $this->SetFont('Helvetica','',8); // default font
                 $this->Cell(($caza)?10:15,4,$team['T1'],0,0,'R',true);	// tiempo manga 1
                 $this->Cell(($caza)?10:15,4,$team['P1'],'R',0,'R',true);	// penalizacion manga 1
                 break;
             case 1: // manga 2
-                $this->SetFont('Arial','BI',8); // default font
+                $this->SetFont('Helvetica','BI',8); // default font
                 $this->Cell(($caza)?17:22,4,Mangas::$tipo_manga[$this->manga2->Tipo][3],0,0,'L',true);	// nombre manga 2
-                $this->SetFont('Arial','',8); // default font
+                $this->SetFont('Helvetica','',8); // default font
                 $this->Cell(($caza)?10:15,4,$team['T2'],0,0,'R',true);	// tiempo manga 2
-                $this->SetFont('Arial','',8); // default font
+                $this->SetFont('Helvetica','',8); // default font
                 $this->Cell(($caza)?10:15,4,$team['P2'],'R',0,'R',true);	// penalizacion manga 2
                 break;
             case 2: // global
-                $this->SetFont('Arial','BI',8); // default font
+                $this->SetFont('Helvetica','BI',8); // default font
                 $this->Cell(($caza)?17:22,4,"Final",'B',0,'L',true);
-                $this->SetFont('Arial','B',8); // default font
+                $this->SetFont('Helvetica','B',8); // default font
                 $this->Cell(($caza)?10:15,4,$team['Tiempo'],'B',0,'R',true);	// tiempo final
                 $this->Cell(($caza)?10:15,4,$team['Penalizacion'],'RB',0,'R',true);	// penalizacion final
                 break;
