@@ -21,7 +21,8 @@ start /B "" mysql\bin\mysqld --defaults-file=mysql\bin\my.ini --standalone --con
 timeout /t 5
 
 if not exist ..\logs\first_install GOTO browser_start
-echo Creating AgilityContest Databases
+echo Creating AgilityContest Databases. Please wait
+timeout /t 5
 echo DROP DATABASE IF EXISTS agility; > ..\logs\install.sql
 echo CREATE DATABASE agility; >> ..\logs\install.sql
 echo USE agility; >> ..\logs\install.sql

@@ -130,6 +130,7 @@ SetOutPath $INSTDIR
 
 ;Incluimos todos los ficheros que componen nuestra aplicacion
 File AgilityContest.bat
+File settings.bat
 File License.txt
 File COPYING
 FILE README.md
