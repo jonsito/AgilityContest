@@ -36,7 +36,7 @@ class Print_ListaPerros extends PrintCommon {
 	protected $lista; // listado de perros
 
     // $cols=array( `ID`,`Federation`,`Nombre`,`Raza`,`Licencia`,`LOE_RRC`,`Categoria`,`NombreCategoria`,`Grado`,`NombreGrado`,`Guia`,`NombreGuia`,`Club`,`NombreClub`);
-    public static $cols = array( 'ID','Nombre','Raza','Licencia','LOE_RRC','Cat.','Grad.','Guia','Club');
+    public static $cols = array( 'ID','Name','Breed','License','KC id','Cat','Grad','Handler','Club');
     public static $fields = array( 'ID','Nombre','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub');
     public static $pos = array(   10,  25,      20,    20,        15,       10,          10,    45,    35  );
     public static $align = array( 'C',  'L',    'L',   'R',       'R',       'C',          'C',    'R',    'R'  );
@@ -62,7 +62,7 @@ class Print_ListaPerros extends PrintCommon {
 	// Cabecera de página
 	function Header() {
 		// cabecera comun
-		$this->print_commonHeader("Lista de perros registrados");
+		$this->print_commonHeader(_("List of registered dogs"));
 	}
 	
 	// Pie de página
@@ -76,7 +76,7 @@ class Print_ListaPerros extends PrintCommon {
 		$this->setXY(10,37.5);
         for ($n=0;$n<count(Print_ListaPerros::$cols);$n++){
             // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-            $this->Cell(Print_ListaPerros::$pos[$n],8,Print_ListaPerros::$cols[$n],'LTRB',0,'C',true);
+            $this->Cell(Print_ListaPerros::$pos[$n],8,_(Print_ListaPerros::$cols[$n]),'LTRB',0,'C',true);
         }
 		$this->Ln();
 		$this->myLogger->leave();

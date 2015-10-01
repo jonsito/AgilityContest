@@ -62,7 +62,7 @@ class PrintCatalogo extends PrintCommon {
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		$this->print_commonHeader("Catálogo de Participantes");
+		$this->print_commonHeader(_('Contest catalogue'));
 		$this->Ln(5);
 		$this->myLogger->leave();
 	}
@@ -115,11 +115,11 @@ class PrintCatalogo extends PrintCommon {
 		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg2')); // negro
 		$this->SetFont('Arial','B',9);
 		$this->SetXY(32,15+$y);
-		$this->Cell( $this->width[0], 7, 'Nombre','LTB', 0, 'C',true);
-		$this->Cell( $this->width[1], 7, 'Raza','LTB', 0, 'C',true);
-		$this->Cell( $this->width[2], 7, 'Licencia','LTB', 0, 'C',true);
-		$this->Cell( $this->width[3], 7, 'Cat/Grado','LTB', 0, 'C',true);
-		$this->Cell( $this->width[4], 7, 'Guía','LTBR', 0, 'C',true);
+		$this->Cell( $this->width[0], 7, _('Name'),'LTB', 0, 'C',true);
+		$this->Cell( $this->width[1], 7, _('Breed'),'LTB', 0, 'C',true);
+		$this->Cell( $this->width[2], 7, _('License'),'LTB', 0, 'C',true);
+		$this->Cell( $this->width[3], 7, _('Cat').'/'._('Grade'),'LTB', 0, 'C',true);
+		$this->Cell( $this->width[4], 7, _('Handler'),'LTBR', 0, 'C',true);
 		// print names of each declared journeys
 		for($i=5;$i<count($this->width);$i++) {
 			// en la cabecera texto siempre centrado
@@ -233,7 +233,7 @@ class PrintEstadisticas extends PrintCommon {
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		$this->print_commonHeader("Estadísticas");
+		$this->print_commonHeader(_("Statistics"));
 		$this->Ln(5);
 		$this->myLogger->leave();
 	}
@@ -413,7 +413,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // grado I
-			$this->cell(30,7,'Grado I','LRB',0,'L',true);
+			$this->cell(30,7,_('Grade').' I','LRB',0,'L',true);
 			$this->ac_row(1,9);
 			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
@@ -422,7 +422,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado II
-			$this->cell(30,7,'Grado II','LRB',0,'L',true);
+			$this->cell(30,7,_('Grade').' II','LRB',0,'L',true);
 			$this->ac_row(2,9);
 			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
@@ -431,7 +431,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado III
-			$this->cell(30,7,'Grado III','LRB',0,'L',true);
+			$this->cell(30,7,_('Grade').' III','LRB',0,'L',true);
 			$this->ac_row(3,9);
 			$this->cell(30,7,$data[$name]['GIII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GIII']['M'],'RB',0,'C',true);
@@ -440,7 +440,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // Total
-			$this->cell(30,7,'Total','LRB',0,'L',true);
+			$this->cell(30,7,_('Total'),'LRB',0,'L',true);
 			$this->ac_row(4,9);
 			$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
@@ -455,11 +455,11 @@ class PrintEstadisticas extends PrintCommon {
 			$this->cell(30,7,'Medium','TRB',0,'C',true);
 			$this->cell(30,7,'Small','TRB',0,'C',true);
 			$this->cell(30,7,'Tiny','TRB',0,'C',true);
-			$this->cell(30,7,'Total','TRB',0,'C',true);
+			$this->cell(30,7,_('Total'),'TRB',0,'C',true);
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // pre-agility
-			$this->cell(30,7,'Grado 0','LRB',0,'L',true);
+			$this->cell(30,7,_('Grade').' 0','LRB',0,'L',true);
 			$this->ac_row(0,9);
 			$this->cell(30,7,$data[$name]['P.A.']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['P.A.']['M'],'RB',0,'C',true);
@@ -469,7 +469,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // grado I
-			$this->cell(30,7,'Grado I','LRB',0,'L',true);
+			$this->cell(30,7,_('Grade').' I','LRB',0,'L',true);
 			$this->ac_row(1,9);
 			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
@@ -479,7 +479,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado II
-			$this->cell(30,7,'Grado II','LRB',0,'L',true);
+			$this->cell(30,7,_('Grade').' II','LRB',0,'L',true);
 			$this->ac_row(2,9);
 			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
@@ -489,7 +489,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // Total
-			$this->cell(30,7,'Total','LRB',0,'L',true);
+			$this->cell(30,7,_('Total'),'LRB',0,'L',true);
 			$this->ac_row(3,9);
 			$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
@@ -504,7 +504,7 @@ class PrintEstadisticas extends PrintCommon {
 		$est=$this->evalData();
 		$this->addPage();
 		$count=0;
-		$this->printTableHeader($est,'Prueba','Datos globales de participación');
+		$this->printTableHeader($est,'Prueba',_('Participation global data'));
 		$this->printTableData($est,'Prueba',$this->prueba->RSCE);
 		$count++;
 		foreach($this->jornadas as $jornada) {
@@ -544,13 +544,13 @@ class PrintInscritos extends PrintCommon {
 		$this->jornadas=$jornadas['rows'];
 		$this->setPageName("inscritosByPrueba.pdf");
 		$this->cellHeader=
-			array(_('Dorsal'),_('Nombre'),_('Lic.'),_('Guía'),_('Club'),_('Cat.'),_('Grado'),_('Celo'),_('Observaciones'),_('Sab.'),_('Dom.'));	
+			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),_('Club'),_('Cat'),_('Grado'),_('Heat'),_('Comments'),_('Sab.'),_('Dom.'));
 	}
 	
 	// Cabecera de página
 	function Header() {
 		$this->myLogger->enter();
-		$this->print_commonHeader(_("Listado de Participantes"));
+		$this->print_commonHeader(_("Competitors list"));
 		$this->Ln(5);
 		$this->myLogger->leave();
 	}
@@ -605,7 +605,7 @@ class PrintInscritos extends PrintCommon {
 		$rowcount=0;
 		foreach($this->inscritos as $row) {
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-			if( ($rowcount%39) == 0 ) { // assume 39 rows per page ( rowWidth = 7mmts )
+			if( ($rowcount%46) == 0 ) { // assume 39 rows per page ( header + rowWidth = 5mmts )
 				if ($rowcount>0) 
 					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
 				$this->addPage();
@@ -614,35 +614,35 @@ class PrintInscritos extends PrintCommon {
 			// $this->Cell($this->pos[0],7,$row['IDPerro'],	'LR',0,$this->align[0],$fill);
 			// $this->Cell($this->pos[0],7,$rowcount+1,		'LR',	0,		$this->align[0],$fill); // display order instead of idperro
 
-			$this->Cell($this->pos[0],6,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
+			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
 			$this->SetFont('Arial','B',8); // bold 8px
-			$this->Cell($this->pos[1],6,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
+			$this->Cell($this->pos[1],5,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
             if ($this->federation->getFederation()==1) $this->SetFont('Arial','',7); // normal 7px
             else $this->SetFont('Arial','',8); // normal 8px
-			$this->Cell($this->pos[2],6,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
+			$this->Cell($this->pos[2],5,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
             $this->SetFont('Arial','',8); // normal 8px
-			$this->Cell($this->pos[3],6,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
-			$this->Cell($this->pos[4],6,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
-			$this->Cell($this->pos[5],6,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
-			$this->Cell($this->pos[6],6,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
-			$this->Cell($this->pos[7],6,($row['Celo']==0)?"":"X",'LR',0,	$this->align[7],	$fill);
-			$this->Cell($this->pos[8],6,$row['Observaciones'],'LR',	0,		$this->align[8],	$fill);
+			$this->Cell($this->pos[3],5,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
+			$this->Cell($this->pos[4],5,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
+			$this->Cell($this->pos[5],5,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
+			$this->Cell($this->pos[6],5,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
+			$this->Cell($this->pos[7],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[7],	$fill);
+			$this->Cell($this->pos[8],5,$row['Observaciones'],'LR',	0,		$this->align[8],	$fill);
 			if ($this->pos[9]!=0)
-				$this->Cell($this->pos[9],6,($row['J1']==0)?"":"X",	'LR',0,		$this->align[9],	$fill);
+				$this->Cell($this->pos[9],5,($row['J1']==0)?"":"X",	'LR',0,		$this->align[9],	$fill);
 			if ($this->pos[10]!=0)
-				$this->Cell($this->pos[10],6,($row['J2']==0)?"":"X",'LR',0,		$this->align[10],	$fill);
+				$this->Cell($this->pos[10],5,($row['J2']==0)?"":"X",'LR',0,		$this->align[10],	$fill);
 			if ($this->pos[11]!=0)
-				$this->Cell($this->pos[11],6,($row['J3']==0)?"":"X",'LR',0,		$this->align[11],	$fill);
+				$this->Cell($this->pos[11],5,($row['J3']==0)?"":"X",'LR',0,		$this->align[11],	$fill);
 			if ($this->pos[12]!=0)
-				$this->Cell($this->pos[12],6,($row['J4']==0)?"":"X",'LR',0,		$this->align[12],	$fill);
+				$this->Cell($this->pos[12],5,($row['J4']==0)?"":"X",'LR',0,		$this->align[12],	$fill);
 			if ($this->pos[13]!=0)
-				$this->Cell($this->pos[13],6,($row['J5']==0)?"":"X",'LR',0,		$this->align[13],	$fill);
+				$this->Cell($this->pos[13],5,($row['J5']==0)?"":"X",'LR',0,		$this->align[13],	$fill);
 			if ($this->pos[14]!=0)
-				$this->Cell($this->pos[14],6,($row['J6']==0)?"":"X",'LR',0,		$this->align[14],	$fill);
+				$this->Cell($this->pos[14],5,($row['J6']==0)?"":"X",'LR',0,		$this->align[14],	$fill);
 			if ($this->pos[15]!=0)
-				$this->Cell($this->pos[15],6,($row['J7']==0)?"":"X",'LR',0,		$this->align[15],	$fill);
+				$this->Cell($this->pos[15],5,($row['J7']==0)?"":"X",'LR',0,		$this->align[15],	$fill);
 			if ($this->pos[16]!=0)
-				$this->Cell($this->pos[16],6,($row['J8']==0)?"":"X",'LR',0,		$this->align[16],	$fill);
+				$this->Cell($this->pos[16],5,($row['J8']==0)?"":"X",'LR',0,		$this->align[16],	$fill);
 			$this->Ln();
 			$fill = ! $fill;
 			$rowcount++;

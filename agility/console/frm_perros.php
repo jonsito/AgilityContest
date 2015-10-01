@@ -94,7 +94,7 @@ $config =Config::getInstance();
                 { field:'Federation', hidden:true },
             	{ field:'Nombre',   width:30, sortable:true,  align: 'right', title: '<?php _e('Name'); ?>' },
             	{ field:'Raza',     width:25,                align: 'right', title: '<?php _e('Breed'); ?>' },
-            	{ field:'LOE_RRC',  width:20, sortable:true, align: 'right', title: '<?php _e('KC. dogID'); ?>' },
+            	{ field:'LOE_RRC',  width:20, sortable:true, align: 'right', title: '<?php _e('KC id'); ?>' },
             	{ field:'Licencia', width:15, sortable:true, align: 'right', title: '<?php _e('Lic'); ?>.' },
             	{ field:'Categoria',width:10,                 align:'center', title: '<?php _e('Cat'); ?>.' },
             	{ field:'Grado',    width:10,                 align:'center', title: '<?php _e('Grade'); ?>' },

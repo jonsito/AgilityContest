@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE JORNADAS -->
-<div id="jornadas-dialog" style="width:375px;padding:25px">
+<div id="jornadas-dialog" style="width:400px;padding:25px">
 		<div class="ftitle"><?php _e('Journey information');?><br /></div>
         <form id="jornadas-form" method="get" novalidate>
             <div class="fitem">

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-09-30 13:53+0200\n"
-"PO-Revision-Date: 2015-09-30 13:56+0200\n"
+"POT-Creation-Date: 2015-10-01 12:58+0200\n"
+"PO-Revision-Date: 2015-10-01 12:58+0200\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -84,7 +84,10 @@ msgstr "Perro"
 #: server/pdf/print_entradaDeDatos.php:152
 #: server/pdf/print_entradaDeDatos.php:221
 #: server/pdf/print_entradaDeDatos.php:301
-#: server/pdf/print_equiposByJornada.php:84 tablet/tablet_main.php:78
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:122
+#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_ordenDeSalida.php:72 tablet/tablet_main.php:78
 #: tablet/tablet_main.php:262 videowall/videowall.js.php:163
 #: videowall/vw_combinada.php:133 videowall/vw_combinada.php:190
 #: videowall/vw_livestream.php:62 videowall/vw_llamada.php:101
@@ -156,7 +159,14 @@ msgstr "Categor&iacute;a"
 #: console/frm_inscripciones2.php:194 console/frm_perros.php:100
 #: public/pb_inscripciones.php:97 public/pb_inscripciones_equipos.php:153
 #: public/pb_ordensalida.php:158 public/pb_parciales.php:169
-#: server/pdf/print_clasificacion_excel.php:157 tablet/tablet_main.php:84
+#: server/pdf/print_clasificacion_excel.php:157
+#: server/pdf/print_inscritosByPrueba.php:121
+#: server/pdf/print_inscritosByPrueba.php:416
+#: server/pdf/print_inscritosByPrueba.php:425
+#: server/pdf/print_inscritosByPrueba.php:434
+#: server/pdf/print_inscritosByPrueba.php:462
+#: server/pdf/print_inscritosByPrueba.php:472
+#: server/pdf/print_inscritosByPrueba.php:482 tablet/tablet_main.php:84
 #: tablet/tablet_main.php:265 videowall/vw_combinada.php:136
 #: videowall/vw_livestream.php:65 videowall/vw_llamada.php:104
 #: videowall/vw_ordensalida.php:108 videowall/vw_parciales.php:130
@@ -175,7 +185,10 @@ msgstr "Grado"
 #: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:158
 #: public/pb_ordensalida.php:159 server/pdf/print_entradaDeDatos.php:145
 #: server/pdf/print_entradaDeDatos.php:223
-#: server/pdf/print_equiposByJornada.php:84 tablet/tablet_main.php:86
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_ordenDeSalida.php:72
+#: server/pdf/print_ordenDeSalida.php:176 tablet/tablet_main.php:86
 #: tablet/tablet_main.php:261 videowall/vw_combinada.php:192
 #: videowall/vw_livestream.php:66 videowall/vw_llamada.php:105
 #: videowall/vw_ordensalida.php:109 videowall/vwls_ordensalida.php:137
@@ -322,7 +335,9 @@ msgstr "Gu&iacute;a"
 #: public/pb_inscripciones_equipos.php:152 public/pb_ordensalida.php:157
 #: public/pb_parciales.php:168 public/pb_parciales_eq3.php:171
 #: server/pdf/print_clasificacion_eq3.php:265
-#: server/pdf/print_equiposByJornada.php:84 tablet/tablet_main.php:82
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:121
+#: server/pdf/print_inscritosByPrueba.php:547 tablet/tablet_main.php:82
 #: tablet/tablet_main.php:264 videowall/videowall.js.php:164
 #: videowall/vw_combinada.php:135 videowall/vw_llamada.php:103
 #: videowall/vw_parciales.php:129 videowall/vwls_parciales.php:155
@@ -353,10 +368,10 @@ msgstr "Manual"
 msgid "Sensor failure"
 msgstr "Fallo de sensores"
 
-#: chrono/index.php:97 videowall/vw_combinada.php:42
-#: videowall/vw_llamada.php:38 videowall/vw_ordensalida.php:37
-#: videowall/vw_parciales.php:39 videowall/vwls_ordensalida.php:57
-#: videowall/vwls_parciales.php:57
+#: chrono/index.php:97 server/pdf/print_ordenTandas.php:88
+#: videowall/vw_combinada.php:42 videowall/vw_llamada.php:38
+#: videowall/vw_ordensalida.php:37 videowall/vw_parciales.php:39
+#: videowall/vwls_ordensalida.php:57 videowall/vwls_parciales.php:57
 msgid "Ring"
 msgstr "Ring"
 
@@ -400,7 +415,10 @@ msgstr "Trabajar con el ring seleccionado"
 #: server/pdf/print_entradaDeDatos.php:150
 #: server/pdf/print_entradaDeDatos.php:219
 #: server/pdf/print_entradaDeDatos.php:300
-#: server/pdf/print_equiposByJornada.php:84 tablet/index.php:181
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:118
+#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_ordenDeSalida.php:72 tablet/index.php:181
 #: tablet/index.php:214 tablet/tablet_main.php:76 tablet/tablet_main.php:260
 #: videowall/index.php:239 videowall/vw_combinada.php:132
 #: videowall/vw_combinada.php:189 videowall/vw_livestream.php:61
@@ -434,10 +452,13 @@ msgstr "Nombre"
 #: public/pb_inscripciones_equipos.php:157 public/pb_programa.php:102
 #: server/pdf/print_entradaDeDatos.php:224
 #: server/pdf/print_entradaDeDatos.php:304
-#: server/pdf/print_equiposByJornada.php:84 tablet/index.php:182
-#: tablet/index.php:218 tablet/tablet_main.php:183 videowall/index.php:240
-#: videowall/vw_llamada.php:106 console/dialogs/dlg_chguias.inc:55
-#: console/dialogs/dlg_clubes.inc:125 console/dialogs/dlg_competicion.inc:123
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_ordenTandas.php:90
+#: tablet/index.php:182 tablet/index.php:218 tablet/tablet_main.php:183
+#: videowall/index.php:240 videowall/vw_llamada.php:106
+#: console/dialogs/dlg_chguias.inc:55 console/dialogs/dlg_clubes.inc:125
+#: console/dialogs/dlg_competicion.inc:123
 #: console/dialogs/dlg_editInscripcion.inc:69
 #: console/dialogs/dlg_equipos.inc:48 console/dialogs/dlg_guias.inc:51
 #: console/dialogs/dlg_jornadas.inc:29 console/dialogs/dlg_jueces.inc:75
@@ -1014,7 +1035,8 @@ msgstr "Club anfitri&oacute;n"
 #: server/pdf/print_clasificacion.php:84
 #: server/pdf/print_clasificacion_eq3.php:160
 #: server/pdf/print_clasificacion_eq4.php:164
-#: server/pdf/print_clasificacion_excel.php:100 tablet/index.php:150
+#: server/pdf/print_clasificacion_excel.php:100
+#: server/pdf/print_ordenTandas.php:66 tablet/index.php:150
 msgid "Journey"
 msgstr "Jornada"
 
@@ -1058,6 +1080,8 @@ msgstr "Clasificaci&oacute;n"
 #: server/pdf/print_clasificacion_eq3.php:264
 #: server/pdf/print_entradaDeDatos.php:149
 #: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_ordenDeSalida.php:72
 #: console/dialogs/dlg_newInscripcion.inc:153
 msgid "Lic"
 msgstr "Lic"
@@ -1188,7 +1212,8 @@ msgstr "Cal"
 #: server/pdf/print_entradaDeDatos.php:235
 #: server/pdf/print_entradaDeDatos.php:348
 #: server/pdf/print_entradaDeDatos.php:369
-#: server/pdf/print_entradaDeDatosEquipos4.php:171 tablet/tablet_main.php:94
+#: server/pdf/print_entradaDeDatosEquipos4.php:171
+#: server/pdf/print_ordenTandas.php:91 tablet/tablet_main.php:94
 #: tablet/tablet_main.php:181 tablet/tablet_main.php:269
 #: videowall/vw_combinada.php:141 videowall/vw_parciales.php:135
 #: videowall/vwls_parciales.php:161 console/dialogs/dlg_competicion.inc:112
@@ -1466,15 +1491,16 @@ msgstr "Cargando lista de perros"
 msgid "Registered dogs belonging to"
 msgstr "Lista de perros asignados a"
 
-#: console/frm_clubes.php:243 server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_resultadosByEquipos.php:83
+#: console/frm_clubes.php:243 server/pdf/print_resultadosByEquipos.php:83
 msgid "Cat."
 msgstr "Cat."
 
 #: console/frm_clubes.php:245 console/frm_guias.php:150
 #: console/frm_perros.php:96 public/pb_inscripciones.php:94
 #: public/pb_inscripciones_equipos.php:150 public/pb_ordensalida.php:153
-#: server/pdf/print_equiposByJornada.php:84 videowall/vw_llamada.php:100
+#: server/pdf/print_equiposByJornada.php:84
+#: server/pdf/print_inscritosByPrueba.php:119
+#: server/pdf/print_ordenDeSalida.php:72 videowall/vw_llamada.php:100
 #: videowall/vw_ordensalida.php:103 videowall/vwls_ordensalida.php:131
 #: console/dialogs/dlg_chperros.inc:47 console/dialogs/dlg_perros.inc:39
 msgid "Breed"
@@ -1482,15 +1508,16 @@ msgstr "Raza"
 
 #: console/frm_clubes.php:246 console/frm_guias.php:151
 #: console/frm_perros.php:97
-msgid "KC. dogID"
-msgstr "LOE / RRC"
+msgid "KC id"
+msgstr "LOE/RRC"
 
 #: console/frm_clubes.php:247 console/frm_guias.php:152
 #: public/pb_ordensalida.php:154 public/pb_parciales.php:164
 #: public/pb_parciales_eq3.php:167
 #: server/pdf/print_clasificacion_excel.php:155
 #: server/pdf/print_entradaDeDatos.php:220
-#: server/pdf/print_entradaDeDatos.php:301 videowall/vw_combinada.php:188
+#: server/pdf/print_entradaDeDatos.php:301
+#: server/pdf/print_inscritosByPrueba.php:120 videowall/vw_combinada.php:188
 #: videowall/vw_llamada.php:98 videowall/vw_ordensalida.php:104
 #: videowall/vw_parciales.php:125 videowall/vwls_ordensalida.php:132
 #: videowall/vwls_parciales.php:151 console/dialogs/dlg_editInscripcion.inc:40
@@ -1561,7 +1588,8 @@ msgid "Planning"
 msgstr "Programa"
 
 #: console/frm_competicion2.php:73 index.php:159 public/pb_ordensalida.php:38
-#: scripts/competicion.js.php:1149 videowall/index.php:178
+#: scripts/competicion.js.php:1149 server/pdf/print_ordenDeSalida.php:88
+#: server/pdf/print_ordenSalidaEquipos4.php:88 videowall/index.php:178
 #: videowall/index.php:187 videowall/vw_ordensalida.php:36
 #: videowall/vwls_ordensalida.php:56
 msgid "Starting order"
@@ -1797,8 +1825,9 @@ msgstr "Inscripciones registradas en la prueba"
 msgid "Reorder"
 msgstr "Reordenar"
 
-#: console/frm_inscripciones2.php:98 console/dialogs/dlg_jornadas.inc:91
-#: console/dialogs/dlg_ordensalida.inc:46
+#: console/frm_inscripciones2.php:98
+#: server/pdf/print_ordenSalidaEquipos4.php:88
+#: console/dialogs/dlg_jornadas.inc:91 console/dialogs/dlg_ordensalida.inc:46
 msgid "Teams"
 msgstr "Equipos"
 
@@ -2006,7 +2035,7 @@ msgstr "Cancelar fin de sesi&oacute;n. Cerrar ventana"
 
 #: console/frm_myAdmin.php:31 scripts/inscripciones.js.php:88
 #: scripts/pruebas.js.php:133 scripts/pruebas.js.php:188
-#: console/dialogs/dlg_perros.inc:72
+#: server/pdf/print_ordenTandas.php:80 console/dialogs/dlg_perros.inc:72
 msgid "Notice"
 msgstr "Aviso"
 
@@ -2334,6 +2363,7 @@ msgid "Scores - Contest and Journey selection"
 msgstr "Clasificaciones - Selecci&oacute;n de Prueba y Jornada"
 
 #: console/index.php:188 scripts/inscripciones.js.php:215
+#: server/pdf/print_inscritosByPrueba.php:236
 msgid "Statistics"
 msgstr "Estad&iacute;sticas"
 
@@ -2552,8 +2582,8 @@ msgstr "Actualizando el programa de la jornada"
 msgid "Timetable"
 msgstr "Horario"
 
-#: public/pb_programa.php:98 tablet/tablet_main.php:182
-#: console/dialogs/dlg_ordentandas.inc:133
+#: public/pb_programa.php:98 server/pdf/print_ordenTandas.php:87
+#: tablet/tablet_main.php:182 console/dialogs/dlg_ordentandas.inc:133
 msgid "Activity"
 msgstr "Actividad"
 
@@ -3653,9 +3683,6 @@ msgid "List of teams"
 msgstr "Listado de equipos"
 
 #: server/pdf/print_equiposByJornada.php:170
-#: server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_ordenDeSalida.php:72
-#: server/pdf/print_ordenDeSalida.php:176
 msgid "Celo"
 msgstr "Celo"
 
@@ -3671,35 +3698,23 @@ msgstr "Manga1:Penalizacion1:Calificacion1:Puesto1:"
 msgid "Round2:Penalization2:Calification2:Position2"
 msgstr "Manga2:Penalizacion2:Calificacion2:Puesto2"
 
-#: server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_ordenDeSalida.php:72
-#: server/pdf/print_resultadosByEquipos.php:83
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Nombre"
-msgstr "Nombre"
+#: server/pdf/print_inscritosByPrueba.php:65
+msgid "Contest catalogue"
+msgstr "Cat&aacute;logo de participantes"
 
-#: server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_ordenDeSalida.php:72
-#: server/pdf/print_resultadosByEquipos.php:83
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Lic."
-msgstr "Lic."
+#: server/pdf/print_inscritosByPrueba.php:443
+#: server/pdf/print_inscritosByPrueba.php:458
+#: server/pdf/print_inscritosByPrueba.php:492
+msgid "Total"
+msgstr "Total"
 
-#: server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_ordenDeSalida.php:72
-#: server/pdf/print_resultadosByEquipos.php:83
-#: server/pdf/print_resultadosByManga.php:62
-msgid "Guía"
-msgstr "Guía"
+#: server/pdf/print_inscritosByPrueba.php:507
+msgid "Participation global data"
+msgstr "Datos globales de participaci&oacute;n"
 
 #: server/pdf/print_inscritosByPrueba.php:547
 msgid "Grado"
 msgstr "Grado"
-
-#: server/pdf/print_inscritosByPrueba.php:547
-#: server/pdf/print_ordenDeSalida.php:72
-msgid "Observaciones"
-msgstr "Observaciones"
 
 #: server/pdf/print_inscritosByPrueba.php:547
 msgid "Sab."
@@ -3710,24 +3725,50 @@ msgid "Dom."
 msgstr "Dom."
 
 #: server/pdf/print_inscritosByPrueba.php:553
-msgid "Listado de Participantes"
-msgstr "Listado de Participantes"
+msgid "Competitors list"
+msgstr "Listado de participantes"
 
-#: server/pdf/print_ordenDeSalida.php:72
-msgid "Orden"
+#: server/pdf/print_listaPerros.php:65
+msgid "List of registered dogs"
+msgstr "Lista de perros registrados"
+
+#: server/pdf/print_ordenDeSalida.php:72 videowall/vw_llamada.php:91
+msgid "Order"
 msgstr "Orden"
 
-#: server/pdf/print_ordenDeSalida.php:72
-msgid "Raza"
-msgstr "Raza"
+#: server/pdf/print_ordenTandas.php:63
+msgid "Journey timetable"
+msgstr "Programa de la jornada"
 
-#: server/pdf/print_ordenDeSalida.php:88
-msgid "Orden de Salida"
-msgstr "Orden de Salida"
+#: server/pdf/print_ordenTandas.php:69
+msgid "Start time"
+msgstr "Hora de comienzo"
 
-#: server/pdf/print_ordenSalidaEquipos4.php:88
-msgid "Orden de Salida Equipos"
-msgstr "Orden de Salida Equipos"
+#: server/pdf/print_ordenTandas.php:80
+msgid ""
+"Provided time is only an estimation and cannot be considered as official"
+msgstr ""
+"La hora indicada es solamente una estimaci&oacute;n que NO TIENE "
+"consideraci&oacute; de horario oficial"
+
+#: server/pdf/print_ordenTandas.php:89
+msgid "Competitors"
+msgstr "Participantes"
+
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Nombre"
+msgstr "Nombre"
+
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Lic."
+msgstr "Lic."
+
+#: server/pdf/print_resultadosByEquipos.php:83
+#: server/pdf/print_resultadosByManga.php:62
+msgid "Guía"
+msgstr "Guía"
 
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62
@@ -3916,10 +3957,6 @@ msgstr "Actualizando resultados de la manga"
 #: videowall/vw_combinada.php:174 videowall/vw_llamada.php:84
 msgid "Updating list of teams to be called to ring"
 msgstr "Actualizando orden de llamada a pista"
-
-#: videowall/vw_llamada.php:91
-msgid "Order"
-msgstr "Orden"
 
 #: videowall/vwls_ordensalida.php:135
 msgid "Categ"
@@ -4866,6 +4903,27 @@ msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
 #: console/dialogs/dlg_usuarios.inc:106
 msgid "Change password"
 msgstr "Cambiar la contrase&ntilde;a"
+
+#~ msgid "Orden de Salida Equipos"
+#~ msgstr "Orden de Salida Equipos"
+
+#~ msgid "Orden"
+#~ msgstr "Orden"
+
+#~ msgid "Raza"
+#~ msgstr "Raza"
+
+#~ msgid "Observaciones"
+#~ msgstr "Observaciones"
+
+#~ msgid "Orden de Salida"
+#~ msgstr "Orden de Salida"
+
+#~ msgid "KC. dogID"
+#~ msgstr "LOE / RRC"
+
+#~ msgid "Listado de Participantes"
+#~ msgstr "Listado de Participantes"
 
 #~ msgid "Listado de Equipos"
 #~ msgstr "Listado de Equipos"

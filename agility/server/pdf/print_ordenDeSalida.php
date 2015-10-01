@@ -69,7 +69,7 @@ class OrdenDeSalida extends PrintCommon {
 		$this->orden=$os['rows'];
 		$this->categoria="L";
 		$this->cellHeader = 
-				array(_('Orden'),_('Dorsal'),_('Nombre'),_('Raza'),_('Lic.'),_('Guía'),_('Club'),_('Celo'),_('Observaciones'));
+				array(_('Order'),_('Dorsal'),_('Name'),_('Breed'),_('Lic'),_('Handler'),_('Club'),_('Heat'),_('Comments'));
         // obtenemos los datos de equipos de la jornada indexados por el ID del equipo
 		$eq=new Equipos("print_ordenDeSalida",$prueba,$jornada);
         $this->teams=array();
@@ -85,7 +85,7 @@ class OrdenDeSalida extends PrintCommon {
 	
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader(_("Orden de Salida"));
+		$this->print_commonHeader(_("Starting order"));
 		$this->print_identificacionManga($this->manga,$this->cat[$this->categoria]);
 	}
 	
@@ -173,7 +173,7 @@ class OrdenDeSalida extends PrintCommon {
 			if ($this->pos[4]!=0) $this->Cell($this->pos[4],6,$row['Licencia'],	'LR',0,$this->align[4],true);
 			$this->Cell($this->pos[5],6,$row['NombreGuia'],	'LR',0,$this->align[5],true);
 			$this->Cell($this->pos[6],6,$row['NombreClub'],	'LR',0,$this->align[6],true);
-			$this->Cell($this->pos[7],6,($row['Celo']==0)?"":_("Celo"),	'LR',0,$this->align[7],true);
+			$this->Cell($this->pos[7],6,($row['Celo']==0)?"":_("Heat"),	'LR',0,$this->align[7],true);
 			$this->Cell($this->pos[8],6,$row['Observaciones'],'LR',0,$this->align[8],true);
 			$this->Ln();
 			$rowcount++;

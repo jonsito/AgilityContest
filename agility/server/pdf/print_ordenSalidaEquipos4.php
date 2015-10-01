@@ -85,7 +85,7 @@ class OrdenSalidaEquipos4 extends PrintCommon {
 	
 	// Cabecera de página
 	function Header() {
-		$this->print_commonHeader(_("Orden de Salida Equipos"));
+		$this->print_commonHeader(_("Starting order")." ("._("Teams").")");
 
         // pintamos datos de la jornada
         $this->SetFont('Arial','B',12); // Arial bold 15
