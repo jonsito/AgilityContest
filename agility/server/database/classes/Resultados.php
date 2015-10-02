@@ -202,7 +202,7 @@ class Resultados extends DBObject {
 	function insertByData($objperro,$inscripcion,$eqdata) {
 		$this->myLogger->enter();
         $prueba=$this->IDPrueba;
-        // $jobj=$this->getDatosJornada();
+        $this->getDatosJornada(); // make sure that inner data is filled
         $jornada=$this->IDJornada;
         $manga=$this->IDManga;
         $perro=$objperro['ID'];
