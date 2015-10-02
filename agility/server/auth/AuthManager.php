@@ -141,7 +141,7 @@ class AuthManager {
 		if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
 			return array("errorMsg" => "registerApp(): Invalid received data format");
 		}
-		$type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
+		// $type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
 		$regdata=base64_decode( $matches[2] ); // decodes received data
 		// cogemos los datos de registro y los guardamos en un fichero temporal
 		$tmpname = tempnam(sys_get_temp_dir(), 'reginfo');

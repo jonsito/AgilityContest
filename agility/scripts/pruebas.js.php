@@ -59,6 +59,7 @@ function newPrueba(dg,def,onAccept){
 /**
  * If there are any inscriptions in a contest, disable change of federation
  * @param id
+ * @callback what to do with ajax response
  * @returns
  */
 function hasInscripciones(id,callback) {
@@ -258,7 +259,7 @@ function saveJornada(){
 /**
  * Comprueba si se puede seleccionar la prueba elegida en base a las mangas pre-existentes
  * @param {checkbox} id checkbox que se acaba de (de) seleccionar
- * @param {mask} mascara de la prueba marcada (seleccionada o de-seleccionada)
+ * @param {bitmap} mask mascara de la prueba marcada (seleccionada o de-seleccionada)
  * 0x0001, 'PreAgility 1 Manga'
  * 0x0002, 'PreAgility 2 Mangas'
  * 0x0004, 'Grado1',

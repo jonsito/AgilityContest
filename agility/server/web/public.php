@@ -77,9 +77,9 @@ $mode = http_request("Mode","i",0); // used on access from public
 
 $vw=new PublicWeb($prueba,$jornada,$manga,$mode);
 try {
-    if($operacion==="infodata") return $vw->publicweb_infodata();
+    if($operacion==="infodata") $vw->publicweb_infodata();
     throw new Exception("public.php: operacion invalida:'$operacion'");
 } catch (Exception $e) {
 	echo "<p>Error:<br />".$e->getMessage()."</p>";
-    return 0;
 }
+return 0;

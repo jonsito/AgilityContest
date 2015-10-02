@@ -36,7 +36,7 @@ function buscaEquipos() {
 *@param {string} cabecera table header string
 */
 function checkTeamsCompose(data,cabecera) {
-    str="<p><strong>"+cabecera+": "+data.length+"</strong>";
+    var str="<p><strong>"+cabecera+": "+data.length+"</strong>";
     if (data.length==0) return str+"</p>";
     str +="<table>";
     // componemos lista de equipos y numero de perros
@@ -70,7 +70,7 @@ function checkTeams(datagrid) {
                 $.messager.alert('<?php _e("Error"); ?>',data.errorMsg,"error");
                 return false;
             }
-            str ="<h4><?php _e('Registered teams revision'); ?><br /><?php _e('Journey');?> '"+workingData.datosJornada.Nombre+"'</h4>";
+            var str ="<h4><?php _e('Registered teams revision'); ?><br /><?php _e('Journey');?> '"+workingData.datosJornada.Nombre+"'</h4>";
             str +="<p><strong><?php _e('Number of teams'); ?>: "+(data['teams'].length)+"</strong></p>";
             if (typeof(data['default'][0])!=="undefined") {
                 str+="<p><strong><?php _e('Dogs without assigned team'); ?>: "+data['default'][0]['Numero']+"</strong></p>";
@@ -123,7 +123,7 @@ function printTeams(datagrid) {
                 $.messager.alert('<?php _e("Error"); ?>',data.errorMsg,"error");
                 return false;
             }
-            str ="<h4><?php _e('Registered teams revision'); ?><br /><?php _e('Journey');?> '"+workingData.datosJornada.Nombre+"'</h4>";
+            var str ="<h4><?php _e('Registered teams revision'); ?><br /><?php _e('Journey');?> '"+workingData.datosJornada.Nombre+"'</h4>";
             str +="<p><strong><?php _e('Number of teams'); ?>: "+(data['teams'].length)+"</strong></p>";
             if (typeof(data['default'][0])!=="undefined") {
                 str+="<p><strong><?php _e('Dogs without assigned team'); ?>: "+data['default'][0]['Numero']+"</strong></p>";

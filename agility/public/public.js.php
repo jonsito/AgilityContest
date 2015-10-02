@@ -73,15 +73,6 @@ function pb_setFooterInfo() {
 }
 
 /**
- * Funcion generica para efectuar todas las llamadas al servidor
- * @param {string} url direccion web
- * @param {string} id Identificador jquery donde insertar el resultado
- */
-function pb_doRequest(url,operation,id) {
-
-}
-
-/**
  * Imprime el orden de salida de la prueba y jornada seleccionada por el usuario
  */
 function pb_updateOrdenSalida() {

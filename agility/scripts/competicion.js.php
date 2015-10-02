@@ -138,8 +138,6 @@ function formatTeamResultsConsole( value , rows ) {
 }
 
 function formatTeamClasificaciones(value,rows) {
-    var time=0.0;
-    var penal=0.0;
     var logos="";
     var tmode=(isJornadaEq3()?3:4);
     function sortResults(a,b) {
@@ -174,8 +172,8 @@ function formatTeamClasificaciones(value,rows) {
         manga2.penal +=parseFloat(manga2.perros[n].penal);
     }
     // el resultado final es la suma de las mangas
-    time=manga1.time+manga2.time;
-    penal=manga1.penal+manga2.penal;
+    var time=manga1.time+manga2.time;
+    var penal=manga1.penal+manga2.penal;
     // !Por fin! componemos una tabla html como respuesta
     return '<div class="pb_equipos3">'+
         '<span style="width:10%;text-align:left;">'+logos+'</span>'+
@@ -188,8 +186,6 @@ function formatTeamClasificaciones(value,rows) {
 }
 
 function formatTeamClasificacionesConsole(value,rows) {
-    var time=0.0;
-    var penal=0.0;
     var tmode=(isJornadaEq3()?3:4);
     function sortResults(a,b) {
         return (a.penal== b.penal)? (a.time - b.time) : (a.penal - b.penal);
@@ -217,8 +213,8 @@ function formatTeamClasificacionesConsole(value,rows) {
         manga2.penal +=parseFloat(manga2.perros[n].penal);
     }
     // el resultado final es la suma de las mangas
-    time=manga1.time+manga2.time;
-    penal=manga1.penal+manga2.penal;
+    var time=manga1.time+manga2.time;
+    var penal=manga1.penal+manga2.penal;
 
     // !Por fin! componemos una tabla html como respuesta
     return '<div class="pb_equipos3" style="width:800px">'+
@@ -717,7 +713,7 @@ function resetCompeticion() {
         $.messager.alert('<?php _e("Busy"); ?>','<?php _e("Cannot reset: a cell is being edited"); ?>',"error");
         return;
     }
-    msg='<?php _e('Youll lost <strong>EVERY</strong> inserted results'); ?>'+'<br />'+
+    var msg='<?php _e('Youll lost <strong>EVERY</strong> inserted results'); ?>'+'<br />'+
         '<?php _e('in every categories on this round'); ?>'+'<br />'+
         '<?php _e('Do you really want to continue?'); ?>';
     $.messager.confirm('<?php _e("Erase results");?>', msg, function(r){

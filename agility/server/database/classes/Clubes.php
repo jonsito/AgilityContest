@@ -328,7 +328,7 @@ class Clubes extends DBObject {
 		if (!preg_match('/data:([^;]*);base64,(.*)/', $imgstr, $matches)) {
 			return $this->error("Invalid received image string data:'$imgstr'");
 		}
-		$type=$matches[1]; // 'image/png' , 'image/jpeg', or whatever. Not really used
+		// $type=$matches[1]; // 'image/png' , 'image/jpeg', or whatever. Not really used
 		$image=base64_decode( str_replace(' ', '+', $matches[2]) ); // also replace '+' to spaces or newlines 
 		$img=imagecreatefromstring( $image  ); 
 		if (!$img) return $this->error("Invalid received image string data:'$imgstr'");

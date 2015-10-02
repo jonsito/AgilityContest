@@ -167,7 +167,7 @@ $('#pb_ordensalida-datagrid').datagrid({
         return true;
     },
     onLoadSuccess:function(){
-        mySelf=$('#pb_ordensalida-datagrid');
+        var mySelf=$('#pb_ordensalida-datagrid');
         // show/hide team name
         if (isTeamByJornada(workingData.datosJornada) ) {
             mySelf.datagrid('showColumn','NombreEquipo');

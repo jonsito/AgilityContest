@@ -158,7 +158,7 @@ class Admin extends DBObject {
 		if (!preg_match('/data:([^;]*);base64,(.*)/', $data, $matches)) {
 			return array("errorMsg" => "restoreDatabase(): Invalid received data format");
 		}
-		$type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
+		// $type=$matches[1]; // 'application/octet-stream', or whatever. Not really used
 		$this->myLogger->leave();
 		return base64_decode( $matches[2] ); // decodes received data
 	}

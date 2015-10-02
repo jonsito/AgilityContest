@@ -146,7 +146,7 @@ function saveClub(){
     var frm = $('#clubes-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     // evaluate federation checkboxes
-    $fed=0;
+    var $fed=0;
     if ( $('#clubes-RSCE').is(':checked') ) $fed |=1;
     if ( $('#clubes-RFEC').is(':checked') ) $fed |=2;
     if ( $('#clubes-UCA').is(':checked') ) $fed |=4;

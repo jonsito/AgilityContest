@@ -250,7 +250,6 @@ function public_acceptSelection() {
 	// si datos invalidos cancelamos operacion
 	var p=$('#public-Prueba').combogrid('grid').datagrid('getSelected');
 	var j=$('#public-Jornada').combogrid('grid').datagrid('getSelected');
-	var page="'/agility/console/frm_notavailable.php";
 	if ( (p==null) || (j==null) || (o==null)) {
 		// indica error
 		$.messager.alert("Error",'<?php _e("You should select contest, journey and view to continue"); ?>',"error");
@@ -261,7 +260,7 @@ function public_acceptSelection() {
 	workingData.manga=0;
 	workingData.tanda=0;
 	workingData.mode=-1;
-    page='/agility/console/frm_notavailable.php';
+    var page='/agility/console/frm_notavailable.php';
 	switch (o){
 	case 'inscritos':
         if (isJornadaEq3() ) page="/agility/public/pb_inscripciones_equipos.php";
