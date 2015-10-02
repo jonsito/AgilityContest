@@ -48,7 +48,7 @@ $config =Config::getInstance();
 <script type="text/javascript">
 
 $('#selprueba-window').window({
-	title: '<?php _e('Select active contest');?>',
+	title: "<?php _e('Select active contest');?>",
 	collapsible: false,
 	minimizable: false,
 	maximizable: false,

@@ -99,7 +99,7 @@ $config =Config::getInstance();
 
 <!-- barra de progreso de actualizacion de inscripciones -->
 <div id="new_inscripcion-progresswindow" class="easyui-window"
-	data-options="title:'Procesando inscripciones...',width:300,modal:true,collapsable:false,minimizable:false,maximizable:false,closable:false,closed:true">
+	data-options="title:'<?php _e('Processing inscriptions'); ?>...',width:300,modal:true,collapsable:false,minimizable:false,maximizable:false,closable:false,closed:true">
 	<p id="new_inscripcion-progresslabel" style="text-align:center"><?php _e('Enrolling'); ?>:</p>
 	<div id="new_inscripcion-progressbar" class="easyui-progressbar" style="width:300px;text-align:center;" data-options="value:0"></div>
 </div>
@@ -156,6 +156,7 @@ $('#new_inscripcion-datagrid').datagrid({
 		{field:'NombreGuia', sortable:true, title:'<?php _e('Handler'); ?>',width:35,align:'right'},
 		{field:'NombreClub',title:'<?php _e('Club'); ?>',width:20,align:'right'}
 	]],
+	rownumbers:true,
     rowStyler:myRowStyler,
 	multiple: true,
 	fitColumns: true,

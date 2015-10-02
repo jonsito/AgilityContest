@@ -101,6 +101,7 @@ function initialize() {
  * @return {string} proper row style for given idx
  */
 function myRowStyler(idx,row) {
+	console.log("rwostyler row "+idx);
 	var res="background-color:";
 	var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>'; // even rows
 	var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>'; // odd rows

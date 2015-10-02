@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-10-02 00:15+0200\n"
-"PO-Revision-Date: 2015-10-02 00:15+0200\n"
-"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2015-10-02 12:10+0200\n"
+"PO-Revision-Date: 2015-10-02 13:05+0200\n"
+"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -46,10 +46,10 @@ msgstr "T"
 #: public/pb_parciales.php:162 public/pb_parciales_eq3.php:165
 #: scripts/competicion.js.php:1459 scripts/printer.js.php:209
 #: server/pdf/print_clasificacion.php:162
-#: server/pdf/print_clasificacion_eq3.php:262
+#: server/pdf/print_clasificacion_eq3.php:263
 #: server/pdf/print_clasificacion_excel.php:153
-#: server/pdf/print_entradaDeDatos.php:144
-#: server/pdf/print_entradaDeDatos.php:299
+#: server/pdf/print_entradaDeDatos.php:145
+#: server/pdf/print_entradaDeDatos.php:300
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:102
@@ -79,11 +79,11 @@ msgstr "Perro"
 #: public/pb_ordensalida.php:155 public/pb_parciales.php:166
 #: public/pb_parciales_eq3.php:169 scripts/competicion.js.php:1459
 #: scripts/printer.js.php:209 server/pdf/print_clasificacion.php:166
-#: server/pdf/print_clasificacion_eq3.php:266
+#: server/pdf/print_clasificacion_eq3.php:267
 #: server/pdf/print_clasificacion_excel.php:158
-#: server/pdf/print_entradaDeDatos.php:152
-#: server/pdf/print_entradaDeDatos.php:221
-#: server/pdf/print_entradaDeDatos.php:301
+#: server/pdf/print_entradaDeDatos.php:153
+#: server/pdf/print_entradaDeDatos.php:222
+#: server/pdf/print_entradaDeDatos.php:302
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:122
 #: server/pdf/print_inscritosByPrueba.php:547
@@ -116,12 +116,12 @@ msgstr "Gu&iacute;a"
 #: public/pb_ordensalida.php:156 public/pb_parciales.php:167
 #: public/pb_parciales_eq3.php:170 scripts/competicion.js.php:1459
 #: server/pdf/print_clasificacion.php:167
-#: server/pdf/print_clasificacion_eq3.php:267
+#: server/pdf/print_clasificacion_eq3.php:268
 #: server/pdf/print_clasificacion_excel.php:98
 #: server/pdf/print_clasificacion_excel.php:159
-#: server/pdf/print_entradaDeDatos.php:153
-#: server/pdf/print_entradaDeDatos.php:222
-#: server/pdf/print_entradaDeDatos.php:302
+#: server/pdf/print_entradaDeDatos.php:154
+#: server/pdf/print_entradaDeDatos.php:223
+#: server/pdf/print_entradaDeDatos.php:303
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:107
@@ -187,8 +187,8 @@ msgstr "Grado"
 #: chrono/chrono.inc.php:67 chrono/chrono.js.php:143
 #: console/frm_equipos.php:228 console/frm_inscripciones2.php:197
 #: public/pb_inscripciones.php:102 public/pb_inscripciones_equipos.php:158
-#: public/pb_ordensalida.php:159 server/pdf/print_entradaDeDatos.php:145
-#: server/pdf/print_entradaDeDatos.php:223
+#: public/pb_ordensalida.php:159 server/pdf/print_entradaDeDatos.php:146
+#: server/pdf/print_entradaDeDatos.php:224
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72
@@ -222,9 +222,9 @@ msgstr "Falta"
 msgid "Refusal"
 msgstr "Reh&uacute;se"
 
-#: chrono/chrono.inc.php:91 server/pdf/print_entradaDeDatos.php:347
-#: server/pdf/print_entradaDeDatos.php:368
-#: server/pdf/print_entradaDeDatosEquipos4.php:170 tablet/tablet_main.php:61
+#: chrono/chrono.inc.php:91 server/pdf/print_entradaDeDatos.php:348
+#: server/pdf/print_entradaDeDatos.php:369
+#: server/pdf/print_entradaDeDatosEquipos4.php:171 tablet/tablet_main.php:61
 msgid "Eliminated"
 msgstr "Eliminado"
 
@@ -308,10 +308,10 @@ msgid "Reset chronometer. Set count to zero"
 msgstr "Reset del cron&oacute;metro. Poner contadores a cero"
 
 #: chrono/chrono.js.php:110 scripts/competicion.js.php:42
-#: server/pdf/print_clasificacion_eq4.php:303
-#: server/pdf/print_clasificacion_eq4.php:311
-#: server/pdf/print_entradaDeDatos.php:244
-#: server/pdf/print_resultadosByEquipos4.php:194 tablet/tablet_main.php:100
+#: server/pdf/print_clasificacion_eq4.php:304
+#: server/pdf/print_clasificacion_eq4.php:312
+#: server/pdf/print_entradaDeDatos.php:245
+#: server/pdf/print_resultadosByEquipos4.php:195 tablet/tablet_main.php:100
 #: console/dialogs/dlg_competicion.inc:121
 msgid "Elim"
 msgstr "Elim"
@@ -339,7 +339,7 @@ msgstr "Gu&iacute;a"
 #: public/pb_inscripciones_equipos.php:87
 #: public/pb_inscripciones_equipos.php:152 public/pb_ordensalida.php:157
 #: public/pb_parciales.php:168 public/pb_parciales_eq3.php:171
-#: server/pdf/print_clasificacion_eq3.php:265
+#: server/pdf/print_clasificacion_eq3.php:266
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:121
 #: server/pdf/print_inscritosByPrueba.php:547 server/pdf/print_podium.php:105
@@ -416,12 +416,12 @@ msgstr "Trabajar con el ring seleccionado"
 #: public/pb_inscripciones.php:93 public/pb_inscripciones_equipos.php:149
 #: public/pb_ordensalida.php:152 public/pb_parciales.php:165
 #: public/pb_parciales_eq3.php:168 server/pdf/print_clasificacion.php:163
-#: server/pdf/print_clasificacion_eq3.php:263
+#: server/pdf/print_clasificacion_eq3.php:264
 #: server/pdf/print_clasificacion_excel.php:154
-#: server/pdf/print_entradaDeDatos.php:147
-#: server/pdf/print_entradaDeDatos.php:150
-#: server/pdf/print_entradaDeDatos.php:219
-#: server/pdf/print_entradaDeDatos.php:300
+#: server/pdf/print_entradaDeDatos.php:148
+#: server/pdf/print_entradaDeDatos.php:151
+#: server/pdf/print_entradaDeDatos.php:220
+#: server/pdf/print_entradaDeDatos.php:301
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:118
 #: server/pdf/print_inscritosByPrueba.php:547
@@ -459,8 +459,8 @@ msgstr "Nombre"
 #: console/frm_pruebas.php:95 console/frm_pruebas.php:148 index.php:225
 #: public/pb_inscripciones_equipos.php:88
 #: public/pb_inscripciones_equipos.php:157 public/pb_programa.php:102
-#: server/pdf/print_entradaDeDatos.php:224
-#: server/pdf/print_entradaDeDatos.php:304
+#: server/pdf/print_entradaDeDatos.php:225
+#: server/pdf/print_entradaDeDatos.php:305
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_ordenTandas.php:90
@@ -1071,7 +1071,7 @@ msgstr "Jornada"
 #: public/pb_finales_eq3.php:77 public/pb_parciales.php:41
 #: public/pb_parciales_eq3.php:41 server/pdf/print_clasificacion.php:108
 #: server/pdf/print_clasificacion_eq3.php:184
-#: server/pdf/print_clasificacion_eq3.php:292
+#: server/pdf/print_clasificacion_eq3.php:293
 #: server/pdf/print_clasificacion_eq4.php:188
 #: server/pdf/print_clasificacion_excel.php:123
 #: server/pdf/print_clasificacion_excel.php:131 videowall/vw_livestream.php:68
@@ -1100,8 +1100,8 @@ msgstr "Clasificaci&oacute;n"
 #: public/pb_finales_eq3.php:89 public/pb_inscripciones.php:95
 #: public/pb_inscripciones_equipos.php:151
 #: server/pdf/print_clasificacion.php:164
-#: server/pdf/print_clasificacion_eq3.php:264
-#: server/pdf/print_entradaDeDatos.php:149
+#: server/pdf/print_clasificacion_eq3.php:265
+#: server/pdf/print_entradaDeDatos.php:150
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:547
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:104
@@ -1123,8 +1123,8 @@ msgstr "Grd"
 #: public/pb_finales.php:98 public/pb_finales_eq3.php:93
 #: public/pb_finales_eq3.php:99 server/pdf/print_clasificacion.php:169
 #: server/pdf/print_clasificacion.php:177
-#: server/pdf/print_clasificacion_eq3.php:269
-#: server/pdf/print_clasificacion_eq3.php:277 server/pdf/print_podium.php:109
+#: server/pdf/print_clasificacion_eq3.php:270
+#: server/pdf/print_clasificacion_eq3.php:278 server/pdf/print_podium.php:109
 #: server/pdf/print_podium.php:117
 msgid "F/T"
 msgstr "F/T"
@@ -1155,8 +1155,8 @@ msgstr "Tmp"
 #: server/pdf/print_clasificacion.php:180
 #: server/pdf/print_clasificacion_eq3.php:178
 #: server/pdf/print_clasificacion_eq3.php:191
-#: server/pdf/print_clasificacion_eq3.php:272
-#: server/pdf/print_clasificacion_eq3.php:280
+#: server/pdf/print_clasificacion_eq3.php:273
+#: server/pdf/print_clasificacion_eq3.php:281
 #: server/pdf/print_clasificacion_eq4.php:182
 #: server/pdf/print_clasificacion_eq4.php:195
 #: server/pdf/print_clasificacion_excel.php:130
@@ -1199,8 +1199,8 @@ msgstr "Vel"
 #: scripts/competicion.js.php:185 scripts/competicion.js.php:228
 #: server/pdf/print_clasificacion.php:173
 #: server/pdf/print_clasificacion.php:181
-#: server/pdf/print_clasificacion_eq3.php:273
-#: server/pdf/print_clasificacion_eq3.php:281 server/pdf/print_podium.php:113
+#: server/pdf/print_clasificacion_eq3.php:274
+#: server/pdf/print_clasificacion_eq3.php:282 server/pdf/print_podium.php:113
 #: server/pdf/print_podium.php:121 server/pdf/print_resultadosByEquipos.php:84
 #: server/pdf/print_resultadosByManga.php:62 videowall/vw_combinada.php:144
 #: videowall/vw_parciales.php:138 videowall/vwls_parciales.php:164
@@ -1229,26 +1229,26 @@ msgstr "Cal"
 #: server/pdf/print_clasificacion.php:171
 #: server/pdf/print_clasificacion.php:179
 #: server/pdf/print_clasificacion.php:187
-#: server/pdf/print_clasificacion_eq3.php:271
-#: server/pdf/print_clasificacion_eq3.php:279
-#: server/pdf/print_clasificacion_eq3.php:287
-#: server/pdf/print_clasificacion_eq3.php:293
-#: server/pdf/print_clasificacion_eq4.php:305
-#: server/pdf/print_clasificacion_eq4.php:313
-#: server/pdf/print_clasificacion_eq4.php:316
+#: server/pdf/print_clasificacion_eq3.php:272
+#: server/pdf/print_clasificacion_eq3.php:280
+#: server/pdf/print_clasificacion_eq3.php:288
+#: server/pdf/print_clasificacion_eq3.php:294
+#: server/pdf/print_clasificacion_eq4.php:306
+#: server/pdf/print_clasificacion_eq4.php:314
+#: server/pdf/print_clasificacion_eq4.php:317
 #: server/pdf/print_clasificacion_excel.php:162
 #: server/pdf/print_clasificacion_excel.php:168
 #: server/pdf/print_clasificacion_excel.php:172
-#: server/pdf/print_entradaDeDatos.php:171
-#: server/pdf/print_entradaDeDatos.php:235
-#: server/pdf/print_entradaDeDatos.php:348
-#: server/pdf/print_entradaDeDatos.php:369
-#: server/pdf/print_entradaDeDatosEquipos4.php:171
+#: server/pdf/print_entradaDeDatos.php:172
+#: server/pdf/print_entradaDeDatos.php:236
+#: server/pdf/print_entradaDeDatos.php:349
+#: server/pdf/print_entradaDeDatos.php:370
+#: server/pdf/print_entradaDeDatosEquipos4.php:172
 #: server/pdf/print_ordenTandas.php:91 server/pdf/print_podium.php:111
 #: server/pdf/print_podium.php:119 server/pdf/print_podium.php:127
 #: server/pdf/print_resultadosByEquipos.php:84
-#: server/pdf/print_resultadosByEquipos.php:218
-#: server/pdf/print_resultadosByEquipos4.php:196
+#: server/pdf/print_resultadosByEquipos.php:219
+#: server/pdf/print_resultadosByEquipos4.php:197
 #: server/pdf/print_resultadosByManga.php:62 tablet/tablet_main.php:94
 #: tablet/tablet_main.php:181 tablet/tablet_main.php:269
 #: videowall/vw_combinada.php:141 videowall/vw_parciales.php:135
@@ -1263,17 +1263,17 @@ msgstr "Tiempo"
 #: console/frm_clasificaciones2.php:101
 #: console/frm_clasificaciones_eq3.php:101 public/pb_finales.php:105
 #: public/pb_finales_eq3.php:106 server/pdf/print_clasificacion.php:188
-#: server/pdf/print_clasificacion_eq3.php:288
-#: server/pdf/print_clasificacion_eq3.php:294
-#: server/pdf/print_clasificacion_eq4.php:306
-#: server/pdf/print_clasificacion_eq4.php:314
-#: server/pdf/print_clasificacion_eq4.php:317
+#: server/pdf/print_clasificacion_eq3.php:289
+#: server/pdf/print_clasificacion_eq3.php:295
+#: server/pdf/print_clasificacion_eq4.php:307
+#: server/pdf/print_clasificacion_eq4.php:315
+#: server/pdf/print_clasificacion_eq4.php:318
 #: server/pdf/print_clasificacion_excel.php:164
 #: server/pdf/print_clasificacion_excel.php:170
 #: server/pdf/print_clasificacion_excel.php:173
 #: server/pdf/print_podium.php:128
-#: server/pdf/print_resultadosByEquipos.php:221
-#: server/pdf/print_resultadosByEquipos4.php:197
+#: server/pdf/print_resultadosByEquipos.php:222
+#: server/pdf/print_resultadosByEquipos4.php:198
 msgid "Penaliz"
 msgstr "Penal"
 
@@ -1281,8 +1281,8 @@ msgstr "Penal"
 #: console/frm_clasificaciones_eq3.php:102 public/pb_finales.php:106
 #: public/pb_finales_eq3.php:107 server/pdf/print_clasificacion.php:174
 #: server/pdf/print_clasificacion.php:182
-#: server/pdf/print_clasificacion_eq3.php:274
-#: server/pdf/print_clasificacion_eq3.php:282 server/pdf/print_podium.php:122
+#: server/pdf/print_clasificacion_eq3.php:275
+#: server/pdf/print_clasificacion_eq3.php:283 server/pdf/print_podium.php:122
 msgid "Calif"
 msgstr "Calif"
 
@@ -1554,8 +1554,8 @@ msgstr "LOE/RRC"
 #: public/pb_ordensalida.php:154 public/pb_parciales.php:164
 #: public/pb_parciales_eq3.php:167
 #: server/pdf/print_clasificacion_excel.php:155
-#: server/pdf/print_entradaDeDatos.php:220
-#: server/pdf/print_entradaDeDatos.php:301
+#: server/pdf/print_entradaDeDatos.php:221
+#: server/pdf/print_entradaDeDatos.php:302
 #: server/pdf/print_inscritosByPrueba.php:120 videowall/vw_combinada.php:188
 #: videowall/vw_llamada.php:98 videowall/vw_ordensalida.php:104
 #: videowall/vw_parciales.php:125 videowall/vwls_ordensalida.php:132
@@ -2462,7 +2462,7 @@ msgstr "Clasificaci&oacute;n parcial"
 #: server/pdf/print_clasificacion.php:132
 #: server/pdf/print_clasificacion_eq3.php:208
 #: server/pdf/print_clasificacion_eq4.php:212
-#: server/pdf/print_clasificacion_eq4.php:275
+#: server/pdf/print_clasificacion_eq4.php:276
 msgid "Final scores"
 msgstr "Clasificaci&oacute;n final"
 
@@ -2535,7 +2535,7 @@ msgstr "Velocidad"
 
 #: public/pb_finales.php:75 public/pb_finales_eq3.php:75
 #: server/pdf/print_clasificacion.php:155
-#: server/pdf/print_clasificacion_eq3.php:254
+#: server/pdf/print_clasificacion_eq3.php:255
 #: server/pdf/print_clasificacion_excel.php:147
 msgid "Competitor data"
 msgstr "Datos del participante"
@@ -2543,7 +2543,7 @@ msgstr "Datos del participante"
 #: public/pb_finales.php:107 public/pb_finales_eq3.php:108
 #: public/pb_parciales.php:179 public/pb_parciales_eq3.php:182
 #: server/pdf/print_clasificacion.php:190
-#: server/pdf/print_clasificacion_eq3.php:290
+#: server/pdf/print_clasificacion_eq3.php:291
 #: server/pdf/print_clasificacion_excel.php:175
 #: server/pdf/print_podium.php:130 server/pdf/print_resultadosByEquipos.php:84
 #: server/pdf/print_resultadosByManga.php:62 videowall/vw_combinada.php:146
@@ -2933,10 +2933,10 @@ msgid "LoadConfig(): cannot retrieve configuration from server"
 msgstr ""
 "LoadConfig(): no puedo recuperar la configuraci&oacute;n desde el servidor"
 
-#: scripts/competicion.js.php:43 server/pdf/print_clasificacion_eq4.php:304
-#: server/pdf/print_clasificacion_eq4.php:312
-#: server/pdf/print_entradaDeDatos.php:245
-#: server/pdf/print_resultadosByEquipos4.php:195
+#: scripts/competicion.js.php:43 server/pdf/print_clasificacion_eq4.php:305
+#: server/pdf/print_clasificacion_eq4.php:313
+#: server/pdf/print_entradaDeDatos.php:246
+#: server/pdf/print_resultadosByEquipos4.php:196
 #: console/dialogs/dlg_competicion.inc:122
 msgid "N.P."
 msgstr "N.P."
@@ -3626,36 +3626,36 @@ msgstr "Cat./Grado"
 
 #: server/pdf/print_clasificacion.php:170
 #: server/pdf/print_clasificacion.php:178
-#: server/pdf/print_clasificacion_eq3.php:270
-#: server/pdf/print_clasificacion_eq3.php:278
-#: server/pdf/print_clasificacion_eq4.php:302
-#: server/pdf/print_clasificacion_eq4.php:310
-#: server/pdf/print_entradaDeDatos.php:169 server/pdf/print_podium.php:110
+#: server/pdf/print_clasificacion_eq3.php:271
+#: server/pdf/print_clasificacion_eq3.php:279
+#: server/pdf/print_clasificacion_eq4.php:303
+#: server/pdf/print_clasificacion_eq4.php:311
+#: server/pdf/print_entradaDeDatos.php:170 server/pdf/print_podium.php:110
 #: server/pdf/print_podium.php:118 server/pdf/print_resultadosByEquipos.php:83
-#: server/pdf/print_resultadosByEquipos4.php:192
+#: server/pdf/print_resultadosByEquipos4.php:193
 #: server/pdf/print_resultadosByManga.php:62
 #: console/dialogs/dlg_competicion.inc:110
 msgid "Ref"
 msgstr "Reh"
 
 #: server/pdf/print_clasificacion.php:189
-#: server/pdf/print_clasificacion_eq3.php:289 server/pdf/print_podium.php:129
+#: server/pdf/print_clasificacion_eq3.php:290 server/pdf/print_podium.php:129
 msgid "Calific"
 msgstr "Calif"
 
-#: server/pdf/print_clasificacion_eq3.php:257
+#: server/pdf/print_clasificacion_eq3.php:258
 msgid "Scr. Individual"
 msgstr "Cl. individual"
 
-#: server/pdf/print_clasificacion_eq3.php:258
+#: server/pdf/print_clasificacion_eq3.php:259
 msgid "Scr. Teams"
 msgstr "Cl Equipos"
 
-#: server/pdf/print_clasificacion_eq4.php:301
-#: server/pdf/print_clasificacion_eq4.php:309
-#: server/pdf/print_entradaDeDatos.php:168
+#: server/pdf/print_clasificacion_eq4.php:302
+#: server/pdf/print_clasificacion_eq4.php:310
+#: server/pdf/print_entradaDeDatos.php:169
 #: server/pdf/print_resultadosByEquipos.php:83
-#: server/pdf/print_resultadosByEquipos4.php:191
+#: server/pdf/print_resultadosByEquipos4.php:192
 #: server/pdf/print_resultadosByManga.php:62
 #: console/dialogs/dlg_competicion.inc:109
 msgid "Flt"
@@ -3663,11 +3663,11 @@ msgstr "Flt"
 
 #: server/pdf/print_clasificacion_excel.php:160
 #: server/pdf/print_clasificacion_excel.php:166
-#: server/pdf/print_entradaDeDatos.php:165
-#: server/pdf/print_entradaDeDatos.php:232
-#: server/pdf/print_entradaDeDatos.php:331
-#: server/pdf/print_entradaDeDatos.php:352
-#: server/pdf/print_entradaDeDatosEquipos4.php:167 tablet/tablet_main.php:88
+#: server/pdf/print_entradaDeDatos.php:166
+#: server/pdf/print_entradaDeDatos.php:233
+#: server/pdf/print_entradaDeDatos.php:332
+#: server/pdf/print_entradaDeDatos.php:353
+#: server/pdf/print_entradaDeDatosEquipos4.php:168 tablet/tablet_main.php:88
 #: videowall/vw_combinada.php:137 videowall/vw_parciales.php:131
 #: videowall/vwls_parciales.php:157
 #: console/dialogs/dlg_resultadosManga.inc:130
@@ -3678,11 +3678,11 @@ msgstr "Faltas"
 
 #: server/pdf/print_clasificacion_excel.php:161
 #: server/pdf/print_clasificacion_excel.php:167
-#: server/pdf/print_entradaDeDatos.php:166
-#: server/pdf/print_entradaDeDatos.php:242
-#: server/pdf/print_entradaDeDatos.php:339
-#: server/pdf/print_entradaDeDatos.php:360
-#: server/pdf/print_entradaDeDatosEquipos4.php:168 tablet/tablet_main.php:92
+#: server/pdf/print_entradaDeDatos.php:167
+#: server/pdf/print_entradaDeDatos.php:243
+#: server/pdf/print_entradaDeDatos.php:340
+#: server/pdf/print_entradaDeDatos.php:361
+#: server/pdf/print_entradaDeDatosEquipos4.php:169 tablet/tablet_main.php:92
 #: videowall/vw_combinada.php:138 videowall/vw_parciales.php:132
 #: videowall/vwls_parciales.php:158
 #: console/dialogs/dlg_resultadosManga.inc:131
@@ -3691,19 +3691,19 @@ msgstr "Faltas"
 msgid "Refusals"
 msgstr "Reh&uacute;ses"
 
-#: server/pdf/print_common.php:169
+#: server/pdf/print_common.php:170
 msgid "Page"
 msgstr "P&aacute;gina"
 
-#: server/pdf/print_common.php:173
+#: server/pdf/print_common.php:174
 msgid "This copy is licensed to club"
 msgstr "Copia licenciada para el club"
 
-#: server/pdf/print_entradaDeDatos.php:167
-#: server/pdf/print_entradaDeDatos.php:237
-#: server/pdf/print_entradaDeDatos.php:335
-#: server/pdf/print_entradaDeDatos.php:356
-#: server/pdf/print_entradaDeDatosEquipos4.php:169 tablet/tablet_main.php:90
+#: server/pdf/print_entradaDeDatos.php:168
+#: server/pdf/print_entradaDeDatos.php:238
+#: server/pdf/print_entradaDeDatos.php:336
+#: server/pdf/print_entradaDeDatos.php:357
+#: server/pdf/print_entradaDeDatosEquipos4.php:170 tablet/tablet_main.php:90
 #: videowall/vw_combinada.php:139 videowall/vw_parciales.php:133
 #: videowall/vwls_parciales.php:159
 #: console/dialogs/dlg_resultadosManga.inc:132
@@ -3712,28 +3712,28 @@ msgstr "Copia licenciada para el club"
 msgid "Touchs"
 msgstr "Tocados"
 
-#: server/pdf/print_entradaDeDatos.php:170
+#: server/pdf/print_entradaDeDatos.php:171
 #: server/pdf/print_resultadosByEquipos.php:83
-#: server/pdf/print_resultadosByEquipos4.php:193
+#: server/pdf/print_resultadosByEquipos4.php:194
 #: server/pdf/print_resultadosByManga.php:62
 msgid "Tch"
 msgstr "Toc"
 
-#: server/pdf/print_entradaDeDatos.php:346
-#: server/pdf/print_entradaDeDatos.php:367 tablet/tablet_main.php:60
+#: server/pdf/print_entradaDeDatos.php:347
+#: server/pdf/print_entradaDeDatos.php:368 tablet/tablet_main.php:60
 msgid "Not Present"
 msgstr "No Presentado"
 
-#: server/pdf/print_entradaDeDatos.php:375
 #: server/pdf/print_entradaDeDatos.php:376
-#: server/pdf/print_entradaDeDatos.php:405
+#: server/pdf/print_entradaDeDatos.php:377
+#: server/pdf/print_entradaDeDatos.php:406
 #: server/pdf/print_entradaDeDatosEquipos4.php:103
 msgid "Record by"
 msgstr "Apunta"
 
-#: server/pdf/print_entradaDeDatos.php:377
 #: server/pdf/print_entradaDeDatos.php:378
-#: server/pdf/print_entradaDeDatos.php:407
+#: server/pdf/print_entradaDeDatos.php:379
+#: server/pdf/print_entradaDeDatos.php:408
 #: server/pdf/print_entradaDeDatosEquipos4.php:105
 msgid "Review by"
 msgstr "Revisa"
@@ -3746,7 +3746,7 @@ msgstr "Entrada de datos (Equipos-4)"
 msgid "List of teams"
 msgstr "Listado de equipos"
 
-#: server/pdf/print_equiposByJornada.php:170
+#: server/pdf/print_equiposByJornada.php:171
 msgid "Celo"
 msgstr "Celo"
 
@@ -4581,6 +4581,10 @@ msgstr "Jornadas"
 #: console/dialogs/dlg_newInscripcion.inc:94
 msgid "Inscribe"
 msgstr "Inscribir"
+
+#: console/dialogs/dlg_newInscripcion.inc:102
+msgid "Processing inscriptions"
+msgstr "Procesando inscripciones"
 
 #: console/dialogs/dlg_newInscripcion.inc:126
 msgid "Add inscriptions to contest"

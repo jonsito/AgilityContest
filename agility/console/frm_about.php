@@ -68,7 +68,7 @@ $config =Config::getInstance();
 </div>
 <script type="text/javascript">
         $('#dlg_about').window({
-            title: "Acerca de AgilityContest",
+            title: "<?php _e('About AgilityContest');?>",
             collapsible:false,
             minimizable:false,
             maximizable:false,
