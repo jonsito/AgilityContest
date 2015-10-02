@@ -24,7 +24,7 @@ $config =Config::getInstance();
 <!-- CLASIFICACIONES DE PRUEBA/JORNADA/RONDA -->
 <div id="resultados-info" style="width:100%">
 	<div id="resultados-infolayout" class="easyui-layout" style="height:200px;">
-		<div data-options="region:'west',title:'<?php _e('Contest\\&#39;s data'); ?>',split:true,collapsed:false" style="width:300px;padding:10px;font-size:9px">
+		<div data-options="region:'west',title:'<?php _e('Contests data'); ?>',split:true,collapsed:false" style="width:300px;padding:10px;font-size:9px">
 			<form class="result_forms" id="resultados-info-prueba" method="get">
 			<table>
 			<tr>
@@ -69,7 +69,7 @@ $config =Config::getInstance();
 	<table id="resultados-datagrid">
 		<thead>
 			<tr>
-				<th colspan="7"> <span class="resultados_theader"><?php _e("Competitor&#39;s data"); ?></span></th>
+				<th colspan="7"> <span class="resultados_theader"><?php _e("Competitors data"); ?></span></th>
 			    <th colspan="6"> <span class="resultados_theader" id="resultados_thead_m1"><?php _e('Round'); ?> 1</span></th>
 			    <th colspan="6"> <span class="resultados_theader" id="resultados_thead_m2"><?php _e('Round'); ?> 2</span></th>
 			    <th colspan="4"> <span class="resultados_theader"><?php _e('Score'); ?></span></th>
@@ -226,7 +226,7 @@ addTooltip($('#resultados-refreshBtn').linkbutton(),'<?php _e("Update score tabl
 addTooltip($('#resultados-verifyBtn').linkbutton(),'<?php _e("Check for dogs without registered data"); ?>');
 addTooltip($('#resultados-printBtn').linkbutton(),'<?php _e("Print scores on current round"); ?>');
 addTooltip($('#resultados-printDlgBtn').linkbutton(),'<?php _e("Print data in selected format"); ?>');
-addTooltip($('#r_prfirstLbl'),'<?php _e("where to start printing<br/>in label&#39;s sheet"); ?>');
+addTooltip($('#r_prfirstLbl'),'<?php _e("where to start printing<br/>in labels sheet"); ?>');
 addTooltip($('#r_prlistLbl'),'<?php _e("Comma separated list of dorsals to be printed"); ?>');
 
 $('#resultados-datagrid').datagrid({

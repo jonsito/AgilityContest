@@ -151,7 +151,7 @@ $('#competicion-listamangas').datagrid({
 //tooltips
 addTooltip($('#competicion-ordentandasBtn').linkbutton(),"<?php _e('View/Edit Rounds and series order<br />on this journey')?>");
 addTooltip($('#competicion-ordensalidaBtn').linkbutton(),"<?php _e('View/Edit Starting order on selected round');?>");
-addTooltip($('#competicion-competicionBtn').linkbutton(),"<?php _e('Insert/Edit competitor&#39;s results');?>");
+addTooltip($('#competicion-competicionBtn').linkbutton(),"<?php _e('Insert/Edit competitors results');?>");
 addTooltip($('#competicion-resultmangaBtn').linkbutton(),"<?php _e('Review Partial results on selected round');?>");
 
 </script>

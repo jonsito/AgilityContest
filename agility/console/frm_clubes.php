@@ -69,7 +69,7 @@ $config =Config::getInstance();
 			title: '<?php _e('Clubs data management'); ?>' + ' - ' + fedName(workingData.federation),
 			url: '/agility/server/database/clubFunctions.php',
 			queryParams: { Operation: 'select' },
-			loadMsg: '<?php _e('Updating Club&#39;s list'); ?>'+' ...',
+			loadMsg: '<?php _e('Updating Clubs list'); ?>'+' ...',
 			method: 'get',
 			toolbar: '#clubes-toolbar',
 			pagination: false,
@@ -144,7 +144,7 @@ $config =Config::getInstance();
                 view: detailview,
         	    // height: 'auto',
         		title: '<?php _e('Handlers belonging to club'); ?>'+' '+club.Nombre+ ' - '+fedName(workingData.federation),
-        	    loadMsg: '<?php _e('Loading handler&#39;s list'); ?>' +' ....',
+        	    loadMsg: '<?php _e('Loading handlers list'); ?>' +' ....',
         		url: '/agility/server/database/guiaFunctions.php',
         		queryParams: { 
             		Operation:'getbyclub',
@@ -215,7 +215,7 @@ $config =Config::getInstance();
 			addTooltip($('#guiasByClub-newBtn'+club.ID).linkbutton(),'<?php _e("Create/Assing handler to club"); ?>'+" '"+club.Nombre+"'");
 			addTooltip($('#guiasByClub-editBtn'+club.ID).linkbutton(),'<?php _e("Edit data on handler belonging club"); ?>'+" '"+club.Nombre+"'");
 			addTooltip($('#guiasByClub-delBtn'+club.ID).linkbutton(),'<?php _e("Unassign selected handler from club"); ?>'+" '"+club.Nombre+"'");
-			addTooltip($('#guiasByClub-reloadBtn'+club.ID).linkbutton(),'<?php _e("Update handler&#39;s list on club"); ?>'+" '"+club.Nombre+"'");
+			addTooltip($('#guiasByClub-reloadBtn'+club.ID).linkbutton(),'<?php _e("Update handlers list on club"); ?>'+" '"+club.Nombre+"'");
             	
         } // end of "showGuiasByClub"
         

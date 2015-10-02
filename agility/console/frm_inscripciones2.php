@@ -38,7 +38,7 @@ $config =Config::getInstance();
 <div id="inscripciones-infolayout" class="easyui-layout" data-options="fit:true,border:true" style="padding:10px">
 	
 	<!-- PANEL IZQUIERDO: DATOS DE LA PRUEBA -->
-	<div data-options="region:'west',title:'<?php _e('Contest\\&#39;s data');?>',split:true,collapsed:false,collapsible:false"
+	<div data-options="region:'west',title:'<?php _e('Contests data');?>',split:true,collapsed:false,collapsible:false"
 		style="width:30%;padding:10px" class="c_inscripciones-datosprueba">
 		<form id="inscripciones-pruebas" method="get" >
 		<input type="hidden" name="ID"/>
@@ -125,7 +125,7 @@ $('#inscripciones-jornadas').datagrid({
     singleSelect: true,
 	url: '/agility/server/database/jornadaFunctions.php?Operation=select&Prueba='+workingData.prueba,
 	method: 'get',
-	loadMsg: '<?php _e('Updating journey&#39;s data');?>'+'...',
+	loadMsg: '<?php _e('Updating journeys data');?>'+'...',
     columns:[[
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Prueba',		hidden:true }, // ID de la prueba
@@ -175,7 +175,7 @@ $('#inscripciones-datagrid').datagrid({
     remoteSort: true,
 	url: '/agility/server/database/inscripcionFunctions.php?Operation=inscritos&Prueba='+workingData.prueba,
 	method: 'get',
-	loadMsg: '<?php _e('Updating inscriptio&#39;s data');?>'+'....',
+	loadMsg: '<?php _e('Updating inscriptions data');?>'+'....',
     toolbar: '#inscripciones-toolbar',
     columns: [[
         { field:'ID',		hidden:true }, // inscripcion ID
@@ -223,7 +223,7 @@ addTooltip($('#inscripciones-editBtn').linkbutton(),'<?php _e("Modify selected i
 addTooltip($('#inscripciones-delBtn').linkbutton(),'<?php _e("Remove selected inscription from database");?>');
 addTooltip($('#inscripciones-reorderBtn').linkbutton(),'<?php _e("Reassign dorsals ordering by Club,Category,Grade, and Name");?>');
 addTooltip($('#inscripciones-teamBtn').linkbutton(),'<?php _e("Open Team handling window for selected journey");?>');
-addTooltip($('#inscripciones-printBtn').linkbutton(),'<?php _e("Print inscription&#39;s list on this contest");?>');
+addTooltip($('#inscripciones-printBtn').linkbutton(),'<?php _e("Print inscriptions list on this contest");?>');
 addTooltip($('#inscripciones-reloadBtn').linkbutton(),'<?php _e("Clear search box<br/>Update inscriptions list");?>');
 addTooltip($('#inscripciones-datagrid-search'),'<?php _e("Search inscriptions matching search criteria");?>');
 

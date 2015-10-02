@@ -30,7 +30,7 @@ $config =Config::getInstance();
 	<div style="padding:5px;" data-options="region:'north',border:'false'">
 		<p>
 		<?php _e('Some operations require a valid user to be logged in'); ?>.<br />
-		<?php _e('If no user is entered, you&#39;ll be logged as "guest"'); ?>
+		<?php _e('If no user is entered, youll be logged as "guest"'); ?>
 		</p>
 	</div> 
 	<!-- formulario de datos de login -->
@@ -87,7 +87,7 @@ $('#login-window').window({
 });
 
 addTooltip($('#login-okBtn').linkbutton(),'<?php _e("Start session with provided user privileges"); ?>');
-addTooltip($('#login-cancelBtn').linkbutton(),'<?php _e("Start session as &#39;guest&#39; user. Close window"); ?>');
+addTooltip($('#login-cancelBtn').linkbutton(),'<?php _e("Start session as <em>guest</em> user. Close window"); ?>');
 
 // on Enter key on login field focus on password
 $('#login-Username').bind('keypress', function (evt) {

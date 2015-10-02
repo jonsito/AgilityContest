@@ -136,7 +136,7 @@ function acceptMyAdmin() {
 			$.messager.alert("Error",data.errorMsg,"error");
 		} else { // success:
 			if (parseInt(data.Perms)<=1) window.open("/phpmyadmin","phpMyAdmin");
-			else $.messager.alert("Error",'<?php _e("Current user has no &#39;admin&#39; privileges");?>',"error");
+			else $.messager.alert("Error",'<?php _e("Current user has no <em>admin</em> privileges");?>',"error");
 		}
 	});
 	$('#myAdmin-window').window('close');
