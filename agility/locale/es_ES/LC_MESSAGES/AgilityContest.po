@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-10-02 18:25+0200\n"
-"PO-Revision-Date: 2015-10-02 18:26+0200\n"
-"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2015-10-05 13:15+0200\n"
+"PO-Revision-Date: 2015-10-05 13:15+0200\n"
+"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr "T"
 #: server/pdf/print_entradaDeDatos.php:145
 #: server/pdf/print_entradaDeDatos.php:300
 #: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_inscritosByPrueba.php:581
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:102
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62 tablet/tablet_main.php:75
@@ -86,7 +86,7 @@ msgstr "Perro"
 #: server/pdf/print_entradaDeDatos.php:302
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:122
-#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_inscritosByPrueba.php:581
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:106
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62 tablet/tablet_main.php:78
@@ -123,7 +123,7 @@ msgstr "Gu&iacute;a"
 #: server/pdf/print_entradaDeDatos.php:223
 #: server/pdf/print_entradaDeDatos.php:303
 #: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_inscritosByPrueba.php:581
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:107
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62 tablet/index.php:216
@@ -190,7 +190,7 @@ msgstr "Grado"
 #: public/pb_ordensalida.php:159 server/pdf/print_entradaDeDatos.php:146
 #: server/pdf/print_entradaDeDatos.php:224
 #: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_inscritosByPrueba.php:581
 #: server/pdf/print_ordenDeSalida.php:72
 #: server/pdf/print_ordenDeSalida.php:176 tablet/tablet_main.php:86
 #: tablet/tablet_main.php:261 videowall/vw_combinada.php:192
@@ -342,7 +342,7 @@ msgstr "Gu&iacute;a"
 #: server/pdf/print_clasificacion_eq3.php:266
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:121
-#: server/pdf/print_inscritosByPrueba.php:547 server/pdf/print_podium.php:105
+#: server/pdf/print_inscritosByPrueba.php:581 server/pdf/print_podium.php:105
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62 tablet/tablet_main.php:82
 #: tablet/tablet_main.php:264 videowall/videowall.js.php:164
@@ -424,7 +424,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: server/pdf/print_entradaDeDatos.php:301
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:118
-#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_inscritosByPrueba.php:581
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:103
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62 tablet/index.php:181
@@ -462,7 +462,7 @@ msgstr "Nombre"
 #: server/pdf/print_entradaDeDatos.php:225
 #: server/pdf/print_entradaDeDatos.php:305
 #: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_inscritosByPrueba.php:581
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_ordenTandas.php:90
 #: tablet/index.php:182 tablet/index.php:218 tablet/tablet_main.php:183
 #: videowall/index.php:240 videowall/vw_llamada.php:106
@@ -1107,7 +1107,7 @@ msgstr "Clasificaci&oacute;n"
 #: server/pdf/print_clasificacion_eq3.php:265
 #: server/pdf/print_entradaDeDatos.php:150
 #: server/pdf/print_equiposByJornada.php:84
-#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_inscritosByPrueba.php:581
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:104
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62
@@ -1605,7 +1605,7 @@ msgstr "Equipos (3 mejores)"
 msgid "Teams 4"
 msgstr "Equipos (4 conjunta)"
 
-#: console/frm_competicion.php:57
+#: console/frm_competicion.php:57 server/pdf/print_inscritosByPrueba.php:543
 msgid "Open"
 msgstr "Abierto"
 
@@ -3691,11 +3691,11 @@ msgstr "Faltas"
 msgid "Refusals"
 msgstr "Reh&uacute;ses"
 
-#: server/pdf/print_common.php:170
+#: server/pdf/print_common.php:171
 msgid "Page"
 msgstr "P&aacute;gina"
 
-#: server/pdf/print_common.php:174
+#: server/pdf/print_common.php:175
 msgid "This copy is licensed to club"
 msgstr "Copia licenciada para el club"
 
@@ -3769,26 +3769,39 @@ msgstr "Cat&aacute;logo de participantes"
 #: server/pdf/print_inscritosByPrueba.php:443
 #: server/pdf/print_inscritosByPrueba.php:458
 #: server/pdf/print_inscritosByPrueba.php:492
+#: server/pdf/print_inscritosByPrueba.php:514
 msgid "Total"
 msgstr "Total"
 
-#: server/pdf/print_inscritosByPrueba.php:507
+#: server/pdf/print_inscritosByPrueba.php:532
 msgid "Participation global data"
 msgstr "Datos globales de participaci&oacute;n"
 
-#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_inscritosByPrueba.php:541
+msgid "Team 3"
+msgstr "Equipos 3"
+
+#: server/pdf/print_inscritosByPrueba.php:542
+msgid "Team 4"
+msgstr "Equipos 4"
+
+#: server/pdf/print_inscritosByPrueba.php:544
+msgid "K.O."
+msgstr "K.O."
+
+#: server/pdf/print_inscritosByPrueba.php:581
 msgid "Grado"
 msgstr "Grado"
 
-#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_inscritosByPrueba.php:581
 msgid "Sab."
 msgstr "Sab."
 
-#: server/pdf/print_inscritosByPrueba.php:547
+#: server/pdf/print_inscritosByPrueba.php:581
 msgid "Dom."
 msgstr "Dom."
 
-#: server/pdf/print_inscritosByPrueba.php:553
+#: server/pdf/print_inscritosByPrueba.php:587
 msgid "Competitors list"
 msgstr "Listado de participantes"
 

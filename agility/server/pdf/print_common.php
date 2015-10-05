@@ -57,6 +57,7 @@ class PrintCommon extends FPDF {
 	
 	function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link='') {
 		if (is_null($txt)) $txt="";
+		if (is_numeric($txt)) $txt=strval($txt);
 		if (is_string($txt)===FALSE) { return; } // Cell is only valid with strings
 		// convert to iso-latin1 from html
 		$txt=utf8_decode(html_entity_decode($txt));

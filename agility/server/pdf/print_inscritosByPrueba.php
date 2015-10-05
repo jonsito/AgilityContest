@@ -499,7 +499,32 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(10);
 		}
 	}
-	
+
+	function printTableDataSpecial($data,$name,$rsce,$flag) {
+		$this->ac_header(2,9);
+		$this->SetX(10);
+
+		$this->SetFont('Helvetica','B',9);
+		// $this->cell( width, height, data, borders, where, align, fill)
+		$this->cell(30,7,'','LRB',0,'L',true);
+		$this->cell(30,7,'Large','TRB',0,'C',true);
+		$this->cell(30,7,'Medium','TRB',0,'C',true);
+		$this->cell(30,7,'Small','TRB',0,'C',true);
+		if ($rsce!=0) $this->cell(30,7,'Tiny','TRB',0,'C',true);
+		$this->cell(30,7,_('Total'),'TRB',0,'C',true);
+		$this->Ln(7);
+
+		$this->ac_header(0,9); // Special round==total
+		$this->cell(30,7,$flag,'LRB',0,'L',true);
+		$this->ac_row(0,9);
+		$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
+		$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
+		$this->cell(30,7,$data[$name]['G']['S'],'RB',0,'C',true);
+		if ($rsce!=0) $this->cell(30,7,$data[$name]['G']['T'],'RB',0,'C',true);
+		$this->cell(30,7,$data[$name]['G']['C'],'RB',0,'C',true);
+		$this->Ln(10);
+	}
+
 	function composeTable() {
 		$est=$this->evalData();
 		$this->addPage();
@@ -511,7 +536,16 @@ class PrintEstadisticas extends PrintCommon {
 			if ($jornada['Nombre']==='-- Sin asignar --') continue;
 			$name="J{$jornada['Numero']}";
 			$this->printTableHeader($est,$name,$jornada['Nombre']);
-			$this->printTableData($est,$name,$this->prueba->RSCE);
+			// check for Open/Team/Ko
+			$flag="";
+			if ($jornada['Equipos3']!=0) $flag=_("Team 3");
+			if ($jornada['Equipos4']!=0) $flag=_("Team 4");
+			if ($jornada['Open']!=0) $flag=_("Open");
+			if ($jornada['KO']!=0) $flag=_("K.O.");
+			if ($flag==="")
+				$this->printTableData($est,$name,$this->prueba->RSCE);
+			else
+				$this->printTableDataSpecial($est,$name,$this->prueba->RSCE,$flag);
 			$count++;
 			if ($count%4==0) $this->addPage();
 		}
