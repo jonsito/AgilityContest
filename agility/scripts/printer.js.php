@@ -237,27 +237,29 @@ function print_commonDesarrollo(def) {
         0:((def==0)?'*':'')+'<?php _e('Activities and timetable on this journey'); ?>',
         1:((def==1)?'*':'')+'<?php _e('Starting order on this round'); ?><br/>',
         2:((def==2)?'*':'')+'<?php _e('SheetCalc to evaluate SCT and MCT'); ?>',
-        3:((def==3)?'*':'')+'<?php _e('Sheet to anotate data on rounds'); ?><br/>',
-        4:((def==4)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
-        5:((def==5)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
-        6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (10 dogs/page)'); ?><br/>'
+        3:((def==3)?'*':'')+'<?php _e('Sheet to anotate data on rounds'); ?>',
+        4:((def==4)?'*':'')+'<?php _e('Judge assistant empty sheet'); ?><br/>',
+        5:((def==5)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
+        6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
+        7:((def==7)?'*':'')+'<?php _e('Judge assistant sheets (10 dogs/page)'); ?><br/>'
         // As we need to select categoria, cannot directly access to print parciales
-        //7:((def==7)?'*':'')+'Imprimir resultados parciales de la manga'
+        //8:((def==8)?'*':'')+'Imprimir resultados parciales de la manga'
     };
     var options4= {
         0:((def==0)?'*':'')+'<?php _e('Activities and timetable on this journey'); ?>',
         1:((def==1)?'*':'')+'<?php _e('Starting order on this round'); ?><br/>',
         2:((def==2)?'*':'')+'<?php _e('SheetCalc to evaluate SCT and MCT'); ?>',
-        3:((def==3)?'*':'')+'<?php _e('Sheet to anotate data on rounds'); ?><br/>',
-        4:((def==4)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
-        5:((def==5)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
-        6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (10 dogs/page)'); ?>',
+        3:((def==3)?'*':'')+'<?php _e('Sheet to anotate data on rounds'); ?>',
+        4:((def==4)?'*':'')+'<?php _e('Judge assistant empty sheet'); ?><br/>',
+        5:((def==5)?'*':'')+'<?php _e('Judge assistant sheets (1 dog/page)'); ?>',
+        6:((def==6)?'*':'')+'<?php _e('Judge assistant sheets (5 dogs/page)'); ?>',
+        7:((def==7)?'*':'')+'<?php _e('Judge assistant sheets (10 dogs/page)'); ?>',
         8:((def==8)?'*':'')+'<?php _e('Judge assistant sheets (combined for team 4)'); ?><br/>'
     };
 
     function checkCanPrint(oper) {
         switch(parseInt(oper)){
-            case 0: case 2: case 3: return true;
+            case 0: case 2:case 3:case 9: return true;
             case 1: case 4: case 5: case 6: case 7:case 8:
                 var row= $('#competicion-listamangas').datagrid('getSelected');
                 if (row )  return true;
@@ -278,9 +280,10 @@ function print_commonDesarrollo(def) {
                 case 1: print_ordenSalida(); break;
                 case 2: print_trsTemplates(0); break;
                 case 3: print_trsTemplates(1); break;
-                case 4: print_asistente(1); break;
-                case 5: print_asistente(5); break;
-                case 6: print_asistente(10); break;
+                case 4: print_trsTemplates(2); break;
+                case 5: print_asistente(1); break;
+                case 6: print_asistente(5); break;
+                case 7: print_asistente(10); break;
                 // case 7: checkAndPrintParcial(val); break;
                 case 8: print_asistenteEquipos(); break;
             }

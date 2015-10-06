@@ -406,7 +406,7 @@ class EntradaDeDatos extends PrintCommon {
 					$this->Cell(90,7,_('Record by').':','LTBR',0,'L',true);
 					$this->Cell(10,7,'',0,'L',false);
 					$this->Cell(90,7,_('Review by').':','LTBR',0,'L',true);
-					$this->Ln(8);
+					$this->Ln(15);
 				}
 			}
 			switch($this->numrows) {

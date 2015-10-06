@@ -41,7 +41,7 @@ $config =Config::getInstance();
 	   	<a id="competicion-resetBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-brush'" onclick="resetCompeticion()"><?php _e('Reset'); ?></a>
    		<a id="competicion-printBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(6);"><?php _e('Printer forms'); ?></a>
+           data-options="iconCls:'icon-print'" onclick="print_commonDesarrollo(7);"><?php _e('Printer forms'); ?></a>
 	</span>
 </div>
 

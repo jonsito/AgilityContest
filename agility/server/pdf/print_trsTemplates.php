@@ -57,20 +57,30 @@ class PrintTRSTemplates extends PrintCommon {
 	
 	// Cabecera de página
 	function Header() {
-        if ($this->mode==0) {
-            $this->ac_header(1,12);
-            $this->SetXY(10,10);
-            $this->Cell(100,7,_('SheetCalc to evaluate SCT and MCT'),'LTBR',0,'C',true); // cabecera muy simple :-)
-        } else {
-            // cabecera comun
-            $this->print_commonHeader(_("SCT / MCT data form"));
-            // pintamos identificacion de la jornada
-            $this->SetFont('Helvetica','B',12); // Helvetica bold 15pt
-            $str  = _("Journey").": {$this->jornada->Nombre} - {$this->jornada->Fecha}";
-            $this->Cell(100,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
-            $this->Ln(5);
-            $str  = _("Start time").": {$this->jornada->Hora}";
-            $this->Cell(90,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
+        switch ($this->mode){
+            case 0:
+                $this->ac_header(1,12);
+                $this->SetXY(10,10);
+                $this->Cell(100,7,_('SheetCalc to evaluate SCT and MCT'),'LTBR',0,'C',true); // cabecera muy simple :-)
+                break;
+            case 1:
+                $this->print_commonHeader(_("SCT / MCT data form"));
+                $this->ac_header(1,12);
+                // pintamos identificacion de la jornada
+                $str  = _("Journey").": {$this->jornada->Nombre} - {$this->jornada->Fecha}";
+                $this->Cell(100,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
+                $this->Ln(5);
+                $str  = _("Start time").": {$this->jornada->Hora}";
+                $this->Cell(90,7,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
+                break;
+            case 2:
+                $this->print_commonHeader(_("Data entry"));
+                $this->ac_header(1,12);
+                // pintamos "identificacion de la manga"
+                $this->Cell(100,9,_("Journey")." - "._("Date").":",0,0,'L',false); // a un lado nombre y fecha de la jornada
+                $this->Cell(90,9,_("Category")." - "._("Grade").":",0,0,'L',false); // al otro lado tipo y categoria de la manga
+                $this->Ln(9);
+                break;
         }
 	}
 
@@ -185,6 +195,99 @@ class PrintTRSTemplates extends PrintCommon {
             $count++;
         }
     }
+
+    /*
+     * Formulario de entrada de datos, sin datos de participantes
+     */
+    function printDataForm() {
+        $this->myLogger->enter();
+
+        // tocamos la cabecera, eliminando datos de prueba y club
+        $this->prueba->Nombre="";
+        $this->club->Nombre="";
+        $this->icon="agilitycontest.png";
+
+        // ahora empezamos a pintar
+        $this->AddPage();
+        $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
+        $this->SetLineWidth(.3);
+
+        // indicamos nombre del operador que rellena la hoja
+        $this->ac_header(2,12);
+        $this->Cell(90,7,_('Record by').':','LTBR',0,'L',true);
+        $this->Cell(10,7,'',0,'L',false);
+        $this->Cell(90,7,_('Review by').':','LTBR',0,'L',true);
+        $this->Ln(15);
+
+        for ($rowcount=0; $rowcount<10;$rowcount++) {
+
+            $caza=($this->federation->getFederation()==1)?true:false; // use long cell for license
+            $this->ac_header(1,20);
+            // save cursor position
+            $x=$this->getX();
+            $y=$this->GetY();
+
+            // fase 1: contenido de cada celda de la cabecera
+            // Cell( width,height,message,border,cursor,align,fill)
+            // pintamos logo
+            $this->Cell(15,19,'','LTBR',0,'L',false);
+            $this->SetXY($x+1,$y+2); // restore cursor position
+            $this->Image(__DIR__.'/../../images/logos/agilitycontest.png',$this->getX()+0.5,$this->getY(),12);
+            $this->SetX($this->GetX()+12);
+
+            // bordes cabecera de celda
+            $this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // color de fondo 2
+            $this->SetXY($x+15,$y); // restore cursor position
+            $this->SetFont('Helvetica','B',10); // bold 10px
+            $this->Cell(15,6,'',	'LTR',0,'L',true); // dorsal
+            $this->Cell(10,6,'',	'TR',0,'L',true); // celo
+            if ($caza) {
+                $this->Cell(50,6,'',	'TR',0,'L',true); // perro
+            } else {
+                $this->Cell(20, 6, '', 'TR', 0, 'L', true); // licencia
+                $this->Cell(30,6,'',	'TR',0,'L',true); // perro
+            }
+            $this->Cell(60,6,'',	'TR',0,'L',true); // guia
+            $this->Cell(40,6,'',	'TR',0,'L',true); // club
+
+            // titulos cabecera de celda ( no hay datos para pintar )
+            $this->SetXY($x+15,$y); // restore cursor position
+            $this->SetTextColor(0,0,0); // negro
+            $this->SetFont('Helvetica','I',8); // italic 8px
+            $this->Cell(15,4,_('Dorsal'),	'',0,'L',false); // display order
+            $this->Cell(10,4,_('Heat'),	'',0,'L',false);
+            if ($caza) {
+                $this->Cell(50,4,_('Name'),	'',0,'L',false);
+            } else {
+                $this->Cell(20,4,_('Lic'),'',0,'L',false);
+                $this->Cell(30,4,_('Name'),	'',0,'L',false);
+            }
+            $this->Cell(60,4,_('Handler'),	'',0,'L',false);
+            $this->Cell(40,4,_('Club'),	'',0,'L',false);
+
+            // ahora pintamos zona de escritura de palotes
+            $this->SetXY($x+15,$y+6);
+            $this->Cell(60,13,'','TRB',0,'',false); // palotes faltas
+            $this->Cell(40,13,'','TRB',0,'',false); // palotes rehuses
+            $this->Cell(25,13,'','TRB',0,'',false); // palotes tocados
+            $this->Cell(7, 13,'','TRB',0,'',false); // total faltas
+            $this->Cell(7, 13,'','TRB',0,'',false); // total rehuses
+            $this->Cell(7, 13,'','TRB',0,'',false); // total tocados
+            $this->Cell(29,13,'','TRB',0,'',false); // tiempo
+            $this->SetXY($x+15,$y+6);
+            $this->Cell(60,5,_('Faults'),	'',0,'L',false);
+            $this->Cell(40,5,_('Refusals'),	'',0,'L',false);
+            $this->Cell(25,5,_('Touchs'),	'',0,'L',false);
+            $this->Cell(7, 5,_('Flt'),	'',0,'C',false);
+            $this->Cell(7, 5,_('Ref'),	'',0,'C',false);
+            $this->Cell(7, 5,_('Tch'),	'',0,'C',false);
+            $this->Cell(29,5,_('Time'),  '',0,'L',false);
+            $this->Ln(15);
+        }
+        // Línea de cierre
+        // $this->Cell(array_sum($this->pos),0,'','T');
+        $this->myLogger->leave();
+    }
 }
 
 // Consultamos la base de datos
@@ -195,8 +298,14 @@ try {
 	// 	Creamos generador de documento
 	$pdf = new PrintTRSTemplates($prueba,$jornada,$mode);
 	$pdf->AliasNbPages();
-	if ($mode==0) $pdf->composeTable();
-    else $pdf->printFormulario();
+    switch ($mode) {
+        case 0: $pdf->composeTable();
+            break;
+        case 1: $pdf->printFormulario();
+            break;
+        case 2: $pdf->printDataForm();
+            break;
+    }
 	$pdf->Output("plantilla_datos.pdf","D"); // "D" means open download dialog
 } catch (Exception $e) {
 	die ("Error accessing database: ".$e->getMessage());
