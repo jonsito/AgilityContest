@@ -110,7 +110,7 @@ class Admin extends DBObject {
 		$cmd="mysqldump"; // unix
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			$path=str_replace("\\apache\\bin\\httpd.exe","",PHP_BINARY);
-			$cmd='start /B '.$path.'\mysql\bin\mysqldump.exe';
+			$cmd="start /B ".$path."\\mysql\\bin\\mysqldump.exe";
 			// $drive=substr(__FILE__, 0, 1);
 			// $cmd='start /B '.$drive.':\AgilityContest\xampp\mysql\bin\mysqldump.exe';
 		}
