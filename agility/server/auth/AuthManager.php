@@ -134,6 +134,8 @@ class AuthManager {
 		unset($data["Info"]); // should not to be exposed
 		unset($data["Extra"]); // should not to be exposed
 		unset($data["Extra2"]); // should not to be exposed
+		$data["User"]=$data["Name"];
+		$data["Expired"]=( strcmp( $data['Expires'] , date("Ymd") ) <0 )?"1":"0";
 		return $data;
 	}
 	
@@ -367,7 +369,7 @@ class AuthManager {
         // retrieve registration data
         $res=$this->getRegistrationInfo();
 		if ($res==null) return 0; // invalid license
-		if ( strcmp( $res['Expires'] , date("Ymd") ) <0 ) return 0; // license has expired
+		if ( $res['Expired']==="1" ) return 0; // license has expired
         // extract and declare inner functions
         $opts=$res['Options'];
 		// $this->myLogger->trace("opts:$opts feature:$feature");
@@ -383,7 +385,7 @@ class AuthManager {
     function getUserLimit() {
         $res=$this->getRegistrationInfo();
 		if ($res==null) return 75; // invalid license
-		if ( strcmp( $res['Expires'] , date("Ymd") ) <0 ) return 75; // license has expired
+		if ( $res["Expired"]==="1" ) return 75; // license has expired
         if ($res['serial']==="00000000") return 75; // unregistered app
         if (bindec($res['options']) & ENABLE_ULIMIT ) return 9999; // "unlimited"
         return 200; // registered app, but no "unlimited" flag

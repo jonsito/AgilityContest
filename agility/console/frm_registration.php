@@ -60,8 +60,12 @@ $config =Config::getInstance();
 			<label for="rd_Serial"><?php _e('Serial num'); ?>:</label>
 			<input id="rd_Serial" type="text" readonly="readonly" name="Serial" /><br/>
 		</div>
+		<div class="fitem">
+			<label for="rd_Expires"><?php _e('Expiration date'); ?>:</label>
+			<input id="rd_Expires" type="text" readonly="readonly" name="Expires" /><br/>
+		</div>
 	</form>
-	<hr />&nbsp;<br />
+	<br /><hr />&nbsp;<br />
 	<form id="register_file">
 	<div>
 		<span style="float:left">	

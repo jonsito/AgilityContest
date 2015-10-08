@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-10-06 14:53+0200\n"
-"PO-Revision-Date: 2015-10-06 14:54+0200\n"
+"POT-Creation-Date: 2015-10-08 11:53+0200\n"
+"PO-Revision-Date: 2015-10-08 11:54+0200\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -129,8 +129,8 @@ msgstr "Gu&iacute;a"
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:107
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62
-#: server/pdf/print_trsTemplates.php:207 server/pdf/print_trsTemplates.php:266
-#: tablet/index.php:216 tablet/tablet_main.php:80 tablet/tablet_main.php:263
+#: server/pdf/print_trsTemplates.php:266 tablet/index.php:216
+#: tablet/tablet_main.php:80 tablet/tablet_main.php:263
 #: videowall/videowall.js.php:171 videowall/vw_combinada.php:134
 #: videowall/vw_combinada.php:191 videowall/vw_livestream.php:63
 #: videowall/vw_llamada.php:102 videowall/vw_ordensalida.php:106
@@ -990,8 +990,8 @@ msgstr "Actualizando lista de sesiones"
 msgid "Description"
 msgstr "Descripci&oacute;n"
 
-#: console/frm_admin.php:176 console/frm_logout.php:31 scripts/auth.js.php:71
-#: scripts/auth.js.php:100 tablet/index.php:131 tablet/index.php:329
+#: console/frm_admin.php:176 console/frm_logout.php:31 scripts/auth.js.php:74
+#: scripts/auth.js.php:103 tablet/index.php:131 tablet/index.php:329
 #: console/dialogs/dlg_sesiones.inc:39
 msgid "User"
 msgstr "Usuario"
@@ -2139,7 +2139,7 @@ msgstr "Acceso directo a BBDD"
 msgid "Validate user. Open phpMyAdmin database manager panel"
 msgstr "Validar usuario. Abrir consola de gesti&oacute;n de BBDD phpMyAdmin"
 
-#: console/frm_myAdmin.php:91 console/frm_registration.php:103
+#: console/frm_myAdmin.php:91 console/frm_registration.php:107
 #: console/dialogs/dlg_chguias.inc:82 console/dialogs/dlg_chperros.inc:100
 #: console/dialogs/dlg_clubes.inc:148 console/dialogs/dlg_clubes.inc:150
 #: console/dialogs/dlg_guias.inc:79 console/dialogs/dlg_jornadas.inc:219
@@ -2316,7 +2316,7 @@ msgstr "Licencia General P&uacute;blica de GNU versi&oacute;n 2"
 msgid "Registered at"
 msgstr "Inscrito en el"
 
-#: console/frm_registration.php:45 console/frm_registration.php:85
+#: console/frm_registration.php:45 console/frm_registration.php:89
 msgid "Licensing information"
 msgstr "Informaci&oacute;n de registro"
 
@@ -2324,15 +2324,19 @@ msgstr "Informaci&oacute;n de registro"
 msgid "Serial num"
 msgstr "Num. serie"
 
-#: console/frm_registration.php:70
+#: console/frm_registration.php:64
+msgid "Expiration date"
+msgstr "Fecha de expiraci&oacute;n"
+
+#: console/frm_registration.php:74
 msgid "Register"
 msgstr "Registrar"
 
-#: console/frm_registration.php:77 console/dialogs/dlg_equipos.inc:59
+#: console/frm_registration.php:81 console/dialogs/dlg_equipos.inc:59
 msgid "Close"
 msgstr "Cerrar"
 
-#: console/frm_registration.php:102
+#: console/frm_registration.php:106
 msgid "Import license file into application"
 msgstr "Importar fichero de licencia en la aplicaci&oacute;n"
 
@@ -2448,7 +2452,7 @@ msgid "About"
 msgstr "Acerca de"
 
 #: index.php:148 server/pdf/print_clasificacion_excel.php:96
-#: server/pdf/print_trsTemplates.php:206 tablet/index.php:146
+#: tablet/index.php:146
 msgid "Contest"
 msgstr "Prueba"
 
@@ -2833,11 +2837,11 @@ msgstr "Nueva Versi&oacute;n"
 msgid "Last Release"
 msgstr "Nueva revisi&oacute;n"
 
-#: scripts/auth.js.php:34 scripts/auth.js.php:101
+#: scripts/auth.js.php:34 scripts/auth.js.php:104
 msgid "Init session"
 msgstr "Iniciar Sesi&oacute;n"
 
-#: scripts/auth.js.php:37 scripts/auth.js.php:73
+#: scripts/auth.js.php:37 scripts/auth.js.php:76
 msgid "End session"
 msgstr "Finalizar Sesi&oacute;n"
 
@@ -2857,35 +2861,39 @@ msgstr "Licencia registrada por"
 msgid "For use at club"
 msgstr "Para el club"
 
-#: scripts/auth.js.php:71
+#: scripts/auth.js.php:72
+msgid "License expired"
+msgstr "La licencia ha caducado"
+
+#: scripts/auth.js.php:74
 msgid "session login success"
 msgstr "sesi&oacute;n iniciada correctamente"
 
-#: scripts/auth.js.php:100
+#: scripts/auth.js.php:103
 msgid "Session has been closed by user"
 msgstr "El usuario ha finalizado la sesi&oacute;n"
 
-#: scripts/auth.js.php:131
+#: scripts/auth.js.php:134
 msgid "No user specified"
 msgstr "No se ha indicado ning&uacute;n usuario"
 
-#: scripts/auth.js.php:139
+#: scripts/auth.js.php:142
 msgid "Current user has no <em>admin</em> privileges"
 msgstr "El usuario actual no tiene privilegios de administrador"
 
-#: scripts/auth.js.php:148
+#: scripts/auth.js.php:151
 msgid "No user provided"
 msgstr "No se ha indicado ning&uacute;n usuario"
 
-#: scripts/auth.js.php:148
+#: scripts/auth.js.php:151
 msgid "Starting session read-only (guest)"
 msgstr "Iniciando sesi&oacute;n en modo solo consulta (invitado)"
 
-#: scripts/auth.js.php:189
+#: scripts/auth.js.php:192
 msgid "Licensing"
 msgstr "Licencia"
 
-#: scripts/auth.js.php:189
+#: scripts/auth.js.php:192
 msgid "Licensing data successfully loaded"
 msgstr "Datos de la licencia actualizados correctamente"
 

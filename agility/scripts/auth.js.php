@@ -67,13 +67,16 @@ function acceptLogin() {
        		} else {// success:
        			var str="AgilityContest version: "+ac_config.version_name+"-"+ac_config.version_date+"<br />";
        			str =str+'<?php _e("License registered by");?>'+": "+data.User+"<br />";
-       			str =str+'<?php _e("For use at club");?>'+": "+data.Club+"<br /><br />";
-       			str =str+'<?php _e("User");?>'+" "+data.Login+": "+'<?php _e("session login success");?>';
+       			str =str+'<?php _e("For use at club");?>'+": "+data.Club+"<br />";
+				if (data.Expired==="1")  {
+					str = str+'<br/><strong><span class="blink">'+'<?php _e("License expired");?>'+'</span></strong><br/>';
+				}
+       			str =str+'<br />'+'<?php _e("User");?>'+" "+data.Login+": "+'<?php _e("session login success");?>';
        			var w=$.messager.alert("Login",str,"info",function(){
 					$('#login_menu-text').html('<?php _e("End session");?>'+": <br />"+data.Login);
 					initAuthInfo(data);
 				});
-                w.window('resize',{width:400,height:175}).window('center');
+                w.window('resize',{width:400,height:200}).window('center');
        		} 
        	},
    		error: function() { alert("error");	}
