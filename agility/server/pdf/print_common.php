@@ -104,7 +104,7 @@ class PrintCommon extends FPDF {
         }
         $this->authManager=new AuthManager("print_common");
         $this->regInfo=$this->authManager->getRegistrationInfo();
-        if ($this->regInfo['Serial']==="00000000") $this->icon="agilitycontest.png";
+        if ( ($this->regInfo==null) || ($this->regInfo['Serial']==="00000000") ) $this->icon="agilitycontest.png";
 	}
 
     /**

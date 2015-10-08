@@ -54,6 +54,7 @@ class AuthManager {
 	protected $operador=0;
 	protected $mySessionMgr;
     protected $myGateKeeper=null;
+	protected $registrationInfo=null;
 	
 	function __construct($file) {
 		$config=Config::getInstance();
@@ -121,15 +122,18 @@ class AuthManager {
 	 * @return {array} NULL
 	 */
 	function getRegistrationInfo() {
-		// retrieve registration data
-		$ri=$this->checkRegistrationInfo();
-		$data["Version"]=$ri["version"];
-		$data["Revision"]=$ri["revision"];
-		$data["Date"]=$ri["date"];
-		$data["User"]=$ri['name'];
-		$data["Email"]=$ri['email'];
-		$data["Club"]=$ri['club'];
-		$data["Serial"]=$ri['serial'];
+		// singleton retrieve registration data
+		if ($this->registrationInfo==null) {
+			$this->registrationInfo=$this->checkRegistrationInfo();
+		}
+		if ($this->registrationInfo==null) return null;
+		$data=array();
+		foreach ($this->registrationInfo as $key => $value) {
+			$data[ucfirst($key)]=$value;
+		}
+		unset($data["Info"]); // should not to be exposed
+		unset($data["Extra"]); // should not to be exposed
+		unset($data["Extra2"]); // should not to be exposed
 		return $data;
 	}
 	
@@ -149,21 +153,15 @@ class AuthManager {
 		fwrite($fd,$regdata);
 		fclose($fd);
 		// comprobamos que el fichero temporal contiene datos de registro validos
-		$info=$this->checkRegistrationInfo($tmpname);
+		$info=$this->checkRegistrationInfo($tmpname); // notice: check(), not get()
 		if (!$info) return array("errorMsg" => "registerApp(); Invalid registration data");
 		umask(002);
 		// ok: fichero de registro correcto. copiamos a su ubicacion final
 		copy(AC_REGINFO_FILE,AC_REGINFO_FILE_BACKUP);
 		rename($tmpname,AC_REGINFO_FILE);
-		// retornamos datos del nuevo registro
-		$result=array();
-		$result["Version"]=$info['version'];
-		$result["Revision"]=$info['revision'];
-		$result["Date"]=$info['date'];
-		$result["User"]=$info['name'];
-		$result["Email"]=$info['email'];
-		$result["Club"]=$info['club'];
-		$result["Serial"]=$info['serial'];
+		// guardamos como "activos" y retornamos datos del nuevo registro
+		$this->registrationInfo=$info;
+		$result=$this->getRegistrationInfo();
 		// $result['filename']=$tmpname;
 		$this->myLogger->leave();
 		return $result;
@@ -367,9 +365,11 @@ class AuthManager {
 
     function allowed($feature) {
         // retrieve registration data
-        $res=$this->checkRegistrationInfo();
+        $res=$this->getRegistrationInfo();
+		if ($res==null) return 0; // invalid license
+		if ( strcmp( $res['Expires'] , date("Ymd") ) <0 ) return 0; // license has expired
         // extract and declare inner functions
-        $opts=$res['options'];
+        $opts=$res['Options'];
 		// $this->myLogger->trace("opts:$opts feature:$feature");
         if ($res['info']==="") return bindec($opts) & $feature; // old style licenses
 		/*
@@ -381,7 +381,9 @@ class AuthManager {
     }
 
     function getUserLimit() {
-        $res=$this->checkRegistrationInfo();
+        $res=$this->getRegistrationInfo();
+		if ($res==null) return 75; // invalid license
+		if ( strcmp( $res['Expires'] , date("Ymd") ) <0 ) return 75; // license has expired
         if ($res['serial']==="00000000") return 75; // unregistered app
         if (bindec($res['options']) & ENABLE_ULIMIT ) return 9999; // "unlimited"
         return 200; // registered app, but no "unlimited" flag

@@ -322,9 +322,9 @@ try {
 		case "upgrade":
 			$am->access(PERMS_ADMIN); $result=$adm->checkForUpgrades(); break;
 		case "reginfo": 
-			$result=$am->getRegistrationInfo(); if ($result==null) $adm->errormsg=$am->errormsg; break;
+			$result=$am->getRegistrationInfo(); if ($result==null) $adm->errormsg="Cannot retrieve license information"; break;
 		case "register":
-			$am->access(PERMS_ADMIN); $result=$am->registerApp(); if ($result==null) $adm->errormsg=$am->errormsg; break;
+			$am->access(PERMS_ADMIN); $result=$am->registerApp(); if ($result==null) $adm->errormsg="Cannot import license data"; break;
 		case "loadConfig": 
 			$conf=Config::getInstance(); $result=$conf->loadConfig(); break;
 		case "saveConfig": 
