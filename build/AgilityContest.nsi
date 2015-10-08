@@ -11,10 +11,12 @@
 
 ;--------------------------------
 ;Include Modern UI
-  !include "MUI2.nsh"
+    !include "MUI2.nsh"
+    !include "Sections.nsh"
+
 ;Include String functions to check version
   !include "WordFunc.nsh"
-    !insertmacro VersionCompare
+  !insertmacro VersionCompare
 
 ;Seleccionamos el algoritmo de compresion utilizado para comprimir 
 ;nuestra aplicacion
@@ -123,14 +125,13 @@ UninstallText "${PROGRAM_NAME} will be uninstalled from the following folder. Cl
 ; En esta seccion anadimos los ficheros que forman nuestra aplicacion ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-Section "Programs"
+Section "!AgilityContest App"
 StrCpy $PATH "${PROGRAM_NAME}"
 StrCpy $PATH_ACCESO_DIRECTO "${PROGRAM_NAME}"
 SetOutPath $INSTDIR
 
 ;Incluimos todos los ficheros que componen nuestra aplicacion
 File AgilityContest.bat
-File settings.bat
 File License.txt
 File COPYING
 FILE README.md
@@ -173,13 +174,23 @@ SetShellVarContext all
 SectionEnd
 
 ; Optional section (can be disabled by the user)
-Section "Desktop Shortcut"
+Section "Desktop Shortcut" desk
 	; set up paths to tell app where to be invoked from
     SetOutPath $INSTDIR
 	SetShellVarContext all
     CreateShortcut "$DESKTOP\AgilityContest.lnk" \
                        "$INSTDIR\AgilityContest.bat" "" \
                        "$INSTDIR\extras\AgilityContest.ico" 0 SW_SHOWMINIMIZED
+SectionEnd
+
+Section "Initial language: Spanish" esp
+    SetOutPath $INSTDIR
+    File /oname=settings.bat settings_es.bat
+SectionEnd
+
+Section /o "Initial language: English" eng
+    SetOutPath $INSTDIR
+    File /oname=settings.bat settings_en.bat
 SectionEnd
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -205,7 +216,8 @@ SectionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 Function .onInit
- 
+  StrCpy $1 ${esp} ; Spanish is selected by default
+
   ReadRegStr $R0 HKLM \
   "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PROGRAM_NAME}" \
   "UninstallString"
@@ -242,15 +254,29 @@ FunctionEnd
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; show section descriptions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Function .onSelChange
+
+  !insertmacro StartRadioButtons $1
+    !insertmacro RadioButton ${esp}
+    !insertmacro RadioButton ${eng}
+  !insertmacro EndRadioButtons
+
+FunctionEnd
 
 Function .onMouseOverSection
     FindWindow $R0 "#32770" "" $HWNDPARENT
     GetDlgItem $R0 $R0 1043
 
     StrCmp $0 0 "" +2
-        SendMessage $R0 ${WM_SETTEXT} 0 "STR:Programs (Required)"
+        SendMessage $R0 ${WM_SETTEXT} 0 "STR:AgilityContest Suite (Required)"
 
     StrCmp $0 1 "" +2
         SendMessage $R0 ${WM_SETTEXT} 0 "STR:Desktop icon (Optional)"
+
+    StrCmp $0 2 "" +2
+        SendMessage $R0 ${WM_SETTEXT} 0 "STR:FirstBoot in Spanish. You may change later"
+
+    StrCmp $0 3 "" +2
+        SendMessage $R0 ${WM_SETTEXT} 0 "STR:FirstBoot in English. You may change later"
 
 FunctionEnd
