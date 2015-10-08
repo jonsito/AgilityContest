@@ -127,14 +127,15 @@ class AuthManager {
 			$this->registrationInfo=$this->checkRegistrationInfo();
 		}
 		if ($this->registrationInfo==null) return null;
+		// now parse information and fix what's is to be exposed
 		$data=array();
 		foreach ($this->registrationInfo as $key => $value) {
-			$data[ucfirst($key)]=$value;
+			$data[ucfirst($key)]=$value; // upercase first char
 		}
-		unset($data["Info"]); // should not to be exposed
 		unset($data["Extra"]); // should not to be exposed
 		unset($data["Extra2"]); // should not to be exposed
-		$data["User"]=$data["Name"];
+		$data["Info"]=""; // do not unset, just hide
+		$data["User"]=$data["Name"]; // stupid historic naming change
 		$data["Expired"]=( strcmp( $data['Expires'] , date("Ymd") ) <0 )?"1":"0";
 		return $data;
 	}
@@ -373,7 +374,7 @@ class AuthManager {
         // extract and declare inner functions
         $opts=$res['Options'];
 		// $this->myLogger->trace("opts:$opts feature:$feature");
-        if ($res['info']==="") return bindec($opts) & $feature; // old style licenses
+        if ($res['Info']==="") return bindec($opts) & $feature; // old style licenses
 		/*
         return $this->myGateKeeper($res,$feature);
         $info=str_replace("__OPTS__",$opts,$res['info']);
@@ -386,8 +387,8 @@ class AuthManager {
         $res=$this->getRegistrationInfo();
 		if ($res==null) return 75; // invalid license
 		if ( $res["Expired"]==="1" ) return 75; // license has expired
-        if ($res['serial']==="00000000") return 75; // unregistered app
-        if (bindec($res['options']) & ENABLE_ULIMIT ) return 9999; // "unlimited"
+        if ($res['Serial']==="00000000") return 75; // unregistered app
+        if (bindec($res['Options']) & ENABLE_ULIMIT ) return 9999; // "unlimited"
         return 200; // registered app, but no "unlimited" flag
     }
 }
