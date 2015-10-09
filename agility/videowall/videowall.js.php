@@ -37,7 +37,7 @@ function formatLogoVideoWall(val,row,idx) {
 /**
  * Obtiene la informacion de la prueba para cabecera y pie de pagina
  * @param {object} evt Event data
- * @param {function(event,data)} callback what to do with retrieved event and data
+ * @param {function} callback what to do with retrieved event and data
  */
 function vw_updateWorkingData(evt,callback) {
     $.ajax( {

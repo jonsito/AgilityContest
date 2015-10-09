@@ -65,7 +65,7 @@ var access_perms = {
 /**
  * returns Categoria's long string according provided categoria and fereration
  * @param {string} cat Categoria
- * @param {mixed} fed Federation, as indexed in nombreCategorias
+ * @param {int} fed Federation, as indexed in nombreCategorias
  * @returns {string} requested result, or original one if not found
  */
 function toLongCategoria(cat,fed) {
@@ -83,7 +83,7 @@ function isTeam(tipomanga) {
 
 /**
  * check if provided jornada has grades in their rounds
- * @param {array} jornada Journey data
+ * @param {object} jornada Journey data
  * @returns {boolean}
  */
 function hasGradosByJornada(jornada) {
@@ -97,7 +97,7 @@ function hasGradosByJornada(jornada) {
 
 /**
  * Check if provided jornada has Team rounds
- * @param {array} jornada Journey data
+ * @param {object} jornada Journey data
  * @returns {boolean}
  */
 function isTeamByJornada(jornada) {
@@ -213,7 +213,7 @@ function strpos (pajar, aguja, offset) {
 function Countdown(options) {
 	var timer=null;
 	var instance = this;
-	var seconds = options.seconds || 10;
+	var seconds = options.seconds || 15;
 	var count = 0;
 	var updateStatus = options.onUpdateStatus || function () {};
 	var counterEnd = options.onCounterEnd || function () {};
@@ -233,7 +233,7 @@ function Countdown(options) {
 	this.start = function () {
 		onstart();
 		if (timer!=null) clearInterval(timer);
-		count = options.seconds*10; // count tenths of seconds
+		count = seconds*10; // count tenths of seconds
 		timer = setInterval(decrementCounter, 50);
 	};
 
@@ -394,7 +394,6 @@ function setFederation(fed) { //0:RSCE 1:RFEC 2:UCA
  * @param {object} data prueba data
  */
 function setPrueba(data) {
-	var old=workingData.prueba;
 	workingData.prueba=Number(data.ID);
 	workingData.nombrePrueba=data.Nombre;
 	workingData.datosPrueba=data;
@@ -408,7 +407,6 @@ function setPrueba(data) {
  */
 
 function setJornada(data) {
-	var old=workingData.jornada;
 	workingData.jornada=Number(data.ID);
 	workingData.nombreJornada=data.Nombre;
 	workingData.datosJornada=data;
@@ -591,7 +589,7 @@ function print_r(arr,level) {
 			
 			if(typeof(value) == 'object') { //If it is an array,
 				dumped_text += level_padding + "'" + item + "' ...<br />";
-				dumped_text += dump(value,level+1);
+				dumped_text += print_r(value,level+1);
 			} else {
 				dumped_text += level_padding + "'" + item + "' => \"" + value + "\"<br />";
 			}

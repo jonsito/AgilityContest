@@ -57,7 +57,7 @@ function need_resetChrono(data) {
 	if (! isJornadaEq4()) return true;
 	// en equipos4 resetea si cambio de equipo
 	var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
-	if ($('#chrono_NombreClub').html()!==$eq) return false;
+	if ($('#chrono_NombreClub').html()!==eq) return false;
 	return true;
 }
 
@@ -164,7 +164,7 @@ function c_showData(data) {
 /**
  * send events from chronometer to console
  * @param {string} event type
- * @param {array} data event data
+ * @param {object} data event data
  */
 function chrono_button(event,data) {
     data.Value=Date.now() - startDate;

@@ -79,7 +79,7 @@ function need_resetChrono(data) {
 	if (! isJornadaEq4()) return true;
 	// en equipos4 resetea si cambio de equipo
 	var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
-	if ($('#tdialog-Club').html()!==$eq) return false;
+	if ($('#tdialog-Club').html()!==eq) return false;
 	return true;
 }
 
@@ -252,7 +252,7 @@ function tablet_elim() {
 	if (n==0) {
 		tde.val(1);
 		tdestr.val("EL");
-		// si eliminado, poner nopresentado y tiempo a cero, conservar todo lo demas
+		// si eliminado, poner nopresentado y tiempo a cero, conservar lo demas
 		tdnp.val(0);
 		$('#tdialog-NoPresentadoStr').val("");
 		tdtime.val(0);
