@@ -106,6 +106,8 @@ class Updater {
                 select `perros`.`ID` AS `ID`,
                 `perros`.`Federation` AS `Federation`,
                 `perros`.`Nombre` AS `Nombre`,
+                `perros`.`NombreLargo` AS `NombreLargo`,
+                `perros`.`Genero` AS `Genero`,
                 `perros`.`Raza` AS `Raza`,
                 `perros`.`Licencia` AS `Licencia`,
                 `perros`.`LOE_RRC` AS `LOE_RRC`,

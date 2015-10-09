@@ -1970,6 +1970,8 @@ SET character_set_client = utf8;
   `ID` tinyint NOT NULL,
   `Federation` tinyint NOT NULL,
   `Nombre` tinyint NOT NULL,
+  `NombreLargo` tinyint NOT NULL,
+  `Genero` tinyint NOT NULL,
   `Raza` tinyint NOT NULL,
   `Licencia` tinyint NOT NULL,
   `LOE_RRC` tinyint NOT NULL,

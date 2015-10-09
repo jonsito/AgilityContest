@@ -36,6 +36,18 @@ $config =Config::getInstance();
                 <input id="perros-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
+                <label for="perros-NombreLargo"><?php _e('Pedigree Name'); ?>:</label>
+                <input id="perros-NombreLargo" class="easyui-validatebox" name="NombreLargo" type="text" style="width:350px;"/>
+            </div>
+            <div class="fitem">
+                <label for="perros-Genero"><?php _e('Gender'); ?>:</label>
+                <select id="perros-Genero" name="Genero" class="easyui-combobox" style="width:100px">
+                    <option value="-" selected="selected">&nbsp;</option>
+                    <option value="M"><?php _e('Male'); ?></option>
+                    <option value="F"><?php _e('Female'); ?></option>
+                </select>
+            </div>
+            <div class="fitem">
                 <label for="perros-Raza"><?php _e('Breed'); ?>:</label>
                 <input id="perros-Raza" class="easyui-validatebox" name="Raza" type="text" />
             </div>

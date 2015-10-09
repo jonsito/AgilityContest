@@ -93,6 +93,8 @@ $config =Config::getInstance();
                 { field:'ID',   hidden:true },
                 { field:'Federation', hidden:true },
             	{ field:'Nombre',   width:30, sortable:true,  align: 'right', title: '<?php _e('Name'); ?>' },
+				{ field:'NombreLargo', hidden:true },
+				{ field:'Genero', hidden:true },
             	{ field:'Raza',     width:25,                align: 'right', title: '<?php _e('Breed'); ?>' },
             	{ field:'LOE_RRC',  width:20, sortable:true, align: 'right', title: '<?php _e('KC id'); ?>' },
             	{ field:'Licencia', width:15, sortable:true, align: 'right', title: '<?php _e('Lic'); ?>.' },

@@ -145,6 +145,8 @@ $config =Config::getInstance();
                    	{ field:'ID',	width:15, sortable:true,	title: 'ID'},
                 	{ field:'Federation',hidden:true},
             		{ field:'Nombre',	width:30, sortable:true,	title: '<?php _e('Name');?>' },
+					{ field:'NombreLargo',hidden:true},
+					{ field:'Genero',hidden:true},
             		{ field:'Categoria',width:15, sortable:false,	title: '<?php _e('Cat');?>' },
             		{ field:'Grado',	width:25, sortable:false,   title: '<?php _e('Grade');?>' },
             		{ field:'Raza',		width:25, sortable:false,   title: '<?php _e('Breed');?>' },
