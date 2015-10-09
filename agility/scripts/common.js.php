@@ -225,7 +225,7 @@ function Countdown(options) {
 			counterEnd();
 			instance.stop();
 		} else {
-			count--;
+			count=count - 0.5;
 			updateStatus(count);
 		}
 	}
@@ -234,7 +234,7 @@ function Countdown(options) {
 		onstart();
 		if (timer!=null) clearInterval(timer);
 		count = options.seconds*10; // count tenths of seconds
-		timer = setInterval(decrementCounter, 100);
+		timer = setInterval(decrementCounter, 50);
 	};
 
 	this.stop = function () {

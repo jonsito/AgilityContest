@@ -88,7 +88,7 @@ var c_reconocimiento = new Countdown({
     onUpdateStatus: function(tsec){
 		var sec=tsec/10; // remove tenths of seconds
     	var time=sprintf('%02d:%02d', Math.floor(sec/60),sec%60);
-    	$('#chrono_Tiempo').html( time ); 
+    	$('#chrono_Tiempo').html( time );
     }, // callback for each tenth of second
     onCounterEnd: function(){ /* empty */    }
 });
