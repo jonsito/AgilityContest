@@ -205,7 +205,7 @@ function strpos (pajar, aguja, offset) {
  * usage:
  * var myCounter = new Countdown({  
  *   seconds:5,  // number of seconds to count down
- *   onUpdateStatus: function(sec){console.log(sec);}, // callback for each second
+ *   onUpdateStatus: function(sec){console.log(tenths of seconds);}, // callback for each second
  *   onCounterEnd: function(){ alert('counter ended!');} // final action
  * });
  * myCounter.start();
@@ -221,29 +221,34 @@ function Countdown(options) {
 	var onstop = options.onStop || function () {};
 
 	function decrementCounter() {
-		updateStatus(count);
 		if (count <= 0) {
 			counterEnd();
 			instance.stop();
+		} else {
+			count--;
+			updateStatus(count);
 		}
-		count--;
 	}
 
 	this.start = function () {
 		onstart();
-		clearInterval(timer);
-		count = options.seconds;
-		timer = setInterval(decrementCounter, 1000);
+		if (timer!=null) clearInterval(timer);
+		count = options.seconds*10; // count tenths of seconds
+		timer = setInterval(decrementCounter, 100);
 	};
 
 	this.stop = function () {
 		onstop();
-		clearInterval(timer);
+		if (timer!=null) clearInterval(timer);
 		count=0;
 		updateStatus(count);
 	};
-	
-	this.val = function(secs) { if (typeof(secs) === 'undefined') return count; else count=secs; }
+
+	// get/set current count
+	this.val = function(secs) {
+		if (typeof(secs) !== 'undefined') count=secs*10;
+		return count;
+	}
 }
 
 /**

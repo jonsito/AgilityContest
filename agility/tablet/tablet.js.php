@@ -278,7 +278,10 @@ function tablet_cronometro(oper,time) {
 
 var myCounter = new Countdown({  
 	seconds:15,  // number of seconds to count down
-	onUpdateStatus: function(sec){ $('#tdialog-Tiempo').val(sec); }, // callback for each second
+	onUpdateStatus: function(tsec){
+		var dta=sprintf('%d.%d', Math.floor(tsec/10),tsec%10);
+		$('#tdialog-Tiempo').val(dta);
+	}, // callback for each tenth of second
 	// onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
 	onCounterEnd: function(){  // at end of countdown start timer
 		var time = Date.now() - startDate;
@@ -287,7 +290,6 @@ var myCounter = new Countdown({
 			case 2: /* start crono */
 				tablet_putEvent('start',{ 'Value' : time } );
 				$('#tdialog-StartStopBtn').val("Stop");
-				tablet_cronometro('start',time);
 				break;
 			case 3: /* eliminado */
 				$('#tdialog-Eliminado').val(0); //make sure that tablet sees not eliminado
@@ -319,10 +321,11 @@ function tablet_startstop() {
 	return false;
 }
 
-function tablet_salida() {
+function tablet_salida() { // 15 seconds countdown
 	var time = Date.now() - startDate;
 	var ssb=$('#tdialog-StartStopBtn').val();
 	if ( ssb==='Auto' ) return; // crono auto started. ignore
+	if ( ssb==='Stop' ) return; // crono manual started. ignore
 	tablet_putEvent('salida',{ 'Value' : time } );
 	doBeep();
 	return false;

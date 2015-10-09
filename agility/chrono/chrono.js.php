@@ -67,7 +67,10 @@ function doBeep() {
 
 var c_llamada = new Countdown({  
     seconds:15,  // number of seconds to count down
-    onUpdateStatus: function(sec){ $('#chrono_Tiempo').html(sec); }, // callback for each second
+    onUpdateStatus: function(tsec){
+		var dta=sprintf('%d.%d', Math.floor(tsec/10),tsec%10);
+		$('#chrono_Tiempo').html(dta);
+	}, // callback for each second
     // onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
     onCounterEnd: function(){ /* empty: let the tablet do the work */    }
 });
@@ -82,10 +85,11 @@ var c_reconocimiento = new Countdown({
 		var crr=$('#chrono_Reconocimiento');  // Textro "reconocimiento de pista"
 		crr.text('').removeClass('blink');
 	},
-    onUpdateStatus: function(sec){
+    onUpdateStatus: function(tsec){
+		var sec=tsec/10; // remove tenths of seconds
     	var time=sprintf('%02d:%02d', Math.floor(sec/60),sec%60);
     	$('#chrono_Tiempo').html( time ); 
-    }, // callback for each second
+    }, // callback for each tenth of second
     onCounterEnd: function(){ /* empty */    }
 });
 
@@ -309,11 +313,11 @@ function chrono_processEvents(id,evt) {
 		cra.Chrono('stop',time);
 		return;// Value contiene la marca de tiempo
 	case 'crono_start': // arranque crono electronico
-		c_llamada.stop();
-		c_reconocimiento.stop();
 		ssf.text('Auto');
 		// si esta parado, arranca en modo automatico
 		if (!cra.Chrono('started')) {
+			c_llamada.stop();
+			c_reconocimiento.stop();
 			crm.text('').removeClass('blink'); // clear 'Manual' mark
 			cra.Chrono('stop',time);
 			cra.Chrono('reset');

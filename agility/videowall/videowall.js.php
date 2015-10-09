@@ -187,7 +187,10 @@ function vwls_showData(data) {
 
 var myCounter = new Countdown({  
     seconds:15,  // number of seconds to count down
-    onUpdateStatus: function(sec){ $('#vwls_Tiempo').html(sec); }, // callback for each second
+    onUpdateStatus: function(tsec){
+		var dta=sprintf('%d.%d', Math.floor(tsec/10),tsec%10);
+		$('#vwls_Tiempo').html(dta);
+	}, // callback for each tenth of second
     // onCounterEnd: function(){  $('#vwls_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
     onCounterEnd: function(){ /* let the tablet to tell us what to do */ }
 });
