@@ -51,7 +51,7 @@ function pb_getHeaderInfo() {
             Mode: workingData.mode
         },
         success: function(data,status,jqxhr) {
-            var str='Prueba: ' + data.Prueba.Nombre+" <br /> <?php _e('Journey'); ?>: "+ data.Jornada.Nombre;
+            var str='<?php _e("Contest"); ?>' + ': ' + data.Prueba.Nombre + '<br />' + '<?php _e("Journey"); ?>' + ': '+ data.Jornada.Nombre;
             $('#pb_header-infocabecera').html(str);
             // TODO: fix logo when undefined or invalid
             $('#pb_header-logo').attr('src','/agility/images/logos/'+data.Club.Logo);

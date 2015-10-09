@@ -100,7 +100,7 @@ function vw_initParcialesDatagrid(evt,data) {
  */
 function vw_updateDataInfo(evt,data) {
     // update header
-    var infoprueba='Prueba: ' + data.Prueba.Nombre+" <br /> Jornada: "+ data.Jornada.Nombre;
+    var infoprueba='<?php _e('Contest'); ?>'+': ' + data.Prueba.Nombre+' <br />'+'<?php _e('Journey'); ?>'+': '+ data.Jornada.Nombre;
     $('#vw_header-infoprueba').html(infoprueba);
     $('#vw_header-logo').attr('src','/agility/images/logos/'+data.Club.Logo);
     $('#vw_header-ring').html(data.Sesion.Nombre);

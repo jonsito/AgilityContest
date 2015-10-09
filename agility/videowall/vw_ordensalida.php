@@ -112,7 +112,7 @@ $('#vw_ordensalida-datagrid').datagrid({
     rowStyler:myRowStyler,
     onBeforeLoad:function(params) {
         // do not update until 'open' received
-        if( $('#vw_header-infoprueba').html()==='Cabecera') return false;
+        if( $('#vw_header-infoprueba').html()==='<?php _e('Header'); ?>') return false;
         return true;
     },
     onLoadSuccess:function(){
