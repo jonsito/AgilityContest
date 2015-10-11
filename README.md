@@ -8,24 +8,32 @@ Features:
 
 - Platform independent server ( Win/Linux/Mac )
 - Written in HTML5 / CSS3 / JS (client) PHP-5.3+ / MySQL-5.5+ (server)
-- Suport for multiple simultaneous contests/sessions
+- Suport for multiple simultaneous contests / rings
 - Plays Agility / Jumping / K.O.* / Teams rounds
 - Definable User/roles (guest,assistant,operator,admin)
-- Complete web-based DB management (handlers, dogs, clubs, and so )
-- On-line results entering with judge assistant WIFI tablet support
-- Persistent (lineprinter) event registering for judge revision*
+- Complete web-based DB management (handlers, dogs, clubs, judges, and so )
+- On-line results entering with judge assistant WIFI tablet/notebook support
+- Persistent (file/lineprinter) event registering for later judge revision
 - RealTime VideoWall info panels (needs Ethernet/WIFI connection)
-- Support for external chrono events (needs extra hardware)*
+- Internet Web access with realtime updates for Competition data and results (needs Internet connection)
+- Support for electronic chronometers connection (needs AgilityContest Chrono API compliant e-chronometers)
 - Guest access from phones/tablet (with proper WIFI support)
-- On Screen Display support for LiveStream video (needs WebCam and/or videostream server)
+- On Screen Display (OSD) support for LiveStream video (needs Video and streaming infrastructure)
 - PDF printout of inscriptions, competition order, results, labels, etc
-- Export contest results in MS-Excel format to ease data management
-- Support for non-FCI federations (RFEC)
-- Internationalization*
+- Export contest results in MS-Excel format to ease later data management
+- Import contests inscriptions from Excel(CSV) files*
+- Support for non-FCI federations (RFEC, UCA)
+- Internationalization (Actually english/spanish. more languages incoming)
+- Auto-update, backup/recovery tools. Fully configurable
 
 (*) Some of these features are still under development :-(
 
-Agility Contest is Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
+AgilityContest was designed and build for Agilistysts to Agilitysts, emphasizing ease of use, 
+with internet in mind. OnLine Realtime results, Live Streaming, OnScreenDisplay, VideoWall and VideoChronometers,
+tablet assistance on the rings, Electronic chronometer API, and so many other features.
+Enjoy!
+
+AgilityContest is Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 Inscrito en el Registro Territorial de la Propiedad Intelectual de Madrid. Exp: 09-RTPI-09439.4/2014
 
 AgilityContest Logo is based on an original work from Britta Schweikl 
