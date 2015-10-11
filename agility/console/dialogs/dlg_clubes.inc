@@ -126,7 +126,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <textarea id="clubes-Observaciones" name="Observaciones" style="height:50px;width:350px"></textarea>
         </div>
         <div class="fitem">
-            <label for="clubes-Baja">Unsubscribed:</label>
+            <label for="clubes-Baja"><?php _e('Unsubscribed'); ?>:</label>
             <input id="clubes-Baja" name="Baja" class="easyui-checkbox" type="checkbox" value="1" />
         </div>
 	</form>  

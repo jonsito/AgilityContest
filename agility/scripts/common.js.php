@@ -225,8 +225,8 @@ function Countdown(options) {
 			counterEnd();
 			instance.stop();
 		} else {
-			count=count - 0.5;
 			updateStatus(count);
+			count=count - 0.5;
 		}
 	}
 

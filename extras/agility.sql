@@ -1,4 +1,4 @@
--- AgilityContest Version: 2.0.3 Revision: 20150921_1158
+-- AgilityContest Version: 2.1.1 Revision: 20151008_1259
 -- MySQL dump 10.15  Distrib 10.0.21-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: agility
@@ -15,45 +15,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `VersionHistory`
---
-
-DROP TABLE IF EXISTS `VersionHistory`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `versionhistory` (
-  `Version` varchar(16) NOT NULL DEFAULT '{MINVER}',
-  `Updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`Version`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `VersionHistory`
---
-
-LOCK TABLES `VersionHistory` WRITE;
-/*!40000 ALTER TABLE `VersionHistory` DISABLE KEYS */;
-INSERT INTO `VersionHistory` VALUES 
-('20150609_1457','2015-06-10 12:19:56'),
-('20150611_1445','2015-06-11 12:46:13'),
-('20150612_1421','2015-06-17 00:56:52'),
-('20150617_0339','2015-06-17 01:39:54'),
-('20150618_2036','2015-06-18 21:15:29'),
-('20150619_1843','2015-06-20 09:57:32'),
-('20150723_1935','2015-07-26 11:51:04'),
-('20150805_2139','2015-08-06 09:24:17'),
-('20150816_1337','2015-08-19 08:52:45'),
-('20150823_1150','2015-08-29 07:10:09'),
-('20150901_1146','2015-09-01 13:12:41'),
-('20150902_0119','2015-09-04 12:42:25'),
-('20150911_1118','2015-09-11 12:46:02'),
-('20150921_1150','2015-09-21 09:51:10'),
-('20150921_1158','2015-09-21 09:59:07');
-/*!40000 ALTER TABLE `VersionHistory` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `categorias_perro`
@@ -116,7 +77,7 @@ CREATE TABLE `clubes` (
   KEY `Clubes_Nombre` (`Nombre`),
   KEY `Clubes_Provincia` (`Provincia`),
   CONSTRAINT `Clubes_ibfk_1` FOREIGN KEY (`Provincia`) REFERENCES `provincias` (`Provincia`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=116 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -239,7 +200,8 @@ INSERT INTO `clubes` VALUES
 (111,'Salve','\"\"','Barrio Sámano, 36','39709 Castro Urdiales','Cantabria','ES','+ 34 609 42 42 23 ','','','','https://www.facebook.com/agilitysalve','agilitysalve7@hotmail.com','','','','salve.png',3,'',0),
 (112,'Catuga','\"\"','','','-- Sin asignar --','PT','','','','','','','','','','rsce.png',1,'',0),
 (113,'Agility Coruña','\"\"','Lugar de Samoedo, s/n','15160 Sada','Coruña, A','ES','+ 34 617 20 36 66','+ 34 981 77 41 56','','','http://www.agilitycoruna.es/','agilitycoruna@galicia.com','','','','agility_corua.png',1,'',0),
-(114,'Future Dogs','\"\"','','','-- Sin asignar --','PT','','','','','','','','','','just_agility.png',1,'',0);
+(114,'Future Dogs','\"\"','','','-- Sin asignar --','PT','','','','','','','','','','just_agility.png',1,'',0),
+(115,'Agility Indoor Madrid','\"\"','Avenida de Madrid, 74','28500 Arganda del Rey','Madrid','ES',' +34 687 99 38 16 ','+ 34 627 98 55 65','','','http://www.agilityindoormadrid.com/','info@agilityindoormadrid.com','','','','agility_indoor_madrid.png',1,'',0);
 /*!40000 ALTER TABLE `clubes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -265,7 +227,7 @@ CREATE TABLE `equipos` (
   KEY `Equipos_Jornada` (`Jornada`),
   CONSTRAINT `Equipos_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Equipos_ibfk_2` FOREIGN KEY (`Jornada`) REFERENCES `jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -315,7 +277,15 @@ INSERT INTO `equipos` VALUES
 (46,2,9,'S','Conectas','','BEGIN,END',0),
 (47,2,9,'MS','Cynthia-Elena','','BEGIN,END',0),
 (48,2,9,'S','Avila Conectas','','BEGIN,END',0),
-(49,2,9,'S','Jack´s','','BEGIN,END',0);
+(49,2,9,'S','Jack´s','','BEGIN,END',0),
+(58,4,25,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 4 JORNADA 25 - Default Team','BEGIN,END',1),
+(59,4,26,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 4 JORNADA 26 - Default Team','BEGIN,END',1),
+(60,4,27,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 4 JORNADA 27 - Default Team','BEGIN,END',1),
+(61,4,28,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 4 JORNADA 28 - Default Team','BEGIN,END',1),
+(62,4,29,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 4 JORNADA 29 - Default Team','BEGIN,END',1),
+(63,4,30,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 4 JORNADA 30 - Default Team','BEGIN,END',1),
+(64,4,31,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 4 JORNADA 31 - Default Team','BEGIN,END',1),
+(65,4,32,'-LMST','-- Sin asignar --','NO BORRAR: PRUEBA 4 JORNADA 32 - Default Team','BEGIN,END',1);
 /*!40000 ALTER TABLE `equipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -336,7 +306,7 @@ CREATE TABLE `eventos` (
   PRIMARY KEY (`ID`),
   KEY `Eventos_Session` (`Session`),
   CONSTRAINT `Eventos_ibfk_1` FOREIGN KEY (`Session`) REFERENCES `sesiones` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6109 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6110 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -365,7 +335,8 @@ INSERT INTO `eventos` VALUES
 (6105,2,'tablet_2','start','1970-01-01 00:01:50','{\"ID\":0,\"Session\":2,\"TimeStamp\":110961,\"Type\":\"start\",\"Source\":\"tablet_2\",\"Pru\":2,\"Jor\":9,\"Mng\":1,\"Tnd\":1,\"Dog\":1268,\"Drs\":57,\"Hot\":0,\"Eqp\":34,\"Flt\":-1,\"Toc\":-1,\"Reh\":-1,\"NPr\":-1,\"Eli\":-1,\"Tim\":-1,\"Value\":110961,\"stop\":0,\"start\":0}'),
 (6106,2,'tablet_2','stop','1970-01-01 00:02:01','{\"ID\":0,\"Session\":2,\"TimeStamp\":121007,\"Type\":\"stop\",\"Source\":\"tablet_2\",\"Pru\":2,\"Jor\":9,\"Mng\":1,\"Tnd\":1,\"Dog\":1268,\"Drs\":57,\"Hot\":0,\"Eqp\":34,\"Flt\":-1,\"Toc\":-1,\"Reh\":-1,\"NPr\":-1,\"Eli\":-1,\"Tim\":-1,\"Value\":121007,\"stop\":0,\"start\":0}'),
 (6107,2,'tablet_2','start','1970-01-01 00:02:09','{\"ID\":0,\"Session\":2,\"TimeStamp\":129239,\"Type\":\"start\",\"Source\":\"tablet_2\",\"Pru\":2,\"Jor\":9,\"Mng\":1,\"Tnd\":1,\"Dog\":1268,\"Drs\":57,\"Hot\":0,\"Eqp\":34,\"Flt\":-1,\"Toc\":-1,\"Reh\":-1,\"NPr\":-1,\"Eli\":-1,\"Tim\":-1,\"Value\":129239,\"stop\":0,\"start\":0}'),
-(6108,2,'tablet_2','stop','1970-01-01 00:02:19','{\"ID\":0,\"Session\":2,\"TimeStamp\":139571,\"Type\":\"stop\",\"Source\":\"tablet_2\",\"Pru\":2,\"Jor\":9,\"Mng\":1,\"Tnd\":1,\"Dog\":1268,\"Drs\":57,\"Hot\":0,\"Eqp\":34,\"Flt\":-1,\"Toc\":-1,\"Reh\":-1,\"NPr\":-1,\"Eli\":-1,\"Tim\":-1,\"Value\":139571,\"stop\":0,\"start\":0}');
+(6108,2,'tablet_2','stop','1970-01-01 00:02:19','{\"ID\":0,\"Session\":2,\"TimeStamp\":139571,\"Type\":\"stop\",\"Source\":\"tablet_2\",\"Pru\":2,\"Jor\":9,\"Mng\":1,\"Tnd\":1,\"Dog\":1268,\"Drs\":57,\"Hot\":0,\"Eqp\":34,\"Flt\":-1,\"Toc\":-1,\"Reh\":-1,\"NPr\":-1,\"Eli\":-1,\"Tim\":-1,\"Value\":139571,\"stop\":0,\"start\":0}'),
+(6109,1,'Console','reconfig','2015-10-10 07:11:23','{\"Type\":\"reconfig\",\"Source\":\"Console\",\"ID\":0,\"TimeStamp\":1444461083000,\"Value\":0}');
 /*!40000 ALTER TABLE `eventos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -420,7 +391,7 @@ CREATE TABLE `guias` (
   KEY `Guias_Nombre` (`Nombre`),
   KEY `Guias_Club` (`Club`),
   CONSTRAINT `Guias_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `clubes` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1173 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1178 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -433,7 +404,7 @@ INSERT INTO `guias` VALUES
 (1,'-- Sin asignar --',NULL,NULL,1,0,'NO BORRAR. Valor por defecto cuando un perro se define por primera vez'),
 (2,'Aaron Laro','','',27,0,''),
 (3,'Ada Serrano','','',67,0,''),
-(5,'Adrian Bajo','','',76,0,''),
+(5,'Adrian Bajo','','',115,0,''),
 (6,'Adrian Díaz','','',90,0,''),
 (7,'Adrian Martínez','','',62,0,''),
 (8,'Adrián Soria','','',62,0,''),
@@ -464,7 +435,7 @@ INSERT INTO `guias` VALUES
 (33,'Ana Alonso',NULL,NULL,68,0,NULL),
 (34,'Ana Baeza',NULL,NULL,40,0,NULL),
 (35,'Ana Beltran Bustamante','','',32,0,''),
-(36,'Ana Isabel Escobar','','',75,0,''),
+(36,'Ana Isabel Escobar','','',103,0,''),
 (37,'Ana Mateu',NULL,NULL,13,0,NULL),
 (38,'Ana Ontañon',NULL,NULL,52,0,NULL),
 (39,'Ana Palet','','',103,0,''),
@@ -497,11 +468,11 @@ INSERT INTO `guias` VALUES
 (66,'Arcadio Nohales',NULL,NULL,81,0,NULL),
 (67,'Ariadna Soriano',NULL,NULL,42,0,NULL),
 (68,'Arianna Bucci',NULL,NULL,50,0,NULL),
-(69,'Arturo Conejera',NULL,NULL,22,0,NULL),
+(69,'Arturo Conejera','','',16,0,''),
 (70,'Asier García','','',36,0,''),
 (71,'Astrid Hoffmeister','','',14,0,''),
 (72,'Barbara Flemming',NULL,NULL,68,0,NULL),
-(73,'Beatriz Juan','','',87,0,''),
+(73,'Beatriz Juan','','',115,0,''),
 (74,'Belén de Carvalho','','',30,0,''),
 (75,'Berit Kittel','','',39,0,''),
 (76,'Carles Fortuny',NULL,NULL,18,0,NULL),
@@ -528,7 +499,7 @@ INSERT INTO `guias` VALUES
 (98,'Cristina Blanco','','',27,0,''),
 (99,'Cristina Cortijo','','',35,0,''),
 (100,'Cristina García',NULL,NULL,44,0,NULL),
-(101,'Cristina González','','',75,0,''),
+(101,'Cristina González','','',103,0,''),
 (102,'Cristina Pedraz','','',2,0,''),
 (103,'Cristina Guill','','',50,0,''),
 (104,'Cristofol Albert','','',91,0,''),
@@ -622,7 +593,7 @@ INSERT INTO `guias` VALUES
 (194,'Israel Díaz','','',22,0,''),
 (195,'Israel Fernández',NULL,NULL,75,0,NULL),
 (196,'Ivan Amez Alvarez','','',80,0,''),
-(197,'Iván Pardo García','','',75,0,''),
+(197,'Iván Pardo García','','',103,0,''),
 (198,'Iván San Antonio',NULL,NULL,16,0,NULL),
 (199,'Iván Sánchez García','','',35,0,''),
 (200,'Jacqueline Holemans',NULL,NULL,67,0,NULL),
@@ -665,7 +636,7 @@ INSERT INTO `guias` VALUES
 (239,'José Francisco Martorell',NULL,NULL,65,0,NULL),
 (240,'José Guix',NULL,NULL,65,0,NULL),
 (241,'José Luis García',NULL,NULL,81,0,NULL),
-(242,'Jose Luis Jiménez Mori','','',2,0,''),
+(242,'Jose Luis Jiménez Mori','','',70,0,''),
 (243,'José Luis Prieto',NULL,NULL,38,0,NULL),
 (244,'José Luis Quiroga',NULL,NULL,21,0,NULL),
 (245,'José Luis Romero','','',88,0,''),
@@ -734,7 +705,7 @@ INSERT INTO `guias` VALUES
 (309,'Luis de Frías','','',48,0,''),
 (310,'Luis Ignacio Carazo',NULL,NULL,74,0,NULL),
 (311,'Luis Luque',NULL,NULL,75,0,NULL),
-(312,'Luis Miguel Rodrigo','','',87,0,''),
+(312,'Luis Miguel Rodrigo','','',115,0,''),
 (313,'Luis Miguel Rodriguez','','',48,0,''),
 (314,'Luisa Fernanda Millan','','',62,0,''),
 (315,'Luna Ramírez',NULL,NULL,52,0,NULL),
@@ -844,7 +815,7 @@ INSERT INTO `guias` VALUES
 (420,'Salvador Martí',NULL,NULL,67,0,NULL),
 (421,'Alejandra Gracia','','',42,0,''),
 (422,'Sara Bellido',NULL,NULL,14,0,NULL),
-(423,'Sara María Lara','','',87,0,''),
+(423,'Sara María Lara','','',115,0,''),
 (424,'Sara Montila','','',88,0,''),
 (425,'Sara Montoya',NULL,NULL,35,0,NULL),
 (426,'Sebastian González',NULL,NULL,7,0,NULL),
@@ -899,8 +870,8 @@ INSERT INTO `guias` VALUES
 (475,'Sonia García','','',48,0,''),
 (476,'Jesus Perea','','',48,0,''),
 (477,'Dolores Rosas','','',87,0,''),
-(478,'Pablo Martínez','','',87,0,''),
-(479,'Sara María Lara','','',43,0,''),
+(478,'Pablo Martínez','','',115,0,''),
+(479,'Sara María Lara','','',115,0,''),
 (480,'Fabian Santolaya','','',88,0,''),
 (481,'David Calviño','','',35,0,''),
 (482,'Yaiza Caballero Fernández','','',80,0,''),
@@ -915,14 +886,14 @@ INSERT INTO `guias` VALUES
 (491,'Isabel Fernández','','',16,0,''),
 (492,'Mari Carmen Martí Sanz','','',16,0,''),
 (493,'Irene Escribano','','',22,0,''),
-(494,'Cynthia Sánchez','','',22,0,''),
+(494,'Cynthia Sánchez','','',16,0,''),
 (496,'Irene Blanco','','',28,0,''),
 (497,'Oscar López','','',87,0,''),
 (498,'Virginia Pastor','','',28,0,''),
 (499,'Ruben López','','',48,0,''),
 (500,'Ana Belén Ondategui Casas','','',80,0,''),
 (501,'Jose Luis de la Vara','','',16,0,''),
-(502,'Yaiza','','',16,0,''),
+(502,'Yaiza Blanco','','',16,0,''),
 (504,'Luis Miguel Jiménez','','',2,0,''),
 (505,'Susana Martín','','',28,0,''),
 (506,'Javier Perez','','',28,0,''),
@@ -932,7 +903,7 @@ INSERT INTO `guias` VALUES
 (510,'Daniel Zamora','','',62,0,''),
 (511,'Gregory Bielle-Bidalot','','',93,0,''),
 (512,'Ludiwine Dabezies','','',93,0,''),
-(513,'Alberto Pérez','','',80,0,''),
+(513,'Alberto Pérez','','',115,0,''),
 (514,'Rómulo Parrilla','','',35,0,''),
 (515,'Javier González','','',35,0,''),
 (516,'Rafael Arjona','','',9,0,''),
@@ -971,7 +942,7 @@ INSERT INTO `guias` VALUES
 (549,'Sergio Gamarra','','',63,0,''),
 (550,'Alaitz Argüello','','',60,0,''),
 (551,'Sara López','','',25,0,''),
-(552,'Rafael García','','',28,0,''),
+(552,'Rafael García','','',87,0,''),
 (553,'Lorenzo Buzón','','',61,0,''),
 (554,'Rosa María Espinosa','','',62,0,''),
 (555,'Ricardo de la Cruz','','',88,0,''),
@@ -1090,7 +1061,7 @@ INSERT INTO `guias` VALUES
 (674,'Laura López','','',80,0,''),
 (675,'Angeles Martínez','','',80,0,''),
 (676,'Héctor Carba','','',80,0,''),
-(677,'Raquel Galarraga','','',38,0,''),
+(677,'Raquel Galarraga','','',80,0,''),
 (678,'Irene Arellano','','',39,0,''),
 (679,'Gorka Ochoa','','',6,0,''),
 (680,'Marta Fernández','','',6,0,''),
@@ -1580,7 +1551,12 @@ INSERT INTO `guias` VALUES
 (1169,'Raquel Soler','','',94,0,''),
 (1170,'David Martinez','','',94,0,''),
 (1171,'Angel Llorente','','',94,0,''),
-(1172,'Maria Victoria Baena','','',87,0,'');
+(1172,'Maria Victoria Baena','','',87,0,''),
+(1173,'Miguel Angel Pariente','','',115,0,''),
+(1174,'beatriz santos','','',115,0,''),
+(1175,'Javier Ramos Gutierrez','','',16,0,''),
+(1176,'Myriam Rodrigo','','',16,0,''),
+(1177,'adrian escobar','','',37,0,'');
 /*!40000 ALTER TABLE `guias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1607,7 +1583,7 @@ CREATE TABLE `inscripciones` (
   KEY `Inscripciones_Dorsal` (`Dorsal`),
   CONSTRAINT `Inscripciones_ibfk_1` FOREIGN KEY (`Perro`) REFERENCES `perros` (`ID`) ON UPDATE CASCADE,
   CONSTRAINT `Inscripciones_ibfk_2` FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1734,7 +1710,89 @@ INSERT INTO `inscripciones` VALUES
 (118,2,488,115,0,'',6,0),
 (119,2,442,116,0,'',6,0),
 (120,2,644,117,0,'',4,0),
-(121,2,1561,118,0,'',4,0);
+(121,2,1561,118,0,'',4,0),
+(123,4,622,59,0,'',3,24),
+(124,4,312,66,0,'',3,24),
+(125,4,601,62,0,'',3,24),
+(126,4,1562,65,0,'',3,0),
+(127,4,1563,60,0,'',3,0),
+(128,4,517,63,0,'',3,0),
+(129,4,342,67,0,'',3,0),
+(130,4,407,64,0,'',3,0),
+(131,4,348,61,0,'',3,12),
+(132,4,24,45,0,'',3,0),
+(133,4,405,75,0,'',2,0),
+(134,4,404,74,0,'',2,0),
+(135,4,993,76,0,'',2,0),
+(136,4,410,77,1,'',3,0),
+(137,4,987,46,0,'',1,0),
+(139,4,241,48,0,'',1,0),
+(140,4,253,49,0,'',1,0),
+(141,4,516,47,0,'',1,0),
+(142,4,589,14,0,'',3,0),
+(143,4,314,17,0,'',3,0),
+(144,4,691,13,0,'',2,0),
+(145,4,413,16,0,'',2,0),
+(146,4,692,15,0,'',2,0),
+(148,4,1564,54,0,'',1,0),
+(149,4,351,57,0,'',3,0),
+(150,4,350,58,0,'',3,0),
+(151,4,394,55,0,'',0,-12),
+(152,4,424,56,0,'',1,0),
+(153,4,588,50,0,'',3,0),
+(154,4,1566,20,0,'',3,0),
+(155,4,1567,25,0,'',3,0),
+(156,4,584,27,0,'',3,0),
+(157,4,440,26,0,'',3,0),
+(158,4,602,24,0,'',3,0),
+(159,4,603,23,0,'',3,0),
+(160,4,633,21,0,'',3,0),
+(161,4,68,22,0,'',2,0),
+(162,4,991,71,0,'',3,0),
+(163,4,971,1,0,'',1,0),
+(164,4,687,10,0,'',2,0),
+(165,4,686,11,0,'',2,0),
+(166,4,1350,2,0,'',3,12),
+(167,4,389,3,0,'',2,-12),
+(168,4,380,4,0,'',2,0),
+(169,4,970,5,0,'',2,0),
+(170,4,94,6,1,'',1,0),
+(171,4,384,7,0,'',2,0),
+(172,4,113,73,0,'',3,0),
+(173,4,575,72,0,'',1,0),
+(174,4,783,51,0,'',2,0),
+(175,4,782,52,0,'',2,0),
+(176,4,10,79,0,'',3,0),
+(177,4,352,78,0,'',1,0),
+(178,4,866,80,0,'',1,0),
+(179,4,759,81,0,'',1,0),
+(180,4,71,8,0,'',3,0),
+(181,4,220,9,0,'',3,0),
+(182,4,379,38,0,'',3,0),
+(183,4,561,33,0,'',3,0),
+(184,4,412,36,0,'',3,0),
+(185,4,361,37,0,'',3,0),
+(186,4,630,29,0,'',3,0),
+(187,4,581,30,0,'',3,0),
+(188,4,563,32,0,'',3,0),
+(189,4,564,34,0,'',3,0),
+(190,4,583,40,0,'',3,0),
+(191,4,582,35,0,'',3,0),
+(192,4,1352,42,0,'',3,0),
+(193,4,565,43,0,'',3,0),
+(194,4,323,44,0,'',3,0),
+(195,4,1568,41,0,'',3,0),
+(196,4,1569,28,0,'',3,0),
+(197,4,1570,69,0,'',3,0),
+(198,4,990,70,0,'',2,0),
+(199,4,989,68,0,'',3,0),
+(200,4,43,39,0,'',3,0),
+(201,4,628,19,0,'',3,0),
+(202,4,1551,53,0,'',3,0),
+(203,4,569,31,0,'',3,0),
+(204,4,1571,18,0,'',3,0),
+(205,4,1548,12,0,'',2,0),
+(206,4,1572,82,0,'',1,-12);
 /*!40000 ALTER TABLE `inscripciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1770,7 +1828,7 @@ CREATE TABLE `jornadas` (
   PRIMARY KEY (`ID`),
   KEY `Jornadas_Prueba` (`Prueba`),
   CONSTRAINT `Jornadas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1795,7 +1853,15 @@ INSERT INTO `jornadas` VALUES
 (13,2,5,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
 (14,2,6,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
 (15,2,7,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
-(16,2,8,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'','');
+(16,2,8,0,0,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
+(25,4,1,0,58,'sabado 10','2015-10-10','09:30:00',1,1,1,0,0,0,1,0,0,0,0,'(sin especificar)',''),
+(26,4,2,0,59,'domingo 11','2015-10-11','09:30:00',1,1,1,0,0,0,1,0,0,0,0,'(sin especificar)',''),
+(27,4,3,0,60,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
+(28,4,4,0,61,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
+(29,4,5,0,62,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
+(30,4,6,0,63,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
+(31,4,7,0,64,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'',''),
+(32,4,8,0,65,'-- Sin asignar --','2013-01-01','00:00:00',0,0,0,0,0,0,0,0,0,0,0,'','');
 /*!40000 ALTER TABLE `jornadas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1820,7 +1886,7 @@ CREATE TABLE `jueces` (
   `Observaciones` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Jueces_Nombre` (`Nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1862,7 +1928,8 @@ INSERT INTO `jueces` VALUES
 (30,'Luis Narciso','','','PT','',1,0,'lfnarciso@fc.ul.pt',1,''),
 (31,'Jorge Pires','','','PT','',1,0,'',3,''),
 (32,'Peña, Manuel','-','-','Es','',1,0,'',7,''),
-(33,'Jan Egil Eide','','','NO','',1,0,'',1,'');
+(33,'Jan Egil Eide','','','NO','',1,0,'',1,''),
+(36,'Tomás Pérez Ayuso','pº de los pozos s/n','','es','',0,1,'',1,'');
 /*!40000 ALTER TABLE `jueces` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1927,7 +1994,7 @@ CREATE TABLE `mangas` (
   CONSTRAINT `Mangas_ibfk_3` FOREIGN KEY (`Juez1`) REFERENCES `jueces` (`ID`) ON UPDATE CASCADE,
   CONSTRAINT `Mangas_ibfk_4` FOREIGN KEY (`Juez2`) REFERENCES `jueces` (`ID`) ON UPDATE CASCADE,
   CONSTRAINT `Mangas_ibfk_5` FOREIGN KEY (`Jornada`) REFERENCES `jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1937,24 +2004,38 @@ CREATE TABLE `mangas` (
 LOCK TABLES `mangas` WRITE;
 /*!40000 ALTER TABLE `mangas` DISABLE KEYS */;
 INSERT INTO `mangas` VALUES 
-(1,9,8,'-',1,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',4,0,'s',1,50,'%',0,0,'s',0,0,'s',32,1,'','BEGIN,3,78,314,1546,178,1174,370,627,628,537,589,397,8,414,45,1550,365,65,692,1068,216,906,546,554,877,1554,1553,1351,648,708,73,676,1268,1556,653,905,624,883,1557,1558,330,413,1559,691,1226,1261,1548,1483,1246,1452,END','BEGIN,9,34,37,26,31,19,22,20,17,43,33,24,27,30,32,23,28,44,36,29,48,47,35,45,46,49,END'),
-(2,9,13,'-',1,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',4,0,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,3,78,314,1546,178,1174,370,627,628,537,589,397,8,414,45,1550,365,65,692,1068,216,906,546,554,877,1554,1553,1351,648,708,73,676,1268,1556,653,905,624,883,1557,1558,330,413,1559,691,1226,1261,1548,1483,1246,1452,END','BEGIN,9,17,19,20,22,23,24,26,27,28,29,30,31,32,33,34,35,36,37,43,44,45,46,47,48,49,END'),
-(3,10,1,'P.A.',2,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',3,0,'s',1,50,'%',3,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,1559,1560,627,628,1556,1555,1552,1546,883,757,1549,877,1558,905,1557,216,570,1548,END','BEGIN,10,END'),
-(4,10,2,'P.A.',2,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',3,0,'s',1,50,'%',3,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,1559,1560,627,628,1556,1555,1552,1546,883,757,1549,877,1558,905,1557,216,570,1548,END','BEGIN,10,END'),
-(5,10,3,'GI',1,136,17,136,17,136,17,0,0,0,43,'s',0,70,'s',0,45,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,867,590,1110,1554,704,783,700,795,591,1514,1351,1553,1513,370,546,1108,572,803,624,625,889,1550,1112,629,536,1483,END','BEGIN,10,END'),
-(6,10,4,'GI',1,144,19,144,19,144,19,0,0,0,42,'s',0,70,'s',0,44,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,624,803,591,867,572,546,889,795,1110,700,590,1513,1550,370,629,1108,1514,1351,625,1553,1483,704,1112,783,1554,536,END','BEGIN,10,END'),
+(1,9,8,'-',1,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',4,0,'s',1,50,'%',0,0,'s',0,0,'s',32,1,'','BEGIN,3,78,314,1546,178,1174,370,627,628,537,589,397,8,414,45,1550,365,65,692,1068,216,906,546,554,877,1554,1553,1351,648,708,73,676,1268,1556,653,905,624,883,1557,1558,330,413,1559,691,1226,1261,1483,1246,1452,1548,END','BEGIN,9,34,37,26,31,19,22,20,17,43,33,24,27,30,32,23,28,44,36,29,48,47,35,45,46,49,END'),
+(2,9,13,'-',1,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',4,0,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,3,78,314,1546,178,1174,370,627,628,537,589,397,8,414,45,1550,365,65,692,1068,216,906,546,554,877,1554,1553,1351,648,708,73,676,1268,1556,653,905,624,883,1557,1558,330,413,1559,691,1226,1261,1483,1246,1452,1548,END','BEGIN,9,17,19,20,22,23,24,26,27,28,29,30,31,32,33,34,35,36,37,43,44,45,46,47,48,49,END'),
+(3,10,1,'P.A.',2,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',3,0,'s',1,50,'%',3,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,1559,1560,627,628,1556,1555,1552,1546,883,757,1549,877,1558,905,1557,216,570,END','BEGIN,10,END'),
+(4,10,2,'P.A.',2,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',3,0,'s',1,50,'%',3,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,1559,1560,627,628,1556,1555,1552,1546,883,757,1549,877,1558,905,1557,216,570,END','BEGIN,10,END'),
+(5,10,3,'GI',1,136,17,136,17,136,17,0,0,0,43,'s',0,70,'s',0,45,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,867,590,1110,1554,704,783,700,795,591,1514,1351,1553,1513,370,546,1108,572,803,624,625,889,1550,1112,629,536,1483,1548,END','BEGIN,10,END'),
+(6,10,4,'GI',1,144,19,144,19,144,19,0,0,0,42,'s',0,70,'s',0,44,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,624,803,591,867,572,546,889,795,1110,700,590,1513,1550,370,629,1108,1514,1351,625,1553,1483,704,1112,783,1554,536,1548,END','BEGIN,10,END'),
 (7,10,5,'GII',1,175,20,175,20,175,20,0,0,0,50,'s',0,80,'s',0,52,'s',0,82,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,986,1068,413,1268,414,397,626,1106,888,361,892,382,365,676,613,659,351,540,589,8,906,708,389,1174,418,692,330,691,1226,539,1261,1246,1452,633,END','BEGIN,10,END'),
 (8,10,10,'GII',1,144,19,144,19,144,19,0,0,0,37,'s',0,70,'s',0,39,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,906,892,1226,676,361,414,708,1174,888,365,397,1261,589,389,691,659,8,539,986,1268,626,413,382,1068,351,692,418,1246,1106,330,540,613,1452,633,END','BEGIN,10,END'),
-(9,10,6,'GIII',1,178,22,178,22,178,22,0,0,0,46,'s',0,75,'s',0,48,'s',0,75,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,65,85,78,881,1547,3,178,442,98,43,45,648,15,392,2,73,554,537,28,71,10,13,844,299,502,350,488,614,1537,314,253,653,END','BEGIN,10,END'),
-(10,10,11,'GIII',1,166,21,166,21,166,21,0,0,0,42,'s',0,70,'s',0,44,'s',0,70,'s',4,0,'s',0,70,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,43,10,73,350,13,844,2,299,178,98,392,253,28,554,881,65,78,314,3,648,1537,1547,653,614,85,15,45,71,537,502,488,442,END','BEGIN,10,END'),
-(11,11,1,'P.A.',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,1546,627,628,570,1551,216,1552,877,1555,757,1549,1556,905,883,1560,1548,1561,END','BEGIN,11,END'),
-(12,11,2,'P.A.',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,1546,627,628,570,1551,216,1552,877,1555,757,1549,1556,905,883,1560,1548,1561,END','BEGIN,11,END'),
-(13,11,3,'GI',1,154,19,154,19,154,19,0,0,0,47,'s',0,70,'s',0,49,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,795,536,622,370,867,1112,889,546,803,1553,700,704,590,1514,783,572,1513,624,1351,1554,1483,644,END','BEGIN,11,END'),
-(14,11,4,'GI',1,146,19,146,19,146,19,0,0,0,45,'s',0,70,'s',0,47,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,624,644,867,1514,590,622,1351,803,546,700,572,370,795,889,1513,1483,783,1553,1554,704,1112,536,END','BEGIN,11,END'),
-(15,11,5,'GII',1,150,20,150,20,150,20,0,0,0,43,'s',0,70,'s',0,45,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,888,892,589,1174,68,408,691,351,692,389,1106,382,8,540,676,1268,659,1068,418,613,414,782,708,1226,539,397,361,365,517,906,1261,1246,1452,633,END','BEGIN,11,END'),
-(16,11,10,'GII',1,140,20,140,20,140,20,0,0,0,37,'s',0,60,'s',0,39,'s',0,60,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,1174,708,659,906,414,633,1226,676,389,517,365,1261,1268,589,892,539,691,8,361,397,888,68,1068,782,418,692,1452,613,351,540,382,1246,408,1106,END','BEGIN,11,END'),
-(17,11,6,'GIII',1,169,21,169,21,169,21,0,0,0,44,'s',0,70,'s',0,46,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,178,65,442,98,45,881,648,28,537,15,392,43,1547,554,13,10,71,3,73,2,78,488,502,653,1537,314,350,299,614,844,END','BEGIN,11,END'),
-(18,11,11,'GIII',1,156,21,156,21,156,21,0,0,0,39,'s',0,65,'s',0,41,'s',0,65,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,844,15,28,653,178,648,350,881,537,98,13,554,43,45,73,78,314,392,614,3,1537,71,65,1547,2,10,299,502,488,442,END','BEGIN,11,END');
+(9,10,6,'GIII',1,178,22,178,22,178,22,0,0,0,46,'s',0,75,'s',0,48,'s',0,75,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,65,85,78,881,1547,3,178,442,98,45,648,15,392,2,73,554,537,28,71,10,13,844,299,502,350,488,614,1537,314,253,653,43,END','BEGIN,10,END'),
+(10,10,11,'GIII',1,166,21,166,21,166,21,0,0,0,42,'s',0,70,'s',0,44,'s',0,70,'s',4,0,'s',0,70,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,10,73,350,13,844,2,299,178,98,392,253,28,554,881,65,78,314,3,648,1537,1547,653,614,85,15,45,71,537,502,488,442,43,END','BEGIN,10,END'),
+(11,11,1,'P.A.',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,1546,627,628,570,1551,216,1552,877,1555,757,1549,1556,905,883,1560,1561,END','BEGIN,11,END'),
+(12,11,2,'P.A.',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',1,1,'','BEGIN,1546,627,628,570,1551,216,1552,877,1555,757,1549,1556,905,883,1560,1561,END','BEGIN,11,END'),
+(13,11,3,'GI',1,154,19,154,19,154,19,0,0,0,47,'s',0,70,'s',0,49,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,795,536,622,370,867,1112,889,546,803,1553,700,704,590,1514,783,572,1513,624,1351,1554,1483,644,1548,END','BEGIN,11,END'),
+(14,11,4,'GI',1,146,19,146,19,146,19,0,0,0,45,'s',0,70,'s',0,47,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,624,644,867,1514,590,622,1351,803,546,700,572,370,795,889,1513,1483,783,1553,1554,704,1112,536,1548,END','BEGIN,11,END'),
+(15,11,5,'GII',1,150,20,150,20,150,20,0,0,0,43,'s',0,70,'s',0,45,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,888,892,589,1174,408,691,351,692,389,1106,382,8,540,676,1268,659,1068,418,613,414,782,708,1226,539,397,361,365,517,906,1261,1246,1452,633,68,END','BEGIN,11,END'),
+(16,11,10,'GII',1,140,20,140,20,140,20,0,0,0,37,'s',0,60,'s',0,39,'s',0,60,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,1174,708,659,906,414,1226,676,389,517,365,1261,1268,589,892,539,691,8,361,397,888,1068,782,418,692,1452,613,351,540,382,1246,408,1106,633,68,END','BEGIN,11,END'),
+(17,11,6,'GIII',1,169,21,169,21,169,21,0,0,0,44,'s',0,70,'s',0,46,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',1,1,'','BEGIN,178,65,442,98,45,881,648,28,537,15,392,1547,554,13,10,71,3,73,2,78,488,502,653,1537,314,350,299,614,844,43,END','BEGIN,11,END'),
+(18,11,11,'GIII',1,156,21,156,21,156,21,0,0,0,39,'s',0,65,'s',0,41,'s',0,65,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',33,1,'','BEGIN,844,15,28,653,178,648,350,881,537,98,13,554,45,73,78,314,392,614,3,1537,71,65,1547,2,10,299,502,488,442,43,END','BEGIN,11,END'),
+(19,25,1,'P.A.',2,100,30,100,30,100,30,0,0,0,100,'s',1,50,'%',3,0,'s',1,50,'%',3,0,'s',1,50,'%',0,0,'s',0,0,'s',36,22,'','BEGIN,1566,1567,583,1569,628,1551,1571,END','BEGIN,58,END'),
+(20,25,3,'GI',1,160,21,160,21,160,21,0,0,0,61,'s',0,90,'s',0,61,'s',0,90,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',36,22,'','BEGIN,561,564,1562,971,1564,582,622,1570,1563,989,1568,563,1352,987,581,569,630,565,1572,866,END','BEGIN,58,END'),
+(21,25,4,'GI',1,160,19,160,19,160,19,0,0,0,53,'s',1,76,'%',3,53,'s',1,76,'%',4,0,'s',1,76,'%',0,0,'s',0,0,'s',36,22,'','BEGIN,989,563,564,569,1563,987,622,630,581,971,1570,1564,866,561,582,1568,1352,1562,1572,565,END','BEGIN,58,END'),
+(22,25,5,'GII',1,170,20,170,20,170,20,0,0,0,47,'s',0,70,'s',0,49,'s',0,71,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',36,22,'','BEGIN,991,24,575,759,94,351,412,379,516,352,588,424,601,603,602,517,633,589,440,323,361,348,1350,END','BEGIN,58,END'),
+(23,25,10,'GII',1,165,21,165,21,165,21,0,0,0,42,'s',0,63,'s',3,44,'s',0,66,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',36,22,'','BEGIN,602,517,589,379,759,424,603,412,575,601,352,24,94,361,633,351,516,991,440,588,323,348,1350,END','BEGIN,58,END'),
+(24,25,6,'GIII',1,190,22,190,22,190,22,0,0,0,46,'s',0,69,'s',0,48,'s',0,70,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',36,22,'','BEGIN,113,71,410,220,43,10,342,314,241,312,350,584,253,407,END','BEGIN,58,END'),
+(25,25,11,'GIII',1,170,22,170,22,170,22,0,0,0,40,'s',0,60,'s',0,42,'s',0,63,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',36,22,'','BEGIN,10,410,71,342,312,314,241,43,220,113,584,253,350,407,END','BEGIN,58,END'),
+(26,26,1,'P.A.',0,0,0,0,0,0,0,0,0,0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',0,0,'s',1,50,'%',36,22,'','BEGIN,993,1566,1567,583,1569,628,1551,1571,END','BEGIN,59,END'),
+(27,26,3,'GI',1,167,20,167,20,167,20,0,0,0,54,'s',0,80,'s',0,54,'s',0,80,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',36,22,'','BEGIN,582,1563,1562,1568,630,687,622,563,783,989,990,581,1548,564,565,569,1570,561,1352,END','BEGIN,59,END'),
+(28,26,4,'GI',1,160,20,160,20,160,20,0,0,0,50,'s',0,75,'s',0,50,'s',0,75,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',36,22,'','BEGIN,783,1352,989,565,1548,1563,1562,561,1570,630,581,563,582,687,622,569,564,990,1568,END','BEGIN,59,END'),
+(29,26,5,'GII',1,183,2,183,2,183,2,0,0,0,50,'s',0,75,'s',0,52,'s',0,78,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',36,22,'','BEGIN,404,686,348,601,782,384,24,603,692,361,440,389,588,380,602,412,351,517,633,970,68,991,413,323,379,691,589,1350,END','BEGIN,59,END'),
+(30,26,10,'GII',1,165,20,165,20,165,20,0,0,0,38,'s',0,57,'s',0,40,'s',0,60,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',36,22,'','BEGIN,361,589,1350,601,517,633,412,389,603,602,970,380,384,24,691,68,379,348,404,413,782,991,351,588,440,692,323,686,END','BEGIN,59,END'),
+(31,26,6,'GIII',1,195,22,195,22,195,22,0,0,0,48,'s',0,72,'s',0,50,'s',0,75,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',36,22,'','BEGIN,71,410,220,43,113,405,10,342,584,312,350,407,314,END','BEGIN,59,END'),
+(32,26,11,'GIII',1,185,22,185,22,185,22,0,0,0,44,'s',0,66,'s',0,46,'s',0,69,'s',4,0,'s',1,50,'%',0,0,'s',0,0,'s',36,22,'','BEGIN,113,410,10,220,342,71,584,314,350,405,407,312,43,END','BEGIN,59,END');
 /*!40000 ALTER TABLE `mangas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2013,7 +2094,7 @@ CREATE TABLE `perros` (
   CONSTRAINT `Perros_ibfk_1` FOREIGN KEY (`Categoria`) REFERENCES `categorias_perro` (`Categoria`) ON UPDATE CASCADE,
   CONSTRAINT `Perros_ibfk_2` FOREIGN KEY (`Grado`) REFERENCES `grados_perro` (`Grado`) ON UPDATE CASCADE,
   CONSTRAINT `Perros_ibfk_3` FOREIGN KEY (`Guia`) REFERENCES `guias` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1562 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1573 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2569,13 +2650,13 @@ INSERT INTO `perros` VALUES
 (560,'Arturo','Mestizo','','1660','S',477,0,'GII',NULL,NULL),
 (561,'Yara','','','','L',489,0,'GI',NULL,NULL),
 (562,'Arya','','','','L',399,0,'P.A.',NULL,NULL),
-(563,'Sasha','','','','L',490,0,'P.A.',NULL,NULL),
-(564,'Zar','','','','L',491,0,'P.A.',NULL,NULL),
+(563,'Sasha','siberian husky','','','L',490,0,'GI',NULL,NULL),
+(564,'Zar','','','','L',491,0,'GI',NULL,NULL),
 (565,'Lillo','Jack Russel','','','S',492,0,'GI',NULL,NULL),
 (566,'Amy','','','','L',493,0,'P.A.',NULL,NULL),
 (567,'Dana','','','','L',493,0,'P.A.',NULL,NULL),
 (568,'Golfo','','','','L',494,0,'P.A.',NULL,NULL),
-(569,'Ron','','','','L',494,0,'P.A.',NULL,NULL),
+(569,'Ron','','','','L',494,0,'GI',NULL,NULL),
 (570,'Putt','','','','L',371,0,'P.A.',NULL,NULL),
 (571,'Onza','PDAE','','','M',496,0,'GI',NULL,NULL),
 (572,'Sancho','','','','L',497,0,'GI',NULL,NULL),
@@ -2584,8 +2665,8 @@ INSERT INTO `perros` VALUES
 (575,'Nashira','Border Collie','143389','A903','L',499,0,'GII',NULL,NULL),
 (576,'Chuli','Border Collie','','','L',482,0,'GII',NULL,NULL),
 (577,'Skye','Border Collie','141244','B014','L',500,0,'GII',NULL,NULL),
-(581,'Lady','','','','L',501,0,'P.A.',NULL,NULL),
-(582,'Zoe','','','','L',502,0,'P.A.',NULL,NULL),
+(581,'Lady','','','','L',501,0,'GI',NULL,NULL),
+(582,'Zoe','','','','L',502,0,'GI',NULL,NULL),
 (583,'Tabu','','','','L',491,0,'P.A.',NULL,NULL),
 (584,'Ursula','Jack Russel','141241','A840','S',478,0,'GIII',NULL,NULL),
 (585,'Ari','Border Collie','2026238','A894','L',468,0,'GII',NULL,NULL),
@@ -2631,7 +2712,7 @@ INSERT INTO `perros` VALUES
 (627,'Arashi','','','','L',207,0,'P.A.',NULL,NULL),
 (628,'Shiva','','','','L',40,0,'P.A.',NULL,NULL),
 (629,'Vash','','','','L',220,0,'GI',NULL,NULL),
-(630,'Coba','Border Collie','','','L',524,0,'P.A.',NULL,NULL),
+(630,'Coba','Border Collie','','','L',524,0,'GI',NULL,NULL),
 (631,'Yoda','','','','L',526,0,'P.A.',NULL,NULL),
 (632,'Parche','','','','L',525,0,'P.A.',NULL,NULL),
 (633,'Asics','Pastor Belga Malinois','','','L',312,0,'GII',NULL,NULL),
@@ -2684,8 +2765,8 @@ INSERT INTO `perros` VALUES
 (683,'Luke Skywalker','Border Collie','132793','A935','L',551,0,'GII',NULL,NULL),
 (684,'Blue Jazz','Border Collie','2108922','A854','L',1135,0,'GII',NULL,NULL),
 (685,'Hanna','','','','M',424,0,'P.A.',NULL,NULL),
-(686,'Ella','','','','S',552,0,'GI',NULL,NULL),
-(687,'Mía','','','','S',552,0,'P.A.',NULL,NULL),
+(686,'Ella','','','','S',552,0,'GII',NULL,NULL),
+(687,'Mía','','','','S',552,0,'GI',NULL,NULL),
 (688,'Luna','Border Collie','','','L',553,0,'GI',NULL,NULL),
 (689,'Nala','Border Collie','','','L',553,0,'GI',NULL,NULL),
 (690,'Sacha','','','','L',554,0,'P.A.',NULL,NULL),
@@ -2954,7 +3035,7 @@ INSERT INTO `perros` VALUES
 (988,'Donna','Pastor Aleman','1933340','A796','L',747,0,'GII',NULL,NULL),
 (989,'Coco','Labrador Retriever','','','L',748,0,'GI',NULL,NULL),
 (990,'Tugba','Labrador Retriever','','','L',749,0,'GI',NULL,NULL),
-(991,'Remigio','Sussex Spaniel','','','M',750,0,'GI',NULL,NULL),
+(991,'Remigio','Sussex Spaniel','','','M',750,0,'GII',NULL,NULL),
 (992,'Daisy','','','','L',751,0,'P.A.',NULL,NULL),
 (993,'Laska','','','','L',752,0,'P.A.',NULL,NULL),
 (994,'Momo','Border Collie','','','L',753,0,'GI',NULL,NULL),
@@ -3309,9 +3390,9 @@ INSERT INTO `perros` VALUES
 (1347,'Bruc','','','1656','L',1023,0,'GII',NULL,NULL),
 (1348,'Collie','Border Collie','','1657','L',1024,0,'GII',NULL,NULL),
 (1349,'Sensa','','','1667','L',1025,0,'GII',NULL,NULL),
-(1350,'Chica','','','','L',1026,0,'GI',NULL,NULL),
+(1350,'Chica','','','','L',1026,0,'GII',NULL,NULL),
 (1351,'Maddy','','','','L',1027,0,'GI',NULL,NULL),
-(1352,'Nico','Ratonero Bodeguero Andaluz','','','M',31,0,'GI',NULL,NULL),
+(1352,'Miko','Ratonero Bodeguero Andaluz','','','M',31,0,'GI',NULL,NULL),
 (1353,'Ares','Pastor Belga Malinoise','','','L',1028,0,'GI',NULL,NULL),
 (1354,'Yako','P. Belga Tervueren','','','L',1029,0,'GI',NULL,NULL),
 (1355,'Astra','','','','S',545,0,'-',NULL,NULL),
@@ -3501,7 +3582,7 @@ INSERT INTO `perros` VALUES
 (1545,'Gy','Border Collie','','','L',241,0,'GI',NULL,NULL),
 (1546,'Zalen','Border Collie','','','L',59,0,'P.A.',NULL,NULL),
 (1547,'Just','Border Collie','','','L',1162,0,'GIII',NULL,NULL),
-(1548,'Koda','Boxer','','','S',1163,0,'P.A.',NULL,NULL),
+(1548,'Koda','Boxer','','','L',1163,0,'GI',NULL,NULL),
 (1549,'Thor','Mestizo','','','S',1164,0,'P.A.',NULL,NULL),
 (1550,'Otto','','','','L',1165,0,'GI',NULL,NULL),
 (1551,'Bolita','Border Collie','','','S',965,0,'P.A.',NULL,NULL),
@@ -3514,7 +3595,17 @@ INSERT INTO `perros` VALUES
 (1558,'Sparrow','Labrador','','','L',1170,0,'P.A.',NULL,NULL),
 (1559,'Kira','Beagle','','','S',1171,0,'P.A.',NULL,NULL),
 (1560,'Up','Border Collie','','','L',1157,0,'P.A.',NULL,NULL),
-(1561,'Aria','Border Collie','','','L',1172,0,'P.A.',NULL,NULL);
+(1561,'Aria','Border Collie','','','L',1172,0,'P.A.',NULL,NULL),
+(1562,'vaca','shetland','R.S.C.E','','S',197,0,'GI',NULL,NULL),
+(1563,'yesca','border collie','R.S.C.E','','L',36,0,'GI',NULL,NULL),
+(1564,'Halley','border collie','R.S.C.E','','L',486,0,'GI',NULL,NULL),
+(1566,'mia','','','','-',1173,0,'P.A.',NULL,NULL),
+(1567,'yoda','','','','L',1174,0,'P.A.',NULL,NULL),
+(1568,'Killo','staffordshire-bull terrier','','','M',1175,0,'GI',NULL,NULL),
+(1569,'Crixo','','','','-',1176,0,'P.A.',NULL,NULL),
+(1570,'lio','dalmata','','','L',1177,0,'GI',NULL,NULL),
+(1571,'Darla','','','','L',455,0,'P.A.',NULL,NULL),
+(1572,'Lua','','','','S',20,0,'GI',NULL,NULL);
 /*!40000 ALTER TABLE `perros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3619,7 +3710,7 @@ CREATE TABLE `pruebas` (
   PRIMARY KEY (`ID`),
   KEY `Pruebas_Club` (`Club`),
   CONSTRAINT `Pruebas_ibfk_1` FOREIGN KEY (`Club`) REFERENCES `clubes` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -3630,7 +3721,8 @@ LOCK TABLES `pruebas` WRITE;
 /*!40000 ALTER TABLE `pruebas` DISABLE KEYS */;
 INSERT INTO `pruebas` VALUES 
 (1,NULL,'-- Sin asignar --',1,NULL,NULL,NULL,'NO BORRAR: Prueba por defecto para jornadas huerfanas',0,0,1),
-(2,NULL,'II Copa Kartpetania',88,'Segovia','','','',0,0,0);
+(2,NULL,'II Copa Kartpetania',88,'Segovia','','','',0,0,0),
+(4,NULL,'10, 11 de octubre 5 huesos',16,'','','','',0,0,0);
 /*!40000 ALTER TABLE `pruebas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3729,7 +3821,7 @@ INSERT INTO `resultados` VALUES
 (2,9,1,54,1452,47,'Watson','Jack Russell Terrier','','S','GII',0,'Elena Carbo','Costa Azahar','2015-08-29 10:56:57','2015-08-29 10:56:57',0,0,0,0,0,74,'',0,0),
 (2,9,1,75,1483,49,'Buzz','','','S','GI',0,'Greta Benegas','El Nogueral','2015-08-29 10:57:25','2015-08-29 10:57:25',0,0,0,1,0,0,'',0,0),
 (2,9,1,106,1546,20,'Zalen','Border Collie','','L','P.A.',0,'Antonio Molina','W.E.L.P.E.','2015-08-29 11:42:40','2015-08-29 11:42:40',1,0,0,0,0,60,'',0,0),
-(2,9,1,26,1548,48,'Koda','Boxer','','S','P.A.',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2015-08-29 11:01:55','2015-08-29 11:01:55',0,0,0,1,0,0,'',0,0),
+(2,9,1,26,1548,48,'Koda','Boxer','','L','GI',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2015-08-29 11:01:55','2015-08-29 11:01:55',0,0,0,1,0,0,'',0,0),
 (2,9,1,4,1550,23,'Otto','','','L','GI',0,'Jesús Villalba','A-0','2015-08-29 11:44:37','2015-08-29 11:44:37',6,0,0,0,0,66,'',0,0),
 (2,9,1,41,1553,29,'Gazelle','Pastor de los Pirineos','','M','GI',0,'Ana Luisa Pose Rodriguez','Avila','2015-08-29 11:32:24','2015-08-29 11:32:24',0,0,0,1,0,0,'',0,0),
 (2,9,1,40,1554,29,'Eclair','Pastor de los Pirineos','','M','GI',0,'Ana Luisa Pose Rodriguez','Avila','2015-08-29 11:32:19','2015-08-29 11:32:19',0,0,0,1,0,0,'',0,0),
@@ -3779,7 +3871,7 @@ INSERT INTO `resultados` VALUES
 (2,9,2,54,1452,47,'Watson','Jack Russell Terrier','','S','GII',0,'Elena Carbo','Costa Azahar','2015-08-29 10:19:14','2015-08-29 10:19:14',6,0,0,0,0,104,'',0,0),
 (2,9,2,75,1483,49,'Buzz','','','S','GI',0,'Greta Benegas','El Nogueral','2015-08-29 10:22:17','2015-08-29 10:22:17',0,0,0,0,0,100,'',0,0),
 (2,9,2,106,1546,20,'Zalen','Border Collie','','L','P.A.',0,'Antonio Molina','W.E.L.P.E.','2015-08-29 10:11:31','2015-08-29 10:11:31',0,0,0,0,0,86,'',0,0),
-(2,9,2,26,1548,48,'Koda','Boxer','','S','P.A.',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2015-08-29 10:19:49','2015-08-29 10:19:49',0,0,0,1,0,0,'',0,0),
+(2,9,2,26,1548,48,'Koda','Boxer','','L','GI',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2015-08-29 10:19:49','2015-08-29 10:19:49',0,0,0,1,0,0,'',0,0),
 (2,9,2,4,1550,23,'Otto','','','L','GI',0,'Jesús Villalba','A-0','2015-08-29 10:12:31','2015-08-29 10:12:31',0,0,0,0,0,99,'',0,0),
 (2,9,2,41,1553,29,'Gazelle','Pastor de los Pirineos','','M','GI',0,'Ana Luisa Pose Rodriguez','Avila','2015-08-29 10:18:05','2015-08-29 10:18:05',0,0,0,0,0,106.36,'',0,0),
 (2,9,2,40,1554,29,'Eclair','Pastor de los Pirineos','','M','GI',0,'Ana Luisa Pose Rodriguez','Avila','2015-08-29 10:17:59','2015-08-29 10:17:59',0,0,0,1,0,0,'',0,0),
@@ -3796,7 +3888,6 @@ INSERT INTO `resultados` VALUES
 (2,10,3,37,883,10,'Llan','Border collie','','L','P.A.',0,'Sara Gutierrez','Agility Cantabria','2015-08-29 12:15:16','2015-08-29 12:15:16',0,0,0,1,0,0,'',0,0),
 (2,10,3,111,905,10,'Roy','','','L','P.A.',0,'Iván Izaguirre','Xanastur','2015-08-29 12:15:46','2015-08-29 12:15:46',0,0,0,0,0,21.42,'',0,0),
 (2,10,3,106,1546,10,'Zalen','Border Collie','','L','P.A.',0,'Antonio Molina','W.E.L.P.E.','2015-08-29 12:14:16','2015-08-29 12:14:16',1,0,0,0,0,15.85,'',0,0),
-(2,10,3,26,1548,10,'Koda','Boxer','','S','P.A.',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2015-08-29 12:14:35','2015-08-29 12:14:35',2,0,0,1,0,0,'',0,0),
 (2,10,3,28,1549,10,'Thor','Mestizo','','S','P.A.',0,'Alejandro Parra Fernandez','A. D. A. Pozuelo','2015-08-29 12:08:06','2015-08-29 12:08:06',0,0,0,0,0,30.45,'',0,0),
 (2,10,3,112,1552,10,'Bambam','','','S','P.A.',0,'Mía Cardeña','Xanastur','2015-08-29 12:10:05','2015-08-29 12:10:05',0,0,0,1,0,0,'',0,0),
 (2,10,3,44,1555,10,'Arvi','Border Collie','','S','P.A.',0,'Rubén Sanchez Clemente','Avila','2015-08-29 12:09:58','2015-08-29 12:09:58',0,0,0,1,0,0,'',0,0),
@@ -3814,7 +3905,6 @@ INSERT INTO `resultados` VALUES
 (2,10,4,37,883,10,'Llan','Border collie','','L','P.A.',0,'Sara Gutierrez','Agility Cantabria','2015-08-29 12:43:08','2015-08-29 12:43:08',0,0,0,0,0,19.51,'',0,0),
 (2,10,4,111,905,10,'Roy','','','L','P.A.',0,'Iván Izaguirre','Xanastur','2015-08-29 12:44:05','2015-08-29 12:44:05',0,0,0,1,0,0,'',0,0),
 (2,10,4,106,1546,10,'Zalen','Border Collie','','L','P.A.',0,'Antonio Molina','W.E.L.P.E.','2015-08-29 12:42:55','2015-08-29 12:42:55',0,0,0,0,0,18.26,'',0,0),
-(2,10,4,26,1548,10,'Koda','Boxer','','S','P.A.',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2015-08-29 12:42:35','2015-08-29 12:42:35',0,0,0,0,0,22.26,'',0,0),
 (2,10,4,28,1549,10,'Thor','Mestizo','','S','P.A.',0,'Alejandro Parra Fernandez','A. D. A. Pozuelo','2015-08-29 12:34:24','2015-08-29 12:34:24',0,1,0,0,0,51.23,'',0,0),
 (2,10,4,112,1552,10,'Bambam','','','S','P.A.',0,'Mía Cardeña','Xanastur','2015-08-29 12:41:30','2015-08-29 12:41:30',0,0,0,1,0,0,'',0,0),
 (2,10,4,44,1555,10,'Arvi','Border Collie','','S','P.A.',0,'Rubén Sanchez Clemente','Avila','2015-08-29 12:35:16','2015-08-29 12:35:16',0,0,0,1,0,0,'',0,0),
@@ -3846,6 +3936,7 @@ INSERT INTO `resultados` VALUES
 (2,10,5,75,1483,10,'Buzz','','','S','GI',0,'Greta Benegas','El Nogueral','2015-08-29 17:52:54','2015-08-29 17:52:54',0,0,0,1,0,0,'',0,0),
 (2,10,5,73,1513,10,'Templanza','Border Collie','','L','GI',0,'Ana Bustamante','El Nogueral','2015-08-29 18:10:54','2015-08-29 18:10:54',0,0,0,1,0,0,'',0,0),
 (2,10,5,74,1514,10,'Viento','Border Collie','','L','GI',0,'Ana Beltran Bustamante','El Nogueral','2015-08-29 18:09:06','2015-08-29 18:09:06',2,0,0,0,0,33.17,'',0,0),
+(2,10,5,26,1548,10,'Koda','Boxer','','L','GI',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
 (2,10,5,4,1550,10,'Otto','','','L','GI',0,'Jesús Villalba','A-0','2015-08-29 18:21:27','2015-08-29 18:21:27',3,1,0,0,0,50.57,'',0,0),
 (2,10,5,41,1553,10,'Gazelle','Pastor de los Pirineos','','M','GI',0,'Ana Luisa Pose Rodriguez','Avila','2014-01-01 00:00:00','2014-01-01 00:00:00',3,0,0,0,0,41.53,'',0,0),
 (2,10,5,40,1554,10,'Eclair','Pastor de los Pirineos','','M','GI',0,'Ana Luisa Pose Rodriguez','Avila','2015-08-29 17:57:46','2015-08-29 17:57:46',0,0,0,1,0,0,'',0,0),
@@ -3872,6 +3963,7 @@ INSERT INTO `resultados` VALUES
 (2,10,6,75,1483,10,'Buzz','','','S','GI',0,'Greta Benegas','El Nogueral','2015-08-29 18:45:37','2015-08-29 18:45:37',0,0,0,0,0,71.75,'',0,0),
 (2,10,6,73,1513,10,'Templanza','Border Collie','','L','GI',0,'Ana Bustamante','El Nogueral','2015-08-29 19:06:15','2015-08-29 19:06:15',0,0,0,0,1,0,'',0,0),
 (2,10,6,74,1514,10,'Viento','Border Collie','','L','GI',0,'Ana Beltran Bustamante','El Nogueral','2015-08-29 19:12:05','2015-08-29 19:12:05',0,1,0,1,0,0,'',0,0),
+(2,10,6,26,1548,10,'Koda','Boxer','','L','GI',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
 (2,10,6,4,1550,10,'Otto','','','L','GI',0,'Jesús Villalba','A-0','2015-08-29 19:07:13','2015-08-29 19:07:13',3,0,0,0,0,40.18,'',0,0),
 (2,10,6,41,1553,10,'Gazelle','Pastor de los Pirineos','','M','GI',0,'Ana Luisa Pose Rodriguez','Avila','2015-08-29 18:49:59','2015-08-29 18:49:59',2,0,0,0,0,44.5,'',0,0),
 (2,10,6,40,1554,10,'Eclair','Pastor de los Pirineos','','M','GI',0,'Ana Luisa Pose Rodriguez','Avila','2015-08-29 18:53:55','2015-08-29 18:53:55',4,0,0,0,0,40.13,'',0,0),
@@ -3891,7 +3983,7 @@ INSERT INTO `resultados` VALUES
 (2,10,7,14,589,10,'Iris','Border Collie','','L','GII',0,'Sara Montila','A. D. A. Pozuelo','2015-08-29 13:53:32','2015-08-29 13:53:32',2,1,0,1,0,0,'',0,0),
 (2,10,7,47,613,10,'Quillo','Pastor del Pirineo','A904','M','GII',0,'Rafael Arjona','Campo de Gibraltar','2015-08-29 13:33:32','2015-08-29 13:33:32',0,0,0,0,0,44.32,'',0,0),
 (2,10,7,104,626,10,'Hera','Border Collie','A560','L','GII',0,'Jesús Fernández Crespo','Mi Perro 10','2015-08-29 13:43:59','2015-08-29 13:43:59',0,0,0,0,0,44.46,'',0,0),
-(2,10,7,1,633,10,'Asics','Pastor Belga Malinois','','L','GII',0,'Luis Miguel Rodrigo','A-0','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(2,10,7,1,633,10,'Asics','Pastor Belga Malinois','','L','GII',0,'Luis Miguel Rodrigo','Agility Indoor Madrid','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
 (2,10,7,96,659,10,'Cherry de Ydre','P.B. Malinoise','','L','GII',0,'Amparo Roig','L\'Horta Nord','2015-08-29 13:52:31','2015-08-29 13:52:31',3,1,0,0,0,45.5,'',0,0),
 (2,10,7,55,676,10,'Blue','Border Collie','A630','L','GII',0,'Dori Moreno Morales','Costa Azahar','2015-08-29 13:50:41','2015-08-29 13:50:41',0,0,0,1,0,0,'',0,0),
 (2,10,7,13,691,10,'Guru','Mestizo','','L','GII',0,'Ricardo de la Cruz','A. D. A. Pozuelo','2015-08-29 14:01:41','2015-08-29 14:01:41',1,2,1,0,0,63.44,'',0,0),
@@ -3925,7 +4017,7 @@ INSERT INTO `resultados` VALUES
 (2,10,8,14,589,10,'Iris','Border Collie','','L','GII',0,'Sara Montila','A. D. A. Pozuelo','2015-08-29 14:59:16','2015-08-29 14:59:16',4,2,0,0,0,44.16,'',0,0),
 (2,10,8,47,613,10,'Quillo','Pastor del Pirineo','A904','M','GII',0,'Rafael Arjona','Campo de Gibraltar','2015-08-29 14:43:38','2015-08-29 14:43:38',0,0,0,0,0,30.73,'',0,0),
 (2,10,8,104,626,10,'Hera','Border Collie','A560','L','GII',0,'Jesús Fernández Crespo','Mi Perro 10','2015-08-29 15:08:22','2015-08-29 15:08:22',0,0,0,1,0,0,'',0,0),
-(2,10,8,1,633,10,'Asics','Pastor Belga Malinois','','L','GII',0,'Luis Miguel Rodrigo','A-0','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(2,10,8,1,633,10,'Asics','Pastor Belga Malinois','','L','GII',0,'Luis Miguel Rodrigo','Agility Indoor Madrid','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
 (2,10,8,96,659,10,'Cherry de Ydre','P.B. Malinoise','','L','GII',0,'Amparo Roig','L\'Horta Nord','2015-08-29 15:08:17','2015-08-29 15:08:17',3,1,0,0,0,36.76,'',0,0),
 (2,10,8,55,676,10,'Blue','Border Collie','A630','L','GII',0,'Dori Moreno Morales','Costa Azahar','2015-08-29 14:49:02','2015-08-29 14:49:02',0,1,0,1,0,0,'',0,0),
 (2,10,8,13,691,10,'Guru','Mestizo','','L','GII',0,'Ricardo de la Cruz','A. D. A. Pozuelo','2015-08-29 15:01:35','2015-08-29 15:01:35',0,2,0,0,0,50.68,'',0,0),
@@ -3949,7 +4041,7 @@ INSERT INTO `resultados` VALUES
 (2,10,9,98,13,10,'Burundi','Perro de Aguas Español','A310','L','GIII',0,'Elena Chinchilla','L\'Horta Nord','2015-08-29 17:22:57','2015-08-29 17:22:57',1,0,0,0,0,44.67,'',0,0),
 (2,10,9,92,15,10,'Napa','Border Collie','A401','L','GIII',0,'Paloma Faci Green','L\'Almozara','2015-08-29 17:12:28','2015-08-29 17:12:28',0,0,0,0,0,47.01,'',0,0),
 (2,10,9,99,28,10,'Noah','Border Collie','A268','L','GIII',0,'Vicente Villalba','L\'Horta Nord','2015-08-29 17:19:38','2015-08-29 17:19:38',1,0,0,0,0,45.67,'',0,0),
-(2,10,9,53,43,10,'Rocky','Border Collie','A355','L','GIII',0,'Arturo Conejera','Correcan','2015-08-29 17:08:34','2015-08-29 17:08:34',0,0,0,1,0,0,'',0,0),
+(2,10,9,53,43,10,'Rocky','Border Collie','A355','L','GIII',0,'Arturo Conejera','Cinco Huesos','2015-08-29 17:08:34','2015-08-29 17:08:34',0,0,0,1,0,0,'',0,0),
 (2,10,9,22,45,10,'Asia','Border Collie','A364','L','GIII',0,'José Luis Romero','A. D. A. Pozuelo','2015-08-29 17:10:23','2015-08-29 17:10:23',0,0,0,0,0,43.92,'',0,0),
 (2,10,9,79,65,10,'Brujostel','Border Collie','A231','L','GIII',0,'Yulia Morugova','El Nogueral','2015-08-29 16:57:46','2015-08-29 16:57:46',0,0,0,0,1,0,'',0,0),
 (2,10,9,10,71,10,'Mecha','P.B.Malinoise','A558','L','GIII',0,'José Antonio Encinas','A-0','2015-08-29 17:21:16','2015-08-29 17:21:16',1,0,0,0,0,42.91,'',0,0),
@@ -3981,7 +4073,7 @@ INSERT INTO `resultados` VALUES
 (2,10,10,98,13,10,'Burundi','Perro de Aguas Español','A310','L','GIII',0,'Elena Chinchilla','L\'Horta Nord','2015-08-29 15:59:40','2015-08-29 15:59:40',0,0,0,0,0,37.54,'',0,0),
 (2,10,10,92,15,10,'Napa','Border Collie','A401','L','GIII',0,'Paloma Faci Green','L\'Almozara','2015-08-29 16:15:33','2015-08-29 16:15:33',2,1,0,0,0,38.25,'',0,0),
 (2,10,10,99,28,10,'Noah','Border Collie','A268','L','GIII',0,'Vicente Villalba','L\'Horta Nord','2015-08-29 16:05:00','2015-08-29 16:05:00',1,0,0,0,0,36.53,'',0,0),
-(2,10,10,53,43,10,'Rocky','Border Collie','A355','L','GIII',0,'Arturo Conejera','Correcan','2015-08-29 15:56:22','2015-08-29 15:56:22',1,0,0,1,0,0,'',0,0),
+(2,10,10,53,43,10,'Rocky','Border Collie','A355','L','GIII',0,'Arturo Conejera','Cinco Huesos','2015-08-29 15:56:22','2015-08-29 15:56:22',1,0,0,1,0,0,'',0,0),
 (2,10,10,22,45,10,'Asia','Border Collie','A364','L','GIII',0,'José Luis Romero','A. D. A. Pozuelo','2015-08-29 16:15:59','2015-08-29 16:15:59',2,1,0,0,0,42.27,'',0,0),
 (2,10,10,79,65,10,'Brujostel','Border Collie','A231','L','GIII',0,'Yulia Morugova','El Nogueral','2015-08-29 16:07:54','2015-08-29 16:07:54',0,0,0,0,1,0,'',0,0),
 (2,10,10,10,71,10,'Mecha','P.B.Malinoise','A558','L','GIII',0,'José Antonio Encinas','A-0','2015-08-29 16:16:54','2015-08-29 16:16:54',0,0,0,0,0,38.77,'',0,0),
@@ -4016,7 +4108,6 @@ INSERT INTO `resultados` VALUES
 (2,11,11,37,883,11,'Llan','Border collie','','L','P.A.',0,'Sara Gutierrez','Agility Cantabria','2015-08-30 12:45:34','2015-08-30 12:45:34',0,0,0,0,1,0,'',0,0),
 (2,11,11,111,905,11,'Roy','','','L','P.A.',0,'Iván Izaguirre','Xanastur','2015-08-30 12:45:15','2015-08-30 12:45:15',0,1,0,0,0,20.04,'',0,0),
 (2,11,11,106,1546,11,'Zalen','Border Collie','','L','P.A.',0,'Antonio Molina','W.E.L.P.E.','2015-08-30 12:41:58','2015-08-30 12:41:58',0,0,0,0,1,0,'',0,0),
-(2,11,11,26,1548,11,'Koda','Boxer','','S','P.A.',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2015-08-30 12:45:46','2015-08-30 12:45:46',0,0,0,0,1,0,'',0,0),
 (2,11,11,28,1549,11,'Thor','Mestizo','','S','P.A.',0,'Alejandro Parra Fernandez','A. D. A. Pozuelo','2015-08-30 12:45:40','2015-08-30 12:45:40',0,0,0,0,1,0,'',0,0),
 (2,11,11,71,1551,11,'Bolita','Border Collie','','S','P.A.',0,'Lorena Villar','El Hechizo del Border C.','2015-08-30 12:36:36','2015-08-30 12:36:36',0,0,0,0,0,16.18,'',0,0),
 (2,11,11,112,1552,11,'Bambam','','','S','P.A.',0,'Mía Cardeña','Xanastur','2015-08-30 12:41:51','2015-08-30 12:41:51',0,0,0,1,0,0,'',0,0),
@@ -4033,7 +4124,6 @@ INSERT INTO `resultados` VALUES
 (2,11,12,37,883,11,'Llan','Border collie','','L','P.A.',0,'Sara Gutierrez','Agility Cantabria','2015-08-30 13:06:24','2015-08-30 13:06:24',0,0,0,0,1,0,'',0,0),
 (2,11,12,111,905,11,'Roy','','','L','P.A.',0,'Iván Izaguirre','Xanastur','2015-08-30 13:06:13','2015-08-30 13:06:13',0,0,0,1,0,0,'',0,0),
 (2,11,12,106,1546,11,'Zalen','Border Collie','','L','P.A.',0,'Antonio Molina','W.E.L.P.E.','2015-08-30 13:03:03','2015-08-30 13:03:03',0,0,0,0,1,0,'',0,0),
-(2,11,12,26,1548,11,'Koda','Boxer','','S','P.A.',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2015-08-30 13:06:34','2015-08-30 13:06:34',0,0,0,0,1,0,'',0,0),
 (2,11,12,28,1549,11,'Thor','Mestizo','','S','P.A.',0,'Alejandro Parra Fernandez','A. D. A. Pozuelo','2015-08-30 13:06:31','2015-08-30 13:06:31',0,0,0,0,1,0,'',0,0),
 (2,11,12,71,1551,11,'Bolita','Border Collie','','S','P.A.',0,'Lorena Villar','El Hechizo del Border C.','2015-08-30 12:57:05','2015-08-30 12:57:05',2,0,0,0,0,19.73,'',0,0),
 (2,11,12,112,1552,11,'Bambam','','','S','P.A.',0,'Mía Cardeña','Xanastur','2015-08-30 13:02:57','2015-08-30 13:02:57',0,0,0,1,0,0,'',0,0),
@@ -4061,6 +4151,7 @@ INSERT INTO `resultados` VALUES
 (2,11,13,75,1483,11,'Buzz','','','S','GI',0,'Greta Benegas','El Nogueral','2015-08-30 08:37:27','2015-08-30 08:37:27',1,0,0,0,0,73.09,'',0,0),
 (2,11,13,73,1513,11,'Templanza','Border Collie','','L','GI',0,'Ana Bustamante','El Nogueral','2015-08-30 08:55:02','2015-08-30 08:55:02',0,1,0,0,0,38.13,'',0,0),
 (2,11,13,74,1514,11,'Viento','Border Collie','','L','GI',0,'Ana Beltran Bustamante','El Nogueral','2015-08-30 08:52:40','2015-08-30 08:52:40',0,0,0,1,0,0,'',0,0),
+(2,11,13,26,1548,11,'Koda','Boxer','','L','GI',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
 (2,11,13,41,1553,11,'Gazelle','Pastor de los Pirineos','','M','GI',0,'Ana Luisa Pose Rodriguez','Avila','2015-08-30 08:41:12','2015-08-30 08:41:12',0,0,0,1,0,0,'',0,0),
 (2,11,13,40,1554,11,'Eclair','Pastor de los Pirineos','','M','GI',0,'Ana Luisa Pose Rodriguez','Avila','2015-08-30 08:41:31','2015-08-30 08:41:31',0,0,0,1,0,0,'',0,0),
 (2,11,14,29,370,11,'Milka','','','L','GI',0,'Javier Martín','Agilcan','2015-08-30 09:44:00','2015-08-30 09:44:00',5,0,0,0,0,44.39,'',0,0),
@@ -4083,10 +4174,11 @@ INSERT INTO `resultados` VALUES
 (2,11,14,75,1483,11,'Buzz','','','S','GI',0,'Greta Benegas','El Nogueral','2015-08-30 09:22:02','2015-08-30 09:22:02',0,0,0,0,0,76.79,'',0,0),
 (2,11,14,73,1513,11,'Templanza','Border Collie','','L','GI',0,'Ana Bustamante','El Nogueral','2015-08-30 09:46:53','2015-08-30 09:46:53',1,1,0,1,0,0,'',0,0),
 (2,11,14,74,1514,11,'Viento','Border Collie','','L','GI',0,'Ana Beltran Bustamante','El Nogueral','2015-08-30 09:33:57','2015-08-30 09:33:57',0,0,0,1,0,0,'',0,0),
+(2,11,14,26,1548,11,'Koda','Boxer','','L','GI',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
 (2,11,14,41,1553,11,'Gazelle','Pastor de los Pirineos','','M','GI',0,'Ana Luisa Pose Rodriguez','Avila','2015-08-30 09:26:14','2015-08-30 09:26:14',0,0,0,0,0,39.48,'',0,0),
 (2,11,14,40,1554,11,'Eclair','Pastor de los Pirineos','','M','GI',0,'Ana Luisa Pose Rodriguez','Avila','2015-08-30 09:31:39','2015-08-30 09:31:39',2,1,0,0,0,41.02,'',0,0),
 (2,11,15,16,8,11,'Thelma','Border Collie','0824','L','GII',0,'Fabian Santolaya','A. D. A. Pozuelo','2015-08-30 10:50:02','2015-08-30 10:50:02',0,1,0,0,0,48.48,'',0,0),
-(2,11,15,8,68,11,'Fito','Borde Collie','A529','L','GII',0,'Sara María Lara','A-0','2015-08-30 10:45:10','2015-08-30 10:45:10',0,0,0,0,0,42.66,'',0,0),
+(2,11,15,8,68,11,'Fito','Borde Collie','A529','L','GII',0,'Sara María Lara','Agility Indoor Madrid','2015-08-30 10:45:10','2015-08-30 10:45:10',0,0,0,0,0,42.66,'',0,0),
 (2,11,15,81,351,11,'Flai','Fox Terrier Wire','A815','M','GII',0,'Juan Antonio Martinez','Eslón','2015-08-30 10:31:54','2015-08-30 10:31:54',0,0,0,0,0,68.46,'',0,0),
 (2,11,15,52,361,11,'Kara','Border Collie','A541','L','GII',0,'Ramón García Maroto','Cinco Huesos','2015-08-30 10:59:57','2015-08-30 10:59:57',2,0,0,0,0,41.22,'',0,0),
 (2,11,15,6,365,11,'Danah','P. Australiano','A889','L','GII',0,'Juan Martín de las Blancas','A-0','2015-08-30 11:01:13','2015-08-30 11:01:13',3,1,0,0,0,42.74,'',0,0),
@@ -4101,7 +4193,7 @@ INSERT INTO `resultados` VALUES
 (2,11,15,69,540,11,'Lua','','A689','M','GII',0,'Daniel Menéndez','El Hechizo del Border C.','2015-08-30 10:34:06','2015-08-30 10:34:06',3,0,0,0,0,43.61,'',0,0),
 (2,11,15,14,589,11,'Iris','Border Collie','','L','GII',0,'Sara Montila','A. D. A. Pozuelo','2015-08-30 10:43:54','2015-08-30 10:43:54',4,0,0,0,0,40.62,'',0,0),
 (2,11,15,47,613,11,'Quillo','Pastor del Pirineo','A904','M','GII',0,'Rafael Arjona','Campo de Gibraltar','2015-08-30 10:36:36','2015-08-30 10:36:36',1,0,0,1,0,0,'',0,0),
-(2,11,15,1,633,11,'Asics','Pastor Belga Malinois','','L','GII',0,'Luis Miguel Rodrigo','A-0','2015-08-30 11:14:37','2015-08-30 11:14:37',0,0,0,1,0,0,'',0,0),
+(2,11,15,1,633,11,'Asics','Pastor Belga Malinois','','L','GII',0,'Luis Miguel Rodrigo','Agility Indoor Madrid','2015-08-30 11:14:37','2015-08-30 11:14:37',0,0,0,1,0,0,'',0,0),
 (2,11,15,96,659,11,'Cherry de Ydre','P.B. Malinoise','','L','GII',0,'Amparo Roig','L\'Horta Nord','2015-08-30 10:53:27','2015-08-30 10:53:27',0,0,0,1,0,0,'',0,0),
 (2,11,15,55,676,11,'Blue','Border Collie','A630','L','GII',0,'Dori Moreno Morales','Costa Azahar','2015-08-30 10:50:57','2015-08-30 10:50:57',1,0,0,1,0,0,'',0,0),
 (2,11,15,13,691,11,'Guru','Mestizo','','L','GII',0,'Ricardo de la Cruz','A. D. A. Pozuelo','2015-08-30 10:46:36','2015-08-30 10:46:36',0,1,0,0,0,52.55,'',0,0),
@@ -4120,7 +4212,7 @@ INSERT INTO `resultados` VALUES
 (2,11,15,57,1268,11,'Mel','Border Collie','A916','L','GII',0,'Maria del Carmen Celda','Costa Azahar','2015-08-30 10:52:06','2015-08-30 10:52:06',3,1,0,0,0,40.67,'',0,0),
 (2,11,15,54,1452,11,'Watson','Jack Russell Terrier','','S','GII',0,'Elena Carbo','Costa Azahar','2015-08-30 10:30:02','2015-08-30 10:30:02',1,0,0,1,0,0,'',0,0),
 (2,11,16,16,8,11,'Thelma','Border Collie','0824','L','GII',0,'Fabian Santolaya','A. D. A. Pozuelo','2015-08-30 12:08:10','2015-08-30 12:08:10',0,0,0,1,0,0,'',0,0),
-(2,11,16,8,68,11,'Fito','Borde Collie','A529','L','GII',0,'Sara María Lara','A-0','2015-08-30 12:11:55','2015-08-30 12:11:55',0,0,0,0,0,40.19,'',0,0),
+(2,11,16,8,68,11,'Fito','Borde Collie','A529','L','GII',0,'Sara María Lara','Agility Indoor Madrid','2015-08-30 12:11:55','2015-08-30 12:11:55',0,0,0,0,0,40.19,'',0,0),
 (2,11,16,81,351,11,'Flai','Fox Terrier Wire','A815','M','GII',0,'Juan Antonio Martinez','Eslón','2015-08-30 11:46:21','2015-08-30 11:46:21',0,0,0,0,0,69.09,'',0,0),
 (2,11,16,52,361,11,'Kara','Border Collie','A541','L','GII',0,'Ramón García Maroto','Cinco Huesos','2015-08-30 12:09:10','2015-08-30 12:09:10',0,0,0,1,0,0,'',0,0),
 (2,11,16,6,365,11,'Danah','P. Australiano','A889','L','GII',0,'Juan Martín de las Blancas','A-0','2015-08-30 12:00:18','2015-08-30 12:00:18',2,1,0,0,0,37.23,'',0,0),
@@ -4135,7 +4227,7 @@ INSERT INTO `resultados` VALUES
 (2,11,16,69,540,11,'Lua','','A689','M','GII',0,'Daniel Menéndez','El Hechizo del Border C.','2015-08-30 11:47:24','2015-08-30 11:47:24',0,0,0,0,0,40.18,'',0,0),
 (2,11,16,14,589,11,'Iris','Border Collie','','L','GII',0,'Sara Montila','A. D. A. Pozuelo','2015-08-30 12:03:44','2015-08-30 12:03:44',4,1,0,0,0,42.85,'',0,0),
 (2,11,16,47,613,11,'Quillo','Pastor del Pirineo','A904','M','GII',0,'Rafael Arjona','Campo de Gibraltar','2015-08-30 11:44:04','2015-08-30 11:44:04',0,0,0,1,0,0,'',0,0),
-(2,11,16,1,633,11,'Asics','Pastor Belga Malinois','','L','GII',0,'Luis Miguel Rodrigo','A-0','2015-08-30 11:55:27','2015-08-30 11:55:27',2,0,0,0,0,32.39,'',0,0),
+(2,11,16,1,633,11,'Asics','Pastor Belga Malinois','','L','GII',0,'Luis Miguel Rodrigo','Agility Indoor Madrid','2015-08-30 11:55:27','2015-08-30 11:55:27',2,0,0,0,0,32.39,'',0,0),
 (2,11,16,96,659,11,'Cherry de Ydre','P.B. Malinoise','','L','GII',0,'Amparo Roig','L\'Horta Nord','2015-08-30 12:01:18','2015-08-30 12:01:18',4,0,0,0,0,34.1,'',0,0),
 (2,11,16,55,676,11,'Blue','Border Collie','A630','L','GII',0,'Dori Moreno Morales','Costa Azahar','2015-08-30 12:02:14','2015-08-30 12:02:14',0,0,0,0,0,34.69,'',0,0),
 (2,11,16,13,691,11,'Guru','Mestizo','','L','GII',0,'Ricardo de la Cruz','A. D. A. Pozuelo','2015-08-30 12:06:58','2015-08-30 12:06:58',1,0,0,0,0,42.61,'',0,0),
@@ -4159,7 +4251,7 @@ INSERT INTO `resultados` VALUES
 (2,11,17,98,13,11,'Burundi','Perro de Aguas Español','A310','L','GIII',0,'Elena Chinchilla','L\'Horta Nord','2015-08-30 07:57:26','2015-08-30 07:57:26',0,1,0,1,0,0,'',0,0),
 (2,11,17,92,15,11,'Napa','Border Collie','A401','L','GIII',0,'Paloma Faci Green','L\'Almozara','2015-08-30 07:51:50','2015-08-30 07:51:50',1,0,0,0,0,41.75,'',0,0),
 (2,11,17,99,28,11,'Noah','Border Collie','A268','L','GIII',0,'Vicente Villalba','L\'Horta Nord','2015-08-30 07:49:44','2015-08-30 07:49:44',1,0,0,0,0,40,'',0,0),
-(2,11,17,53,43,11,'Rocky','Border Collie','A355','L','GIII',0,'Arturo Conejera','Correcan','2015-08-30 07:53:47','2015-08-30 07:53:47',1,0,0,0,0,39.21,'',0,0),
+(2,11,17,53,43,11,'Rocky','Border Collie','A355','L','GIII',0,'Arturo Conejera','Cinco Huesos','2015-08-30 07:53:47','2015-08-30 07:53:47',1,0,0,0,0,39.21,'',0,0),
 (2,11,17,22,45,11,'Asia','Border Collie','A364','L','GIII',0,'José Luis Romero','A. D. A. Pozuelo','2015-08-30 07:45:42','2015-08-30 07:45:42',0,0,0,1,0,0,'',0,0),
 (2,11,17,79,65,11,'Brujostel','Border Collie','A231','L','GIII',0,'Yulia Morugova','El Nogueral','2015-08-30 07:43:57','2015-08-30 07:43:57',0,0,0,0,1,0,'',0,0),
 (2,11,17,10,71,11,'Mecha','P.B.Malinoise','A558','L','GIII',0,'José Antonio Encinas','A-0','2015-08-30 07:59:15','2015-08-30 07:59:15',0,0,0,0,0,37.89,'',0,0),
@@ -4189,7 +4281,7 @@ INSERT INTO `resultados` VALUES
 (2,11,18,98,13,11,'Burundi','Perro de Aguas Español','A310','L','GIII',0,'Elena Chinchilla','L\'Horta Nord','2015-08-30 06:56:06','2015-08-30 06:56:06',1,0,0,0,0,36.31,'',0,0),
 (2,11,18,92,15,11,'Napa','Border Collie','A401','L','GIII',0,'Paloma Faci Green','L\'Almozara','2015-08-30 06:49:25','2015-08-30 06:49:25',1,0,0,1,0,0,'',0,0),
 (2,11,18,99,28,11,'Noah','Border Collie','A268','L','GIII',0,'Vicente Villalba','L\'Horta Nord','2015-08-30 06:50:37','2015-08-30 06:50:37',0,0,0,1,0,0,'',0,0),
-(2,11,18,53,43,11,'Rocky','Border Collie','A355','L','GIII',0,'Arturo Conejera','Correcan','2015-08-30 06:57:54','2015-08-30 06:57:54',3,0,0,0,0,36.03,'',0,0),
+(2,11,18,53,43,11,'Rocky','Border Collie','A355','L','GIII',0,'Arturo Conejera','Cinco Huesos','2015-08-30 06:57:54','2015-08-30 06:57:54',3,0,0,0,0,36.03,'',0,0),
 (2,11,18,22,45,11,'Asia','Border Collie','A364','L','GIII',0,'José Luis Romero','A. D. A. Pozuelo','2015-08-30 06:59:04','2015-08-30 06:59:04',0,0,0,1,0,0,'',0,0),
 (2,11,18,79,65,11,'Brujostel','Border Collie','A231','L','GIII',0,'Yulia Morugova','El Nogueral','2015-08-30 07:04:07','2015-08-30 07:04:07',0,0,0,0,1,0,'',0,0),
 (2,11,18,10,71,11,'Mecha','P.B.Malinoise','A558','L','GIII',0,'José Antonio Encinas','A-0','2015-08-30 07:03:46','2015-08-30 07:03:46',0,0,0,0,0,35.08,'',0,0),
@@ -4212,7 +4304,256 @@ INSERT INTO `resultados` VALUES
 (2,11,18,51,844,11,'Erinka','Papillon','A716','S','GIII',0,'Nuria Morell Nadal','Can Roja','2015-08-30 06:39:04','2015-08-30 06:39:04',0,0,0,0,0,43.53,'',0,0),
 (2,11,18,36,881,11,'Neco','PDA','B016','L','GIII',0,'Sara Gutierrez','Agility Cantabria','2015-08-30 06:52:56','2015-08-30 06:52:56',0,0,0,1,0,0,'',0,0),
 (2,11,18,88,1537,11,'Eta','','','M','GIII',0,'Zsuzsa Veres','Future Dogs','2015-08-30 06:46:25','2015-08-30 06:46:25',0,0,0,1,0,0,'',0,0),
-(2,11,18,87,1547,11,'Just','Border Collie','','L','GIII',0,'Hugo Santos','Future Dogs','2015-08-30 07:05:10','2015-08-30 07:05:10',0,1,0,0,0,38.8,'',0,0);
+(2,11,18,87,1547,11,'Just','Border Collie','','L','GIII',0,'Hugo Santos','Future Dogs','2015-08-30 07:05:10','2015-08-30 07:05:10',0,1,0,0,0,38.8,'',0,0),
+(4,25,19,40,583,58,'Tabu','','','L','P.A.',0,'Isabel Fernández','Cinco Huesos','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,25,19,19,628,58,'Shiva','','','L','P.A.',0,'Ana Valencia','Agilcan','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,25,19,53,1551,58,'Bolita','Border Collie','','S','P.A.',0,'Lorena Villar','El Hechizo del Border C.','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,25,19,20,1566,58,'mia','','','-','P.A.',0,'Miguel Angel Pariente','Agility Indoor Madrid','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,25,19,25,1567,58,'yoda','','','L','P.A.',0,'beatriz santos','Agility Indoor Madrid','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,25,19,28,1569,58,'Crixo','','','-','P.A.',0,'Myriam Rodrigo','Cinco Huesos','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,25,19,18,1571,58,'Darla','','','L','P.A.',0,'Vicente Martín','Agilcan','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,25,20,33,561,58,'Yara','','','L','GI',0,'Sonia Gil','Cinco Huesos','2015-10-10 10:12:06','2015-10-10 10:12:06',1,0,0,0,0,45.89,'',0,0),
+(4,25,20,32,563,58,'Sasha','siberian husky','','L','GI',0,'Beatriz Sánchez Casares','Cinco Huesos','2015-10-10 10:12:59','2015-10-10 10:12:59',0,0,0,1,0,0,'',0,0),
+(4,25,20,34,564,58,'Zar','','','L','GI',0,'Isabel Fernández','Cinco Huesos','2015-10-10 10:12:09','2015-10-10 10:12:09',0,0,0,1,0,0,'',0,0),
+(4,25,20,43,565,58,'Lillo','Jack Russel','','S','GI',0,'Mari Carmen Martí Sanz','Cinco Huesos','2015-10-10 10:13:59','2015-10-10 10:13:59',2,1,0,0,0,54.2,'',0,0),
+(4,25,20,31,569,58,'Ron','','','L','GI',0,'Cynthia Sánchez','Cinco Huesos','2015-10-10 10:13:09','2015-10-10 10:13:09',0,0,0,1,0,0,'',0,0),
+(4,25,20,30,581,58,'Lady','','','L','GI',0,'Jose Luis de la Vara','Cinco Huesos','2015-10-10 10:13:06','2015-10-10 10:13:06',3,0,0,0,0,45.6,'',0,0),
+(4,25,20,35,582,58,'Zoe','','','L','GI',0,'Yaiza Blanco','Cinco Huesos','2015-10-10 10:12:29','2015-10-10 10:12:29',1,0,0,0,0,43.77,'',0,0),
+(4,25,20,59,622,58,'Truco','Border Collie','','L','GI',0,'Marta Acero','Formadog','2015-10-10 10:12:33','2015-10-10 10:12:33',0,0,0,1,0,0,'',0,0),
+(4,25,20,29,630,58,'Coba','Border Collie','','L','GI',0,'Susana Calvelo','Cinco Huesos','2015-10-10 10:13:15','2015-10-10 10:13:15',1,2,0,0,0,48.55,'',0,0),
+(4,25,20,80,866,58,'Musa','Carea leonés','','L','GI',0,'Raquel Galarraga','Xanastur','2015-10-10 10:13:19','2015-10-10 10:13:19',2,0,0,0,0,39.17,'',0,0),
+(4,25,20,1,971,58,'Thai','','','L','GI',0,'Jesús Cuellar Expósito','A-0','2015-10-10 10:12:15','2015-10-10 10:12:15',3,0,0,0,0,34.44,'',0,0),
+(4,25,20,46,987,58,'Xendy','Border Collie','','L','GI',0,'Vanesa Frías Alemán','Cubas','2015-10-10 10:13:01','2015-10-10 10:13:01',0,0,0,1,0,0,'',0,0),
+(4,25,20,68,989,58,'Coco','Labrador Retriever','','L','GI',0,'Sara González','Hoop Agility','2015-10-10 10:12:55','2015-10-10 10:12:55',0,0,0,0,1,0,'',0,0),
+(4,25,20,42,1352,58,'Miko','Ratonero Bodeguero Andaluz','','M','GI',0,'Almudena Novo','Cinco Huesos','2015-10-10 10:13:49','2015-10-10 10:13:49',0,2,0,0,0,59.45,'',0,0),
+(4,25,20,65,1562,58,'vaca','shetland','','S','GI',0,'Iván Pardo García','Formadog','2015-10-10 10:13:52','2015-10-10 10:13:52',0,0,0,1,0,0,'',0,0),
+(4,25,20,60,1563,58,'yesca','border collie','','L','GI',0,'Ana Isabel Escobar','Formadog','2015-10-10 10:12:46','2015-10-10 10:12:46',0,0,0,1,0,0,'',0,0),
+(4,25,20,54,1564,58,'Halley','border collie','','L','GI',0,'Rubén García','Eslón','2015-10-10 10:12:22','2015-10-10 10:12:22',1,1,0,0,0,41.87,'',0,0),
+(4,25,20,41,1568,58,'Killo','staffordshire-bull terrier','','M','GI',0,'Javier Ramos Gutierrez','Cinco Huesos','2015-10-10 10:13:35','2015-10-10 10:13:35',0,0,0,0,1,0,'En Blanco',0,0),
+(4,25,20,69,1570,58,'lio','dalmata','','L','GI',0,'adrian escobar','Hoop Agility','2015-10-10 10:12:42','2015-10-10 10:12:42',2,0,0,0,0,49.99,'',0,0),
+(4,25,20,82,1572,58,'Lua','','','S','GI',0,'Alberto Pereda','La Princesa','2015-10-10 10:14:01','2015-10-10 10:14:01',0,0,0,1,0,0,'',0,0),
+(4,25,21,33,561,58,'Yara','','','L','GI',0,'Sonia Gil','Cinco Huesos','2015-10-10 11:10:19','2015-10-10 11:10:19',2,1,0,0,0,47.17,'',0,0),
+(4,25,21,32,563,58,'Sasha','siberian husky','','L','GI',0,'Beatriz Sánchez Casares','Cinco Huesos','2015-10-10 11:09:39','2015-10-10 11:09:39',0,0,0,1,0,0,'',0,0),
+(4,25,21,34,564,58,'Zar','','','L','GI',0,'Isabel Fernández','Cinco Huesos','2015-10-10 11:09:40','2015-10-10 11:09:40',0,0,0,1,0,0,'',0,0),
+(4,25,21,43,565,58,'Lillo','Jack Russel','','S','GI',0,'Mari Carmen Martí Sanz','Cinco Huesos','2015-10-10 11:10:49','2015-10-10 11:10:49',2,0,0,0,0,71.82,'',0,0),
+(4,25,21,31,569,58,'Ron','','','L','GI',0,'Cynthia Sánchez','Cinco Huesos','2015-10-10 11:09:41','2015-10-10 11:09:41',0,0,0,1,0,0,'',0,0),
+(4,25,21,30,581,58,'Lady','','','L','GI',0,'Jose Luis de la Vara','Cinco Huesos','2015-10-10 11:09:56','2015-10-10 11:09:56',0,0,0,1,0,0,'',0,0),
+(4,25,21,35,582,58,'Zoe','','','L','GI',0,'Yaiza Blanco','Cinco Huesos','2015-10-10 11:10:22','2015-10-10 11:10:22',0,0,0,1,0,0,'',0,0),
+(4,25,21,59,622,58,'Truco','Border Collie','','L','GI',0,'Marta Acero','Formadog','2015-10-10 11:09:52','2015-10-10 11:09:52',1,0,0,0,0,53.46,'',0,0),
+(4,25,21,29,630,58,'Coba','Border Collie','','L','GI',0,'Susana Calvelo','Cinco Huesos','2015-10-10 11:09:54','2015-10-10 11:09:54',0,0,0,1,0,0,'',0,0),
+(4,25,21,80,866,58,'Musa','Carea leonés','','L','GI',0,'Raquel Galarraga','Xanastur','2015-10-10 11:10:14','2015-10-10 11:10:14',1,1,0,0,0,32.9,'',0,0),
+(4,25,21,1,971,58,'Thai','','','L','GI',0,'Jesús Cuellar Expósito','A-0','2015-10-10 11:10:01','2015-10-10 11:10:01',1,0,0,0,0,32.02,'',0,0),
+(4,25,21,46,987,58,'Xendy','Border Collie','','L','GI',0,'Vanesa Frías Alemán','Cubas','2015-10-10 11:09:45','2015-10-10 11:09:45',0,0,0,1,0,0,'',0,0),
+(4,25,21,68,989,58,'Coco','Labrador Retriever','','L','GI',0,'Sara González','Hoop Agility','2015-10-10 11:09:30','2015-10-10 11:09:30',0,0,0,0,1,0,'',0,0),
+(4,25,21,42,1352,58,'Miko','Ratonero Bodeguero Andaluz','','M','GI',0,'Almudena Novo','Cinco Huesos','2015-10-10 11:10:36','2015-10-10 11:10:36',1,0,0,0,0,48.88,'',0,0),
+(4,25,21,65,1562,58,'vaca','shetland','','S','GI',0,'Iván Pardo García','Formadog','2015-10-10 11:10:40','2015-10-10 11:10:40',0,0,0,1,0,0,'',0,0),
+(4,25,21,60,1563,58,'yesca','border collie','','L','GI',0,'Ana Isabel Escobar','Formadog','2015-10-10 11:09:44','2015-10-10 11:09:44',0,0,0,1,0,0,'',0,0),
+(4,25,21,54,1564,58,'Halley','border collie','','L','GI',0,'Rubén García','Eslón','2015-10-10 11:10:08','2015-10-10 11:10:08',2,0,0,0,0,37.89,'',0,0),
+(4,25,21,41,1568,58,'Killo','staffordshire-bull terrier','','M','GI',0,'Javier Ramos Gutierrez','Cinco Huesos','2015-10-10 11:10:30','2015-10-10 11:10:30',0,0,0,0,1,0,'En Blanco',0,0),
+(4,25,21,69,1570,58,'lio','dalmata','','L','GI',0,'adrian escobar','Hoop Agility','2015-10-10 11:10:03','2015-10-10 11:10:03',0,0,0,1,0,0,'',0,0),
+(4,25,21,82,1572,58,'Lua','','','S','GI',0,'Alberto Pereda','La Princesa','2015-10-10 11:10:42','2015-10-10 11:10:42',0,0,0,1,0,0,'',0,0),
+(4,25,22,45,24,58,'Chiruca','Border Collie','0986','L','GII',0,'Antonio Fernández Moreno','Correcan','2015-10-10 12:09:06','2015-10-10 12:09:06',0,0,0,0,0,41.97,'',0,0),
+(4,25,22,6,94,58,'Panda','Border Collie','A474','L','GII',1,'Lorena Díez','A-0','2015-10-10 12:11:18','2015-10-10 12:11:18',0,0,0,0,0,40.35,'',0,0),
+(4,25,22,44,323,58,'Lia','Brazillian Terrier','A588','S','GII',0,'Irene Artacho','Cinco Huesos','2015-10-10 12:11:59','2015-10-10 12:11:59',1,1,0,0,0,48.92,'',0,0),
+(4,25,22,61,348,58,'Aker','P.B. Malinoise','A397','L','GII',0,'Francisco Javier Jaen','Formadog','2015-10-10 12:09:00','2015-10-10 12:09:00',0,0,0,0,0,45.72,'',0,0),
+(4,25,22,57,351,58,'Flai','Fox Terrier Wire','A815','M','GII',0,'Juan Antonio Martinez','Eslón','2015-10-10 12:11:26','2015-10-10 12:11:26',0,0,0,1,0,0,'',0,0),
+(4,25,22,78,352,58,'Donna','Border Collie','A795','L','GII',0,'Ricardo Benito','W.E.L.P.E.','2015-10-10 12:09:40','2015-10-10 12:09:40',1,0,0,0,0,44.78,'',0,0),
+(4,25,22,37,361,58,'Kara','Border Collie','A541','L','GII',0,'Ramón García Maroto','Cinco Huesos','2015-10-10 12:11:12','2015-10-10 12:11:12',0,0,0,0,0,37.18,'',0,0),
+(4,25,22,38,379,58,'Skay','Perro de Aguas Español','A605','L','GII',0,'Javier Santisteban','Cinco Huesos','2015-10-10 12:09:32','2015-10-10 12:09:32',0,0,0,1,0,0,'',0,0),
+(4,25,22,36,412,58,'Brea','Mestizo','1625','L','GII',0,'Almudena Novo','Cinco Huesos','2015-10-10 12:09:28','2015-10-10 12:09:28',2,0,0,0,0,56.66,'',0,0),
+(4,25,22,56,424,58,'Vlad Theradana','Perro de Aguas Español','A752','L','GII',0,'Angel Corroto','Eslón','2015-10-10 12:09:50','2015-10-10 12:09:50',0,0,0,1,0,0,'',0,0),
+(4,25,22,26,440,58,'Horatio','Bulldog Frances','A847','S','GII',0,'Beatriz Juan','Agility Indoor Madrid','2015-10-10 12:11:44','2015-10-10 12:11:44',0,0,0,0,0,63.24,'',0,0),
+(4,25,22,47,516,58,'Bruce','Ratonero Bodeguero Andaluz','A824','M','GII',0,'Jorge Muñoz Leal','Cubas','2015-10-10 12:11:28','2015-10-10 12:11:28',0,0,0,1,0,0,'',0,0),
+(4,25,22,63,517,58,'Nut','Pastor Belga Malinoise','A886','L','GII',0,'Francisco Javier Jaen','Formadog','2015-10-10 12:10:34','2015-10-10 12:10:34',0,0,0,1,0,0,'',0,0),
+(4,25,22,72,575,58,'Nashira','Border Collie','A903','L','GII',0,'Ruben López','La Princesa','2015-10-10 12:09:14','2015-10-10 12:09:14',2,0,0,0,0,38.33,'',0,0),
+(4,25,22,50,588,58,'Greta','Cocker Spaniel','B028','M','GII',0,'Susana Martín','Deporcan','2015-10-10 12:11:35','2015-10-10 12:11:35',1,0,0,0,0,56.38,'',0,0),
+(4,25,22,14,589,58,'Iris','Border Collie','','L','GII',0,'Sara Montila','A. D. A. Pozuelo','2015-10-10 12:10:45','2015-10-10 12:10:45',0,0,0,1,0,0,'',0,0),
+(4,25,22,62,601,58,'Lee-Ann','Border Colliie','A986','L','GII',0,'Iván Pardo García','Formadog','2015-10-10 12:10:04','2015-10-10 12:10:04',2,0,0,0,0,37.99,'',0,0),
+(4,25,22,24,602,58,'Sucre','Border Collie','A920','L','GII',0,'Adrian Bajo','Agility Indoor Madrid','2015-10-10 12:10:26','2015-10-10 12:10:26',0,0,0,1,0,0,'',0,0),
+(4,25,22,23,603,58,'Killa','Mestizo','1662','L','GII',0,'Alberto Pérez','Agility Indoor Madrid','2015-10-10 12:10:21','2015-10-10 12:10:21',2,2,0,0,0,55.57,'',0,0),
+(4,25,22,21,633,58,'Asics','Pastor Belga Malinois','','L','GII',0,'Luis Miguel Rodrigo','Agility Indoor Madrid','2015-10-10 12:10:41','2015-10-10 12:10:41',0,0,0,0,0,32.97,'',0,0),
+(4,25,22,81,759,58,'Loli','Carea Leonés','','L','GII',0,'Enrique Alcaraz','Xanastur','2015-10-10 12:09:19','2015-10-10 12:09:19',0,0,0,1,0,0,'',0,0),
+(4,25,22,71,991,58,'Remigio','Sussex Spaniel','','M','GII',0,'Alicia de la Calle','Hoop Agility','2015-10-10 12:11:25','2015-10-10 12:11:25',0,0,0,1,0,0,'',0,0),
+(4,25,22,2,1350,58,'Chica','','','L','GII',0,'Miguel  Castellanos','A-0','2015-10-10 12:09:45','2015-10-10 12:09:45',0,0,0,1,0,0,'',0,0),
+(4,25,23,45,24,58,'Chiruca','Border Collie','0986','L','GII',0,'Antonio Fernández Moreno','Correcan','2015-10-10 13:01:10','2015-10-10 13:01:10',0,0,0,1,0,0,'',0,0),
+(4,25,23,6,94,58,'Panda','Border Collie','A474','L','GII',1,'Lorena Díez','A-0','2015-10-10 13:01:24','2015-10-10 13:01:24',0,0,0,1,0,0,'',0,0),
+(4,25,23,44,323,58,'Lia','Brazillian Terrier','A588','S','GII',0,'Irene Artacho','Cinco Huesos','2015-10-10 13:02:10','2015-10-10 13:02:10',0,1,0,0,0,47.76,'',0,0),
+(4,25,23,61,348,58,'Aker','P.B. Malinoise','A397','L','GII',0,'Francisco Javier Jaen','Formadog','2015-10-10 13:01:06','2015-10-10 13:01:06',0,0,0,0,0,42.36,'',0,0),
+(4,25,23,57,351,58,'Flai','Fox Terrier Wire','A815','M','GII',0,'Juan Antonio Martinez','Eslón','2015-10-10 13:01:36','2015-10-10 13:01:36',0,0,0,1,0,0,'',0,0),
+(4,25,23,78,352,58,'Donna','Border Collie','A795','L','GII',0,'Ricardo Benito','W.E.L.P.E.','2015-10-10 13:00:54','2015-10-10 13:00:54',0,0,0,0,0,36.95,'',0,0),
+(4,25,23,37,361,58,'Kara','Border Collie','A541','L','GII',0,'Ramón García Maroto','Cinco Huesos','2015-10-10 13:01:16','2015-10-10 13:01:16',1,0,0,0,0,36.65,'',0,0),
+(4,25,23,38,379,58,'Skay','Perro de Aguas Español','A605','L','GII',0,'Javier Santisteban','Cinco Huesos','2015-10-10 13:00:24','2015-10-10 13:00:24',0,0,0,1,0,0,'',0,0),
+(4,25,23,36,412,58,'Brea','Mestizo','1625','L','GII',0,'Almudena Novo','Cinco Huesos','2015-10-10 13:00:41','2015-10-10 13:00:41',0,0,0,1,0,0,'',0,0),
+(4,25,23,56,424,58,'Vlad Theradana','Perro de Aguas Español','A752','L','GII',0,'Angel Corroto','Eslón','2015-10-10 13:00:35','2015-10-10 13:00:35',3,0,0,0,0,37.94,'',0,0),
+(4,25,23,26,440,58,'Horatio','Bulldog Frances','A847','S','GII',0,'Beatriz Juan','Agility Indoor Madrid','2015-10-10 13:02:01','2015-10-10 13:02:01',0,0,0,0,0,54.53,'',0,0),
+(4,25,23,47,516,58,'Bruce','Ratonero Bodeguero Andaluz','A824','M','GII',0,'Jorge Muñoz Leal','Cubas','2015-10-10 13:01:42','2015-10-10 13:01:42',0,0,0,0,0,43.22,'',0,0),
+(4,25,23,63,517,58,'Nut','Pastor Belga Malinoise','A886','L','GII',0,'Francisco Javier Jaen','Formadog','2015-10-10 13:00:17','2015-10-10 13:00:17',0,0,0,0,0,35.6,'',0,0),
+(4,25,23,72,575,58,'Nashira','Border Collie','A903','L','GII',0,'Ruben López','La Princesa','2015-10-10 13:00:43','2015-10-10 13:00:43',0,0,0,1,0,0,'',0,0),
+(4,25,23,50,588,58,'Greta','Cocker Spaniel','B028','M','GII',0,'Susana Martín','Deporcan','2015-10-10 13:01:54','2015-10-10 13:01:54',1,0,0,0,0,52.48,'',0,0),
+(4,25,23,14,589,58,'Iris','Border Collie','','L','GII',0,'Sara Montila','A. D. A. Pozuelo','2015-10-10 13:00:21','2015-10-10 13:00:21',0,0,0,0,1,0,'',0,0),
+(4,25,23,62,601,58,'Lee-Ann','Border Colliie','A986','L','GII',0,'Iván Pardo García','Formadog','2015-10-10 13:00:49','2015-10-10 13:00:49',1,1,0,0,0,35.59,'',0,0),
+(4,25,23,24,602,58,'Sucre','Border Collie','A920','L','GII',0,'Adrian Bajo','Agility Indoor Madrid','2015-10-10 13:00:02','2015-10-10 13:00:02',0,0,0,0,0,34.97,'',0,0),
+(4,25,23,23,603,58,'Killa','Mestizo','1662','L','GII',0,'Alberto Pérez','Agility Indoor Madrid','2015-10-10 13:00:39','2015-10-10 13:00:39',0,0,0,1,0,0,'',0,0),
+(4,25,23,21,633,58,'Asics','Pastor Belga Malinois','','L','GII',0,'Luis Miguel Rodrigo','Agility Indoor Madrid','2015-10-10 13:01:22','2015-10-10 13:01:22',1,0,0,0,0,32.73,'',0,0),
+(4,25,23,81,759,58,'Loli','Carea Leonés','','L','GII',0,'Enrique Alcaraz','Xanastur','2015-10-10 13:00:28','2015-10-10 13:00:28',1,0,0,0,0,33.62,'',0,0),
+(4,25,23,71,991,58,'Remigio','Sussex Spaniel','','M','GII',0,'Alicia de la Calle','Hoop Agility','2015-10-10 13:01:48','2015-10-10 13:01:48',0,0,0,0,0,37.87,'',0,0),
+(4,25,23,2,1350,58,'Chica','','','L','GII',0,'Miguel  Castellanos','A-0','2015-10-10 13:00:05','2015-10-10 13:00:05',0,0,0,0,1,0,'',0,0),
+(4,25,24,79,10,58,'Lee','Border Collie','A084','L','GIII',0,'Antonio Molina','W.E.L.P.E.','2015-10-10 08:50:29','2015-10-10 08:50:29',1,0,0,0,0,40.51,'',0,0),
+(4,25,24,39,43,58,'Rocky','Border Collie','A355','L','GIII',0,'Arturo Conejera','Cinco Huesos','2015-10-10 08:50:24','2015-10-10 08:50:24',2,0,0,0,0,41.04,'',0,0),
+(4,25,24,8,71,58,'Mecha','P.B.Malinoise','A558','L','GIII',0,'José Antonio Encinas','A-0','2015-10-10 08:49:59','2015-10-10 08:49:59',0,0,0,1,0,0,'',0,0),
+(4,25,24,73,113,58,'Yun','Border Collie','A484','L','GIII',0,'Conchi Fernández','La Princesa','2015-10-10 08:49:56','2015-10-10 08:49:56',1,1,0,0,0,47.09,'',0,0),
+(4,25,24,9,220,58,'Neo','Border Collie','A077','L','GIII',0,'Antonio López','A-0','2015-10-10 08:50:15','2015-10-10 08:50:15',2,1,0,0,0,51.93,'',0,0),
+(4,25,24,48,241,58,'Danko','Ratonero Bodeguero Andaluz','A325','M','GIII',0,'Jorge Muñoz Leal','Cubas','2015-10-10 08:50:48','2015-10-10 08:50:48',0,0,0,0,0,44.13,'',0,0),
+(4,25,24,49,253,58,'Lass','Perro de Aguas Español','A580','M','GIII',0,'Eugenio Villares','Cubas','2015-10-10 08:50:57','2015-10-10 08:50:57',0,0,0,0,0,42.64,'',0,0),
+(4,25,24,66,312,58,'Nuca','Tibetan Spaniel','A181','S','GIII',0,'Iván Pardo García','Formadog','2015-10-10 08:51:16','2015-10-10 08:51:16',0,0,0,1,0,0,'',0,0),
+(4,25,24,17,314,58,'Nana','Caniche','A277','S','GIII',0,'Sara Montila','A. D. A. Pozuelo','2015-10-10 08:51:14','2015-10-10 08:51:14',0,0,0,0,0,45.94,'',0,0),
+(4,25,24,67,342,58,'Quillo','Rusky Toy','A604','S','GIII',0,'Cristina González','Formadog','2015-10-10 08:51:01','2015-10-10 08:51:01',1,1,0,0,0,54.41,'',0,0),
+(4,25,24,58,350,58,'Dama','Fox Terrier Wire','A641','M','GIII',0,'Juan Antonio Martinez','Eslón','2015-10-10 08:50:53','2015-10-10 08:50:53',0,0,0,0,0,49.75,'',0,0),
+(4,25,24,64,407,58,'Luca','Ratonero Bodeguero Andaluz','A749','M','GIII',0,'Cristina González','Formadog','2015-10-10 08:51:00','2015-10-10 08:51:00',0,0,0,1,0,0,'',0,0),
+(4,25,24,77,410,58,'Sombra','Border Collie','A679','L','GIII',1,'Jose Luis Jiménez Mori','Tandem','2015-10-10 08:50:39','2015-10-10 08:50:39',1,0,0,0,0,41.64,'',0,0),
+(4,25,24,27,584,58,'Ursula','Jack Russel','A840','S','GIII',0,'Pablo Martínez','Agility Indoor Madrid','2015-10-10 08:51:21','2015-10-10 08:51:21',0,0,0,0,0,45.52,'',0,0),
+(4,25,25,79,10,58,'Lee','Border Collie','A084','L','GIII',0,'Antonio Molina','W.E.L.P.E.','2015-10-10 08:02:21','2015-10-10 08:02:21',0,0,0,0,0,35.42,'',0,0),
+(4,25,25,39,43,58,'Rocky','Border Collie','A355','L','GIII',0,'Arturo Conejera','Cinco Huesos','2015-10-10 08:02:35','2015-10-10 08:02:35',0,1,0,0,0,43.39,'',0,0),
+(4,25,25,8,71,58,'Mecha','P.B.Malinoise','A558','L','GIII',0,'José Antonio Encinas','A-0','2015-10-10 08:02:26','2015-10-10 08:02:26',0,0,0,1,0,0,'',0,0),
+(4,25,25,73,113,58,'Yun','Border Collie','A484','L','GIII',0,'Conchi Fernández','La Princesa','2015-10-10 08:02:38','2015-10-10 08:02:38',0,0,0,1,0,0,'',0,0),
+(4,25,25,9,220,58,'Neo','Border Collie','A077','L','GIII',0,'Antonio López','A-0','2015-10-10 08:02:37','2015-10-10 08:02:37',0,0,0,1,0,0,'',0,0),
+(4,25,25,48,241,58,'Danko','Ratonero Bodeguero Andaluz','A325','M','GIII',0,'Jorge Muñoz Leal','Cubas','2015-10-10 07:54:03','2015-10-10 07:54:03',0,0,0,1,0,0,'',0,0),
+(4,25,25,49,253,58,'Lass','Perro de Aguas Español','A580','M','GIII',0,'Eugenio Villares','Cubas','2015-10-10 07:54:22','2015-10-10 07:54:22',0,1,0,0,0,42.03,'',0,0),
+(4,25,25,66,312,58,'Nuca','Tibetan Spaniel','A181','S','GIII',0,'Iván Pardo García','Formadog','2015-10-10 07:54:58','2015-10-10 07:54:58',0,1,0,0,0,47.83,'',0,0),
+(4,25,25,17,314,58,'Nana','Caniche','A277','S','GIII',0,'Sara Montila','A. D. A. Pozuelo','2015-10-10 07:55:04','2015-10-10 07:55:04',0,0,0,1,0,0,'',0,0),
+(4,25,25,67,342,58,'Quillo','Rusky Toy','A604','S','GIII',0,'Cristina González','Formadog','2015-10-10 07:54:47','2015-10-10 07:54:47',0,0,0,1,0,0,'',0,0),
+(4,25,25,58,350,58,'Dama','Fox Terrier Wire','A641','M','GIII',0,'Juan Antonio Martinez','Eslón','2015-10-10 07:54:38','2015-10-10 07:54:38',0,0,1,0,0,47.68,'',0,0),
+(4,25,25,64,407,58,'Luca','Ratonero Bodeguero Andaluz','A749','M','GIII',0,'Cristina González','Formadog','2015-10-10 07:54:40','2015-10-10 07:54:40',0,0,0,1,0,0,'',0,0),
+(4,25,25,77,410,58,'Sombra','Border Collie','A679','L','GIII',1,'Jose Luis Jiménez Mori','Tandem','2015-10-10 08:02:39','2015-10-10 08:02:39',0,0,0,1,0,0,'',0,0),
+(4,25,25,27,584,58,'Ursula','Jack Russel','A840','S','GIII',0,'Pablo Martínez','Agility Indoor Madrid','2015-10-10 07:55:12','2015-10-10 07:55:12',1,0,0,0,0,42.37,'',0,0),
+(4,26,26,40,583,59,'Tabu','','','L','P.A.',0,'Isabel Fernández','Cinco Huesos','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,26,26,19,628,59,'Shiva','','','L','P.A.',0,'Ana Valencia','Agilcan','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,26,26,76,993,59,'Laska','','','L','P.A.',0,'Alejandro Torres','Pataplán','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,26,26,53,1551,59,'Bolita','Border Collie','','S','P.A.',0,'Lorena Villar','El Hechizo del Border C.','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,26,26,20,1566,59,'mia','','','-','P.A.',0,'Miguel Angel Pariente','Agility Indoor Madrid','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,26,26,25,1567,59,'yoda','','','L','P.A.',0,'beatriz santos','Agility Indoor Madrid','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,26,26,28,1569,59,'Crixo','','','-','P.A.',0,'Myriam Rodrigo','Cinco Huesos','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,26,26,18,1571,59,'Darla','','','L','P.A.',0,'Vicente Martín','Agilcan','2014-01-01 00:00:00','2014-01-01 00:00:00',0,0,0,0,0,0,'',1,0),
+(4,26,27,33,561,59,'Yara','','','L','GI',0,'Sonia Gil','Cinco Huesos','2015-10-11 09:37:37','2015-10-11 09:37:37',0,0,0,1,0,0,'',0,0),
+(4,26,27,32,563,59,'Sasha','siberian husky','','L','GI',0,'Beatriz Sánchez Casares','Cinco Huesos','2015-10-11 09:30:58','2015-10-11 09:30:58',0,0,0,1,0,0,'',0,0),
+(4,26,27,34,564,59,'Zar','','','L','GI',0,'Isabel Fernández','Cinco Huesos','2015-10-11 09:35:38','2015-10-11 09:35:38',0,0,0,1,0,0,'',0,0),
+(4,26,27,43,565,59,'Lillo','Jack Russel','','S','GI',0,'Mari Carmen Martí Sanz','Cinco Huesos','2015-10-11 09:38:08','2015-10-11 09:38:08',1,1,0,0,0,58.84,'',0,0),
+(4,26,27,31,569,59,'Ron','','','L','GI',0,'Cynthia Sánchez','Cinco Huesos','2015-10-11 09:35:39','2015-10-11 09:35:39',0,0,0,1,0,0,'',0,0),
+(4,26,27,30,581,59,'Lady','','','L','GI',0,'Jose Luis de la Vara','Cinco Huesos','2015-10-11 09:31:04','2015-10-11 09:31:04',0,0,0,1,0,0,'',0,0),
+(4,26,27,35,582,59,'Zoe','','','L','GI',0,'Yaiza Blanco','Cinco Huesos','2015-10-11 09:30:54','2015-10-11 09:30:54',0,0,0,1,0,0,'',0,0),
+(4,26,27,59,622,59,'Truco','Border Collie','','L','GI',0,'Marta Acero','Formadog','2015-10-11 09:30:57','2015-10-11 09:30:57',0,0,0,1,0,0,'',0,0),
+(4,26,27,29,630,59,'Coba','Border Collie','','L','GI',0,'Susana Calvelo','Cinco Huesos','2015-10-11 09:30:56','2015-10-11 09:30:56',0,0,0,1,0,0,'',0,0),
+(4,26,27,10,687,59,'Mía','','','S','GI',0,'Rafael García','A-0','2015-10-11 09:38:02','2015-10-11 09:38:02',1,0,0,0,0,48.17,'',0,0),
+(4,26,27,51,783,59,'Zoe','Border collie','','M','GI',0,'Iván Pérez','El Hechizo del Border C.','2015-10-11 09:37:43','2015-10-11 09:37:43',0,0,0,1,0,0,'',0,0),
+(4,26,27,68,989,59,'Coco','Labrador Retriever','','L','GI',0,'Sara González','Hoop Agility','2015-10-11 09:31:00','2015-10-11 09:31:00',0,0,0,1,0,0,'',0,0),
+(4,26,27,70,990,59,'Tugba','Labrador Retriever','','L','GI',0,'Elisabeth Romero','Hoop Agility','2015-10-11 09:31:02','2015-10-11 09:31:02',0,0,0,1,0,0,'',0,0),
+(4,26,27,42,1352,59,'Miko','Ratonero Bodeguero Andaluz','','M','GI',0,'Almudena Novo','Cinco Huesos','2015-10-11 09:37:51','2015-10-11 09:37:51',0,1,0,0,0,64.04,'',0,0),
+(4,26,27,12,1548,59,'Koda','Boxer','','L','GI',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2015-10-11 09:31:05','2015-10-11 09:31:05',0,0,0,1,0,0,'',0,0),
+(4,26,27,65,1562,59,'vaca','shetland','','S','GI',0,'Iván Pardo García','Formadog','2015-10-11 09:37:56','2015-10-11 09:37:56',0,1,0,0,0,45,'',0,0),
+(4,26,27,60,1563,59,'yesca','border collie','','L','GI',0,'Ana Isabel Escobar','Formadog','2015-10-11 09:30:55','2015-10-11 09:30:55',0,0,0,1,0,0,'',0,0),
+(4,26,27,41,1568,59,'Killo','staffordshire-bull terrier','','M','GI',0,'Javier Ramos Gutierrez','Cinco Huesos','2015-10-11 09:37:42','2015-10-11 09:37:42',0,0,0,1,0,0,'',0,0),
+(4,26,27,69,1570,59,'lio','dalmata','','L','GI',0,'adrian escobar','Hoop Agility','2015-10-11 09:35:40','2015-10-11 09:35:40',0,0,0,1,0,0,'',0,0),
+(4,26,28,33,561,59,'Yara','','','L','GI',0,'Sonia Gil','Cinco Huesos','2015-10-11 10:31:52','2015-10-11 10:31:52',0,0,0,0,0,41.36,'',0,0),
+(4,26,28,32,563,59,'Sasha','siberian husky','','L','GI',0,'Beatriz Sánchez Casares','Cinco Huesos','2015-10-11 10:32:28','2015-10-11 10:32:28',1,2,0,0,0,76.28,'',0,0),
+(4,26,28,34,564,59,'Zar','','','L','GI',0,'Isabel Fernández','Cinco Huesos','2015-10-11 10:35:29','2015-10-11 10:35:29',0,0,0,1,0,0,'',0,0),
+(4,26,28,43,565,59,'Lillo','Jack Russel','','S','GI',0,'Mari Carmen Martí Sanz','Cinco Huesos','2015-10-11 10:33:30','2015-10-11 10:33:30',1,0,0,0,0,52.98,'',0,0),
+(4,26,28,31,569,59,'Ron','','','L','GI',0,'Cynthia Sánchez','Cinco Huesos','2015-10-11 10:35:28','2015-10-11 10:35:28',0,0,0,1,0,0,'',0,0),
+(4,26,28,30,581,59,'Lady','','','L','GI',0,'Jose Luis de la Vara','Cinco Huesos','2015-10-11 10:32:13','2015-10-11 10:32:13',0,0,0,1,0,0,'',0,0),
+(4,26,28,35,582,59,'Zoe','','','L','GI',0,'Yaiza Blanco','Cinco Huesos','2015-10-11 10:32:35','2015-10-11 10:32:35',0,0,0,1,0,0,'',0,0),
+(4,26,28,59,622,59,'Truco','Border Collie','','L','GI',0,'Marta Acero','Formadog','2015-10-11 10:32:41','2015-10-11 10:32:41',0,0,0,0,0,41.56,'',0,0),
+(4,26,28,29,630,59,'Coba','Border Collie','','L','GI',0,'Susana Calvelo','Cinco Huesos','2015-10-11 10:32:08','2015-10-11 10:32:08',1,0,0,0,0,51.97,'',0,0),
+(4,26,28,10,687,59,'Mía','','','S','GI',0,'Rafael García','A-0','2015-10-11 10:33:41','2015-10-11 10:33:41',1,0,0,0,0,48.72,'',0,0),
+(4,26,28,51,783,59,'Zoe','Border collie','','M','GI',0,'Iván Pérez','El Hechizo del Border C.','2015-10-11 10:35:58','2015-10-11 10:35:58',0,0,0,1,0,0,'',0,0),
+(4,26,28,68,989,59,'Coco','Labrador Retriever','','L','GI',0,'Sara González','Hoop Agility','2015-10-11 10:31:42','2015-10-11 10:31:42',0,0,0,1,0,0,'',0,0),
+(4,26,28,70,990,59,'Tugba','Labrador Retriever','','L','GI',0,'Elisabeth Romero','Hoop Agility','2015-10-11 10:35:56','2015-10-11 10:35:56',1,2,0,0,0,57.37,'',0,0),
+(4,26,28,42,1352,59,'Miko','Ratonero Bodeguero Andaluz','','M','GI',0,'Almudena Novo','Cinco Huesos','2015-10-11 10:33:08','2015-10-11 10:33:08',0,0,0,0,0,52.84,'',0,0),
+(4,26,28,12,1548,59,'Koda','Boxer','','L','GI',0,'Juan Carlos Garcia Montoto','A. D. A. Pozuelo','2015-10-11 10:31:44','2015-10-11 10:31:44',0,0,0,1,0,0,'',0,0),
+(4,26,28,65,1562,59,'vaca','shetland','','S','GI',0,'Iván Pardo García','Formadog','2015-10-11 10:33:34','2015-10-11 10:33:34',0,0,0,1,0,0,'',0,0),
+(4,26,28,60,1563,59,'yesca','border collie','','L','GI',0,'Ana Isabel Escobar','Formadog','2015-10-11 10:31:45','2015-10-11 10:31:45',0,0,0,1,0,0,'',0,0),
+(4,26,28,41,1568,59,'Killo','staffordshire-bull terrier','','M','GI',0,'Javier Ramos Gutierrez','Cinco Huesos','2015-10-11 10:33:20','2015-10-11 10:33:20',0,0,0,0,1,0,'En Blanco',0,0),
+(4,26,28,69,1570,59,'lio','dalmata','','L','GI',0,'adrian escobar','Hoop Agility','2015-10-11 10:31:56','2015-10-11 10:31:56',0,0,0,1,0,0,'',0,0),
+(4,26,29,45,24,59,'Chiruca','Border Collie','0986','L','GII',0,'Antonio Fernández Moreno','Correcan','2015-10-11 11:44:14','2015-10-11 11:44:14',1,0,0,0,0,43.62,'',0,0),
+(4,26,29,22,68,59,'Fito','Borde Collie','A529','L','GII',0,'Sara María Lara','Agility Indoor Madrid','2015-10-11 11:44:56','2015-10-11 11:44:56',1,0,0,0,0,40.52,'',0,0),
+(4,26,29,44,323,59,'Lia','Brazillian Terrier','A588','S','GII',0,'Irene Artacho','Cinco Huesos','2015-10-11 11:46:00','2015-10-11 11:46:00',1,0,0,0,0,44.91,'',0,0),
+(4,26,29,61,348,59,'Aker','P.B. Malinoise','A397','L','GII',0,'Francisco Javier Jaen','Formadog','2015-10-11 11:43:59','2015-10-11 11:43:59',0,0,0,0,0,50.98,'',0,0),
+(4,26,29,57,351,59,'Flai','Fox Terrier Wire','A815','M','GII',0,'Juan Antonio Martinez','Eslón','2015-10-11 11:45:27','2015-10-11 11:45:27',2,1,0,0,0,74.5,'',0,0),
+(4,26,29,37,361,59,'Kara','Border Collie','A541','L','GII',0,'Ramón García Maroto','Cinco Huesos','2015-10-11 11:44:23','2015-10-11 11:44:23',0,0,0,1,0,0,'',0,0),
+(4,26,29,38,379,59,'Skay','Perro de Aguas Español','A605','L','GII',0,'Javier Santisteban','Cinco Huesos','2015-10-11 11:45:01','2015-10-11 11:45:01',1,0,0,0,0,37.22,'',0,0),
+(4,26,29,4,380,59,'Keko','mestizo','1641','L','GII',0,'Alberto González','A-0','2015-10-11 11:44:29','2015-10-11 11:44:29',0,1,0,0,0,45.63,'',0,0),
+(4,26,29,7,384,59,'Soma','Labrador Retriever','A696','L','GII',0,'Menchu Melcon','A-0','2015-10-11 11:44:08','2015-10-11 11:44:08',1,0,0,0,0,44.65,'',0,0),
+(4,26,29,3,389,59,'Dolce','Border Collie','A681','L','GII',0,'Andres Morilla Sánchez','A-0','2015-10-11 11:44:24','2015-10-11 11:44:24',0,0,0,1,0,0,'',0,0),
+(4,26,29,74,404,59,'Bimba','Border Collie','A288','L','GII',0,'Luisa Fernanda Millan','Pataplán','2015-10-11 11:43:53','2015-10-11 11:43:53',0,0,0,0,0,43.4,'',0,0),
+(4,26,29,36,412,59,'Brea','Mestizo','1625','L','GII',0,'Almudena Novo','Cinco Huesos','2015-10-11 11:44:38','2015-10-11 11:44:38',0,0,0,1,0,0,'',0,0),
+(4,26,29,16,413,59,'Lola','Jack Rusell','A633','S','GII',0,'Francisco de la Cruz','A. D. A. Pozuelo','2015-10-11 11:45:56','2015-10-11 11:45:56',0,0,0,1,0,0,'',0,0),
+(4,26,29,26,440,59,'Horatio','Bulldog Frances','A847','S','GII',0,'Beatriz Juan','Agility Indoor Madrid','2015-10-11 11:45:55','2015-10-11 11:45:55',0,0,0,0,0,61.6,'',0,0),
+(4,26,29,63,517,59,'Nut','Pastor Belga Malinoise','A886','L','GII',0,'Francisco Javier Jaen','Formadog','2015-10-11 11:44:43','2015-10-11 11:44:43',1,0,0,0,0,44.89,'',0,0),
+(4,26,29,50,588,59,'Greta','Cocker Spaniel','B028','M','GII',0,'Susana Martín','Deporcan','2015-10-11 11:45:21','2015-10-11 11:45:21',0,2,0,0,0,64.59,'',0,0),
+(4,26,29,14,589,59,'Iris','Border Collie','','L','GII',0,'Sara Montila','A. D. A. Pozuelo','2015-10-11 11:45:09','2015-10-11 11:45:09',0,0,0,1,0,0,'',0,0),
+(4,26,29,62,601,59,'Lee-Ann','Border Colliie','A986','L','GII',0,'Iván Pardo García','Formadog','2015-10-11 11:44:03','2015-10-11 11:44:03',0,0,0,1,0,0,'',0,0),
+(4,26,29,24,602,59,'Sucre','Border Collie','A920','L','GII',0,'Adrian Bajo','Agility Indoor Madrid','2015-10-11 11:44:35','2015-10-11 11:44:35',1,1,0,0,0,41.03,'',0,0),
+(4,26,29,23,603,59,'Killa','Mestizo','1662','L','GII',0,'Alberto Pérez','Agility Indoor Madrid','2015-10-11 11:44:19','2015-10-11 11:44:19',1,1,0,0,0,55.63,'',0,0),
+(4,26,29,21,633,59,'Asics','Pastor Belga Malinois','','L','GII',0,'Luis Miguel Rodrigo','Agility Indoor Madrid','2015-10-11 11:44:46','2015-10-11 11:44:46',0,0,0,1,0,0,'',0,0),
+(4,26,29,11,686,59,'Ella','','','S','GII',0,'Rafael García','A-0','2015-10-11 11:45:35','2015-10-11 11:45:35',0,0,0,0,0,43.48,'',0,0),
+(4,26,29,13,691,59,'Guru','Mestizo','','L','GII',0,'Ricardo de la Cruz','A. D. A. Pozuelo','2015-10-11 11:45:06','2015-10-11 11:45:06',1,0,0,0,0,43.22,'',0,0),
+(4,26,29,15,692,59,'Beltxi','','','S','GII',0,'Amaia Peña Gómez','A. D. A. Pozuelo','2015-10-11 11:45:49','2015-10-11 11:45:49',1,0,0,0,0,52.05,'',0,0),
+(4,26,29,52,782,59,'Yuna','Perro de aguas','','M','GII',0,'Iván Pérez','El Hechizo del Border C.','2015-10-11 11:45:16','2015-10-11 11:45:16',0,0,0,1,0,0,'',0,0),
+(4,26,29,5,970,59,'kenia','Border Collie','','L','GII',0,'Vanesa Martín Barroso','A-0','2015-10-11 11:44:51','2015-10-11 11:44:51',1,1,0,0,0,39.33,'',0,0),
+(4,26,29,71,991,59,'Remigio','Sussex Spaniel','','M','GII',0,'Alicia de la Calle','Hoop Agility','2015-10-11 11:45:29','2015-10-11 11:45:29',0,0,0,1,0,0,'',0,0),
+(4,26,29,2,1350,59,'Chica','','','L','GII',0,'Miguel  Castellanos','A-0','2015-10-11 11:45:11','2015-10-11 11:45:11',0,0,0,1,0,0,'',0,0),
+(4,26,30,45,24,59,'Chiruca','Border Collie','0986','L','GII',0,'Antonio Fernández Moreno','Correcan','2015-10-11 12:43:39','2015-10-11 12:43:39',0,0,0,0,0,37.31,'',0,0),
+(4,26,30,22,68,59,'Fito','Borde Collie','A529','L','GII',0,'Sara María Lara','Agility Indoor Madrid','2015-10-11 12:43:49','2015-10-11 12:43:49',0,0,0,0,0,42.24,'',0,0),
+(4,26,30,44,323,59,'Lia','Brazillian Terrier','A588','S','GII',0,'Irene Artacho','Cinco Huesos','2015-10-11 12:40:55','2015-10-11 12:40:55',0,0,0,1,0,0,'',0,0),
+(4,26,30,61,348,59,'Aker','P.B. Malinoise','A397','L','GII',0,'Francisco Javier Jaen','Formadog','2015-10-11 12:43:59','2015-10-11 12:43:59',0,0,0,0,0,44.81,'',0,0),
+(4,26,30,57,351,59,'Flai','Fox Terrier Wire','A815','M','GII',0,'Juan Antonio Martinez','Eslón','2015-10-11 12:40:29','2015-10-11 12:40:29',1,0,0,0,0,55.82,'',0,0),
+(4,26,30,37,361,59,'Kara','Border Collie','A541','L','GII',0,'Ramón García Maroto','Cinco Huesos','2015-10-11 12:39:11','2015-10-11 12:39:11',0,0,0,0,0,36.55,'',0,0),
+(4,26,30,38,379,59,'Skay','Perro de Aguas Español','A605','L','GII',0,'Javier Santisteban','Cinco Huesos','2015-10-11 12:43:54','2015-10-11 12:43:54',0,0,0,1,0,0,'',0,0),
+(4,26,30,4,380,59,'Keko','mestizo','1641','L','GII',0,'Alberto González','A-0','2015-10-11 12:43:27','2015-10-11 12:43:27',0,0,0,1,0,0,'',0,0),
+(4,26,30,7,384,59,'Soma','Labrador Retriever','A696','L','GII',0,'Menchu Melcon','A-0','2015-10-11 12:43:33','2015-10-11 12:43:33',0,0,0,0,0,47.01,'',0,0),
+(4,26,30,3,389,59,'Dolce','Border Collie','A681','L','GII',0,'Andres Morilla Sánchez','A-0','2015-10-11 12:39:53','2015-10-11 12:39:53',0,0,0,0,1,0,'',0,0),
+(4,26,30,74,404,59,'Bimba','Border Collie','A288','L','GII',0,'Luisa Fernanda Millan','Pataplán','2015-10-11 12:44:03','2015-10-11 12:44:03',0,0,0,1,0,0,'',0,0),
+(4,26,30,36,412,59,'Brea','Mestizo','1625','L','GII',0,'Almudena Novo','Cinco Huesos','2015-10-11 12:39:48','2015-10-11 12:39:48',0,0,0,1,0,0,'',0,0),
+(4,26,30,16,413,59,'Lola','Jack Rusell','A633','S','GII',0,'Francisco de la Cruz','A. D. A. Pozuelo','2015-10-11 12:40:42','2015-10-11 12:40:42',0,0,0,1,0,0,'',0,0),
+(4,26,30,26,440,59,'Horatio','Bulldog Frances','A847','S','GII',0,'Beatriz Juan','Agility Indoor Madrid','2015-10-11 12:40:51','2015-10-11 12:40:51',0,1,0,0,0,60.53,'',0,0),
+(4,26,30,63,517,59,'Nut','Pastor Belga Malinoise','A886','L','GII',0,'Francisco Javier Jaen','Formadog','2015-10-11 12:39:46','2015-10-11 12:39:46',0,0,0,1,0,0,'',0,0),
+(4,26,30,50,588,59,'Greta','Cocker Spaniel','B028','M','GII',0,'Susana Martín','Deporcan','2015-10-11 12:40:35','2015-10-11 12:40:35',0,0,0,0,0,52.05,'',0,0),
+(4,26,30,14,589,59,'Iris','Border Collie','','L','GII',0,'Sara Montila','A. D. A. Pozuelo','2015-10-11 12:39:37','2015-10-11 12:39:37',0,0,0,0,1,0,'',0,0),
+(4,26,30,62,601,59,'Lee-Ann','Border Colliie','A986','L','GII',0,'Iván Pardo García','Formadog','2015-10-11 12:39:32','2015-10-11 12:39:32',2,0,0,0,0,33.47,'',0,0),
+(4,26,30,24,602,59,'Sucre','Border Collie','A920','L','GII',0,'Adrian Bajo','Agility Indoor Madrid','2015-10-11 12:40:04','2015-10-11 12:40:04',0,0,0,1,0,0,'',0,0),
+(4,26,30,23,603,59,'Killa','Mestizo','1662','L','GII',0,'Alberto Pérez','Agility Indoor Madrid','2015-10-11 12:40:00','2015-10-11 12:40:00',0,1,0,0,0,48.3,'',0,0),
+(4,26,30,21,633,59,'Asics','Pastor Belga Malinois','','L','GII',0,'Luis Miguel Rodrigo','Agility Indoor Madrid','2015-10-11 12:39:47','2015-10-11 12:39:47',0,0,0,1,0,0,'',0,0),
+(4,26,30,11,686,59,'Ella','','','S','GII',0,'Rafael García','A-0','2015-10-11 12:41:01','2015-10-11 12:41:01',0,0,0,0,0,42.69,'',0,0),
+(4,26,30,13,691,59,'Guru','Mestizo','','L','GII',0,'Ricardo de la Cruz','A. D. A. Pozuelo','2015-10-11 12:43:43','2015-10-11 12:43:43',0,0,0,1,0,0,'',0,0),
+(4,26,30,15,692,59,'Beltxi','','','S','GII',0,'Amaia Peña Gómez','A. D. A. Pozuelo','2015-10-11 12:40:54','2015-10-11 12:40:54',0,0,0,1,0,0,'',0,0),
+(4,26,30,52,782,59,'Yuna','Perro de aguas','','M','GII',0,'Iván Pérez','El Hechizo del Border C.','2015-10-11 12:40:21','2015-10-11 12:40:21',0,0,0,1,0,0,'',0,0),
+(4,26,30,5,970,59,'kenia','Border Collie','','L','GII',0,'Vanesa Martín Barroso','A-0','2015-10-11 12:43:26','2015-10-11 12:43:26',0,0,0,1,0,0,'',0,0),
+(4,26,30,71,991,59,'Remigio','Sussex Spaniel','','M','GII',0,'Alicia de la Calle','Hoop Agility','2015-10-11 12:40:22','2015-10-11 12:40:22',0,0,0,1,0,0,'',0,0),
+(4,26,30,2,1350,59,'Chica','','','L','GII',0,'Miguel  Castellanos','A-0','2015-10-11 12:39:19','2015-10-11 12:39:19',0,0,0,1,0,0,'',0,0),
+(4,26,31,79,10,59,'Lee','Border Collie','A084','L','GIII',0,'Antonio Molina','W.E.L.P.E.','2015-10-11 08:35:56','2015-10-11 08:35:56',0,0,0,1,0,0,'',0,0),
+(4,26,31,39,43,59,'Rocky','Border Collie','A355','L','GIII',0,'Arturo Conejera','Cinco Huesos','2015-10-11 08:32:12','2015-10-11 08:32:12',3,1,0,0,0,43.23,'',0,0),
+(4,26,31,8,71,59,'Mecha','P.B.Malinoise','A558','L','GIII',0,'José Antonio Encinas','A-0','2015-10-11 08:28:50','2015-10-11 08:28:50',0,0,0,0,1,0,'',0,0),
+(4,26,31,73,113,59,'Yun','Border Collie','A484','L','GIII',0,'Conchi Fernández','La Princesa','2015-10-11 08:32:36','2015-10-11 08:32:36',0,0,0,1,0,0,'',0,0),
+(4,26,31,9,220,59,'Neo','Border Collie','A077','L','GIII',0,'Antonio López','A-0','2015-10-11 08:30:49','2015-10-11 08:30:49',1,0,0,0,0,42.35,'',0,0),
+(4,26,31,66,312,59,'Nuca','Tibetan Spaniel','A181','S','GIII',0,'Iván Pardo García','Formadog','2015-10-11 08:21:02','2015-10-11 08:21:02',0,0,0,1,0,0,'',0,0),
+(4,26,31,17,314,59,'Nana','Caniche','A277','S','GIII',0,'Sara Montila','A. D. A. Pozuelo','2015-10-11 08:23:05','2015-10-11 08:23:05',1,0,0,0,0,44.76,'',0,0),
+(4,26,31,67,342,59,'Quillo','Rusky Toy','A604','S','GIII',0,'Cristina González','Formadog','2015-10-11 08:18:03','2015-10-11 08:18:03',0,0,0,1,0,0,'',0,0),
+(4,26,31,58,350,59,'Dama','Fox Terrier Wire','A641','M','GIII',0,'Juan Antonio Martinez','Eslón','2015-10-11 08:24:49','2015-10-11 08:24:49',0,0,0,1,0,0,'',0,0),
+(4,26,31,75,405,59,'Dudy','Border Collie','A753','L','GIII',0,'Juan José González','Pataplán','2015-10-11 08:34:53','2015-10-11 08:34:53',1,0,0,0,0,43.85,'',0,0),
+(4,26,31,64,407,59,'Luca','Ratonero Bodeguero Andaluz','A749','M','GIII',0,'Cristina González','Formadog','2015-10-11 08:27:30','2015-10-11 08:27:30',0,0,0,1,0,0,'',0,0),
+(4,26,31,77,410,59,'Sombra','Border Collie','A679','L','GIII',1,'Jose Luis Jiménez Mori','Tandem','2015-10-11 08:37:28','2015-10-11 08:37:28',0,0,0,0,0,42.91,'',0,0),
+(4,26,31,27,584,59,'Ursula','Jack Russel','A840','S','GIII',0,'Pablo Martínez','Agility Indoor Madrid','2015-10-11 08:19:44','2015-10-11 08:19:44',0,0,0,1,0,0,'',0,0),
+(4,26,32,79,10,59,'Lee','Border Collie','A084','L','GIII',0,'Antonio Molina','W.E.L.P.E.','2015-10-11 07:39:59','2015-10-11 07:39:59',0,0,0,0,0,37.55,'',0,0),
+(4,26,32,39,43,59,'Rocky','Border Collie','A355','L','GIII',0,'Arturo Conejera','Cinco Huesos','2015-10-11 07:50:54','2015-10-11 07:50:54',2,0,0,0,0,36.37,'',0,0),
+(4,26,32,8,71,59,'Mecha','P.B.Malinoise','A558','L','GIII',0,'José Antonio Encinas','A-0','2015-10-11 07:41:06','2015-10-11 07:41:06',0,0,0,0,1,0,'',0,0),
+(4,26,32,73,113,59,'Yun','Border Collie','A484','L','GIII',0,'Conchi Fernández','La Princesa','2015-10-11 07:38:55','2015-10-11 07:38:55',0,1,0,0,0,42.47,'',0,0),
+(4,26,32,9,220,59,'Neo','Border Collie','A077','L','GIII',0,'Antonio López','A-0','2015-10-11 07:40:58','2015-10-11 07:40:58',2,1,0,0,0,42.76,'',0,0),
+(4,26,32,66,312,59,'Nuca','Tibetan Spaniel','A181','S','GIII',0,'Iván Pardo García','Formadog','2015-10-11 07:31:25','2015-10-11 07:31:25',0,0,0,1,0,0,'',0,0),
+(4,26,32,17,314,59,'Nana','Caniche','A277','S','GIII',0,'Sara Montila','A. D. A. Pozuelo','2015-10-11 07:30:35','2015-10-11 07:30:35',0,0,0,0,0,41.51,'',0,0),
+(4,26,32,67,342,59,'Quillo','Rusky Toy','A604','S','GIII',0,'Cristina González','Formadog','2015-10-11 07:29:39','2015-10-11 07:29:39',0,0,0,1,0,0,'',0,0),
+(4,26,32,58,350,59,'Dama','Fox Terrier Wire','A641','M','GIII',0,'Juan Antonio Martinez','Eslón','2015-10-11 07:34:55','2015-10-11 07:34:55',0,2,0,0,0,49.87,'',0,0),
+(4,26,32,75,405,59,'Dudy','Border Collie','A753','L','GIII',0,'Juan José González','Pataplán','2015-10-11 07:42:07','2015-10-11 07:42:07',1,0,0,0,0,39.85,'',0,0),
+(4,26,32,64,407,59,'Luca','Ratonero Bodeguero Andaluz','A749','M','GIII',0,'Cristina González','Formadog','2015-10-11 07:35:38','2015-10-11 07:35:38',0,0,0,1,0,0,'',0,0),
+(4,26,32,77,410,59,'Sombra','Border Collie','A679','L','GIII',1,'Jose Luis Jiménez Mori','Tandem','2015-10-11 07:43:38','2015-10-11 07:43:38',0,0,0,1,0,0,'',0,0),
+(4,26,32,27,584,59,'Ursula','Jack Russel','A840','S','GIII',0,'Pablo Martínez','Agility Indoor Madrid','2015-10-11 07:29:40','2015-10-11 07:29:40',0,0,0,1,0,0,'',0,0);
 /*!40000 ALTER TABLE `resultados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4241,7 +4582,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=444 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=458 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4257,7 +4598,7 @@ INSERT INTO `sesiones` VALUES
 (4,'Ring 3','Mangas a realizar en el tercer ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (5,'Ring 4','Mangas a realizar en el cuarto ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (416,'Console','operator - Operador de consola',4,'8SEUCTcRKW5IAP6u',0,0,0,0,'',NULL,NULL,NULL,'2015-08-30 07:17:00'),
-(443,'Console','admin - Administrador de la aplicacion',3,'9uRAJP4BScawE7p0',0,0,0,0,'',NULL,NULL,NULL,'2015-09-24 10:56:42');
+(457,'Console','admin - Administrador de la aplicacion',3,'UgFVyWM64bs2eQCS',0,0,0,0,'',NULL,NULL,NULL,'2015-10-11 17:57:22');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4287,7 +4628,7 @@ CREATE TABLE `tandas` (
   CONSTRAINT `Tandas_ibfk_1` FOREIGN KEY (`Prueba`) REFERENCES `pruebas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Tandas_ibfk_2` FOREIGN KEY (`Jornada`) REFERENCES `jornadas` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Tandas_ibfk_3` FOREIGN KEY (`Sesion`) REFERENCES `sesiones` (`ID`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -4342,7 +4683,45 @@ INSERT INTO `tandas` VALUES
 (43,2,11,2,4,'Agility GIII Small','S','GIII',NULL,14,NULL),
 (44,2,11,2,3,'Jumping GIII Large','L','GIII',NULL,26,NULL),
 (45,2,11,2,2,'Jumping GIII Medium','M','GIII',NULL,27,NULL),
-(46,2,11,2,1,'Jumping GIII Small','S','GIII',NULL,28,NULL);
+(46,2,11,2,1,'Jumping GIII Small','S','GIII',NULL,28,NULL),
+(47,4,25,2,1,'Pre-Agility 1','-LMST','P.A.',NULL,1,NULL),
+(48,4,25,2,4,'Agility-1 GI Large','L','GI',NULL,3,NULL),
+(49,4,25,2,3,'Agility-1 GI Medium','M','GI',NULL,4,NULL),
+(50,4,25,2,2,'Agility-1 GI Small','S','GI',NULL,5,NULL),
+(51,4,25,2,9,'Agility-2 GI Large','L','GI',NULL,6,NULL),
+(52,4,25,2,8,'Agility-2 GI Medium','M','GI',NULL,7,NULL),
+(53,4,25,2,7,'Agility-2 GI Small','S','GI',NULL,8,NULL),
+(54,4,25,2,14,'Agility GII Large','L','GII',NULL,9,NULL),
+(55,4,25,2,13,'Agility GII Medium','M','GII',NULL,10,NULL),
+(56,4,25,2,12,'Agility GII Small','S','GII',NULL,11,NULL),
+(57,4,25,2,19,'Jumping GII Large','L','GII',NULL,23,NULL),
+(58,4,25,2,18,'Jumping GII Medium','M','GII',NULL,24,NULL),
+(59,4,25,2,17,'Jumping GII Small','S','GII',NULL,25,NULL),
+(60,4,25,2,24,'Agility GIII Large','L','GIII',NULL,12,NULL),
+(61,4,25,2,23,'Agility GIII Medium','M','GIII',NULL,13,NULL),
+(62,4,25,2,22,'Agility GIII Small','S','GIII',NULL,14,NULL),
+(63,4,25,2,29,'Jumping GIII Large','L','GIII',NULL,26,NULL),
+(64,4,25,2,28,'Jumping GIII Medium','M','GIII',NULL,27,NULL),
+(65,4,25,2,27,'Jumping GIII Small','S','GIII',NULL,28,NULL),
+(66,4,26,2,1,'Pre-Agility 1','-LMST','P.A.',NULL,1,NULL),
+(67,4,26,2,2,'Agility-1 GI Large','L','GI',NULL,3,NULL),
+(68,4,26,2,3,'Agility-1 GI Medium','M','GI',NULL,4,NULL),
+(69,4,26,2,4,'Agility-1 GI Small','S','GI',NULL,5,NULL),
+(70,4,26,2,5,'Agility-2 GI Large','L','GI',NULL,6,NULL),
+(71,4,26,2,6,'Agility-2 GI Medium','M','GI',NULL,7,NULL),
+(72,4,26,2,7,'Agility-2 GI Small','S','GI',NULL,8,NULL),
+(73,4,26,2,8,'Agility GII Large','L','GII',NULL,9,NULL),
+(74,4,26,2,9,'Agility GII Medium','M','GII',NULL,10,NULL),
+(75,4,26,2,10,'Agility GII Small','S','GII',NULL,11,NULL),
+(76,4,26,2,11,'Jumping GII Large','L','GII',NULL,23,NULL),
+(77,4,26,2,12,'Jumping GII Medium','M','GII',NULL,24,NULL),
+(78,4,26,2,13,'Jumping GII Small','S','GII',NULL,25,NULL),
+(79,4,26,2,14,'Agility GIII Large','L','GIII',NULL,12,NULL),
+(80,4,26,2,15,'Agility GIII Medium','M','GIII',NULL,13,NULL),
+(81,4,26,2,16,'Agility GIII Small','S','GIII',NULL,14,NULL),
+(82,4,26,2,17,'Jumping GIII Large','L','GIII',NULL,26,NULL),
+(83,4,26,2,18,'Jumping GIII Medium','M','GIII',NULL,27,NULL),
+(84,4,26,2,19,'Jumping GIII Small','S','GIII',NULL,28,NULL);
 /*!40000 ALTER TABLE `tandas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -4461,7 +4840,9 @@ INSERT INTO `versionhistory` VALUES
 ('20150902_0119','2015-09-04 12:42:25'),
 ('20150911_1118','2015-09-11 12:46:02'),
 ('20150921_1150','2015-09-21 09:51:10'),
-('20150921_1158','2015-09-21 09:59:07');
+('20150921_1158','2015-09-21 09:59:07'),
+('20151005_1316','2015-10-07 08:22:13'),
+('20151008_1259','2015-10-11 17:57:14');
 /*!40000 ALTER TABLE `versionhistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
