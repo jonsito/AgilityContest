@@ -44,7 +44,7 @@
 #       Start           Stop            Sel0            Int         #
 #                                                                   #
 #####################################################################
-
+import os
 import threading            # to receive event messages from server
 import json					# to parse Data field on event responses
 import requests 			# to handle json http requests
@@ -171,26 +171,31 @@ def lookForServer():
 		count = kitt(count)
 		ip = str(i)
 		debug( "Looking for server at: " + ip)
+		# time to look for server. To do this, we send an http request to retrieve available session rings, with
+		# their ID to be evaluated according our dip-switches
 		try:
+			# Some stupid routers, instead of 404 in nonexistent pager requests for basic authentication
+			# so take care on it by providing a fake auth, so the router fails and return 401 error
+			url= "/agility/server/database/sessionFunctions.php"
 			args= "?Operation=selectring"
-			response = requests.get("https://" + ip + "/agility/server/database/sessionFunctions.php"+args,verify=False,timeout=0.5)
+			response = requests.get("https://" + ip + url + args, verify=False, timeout=0.5, auth=('AgilityContest','AgilityContest'))
+			# if response failed, try next IP address
+			if response.status_code != 200:
+				continue
+			# response ok. Extract json message (will throw an exception on fail)
+			data=response.json()
+			# arriving here means server found. store server IP
+			debug ("Found AgilityContest server at IP address: "+ip)
+			server = ip
+			# retrieve session id for each ring
+			for id in range (0,3):
+				rings[id]=data['rows'][id]['ID']
+			# clear leds and return
+			kitt(-1)
+			break
 		except requests.exceptions.RequestException as ex:
 			# debug ( "Http request error:" + str(ex) )
 			continue
-		# if response failed, try next IP address
-		if response.status_code != 200:
-			continue
-		# response ok
-		data=response.json()
-		# store server
-		server = ip
-		# retrieve session id for each ring
-		for id in range (0,3):
-			rings[id]=data['rows'][id]['ID']
-		# clear leds and return
-		debug ("Found AgilityContest server at IP address: "+ip)
-		kitt(-1)
-		break
 	else:
 		# arriving here means server not found
 		session_id=0 # invalid sid
@@ -214,10 +219,11 @@ def handle_intermediate_time():
 
 # take care on how much time a button has been pressed
 # return True on success, False on sensor error
+# on press resetkey more than 5 seconds shutdown Raspberry
 def check_sensors():
 	global open_time
 	# remember that pull-ups let buttons high as iddle state
-	state = GPIO.input(BTN_Start) and GPIO.input(BTN_Stop) and GPIO.input(BTN_Inter)
+	state = GPIO.input(BTN_Start) and GPIO.input(BTN_Stop) and GPIO.input(BTN_Inter) and GPIO.input(BTN_Reset)
 	if state == True: # no hay nada pulsado: all right
 		GPIO.output(LED_Err,False)
 		if open_time>=10:
@@ -229,6 +235,12 @@ def check_sensors():
 	if open_time == 10: # send error to server
 		json_request("crono_error","1")
 	if open_time>=10:
+		# check for shutdown request
+		if GPIO.input(BTN_Reset) == False:
+			debug("Power off requested")
+			os.system("/sbin/poweroff")
+			return True
+		# no shutdown requested, so houston: we have a sensor failure problem
 		debug("ERROR: Comprobar sensores")
 		return False
 	else:
