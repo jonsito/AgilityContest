@@ -1,47 +1,3 @@
-<html>
-<head>
-    <title>Actualizador de AgilityContest</title>
-    <style>
-        textarea {
-            -moz-box-sizing:border-box;
-            box-sizing:border-box;
-            width:276px;
-            height:172px;
-            padding:20px;
-            overflow:auto;
-            border:none;
-            background:#fff url(/agility/images/AgilityContest.png) no-repeat center scroll;
-            background-size:100% 100%;
-        }
-    </style>
-    <script type="text/javascript" charset="utf-8">
-        function fireUpdater() {
-            $.ajax({
-                type:'GET',
-                url:"/agility/updater.php",
-                dataType:'json',
-                data: {
-                    Operation:	'progress',
-                },
-                success: function(res) {
-                    setTimeout(fireUpdater,5000); // call myself in 5 seconds
-                },
-                error: function(XMLHttpRequest,textStatus,errorThrown) {
-                    $.messager.alert("Restricted","Error: "+textStatus + " "+ errorThrown,'error' );
-                }
-            });
-        }
-    </script>
-
-</head>
-<body onload="fireUpdater();">
-<h3>Actualizando AgilityContest...</h3>
-<form id="updater" name="updater">
-    <textarea id="progress" form="updater" name="progress" cols="80" rows="40" readonly="readonly"></textarea>
-    <input type="button" name="Done" value="Done"
-</form>
-<pre>
-
 <?php
 /*
 upgrade.php
@@ -66,9 +22,24 @@ upgrade.php
 define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/agility/server/auth/system.ini');
 define ('UPDATE_FILE','https://codeload.github.com/jonsito/AgilityContest/zip/master');
 define ('TEMP_FILE', __DIR__."/../logs/AgilityContest-");
+define ('LOG_FILE', __DIR__."/../logs/update.log");
+define ('PROGRESS_FILE', __DIR__."/../logs/progress.log");
 define ('TEMP_DIR', __DIR__."/../logs/");
 define ('CONFIG_DIR', __DIR__."/../server/auth/");
 define ('POST_INSTALL', __DIR__."/../post-install.php");
+
+function logTrace($str) {
+    $fp=fopen(LOG_FILE,"a");
+    if (is_resource($fp)) {
+        $fecha=date("Ymd_His:");
+        if (flock($fp, LOCK_EX)) {  // adquirir un bloqueo exclusivo
+            fwrite($fp, $fecha.":". $str."\n");
+            fflush($fp);     // volcar la salida antes de liberar el bloqueo
+            flock($fp, LOCK_UN);    // libera el bloqueo
+        }
+    }
+    fclose($fp);
+}
 
 Class AgilityContestUpdater {
     var $version_name="1.0.0";
@@ -82,12 +53,32 @@ Class AgilityContestUpdater {
         "supporters.csv" => __DIR__."/images/supporters/supporters.csv"
     );
 
+    private function logProgress($str) {
+        $res=true;
+        $fp=fopen(PROGRESS_FILE,"a");
+        if ($fp===false) {
+            logTrace('ERROR: logProgress(): fopen() failed');
+            return false;
+        }
+        if (flock($fp, LOCK_EX)) {  // adquirir un bloqueo exclusivo
+            fwrite($fp,$str."\n");
+            fflush($fp);     // volcar la salida antes de liberar el bloqueo
+            flock($fp, LOCK_UN);    // libera el bloqueo
+            $this->logProgress($str);
+        } else {
+            $res=false;
+            logTrace('ERROR: logProgress(): flock() failed');
+        }
+        fclose($fp);
+        return $res;
+    }
+
     /**
      * A replacement for file_get_contents to bypass
      * sites where allow_url_fopen is disabled in php.ini
      *
      * @param $url
-     * @return {object}readed data
+     * @return {array} readed data
      */
     private function file_get($url) {
         $timeout = 300;
@@ -193,6 +184,7 @@ Class AgilityContestUpdater {
             $dir_name = dirname($file_name);
             // skip directories in zip file
             if ( substr($file_name,-1,1) == '/') continue; // not a file
+            if ( strstr($file_name,"jquery-easyui")) continue; // skip easyui related files
             //Make the directory if we need to...
             if ( !is_dir ( $root . $dir_name ) ) {
                 $res=mkdir ( $root . $dir_name );
@@ -228,20 +220,46 @@ $white_list= array ("localhost","127.0.0.1","::1",$_SERVER['SERVER_ADDR']);
 if (!in_array($_SERVER['REMOTE_ADDR'],$white_list)) {
     die("<p>Esta operacion debe ser realizada desde la consola del servidor</p></pre>");
 }
-// check for previous update request
-$f=fopen(TEMP_DIR."do_upgrade",'r');
+
+// si la peticion incluye el argumento "progress" actualiza datos de la barra de progreso y retorna
+if (isset($_REQUEST["Operation"]) && ($_REQUEST["Operation"]==="progress" ) ) {
+    $data="";
+    $fp=fopen(PROGRESS_FILE,"r+");
+    if ( !$fp || flock($fp, LOCK_EX)) {  // adquirir un bloqueo exclusivo
+        $len=filesize(PROGRESS_FILE);
+        if ($len>0) {
+            // leemos contenido del fichero
+            $data=fread($fp,$len);
+            // truncamos fichero
+            ftruncate($fp, 0);
+            fflush($fp);     // volcar la salida antes de liberar el bloqueo
+        }
+        flock($fp, LOCK_UN);    // libera el bloqueo
+    } else {
+        $data="Error: fopen()/flock() failed";
+    }
+    fclose($fp);
+    $res=explode("\n",$data);
+    json_encode($res);
+    return 0;
+}
+
+// Comprobaciones previas antes de arrancar
+
+$f=fopen(TEMP_DIR."do_upgrade",'r'); // check for previous update request
 if ( !$f || !isset($_REQUEST['sessionkey'])) {
     die("<p>Debe solicitar la actualizacion desde el panel de administracion</p></pre>");
 }
-// check session key
-$sk=fread($f,1024);
+
+$sk=fread($f,1024); // check session key
 fclose($f);
 if ( $sk !== $_REQUEST['sessionkey']) {
     die("<p>No ha proporcionado un identificador de sesion valido</p></pre>");
 }
-// remove "need-to-upgrade" mark
-unlink(TEMP_DIR."do_upgrade");
 
+unlink(TEMP_DIR."do_upgrade"); // remove "need-to-upgrade" mark
+
+// arrancamos actualizador TODO: convert this into a background task
 set_time_limit(ini_get('max_execution_time'));
 $up = new AgilityContestUpdater();
 $res=$up->downloadFile(false);
@@ -253,10 +271,51 @@ if ($res===FALSE) { echo "Upgrade failed <br/>"; return; }
 $res =$up->handleConfig(false); // restore
 if ($res===FALSE) { echo "Restore configuration failed <br/>"; return;}
 echo "<Upgrade to Version:".$up->getVersionName()." Revision:".$up->getVersionDate()." Success<br />";
+
+// generamos la pantalla principal una vez arrancado en background el actualizador
 ?>
-</pre>
-<p>
-    Pulsa el boton para reiniciar AgilityContest <input type="button" onClick="window.location='/agility/console';" value="Reiniciar" />
-</p>
-</body>
+<html>
+    <head>
+        <title>Actualizador de AgilityContest</title>
+        <style>
+            textarea {
+                -moz-box-sizing:border-box;
+                box-sizing:border-box;
+                width:276px;
+                height:172px;
+                padding:20px;
+                overflow:auto;
+                border:none;
+                background:#fff url(/agility/images/AgilityContest.png) no-repeat center scroll;
+                background-size:100% 100%;
+            }
+        </style>
+        <script type="text/javascript" charset="utf-8">
+            function fireUpdater() {
+                $.ajax({
+                    type:'GET',
+                    url:"/agility/updater.php",
+                    dataType:'json',
+                    data: {
+                        Operation:	'progress'
+                    },
+                    success: function(res) {
+                        setTimeout(fireUpdater,2500); // call myself in 2.5 seconds
+                    },
+                    error: function(XMLHttpRequest,textStatus,errorThrown) {
+                        $.messager.alert("Restricted","Error: "+textStatus + " "+ errorThrown,'error' );
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body onload="fireUpdater();">
+        <h3>Updating AgilityContest...</h3>
+        <h1>New version: <?php echo $up->getVersionName()." - ".$up->getVersionDate(); ?> </h1>
+        <form id="updater" name="updater">
+            <label for="progress">Progress status:</label>
+            <textarea id="progress" form="updater" name="progress" cols="80" rows="40" readonly="readonly"></textarea>
+            <input type="button" name="Done" value="Done"
+        </form>
+    </body>
 </html>
