@@ -64,7 +64,7 @@ Class AgilityContestUpdater {
             fwrite($fp,$str."\n");
             fflush($fp);     // volcar la salida antes de liberar el bloqueo
             flock($fp, LOCK_UN);    // libera el bloqueo
-            $this->logProgress($str);
+            logTrace($str);
         } else {
             $res=false;
             logTrace('ERROR: logProgress(): flock() failed');
@@ -293,18 +293,45 @@ echo '
             textarea {
                 -moz-box-sizing:border-box;
                 box-sizing:border-box;
-                width:276px;
-                height:172px;
+                width:800px;
+                height:300px;
                 padding:20px;
                 overflow:auto;
                 border:none;
-                background:#ccc url(/agility/images/AgilityContest.png) no-repeat center scroll;
-                background-size:100% 100%;
+                background:#eee url(/agility/images/AgilityContest.png) no-repeat right scroll;
+                background-size:50% 100%;
             }
         </style>
         <script src="/agility/lib/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8" > </script>
         <script type="text/javascript" charset="utf-8">
+            jQuery.fn.putCursorAtEnd = function() {
+                return this.each(function() {
+                    $(this).focus()
+                    // If this function exists...
+                    if (this.setSelectionRange) {
+                        // ... then use it (Doesnt work in IE)
+                        // Double the length because Opera is inconsistent about whether a carriage return is one character or two. Sigh.
+                        var len = $(this).val().length * 2;
+                        this.setSelectionRange(len, len);
+
+                    } else {
+                        // ... otherwise replace the contents with itself
+                        // (Doesnt work in Google Chrome)
+                        $(this).val($(this).val());
+                    }
+                    // Scroll to the bottom, in case we are in a text area
+                    // (Necessary for Firefox and Google Chrome)
+                    this.scrollTop = 99999;
+                });
+            };
+
+            function restart() {
+                window.location="https://localhost/agility/console";
+            }
+
             function fireUpdater() {
+                var txarea=$("#progress");
+                txarea.blur();
                 $.ajax({
                     type:"GET",
                     url:"/agility/upgrade.php",
@@ -313,18 +340,16 @@ echo '
                         Operation:	"progress"
                     },
                     success: function(data) {
-                        var txarea=$("#progress");
                         var done=false;
-                        var str=txarea.val();
                         for(var n=0 ; n<data.length; n++) {
                             var a=data[n];
-                            str=str+"\n"+a;
+                            txarea.val(txarea.val()+"\\n"+a);
                             if (a.indexOf("DONE")==0) done=true;
                             if (a.indexOf("FATAL")==0) done=true;
                         }
-                        txarea.val(str);
-                        if (!done) setTimeout(fireUpdater,5000); // call myself in 2.5 seconds
+                        if (!done) setTimeout(fireUpdater,500); // call myself in 0.5 second
                         else $("#doneBtn").css("display","inline");
+                        txarea.putCursorAtEnd();
                     },
                     error: function(XMLHttpRequest,textStatus,errorThrown) {
                         alert("Error: "+textStatus + " "+ errorThrown );
@@ -335,11 +360,15 @@ echo '
     </head>
     <body onload="fireUpdater();">
         <h2>Updating AgilityContest...</h2>
-        <h3>New version: {$up->getVersionName()} - {$up->getVersionDate()} </h3>
-        <form id="updater" name="updater">
+        <h3>New version: '.$up->getVersionName().' - '.$up->getVersionDate().' </h3>
+        <form id="updater" name="updater" action="/agility/console">
             <label for="progress">Progress status:</label><br/>
             <textarea id="progress" form="updater" name="progress" cols="80" rows="40" readonly="readonly"></textarea><br/>
-            <input id="doneBtn" type="button" name="Done" value="Done" style="display:none;">
+            <span id="doneBtn" style="display:none;">
+                Update completed. Press restart to reload AgilityContest
+                <input type="button" name="Restart" value="Restart" onclick="restart();">
+            </span>
+
         </form>
     </body>
 </html>
