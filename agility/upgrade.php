@@ -1,11 +1,3 @@
-<html>
-<head>
-    <title>Actualizador de AgilityContest</title>
-</head>
-<body>
-<h3>Actualizando AgilityContest...</h3>
-<pre>
-
 <?php
 /*
 upgrade.php
@@ -30,9 +22,24 @@ upgrade.php
 define ('UPDATE_INFO','https://raw.githubusercontent.com/jonsito/AgilityContest/master/agility/server/auth/system.ini');
 define ('UPDATE_FILE','https://codeload.github.com/jonsito/AgilityContest/zip/master');
 define ('TEMP_FILE', __DIR__."/../logs/AgilityContest-");
+define ('LOG_FILE', __DIR__."/../logs/update.log");
+define ('PROGRESS_FILE', __DIR__."/../logs/progress.log");
 define ('TEMP_DIR', __DIR__."/../logs/");
 define ('CONFIG_DIR', __DIR__."/../server/auth/");
 define ('POST_INSTALL', __DIR__."/../post-install.php");
+
+function logTrace($str) {
+    $fp=fopen(LOG_FILE,"a");
+    if (is_resource($fp)) {
+        $fecha=date("Ymd_His:");
+        if (flock($fp, LOCK_EX)) {  // adquirir un bloqueo exclusivo
+            fwrite($fp, $fecha.":". $str."\n");
+            fflush($fp);     // volcar la salida antes de liberar el bloqueo
+            flock($fp, LOCK_UN);    // libera el bloqueo
+        }
+        fclose($fp);
+    }
+}
 
 Class AgilityContestUpdater {
     var $version_name="1.0.0";
@@ -41,17 +48,37 @@ Class AgilityContestUpdater {
 
     // list of files to be preserved across updates
     public static $user_files = array (
-        "config.ini" => __DIR__."/../server/auth/config.ini",
-        "registration.info" => __DIR__."/../server/auth/registration.info",
+        "config.ini" => __DIR__."/server/auth/config.ini",
+        "registration.info" => __DIR__."/server/auth/registration.info",
         "supporters.csv" => __DIR__."/images/supporters/supporters.csv"
     );
+
+    function logProgress($str) {
+        $res=true;
+        $fp=fopen(PROGRESS_FILE,"a");
+        if ($fp===false) {
+            logTrace('ERROR: logProgress(): fopen() failed');
+            return false;
+        }
+        if (flock($fp, LOCK_EX)) {  // adquirir un bloqueo exclusivo
+            fwrite($fp,$str."\n");
+            fflush($fp);     // volcar la salida antes de liberar el bloqueo
+            flock($fp, LOCK_UN);    // libera el bloqueo
+            $this->logProgress($str);
+        } else {
+            $res=false;
+            logTrace('ERROR: logProgress(): flock() failed');
+        }
+        fclose($fp);
+        return $res;
+    }
 
     /**
      * A replacement for file_get_contents to bypass
      * sites where allow_url_fopen is disabled in php.ini
      *
      * @param $url
-     * @return {object}readed data
+     * @return {array} readed data
      */
     private function file_get($url) {
         $timeout = 300;
@@ -102,8 +129,8 @@ Class AgilityContestUpdater {
             if (strpos($line,"version_name=")===0) $this->version_name = trim(substr($line,13),'"');
             if (strpos($line,"version_date=")===0) $this->version_date = trim(substr($line,13),'"');
         }
-        echo "Version name: ".$this->version_name."<br />";
-        echo "Version date: ".$this->version_date."<br />";
+        $this->logProgress("Version name: {$this->version_name}");
+        $this->logProgress("Version date: {$this->version_date}");
         $this->temp_file=TEMP_FILE . $this->version_date . ".zip";
     }
 
@@ -111,29 +138,48 @@ Class AgilityContestUpdater {
 
     public function getVersionDate() { return $this->version_date; }
 
+    /**
+     * Clear tmp files
+     */
+    public function prepare() {
+        // clear old config files from tmpdir
+        foreach (AgilityContestUpdater::$user_files as $temp => $file) {
+            if (file_exists(TEMP_DIR.$temp)) unlink(TEMP_DIR.$temp);
+        }
+        // clear log and progress
+        if (file_exists(LOG_FILE) ) unlink(LOG_FILE);
+        if (file_exists(PROGRESS_FILE) ) unlink(PROGRESS_FILE);
+        return true;
+    }
+
+    /**
+     * backup/restore configuration files
+     * @param $oper true:backup false:restore
+     * @return bool true:success false:fail
+     */
     public function handleConfig($oper) {
         set_time_limit(ini_get('max_execution_time'));
         $res=true;
         foreach (AgilityContestUpdater::$user_files as $temp => $file) {
             $from = ($oper == true) ? $file : TEMP_DIR . $temp;
             $to = ($oper == true) ? TEMP_DIR . $temp : $file;
-            $str = ($oper == true) ? "BACKUP " : "RESTORE ";
+            $str = ($oper == true) ? "BACKUP: " : "RESTORE: ";
             // if $from doesn't exist notify and continue
             if (!file_exists($from)) {
-                echo "SKIP " . $str . $temp . " <br />";
+                $this->logProgress("SKIP $str $temp");
                 continue;
             };
             // else try to copy
             $a = file_get_contents($from);
             $f = fopen($to, "w");
             if (!is_resource($f)) {
-                echo "FAILED " . $str . $temp . " <br />";
+                $this->logProgress("WARNING: $str $temp");
                 $res = false;
                 continue;
             }
             fwrite($f, $a);
             fclose($f);
-            echo $str.$temp." <br />";
+            $this->logProgress($str.$temp);
         }
         return $res;
     }
@@ -141,7 +187,7 @@ Class AgilityContestUpdater {
     public function downloadFile($force=false) {
         set_time_limit(ini_get('max_execution_time'));
         if (file_exists($this->temp_file) && $force==false) return 0; // no need to download
-        echo "DOWNLOAD ".UPDATE_FILE;
+        $this->logProgress("DOWNLOAD: ".UPDATE_FILE);
         return $this->file_save(UPDATE_FILE,$this->temp_file);
     }
 
@@ -149,7 +195,7 @@ Class AgilityContestUpdater {
         $root=__DIR__ . "/../";
         // open zip file
         $zip = zip_open($this->temp_file);
-        if (! is_resource($zip) ) { echo "Open zipfile failed errno:$zip<br/>"; return false; }
+        if (! is_resource($zip) ) { $this->logProgress("ERROR: zipfile failed errno: $zip"); return false; }
         while ($aF = zip_read($zip) ) {
             set_time_limit(ini_get('max_execution_time'));
             // get file name and their directory
@@ -157,11 +203,12 @@ Class AgilityContestUpdater {
             $dir_name = dirname($file_name);
             // skip directories in zip file
             if ( substr($file_name,-1,1) == '/') continue; // not a file
+            if ( strstr($file_name,"jquery-easyui")) continue; // skip easyui related files
             //Make the directory if we need to...
             if ( !is_dir ( $root . $dir_name ) ) {
                 $res=mkdir ( $root . $dir_name );
-                if (!$res) echo "FAILED ";
-                echo "MAKEDIR: $dir_name<br />";
+                if (!$res) $this->logProgress("FAILED MAKEDIR: $dir_name");;
+                $this->logProgress("MAKEDIR: $dir_name");
             }
             // create/overwrite file
             if ( !is_dir($root.$file_name) ) {
@@ -171,14 +218,14 @@ Class AgilityContestUpdater {
                 if (is_resource($file)) {
                     fwrite($file, $contents);
                     fclose($file);
-                    echo "$oper $file_name<br />";
-                } else  echo "FAILED $oper $file_name<br />";
+                    $this->logProgress("$oper $file_name");
+                } else  $this->logProgress("FAILED $oper $file_name");
                 unset($contents); // clear data from memory
             }
         }
         // finally, if a post_install.php file is present, parse and execute it
         if (file_exists(POST_INSTALL)) {
-            echo "EXECUTE: post-install.php<br />";
+            $this->logProgress("EXECUTE: post-install.php");
             include(POST_INSTALL);
             unlink(POST_INSTALL);
         }
@@ -192,35 +239,124 @@ $white_list= array ("localhost","127.0.0.1","::1",$_SERVER['SERVER_ADDR']);
 if (!in_array($_SERVER['REMOTE_ADDR'],$white_list)) {
     die("<p>Esta operacion debe ser realizada desde la consola del servidor</p></pre>");
 }
-// check for previous update request
-$f=fopen(TEMP_DIR."do_upgrade",'r');
+
+// si la peticion incluye el argumento "progress" actualiza datos de la barra de progreso y retorna
+if (isset($_REQUEST["Operation"]) && ($_REQUEST["Operation"]==="progress" ) ) {
+    $data="";
+    $fp=fopen(PROGRESS_FILE,"r+");
+    if ( !$fp || flock($fp, LOCK_EX)) {  // adquirir un bloqueo exclusivo
+        $len=filesize(PROGRESS_FILE);
+        if ($len>0) {
+            // leemos contenido del fichero
+            $data=fread($fp,$len);
+            // truncamos fichero
+            ftruncate($fp, 0);
+            fflush($fp);     // volcar la salida antes de liberar el bloqueo
+        }
+        flock($fp, LOCK_UN);    // libera el bloqueo
+    } else {
+        $data="WARNING: fopen()/flock() failed";
+    }
+    fclose($fp);
+    $res=explode("\n",$data);
+    echo json_encode($res);
+    return 0;
+}
+
+// Comprobaciones previas antes de arrancar
+
+$f=fopen(TEMP_DIR."do_upgrade",'r'); // check for previous update request
 if ( !$f || !isset($_REQUEST['sessionkey'])) {
     die("<p>Debe solicitar la actualizacion desde el panel de administracion</p></pre>");
 }
-// check session key
-$sk=fread($f,1024);
+
+$sk=fread($f,1024); // check session key
 fclose($f);
 if ( $sk !== $_REQUEST['sessionkey']) {
     die("<p>No ha proporcionado un identificador de sesion valido</p></pre>");
 }
-// remove "need-to-upgrade" mark
-unlink(TEMP_DIR."do_upgrade");
 
+// everything ok.
+unlink(TEMP_DIR."do_upgrade"); // remove "need-to-upgrade" mark
+ob_end_clean();
+header("Connection: close");
+ignore_user_abort(); // optional
+ob_start();
 set_time_limit(ini_get('max_execution_time'));
 $up = new AgilityContestUpdater();
-$res=$up->downloadFile(false);
-if ($res===FALSE) { echo "Download failed<br />"; return; }
-$res=$up->handleConfig(true); // backup
-if ($res===FALSE) { echo "Backup configuration failed <br/>"; return;}
-$res=$up->doUpgrade();
-if ($res===FALSE) { echo "Upgrade failed <br/>"; return; }
-$res =$up->handleConfig(false); // restore
-if ($res===FALSE) { echo "Restore configuration failed <br/>"; return;}
-echo "<Upgrade to Version:".$up->getVersionName()." Revision:".$up->getVersionDate()." Success<br />";
+// generamos la pantalla principal una vez arrancado en background el actualizador
 ?>
-</pre>
-<p>
-    Pulsa el boton para reiniciar AgilityContest <input type="button" onClick="window.location='/agility/console';" value="Reiniciar" />
-</p>
-</body>
+<html>
+    <head>
+        <title>Actualizador de AgilityContest</title>
+        <style>
+            textarea {
+                -moz-box-sizing:border-box;
+                box-sizing:border-box;
+                width:276px;
+                height:172px;
+                padding:20px;
+                overflow:auto;
+                border:none;
+                background:#fff url(/agility/images/AgilityContest.png) no-repeat center scroll;
+                background-size:100% 100%;
+            }
+        </style>
+        <script src="/agility/lib/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8" > </script>
+        <script type="text/javascript" charset="utf-8">
+            function fireUpdater() {
+                $.ajax({
+                    type:'GET',
+                    url:"/agility/upgrade.php",
+                    dataType:'json',
+                    data: {
+                        Operation:	'progress'
+                    },
+                    success: function(data) {
+                        var txarea=$('progress');
+                        var done=false;
+                        var str=txarea.val();
+                        for(var s in data) {
+                            str=str+"\n"+s;
+                            if (s.indexOf("DONE")==0) done=true;
+                            if (s.indexOf("FATAL")==0) done=true;
+                        }
+                        txarea.val(str);
+                        if (done) setTimeout(fireUpdater,5000); // call myself in 2.5 seconds
+                    },
+                    error: function(XMLHttpRequest,textStatus,errorThrown) {
+                        $.messager.alert("Restricted","Error: "+textStatus + " "+ errorThrown,'error' );
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body onload="fireUpdater();">
+        <h2>Updating AgilityContest...</h2>
+        <h3>New version: <?php echo $up->getVersionName()." - ".$up->getVersionDate(); ?> </h3>
+        <form id="updater" name="updater">
+            <label for="progress">Progress status:</label>
+            <textarea id="progress" form="updater" name="progress" cols="80" rows="40" readonly="readonly"></textarea>
+            <input type="button" name="Done" value="Done"
+        </form>
+    </body>
 </html>
+
+<?php
+
+// arrancamos actualizador cerrando la conexion con el navegador y dejando esto como tarea en background
+ob_end_flush(); // Strange behaviour, will not work
+flush();        // Unless both are called !
+session_write_close(); // Added a line suggested in the comment
+$res=$up->prepare();
+$res=$up->downloadFile(false);
+if ($res===FALSE) { $up->logProgress("FATAL: Download failed"); return; }
+$res=$up->handleConfig(true); // backup
+if ($res===FALSE) { $up->logProgress("NOTICE: Backup configuration failed"); return;}
+$res=$up->doUpgrade();
+if ($res===FALSE) { $up->logProgress("FATAL: Upgrade failed"); return; }
+$res =$up->handleConfig(false); // restore
+if ($res===FALSE) { $up->logProgress("NOTICE: Restore configuration failed"); return;}
+$up->logProgress("DONE: Upgrade to Version: {$up->getVersionName()} Revision: {$up->getVersionDate()} ready");
+
+?>
