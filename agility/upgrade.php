@@ -290,6 +290,10 @@ echo '
     <head>
         <title>Actualizador de AgilityContest</title>
         <style>
+            .waiting {
+                cursor: progress;
+            }
+
             textarea {
                 -moz-box-sizing:border-box;
                 box-sizing:border-box;
@@ -325,10 +329,6 @@ echo '
                 });
             };
 
-            function restart() {
-                window.location="https://localhost/agility/console";
-            }
-
             function fireUpdater() {
                 var txarea=$("#progress");
                 txarea.blur();
@@ -342,13 +342,17 @@ echo '
                     success: function(data) {
                         var done=false;
                         for(var n=0 ; n<data.length; n++) {
-                            var a=data[n];
-                            txarea.val(txarea.val()+"\\n"+a);
+                            var a=data[n].trim();
+                            if (a!=="") txarea.val(txarea.val()+"\\n"+a);
                             if (a.indexOf("DONE")==0) done=true;
                             if (a.indexOf("FATAL")==0) done=true;
                         }
-                        if (!done) setTimeout(fireUpdater,500); // call myself in 0.5 second
-                        else $("#doneBtn").css("display","inline");
+                        if (!done) {
+                            setTimeout(fireUpdater,500); // call myself in 0.5 second
+                        } else {
+                            txarea.removeClass("waiting");
+                            $("#doneBtn").css("display","inline");
+                        }
                         txarea.putCursorAtEnd();
                     },
                     error: function(XMLHttpRequest,textStatus,errorThrown) {
@@ -356,9 +360,19 @@ echo '
                     }
                 });
             }
+
+            function start() {
+                $("#progress").addClass("waiting");
+                fireUpdater();
+            }
+
+            function restart() {
+                window.location="https://localhost/agility/console";
+            }
+
         </script>
     </head>
-    <body onload="fireUpdater();">
+    <body onload="start();">
         <h2>Updating AgilityContest...</h2>
         <h3>New version: '.$up->getVersionName().' - '.$up->getVersionDate().' </h3>
         <form id="updater" name="updater" action="/agility/console">
