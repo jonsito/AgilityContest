@@ -277,15 +277,15 @@ if ( $sk !== $_REQUEST['sessionkey']) {
 }
 
 // everything ok.
+set_time_limit(ini_get('max_execution_time'));
+$up = new AgilityContestUpdater();
 unlink(TEMP_DIR."do_upgrade"); // remove "need-to-upgrade" mark
 ob_end_clean();
 header("Connection: close");
 ignore_user_abort(); // optional
 ob_start();
-set_time_limit(ini_get('max_execution_time'));
-$up = new AgilityContestUpdater();
 // generamos la pantalla principal una vez arrancado en background el actualizador
-?>
+echo '
 <html>
     <head>
         <title>Actualizador de AgilityContest</title>
@@ -298,7 +298,7 @@ $up = new AgilityContestUpdater();
                 padding:20px;
                 overflow:auto;
                 border:none;
-                background:#fff url(/agility/images/AgilityContest.png) no-repeat center scroll;
+                background:#ccc url(/agility/images/AgilityContest.png) no-repeat center scroll;
                 background-size:100% 100%;
             }
         </style>
@@ -306,26 +306,28 @@ $up = new AgilityContestUpdater();
         <script type="text/javascript" charset="utf-8">
             function fireUpdater() {
                 $.ajax({
-                    type:'GET',
+                    type:"GET",
                     url:"/agility/upgrade.php",
-                    dataType:'json',
+                    dataType:"json",
                     data: {
-                        Operation:	'progress'
+                        Operation:	"progress"
                     },
                     success: function(data) {
-                        var txarea=$('progress');
+                        var txarea=$("#progress");
                         var done=false;
                         var str=txarea.val();
-                        for(var s in data) {
-                            str=str+"\n"+s;
-                            if (s.indexOf("DONE")==0) done=true;
-                            if (s.indexOf("FATAL")==0) done=true;
+                        for(var n=0 ; n<data.length; n++) {
+                            var a=data[n];
+                            str=str+"\n"+a;
+                            if (a.indexOf("DONE")==0) done=true;
+                            if (a.indexOf("FATAL")==0) done=true;
                         }
                         txarea.val(str);
-                        if (done) setTimeout(fireUpdater,5000); // call myself in 2.5 seconds
+                        if (!done) setTimeout(fireUpdater,5000); // call myself in 2.5 seconds
+                        else $("#doneBtn").css("display","inline");
                     },
                     error: function(XMLHttpRequest,textStatus,errorThrown) {
-                        $.messager.alert("Restricted","Error: "+textStatus + " "+ errorThrown,'error' );
+                        alert("Error: "+textStatus + " "+ errorThrown );
                     }
                 });
             }
@@ -333,21 +335,23 @@ $up = new AgilityContestUpdater();
     </head>
     <body onload="fireUpdater();">
         <h2>Updating AgilityContest...</h2>
-        <h3>New version: <?php echo $up->getVersionName()." - ".$up->getVersionDate(); ?> </h3>
+        <h3>New version: {$up->getVersionName()} - {$up->getVersionDate()} </h3>
         <form id="updater" name="updater">
-            <label for="progress">Progress status:</label>
-            <textarea id="progress" form="updater" name="progress" cols="80" rows="40" readonly="readonly"></textarea>
-            <input type="button" name="Done" value="Done"
+            <label for="progress">Progress status:</label><br/>
+            <textarea id="progress" form="updater" name="progress" cols="80" rows="40" readonly="readonly"></textarea><br/>
+            <input id="doneBtn" type="button" name="Done" value="Done" style="display:none;">
         </form>
     </body>
 </html>
-
-<?php
-
+';
+$size= ob_get_length();
+header("Content-Length: $size");
 // arrancamos actualizador cerrando la conexion con el navegador y dejando esto como tarea en background
 ob_end_flush(); // Strange behaviour, will not work
 flush();        // Unless both are called !
-session_write_close(); // Added a line suggested in the comment
+ob_end_clean();
+session_write_close();
+
 $res=$up->prepare();
 $res=$up->downloadFile(false);
 if ($res===FALSE) { $up->logProgress("FATAL: Download failed"); return; }
