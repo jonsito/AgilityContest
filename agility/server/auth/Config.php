@@ -72,7 +72,12 @@ define('AC_TABLET_DND',"0");		// habilita cambiar orden de salida desde tablet (
 define('AC_TABLET_CHRONO',"0");		// habilita mostrar crono en tablet (1) o no (0)
 define('AC_TABLET_NEXT',"0");		// acept vuelve a menu (0) o pasa al siguiente (1)
 define('AC_TABLET_COUNTDOWN',"1");	// accion tras cuenta de 15 segundos 1:nada 2:crono 3:eliminado
+
+/** personalizacion del crono electronico */
 define('AC_CRONO_RESYNC',"0");		// si crono manual continua (1) o restart (0) al paso por crono electronico
+define('AC_CRONO_MILISECONDS',"0");	// presentar (1) milesimas o centesimas (0) de segundos
+define('AC_CRONO_INTERMEDIATE',"0");// presentar (1) o no (0) datos de crono intermedio
+
 
 Class Config {
 	
@@ -156,12 +161,16 @@ Class Config {
 		$this->config['pdf_linecolor'] =	AC_PDF_LINECOLOR;
 		
 		// personalizacion del tablet
-		$this->config['tablet_beep'] =	AC_TABLET_BEEP;
-		$this->config['tablet_dnd'] =	AC_TABLET_DND;
+		$this->config['tablet_beep'] =		AC_TABLET_BEEP;
+		$this->config['tablet_dnd'] =		AC_TABLET_DND;
 		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
-		$this->config['tablet_next'] =	AC_TABLET_NEXT;
+		$this->config['tablet_next'] =		AC_TABLET_NEXT;
 		$this->config['tablet_countdown'] =	AC_TABLET_COUNTDOWN;
-		$this->config['crono_resync'] =	AC_CRONO_RESYNC;
+
+		// personalizacion del crono
+		$this->config['crono_resync'] =			AC_CRONO_RESYNC;
+		$this->config['crono_miliseconds'] =	AC_CRONO_MILISECONDS;
+		$this->config['crono_intermediate'] =	AC_CRONO_INTERMEDIATE;
 
 		// leemos fichero de sistema
 		$sys=parse_ini_file(AC_SYSTEM_FILE,false); // false: don't parse subsections
@@ -319,7 +328,10 @@ Class Config {
 		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
 		$this->config['tablet_next'] =	AC_TABLET_NEXT;
 		$this->config['tablet_countdown'] =	AC_TABLET_COUNTDOWN;
+		// crono
 		$this->config['crono_resync'] =	AC_CRONO_RESYNC;
+		$this->config['crono_miliseconds'] =	AC_CRONO_MILISECONDS;
+		$this->config['crono_intermediate'] =	AC_CRONO_INTERMEDIATE;
 		// Internacionalizacion. Idiomas
 		$data['lang'] =	AC_LANG;
 		$res=array_merge($this->config,$data);
@@ -377,8 +389,11 @@ Class Config {
 		$data['tablet_chrono']=http_request('tablet_chrono','s',AC_TABLET_CHRONO);
 		$data['tablet_next']=http_request('tablet_chrono','s',AC_TABLET_NEXT);
 		$data['tablet_countdown']=http_request('tablet_countdown','i',AC_TABLET_COUNTDOWN);
+
+		// crono
 		$data['crono_resync']=http_request('crono_resync','s',AC_CRONO_RESYNC);
-		// $data=testAndSet($data,'crono_resync','i',AC_CRONO_RESYNC);
+		$data['crono_miliseconds']=http_request('crono_miliseconds','s',AC_CRONO_MILISECONDS);
+		$data['crono_intermediate']=http_request('crono_intermediate','s',AC_CRONO_INTERMEDIATE);
 
 		// Sistema
 		$data=testAndSet($data,'lang','s',AC_LANG);

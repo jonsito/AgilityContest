@@ -68,13 +68,23 @@ $config =Config::getInstance();
 			<label for="tablet_chrono"><?php _e('Show chrono data on tablet'); ?></label>
 			<input type="hidden" name="tablet_chrono" value="0"/>
 			<input id="tablet_chrono" name="tablet_chrono" type="checkbox" value="1"/><br />
+
+			<label for="crono_miliseconds"><?php _e('Show chrono data with miliseconds'); ?></label>
+			<input type="hidden" name="crono_miliseconds" value="0"/>
+			<input id="crono_miliseconds" name="crono_miliseconds" type="checkbox" value="1"/><br />
+
+			<label for="crono_intermediate"><?php _e('Show intermediate time stats in videowall'); ?></label>
+			<input type="hidden" name="crono_intermediate" value="0"/>
+			<input id="crono_intermediate" name="crono_intermediate" type="checkbox" value="1"/><br />
+
 			<label> <?php _e('Action to perform at 15sec countdown end'); ?></label>
-            <input id="tcd1" type="radio" name="tablet_countdown" value="1" ><?php _e('Ignore'); ?></input>
-            <input id="tcd2" type="radio" name="tablet_countdown" value="2" checked="checked"><?php _e('Start manual chrono'); ?></input>
-            <input id="tcd3" type="radio" name="tablet_countdown" value="3"><?php _e('Eliminate team'); ?></input><br />
+            <input id="tcd1" type="radio" name="tablet_countdown" value="1" ><?php _e('Ignore'); ?>
+            <input id="tcd2" type="radio" name="tablet_countdown" value="2" checked="checked"/><?php _e('Start manual chrono'); ?>
+            <input id="tcd3" type="radio" name="tablet_countdown" value="3"/><?php _e('Eliminate team'); ?><br />
+
 			<label for="crono_resync"><?php _e('On sensor detection when manual chrono is active'); ?></label>
-			<input id="crs1" type="radio" name="crono_resync" value="0"  checked="checked"><?php _e('Restart counter from zero'); ?></input>
-			<input id="crs2" type="radio" name="crono_resync" value="1"><?php _e('Continue with manual chrono count'); ?></input>
+			<input id="crs1" type="radio" name="crono_resync" value="0"  checked="checked"/><?php _e('Restart counter from zero'); ?>
+			<input id="crs2" type="radio" name="crono_resync" value="1"/><?php _e('Continue with manual chrono count'); ?>
 		</div>
 		
 		<div title="<?php _e('VideoWall'); ?>" style="padding:10px">
