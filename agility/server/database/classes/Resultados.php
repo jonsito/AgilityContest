@@ -106,7 +106,7 @@ class Resultados extends DBObject {
 	/**
 	 * gets distance, obstacles, trs and trm
 	 * @param {integer} $mode 0:Large 1:Medium 2:Small 3:M+S 4:L+M+S
-	 * @param {array} current results data according $mode 
+	 * @param {array} $data current _ordered_ results data according $mode
 	 * @return array('dist','obst','trs','trm','vel') or null on error
 	 */
 	private function evalTRS($mode,$data) {
@@ -254,7 +254,7 @@ class Resultados extends DBObject {
 		if ($this->isCerrada())
 			return $this->error("Manga $idmanga comes from closed Jornada:".$this->IDJornada);
 		$str="UPDATE Resultados
-				SET Faltas=0, Tocados=0, Rehuses=0, Eliminado=0, NoPresentado=0, Tiempo=0, Observaciones='', Pendiente=1
+				SET Faltas=0, Tocados=0, Rehuses=0, Eliminado=0, NoPresentado=0, Tiempo=0, TIntermedio=0, Observaciones='', Pendiente=1
 				WHERE ( Manga=$idmanga)";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
@@ -298,6 +298,7 @@ class Resultados extends DBObject {
 		$nopresentado=http_request("NoPresentado","i",0);
 		$eliminado=http_request("Eliminado","i",0);
 		$tiempo=http_request("Tiempo","d",0.0);
+		$tintermedio=http_request("TIntermedio","d",0.0);
 		$observaciones=http_request("Observaciones","s","");
 		// si la actualizacion esta marcada como pendiente
 		$pendiente=http_request("Pendiente","i",1);
@@ -370,12 +371,47 @@ class Resultados extends DBObject {
 	}
 
 	/**
+	 * Retrieve best intermediate and final times on this round
+	 * @param $mode 0:L 1:M 2:S 3:MS 4:LMS.
+	 * @return {array} requested data or error
+	 */
+	function bestTimes($mode) {
+		$this->myLogger->enter();
+
+		// FASE 0: en funcion del tipo de recorrido y modo pedido
+		// ajustamos el criterio de busqueda de la tabla de resultados
+		$where="(Manga={$this->IDManga}) AND (Pendiente=0) ";
+		$cat="";
+		switch ($mode) {
+			case 0: /* Large */		$cat= "AND (Categoria='L')"; break;
+			case 1: /* Medium */	$cat= "AND (Categoria='M')"; break;
+			case 2: /* Small */		$cat= "AND (Categoria='S')"; break;
+			case 3: /* Med+Small */ $cat= "AND ( (Categoria='M') OR (Categoria='S') )"; break;
+			case 4: /* L+M+S */ 	$cat= "AND ( (Categoria='L') OR (Categoria='M') OR (Categoria='S') )"; break;
+			case 5: /* Tiny */		$cat= "AND (Categoria='T')"; break;
+			case 6: /* L+M */		$cat= "AND ( (Categoria='L') OR (Categoria='M') )"; break;
+			case 7: /* S+T */		$cat= "AND ( (Categoria='S') OR (Categoria='T') )"; break;
+			case 8: /* L+M+S+T */	break; // no check categoria
+			default: return $this->error("modo de recorrido desconocido:$mode");
+		}
+		//  evaluamos mejores tiempos intermedios y totales
+		$best=$this->__(
+			"min(TIntermedio) AS BestIntermedio, min(Tiempo) AS BestFinal",
+			"Resultados",
+			"(Tiempo>0) AND $where $cat",
+			"",
+			""
+		);
+		if (!is_array($best))
+			return $this->error($this->conn->error);
+		return $best;
+	}
+
+	/**
 	 * Presenta una tabla ordenada segun los resultados de la manga
-	 * @return null on error else array en formato easyui datagrid
-	 *@param {integer} mode 0:L 1:M 2:S 3:MS 4:LMS.
+	 *@param {integer} $mode 0:L 1:M 2:S 3:MS 4:LMS.
 	 *@return {array} requested data or error
 	 */
-	
 	function getResultados($mode) {
 		$this->myLogger->enter();
 		$idmanga=$this->IDManga;
@@ -402,7 +438,7 @@ class Resultados extends DBObject {
 					( 5*Faltas + 5*Rehuses + 5*Tocados + 100*Eliminado + 200*NoPresentado ) AS PRecorrido,
 					0 AS PTiempo, 0 AS Penalizacion, '' AS Calificacion, 0 AS Velocidad", 
 				"Resultados", 
-				"$where $cat", 
+				"$where $cat",
 				" PRecorrido ASC, Tiempo ASC", 
 				"");
 		if (!is_array($res))
