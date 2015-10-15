@@ -48,7 +48,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span class="chrono_data"  id="chrono_Faltas">0</span>
 			<span class="chrono_data chrono_dataLbl" id="chrono_TocadosLbl"><?php _e('T');?>:</span>
 			<span class="chrono_data"  id="chrono_Tocados">0</span>
-			<span class="chrono_data chrono_dataLbl" id="chrono_RehusesLbl"><?php _e('T');?>:</span>
+			<span class="chrono_data chrono_dataLbl" id="chrono_RehusesLbl"><?php _e('R');?>:</span>
 			<span class="chrono_data"  id="chrono_Rehuses">0</span>
 			<!-- Cronometro -->
 			<span class="chrono_flags" id="chrono_Manual"></span>
