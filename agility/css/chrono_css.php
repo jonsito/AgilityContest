@@ -46,41 +46,51 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	background-color: transparent;
 }
 
+/* datos de Flt/Toc/Reh/Tim */
 .chrono_data {
 	text-align: center;
 	background-color: transparent;
 	font-size:2.0em;
+	font-size:3.0vw;
 	color: <?php echo $config->getEnv('vw_hdrfg2'); ?>;
 }
 .chrono_dataLbl { text-align: left; }
 
+/* datos del equipo participante */
 .chrono_info {
 	text-align: left;
 	background-color: transparent;
-	font-size:1.2em;
+	font-size:1.3em;
+	font-size:2.0vw;
 	color: <?php echo $config->getEnv('vw_hdrfg3'); ?>;
 }
 
+/* informacion de la manga */
 .chrono_header {
 	text-align: left;
 	background-color: transparent;
 	font-size:1.2em;
+	font-size:1.5vw;
 	color: <?php echo $config->getEnv('vw_hdrfg1'); ?>;
 }
 
+/* Numerajos del tiempo */
 .chrono_tiempo {
 	text-align: center;
 	background-color: transparent;
 	color: red;
 	font-size: 11.0em;
+	font-size: 20vw;
 	letter-spacing: 0.11em;
 }
 
+/* indicadores auxiliares (manual, reconocimiento, error, etc) */
 .chrono_flags {
 	text-align: right;
 	background-color: transparent;
 	color: red;
 	font-size: 0.9em;
+	font-size: 1.2vw;
 }
 .chrono_fondo {
     border: 3px solid black;
