@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
 <!-- FORMULARIO DE REASIGNACION DE UN PERRO-->
-    <div id="chperros-dialog" style="width:550px;height:400px;padding:10px 20px">
+    <div id="chperros-dialog" style="width:550px;height:420px;padding:10px 20px">
         <div id="chperros-title" class="ftitle"><?php _e('Dog re-assignation'); ?></div>
         <form id="chperros-header">
         	<div class="fitem">

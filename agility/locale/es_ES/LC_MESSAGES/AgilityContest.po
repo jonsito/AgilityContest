@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
 "POT-Creation-Date: 2015-10-15 10:01+0200\n"
-"PO-Revision-Date: 2015-10-15 10:02+0200\n"
+"PO-Revision-Date: 2015-10-16 22:28+0200\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -4150,7 +4150,7 @@ msgstr "Auto"
 
 #: console/dialogs/dlg_competicion.inc:44
 msgid "Printer forms"
-msgstr "Formularios de impresi&oacute;n"
+msgstr "Formularios"
 
 #: console/dialogs/dlg_competicion.inc:67
 msgid "Please cancel or save changes before closing window"
