@@ -105,7 +105,7 @@ function reload_guiasDatagrid() {
 function newGuia(def,onAccept){
 	$('#guias-dialog').dialog('open').dialog('setTitle','<?php _e('New handler'); ?>'+' - '+fedName(workingData.federation));
 	$('#guias-form').form('clear');
-	if (!strpos(def,"Buscar")) $('#guias-Nombre').val(def);
+	if (!strpos(def,"Buscar")) $('#guias-Nombre').val(def.capitalize());
 	$('#guias-Operation').val('insert');
 	$('#guias-Parent').val('');
 	if (onAccept!==undefined)

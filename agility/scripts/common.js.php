@@ -21,12 +21,26 @@ require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 ?>
 
+/**
+ * checkf if a string starts with requested one
+ */
 if (typeof String.prototype.startsWith != 'function') {
     String.prototype.startsWith = function (str){
         return this.slice(0, str.length) == str;
     };
 }
 
+/**
+ * Capitalize first letter on every word of provided string
+ * Lowercase others
+ */
+if (typeof String.prototype.capitalize != 'function') {
+	String.prototype.capitalize = function (){
+		return this.toLowerCase().replace( /\b\w/g, function (m) {
+			return m.toUpperCase();
+		});
+	};
+}
 /**
  * Evaluate start Time (used as base time in tablet/chrono/videowall
  */

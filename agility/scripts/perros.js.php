@@ -37,7 +37,7 @@ function reload_perrosDatagrid() {
 function newDog(dg,def){
 	$('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('New dog'); ?>'+' - '+fedName(workingData.federation));
 	$('#perros-form').form('clear'); // start with an empty form
-	if (!strpos(def,"Buscar")) $('#perros-Nombre').val(def);
+	if (!strpos(def,"Buscar")) $('#perros-Nombre').val(def.capitalize());
 	$('#perros-Operation').val('insert');
 	$('#perros-warning').css('visibility','hidden');
 	$('#perros-okBtn').one('click',reload_perrosDatagrid);

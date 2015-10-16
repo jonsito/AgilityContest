@@ -51,7 +51,7 @@ function newPrueba(dg,def,onAccept){
 		case 2:$('#pruebas-UCA').prop('checked',true); break;
 		default: alert("Invalid federation.</br>Defaulting to RSCE");
 	}
-	if (!strpos(def,"Buscar")) $('#pruebas-Nombre').val(def);// fill prueba Name
+	if (!strpos(def,"Buscar")) $('#pruebas-Nombre').val(def.capitalize());// fill prueba Name
 	$('#pruebas-Operation').val('insert');
 	if (onAccept!==undefined)$('#pruebas-okBtn').one('click',onAccept);
 }
