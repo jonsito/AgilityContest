@@ -166,13 +166,17 @@ class ResultadosByEquipos4 extends PrintCommon {
         $this->SetXY(70,$y);
         $this->ac_header(1,14);
         $this->Cell(128,14,"","LTBR",0,'C',true);
-        $this->SetXY(71,$y+1);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),5);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX()+5,$this->getY(),5);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX()+10,$this->getY(),5);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX()+15,$this->getY(),5);
-        $this->SetX($this->GetX()+20);
-        $this->Cell(100,5,$team['Nombre'],'',0,'R',true);
+        $x=70;
+        for ($n=0;$n<4;$n++) {
+            if ($logos[$n]==="null.png") {
+                $this->SetX($x+7*$n);
+                $this->Cell(7,7,"",'T',0,'C',true);
+            } else {
+                $this->Image(__DIR__.'/../../images/logos/'.$logos[$n],$x+7*$n,$y,7);
+            }
+        }
+        $this->SetX(98);
+        $this->Cell(92,5,$team['Nombre'],'',0,'R',true);
         $this->Cell(6,5,'','',0,'',true); // empty space at right of page
         $this->Ln();
         // caja de faltas/rehuses/tiempos

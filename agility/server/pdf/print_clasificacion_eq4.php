@@ -256,12 +256,16 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->SetXY(70,$y);
         $this->ac_header(1,14);
         $this->Cell(215,14,"","LTBR",0,'C',true);
-        $this->SetXY(70,$y);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),5);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX()+5,$this->getY(),5);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX()+10,$this->getY(),5);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX()+15,$this->getY(),5);
-        $this->SetX($this->GetX()+20);
+        $x=70;
+        for ($n=0;$n<4;$n++) {
+            if ($logos[$n]==="null.png") {
+                $this->SetX($x+5*$n);
+                $this->Cell(5,5,"",'T',0,'C',true);
+            } else {
+                $this->Image(__DIR__.'/../../images/logos/'.$logos[$n],$x+5*$n,$y,5);
+            }
+        }
+        $this->SetXY(90,$y);
         $this->Cell(160,5,$team['Nombre'],'T',0,'R',true);
         $this->Cell(18,5,'','',0,'',true); // empty space at right of page
         // cabeceras de las celdas de resultados

@@ -231,12 +231,18 @@ class PrintClasificacionEq3 extends PrintCommon {
         $offset=($this->PageNo()==1)?60:40;
         $this->SetXY(10,$offset+33*($teamcount%$numrows));
         $this->ac_header(1,18);
-        $this->Cell(15,8,strval(1+$teamcount)." -",'LT',0,'C',true); // imprime puesto del equipo
-		$this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->GetX(),$this->GetY(),8);
-		$this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->GetX()+10,$this->GetY(),8);
-		$this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->GetX()+20,$this->GetY(),8);
-		$this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->GetX()+30,$this->GetY(),8);
-		$this->SetX($this->GetX()+40);
+		$this->Cell(15,8,strval(1+$teamcount)." -",'LT',0,'C',true); // imprime puesto del equipo
+		$x=$this->getX();
+		$y=$this->getY();
+		for ($n=0;$n<4;$n++) {
+			if ($logos[$n]==="null.png") {
+				$this->SetX($x+10*$n);
+				$this->Cell(10,8,"",'T',0,'C',true);
+			} else {
+				$this->Image(__DIR__.'/../../images/logos/'.$logos[$n],$x+10*$n,$y,8);
+			}
+		}
+		$this->SetX($x+40);
         $this->Cell(212,8,$team['Nombre'],'T',0,'R',true);
         $this->Cell(8,8,'','TR',0,'R',true); // empty space at right of page
         $this->Ln();

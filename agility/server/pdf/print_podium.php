@@ -126,8 +126,8 @@ class Print_Podium extends PrintCommon {
 		// global
 		$this->Cell(12,6,_('Time'),0,0,'C',true);	// Tiempo total
 		$this->Cell(12,6,_('Penaliz'),0,0,'C',true);	// Penalizacion
-		$this->Cell(9,6,_('Calific'),0,0,'C',true);	// Calificacion
-		$this->Cell(9,6,_('Position'),0,0,'C',true);	// Puesto
+		$this->Cell(10,6,_('Calific'),0,0,'C',true);	// Calificacion
+		$this->Cell(8,6,_('Position'),0,0,'C',true);	// Puesto
 		$this->Ln();	
 		// restore colors
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
@@ -139,11 +139,12 @@ class Print_Podium extends PrintCommon {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		$y=$this->getY();
 		$this->SetX(10 ); // first page has 3 extra header lines
-		$this->ac_row($idx,10);
+		$this->ac_row($idx,9);
 		
 		// fomateamos datos
 		$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
 		$penal=number_format($row['Penalizacion'],$this->timeResolution);
+		$tiempo=number_format($row['Tiempo'],$this->timeResolution);
 		$v1= ($row['P1']>=200)?"-":number_format($row['V1'],1);
 		$t1= ($row['P1']>=200)?"-":number_format($row['T1'],$this->timeResolution);
 		$p1=number_format($row['P1'],$this->timeResolution);
@@ -154,9 +155,9 @@ class Print_Podium extends PrintCommon {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// datos del participante
 		$this->Cell(10,6,$row['Dorsal'],0,0,'R',true); 	// dorsal
-		$this->SetFont('Helvetica','B',10); // bold font
+		$this->SetFont('Helvetica','B',9); // bold font
 		$this->Cell(25,6,$row['Nombre'],0,0,'L',true);	// nombre (20,y
-		$this->SetFont('Helvetica','',10); // default font
+		$this->SetFont('Helvetica','',9); // default font
 		$this->Cell(15,6,$row['Licencia'],0,0,'C',true);	// licencia
 		$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',true);	// categoria/grado
 		$this->Cell(35,6,$row['NombreGuia'],0,0,'R',true);	// nombreGuia
@@ -180,12 +181,12 @@ class Print_Podium extends PrintCommon {
 			$this->Cell(59,6,'',0,0,'C',true);	// espacio en blanco
 		}
 		// global
-		$this->Cell(11,6,number_format($row['Tiempo'],$this->timeResolution),0,0,'C',true);	// Tiempo
-		$this->Cell(11,6,$penal,0,0,'C',true);	// Penalizacion
-		$this->Cell(11,6,$row['Calificacion'],0,0,'C',true);	// Calificacion
+		$this->Cell(12,6,$tiempo,0,0,'C',true);	// Tiempo
+		$this->Cell(12,6,$penal,0,0,'C',true);	// Penalizacion
+		$this->Cell(10,6,$row['Calificacion'],0,0,'C',true);	// Calificacion
 		$this->SetFont('Helvetica','B',9); // default font
-		$this->Cell(9,6,$puesto,0,0,'R',true);	// Puesto
-		$this->SetFont('Helvetica','',8); // default font
+		$this->Cell(8,6,$puesto,0,0,'R',true);	// Puesto
+		$this->SetFont('Helvetica','',9); // default font
 		// lineas rojas
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->Line(10    ,$y,10,    $y+6);

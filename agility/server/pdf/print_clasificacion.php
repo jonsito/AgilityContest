@@ -186,8 +186,8 @@ class PrintClasificacion extends PrintCommon {
 		// global
 		$this->Cell(12,7,_('Time'),0,0,'C',true);	// Tiempo total
 		$this->Cell(12,7,_('Penaliz'),0,0,'C',true);	// Penalizacion
-		$this->Cell(13,7,_('Calific'),0,0,'C',true);	// Calificacion
-		$this->Cell(9,7,_('Position'),0,0,'C',true);	// Puesto
+		$this->Cell(14,7,_('Calific'),0,0,'C',true);	// Calificacion
+		$this->Cell(8,7,_('Position'),0,0,'C',true);	// Puesto
 		$this->Ln();	
 		// restore colors
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
@@ -205,6 +205,7 @@ class PrintClasificacion extends PrintCommon {
 		// fomateamos datos
 		$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
 		$penal=number_format($row['Penalizacion'],$this->timeResolution);
+		$tiempo=number_format($row['Tiempo'],$this->timeResolution);
 		$v1= ($row['P1']>=200)?"-":number_format($row['V1'],1);
 		$t1= ($row['P1']>=200)?"-":number_format($row['T1'],$this->timeResolution);
 		$p1=number_format($row['P1'],$this->timeResolution);
@@ -244,11 +245,11 @@ class PrintClasificacion extends PrintCommon {
 			$this->Cell(57,6,'',0,0,'C',$fill);	// espacio en blanco
 		}
 		// global
-		$this->Cell(11,6,number_format($row['Tiempo'],$this->timeResolution),0,0,'C',$fill);	// Tiempo
-		$this->Cell(11,6,$penal,0,0,'C',$fill);	// Penalizacion
-		$this->Cell(15,6,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
+		$this->Cell(12,6,$tiempo,0,0,'C',$fill);	// Tiempo
+		$this->Cell(12,6,$penal,0,0,'C',$fill);	// Penalizacion
+		$this->Cell(14,6,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
 		$this->SetFont('Helvetica','B',10); // default font
-		$this->Cell(9,6,$puesto,0,0,'C',$fill);	// Puesto
+		$this->Cell(8,6,$puesto,0,0,'C',$fill);	// Puesto
 		// lineas rojas
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->Line(10,$offset + 6*$idx,10,$offset + 6*($idx+1));

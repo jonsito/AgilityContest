@@ -64,7 +64,7 @@ class ResultadosByEquipos3 extends PrintCommon {
 	// geometria de las celdas
 	protected $cellHeader;
                     //     Dors    Nombre  Lic     Guia   Club    Cat     Flt    Toc    Reh     Tiempo   vel   penal calif   puesto, equipo
-	protected $pos	=array(  7,		18,		15,		30,		25,	    7,	   5,      5,    5,       10,     7,    12,    10,	 7,  25);
+	protected $pos	=array(  7,		18,		15,		30,		24,	    7,	   5,      5,    5,       11,     7,    12,    10,	 7,  25);
 	protected $align=array(  'L',   'L',    'C',    'R',   'R',    'C',    'C',   'C',   'C',     'R',    'R',  'R',   'C',	 'C', 'R');
 	
 	/**
@@ -140,11 +140,17 @@ class ResultadosByEquipos3 extends PrintCommon {
         $this->SetXY(10,$offset+38*($teamcount%6));
         $this->ac_header(1,18);
         $this->Cell(15,10,strval(1+$teamcount)." -",'LT',0,'C',true); // imprime puesto del equipo
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),10);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX()+10,$this->getY(),10);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX()+20,$this->getY(),10);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX()+30,$this->getY(),10);
-        $this->SetX($this->GetX()+40);
+        $x=$this->getX();
+        $y=$this->getY();
+        for ($n=0;$n<4;$n++) {
+            if ($logos[$n]==="null.png") {
+                $this->SetX($x+10*$n);
+                $this->Cell(10,10,"",'T',0,'C',true);
+            } else {
+                $this->Image(__DIR__.'/../../images/logos/'.$logos[$n],$x+10*$n,$y,10);
+            }
+        }
+        $this->SetX($x+40);
         $this->Cell(125,10,$team['Nombre'],'T',0,'R',true);
         $this->Cell(8,10,'','TR',0,'R',true); // empty space at right of page
         $this->Ln();
