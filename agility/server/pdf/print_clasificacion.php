@@ -204,13 +204,13 @@ class PrintClasificacion extends PrintCommon {
 		
 		// fomateamos datos
 		$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}º";
-		$penal=number_format($row['Penalizacion'],2);
+		$penal=number_format($row['Penalizacion'],$this->timeResolution);
 		$v1= ($row['P1']>=200)?"-":number_format($row['V1'],1);
-		$t1= ($row['P1']>=200)?"-":number_format($row['T1'],2);
-		$p1=number_format($row['P1'],2);
+		$t1= ($row['P1']>=200)?"-":number_format($row['T1'],$this->timeResolution);
+		$p1=number_format($row['P1'],$this->timeResolution);
 		$v2= ($row['P2']>=200)?"-":number_format($row['V2'],1);
-		$t2= ($row['P2']>=200)?"-":number_format($row['T2'],2);
-		$p2=number_format($row['P2'],2);
+		$t2= ($row['P2']>=200)?"-":number_format($row['T2'],$this->timeResolution);
+		$p2=number_format($row['P2'],$this->timeResolution);
 		
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 
@@ -244,7 +244,7 @@ class PrintClasificacion extends PrintCommon {
 			$this->Cell(57,6,'',0,0,'C',$fill);	// espacio en blanco
 		}
 		// global
-		$this->Cell(11,6,number_format($row['Tiempo'],2),0,0,'C',$fill);	// Tiempo
+		$this->Cell(11,6,number_format($row['Tiempo'],$this->timeResolution),0,0,'C',$fill);	// Tiempo
 		$this->Cell(11,6,$penal,0,0,'C',$fill);	// Penalizacion
 		$this->Cell(15,6,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
 		$this->SetFont('Helvetica','B',10); // default font

@@ -325,21 +325,21 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->Cell(12.5,6,$team['R1'],0,0,'R',false);
         $this->Cell(12.5,6,$team['E1'],0,0,'R',false);
         $this->Cell(12.5,6,$team['N1'],0,0,'R',false);
-        $this->Cell(20,6,$team['T1'],0,0,'R',false);
-        $this->Cell(18,6,$team['P1'],0,0,'R',false);
+        $this->Cell(20,6,number_format($team['T1'],$this->timeResolution),0,0,'R',false);
+        $this->Cell(18,6,number_format($team['P1'],$this->timeResolution),0,0,'R',false);
         $this->SetXY(158,8+$y); $this->Cell(2,6,"",0,0,'R',true); $this->SetXY(160,9+$y); // barra separadora
         // manga 2
         $this->Cell(12.5,6,$team['F2'],0,0,'R',false);
         $this->Cell(12.5,6,$team['R2'],0,0,'R',false);
         $this->Cell(12.5,6,$team['E2'],0,0,'R',false);
         $this->Cell(12.5,6,$team['N2'],0,0,'R',false);
-        $this->Cell(20,6,$team['T2'],0,0,'R',false);
-        $this->Cell(18,6,$team['P2'],0,0,'R',false);
+        $this->Cell(20,6,number_format($team['T2'],$this->timeResolution),0,0,'R',false);
+        $this->Cell(18,6,number_format($team['P2'],$this->timeResolution),0,0,'R',false);
         $this->SetXY(248,8+$y); $this->Cell(2,6,"",0,0,'R',true); $this->SetXY(250,9+$y); // barra separadora
         // final
         $this->SetFont('Helvetica','BI',10); // italic 8px
-        $this->Cell(17,6,$team['Tiempo'],0,0,'R',false);
-        $this->Cell(18,6,$team['Penalizacion'],0,0,'R',false);
+        $this->Cell(17,6,number_format($team['Tiempo'],$this->timeResolution),0,0,'R',false);
+        $this->Cell(18,6,number_format($team['Penalizacion'],$this->timeResolution),0,0,'R',false);
 	}
 	
 	// Tabla coloreada

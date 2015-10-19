@@ -40,12 +40,13 @@ require_once(__DIR__.'/../database/classes/Clasificaciones.php');
 class Excel {
 	protected $myLogger;
 	protected $dbobj;
-	protected $prueba;
+	public $prueba;
 	protected $club;
 	protected $jornada;
-	protected $manga1;
-	protected $manga2; // in RSCE excel must allways exists (no single round)
+	public $manga1;
+	public $manga2; // in RSCE excel must allways exists (no single round)
 	protected $myConfig;
+	protected $timeResolution; // number of decimal digits in chrono
 
 	 /** Constructor
 	 * @param {obj} $manga datos de la manga
@@ -61,6 +62,8 @@ class Excel {
 		$this->manga1	= $this->dbobj->__getObject("Mangas",$mangas[0]);
 		$this->manga2	= $this->dbobj->__getObject("Mangas",$mangas[1]);
 		$this->myConfig = Config::getInstance();
+		// evaluate number of decimals to show when printing timestamps
+		$this->timeResolution=($this->myConfig->getEnv('crono_miliseconds')=="0")?2:3;
 	}
 	
 	// This one makes the beginning of the xls file
@@ -180,13 +183,13 @@ class Excel {
 		
 		// fomateamos datos
 		$puesto= ($row['Penalizacion']>=200)? "-":"{$row['Puesto']}";
-		$penal=number_format($row['Penalizacion'],2);
+		$penal=number_format($row['Penalizacion'],$this->timeResolution);
 		$v1= ($row['P1']>=200)?"-":number_format($row['V1'],1);
-		$t1= ($row['P1']>=200)?"-":number_format($row['T1'],2);
-		$p1=number_format($row['P1'],2);
+		$t1= ($row['P1']>=200)?"-":number_format($row['T1'],$this->timeResolution);
+		$p1=number_format($row['P1'],$this->timeResolution);
 		$v2= ($row['P2']>=200)?"-":number_format($row['V2'],1);
-		$t2= ($row['P2']>=200)?"-":number_format($row['T2'],2);
-		$p2=number_format($row['P2'],2);
+		$t2= ($row['P2']>=200)?"-":number_format($row['T2'],$this->timeResolution);
+		$p2=number_format($row['P2'],$this->timeResolution);
 
 		$this->xlsNumber($base,0,$row['Dorsal']);
 		$this->xlsLabel($base,1,iconv( "UTF-8", "ISO-8859-1",$row['Nombre']));
@@ -207,7 +210,7 @@ class Excel {
 		$this->xlsNumber($base,16,$v2);
 		$this->xlsNumber($base,17,$p2);
 		$this->xlsLabel($base,18,$row['C2']);
-		$this->xlsNumber($base,19,number_format($row['Tiempo'],2));
+		$this->xlsNumber($base,19,number_format($row['Tiempo'],$this->timeResolution));
 		$this->xlsNumber($base,20,$penal);
 		$this->xlsLabel($base,21,$row['Calificacion']);
 		$this->xlsLabel($base,22,$puesto);
@@ -259,14 +262,11 @@ try {
 	$base=$excel->write_PageHeader($prueba,$jornada,$mangas);
 	
 	// buscamos los recorridos asociados a la mangas
-	$dbobj=new DBObject("print_clasificacion");
-	$mng=$dbobj->__getObject("Mangas",$mangas[0]);
-	$prb=$dbobj->__getObject("Pruebas",$prueba);
 	$c= new Clasificaciones("print_clasificacion_excel",$prueba,$jornada);
 	
 	$result=array();
-	$rsce=($prb->RSCE==0)?true:false;
-	switch($mng->Recorrido) {
+	$rsce=($excel->prueba->RSCE==0)?true:false;
+	switch($excel->manga1->Recorrido) {
 		case 0: // recorridos separados large medium small tiny
 			$r=$c->clasificacionFinal($rondas,$mangas,0);
 			$base = $excel->composeTable($mangas,$r,0,$base+1);

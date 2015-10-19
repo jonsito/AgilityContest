@@ -52,6 +52,7 @@ class PrintCommon extends FPDF {
 	protected $pageName; // name of file to be printed
     protected $authManager;
 	protected $regInfo; // registration info from current license
+	protected $timeResolution; // number of decimal numbers to show in time results
 
 	protected $centro;
 	
@@ -102,9 +103,13 @@ class PrintCommon extends FPDF {
             $this->icon2=$this->federation->getLogo();
             if ($this->icon==$this->icon2) $this->icon2=$this->federation->getParentLogo();
         }
+		// handle registration info related to PDF generation
         $this->authManager=new AuthManager("print_common");
         $this->regInfo=$this->authManager->getRegistrationInfo();
         if ( ($this->regInfo==null) || ($this->regInfo['Serial']==="00000000") ) $this->icon="agilitycontest.png";
+		// evaluate number of decimals to show when printing timestamps
+		$this->timeResolution=($this->config->getEnv('crono_miliseconds')=="0")?2:3;
+		$this->myLogger->trace("Time resolution is ".$this->timeResolution);
 	}
 
     /**
