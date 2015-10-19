@@ -69,9 +69,6 @@ $config =Config::getInstance();
 			<input type="hidden" name="tablet_chrono" value="0"/>
 			<input id="tablet_chrono" name="tablet_chrono" type="checkbox" value="1"/><br />
 
-			<label for="crono_miliseconds"><?php _e('Show chrono data with miliseconds'); ?></label>
-			<input type="hidden" name="crono_miliseconds" value="0"/>
-			<input id="crono_miliseconds" name="crono_miliseconds" type="checkbox" value="1"/><br />
 
 			<label for="crono_intermediate"><?php _e('Show intermediate time stats in videowall'); ?></label>
 			<input type="hidden" name="crono_intermediate" value="0"/>
@@ -182,6 +179,11 @@ $config =Config::getInstance();
             <input type="checkbox" name="reset_events" id="reset_events" value="1"/><br />
 			<label for="proximity_alert"><?php _e('Proximity alert on starting order'); ?></label>
 			<input type="number" min="1" max="20" size="2" value="5" name="proximity_alert" id="proximity_alert"/> <?php _e('Dogs'); ?><br />
+
+			<label for="crono_miliseconds"><?php _e('Show time data with miliseconds'); ?></label>
+			<input type="hidden" name="crono_miliseconds" value="0"/>
+			<input id="crono_miliseconds" name="crono_miliseconds" type="checkbox" value="1"/><br />
+
 			<h3><?php _e('Additional server information'); ?></h3>
 			<label for="ip_address"><?php _e('IP address(es)'); ?></label>
 			<input id="ip_address" name="ip_address" type="text" readonly="readonly" size="45"
