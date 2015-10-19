@@ -141,14 +141,16 @@ function doBeep() {
 
 function tablet_add(val) {
 	doBeep();
+	var maxlen=(ac_config.crono_miliseconds=="0")?6:7
+	var declen=(ac_config.crono_miliseconds=="0")?2:3
 	var tdt=$('#tdialog-Tiempo');
 	var str=tdt.val();
 	if (parseInt(str)==0) str=''; // clear espurious zeroes
-	if(str.length>=6) return; // sss.xx 6 chars
+	if(str.length>=maxlen) return; // sss.xx 6/7 chars according configuration
 	var n=str.indexOf('.');
 	if (n>=0) {
 		var len=str.substring(n).length;
-		if (len>2) return; // only two decimal digits
+		if (len>declen) return; // only allowed decimal digits from config
 	}
 	tdt.val(''+str+val);
 	tablet_updateResultados(1);
