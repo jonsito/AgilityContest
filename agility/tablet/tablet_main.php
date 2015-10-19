@@ -353,14 +353,13 @@ $config =Config::getInstance();
 
     //create a Chronometer instance
     if (ac_config.tablet_chrono) {
-        var numdec=(ac_config.crono_miliseconds=="0")?2:3;
         $('#cronometro').Chrono( {
             seconds_sel: '#tdialog-timestamp',
             auto: false,
             interval: 50,
             showMode: 2,
             onUpdate: function(elapsed,running,pause) {
-                $('#tdialog-Tiempo').val(parseFloat(elapsed/1000).toFixed((running)?1:numdec));
+                $('#tdialog-Tiempo').val(parseFloat(elapsed/1000).toFixed((running)?1:ac_config.numdecs));
                 return true;
             }
         });

@@ -110,7 +110,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		
 <script type="text/javascript">
 
-var numdec=(ac_config.crono_miliseconds=="0")?2:3;
 // create a Chronometer instance
 $('#cronoauto').Chrono( {
 	seconds_sel: '#chrono_timestamp',
@@ -120,7 +119,7 @@ $('#cronoauto').Chrono( {
 	onBeforePause: function() { $('#chrono_Intermedio').text('<?php _e("Intermediate");?>').addClass('blink'); return true; },
 	onBeforeResume: function() { $('#chrono_Intermedio').text('').removeClass('blink'); return true; },
 	onUpdate: function(elapsed,running,pause) { 
-		$('#chrono_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:numdec));
+		$('#chrono_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:ac_config.numdecs));
 		return true;
 	}
 });

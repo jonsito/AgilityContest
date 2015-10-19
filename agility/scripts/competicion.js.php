@@ -37,25 +37,25 @@ function formatBorder(val,row,idx) { return 'border-left: 1px solid #000;'; }
 function formatPuesto(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
 function formatPuestoBig(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=100)?"-":val)+'</span>'; }
 function formatVelocidad(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFloat(val).toFixed(1); }
-function formatTiempo(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFloat(val).toFixed(2); }
-function formatPenalizacion(val,row,idx) { return parseFloat(val).toFixed(2); }
+function formatTiempo(val,row,idx) { return (row.Penalizacion>=200)?"-":parseFloat(val).toFixed(ac_config.numdecs); }
+function formatPenalizacion(val,row,idx) { return parseFloat(val).toFixed(ac_config.numdecs); }
 function formatEliminado(val,row,idx) { return (row.Eliminado==0)?"":'<?php _e("Elim"); ?>'; }
 function formatNoPresentado(val,row,idx) { return (row.NoPresentado==0)?"":'<?php _e("N.P."); ?>'; }
 
 /* formaters para el frm_clasificaciones */
 function formatPuestoFinal(val,row,idx) { return '<span style="font-weight:bold">'+((row.Penalizacion>=200)?"-":val)+'</span>'; }
 function formatPuestoFinalBig(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=200)?"-":val)+'</span>'; }
-function formatPenalizacionFinal(val,row,idx) { return parseFloat(val).toFixed(2); }
+function formatPenalizacionFinal(val,row,idx) { return parseFloat(val).toFixed(ac_config.numdecs); }
 
 function formatV1(val,row,idx) { return (row.P1>=200)?"-":parseFloat(val).toFixed(1); }
-function formatT1(val,row,idx) { return (row.P1>=200)?"-":parseFloat(val).toFixed(2); }
-function formatP1(val,row,idx) { return parseFloat(val).toFixed(2); }
+function formatT1(val,row,idx) { return (row.P1>=200)?"-":parseFloat(val).toFixed(ac_config.numdecs); }
+function formatP1(val,row,idx) { return parseFloat(val).toFixed(ac_config.numdecs); }
 function formatV2(val,row,idx) { return (row.P2>=200)?"-":parseFloat(val).toFixed(1); }
-function formatT2(val,row,idx) { return (row.P2>=200)?"-":parseFloat(val).toFixed(2); }
-function formatP2(val,row,idx) { return parseFloat(val).toFixed(2); }
+function formatT2(val,row,idx) { return (row.P2>=200)?"-":parseFloat(val).toFixed(ac_config.numdecs); }
+function formatP2(val,row,idx) { return parseFloat(val).toFixed(ac_config.numdecs); }
 function formatTF(val,row,idx) {
 	var t=parseFloat(row.T1)+parseFloat(row.T2);
-	return (row.Penalizacion>=200)?"-":t.toFixed(2); 
+	return (row.Penalizacion>=200)?"-":t.toFixed(ac_config.numdecs);
 }
 function formatRSCE(val,row,idx) {
 	switch(parseInt(val)) {
@@ -109,8 +109,8 @@ function formatTeamResults( value , rows ) {
     return '<div class="vw_equipos3" style="width:'+width+'px;">'+
         '<span style="width:10%;text-align:left;">'+logos+'</span>'+
         '<span style="width:25%;text-align:left;">Eq: '+value+'</span>' +
-        '<span style="width:30%;text-align:right;">Tiempo: '+(time).toFixed(2)+'</span>' +
-        '<span style="width:30%;text-align:right;">Penaliz.:'+(penal).toFixed(2)+'</span>'+
+        '<span style="width:30%;text-align:right;">Tiempo: '+(time).toFixed(ac_config.numdecs)+'</span>' +
+        '<span style="width:30%;text-align:right;">Penaliz.:'+(penal).toFixed(ac_config.numdecs)+'</span>'+
         '<span style="width:5%;text-align:right;font-size:1.5em;">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
 }
@@ -131,8 +131,8 @@ function formatTeamResultsConsole( value , rows ) {
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
     return '<div class="vw_equipos3" style="width:640px">'+
         '<span style="width:35%;text-align:left;"><?php _e('Team'); ?>: '+value+'</span>' +
-        '<span style="width:25%;text-align:right;"><?php _e('Time'); ?>: '+(time).toFixed(2)+'</span>' +
-        '<span style="width:25%;text-align:right;"><?php _e('Penal'); ?>.:'+(penal).toFixed(2)+'</span>'+
+        '<span style="width:25%;text-align:right;"><?php _e('Time'); ?>: '+(time).toFixed(ac_config.numdecs)+'</span>' +
+        '<span style="width:25%;text-align:right;"><?php _e('Penal'); ?>.:'+(penal).toFixed(ac_config.numdecs)+'</span>'+
         '<span style="width:15%;text-align:right;font-size:1.5em">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
 }
@@ -178,9 +178,9 @@ function formatTeamClasificaciones(value,rows) {
     return '<div class="pb_equipos3">'+
         '<span style="width:10%;text-align:left;">'+logos+'</span>'+
         '<span style="width:20%;text-align:left;"> Eq: '+value+'</span>' +
-        '<span > T1: '+(manga1.time).toFixed(2)+' - P1: '+(manga1.penal).toFixed(2)+'</span>'+
-        '<span > T2: '+(manga2.time).toFixed(2)+' - P2: '+(manga2.penal).toFixed(2)+'</span>'+
-        '<span style="width:25%;"> <?php _e('Time');?>: '+(time).toFixed(2)+' - <?php _e('Penal');?>: '+(penal).toFixed(2)+'</span>'+
+        '<span > T1: '+(manga1.time).toFixed(ac_config.numdecs)+' - P1: '+(manga1.penal).toFixed(ac_config.numdecs)+'</span>'+
+        '<span > T2: '+(manga2.time).toFixed(ac_config.numdecs)+' - P2: '+(manga2.penal).toFixed(ac_config.numdecs)+'</span>'+
+        '<span style="width:25%;"> <?php _e('Time');?>: '+(time).toFixed(ac_config.numdecs)+' - <?php _e('Penal');?>: '+(penal).toFixed(ac_config.numdecs)+'</span>'+
         '<span style="width:5%;text-align:right;font-size:1.5em">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
 }
@@ -219,9 +219,9 @@ function formatTeamClasificacionesConsole(value,rows) {
     // !Por fin! componemos una tabla html como respuesta
     return '<div class="pb_equipos3" style="width:800px">'+
         '<span style="width:30%;text-align:left;"> Eq: '+value+'</span>' +
-        '<span > T1: '+(manga1.time).toFixed(2)+' - P1: '+(manga1.penal).toFixed(2)+'</span>'+
-        '<span > T2: '+(manga2.time).toFixed(2)+' - P2: '+(manga2.penal).toFixed(2)+'</span>'+
-        '<span style="width:20%;"> <?php _e('Time'); ?>: '+(time).toFixed(2)+' - <?php _e('Penal');?>: '+(penal).toFixed(2)+'</span>'+
+        '<span > T1: '+(manga1.time).toFixed(ac_config.numdecs)+' - P1: '+(manga1.penal).toFixed(ac_config.numdecs)+'</span>'+
+        '<span > T2: '+(manga2.time).toFixed(ac_config.numdecs)+' - P2: '+(manga2.penal).toFixed(ac_config.numdecs)+'</span>'+
+        '<span style="width:20%;"> <?php _e('Time'); ?>: '+(time).toFixed(ac_config.numdecs)+' - <?php _e('Penal');?>: '+(penal).toFixed(ac_config.numdecs)+'</span>'+
         '<span style="width:10%;text-align:right;">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
 }

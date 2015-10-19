@@ -75,8 +75,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		
 <script type="text/javascript">
 
-var numdec=(ac_config.crono_miliseconds=="0")?2:3;
-
 // create a Chronometer instance
 $('#cronometro').Chrono( {
 	seconds_sel: '#vwls_timestamp',
@@ -84,7 +82,7 @@ $('#cronometro').Chrono( {
 	interval: 50,
 	showMode: 2,
 	onUpdate: function(elapsed,running,pause) { 
-		$('#vwls_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:numdec));
+		$('#vwls_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:ac_config.numdecs));
 		return true;
 	},
 	onBeforePause:function() { $('#vwls_Tiempo').addClass('blink'); return true; },

@@ -101,7 +101,7 @@ $('#competicion-datagrid').datagrid({
 		{ field:'Equipo',		hidden:true },
       	{ field:'Licencia',		hidden:true },
       	{ field:'Pendiente',	hidden:true },
-        { field:'Dorsal',		width:10, align:'right',  title: '<?php _e('Dorsal'); ?>', styler:checkPending },
+        { field:'Dorsal',		width:12, align:'right',  title: '<?php _e('Dorsal'); ?>', styler:checkPending },
         { field:'Nombre',		width:20, align:'left',  title: '<?php _e('Name'); ?>'},
         { field:'NombreGuia',	width:40, align:'right', title: '<?php _e('Handler'); ?>' },
         { field:'NombreClub',	width:30, align:'right', title: '<?php _e('Club'); ?>' },
@@ -113,15 +113,15 @@ $('#competicion-datagrid').datagrid({
           	editor:{
           		type:'numberbox',
           		options:{		
-              		formatter:function(v){	return parseFloat(v).toFixed(2); },
+              		formatter:function(v){	return parseFloat(v).toFixed(ac_config.numdecs); },
         			parser:function(s){	var v = parseFloat(s);	return isNaN(v)?'':v; }
             	}
           	}
         }, 
       	{ field:'Eliminado',	width:10, align:'center',title: '<?php _e('Elim'); ?>.',formatter:formatEliminado,	editor:{type:'checkbox',options:{on:1,off:0}}	},
       	{ field:'NoPresentado',	width:10, align:'center',title: '<?php _e('N.P.'); ?>',formatter:formatNoPresentado,	editor:{type:'checkbox',options:{on:1,off:0}}	},
-      	{ field:'Observaciones',width:20, align:'left',	 title: '<?php _e('Comments'); ?>',	editor:'text'  },
-      	{ field:'action',		width:35, align:'center',title: '',
+      	{ field:'Observaciones',width:25, align:'left',	 title: '<?php _e('Comments'); ?>',	editor:'text'  },
+      	{ field:'action',		width:47, align:'center',title: '',
       		formatter:function(value,row,index){
 				if(row.Dorsal==='*') return "&nbsp;";
           		if (row.editing){

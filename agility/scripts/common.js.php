@@ -166,6 +166,8 @@ function loadConfiguration() {
 		success: function(config){
 			if ( typeof (config.program_name) !== "undefined") {
 				ac_config=config;
+				// extra configuration data to speedup
+				ac_config.numdecs=(ac_config.crono_miliseconds=="0")?2:3;
 			} else {
 				$.messager.alert('<?php _e("Error"); ?>','<?php _e("LoadConfig(): cannot retrieve configuration from server"); ?>',"error")
 			}
