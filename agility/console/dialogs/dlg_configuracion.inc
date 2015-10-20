@@ -180,10 +180,13 @@ $config =Config::getInstance();
 			<label for="proximity_alert"><?php _e('Proximity alert on starting order'); ?></label>
 			<input type="number" min="1" max="20" size="2" value="5" name="proximity_alert" id="proximity_alert"/> <?php _e('Dogs'); ?><br />
 
-			<label for="crono_miliseconds"><?php _e('Show time data with miliseconds'); ?></label>
-			<input type="hidden" name="crono_miliseconds" value="0"/>
-			<input id="crono_miliseconds" name="crono_miliseconds" type="checkbox" value="1"/><br />
-
+			<label><?php _e('Time data precision shown'); ?></label>
+			<label for="crono_cents" style="width:130px;margin-top:5px;">
+				<input type="radio" id="crono_cents" name="crono_miliseconds" value="0" checked="checked" /><?php _e('cents'); ?>
+			</label>
+			<label for="crono_milis" style="width:130px;margin-top:5px;">
+				<input type="radio" id="crono_milis" name="crono_miliseconds" value="1"/><?php _e('millis'); ?>
+			</label><br />
 			<h3><?php _e('Additional server information'); ?></h3>
 			<label for="ip_address"><?php _e('IP address(es)'); ?></label>
 			<input id="ip_address" name="ip_address" type="text" readonly="readonly" size="45"

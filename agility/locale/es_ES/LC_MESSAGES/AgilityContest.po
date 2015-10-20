@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-10-20 00:45+0200\n"
-"PO-Revision-Date: 2015-10-20 00:45+0200\n"
-"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2015-10-20 12:44+0200\n"
+"PO-Revision-Date: 2015-10-20 12:46+0200\n"
+"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -748,7 +748,7 @@ msgstr "Plantillas"
 #: console/dialogs/infomanga_rfec.php:241
 #: console/dialogs/infomanga_rsce.php:202
 #: console/dialogs/infomanga_uca.php:241
-#: console/dialogs/dlg_configuracion.inc:200 console/dialogs/dlg_tools.inc:12
+#: console/dialogs/dlg_configuracion.inc:203 console/dialogs/dlg_tools.inc:12
 msgid "Restore"
 msgstr "Restaurar"
 
@@ -756,8 +756,8 @@ msgstr "Restaurar"
 #: console/dialogs/infomanga_rsce.php:207
 #: console/dialogs/infomanga_uca.php:246
 #: console/dialogs/dlg_competicion.inc:128
-#: console/dialogs/dlg_configuracion.inc:206
-#: console/dialogs/dlg_configuracion.inc:227
+#: console/dialogs/dlg_configuracion.inc:209
+#: console/dialogs/dlg_configuracion.inc:230
 #: console/dialogs/dlg_equipos.inc:57 console/dialogs/dlg_guias.inc:60
 #: console/dialogs/dlg_jornadas.inc:119 console/dialogs/dlg_jueces.inc:84
 #: console/dialogs/dlg_perros.inc:94 console/dialogs/dlg_pruebas.inc:79
@@ -2935,7 +2935,7 @@ msgstr "Esta entrada no se puede borrar"
 #: scripts/pruebas.js.php:133 scripts/sesiones.js.php:103
 #: scripts/sesiones.js.php:133 scripts/tandas.js.php:123
 #: scripts/usuarios.js.php:109 console/dialogs/dlg_competicion.inc:194
-#: console/dialogs/dlg_configuracion.inc:239
+#: console/dialogs/dlg_configuracion.inc:242
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -4467,49 +4467,57 @@ msgid "Proximity alert on starting order"
 msgstr "Alerta de proximidad en el orden de salida"
 
 #: console/dialogs/dlg_configuracion.inc:183
-msgid "Show time data with miliseconds"
-msgstr "Mostrar datos de tiempo en milisegundos"
+msgid "Time data precision shown"
+msgstr "Resoluci&oacute;n de los tiempos mostrados"
 
-#: console/dialogs/dlg_configuracion.inc:187
+#: console/dialogs/dlg_configuracion.inc:185
+msgid "cents"
+msgstr "cent&eacute;simas"
+
+#: console/dialogs/dlg_configuracion.inc:188
+msgid "millis"
+msgstr "mil&eacute;simas"
+
+#: console/dialogs/dlg_configuracion.inc:190
 msgid "Additional server information"
 msgstr "Informaci&oacute;n adicional del servidor"
 
-#: console/dialogs/dlg_configuracion.inc:188
+#: console/dialogs/dlg_configuracion.inc:191
 msgid "IP address(es)"
 msgstr "Direcci&oacute;n(es) IP"
 
-#: console/dialogs/dlg_configuracion.inc:202
+#: console/dialogs/dlg_configuracion.inc:205
 msgid "Default"
 msgstr "Defecto"
 
-#: console/dialogs/dlg_configuracion.inc:211
+#: console/dialogs/dlg_configuracion.inc:214
 msgid "Cancel changes. Restore information from server"
 msgstr ""
 "Anular cambios. Recuperar informaci&oacute;n de configuraci&oacute;n del "
 "servidor"
 
-#: console/dialogs/dlg_configuracion.inc:212
+#: console/dialogs/dlg_configuracion.inc:215
 msgid "Factory reset. Configure with default data"
 msgstr ""
 "Configurar aplicaci&oacute;n con los valores por defecto de f&aacute;brica. "
 
-#: console/dialogs/dlg_configuracion.inc:213
+#: console/dialogs/dlg_configuracion.inc:216
 msgid "Accept changes. Save as new configuration"
 msgstr "Aceptar cambios. Guardar como nueva configuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:228
+#: console/dialogs/dlg_configuracion.inc:231
 msgid "New configuration successfully saved"
 msgstr "Nueva configuraci&oacute;n guardada correctamente"
 
-#: console/dialogs/dlg_configuracion.inc:229
+#: console/dialogs/dlg_configuracion.inc:232
 msgid "You should close session and reload page"
 msgstr "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"
 
-#: console/dialogs/dlg_configuracion.inc:230
+#: console/dialogs/dlg_configuracion.inc:233
 msgid "for changes to become active"
 msgstr "para que los cambios se activen"
 
-#: console/dialogs/dlg_configuracion.inc:239
+#: console/dialogs/dlg_configuracion.inc:242
 msgid "Restore factory default values. Sure?"
 msgstr "Restaurar valores por defecto. ¿Seguro?"
 
@@ -4986,6 +4994,9 @@ msgstr "Guardar informaci&oacute;n del usuario en la base de datos"
 msgid "Change password"
 msgstr "Cambiar la contrase&ntilde;a"
 
+#~ msgid "Show time data with miliseconds"
+#~ msgstr "Mostrar datos de tiempo en milisegundos"
+
 #~ msgid "Contest\\&#39;s data"
 #~ msgstr "Datos de la prueba"
 
@@ -5184,10 +5195,6 @@ msgstr "Cambiar la contrase&ntilde;a"
 
 #~ msgid "KC dogID"
 #~ msgstr "LOE / RRC"
-
-#, fuzzy
-#~ msgid "Coments"
-#~ msgstr "Observaciones"
 
 #~ msgid "Verificar"
 #~ msgstr "Verificar"
