@@ -3,21 +3,21 @@ call settings.bat
 cd /d %~dp0\xampp
 echo AgilityContest Launch Script
 
-if not exist ..\logs\first_install GOTO apache_start
+if not exist ..\logs\first_install GOTO mysql_start
 echo Configuring first boot of XAMPP
 set PHP_BIN=php\php.exe
 set CONFIG_PHP=install\install.php
 %PHP_BIN% -n -d output_buffering=0 -q %CONFIG_PHP% usb
 
-:apache_start
-echo Starting Apache Web Server....
-start /B "" apache\bin\httpd.exe
-timeout /t 5
-
 :mysql_start
 echo MySQL Database is trying to start
 echo Please wait  ....
 start /B "" mysql\bin\mysqld --defaults-file=mysql\bin\my.ini --standalone --console
+timeout /t 5
+
+:apache_start
+echo Starting Apache Web Server....
+start /B "" apache\bin\httpd.exe
 timeout /t 5
 
 if not exist ..\logs\first_install GOTO browser_start
