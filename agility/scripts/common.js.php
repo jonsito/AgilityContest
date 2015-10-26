@@ -152,7 +152,6 @@ var Sound = (function () {
 function beep() { Sound(); }
 
 var ac_config={};
-
 function loadConfiguration() {
 	$.ajax({
 		type: "GET",
@@ -170,6 +169,31 @@ function loadConfiguration() {
 				ac_config.numdecs=(ac_config.crono_miliseconds=="0")?2:3;
 			} else {
 				$.messager.alert('<?php _e("Error"); ?>','<?php _e("LoadConfig(): cannot retrieve configuration from server"); ?>',"error")
+			}
+		},
+		error: function(XMLHttpRequest,textStatus,errorThrown) {
+			alert("error: "+textStatus + " "+ errorThrown );
+		}
+	});
+}
+
+var ac_regInfo={};
+
+function getLicenseInfo() {
+	$.ajax({
+		type: "GET",
+		url: "/agility/server/adminFunctions.php",
+		data: {
+			'Operation' : 'reginfo'
+		},
+		async: true,
+		cache: false,
+		dataType: 'json',
+		success: function(reginfo){
+			if ( typeof (reginfo.Serial) !== "undefined") {
+				ac_regInfo=reginfo;
+			} else {
+				$.messager.alert('<?php _e("Error"); ?>','<?php _e("getLicenseInfo(): cannot retrieve License info from server"); ?>',"error")
 			}
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {

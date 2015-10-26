@@ -90,6 +90,8 @@ function initialize() {
 	});
 	// load configuration
 	loadConfiguration();
+	// get License Information
+	getLicenseInfo();
 	// load login page
 	loadContents("/agility/console/frm_login.php","");
 }

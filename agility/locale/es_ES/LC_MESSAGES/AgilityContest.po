@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-10-20 12:44+0200\n"
-"PO-Revision-Date: 2015-10-20 12:46+0200\n"
+"POT-Creation-Date: 2015-10-26 11:43+0100\n"
+"PO-Revision-Date: 2015-10-26 11:45+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -242,16 +242,16 @@ msgstr "Reh&uacute;se"
 msgid "Eliminated"
 msgstr "Eliminado"
 
-#: chrono/chrono.inc.php:93 scripts/common.js.php:172
-#: scripts/common.js.php:341 scripts/common.js.php:353
-#: scripts/common.js.php:365 scripts/common.js.php:380
-#: scripts/competicion.js.php:569 scripts/competicion.js.php:598
-#: scripts/competicion.js.php:869 scripts/competicion.js.php:1114
-#: scripts/competicion.js.php:1128 scripts/competicion.js.php:1474
-#: scripts/competicion.js.php:1531 scripts/equipos.js.php:70
-#: scripts/equipos.js.php:123 scripts/equipos.js.php:312
-#: scripts/guias.js.php:87 scripts/guias.js.php:158 scripts/guias.js.php:181
-#: scripts/guias.js.php:209 scripts/guias.js.php:239
+#: chrono/chrono.inc.php:93 scripts/common.js.php:171
+#: scripts/common.js.php:196 scripts/common.js.php:365
+#: scripts/common.js.php:377 scripts/common.js.php:389
+#: scripts/common.js.php:404 scripts/competicion.js.php:569
+#: scripts/competicion.js.php:598 scripts/competicion.js.php:869
+#: scripts/competicion.js.php:1114 scripts/competicion.js.php:1128
+#: scripts/competicion.js.php:1474 scripts/competicion.js.php:1531
+#: scripts/equipos.js.php:70 scripts/equipos.js.php:123
+#: scripts/equipos.js.php:312 scripts/guias.js.php:87 scripts/guias.js.php:158
+#: scripts/guias.js.php:181 scripts/guias.js.php:209 scripts/guias.js.php:239
 #: scripts/inscripciones.js.php:68 scripts/jueces.js.php:90
 #: scripts/perros.js.php:145 scripts/perros.js.php:165
 #: scripts/perros.js.php:174 scripts/perros.js.php:226
@@ -903,7 +903,7 @@ msgstr "Esta nota de CopyRight debe ser inclu&iacute;da en toda copia"
 msgid "Registered in"
 msgstr "Inscrito en"
 
-#: console/frm_about.php:71 console/index.php:202
+#: console/frm_about.php:71 console/index.php:204
 msgid "About AgilityContest"
 msgstr "Acerca de AgilityContest"
 
@@ -1050,7 +1050,7 @@ msgid "Results & Scores"
 msgstr "Resultados y Clasificaciones"
 
 #: console/frm_clasificaciones.php:48 console/frm_clasificaciones2.php:129
-#: console/frm_clasificaciones_eq3.php:129 console/index.php:188
+#: console/frm_clasificaciones_eq3.php:129 console/index.php:190
 #: server/pdf/print_clasificacion.php:158
 #: server/pdf/print_clasificacion_excel.php:153
 msgid "Scores"
@@ -2130,7 +2130,7 @@ msgstr ""
 msgid "Admin user"
 msgstr "Usuario administrador"
 
-#: console/frm_myAdmin.php:74 console/index.php:195
+#: console/frm_myAdmin.php:74 console/index.php:197
 msgid "Direct DB Access"
 msgstr "Acceso directo a BBDD"
 
@@ -2339,114 +2339,114 @@ msgstr "Cerrar"
 msgid "Import license file into application"
 msgstr "Importar fichero de licencia en la aplicaci&oacute;n"
 
-#: console/index.php:161
+#: console/index.php:163
 msgid "Operations Menu"
 msgstr "Men&uacute; de operaciones"
 
-#: console/index.php:167
+#: console/index.php:169
 msgid "Init Session"
 msgstr "Iniciar Sesi&oacute;n"
 
-#: console/index.php:171
+#: console/index.php:173
 msgid "DATABASE"
 msgstr "BASE DE DATOS"
 
-#: console/index.php:173
+#: console/index.php:175
 msgid "Clubs Database Management"
 msgstr "Gesti&oacute;n de datos de Clubes"
 
-#: console/index.php:173
+#: console/index.php:175
 msgid "Clubs"
 msgstr "Clubes"
 
-#: console/index.php:174
+#: console/index.php:176
 msgid "Handlers Database Management"
 msgstr "Gesti&oacute;n de datos de Gu&iacute;as"
 
-#: console/index.php:174
+#: console/index.php:176
 msgid "Handlers"
 msgstr "Gu&iacute;as"
 
-#: console/index.php:175
+#: console/index.php:177
 msgid "Dogs Database Management"
 msgstr "Gesti&oacute;n de datos de Perros"
 
-#: console/index.php:175 public/pb_programa.php:101
+#: console/index.php:177 public/pb_programa.php:101
 #: console/dialogs/dlg_configuracion.inc:181
 msgid "Dogs"
 msgstr "Perros"
 
-#: console/index.php:176
+#: console/index.php:178
 msgid "Judges Database Management"
 msgstr "Gesti&oacute;n de datos de Jueces"
 
-#: console/index.php:176 console/dialogs/inforesultados.inc:36
+#: console/index.php:178 console/dialogs/inforesultados.inc:36
 #: console/dialogs/inforesultados.inc:87
 msgid "Judges"
 msgstr "Jueces"
 
-#: console/index.php:179
+#: console/index.php:181
 msgid "CONTESTS"
 msgstr "PRUEBAS"
 
-#: console/index.php:181
+#: console/index.php:183
 msgid "Create and Edit Contests"
 msgstr "Creaci&oacute;n y Edici&oacute;n de Pruebas"
 
-#: console/index.php:181
+#: console/index.php:183
 msgid "Create Contests"
 msgstr "Creaci&oacute;n de pruebas"
 
-#: console/index.php:182
+#: console/index.php:184
 msgid "Inscriptions - Contest selection"
 msgstr "Inscripciones registradas en el equipo"
 
-#: console/index.php:182
+#: console/index.php:184
 msgid "Handle Inscriptions"
 msgstr "Gesti&oacute;n de Inscripciones"
 
-#: console/index.php:183
+#: console/index.php:185
 msgid "Competition - Contest and Journey selection"
 msgstr "Competici&oacute;n - Selecci&oacute;n de Prueba y Jornada"
 
-#: console/index.php:183
+#: console/index.php:185
 msgid "Running Contests"
 msgstr "Desarrollo de la prueba"
 
-#: console/index.php:186
+#: console/index.php:188
 msgid "REPORTS"
 msgstr "CLASIFICACIONES"
 
-#: console/index.php:188
+#: console/index.php:190
 msgid "Scores - Contest and Journey selection"
 msgstr "Clasificaciones - Selecci&oacute;n de Prueba y Jornada"
 
-#: console/index.php:189 scripts/inscripciones.js.php:215
+#: console/index.php:191 scripts/inscripciones.js.php:215
 #: server/pdf/print_inscritosByPrueba.php:236
 msgid "Statistics"
 msgstr "Estad&iacute;sticas"
 
-#: console/index.php:192
+#: console/index.php:194
 msgid "TOOLS"
 msgstr "HERRAMIENTAS"
 
-#: console/index.php:194
+#: console/index.php:196
 msgid "Configuration"
 msgstr "Administraci&oacute;n"
 
-#: console/index.php:198
+#: console/index.php:200
 msgid "DOCUMENTATION"
 msgstr "DOCUMENTACION"
 
-#: console/index.php:200
+#: console/index.php:202
 msgid "OnLine Manual"
 msgstr "Manual en L&iacute;nea"
 
-#: console/index.php:201
+#: console/index.php:203
 msgid "License information"
 msgstr "Informaci&oacute;n de registro"
 
-#: console/index.php:202
+#: console/index.php:204
 msgid "About"
 msgstr "Acerca de"
 
@@ -2691,7 +2691,7 @@ msgstr ""
 "nuevo"
 
 #: scripts/admin.js.php:85 scripts/admin.js.php:161 scripts/admin.js.php:182
-#: scripts/admin.js.php:201
+#: scripts/admin.js.php:204
 msgid "<strong>Notice:</strong><br/>"
 msgstr "<strong>Aviso:</strong><br/>"
 
@@ -2703,7 +2703,7 @@ msgstr ""
 "Esta operaci&oacute;n <strong>BORRARRA <em>TODOS</em> LOS DATOS</"
 "strong>antes de restaurar<br/>"
 
-#: scripts/admin.js.php:87 scripts/admin.js.php:165 scripts/admin.js.php:202
+#: scripts/admin.js.php:87 scripts/admin.js.php:165 scripts/admin.js.php:205
 msgid "Be aware of making a backup copy before continue<br/><br/>"
 msgstr "Asegurese de hacer una copia de seguridad antes de seguir<br/><br/>"
 
@@ -2801,7 +2801,15 @@ msgstr ""
 "Todas las pruebas han sido borradas<br />Por favor, reinicie la "
 "aplicaci&oacute;n"
 
-#: scripts/admin.js.php:203
+#: scripts/admin.js.php:202 scripts/admin.js.php:208
+msgid "Update AgilityContest"
+msgstr "Actualizar AgilityContest"
+
+#: scripts/admin.js.php:202
+msgid "Auto-Update is not allowed for unregistered installs"
+msgstr "No se permite actualizar una versi&oacute;n sin licencia registrada"
+
+#: scripts/admin.js.php:206
 msgid ""
 "To proceed with AgilityContest update, enter administrator password and "
 "press <em>Accept</em>"
@@ -2809,31 +2817,27 @@ msgstr ""
 "Para proceder con la actualizaci&oacute;n, introduzca la contrase&ntilde;a "
 "del usuario administrador y pulse<em>Aceptar</em>"
 
-#: scripts/admin.js.php:205
-msgid "Update AgilityContest"
-msgstr "Actualizar AgilityContest"
-
-#: scripts/admin.js.php:220
+#: scripts/admin.js.php:223
 msgid "Current Version"
 msgstr "Versi&oacute;n actual"
 
-#: scripts/admin.js.php:220
+#: scripts/admin.js.php:223
 msgid "Current Release"
 msgstr "Revisi&oacute;n actual"
 
-#: scripts/admin.js.php:229
+#: scripts/admin.js.php:232
 msgid "Check for Upgrades"
 msgstr "Buscar actualizaciones"
 
-#: scripts/admin.js.php:233
+#: scripts/admin.js.php:236
 msgid "<p>AgilityContest is up to date</p>"
 msgstr "<p>AgilityContest est&aacute; actualizado</p>"
 
-#: scripts/admin.js.php:236
+#: scripts/admin.js.php:239
 msgid "Last Version"
 msgstr "Nueva Versi&oacute;n"
 
-#: scripts/admin.js.php:236
+#: scripts/admin.js.php:239
 msgid "Last Release"
 msgstr "Nueva revisi&oacute;n"
 
@@ -2947,10 +2951,14 @@ msgstr "Borrar club"
 msgid "from database. Sure?"
 msgstr "de la base de datos. ¿Seguro?"
 
-#: scripts/common.js.php:172
+#: scripts/common.js.php:171
 msgid "LoadConfig(): cannot retrieve configuration from server"
 msgstr ""
 "LoadConfig(): no puedo recuperar la configuraci&oacute;n desde el servidor"
+
+#: scripts/common.js.php:196
+msgid "getLicenseInfo(): cannot retrieve License info from server"
+msgstr "getLicenseInfo() no se puede leer la informaci&oacute;n de registro"
 
 #: scripts/competicion.js.php:43 server/pdf/print_clasificacion_eq4.php:309
 #: server/pdf/print_clasificacion_eq4.php:317
