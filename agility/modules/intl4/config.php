@@ -3,7 +3,7 @@ class INTL4 extends Federations {
 
     function __construct() {
         $this->config= array (
-            'ID'    => 4,
+            'ID'    => 8,
             'Name'  => 'Intl-4',
             'LongName' => 'International Contest - 4 heights',
             'Logo'     => 'wao.png',
