@@ -41,7 +41,7 @@ class PublicWeb
     {
         $this->config = Config::getInstance();
         $this->myLogger = new Logger("PublicWeb.php", $this->config->getEnv("debug_level"));
-        $this->myDBObject = new Clubes("PublicWeb"); // also is a dbobject. used to retrieve logos
+        $this->myDBObject = new DBObject("PublicWeb"); // also is a dbobject. used to retrieve logos
         // obtenemos los datos desde las variables recibidas por http
         $this->session = null;
         $this->sessionid = 0;

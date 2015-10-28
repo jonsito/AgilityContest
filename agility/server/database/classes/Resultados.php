@@ -29,7 +29,8 @@ class Resultados extends DBObject {
 	protected $IDJornada; // ID de la jornada
 	protected $dmanga=null; // datos de la manga
 	protected $djornada=null;  // datos de la jornada
-    protected $dequipos=null; // datos de los equipos
+	protected $dequipos=null; // datos de los equipos
+	protected $dprueba=null; // datos de la prueba
 
 	private function getDatosManga() {
 		if ($this->dmanga!=null) return $this->dmanga;
@@ -59,6 +60,17 @@ class Resultados extends DBObject {
 		}
 		$this->djornada=$obj;
 		return $this->djornada;
+	}
+
+	private function getDatosPrueba() {
+		if ($this->dprueba!=null) return $this->dprueba;
+		$obj=$this->__getObject("Pruebas", $this->IDPrueba);
+		if (!is_object($obj)) {
+			$this->error("Cannot locate PruebaID: {$this->IDPrueba} in database");
+			return null;
+		}
+		$this->dprueba=$obj;
+		return $this->dprueba;
 	}
 
 	private function getDatosEquipos() {
@@ -451,7 +463,7 @@ class Resultados extends DBObject {
 		$trs=$tdata['trs'];
 		$trm=$tdata['trm'];
 		// FASE 3: añadimos ptiempo, puntuacion, clasificacion y logo
-        $clubes=new Clubes("Resultados::getResultados");
+        $clubes=new Clubes("Resultados::getResultados",$this->getDatosPrueba()->RSCE);
 		$size=count($table);
 		for ($idx=0;$idx<$size;$idx++ ){
             $table[$idx]['Puntos'] = 0; // to be re-evaluated later

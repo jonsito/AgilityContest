@@ -68,7 +68,7 @@ $config =Config::getInstance();
 			collapsed: false,
 			title: '<?php _e('Clubs data management'); ?>' + ' - ' + fedName(workingData.federation),
 			url: '/agility/server/database/clubFunctions.php',
-			queryParams: { Operation: 'select' },
+			queryParams: { Operation: 'select', Federation: workingData.federation },
 			loadMsg: '<?php _e('Updating Clubs list'); ?>'+' ...',
 			method: 'get',
 			toolbar: '#clubes-toolbar',

@@ -75,7 +75,7 @@ class PrintCatalogo extends PrintCommon {
 	function printClub($id) {
         $y=$this->GetY();
 		// retrieve club data
-		$cmgr=new Clubes('printCatalogo');
+		$cmgr=new Clubes('printCatalogo',$this->prueba->RSCE);
 		$club=$cmgr->selectByID($id);
 
         // evaluate logo

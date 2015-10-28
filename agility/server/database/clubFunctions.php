@@ -25,11 +25,13 @@ require_once(__DIR__."/classes/Clubes.php");
 
 	try {
 		$result=null;
-		$clubes= new Clubes("clubFunctions");
-		$am= new AuthManager("clubFunctions");
 		$operation=http_request("Operation","s",null);
+		$federation=http_request("Federation","i",-1);
 		$idclub=http_request("ID","i",0);
-		if ($operation===null) throw new Exception("Call to clubFunctions without 'Operation' requested");
+		if ($operation===null)
+			throw new Exception("Call to clubFunctions without 'Operation' requested");
+		$clubes= new Clubes("clubFunctions",$federation);
+		$am= new AuthManager("clubFunctions");
 		switch ($operation) {
 			case "insert": $am->access(PERMS_OPERATOR); $result=$clubes->insert(); break;
 			case "update": $am->access(PERMS_OPERATOR); $result=$clubes->update($idclub); break;

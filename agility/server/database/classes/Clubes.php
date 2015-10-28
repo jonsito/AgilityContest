@@ -16,14 +16,18 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
 require_once("DBObject.php");
+require_once(__DIR__."/../../../modules/Federations.php");
 require_once(__DIR__."/../procesaInscripcion.php");// to update inscription data
 
 class Clubes extends DBObject {
 
-	function __construct() {
-		parent::__construct("Clubes");
+	protected $curFederation=null;
+	function __construct($file,$federation=-1) {
+		parent::__construct($file);
+		if ($federation>=0) {
+			$this->curFederation=Federations::getFederation($federation);
+		}
 	}
 	/* use parent constructor and destructors */
 
@@ -158,6 +162,7 @@ class Clubes extends DBObject {
 	
 	/**
 	 * retrieve all clubes from table, according sort, search and limit requested
+	 * Also use current federation flag to filter national/international clubes
 	 */
 	function select() {
 		$this->myLogger->enter();
@@ -170,13 +175,23 @@ class Clubes extends DBObject {
 		$search=http_Request("where","s","");
 		$page=http_request("page","i",1);
 		$rows=http_request("rows","i",50);
-		$fed=http_request("Federation","i",-1); // -1: any 0:rsce 1:rfec 2:uca
+		$fed=-1;
+		if ($this->curFederation!=null) $fed=$this->curFederation->get('ID');
 		$fedstr = "1";
 		switch (intval($fed)) {
 			case -1: break; // any
-			case 0: $fedstr="((Federations & 1)!=0)"; break; // rsce
-			case 1: $fedstr="((Federations & 2)!=0)"; break; // rfec
-			case 2: $fedstr="((Federations & 4)!=0)"; break; // uca
+			// 0 to 4 refers to national contests
+			case 0: // rsce
+			case 1: // rfec
+			case 2: // uca
+			case 3: // undefined national contest
+			case 4: $fedstr="((Federations & 31)!=0)"; break; // undefined national contest
+			// 5 to 9 refers to international contests
+			case 5:
+			case 6:
+			case 7:
+			case 8: // 3- height international
+			case 9: $fedstr="((Federations & 992)!=0)"; break; // 4-heights international
 			default: return $this->error("Clubes::select() Invalid Federation:$fed");
 		}
 		$limit = "";
@@ -215,21 +230,32 @@ class Clubes extends DBObject {
 		return $data;
 	}
 	/** 
-	 * return a dupla ID Nombre,Provincia list according select criteria
+	 * return a dupla ID Nombre,Provincia list according select and federation criteria
 	 * return data if success; null on error
 	 */
 	function enumerate() {
 		$this->myLogger->enter();
 		// evaluate search query string
 		$q=http_request("q","s","");
-		$f=http_request("Federation","i",-1);
+		$fed=-1;
+		if ($this->curFederation!=null) $fed=$this->curFederation->get('ID');
 		$fedstr = "1";
-		switch (intval($f)) {
+		switch (intval($fed)) {
 			case -1: break; // any
+			// 0 to 4 national contests. choose only selected federation
 			case 0: $fedstr="((Federations & 1)!=0)"; break; // rsce
 			case 1: $fedstr="((Federations & 2)!=0)"; break; // rfec
 			case 2: $fedstr="((Federations & 4)!=0)"; break; // uca
-			default: return $this->error("Clubes::enumerate() Invalid Federation:$f");
+			case 3: $fedstr="((Federations & 8)!=0)"; break; // not defined yet
+			case 4: $fedstr="((Federations & 16)!=0)"; break; // not defined yet
+			// 5 to 9 refers to international contests.
+			// current database share same federation mask for clubes/countries declaration
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9: $fedstr="((Federations & 992)!=0)"; break;
+			default: return $this->error("Clubes::enumerate() Invalid Federation:$fed");
 		}
 		$where="1";
 		if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";

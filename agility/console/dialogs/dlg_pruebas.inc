@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
 
    <!-- FORMULARIO DE DECLARACION Y MODIFICACION DE PRUEBAS -->
-    <div id="pruebas-dialog" style="width:450px;height:450px;padding:10px 20px">
+    <div id="pruebas-dialog" style="width:500px;height:450px;padding:10px 20px">
         <div class="ftitle"><?php _e('Contest information'); ?></div>
         <form id="pruebas-form" method="get" novalidate>
             <div class="fitem">

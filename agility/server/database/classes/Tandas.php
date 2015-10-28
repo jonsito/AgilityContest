@@ -517,7 +517,7 @@ class Tandas extends DBObject {
 		
 		// obtenemos la lista de tandas
 		$lista_tandas=$this->getTandas($s);
-		$club= new Clubes("Tandas::getListaPerros");
+		$club= new Clubes("Tandas::getListaPerros",$this->prueba->RSCE);
 		// iteramos la lista de tandas
 		foreach ($lista_tandas['rows'] as $tanda) {
 			$this->myLogger->info("Analizando tanda \n".json_encode($tanda));

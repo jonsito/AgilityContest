@@ -280,11 +280,11 @@ public static $countryList = array(
         return $result;
     }
 }
-$count=3;
-echo "INSERT INTO CLUBES(ID,Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja) VALUES \n";
-echo "(2,'L\'Almozara','','Camino de Pinseque, 147-A','50190 Garrapinillos (Zaragoza)','-- Sin Asignar --','ES',' + 34 637 54 15 86','','','','','','','','','almozara.png',1,'',0),\n";
+// federations 5 to 9 are reserved for international contests
+$fed=0b1111100000;
+echo "INSERT INTO CLUBES(Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja) VALUES \n";
 foreach(CountryList::$countryList as $key => $pais) {
-                echo "($count,'$pais','','','','-- Sin asignar --','$key','','','','','','','','','','../../server/i18n/$key.png',1,'',0),\n";
-    $count++;
+    $p=str_replace("'","\'",$pais);
+    echo "('$p','','','','-- Sin asignar --','$key','','','','','','','','','','../../server/i18n/$key.png',$fed,'',0),\n";
 }
 ?>
