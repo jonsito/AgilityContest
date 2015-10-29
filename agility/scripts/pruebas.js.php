@@ -45,12 +45,7 @@ function doSearchPrueba() {
 function newPrueba(dg,def,onAccept){
 	$('#pruebas-dialog').dialog('open').dialog('setTitle','<?php _e('Nueva Prueba'); ?>');
 	$('#pruebas-form').form('clear');
-	switch(parseInt(workingData.federation)) {
-		case 0:$('#pruebas-RSCE').prop('checked',true); break;
-		case 1:$('#pruebas-RFEC').prop('checked',true); break;
-		case 2:$('#pruebas-UCA').prop('checked',true); break;
-		default: alert("Invalid federation.</br>Defaulting to RSCE");
-	}
+    $('#pruebas-Federation').combogrid('readonly',false);
 	if (!strpos(def,"Buscar")) $('#pruebas-Nombre').val(def.capitalize());// fill prueba Name
 	$('#pruebas-Operation').val('insert');
 	if (onAccept!==undefined)$('#pruebas-okBtn').one('click',onAccept);

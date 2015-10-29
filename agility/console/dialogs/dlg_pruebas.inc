@@ -38,10 +38,8 @@ $config =Config::getInstance();
             </div>
             <div>&nbsp;<br /></div>
             <div class="fitem">
-            	<?php _e('Federation'); ?>:
-            	<input id="pruebas-RSCE" type="radio" name="RSCE" value="0" checked="checked" /><?php _e('RSCE'); ?>
-            	<input id="pruebas-RFEC" type="radio" name="RSCE" value="1" /><?php _e('RFEC'); ?>
-            	<input id="pruebas-UCA" type="radio" name="RSCE" value="2" /><?php _e('UCA'); ?>
+            	<label for="pruebas-Federation"><?php _e('Federation'); ?>:</label>
+                <select id="pruebas-Federation" name="RSCE" style="width:200px"></select>
             	<span style="float:right">
             		<input id="pruebas-Selectiva" type="checkbox" name="Selectiva" value="1"/><?php _e('Selective'); ?>
             	</span>
@@ -89,15 +87,10 @@ $config =Config::getInstance();
         	// alert(JSON.stringify(data));
     	    $('#pruebas-Operation').val('update');
     	    $('#pruebas-Selectiva').prop('checked',(data.Selectiva == 1));
-    	    $('#pruebas-RSCE').prop('checked',(data.RSCE == 0));
-    	    $('#pruebas-RFEC').prop('checked',(data.RSCE == 1));
-    	    $('#pruebas-UCA').prop('checked',(data.RSCE == 2));
     	    hasInscripciones(
     	    	    data.ID,
     	    	    function(flag) {
-        	    		$('#pruebas-RSCE').attr('disabled',flag);
-        	    		$('#pruebas-RFEC').attr('disabled',flag);
-        	    		$('#pruebas-UCA').attr('disabled',flag);
+                        $('#pruebas-Federation').combogrid('readonly',flag);
     	    		}
     	    	);
     	}
@@ -148,4 +141,26 @@ $config =Config::getInstance();
 		selectOnNavigation: false
     });
 
+    $('#pruebas-Federation').combogrid({
+        panelWidth: 300,
+        panelHeight: 150,
+        idField: 'ID',
+        textField: 'LongName',
+        url: '/agility/modules/moduleFunctions.php?Operation=enumerate',
+        method: 'get',
+        mode: 'remote',
+        required: true,
+        multiple: false,
+        fitColumns: true,
+        singleSelect: true,
+        editable: false,  // to disable tablet keyboard popup
+        selectOnNavigation: true, // let use cursor keys to interactive select
+        columns: [[
+            {field:'ID',  title:'<?php _e('ID'); ?>',width:'20',align:'left'},
+            {field:'Name',hidden:true},
+            {field:'LongName',        title:'<?php _e('Name'); ?>',width:'250',align:'right'},
+            {field:'Logo',hidden:true},
+            {field:'ParentLogo',hidden:true}
+        ]]
+    });
     </script>
