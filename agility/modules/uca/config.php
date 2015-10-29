@@ -6,8 +6,8 @@ class UCA extends Federations {
             'ID'    => 2,
             'Name'  => 'UCA',
             'LongName' => 'Union de Clubes de Agility',
-            'Logo'     => 'uca.png',
-            'ParentLogo'   => 'rfec.png',
+            'Logo'     => '/agility/modules/uca/uca.png',
+            'ParentLogo'   => '/agility/modules/uca/rfec.png',
             'Grados'    => array (
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja temporal',

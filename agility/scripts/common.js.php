@@ -124,9 +124,8 @@ function isJornadaOpen() { return (workingData.datosJornada.Open==1); }
 function isJornadaEq3() { return (workingData.datosJornada.Equipos3==1); }
 function isJornadaEq4() { return (workingData.datosJornada.Equipos4==1); }
 
-var nombreFederaciones = {0:'RSCE',1:'RFEC',2:'UCA'};
 function fedName(fed) {
-    return nombreFederaciones[fed];
+	return workingData.datosFederation['Name'];
 }
 
 // lista de dialogos a limpiar cada vez que se recarga la pantalla
@@ -178,7 +177,6 @@ function loadConfiguration() {
 }
 
 var ac_regInfo={};
-
 function getLicenseInfo() {
 	$.ajax({
 		type: "GET",
@@ -194,6 +192,29 @@ function getLicenseInfo() {
 				ac_regInfo=reginfo;
 			} else {
 				$.messager.alert('<?php _e("Error"); ?>','<?php _e("getLicenseInfo(): cannot retrieve License info from server"); ?>',"error")
+			}
+		},
+		error: function(XMLHttpRequest,textStatus,errorThrown) {
+			alert("error: "+textStatus + " "+ errorThrown );
+		}
+	});
+}
+
+var ac_fedInfo={};
+function getFederationInfo() {
+	$.ajax({
+		type: "GET",
+		url: '/agility/modules/moduleFunctions.php',
+		data: {	'Operation' : 'enumerate' },
+		async: true,
+		cache: false,
+		dataType: 'json',
+		success: function(fedinfo){
+			if ( typeof (fedinfo.rows) !== "undefined") {
+				ac_fedInfo=fedinfo.rows;
+				initWorkingData(); // must be called _after_ data is loaded
+			} else {
+				$.messager.alert('<?php _e("Error"); ?>','<?php _e("getFederationsInfo(): cannot retrieve federations info from server"); ?>',"error")
 			}
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
@@ -414,18 +435,17 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 	});
 }
 
-function setFederation(fed) { //0:RSCE 1:RFEC 2:UCA
-	var logo="rsce.png";
-	// check and set value
-	switch (parseInt(fed)) {
-	case 0: logo="rsce.png"; break;
-	case 1: logo="rfec.png"; break;
-	case 2: logo="uca.png"; break;
-	default: fed=0;logo="rsce.png"; break; // defaults to RSCE
+function setFederation(f) { //0:RSCE 1:RFEC 2:UCA... extract from federations module info
+	var fed=null;
+	// iterate ac_fedInfo until ID matches
+	for ( var i=0;i<ac_fedInfo.length;i++) {
+		if (ac_fedInfo[i].ID==0) fed=ac_fedInfo[i]; // mark default and continue search
+		if (ac_fedInfo[i].ID==f) { fed=ac_fedInfo[i]; break; } // found
 	}
-	workingData.federation=fed;
+	workingData.federation= fed.ID;
+	workingData.datosFederation=fed;
 	// set background logo
-	$('#logo_Federation').prop('src',"/agility/images/logos/"+logo);
+	$('#logo_Federation').prop('src',fed.Logo);
 }
 
 /**
@@ -464,6 +484,7 @@ function setManga(data) {
     }
 }
 
+var workingData = {};
 /**
  * @param {int} id SessionID
  * Initialize working data information object
@@ -492,7 +513,7 @@ function initWorkingData(id) {
 	if (typeof(workingData.datosManga)==="undefined") workingData.datosManga= {}; // last selected jornada data
     if (typeof(workingData.datosRonda)==="undefined") workingData.datosRonda= {}; // last selected ronda (grade, manga1, manga2)
     if (typeof(workingData.teamsByJornada)==="undefined") workingData.teamsByJornada= {}; // last selected ronda (grade, manga1, manga2)
-	if (id!==undefined) {
+	if (typeof(id)!=="undefined") {
 		$.ajax({
 			url: '/agility/server/database/sessionFunctions.php',
 			data: { Operation: 'getByID', ID: id },
@@ -520,6 +541,7 @@ function initWorkingData(id) {
 	}
 }
 
+var authInfo ={};
 function initAuthInfo(id) {
 	authInfo.ID=0;
 	authInfo.Login="";
@@ -527,7 +549,7 @@ function initAuthInfo(id) {
 	authInfo.SessionKey=null;
 	authInfo.Perms=5;
 	authInfo.SessionID=0;
-	if (id!==undefined) {
+	if (typeof(id)!=="undefined") {
 		authInfo.ID=id.UserID;
 		authInfo.Login=id.Login;
 		authInfo.Gecos=id.Gecos;
@@ -537,13 +559,6 @@ function initAuthInfo(id) {
 	}
 }
 
-/**
-* Declare and initialize Object to store working data primary keys
-*/
-var workingData = {};
-initWorkingData();
-var authInfo ={};
-initAuthInfo();
 
 /**
  * Used to evaluate position, width and heigh on an element to be 

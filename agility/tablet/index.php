@@ -94,6 +94,8 @@ function initialize() {
 	  }
 	});
 	loadConfiguration();
+	getLicenseInfo();
+	getFederationInfo();
 }
 
 /**

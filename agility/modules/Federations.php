@@ -43,6 +43,10 @@ class Federations {
         'Puntuaciones' => null // to point to a function to evaluate califications
     );
 
+    public function getConfig() {
+        return $this->config;
+    }
+
     /**
      * Translate requested grade key to federation dependent i18n'd one
      * @param {string} $key grade as stored in database
@@ -114,7 +118,7 @@ class Federations {
             $fed=new $name;
             if (!$fed) continue;
             $id=$fed->get('ID');
-            $fedList[$id]=$fed;
+            $fedList[$id]=$fed->getConfig();
         }
         return $fedList;
     }
@@ -126,7 +130,7 @@ class Federations {
         $list=Federations::getFederationList();
         $data=array();
         foreach ($list as $fed) { array_push($data,$fed); }
-        $result=array('total' => count($data),$data);
+        $result=array('total' => count($data),'rows' => $data);
         return $result;
     }
 }

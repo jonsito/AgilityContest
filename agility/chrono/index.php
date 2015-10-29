@@ -78,6 +78,8 @@ function initialize() {
 	  }
 	});
 	loadConfiguration();
+	getLicenseInfo();
+	getFederationInfo();
 }
 
 </script>

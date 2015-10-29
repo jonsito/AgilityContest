@@ -6,8 +6,8 @@ class INTL3 extends Federations {
             'ID'    => 9,
             'Name'  => 'Intl-3',
             'LongName' => 'International Contest - 3 heights',
-            'Logo'     => 'fci.png',
-            'ParentLogo'   => 'fci.png',
+            'Logo'     => '/agility/modules/intl3/fci.png',
+            'ParentLogo'   => '/agility/modules/intl3/fci.png',
             'Grados'    => array (
                 '-' => 'Not especified',
                 'Baja' => 'Temporary out',

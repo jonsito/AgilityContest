@@ -6,8 +6,8 @@ class INTL4 extends Federations {
             'ID'    => 8,
             'Name'  => 'Intl-4',
             'LongName' => 'International Contest - 4 heights',
-            'Logo'     => 'wao.png',
-            'ParentLogo'   => 'wao.png',
+            'Logo'     => '/agility/modules/intl4/wao.png',
+            'ParentLogo'   => '/agility/modules/intl4/wao.png',
             'Grados'    => array (
                 '-' => 'Not especified',
                 'Baja' => 'Retired',

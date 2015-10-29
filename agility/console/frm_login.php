@@ -48,11 +48,14 @@ $config =Config::getInstance();
        		</div>
        		<div class="fitem">
        	   		<label for="Federation"><?php _e('Federation'); ?>:</label>
+				<select id="login-Federation" name="Federation" style="width:200px"></select>
+				<!--
        	   		<select id="login-Federation" name="Federation" onChange="setFederation(this.value);">
        	   			<option value="0">Real Sociedad Canina de Espa&ntilde;a (RSCE)</option>
        	   			<option value="1">Real Federaci&oacute;n Espa&ntilde;ola de Caza (RFEC)</option>
-       	   			<option value="2">Uni&oacute;n de Clubes de Agility (UCA)</option>	
+       	   			<option value="2">Uni&oacute;n de Clubes de Agility (UCA)</option>
        	   		</select>
+   	   			-->
        		</div>
 		</form>
 	</div>
@@ -84,6 +87,30 @@ $('#login-window').window({
 		$('#login-Federation').val(workingData.federation);
 		return true;
 	}
+});
+
+$('#login-Federation').combogrid({
+	panelWidth: 300,
+	panelHeight: 150,
+	idField: 'ID',
+	textField: 'LongName',
+	url: '/agility/modules/moduleFunctions.php?Operation=enumerate',
+	method: 'get',
+	mode: 'remote',
+	required: true,
+	multiple: false,
+	fitColumns: true,
+	singleSelect: true,
+	editable: false,  // to disable tablet keyboard popup
+	selectOnNavigation: true, // let use cursor keys to interactive select
+	columns: [[
+		{field:'ID',  title:'<?php _e('ID'); ?>',width:'20',align:'left'},
+		{field:'Name',hidden:true},
+		{field:'LongName',        title:'<?php _e('Name'); ?>',width:'250',align:'right'},
+		{field:'Logo',hidden:true},
+		{field:'ParentLogo',hidden:true}
+	]],
+	onChange:function(value){ setFederation(value); }
 });
 
 addTooltip($('#login-okBtn').linkbutton(),'<?php _e("Start session with provided user privileges"); ?>');

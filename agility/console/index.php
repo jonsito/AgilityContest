@@ -92,6 +92,10 @@ function initialize() {
 	loadConfiguration();
 	// get License Information
 	getLicenseInfo();
+	// retrieve info on available federation modules
+	getFederationInfo();
+	// initialize session data
+	initAuthInfo();
 	// load login page
 	loadContents("/agility/console/frm_login.php","");
 }

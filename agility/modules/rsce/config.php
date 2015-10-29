@@ -6,8 +6,8 @@ class RSCE extends Federations {
             'ID'    => 0,
             'Name'  => 'RSCE',
             'LongName' => 'Real Sociedad Canina de España',
-            'Logo'     => 'rsce.png',
-            'ParentLogo'   => 'fci.png',
+            'Logo'     => '/agility/modules/rsce/rsce.png',
+            'ParentLogo'   => '/agility/modules/rsce/fci.png',
             'Grados'    => array (
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja temporal',

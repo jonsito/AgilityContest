@@ -8,6 +8,7 @@
 require_once ("../modules/Federations.php");
 $feds=Federations::getFederationList();
 foreach($feds as $fed) {
-    echo "ID:{$fed->get('ID')} : {$fed->get('LongName')}\n";
+    echo "ID:{$fed['ID']} : {$fed['LongName']}\n";
+    // print_r($fed);
 }
 ?>

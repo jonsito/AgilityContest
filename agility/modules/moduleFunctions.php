@@ -23,7 +23,8 @@ require_once(__DIR__."/Federations.php");
 try {
     $result=null;
     $federation=http_request("Federation","i",-1); // -1 defaults to all federations
-    if ($operation===null) throw new Exception("Call to juezFunctions without 'Operation' requested");
+    $operation=http_request("Operation","s",null); // retrieve requested operation
+    if ($operation===null) throw new Exception("Call to moduleFunctions without 'Operation' requested");
     switch ($operation) {
         case "list": $result= Federations::getFederationList(); break;
         case "info": $result= Federations::getFederation($federation); break;
@@ -40,5 +41,4 @@ try {
     echo json_encode(array('errorMsg'=>$e->getMessage()));
 }
 
-?>
 ?>
