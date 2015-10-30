@@ -47,7 +47,7 @@ $config =Config::getInstance();
    			onClick="
    	        	// clear selection and reload table
    	    		$('#guias-datagrid-search').val('---- Buscar ----');
-   				reloadWithSearch('#guias-datagrid','select');
+   				reloadWithSearch('#guias-datagrid','select',true);
    				"
    			><?php _e('Clear'); ?></a>
 	</span>

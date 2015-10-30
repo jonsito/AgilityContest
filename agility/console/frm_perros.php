@@ -50,7 +50,7 @@ $config =Config::getInstance();
    			onclick="
    	        	// clear selection and reload table
    	    		$('#perros-datagrid-search').val('---- Buscar ----');
-				reloadWithSearch('#perros-datagrid','select');
+				reloadWithSearch('#perros-datagrid','select',true);
    	            "
    		><?php _e('Clear'); ?></a>
    	</span>

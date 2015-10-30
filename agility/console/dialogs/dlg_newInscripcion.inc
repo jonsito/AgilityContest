@@ -41,7 +41,7 @@ $config =Config::getInstance();
 	        	// clear selection and reload table
 	    		$('#new_inscripcion-datagrid-search').val('---- Buscar ----');
 				$('#new_inscripcion-datagrid').datagrid('unselectAll');
-				reloadWithSearch('#new_inscripcion-datagrid','noinscritos');
+				reloadWithSearch('#new_inscripcion-datagrid','noinscritos',true);
 	            "
 			><?php _e('Clear'); ?></a>
 	</span>
@@ -158,14 +158,12 @@ $('#new_inscripcion-datagrid').datagrid({
 	]],
 	rownumbers:true,
     rowStyler:myRowStyler,
-	multiple: true,
 	fitColumns: true,
 	singleSelect: false,
 	view: scrollview,
-	pageSize: 50,
-    multiSort: true,
-    remoteSort: true,
-    remoteFilter: true,
+	multiSort: true,
+	remoteSort: true,
+	pageSize: 25,
 	selectOnNavigation: false,
 	onDblClickRow: function(idx,row) {insertInscripcion('#new_inscripcion-datagrid'); }
 });
@@ -174,21 +172,16 @@ $('#new_inscripcion-datagrid').datagrid({
 function newInscripcion_onOpenSuccess() {
     // retrieve info on jornadas
 	var jornadas = $('#inscripciones-jornadas').datagrid('getData')['rows'];
-	// default dog name from search text string
-	var def = $('#inscripciones-datagrid-search').val();
-	var val=0;
 
 	// clear form
 	$('#new_inscripcion-form').form('clear');
 	
 	// setup initial search string, prueba ID and Operation
-	if (!strpos(def,"Buscar")) $('new_inscripcion-datagrid-search').val(def);// fill perro Name
+	$('#inscripciones-datagrid-search').val('---- Buscar ----');
 	$('#new_inscripcion-Operation').val('insert');
 	$('#new_inscripcion-Prueba').val(workingData.prueba);
 
-	// reload datagrid with evaluated search value
-	reloadWithSearch('new_inscripcion-datagrid','noinscritos');
-	
+	var val=0;
     // mark checked as default every named jornadas
     var j1=$('#new_inscripcion-J1');
     var j2=$('#new_inscripcion-J2');
