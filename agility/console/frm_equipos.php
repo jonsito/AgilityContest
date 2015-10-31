@@ -44,7 +44,7 @@ $config =Config::getInstance();
 		<a id="team_datagrid-printBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'"
 			onclick="printTeams('#team_datagrid')"><?php _e('Print');?></a>
    		<a id="team_datagrid-reloadBtn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-brush'"
-   			onclick="$('#team_datagrid-search').val('---- Buscar ----');reloadWithSearch('#team_datagrid','select',true);"><?php _e('Clear'); ?></a>
+   			onclick="reloadWithSearch('#team_datagrid','select',true);"><?php _e('Clear'); ?></a>
    	</span>
 </div>
 

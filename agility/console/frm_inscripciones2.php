@@ -102,7 +102,6 @@ $config =Config::getInstance();
    			data-options="iconCls:'icon-brush'"
    			onclick="
    	        	// clear selection and reload table
-   	    		$('#inscripciones-datagrid-search').val('---- Buscar ----');
 				reloadWithSearch('#inscripciones-datagrid','inscritos',true);
    	       " ><?php _e('Clear'); ?></a>
    	</span>

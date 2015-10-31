@@ -200,13 +200,17 @@ class Inscripciones extends DBObject {
 		if ($search!=='') $extra=" AND ( (PerroGuiaClub.Nombre LIKE '%$search%')
 		OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) ) ";
 
-		$page=http_request("page","i",1);
-		$rows=http_request("rows","i",50);
+		$page=http_request("page","i",0);
+		$rows=http_request("rows","i",0);
 		$limit="";
-		if ($page!=0 && $rows!=0 ) {
+		if ($page>0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;
 			$limit=" ".$offset.",".$rows;
 		};
+		if ($page<0) {
+			$this->myLogger->error("noinscritos::select(): Requested negative page: $page");
+			return array("total"=>0,"rows"=>array());
+		}
 		$order=getOrderString( 
 			http_request("sort","s",""),
 			http_request("order","s",""),

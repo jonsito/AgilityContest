@@ -39,7 +39,6 @@ $config =Config::getInstance();
 			data-options="iconCls:'icon-brush'"
 			onclick="
 	        	// clear selection and reload table
-	    		$('#new_inscripcion-datagrid-search').val('---- Buscar ----');
 				$('#new_inscripcion-datagrid').datagrid('unselectAll');
 				reloadWithSearch('#new_inscripcion-datagrid','noinscritos',true);
 	            "
@@ -136,8 +135,8 @@ $('#new_inscripcion-datagrid').datagrid({
 	queryParams: {
 		Operation: 'noinscritos',
 		Prueba: workingData.prueba,
-        Federation: workingData.federation,
-		where: ($('new_inscripcion-datagrid-search').val()==='---- Buscar ----')?'':$('new_inscripcion-datagrid-search').val()
+        Federation: workingData.federation //,
+		//where: ($('new_inscripcion-datagrid-search').val()==='---- Buscar ----')?'':$('new_inscripcion-datagrid-search').val()
 	},
 	method: 'get',
 	mode: 'remote',
@@ -164,7 +163,6 @@ $('#new_inscripcion-datagrid').datagrid({
 	multiSort: true,
 	remoteSort: true,
 	pageSize: 25,
-	selectOnNavigation: false,
 	onDblClickRow: function(idx,row) {insertInscripcion('#new_inscripcion-datagrid'); }
 });
 
@@ -177,7 +175,7 @@ function newInscripcion_onOpenSuccess() {
 	$('#new_inscripcion-form').form('clear');
 	
 	// setup initial search string, prueba ID and Operation
-	$('#inscripciones-datagrid-search').val('---- Buscar ----');
+	// $('#inscripciones-datagrid-search').val('---- Buscar ----');
 	$('#new_inscripcion-Operation').val('insert');
 	$('#new_inscripcion-Prueba').val(workingData.prueba);
 

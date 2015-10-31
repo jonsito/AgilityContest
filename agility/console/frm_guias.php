@@ -46,7 +46,6 @@ $config =Config::getInstance();
    			data-options="iconCls:'icon-brush'"
    			onClick="
    	        	// clear selection and reload table
-   	    		$('#guias-datagrid-search').val('---- Buscar ----');
    				reloadWithSearch('#guias-datagrid','select',true);
    				"
    			><?php _e('Clear'); ?></a>

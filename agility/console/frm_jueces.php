@@ -46,7 +46,6 @@ $config =Config::getInstance();
    			data-options="iconCls:'icon-brush'"
    			onclick="
    	        	// clear selection and reload table
-   	    		$('#jueces-datagrid-search').val('---- Buscar ----');
 				reloadWithSearch('#jueces-datagrid','select',true);
 				"
    			><?php _e('Clear'); ?></a>
