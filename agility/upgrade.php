@@ -200,14 +200,14 @@ Class AgilityContestUpdater {
             set_time_limit(ini_get('max_execution_time'));
             // get file name and their directory
             $file_name = str_replace("AgilityContest-master/","",zip_entry_name($aF));
-            $size = zip_entry_filesize($aF);
+            $file_size = zip_entry_filesize($aF);
             $dir_name = dirname($file_name);
             // skip directories in zip file
             if ( substr($file_name,-1,1) == '/') continue; // not a file
             if ( strstr($file_name,"jquery-easyui")) {
                 // only update library files on file change
-                if (file_exist($root.$file_name)) {
-                    if (file_size($root.$file_name)==$size) continue; // same size
+                if (file_exists($root.$file_name)) {
+                    if (filesize($root.$file_name)==$file_size) continue; // same size
                 }
             } // skip easyui related files
             //Make the directory if we need to...
@@ -316,7 +316,7 @@ echo '
         <script type="text/javascript" charset="utf-8">
             jQuery.fn.putCursorAtEnd = function() {
                 return this.each(function() {
-                    $(this).focus()
+                    $(this).focus();
                     // If this function exists...
                     if (this.setSelectionRange) {
                         // ... then use it (Doesnt work in IE)
