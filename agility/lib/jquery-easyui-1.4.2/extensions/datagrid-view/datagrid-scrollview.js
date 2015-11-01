@@ -148,7 +148,7 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 					cc.push('<input type="checkbox" name="' + field + '" value="' + (value!=undefined ? value : '') + '">');
 				} else if (col.expander) {
 					//cc.push('<div style="text-align:center;width:16px;height:16px;">');
-					cc.push('<span class="datagrid-row-expander datagrid-row-expand" style="display:inline-block;width:16px;height:16px;cursor:pointer;" ></span>');
+					cc.push('<span class="datagrid-row-expander datagrid-row-expand" style="display:inline-block;width:16px;height:16px;cursor:pointer;" />');
 					//cc.push('</div>');
 				} else if (col.formatter){
 					cc.push(col.formatter(value, rowData, rowIndex));
@@ -346,7 +346,8 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 		var state = $.data(target, 'datagrid');
 		var opts = state.options;
 		var index = (page-1)*opts.pageSize;
-		
+
+		if (index < 0){return}
 		if (opts.onBeforeFetch.call(target, page) == false){return}
 		
 		var rows = state.data.firstRows.slice(index, index+opts.pageSize);
@@ -442,29 +443,34 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 });
 
 $.fn.datagrid.methods.baseScrollTo = $.fn.datagrid.methods.scrollTo;
+$.fn.datagrid.methods.baseGotoPage = $.fn.datagrid.methods.gotoPage;
 $.extend($.fn.datagrid.methods, {
 	gotoPage: function(jq, param){
 		return jq.each(function(){
 			var target = this;
 			var opts = $(target).datagrid('options');
-			var page, callback;
-			if (typeof param == 'object'){
-				page = param.page;
-				callback = param.callback;
-			} else {
-				page = param;
-			}
-			opts.view.getRows.call(opts.view, target, page, function(rows){
-				this.index = (page-1)*opts.pageSize;
-				this.rows = rows;
-				this.r1 = rows;
-				this.r2 = [];
-				this.populate.call(this, target);
-				$(target).data('datagrid').dc.body2.scrollTop(this.index * opts.rowHeight);
-				if (callback){
-					callback.call(target, page);
+			if (opts.view.type == 'scrollview'){
+				var page, callback;
+				if (typeof param == 'object'){
+					page = param.page;
+					callback = param.callback;
+				} else {
+					page = param;
 				}
-			});
+				opts.view.getRows.call(opts.view, target, page, function(rows){
+					this.index = (page-1)*opts.pageSize;
+					this.rows = rows;
+					this.r1 = rows;
+					this.r2 = [];
+					this.populate.call(this, target);
+					$(target).data('datagrid').dc.body2.scrollTop(this.index * opts.rowHeight);
+					if (callback){
+						callback.call(target, page);
+					}
+				});
+			} else {
+				$(target).datagrid('baseGotoPage', param);
+			}
 		});
 	},
 	scrollTo: function(jq, param){
