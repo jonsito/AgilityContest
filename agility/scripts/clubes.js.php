@@ -123,7 +123,11 @@ function editClub(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
     	$.messager.alert("<?php _e('Edit Error');?>:",'<?php _e("There is no club selected"); ?>',"warning");
-    	return; // no way to know which dog is selected
+    	return; // no way to know which club is selected
+    }
+    if (workingData.federation>4) {
+        $.messager.alert("<?php _e('Edit Error');?>:",'<?php _e("Country information is not editable"); ?>',"error");
+        return; // do not allow editing country information
     }
     row.Operation='update';
     // use date.getTime to bypass cache
@@ -146,11 +150,15 @@ function saveClub(){
     var frm = $('#clubes-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
     // evaluate federation checkboxes
-    var $fed=0;
-    if ( $('#clubes-RSCE').is(':checked') ) $fed |=1;
-    if ( $('#clubes-RFEC').is(':checked') ) $fed |=2;
-    if ( $('#clubes-UCA').is(':checked') ) $fed |=4;
-    $('#clubes-Federations').val($fed);
+    var fed=0;
+    if (workingData.federation>4) {
+        fed=992; // all international modes set
+    } else {
+        if ( $('#clubes-RSCE').is(':checked') ) fed |=1;
+        if ( $('#clubes-RFEC').is(':checked') ) fed |=2;
+        if ( $('#clubes-UCA').is(':checked') ) fed |=4;
+    }
+    $('#clubes-Federations').val(fed);
     $.ajax({
         type: 'GET',
         url: '/agility/server/database/clubFunctions.php',
@@ -185,7 +193,12 @@ function deleteClub(dg){
     	$.messager.alert("<?php _e('Delete Error');?>:",'<?php _e("This entry cannot be erased"); ?>',"error");
     	return; // cannot delete default club
     }
-    $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Clear club');?> "'+row.Nombre+'" <?php _e('from database. Sure?');?>',function(r){
+    // take care on International mode
+    if (workingData.federation>4) {
+        $.messager.alert("<?php _e('Delete Error');?>:",'<?php _e("Countries cannot be deleted"); ?>',"error");
+        return; // cannot delete countries
+    }
+    $.messager.confirm('<?php _e('Confirm'); ?>',"<?php _e('Clear club');?>"+' "'+row.Nombre+'" <?php _e('from database. Sure?');?>',function(r){
         if (!r) return;
         $.get('/agility/server/database/clubFunctions.php',{Operation:'delete',ID:row.ID},function(result){
             if (result.success){

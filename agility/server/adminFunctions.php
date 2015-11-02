@@ -263,7 +263,7 @@ class Admin extends DBObject {
         $this->query("DELETE FROM Jueces WHERE ID>1");
         $this->query("DELETE FROM Perros WHERE ID>1");
         $this->query("DELETE FROM Guias WHERE ID>1");
-        $this->query("DELETE FROM Clubes WHERE ID>1");
+        $this->query("DELETE FROM Clubes WHERE ID>1 AND Federations < 992"); // do not delete countries!!
         // do not delete users nor sessions
         $this->query("DELETE FROM Eventos");
 		return "";
