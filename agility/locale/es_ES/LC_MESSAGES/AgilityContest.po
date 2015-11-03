@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-11-02 08:50+0100\n"
-"PO-Revision-Date: 2015-11-02 08:50+0100\n"
+"POT-Creation-Date: 2015-11-03 13:15+0100\n"
+"PO-Revision-Date: 2015-11-03 13:15+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -2065,9 +2065,8 @@ msgid "Session init"
 msgstr "Inicio de sesi&oacute;n"
 
 #: console/frm_login.php:107 console/dialogs/dlg_pruebas.inc:159
-#, fuzzy
 msgid "ID"
-msgstr "Num. LOE/RRC"
+msgstr "ID"
 
 #: console/frm_login.php:116
 msgid "Start session with provided user privileges"
@@ -2705,8 +2704,8 @@ msgid ""
 "This operation <strong>WILL ERASE <em>EVERY</em> CURRENT DATA</strong>. "
 "before trying restore<br/>"
 msgstr ""
-"Esta operaci&oacute;n <strong>BORRARRA <em>TODOS</em> LOS DATOS</"
-"strong>antes de restaurar<br/>"
+"Esta operaci&oacute;n <strong>BORRARA <em>TODOS</em> LOS DATOS </"
+"strong>antes de restaurar <br/>"
 
 #: scripts/admin.js.php:87 scripts/admin.js.php:165 scripts/admin.js.php:208
 msgid "Be aware of making a backup copy before continue<br/><br/>"
@@ -2975,9 +2974,10 @@ msgid "getLicenseInfo(): cannot retrieve License info from server"
 msgstr "getLicenseInfo() no se puede leer la informaci&oacute;n de registro"
 
 #: scripts/common.js.php:217
-#, fuzzy
 msgid "getFederationsInfo(): cannot retrieve federations info from server"
-msgstr "getLicenseInfo() no se puede leer la informaci&oacute;n de registro"
+msgstr ""
+"getFederationsInfo() no se puede obtener la lista de federaciones del "
+"servidor"
 
 #: scripts/competicion.js.php:43 server/pdf/print_clasificacion_eq4.php:309
 #: server/pdf/print_clasificacion_eq4.php:317

@@ -17,10 +17,17 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+/**
+ * This script is executed at every start of console app, to make sure that database is consistent with current
+ * application version
+ *
+ */
+
 require_once(__DIR__."/tools.php");
 require_once(__DIR__."/logging.php");
 require_once(__DIR__."/auth/Config.php");
 require_once(__DIR__."/database/classes/DBObject.php");
+require_once(__DIR__."/i18n/Country.php");
 
 define("MINVER","20150522_2300");
 
@@ -147,6 +154,35 @@ class Updater {
         return 0;
     }
 
+    // add country list if not exist
+    function addCountries() {
+        $country="";
+        $lcountry="";
+        $name="";
+        $logo="";
+        // check if countries are already added
+        $str="SELECT count(*) AS Count FROM Clubes WHERE Federations >=992;";
+        $rs=$this->conn->query($str);
+        if (!$rs) throw new Exception ("upgrade::addCountries(select): ".$this->conn->error);
+        $item=$rs->fetch_row();
+        if ($item[0]!=0) return; // already done
+
+        $str="INSERT INTO CLUBES(Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja)
+              VALUES (?,?,'','','-- Sin asignar --',?,'','','','','','','','','',?,992,'',0)";
+        // prepare "prepared statement"
+        $stmt=$this->conn->prepare($str);
+        if (!$stmt) throw new Exception("upgrade::addCountries(prepare) ".$this->conn->error);
+        $res=$stmt->bind_param('ssss',$country,$lcountry,$name,$logo);
+        if (!$res) throw new Exception("upgrade::addCountries(bind) ".$this->conn->error);
+        foreach(Country::$countryList as $key => $val) {
+            $country=$key;
+            $lcountry=$val;
+            $name=$val;
+            $logo="../../server/i18n/$key.png";
+            $stmt->execute();
+        }
+    }
+
     // clear (if any) Application Upgrade request
     function removeUpdateMark() {
         $f=__DIR__."/../../logs/do_upgrade";
@@ -159,6 +195,7 @@ try {
     $upg->removeUpdateMark();
     $upg->updateVersionHistory();
     $upg->updatePerroGuiaClub();
+    $upg->addCountries();
     if ( strcmp($upg->current_version, $upg->last_version) > 0) {
         $upg->addColumnUnlessExists("Mangas","Orden_Equipos","TEXT");
         $upg->addColumnUnlessExists("Resultados","TIntermedio","double","0.0");

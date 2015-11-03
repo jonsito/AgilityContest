@@ -5,7 +5,7 @@
     <file url="file://$PROJECT_DIR$/extras/almozara_dog_festival.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/extras/bare_bones.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/extras/bare_data.sql" dialect="MySQL" />
-    <file url="file://$PROJECT_DIR$/extras/countries_to_clubes.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/extras/countries.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/extras/nacional_rsce.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/extras/regional_caza.sql" dialect="MySQL" />
   </component>

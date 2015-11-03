@@ -57,7 +57,10 @@ $config =Config::getInstance();
 	// datos de la tabla de clubes
 	// - tabla
 	$(function(){
-
+		var w1=15;
+		var w2=5;
+		var hp=false;
+		if (workingData.federation>5) {hp=true;w1=3;w2=17;}
 		$('#clubes-datagrid').datagrid({
 			// propiedades del panel padre asociado
 			fit: true,
@@ -83,11 +86,11 @@ $config =Config::getInstance();
 			remoteSort: true,
 			columns: [[
 				{ field:'ID',			hidden:true},
-				{ field:'Nombre',		width:15, sortable:true,	title: '<?php _e('Name'); ?>'+':'},
+				{ field:'Nombre',		width:w1, sortable:true,	title: '<?php _e('Name'); ?>'+':'},
 				{ field:'Direccion1',	width:15, sortable:true,	title: '<?php _e('Address'); ?>'+' 1:' },
 				{ field:'Direccion2',	width:10, sortable:false,	title: '<?php _e('Address'); ?>'+' 2:' },
-				{ field:'Provincia',	width:7, sortable:false,    title: '<?php _e('State'); ?>' },
-				{ field:'Pais',	        width:5, sortable:false,    align: 'center', title: '<?php _e('Country'); ?>' },
+				{ field:'Provincia',	width:7, sortable:false,    title: '<?php _e('State'); ?>' , hidden:hp},
+				{ field:'Pais',	        width:w2, sortable:false,    align: 'center', title: '<?php _e('Country'); ?>' },
 				{ field:'Contacto1',	width:10, sortable:false,   title: '<?php _e('Contact'); ?>'+' 1' },
 				{ field:'Contacto2',	width:10, sortable:true,    title: '<?php _e('Contact'); ?>'+' 2' },
 				{ field:'Contacto3',	width:10, sortable:true,    title: '<?php _e('Contact'); ?>'+' 3' },
