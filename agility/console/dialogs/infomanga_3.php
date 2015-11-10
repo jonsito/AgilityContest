@@ -1,5 +1,5 @@
 <!-- 
-infomanga_rfec.inc
+infomanga_3.inc
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -59,11 +59,11 @@ $config =Config::getInstance();
 			</td>
 			<td colspan="3">
 				<input type="radio" id="dmanga_Recorrido_1" name="Recorrido" value="1" onClick="dmanga_setRecorridos();"/>
-				<label for="dmanga_Recorrido_1">Large+Medium / Small+Tiny</label>
+				<label for="dmanga_Recorrido_1">Std / Mini-Midi</label>
 			</td>
 			<td colspan="3">
 				<input type="radio" id="dmanga_Recorrido_2" name="Recorrido" value="0" onClick="dmanga_setRecorridos();"/>
-				<label for="dmanga_Recorrido_2">Large / Medium / Small / Tiny </label>
+				<label for="dmanga_Recorrido_2">Std / Midi / Mini</label>
 			</td>
 		</tr>
 		<tr>
@@ -77,59 +77,59 @@ $config =Config::getInstance();
 			<td colspan="3"><?php _e('Maximum Course Time'); ?></td>
 		</tr>
 		<tr id="dmanga_LargeRow"> <!-- fila 3: recorrido comun datos standard -->
-			<td id="dmanga_LargeLbl">Large</td>
+			<td id="dmanga_LargeLbl">Standard</td>
 			<td><input type="text" id="dmanga_DistL" name="Dist_L" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<td><input type="text" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<!-- datos para TRS standard -->
 			<td colspan="2"> 
-				<select id="dmanga_TRS_L_Tipo" name="TRS_L_Tipo"
+				<select id="dmanga_TRS_L_Tipo" name="TRS_L_Tipo" 
 					onChange="if(this.value==0) $('#dmanga_TRS_L_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed SCT'); ?></option>
-				<option value="1"><?php _e('Best result'); ?> + </option>
-				<option value="2"><?php _e('3 best average'); ?> + </option>
+				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
+				<option value="1"><?php _e('Best result');?> + </option>
+				<option value="2"><?php _e('3 best average');?> + </option>
 				</select>
 			</td>
 			<td><input type="text" id="dmanga_TRS_L_Factor" name="TRS_L_Factor" size="4" value="0"/></td>
 			<td>
 				<select id="dmanga_TRS_L_Unit" name="TRS_L_Unit">
-				<option value="s" selected="selected"><?php _e('Secs'); ?>.</option>
+				<option value="s" selected="selected"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
 				</select>
 			</td>
 			<!-- datos para TRM standard -->
 			<td>
-				<select id="dmanga_TRM_L_Tipo" name="TRM_L_Tipo"
+				<select id="dmanga_TRM_L_Tipo" name="TRM_L_Tipo" 
 					onChange="if(this.value==0) $('#dmanga_TRM_L_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed MCT'); ?></option>
-				<option value="1"><?php _e('SCT'); ?> + </option>
+				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
+				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
 			</td>
 			<td><input type="text" id="dmanga_TRM_L_Factor" name="TRM_L_Factor" size="4" value="0"/></td>
 			<td>
 				<select id="dmanga_TRM_L_Unit" name="TRM_L_Unit">
-				<option value="s" selected="selected"><?php _e('Secs'); ?>.</option>
+				<option value="s" selected="selected"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
 				</select>
 			</td>
 		</tr>
 		<tr id="dmanga_MediumRow"> <!-- fila 4: recorrido std / mini+midi datos midi -->
-			<td id="dmanga_MediumLbl">Medium</td>
+			<td id="dmanga_MediumLbl">Midi</td>
 			<td><input type="text" id="dmanga_DistM" name="Dist_M" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<td><input type="text" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<!-- datos para TRS medium -->
 			<td colspan="2"> 
-				<select id="dmanga_TRS_M_Tipo" name="TRS_M_Tipo"
+				<select id="dmanga_TRS_M_Tipo" name="TRS_M_Tipo" 
 					onChange="if(this.value==0) $('#dmanga_TRS_M_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed SCT'); ?></option>
-				<option value="1"><?php _e('Best result'); ?> + </option>
-				<option value="2"><?php _e('3 best average'); ?> + </option>
-				<option value="3"><?php _e('SCT Standard'); ?> + </option>
+				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
+				<option value="1"><?php _e('Best result');?> + </option>
+				<option value="2"><?php _e('3 best average');?> + </option>
+				<option value="3"><?php _e('SCT Standard');?> + </option>
 				</select>
 			</td>
 			<td><input type="text" id="dmanga_TRS_M_Factor" name="TRS_M_Factor" size="4" value="0"/></td>
 			<td>
 				<select id="dmanga_TRS_M_Unit" name="TRS_M_Unit">
-				<option value="s"><?php _e('Secs'); ?>.</option>
+				<option value="s"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
 				</select>
 			</td>
@@ -137,37 +137,37 @@ $config =Config::getInstance();
 			<td>
 				<select id="dmanga_TRM_M_Tipo" name="TRM_M_Tipo"
 					onChange="if(this.value==0) $('#dmanga_TRM_M_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed MCT'); ?></option>
-				<option value="1"><?php _e('SCT'); ?> + </option>
+				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
+				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
 			</td>
 			<td><input type="text" id="dmanga_TRM_M_Factor" name="TRM_M_Factor" size="4" value="0"/></td>
 			<td>
 				<select id="dmanga_TRM_M_Unit" name="TRM_M_Unit">
-				<option value="s" selected="selected"><?php _e('Secs'); ?>.</option>
+				<option value="s" selected="selected"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
 				</select>
 			</td>		
 		</tr>
 		<tr id="dmanga_SmallRow"> <!-- fila 5: recorrido std / mini / midi + datos mini -->
-			<td id="dmanga_SmallLbl">Small</td>
+			<td id="dmanga_SmallLbl">Mini</td>
 			<td><input type="text" id="dmanga_DistS" name="Dist_S" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<td><input type="text" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<!-- datos para TRS small -->
 			<td colspan="2"> 
 				<select id="dmanga_TRS_S_Tipo" name="TRS_S_Tipo"
 					onChange="if(this.value==0) $('#dmanga_TRS_S_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed SCT'); ?></option>
-				<option value="1"><?php _e('Best result'); ?> + </option>
-				<option value="2"><?php _e('3 best average'); ?> + </option>
-				<option value="3"><?php _e('SCT Standard'); ?> + </option>
-				<option value="4"><?php _e('SCT Medium'); ?> + </option>
+				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
+				<option value="1"><?php _e('Best result');?> + </option>
+				<option value="2"><?php _e('3 best average');?> + </option>
+				<option value="3"><?php _e('SCT Standard');?> + </option>
+				<option value="4"><?php _e('SCT Medium');?> + </option>
 				</select>
 			</td>
 			<td><input type="text" id="dmanga_TRS_S_Factor" name="TRS_S_Factor" size="4" value="0"/></td>
 			<td>
 				<select id="dmanga_TRS_S_Unit" name="TRS_S_Unit">
-				<option value="s"><?php _e('Secs'); ?>.</option>
+				<option value="s"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
 				</select>
 			</td>
@@ -175,59 +175,20 @@ $config =Config::getInstance();
 			<td>
 				<select id="dmanga_TRM_S_Tipo" name="TRM_S_Tipo"
 					onChange="if(this.value==0) $('#dmanga_TRM_S_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed MCT'); ?></option>
-				<option value="1"><?php _e('SCT'); ?> + </option>
+				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
+				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
 			</td>
 			<td><input type="text" id="dmanga_TRM_S_Factor" name="TRM_S_Factor" size="4" value="0"/></td>
 			<td>
 				<select id="dmanga_TRM_S_Unit" name="TRM_S_Unit">
-				<option value="s" selected="selected"><?php _e('Secs'); ?>.</option>
+				<option value="s" selected="selected"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
 				</select>
 			</td>
 		</tr>
-		<tr id="dmanga_TinyRow"> <!-- fila 6: recorrido std / mini / midi / tiny datos tiny -->
-			<td id="dmanga_TinyLbl">Tiny</td>
-			<td><input type="text" id="dmanga_DistT" name="Dist_T" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
-			<td><input type="text" id="dmanga_ObstT" name="Obst_T" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
-			<!-- datos para TRS small -->
-			<td colspan="2"> 
-				<select id="dmanga_TRS_T_Tipo" name="TRS_T_Tipo"
-					onChange="if(this.value==0) $('#dmanga_TRS_T_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed SCT'); ?></option>
-				<option value="1"><?php _e('Best result'); ?> + </option>
-				<option value="2"><?php _e('3 best average'); ?> + </option>
-				<option value="3"><?php _e('SCT Standard'); ?> + </option>
-				<option value="4"><?php _e('SCT Medium'); ?> + </option>
-				<option value="5"><?php _e('SCT Small'); ?> + </option>
-				</select>
-			</td>
-			<td><input type="text" id="dmanga_TRS_T_Factor" name="TRS_T_Factor" size="4" value="0"/></td>
-			<td>
-				<select id="dmanga_TRS_T_Unit" name="TRS_T_Unit">
-				<option value="s"><?php _e('Secs'); ?>.</option>
-				<option value="%">%</option>
-				</select>
-			</td>
-			<!-- datos para TRM tiny -->
-			<td>
-				<select id="dmanga_TRM_T_Tipo" name="TRM_T_Tipo"
-					onChange="if(this.value==0) $('#dmanga_TRM_T_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed MCT'); ?></option>
-				<option value="1"><?php _e('SCT'); ?> + </option>
-				</select>
-			</td>
-			<td><input type="text" id="dmanga_TRM_T_Factor" name="TRM_T_Factor" size="4" value="0"/></td>
-			<td>
-				<select id="dmanga_TRM_T_Unit" name="TRM_T_Unit">
-				<option value="s" selected="selected"><?php _e('Secs'); ?>.</option>
-				<option value="%">%</option>
-				</select>
-			</td>
-		</tr>
-		<tr> <!-- fila 7: observaciones -->
-			<td colspan="2"><?php _e('Comments'); ?></td>
+		<tr> <!-- fila 6: observaciones -->
+			<td colspan="2">Observaciones</td>
 			<td colspan="8"><input type="text" id="dmanga_Observaciones" name="Observaciones" size="75" value=""/></td>
 		</tr>
 		<tr> <!-- fila 7: botones reset y save -->
@@ -235,7 +196,7 @@ $config =Config::getInstance();
                 <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-print'"
                    id="dmanga_Templates" onclick="print_commonDesarrollo(2);"><?php _e('Templates'); ?></a>
             </td>
-			<td colspan="4">&nbsp;</td>
+            <td colspan="4">&nbsp;</td>
 			<td>
 				<a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-reload'" 
 					id="dmanga_Restaurar" onclick="reload_manga(workingData.manga);"><?php _e('Restore'); ?></a>
@@ -305,7 +266,7 @@ $('#competicion-formdatosmanga').form({
 addTooltip($('#dmanga_Juez1').combogrid('textbox'),'<?php _e("Main judge data"); ?>');
 addTooltip($('#dmanga_Juez2').combogrid('textbox'),'<?php _e("Auxiliar/Practice judge data"); ?>');
 addTooltip($('#dmanga_Recorrido_0'),'<?php _e("Same course for every categories"); ?>');
-addTooltip($('#dmanga_Recorrido_1'),'<?php _e("Separate courses Standard/Medium and Small/Tiny"); ?>');
+addTooltip($('#dmanga_Recorrido_1'),'<?php _e("Separate courses Standard and Midi/mini"); ?>');
 addTooltip($('#dmanga_Recorrido_2'),'<?php _e("Independent courses for all categories"); ?>');
 addTooltip($('#dmanga_Restaurar').linkbutton(),'<?php _e("Restore original round info from database"); ?>');
 addTooltip($('#dmanga_Templates').linkbutton(),'<?php _e("Print template sheet for evaluate SCT"); ?>');

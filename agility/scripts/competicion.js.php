@@ -554,6 +554,19 @@ function dmanga_setRecorridos_uca() {
 	}
 }
 
+function dmanga_setRecorridos() {
+    var fed=parseInt(workingData.federation);
+    // TODO: instead of switch invoke specific routine federation-dependent my call to function pointer
+    switch (fed) {
+        case 0: dmanga_setRecorridos_rsce(); break; //rsce
+        case 1: dmanga_setRecorridos_rfec(); break; // rfec
+        case 2: dmanga_setRecorridos_uca(); break; // uca
+        case 8: dmanga_setRecorridos_rsce(); break; // intl 3 heights
+        case 9: dmanga_setRecorridos_rfec(); break; // intl 4 heights
+        default: alert ("invalid federation: "+fed);
+    }
+}
+
 function dmanga_shareJuez() {
     $('#dmanga_Operation').val('sharejuez');
     $('#dmanga_Jornada').val(workingData.jornada);

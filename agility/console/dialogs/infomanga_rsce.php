@@ -52,17 +52,17 @@ $config =Config::getInstance();
 			<td colspan="10">&nbsp;</td>
 		</tr>
 		<tr> <!-- fila 1 tipos de recorrido -->
-			<td>Recorridos: </td>
+			<td><?php _e('Courses'); ?>: </td>
 			<td colspan="3">
-				<input type="radio" id="dmanga_Recorrido_0" name="Recorrido" value="2" onClick="dmanga_setRecorridos_rsce();"/>
+				<input type="radio" id="dmanga_Recorrido_0" name="Recorrido" value="2" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_0"><?php _e('Common course'); ?></label>
 			</td>
 			<td colspan="3">
-				<input type="radio" id="dmanga_Recorrido_1" name="Recorrido" value="1" onClick="dmanga_setRecorridos_rsce();"/>
+				<input type="radio" id="dmanga_Recorrido_1" name="Recorrido" value="1" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_1">Std / Mini-Midi</label>
 			</td>
 			<td colspan="3">
-				<input type="radio" id="dmanga_Recorrido_2" name="Recorrido" value="0" onClick="dmanga_setRecorridos_rsce();"/>
+				<input type="radio" id="dmanga_Recorrido_2" name="Recorrido" value="0" onClick="dmanga_setRecorridos();"/>
 				<label for="dmanga_Recorrido_2">Std / Midi / Mini</label>
 			</td>
 		</tr>
@@ -78,8 +78,8 @@ $config =Config::getInstance();
 		</tr>
 		<tr id="dmanga_LargeRow"> <!-- fila 3: recorrido comun datos standard -->
 			<td id="dmanga_LargeLbl">Standard</td>
-			<td><input type="text" id="dmanga_DistL" name="Dist_L" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
-			<td><input type="text" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
+			<td><input type="text" id="dmanga_DistL" name="Dist_L" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_ObstL" name="Obst_L" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<!-- datos para TRS standard -->
 			<td colspan="2"> 
 				<select id="dmanga_TRS_L_Tipo" name="TRS_L_Tipo" 
@@ -100,7 +100,7 @@ $config =Config::getInstance();
 			<td>
 				<select id="dmanga_TRM_L_Tipo" name="TRM_L_Tipo" 
 					onChange="if(this.value==0) $('#dmanga_TRM_L_Unit').val('s');">
-				<option value="0" selected="selected">TRM Fijo</option>
+				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
 				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
 			</td>
@@ -114,8 +114,8 @@ $config =Config::getInstance();
 		</tr>
 		<tr id="dmanga_MediumRow"> <!-- fila 4: recorrido std / mini+midi datos midi -->
 			<td id="dmanga_MediumLbl">Midi</td>
-			<td><input type="text" id="dmanga_DistM" name="Dist_M" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
-			<td><input type="text" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
+			<td><input type="text" id="dmanga_DistM" name="Dist_M" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_ObstM" name="Obst_M" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<!-- datos para TRS medium -->
 			<td colspan="2"> 
 				<select id="dmanga_TRS_M_Tipo" name="TRS_M_Tipo" 
@@ -137,7 +137,7 @@ $config =Config::getInstance();
 			<td>
 				<select id="dmanga_TRM_M_Tipo" name="TRM_M_Tipo"
 					onChange="if(this.value==0) $('#dmanga_TRM_M_Unit').val('s');">
-				<option value="0" selected="selected">TRM Fijo</option>
+				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
 				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
 			</td>
@@ -151,8 +151,8 @@ $config =Config::getInstance();
 		</tr>
 		<tr id="dmanga_SmallRow"> <!-- fila 5: recorrido std / mini / midi + datos mini -->
 			<td id="dmanga_SmallLbl">Mini</td>
-			<td><input type="text" id="dmanga_DistS" name="Dist_S" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
-			<td><input type="text" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="dmanga_setRecorridos_rsce();"/></td>
+			<td><input type="text" id="dmanga_DistS" name="Dist_S" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
+			<td><input type="text" id="dmanga_ObstS" name="Obst_S" size="4" value="0" onChange="dmanga_setRecorridos();"/></td>
 			<!-- datos para TRS small -->
 			<td colspan="2"> 
 				<select id="dmanga_TRS_S_Tipo" name="TRS_S_Tipo"
@@ -175,7 +175,7 @@ $config =Config::getInstance();
 			<td>
 				<select id="dmanga_TRM_S_Tipo" name="TRM_S_Tipo"
 					onChange="if(this.value==0) $('#dmanga_TRM_S_Unit').val('s');">
-				<option value="0" selected="selected">TRM Fijo</option>
+				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
 				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
 			</td>
@@ -216,7 +216,11 @@ $('#dmanga_Juez1').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/juezFunctions.php?Operation=enumerate&Federation=0',
+	url: '/agility/server/database/juezFunctions.php',
+	queryParams: {
+		Operation: 'enumerate',
+		Federation: workingData.federation
+	},
 	method: 'get',
 	mode: 'remote',
 	required: false,
@@ -235,7 +239,11 @@ $('#dmanga_Juez2').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/juezFunctions.php?Operation=enumerate&Federation=0',
+	url: '/agility/server/database/juezFunctions.php',
+	queryParams: {
+		Operation: 'enumerate',
+		Federation: workingData.federation
+	},
 	method: 'get',
 	mode: 'remote',
 	required: false,
@@ -250,11 +258,10 @@ $('#dmanga_Juez2').combogrid({
 });
 
 $('#competicion-formdatosmanga').form({
-	onLoadSuccess: function(data) { dmanga_setRecorridos_rsce(); },
+	onLoadSuccess: function(data) { dmanga_setRecorridos(); },
 	onLoadError: function() { alert("<?php _e('Error loading round information'); ?>"); }
 });
 
-//tooltips
 //tooltips
 addTooltip($('#dmanga_Juez1').combogrid('textbox'),'<?php _e("Main judge data"); ?>');
 addTooltip($('#dmanga_Juez2').combogrid('textbox'),'<?php _e("Auxiliar/Practice judge data"); ?>');

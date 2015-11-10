@@ -23,6 +23,7 @@ class Federations {
         'LongName' => '',
         'Logo'     => '',
         'ParentLogo'   => '',
+        'Heights' => 4,
         'Grados'    => array (
             '-' => 'Sin especificar',
             'Baja' => 'Baja temporal',

@@ -8,6 +8,7 @@ class RFEC extends Federations {
             'LongName' => 'Real Federacion Española de Caza',
             'Logo'     => '/agility/modules/rfec/rfec.png',
             'ParentLogo'   => '/agility/modules/rfec/csd.png',
+            'Heights' => 4,
             'Grados'    => array (
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja temporal',

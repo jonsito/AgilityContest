@@ -49,13 +49,6 @@ $config =Config::getInstance();
        		<div class="fitem">
        	   		<label for="Federation"><?php _e('Federation'); ?>:</label>
 				<select id="login-Federation" name="Federation" style="width:200px"></select>
-				<!--
-       	   		<select id="login-Federation" name="Federation" onChange="setFederation(this.value);">
-       	   			<option value="0">Real Sociedad Canina de Espa&ntilde;a (RSCE)</option>
-       	   			<option value="1">Real Federaci&oacute;n Espa&ntilde;ola de Caza (RFEC)</option>
-       	   			<option value="2">Uni&oacute;n de Clubes de Agility (UCA)</option>
-       	   		</select>
-   	   			-->
        		</div>
 		</form>
 	</div>

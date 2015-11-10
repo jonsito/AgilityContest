@@ -1,5 +1,5 @@
 <!-- 
-infomanga_rfec.inc
+infomanga_4.inc
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -84,15 +84,15 @@ $config =Config::getInstance();
 			<td colspan="2"> 
 				<select id="dmanga_TRS_L_Tipo" name="TRS_L_Tipo"
 					onChange="if(this.value==0) $('#dmanga_TRS_L_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed SCT'); ?></option>
-				<option value="1"><?php _e('Best result'); ?> + </option>
-				<option value="2"><?php _e('3 best average'); ?> + </option>
+				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
+				<option value="1"><?php _e('Best result');?> + </option>
+				<option value="2"><?php _e('3 best average');?> + </option>
 				</select>
 			</td>
 			<td><input type="text" id="dmanga_TRS_L_Factor" name="TRS_L_Factor" size="4" value="0"/></td>
 			<td>
 				<select id="dmanga_TRS_L_Unit" name="TRS_L_Unit">
-				<option value="s" selected="selected"><?php _e('Secs'); ?>.</option>
+				<option value="s" selected="selected"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
 				</select>
 			</td>
@@ -100,14 +100,14 @@ $config =Config::getInstance();
 			<td>
 				<select id="dmanga_TRM_L_Tipo" name="TRM_L_Tipo"
 					onChange="if(this.value==0) $('#dmanga_TRM_L_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed MCT'); ?></option>
-				<option value="1"><?php _e('SCT'); ?> + </option>
+				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
+				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
 			</td>
 			<td><input type="text" id="dmanga_TRM_L_Factor" name="TRM_L_Factor" size="4" value="0"/></td>
 			<td>
 				<select id="dmanga_TRM_L_Unit" name="TRM_L_Unit">
-				<option value="s" selected="selected"><?php _e('Secs'); ?>.</option>
+				<option value="s" selected="selected"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
 				</select>
 			</td>
@@ -120,16 +120,16 @@ $config =Config::getInstance();
 			<td colspan="2"> 
 				<select id="dmanga_TRS_M_Tipo" name="TRS_M_Tipo"
 					onChange="if(this.value==0) $('#dmanga_TRS_M_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed SCT'); ?></option>
-				<option value="1"><?php _e('Best result'); ?> + </option>
-				<option value="2"><?php _e('3 best average'); ?> + </option>
-				<option value="3"><?php _e('SCT Standard'); ?> + </option>
+				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
+				<option value="1"><?php _e('Best result');?> + </option>
+				<option value="2"><?php _e('3 best average');?> + </option>
+				<option value="3"><?php _e('SCT Standard');?> + </option>
 				</select>
 			</td>
 			<td><input type="text" id="dmanga_TRS_M_Factor" name="TRS_M_Factor" size="4" value="0"/></td>
 			<td>
 				<select id="dmanga_TRS_M_Unit" name="TRS_M_Unit">
-				<option value="s"><?php _e('Secs'); ?>.</option>
+				<option value="s"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
 				</select>
 			</td>
@@ -137,14 +137,14 @@ $config =Config::getInstance();
 			<td>
 				<select id="dmanga_TRM_M_Tipo" name="TRM_M_Tipo"
 					onChange="if(this.value==0) $('#dmanga_TRM_M_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed MCT'); ?></option>
-				<option value="1"><?php _e('SCT'); ?> + </option>
+				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
+				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
 			</td>
 			<td><input type="text" id="dmanga_TRM_M_Factor" name="TRM_M_Factor" size="4" value="0"/></td>
 			<td>
 				<select id="dmanga_TRM_M_Unit" name="TRM_M_Unit">
-				<option value="s" selected="selected"><?php _e('Secs'); ?>.</option>
+				<option value="s" selected="selected"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
 				</select>
 			</td>		
@@ -157,17 +157,17 @@ $config =Config::getInstance();
 			<td colspan="2"> 
 				<select id="dmanga_TRS_S_Tipo" name="TRS_S_Tipo"
 					onChange="if(this.value==0) $('#dmanga_TRS_S_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed SCT'); ?></option>
-				<option value="1"><?php _e('Best result'); ?> + </option>
-				<option value="2"><?php _e('3 best average'); ?> + </option>
-				<option value="3"><?php _e('SCT Standard'); ?> + </option>
-				<option value="4"><?php _e('SCT Medium'); ?> + </option>
+				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
+				<option value="1"><?php _e('Best result');?> + </option>
+				<option value="2"><?php _e('3 best average');?> + </option>
+				<option value="3"><?php _e('SCT Standard');?> + </option>
+				<option value="4"><?php _e('SCT Medium');?> + </option>
 				</select>
 			</td>
 			<td><input type="text" id="dmanga_TRS_S_Factor" name="TRS_S_Factor" size="4" value="0"/></td>
 			<td>
 				<select id="dmanga_TRS_S_Unit" name="TRS_S_Unit">
-				<option value="s"><?php _e('Secs'); ?>.</option>
+				<option value="s"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
 				</select>
 			</td>
@@ -175,14 +175,14 @@ $config =Config::getInstance();
 			<td>
 				<select id="dmanga_TRM_S_Tipo" name="TRM_S_Tipo"
 					onChange="if(this.value==0) $('#dmanga_TRM_S_Unit').val('s');">
-				<option value="0" selected="selected"><?php _e('Fixed MCT'); ?></option>
-				<option value="1"><?php _e('SCT'); ?> + </option>
+				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
+				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
 			</td>
 			<td><input type="text" id="dmanga_TRM_S_Factor" name="TRM_S_Factor" size="4" value="0"/></td>
 			<td>
 				<select id="dmanga_TRM_S_Unit" name="TRM_S_Unit">
-				<option value="s" selected="selected"><?php _e('Secs'); ?>.</option>
+				<option value="s" selected="selected"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
 				</select>
 			</td>
