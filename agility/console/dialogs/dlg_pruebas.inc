@@ -101,8 +101,13 @@ $config =Config::getInstance();
 	addTooltip($('#pruebas-cancelBtn').linkbutton(),"<?php _e('Cancel operation. Close window'); ?>");
 	addTooltip($('#pruebas-newClubBtn').linkbutton(),'<?php _e("Register new club into database"); ?>');
     $('#pruebas-newClubBtn').bind('click',function() {
-        $('#pruebas-Club').combogrid({ 'setValue' : '' });
-        newClub();
+        newClub(
+            null,
+            $('#pruebas-Club').combogrid('getText'), // default name
+            function() { // what to do on accept button pressed
+                $('#pruebas-Club').combogrid('reset');
+            }
+        );
     });
     
     // campos del formulario

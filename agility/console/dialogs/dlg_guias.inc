@@ -79,7 +79,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		addTooltip($('#guias-cancelBtn').linkbutton(),'<?php _e("Cancel operation. Close window"); ?>');
 		addTooltip($('#guias-newClubBtn').linkbutton(),'<?php _e("Register new club into database"); ?>');
         $('#guias-newClubBtn').bind('click',function() {
-            newClub( 
+            newClub(
+                $('#guias-Parent').val(),
                 $('#guias-Club').combogrid('getText'), // default name
                 function() { // what to do on accept button pressed
                 	$('#guias-Club').combogrid('reset');
