@@ -9,6 +9,7 @@ class RFEC extends Federations {
             'Logo'     => '/agility/modules/rfec/rfec.png',
             'ParentLogo'   => '/agility/modules/rfec/csd.png',
             'Heights' => 4,
+            'Recorridos' => array('Common course',"Standard + Medium / Small + Toy","Separate courses"),
             'Grados'    => array (
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja temporal',

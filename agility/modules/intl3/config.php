@@ -9,6 +9,7 @@ class INTL3 extends Federations {
             'Logo'     => '/agility/modules/intl3/fci.png',
             'ParentLogo'   => '/agility/modules/intl3/fci.png',
             'Heights' => 3,
+            'Recorridos' => array('Common course',"Standard / Midi + Mini","Separate courses"),
             'Grados'    => array (
                 '-' => 'Not especified',
                 'Baja' => 'Temporary out',

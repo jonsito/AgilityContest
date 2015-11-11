@@ -161,7 +161,7 @@ class Updater {
         $name="";
         $logo="";
         // check if countries are already added
-        $str="SELECT count(*) AS Count FROM Clubes WHERE Federations >=992;";
+        $str="SELECT count(*) AS Cuenta FROM Clubes WHERE Federations >=992;";
         $rs=$this->conn->query($str);
         if (!$rs) throw new Exception ("upgrade::addCountries(select): ".$this->conn->error);
         $item=$rs->fetch_row();

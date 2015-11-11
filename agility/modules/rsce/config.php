@@ -9,6 +9,7 @@ class RSCE extends Federations {
             'Logo'     => '/agility/modules/rsce/rsce.png',
             'ParentLogo'   => '/agility/modules/rsce/fci.png',
             'Heights' => 3,
+            'Recorridos' => array('Common course',"Standard / Midi + Mini","Separate courses"),
             'Grados'    => array (
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja temporal',

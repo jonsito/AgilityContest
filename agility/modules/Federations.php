@@ -16,6 +16,11 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/* for poedit */
+$dummy= _('Common course');
+$dummy= _('Separate courses');
+/* for poedit */
+
 class Federations {
     protected $config = array (
         'ID'    => 0,
@@ -23,7 +28,8 @@ class Federations {
         'LongName' => '',
         'Logo'     => '',
         'ParentLogo'   => '',
-        'Heights' => 4,
+        'Heights' => 3,
+        'Recorridos' => array('Common course','Standard / Midi + Mini','Separate courses'),
         'Grados'    => array (
             '-' => 'Sin especificar',
             'Baja' => 'Baja temporal',
@@ -49,30 +55,41 @@ class Federations {
     }
 
     /**
+     * Translate requested recorrido indexto federation dependent i18n'd one
+     * @param {integer} $idx recorrido 0:common 1:mixed 2:separated
+     * @return string resulting i18n'd string
+     */
+    public function getRecorrido($idx) {
+        $a= $this->config['Recorridos'][$idx];
+        syslog(LOG_ERR,"data: $a i18n: "._($a));
+        return _($a);
+    }
+
+    /**
      * Translate requested grade key to federation dependent i18n'd one
      * @param {string} $key grade as stored in database
-     * @return string resulting string
+     * @return string resulting i18n'd string
      */
     public function getGrade($key) {
-        if (!array_key_exists($key,$this->Grados)) return _($key);
-        return _($this->Grados[$key]);
+        if (!array_key_exists($key,$this->config['Grados'])) return _($key);
+        return _($this->config['Grados'][$key]);
     }
 
     /**
      * Translate requested category key to federation dependent i18n'd one
      * @param {string} $key category as stored in database
-     * @return string resulting string
+     * @return string resulting i18n'd string
      */
     public function getCategory($key) {
-        if (!array_key_exists($key,$this->Categorias)) return _($key);
-        return _($this->Categorias[$key]);
+        if (!array_key_exists($key,$this->config['Categorias'])) return _($key);
+        return _($this->config['Categorias'][$key]);
     }
 
     /**
      * Reserve FedID 0..4 to national events; 5..9 to internationals
      * @return bool
      */
-    public function isInternational() { return ( $this->ID >4)?true:false; }
+    public function isInternational() { return ( $this->config['ID'] >4)?true:false; }
 
     /**
      * @return string either i18n'd 'Club' or 'Contry' according federation

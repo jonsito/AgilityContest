@@ -9,6 +9,7 @@ class INTL4 extends Federations {
             'Logo'     => '/agility/modules/intl4/wao.png',
             'ParentLogo'   => '/agility/modules/intl4/wao.png',
             'Heights' => 4,
+            'Recorridos' => array('Common course',"Standard + Medium / Small + Toy","Separate courses"),
             'Grados'    => array (
                 '-' => 'Not especified',
                 'Baja' => 'Retired',

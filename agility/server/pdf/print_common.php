@@ -157,8 +157,8 @@ class PrintCommon extends FPDF {
 		
 		// pintamos el titulo en un recuadro
 		$this->SetFont('Helvetica','B',20); // Helvetica bold 20
-		$this->SetXY($this->centro -50,20);
-		$this->Cell(100,10,$title,1,0,'C',false);// Nombre de la prueba centrado
+		$this->SetXY($this->centro -60,20);
+		$this->Cell(120,10,$title,1,0,'C',false);// Nombre de la prueba centrado
 		$this->Ln(15); // Salto de línea
 		// $this->myLogger->leave();
 	}
