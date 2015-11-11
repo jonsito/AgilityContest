@@ -29,8 +29,9 @@ class Federations {
         'Logo'     => '',
         'ParentLogo'   => '',
         'Heights' => 3,
+        'Grades' => 3,
         'Recorridos' => array('Common course','Standard / Midi + Mini','Separate courses'),
-        'Grados'    => array (
+        'ListaGrados'    => array (
             '-' => 'Sin especificar',
             'Baja' => 'Baja temporal',
             'GI' => 'Grado I',
@@ -40,7 +41,7 @@ class Federations {
             'P.B.' => 'Perro en Blanco',
             'Ret.' => 'Retirado',
         ),
-        'Categorias' => array (
+        'ListaCategorias' => array (
             '-' => 'Sin especificar',
             'L' => 'Large - Standard - 60',
             'M' => 'Medium - Midi - 50',
@@ -71,8 +72,8 @@ class Federations {
      * @return string resulting i18n'd string
      */
     public function getGrade($key) {
-        if (!array_key_exists($key,$this->config['Grados'])) return _($key);
-        return _($this->config['Grados'][$key]);
+        if (!array_key_exists($key,$this->config['ListaGrados'])) return _($key);
+        return _($this->config['ListaGrados'][$key]);
     }
 
     /**
@@ -81,8 +82,8 @@ class Federations {
      * @return string resulting i18n'd string
      */
     public function getCategory($key) {
-        if (!array_key_exists($key,$this->config['Categorias'])) return _($key);
-        return _($this->config['Categorias'][$key]);
+        if (!array_key_exists($key,$this->config['ListaCategorias'])) return _($key);
+        return _($this->config['ListaCategorias'][$key]);
     }
 
     /**

@@ -9,8 +9,9 @@ class RSCE extends Federations {
             'Logo'     => '/agility/modules/rsce/rsce.png',
             'ParentLogo'   => '/agility/modules/rsce/fci.png',
             'Heights' => 3,
+            'Grades' => 3,
             'Recorridos' => array('Common course',"Standard / Midi + Mini","Separate courses"),
-            'Grados'    => array (
+            'ListaGrados'    => array (
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja temporal',
                 'GI' => 'Grado I',
@@ -20,7 +21,7 @@ class RSCE extends Federations {
                 'P.B.' => 'Perro en Blanco',
                 'Ret.' => 'Retirado',
             ),
-            'Categorias' => array (
+            'ListaCategorias' => array (
                 '-' => 'Sin especificar',
                 'L' => 'Standard - 60',
                 'M' => 'Midi - 50',

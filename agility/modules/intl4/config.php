@@ -9,8 +9,9 @@ class INTL4 extends Federations {
             'Logo'     => '/agility/modules/intl4/wao.png',
             'ParentLogo'   => '/agility/modules/intl4/wao.png',
             'Heights' => 4,
+            'Grades' => 2, // no really sense in international contests, but....
             'Recorridos' => array('Common course',"Standard + Medium / Small + Toy","Separate courses"),
-            'Grados'    => array (
+            'ListaGrados'    => array (
                 '-' => 'Not especified',
                 'Baja' => 'Retired',
                 'GI' => 'Grade I',
@@ -20,7 +21,7 @@ class INTL4 extends Federations {
                 'P.B.' => 'Trial dog',
                 'Ret.' => 'Retirado',
             ),
-            'Categorias' => array (
+            'ListaCategorias' => array (
                 '-' => 'Not especified',
                 'L' => 'Large - 60',
                 'M' => 'Medium - 50',

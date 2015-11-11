@@ -9,8 +9,9 @@ class RFEC extends Federations {
             'Logo'     => '/agility/modules/rfec/rfec.png',
             'ParentLogo'   => '/agility/modules/rfec/csd.png',
             'Heights' => 4,
+            'Grades' => 2,
             'Recorridos' => array('Common course',"Standard + Medium / Small + Toy","Separate courses"),
-            'Grados'    => array (
+            'ListaGrados'    => array (
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja temporal',
                 'GI' => 'Iniciacion',
@@ -20,7 +21,7 @@ class RFEC extends Federations {
                 'P.B.' => 'Perro en Blanco',
                 'Ret.' => 'Retirado',
             ),
-            'Categorias' => array (
+            'ListaCategorias' => array (
                 '-' => 'Sin especificar',
                 'L' => 'Large - 60',
                 'M' => 'Medium - 50',

@@ -16,8 +16,6 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
-
 require_once("DBObject.php");
 
 class Mangas extends DBObject {
@@ -65,12 +63,6 @@ class Mangas extends DBObject {
 		0,	/* 15,'Ronda K.O.', '-' */
 		0	/* 16,'Manga Especial', '-' */
 	);
-	
-	public static $manga_recorridos= array(
-		0 => array(/*RSCE*/ 'Large / Medium / Small'	,'L/M/S',/*RFEC*/	'Recorridos separados',	'L/M/S/T' ), // recorridos separados por categoria
-		1 => array(/*RSCE*/ 'Large / Medium + Small'	,'L/M+S',/*RFEC*/	'Large+Medium / Small+Tiny','L+M/S+T'), // dos recorridos: large y M+S
-		2 => array(/*RSCE*/'Large + Medium + Small'		,'L+M+S', /*RFEC*/	'Recorrido comun',		'L+M+S+T')  // recorrido unico conjunto
- 	);
 	
 	public static $manga_modes= array (
 		0 => array('Large','L'),

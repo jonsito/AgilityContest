@@ -9,8 +9,9 @@ class UCA extends Federations {
             'Logo'     => '/agility/modules/uca/uca.png',
             'ParentLogo'   => '/agility/modules/uca/rfec.png',
             'Heights' => 4,
+            'Grades' => 2,
             'Recorridos' => array('Common course',"60 + 50 / 40 + 30","Separate courses"),
-            'Grados'    => array (
+            'ListaGrados'    => array (
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja temporal',
                 'GI' => 'Grado I',
@@ -20,7 +21,7 @@ class UCA extends Federations {
                 'P.B.' => 'Perro en Blanco',
                 'Ret.' => 'Retirado',
             ),
-            'Categorias' => array (
+            'ListaCategorias' => array (
                 '-' => 'Sin especificar',
                 'L' => 'Large - 60',
                 'M' => 'Medium - 50',

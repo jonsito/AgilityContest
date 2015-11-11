@@ -9,8 +9,9 @@ class INTL3 extends Federations {
             'Logo'     => '/agility/modules/intl3/fci.png',
             'ParentLogo'   => '/agility/modules/intl3/fci.png',
             'Heights' => 3,
+            'Grades' => 3, // not really sense in internatiolnal contests, but...
             'Recorridos' => array('Common course',"Standard / Midi + Mini","Separate courses"),
-            'Grados'    => array (
+            'ListaGrados'    => array (
                 '-' => 'Not especified',
                 'Baja' => 'Temporary out',
                 'GI' => 'Grade I',
@@ -20,7 +21,7 @@ class INTL3 extends Federations {
                 'P.B.' => 'Trial dog',
                 'Ret.' => 'Retired',
             ),
-            'Categorias' => array (
+            'ListaCategorias' => array (
                 '-' => 'Sin especificar',
                 'L' => 'Standard',
                 'M' => 'Medium',

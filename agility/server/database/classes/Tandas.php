@@ -15,9 +15,7 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
-
-
-
+require_once(__DIR__."/../../../modules/Federations.php");
 require_once("DBObject.php");
 require_once("OrdenSalida.php");
 require_once("Clubes.php");
@@ -62,7 +60,7 @@ class Tandas extends DBObject {
 			18	=> array('Tipo'=>18,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Large',	'Categoria'=>'L',	'Grado'=>'-'),
 			19	=> array('Tipo'=>19,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Medium',	'Categoria'=>'M',	'Grado'=>'-'),
 			20	=> array('Tipo'=>20,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Small',	'Categoria'=>'S',	'Grado'=>'-'),
-        // en jornadas por equipos conjunta se mezclan categorias M y S
+        	// en jornadas por equipos conjunta tres alturas se mezclan categorias M y S
 			21	=> array('Tipo'=>21,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Large',	'Categoria'=>'L',	'Grado'=>'-'),
 			22	=> array('Tipo'=>22,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Med/Small','Categoria'=>'MS',	'Grado'=>'-'),
 			23	=> array('Tipo'=>23,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Large',		'Categoria'=>'L',	'Grado'=>'GII'),
@@ -77,7 +75,7 @@ class Tandas extends DBObject {
 			32	=> array('Tipo'=>32,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. 3 Large',	'Categoria'=>'L',	'Grado'=>'-'),
 			33	=> array('Tipo'=>33,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. 3 Medium',	'Categoria'=>'M',	'Grado'=>'-'),
 			34	=> array('Tipo'=>34,	'TipoManga'=> 13,	'Nombre'=>'Jumping Eq. 3 Small',	'Categoria'=>'S',	'Grado'=>'-'),
-			// en jornadas por equipos conjunta se mezclan categorias M y S
+			// en jornadas por equipos conjunta 3 alturas se mezclan categorias M y S
 			35	=> array('Tipo'=>35,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos 4 Large',	'Categoria'=>'L',	'Grado'=>'-'),
 			36	=> array('Tipo'=>36,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos 4 Med/Small','Categoria'=>'MS',	'Grado'=>'-'),
 			// en las rondas KO, los perros compiten todos contra todos
@@ -86,14 +84,14 @@ class Tandas extends DBObject {
 			39	=> array('Tipo'=>39,	'TipoManga'=> 16,	'Nombre'=>'Manga Especial Medium',	'Categoria'=>'M',	'Grado'=>'-'),
 			40	=> array('Tipo'=>40,	'TipoManga'=> 16,	'Nombre'=>'Manga Especial Small',	'Categoria'=>'S',	'Grado'=>'-'),
 	
-			// "Tiny" support for Pruebas RFEC
+			// "Tiny" support for Pruebas de cuatro alturas
 			41	=> array('Tipo'=>41,	'TipoManga'=> 3,	'Nombre'=>'Agility-1 GI Tiny',		'Categoria'=>'T',	'Grado'=>'GI'),
 			42	=> array('Tipo'=>42,	'TipoManga'=> 4,	'Nombre'=>'Agility-2 GI Tiny',		'Categoria'=>'T',	'Grado'=>'GI'),
 			43	=> array('Tipo'=>43,	'TipoManga'=> 5,	'Nombre'=>'Agility GII Tiny',		'Categoria'=>'T',	'Grado'=>'GII'),
 			44	=> array('Tipo'=>44,	'TipoManga'=> 6,	'Nombre'=>'Agility GIII Tiny',		'Categoria'=>'T',	'Grado'=>'GIII'), // no existe
 			45	=> array('Tipo'=>45,	'TipoManga'=> 7,	'Nombre'=>'Agility Open Tiny',		'Categoria'=>'T',	'Grado'=>'-'),
 			46	=> array('Tipo'=>46,	'TipoManga'=> 8,	'Nombre'=>'Agility Eq. 3 Tiny',		'Categoria'=>'T',	'Grado'=>'-'),
-			// en equipos4  RFEC agrupamos por LM y ST
+			// en equipos4  cuatro alturas  agrupamos por LM y ST
 			47	=> array('Tipo'=>47,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Large/Medium',	'Categoria'=>'LM',	'Grado'=>'-'),
 			48	=> array('Tipo'=>48,	'TipoManga'=> 9,	'Nombre'=>'Ag. Equipos 4 Small/Tiny','Categoria'=>'ST',		'Grado'=>'-'),
 			49	=> array('Tipo'=>49,	'TipoManga'=> 10,	'Nombre'=>'Jumping GII Tiny',		'Categoria'=>'T',		'Grado'=>'GII'),
@@ -105,78 +103,6 @@ class Tandas extends DBObject {
 			55	=> array('Tipo'=>55,	'TipoManga'=> 16,	'Nombre'=>'Manga Especial Tiny',	'Categoria'=>'T',		'Grado'=>'-'),
 	);
 
-	// matriz de modos a evaluar en funcion del tipo de recorrido y de la tanda
-	// recorridos:
-	// RSCE (0: l/m/s separados 1: l/m+s 2: l+m+s conjunto) RFEC( 3:l/m/s/t separados  4:l+m/s+t  5:l+m+s+t conjunto )
-	// modos:
-	// 0:large 1:medium 2:small 3:m+s 4:l+m+s 5:tiny 6:l+m 7:s+t 8:l+m+s+t -1:no valido
-	public static $modes_by_tanda=array(
-			0	=> array(-1, -1, -1, -1,-1,-1, '-- Sin especificar --'), // tanda definida por el usuario
-			// en pre-agility no hay categorias
-			1	=> array(-1, -1,  4, -1, -1,  8, 'Pre-Agility 1'), // en pre agility-compiten todos juntos
-			2	=> array(-1, -1,  4, -1, -1,  8, 'Pre-Agility 2'),
-			3	=> array( 0,  0,  4,  0,  6,  8, 'Agility Grado I Manga 1'/* Large */),
-			4	=> array( 1,  3,  4,  1,  6,  8, 'Agility Grado I Manga 1'/* Medium */),
-			5	=> array( 2,  3,  4,  2,  7,  8, 'Agility Grado I Manga 1'/* Small */),
-			6	=> array( 0,  0,  4,  0,  6,  8, 'Agility Grado I Manga 2'/* Large */),
-			7	=> array( 1,  3,  4,  1,  6,  8, 'Agility Grado I Manga 2'/* Medium */),
-			8	=> array( 2,  3,  4,  2,  7,  8, 'Agility Grado I Manga 2'/* Small */),
-			9	=> array( 0,  0,  4,  0,  6,  8, 'Agility Grado II'/* Large */),
-			10	=> array( 1,  3,  4,  1,  6,  8, 'Agility Grado II'/* Medium */),
-			11	=> array( 2,  3,  4,  2,  7,  8, 'Agility Grado II'/* Small */),
-			12	=> array( 0,  0,  4,  0,  6,  8, 'Agility Grado III'/* Large */),
-			13	=> array( 1,  3,  4,  1,  6,  8, 'Agility Grado III'/* Medium */),
-			14	=> array( 2,  3,  4,  2,  7,  8, 'Agility Grado III'/* Small */),
-			15	=> array( 0,  0,  4,  0,  6,  8, 'Agility Abierta'/* Large */),
-			16	=> array( 1,  3,  4,  1,  6,  8, 'Agility Abierta'/* Medium */),
-			17	=> array( 2,  3,  4,  2,  7,  8, 'Agility Abierta'/* Small */),
-			18	=> array( 0,  0,  4,  0,  6,  8, 'Agility Eq. (3 mejores)'/* Large */),	// en equipos compiten l y m juntos
-			19	=> array(-1,  3,  4, -1,  6,  8, 'Agility Eq. (3 mejores)'/* Medium */),
-			20	=> array(-1,  3,  4, -1,  7,  8, 'Agility Eq. (3 mejores)'/* Small */), // en equipos compiten s y t juntos
-			21	=> array( 0,  0,  4,  0,  6,  8, 'Agility. Eq. (4 conjunta)'/* Large */),
-			// en jornadas por equipos conjunta RSCE se mezclan categorias M y S
-			22	=> array(-1,  3,  4, -1,  6,  8, 'Agility Eq. (4 conjunta)'/* Med/Small */),
-			23	=> array( 0,  0,  4,  0,  6,  8, 'Jumping Grado II'/* Large */),
-			24	=> array( 1,  3,  4,  1,  6,  8, 'Jumping Grado II'/* Medium */),
-			25	=> array( 2,  3,  4,  2,  7,  8, 'Jumping Grado II'/* Small */),
-			26	=> array( 0,  0,  4,  0,  6,  8, 'Jumping Grado III'/* Large */),
-			27	=> array( 1,  3,  4,  1,  6,  8, 'Jumping Grado III'/* Medium */),
-			28	=> array( 2,  3,  4,  2,  7,  8, 'Jumping Grado III'/* Small */),
-			29	=> array( 0,  0,  4,  0,  6,  8, 'Jumping Abierta'/* Large */),
-			30	=> array( 1,  3,  4,  1,  6,  8, 'Jumping Abierta'/* Medium */),
-			31	=> array( 2,  3,  4,  2,  7,  8, 'Jumping Abierta'/* Small */),
-			32	=> array( 0,  0,  4,  0,  6,  8, 'Jumping Eq. (3 mejores)'/* Large */),
-			33	=> array(-1,  3,  4, -1,  6,  8, 'Jumping Eq. (3 mejores)'/* Medium */),
-			34	=> array(-1,  3,  4, -1,  7,  8, 'Jumping Eq. (3 mejores)'/* Small */),
-			// en jornadas por equipos conjunta se mezclan categorias M y S
-			35	=> array( 0,  0,  4,  0,  6,  8, 'Jumping. Eq. (4 conjunta)'/* Large */),
-			36	=> array(-1,  3,  4, -1,  6,  8, 'Jumping. Eq. (4 conjunta)'/* Med/Small */),
-			// en las rondas KO, los perros compiten todos contra todos
-			37	=> array(-1, -1,  4, -1, -1,  8, 'Manga K.O.'),
-			38	=> array( 0,  0,  4,  0,  6,  8, 'Manga Especial'/* Large */),
-			39	=> array( 1,  3,  4,  1,  6,  8, 'Manga Especial'/* Medium */),
-			40	=> array( 2,  3,  4,  2,  7,  8, 'Manga Especial'/* Small */),
-				
-			// "Tiny" support for Pruebas RFEC
-			41	=> array( 5,  7,  8,  5,  7,  8, 'Agility-1 GI' /* Tiny */),
-			42	=> array( 5,  7,  8,  5,  7,  8, 'Agility-2 GI' /* Tiny */),
-			43	=> array( 5,  7,  8,  5,  7,  8, 'Agility GII' /* Tiny */),
-			44	=> array( 5,  7,  8,  5,  7,  8, 'Agility GIII' /* Tiny */),
-			45	=> array( 5,  7,  8,  5,  7,  8, 'Agility Open' /* Tiny */),
-			46	=> array( 5,  7,  8,  5,  7,  8, 'Agility Eq. 3' /* Tiny */),
-			// en equipos4  RFEC agrupamos por LM y ST
-			47	=> array( -1, 6,  8,  -1, 6,  8, 'Ag. Equipos 4'/* Large/Medium*/),
-			48	=> array( -1, 7,  8,  -1, 7,  8, 'Ag. Equipos 4'/* Small/Tiny*/),
-			49	=> array( 5,  7,  8,  5,  7,  8, 'Jumping GII' /* Tiny */),
-			50	=> array( 5,  7,  8,  5,  7,  8, 'Jumping GIII' /* Tiny */),
-			51	=> array( 5,  7,  8,  5,  7,  8, 'Jumping Open' /* Tiny */),
-			52	=> array( 5,  7,  8,  5,  7,  8, 'Jumping Eq. 3' /* Tiny */),
-			53	=> array( -1, 6,  8,  -1, 6,  8, 'Jp. Equipos 4'/* Large/Medium*/),
-			54	=> array( -1, 7,  8,  -1, 7,  8, 'Jp. Equipos 4'/* Small/Tiny*/),
-			55	=> array( 5,  7,  8,  5,  7,  8, 'Manga Especial' /* Tiny */),
-	);
-	
-	
 	/**
 	 * return every array items that matches with provided key
 	 * @param {string} $key
@@ -190,26 +116,6 @@ class Tandas extends DBObject {
 			if ($item[$key]==$value) array_push($res,$item);
 		}
 		return $res;
-	}
-	
-	/**
-	 * Retrieve mode based on rsce recorrido and tanda type
-	 * @param {integer} $rsce 0:rsce 1:rfec
-	 * @param {integer} $recorrido 0:separate 1:mixed 2:grouped
-	 * @param {integer} $tanda Tanda Type
-	 */
-	static function getModeByTanda($rsce,$recorrido,$tanda){
-		if (!array_key_exists($tanda,Tandas::$modes_by_tanda)) return -1;
-		return Tandas::$modes_by_tanda[$tanda][3*$rsce+$recorrido];
-	}
-	
-	/**
-	 * Retrieve Manga String based on and tanda type
-	 * @param {integer} $tanda Tanda Type
-	 */
-	static function getMangaStringByTanda($tanda){
-		if (!array_key_exists($tanda,Tandas::$modes_by_tanda)) return "";
-		return Tandas::$modes_by_tanda[$tanda][6];
 	}
 	
 	/**
@@ -599,31 +505,33 @@ class Tandas extends DBObject {
 		return array('RowIndex' => "-1" );
 	}
 
-	private function insert_remove($rsce,$tipomanga,$oper) {
+	private function insert_remove($fed,$tipomanga,$oper) {
+		$alturas=intval($fed->get('Heights'));
+		$grados=intval($fed->get('Grades'));
 		foreach( $this->getTandasInfo('TipoManga',$tipomanga) as $item) {
             $tipo=$item['Tipo'];
-			if( ($rsce==0) && ($item['Categoria']==='T') ) {
+			if( ($alturas==3) && ($item['Categoria']==='T') ) {
 				// remove every "tiny" tandas on RSCE contests
 				$this->removeFromList($tipo);
 				continue;
 			}
-			if( ($rsce!=0) && ($item['Grado']==='GIII') ) {
+			if( ($grados==2) && ($item['Grado']==='GIII') ) {
 				// remove every "Grado III" tandas on non RSCE contests
 				$this->removeFromList($tipo);
 				continue;
 			}
             // equipos 4 (tipomanga=9,14) tienen tratamiento especial
             // pues mezclan categorias
-            if( ($rsce==0) && ( ($tipomanga==9)||($tipomanga==14) ) ) {
-                // remove every "uca/rfec" tandas on RSCE contests for equipos4 mode
+            if( ($alturas==3) && ( ($tipomanga==9)||($tipomanga==14) ) ) {
+                // remove every 4-heights rounds on 3-heights 4team modes
                 if (($tipo==47) || ($tipo==48) || ($tipo==53) || ($tipo==54)) {
                     $this->removeFromList($tipo);
                     continue;
                 }
             }
-            if( ($rsce!=0) && ( ($tipomanga==9)||($tipomanga==14) ) ) {
-                // remove every RSCE in contests for "uca/rfec" equipos4 mode
-                if (($tipo==21) || ($tipo==21) || ($tipo==35) || ($tipo==36)) {
+            if( ($alturas==4) && ( ($tipomanga==9)||($tipomanga==14) ) ) {
+                // remove every 3-heights rounds on 4-heights 4team modes
+                if (($tipo==21) || ($tipo==22) || ($tipo==35) || ($tipo==36)) {
                     $this->removeFromList($tipo);
                     continue;
                 }
@@ -667,34 +575,35 @@ class Tandas extends DBObject {
 		// obtenemos datos de la jornada y prueba
 		$j=$this->jornada;
 		$p=$this->prueba;
-		$r=$p->RSCE;
+		$f=Federations::getFederation(intval($p->RSCE));
+		$this->myLogger->trace("call to getFederation({$p->RSCE}) returns: ".print_r($f,true));
 		// actualizamos la lista de tandas de cada ronda
 		
 		// preagility necesita tratamiento especial
 		if (($j->PreAgility2 != 0)){ // preagility2 also handles preagility1
-			$this->insert_remove($r,1,true);	// Pre-Agility Manga 1
-			$this->insert_remove($r,2,true);	// Pre-Agility Manga 2
+			$this->insert_remove($f,1,true);	// Pre-Agility Manga 1
+			$this->insert_remove($f,2,true);	// Pre-Agility Manga 2
 		} else 	if (($j->PreAgility != 0)){
-			$this->insert_remove($r,1,true);	// Pre-Agility Manga 1
-			$this->insert_remove($r,2,false);	// Pre-Agility Manga 2
+			$this->insert_remove($f,1,true);	// Pre-Agility Manga 1
+			$this->insert_remove($f,2,false);	// Pre-Agility Manga 2
 		} else {
-            $this->insert_remove($r,1,false);	// Pre-Agility Manga 1
-            $this->insert_remove($r,2,false);	// Pre-Agility Manga 2
+            $this->insert_remove($f,1,false);	// Pre-Agility Manga 1
+            $this->insert_remove($f,2,false);	// Pre-Agility Manga 2
         }
-		$this->insert_remove($r,3,($j->Grado1 != 0)?true:false);		// Agility Grado I Manga 1
-		$this->insert_remove($r,4,($j->Grado1 != 0)?true:false);		// Agility Grado I Manga 2
-		$this->insert_remove($r,5,($j->Grado2 != 0)?true:false);		// Agility Grado II
-		$this->insert_remove($r,10,($j->Grado2 != 0)?true:false);		// Jumping Grado II
-		$this->insert_remove($r,6,($j->Grado3 != 0)?true:false);		// Agility Grado III
-		$this->insert_remove($r,11,($j->Grado3 != 0)?true:false);		// Jumping Grado III
-		$this->insert_remove($r,7,($j->Open != 0)?true:false);			// Agility Abierta
-		$this->insert_remove($r,12,($j->Open != 0)?true:false);			// Jumping Abierta
-		$this->insert_remove($r,8,($j->Equipos3 != 0)?true:false);		// Agility Equipos (3 mejores)
-		$this->insert_remove($r,13,($j->Equipos3 != 0)?true:false);		// Jumping Equipos (3 mejores)
-		$this->insert_remove($r,9,($j->Equipos4 != 0)?true:false);		// Agility Equipos (Conjunta)
-		$this->insert_remove($r,14,($j->Equipos4 != 0)?true:false);		// Jumping Equipos (Conjunta)
-		$this->insert_remove($r,15,($j->KO != 0)?true:false);			// Ronda K.O.
-		$this->insert_remove($r,16,($j->Especial != 0)?true:false);		// Manga especial
+		$this->insert_remove($f,3,($j->Grado1 != 0)?true:false);		// Agility Grado I Manga 1
+		$this->insert_remove($f,4,($j->Grado1 != 0)?true:false);		// Agility Grado I Manga 2
+		$this->insert_remove($f,5,($j->Grado2 != 0)?true:false);		// Agility Grado II
+		$this->insert_remove($f,10,($j->Grado2 != 0)?true:false);		// Jumping Grado II
+		$this->insert_remove($f,6,($j->Grado3 != 0)?true:false);		// Agility Grado III
+		$this->insert_remove($f,11,($j->Grado3 != 0)?true:false);		// Jumping Grado III
+		$this->insert_remove($f,7,($j->Open != 0)?true:false);			// Agility Abierta
+		$this->insert_remove($f,12,($j->Open != 0)?true:false);			// Jumping Abierta
+		$this->insert_remove($f,8,($j->Equipos3 != 0)?true:false);		// Agility Equipos (3 mejores)
+		$this->insert_remove($f,13,($j->Equipos3 != 0)?true:false);		// Jumping Equipos (3 mejores)
+		$this->insert_remove($f,9,($j->Equipos4 != 0)?true:false);		// Agility Equipos (Conjunta)
+		$this->insert_remove($f,14,($j->Equipos4 != 0)?true:false);		// Jumping Equipos (Conjunta)
+		$this->insert_remove($f,15,($j->KO != 0)?true:false);			// Ronda K.O.
+		$this->insert_remove($f,16,($j->Especial != 0)?true:false);		// Manga especial
 		$this->myLogger->leave();
 	}
 	

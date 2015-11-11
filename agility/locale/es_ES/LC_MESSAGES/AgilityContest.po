@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-11-11 12:08+0100\n"
-"PO-Revision-Date: 2015-11-11 12:08+0100\n"
+"POT-Creation-Date: 2015-11-11 14:02+0100\n"
+"PO-Revision-Date: 2015-11-11 14:02+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -120,7 +120,7 @@ msgstr "Gu&iacute;a"
 #: console/frm_equipos.php:84 console/frm_equipos.php:225
 #: console/frm_guias.php:93 console/frm_inscripciones.php:78
 #: console/frm_inscripciones2.php:195 console/frm_registration.php:56
-#: index.php:198 modules/Federations.php:98 public/pb_finales.php:91
+#: index.php:198 modules/Federations.php:99 public/pb_finales.php:91
 #: public/pb_finales_eq3.php:92 public/pb_inscripciones.php:99
 #: public/pb_inscripciones_equipos.php:155 public/pb_ordensalida.php:156
 #: public/pb_parciales.php:167 public/pb_parciales_eq3.php:170
@@ -1312,7 +1312,7 @@ msgid "State"
 msgstr "Provincia"
 
 #: console/frm_clubes.php:93 console/frm_jueces.php:89
-#: modules/Federations.php:98 console/dialogs/dlg_clubes.inc:76
+#: modules/Federations.php:99 console/dialogs/dlg_clubes.inc:76
 #: console/dialogs/dlg_clubes.inc:186 console/dialogs/dlg_jueces.inc:48
 #: console/dialogs/dlg_jueces.inc:114
 msgid "Country"
