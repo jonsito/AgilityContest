@@ -104,6 +104,15 @@ class Federations {
         return null;
     }
 
+    public function getInfoManga($rec) {
+        switch ($rec) {
+            case 0: return array('L' => _('Large'),         'M' => _('Medium'), 'S' => _('Small'),      'T' => _('Tiny')); // separate courses
+            case 1: return array('L' => _('Large+Medium'),  'M' => '',          'S' => _('Small+Tiny'), 'T' => ''); // mixed courses
+            case 2: return array('L' => _('Common course'), 'M' => '',          'S' => '',              'T' => ''); // common
+            default: return array('errorMsg' => "Invalid recorrido: $rec");
+        }
+    }
+
     /**
      * Search federation data by providing ID/Name
      * @param {int} $id Federation ID
@@ -151,6 +160,16 @@ class Federations {
         foreach ($list as $fed) { array_push($data,$fed); }
         $result=array('total' => count($data),'rows' => $data);
         return $result;
+    }
+
+    /*
+     * Retrieve text and visibility info according federation and recorrido
+     */
+
+    static function infomanga($fed,$rec) {
+        $fed=Federations::getFederation($fed);
+        if (!$fed) return array('errorMsg' => 'Invalid federation ID');
+        return $fed->getInfoManga($rec);
     }
 }
 ?>

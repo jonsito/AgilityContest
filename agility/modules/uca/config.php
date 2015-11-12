@@ -32,5 +32,13 @@ class UCA extends Federations {
         );
     }
 
+    public function getInfoManga($rec) {
+        switch ($rec) {
+            case 0: return array('L' => _('Cat. 60'),       'M' => _('Cat. 50'),'S' => _('Cat. 40'),    'T' => _('Cat. 30')); // separate courses
+            case 1: return array('L' => _('Cat. 60+50'),    'M' => '',          'S' => _('Cat. 40+30'), 'T' => ''); // mixed courses
+            case 2: return array('L' => _('60+50+40+30'), 'M' => '',          'S' => '',              'T' => ''); // common
+            default: return array('errorMsg' => "Invalid value for recorrido: $rec");
+        }
+    }
 }
 ?>

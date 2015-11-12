@@ -277,294 +277,120 @@ function getMangaModeString(fed,recorrido,categoria) {
     }
     return modes[fed][recorrido][categoria];
 }
-/**
- * Actualiza el modo de visualizacion del panel infomangas
- * en funcion del tipo de recorrido seleccionado
- * para las pruebas de Canina
- */
-function dmanga_setRecorridos_rsce() {
-    var distl=0;
-    var obstl=0;
-    var distm=0;
-    var obstm=0;
-	var val=$("input[name='Recorrido']:checked").val();
-	workingData.datosManga.Recorrido=val;
-	switch (val) {
-	case '2': // recorrido comun para std, mini y midi
-		distl=$('#dmanga_DistL').val();
-		obstl=$('#dmanga_ObstL').val();
-		$('#dmanga_DistM').attr('readonly',true).val(distl);
-		$('#dmanga_ObstM').attr('readonly',true).val(obstl);
-		$('#dmanga_DistS').attr('readonly',true).val(distl);
-		$('#dmanga_ObstS').attr('readonly',true).val(obstl);
-		
-		// set TRS and TRM for midi relative to Standard TRS
-		$('#dmanga_TRS_M_Tipo').val(3); 
-		$('#dmanga_TRS_M_Factor').val(0);
-		$('#dmanga_TRM_M_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
-		$('#dmanga_TRM_M_Factor').val($('#dmanga_TRM_L_Factor').val());
-
-		// set TRS and TRM for small relative to Standard TRS
-		$('#dmanga_TRS_S_Tipo').val(3); 
-		$('#dmanga_TRS_S_Factor').val(0);
-		$('#dmanga_TRM_S_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
-		$('#dmanga_TRM_S_Factor').val($('#dmanga_TRM_L_Factor').val());
-		
-		// visibilidad de cada fila
-		$('#dmanga_MediumRow').css('display','none');
-		$('#dmanga_SmallRow').css('display','none');
-		$('#dmanga_LargeLbl').html("Com&uacute;n");
-		$('#dmanga_MediumLbl').html("&nbsp;");
-		$('#dmanga_SmallLbl').html("&nbsp;");
-		break;
-	case '1': // un recorrido para std y otro para mini-midi
-		distm=$('#dmanga_DistM').val();
-		obstm=$('#dmanga_ObstM').val();
-		$('#dmanga_DistM').removeAttr('readonly');
-		$('#dmanga_ObstM').removeAttr('readonly');
-		$('#dmanga_DistS').attr('readonly',true).val(distm);
-		$('#dmanga_ObstS').attr('readonly',true).val(obstm);
-		
-		// set Small TRS and TRM relative to Midi TRS
-		$('#dmanga_TRS_S_Tipo').val(4); 
-		$('#dmanga_TRS_S_Factor').val(0);
-		$('#dmanga_TRM_S_Tipo').val($('#dmanga_TRM_M_Tipo').val()); 
-		$('#dmanga_TRM_S_Factor').val($('#dmanga_TRM_M_Factor').val());
-		
-		// visibilidad de cada fila
-		$('#dmanga_MediumRow').css('display','table-row');
-		$('#dmanga_SmallRow').css('display','none');
-		$('#dmanga_LargeLbl').html("Standard");
-		$('#dmanga_MediumLbl').html("Midi+Mini");
-		$('#dmanga_SmallLbl').html("&nbsp;");
-		break;
-	case '0': // recorridos separados para cada categoria
-		$('#dmanga_DistM').removeAttr('readonly');
-		$('#dmanga_ObstM').removeAttr('readonly');
-		$('#dmanga_DistS').removeAttr('readonly');
-		$('#dmanga_ObstS').removeAttr('readonly');
-		// visibilidad de cada fila
-		$('#dmanga_MediumRow').css('display','table-row');
-		$('#dmanga_SmallRow').css('display','table-row');
-		$('#dmanga_LargeLbl').html("Standard");
-		$('#dmanga_MediumLbl').html("Midi");
-		$('#dmanga_SmallLbl').html("Mini");
-		break;
-	}
-}
 
 /**
- * Actualiza el modo de visualizacion del panel infomangas
- * en funcion del tipo de recorrido seleccionado
- * para las pruebas de Caza
+ * repaint manga information acording result
+ * @param {object{L,M,S,T} } data
  */
-function dmanga_setRecorridos_rfec() {
-    var distl=0;
-    var obstl=0;
-    var dists=0;
-    var obsts=0;
-	var val=$("input[name='Recorrido']:checked").val();
-	workingData.datosManga.Recorrido=val;
-	switch (val) {
-	case '2': // recorrido comun para std, med, min, y tiny
-		distl=$('#dmanga_DistL').val();
-		obstl=$('#dmanga_ObstL').val();
-		$('#dmanga_DistM').attr('readonly',true).val(distl);
-		$('#dmanga_ObstM').attr('readonly',true).val(obstl);
-		$('#dmanga_DistS').attr('readonly',true).val(distl);
-		$('#dmanga_ObstS').attr('readonly',true).val(obstl);
-		$('#dmanga_DistT').attr('readonly',true).val(distl);
-		$('#dmanga_ObstT').attr('readonly',true).val(obstl);
-		
-		// set TRS and TRM for midi relative to Standard TRS
-		$('#dmanga_TRS_M_Tipo').val(3); 
-		$('#dmanga_TRS_M_Factor').val(0);
-		$('#dmanga_TRM_M_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
-		$('#dmanga_TRM_M_Factor').val($('#dmanga_TRM_L_Factor').val());
+function dmanga_paintRecorridos(data) {
+    var last=data.L;
 
-		// set TRS and TRM for small relative to Standard TRS
-		$('#dmanga_TRS_S_Tipo').val(3); 
-		$('#dmanga_TRS_S_Factor').val(0);
-		$('#dmanga_TRM_S_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
-		$('#dmanga_TRM_S_Factor').val($('#dmanga_TRM_L_Factor').val());
+    // first row (large) allways to be shown
+    var trs_tipo=$('#dmanga_TRS_L_Tipo').val();     //0:fixed 1:best+ 2:mean+ 3:L+ 4:M+ 5:S+
+    var trs_factor=$('#dmanga_TRS_L_Factor').val(); //0:seconds 1:percentage
+    var trm_tipo=$('#dmanga_TRM_L_Tipo').val();     //0:fixed 1:trs+
+    var trm_factor=$('#dmanga_TRM_L_Factor').val(); //0:seconds 1:percentage
+    var dist=$('#dmanga_DistL').val();
+    var obst=$('#dmanga_ObstL').val();
+    $('#dmanga_LargeRow').css('display','table-row');
+    $('#dmanga_LargeLbl').html(data.L);
 
-		// set TRS and TRM for tiny relative to Standard TRS
-		$('#dmanga_TRS_T_Tipo').val(3); 
-		$('#dmanga_TRS_T_Factor').val(0);
-		$('#dmanga_TRM_T_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
-		$('#dmanga_TRM_T_Factor').val($('#dmanga_TRM_L_Factor').val());
-		
-		// visibilidad de cada fila
-		$('#dmanga_MediumRow').css('display','none');
-		$('#dmanga_SmallRow').css('display','none');
-		$('#dmanga_TinyRow').css('display','none');
-		$('#dmanga_LargeLbl').html("Com&uacute;n");
-		$('#dmanga_MediumLbl').html("&nbsp;");
-		$('#dmanga_SmallLbl').html("&nbsp;");
-		$('#dmanga_TinyLbl').html("&nbsp;");
-		break;
-	case '1': // un recorrido para std/midi y otro para mini/tiny
-		distl=$('#dmanga_DistL').val();
-		obstl=$('#dmanga_ObstL').val();
-		dists=$('#dmanga_DistS').val();
-		obsts=$('#dmanga_ObstS').val();
-		$('#dmanga_DistM').attr('readonly',true).val(distl);
-		$('#dmanga_ObstM').attr('readonly',true).val(obstl);
-		$('#dmanga_DistS').removeAttr('readonly');
-		$('#dmanga_DistT').attr('readonly',true).val(dists);
-		$('#dmanga_ObstT').attr('readonly',true).val(obsts);
-		
-		// set TRS and TRM for midi relative to Standard TRS
-		$('#dmanga_TRS_M_Tipo').val(3); 
-		$('#dmanga_TRS_M_Factor').val(0);
-		$('#dmanga_TRM_M_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
-		$('#dmanga_TRM_M_Factor').val($('#dmanga_TRM_L_Factor').val());
-
-		// set TRS and TRM for tiny relative to small TRS
-		$('#dmanga_TRS_T_Tipo').val(5); 
-		$('#dmanga_TRS_T_Factor').val(0);
-		$('#dmanga_TRM_T_Tipo').val($('#dmanga_TRM_S_Tipo').val()); 
-		$('#dmanga_TRM_T_Factor').val($('#dmanga_TRM_S_Factor').val());
-		
-		// visibilidad de cada fila
-		$('#dmanga_MediumRow').css('display','none');
-		$('#dmanga_SmallRow').css('display','table-row');
-		$('#dmanga_TinyRow').css('display','none');
-		$('#dmanga_LargeLbl').html("Large+Medium");
-		$('#dmanga_MediumLbl').html("&nbsp;");
-		$('#dmanga_SmallLbl').html("Small+Tiny");
-		$('#dmanga_TinyLbl').html("&nbsp;");
-		break;
-	case '0': // recorridos separados para cada categoria
-		$('#dmanga_DistM').removeAttr('readonly');
-		$('#dmanga_ObstM').removeAttr('readonly');
-		$('#dmanga_DistS').removeAttr('readonly');
-		$('#dmanga_ObstS').removeAttr('readonly');
-		$('#dmanga_DistT').removeAttr('readonly');
-		$('#dmanga_ObstT').removeAttr('readonly');
-		// visibilidad de cada fila
-		$('#dmanga_MediumRow').css('display','table-row');
-		$('#dmanga_SmallRow').css('display','table-row');
-		$('#dmanga_TinyRow').css('display','table-row');
-		$('#dmanga_LargeLbl').html("Large");
-		$('#dmanga_MediumLbl').html("Medium");
-		$('#dmanga_SmallLbl').html("Small");
-		$('#dmanga_TinyLbl').html("Tiny");
-		break;
-	}
-}
-/**
- * Actualiza el modo de visualizacion del panel infomangas
- * en funcion del tipo de recorrido seleccionado
- * para las pruebas de UCA
- */
-function dmanga_setRecorridos_uca() {
-	var val=$("input[name='Recorrido']:checked").val();
-    var distl=0;
-    var obstl=0;
-    var dists=0;
-    var obsts=0;
-	workingData.datosManga.Recorrido=val;
-	switch (val) {
-	case '2': // recorrido comun para std, med, min, y tiny
-		distl=$('#dmanga_DistL').val();
-		obstl=$('#dmanga_ObstL').val();
-		$('#dmanga_DistM').attr('readonly',true).val(distl);
-		$('#dmanga_ObstM').attr('readonly',true).val(obstl);
-		$('#dmanga_DistS').attr('readonly',true).val(distl);
-		$('#dmanga_ObstS').attr('readonly',true).val(obstl);
-		$('#dmanga_DistT').attr('readonly',true).val(distl);
-		$('#dmanga_ObstT').attr('readonly',true).val(obstl);
-		
-		// set TRS and TRM for midi relative to Standard TRS
-		$('#dmanga_TRS_M_Tipo').val(3); 
-		$('#dmanga_TRS_M_Factor').val(0);
-		$('#dmanga_TRM_M_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
-		$('#dmanga_TRM_M_Factor').val($('#dmanga_TRM_L_Factor').val());
-
-		// set TRS and TRM for small relative to Standard TRS
-		$('#dmanga_TRS_S_Tipo').val(3); 
-		$('#dmanga_TRS_S_Factor').val(0);
-		$('#dmanga_TRM_S_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
-		$('#dmanga_TRM_S_Factor').val($('#dmanga_TRM_L_Factor').val());
-
-		// set TRS and TRM for tiny relative to Standard TRS
-		$('#dmanga_TRS_T_Tipo').val(3); 
-		$('#dmanga_TRS_T_Factor').val(0);
-		$('#dmanga_TRM_T_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
-		$('#dmanga_TRM_T_Factor').val($('#dmanga_TRM_L_Factor').val());
-		
-		// visibilidad de cada fila
-		$('#dmanga_MediumRow').css('display','none');
-		$('#dmanga_SmallRow').css('display','none');
-		$('#dmanga_TinyRow').css('display','none');
-		$('#dmanga_LargeLbl').html("Com&uacute;n");
-		$('#dmanga_MediumLbl').html("&nbsp;");
-		$('#dmanga_SmallLbl').html("&nbsp;");
-		$('#dmanga_TinyLbl').html("&nbsp;");
-		break;
-	case '1': // un recorrido para std/midi y otro para mini/tiny
-		distl=$('#dmanga_DistL').val();
-		obstl=$('#dmanga_ObstL').val();
-		dists=$('#dmanga_DistS').val();
-		obsts=$('#dmanga_ObstS').val();
-		$('#dmanga_DistM').attr('readonly',true).val(distl);
-		$('#dmanga_ObstM').attr('readonly',true).val(obstl);
-		$('#dmanga_DistS').removeAttr('readonly');
-		$('#dmanga_DistT').attr('readonly',true).val(dists);
-		$('#dmanga_ObstT').attr('readonly',true).val(obsts);
-		
-		// set TRS and TRM for midi relative to Standard TRS
-		$('#dmanga_TRS_M_Tipo').val(3); 
-		$('#dmanga_TRS_M_Factor').val(0);
-		$('#dmanga_TRM_M_Tipo').val($('#dmanga_TRM_L_Tipo').val()); 
-		$('#dmanga_TRM_M_Factor').val($('#dmanga_TRM_L_Factor').val());
-
-		// set TRS and TRM for tiny relative to small TRS
-		$('#dmanga_TRS_T_Tipo').val(5); 
-		$('#dmanga_TRS_T_Factor').val(0);
-		$('#dmanga_TRM_T_Tipo').val($('#dmanga_TRM_S_Tipo').val()); 
-		$('#dmanga_TRM_T_Factor').val($('#dmanga_TRM_S_Factor').val());
-		
-		// visibilidad de cada fila
-		$('#dmanga_MediumRow').css('display','none');
-		$('#dmanga_SmallRow').css('display','table-row');
-		$('#dmanga_TinyRow').css('display','none');
-		$('#dmanga_LargeLbl').html("60+50");
-		$('#dmanga_MediumLbl').html("&nbsp;");
-		$('#dmanga_SmallLbl').html("40+30");
-		$('#dmanga_TinyLbl').html("&nbsp;");
-		break;
-	case '0': // recorridos separados para cada categoria
-		$('#dmanga_DistM').removeAttr('readonly');
-		$('#dmanga_ObstM').removeAttr('readonly');
-		$('#dmanga_DistS').removeAttr('readonly');
-		$('#dmanga_ObstS').removeAttr('readonly');
-		$('#dmanga_DistT').removeAttr('readonly');
-		$('#dmanga_ObstT').removeAttr('readonly');
-		// visibilidad de cada fila
-		$('#dmanga_MediumRow').css('display','table-row');
-		$('#dmanga_SmallRow').css('display','table-row');
-		$('#dmanga_TinyRow').css('display','table-row');
-		$('#dmanga_LargeLbl').html("Cat. 60");
-		$('#dmanga_MediumLbl').html("Cat. 50");
-		$('#dmanga_SmallLbl').html("Cat. 40");
-		$('#dmanga_TinyLbl').html("Cat. 30");
-		break;
-	}
-}
-
-function dmanga_setRecorridos() {
-    var fed=parseInt(workingData.federation);
-    // TODO: instead of switch invoke specific routine federation-dependent my call to function pointer
-    switch (fed) {
-        case 0: dmanga_setRecorridos_rsce(); break; //rsce
-        case 1: dmanga_setRecorridos_rfec(); break; // rfec
-        case 2: dmanga_setRecorridos_uca(); break; // uca
-        case 8: dmanga_setRecorridos_rsce(); break; // intl 3 heights
-        case 9: dmanga_setRecorridos_rfec(); break; // intl 4 heights
-        default: alert ("invalid federation: "+fed);
+    // second row ( medium )
+    if (data.M!=="") {
+        // use own data and make it visible
+        tipo=4;
+        last=data.L;
+        dist=$('#dmanga_DistM').val();
+        obst=$('#dmanga_ObstM').val();
+        trs_tipo=$('#dmanga_TRS_M_Tipo').val();
+        trs_factor=$('#dmanga_TRS_M_Factor').val();
+        trm_tipo=$('#dmanga_TRM_M_Tipo').val();
+        trm_factor=$('#dmanga_TRM_M_Factor').val();
+        $('#dmanga_MediumRow').css('display','table-row');
+        $('#dmanga_MediumLbl').html(data.M);
+    } else {
+        // use parent data and hide
+        $('#dmanga_DistM').val(dist);
+        $('#dmanga_ObstM').val(obst);
+        $('#dmanga_MediumRow').css('display','none');
+        $('#dmanga_MediumLbl').html(last);
+        $('#dmanga_TRS_M_Tipo').val(trs_tipo);
+        $('#dmanga_TRS_M_Factor').val(trs_factor);
+        $('#dmanga_TRM_M_Tipo').val(trm_tipo);
+        $('#dmanga_TRM_M_Factor').val(trm_factor);
     }
+
+    // third row (small )
+    if (data.S!=="") {
+        // use own data and make it visible
+        tipo=5;
+        last=data.S;
+        dist=$('#dmanga_DistS').val();
+        obst=$('#dmanga_ObstS').val();
+        $('#dmanga_SmallRow').css('display','table-row');
+        $('#dmanga_SmallLbl').html(data.S);
+        trs_tipo=$('#dmanga_TRS_S_Tipo').val();
+        trs_factor=$('#dmanga_TRS_S_Factor').val();
+        trm_tipo=$('#dmanga_TRM_S_Tipo').val();
+        trm_factor=$('#dmanga_TRM_S_Factor').val();
+    } else {
+        // use parent data and hide
+        $('#dmanga_DistS').val(dist);
+        $('#dmanga_ObstS').val(obst);
+        $('#dmanga_SmallRow').css('display','none');
+        $('#dmanga_SmallLbl').html(last);
+        $('#dmanga_TRS_S_Tipo').val(trs_tipo);
+        $('#dmanga_TRS_S_Factor').val(trs_factor);
+        $('#dmanga_TRM_S_Tipo').val(trm_tipo);
+        $('#dmanga_TRM_S_Factor').val(trm_factor);
+    }
+
+    // fourth row (tiny )
+    if (data.T!=="") {
+        // use own data and make it visible
+        last=data.T;
+        dist=$('#dmanga_DistT').val();
+        obst=$('#dmanga_ObstT').val();
+        $('#dmanga_TinyRow').css('display','table-row');
+        $('#dmanga_TinyLbl').html(data.T);
+        trs_tipo=$('#dmanga_TRS_T_Tipo').val();
+        trs_factor=$('#dmanga_TRS_T_Factor').val();
+        trm_tipo=$('#dmanga_TRM_T_Tipo').val();
+        trm_factor=$('#dmanga_TRM_T_Factor').val();
+    } else {
+        // use parent data and hide
+        $('#dmanga_DistT').val(dist);
+        $('#dmanga_ObstT').val(obst);
+        $('#dmanga_TinyRow').css('display','none');
+        $('#dmanga_TinyLbl').html(last);
+        $('#dmanga_TRS_T_Tipo').val(trs_tipo);
+        $('#dmanga_TRS_T_Factor').val(trs_factor);
+        $('#dmanga_TRM_T_Tipo').val(trm_tipo);
+        $('#dmanga_TRM_T_Factor').val(trm_factor);
+    }
+}
+
+/*
+* ask server for text and visibility of SCT/MCT information according federation and recorrido
+*/
+function dmanga_setRecorridos() {
+    $.ajax({
+        type: 'GET',
+        url: '/agility/modules/moduleFunctions.php',
+        data: {
+            Federation: workingData.federation,
+            Operation: 'infomanga',
+            Recorrido: $("input[name='Recorrido']:checked").val()
+        },
+        dataType: 'json',
+        success: function (result) {
+            if (result.hasOwnProperty('errorMsg')) {
+                $.messager.show({width: 300, height: 200, title: '<?php _e('Error'); ?>', msg: result.errorMsg});
+                return;
+            }
+            dmanga_paintRecorridos(result);
+        }
+    });
 }
 
 function dmanga_shareJuez() {

@@ -32,5 +32,14 @@ class RSCE extends Federations {
         );
     }
 
+
+    public function getInfoManga($rec) {
+        switch ($rec) {
+            case 0: return array('L' => _('Standard'),         'M' => _('Midi'),         'S' => _('Mini'),      'T' => ''); // separate courses
+            case 1: return array('L' => _('Standard'),         'M' => _('Midi+Mini'),   'S' => '',              'T' => ''); // mixed courses
+            case 2: return array('L' => _('Conjunta'), 'M' => '',                  'S' => '',              'T' => ''); // common
+            default: return array('errorMsg' => "Invalid recorrido: $rec");
+        }
+    }
 }
 ?>

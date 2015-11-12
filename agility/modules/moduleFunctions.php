@@ -24,11 +24,13 @@ try {
     $result=null;
     $federation=http_request("Federation","i",-1); // -1 defaults to all federations
     $operation=http_request("Operation","s",null); // retrieve requested operation
+    $recorrido=http_request("Recorrido","i",0); // 0:separate 1:mixed 2:common
     if ($operation===null) throw new Exception("Call to moduleFunctions without 'Operation' requested");
     switch ($operation) {
         case "list": $result= Federations::getFederationList(); break;
         case "info": $result= Federations::getFederation($federation); break;
         case "enumerate": $result= Federations::enumerate(); break;
+        case "infomanga": $result= Federations::infomanga($federation,$recorrido); break;
         default: throw new Exception("moduleFunctions:: invalid operation: '$operation' provided");
     }
     if ($result===null)

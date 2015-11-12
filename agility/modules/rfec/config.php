@@ -32,5 +32,13 @@ class RFEC extends Federations {
         );
     }
 
+    public function getInfoManga($rec) {
+        switch ($rec) {
+            case 0: return array('L' => _('Large'),         'M' => _('Medium'), 'S' => _('Small'),      'T' => _('Toy')); // separate courses
+            case 1: return array('L' => _('Large+Medium'),  'M' => '',          'S' => _('Small+Toy'), 'T' => ''); // mixed courses
+            case 2: return array('L' => _('conjunta'), 'M' => '',          'S' => '',              'T' => ''); // common
+            default: return array('errorMsg' => "Invalid recorrido: $rec");
+        }
+    }
 }
 ?>
