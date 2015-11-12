@@ -48,6 +48,7 @@ class Federations {
             'S' => 'Small - Mini - 40',
             'T' => 'Tiny - Toy - 30'
         ),
+        'Modes' => array(array(/* separado */ 0, 1, 2, -1), array(/* mixto */ 0, 3, 3. -1), array(/* conjunto */ 4, 4, 4, -1 )),
         'Puntuaciones' => null // to point to a function to evaluate califications
     );
 

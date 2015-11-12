@@ -28,6 +28,7 @@ class INTL4 extends Federations {
                 'S' => 'Small - 40',
                 'T' => 'Toy - 30'
             ),
+            'Modes' => array(array(/* separado */ 0, 1, 2, 5 ), array(/* mixto */ 6, 6, 7, 7 ), array(/* conjunto */ 8, 8, 8, 8 )),
             'Puntuaciones' => function() {} // to point to a function to evaluate califications
         );
     }

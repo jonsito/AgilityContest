@@ -234,25 +234,20 @@ function formatTeamClasificacionesConsole(value,rows) {
  * @returns {int} requested mode. -1 if invalid request
  */
 function getMangaMode(fed,recorrido,categoria) {
-    var modes= [ // federation/recorrido/categoria
-        [/* RSCE */ [/* separado */ 0, 1, 2, -1], [/* mixto */ 0, 3, 3. -1], [/* conjunto */ 4, 4, 4, -1 ] ],
-        [/* RFEC */ [/* separado */ 0, 1, 2, 5 ], [/* mixto */ 6, 6, 7, 7 ], [/* conjunto */ 8, 8, 8, 8 ] ],
-        [/* UCA  */ [/* separado */ 0, 1, 2, 5 ], [/* mixto */ 6, 6, 7, 7 ], [/* conjunto */ 8, 8, 8, 8 ] ]
-    ];
-    if ( typeof (modes[fed]) === 'undefined' ) return -1;
-    if ( typeof (modes[fed][recorrido]) === 'undefined' ) return -1;
-    if ( typeof (modes[fed][recorrido][categoria]) === 'undefined' ) {
-        switch(categoria) {
-            case '-':
-            case '-LMST':return modes[fed][2][0]; // same for all categories; just use first
-            case 'L':return modes[fed][recorrido][0];
-            case 'M':return modes[fed][recorrido][1];
-            case 'S':return modes[fed][recorrido][2];
-            case 'T':return modes[fed][recorrido][3];
-        }
-        return -1;
+    var f=parseInt(fed);
+    var rec=parseInt(recorrido);
+    // TODO: check consistency of provided parameters
+    switch(categoria) {
+        case '-':
+        case '-LMST':return ac_fedInfo[f].Modes[2][0]; // common for all categories; just use first mode (standard )
+        case 'L':return ac_fedInfo[f].Modes[rec][0];
+        case 'M':return ac_fedInfo[f].Modes[rec][1];
+        case 'S':return ac_fedInfo[f].Modes[rec][2];
+        case 'T':return ac_fedInfo[f].Modes[rec][3];
+        // numerical index may also be requested
+        default:return ac_fedInfo[f].Modes[rec][parseInt(categoria)];
     }
-    return modes[fed][recorrido][categoria];
+    return -1;
 }
 
 // Same as above but return mode string

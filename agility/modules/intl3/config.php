@@ -28,6 +28,7 @@ class INTL3 extends Federations {
                 'S' => 'Small',
                 'T' => 'Tiny' // not used
             ),
+            'Modes' => array(array(/* separado */ 0, 1, 2, -1), array(/* mixto */ 0, 3, 3. -1), array(/* conjunto */ 4, 4, 4, -1 )),
             'Puntuaciones' => function() {} // to point to a function to evaluate califications
         );
     }
