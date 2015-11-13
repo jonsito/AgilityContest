@@ -51,19 +51,7 @@ var startDate=Date.now();
  * Set text of 'header' field on main window
  * @param {string} msg text to be shown
  */
-function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); } 
-
-/**
- * nombres de las categorias en funcion de la federacion
- */
-var nombreCategorias = {
-		'rsce': { 'L': 'Standard','M': 'Midi','S': 'Mini',	'T': '-',	'logo': 'rsce.png', 'logo2': 'fci.png', url:'http://www.rsce.es', url2:'http://www.fci.org'  },
-		'rfec': { 'L': 'Large',	'M': 'Medium','S': 'Small',	'T': 'Tiny','logo': 'rfec.png', 'logo2': 'csd.png', url:'http://www.fecaza.com', url2:'http://www.csd.gob.es'  },
-		'uca': 	{ 'L': '60',	'M': '50',	  'S': '40',	'T': '30',	'logo': 'uca.png',  'logo2': 'rfec.png',url:'http://www.agilityuca.org', url2:'http://www.fecaza.com'},
-		'0': { 'L': 'Standard',	'M': 'Midi',  'S': 'Mini',	'T': '-',	'logo': 'rsce.png', 'logo2': 'fci.png', url:'http://www.rsce.es', url2:'http://www.fci.org'  },
-		'1': { 'L': 'Large',	'M': 'Medium','S': 'Small',	'T': 'Tiny','logo': 'rfec.png', 'logo2': 'csd.png', url:'http://www.fecaza.com', url2:'http://www.csd.gob.es' },
-		'2': { 'L': '60',		'M': '50',	  'S': '40',	'T': '30',	'logo': 'uca.png',  'logo2': 'rfec.png', url:'http://www.agilityuca.org', url2:'http://www.fecaza.com'}
-};
+function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); }
 
 // permisos de ejecucion
 var access_perms = {
@@ -83,9 +71,9 @@ var access_perms = {
  * @returns {string} requested result, or original one if not found
  */
 function toLongCategoria(cat,fed) {
-    var res=nombreCategorias[fed.toString()][cat];
-    if (typeof(res)===undefined) return cat;
-    return res;
+    if (typeof(ac_fedInfo[parseInt(fed)])==='undefined') return cat;
+    if (typeof(ac_fedInfo[parseInt(fed)].ListaCategorias[cat])==='undefined') return cat;
+    return ac_fedInfo[parseInt(fed)].ListaCategorias[cat];
 }
 
 function isTeam(tipomanga) {
@@ -205,13 +193,13 @@ function getFederationInfo() {
 	$.ajax({
 		type: "GET",
 		url: '/agility/modules/moduleFunctions.php',
-		data: {	'Operation' : 'enumerate' },
+		data: {	'Operation' : 'list' },
 		async: true,
 		cache: false,
 		dataType: 'json',
-		success: function(fedinfo){
-			if ( typeof (fedinfo.rows) !== "undefined") {
-				ac_fedInfo=fedinfo.rows;
+		success: function(list){
+			if ( typeof (list) !== "array") {
+				ac_fedInfo=list;
 				initWorkingData(); // must be called _after_ data is loaded
 			} else {
 				$.messager.alert('<?php _e("Error"); ?>','<?php _e("getFederationsInfo(): cannot retrieve federations info from server"); ?>',"error")
@@ -435,10 +423,16 @@ function setupWorkingData(prueba,jornada,manga,callback) {
 	});
 }
 
-function setFederation(f) { //0:RSCE 1:RFEC 2:UCA... extract from federations module info
+/**
+ * Set federation parameters of requested ID
+ * By requesting data from module info
+ * @param {int} f Federation ID
+ */
+function setFederation(f) {
 	var fed=null;
 	// iterate ac_fedInfo until ID matches
-	for ( var i=0;i<ac_fedInfo.length;i++) {
+	for ( var i=0;i<10;i++) {
+        if (typeof(ac_fedInfo[i])==="undefined") continue; // no federation with provided ID
 		if (ac_fedInfo[i].ID==0) fed=ac_fedInfo[i]; // mark default and continue search
 		if (ac_fedInfo[i].ID==f) { fed=ac_fedInfo[i]; break; } // found
 	}

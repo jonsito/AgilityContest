@@ -57,14 +57,20 @@ function formatTF(val,row,idx) {
 	var t=parseFloat(row.T1)+parseFloat(row.T2);
 	return (row.Penalizacion>=200)?"-":t.toFixed(ac_config.numdecs);
 }
-function formatRSCE(val,row,idx) {
-	switch(parseInt(val)) {
-	case 0: return "RSCE";
-	case 1: return "RFEC";
-	case 2: return "UCA";
-	default: return val;
-	}
+
+/**
+ * Return short name for requested federation. Use to format datagrid cell
+ * @param {int} val Federation ID
+ * @param {int} row unused
+ * @param {int} idx unused
+ * @returns {string} requested value or index if not found
+ */
+function formatFederation(val,row,idx) {
+    v=parseInt(val);
+    if (typeof(ac_fedInfo[v])==="undefined") return val;
+    return ac_fedInfo[v].Name;
 }
+
 /* stylers para formateo de celdas especificas */
 function formatOk(val,row,idx) { return (parseInt(val)==0)?"":"&#x2714;"; }
 function formatNotOk(val,row,idx) { return (parseInt(val)!=0)?"":"&#x2714;"; }
@@ -228,7 +234,7 @@ function formatTeamClasificacionesConsole(value,rows) {
 
 /**
  * Obtiene el modo de visualizacion de una manga determinada en funcion de la prueba, tipo de recorrido y categorias
- * @param {int} fed 0:RSCE 1:RFEC 2:UCA
+ * @param {int} federation ID
  * @param {int} recorrido 0:separado 1:mixto 2:conjunto
  * @param {int} categoria 0:L 1:M 2:S 3:T
  * @returns {int} requested mode. -1 if invalid request
@@ -236,7 +242,14 @@ function formatTeamClasificacionesConsole(value,rows) {
 function getMangaMode(fed,recorrido,categoria) {
     var f=parseInt(fed);
     var rec=parseInt(recorrido);
-    // TODO: check consistency of provided parameters
+    if (typeof (ac_fedInfo[f]) === "undefined") {
+        $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid or undefined Federation'); ?>', title: 'Error'});
+        return -1;
+    }
+    if (typeof (ac_fedInfo[f]['InfoManga'][rec]) === "undefined") {
+        $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid course mode'); ?>', title: 'Error'});
+        return -1;
+    }
     switch(categoria) {
         case '-':
         case '-LMST':return ac_fedInfo[f].Modes[2][0]; // common for all categories; just use first mode (standard )
@@ -245,39 +258,57 @@ function getMangaMode(fed,recorrido,categoria) {
         case 'S':return ac_fedInfo[f].Modes[rec][2];
         case 'T':return ac_fedInfo[f].Modes[rec][3];
         // numerical index may also be requested
-        default:return ac_fedInfo[f].Modes[rec][parseInt(categoria)];
+        default: return ac_fedInfo[f].Modes[rec][parseInt(categoria)];
     }
     return -1;
 }
 
-// Same as above but return mode string
+/**
+ * Obtiene el texto asociado al modo de visualizacion de una manga determinada en funcion de la prueba, tipo de recorrido y categorias
+ * @param {int} federation ID
+ * @param {int} recorrido 0:separado 1:mixto 2:conjunto
+ * @param {int} categoria 0:L 1:M 2:S 3:T
+ * @returns {int} requested string. "Invalid" if invalid request
+ */
 function getMangaModeString(fed,recorrido,categoria) {
-    var modes= [ // federation/recorrido/categoria
-        [/* RSCE */ [/* separado */ "Standard", "Midi", "Mini", "Invalid"], [/* mixto */ "Standard", "Midi+Mini", "Midi+Mini", "Invalid"], [/* conjunto */ "Conjunto", "Conjunto", "Conjunto", "Invalid" ] ],
-        [/* RFEC */ [/* separado */ "Large", "Medium", "Small", "Toy" ], [/* mixto */ "Large+Medium", "Large+Medium", "Small+Toy", "Small+Toy" ], [/* conjunto */ "Conjunto", "Conjunto", "Conjunto", "Conjunto" ] ],
-        [/* UCA  */ [/* separado */ "Cat 60", "Cat 50", "Cat 40", "Cat 30" ], [/* mixto */ "60+50", "60+50", "40+30", "40+30" ], [/* conjunto */ "60+50+40+30", "60+50+40+30", "60+50+40+30","60+50+40+30" ] ]
-    ];
-    if ( typeof (modes[fed]) === 'undefined' ) return -1;
-    if ( typeof (modes[fed][recorrido]) === 'undefined' ) return -1;
-    if ( typeof (modes[fed][recorrido][categoria]) === 'undefined' ) {
-        switch(categoria) {
-            case '-':
-            case '-LMST':return modes[fed][2][0]; // same for all categories; just use first
-            case 'L':return modes[fed][recorrido][0];
-            case 'M':return modes[fed][recorrido][1];
-            case 'S':return modes[fed][recorrido][2];
-            case 'T':return modes[fed][recorrido][3];
-        }
-        return -1;
+    var f=parseInt(fed);
+    var rec=parseInt(recorrido);
+    if (typeof (ac_fedInfo[f]) === "undefined") {
+        $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid or undefined Federation'); ?>', title: 'Error'});
+        return 'Undefined';
     }
-    return modes[fed][recorrido][categoria];
+    if (typeof (ac_fedInfo[f].ModeStrings[rec]) === "undefined") {
+        $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid course mode'); ?>', title: 'Error'});
+        return 'Undefined';
+    }
+    switch(categoria) {
+        case '-':
+        case '-LMST':return ac_fedInfo[f].Modes[2][0]; // common for all categories; just use first mode (standard )
+        case 'L':return ac_fedInfo[f].ModeStrings[rec][0];
+        case 'M':return ac_fedInfo[f].ModeStrings[rec][1];
+        case 'S':return ac_fedInfo[f].ModeStrings[rec][2];
+        case 'T':return ac_fedInfo[f].ModeStrings[rec][3];
+        // numerical index may also be requested
+        default: return ac_fedInfo[f].ModeStrings[rec][parseInt(categoria)];
+    }
+    return 'Undefined';
 }
 
 /**
- * repaint manga information acording result
- * @param {object{L,M,S,T} } data
+ * repaint manga information acording federation and course mode
  */
-function dmanga_paintRecorridos(data) {
+function dmanga_setRecorridos() {
+    var fed=workingData.federation;
+    var rec=$("input[name='Recorrido']:checked").val();
+    if (typeof (ac_fedInfo[fed]) === "undefined") {
+        $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid or undefined Federation'); ?>', title: 'Error'});
+        return false;
+    }
+    if (typeof (ac_fedInfo[fed]['InfoManga'][rec]) === "undefined") {
+        $.messager.show({width: 300, height: 200, msg: '<?php _e('Invalid course mode'); ?>', title: 'Error'});
+        return false;
+    }
+    var data=ac_fedInfo[fed]['InfoManga'][rec];// {object{L,M,S,T} } data
     var last=data.L;
 
     // first row (large) allways to be shown
@@ -363,29 +394,6 @@ function dmanga_paintRecorridos(data) {
         $('#dmanga_TRM_T_Tipo').val(trm_tipo);
         $('#dmanga_TRM_T_Factor').val(trm_factor);
     }
-}
-
-/*
-* ask server for text and visibility of SCT/MCT information according federation and recorrido
-*/
-function dmanga_setRecorridos() {
-    $.ajax({
-        type: 'GET',
-        url: '/agility/modules/moduleFunctions.php',
-        data: {
-            Federation: workingData.federation,
-            Operation: 'infomanga',
-            Recorrido: $("input[name='Recorrido']:checked").val()
-        },
-        dataType: 'json',
-        success: function (result) {
-            if (result.hasOwnProperty('errorMsg')) {
-                $.messager.show({width: 300, height: 200, title: '<?php _e('Error'); ?>', msg: result.errorMsg});
-                return;
-            }
-            dmanga_paintRecorridos(result);
-        }
-    });
 }
 
 function dmanga_shareJuez() {
@@ -737,100 +745,34 @@ function reloadParcial(val,fill) {
 }
 
 /**
- * Inicializa ventana de resultados ajustando textos
- * borra datagrid previa
- * @param recorrido 0:L/M/S/T 1:L/M+S(RSCE) LM/ST(RFEC)  2:/L+M+S+T
+ * Inicializa ventana de resultados ajustando textos segun federacion/recorrido
+ * Borra datagrid previa
+ * @param recorrido 0:L/M/S/T 1:L/M+S(3Heights) or LM/ST(4Heights)  2:/L+M+S+T
  */
 function setupResultadosWindow(recorrido) {
 	var fed= parseInt(workingData.datosPrueba.RSCE);
 	if (workingData.jornada==0) return;
 	if (workingData.manga==0) return;
+    if (typeof (ac_fedInfo[fed])==="undefined") return;
+    // marcamos los botones de seleccion de categoria como desconectados
     $('#resultadosmanga-LargeBtn').prop('checked',false);
     $('#resultadosmanga-MediumBtn').prop('checked',false);
     $('#resultadosmanga-SmallBtn').prop('checked',false);
     $('#resultadosmanga-TinyBtn').prop('checked',false);
+    // cargamos ventana inicial de resultados con una pantalla vacia
     $('#resultadosmanga-datagrid').datagrid('loadData',{total:0, rows:{}});
     // actualizamos la informacion del panel de informacion de trs/trm
-    switch(parseInt(recorrido)){
-    case 0: // Large / Medium / Small / Tiny separados
-    	// ajustar visibilidad
-    	$('#resultadosmanga-LargeRow').css('display','table-row');
-    	$('#resultadosmanga-MediumRow').css('display','table-row');
-    	$('#resultadosmanga-SmallRow').css('display','table-row');
-    	$('#resultadosmanga-TinyRow').css('display',(fed==0)?'none':'table-row');
-    	// ajustar textos
-    	switch(fed) {
-    		case 0:
-    	    	$('#resultadosmanga-LargeLbl').html("Standard");
-    	    	$('#resultadosmanga-MediumLbl').html("Midi");
-    	    	$('#resultadosmanga-SmallLbl').html("Mini");
-    	    	$('#resultadosmanga-TinyLbl').html("Enano");
-    	    	break;
-    		case 1:
-    	    	$('#resultadosmanga-LargeLbl').html("Large");
-    	    	$('#resultadosmanga-MediumLbl').html("Medium");
-    	    	$('#resultadosmanga-SmallLbl').html("Small");
-    	    	$('#resultadosmanga-TinyLbl').html("Tiny");
-    	    	break;
-    		case 2:
-    	    	$('#resultadosmanga-LargeLbl').html("Cat. 60");
-    	    	$('#resultadosmanga-MediumLbl').html("Cat. 50");
-    	    	$('#resultadosmanga-SmallLbl').html("Cat. 40");
-    	    	$('#resultadosmanga-TinyLbl').html("Cat. 30");
-    	    	break;
-    	}
-    	break;
-    case 1: // RSCE: Large / Medium+Small --------- RFEC: Large+Medium / Tiny+Small
-    	// ajustar visibilidad
-    	$('#resultadosmanga-LargeRow').css('display','table-row');
-    	$('#resultadosmanga-MediumRow').css('display',(fed==0)?'table-row':'none');
-    	$('#resultadosmanga-SmallRow').css('display',(fed==0)?'none':'table-row');
-    	$('#resultadosmanga-TinyRow').css('display','none');
-    	// ajustar textos
-    	switch(fed) {
-    		case 0:
-    	    	$('#resultadosmanga-LargeLbl').html("Standard");
-    	    	$('#resultadosmanga-MediumLbl').html("Mini+Midi");
-    	    	$('#resultadosmanga-SmallLbl').html("&nbsp;");
-    	    	$('#resultadosmanga-TinyLbl').html("&nbsp;");
-    			break;
-    		case 1:
-    	    	$('#resultadosmanga-LargeLbl').html("Large+Medium");
-    	    	$('#resultadosmanga-MediumLbl').html("&nbsp;");
-    	    	$('#resultadosmanga-SmallLbl').html("Small+Tiny");
-    	    	$('#resultadosmanga-TinyLbl').html("&nbsp;");
-    			break;
-    		case 2:
-    	    	$('#resultadosmanga-LargeLbl').html("60+50");
-    	    	$('#resultadosmanga-MediumLbl').html("&nbsp;");
-    	    	$('#resultadosmanga-SmallLbl').html("40+30");
-    	    	$('#resultadosmanga-TinyLbl').html("&nbsp;");
-    			break;
-    	}
-    	break;
-    case 2: // Large+Medium+Small (+Tiny) conjunta
-    	// ajustar visibilidad
-    	$('#resultadosmanga-LargeRow').css('display','table-row');
-    	$('#resultadosmanga-MediumRow').css('display','none');
-    	$('#resultadosmanga-SmallRow').css('display','none');
-    	$('#resultadosmanga-TinyRow').css('display','none');
-    	// ajustar textos
-    	switch(fed) {
-    		case 0:
-    	    	$('#resultadosmanga-LargeLbl').html((fed==0)?'<?php _e("Combined L+M+S"); ?>':'<?php _e("Combined L+M+S+T"); ?>');
-    			break;
-    		case 1:
-    	    	$('#resultadosmanga-LargeLbl').html((fed==0)?'<?php _e("Combined L+M+S"); ?>':'<?php _e("Combined L+M+S+T"); ?>');
-    			break;
-    		case 2:
-    	    	$('#resultadosmanga-LargeLbl').html((fed==0)?'<?php _e("Combined L+M+S"); ?>':'<?php _e("Combined 6+5+4+3"); ?>');
-    			break;
-    	}
-    	$('#resultadosmanga-MediumLbl').html("&nbsp;");
-    	$('#resultadosmanga-SmallLbl').html("&nbsp;");
-    	$('#resultadosmanga-TinyLbl').html("&nbsp;");
-    	break;
-    }
+    var infomanga=ac_fedInfo[fed].InfoManga[parseInt(recorrido)];
+    // visibilidad
+    $('#resultadosmanga-LargeRow').css('display',(infomanga['L']==="")?'none':'table-row');
+    $('#resultadosmanga-MediumRow').css('display',(infomanga['M']==="")?'none':'table-row');
+    $('#resultadosmanga-SmallRow').css('display',(infomanga['S']==="")?'none':'table-row');
+    $('#resultadosmanga-TinyRow').css('display',(infomanga['T']==="")?'none':'table-row');
+    // textos
+    $('#resultadosmanga-LargeLbl').html(infomanga['L']);
+    $('#resultadosmanga-MediumLbl').html(infomanga['M']);
+    $('#resultadosmanga-SmallLbl').html(infomanga['S']);
+    $('#resultadosmanga-TinyLbl').html(infomanga['T']);
 }
 
 function saveCompeticionData(idx,data) {
@@ -990,7 +932,7 @@ function competicionDialog(name) {
     if (name==='resultadosmanga') {
         // abrimos ventana de dialogo
         $('#resultadosmanga-dialog').dialog('open').dialog('setTitle',' <?php _e("Round results"); ?>'+": "+title);
-        // iniciamls ventana de presentacion de resultados parciales acorde al tipo de prueba (RSCE/RFEC) y recorrido
+        // iniciamls ventana de presentacion de resultados parciales acorde a la federacion y el recorrido
         setupResultadosWindow(row.Recorrido);
         // marcamos la primera opcion como seleccionada
         $('#resultadosmanga-LargeBtn').prop('checked','checked');
@@ -1009,9 +951,10 @@ function competicionDialog(name) {
  * resultados: almacen de resultados (array[mode][manga]
  * idmanga: Manga ID
  * idxmanga: 1..2 manga index
- * mode: 0..4
+ * mode: 0..8
  */
 function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
+    if (mode<0) return; // invalid mode. do not parse
 	$.ajax({
 		type:'GET',
 		url:"/agility/server/database/resultadosFunctions.php",
@@ -1044,223 +987,87 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
  */
 function resultados_doSelectRonda(row) {
 	var resultados=[];
-	var fed=parseInt(workingData.datosPrueba.RSCE);
+
 	// FASE 0 ajustamos los jueces de la ronda
 	$('#dm1_Juez1').val(row.Juez11);
 	$('#dm1_Juez2').val(row.Juez12);
 	$('#dm2_Juez1').val(row.Juez21);
 	$('#dm2_Juez2').val(row.Juez22);
-    // FASE 1 Ajustamos en funcion del tipo de recorrido lo que debemos ver en las mangas
-    // Recordatorio: ambas mangas tienen siempre el mismo tipo de recorrido
-    switch(parseInt(row.Recorrido1)){
-    case 0: // Large / Medium / Small / Tiny
-    	// Manga 1
-    	$('#datos_manga1-LargeRow').css('display','table-row');
-    	$('#datos_manga1-MediumRow').css('display','table-row');
-    	$('#datos_manga1-SmallRow').css('display','table-row');
-		$('#datos_manga1-TinyRow').css('display',(fed==0)?'none':'table-row');
 
-		resultados_fillForm(resultados,row.Manga1,'1',0);
-		resultados_fillForm(resultados,row.Manga1,'1',1);
-		resultados_fillForm(resultados,row.Manga1,'1',2);
-		if (fed!=0) resultados_fillForm(resultados,row.Manga1,'1',5);
-		// set up categoria names and comboboxes
-		switch(fed){
-		case 0:
-	    	$('#datos_manga1-LargeLbl').html("Standard");
-	    	$('#datos_manga1-MediumLbl').html("Midi");
-	    	$('#datos_manga1-SmallLbl').html("Mini");
-	    	$('#datos_manga1-TinyLbl').html("Enano");
-			$('#resultados-selectCategoria').combobox('loadData',
-					[{mode:0,text:'Standard',selected:true},{mode:1,text:'Midi'},{mode:2,text:'Mini'}]);
-			break;
-		case 1:
-	    	$('#datos_manga1-LargeLbl').html("Large");
-	    	$('#datos_manga1-MediumLbl').html("Medium");
-	    	$('#datos_manga1-SmallLbl').html("Small");
-	    	$('#datos_manga1-TinyLbl').html("tiny");
-			$('#resultados-selectCategoria').combobox('loadData',
-					[{mode:0,text:'Large',selected:true},{mode:1,text:'Medium'},{mode:2,text:'Small'},{mode:5,text:'Tiny'}]);
-			break;
-		case 2:
-	    	$('#datos_manga1-LargeLbl').html("Cat. 60");
-	    	$('#datos_manga1-MediumLbl').html("Cat. 50");
-	    	$('#datos_manga1-SmallLbl').html("Cat. 40");
-	    	$('#datos_manga1-TinyLbl').html("Cat. 30");
-			$('#resultados-selectCategoria').combobox('loadData',
-					[{mode:0,text:'Cat 60',selected:true},{mode:1,text:'Cat 50'},{mode:2,text:'Cat 40'},{mode:5,text:'Cat 30'}]);
-			break;
-		}
-    	// Manga 2
-		if (row.Manga2<=0) {
-			// esta ronda solo tiene una manga. desactiva la segunda
-			$('#datos_manga2-InfoRow').css('display','none');
-			$('#datos_manga2-LargeRow').css('display','none');
-			$('#datos_manga2-MediumRow').css('display','none');
-			$('#datos_manga2-SmallRow').css('display','none');
-			$('#datos_manga2-TinyRow').css('display','none');
-		} else {
-			$('#datos_manga2-InfoRow').css('display','table-row');
-			$('#datos_manga2-LargeRow').css('display','table-row');
-    		$('#datos_manga2-MediumRow').css('display','table-row');
-    		$('#datos_manga2-SmallRow').css('display','table-row');
-    		$('#datos_manga2-TinyRow').css('display',(fed==0)?'none':'table-row');
-    		switch (fed) {
-    		case 0:
-        		$('#datos_manga2-LargeLbl').html("Standard");
-        		$('#datos_manga2-MediumLbl').html("Midi");
-        		$('#datos_manga2-SmallLbl').html("Mini");
-        		$('#datos_manga2-TinylLbl').html("Enano");
-    			break;
-    		case 1:
-        		$('#datos_manga2-LargeLbl').html("Large");
-        		$('#datos_manga2-MediumLbl').html("Medium");
-        		$('#datos_manga2-SmallLbl').html("Small");
-        		$('#datos_manga2-TinylLbl').html("Tiny");
-    			break;
-    		case 2:
-        		$('#datos_manga2-LargeLbl').html("Cat. 60");
-        		$('#datos_manga2-MediumLbl').html("Cat. 50");
-        		$('#datos_manga2-SmallLbl').html("Cat. 40");
-        		$('#datos_manga2-TinylLbl').html("Cat. 30");
-    			break;
-    		}
-    		resultados_fillForm(resultados,row.Manga2,'2',0);
-    		resultados_fillForm(resultados,row.Manga2,'2',1);
-    		resultados_fillForm(resultados,row.Manga2,'2',2);
-    		if (fed!=0) resultados_fillForm(resultados,row.Manga2,'2',5);
-		}
-    	break;
-    case 1: // Large / Medium+Small (RSCE ) ---- Large+Medium / Small+Tiny (RFEC)
-    	// Manga 1
-    	$('#datos_manga1-LargeRow').css('display','table-row');
-    	$('#datos_manga1-MediumRow').css('display',(fed==0)?'table-row':'none');
-    	$('#datos_manga1-SmallRow').css('display',(fed==0)?'none':'table-row');
-    	$('#datos_manga1-TinyRow').css('display','none');
-    	
-    	switch(fed) {
-    	case 0:
-        	$('#datos_manga1-LargeLbl').html("Standard");
-        	$('#datos_manga1-MediumLbl').html("Midi+Mini");
-        	$('#datos_manga1-SmallLbl').html("&nbsp;");
-        	$('#datos_manga1-TinyLbl').html("&nbsp;");
-    		resultados_fillForm(resultados,row.Manga1,'1',0); // l
-    		resultados_fillForm(resultados,row.Manga1,'1',3); // m+s
-    		$('#resultados-selectCategoria').combobox('loadData',
-    				[{mode:0,text:'Standard',selected:true},{mode:3,text:'Midi + Mini'}]);
-    		break;
-    	case 1:
-        	$('#datos_manga1-LargeLbl').html("Large+Medium");
-        	$('#datos_manga1-MediumLbl').html("&nbsp;");
-        	$('#datos_manga1-SmallLbl').html("Small+Tiny");
-        	$('#datos_manga1-TinyLbl').html("&nbsp;");
-    		resultados_fillForm(resultados,row.Manga1,'1',6); // l+m
-    		resultados_fillForm(resultados,row.Manga1,'1',7); // s+t
-    		$('#resultados-selectCategoria').combobox('loadData',
-    				[{mode:6,text:'Large+Medium',selected:true},{mode:7,text:'Small+Tiny'}]);
-    		break;
-    	case 2:
-        	$('#datos_manga1-LargeLbl').html("60+50");
-        	$('#datos_manga1-MediumLbl').html("&nbsp;");
-        	$('#datos_manga1-SmallLbl').html("40+30");
-        	$('#datos_manga1-TinyLbl').html("&nbsp;");
-    		resultados_fillForm(resultados,row.Manga1,'1',6); // l+m
-    		resultados_fillForm(resultados,row.Manga1,'1',7); // s+t
-    		$('#resultados-selectCategoria').combobox('loadData',
-    				[{mode:6,text:'Cat. 60+50',selected:true},{mode:7,text:'Cat. 40+30'}]);
-    		break;
-    	}
-    	// Manga 2
-		if (row.Manga2<=0) { // no hay segunda manga: oculta formulario
-			$('#datos_manga2-InfoRow').css('display','none');
-			$('#datos_manga2-LargeRow').css('display','none');
-			$('#datos_manga2-MediumRow').css('display','none');
-			$('#datos_manga2-SmallRow').css('display','none');
-			$('#datos_manga2-TinyRow').css('display','none');
-		} else {
-	    	$('#datos_manga2-LargeRow').css('display','table-row');
-	    	$('#datos_manga2-MediumRow').css('display',(fed==0)?'table-row':'none');
-	    	$('#datos_manga2-SmallRow').css('display',(fed==0)?'none':'table-row');
-	    	$('#datos_manga2-TinyRow').css('display','none');
-	    	switch(fed){
-	    	case 0:
-		    	$('#datos_manga2-LargeLbl').html("Standard");
-		    	$('#datos_manga2-MediumLbl').html("Midi+Mini");
-		    	$('#datos_manga2-SmallLbl').html("&nbsp;");
-		    	$('#datos_manga2-TinyLbl').html("&nbsp;");
-	    		break;
-	    	case 1:
-		    	$('#datos_manga2-LargeLbl').html("Large+Medium");
-		    	$('#datos_manga2-MediumLbl').html("&nbsp;");
-		    	$('#datos_manga2-SmallLbl').html("Small+Tiny");
-		    	$('#datos_manga2-TinyLbl').html("&nbsp;");
-	    		break;
-	    	case 2:
-		    	$('#datos_manga2-LargeLbl').html("60+50");
-		    	$('#datos_manga2-MediumLbl').html("&nbsp;");
-		    	$('#datos_manga2-SmallLbl').html("40+30");
-		    	$('#datos_manga2-TinyLbl').html("&nbsp;");
-	    		break;
-	    	}
-			if (fed==0) {
-				resultados_fillForm(resultados,row.Manga2,'2',0);
-				resultados_fillForm(resultados,row.Manga2,'2',3);
-			} else {
-				resultados_fillForm(resultados,row.Manga2,'2',6);
-				resultados_fillForm(resultados,row.Manga2,'2',7);
-			}
-		}
-    	break;
-    case 2: // Large+Medium+Small+tiny conjunta
-    	// Manga 1
-    	$('#datos_manga1-LargeRow').css('display','table-row');
-    	$('#datos_manga1-MediumRow').css('display','none');
-    	$('#datos_manga1-SmallRow').css('display','none');
-    	$('#datos_manga1-TinyRow').css('display','none');
-    	
-    	switch(fed){
-    	case 0:	$('#datos_manga1-LargeLbl').html('<?php _e('Combined L+M+S'); ?>');	break;
-    	case 1:	$('#datos_manga1-LargeLbl').html('<?php _e('Combined L+M+S+T'); ?>'); break;
-    	case 2:	$('#datos_manga1-LargeLbl').html('<?php _e('Combined 6+5+4+3'); ?>'); break;
-    	}
-    	$('#datos_manga1-MediumLbl').html("&nbsp;");
-    	$('#datos_manga1-SmallLbl').html("&nbsp;");
-    	$('#datos_manga1-TinyLbl').html("&nbsp;");
-    	if (fed==0) {
-    		resultados_fillForm(resultados,row.Manga1,'1',4);
-    		$('#resultados-selectCategoria').combobox('loadData',
-    				[{mode:4,text:'<?php _e('Combined L+M+S'); ?>',selected:true}]);
-    	} else {
-    		resultados_fillForm(resultados,row.Manga1,'1',8);
-    		$('#resultados-selectCategoria').combobox('loadData',
-    				[{mode:8,text:'<?php _e('Combined L+M+S+T'); ?>',selected:true}]);
-    	}
-    	// Manga 2
-		if (row.Manga2<=0) {
-			$('#datos_manga2-InfoRow').css('display','none');
-			$('#datos_manga2-LargeRow').css('display','none');
-			$('#datos_manga2-MediumRow').css('display','none');
-			$('#datos_manga2-SmallRow').css('display','none');
-			$('#datos_manga2-TinyRow').css('display','none');
-		} else {
-	    	$('#datos_manga2-LargeRow').css('display','table-row');
-	    	$('#datos_manga2-MediumRow').css('display','none');
-	    	$('#datos_manga2-SmallRow').css('display','none');
-	    	$('#datos_manga2-TinyRow').css('display','none');
-	    	
-	    	switch(fed){
-	    	case 0:	$('#datos_manga2-LargeLbl').html('<?php _e('Combined L+M+S'); ?>');	break;
-	    	case 1:	$('#datos_manga2-LargeLbl').html('<?php _e('Combined L+M+S+T'); ?>'); break;
-	    	case 2:	$('#datos_manga2-LargeLbl').html('<?php _e('Combined 6+5+4+3'); ?>'); break;
-	    	}
-	    	$('#datos_manga2-MediumLbl').html("&nbsp;");
-	    	$('#datos_manga2-SmallLbl').html("&nbsp;");
-	    	$('#datos_manga2-TinyLbl').html("&nbsp;");
-			if (fed==0) resultados_fillForm(resultados,row.Manga2,'2',4);
-			else resultados_fillForm(resultados,row.Manga2,'2',8);
-		}
-    	break;
-    } 
+    // FASE 1 Ajustamos en funcion del tipo de recorrido lo que debemos ver en las mangas
+    var fed= parseInt(workingData.datosPrueba.RSCE);
+    if (workingData.jornada==0) return;
+    if (workingData.manga==0) return;
+    if (typeof (ac_fedInfo[fed])==="undefined") {
+        $.messager.alert('<?php _e("Error"); ?>','<?php _e("Requested federation module is not installed"); ?>: '+fed,"error");
+        return;
+    }
+    // Recordatorio: ambas mangas tienen siempre el mismo tipo de recorrido
+    var fedinfo=ac_fedInfo[fed];
+    var rec=parseInt(row.Recorrido);
+    var infomanga=fedinfo.InfoManga[rec];
+
+    // contenido del combobox de seleccion de ronda
+    // un poco tricky: hay que buscar todos los modos del recorrido,
+    // anyadir los textos, y evitar duplicados. pero bueno....
+    var rondas=[];
+    var last=-1;
+    var count=0;
+    for (var n=0; n<3; n++) {
+        var mode=fedinfo.Modes[rec][n];
+        if (mode < 0) continue;
+        if (mode==last) continue;
+        mode=last;
+        rondas[count]={'mode':mode,'text':fedinfo.ModeStrings[rec][n]};
+        count++;
+    }
+    $('#resultados-selectCategoria').combobox('loadData',rondas);
+
+    // visibilidad de primera manga
+    $('#datos_manga1-InfoRow').css('display','table-row');
+    $('#datos_manga1-LargeRow').css('display',(infomanga['L']==="")?'none':'table-row');
+    $('#datos_manga1-MediumRow').css('display',(infomanga['M']==="")?'none':'table-row');
+    $('#datos_manga1-SmallRow').css('display',(infomanga['S']==="")?'none':'table-row');
+    $('#datos_manga1-TinyRow').css('display',(infomanga['T']==="")?'none':'table-row');
+    // textos de la primera manga
+    $('#datos_manga1-LargeLbl').html(infomanga['L']);
+    $('#datos_manga1-MediumLbl').html(infomanga['M']);
+    $('#datos_manga1-TinyLbl').html(infomanga['S']);
+    $('#datos_manga1-TinyLbl').html(infomanga['T']);
+    // datos evaluados de TRS y TRM de primera manga
+    // si fedinfo.Modes[rec][i] resultados_fillForm no hace nada
+    resultados_fillForm(resultados,row.Manga1,'1',fedinfo.Modes[rec][0]);
+    resultados_fillForm(resultados,row.Manga1,'1',fedinfo.Modes[rec][1]);
+    resultados_fillForm(resultados,row.Manga1,'1',fedinfo.Modes[rec][2]);
+    resultados_fillForm(resultados,row.Manga1,'1',fedinfo.Modes[rec][3]);
+    // Manga 2
+    if (row.Manga2<=0) {
+        // esta ronda solo tiene una manga. desactiva la segunda
+        $('#datos_manga2-InfoRow').css('display','none');
+        $('#datos_manga2-LargeRow').css('display','none');
+        $('#datos_manga2-MediumRow').css('display','none');
+        $('#datos_manga2-SmallRow').css('display','none');
+        $('#datos_manga2-TinyRow').css('display','none');
+    } else {
+        // visibilidad de segunda manga
+        $('#datos_manga2-InfoRow').css('display','table-row');
+        $('#datos_manga2-LargeRow').css('display',(infomanga['L']==="")?'none':'table-row');
+        $('#datos_manga2-MediumRow').css('display',(infomanga['M']==="")?'none':'table-row');
+        $('#datos_manga2-SmallRow').css('display',(infomanga['S']==="")?'none':'table-row');
+        $('#datos_manga2-TinyRow').css('display',(infomanga['T']==="")?'none':'table-row');
+        // textos de la segunda manga
+        $('#datos_manga2-LargeLbl').html(infomanga['L']);
+        $('#datos_manga2-MediumLbl').html(infomanga['M']);
+        $('#datos_manga2-TinyLbl').html(infomanga['S']);
+        $('#datos_manga2-TinyLbl').html(infomanga['T']);
+        // datos evaluados de TRS y TRM de segunda manga
+        // si fedinfo.Modes[rec][i] resultados_fillForm no hace nada
+        resultados_fillForm(resultados,row.Manga2,'2',fedinfo.Modes[rec][0]);
+        resultados_fillForm(resultados,row.Manga2,'2',fedinfo.Modes[rec][1]);
+        resultados_fillForm(resultados,row.Manga2,'2',fedinfo.Modes[rec][2]);
+        resultados_fillForm(resultados,row.Manga2,'2',fedinfo.Modes[rec][3]);
+    }
+
     // FASE 2: cargamos informacion sobre resultados globales y la volcamos en el datagrid
     var mode=$('#resultados-selectCategoria').combobox('getValue');
 	$.ajax({

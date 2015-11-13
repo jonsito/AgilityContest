@@ -28,6 +28,8 @@ class Federations {
         'LongName' => '',
         'Logo'     => '',
         'ParentLogo'   => '',
+        'WebURL' => '',
+        'ParentWebURL' => '',
         'Heights' => 3,
         'Grades' => 3,
         'Recorridos' => array('Common course','Standard / Midi + Mini','Separate courses'),
@@ -48,7 +50,17 @@ class Federations {
             'S' => 'Small - Mini - 40',
             'T' => 'Tiny - Toy - 30'
         ),
+        'InfoManga' => array (
+            array('L' => 'Large',         'M' => 'Medium', 'S' => 'Small',      'T' => 'Tiny'), // separate courses
+            array('L' => 'Large+Medium',  'M' => '',       'S' => 'Small+Tiny', 'T' => ''), // mixed courses
+            array('L' => 'Common course', 'M' => '',       'S' => '',           'T' => '') // common
+        ),
         'Modes' => array(array(/* separado */ 0, 1, 2, -1), array(/* mixto */ 0, 3, 3. -1), array(/* conjunto */ 4, 4, 4, -1 )),
+        'ModeStrings' => array( // text to be shown on each category
+            array(/* separado */ "Large", "Medium", "Small", "Invalid"),
+            array(/* mixto */ "Large", "Medium+Small", "Medium+Small", "Invalid"),
+            array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid")
+        ),
         'Puntuaciones' => null // to point to a function to evaluate califications
     );
 
@@ -100,18 +112,24 @@ class Federations {
         return $this->isInternational()?_('Club'):_('Country');
     }
 
+    /**
+     * Generic data getter
+     * @param $key field to retrive
+     * @return {object} requested object or null if not found
+     */
     public function get($key) {
         if (array_key_exists($key,$this->config)) return $this->config[$key];
         return null;
     }
 
+    /**
+     * Retrieve text to be shown according course mode/category
+     * @param {integer} 0:separate 1:mixed 2:common course
+     * @return array requested data or error message
+     */
     public function getInfoManga($rec) {
-        switch ($rec) {
-            case 0: return array('L' => _('Large'),         'M' => _('Medium'), 'S' => _('Small'),      'T' => _('Tiny')); // separate courses
-            case 1: return array('L' => _('Large+Medium'),  'M' => '',          'S' => _('Small+Tiny'), 'T' => ''); // mixed courses
-            case 2: return array('L' => _('Common course'), 'M' => '',          'S' => '',              'T' => ''); // common
-            default: return array('errorMsg' => "Invalid recorrido: $rec");
-        }
+        if (!array_key_exists(intval($rec),$this->config->InfoManga) ) return array('errorMsg' => "Invalid recorrido: $rec");
+        return $this->config->InfoManga[$rec];
     }
 
     /**

@@ -41,7 +41,7 @@ $config =Config::getInstance();
 				<tr><th colspan="6"><?php _e('Technical data on selected round'); ?></th></tr>
 				<tr id="resultadosmanga-LargeRow">
 					<td><input type="radio" name="rRecorrido" id="resultadosmanga-LargeBtn" value="0" onclick="reloadParcial(0,true)"></td>
-					<th id="resultadosmanga-LargeLbl">Large</th>
+					<th id="resultadosmanga-LargeLbl" style="width:150px">Large</th>
 					<td><?php _e('Distance'); ?> <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_DIST_L"></td>
 					<td><?php _e('Obstacles'); ?> <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_OBST_L"></td>
 					<td><?php _e('SCT'); ?> <input type="text" size="4" class="trstrm" readonly="readonly" id="rm_TRS_L"></td>

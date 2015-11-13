@@ -8,6 +8,8 @@ class INTL4 extends Federations {
             'LongName' => 'International Contest - 4 heights',
             'Logo'     => '/agility/modules/intl4/wao.png',
             'ParentLogo'   => '/agility/modules/intl4/wao.png',
+            'WebURL' => 'http://www.worldagilityopen.com/',
+            'ParentWebURL' => 'http://www.worldagilityopen.com/',
             'Heights' => 4,
             'Grades' => 2, // no really sense in international contests, but....
             'Recorridos' => array('Common course',"Standard + Medium / Small + Toy","Separate courses"),
@@ -28,18 +30,19 @@ class INTL4 extends Federations {
                 'S' => 'Small - 40',
                 'T' => 'Toy - 30'
             ),
+            'InfoManga' => array(
+                array('L' => _('Large'),         'M' => _('Medium'), 'S' => _('Small'),      'T' => _('Tiny')), // separate courses
+                array('L' => _('Large+Medium'),  'M' => '',          'S' => _('Small+Tiny'), 'T' => ''), // mixed courses
+                array('L' => _('Common course'), 'M' => '',          'S' => '',              'T' => '') // common
+            ),
             'Modes' => array(array(/* separado */ 0, 1, 2, 5 ), array(/* mixto */ 6, 6, 7, 7 ), array(/* conjunto */ 8, 8, 8, 8 )),
+            'ModeStrings' => array( // text to be shown on each category
+                array(/* separado */ "Large", "Medium", "Small", "Tiny"),
+                array(/* mixto */ "Large+Medium", "Large+Medium", "Small+Tiny", "Small+Tiny"),
+                array(/* conjunto */ "Common course", "Common course", "Common course", "Common course")
+            ),
             'Puntuaciones' => function() {} // to point to a function to evaluate califications
         );
-    }
-
-    public function getInfoManga($rec) {
-        switch ($rec) {
-            case 0: return array('L' => _('Large'),         'M' => _('Medium'), 'S' => _('Small'),      'T' => _('Tiny')); // separate courses
-            case 1: return array('L' => _('Large+Medium'),  'M' => '',          'S' => _('Small+Tiny'), 'T' => ''); // mixed courses
-            case 2: return array('L' => _('Common course'), 'M' => '',          'S' => '',              'T' => ''); // common
-            default: return array('errorMsg' => "Invalid recorrido: $rec");
-        }
     }
 }
 ?>

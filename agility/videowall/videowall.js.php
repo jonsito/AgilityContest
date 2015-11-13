@@ -111,10 +111,10 @@ function vw_updateDataInfo(evt,data) {
     $('#vwls_Manga').html(infomanga);
 
     // update footer
-    var logo=nombreCategorias[workingData.federation]['logo'];
-    var logo2=nombreCategorias[workingData.federation]['logo2'];
-    var url=nombreCategorias[workingData.federation]['url'];
-    var url2=nombreCategorias[workingData.federation]['url2'];
+	var logo=ac_fedInfo[workingData.federation].Logo;
+	var logo2=ac_fedInfo[workingData.federation].ParentLogo;
+	var url=ac_fedInfo[workingData.federation].WebURL;
+	var url2=ac_fedInfo[workingData.federation].ParentWebURL;
     $('#vw_footer-footerData').load("/agility/videowall/vw_footer.php",{},function(response,status,xhr){
         $('#vw_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
         $('#vw_footer-urlFederation').attr('href',url);

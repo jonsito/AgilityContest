@@ -92,7 +92,7 @@ $config =Config::getInstance();
                 { field:'Triptico',		width:10,					title:'<?php _e('Triptych URL'); ?>'},
                 { field:'Cartel',		width:10,					title:'<?php _e('Brochure URL'); ?>'},
                 { field:'Observaciones',width:10,					title:'<?php _e('Comments'); ?>'},
-                { field:'RSCE',			width:7, formatter:	formatRSCE,		title:'<?php _e('Federation'); ?>', align: 'center'},
+                { field:'RSCE',			width:7, formatter:	formatFederation,		title:'<?php _e('Federation'); ?>', align: 'center'},
                 { field:'Selectiva',	width:7, formatter:	formatOk,title:'<?php _e('Selective'); ?>',	align: 'center'},
                 { field:'Cerrada',		width:7, formatter:	formatCerrada,	title:'<?php _e('Closed'); ?>',	align: 'center'}
             ]],

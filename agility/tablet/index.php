@@ -217,7 +217,7 @@ $('#seltablet-Prueba').combogrid({
 		{field:'Nombre',		title:'<?php _e('Name');?>',		width:65,	align:'right'},
 		{field:'Club',			hidden:true},
 		{field:'NombreClub',	title:'<?php _e('Club');?>',		width:25,	align:'right'},
-		{field:'RSCE',			title:'<?php _e('Fed');?>',			width:15,	align:'center', formatter:formatRSCE},
+		{field:'RSCE',			title:'<?php _e('Fed');?>',			width:15,	align:'center', formatter:formatFederation},
 		{field:'Observaciones',	title:'<?php _e('Comments');?>',	width:10,	align:'right'},
         {field:'Inscritos',		hidden:true},
         {field:'UserLimit',		hidden:true}

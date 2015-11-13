@@ -76,7 +76,7 @@ $('#selprueba-Search').combogrid({
 		{field:'Nombre',        title:'<?php _e('Name');?>', width:60,align:'right'},
 		{field:'Club',hidden:true},
 		{field:'NombreClub',    title:'<?php _e('Club');?>',   width:30,align:'right'},
-        {field:'RSCE',			title:'<?php _e('Fed');?>.',	width:10,	align:'center', formatter:formatRSCE},
+        {field:'RSCE',			title:'<?php _e('Fed');?>.',	width:10,	align:'center', formatter:formatFederation},
 		{field:'Observaciones', hidden:true }
 	]],
 	multiple: false,
