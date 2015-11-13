@@ -996,15 +996,17 @@ function resultados_doSelectRonda(row) {
 
     // FASE 1 Ajustamos en funcion del tipo de recorrido lo que debemos ver en las mangas
     var fed= parseInt(workingData.datosPrueba.RSCE);
-    if (workingData.jornada==0) return;
-    if (workingData.manga==0) return;
+    if (workingData.jornada==0) {
+        $.messager.alert('<?php _e("Error"); ?>','<?php _e("No defined journey"); ?>: '+fed,"error");
+        return;
+    }
     if (typeof (ac_fedInfo[fed])==="undefined") {
         $.messager.alert('<?php _e("Error"); ?>','<?php _e("Requested federation module is not installed"); ?>: '+fed,"error");
         return;
     }
     // Recordatorio: ambas mangas tienen siempre el mismo tipo de recorrido
     var fedinfo=ac_fedInfo[fed];
-    var rec=parseInt(row.Recorrido);
+    var rec=parseInt(row.Recorrido1);
     var infomanga=fedinfo.InfoManga[rec];
 
     // contenido del combobox de seleccion de ronda
@@ -1013,11 +1015,11 @@ function resultados_doSelectRonda(row) {
     var rondas=[];
     var last=-1;
     var count=0;
-    for (var n=0; n<3; n++) {
+    for (var n=0; n<4; n++) {
         var mode=fedinfo.Modes[rec][n];
         if (mode < 0) continue;
         if (mode==last) continue;
-        mode=last;
+        last=mode;
         rondas[count]={'mode':mode,'text':fedinfo.ModeStrings[rec][n]};
         count++;
     }
@@ -1032,7 +1034,7 @@ function resultados_doSelectRonda(row) {
     // textos de la primera manga
     $('#datos_manga1-LargeLbl').html(infomanga['L']);
     $('#datos_manga1-MediumLbl').html(infomanga['M']);
-    $('#datos_manga1-TinyLbl').html(infomanga['S']);
+    $('#datos_manga1-SmallLbl').html(infomanga['S']);
     $('#datos_manga1-TinyLbl').html(infomanga['T']);
     // datos evaluados de TRS y TRM de primera manga
     // si fedinfo.Modes[rec][i] resultados_fillForm no hace nada
@@ -1058,7 +1060,7 @@ function resultados_doSelectRonda(row) {
         // textos de la segunda manga
         $('#datos_manga2-LargeLbl').html(infomanga['L']);
         $('#datos_manga2-MediumLbl').html(infomanga['M']);
-        $('#datos_manga2-TinyLbl').html(infomanga['S']);
+        $('#datos_manga2-SmallLbl').html(infomanga['S']);
         $('#datos_manga2-TinyLbl').html(infomanga['T']);
         // datos evaluados de TRS y TRM de segunda manga
         // si fedinfo.Modes[rec][i] resultados_fillForm no hace nada
