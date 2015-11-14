@@ -26,7 +26,7 @@ class Clubes extends DBObject {
 	function __construct($file,$federation=-1) {
 		parent::__construct($file);
 		if ($federation>=0) {
-			$this->curFederation=Federations::getFederation($federation);
+			$this->curFederation=Federations::getFederation(intval($federation));
 		}
 	}
 	/* use parent constructor and destructors */

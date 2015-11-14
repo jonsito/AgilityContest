@@ -90,7 +90,8 @@ class PrintCommon extends FPDF {
 		$this->myLogger= new Logger($file,$this->config->getEnv("debug_level"));
 		$this->myDBObject=new DBObject($file);
 		$this->prueba=$this->myDBObject->__getObject("Pruebas",$prueba);
-		$this->federation=Federations::getFederation($this->prueba->RSCE);
+		$this->federation=Federations::getFederation(intval($this->prueba->RSCE));
+		$this->myLogger->trace("Federation is: ".json_decode($this->federation));
 		$this->club=$this->myDBObject->__getObject("Clubes",$this->prueba->Club); // club organizador
 		if ($jornada!=0) $this->jornada=$this->myDBObject->__getObject("Jornadas",$jornada);
 		else $this->jornada=null;

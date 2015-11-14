@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-require_once(__DIR__."../../../modules/Federations.php");
+require_once(__DIR__."/../../../modules/Federations.php");
 require_once("DBObject.php");
 require_once("Equipos.php");
 require_once("Resultados.php");
@@ -62,7 +62,7 @@ class OrdenSalida extends DBObject {
 			$this->errormsg="OrdenSalida::construct(): Cannot get prueba info on prueba:{$this->jornada['Prueba']} jornada:{$this->manga['Jornada']} manga:$manga";
 			throw new Exception($this->errormsg);
 		}
-		$this->federation=Federations::getFederation($this->prueba['RSCE']);
+		$this->federation=Federations::getFederation(intval($this->prueba['RSCE']));
 		if ($this->federation==null) {
 			$this->errormsg="OrdenSalida::construct(): Cannot get federation info on prueba:{$this->jornada['Prueba']} jornada:{$this->manga['Jornada']} manga:$manga";
 			throw new Exception($this->errormsg);

@@ -575,7 +575,7 @@ class Tandas extends DBObject {
 		// obtenemos datos de la jornada y prueba
 		$j=$this->jornada;
 		$p=$this->prueba;
-		$f=Federations::getFederation(intval($p->RSCE));
+		$f=Federations::getFederation(intval(intval($p->RSCE)));
 		$this->myLogger->trace("call to getFederation({$p->RSCE}) returns: ".print_r($f,true));
 		// actualizamos la lista de tandas de cada ronda
 		

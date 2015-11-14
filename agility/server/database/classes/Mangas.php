@@ -128,7 +128,7 @@ class Mangas extends DBObject {
 
 		/* si la prueba es selectiva forzamos tipo de recorrido, y TRS */
 		if ($this->pruebaObj->Selectiva!=0) {
-			$fed=Federations::getFederation($this->pruebaObj->RSCE);
+			$fed=Federations::getFederation(intval($this->pruebaObj->RSCE));
 			$grades=$fed->get('Grades');
 			$doSelectiva=false;
 			if ( ($grades==3) && ($tipo==6) ) $doSelectiva=true; // 3-grades Agility Grado III

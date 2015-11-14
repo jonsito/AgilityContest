@@ -277,7 +277,7 @@ class Dogs extends DBObject {
 		$f="1";
 		if ($fed>=0) {
 			// ask how many heights has selected federation
-			$fedinfo=Federations::getFederation($fed);
+			$fedinfo=Federations::getFederation(intval($fed));
 			if ($fedinfo) {
 				if ($fedinfo->get('Heights')===3) $f="(Categoria <> 'T') ";
 			} else {
@@ -323,7 +323,7 @@ class Dogs extends DBObject {
 		$f="1";
 		if ($fed>=0) {
 			// ask how many grades has selected federation
-			$fedinfo=Federations::getFederation($fed);
+			$fedinfo=Federations::getFederation(intval($fed));
 			if ($fedinfo) {
 				if ($fedinfo->get('Grades')===2) $f="(Grado <> 'GIII') ";
 			} else {
