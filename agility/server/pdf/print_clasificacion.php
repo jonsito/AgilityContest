@@ -138,7 +138,7 @@ class PrintClasificacion extends PrintCommon {
 	}
 	
 	function writeTableHeader() {
-        $caza=($this->federation->getFederation()==1)?true:false;
+		$wide=$this->federation->get('WideLicense'); // some federations need extra space to show license id
 		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
 		$tm2=null;
 		if ($this->manga2!=null) $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
@@ -160,11 +160,11 @@ class PrintClasificacion extends PrintCommon {
 		$this->SetFont('Helvetica','',8); // default font
 		// datos del participante
 		$this->Cell(10,7,_('Dorsal'),0,0,'C',true); 	// dorsal
-		$this->Cell(($caza)?20:25,7,_('Name'),0,0,'C',true);	// nombre (20,y
-		$this->Cell(($caza)?30:15,7,_('Lic'),0,0,'C',true);	// licencia
+		$this->Cell(($wide)?20:25,7,_('Name'),0,0,'C',true);	// nombre (20,y
+		$this->Cell(($wide)?30:15,7,_('Lic'),0,0,'C',true);	// licencia
 		$this->Cell(10,7,_('Cat/Gr'),0,0,'C',true);	// categoria/grado
-		$this->Cell(($caza)?30:35,7,_('Handler'),0,0,'C',true);	// nombreGuia
-		$this->Cell(($caza)?15:20,7,_('Club'),0,0,'C',true);	// nombreClub
+		$this->Cell(($wide)?30:35,7,_('Handler'),0,0,'C',true);	// nombreGuia
+		$this->Cell(($wide)?15:20,7,_('Club'),0,0,'C',true);	// nombreClub
 		// manga 1
 		$this->Cell(7,7,_('F/T'),0,0,'C',true);	// 1- Faltas+Tocados
 		$this->Cell(7,7,_('Ref'),0,0,'C',true);	// 1- Rehuses
@@ -196,7 +196,7 @@ class PrintClasificacion extends PrintCommon {
 	}
 	
 	function writeCell($idx,$row) {
-        $caza=($this->federation->getFederation()==1)?true:false;
+		$wide=$this->federation->get('WideLicense'); // use extra space for wide license id
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		$offset=($this->PageNo()==1)?80:55;
 		$this->SetXY(10, $offset + 6*$idx ); // first page has 3 extra header lines
@@ -219,13 +219,13 @@ class PrintClasificacion extends PrintCommon {
 		// datos del participante
 		$this->Cell(10,6,$row['Dorsal'],0,0,'L',$fill); 	// dorsal
 		$this->SetFont('Helvetica','B',8); // Display Nombre in bold typeface
-		$this->Cell(($caza)?20:25,6,$row['Nombre'],0,0,'L',$fill);	// nombre (20,y
-		$this->SetFont('Helvetica','',($caza)?6:8); // default font
-		$this->Cell(($caza)?30:15,6,$row['Licencia'],0,0,'C',$fill);	// licencia
+		$this->Cell(($wide)?20:25,6,$row['Nombre'],0,0,'L',$fill);	// nombre (20,y
+		$this->SetFont('Helvetica','',($wide)?6:8); // default font
+		$this->Cell(($wide)?30:15,6,$row['Licencia'],0,0,'C',$fill);	// licencia
         $this->SetFont('Helvetica','',8); // default font
 		$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
-		$this->Cell(($caza)?30:35,6,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia
-		$this->Cell(($caza)?15:20,6,$row['NombreClub'],0,0,'R',$fill);	// nombreClub
+		$this->Cell(($wide)?30:35,6,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia
+		$this->Cell(($wide)?15:20,6,$row['NombreClub'],0,0,'R',$fill);	// nombreClub
 		// manga 1
 		$this->Cell(7,6,$row['F1'],0,0,'C',$fill);	// 1- Faltas+Tocados
 		$this->Cell(7,6,$row['R1'],0,0,'C',$fill);	// 1- Rehuses

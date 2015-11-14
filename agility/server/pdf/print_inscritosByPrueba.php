@@ -79,7 +79,7 @@ class PrintCatalogo extends PrintCommon {
 		$club=$cmgr->selectByID($id);
 
         // evaluate logo
-        $icon=$this->federation->getLogo();
+        $icon=$this->federation->get('Logo'); // default is federation logo
         if ( $club['Logo']==="") {
             $this->myLogger->error("inscritosByPrueba::printClub() club:$id {$club['Nombre']} no logo declared");
         } else if ( !file_exists(__DIR__.'/../../images/logos/'.$icon) ) {
@@ -144,7 +144,7 @@ class PrintCatalogo extends PrintCommon {
 		$this->Cell( $this->width[0], 7, $row['Nombre'],	'LB', 0, 'C',	true);
 		$this->SetFont('Helvetica','',8); // bold 8px
 		$this->Cell( $this->width[1], 7, $row['Raza'],		'LB', 0, 'R',	true);
-        if ($this->federation->getFederation()==1) $this->SetFont('Helvetica','',6); // bold 6px
+        if ($this->federation->get('WideLicense')) $this->SetFont('Helvetica','',6); // bold 6px
         $this->Cell( $this->width[2], 7, $row['Licencia'],	'LB', 0, 'C',	true);
         $this->SetFont('Helvetica','',8); // bold 8px
 		$this->Cell( $this->width[3], 7, $this->cat[$row['Categoria']]." - ".$row['Grado'],	'LB', 0, 'C',	true);
@@ -179,7 +179,7 @@ class PrintCatalogo extends PrintCommon {
 			}
 		}
         // si la prueba es de caza ajustamos para que quepa la licencia
-        if ($this->federation->getFederation()==1) {
+        if ($this->federation->get('WideLicense')) {
             $this->width[0] -= 7;  $this->width[1] -= 7; $this->width[2] +=14;
         }
 		$this->addPage(); // start page
@@ -631,7 +631,7 @@ class PrintInscritos extends PrintCommon {
 			}
 		}
         // si estamos en caza ajustamos para que quepa la licencia
-        if ($this->federation->getFederation()==1) {
+        if ($this->federation->get('WideLicense')) {
             $this->pos[0]-=1; $this->pos[1]-=2; $this->pos[2]+=20; $this->pos[3]-=5; $this->pos[4]-=5; $this->pos[8]-=7;
         }
 		// Datos
@@ -651,7 +651,7 @@ class PrintInscritos extends PrintCommon {
 			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
 			$this->SetFont('Helvetica','B',8); // bold 8px
 			$this->Cell($this->pos[1],5,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
-            if ($this->federation->getFederation()==1) $this->SetFont('Helvetica','',7); // normal 7px
+            if ($this->federation->get('WideLicense')) $this->SetFont('Helvetica','',7); // normal 7px
             else $this->SetFont('Helvetica','',8); // normal 8px
 			$this->Cell($this->pos[2],5,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
             $this->SetFont('Helvetica','',8); // normal 8px

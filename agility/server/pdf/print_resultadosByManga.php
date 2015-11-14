@@ -125,7 +125,7 @@ class ResultadosByManga extends PrintCommon {
 		
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
-		if ($this->federation->getFederation()==1) {
+		if ($this->federation->get('WideLicense')) {
             $this->pos[1]+=5;$this->pos[2]=0;$this->pos[3]+=5;$this->pos[4]+=5;
         }
 		// Datos

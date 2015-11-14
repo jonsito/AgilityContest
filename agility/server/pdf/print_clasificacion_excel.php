@@ -279,7 +279,7 @@ try {
 				$base = $excel->composeTable($mangas,$r,5,$base+1);
 			}
 			break;
-		case 1: // large / medium+small (RSCE) ---- L+M / S+T (RFEC)
+		case 1: // large / medium+small (3heignts) ---- L+M / S+T (4heights)
 			if ($rsce) {
 				$r=$c->clasificacionFinal($rondas,$mangas,0);
 				$base = $excel->composeTable($mangas,$r,0,$base+1);

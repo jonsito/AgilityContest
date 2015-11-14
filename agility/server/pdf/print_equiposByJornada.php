@@ -141,8 +141,8 @@ class EquiposByJornada extends PrintCommon {
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
 
-        // take care on RFEC contests
-        if ($this->federation->getFederation()==1) {
+        // take care on wide license federations
+        if ($this->federation->get('WideLicense')) {
             $this->pos[1]-=2; $this->pos[2]-=3; $this->pos[3]+=20; $this->pos[8]-=15;
         }
         $order=0;
@@ -162,9 +162,9 @@ class EquiposByJornada extends PrintCommon {
                 $this->Cell($this->pos[1],5,$row['Nombre'],		'LR',0,$this->align[1],true);
                 $this->SetFont('Helvetica','',8); // remove bold 9px
                 $this->Cell($this->pos[2],5,$row['Raza'],		'LR',0,$this->align[2],true);
-                if ($this->federation->getFederation()==1) $this->SetFont('Helvetica','',7);
+                if ($this->federation->get('WideLicense')) $this->SetFont('Helvetica','',7);
                 $this->Cell($this->pos[3],5,$row['Licencia'],	'LR',0,$this->align[3],true);
-                $this->SetFont('Helvetica','',8); // restore normal size after rfec license
+                $this->SetFont('Helvetica','',8); // restore normal size after wide license
                 $this->Cell($this->pos[4],5,$this->cat[$row['Categoria']],	'LR',0,$this->align[4],true);
     			$this->Cell($this->pos[5],5,$row['NombreGuia'],	'LR',0,$this->align[5],true);
     			$this->Cell($this->pos[6],5,$row['NombreClub'],	'LR',0,$this->align[6],true);

@@ -218,10 +218,9 @@ class PrintTRSTemplates extends PrintCommon {
         $this->Cell(10,7,'',0,'L',false);
         $this->Cell(90,7,_('Review by').':','LTBR',0,'L',true);
         $this->Ln(15);
-
+        $wide=$this->federation->get('WideLicense'); // use long cell for license when required
         for ($rowcount=0; $rowcount<10;$rowcount++) {
 
-            $caza=($this->federation->getFederation()==1)?true:false; // use long cell for license
             $this->ac_header(1,20);
             // save cursor position
             $x=$this->getX();
@@ -241,7 +240,7 @@ class PrintTRSTemplates extends PrintCommon {
             $this->SetFont('Helvetica','B',10); // bold 10px
             $this->Cell(15,6,'',	'LTR',0,'L',true); // dorsal
             $this->Cell(10,6,'',	'TR',0,'L',true); // celo
-            if ($caza) {
+            if ($wide) {
                 $this->Cell(50,6,'',	'TR',0,'L',true); // perro
             } else {
                 $this->Cell(20, 6, '', 'TR', 0, 'L', true); // licencia
@@ -256,7 +255,7 @@ class PrintTRSTemplates extends PrintCommon {
             $this->SetFont('Helvetica','I',8); // italic 8px
             $this->Cell(15,4,_('Dorsal'),	'',0,'L',false); // display order
             $this->Cell(10,4,_('Heat'),	'',0,'L',false);
-            if ($caza) {
+            if ($wide) {
                 $this->Cell(50,4,_('Name'),	'',0,'L',false);
             } else {
                 $this->Cell(20,4,_('Lic'),'',0,'L',false);

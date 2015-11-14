@@ -12,6 +12,7 @@ class INTL4 extends Federations {
             'ParentWebURL' => 'http://www.worldagilityopen.com/',
             'Heights' => 4,
             'Grades' => 2, // no really sense in international contests, but....
+            'WideLicense' => false, // some federations need extra print space to show license ID
             'Recorridos' => array('Common course',"Standard + Medium / Small + Toy","Separate courses"),
             'ListaGrados'    => array (
                 '-' => 'Not especified',

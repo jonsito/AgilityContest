@@ -96,7 +96,7 @@ class EntradaDeDatos extends PrintCommon {
      * @param {array} $row
      */
 	function writeTableCell_compacto($row) {
-        $caza=($this->federation->getFederation()==1)?true:false; // use long cell for license
+		$wide=$this->federation->get('WideLicense'); // if required use long cell for license
 		$logo=$this->getLogoName($row['Perro']);
 		$this->ac_header(1,20);
 		// save cursor position
@@ -117,7 +117,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->SetFont('Helvetica','B',10); // bold 10px
 		$this->Cell(15,6,'',	'LTR',0,'L',true); // dorsal
 		$this->Cell(10,6,'',	'TR',0,'L',true); // celo
-        if ($caza) {
+        if ($wide) {
             $this->Cell(50,6,'',	'TR',0,'L',true); // perro
         } else {
             $this->Cell(20, 6, '', 'TR', 0, 'L', true); // licencia
@@ -129,7 +129,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->SetXY($x+15,$y+2); // restore cursor position
 		$this->Cell(15,4,$row['Dorsal'],		'',0,'R',false); // display order
 		$this->Cell(10,4,($row['Celo']!=0)?"Celo":"",'',0,'R',false);
-        if ($caza) {
+        if ($wide) {
             $this->Cell(50,4,$row['Nombre'],		'',0,'R',false);
         } else {
             $this->Cell(20,4,$row['Licencia'],		'',0,'R',false);
@@ -144,7 +144,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->SetFont('Helvetica','I',8); // italic 8px
 		$this->Cell(15,4,_('Dorsal'),	'',0,'L',false); // display order
 		$this->Cell(10,4,_('Heat'),	'',0,'L',false);
-        if ($caza) {
+        if ($wide) {
             $this->Cell(50,4,_('Name'),	'',0,'L',false);
         } else {
             $this->Cell(20,4,_('Lic'),'',0,'L',false);
@@ -181,8 +181,8 @@ class EntradaDeDatos extends PrintCommon {
 	 */
 	function writeTableCell_normal($row,$f=1) {
         // remember that this method is called iteratively ... so make sure first time license goes to zero
-        if ($this->federation->getFederation()==1) {
-            $this->pos[1]+=$this->pos[2]; $this->pos[2]=0; // on caza skip license info
+        if ($this->federation->get('WideLicense')) {
+            $this->pos[1]+=$this->pos[2]; $this->pos[2]=0; // on wide license ID skip license info
         }
 		// cada celda tiene una cabecera con los datos del participante
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul

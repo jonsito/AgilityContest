@@ -12,6 +12,7 @@ class UCA extends Federations {
             'ParentWebURL' => 'http://www.fecaza.com/',
             'Heights' => 4,
             'Grades' => 2,
+            'WideLicense' => false, // some federations need extra print space to show license ID
             'Recorridos' => array('Common course',"60 + 50 / 40 + 30","Separate courses"),
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',

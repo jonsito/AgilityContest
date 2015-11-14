@@ -418,7 +418,7 @@ class Clubes extends DBObject {
     function getLogoName($key,$id) {
         if (!array_key_exists($key,$this->logoCache)){
             $this->myLogger->error("getLogoName(): invalid search key: $key");
-            return Federation::$logos[0]; // defaults to rsce. TODO: study how to select from proper federation
+            return "agilitycontest.png"; // defaults to app logo
         }
         // if already exists just return
         if (array_key_exists($id,$this->logoCache[$key])) {

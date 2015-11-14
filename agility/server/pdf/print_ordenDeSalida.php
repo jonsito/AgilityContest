@@ -100,7 +100,7 @@ class OrdenDeSalida extends PrintCommon {
 		$this->ac_header(1,9);
 		for($i=0;$i<count($this->cellHeader);$i++) {
 			// en la cabecera texto siempre centrado
-            if ($this->pos[$i]==0) continue; // on rfec suppress license info
+            if ($this->pos[$i]==0) continue; // on wideLicense suppress license info
 			$this->Cell($this->pos[$i],7,$this->cellHeader[$i],1,0,'C',true);
 		}
 		// Restauración de colores y fuentes
@@ -123,8 +123,8 @@ class OrdenDeSalida extends PrintCommon {
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
 
-        // on rfec suppress license information
-        if ($this->federation->getFederation()==1) {
+        // on wide license federations suppress license information
+        if ($this->federation->get('WideLicense')) {
             $this->pos[8]+=$this->pos[4]; $this->pos[4]=0;
         }
 		// Datos

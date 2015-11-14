@@ -249,7 +249,7 @@ class PrintClasificacionEq3 extends PrintCommon {
     }
 
     function writeTableHeader() {
-        $caza=($this->federation->getFederation()==1)?true:false;
+		$wide=$this->federation->get('WideLicense');
 		$tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3];
 		$tm2=null;
 		if ($this->manga2!=null) $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3];
@@ -258,17 +258,17 @@ class PrintClasificacionEq3 extends PrintCommon {
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// first row of table header
 		$this->SetFont('Helvetica','BI',10); // default font
-        $this->Cell( ($caza)?110:95,4,_('Competitor data'),'L',0,'L',true);
+        $this->Cell( ($wide)?110:95,4,_('Competitor data'),'L',0,'L',true);
 		$this->Cell(47,4,$tm1,0,0,'C',true);
 		$this->Cell(47,4,$tm2,0,0,'C',true);
         $this->Cell(34,4,_('Scr. Individual'),'0',0,'C',true);
-        $this->Cell(($caza)?37:52,4,_('Scr. Teams'),'R',0,'C',true);
+        $this->Cell(($wide)?37:52,4,_('Scr. Teams'),'R',0,'C',true);
 		$this->ln();
 		$this->SetFont('Helvetica','',8); // default font
 		// datos del participante
 		$this->Cell(8,4,_('Dorsal'),'BL',0,'C',true); 	// dorsal
 		$this->Cell(20,4,_('Name'),'B',0,'C',true);	// nombre (20,y
-		$this->Cell(($caza)?28:13,4,_('Lic'),'B',0,'C',true);	// licencia
+		$this->Cell(($wide)?28:13,4,_('Lic'),'B',0,'C',true);	// licencia
 		$this->Cell(8,4,_('Cat'),'B',0,'C',true);	// categoria ( en equipos no se considera el grado )
 		$this->Cell(30,4,_('Handler'),'B',0,'C',true);	// nombreGuia
 		$this->Cell(16,4,_('Club'),'B',0,'C',true);	// nombreClub
@@ -296,14 +296,14 @@ class PrintClasificacionEq3 extends PrintCommon {
 		$this->Cell(9,4,_('Calific'),'B',0,'C',true);	// Calificacion
 		$this->Cell(7,4,_('Position'),'B',0,'C',true);	// Puesto
         // global equipos
-        $this->Cell(($caza)?17:22,4,_('Round'),'B',0,'C',true);	// Puesto
-        $this->Cell(($caza)?10:15,4,_('Time'),'B',0,'C',true);	// Puesto
-        $this->Cell(($caza)?10:15,4,_('Penaliz'),'BR',0,'C',true);	// Puesto
+        $this->Cell(($wide)?17:22,4,_('Round'),'B',0,'C',true);	// Puesto
+        $this->Cell(($wide)?10:15,4,_('Time'),'B',0,'C',true);	// Puesto
+        $this->Cell(($wide)?10:15,4,_('Penaliz'),'BR',0,'C',true);	// Puesto
 		$this->Ln();
 	}
 	
 	function writeCell($idx,$row,$team) {
-        $caza=($this->federation->getFederation()==1)?true:false;
+		$wide=$this->federation->get('WideLicense');
         $this->ac_row($idx,8);
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 		// fomateamos datos
@@ -323,8 +323,8 @@ class PrintClasificacionEq3 extends PrintCommon {
 		$this->Cell(8,4,$row['Dorsal'],'L',0,'L',true); 	// dorsal
 		$this->SetFont('Helvetica','B',8); // Display Nombre in bold typeface
 		$this->Cell(20,4,$row['Nombre'],0,0,'L',true);	// nombre (20,y
-		$this->SetFont('Helvetica','',($caza)?6:8); // default font for licencia
-		$this->Cell(($caza)?28:13,4,$row['Licencia'],0,0,'C',true);	// licencia
+		$this->SetFont('Helvetica','',($wide)?6:8); // default font for licencia
+		$this->Cell(($wide)?28:13,4,$row['Licencia'],0,0,'C',true);	// licencia
         $this->SetFont('Helvetica','',8); // default font
 		$this->Cell(8,4,"{$row['Categoria']}",0,0,'C',true);	// categoria/grado
 		$this->Cell(30,4,$row['NombreGuia'],0,0,'R',true);	// nombreGuia
@@ -358,25 +358,25 @@ class PrintClasificacionEq3 extends PrintCommon {
         switch($idx){
             case 0: // manga 1
                 $this->SetFont('Helvetica','BI',8); // default font
-                $this->Cell(($caza)?17:22,4,Mangas::$tipo_manga[$this->manga1->Tipo][3],0,0,'L',true);	// nombre manga 1
+                $this->Cell(($wide)?17:22,4,Mangas::$tipo_manga[$this->manga1->Tipo][3],0,0,'L',true);	// nombre manga 1
                 $this->SetFont('Helvetica','',8); // default font
-                $this->Cell(($caza)?10:15,4,number_format($team['T1'],$this->timeResolution),0,0,'R',true);	// tiempo manga 1
-                $this->Cell(($caza)?10:15,4,number_format($team['P1'],$this->timeResolution),'R',0,'R',true);	// penalizacion manga 1
+                $this->Cell(($wide)?10:15,4,number_format($team['T1'],$this->timeResolution),0,0,'R',true);	// tiempo manga 1
+                $this->Cell(($wide)?10:15,4,number_format($team['P1'],$this->timeResolution),'R',0,'R',true);	// penalizacion manga 1
                 break;
             case 1: // manga 2
                 $this->SetFont('Helvetica','BI',8); // default font
-                $this->Cell(($caza)?17:22,4,Mangas::$tipo_manga[$this->manga2->Tipo][3],0,0,'L',true);	// nombre manga 2
+                $this->Cell(($wide)?17:22,4,Mangas::$tipo_manga[$this->manga2->Tipo][3],0,0,'L',true);	// nombre manga 2
                 $this->SetFont('Helvetica','',8); // default font
-                $this->Cell(($caza)?10:15,4,number_format($team['T2'],$this->timeResolution),0,0,'R',true);	// tiempo manga 2
+                $this->Cell(($wide)?10:15,4,number_format($team['T2'],$this->timeResolution),0,0,'R',true);	// tiempo manga 2
                 $this->SetFont('Helvetica','',8); // default font
-                $this->Cell(($caza)?10:15,4,number_format($team['P2'],$this->timeResolution),'R',0,'R',true);	// penalizacion manga 2
+                $this->Cell(($wide)?10:15,4,number_format($team['P2'],$this->timeResolution),'R',0,'R',true);	// penalizacion manga 2
                 break;
             case 2: // global
                 $this->SetFont('Helvetica','BI',8); // default font
-                $this->Cell(($caza)?17:22,4,"Final",'B',0,'L',true);
+                $this->Cell(($wide)?17:22,4,"Final",'B',0,'L',true);
                 $this->SetFont('Helvetica','B',8); // default font
-                $this->Cell(($caza)?10:15,4,number_format($team['Tiempo'],$this->timeResolution),'B',0,'R',true);	// tiempo final
-                $this->Cell(($caza)?10:15,4,number_format($team['Penalizacion'],$this->timeResolution),'RB',0,'R',true);	// penalizacion final
+                $this->Cell(($wide)?10:15,4,number_format($team['Tiempo'],$this->timeResolution),'B',0,'R',true);	// tiempo final
+                $this->Cell(($wide)?10:15,4,number_format($team['Penalizacion'],$this->timeResolution),'RB',0,'R',true);	// penalizacion final
                 break;
         }
 		$this->Ln();

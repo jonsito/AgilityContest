@@ -181,8 +181,8 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
         $this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
 
-        // take care on RFEC contests
-        if ($this->federation->getFederation()==1) {
+        // take care on wide license federation contests
+        if ($this->federation->get('WideLicense')) {
             $this->pos[1] -= 2;
             $this->pos[2] -= 3;
             $this->pos[3] += 20;

@@ -23,6 +23,7 @@ require_once(__DIR__."/../logging.php");
 require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../auth/AuthManager.php");
 require_once(__DIR__."/fpdf.php");
+require_once(__DIR__.'/../../modules/Federations.php');
 require_once(__DIR__.'/../database/classes/DBObject.php');
 require_once(__DIR__.'/../database/classes/Clubes.php');
 require_once(__DIR__.'/../database/classes/Pruebas.php');
@@ -62,8 +63,6 @@ class PrintCommon extends FPDF {
 		if (is_string($txt)===FALSE) { return; } // Cell is only valid with strings
 		// convert to iso-latin1 from html
 		$txt=utf8_decode(html_entity_decode($txt));
-		// translate federation related strings
-		$txt=$this->federation->strToFederation($txt,$this->prueba->RSCE);
 		// let string fit into box
 		for($n=strlen($txt);$n>0;$n--) {
 			$str=substr($txt,0,$n);
@@ -91,17 +90,17 @@ class PrintCommon extends FPDF {
 		$this->myLogger= new Logger($file,$this->config->getEnv("debug_level"));
 		$this->myDBObject=new DBObject($file);
 		$this->prueba=$this->myDBObject->__getObject("Pruebas",$prueba);
-        $this->federation=new Federation($this->prueba->RSCE);
+		$this->federation=Federations::getFederation($this->prueba->RSCE);
 		$this->club=$this->myDBObject->__getObject("Clubes",$this->prueba->Club); // club organizador
 		if ($jornada!=0) $this->jornada=$this->myDBObject->__getObject("Jornadas",$jornada);
 		else $this->jornada=null;
 		// evaluage logo info
-        $this->icon=$this->federation->getLogo();
-        $this->icon2=$this->federation->getParentLogo();
+        $this->icon=$this->federation->get('Logo');
+        $this->icon2=$this->federation->get('ParentLogo');
         if (isset($this->club)) {
             $this->icon=$this->club->Logo;
-            $this->icon2=$this->federation->getLogo();
-            if ($this->icon==$this->icon2) $this->icon2=$this->federation->getParentLogo();
+            $this->icon2=$this->federation->get('Logo');
+            if ($this->icon==$this->icon2) $this->icon2=$this->federation->get('ParentLogo');
         }
 		// handle registration info related to PDF generation
         $this->authManager=new AuthManager("print_common");

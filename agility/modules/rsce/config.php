@@ -12,6 +12,7 @@ class RSCE extends Federations {
             'ParentWebURL' => 'http://www.fci.org/',
             'Heights' => 3,
             'Grades' => 3,
+            'WideLicense' => false, // some federations need extra print space to show license ID
             'Recorridos' => array('Common course',"Standard / Midi + Mini","Separate courses"),
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',

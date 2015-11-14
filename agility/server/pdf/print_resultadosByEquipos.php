@@ -166,7 +166,7 @@ class ResultadosByEquipos3 extends PrintCommon {
 	// Tabla coloreada
 	function composeTable() {
 		$this->myLogger->enter();
-		if ($this->federation->getFederation()==1) {
+		if ($this->federation->get('WideLicense')) {
             // en la cabecera texto siempre centrado. Si caza skip licencia
             $this->pos[1]+=5; $this->pos[2]=0; $this->pos[3]+=5;$this->pos[4]+=5;
         }
