@@ -279,7 +279,7 @@ class Clasificaciones extends DBObject {
             }
 		}
 
-		// Esto es (casi) todo, amigos
+		// Esto es (casi) t odo, amigos
 		$result=array();
 		$result['total']=$size;
 		$result['rows']=$final;

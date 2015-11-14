@@ -181,17 +181,21 @@ class Clubes extends DBObject {
 		switch (intval($fed)) {
 			case -1: break; // any
 			// 0 to 4 refers to national contests
-			case 0: // rsce
-			case 1: // rfec
-			case 2: // uca
+			case 0: // rsce federation module ID
+			case 1: // rfec federation module ID
+			case 2: // uca federation module ID
 			case 3: // undefined national contest
-			case 4: $fedstr="((Federations & 31)!=0)"; break; // undefined national contest
+			case 4: // undefined national contest
+				$fedstr="((Federations & 31)!=0)";
+				break;
 			// 5 to 9 refers to international contests
-			case 5:
-			case 6:
-			case 7:
-			case 8: // 3- height international
-			case 9: $fedstr="((Federations & 992)!=0)"; break; // 4-heights international
+			case 5: // undefined
+			case 6: // undefined
+			case 7: // undefined
+			case 8: // 3-height international federation module ID
+			case 9: // 4-height international federation module ID
+				$fedstr="((Federations & 992)!=0)";
+				break;
 			default: return $this->error("Clubes::select() Invalid Federation:$fed");
 		}
 		$limit = "";
@@ -243,9 +247,9 @@ class Clubes extends DBObject {
 		switch (intval($fed)) {
 			case -1: break; // any
 			// 0 to 4 national contests. choose only selected federation
-			case 0: $fedstr="((Federations & 1)!=0)"; break; // rsce
-			case 1: $fedstr="((Federations & 2)!=0)"; break; // rfec
-			case 2: $fedstr="((Federations & 4)!=0)"; break; // uca
+			case 0: $fedstr="((Federations & 1)!=0)"; break; // rsce federation module
+			case 1: $fedstr="((Federations & 2)!=0)"; break; // rfec federation module
+			case 2: $fedstr="((Federations & 4)!=0)"; break; // uca federation module
 			case 3: $fedstr="((Federations & 8)!=0)"; break; // not defined yet
 			case 4: $fedstr="((Federations & 16)!=0)"; break; // not defined yet
 			// 5 to 9 refers to international contests.
@@ -376,8 +380,8 @@ class Clubes extends DBObject {
 		$logo=$row->Logo;
 		$name=$row->Nombre;
 		// 4- si es igual al default, generamos un nuevo nombre para el logo basado en el nombre del club
-		// 	y actualizamos el nombre en la bbdd 
-		if ( ($logo==="rsce.png") || ($logo==="uca.png") || ($logo==="rfec.png") ){
+		// 	y actualizamos el nombre en la bbdd
+		if (Federations::logoMatches($logo)) {
 			// compose logo file name based in club name, instead (old) club ID
 			// Remove all (back)slashes from name
 			$logo = str_replace('\\', '', $name);

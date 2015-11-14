@@ -185,11 +185,26 @@ class Federations {
     /*
      * Retrieve text and visibility info according federation and recorrido
      */
-
     static function infomanga($fed,$rec) {
         $fed=Federations::getFederation($fed);
         if (!$fed) return array('errorMsg' => 'Invalid federation ID');
         return $fed->getInfoManga($rec);
+    }
+
+    /**
+     * Check if provided logo name matches with existing one
+     * @param {string} $name logo to seach
+     * @return {boolean} true or false
+     */
+    static function logoMatches($name) {
+        $name=basename($name); // stip dir info
+        $list=Federations::getFederationList();
+        foreach ($list as $fed) {
+            if (basename($fed['Logo'])===$name) return true;
+            if (basename($fed['ParentLogo'])===$name) return true;
+        }
+        // arriving here means not found
+        return false;
     }
 }
 ?>

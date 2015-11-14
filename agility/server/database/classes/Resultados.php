@@ -132,7 +132,7 @@ class Resultados extends DBObject {
 			case 2: $suffix='S'; break; // S
 			case 3: $suffix='M'; break; // M+S
 			case 4: $suffix='L'; break; // L+M+S
-			// extra values for rfec contests
+			// extra values for 4-heights contests
 			case 5: $suffix='T'; break; // T
 			case 6: $suffix='L'; break; // L+M
 			case 7: $suffix='S'; break; // S+T

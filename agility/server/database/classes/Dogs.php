@@ -267,13 +267,24 @@ class Dogs extends DBObject {
 	/**
 	 * Enumerate categorias ( std, small, medium, tiny 
 	 * Notice that this is not a combogrid, just combobox, so dont result count
-	 * @param {integer} federation; 0:RSCE 1:RFEC 2:UCA -1:any
+	 * @param {integer} federation module ID;  -1:any
 	 * @return null on error; result on success
 	 */
 	function categoriasPerro($fed=-1) {
 		$this->myLogger->enter();
-		// In RSCE There is no "Tiny" Categoria
-		$f= ($fed!=0)?"1":"(Categoria <> 'T') ";
+
+		// evaluate category search argument
+		$f="1";
+		if ($fed>=0) {
+			// ask how many heights has selected federation
+			$fedinfo=Federations::getFederation($fed);
+			if ($fedinfo) {
+				if ($fedinfo->get('Heights')===3) $f="(Categoria <> 'T') ";
+			} else {
+				$this->myLogger->error("CategoriasPerro: invalid federation ID:$fed");
+			}
+		}
+
 		// evaluate offset and row count for query
 		$q=http_request("q","s","");
 		$like =  ($q==="") ? "WHERE $f" : " WHERE $f AND Categoria LIKE '%".$q."%'";
@@ -301,18 +312,23 @@ class Dogs extends DBObject {
 	
 	/**
 	 * Enumerate grados 
-	 * @param {integer} federation; 0:RSCE 1:RFEC 2:UCA -1:any
+	 * @param {integer} federation ID; -1:any
 	 * @return null on error; result on success
 	 * Notice that this is not a combogrid, just combobox, so dont result count
 	 */
 	function gradosPerro($fed=-1) {
 		$this->myLogger->enter();
-		// evaluate fed
-		$f= "1";
-		switch($fed){ // en RFEC y UCA no hay grado 3
-			case 1:
-			case 2:   $f="(Grado <> 'GIII') ";
-			break;
+
+		// evaluate federation search argument
+		$f="1";
+		if ($fed>=0) {
+			// ask how many grades has selected federation
+			$fedinfo=Federations::getFederation($fed);
+			if ($fedinfo) {
+				if ($fedinfo->get('Grades')===2) $f="(Grado <> 'GIII') ";
+			} else {
+				$this->myLogger->error("CategoriasPerro: invalid federation ID:$fed");
+			}
 		}
 		// evaluate offset and row count for query
 		$q=http_request("q","s","");

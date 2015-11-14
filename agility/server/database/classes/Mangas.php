@@ -126,13 +126,15 @@ class Mangas extends DBObject {
 			if (!$rs) return $this->error($this->conn->error); 
 		}
 
-		/* si la prueba es selectiva ajustamos tipo de recorrido, y TRS */
+		/* si la prueba es selectiva forzamos tipo de recorrido, y TRS */
 		if ($this->pruebaObj->Selectiva!=0) {
+			$fed=Federations::getFederation($this->pruebaObj->RSCE);
+			$grades=$fed->get('Grades');
 			$doSelectiva=false;
-			if ( ($this->pruebaObj->RSCE==0) && ($tipo==6) ) $doSelectiva=true; // RSCE Agility Grado III
-			if ( ($this->pruebaObj->RSCE==0) && ($tipo==11) ) $doSelectiva=true; // RSCE Jumping Grado III
-			if ( ($this->pruebaObj->RSCE!=0) && ($tipo==5) ) $doSelectiva=true; // RFEC Jumping Grado II
-			if ( ($this->pruebaObj->RSCE!=0) && ($tipo==10) ) $doSelectiva=true; // RFEC Jumping Grado II
+			if ( ($grades==3) && ($tipo==6) ) $doSelectiva=true; // 3-grades Agility Grado III
+			if ( ($grades==3) && ($tipo==11) ) $doSelectiva=true; // 3-grades Jumping Grado III
+			if ( ($grades==2) && ($tipo==5) ) $doSelectiva=true; // 3-grades Jumping Grado II
+			if ( ($grades==2) && ($tipo==10) ) $doSelectiva=true; // 2-grades Jumping Grado II
 			if ($doSelectiva) {
 				$str="UPDATE Mangas
 				SET Recorrido=0,

@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
+require_once(__DIR__."../../../modules/Federations.php");
 require_once("DBObject.php");
 require_once("Equipos.php");
 require_once("Resultados.php");
@@ -31,6 +31,7 @@ class OrdenSalida extends DBObject {
 	var $prueba=null; // {array} prueba data
 	var $jornada=null; // {array} jornada data
 	var $manga=null; // {array} manga data
+	var $federation=null; // object federation
 	
 	/**
 	 * Constructor
@@ -53,12 +54,17 @@ class OrdenSalida extends DBObject {
 		}
 		$this->jornada=$this->__getArray("Jornadas",$this->manga['Jornada']);
 		if (!is_array($this->jornada)) {
-			$this->errormsg="OrdenSalida::construct(): Cannot get info on jornada:{$this->manga['Jornada']} manga:$manga";
+			$this->errormsg="OrdenSalida::construct(): Cannot get jornada info on jornada:{$this->manga['Jornada']} manga:$manga";
 			throw new Exception($this->errormsg);
 		}
 		$this->prueba=$this->__getArray("Pruebas",$this->jornada['Prueba']);
 		if (!is_array($this->prueba)) {
-			$this->errormsg="OrdenSalida::construct(): Cannot get info on prueba:{$this->jornada['Prueba']} jornada:{$this->manga['Jornada']} manga:$manga";
+			$this->errormsg="OrdenSalida::construct(): Cannot get prueba info on prueba:{$this->jornada['Prueba']} jornada:{$this->manga['Jornada']} manga:$manga";
+			throw new Exception($this->errormsg);
+		}
+		$this->federation=Federations::getFederation($this->prueba['RSCE']);
+		if ($this->federation==null) {
+			$this->errormsg="OrdenSalida::construct(): Cannot get federation info on prueba:{$this->jornada['Prueba']} jornada:{$this->manga['Jornada']} manga:$manga";
 			throw new Exception($this->errormsg);
 		}
 	}
@@ -547,14 +553,14 @@ class OrdenSalida extends DBObject {
 		$this->myLogger->trace("El orden de salida original para manga:{$this->manga['ID']} jornada:{$this->jornada['ID']} es:\n{$hermanas[0]->Orden_Salida}");
 		// En funcion del tipo de recorrido tendremos que leer diversos conjuntos de Resultados
 		switch($hermanas[0]->Recorrido) {
-			case 0: // Large,medium,small (rsce) Large,medium,small,tiny (rfec)
+			case 0: // Large,medium,small (3-heighs) Large,medium,small,tiny (4-heights)
 				$this->invierteResultados($hermanas[1],0);
 				$this->invierteResultados($hermanas[1],1);
 				$this->invierteResultados($hermanas[1],2);
-				if ($this->prueba['RSCE']!=0) $this->invierteResultados($hermanas[1],5);
+				if ($this->federation->get('Heights')==4) $this->invierteResultados($hermanas[1],5);
 				break;
-			case 1: // Large,medium+small (rsce) Large+medium,Small+tiny (rfec)
-				if ($this->prueba['RSCE']==0) {
+			case 1: // Large,medium+small (3heights) Large+medium,Small+tiny (4heights)
+				if ($this->federation->get('Heights')==3) {
 					$this->invierteResultados($hermanas[1],0);
 					$this->invierteResultados($hermanas[1],3);
 				} else {
@@ -562,8 +568,8 @@ class OrdenSalida extends DBObject {
 					$this->invierteResultados($hermanas[1],7);
 				}
 				break;
-			case 2: // conjunta L+M+S (rsce) L+M+S+T (rfec)
-				if ($this->prueba['RSCE']==0) {
+			case 2: // conjunta L+M+S (3 heights) L+M+S+T (4heights)
+				if ($this->federation->get('Heights')==3) {
 					$this->invierteResultados($hermanas[1],4);
 				} else  {
 					$this->invierteResultados($hermanas[1],8);
