@@ -178,6 +178,32 @@ function getOrderString($sort,$order,$def) {
 }
 
 /**
+ * Try to locate icon in the filesystem
+ * Analyze provided icon name. If provides path, verify and use it
+ * On invalid path or not provided,search into iconpath
+ * @param $fedname ( federation 'Name' -not ID- )
+ * @param $name (icon path or name )
+ */
+function getIconPath($fedname,$name) {
+	static $icontable = array();
+	$iconpath=array(
+		__DIR__."/../images/logos", // standard club icon location
+		__DIR__."/i18n",			// standard countri flags location
+		__DIR__."/../images/supporters", // where to store supporters logos
+		__DIR__."/../modules/$fedname", // federation logos
+	);
+	$name=basename($name); // to avoid sniffing extract name from path and force use own iconpaths
+	if (array_key_exists("$fedname - $name",$icontable)) return $icontable["$fedname - $name"];
+	foreach ($iconpath as $path) {
+		if (!file_exists("$path/$name")) continue;
+		$icontable["$fedname - $name"]="$path/$name";
+		return $name;
+	}
+	// arriving here means not found. Use enterprise logo :-)
+	return __DIR__."/../images/logos/agilitycontest.png";
+}
+
+/**
  * Clase para enumerar los interfaces de red del servidor
  */
 class networkInterfaces {

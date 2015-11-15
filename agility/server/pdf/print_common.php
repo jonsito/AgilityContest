@@ -91,17 +91,18 @@ class PrintCommon extends FPDF {
 		$this->myDBObject=new DBObject($file);
 		$this->prueba=$this->myDBObject->__getObject("Pruebas",$prueba);
 		$this->federation=Federations::getFederation(intval($this->prueba->RSCE));
-		$this->myLogger->trace("Federation is: ".json_decode($this->federation));
+        $fedName=$this->federation->get('Name');
+		// $this->myLogger->trace("Federation is: ".json_decode($this->federation));
 		$this->club=$this->myDBObject->__getObject("Clubes",$this->prueba->Club); // club organizador
 		if ($jornada!=0) $this->jornada=$this->myDBObject->__getObject("Jornadas",$jornada);
 		else $this->jornada=null;
 		// evaluage logo info
-        $this->icon=$this->federation->get('Logo');
-        $this->icon2=$this->federation->get('ParentLogo');
+        $this->icon=getIconPath($fedName,$this->federation->get('Logo'));
+        $this->icon2=getIconPath($fedName,$this->federation->get('ParentLogo'));
         if (isset($this->club)) {
-            $this->icon=$this->club->Logo;
-            $this->icon2=$this->federation->get('Logo');
-            if ($this->icon==$this->icon2) $this->icon2=$this->federation->get('ParentLogo');
+            $this->icon=getIconPath($fedName,$this->club->Logo);
+            $this->icon2=getIconPath($fedName,$this->federation->get('Logo'));
+            if ($this->icon==$this->icon2) $this->icon2=getIconPath($fedName,$this->federation->get('ParentLogo'));
         }
 		// handle registration info related to PDF generation
         $this->authManager=new AuthManager("print_common");
@@ -121,13 +122,9 @@ class PrintCommon extends FPDF {
         $row=$this->myDBObject->__selectObject("Logo","Perros,Guias,Clubes","(Perros.Guia=Guias.ID ) AND (Guias.Club=Clubes.ID) AND (Perros.ID=$id)");
         if (!$row) {
 			$this->myLogger->error("getLogoName(): no associated guia/club for Dog ID: $id");
-			return $this->icon;
+			return getIconPath($this->federation->get('Name'),$this->icon);
 		}
-		if (!file_exists(__DIR__.'/../../images/logos/'.$row->Logo)) {
-			$this->myLogger->error("getLogoName(): Dog ID:$id cannot find associated logo file:{$row->Logo}");
-			return $this->icon;
-		}
-        return $row->Logo;
+		return getIconPath($this->federation->get('Name'),$row->Logo);
     }
 
     /**
@@ -142,9 +139,9 @@ class PrintCommon extends FPDF {
 		// 		$this->Cell( width, height, data, borders, where, align, fill)
 		// 		los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
 		$this->SetXY(10,10); // margins are 10mm each
-		$this->Image(__DIR__.'/../../images/logos/'.$this->icon,$this->GetX(),$this->GetY(),25.4);
+		$this->Image($this->icon,$this->GetX(),$this->GetY(),25.4);
 		$this->SetXY($this->w - 35.4,10);
-		$this->Image(__DIR__.'/../../images/logos/'.$this->icon2,$this->GetX(),$this->GetY(),25.4);
+		$this->Image($this->icon2,$this->GetX(),$this->GetY(),25.4);
 	
 		// pintamos nombre de la prueba
 		$this->SetXY($this->centro -50,10);

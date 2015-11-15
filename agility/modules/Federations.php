@@ -26,6 +26,7 @@ class Federations {
         'ID'    => 0,
         'Name'  => '',
         'LongName' => '',
+        // insert basename path as to be used from web client
         'Logo'     => '',
         'ParentLogo'   => '',
         'WebURL' => '',

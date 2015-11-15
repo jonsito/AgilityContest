@@ -107,16 +107,16 @@ class EquiposByJornada extends PrintCommon {
         } else {
             $count=0;
             foreach($team['Perros'] as $miembro) {
-                $logo=$miembro['Logo'];
+                $logo=$this->getLogoName($miembro['Logo']);
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
         $this->SetXY(10,45+5*$rowcount);
 		$this->ac_header(1,17);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),9);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX()+10,$this->getY(),9);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX()+20,$this->getY(),9);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX()+30,$this->getY(),9);
+        $this->Image($logos[0],$this->getX(),$this->getY(),9);
+        $this->Image($logos[1],$this->getX()+10,$this->getY(),9);
+        $this->Image($logos[2],$this->getX()+20,$this->getY(),9);
+        $this->Image($logos[3],$this->getX()+30,$this->getY(),9);
         $this->SetX($this->GetX()+40);
         $this->Cell(140,9,$team['Nombre'],'T',0,'R',true);
         $this->Cell(10,9,'','TR',0,'R',true); // empty space at right of page

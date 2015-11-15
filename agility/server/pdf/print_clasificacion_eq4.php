@@ -262,7 +262,7 @@ class PrintClasificacionEq4 extends PrintCommon {
                 $this->SetX($x+5*$n);
                 $this->Cell(5,5,"",'T',0,'C',true);
             } else {
-                $this->Image(__DIR__.'/../../images/logos/'.$logos[$n],$x+5*$n,$y,5);
+                $this->Image($logos[$n],$x+5*$n,$y,5);
             }
         }
         $this->SetXY(90,$y);

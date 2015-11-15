@@ -239,7 +239,7 @@ class PrintClasificacionEq3 extends PrintCommon {
 				$this->SetX($x+10*$n);
 				$this->Cell(10,8,"",'T',0,'C',true);
 			} else {
-				$this->Image(__DIR__.'/../../images/logos/'.$logos[$n],$x+10*$n,$y,8);
+				$this->Image($logos[$n],$x+10*$n,$y,8);
 			}
 		}
 		$this->SetX($x+40);

@@ -172,7 +172,7 @@ class ResultadosByEquipos4 extends PrintCommon {
                 $this->SetX($x+7*$n);
                 $this->Cell(7,7,"",'T',0,'C',true);
             } else {
-                $this->Image(__DIR__.'/../../images/logos/'.$logos[$n],$x+7*$n,$y,7);
+                $this->Image($logos[$n],$x+7*$n,$y,7);
             }
         }
         $this->SetX(98);

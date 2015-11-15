@@ -108,7 +108,7 @@ class EntradaDeDatos extends PrintCommon {
 		// pintamos logo
 		$this->Cell(15,19,'','LTBR',0,'L',false);
 		$this->SetXY($x+1,$y+2); // restore cursor position
-		$this->Image(__DIR__.'/../../images/logos/'.$logo,$this->getX()+0.5,$this->getY(),12);
+		$this->Image($logo,$this->getX()+0.5,$this->getY(),12);
 		$this->SetX($this->GetX()+12);
 		
 		// bordes cabecera de celda
@@ -269,7 +269,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->SetXY($x,$y+15); // logo border
 		$this->Cell($this->pos[0],15,'','LB',0,false);
 		$this->SetXY($x+1.5,$y+16); // logo position
-		$this->Image(__DIR__.'/../../images/logos/'.$logo,$this->getX(),$this->getY(),12);
+		$this->Image($logo,$this->getX(),$this->getY(),12);
 
 		// fase 1: contenido de cada celda de la cabecera
 		$this->SetXY($x+$this->pos[0],$y); // next cell position

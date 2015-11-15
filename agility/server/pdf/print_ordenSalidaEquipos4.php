@@ -149,10 +149,10 @@ class OrdenSalidaEquipos4 extends PrintCommon {
         $this->Cell(10,7,'','TRB',0,'',true); // empty space at right of page
 
         $this->SetXY(125,7+$y);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[0],$this->getX(),$this->getY(),11);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[1],$this->getX()+11,$this->getY(),11);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[2],$this->getX()+22,$this->getY(),11);
-        $this->Image(__DIR__.'/../../images/logos/'.$logos[3],$this->getX()+33,$this->getY(),11);
+        $this->Image($logos[0],$this->getX(),$this->getY(),11);
+        $this->Image($logos[1],$this->getX()+11,$this->getY(),11);
+        $this->Image($logos[2],$this->getX()+22,$this->getY(),11);
+        $this->Image($logos[3],$this->getX()+33,$this->getY(),11);
 
         $this->Ln(11);
 	}

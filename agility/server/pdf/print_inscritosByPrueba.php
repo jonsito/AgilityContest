@@ -77,14 +77,16 @@ class PrintCatalogo extends PrintCommon {
 		// retrieve club data
 		$cmgr=new Clubes('printCatalogo',$this->prueba->RSCE);
 		$club=$cmgr->selectByID($id);
+		$fedName=$this->federation->get('Name');
 
         // evaluate logo
-        $icon=$this->federation->get('Logo'); // default is federation logo
+		$icon=getIconPath($fedName,"agilitycontest.png");
         if ( $club['Logo']==="") {
-            $this->myLogger->error("inscritosByPrueba::printClub() club:$id {$club['Nombre']} no logo declared");
-        } else if ( !file_exists(__DIR__.'/../../images/logos/'.$icon) ) {
-            $this->myLogger->error("inscritosByPrueba::printClub() club:$id {$club['Nombre']} logo '$icon' not found");
-        } else $icon=$club['Logo'];
+			$this->myLogger->error("inscritosByPrueba::printClub() club:$id {$club['Nombre']} no logo declared");
+			$icon = getIconPath($fedName, $this->federation->get('Logo')); // default is federation logo
+		} else {
+			$icon = $icon = getIconPath($fedName, $club['Logo']);
+		}
 		$this->myLogger->trace("ID:".$id." Club: ".$club['Nombre']);
 
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul

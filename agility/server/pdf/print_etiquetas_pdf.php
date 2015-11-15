@@ -106,7 +106,7 @@ class Etiquetas_PDF extends PrintCommon {
 		//logo   (30,y,15,15)
 		// los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
 		$this->SetXY($left+22,$y1); // margins are 10mm each
-		$this->Image(__DIR__.'/../../images/logos/'.$this->icon,$this->getX(),$this->getY(),15);
+		$this->Image($this->icon,$this->getX(),$this->getY(),15);
 		
 		//Nombre del club (45,y,38,5) left
 		$this->SetXY($left+36,$y1); 
