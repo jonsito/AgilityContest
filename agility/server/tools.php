@@ -197,7 +197,7 @@ function getIconPath($fedname,$name) {
 	foreach ($iconpath as $path) {
 		if (!file_exists("$path/$name")) continue;
 		$icontable["$fedname - $name"]="$path/$name";
-		return $name;
+		return "$path/$name";
 	}
 	// arriving here means not found. Use enterprise logo :-)
 	return __DIR__."/../images/logos/agilitycontest.png";

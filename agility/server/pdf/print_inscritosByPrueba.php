@@ -97,7 +97,7 @@ class PrintCatalogo extends PrintCommon {
 		// pintamos logo
 		$this->SetXY(10,$y);
 		$this->Cell(22,22,'','LTB',0,'C',false);
-		$this->Image(__DIR__.'/../../images/logos/'.$icon,12,2+$y,18,18);
+		$this->Image($icon,12,2+$y,18,18);
 
 		// pintamos info del club
 		$this->SetFont('Helvetica','B',9);
@@ -392,10 +392,10 @@ class PrintEstadisticas extends PrintCommon {
 		$this->Ln();	
 	}
 	
-	function printTableData($data,$name,$rsce) {
+	function printTableData($data,$name,$alturas) {
 		$this->ac_header(2,9);
 		$this->SetX(10);
-		if ($rsce==0) {
+		if ($alturas==3) {
 			$this->SetFont('Helvetica','B',9);
 			// $this->cell( width, height, data, borders, where, align, fill)
 			$this->cell(30,7,'','LRB',0,'L',true);
@@ -449,7 +449,8 @@ class PrintEstadisticas extends PrintCommon {
 			$this->cell(30,7,$data[$name]['G']['S'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['G']['C'],'RB',0,'C',true);
 			$this->Ln(10);
-		} else {
+		}
+		if ($alturas==4) {
 			$this->SetFont('Helvetica','B',9);
 			// $this->cell( width, height, data, borders, where, align, fill)
 			$this->cell(30,7,'','LRB',0,'L',true);
@@ -502,7 +503,7 @@ class PrintEstadisticas extends PrintCommon {
 		}
 	}
 
-	function printTableDataSpecial($data,$name,$rsce,$flag) {
+	function printTableDataSpecial($data,$name,$alturas,$flag) {
 		$this->ac_header(2,9);
 		$this->SetX(10);
 
@@ -512,7 +513,7 @@ class PrintEstadisticas extends PrintCommon {
 		$this->cell(30,7,'Large','TRB',0,'C',true);
 		$this->cell(30,7,'Medium','TRB',0,'C',true);
 		$this->cell(30,7,'Small','TRB',0,'C',true);
-		if ($rsce!=0) $this->cell(30,7,'Tiny','TRB',0,'C',true);
+		if ($alturas==4) $this->cell(30,7,'Tiny','TRB',0,'C',true);
 		$this->cell(30,7,_('Total'),'TRB',0,'C',true);
 		$this->Ln(7);
 
@@ -522,17 +523,18 @@ class PrintEstadisticas extends PrintCommon {
 		$this->cell(30,7,$data[$name]['G']['L'],'RB',0,'C',true);
 		$this->cell(30,7,$data[$name]['G']['M'],'RB',0,'C',true);
 		$this->cell(30,7,$data[$name]['G']['S'],'RB',0,'C',true);
-		if ($rsce!=0) $this->cell(30,7,$data[$name]['G']['T'],'RB',0,'C',true);
+		if ($alturas==4) $this->cell(30,7,$data[$name]['G']['T'],'RB',0,'C',true);
 		$this->cell(30,7,$data[$name]['G']['C'],'RB',0,'C',true);
 		$this->Ln(10);
 	}
 
 	function composeTable() {
+		$alturas=$this->federation->get('Heights');
 		$est=$this->evalData();
 		$this->addPage();
 		$count=0;
 		$this->printTableHeader($est,'Prueba',_('Participation global data'));
-		$this->printTableData($est,'Prueba',$this->prueba->RSCE);
+		$this->printTableData($est,'Prueba',$alturas);
 		$count++;
 		foreach($this->jornadas as $jornada) {
 			if ($jornada['Nombre']==='-- Sin asignar --') continue;
@@ -545,9 +547,9 @@ class PrintEstadisticas extends PrintCommon {
 			if ($jornada['Open']!=0) $flag=_("Open");
 			if ($jornada['KO']!=0) $flag=_("K.O.");
 			if ($flag==="")
-				$this->printTableData($est,$name,$this->prueba->RSCE);
+				$this->printTableData($est,$name,$alturas);
 			else
-				$this->printTableDataSpecial($est,$name,$this->prueba->RSCE,$flag);
+				$this->printTableDataSpecial($est,$name,$alturas,$flag);
 			$count++;
 			if ($count%4==0) $this->addPage();
 		}

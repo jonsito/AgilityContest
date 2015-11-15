@@ -174,16 +174,24 @@ class Clasificaciones extends DBObject {
             $c=$final[$idx]['Grado']; // cogemos la categoria
             switch(intval($this->prueba->RSCE)) {
                 case 0: // RSCE
+					if ($c==="GI") { // en grado uno se puntua por cada manga
+						$pts=0;
+						if ($final[$idx]['P1']==0.0) $pts++;
+						if ($final[$idx]['P2']==0.0) $pts++;
+						$final[$idx]['Calificacion'] = "";
+						if ($pts==1) $final[$idx]['Calificacion'] = "1 Punto";
+						if ($pts==2) $final[$idx]['Calificacion'] = "2 Puntos";
+					}
                     if (intval($this->prueba->Selectiva)==0){
                         if (($c==="GII") || ($c=="GIII"))
-                            $final[$idx]['Calificacion'] = ($final[$idx]['Penalizacion']==0.0)?'Pto.':'';
+                            $final[$idx]['Calificacion'] = ($final[$idx]['Penalizacion']==0.0)?'Punto':'';
                     } else { // selectiva
                         if ($c==="GII") // grado dos puntua normalmente
-                            $final[$idx]['Calificacion'] = ($final[$idx]['Penalizacion']==0.0)?'Pto.':'';
+                            $final[$idx]['Calificacion'] = ($final[$idx]['Penalizacion']==0.0)?'Punto':'';
                         if ($c==="GIII") { // selectiva en grado III
                             // comprobamos si el perro es mestizo
                             if ( Dogs::isMixBreed($final[$idx]['Licencia']) ) {
-                                $final[$idx]['Calificacion'] = ($final[$idx]['Penalizacion']==0.0)?'Pto.':'';
+                                $final[$idx]['Calificacion'] = ($final[$idx]['Penalizacion']==0.0)?'Punto':'';
                             } else {
                                 // TODO: Tener en cuenta perros extranjeros
                                 $pts=array("20","16","12","8","7","6","5","4","3","2");

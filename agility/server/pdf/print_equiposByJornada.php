@@ -100,14 +100,16 @@ class EquiposByJornada extends PrintCommon {
 	}
 	
 	function printTeamInformation($rowcount,$team) {
+        $fed=$this->federation->get('Name');
+        $nl=getIconPath($fed,'null.png');
         // evaluate logos
-        $logos=array('null.png','null.png','null.png','null.png');
+        $logos=array($nl,$nl,$nl,$nl);
         if ($team['Nombre']==="-- Sin asignar --") {
-            $logos[0]='agilitycontest.png';
+            $logos[0]=getIconPath($fed,'agilitycontest.png');
         } else {
             $count=0;
             foreach($team['Perros'] as $miembro) {
-                $logo=$this->getLogoName($miembro['Logo']);
+                $logo=getIconPath($fed,$miembro['Logo']);
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
