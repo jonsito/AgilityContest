@@ -6,6 +6,7 @@ class INTL3 extends Federations {
             'ID'    => 9,
             'Name'  => 'Intl-3',
             'LongName' => 'International Contest - 3 heights',
+            // use basename http absolute path for icons, as need to be used in client side
             'Logo'     => '/agility/modules/intl3/fci.png',
             'ParentLogo'   => '/agility/modules/intl3/fci.png',
             'WebURL' => 'http://www.fci.org',

@@ -6,6 +6,7 @@ class RSCE extends Federations {
             'ID'    => 0,
             'Name'  => 'RSCE',
             'LongName' => 'Real Sociedad Canina de España',
+            // use basename http absolute path for icons, as need to be used in client side
             'Logo'     => '/agility/modules/rsce/rsce.png',
             'ParentLogo'   => '/agility/modules/rsce/fci.png',
             'WebURL' => 'http://www.rsce.es/',

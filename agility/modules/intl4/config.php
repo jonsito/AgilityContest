@@ -6,6 +6,7 @@ class INTL4 extends Federations {
             'ID'    => 8,
             'Name'  => 'Intl-4',
             'LongName' => 'International Contest - 4 heights',
+            // use basename http absolute path for icons, as need to be used in client side
             'Logo'     => '/agility/modules/intl4/wao.png',
             'ParentLogo'   => '/agility/modules/intl4/wao.png',
             'WebURL' => 'http://www.worldagilityopen.com/',

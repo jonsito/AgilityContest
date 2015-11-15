@@ -6,6 +6,7 @@ class RFEC extends Federations {
             'ID'    => 1,
             'Name'  => 'RFEC',
             'LongName' => 'Real Federacion Española de Caza',
+            // use basename http absolute path for icons, as need to be used in client side
             'Logo'     => '/agility/modules/rfec/rfec.png',
             'ParentLogo'   => '/agility/modules/rfec/csd.png',
             'WebURL' => 'http://www.fecaza.com/',

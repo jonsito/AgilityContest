@@ -6,6 +6,7 @@ class UCA extends Federations {
             'ID'    => 2,
             'Name'  => 'UCA',
             'LongName' => 'Union de Clubes de Agility',
+            // use basename http absolute path for icons, as need to be used in client side
             'Logo'     => '/agility/modules/uca/uca.png',
             'ParentLogo'   => '/agility/modules/uca/rfec.png',
             'WebURL' => 'http://www.agilityuca.org/',

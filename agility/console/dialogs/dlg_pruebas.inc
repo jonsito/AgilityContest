@@ -127,25 +127,6 @@ $config =Config::getInstance();
         required: false,
         validType: 'url'
     });
-    $('#pruebas-Club').combogrid({
-		panelWidth: 350,
-		panelHeight: 200,
-		idField: 'ID',
-		textField: 'Nombre',
-		url: '/agility/server/database/clubFunctions.php?Operation=enumerate',
-		method: 'get',
-		mode: 'remote',
-		required: true,
-		columns: [[
-		    {field:'ID',hidden:true}, 
-			{field:'Nombre',title:'<?php _e('Club name'); ?>',width:80,align:'right'},
-			{field:'Provincia',title:'<?php _e('Province'); ?>',width:40,align:'right'}
-		]],
-		multiple: false,
-		fitColumns: true,
-		selectOnNavigation: false
-    });
-
     $('#pruebas-Federation').combogrid({
         panelWidth: 300,
         panelHeight: 150,
@@ -166,6 +147,33 @@ $config =Config::getInstance();
             {field:'LongName',        title:'<?php _e('Name'); ?>',width:'250',align:'right'},
             {field:'Logo',hidden:true},
             {field:'ParentLogo',hidden:true}
-        ]]
+        ]],
+        onChange: function(newvalue,oldvalue) {
+            $('#pruebas-Club').combogrid('clear');
+            $('#pruebas-Club').combogrid('grid').datagrid('load', {'Operation':'enumerate','Federation': newvalue } );
+        }
+    });
+    $('#pruebas-Club').combogrid({
+		panelWidth: 350,
+		panelHeight: 200,
+		idField: 'ID',
+		textField: 'Nombre',
+		url: '/agility/server/database/clubFunctions.php',
+        queryParams: {
+            'Operation': 'enumerate',
+            'Federation': $('#pruebas-Federation').combogrid('getValue')
+        },
+		method: 'get',
+		mode: 'remote',
+		required: true,
+		columns: [[
+		    {field:'ID',hidden:true}, 
+			{field:'Nombre',title:'<?php _e('Club name'); ?>',width:80,align:'right'},
+			{field:'Provincia',title:'<?php _e('Province'); ?>',width:40,align:'right'}
+		]],
+		multiple: false,
+		fitColumns: true,
+		selectOnNavigation: false,
+        onBeforeLoad: function(params) { params.Federation=$('#pruebas-Federation').combogrid('getValue'); return true; }
     });
     </script>
