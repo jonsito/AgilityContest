@@ -46,5 +46,65 @@ class RSCE extends Federations {
             'Puntuaciones' => function() {} // to point to a function to evaluate califications
         );
     }
+
+    /**
+     * Evalua la calificacion final del perro
+     * @param {array} $c1 datos de la primera manga
+     * @param {array} $c2 datos de la segunda manga
+     * @param {array} $perro datos de puntuacion del perro. Passed by reference
+     * @param {array} $puestocat puesto en funcion de la categoria
+     * @param {boolean} $selectiva
+     */
+    public function evalCalification($c1,$c2,&$perro,$puestocat,$selectiva){
+        $grad=$perro['Grado']; // cogemos la categoria
+
+        if ($grad==="GI") { // en grado uno se puntua por cada manga
+            $pts=0;
+            if ($perro['P1']==0.0) $pts++;
+            if ($perro['P2']==0.0) $pts++;
+            $perro['Calificacion'] = "";
+            if ($pts==1) $perro['Calificacion'] = "1 Punto";
+            if ($pts==2) $perro['Calificacion'] = "2 Puntos";
+            return;
+        }
+        if ($grad==="GII") { // grado dos puntua normalmente
+            $perro['Calificacion'] = ($perro['Penalizacion'] == 0.0) ? 'Punto' : '';
+            return;
+        }
+        if ($grad!=="GIII") {
+            return; // ignore other extrange grades
+        }
+        // arriving here means grado III
+        if (selectiva){
+            $perro['Calificacion'] = ($perro['Penalizacion']==0.0)?'Punto':'';
+            return;
+        }
+        // arriving here means prueba selectiva and Grado III
+        // comprobamos si el perro es mestizo
+        if ( Dogs::isMixBreed($perro['Licencia']) ) {
+            $perro['Calificacion'] = ($perro['Penalizacion']==0.0)?'Punto':'';
+            return;
+        }
+        // TODO: Tener en cuenta perros extranjeros
+        $pts=array("20","16","12","8","7","6","5","4","3","2");
+        // manga 1 - puntuan los 10 primeros en cada manga con excelente
+        $pt1=" ";
+        if ( ($perro['P1']<6.0) && ($perro['Pcat1']<=10) ) {
+            $pt1=$pts[$perro['Pcat1']-1];
+        }
+        // manga 2 - puntuan los 10 primeros en cada manga con excelente
+        $pt2=0;
+        if ( ($c2!=null) && ($perro['P2']<6.0) && ($perro['Pcat2']<=10) ) {
+            $pt2=$pts[$perro['Pcat2']-1];
+        }
+        // conjunta - puntuan los 10 primeros si tienen doble excelente
+        $pfin=" ";
+        if ( ($perro['P1']<6.0) && ($perro['P2']<6.0)  && ($perro['Pcat']<=10) ) {
+            $pfin=$pts[$perro['Pcat']-1];
+        }
+        // finalmente componemos el string a presentar
+        $perro['Calificacion']=$str=strval($pt1)."-".strval($pt2)."-".strval($pfin);
+        return; // should be overriden
+    }
 }
 ?>

@@ -46,5 +46,52 @@ class RFEC extends Federations {
             'Puntuaciones' => function() {} // to point to a function to evaluate califications
         );
     }
+
+    /**
+     * Evalua la calificacion final del perro
+     * @param {array} $c1 datos de la primera manga
+     * @param {array} $c2 datos de la segunda manga
+     * @param {array} $perro datos de puntuacion del perro. Passed by reference
+     * @param {array} $puestocat puesto en funcion de la categoria
+     * @param {boolean} $selectiva
+     */
+    public function evalCalification($c1,$c2,&$perro,$puestocat,$selectiva){
+        $grad=$perro['Grado']; // cogemos el grado
+        $cat=$perro['Categoria']; // cogemos la categoria
+
+        if ($grad!=="GII") { // solo se puntua en grado II
+            $perro['Calificacion']=$perro['C1'];
+            if ($perro['P1']<$perro['P2']) $perro['Calificacion']=$perro['C2'];
+            return;
+        }
+        $ptsmanga=array("5","4","3","2","1"); // puntos por manga y puesto
+        $ptsglobal=array("15","12","9","7","6","5","4","3","2","1"); //puestos por general (si no NC o Elim en alguna manga)
+        // manga 1
+        $pt1=0;
+        if ($perro['P1']<6.0) $pt1++; // 1 punto por excelente
+        if ($perro['P1']==0.0) $pt1++; // 2 puntos por cero
+        // puntos a los 5 primeros por manga/categoria si no estan eliminados
+        if ( ($perro['P1']<100) && ($perro['Pcat1']<5) ) $pt1+= $ptsmanga[$perro['Pcat1']-1];
+        // manga 2
+        $pt2=0;
+        if ($c2!=null) {
+            if ($perro['P2']<6.0) $pt2++; // 1 punto por excelente
+            if ($perro['P2']==0.0) $pt2++; // 2 puntos por cero
+            // puntos a los 5 primeros por manga/categoria si no estan eliminados
+            if ( ($perro['P2']<100) && ($perro['Pcat2']<5) ) $pt2+= $ptsmanga[$perro['Pcat2']-1];
+        }
+        // conjunta
+        $pfin=0;
+        if ($puestocat[$cat]<11) {
+            // solo puntuan los 10 primeros que no se hayan eliminado o no clasificado en algna manga
+            if ( ($perro['P1']<=26.0) && ($perro['P2']<=26.0) ) {
+                $pfin=$ptsglobal[$puestocat[$cat]-1];
+            }
+        }
+        // en las pruebas selectivas de caza (regional y nacional) se puntua doble
+        if ($selectiva) { $pt1*=2; $pt2*=2; $pfin*=2; }
+        // finalmente componemos el string a presentar
+        $perro['Calificacion']=$str=strval($pt1)."-".strval($pt2)."-".strval($pfin);
+    }
 }
 ?>

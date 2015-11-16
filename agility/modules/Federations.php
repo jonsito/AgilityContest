@@ -134,6 +134,18 @@ class Federations {
     }
 
     /**
+     * Evalua la calificacion final del perro
+     * @param {array} $c1 datos de la primera manga
+     * @param {array} $c2 datos de la segunda manga
+     * @param {array} $perro datos de puntuacion del perro. Passed by reference
+     * @param {array} $puestocat puesto en funcion de la categoria
+     * @param {boolean} $selectiva
+     */
+    public function evalCalification($c1,$c2,&$perro,$puestocat,$selectiva){
+        return; // should be overriden
+    }
+
+    /**
      * Search federation data by providing ID/Name
      * @param {int} $id Federation ID
      * @return {object} requested federation or null if not found
