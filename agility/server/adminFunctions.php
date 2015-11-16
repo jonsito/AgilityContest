@@ -326,18 +326,18 @@ try {
 		case "register":
 			$am->access(PERMS_ADMIN); $result=$am->registerApp(); if ($result==null) $adm->errormsg="Cannot import license data"; break;
 		case "loadConfig": 
-			$conf=Config::getInstance(); $result=$conf->loadConfig(); break;
+			$config=Config::getInstance(); $result=$config->loadConfig(); break;
 		case "saveConfig": 
 			$am->access(PERMS_ADMIN);
-			$conf=Config::getInstance();
-			$result=$conf->saveConfig();
+			$confif=Config::getInstance();
+			$result=$config->saveConfig();
 			$ev=new Eventos("SaveConfig",1,$am);
 			$ev->reconfigure();
 			break;
 		case "defaultConfig": 
 			$am->access(PERMS_ADMIN);
-			$conf=Config::getInstance();
-			$result=$conf->defaultConfig();
+			$config=Config::getInstance();
+			$result=$config->defaultConfig();
 			$ev=new Eventos("DefaultConfig",1,$am);
 			$ev->reconfigure();
 			break;

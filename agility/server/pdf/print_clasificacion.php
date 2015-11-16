@@ -164,7 +164,7 @@ class PrintClasificacion extends PrintCommon {
 		$this->Cell(($wide)?30:15,7,_('Lic'),0,0,'C',true);	// licencia
 		$this->Cell(10,7,_('Cat/Gr'),0,0,'C',true);	// categoria/grado
 		$this->Cell(($wide)?30:35,7,_('Handler'),0,0,'C',true);	// nombreGuia
-		$this->Cell(($wide)?15:20,7,_('Club'),0,0,'C',true);	// nombreClub
+		$this->Cell(($wide)?15:20,7,$this->strClub,0,0,'C',true);	// nombreClub
 		// manga 1
 		$this->Cell(7,7,_('F/T'),0,0,'C',true);	// 1- Faltas+Tocados
 		$this->Cell(7,7,_('Ref'),0,0,'C',true);	// 1- Rehuses

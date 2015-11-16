@@ -271,7 +271,7 @@ class PrintClasificacionEq3 extends PrintCommon {
 		$this->Cell(($wide)?28:13,4,_('Lic'),'B',0,'C',true);	// licencia
 		$this->Cell(8,4,_('Cat'),'B',0,'C',true);	// categoria ( en equipos no se considera el grado )
 		$this->Cell(30,4,_('Handler'),'B',0,'C',true);	// nombreGuia
-		$this->Cell(16,4,_('Club'),'B',0,'C',true);	// nombreClub
+		$this->Cell(16,4,$this->strClub,'B',0,'C',true);	// nombreClub
 		// manga 1
 		$this->Cell(5,4,_('F/T'),'B',0,'C',true);	// 1- Faltas+Tocados
 		$this->Cell(5,4,_('Ref'),'B',0,'C',true);	// 1- Rehuses

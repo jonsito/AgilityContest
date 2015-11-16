@@ -205,7 +205,7 @@ class PrintTRSTemplates extends PrintCommon {
         // tocamos la cabecera, eliminando datos de prueba y club
         $this->prueba->Nombre="";
         $this->club->Nombre="";
-        $this->icon="agilitycontest.png";
+        $this->icon=getIconPath($this->federation->get('Name'),"agilitycontest.png");
 
         // ahora empezamos a pintar
         $this->AddPage();
@@ -231,7 +231,7 @@ class PrintTRSTemplates extends PrintCommon {
             // pintamos logo
             $this->Cell(15,19,'','LTBR',0,'L',false);
             $this->SetXY($x+1,$y+2); // restore cursor position
-            $this->Image(__DIR__.'/../../images/logos/agilitycontest.png',$this->getX()+0.5,$this->getY(),12);
+            $this->Image($this->icon,$this->getX()+0.5,$this->getY(),12);
             $this->SetX($this->GetX()+12);
 
             // bordes cabecera de celda
@@ -262,7 +262,7 @@ class PrintTRSTemplates extends PrintCommon {
                 $this->Cell(30,4,_('Name'),	'',0,'L',false);
             }
             $this->Cell(60,4,_('Handler'),	'',0,'L',false);
-            $this->Cell(40,4,_('Club'),	'',0,'L',false);
+            $this->Cell(40,4,$this->strClub,	'',0,'L',false);
 
             // ahora pintamos zona de escritura de palotes
             $this->SetXY($x+15,$y+6);

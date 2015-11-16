@@ -68,6 +68,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->orden=$ordens;
 		$this->numrows=$numrows;
 		$this->categoria="L";
+		$this->cellHeader[4]=$this->strClub; // fix country/club text
 	}
 
 	// Cabecera de página
@@ -151,7 +152,7 @@ class EntradaDeDatos extends PrintCommon {
             $this->Cell(30,4,_('Name'),	'',0,'L',false);
         }
 		$this->Cell(60,4,_('Handler'),	'',0,'L',false);
-		$this->Cell(40,4,_('Club'),	'',0,'L',false);
+		$this->Cell(40,4,$this->strClub,	'',0,'L',false);
 		
 		// ahora pintamos zona de escritura de palotes
 		$this->SetXY($x+15,$y+6); 
@@ -220,7 +221,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->Cell($this->pos[1],5,_('Name').':',	'',	0,'L',false);
         if ($this->pos[2]!=0) $this->Cell($this->pos[2],5,_('License').':','',	0,'L',false);
 		$this->Cell($this->pos[3],5,_('Handler').':',	'',	0,'L',false);
-		$this->Cell($this->pos[4],5,_('Club').':',	'',	0,'L',false);
+		$this->Cell($this->pos[4],5,$this->strClub.':',	'',	0,'L',false);
 		$this->Cell($this->pos[5],5,_('Heat').':',	'',	0,'L',false);
 		$this->Cell($this->pos[6],5,_('Comments').':','',0,'L',false);
 		$this->Cell(0,10); // increase height before newline
@@ -300,7 +301,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->Cell($this->pos[0],5,_('Dorsal'),	'',	0,'L',false); // Dorsal
 		$this->Cell($this->pos[1],5,_('Name'),	'',	0,'L',false);
         $this->Cell($this->pos[2]+$this->pos[3],5,_('Handler').' - '._('License'),	'',	0,'L',false); // unify license and guia
-		$this->Cell($this->pos[4],5,_('Club'),	'',	0,'L',false);
+		$this->Cell($this->pos[4],5,$this->strClub,	'',	0,'L',false);
 		$this->Cell($this->pos[5],5,('Heat'),	'',	0,'L',false);
 		$this->Cell($this->pos[6],5,_('Comments'),'',0,'L',false);
 		$this->Cell(0,30); // increase height before newline

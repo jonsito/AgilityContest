@@ -104,7 +104,7 @@ class Print_Podium extends PrintCommon {
 		$this->Cell(15,6,_('Lic').'.',0,0,'C',true);	// licencia
 		$this->Cell(10,6,_('Cat').'/'._('Grd'),0,0,'C',true);	// categoria/grado
 		$this->Cell(35,6,_('Handler'),0,0,'C',true);	// nombreGuia
-		$this->Cell(20,6,_('Club'),0,0,'C',true);	// nombreClub
+		$this->Cell(20,6,$this->strClub,0,0,'C',true);	// nombreClub
 		// manga 1
 		$this->Cell(7,6,_('F/T'),0,0,'C',true);	// 1- Faltas+Tocados
 		$this->Cell(7,6,_('Ref'),0,0,'C',true);	// 1- Rehuses

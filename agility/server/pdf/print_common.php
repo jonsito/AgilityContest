@@ -16,7 +16,6 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-
 define('FPDF_FONTPATH', __DIR__."/font/");
 require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../logging.php");
@@ -48,6 +47,7 @@ class PrintCommon extends FPDF {
 	protected $club;   // club orcanizadod
 	protected $icon;   // logo del club organizador
 	protected $icon2;   // logo de la federacion
+	protected $strClub; // _('Country') or _('Club') according federation
 	protected $jornada; // datos de la jornada
 	protected $myDBObject;
 	protected $pageName; // name of file to be printed
@@ -91,6 +91,7 @@ class PrintCommon extends FPDF {
 		$this->myDBObject=new DBObject($file);
 		$this->prueba=$this->myDBObject->__getObject("Pruebas",$prueba);
 		$this->federation=Federations::getFederation(intval($this->prueba->RSCE));
+		$this->strClub=($this->federation->isInternational())?_('Country'):_('Club');
         $fedName=$this->federation->get('Name');
 		// $this->myLogger->trace("Federation is: ".json_decode($this->federation));
 		$this->club=$this->myDBObject->__getObject("Clubes",$this->prueba->Club); // club organizador

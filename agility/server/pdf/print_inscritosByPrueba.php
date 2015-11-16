@@ -582,7 +582,7 @@ class PrintInscritos extends PrintCommon {
 		$this->jornadas=$jornadas['rows'];
 		$this->setPageName("inscritosByPrueba.pdf");
 		$this->cellHeader=
-			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),_('Club'),_('Cat'),_('Grado'),_('Heat'),_('Comments'),_('Sab.'),_('Dom.'));
+			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,_('Cat'),_('Grado'),_('Heat'),_('Comments'),_('Sab.'),_('Dom.'));
 	}
 	
 	// Cabecera de página

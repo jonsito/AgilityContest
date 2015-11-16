@@ -82,7 +82,6 @@ define('AC_CRONO_INTERMEDIATE',"0");// presentar (1) o no (0) datos de crono int
 Class Config {
 	
 	var $config=array();
-
 	public static $locale_list= array( // stupid ms-windows :-(
 		"es_ES" => Array('es_ES','es','es_ES.UTF-8','esp','spanish','spanish.1252'),
 		"en_US" => Array('en_us','en','en_US.UTF-8','eng','english','english.1252')
@@ -189,9 +188,12 @@ Class Config {
 		// y ahora preparamos la internacionalizacion
 		$windows=(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')?true:false;
 		$locale=$this->config['lang'];
+
 		$locales=Config::$locale_list[$locale];
 		$sel=setlocale(LC_ALL, $locales);
 		putenv("LC_ALL=$sel");
+		// setlocale(LC_ALL, $locale);
+		// putenv("LC_ALL=$locale");
         setlocale(LC_NUMERIC, ($windows)?'eng':'en_US'); // Fix for float number with incorrect decimal separator.
         $domain="AgilityContest";
 		bindtextdomain($domain, __DIR__."/../../locale");

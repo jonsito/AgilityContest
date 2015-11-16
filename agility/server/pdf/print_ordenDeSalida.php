@@ -69,7 +69,7 @@ class OrdenDeSalida extends PrintCommon {
 		$this->orden=$os['rows'];
 		$this->categoria="L";
 		$this->cellHeader = 
-				array(_('Order'),_('Dorsal'),_('Name'),_('Breed'),_('Lic'),_('Handler'),_('Club'),_('Heat'),_('Comments'));
+				array(_('Order'),_('Dorsal'),_('Name'),_('Breed'),_('Lic'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
         // obtenemos los datos de equipos de la jornada indexados por el ID del equipo
 		$eq=new Equipos("print_ordenDeSalida",$prueba,$jornada);
         $this->teams=array();

@@ -77,7 +77,6 @@ class Federations {
      */
     public function getRecorrido($idx) {
         $a= $this->config['Recorridos'][$idx];
-        syslog(LOG_ERR,"data: $a i18n: "._($a));
         return _($a);
     }
 

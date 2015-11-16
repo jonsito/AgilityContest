@@ -36,18 +36,18 @@ class Print_ListaPerros extends PrintCommon {
 	protected $lista; // listado de perros
 
     // $cols=array( `ID`,`Federation`,`Nombre`,`Raza`,`Licencia`,`LOE_RRC`,`Categoria`,`NombreCategoria`,`Grado`,`NombreGrado`,`Guia`,`NombreGuia`,`Club`,`NombreClub`);
-    public static $cols = array( 'ID','Name','Breed','License','KC id','Cat','Grad','Handler','Club');
-    public static $fields = array( 'ID','Nombre','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub');
-    public static $pos = array(   10,  25,      20,    20,        15,       10,          10,    45,    35  );
-    public static $align = array( 'C',  'L',    'L',   'R',       'R',       'C',          'C',    'R',    'R'  );
+    protected $cols = array( 'ID','Name','Breed','License','KC id','Cat','Grad','Handler','Club');
+    protected $fields = array( 'ID','Nombre','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub');
+    protected $pos = array(   10,  25,      20,    20,        15,       10,          10,    45,    35  );
+    protected $align = array( 'C',  'L',    'L',   'R',       'R',       'C',          'C',    'R',    'R'  );
 
 	/**
 	 * Constructor
 	 * @throws Exception
 	 */
-	function __construct() {
+	function __construct($federation) {
 		date_default_timezone_set('Europe/Madrid');
-		parent::__construct('Portrait',"print_ordenTandas",1,0); // use default prueba. not really needed
+		parent::__construct('Portrait',"print_listaPerros",1,0); // use default prueba. not really needed
         $d=new Dogs("print_listaPerros");
         $res=$d->select();
         if (!is_array($res)){
@@ -55,8 +55,11 @@ class Print_ListaPerros extends PrintCommon {
 			throw new Exception($this->errormsg);
 		}
         $this->lista=$res['rows'];
-        $this->icon2=$this->icon;
-        $this->icon="agilitycontest.png";
+		$this->federation=Federations::getFederation(intval($federation));
+		$this->strClub=($this->federation->isInternational())?_('Country'):_('Club');
+		$this->icon=getIconPath($this->federation->get('Name'),"agilitycontest.png");
+        $this->icon2=getIconPath($this->federation->get('Name'),$this->federation->get('Logo'));
+		$this->cols[8]=$this->strClub; // use "country" or "club" according federation
 	}
 	
 	// Cabecera de página
@@ -74,9 +77,9 @@ class Print_ListaPerros extends PrintCommon {
 		$this->myLogger->enter();
 		$this->ac_header(1,10);
 		$this->setXY(10,37.5);
-        for ($n=0;$n<count(Print_ListaPerros::$cols);$n++){
+        for ($n=0;$n<count($this->cols);$n++){
             // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-            $this->Cell(Print_ListaPerros::$pos[$n],8,_(Print_ListaPerros::$cols[$n]),'LTRB',0,'C',true);
+            $this->Cell($this->pos[$n],8,_($this->cols[$n]),'LTRB',0,'C',true);
         }
 		$this->Ln();
 		$this->myLogger->leave();
@@ -95,8 +98,8 @@ class Print_ListaPerros extends PrintCommon {
 			}
             $this->ac_row($rowcount,8.5);
             $this->setX(10);
-            for ($n=0;$n<count(Print_ListaPerros::$cols);$n++){
-                $this->Cell(Print_ListaPerros::$pos[$n],5,$perro[Print_ListaPerros::$fields[$n]],'LBR',0,Print_ListaPerros::$align[$n],true);
+            for ($n=0;$n<count($this->cols);$n++){
+                $this->Cell($this->pos[$n],5,$perro[$this->fields[$n]],'LBR',0,$this->align[$n],true);
             }
             $this->Ln();
 			$rowcount++;
@@ -109,7 +112,8 @@ class Print_ListaPerros extends PrintCommon {
 // Consultamos la base de datos
 try {
 	// 	Creamos generador de documento
-	$pdf = new Print_ListaPerros();
+	$fed=http_request("Federation","i",0);
+	$pdf = new Print_ListaPerros($fed);
 	$pdf->AliasNbPages();
 	$pdf->composeTable();
 	$pdf->Output("print_listaPerros.pdf","D"); // "D" means open download dialog
