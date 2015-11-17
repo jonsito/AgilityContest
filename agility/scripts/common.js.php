@@ -113,7 +113,11 @@ function isJornadaEq3() { return (workingData.datosJornada.Equipos3==1); }
 function isJornadaEq4() { return (workingData.datosJornada.Equipos4==1); }
 
 function fedName(fed) {
-	return workingData.datosFederation['Name'];
+	return ac_fedInfo[fed].Name;
+}
+
+function isInternational(fed){
+	return (parseInt(ac_fedInfo[fed].International)!=0)?true:false;
 }
 
 // lista de dialogos a limpiar cada vez que se recarga la pantalla

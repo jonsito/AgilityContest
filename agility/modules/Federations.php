@@ -33,6 +33,7 @@ class Federations {
         'ParentWebURL' => '',
         'Heights' => 3,
         'Grades' => 3,
+        'International' => 0,
         'WideLicense' => false, // some federations need extra print space to show license ID
         'Recorridos' => array('Common course','Standard / Midi + Mini','Separate courses'),
         'ListaGrados'    => array (
@@ -104,7 +105,7 @@ class Federations {
      * Reserve FedID 0..4 to national events; 5..9 to internationals
      * @return bool
      */
-    public function isInternational() { return ( $this->config['ID'] >4)?true:false; }
+    public function isInternational() { return ( $this->config['International'] !=0)?true:false; }
 
     /**
      * @return string either i18n'd 'Club' or 'Contry' according federation

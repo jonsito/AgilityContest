@@ -57,7 +57,7 @@ $config =Config::getInstance();
 	// datos de la tabla de clubes
 	// - tabla
 	$(function(){
-		var hp=(workingData.federation>5)?true:false; // on international contests hide province
+		var hp=isInternational(workingData.federation); // on international contests hide province
 		var fnames=[{'Title':'','Hidden':true},{'Title':'','Hidden':true},{'Title':'','Hidden':true},{'Title':'','Hidden':true},{'Title':'','Hidden':true}];
 		for (var n=0; n<5;n++) {
 			if (typeof(ac_fedInfo[n])==='undefined') { // undefined federation; hide associated datagrid columnm

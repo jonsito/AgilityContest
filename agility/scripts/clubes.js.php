@@ -128,7 +128,7 @@ function editClub(dg){
     	$.messager.alert("<?php _e('Edit Error');?>:",'<?php _e("There is no club selected"); ?>',"warning");
     	return; // no way to know which club is selected
     }
-    if (workingData.federation>4) {
+    if (isInternational(workingData.federation)) {
         $.messager.alert("<?php _e('Edit Error');?>:",'<?php _e("Country information is not editable"); ?>',"error");
         return; // do not allow editing country information
     }
@@ -152,15 +152,16 @@ function editClub(dg){
 function saveClub(){
     var frm = $('#clubes-form');
     if (!frm.form('validate')) return; // don't call inside ajax to avoid override beforeSend()
-    // evaluate federation checkboxes
-    var fed=0;
-    if (workingData.federation>4) {
-        fed=992; // all international modes set
-    } else {
-        if ( $('#clubes-RSCE').is(':checked') ) fed |=1;
-        if ( $('#clubes-RFEC').is(':checked') ) fed |=2;
-        if ( $('#clubes-UCA').is(':checked') ) fed |=4;
+    if (isInternational(workingData.federation)) {
+        $.messager.alert("<?php _e('Save Error');?>:",'<?php _e("Country information is not editable"); ?>',"error");
+        return; // do not allow editing country information
     }
+    // evaluate federation checkboxes
+    // TODO: convert to federation modules
+    var fed=0;
+    if ( $('#clubes-RSCE').is(':checked') ) fed |=1;
+    if ( $('#clubes-RFEC').is(':checked') ) fed |=2;
+    if ( $('#clubes-UCA').is(':checked') ) fed |=4;
     $('#clubes-Federations').val(fed);
     $.ajax({
         type: 'GET',
@@ -197,7 +198,7 @@ function deleteClub(dg){
     	return; // cannot delete default club
     }
     // take care on International mode
-    if (workingData.federation>4) {
+    if (isInternational(workingData.federation)) {
         $.messager.alert("<?php _e('Delete Error');?>:",'<?php _e("Countries cannot be deleted"); ?>',"error");
         return; // cannot delete countries
     }

@@ -12,7 +12,8 @@ class INTL3 extends Federations {
             'WebURL' => 'http://www.fci.org',
             'ParentWebURL' => 'http://www.fci.org',
             'Heights' => 3,
-            'Grades' => 3, // not really sense in internatiolnal contests, but...
+            'Grades' => 3,
+            'International' => 1,
             'WideLicense' => false, // some federations need extra print space to show license ID
             'Recorridos' => array('Common course',"Standard / Midi + Mini","Separate courses"),
             'ListaGrados'    => array (

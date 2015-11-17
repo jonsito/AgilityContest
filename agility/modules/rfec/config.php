@@ -13,6 +13,7 @@ class RFEC extends Federations {
             'ParentWebURL' => 'http://www.csd.gob.es/',
             'Heights' => 4,
             'Grades' => 2,
+            'International' => 0,
             'WideLicense' => true, // some federations need extra print space to show license ID
             'Recorridos' => array('Common course',"Standard + Medium / Small + Toy","Separate courses"),
             'ListaGrados'    => array (
