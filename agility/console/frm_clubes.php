@@ -20,7 +20,7 @@ require_once(__DIR__."/../server/auth/Config.php");
 require_once(__DIR__."/../server/tools.php");
 $config =Config::getInstance();
 ?>
-<div style="width:975px;height:550px;">
+<div style="width:100%;height:550px;">
     <!-- DECLARACION DE LA TABLA -->
     <table id="clubes-datagrid"></table>
 </div>
@@ -58,6 +58,18 @@ $config =Config::getInstance();
 	// - tabla
 	$(function(){
 		var hp=(workingData.federation>5)?true:false; // on international contests hide province
+		var fnames=[{'Title':'','Hidden':true},{'Title':'','Hidden':true},{'Title':'','Hidden':true},{'Title':'','Hidden':true},{'Title':'','Hidden':true}];
+		for (var n=0; n<5;n++) {
+			if (typeof(ac_fedInfo[n])==='undefined') { // undefined federation; hide associated datagrid columnm
+				fnames[n].Title="";
+				fnames[n].Hidden=true;
+				fnames[n].Width=0;
+			} else {
+				fnames[n].Title=ac_fedInfo[n].Name;  //change column name to proper federation name
+				fnames[n].Hidden=false;
+				fnames[n].Width=2;
+			}
+		}
 		$('#clubes-datagrid').datagrid({
 			// propiedades del panel padre asociado
 			fit: true,
@@ -90,14 +102,16 @@ $config =Config::getInstance();
 				{ field:'Pais',	        width:3, sortable:false,    align: 'center', title: '<?php _e('Country'); ?>' },
 				{ field:'Contacto1',	width:10, sortable:false,   title: '<?php _e('Contact'); ?>'+' 1' },
 				{ field:'Contacto2',	width:10, sortable:true,    title: '<?php _e('Contact'); ?>'+' 2' },
-				{ field:'Contacto3',	width:10, sortable:true,    title: '<?php _e('Contact'); ?>'+' 3' },
+				{ field:'Contacto3',	hidden:true, width:0, sortable:true,    title: '<?php _e('Contact'); ?>'+' 3' },
 				{ field:'GPS',			hidden:true},
 				{ field:'Web',			hidden:true},
 				{ field:'Email',		hidden:true},
-				{ field:'Federations',	hidden:true},
-				{ field:'RSCE',			width:3, sortable:true,    align: 'center', title: 'RSCE', formatter:clubesRSCE },
-				{ field:'RFEC',			width:3, sortable:true,    align: 'center', title: 'RFEC', formatter:clubesRFEC },
-				{ field:'UCA',			width:3, sortable:true,    align: 'center', title: 'UCA',  formatter:clubesUCA },
+				{ field:'Federations',	width:0, hidden:true},
+				{ field:'F1',			width:fnames[0].Width, align:'center', title:fnames[0].Title, hidden:fnames[0].Hidden, formatter:clubes_Fed1 },
+				{ field:'F2',			width:fnames[1].Width, align:'center', title:fnames[1].Title, hidden:fnames[1].Hidden, formatter:clubes_Fed2 },
+				{ field:'F2',			width:fnames[2].Width, align:'center', title:fnames[2].Title, hidden:fnames[2].Hidden, formatter:clubes_Fed3 },
+				{ field:'F4',			width:fnames[3].Width, align:'center', title:fnames[3].Title, hidden:fnames[3].Hidden, formatter:clubes_Fed4 },
+				{ field:'F5',			width:fnames[4].Width, align:'center', title:fnames[4].Title, hidden:fnames[4].Hidden, formatter:clubes_Fed5 },
 				// { field:'Logo',		width:2, sortable:true,    title: 'Logo club' },
 				//{ field:'Observaciones',width:2, sortable:true,    title: 'Observaciones' },
 				{ field:'Baja',			width:2, sortable:true,    align: 'center', title: '<?php _e('Out'); ?>', formatter:clubesBaja }

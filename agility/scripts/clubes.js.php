@@ -22,9 +22,12 @@ $config =Config::getInstance();
 ?>
 
 // ***** gestion de clubes		*********************************************************
-function clubesRSCE(val,row,idx) { return ( (parseInt(row.Federations)&1)==0)?" ":"&#x2714;"; }
-function clubesRFEC(val,row,idx) { return ( (parseInt(row.Federations)&2)==0)?" ":"&#x2714;"; }
-function clubesUCA(val,row,idx)  { return ( (parseInt(row.Federations)&4)==0)?" ":"&#x2714;"; }
+function clubes_FederationMark(row,mask) { return ( (parseInt(row.Federations)&mask)==0)?" ":"&#x2714;";}
+function clubes_Fed1(val,row,idx) { return clubes_FederationMark(row,1); } // RSCE Federation module
+function clubes_Fed2(val,row,idx) { return clubes_FederationMark(row,2); } // RFEC Federation module
+function clubes_Fed3(val,row,idx)  { return clubes_FederationMark(row,4); } // UCA Federation module
+function clubes_Fed4(val,row,idx)  { return clubes_FederationMark(row,8); } // (not defined yet) Federation module
+function clubes_Fed5(val,row,idx)  { return clubes_FederationMark(row,16); } // (not defined yet) Federation module
 function clubesBaja(val,row,idx) { return ( parseInt(val)==0)?" ":"&#x26D4;"; }
 
 /**
