@@ -215,6 +215,23 @@ function getFederationInfo() {
 	});
 }
 
+function checkPermissions(perms, callback) {
+	$.ajax({
+		type: "GET",
+		url: '/agility/server/adminFunctions.php',
+		data: {	'Operation' : 'access','Perms':perms },
+		async: true,
+		cache: false,
+		dataType: 'json',
+		success: function(data){
+			callback( (data.errorMsg)?false:true);
+		},
+		error: function(XMLHttpRequest,textStatus,errorThrown) {
+			alert("error: "+textStatus + " "+ errorThrown );
+		}
+	});
+}
+
 /**
  * Load html contents from 'page' URL and set as contents on '#contenido' tag
  * @param page URL where to retrieve HTML data

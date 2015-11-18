@@ -86,6 +86,8 @@ function editPrueba(dg){
     	$.messager.alert('<?php _e("Edit Error"); ?>','<?php _e("There is no contest selected"); ?>',"warning");
     	return; // no way to know which prueba is selected
     }
+    // add extra required data to form dialog
+    row.Operation='update';
     $('#pruebas-dialog').dialog('open').dialog('setTitle','<?php _e('Modify contest data'); ?>');
     $('#pruebas-form').form('load',row);
 }

@@ -175,28 +175,16 @@ class Clubes extends DBObject {
 		$search=http_Request("where","s","");
 		$page=http_request("page","i",1);
 		$rows=http_request("rows","i",50);
-		$fed=-1;
-		if ($this->curFederation!=null) $fed=$this->curFederation->get('ID');
+		// evaluate federation for club/country filtering
+		// remember that federationID:9 is reserved for international contests
 		$fedstr = "1";
-		switch (intval($fed)) {
-			case -1: break; // any
-			// 0 to 4 refers to national contests
-			case 0: // rsce federation module ID
-			case 1: // rfec federation module ID
-			case 2: // uca federation module ID
-			case 3: // undefined national contest
-			case 4: // undefined national contest
-				$fedstr="((Federations & 31)!=0)";
-				break;
-			// 5 to 9 refers to international contests
-			case 5: // undefined
-			case 6: // undefined
-			case 7: // undefined
-			case 8: // 3-height international federation module ID
-			case 9: // 4-height international federation module ID
-				$fedstr="((Federations & 992)!=0)";
-				break;
-			default: return $this->error("Clubes::select() Invalid Federation:$fed");
+		if ($this->curFederation!=null) {
+			$fed=intval($this->curFederation->get('ID'));
+			$mask=1<<$fed;
+			if (($fed<0)||($fed>8)) {
+				return $this->error("Clubes::select() Invalid Federation:$fed");
+			}
+			$fedstr=$this->curFederation->isInternational()?"((Federations & 512)!=0)":"((Federations & $mask)!=0)";
 		}
 		$limit = "";
 		if ($page!=0 && $rows!=0 ) {
@@ -241,25 +229,16 @@ class Clubes extends DBObject {
 		$this->myLogger->enter();
 		// evaluate search query string
 		$q=http_request("q","s","");
-		$fed=-1;
-		if ($this->curFederation!=null) $fed=$this->curFederation->get('ID');
+		// evaluate federation for club/country filtering
+		// remember that federationID:9 is reserved for international contests
 		$fedstr = "1";
-		switch (intval($fed)) {
-			case -1: break; // any
-			// 0 to 4 national contests. choose only selected federation
-			case 0: $fedstr="((Federations & 1)!=0)"; break; // rsce federation module
-			case 1: $fedstr="((Federations & 2)!=0)"; break; // rfec federation module
-			case 2: $fedstr="((Federations & 4)!=0)"; break; // uca federation module
-			case 3: $fedstr="((Federations & 8)!=0)"; break; // not defined yet
-			case 4: $fedstr="((Federations & 16)!=0)"; break; // not defined yet
-			// 5 to 9 refers to international contests.
-			// current database share same federation mask for clubes/countries declaration
-			case 5:
-			case 6:
-			case 7:
-			case 8:
-			case 9: $fedstr="((Federations & 992)!=0)"; break;
-			default: return $this->error("Clubes::enumerate() Invalid Federation:$fed");
+		if ($this->curFederation!=null) {
+			$fed=intval($this->curFederation->get('ID'));
+			$mask=1<<$fed;
+			if (($fed<0)||($fed>8)) {
+				return $this->error("Clubes::select() Invalid Federation:$fed");
+			}
+			$fedstr=$this->curFederation->isInternational()?"((Federations & 512)!=0)":"((Federations & $mask)!=0)";
 		}
 		$where="1";
 		if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";

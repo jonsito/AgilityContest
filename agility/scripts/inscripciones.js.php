@@ -187,7 +187,11 @@ function reorderInscripciones(idprueba) {
 			Operation: 'reorder'
 		},
 		success: function(data) {
-            $('#inscripciones-datagrid').datagrid('reload');
+			if(data.errorMsg) {
+				$.messager.show({width:300, height:200, title:'<?php _e('Error'); ?>',msg: data.errorMsg });
+			} else {
+				$('#inscripciones-datagrid').datagrid('reload');
+			}
             $.messager.progress('close');
         }
 	});

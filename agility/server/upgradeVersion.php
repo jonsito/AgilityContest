@@ -161,14 +161,14 @@ class Updater {
         $name="";
         $logo="";
         // check if countries are already added
-        $str="SELECT count(*) AS Cuenta FROM Clubes WHERE Federations >=992;";
+        $str="SELECT count(*) AS Cuenta FROM Clubes WHERE Federations >=512;";
         $rs=$this->conn->query($str);
         if (!$rs) throw new Exception ("upgrade::addCountries(select): ".$this->conn->error);
         $item=$rs->fetch_row();
         if ($item[0]!=0) return; // already done
-
+        // federation ID 9 is reserved for coutry list. Do not use
         $str="INSERT INTO CLUBES(Nombre,NombreLargo,Direccion1,Direccion2,Provincia,Pais,Contacto1,Contacto2,Contacto3,GPS,Web,Email,Facebook,Google,Twitter,Logo,Federations,Observaciones,Baja)
-              VALUES (?,?,'','','-- Sin asignar --',?,'','','','','','','','','',?,992,'',0)";
+              VALUES (?,?,'','','-- Sin asignar --',?,'','','','','','','','','',?,512,'',0)";
         // prepare "prepared statement"
         $stmt=$this->conn->prepare($str);
         if (!$stmt) throw new Exception("upgrade::addCountries(prepare) ".$this->conn->error);

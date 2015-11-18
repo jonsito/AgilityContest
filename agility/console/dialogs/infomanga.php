@@ -319,6 +319,12 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 		</tr>
 	</table>
 </form>
+
+<p>
+	<span id="infomanga_readonly" class="blink" style="display:none;color:#ff0000;text-align:center;font-size:17px">
+		<?php _e('Current user has NO WRITE PERMISSIONS');?>
+	</span>
+</p>
 <script type="text/javascript">
 
 $('#dmanga_Juez1').combogrid({
@@ -387,4 +393,9 @@ addTooltip($('#dmanga_Templates').linkbutton(),'<?php _e("Open print form select
 addTooltip($('#dmanga_Guardar').linkbutton(),'<?php _e("Save round technical data into database"); ?>');
 addTooltip($('#dmanga_SameJuez').linkbutton(),'<?php _e("Clone judge information on every rounds for this journey"); ?>');
 
+// if user has no write permission, show proper message info
+checkPermissions(2,function(ok){ // check for 'operator' permissions
+	// TODO: force reload on logout session
+	$('#infomanga_readonly').css('display',(ok)?'none':'inline-block');
+});
 </script>

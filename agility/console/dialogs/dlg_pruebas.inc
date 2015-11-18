@@ -84,6 +84,13 @@ $config =Config::getInstance();
     // - declaracion del formulario
     $('#pruebas-form').form({
     	onLoadSuccess: function(data) {
+
+            // stupid combogrid that doesn't display right data after form load
+            var pc=$('#pruebas-Club');
+            pc.combogrid('clear');
+            pc.combogrid('setValue',data.Club);
+            pc.combogrid('setText',data.NombreClub);
+
         	// alert(JSON.stringify(data));
     	    $('#pruebas-Operation').val('update');
     	    $('#pruebas-Selectiva').prop('checked',(data.Selectiva == 1));
@@ -174,6 +181,6 @@ $config =Config::getInstance();
 		multiple: false,
 		fitColumns: true,
 		selectOnNavigation: false,
-        onBeforeLoad: function(params) { params.Federation=$('#pruebas-Federation').combogrid('getValue'); return true; }
+        // onBeforeLoad: function(params) { params.Federation=$('#pruebas-Federation').combogrid('getValue'); return true; }
     });
     </script>

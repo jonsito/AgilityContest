@@ -1071,7 +1071,7 @@ function resultados_doSelectRonda(row) {
     }
 
     // FASE 2: cargamos informacion sobre resultados globales y la volcamos en el datagrid
-    var mode=$('#resultados-selectCategoria').combobox('getValue');
+    mode=$('#resultados-selectCategoria').combobox('getValue');
 	$.ajax({
 		type:'GET',
 		url:"/agility/server/database/clasificacionesFunctions.php",

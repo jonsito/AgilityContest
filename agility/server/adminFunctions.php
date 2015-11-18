@@ -263,7 +263,7 @@ class Admin extends DBObject {
         $this->query("DELETE FROM Jueces WHERE ID>1");
         $this->query("DELETE FROM Perros WHERE ID>1");
         $this->query("DELETE FROM Guias WHERE ID>1");
-        $this->query("DELETE FROM Clubes WHERE ID>1 AND Federations < 992"); // do not delete countries!!
+        $this->query("DELETE FROM Clubes WHERE ID>1 AND Federations < 512"); // do not delete countries!!
         // do not delete users nor sessions
         $this->query("DELETE FROM Eventos");
 		return "";
@@ -300,6 +300,7 @@ $response="";
 try {
 	$result=null;
 	$operation=http_request("Operation","s","");
+	$perms=http_request("Perms","i",PERMS_NONE);
 	if ($operation===null) throw new Exception("Call to adminFunctions without 'Operation' requested");
 	if ($operation==="progress") {
         // retrieve last line of progress file
@@ -310,6 +311,8 @@ try {
 	$am= new AuthManager("adminFunctions");
     $adm= new Admin("adminFunctions",$am);
 	switch ($operation) {
+		case "access":
+			$am->access($perms); $result=array('success'=>true); break;
 		case "backup":
 			/* $am->access(PERMS_ADMIN); */
 			$result=$adm->backup();	break;
