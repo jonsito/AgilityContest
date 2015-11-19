@@ -77,6 +77,7 @@ define('AC_TABLET_COUNTDOWN',"1");	// accion tras cuenta de 15 segundos 1:nada 2
 define('AC_CRONO_RESYNC',"0");		// si crono manual continua (1) o restart (0) al paso por crono electronico
 define('AC_CRONO_MILISECONDS',"0");	// presentar (1) milesimas o centesimas (0) de segundos
 define('AC_CRONO_INTERMEDIATE',"0");// presentar (1) o no (0) datos de crono intermedio
+define('AC_CRONO_RECTIME',"7");		// tiempo (minutos) de reconocimiento de pista (4..10)
 
 
 Class Config {
@@ -170,6 +171,7 @@ Class Config {
 		$this->config['crono_resync'] =			AC_CRONO_RESYNC;
 		$this->config['crono_miliseconds'] =	AC_CRONO_MILISECONDS;
 		$this->config['crono_intermediate'] =	AC_CRONO_INTERMEDIATE;
+		$this->config['crono_rectime'] =	AC_CRONO_RECTIME;
 
 		// leemos fichero de sistema
 		$sys=parse_ini_file(AC_SYSTEM_FILE,false); // false: don't parse subsections
@@ -334,6 +336,7 @@ Class Config {
 		$this->config['crono_resync'] =	AC_CRONO_RESYNC;
 		$this->config['crono_miliseconds'] =	AC_CRONO_MILISECONDS;
 		$this->config['crono_intermediate'] =	AC_CRONO_INTERMEDIATE;
+		$this->config['crono_rectime'] =	AC_CRONO_RECTIME;
 		// Internacionalizacion. Idiomas
 		$data['lang'] =	AC_LANG;
 		$res=array_merge($this->config,$data);
@@ -396,6 +399,7 @@ Class Config {
 		$data['crono_resync']=http_request('crono_resync','s',AC_CRONO_RESYNC);
 		$data['crono_miliseconds']=http_request('crono_miliseconds','s',AC_CRONO_MILISECONDS);
 		$data['crono_intermediate']=http_request('crono_intermediate','s',AC_CRONO_INTERMEDIATE);
+		$data['crono_rectime']=http_request('crono_rectime','s',AC_CRONO_RECTIME);
 
 		// Sistema
 		$data=testAndSet($data,'lang','s',AC_LANG);

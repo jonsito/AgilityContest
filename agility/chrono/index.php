@@ -77,7 +77,7 @@ function initialize() {
 	    return true;
 	  }
 	});
-	loadConfiguration();
+	loadConfiguration( function(config){c_reconocimiento.reset(60*parseInt(config.crono_rectime)); } );
 	getLicenseInfo();
 	getFederationInfo();
 }

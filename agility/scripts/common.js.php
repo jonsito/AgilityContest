@@ -143,7 +143,7 @@ var Sound = (function () {
 function beep() { Sound(); }
 
 var ac_config={};
-function loadConfiguration() {
+function loadConfiguration(callback) {
 	$.ajax({
 		type: "GET",
 		url: "/agility/server/adminFunctions.php",
@@ -158,6 +158,7 @@ function loadConfiguration() {
 				ac_config=config;
 				// extra configuration data to speedup
 				ac_config.numdecs=(ac_config.crono_miliseconds=="0")?2:3;
+				if (typeof(callback)!=="undefined") callback(ac_config);
 			} else {
 				$.messager.alert('<?php _e("Error"); ?>','<?php _e("LoadConfig(): cannot retrieve configuration from server"); ?>',"error")
 			}
@@ -278,6 +279,7 @@ function strpos (pajar, aguja, offset) {
  *   onUpdateStatus: function(sec){console.log(tenths of seconds);}, // callback for each second
  *   onCounterEnd: function(){ alert('counter ended!');} // final action
  * });
+ * myCounter.reset(secs);
  * myCounter.start();
  */
 function Countdown(options) {
@@ -312,6 +314,14 @@ function Countdown(options) {
 		if (timer!=null) clearInterval(timer);
 		count=0;
 		updateStatus(count);
+	};
+
+	// get/set start count
+	this.reset = function (secs) {
+		if (typeof(secs) === 'undefined') return seconds;
+		var s=parseInt(secs);
+		if (s>0) seconds=s;
+		return seconds;
 	};
 
 	// get/set current count

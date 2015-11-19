@@ -76,7 +76,7 @@ var c_llamada = new Countdown({
 });
 
 var c_reconocimiento = new Countdown({
-	seconds: 420, // 7 minutes
+	seconds: 60*parseInt(ac_config.crono_rectime),
 	onStart: function () {
 		var crr=$('#chrono_Reconocimiento');  // Textro "reconocimiento de pista"
 		crr.text('<?php _e('Course walk');?>').addClass('blink');
@@ -168,6 +168,7 @@ function c_showData(data) {
  */
 function chrono_button(event,data) {
     data.Value=Date.now() - startDate;
+	if (event==='crono_rec') data.start=60*parseInt(ac_config.crono_rectime);
 	chrono_putEvent(event,data);
 	doBeep();
 }
@@ -367,7 +368,10 @@ function chrono_processEvents(id,evt) {
 		// si crono esta activo, ignorar
 		if (cra.Chrono('started')) return;
 		if (c_reconocimiento.val()!==0) c_reconocimiento.stop();
-		else c_reconocimiento.start();
+		else {
+			c_reconocimiento.reset(event['start']);
+			c_reconocimiento.start();
+		}
 		return;
 	case 'cancelar': // operador pulsa cancelar en tablet
 		return;

@@ -303,7 +303,8 @@ var myCounter = new Countdown({
 function tablet_reconocimiento() {
 	tablet_putEvent('crono_rec',{
 		'Session': workingData.sesion,
-		'Value' : Date.now() - startDate
+		'Value' : Date.now() - startDate,
+		'start' : 60 * parseInt(ac_config.crono_rectime)
 	} );
 	doBeep();
 	return false;

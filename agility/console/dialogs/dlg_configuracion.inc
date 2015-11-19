@@ -55,6 +55,7 @@ $config =Config::getInstance();
 	
 		<div title="<?php _e('Tablet &amp; Chrono'); ?>" style="padding:10px">
 			<h3><?php _e('Judge assistant tablet configuration'); ?></h3>
+
 			<label for="tablet_beep"><?php _e('Emit beep on key pressed'); ?></label>
 			<input type="hidden" name="tablet_beep" value="0"/>
 			<input id="tablet_beep" name="tablet_beep" type="checkbox" value="1"/><br />
@@ -64,7 +65,12 @@ $config =Config::getInstance();
 			<label for="tablet_next"><?php _e('Accept button save data and goes to next participant'); ?></label>
 			<input type="hidden" name="tablet_next" value="0"/>
 			<input id="tablet_next" name="tablet_next" type="checkbox" value="1"/><br />
+
+
 			<h3><?php _e('Electronic chronometer behaviour'); ?></h3>
+
+			<label for="crono_rectime"><?php _e('Course Walk duration'); ?></label>
+			<input type="number" min="3" max="12" size="2" value="7" style="width:50px" name="crono_rectime" id="crono_rectime"/> <?php _e('Minutes'); ?><br />
 			<label for="tablet_chrono"><?php _e('Show chrono data on tablet'); ?></label>
 			<input type="hidden" name="tablet_chrono" value="0"/>
 			<input id="tablet_chrono" name="tablet_chrono" type="checkbox" value="1"/><br />

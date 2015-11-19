@@ -80,7 +80,17 @@ class Updater {
     function addColumnUnlessExists($table,$field,$data,$def=null) {
         $this->myLogger->enter();
         $str="";
-        if ($def!=null) $str=" NOT NULL DEFAULT $def";
+        if ($def!=null) {
+            // check for enclose default into single quotes
+            $type=strtolower($data);
+            $isStr=false;
+            if (strpos($data,"text")!==FALSE) $isStr=true;
+            if (strpos($data,"char")!==FALSE) $isStr=true;
+            if (strpos($data,"time")!==FALSE) $isStr=true;
+            if (strpos($data,"date")!==FALSE) $isStr=true;
+            if ($isStr) $str=" NOT NULL DEFAULT '$def''";
+            else        $str=" NOT NULL DEFAULT $def";
+        }
         $drop = "DROP PROCEDURE IF EXISTS AddColumnUnlessExists;";
         $create = "
         CREATE PROCEDURE AddColumnUnlessExists()
@@ -196,13 +206,12 @@ try {
     $upg->updateVersionHistory();
     $upg->updatePerroGuiaClub();
     $upg->addCountries();
-    if ( strcmp($upg->current_version, $upg->last_version) > 0) {
-        $upg->addColumnUnlessExists("Mangas","Orden_Equipos","TEXT");
-        $upg->addColumnUnlessExists("Resultados","TIntermedio","double","0.0");
-        $upg->addColumnUnlessExists("Perros","NombreLargo","varchar(255)");
-        $upg->addColumnUnlessExists("Perros","Genero","varchar(16)");
-        $upg->updateInscripciones();
-    }
+    $upg->addColumnUnlessExists("Mangas","Orden_Equipos","TEXT");
+    $upg->addColumnUnlessExists("Resultados","TIntermedio","double","0.0");
+    $upg->addColumnUnlessExists("Perros","NombreLargo","varchar(255)");
+    $upg->addColumnUnlessExists("Perros","Genero","varchar(16)");
+    $upg->addColumnUnlessExists("Provincias","Pais","varchar(2)","ES");
+    $upg->updateInscripciones();
 } catch (Exception $e) {
     syslog(LOG_ERR,$e);
 }
