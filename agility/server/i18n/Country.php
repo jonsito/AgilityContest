@@ -295,8 +295,23 @@ public static $countryList = array(
      */
     function enumerate() {
         $data=array();
+        // to be used on country search
+        $q=strtolower(http_request("q","s",""));
+        // parse country list
         foreach(Country::$countryList as $key => $val) {
-            array_push($data,array( 'ID' => $key, "Country" => $val ));
+            if ($q==="") {
+                array_push($data,array( 'ID' => $key, "Country" => $val ));
+                continue;
+            }
+            $k=strtolower($key);
+            if (strpos($k,$q)!==false) {
+                array_push($data,array( 'ID' => $key, "Country" => $val ));
+                continue;
+            }
+            $v=strtolower($val);
+            if (strpos($v,$q)!==false) {
+                array_push($data,array( 'ID' => $key, "Country" => $val ));
+            }
         }
         $result=array('total'=>count($data),'rows'=>$data);
         return $result;

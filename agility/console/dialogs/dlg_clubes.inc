@@ -152,13 +152,42 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                                                        '<?php _e( "150x150 pixel size and transparent background"); ?>');
     	addTooltip($('#clubes-Logo'),'<?php _e("Press on image to change club logo"); ?>');
 
+        // despliegue del selector de paises
+        $('#clubes-Pais').combogrid({
+            panelWidth: 250,
+            panelHeight: 200,
+            idField: 'ID',
+            textField: 'Country',
+            url: '/agility/server/database/clubFunctions.php',
+            queryParams: {
+                Operation: 'countries'
+            },
+            method: 'get',
+            mode: 'remote',
+            required: true,
+            columns: [[
+                {field:'ID',title:'ID',width:10,align:'right'},
+                {field:'Country',title:'<?php _e('Country'); ?>',width:40,align:'right'}
+            ]],
+            multiple: false,
+            fitColumns: true,
+            selectOnNavigation: false,
+            onChange: function(newvalue,oldvalue) {
+                $('#clubes-Provincia').combogrid('grid').datagrid('load',{Operation:'select',Country:newvalue});
+            }
+        });
+
     	// despliegue del selector de provincias
         $('#clubes-Provincia').combogrid({
 			panelWidth: 300,
 			panelHeight: 200,
 			idField: 'Provincia',
 			textField: 'Provincia',
-			url: '/agility/server/database/enumerate_Provincias.php?Operation=select',
+			url: '/agility/server/database/enumerate_Provincias.php',
+            queryParams:{
+                Operation: 'select',
+                Country: 'ES'
+            },
 			method: 'get',
 			mode: 'remote',
 			required: true,
@@ -169,25 +198,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			multiple: false,
 			fitColumns: true,
 			selectOnNavigation: false
-        });
-
-        // despliegue del selector de paises
-        $('#clubes-Pais').combogrid({
-            panelWidth: 250,
-            panelHeight: 200,
-            idField: 'ID',
-            textField: 'Country',
-            url: '/agility/server/database/clubFunctions.php?Operation=countries',
-            method: 'get',
-            mode: 'remote',
-            required: true,
-            columns: [[
-                {field:'ID',title:'ID',width:10,align:'right'},
-                {field:'Country',title:'<?php _e('Country'); ?>',width:40,align:'right'}
-            ]],
-            multiple: false,
-            fitColumns: true,
-            selectOnNavigation: false
         });
 
         $('#clubes-logo-dialog').dialog( {
