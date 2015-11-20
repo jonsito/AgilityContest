@@ -299,19 +299,17 @@ public static $countryList = array(
         $q=strtolower(http_request("q","s",""));
         // parse country list
         foreach(Country::$countryList as $key => $val) {
-            if ($q==="") {
+            if ($q==="") { // no search key, just add
                 array_push($data,array( 'ID' => $key, "Country" => $val ));
                 continue;
             }
-            $k=strtolower($key);
+            $k=strtolower($key); // search 2-letter country code
             if (strpos($k,$q)!==false) {
                 array_push($data,array( 'ID' => $key, "Country" => $val ));
                 continue;
             }
-            $v=strtolower($val);
-            if (strpos($v,$q)!==false) {
-                array_push($data,array( 'ID' => $key, "Country" => $val ));
-            }
+            $v=strtolower($val); // search for country name
+            if ($v===$q) array_push($data,array( 'ID' => $key, "Country" => $val ));
         }
         $result=array('total'=>count($data),'rows'=>$data);
         return $result;

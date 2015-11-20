@@ -30,6 +30,18 @@ function clubes_Fed4(val,row,idx)  { return clubes_FederationMark(row,8); } // (
 function clubes_Fed5(val,row,idx)  { return clubes_FederationMark(row,16); } // (not defined yet) Federation module
 function clubesBaja(val,row,idx) { return ( parseInt(val)==0)?" ":"&#x26D4;"; }
 
+function country_styler(index,row) {
+    var res="margin:0px;padding:0px;height:40px;background-color:";
+    var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>'; // even rows
+    var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>'; // odd rows
+    if ((index & 0x01) == 0) {
+        return res + c1 + ";";
+    } else {
+        return res + c2 + ";";
+    }
+}
+function format_countryFlag(val,row,idx) { return '<img src="/agility/images/logos/'+val+'" height="20"/>'; }
+
 /**
  * Vista preliminar del logo
  */

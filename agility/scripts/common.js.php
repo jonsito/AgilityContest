@@ -233,6 +233,12 @@ function checkPermissions(perms, callback) {
 	});
 }
 
+function loadCountryOrClub() {
+	var intl = parseInt(ac_fedInfo[workingData.federation].International);
+	if (intl==0) loadContents('/agility/console/frm_clubes.php','<?php _e('Clubs Database Management');?>');
+	else		loadContents('/agility/console/frm_paises.php','<?php _e('Countries Database Info');?>');
+}
+
 /**
  * Load html contents from 'page' URL and set as contents on '#contenido' tag
  * @param page URL where to retrieve HTML data
@@ -845,9 +851,9 @@ function addKeyHandler(dgid,insertfn,updatefn,deletefn) {
         switch(e.keyCode){
         case 38:	/* Up */	 selectRow(t,true); return false;
         case 40:    /* Down */	 selectRow(t,false); return false;
-        case 13:	/* Enter */	 if (e.ctrlKey) displayRowData(t); else updatefn(dgid); return false;
-        case 45:	/* Insert */ insertfn(dgid,$(dgid+'-search').val()); return false;
-        case 46:	/* Supr */	 deletefn(dgid); return false;
+        case 13:	/* Enter */	 if (e.ctrlKey) displayRowData(t); else if(updatefn) updatefn(dgid); return false;
+        case 45:	/* Insert */ if(insertfn) insertfn(dgid,$(dgid+'-search').val()); return false;
+        case 46:	/* Supr */	 if(deletefn) deletefn(dgid); return false;
         case 33:	/* Re Pag */ selectPage(t,-1); return false;
         case 34:	/* Av Pag */ selectPage(t,1); return false;
         case 35:	/* Fin */    selectPage(t,2); return false;

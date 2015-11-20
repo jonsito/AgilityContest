@@ -181,7 +181,7 @@ class Clubes extends DBObject {
 		if ($this->curFederation!=null) {
 			$fed=intval($this->curFederation->get('ID'));
 			$mask=1<<$fed;
-			if (($fed<0)||($fed>8)) {
+			if (($fed<0)||($fed>9)) {
 				return $this->error("Clubes::select() Invalid Federation:$fed");
 			}
 			$fedstr=$this->curFederation->isInternational()?"((Federations & 512)!=0)":"((Federations & $mask)!=0)";
@@ -192,7 +192,7 @@ class Clubes extends DBObject {
 			$limit="".$offset.",".$rows;
 		}
 		$where="1";
-		if ($search!=='') $where="( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') OR ( Facebook LIKE '%$search%') ) ";
+		if ($search!=='') $where="( (Nombre LIKE '%$search%') OR (Provincia LIKE '%$search%') OR (Pais LIKE '%$search%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Clubes",
@@ -235,7 +235,7 @@ class Clubes extends DBObject {
 		if ($this->curFederation!=null) {
 			$fed=intval($this->curFederation->get('ID'));
 			$mask=1<<$fed;
-			if (($fed<0)||($fed>8)) {
+			if (($fed<0)||($fed>9)) {
 				return $this->error("Clubes::select() Invalid Federation:$fed");
 			}
 			$fedstr=$this->curFederation->isInternational()?"((Federations & 512)!=0)":"((Federations & $mask)!=0)";
