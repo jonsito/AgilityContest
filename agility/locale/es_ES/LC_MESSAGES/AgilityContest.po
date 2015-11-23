@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-11-20 14:44+0100\n"
-"PO-Revision-Date: 2015-11-20 14:46+0100\n"
+"POT-Creation-Date: 2015-11-23 14:08+0100\n"
+"PO-Revision-Date: 2015-11-23 14:09+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -60,6 +60,7 @@ msgstr "R"
 #: server/pdf/print_entradaDeDatos.php:301
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:585
+#: server/pdf/print_inscritosByPrueba.php:722
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:102
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62
@@ -96,6 +97,7 @@ msgstr "Perro"
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:124
 #: server/pdf/print_inscritosByPrueba.php:585
+#: server/pdf/print_inscritosByPrueba.php:722
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:106
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62
@@ -190,6 +192,7 @@ msgstr "Grado"
 #: server/pdf/print_entradaDeDatos.php:225
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:585
+#: server/pdf/print_inscritosByPrueba.php:722
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_ordenDeSalida.php:176
 #: server/pdf/print_trsTemplates.php:257 tablet/tablet_main.php:86
 #: tablet/tablet_main.php:261 videowall/vw_combinada.php:192
@@ -342,7 +345,8 @@ msgstr "Gu&iacute;a"
 #: server/pdf/print_clasificacion_eq3.php:272
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:123
-#: server/pdf/print_inscritosByPrueba.php:585 server/pdf/print_podium.php:105
+#: server/pdf/print_inscritosByPrueba.php:585
+#: server/pdf/print_inscritosByPrueba.php:722 server/pdf/print_podium.php:105
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62 tablet/tablet_main.php:82
 #: tablet/tablet_main.php:264 videowall/videowall.js.php:164
@@ -426,6 +430,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:120
 #: server/pdf/print_inscritosByPrueba.php:585
+#: server/pdf/print_inscritosByPrueba.php:722
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:103
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62
@@ -468,6 +473,7 @@ msgstr "Nombre"
 #: server/pdf/print_entradaDeDatos.php:306
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:585
+#: server/pdf/print_inscritosByPrueba.php:722
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_ordenTandas.php:90
 #: tablet/index.php:185 tablet/index.php:221 tablet/tablet_main.php:183
 #: videowall/index.php:243 videowall/vw_llamada.php:106
@@ -962,6 +968,7 @@ msgstr "Club anfitri&oacute;n"
 #: server/pdf/print_clasificacion_eq3.php:160
 #: server/pdf/print_clasificacion_eq4.php:164
 #: server/pdf/print_clasificacion_excel.php:103
+#: server/pdf/print_inscritosByPrueba.php:751
 #: server/pdf/print_ordenTandas.php:66 server/pdf/print_podium.php:79
 #: server/pdf/print_trsTemplates.php:70 server/pdf/print_trsTemplates.php:80
 #: tablet/index.php:153 videowall/videowall.js.php:103
@@ -1009,6 +1016,7 @@ msgstr "Clasificaci&oacute;n"
 #: server/pdf/print_entradaDeDatos.php:151
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:585
+#: server/pdf/print_inscritosByPrueba.php:722
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:104
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:62
@@ -2319,7 +2327,7 @@ msgstr "CLASIFICACIONES"
 msgid "Scores - Contest and Journey selection"
 msgstr "Clasificaciones - Selecci&oacute;n de Prueba y Jornada"
 
-#: console/index.php:195 scripts/inscripciones.js.php:219
+#: console/index.php:195 scripts/inscripciones.js.php:218
 #: server/pdf/print_inscritosByPrueba.php:238
 msgid "Statistics"
 msgstr "Estad&iacute;sticas"
@@ -3308,27 +3316,31 @@ msgstr "Ordenar"
 msgid "Re-ordering Dorsals"
 msgstr "Reasignar dorsales"
 
-#: scripts/inscripciones.js.php:217
-msgid "Select form"
-msgstr "Selecciona formulario"
-
 #: scripts/inscripciones.js.php:218
-msgid "Select type of document to be generated"
-msgstr "Selecciona el tipo de documento a generar"
-
-#: scripts/inscripciones.js.php:219
 msgid "Simple listing"
 msgstr "Listado simple"
 
-#: scripts/inscripciones.js.php:219
+#: scripts/inscripciones.js.php:218
 msgid "Catalogue"
 msgstr "Cat&aacute;logo"
 
+#: scripts/inscripciones.js.php:224
+msgid "Inscriptions for journey"
+msgstr "Inscritos en la jornada"
+
 #: scripts/inscripciones.js.php:228
+msgid "Select form"
+msgstr "Selecciona formulario"
+
+#: scripts/inscripciones.js.php:229
+msgid "Select type of document to be generated"
+msgstr "Selecciona el tipo de documento a generar"
+
+#: scripts/inscripciones.js.php:243
 msgid "Printing inscriptions. Please wait"
 msgstr "Imprimiendo inscripciones. Por favor, espere"
 
-#: scripts/inscripciones.js.php:229
+#: scripts/inscripciones.js.php:244
 msgid "There was a problem generating your report, please try again"
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
@@ -3851,6 +3863,7 @@ msgid "K.O."
 msgstr "K.O."
 
 #: server/pdf/print_inscritosByPrueba.php:585
+#: server/pdf/print_inscritosByPrueba.php:722
 msgid "Grado"
 msgstr "Grado"
 
@@ -3865,6 +3878,10 @@ msgstr "Dom."
 #: server/pdf/print_inscritosByPrueba.php:591
 msgid "Competitors list"
 msgstr "Listado de participantes"
+
+#: server/pdf/print_inscritosByPrueba.php:739
+msgid "Competitors of the day"
+msgstr "Inscripciones de la jornada"
 
 #: server/pdf/print_listaPerros.php:68
 msgid "List of registered dogs"

@@ -691,9 +691,140 @@ class PrintInscritos extends PrintCommon {
 	}
 }
 
+class PrintInscritosByJornada extends PrintCommon {
+
+	protected $inscritos; // inscritos en la prueba
+	protected $jornadas; // datos de todas las jornadas de esta prueba
+    protected $jornada; // datos de la jornada concreta
+    protected $JName; // campo "JX" a buscar para ver si esta inscrito o no en la jornada
+
+	// geometria de las celdas
+	protected $cellHeader;
+	protected $pos =	array(  11,       30,     21,    46,   34,     7,     8,     8,       25 );
+	protected $align=	array(  'R',      'C',    'C',   'R',  'R',    'C',    'C',    'C',      'L');
+
+	/**
+	 * Constructor
+	 * @param {integer} $prueba Prueba ID
+	 * @param {array} $inscritos Lista de inscritos en formato jquery array[count,rows[]]
+	 * @throws Exception
+	 */
+	function __construct($prueba,$inscritos,$jornadas,$jornadaid) {
+		parent::__construct('Portrait','print_inscritosByPrueba',$prueba,0);
+		if ( ($prueba==0) || ($inscritos===null) ) {
+			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
+			throw new Exception($this->errormsg);
+		}
+		usort($inscritos['rows'],function($a,$b){return ($a['Dorsal']>$b['Dorsal'])?1:-1;});
+        $this->inscritos=$inscritos['rows'];
+        $this->jornadas=$jornadas['rows'];
+		$this->setPageName("inscritosByPrueba.pdf");
+		$this->cellHeader=
+			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,_('Cat'),_('Grado'),_('Heat'),_('Comments'));
+        $this->JName="";
+        foreach ($jornadas['rows'] as $j) {
+            if ($j['ID'] == $jornadaid) {
+                $this->jornada=$j;
+                $this->JName = "J{$j['Numero']}";
+                break;
+            }
+        }
+        if ($this->JName==="") {
+            $this->errormsg="printInscritosByJornada: Invalid Jornada ID:$jornadaid for provided prueba";
+            throw new Exception($this->errormsg);
+        }
+	}
+
+	// Cabecera de página
+	function Header() {
+		$this->print_commonHeader(_("Competitors of the day"));
+	}
+
+	// Pie de página
+	function Footer() {
+		$this->print_commonFooter();
+	}
+
+	function writeTableHeader() {
+		$this->myLogger->enter();
+        // pintamos "identificacion de la manga"
+        $this->SetFont('Helvetica','B',12); // Helvetica bold 15
+        $str  = _('Journey'). ": ". $this->jornada['Nombre'] . " - " . $this->jornada['Fecha'];
+        $this->Cell(90,9,$str,0,0,'L',false); // a un lado nombre y fecha de la jornada
+        $this->Ln();
+
+		// Colores, ancho de línea y fuente en negrita de la cabecera de tabla
+		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
+		$this->ac_SetTextColor($this->config->getEnv('pdf_hdrfg1')); // blanco
+		$this->ac_SetDrawColor("0x000000"); // line color
+		$this->SetFont('Helvetica','B',9); // bold 9px
+		for($i=0;$i<count($this->cellHeader);$i++) {
+			// en la cabecera texto siempre centrado
+			if ($this->pos[$i]==0) continue;
+			$this->Cell($this->pos[$i],6,$this->cellHeader[$i],1,0,'C',true);
+		}
+		// Restauración de colores y fuentes
+		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
+		$this->SetTextColor(0,0,0); // negro
+		$this->SetFont(''); // remove bold
+		$this->Ln();
+		$this->myLogger->leave();
+	}
+
+	// Tabla coloreada
+	function composeTable() {
+		$this->myLogger->enter();
+		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor')); // line color
+		$this->SetLineWidth(.3);
+
+		// si estamos en caza ajustamos para que quepa la licencia
+		if ($this->federation->get('WideLicense')) {
+			$this->pos[2]+=15; $this->pos[3]-=8; $this->pos[4]-=7;
+		}
+		// Datos
+		$fill = false;
+		$rowcount=0;
+		foreach($this->inscritos as $row) {
+            // si no esta inscrito en la jornada skip
+            if ($row[$this->JName]==0) continue;
+
+			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
+			if( ($rowcount%46) == 0 ) { // assume 44 rows per page ( header + rowWidth = 5mmts )
+				if ($rowcount>0)
+					$this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre
+				$this->addPage();
+				$this->writeTableHeader();
+			}
+			// $this->Cell($this->pos[0],7,$row['IDPerro'],	'LR',0,$this->align[0],$fill);
+			// $this->Cell($this->pos[0],7,$rowcount+1,		'LR',	0,		$this->align[0],$fill); // display order instead of idperro
+
+			$this->Cell($this->pos[0],5,$row['Dorsal'],		'LR',	0,		$this->align[1],	$fill);
+			$this->SetFont('Helvetica','B',9); // bold 9px
+			$this->Cell($this->pos[1],5,$row['Nombre'],		'LR',	0,		$this->align[1],	$fill);
+			if ($this->federation->get('WideLicense')) $this->SetFont('Helvetica','',7); // normal 7px
+			else $this->SetFont('Helvetica','',8); // normal 8px
+			$this->Cell($this->pos[2],5,$row['Licencia'],	'LR',	0,		$this->align[2],	$fill);
+			$this->SetFont('Helvetica','',8); // normal 8px
+			$this->Cell($this->pos[3],5,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
+			$this->Cell($this->pos[4],5,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
+			$this->Cell($this->pos[5],5,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
+			$this->Cell($this->pos[6],5,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
+			$this->Cell($this->pos[7],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[7],	$fill);
+			$this->Cell($this->pos[8],5,$row['Observaciones'],'LR',	0,		$this->align[8],	$fill);
+			$this->Ln();
+			$fill = ! $fill;
+			$rowcount++;
+		}
+		// Línea de cierre
+		$this->Cell(array_sum($this->pos),0,'','T');
+		$this->myLogger->leave();
+	}
+}
+
 // Consultamos la base de datos
 try {
 	$pruebaid=http_request("Prueba","i",0);
+	$jornadaid=http_request("Jornada","i",0);
 	$mode=http_request("Mode","i",0);
 	$pdf=null;
 	$name="";
@@ -707,6 +838,7 @@ try {
 		case 0: $pdf=new PrintInscritos($pruebaid,$inscritos,$jornadas); break;
 		case 1: $pdf=new PrintCatalogo($pruebaid,$inscritos,$jornadas); break;
 		case 2: $pdf=new PrintEstadisticas($pruebaid,$inscritos,$jornadas); break;
+		case 3: $pdf=new PrintInscritosByJornada($pruebaid,$inscritos,$jornadas,$jornadaid); break;
 		default: throw new Exception ("Inscripciones::print() Invalid print mode selected $mode");
 	}
 	$pdf->AliasNbPages();

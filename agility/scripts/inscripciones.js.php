@@ -213,23 +213,38 @@ function canInscribe(jornada) {
  * @returns {Boolean} true on success, otherwise false
  */
 function printInscripciones() {
+	// en el caso de que haya alguna jornada seleccionada.
+	// anyadir al menu la posibilidad de imprimir solo los inscritos en dicha jornada
+	var options= { 0:'<?php _e('Simple listing'); ?>',1:'<?php _e('Catalogue'); ?>',2:'<?php _e('Statistics'); ?>'};
+	// buscamos la jornada seleccionada
+	var row=$('#inscripciones-jornadas').datagrid('getSelected');
+    var jornada=0;
+	// si hay jornada seleccionada la anyadimos a la lista
+	if (row!==null && row.Nombre!=="-- Sin asignar --") {
+		options[3]='<?php _e('Inscriptions for journey'); ?>: "'+row.Nombre+'"';
+        jornada=row.ID;
+	}
 	$.messager.radio(
 		'<?php _e('Select form'); ?>',
 		'<?php _e('Select type of document to be generated'); ?>:',
-		{ 0:'<?php _e('Simple listing'); ?>',1:'<?php _e('Catalogue'); ?>',2:'<?php _e('Statistics'); ?>'},
+		options,
 		function(r){
 			if (!r) return;
-			var mode=parseInt(r);
+			var opt=parseInt(r);
 			$.fileDownload(
 					'/agility/server/pdf/print_inscritosByPrueba.php',
 					{
 						httpMethod: 'GET',
-						data: { Prueba: workingData.prueba, Mode: mode },
+						data: {
+                            Prueba: workingData.prueba,
+                            Jornada: jornada,
+                            Mode: opt
+                        },
 						preparingMessageHtml: '<?php _e("Printing inscriptions. Please wait"); ?> ...',
 						failMessageHtml: '<?php _e("There was a problem generating your report, please try again"); ?>.'
 					}
 			);
 		}
-	).window('resize',{width:250});
+	).window('resize',{width:(jornada==0)?250:350});
 	return false; //this is critical to stop the click event which will trigger a normal file download!
 }
