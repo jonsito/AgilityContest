@@ -214,7 +214,7 @@ $('#inscripciones-datagrid').datagrid({
 
 // key handler
 addSimpleKeyHandler('#inscripciones-jornadas',null,editJornadaFromPrueba);
-addKeyHandler('#inscripciones-datagrid',newInscripcion,editInscripcion,deleteInscripcion);
+addKeyHandler('#inscripciones-datagrid',null,newInscripcion,editInscripcion,deleteInscripcion);
 
 // tooltips
 addTooltip($('#inscripciones-newBtn').linkbutton(),'<?php _e("Register new inscriptions");?>');

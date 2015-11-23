@@ -187,9 +187,9 @@ $config =Config::getInstance();
     }
  });
 
-// key handler
-addKeyHandler('#usuarios-datagrid',newUser,editUser,deleteUser);
-addKeyHandler('#sesiones-datagrid',newSession,editSession,deleteSession);
+// key handler ( notify "null" dialog cause we dont want to close tabs on escape :-)
+addKeyHandler('#usuarios-datagrid',null,newUser,editUser,deleteUser);
+addKeyHandler('#sesiones-datagrid',null,newSession,editSession,deleteSession);
 // tooltips
 addTooltip($('#usuarios-newBtn').linkbutton(),'<?php _e("Create and insert new user<br/> into database"); ?>');
 addTooltip($('#usuarios-editBtn').linkbutton(),'<?php _e("Modify data on selected user"); ?>');

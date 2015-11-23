@@ -22,7 +22,7 @@ $config =Config::getInstance();
 ?>
  
 <!-- TABLA DE jquery-easyui para listar y editar la BBDD DE GUIAS -->
-<div id="new_inscripcion-dialog" style="width:975px;height:550px;padding:5px">
+<div style="width:975px;height:550px;padding:5px">
     <!-- DECLARACION DE LA TABLA -->
     <table id="guias-datagrid">  </table>
 </div>
@@ -116,7 +116,7 @@ $config =Config::getInstance();
     });
 
 		// key handler
-       	addKeyHandler('#guias-datagrid',newGuia,editGuia,deleteGuia);
+       	addKeyHandler('#guias-datagrid',null,newGuia,editGuia,deleteGuia);
 		// tooltips
 		addTooltip($('#guias-newBtn').linkbutton(),'<?php _e("Insert a new handler<br/>into DataBase");?>');
 		addTooltip($('#guias-editBtn').linkbutton(),'<?php _e("Edit data on selected handler");?>');

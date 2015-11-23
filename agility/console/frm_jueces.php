@@ -106,7 +106,7 @@ $config =Config::getInstance();
         });
 
 		// key handler
-       	addKeyHandler('#jueces-datagrid',newJuez,editJuez,deleteJuez);
+       	addKeyHandler('#jueces-datagrid',null,newJuez,editJuez,deleteJuez);
 		// tooltips
 		addTooltip($('#jueces-newBtn').linkbutton(),'<?php _e("Add a new judge to database"); ?>');
 		addTooltip($('#jueces-editBtn').linkbutton(),'<?php _e("Modify data on selected judge"); ?>');

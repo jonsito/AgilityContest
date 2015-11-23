@@ -674,7 +674,7 @@ function competicionKeyEventHandler(evt) {
             $('#competicion-autoUpdateBtn').prop('checked',false);
             autoUpdateCompeticion(); // fire event 
             // and close window  	 
-            $('#competicion-window').window('close'); 
+            $('#competicion-dialog').window('close');
             return false;
 		}
 	} else { //on edit

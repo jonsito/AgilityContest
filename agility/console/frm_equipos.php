@@ -175,7 +175,7 @@ $('#team_datagrid').datagrid({
 });
 
 // key handler
-addKeyHandler('#team_datagrid',newTeam,editTeam,deleteTeam);
+addKeyHandler('#team_datagrid','#team_datagrid-dialog',newTeam,editTeam,deleteTeam);
 // - tooltips
 addTooltip($('#team_datagrid-search'),'<?php _e("Show teams matching search criteria");?>');
 addTooltip($('#team_datagrid-newBtn').linkbutton(),'<?php _e("Declare a new team on this contest");?>');

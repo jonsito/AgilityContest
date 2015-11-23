@@ -177,7 +177,7 @@ $('#ordentandas_nt-Sesion').combogrid({
 });
 
 // key handler
-addKeyHandler('#ordentandas-datagrid',newTanda,editTanda,deleteTanda);
+addKeyHandler('#ordentandas-datagrid','#ordentandas-dialog',newTanda,editTanda,deleteTanda);
 
 // botones
 addTooltip($('#ordentandas-newBtn').linkbutton(),'<?php _e("Add a new activity into journey timetable"); ?>'+"<br/>"+"before selected activity");

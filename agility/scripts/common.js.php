@@ -800,13 +800,14 @@ function selectNextRow(datagrid) {
  * Create key bindings for edit,new,delete, and search actions on datagrid
  * assume that search textbox has 'dgid'-search as id
  * Called functions have a pointer to base datagrid
- * @param {string} dgid id(ie xxxx-datagrid) 
+ * @param {string} dgid id(ie xxxx-datagrid)
+ * @param {string} dialog id(ie xxxx-dialog)
  * @param {function} insertfn new/insert function(dgid,searchval)
  * @param {function} updatefn edit function(dgid)
  * @param {function} deletefn delete function(dgid)
  * @returns true on success, else false
  */
-function addKeyHandler(dgid,insertfn,updatefn,deletefn) {
+function addKeyHandler(dgid,dialog,insertfn,updatefn,deletefn) {
     // activa teclas up/down para navegar por el panel
     $(dgid).datagrid('getPanel').panel('panel').attr('tabindex',0).focus().bind('keydown',function(e){
     	
@@ -861,10 +862,11 @@ function addKeyHandler(dgid,insertfn,updatefn,deletefn) {
         case 9: 	/* Tab */
             // if (e.shiftkey) return false; // shift+Tab
             return false;
+		case 27:	/* Esc */   if (dialog!==null) $(dialog).window('close');
+			return false;
         case 16:	/* Shift */
         case 17:	/* Ctrl */
         case 18:	/* Alt */
-        case 27:	/* Esc */
             return false;
         }
 	}); 

@@ -116,7 +116,7 @@ $config =Config::getInstance();
         }); // end of pruebas-datagrid
         
 		// key handler
-       	addKeyHandler('#pruebas-datagrid',newPrueba,editPrueba,deletePrueba);
+       	addKeyHandler('#pruebas-datagrid',null,newPrueba,editPrueba,deletePrueba);
 		// tooltips
 		addTooltip($('#pruebas-newBtn').linkbutton(),'<?php _e("Declare a new contest and include into database"); ?>');
 		addTooltip($('#pruebas-editBtn').linkbutton(),'<?php _e("Edit information on selected contest"); ?>');
