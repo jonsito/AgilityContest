@@ -69,7 +69,7 @@ $config =Config::getInstance();
 			rownumbers: true,
 			fitColumns: true,
 			idField: 'ID',
-			autoRowHeight:false,
+			autoRowHeight:true,
 			singleSelect: true,
 			view: scrollview,
 			pageSize: 50,

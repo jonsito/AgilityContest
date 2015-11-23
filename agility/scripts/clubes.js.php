@@ -32,6 +32,7 @@ function clubesBaja(val,row,idx) { return ( parseInt(val)==0)?" ":"&#x26D4;"; }
 
 function country_styler(index,row) {
     var res="margin:0px;padding:0px;height:40px;background-color:";
+    // var res="background-color:";
     var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>'; // even rows
     var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>'; // odd rows
     if ((index & 0x01) == 0) {
@@ -40,7 +41,7 @@ function country_styler(index,row) {
         return res + c2 + ";";
     }
 }
-function format_countryFlag(val,row,idx) { return '<img src="/agility/images/logos/'+val+'" height="20"/>'; }
+function format_countryFlag(val,row,idx) { return '<img src="/agility/images/logos/'+val+'" height="30" style="padding-top:2px"/>'; }
 
 /**
  * Vista preliminar del logo

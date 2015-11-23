@@ -477,6 +477,8 @@ function setFederation(f) {
 	workingData.datosFederation=fed;
 	// set background logo
 	$('#logo_Federation').prop('src',fed.Logo);
+	// set menu entry contents
+	$('#menu-clubes').html( (parseInt(fed.International)==0)?"<?php _e('Clubs'); ?>":"<?php _e('Countries'); ?>");
 }
 
 /**
