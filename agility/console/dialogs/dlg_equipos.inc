@@ -72,7 +72,11 @@ $('#team_edit_dialog').dialog({
 	maximizable:false,
 	resizable:false,
 	buttons:'#team_dialog-buttons',
-	onBeforeOpen:function(){ $('#team_edit_dialog-tiny').css('display',(workingData.datosPrueba.RSCE==0)?'none':'inline');	}
+	onBeforeOpen:function(){
+		// hide tiny button on 3-heights federations
+		var heights=howManyHeights(workingData.datosPrueba.RSCE);
+		$('#team_edit_dialog-tiny').css('display',(heights==3)?'none':'inline');
+	}
 });
 
 $('#team_edit_dialog-Nombre').validatebox({

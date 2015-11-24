@@ -4,7 +4,7 @@ class INTL4 extends Federations {
     function __construct() {
         $this->config= array (
             'ID'    => 8,
-            'Name'  => 'Intl-4',
+            'Name'  => 'Intl4',
             'LongName' => 'International Contest - 4 heights',
             // use basename http absolute path for icons, as need to be used in client side
             'Logo'     => '/agility/modules/intl4/wao.png',

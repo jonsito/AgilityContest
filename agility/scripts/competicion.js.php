@@ -937,7 +937,7 @@ function competicionDialog(name) {
         // marcamos la primera opcion como seleccionada
         $('#resultadosmanga-LargeBtn').prop('checked','checked');
         // refrescamos datos de TRS y TRM
-        if (workingData.datosPrueba.RSCE!=0) reloadParcial(3,false);
+        if (howManyHeights(workingData.datosPrueba.RSCE)==4) reloadParcial(3,false);
         reloadParcial(2,false);
         reloadParcial(1,false);
         reloadParcial(0,true); // pintamos el datagrid con los datos de categoria "large"

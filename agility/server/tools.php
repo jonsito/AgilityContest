@@ -186,13 +186,14 @@ function getOrderString($sort,$order,$def) {
  */
 function getIconPath($fedname,$name) {
 	static $icontable = array();
+	$fedname=strtolower($fedname);
+	$name=strtolower(basename($name)); // to avoid sniffing extract name from path and force use own iconpaths
 	$iconpath=array(
 		__DIR__."/../images/logos", // standard club icon location
 		__DIR__."/i18n",			// standard countri flags location
 		__DIR__."/../images/supporters", // where to store supporters logos
 		__DIR__."/../modules/$fedname", // federation logos
 	);
-	$name=basename($name); // to avoid sniffing extract name from path and force use own iconpaths
 	if (array_key_exists("$fedname - $name",$icontable)) return $icontable["$fedname - $name"];
 	foreach ($iconpath as $path) {
 		if (!file_exists("$path/$name")) continue;

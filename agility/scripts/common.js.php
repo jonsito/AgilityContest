@@ -116,6 +116,14 @@ function fedName(fed) {
 	return ac_fedInfo[fed].Name;
 }
 
+function howManyGrades(fed) {
+	return parseInt(ac_fedInfo[fed].Grades);
+}
+
+function howManyHeights(fed) {
+	return parseInt(ac_fedInfo[fed].Heights);
+
+}
 function isInternational(fed){
 	return (parseInt(ac_fedInfo[fed].International)!=0)?true:false;
 }

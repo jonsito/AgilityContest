@@ -710,7 +710,7 @@ class PrintInscritosByJornada extends PrintCommon {
 	 * @throws Exception
 	 */
 	function __construct($prueba,$inscritos,$jornadas,$jornadaid) {
-		parent::__construct('Portrait','print_inscritosByPrueba',$prueba,0);
+		parent::__construct('Portrait','print_inscritosByJornada',$prueba,0);
 		if ( ($prueba==0) || ($inscritos===null) ) {
 			$this->errormsg="printInscritosByPrueba: either prueba or inscription data are invalid";
 			throw new Exception($this->errormsg);

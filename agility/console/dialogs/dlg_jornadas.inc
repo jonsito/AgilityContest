@@ -147,7 +147,7 @@ $config =Config::getInstance();
             $('#jornadas-PreAgility').prop('checked',(data.PreAgility == 1));
             $('#jornadas-Grado1').prop('checked',(data.Grado1 == 1));
             $('#jornadas-Grado2').prop('checked',(data.Grado2 == 1));
-            if (workingData.datosPrueba.RSCE==0) {
+            if(howManyGrades(workingData.datosPrueba.RSCE)==3) {
             	$('#jornadas-Grado3').prop('disabled',false);
                 $('#jornadas-Grado3').prop('checked',(data.Grado3 == 1));
             } else {

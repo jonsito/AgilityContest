@@ -55,6 +55,7 @@ class Print_ListaPerros extends PrintCommon {
 			throw new Exception($this->errormsg);
 		}
         $this->lista=$res['rows'];
+		// rework federation handling as parent got it from senseless prueba ID
 		$this->federation=Federations::getFederation(intval($federation));
 		$this->strClub=($this->federation->isInternational())?_('Country'):_('Club');
 		$this->icon=getIconPath($this->federation->get('Name'),"agilitycontest.png");

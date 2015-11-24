@@ -181,6 +181,6 @@ $config =Config::getInstance();
 		multiple: false,
 		fitColumns: true,
 		selectOnNavigation: false,
-        // onBeforeLoad: function(params) { params.Federation=$('#pruebas-Federation').combogrid('getValue'); return true; }
+        onBeforeLoad: function(params) { params.Federation=$('#pruebas-Federation').combogrid('getValue'); return true; }
     });
     </script>

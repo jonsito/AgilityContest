@@ -4,11 +4,11 @@ class INTL3 extends Federations {
     function __construct() {
         $this->config= array (
             'ID'    => 9,
-            'Name'  => 'Intl-3',
+            'Name'  => 'Intl3',
             'LongName' => 'International Contest - 3 heights',
             // use basename http absolute path for icons, as need to be used in client side
-            'Logo'     => '/agility/modules/intl3/fci.png',
-            'ParentLogo'   => '/agility/modules/intl3/fci.png',
+            'Logo'        => '/agility/modules/intl3/fciawc2016.png',
+            'ParentLogo'  => '/agility/modules/intl3/fci.png',
             'WebURL' => 'http://www.fci.org',
             'ParentWebURL' => 'http://www.fci.org',
             'Heights' => 3,
