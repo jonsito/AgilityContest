@@ -44,6 +44,21 @@ class UCA extends Federations {
                 array(/* mixto */ _('Cat. 60+50'), _('Cat. 60+50'), _('Cat. 40+30'), _('Cat. 40+30')),
                 array(/* conjunto */ _('60+50+40+30'), _('60+50+40+30'), _('60+50+40+30'),_('60+50+40+30'))
             ),
+            'IndexedModes' => array (
+                "Cat. 60", "Cat. 50", "Cat 40", "Cat 50+40", "Conjunta 60+50+40", "Cat. 30", "Cat. 60+50", "Cat. 40+30", "Cat. 60+50+40+30"
+            ),
+            'IndexedModeStrings' => array(
+                "-" => "",
+                "L"=>"Cat. 60",
+                "M"=>"Cat. 50",
+                "S"=>"Cat. 40",
+                "T"=>"Cat. 30",
+                "LM"=>"Cat. 60+50",
+                "ST"=>"Cat. 40+30",
+                "MS"=>"Cat. 50+40", // invalid
+                "LMS" => 'Conjunta 6+5+4', // invalid
+                "LMST",'Conjunta 6+5+4+3'
+            ),
             'Puntuaciones' => function() {} // to point to a function to evaluate califications
         );
     }

@@ -44,6 +44,21 @@ class RSCE extends Federations {
                 array(/* mixto */ "Standard", "Midi+Mini", "Midi+Mini", "Invalid"),
                 array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid")
             ),
+            'IndexedModes' => array (
+                "Standard", "Midi", "Mini", "Midi+Mini", "Conjunta L/M/S", "Tiny", "Standard+Midi", "Mini+Tiny", "Conjunta L/M/S/T"
+            ),
+            'IndexedModeStrings' => array(
+                "-" => "",
+                "L"=>"Standard",
+                "M"=>"Midi",
+                "S"=>"Mini",
+                "T"=>"Tiny", // invalid
+                "LM"=>"Standard/Midi", // invalid
+                "ST"=>"Mini/Tiny", // invalid
+                "MS"=>"Midi/Mini",
+                "LMS" => 'Conjunta LMS',
+                "LMST",'Conjunta LMST' // invalid
+            ),
             'Puntuaciones' => function() {} // to point to a function to evaluate califications
         );
     }

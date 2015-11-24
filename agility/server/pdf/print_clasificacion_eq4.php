@@ -155,10 +155,10 @@ class PrintClasificacionEq4 extends PrintCommon {
         $jobj=new Jueces("print_Clasificaciones_eq4");
         $juez1=$jobj->selectByID($this->manga1->Juez1);
         $juez2=$jobj->selectByID($this->manga1->Juez2); // asume mismos jueces en dos mangas
-        $tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $this->cat[$this->categoria];
+        $tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $this->getCatString($this->categoria);
         $tm2=null;
         if ($this->manga2!=null)
-            $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->cat[$this->categoria];
+            $tm2=Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->getCatString($this->categoria);
 
         $this->SetFont('Helvetica','B',11); // bold 9px
         $this->Cell(80,5,_("Journey").": {$this->jornada->Nombre}",0,0,'',false);
@@ -185,7 +185,7 @@ class PrintClasificacionEq4 extends PrintCommon {
         $trs=$this->trs2;
         $ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
         $this->SetFont('Helvetica','B',11); // bold 9px
-        $this->Cell(80,5,_("Round").": $ronda - {$this->cat[$this->categoria]}",0,0,'',false);
+        $this->Cell(80,5,_("Round").": $ronda - {$this->getCatString($this->categoria)}",0,0,'',false);
         $this->SetFont('Helvetica','B',9); // bold 9px
         $this->Cell(70,5,$tm2,"LTB",0,'L',false);
         $this->Cell(25,5,_("Dist").".: {$trs['dist']}m","LTB",0,'L',false);
@@ -271,8 +271,8 @@ class PrintClasificacionEq4 extends PrintCommon {
         // cabeceras de las celdas de resultados
         $this->ac_header(2,8);
         $this->SetXY(70,$y+5);
-        $tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $this->cat[$this->categoria];
-        $tm2=($this->manga2!=null)? Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->cat[$this->categoria] : "";
+        $tm1=Mangas::$tipo_manga[$this->manga1->Tipo][3] . " - " . $this->getCatString($this->categoria);
+        $tm2=($this->manga2!=null)? Mangas::$tipo_manga[$this->manga2->Tipo][3] . " - " . $this->getCatString($this->categoria) : "";
         $this->Cell(88,3,$tm1,'LTRB',0,'C',true);
         $this->Cell(2,3,"",'TR',0,'C',true);
         $this->Cell(88,3,$tm2,'TRB',0,'C',true);

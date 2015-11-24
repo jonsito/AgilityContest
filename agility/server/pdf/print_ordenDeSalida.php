@@ -86,7 +86,7 @@ class OrdenDeSalida extends PrintCommon {
 	// Cabecera de página
 	function Header() {
 		$this->print_commonHeader(_("Starting order"));
-		$this->print_identificacionManga($this->manga,$this->cat[$this->categoria]);
+		$this->print_identificacionManga($this->manga,$this->getCatString($this->categoria));
 	}
 	
 	// Pie de página

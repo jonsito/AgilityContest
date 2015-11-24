@@ -44,6 +44,21 @@ class RFEC extends Federations {
                 array(/* mixto */ "Large+Medium", "Large+Medium", "Small+Toy", "Small+Toy"),
                 array(/* conjunto */ "Common course", "Common course", "Common course", "Common course")
             ),
+            'IndexedModes' => array (
+                "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Toy", "Large+Medium", "Small+Toy", "Conjunta L/M/S/T"
+            ),
+            'IndexedModeStrings' => array(
+                "-" => "",
+                "L"=>"Large",
+                "M"=>"Medium",
+                "S"=>"Small",
+                "T"=>"toy",
+                "LM"=>"Large/Medium",
+                "ST"=>"Small/Toy",
+                "MS"=>"Medium/Small",
+                "LMS" => 'Conjunta LMS',
+                "LMST",'Conjunta LMST'
+            ),
             'Puntuaciones' => function() {} // to point to a function to evaluate califications
         );
     }

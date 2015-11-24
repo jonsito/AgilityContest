@@ -76,7 +76,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->print_commonHeader(_("Data entry"));
 		if($this->numrows!=1) { 
 			// normal/compacto: pinta id de la jornada y de la manga
-			$this->print_identificacionManga($this->manga,$this->cat[$this->categoria]);
+			$this->print_identificacionManga($this->manga,$this->getCatString($this->categoria));
 		} else {
 			// modo extendido: pinta solo identificacion de la jornada
 			$this->SetFont('Helvetica','B',12); // Helvetica bold 15
@@ -310,7 +310,7 @@ class EntradaDeDatos extends PrintCommon {
 
 		// Datos de manga
 		$this->ac_header(1,15);
-		$strcat=$this->cat[$this->categoria];
+		$strcat=$this->getCatString($this->categoria);
 		if($this->manga!=null) {
 			$str=Mangas::$tipo_manga[$this->manga->Tipo][1];
 			$str="$str - $strcat";

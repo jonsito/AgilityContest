@@ -79,7 +79,7 @@ class ResultadosByEquipos4 extends PrintCommon {
 	// Cabecera de página
 	function Header() {
         $this->print_commonHeader(_("Round scores")." ("._("Teams").")");
-        $this->print_identificacionManga($this->manga,$this->modestr[intval($this->mode)]);
+        $this->print_identificacionManga($this->manga,$this->getModeString(intval($this->mode)));
 
         // Si es la primera hoja pintamos datos tecnicos de la manga
         if ($this->PageNo()!=1) return;

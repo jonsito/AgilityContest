@@ -495,5 +495,23 @@ class Jornadas extends DBObject {
 		$this->myLogger->leave();
 		return $result;
 	}
+
+	/**
+	 * @param {mixed} $jobj JornadaID or JornadaObject as returned by _getObject()
+	 * @return bool true or false
+	 */
+	static function hasGrades($j) {
+		$jobj=$j;
+		if (is_numeric($j)) {
+			$obj=new Jornadas("hasGrades",0); // dummy prueba id
+			$jobj=$obj->selectByID($j);
+		}
+		$flag=true;
+		if (intval($jobj->Open)==0) $flag=false;
+		if (intval($jobj->Equipos3)==0) $flag=false;
+		if (intval($jobj->Equipos4)==0) $flag=false;
+		if (intval($jobj->KO)==0) $flag=false;
+		return $flag;
+	}
 }
 ?>

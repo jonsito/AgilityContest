@@ -167,7 +167,7 @@ class EquiposByJornada extends PrintCommon {
                 if ($this->federation->get('WideLicense')) $this->SetFont('Helvetica','',7);
                 $this->Cell($this->pos[3],5,$row['Licencia'],	'LR',0,$this->align[3],true);
                 $this->SetFont('Helvetica','',8); // restore normal size after wide license
-                $this->Cell($this->pos[4],5,$this->cat[$row['Categoria']],	'LR',0,$this->align[4],true);
+                $this->Cell($this->pos[4],5,$this->getCatString($row['Categoria']),	'LR',0,$this->align[4],true);
     			$this->Cell($this->pos[5],5,$row['NombreGuia'],	'LR',0,$this->align[5],true);
     			$this->Cell($this->pos[6],5,$row['NombreClub'],	'LR',0,$this->align[6],true);
     			$this->Cell($this->pos[7],5,($row['Celo']==0)?"":_("Celo"),	'LR',0,$this->align[7],true);

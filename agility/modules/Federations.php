@@ -64,6 +64,21 @@ class Federations {
             array(/* mixto */ "Large", "Medium+Small", "Medium+Small", "Invalid"),
             array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid")
         ),
+        'IndexedModes' => array (
+            "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T"
+        ),
+        'IndexedModeStrings' => array(
+            "-" => "",
+            "L"=>"Large",
+            "M"=>"Medium",
+            "S"=>"Small",
+            "T"=>"Tiny",
+            "LM"=>"Large/Medium",
+            "ST"=>"Small/Tiny",
+            "MS"=>"Medium/Small",
+            "LMS" => 'Common LMS',
+            "LMST",'Common LMST'
+        ),
         'Puntuaciones' => null // to point to a function to evaluate califications
     );
 

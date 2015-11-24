@@ -35,11 +35,6 @@ require_once(__DIR__."/print_common.php");
 
 class PrintCommon extends FPDF {
 
-    protected $modestr
-        =array("Large","Medium","Small","Medium+Small","Conjunta L/M/S","Tiny","Large+Medium","Small+Tiny","Conjunta L/M/S/T");
-    protected $cat=
-        array("-" => "","L"=>"Large","M"=>"Medium","S"=>"Small","T"=>"Tiny","LM"=>"Large/Medium","ST"=>"Small/Tiny","MS"=>"Medium/Small","LMS" => 'Conjunta', "LMST",'Conjunta');
-
 	protected $myLogger;
 	protected $config;
     protected $federation;
@@ -74,7 +69,7 @@ class PrintCommon extends FPDF {
 		// and finally call real parent Cell function
 		parent::Cell($w, $h, $txt, $border, $ln, $align, $fill, $link);
 	}
-	
+
 	/**
 	 * Constructor de la superclase 
 	 * @param {string} orientacion 'landscape' o 'portrait'
@@ -113,6 +108,17 @@ class PrintCommon extends FPDF {
 		// evaluate number of decimals to show when printing timestamps
 		$this->timeResolution=($this->config->getEnv('crono_miliseconds')=="0")?2:3;
 		$this->myLogger->trace("Time resolution is ".$this->timeResolution);
+	}
+
+
+	function getCatString($cat) {
+		$catstr=$this->federation->get('IndexedModeStrings');
+		return $catstr[$cat];
+	}
+
+	function getModeString($mode) {
+		$modestr=$this->federation->get('IndexedModes');
+		return $modestr[$mode];
 	}
 
     /**

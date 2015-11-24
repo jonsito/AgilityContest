@@ -66,7 +66,7 @@ class ResultadosByManga extends PrintCommon {
 	function Header() {
         $str=($this->manga->Tipo==16)?_("Resultados"):_("Round scores");
 		$this->print_commonHeader($str);
-		$this->print_identificacionManga($this->manga,$this->modestr[intval($this->mode)]);
+		$this->print_identificacionManga($this->manga,$this->getModeString(intval($this->mode)));
 		
 		// Si es la primera hoja pintamos datos tecnicos de la manga
 		if ($this->PageNo()!=1) return;

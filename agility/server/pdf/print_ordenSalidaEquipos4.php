@@ -94,7 +94,7 @@ class OrdenSalidaEquipos4 extends PrintCommon {
 
         // pintamos tipo y categoria de la manga
         $tmanga= Mangas::$tipo_manga[$this->manga->Tipo][1];
-        $categoria=$this->cat[$this->categoria];
+        $categoria=$this->getCatString($this->categoria);
         $str2 = "$tmanga - $categoria";
         $this->Cell(100,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
         $this->Ln(12);
@@ -135,7 +135,7 @@ class OrdenSalidaEquipos4 extends PrintCommon {
             $this->SetFont('Helvetica','',7);
             $this->Cell(20,4,$perro['Raza'],'LTBR',0,'R',true);
             $this->SetFont('Helvetica','',7);
-            $this->Cell(15,4,$this->cat[$perro['Categoria']],'LTBR',0,'C',true);
+            $this->Cell(15,4,$this->getCatString($perro['Categoria']),'LTBR',0,'C',true);
             $this->SetFont('Helvetica','',7);
             $this->Cell(27,4,$perro['NombreGuia'],'LTBR',0,'R',true);
             $this->SetFont('Helvetica','',7);

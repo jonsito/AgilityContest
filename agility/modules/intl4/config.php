@@ -44,6 +44,21 @@ class INTL4 extends Federations {
                 array(/* mixto */ "Large+Medium", "Large+Medium", "Small+Tiny", "Small+Tiny"),
                 array(/* conjunto */ "Common course", "Common course", "Common course", "Common course")
             ),
+            'IndexedModes' => array (
+                "Large", "Medium", "Small", "Medium+Small", "Conjunta L/M/S", "Tiny", "Large+Medium", "Small+Tiny", "Common L/M/S/T"
+            ),
+            'IndexedModeStrings' => array(
+                "-" => "",
+                "L"=>"Large",
+                "M"=>"Medium",
+                "S"=>"Small",
+                "T"=>"Tiny",
+                "LM"=>"Large/Medium",
+                "ST"=>"Small/Tiny",
+                "MS"=>"Medium/Small", // invalid
+                "LMS" => 'Common LMS',
+                "LMST",'Common LMST'
+            ),
             'Puntuaciones' => function() {} // to point to a function to evaluate califications
         );
     }

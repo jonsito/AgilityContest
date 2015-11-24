@@ -94,7 +94,7 @@ class EntradaDeDatosEquipos4 extends PrintCommon {
 
         // pintamos tipo y categoria de la manga
         $tmanga= Mangas::$tipo_manga[$this->manga->Tipo][1];
-        $categoria=$this->cat[$this->categoria];
+        $categoria=$this->getCatString($this->categoria);
         $str2 = "$tmanga - $categoria";
         $this->Cell(100,9,$str2,0,0,'R',false); // al otro lado tipo y categoria de la manga
         $this->Ln(12);
