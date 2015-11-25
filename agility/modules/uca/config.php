@@ -58,8 +58,7 @@ class UCA extends Federations {
                 "MS"=>"Cat. 50+40", // invalid
                 "LMS" => 'Conjunta 6+5+4', // invalid
                 "LMST",'Conjunta 6+5+4+3'
-            ),
-            'Puntuaciones' => function() {} // to point to a function to evaluate califications
+            )
         );
     }
 

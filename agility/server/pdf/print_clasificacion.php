@@ -162,7 +162,11 @@ class PrintClasificacion extends PrintCommon {
 		$this->Cell(10,7,_('Dorsal'),0,0,'C',true); 	// dorsal
 		$this->Cell(($wide)?20:25,7,_('Name'),0,0,'C',true);	// nombre (20,y
 		$this->Cell(($wide)?30:15,7,_('Lic'),0,0,'C',true);	// licencia
-		$this->Cell(10,7,_('Cat/Gr'),0,0,'C',true);	// categoria/grado
+		if (Jornadas::hasGrades($this->jornada)) {
+			$this->Cell(10,7,_('Cat/Gr'),0,0,'C',true);	// categoria/grado
+		} else {
+			$this->Cell(10,7,_('Cat'),0,0,'C',true);	// categoria (jornadas Open / KO )
+		}
 		$this->Cell(($wide)?30:35,7,_('Handler'),0,0,'C',true);	// nombreGuia
 		$this->Cell(($wide)?15:20,7,$this->strClub,0,0,'C',true);	// nombreClub
 		// manga 1
@@ -223,7 +227,11 @@ class PrintClasificacion extends PrintCommon {
 		$this->SetFont('Helvetica','',($wide)?6:8); // default font
 		$this->Cell(($wide)?30:15,6,$row['Licencia'],0,0,'C',$fill);	// licencia
         $this->SetFont('Helvetica','',8); // default font
-		$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
+		if (Jornadas::hasGrades($this->jornada)) {
+			$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',$fill);	// categoria/grado
+		} else {
+			$this->Cell(10,6,"{$row['Categoria']}",0,0,'C',$fill);	// categoria/grado
+		}
 		$this->Cell(($wide)?30:35,6,$row['NombreGuia'],0,0,'R',$fill);	// nombreGuia
 		$this->Cell(($wide)?15:20,6,$row['NombreClub'],0,0,'R',$fill);	// nombreClub
 		// manga 1

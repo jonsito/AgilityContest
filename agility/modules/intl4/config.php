@@ -58,8 +58,7 @@ class INTL4 extends Federations {
                 "MS"=>"Medium/Small", // invalid
                 "LMS" => 'Common LMS',
                 "LMST",'Common LMST'
-            ),
-            'Puntuaciones' => function() {} // to point to a function to evaluate califications
+            )
         );
     }
 }

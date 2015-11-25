@@ -102,7 +102,11 @@ class Print_Podium extends PrintCommon {
 		$this->Cell(10,6,_('Dorsal'),0,0,'C',true); 	// dorsal
 		$this->Cell(25,6,_('Name'),0,0,'C',true);	// nombre (20,y
 		$this->Cell(15,6,_('Lic').'.',0,0,'C',true);	// licencia
-		$this->Cell(10,6,_('Cat').'/'._('Grd'),0,0,'C',true);	// categoria/grado
+		if (Jornadas::hasGrades($this->jornada)){
+			$this->Cell(10,6,_('Cat').'/'._('Grd'),0,0,'C',true);	// categoria/grado
+		} else {
+			$this->Cell(10,6,_('Cat'),0,0,'C',true);	// categoria/grado
+		}
 		$this->Cell(35,6,_('Handler'),0,0,'C',true);	// nombreGuia
 		$this->Cell(20,6,$this->strClub,0,0,'C',true);	// nombreClub
 		// manga 1
@@ -159,7 +163,11 @@ class Print_Podium extends PrintCommon {
 		$this->Cell(25,6,$row['Nombre'],0,0,'L',true);	// nombre (20,y
 		$this->SetFont('Helvetica','',9); // default font
 		$this->Cell(15,6,$row['Licencia'],0,0,'C',true);	// licencia
-		$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',true);	// categoria/grado
+		if (Jornadas::hasGrades($this->jornada)) {
+			$this->Cell(10,6,"{$row['Categoria']} {$row['Grado']}",0,0,'C',true);	// categoria/grado
+		} else {
+			$this->Cell(10,6,"{$row['Categoria']}",0,0,'C',true);	// solo categoria (Open/Teams/KO)
+		}
 		$this->Cell(35,6,$row['NombreGuia'],0,0,'R',true);	// nombreGuia
 		$this->Cell(20,6,$row['NombreClub'],0,0,'R',true);	// nombreClub
 		// manga 1

@@ -43,7 +43,7 @@ class ResultadosByManga extends PrintCommon {
 	
 	// geometria de las celdas
 	protected $cellHeader;
-	protected $pos	=array(  9,		18,		15,		30,		20,		12,		   7,      7,    7,       12,     7,    12,      20,			12 );
+	protected $pos	=array(  9,		18,		15,		30,		20,		15,		   6,      6,    6,       12,     7,    12,      20,			12 );
 	protected $align=array(  'L',    'L',    'C',    'R',   'R',    'C',       'C',   'C',   'C',     'R',    'R',  'R',     'L',			'C');
 
 	
@@ -58,8 +58,9 @@ class ResultadosByManga extends PrintCommon {
 		$this->manga=$manga;
 		$this->resultados=$resultados;
 		$this->mode=$mode;
+		$catgrad=(Jornadas::hasGrades($this->jornada))?_('Cat').'/'._('Grade'):_('Cat').".";
 		$this->cellHeader=
-			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,_('Cat').'/'._('Grade'),_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Position'));
+			array(_('Dorsal'),_('Name'),_('Lic'),_('Handler'),$this->strClub,$catgrad,_('Flt'),_('Tch'),_('Ref'),_('Time'),_('Vel'),_('Penal'),_('Calification'),_('Position'));
 	}
 	
 	// Cabecera de página
@@ -156,7 +157,13 @@ class ResultadosByManga extends PrintCommon {
 			if ($this->pos[2]!=0) $this->Cell($this->pos[2],6,$row['Licencia'],		'LR',	0,		$this->align[2],	true);
 			$this->Cell($this->pos[3],6,$row['NombreGuia'],		'LR',	0,		$this->align[3],	true);
 			$this->Cell($this->pos[4],6,$row['NombreClub'],		'LR',	0,		$this->align[4],	true);
-			$this->Cell($this->pos[5],6,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[5],	true);
+			if (Jornadas::hasGrades($this->jornada->ID)) {
+				$this->Cell($this->pos[5],6,$row['Categoria'].' - '.$row['Grado'],	'LR',	0,		$this->align[5],	true);
+			} else {
+				// $catstr=$row['Categoria'];
+				$catstr=$this->federation->getCategory($row['Categoria']);
+				$this->Cell($this->pos[5],6,$catstr,	'LR',	0,		$this->align[5],	true);
+			}
 			$this->Cell($this->pos[6],6,$row['Faltas'],			'LR',	0,		$this->align[6],	true);
 			$this->Cell($this->pos[7],6,$row['Tocados'],		'LR',	0,		$this->align[7],	true);
 			$this->Cell($this->pos[8],6,$row['Rehuses'],		'LR',	0,		$this->align[8],	true);

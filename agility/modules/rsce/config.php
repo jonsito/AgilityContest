@@ -28,10 +28,10 @@ class RSCE extends Federations {
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',
-                'L' => 'Standard - 60',
-                'M' => 'Midi - 50',
-                'S' => 'Mini - 40',
-                'T' => 'Toy - 30' // no existe
+                'L' => 'Standard',
+                'M' => 'Midi',
+                'S' => 'Mini',
+                'T' => 'Toy' // no existe
             ),
             'InfoManga' => array(
                 array('L' => _('Standard'), 'M' => _('Midi'),        'S' => _('Mini'),  'T' => ''), // separate courses
@@ -58,8 +58,7 @@ class RSCE extends Federations {
                 "MS"=>"Midi/Mini",
                 "LMS" => 'Conjunta LMS',
                 "LMST",'Conjunta LMST' // invalid
-            ),
-            'Puntuaciones' => function() {} // to point to a function to evaluate califications
+            )
         );
     }
 

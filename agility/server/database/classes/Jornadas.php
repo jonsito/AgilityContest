@@ -34,7 +34,7 @@ class Jornadas extends DBObject {
 		/* 6 */ array(32,	'Ronda Abierta'),
 		/* 7 */ array(64,	'Equipos ( 3 mejores )'),
 		/* 8 */ array(128,	'Equipos ( 4 conjunta )'),
-		/* 9 */ array(256,	'Ronda K.O'),
+		/* 9 */ array(256,	'Ronda K.O.'),
 		/*10 */ array(512,	'Manga especial'),
 		/*11 */ array(24,	'Grado II y III conjunta')
 	);
@@ -497,20 +497,30 @@ class Jornadas extends DBObject {
 	}
 
 	/**
-	 * @param {mixed} $jobj JornadaID or JornadaObject as returned by _getObject()
+	 * @param {mixed} $jobj JornadaID or JornadaObject as returned by _getObject() / _getArray()
 	 * @return bool true or false
 	 */
-	static function hasGrades($j) {
-		$jobj=$j;
-		if (is_numeric($j)) {
+	static function hasGrades($jobj) {
+		if (is_numeric($jobj)) {
 			$obj=new Jornadas("hasGrades",0); // dummy prueba id
-			$jobj=$obj->selectByID($j);
+			$jobj=$obj->selectByID($jobj);
 		}
 		$flag=true;
-		if (intval($jobj->Open)==0) $flag=false;
-		if (intval($jobj->Equipos3)==0) $flag=false;
-		if (intval($jobj->Equipos4)==0) $flag=false;
-		if (intval($jobj->KO)==0) $flag=false;
+		if (is_object($jobj)) {
+			syslog(LOG_ERR,"Jornada object: ".json_encode($jobj));
+			if (intval($jobj->Open)!=0) $flag=false;
+			if (intval($jobj->Equipos3)!=0) $flag=false;
+			if (intval($jobj->Equipos4)!=0) $flag=false;
+			if (intval($jobj->KO)!=0) $flag=false;
+		}
+		if (is_array($jobj)) {
+			syslog(LOG_ERR,"Jornada array: ".json_encode($jobj));
+			if (intval($jobj['Open'])!=0) $flag=false;
+			if (intval($jobj['Equipos3'])!=0) $flag=false;
+			if (intval($jobj['Equipos4'])!=0) $flag=false;
+			if (intval($jobj['KO'])!=0) $flag=false;
+
+		}
 		return $flag;
 	}
 }

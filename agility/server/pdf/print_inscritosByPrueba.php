@@ -700,7 +700,7 @@ class PrintInscritosByJornada extends PrintCommon {
 
 	// geometria de las celdas
 	protected $cellHeader;
-	protected $pos =	array(  11,       30,     21,    46,   34,     7,     8,     8,       25 );
+	protected $pos =	array(  11,       30,     21,    46,   33,     8,       8,     8,       25 );
 	protected $align=	array(  'R',      'C',    'C',   'R',  'R',    'C',    'C',    'C',      'L');
 
 	/**
@@ -726,6 +726,11 @@ class PrintInscritosByJornada extends PrintCommon {
             if ($j['ID'] == $jornadaid) {
                 $this->jornada=$j;
                 $this->JName = "J{$j['Numero']}";
+				// remove "Grade" from cell array if jornada is open/team/KO
+				if( ! Jornadas::hasGrades($j)) {
+					$this->pos[5]=16; // increase category size
+					$this->pos[6]=0;  // set grade size to zero
+				}
                 break;
             }
         }
@@ -807,8 +812,14 @@ class PrintInscritosByJornada extends PrintCommon {
 			$this->SetFont('Helvetica','',8); // normal 8px
 			$this->Cell($this->pos[3],5,$row['NombreGuia'],	'LR',	0,		$this->align[3],	$fill);
 			$this->Cell($this->pos[4],5,$row['NombreClub'],	'LR',	0,		$this->align[4],	$fill);
-			$this->Cell($this->pos[5],5,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
-			$this->Cell($this->pos[6],5,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
+			if ($this->pos[6]==0) { // journey has no grades
+				// $catstr=$row['Categoria'];
+				$catstr=$this->federation->getCategory($row['Categoria']);
+				$this->Cell($this->pos[5],5,$catstr,	'LR',	0,		$this->align[5],	$fill);
+			} else {
+				$this->Cell($this->pos[5],5,$row['Categoria'],	'LR',	0,		$this->align[5],	$fill);
+				$this->Cell($this->pos[6],5,$row['Grado'],		'LR',	0,		$this->align[6],	$fill);
+			}
 			$this->Cell($this->pos[7],5,($row['Celo']==0)?"":"X",'LR',0,	$this->align[7],	$fill);
 			$this->Cell($this->pos[8],5,$row['Observaciones'],'LR',	0,		$this->align[8],	$fill);
 			$this->Ln();

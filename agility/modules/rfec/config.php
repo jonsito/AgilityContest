@@ -58,8 +58,7 @@ class RFEC extends Federations {
                 "MS"=>"Medium/Small",
                 "LMS" => 'Conjunta LMS',
                 "LMST",'Conjunta LMST'
-            ),
-            'Puntuaciones' => function() {} // to point to a function to evaluate califications
+            )
         );
     }
 

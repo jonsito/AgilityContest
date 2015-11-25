@@ -78,8 +78,7 @@ class Federations {
             "MS"=>"Medium/Small",
             "LMS" => 'Common LMS',
             "LMST",'Common LMST'
-        ),
-        'Puntuaciones' => null // to point to a function to evaluate califications
+        )
     );
 
     public function getConfig() {

@@ -81,7 +81,7 @@ class EquiposByJornada extends PrintCommon {
         }
         // finalmente internacionalizamos cabeceras
 		$this->cellHeader = 
-				array(_('Dorsal'),_('Name'),_('Breed'),_('Lic'),_('Cat'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
+				array(_('Dorsal'),_('Name'),_('Breed'),_('Lic'),_('Category'),_('Handler'),$this->strClub,_('Heat'),_('Comments'));
 	}
 	
 	// Cabecera de página
