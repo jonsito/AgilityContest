@@ -260,6 +260,7 @@ function public_acceptSelection() {
 	}
     setPrueba(p);
     setJornada(j);
+	setFederation(p.RSCE);
 	workingData.manga=0;
 	workingData.tanda=0;
 	workingData.mode=-1;

@@ -187,7 +187,7 @@ function getOrderString($sort,$order,$def) {
 function getIconPath($fedname,$name) {
 	static $icontable = array();
 	$fedname=strtolower($fedname);
-	$name=strtolower(basename($name)); // to avoid sniffing extract name from path and force use own iconpaths
+	$name=basename($name); // to avoid sniffing extract name from path and force use own iconpaths
 	$iconpath=array(
 		__DIR__."/../images/logos", // standard club icon location
 		__DIR__."/i18n",			// standard countri flags location

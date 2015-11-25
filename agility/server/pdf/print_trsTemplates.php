@@ -124,7 +124,7 @@ class PrintTRSTemplates extends PrintCommon {
 	}
 
     function printFormulario(){
-        $cols=array(_("Category"),_("Distance"),_("Obstacles"),_("Speed"),_("SCT"),_("MCT"));
+        $cols=array(_("Category"),_("Dist").".",_("Obst").".",_("Spd").".",_("SCT"),_("MCT"));
         $size=array(20,15,12.5,12.5,15,15);
         $mng=new Mangas("printFormularioTRS",$this->jornada->ID);
         // obtenemos la lista de mangas de la jornada
@@ -157,36 +157,36 @@ class PrintTRSTemplates extends PrintCommon {
             $this->Ln();
             // datos
             $this->ac_row(0,10);
-            $this->Cell(20,10,"Large",'LRB',0,'C',true);
+            $this->Cell(20,10,$this->federation->getCategory('L'),'LRB',0,'C',true);
             for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
             if ($manga2!=null) {
                 $this->Cell(10,10,"",0,0,0,false);
-                $this->Cell(20,10,"Large",'LRB',0,'C',true);
+                $this->Cell(20,10,$this->federation->getCategory('L'),'LRB',0,'C',true);
                 for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
             }
             $this->Ln();
-            $this->Cell(20,10,"Medium",'LRB',0,'C',true);
+            $this->Cell(20,10,$this->federation->getCategory('M'),'LRB',0,'C',true);
             for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
             if ($manga2!=null) {
                 $this->Cell(10,10,"",0,0,0,false);
-                $this->Cell(20,10,"Medium",'LRB',0,'C',true);
+                $this->Cell(20,10,$this->federation->getCategory('M'),'LRB',0,'C',true);
                 for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
             }
             $this->Ln();
-            $this->Cell(20,10,"Small",'LRB',0,'C',true);
+            $this->Cell(20,10,$this->federation->getCategory('S'),'LRB',0,'C',true);
             for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
             if ($manga2!=null) {
                 $this->Cell(10,10,"",0,0,0,false);
-                $this->Cell(20,10,"Small",'LRB',0,'C',true);
+                $this->Cell(20,10,$this->federation->getCategory('S'),'LRB',0,'C',true);
                 for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
             }
             $this->Ln();
-            if(intval($this->prueba->RSCE)!=0) {
-                $this->Cell(20,10,"Tiny",'LRB',0,'C',true);
+            if(intval($this->federation->get('Heights'))==4) {
+                $this->Cell(20,10,$this->federation->getCategory('T'),'LRB',0,'C',true);
                 for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
                 if ($manga2!=null) {
                     $this->Cell(10,10,"",0,0,0,false);
-                    $this->Cell(20,10,"Tiny",'LRB',0,'C',true);
+                    $this->Cell(20,10,$this->federation->getCategory('T'),'LRB',0,'C',true);
                     for ($n=1;$n<count($size);$n++) $this->Cell($size[$n],10,"","RB",0,"C",true);
                 }
                 $this->Ln();

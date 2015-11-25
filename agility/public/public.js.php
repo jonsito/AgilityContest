@@ -65,9 +65,9 @@ function pb_setFooterInfo() {
     var url=ac_fedInfo[workingData.federation].WebURL;
     var url2=ac_fedInfo[workingData.federation].ParentWebURL;
     $('#pb_footer-footerData').load("/agility/public/pb_footer.php",{},function(response,status,xhr){
-        $('#pb_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
+        $('#pb_footer-logoFederation').attr('src',logo);
         $('#pb_footer-urlFederation').attr('href',url);
-        $('#pb_footer-logoFederation2').attr('src','/agility/images/logos/'+logo2);
+        $('#pb_footer-logoFederation2').attr('src',logo2);
         $('#pb_footer-urlFederation2').attr('href',url2);
     });
 }

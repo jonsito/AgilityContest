@@ -37,7 +37,6 @@ require_once(__DIR__."/print_common.php");
 class PrintCatalogo extends PrintCommon {
 	protected $inscritos;
 	protected $jornadas;
-	protected $cat=array('-'=>'','L'=>'Large','M'=>'Medium','S'=>'Small','T'=>'Tiny');
 	
 	protected $width = array( 30,25,15,25,35,5,5,5,5,5,5,5,5); // anchos predefinidos de las celdas
 	protected $cellHeader = array( 'J1','J2','J3','J4','J5','J6','J7','J8');
@@ -149,7 +148,7 @@ class PrintCatalogo extends PrintCommon {
         if ($this->federation->get('WideLicense')) $this->SetFont('Helvetica','',6); // bold 6px
         $this->Cell( $this->width[2], 7, $row['Licencia'],	'LB', 0, 'C',	true);
         $this->SetFont('Helvetica','',8); // bold 8px
-		$this->Cell( $this->width[3], 7, $this->cat[$row['Categoria']]." - ".$row['Grado'],	'LB', 0, 'C',	true);
+		$this->Cell( $this->width[3], 7, $this->getCatString($row['Categoria'])." - ".$row['Grado'],	'LB', 0, 'C',	true);
 		$this->SetFont('Helvetica','B',10); // bold 9px
 		$this->Cell( $this->width[4], 7, $row['NombreGuia'],'LBR', 0, 'R',	true);
 		
@@ -399,14 +398,14 @@ class PrintEstadisticas extends PrintCommon {
 			$this->SetFont('Helvetica','B',9);
 			// $this->cell( width, height, data, borders, where, align, fill)
 			$this->cell(30,7,'','LRB',0,'L',true);
-			$this->cell(30,7,'Large','TRB',0,'C',true);
-			$this->cell(30,7,'Medium','TRB',0,'C',true);
-			$this->cell(30,7,'Small','TRB',0,'C',true);
+			$this->cell(30,7,$this->federation->getCategory('L'),'TRB',0,'C',true);
+			$this->cell(30,7,$this->federation->getCategory('M'),'TRB',0,'C',true);
+			$this->cell(30,7,$this->federation->getCategory('S'),'TRB',0,'C',true);
 			$this->cell(30,7,'Total','TRB',0,'C',true);
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // pre-agility
-			$this->cell(30,7,'Pre-Agility','LRB',0,'L',true);
+			$this->cell(30,7,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
 			$this->ac_row(0,9);
 			$this->cell(30,7,$data[$name]['P.A.']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['P.A.']['M'],'RB',0,'C',true);
@@ -415,7 +414,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // grado I
-			$this->cell(30,7,_('Grade').' I','LRB',0,'L',true);
+			$this->cell(30,7,$this->federation->getGrade('GI'),'LRB',0,'L',true);
 			$this->ac_row(1,9);
 			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
@@ -424,7 +423,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado II
-			$this->cell(30,7,_('Grade').' II','LRB',0,'L',true);
+			$this->cell(30,7,$this->federation->getGrade('GII'),'LRB',0,'L',true);
 			$this->ac_row(2,9);
 			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
@@ -433,7 +432,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado III
-			$this->cell(30,7,_('Grade').' III','LRB',0,'L',true);
+			$this->cell(30,7,$this->federation->getGrade('GIII'),'LRB',0,'L',true);
 			$this->ac_row(3,9);
 			$this->cell(30,7,$data[$name]['GIII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GIII']['M'],'RB',0,'C',true);
@@ -454,15 +453,15 @@ class PrintEstadisticas extends PrintCommon {
 			$this->SetFont('Helvetica','B',9);
 			// $this->cell( width, height, data, borders, where, align, fill)
 			$this->cell(30,7,'','LRB',0,'L',true);
-			$this->cell(30,7,'Large','TRB',0,'C',true);
-			$this->cell(30,7,'Medium','TRB',0,'C',true);
-			$this->cell(30,7,'Small','TRB',0,'C',true);
-			$this->cell(30,7,'Tiny','TRB',0,'C',true);
+			$this->cell(30,7,$this->federation->getCategory('L'),'TRB',0,'C',true);
+			$this->cell(30,7,$this->federation->getCategory('M'),'TRB',0,'C',true);
+			$this->cell(30,7,$this->federation->getCategory('S'),'TRB',0,'C',true);
+			$this->cell(30,7,$this->federation->getCategory('T'),'TRB',0,'C',true);
 			$this->cell(30,7,_('Total'),'TRB',0,'C',true);
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // pre-agility
-			$this->cell(30,7,_('Grade').' 0','LRB',0,'L',true);
+			$this->cell(30,7,$this->federation->getGrade('P.A.'),'LRB',0,'L',true);
 			$this->ac_row(0,9);
 			$this->cell(30,7,$data[$name]['P.A.']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['P.A.']['M'],'RB',0,'C',true);
@@ -472,7 +471,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 
 			$this->ac_header(2,9); // grado I
-			$this->cell(30,7,_('Grade').' I','LRB',0,'L',true);
+			$this->cell(30,7,$this->federation->getGrade('GI'),'LRB',0,'L',true);
 			$this->ac_row(1,9);
 			$this->cell(30,7,$data[$name]['GI']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GI']['M'],'RB',0,'C',true);
@@ -482,7 +481,7 @@ class PrintEstadisticas extends PrintCommon {
 			$this->Ln(7);
 			
 			$this->ac_header(2,9); // grado II
-			$this->cell(30,7,_('Grade').' II','LRB',0,'L',true);
+			$this->cell(30,7,$this->federation->getGrade('GII'),'LRB',0,'L',true);
 			$this->ac_row(2,9);
 			$this->cell(30,7,$data[$name]['GII']['L'],'RB',0,'C',true);
 			$this->cell(30,7,$data[$name]['GII']['M'],'RB',0,'C',true);
@@ -510,10 +509,10 @@ class PrintEstadisticas extends PrintCommon {
 		$this->SetFont('Helvetica','B',9);
 		// $this->cell( width, height, data, borders, where, align, fill)
 		$this->cell(30,7,'','LRB',0,'L',true);
-		$this->cell(30,7,'Large','TRB',0,'C',true);
-		$this->cell(30,7,'Medium','TRB',0,'C',true);
-		$this->cell(30,7,'Small','TRB',0,'C',true);
-		if ($alturas==4) $this->cell(30,7,'Tiny','TRB',0,'C',true);
+		$this->cell(30,7,$this->federation->getCategory('L'),'TRB',0,'C',true);
+		$this->cell(30,7,$this->federation->getCategory('M'),'TRB',0,'C',true);
+		$this->cell(30,7,$this->federation->getCategory('S'),'TRB',0,'C',true);
+		if ($alturas==4) $this->cell(30,7,$this->federation->getCategory('T'),'TRB',0,'C',true);
 		$this->cell(30,7,_('Total'),'TRB',0,'C',true);
 		$this->Ln(7);
 
