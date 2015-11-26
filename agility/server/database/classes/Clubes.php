@@ -265,10 +265,10 @@ class Clubes extends DBObject {
 		$row=$this->__selectObject("Logo","Clubes","ID=$id");
 		if (!$row) return $this->error($this->conn->error);
 		$name=$row->Logo;
-		$fname=__DIR__."/../../../images/logos/$name";
+		$fname=getIconPath($this->curFederation->get('Name'),$name);
 		if (!file_exists($fname)) {
 			$this->myLogger->notice("Logo file $fname does not exists");
-			$fname=__DIR__."/../../../images/logos/rsce.png"; // use default name
+			$fname=getIconPath($this->curFederation->get('Name'),$this->curFederation->get('Logo')); // use default name
 		}
 		$size = getimagesize($fname);
 		header('Content-Type: '.$size['mime']);
@@ -288,10 +288,10 @@ class Clubes extends DBObject {
 		$row=$this->__selectObject("Logo","Perros,Guias,Clubes","(Perros.Guia=Guias.ID ) AND (Guias.Club=Clubes.ID) AND (Perros.ID=$id)");
 		if (!$row) return $this->error($this->conn->error);
 		$name=$row->Logo;
-		$fname=getIconPath($this->curFederation-get('Name'),$name);
+		$fname=getIconPath($this->curFederation->get('Name'),$name);
 		if (!file_exists($fname)) {
 			$this->myLogger->notice("Logo file $fname does not exists");
-			$fname=getIconPath($this->curFederation-get('Name'),$name); // use default name
+			$fname=getIconPath($this->curFederation->get('Name'),$this->curFederation->get('Logo')); // use default name
 		}
 		$size = getimagesize($fname);
 		header('Content-Type: '.$size['mime']);
@@ -311,10 +311,10 @@ class Clubes extends DBObject {
 		$row=$this->__selectObject("Logo","Guias,Clubes","(Guias.Club=Clubes.ID) AND (Guias.ID=$id)");
 		if (!$row) return $this->error($this->conn->error);
 		$name=$row->Logo;
-		$fname=__DIR__."/../../../images/logos/$name";
+		$fname=_getIconPath($this->curFederation->get('Name'),$name);
 		if (!file_exists($fname)) {
 			$this->myLogger->notice("Logo file $fname does not exists");
-			$fname=__DIR__."/../../../images/logos/rsce.png"; // use default name
+			$fname=getIconPath($this->curFederation->get('Name'),$this->curFederation->get('Logo')); // use default name
 		}
 		$size = getimagesize($fname);
 		header('Content-Type: '.$size['mime']);
@@ -341,7 +341,6 @@ class Clubes extends DBObject {
 		$image=base64_decode( str_replace(' ', '+', $matches[2]) ); // also replace '+' to spaces or newlines 
 		$img=imagecreatefromstring( $image  ); 
 		if (!$img) return $this->error("Invalid received image string data:'$imgstr'");
-		// imagepng($img,__DIR__."/../../../images/logos/image_tmp.png");
 		
 		// 2- creamos una imagen de 150x150, le anyadimos canal alfa, y hacemos un copyresampled
 		$newImage = imagecreatetruecolor(150,150);
@@ -376,7 +375,7 @@ class Clubes extends DBObject {
 			if (!$res) return $this->error($this->conn->error);
 		}
 		// 5- finalmente guardamos el logo en el fichero especificado en formato png
-		$fname=__DIR__."/../../../images/logos/$logo";
+		$fname=__DIR__."/../../../images/logos/$logo"; // default path to store logos
 		// $this->myLogger->info("Trying to save png file to:'$fname'");
 		imagepng($newImage, $fname);
 		// seems that imagepng fails on save to file due to strange permission related issue
