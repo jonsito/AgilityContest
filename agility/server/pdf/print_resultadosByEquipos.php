@@ -132,7 +132,7 @@ class ResultadosByEquipos3 extends PrintCommon {
             $miembros=$this->eqmgr->getPerrosByTeam($team['ID']);
             $count=0;
             for ($n=0;$n<count($miembros);$n++) {
-                $logo=$miembros[$n]['Logo'];
+                $logo=getIconPath($this->federation->get('Name'),$miembros[$n]['Logo']);
                 if ( ( ! in_array($logo,$logos) ) && ($count<4) ) $logos[$count++]=$logo;
             }
         }
@@ -147,7 +147,7 @@ class ResultadosByEquipos3 extends PrintCommon {
                 $this->SetX($x+10*$n);
                 $this->Cell(10,10,"",'T',0,'C',true);
             } else {
-                $this->Image(__DIR__.'/../../images/logos/'.$logos[$n],$x+10*$n,$y,10);
+                $this->Image($logos[$n],$x+10*$n,$y,10);
             }
         }
         $this->SetX($x+40);
