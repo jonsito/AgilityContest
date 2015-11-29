@@ -250,9 +250,10 @@ class Dogs extends DBObject {
 	 * Obtiene los datos del perro con el idperro indicado
 	 * Usado para rellenar formularios:  formid.form('load',url);
 	 * @param {integer} $idperro dog primary key
+	 * @param {integer} $federation federation module id if any
 	 * @return null on error; array() with data on success
 	 */
-	function selectByID($idperro){
+	function selectByID($idperro,$federation=-1){
 		$this->myLogger->enter();
 		if ($idperro<=0) return $this->error("Invalid Perro ID:$idperro");
 		// make query

@@ -18,9 +18,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 
 
-require_once("DBObject.php");
-require_once("Tandas.php");
-require_once("Jornadas.php");
+require_once(__DIR__."/DBObject.php");
+require_once(__DIR__."/Tandas.php");
+require_once(__DIR__."/Jornadas.php");
+require_once(__DIR__."/../../../modules/Federations.php");
 
 class Pruebas extends DBObject {
 
@@ -247,6 +248,10 @@ class Pruebas extends DBObject {
 				/* WHERE */ "( Clubes.ID=Pruebas.Club) && ( Pruebas.ID=$id )"
 		);
 		if (!is_array($data))	return $this->error("No Prueba found with ID=$id");
+		// fix logo path To be done at client side if required
+		// $fed=Federations::getFederation(intval($data['RSCE']));
+		// $data['LogoClub']=getIconPath($fed->get('Name'),$data['LogoClub']);
+		// if ($fed->isInternational()){	$data['LogoClub']=$fed->get('Logo'); }
 		$data['Operation']='update'; // dirty trick to ensure that form operation is fixed
 		$this->myLogger->leave();
 		return $data;

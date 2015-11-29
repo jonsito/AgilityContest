@@ -119,7 +119,7 @@ class Federations {
      * Reserve FedID 0..4 to national events; 5..9 to internationals
      * @return bool
      */
-    public function isInternational() { return ( $this->config['International'] !=0)?true:false; }
+    public function isInternational() { return ( intval($this->config['International']) !=0)?true:false; }
 
     /**
      * @return string either i18n'd 'Club' or 'Contry' according federation

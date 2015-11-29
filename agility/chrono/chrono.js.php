@@ -101,8 +101,14 @@ function c_updateHeader() {
 	var pru=workingData.datosPrueba.Nombre;
 	var club=workingData.datosPrueba.NombreClub;
 	var logo=workingData.datosPrueba.LogoClub;
+	// en pruebas internacionales, se pone el logo de la federacion
+	if (isInternational(workingData.federation)) {
+		logo=ac_fedInfo[workingData.federation].Logo;
+		$('#chrono_LogoClub').attr('src',logo);
+	} else { // en pruebas "nacionales" se pone el logo del club organizador
+		$('#chrono_LogoClub').attr('src',"/agility/images/logos/"+logo);
+	}
 	$('#chrono_PruebaLbl').html( pru + ' - ' + jor + ' - ' + mng );
-	$('#chrono_LogoClub').attr('src','/agility/images/logos/'+logo);
 	$('#chrono_Club').html(club);
 }
 
@@ -126,6 +132,7 @@ function c_showData(data) {
 			url: "/agility/server/database/dogFunctions.php",
 			data: {
 				'Operation' : 'getbyidperro',
+				'Federation': workingData.federation,
 				'ID'	: data['Perro']
 			},
 			async: true,
@@ -139,11 +146,21 @@ function c_showData(data) {
 				$('#chrono_Categoria').html("<?php _e('Cat');?>: "+toLongCategoria(res["Categoria"],res['Federation']));
 				// hide "Grado" Information if not applicable
 				$('#chrono_Grado').html(hasGradosByJornada(workingData.datosJornada)?res["NombreGrado"]:"");
-				// on Team events, show Team info instead of Club
-				var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
-				// como en el videowall no tenemos datos de la jornada, lo que hacemos es
-				// contar el numero de equipos de esta para saber si es prueba por equipos o no
-				$('#chrono_NombreClub').html((Object.keys(workingData.teamsByJornada).length>1)?"<?php _e('Team')?>: "+eq:"<?php _e('Club');?>: "+res["NombreClub"]);
+				// ajustamos el texto del club/pais/equipo
+				// si el numero de equipos de la jornada es mayor que 1 estamos en una jornada por equipos
+				if (Object.keys(workingData.teamsByJornada).length>1){
+					var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
+					$('#chrono_NombreClub').html("<?php _e('Team')?>: "+eq);
+				}
+				// else si estamos en una prueba internacional ponemos el nombre del pais
+				else if (isInternational(workingData.federation)) {
+					$('#chrono_NombreClub').html("<?php _e('Country')?>: "+res["NombreClub"]);
+				}
+				// else ponemos el nombre del club
+				else {
+					$('#chrono_NombreClub').html("<?php _e('Club')?>: "+res["NombreClub"]);
+				}
+				// ajustamos el celo
 				$('#chrono_Celo').html((celo==1)?'<span class="blink"><?php _e("Heat");?></span>':'');
 			},
 			error: function(XMLHttpRequest,textStatus,errorThrown) {
