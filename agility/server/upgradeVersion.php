@@ -88,7 +88,7 @@ class Updater {
             if (strpos($data,"char")!==FALSE) $isStr=true;
             if (strpos($data,"time")!==FALSE) $isStr=true;
             if (strpos($data,"date")!==FALSE) $isStr=true;
-            if ($isStr) $str=" NOT NULL DEFAULT '$def''";
+            if ($isStr) $str=" NOT NULL DEFAULT '$def'";
             else        $str=" NOT NULL DEFAULT $def";
         }
         $drop = "DROP PROCEDURE IF EXISTS AddColumnUnlessExists;";

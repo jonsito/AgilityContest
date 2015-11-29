@@ -74,8 +74,8 @@ function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
 	  beforeSend: function(jqXHR,settings) {
-		if ( typeof(authInfo.SessionKey)!=='undefined' && authInfo.SessionKey!=null) {
-			jqXHR.setRequestHeader('X-AC-SessionKey',authInfo.SessionKey);
+		if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!=null) {
+			jqXHR.setRequestHeader('X-AC-SessionKey',ac_authInfo.SessionKey);
 		}
 	    return true;
 	  }

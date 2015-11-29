@@ -224,23 +224,6 @@ function getFederationInfo() {
 	});
 }
 
-function checkPermissions(perms, callback) {
-	$.ajax({
-		type: "GET",
-		url: '/agility/server/adminFunctions.php',
-		data: {	'Operation' : 'access','Perms':perms },
-		async: true,
-		cache: false,
-		dataType: 'json',
-		success: function(data){
-			callback( (data.errorMsg)?false:true);
-		},
-		error: function(XMLHttpRequest,textStatus,errorThrown) {
-			alert("error: "+textStatus + " "+ errorThrown );
-		}
-	});
-}
-
 function loadCountryOrClub() {
 	var intl = parseInt(ac_fedInfo[workingData.federation].International);
 	if (intl==0) loadContents('/agility/console/frm_clubes.php','<?php _e('Clubs Database Management');?>');
@@ -582,21 +565,21 @@ function initWorkingData(id) {
 	}
 }
 
-var authInfo ={};
+var ac_authInfo ={};
 function initAuthInfo(id) {
-	authInfo.ID=0;
-	authInfo.Login="";
-	authInfo.Gecos="";
-	authInfo.SessionKey=null;
-	authInfo.Perms=5;
-	authInfo.SessionID=0;
+	ac_authInfo.ID=0;
+	ac_authInfo.Login="";
+	ac_authInfo.Gecos="";
+	ac_authInfo.SessionKey=null;
+	ac_authInfo.Perms=5;
+	ac_authInfo.SessionID=0;
 	if (typeof(id)!=="undefined") {
-		authInfo.ID=id.UserID;
-		authInfo.Login=id.Login;
-		authInfo.Gecos=id.Gecos;
-		authInfo.SessionKey=id.SessionKey;
-		authInfo.Perms=id.Perms;
-		authInfo.SessionID=id.SessionID;
+		ac_authInfo.ID=id.UserID;
+		ac_authInfo.Login=id.Login;
+		ac_authInfo.Gecos=id.Gecos;
+		ac_authInfo.SessionKey=id.SessionKey;
+		ac_authInfo.Perms=id.Perms;
+		ac_authInfo.SessionID=id.SessionID;
 	}
 }
 

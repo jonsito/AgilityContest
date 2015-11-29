@@ -162,7 +162,7 @@ function insertInscripcion(dg) {
 		$.messager.alert('<?php _e("No selection"); ?>','<?php _e("There is no marked dog to be inscribed"); ?>',"warning");
     	return; // no hay ninguna inscripcion seleccionada. retornar
 	}
-	if (authInfo.Perms>2) {
+	if (ac_authInfo.Perms>2) {
     	$.messager.alert('<?php _e("No permission"); ?>','<?php _e("Current user has not enought permissions to handle inscriptions"); ?>',"error");
     	return; // no tiene permiso para realizar inscripciones. retornar
 	}

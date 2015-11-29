@@ -88,6 +88,7 @@ $config =Config::getInstance();
    			data-options="iconCls:'icon-trash'"
    			onclick="deleteInscripcion('#inscripciones-datagrid')"><?php _e('Delete'); ?></a>
    		<input id="inscripciones-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
+		<span id="inscripciones-readonly" class="blink" style="color:red">Read Only</span>
    	</span>
    	<span style="float:right;padding:5px"> 	<!-- estos elementos deben estar alineados a la derecha -->
     	<a id="inscripciones-reorderBtn" href="#" class="easyui-linkbutton"
@@ -211,6 +212,8 @@ $('#inscripciones-datagrid').datagrid({
     }
 });
 
+// set visibility of read-only warning
+$('#inscripciones-readonly').css('display',check_perms(1,null)?'none':'inline-block');
 
 // key handler
 addSimpleKeyHandler('#inscripciones-jornadas',null,editJornadaFromPrueba);

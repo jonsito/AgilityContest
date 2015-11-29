@@ -68,7 +68,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	        <img id="clubes-Logo"
     	           	alt="rsce"
     	          	name="Logo" 
-    	           	src="/agility/server/database/clubFunctions.php?Operation=getlogo&Nombre=rsce"
+    	           	src=""
     	           	width="120" style="float:right;margin-right:20px"/>
             </a>
         </div>
@@ -151,6 +151,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     	addTooltip($('#clubes-logo-filePreview'),'<?php _e("Choosen image should be of type <em>.png</em>"); ?>'+", <br />"+
                                                        '<?php _e( "150x150 pixel size and transparent background"); ?>');
     	addTooltip($('#clubes-Logo'),'<?php _e("Press on image to change club logo"); ?>');
+
+        // load default image on club dialog
+        $('#clubes-Logo').attr('src',"/agility/server/database/clubFunctions.php?Operation=getlogo&Nombre=rsce&Federation="+workingData.federation);
 
         // despliegue del selector de paises
         $('#clubes-Pais').combogrid({

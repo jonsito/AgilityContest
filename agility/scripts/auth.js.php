@@ -29,7 +29,7 @@ $config =Config::getInstance();
  * Abre el frame de login o logout dependiendo de si se ha iniciado o no la sesion
  */
 function showLoginWindow() {
-	if (typeof(authInfo.SessionKey)==="undefined" || (authInfo.SessionKey==null) ) {
+	if (typeof(ac_authInfo.SessionKey)==="undefined" || (ac_authInfo.SessionKey==null) ) {
 		$('#login-window').remove();
 		loadContents('/agility/console/frm_login.php','<?php _e('Init session');?>');
 	} else {
@@ -85,7 +85,7 @@ function acceptLogin() {
 }
 
 function acceptLogout() {
-	var user=authInfo.Login;
+	var user=ac_authInfo.Login;
 	$.ajax({
 		type: 'POST',
    		url: '/agility/server/database/userFunctions.php',
@@ -148,6 +148,7 @@ function acceptMyAdmin() {
 function cancelLogin() {
 	$('#login-Usuario').val('');
 	$('#login-Password').val('');
+	setFederation(0); // defaults to first federation (rsce)
 	var w=$.messager.alert("Login","<?php _e('No user provided');?>"+"<br />"+"<?php _e('Starting session read-only (guest)');?>","warning",function(){
 		// close window
 		$('#login-window').window('close');
@@ -196,6 +197,51 @@ function send_regFile() {
    	});
 }
 
+/*
+Comprueba si el usuario tiene privilegios suficientes para realizar la operacion indicada en callback
+(admin,operator,assistant,guest)
+En caso de no tener privilegios avisa, pero deja continuar
+Si callback es null, simplemente retorna true o false
+ */
+function check_perms(perm,callback) {
+	if (typeof(callback) !== 'function') {
+		return (ac_authInfo.Perms<=perm)?true:false;
+	}
+	if (ac_authInfo.Perms<=perm) { callback(); return;}
+	$.messager.alert(
+		'<?php _e("Permissions");?>',
+		'<?php _e("Current user has not enought level to make changes <br/>Read-only access enabled");?>',
+		'warning',
+		callback
+	);
+}
+
+/*
+Same as above, but use ajax call to retrieve real permissions from server
+ */
+function checkRemotePerms(perms, callback) {
+	$.ajax({
+		type: "GET",
+		url: '/agility/server/adminFunctions.php',
+		data: {	'Operation' : 'access','Perms':perms },
+		async: true,
+		cache: false,
+		dataType: 'json',
+		success: function(data){
+			callback( (data.errorMsg)?false:true);
+		},
+		error: function(XMLHttpRequest,textStatus,errorThrown) {
+			alert("error: "+textStatus + " "+ errorThrown );
+		}
+	});
+}
+
+/*
+Comprueba si la licencia tiene habilitado el permiso para acceder a la funcionalidad deseada
+( pruebas por equipos, ko, videomarcador, etc )
+Por seguridad, los permisos no se envian nunca al cliente, por lo que es necesaria una llamada
+al servidor
+ */
 function check_access(p,j,perms,callback) {
     $.ajax({
         type:'GET',

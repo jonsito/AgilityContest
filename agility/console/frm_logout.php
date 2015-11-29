@@ -52,7 +52,7 @@ $('#logout-window').window({
 	shadow:true,
 	modal:true,
 	onBeforeOpen:function() {
-		$('#login-UserName').html(authInfo.Login);
+		$('#login-UserName').html(ac_authInfo.Login);
 	}
 });
 

@@ -394,8 +394,6 @@ addTooltip($('#dmanga_Guardar').linkbutton(),'<?php _e("Save round technical dat
 addTooltip($('#dmanga_SameJuez').linkbutton(),'<?php _e("Clone judge information on every rounds for this journey"); ?>');
 
 // if user has no write permission, show proper message info
-checkPermissions(2,function(ok){ // check for 'operator' permissions
-	// TODO: force reload on logout session
-	$('#infomanga_readonly').css('display',(ok)?'none':'inline-block');
-});
+// TODO: force reload on logout session
+$('#infomanga_readonly').css('display',(check_perms(1,null))?'none':'inline-block');
 </script>

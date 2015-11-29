@@ -103,7 +103,7 @@ function acceptSelectPrueba() {
 		title='<?php _e("Inscriptions - Registering form");?>';
 	}
 	$('#selprueba-window').window('close');
-	loadContents(page,title,{'inscripciones':'#new_inscripcion-dialog', 'equipos':'#team_datagrid-dialog'});
+	check_perms(1,function() {loadContents(page,title,{'inscripciones':'#new_inscripcion-dialog', 'equipos':'#team_datagrid-dialog'});});
 }
 
 function cancelSelectPrueba() {

@@ -123,7 +123,7 @@ function newClub(dg,def,onAccept){
 	if (!strpos(def,"Buscar")) $('#clubes-Nombre').val(def.capitalize());
 	$('#clubes-Operation').val('insert');
 	// select ID=1 to get default logo
-	var nombre="/agility/server/database/clubFunctions.php?Operation=getlogo&ID=1";
+	var nombre="/agility/server/database/clubFunctions.php?Operation=getlogo&ID=1&Federation="+workingData.Federation;
     $('#clubes-Logo').attr("src",nombre);
     // add onAccept related function if any
 	if (onAccept!==undefined)
@@ -148,7 +148,7 @@ function editClub(dg){
     row.Operation='update';
     // use date.getTime to bypass cache
     var time=new Date().getTime();
-	var nombre="/agility/server/database/clubFunctions.php?Operation=getlogo&ID="+row.ID+"&time="+time;
+	var nombre="/agility/server/database/clubFunctions.php?Operation=getlogo&ID="+row.ID+"&Federation="+workingData.federation+"&time="+time;
     $('#clubes-Logo').attr("src",nombre);
     $('#clubes-dialog').dialog('open').dialog('setTitle','<?php _e('Modify club data'); ?>');
     $('#clubes-form').form('load',row);

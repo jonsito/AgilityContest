@@ -26,8 +26,8 @@ $config =Config::getInstance();
 */
 
 function checkForAdmin() {
-    if (parseInt(authInfo.Perms)>1) {
-        $.messager.alert('<?php _e("Invalid user"); ?>','<?php _e("Current user"); ?>'+" '"+authInfo.Login+"' "+'<?php _e("has not enought privileges"); ?>',"error");
+    if (parseInt(ac_authInfo.Perms)>1) {
+        $.messager.alert('<?php _e("Invalid user"); ?>','<?php _e("Current user"); ?>'+" '"+ac_authInfo.Login+"' "+'<?php _e("has not enought privileges"); ?>',"error");
         return false;
     }
     return true;
@@ -50,7 +50,7 @@ function backupDatabase(){
 
 function performClearDatabase(oper,pass,callback) {
     // comprobamos si el password es correcto
-    checkPassword(authInfo.Login,pass,function(data) {
+    checkPassword(ac_authInfo.Login,pass,function(data) {
         if (data.errorMsg) { // error
             $.messager.alert("Error",data.errorMsg,"error");
         } else { // success:
@@ -94,7 +94,7 @@ function restoreDatabase(){
     $.messager.password('<?php _e('DataBase restore'); ?>',l1+l2+l3+l4 , function(pass){
         if (pass){
             // comprobamos si el password es correcto
-            checkPassword(authInfo.Login,pass,function(data) {
+            checkPassword(ac_authInfo.Login,pass,function(data) {
                 if (data.errorMsg) { // error
                     $.messager.alert("Error",data.errorMsg,"error");
                 } else { // success:
@@ -211,11 +211,11 @@ function askForUpgrade(msg){
     $.messager.password('<?php _e('Update AgilityContest'); ?>',msg+l1+l2+l3 , function(pass) {
         if (pass) {
             // comprobamos si el password es correcto
-            checkPassword(authInfo.Login,pass,function(data) {
+            checkPassword(ac_authInfo.Login,pass,function(data) {
                 if (data.errorMsg) { // error
                     $.messager.alert("Error", data.errorMsg, "error");
                 } else {
-                    window.location='/agility/upgrade.php?sessionkey='+authInfo.SessionKey;
+                    window.location='/agility/upgrade.php?sessionkey='+ac_authInfo.SessionKey;
                 }
             });
         }

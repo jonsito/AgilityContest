@@ -82,8 +82,8 @@ function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
 	  beforeSend: function(jqXHR,settings) {
-		if ( typeof(authInfo.SessionKey)!=='undefined' && authInfo.SessionKey!=null) {
-			jqXHR.setRequestHeader('X-AC-SessionKey',authInfo.SessionKey);
+		if ( typeof(ac_authInfo.SessionKey)!=='undefined' && ac_authInfo.SessionKey!=null) {
+			jqXHR.setRequestHeader('X-AC-SessionKey',ac_authInfo.SessionKey);
 		}
 	    return true;
 	  }
@@ -176,15 +176,15 @@ body { font-size: 100%;	background: <?php echo $config->getEnv('easyui_bgcolor')
 </li>
 <li><?php _e('DATABASE'); ?>
 	<ul>
-	<li><a href="javascript:loadCountryOrClub();"><span id="menu-clubes"><?php _e('Clubs'); ?></span></a></li>
-	<li><a href="javascript:loadContents('/agility/console/frm_guias.php','<?php _e('Handlers Database Management');?>');"><?php _e('Handlers'); ?></a></li>
-	<li><a href="javascript:loadContents('/agility/console/frm_perros.php','<?php _e('Dogs Database Management');?>');"><?php _e('Dogs'); ?></a></li>
-	<li><a href="javascript:loadContents('/agility/console/frm_jueces.php','<?php _e('Judges Database Management');?>');"><?php _e('Judges'); ?></a></li>
+	<li><a href="javascript:check_perms(1,function(){loadCountryOrClub();});"><span id="menu-clubes"><?php _e('Clubs'); ?></span></a></li>
+	<li><a href="javascript:check_perms(1,function(){loadContents('/agility/console/frm_guias.php','<?php _e('Handlers Database Management');?>');});"><?php _e('Handlers'); ?></a></li>
+	<li><a href="javascript:check_perms(1,function(){loadContents('/agility/console/frm_perros.php','<?php _e('Dogs Database Management');?>');});"><?php _e('Dogs'); ?></a></li>
+	<li><a href="javascript:check_perms(1,function(){loadContents('/agility/console/frm_jueces.php','<?php _e('Judges Database Management');?>');});"><?php _e('Judges'); ?></a></li>
 	</ul>
 </li>
 <li><?php _e('CONTESTS'); ?>
 	<ul>
-	<li><a href="javascript:loadContents('/agility/console/frm_pruebas.php','<?php _e('Create and Edit Contests');?>');"><?php _e('Create Contests'); ?></a></li>
+	<li><a href="javascript:check_perms(1,function(){loadContents('/agility/console/frm_pruebas.php','<?php _e('Create and Edit Contests');?>');});"><?php _e('Create Contests'); ?></a></li>
 	<li><a href="javascript:loadContents('/agility/console/frm_inscripciones.php','<?php _e('Inscriptions - Contest selection');?>',{'s':'#selprueba-window'});"><?php _e('Handle Inscriptions'); ?></a></li>
 	<li><a href="javascript:loadContents('/agility/console/frm_competicion.php','<?php _e('Competition - Contest and Journey selection');?>');"><?php _e('Running Contests'); ?></a></li>
 	</ul>

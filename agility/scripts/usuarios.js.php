@@ -125,13 +125,13 @@ function setPassword(dg) {
 		$.messager.alert('<?php _e("Password Error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
 		return; // no way to know which user is selected
 	}
-	if (authInfo.Perms<=1) { 
+	if (ac_authInfo.Perms<=1) {
 		// if user perms>=admin hide "old password"field
 		$('#password-SameUser').css('display','none');
 	} else {
 		// else if current user != selected user forbid operation
 		$('#password-SameUser').css('display','inherit');
-		if (authInfo.ID != row.ID) { 
+		if (ac_authInfo.ID != row.ID) {
 			$.messager.alert('<?php _e("Not enought permissions"); ?>','<?php _e("Only admin users can change passwords on another user"); ?>',"error");
 			return;
 		}
@@ -162,7 +162,7 @@ function savePassword() {
         	NewPassword2:	np2,
         	// not sure why, but seems that default's ajaxSetup() 
         	// doesn't work fine with cors, so force it
-        	SessionKey: authInfo.SessionKey
+        	SessionKey: ac_authInfo.SessionKey
         },
         dataType: 'jsonp',
         success: function (result) {

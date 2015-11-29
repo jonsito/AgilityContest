@@ -23,7 +23,7 @@ require_once(__DIR__."/../procesaInscripcion.php");// to update inscription data
 class Clubes extends DBObject {
 
 	protected $curFederation=null;
-	function __construct($file,$federation=-1) {
+	function __construct($file,$federation=0) {
 		parent::__construct($file);
 		if ($federation>=0) {
 			$this->curFederation=Federations::getFederation(intval($federation));

@@ -62,7 +62,7 @@ $('#seljornada-window').window({
 			extra=" ( <?php _e('K.O. Rounds');?> )";
 			dialogs= {};
 		}
-		loadContents( page, '<?php _e('Journey deployment');?>'+extra, dialogs );
+		check_perms( 1,	function() { loadContents( page, '<?php _e('Journey deployment');?>'+extra, dialogs ); } );
 	} 
 }).window('open');
 
