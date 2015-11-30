@@ -99,6 +99,7 @@ function acceptSelectPrueba() {
 		return;
 	} else {
 		setPrueba(p);
+		setFederation(p.RSCE);
 		page="/agility/console/frm_inscripciones2.php";
 		title='<?php _e("Inscriptions - Registering form");?>';
 	}

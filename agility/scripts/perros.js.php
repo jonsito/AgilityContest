@@ -23,10 +23,11 @@ $config =Config::getInstance();
 
 // ***** gestion de perros		*********************************************************
 
-function reload_perrosDatagrid() {
-	var w=$('#perros-datagrid-search').val();
+function reload_perrosDatagrid(dg) {
+	var w=$(dg+'-search').val();
 	if (strpos(w,"Buscar",0)) w='';
-	$('#perros-datagrid').datagrid('load',{Operation:'select', where: w, Federation: workingData.federation });
+	// $(dg).datagrid('load',{Operation:'select', where: w, Federation: workingData.federation });
+    $(dg).datagrid('reload');
 }
 
 /**
@@ -35,12 +36,12 @@ function reload_perrosDatagrid() {
  * @param def nombre por defecto que se asigna al perro en el formulario
  */
 function newDog(dg,def){
+    $('#perros-form').form('clear'); // start with an empty form
 	$('#perros-dialog').dialog('open').dialog('setTitle','<?php _e('New dog'); ?>'+' - '+fedName(workingData.federation));
-	$('#perros-form').form('clear'); // start with an empty form
 	if (!strpos(def,"Buscar")) $('#perros-Nombre').val(def.capitalize());
 	$('#perros-Operation').val('insert');
 	$('#perros-warning').css('visibility','hidden');
-	$('#perros-okBtn').one('click',reload_perrosDatagrid);
+	$('#perros-okBtn').one('click',function() {reload_perrosDatagrid(dg)});
 }
 
 /**

@@ -238,7 +238,7 @@ class Inscripciones extends DBObject {
 		$id = $this->pruebaID;
 		// FASE 1: obtener lista de perros inscritos con sus datos
 		$str="SELECT Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal , 
-				Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
+				Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre, NombreLargo,
 				Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
 				NombreGuia, NombreClub, Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
 			FROM Inscripciones,PerroGuiaClub

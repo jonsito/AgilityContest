@@ -33,7 +33,7 @@ $config =Config::getInstance();
                 	class="easyui-validatebox"/>
                 <input id="perros-Federation" name="Federation" type="hidden" />
                 <input id="perros-ID" name="ID" type="hidden" /> <!-- hide idperro, as only used for edit and is readonly -->
-                <input id="perros-Operation" name="Operation" type="hidden" /> <!-- inser/update/delete -->
+                <input id="perros-Operation" name="Operation" type="hidden" value="insert"/> <!-- inser/update/delete -->
             </div>
             <div class="fitem">
                 <label for="perros-NombreLargo"><?php _e('Pedigree Name'); ?>:</label>

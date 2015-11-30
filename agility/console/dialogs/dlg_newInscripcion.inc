@@ -86,7 +86,7 @@ $config =Config::getInstance();
    	<span style="float:left">
    		<a id="new_inscripcion-dogBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-dog'"
-   			onclick="newDog('#new_inscripcion-datagrid',$('new_inscripcion-datagrid-search').val())"><?php _e('New dog'); ?></a>
+   			onclick="newDog('#new_inscripcion-datagrid',$('#new_inscripcion-datagrid-search').val())"><?php _e('New dog'); ?></a>
    	</span>
    	<span style="float:right">
 		<a id="new_inscripcion-okBtn" href="#" class="easyui-linkbutton" 

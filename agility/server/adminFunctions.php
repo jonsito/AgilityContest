@@ -332,7 +332,7 @@ try {
 			$config=Config::getInstance(); $result=$config->loadConfig(); break;
 		case "saveConfig": 
 			$am->access(PERMS_ADMIN);
-			$confif=Config::getInstance();
+			$config=Config::getInstance();
 			$result=$config->saveConfig();
 			$ev=new Eventos("SaveConfig",1,$am);
 			$ev->reconfigure();

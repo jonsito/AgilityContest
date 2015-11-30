@@ -38,7 +38,7 @@ class PrintCatalogo extends PrintCommon {
 	protected $inscritos;
 	protected $jornadas;
 	
-	protected $width = array( 30,25,15,25,35,5,5,5,5,5,5,5,5); // anchos predefinidos de las celdas
+	protected $width = array( 45,20,15,20,30,5,5,5,5,5,5,5,5); // anchos predefinidos de las celdas
 	protected $cellHeader = array( 'J1','J2','J3','J4','J5','J6','J7','J8');
 	
 	/**
@@ -105,7 +105,9 @@ class PrintCatalogo extends PrintCommon {
 		$this->SetXY(32,5+$y);
 		$this->Cell( 50, 5, $club['Direccion2'],	'L', 0, 'L',	true);	// pintamos direccion2
 		$this->SetXY(32,10+$y);
-		$this->Cell( 50, 5, $club['Provincia'],	'L', 0, 'L',	true);	// pintamos provincia
+		$prov=$club['Provincia'];
+		if ($prov==="-- Sin asignar --") $prov="";
+		$this->Cell( 50, 5,$prov ,	'L', 0, 'L',	true);	// pintamos provincia
 		$this->SetFont('Helvetica','IB',24);
 		$this->SetXY(82,$y);
 		$this->Cell( 110, 15, $club['Nombre'],	'T', 0, 'R',	true);	// pintamos Nombre
@@ -118,7 +120,8 @@ class PrintCatalogo extends PrintCommon {
 		$this->SetXY(32,15+$y);
 		$this->Cell( $this->width[0], 7, _('Name'),'LTB', 0, 'C',true);
 		$this->Cell( $this->width[1], 7, _('Breed'),'LTB', 0, 'C',true);
-		$this->Cell( $this->width[2], 7, _('License'),'LTB', 0, 'C',true);
+        if ($this->width[2]!=0) // skip license on international contests
+		    $this->Cell( $this->width[2], 7, _('License'),'LTB', 0, 'C',true);
 		$this->Cell( $this->width[3], 7, _('Cat').'/'._('Grade'),'LTB', 0, 'C',true);
 		$this->Cell( $this->width[4], 7, _('Handler'),'LTBR', 0, 'C',true);
 		// print names of each declared journeys
@@ -139,17 +142,22 @@ class PrintCatalogo extends PrintCommon {
 
         $this->SetX(17);
 		// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
-		$this->SetFont('Helvetica','B',15); //
+		$this->SetFont('Helvetica','B',12); //
 		$this->Cell( 15, 7, $row['Dorsal'],	'TLB', 0, 'C',	true);
-		$this->SetFont('Helvetica','BI',12); // bold 9px
-		$this->Cell( $this->width[0], 7, $row['Nombre'],	'LB', 0, 'C',	true);
+		$this->SetFont('Helvetica','BI',9); // bold 9px italic
+        $name= $row['Nombre'];
+        if ($row['NombreLargo']!=="") $name = $row['NombreLargo']." - ".$name;
+		$this->Cell( $this->width[0], 7, $name,	'LB', 0, 'C',	true);
 		$this->SetFont('Helvetica','',8); // bold 8px
-		$this->Cell( $this->width[1], 7, $row['Raza'],		'LB', 0, 'R',	true);
+		$this->Cell( $this->width[1], 7, $row['Raza'],		'LB', 0, 'C',	true);
         if ($this->federation->get('WideLicense')) $this->SetFont('Helvetica','',6); // bold 6px
-        $this->Cell( $this->width[2], 7, $row['Licencia'],	'LB', 0, 'C',	true);
+        if ($this->width[2]!=0) // skip license on international contests
+            $this->Cell( $this->width[2], 7, $row['Licencia'],	'LB', 0, 'C',	true);
         $this->SetFont('Helvetica','',8); // bold 8px
-		$this->Cell( $this->width[3], 7, $this->getCatString($row['Categoria'])." - ".$row['Grado'],	'LB', 0, 'C',	true);
-		$this->SetFont('Helvetica','B',10); // bold 9px
+		$grad=" - {$row['Grado']}";
+		if ($grad==" - -") $grad="";
+		$this->Cell( $this->width[3], 7, $this->getCatString($row['Categoria']).$grad,	'LB', 0, 'C',	true);
+		$this->SetFont('Helvetica','B',9); // bold 9px
 		$this->Cell( $this->width[4], 7, $row['NombreGuia'],'LBR', 0, 'R',	true);
 		
 		$this->SetFont('Helvetica','',8); // bold 8px
@@ -182,6 +190,11 @@ class PrintCatalogo extends PrintCommon {
         // si la prueba es de caza ajustamos para que quepa la licencia
         if ($this->federation->get('WideLicense')) {
             $this->width[0] -= 7;  $this->width[1] -= 7; $this->width[2] +=14;
+        }
+        // si la prueba es internacional quitamos licencia y la sumamos al nombre
+        if ($this->federation->isInternational()) {
+            $this->width[0]+=$this->width[2];
+            $this->width[2]=0;
         }
 		$this->addPage(); // start page
 		$club=0;
