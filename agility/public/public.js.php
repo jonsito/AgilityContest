@@ -53,8 +53,12 @@ function pb_getHeaderInfo() {
         success: function(data,status,jqxhr) {
             var str='<?php _e("Contest"); ?>' + ': ' + data.Prueba.Nombre + '<br />' + '<?php _e("Journey"); ?>' + ': '+ data.Jornada.Nombre;
             $('#pb_header-infocabecera').html(str);
-            // TODO: fix logo when undefined or invalid
-            $('#pb_header-logo').attr('src','/agility/images/logos/'+data.Club.Logo);
+            // on international competitions, use federation Organizer logo
+            var logo='/agility/images/logos/'+data.Club.Logo;
+            if ( (data.Club.logo==="") || isInternational(data.Prueba.RSCE)) {
+                logo=ac_fedInfo[data.Prueba.RSCE].OrganizerLogo
+            }
+            $('#pb_header-logo').attr('src',logo);
         }
     });
 }

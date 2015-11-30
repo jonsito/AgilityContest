@@ -543,7 +543,7 @@ class PrintEstadisticas extends PrintCommon {
 			$flag="";
 			if ($jornada['Equipos3']!=0) $flag=_("Team 3");
 			if ($jornada['Equipos4']!=0) $flag=_("Team 4");
-			if ($jornada['Open']!=0) $flag=_("Open");
+			if ($jornada['Open']!=0) /* $flag=_("Open"); */ $flag=" "; // print space in Open journeys
 			if ($jornada['KO']!=0) $flag=_("K.O.");
 			if ($flag==="")
 				$this->printTableData($est,$name,$alturas);

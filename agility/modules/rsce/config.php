@@ -7,6 +7,7 @@ class RSCE extends Federations {
             'Name'  => 'RSCE',
             'LongName' => 'Real Sociedad Canina de España',
             // use basename http absolute path for icons, as need to be used in client side
+            'OrganizerLogo'     => '/agility/modules/rsce/rsce.png',
             'Logo'     => '/agility/modules/rsce/rsce.png',
             'ParentLogo'   => '/agility/modules/rsce/fci.png',
             'WebURL' => 'http://www.rsce.es/',
@@ -64,13 +65,14 @@ class RSCE extends Federations {
 
     /**
      * Evalua la calificacion final del perro
+     * @param {object} $p datos de la prueba
+     * @param {object} $j datos de la jornada
      * @param {array} $c1 datos de la primera manga
      * @param {array} $c2 datos de la segunda manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
-     * @param {boolean} $selectiva
      */
-    public function evalCalification($c1,$c2,&$perro,$puestocat,$selectiva){
+    public function evalCalification($p,$j,$c1,$c2,&$perro,$puestocat){
         $grad=$perro['Grado']; // cogemos la categoria
 
         if ($grad==="GI") { // en grado uno se puntua por cada manga
@@ -90,7 +92,7 @@ class RSCE extends Federations {
             return; // ignore other extrange grades
         }
         // arriving here means grado III
-        if (selectiva){
+        if ($p->Selectiva==0){
             $perro['Calificacion'] = ($perro['Penalizacion']==0.0)?'Punto':'';
             return;
         }

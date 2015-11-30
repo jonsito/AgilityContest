@@ -7,6 +7,7 @@ class RFEC extends Federations {
             'Name'  => 'RFEC',
             'LongName' => 'Real Federacion Española de Caza',
             // use basename http absolute path for icons, as need to be used in client side
+            'OrganizerLogo'     => '/agility/modules/rfec/rfec.png',
             'Logo'     => '/agility/modules/rfec/rfec.png',
             'ParentLogo'   => '/agility/modules/rfec/csd.png',
             'WebURL' => 'http://www.fecaza.com/',
@@ -64,16 +65,16 @@ class RFEC extends Federations {
 
     /**
      * Evalua la calificacion final del perro
+     * @param {object} $p datos de la prueba
+     * @param {object} $j datos de la jornada
      * @param {array} $c1 datos de la primera manga
      * @param {array} $c2 datos de la segunda manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
-     * @param {boolean} $selectiva
      */
-    public function evalCalification($c1,$c2,&$perro,$puestocat,$selectiva){
+    public function evalCalification($p,$j,$c1,$c2,&$perro,$puestocat){
         $grad=$perro['Grado']; // cogemos el grado
         $cat=$perro['Categoria']; // cogemos la categoria
-
         if ($grad!=="GII") { // solo se puntua en grado II
             $perro['Calificacion']=$perro['C1'];
             if ($perro['P1']<$perro['P2']) $perro['Calificacion']=$perro['C2'];
@@ -86,14 +87,14 @@ class RFEC extends Federations {
         if ($perro['P1']<6.0) $pt1++; // 1 punto por excelente
         if ($perro['P1']==0.0) $pt1++; // 2 puntos por cero
         // puntos a los 5 primeros por manga/categoria si no estan eliminados
-        if ( ($perro['P1']<100) && ($perro['Pcat1']<5) ) $pt1+= $ptsmanga[$perro['Pcat1']-1];
+        if ( ($perro['P1']<100) && ($perro['Pcat1']<=5) ) $pt1+= $ptsmanga[$perro['Pcat1']-1];
         // manga 2
         $pt2=0;
         if ($c2!=null) {
             if ($perro['P2']<6.0) $pt2++; // 1 punto por excelente
             if ($perro['P2']==0.0) $pt2++; // 2 puntos por cero
             // puntos a los 5 primeros por manga/categoria si no estan eliminados
-            if ( ($perro['P2']<100) && ($perro['Pcat2']<5) ) $pt2+= $ptsmanga[$perro['Pcat2']-1];
+            if ( ($perro['P2']<100) && ($perro['Pcat2']<=5) ) $pt2+= $ptsmanga[$perro['Pcat2']-1];
         }
         // conjunta
         $pfin=0;
@@ -104,7 +105,7 @@ class RFEC extends Federations {
             }
         }
         // en las pruebas selectivas de caza (regional y nacional) se puntua doble
-        if ($selectiva) { $pt1*=2; $pt2*=2; $pfin*=2; }
+        if ($p->Selectiva!=0) { $pt1*=2; $pt2*=2; $pfin*=2; }
         // finalmente componemos el string a presentar
         $perro['Calificacion']=$str=strval($pt1)."-".strval($pt2)."-".strval($pfin);
     }

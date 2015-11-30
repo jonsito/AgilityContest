@@ -102,8 +102,13 @@ function vw_updateDataInfo(evt,data) {
     // update header
     var infoprueba='<?php _e('Contest'); ?>'+': ' + data.Prueba.Nombre+' <br />'+'<?php _e('Journey'); ?>'+': '+ data.Jornada.Nombre;
     $('#vw_header-infoprueba').html(infoprueba);
-    $('#vw_header-logo').attr('src','/agility/images/logos/'+data.Club.Logo);
     $('#vw_header-ring').html(data.Sesion.Nombre);
+	// on international competitions, use federation Organizer logo
+	var logo='/agility/images/logos/'+data.Club.Logo;
+	if ( (data.Club.logo==="") || isInternational(data.Prueba.RSCE)) {
+		logo=ac_fedInfo[data.Prueba.RSCE].OrganizerLogo
+	}
+	$('#vw_header-logo').attr('src',logo);
 
     // this should be done in callback, as content is window dependent
     // actualiza informacion de manga
@@ -115,12 +120,12 @@ function vw_updateDataInfo(evt,data) {
 	var logo2=ac_fedInfo[workingData.federation].ParentLogo;
 	var url=ac_fedInfo[workingData.federation].WebURL;
 	var url2=ac_fedInfo[workingData.federation].ParentWebURL;
-    $('#vw_footer-footerData').load("/agility/videowall/vw_footer.php",{},function(response,status,xhr){
-        $('#vw_footer-logoFederation').attr('src','/agility/images/logos/'+logo);
-        $('#vw_footer-urlFederation').attr('href',url);
-        $('#vw_footer-logoFederation2').attr('src','/agility/images/logos/'+logo2);
-        $('#vw_footer-urlFederation2').attr('href',url2);
-    });
+	$('#vw_footer-footerData').load("/agility/videowall/vw_footer.php",{},function(response,status,xhr){
+		$('#vw_footer-logoFederation').attr('src',logo);
+		$('#vw_footer-urlFederation').attr('href',url);
+		$('#vw_footer-logoFederation2').attr('src',logo2);
+		$('#vw_footer-urlFederation2').attr('href',url2);
+	});
 }
 
 function vwls_showOSD(val) {

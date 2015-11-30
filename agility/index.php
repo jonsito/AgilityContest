@@ -72,6 +72,11 @@ require_once(__DIR__. "/server/upgradeVersion.php");
 <script src="/agility/public/public.js.php" type="text/javascript" charset="utf-8" > </script>
 <script type="text/javascript" charset="utf-8">
 
+/* make sure configuration is loaded from server before onLoad() event */
+loadConfiguration();
+getLicenseInfo();
+getFederationInfo();
+
 /* not really needed for public access, but stay here for compatibility */
 function initialize() {
 	// make sure that every ajax call provides sessionKey
@@ -83,9 +88,6 @@ function initialize() {
 	    return true;
 	  }
 	});
-	loadConfiguration();
-	getLicenseInfo();
-	getFederationInfo();
 }
 
 /**
@@ -203,6 +205,7 @@ $('#public-Prueba').combogrid({
         var p=$('#public-Prueba').combogrid('grid').datagrid('getSelected');
         if (p===null) return; // no selection
         setPrueba(p); // ajusta los datos de la prueba
+		setFederation(p.RSCE);
 		var g = $('#public-Jornada').combogrid('grid');
 		g.datagrid('load',{Prueba:p.ID});
 	}

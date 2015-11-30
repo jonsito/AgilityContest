@@ -93,7 +93,7 @@ class PrintCommon extends FPDF {
 		if ($jornada!=0) $this->jornada=$this->myDBObject->__getObject("Jornadas",$jornada);
 		else $this->jornada=null;
 		// on international contests, use logos from federation
-        $this->icon=getIconPath($fedName,$this->federation->get('Logo'));
+        $this->icon=getIconPath($fedName,$this->federation->get('OrganizerLogo'));
         $this->icon2=getIconPath($fedName,$this->federation->get('ParentLogo'));
 		// on national events, use organizing club logo (if any )
 		if ( (!$this->federation->isInternational())  && isset($this->club) ) {

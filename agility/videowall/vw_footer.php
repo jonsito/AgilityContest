@@ -22,10 +22,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="vw_footer">
     <span style="float:left">
         <a id="vw_footer-urlFederation" target="fed" href="" style="border:0 none;">
-            <img id="vw_footer-logoFederation" src="/agility/images/logos/rsce.png" alt="" width="50"/>
+            <img id="vw_footer-logoFederation" src="/agility/images/logos/agilitycontest.png" alt="" width="50"/>
         </a>
         <a id="vw_footer-urlFederation2" target="fed2" href="">
-            <img id="vw_footer-logoFederation2" src="/agility/images/logos/fci.png" alt="" width="50"/>
+            <img id="vw_footer-logoFederation2" src="/agility/images/logos/agilitycontest.png" alt="" width="50"/>
         </a>
         <span style="display:inline-block;padding:12px;font-size:10px;font-style:oblique">
             Powered by AgilityContest-<?php echo $config->getEnv('version_name'); ?> <br/>Copyright &copy; 2013-2015 JAMC

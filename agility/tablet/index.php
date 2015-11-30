@@ -83,6 +83,12 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <script src="/agility/tablet/tablet.js.php" type="text/javascript" charset="utf-8" > </script>
 
 <script type="text/javascript" charset="utf-8">
+
+/* make sure configuration is loaded from server before onLoad() event */
+loadConfiguration();
+getLicenseInfo();
+getFederationInfo();
+
 function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
@@ -93,9 +99,6 @@ function initialize() {
 	    return true;
 	  }
 	});
-	loadConfiguration();
-	getLicenseInfo();
-	getFederationInfo();
 }
 
 /**
@@ -199,7 +202,7 @@ $('#seltablet-Sesion').combogrid({
 });
 
 $('#seltablet-Prueba').combogrid({
-	panelWidth: 400,
+	panelWidth: 500,
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
@@ -214,11 +217,11 @@ $('#seltablet-Prueba').combogrid({
 	selectOnNavigation: true, // let use cursor keys to interactive select
 	columns: [[
 		{field:'ID',			hidden:true},
-		{field:'Nombre',		title:'<?php _e('Name');?>',		width:65,	align:'right'},
+		{field:'Nombre',		title:'<?php _e('Name');?>',		width:'50%',	align:'right'},
 		{field:'Club',			hidden:true},
-		{field:'NombreClub',	title:'<?php _e('Club');?>',		width:25,	align:'right'},
-		{field:'RSCE',			title:'<?php _e('Fed');?>',			width:15,	align:'center', formatter:formatFederation},
-		{field:'Observaciones',	title:'<?php _e('Comments');?>',	width:10,	align:'right'},
+		{field:'NombreClub',	title:'<?php _e('Club');?>',		width:'30%',	align:'right'},
+		{field:'RSCE',			title:'<?php _e('Fed');?>',			width:'10%',	align:'center', formatter:formatFederation},
+		{field:'Observaciones',	hidden:true},
         {field:'Inscritos',		hidden:true},
         {field:'UserLimit',		hidden:true}
 	]],

@@ -170,10 +170,14 @@ class Clasificaciones extends DBObject {
             if ($lastcat[$cat]!=$now) { $lastcat[$cat]=$now; $puestocat[$cat]=$countcat[$cat]; }
             $final[$idx]['Pcat']=$puestocat[$cat];
 
+			// on special journeys do not evaluate calification
+			if($this->jornada->Equipos3!=0) continue;
+			if($this->jornada->Equipos4!=0) continue;
+			if($this->jornada->KO!=0) continue;
+			if($this->jornada->Open!=0) continue;
             // evaluamos calificacion y puntos en funcion de la federacion y de si es o no selectiva
 			$fed=Federations::getFederation(intval($this->prueba->RSCE));
-			$selectiva=(intval($this->prueba->Selectiva)==0)?false:true;
-			$fed->evalCalification($c1,$c2,$final[$idx],$puestocat,$selectiva);
+			$fed->evalCalification($this->prueba,$this->jornada,$c1,$c2,$final[$idx],$puestocat);
 		}
 
 		// Esto es (casi) t odo, amigos

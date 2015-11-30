@@ -27,8 +27,9 @@ class Federations {
         'Name'  => '',
         'LongName' => '',
         // use basename http absolute path for icons, as need to be used in client side
-        'Logo'     => '',
-        'ParentLogo'   => '',
+        'OrganizerLogo' => '',  // contest organizer logo
+        'Logo'     => '',       // local federation logo
+        'ParentLogo'   => '',   // global federation logo
         'WebURL' => '',
         'ParentWebURL' => '',
         'Heights' => 3,
@@ -150,13 +151,14 @@ class Federations {
 
     /**
      * Evalua la calificacion final del perro
+     * @param {object} $p datos de la prueba
+     * @param {object} $j datos de la jornada
      * @param {array} $c1 datos de la primera manga
      * @param {array} $c2 datos de la segunda manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
-     * @param {boolean} $selectiva
      */
-    public function evalCalification($c1,$c2,&$perro,$puestocat,$selectiva){
+    public function evalCalification($p,$j,$c1,$c2,&$perro,$puestocat){
         return; // should be overriden
     }
 

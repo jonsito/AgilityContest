@@ -31,7 +31,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<div id="pb_ordensalida-layout" style="width:100%">
 		<div id="pb_ordensalida-Cabecera" data-options="region:'north',split:false" style="height:80px" class="pb_floatingheader">
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateOrdenSalida();" href="#" style="float:left">
-                <img id="pb_header-logo" src="/agility/images/logos/rsce.png" width="50" />
+                <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
             </a>
 		    <span style="float:left;padding:10px;" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
 			<span style="float:right;" id="pb_header-texto">

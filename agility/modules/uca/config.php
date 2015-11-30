@@ -7,6 +7,7 @@ class UCA extends Federations {
             'Name'  => 'UCA',
             'LongName' => 'Union de Clubes de Agility',
             // use basename http absolute path for icons, as need to be used in client side
+            'OrganizerLogo'     => '/agility/modules/uca/uca.png',
             'Logo'     => '/agility/modules/uca/uca.png',
             'ParentLogo'   => '/agility/modules/uca/rfec.png',
             'WebURL' => 'http://www.agilityuca.org/',
@@ -64,13 +65,14 @@ class UCA extends Federations {
 
     /**
      * Evalua la calificacion final del perro
+     * @param {object} $p datos de la prueba
+     * @param {object} $j datos de la jornada
      * @param {array} $c1 datos de la primera manga
      * @param {array} $c2 datos de la segunda manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
-     * @param {boolean} $selectiva
      */
-    public function evalCalification($c1,$c2,&$perro,$puestocat){
+    public function evalCalification($p,$j,$c1,$c2,&$perro,$puestocat){
         $grad=$perro['Grado']; // cogemos el grado
         $cat=$perro['Categoria']; // cogemos la categoria
         if ($grad!=="GII") { // solo se puntua en grado II

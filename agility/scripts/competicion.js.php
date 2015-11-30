@@ -66,7 +66,8 @@ function formatTF(val,row,idx) {
  * @returns {string} requested value or index if not found
  */
 function formatFederation(val,row,idx) {
-    v=parseInt(val);
+    if (typeof(val)==='undefined') return "";
+    var v=parseInt(val);
     if (typeof(ac_fedInfo[v])==="undefined") return val;
     return ac_fedInfo[v].Name;
 }
