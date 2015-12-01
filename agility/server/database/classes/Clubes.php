@@ -23,13 +23,14 @@ require_once(__DIR__."/../procesaInscripcion.php");// to update inscription data
 class Clubes extends DBObject {
 
 	protected $curFederation=null;
+
 	function __construct($file,$federation=0) {
 		parent::__construct($file);
-		if ($federation>=0) {
-			$this->curFederation=Federations::getFederation(intval($federation));
-		}
+		if ($federation == -1) return; // do not initialize
+		$this->curFederation=Federations::getFederation(intval($federation));
+		if ($this->curFederation==null)
+			throw new Exception("Clubes::construct() Federation ID:$federation does not exist");
 	}
-	/* use parent constructor and destructors */
 
     protected $logoCache=array( "Perros" => array(), "Guias" => array(), "Clubes" => array(), "NombreClub" => array() );
 
@@ -175,16 +176,13 @@ class Clubes extends DBObject {
 		$search=http_Request("where","s","");
 		$page=http_request("page","i",1);
 		$rows=http_request("rows","i",50);
-		// evaluate federation for club/country filtering
-		// remember that federationID:9 is reserved for international contests
+		// evaluate federation for club/country search according intl status
 		$fedstr = "1";
 		if ($this->curFederation!=null) {
 			$fed=intval($this->curFederation->get('ID'));
-			$mask=1<<$fed;
-			if (($fed<0)||($fed>9)) {
-				return $this->error("Clubes::select() Invalid Federation:$fed");
-			}
-			$fedstr=$this->curFederation->isInternational()?"((Federations & 512)!=0)":"((Federations & $mask)!=0)";
+			$intlmask=Federations::getInternationalMask(); // select non-international fedmask
+			$natmask=~$intlmask;
+			$fedstr=$this->curFederation->isInternational()?"((Federations & $intlmask)!=0)":"((Federations & $natmask)!=0)";
 		}
 		$limit = "";
 		if ($page!=0 && $rows!=0 ) {
@@ -230,20 +228,17 @@ class Clubes extends DBObject {
 		// evaluate search query string
 		$q=http_request("q","s","");
 		// evaluate federation for club/country filtering
-		// remember that federationID:9 is reserved for international contests
 		$fedstr = "1";
 		if ($this->curFederation!=null) {
 			$fed=intval($this->curFederation->get('ID'));
 			$mask=1<<$fed;
-			if (($fed<0)||($fed>9)) {
-				return $this->error("Clubes::select() Invalid Federation:$fed");
-			}
-			$fedstr=$this->curFederation->isInternational()?"((Federations & 512)!=0)":"((Federations & $mask)!=0)";
+			$intlmask=Federations::getInternationalMask();
+			$fedstr=$this->curFederation->isInternational()?"((Federations & $intlmask)!=0)":"((Federations & $mask)!=0)";
 		}
 		$where="1";
 		if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
 		$result=$this->__select(
-				/* SELECT */ "ID,Nombre,Provincia",
+				/* SELECT */ "ID,Nombre,Provincia,Pais,Federations",
 				/* FROM */ "Clubes",
 				/* WHERE */ "$fedstr AND $where",
 				/* ORDER BY */ "Nombre ASC",

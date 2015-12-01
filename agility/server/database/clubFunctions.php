@@ -26,7 +26,7 @@ require_once(__DIR__."/classes/Clubes.php");
 	try {
 		$result=null;
 		$operation=http_request("Operation","s",null);
-		$federation=http_request("Federation","i",-1);
+		$federation=http_request("Federation","i",-1); // force exception if undefined
 		$idclub=http_request("ID","i",0);
 		if ($operation===null)
 			throw new Exception("Call to clubFunctions without 'Operation' requested");

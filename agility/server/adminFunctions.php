@@ -47,8 +47,8 @@ class Admin extends DBObject {
 
 		$this->dbname=$this->myConfig->getEnv('database_name');
 		$this->dbhost=$this->myConfig->getEnv('database_host');
-		$this->dbuser=$this->myConfig->getEnv('database_user');
-		$this->dbpass=$this->myConfig->getEnv('database_pass');
+		$this->dbuser=base64_decode($this->myConfig->getEnv('database_user'));
+		$this->dbpass=base64_decode($this->myConfig->getEnv('database_pass'));
 	}
 	
 	// FROM: https://gist.github.com/lavoiesl/9a08e399fc9832d12794

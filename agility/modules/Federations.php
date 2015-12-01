@@ -211,6 +211,20 @@ class Federations {
         return $result;
     }
 
+    /**
+     * Parse federations and compose bitmap mask on every international feds
+     * @param $fed
+     * @return int
+     */
+    static function getInternationalMask() {
+        $list=Federations::getFederationList();
+        $data=0;
+        foreach ($list as $fed) {
+            if(intval($fed['International'])==1) $data |= (1<< intval($fed['ID']));
+        }
+        return $data;
+    }
+
     /*
      * Retrieve text and visibility info according federation and recorrido
      */

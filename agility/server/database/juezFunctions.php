@@ -26,11 +26,11 @@ require_once(__DIR__."/classes/Jueces.php");
 
 try {
 	$result=null;
-	$jueces= new Jueces("juezFunctions");
 	$am= new AuthManager("juezFunctions");
 	$operation=http_request("Operation","s",null);
     $federation=http_request("Federation","i",-1); // -1 defaults to all federations
 	$idjuez=http_request("ID","i",0);
+	$jueces= new Jueces("juezFunctions",$federation);
 	if ($operation===null) throw new Exception("Call to juezFunctions without 'Operation' requested");
 	switch ($operation) {
 		case "insert": $am->access(PERMS_OPERATOR); $result=$jueces->insert(); break;
@@ -38,7 +38,7 @@ try {
 		case "delete": $am->access(PERMS_OPERATOR); $result=$jueces->delete($idjuez); break;
 		case "selectbyid": $result=$jueces->selectByID($idjuez); break;
 		case "select": $result=$jueces->select(); break; // list with order, index, count and where
-		case "enumerate": $result=$jueces->enumerate($federation); break; // list with where
+		case "enumerate": $result=$jueces->enumerate(); break; // list with where
         case "countries": $c=new Country(); $result=$c->enumerate(); break;
 		default: throw new Exception("juezFunctions:: invalid operation: '$operation' provided");
 	}

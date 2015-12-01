@@ -15,15 +15,19 @@ See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with this program; 
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
-
-
-
 require_once("DBObject.php");
+require_once(__DIR__."/../../../modules/Federations.php");
 
 class Jueces extends DBObject {
 
-	function __construct() {
-		parent::__construct("Jueces");
+	protected $curFederation=null;
+
+	function __construct($file,$federation=-1) {
+		parent::__construct($file);
+		if ($federation == -1) return; // do not initialize federation info
+		$this->curFederation=Federations::getFederation(intval($federation));
+		if ($this->curFederation==null)
+			throw new Exception("Jueces::construct() Federation ID:$federation does not exist");
 	}
 
 	/**
@@ -43,7 +47,7 @@ class Jueces extends DBObject {
         $practicas =	http_request("Practicas","i",0);
         $email =		http_request("Email","s","",false); // not null
         $observaciones=	http_request("Observaciones","s","",false);
-        $feds=	        http_request("Federations","i",1);
+        $feds=	        http_request("Federations","i",1); // defaults to FedID:1 (RSCE)
 		// componemos un prepared statement
 		$sql ="INSERT INTO Jueces (Nombre,Direccion1,Direccion2,Telefono,Internacional,Pais,Practicas,Email,Observaciones,Federations)
 			   VALUES(?,?,?,?,?,?,?,?,?,?)";
@@ -152,12 +156,19 @@ class Jueces extends DBObject {
 			$offset=($page-1)*$rows;
 			$limit="".$offset.",".$rows;
 		}
-		$where = "";
+		$fedstr = "1";
+		if ($this->curFederation!=null) {
+			$fed=intval($this->curFederation->get('ID'));
+			$intlmask=Federations::getInternationalMask(); // select non-international fedmask
+			$natmask=~$intlmask;
+			$fedstr=$this->curFederation->isInternational()?"((Federations & $intlmask)!=0)":"((Federations & $natmask)!=0)";
+		}
+		$where = "1";
 		if ($search!=='') $where="( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') ) ";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Jueces",
-				/* WHERE */ $where,
+				/* WHERE */ "$fedstr AND $where",
 				/* ORDER BY */ $sort,
 				/* LIMIT */ $limit
 		);
@@ -165,21 +176,24 @@ class Jueces extends DBObject {
 		return $result;
 	}
 	
-	function enumerate($federation) { // like select but with fixed order
+	function enumerate() { // like select but with fixed order
 		$this->myLogger->enter();
 		// evaluate search criteria for query
-		$q=http_request("q","s",null);
+		$q=http_request("q","s","");
 		$where="1";
-		$fed="1";
-		if ( $federation>=0) {
-			$mask=1<<$federation;
-			$fed=" ( (Federations & $mask ) != 0 )";
-		};
+		$fedstr="1";
+		if ($this->curFederation!=null) {
+			$fed=intval($this->curFederation->get('ID'));
+			$mask=1<<$fed;
+			$this->myLogger->trace("Jueces: fed:{$this->curFederation->get('ID')} mask:$mask");
+			$intlmask=Federations::getInternationalMask();
+			$fedstr=$this->curFederation->isInternational()?"((Federations & $intlmask)!=0)":"((Federations & $mask)!=0)";
+		}
 		if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
 		$result=$this->__select(
 				/* SELECT */ "*",
 				/* FROM */ "Jueces",
-				/* WHERE */ "$where AND $fed",
+				/* WHERE */ "$where AND $fedstr",
 				/* ORDER BY */ "Nombre ASC",
 				/* LIMIT */ ""
 		);

@@ -457,6 +457,9 @@ function save_manga(id) {
 function reload_manga(id) {
 	// ventana de datos
 	var url='/agility/server/database/mangaFunctions.php?Operation=getbyid&Jornada='+workingData.jornada+"&Manga="+id;
+    // update judge list to prevent federation change
+    $('#dmanga-Juez1').combogrid('load',{'Operation':'Enumerate','Federation':workingData.federation});
+    $('#dmanga-Juez2').combogrid('load',{'Operation':'Enumerate','Federation':workingData.federation});
     $('#competicion-formdatosmanga').form('load',url);
 }
 

@@ -2480,7 +2480,7 @@ CREATE TABLE `jueces` (
 LOCK TABLES `jueces` WRITE;
 /*!40000 ALTER TABLE `jueces` DISABLE KEYS */;
 INSERT INTO `jueces` VALUES 
-(1,'-- Sin asignar --','--------','--------','ES','--------',1,1,'nobody@nomail.com',7,'NO BORRAR: Asignacion de juez por defecto'),
+(1,'-- Sin asignar --','--------','--------','ES','--------',1,1,'nobody@nomail.com',1023,'NO BORRAR: Asignacion de juez por defecto'),
 (2,'Beltrán Bustamante, Ana','Camí del Camp, 23','03460 Beneixama (Alicante)','ES','639 67 86 09',0,0,'sadda\\_874@hotmail.com',1,''),
 (3,'Boix Balaguer, Josep','Sant Pere, 10','08392 San Andreu de Llavaneres (Barcelona)','ES',' 93 792 76 55',1,0,'josep@agilitycanic.cat',1,NULL),
 (4,'Conde Delgado, Gregorio',NULL,NULL,'ES',' 93 389 35 83 / 619 39 39 28',1,0,'gconde@xtec.cat',1,NULL),

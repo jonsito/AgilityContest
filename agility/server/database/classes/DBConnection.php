@@ -46,8 +46,9 @@ class DBConnection {
     }
 
     public static function getRootConnection() {
-        // TODO: pass should be encrypted :-(
-        return self::getConnection("localhost","agility","agility_admin","admin@cachorrera");
+        $u=base64_decode("YWdpbGl0eV9hZG1pbg==");
+        $p=base64_decode("YWRtaW5AY2FjaG9ycmVyYQ==");
+        return self::getConnection("localhost","agility",$u,$p);
     }
 	
 	public static function closeConnection($conn) {

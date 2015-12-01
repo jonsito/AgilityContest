@@ -711,8 +711,6 @@ function displayRowData(dg) {
 function reloadWithSearch(dg,op,clear) {
 	var w=$(dg+'-search').val();
     var fed=workingData.federation;
-    if (dg=='#clubes-datagrid') fed=-1;
-    if (dg=='#jueces-datagrid') fed=-1;
 	if (strpos(w,"-- Buscar --",0)) w='';
 	if (clear==true) w='';
     $(dg).datagrid(
