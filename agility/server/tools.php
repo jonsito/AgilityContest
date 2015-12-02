@@ -94,6 +94,17 @@ function toBoolean($var) {
 }
 
 /**
+ * convierte un string UTF-8 a la cadena ASCII mas parecida
+ * @param $string
+ */
+function toASCII($string) {
+	if (strpos($string = htmlentities($string, ENT_QUOTES, 'UTF-8'), '&') !== false) {
+		$string = html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|tilde|uml);~i', '$1', $string), ENT_QUOTES, 'UTF-8');
+	}
+	return $string;
+}
+
+/**
  * get a variable from _REQUEST array
  * @param {string} $name variable name
  * @param {string} $type default type (i,s,b)

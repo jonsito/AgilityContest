@@ -429,8 +429,9 @@ class Inscripciones extends DBObject {
 	/**
 	 * retrieve all inscriptions of stored prueba and jornada
 	 * @param {int} $jornadaID ID de jornada
+	 * @param {boolean} $pagination: use http_request to retrieve page and rows (true) or disable it(false)
 	 */
-	function inscritosByJornada($jornadaID) {
+	function inscritosByJornada($jornadaID,$pagination=true) {
 		$this->myLogger->enter();
 		$pruebaid=$this->pruebaID;
 		// Cogemos la lista de jornadas abiertas de esta prueba
@@ -447,14 +448,15 @@ class Inscripciones extends DBObject {
 		if ($mask==0) {
 			return $this->error("{$this->file}::inscritosByJornada() cannot find open Jornada ID: $jornadaID in prueba:".$this->pruebaID);
 		}
-        $page=http_request("page","i",1);
-        $rows=http_request("rows","i",50);
-
-        $limit="";
-        if ($page!=0 && $rows!=0 ) {
-            $offset=($page-1)*$rows;
-            $limit=$offset.",".$rows;
-        };
+		$limit="";
+		if ($pagination) {
+			$page=http_request("page","i",1);
+			$rows=http_request("rows","i",50);
+			if ($page!=0 && $rows!=0 ) {
+				$offset=($page-1)*$rows;
+				$limit=$offset.",".$rows;
+			};
+		}
 		// obtenemos la lista de perros inscritos con sus datos
         $result=$this->__select(
 			/* SELECT */"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Inscripciones.Perro AS Perro, Raza,

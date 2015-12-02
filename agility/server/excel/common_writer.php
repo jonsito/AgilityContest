@@ -51,7 +51,8 @@ class XLSX_Writer {
 
     function createInfoPage($title,$federation=-1) {
         $infopage=$this->myWriter->getCurrentSheet();
-        $infopage->setName(_utf("Information"));
+        $name=_utf("Information");
+        $infopage->setName($this->normalizeSheetName($name));
 
         // titulo
         $this->myWriter->addRowsWithStyle([[$title],[""]], $this->titleStyle);
@@ -94,5 +95,15 @@ class XLSX_Writer {
 
     function close() {
         $this->myWriter->close();
+    }
+
+    function normalizeSheetName($name) {
+        // convert to ASCII-7
+        $name=toASCII($name);
+        // remove forbidden characters
+        $name = preg_replace('/[^A-Za-z0-9\. -]/', '', $name);
+        // limit to 31 chars
+        $name=substr($name,0,31);
+        return $name;
     }
 }

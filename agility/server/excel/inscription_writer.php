@@ -32,12 +32,14 @@ class Excel_Inscripciones extends XLSX_Writer {
 	protected $jornadas=array(); // lista de jornadas de la prueba
 
     protected $cols = array(
+		'Dorsal',
 		'Name','Pedigree Name','Gender','Breed','License','KC id','Cat','Grad','Handler','Club','Country', // datos del perro
-		'Dorsal','Team','Heat','Comments' // datos de la inscripcion en la jornada
+		'Team','Heat','Comments' // datos de la inscripcion en la jornada
 	);
     protected $fields = array(
+		'Dorsal',
 		'Nombre','NombreLargo','Genero','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Pais', // datos del perro
-		'Dorsal','Equipo','Celo','Observaciones' // datos de la inscripcion en la jornada
+		'Equipo','Celo','Observaciones' // datos de la inscripcion en la jornada
 	);
 
 	/**
@@ -88,18 +90,18 @@ class Excel_Inscripciones extends XLSX_Writer {
 			if ($jornada['Nombre']==='-- Sin asignar --') continue; // skip empty journeys
 			// Create page
 			$journeypage=$this->myWriter->addNewSheetAndMakeItCurrent();
-			$journeypage->setName($jornada['Nombre']); // TODO: beware on forbidden characters
+			$name=$this->normalizeSheetName($jornada['Nombre']);
+			$journeypage->setName($name);
 			// write header
 			$this->writeTableHeader();
-			$res=$insc->inscritosByJornada($jornada['ID']);
-			if (!is_array($res)){
-				$this->errormsg="excel_InscriptionList: inscritosByJornada({$jornada['ID']}) failed";
-				throw new Exception($this->errormsg);
-			}
+			$res=$insc->inscritosByJornada($jornada['ID'],false);
 			$lista=$res['rows'];
+			$eq=new Equipos("excel_printInscripciones",$this->prueba['ID'],$jornada['ID']);
 			foreach($lista as $perro) {
-				// TODO: add team information
+				// add team information
+				$perro['Equipo']=$eq->getTeamByPerro($perro['Perro'])['Nombre'];
 				$row=array();
+				$this->myLogger->trace("inscripcion: ".json_encode($perro));
 				// extract relevant information from database received dog
 				for($n=0;$n<count($this->fields);$n++) array_push($row,$perro[$this->fields[$n]]);
 				$this->myWriter->addRow($row);
