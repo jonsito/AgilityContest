@@ -2680,6 +2680,7 @@ SET character_set_client = utf8;
   `NombreGuia` tinyint NOT NULL,
   `Club` tinyint NOT NULL,
   `NombreClub` tinyint NOT NULL,
+  `Pais` tinyint NOT NULL,
   `LogoClub` tinyint NOT NULL
 ) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;

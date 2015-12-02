@@ -25,19 +25,19 @@ require_once(__DIR__."/../logging.php");
 require_once(__DIR__.'/../database/classes/Dogs.php');
 require_once(__DIR__."/common_writer.php");
 
-class Print_ListaPerros extends XLSX_Writer {
+class excel_ListaPerros extends XLSX_Writer {
 
 	protected $lista; // listado de perros
 
-    protected $cols = array( 'Name','Pedigree Name','Gender','Breed','License','KC id','Cat','Grad','Handler','Club');
-    protected $fields = array( 'Nombre','NombreLargo','Genero','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub');
+    protected $cols = array( 'Name','Pedigree Name','Gender','Breed','License','KC id','Cat','Grad','Handler','Club','Country');
+    protected $fields = array( 'Nombre','NombreLargo','Genero','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Pais');
 
 	/**
 	 * Constructor
 	 * @throws Exception
 	 */
 	function __construct() {
-		parent::__construct("doglist.xlsx",_("Dog listing"));
+		parent::__construct("doglist.xlsx");
         $d=new Dogs("excel_listaPerros");
         $res=$d->select();
         if (!is_array($res)){
@@ -79,9 +79,9 @@ class Print_ListaPerros extends XLSX_Writer {
 try {
 	// 	Creamos generador de documento
 	$fed=http_request("Federation","i",-1);
-	$excel = new Print_ListaPerros();
+	$excel = new Excel_ListaPerros();
 	$excel->open();
-	$excel->createInfoPage(intval($fed));
+	$excel->createInfoPage(_utf("Dog Listing"),intval($fed));
 	$excel->composeTable();
 	$excel->close();
     return 0;

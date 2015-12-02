@@ -136,6 +136,7 @@ class Updater {
                 `guias`.`Nombre` AS `NombreGuia`,
                 `guias`.`Club` AS `Club`,
                 `clubes`.`Nombre` AS `NombreClub`,
+                `clubes`.`Pais` AS `Pais`,
                 `clubes`.`Logo` AS `LogoClub`
                 from ((((`perros` join `guias`) join `clubes`) join `grados_perro`) join `categorias_perro`)
                 where (

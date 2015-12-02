@@ -215,7 +215,7 @@ function canInscribe(jornada) {
 function printInscripciones() {
 	// en el caso de que haya alguna jornada seleccionada.
 	// anyadir al menu la posibilidad de imprimir solo los inscritos en dicha jornada
-	var options= { 0:'<?php _e('Simple listing'); ?>',1:'<?php _e('Catalogue'); ?>',2:'<?php _e('Statistics'); ?>'};
+	var options= { 0:'<?php _e('Simple listing'); ?>',1:'<?php _e('Catalogue'); ?>',2:'<?php _e('Statistics'); ?>',4:'<?php _e("Export to Excel");?>'};
 	// buscamos la jornada seleccionada
 	var row=$('#inscripciones-jornadas').datagrid('getSelected');
     var jornada=0;
@@ -231,8 +231,10 @@ function printInscripciones() {
 		function(r){
 			if (!r) return;
 			var opt=parseInt(r);
+			var url='/agility/server/pdf/print_inscritosByPrueba.php';
+			if (opt==4) url='/agility/server/excel/inscription_writer.php';
 			$.fileDownload(
-					'/agility/server/pdf/print_inscritosByPrueba.php',
+					url,
 					{
 						httpMethod: 'GET',
 						data: {

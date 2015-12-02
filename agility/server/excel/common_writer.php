@@ -19,16 +19,14 @@ class XLSX_Writer {
     protected $myLogger;
     protected $myWriter;
     protected $myFile;
-    protected $myTitle;
     protected $prueba=null;
     protected $jornada=null;
 
     protected $titleStyle;
     protected $rowHeaderStyle;
 
-    function __construct($file,$title) {
+    function __construct($file) {
         $this->myFile=$file;
-        $this->myTitle=$title;
         date_default_timezone_set('Europe/Madrid');
         $this->myConfig=Config::getInstance();
         $this->myLogger= new Logger($file,$this->myConfig->getEnv("debug_level"));
@@ -51,20 +49,21 @@ class XLSX_Writer {
         $this->myWriter->openToBrowser($this->myFile);
     }
 
-    function createInfoPage($federation=-1) {
+    function createInfoPage($title,$federation=-1) {
         $infopage=$this->myWriter->getCurrentSheet();
         $infopage->setName(_utf("Information"));
 
         // titulo
-        $this->myWriter->addRowsWithStyle([[$this->myTitle],[""]], $this->titleStyle);
+        $this->myWriter->addRowsWithStyle([[$title],[""]], $this->titleStyle);
 
         // en caso de estar definido, informacion de Prueba, jornada, y en su caso federacion
         if ($this->prueba != null )
-            $this->myWriter->addRowWithStyle([ _utf("Contest").":",$this->prueba->Nombre], $this->rowHeaderStyle);
+            $this->myWriter->addRowWithStyle([ _utf("Contest").":",$this->prueba['Nombre']], $this->rowHeaderStyle);
         if ($this->jornada != null )
-            $this->myWriter->addRowWithStyle([ _utf("Journey").":",$this->jornada->Nombre], $this->rowHeaderStyle);
+            $this->myWriter->addRowWithStyle([ _utf("Journey").":",$this->jornada['Nombre']], $this->rowHeaderStyle);
         if ($federation>=0) {
-            $fed=Federations::getFederation($federation);
+            $fed=Federations::getFederation(intval($federation));
+            if ($fed==null) $this->myLogger->trace("Invalid federation ID:$federation");
             $this->myWriter->addRowWithStyle([ _utf("Federation").":",$fed->get('Name')], $this->rowHeaderStyle);
         }
 
