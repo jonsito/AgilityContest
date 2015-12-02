@@ -35,6 +35,13 @@ if( ! function_exists('_e')) {
 	}
 }
 
+/* convert to utf-8 a gettext'd value */
+if( ! function_exists('_utf')) {
+	function _utf($var)	{
+		return html_entity_decode(_($var));
+	}
+}
+
 /* disable send compressed data to client from apache */
 function disable_gzip() {
 	@ini_set('zlib.output_compression', 'Off');

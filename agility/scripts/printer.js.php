@@ -31,10 +31,12 @@ $config =Config::getInstance();
 /**
  * Imprime el listado de los perros registrados en el orden especificado por #perros-datagrid
  */
-function print_listaPerros() {
+function print_listaPerros(mode) {
+    var url='/agility/server/pdf/print_listaPerros.php';
+    if (mode==="excel") url='/agility/server/excel/dog_writer.php';
     var options=$('#perros-datagrid').datagrid('options');
     $.fileDownload(
-        '/agility/server/pdf/print_listaPerros.php',
+        url,
         {
             httpMethod: 'GET',
             data: {

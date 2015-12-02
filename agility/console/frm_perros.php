@@ -42,9 +42,12 @@ $config =Config::getInstance();
    		<input id="perros-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
    	</span>
    	<span style="float:right;padding:5px">
+   		<a id="perros-excelBtn" href="#" class="easyui-linkbutton"
+		   data-options="iconCls:'icon-db_backup'"
+		   onclick="print_listaPerros('excel')"><?php _e('Export'); ?></a>
    		<a id="perros-printBtn" href="#" class="easyui-linkbutton"
-           data-options="iconCls:'icon-print'"
-           onclick="print_listaPerros()"><?php _e('Print'); ?></a>
+		   data-options="iconCls:'icon-print'"
+		   onclick="print_listaPerros('pdf')"><?php _e('Print'); ?></a>
    		<a id="perros-reloadBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-brush'"
    			onclick="
@@ -118,7 +121,8 @@ $config =Config::getInstance();
 		addTooltip($('#perros-newBtn').linkbutton(),'<?php _e("Insert new dog <br/>into database"); ?>');
 		addTooltip($('#perros-editBtn').linkbutton(),'<?php _e("Modify data on selected dog"); ?>');
 		addTooltip($('#perros-delBtn').linkbutton(),'<?php _e("Remove selected dog from database"); ?>');
-        addTooltip($('#perros-printBtn').linkbutton(),'<?php _e("Print dog list with current search/sort criteria"); ?>');
+		addTooltip($('#perros-excelBtn').linkbutton(),'<?php _e("Create Excel file with current search/sort criteria"); ?>');
+		addTooltip($('#perros-printBtn').linkbutton(),'<?php _e("Print dog list with current search/sort criteria"); ?>');
         addTooltip($('#perros-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update list"); ?>');
         addTooltip($('#perros-datagrid-search'),'<?php _e("Look into database for dogs matching search criteria"); ?>');
 </script>

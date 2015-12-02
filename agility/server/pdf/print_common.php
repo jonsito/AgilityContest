@@ -78,6 +78,7 @@ class PrintCommon extends FPDF {
 	 * @param {int} jornada Jornada ID
 	 */
 	function __construct($orientacion,$file,$prueba,$jornada=0) {
+		date_default_timezone_set('Europe/Madrid');
 		parent::FPDF($orientacion,'mm','A4'); // Portrait or Landscape
 		$this->SetAutoPageBreak(true,1.7); // default margin is 2cm. so enlarge a bit 
 		$this->centro=($orientacion==='Portrait')?107:145;
