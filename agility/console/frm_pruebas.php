@@ -45,6 +45,9 @@ $config =Config::getInstance();
    	    	onclick="doSearchPrueba()"/><?php _e('Incl. closed'); ?>
    	</span>
    	<span style="float:right;padding:5px">
+   		<a id="pruebas-exportBtn" href="#" class="easyui-linkbutton"
+		   data-options="iconCls:'icon-db_backup'"
+		   onclick="exportPrueba('#pruebas-datagrid')"><?php _e('Export'); ?></a>
    		<a id="pruebas-reloadBtn" href="#" class="easyui-linkbutton" 
    	    	data-options="iconCls:'icon-brush'"
    	    	onclick="
@@ -121,6 +124,7 @@ $config =Config::getInstance();
 		addTooltip($('#pruebas-newBtn').linkbutton(),'<?php _e("Declare a new contest and include into database"); ?>');
 		addTooltip($('#pruebas-editBtn').linkbutton(),'<?php _e("Edit information on selected contest"); ?>');
 		addTooltip($('#pruebas-delBtn').linkbutton(),'<?php _e("Remove selected contest"); ?>');
+		addTooltip($('#pruebas-exportBtn').linkbutton(),'<?php _e("Export selected contest data in Excel format"); ?>');
 		addTooltip($('#pruebas-reloadBtn').linkbutton(),'<?php _e("Clear search box. Update list"); ?>');
 		addTooltip($('#pruebas-openBox').linkbutton(),'<?php _e("Include finished (closed) contest into listing"); ?>');
 		addTooltip($('#pruebas-datagrid-search'),'<?php _e("Look for contests matching search criteria"); ?>');

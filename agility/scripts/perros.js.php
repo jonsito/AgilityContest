@@ -99,7 +99,7 @@ function editInscribedDog(){
 function deleteDog(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no selected dog"); ?>',"info");
+    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no selected dog"); ?>',"info");
     	return; // no way to know which dog is selected
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete dog'); ?>'+': "'+ row.Nombre+'" '+'<?php _e('from database'); ?>'+'.\n'+'<?php _e('Sure?'); ?>',function(r){

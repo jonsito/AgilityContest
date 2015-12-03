@@ -21,6 +21,7 @@ class XLSX_Writer {
     protected $myFile;
     protected $prueba=null;
     protected $jornada=null;
+    protected $federation=null;
 
     protected $titleStyle;
     protected $rowHeaderStyle;
@@ -91,6 +92,18 @@ class XLSX_Writer {
               [ "Club:",            $ainfo["Club"]   ]
           ]
         );
+    }
+
+    /**
+     * Anyade una pagina con informacion de la prueba y de las jornadas
+     * @param $prueba
+     * @param $jornadas
+     */
+    function createPruebaInfoPage($prueba,$jornadas) {
+        // Create page
+        $ppage=$this->myWriter->addNewSheetAndMakeItCurrent();
+        $name=$this->normalizeSheetName($prueba['Nombre']);
+        $ppage->setName($name);
     }
 
     function close() {

@@ -99,10 +99,10 @@ $('#pb_enumerateParciales').combogrid({
 			{field:'Mode',hidden:true}
 	]],
 	onBeforeLoad: function(param) {
-		param.Operation='enumerateResultados';
+		param.Operation='enumerateMangasByJornada';
 		param.Prueba= workingData.prueba;
 		param.Jornada= workingData.jornada;
-		param.Manga= 1; // fake data to get Resultados constructor working
+		param.Manga= 0; // fake data to get Resultados constructor working
 		return true;
 	},
     onOpen: function() {

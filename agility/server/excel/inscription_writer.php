@@ -78,12 +78,10 @@ class Excel_Inscripciones extends XLSX_Writer {
 		parent::createInfoPage(_utf('Inscription List'),$this->prueba['RSCE']);
 	}
 
-	function createPruebaInfoPage() {
-		// TODO: write
-	}
-
 	function composeTable() {
 		$this->myLogger->enter();
+		$this->createInfoPage();
+		$this->createPruebaInfoPage($this->prueba,$this->jornadas);
 		$insc=new Inscripciones("excel_printInscripciones",$this->prueba['ID']);
 		// iterate on every valid journeys
 		foreach ($this->jornadas as $jornada) {
@@ -101,7 +99,6 @@ class Excel_Inscripciones extends XLSX_Writer {
 				// add team information
 				$perro['Equipo']=$eq->getTeamByPerro($perro['Perro'])['Nombre'];
 				$row=array();
-				$this->myLogger->trace("inscripcion: ".json_encode($perro));
 				// extract relevant information from database received dog
 				for($n=0;$n<count($this->fields);$n++) array_push($row,$perro[$this->fields[$n]]);
 				$this->myWriter->addRow($row);
@@ -117,8 +114,6 @@ try {
 	$prueba=http_request("Prueba","i",-1);
 	$excel = new Excel_Inscripciones($prueba);
 	$excel->open();
-	$excel->createInfoPage();
-	$excel->createPruebaInfoPage();
 	$excel->composeTable();
 	$excel->close();
     return 0;

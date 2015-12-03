@@ -93,11 +93,11 @@ function saveSession(){
 function deleteSession(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no session selected"); ?>',"warning");
+    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no session selected"); ?>',"warning");
     	return; // no way to know which session is selected
     }
     if (row.ID<=2) {
-    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
+    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
     	return; // cannot delete default session
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete session'); ?>'+':'+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){
@@ -127,7 +127,7 @@ function session_sequences() {
 function resetSession(dg) {
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no session selected"); ?>',"warning");
+    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no session selected"); ?>',"warning");
     	return; // no way to know which session is selected
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete event history on session'); ?>'+':'+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){

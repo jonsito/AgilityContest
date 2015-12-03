@@ -24,6 +24,7 @@ require_once(__DIR__."/classes/Resultados.php");
 
 try {
 	$result=null;
+	$resultados=null;
 	$operation=http_request("Operation","s",null);
 	$pruebaID=http_request("Prueba","i",0);
 	$JornadaID=http_request("Jornada","i",0);
@@ -32,7 +33,7 @@ try {
 	$dorsal=http_request("Dorsal","i",0);
 	$mode=http_request("Mode","i",0);
 	if ($operation===null) throw new Exception("Call to resultadosFunction without 'Operation' requested");
-	$resultados= new Resultados("resultadosFunctions",$pruebaID,$mangaID);
+	if ($mangaID!=0) $resultados= new Resultados("resultadosFunctions",$pruebaID,$mangaID);
 	$am= new AuthManager("resultadosFunctions");
 	switch ($operation) {
 		// no insert as done by mean of procesa_inscripcion
@@ -42,7 +43,7 @@ try {
 		case "reset": $result=$resultados->reset(); break;
 		case "getPendientes": $result=$resultados->getPendientes($mode); break;
 		case "getResultados": $result=$resultados->getResultados($mode); break;
-		case "enumerateResultados": $result=Resultados::enumerateResultados($JornadaID); break;
+		case "enumerateMangasByJornada": $result=Resultados::enumerateMangasByJornada($JornadaID); break;
 		case "enumerateClasificaciones": $result=Resultados::enumerateClasificaciones($JornadaID); break;
 		case "getTRS": $result=$resultados->getTRS($mode); break;
 		case "bestTimes": $result=$resultados->bestTimes($mode); break;

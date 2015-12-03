@@ -203,16 +203,16 @@ function saveClub(){
 function deleteClub(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert("<?php _e('Delete Error');?>:",'<?php _e("There is no club selected"); ?>',"warning");
+    	$.messager.alert("<?php _e('Delete error');?>:",'<?php _e("There is no club selected"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
     if (row.ID==1) {
-    	$.messager.alert("<?php _e('Delete Error');?>:",'<?php _e("This entry cannot be erased"); ?>',"error");
+    	$.messager.alert("<?php _e('Delete error');?>:",'<?php _e("This entry cannot be erased"); ?>',"error");
     	return; // cannot delete default club
     }
     // take care on International mode
     if (isInternational(workingData.federation)) {
-        $.messager.alert("<?php _e('Delete Error');?>:",'<?php _e("Countries cannot be deleted"); ?>',"error");
+        $.messager.alert("<?php _e('Delete error');?>:",'<?php _e("Countries cannot be deleted"); ?>',"error");
         return; // cannot delete countries
     }
     $.messager.confirm('<?php _e('Confirm'); ?>',"<?php _e('Clear club');?>"+' "'+row.Nombre+'" <?php _e('from database. Sure?');?>',function(r){

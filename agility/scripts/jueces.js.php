@@ -103,11 +103,11 @@ function saveJuez(){
 function deleteJuez(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-        $.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no judge selected"); ?>',"info");
+        $.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no judge selected"); ?>',"info");
     	return; // no way to know which juez is selected
     }
     if (row.ID==1) {
-    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
+    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
     	return; // cannot delete default juez
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete data on judge'); ?>'+':'+row.Nombre+'\n '+'<?php _e('Sure?'); ?>',function(r){

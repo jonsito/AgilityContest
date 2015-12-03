@@ -229,11 +229,11 @@ function editTeam(dg){
 function deleteTeam(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no team selected"); ?>',"info");
+    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no team selected"); ?>',"info");
     	return; // no way to know which prueba is selected
     }
     if (row.Nombre==="-- Sin asignar --") {
-		$.messager.alert('<?php _e("Delete Error"); ?>',"<?php _e('Default team cannot be deleted');?>","error");
+		$.messager.alert('<?php _e("Delete error"); ?>',"<?php _e('Default team cannot be deleted');?>","error");
     	return; // no way to know which prueba is selected
     }
     $.messager.confirm('Confirm',

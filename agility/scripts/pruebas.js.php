@@ -124,7 +124,7 @@ function savePrueba() {
 function deletePrueba(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no contest selected"); ?>',"warning");
+    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no contest selected"); ?>',"warning");
     	return; // no way to know which prueba is selected
     }
     $.messager.confirm('<?php _e('Confirm'); ?>',
@@ -141,6 +141,27 @@ function deletePrueba(dg){
             },'json');
         }
     });
+}
+
+function exportPrueba(dg) {
+    var row = $(dg).datagrid('getSelected');
+    var url='/agility/server/excel/scores_writer.php';
+    if (!row) {
+        $.messager.alert('<?php _e("Export error"); ?>','<?php _e("There is no contest selected"); ?>',"warning");
+        return; // no way to know which prueba is selected
+    }
+    $.fileDownload(
+        url,
+        {
+            httpMethod: 'GET',
+            data: {
+                Prueba:row.ID
+            },
+            preparingMessageHtml: '<?php _e("We are preparing your report, please wait"); ?> ...',
+            failMessageHtml: '<?php _e("There was a problem generating your report, please try again."); ?>'
+        }
+    );
+    return false; //this is critical to stop the click event which will trigger a normal file download!
 }
 
 // ***** gestion de jornadas	*********************************************************

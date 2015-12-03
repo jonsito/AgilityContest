@@ -51,7 +51,7 @@ function assignGuiaToClub(dgname,club) {
 function editGuiaFromClub(dg, club) {
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
+    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
     	return; // no way to know which guia is selected
     }
     // add extra needed parameters to dialog
@@ -74,7 +74,7 @@ function editGuiaFromClub(dg, club) {
 function delGuiaFromClub(dg,club) {
     var row = $(dg).datagrid('getSelected');
     if (!row){
-    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
+    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
     	return; // no way to know which guia is selected
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e("Delete assignation for handler"); ?>'+" '"+row.Nombre+"' "+'<?php _e("to club"); ?>'+" '"+club.Nombre+"' "+'<?php _e("Sure?"); ?>'+"'",function(r){
@@ -141,11 +141,11 @@ function editGuia(dg){
 function deleteGuia(dg){
     var row = $(dg).datagrid('getSelected');
     if (!row) {
-    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
+    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("There is no handler selected"); ?>',"warning");
     	return; // no way to know which dog is selected
     }
     if (row.ID==1) {
-    	$.messager.alert('<?php _e("Delete Error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
+    	$.messager.alert('<?php _e("Delete error"); ?>','<?php _e("This entry cannot be deleted"); ?>',"error");
     	return; // cannot delete default entry
     }
     $.messager.confirm('<?php _e('Confirm'); ?>','<?php _e('Delete data on handler'); ?>'+': '+ row.Nombre+'\n'+'<?php _e('Sure?'); ?>',function(r){

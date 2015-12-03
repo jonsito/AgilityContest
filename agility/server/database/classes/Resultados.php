@@ -651,15 +651,16 @@ class Resultados extends DBObject {
         return $teams;
     }
 
-	static function enumerateResultados($jornadaid) {
+	static function enumerateMangasByJornada($jornadaid) {
 		if ($jornadaid<=0) { // no jornada id provided
 			return array('total'=>0,'rows'=>array());
 		}
-		$dbobj=new DBObject("enumerateResultados");
+		$dbobj=new DBObject("enumerateMangasByJornada");
 		$dbobj->myLogger->enter();
 		$jornada=$dbobj->__getArray("Jornadas",$jornadaid);
 		$prueba=$dbobj->__getArray("pruebas",$jornada['Prueba']);
 		$mangas=$dbobj->__select("*","Mangas","(Jornada=$jornadaid)","","")['rows'];
+		$heights=intval(Federations::getFederation( intval($prueba['RSCE']) )->get('Heights'));
 		$rows=array();
 		foreach($mangas as $manga) {
 			// datos comunes a todos los resultados posibles de una misma manga
@@ -667,7 +668,9 @@ class Resultados extends DBObject {
 			$item['Prueba']=$prueba['ID'];
 			$item['Jornada']=$jornadaid;
 			$item['Manga']=$manga['ID'];
-			$item['TipoManga']=$manga['Tipo'];
+            $item['TipoManga']=$manga['Tipo'];
+            $item['Juez1']=$manga['Juez1'];
+            $item['Juez2']=$manga['Juez2'];
 			$mid=$manga['ID'];
 			switch($manga['Recorrido']){
 				case 0: // recorridos separados
@@ -677,13 +680,13 @@ class Resultados extends DBObject {
 					array_push($rows,$m);
 					$s	=array_merge( array('ID'=>$mid.',2','Mode'=>2,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[2][0]),$item);
 					array_push($rows,$s);
-					if($prueba['RSCE']!=0) {
+					if($heights==4) {
 						$t=array_merge( array('ID'=>$mid.',5','Mode'=>5,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[5][0]),$item);
 						array_push($rows,$t);
 					}
 					break;
 				case 1: // recorridos mixto
-					if ($prueba['RSCE']==0){
+					if ($heights==3){
 						$l	=array_merge( array('ID'=>$mid.',0','Mode'=>0,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[0][0]),$item);
 						array_push($rows,$l);
 						$ms	=array_merge( array('ID'=>$mid.',3','Mode'=>3,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[3][0]),$item);
@@ -696,7 +699,7 @@ class Resultados extends DBObject {
 					}
 					break;
 				case 2: // recorridos conjuntos
-					if ($prueba['RSCE']==0){
+					if ($heights==3){
 						$lms =array_merge( array('ID'=>$mid.',4','Mode'=>4,'Nombre'=>Mangas::$tipo_manga[$manga['Tipo']][1]." - ".Mangas::$manga_modes[4][0]),$item);
 						array_push($rows,$lms);
 					} else {
@@ -737,17 +740,18 @@ class Resultados extends DBObject {
 		}
 
         function __compose(&$data,$prueba,$jornadaid,$tiporonda,$m1,$m2){
+			$heights=intval(Federations::getFederation( intval($prueba['RSCE']) )->get('Heights'));
             switch($m1['Recorrido']){
                 case 0: // separado
                     array_push($data,__getArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],0,$m1,$m2)); // large
                     array_push($data,__getArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],1,$m1,$m2)); // medium
                     array_push($data,__getArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],2,$m1,$m2)); // small
-                    if($prueba['RSCE']!=0) {
+                    if($heights==4) {
                         array_push($data,__getArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],5,$m1,$m2)); // tiny
                     }
                     break;
                 case 1: // mixto
-                    if($prueba['RSCE']==0) {
+                    if($heights==3) {
                         array_push($data,__getArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],0,$m1,$m2)); // large
                         array_push($data,__getArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],3,$m1,$m2)); // m+s
                     } else {
@@ -756,7 +760,7 @@ class Resultados extends DBObject {
                     }
                     break;
                 case 2: // conjunto
-                    if($prueba['RSCE']==0) {
+                    if($heights==3) {
                         array_push($data,__getArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],4,$m1,$m2)); // l+m+s
                     } else {
                         array_push($data,__getArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],8,$m1,$m2)); // l+m+s+t
