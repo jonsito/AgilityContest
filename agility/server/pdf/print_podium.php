@@ -251,7 +251,7 @@ try {
 	$prb=$dbobj->__getObject("Pruebas",$prueba);
 	$c= new Clasificaciones("print_podium_pdf",$prueba,$jornada);
 	$result=array();
-	$rsce=($prb->RSCE==0)?true:false;
+	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
 	switch($mng->Recorrido) {
 		case 0: // recorridos separados large medium small
 			$r=$c->clasificacionFinal($rondas,$mangas,0);
@@ -260,13 +260,13 @@ try {
 			$result[1]=$r['rows'];
 			$r=$c->clasificacionFinal($rondas,$mangas,2);
 			$result[2]=$r['rows'];
-			if (!$rsce) {
+			if ($heights!=3) {
 				$r=$c->clasificacionFinal($rondas,$mangas,5);
 				$result[5]=$r['rows'];
 			}
 			break;
 		case 1: // large / medium+small
-			if ($rsce) {
+			if ($heights==3) {
 				$r=$c->clasificacionFinal($rondas,$mangas,0);
 				$result[0]=$r['rows'];
 				$r=$c->clasificacionFinal($rondas,$mangas,3);
@@ -279,7 +279,7 @@ try {
 			}
 			break;
 		case 2: // recorrido conjunto large+medium+small
-			if ($rsce) {
+			if ($heights==3) {
 				$r=$c->clasificacionFinal($rondas,$mangas,4);
 				$result[4]=$r['rows'];
 			} else {

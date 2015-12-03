@@ -265,7 +265,7 @@ try {
 	$c= new Clasificaciones("print_clasificacion_excel",$prueba,$jornada);
 	
 	$result=array();
-	$rsce=($excel->prueba->RSCE==0)?true:false;
+	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
 	switch($excel->manga1->Recorrido) {
 		case 0: // recorridos separados large medium small tiny
 			$r=$c->clasificacionFinal($rondas,$mangas,0);
@@ -274,13 +274,13 @@ try {
 			$base = $excel->composeTable($mangas,$r,1,$base+1);
 			$r=$c->clasificacionFinal($rondas,$mangas,2);
 			$base = $excel->composeTable($mangas,$r,2,$base+1);
-			if (!$rsce) {
+			if ($heights!=3) {
 				$r=$c->clasificacionFinal($rondas,$mangas,5);
 				$base = $excel->composeTable($mangas,$r,5,$base+1);
 			}
 			break;
 		case 1: // large / medium+small (3heignts) ---- L+M / S+T (4heights)
-			if ($rsce) {
+			if ($heights==3) {
 				$r=$c->clasificacionFinal($rondas,$mangas,0);
 				$base = $excel->composeTable($mangas,$r,0,$base+1);
 				$r=$c->clasificacionFinal($rondas,$mangas,3);
@@ -293,7 +293,7 @@ try {
 			}
 			break;
 		case 2: // recorrido conjunto large+medium+small+tiny
-			if ($rsce) {
+			if ($heights==3) {
 				$r=$c->clasificacionFinal($rondas,$mangas,4);
 				$base = $excel->composeTable($mangas,$r,4,$base+1);
 			} else {
