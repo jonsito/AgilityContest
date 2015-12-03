@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-12-02 23:10+0100\n"
-"PO-Revision-Date: 2015-12-02 23:11+0100\n"
-"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2015-12-03 15:19+0100\n"
+"PO-Revision-Date: 2015-12-03 15:20+0100\n"
+"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -107,8 +107,7 @@ msgstr "Perro"
 #: videowall/vw_livestream.php:62 videowall/vw_llamada.php:101
 #: videowall/vw_ordensalida.php:105 videowall/vw_parciales.php:127
 #: videowall/vwls_ordensalida.php:133 videowall/vwls_parciales.php:153
-#: console/dialogs/dlg_chperros.inc:151
-#: console/dialogs/dlg_competicion.inc:106
+#: console/dialogs/dlg_chperros.inc:151 console/dialogs/dlg_competicion.inc:106
 #: console/dialogs/dlg_editInscripcion.inc:46
 #: console/dialogs/dlg_newInscripcion.inc:155
 #: console/dialogs/dlg_ordensalida.inc:154 console/dialogs/dlg_perros.inc:77
@@ -127,8 +126,7 @@ msgstr "Gu&iacute;a"
 #: public/pb_finales_eq3.php:92 public/pb_inscripciones.php:99
 #: public/pb_inscripciones_equipos.php:155 public/pb_ordensalida.php:156
 #: public/pb_parciales.php:167 public/pb_parciales_eq3.php:170
-#: scripts/competicion.js.php:1102
-#: server/pdf/print_clasificacion_excel.php:101
+#: scripts/competicion.js.php:1102 server/pdf/print_clasificacion_excel.php:101
 #: server/pdf/print_clasificacion_excel.php:162 server/pdf/print_common.php:90
 #: server/pdf/print_listaPerros.php:60 tablet/index.php:222
 #: tablet/tablet_main.php:80 tablet/tablet_main.php:263
@@ -137,8 +135,7 @@ msgstr "Gu&iacute;a"
 #: videowall/vw_llamada.php:102 videowall/vw_ordensalida.php:106
 #: videowall/vw_parciales.php:128 videowall/vwls_ordensalida.php:134
 #: videowall/vwls_parciales.php:154 console/dialogs/dlg_chguias.inc:114
-#: console/dialogs/dlg_chperros.inc:152
-#: console/dialogs/dlg_competicion.inc:107
+#: console/dialogs/dlg_chperros.inc:152 console/dialogs/dlg_competicion.inc:107
 #: console/dialogs/dlg_editInscripcion.inc:48 console/dialogs/dlg_guias.inc:45
 #: console/dialogs/dlg_newInscripcion.inc:156
 #: console/dialogs/dlg_ordensalida.inc:155 console/dialogs/dlg_perros.inc:181
@@ -157,8 +154,8 @@ msgstr "Club"
 #: server/pdf/print_trsTemplates.php:81 server/pdf/print_trsTemplates.php:127
 #: videowall/vw_livestream.php:64 videowall/vw_ordensalida.php:107
 #: console/dialogs/dlg_chperros.inc:71
-#: console/dialogs/dlg_editInscripcion.inc:42
-#: console/dialogs/dlg_perros.inc:63 console/dialogs/dlg_usuarios.inc:75
+#: console/dialogs/dlg_editInscripcion.inc:42 console/dialogs/dlg_perros.inc:63
+#: console/dialogs/dlg_usuarios.inc:75
 msgid "Category"
 msgstr "Categor&iacute;a"
 
@@ -179,8 +176,7 @@ msgstr "Categor&iacute;a"
 #: console/dialogs/dlg_editInscripcion.inc:44
 #: console/dialogs/dlg_jornadas.inc:65 console/dialogs/dlg_jornadas.inc:71
 #: console/dialogs/dlg_jornadas.inc:77
-#: console/dialogs/dlg_newInscripcion.inc:154
-#: console/dialogs/dlg_perros.inc:70
+#: console/dialogs/dlg_newInscripcion.inc:154 console/dialogs/dlg_perros.inc:70
 msgid "Grade"
 msgstr "Grado"
 
@@ -192,8 +188,7 @@ msgstr "Grado"
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:597
 #: server/pdf/print_inscritosByPrueba.php:735
-#: server/pdf/print_ordenDeSalida.php:72
-#: server/pdf/print_ordenDeSalida.php:176
+#: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_ordenDeSalida.php:176
 #: server/pdf/print_trsTemplates.php:257 tablet/tablet_main.php:86
 #: tablet/tablet_main.php:261 videowall/vw_combinada.php:192
 #: videowall/vw_livestream.php:66 videowall/vw_llamada.php:105
@@ -230,31 +225,29 @@ msgstr "Reh&uacute;se"
 msgid "Eliminated"
 msgstr "Eliminado"
 
-#: chrono/chrono.inc.php:93 scripts/common.js.php:171
-#: scripts/common.js.php:195 scripts/common.js.php:218
-#: scripts/common.js.php:402 scripts/common.js.php:414
-#: scripts/common.js.php:426 scripts/common.js.php:441
-#: scripts/competicion.js.php:412 scripts/competicion.js.php:441
-#: scripts/competicion.js.php:715 scripts/competicion.js.php:894
-#: scripts/competicion.js.php:908 scripts/competicion.js.php:1004
-#: scripts/competicion.js.php:1008 scripts/competicion.js.php:1121
-#: scripts/competicion.js.php:1178 scripts/equipos.js.php:70
-#: scripts/equipos.js.php:123 scripts/equipos.js.php:312
-#: scripts/guias.js.php:87 scripts/guias.js.php:158 scripts/guias.js.php:181
-#: scripts/guias.js.php:209 scripts/guias.js.php:239
+#: chrono/chrono.inc.php:93 scripts/common.js.php:171 scripts/common.js.php:195
+#: scripts/common.js.php:218 scripts/common.js.php:402
+#: scripts/common.js.php:414 scripts/common.js.php:426
+#: scripts/common.js.php:441 scripts/competicion.js.php:412
+#: scripts/competicion.js.php:441 scripts/competicion.js.php:715
+#: scripts/competicion.js.php:894 scripts/competicion.js.php:908
+#: scripts/competicion.js.php:1004 scripts/competicion.js.php:1008
+#: scripts/competicion.js.php:1121 scripts/competicion.js.php:1178
+#: scripts/equipos.js.php:70 scripts/equipos.js.php:123
+#: scripts/equipos.js.php:312 scripts/guias.js.php:87 scripts/guias.js.php:158
+#: scripts/guias.js.php:181 scripts/guias.js.php:209 scripts/guias.js.php:239
 #: scripts/inscripciones.js.php:68 scripts/inscripciones.js.php:191
-#: scripts/jueces.js.php:90 scripts/perros.js.php:146
-#: scripts/perros.js.php:166 scripts/perros.js.php:175
-#: scripts/perros.js.php:227 scripts/perros.js.php:254
-#: scripts/printer.js.php:268 scripts/printer.js.php:308
-#: scripts/printer.js.php:341 scripts/printer.js.php:377
-#: scripts/printer.js.php:412 scripts/pruebas.js.php:111
-#: scripts/pruebas.js.php:139 scripts/pruebas.js.php:197
-#: scripts/pruebas.js.php:307 scripts/pruebas.js.php:313
-#: scripts/sesiones.js.php:80 scripts/sesiones.js.php:140
-#: scripts/tandas.js.php:100 scripts/tandas.js.php:130
-#: scripts/usuarios.js.php:86 scripts/usuarios.js.php:150
-#: console/dialogs/dlg_competicion.inc:67
+#: scripts/jueces.js.php:90 scripts/perros.js.php:146 scripts/perros.js.php:166
+#: scripts/perros.js.php:175 scripts/perros.js.php:227
+#: scripts/perros.js.php:254 scripts/printer.js.php:268
+#: scripts/printer.js.php:308 scripts/printer.js.php:341
+#: scripts/printer.js.php:377 scripts/printer.js.php:412
+#: scripts/pruebas.js.php:111 scripts/pruebas.js.php:139
+#: scripts/pruebas.js.php:218 scripts/pruebas.js.php:328
+#: scripts/pruebas.js.php:334 scripts/sesiones.js.php:80
+#: scripts/sesiones.js.php:140 scripts/tandas.js.php:100
+#: scripts/tandas.js.php:130 scripts/usuarios.js.php:86
+#: scripts/usuarios.js.php:150 console/dialogs/dlg_competicion.inc:67
 #: console/dialogs/dlg_selectJornada.inc:156
 msgid "Error"
 msgstr "Error"
@@ -354,8 +347,7 @@ msgstr "Gu&iacute;a"
 #: tablet/tablet_main.php:264 videowall/videowall.js.php:169
 #: videowall/vw_combinada.php:135 videowall/vw_llamada.php:103
 #: videowall/vw_parciales.php:129 videowall/vwls_parciales.php:155
-#: console/dialogs/dlg_chperros.inc:149
-#: console/dialogs/dlg_competicion.inc:108
+#: console/dialogs/dlg_chperros.inc:149 console/dialogs/dlg_competicion.inc:108
 #: console/dialogs/dlg_newInscripcion.inc:153
 #: console/dialogs/dlg_ordensalida.inc:91
 #: console/dialogs/dlg_ordensalida.inc:153
@@ -427,7 +419,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/frm_inscripciones2.php:191 console/frm_jueces.php:86
 #: console/frm_login.php:102 console/frm_paises.php:81
 #: console/frm_paises.php:136 console/frm_paises.php:221
-#: console/frm_perros.php:97 console/frm_pruebas.php:147
+#: console/frm_perros.php:97 console/frm_pruebas.php:151
 #: console/frm_registration.php:48 index.php:198 index.php:231
 #: public/pb_finales.php:86 public/pb_finales_eq3.php:88
 #: public/pb_inscripciones.php:93 public/pb_inscripciones_equipos.php:149
@@ -467,8 +459,8 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/dialogs/dlg_resultadosManga.inc:126
 #: console/dialogs/dlg_resultados_eq3.inc:132
 #: console/dialogs/dlg_resultados_eq4.inc:132
-#: console/dialogs/dlg_selectJornada.inc:83
-#: console/dialogs/dlg_sesiones.inc:28 console/dialogs/dlg_usuarios.inc:55
+#: console/dialogs/dlg_selectJornada.inc:83 console/dialogs/dlg_sesiones.inc:28
+#: console/dialogs/dlg_usuarios.inc:55
 msgid "Name"
 msgstr "Nombre"
 
@@ -477,8 +469,8 @@ msgstr "Nombre"
 #: console/frm_clubes.php:174 console/frm_equipos.php:142
 #: console/frm_equipos.php:227 console/frm_equipos.php:294
 #: console/frm_guias.php:96 console/frm_inscripciones2.php:59
-#: console/frm_paises.php:139 console/frm_pruebas.php:94
-#: console/frm_pruebas.php:147 index.php:231
+#: console/frm_paises.php:139 console/frm_pruebas.php:97
+#: console/frm_pruebas.php:151 index.php:231
 #: public/pb_inscripciones_equipos.php:88
 #: public/pb_inscripciones_equipos.php:157 public/pb_programa.php:102
 #: server/pdf/print_entradaDeDatos.php:226
@@ -497,8 +489,7 @@ msgstr "Nombre"
 #: console/dialogs/dlg_ordentandas.inc:71
 #: console/dialogs/dlg_ordentandas.inc:137
 #: console/dialogs/dlg_ordentandas.inc:170 console/dialogs/dlg_pruebas.inc:67
-#: console/dialogs/dlg_selectJornada.inc:87
-#: console/dialogs/dlg_sesiones.inc:45
+#: console/dialogs/dlg_selectJornada.inc:87 console/dialogs/dlg_sesiones.inc:45
 msgid "Comments"
 msgstr "Observaciones"
 
@@ -512,8 +503,8 @@ msgstr "Debe seleccionar un ring v&aacute;lido"
 #: public/pb_parciales.php:49 public/pb_parciales.php:50
 #: public/pb_parciales_eq3.php:49 public/pb_parciales_eq3.php:50
 #: public/public.js.php:159 public/public.js.php:160 public/public.js.php:202
-#: public/public.js.php:203 server/pdf/print_clasificacion.php:86
-#: server/pdf/print_clasificacion.php:89
+#: public/public.js.php:203 server/excel/scores_writer.php:116
+#: server/pdf/print_clasificacion.php:86 server/pdf/print_clasificacion.php:89
 #: server/pdf/print_clasificacion_eq3.php:162
 #: server/pdf/print_clasificacion_eq3.php:165
 #: server/pdf/print_clasificacion_eq4.php:166
@@ -559,8 +550,7 @@ msgstr "Recorridos"
 #: console/dialogs/dlg_resultados_eq4.inc:72
 #: console/dialogs/inforesultados.inc:43 console/dialogs/inforesultados.inc:51
 #: console/dialogs/inforesultados.inc:59 console/dialogs/inforesultados.inc:67
-#: console/dialogs/inforesultados.inc:94
-#: console/dialogs/inforesultados.inc:102
+#: console/dialogs/inforesultados.inc:94 console/dialogs/inforesultados.inc:102
 #: console/dialogs/inforesultados.inc:110
 #: console/dialogs/inforesultados.inc:118
 msgid "Distance"
@@ -587,8 +577,7 @@ msgstr "Distancia"
 #: console/dialogs/dlg_resultados_eq4.inc:73
 #: console/dialogs/inforesultados.inc:44 console/dialogs/inforesultados.inc:52
 #: console/dialogs/inforesultados.inc:60 console/dialogs/inforesultados.inc:68
-#: console/dialogs/inforesultados.inc:95
-#: console/dialogs/inforesultados.inc:103
+#: console/dialogs/inforesultados.inc:95 console/dialogs/inforesultados.inc:103
 #: console/dialogs/inforesultados.inc:111
 #: console/dialogs/inforesultados.inc:119
 msgid "Obstacles"
@@ -631,7 +620,7 @@ msgstr "TRM fijo"
 
 #: console/dialogs/infomanga.php:121 console/dialogs/infomanga.php:174
 #: console/dialogs/infomanga.php:228 console/dialogs/infomanga.php:284
-#: server/pdf/print_clasificacion.php:100
+#: server/excel/scores_writer.php:116 server/pdf/print_clasificacion.php:100
 #: server/pdf/print_clasificacion.php:113
 #: server/pdf/print_clasificacion_eq3.php:176
 #: server/pdf/print_clasificacion_eq3.php:189
@@ -657,8 +646,7 @@ msgstr "TRM fijo"
 #: console/dialogs/dlg_resultados_eq4.inc:74
 #: console/dialogs/inforesultados.inc:45 console/dialogs/inforesultados.inc:53
 #: console/dialogs/inforesultados.inc:61 console/dialogs/inforesultados.inc:69
-#: console/dialogs/inforesultados.inc:96
-#: console/dialogs/inforesultados.inc:104
+#: console/dialogs/inforesultados.inc:96 console/dialogs/inforesultados.inc:104
 #: console/dialogs/inforesultados.inc:112
 #: console/dialogs/inforesultados.inc:120
 msgid "SCT"
@@ -688,12 +676,11 @@ msgstr "Restaurar"
 
 #: console/dialogs/infomanga.php:317 console/dialogs/dlg_competicion.inc:128
 #: console/dialogs/dlg_configuracion.inc:215
-#: console/dialogs/dlg_configuracion.inc:236
-#: console/dialogs/dlg_equipos.inc:57 console/dialogs/dlg_guias.inc:60
-#: console/dialogs/dlg_jornadas.inc:119 console/dialogs/dlg_jueces.inc:84
-#: console/dialogs/dlg_perros.inc:94 console/dialogs/dlg_pruebas.inc:77
-#: console/dialogs/dlg_sesiones.inc:75 console/dialogs/dlg_usuarios.inc:45
-#: console/dialogs/dlg_usuarios.inc:89
+#: console/dialogs/dlg_configuracion.inc:236 console/dialogs/dlg_equipos.inc:57
+#: console/dialogs/dlg_guias.inc:60 console/dialogs/dlg_jornadas.inc:119
+#: console/dialogs/dlg_jueces.inc:84 console/dialogs/dlg_perros.inc:94
+#: console/dialogs/dlg_pruebas.inc:77 console/dialogs/dlg_sesiones.inc:75
+#: console/dialogs/dlg_usuarios.inc:45 console/dialogs/dlg_usuarios.inc:89
 msgid "Save"
 msgstr "Guardar"
 
@@ -762,7 +749,7 @@ msgstr "Versi&oacute;n"
 
 #: console/frm_about.php:29 console/frm_clasificaciones2.php:45
 #: console/frm_clasificaciones_eq3.php:45 console/frm_inscripciones2.php:134
-#: console/frm_pruebas.php:148 server/pdf/print_clasificacion.php:95
+#: console/frm_pruebas.php:152 server/pdf/print_clasificacion.php:95
 #: server/pdf/print_clasificacion_eq3.php:171
 #: server/pdf/print_clasificacion_eq4.php:175
 #: server/pdf/print_clasificacion_excel.php:105 server/pdf/print_podium.php:80
@@ -828,9 +815,8 @@ msgstr "Editar usuario"
 msgid "Delete user"
 msgstr "Borrar usuario"
 
-#: console/frm_admin.php:50 console/frm_login.php:45
-#: console/frm_myAdmin.php:55 tablet/index.php:142
-#: console/dialogs/dlg_usuarios.inc:58
+#: console/frm_admin.php:50 console/frm_login.php:45 console/frm_myAdmin.php:55
+#: tablet/index.php:142 console/dialogs/dlg_usuarios.inc:58
 msgid "Password"
 msgstr "Contrase&ntilde;a"
 
@@ -838,7 +824,7 @@ msgstr "Contrase&ntilde;a"
 #: console/frm_equipos.php:47 console/frm_guias.php:51
 #: console/frm_inscripciones2.php:107 console/frm_jueces.php:51
 #: console/frm_paises.php:40 console/frm_perros.php:57
-#: console/frm_pruebas.php:53 console/dialogs/dlg_chguias.inc:32
+#: console/frm_pruebas.php:56 console/dialogs/dlg_chguias.inc:32
 #: console/dialogs/dlg_chperros.inc:32 console/dialogs/dlg_competicion.inc:133
 #: console/dialogs/dlg_newInscripcion.inc:45 console/dialogs/dlg_tools.inc:24
 msgid "Clear"
@@ -880,7 +866,7 @@ msgstr "Gesti&oacute;n de usuarios"
 msgid "Updating users list"
 msgstr "Actualizando lista de usuarios"
 
-#: console/frm_admin.php:135 server/excel/common_writer.php:54
+#: console/frm_admin.php:135 server/excel/common_writer.php:55
 #: console/dialogs/dlg_usuarios.inc:63
 msgid "Information"
 msgstr "Informaci&oacute;n"
@@ -980,7 +966,7 @@ msgstr "Club anfitri&oacute;n"
 #: console/frm_clasificaciones2.php:41 console/frm_clasificaciones_eq3.php:41
 #: index.php:157 public/public.js.php:54 scripts/competicion.js.php:918
 #: scripts/equipos.js.php:73 scripts/equipos.js.php:126
-#: server/excel/common_writer.php:64 server/pdf/print_clasificacion.php:84
+#: server/excel/common_writer.php:65 server/pdf/print_clasificacion.php:84
 #: server/pdf/print_clasificacion_eq3.php:160
 #: server/pdf/print_clasificacion_eq4.php:164
 #: server/pdf/print_clasificacion_excel.php:103
@@ -997,7 +983,8 @@ msgstr "Jornada"
 #: console/frm_clasificaciones_eq3.php:74 public/pb_finales.php:76
 #: public/pb_finales.php:77 public/pb_finales_eq3.php:76
 #: public/pb_finales_eq3.php:77 public/pb_parciales.php:41
-#: public/pb_parciales_eq3.php:41 server/pdf/print_clasificacion.php:108
+#: public/pb_parciales_eq3.php:41 server/excel/scores_writer.php:116
+#: server/pdf/print_clasificacion.php:108
 #: server/pdf/print_clasificacion_eq3.php:184
 #: server/pdf/print_clasificacion_eq3.php:299
 #: server/pdf/print_clasificacion_eq4.php:188
@@ -1070,7 +1057,8 @@ msgstr "Tmp"
 #: console/frm_clasificaciones_eq3.php:97 public/pb_finales.php:95
 #: public/pb_finales.php:101 public/pb_finales_eq3.php:96
 #: public/pb_finales_eq3.php:102 public/pb_parciales.php:176
-#: public/pb_parciales_eq3.php:179 server/pdf/print_clasificacion.php:102
+#: public/pb_parciales_eq3.php:179 server/excel/scores_writer.php:116
+#: server/pdf/print_clasificacion.php:102
 #: server/pdf/print_clasificacion.php:115
 #: server/pdf/print_clasificacion.php:176
 #: server/pdf/print_clasificacion.php:184
@@ -1081,9 +1069,8 @@ msgstr "Tmp"
 #: server/pdf/print_clasificacion_eq4.php:182
 #: server/pdf/print_clasificacion_eq4.php:195
 #: server/pdf/print_clasificacion_excel.php:133
-#: server/pdf/print_clasificacion_excel.php:141
-#: server/pdf/print_podium.php:116 server/pdf/print_podium.php:124
-#: server/pdf/print_resultadosByEquipos.php:84
+#: server/pdf/print_clasificacion_excel.php:141 server/pdf/print_podium.php:116
+#: server/pdf/print_podium.php:124 server/pdf/print_resultadosByEquipos.php:84
 #: server/pdf/print_resultadosByManga.php:63 videowall/vw_combinada.php:67
 #: videowall/vw_combinada.php:143 videowall/vw_parciales.php:59
 #: videowall/vw_parciales.php:137 videowall/vwls_parciales.php:77
@@ -1104,8 +1091,7 @@ msgstr "Tmp"
 #: console/dialogs/dlg_resultados_eq4.inc:142
 #: console/dialogs/inforesultados.inc:47 console/dialogs/inforesultados.inc:55
 #: console/dialogs/inforesultados.inc:63 console/dialogs/inforesultados.inc:71
-#: console/dialogs/inforesultados.inc:98
-#: console/dialogs/inforesultados.inc:106
+#: console/dialogs/inforesultados.inc:98 console/dialogs/inforesultados.inc:106
 #: console/dialogs/inforesultados.inc:114
 #: console/dialogs/inforesultados.inc:122
 msgid "Vel"
@@ -1139,10 +1125,9 @@ msgstr "Penal"
 msgid "Cal"
 msgstr "Cal"
 
-#: console/frm_clasificaciones2.php:100
-#: console/frm_clasificaciones_eq3.php:100 console/frm_inscripciones2.php:135
-#: console/frm_pruebas.php:149 public/pb_finales.php:94
-#: public/pb_finales.php:100 public/pb_finales.php:104
+#: console/frm_clasificaciones2.php:100 console/frm_clasificaciones_eq3.php:100
+#: console/frm_inscripciones2.php:135 console/frm_pruebas.php:153
+#: public/pb_finales.php:94 public/pb_finales.php:100 public/pb_finales.php:104
 #: public/pb_finales_eq3.php:95 public/pb_finales_eq3.php:101
 #: public/pb_finales_eq3.php:105 public/pb_parciales.php:174
 #: public/pb_parciales_eq3.php:177 scripts/competicion.js.php:141
@@ -1182,9 +1167,9 @@ msgstr "Cal"
 msgid "Time"
 msgstr "Tiempo"
 
-#: console/frm_clasificaciones2.php:101
-#: console/frm_clasificaciones_eq3.php:101 public/pb_finales.php:105
-#: public/pb_finales_eq3.php:106 server/pdf/print_clasificacion.php:192
+#: console/frm_clasificaciones2.php:101 console/frm_clasificaciones_eq3.php:101
+#: public/pb_finales.php:105 public/pb_finales_eq3.php:106
+#: server/pdf/print_clasificacion.php:192
 #: server/pdf/print_clasificacion_eq3.php:295
 #: server/pdf/print_clasificacion_eq3.php:301
 #: server/pdf/print_clasificacion_eq4.php:311
@@ -1192,88 +1177,76 @@ msgstr "Tiempo"
 #: server/pdf/print_clasificacion_eq4.php:322
 #: server/pdf/print_clasificacion_excel.php:167
 #: server/pdf/print_clasificacion_excel.php:173
-#: server/pdf/print_clasificacion_excel.php:176
-#: server/pdf/print_podium.php:132
+#: server/pdf/print_clasificacion_excel.php:176 server/pdf/print_podium.php:132
 #: server/pdf/print_resultadosByEquipos.php:230
 #: server/pdf/print_resultadosByEquipos4.php:202
 msgid "Penaliz"
 msgstr "Penal"
 
-#: console/frm_clasificaciones2.php:102
-#: console/frm_clasificaciones_eq3.php:102 public/pb_finales.php:106
-#: public/pb_finales_eq3.php:107 server/pdf/print_clasificacion.php:178
+#: console/frm_clasificaciones2.php:102 console/frm_clasificaciones_eq3.php:102
+#: public/pb_finales.php:106 public/pb_finales_eq3.php:107
+#: server/pdf/print_clasificacion.php:178
 #: server/pdf/print_clasificacion.php:186
 #: server/pdf/print_clasificacion_eq3.php:281
 #: server/pdf/print_clasificacion_eq3.php:289 server/pdf/print_podium.php:126
 msgid "Calif"
 msgstr "Calif"
 
-#: console/frm_clasificaciones2.php:103
-#: console/frm_clasificaciones_eq3.php:103
+#: console/frm_clasificaciones2.php:103 console/frm_clasificaciones_eq3.php:103
 msgid "Place"
 msgstr "Puesto"
 
-#: console/frm_clasificaciones2.php:115
-#: console/frm_clasificaciones_eq3.php:115 tablet/tablet_main.php:115
-#: console/dialogs/dlg_ordensalida.inc:53
+#: console/frm_clasificaciones2.php:115 console/frm_clasificaciones_eq3.php:115
+#: tablet/tablet_main.php:115 console/dialogs/dlg_ordensalida.inc:53
 msgid "Refresh"
 msgstr "Actualizar"
 
-#: console/frm_clasificaciones2.php:117
-#: console/frm_clasificaciones_eq3.php:117 console/frm_equipos.php:43
+#: console/frm_clasificaciones2.php:117 console/frm_clasificaciones_eq3.php:117
+#: console/frm_equipos.php:43
 msgid "Verify"
 msgstr "Verificar"
 
-#: console/frm_clasificaciones2.php:119
-#: console/frm_clasificaciones_eq3.php:119
+#: console/frm_clasificaciones2.php:119 console/frm_clasificaciones_eq3.php:119
 #: console/dialogs/dlg_configuracion.inc:120
 msgid "Reports"
 msgstr "Informes"
 
-#: console/frm_clasificaciones2.php:124
-#: console/frm_clasificaciones_eq3.php:124
+#: console/frm_clasificaciones2.php:124 console/frm_clasificaciones_eq3.php:124
 msgid "Select format"
 msgstr "Selecciona formato"
 
-#: console/frm_clasificaciones2.php:126
-#: console/frm_clasificaciones_eq3.php:126 server/pdf/print_podium.php:65
+#: console/frm_clasificaciones2.php:126 console/frm_clasificaciones_eq3.php:126
+#: server/pdf/print_podium.php:65
 msgid "Podium"
 msgstr "Podium"
 
-#: console/frm_clasificaciones2.php:127
-#: console/frm_clasificaciones_eq3.php:127
+#: console/frm_clasificaciones2.php:127 console/frm_clasificaciones_eq3.php:127
 msgid "Text export"
 msgstr "Exportar como texto"
 
-#: console/frm_clasificaciones2.php:128
-#: console/frm_clasificaciones_eq3.php:128
+#: console/frm_clasificaciones2.php:128 console/frm_clasificaciones_eq3.php:128
 msgid "R.S.C.E. Report"
 msgstr "Informe R.S.C.E."
 
-#: console/frm_clasificaciones2.php:132
-#: console/frm_clasificaciones_eq3.php:132
+#: console/frm_clasificaciones2.php:132 console/frm_clasificaciones_eq3.php:132
 msgid "Label sheets"
 msgstr "Hojas de etiquetas"
 
-#: console/frm_clasificaciones2.php:133
-#: console/frm_clasificaciones_eq3.php:133
+#: console/frm_clasificaciones2.php:133 console/frm_clasificaciones_eq3.php:133
 msgid "Isolated labels"
 msgstr "Etiquetas sueltas"
 
-#: console/frm_clasificaciones2.php:136
-#: console/frm_clasificaciones_eq3.php:136
+#: console/frm_clasificaciones2.php:136 console/frm_clasificaciones_eq3.php:136
 msgid "Initial label"
 msgstr "Etiqueta inicial"
 
-#: console/frm_clasificaciones2.php:139
-#: console/frm_clasificaciones_eq3.php:139
+#: console/frm_clasificaciones2.php:139 console/frm_clasificaciones_eq3.php:139
 msgid "Dorsal list"
 msgstr "Lista de dorsales"
 
-#: console/frm_clasificaciones2.php:146
-#: console/frm_clasificaciones_eq3.php:146 console/frm_equipos.php:45
-#: console/frm_inscripciones2.php:101 console/frm_perros.php:50
-#: console/dialogs/dlg_ordensalida.inc:55
+#: console/frm_clasificaciones2.php:146 console/frm_clasificaciones_eq3.php:146
+#: console/frm_equipos.php:45 console/frm_inscripciones2.php:101
+#: console/frm_perros.php:50 console/dialogs/dlg_ordensalida.inc:55
 #: console/dialogs/dlg_ordentandas.inc:46
 #: console/dialogs/dlg_resultadosManga.inc:34
 #: console/dialogs/dlg_resultados_eq3.inc:34
@@ -1281,44 +1254,37 @@ msgstr "Lista de dorsales"
 msgid "Print"
 msgstr "Imprimir"
 
-#: console/frm_clasificaciones2.php:160
-#: console/frm_clasificaciones_eq3.php:160
+#: console/frm_clasificaciones2.php:160 console/frm_clasificaciones_eq3.php:160
 msgid "Journey scores"
 msgstr "Resultados de la jornada"
 
-#: console/frm_clasificaciones2.php:225
-#: console/frm_clasificaciones_eq3.php:225
+#: console/frm_clasificaciones2.php:225 console/frm_clasificaciones_eq3.php:225
 msgid "Update score tables"
 msgstr "Actualizar tablas de resultados"
 
-#: console/frm_clasificaciones2.php:226
-#: console/frm_clasificaciones_eq3.php:226
+#: console/frm_clasificaciones2.php:226 console/frm_clasificaciones_eq3.php:226
 msgid "Check for dogs without registered data"
 msgstr "Comprobar si hay perros sin datos anotados"
 
-#: console/frm_clasificaciones2.php:227
-#: console/frm_clasificaciones_eq3.php:227
+#: console/frm_clasificaciones2.php:227 console/frm_clasificaciones_eq3.php:227
 msgid "Print scores on current round"
 msgstr "Imprimir clasificaci&oacute;n de la manga"
 
-#: console/frm_clasificaciones2.php:228
-#: console/frm_clasificaciones_eq3.php:228
+#: console/frm_clasificaciones2.php:228 console/frm_clasificaciones_eq3.php:228
 msgid "Print data in selected format"
 msgstr "Imprimir los datos en el formato seleccionado"
 
-#: console/frm_clasificaciones2.php:229
-#: console/frm_clasificaciones_eq3.php:229
+#: console/frm_clasificaciones2.php:229 console/frm_clasificaciones_eq3.php:229
 msgid "where to start printing<br/>in labels sheet"
 msgstr "Posici&oacute;n inicial <br /> en la hoja de etiquetas"
 
-#: console/frm_clasificaciones2.php:230
-#: console/frm_clasificaciones_eq3.php:230
+#: console/frm_clasificaciones2.php:230 console/frm_clasificaciones_eq3.php:230
 msgid "Comma separated list of dorsals to be printed"
 msgstr "Lista de dorsales a imprimir separada por comas"
 
-#: console/frm_clasificaciones2.php:242
-#: console/frm_clasificaciones_eq3.php:242 public/pb_finales.php:191
-#: public/pb_finales_eq3.php:190 console/dialogs/dlg_resultadosManga.inc:114
+#: console/frm_clasificaciones2.php:242 console/frm_clasificaciones_eq3.php:242
+#: public/pb_finales.php:191 public/pb_finales_eq3.php:190
+#: console/dialogs/dlg_resultadosManga.inc:114
 #: console/dialogs/dlg_resultados_eq3.inc:114
 #: console/dialogs/dlg_resultados_eq4.inc:114
 msgid "Updating round scores"
@@ -1416,7 +1382,7 @@ msgstr "Desasignar gu&iacute;a"
 
 #: console/frm_clubes.php:221 console/frm_clubes.php:300
 #: console/frm_guias.php:190 console/frm_paises.php:186
-#: console/frm_paises.php:265 console/frm_pruebas.php:196
+#: console/frm_paises.php:265 console/frm_pruebas.php:200
 #: console/dialogs/dlg_clubes.inc:39 console/dialogs/dlg_competicion.inc:34
 #: console/dialogs/dlg_ordentandas.inc:44
 #: console/dialogs/dlg_resultadosManga.inc:31
@@ -1837,12 +1803,12 @@ msgstr "PA. 2"
 msgid "K.O. "
 msgstr "K.O."
 
-#: console/frm_inscripciones2.php:145 console/frm_pruebas.php:159
+#: console/frm_inscripciones2.php:145 console/frm_pruebas.php:163
 msgid "Special"
 msgstr "Especial"
 
-#: console/frm_inscripciones2.php:146 console/frm_pruebas.php:97
-#: console/frm_pruebas.php:161
+#: console/frm_inscripciones2.php:146 console/frm_pruebas.php:100
+#: console/frm_pruebas.php:165
 msgid "Closed"
 msgstr "Cerrada"
 
@@ -1937,7 +1903,7 @@ msgid "Remove selected judge from database"
 msgstr "Borrar el juez seleccionado de la base de datos"
 
 #: console/frm_jueces.php:114 console/frm_perros.php:126
-#: console/frm_pruebas.php:124
+#: console/frm_pruebas.php:128
 msgid "Clear search box. Update list"
 msgstr "Borrar casilla de b&uacute;squeda. Actualizar datos"
 
@@ -1959,8 +1925,8 @@ msgstr ""
 msgid "User name"
 msgstr "Nombre de usuario"
 
-#: console/frm_login.php:50 console/frm_pruebas.php:95
-#: server/excel/common_writer.php:68 console/dialogs/dlg_pruebas.inc:41
+#: console/frm_login.php:50 console/frm_pruebas.php:98
+#: server/excel/common_writer.php:69 console/dialogs/dlg_pruebas.inc:41
 msgid "Federation"
 msgstr "Federaci&oacute;n"
 
@@ -1997,7 +1963,7 @@ msgid "Cancel logout. Close window"
 msgstr "Cancelar fin de sesi&oacute;n. Cerrar ventana"
 
 #: console/frm_myAdmin.php:31 scripts/inscripciones.js.php:88
-#: scripts/pruebas.js.php:131 scripts/pruebas.js.php:186
+#: scripts/pruebas.js.php:131 scripts/pruebas.js.php:207
 #: server/pdf/print_ordenTandas.php:80 console/dialogs/dlg_perros.inc:84
 msgid "Notice"
 msgstr "Aviso"
@@ -2098,7 +2064,7 @@ msgstr "Nuevo perro"
 msgid "Delete dog"
 msgstr "Borrar perro"
 
-#: console/frm_perros.php:47
+#: console/frm_perros.php:47 console/frm_pruebas.php:50
 msgid "Export"
 msgstr "Exportar"
 
@@ -2163,83 +2129,87 @@ msgstr "Borrar prueba"
 msgid "Incl. closed"
 msgstr "Incl. cerradas"
 
-#: console/frm_pruebas.php:72
+#: console/frm_pruebas.php:75
 msgid "Contest data handling"
 msgstr "Gesti&oacute;n de pruebas"
 
-#: console/frm_pruebas.php:74
+#: console/frm_pruebas.php:77
 msgid "Updating contest list"
 msgstr "Actualizando lista de pruebas"
 
-#: console/frm_pruebas.php:88
+#: console/frm_pruebas.php:91
 msgid "Contest name"
 msgstr "Nombre de la prueba"
 
-#: console/frm_pruebas.php:90
+#: console/frm_pruebas.php:93
 msgid "Organizing club"
 msgstr "Club anfitri&oacute;n"
 
-#: console/frm_pruebas.php:91 console/dialogs/dlg_pruebas.inc:55
+#: console/frm_pruebas.php:94 console/dialogs/dlg_pruebas.inc:55
 msgid "Event location"
 msgstr "Lugar de realizaci&oacute;n"
 
-#: console/frm_pruebas.php:92 console/dialogs/dlg_pruebas.inc:59
+#: console/frm_pruebas.php:95 console/dialogs/dlg_pruebas.inc:59
 msgid "Triptych URL"
 msgstr "URL del tr&iacute;ptico"
 
-#: console/frm_pruebas.php:93 console/dialogs/dlg_pruebas.inc:63
+#: console/frm_pruebas.php:96 console/dialogs/dlg_pruebas.inc:63
 msgid "Brochure URL"
 msgstr "URL del cartel"
 
-#: console/frm_pruebas.php:96 console/dialogs/dlg_pruebas.inc:44
+#: console/frm_pruebas.php:99 console/dialogs/dlg_pruebas.inc:44
 msgid "Selective"
 msgstr "Selectiva"
 
-#: console/frm_pruebas.php:121
+#: console/frm_pruebas.php:124
 msgid "Declare a new contest and include into database"
 msgstr "Declara y a&ntilde;ade nueva prueba a la base de datos"
 
-#: console/frm_pruebas.php:122
+#: console/frm_pruebas.php:125
 msgid "Edit information on selected contest"
 msgstr "Modificar los datos de la prueba eleccionada"
 
-#: console/frm_pruebas.php:123
+#: console/frm_pruebas.php:126
 msgid "Remove selected contest"
 msgstr "Borrar prueba seleccionada"
 
-#: console/frm_pruebas.php:125
+#: console/frm_pruebas.php:127
+msgid "Export selected contest data in Excel format"
+msgstr "Exportar la prueba seleccionada en formato Excel"
+
+#: console/frm_pruebas.php:129
 msgid "Include finished (closed) contest into listing"
 msgstr "Incluir pruebas finalizadas (cerradas) en el listado"
 
-#: console/frm_pruebas.php:126
+#: console/frm_pruebas.php:130
 msgid "Look for contests matching search criteria"
 msgstr "Buscar pruebas que coincidan con el criterio de b&uacute;squeda"
 
-#: console/frm_pruebas.php:133
+#: console/frm_pruebas.php:137
 msgid "Journeys on this contest"
 msgstr "Lista de jornadas de esta prueba"
 
-#: console/frm_pruebas.php:141
+#: console/frm_pruebas.php:145
 msgid "Loading list of journeys"
 msgstr "Cargando lista de jornadas"
 
-#: console/frm_pruebas.php:186
+#: console/frm_pruebas.php:190
 msgid "Edit journey"
 msgstr "Editar jornada"
 
-#: console/frm_pruebas.php:191
+#: console/frm_pruebas.php:195
 msgid "Close journey"
 msgstr "Cerrar jornada"
 
-#: console/frm_pruebas.php:206
+#: console/frm_pruebas.php:210
 msgid "Edit data on selected journey"
 msgstr "Modificar los datos de la jornada seleccionada"
 
-#: console/frm_pruebas.php:207
+#: console/frm_pruebas.php:211
 msgid "Close journey. Store data as inmutable"
 msgstr "Cerrar jornada. Marcar esta jornada como no-modificable"
 
-#: console/frm_pruebas.php:208
+#: console/frm_pruebas.php:212
 msgid "Update journey list for this contest"
 msgstr "Actualizar la lista de jornadas de esta prueba"
 
@@ -2396,7 +2366,7 @@ msgstr "Informaci&oacute;n de registro"
 msgid "About"
 msgstr "Acerca de"
 
-#: index.php:153 public/public.js.php:54 server/excel/common_writer.php:62
+#: index.php:153 public/public.js.php:54 server/excel/common_writer.php:63
 #: server/pdf/print_clasificacion_excel.php:99 tablet/index.php:152
 #: videowall/videowall.js.php:103
 msgid "Contest"
@@ -2604,8 +2574,8 @@ msgstr "Datos del participante"
 #: public/pb_parciales.php:179 public/pb_parciales_eq3.php:182
 #: server/pdf/print_clasificacion.php:194
 #: server/pdf/print_clasificacion_eq3.php:297
-#: server/pdf/print_clasificacion_excel.php:178
-#: server/pdf/print_podium.php:134 server/pdf/print_resultadosByEquipos.php:84
+#: server/pdf/print_clasificacion_excel.php:178 server/pdf/print_podium.php:134
+#: server/pdf/print_resultadosByEquipos.php:84
 #: server/pdf/print_resultadosByManga.php:63 videowall/vw_combinada.php:146
 #: videowall/vw_parciales.php:140 videowall/vwls_parciales.php:166
 #: console/dialogs/dlg_resultadosManga.inc:125
@@ -2992,8 +2962,8 @@ msgstr "Error al guardar"
 #: scripts/sesiones.js.php:100 scripts/sesiones.js.php:130
 #: scripts/tandas.js.php:116 scripts/tandas.js.php:120
 #: scripts/usuarios.js.php:102 scripts/usuarios.js.php:106
-msgid "Delete Error"
-msgstr "Error de borrado"
+msgid "Delete error"
+msgstr "Error al borrar"
 
 #: scripts/clubes.js.php:210
 msgid "This entry cannot be erased"
@@ -3210,6 +3180,7 @@ msgstr "Imprimiendo lista de equipos. Por favor, espere"
 #: scripts/printer.js.php:161 scripts/printer.js.php:187
 #: scripts/printer.js.php:323 scripts/printer.js.php:357
 #: scripts/printer.js.php:395 scripts/printer.js.php:428
+#: scripts/pruebas.js.php:161
 msgid "There was a problem generating your report, please try again."
 msgstr ""
 "Hubo un problema en la generaci&oacute;n del informe. Por favor pruebe de "
@@ -3319,8 +3290,8 @@ msgid "New inscriptions"
 msgstr "Nuevas inscripciones"
 
 #: scripts/inscripciones.js.php:43 scripts/inscripciones.js.php:84
-#: scripts/inscripciones.js.php:162 scripts/pruebas.js.php:155
-#: scripts/pruebas.js.php:177
+#: scripts/inscripciones.js.php:162 scripts/pruebas.js.php:176
+#: scripts/pruebas.js.php:198
 msgid "No selection"
 msgstr "No seleccionado"
 
@@ -3417,8 +3388,8 @@ msgstr "Editar datos del juez"
 msgid "Delete data on judge"
 msgstr "Borrar datos del juez"
 
-#: scripts/perros.js.php:55 scripts/perros.js.php:102
-#: scripts/perros.js.php:146 scripts/perros.js.php:166
+#: scripts/perros.js.php:55 scripts/perros.js.php:102 scripts/perros.js.php:146
+#: scripts/perros.js.php:166
 msgid "There is no selected dog"
 msgstr "No hay ning&uacute;n perro seleccionado"
 
@@ -3459,7 +3430,7 @@ msgstr "al gu&iacute;a"
 #: scripts/printer.js.php:140 scripts/printer.js.php:160
 #: scripts/printer.js.php:186 scripts/printer.js.php:322
 #: scripts/printer.js.php:356 scripts/printer.js.php:394
-#: scripts/printer.js.php:427
+#: scripts/printer.js.php:427 scripts/pruebas.js.php:160
 msgid "We are preparing your report, please wait"
 msgstr "Preparando el informe, por favor, espere"
 
@@ -3530,6 +3501,7 @@ msgid "Nueva Prueba"
 msgstr "Nueva Prueba"
 
 #: scripts/pruebas.js.php:86 scripts/pruebas.js.php:127
+#: scripts/pruebas.js.php:150
 msgid "There is no contest selected"
 msgstr "No hay ninguna prueba seleccionada"
 
@@ -3549,49 +3521,53 @@ msgstr ""
 msgid "Do you really want to delete this contest"
 msgstr "Realmente desea borrar esta prueba"
 
-#: scripts/pruebas.js.php:155 scripts/pruebas.js.php:177
+#: scripts/pruebas.js.php:150
+msgid "Export error"
+msgstr "Error al exportar"
+
+#: scripts/pruebas.js.php:176 scripts/pruebas.js.php:198
 msgid "There is no journey selected"
 msgstr "No se ha seleccionado ninguna jornada"
 
-#: scripts/pruebas.js.php:159 scripts/pruebas.js.php:181
+#: scripts/pruebas.js.php:180 scripts/pruebas.js.php:202
 msgid "Invalid selection"
 msgstr "Selecci&oacute;n inv&aacute;lida"
 
-#: scripts/pruebas.js.php:159
+#: scripts/pruebas.js.php:180
 msgid "Cannot edit a journey stated as closed"
 msgstr "No se puede modificar una jornada marcada como cerrada"
 
-#: scripts/pruebas.js.php:163
+#: scripts/pruebas.js.php:184
 msgid "Modify journey data"
 msgstr "Editar datos de de la jornada"
 
-#: scripts/pruebas.js.php:181
+#: scripts/pruebas.js.php:202
 msgid "Cannot close an already closed journey"
 msgstr "No se puede cerrar una jornada ya cerrada"
 
-#: scripts/pruebas.js.php:187
+#: scripts/pruebas.js.php:208
 msgid "Setting a journey as closed"
 msgstr "Marcando la jornada como cerrada"
 
-#: scripts/pruebas.js.php:188
+#: scripts/pruebas.js.php:209
 msgid "Youll be no longer able to edit,delete or modify,"
 msgstr "No ser&aacute; posible editar o borrar datos de esta"
 
-#: scripts/pruebas.js.php:189
+#: scripts/pruebas.js.php:210
 msgid "inscriptions or scores"
 msgstr "inscripciones o resultados"
 
-#: scripts/pruebas.js.php:190
+#: scripts/pruebas.js.php:211
 msgid "Continue?"
 msgstr "Realmente desea continuar?"
 
-#: scripts/pruebas.js.php:307
+#: scripts/pruebas.js.php:328
 msgid "KO, Open, or team rounds must be declared in a separate journey"
 msgstr ""
 "Una ronda KO, una prueba Open, o una prueba por equipos deben ser declaradas "
 "en una jornada aparte"
 
-#: scripts/pruebas.js.php:313
+#: scripts/pruebas.js.php:334
 msgid ""
 "You cannot add additional rounds when KO,Open or team rounds are already "
 "declared in a journey"
@@ -3694,11 +3670,11 @@ msgstr "Contrase&ntilde;a cambiada con &eacute;xito"
 msgid "Equipo"
 msgstr "Equipo"
 
-#: server/excel/common_writer.php:75
+#: server/excel/common_writer.php:76
 msgid "Program info"
 msgstr "Datos de la aplicaci&oacute;n"
 
-#: server/excel/common_writer.php:88
+#: server/excel/common_writer.php:89
 msgid "License Info"
 msgstr "Datos de Licencia"
 
@@ -3706,11 +3682,11 @@ msgstr "Datos de Licencia"
 msgid "Dog Listing"
 msgstr "Listado de perros"
 
-#: server/excel/inscription_writer.php:78
+#: server/excel/inscription_writer.php:78 server/excel/scores_writer.php:106
 msgid "Inscription List"
 msgstr "Listado de inscritos"
 
-#: server/pdf/print_clasificacion.php:98
+#: server/excel/scores_writer.php:116 server/pdf/print_clasificacion.php:98
 #: server/pdf/print_clasificacion.php:111
 #: server/pdf/print_clasificacion_eq3.php:174
 #: server/pdf/print_clasificacion_eq3.php:187
@@ -3723,7 +3699,7 @@ msgstr "Listado de inscritos"
 msgid "Dist"
 msgstr "Dist"
 
-#: server/pdf/print_clasificacion.php:99
+#: server/excel/scores_writer.php:116 server/pdf/print_clasificacion.php:99
 #: server/pdf/print_clasificacion.php:112
 #: server/pdf/print_clasificacion_eq3.php:175
 #: server/pdf/print_clasificacion_eq3.php:188
@@ -3736,7 +3712,7 @@ msgstr "Dist"
 msgid "Obst"
 msgstr "Obst"
 
-#: server/pdf/print_clasificacion.php:101
+#: server/excel/scores_writer.php:116 server/pdf/print_clasificacion.php:101
 #: server/pdf/print_clasificacion.php:114
 #: server/pdf/print_clasificacion_eq3.php:177
 #: server/pdf/print_clasificacion_eq3.php:190
@@ -3761,8 +3737,7 @@ msgstr "Obst"
 #: console/dialogs/dlg_resultados_eq4.inc:75
 #: console/dialogs/inforesultados.inc:46 console/dialogs/inforesultados.inc:54
 #: console/dialogs/inforesultados.inc:62 console/dialogs/inforesultados.inc:70
-#: console/dialogs/inforesultados.inc:97
-#: console/dialogs/inforesultados.inc:105
+#: console/dialogs/inforesultados.inc:97 console/dialogs/inforesultados.inc:105
 #: console/dialogs/inforesultados.inc:113
 #: console/dialogs/inforesultados.inc:121
 msgid "MCT"
@@ -3820,8 +3795,7 @@ msgstr "Flt"
 #: server/pdf/print_entradaDeDatosEquipos4.php:168
 #: server/pdf/print_trsTemplates.php:277 tablet/tablet_main.php:88
 #: videowall/vw_combinada.php:137 videowall/vw_parciales.php:131
-#: videowall/vwls_parciales.php:157
-#: console/dialogs/dlg_resultadosManga.inc:130
+#: videowall/vwls_parciales.php:157 console/dialogs/dlg_resultadosManga.inc:130
 #: console/dialogs/dlg_resultados_eq3.inc:136
 #: console/dialogs/dlg_resultados_eq4.inc:136
 msgid "Faults"
@@ -3836,8 +3810,7 @@ msgstr "Faltas"
 #: server/pdf/print_entradaDeDatosEquipos4.php:169
 #: server/pdf/print_trsTemplates.php:278 tablet/tablet_main.php:92
 #: videowall/vw_combinada.php:138 videowall/vw_parciales.php:132
-#: videowall/vwls_parciales.php:158
-#: console/dialogs/dlg_resultadosManga.inc:131
+#: videowall/vwls_parciales.php:158 console/dialogs/dlg_resultadosManga.inc:131
 #: console/dialogs/dlg_resultados_eq3.inc:137
 #: console/dialogs/dlg_resultados_eq4.inc:137
 msgid "Refusals"
@@ -3858,8 +3831,7 @@ msgstr "Copia licenciada para el club"
 #: server/pdf/print_entradaDeDatosEquipos4.php:170
 #: server/pdf/print_trsTemplates.php:279 tablet/tablet_main.php:90
 #: videowall/vw_combinada.php:139 videowall/vw_parciales.php:133
-#: videowall/vwls_parciales.php:159
-#: console/dialogs/dlg_resultadosManga.inc:132
+#: videowall/vwls_parciales.php:159 console/dialogs/dlg_resultadosManga.inc:132
 #: console/dialogs/dlg_resultados_eq3.inc:138
 #: console/dialogs/dlg_resultados_eq4.inc:138
 msgid "Touchs"
@@ -4663,8 +4635,7 @@ msgstr "para que los cambios se activen"
 msgid "Restore factory default values. Sure?"
 msgstr "Restaurar valores por defecto. ¿Seguro?"
 
-#: console/dialogs/dlg_editInscripcion.inc:36
-#: console/dialogs/dlg_perros.inc:26
+#: console/dialogs/dlg_editInscripcion.inc:36 console/dialogs/dlg_perros.inc:26
 msgid "Dog information"
 msgstr "Datos del perro"
 
