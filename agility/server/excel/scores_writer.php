@@ -173,6 +173,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
 				continue;
 			}
 			$pdata=$inscritos[$perro['Perro']];
+            $inscritos[$perro['Done']]=1;
 			// datos personales
 			$row[]=$perro['Dorsal'];
 			$row[]=$pdata['Nombre'];
@@ -212,6 +213,26 @@ class Excel_Clasificaciones extends XLSX_Writer {
 			// !!finaly!! add perro to excel table
 			$this->myWriter->addRow($row);
 		}
+        // por ultimo metemos las inscripciones que no tienen resultado asociado
+        foreach($inscritos as $pdata) {
+            if(array_key_exists('Done',$pdata)) continue; // already done
+            $row=array();
+            // datos personales
+            $row[]=$pdata['Dorsal'];
+            $row[]=$pdata['Nombre'];
+            $row[]=$pdata['NombreLargo'];
+            $row[]=$pdata['Genero'];
+            $row[]=$pdata['Raza'];
+            $row[]=$pdata['Licencia'];
+            $row[]=$pdata['LOE_RRC'];
+            $row[]=$pdata['Categoria'];
+            $row[]=$pdata['Grado'];
+            $row[]=$pdata['NombreGuia'];
+            $row[]=$pdata['NombreClub'];
+            $row[]=$pdata['Pais'];
+            // add perro without results to excel table
+            $this->myWriter->addRow($row);
+        }
     }
 
 	function composeTable() {
