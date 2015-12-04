@@ -42,29 +42,10 @@ class Excel_Clasificaciones extends XLSX_Writer {
 		'Dorsal',
 		'Name','Pedigree Name','Gender','Breed','License','KC id','Cat','Grad','Handler','Club','Country', // datos del perro
 		'Team','Heat','Comments', // datos de la inscripcion en la jornada
-		'F1','R1','T1','E1','N1','Tiempo1','Penal1', // datos de la manga 1
-		'F2','R2','T2','E2','N2','Tiempo2','Penal2', // datos de la manga 2
-		'F3','R3','T3','E3','N3','Tiempo3','Penal3', // datos de la manga 3
-		'F4','R4','T4','E4','N4','Tiempo4','Penal4', // datos de la manga 4
-		'F5','R5','T5','E5','N5','Tiempo5','Penal5', // datos de la manga 5
-		'F6','R6','T6','E6','N6','Tiempo6','Penal6', // datos de la manga 6
-		'F7','R7','T7','E7','N7','Tiempo7','Penal7', // datos de la manga 7
-		'F8','R8','T8','E8','N8','Tiempo8','Penal8', // datos de la manga 8
-		'Tiempo','Penalizacion'
-	);
-    protected $fields = array(
-		'Dorsal',
-		'Nombre','NombreLargo','Genero','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Pais', // datos del perro
-		'Equipo','Celo','Observaciones', // datos de la inscripcion en la jornada
-		'F1','R1','T1','E1','N1','Tiempo1','Penal1', // datos de la manga 1
-		'F2','R2','T2','E2','N2','Tiempo2','Penal2', // datos de la manga 2
-		'F3','R3','T3','E3','N3','Tiempo3','Penal3', // datos de la manga 3
-		'F4','R4','T4','E4','N4','Tiempo4','Penal4', // datos de la manga 4
-		'F5','R5','T5','E5','N5','Tiempo5','Penal5', // datos de la manga 5
-		'F6','R6','T6','E6','N6','Tiempo6','Penal6', // datos de la manga 6
-		'F7','R7','T7','E7','N7','Tiempo7','Penal7', // datos de la manga 7
-		'F8','R8','T8','E8','N8','Tiempo8','Penal8', // datos de la manga 8
-		'Tiempo','Penalizacion'
+		'F1','R1','E1','N1','Tiempo1','Penal1', // datos de la manga 1
+		'F2','R2','E2','N2','Tiempo2','Penal2', // datos de la manga 2
+		// TODO: handle series with more than 2 rounds
+		'Time','Penalizacion','Calification'
 	);
 
 	/**
@@ -113,16 +94,17 @@ class Excel_Clasificaciones extends XLSX_Writer {
         $jdatapage=$this->myWriter->addNewSheetAndMakeItCurrent();
         $name=$this->normalizeSheetName("Info ".$jornada['Nombre']);
         $jdatapage->setName($name);
-        $hdr=array(_('Round'),_('Dist'),_('Obst'),_('SCT'),_('MCT'),_('Vel'),_('Judge')." 1",_('Judge')." 2");
+        $hdr=array(_('Type'),_('Round'),_('Dist'),_('Obst'),_('SCT'),_('MCT'),_('Vel'),_('Judge')." 1",_('Judge')." 2");
         $this->myWriter->addRowWithStyle($hdr,$this->rowHeaderStyle);
         // por cada manga buscamos el nombre, tipo y datos de trs/trm
         // obtenemos la lista de mangas de la jornada
         $res=Jornadas::enumerateMangasByJornada($jornada['ID'])['rows'];
         foreach($res as $manga) {
-            $res=new Resultados("excel_Clasificicaciones",$this->prueba['ID'],$manga['Manga']);
+            $results=new Resultados("excel_Clasificicaciones",$this->prueba['ID'],$manga['Manga']);
             $row=array();
-            array_push($row,$manga['Nombre']); // nombre de la manga
-            $resultados=$res->getResultados($manga['Mode']);
+			array_push($row,$manga['TipoManga']); // tipo de manga
+			array_push($row,$manga['Nombre']); // nombre de la manga
+            $resultados=$results->getResultados($manga['Mode']);
             $trs=$resultados['trs'];
             array_push($row,$trs['dist']);
             array_push($row,$trs['obst']);
@@ -139,25 +121,97 @@ class Excel_Clasificaciones extends XLSX_Writer {
      * Pagina de resultados de la jornada ordenados por grado/categoría/puesto
      */
     function createJornadaDataPage($jornada,$insc) {
+		// create Excel sheet
         $jdatapage=$this->myWriter->addNewSheetAndMakeItCurrent();
         $name=$this->normalizeSheetName("Data ".$jornada['Nombre']);
         $jdatapage->setName($name);
-        // write header
+        // write table header
         $this->writeTableHeader();
-        $res=$insc->inscritosByJornada($jornada['ID'],false);
-        $lista=$res['rows'];
-        $eq=new Equipos("excel_Clasificaciones",$this->prueba['ID'],$jornada['ID']);
-        foreach($lista as $perro) {
-            // add team information
-            $perro['Equipo']=$eq->getTeamByPerro($perro['Perro'])['Nombre'];
-            $row=array();
-            // extract relevant information from database received dog
-            for($n=0;$n<count($this->fields);$n++) {
-                if (array_key_exists($this->fields[$n],$perro)) array_push($row,$perro[$this->fields[$n]]);
-                else array_push($row,"");
-            }
-            $this->myWriter->addRow($row);
-        }
+		$rondas=Jornadas::enumerateRondasByJornada($jornada['ID'])['rows'];
+
+		// obtenemos los datos "personales" de los perros de la jornada
+		$lista=$insc->inscritosByJornada($jornada['ID'],false)['rows'];
+		$eq=new Equipos("excel_printInscripciones",$this->prueba['ID'],$jornada['ID']);
+		$inscritos=array();
+		foreach($lista as $perro) {
+			// add team information
+			$perro['Equipo']=$eq->getTeamByPerro($perro['Perro'])['Nombre'];
+			$row=array();
+			// reindexamos las inscripciones por el PerroID
+			$inscritos[$perro['Perro']]=$perro;
+		}
+
+		// obtenemos todas las clasificaciones de la jornada
+		$clas=new Clasificaciones("excel_Clasificaciones",$this->prueba['ID'],$jornada['ID']);
+		$results=array();
+		foreach ($rondas as $ronda) {
+			$mangas=array($ronda['Manga1'],$ronda['Manga2']);
+			$clasifRonda=$clas->clasificacionFinal($ronda['Rondas'],$mangas,$ronda['Mode']);
+			$results=array_merge($results,$clasifRonda['rows']);
+		}
+		// OK ya tenemos los datos de toda la jornada; ahora a ordenar por grado,categoría y puesto
+		usort($results,function($a,$b){
+			$res=strcmp($a['Grado'],$b['Grado']); if ($res!=0) return $res;
+			$res=strcmp($a['Categoria'],$b['Categoria']); if($res!=0) return $res;
+			return ($a['Puesto']>$b['Puesto'])?1:-1;
+		});
+
+		// componemos la fila Excel anyiadiendo datos personales
+		//
+		// 'Dorsal',
+		// 'Nombre','NombreLargo','Genero','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Pais', // datos del perro
+		// 'Equipo','Celo','Observaciones', // datos de la inscripcion en la jornada
+		// 'F1','R1','E1','N1','Tiempo1','Penal1', // datos de la manga 1
+		// 'F2','R2','E2','N2','Tiempo2','Penal2', // datos de la manga 2
+		//  // TODO: handle series with more than 2 rounds
+		// 'Tiempo','Penalizacion','Calificacion'
+		foreach($results as $perro) {
+			$row=array();
+			// si el perro no esta en la lista de inscritos, marca error e ignora entrada
+			if (!array_key_exists($perro['Perro'],$inscritos)) {
+				$this->myLogger->error("Encontrada Clasificacion para perro no inscrito:".$perro['Perro']);
+				continue;
+			}
+			$pdata=$inscritos[$perro['Perro']];
+			// datos personales
+			$row[]=$perro['Dorsal'];
+			$row[]=$pdata['Nombre'];
+			$row[]=$pdata['NombreLargo'];
+			$row[]=$pdata['Genero'];
+			$row[]=$pdata['Raza'];
+			$row[]=$pdata['Licencia'];
+			$row[]=$pdata['LOE_RRC'];
+			$row[]=$pdata['Categoria'];
+			$row[]=$pdata['Grado'];
+			$row[]=$pdata['NombreGuia'];
+			$row[]=$pdata['NombreClub'];
+			$row[]=$pdata['Pais'];
+			// Datos de la inscripcion
+			$row[]=$pdata['Equipo'];
+			$row[]=$pdata['Celo'];
+			$row[]=$pdata['Observaciones'];
+			// resultados manga 1
+			$row[]=$perro['F1']; // Manga 1: faltas + tocados
+			$row[]=$perro['R1']; // Manga 1: rehuses
+			$row[]=$perro['E1']; // Manga 1: eliminado
+			$row[]=$perro['N1']; // manga 1: no presentado
+			$row[]=$perro['T1']; // manga 1: tiempo
+			$row[]=$perro['P1']; // manga 1: penalizacion
+			// resultados manga 2
+			$row[]=$perro['F2']; // Manga 2: faltas + tocados
+			$row[]=$perro['R2']; // Manga 2: rehuses
+			$row[]=$perro['E2']; // Manga 2: eliminado
+			$row[]=$perro['N2']; // manga 2: no presentado
+			$row[]=$perro['T2']; // manga 2: tiempo
+			$row[]=$perro['P2']; // manga 2: penalizacion
+			// datos globales de clasificacion
+			$row[]=$perro['Tiempo'];
+			$row[]=$perro['Penalizacion'];
+			$row[]=$perro['Calificacion'];
+
+			// !!finaly!! add perro to excel table
+			$this->myWriter->addRow($row);
+		}
     }
 
 	function composeTable() {

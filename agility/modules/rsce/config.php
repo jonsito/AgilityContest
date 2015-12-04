@@ -85,7 +85,9 @@ class RSCE extends Federations {
             return;
         }
         if ($grad==="GII") { // grado dos puntua normalmente
-            $perro['Calificacion'] = ($perro['Penalizacion'] == 0.0) ? 'Punto' : '';
+            $perro['Calificacion']="";
+            if ( ($perro['P1']<6.0) && ($perro['P2']<6.0) ) $perro['Calificacion']= 'P. Equipos';
+            if ($perro['Penalizacion']==0.0) $perro['Calificacion']= 'Punto';
             return;
         }
         if ($grad!=="GIII") {
@@ -93,7 +95,9 @@ class RSCE extends Federations {
         }
         // arriving here means grado III
         if ($p->Selectiva==0){
-            $perro['Calificacion'] = ($perro['Penalizacion']==0.0)?'Punto':'';
+            $perro['Calificacion']="";
+            if ( ($perro['P1']<6.0) && ($perro['P2']<6.0) ) $perro['Calificacion']= 'P. Equipos';
+            if ($perro['Penalizacion']==0.0) $perro['Calificacion']= 'Punto';
             return;
         }
         // arriving here means prueba selectiva and Grado III
