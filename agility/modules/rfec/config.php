@@ -20,10 +20,10 @@ class RFEC extends Federations {
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',
                 'Baja' => 'Baja temporal',
-                'GI' => 'Iniciacion',
-                'GII'=> 'Competicion',
+                'GI' => '1-Promocion',
+                'GII'=> '2-Competicion',
                 'GIII' => 'Grado III', // no existe
-                'P.A.' => 'Promocion',
+                'P.A.' => '0-Iniciacion',
                 'P.B.' => 'Perro en Blanco',
                 'Ret.' => 'Retirado',
             ),
