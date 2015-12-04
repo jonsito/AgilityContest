@@ -65,8 +65,12 @@ class XLSX_Writer {
             $this->myWriter->addRowWithStyle([ _utf("Journey").":",$this->jornada['Nombre']], $this->rowHeaderStyle);
         if ($federation>=0) {
             $fed=Federations::getFederation(intval($federation));
-            if ($fed==null) $this->myLogger->trace("Invalid federation ID:$federation");
-            $this->myWriter->addRowWithStyle([ _utf("Federation").":",$fed->get('Name')], $this->rowHeaderStyle);
+            if ($fed==null) {
+                $this->myLogger->trace("Invalid federation ID:$federation");
+            } else {
+                $this->myWriter->addRowWithStyle([ _utf("Federation").":",$fed->get('Name')], $this->rowHeaderStyle);
+                $this->federation=$fed;
+            }
         }
 
         // informacion de la aplicacion
@@ -104,6 +108,44 @@ class XLSX_Writer {
         $ppage=$this->myWriter->addNewSheetAndMakeItCurrent();
         $name=$this->normalizeSheetName($prueba['Nombre']);
         $ppage->setName($name);
+
+        // cabecera de la tabla
+        $prbHdr=array("",_utf('Name'),_utf('Club'),_utf('Federation'),_utf('Selective'),_utf('Comments'));
+        $this->myWriter->addRowWithStyle($prbHdr, $this->rowHeaderStyle);
+        // componemos informacion de la prueba
+        $row=array();
+        $row[]=_utf('Contest').':';
+        $row[]= $prueba['Nombre'];
+        // extract club info
+        $clbObj= new Clubes("common_writer");
+        $club=$clbObj->selectByID($prueba['Club']);
+        $row[]=$club['Nombre'];
+        // extract federation info
+        $row[]=$this->federation->get('Name');
+        // add extra parameters
+        $row[]=$prueba['Selectiva'];
+        $row[]=$prueba['Observaciones'];
+        // and print Prueba data
+        $this->myWriter->addRow($row);
+
+        // anyadimos ahora informacion de las jornadas
+        $this->myWriter->addRow(array(""));
+        $jrdHdr=array("",_utf('Name'),_utf('Date'),_utf('Time'),_utf('Closed'),"" /*_utf('Special round')*/);
+        $this->myWriter->addRowWithStyle($jrdHdr, $this->rowHeaderStyle);
+        foreach ($jornadas as $jornada) {
+            if ($jornada['Nombre']==='-- Sin asignar --') continue; // skip empty journeys
+            $row=array();
+            $row[]=_utf('Journey').": ".$jornada['Numero'];
+            $row[]=$jornada['Nombre'];
+            $row[]=$jornada['Fecha'];
+            $row[]=$jornada['Hora'];
+            $row[]=$jornada['Cerrada'];
+            if ( ($jornada['Observaciones']!=null) && ($jornada['Observaciones']!=="(sin especificar)")){
+                $row[]=$jornada['Observaciones']; // add name for special rounds
+            }
+            $this->myWriter->addRow($row);
+        }
+
     }
 
     function close() {

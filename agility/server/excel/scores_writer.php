@@ -84,7 +84,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
 	}
 
 	function createInfoPage(){
-		parent::createInfoPage(_utf('Inscription List'),$this->prueba['RSCE']);
+		parent::createInfoPage(_utf('Scores'),$this->prueba['RSCE']);
 	}
 
     /**

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2015-12-03 15:19+0100\n"
-"PO-Revision-Date: 2015-12-04 08:53+0100\n"
+"POT-Creation-Date: 2015-12-04 13:57+0100\n"
+"PO-Revision-Date: 2015-12-04 13:57+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -51,7 +51,7 @@ msgstr "R"
 #: chrono/chrono.inc.php:61 console/frm_equipos.php:219
 #: console/frm_inscripciones2.php:190 public/pb_inscripciones.php:91
 #: public/pb_inscripciones_equipos.php:147 public/pb_ordensalida.php:151
-#: public/pb_parciales.php:162 public/pb_parciales_eq3.php:165
+#: public/pb_parciales.php:161 public/pb_parciales_eq3.php:164
 #: scripts/competicion.js.php:1102 scripts/printer.js.php:211
 #: server/pdf/print_clasificacion.php:162
 #: server/pdf/print_clasificacion_eq3.php:269
@@ -86,8 +86,8 @@ msgstr "Perro"
 #: console/frm_equipos.php:224 console/frm_inscripciones2.php:195
 #: public/pb_finales.php:90 public/pb_finales_eq3.php:91
 #: public/pb_inscripciones.php:98 public/pb_inscripciones_equipos.php:154
-#: public/pb_ordensalida.php:155 public/pb_parciales.php:166
-#: public/pb_parciales_eq3.php:169 scripts/competicion.js.php:1102
+#: public/pb_ordensalida.php:155 public/pb_parciales.php:165
+#: public/pb_parciales_eq3.php:168 scripts/competicion.js.php:1102
 #: scripts/printer.js.php:211 server/pdf/print_clasificacion.php:170
 #: server/pdf/print_clasificacion_eq3.php:273
 #: server/pdf/print_clasificacion_excel.php:161
@@ -125,8 +125,9 @@ msgstr "Gu&iacute;a"
 #: index.php:200 modules/Federations.php:129 public/pb_finales.php:91
 #: public/pb_finales_eq3.php:92 public/pb_inscripciones.php:99
 #: public/pb_inscripciones_equipos.php:155 public/pb_ordensalida.php:156
-#: public/pb_parciales.php:167 public/pb_parciales_eq3.php:170
-#: scripts/competicion.js.php:1102 server/pdf/print_clasificacion_excel.php:101
+#: public/pb_parciales.php:166 public/pb_parciales_eq3.php:169
+#: scripts/competicion.js.php:1102 server/excel/common_writer.php:113
+#: server/pdf/print_clasificacion_excel.php:101
 #: server/pdf/print_clasificacion_excel.php:162 server/pdf/print_common.php:90
 #: server/pdf/print_listaPerros.php:60 tablet/index.php:222
 #: tablet/tablet_main.php:80 tablet/tablet_main.php:263
@@ -164,7 +165,7 @@ msgstr "Categor&iacute;a"
 #: console/frm_inscripciones2.php:194 console/frm_paises.php:225
 #: console/frm_perros.php:104 public/pb_inscripciones.php:97
 #: public/pb_inscripciones_equipos.php:153 public/pb_ordensalida.php:158
-#: public/pb_parciales.php:169 server/pdf/print_clasificacion_excel.php:160
+#: public/pb_parciales.php:168 server/pdf/print_clasificacion_excel.php:160
 #: server/pdf/print_inscritosByPrueba.php:125
 #: server/pdf/print_resultadosByManga.php:61
 #: server/pdf/print_trsTemplates.php:81 tablet/tablet_main.php:84
@@ -207,14 +208,14 @@ msgstr "Copia registrada para el club"
 msgid "Course walk"
 msgstr "Reconocimiento de pista"
 
-#: chrono/chrono.inc.php:87 public/pb_parciales.php:170
-#: public/pb_parciales_eq3.php:173 tablet/tablet_main.php:49
+#: chrono/chrono.inc.php:87 public/pb_parciales.php:169
+#: public/pb_parciales_eq3.php:172 tablet/tablet_main.php:49
 #: tablet/tablet_main.php:50
 msgid "Fault"
 msgstr "Falta"
 
-#: chrono/chrono.inc.php:89 public/pb_parciales.php:171
-#: public/pb_parciales_eq3.php:174 tablet/tablet_main.php:51
+#: chrono/chrono.inc.php:89 public/pb_parciales.php:170
+#: public/pb_parciales_eq3.php:173 tablet/tablet_main.php:51
 #: tablet/tablet_main.php:52
 msgid "Refusal"
 msgstr "Reh&uacute;se"
@@ -336,7 +337,7 @@ msgstr "Gu&iacute;a"
 #: public/pb_finales_eq3.php:90 public/pb_inscripciones.php:96
 #: public/pb_inscripciones_equipos.php:87
 #: public/pb_inscripciones_equipos.php:152 public/pb_ordensalida.php:157
-#: public/pb_parciales.php:168 public/pb_parciales_eq3.php:171
+#: public/pb_parciales.php:167 public/pb_parciales_eq3.php:170
 #: server/pdf/print_clasificacion.php:168
 #: server/pdf/print_clasificacion_eq3.php:272
 #: server/pdf/print_inscritosByPrueba.php:125
@@ -423,8 +424,9 @@ msgstr "Trabajar con el ring seleccionado"
 #: console/frm_registration.php:48 index.php:198 index.php:231
 #: public/pb_finales.php:86 public/pb_finales_eq3.php:88
 #: public/pb_inscripciones.php:93 public/pb_inscripciones_equipos.php:149
-#: public/pb_ordensalida.php:152 public/pb_parciales.php:165
-#: public/pb_parciales_eq3.php:168 server/pdf/print_clasificacion.php:163
+#: public/pb_ordensalida.php:152 public/pb_parciales.php:164
+#: public/pb_parciales_eq3.php:167 server/excel/common_writer.php:113
+#: server/excel/common_writer.php:133 server/pdf/print_clasificacion.php:163
 #: server/pdf/print_clasificacion_eq3.php:270
 #: server/pdf/print_clasificacion_excel.php:157
 #: server/pdf/print_entradaDeDatos.php:149
@@ -473,7 +475,7 @@ msgstr "Nombre"
 #: console/frm_pruebas.php:151 index.php:231
 #: public/pb_inscripciones_equipos.php:88
 #: public/pb_inscripciones_equipos.php:157 public/pb_programa.php:102
-#: server/pdf/print_entradaDeDatos.php:226
+#: server/excel/common_writer.php:113 server/pdf/print_entradaDeDatos.php:226
 #: server/pdf/print_entradaDeDatos.php:306
 #: server/pdf/print_equiposByJornada.php:84
 #: server/pdf/print_inscritosByPrueba.php:597
@@ -503,7 +505,7 @@ msgstr "Debe seleccionar un ring v&aacute;lido"
 #: public/pb_parciales.php:49 public/pb_parciales.php:50
 #: public/pb_parciales_eq3.php:49 public/pb_parciales_eq3.php:50
 #: public/public.js.php:159 public/public.js.php:160 public/public.js.php:202
-#: public/public.js.php:203 server/excel/scores_writer.php:116
+#: public/public.js.php:203 server/excel/scores_writer.php:97
 #: server/pdf/print_clasificacion.php:86 server/pdf/print_clasificacion.php:89
 #: server/pdf/print_clasificacion_eq3.php:162
 #: server/pdf/print_clasificacion_eq3.php:165
@@ -533,7 +535,7 @@ msgstr "Recorridos"
 #: public/pb_finales.php:62 public/pb_finales_eq3.php:54
 #: public/pb_finales_eq3.php:62 public/pb_parciales.php:56
 #: public/pb_parciales_eq3.php:56 public/public.js.php:162
-#: public/public.js.php:206 public/public.js.php:213
+#: public/public.js.php:206 public/public.js.php:221
 #: server/pdf/print_resultadosByEquipos.php:108
 #: server/pdf/print_resultadosByEquipos4.php:98
 #: console/dialogs/dlg_resultadosManga.inc:45
@@ -560,7 +562,7 @@ msgstr "Distancia"
 #: public/pb_finales.php:63 public/pb_finales_eq3.php:55
 #: public/pb_finales_eq3.php:63 public/pb_parciales.php:57
 #: public/pb_parciales_eq3.php:57 public/public.js.php:163
-#: public/public.js.php:207 public/public.js.php:214
+#: public/public.js.php:207 public/public.js.php:222
 #: server/pdf/print_resultadosByEquipos.php:110
 #: server/pdf/print_resultadosByEquipos4.php:100
 #: console/dialogs/dlg_resultadosManga.inc:46
@@ -620,7 +622,7 @@ msgstr "TRM fijo"
 
 #: console/dialogs/infomanga.php:121 console/dialogs/infomanga.php:174
 #: console/dialogs/infomanga.php:228 console/dialogs/infomanga.php:284
-#: server/excel/scores_writer.php:116 server/pdf/print_clasificacion.php:100
+#: server/excel/scores_writer.php:97 server/pdf/print_clasificacion.php:100
 #: server/pdf/print_clasificacion.php:113
 #: server/pdf/print_clasificacion_eq3.php:176
 #: server/pdf/print_clasificacion_eq3.php:189
@@ -749,7 +751,8 @@ msgstr "Versi&oacute;n"
 
 #: console/frm_about.php:29 console/frm_clasificaciones2.php:45
 #: console/frm_clasificaciones_eq3.php:45 console/frm_inscripciones2.php:134
-#: console/frm_pruebas.php:152 server/pdf/print_clasificacion.php:95
+#: console/frm_pruebas.php:152 server/excel/common_writer.php:133
+#: server/pdf/print_clasificacion.php:95
 #: server/pdf/print_clasificacion_eq3.php:171
 #: server/pdf/print_clasificacion_eq4.php:175
 #: server/pdf/print_clasificacion_excel.php:105 server/pdf/print_podium.php:80
@@ -943,7 +946,7 @@ msgstr "Resultados y Clasificaciones"
 
 #: console/frm_clasificaciones.php:48 console/frm_clasificaciones2.php:129
 #: console/frm_clasificaciones_eq3.php:129 console/index.php:194
-#: server/pdf/print_clasificacion.php:158
+#: server/excel/scores_writer.php:87 server/pdf/print_clasificacion.php:158
 #: server/pdf/print_clasificacion_excel.php:153
 msgid "Scores"
 msgstr "Clasificaciones"
@@ -966,7 +969,8 @@ msgstr "Club anfitri&oacute;n"
 #: console/frm_clasificaciones2.php:41 console/frm_clasificaciones_eq3.php:41
 #: index.php:157 public/public.js.php:54 scripts/competicion.js.php:918
 #: scripts/equipos.js.php:73 scripts/equipos.js.php:126
-#: server/excel/common_writer.php:65 server/pdf/print_clasificacion.php:84
+#: server/excel/common_writer.php:65 server/excel/common_writer.php:138
+#: server/pdf/print_clasificacion.php:84
 #: server/pdf/print_clasificacion_eq3.php:160
 #: server/pdf/print_clasificacion_eq4.php:164
 #: server/pdf/print_clasificacion_excel.php:103
@@ -983,7 +987,7 @@ msgstr "Jornada"
 #: console/frm_clasificaciones_eq3.php:74 public/pb_finales.php:76
 #: public/pb_finales.php:77 public/pb_finales_eq3.php:76
 #: public/pb_finales_eq3.php:77 public/pb_parciales.php:41
-#: public/pb_parciales_eq3.php:41 server/excel/scores_writer.php:116
+#: public/pb_parciales_eq3.php:41 server/excel/scores_writer.php:97
 #: server/pdf/print_clasificacion.php:108
 #: server/pdf/print_clasificacion_eq3.php:184
 #: server/pdf/print_clasificacion_eq3.php:299
@@ -1056,8 +1060,8 @@ msgstr "Tmp"
 #: console/frm_clasificaciones_eq3.php:91
 #: console/frm_clasificaciones_eq3.php:97 public/pb_finales.php:95
 #: public/pb_finales.php:101 public/pb_finales_eq3.php:96
-#: public/pb_finales_eq3.php:102 public/pb_parciales.php:176
-#: public/pb_parciales_eq3.php:179 server/excel/scores_writer.php:116
+#: public/pb_finales_eq3.php:102 public/pb_parciales.php:175
+#: public/pb_parciales_eq3.php:178 server/excel/scores_writer.php:97
 #: server/pdf/print_clasificacion.php:102
 #: server/pdf/print_clasificacion.php:115
 #: server/pdf/print_clasificacion.php:176
@@ -1101,8 +1105,8 @@ msgstr "Vel"
 #: console/frm_clasificaciones_eq3.php:92
 #: console/frm_clasificaciones_eq3.php:98 public/pb_finales.php:96
 #: public/pb_finales.php:102 public/pb_finales_eq3.php:97
-#: public/pb_finales_eq3.php:103 public/pb_parciales.php:177
-#: public/pb_parciales_eq3.php:180 scripts/competicion.js.php:142
+#: public/pb_finales_eq3.php:103 public/pb_parciales.php:176
+#: public/pb_parciales_eq3.php:179 scripts/competicion.js.php:142
 #: scripts/competicion.js.php:190 scripts/competicion.js.php:231
 #: server/pdf/print_clasificacion.php:177
 #: server/pdf/print_clasificacion.php:185
@@ -1129,10 +1133,10 @@ msgstr "Cal"
 #: console/frm_inscripciones2.php:135 console/frm_pruebas.php:153
 #: public/pb_finales.php:94 public/pb_finales.php:100 public/pb_finales.php:104
 #: public/pb_finales_eq3.php:95 public/pb_finales_eq3.php:101
-#: public/pb_finales_eq3.php:105 public/pb_parciales.php:174
-#: public/pb_parciales_eq3.php:177 scripts/competicion.js.php:141
+#: public/pb_finales_eq3.php:105 public/pb_parciales.php:173
+#: public/pb_parciales_eq3.php:176 scripts/competicion.js.php:141
 #: scripts/competicion.js.php:190 scripts/competicion.js.php:231
-#: server/pdf/print_clasificacion.php:175
+#: server/excel/common_writer.php:133 server/pdf/print_clasificacion.php:175
 #: server/pdf/print_clasificacion.php:183
 #: server/pdf/print_clasificacion.php:191
 #: server/pdf/print_clasificacion_eq3.php:278
@@ -1283,7 +1287,7 @@ msgid "Comma separated list of dorsals to be printed"
 msgstr "Lista de dorsales a imprimir separada por comas"
 
 #: console/frm_clasificaciones2.php:242 console/frm_clasificaciones_eq3.php:242
-#: public/pb_finales.php:191 public/pb_finales_eq3.php:190
+#: public/pb_finales.php:190 public/pb_finales_eq3.php:189
 #: console/dialogs/dlg_resultadosManga.inc:114
 #: console/dialogs/dlg_resultados_eq3.inc:114
 #: console/dialogs/dlg_resultados_eq4.inc:114
@@ -1437,7 +1441,7 @@ msgstr "LOE/RRC"
 
 #: console/frm_clubes.php:263 console/frm_guias.php:153
 #: console/frm_paises.php:228 public/pb_ordensalida.php:154
-#: public/pb_parciales.php:164 public/pb_parciales_eq3.php:167
+#: public/pb_parciales.php:163 public/pb_parciales_eq3.php:166
 #: server/pdf/print_clasificacion_excel.php:158
 #: server/pdf/print_entradaDeDatos.php:222
 #: server/pdf/print_entradaDeDatos.php:303
@@ -1808,7 +1812,7 @@ msgid "Special"
 msgstr "Especial"
 
 #: console/frm_inscripciones2.php:146 console/frm_pruebas.php:100
-#: console/frm_pruebas.php:165
+#: console/frm_pruebas.php:165 server/excel/common_writer.php:133
 msgid "Closed"
 msgstr "Cerrada"
 
@@ -1926,7 +1930,8 @@ msgid "User name"
 msgstr "Nombre de usuario"
 
 #: console/frm_login.php:50 console/frm_pruebas.php:98
-#: server/excel/common_writer.php:69 console/dialogs/dlg_pruebas.inc:41
+#: server/excel/common_writer.php:71 server/excel/common_writer.php:113
+#: console/dialogs/dlg_pruebas.inc:41
 msgid "Federation"
 msgstr "Federaci&oacute;n"
 
@@ -2157,7 +2162,8 @@ msgstr "URL del tr&iacute;ptico"
 msgid "Brochure URL"
 msgstr "URL del cartel"
 
-#: console/frm_pruebas.php:99 console/dialogs/dlg_pruebas.inc:44
+#: console/frm_pruebas.php:99 server/excel/common_writer.php:113
+#: console/dialogs/dlg_pruebas.inc:44
 msgid "Selective"
 msgstr "Selectiva"
 
@@ -2367,6 +2373,7 @@ msgid "About"
 msgstr "Acerca de"
 
 #: index.php:153 public/public.js.php:54 server/excel/common_writer.php:63
+#: server/excel/common_writer.php:117
 #: server/pdf/print_clasificacion_excel.php:99 tablet/index.php:152
 #: videowall/videowall.js.php:103
 msgid "Contest"
@@ -2541,21 +2548,21 @@ msgstr "Datos de la manga"
 #: public/pb_finales.php:56 public/pb_finales.php:64
 #: public/pb_finales_eq3.php:56 public/pb_finales_eq3.php:64
 #: public/pb_parciales.php:58 public/pb_parciales_eq3.php:58
-#: public/public.js.php:164 public/public.js.php:208 public/public.js.php:215
+#: public/public.js.php:164 public/public.js.php:208 public/public.js.php:223
 msgid "Standard C. Time"
 msgstr "T. R. Standard"
 
 #: public/pb_finales.php:57 public/pb_finales.php:65
 #: public/pb_finales_eq3.php:57 public/pb_finales_eq3.php:65
 #: public/pb_parciales.php:59 public/pb_parciales_eq3.php:59
-#: public/public.js.php:165 public/public.js.php:209 public/public.js.php:216
+#: public/public.js.php:165 public/public.js.php:209 public/public.js.php:224
 msgid "Maximum C. Time"
 msgstr "T. R. M&aacute;ximo"
 
 #: public/pb_finales.php:58 public/pb_finales.php:66
 #: public/pb_finales_eq3.php:58 public/pb_finales_eq3.php:66
 #: public/pb_parciales.php:60 public/pb_parciales_eq3.php:60
-#: public/public.js.php:166 public/public.js.php:210 public/public.js.php:217
+#: public/public.js.php:166 public/public.js.php:210 public/public.js.php:225
 #: server/pdf/print_clasificacion_excel.php:166
 #: server/pdf/print_clasificacion_excel.php:172
 #: server/pdf/print_resultadosByEquipos.php:116
@@ -2571,7 +2578,7 @@ msgid "Competitor data"
 msgstr "Datos del participante"
 
 #: public/pb_finales.php:107 public/pb_finales_eq3.php:108
-#: public/pb_parciales.php:179 public/pb_parciales_eq3.php:182
+#: public/pb_parciales.php:178 public/pb_parciales_eq3.php:181
 #: server/pdf/print_clasificacion.php:194
 #: server/pdf/print_clasificacion_eq3.php:297
 #: server/pdf/print_clasificacion_excel.php:178 server/pdf/print_podium.php:134
@@ -2623,16 +2630,16 @@ msgstr "Datos de la manga"
 msgid "Update partial scores table"
 msgstr "Actualizar resultados parciales"
 
-#: public/pb_parciales.php:147 public/pb_parciales_eq3.php:150
+#: public/pb_parciales.php:146 public/pb_parciales_eq3.php:149
 msgid "Updating partial scores"
 msgstr "Actualizando resultados de la manga"
 
-#: public/pb_parciales.php:172 public/pb_parciales_eq3.php:175
+#: public/pb_parciales.php:171 public/pb_parciales_eq3.php:174
 #: tablet/tablet_main.php:53 tablet/tablet_main.php:54
 msgid "Touch"
 msgstr "Tocado"
 
-#: public/pb_parciales.php:178 public/pb_parciales_eq3.php:181
+#: public/pb_parciales.php:177 public/pb_parciales_eq3.php:180
 #: server/pdf/print_resultadosByEquipos.php:84
 #: server/pdf/print_resultadosByManga.php:63 videowall/vw_combinada.php:145
 #: videowall/vw_parciales.php:139 videowall/vwls_parciales.php:165
@@ -3670,11 +3677,11 @@ msgstr "Contrase&ntilde;a cambiada con &eacute;xito"
 msgid "Equipo"
 msgstr "Equipo"
 
-#: server/excel/common_writer.php:76
+#: server/excel/common_writer.php:80
 msgid "Program info"
 msgstr "Datos de la aplicaci&oacute;n"
 
-#: server/excel/common_writer.php:89
+#: server/excel/common_writer.php:93
 msgid "License Info"
 msgstr "Datos de Licencia"
 
@@ -3682,11 +3689,15 @@ msgstr "Datos de Licencia"
 msgid "Dog Listing"
 msgstr "Listado de perros"
 
-#: server/excel/inscription_writer.php:78 server/excel/scores_writer.php:106
+#: server/excel/inscription_writer.php:78
 msgid "Inscription List"
 msgstr "Listado de inscritos"
 
-#: server/excel/scores_writer.php:116 server/pdf/print_clasificacion.php:98
+#: server/excel/scores_writer.php:97
+msgid "Type"
+msgstr "Tipo"
+
+#: server/excel/scores_writer.php:97 server/pdf/print_clasificacion.php:98
 #: server/pdf/print_clasificacion.php:111
 #: server/pdf/print_clasificacion_eq3.php:174
 #: server/pdf/print_clasificacion_eq3.php:187
@@ -3699,7 +3710,7 @@ msgstr "Listado de inscritos"
 msgid "Dist"
 msgstr "Dist"
 
-#: server/excel/scores_writer.php:116 server/pdf/print_clasificacion.php:99
+#: server/excel/scores_writer.php:97 server/pdf/print_clasificacion.php:99
 #: server/pdf/print_clasificacion.php:112
 #: server/pdf/print_clasificacion_eq3.php:175
 #: server/pdf/print_clasificacion_eq3.php:188
@@ -3712,7 +3723,7 @@ msgstr "Dist"
 msgid "Obst"
 msgstr "Obst"
 
-#: server/excel/scores_writer.php:116 server/pdf/print_clasificacion.php:101
+#: server/excel/scores_writer.php:97 server/pdf/print_clasificacion.php:101
 #: server/pdf/print_clasificacion.php:114
 #: server/pdf/print_clasificacion_eq3.php:177
 #: server/pdf/print_clasificacion_eq3.php:190
