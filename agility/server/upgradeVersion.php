@@ -78,7 +78,7 @@ class Updater {
     }
 
     function addColumnUnlessExists($table,$field,$data,$def=null) {
-        $this->myLogger->enter();
+        // $this->myLogger->enter();
         $str="";
         if ($def!=null) {
             // check for enclose default into single quotes
@@ -110,7 +110,7 @@ class Updater {
         $this->conn->query($drop);
         $this->conn->query($create);
         $this->conn->query($call);
-        $this->myLogger->leave();
+        // $this->myLogger->leave();
     }
 
 

@@ -43,6 +43,8 @@ require_once(__DIR__."/classes/Jornadas.php");
             case "getbyid": $result=$jornadas->selectByID($jornadaid); break;
 			case "enumerate": $result=$jornadas->searchByPrueba($allowClosed,$hideUnassigned); break;
 			case "rounds": $result=$jornadas->roundsByJornada($jornadaid); break;
+			case "enumerateMangasByJornada": $result=Jornadas::enumerateMangasByJornada($jornadaid); break;
+			case "enumerateRondasByJornada": $result=Jornadas::enumerateRondasByJornada($jornadaid); break;
             case "access": $result=$jornadas->checkAccess($am,$jornadaid,$perms); break;
 			default: throw new Exception("jornadaFunctions:: invalid operation: $operation provided");
 		}

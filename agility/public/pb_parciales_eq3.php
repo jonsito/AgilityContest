@@ -81,7 +81,7 @@ $('#pb_enumerateParciales').combogrid({
 	panelHeight: 150,
 	idField: 'ID',
 	textField: 'Nombre',
-	url: '/agility/server/database/resultadosFunctions.php',
+	url: '/agility/server/database/jornadaFunctions.php',
 	method: 'get',
 	required: true,
 	multiple: false,
@@ -101,8 +101,7 @@ $('#pb_enumerateParciales').combogrid({
 	onBeforeLoad: function(param) {
 		param.Operation='enumerateMangasByJornada';
 		param.Prueba= workingData.prueba;
-		param.Jornada= workingData.jornada;
-		param.Manga= 0; // fake data to get Resultados constructor working
+		param.ID= workingData.jornada;
 		return true;
 	},
     onOpen: function() {

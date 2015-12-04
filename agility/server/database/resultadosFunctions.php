@@ -43,8 +43,6 @@ try {
 		case "reset": $result=$resultados->reset(); break;
 		case "getPendientes": $result=$resultados->getPendientes($mode); break;
 		case "getResultados": $result=$resultados->getResultados($mode); break;
-		case "enumerateMangasByJornada": $result=Resultados::enumerateMangasByJornada($JornadaID); break;
-		case "enumerateClasificaciones": $result=Resultados::enumerateClasificaciones($JornadaID); break;
 		case "getTRS": $result=$resultados->getTRS($mode); break;
 		case "bestTimes": $result=$resultados->bestTimes($mode); break;
 		default: throw new Exception("resultadosFunctions:: invalid operation: $operation provided");

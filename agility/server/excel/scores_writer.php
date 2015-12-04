@@ -117,7 +117,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
         $this->myWriter->addRowWithStyle($hdr,$this->rowHeaderStyle);
         // por cada manga buscamos el nombre, tipo y datos de trs/trm
         // obtenemos la lista de mangas de la jornada
-        $res=Resultados::enumerateMangasByJornada($jornada['ID'])['rows'];
+        $res=Jornadas::enumerateMangasByJornada($jornada['ID'])['rows'];
         foreach($res as $manga) {
             $res=new Resultados("excel_Clasificicaciones",$this->prueba['ID'],$manga['Manga']);
             $row=array();

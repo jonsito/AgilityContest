@@ -119,11 +119,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update scores"); ?>');
 $('#pb_enumerateFinales').combogrid({
-	panelWidth: 300,
+	panelWidth: 200,
 	panelHeight: 150,
 	idField: 'Nombre',
 	textField: 'Nombre',
-	url: '/agility/server/database/resultadosFunctions.php',
+	url: '/agility/server/database/jornadaFunctions.php',
 	method: 'get',
 	required: true,
 	multiple: false,
@@ -143,10 +143,9 @@ $('#pb_enumerateFinales').combogrid({
 			{field:'Mode',hidden:true}
 	]],
 	onBeforeLoad: function(param) { 
-		param.Operation='enumerateClasificaciones';
+		param.Operation='enumerateRondasByJornada';
 		param.Prueba= workingData.prueba;
-		param.Jornada= workingData.jornada;
-		param.Manga= 1; // fake data to get Resultados constructor working
+		param.ID= workingData.jornada;
 		return true;
 	},
 	onChange:function(value){
