@@ -395,5 +395,5 @@ addTooltip($('#dmanga_SameJuez').linkbutton(),'<?php _e("Clone judge information
 
 // if user has no write permission, show proper message info
 // TODO: force reload on logout session
-$('#infomanga_readonly').css('display',(check_perms(1,null))?'none':'inline-block');
+$('#infomanga_readonly').css('display',(check_perms(access_level.PERMS_OPERATOR,null))?'none':'inline-block');
 </script>

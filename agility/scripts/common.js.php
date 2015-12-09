@@ -54,7 +54,7 @@ var startDate=Date.now();
 function setHeader(msg) { $('#Header_Operation').html('<p>'+msg+'</p>'); }
 
 // permisos de ejecucion
-var access_perms = {
+const access_perms = {
     ENABLE_TEAM3    :1,  // permite gestionar pruebas de equipos 3
     ENABLE_TEAM4    :2,  // permite gestionar pruebas de equipos 4
     ENABLE_KO       :4,  // permite gestionar pruebas K.O
@@ -63,6 +63,16 @@ var access_perms = {
     ENABLE_PUBLIC   :32, // permite acceso publico web
     ENABLE_CHRONO   :64 // permite gestion desde cronometro
 };
+
+// permisos de acceso
+const access_level = {
+	PERMS_ROOT		:0,
+	PERMS_ADMIN		:1,
+	PERMS_OPERATOR	:2,
+	PERMS_ASSISTANT	:3,
+	PERMS_GUEST		:4,
+	PERMS_NONE		:5
+}
 
 /**
  * returns Categoria's long string according provided categoria and fereration
