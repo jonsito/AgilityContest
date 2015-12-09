@@ -95,8 +95,9 @@ class EntradaDeDatos extends PrintCommon {
     /**
      * @param {number} $rowcount
      * @param {array} $row
+	 * @param {integer} $orden . Starting order in their category
      */
-	function writeTableCell_compacto($row) {
+	function writeTableCell_compacto($row,$orden) {
 		$wide=$this->federation->get('WideLicense'); // if required use long cell for license
 		$logo=$this->getLogoName($row['Perro']);
 		$this->ac_header(1,20);
@@ -110,7 +111,11 @@ class EntradaDeDatos extends PrintCommon {
 		$this->Cell(15,19,'','LTBR',0,'L',false);
 		$this->SetXY($x+1,$y+2); // restore cursor position
 		$this->Image($logo,$this->getX()+0.5,$this->getY(),12);
-		$this->SetX($this->GetX()+12);
+		// pintamos numero de orden
+		$this->ac_header(2,12);
+		$this->SetXY($x+1,$y+13);
+		$this->Cell(14,5,$orden,'',0,'R',true);
+		$this->SetX($x+12,$y);
 		
 		// bordes cabecera de celda
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // color de fondo 2
@@ -179,8 +184,9 @@ class EntradaDeDatos extends PrintCommon {
 	 * @param {number} $rowcount Row index
 	 * @param {number} $row Row data
 	 * @param {number} $f width factor (to be reused on extended print)
+	 * @param {integer} $orden . Starting order in their category
 	 */
-	function writeTableCell_normal($row,$f=1) {
+	function writeTableCell_normal($row,$orden) {
         // remember that this method is called iteratively ... so make sure first time license goes to zero
         if ($this->federation->get('WideLicense')) {
             $this->pos[1]+=$this->pos[2]; $this->pos[2]=0; // on wide license ID skip license info
@@ -253,8 +259,9 @@ class EntradaDeDatos extends PrintCommon {
     /**
      * @param {number} $rowcount
      * @param {array} $row
+	 * @param {integer} $orden . Startin order in their category
      */
-	function writeTableCell_extendido($row) {
+	function writeTableCell_extendido($row,$orden) {
 		$logo=$this->getLogoName($row['Perro']);
 		// cada celda tiene una cabecera con los datos del participante
 		$this->ac_SetFillColor($this->config->getEnv('pdf_hdrbg1')); // azul
@@ -389,6 +396,7 @@ class EntradaDeDatos extends PrintCommon {
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->SetLineWidth(.3);
 		// Datos
+		$orden=1;
 		$rowcount=0;
 		foreach($this->orden as $row) {
 			// if change in categoria, reset orden counter and force page change
@@ -397,6 +405,7 @@ class EntradaDeDatos extends PrintCommon {
 				$this->categoria = $row['Categoria'];
 				// $this->Cell(array_sum($this->pos),0,'','T'); // linea de cierre de categoria
 				$rowcount=0;
+				$orden=1;
 			}
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			if( ($rowcount % $this->numrows) == 0 ) { // assume $numrows entries per page 
@@ -411,11 +420,12 @@ class EntradaDeDatos extends PrintCommon {
 				}
 			}
 			switch($this->numrows) {
-				case 1: $this->writeTableCell_extendido($row);break;
-				case 5: $this->writeTableCell_normal($row);break;
-				case 10: $this->writeTableCell_compacto($row);break;
+				case 1: $this->writeTableCell_extendido($row,$orden);break;
+				case 5: $this->writeTableCell_normal($row,$orden);break;
+				case 10: $this->writeTableCell_compacto($row,$orden);break;
 			}
 			$rowcount++;
+			$orden++;
 		}
 		// Línea de cierre
 		$this->Cell(array_sum($this->pos),0,'','T');
