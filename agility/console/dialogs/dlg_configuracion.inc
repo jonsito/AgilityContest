@@ -65,6 +65,9 @@ $config =Config::getInstance();
 			<label for="tablet_next"><?php _e('Accept button save data and goes to next participant'); ?></label>
 			<input type="hidden" name="tablet_next" value="0"/>
 			<input id="tablet_next" name="tablet_next" type="checkbox" value="1"/><br />
+			<label for="tablet_keyboard"><?php _e('Enable keyboard when running in laptop/netbook'); ?></label>
+			<input type="hidden" name="tablet_keyboard" value="0"/>
+			<input id="tablet_keyboard" name="tablet_keyboard" type="checkbox" value="1"/><br />
 
 
 			<h3><?php _e('Electronic chronometer behaviour'); ?></h3>

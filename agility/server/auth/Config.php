@@ -72,6 +72,7 @@ define('AC_TABLET_DND',"0");		// habilita cambiar orden de salida desde tablet (
 define('AC_TABLET_CHRONO',"0");		// habilita mostrar crono en tablet (1) o no (0)
 define('AC_TABLET_NEXT',"0");		// acept vuelve a menu (0) o pasa al siguiente (1)
 define('AC_TABLET_COUNTDOWN',"1");	// accion tras cuenta de 15 segundos 1:nada 2:crono 3:eliminado
+define('AC_TABLET_KEYBOARD',"1");	// habilita el uso de teclas en en el tablet si portatil/notebook
 
 /** personalizacion del crono electronico */
 define('AC_CRONO_RESYNC',"0");		// si crono manual continua (1) o restart (0) al paso por crono electronico
@@ -166,6 +167,7 @@ Class Config {
 		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
 		$this->config['tablet_next'] =		AC_TABLET_NEXT;
 		$this->config['tablet_countdown'] =	AC_TABLET_COUNTDOWN;
+		$this->config['tablet_keyboard'] =	AC_TABLET_KEYBOARD;
 
 		// personalizacion del crono
 		$this->config['crono_resync'] =			AC_CRONO_RESYNC;
@@ -332,6 +334,7 @@ Class Config {
 		$this->config['tablet_chrono'] =	AC_TABLET_CHRONO;
 		$this->config['tablet_next'] =	AC_TABLET_NEXT;
 		$this->config['tablet_countdown'] =	AC_TABLET_COUNTDOWN;
+		$this->config['tablet_keyboard'] =	AC_TABLET_KEYBOARD;
 		// crono
 		$this->config['crono_resync'] =	AC_CRONO_RESYNC;
 		$this->config['crono_miliseconds'] =	AC_CRONO_MILISECONDS;
@@ -394,6 +397,7 @@ Class Config {
 		$data['tablet_chrono']=http_request('tablet_chrono','s',AC_TABLET_CHRONO);
 		$data['tablet_next']=http_request('tablet_chrono','s',AC_TABLET_NEXT);
 		$data['tablet_countdown']=http_request('tablet_countdown','i',AC_TABLET_COUNTDOWN);
+		$data['tablet_keyboard']=http_request('tablet_keyboard','i',AC_TABLET_KEYBOARD);
 
 		// crono
 		$data['crono_resync']=http_request('crono_resync','s',AC_CRONO_RESYNC);

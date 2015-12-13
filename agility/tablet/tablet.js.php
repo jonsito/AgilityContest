@@ -530,6 +530,70 @@ function tablet_editByDorsal() {
 	$.messager.alert("No selection",'<?php _e("There is no selected round");?>',"error");
 	drs.val('---- Dorsal ----');
 }
+function bindKeysToTablet() {
+	if (isMobileDevice()) return; // disable key handling on tablet/mobile phone
+	if (parseInt(ac_config.tablet_keyboard)==0) return; // on keyboard disabled, ignore
+    // on round selection window focused, ignore
+	// parse keypress event on every  button
+	$(document).keydown(function(e) {
+		switch(e.which) {
+			// numbers (querty/keypad)
+			case 48:
+			case 96:	tablet_add(0); break;
+			case 49:
+			case 97:	tablet_add(1); break;
+			case 50:
+			case 98:	tablet_add(2); break;
+			case 51:
+			case 99:	tablet_add(3); break;
+			case 52:
+			case 100:	tablet_add(4); break;
+			case 53:
+			case 101:	tablet_add(5); break;
+			case 54:
+			case 102:	tablet_add(6); break;
+			case 55:
+			case 103:	tablet_add(7); break;
+			case 56:
+			case 104:	tablet_add(8); break;
+			case 57:
+			case 105:	tablet_add(9); break;
+			case 8:
+			case 46:	tablet_del(); break;
+			case 190:
+			case 110:	tablet_dot(); break;
+			// entrada de datos desde tablet
+			case 70: // 'F' -> falta
+				if (e.ctrlKey) tablet_down('#tdialog-Faltas');
+				else 	tablet_up('#tdialog-Faltas'); ;
+				break;
+			case 82: // 'R' -> rehuse
+				if (e.ctrlKey) tablet_down('#tdialog-Rehuses');
+				else 	tablet_up('#tdialog-Rehuses'); ;
+				break;
+			case 84: // 'T' -> tocado
+				if (e.ctrlKey) tablet_down('#tdialog-Tocados');
+				else 	tablet_up('#tdialog-Tocados'); ;
+				break;
+			case 69:	tablet_elim(); break; // 'E' -> eliminado
+			case 78:	tablet_np(); break; // 'N' -> no presentado
+			// arranque parada del crono
+			case 80:	tablet_resetchrono(); break; // 'P' -> chrono (P)reset
+			case 83:	tablet_startstop();	break; // 'S' -> chrono start/Stop
+			case 66:	tablet_salida();	break; // 'B' -> 15 seconds countdown
+			// aceptar cancelar
+			case 13:	tablet_accept(); break; // 'Enter' -> Accept
+            // use click event to make sure focus is properly set
+			case 27:	$('#tdialog-CancelBtn').click(); break; // 'ESC' -> Cancel
+                // tablet_cancel(); break; // 'Esc' -> Cancel
+			default:
+				// alert("Unknow key code: "+ e.which);
+				// pass to upper layer to caught and process
+				return true;
+		}
+		return false;
+	});
+}
 
 function tablet_processEvents(id,evt) {
 	var tbox=$('#tdialog-Tiempo');

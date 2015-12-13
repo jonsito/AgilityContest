@@ -63,6 +63,7 @@ if ( intval($config->getEnv('restricted'))!=0) {
 <link rel="stylesheet" type="text/css" href="/agility/css/style.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/datagrid.css" />
 <link rel="stylesheet" type="text/css" href="/agility/css/tablet.css" />
+<script src="/agility/lib/HackTimer/HackTimer.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/lib/jquery-easyui-1.4.2/jquery.easyui.min.js" type="text/javascript" charset="utf-8" ></script>
 <script src="/agility/lib/jquery-easyui-1.4.2/locale/easyui-lang-<?php echo substr($config->getEnv('lang'),0,2);?>.js" type="text/javascript" charset="utf-8" > </script>
@@ -362,6 +363,7 @@ function tablet_acceptSelectJornada() {
         	        	    		startEventMgr(workingData.sesion,tablet_processEvents);
 									setDataEntryEnabled(false);
                                     $('#tablet-layout').layout('panel','west').panel('setTitle',p.Nombre+" - "+ j.Nombre);
+									bindKeysToTablet();
         	    				}
         	    			); // load
         	    	} // close dialog; open main window
