@@ -533,9 +533,10 @@ function tablet_editByDorsal() {
 function bindKeysToTablet() {
 	if (isMobileDevice()) return; // disable key handling on tablet/mobile phone
 	if (parseInt(ac_config.tablet_keyboard)==0) return; // on keyboard disabled, ignore
-    // on round selection window focused, ignore
 	// parse keypress event on every  button
 	$(document).keydown(function(e) {
+		// on round selection window focused, ignore
+		if ($('#tdialog-fieldset').prop('disabled')) return true;
 		switch(e.which) {
 			// numbers (querty/keypad)
 			case 48:
