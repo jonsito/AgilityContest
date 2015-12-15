@@ -99,8 +99,8 @@ class RFEC extends Federations {
         // conjunta
         $pfin=0;
         if ($puestocat[$cat]<11) {
-            // solo puntuan los 10 primeros que no se hayan eliminado o no clasificado en algna manga
-            if ( ($perro['P1']<=26.0) && ($perro['P2']<=26.0) ) {
+            // puntuan los 10 primeros si no se han eliminado o no clasificado en ambas mangas
+            if ( ($perro['P1']<=26.0) || ($perro['P2']<=26.0) ) {
                 $pfin=$ptsglobal[$puestocat[$cat]-1];
             }
         }
