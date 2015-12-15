@@ -1,6 +1,6 @@
 <?php
 /*
-print_listaPerros.php
+excel_listaPerros.php
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -29,8 +29,8 @@ class excel_ListaPerros extends XLSX_Writer {
 
 	protected $lista; // listado de perros
 
-    protected $cols = array( 'Name','Pedigree Name','Gender','Breed','License','KC id','Cat','Grad','Handler','Club','Country');
-    protected $fields = array( 'Nombre','NombreLargo','Genero','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Pais');
+    protected $cols = array( 'Name','Pedigree Name','Gender','Breed','License','KC id','Cat','Grad','Handler','Club','Province','Country');
+    protected $fields = array( 'Nombre','NombreLargo','Genero','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Provincia','Pais');
 
 	/**
 	 * Constructor
