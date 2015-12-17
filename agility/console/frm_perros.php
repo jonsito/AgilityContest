@@ -94,7 +94,7 @@ $config =Config::getInstance();
             columns: [[
                 { field:'ID',   hidden:true },
                 { field:'Federation', hidden:true },
-            	{ field:'Nombre',   width:30, sortable:true,  align: 'right', title: '<?php _e('Name'); ?>' },
+            	{ field:'Nombre',   width:30, sortable:true,  align: 'right', title: '<?php _e('Name'); ?>', formatter:formatBold },
 				{ field:'NombreLargo', hidden:true },
 				{ field:'Genero', hidden:true },
             	{ field:'Raza',     width:25,                align: 'right', title: '<?php _e('Breed'); ?>' },

@@ -78,7 +78,7 @@ $config =Config::getInstance();
 			columns: [[
 				{ field:'ID',			hidden:true},
 				{ field:'Pais',	        width:'5%', sortable:true,    align: 'center', title: '<?php _e('Country'); ?>' },
-				{ field:'Nombre',		width:'65%', sortable:true,	title: '<?php _e('Name'); ?>'+':'},
+				{ field:'Nombre',		width:'65%', sortable:true,	title: '<?php _e('Name'); ?>',formatter:formatBold},
 				{ field:'Direccion1',	hidden:true},
 				{ field:'Direccion2',	hidden:true},
 				{ field:'Provincia',	hidden:true},

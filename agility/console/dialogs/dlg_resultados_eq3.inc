@@ -129,7 +129,7 @@ $('#resultadosmanga-datagrid').datagrid({
         { field:'Equipo',		hidden:true },
         { field:'NombreEquipo',	hidden:true },
         { field:'Puesto',		width:12, align:'left',  title: '<?php _e('Position'); ?>', formatter:formatPuesto},
-        { field:'Nombre',		width:15, align:'left',  title: '<?php _e('Name'); ?>'},
+        { field:'Nombre',		width:15, align:'left',  title: '<?php _e('Name'); ?>',formatter:formatBold},
         { field:'NombreGuia',	width:35, align:'right', title: '<?php _e('Handler'); ?>' },
         { field:'NombreClub',	width:25, align:'right', title: '<?php _e('Club'); ?>' },
       	{ field:'Categoria',	width:10, align:'center',title: '<?php _e('Cat'); ?>.' },

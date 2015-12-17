@@ -88,7 +88,7 @@ $config =Config::getInstance();
             columns: [[
                 { field:'ID',			hidden:true },
                 { field:'Federation',	hidden:true },
-                { field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Name');?>' },
+                { field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Name');?>', formatter:formatBold },
                 { field:'Club',			hidden:true},
                 { field:'NombreClub',	width:20, sortable:true,	title: '<?php _e('Club');?>'},
                 { field:'Telefono',		width:10, sortable:true,	title: '<?php _e('Phone');?>' },
@@ -143,7 +143,7 @@ $config =Config::getInstance();
         	    columns: [[
                    	{ field:'ID',	width:15, sortable:true,	title: 'ID'},
                 	{ field:'Federation',hidden:true},
-            		{ field:'Nombre',	width:30, sortable:true,	title: '<?php _e('Name');?>' },
+            		{ field:'Nombre',	width:30, sortable:true,	title: '<?php _e('Name');?>', formatter:formatBold },
 					{ field:'NombreLargo',hidden:true},
 					{ field:'Genero',hidden:true},
             		{ field:'Categoria',width:15, sortable:false,	title: '<?php _e('Cat');?>' },

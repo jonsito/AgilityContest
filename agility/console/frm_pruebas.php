@@ -88,7 +88,7 @@ $config =Config::getInstance();
             remoteSort: true,
             columns: [[
                 { field:'ID', hidden:true }, // primary key
-            	{ field:'Nombre',		width:30,	sortable:true,	title:'<?php _e('Contest name'); ?>' },
+            	{ field:'Nombre',		width:30,	sortable:true,	title:'<?php _e('Contest name'); ?>',formatter:formatBold },
             	{ field:'Club',			hidden:true },
             	{ field:'NombreClub',	width:15,	sortable:true,	title:'<?php _e('Organizing club'); ?>' },
             	{ field:'Ubicacion',	width:15,					title:'<?php _e('Event location'); ?>' },
@@ -148,7 +148,7 @@ $config =Config::getInstance();
                    	{ field:'ID',			hidden:true }, // ID de la jornada
             	    { field:'Prueba',		hidden:true }, // ID de la prueba
             	    { field:'Numero',		width:4, sortable:true,		align:'center', title: '#'},
-            		{ field:'Nombre',		width:20, sortable:false,   title: '<?php _e('Name'); ?>'+'/'+'<?php _e('Comments'); ?>' },
+            		{ field:'Nombre',		width:20, sortable:false,   title: '<?php _e('Name'); ?>'+'/'+'<?php _e('Comments'); ?>',formatter:formatBold },
             		{ field:'Fecha',		width:12, sortable:true,	title: '<?php _e('Date'); ?>' },
             		{ field:'Hora',			width:10, sortable:false,	title: '<?php _e('Time'); ?>' },
             		{ field:'PreAgility',	width:8, sortable:false, formatter:	formatOk,	align:'center', title: 'P.A. -1' },

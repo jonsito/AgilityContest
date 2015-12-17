@@ -95,9 +95,9 @@ $config =Config::getInstance();
 			remoteSort: true,
 			columns: [[
 				{ field:'ID',			hidden:true},
-				{ field:'Nombre',		width:17, sortable:true,	title: '<?php _e('Name'); ?>'+':'},
-				{ field:'Direccion1',	width:15, sortable:true,	title: '<?php _e('Address'); ?>'+' 1:' },
-				{ field:'Direccion2',	width:10, sortable:false,	title: '<?php _e('Address'); ?>'+' 2:' },
+				{ field:'Nombre',		width:17, sortable:true,	title: '<?php _e('Name'); ?>',formatter:formatBold},
+				{ field:'Direccion1',	width:15, sortable:true,	title: '<?php _e('Address'); ?>'+' 1' },
+				{ field:'Direccion2',	width:10, sortable:false,	title: '<?php _e('Address'); ?>'+' 2' },
 				{ field:'Provincia',	width:7, sortable:false,    title: '<?php _e('State'); ?>' , hidden:hp},
 				{ field:'Pais',	        width:3, sortable:false,    align: 'center', title: '<?php _e('Country'); ?>' },
 				{ field:'Contacto1',	width:10, sortable:false,   title: '<?php _e('Contact'); ?>'+' 1' },
@@ -168,10 +168,10 @@ $config =Config::getInstance();
         		method: 'get',
         	    columns: [[
         	        { field:'ID',			hidden:true },	
-        	    	{ field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Name'); ?>'+':' },
-        	    	{ field:'Telefono',	width:15, sortable:true,	title: '<?php _e('Telephone'); ?>'+':' },
-        	    	{ field:'Email',		width:25, sortable:true,    title: '<?php _e('Electronic mail'); ?>'+':' },
-        	    	{ field:'Observaciones',width:15,					title: '<?php _e('Comments'); ?>'+':'}
+        	    	{ field:'Nombre',		width:30, sortable:true,	title: '<?php _e('Name'); ?>',formatter:formatBold },
+        	    	{ field:'Telefono',	width:15, sortable:true,	title: '<?php _e('Telephone'); ?>' },
+        	    	{ field:'Email',		width:25, sortable:true,    title: '<?php _e('Electronic mail'); ?>' },
+        	    	{ field:'Observaciones',width:15,					title: '<?php _e('Comments'); ?>'}
             	]],
             	// colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
             	rowStyler:myRowStyler,
@@ -253,7 +253,7 @@ $config =Config::getInstance();
         		method: 'get',
         	    columns: [[
             	    { field:'ID',		width:15, sortable:true,	title: 'ID' },
-            		{ field:'Nombre',	width:30, sortable:true,	title: '<?php _e('Name'); ?>' },
+            		{ field:'Nombre',	width:30, sortable:true,	title: '<?php _e('Name'); ?>',formatter:formatBold },
 					{ field:'NombreLargo',hidden:true},
 					{ field:'Genero',	hidden:true},
             		{ field:'Categoria',width:15, sortable:false,	title: '<?php _e('Cat.'); ?>' },

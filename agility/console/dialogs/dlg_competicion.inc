@@ -102,7 +102,7 @@ $('#competicion-datagrid').datagrid({
       	{ field:'Licencia',		hidden:true },
       	{ field:'Pendiente',	hidden:true },
         { field:'Dorsal',		width:12, align:'right',  title: '<?php _e('Dorsal'); ?>', styler:checkPending },
-        { field:'Nombre',		width:20, align:'left',  title: '<?php _e('Name'); ?>'},
+        { field:'Nombre',		width:20, align:'left',  title: '<?php _e('Name'); ?>',formatter:formatBold},
         { field:'NombreGuia',	width:40, align:'right', title: '<?php _e('Handler'); ?>' },
         { field:'NombreClub',	width:30, align:'right', title: '<?php _e('Club'); ?>' },
       	{ field:'Categoria',	width:10, align:'center',title: '<?php _e('Cat'); ?>.' },

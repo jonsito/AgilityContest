@@ -130,7 +130,7 @@ $('#ordentandas-datagrid').datagrid({
         	{ field:'Prueba',	hidden:true },
           	{ field:'Jornada',	hidden:true },
           	{ field:'Manga',	hidden:true },
-      		{ field:'Nombre',	width:200, sortable:false, align:'left',title:'<?php _e('Activity'); ?>'},
+      		{ field:'Nombre',	width:200, sortable:false, align:'left',title:'<?php _e('Activity'); ?>',formatter:formatBold},
       		{ field:'Sesion',	hidden:true },
       		{ field:'NombreSesion',width:100, sortable:false, align:'left',title:'<?php _e('Session - Ring'); ?>'},
       		{ field:'Horario',	width:50, sortable:false, align:'center',title:'<?php _e('Timetable'); ?>'},

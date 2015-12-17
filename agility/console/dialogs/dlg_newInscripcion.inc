@@ -148,7 +148,7 @@ $('#new_inscripcion-datagrid').datagrid({
 	   	{field:'ID',hidden:'true'},
 		{field:'Guia',hidden:'true'},
 		{field:'Club',hidden:'true'},
-        {field:'Nombre', sortable:true, title:'<?php _e('Dog'); ?>',width:20,align:'right'},
+        {field:'Nombre', sortable:true, title:'<?php _e('Dog'); ?>',width:20,align:'right',formatter:formatBold},
         {field:'Licencia', sortable:true, title:'<?php _e('Lic'); ?>.',width:10,align:'right'},
 		{field:'Categoria', sortable:true, title:'<?php _e('Cat'); ?>.',width:5,align:'center'},
 		{field:'Grado', title:'<?php _e('Grade'); ?>', width:5,align:'center'},

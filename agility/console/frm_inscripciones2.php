@@ -130,7 +130,7 @@ $('#inscripciones-jornadas').datagrid({
             { field:'ID',			hidden:true }, // ID de la jornada
       	    { field:'Prueba',		hidden:true }, // ID de la prueba
       	    { field:'Numero',		width:10, sortable:false,	align:'center', title: '#'},
-			{ field:'Nombre',		width:60, sortable:false,   align:'right',  title: '<?php _e('Name/Comment');?>' },
+			{ field:'Nombre',		width:60, sortable:false,   align:'right',  title: '<?php _e('Name/Comment');?>',formatter:formatBold },
 			{ field:'Fecha',		width:30, sortable:false,	align:'right',  title: '<?php _e('Date');?>: ' },
 			{ field:'Hora',			width:25, sortable:false,	align:'right',  title: '<?php _e('Time');?>:  ' },
 			{ field:'Grado1',		width:15, sortable:false, formatter: formatOk,	align:'center', title: '<?php _e('G-I  ');?>' },
@@ -188,7 +188,7 @@ $('#inscripciones-datagrid').datagrid({
         { field:'LOE_RRC',	hidden:true }, // LOE/RRC
         { field:'Club',		hidden:true }, // Club ID
     	{ field:'Dorsal',	width:6,  sortable:true, align: 'right',	title: '<?php _e('Dorsal');?>' },
-        { field:'Nombre',	width:15, sortable:true, align: 'right',	title: '<?php _e('Name');?>' },
+        { field:'Nombre',	width:15, sortable:true, align: 'right',	title: '<?php _e('Name');?>',formatter:formatBold },
         { field:'Licencia',	width:8, sortable:true, align: 'center',	title: '<?php _e('Lic');?>' },
     	{ field:'Categoria',width:4,  sortable:true, align: 'center',  	title: '<?php _e('Cat');?>' },
     	{ field:'Grado',	width:6,  sortable:true, align: 'center',  	title: '<?php _e('Grade');?>' },

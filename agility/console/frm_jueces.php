@@ -83,9 +83,9 @@ $config =Config::getInstance();
             remoteSort: true,
             columns: [[
                 { field:'ID',			hidden:true },
-                { field:'Nombre',		width:40, sortable:true,	title: '<?php _e('Name'); ?>:' },
-            	{ field:'Direccion1',	width:35,					title: '<?php _e('Address'); ?> 1:' },
-                { field:'Direccion2',	width:30,                   title: '<?php _e('Address'); ?> 2:' },
+                { field:'Nombre',		width:40, sortable:true,	title: '<?php _e('Name'); ?>',formatter:formatBold },
+            	{ field:'Direccion1',	width:35,					title: '<?php _e('Address'); ?> 1' },
+                { field:'Direccion2',	width:30,                   title: '<?php _e('Address'); ?> 2' },
                 { field:'Pais',	        width:7,  align:'center',   title: '<?php _e('Country'); ?>' },
             	{ field:'Telefono',		width:25, sortable:true,	title: '<?php _e('Telephone'); ?>' },
               	{ field:'Federations',	hidden:true},

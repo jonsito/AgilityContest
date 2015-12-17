@@ -257,7 +257,7 @@ $config =Config::getInstance();
                 { field:'Equipo',		width:0, hidden:true },
                 { field:'NombreEquipo',	width:20, align:'center',	title: '<?php _e('Team');?>' },
                 { field:'Dorsal',		width:10, align:'center',	title: '<?php _e('Dorsal');?>', styler:checkPending },
-                { field:'Nombre',		width:20, align:'left',		title: '<?php _e('Name');?>'},
+                { field:'Nombre',		width:20, align:'left',		title: '<?php _e('Name');?>', formatter:formatBold},
                 { field:'Celo',			width:8, align:'center',	title: '<?php _e('Heat');?>', formatter:formatCelo},
                 { field:'NombreGuia',	width:35, align:'right',	title: '<?php _e('Handler');?>' },
                 { field:'NombreClub',	width:25, align:'right',	title: '<?php _e('Club');?>' },

@@ -79,7 +79,7 @@ $config =Config::getInstance();
                 <th data-options="field:'Perro',		hidden:true " ></th>
                  -->
 				<th data-options="field:'Dorsal',		width:20, align:'left'" ><?php _e('Dors'); ?>.</th>
-				<th data-options="field:'Nombre',		width:35, align:'left'" ><?php _e('Name'); ?></th>
+				<th data-options="field:'Nombre',		width:35, align:'left',formatter:formatBold" ><?php _e('Name'); ?></th>
 				<th data-options="field:'Licencia',		width:15, align:'center'" ><?php _e('Lic'); ?>.</th>
 				<th data-options="field:'Categoria',	width:15, align:'center'" ><?php _e('Cat'); ?>.</th>
 				<th data-options="field:'Grado',		width:15, align:'center'" ><?php _e('Grd'); ?>.</th>
