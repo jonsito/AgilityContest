@@ -34,12 +34,12 @@ class Excel_Inscripciones extends XLSX_Writer {
     protected $cols = array(
 		'Dorsal',
 		'Name','Pedigree Name','Gender','Breed','License','KC id','Cat','Grad','Handler','Club','Country', // datos del perro
-		'Team','Heat','Comments' // datos de la inscripcion en la jornada
+		'Heat','Comments' // Jornada1, Jornada2, // datos de la inscripcion en la jornada
 	);
     protected $fields = array(
 		'Dorsal',
 		'Nombre','NombreLargo','Genero','Raza','Licencia','LOE_RRC','Categoria','Grado','NombreGuia','NombreClub','Pais', // datos del perro
-		'Equipo','Celo','Observaciones' // datos de la inscripcion en la jornada
+		'Celo','Observaciones' //, Equipo1, Equipo2 .... // datos de la inscripcion en la jornada
 	);
 
 	/**
@@ -83,26 +83,57 @@ class Excel_Inscripciones extends XLSX_Writer {
 		$this->createInfoPage();
 		$this->createPruebaInfoPage($this->prueba,$this->jornadas);
 		$insc=new Inscripciones("excel_printInscripciones",$this->prueba['ID']);
-		// iterate on every valid journeys
+		// evaluate journeys to be added as excel column
 		foreach ($this->jornadas as $jornada) {
 			if ($jornada['Nombre']==='-- Sin asignar --') continue; // skip empty journeys
-			// Create page
-			$journeypage=$this->myWriter->addNewSheetAndMakeItCurrent();
-			$name=$this->normalizeSheetName($jornada['Nombre']);
-			$journeypage->setName($name);
-			// write header
-			$this->writeTableHeader();
-			$res=$insc->inscritosByJornada($jornada['ID'],false);
-			$lista=$res['rows'];
-			$eq=new Equipos("excel_printInscripciones",$this->prueba['ID'],$jornada['ID']);
-			foreach($lista as $perro) {
-				// add team information
-				$perro['Equipo']=$eq->getTeamByPerro($perro['Perro'])['Nombre'];
-				$row=array();
-				// extract relevant information from database received dog
-				for($n=0;$n<count($this->fields);$n++) array_push($row,$perro[$this->fields[$n]]);
-				$this->myWriter->addRow($row);
+			array_push($this->cols,$jornada['Nombre']);
+			array_push($this->fields,"J".$jornada['Numero']);
+		}
+		// add "pagado" at the end
+		array_push($this->cols,_utf('Paid'));
+		array_push($this->fields,'Pagado');
+
+		// Create page
+		$journeypage=$this->myWriter->addNewSheetAndMakeItCurrent();
+		$name=$this->normalizeSheetName(_utf('Inscriptions'));
+		$journeypage->setName($name);
+
+		// write header
+		$this->writeTableHeader();
+
+		// retrieve inscription list
+		$lista=$insc->enumerate()['rows'];
+		foreach ($lista as $perro) {
+			$row=array();
+			$row[]=$perro['Dorsal'];
+			$row[]=$perro['Nombre'];
+			$row[]=$perro['NombreLargo'];
+			$row[]=$perro['Genero'];
+			$row[]=$perro['Raza'];
+			$row[]=$perro['Licencia'];
+			$row[]=$perro['LOE_RRC'];
+			$row[]=$perro['Categoria'];
+			$row[]=$perro['Grado'];
+			$row[]=$perro['NombreGuia'];
+			$row[]=$perro['NombreClub'];
+			$row[]=$perro['Pais'];
+			$row[]=($perro['Celo']==1)?"X":"";
+			$row[]=$perro['Observaciones'];
+			// aniadimos info de jornadas (inscrito/equipo
+			foreach ($this->jornadas as $jornada) {
+				if ($jornada['Nombre']==='-- Sin asignar --') continue; // skip empty journeys
+				if ($perro['J'.$jornada['Numero']]==0) { // el perro no esta inscrito en la jornada
+					$row[]="";
+				} else {	// perro inscrito en la jornada. buscamos equipo. Si no default se pone nombre, else "X"
+					$eqobj=new Equipos("excel_printInscripciones",$this->prueba['ID'],$jornada['ID']);
+					$equipo=$eqobj->getTeamByPerro($perro['Perro']);
+					$row[]=($equipo['DefaultTeam']==1)?"X":$equipo['Nombre'];
+				}
 			}
+			// finalmente informacion de pago
+			$row[]=$perro['Pagado'];
+			// !!finaly!! add perro to excel table
+			$this->myWriter->addRow($row);
 		}
 		$this->myLogger->leave();
 	}

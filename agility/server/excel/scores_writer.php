@@ -119,6 +119,8 @@ class Excel_Clasificaciones extends XLSX_Writer {
 
     /**
      * Pagina de resultados de la jornada ordenados por grado/categoría/puesto
+	 * @param {array} $jornada datos de la jornada
+	 * @param {object} $insc objeto de tipo Inscripcion con las inscripciones de la prueba
      */
     function createJornadaDataPage($jornada,$insc) {
 		// create Excel sheet
@@ -136,7 +138,6 @@ class Excel_Clasificaciones extends XLSX_Writer {
 		foreach($lista as $perro) {
 			// add team information
 			$perro['Equipo']=$eq->getTeamByPerro($perro['Perro'])['Nombre'];
-			$row=array();
 			// reindexamos las inscripciones por el PerroID
 			$inscritos[$perro['Perro']]=$perro;
 		}
@@ -173,7 +174,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
 				continue;
 			}
 			$pdata=$inscritos[$perro['Perro']];
-            $inscritos[$perro['Done']]=1;
+			$pdata['Done']=1; // mark perro inscrito _and_ with clasification
 			// datos personales
 			$row[]=$perro['Dorsal'];
 			$row[]=$pdata['Nombre'];

@@ -239,12 +239,12 @@ class Inscripciones extends DBObject {
 		// FASE 1: obtener lista de perros inscritos con sus datos
 		$str="SELECT Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal , 
 				Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre, NombreLargo,
-				Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
-				NombreGuia, NombreClub, Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
+				Genero, Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
+				NombreGuia, NombreClub, Pais,Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
 			FROM Inscripciones,PerroGuiaClub
 			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) 
 				AND ( Inscripciones.Prueba=$id )
-			ORDER BY NombreClub ASC,Categoria ASC, Grado ASC, Nombre ASC";
+			ORDER BY Dorsal ASC";
 		$rs=$this->query($str);
 		if (!$rs) return $this->error($this->conn->error);
 	
@@ -277,29 +277,33 @@ class Inscripciones extends DBObject {
 	
 	/**
 	 * retrieve all inscriptions of stored prueba
+	 * @param {boolean} useHttp true to retrieve extra data from http request; else false
 	 */
-	function inscritos() {
+	function inscritos($useHttp=true) {
 		$this->myLogger->enter();
 		$result=array();
 		// evaluate offset and row count for query
 		$id = $this->pruebaID;
-		$search =  http_request("where","s","");
+		$search =  ($useHttp)?http_request("where","s",""):"";
 		// $extra= a single ')' or name search criterion
 		$extra = '';
 		if ($search!=='') $extra=" AND ( (PerroGuiaClub.Nombre LIKE '%$search%') 
 				OR ( NombreClub LIKE '%$search%') OR ( NombreGuia LIKE '%$search%' ) ) ";
-		$page=http_request("page","i",1);
-		$rows=http_request("rows","i",50);
+		$page=($useHttp)?http_request("page","i",1):0;
+		$rows=($useHttp)?http_request("rows","i",50):0;
 		$limit="";
 		if ($page!=0 && $rows!=0 ) {
 			$offset=($page-1)*$rows;
 			$limit=" LIMIT ".$offset.",".$rows;
 		};
-		$order=getOrderString( 
-			http_request("sort","s",""),
-			http_request("order","s",""),
-			"NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"
-		);
+		$order="Dorsal ASC";
+		if ($useHttp){
+			$order=getOrderString(
+				http_request("sort","s",""),
+				http_request("order","s",""),
+				"NombreClub ASC, Categoria ASC, Grado ASC, Nombre ASC"
+			);
+		}
 		// FASE 0: cuenta el numero total de inscritos
 		$str="SELECT count(*)
 		FROM Inscripciones,PerroGuiaClub
@@ -317,8 +321,8 @@ class Inscripciones extends DBObject {
 		}
 		// FASE 1: obtener lista de perros inscritos con sus datos
 		$str="SELECT Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Dorsal, Inscripciones.Perro AS Perro , PerroGuiaClub.Nombre AS Nombre,
-				Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club , 
-				NombreGuia, NombreClub, Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
+				NombreLargo, Genero, Raza, Licencia, LOE_RRC, Categoria , Grado , Celo , Guia , Club ,
+				NombreGuia, NombreClub, Pais, Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado
 			FROM Inscripciones,PerroGuiaClub
 			WHERE ( Inscripciones.Perro = PerroGuiaClub.ID) AND ( Inscripciones.Prueba=$id ) $extra 
 		ORDER BY $order $limit"; 
@@ -366,7 +370,7 @@ class Inscripciones extends DBObject {
         $tname=escapeString($teamobj->Nombre);
 		$lista=$this->__select(
                 /*select*/ "DISTINCT Resultados.Prueba,Resultados.Jornada, Resultados.Dorsal, Resultados.Perro,
-                            Resultados.Nombre, Resultados.Raza, Resultados.Licencia, Resultados.Categoria, Resultados.Grado,
+                            Resultados.Nombre, PerroGuiaClub.NombreLargo, PerroGuiaClub.Genero, Resultados.Raza, Resultados.Licencia, Resultados.Categoria, Resultados.Grado,
                             Resultados.Celo,Resultados.NombreGuia,Resultados.NombreClub, Resultados.Equipo,
                             PerroGuiaClub.Club AS Club, PerroGuiaClub.Guia AS Guia,PerroGuiaClub.LogoClub AS Logo,
                             '$tname' AS NombreEquipo",
@@ -436,7 +440,7 @@ class Inscripciones extends DBObject {
 		$pruebaid=$this->pruebaID;
 		// Cogemos la lista de jornadas abiertas de esta prueba
 		$j=new Jornadas("inscripciones::inscritosByJornada()",$this->pruebaID);
-		$jornadas=$j->searchByPrueba();
+		$jornadas=$j->searchByPrueba(1,1); // allowClosed=1, hideUnassigned=1
 		if ( ($jornadas===null) || ($jornadas==="") ) {
 			return $this->error("{$this->file}::updateOrdenSalida() cannot get list of open Jornadas for prueba:".$this->pruebaID);
 		}
@@ -460,7 +464,7 @@ class Inscripciones extends DBObject {
 		// obtenemos la lista de perros inscritos con sus datos
         $result=$this->__select(
 			/* SELECT */"Inscripciones.ID AS ID, Inscripciones.Prueba AS Prueba, Inscripciones.Perro AS Perro, Raza,
-				Dorsal, PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.NombreLargo AS NombreLargo, Genero, Licencia, LOE_RRC, Categoria, Grado, Celo, Guia, Club, Pais, LogoClub,
+				Dorsal, PerroGuiaClub.Nombre AS Nombre, PerroGuiaClub.NombreLargo AS NombreLargo,  Genero, Raza, Licencia, LOE_RRC, Categoria, Grado, Celo, Guia, Club, Pais, LogoClub,
 				NombreGuia, NombreClub,	Inscripciones.Observaciones AS Observaciones, Jornadas, Pagado",
 			/* FROM */	"Inscripciones,PerroGuiaClub",
 			/* WHERE */ "( Inscripciones.Perro = PerroGuiaClub.ID) AND

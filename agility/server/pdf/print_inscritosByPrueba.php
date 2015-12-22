@@ -146,7 +146,7 @@ class PrintCatalogo extends PrintCommon {
 		$this->Cell( 15, 7, $row['Dorsal'],	'TLB', 0, 'C',	true);
 		$this->SetFont('Helvetica','BI',9); // bold 9px italic
         $name= $row['Nombre'];
-        if ($row['NombreLargo']!=="") $name = $row['NombreLargo']." - ".$name;
+        if (!is_null($row['NombreLargo']) && $row['NombreLargo']!=="") $name = $row['NombreLargo']." - ".$name;
 		$this->Cell( $this->width[0], 7, $name,	'LB', 0, 'C',	true);
 		$this->SetFont('Helvetica','',8); // bold 8px
 		$this->Cell( $this->width[1], 7, $row['Raza'],		'LB', 0, 'C',	true);

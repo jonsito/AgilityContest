@@ -215,6 +215,7 @@ class Jornadas extends DBObject {
 	/**
 	 * search all jornadas related to provided prueba that matches provided criteria
 	 * @param {integer} $allowClosed 1:allow listing closed jornadas; 0:don't
+	 * @param {integer} $hideUnassigned 1:exclude, 0:include '-- Sin asignar --' journeys
 	 * @return {array} requested data
 	 */
 	function searchByPrueba($allowClosed=0,$hideUnassigned=0) {
