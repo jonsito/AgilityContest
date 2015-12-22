@@ -124,10 +124,14 @@ class Excel_Inscripciones extends XLSX_Writer {
 				if ($jornada['Nombre']==='-- Sin asignar --') continue; // skip empty journeys
 				if ($perro['J'.$jornada['Numero']]==0) { // el perro no esta inscrito en la jornada
 					$row[]="";
-				} else {	// perro inscrito en la jornada. buscamos equipo. Si no default se pone nombre, else "X"
+				}
+				// si Estamos en una jornada por equipos, ponemos el nombre del equipo
+				// else ponemos "X"
+				else {	// perro inscrito en la jornada. buscamos equipo. Si no default se pone nombre, else "X"
 					$eqobj=new Equipos("excel_printInscripciones",$this->prueba['ID'],$jornada['ID']);
 					$equipo=$eqobj->getTeamByPerro($perro['Perro']);
-					$row[]=($equipo['DefaultTeam']==1)?"X":$equipo['Nombre'];
+					if( ($jornada['Equipos3']!=0) || ($jornada['Equipos4']!=0) ) $row[]=$equipo['Nombre'];
+					else $row[]="X";
 				}
 			}
 			// finalmente informacion de pago
