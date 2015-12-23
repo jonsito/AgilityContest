@@ -98,6 +98,8 @@ function tablet_updateSession(row) {
 		if (str.indexOf("econo")>0) return false;
 		else tablet_reconocimiento();
 	}
+	// setup infoheader on tablet
+	$('#tdialog-InfoLbl').html(workingData.datosPrueba.Nombre + ' - ' + workingData.datosJornada.Nombre + ' - ' + row.Nombre);
 	$.ajax({
 		type:	'GET',
 		url:	"/agility/server/database/sessionFunctions.php",
@@ -378,6 +380,19 @@ function tablet_cancel() {
 	setDataEntryEnabled(false);
 	return false;
 }
+function fillPending(dg,idx) {
+	var data=dg.datagrid('getRows');
+	var total=0;
+	var rows=[];
+	for (var n=1;n<6;n++) {
+		if ( typeof(data[idx+n])!=='undefined') {
+			var row=data[idx+n];
+			total++;
+			rows.push({'Num':idx+n+1,'Dorsal':row.Dorsal,'Nombre':row.Nombre,'Guia':row.NombreGuia});
+		}
+	}
+	$('#tdialog-tnext').datagrid('loadData',rows);
+}
 
 function nextRow(dg, cb){
 	var opts = dg.datagrid('options');
@@ -450,6 +465,7 @@ function tablet_accept() {
 		data.RowIndex=index; // not really used, but....
 		data.Parent=dgname; // store datagrid reference
 		$('#tdialog-form').form('load',data);
+		fillPending(dg,data.RowIndex);
 	});
 	if (res==false) { // at end of list
 		setDataEntryEnabled(false);

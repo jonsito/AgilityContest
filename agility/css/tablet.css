@@ -37,6 +37,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	/* padding: 10px; */
 }
 
+.tablet_infoheader {
+	text-align: center;
+	font-size: 1.8em;
+	font-weight: bold;
+	font-style: italic;
+	border: 1px solid black;
+}
+
 input.tablet_info {
 	font-size: 2.0em;
 	font-weight: bold;

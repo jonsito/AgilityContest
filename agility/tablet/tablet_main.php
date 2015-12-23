@@ -71,6 +71,7 @@ $config =Config::getInstance();
                         <input id="tdialog-9" type="button" value="9" class="tablet_numbers" onclick="tablet_add(9);">
                         <input id="tdialog-Del" type="button" value="." class="tablet_numbers" onclick="tablet_dot();">
                         <input id="tdialog-Dot" type="button" value="Del" class="tablet_numbers" onclick="tablet_del();">
+                        <label id="tdialog-InfoLbl" for="tdialog-InfoLbl" class="tablet_infoheader">Informacion de prueba, jornada y manga</label>
                         <label id="tdialog-DorsalLbl" for="tdialog-Dorsal" class="tablet_info">Dorsal</label>
                         <input id="tdialog-Dorsal" type="text" readonly="readonly" name="<?php _e('Dorsal');?>" class="tablet_info"/>
                         <label id="tdialog-NombreLbl" for="tdialog-Nombre" class="tablet_info"><?php _e('Name'); ?></label>
@@ -103,9 +104,12 @@ $config =Config::getInstance();
                         <label id="tdialog-Rectangulo" class="tablet_rectangulo">&nbsp;</label>
                     </fieldset>
                 </form>
+            </div> <!-- dialog forms -->
+            <div id="tdialog-Next">
+                <table id="tdialog-tnext"></table>
             </div>
-        </div>
-    </div>
+        </div> <!-- region: center -->
+    </div> <!-- tablet layout -->
 </div>
 
 <!-- toolbar para orden de tandas -->
@@ -280,6 +284,7 @@ $config =Config::getInstance();
                 data.RowIndex=idx; // store row index
                 $('#tdialog-form').form('load',data);
                 setDataEntryEnabled(true);
+                fillPending(mySelf,data.RowIndex);
             },
             onResize:function(){
                 tbt_dg.datagrid('fixDetailRowHeight',index);
@@ -365,6 +370,22 @@ $config =Config::getInstance();
         });
     }
 
+    // creamos la tabla de proximos a salir
+    $('#tdialog-tnext').datagrid({
+        pagination: false,
+        rownumbers: false,
+        fit:true,
+        fitColumns: true,
+        singleSelect: true,
+        autoRowHeight: true,
+        columns:[[
+            { field:'Num',	width:'10%', align:'right',	title: '<?php _e('Num');?>' },
+            { field:'Dorsal',width:'15%', align:'right',	title: '<?php _e('Dorsal');?>' },
+            { field:'Nombre',width:'25%', align:'right',	title: '<?php _e('Name');?>' },
+            { field:'Guia',	width:'50%', align:'right',	title: '<?php _e('Handler');?>' }
+        ]]
+    })
+
     addTooltip($('#tablet-reloadBtn').linkbutton(),'<?php _e("Update session data");?>');
     addTooltip($('#tablet-recoBtn').linkbutton(),'<?php _e("Tell chronometer to start Course walk");?>');
     addTooltip($('#tablet-datagrid-search'),'<?php _e("Activate data entry panel on selected dorsal");?>');
@@ -372,19 +393,20 @@ $config =Config::getInstance();
     // layout
     var dg= {'cols':210, 'rows':145}; // declare base datagrid as A5 sheet
     doLayout(dg,"#tdialog-fieldset",        0,      0,      210,    145 );
-    doLayout(dg,"#tdialog-FaltaUpBtn",		5,		10,		35,		90	);
-    doLayout(dg,"#tdialog-FaltaDownBtn",	50,		10,		15,		20	);
-    doLayout(dg,"#tdialog-RehuseUpBtn",		170,	10,		35,		90	);
-    doLayout(dg,"#tdialog-RehuseDownBtn",	145,	10,		15,		20	);
-    doLayout(dg,"#tdialog-TocadoUpBtn",		10,		110,	30,		30	);
-    doLayout(dg,"#tdialog-TocadoDownBtn",	50,		120,	15,		20	);
-    doLayout(dg,"#tdialog-SalidaBtn",		50,		80,		15,		13	);
-    doLayout(dg,"#tdialog-ResetBtn",		50,		97,		15,		13	);
-    doLayout(dg,"#tdialog-StartStopBtn",	145,	85,		15,		15	);
-    doLayout(dg,"#tdialog-AcceptBtn",		170,	120,	30,		20	);
+    doLayout(dg,"#tdialog-FaltaUpBtn",		5,		5,		30,		75	);
+    doLayout(dg,"#tdialog-FaltaDownBtn",	45,		5,		15,		20	);
+    doLayout(dg,"#tdialog-RehuseUpBtn",		170,	5,		30,		75	);
+    doLayout(dg,"#tdialog-RehuseDownBtn",	145,	5,		15,		20	);
+    doLayout(dg,"#tdialog-TocadoUpBtn",		5,		85,     30,		20	);
+    doLayout(dg,"#tdialog-TocadoDownBtn",	45,		85,     15,		20	);
+    doLayout(dg,"#tdialog-SalidaBtn",		145,	85,		15,		13	);
+    doLayout(dg,"#tdialog-ResetBtn",		145,	102,	15,		13	);
+    doLayout(dg,"#tdialog-StartStopBtn",	174,	88,		22,		22	);
+    doLayout(dg,"#tdialog-AcceptBtn",		170,	115,	30,		25	);
     doLayout(dg,"#tdialog-CancelBtn",		145,	120,	15,		20	);
-    doLayout(dg,"#tdialog-NoPresentadoBtn",	75,		10,		25,		20	);
-    doLayout(dg,"#tdialog-EliminadoBtn",	110,	10,		25,		20	);
+    doLayout(dg,"#tdialog-NoPresentadoBtn",	70,		5,		27,		20	);
+    doLayout(dg,"#tdialog-EliminadoBtn",	108,	5,		27,		20	);
+    doLayout(dg,"#tdialog-Next",	        5,	    110,	65,		30	);
     doLayout(dg,"#tdialog-1",				75,		80,		20,		15	);
     doLayout(dg,"#tdialog-2",				95,		80,		20,		15	);
     doLayout(dg,"#tdialog-3",				115,	80,		20,		15	);
@@ -397,32 +419,33 @@ $config =Config::getInstance();
     doLayout(dg,"#tdialog-Del",				115,	125,	20,		15	);
     doLayout(dg,"#tdialog-0",				95,		125,	20,		15	);
     doLayout(dg,"#tdialog-Dot",				75,		125,	20,		15	);
-    doLayout(dg,"#tdialog-DorsalLbl",		50,		33,		10,		8	);
-    doLayout(dg,"#tdialog-Dorsal",			60,		32,		30,		8	);
-    doLayout(dg,"#tdialog-NombreLbl",		90,	    33,		20,		8	);
-    doLayout(dg,"#tdialog-Nombre",			105,	32,		60,		8	);
-    doLayout(dg,"#tdialog-GuiaLbl",			50,		41,		10,		8	);
-    doLayout(dg,"#tdialog-Guia",			60,		40,		50,		8	);
-    doLayout(dg,"#tdialog-ClubLbl",			110,	41,		15,		8	);
-    doLayout(dg,"#tdialog-Club",			120,	40,		45,		8	);
-    doLayout(dg,"#tdialog-CategoriaLbl",	50,		49,		10,		8	);
-    doLayout(dg,"#tdialog-Categoria",		60,		48,		30,		8	);
-    doLayout(dg,"#tdialog-GradoLbl",		90,		49,		10,		8	);
-    doLayout(dg,"#tdialog-Grado",			100,	48,		10,		8	);
-    doLayout(dg,"#tdialog-CeloLbl",			110,	49,		15,		8	);
-    doLayout(dg,"#tdialog-Celo",			120,	48,		20,		8	);
-    doLayout(dg,"#tdialog-FaltasLbl",		50,		70,		10,		5	);
-    doLayout(dg,"#tdialog-Faltas",			50,		55,		10,		15	);
-    doLayout(dg,"#tdialog-TocadosLbl",		65,		70,		10,		5	);
-    doLayout(dg,"#tdialog-Tocados",			65,		55,		10,		15	);
-    doLayout(dg,"#tdialog-RehusesLbl",		80,		70,		10,		5	);
-    doLayout(dg,"#tdialog-Rehuses",			80,		55,		10,		15	);
-    doLayout(dg,"#tdialog-TiempoLbl",		95,		70,		35,		5	);
-    doLayout(dg,"#tdialog-Tiempo",			95,		55,		35,		15	);
-    doLayout(dg,"#tdialog-NoPresentadoLbl",	135,	70,		10,		5	);
-    doLayout(dg,"#tdialog-NoPresentadoStr",	135,	55,		10,		15	);
-    doLayout(dg,"#tdialog-EliminadoLbl",	150,	70,		10,		5	);
-    doLayout(dg,"#tdialog-EliminadoStr",	150,	55,		10,		15	);
-    doLayout(dg,"#tdialog-Rectangulo",		45,		32,		120,	46  );
+    doLayout(dg,"#tdialog-DorsalLbl",		45,		38,		10,		8	);
+    doLayout(dg,"#tdialog-Dorsal",			60,		37,		30,		8	);
+    doLayout(dg,"#tdialog-NombreLbl",		85,	    38,		20,		8	);
+    doLayout(dg,"#tdialog-Nombre",			105,	37,		60,		8	);
+    doLayout(dg,"#tdialog-GuiaLbl",			45,		46,		10,		8	);
+    doLayout(dg,"#tdialog-Guia",			60,		45,		50,		8	);
+    doLayout(dg,"#tdialog-ClubLbl",			110,	46,		15,		8	);
+    doLayout(dg,"#tdialog-Club",			120,	45,		45,		8	);
+    doLayout(dg,"#tdialog-CategoriaLbl",	45,		54,		10,		8	);
+    doLayout(dg,"#tdialog-Categoria",		60,		53,		30,		8	);
+    doLayout(dg,"#tdialog-GradoLbl",		85,		54,		10,		8	);
+    doLayout(dg,"#tdialog-Grado",			100,	53,		10,		8	);
+    doLayout(dg,"#tdialog-CeloLbl",			110,	54,		15,		8	);
+    doLayout(dg,"#tdialog-Celo",			120,	53,		20,		8	);
+    doLayout(dg,"#tdialog-FaltasLbl",		50,		75,		10,		5	);
+    doLayout(dg,"#tdialog-Faltas",			50,		60,		10,		15	);
+    doLayout(dg,"#tdialog-TocadosLbl",		65,		75,		10,		5	);
+    doLayout(dg,"#tdialog-Tocados",			65,		60,		10,		15	);
+    doLayout(dg,"#tdialog-RehusesLbl",		80,		75,		10,		5	);
+    doLayout(dg,"#tdialog-Rehuses",			80,		60,		10,		15	);
+    doLayout(dg,"#tdialog-TiempoLbl",		95,		75,		35,		5	);
+    doLayout(dg,"#tdialog-Tiempo",			95,		60,		35,		15	);
+    doLayout(dg,"#tdialog-NoPresentadoLbl",	135,	75,		10,		5	);
+    doLayout(dg,"#tdialog-NoPresentadoStr",	135,	60,		10,		15	);
+    doLayout(dg,"#tdialog-EliminadoLbl",	150,	75,		10,		5	);
+    doLayout(dg,"#tdialog-EliminadoStr",	150,	60,		10,		15	);
+    doLayout(dg,"#tdialog-InfoLbl",		    42,		30,		121,	5   );
+    doLayout(dg,"#tdialog-Rectangulo",		40,		28,		125,	51  );
 
 </script>

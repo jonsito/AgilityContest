@@ -363,6 +363,7 @@ function tablet_acceptSelectJornada() {
         	        	    		startEventMgr(workingData.sesion,tablet_processEvents);
 									setDataEntryEnabled(false);
                                     $('#tablet-layout').layout('panel','west').panel('setTitle',p.Nombre+" - "+ j.Nombre);
+									$('#tdialog-InfoLbl').html(p.Nombre + ' - ' + j.Nombre);
 									bindKeysToTablet();
         	    				}
         	    			); // load
