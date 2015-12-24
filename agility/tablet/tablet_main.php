@@ -72,6 +72,7 @@ $config =Config::getInstance();
                         <input id="tdialog-Del" type="button" value="." class="tablet_numbers" onclick="tablet_dot();">
                         <input id="tdialog-Dot" type="button" value="Del" class="tablet_numbers" onclick="tablet_del();">
                         <label id="tdialog-InfoLbl" for="tdialog-InfoLbl" class="tablet_infoheader">Informacion de prueba, jornada y manga</label>
+                        <label id="tdialog-NumberLbl" for="tdialog-NumberLbl" class="tablet_infoheader"><p>Num</p></label>
                         <label id="tdialog-DorsalLbl" for="tdialog-Dorsal" class="tablet_info">Dorsal</label>
                         <input id="tdialog-Dorsal" type="text" readonly="readonly" name="<?php _e('Dorsal');?>" class="tablet_info"/>
                         <label id="tdialog-NombreLbl" for="tdialog-Nombre" class="tablet_info"><?php _e('Name'); ?></label>
@@ -383,8 +384,11 @@ $config =Config::getInstance();
             { field:'Dorsal',width:'15%', align:'right',	title: '<?php _e('Dorsal');?>' },
             { field:'Nombre',width:'25%', align:'right',	title: '<?php _e('Name');?>' },
             { field:'Guia',	width:'50%', align:'right',	title: '<?php _e('Handler');?>' }
-        ]]
-    })
+        ]],
+        onDblClickRow: function(index,row) {
+            // TODO: write
+        }
+    });
 
     addTooltip($('#tablet-reloadBtn').linkbutton(),'<?php _e("Update session data");?>');
     addTooltip($('#tablet-recoBtn').linkbutton(),'<?php _e("Tell chronometer to start Course walk");?>');
@@ -419,33 +423,34 @@ $config =Config::getInstance();
     doLayout(dg,"#tdialog-Del",				115,	125,	20,		15	);
     doLayout(dg,"#tdialog-0",				95,		125,	20,		15	);
     doLayout(dg,"#tdialog-Dot",				75,		125,	20,		15	);
-    doLayout(dg,"#tdialog-DorsalLbl",		45,		38,		10,		8	);
-    doLayout(dg,"#tdialog-Dorsal",			60,		37,		30,		8	);
-    doLayout(dg,"#tdialog-NombreLbl",		85,	    38,		20,		8	);
-    doLayout(dg,"#tdialog-Nombre",			105,	37,		60,		8	);
-    doLayout(dg,"#tdialog-GuiaLbl",			45,		46,		10,		8	);
-    doLayout(dg,"#tdialog-Guia",			60,		45,		50,		8	);
-    doLayout(dg,"#tdialog-ClubLbl",			110,	46,		15,		8	);
-    doLayout(dg,"#tdialog-Club",			120,	45,		45,		8	);
-    doLayout(dg,"#tdialog-CategoriaLbl",	45,		54,		10,		8	);
-    doLayout(dg,"#tdialog-Categoria",		60,		53,		30,		8	);
-    doLayout(dg,"#tdialog-GradoLbl",		85,		54,		10,		8	);
-    doLayout(dg,"#tdialog-Grado",			100,	53,		10,		8	);
-    doLayout(dg,"#tdialog-CeloLbl",			110,	54,		15,		8	);
-    doLayout(dg,"#tdialog-Celo",			120,	53,		20,		8	);
-    doLayout(dg,"#tdialog-FaltasLbl",		50,		75,		10,		5	);
+    doLayout(dg,"#tdialog-DorsalLbl",		53,		38,		10,		7	);
+    doLayout(dg,"#tdialog-Dorsal",			65,		37,		18,		7	);
+    doLayout(dg,"#tdialog-NombreLbl",		85,	    38,		20,		7   );
+    doLayout(dg,"#tdialog-Nombre",			100,	37,		63,		7	);
+    doLayout(dg,"#tdialog-GuiaLbl",			53,		45,		10,		7	);
+    doLayout(dg,"#tdialog-Guia",			65,		44,		45,		7	);
+    doLayout(dg,"#tdialog-ClubLbl",			110,	45,		15,		7	);
+    doLayout(dg,"#tdialog-Club",			120,	44,		43,		7	);
+    doLayout(dg,"#tdialog-CategoriaLbl",	53,		52,		10,		7	);
+    doLayout(dg,"#tdialog-Categoria",		65,		51,		15,		7	);
+    doLayout(dg,"#tdialog-GradoLbl",		85,		52,		10,		7	);
+    doLayout(dg,"#tdialog-Grado",			100,	51,		10,		7	);
+    doLayout(dg,"#tdialog-CeloLbl",			110,	52,		15,		7	);
+    doLayout(dg,"#tdialog-Celo",			120,	51,		20,		7	);
+    doLayout(dg,"#tdialog-FaltasLbl",		50,		74,		10,		5	);
     doLayout(dg,"#tdialog-Faltas",			50,		60,		10,		15	);
-    doLayout(dg,"#tdialog-TocadosLbl",		65,		75,		10,		5	);
+    doLayout(dg,"#tdialog-TocadosLbl",		65,		74,		10,		5	);
     doLayout(dg,"#tdialog-Tocados",			65,		60,		10,		15	);
-    doLayout(dg,"#tdialog-RehusesLbl",		80,		75,		10,		5	);
+    doLayout(dg,"#tdialog-RehusesLbl",		80,		74,		10,		5	);
     doLayout(dg,"#tdialog-Rehuses",			80,		60,		10,		15	);
-    doLayout(dg,"#tdialog-TiempoLbl",		95,		75,		35,		5	);
+    doLayout(dg,"#tdialog-TiempoLbl",		95,		74,		35,		5	);
     doLayout(dg,"#tdialog-Tiempo",			95,		60,		35,		15	);
-    doLayout(dg,"#tdialog-NoPresentadoLbl",	135,	75,		10,		5	);
+    doLayout(dg,"#tdialog-NoPresentadoLbl",	135,	74,		10,		5	);
     doLayout(dg,"#tdialog-NoPresentadoStr",	135,	60,		10,		15	);
-    doLayout(dg,"#tdialog-EliminadoLbl",	150,	75,		10,		5	);
+    doLayout(dg,"#tdialog-EliminadoLbl",	150,	74,		10,		5	);
     doLayout(dg,"#tdialog-EliminadoStr",	150,	60,		10,		15	);
     doLayout(dg,"#tdialog-InfoLbl",		    42,		30,		121,	5   );
+    doLayout(dg,"#tdialog-NumberLbl",	    42,		38,		9,	    15  );
     doLayout(dg,"#tdialog-Rectangulo",		40,		28,		125,	51  );
 
 </script>

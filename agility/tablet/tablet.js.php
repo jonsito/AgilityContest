@@ -382,25 +382,24 @@ function tablet_cancel() {
 }
 function fillPending(dg,idx) {
 	var data=dg.datagrid('getRows');
-	var total=0;
 	var rows=[];
-	for (var n=1;n<6;n++) {
-		if ( typeof(data[idx+n])!=='undefined') {
-			var row=data[idx+n];
-			total++;
-			rows.push({'Num':idx+n+1,'Dorsal':row.Dorsal,'Nombre':row.Nombre,'Guia':row.NombreGuia});
-		}
+	for (var n=(idx==0)?0:-1;n<6;n++) {
+		if ( typeof(data[idx+n])==='undefined') continue;
+		var row=data[idx+n];
+		rows.push({'Num':idx+n+1,'Dorsal':row.Dorsal,'Nombre':row.Nombre,'Guia':row.NombreGuia});
 	}
 	$('#tdialog-tnext').datagrid('loadData',rows);
+	$('#tdialog-tnext').datagrid('selectRow',(idx==0)?0:1);
+	$('#tdialog-NumberLbl').html('<p>'+(idx+1)+'</p>');
 }
 
 function nextRow(dg, cb){
 	var opts = dg.datagrid('options');
 	var row = dg.datagrid('getSelected');
 	var index = dg.datagrid('getRowIndex', row);
-	if (index>=(opts.numRows-1)) return false;
+	if (index>(opts.numRows)) return false; // at the end
 	dg.datagrid('scrollTo', {
-		index: index+1,
+		index: index+1, // to allow view up to 4 next rows
 		callback: function(index){
 			$(this).datagrid('selectRow', index);
 			cb(index, $(this).datagrid('getRows')[index]);
@@ -536,6 +535,7 @@ function tablet_editByDorsal() {
 					data.Parent = dgname; // store datagrid reference
 					$('#tdialog-form').form('load', data);
 					setDataEntryEnabled(true);
+                    fillPending(dg,data.RowIndex);
 				}
 			});
 		});
