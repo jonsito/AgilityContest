@@ -161,7 +161,7 @@ class Jueces extends DBObject {
 			$fed=intval($this->curFederation->get('ID'));
 			$intlmask=Federations::getInternationalMask(); // select non-international fedmask
 			$natmask=~$intlmask;
-			$fedstr=$this->curFederation->isInternational()?"((Federations & $intlmask)!=0)":"((Federations & $natmask)!=0)";
+			$fedstr=$this->curFederation->isInternational()?"((Internacional!=0) OR (Federations & $intlmask)!=0)":"((Federations & $natmask)!=0)";
 		}
 		$where = "1";
 		if ($search!=='') $where="( (Nombre LIKE '%$search%') OR ( Email LIKE '%$search%') ) ";
@@ -187,7 +187,7 @@ class Jueces extends DBObject {
 			$mask=1<<$fed;
 			$this->myLogger->trace("Jueces: fed:{$this->curFederation->get('ID')} mask:$mask");
 			$intlmask=Federations::getInternationalMask();
-			$fedstr=$this->curFederation->isInternational()?"((Federations & $intlmask)!=0)":"((Federations & $mask)!=0)";
+			$fedstr=$this->curFederation->isInternational()?"((Internacional!=0) OR (Federations & $intlmask)!=0)":"((Federations & $mask)!=0)";
 		}
 		if ($q!=="") $where="( Nombre LIKE '%".$q."%' )";
 		$result=$this->__select(
