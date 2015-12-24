@@ -87,7 +87,7 @@ $config =Config::getInstance();
    		<a id="inscripciones-delBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-trash'"
    			onclick="deleteInscripcion('#inscripciones-datagrid')"><?php _e('Delete'); ?></a>
-   		<input id="inscripciones-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
+   		<input id="inscripciones-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"	/>
 		<span id="inscripciones-readonly" class="blink" style="color:red">Read Only</span>
    	</span>
    	<span style="float:right;padding:5px"> 	<!-- estos elementos deben estar alineados a la derecha -->

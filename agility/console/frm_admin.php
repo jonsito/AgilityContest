@@ -42,7 +42,7 @@ $config =Config::getInstance();
    				<a id="usuarios-delBtn" href="#" class="easyui-linkbutton" 
    					data-options="iconCls:'icon-trash'"
    					onclick="deleteUser('#usuarios-datagrid')"><?php _e('Delete user'); ?></a>
-   				<input id="usuarios-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
+   				<input id="usuarios-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"	/>
    			</span>
    			<span style="float:right;padding:5px">
    				<a id="usuarios-keyBtn" href="#" class="easyui-linkbutton" 
@@ -52,7 +52,7 @@ $config =Config::getInstance();
    					data-options="iconCls:'icon-brush'"
    					onclick="
    			        	// clear selection and reload table
-   			    		$('#usuarios-datagrid-search').val('---- Buscar ----');
+   			    		$('#usuarios-datagrid-search').val('<?php _e('-- Search --'); ?>');
    			            $('#usuarios-datagrid').datagrid('load',{ where: '' });"
    					><?php _e('Clear'); ?></a>
    			</span>
@@ -82,14 +82,14 @@ $config =Config::getInstance();
    				<a id="sesiones-resetBtn" href="#" class="easyui-linkbutton" 
    					data-options="iconCls:'icon-redo'"
    					onclick="resetSession('#sesiones-datagrid')"><?php _e('Reset session'); ?></a>
-   				<input id="sesiones-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
+   				<input id="sesiones-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"	/>
    			</span>
    			<span style="float:right;padding:5px">
    				<a id="sesiones-reloadBtn" href="#" class="easyui-linkbutton"
    					data-options="iconCls:'icon-brush'"
    					onclick="
    			        	// clear selection and reload table
-   			    		$('#sesiones-datagrid-search').val('---- Buscar ----');
+   			    		$('#sesiones-datagrid-search').val('<?php _e('-- Search --'); ?>');
    			            $('#sesiones-datagrid').datagrid('load',{ where: '' });"
    					><?php _e('Clear'); ?></a>
    			</span>

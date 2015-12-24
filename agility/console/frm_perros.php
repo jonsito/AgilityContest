@@ -39,7 +39,7 @@ $config =Config::getInstance();
    		<a id="perros-delBtn" href="#" class="easyui-linkbutton"
    			data-options="iconCls:'icon-trash'"
    			onclick="deleteDog('#perros-datagrid')"><?php _e('Delete dog'); ?></a>
-   		<input id="perros-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"	/>
+   		<input id="perros-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"	/>
    	</span>
    	<span style="float:right;padding:5px">
    		<a id="perros-excelBtn" href="#" class="easyui-linkbutton"

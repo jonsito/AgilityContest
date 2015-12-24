@@ -39,7 +39,7 @@ $config =Config::getInstance();
    	    <a id="pruebas-delBtn" href="#" class="easyui-linkbutton" 
    	    	data-options="iconCls:'icon-remove'"
    	    	onclick="deletePrueba('#pruebas-datagrid')"><?php _e('Remove contest'); ?></a>
-   		<input id="pruebas-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"/>
+   		<input id="pruebas-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"/>
    	    <input id="pruebas-openBox" type="checkbox" value="1" class="easyui-checkbox"
    	    	data-options="iconCls:'icon-search'" 
    	    	onclick="doSearchPrueba()"/><?php _e('Incl. closed'); ?>

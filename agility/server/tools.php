@@ -117,7 +117,7 @@ function http_request($name,$type,$def,$esc=true) {
 	if (isset($_REQUEST[$name])) $a=$_REQUEST[$name];
 	if ($a===null) return null;
 	switch ($type) {
-		case "s": if ($a==="---- Buscar ----") $a="";
+		case "s": if ($a===_('-- Search --') ) $a="";
 			if ($esc) return escapeString(strval($a));
 			return strval($a);
 		case "i": return intval($a);

@@ -31,7 +31,7 @@ $config =Config::getInstance();
 <div id="new_inscripcion-datagrid-tools" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
 	   	<label for="Buscar"><?php _e('Search'); ?>: </label>
-		<input name="Buscar" type="text" id="new_inscripcion-datagrid-search" style="width:150px" value="---- Buscar ----"
+		<input name="Buscar" type="text" id="new_inscripcion-datagrid-search" style="width:150px" value="<?php _e('-- Search --'); ?>"
 			class="search_textfield" onchange="reloadWithSearch('#new_inscripcion-datagrid','noinscritos',false);"/>
 	</span>
 	<span style="float:right;padding:5px">
@@ -135,8 +135,7 @@ $('#new_inscripcion-datagrid').datagrid({
 	queryParams: {
 		Operation: 'noinscritos',
 		Prueba: workingData.prueba,
-        Federation: workingData.federation //,
-		//where: ($('new_inscripcion-datagrid-search').val()==='---- Buscar ----')?'':$('new_inscripcion-datagrid-search').val()
+        Federation: workingData.federation
 	},
 	method: 'get',
 	mode: 'remote',
@@ -175,7 +174,6 @@ function newInscripcion_onOpenSuccess() {
 	$('#new_inscripcion-form').form('clear');
 	
 	// setup initial search string, prueba ID and Operation
-	// $('#inscripciones-datagrid-search').val('---- Buscar ----');
 	$('#new_inscripcion-Operation').val('insert');
 	$('#new_inscripcion-Prueba').val(workingData.prueba);
 

@@ -25,7 +25,7 @@ $config =Config::getInstance();
 
 function buscaEquipos() {
 	$('#team_datagrid').datagrid( 'load', { 
-		where: ($('#team_datagrid-search').val()==='---- Buscar ----')? '' : $('#team_datagrid-search').val()
+		where: ($('#team_datagrid-search').val()==='<?php _e('-- Search --'); ?>')? '' : $('#team_datagrid-search').val()
 		}
 	);
 }

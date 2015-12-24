@@ -32,7 +32,7 @@ $config =Config::getInstance();
 <div id="countries-toolbar" style="width:100%;display:inline-block">
 	<span style="float:left;padding:5px">
 		<label for="countries-datagrid-search"></label>
-   		<input id="countries-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"/>
+   		<input id="countries-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"/>
    	</span>
    	<span style="float:right;padding:5px">
    		<a id="countries-reloadBtn" href="#" class="easyui-linkbutton"

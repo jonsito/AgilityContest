@@ -39,7 +39,7 @@ $config =Config::getInstance();
        	<a id="guias-delBtn" href="#" class="easyui-linkbutton" 
        		data-options="iconCls:'icon-trash'"
        		onclick="deleteGuia('#guias-datagrid')"><?php _e('Delete handler'); ?></a>
-   		<input id="guias-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield" />
+   		<input id="guias-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield" />
 	</span>
 	<span style="float:right;padding:5px">
    		<a id="guias-reloadBtn" href="#" class="easyui-linkbutton"

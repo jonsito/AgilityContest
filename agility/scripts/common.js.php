@@ -721,7 +721,7 @@ function displayRowData(dg) {
 function reloadWithSearch(dg,op,clear) {
 	var w=$(dg+'-search').val();
     var fed=workingData.federation;
-	if (strpos(w,"-- Buscar --",0)) w='';
+	if (strpos(w,"<?php _e('-- Search --'); ?>",0)) w='';
 	if (clear==true) w='';
     $(dg).datagrid(
     	'load',
@@ -733,7 +733,7 @@ function reloadWithSearch(dg,op,clear) {
         Jornada: workingData.jornada
     	} 
     );
-    if (clear==true) $(dg+'-search').val('---- Buscar ----');
+    if (clear==true) $(dg+'-search').val('<?php _e('-- Search --'); ?>');
 }
 
 /**

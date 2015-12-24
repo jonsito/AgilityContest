@@ -37,7 +37,7 @@ $config =Config::getInstance();
    		<a id="clubes-delBtn" href="#" class="easyui-linkbutton" 
    			data-options="iconCls:'icon-trash'"
    			onclick="deleteClub('#clubes-datagrid')"><?php _e('Delete Club'); ?></a>
-   		<input id="clubes-datagrid-search" type="text" value="---- Buscar ----" class="search_textfield"/>
+   		<input id="clubes-datagrid-search" type="text" value="<?php _e('-- Search --'); ?>" class="search_textfield"/>
    	</span>
    	<span style="float:right;padding:5px">
    		<a id="clubes-reloadBtn" href="#" class="easyui-linkbutton"
