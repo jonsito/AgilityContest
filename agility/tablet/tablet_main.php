@@ -386,7 +386,8 @@ $config =Config::getInstance();
             { field:'Guia',	width:'50%', align:'right',	title: '<?php _e('Handler');?>' }
         ]],
         onDblClickRow: function(index,row) {
-            // TODO: write
+            $('#tablet-datagrid-search').val(row.Dorsal);
+            tablet_editByDorsal();
         }
     });
 

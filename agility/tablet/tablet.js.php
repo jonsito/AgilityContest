@@ -464,7 +464,7 @@ function tablet_accept() {
 		data.RowIndex=index; // not really used, but....
 		data.Parent=dgname; // store datagrid reference
 		$('#tdialog-form').form('load',data);
-		fillPending(dg,data.RowIndex);
+		fillPending(dg,parseInt(data.RowIndex));
 	});
 	if (res==false) { // at end of list
 		setDataEntryEnabled(false);
@@ -498,7 +498,7 @@ function loadDorsalPage(tanda,dg,dorsal,cb) {
 			var idx=row.RowIndex;
 			if (idx<0) {
 				$.messager.alert("Not found",'<?php _e("Dog with dorsal");?>'+": "+dorsal+" "+'<?php _e("does not run in this series");?>',"info");
-				$('#tablet-datagrid-search').val('---- Dorsal ----');
+				$('#tablet-datagrid-search').val('---- <?php _e("Dorsal"); ?> ----');
 				return false;
 			}
 			cb(idx);
@@ -525,7 +525,7 @@ function tablet_editByDorsal() {
 		var dg2=$(dgname);
 		loadDorsalPage(rows[i],dg2,dorsal,function(idx){
 			dg2.datagrid('scrollTo', {
-				index: idx,
+				index: idx, // to make sure extra rows are loaded
 				callback: function (index) {
 					if (index < 0) return false; // no selection
 					dg2.datagrid('selectRow', index);
@@ -534,17 +534,17 @@ function tablet_editByDorsal() {
 					data.RowIndex = index; // not really used, but....
 					data.Parent = dgname; // store datagrid reference
 					$('#tdialog-form').form('load', data);
+					fillPending(dg2,parseInt(data.RowIndex));
 					setDataEntryEnabled(true);
-                    fillPending(dg,data.RowIndex);
 				}
 			});
 		});
-		drs.val('---- Dorsal ----');
+		drs.val('---- <?php _e("Dorsal"); ?> ----');
 		return false;
 	}
 	// arriving here means that there are no expanded row
 	$.messager.alert("No selection",'<?php _e("There is no selected round");?>',"error");
-	drs.val('---- Dorsal ----');
+	drs.val('---- <?php _e("Dorsal"); ?> ----');
 }
 function bindKeysToTablet() {
 	if (isMobileDevice()) return; // disable key handling on tablet/mobile phone
