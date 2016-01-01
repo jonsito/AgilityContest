@@ -554,41 +554,45 @@ function bindKeysToTablet() {
 		// on round selection window focused, ignore
 		if ($('#tdialog-fieldset').prop('disabled')) return true;
 		switch(e.which) {
+			/* you can check keycodes at http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes */
 			// numbers (querty/keypad)
-			case 48:
-			case 96:	tablet_add(0); break;
-			case 49:
-			case 97:	tablet_add(1); break;
-			case 50:
-			case 98:	tablet_add(2); break;
-			case 51:
-			case 99:	tablet_add(3); break;
-			case 52:
-			case 100:	tablet_add(4); break;
-			case 53:
-			case 101:	tablet_add(5); break;
-			case 54:
-			case 102:	tablet_add(6); break;
-			case 55:
-			case 103:	tablet_add(7); break;
-			case 56:
-			case 104:	tablet_add(8); break;
-			case 57:
-			case 105:	tablet_add(9); break;
-			case 8:
-			case 46:	tablet_del(); break;
-			case 190:
-			case 110:	tablet_dot(); break;
+			case 48:    /* 0 */
+			case 96:	/* numpad 0 */ tablet_add(0); break;
+			case 49:    /* 1 */
+			case 97:	/* numpad 0 */	tablet_add(1); break;
+			case 50:    /* 2 */
+			case 98:	/* numpad 0 */	tablet_add(2); break;
+			case 51:    /* 3 */
+			case 99:	/* numpad 0 */	tablet_add(3); break;
+			case 52:    /* 4 */
+			case 100:	/* numpad 0 */	tablet_add(4); break;
+			case 53:    /* 5 */
+			case 101:	/* numpad 0 */	tablet_add(5); break;
+			case 54:    /* 6 */
+			case 102:	/* numpad 0 */	tablet_add(6); break;
+			case 55:    /* 7 */
+			case 103:	/* numpad 0 */	tablet_add(7); break;
+			case 56:    /* 8 */
+			case 104:	/* numpad 0 */	tablet_add(8); break;
+			case 57:    /* 9 */
+			case 105:	/* numpad 0 */	tablet_add(9); break;
+			case 8:		/* del */
+			case 46:	/* numpad supr */	tablet_del(); break;
+			case 190:    /* dot */
+			case 110:	/* numpad dot */	tablet_dot(); break;
 			// entrada de datos desde tablet
 			case 70: // 'F' -> falta
+			case 32: // ' ' -> space also works as fault
 				if (e.ctrlKey) tablet_down('#tdialog-Faltas');
 				else 	tablet_up('#tdialog-Faltas'); ;
 				break;
 			case 82: // 'R' -> rehuse
+			case 225: // 'AltGr' -> also works as refusal
 				if (e.ctrlKey) tablet_down('#tdialog-Rehuses');
 				else 	tablet_up('#tdialog-Rehuses'); ;
 				break;
 			case 84: // 'T' -> tocado
+			case 18: // 'Alt' -> also works as "touch"
 				if (e.ctrlKey) tablet_down('#tdialog-Tocados');
 				else 	tablet_up('#tdialog-Tocados'); ;
 				break;
