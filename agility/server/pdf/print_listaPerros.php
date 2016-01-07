@@ -61,6 +61,12 @@ class Print_ListaPerros extends PrintCommon {
 		$this->icon=getIconPath($this->federation->get('Name'),"agilitycontest.png");
         $this->icon2=getIconPath($this->federation->get('Name'),$this->federation->get('Logo'));
 		$this->cols[8]=$this->strClub; // use "country" or "club" according federation
+		if ($this->federation->get('WideLicense')==true) { // on wide license hide loe/rrc
+			$this->pos[3]+=$this->pos[4];
+			$this->pos[4]=0;
+			$this->pos[3]+=5; // decrease handler name
+			$this->pos[7]-=5;
+		}
 	}
 	
 	// Cabecera de página
@@ -79,6 +85,7 @@ class Print_ListaPerros extends PrintCommon {
 		$this->ac_header(1,10);
 		$this->setXY(10,37.5);
         for ($n=0;$n<count($this->cols);$n++){
+			if ($this->pos[$n]==0) continue;
             // REMINDER: $this->cell( width, height, data, borders, where, align, fill)
             $this->Cell($this->pos[$n],8,_($this->cols[$n]),'LTRB',0,'C',true);
         }
@@ -100,6 +107,7 @@ class Print_ListaPerros extends PrintCommon {
             $this->ac_row($rowcount,8.5);
             $this->setX(10);
             for ($n=0;$n<count($this->cols);$n++){
+				if ($this->pos[$n]==0) continue;
                 $this->Cell($this->pos[$n],5,$perro[$this->fields[$n]],'LBR',0,$this->align[$n],true);
             }
             $this->Ln();
