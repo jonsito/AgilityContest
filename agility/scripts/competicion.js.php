@@ -319,7 +319,7 @@ function dmanga_setRecorridos() {
     var last=data.L;
 
     // first row (large) allways to be shown
-    var trs_tipo=$('#dmanga_TRS_L_Tipo').val();     //0:fixed 1:best+ 2:mean+ 3:L+ 4:M+ 5:S+
+    var trs_tipo=$('#dmanga_TRS_L_Tipo').val();     //0:fixed 1:best+ 2:mean+ 3:L+ 4:M+ 5:S+ 6:speed
     var trs_factor=$('#dmanga_TRS_L_Factor').val(); //0:seconds 1:percentage
     var trm_tipo=$('#dmanga_TRM_L_Tipo').val();     //0:fixed 1:trs+
     var trm_factor=$('#dmanga_TRM_L_Factor').val(); //0:seconds 1:percentage
@@ -463,19 +463,10 @@ function save_manga(id) {
 function reload_manga(id) {
 	// ventana de datos
 	var url='/agility/server/database/mangaFunctions.php?Operation=getbyid&Jornada='+workingData.jornada+"&Manga="+id;
-    var form=$('#competicion-formdatosmanga').form({
-        onLoadSuccess:function(data){
-            // fix trs when data is given as mts/second
-            if (data.TRS_L_Tipo=6) data.TRS_L_Factor/=10.0;
-            if (data.TRS_M_Tipo=6) data.TRS_M_Factor/=10.0;
-            if (data.TRS_S_Tipo=6) data.TRS_S_Factor/=10.0;
-            if (data.TRS_T_Tipo=6) data.TRS_T_Factor/=10.0;
-        }
-    });
     // update judge list to prevent federation change
     $('#dmanga-Juez1').combogrid('load',{'Operation':'Enumerate','Federation':workingData.federation});
     $('#dmanga-Juez2').combogrid('load',{'Operation':'Enumerate','Federation':workingData.federation});
-    form.form('load',url);
+    $('#competicion-formdatosmanga').form('load',url); // notice that "onBeforeLoad is declared"
 }
 
 

@@ -41,11 +41,16 @@ if (typeof String.prototype.capitalize != 'function') {
 		});
 	};
 }
+
 /**
  * Evaluate start Time (used as base time in tablet/chrono/videowall
  */
-
 var startDate=Date.now();
+
+/* a comodity function to allow trace on inner functions */
+function myAlert(msg) {
+	console.log(msg);
+}
 
 /**
  * Set text of 'header' field on main window

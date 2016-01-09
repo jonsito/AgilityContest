@@ -183,6 +183,10 @@ class Resultados extends DBObject {
 					$result['trs']= $result_med['trs'] + $factor; // ( + X segundos )
 				else $result['trs']= $result_med['trs'] * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
+			case 6: // en lugar de tiempo nos proporcionan velocidad
+				$result['vel']=$factor/10.0;
+				$result['trs']=ceil((10*$result['dist'])/$factor);
+				break;
 		}
 		$result['trs']=ceil($result['trs']); // redondeamos hacia arriba
 		// Evaluamos TRM
@@ -196,8 +200,10 @@ class Resultados extends DBObject {
 				break;
 		}
 		$result['trm']=ceil($result['trm']); // redondeamos hacia arriba
-		// Finalmente evaluamos la velocidad de la ronda
-		$result['vel']= ($result['trs']==0)?0:number_format($result['dist']/$result['trs'],1);
+		if (! array_key_exists('vel',$result) ) {
+			// Finalmente, si no nos la han dado, evaluamos la velocidad de la ronda con dos decimales
+			$result['vel']= ($result['trs']==0)?0:number_format($result['dist']/$result['trs'],2);
+		}
 		// esto es todo amigos
 		return $result;
 	}
