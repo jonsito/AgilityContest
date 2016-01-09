@@ -193,10 +193,11 @@ class Mangas extends DBObject {
 		$trm_s_tipo = http_request("TRM_S_Tipo","i",0);
 		$trm_t_tipo = http_request("TRM_T_Tipo","i",0);
 		// factor TRS
-		$trs_l_factor = http_request("TRS_L_Factor","i",0);
-		$trs_m_factor = http_request("TRS_M_Factor","i",0);
-		$trs_s_factor = http_request("TRS_S_Factor","i",0);
-		$trs_t_factor = http_request("TRS_T_Factor","i",0);
+		// if TRS is provided as mts/secs , multiply *10 to store as an integer
+		$trs_l_factor = intval( ( ($trs_l_tipo!=6)?1:10) * http_request("TRS_L_Factor","f",0.0) );
+		$trs_m_factor = intval( ( ($trs_m_tipo!=6)?1:10) * http_request("TRS_M_Factor","f",0.0) );
+		$trs_s_factor = intval( ( ($trs_s_tipo!=6)?1:10) * http_request("TRS_S_Factor","f",0.0) );
+		$trs_t_factor = intval( ( ($trs_t_tipo!=6)?1:10) * http_request("TRS_T_Factor","f",0.0) );
 		// factor TRM
 		$trm_l_factor = http_request("TRM_L_Factor","i",0);
 		$trm_m_factor = http_request("TRM_M_Factor","i",0);

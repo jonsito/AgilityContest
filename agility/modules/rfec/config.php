@@ -53,7 +53,7 @@ class RFEC extends Federations {
                 "L"=>"Large",
                 "M"=>"Medium",
                 "S"=>"Small",
-                "T"=>"toy",
+                "T"=>"Toy",
                 "LM"=>"Large/Medium",
                 "ST"=>"Small/Toy",
                 "MS"=>"Medium/Small",

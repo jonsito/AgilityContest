@@ -95,10 +95,11 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			<td colspan="2">
                 <label for="dmanga_TRS_L_Tipo"></label>
 				<select id="dmanga_TRS_L_Tipo" name="TRS_L_Tipo"
-					onChange="if(this.value==0) $('#dmanga_TRS_L_Unit').val('s');">
+						onChange="round_setUnit(this.value,'#dmanga_TRS_L_Unit');">
 				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
 				<option value="1"><?php _e('Best result');?> + </option>
 				<option value="2"><?php _e('3 best average');?> + </option>
+				<option value="6"><?php _e('Velocity');?> </option>
 				</select>
 			</td>
 			<td>
@@ -110,13 +111,14 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<select id="dmanga_TRS_L_Unit" name="TRS_L_Unit">
 				<option value="s" selected="selected"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
+				<option value="m">m/s</option>
 				</select>
 			</td>
 			<!-- datos para TRM standard -->
 			<td>
                 <label for="dmanga_TRM_L_Tipo"></label>
 				<select id="dmanga_TRM_L_Tipo" name="TRM_L_Tipo"
-					onChange="if(this.value==0) $('#dmanga_TRM_L_Unit').val('s');">
+						onChange="round_setUnit(this.value,'#dmanga_TRM_L_Unit');">
 				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
 				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
@@ -147,11 +149,12 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			<td colspan="2">
                 <label for="dmanga_TRS_M_Tipo"></label>
 				<select id="dmanga_TRS_M_Tipo" name="TRS_M_Tipo"
-					onChange="if(this.value==0) $('#dmanga_TRS_M_Unit').val('s');">
+						onChange="round_setUnit(this.value,'#dmanga_TRS_M_Unit');">
 				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
 				<option value="1"><?php _e('Best result');?> + </option>
 				<option value="2"><?php _e('3 best average');?> + </option>
 				<option value="3"><?php _e('SCT Standard');?> + </option>
+				<option value="6"><?php _e('Velocity');?> </option>
 				</select>
 			</td>
 			<td>
@@ -163,13 +166,14 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<select id="dmanga_TRS_M_Unit" name="TRS_M_Unit">
 				<option value="s"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
+				<option value="m">m/s</option>
 				</select>
 			</td>
 			<!-- datos para TRM medium -->
 			<td>
                 <label for="dmanga_TRM_M_Tipo"></label>
 				<select id="dmanga_TRM_M_Tipo" name="TRM_M_Tipo"
-					onChange="if(this.value==0) $('#dmanga_TRM_M_Unit').val('s');">
+						onChange="round_setUnit(this.value,'#dmanga_TRM_M_Unit');">
 				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
 				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
@@ -200,12 +204,14 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 			<td colspan="2">
                 <label for="dmanga_TRS_S_Tipo"></label>
 				<select id="dmanga_TRS_S_Tipo" name="TRS_S_Tipo"
+						onChange="round_setUnit(this.value,'#dmanga_TRS_S_Unit');">
 					onChange="if(this.value==0) $('#dmanga_TRS_S_Unit').val('s');">
 				<option value="0" selected="selected"><?php _e('Fixed SCT');?></option>
 				<option value="1"><?php _e('Best result');?> + </option>
 				<option value="2"><?php _e('3 best average');?> + </option>
 				<option value="3"><?php _e('SCT Standard');?> + </option>
 				<option value="4"><?php _e('SCT Medium');?> + </option>
+				<option value="6"><?php _e('Velocity');?> </option>
 				</select>
 			</td>
 			<td>
@@ -217,13 +223,14 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<select id="dmanga_TRS_S_Unit" name="TRS_S_Unit">
 				<option value="s"><?php _e('Secs');?>.</option>
 				<option value="%">%</option>
+				<option value="m">m/s</option>
 				</select>
 			</td>
 			<!-- datos para TRM small -->
 			<td>
                 <label for="dmanga_TRM_S_Tipo"></label>
 				<select id="dmanga_TRM_S_Tipo" name="TRM_S_Tipo"
-					onChange="if(this.value==0) $('#dmanga_TRM_S_Unit').val('s');">
+						onChange="round_setUnit(this.value,'#dmanga_TRM_S_Unit');">
 				<option value="0" selected="selected"><?php _e('Fixed MCT');?></option>
 				<option value="1"><?php _e('SCT');?> + </option>
 				</select>
@@ -251,17 +258,17 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
                 <label for="dmanga_ObstT"></label>
                 <input type="text" id="dmanga_ObstT" name="Obst_T" size="4" value="0" onChange="dmanga_setRecorridos();"/>
             </td>
-			<!-- datos para TRS small -->
+			<!-- datos para TRS tiny -->
 			<td colspan="2">
                 <label for="dmanga_TRS_T_Tipo"></label>
 				<select id="dmanga_TRS_T_Tipo" name="TRS_T_Tipo"
-					onChange="if(this.value==0) $('#dmanga_TRS_T_Unit').val('s');">
+						onChange="round_setUnit(this.value,'#dmanga_TRS_T_Unit');">
 				<option value="0" selected="selected"><?php _e('Fixed SCT'); ?></option>
 				<option value="1"><?php _e('Best result'); ?> + </option>
 				<option value="2"><?php _e('3 best average'); ?> + </option>
 				<option value="3"><?php _e('SCT Standard'); ?> + </option>
 				<option value="4"><?php _e('SCT Medium'); ?> + </option>
-				<option value="5"><?php _e('SCT Small'); ?> + </option>
+				<option value="6"><?php _e('Velocity'); ?> </option>
 				</select>
 			</td>
 			<td>
@@ -273,13 +280,14 @@ if (!$fed) die ("Internal error::Invalid Federation ID: $f");
 				<select id="dmanga_TRS_T_Unit" name="TRS_T_Unit">
 				<option value="s"><?php _e('Secs'); ?>.</option>
 				<option value="%">%</option>
+				<option value="m">m/s</option>
 				</select>
 			</td>
 			<!-- datos para TRM tiny -->
 			<td>
                 <label for="dmanga_TRM_T_Tipo"></label>
 				<select id="dmanga_TRM_T_Tipo" name="TRM_T_Tipo"
-					onChange="if(this.value==0) $('#dmanga_TRM_T_Unit').val('s');">
+					onChange="round_setUnit(this.value,'#dmanga_TRM_T_Unit');">
 				<option value="0" selected="selected"><?php _e('Fixed MCT'); ?></option>
 				<option value="1"><?php _e('SCT'); ?> + </option>
 				</select>

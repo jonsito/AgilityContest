@@ -91,6 +91,12 @@ function formatLogo(val,row,idx) {
     return '<img width="40" height="40" alt="'+val+'" src="/agility/images/logos/'+val+'"/>';
 }
 
+/* comodity function to set up round SCT unit based on SCT type */
+function round_setUnit(tipo,dest) {
+    if (tipo==0) $(dest).val('s'); // fixed SCT: set unit to seconds
+    if (tipo==6) $(dest).val('m'); // Velocity instead of time/percent: set unit to mts/sec
+}
+
 function formatTeamResults( value , rows ) {
     // todo: check eq3 or eq4 contest and eval time and penalization
     var time=0.0;
@@ -457,10 +463,19 @@ function save_manga(id) {
 function reload_manga(id) {
 	// ventana de datos
 	var url='/agility/server/database/mangaFunctions.php?Operation=getbyid&Jornada='+workingData.jornada+"&Manga="+id;
+    var form=$('#competicion-formdatosmanga').form({
+        onLoadSuccess:function(data){
+            // fix trs when data is given as mts/second
+            if (data.TRS_L_Tipo=6) data.TRS_L_Factor/=10.0;
+            if (data.TRS_M_Tipo=6) data.TRS_M_Factor/=10.0;
+            if (data.TRS_S_Tipo=6) data.TRS_S_Factor/=10.0;
+            if (data.TRS_T_Tipo=6) data.TRS_T_Factor/=10.0;
+        }
+    });
     // update judge list to prevent federation change
     $('#dmanga-Juez1').combogrid('load',{'Operation':'Enumerate','Federation':workingData.federation});
     $('#dmanga-Juez2').combogrid('load',{'Operation':'Enumerate','Federation':workingData.federation});
-    $('#competicion-formdatosmanga').form('load',url);
+    form.form('load',url);
 }
 
 
