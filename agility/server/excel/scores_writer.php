@@ -174,7 +174,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
 				$this->myLogger->error("Encontrada Clasificacion para perro no inscrito:".$perro['Perro']);
 				continue;
 			}
-			$pdata=$inscritos[$perro['Perro']];
+			$pdata=&$inscritos[$perro['Perro']];
 			$pdata['Done']=1; // mark perro inscrito _and_ with clasification
 			// datos personales
 			$row[]=$perro['Dorsal'];

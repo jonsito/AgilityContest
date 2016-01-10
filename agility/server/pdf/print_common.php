@@ -123,6 +123,11 @@ class PrintCommon extends FPDF {
 		$modestr=$this->federation->get('IndexedModes');
 		return $modestr[$mode];
 	}
+	function getGradoString($tipo) {
+		$r=Mangas::$tipo_manga[$tipo][2]; // obtenemos la abreviatura del grado
+		$grstr=$this->federation->get('ListaGrados');
+		return $grstr[$r];
+	}
 
     /**
      * Gets the club logo based on Dog ID

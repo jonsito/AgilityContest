@@ -78,7 +78,7 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->trs1=$results['trs1'];
         $this->trs2=null;
         if ($mangas[1]!=0) $this->trs2=$results['trs2'];
-        $this->categoria = Mangas::$manga_modes[$mode][0];
+        $this->categoria=$this->getModeString(intval($mode));
 
         // Datos de equipos de la jornada
         $m=new Equipos("print_clasificacion_Equipos4",$prueba,$jornada);
@@ -183,7 +183,7 @@ class PrintClasificacionEq4 extends PrintCommon {
         $this->Ln();
         if ($this->trs2==null) { $this->Ln(); return; }
         $trs=$this->trs2;
-        $ronda=Mangas::$tipo_manga[$this->manga1->Tipo][4]; // la misma que la manga 2
+        $ronda=$this->getGradoString(intval($this->manga1->Tipo));
         $this->SetFont('Helvetica','B',11); // bold 9px
         $this->Cell(80,5,_("Round").": $ronda - {$this->getCatString($this->categoria)}",0,0,'',false);
         $this->SetFont('Helvetica','B',9); // bold 9px

@@ -18,7 +18,7 @@ class RSCE extends Federations {
             'WideLicense' => false, // some federations need extra print space to show license ID
             'Recorridos' => array('Common course',"Standard / Midi + Mini","Separate courses"),
             'ListaGrados'    => array (
-                '-' => 'Sin especificar',
+                '-' => ' ',
                 'Baja' => 'Baja temporal',
                 'GI' => 'Grado I',
                 'GII'=> 'Grado II',
