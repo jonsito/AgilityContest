@@ -130,7 +130,8 @@ class Excel {
 			$this->xlsLabel($row+2,3,_("Obst").".: {$trs['obst']}");
 			$this->xlsLabel($row+2,4,_("SCT").": {$trs['trs']}s");
 			$this->xlsLabel($row+2,5,_("MCT").": {$trs['trm']}s");
-			$this->xlsLabel($row+2,6,_("Vel").".: {$trs['vel']}m/s");
+			$vel=str_replace("&asymp;",utf8_decode('± '),$trs['vel']);
+			$this->xlsLabel($row+2,6,_("Vel").".: {$vel}m/s");
 		$this->xlsLabel($row+3,0,_("Round")." 2");
 			$trs=$result['trs2'];
 			$this->xlsLabel($row+3,1,$tm2);
@@ -138,7 +139,8 @@ class Excel {
 			$this->xlsLabel($row+3,3,_("Obst").".: {$trs['obst']}");
 			$this->xlsLabel($row+3,4,_("SCT").": {$trs['trs']}s");
 			$this->xlsLabel($row+3,5,_("MCT").": {$trs['trm']}s");
-			$this->xlsLabel($row+3,6,_("Vel").".: {$trs['vel']}m/s");
+			$vel=str_replace("&asymp;",utf8_decode('± '),$trs['vel']);
+			$this->xlsLabel($row+3,6,_("Vel").".: {$vel}m/s");
 		return $row+4;
 	}
 	
@@ -265,7 +267,7 @@ try {
 	$c= new Clasificaciones("print_clasificacion_excel",$prueba,$jornada);
 	
 	$result=array();
-	$heights=intval(Federations::getFederation( intval($prb->RSCE) )->get('Heights'));
+	$heights=intval(Federations::getFederation( intval($excel->prueba->RSCE) )->get('Heights'));
 	switch($excel->manga1->Recorrido) {
 		case 0: // recorridos separados large medium small tiny
 			$r=$c->clasificacionFinal($rondas,$mangas,0);

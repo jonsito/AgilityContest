@@ -748,7 +748,8 @@ function reloadParcial(val,fill) {
 			$('#rm_OBST_'+suffix).val(dat['trs'].obst);
 			$('#rm_TRS_'+suffix).val(dat['trs'].trs);
 			$('#rm_TRM_'+suffix).val(dat['trs'].trm);
-			$('#rm_VEL_'+suffix).val(dat['trs'].vel);
+            var vel=(''+dat['trs'].vel).replace('&asymp;','\u2248');
+			$('#rm_VEL_'+suffix).val(vel);
 			if (fill) $('#resultadosmanga-datagrid').datagrid('loadData',dat);
 		}
 	});
@@ -983,7 +984,8 @@ function resultados_fillForm(resultados,idmanga,idxmanga,mode) {
 			$('#dm'+idxmanga+'_OBST_'+suffix).val(dat['trs'].obst);
 			$('#dm'+idxmanga+'_TRS_'+suffix).val(dat['trs'].trs);
 			$('#dm'+idxmanga+'_TRM_'+suffix).val(dat['trs'].trm);
-			$('#dm'+idxmanga+'_VEL_'+suffix).val(dat['trs'].vel);
+            var vel=(''+dat['trs'].vel).replace('&asymp;','\u2248');
+			$('#dm'+idxmanga+'_VEL_'+suffix).val(vel);
 			// store manga results
 			if (typeof resultados[mode] === "undefined") resultados[mode]=[];
 			resultados[mode][idxmanga]=dat['rows'];

@@ -110,7 +110,8 @@ class Excel_Clasificaciones extends XLSX_Writer {
             array_push($row,$trs['obst']);
             array_push($row,$trs['trs']);
             array_push($row,$trs['trm']);
-            array_push($row,$trs['vel']);
+			$vel=str_replace("&asymp;",'± ',$trs['vel']);
+            array_push($row,$vel);
             array_push($row,$this->jdbObject->selectByID($manga['Juez1'])['Nombre']);
             array_push($row,$this->jdbObject->selectByID($manga['Juez2'])['Nombre']);
             $this->myWriter->addRow($row);
