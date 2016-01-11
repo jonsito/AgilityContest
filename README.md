@@ -2,7 +2,7 @@ AgilityContest
 ==============
 ![alt tag](https://raw.github.com/jonsito/AgilityContest/master/agility/images/AgilityContest.png)
 
-A web client-server (xampp) app to organize, register and show results for FCI Dog Agility Contests
+A web client-server (xampp) app to organize, register and show results for Dog Agility Contests
 
 Features:
 
@@ -22,7 +22,7 @@ Features:
 - PDF printout of inscriptions, competition order, results, labels, etc
 - Export contest results in MS-Excel format to ease later data management
 - Import contests inscriptions from Excel(CSV) files*
-- Support for non-FCI federations (RFEC, UCA)
+- Support for non-FCI federations (RFEC, UCA) and International (countries instead clubs) Contests
 - Internationalization (Actually english/spanish. more languages incoming)
 - Auto-update, backup/recovery tools. Fully configurable
 

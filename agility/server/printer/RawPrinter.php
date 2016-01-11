@@ -8,6 +8,7 @@
  */
 require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__."/../tools.php");
 require_once(__DIR__."/../database/classes/Resultados.php");
 require_once(__DIR__."/Escpos.php");
 
@@ -92,7 +93,7 @@ class RawPrinter {
         012345678901234567890123456789012345678901234567
         ------------------------------------------------
         PRUEBA        _JORNADA  _MANGA         _HH:MM:SS
-        DRS_-_PERRO                        _C_-_GRDO_Celo
+        DRS_-_PERRO                  _LICN_C_-_GRDO_Celo
         GUIA                          _CLUB
         F:ff T:tt R:r TI:xxx.xxx TF:xxx.xxx ELimin/NoPre
         ------------------------------------------------
@@ -101,18 +102,40 @@ class RawPrinter {
         $j=$data['Jornada']->Nombre;
         $m=Mangas::$tipo_manga[$data['Manga']->Tipo][3];
         $d=date('H:i:s');
-        $l1=sprintf("% -14s % -9s % 14s %s",$p,$j,$m,$d);
-        $this->myLogger->trace("WRITE_DATA_1: '$l1'");
+        $l1=sprintf("% -14s % -9s % 14s %s",substr(toASCII($p),0,14),substr(toASCII($j),0,9),toASCII($m),$d);
         $printer->text($l1);
+        $printer->feed(1);
         $drs=$data['Resultados']['Dorsal'];
         $dog=$data['Resultados']['Nombre'];
         $cat=$data['Resultados']['Categoria'];
         $grd=$data['Resultados']['Grado'];
+        $lic=$data['Resultados']['Licencia'];
         $cel=(($data['Resultados']['Celo'])!=0)?"Celo":"";
-        $l2=sprintf("%03d - % -29s %1s-% -4s %4s",$drs,$dog,$cat,$grd,$cel);
-        $this->myLogger->trace("WRITE_DATA_2: '$l2'");
+        $l2=sprintf("%03d - % -24s % 4s %1s-% -4s %4s",$drs,substr(toASCII($dog),0,24),substr($lic,-5),$cat,$grd,$cel);
         $printer->text($l2);
-        // TODO: write handler, club, results, and new line
+        $printer->feed(1);
+        $guia=$data['Resultados']['NombreGuia'];
+        $club=$data['Resultados']['NombreClub'];
+        $l3=sprintf("% -30s % 17s",toASCII($guia),toASCII($club));
+        $printer->text($l3);
+        $printer->feed(1);
+        $f=$data['Resultados']['Faltas'];
+        $t=$data['Resultados']['Tocados'];
+        $r=$data['Resultados']['Rehuses'];
+        $ti=$data['Resultados']['TIntermedio'];
+        $tf=$data['Resultados']['Tiempo'];
+        $e=($data['Resultados']['Eliminado']!=0)?_("Eliminated"):"";
+        $n=($data['Resultados']['NoPresentado']!=0)?"Not Present":"";
+        $m=($n!=="")?$n:$e; // Not present has precedence over eliminated
+        $l4=sprintf("F:%02d T:%02d R:%02d IT:%03.3f FT:%03.3f % -9s",$f,$t,$r,$ti,$tf,$m);
+        $printer->setDoubleStrike(true);
+        $printer->text($l4);
+        $printer->setDoubleStrike(false);
+        $printer->feed(1);
+        // and finally add a separation line
+        $printer->text("________________________________________________");
+        $printer->feed(1);
+        $this->myLogger->trace("\n'012345678901234567890123456789012345678901234567'\n'$l1'\n'$l2'\n'$l3'\n'$l4'");
     }
 
     function rawprinter_Print($event) {
