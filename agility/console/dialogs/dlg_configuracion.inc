@@ -183,6 +183,10 @@ $config =Config::getInstance();
             <label for="register_events"><?php _e('Provide raw file copy for system events'); ?></label>
             <input type="hidden" name="register_events" value="0"/> <!-- trick for checkboxes -->
             <input type="checkbox" name="register_events" id="register_events" value="1"/><br />
+
+			<label for="event_printer"><?php _e('Printer device name to write tablet reports'); ?></label>
+			<input id="event_printer" name="event_printer" type="text" size="16" value=""/><br />
+
             <label for="reset_events"><?php _e('Clear event registration on tablet init session'); ?></label>
             <input type="hidden" name="reset_events" value="0"/> <!-- trick for checkboxes -->
             <input type="checkbox" name="reset_events" id="reset_events" value="1"/><br />

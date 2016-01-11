@@ -17,6 +17,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 require_once(__DIR__."/../../auth/Config.php");
+require_once(__DIR__."/../../printer/RawPrinter.php");
 
 // How often to poll, in micro-seconds
 define('EVENT_POLL_MICROSECONDS', 500000); 
@@ -62,6 +63,8 @@ class Eventos extends DBObject {
 	protected $sessionID;
 	protected $sessionFile;
 	protected $myAuth;
+	protected $myRawPrinter;
+	protected $myConfig;
 	
 	/**
 	 * Constructor
@@ -79,8 +82,11 @@ class Eventos extends DBObject {
 		$this->sessionID=$id;
 		$this->myAuth=$am;
 		$this->sessionFile=__DIR__."/../../../../logs/events.$id";
+		$this->myConfig=Config::getInstance();
 		// nos aseguramos de quere el fichero de sesion exista
 		if ( ! file_exists($this->sessionFile) ) touch($this->sessionFile);
+		// create a raw printer instance if configured to
+		$this->myRawPrinter=new RawPrinter();
 	}
 	
 	/**
@@ -90,10 +96,9 @@ class Eventos extends DBObject {
 	 */
 	function putEvent($data) {
 		$this->myLogger->enter();
-        $cfg=Config::getInstance();
 		$sid=$this->sessionID;
 		// si el evento es "init" y el flag reset_events está a 1 borramos el historico de eventos antes de reinsertar
-        if ( ( intval($cfg->getEnv("reset_events")) == 1 ) && ( ($data['Type']==='init') )) {
+        if ( ( intval($this->myConfig->getEnv("reset_events")) == 1 ) && ( ($data['Type']==='init') )) {
             $rs= $this->query("DELETE FROM Eventos WHERE (Session=$sid)");
             if (!$rs) return $this->error($this->conn->error);
             file_put_contents($this->sessionFile,"\n",LOCK_EX); // borra fichero de eventos
@@ -174,7 +179,7 @@ class Eventos extends DBObject {
 		$stmt->close();
 		
 		// and save content to event file
-		$flag=$cfg->getEnv("register_events");
+		$flag=$this->myConfig->getEnv("register_events");
 		$str=json_encode($data);
 		if (boolval($flag)) {
 			file_put_contents($this->sessionFile,$str."\n", FILE_APPEND | LOCK_EX);
@@ -183,6 +188,8 @@ class Eventos extends DBObject {
 			// just overwrite event file with last event
 			file_put_contents($this->sessionFile,$str."\n",LOCK_EX);
 		}
+		// if printer is enabled, send every "accept" events
+		if ( ($this->myRawPrinter!=null) && ($data['Type']=='aceptar') )$this->myRawPrinter->rawprinter_Print($data);
 		// that's all.
 		$this->myLogger->leave();
 		return ""; 
@@ -290,8 +297,7 @@ class Eventos extends DBObject {
 	 * @return {array} data about last "open" event with provided session id
 	 */
 	function connect($data) {
-        $config=Config::getInstance();
-        if (intval($config->getEnv('restricted'))!=0) { // in slave config do not allow "connect" operations
+        if (intval($this->myConfig->getEnv('restricted'))!=0) { // in slave config do not allow "connect" operations
             header('HTTP/1.0 403 Forbidden');
             die("You cannot use this server as event source");
         }

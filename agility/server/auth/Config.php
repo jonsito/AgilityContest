@@ -28,6 +28,7 @@ define ('AC_LANG','es_ES');
 define('AC_DEBUG_LEVEL',0);
 define('AC_REGISTER_EVENTS',"0");
 define('AC_RESET_EVENTS',"1");
+define('AC_EVENT_PRINTER','');
 
 /** variables de la aplicacion principal **/
 define('AC_PROXIMITY_ALERT',5);
@@ -108,9 +109,11 @@ Class Config {
 
         // General
 		// version, logging y depuracion
-		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
+		$this->config['debug_level'] =		AC_DEBUG_LEVEL;
         $this->config['register_events'] =	AC_REGISTER_EVENTS;
-        $this->config['reset_events'] =	AC_RESET_EVENTS;
+		$this->config['reset_events'] =		AC_RESET_EVENTS;
+		$this->config['event_printer'] =	AC_EVENT_PRINTER;
+
 		// Internacionalizacion. Idiomas
 		$this->config['lang'] =	AC_LANG;
         $this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
@@ -292,10 +295,11 @@ Class Config {
 		// due to some extrange int/string interactions,
 		// use $this->config to store numeric data instead of direct $data store
 
-		$this->config['debug_level'] =	AC_DEBUG_LEVEL;
+		$this->config['debug_level'] =		AC_DEBUG_LEVEL;
         $this->config['register_events'] =	AC_REGISTER_EVENTS;
-        $this->config['reset_events'] =	AC_RESET_EVENTS;
-        $this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
+        $this->config['reset_events'] =		AC_RESET_EVENTS;
+		$this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
+		$this->config['event_printer'] =	AC_EVENT_PRINTER;
 		
 		// configuracion de la consola
 		$data['easyui_theme'] = 	AC_EASYUI_THEME;
@@ -411,6 +415,7 @@ Class Config {
         $data['register_events']=http_request('register_events','s',AC_REGISTER_EVENTS);
         $data['reset_events']=http_request('reset_events','s',AC_RESET_EVENTS);
         $data=testAndSet($data,'proximity_alert','i',AC_PROXIMITY_ALERT);
+		$data=testAndSet($data,'event_printer','s',AC_EVENT_PRINTER);
 
 		// notice that "ip_address" parameter is also received from console. just ignore it
 
