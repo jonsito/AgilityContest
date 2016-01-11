@@ -32,7 +32,7 @@ class Resultados extends DBObject {
 	protected $dequipos=null; // datos de los equipos
 	protected $dprueba=null; // datos de la prueba
 
-	private function getDatosManga() {
+	function getDatosManga() {
 		if ($this->dmanga!=null) return $this->dmanga;
 		$idmanga=$this->IDManga;
 		// si no los tenemos todavia consultamos la base de datos
@@ -49,7 +49,7 @@ class Resultados extends DBObject {
 		return $this->dmanga;
 	}
 	
-	private function getDatosJornada() {
+	function getDatosJornada() {
 		if ($this->djornada!=null) return $this->djornada;
 		$manga=$this->getDatosManga();
 		$this->IDJornada=$manga->Jornada;
@@ -62,7 +62,7 @@ class Resultados extends DBObject {
 		return $this->djornada;
 	}
 
-	private function getDatosPrueba() {
+	function getDatosPrueba() {
 		if ($this->dprueba!=null) return $this->dprueba;
 		$obj=$this->__getObject("Pruebas", $this->IDPrueba);
 		if (!is_object($obj)) {
@@ -73,7 +73,7 @@ class Resultados extends DBObject {
 		return $this->dprueba;
 	}
 
-	private function getDatosEquipos() {
+	function getDatosEquipos() {
         if ($this->dequipos!=null) return $this->dequipos;
         if ($this->IDJornada==0) $this->getDatosJornada();
         $eqobj=new Equipos("Resultados",$this->IDPrueba,$this->IDJornada);
@@ -83,7 +83,7 @@ class Resultados extends DBObject {
         return $this->dequipos;
     }
 
-	private function isCerrada() {
+	function isCerrada() {
 		$jrd=$this->getDatosJornada();
 		return 	($jrd->Cerrada!=0)? true:false;
 	}

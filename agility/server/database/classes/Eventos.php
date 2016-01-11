@@ -63,7 +63,6 @@ class Eventos extends DBObject {
 	protected $sessionID;
 	protected $sessionFile;
 	protected $myAuth;
-	protected $myRawPrinter;
 	protected $myConfig;
 	
 	/**
@@ -85,8 +84,6 @@ class Eventos extends DBObject {
 		$this->myConfig=Config::getInstance();
 		// nos aseguramos de quere el fichero de sesion exista
 		if ( ! file_exists($this->sessionFile) ) touch($this->sessionFile);
-		// create a raw printer instance if configured to
-		$this->myRawPrinter=new RawPrinter();
 	}
 	
 	/**
@@ -189,7 +186,10 @@ class Eventos extends DBObject {
 			file_put_contents($this->sessionFile,$str."\n",LOCK_EX);
 		}
 		// if printer is enabled, send every "accept" events
-		if ( ($this->myRawPrinter!=null) && ($data['Type']=='aceptar') )$this->myRawPrinter->rawprinter_Print($data);
+		if ($data['Type']=='aceptar') {
+			$p=new RawPrinter();
+			$p->rawprinter_Print($data);
+		}
 		// that's all.
 		$this->myLogger->leave();
 		return ""; 

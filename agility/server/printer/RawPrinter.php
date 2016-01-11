@@ -8,6 +8,7 @@
  */
 require_once(__DIR__."/../auth/Config.php");
 require_once(__DIR__."/../logging.php");
+require_once(__DIR__."/../database/classes/Resultados.php");
 require_once(__DIR__."/Escpos.php");
 
 /*
@@ -50,7 +51,7 @@ class RawPrinter {
         }
     }
 
-    function rawprinter_Open() {
+    private function rawprinter_Open() {
         if ($this->printerName=="") return null;
         // fix parameters, enable printer and return
         try{
@@ -67,20 +68,64 @@ class RawPrinter {
             return null;
         }
     }
-    function rawprinter_Close($printer) {
+
+    private function rawprinter_Close($printer) {
         $printer->close();
     }
 
-    function isEnabled() { return $this->myPrinter!=null;  }
+    private function rawprinter_retrieveData($event){
+        $obj=new Resultados("RawPrinter",$event['Pru'],$event['Mng']);
+        $data=array(
+            'Prueba' =>     $obj->getDatosPrueba(),
+            'Jornada' =>    $obj->getDatosJornada(),
+            'Manga' =>      $obj->getDatosManga(),
+            'Resultados' => $obj->select($event['Dog'])
+        );
+        return $data;
+    }
+
+    private function rawprinter_writeData($printer,$data) {
+        // una impresora de TPV tipica tiene 48 caracteres por linea
+        // el simbolo "_" significa un espacio
+        /*
+        000000000011111111112222222222333333333344444444
+        012345678901234567890123456789012345678901234567
+        ------------------------------------------------
+        PRUEBA        _JORNADA  _MANGA         _HH:MM:SS
+        DRS_-_PERRO                        _C_-_GRDO_Celo
+        GUIA                          _CLUB
+        F:ff T:tt R:r TI:xxx.xxx TF:xxx.xxx ELimin/NoPre
+        ------------------------------------------------
+        */
+        $p=$data['Prueba']->Nombre;
+        $j=$data['Jornada']->Nombre;
+        $m=Mangas::$tipo_manga[$data['Manga']->Tipo][3];
+        $d=date('H:i:s');
+        $l1=sprintf("% -14s % -9s % 14s %s",$p,$j,$m,$d);
+        $this->myLogger->trace("WRITE_DATA_1: '$l1'");
+        $printer->text($l1);
+        $drs=$data['Resultados']['Dorsal'];
+        $dog=$data['Resultados']['Nombre'];
+        $cat=$data['Resultados']['Categoria'];
+        $grd=$data['Resultados']['Grado'];
+        $cel=(($data['Resultados']['Celo'])!=0)?"Celo":"";
+        $l2=sprintf("%03d - % -29s %1s-% -4s %4s",$drs,$dog,$cat,$grd,$cel);
+        $this->myLogger->trace("WRITE_DATA_2: '$l2'");
+        $printer->text($l2);
+        // TODO: write handler, club, results, and new line
+    }
 
     function rawprinter_Print($event) {
+        if ($event['Type']!="aceptar") {
+            $this->myLogger->error("Call to rawprinter_Print() with invalid event Type: {$event['Type']}");
+            return;
+        }
         $printer=$this->rawprinter_Open();
         if (!$printer) return;
-        // TODO: prettyprint this item
-        $data=json_encode($event);
+        // extract data from event
+        $data=$this->rawprinter_retrieveData($event);
         $printer->initialize();
-        $printer->text($data."\n");
-        $printer->cut();
+        $this->rawprinter_writeData($printer,$data);
         $printer->close();
     }
 }
