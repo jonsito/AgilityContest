@@ -190,6 +190,11 @@ function myLlamadaRowStyler(idx,row) {
                     <option value="5"><?php _e('Partial scores'); ?></option>
                     <option value="6"><?php _e('Starting order'); ?></option>
                 </optgroup>
+				<!--
+				<optgroup label="experimental">
+					<option value="7"><?php _e('Combo View (partial)'); ?></option>
+				</optgroup>
+				-->
        		</select>
     	</div>
     	
@@ -301,6 +306,9 @@ function vw_accept() {
     case 6: // resultados parciales con livestream
         page="/agility/videowall/vwls_ordensalida.php";
         break;
+	case 7: // prueba de nueva combinada de datos parciales
+		page="/agility/videowall/vw_combinadap.php";
+		break;
 	}
 	$('#selvw-dialog').dialog('close');
 	$('#vw_contenido').load(	

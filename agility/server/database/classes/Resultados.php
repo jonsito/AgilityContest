@@ -202,7 +202,7 @@ class Resultados extends DBObject {
 		$result['trm']=ceil($result['trm']); // redondeamos hacia arriba
 		if (! array_key_exists('vel',$result) ) {
 			// Finalmente, si no nos la han dado, evaluamos la velocidad de la ronda con dos decimales
-			$result['vel']= ($result['trs']==0)?0:/*'&asymp;'.*/number_format($result['dist']/$result['trs'],3);
+			$result['vel']= ($result['trs']==0)?0:/*'&asymp;'.*/number_format($result['dist']/$result['trs'],2);
 		}
 		// esto es todo amigos
 		return $result;

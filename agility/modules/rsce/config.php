@@ -43,7 +43,7 @@ class RSCE extends Federations {
             'ModeStrings' => array( // text to be shown on each category
                 array(/* separado */ "Standard", "Midi", "Mini", "Invalid"),
                 array(/* mixto */ "Standard", "Midi+Mini", "Midi+Mini", "Invalid"),
-                array(/* conjunto */ "Common course", "Common course", "Common course", "Invalid")
+                array(/* conjunto */ "Conjunta", "Conjunta", "Conjunta", "Invalid")
             ),
             'IndexedModes' => array (
                 "Standard", "Midi", "Mini", "Midi+Mini", "Conjunta L/M/S", "Tiny", "Standard+Midi", "Mini+Tiny", "Conjunta L/M/S/T"

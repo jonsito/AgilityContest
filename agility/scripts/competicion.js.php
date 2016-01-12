@@ -290,7 +290,7 @@ function getMangaModeString(fed,recorrido,categoria) {
     }
     switch(categoria) {
         case '-':
-        case '-LMST':return ac_fedInfo[f].Modes[2][0]; // common for all categories; just use first mode (standard )
+        case '-LMST':return ac_fedInfo[f].ModeStrings[rec][0]; // common for all categories; just use first mode (standard )
         case 'L':return ac_fedInfo[f].ModeStrings[rec][0];
         case 'M':return ac_fedInfo[f].ModeStrings[rec][1];
         case 'S':return ac_fedInfo[f].ModeStrings[rec][2];
