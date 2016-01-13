@@ -39,17 +39,26 @@ class RawPrinter {
     protected $myConfig;
     protected $myLogger;
     protected $printerName;
+    protected $widePrinter;
+    protected $cronoInter;
+    protected $cronoMillis;
 
     function __construct() {
         // initialize
         $this->myConfig=Config::getInstance();
         $l=$this->myConfig->getEnv("debug_level");
         $this->myLogger= new Logger("RawPrinter",$l);
+        // retrieve configuration
         $this->printerName=$this->myConfig->getEnv("event_printer");
+        $this->cronoInter= intval($this->myConfig->getEnv("crono_intermediate"));
+        $this->cronoMillis= intval($this->myConfig->getEnv("crono_milliseconds"));
+        $this->widePrinter= intval($this->myConfig->getEnv("wide_printer"));
+        // on empty name disable raw printing. notify and return
         if($this->printerName==="") { // no printer declared
             $this->myLogger->info("No printer declared. raw printing is disabled");
             return;
         }
+        $this->myLogger->trace("RawPrinter: {$this->printerName} wide:{$this->widePrinter} itime:{$this->cronoInter} millis:{$this->cronoMillis}");
     }
 
     private function rawprinter_Open() {
@@ -86,7 +95,7 @@ class RawPrinter {
     }
 
     private function rawprinter_writeData($printer,$data) {
-        // una impresora de TPV tipica tiene 48 caracteres por linea
+        // una impresora de TPV tipica tiene 42 caracteres por linea
         // el simbolo "_" significa un espacio
         /*
         000000000011111111112222222222333333333344444444
@@ -102,7 +111,7 @@ class RawPrinter {
         $j=$data['Jornada']->Nombre;
         $m=Mangas::$tipo_manga[$data['Manga']->Tipo][3];
         $d=date('H:i:s');
-        $l1=sprintf("% -14s % -9s % 14s %s",substr(toASCII($p),0,14),substr(toASCII($j),0,9),toASCII($m),$d);
+        $l1=sprintf("% -10s % -6s % 12s %s",substr(toASCII($p),0,14),substr(toASCII($j),0,9),toASCII($m),$d);
         $printer->text($l1);
         $printer->feed(1);
         $drs=$data['Resultados']['Dorsal'];
@@ -111,31 +120,38 @@ class RawPrinter {
         $grd=$data['Resultados']['Grado'];
         $lic=$data['Resultados']['Licencia'];
         $cel=(($data['Resultados']['Celo'])!=0)?"Celo":"";
-        $l2=sprintf("%03d - % -24s % 4s %1s-% -4s %4s",$drs,substr(toASCII($dog),0,24),substr($lic,-5),$cat,$grd,$cel);
+        $l2=sprintf("%03d - % -18s % 4s %1s-% -4s %4s",$drs,substr(toASCII($dog),0,24),substr($lic,-5),$cat,$grd,$cel);
         $printer->text($l2);
         $printer->feed(1);
         $guia=$data['Resultados']['NombreGuia'];
         $club=$data['Resultados']['NombreClub'];
-        $l3=sprintf("% -30s % 17s",toASCII($guia),toASCII($club));
+        $l3=sprintf("% -27s % 14s",toASCII($guia),toASCII($club));
         $printer->text($l3);
         $printer->feed(1);
         $f=$data['Resultados']['Faltas'];
         $t=$data['Resultados']['Tocados'];
         $r=$data['Resultados']['Rehuses'];
+
         $ti=$data['Resultados']['TIntermedio'];
         $tf=$data['Resultados']['Tiempo'];
+        // set up text according milliseconds precision and intermediate time status
+        $tistr=sprintf("IT:%06.2f ",$ti);
+        $tfstr=sprintf("FT:%06.2f ",$tf);
+        if ($this->cronoMillis!=0) { $tistr=sprintf("IT:%07.3f",$ti); $tfstr=sprintf("FT:%07.3f",$tf); }
+        if ($this->cronoInter!=0) $tistr="          "; // no intermediate time: replace with spaces
+
         $e=($data['Resultados']['Eliminado']!=0)?_("Eliminated"):"";
         $n=($data['Resultados']['NoPresentado']!=0)?"Not Present":"";
         $m=($n!=="")?$n:$e; // Not present has precedence over eliminated
-        $l4=sprintf("F:%02d T:%02d R:%02d IT:%03.3f FT:%03.3f % -9s",$f,$t,$r,$ti,$tf,$m);
+        $l4=sprintf("F:%02d T:%02d R:%02d %s %s % -5s",$f,$t,$r,$tistr,$tfstr,substr($m,0,5));
         $printer->setDoubleStrike(true);
         $printer->text($l4);
-        $printer->setDoubleStrike(false);
         $printer->feed(1);
         // and finally add a separation line
-        $printer->text("________________________________________________");
+        $printer->text("------------------------------------------");
         $printer->feed(1);
-        $this->myLogger->trace("\n'012345678901234567890123456789012345678901234567'\n'$l1'\n'$l2'\n'$l3'\n'$l4'");
+        $printer->setDoubleStrike(false);
+        $this->myLogger->trace("\n'012345678901234567890123456789012345678901'\n'$l1'\n'$l2'\n'$l3'\n'$l4'");
     }
 
     function rawprinter_Print($event) {
@@ -148,6 +164,8 @@ class RawPrinter {
         // extract data from event
         $data=$this->rawprinter_retrieveData($event);
         $printer->initialize();
+        // set up char size according printer width 58/80mmts
+        $printer->setFont(($this->widePrinter==0)?Escpos::FONT_B:Escpos::FONT_A);
         $this->rawprinter_writeData($printer,$data);
         $printer->close();
     }

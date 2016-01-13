@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-01-11 10:02+0100\n"
-"PO-Revision-Date: 2016-01-11 10:03+0100\n"
+"POT-Creation-Date: 2016-01-13 13:28+0100\n"
+"PO-Revision-Date: 2016-01-13 13:31+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -225,7 +225,8 @@ msgstr "Reh&uacute;se"
 
 #: chrono/chrono.inc.php:91 server/pdf/print_entradaDeDatos.php:356
 #: server/pdf/print_entradaDeDatos.php:377
-#: server/pdf/print_entradaDeDatosEquipos4.php:171 tablet/tablet_main.php:61
+#: server/pdf/print_entradaDeDatosEquipos4.php:171
+#: server/printer/RawPrinter.php:143 tablet/tablet_main.php:61
 msgid "Eliminated"
 msgstr "Eliminado"
 
@@ -396,7 +397,7 @@ msgstr "Ring"
 #: chrono/index.php:108 console/frm_equipos.php:98
 #: console/frm_inscripciones.php:41 console/frm_login.php:59
 #: console/frm_logout.php:35 console/frm_myAdmin.php:65
-#: tablet/tablet_main.php:58 videowall/index.php:201
+#: tablet/tablet_main.php:58 videowall/index.php:206
 #: console/dialogs/dlg_clubes.inc:138
 #: console/dialogs/dlg_editInscripcion.inc:90
 #: console/dialogs/dlg_ordentandas.inc:79
@@ -446,7 +447,7 @@ msgstr "Trabajar con el ring seleccionado"
 #: server/pdf/print_trsTemplates.php:259 server/pdf/print_trsTemplates.php:262
 #: tablet/index.php:188 tablet/index.php:221 tablet/tablet_main.php:78
 #: tablet/tablet_main.php:265 tablet/tablet_main.php:385
-#: videowall/index.php:243 videowall/vw_combinada.php:132
+#: videowall/index.php:248 videowall/vw_combinada.php:132
 #: videowall/vw_combinada.php:189 videowall/vw_livestream.php:61
 #: videowall/vw_llamada.php:99 videowall/vw_ordensalida.php:102
 #: videowall/vw_parciales.php:126 videowall/vwls_ordensalida.php:130
@@ -484,7 +485,7 @@ msgstr "Nombre"
 #: server/pdf/print_inscritosByPrueba.php:597
 #: server/pdf/print_inscritosByPrueba.php:735
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_ordenTandas.php:90
-#: tablet/index.php:189 tablet/tablet_main.php:188 videowall/index.php:244
+#: tablet/index.php:189 tablet/tablet_main.php:188 videowall/index.php:249
 #: videowall/vw_llamada.php:106 console/dialogs/dlg_chguias.inc:55
 #: console/dialogs/dlg_clubes.inc:125 console/dialogs/dlg_competicion.inc:123
 #: console/dialogs/dlg_editInscripcion.inc:69
@@ -675,14 +676,14 @@ msgstr "TRS Medium"
 msgid "Templates"
 msgstr "Plantillas"
 
-#: console/dialogs/infomanga.php:320 console/dialogs/dlg_configuracion.inc:216
+#: console/dialogs/infomanga.php:320 console/dialogs/dlg_configuracion.inc:222
 #: console/dialogs/dlg_tools.inc:12
 msgid "Restore"
 msgstr "Restaurar"
 
 #: console/dialogs/infomanga.php:325 console/dialogs/dlg_competicion.inc:128
-#: console/dialogs/dlg_configuracion.inc:222
-#: console/dialogs/dlg_configuracion.inc:243 console/dialogs/dlg_equipos.inc:57
+#: console/dialogs/dlg_configuracion.inc:228
+#: console/dialogs/dlg_configuracion.inc:250 console/dialogs/dlg_equipos.inc:57
 #: console/dialogs/dlg_guias.inc:60 console/dialogs/dlg_jornadas.inc:119
 #: console/dialogs/dlg_jueces.inc:84 console/dialogs/dlg_perros.inc:94
 #: console/dialogs/dlg_pruebas.inc:77 console/dialogs/dlg_sesiones.inc:75
@@ -2309,7 +2310,7 @@ msgid "Dogs Database Management"
 msgstr "Gesti&oacute;n de datos de Perros"
 
 #: console/index.php:181 public/pb_programa.php:101
-#: server/excel/dog_writer.php:64 console/dialogs/dlg_configuracion.inc:194
+#: server/excel/dog_writer.php:64 console/dialogs/dlg_configuracion.inc:200
 msgid "Dogs"
 msgstr "Perros"
 
@@ -3001,7 +3002,7 @@ msgstr "No se pueden borrar pa&iacute;ses de la base de datos"
 #: scripts/pruebas.js.php:130 scripts/sesiones.js.php:103
 #: scripts/sesiones.js.php:133 scripts/tandas.js.php:123
 #: scripts/usuarios.js.php:109 console/dialogs/dlg_competicion.inc:194
-#: console/dialogs/dlg_configuracion.inc:255
+#: console/dialogs/dlg_configuracion.inc:262
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -4118,15 +4119,19 @@ msgstr "Vista combinada"
 msgid "On Screen Display"
 msgstr "Datos en pantalla (O.S.D.)"
 
-#: videowall/index.php:212
+#: videowall/index.php:195
+msgid "Combo View (partial)"
+msgstr "Vista combinada (parcial)"
+
+#: videowall/index.php:217
 msgid "View to deploy"
 msgstr "Vista a desplegar"
 
-#: videowall/index.php:225
+#: videowall/index.php:230
 msgid "Use selected as working session"
 msgstr "Trabajar con el la sesi&oacute;n seleccionada"
 
-#: videowall/index.php:269
+#: videowall/index.php:274
 msgid "You should select a valid session"
 msgstr "Debe seleccionar una sesi&oacute;n v&aacute;lida"
 
@@ -4618,66 +4623,76 @@ msgstr "Generar fichero con registro de eventos del sistema"
 msgid "Printer device name to write tablet reports"
 msgstr "Nombre de la impresora de registro del tablet"
 
-#: console/dialogs/dlg_configuracion.inc:190
+#: console/dialogs/dlg_configuracion.inc:188
+msgid "Paper size"
+msgstr "Tamaño del papel"
+
+#: console/dialogs/dlg_configuracion.inc:196
 msgid "Clear event registration on tablet init session"
 msgstr "Borrar historial de eventos al iniciar sesi&oacute;n en el tablet"
 
-#: console/dialogs/dlg_configuracion.inc:193
+#: console/dialogs/dlg_configuracion.inc:199
 msgid "Proximity alert on starting order"
 msgstr "Alerta de proximidad en el orden de salida"
 
-#: console/dialogs/dlg_configuracion.inc:196
+#: console/dialogs/dlg_configuracion.inc:202
 msgid "Time data precision shown"
 msgstr "Resoluci&oacute;n de los tiempos mostrados"
 
-#: console/dialogs/dlg_configuracion.inc:198
+#: console/dialogs/dlg_configuracion.inc:204
 msgid "cents"
 msgstr "cent&eacute;simas"
 
-#: console/dialogs/dlg_configuracion.inc:201
+#: console/dialogs/dlg_configuracion.inc:207
 msgid "millis"
 msgstr "mil&eacute;simas"
 
-#: console/dialogs/dlg_configuracion.inc:203
+#: console/dialogs/dlg_configuracion.inc:209
 msgid "Additional server information"
 msgstr "Informaci&oacute;n adicional del servidor"
 
-#: console/dialogs/dlg_configuracion.inc:204
+#: console/dialogs/dlg_configuracion.inc:210
 msgid "IP address(es)"
 msgstr "Direcci&oacute;n(es) IP"
 
-#: console/dialogs/dlg_configuracion.inc:218
+#: console/dialogs/dlg_configuracion.inc:224
 msgid "Default"
 msgstr "Defecto"
 
-#: console/dialogs/dlg_configuracion.inc:227
+#: console/dialogs/dlg_configuracion.inc:233
+msgid "Enter printer name/device or leave empty to disable"
+msgstr ""
+"Nombre o Dispositivo de impresi&oacute;n <br/>Dejar vac&iacute;o para "
+"desactivar"
+
+#: console/dialogs/dlg_configuracion.inc:234
 msgid "Cancel changes. Restore information from server"
 msgstr ""
 "Anular cambios. Recuperar informaci&oacute;n de configuraci&oacute;n del "
 "servidor"
 
-#: console/dialogs/dlg_configuracion.inc:228
+#: console/dialogs/dlg_configuracion.inc:235
 msgid "Factory reset. Configure with default data"
 msgstr ""
 "Configurar aplicaci&oacute;n con los valores por defecto de f&aacute;brica. "
 
-#: console/dialogs/dlg_configuracion.inc:229
+#: console/dialogs/dlg_configuracion.inc:236
 msgid "Accept changes. Save as new configuration"
 msgstr "Aceptar cambios. Guardar como nueva configuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:244
+#: console/dialogs/dlg_configuracion.inc:251
 msgid "New configuration successfully saved"
 msgstr "Nueva configuraci&oacute;n guardada correctamente"
 
-#: console/dialogs/dlg_configuracion.inc:245
+#: console/dialogs/dlg_configuracion.inc:252
 msgid "You should close session and reload page"
 msgstr "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"
 
-#: console/dialogs/dlg_configuracion.inc:246
+#: console/dialogs/dlg_configuracion.inc:253
 msgid "for changes to become active"
 msgstr "para que los cambios se activen"
 
-#: console/dialogs/dlg_configuracion.inc:255
+#: console/dialogs/dlg_configuracion.inc:262
 msgid "Restore factory default values. Sure?"
 msgstr "Restaurar valores por defecto. ¿Seguro?"
 

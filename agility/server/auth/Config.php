@@ -29,6 +29,7 @@ define('AC_DEBUG_LEVEL',0);
 define('AC_REGISTER_EVENTS',"0");
 define('AC_RESET_EVENTS',"1");
 define('AC_EVENT_PRINTER','');
+define('AC_WIDE_PRINTER','0'); // defaults to 58mm wide POS printer
 
 /** variables de la aplicacion principal **/
 define('AC_PROXIMITY_ALERT',5);
@@ -113,6 +114,7 @@ Class Config {
         $this->config['register_events'] =	AC_REGISTER_EVENTS;
 		$this->config['reset_events'] =		AC_RESET_EVENTS;
 		$this->config['event_printer'] =	AC_EVENT_PRINTER;
+		$this->config['wide_printer'] =		AC_WIDE_PRINTER;
 
 		// Internacionalizacion. Idiomas
 		$this->config['lang'] =	AC_LANG;
@@ -300,6 +302,7 @@ Class Config {
         $this->config['reset_events'] =		AC_RESET_EVENTS;
 		$this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
 		$this->config['event_printer'] =	AC_EVENT_PRINTER;
+		$this->config['wide_printer'] =		AC_WIDE_PRINTER;
 		
 		// configuracion de la consola
 		$data['easyui_theme'] = 	AC_EASYUI_THEME;
@@ -416,6 +419,7 @@ Class Config {
         $data['reset_events']=http_request('reset_events','s',AC_RESET_EVENTS);
         $data=testAndSet($data,'proximity_alert','i',AC_PROXIMITY_ALERT);
 		$data=testAndSet($data,'event_printer','s',AC_EVENT_PRINTER);
+		$data['wide_printer']=http_request('wide_printer','s',AC_WIDE_PRINTER);
 
 		// notice that "ip_address" parameter is also received from console. just ignore it
 

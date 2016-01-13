@@ -185,7 +185,13 @@ $config =Config::getInstance();
             <input type="checkbox" name="register_events" id="register_events" value="1"/><br />
 
 			<label for="event_printer"><?php _e('Printer device name to write tablet reports'); ?></label>
-			<input id="event_printer" name="event_printer" type="text" size="16" value=""/><br />
+			<input id="event_printer" name="event_printer" type="text" size="16" value=""/> <?php _e('Paper size'); ?>:
+			<label for="wide_printer58" style="width:70px;">
+				<input type="radio" id="wide_printer58" name="wide_printer" value="0" checked="checked"/> 58mm
+			</label>
+			<label for="wide_printer80" style="width:70px;">
+				<input type="radio" id="wide_printer80" name="wide_printer" value="1"/>	80mm
+			</label><br />
 
             <label for="reset_events"><?php _e('Clear event registration on tablet init session'); ?></label>
             <input type="hidden" name="reset_events" value="0"/> <!-- trick for checkboxes -->
@@ -224,6 +230,7 @@ $config =Config::getInstance();
 </div>
 
 <script type="text/javascript">
+	addTooltip($('#event_printer').linkbutton(),'<?php _e("Enter printer name/device or leave empty to disable"); ?>');
 	addTooltip($('#config-resetBtn').linkbutton(),'<?php _e("Cancel changes. Restore information from server"); ?>');
 	addTooltip($('#config-defaultBtn').linkbutton(),'<?php _e("Factory reset. Configure with default data"); ?>');
 	addTooltip($('#config-okBtn').linkbutton(),'<?php _e("Accept changes. Save as new configuration"); ?>');
