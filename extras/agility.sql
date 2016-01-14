@@ -1,4 +1,4 @@
--- AgilityContest Version: 2.2.1 Revision: 20160110_1415
+-- AgilityContest Version: 2.2.1 Revision: 20160113_1346
 -- MySQL dump 10.15  Distrib 10.0.21-MariaDB, for Linux (x86_64)
 --
 -- Host: localhost    Database: agility
@@ -77,7 +77,7 @@ CREATE TABLE `clubes` (
   KEY `Clubes_Nombre` (`Nombre`),
   KEY `Clubes_Provincia` (`Provincia`),
   CONSTRAINT `Clubes_ibfk_1` FOREIGN KEY (`Provincia`) REFERENCES `provincias` (`Provincia`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=381 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=382 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -466,7 +466,8 @@ INSERT INTO `clubes` VALUES
 (377,'YE','Yemen','','','-- Sin asignar --','Yemen','','','','','','','','','','../../server/i18n/YE.png',512,'',0),
 (378,'ZM','Zambia','','','-- Sin asignar --','Zambia','','','','','','','','','','../../server/i18n/ZM.png',512,'',0),
 (379,'ZW','Zimbabwe','','','-- Sin asignar --','Zimbabwe','','','','','','','','','','../../server/i18n/ZW.png',512,'',0),
-(380,'AX','Åland Islands','','','-- Sin asignar --','Åland Islands','','','','','','','','','','../../server/i18n/AX.png',512,'',0);
+(380,'AX','Åland Islands','','','-- Sin asignar --','Åland Islands','','','','','','','','','','../../server/i18n/AX.png',512,'',0),
+(381,'Córdoba','\"\"','Ctra de Palma del Río, kmt 9.5','14710 Villarrubia','Córdoba','ES','686937520','609490979','','','','info@adiestramientocordoba.com','','','','crdoba.png',3,'',0);
 /*!40000 ALTER TABLE `clubes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -612,50 +613,6 @@ CREATE TABLE `eventos` (
 
 LOCK TABLES `eventos` WRITE;
 /*!40000 ALTER TABLE `eventos` DISABLE KEYS */;
-INSERT INTO `eventos` VALUES 
-(5916,1,'Console','reconfig','2015-09-16 12:16:21','{\"Type\":\"reconfig\",\"Source\":\"Console\",\"ID\":0,\"TimeStamp\":1442405781000}'),
-(5919,1,'Console','reconfig','2015-09-16 12:18:41','{\"Type\":\"reconfig\",\"Source\":\"Console\",\"ID\":0,\"TimeStamp\":1442405921000}'),
-(5920,1,'Console','reconfig','2015-09-16 12:23:47','{\"Type\":\"reconfig\",\"Source\":\"Console\",\"ID\":0,\"TimeStamp\":1442406227000}'),
-(5922,1,'Console','reconfig','2015-09-16 12:28:33','{\"Type\":\"reconfig\",\"Source\":\"Console\",\"ID\":0,\"TimeStamp\":1442406513000}'),
-(6072,1,'Console','reconfig','2015-09-22 13:30:06','{\"Type\":\"reconfig\",\"Source\":\"Console\",\"ID\":0,\"TimeStamp\":1442928606000,\"Value\":0}'),
-(6073,1,'Console','reconfig','2015-09-22 13:34:11','{\"Type\":\"reconfig\",\"Source\":\"Console\",\"ID\":0,\"TimeStamp\":1442928851000,\"Value\":0}'),
-(6109,1,'Console','reconfig','2015-10-10 07:11:23','{\"Type\":\"reconfig\",\"Source\":\"Console\",\"ID\":0,\"TimeStamp\":1444461083000,\"Value\":0}'),
-(6110,1,'Console','reconfig','2015-12-07 10:04:48','{\"Type\":\"reconfig\",\"Source\":\"Console\",\"ID\":0,\"TimeStamp\":1449482688000,\"Value\":0}'),
-(6167,1,'Console','reconfig','2015-12-19 09:54:38','{\"Type\":\"reconfig\",\"Source\":\"Console\",\"ID\":0,\"TimeStamp\":1450518878000,\"Value\":0}'),
-(6168,1,'Console','reconfig','2015-12-19 09:58:34','{\"Type\":\"reconfig\",\"Source\":\"Console\",\"ID\":0,\"TimeStamp\":1450519114000,\"Value\":0}'),
-(6648,1,'Console','reconfig','2016-01-13 07:20:27','{\"Type\":\"reconfig\",\"Source\":\"Console\",\"ID\":0,\"TimeStamp\":1452669627000,\"Value\":0}'),
-(6649,2,'tablet_2','init','1970-01-01 00:00:02','{\"ID\":0,\"Session\":2,\"TimeStamp\":\"2016-01-13 8:20:58\",\"Type\":\"init\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":0,\"Tnd\":0,\"Dog\":0,\"Drs\":0,\"Hot\":0,\"Flt\":-1,\"Toc\":-1,\"Reh\":-1,\"NPr\":-1,\"Eli\":-1,\"Tim\":-1,\"Value\":0}'),
-(6650,2,'tablet_0','open','1970-01-01 00:00:27','{\"ID\":2,\"Session\":2,\"TimeStamp\":27322,\"Type\":\"open\",\"Source\":\"tablet_0\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":0,\"Drs\":0,\"Hot\":0,\"Eqp\":0,\"Flt\":-1,\"Toc\":-1,\"Reh\":-1,\"NPr\":-1,\"Eli\":-1,\"Tim\":-1,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6651,2,'tablet_0','open','1970-01-01 00:00:27','{\"ID\":2,\"Session\":2,\"TimeStamp\":27341,\"Type\":\"open\",\"Source\":\"tablet_0\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":0,\"Drs\":0,\"Hot\":0,\"Eqp\":0,\"Flt\":-1,\"Toc\":-1,\"Reh\":-1,\"NPr\":-1,\"Eli\":-1,\"Tim\":-1,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6652,2,'tablet_2','llamada','1970-01-01 00:00:30','{\"ID\":0,\"Session\":2,\"TimeStamp\":30050,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1685,\"Drs\":45,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":1,\"Tim\":0,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6653,2,'tablet_2','aceptar','1970-01-01 00:00:34','{\"ID\":0,\"Session\":2,\"TimeStamp\":34146,\"Type\":\"aceptar\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1685,\"Drs\":45,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":1,\"Tim\":0,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6654,2,'tablet_2','llamada','1970-01-01 00:00:34','{\"ID\":0,\"Session\":2,\"TimeStamp\":34195,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1682,\"Drs\":19,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":1,\"Tim\":0,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6655,2,'tablet_2','aceptar','1970-01-01 00:01:28','{\"ID\":0,\"Session\":2,\"TimeStamp\":88825,\"Type\":\"aceptar\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1682,\"Drs\":19,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":1,\"Tim\":0,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6656,2,'tablet_2','llamada','1970-01-01 00:01:28','{\"ID\":0,\"Session\":2,\"TimeStamp\":88875,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1725,\"Drs\":6,\"Hot\":0,\"Eqp\":90,\"Flt\":2,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":0,\"Tim\":19.93,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6657,2,'tablet_2','aceptar','1970-01-01 00:07:18','{\"ID\":0,\"Session\":2,\"TimeStamp\":438946,\"Type\":\"aceptar\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1725,\"Drs\":6,\"Hot\":0,\"Eqp\":90,\"Flt\":2,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":0,\"Tim\":19.93,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6658,2,'tablet_2','llamada','1970-01-01 00:07:18','{\"ID\":0,\"Session\":2,\"TimeStamp\":438996,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1684,\"Drs\":48,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":0,\"Tim\":24.72,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6659,2,'tablet_2','aceptar','1970-01-01 00:14:21','{\"ID\":0,\"Session\":2,\"TimeStamp\":861339,\"Type\":\"aceptar\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1684,\"Drs\":48,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":0,\"Tim\":24.72,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6660,2,'tablet_2','llamada','1970-01-01 00:14:21','{\"ID\":0,\"Session\":2,\"TimeStamp\":861405,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1686,\"Drs\":56,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":0,\"Tim\":24.84,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6661,2,'tablet_2','aceptar','1970-01-01 00:14:42','{\"ID\":0,\"Session\":2,\"TimeStamp\":882026,\"Type\":\"aceptar\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1686,\"Drs\":56,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":0,\"Tim\":24.84,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6662,2,'tablet_2','llamada','1970-01-01 00:14:42','{\"ID\":0,\"Session\":2,\"TimeStamp\":882062,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1708,\"Drs\":93,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":2,\"NPr\":0,\"Eli\":0,\"Tim\":31.28,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6663,2,'tablet_2','aceptar','1970-01-01 00:17:37','{\"ID\":0,\"Session\":2,\"TimeStamp\":1057880,\"Type\":\"aceptar\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1708,\"Drs\":93,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":2,\"NPr\":0,\"Eli\":0,\"Tim\":31.28,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6664,2,'tablet_2','llamada','1970-01-01 00:17:37','{\"ID\":0,\"Session\":2,\"TimeStamp\":1057917,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1402,\"Drs\":94,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":1,\"Tim\":0,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6665,2,'tablet_2','aceptar','1970-01-01 00:17:57','{\"ID\":0,\"Session\":2,\"TimeStamp\":1077460,\"Type\":\"aceptar\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1402,\"Drs\":94,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":1,\"Tim\":0,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6666,2,'tablet_2','llamada','1970-01-01 00:17:57','{\"ID\":0,\"Session\":2,\"TimeStamp\":1077501,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1723,\"Drs\":30,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":0,\"Tim\":24.5,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6667,2,'tablet_2','aceptar','1970-01-01 00:20:21','{\"ID\":0,\"Session\":2,\"TimeStamp\":1221505,\"Type\":\"aceptar\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1723,\"Drs\":30,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":0,\"Tim\":24.5,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6668,2,'tablet_2','llamada','1970-01-01 00:20:21','{\"ID\":0,\"Session\":2,\"TimeStamp\":1221575,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1740,\"Drs\":77,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":1,\"NPr\":0,\"Eli\":0,\"Tim\":49.31,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6669,2,'tablet_2','aceptar','1970-01-01 00:21:16','{\"ID\":0,\"Session\":2,\"TimeStamp\":1276001,\"Type\":\"aceptar\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":67,\"Tnd\":179,\"Dog\":1740,\"Drs\":77,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":1,\"NPr\":0,\"Eli\":0,\"Tim\":49.31,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6670,2,'tablet_2','open','1970-01-01 00:21:34','{\"ID\":2,\"Session\":2,\"TimeStamp\":1294684,\"Type\":\"open\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":70,\"Tnd\":185,\"Dog\":1740,\"Drs\":77,\"Hot\":0,\"Eqp\":90,\"Flt\":-1,\"Toc\":-1,\"Reh\":-1,\"NPr\":-1,\"Eli\":-1,\"Tim\":-1,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6671,2,'tablet_2','llamada','1970-01-01 00:21:39','{\"ID\":0,\"Session\":2,\"TimeStamp\":1299828,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":70,\"Tnd\":185,\"Dog\":1393,\"Drs\":67,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":1,\"Tim\":0,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6672,2,'tablet_2','aceptar','1970-01-01 00:21:42','{\"ID\":0,\"Session\":2,\"TimeStamp\":1302957,\"Type\":\"aceptar\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":70,\"Tnd\":185,\"Dog\":1393,\"Drs\":67,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":1,\"Tim\":0,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6673,2,'tablet_2','llamada','1970-01-01 00:21:42','{\"ID\":0,\"Session\":2,\"TimeStamp\":1302997,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":70,\"Tnd\":185,\"Dog\":1687,\"Drs\":41,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":1,\"Tim\":0,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6674,2,'tablet_2','llamada','1970-01-01 00:21:48','{\"ID\":0,\"Session\":2,\"TimeStamp\":1308369,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":70,\"Tnd\":185,\"Dog\":1701,\"Drs\":60,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":1,\"Tim\":0,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6675,2,'tablet_2','llamada','1970-01-01 00:21:49','{\"ID\":0,\"Session\":2,\"TimeStamp\":1309784,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":70,\"Tnd\":185,\"Dog\":1747,\"Drs\":64,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":1,\"Tim\":0,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6676,2,'tablet_2','llamada','1970-01-01 00:21:51','{\"ID\":0,\"Session\":2,\"TimeStamp\":1311343,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":70,\"Tnd\":185,\"Dog\":1406,\"Drs\":40,\"Hot\":0,\"Eqp\":90,\"Flt\":7,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":0,\"Tim\":38.35,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6677,2,'tablet_2','aceptar','1970-01-01 00:21:55','{\"ID\":0,\"Session\":2,\"TimeStamp\":1315490,\"Type\":\"aceptar\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":70,\"Tnd\":185,\"Dog\":1406,\"Drs\":40,\"Hot\":0,\"Eqp\":90,\"Flt\":7,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":0,\"Tim\":38.35,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6678,2,'tablet_2','llamada','1970-01-01 00:21:55','{\"ID\":0,\"Session\":2,\"TimeStamp\":1315525,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":70,\"Tnd\":185,\"Dog\":1403,\"Drs\":39,\"Hot\":0,\"Eqp\":90,\"Flt\":1,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":0,\"Tim\":69.67,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6679,2,'tablet_2','aceptar','1970-01-01 00:21:59','{\"ID\":0,\"Session\":2,\"TimeStamp\":1319685,\"Type\":\"aceptar\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":70,\"Tnd\":185,\"Dog\":1403,\"Drs\":39,\"Hot\":0,\"Eqp\":90,\"Flt\":1,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":0,\"Tim\":69.67,\"Value\":0,\"stop\":0,\"start\":0}'),
-(6680,2,'tablet_2','llamada','1970-01-01 00:21:59','{\"ID\":0,\"Session\":2,\"TimeStamp\":1319720,\"Type\":\"llamada\",\"Source\":\"tablet_2\",\"Pru\":8,\"Jor\":57,\"Mng\":70,\"Tnd\":185,\"Dog\":1731,\"Drs\":32,\"Hot\":0,\"Eqp\":90,\"Flt\":0,\"Toc\":0,\"Reh\":0,\"NPr\":0,\"Eli\":1,\"Tim\":0,\"Value\":0,\"stop\":0,\"start\":0}');
 /*!40000 ALTER TABLE `eventos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -6867,7 +6824,7 @@ CREATE TABLE `sesiones` (
   PRIMARY KEY (`ID`),
   KEY `Sesiones_Operador` (`Operador`),
   CONSTRAINT `Sesiones_ibfk_1` FOREIGN KEY (`Operador`) REFERENCES `usuarios` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=506 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=507 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -6883,7 +6840,7 @@ INSERT INTO `sesiones` VALUES
 (4,'Ring 3','Mangas a realizar en el tercer ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (5,'Ring 4','Mangas a realizar en el cuarto ring',1,NULL,0,0,0,0,'',NULL,NULL,NULL,'2014-12-05 19:14:34'),
 (503,'Console','operator - Operador de consola',4,'z28BqnUJof5iNQt7',0,0,0,0,'',NULL,NULL,NULL,'2016-01-09 07:55:23'),
-(505,'Console','admin - Administrador de la aplicacion',3,'N3LCriheBlQ6RWzI',0,0,0,0,'',NULL,NULL,NULL,'2016-01-13 07:19:59');
+(506,'Console','admin - Administrador de la aplicacion',3,'1uUQersOa5zpoxBM',0,0,0,0,'',NULL,NULL,NULL,'2016-01-14 07:29:57');
 /*!40000 ALTER TABLE `sesiones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -7249,7 +7206,8 @@ INSERT INTO `versionhistory` VALUES
 ('20151222_1233','2015-12-24 08:33:04'),
 ('20151224_1655','2015-12-25 09:09:25'),
 ('20151225_1047','2015-12-26 08:02:55'),
-('20160110_1415','2016-01-13 07:19:54');
+('20160110_1415','2016-01-13 07:19:54'),
+('20160113_1346','2016-01-14 07:29:47');
 /*!40000 ALTER TABLE `versionhistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
