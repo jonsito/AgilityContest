@@ -26,16 +26,32 @@ You should have received a copy of the GNU General Public License along with thi
 if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  -->
 
-<!-- Pantalla de de visualizacion combinada llamada/parciales -->
-<div id="vw_combinadap-window">
-    <div id="vw_combinadap-layout"">
-        <div data-options="region:'north'" style="height:10%">Cabecera</div>
+<!--
+Pantalla de de visualizacion combinada llamada/parciales
+ prefijo: vwcp (video wall combinada parcial
+-->
+<div id="vwcp-window">
+    <div id="vwcp-layout">
+        <div data-options="region:'north'" class="vwcp_common vwcp_floatingheader" style="height:10%">
+            <div style="display:inline-block;width=100%;padding:0px">
+                <img  id="vwcp_header-logo" src="/agility/images/logos/rsce.png"/>
+                <span id="vwcp_header-infoprueba"><?php _e('Contest'); ?></span>
+                <span id="vwcp_header-infojornada"><?php _e('Journey'); ?></span>
+                <span id="vwcp_header-combinadaFlag" style="display:none">true</span> <!--indicador de combinada-->
+                <span id="vwcp_header-ring" style="text-align:right"><?php _e('Ring'); ?></span>
+                <span id="vwcp_header-calltoring" style="text-align:left"><?php _e('Call to ring'); ?></span>
+                <span id="vwcp_header-partialscores" style="text-align:right">
+                    <?php _e('Partial scores'); ?> -
+                    <span id="vwcp_header-infomanga">&nbsp;</span>
+                </span>
+            </div>
+        </div>
         <div data-options="region:'west'" style="width:30%;">Llamada a pista</div>
-        <div data-options="region:'center',border:false" style="padding:5px">Espacio vacio</div>
+        <div data-options="region:'center',border:false" class="vwcp_common">Espacio vacio</div>
         <div data-options="region:'east'" style="width:60%;">Resultados parciales</div>
         <div data-options="region:'south',border:false" style="height:30%;">
-            <div id="vw_combinadap2-layout">
-                <div data-options="region:'north'" style="height:50px">Perro en pista</div>
+            <div id="vwcp-layout2">
+                <div data-options="region:'north'" style="height:40%">Perro en pista</div>
                 <div data-options="region:'west',border:false" style="width:30%">Patrocinadores</div>
                 <div data-options="region:'center',border:false">Hueco central</div>
                 <div data-options="region:'east'" style="width:60%">Ultimos resultados</div>
@@ -46,10 +62,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
-    $('#vw_combinadap-layout').layout({fit:true});
-    $('#vw_combinadap2-layout').layout({fit:true});
+    $('#vwcp-layout').layout({fit:true});
+    $('#vwcp-layout2').layout({fit:true});
 
-    $('#vw_combinadap-window').window({
+    $('#vwcp-window').window({
         fit:true,
         noheader:true,
         border:false,
@@ -62,4 +78,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
         }
     });
 
+    var layout= {'rows':110,'cols':1900};
+    doLayout(layout,"#vwcp_header-logo",	        0,	    0,	100,	100	);
+    doLayout(layout,"#vwcp_header-infoprueba",	100,	0,	1800,	25	);
+    doLayout(layout,"#vwcp_header-infojornada",	100,	25,	1800,	25	);
+    doLayout(layout,"#vwcp_header-ring",     	100,	50,	1780,	25	);
+    doLayout(layout,"#vwcp_header-calltoring",	100,	75,	600,	25	);
+    doLayout(layout,"#vwcp_header-partialscores",700,	75,	1180,	25	);
 </script>

@@ -76,7 +76,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     z-index: -1;
 }
 
-
 /**********  cabeceras flotante para videomarcadores **********/
 .vw_floatingheader {
     margin-top:0px;
@@ -99,6 +98,22 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
     font-weight: bold;
     font-style: italic;
     font-size:1.8em;
+}
+
+/************* nueva generacion de vistas combinadas **************/
+.vwcp_common {
+    padding: 0px;
+    background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
+    color: <?php echo $config->getEnv('vw_hdrfg1')?>;
+}
+
+.vwcp_floatingheader {
+    margin-top:0px;
+    margin-bottom:0px;
+    padding:5px;
+    font-weight: bold;
+    font-style: italic;
+    font-size:1.5vw;
 }
 
 /************************** Elementos de la tabla de inscritos a la prueba ************/
