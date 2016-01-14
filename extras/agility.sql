@@ -4741,6 +4741,22 @@ INSERT INTO `provincias` VALUES
 ('Valladolid','Castilla y León',47,'ES'),
 ('Zamora','Castilla y León',49,'ES'),
 ('Zaragoza','Aragón',50,'ES');
+('Baden-Württemberg','Baden-Württemberg',53,'DE'),
+('Bayern','Bayern',54,'DE'),
+('Berlin','Berlin',55,'DE'),
+('Brandenburg','Brandenburg',56,'DE'),
+('Bremen','Bremen',57,'DE'),
+('Hamburg','Hamburg',58,'DE'),
+('Hessen','Hessen',59,'DE'),
+('Mecklenburg-Vorpommern','Mecklenburg-Vorpommern',60,'DE'),
+('Niedersachsen','Niedersachsen',61,'DE'),
+('Nordrhein-Westfalen','Nordrhein-Westfalen',62,'DE'),
+('Rheinland-Pfalz','Rheinland-Pfalz',63,'DE'),
+('Saarland','Saarland',64,'DE'),
+('Sachsen','Sachsen',65,'DE'),
+('Sachsen-Anhalt','Sachsen-Anhalt',66,'DE'),
+('Schleswig-Holstein','Schleswig-Holstein',67,'DE'),
+('Thüringen','Thüringen',68,'DE');
 /*!40000 ALTER TABLE `provincias` ENABLE KEYS */;
 UNLOCK TABLES;
 
