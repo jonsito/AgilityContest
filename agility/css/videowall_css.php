@@ -54,7 +54,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 
 /* datos de F/T/R */
-    .vwls_data {
+.vwls_data {
     text-align: center;
     color: white;
 }
@@ -101,21 +101,73 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 
 /************* nueva generacion de vistas combinadas **************/
-.vwcp_common {
+.vwc_top {
     padding: 0px;
     background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
     color: <?php echo $config->getEnv('vw_hdrfg1')?>;
 }
 
-.vwcp_floatingheader {
+.vwc_live {
+    padding:0px;
+    background-color: <?php echo $config->getEnv('vw_hdrbg2')?>;
+    color: <?php echo $config->getEnv('vw_hdrfg2')?>;
+    vertical-align: middle;
+    font-weight: bold;
+    border: none;
+    border-width: 0px;
+}
+
+.vwc_bottom {
+    padding:0px;
+    background-color: <?php echo $config->getEnv('vw_hdrbg3')?>;
+    color: <?php echo $config->getEnv('vw_hdrfg3')?>;
+}
+
+.vwc_header {
     margin-top:0px;
     margin-bottom:0px;
     padding:5px;
     font-weight: bold;
     font-style: italic;
+    font-size:1.3vw;
+}
+
+.vwc_footer {
+    height:60px;
+    margin-top:0px;
+    margin-bottom:0px;
+    font-weight: bold;
+    font-style: italic;
+    font-size:1.8em;
+}
+
+/* datos de informacion del perro */
+.vwc_label {
+    text-align: left;
     font-size:1.5vw;
 }
 
+/* labels de F/T/R */
+.vwc_dlabel {
+    text-align: right;
+    font-size:2.2vw;
+}
+
+/* datos de F/T/R */
+.vwc_data {
+    text-align: left;
+    font-size:2.2vw;
+}
+
+/* datos de tiempo */
+.vwc_dtime {
+    text-align: center;
+    font-size:2.2vw;
+}
+
+.vwc_logo {
+    background-color: transparent;
+}
 /************************** Elementos de la tabla de inscritos a la prueba ************/
 
 td.vw_club {
@@ -132,7 +184,7 @@ td.vw_club {
 /*************** cabecera de ventana de resultados ************ */
 .vw_trs {
     width:100%;
-    padding:10px;
+    padding:5px;
     background-color: <?php echo $config->getEnv('vw_hdrbg1')?>;
     color: <?php echo $config->getEnv('vw_hdrfg1')?>;
     font-weight: bold;

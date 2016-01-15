@@ -93,6 +93,35 @@ function vw_initParcialesDatagrid(evt,data) {
 }
 
 /**
+ * Al recibir 'init' ajustamos el modo de visualización de la pantalla
+ * de resultados parciales para individual o equipos
+ * @param {object} evt Evento recibido. Debe ser de tipo init
+ * @param data informacion de la prueba,jornada, my manga
+ */
+function vwcp_initParcialesDatagrid(evt,data) {
+	var team=false;
+	var dg=$('#vwcp_parciales-datagrid');
+	if (parseInt(data.Jornada.Equipos3)==1) team=true;
+	if (parseInt(data.Jornada.Equipos4)==1) team=true;
+	// clear datagrid as data no longer valid
+	if (team){
+		dg.datagrid({
+			view: gview,
+			groupField: 'NombreEquipo',
+			groupFormatter: formatTeamResults
+		});
+		dg.datagrid('hideColumn',"LogoClub");
+		dg.datagrid('hideColumn',"Grado");
+	} else {
+		dg.datagrid({view:$.fn.datagrid.defaults.view});
+		dg.datagrid('showColumn',"LogoClub");
+		dg.datagrid('showColumn',"Grado");
+	}
+	dg.datagrid('loadData', {"total":0,"rows":[]});
+	dg.datagrid('fitColumns');
+}
+
+/**
  * update info on prueba, jornada...
  * set up header and footer
  * @param {object} evt received 'init' event
@@ -116,6 +145,42 @@ function vw_updateDataInfo(evt,data) {
     $('#vwls_Manga').html(infomanga);
 
     // update footer
+	var logo=ac_fedInfo[workingData.federation].Logo;
+	var logo2=ac_fedInfo[workingData.federation].ParentLogo;
+	var url=ac_fedInfo[workingData.federation].WebURL;
+	var url2=ac_fedInfo[workingData.federation].ParentWebURL;
+	$('#vw_footer-footerData').load("/agility/videowall/vw_footer.php",{},function(response,status,xhr){
+		$('#vw_footer-logoFederation').attr('src',logo);
+		$('#vw_footer-urlFederation').attr('href',url);
+		$('#vw_footer-logoFederation2').attr('src',logo2);
+		$('#vw_footer-urlFederation2').attr('href',url2);
+	});
+}
+
+/**
+ * New combined videowall Information panel handler for header and footer:
+ * update info on prueba, jornada set up header and footer
+ * @param {object} evt received 'init' event
+ * @param {object} data data associated with event
+ */
+function vwc_updateDataInfo(evt,data) {
+	// update header
+	$('#vwc_header-infoprueba').html(data.Prueba.Nombre);
+	$('#vwc_header-infojornada').html(data.Jornada.Nombre);
+	$('#vwc_header-ring').html(data.Sesion.Nombre);
+	// on international competitions, use federation Organizer logo
+	var logo='/agility/images/logos/'+data.Club.Logo;
+	if ( (data.Club.logo==="") || isInternational(data.Prueba.RSCE)) {
+		logo=ac_fedInfo[data.Prueba.RSCE].OrganizerLogo
+	}
+	$('#vwc_header-logo').attr('src',logo);
+
+	// this should be done in callback, as content is window dependent
+	// actualiza informacion de manga
+	var infomanga=(typeof(data.Manga.Nombre)==='undefined')?'':data.Manga.Nombre;
+	$('#vwls_Manga').html(infomanga);
+
+	// update footer
 	var logo=ac_fedInfo[workingData.federation].Logo;
 	var logo2=ac_fedInfo[workingData.federation].ParentLogo;
 	var url=ac_fedInfo[workingData.federation].WebURL;
@@ -231,6 +296,26 @@ function vw_updateLlamada(evt,data) {
 }
 
 /**
+ * Actualiza el datagrid de llamada a pista con los datos recibidos
+ * @param {object} evt event
+ * @param {object} data system status data info
+ */
+function vwc_updateLlamada(evt,data) {
+	$.ajax( {
+		type: "GET",
+		dataType: 'json',
+		url: "/agility/server/web/videowall.php",
+		data: {
+			Operation: 'llamada',
+			Pendientes: 25,
+			Session: workingData.sesion
+		},
+		success: function(dat,status,jqxhr) {
+			$('#vwc_llamada-datagrid').datagrid('loadData',dat);
+		}
+	});
+}
+/**
  * Actualiza el datagrid de resultados con los datos asociados al evento recibido
  * @param {object} evt event
  * @param {object} data system status data info
@@ -271,6 +356,44 @@ function vw_updateParciales(evt,data) {
     });
 }
 
+/**
+ * Actualiza el datagrid de resultados con los datos asociados al evento recibido
+ * @param {object} evt event
+ * @param {object} data system status data info
+ */
+function vwcp_updateParciales(evt,data) {
+	// en lugar de invocar al datagrid, lo que vamos a hacer es
+	// una peticion ajax, para obtener a la vez los datos tecnicos de la manga
+	// y de los jueces
+	workingData.teamCounter=1; // reset team's puesto counter
+	var mode=getMangaMode(data.Prueba.RSCE,data.Manga.Recorrido,data.Tanda.Categoria);
+	var modestr=getMangaModeString(data.Prueba.RSCE,data.Manga.Recorrido,data.Tanda.Categoria);
+	$.ajax({
+		type:'GET',
+		url:"/agility/server/database/resultadosFunctions.php",
+		dataType:'json',
+		data: {
+			Operation:	'getResultados',
+			Prueba:		data.Prueba.ID,
+			Jornada:	data.Jornada.ID,
+			Manga:		data.Manga.ID,
+			Mode:       mode
+		},
+		success: function(dat) {
+			// informacion de la manga
+			var str=dat['manga'].TipoManga + " - " + modestr;
+			$('#vwcp_header-infomanga').text(str);
+			// datos de TRS
+			$('#vwcp_parciales-Distancia').text(dat['trs'].dist + 'm.');
+			$('#vwcp_parciales-Obstaculos').text(dat['trs'].obst);
+			$('#vwcp_parciales-TRS').text(dat['trs'].trs + 's.');
+			$('#vwcp_parciales-TRM').text(dat['trs'].trm + 's.');
+			$('#vwcp_parciales-Velocidad').text( dat['trs'].vel + 'm/s');
+			// actualizar datagrid
+			$('#vwcp_parciales-datagrid').datagrid('loadData',dat);
+		}
+	});
+}
 /**
  * Refresca periodicamente el orden de salida correspondiente
  * a la seleccion especificada
@@ -359,6 +482,70 @@ function vw_procesaCombinada(id,evt) {
 		return;
     case 'info':	// click on user defined tandas
         return;
+	}
+}
+
+// new combined videoWall (Partial results) eventMgr
+function vwcp_procesaCombinada(id,evt) {
+	var event=parseEvent(evt); // remember that event was coded in DB as an string
+	event['ID']=id; // fix real id on stored eventData
+	switch (event['Type']) {
+		case 'null':		// null event: no action taken
+			return;
+		case 'init': // operator starts tablet application
+			$('#vwcp_header-infoprueba').html('<?php _e("Contest"); ?>');
+			$('#vwcp_header-infojornada').html('<?php _e("Journey"); ?>');
+			$('#vwcp_header-infomanga').html("(<?php _e('No round selected');?>)");
+			vw_updateWorkingData(event,function(e,d){
+				vwc_updateDataInfo(e,d);
+				vwcp_initParcialesDatagrid(e,d);
+				vwc_updateLlamada(e,d);
+			});
+			return;
+		case 'open': // operator select tanda
+			vw_updateWorkingData(event,function(e,d){
+				vwc_updateDataInfo(e,d);
+				vwcp_updateParciales(e,d);
+				vwc_updateLlamada(e,d);
+			});
+			return;
+		case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+			vwls_updateData(event);
+			return;
+		case 'llamada':		// operador abre panel de entrada de datos
+			return;
+		case 'salida':		// juez da orden de salida ( crono 15 segundos )
+			return;
+		case 'start':	// value: timestamp
+			return;
+		case 'stop':	// value: timestamp
+			return;
+		case 'crono_start': // arranque crono electronico
+			return;
+		case 'crono_restart': // paso de tiempo intermedio a manual
+			return;
+		case 'crono_int':	// tiempo intermedio crono electronico
+			return;
+		case 'crono_stop':	// parada crono electronico
+			return;
+		case 'crono_reset':  // puesta a cero del crono electronico
+			return;
+		case 'crono_error':  // puesta a cero del crono electronico
+			return;
+		case 'aceptar':		// operador pulsa aceptar
+			vw_updateWorkingData(event,function(e,d){
+				vwc_updateLlamada(e,d);
+				vwcp_updateParciales(e,d);
+			});
+			return;
+		case 'cancelar':	// operador pulsa cancelar
+			vw_updateWorkingData(event,function(e,d){
+				vwc_updateLlamada(e,d);
+				vwcp_updateParciales(e,d);
+			});
+			return;
+		case 'info':	// click on user defined tandas
+			return;
 	}
 }
 

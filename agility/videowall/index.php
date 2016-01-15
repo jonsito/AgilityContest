@@ -190,11 +190,9 @@ function myLlamadaRowStyler(idx,row) {
                     <option value="5"><?php _e('Partial scores'); ?></option>
                     <option value="6"><?php _e('Starting order'); ?></option>
                 </optgroup>
-				<!--
 				<optgroup label="experimental">
 					<option value="7"><?php _e('Combo View (partial)'); ?></option>
 				</optgroup>
-				-->
        		</select>
     	</div>
     	
