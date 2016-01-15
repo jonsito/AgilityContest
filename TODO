@@ -17,5 +17,3 @@ TODO
 - i18n must be client-aware
 - Write videowall sequencing code
 - Fix authentication from electronic chrono
-- Backup recovery. no longer done by hand
-- Empty form for assistant data entry

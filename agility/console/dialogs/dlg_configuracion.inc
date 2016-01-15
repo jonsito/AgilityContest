@@ -166,6 +166,7 @@ $config =Config::getInstance();
 			<select id="config_lang" name="lang">
 				<option value="es_ES" selected="selected"><?php _e('Spanish'); ?></option>
 				<option value="en_US"><?php _e('English'); ?></option>
+				<option value="de_DE"><?php _e('German'); ?></option>
 			</select><br />
 			<label for="debug_level"><?php _e('Debug level'); ?></label>
 			<select id="debug_level" name="debug_level">

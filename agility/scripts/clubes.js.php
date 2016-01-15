@@ -117,7 +117,7 @@ function doSearchClub() {
  *@param {function} onAccept what to do when a new club is created
  */
 function newClub(dg,def,onAccept){
-	$('#clubes-dialog').dialog('open').dialog('setTitle','Nuevo club');
+	$('#clubes-dialog').dialog('open').dialog('setTitle',"<?php _e('New club'); ?>");
 	$('#clubes-form').form('clear');
 	// si el nombre del club contiene "Buscar" ignoramos
 	if (!strpos(def,"Buscar")) $('#clubes-Nombre').val(def.capitalize());

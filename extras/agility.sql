@@ -4740,7 +4740,7 @@ INSERT INTO `provincias` VALUES
 ('Valencia/Valéncia','Comunitat Valenciana',46,'ES'),
 ('Valladolid','Castilla y León',47,'ES'),
 ('Zamora','Castilla y León',49,'ES'),
-('Zaragoza','Aragón',50,'ES');
+('Zaragoza','Aragón',50,'ES'),
 ('Baden-Württemberg','Baden-Württemberg',53,'DE'),
 ('Bayern','Bayern',54,'DE'),
 ('Berlin','Berlin',55,'DE'),

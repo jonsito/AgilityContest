@@ -135,6 +135,7 @@ File AgilityContest.bat
 File License.txt
 File COPYING
 FILE README.md
+FILE Contributors
 File /r agility
 File /r docs
 FILE /r extras
@@ -193,6 +194,10 @@ Section /o "Initial language: English" eng
     File /oname=settings.bat settings_en.bat
 SectionEnd
 
+Section /o "Initial language: German" eng
+    SetOutPath $INSTDIR
+    File /oname=settings.bat settings_de.bat
+SectionEnd
 ;;;;;;;;;;;;;;;;;;;;;;
 ; Uninstall settings ;
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -259,6 +264,7 @@ Function .onSelChange
   !insertmacro StartRadioButtons $1
     !insertmacro RadioButton ${esp}
     !insertmacro RadioButton ${eng}
+    !insertmacro RadioButton ${ger}
   !insertmacro EndRadioButtons
 
 FunctionEnd
@@ -278,5 +284,8 @@ Function .onMouseOverSection
 
     StrCmp $0 3 "" +2
         SendMessage $R0 ${WM_SETTEXT} 0 "STR:FirstBoot in English. You may change later"
+
+    StrCmp $0 4 "" +2
+        SendMessage $R0 ${WM_SETTEXT} 0 "STR:FirstBoot in German. You may change later"
 
 FunctionEnd
