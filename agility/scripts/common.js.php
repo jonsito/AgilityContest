@@ -510,21 +510,33 @@ function setPrueba(data) {
  */
 
 function setJornada(data) {
+	workingData.jornada=0;
+	workingData.nombreJornada="";
+	workingData.datosJornada={};
+	if (typeof(data) === 'undefined') return;
 	workingData.jornada=Number(data.ID);
 	workingData.nombreJornada=data.Nombre;
 	workingData.datosJornada=data;
 }
 
 function setManga(data) {
-    if (typeof(data) !== 'undefined') {
-        workingData.manga = data.ID;
-        workingData.nombreManga = data.Nombre;
-        workingData.datosManga = data
-    } else {
-        workingData.manga = 0;
-        workingData.nombreManga = "";
-        workingData.datosManga = {};
-    }
+	workingData.manga = 0;
+	workingData.nombreManga = "";
+	workingData.datosManga = {};
+    if (typeof(data) === 'undefined') return;
+    workingData.manga = data.ID;
+    workingData.nombreManga = data.Nombre;
+    workingData.datosManga = data
+}
+
+function setTanda(data) {
+	workingData.tanda = 0;
+	workingData.nombreTanda = "";
+	workingData.datosTanda = {};
+	if (typeof(data) === 'undefined') return;
+	workingData.tanda = data.ID;
+	workingData.nombreTanda = data.Nombre;
+	workingData.datosTanda =data;
 }
 
 var workingData = {};
@@ -554,6 +566,7 @@ function initWorkingData(id) {
 	if (typeof(workingData.datosPrueba)==="undefined") workingData.datosPrueba= {}; // last selected prueba data
 	if (typeof(workingData.datosJornada)==="undefined") workingData.datosJornada= {}; // last selected jornada data
 	if (typeof(workingData.datosManga)==="undefined") workingData.datosManga= {}; // last selected jornada data
+	if (typeof(workingData.datosTanda)==="undefined") workingData.datosTanda= {}; // last selected jornada data
     if (typeof(workingData.datosRonda)==="undefined") workingData.datosRonda= {}; // last selected ronda (grade, manga1, manga2)
     if (typeof(workingData.teamsByJornada)==="undefined") workingData.teamsByJornada= {}; // last selected ronda (grade, manga1, manga2)
 	if (typeof(id)!=="undefined") {

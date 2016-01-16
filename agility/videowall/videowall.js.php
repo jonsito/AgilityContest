@@ -57,6 +57,7 @@ function vw_updateWorkingData(evt,callback) {
             setPrueba(data.Prueba);
             setJornada(data.Jornada);
             setManga(data.Manga);
+			setTanda(data.Tanda);
             // and finally invoke callback
             if ( typeof(callback)==='function' ) callback(evt,data);
         }
@@ -306,12 +307,14 @@ function vwc_updateLlamada(evt,data) {
 		dataType: 'json',
 		url: "/agility/server/web/videowall.php",
 		data: {
-			Operation: 'llamada',
+			Operation: 'ventana',
 			Pendientes: 25,
 			Session: workingData.sesion
 		},
 		success: function(dat,status,jqxhr) {
-			$('#vwc_llamada-datagrid').datagrid('loadData',dat);
+			// componemos ventana de llamada
+			// rellenamos ventana de datos del perro en pista
+			// rellenamos ventana de ultimos resultados
 		}
 	});
 }

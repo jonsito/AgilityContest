@@ -161,6 +161,12 @@ class VideoWall {
         return 0;
     }
 
+    function videowall_windowCall($perro) {
+        // buscamos los resultados correspondientes a la manga/tanda seleccionada
+        // los reordenamos y numeramos en funcion del orden de salida
+        // componemos un array de 20 perros: 15 por detras y 4 por delante del perro seleccionado
+        // retornamos dicho array
+    }
 } 
 
 $sesion = http_request("Session","i",0);
@@ -172,12 +178,14 @@ $jornada = http_request("Jornada","i",0);
 $manga = http_request("Manga","i",0);
 $tanda = http_request("Tanda","i",0); // used on access from videowall
 $mode = http_request("Mode","i",0); // used on access from public
+$perro = http_request("Perro","i",0); // used on access from public
 
 $vw=new VideoWall($sesion,$prueba,$jornada,$manga,$tanda,$mode);
 try {
     if($operacion==="infodata") return $vw->videowall_infodata();
 	if($operacion==="livestream") return $vw->videowall_livestream();
-	if($operacion==="llamada") return $vw->videowall_llamada($pendientes);
+    if($operacion==="llamada") return $vw->videowall_llamada($pendientes); // pendientes por salir
+    if($operacion==="ventana") return $vw->videowall_windowCall($perro); // 15 por detras y 4 por delante
 } catch (Exception $e) {
 	echo "<p>Error:<br />".$e->getMessage()."</p>";
     return 0;
