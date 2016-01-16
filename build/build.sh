@@ -90,8 +90,9 @@ unix2dos ${BUILD_DIR}/settings_en.bat
 mkdir -p ${BUILD_DIR}/docs
 if [ -d ${DROPBOX} ]; then
     echo "Adding a bit of documentation ..."
-    cp ${DROPBOX}/{AgilityContest_despliegue.pdf,ReferenciasPegatinas.txt,AgilityContest-1000x800.png,Tarifas_2015.pdf} ${BUILD_DIR}/docs
+    cp ${DROPBOX}/{AgilityContest_despliegue.pdf,ReferenciasPegatinas.txt,AgilityContest-1000x800.png,Tarifas_2015.pdf,AgilityContest_doc.zip} ${BUILD_DIR}/docs
     cp ${BASE_DIR}/README* ${BUILD_DIR}/docs
+    (cd ${BUILD_DIR}/docs; unzip AgilityContest_doc.zip)
 fi
 
 # and finally invoke makensis
