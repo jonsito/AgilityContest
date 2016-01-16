@@ -81,7 +81,7 @@ class PrintCommon extends FPDF {
 	 */
 	function __construct($orientacion,$file,$prueba,$jornada=0) {
 		date_default_timezone_set('Europe/Madrid');
-		parent::FPDF($orientacion,'mm','A4'); // Portrait or Landscape
+		parent::__construct($orientacion,'mm','A4'); // Portrait or Landscape
 		$this->SetAutoPageBreak(true,1.7); // default margin is 2cm. so enlarge a bit 
 		$this->centro=($orientacion==='Portrait')?107:145;
 		$this->config=Config::getInstance();
@@ -148,22 +148,29 @@ class PrintCommon extends FPDF {
 	 * @param {string} $title Titulo a imprimir en el cajetin
 	 */
 	function print_commonHeader($title) {
-		// $this->myLogger->enter();
+		$this->myLogger->enter();
+		$this->myLogger->trace("title: ".$title);
 		// pintamos Logo del club organizador a la izquierda y logo de la canina a la derecha
 		// recordatorio
 		// 		$this->Image(string file [, float x [, float y [, float w [, float h [, string type [, mixed link]]]]]])
 		// 		$this->Cell( width, height, data, borders, where, align, fill)
 		// 		los logos tienen 150x150, que a 300 dpi salen aprox a 2.54 cmts
 		$this->SetXY(10,10); // margins are 10mm each
+		$this->myLogger->trace("before icon1");
 		$this->Image($this->icon,$this->GetX(),$this->GetY(),25.4);
+		$this->myLogger->trace("after icon1");
 		$this->SetXY($this->w - 35.4,10);
+		$this->myLogger->trace("before icon2");
 		$this->Image($this->icon2,$this->GetX(),$this->GetY(),25.4);
+		$this->myLogger->trace("after icon2");
 	
 		// pintamos nombre de la prueba
 		$this->SetXY($this->centro -50,10);
 		$this->SetFont('Helvetica','BI',10); // Helvetica bold italic 10
+		$this->myLogger->trace("prueba ID: ".$this->prueba->ID);
         if (intval($this->prueba->ID)>1) { // solo apuntamos nombre de la prueba si no es la prueba por defecto
             $str=$this->prueba->Nombre." - ".$this->club->Nombre;
+			$this->myLogger->trace("str is: ".$str);
             $this->Cell(100,10,$str,0,0,'C',false);// Nombre de la prueba centrado
         }
 		$this->Ln(); // Salto de línea
@@ -173,7 +180,7 @@ class PrintCommon extends FPDF {
 		$this->SetXY($this->centro -60,20);
 		$this->Cell(120,10,$title,1,0,'C',false);// Nombre de la prueba centrado
 		$this->Ln(15); // Salto de línea
-		// $this->myLogger->leave();
+		$this->myLogger->leave();
 	}
 	
 	// Pie de página
