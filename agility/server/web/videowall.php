@@ -169,11 +169,12 @@ class VideoWall {
         return 0;
     }
 
-    private function getEmptyData($cat,$grad) {
+    private function getEmptyData($orden,$cat,$grad) {
         return array(
             'Prueba' => $this->prueba['ID'],
             'Jornada' => $this->jornada['ID'],
             'Manga' => $this->mangaid,
+            'Orden' => $orden,
             'Dorsal' => 0,
             'Perro' => 0,
             'Equipo' => 0,
@@ -204,39 +205,37 @@ class VideoWall {
     /**
      * Obtiene $after+$before+1 perros ordenados segun el orden de salida
      * @param $perro ID de perro tomado como referencia
-     * @param $before numero de perros a presentar _antes_ del de referencia
-     * @param $after numero de perros a introducir _despues_ del de referencia
+     * @param $before numero de perros a buscar que hayan salido antes del de referencia
+     * @param $after numero de perros a introducir que tengan que salir despues del de referencia
      */
     function videowall_windowCall($perro,$before,$after) {
+        $this->myLogger->enter();
         $nitems=$before+$after+1;
         // obtenemos listado ordenado de perros de la manga
         $osobj=new OrdenSalida("VideoWall-ng",$this->mangaid);
         $os=$osobj->getData(false); // omit inserting team info rows
-        // obtenemos categoria y grado del perro indicado
-        $pdata=$osobj->__select("*","Resultados","(Perro=$perro) AND (Manga={$this->mangaid})","","");
-        if (!is_array($pdata)) {
-            $this->myLogger.error("El perro con ID: $perro no aparece en la lista de resultados de la manga {$this->mangaid}");
-            // return an empty array
-            $result=array();
-            for($n=$nitems;$n>0; $n++) array_push($result,$this->getEmptyData($n,"-","-"));
-            return array("rows"=>$result,"total" => count($result));
-        }
-        $perro=array_values($pdata['rows'])[0];
-        $grad=$perro['Grado'];
-        $cat=$perro['Categoria'];
+        // obtenemos categoria y grado de la tanda
+        $catstr=Tandas::$tipo_tanda[$this->tandatype]['Categoria']; // categoria
+        $gradostr =Tandas::$tipo_tanda[$this->tandatype]['Grado']; // grado ("-" means any grade)
         // componemos un array de $before+1+$after perros
-        // vemos si hay que ignorar grados
-        $grades=$this->hasGrades();
         $result=array();
         $order=0;
         $already=false;
-        for($n=0;$n<$after;$n++) array_push($result,$this->getEmptyData($order,$cat,$grad)); // fill "after" items with empty data
-        foreach ($os as $item) {
-            if ($grades && $item['Grado']!==$grad) continue; // grade differs, ignore entry
-            if ($item['Categoria']!==$cat) continue; // category differs, ignore
+        // fill data for $after slice
+        for($n=0;$n<$before;$n++) array_push($result,$this->getEmptyData($order,"-","-")); // fill "after" items with empty data
+        // $perro=0 means no dog being called yet. So fill $current slice properly
+        if ($perro==0) {
+            $order++;
+            array_push($result,$this->getEmptyData($order,"-","-"));
+            $already=true;
+        }
+        // now iterate dog list extracting requested dogs and filling array
+        foreach ($os['rows'] as $item) {
+            if ( strstr($catstr,$item['Categoria'])===false) continue; // category does not match, ignore
+            if ( ($gradostr!=='-') && ($gradostr!==$item['Grado']) ) continue; // grade differs, ignore entry
             // same category and (if required) grade
             $order++;
-            $item['Order']=$order;
+            $item['Orden']=$order;
             array_push($result,$item);
             // if item matches requested dog, cut
             if ($item['Perro']==$perro) {
@@ -248,10 +247,20 @@ class VideoWall {
         // at the end... fill data till requested size
         while (count($result)<$nitems) {
             $order++;
-            array_push($result,$this->getEmptyData($order,$cat,$grad));
+            array_push($result,$this->getEmptyData($order,"-","-"));
         }
-        // retornamos dicho array en orden inverso
-        return (array("rows"=>array_reverse($result),"total" => $nitems));
+        // reverse array so first entered dogs become last
+        $res=array_reverse($result);
+        // and return 3 arrays:
+        $result=array(
+            // "total" => count($res),
+            // "rows" => $res,
+            "before" => array_slice($res,0,$before),
+            "current" => array_slice($res,$before,1),
+            "after" => array_slice($res,1+$before,$after)
+        );
+        echo json_encode($result);
+        return 0;
     }
 } 
 
@@ -265,8 +274,8 @@ $manga = http_request("Manga","i",0);
 $tanda = http_request("Tanda","i",0); // used on access from videowall
 $mode = http_request("Mode","i",0); // used on access from public
 $perro = http_request("Perro","i",0); // used on access from public
-$before = http_request("Before","i",15); // to compose starting order window
-$after = http_request("After","i",4); //  to compose starting order window
+$before = http_request("Before","i",4); // to compose starting order window
+$after = http_request("After","i",15); //  to compose starting order window
 
 $vw=new VideoWall($sesion,$prueba,$jornada,$manga,$tanda,$mode);
 try {

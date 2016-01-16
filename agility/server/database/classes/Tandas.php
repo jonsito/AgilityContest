@@ -79,7 +79,7 @@ class Tandas extends DBObject {
 			35	=> array('Tipo'=>35,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos 4 Large',	'Categoria'=>'L',	'Grado'=>'-'),
 			36	=> array('Tipo'=>36,	'TipoManga'=> 14,	'Nombre'=>'Jp. Equipos 4 Med/Small','Categoria'=>'MS',	'Grado'=>'-'),
 			// en las rondas KO, los perros compiten todos contra todos
-			37	=> array('Tipo'=>37,	'TipoManga'=> 15,	'Nombre'=>'Manga K.O.',				'Categoria'=>'LMST','Grado'=>'-'),
+			37	=> array('Tipo'=>37,	'TipoManga'=> 15,	'Nombre'=>'Manga K.O.',				'Categoria'=>'-LMST','Grado'=>'-'),
 			38	=> array('Tipo'=>38,	'TipoManga'=> 16,	'Nombre'=>'Manga Especial Large',	'Categoria'=>'L',	'Grado'=>'-'),
 			39	=> array('Tipo'=>39,	'TipoManga'=> 16,	'Nombre'=>'Manga Especial Medium',	'Categoria'=>'M',	'Grado'=>'-'),
 			40	=> array('Tipo'=>40,	'TipoManga'=> 16,	'Nombre'=>'Manga Especial Small',	'Categoria'=>'S',	'Grado'=>'-'),

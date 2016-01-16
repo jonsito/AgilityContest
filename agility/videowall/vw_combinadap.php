@@ -50,11 +50,11 @@ Pantalla de de visualizacion combinada llamada/parciales
                 </span>
             </div>
         </div>
-        <div data-options="region:'west'" style="width:30%;"> <!-- LLAMADA A PISTA -->
+        <div data-options="region:'west'" style="width:40%;"> <!-- LLAMADA A PISTA -->
             <table id="vwc_llamada-datagrid" class="vwc_top"></table>
         </div>
         <div data-options="region:'center',border:false" class="vwc_top"><!-- Espacio vacio -->&nbsp;</div>
-        <div data-options="region:'east'" style="width:60%;"> <!-- RESULTADOS PARCIALES -->
+        <div data-options="region:'east'" style="width:55%;"> <!-- RESULTADOS PARCIALES -->
             <!-- Datos de TRS y TRM -->
             <table class="vw_trs">
                 <tbody>
@@ -171,10 +171,6 @@ Pantalla de de visualizacion combinada llamada/parciales
         fitColumns: true,
         singleSelect: true,
         autoRowHeight: true,
-        // view: gview,
-        // groupField: 'NombreEquipo',
-        // groupFormatter: formatTeamResults,
-        // toolbar: '#resultadosmanga-toolbar',
         columns:[[
             { field:'Manga',		hidden:true },
             { field:'Perro',		hidden:true },
@@ -217,30 +213,30 @@ Pantalla de de visualizacion combinada llamada/parciales
         collapsible: false,
         collapsed: false,
         // propiedades del datagrid
-        method: 'get',
-        url: '/agility/server/database/resultadosFunctions.php',
-        queryParams: {
-            Prueba: workingData.prueba,
-            Jornada: workingData.jornada,
-            Manga: workingData.manga,
-            Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
-            Operation: 'getResultados'
-        },
-        loadMsg: "<?php _e('Updating list of teams to be called to ring');?> ...",
+        // method: 'get',
+        // url: '/agility/server/database/resultadosFunctions.php',
+        // queryParams: {
+        //    Prueba: workingData.prueba,
+        //    Jornada: workingData.jornada,
+        //    Manga: workingData.manga,
+        //     Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
+        //    Operation: 'getResultados'
+        // },
+        // loadMsg: "<?php _e('Updating list of teams to be called to ring');?> ...",
         pagination: false,
         rownumbers: false,
         fitColumns: true,
         singleSelect: true,
         autoRowHeight: true,
         columns:[[
-            { field:'Orden',		width:'5%', align:'center', title: '#', formatter:formatOrdenLlamadaPista},
+            { field:'Orden',		width:'10%', align:'center', title: '#', formatter:formatOrdenLlamadaPista},
             { field:'Logo', 		width:'10%', align:'center', title: '', formatter:formatLogo},
             { field:'Manga',		hidden:true },
             { field:'Perro',		hidden:true },
             { field:'Equipo',		hidden:true },
             { field:'NombreEquipo',	hidden:true },
-            { field:'Dorsal',		width:'5%', align:'center', title: '<?php _e('Dorsal'); ?>'},
-            { field:'Licencia',		width:'10%', align:'center',  title: '<?php _e('License'); ?>'},
+            { field:'Dorsal',		width:'10%', align:'center', title: '<?php _e('Dorsal'); ?>'},
+            // { field:'Licencia',		width:'10%', align:'center',  title: '<?php _e('License'); ?>'},
             { field:'Nombre',		width:'15%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
             { field:'NombreGuia',	width:'30%', align:'right', title: '<?php _e('Handler'); ?>',formatter:formatLlamadaGuia },
             { field:'NombreClub',	width:'20%', align:'right', title: '<?php _e('Club'); ?>' },

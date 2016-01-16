@@ -308,14 +308,17 @@ function vwc_updateLlamada(evt,data) {
 		url: "/agility/server/web/videowall.php",
 		data: {
 			Operation: 'window',
-			Pendientes: 25,
+			Before: 4,
+			After: 15,
+			Perro: evt['Dog'],
 			Session: workingData.sesion
 		},
 		success: function(dat,status,jqxhr) {
 			// componemos ventana de llamada
+			$('#vwc_llamada-datagrid').datagrid('loadData',dat['after']);
 			// rellenamos ventana de datos del perro en pista
 			// rellenamos ventana de ultimos resultados
-			$('#vwc_llamada-datagrid').datagrid('loadData',dat);
+			$('#vwc_lastresults-datagrid').datagrid('loadData',dat['before']);
 		}
 	});
 }
