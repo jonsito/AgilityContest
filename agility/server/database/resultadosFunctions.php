@@ -33,7 +33,8 @@ try {
 	$dorsal=http_request("Dorsal","i",0);
 	$mode=http_request("Mode","i",0);
 	if ($operation===null) throw new Exception("Call to resultadosFunction without 'Operation' requested");
-	if ($mangaID!=0) $resultados= new Resultados("resultadosFunctions",$pruebaID,$mangaID);
+	if ($mangaID==0) throw new Exception("Call to resultadosFunction without 'Manga' provided");
+	$resultados= new Resultados("resultadosFunctions",$pruebaID,$mangaID);
 	$am= new AuthManager("resultadosFunctions");
 	switch ($operation) {
 		// no insert as done by mean of procesa_inscripcion

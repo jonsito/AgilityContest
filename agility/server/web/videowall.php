@@ -91,6 +91,14 @@ class VideoWall {
         return false;
     }
 
+    function hasGrades() {
+        if (intval($this->jornada['Equipos3'])==1) return false;
+        if (intval($this->jornada['Equipos4'])==1) return false;
+        if (intval($this->jornada['Open'])==1) return false;
+        if (intval($this->jornada['KO'])==1) return false;
+        return true;
+    }
+
     function videowall_llamada($pendientes) {
         // array ("Orden","Logo","Dorsal","Licencia","Nombre","Raza","Categoria","Grado","NombreGuia","NombreClub","Celo");
         $lastTanda="";
@@ -161,11 +169,89 @@ class VideoWall {
         return 0;
     }
 
-    function videowall_windowCall($perro) {
-        // buscamos los resultados correspondientes a la manga/tanda seleccionada
-        // los reordenamos y numeramos en funcion del orden de salida
-        // componemos un array de 20 perros: 15 por detras y 4 por delante del perro seleccionado
-        // retornamos dicho array
+    private function getEmptyData($cat,$grad) {
+        return array(
+            'Prueba' => $this->prueba['ID'],
+            'Jornada' => $this->jornada['ID'],
+            'Manga' => $this->mangaid,
+            'Dorsal' => 0,
+            'Perro' => 0,
+            'Equipo' => 0,
+            'NombreEquipo' => "",
+            'Nombre' => "",
+            'NombreLargo' => "",
+            'Raza' => "",
+            'Licencia' => "",
+            'Categoria' => $cat,
+            'Grado' => $grad,
+            'Celo' => 0,
+            'NombreGuia' => "",
+            'NombreClub' => "",
+            'Entrada' => '1970-01-01 00:00:00',
+            'Comienzo' => '1970-01-01 00:00:00',
+            'Faltas' => 0,
+            'Tocados' => 0,
+            'Rehuses' => 0,
+            'Games' => 0,
+            'Eliminado' => 0,
+            'NoPresentado' => 0,
+            'Tiempo' => 0.0,
+            'TIntermedio' => 0.0,
+            'Observaciones' => "",
+            'Pendiente' => 1
+        );
+    }
+    /**
+     * Obtiene $after+$before+1 perros ordenados segun el orden de salida
+     * @param $perro ID de perro tomado como referencia
+     * @param $before numero de perros a presentar _antes_ del de referencia
+     * @param $after numero de perros a introducir _despues_ del de referencia
+     */
+    function videowall_windowCall($perro,$before,$after) {
+        $nitems=$before+$after+1;
+        // obtenemos listado ordenado de perros de la manga
+        $osobj=new OrdenSalida("VideoWall-ng",$this->mangaid);
+        $os=$osobj->getData(false); // omit inserting team info rows
+        // obtenemos categoria y grado del perro indicado
+        $pdata=$osobj->__select("*","Resultados","(Perro=$perro) AND (Manga={$this->mangaid})","","");
+        if (!is_array($pdata)) {
+            $this->myLogger.error("El perro con ID: $perro no aparece en la lista de resultados de la manga {$this->mangaid}");
+            // return an empty array
+            $result=array();
+            for($n=$nitems;$n>0; $n++) array_push($result,$this->getEmptyData($n,"-","-"));
+            return array("rows"=>$result,"total" => count($result));
+        }
+        $perro=array_values($pdata['rows'])[0];
+        $grad=$perro['Grado'];
+        $cat=$perro['Categoria'];
+        // componemos un array de $before+1+$after perros
+        // vemos si hay que ignorar grados
+        $grades=$this->hasGrades();
+        $result=array();
+        $order=0;
+        $already=false;
+        for($n=0;$n<$after;$n++) array_push($result,$this->getEmptyData($order,$cat,$grad)); // fill "after" items with empty data
+        foreach ($os as $item) {
+            if ($grades && $item['Grado']!==$grad) continue; // grade differs, ignore entry
+            if ($item['Categoria']!==$cat) continue; // category differs, ignore
+            // same category and (if required) grade
+            $order++;
+            $item['Order']=$order;
+            array_push($result,$item);
+            // if item matches requested dog, cut
+            if ($item['Perro']==$perro) {
+                $already=true;
+                $result=array_slice($result,1+$after);
+            }
+            if( $already && ( count($result)>= $nitems) ) break;
+        }
+        // at the end... fill data till requested size
+        while (count($result)<$nitems) {
+            $order++;
+            array_push($result,$this->getEmptyData($order,$cat,$grad));
+        }
+        // retornamos dicho array en orden inverso
+        return (array("rows"=>array_reverse($result),"total" => $nitems));
     }
 } 
 
@@ -179,13 +265,15 @@ $manga = http_request("Manga","i",0);
 $tanda = http_request("Tanda","i",0); // used on access from videowall
 $mode = http_request("Mode","i",0); // used on access from public
 $perro = http_request("Perro","i",0); // used on access from public
+$before = http_request("Before","i",15); // to compose starting order window
+$after = http_request("After","i",4); //  to compose starting order window
 
 $vw=new VideoWall($sesion,$prueba,$jornada,$manga,$tanda,$mode);
 try {
     if($operacion==="infodata") return $vw->videowall_infodata();
 	if($operacion==="livestream") return $vw->videowall_livestream();
     if($operacion==="llamada") return $vw->videowall_llamada($pendientes); // pendientes por salir
-    if($operacion==="ventana") return $vw->videowall_windowCall($perro); // 15 por detras y 4 por delante
+    if($operacion==="window") return $vw->videowall_windowCall($perro,$before,$after); // 15 por detras y 4 por delante
 } catch (Exception $e) {
 	echo "<p>Error:<br />".$e->getMessage()."</p>";
     return 0;

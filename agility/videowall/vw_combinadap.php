@@ -104,7 +104,8 @@ Pantalla de de visualizacion combinada llamada/parciales
                     </div>
                 </div>
                 <div data-options="region:'east'" style="width:60%"> <!-- ULTIMOS TRES RESULTADOS -->
-                    Ultimos resultados
+                    <!-- tabla de ultimos 4 resultados -->
+                    <table id="vwcp_lastparciales-datagrid"></table>
                 </div>
             </div>
         </div>

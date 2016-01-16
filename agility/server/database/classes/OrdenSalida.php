@@ -340,20 +340,18 @@ class OrdenSalida extends DBObject {
 	 * @param {boolean} teamview true->intercalar información de equipos en el listado 
 	 */
 	function getData($teamView=false) {
-		// obtenemos los equipos de la jornada
-		$eq=$this->__select("*","Equipos","(Jornada={$this->jornada['ID']})","","");
-		if (!is_array($eq)) return $this->error($this->conn->error);
-        $equipos=$eq['rows'];
-
-		// obtenemos los perros de la manga
-		$rs= $this->__select("*","Resultados","(Manga={$this->manga['ID']})","","");
+		// obtenemos los perros de la manga, anyadiendo los datos que faltan (NombreLargo y NombreEquipo) a partir de los ID's
+		$rs= $this->__select(
+			"Resultados.*,Equipos.Nombre AS NombreEquipo,PerroGuiaClub.NombreLargo AS NombreLargo,PerroGuiaClub.LogoClub AS Logo",
+			"Resultados,Equipos,PerroGuiaClub",
+			"(Manga={$this->manga['ID']}) AND (Resultados.Equipo=Equipos.ID) AND (Resultados.Perro=PerroGuiaClub.ID)",
+			"",
+			""
+		);
 		if(!is_array($rs)) return $this->error($this->conn->error);
-		// recreamos el array de perros anyadiendo el ID del perro como clave, así como el nombre del equipo
+		// recreamos el array de perros anyadiendo el ID del perro como clave
 		$p1=array();
 		foreach ($rs['rows'] as $resultado) {
-			foreach($equipos as $equipo) { // a bit slow to iterate every team on every dog, but....
-				if ($equipo['ID']===$resultado['Equipo']) { $resultado['NombreEquipo']=$equipo['Nombre']; break;} 
-			} 
 			$p1[$resultado['Perro']]=$resultado; 
 		}
 
@@ -418,9 +416,9 @@ class OrdenSalida extends DBObject {
 						'Eliminado'=>0,
 						'NoPresentado'=>0
 					);
-					array_push($p6,$a);
+					array_push($p6,$a); // intercala datos de equipo
 				}
-				array_push($p6,$perro);
+				array_push($p6,$perro); // introduce datos de perro
 			}
 		}
 		$result = array();
