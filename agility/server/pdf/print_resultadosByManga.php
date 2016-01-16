@@ -76,22 +76,22 @@ class ResultadosByManga extends PrintCommon {
 		$jobj=new Jueces("print_resultadosByManga");
 		$juez1=$jobj->selectByID($this->manga->Juez1);
 		$juez2=$jobj->selectByID($this->manga->Juez2);
-		$this->Cell(20,7,"Juez 1:","LT",0,'L',false);
+		$this->Cell(20,7,_('Judge')." 1:","LT",0,'L',false);
 		$str=($juez1['Nombre']==="-- Sin asignar --")?"":$juez1['Nombre'];
 		$this->Cell(70,7,$str,"T",0,'L',false);
-		$this->Cell(20,7,"Juez 2:","T",0,'L',false);
+		$this->Cell(20,7,_('Judge')." 2:","T",0,'L',false);
 		$str=($juez2['Nombre']==="-- Sin asignar --")?"":$juez2['Nombre'];
 		$this->Cell(78,7,$str,"TR",0,'L',false);
 		$this->Ln(7);
-		$this->Cell(20,7,"Distancia:","LB",0,'L',false);
+		$this->Cell(20,7,_('Distance').":","LB",0,'L',false);
 		$this->Cell(25,7,"{$this->resultados['trs']['dist']} mts","B",0,'L',false);
-		$this->Cell(20,7,"Obstáculos:","B",0,'L',false);
+		$this->Cell(20,7,_('Obstacles').":","B",0,'L',false);
 		$this->Cell(25,7,$this->resultados['trs']['obst'],"B",0,'L',false);
-		$this->Cell(10,7,"TRS:","B",0,'L',false);
-		$this->Cell(20,7,"{$this->resultados['trs']['trs']} seg.","B",0,'L',false);
-		$this->Cell(10,7,"TRM:","B",0,'L',false);
-		$this->Cell(20,7,"{$this->resultados['trs']['trm']} seg.","B",0,'L',false);
-		$this->Cell(20,7,"Velocidad:","B",0,'L',false);
+		$this->Cell(10,7,_('SCT').":","B",0,'L',false);
+		$this->Cell(20,7,"{$this->resultados['trs']['trs']} "._('Secs'),"B",0,'L',false);
+		$this->Cell(10,7,_('MCT').":","B",0,'L',false);
+		$this->Cell(20,7,"{$this->resultados['trs']['trm']} "._('Secs'),"B",0,'L',false);
+		$this->Cell(20,7,_('Speed').":","B",0,'L',false);
 		$this->Cell(18,7,"{$this->resultados['trs']['vel']} m/s","BR",0,'L',false);
 		$this->Ln(14); // en total tres lineas extras en la primera hoja
 	}
@@ -133,6 +133,7 @@ class ResultadosByManga extends PrintCommon {
 
 		$rowcount=0;
 		$numrows=($this->PageNo()==1)?30:33;
+		$this->myLogger->trace("before foreach");
 		foreach($this->resultados['rows'] as $row) {
 			// REMINDER: $this->cell( width, height, data, borders, where, align, fill)
 			if( ($rowcount%$numrows) == 0 ) { // assume $numrows rows per page ( rowWidth = 7mmts )
