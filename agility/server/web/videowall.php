@@ -169,12 +169,12 @@ class VideoWall {
         return 0;
     }
 
-    private function getEmptyData($orden,$cat,$grad) {
+    private function getEmptyData() {
         return array(
             'Prueba' => $this->prueba['ID'],
             'Jornada' => $this->jornada['ID'],
             'Manga' => $this->mangaid,
-            'Orden' => $orden,
+            'Orden' => "",
             'Dorsal' => 0,
             'Perro' => 0,
             'Equipo' => 0,
@@ -183,8 +183,8 @@ class VideoWall {
             'NombreLargo' => "",
             'Raza' => "",
             'Licencia' => "",
-            'Categoria' => $cat,
-            'Grado' => $grad,
+            'Categoria' => "",
+            'Grado' => "",
             'Celo' => 0,
             'NombreGuia' => "",
             'NombreClub' => "",
@@ -222,11 +222,10 @@ class VideoWall {
         $order=0;
         $already=false;
         // fill data for $after slice
-        for($n=0;$n<$before;$n++) array_push($result,$this->getEmptyData($order,"-","-")); // fill "after" items with empty data
+        for($n=0;$n<$before;$n++) array_push($result,$this->getEmptyData()); // fill "after" items with empty data
         // $perro=0 means no dog being called yet. So fill $current slice properly
         if ($perro==0) {
-            $order++;
-            array_push($result,$this->getEmptyData($order,"-","-"));
+            array_push($result,$this->getEmptyData());
             $already=true;
         }
         // now iterate dog list extracting requested dogs and filling array
@@ -247,7 +246,7 @@ class VideoWall {
         // at the end... fill data till requested size
         while (count($result)<$nitems) {
             $order++;
-            array_push($result,$this->getEmptyData($order,"-","-"));
+            array_push($result,$this->getEmptyData());
         }
         // reverse array so first entered dogs become last
         $res=array_reverse($result);
@@ -255,9 +254,9 @@ class VideoWall {
         $result=array(
             // "total" => count($res),
             // "rows" => $res,
-            "before" => array_slice($res,0,$before),
-            "current" => array_slice($res,$before,1),
-            "after" => array_slice($res,1+$before,$after)
+            "after" => array_slice($res,0,$after),
+            "current" => array_slice($res,$after,1),
+            "before" => array_slice($res,1+$after,$before)
         );
         echo json_encode($result);
         return 0;
@@ -274,8 +273,8 @@ $manga = http_request("Manga","i",0);
 $tanda = http_request("Tanda","i",0); // used on access from videowall
 $mode = http_request("Mode","i",0); // used on access from public
 $perro = http_request("Perro","i",0); // used on access from public
-$before = http_request("Before","i",4); // to compose starting order window
-$after = http_request("After","i",15); //  to compose starting order window
+$before = http_request("Before","i",3); // to compose starting order window
+$after = http_request("After","i",12); //  to compose starting order window
 
 $vw=new VideoWall($sesion,$prueba,$jornada,$manga,$tanda,$mode);
 try {

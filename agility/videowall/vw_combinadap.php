@@ -94,7 +94,8 @@ Pantalla de de visualizacion combinada llamada/parciales
                         <span class="vwc_dlabel" id="vwls_RehusesLbl"><?php _e('R'); ?>:</span>
                         <span class="vwc_data"  id="vwls_Rehuses">0</span>
                         <!-- Informacion de cronometro -->
-                        <span class="vwc_dtime"  id="vwls_Tiempo">00.00</span>
+                        <span class="vwc_dtime"  id="vwls_Tiempo">00.000</span>
+                        <span class="vwc_dtime"  id="vwls_Puesto">Puesto</span>
                         <span id="vwls_timestamp" style="display:none"></span>
                     </div>
                 </div>
@@ -105,7 +106,7 @@ Pantalla de de visualizacion combinada llamada/parciales
                 </div>
                 <div data-options="region:'east'" style="width:60%"> <!-- ULTIMOS TRES RESULTADOS -->
                     <!-- tabla de ultimos 4 resultados -->
-                    <table id="vwcp_lastparciales-datagrid"></table>
+                    <table id="vwcp_ultimos-datagrid"></table>
                 </div>
             </div>
         </div>
@@ -257,6 +258,52 @@ Pantalla de de visualizacion combinada llamada/parciales
             return true;
         }
     });
+    $('#vwcp_ultimos-datagrid').datagrid({
+        // propiedades del panel asociado
+        fit: true,
+        border: false,
+        closable: false,
+        collapsible: false,
+        collapsed: false,
+        pagination: false,
+        rownumbers: false,
+        fitColumns: true,
+        singleSelect: true,
+        autoRowHeight: true,
+        columns:[[
+            { field:'Orden',		width:'9%', align:'center', title: '#', formatter:formatOrdenLlamadaPista},
+            { field:'Manga',		hidden:true },
+            { field:'Perro',		hidden:true },
+            { field:'Raza',		    hidden:true },
+            { field:'Equipo',		hidden:true },
+            { field:'NombreEquipo',	hidden:true },
+            // { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
+            { field:'Logo',		width:'9%', align:'center', title: '', formatter:formatLogo},
+            // { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
+            { field:'Nombre',		width:'11%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBoldBig},
+            { field:'NombreGuia',	width:'16%', align:'right', title: '<?php _e('Handler'); ?>' },
+            { field:'NombreClub',	width:'13%', align:'right', title: '<?php _e('Club'); ?>' },
+            { field:'Categoria',	width:'3%', align:'center', title: '<?php _e('Cat'); ?>.' },
+            { field:'Grado',	    width:'3%', align:'center', title: '<?php _e('Grade'); ?>' },
+            { field:'Faltas',		width:'4%', align:'center', title: '<?php _e('Faults'); ?>'},
+            { field:'Rehuses',		width:'4%', align:'center', title: '<?php _e('Refusals'); ?>'},
+            { field:'Tocados',		width:'4%', align:'center', title: '<?php _e('Touchs'); ?>'},
+            { field:'PRecorrido',	hidden:true },
+            { field:'Tiempo',		width:'5%', align:'right', title: '<?php _e('Time'); ?>', formatter:formatTiempo},
+            { field:'PTiempo',		hidden:true },
+            { field:'Velocidad',	width:'4%', align:'right', title: '<?php _e('Vel'); ?>.', formatter:formatVelocidad},
+            { field:'Penalizacion',	width:'6%', align:'right', title: '<?php _e('Penal'); ?>.', formatter:formatPenalizacion},
+            { field:'Calificacion',	width:'6%', align:'center',title: '<?php _e('Calification'); ?>'},
+            { field:'Puesto',		width:'4%', align:'center',  title: '<?php _e('Position'); ?>', formatter:formatPuesto},
+            { field:'CShort',       hidden:true}
+        ]],
+        rowStyler:myRowStyler,
+        onBeforeLoad: function(param) {
+            // do not update until 'open' received
+            if( $('#vwcp_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
+            return true;
+        }
+    });
 
     // header elements layout
     var layout= {'rows':110,'cols':1900};
@@ -268,12 +315,12 @@ Pantalla de de visualizacion combinada llamada/parciales
     doLayout(layout,"#vwcp_header-partialscores",700,	65,	1180,	25	);
     // livedata elements layout
     var liveLayout = {'rows':200,'cols':1900};
-    doLayout(liveLayout,"#vwls_Numero",	        10,	    25,	    90,	    150	);
-    doLayout(liveLayout,"#vwls_Logo",	        120,	10,	    120,	180	);
-    doLayout(liveLayout,"#vwls_Dorsal",	        250,	10,	    100,	100	);
-    doLayout(liveLayout,"#vwls_Nombre",	        375,    10,	    375,	100	);
+    doLayout(liveLayout,"#vwls_Numero",	        0,	    25,	    70,	    150	);
+    doLayout(liveLayout,"#vwls_Logo",	        100,	10,	    120,	180	);
+    doLayout(liveLayout,"#vwls_Dorsal",	        230,	10,	    80, 	100	);
+    doLayout(liveLayout,"#vwls_Nombre",	        335,    10,	    415,	100	);
     doLayout(liveLayout,"#vwls_Celo",	        800,    10,	    100,	100	);
-    doLayout(liveLayout,"#vwls_NombreGuia",	    250,	100,    550,	100	);
+    doLayout(liveLayout,"#vwls_NombreGuia",	    230,	100,    570,	100	);
     doLayout(liveLayout,"#vwls_NombreClub",	    700,	100,    200,	100	);
     // doLayout(liveLayout,"#vwls_Categoria",	    0,	    0,	100,	100	);
     // doLayout(liveLayout,"#vwls_Grado",	        0,	    0,	100,	100	);
@@ -283,6 +330,7 @@ Pantalla de de visualizacion combinada llamada/parciales
     doLayout(liveLayout,"#vwls_Tocados",	    1200,	25,	    100,	150	);
     doLayout(liveLayout,"#vwls_RehusesLbl",	    1300,	25,	    100,	150	);
     doLayout(liveLayout,"#vwls_Rehuses",	    1400,	25,	    100,	150	);
-    doLayout(liveLayout,"#vwls_Tiempo",	        1500,	25, 	300,	150	);
+    doLayout(liveLayout,"#vwls_Tiempo",	        1500,	25, 	200,	150	);
+    doLayout(liveLayout,"#vwls_Puesto",	        1700,	25, 	200,	150	);
 
 </script>

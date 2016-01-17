@@ -317,8 +317,23 @@ function vwc_updateLlamada(evt,data) {
 			// componemos ventana de llamada
 			$('#vwc_llamada-datagrid').datagrid('loadData',dat['after']);
 			// rellenamos ventana de datos del perro en pista
+			$("#vwls_Numero").html(dat['current'][0]['Orden']);
+
+			$("#vwls_Logo").attr('src','/agility/images/logos/'+dat['current'][0]['Logo']);
+			$("#vwls_Dorsal").html(dat['current'][0]['Dorsal']);
+			$("#vwls_Nombre").html(dat['current'][0]['Nombre']);
+			var celo=(dat['current'][0]['Celo']!=0)?'<span class="blink"><?php _e("heat");?></span>':"&nbsp";
+			$("#vwls_Celo").html(celo);
+			$("#vwls_NombreGuia").html(dat['current'][0]['NombreGuia']);
+			$("#vwls_NombreClub").html(dat['current'][0]['NombreClub']);
+			$("#vwls_Faltas").html(dat['current'][0]['Faltas']);
+			$("#vwls_Tocados").html(dat['current'][0]['Tocados']);
+			$("#vwls_Rehuses").html(dat['current'][0]['Rehuses']);
+			$("#vwls_Tiempo").html(dat['current'][0]['Tiempo']);
+			$("#vwls_Puesto").html(dat['current'][0]['Puesto']);
+			// evaluamos velocidad, penalización, calificacion y puesto
 			// rellenamos ventana de ultimos resultados
-			$('#vwc_lastresults-datagrid').datagrid('loadData',dat['before']);
+			$('#vwcp_ultimos-datagrid').datagrid('loadData',dat['before']);
 		}
 	});
 }
