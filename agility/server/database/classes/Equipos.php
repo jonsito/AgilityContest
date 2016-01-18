@@ -279,7 +279,7 @@ class Equipos extends DBObject {
             "(Resultados.Jornada=$jornada) AND (Resultados.Perro=$idperro) AND
              (Resultados.Jornada=Equipos.Jornada) AND (Resultados.Equipo=Equipos.ID)");
 		if (is_array($team)) return $team; 
-		$this->myLogger->info("El perro $idperro no figura en ningun equipo de la jornada {$this->jornadaID}");
+		// $this->myLogger->info("El perro $idperro no figura en ningun equipo de la jornada {$this->jornadaID}");
 		return $this->getDefaultTeam();
 	}
 
