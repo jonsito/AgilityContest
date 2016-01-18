@@ -83,10 +83,6 @@ class Excel_Clasificaciones extends XLSX_Writer {
 		$this->myWriter->addRowWithStyle($this->cols,$this->rowHeaderStyle);
 	}
 
-	function createInfoPage(){
-		parent::createInfoPage(_utf('Scores'),$this->prueba['RSCE']);
-	}
-
     /**
      * Pagina de datos de las mangas de cada jornada
      */
@@ -239,7 +235,7 @@ class Excel_Clasificaciones extends XLSX_Writer {
 
 	function composeTable() {
 		$this->myLogger->enter();
-        $this->createInfoPage();
+        $this->createInfoPage(_utf('Scores'),$this->prueba['RSCE']);
         $this->createPruebaInfoPage($this->prueba,$this->jornadas);
 		$insc=new Inscripciones("excel_Clasificaciones",$this->prueba['ID']);
 		// iterate on every valid journeys

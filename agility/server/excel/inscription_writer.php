@@ -74,13 +74,9 @@ class Excel_Inscripciones extends XLSX_Writer {
 		$this->myWriter->addRowWithStyle($this->cols,$this->rowHeaderStyle);
 	}
 
-	function createInfoPage(){
-		parent::createInfoPage(_utf('Inscription List'),$this->prueba['RSCE']);
-	}
-
 	function composeTable() {
 		$this->myLogger->enter();
-		$this->createInfoPage();
+		$this->createInfoPage(_utf('Inscription List'),$this->prueba['RSCE']);
 		$this->createPruebaInfoPage($this->prueba,$this->jornadas);
 		$insc=new Inscripciones("excel_printInscripciones",$this->prueba['ID']);
 		// evaluate journeys to be added as excel column
