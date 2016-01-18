@@ -322,7 +322,7 @@ function vwc_updateLlamada(evt,data) {
 			$("#vwls_Logo").attr('src','/agility/images/logos/'+dat['current'][0]['Logo']);
 			$("#vwls_Dorsal").html(dat['current'][0]['Dorsal']);
 			$("#vwls_Nombre").html(dat['current'][0]['Nombre']);
-			var celo=(dat['current'][0]['Celo']!=0)?'<span class="blink"><?php _e("heat");?></span>':"&nbsp";
+			var celo=(dat['current'][0]['Celo']!=0)?'<span class="blink"><?php _e("Heat");?></span>':"&nbsp";
 			$("#vwls_Celo").html(celo);
 			$("#vwls_NombreGuia").html(dat['current'][0]['NombreGuia']);
 			$("#vwls_NombreClub").html(dat['current'][0]['NombreClub']);
