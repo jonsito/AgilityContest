@@ -79,12 +79,13 @@ unix2dos ${BUILD_DIR}/xampp/mysql/my.ini
 
 # ok. time to add AgilityContest files
 echo "Copying AgilityContest files ..."
-(cd ${BASE_DIR}; tar cfBp - agility extras logs AgilityContest.bat settings_*.bat COPYING README.md ) |\
+(cd ${BASE_DIR}; tar cfBp - agility extras logs AgilityContest.bat settings_*.bat COPYING README.md Contributors) |\
     ( cd ${BUILD_DIR}; tar xfBp - )
 touch ${BUILD_DIR}/logs/first_install
 unix2dos ${BUILD_DIR}/AgilityContest.bat
 unix2dos ${BUILD_DIR}/settings_es.bat
 unix2dos ${BUILD_DIR}/settings_en.bat
+unix2dos ${BUILD_DIR}/settings_de.bat
 
 # create directory for docs (some day...)
 mkdir -p ${BUILD_DIR}/docs

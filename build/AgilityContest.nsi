@@ -194,7 +194,7 @@ Section /o "Initial language: English" eng
     File /oname=settings.bat settings_en.bat
 SectionEnd
 
-Section /o "Initial language: German" eng
+Section /o "Initial language: German" ger
     SetOutPath $INSTDIR
     File /oname=settings.bat settings_de.bat
 SectionEnd
