@@ -17,12 +17,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 */
 
 
-require_once("DBObject.php");
-require_once("OrdenSalida.php");
-require_once("Mangas.php");
-require_once("Jornadas.php");
-require_once("Clubes.php");
-require_once("Jueces.php");
+require_once(__DIR__."/DBObject.php");
+require_once(__DIR__."/../../../modules/Federations.php");
+require_once(__DIR__."/OrdenSalida.php");
+require_once(__DIR__."/Mangas.php");
+require_once(__DIR__."/Jornadas.php");
+require_once(__DIR__."/Clubes.php");
+require_once(__DIR__."/Jueces.php");
 
 class Resultados extends DBObject {
 	protected $IDManga; // ID de la manga
@@ -31,6 +32,7 @@ class Resultados extends DBObject {
 	protected $djornada=null;  // datos de la jornada
 	protected $dequipos=null; // datos de los equipos
 	protected $dprueba=null; // datos de la prueba
+	protected $federation=null;
 
 	function getDatosManga() {
 		if ($this->dmanga!=null) return $this->dmanga;
@@ -82,6 +84,14 @@ class Resultados extends DBObject {
         foreach($teams as $team) $this->dequipos[$team['ID']]=$team;
         return $this->dequipos;
     }
+
+	function getFederation() {
+		if ($this->federation != null) return $this->federation;
+        $prb=$this->getDatosPrueba();
+		$this->federation= Federations::getFederation(intval($prb->RSCE));
+        $this->myLogger->trace("Datos prueba: ".json_encode($prb)." Datos federacion ".json_encode($this->federation));
+		return $this->federation;
+	}
 
 	function isCerrada() {
 		$jrd=$this->getDatosJornada();
@@ -498,38 +508,6 @@ class Resultados extends DBObject {
 			// evaluamos velocidad 
 			if ($table[$idx]['Tiempo']==0)	$table[$idx]['Velocidad'] = 0;
 			else 	$table[$idx]['Velocidad'] =  $tdata['dist'] / $table[$idx]['Tiempo'];
-			
-			// evaluamos calificacion 
-			if ($table[$idx]['Penalizacion']>=200)  {
-				$table[$idx]['Penalizacion']=200.0; 
-				$table[$idx]['Calificacion'] = "No Presentado"; 
-				$table[$idx]['CShort'] = "N.P."; 
-			}
-			else if ($table[$idx]['Penalizacion']>=100) {
-				$table[$idx]['Penalizacion']=100.0; 
-				$table[$idx]['Calificacion'] = "Eliminado";
-				$table[$idx]['CShort'] = "Elim"; 
-			}
-			else if ($table[$idx]['Penalizacion']>=26)	{
-				$table[$idx]['Calificacion'] = "No Clasificado";
-				$table[$idx]['CShort'] = "N.C.";
-			}
-			else if ($table[$idx]['Penalizacion']>=16)	{
-				$table[$idx]['Calificacion'] = "Bueno";
-				$table[$idx]['CShort'] = "Bien";
-			}
-			else if ($table[$idx]['Penalizacion']>=6)	{
-				$table[$idx]['Calificacion'] = "Muy Bien";
-				$table[$idx]['CShort'] = "M.B.";
-			}
-			else if ($table[$idx]['Penalizacion']>0)	{
-				$table[$idx]['Calificacion'] = "Excelente";
-				$table[$idx]['CShort'] = "Exc ";
-			}
-			else if ($table[$idx]['Penalizacion']==0)	{
-				$table[$idx]['Calificacion'] = "Excelente (p)";
-				$table[$idx]['CShort'] = "Ex P";
-			}
 
             // anyadimos nombre del equipo
             $dequipos=$this->getDatosEquipos();
@@ -549,7 +527,7 @@ class Resultados extends DBObject {
         $puestocat=array( 'C'=>1, 'L' => 1, 'M'=>1, 'S'=>1, 'T'=>1); // ultimo puesto por cada categoria
         $lastcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0);  // ultima puntuacion por cada categoria
         $countcat=array( 'C'=>0, 'L' => 0, 'M'=>0, 'S'=>0, 'T'=>0); // perros contabilizados de cada categoria
-
+        $fed=$this->getFederation();
 		for($idx=0;$idx<$size;$idx++) {
             // vemos la categoria y actualizamos contadores de categoria
             $cat=$table[$idx]['Categoria'];
@@ -567,15 +545,8 @@ class Resultados extends DBObject {
             if ($lastcat[$cat]!=$now) { $lastcat[$cat]=$now; $puestocat[$cat]=$countcat[$cat]; }
             $table[$idx]['Pcat']=$puestocat[$cat];
 
-			/*
-			// This should be done at javascript view level
-			// ajustamos penalizacion y tiempo con 2 decimales
-			$table[$idx]['Penalizacion'] =number_format($table[$idx]['Penalizacion'],2);
-			$table[$idx]['Velocidad'] =number_format($table[$idx]['Velocidad'],1); 
-			$table[$idx]['Tiempo'] =number_format($table[$idx]['Tiempo'],2);
-			if ($table[$idx]['Penalizacion']>=100) { $table[$idx]['Tiempo']="-"; $table[$idx]['Velocidad']="-"; }
-			if ($table[$idx]['Penalizacion']>=200) $table[$idx]['Puesto']="-";
-			*/
+			// la calificacion depende de categoria, grado y federacion
+			$fed->evalPartialCalification($this->getDatosPrueba(),$this->getDatosJornada(),$table,$table[$idx],$puestocat);
 		}
 
         // componemos datos del array a retornar

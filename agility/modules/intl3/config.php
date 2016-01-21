@@ -62,5 +62,30 @@ class INTL3 extends Federations {
             )
         );
     }
+
+    /**
+     * Evalua la calificacion parcial del perro
+     * @param {object} $p datos de la prueba
+     * @param {object} $j datos de la jornada
+     * @param {array} $m datos de la manga
+     * @param {array} $perro datos de puntuacion del perro. Passed by reference
+     * @param {array} $puestocat puesto en funcion de la categoria
+     */
+    public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
+        parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+    }
+
+    /**
+     * Evalua la calificacion final del perro
+     * @param {object} $p datos de la prueba
+     * @param {object} $j datos de la jornada
+     * @param {array} $c1 datos de la primera manga
+     * @param {array} $c2 datos de la segunda manga
+     * @param {array} $perro datos de puntuacion del perro. Passed by reference
+     * @param {array} $puestocat puesto en funcion de la categoria
+     */
+    public function evalFinalCalification($p,$j,$c1,$c2,&$perro,$puestocat){
+        parent::evalFinalCalification($p,$j,$c1,$c2,$perro,$puestocat);
+    }
 }
 ?>

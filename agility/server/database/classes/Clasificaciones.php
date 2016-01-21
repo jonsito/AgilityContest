@@ -177,7 +177,7 @@ class Clasificaciones extends DBObject {
 			if($this->jornada->Open!=0) continue;
             // evaluamos calificacion y puntos en funcion de la federacion y de si es o no selectiva
 			$fed=Federations::getFederation(intval($this->prueba->RSCE));
-			$fed->evalCalification($this->prueba,$this->jornada,$c1,$c2,$final[$idx],$puestocat);
+			$fed->evalFinalCalification($this->prueba,$this->jornada,$c1,$c2,$final[$idx],$puestocat);
 		}
 
 		// Esto es (casi) t odo, amigos

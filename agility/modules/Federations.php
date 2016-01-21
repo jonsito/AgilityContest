@@ -150,6 +150,47 @@ class Federations {
     }
 
     /**
+     * Evalua la calificacion parcial del perro
+     * @param {object} $p datos de la prueba
+     * @param {object} $j datos de la jornada
+     * @param {array} $m datos de la manga
+     * @param {array} $perro datos de puntuacion del perro. Passed by reference
+     * @param {array} $puestocat puesto en funcion de la categoria
+     */
+    public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
+        if ($perro['Penalizacion']>=200)  {
+            $perro['Penalizacion']=200.0;
+            $perro['Calificacion'] = _("Not Present");
+            $perro['CShort'] = _("N.P.");
+        }
+        else if ($perro['Penalizacion']>=100) {
+            $perro['Penalizacion']=100.0;
+            $perro['Calificacion'] = _("Eliminated");
+            $perro['CShort'] = _("Elim");
+        }
+        else if ($perro['Penalizacion']>=26)	{
+            $perro['Calificacion'] = _("Not Clasified");
+            $perro['CShort'] = _("N.C.");
+        }
+        else if ($perro['Penalizacion']>=16)	{
+            $perro['Calificacion'] = _("Good");
+            $perro['CShort'] = _("Good");
+        }
+        else if ($perro['Penalizacion']>=6)	{
+            $perro['Calificacion'] = _("Very good");
+            $perro['CShort'] = _("V.G.");
+        }
+        else if ($perro['Penalizacion']>0)	{
+            $perro['Calificacion'] = _("Excelent");
+            $perro['CShort'] = _("Exc");
+        }
+        else if ($perro['Penalizacion']==0)	{
+            $perro['Calificacion'] = _("Excelent (p)");
+            $perro['CShort'] = _("Ex P");
+        }
+    }
+
+    /**
      * Evalua la calificacion final del perro
      * @param {object} $p datos de la prueba
      * @param {object} $j datos de la jornada
@@ -158,7 +199,7 @@ class Federations {
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalCalification($p,$j,$c1,$c2,&$perro,$puestocat){
+    public function evalFinalCalification($p,$j,$c1,$c2,&$perro,$puestocat){
         return; // should be overriden
     }
 

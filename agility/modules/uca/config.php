@@ -64,6 +64,18 @@ class UCA extends Federations {
     }
 
     /**
+     * Evalua la calificacion parcial del perro
+     * @param {object} $p datos de la prueba
+     * @param {object} $j datos de la jornada
+     * @param {array} $m datos de la manga
+     * @param {array} $perro datos de puntuacion del perro. Passed by reference
+     * @param {array} $puestocat puesto en funcion de la categoria
+     */
+    public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
+        parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+    }
+
+    /**
      * Evalua la calificacion final del perro
      * @param {object} $p datos de la prueba
      * @param {object} $j datos de la jornada
@@ -72,7 +84,7 @@ class UCA extends Federations {
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalCalification($p,$j,$c1,$c2,&$perro,$puestocat){
+    public function evalFinalCalification($p,$j,$c1,$c2,&$perro,$puestocat){
         $grad=$perro['Grado']; // cogemos el grado
         $cat=$perro['Categoria']; // cogemos la categoria
         if ($grad!=="GII") { // solo se puntua en grado II
