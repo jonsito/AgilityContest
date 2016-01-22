@@ -315,7 +315,7 @@ function vwc_updateLlamada(evt,data) {
 		},
 		success: function(dat,status,jqxhr) {
 			// componemos ventana de llamada
-			$('#vwc_llamada-datagrid').datagrid('loadData',dat['after']);
+			$('#vwc_llamada-datagrid').datagrid('loadData',dat['after']).datagrid('scrollTo',dat['after']-1);
 			// rellenamos ventana de datos del perro en pista
 			$("#vwls_Numero").html(dat['current'][0]['Orden']);
 
@@ -333,7 +333,7 @@ function vwc_updateLlamada(evt,data) {
 			$("#vwls_Puesto").html(dat['current'][0]['Puesto']);
 			// evaluamos velocidad, penalización, calificacion y puesto
 			// rellenamos ventana de ultimos resultados
-			$('#vwcp_ultimos-datagrid').datagrid('loadData',dat['before']);
+			$('#vwcp_ultimos-datagrid').datagrid('loadData',dat['before']).datagrid('scrollTo',0);;
 		}
 	});
 }

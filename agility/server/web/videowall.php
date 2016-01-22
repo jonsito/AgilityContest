@@ -220,12 +220,10 @@ class VideoWall {
         // componemos un array de $before+1+$after perros
         $result=array();
         // reserve $before +1 empty slots before dog list
-        $index=0;
         for($n=0;$n<$before+1;$n++) {
-            array_push($result,$this->getEmptyData());
-            $index++;
+            array_unshift($result,$this->getEmptyData());
         }
-        $found=$index;
+        $found=0;
         // add dog list, setting up starting orden
         $orden=0;
         // if dog found, mark index
@@ -235,22 +233,25 @@ class VideoWall {
             // same category and (if required) grade
             $orden++;
             $item['Orden']=$orden;
-            array_push($result,$item);
+            array_unshift($result,$item);
             // if item matches requested dog, cut
-            if ($item['Perro']==$perro) $found=$index;
-            $index++;
+            if ($item['Perro']==$perro) $found=count($result)-1;
+            if ($found==0) continue;
+            if (count($result)>($found+$after+1)) break;
         }
-        // reverse array so first entered dogs become last
-        $res=array_reverse($result);
+        // fill array with $after empty rows
+        for($n=0;$n<$after;$n++) {
+            array_unshift($result,$this->getEmptyData());
+        }
         // and return 3 arrays:
-        $result=array(
+        $res=array(
             // "total" => count($res),
             // "rows" => $res,
-            "after" => array_slice($res,$found,$after),
-            "current" => array_slice($res,$found+$after,1),
-            "before" => array_slice($res,$found+1+$after,$before)
+            "before" => array_slice($result,-$found,$before),
+            "current" => array_slice($result,-($found+1),1),
+            "after" => array_slice($result,-($found+1+$after),$after)
         );
-        echo json_encode($result);
+        echo json_encode($res);
         return 0;
     }
 } 
