@@ -72,7 +72,42 @@ class RSCE extends Federations {
      * @param {array} $puestocat puesto en funcion de la categoria
      */
     public function evalPartialCalification($p,$j,$m,&$perro,$puestocat) {
-        parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+        if ($perro['Grado']!=="GIII") {
+            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            return;
+        }
+        if (intval($p->Selectiva)==0) {
+            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            return;
+        }
+        // arriving here means prueba selectiva and Grado III
+        // comprobamos si el perro es mestizo
+        if ( Dogs::isMixBreed($perro['Licencia']) ) { // perro mestizo no puntua
+            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            return;
+        }
+        // TODO: Tener en cuenta perros extranjeros
+        // si no tiene excelente no puntua
+        if ( ($perro['Penalizacion']>=6.0)) {
+            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            return;
+        }
+        $pts=array("20","16","12","8","7","6","5","4","3","2");
+        // solo puntuan los 10 primeros
+        if ( $puestocat[$perro['Categoria']]>10 )  {
+            parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
+            return;
+        }
+        // si llegamos aqui tenemos los 10 primeros perros una prueba selectiva en grado 3 con un perro no mestizo que ha sacado excelente :-)
+        $pt1=$pts[$puestocat[$perro['Categoria']]-1];
+        if ($perro['Penalizacion']>0)	{
+            $perro['Calificacion'] = _("Excellent")." - $pt1";
+            $perro['CShort'] = _("Exc");
+        }
+        if ($perro['Penalizacion']==0)	{
+            $perro['Calificacion'] = _("Exc. (p)")." - $pt1";
+            $perro['CShort'] = _("Ex P");
+        }
     }
 
     /**

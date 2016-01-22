@@ -181,11 +181,11 @@ class Federations {
             $perro['CShort'] = _("V.G.");
         }
         else if ($perro['Penalizacion']>0)	{
-            $perro['Calificacion'] = _("Excelent");
+            $perro['Calificacion'] = _("Excellent");
             $perro['CShort'] = _("Exc");
         }
         else if ($perro['Penalizacion']==0)	{
-            $perro['Calificacion'] = _("Excelent (p)");
+            $perro['Calificacion'] = _("Excellent (p)");
             $perro['CShort'] = _("Ex P");
         }
     }

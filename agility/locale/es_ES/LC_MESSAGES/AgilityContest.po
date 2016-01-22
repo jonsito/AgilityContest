@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-01-21 14:21+0100\n"
-"PO-Revision-Date: 2016-01-21 14:21+0100\n"
+"POT-Creation-Date: 2016-01-22 09:15+0100\n"
+"PO-Revision-Date: 2016-01-22 09:15+0100\n"
 "Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -235,6 +235,7 @@ msgid "Refusal"
 msgstr "Reh&uacute;se"
 
 #: chrono/chrono.inc.php:91 modules/Federations.php:168
+#: modules/rfec/config.php:94 modules/uca/config.php:86
 #: server/pdf/print_entradaDeDatos.php:356
 #: server/pdf/print_entradaDeDatos.php:377
 #: server/pdf/print_entradaDeDatosEquipos4.php:171
@@ -323,6 +324,7 @@ msgid "Reset chronometer. Set count to zero"
 msgstr "Reset del cron&oacute;metro. Poner contadores a cero"
 
 #: chrono/chrono.js.php:120 modules/Federations.php:169
+#: modules/rfec/config.php:95 modules/uca/config.php:87
 #: scripts/competicion.js.php:42 server/pdf/print_clasificacion_eq4.php:308
 #: server/pdf/print_clasificacion_eq4.php:316
 #: server/pdf/print_entradaDeDatos.php:252
@@ -2468,12 +2470,14 @@ msgstr "Recorrido com&uacute;n"
 msgid "Separate courses"
 msgstr "Recorridos separados"
 
-#: modules/Federations.php:163 server/pdf/print_entradaDeDatos.php:355
+#: modules/Federations.php:163 modules/rfec/config.php:89
+#: modules/uca/config.php:81 server/pdf/print_entradaDeDatos.php:355
 #: server/pdf/print_entradaDeDatos.php:376 tablet/tablet_main.php:60
 msgid "Not Present"
 msgstr "No Presentado"
 
-#: modules/Federations.php:164 scripts/competicion.js.php:43
+#: modules/Federations.php:164 modules/rfec/config.php:90
+#: modules/uca/config.php:82 scripts/competicion.js.php:43
 #: server/pdf/print_clasificacion_eq4.php:309
 #: server/pdf/print_clasificacion_eq4.php:317
 #: server/pdf/print_entradaDeDatos.php:253
@@ -2482,39 +2486,49 @@ msgstr "No Presentado"
 msgid "N.P."
 msgstr "N.P."
 
-#: modules/Federations.php:172
+#: modules/Federations.php:172 modules/rfec/config.php:98
+#: modules/uca/config.php:90
 msgid "Not Clasified"
 msgstr "No Clasificado"
 
-#: modules/Federations.php:173
+#: modules/Federations.php:173 modules/rfec/config.php:99
+#: modules/uca/config.php:91
 msgid "N.C."
 msgstr "N.C."
 
 #: modules/Federations.php:176 modules/Federations.php:177
+#: modules/rfec/config.php:102 modules/rfec/config.php:103
+#: modules/uca/config.php:94 modules/uca/config.php:95
 msgid "Good"
 msgstr "Bien"
 
-#: modules/Federations.php:180
+#: modules/Federations.php:180 modules/rfec/config.php:106
+#: modules/uca/config.php:98
 msgid "Very good"
 msgstr "Muy bien"
 
-#: modules/Federations.php:181
+#: modules/Federations.php:181 modules/rfec/config.php:107
+#: modules/uca/config.php:99
 msgid "V.G."
 msgstr "M.B."
 
-#: modules/Federations.php:184
-msgid "Excelent"
+#: modules/Federations.php:184 modules/rfec/config.php:110
+#: modules/rfec/config.php:114 modules/rsce/config.php:103
+#: modules/uca/config.php:102 modules/uca/config.php:106
+msgid "Excellent"
 msgstr "Excelente"
 
-#: modules/Federations.php:185
+#: modules/Federations.php:185 modules/rfec/config.php:111
+#: modules/rfec/config.php:115 modules/rsce/config.php:104
+#: modules/uca/config.php:103 modules/uca/config.php:107
 msgid "Exc"
 msgstr "Exc"
 
 #: modules/Federations.php:188
-msgid "Excelent (p)"
+msgid "Excellent (p)"
 msgstr "Excelente (p)"
 
-#: modules/Federations.php:189
+#: modules/Federations.php:189 modules/rsce/config.php:108
 msgid "Ex P"
 msgstr "Ex P"
 
@@ -2580,6 +2594,10 @@ msgstr "Midi+Mini"
 #: modules/rsce/config.php:40
 msgid "Std+Midi+Mini"
 msgstr "Std+Midi+Mini"
+
+#: modules/rsce/config.php:107
+msgid "Exc. (p)"
+msgstr "Excel. (p)"
 
 #: modules/uca/config.php:38 modules/uca/config.php:44
 msgid "Cat. 60"

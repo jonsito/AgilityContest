@@ -705,14 +705,12 @@ class Jornadas extends DBObject {
 		}
 		$flag=true;
 		if (is_object($jobj)) {
-			syslog(LOG_ERR,"Jornada object: ".json_encode($jobj));
 			if (intval($jobj->Open)!=0) $flag=false;
 			if (intval($jobj->Equipos3)!=0) $flag=false;
 			if (intval($jobj->Equipos4)!=0) $flag=false;
 			if (intval($jobj->KO)!=0) $flag=false;
 		}
 		if (is_array($jobj)) {
-			syslog(LOG_ERR,"Jornada array: ".json_encode($jobj));
 			if (intval($jobj['Open'])!=0) $flag=false;
 			if (intval($jobj['Equipos3'])!=0) $flag=false;
 			if (intval($jobj['Equipos4'])!=0) $flag=false;
