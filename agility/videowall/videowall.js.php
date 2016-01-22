@@ -310,7 +310,7 @@ function vwc_updateLlamada(evt,data) {
 			Operation: 'window',
 			Before: 4,
 			After: 15,
-			Perro: evt['Dog'],
+			Perro: parseInt(evt['Dog']),
 			Session: workingData.sesion
 		},
 		success: function(dat,status,jqxhr) {
@@ -527,14 +527,17 @@ function vwcp_procesaCombinada(id,evt) {
 		case 'open': // operator select tanda
 			vw_updateWorkingData(event,function(e,d){
 				vwc_updateDataInfo(e,d);
-				vwcp_updateParciales(e,d);
 				vwc_updateLlamada(e,d);
+				vwcp_updateParciales(e,d);
 			});
 			return;
 		case 'datos':		// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 			vwls_updateData(event);
 			return;
 		case 'llamada':		// operador abre panel de entrada de datos
+			vw_updateWorkingData(event,function(e,d){
+				vwc_updateLlamada(e,d);
+			});
 			return;
 		case 'salida':		// juez da orden de salida ( crono 15 segundos )
 			return;
@@ -556,15 +559,10 @@ function vwcp_procesaCombinada(id,evt) {
 			return;
 		case 'aceptar':		// operador pulsa aceptar
 			vw_updateWorkingData(event,function(e,d){
-				vwc_updateLlamada(e,d);
 				vwcp_updateParciales(e,d);
 			});
 			return;
-		case 'cancelar':	// operador pulsa cancelar
-			vw_updateWorkingData(event,function(e,d){
-				vwc_updateLlamada(e,d);
-				vwcp_updateParciales(e,d);
-			});
+		case 'cancelar': // back to Series and dog selection in tablet without save
 			return;
 		case 'info':	// click on user defined tandas
 			return;

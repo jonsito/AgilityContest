@@ -219,34 +219,26 @@ class VideoWall {
         $gradostr =Tandas::$tipo_tanda[$this->tandatype]['Grado']; // grado ("-" means any grade)
         // componemos un array de $before+1+$after perros
         $result=array();
-        $order=0;
-        $already=false;
-        // fill data for $after slice
-        for($n=0;$n<$before;$n++) array_push($result,$this->getEmptyData()); // fill "after" items with empty data
-        // $perro=0 means no dog being called yet. So fill $current slice properly
-        if ($perro==0) {
+        // reserve $before +1 empty slots before dog list
+        $index=0;
+        for($n=0;$n<$before+1;$n++) {
             array_push($result,$this->getEmptyData());
-            $already=true;
+            $index++;
         }
-        // now iterate dog list extracting requested dogs and filling array
-        foreach ($os['rows'] as $item) {
+        $found=$index;
+        // add dog list, setting up starting orden
+        $orden=0;
+        // if dog found, mark index
+        foreach ($os['rows'] as &$item) {
             if ( strstr($catstr,$item['Categoria'])===false) continue; // category does not match, ignore
             if ( ($gradostr!=='-') && ($gradostr!==$item['Grado']) ) continue; // grade differs, ignore entry
             // same category and (if required) grade
-            $order++;
-            $item['Orden']=$order;
+            $orden++;
+            $item['Orden']=$orden;
             array_push($result,$item);
             // if item matches requested dog, cut
-            if ($item['Perro']==$perro) {
-                $already=true;
-                $result=array_slice($result,1+$after);
-            }
-            if( $already && ( count($result)>= $nitems) ) break;
-        }
-        // at the end... fill data till requested size
-        while (count($result)<$nitems) {
-            $order++;
-            array_push($result,$this->getEmptyData());
+            if ($item['Perro']==$perro) $found=$index;
+            $index++;
         }
         // reverse array so first entered dogs become last
         $res=array_reverse($result);
@@ -254,9 +246,9 @@ class VideoWall {
         $result=array(
             // "total" => count($res),
             // "rows" => $res,
-            "after" => array_slice($res,0,$after),
-            "current" => array_slice($res,$after,1),
-            "before" => array_slice($res,1+$after,$before)
+            "after" => array_slice($res,$found,$after),
+            "current" => array_slice($res,$found+$after,1),
+            "before" => array_slice($res,$found+1+$after,$before)
         );
         echo json_encode($result);
         return 0;
@@ -281,7 +273,7 @@ try {
     if($operacion==="infodata") return $vw->videowall_infodata();
 	if($operacion==="livestream") return $vw->videowall_livestream();
     if($operacion==="llamada") return $vw->videowall_llamada($pendientes); // pendientes por salir
-    if($operacion==="window") return $vw->videowall_windowCall($perro,$before,$after); // 15 por detras y 4 por delante
+    if($operacion==="window") return $vw->videowall_windowCall(intval($perro),intval($before),intval($after)); // 15 por detras y 4 por delante
 } catch (Exception $e) {
 	echo "<p>Error:<br />".$e->getMessage()."</p>";
     return 0;

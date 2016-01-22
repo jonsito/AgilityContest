@@ -89,10 +89,10 @@ Pantalla de de visualizacion combinada llamada/parciales
                         <!-- datos de resultados -->
                         <span class="vwc_dlabel" id="vwls_FaltasLbl"><?php _e('F'); ?>:</span>
                         <span class="vwc_data"  id="vwls_Faltas">0</span>
-                        <span class="vwc_dlabel" id="vwls_TocadosLbl"><?php _e('T'); ?>:</span>
-                        <span class="vwc_data"  id="vwls_Tocados">0</span>
                         <span class="vwc_dlabel" id="vwls_RehusesLbl"><?php _e('R'); ?>:</span>
                         <span class="vwc_data"  id="vwls_Rehuses">0</span>
+                        <span class="vwc_dlabel" id="vwls_TocadosLbl"><?php _e('T'); ?>:</span>
+                        <span class="vwc_data"  id="vwls_Tocados">0</span>
                         <!-- Informacion de cronometro -->
                         <span class="vwc_dtime"  id="vwls_Tiempo">00.000</span>
                         <span class="vwc_dtime"  id="vwls_Puesto">Puesto</span>
@@ -179,7 +179,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             { field:'Equipo',		hidden:true },
             { field:'NombreEquipo',	hidden:true },
             // { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
-            { field:'LogoClub',		width:'10%', align:'center', title: '', formatter:formatLogo},
+            { field:'LogoClub',		width:'8%', align:'center', title: '', formatter:formatLogo},
             // { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
             { field:'Nombre',		width:'12%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBoldBig},
             { field:'NombreGuia',	width:'17%', align:'right', title: '<?php _e('Handler'); ?>' },
@@ -194,8 +194,8 @@ Pantalla de de visualizacion combinada llamada/parciales
             { field:'PTiempo',		hidden:true },
             { field:'Velocidad',	width:'4%', align:'right', title: '<?php _e('Vel'); ?>.', formatter:formatVelocidad},
             { field:'Penalizacion',	width:'6%', align:'right', title: '<?php _e('Penal'); ?>.', formatter:formatPenalizacion},
-            { field:'Calificacion',	width:'7%', align:'center',title: '<?php _e('Calification'); ?>'},
-            { field:'Puesto',		width:'6%', align:'center',  title: '<?php _e('Position'); ?>', formatter:formatPuesto},
+            { field:'Calificacion',	width:'11%', align:'center',title: '<?php _e('Calification'); ?>'},
+            { field:'Puesto',		width:'4%', align:'center',  title: '<?php _e('Position'); ?>', formatter:formatPuesto},
             { field:'CShort',       hidden:true}
         ]],
         rowStyler:myRowStyler,
@@ -278,9 +278,9 @@ Pantalla de de visualizacion combinada llamada/parciales
             { field:'Equipo',		hidden:true },
             { field:'NombreEquipo',	hidden:true },
             // { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
-            { field:'Logo',		width:'9%', align:'center', title: '', formatter:formatLogo},
+            { field:'Logo',		width:'8%', align:'center', title: '', formatter:formatLogo},
             // { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
-            { field:'Nombre',		width:'11%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBoldBig},
+            { field:'Nombre',		width:'8%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBoldBig},
             { field:'NombreGuia',	width:'16%', align:'right', title: '<?php _e('Handler'); ?>' },
             { field:'NombreClub',	width:'13%', align:'right', title: '<?php _e('Club'); ?>' },
             { field:'Categoria',	width:'3%', align:'center', title: '<?php _e('Cat'); ?>.' },
@@ -293,7 +293,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             { field:'PTiempo',		hidden:true },
             { field:'Velocidad',	width:'4%', align:'right', title: '<?php _e('Vel'); ?>.', formatter:formatVelocidad},
             { field:'Penalizacion',	width:'6%', align:'right', title: '<?php _e('Penal'); ?>.', formatter:formatPenalizacion},
-            { field:'Calificacion',	width:'6%', align:'center',title: '<?php _e('Calification'); ?>'},
+            { field:'Calificacion',	width:'11%', align:'center',title: '<?php _e('Calification'); ?>'},
             { field:'Puesto',		width:'4%', align:'center',  title: '<?php _e('Position'); ?>', formatter:formatPuesto},
             { field:'CShort',       hidden:true}
         ]],
@@ -326,10 +326,10 @@ Pantalla de de visualizacion combinada llamada/parciales
     // doLayout(liveLayout,"#vwls_Grado",	        0,	    0,	100,	100	);
     doLayout(liveLayout,"#vwls_FaltasLbl",	    900,	25,     100,	150	);
     doLayout(liveLayout,"#vwls_Faltas",	        1000,	25,     100,	150	);
-    doLayout(liveLayout,"#vwls_TocadosLbl",	    1100,	25,	    100,	150	);
-    doLayout(liveLayout,"#vwls_Tocados",	    1200,	25,	    100,	150	);
-    doLayout(liveLayout,"#vwls_RehusesLbl",	    1300,	25,	    100,	150	);
-    doLayout(liveLayout,"#vwls_Rehuses",	    1400,	25,	    100,	150	);
+    doLayout(liveLayout,"#vwls_RehusesLbl",	    1100,	25,	    100,	150	);
+    doLayout(liveLayout,"#vwls_Rehuses",	    1200,	25,	    100,	150	);
+    doLayout(liveLayout,"#vwls_TocadosLbl",	    1300,	25,	    100,	150	);
+    doLayout(liveLayout,"#vwls_Tocados",	    1400,	25,	    100,	150	);
     doLayout(liveLayout,"#vwls_Tiempo",	        1500,	25, 	200,	150	);
     doLayout(liveLayout,"#vwls_Puesto",	        1700,	25, 	200,	150	);
 
