@@ -337,13 +337,7 @@ function vwc_evalResultados(items) {
 		var results=$('#vwcp_parciales-datagrid').datagrid('getData')['rows'];
 		// alert("results:\n"+JSON.stringify(results));
 		for (var n=0; n<results.length;n++) {
-			if(results[n].Puesto=="-") {dat.Puesto="-"; break; } // not clasiffied. no need to continue search
-			if(results[n].Penalizacion >dat.Penalizacion) { dat.Puesto=n+1;break; }
-			if(results[n].Penalizacion <dat.Penalizacion) continue;
-			// same penal: check time
-			if(results[n].Tiempo >dat.Tiempo) { dat.Puesto=n+1;break; }
-			if(results[n].Tiempo <dat.Tiempo) continue;
-			dat.Puesto=n+1; break;
+			if(results[n].Perro==dat.Perro) {dat.Puesto=results[n].Puesto; break;}
 		}
 	}
 }
@@ -564,6 +558,9 @@ function vw_procesaCombinada(id,evt) {
 function vwcp_procesaCombinada(id,evt) {
 	var event=parseEvent(evt); // remember that event was coded in DB as an string
 	event['ID']=id; // fix real id on stored eventData
+	var time=event['Value'];
+	var ssf=$('#vwls_StartStopFlag');
+	var crm=$('#cronometro');
 	switch (event['Type']) {
 		case 'null':		// null event: no action taken
 			return;
@@ -588,34 +585,74 @@ function vwcp_procesaCombinada(id,evt) {
 			vwls_updateData(event);
 			return;
 		case 'llamada':		// operador abre panel de entrada de datos
+			myCounter.stop();
+			vwls_cronometro('stop',time);
+			vwls_cronometro('reset',time);
 			vw_updateWorkingData(event,function(e,d){
 				vwc_updateLlamada(e,d);
 			});
 			return;
 		case 'salida':		// juez da orden de salida ( crono 15 segundos )
+			myCounter.start();
 			return;
 		case 'start':	// value: timestamp
+			// si crono automatico, ignora
+			if (ssf.text()==="Auto") return;
+			myCounter.stop();
+			ssf.text("Stop");
+			crm.Chrono('stop',time);
+			crm.Chrono('reset');
+			crm.Chrono('start',time);
 			return;
 		case 'stop':	// value: timestamp
+			ssf.text("Start");
+			myCounter.stop();
+			vwls_cronometro('stop',time);
 			return;
 		case 'crono_start': // arranque crono electronico
+			myCounter.stop();
+			ssf.text('Auto');
+			// si esta parado, arranca en modo automatico
+			if (!crm.Chrono('started')) {
+				crm.Chrono('stop',time);
+				crm.Chrono('reset');
+				crm.Chrono('start',time);
+				return
+			}
+			if (ac_config.crono_resync==="0") {
+				crm.Chrono('reset'); // si no resync, resetea el crono y vuelve a contar
+				crm.Chrono('start',time);
+			} // else wait for chrono restart event
 			return;
 		case 'crono_restart': // paso de tiempo intermedio a manual
+			crm.Chrono('resync',event['stop'],event['start']);
 			return;
 		case 'crono_int':	// tiempo intermedio crono electronico
+			if (!crm.Chrono('started')) return;	// si crono no esta activo, ignorar
+			crm.Chrono('pause',time); setTimeout(function(){crm.Chrono('resume');},5000);
 			return;
 		case 'crono_stop':	// parada crono electronico
+			ssf.text("Start");
+			vwls_cronometro('stop',time);
 			return;
 		case 'crono_reset':  // puesta a cero del crono electronico
+			myCounter.stop();
+			ssf.text("Start");
+			vwls_cronometro('stop',time);
+			vwls_cronometro('reset',time);
 			return;
 		case 'crono_error':  // puesta a cero del crono electronico
 			return;
 		case 'aceptar':		// operador pulsa aceptar
+			vwls_cronometro('stop',event['Value']);  // nos aseguramos de que los cronos esten parados
 			vw_updateWorkingData(event,function(e,d){
 				vwcp_updateParciales(e,d);
 			});
 			return;
 		case 'cancelar': // back to Series and dog selection in tablet without save
+			vwls_cronometro('stop',time);
+			vwls_cronometro('reset',time);
+			vwls_showOSD(0); // apaga el OSD
 			return;
 		case 'info':	// click on user defined tandas
 			return;
