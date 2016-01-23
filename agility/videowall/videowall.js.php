@@ -281,19 +281,71 @@ function vwls_cronometro(oper,tstamp) {
  * @param {object} data system status data info
  */
 function vw_updateLlamada(evt,data) {
-    $.ajax( {
-        type: "GET",
-        dataType: 'json',
-        url: "/agility/server/web/videowall.php",
-        data: {
-            Operation: 'llamada',
-            Pendientes: 25,
-            Session: workingData.sesion
-        },
-        success: function(dat,status,jqxhr) {
-            $('#vw_llamada-datagrid').datagrid('loadData',dat);
-        }
-    });
+	$.ajax({
+		type: "GET",
+		dataType: 'json',
+		url: "/agility/server/web/videowall.php",
+		data: {
+			Operation: 'llamada',
+			Pendientes: 25,
+			Session: workingData.sesion
+		},
+		success: function (dat, status, jqxhr) {
+			$('#vw_llamada-datagrid').datagrid('loadData', dat);
+		}
+	});
+}
+
+/**
+ * Evalua y rellena los datos de penalizacion, calificacion y puesto
+ * de un perro dado
+ * @param {array} items array de datos Datos de perro a evaluar
+ */
+function vwc_evalResultados(items) {
+	// extraemos distancia, trs y trm. con parseInt eliminamos textos extras
+	var dist=parseInt($('#vwcp_parciales-Distancia').text());
+	var trs=parseInt($('#vwcp_parciales-TRS').text());
+	var trm=parseInt($('#vwcp_parciales-Distancia').text());
+	for (var idx=0;idx<items.length;idx++) {
+		var dat=items[idx];
+		if (dat.Orden=="") { // entrada vacia
+			dat.PTiempo=400;
+			dat.PRecorrido=0;
+			dat.Penalizacion=400;
+			dat.Calificacion="";
+			dat.Puesto="";
+			continue;
+		}
+		// evaluamos velocidad
+		if (dat.Tiempo==0) dat.Velocidad=0;
+		else dat.Velocidad=parseFloat(dist)/parseFloat(dat.Tiempo);
+		// evaluamos penalizacion
+		dat.PRecorrido=( 5*dat.Faltas + 5*dat.Rehuses + 5*dat.Tocados + 100*dat.Eliminado + 200*dat.NoPresentado );
+		if (dat.Tiempo<=trs) dat.PTiempo=0;
+		else if (dat.Tiempo>=trm) dat.PTiempo=100;
+		else dat.PTiempo=dat.Tiempo-trs;
+		dat.Penalizacion=dat.PRecorrido+dat.PTiempo;
+		// evaluamos calificacion
+		if (dat.Penalizacion==0.0) dat.Calificacion="<?php _e('Ex P');?>";
+		if (dat.Penalizacion>=0.0) dat.Calificacion="<?php _e('Exc');?>";
+		if (dat.Penalizacion>=6.0) dat.Calificacion="<?php _e('V.G.');?>";
+		if (dat.Penalizacion>=16.0) dat.Calificacion="<?php _e('Good');?>";
+		if (dat.Penalizacion>=26.0) dat.Calificacion="<?php _e('N.C.');?>";
+		if (dat.Penalizacion>=100.0) dat.Calificacion="<?php _e('Elim');?>";
+		if (dat.Penalizacion>=200.0) dat.Calificacion="<?php _e('N.P.');?>";
+		// evaluamos posicion
+		var results=$('#vwcp_parciales-datagrid').datagrid('getData')['rows'];
+		// alert("results:\n"+JSON.stringify(results));
+		for (var n=0; n<results.length;n++) {
+			if(results[n].Puesto=="-") {dat.Puesto="-"; break; } // not clasiffied. no need to continue search
+			if(results[n].Penalizacion >dat.Penalizacion) { dat.Puesto=n+1;break; }
+			if(results[n].Penalizacion <dat.Penalizacion) continue;
+			// same penal: check time
+			if(results[n].Tiempo >dat.Tiempo) { dat.Puesto=n+1;break; }
+			if(results[n].Tiempo <dat.Tiempo) continue;
+			dat.Puesto=n+1; break;
+		}
+	}
 }
 
 /**
@@ -333,6 +385,7 @@ function vwc_updateLlamada(evt,data) {
 			$("#vwls_Puesto").html(dat['current'][0]['Puesto']);
 			// evaluamos velocidad, penalización, calificacion y puesto
 			// rellenamos ventana de ultimos resultados
+			vwc_evalResultados(dat['before']);
 			$('#vwcp_ultimos-datagrid').datagrid('loadData',dat['before']).datagrid('scrollTo',0);;
 		}
 	});
