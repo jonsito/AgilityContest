@@ -92,7 +92,7 @@ $('#vw_ordensalida-window').window({
     resizable:true,
     callback: null,
     onOpen: function() {
-        startEventMgr(workingData.sesion,vw_procesaOrdenSalida);
+        startEventMgr(workingData.sesion,videowall_eventManager);
     }
 });
 
@@ -159,5 +159,38 @@ $('#vw_ordensalida-datagrid').datagrid({
     }
 });
 
+var eventHandler= {
+    'null': null,// null event: no action taken
+    'init': function(event) { // operator starts tablet application
+        vw_updateWorkingData(event,function(evt,data){
+            vw_updateDataInfo(evt,data);
+            $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
+            // clear datagrid
+            $('#vw_ordensalida-datagrid').datagrid('loadData', {"total":0,"rows":[]});
+        });
+    },
+    'open': function(event){ // operator select tanda
+        vw_updateWorkingData(event,function(evt,data){
+            vw_updateDataInfo(evt,data);
+            vw_updateOrdenSalida(evt,data);
+        });
+    },
+    'datos': null,      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+    'llamada': null,    // llamada a pista
+    'salida': null,     // orden de salida
+    'start': null,      // start crono manual
+    'stop': null,       // stop crono manual
+    // nada que hacer aqui: el crono automatico se procesa en el tablet
+    'crono_start':  null, // arranque crono automatico
+    'crono_restart': null,// paso de tiempo intermedio a manual
+    'crono_int':  	null, // tiempo intermedio crono electronico
+    'crono_stop':  null, // parada crono electronico
+    'crono_reset':  null, // puesta a cero del crono electronico
+    'crono_error':  null, // fallo en los sensores de paso
+
+    'aceptar':	null, // operador pulsa aceptar
+    'cancelar': null, // operador pulsa cancelar
+    'info':	null // click on user defined tandas
+};
 
 </script>

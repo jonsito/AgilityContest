@@ -296,7 +296,7 @@ function vw_accept() {
         page="/agility/videowall/vw_combinada.php";
         break;
 	case 4: // Live Stream OSD
-		page="/agility/videowall/vw_livestream.php";
+		page="/agility/videowall/vwls_osdvideo.php";
 		break;
     case 5: // resultados parciales con livestream
         page="/agility/videowall/vwls_parciales.php";

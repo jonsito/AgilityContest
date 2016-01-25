@@ -145,7 +145,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         collapsed:false,
         resizable:true,
         onOpen: function() {
-            startEventMgr(workingData.sesion,vwcp_procesaCombinada);
+            startEventMgr(workingData.sesion,videowall_eventManager);
         }
     });
 
@@ -333,4 +333,109 @@ Pantalla de de visualizacion combinada llamada/parciales
     doLayout(liveLayout,"#vwls_Tiempo",	        1500,	25, 	200,	150	);
     doLayout(liveLayout,"#vwls_Puesto",	        1700,	25, 	200,	150	);
 
+    var eventHandler= {
+        'null': null,// null event: no action taken
+        'init': function (event, time) { // operator starts tablet application
+            $('#vwcp_header-infoprueba').html('<?php _e("Contest"); ?>');
+            $('#vwcp_header-infojornada').html('<?php _e("Journey"); ?>');
+            $('#vwcp_header-infomanga').html("(<?php _e('No round selected');?>)");
+            vw_updateWorkingData(event,function(e,d){
+                vwc_updateDataInfo(e,d);
+                vwcp_initParcialesDatagrid(e,d);
+                vwc_updateLlamada(e,d);
+            });
+        },
+        'open': function (event, time) { // operator select tanda
+            vw_updateWorkingData(event,function(e,d){
+                vwc_updateDataInfo(e,d);
+                vwc_updateLlamada(e,d);
+                vwcp_updateParciales(e,d);
+            });
+        },
+        'datos': function (event, time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+            vwls_updateData(event);
+        },
+        'llamada': function (event, time) {    // llamada a pista
+            var crm=$('#cronometro');
+            myCounter.stop();
+            crm.Chrono('stop',time);
+            crm.Chrono('reset',time);
+            vw_updateWorkingData(event,function(e,d){
+                vwc_updateLlamada(e,d);
+            });
+        },
+        'salida': function (event, time) {     // orden de salida
+            myCounter.start();
+        },
+        'start': function (event, time) {      // start crono manual
+            // si crono automatico, ignora
+            var ssf = $('#vwls_StartStopFlag');
+            if (ssf.text() === "Auto") return;
+            ssf.text("Stop");
+            myCounter.stop(); // stop 15 seconds countdown if needed
+            var crm = $('#cronometro');
+            crm.Chrono('stop', time);
+            crm.Chrono('reset');
+            crm.Chrono('start', time);
+        },
+        'stop': function (event, time) {      // stop crono manual
+            $('#vwls_StartStopFlag').text("Start");
+            myCounter.stop();
+            $('#cronometro').Chrono('stop', time);
+        },
+        // nada que hacer aqui: el crono automatico se procesa en el tablet
+        'crono_start': function (event, time) { // arranque crono automatico
+            var crm = $('#cronometro');
+            myCounter.stop();
+            $('#vwls_StartStopFlag').text('Auto');
+            // si esta parado, arranca en modo automatico
+            if (!crm.Chrono('started')) {
+                crm.Chrono('stop', time);
+                crm.Chrono('reset');
+                crm.Chrono('start', time);
+                return
+            }
+            if (ac_config.crono_resync === "0") {
+                crm.Chrono('reset'); // si no resync, resetea el crono y vuelve a contar
+                crm.Chrono('start', time);
+            } // else wait for chrono restart event
+        },
+        'crono_restart': function (event, time) {	// paso de tiempo manual a automatico
+            $('#cronometro').Chrono('resync', event['stop'], event['start']);
+        },
+        'crono_int': function (event, time) {	// tiempo intermedio crono electronico
+            var crm = $('#cronometro');
+            if (!crm.Chrono('started')) return;	// si crono no esta activo, ignorar
+            crm.Chrono('pause', time);
+            setTimeout(function () {
+                crm.Chrono('resume');
+            }, 5000);
+        },
+        'crono_stop': function (event, time) {	// parada crono electronico
+            $('#vwls_StartStopFlag').text("Start");
+            $('#cronometro').Chrono('stop', time);
+        },
+        'crono_reset': function (event, time) {	// puesta a cero del crono electronico
+            var crm = $('#cronometro');
+            myCounter.stop();
+            $('#vwls_StartStopFlag').text("Start");
+            crm.Chrono('stop', time);
+            crm.Chrono('reset', time);
+        },
+        'crono_error': null, // fallo en los sensores de paso
+        'aceptar': function (event,time) { // operador pulsa aceptar
+            myCounter.stop();
+            $('#cronometro').Chrono('stop', time);  // nos aseguramos de que los cronos esten parados
+            vw_updateWorkingData(event,function(e,d){
+                vwcp_updateParciales(e,d);
+            });
+        },
+        'cancelar': function (event,time) {  // operador pulsa cancelar
+            var crm = $('#cronometro');
+            myCounter.stop();
+            crm.Chrono('stop', time);
+            crm.Chrono('reset', time);
+        },
+        'info': null // click on user defined tandas
+    };
 </script>
