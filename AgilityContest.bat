@@ -3,6 +3,9 @@ call settings.bat
 cd /d %~dp0\xampp
 echo AgilityContest Launch Script
 
+rem for windows 8 and 10 disable w3svc service
+net stop W3SVC 
+
 if not exist ..\logs\first_install GOTO mysql_start
 echo Configuring first boot of XAMPP
 set PHP_BIN=php\php.exe
