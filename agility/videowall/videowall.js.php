@@ -40,6 +40,7 @@ function formatLogoVideoWall(val,row,idx) {
  * @param {function} callback what to do with retrieved event and data
  */
 function vw_updateWorkingData(evt,callback) {
+	// TODO: do not call server if no change from current data
     $.ajax( {
         type: "GET",
         dataType: 'json',

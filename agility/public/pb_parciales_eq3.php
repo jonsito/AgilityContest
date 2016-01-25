@@ -35,6 +35,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateParciales();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
             </a>
+            <span id="header-combinadaFlag" style="display:none">false</span> <!--indicador de combinada:false-->
             <span style="float:left;padding:10px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
             <span style="float:right;padding:10px" id="pb_header-texto">
                 <?php _e('Partial scores'); ?><br/>

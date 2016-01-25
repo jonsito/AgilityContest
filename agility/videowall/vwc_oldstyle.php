@@ -10,7 +10,7 @@ $am = new AuthManager("Videowall::combinada");
 if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.php"); return 0;}
 ?>
 <!--
-vw_llamada.inc
+vwc_oldstyle.php
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -38,7 +38,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                         <span style="float:left;padding:5px" id="vw_header-infoprueba"><?php _e('Header'); ?></span>
                     </td>
                     <td style="text-align:right">
-                        <span id="vw_header-combinadaFlag" style="display:none">true</span> <!--indicador de combinada-->
+                        <span id="header-combinadaFlag" style="display:none">true</span> <!--indicador de combinada-->
                         <span id="vw_header-ring"><?php _e('Ring'); ?></span>
                     </td>
                 </tr>

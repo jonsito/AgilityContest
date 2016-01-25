@@ -192,6 +192,7 @@ function myLlamadaRowStyler(idx,row) {
                 </optgroup>
 				<optgroup label="experimental">
 					<option value="7"><?php _e('Combo View (partial)'); ?></option>
+					<option value="8"><?php _e('Combo View (final)'); ?></option>
 				</optgroup>
        		</select>
     	</div>
@@ -293,7 +294,7 @@ function vw_accept() {
 		page="/agility/videowall/vw_parciales.php";
 		break;
     case 3: // Vista Combinada
-        page="/agility/videowall/vw_combinada.php";
+        page="/agility/videowall/vwc_oldstyle.php";
         break;
 	case 4: // Live Stream OSD
 		page="/agility/videowall/vwls_osdvideo.php";
@@ -304,8 +305,11 @@ function vw_accept() {
     case 6: // resultados parciales con livestream
         page="/agility/videowall/vwls_ordensalida.php";
         break;
-	case 7: // prueba de nueva combinada de datos parciales
-		page="/agility/videowall/vw_combinadap.php";
+	case 7: // pantalla combinada ( Resultados parciales )
+			page="/agility/videowall/vwc_parciales.php";
+		break;
+	case 8: // pantalla comobinara ( Clasificacion final )
+		page="/agility/videowall/vwc_finales.php";
 		break;
 	}
 	$('#selvw-dialog').dialog('close');

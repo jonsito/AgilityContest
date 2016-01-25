@@ -10,7 +10,7 @@ $am = new AuthManager("Videowall::combinada");
 if ( ! $am->allowed(ENABLE_VIDEOWALL)) { include_once("unregistered.php"); return 0;}
 ?>
 <!--
-vw_llamada.inc
+vwc_finales.php
 
 Copyright 2013-2015 by Juan Antonio Martinez ( juansgaviota at gmail dot com )
 
@@ -41,7 +41,7 @@ Pantalla de de visualizacion combinada llamada/parciales
                 <img  id="vwc_header-logo" src="/agility/images/logos/rsce.png"/>
                 <span id="vwc_header-infoprueba"><?php _e('Contest'); ?></span>
                 <span id="vwc_header-infojornada"><?php _e('Journey'); ?></span>
-                <span id="vwc_header-combinadaFlag" style="display:none">true</span> <!--indicador de combinada-->
+                <span id="header-combinadaFlag" style="display:none">true</span> <!--indicador de combinada-->
                 <span id="vwc_header-ring" style="text-align:right"><?php _e('Ring'); ?></span>
                 <span id="vwc_header-calltoring" style="text-align:left"><?php _e('Call to ring'); ?></span>
                 <span id="vwcp_header-partialscores" style="text-align:right">

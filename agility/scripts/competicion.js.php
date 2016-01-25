@@ -102,7 +102,7 @@ function formatTeamResults( value , rows ) {
     var time=0.0;
     var penal=0.0;
     var logos="";
-    var width=($('#vw_header-combinadaFlag').text()==='true')?500:1000;
+    var width=($('#header-combinadaFlag').text()==='true')?500:1000;
     var tmode=(isJornadaEq3()?3:4);
     function addLogo(logo) {
         if (logos.indexOf(logo)>=0) return;
