@@ -130,11 +130,12 @@ $('#vw_ordensalida-datagrid').datagrid({
         { field:'Nombre',		width:'15%', align:'left',	title: '<?php _e('Name'); ?>', formatter: formatBoldBig},
         { field:'Raza',         width:'12%', align:'center',title: '<?php _e('Breed'); ?>' },
         { field:'Licencia',		width:'5%', align:'center',	title: '<?php _e('License'); ?>'},
-        { field:'NombreGuia',	width:'23%', align:'right',	title: '<?php _e('Handler'); ?>' },
-        { field:'NombreClub',	width:'19%', align:'right',	title: '<?php _e('Club'); ?>' },
+        { field:'NombreGuia',	width:'17%', align:'right',	title: '<?php _e('Handler'); ?>' },
+        { field:'NombreClub',	width:'13%', align:'right',	title: '<?php _e('Club'); ?>' },
         { field:'Categoria',	width:'4%', align:'center',	title: '<?php _e('Categ'); ?>.' },
         { field:'Grado',		width:'4%', align:'center',	title: '<?php _e('Grade'); ?>' },
-        { field:'Celo',			width:'4%', align:'center',	title: '<?php _e('Heat'); ?>', formatter:formatCelo }
+        { field:'Celo',			width:'4%', align:'center',	title: '<?php _e('Heat'); ?>', formatter:formatCelo },
+        { field:'Observaciones',width:'12%', align:'left',	title: '<?php _e('Comments'); ?>', hidden:true }
     ]],
     // colorize rows. notice that overrides default css, so need to specify proper values on datagrid.css
     rowStyler:myRowStyler,

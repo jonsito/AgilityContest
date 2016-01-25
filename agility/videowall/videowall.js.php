@@ -266,16 +266,6 @@ var myCounter = new Countdown({
 });
 
 /**
- * Maneja el cronometro manual
- * @param {string} oper 'start','stop','pause','resume','reset'
- * @param {int} tstamp timestamp mark
- */
-function vwls_cronometro(oper,tstamp) {
-	myCounter.stop();
-	$('#cronometro').Chrono(oper,tstamp);
-}
-
-/**
  * Actualiza el datagrid de llamada a pista con los datos recibidos
  * @param {object} evt event
  * @param {object} data system status data info
