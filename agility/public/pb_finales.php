@@ -185,7 +185,6 @@ $('#pb_resultados-datagrid').datagrid({
 	collapsible: false,
 	collapsed: false,
 	// propiedades del datagrid
-	toolbar:'#resultados-toolbar',
 	// no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
 	loadMsg: "<?php _e('Updating round scores');?>...",
 	pagination: false,

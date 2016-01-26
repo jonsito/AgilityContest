@@ -214,7 +214,7 @@ var eventHandler= {
         $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
         vw_updateWorkingData(event,function(e,d){
             vw_updateDataInfo(e,d);
-            vw_initParcialesDatagrid(e,d);
+            vw_formatResultadosDatagrid(e,d);
             vw_updateLlamada(e,d);
         });
     },

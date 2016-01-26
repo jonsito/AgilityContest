@@ -624,9 +624,6 @@ class Jornadas extends DBObject {
 	 * @return array|null
 	 */
 	static function enumerateRondasByJornada($jornadaid) {
-
-
-
 		if ($jornadaid<=0) { // no jornada id provided
 			return array('total'=>0,'rows'=>array());
 		}

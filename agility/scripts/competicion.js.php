@@ -57,7 +57,9 @@ function formatTF(val,row,idx) {
 	var t=parseFloat(row.T1)+parseFloat(row.T2);
 	return (row.Penalizacion>=200)?"-":t.toFixed(ac_config.numdecs);
 }
-
+function formatCatGrad(val,row,idx) {
+    return row.Categoria+"/"+row.Grado; // TODO: skip grade when not required
+}
 /**
  * Return short name for requested federation. Use to format datagrid cell
  * @param {int} val Federation ID

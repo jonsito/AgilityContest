@@ -341,7 +341,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#vwcp_header-infomanga').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
-                vwcp_initParcialesDatagrid(e,d);
+                vw_formatResultadosDatagrid(e,d);
                 vwc_updateLlamada(e,d);
             });
         },

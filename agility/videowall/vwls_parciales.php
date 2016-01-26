@@ -180,13 +180,11 @@ var eventHandler= {
         vw_updateWorkingData(event,function(e,d){
             vw_updateWorkingData(event,function(e,d){
                 vw_updateDataInfo(e,d);
-                vw_initParcialesDatagrid(e,d);
+                vw_formatResultadosDatagrid(e,d);
                 vw_updateLlamada(e,d);
             });
             $('#vw_header-infoprueba').html('<?php _e("Header"); ?>');
             $('#vw_header-infomanga').html("(<?php _e('No round selected');?>)");
-            vw_updateDataInfo(e,d);
-            vw_initParcialesDatagrid(e,d);
         });
     },
     'open': function(event){ // operator select tanda
