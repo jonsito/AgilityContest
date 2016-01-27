@@ -189,10 +189,10 @@ class PrintClasificacion extends PrintCommon {
 			$this->Cell(57,7,'',0,0,'C',true);	// espacio en blanco
 		}
 		// global
-		$this->Cell(12,7,_('Time'),0,0,'C',true);	// Tiempo total
+		$this->Cell(10,7,_('Time'),0,0,'C',true);	// Tiempo total
 		$this->Cell(12,7,_('Penaliz'),0,0,'C',true);	// Penalizacion
-		$this->Cell(14,7,_('Calific'),0,0,'C',true);	// Calificacion
-		$this->Cell(8,7,_('Position'),0,0,'C',true);	// Puesto
+		$this->Cell(17,7,_('Calific'),0,0,'C',true);	// Calificacion
+		$this->Cell(7,7,_('Position'),0,0,'C',true);	// Puesto
 		$this->Ln();	
 		// restore colors
 		$this->ac_SetFillColor($this->config->getEnv('pdf_rowcolor2')); // azul merle
@@ -254,11 +254,11 @@ class PrintClasificacion extends PrintCommon {
 			$this->Cell(57,6,'',0,0,'C',$fill);	// espacio en blanco
 		}
 		// global
-		$this->Cell(12,6,$tiempo,0,0,'C',$fill);	// Tiempo
+		$this->Cell(10,6,$tiempo,0,0,'C',$fill);	// Tiempo
 		$this->Cell(12,6,$penal,0,0,'C',$fill);	// Penalizacion
-		$this->Cell(14,6,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
+		$this->Cell(17,6,$row['Calificacion'],0,0,'C',$fill);	// Calificacion
 		$this->SetFont('Helvetica','B',10); // default font
-		$this->Cell(8,6,$puesto,0,0,'C',$fill);	// Puesto
+		$this->Cell(7,6,$puesto,0,0,'C',$fill);	// Puesto
 		// lineas rojas
 		$this->ac_SetDrawColor($this->config->getEnv('pdf_linecolor'));
 		$this->Line(10,$offset + 6*$idx,10,$offset + 6*($idx+1));

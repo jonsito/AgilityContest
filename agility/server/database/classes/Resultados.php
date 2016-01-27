@@ -549,7 +549,7 @@ class Resultados extends DBObject {
             $table[$idx]['Pcat']=$puestocat[$cat];
 
 			// la calificacion depende de categoria, grado y federacion
-			$fed->evalPartialCalification($this->getDatosPrueba(),$this->getDatosJornada(),$this->getDatosManga(),$table,$table[$idx],$puestocat);
+			$fed->evalPartialCalification($this->getDatosPrueba(),$this->getDatosJornada(),$this->getDatosManga(),$table[$idx],$puestocat);
 		}
 
         // componemos datos del array a retornar

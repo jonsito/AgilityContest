@@ -67,7 +67,7 @@ class RSCE extends Federations {
      * Evalua la calificacion parcial del perro
      * @param {object} $p datos de la prueba
      * @param {object} $j datos de la jornada
-     * @param {array} $m datos de la manga
+     * @param {object} $m datos de la manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
@@ -93,7 +93,7 @@ class RSCE extends Federations {
             return;
         }
         $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
-        if ($m->Tipo==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
+        if (intval($m->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
         // solo puntuan los 10 primeros
         if ( $puestocat[$perro['Categoria']]>10 )  {
             parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
@@ -115,8 +115,8 @@ class RSCE extends Federations {
      * Evalua la calificacion final del perro
      * @param {object} $p datos de la prueba
      * @param {object} $j datos de la jornada
-     * @param {array} $m1 datos de la primera manga
-     * @param {array} $m2 datos de la segunda manga
+     * @param {object} $m1 datos de la primera manga
+     * @param {object} $m2 datos de la segunda manga
      * @param {array} $c1 resultados de la primera manga
      * @param {array} $c2 resultados de la segunda manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
@@ -159,26 +159,29 @@ class RSCE extends Federations {
         // TODO: Tener en cuenta perros extranjeros
         // manga 1 - puntuan los 10 primeros en cada manga con excelente
         $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
-        if ($m1->Tipo==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
+        if (intval($m1->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
         $pt1=" ";
         if ( ($perro['P1']<6.0) && ($perro['Pcat1']<=10) ) {
             $pt1=$pts[$perro['Pcat1']-1];
         }
         // manga 2 - puntuan los 10 primeros en cada manga con excelente
         $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
-        if ($m2->Tipo==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
+        if (intval($m2->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
         $pt2=0;
         if ( ($c2!=null) && ($perro['P2']<6.0) && ($perro['Pcat2']<=10) ) {
             $pt2=$pts[$perro['Pcat2']-1];
         }
         // conjunta - puntuan los 10 primeros si tienen doble excelente
-        $pts=array("10","9","8","7","6","5","4","3","2","1"); // puntuacion manga conjunta
+        $pts=array("10","9","8","7","6","5","4","3","2","1"); // puntuacion manga conjunta individual
+        $ptsteam=array("20","16","12","8","7","6","4","3","2","1"); // puntuacion manga conjunta equipos
         $pfin=" ";
+        $pteam=" ";
         if ( ($perro['P1']<6.0) && ($perro['P2']<6.0)  && ($perro['Pcat']<=10) ) {
             $pfin=$pts[$perro['Pcat']-1];
+            $pteam=$ptsteam[$perro['Pcat']-1];
         }
         // finalmente componemos el string a presentar
-        $perro['Calificacion']=$str=strval($pt1)."-".strval($pt2)."-".strval($pfin);
+        $perro['Calificacion']=$str=strval($pt1)."-".strval($pt2)."-".strval($pfin)."/".strval($pteam);
         return; // should be overriden
     }
 }

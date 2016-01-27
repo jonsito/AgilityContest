@@ -67,7 +67,7 @@ class INTL4 extends Federations {
      * Evalua la calificacion parcial del perro
      * @param {object} $p datos de la prueba
      * @param {object} $j datos de la jornada
-     * @param {array} $m datos de la manga
+     * @param {object} $m datos de la manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
@@ -79,8 +79,8 @@ class INTL4 extends Federations {
      * Evalua la calificacion final del perro
      * @param {object} $p datos de la prueba
      * @param {object} $j datos de la jornada
-     * @param {array} $m1 datos de la primera manga
-     * @param {array} $m2 datos de la segunda manga
+     * @param {object} $m1 datos de la primera manga
+     * @param {object} $m2 datos de la segunda manga
      * @param {array} $c1 resultados de la primera manga
      * @param {array} $c2 resultados de la segunda manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference

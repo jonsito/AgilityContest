@@ -63,7 +63,10 @@ class Clasificaciones extends DBObject {
 	 * @param {array} $c2 clasificacion segunda manga
 	 * @param {integer} $mode Modo 0:Large 1:Medium 2:Small 3:Medium+Small 4:Large+Medium+Small
 	 */
-	function evalFinal($c1,$c2,$mode) {
+	function evalFinal($idmangas,$c1,$c2,$mode) {
+		$this->myLogger->enter();
+		$m1=$this->__getObject("Mangas",$idmangas[0]);
+		$m2=$this->__getObject("Mangas",$idmangas[1]);
 		$final=array(); // puesto,dorsal, nombre, licencia,categoria,grado, nombreguia, nombreclub,
 						// F1,R1,T1,V1,P1,C1,F2,R2,T2,V2,P2,C2, Penalizacion,Calificacion
 		// Procesamos la primera manga y generamos una segunda manga "fake"
@@ -177,7 +180,7 @@ class Clasificaciones extends DBObject {
 			if($this->jornada->Open!=0) continue;
             // evaluamos calificacion y puntos en funcion de la federacion y de si es o no selectiva
 			$fed=Federations::getFederation(intval($this->prueba->RSCE));
-			$fed->evalFinalCalification($this->prueba,$this->jornada,$c1,$c2,$final[$idx],$puestocat);
+			$fed->evalFinalCalification($this->prueba,$this->jornada,$m1,$m2,$c1,$c2,$final[$idx],$puestocat);
 		}
 
 		// Esto es (casi) t odo, amigos
@@ -215,7 +218,7 @@ class Clasificaciones extends DBObject {
 			case 0x0001: // pre-agility a una vuelta
 				$r1= new Resultados("Clasificaciones::Preagility 1",$this->prueba->ID,$idmangas[0]);
 				$c1=$r1->getResultados($mode);
-				return $this->evalFinal($c1,null,$mode);
+				return $this->evalFinal($idmangas,$c1,null,$mode);
 			case 0x0002: // pre-agility a dos vueltas
 			case 0x0004: // Grado I
 			case 0x0008: // Grado II
@@ -225,7 +228,7 @@ class Clasificaciones extends DBObject {
 				$r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping
 				$c1=$r1->getResultados($mode);
 				$c2=$r2->getResultados($mode);
-				return $this->evalFinal($c1,$c2,$mode);
+				return $this->evalFinal($idmangas,$c1,$c2,$mode);
 				break;
 			case 0x0018: // Conjunta GII - GIII
 				$r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility GII
@@ -234,26 +237,26 @@ class Clasificaciones extends DBObject {
 				$r4=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[3]}",$this->prueba->ID,$idmangas[3]); // Jumping GIII
 				$c1=$this->combina( $r1->getResultados($mode), $r3->getResultados($mode));
 				$c2=$this->combina( $r2->getResultados($mode), $r4->getResultados($mode));
-				return $this->evalFinal($c1,$c2,$mode);
+				return $this->evalFinal($idmangas,$c1,$c2,$mode);
 			case 0x0040: // equipos 3 mejores de 4
                 $r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility Equipos 3
                 $r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping Equipos 3
                 $c1=$r1->getResultados($mode);
                 $c2=$r2->getResultados($mode);
-                return $this->evalFinal($c1,$c2,$mode);
+                return $this->evalFinal($idmangas,$c1,$c2,$mode);
 			case 0x0080: // equipos 4 conjunta
                 $r1=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[0]}",$this->prueba->ID,$idmangas[0]); // Agility Equipos 4
                 $r2=new Resultados("Clasificaciones Ronda:$rondas manga:{$idmangas[1]}",$this->prueba->ID,$idmangas[1]); // Jumping Equipos 4
                 $c1=$r1->getResultados($mode);
                 $c2=$r2->getResultados($mode);
-                return $this->evalFinal($c1,$c2,$mode);
+                return $this->evalFinal($idmangas,$c1,$c2,$mode);
 			case 0x0100: // ronda KO 1..8 vueltas
 				$this->errormsg= "Clasificaciones:: Ronda $rondas is not yet supported";
 				return null;
 			case 0x0200: // manga especial (una vuelta)
 				$r1= new Resultados("Clasificaciones::Manga Especial",$this->prueba->ID,$idmangas[0]);
 				$c1=$r1->getResultados($mode);
-				return $this->evalFinal($c1,null,$mode);
+				return $this->evalFinal($idmangas,$c1,null,$mode);
 		}
         // arriving here means error
         return null;
