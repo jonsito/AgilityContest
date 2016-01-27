@@ -139,7 +139,7 @@ class Mangas extends DBObject {
 				$str="UPDATE Mangas
 				SET Recorrido=0,
 				TRS_L_Tipo=1, TRS_M_Tipo=1, TRS_S_Tipo=1, TRS_T_Tipo=1,
-				TRS_L_Factor=10, TRS_M_Factor=10, TRS_S_Factor=10, TRS_T_Factor=10,
+				TRS_L_Factor=0, TRS_M_Factor=0, TRS_S_Factor=0, TRS_T_Factor=0,
 				TRS_L_Unit='%', TRS_M_Unit='%', TRS_S_Unit='%', TRS_T_Unit='%'
 				WHERE ( Jornada=$j ) AND  ( Tipo=$tipo ) AND ( Grado='$grado' )";
 				$rs=$this->query($str);
@@ -193,16 +193,15 @@ class Mangas extends DBObject {
 		$trm_s_tipo = http_request("TRM_S_Tipo","i",0);
 		$trm_t_tipo = http_request("TRM_T_Tipo","i",0);
 		// factor TRS
-		// if TRS is provided as mts/secs , multiply *10 to store as an integer
-		$trs_l_factor = intval( ( ($trs_l_tipo!=6)?1:10) * http_request("TRS_L_Factor","f",0.0) );
-		$trs_m_factor = intval( ( ($trs_m_tipo!=6)?1:10) * http_request("TRS_M_Factor","f",0.0) );
-		$trs_s_factor = intval( ( ($trs_s_tipo!=6)?1:10) * http_request("TRS_S_Factor","f",0.0) );
-		$trs_t_factor = intval( ( ($trs_t_tipo!=6)?1:10) * http_request("TRS_T_Factor","f",0.0) );
+		$trs_l_factor = http_request("TRS_L_Factor","f",0.0);
+		$trs_m_factor = http_request("TRS_M_Factor","f",0.0);
+		$trs_s_factor = http_request("TRS_S_Factor","f",0.0);
+		$trs_t_factor = http_request("TRS_T_Factor","f",0.0);
 		// factor TRM
-		$trm_l_factor = http_request("TRM_L_Factor","i",0);
-		$trm_m_factor = http_request("TRM_M_Factor","i",0);
-		$trm_s_factor = http_request("TRM_S_Factor","i",0);
-		$trm_t_factor = http_request("TRM_T_Factor","i",0);
+		$trm_l_factor = http_request("TRM_L_Factor","f",0.0);
+		$trm_m_factor = http_request("TRM_M_Factor","f",0.0);
+		$trm_s_factor = http_request("TRM_S_Factor","f",0.0);
+		$trm_t_factor = http_request("TRM_T_Factor","f",0.0);
 		// Unidad TRS
 		$trs_l_unit = http_request("TRS_L_Unit","s","s",false);
 		$trs_m_unit = http_request("TRS_M_Unit","s","s",false);
@@ -233,7 +232,7 @@ class Mangas extends DBObject {
 		$stmt=$this->conn->prepare($sql);
 		if (!$stmt) return $this->error($this->conn->error); 
 		$res=$stmt->bind_param(
-			'iiiiiiiiiiisiisiisiisiisiisiisiisiis',
+			'iiiiiiiiiidsidsidsidsidsidsidsidsiis',
 			$recorrido,
 			$dist_l,	$obst_l,	$dist_m,	$obst_m,	$dist_s,	$obst_s, 	$dist_t,	$obst_t,// distancias y obstaculos
 			$trs_l_tipo,	$trs_l_factor,	$trs_l_unit,	$trm_l_tipo,	$trm_l_factor,	$trm_l_unit,// TRS y TRM Large

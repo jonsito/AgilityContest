@@ -194,11 +194,14 @@ class Resultados extends DBObject {
 				else $result['trs']= $result_med['trs'] * ( (100.0+$factor) / 100.0) ; // (+ X por ciento)
 				break;
 			case 6: // en lugar de tiempo nos proporcionan velocidad
-				$result['vel']=$factor/10.0;
-				$result['trs']=ceil((10*$result['dist'])/$factor);
+				$result['vel']=$factor;
+				$result['trs']=ceil($result['dist']/$factor);
 				break;
 		}
-		$result['trs']=ceil($result['trs']); // redondeamos hacia arriba
+		// si estamos en una selectiva RSCE, y el factor es 0.0 _NO_ se redondea
+		$roundUp=true;
+		if ( ($this->getDatosPrueba()->Selectiva==1) && ($dmanga["TRS_{$suffix}_Factor"]==0)) $roundUp=false;
+		if ($roundUp) $result['trs']=ceil($result['trs']); // redondeamos hacia arriba
 		// Evaluamos TRM
 		switch($dmanga["TRM_{$suffix}_Tipo"]) {
 			case 0: // TRM Fijo
@@ -209,7 +212,7 @@ class Resultados extends DBObject {
 				else $result['trm'] = $result['trs'] * ( (100.0+$dmanga["TRM_{$suffix}_Factor"]) / 100.0) ; // (+ X por ciento)
 				break;
 		}
-		$result['trm']=ceil($result['trm']); // redondeamos hacia arriba
+		if ($roundUp) $result['trm']=ceil($result['trm']); // redondeamos hacia arriba
 		if (! array_key_exists('vel',$result) ) {
 			// Finalmente, si no nos la han dado, evaluamos la velocidad de la ronda con dos decimales
 			$result['vel']= ($result['trs']==0)?0:/*'&asymp;'.*/number_format($result['dist']/$result['trs'],2);
@@ -546,7 +549,7 @@ class Resultados extends DBObject {
             $table[$idx]['Pcat']=$puestocat[$cat];
 
 			// la calificacion depende de categoria, grado y federacion
-			$fed->evalPartialCalification($this->getDatosPrueba(),$this->getDatosJornada(),$table,$table[$idx],$puestocat);
+			$fed->evalPartialCalification($this->getDatosPrueba(),$this->getDatosJornada(),$this->getDatosManga(),$table,$table[$idx],$puestocat);
 		}
 
         // componemos datos del array a retornar

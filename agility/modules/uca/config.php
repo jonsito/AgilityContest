@@ -112,12 +112,14 @@ class UCA extends Federations {
      * Evalua la calificacion final del perro
      * @param {object} $p datos de la prueba
      * @param {object} $j datos de la jornada
-     * @param {array} $c1 datos de la primera manga
-     * @param {array} $c2 datos de la segunda manga
+     * @param {array} $m1 datos de la primera manga
+     * @param {array} $m2 datos de la segunda manga
+     * @param {array} $c1 resultados de la primera manga
+     * @param {array} $c2 resultados de la segunda manga
      * @param {array} $perro datos de puntuacion del perro. Passed by reference
      * @param {array} $puestocat puesto en funcion de la categoria
      */
-    public function evalFinalCalification($p,$j,$c1,$c2,&$perro,$puestocat){
+    public function evalFinalCalification($p,$j,$m1,$m2,$c1,$c2,&$perro,$puestocat){
         $grad=$perro['Grado']; // cogemos el grado
         $cat=$perro['Categoria']; // cogemos la categoria
         if ($grad!=="GII") { // solo se puntua en grado II
