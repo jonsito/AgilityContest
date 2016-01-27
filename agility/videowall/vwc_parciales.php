@@ -43,10 +43,13 @@ Pantalla de de visualizacion combinada llamada/parciales
                 <span id="vwc_header-infojornada"><?php _e('Journey'); ?></span>
                 <span id="header-combinadaFlag" style="display:none">true</span> <!--indicador de combinada-->
                 <span id="vwc_header-ring" style="text-align:right"><?php _e('Ring'); ?></span>
-                <span id="vwc_header-calltoring" style="text-align:left"><?php _e('Call to ring'); ?></span>
+                <span id="vwc_header-calltoring" style="text-align:left">
+                    <?php _e('Call to ring'); ?> -
+                    <span id="vwcp_header-NombreTanda">&nbsp;</span>
+                </span>
                 <span id="vwcp_header-partialscores" style="text-align:right">
                     <?php _e('Partial scores'); ?> -
-                    <span id="vwcp_header-infomanga">&nbsp;</span>
+                    <span id="vwcp_header-NombreRonda">&nbsp;</span>
                 </span>
             </div>
         </div>
@@ -320,8 +323,8 @@ Pantalla de de visualizacion combinada llamada/parciales
     doLayout(liveLayout,"#vwls_Dorsal",	        230,	10,	    80, 	100	);
     doLayout(liveLayout,"#vwls_Nombre",	        335,    10,	    415,	100	);
     doLayout(liveLayout,"#vwls_Celo",	        800,    10,	    100,	100	);
-    doLayout(liveLayout,"#vwls_NombreGuia",	    230,	100,    570,	100	);
-    doLayout(liveLayout,"#vwls_NombreClub",	    700,	100,    200,	100	);
+    doLayout(liveLayout,"#vwls_NombreGuia",	    230,	100,    470,	100	);
+    doLayout(liveLayout,"#vwls_NombreClub",	    600,	100,    300,	100	);
     // doLayout(liveLayout,"#vwls_Categoria",	    0,	    0,	100,	100	);
     // doLayout(liveLayout,"#vwls_Grado",	        0,	    0,	100,	100	);
     doLayout(liveLayout,"#vwls_FaltasLbl",	    900,	25,     100,	150	);
@@ -338,7 +341,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         'init': function (event, time) { // operator starts tablet application
             $('#vwcp_header-infoprueba').html('<?php _e("Contest"); ?>');
             $('#vwcp_header-infojornada').html('<?php _e("Journey"); ?>');
-            $('#vwcp_header-infomanga').html("(<?php _e('No round selected');?>)");
+            $('#vwcp_header-NombreRonda').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
                 vw_formatResultadosDatagrid(e,d);

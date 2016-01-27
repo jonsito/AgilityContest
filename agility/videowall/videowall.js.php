@@ -156,8 +156,10 @@ function vwc_updateDataInfo(evt,data) {
 
 	// this should be done in callback, as content is window dependent
 	// actualiza informacion de manga
+	var infotanda=(typeof(data.Tanda.Nombre)==='undefined')?'':data.Tanda.Nombre;
 	var infomanga=(typeof(data.Manga.Nombre)==='undefined')?'':data.Manga.Nombre;
-	$('#vwls_Manga').html(infomanga);
+	$('#vwcp_header-NombreRonda').html(infomanga);
+	$('#vwcp_header-NombreTanda').html(infotanda);
 
 	// update footer
 	var logo=ac_fedInfo[workingData.federation].Logo;
@@ -497,7 +499,8 @@ function vwcf_updateFinales(evt,data,callback) {
 		},
 		success: function(dat) {
 			// nombres de las mangas
-			$('#vwcf_finales-NombreRonda').html(data.Ronda.Nombre);
+			$('#vwcf_header-NombreTanda').html(data.Tanda.Nombre);
+			$('#vwcf_header-NombreRonda').html(data.Ronda.Nombre);
 			$('#vwcf_finales_thead_m1').html(data.Ronda.NombreManga1);
 			$('#vwcf_finales_thead_m2').html(data.Ronda.NombreManga2);
 			// datos de trs manga 1
@@ -556,7 +559,7 @@ function vwcp_updateParciales(evt,data) {
 		success: function(dat) {
 			// informacion de la manga
 			var str=dat['manga'].TipoManga + " - " + modestr;
-			$('#vwcp_header-infomanga').text(str);
+			$('#vwcp_header-NombreRonda').text(str);
 			// datos de TRS
 			$('#vwcp_parciales-Distancia').text(dat['trs'].dist + 'm.');
 			$('#vwcp_parciales-Obstaculos').text(dat['trs'].obst);

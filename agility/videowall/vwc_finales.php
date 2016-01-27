@@ -43,11 +43,13 @@ Pantalla de de visualizacion combinada llamada/parciales
                 <span id="vwc_header-infojornada"><?php _e('Journey'); ?></span>
                 <span id="header-combinadaFlag" style="display:none">true</span> <!--indicador de combinada-->
                 <span id="vwc_header-ring" style="text-align:right"><?php _e('Ring'); ?></span>
-                <span id="vwc_header-calltoring" style="text-align:left"><?php _e('Call to ring'); ?></span>
-                <span id="vwcf_header-partialscores" style="text-align:right">
+                <span id="vwc_header-calltoring" style="text-align:left">
+                    <?php _e('Call to ring'); ?> -
+                    <span id="vwcf_header-NombreTanda"><?php _e('Round');?></span>
+                </span>
+                <span id="vwcf_header-finalscores" style="text-align:right">
                     <?php _e('Final scores'); ?> -
-                    <span id="vwcf_header-NombreRonda"><?php _e('Series');?></span> -
-                    <span id="vwcf_header-categoria"><?php _e('Category');?></span>
+                    <span id="vwcf_header-NombreRonda"><?php _e('Series');?></span>
                 </span>
             </div>
         </div>
@@ -319,7 +321,7 @@ Pantalla de de visualizacion combinada llamada/parciales
     doLayout(layout,"#vwc_header-infojornada",	120,	35,	1760,	25	);
     doLayout(layout,"#vwc_header-ring",     	120,	35,	1760,	25	);
     doLayout(layout,"#vwc_header-calltoring",	120,	65,	5800,	25	);
-    doLayout(layout,"#vwcf_header-partialscores",700,	65,	1180,	25	);
+    doLayout(layout,"#vwcf_header-finalscores",700,	65,	1180,	25	);
     // livedata elements layout
     var liveLayout = {'rows':200,'cols':1900};
     doLayout(liveLayout,"#vwls_Numero",	        0,	    25,	    70,	    150	);
@@ -327,8 +329,8 @@ Pantalla de de visualizacion combinada llamada/parciales
     doLayout(liveLayout,"#vwls_Dorsal",	        230,	10,	    80, 	100	);
     doLayout(liveLayout,"#vwls_Nombre",	        335,    10,	    415,	100	);
     doLayout(liveLayout,"#vwls_Celo",	        800,    10,	    100,	100	);
-    doLayout(liveLayout,"#vwls_NombreGuia",	    230,	100,    570,	100	);
-    doLayout(liveLayout,"#vwls_NombreClub",	    700,	100,    200,	100	);
+    doLayout(liveLayout,"#vwls_NombreGuia",	    230,	100,    470,	100	);
+    doLayout(liveLayout,"#vwls_NombreClub",	    600,	100,    300,	100	);
     // doLayout(liveLayout,"#vwls_Categoria",	    0,	    0,	100,	100	);
     // doLayout(liveLayout,"#vwls_Grado",	        0,	    0,	100,	100	);
     doLayout(liveLayout,"#vwls_FaltasLbl",	    900,	25,     100,	150	);

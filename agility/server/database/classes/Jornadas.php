@@ -581,6 +581,7 @@ class Jornadas extends DBObject {
 			'Nombre'=> Jornadas::$tipo_ronda[$t][1]." - ".Mangas::$manga_modes[$m][0],
 			'Recorrido'=>$r,
 			'Mode'=>$m,
+			'Categoria'=>Mangas::$manga_modes[$m][1], // list of affected categories
 			'Manga1'=>$m1['ID'],
 			'Manga2'=>($m2!==null)?$m2['ID']:0,
 			'NombreManga1'=>Mangas::$tipo_manga[$m1['Tipo']][1],
@@ -590,7 +591,7 @@ class Jornadas extends DBObject {
 
 	static function __compose(&$data,$prueba,$jornadaid,$tiporonda,$m1,$m2){
 		$heights=intval(Federations::getFederation( intval($prueba['RSCE']) )->get('Heights'));
-		switch($m1['Recorrido']){
+		switch($m1['Recorrido']){ // should be the same than $m2['Recorrido']
 			case 0: // separado
 				array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],0,$m1,$m2)); // large
 				array_push($data,Jornadas::__composeArray($prueba['ID'],$jornadaid,$tiporonda,$m1['Recorrido'],1,$m1,$m2)); // medium
@@ -686,7 +687,6 @@ class Jornadas extends DBObject {
 			Jornadas::__compose($data,$prueba,$jornadaid,10,$m1,null);
 		}
 		// TODO: evaluate conjuntas Grado II y III
-
 		$result=array('total'=>count($data),'rows'=>$data);
 		return $result;
 	}
