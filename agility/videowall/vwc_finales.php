@@ -90,8 +90,8 @@ Pantalla de de visualizacion combinada llamada/parciales
                     <!--
                     <th data-options="field:'Perro',		hidden:true " ></th>
                      -->
-                    <th data-options="field:'Dorsal',		width:20, align:'left'" > <?php _e('Dors'); ?>.</th>
                     <th data-options="field:'LogoClub',		width:20, align:'left',formatter:formatLogo" > &nbsp;</th>
+                    <th data-options="field:'Dorsal',		width:20, align:'left'" > <?php _e('Dors'); ?>.</th>
                     <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
                     <th data-options="field:'Categoria',	width:15, align:'center',formatter:formatCatGrad" > <?php _e('Cat'); ?>.</th>
                     <th data-options="field:'NombreGuia',	width:50, align:'right'" > <?php _e('Handler'); ?></th>
@@ -151,9 +151,42 @@ Pantalla de de visualizacion combinada llamada/parciales
                         <span id="vw_footer-footerData"></span>
                     </div>
                 </div>
-                <div data-options="region:'east'" style="width:60%"> <!-- ULTIMOS TRES RESULTADOS -->
+                <div data-options="region:'east'" style="width:68%"> <!-- ULTIMOS TRES RESULTADOS -->
                     <!-- tabla de ultimos 4 resultados -->
-                    <table id="vwcf_ultimos-datagrid"></table>
+                    <table id="vwcf_ultimos-datagrid">
+                        <thead>
+                        <tr>
+                            <!--
+                            <th data-options="field:'Perro',		hidden:true " ></th>
+                             -->
+                            <th data-options="field:'Orden',		width:20, align:'center',formatter:formatOrdenLlamadaPista" >#</th>
+                            <th data-options="field:'LogoClub',		width:20, align:'left',formatter:formatLogo" > &nbsp;</th>
+                            <th data-options="field:'Dorsal',		width:20, align:'left'" > <?php _e('Dors'); ?>.</th>
+                            <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
+                            <th data-options="field:'Categoria',	width:15, align:'center',formatter:formatCatGrad" > <?php _e('Cat'); ?>.</th>
+                            <th data-options="field:'NombreGuia',	width:50, align:'right'" > <?php _e('Handler'); ?></th>
+                            <th data-options="field:'NombreClub',	width:45, align:'right'" > <?php _e('Club'); ?></th>
+                            <!--
+                    <th data-options="field:'F1',			width:15, align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
+                    <th data-options="field:'R1',			width:15, align:'center'"> <?php _e('R'); ?>.</th>
+                    -->
+                            <th data-options="field:'T1',			width:25, align:'right',formatter:formatT1,styler:formatBorder"> <?php _e('Time'); ?>.</th>
+                            <th data-options="field:'P1',			width:20, align:'right',formatter:formatP1"> <?php _e('Penal'); ?>.</th>
+                            <th data-options="field:'Puesto1',		width:15, align:'center'"> <?php _e('Pos'); ?>.</th>
+                            <!--
+                    <th data-options="field:'F2',			width:15, align:'center',styler:formatBorder"> <?php _e('F/T'); ?></th>
+                    <th data-options="field:'R2',			width:15, align:'center'"> <?php _e('R'); ?>.</th>
+                    -->
+                            <th data-options="field:'T2',			width:25, align:'right',formatter:formatT2,styler:formatBorder"> <?php _e('Time'); ?>.</th>
+                            <th data-options="field:'P2',			width:20, align:'right',formatter:formatP2"> <?php _e('Penal'); ?>.</th>
+                            <th data-options="field:'Puesto2',		width:15, align:'center'"> <?php _e('Pos'); ?>.</th>
+                            <th data-options="field:'Tiempo',		width:25, align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
+                            <th data-options="field:'Penalizacion',	width:25, align:'right',formatter:formatPenalizacionFinal" > <?php _e('Penaliz'); ?>.</th>
+                            <th data-options="field:'Calificacion',	width:20, align:'center'" > <?php _e('Calif'); ?>.</th>
+                            <th data-options="field:'Puesto',		width:15, align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
         </div>
@@ -211,7 +244,15 @@ Pantalla de de visualizacion combinada llamada/parciales
         fitColumns: true,
         singleSelect: true,
         autoRowHeight:true, // let the formatters decide the size
-        rowStyler:myRowStyler
+        rowStyler:myRowStyler,
+        onBeforeLoad: function (param) {
+            // do not update until 'open' received
+            if( $('#vwcf_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
+            return true;
+        },
+        onLoadSuccess: function(data) {
+            $('#vwcf_clasificacion-datagrid').datagrid('scrollTo',0); // point to first result
+        }
     });
 
     $('#vwc_llamada-datagrid').datagrid({
@@ -221,17 +262,6 @@ Pantalla de de visualizacion combinada llamada/parciales
         closable: false,
         collapsible: false,
         collapsed: false,
-        // propiedades del datagrid
-        // method: 'get',
-        // url: '/agility/server/database/resultadosFunctions.php',
-        // queryParams: {
-        //    Prueba: workingData.prueba,
-        //    Jornada: workingData.jornada,
-        //    Manga: workingData.manga,
-        //     Mode: (workingData.datosManga.Recorrido!=2)?0:4, // def to 'Large' or 'LMS' depending of datosmanga
-        //    Operation: 'getResultados'
-        // },
-        // loadMsg: "<?php _e('Updating list of teams to be called to ring');?> ...",
         pagination: false,
         rownumbers: false,
         fitColumns: true,
@@ -279,39 +309,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         fitColumns: true,
         singleSelect: true,
         autoRowHeight: true,
-        columns:[[
-            { field:'Orden',		width:'9%', align:'center', title: '#', formatter:formatOrdenLlamadaPista},
-            { field:'Manga',		hidden:true },
-            { field:'Perro',		hidden:true },
-            { field:'Raza',		    hidden:true },
-            { field:'Equipo',		hidden:true },
-            { field:'NombreEquipo',	hidden:true },
-            // { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
-            { field:'Logo',		width:'8%', align:'center', title: '', formatter:formatLogo},
-            // { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
-            { field:'Nombre',		width:'8%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBoldBig},
-            { field:'NombreGuia',	width:'16%', align:'right', title: '<?php _e('Handler'); ?>' },
-            { field:'NombreClub',	width:'13%', align:'right', title: '<?php _e('Club'); ?>' },
-            { field:'Categoria',	width:'3%', align:'center', title: '<?php _e('Cat'); ?>.' },
-            { field:'Grado',	    width:'3%', align:'center', title: '<?php _e('Grade'); ?>' },
-            { field:'Faltas',		width:'4%', align:'center', title: '<?php _e('Faults'); ?>'},
-            { field:'Rehuses',		width:'4%', align:'center', title: '<?php _e('Refusals'); ?>'},
-            { field:'Tocados',		width:'4%', align:'center', title: '<?php _e('Touchs'); ?>'},
-            { field:'PRecorrido',	hidden:true },
-            { field:'Tiempo',		width:'5%', align:'right', title: '<?php _e('Time'); ?>', formatter:formatTiempo},
-            { field:'PTiempo',		hidden:true },
-            { field:'Velocidad',	width:'4%', align:'right', title: '<?php _e('Vel'); ?>.', formatter:formatVelocidad},
-            { field:'Penalizacion',	width:'6%', align:'right', title: '<?php _e('Penal'); ?>.', formatter:formatPenalizacion},
-            { field:'Calificacion',	width:'11%', align:'center',title: '<?php _e('Calification'); ?>'},
-            { field:'Puesto',		width:'4%', align:'center',  title: '<?php _e('Position'); ?>', formatter:formatPuesto},
-            { field:'CShort',       hidden:true}
-        ]],
-        rowStyler:myRowStyler,
-        onBeforeLoad: function(param) {
-            // do not update until 'open' received
-            if( $('#vwcf_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
-            return true;
-        }
+        rowStyler:myRowStyler
     });
 
     // header elements layout
@@ -349,16 +347,16 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#vwcf_header-infojornada').html('<?php _e("Journey"); ?>');
             $('#vwcf_header-infomanga').html("(<?php _e('No round selected');?>)");
             vw_updateWorkingData(event,function(e,d){
-                vwc_updateDataInfo(e,d);
-                vw_formatResultadosDatagrid(e,d);
-                vwc_updateLlamada(e,d);
+                vwc_updateDataInfo(e,d); // fix header
+                vw_formatResultadosDatagrid(e,d); // fix team/logos/cat/grade presentation
+                vwcf_updateLlamada(e,d);
             });
         },
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
-                vwc_updateLlamada(e,d);
-                vw_updateFinales(e,d);
+                /* vw_updateFinales(e,d); */ // required to be done at updateLlamada
+                vwcf_updateLlamada(e,d);
             });
         },
         'datos': function (event, time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
@@ -370,7 +368,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             crm.Chrono('stop',time);
             crm.Chrono('reset',time);
             vw_updateWorkingData(event,function(e,d){
-                vwc_updateLlamada(e,d);
+                vwcf_updateLlamada(e,d);
             });
         },
         'salida': function (event, time) {     // orden de salida
@@ -436,7 +434,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             myCounter.stop();
             $('#cronometro').Chrono('stop', time);  // nos aseguramos de que los cronos esten parados
             vw_updateWorkingData(event,function(e,d){
-                vw_updateFinales(e,d);
+                /* vw_updateFinales(e,d); */ // required to be done at
             });
         },
         'cancelar': function (event,time) {  // operador pulsa cancelar

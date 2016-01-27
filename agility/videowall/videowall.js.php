@@ -311,11 +311,14 @@ function vwc_evalResultados(items) {
 }
 
 /**
+ * Gestion de llamada a pista en combinada (parcial)
  * Actualiza el datagrid de llamada a pista con los datos recibidos
+ * Actualiza el frame de datos de perro en pista
+ * Actualiza el datagrid de ultimos perros en salir
  * @param {object} evt event
  * @param {object} data system status data info
  */
-function vwc_updateLlamada(evt,data) {
+function vwcp_updateLlamada(evt,data) {
 	$.ajax( {
 		type: "GET",
 		dataType: 'json',
@@ -346,9 +349,89 @@ function vwc_updateLlamada(evt,data) {
 			$("#vwls_Tiempo").html(dat['current'][0]['Tiempo']);
 			$("#vwls_Puesto").html(dat['current'][0]['Puesto']);
 			// evaluamos velocidad, penalización, calificacion y puesto
-			// rellenamos ventana de ultimos resultados
 			vwc_evalResultados(dat['before']);
+			// rellenamos ventana de ultimos resultados
 			$('#vwcp_ultimos-datagrid').datagrid('loadData',dat['before']).datagrid('scrollTo',0);;
+		}
+	});
+}
+
+var vwcf_emptyFinalResults= {
+	// manga 1
+	'F1':0, 'R1':0, 'E1':0,	'N1':0,	'T1':0,	'P1':0,	'V1':0,	'C1':'', 'Puesto1':0,'Pcat1':0,
+	// manga 2
+	'F2':0, 'R2':0, 'E2':0,	'N2':0,	'T2':0,	'P2':0,	'V2':0,	'C2':'', 'Puesto2':0,'Pcat2':0,
+	// datos globales
+	'Tiempo':"", 'Penalizacion':0,	'Calificacion':"",	'Puntos':'', 'Puesto':"-", 'Pcat':0
+};
+
+/**
+ * Gestion de llamada a pista en combinada (final)
+ * Actualiza el datagrid de llamada a pista con los datos recibidos
+ * Actualiza el frame de datos de perro en pista
+ * Actualiza el datagrid de ultimos perros en salir
+ * @param {object} evt event
+ * @param {object} data system status data info
+ */
+function vwcf_updateLlamada(evt,data) {
+	$.ajax( {
+		type: "GET",
+		dataType: 'json',
+		url: "/agility/server/web/videowall.php",
+		data: {
+			Operation: 'window',
+			Before: 4,
+			After: 15,
+			Perro: parseInt(evt['Dog']),
+			Session: workingData.sesion
+		},
+		success: function(dat,status,jqxhr) {
+			function vwcf_evalBefore(res) {
+				var count = 0; // to track when before fill gets complete
+				// iterate on results and fill "before" data
+				for (var n = 0; n < res['rows'].length; n++) {
+					var item = res['rows'][n];
+					for (var i = 0; i < dat['before'].length; i++) {
+						var b = dat['before'][i];
+						if (b['Perro']==0) { // no data, fill with empty values
+							$.extend(b, vwcf_emptyFinalResults);
+							count++;
+						}
+						if (b['Perro'] == item['Perro']) { // found dog. merge data
+							$.extend(b, item);
+							count++;
+						}
+					}
+					if (count >= dat['before'].lenght) break; // already done, do not longer iterate
+				}
+				// una vez evaluadas las clasificaciones de los 'before' perros, las presentamos
+				var ret= {'total':dat['before'].length,'rows':dat['before']};
+				$('#vwcf_ultimos-datagrid').datagrid('loadData', ret ).datagrid('scrollTo', 0);
+			}
+
+			// componemos ventana de llamada
+			$('#vwc_llamada-datagrid').datagrid('loadData', dat['after']).datagrid('scrollTo', dat['after'] - 1);
+
+			// rellenamos ventana de datos del perro en pista
+			// TODO: obtener datos de manga hermana y presentarlos
+			$("#vwls_Numero").html(dat['current'][0]['Orden']);
+			$("#vwls_Logo").attr('src', '/agility/images/logos/' + dat['current'][0]['Logo']);
+			$("#vwls_Dorsal").html(dat['current'][0]['Dorsal']);
+			$("#vwls_Nombre").html(dat['current'][0]['Nombre']);
+			var celo = (dat['current'][0]['Celo'] != 0) ? '<span class="blink"><?php _e("Heat");?></span>' : "&nbsp";
+			$("#vwls_Celo").html(celo);
+			$("#vwls_NombreGuia").html(dat['current'][0]['NombreGuia']);
+			$("#vwls_NombreClub").html(dat['current'][0]['NombreClub']);
+			$("#vwls_Faltas").html(dat['current'][0]['Faltas']);
+			$("#vwls_Tocados").html(dat['current'][0]['Tocados']);
+			$("#vwls_Rehuses").html(dat['current'][0]['Rehuses']);
+			$("#vwls_Tiempo").html(dat['current'][0]['Tiempo']);
+			$("#vwls_Puesto").html(dat['current'][0]['Puesto']);
+
+			// rellenamos ventana de ultimos resultados
+			// dado que necesitamos tener la clasificacion con los perros de la tabla "before",
+			// lo que vamos a hacer es calcular dicha tabla aquí, en lugar de desde el evento "aceptar"
+			vwcf_updateFinales(evt, data, vwcf_evalBefore);
 		}
 	});
 }
@@ -357,7 +440,7 @@ function vwc_updateLlamada(evt,data) {
  * @param {object} evt event
  * @param {object} data system status data info
  */
-function vw_updateParciales(evt,data) {
+function vwcp_updateParciales(evt,data) {
     // en lugar de invocar al datagrid, lo que vamos a hacer es
     // una peticion ajax, para obtener a la vez los datos tecnicos de la manga
     // y de los jueces
@@ -397,8 +480,9 @@ function vw_updateParciales(evt,data) {
  * Actualiza datos de la clasificacion general
  * @param {object} evt event
  * @param {object} data system status data info
+ * @param {function} callback what to do when data loaded
  */
-function vw_updateFinales(evt,data) {
+function vwcf_updateFinales(evt,data,callback) {
 	$.ajax({
 		type:'GET',
 		url:"/agility/server/database/clasificacionesFunctions.php",
@@ -439,8 +523,9 @@ function vw_updateFinales(evt,data) {
 				$('#vwcf_finales-TRM2').html('<?php _e('MCT');?>: ' + dat['trs2'].trm + 's.');
 				$('#vwcf_finales-Velocidad2').html('<?php _e('Vel');?>: ' + dat['trs2'].vel + 'm/s');
 			}
-			// clasificaciones
+			// rellena tabla de clasificaciones
 			$('#vwcf_clasificacion-datagrid').datagrid('loadData',dat);
+			if (typeof(callback)==='function') callback(dat);
 		}
 	});
 }

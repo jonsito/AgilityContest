@@ -342,13 +342,13 @@ Pantalla de de visualizacion combinada llamada/parciales
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
                 vw_formatResultadosDatagrid(e,d);
-                vwc_updateLlamada(e,d);
+                vwcp_updateLlamada(e,d,false);
             });
         },
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
-                vwc_updateLlamada(e,d);
+                vwcp_updateLlamada(e,d,false);
                 vwcp_updateParciales(e,d);
             });
         },
@@ -361,7 +361,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             crm.Chrono('stop',time);
             crm.Chrono('reset',time);
             vw_updateWorkingData(event,function(e,d){
-                vwc_updateLlamada(e,d);
+                vwcp_updateLlamada(e,d,false);
             });
         },
         'salida': function (event, time) {     // orden de salida
