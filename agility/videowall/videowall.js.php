@@ -192,15 +192,19 @@ function vwls_updateData(data) {
 
  // actualizar datos desde crono -1:decrease 0:ignore 1:increase
 function vwls_updateChronoData(data){
+
 	var i=$('#vwls_Faltas');
 	var res=parseInt( i.html() )+parseInt(data["Faltas"]);
-	i.html( '' + (res<0)?0:res ).hide().show(0);
+	if (res<0) res=0;
+	i.html( res.toString() ).hide().show(0);
 	i=$('#vwls_Tocados');
 	res=parseInt( i.html() )+parseInt(data["Tocados"]);
-	i.html( '' +(res<0)?0:res ).hide().show(0);
+	if (res<0) res=0;
+	i.html( res.toString() ).hide().show(0);
 	i=$('#vwls_Rehuses');
 	res=parseInt( i.html() )+parseInt(data["Rehuses"]);
-	i.html( '' +(res<0)?0:res ).hide().show(0);
+	if (res<0)res=0;
+	i.html( res.toString() ).hide().show(0);
 	// TODO: repaint timestamp when elim/notpresent mark is removed
 	if (data["Eliminado"]==1)	$('#vwls_Tiempo').html('<span class="blink" style="color:red"><?php _e("Elim");?>.</span>').hide().show(0);
 	if (data["NoPresentado"]==1) $('#vwls_Tiempo').html('<span class="blink" style="color:red"><?php _e("NoPr");?>.</span>').hide().show(0);

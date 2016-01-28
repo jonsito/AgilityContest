@@ -127,16 +127,18 @@ function c_updateData(data) {
  * @param data
  */
 function c_updateDataFromChrono(data) {
-	console.log(JSON.stringify(data));
 	var i=$('#chrono_Faltas');
 	var res=parseInt( i.html() )+parseInt(data["Faltas"]);
-	i.html( '' + (res<0)?0:res );
+	if (res<0) res=0;
+	i.html( res.toString() );
 	i=$('#chrono_Tocados');
 	res=parseInt( i.html() )+parseInt(data["Tocados"]);
-	i.html( '' +(res<0)?0:res );
+	if (res<0) res=0;
+	i.html( res.toString() );
 	i=$('#chrono_Rehuses');
 	res=parseInt( i.html() )+parseInt(data["Rehuses"]);
-	i.html( '' +(res<0)?0:res );
+	if (res<0)res=0;
+	i.html( res.toString() );
 	// TODO: repaint timestamp when elim/notpresent mark is removed
 	if (data["Eliminado"]==1)	$('#chrono_Tiempo').html('<span class="blink" style="color:red"><?php _e("Elim");?>.</span>');
 	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red"><?php _e("NoPr");?>.</span>');
