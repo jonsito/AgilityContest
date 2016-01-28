@@ -219,27 +219,28 @@ function chrono_sensor(event,data,guard) {
 function bindKeysToChrono() {
     // parse keypress event on every  button
 	$(document).keydown(function(e) {
+		var val=(e.ctrlKey)?-1:1; // take care on control key
 		switch(e.which) {
 			// reconocimiento de pista
 			case 55: // '7' -> comienzo del reconocimiento
 			case 48: // '0' -> fin del reconocimiento
 				chrono_button('crono_rec',{});
 				break;
-			// entrada de datos desde crono
+			// entrada de datos desde crono -1:dec +1:inc 0:nochange
 			case 70: // 'F' -> falta
-				chrono_button('crono_dat',{'Falta':1});
+				chrono_button('crono_dat',{'Flt':val,'Toc':0,'Reh':0,'Npr':0,'Eli':0});
 				break;
 			case 82: // 'R' -> rehuse
-				chrono_button('crono_dat',{'Rehuse':1});
+				chrono_button('crono_dat',{'Flt':0,'Toc':0,'Reh':val,'Npr':0,'Eli':0});
 				break;
 			case 84: // 'T' -> tocado
-				chrono_button('crono_dat',{'Tocado':1});
+				chrono_button('crono_dat',{'Flt':0,'Toc':val,'Reh':0,'Npr':0,'Eli':0});
 				break;
 			case 69: // 'E' -> eliminado
-				chrono_button('crono_dat',{'Eliminado':1});
+				chrono_button('crono_dat',{'Flt':0,'Toc':0,'Reh':0,'Npr':0,'Eli':val});
 				break;
 			case 78: // 'N' -> no presentado
-				chrono_button('crono_dat',{'NoPresentado':1});
+				chrono_button('crono_dat',{'Flt':0,'Toc':0,'Reh':0,'Npr':val,'Eli':0});
 				break;
 			// arranque parada del crono
             case 8: // 'Del' -> chrono reset
