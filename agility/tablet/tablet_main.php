@@ -46,19 +46,19 @@ $config =Config::getInstance();
                         <input id="tdialog-Tanda" name="Tanda" type="hidden"> <!-- Tanda name -->
                         <input id="tdialog-Observacioens" name="Observaciones" type="hidden">
                         <input id="tdialog-Operation" name="Operation" type="hidden" value="update">
-                        <input id="tdialog-FaltaUpBtn" type="button" value="<?php _e('Fault');?>" onclick="tablet_up('#tdialog-Faltas');" class="tablet_button tb_falta">
-                        <input id="tdialog-FaltaDownBtn" type="button" value="<?php _e('Fault');?> -" onclick="tablet_down('#tdialog-Faltas');">
-                        <input id="tdialog-RehuseUpBtn" type="button" value="<?php _e('Refusal');?>" onclick="tablet_up('#tdialog-Rehuses')" class="tablet_button tb_rehuse">
-                        <input id="tdialog-RehuseDownBtn" type="button" value="<?php _e('Refusal');?> -" onclick="tablet_down('#tdialog-Rehuses');">
-                        <input id="tdialog-TocadoUpBtn" type="button" value="<?php _e('Touch');?>" onclick="tablet_up('#tdialog-Tocados');" class="tablet_button tb_tocado">
-                        <input id="tdialog-TocadoDownBtn" type="button" value="<?php _e('Touch');?> -" onclick="tablet_down('#tdialog-Tocados');">
+                        <input id="tdialog-FaltaUpBtn" type="button" value="<?php _e('Fault');?>" onclick="tablet_up('#tdialog-Faltas',true);" class="tablet_button tb_falta">
+                        <input id="tdialog-FaltaDownBtn" type="button" value="<?php _e('Fault');?> -" onclick="tablet_down('#tdialog-Faltas',true);">
+                        <input id="tdialog-RehuseUpBtn" type="button" value="<?php _e('Refusal');?>" onclick="tablet_up('#tdialog-Rehuses',true)" class="tablet_button tb_rehuse">
+                        <input id="tdialog-RehuseDownBtn" type="button" value="<?php _e('Refusal');?> -" onclick="tablet_down('#tdialog-Rehuses',true);">
+                        <input id="tdialog-TocadoUpBtn" type="button" value="<?php _e('Touch');?>" onclick="tablet_up('#tdialog-Tocados',true);" class="tablet_button tb_tocado">
+                        <input id="tdialog-TocadoDownBtn" type="button" value="<?php _e('Touch');?> -" onclick="tablet_down('#tdialog-Tocados',true);">
                         <input id="tdialog-StartStopBtn" type="button" value="Start" onclick="tablet_startstop();" class="tablet_button tb_crono">
                         <input id="tdialog-ResetBtn" type="button" value="     " onclick="tablet_resetchrono();" class="tablet_button tb_reset">
                         <input id="tdialog-SalidaBtn" type="button" value="<?php _e('Begin');?>" onclick="tablet_salida();" class="tablet_button tb_salida">
                         <input id="tdialog-AcceptBtn" type="button" value="<?php _e('Accept');?>" onclick="tablet_accept();" class="tablet_button tb_accept">
                         <input id="tdialog-CancelBtn" type="button" value="<?php _e('Cancel');?>" onclick="tablet_cancel();" class="tablet_button tb_cancel">
-                        <input id="tdialog-NoPresentadoBtn" type="button" value="<?php _e('Not Present');?>" onclick="tablet_np();" class="tablet_button tb_nopresentado">
-                        <input id="tdialog-EliminadoBtn" type="button" value="<?php _e('Eliminated');?>" onclick="tablet_elim('#tdialog-Eliminado');" class="tablet_button tb_eliminado">
+                        <input id="tdialog-NoPresentadoBtn" type="button" value="<?php _e('Not Present');?>" onclick="tablet_np(true);" class="tablet_button tb_nopresentado">
+                        <input id="tdialog-EliminadoBtn" type="button" value="<?php _e('Eliminated');?>" onclick="tablet_elim(true);" class="tablet_button tb_eliminado">
                         <input id="tdialog-0" type="button" value="0" class="tablet_numbers" onclick="tablet_add(0);">
                         <input id="tdialog-1" type="button" value="1" class="tablet_numbers" onclick="tablet_add(1);">
                         <input id="tdialog-2" type="button" value="2" class="tablet_numbers" onclick="tablet_add(2);">

@@ -237,6 +237,7 @@ var eventHandler= {
     'crono_stop':  null, // parada crono electronico
     'crono_reset':  null, // puesta a cero del crono electronico
     'crono_error':  null, // fallo en los sensores de paso
+    'crono_dat': null, // datos desde crono electronico
     'aceptar':	function(event){ // operador pulsa aceptar
         vw_updateWorkingData(event,function(e,d){
             vw_updateLlamada(e,d);

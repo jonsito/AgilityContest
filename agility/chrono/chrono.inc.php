@@ -84,11 +84,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			<a id="chrono-recBtn" href="#" class="easyui-linkbutton"
    			   	data-options="iconCls: 'icon-huella'" onclick="chrono_button('crono_rec',{})"><?php _e('Course walk'); ?></a>
    			<a id="chrono-fltBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-hand'" onclick="chrono_button('crono_dat',{'Falta':1})"><?php _e('Fault'); ?></a>
+   			   	data-options="iconCls: 'icon-hand'" onclick="chrono_button('crono_dat',{'Faltas':1,'Tocados':0,'Rehuses':0,'NoPresentado':0,'Eliminado':0})"><?php _e('Fault'); ?></a>
    			<a id="chrono-rehBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-fist'" onclick="chrono_button('crono_dat',{'Rehuse':1})"><?php _e('Refusal'); ?></a>
+   			   	data-options="iconCls: 'icon-fist'" onclick="chrono_button('crono_dat',{'Faltas':0,'Tocados':0,'Rehuses':1,'NoPresentado':0,'Eliminado':0})"><?php _e('Refusal'); ?></a>
    			<a id="chrono-elimBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('crono_dat',{'Eliminado':1})"><?php _e('Eliminated'); ?></a>
+   			   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('crono_dat',{'Faltas':0,'Tocados':0,'Rehuses':0,'NoPresentado':0,'Eliminado':1})"><?php _e('Eliminated'); ?></a>
    			<a id="chrono-errorBtn" href="#" class="easyui-linkbutton"
 			   data-options="iconCls: 'icon-alert'" onclick="chrono_markError()"><?php _e('Error'); ?></a>
    			<a id="chrono-resetBtn" href="#" class="easyui-linkbutton"

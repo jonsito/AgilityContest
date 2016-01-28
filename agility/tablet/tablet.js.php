@@ -181,7 +181,7 @@ function tablet_del() {
 	return false;
 }
 
-function tablet_up(id){
+function tablet_up(id,sendEvent){
 	doBeep();
 	var n= 1+parseInt($(id).val());
 	var lbl = replaceAll('#tdialog-','',id);
@@ -189,11 +189,13 @@ function tablet_up(id){
 	$(id).val(''+n);
 	tablet_updateResultados(1);
 	datos[lbl]=$(id).val();
-	tablet_putEvent( 'datos', datos);
+	if (sendEvent){
+		tablet_putEvent( 'datos', datos);
+	}
 	return false;
 }
 
-function tablet_down(id){
+function tablet_down(id,sendEvent){
 	doBeep();
 	var n= parseInt($(id).val());
 	var m = (n<=0) ? 0 : n-1;
@@ -202,11 +204,13 @@ function tablet_down(id){
 	$(id).val(''+m);
 	tablet_updateResultados(1);
 	datos[lbl]=$(id).val();
-	tablet_putEvent( 'datos', datos );
+	if (sendEvent){
+		tablet_putEvent( 'datos', datos );
+	}
 	return false;
 }
 
-function tablet_np() {
+function tablet_np(sendEvent) {
 	doBeep();
 	var tde=$('#tdialog-Eliminado');
 	var tdestr=$('#tdialog-EliminadoStr');
@@ -232,21 +236,23 @@ function tablet_np() {
 		tdnpstr.val("");
 	}
 	tablet_updateResultados(1);
-	tablet_putEvent(
-		'datos',
-		{
-		'NoPresentado'	:	tdnp.val(),
-		'Faltas'		:	tdflt.val(),
-		'Tocados'		:	tdtoc.val(),
-		'Rehuses'		:	tdreh.val(),
-		'Tiempo'		:	tdtime.val(),
-		'Eliminado'		:	tde.val()
-		}
+	if (sendEvent){
+		tablet_putEvent(
+			'datos',
+			{
+				'NoPresentado'	:	tdnp.val(),
+				'Faltas'		:	tdflt.val(),
+				'Tocados'		:	tdtoc.val(),
+				'Rehuses'		:	tdreh.val(),
+				'Tiempo'		:	tdtime.val(),
+				'Eliminado'		:	tde.val()
+			}
 		);
+	}
 	return false;
 }
 
-function tablet_elim() {
+function tablet_elim(sendEvent) {
 	doBeep();
 	var tde=$('#tdialog-Eliminado');
 	var tdestr=$('#tdialog-EliminadoStr');
@@ -265,15 +271,38 @@ function tablet_elim() {
 		tdestr.val("");
 	}
 	tablet_updateResultados(1);
-	tablet_putEvent(
+	if (sendEvent) {
+		tablet_putEvent(
 			'datos',
 			{
-			'NoPresentado'	:	tdnp.val(),
-			'Tiempo'		:	tdtime.val(),
-			'Eliminado'		:	tde.val()
+				'NoPresentado'	:	tdnp.val(),
+				'Tiempo'		:	tdtime.val(),
+				'Eliminado'		:	tde.val()
 			}
 		);
+	}
 	return false;
+}
+
+/*** Parse data from electronic chrono:
+ * -1:decrease 0:nochange 1:increase
+ * Just invoke internal functions, but _disable_ event("data") to be sent
+ * @param data
+ */
+function tablet_updateChronoData(data) {
+	var f=parseInt(data['Faltas']);
+	var r=parseInt(data['Rehuses']);
+	var t=parseInt(data['Tocados']);
+	var e=parseInt(data['Eliminado']);
+	var n=parseInt(data['NoPresentado']);
+	if (f<0) tablet_down('#tdialog-Faltas',false);
+	if (f>0) tablet_up('#tdialog-Faltas',false);
+	if (t<0) tablet_down('#tdialog-Tocados',false);
+	if (t>0) tablet_up('#tdialog-Tocados',false);
+	if (r<0) tablet_down('#tdialog-Rehuses',false);
+	if (r>0) tablet_up('#tdialog-Rehuses',false);
+	if (e!=0) tablet_elim(false);
+	if (n!=0) tablet_np(false);
 }
 
 function tablet_cronometro(oper,time) {
@@ -696,10 +725,7 @@ function tablet_processEvents(id,evt) {
 		ssb.val("Start");
 		return;
 	case 'crono_dat':	// datos desde el crono electronico
-		// at this moment, every crono_dat events are ignored:
-		// this is a sample implementation and this crono is not designed
-		// to work without tablet; so no sense to take care
-		// on 'crono_dat' events: just use 'datos' event from tablet instead
+		tablet_updateChronoData(event);
 		return;
 	case 'crono_rec':	// reconocimiento de pista desde crono electronico
 		// ignored, just for get noticed at chrono display

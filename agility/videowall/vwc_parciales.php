@@ -425,6 +425,9 @@ Pantalla de de visualizacion combinada llamada/parciales
             crm.Chrono('stop', time);
             crm.Chrono('reset', time);
         },
+        'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
+            vwls_updateChronoData(event);
+        },
         'crono_error': null, // fallo en los sensores de paso
         'aceptar': function (event,time) { // operador pulsa aceptar
             myCounter.stop();

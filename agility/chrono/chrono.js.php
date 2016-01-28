@@ -121,6 +121,27 @@ function c_updateData(data) {
 	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red"><?php _e("NoPr");?>.</span>');
 }
 
+/**
+ * Parse data from electronic chrono:
+ * -1:decrease 0:nochange 1:increase
+ * @param data
+ */
+function c_updateDataFromChrono(data) {
+	console.log(JSON.stringify(data));
+	var i=$('#chrono_Faltas');
+	var res=parseInt( i.html() )+parseInt(data["Faltas"]);
+	i.html( '' + (res<0)?0:res );
+	i=$('#chrono_Tocados');
+	res=parseInt( i.html() )+parseInt(data["Tocados"]);
+	i.html( '' +(res<0)?0:res );
+	i=$('#chrono_Rehuses');
+	res=parseInt( i.html() )+parseInt(data["Rehuses"]);
+	i.html( '' +(res<0)?0:res );
+	// TODO: repaint timestamp when elim/notpresent mark is removed
+	if (data["Eliminado"]==1)	$('#chrono_Tiempo').html('<span class="blink" style="color:red"><?php _e("Elim");?>.</span>');
+	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red"><?php _e("NoPr");?>.</span>');
+}
+
 function c_showData(data) {
 	var perro=$('#chrono_Perro').html();
 	var dorsal=data['Dorsal'];
@@ -228,19 +249,19 @@ function bindKeysToChrono() {
 				break;
 			// entrada de datos desde crono -1:dec +1:inc 0:nochange
 			case 70: // 'F' -> falta
-				chrono_button('crono_dat',{'Flt':val,'Toc':0,'Reh':0,'Npr':0,'Eli':0});
+				chrono_button('crono_dat',{'Faltas':val,'Tocados':0,'Rehuses':0,'NoPresentado':0,'Eliminado':0});
 				break;
 			case 82: // 'R' -> rehuse
-				chrono_button('crono_dat',{'Flt':0,'Toc':0,'Reh':val,'Npr':0,'Eli':0});
+				chrono_button('crono_dat',{'Faltas':0,'Tocados':0,'Rehuses':val,'NoPresentado':0,'Eliminado':0});
 				break;
 			case 84: // 'T' -> tocado
-				chrono_button('crono_dat',{'Flt':0,'Toc':val,'Reh':0,'Npr':0,'Eli':0});
+				chrono_button('crono_dat',{'Faltas':0,'Tocados':val,'Rehuses':0,'NoPresentado':0,'Eliminado':0});
 				break;
 			case 69: // 'E' -> eliminado
-				chrono_button('crono_dat',{'Flt':0,'Toc':0,'Reh':0,'Npr':0,'Eli':val});
+				chrono_button('crono_dat',{'Faltas':0,'Tocados':0,'Rehuses':0,'NoPresentado':0,'Eliminado':val});
 				break;
 			case 78: // 'N' -> no presentado
-				chrono_button('crono_dat',{'Flt':0,'Toc':0,'Reh':0,'Npr':val,'Eli':0});
+				chrono_button('crono_dat',{'Faltas':0,'Tocados':0,'Rehuses':0,'NoPresentado':val,'Eliminado':0});
 				break;
 			// arranque parada del crono
             case 8: // 'Del' -> chrono reset
@@ -377,10 +398,7 @@ function chrono_processEvents(id,evt) {
 		cra.Chrono('stop',time);
 		return;
 	case 'crono_dat': // operador pulsa botonera del crono
-			// at this moment, every crono_dat events are ignored:
-			// this is a sample implementation and this crono is not designed
-			// to work without tablet; so no sense to take care
-			// on 'crono_dat' events: just use 'datos' event from tablet instead
+		c_updateDataFromChrono(event);
 		return;
 	case 'crono_rec': // reconocimiento de pista
 		// si crono esta activo, ignorar
