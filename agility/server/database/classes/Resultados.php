@@ -340,18 +340,18 @@ class Resultados extends DBObject {
             // NOTA: el orden de estas comprobaciones es MUY importantee
             $djornada=$this->getDatosJornada();
             if ($djornada->Equipos4!=0) { // pruebas por equipos en modalidad de cuatro conjunta
-                if ($rehuses>=3) { $tiempo=0; $faltas=0; $tocados=0; $eliminado=1; $nopresentado=0;}
+                if ($rehuses>=3) { $tiempo=0; $tintermedio=0; $faltas=0; $tocados=0; $eliminado=1; $nopresentado=0;}
                 if ($tiempo>0) {$nopresentado=0;}
-                if ($eliminado==1) { $tiempo=0; $faltas=0; $tocados=0; $rehuses=0; $nopresentado=0; }
-                if ($nopresentado==1) { $tiempo=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0; }
+                if ($eliminado==1) { $tiempo=0; $tintermedio=0; $faltas=0; $tocados=0; $rehuses=0; $nopresentado=0; }
+                if ($nopresentado==1) { $tiempo=0; $tintermedio=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0; }
                 // en este tipo de pruebas, el tiempo puede ser cero, pues solo se le apunta al ultimo del equipo
                 // if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; $faltas=0; $rehuses=0; $tocados=0; }
                 if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
             } else { // pruebas "normales" y mangas ko
-                if ($rehuses>=3) { $tiempo=0; $eliminado=1; $nopresentado=0;}
+                if ($rehuses>=3) { $tiempo=0; $tintermedio=0; $eliminado=1; $nopresentado=0;}
                 if ($tiempo>0) {$nopresentado=0;}
-                if ($eliminado==1) { $tiempo=0; $nopresentado=0; }
-                if ($nopresentado==1) { $tiempo=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0; }
+                if ($eliminado==1) { $tiempo=0; $tintermedio=0; $nopresentado=0; }
+                if ($nopresentado==1) { $tiempo=0; $tintermedio=0; $eliminado=0; $faltas=0; $rehuses=0; $tocados=0; }
                 if ( ($tiempo==0) && ($eliminado==0)) { $nopresentado=1; $faltas=0; $rehuses=0; $tocados=0; }
                 if ( ($tiempo==0) && ($eliminado==1)) { $nopresentado=0; }
             }
@@ -362,7 +362,7 @@ class Resultados extends DBObject {
 			SET Entrada='$entrada' , Comienzo='$comienzo' , 
 				Faltas=$faltas , Rehuses=$rehuses , Tocados=$tocados ,
 				NoPresentado=$nopresentado , Eliminado=$eliminado , 
-				Tiempo='$tiempo' , Observaciones='$observaciones' , Pendiente=$pendiente
+				Tiempo='$tiempo' , TIntermedio='$tintermedio' , Observaciones='$observaciones' , Pendiente=$pendiente
 			WHERE (Perro=$idperro) AND (Manga=$this->IDManga)";
 		$rs=$this->query($sql);
 		if (!$rs) return $this->error($this->conn->error);

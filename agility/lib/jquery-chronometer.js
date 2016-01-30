@@ -63,6 +63,8 @@
 				localTime=Date.now();
 				if(typeof timestamp === 'undefined') startTime=localTime;
 				else startTime=timestamp;
+				stopTime=startTime;
+				pauseTime=startTime;
 				running = true;
 				run_chrono();
 			}
@@ -129,6 +131,11 @@
 		},
 		started : function() {
 			return ( running || pause );
+		},
+		getValue : function() {
+			if (pause) return pauseTime-startTime; // paused: show intermediate time
+			if (!running) return stopTime-startTime; // stopped: show last stored time mark
+			return Date.now()-localTime; // running. may be not accurate
 		}
 	};
 

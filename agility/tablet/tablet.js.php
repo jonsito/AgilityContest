@@ -395,6 +395,7 @@ function tablet_cancel() {
 							'Tocados'		:	row.Tocados,
 							'Rehuses'		:	row.Rehuses,
 							'Tiempo'		:	row.Tiempo,
+							'TIntermedio'	:	row.TIntermedio,
 							'Eliminado'		:	row.Eliminado
 						} 
 					);
@@ -711,11 +712,18 @@ function tablet_processEvents(id,evt) {
 		crm.Chrono('resync',event['stop'],event['start']);
 		return;
 	case 'crono_int':	// tiempo intermedio crono electronico
-		crm.Chrono('pause',time); setTimeout(function(){crm.Chrono('resume');},5000);
+		// para el crono
+		crm.Chrono('pause',time);
+		// guarda tiempo intermedio
+		$('#tdialog-TIntermedio').val(crm.Chrono('getValue')/1000.0);
+		tablet_updateResultados(1);
+		// re-arranca crono en cinco segundos
+		setTimeout(function(){crm.Chrono('resume');},5000);
 		return;
     case 'crono_stop':	// parada crono electronico
 		ssb.val("Start");
 		crm.Chrono('stop',time);
+		console.log("tiempo final: "+crm.Chrono('getValue'));
 		return;
 	case 'crono_reset': // puesta a cero incondicional
 		myCounter.stop();

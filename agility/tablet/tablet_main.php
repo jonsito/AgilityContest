@@ -96,6 +96,7 @@ $config =Config::getInstance();
                         <label id="tdialog-TiempoLbl" for="tdialog-Tiempo"><?php _e('Time'); ?></label>
                         <span id="tdialog-timestamp" style="display:none"></span>
                         <input id="tdialog-Tiempo" type="text" readonly="readonly" value="00.00" name="Tiempo" class="tablet_data"/>
+                        <input id="tdialog-TIntermedio" name="TIntermedio" type="hidden">
                         <label id="tdialog-NoPresentadoLbl" for="tdialog-NoPresentadoStr"><?php _e('No Pr'); ?>.</label>
                         <input id="tdialog-NoPresentado" type="hidden" name="NoPresentado" value="0"/>
                         <input id="tdialog-NoPresentadoStr" type="text" readonly="readonly" value="" name="NoPresentadoStr" class="tablet_data"/>
@@ -272,6 +273,7 @@ $config =Config::getInstance();
                 { field:'Rehuses',		width:5, align:'center',	title: 'R'},
                 { field:'Tocados',		width:5, align:'center',	title: 'T'},
                 { field:'Tiempo',		width:15, align:'right',	title: '<?php _e('Time');?>'	},
+                { field:'TIntermedio',	width:0, hidden:true },
                 { field:'Eliminado',	width:5, align:'center',	formatter:formatEliminado,	title: 'EL.'},
                 { field:'NoPresentado',	width:5, align:'center',	formatter:formatNoPresentado,	title: 'NP'},
                 { field:'Observaciones',width:0, hidden:true }
