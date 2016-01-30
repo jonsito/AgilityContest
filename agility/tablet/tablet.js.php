@@ -217,6 +217,7 @@ function tablet_np(sendEvent) {
 	var tdnp=$('#tdialog-NoPresentado');
 	var tdnpstr=$('#tdialog-NoPresentadoStr');
 	var tdtime=$('#tdialog-Tiempo');
+	var tdtint=$('#tdialog-TIntermedio');
 	var tdflt=$('#tdialog-Faltas');
 	var tdtoc=$('#tdialog-Rehuses');
 	var tdreh=$('#tdialog-Tocados');
@@ -231,6 +232,7 @@ function tablet_np(sendEvent) {
 		tdreh.val(0);
 		tdtoc.val(0);
 		tdtime.val(0);
+		tdtint.val(0);
 	} else {
 		tdnp.val(0);
 		tdnpstr.val("");
@@ -245,6 +247,7 @@ function tablet_np(sendEvent) {
 				'Tocados'		:	tdtoc.val(),
 				'Rehuses'		:	tdreh.val(),
 				'Tiempo'		:	tdtime.val(),
+				'TIntermedio'	:	tdtint.val(),
 				'Eliminado'		:	tde.val()
 			}
 		);
@@ -258,6 +261,7 @@ function tablet_elim(sendEvent) {
 	var tdestr=$('#tdialog-EliminadoStr');
 	var tdnp=$('#tdialog-NoPresentado');
 	var tdtime=$('#tdialog-Tiempo');
+	var tdtint=$('#tdialog-Tintermedio');
 	var n= parseInt(tde.val());
 	if (n==0) {
 		tde.val(1);
@@ -277,6 +281,7 @@ function tablet_elim(sendEvent) {
 			{
 				'NoPresentado'	:	tdnp.val(),
 				'Tiempo'		:	tdtime.val(),
+				'TIntermedio'	:	tdtint.val(),
 				'Eliminado'		:	tde.val()
 			}
 		);
