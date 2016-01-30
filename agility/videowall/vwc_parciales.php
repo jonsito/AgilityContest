@@ -238,29 +238,35 @@ Pantalla de de visualizacion combinada llamada/parciales
             { field:'Manga',		hidden:true },
             { field:'Perro',		hidden:true },
             { field:'Equipo',		hidden:true },
-            { field:'NombreEquipo',	hidden:true },
             { field:'Dorsal',		width:'10%', align:'center', title: '<?php _e('Dorsal'); ?>'},
             // { field:'Licencia',		width:'10%', align:'center',  title: '<?php _e('License'); ?>'},
             { field:'Nombre',		width:'15%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
             { field:'NombreGuia',	width:'30%', align:'right', title: '<?php _e('Handler'); ?>',formatter:formatLlamadaGuia },
             { field:'NombreClub',	width:'20%', align:'right', title: '<?php _e('Club'); ?>' },
-            { field:'Celo',	        width:'5%', align:'center', title: '<?php _e('Heat'); ?>',formatter:formatCelo }
+            { field:'NombreEquipo',	width:'20%', align:'right', title: '<?php _e('Team'); ?>',hidden:true },
+            { field:'Celo',	        width:'5%',  align:'center', title: '<?php _e('Heat'); ?>',formatter:formatCelo }
         ]],
         rowStyler:myLlamadaRowStyler,
-        onBeforeLoad: function(param) {
-            var mySelf=$('#vw_llamada-datagrid');
+        onLoadSuccess: function(data) {
+            var mySelf=$('#vwc_llamada-datagrid');
             // show/hide team name
             if (isTeamByJornada(workingData.datosJornada) ) {
-                mySelf.datagrid('hideColumn','Grado');
+                mySelf.datagrid('hideColumn','NombreClub');
+                mySelf.datagrid('showColumn','NombreEquipo');
             } else  {
-                mySelf.datagrid('showColumn','Grado');
+                mySelf.datagrid('hideColumn','NombreEquipo');
+                mySelf.datagrid('showColumn','NombreClub');
             }
             mySelf.datagrid('fitColumns'); // expand to max width
+
+        },
+        onBeforeLoad: function(param) {
             // do not update until 'open' received
             if( $('#vwc_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
             return true;
         }
     });
+
     $('#vwcp_ultimos-datagrid').datagrid({
         // propiedades del panel asociado
         fit: true,

@@ -457,12 +457,14 @@ function vwcf_updateLlamada(evt,data) {
 		}
 	});
 }
+
 /**
+ * (Old-style combinada)
  * Actualiza el datagrid de resultados con los datos asociados al evento recibido
  * @param {object} evt event
  * @param {object} data system status data info
  */
-function vwcp_updateParciales(evt,data) {
+function vw_updateParciales(evt,data) {
     // en lugar de invocar al datagrid, lo que vamos a hacer es
     // una peticion ajax, para obtener a la vez los datos tecnicos de la manga
     // y de los jueces
@@ -554,6 +556,7 @@ function vwcf_updateFinales(evt,data,callback) {
 }
 
 /**
+ * ( new style combinada parcial)
  * Actualiza el datagrid de resultados con los datos asociados al evento recibido
  * @param {object} evt event
  * @param {object} data system status data info
@@ -591,6 +594,7 @@ function vwcp_updateParciales(evt,data) {
 		}
 	});
 }
+
 /**
  * Refresca periodicamente el orden de salida correspondiente
  * a la seleccion especificada
