@@ -120,6 +120,8 @@ function formatTeamResults( value , rows ) {
             addLogo(rows[n].LogoClub);
         }
     }
+    // return '<table border="1" style="width:100%"><tr><td>hola mundo </td></tr></table>';
+
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
     return '<div class="vw_equipos3" style="width:'+width+'px;">'+
         '<span style="width:10%;text-align:left;">'+logos+'</span>'+
@@ -128,6 +130,7 @@ function formatTeamResults( value , rows ) {
         '<span style="width:30%;text-align:right;">Penaliz.:'+(penal).toFixed(ac_config.numdecs)+'</span>'+
         '<span style="width:5%;text-align:right;font-size:1.5em;">'+(workingData.teamCounter++)+'</span>'+
         '</div>';
+
 }
 
 function formatTeamResultsConsole( value , rows ) {

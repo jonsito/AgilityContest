@@ -201,10 +201,9 @@ td.vw_club {
 }
 
 /************** datos de las tablas de clasificaciones por equipos */
+
 .vw_equipos3 {
     border-width:0px;
-    table-layout:fixed;
-    width:1000px;
     overflow:hidden;
     white-space:nowrap;
 }
@@ -214,7 +213,6 @@ td.vw_club {
     padding-right: -5px;
     text-align:right;
     vertical-align:top;
-    width:20%;
 }
 
 /************* estilos de la tabla de inscripciones por equipos */
