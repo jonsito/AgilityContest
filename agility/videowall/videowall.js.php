@@ -472,7 +472,6 @@ function vw_updateParciales(evt,data) {
     // en lugar de invocar al datagrid, lo que vamos a hacer es
     // una peticion ajax, para obtener a la vez los datos tecnicos de la manga
     // y de los jueces
-    workingData.teamCounter=1; // reset team's puesto counter
     var mode=getMangaMode(data.Prueba.RSCE,data.Manga.Recorrido,data.Tanda.Categoria);
     var modestr=getMangaModeString(data.Prueba.RSCE,data.Manga.Recorrido,data.Tanda.Categoria);
     $.ajax({
@@ -499,6 +498,7 @@ function vw_updateParciales(evt,data) {
             $('#vw_parciales-TRM').text(dat['trs'].trm + 's.');
             $('#vw_parciales-Velocidad').text( dat['trs'].vel + 'm/s');
             // actualizar datagrid
+			workingData.teamCounter=1; // reset team's puesto counter
             $('#vw_parciales-datagrid').datagrid('loadData',dat);
         }
     });
@@ -569,7 +569,6 @@ function vwcp_updateParciales(evt,data) {
 	// en lugar de invocar al datagrid, lo que vamos a hacer es
 	// una peticion ajax, para obtener a la vez los datos tecnicos de la manga
 	// y de los jueces
-	workingData.teamCounter=1; // reset team's puesto counter
 	var mode=getMangaMode(data.Prueba.RSCE,data.Manga.Recorrido,data.Tanda.Categoria);
 	var modestr=getMangaModeString(data.Prueba.RSCE,data.Manga.Recorrido,data.Tanda.Categoria);
 	$.ajax({
@@ -594,6 +593,7 @@ function vwcp_updateParciales(evt,data) {
 			$('#vwcp_parciales-TRM').text(dat['trs'].trm + 's.');
 			$('#vwcp_parciales-Velocidad').text( dat['trs'].vel + 'm/s');
 			// actualizar datagrid
+			workingData.teamCounter=1; // reset team's puesto counter
 			$('#vw_parciales-datagrid').datagrid('loadData',dat);
 		}
 	});

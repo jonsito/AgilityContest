@@ -134,7 +134,6 @@ function pb_updateParciales() {
     // obtenemos la manga seleccionada. if no selection return
     var row=$('#pb_enumerateParciales').combogrid('grid').datagrid('getSelected');
     if (!row) return;
-    workingData.teamCounter=1; // reset team's puesto counter
     workingData.manga=row.Manga;
     workingData.datosManga=row;
     workingData.tanda=0; // fake tanda. use manga+mode to evaluate results
@@ -165,6 +164,7 @@ function pb_updateParciales() {
             $('#pb_parciales-TRM').text('<?php _e('Maximum C. Time');?>: ' + dat['trs'].trm + 's.');
             $('#pb_parciales-Velocidad').text('<?php _e('Speed');?>: ' + dat['trs'].vel + 'm/s');
             // actualizar datagrid
+            workingData.teamCounter=1; // reset team's puesto counter
             $('#pb_parciales-datagrid').datagrid('loadData',dat);
         }
     });
@@ -179,7 +179,6 @@ function pb_updateFinales() {
     	// $.messager.alert("Error:","!No ha seleccionado ninguna ronda de esta jornada!","warning");
     	return; // no way to know which ronda is selected
 	}
-    workingData.teamCounter=1; // reset team's puesto counter
     // do not call pb_doResults cause expected json data
 	$.ajax({
 		type:'GET',
@@ -225,6 +224,7 @@ function pb_updateFinales() {
                 $('#pb_finales-Velocidad2').html('<?php _e('Speed');?>: ' + dat['trs2'].vel + 'm/s');
             }
             // clasificaciones
+            workingData.teamCounter=1; // reset team's puesto counter
             $('#pb_resultados-datagrid').datagrid('loadData',dat);
 		}
 	});

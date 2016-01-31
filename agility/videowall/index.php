@@ -146,7 +146,8 @@ function myLlamadaRowStyler(idx,row) {
 
     /* ajuste de las cabeceras de los datagrid groupview */
     .datagrid-body .datagrid-group {
-        background-color: <?php echo $config->getEnv('vw_hdrbg2'); ?>;
+        background-color: <?php echo $config->getEnv('vw_hdrbg3'); ?>;
+		color: <?php echo $config->getEnv('vw_hdrfg3'); ?>;
         height:40px;
         line-height: 40px;
     }

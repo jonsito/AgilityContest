@@ -57,7 +57,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             <table id="vwc_llamada-datagrid" class="vwc_top"></table>
         </div>
         <div data-options="region:'center',border:false" class="vwc_top"><!-- Espacio vacio -->&nbsp;</div>
-        <div data-options="region:'east'" style="width:55%;"> <!-- RESULTADOS PARCIALES -->
+        <div id="vw_parciales-data" data-options="region:'east'" style="width:55%;"> <!-- RESULTADOS PARCIALES -->
             <!-- Datos de TRS y TRM -->
             <table class="vw_trs">
                 <tbody>
@@ -184,7 +184,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             // { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
             { field:'LogoClub',		width:'8%', align:'center', title: '', formatter:formatLogo},
             // { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
-            { field:'Nombre',		width:'12%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBoldBig},
+            { field:'Nombre',		width:'12%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
             { field:'NombreGuia',	width:'17%', align:'right', title: '<?php _e('Handler'); ?>' },
             { field:'NombreClub',	width:'14%', align:'right', title: '<?php _e('Club'); ?>' },
             { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.' },
@@ -203,6 +203,8 @@ Pantalla de de visualizacion combinada llamada/parciales
         ]],
         rowStyler:myRowStyler,
         onBeforeLoad: function(param) {
+            // make sure team counter is reset
+            workingData.teamCounter=1;
             // do not update until 'open' received
             if( $('#vwcp_header-infoprueba').html()==='<?php _e('Contest'); ?>') return false;
             return true;
@@ -289,7 +291,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             // { field:'Dorsal',		width:'5%', align:'center', title: 'Dorsal'},
             { field:'Logo',		width:'8%', align:'center', title: '', formatter:formatLogo},
             // { field:'Licencia',		width:'5%%', align:'center',  title: 'Licencia'},
-            { field:'Nombre',		width:'8%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBoldBig},
+            { field:'Nombre',		width:'8%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
             { field:'NombreGuia',	width:'16%', align:'right', title: '<?php _e('Handler'); ?>' },
             { field:'NombreClub',	width:'13%', align:'right', title: '<?php _e('Club'); ?>' },
             { field:'Categoria',	width:'3%', align:'center', title: '<?php _e('Cat'); ?>.' },
@@ -357,6 +359,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         'open': function (event, time) { // operator select tanda
             vw_updateWorkingData(event,function(e,d){
                 vwc_updateDataInfo(e,d);
+                vw_formatResultadosDatagrid(e,d); // not really needed, but usefull for debugging
                 vwcp_updateLlamada(e,d,false);
                 vwcp_updateParciales(e,d);
             });

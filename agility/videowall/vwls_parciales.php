@@ -149,7 +149,7 @@ $('#vw_parciales-datagrid').datagrid({
         { field:'Dorsal',		width:'5%', align:'center', title: '<?php _e('Dorsal'); ?>'},
         { field:'LogoClub',		width:'5%', align:'center', title: '', formatter:formatLogoVideoWall},
         { field:'Licencia',		width:'5%%', align:'center',  title: '<?php _e('License'); ?>'},
-        { field:'Nombre',		width:'10%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBoldBig},
+        { field:'Nombre',		width:'10%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
         { field:'NombreGuia',	width:'15%', align:'right', title: '<?php _e('Handler'); ?>' },
         { field:'NombreClub',	width:'12%', align:'right', title: '<?php _e('Club'); ?>' },
         { field:'Categoria',	width:'4%', align:'center', title: '<?php _e('Cat'); ?>.' },
@@ -168,6 +168,8 @@ $('#vw_parciales-datagrid').datagrid({
     ]],
     rowStyler:myTransparentRowStyler,
     onBeforeLoad: function(param) {
+        // make sure team counter is reset
+        workingData.teamCounter=1;
         // do not update until 'open' received
         if( $('#vw_header-infoprueba').html()==='<?php _e('Header'); ?>') return false;
         return true;
@@ -190,6 +192,7 @@ var eventHandler= {
     'open': function(event){ // operator select tanda
         vw_updateWorkingData(event,function(e,d){
             vw_updateDataInfo(e,d);
+            vw_formatResultadosDatagrid(e,d); // not really needed but ease debugging
             vw_updateParciales(e,d);
         });
     },

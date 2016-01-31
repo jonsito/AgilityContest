@@ -104,7 +104,8 @@ function formatTeamResults( value , rows ) {
     var time=0.0;
     var penal=0.0;
     var logos="";
-    var width=($('#header-combinadaFlag').text()==='true')?500:1000;
+    // var width=($('#header-combinadaFlag').text()==='true')?500:1000;
+    var width= 0.9 * parseInt($('#vw_parciales-data').css('width').replace('px',''));
     var tmode=(isJornadaEq3()?3:4);
     function addLogo(logo) {
         if (logos.indexOf(logo)>=0) return;
@@ -113,24 +114,21 @@ function formatTeamResults( value , rows ) {
     for (var n=0;n<tmode;n++) {
         if ( typeof(rows[n])==='undefined') {
             penal+=200.0;
-            logos = logos + '&nbsp';
+            addLogo('null.png');
         } else {
             penal+=parseFloat(rows[n].Penalizacion);
             time+=parseFloat(rows[n].Tiempo);
             addLogo(rows[n].LogoClub);
         }
     }
-    // return '<table border="1" style="width:100%"><tr><td>hola mundo </td></tr></table>';
-
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
-    return '<div class="vw_equipos3" style="width:'+width+'px;">'+
-        '<span style="width:10%;text-align:left;">'+logos+'</span>'+
-        '<span style="width:25%;text-align:left;">Eq: '+value+'</span>' +
-        '<span style="width:30%;text-align:right;">Tiempo: '+(time).toFixed(ac_config.numdecs)+'</span>' +
-        '<span style="width:30%;text-align:right;">Penaliz.:'+(penal).toFixed(ac_config.numdecs)+'</span>'+
-        '<span style="width:5%;text-align:right;font-size:1.5em;">'+(workingData.teamCounter++)+'</span>'+
-        '</div>';
-
+    return '<div class="vw_equipos3" style="width:'+width+'px">'+
+    '<span style="width:'+Math.round(width*0.30)+'px;text-align:left;">'+logos+'</span>'+
+    '<span style="width:'+Math.round(width*0.35)+'px;text-align:left;">'+value+'</span>' +
+    '<span style="width:'+Math.round(width*0.15)+'px;text-align:right;">T: '+(time).toFixed(ac_config.numdecs)+'</span>' +
+    '<span style="width:'+Math.round(width*0.15)+'px;text-align:right;">P:'+(penal).toFixed(ac_config.numdecs)+'</span>'+
+    '<span style="width:'+Math.round(width*0.05)+'px;text-align:right;font-size:1.5em;">'+(workingData.teamCounter++)+'</span>'+
+    '</div>';
 }
 
 function formatTeamResultsConsole( value , rows ) {
@@ -183,7 +181,7 @@ function formatTeamClasificaciones(value,rows) {
     (manga1.perros).sort(sortResults);
     (manga2.perros).sort(sortResults);
     // y sumamos los tres/cuatro primeros ( 3Mejores/Conjunta ) resultados
-    for (var n=0;n<tmode;n++) {
+    for (n=0;n<tmode;n++) {
         manga1.time +=parseFloat(manga1.perros[n].time);
         manga1.penal +=parseFloat(manga1.perros[n].penal);
         manga2.time +=parseFloat(manga2.perros[n].time);

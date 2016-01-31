@@ -204,15 +204,14 @@ td.vw_club {
 
 .vw_equipos3 {
     border-width:0px;
-    overflow:hidden;
-    white-space:nowrap;
+    padding-top:0px;
+    background-color: <?php echo $config->getEnv('vw_hdrbg3')?>;
+    color: <?php echo $config->getEnv('vw_hdrfg3')?>;
 }
 
 .vw_equipos3 span {
-    display:inline-block;
-    padding-right: -5px;
-    text-align:right;
     vertical-align:top;
+    display:table-cell;
 }
 
 /************* estilos de la tabla de inscripciones por equipos */
