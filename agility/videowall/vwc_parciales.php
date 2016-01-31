@@ -72,7 +72,7 @@ Pantalla de de visualizacion combinada llamada/parciales
                 </tbody>
             </table>
             <!-- tabla de resultados -->
-            <table id="vwcp_parciales-datagrid"></table>
+            <table id="vw_parciales-datagrid"></table>
         </div>
         <div data-options="region:'south',border:false" style="height:25%;">
             <div id="vwcp-layout2">
@@ -152,7 +152,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         }
     });
 
-    $('#vwcp_parciales-datagrid').datagrid({
+    $('#vw_parciales-datagrid').datagrid({
         // propiedades del panel asociado
         fit: true,
         border: false,

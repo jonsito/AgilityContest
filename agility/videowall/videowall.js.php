@@ -311,10 +311,12 @@ function vwc_evalResultados(items) {
 		else dat.Velocidad=parseFloat(dist)/parseFloat(dat.Tiempo);
 		// evaluamos penalizacion
 		dat.PRecorrido=( 5*dat.Faltas + 5*dat.Rehuses + 5*dat.Tocados + 100*dat.Eliminado + 200*dat.NoPresentado );
-		if (dat.Tiempo<=trs) dat.PTiempo=0;
-		else if (dat.Tiempo>=trm) dat.PTiempo=100;
+		if (dat.Tiempo<=trs) dat.PTiempo=0; // por debajo de TRS
+		else if ((dat.Tiempo>=trm) && (trm!=0) ) dat.PTiempo=100; // supera TRS
 		else dat.PTiempo=dat.Tiempo-trs;
 		dat.Penalizacion=dat.PRecorrido+dat.PTiempo;
+	    if (dat.Penalizacion>200) dat.Penalizacion=200; // no presentado
+		else if (dat.Penalizacion>100) dat.Penalizacion=100; // eliminado
 		// evaluamos calificacion
 		if (dat.Penalizacion==0.0) dat.Calificacion="<?php _e('Ex P');?>";
 		if (dat.Penalizacion>=0.0) dat.Calificacion="<?php _e('Exc');?>";
@@ -324,10 +326,12 @@ function vwc_evalResultados(items) {
 		if (dat.Penalizacion>=100.0) dat.Calificacion="<?php _e('Elim');?>";
 		if (dat.Penalizacion>=200.0) dat.Calificacion="<?php _e('N.P.');?>";
 		// evaluamos posicion
-		var results=$('#vwcp_parciales-datagrid').datagrid('getData')['rows'];
-		// alert("results:\n"+JSON.stringify(results));
+		var results=$('#vw_parciales-datagrid').datagrid('getData')['rows'];
+		if (typeof(results)==="undefined") return; // no data yet
 		for (var n=0; n<results.length;n++) {
-			if(results[n].Perro==dat.Perro) {dat.Puesto=results[n].Puesto; break;}
+			if(results[n].Perro==dat.Perro) {
+				dat.Puesto=results[n].Puesto; break;
+			}
 		}
 	}
 }
@@ -590,7 +594,7 @@ function vwcp_updateParciales(evt,data) {
 			$('#vwcp_parciales-TRM').text(dat['trs'].trm + 's.');
 			$('#vwcp_parciales-Velocidad').text( dat['trs'].vel + 'm/s');
 			// actualizar datagrid
-			$('#vwcp_parciales-datagrid').datagrid('loadData',dat);
+			$('#vw_parciales-datagrid').datagrid('loadData',dat);
 		}
 	});
 }
