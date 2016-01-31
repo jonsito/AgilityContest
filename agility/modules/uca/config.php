@@ -135,6 +135,7 @@ class UCA extends Federations {
         if ($perro['P1']<16) $pt1=3;
         if ($perro['P1']<6) $pt1=4;
         if ($perro['P1']==0) $pt1=5;
+        $perro['C1']=($pt1==0)?" ":strval($pt1);
         // manga 2
         $pt2=0;
         if ($c2!=null) {
@@ -144,13 +145,13 @@ class UCA extends Federations {
             if ($perro['P2']<6) $pt2=4;
             if ($perro['P2']==0) $pt2=5;
         }
+        $perro['C2']=($pt2==0)?" ":strval($pt2);
         // final
-        $str=$str=strval($pt1)."-".strval($pt2)."-";
         // solo puntuan en la global los siete primeros con dobles excelentes
         if (($pt1<4) || ($pt2<4) || ($puestocat[$cat]>7) ) {
-            $perro['Calificacion']=$str;
+            $perro['Calificacion']="";
         } else {
-            $perro['Calificacion']= $str . $pts[ $puestocat[$cat]-1 ];
+            $perro['Calificacion']= $pts[ $puestocat[$cat]-1 ];
         }
     }
 }

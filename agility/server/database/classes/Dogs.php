@@ -33,8 +33,10 @@ class Dogs extends DBObject {
     static function isMixBreed($lic){
         $lic=strval($lic);
         $lic=trim($lic);
+		$lic=str_replace("-","",$lic);
         $lic=strtoupper($lic);
-        if (strlen($lic)<4) return false;
+		if (strlen($lic)<4) return false;
+		if (strlen($lic)>4) return false; // UCA,RFEC, and foreing dogs
         if (substr($lic,0,1)=='0') return false;
         if (substr($lic,0,1)=='A') return false;
         if (substr($lic,0,1)=='B') return false;

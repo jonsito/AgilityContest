@@ -143,6 +143,7 @@ class RFEC extends Federations {
         if ($perro['P1']==0.0) $pt1++; // 2 puntos por cero
         // puntos a los 5 primeros por manga/categoria si no estan eliminados
         if ( ($perro['P1']<100) && ($perro['Pcat1']<=5) ) $pt1+= $ptsmanga[$perro['Pcat1']-1];
+        $perro['C1']=($pt1==0)?" ":strval($pt1);
         // manga 2
         $pt2=0;
         if ($c2!=null) {
@@ -151,6 +152,7 @@ class RFEC extends Federations {
             // puntos a los 5 primeros por manga/categoria si no estan eliminados
             if ( ($perro['P2']<100) && ($perro['Pcat2']<=5) ) $pt2+= $ptsmanga[$perro['Pcat2']-1];
         }
+        $perro['C2']=($pt2==0)?" ":strval($pt2);
         // conjunta
         $pfin=0;
         if ($puestocat[$cat]<11) {
@@ -159,10 +161,11 @@ class RFEC extends Federations {
                 $pfin=$ptsglobal[$puestocat[$cat]-1];
             }
         }
+        /** TODO: PENDIENTE DE VERIFICAR */
         // en las pruebas selectivas de caza (regional y nacional) se puntua doble
-        if ($p->Selectiva!=0) { $pt1*=2; $pt2*=2; $pfin*=2; }
+        // if ($p->Selectiva!=0) { $pt1*=2; $pt2*=2; $pfin*=2; }
         // finalmente componemos el string a presentar
-        $perro['Calificacion']=$str=strval($pt1)."-".strval($pt2)."-".strval($pfin);
+        $perro['Calificacion']=strval($pfin);
     }
 }
 ?>
