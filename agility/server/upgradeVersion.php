@@ -232,6 +232,7 @@ try {
     $upg->addCountries();
     $upg->addColumnUnlessExists("Mangas","Orden_Equipos","TEXT");
     $upg->addColumnUnlessExists("Resultados","TIntermedio","double","0.0");
+    $upg->addColumnUnlessExists("Resultados","Games","int(4)",0);
     $upg->addColumnUnlessExists("Perros","NombreLargo","varchar(255)");
     $upg->addColumnUnlessExists("Perros","Genero","varchar(16)");
     $upg->addColumnUnlessExists("Provincias","Pais","varchar(2)","ES");
