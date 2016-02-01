@@ -479,6 +479,13 @@ function setFederation(f) {
 		if (ac_fedInfo[i].ID==0) fed=ac_fedInfo[i]; // mark default and continue search
 		if (ac_fedInfo[i].ID==f) { fed=ac_fedInfo[i]; break; } // found
 	}
+	// in videowall setFederation (invoked from initWorkingData() has no sense.
+	// so result can become null. detect and ignore
+	if (fed==null) {
+		workingData.federation= 0;
+		workingData.datosFederation=null;
+		return;
+	}
 	workingData.federation= fed.ID;
 	workingData.datosFederation=fed;
 	// set background logo and menu entries according intl condition

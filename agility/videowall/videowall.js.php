@@ -583,9 +583,16 @@ function vwcp_updateParciales(evt,data) {
 			Mode:       mode
 		},
 		success: function(dat) {
+            var nRonda=$('#vwcp_header-NombreRonda');
+			if (typeof(dat.rows)==="undefined") {
+				// no data yet.
+				var errMsg="<?php _e('No data yet');?>";
+				nRonda.text(errMsg);
+                return;
+			}
 			// informacion de la manga
 			var str=dat['manga'].TipoManga + " - " + modestr;
-			$('#vwcp_header-NombreRonda').text(str);
+			nRonda.text(str);
 			// datos de TRS
 			$('#vwcp_parciales-Distancia').text(dat['trs'].dist + 'm.');
 			$('#vwcp_parciales-Obstaculos').text(dat['trs'].obst);
