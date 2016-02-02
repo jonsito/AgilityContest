@@ -250,6 +250,7 @@ class VideoWall {
         $found=-1;
         // add dog list, setting up starting orden
         $orden=0;
+        $fcount=0;
         // if dog found, mark index
         foreach ($os['rows'] as &$item) {
             if ( strstr($catstr,$item['Categoria'])===false) continue; // category does not match, ignore
@@ -260,8 +261,11 @@ class VideoWall {
             array_unshift($result,$item);
             // if item matches requested dog, cut
             if ($item['Perro']==$perro) $found=count($result)-1;
+            /*
             if ($found==0) continue;
-            if (count($result)>($found+$after+1)) break;
+            if ($fcount>$after) break;// do not iterate if not needed
+            $fcount++;
+            */
         }
         // fill array with $after empty rows
         for($n=0;$n<$after;$n++) {
