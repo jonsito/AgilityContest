@@ -41,6 +41,22 @@ function formatLogoVideoWall(val,row,idx) {
  */
 function vw_updateWorkingData(evt,callback) {
 	// TODO: do not call server if no change from current data
+	var flag=true;
+	if (workingData.prueba!=evt.Prueba) flag=false;
+	if (workingData.jornada!=evt.Jornada) flag=false;
+	if (workingData.manga!=evt.Manga) flag=false;
+	if (workingData.tanda!=evt.Tanda) flag=false;
+	if (workingData.sesion!=evt.Sesion) flag=false;
+	if (flag) {
+		var data={
+			Prueba:workingData.datosPrueba,
+			Jornada:workingData.datosJornada,
+			Manga:workingData.datosManga,
+			Tanda:workingData.datosTanda,
+			Sesion:workingData.datosSesion,
+		};
+		setTimeout(callback(evt,data),0);
+	}
     $.ajax( {
         type: "GET",
         dataType: 'json',
@@ -59,6 +75,8 @@ function vw_updateWorkingData(evt,callback) {
             setJornada(data.Jornada);
             setManga(data.Manga);
 			setTanda(data.Tanda);
+			workingData.sesion=data.Sesion.ID;
+			workingData.datosSesion=data.Sesion;
             // and finally invoke callback
             if ( typeof(callback)==='function' ) callback(evt,data);
         }
@@ -315,8 +333,8 @@ function vwc_evalResultados(items) {
 		else if ((dat.Tiempo>=trm) && (trm!=0) ) dat.PTiempo=100; // supera TRS
 		else dat.PTiempo=dat.Tiempo-trs;
 		dat.Penalizacion=dat.PRecorrido+dat.PTiempo;
-	    if (dat.Penalizacion>200) dat.Penalizacion=200; // no presentado
-		else if (dat.Penalizacion>100) dat.Penalizacion=100; // eliminado
+	    if (dat.Penalizacion>=200) dat.Penalizacion=200; // no presentado
+		else if (dat.Penalizacion>=100) dat.Penalizacion=100; // eliminado
 		// evaluamos calificacion
 		if (dat.Penalizacion==0.0) dat.Calificacion="<?php _e('Ex P');?>";
 		if (dat.Penalizacion>=0.0) dat.Calificacion="<?php _e('Exc');?>";
@@ -358,7 +376,7 @@ function vwcp_updateLlamada(evt,data) {
 		},
 		success: function(dat,status,jqxhr) {
 			// componemos ventana de llamada
-			$('#vwc_llamada-datagrid').datagrid('loadData',dat['after']).datagrid('scrollTo',dat['after']-1);
+			$('#vwc_llamada-datagrid').datagrid('loadData',dat['after']).datagrid('scrollTo',dat['after'].length-1);
 			// rellenamos ventana de datos del perro en pista
 			$("#vwls_Numero").html(dat['current'][0]['Orden']);
 
@@ -377,7 +395,7 @@ function vwcp_updateLlamada(evt,data) {
 			// evaluamos velocidad, penalización, calificacion y puesto
 			vwc_evalResultados(dat['before']);
 			// rellenamos ventana de ultimos resultados
-			$('#vwcp_ultimos-datagrid').datagrid('loadData',dat['before']).datagrid('scrollTo',0);;
+			$('#vwcp_ultimos-datagrid').datagrid('loadData',dat['before']).datagrid('scrollTo',0);
 		}
 	});
 }
@@ -436,7 +454,7 @@ function vwcf_updateLlamada(evt,data) {
 			}
 
 			// componemos ventana de llamada
-			$('#vwc_llamada-datagrid').datagrid('loadData', dat['after']).datagrid('scrollTo', dat['after'] - 1);
+			$('#vwc_llamada-datagrid').datagrid('loadData', dat['after']).datagrid('scrollTo', dat['after'].length - 1);
 
 			// rellenamos ventana de datos del perro en pista
 			// TODO: obtener datos de manga hermana y presentarlos

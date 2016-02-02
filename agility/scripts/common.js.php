@@ -546,6 +546,15 @@ function setTanda(data) {
 	workingData.datosTanda =data;
 }
 
+function setSesion(data) {
+	workingData.sesion = 0;
+	workingData.nombreSesion = "";
+	workingData.datosTSesion = {};
+	if (typeof(data) === 'undefined') return;
+	workingData.sesion = data.ID;
+	workingData.nombreSesion = data.Nombre;
+	workingData.datosSesion =data;
+}
 var workingData = {};
 /**
  * @param {int} id SessionID
