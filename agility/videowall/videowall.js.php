@@ -200,17 +200,19 @@ function vwls_showOSD(val) {
 function vwls_updateData(data) {
     // some versions of Safari and Chrome doesn't properly take care on html dom changes
     // so stupid .hide().show(0) is needed to take care on this
-	if (data["Faltas"]!=-1) $('#vwls_Faltas').html(data["Faltas"]).hide().show(0);
-	if (data["Tocados"]!=-1) $('#vwls_Tocados').html(data["Tocados"]).hide().show(0);
-	if (data["Rehuses"]!=-1) $('#vwls_Rehuses').html(data["Rehuses"]).hide().show(0);
-	if (data["Tiempo"]!=-1) $('#vwls_Tiempo').html(data["Tiempo"]).hide().show(0);
-	if (data["Eliminado"]==1)	$('#vwls_Tiempo').html('<span class="blink" style="color:red">Elim.</span>').hide().show(0);
+	if (data["Faltas"]!=-1) 	$('#vwls_Faltas').html(data["Faltas"]).hide().show(0);
+	if (data["Tocados"]!=-1) 	$('#vwls_Tocados').html(data["Tocados"]).hide().show(0);
+	if (data["Rehuses"]!=-1) 	$('#vwls_Rehuses').html(data["Rehuses"]).hide().show(0);
+	if (data["Tiempo"]!=-1) 	$('#vwls_Tiempo').html(data["Tiempo"]).hide().show(0);
+	if (data["TIntermedio"]!=-1)$("#vwls_TIntermedio").html(data['TIntermedio']);
+	if (data["Eliminado"]!=-1) 	$("#vwls_Eliminado").html(data['Eliminado']);
+	if (data["Eliminado"]==1) 	$('#vwls_Tiempo').html('<span class="blink" style="color:red">Elim.</span>').hide().show(0);
+	if (data["NoPresentado"]!=-1) $("#vwls_NoPresentado").html(data['NoPresentado']);
 	if (data["NoPresentado"]==1) $('#vwls_Tiempo').html('<span class="blink" style="color:red">N.P.</span>').hide().show(0);
 }
 
  // actualizar datos desde crono -1:decrease 0:ignore 1:increase
 function vwls_updateChronoData(data){
-
 	var i=$('#vwls_Faltas');
 	var res=parseInt( i.html() )+parseInt(data["Faltas"]);
 	if (res<0) res=0;
@@ -223,6 +225,9 @@ function vwls_updateChronoData(data){
 	res=parseInt( i.html() )+parseInt(data["Rehuses"]);
 	if (res<0)res=0;
 	i.html( res.toString() ).hide().show(0);
+	$("#vwls_TIntermedio").html(data['TIntermedio']);
+	$("#vwls_Eliminado").html( (data['Eliminado']==0)?0:1);
+	$("#vwls_NoPresentado").html( (data['NoPresentado']==0)?0:1);
 	// TODO: repaint timestamp when elim/notpresent mark is removed
 	if (data["Eliminado"]==1)	$('#vwls_Tiempo').html('<span class="blink" style="color:red"><?php _e("Elim");?>.</span>').hide().show(0);
 	if (data["NoPresentado"]==1) $('#vwls_Tiempo').html('<span class="blink" style="color:red"><?php _e("NoPr");?>.</span>').hide().show(0);
@@ -269,6 +274,9 @@ function vwls_showData(data) {
 	$('#vwls_Faltas').html(data["Faltas"]);
 	$('#vwls_Tocados').html(data["Tocados"]);
 	$('#vwls_Rehuses').html(data["Rehuses"]);
+	$('#vwls_TIntermedio').html(data["TIntermedio"]);
+	$('#vwls_Eliminado').html(data["Eliminado"]);
+	$('#vwls_NoPresentado').html(data["NoPresentado"]);
 	vwls_tiempo.html(data["Tiempo"]);
 	if (data["Eliminado"]==1)	 vwls_tiempo.html('<span class="blink" style="color:red">Elim.</span>');
 	if (data["NoPresentado"]==1) vwls_tiempo.html('<span class="blink" style="color:red">N.P.</span>');
@@ -305,6 +313,33 @@ function vw_updateLlamada(evt,data) {
 }
 
 /**
+ * each time that "datos" or "chrono_int" arrives, evaluate position of current team
+ */
+function vwls_evalPuestoIntermedio() {
+	var trs=parseInt($('#vwcp_parciales-TRS').text());
+	var trm=parseInt($('#vwcp_parciales-TRM').text());
+	// phase 1 retrieve results
+	var f=parseInt($('#vwls_Faltas').html());
+	var t=parseInt($('#vwls_Tocados').html());
+	var r=parseInt($('#vwls_Rehuses').html());
+	var e=parseInt($('#vwls_Eliminado').html());
+	var n=parseInt($('#vwls_NoPresentado').html());
+	var time=parseFloat($('#vwls_Tiempo').html());
+	var pr=5*f+5*t+4*r+100*e+200*n;
+	var pt=0;
+	var pf=0;
+	if (time<=trs) pt=0; // por debajo de TRS
+	else if ((time>=trm) && (trm!=0) ) pt=100; // supera TRS
+	else pt=time-trs;
+	pf=pt+pr;
+	if (pf>=200) pf=200; // no presentado
+	else if (pf>=100) pf=100; // eliminado
+	// phase 2
+	console.log("trs:"+trs+" trm:"+trm+" f:"+f+" t:"+t+" r:"+r+" e:"+e+" n:"+n+" pr:"+pr+" pt:"+pt+" pf:"+pf);
+	$('#vwls_Puesto').html(pf);
+}
+
+/**
  * Evalua y rellena los datos de penalizacion, calificacion y puesto
  * de un perro dado
  * @param {array} items array de datos Datos de perro a evaluar
@@ -313,7 +348,7 @@ function vwc_evalResultados(items) {
 	// extraemos distancia, trs y trm. con parseInt eliminamos textos extras
 	var dist=parseInt($('#vwcp_parciales-Distancia').text());
 	var trs=parseInt($('#vwcp_parciales-TRS').text());
-	var trm=parseInt($('#vwcp_parciales-Distancia').text());
+	var trm=parseInt($('#vwcp_parciales-TRM').text());
 	for (var idx=0;idx<items.length;idx++) {
 		var dat=items[idx];
 		if (dat.Orden=="") { // entrada vacia
@@ -392,6 +427,9 @@ function vwcp_updateLlamada(evt,data) {
 			$("#vwls_Rehuses").html(dat['current'][0]['Rehuses']);
 			$("#vwls_Tiempo").html(dat['current'][0]['Tiempo']);
 			$("#vwls_Puesto").html(dat['current'][0]['Puesto']);
+			$("#vwls_TIntermedio").html(data['TIntermedio']);
+			$("#vwls_Eliminado").html(data['Eliminado']);
+			$("#vwls_NoPresentado").html(data['NoPresentado']);
 			// evaluamos velocidad, penalización, calificacion y puesto
 			vwc_evalResultados(dat['before']);
 			// rellenamos ventana de ultimos resultados

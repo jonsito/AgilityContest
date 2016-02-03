@@ -144,6 +144,9 @@ Pantalla de de visualizacion combinada llamada/parciales
                         <span class="vwc_data"  id="vwls_Tocados">0</span>
                         <!-- Informacion de cronometro -->
                         <span class="vwc_dtime"  id="vwls_Tiempo">00.000</span>
+                        <span style="display:none" id="vwls_TIntermedio">00.000</span>
+                        <span style="display:none" id="vwls_Eliminado">0</span>
+                        <span style="display:none" id="vwls_NoPresentado">0</span>
                         <span class="vwc_dtime"  id="vwls_Puesto">Puesto</span>
                         <span id="vwls_timestamp" style="display:none"></span>
                     </div>
@@ -368,6 +371,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         },
         'datos': function (event, time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
             vwls_updateData(event);
+            vwls_evalPuestoIntermedio();
         },
         'llamada': function (event, time) {    // llamada a pista
             var crm=$('#cronometro');
@@ -421,6 +425,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             var crm = $('#cronometro');
             if (!crm.Chrono('started')) return;	// si crono no esta activo, ignorar
             crm.Chrono('pause', time);
+            vwls_evalPuestoIntermedio();
             setTimeout(function () {
                 crm.Chrono('resume');
             }, 5000);
@@ -438,6 +443,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         },
         'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
             vwls_updateChronoData(event);
+            vwls_evalPuestoIntermedio();
         },
         'crono_error': null, // fallo en los sensores de paso
         'aceptar': function (event,time) { // operador pulsa aceptar
