@@ -59,7 +59,7 @@ class Federations {
             array('L' => 'Large+Medium',  'M' => '',       'S' => 'Small+Tiny', 'T' => ''), // mixed courses
             array('L' => 'Common course', 'M' => '',       'S' => '',           'T' => '') // common
         ),
-        'Modes' => array(array(/* separado */ 0, 1, 2, -1), array(/* mixto */ 0, 3, 3. -1), array(/* conjunto */ 4, 4, 4, -1 )),
+        'Modes' => array(array(/* separado */ 0, 1, 2, -1), array(/* mixto */ 0, 3, 3, -1), array(/* conjunto */ 4, 4, 4, -1 )),
         'ModeStrings' => array( // text to be shown on each category
             array(/* separado */ "Large", "Medium", "Small", "Invalid"),
             array(/* mixto */ "Large", "Medium+Small", "Medium+Small", "Invalid"),
