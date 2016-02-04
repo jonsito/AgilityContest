@@ -372,7 +372,7 @@ echo '
             }
 
             function restart() {
-                window.location="https://localhost/agility/console";
+                window.location="https://'.$_SERVER['SERVER_ADDR'].'/agility/console";
             }
 
         </script>
