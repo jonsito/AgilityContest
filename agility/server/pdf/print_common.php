@@ -185,8 +185,9 @@ class PrintCommon extends FPDF {
 		$this->SetFont('Helvetica','I',6);
 		$this->Cell(60,10,"AgilityContest-$ver Copyright 2013-2015 by J.A.M.C.",0,0,'L');
 		// Número de página
+		$this->Cell(50,10,_('Date').': '.date("Y/m/d H:i:s"),0,0,'C');
 		$this->SetFont('Helvetica','IB',8);
-		$this->Cell(70,10,_('Page').' '.$this->PageNo().'/{nb}',0,0,'C');
+		$this->Cell(20,10,_('Page').' '.$this->PageNo().'/{nb}',0,0,'C');
 		// informacion de registro
 		$ri=$this->authManager->getRegistrationInfo();
 		$this->SetFont('Helvetica','I',6);

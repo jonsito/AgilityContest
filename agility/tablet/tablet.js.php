@@ -380,7 +380,7 @@ function tablet_cancel() {
 	doBeep();
 	// retrieve original data from parent datagrid
 	var dgname=$('#tdialog-Parent').val();
-	var dg=$(dgname).datagrid();
+	var dg=$(dgname);
 	var row =dg.datagrid('getSelected');
 	if (row) {
 		// update database according row data
@@ -428,11 +428,9 @@ function fillPending(dg,idx) {
 	$('#tdialog-NumberLbl').html('<p>'+(idx+1)+'</p>');
 }
 
-function nextRow(dg, cb){
+function nextRow(dg,row,index, cb){
 	var opts = dg.datagrid('options');
-	var row = dg.datagrid('getSelected');
-	var index = dg.datagrid('getRowIndex', row);
-	if (index>(opts.numRows)) return false; // at the end
+	if (index+1>(opts.numRows)) return false; // at the end
 	dg.datagrid('scrollTo', {
 		index: index+1, // to allow view up to 4 next rows
 		callback: function(index){
@@ -481,13 +479,14 @@ function tablet_accept() {
 		tablet_cronometro('stop');
 		tablet_cronometro('reset');
 	}
+	// check "accept" behaviour in config. If 'tablet_next' = false, just return to round selection
 	if (ac_config.tablet_next==="0") { // no go to next row entry
 		setDataEntryEnabled(false);
 		dg.datagrid('refreshRow',rowindex);
 		return false;
 	}
 	// seleccionamos fila siguiente
-	var res=nextRow(dg,function(index,data) {
+	var res=nextRow(dg,row,rowindex,function(index,data) {
 		// alert ("index:"+index+" data:"+JSON.stringify(data));
 		if (index<0) return false; // no selection
 		if (data==null) { // at end of rows. should not occurs
