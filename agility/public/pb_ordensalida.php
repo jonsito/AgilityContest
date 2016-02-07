@@ -29,7 +29,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <!-- Presentacion del orden de salida de la jornada -->
 <div id="pb_ordensalida-window">
 	<div id="pb_ordensalida-layout" style="width:100%">
-		<div id="pb_ordensalida-Cabecera" data-options="region:'north',split:false" style="height:80px" class="pb_floatingheader">
+		<div id="pb_ordensalida-Cabecera" data-options="region:'north',split:false" style="height:10%;" class="pb_floatingheader">
             <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateOrdenSalida();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
             </a>
@@ -43,7 +43,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 		<div id="pb_tabla" data-options="region:'center'">
 			<table id="pb_ordensalida-datagrid"></table>
 		</div>
-        <div id="pb_ordensalida-footer" data-options="region:'south',split:false" class="pb_floatingfooter">
+        <div id="pb_ordensalida-footer" data-options="region:'south',split:false" style="height:10%;" class="pb_floatingfooter">
             <span id="pb_footer-footerData"></span>
         </div>
 	</div>

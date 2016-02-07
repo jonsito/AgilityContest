@@ -36,7 +36,6 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 
 .pb_floatingfooter {
-    height:60px;
     margin-top:0px;
     margin-bottom:0px;
     padding:5px;

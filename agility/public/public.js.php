@@ -154,15 +154,16 @@ function pb_updateParciales() {
         },
         success: function(dat) {
             // informacion de la manga
-            $('#pb_parciales-NombreManga').text(row.Nombre);
-            $('#pb_parciales-Juez1').text((dat['manga'].Juez1<=1)?"":'<?php _e('Judge');?> 1: ' + dat['manga'].NombreJuez1);
-            $('#pb_parciales-Juez2').text((dat['manga'].Juez2<=1)?"":'<?php _e('Judge');?> 2: ' + dat['manga'].NombreJuez2);
+            // use html() instead of text() to handle html special chars
+            $('#pb_parciales-NombreManga').html(row.Nombre);
+            $('#pb_parciales-Juez1').html((dat['manga'].Juez1<=1)?"":'<?php _e('Judge');?> 1: ' + dat['manga'].NombreJuez1);
+            $('#pb_parciales-Juez2').html((dat['manga'].Juez2<=1)?"":'<?php _e('Judge');?> 2: ' + dat['manga'].NombreJuez2);
             // datos de TRS
-            $('#pb_parciales-Distancia').text('<?php _e('Distance');?>: ' + dat['trs'].dist + 'm.');
-            $('#pb_parciales-Obstaculos').text('<?php _e('Obstacles');?>: ' + dat['trs'].obst);
-            $('#pb_parciales-TRS').text('<?php _e('Standard C. Time');?>: ' + dat['trs'].trs + 's.');
-            $('#pb_parciales-TRM').text('<?php _e('Maximum C. Time');?>: ' + dat['trs'].trm + 's.');
-            $('#pb_parciales-Velocidad').text('<?php _e('Speed');?>: ' + dat['trs'].vel + 'm/s');
+            $('#pb_parciales-Distancia').html('<?php _e('Distance');?>: ' + dat['trs'].dist + 'm.');
+            $('#pb_parciales-Obstaculos').html('<?php _e('Obstacles');?>: ' + dat['trs'].obst);
+            $('#pb_parciales-TRS').html('<?php _e('Standard C. Time');?>: ' + dat['trs'].trs + 's.');
+            $('#pb_parciales-TRM').html('<?php _e('Maximum C. Time');?>: ' + dat['trs'].trm + 's.');
+            $('#pb_parciales-Velocidad').html('<?php _e('Speed');?>: ' + dat['trs'].vel + 'm/s');
             // actualizar datagrid
             workingData.teamCounter=1; // reset team's puesto counter
             $('#pb_parciales-datagrid').datagrid('loadData',dat);
