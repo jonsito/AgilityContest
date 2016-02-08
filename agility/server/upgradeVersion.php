@@ -49,6 +49,11 @@ class Updater {
         if ($this->conn->connect_error) throw new Exception("Cannot perform upgrade process: database::dbConnect()");
     }
 
+    function slaveMode() {
+        if (intval($this->config->getEnv("restricted"))==0) return false;
+        return true;
+    }
+
     function updateVersionHistory() {
         $this->myLogger->enter();
         // make sure database provides version history table
@@ -225,6 +230,7 @@ class Updater {
 }
 
 $upg=new Updater();
+if ($upg->slaveMode()==true) return; // restricted mode. do not try to update database anyway
 try {
     $upg->removeUpdateMark();
     $upg->updateVersionHistory();
