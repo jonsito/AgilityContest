@@ -430,9 +430,10 @@ function fillPending(dg,idx) {
 
 function nextRow(dg,row,index, cb){
 	var opts = dg.datagrid('options');
-	if (index+1>(opts.numRows)) return false; // at the end
+	index++;
+	if (index>=(opts.numRows)) return false; // at the end
 	dg.datagrid('scrollTo', {
-		index: index+1, // to allow view up to 4 next rows
+		index: index, // to allow view up to 4 next rows
 		callback: function(idx){
 			dg.datagrid('selectRow', idx);
 			cb(idx, dg.datagrid('getRows')[idx]);
