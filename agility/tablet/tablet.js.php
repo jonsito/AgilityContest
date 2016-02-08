@@ -433,9 +433,9 @@ function nextRow(dg,row,index, cb){
 	if (index+1>(opts.numRows)) return false; // at the end
 	dg.datagrid('scrollTo', {
 		index: index+1, // to allow view up to 4 next rows
-		callback: function(index){
-			$(this).datagrid('selectRow', index);
-			cb(index, $(this).datagrid('getRows')[index]);
+		callback: function(idx){
+			dg.datagrid('selectRow', idx);
+			cb(idx, dg.datagrid('getRows')[idx]);
 		}
 	});
 	return true;
