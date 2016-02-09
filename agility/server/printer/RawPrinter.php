@@ -111,7 +111,7 @@ class RawPrinter {
         $j=$data['Jornada']->Nombre;
         $m=Mangas::$tipo_manga[$data['Manga']->Tipo][3];
         $d=date('H:i:s');
-        $l1=sprintf("% -10s % -6s % 12s %s",substr(toASCII($p),0,14),substr(toASCII($j),0,9),toASCII($m),$d);
+        $l1=sprintf("% -12s % -7s % 12s %s",substr(toASCII($p),0,12),substr(toASCII($j),0,7),substr(toASCII($m),0,12),$d);
         $printer->text($l1);
         $printer->feed(1);
         $drs=$data['Resultados']['Dorsal'];
@@ -125,7 +125,7 @@ class RawPrinter {
         $printer->feed(1);
         $guia=$data['Resultados']['NombreGuia'];
         $club=$data['Resultados']['NombreClub'];
-        $l3=sprintf("% -27s % 14s",toASCII($guia),toASCII($club));
+        $l3=sprintf("% -27s % 14s",substr(toASCII($guia),0,27),substr(toASCII($club),0,14));
         $printer->text($l3);
         $printer->feed(1);
         $f=$data['Resultados']['Faltas'];
@@ -175,14 +175,14 @@ class RawPrinter {
         if (!$printer) return;
         $printer->initialize();
         $data= array(
-           "prueba" => (object) ['Nombre' => "Printer test" ],
+            "Prueba" => (object) ['Nombre' => "Printer test" ],
             "Jornada" => (object) ['Nombre' => "Journey" ],
             "Manga" => (object) ['Tipo' => 0 ],
             "Resultados" => array(
                 "Dorsal" => "Dors",
                 "Nombre" => "Dog Name",
-                "Categoria" => "Cat",
-                "Grado" => "Grad",
+                "Categoria" => "C",
+                "Grado" => "Grd",
                 "Licencia" => "Lic",
                 "Celo" => "Heat",
                 "NombreGuia" => "Handler name.......",
