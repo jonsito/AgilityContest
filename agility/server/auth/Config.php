@@ -76,6 +76,9 @@ define('AC_TABLET_NEXT',"0");		// acept vuelve a menu (0) o pasa al siguiente (1
 define('AC_TABLET_COUNTDOWN',"1");	// accion tras cuenta de 15 segundos 1:nada 2:crono 3:eliminado
 define('AC_TABLET_KEYBOARD',"1");	// habilita el uso de teclas en en el tablet si portatil/notebook
 
+/** configuracion del sistema de acceso por internet */
+define('AC_WEB_REFRESHTIME',"0");	// periodo de refresco en pantallas live
+
 /** personalizacion del crono electronico */
 define('AC_CRONO_RESYNC',"0");		// si crono manual continua (1) o restart (0) al paso por crono electronico
 define('AC_CRONO_MILISECONDS',"0");	// presentar (1) milesimas o centesimas (0) de segundos
@@ -174,6 +177,9 @@ Class Config {
 		$this->config['tablet_next'] =		AC_TABLET_NEXT;
 		$this->config['tablet_countdown'] =	AC_TABLET_COUNTDOWN;
 		$this->config['tablet_keyboard'] =	AC_TABLET_KEYBOARD;
+
+		// acceso web
+		$this->config['web_refreshtime'] =	AC_WEB_REFRESHTIME;
 
 		// personalizacion del crono
 		$this->config['crono_resync'] =			AC_CRONO_RESYNC;
@@ -348,6 +354,8 @@ Class Config {
 		$this->config['crono_miliseconds'] =	AC_CRONO_MILISECONDS;
 		$this->config['crono_intermediate'] =	AC_CRONO_INTERMEDIATE;
 		$this->config['crono_rectime'] =	AC_CRONO_RECTIME;
+		// web
+		$this->config['web_refreshtime'] =	AC_WEB_REFRESHTIME;
 		// Internacionalizacion. Idiomas
 		$data['lang'] =	AC_LANG;
 		$res=array_merge($this->config,$data);
@@ -412,6 +420,9 @@ Class Config {
 		$data['crono_miliseconds']=http_request('crono_miliseconds','s',AC_CRONO_MILISECONDS);
 		$data['crono_intermediate']=http_request('crono_intermediate','s',AC_CRONO_INTERMEDIATE);
 		$data['crono_rectime']=http_request('crono_rectime','s',AC_CRONO_RECTIME);
+
+		// web
+		$data['web_refreshtime']=http_request('web_refreshtime','s',AC_WEB_REFRESHTIME);
 
 		// Sistema
 		$data=testAndSet($data,'lang','s',AC_LANG);

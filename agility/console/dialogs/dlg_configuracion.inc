@@ -158,6 +158,15 @@ $config =Config::getInstance();
 		
 		<div title="<?php _e('Internet'); ?>" style="padding:10px">
 		<h3><?php _e('Public access from internet'); ?></h3>
+			<label for="web_refreshtime"><?php _e('Data auto-refresh interval'); ?></label>
+			<select id="web_refreshtime" name="web_refreshtime">
+				<option value="0" selected="selected"><?php _e('No refresh'); ?></option>
+				<option value="45">45 sec.</option>
+				<option value="60">1 min.</option>
+				<option value="90">1,5 min.</option>
+				<option value="90">2 min.</option>
+				<option value="300">5 min.</option>
+			</select><br />
 		</div>
 				
 		<div title="<?php _e('System'); ?>" style="padding:10px">

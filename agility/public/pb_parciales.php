@@ -74,6 +74,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
+// fire autorefresh if configured
+var rtime=parseInt(ac_config.web_refreshtime);
+if (rtime!=0) setInterval(pb_updateFinales,1000*rtime);
+
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update partial scores table"); ?>');
 $('#pb_parciales-layout').layout({fit:true});
 

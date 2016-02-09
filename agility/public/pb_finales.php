@@ -32,7 +32,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 <div id="pb_finales-window">
     <div id="pb_finales-layout" style="width:100%">
         <div id="pb_finales-Cabecera" data-options="region:'north',split:false" style="height:20%" class="pb_floatingheader">
-            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateInscripciones();" href="#" style="float:left">
+            <a id="pb_header-link" class="easyui-linkbutton" onClick="pb_updateFinales();" href="#" style="float:left">
                 <img id="pb_header-logo" src="/agility/images/logos/agilitycontest.png" width="50" />
             </a>
             <span style="float:left;padding:10px" id="pb_header-infocabecera"><?php _e('Header'); ?></span>
@@ -117,7 +117,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
+// fire autorefresh if configured
+var rtime=parseInt(ac_config.web_refreshtime);
+if (rtime!=0) setInterval(pb_updateFinales,1000*rtime);
+
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update scores"); ?>');
+
 $('#pb_enumerateFinales').combogrid({
 	panelWidth: 200,
 	panelHeight: 150,
