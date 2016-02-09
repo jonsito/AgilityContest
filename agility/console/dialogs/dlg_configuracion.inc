@@ -23,7 +23,7 @@ $config =Config::getInstance();
 
 <!-- Formularios del menu de configuracion de la aplicacion -->
 
- <div id="config-panel" class="easyui-panel" style="width:550px;height:300px;padding:10px 20px"
+ <div id="config-panel" class="easyui-panel" style="width:800px;height:300px;padding:10px 20px"
 	data-options="fit:true,footer:'#config-dlg-buttons',onOpen:loadConfig">
 	<form id="config-form" name="configuracion" class="easyui-form">
 	<div id="config-tabs" class="easyui-tabs" data-options="tabPosition:'left'" style="width:100%;height:auto">
@@ -195,13 +195,15 @@ $config =Config::getInstance();
             <input type="checkbox" name="register_events" id="register_events" value="1"/><br />
 
 			<label for="event_printer"><?php _e('Printer device name to write tablet reports'); ?></label>
-			<input id="event_printer" name="event_printer" type="text" size="16" value=""/> <?php _e('Paper size'); ?>:
+			<input id="event_printer" name="event_printer" type="text" size="10" value=""/> <?php _e('Paper size'); ?>:
 			<label for="wide_printer58" style="width:70px;">
 				<input type="radio" id="wide_printer58" name="wide_printer" value="0" checked="checked"/> 58mm
 			</label>
 			<label for="wide_printer80" style="width:70px;">
 				<input type="radio" id="wide_printer80" name="wide_printer" value="1"/>	80mm
-			</label><br />
+			</label>
+			<input id="printer-checkBtn" type="button" value="<?php _e("Check");?>" onclick="printerCheck();"/>
+			<br />
 
             <label for="reset_events"><?php _e('Clear event registration on tablet init session'); ?></label>
             <input type="hidden" name="reset_events" value="0"/> <!-- trick for checkboxes -->
@@ -244,6 +246,7 @@ $config =Config::getInstance();
 	addTooltip($('#config-resetBtn').linkbutton(),'<?php _e("Cancel changes. Restore information from server"); ?>');
 	addTooltip($('#config-defaultBtn').linkbutton(),'<?php _e("Factory reset. Configure with default data"); ?>');
 	addTooltip($('#config-okBtn').linkbutton(),'<?php _e("Accept changes. Save as new configuration"); ?>');
+	addTooltip($('#printer-checkBtn').linkbutton(),'<?php _e("Send sample report to check printer"); ?>');
 	
 	function saveConfig() {
 		$('#config-Operation').val('saveConfig');
@@ -267,6 +270,32 @@ $config =Config::getInstance();
 	        }
 	    });
 	}	
+
+	function printerCheck() {
+		$('#config-Operation').val('printerCheck');
+		var frm = $('#config-form');
+		$.ajax({
+			type: 'GET',
+			url: '/agility/server/adminFunctions.php',
+			data: frm.serialize(),
+			dataType: 'json',
+			success: function (result) {
+				if (result.errorMsg){
+					$.messager.show({ width:300, height:200, title: 'Error', msg: result.errorMsg });
+				} else {
+					$.messager.alert({
+						title: '<?php _e("Check"); ?>',
+						msg: '<?php _e("A test page has been sent to event recording printer"); ?>'+" <br />"+
+						'<?php _e("Please check for proper output"); ?> '+ "<br /><br/>" +
+						'<?php _e("Remember to save changes before exiting"); ?>',
+						icon: "info",
+						width: 500
+					});
+					loadConfiguration();
+				}
+			}
+		});
+	}
 
 	function defaultConfig() {
 		$.messager.confirm('<?php _e("Confirm"); ?>','<?php _e("Restore factory default values. Sure?"); ?>',function(r){

@@ -24,7 +24,7 @@ class Mangas extends DBObject {
 	
 	/* copia de la estructura de la base de datos, para ahorrar consultas */
 	public static $tipo_manga= array(
-		0 =>	array ( 0,'Nombre largo',		'Grado corto',	'Nombre corto',	'Grado largo'),
+		0 =>	array ( 0,'Nombre Manga largo',	'Grado corto',	'Nombre manga',	'Grado largo'),
 		1 =>	array( 1, 'Pre-Agility Manga 1', 		'P.A.',	'PreAgility 1',	'Pre-Agility'),
 		2 => 	array( 2, 'Pre-Agility Manga 2', 		'P.A.',	'PreAgility 2',	'Pre-Agility'),
 		3 =>	array( 3, 'Agility Grado I Manga 1',	'GI',	'Agility-1 GI',	'Grado I'),

@@ -27,6 +27,7 @@ require_once(__DIR__."/tools.php");
 require_once(__DIR__."/auth/Config.php");
 require_once(__DIR__."/auth/AuthManager.php");
 require_once(__DIR__."/database/classes/DBObject.php");
+require_once(__DIR__."/printer/RawPrinter.php");
 
 class Admin extends DBObject {
 	protected $myConfig;
@@ -344,7 +345,15 @@ try {
 			$ev=new Eventos("DefaultConfig",1,$am);
 			$ev->reconfigure();
 			break;
-		default: 
+		case "printerCheck":
+			$am->access(PERMS_OPERATOR);
+			$config=Config::getInstance();
+			$pname=http_request("event_printer","s","");
+			$pwide=http_request("wide_printer","i",-1);
+			$printer=new RawPrinter($pname,$pwide);
+			$printer->rawprinter_check();
+			break;
+		default:
 			throw new Exception("adminFunctions:: invalid operation: '$operation' provided");
 	}
 	if ($result===null)	throw new Exception($adm->errormsg); // error

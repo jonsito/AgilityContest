@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-02-09 18:03+0100\n"
-"PO-Revision-Date: 2016-02-09 18:04+0100\n"
+"POT-Creation-Date: 2016-02-09 18:48+0100\n"
+"PO-Revision-Date: 2016-02-09 18:48+0100\n"
 "Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
@@ -722,14 +722,14 @@ msgstr "TRS Medium"
 msgid "Templates"
 msgstr "Plantillas"
 
-#: console/dialogs/infomanga.php:320 console/dialogs/dlg_configuracion.inc:232
+#: console/dialogs/infomanga.php:320 console/dialogs/dlg_configuracion.inc:234
 #: console/dialogs/dlg_tools.inc:12
 msgid "Restore"
 msgstr "Restaurar"
 
 #: console/dialogs/infomanga.php:325 console/dialogs/dlg_competicion.inc:128
-#: console/dialogs/dlg_configuracion.inc:238
-#: console/dialogs/dlg_configuracion.inc:260 console/dialogs/dlg_equipos.inc:57
+#: console/dialogs/dlg_configuracion.inc:240
+#: console/dialogs/dlg_configuracion.inc:263 console/dialogs/dlg_equipos.inc:57
 #: console/dialogs/dlg_guias.inc:60 console/dialogs/dlg_jornadas.inc:119
 #: console/dialogs/dlg_jueces.inc:84 console/dialogs/dlg_perros.inc:94
 #: console/dialogs/dlg_pruebas.inc:77 console/dialogs/dlg_sesiones.inc:75
@@ -2378,7 +2378,7 @@ msgid "Dogs Database Management"
 msgstr "Gesti&oacute;n de datos de Perros"
 
 #: console/index.php:181 public/pb_programa.php:101
-#: server/excel/dog_writer.php:64 console/dialogs/dlg_configuracion.inc:210
+#: server/excel/dog_writer.php:64 console/dialogs/dlg_configuracion.inc:212
 msgid "Dogs"
 msgstr "Perros"
 
@@ -3156,7 +3156,7 @@ msgstr "No se pueden borrar pa&iacute;ses de la base de datos"
 #: scripts/pruebas.js.php:130 scripts/sesiones.js.php:103
 #: scripts/sesiones.js.php:133 scripts/tandas.js.php:123
 #: scripts/usuarios.js.php:109 console/dialogs/dlg_competicion.inc:194
-#: console/dialogs/dlg_configuracion.inc:272
+#: console/dialogs/dlg_configuracion.inc:297
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -4808,72 +4808,94 @@ msgstr "Nombre de la impresora de registro del tablet"
 msgid "Paper size"
 msgstr "Tamaño del papel"
 
-#: console/dialogs/dlg_configuracion.inc:206
+#: console/dialogs/dlg_configuracion.inc:205
+#: console/dialogs/dlg_configuracion.inc:285
+#: console/dialogs/dlg_ordensalida.inc:48
+msgid "Check"
+msgstr "Verificar"
+
+#: console/dialogs/dlg_configuracion.inc:208
 msgid "Clear event registration on tablet init session"
 msgstr "Borrar historial de eventos al iniciar sesi&oacute;n en el tablet"
 
-#: console/dialogs/dlg_configuracion.inc:209
+#: console/dialogs/dlg_configuracion.inc:211
 msgid "Proximity alert on starting order"
 msgstr "Alerta de proximidad en el orden de salida"
 
-#: console/dialogs/dlg_configuracion.inc:212
+#: console/dialogs/dlg_configuracion.inc:214
 msgid "Time data precision shown"
 msgstr "Resoluci&oacute;n de los tiempos mostrados"
 
-#: console/dialogs/dlg_configuracion.inc:214
+#: console/dialogs/dlg_configuracion.inc:216
 msgid "cents"
 msgstr "cent&eacute;simas"
 
-#: console/dialogs/dlg_configuracion.inc:217
+#: console/dialogs/dlg_configuracion.inc:219
 msgid "millis"
 msgstr "mil&eacute;simas"
 
-#: console/dialogs/dlg_configuracion.inc:219
+#: console/dialogs/dlg_configuracion.inc:221
 msgid "Additional server information"
 msgstr "Informaci&oacute;n adicional del servidor"
 
-#: console/dialogs/dlg_configuracion.inc:220
+#: console/dialogs/dlg_configuracion.inc:222
 msgid "IP address(es)"
 msgstr "Direcci&oacute;n(es) IP"
 
-#: console/dialogs/dlg_configuracion.inc:234
+#: console/dialogs/dlg_configuracion.inc:236
 msgid "Default"
 msgstr "Defecto"
 
-#: console/dialogs/dlg_configuracion.inc:243
+#: console/dialogs/dlg_configuracion.inc:245
 msgid "Enter printer name/device or leave empty to disable"
 msgstr ""
 "Nombre o Dispositivo de impresi&oacute;n <br/>Dejar vac&iacute;o para "
 "desactivar"
 
-#: console/dialogs/dlg_configuracion.inc:244
+#: console/dialogs/dlg_configuracion.inc:246
 msgid "Cancel changes. Restore information from server"
 msgstr ""
 "Anular cambios. Recuperar informaci&oacute;n de configuraci&oacute;n del "
 "servidor"
 
-#: console/dialogs/dlg_configuracion.inc:245
+#: console/dialogs/dlg_configuracion.inc:247
 msgid "Factory reset. Configure with default data"
 msgstr ""
 "Configurar aplicaci&oacute;n con los valores por defecto de f&aacute;brica. "
 
-#: console/dialogs/dlg_configuracion.inc:246
+#: console/dialogs/dlg_configuracion.inc:248
 msgid "Accept changes. Save as new configuration"
 msgstr "Aceptar cambios. Guardar como nueva configuraci&oacute;n"
 
-#: console/dialogs/dlg_configuracion.inc:261
+#: console/dialogs/dlg_configuracion.inc:249
+msgid "Send sample report to check printer"
+msgstr "Enviar informe de prueba para comprobar impresora"
+
+#: console/dialogs/dlg_configuracion.inc:264
 msgid "New configuration successfully saved"
 msgstr "Nueva configuraci&oacute;n guardada correctamente"
 
-#: console/dialogs/dlg_configuracion.inc:262
+#: console/dialogs/dlg_configuracion.inc:265
 msgid "You should close session and reload page"
 msgstr "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"
 
-#: console/dialogs/dlg_configuracion.inc:263
+#: console/dialogs/dlg_configuracion.inc:266
 msgid "for changes to become active"
 msgstr "para que los cambios se activen"
 
-#: console/dialogs/dlg_configuracion.inc:272
+#: console/dialogs/dlg_configuracion.inc:286
+msgid "A test page has been sent to event recording printer"
+msgstr "Se ha enviado una pagina de prueba a la impresora de registro"
+
+#: console/dialogs/dlg_configuracion.inc:287
+msgid "Please check for proper output"
+msgstr "Compruebe que la impresi&oacute;n es correcta"
+
+#: console/dialogs/dlg_configuracion.inc:288
+msgid "Remember to save changes before exiting"
+msgstr "Recuerde guardar los cambios antes de salir del men&uacute;"
+
+#: console/dialogs/dlg_configuracion.inc:297
 msgid "Restore factory default values. Sure?"
 msgstr "Restaurar valores por defecto. ¿Seguro?"
 
@@ -5060,10 +5082,6 @@ msgstr "Inverso"
 #: console/dialogs/dlg_ordensalida.inc:44
 msgid "Clone"
 msgstr "Clonar"
-
-#: console/dialogs/dlg_ordensalida.inc:48
-msgid "Check"
-msgstr "Verificar"
 
 #: console/dialogs/dlg_ordensalida.inc:62
 msgid "Manual setting of teams order for this round"
