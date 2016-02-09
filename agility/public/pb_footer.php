@@ -52,9 +52,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
             <img id="pb_footer-logoAgilityContest" src="/agility/images/supporters/agilitycontest.png" alt="agilitycontest" height="50"/>
         </a>
         <span style="padding:5px">
+            <!-- remove to avoid copyright issues -->
+            <!--
             <audio controls autoplay>
                 <source src="/agility/videos/living_for_agility.ogg" type="audio/ogg">
             </audio>
+            -->
         </span>
     </span>
 </div>
