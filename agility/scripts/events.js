@@ -73,7 +73,9 @@ function startEventMgr(sesID,callback) {
 			if ( response['total']!=0) {
 				var row=response['rows'][0];
 				var evtID=row['ID'];
+				var name=getFunctionName(callback);
 				initWorkingData(row['Session']);
+				ac_eventHandlers[name]=500; // recall getEvents() every 500 msecs
 				setTimeout(function(){ waitForEvents(sesID,evtID,0,callback);},0);
 			} else {
 				setTimeout(function(){ startEventMgr(sesID,callback);},timeout );
@@ -86,13 +88,9 @@ function startEventMgr(sesID,callback) {
 	});
 }
 
-function setPollTime(callback,polltime) {
-	var name=getFunctionName(callback);
-	if ( name in ac_eventHandlers ) ac_eventHandlers.name = polltime; // mark to stop
-}
-
 function stopEventMgr(callback) {
-	setPollTime(callback, -1); // mark to stop
+	var name=getFunctionName(callback);
+	ac_eventHandlers[name]=-1; // mark stop polling on this callback
 }
 
 function waitForEvents(sesID,evtID,timestamp,callback){
@@ -117,16 +115,15 @@ function waitForEvents(sesID,evtID,timestamp,callback){
 			});
 			// analyze event handler list to get poll time
 			var name=getFunctionName(callback);
-			if ( name in ac_eventHandlers ) {
-				if (ac_eventHandlers.name<0) { // handler is marked to close
-					ac_eventHandlers.splice(name, 1); // remove handler from array
-					return; 
-				}
-			} else {
-				ac_eventHandlers.name=500; // set default poll time on 500 miliseconds
+			if (typeof(ac_eventHandlers[name])==="undefined"){
+				ac_eventHandlers[name]=500; // mark callback's eventhandler to be called every 500 msecs
+			}
+			if (ac_eventHandlers[name]<0) { // callback's event handler marked to stop polling
+				console.log("Closing event handler: "+name);
+				return;
 			}
 			// re-queue event
-			setTimeout(function(){ waitForEvents(sesID,evtID,timestamp,callback);},ac_eventHandlers.name);
+			setTimeout(function(){ waitForEvents(sesID,evtID,timestamp,callback);},ac_eventHandlers[name]);
 		},
 		error: function(XMLHttpRequest,textStatus,errorThrown) {
 			// alert("error: "+textStatus + " "+ errorThrown );
