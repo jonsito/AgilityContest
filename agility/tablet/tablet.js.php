@@ -382,39 +382,48 @@ function tablet_cancel() {
 	var dgname=$('#tdialog-Parent').val();
 	var dg=$(dgname);
 	var row =dg.datagrid('getSelected');
-	if (row) {
-		// update database according row data
-		row.Operation='update';
-		$.ajax({
-			type:'GET',
-			url:"/agility/server/database/resultadosFunctions.php",
-			dataType:'json',
-			data: row,
-			success: function () {
-				// and fire up cancel event
-				tablet_putEvent(
-						'cancelar',
-						{ 
-							'NoPresentado'	:	row.NoPresentado,
-							'Faltas'		:	row.Faltas,
-							'Tocados'		:	row.Tocados,
-							'Rehuses'		:	row.Rehuses,
-							'Tiempo'		:	row.Tiempo,
-							'TIntermedio'	:	row.TIntermedio,
-							'Eliminado'		:	row.Eliminado
-						} 
-					);
-			}
-		});
-		var index=row =dg.datagrid('getRowIndex',row);
-		dg.datagrid('scrollTo',index);
+	if (!row) { // should not ocurrs
+		tablet_cronometro('stop');
+		tablet_cronometro('reset');
+		console.log("INTERNAL ERROR tablet_cancel(): no selected row");
+		setDataEntryEnabled(false);
+		return false;
 	}
-	// and close panel
-	tablet_cronometro('stop');
-	tablet_cronometro('reset');
-	setDataEntryEnabled(false);
-	return false;
+	var idx=dg.datagrid('getRowIndex',row);
+	// update database according row data
+	row.Operation='update';
+	$.ajax({
+		type:'GET',
+		url:"/agility/server/database/resultadosFunctions.php",
+		dataType:'json',
+		data: row,
+		success: function () {
+			// and fire up cancel event
+			tablet_putEvent(
+				'cancelar',
+				{
+					'NoPresentado'	:	row.NoPresentado,
+					'Faltas'		:	row.Faltas,
+					'Tocados'		:	row.Tocados,
+					'Rehuses'		:	row.Rehuses,
+					'Tiempo'		:	row.Tiempo,
+					'TIntermedio'	:	row.TIntermedio,
+					'Eliminado'		:	row.Eliminado
+				}
+			);
+			dg.datagrid('scrollTo',{
+				index : idx,
+				callback: function(index) {
+					tablet_cronometro('stop');
+					tablet_cronometro('reset');
+					setDataEntryEnabled(false);
+					dg.datagrid('refreshRow',idx);
+				}
+			});
+		}
+	});
 }
+
 function fillPending(dg,idx) {
 	var data=dg.datagrid('getRows');
 	var rows=[];
@@ -450,7 +459,10 @@ function tablet_accept() {
 	var dgname = $('#tdialog-Parent').val();
 	var dg = $(dgname);
 	var row = dg.datagrid('getSelected');
-	if (!row) return false; // nothing to do. should mark error
+	if (!row) { // !no row selected!!. should mark error
+		console.log("INTERNAL ERROR tablet_accept(): no selected row");
+		return false;
+	}
 
 	// send back data to parent tablet datagrid form
 	var obj = formToObject('#tdialog-form');
