@@ -316,27 +316,32 @@ function vw_updateLlamada(evt,data) {
  * each time that "datos" or "chrono_int" arrives, evaluate position of current team
  */
 function vwls_evalPuestoIntermedio() {
-	var trs=parseInt($('#vwcp_parciales-TRS').text());
-	var trm=parseInt($('#vwcp_parciales-TRM').text());
-	// phase 1 retrieve results
-	var f=parseInt($('#vwls_Faltas').html());
-	var t=parseInt($('#vwls_Tocados').html());
-	var r=parseInt($('#vwls_Rehuses').html());
-	var e=parseInt($('#vwls_Eliminado').html());
-	var n=parseInt($('#vwls_NoPresentado').html());
-	var time=parseFloat($('#vwls_Tiempo').html());
-	var pr=5*f+5*t+4*r+100*e+200*n;
-	var pt=0;
-	var pf=0;
-	if (time<=trs) pt=0; // por debajo de TRS
-	else if ((time>=trm) && (trm!=0) ) pt=100; // supera TRS
-	else pt=time-trs;
-	pf=pt+pr;
-	if (pf>=200) pf=200; // no presentado
-	else if (pf>=100) pf=100; // eliminado
-	// phase 2
-	console.log("trs:"+trs+" trm:"+trm+" f:"+f+" t:"+t+" r:"+r+" e:"+e+" n:"+n+" pr:"+pr+" pt:"+pt+" pf:"+pf);
-	$('#vwls_Puesto').html(pf);
+	// use set timeout to make sure data are already refreshed
+	setTimeout(function(){
+		var trs=parseInt($('#vwcp_parciales-TRS').text());
+		var trm=parseInt($('#vwcp_parciales-TRM').text());
+		if (isNaN(trs)) trs=0;
+		if (isNaN(trm)) trm=0;
+		// phase 1 retrieve results
+		var f=parseInt($('#vwls_Faltas').html());
+		var t=parseInt($('#vwls_Tocados').html());
+		var r=parseInt($('#vwls_Rehuses').html());
+		var e=parseInt($('#vwls_Eliminado').html());
+		var n=parseInt($('#vwls_NoPresentado').html());
+		var time=parseFloat($('#vwls_Tiempo').html());
+		if (isNaN(time)) time=0;
+		var pr=5*f+5*t+5*r+100*e+200*n;
+		var pt=0;
+		if (time<=trs) pt=0; // por debajo de TRS
+		else if ((time>=trm) && (trm!=0) ) pt=100; // supera TRS
+		else pt=time-trs;
+		var pf=pt+pr;
+		if (pf>=200) pf=200; // no presentado
+		else if (pf>=100) pf=100; // eliminado
+		// phase 2
+		console.log("trs:"+trs+" trm:"+trm+" f:"+f+" t:"+t+" r:"+r+" e:"+e+" n:"+n+" pr:"+pr+" pt:"+pt+" pf:"+pf);
+		$('#vwls_Puesto').html(pf.toFixed(ac_config.numdecs));
+	},0);
 }
 
 /**
@@ -412,26 +417,30 @@ function vwcp_updateLlamada(evt,data) {
 		success: function(dat,status,jqxhr) {
 			// componemos ventana de llamada
 			$('#vwc_llamada-datagrid').datagrid('loadData',dat['after']).datagrid('scrollTo',dat['after'].length-1);
+			var current=dat['current'][0];
 			// rellenamos ventana de datos del perro en pista
-			$("#vwls_Numero").html(dat['current'][0]['Orden']);
+			$("#vwls_Numero").html(current['Orden']);
 
-			$("#vwls_Logo").attr('src','/agility/images/logos/'+dat['current'][0]['Logo']);
-			$("#vwls_Dorsal").html(dat['current'][0]['Dorsal']);
-			$("#vwls_Nombre").html(dat['current'][0]['Nombre']);
-			var celo=(dat['current'][0]['Celo']!=0)?'<span class="blink"><?php _e("Heat");?></span>':"&nbsp";
+			$("#vwls_Logo").attr('src','/agility/images/logos/'+current['Logo']);
+			$("#vwls_Dorsal").html(current['Dorsal']);
+			$("#vwls_Nombre").html(current['Nombre']);
+			var celo=(current['Celo']!=0)?'<span class="blink"><?php _e("Heat");?></span>':"&nbsp";
 			$("#vwls_Celo").html(celo);
-			$("#vwls_NombreGuia").html(dat['current'][0]['NombreGuia']);
-			$("#vwls_NombreClub").html(dat['current'][0]['NombreClub']);
-			$("#vwls_Faltas").html(dat['current'][0]['Faltas']);
-			$("#vwls_Tocados").html(dat['current'][0]['Tocados']);
-			$("#vwls_Rehuses").html(dat['current'][0]['Rehuses']);
-			$("#vwls_Tiempo").html(dat['current'][0]['Tiempo']);
-			$("#vwls_Puesto").html(dat['current'][0]['Puesto']);
-			$("#vwls_TIntermedio").html(data['TIntermedio']);
-			$("#vwls_Eliminado").html(data['Eliminado']);
-			$("#vwls_NoPresentado").html(data['NoPresentado']);
+			$("#vwls_NombreGuia").html(current['NombreGuia']);
+			$("#vwls_NombreClub").html(current['NombreClub']);
+			$("#vwls_Faltas").html(current['Faltas']);
+			$("#vwls_Tocados").html(current['Tocados']);
+			$("#vwls_Rehuses").html(current['Rehuses']);
+			$("#vwls_Puesto").html(current['Puesto']);
+			$("#vwls_TIntermedio").html(current['TIntermedio']);
+			$("#vwls_Eliminado").html(current['Eliminado']);
+			$("#vwls_NoPresentado").html(current['NoPresentado']);
+			if (current["Eliminado"]==1)	 $("#vwls_Tiempo").html('<span class="blink" style="color:red">Elim.</span>');
+			else if (current["NoPresentado"]==1) $("#vwls_Tiempo").html('<span class="blink" style="color:red">N.P.</span>');
+			else $("#vwls_Tiempo").html(current['Tiempo']);
 			// evaluamos velocidad, penalización, calificacion y puesto
 			vwc_evalResultados(dat['before']);
+			vwls_evalPuestoIntermedio(); // repaint penalization
 			// rellenamos ventana de ultimos resultados
 			$('#vwcp_ultimos-datagrid').datagrid('loadData',dat['before']).datagrid('scrollTo',0);
 		}
@@ -493,24 +502,29 @@ function vwcf_updateLlamada(evt,data) {
 
 			// componemos ventana de llamada
 			$('#vwc_llamada-datagrid').datagrid('loadData', dat['after']).datagrid('scrollTo', dat['after'].length - 1);
-
 			// rellenamos ventana de datos del perro en pista
+			var current=dat['current'][0];
 			// TODO: obtener datos de manga hermana y presentarlos
-			$("#vwls_Numero").html(dat['current'][0]['Orden']);
-			$("#vwls_Logo").attr('src', '/agility/images/logos/' + dat['current'][0]['Logo']);
-			$("#vwls_Dorsal").html(dat['current'][0]['Dorsal']);
-			$("#vwls_Nombre").html(dat['current'][0]['Nombre']);
-			var celo = (dat['current'][0]['Celo'] != 0) ? '<span class="blink"><?php _e("Heat");?></span>' : "&nbsp";
+			$("#vwls_Numero").html(current['Orden']);
+			$("#vwls_Logo").attr('src', '/agility/images/logos/' + current['Logo']);
+			$("#vwls_Dorsal").html(current['Dorsal']);
+			$("#vwls_Nombre").html(current['Nombre']);
+			var celo = (current['Celo'] != 0) ? '<span class="blink"><?php _e("Heat");?></span>' : "&nbsp";
 			$("#vwls_Celo").html(celo);
-			$("#vwls_NombreGuia").html(dat['current'][0]['NombreGuia']);
-			$("#vwls_NombreClub").html(dat['current'][0]['NombreClub']);
-			$("#vwls_Faltas").html(dat['current'][0]['Faltas']);
-			$("#vwls_Tocados").html(dat['current'][0]['Tocados']);
-			$("#vwls_Rehuses").html(dat['current'][0]['Rehuses']);
-			$("#vwls_Tiempo").html(dat['current'][0]['Tiempo']);
-			$("#vwls_Puesto").html(dat['current'][0]['Puesto']);
-
+			$("#vwls_NombreGuia").html(current['NombreGuia']);
+			$("#vwls_NombreClub").html(current['NombreClub']);
+			$("#vwls_Faltas").html(current['Faltas']);
+			$("#vwls_Tocados").html(current['Tocados']);
+			$("#vwls_Rehuses").html(current['Rehuses']);
+			$("#vwls_Puesto").html(current['Puesto']);
+			$("#vwls_TIntermedio").html(current['TIntermedio']);
+			$("#vwls_Eliminado").html(current['Eliminado']);
+			$("#vwls_NoPresentado").html(current['NoPresentado']);
+			if (current["Eliminado"]==1)	 $("#vwls_Tiempo").html('<span class="blink" style="color:red">Elim.</span>');
+			else if (current["NoPresentado"]==1) $("#vwls_Tiempo").html('<span class="blink" style="color:red">N.P.</span>');
+			else $("#vwls_Tiempo").html(current['Tiempo']);
 			// rellenamos ventana de ultimos resultados
+			vwls_evalPuestoIntermedio(); // repaint penalization
 			// dado que necesitamos tener la clasificacion con los perros de la tabla "before",
 			// lo que vamos a hacer es calcular dicha tabla aquí, en lugar de desde el evento "aceptar"
 			vwcf_updateFinales(evt, data, vwcf_evalBefore);

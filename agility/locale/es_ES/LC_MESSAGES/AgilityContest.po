@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: AgilityContest\n"
-"POT-Creation-Date: 2016-02-09 18:48+0100\n"
-"PO-Revision-Date: 2016-02-09 18:48+0100\n"
-"Last-Translator: Juan Antonio Martinez <juansgaviota@gmail.com>\n"
+"POT-Creation-Date: 2016-02-11 12:33+0100\n"
+"PO-Revision-Date: 2016-02-11 12:34+0100\n"
+"Last-Translator: Juan Antonio Martínez <juansgaviota@gmail.com>\n"
 "Language-Team: \n"
 "Language: es_ES\n"
 "MIME-Version: 1.0\n"
@@ -69,8 +69,8 @@ msgstr "R"
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_podium.php:102
 #: server/pdf/print_resultadosByEquipos.php:83
 #: server/pdf/print_resultadosByManga.php:63
-#: server/pdf/print_trsTemplates.php:256 tablet/tablet.js.php:536
-#: tablet/tablet.js.php:577 tablet/tablet.js.php:582 tablet/tablet_main.php:77
+#: server/pdf/print_trsTemplates.php:256 tablet/tablet.js.php:548
+#: tablet/tablet.js.php:589 tablet/tablet.js.php:594 tablet/tablet_main.php:77
 #: tablet/tablet_main.php:265 tablet/tablet_main.php:386
 #: videowall/videowall.js.php:255 videowall/vw_llamada.php:97
 #: videowall/vw_ordensalida.php:101 videowall/vw_parciales.php:123
@@ -212,8 +212,8 @@ msgstr "Grado"
 #: server/pdf/print_inscritosByPrueba.php:735
 #: server/pdf/print_ordenDeSalida.php:72 server/pdf/print_ordenDeSalida.php:176
 #: server/pdf/print_trsTemplates.php:257 tablet/tablet_main.php:88
-#: tablet/tablet_main.php:267 videowall/videowall.js.php:421
-#: videowall/videowall.js.php:503 videowall/vw_llamada.php:105
+#: tablet/tablet_main.php:267 videowall/videowall.js.php:424
+#: videowall/videowall.js.php:509 videowall/vw_llamada.php:105
 #: videowall/vw_ordensalida.php:109 videowall/vwc_finales.php:137
 #: videowall/vwc_finales.php:287 videowall/vwc_oldstyle.php:192
 #: videowall/vwc_parciales.php:91 videowall/vwc_parciales.php:252
@@ -340,7 +340,7 @@ msgstr "Reset del cron&oacute;metro. Poner contadores a cero"
 #: server/pdf/print_clasificacion_eq4.php:316
 #: server/pdf/print_entradaDeDatos.php:252
 #: server/pdf/print_resultadosByEquipos4.php:199 tablet/tablet_main.php:103
-#: videowall/videowall.js.php:232 videowall/videowall.js.php:379
+#: videowall/videowall.js.php:232 videowall/videowall.js.php:381
 #: console/dialogs/dlg_competicion.inc:121
 msgid "Elim"
 msgstr "Elim"
@@ -559,8 +559,8 @@ msgstr "Debe seleccionar un ring v&aacute;lido"
 #: server/pdf/print_resultadosByEquipos4.php:91
 #: server/pdf/print_resultadosByEquipos4.php:94
 #: server/pdf/print_resultadosByManga.php:79
-#: server/pdf/print_resultadosByManga.php:82 videowall/videowall.js.php:548
-#: videowall/videowall.js.php:549 videowall/vw_parciales.php:48
+#: server/pdf/print_resultadosByManga.php:82 videowall/videowall.js.php:559
+#: videowall/videowall.js.php:560 videowall/vw_parciales.php:48
 #: videowall/vw_parciales.php:49 videowall/vwls_parciales.php:66
 #: videowall/vwls_parciales.php:67
 msgid "Judge"
@@ -685,8 +685,8 @@ msgstr "TRM fijo"
 #: server/pdf/print_resultadosByEquipos.php:112
 #: server/pdf/print_resultadosByEquipos4.php:102
 #: server/pdf/print_resultadosByManga.php:90
-#: server/pdf/print_trsTemplates.php:127 videowall/videowall.js.php:592
-#: videowall/videowall.js.php:607 videowall/vw_parciales.php:57
+#: server/pdf/print_trsTemplates.php:127 videowall/videowall.js.php:603
+#: videowall/videowall.js.php:618 videowall/vw_parciales.php:57
 #: videowall/vwc_finales.php:68 videowall/vwc_finales.php:76
 #: videowall/vwc_oldstyle.php:65 videowall/vwc_parciales.php:68
 #: videowall/vwls_parciales.php:75 console/dialogs/dlg_resultadosManga.inc:47
@@ -1145,8 +1145,8 @@ msgstr "Tmp"
 #: server/pdf/print_clasificacion_excel.php:134
 #: server/pdf/print_clasificacion_excel.php:143 server/pdf/print_podium.php:116
 #: server/pdf/print_podium.php:124 server/pdf/print_resultadosByEquipos.php:84
-#: server/pdf/print_resultadosByManga.php:63 videowall/videowall.js.php:594
-#: videowall/videowall.js.php:609 videowall/vw_parciales.php:59
+#: server/pdf/print_resultadosByManga.php:63 videowall/videowall.js.php:605
+#: videowall/videowall.js.php:620 videowall/vw_parciales.php:59
 #: videowall/vw_parciales.php:137 videowall/vwc_finales.php:70
 #: videowall/vwc_finales.php:78 videowall/vwc_oldstyle.php:67
 #: videowall/vwc_oldstyle.php:143 videowall/vwc_parciales.php:70
@@ -1604,7 +1604,7 @@ msgstr "Programa"
 #: console/frm_competicion2.php:73 index.php:164 public/pb_ordensalida.php:38
 #: scripts/competicion.js.php:935 server/pdf/print_ordenDeSalida.php:88
 #: server/pdf/print_ordenSalidaEquipos4.php:88 videowall/index.php:183
-#: videowall/index.php:192 videowall/vw_ordensalida.php:36
+#: videowall/index.php:191 videowall/vw_ordensalida.php:36
 #: videowall/vwls_ordensalida.php:56
 msgid "Starting order"
 msgstr "Orden de salida"
@@ -2478,7 +2478,7 @@ msgid "Inscription list"
 msgstr "Listado de inscritos"
 
 #: index.php:165 public/pb_parciales.php:41 public/pb_parciales_eq3.php:41
-#: videowall/index.php:185 videowall/index.php:191
+#: videowall/index.php:185 videowall/index.php:190
 #: videowall/vw_parciales.php:38 videowall/vwc_oldstyle.php:48
 #: videowall/vwc_parciales.php:51 videowall/vwls_parciales.php:56
 msgid "Partial scores"
@@ -2522,7 +2522,7 @@ msgstr "No Presentado"
 #: server/pdf/print_clasificacion_eq4.php:309
 #: server/pdf/print_clasificacion_eq4.php:317
 #: server/pdf/print_entradaDeDatos.php:253
-#: server/pdf/print_resultadosByEquipos4.php:200 videowall/videowall.js.php:380
+#: server/pdf/print_resultadosByEquipos4.php:200 videowall/videowall.js.php:382
 #: console/dialogs/dlg_competicion.inc:122
 msgid "N.P."
 msgstr "N.P."
@@ -2533,14 +2533,14 @@ msgid "Not Clasified"
 msgstr "No Clasificado"
 
 #: modules/Federations.php:173 modules/rfec/config.php:99
-#: modules/uca/config.php:91 videowall/videowall.js.php:378
+#: modules/uca/config.php:91 videowall/videowall.js.php:380
 msgid "N.C."
 msgstr "N.C."
 
 #: modules/Federations.php:176 modules/Federations.php:177
 #: modules/rfec/config.php:102 modules/rfec/config.php:103
 #: modules/uca/config.php:94 modules/uca/config.php:95
-#: videowall/videowall.js.php:377
+#: videowall/videowall.js.php:379
 msgid "Good"
 msgstr "Bien"
 
@@ -2550,7 +2550,7 @@ msgid "Very good"
 msgstr "Muy bien"
 
 #: modules/Federations.php:181 modules/rfec/config.php:107
-#: modules/uca/config.php:99 videowall/videowall.js.php:376
+#: modules/uca/config.php:99 videowall/videowall.js.php:378
 msgid "V.G."
 msgstr "M.B."
 
@@ -2563,7 +2563,7 @@ msgstr "Excelente"
 #: modules/Federations.php:185 modules/rfec/config.php:111
 #: modules/rfec/config.php:115 modules/rsce/config.php:106
 #: modules/uca/config.php:103 modules/uca/config.php:107
-#: videowall/videowall.js.php:375
+#: videowall/videowall.js.php:377
 msgid "Exc"
 msgstr "Exc"
 
@@ -2572,7 +2572,7 @@ msgid "Excellent (p)"
 msgstr "Excelente (p)"
 
 #: modules/Federations.php:189 modules/rsce/config.php:110
-#: videowall/videowall.js.php:374
+#: videowall/videowall.js.php:376
 msgid "Ex P"
 msgstr "Ex P"
 
@@ -3156,7 +3156,7 @@ msgstr "No se pueden borrar pa&iacute;ses de la base de datos"
 #: scripts/pruebas.js.php:130 scripts/sesiones.js.php:103
 #: scripts/sesiones.js.php:133 scripts/tandas.js.php:123
 #: scripts/usuarios.js.php:109 console/dialogs/dlg_competicion.inc:194
-#: console/dialogs/dlg_configuracion.inc:297
+#: console/dialogs/dlg_configuracion.inc:301
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -3648,7 +3648,7 @@ msgstr "Hojas del asistente de pista (10 perros/p&aacute;gina)"
 msgid "Judge assistant sheets (combined for team 4)"
 msgstr "Hojas del asistente de pista (pruebas equipos 4)"
 
-#: scripts/printer.js.php:268 tablet/tablet.js.php:581
+#: scripts/printer.js.php:268 tablet/tablet.js.php:593
 msgid "There is no selected round"
 msgstr "No hay ninguna manga seleccionada"
 
@@ -3875,8 +3875,8 @@ msgstr "Tipo"
 #: server/pdf/print_clasificacion_eq4.php:191
 #: server/pdf/print_clasificacion_excel.php:129
 #: server/pdf/print_clasificacion_excel.php:138
-#: server/pdf/print_trsTemplates.php:127 videowall/videowall.js.php:590
-#: videowall/videowall.js.php:605 videowall/vw_parciales.php:55
+#: server/pdf/print_trsTemplates.php:127 videowall/videowall.js.php:601
+#: videowall/videowall.js.php:616 videowall/vw_parciales.php:55
 #: videowall/vwc_finales.php:66 videowall/vwc_finales.php:74
 #: videowall/vwc_oldstyle.php:63 videowall/vwc_parciales.php:66
 #: videowall/vwls_parciales.php:73
@@ -3891,8 +3891,8 @@ msgstr "Dist"
 #: server/pdf/print_clasificacion_eq4.php:192
 #: server/pdf/print_clasificacion_excel.php:130
 #: server/pdf/print_clasificacion_excel.php:139
-#: server/pdf/print_trsTemplates.php:127 videowall/videowall.js.php:591
-#: videowall/videowall.js.php:606 videowall/vw_parciales.php:56
+#: server/pdf/print_trsTemplates.php:127 videowall/videowall.js.php:602
+#: videowall/videowall.js.php:617 videowall/vw_parciales.php:56
 #: videowall/vwc_finales.php:67 videowall/vwc_finales.php:75
 #: videowall/vwc_oldstyle.php:64 videowall/vwc_parciales.php:67
 #: videowall/vwls_parciales.php:74
@@ -3909,8 +3909,8 @@ msgstr "Obst"
 #: server/pdf/print_clasificacion_excel.php:141
 #: server/pdf/print_resultadosByEquipos.php:114
 #: server/pdf/print_resultadosByManga.php:92
-#: server/pdf/print_trsTemplates.php:127 videowall/videowall.js.php:593
-#: videowall/videowall.js.php:608 videowall/vw_parciales.php:58
+#: server/pdf/print_trsTemplates.php:127 videowall/videowall.js.php:604
+#: videowall/videowall.js.php:619 videowall/vw_parciales.php:58
 #: videowall/vwc_finales.php:69 videowall/vwc_finales.php:77
 #: videowall/vwc_oldstyle.php:66 videowall/vwc_parciales.php:69
 #: videowall/vwls_parciales.php:76 console/dialogs/dlg_resultadosManga.inc:48
@@ -4219,11 +4219,11 @@ msgstr "No se ha indicado ning&uacute;n usuario"
 msgid "Session successfully started"
 msgstr "Sesi&oacute;n iniciada correctamente"
 
-#: tablet/tablet.js.php:535
+#: tablet/tablet.js.php:547
 msgid "Dog with dorsal"
 msgstr "El perro con dorsal"
 
-#: tablet/tablet.js.php:535
+#: tablet/tablet.js.php:547
 msgid "does not run in this series"
 msgstr "no participa en esta manga"
 
@@ -4260,27 +4260,39 @@ msgstr "Abrir el panel de entrada de datos para el dorsal seleccionado"
 msgid "Select Session/Ring"
 msgstr "Selecciona Ring"
 
+#: videowall/index.php:181
+msgid "Video Wall"
+msgstr "Video-Marcadores"
+
 #: videowall/index.php:184 videowall/vw_llamada.php:37
 #: videowall/vwc_finales.php:47 videowall/vwc_oldstyle.php:46
 #: videowall/vwc_parciales.php:47
 msgid "Call to ring"
 msgstr "Llamada a pista"
 
-#: videowall/index.php:186
-msgid "Combo view"
-msgstr "Vista combinada"
+#: videowall/index.php:187
+msgid "Live Stream"
+msgstr "Video en directo"
 
-#: videowall/index.php:190
+#: videowall/index.php:189
 msgid "On Screen Display"
 msgstr "Datos en pantalla (O.S.D.)"
 
-#: videowall/index.php:195
+#: videowall/index.php:193
+msgid "Combo view"
+msgstr "Vista combinada"
+
+#: videowall/index.php:194
 msgid "Combo view (partial)"
 msgstr "Vista combinada (parcial)"
 
-#: videowall/index.php:196
+#: videowall/index.php:195
 msgid "Combo view (final)"
 msgstr "Vista combinada (final)"
+
+#: videowall/index.php:196
+msgid "Combo view (old-style)"
+msgstr "Vista combinada (obsoleta)"
 
 #: videowall/index.php:217
 msgid "View to deploy"
@@ -4303,7 +4315,7 @@ msgstr ""
 msgid "Eq"
 msgstr "Tm"
 
-#: videowall/videowall.js.php:645
+#: videowall/videowall.js.php:656
 msgid "No data yet"
 msgstr "No hay datos todav&iacute;a"
 
@@ -4809,7 +4821,7 @@ msgid "Paper size"
 msgstr "Tamaño del papel"
 
 #: console/dialogs/dlg_configuracion.inc:205
-#: console/dialogs/dlg_configuracion.inc:285
+#: console/dialogs/dlg_configuracion.inc:287
 #: console/dialogs/dlg_ordensalida.inc:48
 msgid "Check"
 msgstr "Verificar"
@@ -4883,19 +4895,19 @@ msgstr "Deber&aacute; cerrar la sesi&oacute;n y recargar la p&aacute;gina"
 msgid "for changes to become active"
 msgstr "para que los cambios se activen"
 
-#: console/dialogs/dlg_configuracion.inc:286
+#: console/dialogs/dlg_configuracion.inc:288
 msgid "A test page has been sent to event recording printer"
 msgstr "Se ha enviado una pagina de prueba a la impresora de registro"
 
-#: console/dialogs/dlg_configuracion.inc:287
+#: console/dialogs/dlg_configuracion.inc:289
 msgid "Please check for proper output"
 msgstr "Compruebe que la impresi&oacute;n es correcta"
 
-#: console/dialogs/dlg_configuracion.inc:288
+#: console/dialogs/dlg_configuracion.inc:290
 msgid "Remember to save changes before exiting"
 msgstr "Recuerde guardar los cambios antes de salir del men&uacute;"
 
-#: console/dialogs/dlg_configuracion.inc:297
+#: console/dialogs/dlg_configuracion.inc:301
 msgid "Restore factory default values. Sure?"
 msgstr "Restaurar valores por defecto. ¿Seguro?"
 

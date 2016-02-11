@@ -210,6 +210,12 @@ Pantalla de de visualizacion combinada llamada/parciales
         interval: 50,
         showMode: 2,
         onUpdate: function(elapsed,running,pause) {
+            /* TODO: properly retrieve TRS for this round
+            var time=parseFloat(elapsed/1000);
+            var trs=parseFloat($('#vwcp_parciales-TRS').text());
+            $('#vwls_Tiempo').html(time.toFixed((running)?1:ac_config.numdecs));
+            if (time>trs) vwls_evalPuestoIntermedio();
+            */
             $('#vwls_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:ac_config.numdecs));
             return true;
         },
@@ -395,6 +401,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             crm.Chrono('stop', time);
             crm.Chrono('reset');
             crm.Chrono('start', time);
+            vwls_evalPuestoIntermedio();
         },
         'stop': function (event, time) {      // stop crono manual
             $('#vwls_StartStopFlag').text("Start");
@@ -411,6 +418,7 @@ Pantalla de de visualizacion combinada llamada/parciales
                 crm.Chrono('stop', time);
                 crm.Chrono('reset');
                 crm.Chrono('start', time);
+                vwls_evalPuestoIntermedio();
                 return
             }
             if (ac_config.crono_resync === "0") {

@@ -178,22 +178,22 @@ function myLlamadaRowStyler(idx,row) {
     	<div class="fitem">
        		<label for="Vista"><?php _e('Select View'); ?>:</label>
        		<select id="selvw-Vista" name="Vista" style="width:200px">
-                <optgroup label="Video Marcadores">
+                <optgroup label="<?php _e('Video Wall');?> ">
                     <!-- videowall -->
                     <option value="0"><?php _e('Starting order'); ?></option>
                     <option value="1"><?php _e('Call to ring'); ?></option>
                     <option value="2"><?php _e('Partial scores'); ?></option>
-                    <option value="3"><?php _e('Combo view'); ?></option>
                 </optgroup>
-                <optgroup label="Live Stream">
+                <optgroup label="<?php _e('Live Stream');?> ">
                     <!-- livestream -->
                     <option value="4"><?php _e('On Screen Display'); ?></option>
                     <option value="5"><?php _e('Partial scores'); ?></option>
                     <option value="6"><?php _e('Starting order'); ?></option>
                 </optgroup>
-				<optgroup label="experimental">
+				<optgroup label="<?php _e('Combo view');?> ">
 					<option value="7"><?php _e('Combo view (partial)'); ?></option>
 					<option value="8"><?php _e('Combo view (final)'); ?></option>
+					<option value="3"><?php _e('Combo view (old-style)'); ?></option>
 				</optgroup>
        		</select>
     	</div>
