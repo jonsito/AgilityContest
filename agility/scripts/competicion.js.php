@@ -246,7 +246,7 @@ function formatTeamClasificacionesConsole(value,rows) {
  * indica si la manga es agility o jumping
  */
 function isAgility(tanda) {
-    switch(tanda) {
+    switch(Number(tanda)) {
         case	0	: /* default */ return true;
 			// en pre-agility no hay categorias
         case    1	:/* Pre-Agility 1'*/ return true;

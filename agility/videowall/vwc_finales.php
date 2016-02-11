@@ -65,16 +65,16 @@ Pantalla de de visualizacion combinada llamada/parciales
                     <td id="vwcf_finales-Manga1" colspan="2"><?php _e('Round'); ?> 1:</td>
                     <td id="vwcf_finales-Distancia1"><?php _e('Dist'); ?>:</td>
                     <td id="vwcf_finales-Obstaculos1"><?php _e('Obst'); ?>:</td>
-                    <td id="vwcf_finales-TRS1"><?php _e('SCT'); ?>:</td>
-                    <td id="vwcf_finales-TRM1"><?php _e('MCT'); ?>:</td>
+                    <td ><?php _e('SCT'); ?>: <span id="vwcf_finales-TRS1"></span>s.</td>
+                    <td ><?php _e('MCT'); ?>: <span id="vwcf_finales-TRM1"></span>s.</td>
                     <td id="vwcf_finales-Velocidad1"><?php _e('Vel'); ?>:</td>
                 </tr>
                 <tr style="text-align:left">
                     <td id="vwcf_finales-Manga2" colspan="2"><?php _e('Round'); ?> 2:</td>
                     <td id="vwcf_finales-Distancia2"><?php _e('Dist'); ?>:</td>
                     <td id="vwcf_finales-Obstaculos2"><?php _e('Obst'); ?>:</td>
-                    <td id="vwcf_finales-TRS2"><?php _e('SCT'); ?>:</td>
-                    <td id="vwcf_finales-TRM2"><?php _e('MCT'); ?>:</td>
+                    <td ><?php _e('SCT'); ?>: <span id="vwcf_finales-TRS2"></span>s.</td>
+                    <td ><?php _e('MCT'); ?>: <span id="vwcf_finales-TRM2"></span>s.</td>
                     <td id="vwcf_finales-Velocidad2"><?php _e('Vel'); ?>:</td>
                 </tr>
                 </tbody>

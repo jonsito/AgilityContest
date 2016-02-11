@@ -333,7 +333,7 @@ function vwls_evalPuestoIntermedio(trs,trm,time) {
 		if (pf>=200) pf=200; // no presentado
 		else if (pf>=100) pf=100; // eliminado
 		// phase 2
-		console.log("trs:"+trs+" trm:"+trm+" f:"+f+" t:"+t+" r:"+r+" e:"+e+" n:"+n+" pr:"+pr+" pt:"+pt+" pf:"+pf);
+		// console.log("trs:"+trs+" trm:"+trm+" f:"+f+" t:"+t+" r:"+r+" e:"+e+" n:"+n+" pr:"+pr+" pt:"+pt+" pf:"+pf);
 		$('#vwls_Puesto').html(pf.toFixed(ac_config.numdecs));
 	},0);
 }
@@ -345,7 +345,7 @@ function vwcp_evalPuestoIntermedio() {
     if (isNaN(trs)) trs=0;
     if (isNaN(trm)) trm=0;
     if (isNaN(time)) time=0;
-    if (time>trs) vwls_evalPuestoIntermedio(trs,trm,time);
+    vwls_evalPuestoIntermedio(trs,trm,time);
 }
 
 function vwcf_evalPuestoIntermedio () {
@@ -363,7 +363,7 @@ function vwcf_evalPuestoIntermedio () {
 	if (isNaN(trs)) trs=0;
 	if (isNaN(trm)) trm=0;
 	if (isNaN(time)) time=0;
-	if (time>trs) vwls_evalPuestoIntermedio(trs,trm,time);
+	vwls_evalPuestoIntermedio(trs,trm,time);
 }
 
 /**
@@ -625,8 +625,8 @@ function vwcf_updateFinales(evt,data,callback) {
 			$('#vwcf_finales-Manga1').html(data.Ronda.NombreManga1);
 			$('#vwcf_finales-Distancia1').html('<?php _e('Dist');?>: ' + dat['trs1'].dist + 'm.');
 			$('#vwcf_finales-Obstaculos1').html('<?php _e('Obst');?>: ' + dat['trs1'].obst);
-			$('#vwcf_finales-TRS1').html('<?php _e('SCT');?>: ' + dat['trs1'].trs + 's.');
-			$('#vwcf_finales-TRM1').html('<?php _e('MCT');?>: ' + dat['trs1'].trm + 's.');
+			$('#vwcf_finales-TRS1').html(dat['trs1'].trs);
+			$('#vwcf_finales-TRM1').html(dat['trs1'].trm);
 			$('#vwcf_finales-Velocidad1').html('<?php _e('Vel');?>: ' + dat['trs1'].vel + 'm/s');
 			// datos de trs manga 2
 			if (data.Ronda.Manga2==0) { // single round
@@ -640,8 +640,8 @@ function vwcf_updateFinales(evt,data,callback) {
 				$('#vwcf_finales-Manga2').html(data.Ronda.NombreManga2);
 				$('#vwcf_finales-Distancia2').html('<?php _e('Dist');?>: ' + dat['trs2'].dist + 'm.');
 				$('#vwcf_finales-Obstaculos2').html('<?php _e('Obst');?>: ' + dat['trs2'].obst);
-				$('#vwcf_finales-TRS2').html('<?php _e('SCT');?>: ' + dat['trs2'].trs + 's.');
-				$('#vwcf_finales-TRM2').html('<?php _e('MCT');?>: ' + dat['trs2'].trm + 's.');
+				$('#vwcf_finales-TRS2').html(dat['trs2'].trs);
+				$('#vwcf_finales-TRM2').html(dat['trs2'].trm);
 				$('#vwcf_finales-Velocidad2').html('<?php _e('Vel');?>: ' + dat['trs2'].vel + 'm/s');
 			}
 			// rellena tabla de clasificaciones
