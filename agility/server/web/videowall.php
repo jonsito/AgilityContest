@@ -229,6 +229,8 @@ class VideoWall {
     /**
      * Obtiene $after+$before+1 perros ordenados segun el orden de salida
      * @param $perro ID de perro tomado como referencia
+     *  if ID==0 means at begin of queue
+     *  if ID<0 means at end of queue
      * @param $before numero de perros a buscar que hayan salido antes del de referencia
      * @param $after numero de perros a introducir que tengan que salir despues del de referencia
      */
@@ -266,6 +268,10 @@ class VideoWall {
         // fill array with $after empty rows
         for($n=0;$n<$after;$n++) {
             array_unshift($result,$this->getEmptyData());
+            // if dogID<0 means seek at end of list
+            if($perro>=0) continue;
+            if($n!=0) continue;
+            $found=count($result)-1;
         }
         // if dog is not provided nor found, just assume default
         if ($found<0) $found=$before;
