@@ -315,21 +315,15 @@ function vw_updateLlamada(evt,data) {
 /**
  * each time that "datos" or "chrono_int" arrives, evaluate position of current team
  */
-function vwls_evalPuestoIntermedio() {
+function vwls_evalPuestoIntermedio(trs,trm,time) {
 	// use set timeout to make sure data are already refreshed
 	setTimeout(function(){
-		var trs=parseInt($('#vwcp_parciales-TRS').text());
-		var trm=parseInt($('#vwcp_parciales-TRM').text());
-		if (isNaN(trs)) trs=0;
-		if (isNaN(trm)) trm=0;
 		// phase 1 retrieve results
 		var f=parseInt($('#vwls_Faltas').html());
 		var t=parseInt($('#vwls_Tocados').html());
 		var r=parseInt($('#vwls_Rehuses').html());
 		var e=parseInt($('#vwls_Eliminado').html());
 		var n=parseInt($('#vwls_NoPresentado').html());
-		var time=parseFloat($('#vwls_Tiempo').html());
-		if (isNaN(time)) time=0;
 		var pr=5*f+5*t+5*r+100*e+200*n;
 		var pt=0;
 		if (time<=trs) pt=0; // por debajo de TRS
@@ -342,6 +336,34 @@ function vwls_evalPuestoIntermedio() {
 		console.log("trs:"+trs+" trm:"+trm+" f:"+f+" t:"+t+" r:"+r+" e:"+e+" n:"+n+" pr:"+pr+" pt:"+pt+" pf:"+pf);
 		$('#vwls_Puesto').html(pf.toFixed(ac_config.numdecs));
 	},0);
+}
+
+function vwcp_evalPuestoIntermedio() {
+    var time=parseFloat($('#vwls_Tiempo').text());
+    var trs=parseFloat($('#vwcp_parciales-TRS').text());
+    var trm=parseFloat($('#vwcp_parciales-TRM').text());
+    if (isNaN(trs)) trs=0;
+    if (isNaN(trm)) trm=0;
+    if (isNaN(time)) time=0;
+    if (time>trs) vwls_evalPuestoIntermedio(trs,trm,time);
+}
+
+function vwcf_evalPuestoIntermedio () {
+	var trs=0;
+	var trm=0;
+    var time=parseFloat($('#vwls_Tiempo').text());
+	if ( isAgility(workingData.datosTanda.Tipo) ) {
+		trs=parseFloat($('#vwcf_finales-TRS1').text());
+		trm=parseFloat($('#vwcf_finales-TRM1').text());
+	}
+	if ( isJumping(workingData.datosTanda.Tipo) ) {
+		trs=parseFloat($('#vwcf_finales-TRS2').text());
+		trm=parseFloat($('#vwcf_finales-TRM2').text());
+	}
+	if (isNaN(trs)) trs=0;
+	if (isNaN(trm)) trm=0;
+	if (isNaN(time)) time=0;
+	if (time>trs) vwls_evalPuestoIntermedio(trs,trm,time);
 }
 
 /**
@@ -440,7 +462,7 @@ function vwcp_updateLlamada(evt,data) {
 			else $("#vwls_Tiempo").html(current['Tiempo']);
 			// evaluamos velocidad, penalización, calificacion y puesto
 			vwc_evalResultados(dat['before']);
-			vwls_evalPuestoIntermedio(); // repaint penalization
+			vwcp_evalPuestoIntermedio(); // repaint penalization
 			// rellenamos ventana de ultimos resultados
 			$('#vwcp_ultimos-datagrid').datagrid('loadData',dat['before']).datagrid('scrollTo',0);
 		}
@@ -524,7 +546,7 @@ function vwcf_updateLlamada(evt,data) {
 			else if (current["NoPresentado"]==1) $("#vwls_Tiempo").html('<span class="blink" style="color:red">N.P.</span>');
 			else $("#vwls_Tiempo").html(current['Tiempo']);
 			// rellenamos ventana de ultimos resultados
-			vwls_evalPuestoIntermedio(); // repaint penalization
+			vwcf_evalPuestoIntermedio(); // repaint penalization
 			// dado que necesitamos tener la clasificacion con los perros de la tabla "before",
 			// lo que vamos a hacer es calcular dicha tabla aquí, en lugar de desde el evento "aceptar"
 			vwcf_updateFinales(evt, data, vwcf_evalBefore);

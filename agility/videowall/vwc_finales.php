@@ -210,13 +210,9 @@ Pantalla de de visualizacion combinada llamada/parciales
         interval: 50,
         showMode: 2,
         onUpdate: function(elapsed,running,pause) {
-            /* TODO: properly retrieve TRS for this round
             var time=parseFloat(elapsed/1000);
-            var trs=parseFloat($('#vwcp_parciales-TRS').text());
             $('#vwls_Tiempo').html(time.toFixed((running)?1:ac_config.numdecs));
-            if (time>trs) vwls_evalPuestoIntermedio();
-            */
-            $('#vwls_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:ac_config.numdecs));
+            vwcf_evalPuestoIntermedio();
             return true;
         },
         onBeforePause:function() { $('#vwls_Tiempo').addClass('blink'); return true; },
@@ -377,7 +373,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         },
         'datos': function (event, time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
             vwls_updateData(event);
-            vwls_evalPuestoIntermedio();
+            vwcf_evalPuestoIntermedio();
         },
         'llamada': function (event, time) {    // llamada a pista
             var crm=$('#cronometro');
@@ -390,6 +386,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         },
         'salida': function (event, time) {     // orden de salida
             myCounter.start();
+            vwcf_evalPuestoIntermedio();
         },
         'start': function (event, time) {      // start crono manual
             // si crono automatico, ignora
@@ -401,7 +398,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             crm.Chrono('stop', time);
             crm.Chrono('reset');
             crm.Chrono('start', time);
-            vwls_evalPuestoIntermedio();
+            vwcf_evalPuestoIntermedio();
         },
         'stop': function (event, time) {      // stop crono manual
             $('#vwls_StartStopFlag').text("Start");
@@ -418,7 +415,7 @@ Pantalla de de visualizacion combinada llamada/parciales
                 crm.Chrono('stop', time);
                 crm.Chrono('reset');
                 crm.Chrono('start', time);
-                vwls_evalPuestoIntermedio();
+                vwcf_evalPuestoIntermedio();
                 return
             }
             if (ac_config.crono_resync === "0") {
@@ -433,7 +430,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             var crm = $('#cronometro');
             if (!crm.Chrono('started')) return;	// si crono no esta activo, ignorar
             crm.Chrono('pause', time);
-            vwls_evalPuestoIntermedio();
+            vwcf_evalPuestoIntermedio();
             setTimeout(function () {
                 crm.Chrono('resume');
             }, 5000);
@@ -451,7 +448,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         },
         'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
             vwls_updateChronoData(event);
-            vwls_evalPuestoIntermedio();
+            vwcf_evalPuestoIntermedio();
         },
         'crono_error': null, // fallo en los sensores de paso
         'aceptar': function (event,time) { // operador pulsa aceptar
