@@ -369,6 +369,11 @@ Pantalla de de visualizacion combinada llamada/parciales
                 vwcp_updateParciales(e,d);
             });
         },
+        'close': function (event, time) { // no more dogs in tanda
+            vw_updateWorkingData(event,function(e,d){
+                vwcp_updateLlamada({'Dog':0},d);
+            });
+        },
         'datos': function (event, time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
             vwls_updateData(event);
             vwcp_evalPuestoIntermedio();
@@ -454,6 +459,7 @@ Pantalla de de visualizacion combinada llamada/parciales
             $('#cronometro').Chrono('stop', time);  // nos aseguramos de que los cronos esten parados
             vw_updateWorkingData(event,function(e,d){
                 vwcp_updateParciales(e,d);
+                // TODO: check if last item in queue and clear queue
             });
         },
         'cancelar': function (event,time) {  // operador pulsa cancelar

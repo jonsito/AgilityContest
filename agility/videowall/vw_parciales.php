@@ -170,6 +170,7 @@ var eventHandler= {
             vw_updateParciales(e,d);
         });
     },
+    'close': null,    // no more dogs in tanda
     'datos': null,      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
     'llamada': null,    // llamada a pista
     'salida': null,     // orden de salida

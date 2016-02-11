@@ -322,6 +322,9 @@ function chrono_processEvents(id,evt) {
 	 	setupWorkingData(event['Pru'],event['Jor'],(event['Mng']>0)?event['Mng']:1,c_updateHeader);
 		// actualizar datos de prueba, jornada, manga y logotipo del club
 		return;
+	case 'close': // no more dogs in tabla
+		// TODO: clear dog data
+		return;
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		c_updateData(event);
 		return;

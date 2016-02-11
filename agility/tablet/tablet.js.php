@@ -514,8 +514,11 @@ function tablet_accept() {
 		fillPending(dg,parseInt(data.RowIndex));
 	});
 	if (res==false) { // at end of list
+		var time = Date.now() - startDate;
 		setDataEntryEnabled(false);
 		dg.datagrid('refreshRow',rowindex);
+		dg.datagrid('unselectAll');
+		tablet_putEvent('close',{ 'Value' : time } );
 	}
 	return false; // prevent follow onClick event chain
 }
@@ -676,6 +679,8 @@ function tablet_processEvents(id,evt) {
 	case 'init': // operator starts tablet application
 		return;
 	case 'open': // operator select tanda:
+		return;
+	case 'close': // no more dogs in tanda
 		return;
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		return;

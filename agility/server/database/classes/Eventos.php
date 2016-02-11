@@ -35,29 +35,30 @@ class Eventos extends DBObject {
 		1	=> 'init',			// operator starts tablet application
 		2	=> 'login',			// operador hace login en el sistema
 		3	=> 'open',			// operator selects tanda on tablet
+		4	=> 'close',			// no more dogs in tanda
 		// eventos de crono manual
-		4	=> 'salida',		// juez da orden de salida ( crono 15 segundos )
-		5	=> 'start',			// Crono manual - value: timestamp
-		6	=> 'stop',			// Crono manual - value: timestamp
+		5	=> 'salida',		// juez da orden de salida ( crono 15 segundos )
+		6	=> 'start',			// Crono manual - value: timestamp
+		7	=> 'stop',			// Crono manual - value: timestamp
 		// eventos de crono electronico. Siempre llevan Value=timestamp como argumento
-		7	=> 'crono_start',	// Arranque Crono electronico
-		8	=> 'crono_restart',	// Paso de crono manual a crono electronico
-		9	=> 'crono_int',		// Tiempo intermedio Crono electronico
-		10	=> 'crono_stop',	// Parada Crono electronico
-		11 	=> 'crono_rec',		// Llamada a reconocimiento de pista
-		12  => 'crono_dat',     // Envio de Falta/Rehuse/Eliminado desde el crono
-		13  => 'crono_reset',	// puesta a cero del contador
-		14	=> 'crono_error',	// error en alineamiento de sensores
+		8	=> 'crono_start',	// Arranque Crono electronico
+		9	=> 'crono_restart',	// Paso de crono manual a crono electronico
+		10	=> 'crono_int',		// Tiempo intermedio Crono electronico
+		11	=> 'crono_stop',	// Parada Crono electronico
+		12 	=> 'crono_rec',		// Llamada a reconocimiento de pista
+		13  => 'crono_dat',     // Envio de Falta/Rehuse/Eliminado desde el crono
+		14  => 'crono_reset',	// puesta a cero del contador
+		15	=> 'crono_error',	// error en alineamiento de sensores
 		// entrada de datos, dato siguiente, cancelar operacion
-		15	=> 'llamada',		// operador abre panel de entrada de datos
-		16	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
-		17	=> 'aceptar',		// grabar datos finales
-		18	=> 'cancelar',		// restaurar datos originales
-        19  => 'info',           // value: message
+		16	=> 'llamada',		// operador abre panel de entrada de datos
+		17	=> 'datos',			// actualizar datos (si algun valor es -1 o nulo se debe ignorar)
+		18	=> 'aceptar',		// grabar datos finales
+		19	=> 'cancelar',		// restaurar datos originales
+        20  => 'info',           // value: message
 		// eventos de cambio de camara para videomarcadores
         // el campo data contiene la variable "Value" (url del stream ) y "mode" { mjpeg,h264,ogg,webm }
-		20	=> 'camera',		// cambio de fuente de streaming
-		21	=> 'reconfig'		// se ha cambiado la configuracion en el servidor
+		21	=> 'camera',		// cambio de fuente de streaming
+		22	=> 'reconfig'		// se ha cambiado la configuracion en el servidor
 	);
 	
 	protected $sessionID;
@@ -106,6 +107,7 @@ class Eventos extends DBObject {
 			case 'init':			// operator starts tablet application
 			case 'login':			// operador hace login en el sistema
 			case 'open':			// operator selects tanda on tablet
+			case 'close':			// no more dogs in tanda
 				break;
 			// eventos de crono manual
 			case 'salida':			// juez da orden de salida ( crono 15 segundos )

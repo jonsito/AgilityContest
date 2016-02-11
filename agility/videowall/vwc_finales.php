@@ -371,6 +371,11 @@ Pantalla de de visualizacion combinada llamada/parciales
                 vwcf_updateLlamada(e,d);
             });
         },
+        'close': function (event, time) { // no more dogs in tanda
+            vw_updateWorkingData(event,function(e,d){
+                vwcf_updateLlamada({'Dog':0},d);
+            });
+        },
         'datos': function (event, time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
             vwls_updateData(event);
             vwcf_evalPuestoIntermedio();
