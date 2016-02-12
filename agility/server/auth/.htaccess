@@ -1,4 +1,1 @@
-<files system.ini>
-	order allow,deny
-	deny from all
-</files>
+deny from all
