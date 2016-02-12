@@ -143,8 +143,8 @@ function doBeep() {
 
 function tablet_add(val) {
 	doBeep();
-	var maxlen=(ac_config.crono_miliseconds=="0")?6:7
-	var declen=(ac_config.crono_miliseconds=="0")?2:3
+	var maxlen=(ac_config.crono_miliseconds=="0")?6:7;
+	var declen=(ac_config.crono_miliseconds=="0")?2:3;
 	var tdt=$('#tdialog-Tiempo');
 	var str=tdt.val();
 	if (parseInt(str)==0) str=''; // clear espurious zeroes
@@ -289,12 +289,50 @@ function tablet_elim(sendEvent) {
 	return false;
 }
 
+/**
+ * Parse data from electronic chronometer
+ * @param data
+ */
+function tablet_updateChronoData(data) {
+	var f=parseInt(data['Faltas']);
+	var r=parseInt(data['Rehuses']);
+	var t=parseInt(data['Tocados']);
+	var e=parseInt(data['Eliminado']);
+	var n=parseInt(data['NoPresentado']);
+	console.log("f:"+f+" t:"+t+" r:"+r+" e:"+e+" n:"+n);
+	if (f>=0) $('#tdialog-Faltas').val(''+f);
+	if (t>=0) $('#tdialog-Tocados').val(''+t);
+	if (r>=0) $('#tdialog-Rehuses').val(''+r);
+	// if (data["Tiempo"]!=-1) $('#chrono_Tiempo').html(data["Tiempo"]);
+	if(e>=0) {
+		var str=(data['Eliminado']==0)?"":"EL";
+		$('tdialog-Eliminado').val(e);
+		$('tdialog-EliminadoStr').val(str);
+		$('tdialog-NoPresentado').val(0);
+		$('tdialog-NoPresentadoStr').val("");
+		$('#tdialog-Tiempo').val(0);
+		$('#tdialog-Tintermedio').val(0);
+	}
+	if (n>=0) {
+		var str=(data['NoPresentado']==0)?"":"NP";
+		$('tdialog-NoPresentado').val(n);
+		$('tdialog-NoPresentadoStr').val(str);
+		$('tdialog-Eliminado').val(0);
+		$('tdialog-EliminadoStr').val("");
+		$('#tdialog-Tiempo').val(0);
+		$('#tdialog-Tintermedio').val(0);
+	}
+	// call server to update results
+	tablet_updateResultados(1);
+	// DO NOT RESEND EVENT!!!
+}
+
 /*** Parse data from electronic chrono:
  * -1:decrease 0:nochange 1:increase
  * Just invoke internal functions, but _disable_ event("data") to be sent
  * @param data
  */
-function tablet_updateChronoData(data) {
+function tablet_updateChronoData_old(data) {
 	var f=parseInt(data['Faltas']);
 	var r=parseInt(data['Rehuses']);
 	var t=parseInt(data['Tocados']);
@@ -633,18 +671,18 @@ function bindKeysToTablet() {
 			// entrada de datos desde tablet
 			case 70: // 'F' -> falta
 			case 32: // ' ' -> space also works as fault
-				if (e.ctrlKey) tablet_down('#tdialog-Faltas');
-				else 	tablet_up('#tdialog-Faltas'); ;
+				if (e.ctrlKey) tablet_down('#tdialog-Faltas',true);
+				else 	tablet_up('#tdialog-Faltas',true);
 				break;
 			case 82: // 'R' -> rehuse
 			case 225: // 'AltGr' -> also works as refusal
-				if (e.ctrlKey) tablet_down('#tdialog-Rehuses');
-				else 	tablet_up('#tdialog-Rehuses'); ;
+				if (e.ctrlKey) tablet_down('#tdialog-Rehuses',true);
+				else 	tablet_up('#tdialog-Rehuses',true);
 				break;
 			case 84: // 'T' -> tocado
 			case 18: // 'Alt' -> also works as "touch"
-				if (e.ctrlKey) tablet_down('#tdialog-Tocados');
-				else 	tablet_up('#tdialog-Tocados'); ;
+				if (e.ctrlKey) tablet_down('#tdialog-Tocados',true);
+				else 	tablet_up('#tdialog-Tocados',true);
 				break;
 			case 69:	tablet_elim(); break; // 'E' -> eliminado
 			case 78:	tablet_np(); break; // 'N' -> no presentado

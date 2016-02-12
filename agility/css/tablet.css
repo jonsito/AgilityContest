@@ -31,7 +31,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 .tablet_info {
 	text-align: left;
-	font-size: 1.6em;
+	font-size: 1.5vw;
 	font-weight: normal;
 	border: 0;
 	/* padding: 10px; */
@@ -39,14 +39,14 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 .tablet_infoheader {
 	text-align: center;
-	font-size: 1.8em;
+	font-size: 1.5vw;
 	font-weight: bold;
 	font-style: italic;
 	border: 1px solid black;
 }
 
 input.tablet_info {
-	font-size: 2.0em;
+	font-size: 1.8vw;
 	font-weight: bold;
 }
 
@@ -54,7 +54,7 @@ input.tablet_info {
 	border: 5px solid black;
 	text-align: center;
 	vertical-align: bottom;
-	font-size: 4.0em;
+	font-size: 4.0vw;
 	font-weight: bold;
 	font-style: italic;
 }
@@ -67,55 +67,55 @@ input.tablet_info {
 .tb_rehuse {
 	background: #a0a0a0 url(/agility/images/rehuse.png) no-repeat center;
 	background-size: contain;
-	font-size: 2.80em;
+	font-size: 2.80vw;
 }
 
 .tb_tocado {
 	background: #a0a0a0 url(/agility/images/tocado.png) no-repeat center;
 	background-size: contain;
-	font-size: 2.80em;
+	font-size: 2.80vw;
 }
 
 .tb_eliminado {
 	background: #ff0000 url(/agility/images/eliminado.png) no-repeat center;
 	background-size: contain;
-	font-size: 1.8em;
+	font-size: 1.8vw;
 }
 
 .tb_nopresentado {
 	background: #a0a000 url(/agility/images/nopresentado.png) no-repeat center;
 	background-size: contain;
-	font-size: 1.6em;
+	font-size: 1.6vw;
 }
 
 .tb_salida {
 	background: #8080f0 url(/agility/images/silbato.png) no-repeat center;
 	background-size: contain;
-	font-size: 2.0em;
+	font-size: 2.0vw;
 }
 
 .tb_reset {
 	background: #0000ff url(/agility/images/reset.png) no-repeat center;
 	background-size: contain;
-	font-size: 2.0em;
+	font-size: 2.0vw;
 }
 
 .tb_crono {
 	background: #00a0a0 url(/agility/images/crono.png) no-repeat center;
 	background-size: contain;
-	font-size: 1.75em;
+	font-size: 1.75vw;
 }
 
 .tb_accept {
 	background: #00a000 url(/agility/images/dog_accept.png) no-repeat center;
 	background-size: contain;
-	font-size: 2.0em;
+	font-size: 2.0vw;
 }
 
 .tb_cancel {
 	background: #f0a0a0 url(/agility/images/dog_cancel.png) no-repeat center;
 	background-size: contain;
-	font-size: 1.6em;
+	font-size: 1.6vw;
 }
 
 .tablet_rectangulo {
@@ -127,13 +127,13 @@ input.tablet_info {
 
 .tablet_data {
 	text-align: center;
-	font-size: 2.0em;
+	font-size: 2.0vw;
 	font-weight: bold;
 	font-style: italic;
 }
 
 input.tablet_numbers {
 	text-align: center;
-	font-size: 3.0em;
+	font-size: 3.0vw;
 	font-weight: bold;
 }

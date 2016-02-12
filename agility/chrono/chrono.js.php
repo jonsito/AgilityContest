@@ -121,12 +121,17 @@ function c_updateData(data) {
 	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red"><?php _e("NoPr");?>.</span>');
 }
 
+function c_updateDataFromChrono(data) {
+	// just call c_updateData()
+	c_updateData(data);
+}
+
 /**
  * Parse data from electronic chrono:
  * -1:decrease 0:nochange 1:increase
  * @param data
  */
-function c_updateDataFromChrono(data) {
+function c_updateDataFromChrono_old(data) {
 	var i=$('#chrono_Faltas');
 	var res=parseInt( i.html() )+parseInt(data["Faltas"]);
 	if (res<0) res=0;
@@ -234,13 +239,27 @@ function c_showData(data) {
 
 /**
  * send events from chronometer to console
- * @param {string} event type
- * @param {object} data event data
+ * @param {string} item button name
  */
-function chrono_button(event,data) {
-    data.Value=Date.now() - startDate;
-	if (event==='crono_rec') data.start=60*parseInt(ac_config.crono_rectime);
-	chrono_putEvent(event,data);
+function chrono_button(item) {
+	var val=1+parseInt($("#chrono_"+item).html());
+	var data={
+		'Faltas': (item=="Faltas")?val:-1,
+		'Tocados':(item=="Tocados")?val:-1,
+		'Rehuses':(item=="Rehuses")?val:-1,
+		'Eliminado':(item=="Eliminado")?val:-1,
+		'NoPresentado':(item=="NoPresentado")?val:-1
+	};
+	chrono_putEvent('crono_dat',data);
+	doBeep();
+}
+
+function chrono_rec() {
+	var data= {
+		'Value' : Date.now() - startDate,
+		'start' : 60 * parseInt(ac_config.crono_rectime)
+	};
+	chrono_putEvent('crono_rec',data);
 	doBeep();
 }
 
@@ -273,32 +292,54 @@ function chrono_sensor(event,data,guard) {
 function bindKeysToChrono() {
     // parse keypress event on every  button
 	$(document).keydown(function(e) {
-		var val=(e.ctrlKey)?-1:1; // take care on control key
+		var val=0;
+		var inc=(e.ctrlKey)?-1:1; // take care on control key
 		switch(e.which) {
 			// reconocimiento de pista
 			case 55: // '7' -> comienzo del reconocimiento
 			case 48: // '0' -> fin del reconocimiento
-				chrono_button('crono_rec',{});
+				var data= {
+					'Value' : Date.now() - startDate,
+					'start' : 60 * parseInt(ac_config.crono_rectime)
+					};
+				chrono_putEvent('crono_rec',data);
 				break;
 			// entrada de datos desde crono -1:dec +1:inc 0:nochange
 			case 70: // 'F' -> falta
-				chrono_button('crono_dat',{'Faltas':val,'Tocados':0,'Rehuses':0,'NoPresentado':0,'Eliminado':0});
+				val=inc + parseInt($("#chrono_Faltas").html());
+				if (val<0) val=0;
+				$("#chrono_Faltas").html(val);
+				chrono_putEvent('crono_dat',{'Faltas':val,'Tocados':-1,'Rehuses':-1,'NoPresentado':-1,'Eliminado':-1});
 				break;
 			case 82: // 'R' -> rehuse
-				chrono_button('crono_dat',{'Faltas':0,'Tocados':0,'Rehuses':val,'NoPresentado':0,'Eliminado':0});
+				val=inc + parseInt($("#chrono_Rehuses").html());
+				if (val<0) val=0;
+				$("#chrono_Rehuses").html(val);
+				chrono_putEvent('crono_dat',{'Faltas':-1,'Tocados':-1,'Rehuses':val,'NoPresentado':-1,'Eliminado':-1});
 				break;
 			case 84: // 'T' -> tocado
-				chrono_button('crono_dat',{'Faltas':0,'Tocados':val,'Rehuses':0,'NoPresentado':0,'Eliminado':0});
+				val=inc + parseInt($("#chrono_Tocados").html());
+				if (val<0) val=0;
+				$("#chrono_Tocados").html(val);
+				chrono_putEvent('crono_dat',{'Faltas':-1,'Tocados':val,'Rehuses':-1,'NoPresentado':-1,'Eliminado':-1});
 				break;
 			case 69: // 'E' -> eliminado
-				chrono_button('crono_dat',{'Faltas':0,'Tocados':0,'Rehuses':0,'NoPresentado':0,'Eliminado':val});
+				val=inc + parseInt($("#chrono-Eliminado").html());
+				val=(val<=0)?0:1;
+				$("#chrono_Eliminado").html(val);
+				if (val==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
+				chrono_putEvent('crono_dat',{'Faltas':-1,'Tocados':-1,'Rehuses':-1,'NoPresentado':-1,'Eliminado':val});
 				break;
 			case 78: // 'N' -> no presentado
-				chrono_button('crono_dat',{'Faltas':0,'Tocados':0,'Rehuses':0,'NoPresentado':val,'Eliminado':0});
+				val=inc + parseInt($("#chrono-NoPresentado").html());
+				val=(val<=0)?0:1;
+				$("#chrono_NoPresentado").html(val);
+				if (val==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red">NoPr.</span>');
+				chrono_putEvent('crono_dat',{'Faltas':-1,'Tocados':-1,'Rehuses':-1,'NoPresentado':val,'Eliminado':-1});
 				break;
 			// arranque parada del crono
             case 8: // 'Del' -> chrono reset
-                chrono_button('crono_reset',{});
+                chrono_putEvent('crono_reset',{});
                 break;
 			case 36: // 'Begin' -> chrono start
 				chrono_sensor('crono_start',{},4000);
@@ -331,6 +372,7 @@ function bindKeysToChrono() {
 				// pass to upper layer to caught and process
                 return true;
 		}
+		doBeep();
 		return false;
 	});
 }

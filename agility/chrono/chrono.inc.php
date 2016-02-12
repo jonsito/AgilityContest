@@ -50,6 +50,8 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span class="chrono_data"  id="chrono_Tocados">0</span>
 			<span class="chrono_data chrono_dataLbl" id="chrono_RehusesLbl"><?php _e('R');?>:</span>
 			<span class="chrono_data"  id="chrono_Rehuses">0</span>
+			<span id="chrono_Eliminado" style="display:none">0</span>
+			<span id="chrono_NoPresentado" style="display:none">0</span>
 			<!-- Cronometro -->
 			<span class="chrono_flags" id="chrono_Manual"></span>
 			<span class="chrono_flags" id="chrono_Intermedio"></span>
@@ -82,13 +84,13 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 	<div id="chrono-buttons" style="width:100%;display:inline-block">
 		<span style="float:left;padding:5px;">
    			<a id="chrono-recBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-huella'" onclick="chrono_button('crono_rec',{})"><?php _e('Course walk'); ?></a>
+   			   	data-options="iconCls: 'icon-huella'" onclick="chrono_rec();"><?php _e('Course walk'); ?></a>
    			<a id="chrono-fltBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-hand'" onclick="chrono_button('crono_dat',{'Faltas':1,'Tocados':0,'Rehuses':0,'NoPresentado':0,'Eliminado':0})"><?php _e('Fault'); ?></a>
+   			   	data-options="iconCls: 'icon-hand'" onclick="chrono_button('Faltas')"><?php _e('Fault'); ?></a>
    			<a id="chrono-rehBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-fist'" onclick="chrono_button('crono_dat',{'Faltas':0,'Tocados':0,'Rehuses':1,'NoPresentado':0,'Eliminado':0})"><?php _e('Refusal'); ?></a>
+   			   	data-options="iconCls: 'icon-fist'" onclick="chrono_button('Tocados')"><?php _e('Refusal'); ?></a>
    			<a id="chrono-elimBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('crono_dat',{'Faltas':0,'Tocados':0,'Rehuses':0,'NoPresentado':0,'Eliminado':1})"><?php _e('Eliminated'); ?></a>
+   			   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('Rehuses')"><?php _e('Eliminated'); ?></a>
    			<a id="chrono-errorBtn" href="#" class="easyui-linkbutton"
 			   data-options="iconCls: 'icon-alert'" onclick="chrono_markError()"><?php _e('Error'); ?></a>
    			<a id="chrono-resetBtn" href="#" class="easyui-linkbutton"

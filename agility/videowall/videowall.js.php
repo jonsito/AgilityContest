@@ -211,8 +211,12 @@ function vwls_updateData(data) {
 	if (data["NoPresentado"]==1) $('#vwls_Tiempo').html('<span class="blink" style="color:red">N.P.</span>').hide().show(0);
 }
 
+function vwls_updateChronoData(data) {
+	vwls_updateData(data);
+}
+
  // actualizar datos desde crono -1:decrease 0:ignore 1:increase
-function vwls_updateChronoData(data){
+function vwls_updateChronoData_old(data){
 	var i=$('#vwls_Faltas');
 	var res=parseInt( i.html() )+parseInt(data["Faltas"]);
 	if (res<0) res=0;
