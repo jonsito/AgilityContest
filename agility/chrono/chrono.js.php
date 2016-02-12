@@ -144,6 +144,37 @@ function c_updateDataFromChrono(data) {
 	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red"><?php _e("NoPr");?>.</span>');
 }
 
+function c_clearData(event) {
+	$('#chrono_Logo').attr("src","/agility/images/logos/agilitycontest.png");
+	$('#chrono_Dorsal').html("<?php _e('Dors');?>: " );
+	$('#chrono_Nombre').html("<?php _e('Name');?>: ");
+	$('#chrono_NombreGuia').html("<?php _e('Hndlr');?>: ");
+	$('#chrono_Categoria').html("<?php _e('Cat');?>: ");
+	// hide "Grado" Information if not applicable
+	$('#chrono_Grado').html(hasGradosByJornada(workingData.datosJornada)?"<?php _e('Grad');?>: ":"");
+	// ajustamos el texto del club/pais/equipo
+	// si el numero de equipos de la jornada es mayor que 1 estamos en una jornada por equipos
+	if (Object.keys(workingData.teamsByJornada).length>1){
+		$('#chrono_NombreClub').html("<?php _e('Team')?>: ");
+	}
+	// else si estamos en una prueba internacional ponemos el nombre del pais
+	else if (isInternational(workingData.federation)) {
+		$('#chrono_NombreClub').html("<?php _e('Country')?>: ");
+	}
+	// else ponemos el nombre del club
+	else {
+		$('#chrono_NombreClub').html("<?php _e('Club')?>: ");
+	}
+	$('#chrono_Celo').html('');	// ajustamos el celo
+	// mark no dog active
+	var perro=$('#chrono_Perro').html(0);
+	// clear results frame
+	$('#chrono_Faltas').html("0");
+	$('#chrono_Tocados').html("0");
+	$('#chrono_Rehuses').html("0");
+	$('#chrono_Tiempo').html((ac_config.numdecs==2)?"00.00":"00.000");
+}
+
 function c_showData(data) {
 	var perro=$('#chrono_Perro').html();
 	var dorsal=data['Dorsal'];
@@ -316,14 +347,15 @@ function chrono_processEvents(id,evt) {
 	case 'null': // null event: no action taken
 		return;
 	case 'init': // operator starts tablet application
+		c_clearData(event);
 		return;
-		case 'open': // operator select tanda:
+	case 'open': // operator select tanda:
 		// update working data. when done update header
 	 	setupWorkingData(event['Pru'],event['Jor'],(event['Mng']>0)?event['Mng']:1,c_updateHeader);
 		// actualizar datos de prueba, jornada, manga y logotipo del club
 		return;
 	case 'close': // no more dogs in tabla
-		// TODO: clear dog data
+		c_clearData(event);
 		return;
 	case 'datos': // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		c_updateData(event);
@@ -415,6 +447,7 @@ function chrono_processEvents(id,evt) {
 		}
 		return;
 	case 'cancelar': // operador pulsa cancelar en tablet
+		c_clearData(event);
 		return;
 	case 'aceptar':	// operador pulsa aceptar en tablet
 		return;

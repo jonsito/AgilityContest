@@ -147,7 +147,9 @@ var eventHandler= {
 			vw_updateDataInfo(e,d);
 		});
 	},
-	'close':  null,// no more dogs in tabla // TODO: clear dog data
+	'close': function(event,time){ // no more dogs in tabla
+		vwls_showOSD(0); // apaga el OSD
+	},
 	'datos': function(event,time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
         vwcp_evalPuestoIntermedio();
