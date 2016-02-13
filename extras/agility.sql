@@ -38,6 +38,7 @@ LOCK TABLES `categorias_perro` WRITE;
 /*!40000 ALTER TABLE `categorias_perro` DISABLE KEYS */;
 INSERT INTO `categorias_perro` VALUES 
 ('-','Sin especificar'),
+('E','Extra - Standard - 60'),
 ('L','Large - Standard - 60'),
 ('M','Medium - Midi - 50'),
 ('S','Small - Mini - 40'),

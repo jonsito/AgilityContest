@@ -18,13 +18,13 @@ class INTL3 extends Federations {
             'WideLicense' => false, // some federations need extra print space to show license ID
             'Recorridos' => array('Common course',"Standard / Midi + Mini","Separate courses"),
             'ListaGrados'    => array (
-                '-' => ' ',
-                'Baja' => 'Temporary out',
+                '-' => 'Not specified',
                 'GI' => 'Grade I',
                 'GII'=> 'Grade II',
-                'GIII' => 'Grade III', // no existe
+                'GIII' => 'Grade III',
                 'P.A.' => 'Pre-Agility',
                 'P.B.' => 'Trial dog',
+                'Baja' => 'Temporary out',
                 'Ret.' => 'Retired',
             ),
             'ListaCategorias' => array (
@@ -32,7 +32,7 @@ class INTL3 extends Federations {
                 'L' => 'Standard',
                 'M' => 'Medium',
                 'S' => 'Small',
-                'T' => 'Tiny' // not used
+                // 'T' => 'Tiny'
             ),
             'InfoManga' => array(
                 array('L' => _('Large'),         'M' => _('Medium'),         'S' => _('Small'), 'T' => ''), // separate courses

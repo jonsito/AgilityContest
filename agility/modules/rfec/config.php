@@ -19,13 +19,13 @@ class RFEC extends Federations {
             'Recorridos' => array('Common course',"Standard + Medium / Small + Toy","Separate courses"),
             'ListaGrados'    => array (
                 '-' => 'Sin especificar',
-                'Baja' => ' ',
                 'GI' => 'Promocion (G1)',
                 'GII'=> 'Competicion (G2)',
-                'GIII' => 'Grado III', // no existe
+                // 'GIII' => 'Grado III',
                 'P.A.' => 'Iniciacion (G0)',
                 'P.B.' => 'Perro en Blanco',
-                'Ret.' => 'Retirado',
+                'Baja' => 'Baja temporal ',
+                'Ret.' => 'Retirado'
             ),
             'ListaCategorias' => array (
                 '-' => 'Sin especificar',

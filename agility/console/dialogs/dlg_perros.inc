@@ -143,7 +143,11 @@ $config =Config::getInstance();
     	textField:'Comentarios',
     	method: 'get',
     	mode: 'remote',
-    	url:'/agility/server/database/dogFunctions.php?Operation=grados',
+    	url:'/agility/server/database/dogFunctions.php',
+        queryParams: {
+            Operation:'grados',
+            Federation: workingData.federation
+        },
     	// TODO: this should work. study why doesn't
 		onLoadSuccess: function(data){
 			for(var i=0; i<data.length; i++){
@@ -156,14 +160,20 @@ $config =Config::getInstance();
 			}
 		}
     });
+
     $('#perros-Categorias_Perro').combobox({
 		panelHeight: 'auto',
 		valueField:'Categoria',
 		textField:'Observaciones',
 		method: 'get',
 		mode: 'remote',
-		url:'/agility/server/database/dogFunctions.php?Operation=categorias'
+		url:'/agility/server/database/dogFunctions.php',
+        queryParams: {
+            Operation:'categorias',
+            Federation: workingData.federation
+        }
     });
+
     $('#perros-Guia').combogrid({
 		panelWidth: 350,
 		panelHeight: 200,

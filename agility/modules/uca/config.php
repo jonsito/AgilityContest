@@ -22,7 +22,7 @@ class UCA extends Federations {
                 'Baja' => 'Baja temporal',
                 'GI' => 'Grado I',
                 'GII'=> 'Grado II',
-                'GIII' => 'Grado III', // no existe
+                // 'GIII' => 'Grado III', // no existe
                 'P.A.' => 'Grado 0',
                 'P.B.' => 'Perro en Blanco',
                 'Ret.' => 'Retirado',
