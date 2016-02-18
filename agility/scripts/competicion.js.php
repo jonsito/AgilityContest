@@ -122,17 +122,19 @@ function formatTeamResults( name,value , rows ) {
         }
     }
     // return "Equipo: "+value+" Tiempo: "+time+" Penalizaci&oacute;n: "+penal;
-    return '<div class="vw_equipos3" style="width:'+width+'px">'+
+    var result= '<div class="vw_equipos3" style="width:'+Math.round(width)+'px">'+
     '<span style="width:'+Math.round(width*0.30)+'px;text-align:left;">'+logos+'</span>'+
     '<span style="width:'+Math.round(width*0.35)+'px;text-align:left;">'+value+'</span>' +
     '<span style="width:'+Math.round(width*0.15)+'px;text-align:right;">T: '+(time).toFixed(ac_config.numdecs)+'</span>' +
     '<span style="width:'+Math.round(width*0.15)+'px;text-align:right;">P:'+(penal).toFixed(ac_config.numdecs)+'</span>'+
     '<span style="width:'+Math.round(width*0.05)+'px;text-align:right;font-size:1.5em;">'+(workingData.teamCounter++)+'</span>'+
     '</div>';
+    // console.log(result);
+    return result;
 }
 
-function formatVwTeamResults(value,rows) { formatTeamResults('#vw_parciales-data',value,rows); }
-function formatPbTeamResults(value,rows) { formatTeamResults('#pb_parciales-data',value,rows); }
+function formatVwTeamResults(value,rows) { return formatTeamResults('#vw_parciales-data',value,rows); }
+function formatPbTeamResults(value,rows) { return formatTeamResults('#pb_parciales-data',value,rows); }
 
 function formatTeamResultsConsole( value , rows ) {
     // todo: check eq3 or eq4 contest and eval time and penalization
