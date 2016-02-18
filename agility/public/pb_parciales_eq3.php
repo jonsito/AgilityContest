@@ -159,7 +159,7 @@ $('#pb_parciales-datagrid').datagrid({
     autoRowHeight: true,
     view: gview,
     groupField: 'NombreEquipo',
-    groupFormatter: formatTeamResults,
+    groupFormatter: formatPbTeamResults,
     columns:[[
         { field:'Manga',		hidden:true },
         { field:'Perro',		hidden:true },

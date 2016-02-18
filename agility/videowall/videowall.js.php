@@ -104,7 +104,7 @@ function vw_formatResultadosDatagrid(evt,data) {
         dg.datagrid({
             view: gview,
             groupField: 'NombreEquipo',
-            groupFormatter: formatTeamResults
+            groupFormatter: formatVwTeamResults
         });
         dg.datagrid('hideColumn',"LogoClub");
         dg.datagrid('hideColumn',"Grado");

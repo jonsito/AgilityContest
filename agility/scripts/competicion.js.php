@@ -99,13 +99,13 @@ function round_setUnit(tipo,dest) {
     if (tipo==6) $(dest).val('m'); // Velocity instead of time/percent: set unit to mts/sec
 }
 
-function formatTeamResults( value , rows ) {
+function formatTeamResults( name,value , rows ) {
     // todo: check eq3 or eq4 contest and eval time and penalization
     var time=0.0;
     var penal=0.0;
     var logos="";
     // var width=($('#header-combinadaFlag').text()==='true')?500:1000;
-    var width= 0.9 * parseInt($('#vw_parciales-data').css('width').replace('px',''));
+    var width= 0.9 * parseInt($(name).css('width').replace('px',''));
     var tmode=(isJornadaEq3()?3:4);
     function addLogo(logo) {
         if (logos.indexOf(logo)>=0) return;
@@ -130,6 +130,9 @@ function formatTeamResults( value , rows ) {
     '<span style="width:'+Math.round(width*0.05)+'px;text-align:right;font-size:1.5em;">'+(workingData.teamCounter++)+'</span>'+
     '</div>';
 }
+
+function formatVwTeamResults(value,rows) { formatTeamResults('#vw_parciales-data',value,rows); }
+function formatPbTeamResults(value,rows) { formatTeamResults('#pb_parciales-data',value,rows); }
 
 function formatTeamResultsConsole( value , rows ) {
     // todo: check eq3 or eq4 contest and eval time and penalization
