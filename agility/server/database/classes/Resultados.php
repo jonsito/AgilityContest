@@ -200,7 +200,11 @@ class Resultados extends DBObject {
 		}
 		// si estamos en una selectiva RSCE, y el factor es 0.0 _NO_ se redondea
 		$roundUp=true;
-		if ( ($this->getDatosPrueba()->Selectiva==1) && ($dmanga["TRS_{$suffix}_Factor"]==0)) $roundUp=false;
+		$t=$dmanga["TRS_{$suffix}_Factor"];
+		if ( ($this->getDatosPrueba()->Selectiva==1) && ($t==0)) $roundUp=false;
+		// si el trs esta especificado con decimales, tampoco se redondea
+		if ( $t - (int)$t != 0) $roundUp=false;
+		// en caso de tener que redondear hacia arriba, procedemos
 		if ($roundUp) $result['trs']=ceil($result['trs']); // redondeamos hacia arriba
 		// Evaluamos TRM
 		switch($dmanga["TRM_{$suffix}_Tipo"]) {
