@@ -95,26 +95,25 @@ require_once(__DIR__."/../server/upgradeVersion.php");
             border: 1px solid black;
         }
 
-    </style>
+		.datagrid-body .datagrid-group {
+			background-color: <?php echo $config->getEnv("vw_hdrbg3"); ?>;
+			color: <?php echo $config->getEnv("vw_hdrfg3"); ?>;
+			height:40px; line-height: 40px;
+		}
 
-    <style id="datagrid_style">
-        <!-- to be filled -->
+		.datagrid-body .datagrid-group .datagrid-group-title {
+			height:40px;
+			line-height: 40px;
+			font-weight: bold;
+		}
+
+		.datagrid-body .datagrid-group .datagrid-group-expander {
+			margin-top:7px;
+		}
+
     </style>
 
 <script type="text/javascript" charset="utf-8">
-
-function setSimplifiedMode(mode) {
-    ac_config.vwc_simplified=mode;
-    // fix datagrid rows height and font
-    $('#datagrid_style').remove();
-    if (mode==0) {
-        $('head').append(' <style id="datagrid_style">.datagrid-body .datagrid-group {  background-color: <?php echo $config->getEnv("vw_hdrbg3"); ?>; color: <?php echo $config->getEnv("vw_hdrfg3"); ?>; height:40px; line-height: 40px; } .datagrid-body .datagrid-group .datagrid-group-title { height:40px; line-height: 40px; font-weight: bold; } .datagrid-body .datagrid-group .datagrid-group-expander { margin-top:7px; } </style>' );
-    } else {
-        console.log("mode is "+mode);
-        $('head').append(' <style id="datagrid_style">.datagrid-body .datagrid-group {  background-color: <?php echo $config->getEnv("vw_hdrbg3"); ?>; color: <?php echo $config->getEnv("vw_hdrfg3"); ?>; height:60px; line-height: 60px; } .datagrid-body .datagrid-group .datagrid-group-title { height:60px; line-height: 60px; font-weight: bold; } .datagrid-body .datagrid-group .datagrid-group-expander { margin-top:7px; } </style>' );
-
-    }
-}
 
 function initialize() {
 	// make sure that every ajax call provides sessionKey
@@ -126,9 +125,7 @@ function initialize() {
 	    return true;
 	  }
 	});
-	loadConfiguration(function(config){
-		setSimplifiedMode(0); // default is use complex interface on combined screens
-	});
+	loadConfiguration();
 	getLicenseInfo();
 	getFederationInfo();
 }
@@ -140,7 +137,8 @@ function initialize() {
  * @return {string} proper row style for given idx
  */
 function myRowStyler(idx,row) {
-	var res="background-color:";
+	var height=(ac_config.vwc_simplified==0)?40:50;
+	var res="height:"+height+"px;line-height:"+height+"px;background-color:";
 	var c1='<?php echo $config->getEnv('vw_rowcolor1'); ?>';
     var c2='<?php echo $config->getEnv('vw_rowcolor2'); ?>';
 	if ( (idx&0x01)==0) { return res+c1+";"; } else { return res+c2+";"; }
@@ -155,7 +153,8 @@ function myTransparentRowStyler(idx,row) {
 }
 /* same as above, but tracks tanda and team information */
 function myLlamadaRowStyler(idx,row) {
-    var res="background-color:";
+	var height=(ac_config.vwc_simplified==0)?40:50;
+	var res="height:"+height+"px;line-height:"+height+"px;background-color:";
     var c1='<?php echo $config->getEnv('easyui_rowcolor1'); ?>';
     var c2='<?php echo $config->getEnv('easyui_rowcolor2'); ?>';
     var tnd='<?php echo $config->getEnv('vw_hdrbg2'); ?>';
@@ -287,6 +286,7 @@ function vw_accept() {
 	workingData.sesion=s.ID;
 	workingData.nombreSesion=s.Nombre;
 	initWorkingData(s.ID);
+	ac_config.vwc_simplified=0;
 	var page="'/agility/console/frm_notavailable.php";
 	var n=parseInt($('#selvw-Vista').val());
 	switch (n){
@@ -319,7 +319,7 @@ function vw_accept() {
 		break;
 	case 9: // pantalla comobinada simplificada ( Clasificacion final )
 		page="/agility/videowall/vwc_finales_simplified.php";
-		setSimplifiedMode(1); // mark special parameter handling
+		ac_config.vwc_simplified=1;
 		break;
 	}
 	$('#selvw-dialog').dialog('close');
