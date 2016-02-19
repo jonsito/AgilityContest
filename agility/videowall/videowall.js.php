@@ -184,11 +184,14 @@ function vwc_updateDataInfo(evt,data) {
 	var logo2=ac_fedInfo[workingData.federation].ParentLogo;
 	var url=ac_fedInfo[workingData.federation].WebURL;
 	var url2=ac_fedInfo[workingData.federation].ParentWebURL;
-	$('#vw_footer-footerData').load("/agility/videowall/vw_footer.php",{},function(response,status,xhr){
-		$('#vw_footer-logoFederation').attr('src',logo);
-		$('#vw_footer-urlFederation').attr('href',url);
-		$('#vw_footer-logoFederation2').attr('src',logo2);
-		$('#vw_footer-urlFederation2').attr('href',url2);
+	var fname=(ac_config.vwc_simplified==0)?"vw_footer.php":"vw_footer_simplified.php";
+	$('#vw_footer-footerData').load("/agility/videowall/"+fname,{},function(response,status,xhr){
+		if (ac_config.vwc_simplified==0) {
+			$('#vw_footer-logoFederation').attr('src',logo);
+			$('#vw_footer-urlFederation').attr('href',url);
+			$('#vw_footer-logoFederation2').attr('src',logo2);
+			$('#vw_footer-urlFederation2').attr('href',url2);
+		}
 	});
 }
 
@@ -497,8 +500,8 @@ function vwcf_updateLlamada(evt,data) {
 		url: "/agility/server/web/videowall.php",
 		data: {
 			Operation: 'window',
-			Before: 4,
-			After: 15,
+			Before: (ac_config.vwc_simplified==0)?4:2,
+			After: (ac_config.vwc_simplified==0)?15:10,
 			Perro: parseInt(evt['Dog']),
 			Session: workingData.sesion
 		},

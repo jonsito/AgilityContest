@@ -70,7 +70,52 @@ require_once(__DIR__."/../server/upgradeVersion.php");
 <script src="/agility/scripts/events.js" type="text/javascript" charset="utf-8" > </script>
 <script src="/agility/videowall/videowall.js.php" type="text/javascript" charset="utf-8" > </script>
 
+
+    <style>
+
+        body {
+            /* default background from environment */
+            font-size: 100%;
+            background: <?php echo $config->getEnv('easyui_bgcolor'); ?>;
+        }
+
+        /* remove underlines around footer imagelinks */
+        a,
+        a img {
+            text-decoration: none;
+            outline: none;
+            border: 0px none transparent;
+        }
+
+        .datagrid_vw-class {
+            background:transparent;
+            filter:alpha(opacity=60);
+            -moz-opacity:0.6;
+            opacity:0.6;
+            border: 1px solid black;
+        }
+
+    </style>
+
+    <style id="datagrid_style">
+        <!-- to be filled -->
+    </style>
+
 <script type="text/javascript" charset="utf-8">
+
+function setSimplifiedMode(mode) {
+    ac_config.vwc_simplified=mode;
+    // fix datagrid rows height and font
+    $('#datagrid_style').remove();
+    if (mode==0) {
+        $('head').append(' <style id="datagrid_style">.datagrid-body .datagrid-group {  background-color: <?php echo $config->getEnv("vw_hdrbg3"); ?>; color: <?php echo $config->getEnv("vw_hdrfg3"); ?>; height:40px; line-height: 40px; } .datagrid-body .datagrid-group .datagrid-group-title { height:40px; line-height: 40px; font-weight: bold; } .datagrid-body .datagrid-group .datagrid-group-expander { margin-top:7px; } </style>' );
+    } else {
+        console.log("mode is "+mode);
+        $('head').append(' <style id="datagrid_style">.datagrid-body .datagrid-group {  background-color: <?php echo $config->getEnv("vw_hdrbg3"); ?>; color: <?php echo $config->getEnv("vw_hdrfg3"); ?>; height:60px; line-height: 60px; } .datagrid-body .datagrid-group .datagrid-group-title { height:60px; line-height: 60px; font-weight: bold; } .datagrid-body .datagrid-group .datagrid-group-expander { margin-top:7px; } </style>' );
+
+    }
+}
+
 function initialize() {
 	// make sure that every ajax call provides sessionKey
 	$.ajaxSetup({
@@ -81,7 +126,9 @@ function initialize() {
 	    return true;
 	  }
 	});
-	loadConfiguration();
+	loadConfiguration(function(config){
+		setSimplifiedMode(0); // default is use complex interface on combined screens
+	});
 	getLicenseInfo();
 	getFederationInfo();
 }
@@ -119,49 +166,6 @@ function myLlamadaRowStyler(idx,row) {
 }
 
 </script>
-
-<style>
-
-    body {
-        /* default background from environment */
-        font-size: 100%;
-        background: <?php echo $config->getEnv('easyui_bgcolor'); ?>;
-    }
-
-    /* remove underlines around footer imagelinks */
-    a,
-    a img {
-        text-decoration: none;
-        outline: none;
-        border: 0px none transparent;
-    }
-
-    .datagrid_vw-class {
-        background:transparent;
-        filter:alpha(opacity=60);
-        -moz-opacity:0.6;
-        opacity:0.6;
-        border: 1px solid black;
-    }
-
-    /* ajuste de las cabeceras de los datagrid groupview */
-    .datagrid-body .datagrid-group {
-        background-color: <?php echo $config->getEnv('vw_hdrbg3'); ?>;
-		color: <?php echo $config->getEnv('vw_hdrfg3'); ?>;
-        height:40px;
-        line-height: 40px;
-    }
-    .datagrid-body .datagrid-group .datagrid-group-title {
-        height:40px;
-        line-height: 40px;
-        font-weight: bold;
-    }
-    .datagrid-body .datagrid-group .datagrid-group-expander {
-        margin-top:7px;
-    }
-
-</style>
-
 </head>
 
 <body style="margin:0;padding:0;background-color:blue;font-size:100%" onload="initialize();">
@@ -193,6 +197,7 @@ function myLlamadaRowStyler(idx,row) {
 				<optgroup label="<?php _e('Combo view');?> ">
 					<option value="7"><?php _e('Combo view (partial)'); ?></option>
 					<option value="8"><?php _e('Combo view (final)'); ?></option>
+					<option value="9"><?php _e('Combo view (simplified)'); ?></option>
 					<option value="3"><?php _e('Combo view (old-style)'); ?></option>
 				</optgroup>
        		</select>
@@ -294,7 +299,7 @@ function vw_accept() {
 	case 2: // Resultados Parciales
 		page="/agility/videowall/vw_parciales.php";
 		break;
-    case 3: // Vista Combinada
+    case 3: // Vista Combinada (legacy style)
         page="/agility/videowall/vwc_oldstyle.php";
         break;
 	case 4: // Live Stream OSD
@@ -309,8 +314,12 @@ function vw_accept() {
 	case 7: // pantalla combinada ( Resultados parciales )
 			page="/agility/videowall/vwc_parciales.php";
 		break;
-	case 8: // pantalla comobinara ( Clasificacion final )
+	case 8: // pantalla comobinada ( Clasificacion final )
 		page="/agility/videowall/vwc_finales.php";
+		break;
+	case 9: // pantalla comobinada simplificada ( Clasificacion final )
+		page="/agility/videowall/vwc_finales_simplified.php";
+		setSimplifiedMode(1); // mark special parameter handling
 		break;
 	}
 	$('#selvw-dialog').dialog('close');
