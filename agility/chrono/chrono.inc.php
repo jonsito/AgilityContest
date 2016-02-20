@@ -121,7 +121,7 @@ $('#cronoauto').Chrono( {
 	onBeforePause: function() { $('#chrono_Intermedio').text('<?php _e("Intermediate");?>').addClass('blink'); return true; },
 	onBeforeResume: function() { $('#chrono_Intermedio').text('').removeClass('blink'); return true; },
 	onUpdate: function(elapsed,running,pause) { 
-		$('#chrono_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:ac_config.numdecs));
+		$('#chrono_Tiempo').html(toFixedT(parseFloat(elapsed/1000),(running)?1:ac_config.numdecs));
 		return true;
 	}
 });

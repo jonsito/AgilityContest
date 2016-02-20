@@ -132,7 +132,7 @@ Pantalla de de visualizacion combinada llamada/parciales
         showMode: 2,
         onUpdate: function(elapsed,running,pause) {
             var time=parseFloat(elapsed/1000);
-            $('#vwls_Tiempo').html(time.toFixed((running)?1:ac_config.numdecs));
+            $('#vwls_Tiempo').html(toFixedT(time,(running)?1:ac_config.numdecs));
             vwcp_evalPuestoIntermedio();
             return true;
         },

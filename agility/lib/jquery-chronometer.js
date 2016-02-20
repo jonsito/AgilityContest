@@ -211,7 +211,7 @@
 			$(config.hours_sel).data('hours',0);
 			$(config.minutes_sel).html("");
 			$(config.minutes_sel).data('minutes',0);
-			$(config.seconds_sel).html(""+parseFloat(elapsed/1000).toFixed(digits)+extra);
+			$(config.seconds_sel).html(""+toFixedT(parseFloat(elapsed/1000),digits)+extra);
 			$(config.seconds_sel).data('seconds', parseFloat(elapsed/1000) );
 			$(config.mseconds_sel).html("");
 			$(config.mseconds_sel).data('mseconds',0);			

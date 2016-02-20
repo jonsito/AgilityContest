@@ -86,7 +86,7 @@ $('#cronometro').Chrono( {
 	interval: 50,
 	showMode: 2,
 	onUpdate: function(elapsed,running,pause) { 
-		$('#vwls_Tiempo').html(parseFloat(elapsed/1000).toFixed((running)?1:ac_config.numdecs));
+		$('#vwls_Tiempo').html(toFixedT(parseFloat(elapsed/1000),(running)?1:ac_config.numdecs));
 		return true;
 	},
 	onBeforePause:function() { $('#vwls_Tiempo').addClass('blink'); return true; },

@@ -53,6 +53,20 @@ function myAlert(msg) {
 }
 
 /**
+ * Replacement for toFixed, but trunk instead of round
+ */
+function toFixedT(value,numdecs) {
+	switch (numdecs) {
+		case 0: return parseInt(value);
+		case 1: return Number(value.toString().match(/^\d+(?:\.\d{0,1})?/))
+		case 2: return Number(value.toString().match(/^\d+(?:\.\d{0,2})?/))
+		case 3: return Number(value.toString().match(/^\d+(?:\.\d{0,3})?/))
+		case 4: return Number(value.toString().match(/^\d+(?:\.\d{0,4})?/))
+		default: return toFixed(value,numdecs);
+	}
+}
+
+/**
  * Set text of 'header' field on main window
  * @param {string} msg text to be shown
  */

@@ -292,7 +292,7 @@ function vwls_showData(data) {
 var myCounter = new Countdown({  
     seconds:15,  // number of seconds to count down
     onUpdateStatus: function(tsec){
-		$('#vwls_Tiempo').html((tsec/10).toFixed(1));
+		$('#vwls_Tiempo').html(toFixedT((tsec/10),1));
 	}, // callback for each tenth of second
     // onCounterEnd: function(){  $('#vwls_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
     onCounterEnd: function(){ /* let the tablet to tell us what to do */ }
@@ -341,7 +341,7 @@ function vwls_evalPuestoIntermedio(trs,trm,time) {
 		else if (pf>=100) pf=100; // eliminado
 		// phase 2
 		// console.log("trs:"+trs+" trm:"+trm+" f:"+f+" t:"+t+" r:"+r+" e:"+e+" n:"+n+" pr:"+pr+" pt:"+pt+" pf:"+pf);
-		$('#vwls_Puesto').html(pf.toFixed(ac_config.numdecs));
+		$('#vwls_Puesto').html(toFixedT(pf,ac_config.numdecs));
 	},0);
 }
 

@@ -355,7 +355,7 @@ function tablet_cronometro(oper,time) {
 var myCounter = new Countdown({  
 	seconds:15,  // number of seconds to count down
 	onUpdateStatus: function(tsec){
-		$('#tdialog-Tiempo').val((tsec/10).toFixed(1));
+		$('#tdialog-Tiempo').val(toFixedT((tsec/10),1));
 	}, // callback for each tenth of second
 	// onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
 	onCounterEnd: function(){  // at end of countdown start timer
