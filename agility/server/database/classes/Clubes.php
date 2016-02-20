@@ -306,7 +306,7 @@ class Clubes extends DBObject {
 		$row=$this->__selectObject("Logo","Guias,Clubes","(Guias.Club=Clubes.ID) AND (Guias.ID=$id)");
 		if (!$row) return $this->error($this->conn->error);
 		$name=$row->Logo;
-		$fname=_getIconPath($this->curFederation->get('Name'),$name);
+		$fname=getIconPath($this->curFederation->get('Name'),$name);
 		if (!file_exists($fname)) {
 			$this->myLogger->notice("Logo file $fname does not exists");
 			$fname=getIconPath($this->curFederation->get('Name'),$this->curFederation->get('Logo')); // use default name

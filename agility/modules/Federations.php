@@ -131,7 +131,7 @@ class Federations {
 
     /**
      * Generic data getter
-     * @param $key field to retrive
+     * @param {string} $key field to retrive
      * @return {object} requested object or null if not found
      */
     public function get($key) {

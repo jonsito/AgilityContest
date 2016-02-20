@@ -47,7 +47,7 @@ function formatPuestoFinal(val,row,idx) { return '<span style="font-weight:bold"
 function formatPuestoFinalBig(val,row,idx) { return '<span style="font-size:1.5em;font-weight:bold">'+((row.Penalizacion>=200)?"-":val)+'</span>'; }
 function formatPenalizacionFinal(val,row,idx) { return toFixedT(parseFloat(val),ac_config.numdecs); }
 
-function formatV1(val,row,idx) { return (row.P1>=200)?"-":toFixedT(parseFloat(val).toFixedT(1); }
+function formatV1(val,row,idx) { return (row.P1>=200)?"-":toFixedT(parseFloat(val),1); }
 function formatT1(val,row,idx) { return (row.P1>=200)?"-":toFixedT(parseFloat(val),ac_config.numdecs); }
 function formatP1(val,row,idx) { return toFixedT(parseFloat(val),ac_config.numdecs); }
 function formatV2(val,row,idx) { return (row.P2>=200)?"-":toFixedT(parseFloat(val),1); }

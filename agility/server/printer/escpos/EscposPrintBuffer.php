@@ -96,7 +96,8 @@ class EscposPrintBuffer implements PrintBuffer {
 		}
 		if(!mb_detect_encoding($text, self::INPUT_ENCODING, true)) {
 			// Assume that the user has already put non-UTF8 into the target encoding.
-			return $this -> writeTextRaw($text);
+			$this -> writeTextRaw($text);
+			return;
 		}
 		$i = 0;
 		$j = 0;

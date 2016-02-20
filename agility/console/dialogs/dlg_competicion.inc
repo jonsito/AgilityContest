@@ -113,7 +113,7 @@ $('#competicion-datagrid').datagrid({
           	editor:{
           		type:'numberbox',
           		options:{		
-              		formatter:function(v){	toFixedT(return parseFloat(v),ac_config.numdecs); },
+              		formatter:function(v){	return toFixedT( parseFloat(v),ac_config.numdecs); },
         			parser:function(s){	var v = parseFloat(s);	return isNaN(v)?'':v; }
             	}
           	}
