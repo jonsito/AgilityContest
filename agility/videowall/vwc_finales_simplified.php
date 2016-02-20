@@ -220,13 +220,13 @@ Modelo simplificado de resultados finales
         collapsible: false,
         collapsed: false,
         // propiedades del datagrid
-        loadMsg: "<?php _e('Updating round scores');?>...",
         // no tenemos metodo get ni parametros: directamente cargamos desde el datagrid
         pagination: false,
         rownumbers: false,
         fitColumns: true,
         singleSelect: true,
-        autoRowHeight:false, // let the formatters decide the size
+        autoRowHeight:true, // let the formatters decide the size
+        loadMsg: "<?php _e('Updating round scores');?>...",
         rowStyler:myRowStyler,
         onBeforeLoad: function (param) {
             // do not update until 'open' received
@@ -279,7 +279,7 @@ Modelo simplificado de resultados finales
             { field:'NombreEquipo',	width:'20%', align:'right', title: '<?php _e('Team'); ?>',hidden:true },
             { field:'Celo',	        width:'5%', align:'center', title: '<?php _e('Heat'); ?>',formatter:formatCelo }
         ]],
-        rowStyler:myLlamadaRowStyler,
+        rowStyler:myRowStyler,
         onLoadSuccess: function(data) {
             var mySelf=$('#vwc_llamada-datagrid');
             // show/hide team name

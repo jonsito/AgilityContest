@@ -341,7 +341,8 @@ function vwls_evalPuestoIntermedio(trs,trm,time) {
 		else if (pf>=100) pf=100; // eliminado
 		// phase 2
 		// console.log("trs:"+trs+" trm:"+trm+" f:"+f+" t:"+t+" r:"+r+" e:"+e+" n:"+n+" pr:"+pr+" pt:"+pt+" pf:"+pf);
-		$('#vwls_Puesto').html(toFixedT(pf,ac_config.numdecs));
+		// $('#vwls_Puesto').html(toFixedT(pf,ac_config.numdecs)); // !!don't trunc twice!!
+		$('#vwls_Puesto').html(pf.toFixed(ac_config.numdecs));
 	},0);
 }
 
