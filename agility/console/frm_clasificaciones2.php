@@ -69,10 +69,10 @@ $config =Config::getInstance();
 	<table id="resultados-datagrid">
 		<thead>
 			<tr>
-				<th colspan="7"> <span class="resultados_theader"><?php _e("Competitors data"); ?></span></th>
-			    <th colspan="6"> <span class="resultados_theader" id="resultados_thead_m1"><?php _e('Round'); ?> 1</span></th>
-			    <th colspan="6"> <span class="resultados_theader" id="resultados_thead_m2"><?php _e('Round'); ?> 2</span></th>
-			    <th colspan="4"> <span class="resultados_theader"><?php _e('Score'); ?></span></th>
+				<th colspan="7"> <span class="main_theader"><?php _e("Competitors data"); ?></span></th>
+			    <th colspan="6"> <span class="main_theader" id="resultados_thead_m1"><?php _e('Round'); ?> 1</span></th>
+			    <th colspan="6"> <span class="main_theader" id="resultados_thead_m2"><?php _e('Round'); ?> 2</span></th>
+			    <th colspan="4"> <span class="main_theader"><?php _e('Score'); ?></span></th>
 		    </tr>
 		    <tr>
 		    	<!-- 

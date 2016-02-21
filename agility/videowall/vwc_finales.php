@@ -83,10 +83,10 @@ Pantalla de de visualizacion combinada llamada/parciales
             <table id="vwcf_clasificacion-datagrid">
                 <thead>
                 <tr>
-                    <th colspan="6"> <span class="resultados_theader"><?php _e('Competitor data'); ?></span></th>
-                    <th colspan="3"> <span class="resultados_theader" id="vwcf_finales_thead_m1"><?php _e('Round'); ?> 1</span></th>
-                    <th colspan="3"> <span class="resultados_theader" id="vwcf_finales_thead_m2"><?php _e('Round'); ?> 2</span></th>
-                    <th colspan="4"> <span class="resultados_theader"><?php _e('Final scores'); ?></span></th>
+                    <th colspan="6"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
+                    <th colspan="3"> <span class="main_theader" id="vwcf_finales_thead_m1"><?php _e('Round'); ?> 1</span></th>
+                    <th colspan="3"> <span class="main_theader" id="vwcf_finales_thead_m2"><?php _e('Round'); ?> 2</span></th>
+                    <th colspan="4"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
                 </tr>
                 <tr>
                     <!--

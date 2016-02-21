@@ -41,54 +41,54 @@ Modelo simplificado de resultados finales
         <div data-options="region:'north'" class="vwc_top" style="height:10%;padding:5px"> <!-- CABECERA -->
             <div style="display:inline-block;width=100%;padding:0px" class="vwc_header">
                 <img  id="vwc_header-logo" src="/agility/images/logos/rsce.png"/>
-                <span id="vwc_header-infoprueba"><?php _e('Contest'); ?></span>
-                <span id="vwc_header-infojornada"><?php _e('Journey'); ?></span>
+                <span id="vwcs_title">
+                    <span id="vwc_header-infoprueba"><?php _e('Contest'); ?></span> -
+                    <span id="vwc_header-infojornada"><?php _e('Journey'); ?></span> -
+                    <span id="vwc_header-ring" style="text-align:right"><?php _e('Ring'); ?></span>
+                </span>
                 <span id="header-combinadaFlag" style="display:none">true</span> <!--indicador de combinada-->
-                <span id="vwc_header-ring" style="text-align:right"><?php _e('Ring'); ?></span>
+                <span id="vwcf_header-NombreRonda" style="display:none"><?php _e('Series');?></span>
                 <span id="vwc_header-calltoring" style="text-align:left">
-                    <?php _e('Call to ring'); ?> -
                     <span id="vwcf_header-NombreTanda"><?php _e('Round');?></span>
                 </span>
-                <span id="vwcf_header-finalscores" style="text-align:right">
-                    <?php _e('Final scores'); ?> -
-                    <span id="vwcf_header-NombreRonda"><?php _e('Series');?></span>
+                <span id="vwcs_header-trs">
+                    <!-- Datos de TRS y TRM -->
+                    <table class="vw_trs" style="border-collapse:collapse">
+                        <tbody>
+                        <tr style="text-align:left;border-bottom:1pt solid black;">
+                            <td id="vwcf_finales-Manga1" colspan="2"><?php _e('Round'); ?> 1:</td>
+                            <td id="vwcf_finales-Distancia1"><?php _e('Dist'); ?>:</td>
+                            <td id="vwcf_finales-Obstaculos1"><?php _e('Obst'); ?>:</td>
+                            <td ><?php _e('SCT'); ?>: <span id="vwcf_finales-TRS1"></span>s.</td>
+                            <td ><?php _e('MCT'); ?>: <span id="vwcf_finales-TRM1"></span>s.</td>
+                            <td id="vwcf_finales-Velocidad1"><?php _e('Vel'); ?>:</td>
+                        </tr>
+                        <tr style="text-align:left">
+                            <td id="vwcf_finales-Manga2" colspan="2"><?php _e('Round'); ?> 2:</td>
+                            <td id="vwcf_finales-Distancia2"><?php _e('Dist'); ?>:</td>
+                            <td id="vwcf_finales-Obstaculos2"><?php _e('Obst'); ?>:</td>
+                            <td ><?php _e('SCT'); ?>: <span id="vwcf_finales-TRS2"></span>s.</td>
+                            <td ><?php _e('MCT'); ?>: <span id="vwcf_finales-TRM2"></span>s.</td>
+                            <td id="vwcf_finales-Velocidad2"><?php _e('Vel'); ?>:</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </span>
             </div>
         </div>
         <div data-options="region:'west'" style="width:34%;"> <!-- LLAMADA A PISTA -->
-            <table id="vwc_llamada-datagrid" class="vwc_top"></table>
+            <table id="vwc_llamada-datagrid"></table>
         </div>
         <div data-options="region:'center',border:false" class="vwc_top"><!-- Espacio vacio -->&nbsp;</div>
         <div data-options="region:'east'" style="width:65%;"> <!-- RESULTADOS PARCIALES -->
-            <!-- Datos de TRS y TRM -->
-            <table class="vw_trs">
-                <tbody>
-                <tr style="text-align:left">
-                    <td id="vwcf_finales-Manga1" colspan="2"><?php _e('Round'); ?> 1:</td>
-                    <td id="vwcf_finales-Distancia1"><?php _e('Dist'); ?>:</td>
-                    <td id="vwcf_finales-Obstaculos1"><?php _e('Obst'); ?>:</td>
-                    <td ><?php _e('SCT'); ?>: <span id="vwcf_finales-TRS1"></span>s.</td>
-                    <td ><?php _e('MCT'); ?>: <span id="vwcf_finales-TRM1"></span>s.</td>
-                    <td id="vwcf_finales-Velocidad1"><?php _e('Vel'); ?>:</td>
-                </tr>
-                <tr style="text-align:left">
-                    <td id="vwcf_finales-Manga2" colspan="2"><?php _e('Round'); ?> 2:</td>
-                    <td id="vwcf_finales-Distancia2"><?php _e('Dist'); ?>:</td>
-                    <td id="vwcf_finales-Obstaculos2"><?php _e('Obst'); ?>:</td>
-                    <td ><?php _e('SCT'); ?>: <span id="vwcf_finales-TRS2"></span>s.</td>
-                    <td ><?php _e('MCT'); ?>: <span id="vwcf_finales-TRM2"></span>s.</td>
-                    <td id="vwcf_finales-Velocidad2"><?php _e('Vel'); ?>:</td>
-                </tr>
-                </tbody>
-            </table>
             <!-- tabla de clasificaciones -->
             <table id="vwcf_clasificacion-datagrid">
                 <thead>
                 <tr>
-                    <th colspan="5"> <span class="resultados_theader"><?php _e('Competitor data'); ?></span></th>
-                    <th colspan="3"> <span class="resultados_theader" id="vwcf_finales_thead_m1"><?php _e('Round'); ?> 1</span></th>
-                    <th colspan="3"> <span class="resultados_theader" id="vwcf_finales_thead_m2"><?php _e('Round'); ?> 2</span></th>
-                    <th colspan="3"> <span class="resultados_theader"><?php _e('Final scores'); ?></span></th>
+                    <th colspan="5"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
+                    <th colspan="3"> <span class="main_theader" id="vwcf_finales_thead_m1"><?php _e('Round'); ?> 1</span></th>
+                    <th colspan="3"> <span class="main_theader" id="vwcf_finales_thead_m2"><?php _e('Round'); ?> 2</span></th>
+                    <th colspan="3"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
                 </tr>
                 <tr>
                     <th data-options="field:'LogoClub',		width:20, align:'left',formatter:formatLogo" > &nbsp;</th>
@@ -117,13 +117,13 @@ Modelo simplificado de resultados finales
                         <span class="vwc_dlabel" id="vwls_Numero"><?php _e('Num'); ?></span>
                         <span style="display:none" id="vwls_Perro">0</span>
                         <img class="vwc_logo" id="vwls_Logo" alt="Logo" src="/agility/images/logos/rsce.png"/>
-                        <span class="vwc_label" id="vwls_Dorsal"><?php _e('Dorsal'); ?></span>
-                        <span class="vwc_label" id="vwls_Nombre"><?php _e('Name'); ?></span>
-                        <span class="vwc_label" id="vwls_NombreGuia"><?php _e('Handler'); ?></span>
-                        <span class="vwc_label" id="vwls_NombreClub"><?php _e('Club'); ?></span>
-                        <span class="vwc_label" id="vwls_Categoria" style="display:none"><?php _e('Category'); ?></span>
-                        <span class="vwc_label" id="vwls_Grado" style="display:none"><?php _e('Grade'); ?></span>
-                        <span class="vwc_label" id="vwls_Celo"><?php _e('Heat'); ?></span>
+                        <span class="vwc_dlabel" id="vwls_Dorsal"><?php _e('Dorsal'); ?></span>
+                        <span class="vwc_data" id="vwls_Nombre"><?php _e('Name'); ?></span>
+                        <span class="vwc_dlabel" id="vwls_NombreGuia"><?php _e('Handler'); ?></span>
+                        <span class="vwc_dlabel" id="vwls_NombreClub" style="display:none"><?php _e('Club'); ?></span>
+                        <span class="vwc_dlabel" id="vwls_Categoria" style="display:none"><?php _e('Category'); ?></span>
+                        <span class="vwc_dlabel" id="vwls_Grado" style="display:none"><?php _e('Grade'); ?></span>
+                        <span class="vwc_dlabel" id="vwls_Celo"><?php _e('Heat'); ?></span>
                         <!-- datos de resultados -->
                         <span class="vwc_dlabel" id="vwls_FaltasLbl"><?php _e('F'); ?>:</span>
                         <span class="vwc_data"  id="vwls_Faltas">0</span>
@@ -266,19 +266,21 @@ Modelo simplificado de resultados finales
         singleSelect: true,
         autoRowHeight: true,
         columns:[[
+            { field:'Licencia',     width:'100%',align:'center', title: '<span class="main_theader"><?php _e("Call to ring"); ?></span>', colspan:11}
+            ],[
             { field:'Orden',		width:'10%', align:'center', title: '#', formatter:formatOrdenLlamadaPista},
             { field:'Logo', 		width:'10%', align:'center', title: '', formatter:formatLogo},
             { field:'Manga',		hidden:true },
             { field:'Perro',		hidden:true },
             { field:'Equipo',		hidden:true },
             { field:'Dorsal',		width:'10%', align:'center', title: '<?php _e('Dorsal'); ?>'},
-            // { field:'Licencia',		width:'10%', align:'center',  title: '<?php _e('License'); ?>'},
             { field:'Nombre',		width:'15%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
             { field:'NombreGuia',	width:'30%', align:'right', title: '<?php _e('Handler'); ?>',formatter:formatLlamadaGuia },
             { field:'NombreClub',	width:'20%', align:'right', title: '<?php _e('Club'); ?>' },
             { field:'NombreEquipo',	width:'20%', align:'right', title: '<?php _e('Team'); ?>',hidden:true },
             { field:'Celo',	        width:'5%', align:'center', title: '<?php _e('Heat'); ?>',formatter:formatCelo }
-        ]],
+            ]
+        ],
         rowStyler:myRowStyler,
         onLoadSuccess: function(data) {
             var mySelf=$('#vwc_llamada-datagrid');
@@ -303,28 +305,26 @@ Modelo simplificado de resultados finales
     // header elements layout
     var layout= {'rows':110,'cols':1900};
     doLayout(layout,"#vwc_header-logo",	        0,	    0,	100,    100	);
-    doLayout(layout,"#vwc_header-infoprueba",	120,	0,	1760,	25	);
-    doLayout(layout,"#vwc_header-infojornada",	120,	35,	1760,	25	);
-    doLayout(layout,"#vwc_header-ring",     	120,	35,	1760,	25	);
-    doLayout(layout,"#vwc_header-calltoring",	120,	65,	5800,	25	);
-    doLayout(layout,"#vwcf_header-finalscores",700,	65,	1180,	25	);
+    doLayout(layout,"#vwcs_title",	            120,	0,	1760,	50	);
+    doLayout(layout,"#vwc_header-calltoring",	120,	65,	800,	25	);
+    doLayout(layout,"#vwcs_header-trs",	        1000,	50,	880,	60	);
     // livedata elements layout
     var liveLayout = {'rows':200,'cols':1900};
     doLayout(liveLayout,"#vwls_Numero",	        0,	    25,	    70,	    150	);
-    doLayout(liveLayout,"#vwls_Logo",	        100,	10,	    120,	180	);
-    doLayout(liveLayout,"#vwls_Dorsal",	        230,	10,	    80, 	100	);
-    doLayout(liveLayout,"#vwls_Nombre",	        335,    10,	    415,	100	);
-    doLayout(liveLayout,"#vwls_Celo",	        800,    10,	    100,	100	);
-    doLayout(liveLayout,"#vwls_NombreGuia",	    230,	100,    470,	100	);
-    doLayout(liveLayout,"#vwls_NombreClub",	    600,	100,    300,	100	);
+    doLayout(liveLayout,"#vwls_Logo",	        100,	10,	    100,	180	);
+    doLayout(liveLayout,"#vwls_Dorsal",	        220,	25,	    80, 	150	);
+    doLayout(liveLayout,"#vwls_Nombre",	        320,    25,	    350,	150	);
+    doLayout(liveLayout,"#vwls_NombreGuia",	    670,	25,     450,	150	);
+    doLayout(liveLayout,"#vwls_Celo",	        1120,   25,	    80,	150	);
+    // doLayout(liveLayout,"#vwls_NombreClub",	    600,	100,    300,	100	);
     // doLayout(liveLayout,"#vwls_Categoria",	    0,	    0,	100,	100	);
     // doLayout(liveLayout,"#vwls_Grado",	        0,	    0,	100,	100	);
-    doLayout(liveLayout,"#vwls_FaltasLbl",	    900,	25,     100,	150	);
-    doLayout(liveLayout,"#vwls_Faltas",	        1000,	25,     100,	150	);
-    doLayout(liveLayout,"#vwls_RehusesLbl",	    1100,	25,	    100,	150	);
-    doLayout(liveLayout,"#vwls_Rehuses",	    1200,	25,	    100,	150	);
-    doLayout(liveLayout,"#vwls_TocadosLbl",	    1300,	25,	    100,	150	);
-    doLayout(liveLayout,"#vwls_Tocados",	    1400,	25,	    100,	150	);
+    doLayout(liveLayout,"#vwls_FaltasLbl",	    1200,	25,     50,	    150	);
+    doLayout(liveLayout,"#vwls_Faltas",	        1250,	25,     50,	    150	);
+    doLayout(liveLayout,"#vwls_RehusesLbl",	    1300,	25,	    50,	    150	);
+    doLayout(liveLayout,"#vwls_Rehuses",	    1350,	25,	    50,	    150	);
+    doLayout(liveLayout,"#vwls_TocadosLbl",	    1400,	25,	    50,	    150	);
+    doLayout(liveLayout,"#vwls_Tocados",	    1450,	25,	    50,	    150	);
     doLayout(liveLayout,"#vwls_Tiempo",	        1500,	25, 	200,	150	);
     doLayout(liveLayout,"#vwls_Puesto",	        1700,	25, 	200,	150	);
 
