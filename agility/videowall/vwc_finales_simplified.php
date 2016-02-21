@@ -82,34 +82,9 @@ Modelo simplificado de resultados finales
         <div data-options="region:'center',border:false" class="vwc_top"><!-- Espacio vacio -->&nbsp;</div>
         <div data-options="region:'east'" style="width:65%;"> <!-- RESULTADOS PARCIALES -->
             <!-- tabla de clasificaciones -->
-            <table id="vwcf_clasificacion-datagrid">
-                <thead>
-                <tr>
-                    <th colspan="5"> <span class="main_theader"><?php _e('Competitor data'); ?></span></th>
-                    <th colspan="3"> <span class="main_theader" id="vwcf_finales_thead_m1"><?php _e('Round'); ?> 1</span></th>
-                    <th colspan="3"> <span class="main_theader" id="vwcf_finales_thead_m2"><?php _e('Round'); ?> 2</span></th>
-                    <th colspan="3"> <span class="main_theader"><?php _e('Final scores'); ?></span></th>
-                </tr>
-                <tr>
-                    <th data-options="field:'LogoClub',		width:20, align:'left',formatter:formatLogo" > &nbsp;</th>
-                    <th data-options="field:'Dorsal',		width:20, align:'left'" > <?php _e('Dors'); ?>.</th>
-                    <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
-                    <th data-options="field:'NombreGuia',	width:50, align:'right'" > <?php _e('Handler'); ?></th>
-                    <th data-options="field:'NombreClub',	width:45, align:'right'" > <?php _e('Club'); ?></th>
-                    <th data-options="field:'T1',			width:25, align:'right',formatter:formatT1,styler:formatBorder"> <?php _e('Time'); ?>.</th>
-                    <th data-options="field:'P1',			width:20, align:'right',formatter:formatP1"> <?php _e('Penal'); ?>.</th>
-                    <th data-options="field:'Puesto1',		width:15, align:'center'"> <?php _e('Pos'); ?>.</th>
-                    <th data-options="field:'T2',			width:25, align:'right',formatter:formatT2,styler:formatBorder"> <?php _e('Time'); ?>.</th>
-                    <th data-options="field:'P2',			width:20, align:'right',formatter:formatP2"> <?php _e('Penal'); ?>.</th>
-                    <th data-options="field:'Puesto2',		width:15, align:'center'"> <?php _e('Pos'); ?>.</th>
-                    <th data-options="field:'Tiempo',		width:25, align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
-                    <th data-options="field:'Penalizacion',	width:25, align:'right',formatter:formatPenalizacionFinal" > <?php _e('Penaliz'); ?>.</th>
-                    <th data-options="field:'Puesto',		width:15, align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
-                </tr>
-                </thead>
-            </table>
+            <table id="vwcf_clasificacion-datagrid"></table>
         </div>
-        <div data-options="region:'south',border:false" style="height:25%;">
+        <div data-options="region:'south',border:false" style="height:22%;">
             <div id="vwcf-layout2">
                 <div data-options="region:'north'" style="height:30%" class="vwc_live"> <!-- DATOS DEL PERRO EN PISTA -->
                     <div id="vwcf_common" style="display:inline-block;width:100%" >
@@ -147,27 +122,7 @@ Modelo simplificado de resultados finales
                 </div>
                 <div data-options="region:'east'" style="width:68%"> <!-- ULTIMOS TRES RESULTADOS -->
                     <!-- tabla de ultimos 4 resultados -->
-                    <table id="vwcf_ultimos-datagrid">
-                        <thead>
-                        <tr>
-                            <th data-options="field:'Orden',		width:20, align:'center',formatter:formatOrdenLlamadaPista" >#</th>
-                            <th data-options="field:'LogoClub',		width:20, align:'left',formatter:formatLogo" > &nbsp;</th>
-                            <th data-options="field:'Dorsal',		width:20, align:'left'" > <?php _e('Dors'); ?>.</th>
-                            <th data-options="field:'Nombre',		width:35, align:'center',formatter:formatBold"> <?php _e('Name'); ?></th>
-                            <th data-options="field:'NombreGuia',	width:50, align:'right'" > <?php _e('Handler'); ?></th>
-                            <th data-options="field:'NombreClub',	width:45, align:'right'" > <?php _e('Club'); ?></th>
-                            <th data-options="field:'T1',			width:25, align:'right',formatter:formatT1,styler:formatBorder"> <?php _e('Time'); ?>.</th>
-                            <th data-options="field:'P1',			width:20, align:'right',formatter:formatP1"> <?php _e('Penal'); ?>.</th>
-                            <th data-options="field:'Puesto1',		width:15, align:'center'"> <?php _e('Pos'); ?>.</th>
-                            <th data-options="field:'T2',			width:25, align:'right',formatter:formatT2,styler:formatBorder"> <?php _e('Time'); ?>.</th>
-                            <th data-options="field:'P2',			width:20, align:'right',formatter:formatP2"> <?php _e('Penal'); ?>.</th>
-                            <th data-options="field:'Puesto2',		width:15, align:'center'"> <?php _e('Pos'); ?>.</th>
-                            <th data-options="field:'Tiempo',		width:25, align:'right',formatter:formatTF,styler:formatBorder"><?php _e('Time'); ?></th>
-                            <th data-options="field:'Penalizacion',	width:25, align:'right',formatter:formatPenalizacionFinal" > <?php _e('Penaliz'); ?>.</th>
-                            <th data-options="field:'Puesto',		width:15, align:'center',formatter:formatPuestoFinalBig" ><?php _e('Position'); ?></th>
-                        </tr>
-                        </thead>
-                    </table>
+                    <table id="vwcf_ultimos-datagrid"> </table>
                 </div>
             </div>
         </div>
@@ -235,7 +190,27 @@ Modelo simplificado de resultados finales
         },
         onLoadSuccess: function(data) {
             $('#vwcf_clasificacion-datagrid').datagrid('scrollTo',0); // point to first result
-        }
+        },
+        columns:[[
+            { field:'Licencia',     width:'40%', align:'center', title: '<span class="vws_theader"><?php _e('Competitor data'); ?></span>', colspan:4},
+            { field:'C1',           width:'20%', align:'center', title: '<span class="vws_theader" id="vwcf_finales_thead_m1"><?php _e('Round'); ?> 1</span>', colspan:3},
+            { field:'C2',           width:'20%', align:'center', title: '<span class="vws_theader" id="vwcf_finales_thead_m2"><?php _e('Round'); ?> 2</span>', colspan:3},
+            { field:'Clasificacion',width:'20%', align:'center', title: '<span class="vws_theader"><?php _e('Final scores'); ?></span>', colspan:3}
+        ],[
+            {field:'LogoClub',		width:'5%', align:'left',     formatter:formatLogo, title:''},
+            {field:'Dorsal',		width:'5%', align:'center',     title:"<?php _e('Dors'); ?>."},
+            {field:'Nombre',		width:'10%',align:'center',   formatter:formatBold,   title:"<?php _e('Name'); ?>"},
+            {field:'NombreGuia',	width:'20%',align:'right',    title:"<?php _e('Handler'); ?>"},
+            {field:'T1',			width:'8%', align:'right',    formatter:formatT1, styler:formatBorder, title:"<?php _e('Time'); ?>."},
+            {field:'P1',			width:'8%', align:'right',    formatter:formatP1, title:"<?php _e('Penal'); ?>."},
+            {field:'Puesto1',		width:'4%', align:'center',   title:"<?php _e('Pos'); ?>."},
+            {field:'T2',			width:'8%', align:'right',    formatter:formatT2, styler:formatBorder, title:"<?php _e('Time'); ?>."},
+            {field:'P2',			width:'8%', align:'right',    formatter:formatP2, title:"<?php _e('Penal'); ?>."},
+            {field:'Puesto2',		width:'4%', align:'center',   title:"<?php _e('Pos'); ?>"},
+            {field:'Tiempo',		width:'8%', align:'right',    formatter:formatTF, styler:formatBorder,    title:"<?php _e('Time'); ?>"},
+            {field:'Penalizacion',	width:'8%', align:'right',    formatter:formatPenalizacionFinal,  title:"<?php _e('Penaliz'); ?>."},
+            {field:'Puesto',		width:'4%', align:'center',   formatter:formatPuestoFinalBig, title:"<?php _e('Position'); ?>"}
+        ]]
     });
 
     $('#vwcf_ultimos-datagrid').datagrid({
@@ -250,7 +225,24 @@ Modelo simplificado de resultados finales
         fitColumns: true,
         singleSelect: true,
         autoRowHeight: true,
-        rowStyler:myRowStyler
+        rowStyler:myRowStyler,
+        columns: [[
+            {field:'Orden',		    width:'5%', align:'center',   formatter:formatOrdenLlamadaPista,  title:"#"},
+            {field:'LogoClub',		width:'5%', align:'left',     formatter:formatLogo,               title:""},
+            {field:'Dorsal',		width:'5%', align:'center',                                         title:"<?php _e('Dors'); ?>."},
+            {field:'Nombre',		width:'9%', align:'center',   formatter:formatBold,               title:"<?php _e('Name'); ?>"},
+            {field:'NombreGuia',	width:'19%',align:'right',                                        title:"<?php _e('Handler'); ?>"},
+            {field:'NombreClub',	hidden:true},
+            {field:'T1',			width:'7%', align:'right',    formatter:formatT1, styler:formatBorder, title:"<?php _e('Time'); ?>."},
+            {field:'P1',			width:'8%', align:'right',    formatter:formatP1,                 title:"<?php _e('Penal'); ?>."},
+            {field:'Puesto1',		width:'4%', align:'center',                                       title:"<?php _e('Pos'); ?>."},
+            {field:'T2',			width:'7%', align:'right',    formatter:formatT2, styler:formatBorder, title:"<?php _e('Time'); ?>."},
+            {field:'P2',			width:'8%', align:'right',    formatter:formatP2,                 title:"<?php _e('Penal'); ?>."},
+            {field:'Puesto2',		width:'4%', align:'center',                                       title:"<?php _e('Pos'); ?>"},
+            {field:'Tiempo',		width:'8%', align:'right',    formatter:formatTF, styler:formatBorder,    title:"<?php _e('Time'); ?>"},
+            {field:'Penalizacion',	width:'7%', align:'right',    formatter:formatPenalizacionFinal,  title:"<?php _e('Penaliz'); ?>."},
+            {field:'Puesto',		width:'4%', align:'center',   formatter:formatPuestoFinalBig,     title:"<?php _e('Position'); ?>"}
+        ]]
     });
 
     $('#vwc_llamada-datagrid').datagrid({
@@ -266,7 +258,7 @@ Modelo simplificado de resultados finales
         singleSelect: true,
         autoRowHeight: true,
         columns:[[
-            { field:'Licencia',     width:'100%',align:'center', title: '<span class="main_theader"><?php _e("Call to ring"); ?></span>', colspan:11}
+            { field:'Licencia',     width:'100%',align:'center', title: '<span class="vws_theader"><?php _e("Call to ring"); ?></span>', colspan:11}
             ],[
             { field:'Orden',		width:'10%', align:'center', title: '#', formatter:formatOrdenLlamadaPista},
             { field:'Logo', 		width:'10%', align:'center', title: '', formatter:formatLogo},
@@ -274,26 +266,17 @@ Modelo simplificado de resultados finales
             { field:'Perro',		hidden:true },
             { field:'Equipo',		hidden:true },
             { field:'Dorsal',		width:'10%', align:'center', title: '<?php _e('Dorsal'); ?>'},
-            { field:'Nombre',		width:'15%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
-            { field:'NombreGuia',	width:'30%', align:'right', title: '<?php _e('Handler'); ?>',formatter:formatLlamadaGuia },
-            { field:'NombreClub',	width:'20%', align:'right', title: '<?php _e('Club'); ?>' },
-            { field:'NombreEquipo',	width:'20%', align:'right', title: '<?php _e('Team'); ?>',hidden:true },
+            { field:'Nombre',		width:'25%', align:'center',  title: '<?php _e('Name'); ?>',formatter:formatBold},
+            { field:'NombreGuia',	width:'40%', align:'right', title: '<?php _e('Handler'); ?>',formatter:formatLlamadaGuia },
+            { field:'NombreClub',	hidden:true },
+            { field:'NombreEquipo',	hidden:true },
             { field:'Celo',	        width:'5%', align:'center', title: '<?php _e('Heat'); ?>',formatter:formatCelo }
             ]
         ],
         rowStyler:myRowStyler,
         onLoadSuccess: function(data) {
             var mySelf=$('#vwc_llamada-datagrid');
-            // show/hide team name
-            if (isTeamByJornada(workingData.datosJornada) ) {
-                mySelf.datagrid('hideColumn','NombreClub');
-                mySelf.datagrid('showColumn','NombreEquipo');
-            } else  {
-                mySelf.datagrid('hideColumn','NombreEquipo');
-                mySelf.datagrid('showColumn','NombreClub');
-            }
             mySelf.datagrid('fitColumns'); // expand to max width
-
         },
         onBeforeLoad: function(param) {
             // do not update until 'open' received

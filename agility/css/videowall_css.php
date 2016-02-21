@@ -77,6 +77,12 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 }
 
 /**********  cabeceras flotante para videomarcadores **********/
+
+.vws_theader {
+    /* font-style: italic; */
+    font-family: Arial Black;
+}
+
 .vw_floatingheader {
     margin-top:0px;
     margin-bottom:0px;
