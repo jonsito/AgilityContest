@@ -43,8 +43,8 @@ Modelo simplificado de resultados finales
                 <img  id="vwc_header-logo" src="/agility/images/logos/rsce.png"/>
                 <span id="vwcs_title">
                     <span id="vwc_header-infoprueba"><?php _e('Contest'); ?></span> -
-                    <span id="vwc_header-infojornada"><?php _e('Journey'); ?></span> -
-                    <span id="vwc_header-ring" style="text-align:right"><?php _e('Ring'); ?></span>
+                    <span id="vwc_header-infojornada"><?php _e('Journey'); ?></span>
+                    <span id="vwc_header-ring" style="display:none; text-align:right"><?php _e('Ring'); ?></span>
                 </span>
                 <span id="header-combinadaFlag" style="display:none">true</span> <!--indicador de combinada-->
                 <span id="vwcf_header-NombreRonda" style="display:none"><?php _e('Series');?></span>

@@ -64,6 +64,29 @@ class RSCE extends Federations {
     }
 
     /**
+     * Evaluate if a dog has a mixBreed License
+     * @param $lic
+     */
+    function validLicense($lic){
+        $lic=strval($lic);
+        // remove dots, spaces and dashes
+        $lic=str_replace(" ","",$lic);
+        $lic=str_replace("-","",$lic);
+        $lic=str_replace(".","",$lic);
+        $lic=strtoupper($lic);
+        if (strlen($lic)<4) {
+            if (is_numeric($lic)) return true; // licenses from 0 to 999
+            return false;
+        }
+        if (strlen($lic)>4) return false; // rsce licenses has up to 4 characters
+        if (substr($lic,0,1)=='0') return true; // 0000 to 9999
+        if (substr($lic,0,1)=='A') return true; // A000 to A999
+        if (substr($lic,0,1)=='B') return true; // B000 to B999
+        if (substr($lic,0,1)=='C') return true; // C000 to C999
+        return false;
+    }
+
+    /**
      * Evalua la calificacion parcial del perro
      * @param {object} $p datos de la prueba
      * @param {object} $j datos de la jornada
@@ -82,11 +105,10 @@ class RSCE extends Federations {
         }
         // arriving here means prueba selectiva and Grado III
         // comprobamos si el perro es mestizo
-        if ( Dogs::isMixBreed($perro['Licencia']) ) { // perro mestizo no puntua
+        if (! $this->validLicense($perro['Licencia']) ) { // perro mestizo o extranjero no puntua
             parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
             return;
         }
-        // TODO: Tener en cuenta perros extranjeros
         // si no tiene excelente no puntua
         if ( ($perro['Penalizacion']>=6.0)) {
             parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
@@ -151,14 +173,10 @@ class RSCE extends Federations {
             return;
         }
         // arriving here means prueba selectiva and Grado III
-        // comprobamos si el perro es mestizo
-        if ( Dogs::isMixBreed($perro['Licencia']) ) {
+        if ( ! $this->validLicense($perro['Licencia']) ) {  // comprobamos si el perro es mestizo o extranjero
             $perro['Calificacion'] = ($perro['Penalizacion']==0.0)?'Punto':'';
             return;
         }
-        // TODO: Tener en cuenta perros extranjeros
-
-
         if ($m1->TRS_L_Factor==0) {  // SI TRS_L_Factor es 0 tenemos puntuacion para individual
             // manga 1 - puntuan los 10 primeros en cada manga con excelente
             $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
