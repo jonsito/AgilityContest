@@ -189,7 +189,7 @@ class Updater {
         // prepare "prepared statement"
         $stmt=$this->conn->prepare($str);
         if (!$stmt) throw new Exception("upgrade::addCountries(prepare) ".$this->conn->error);
-        $res=$stmt->bind_param('ssss',$country,$lcountry,$name,$logo);
+        $res=$stmt->bind_param('ssss',$name,$lcountry,$country,$logo);
         if (!$res) throw new Exception("upgrade::addCountries(bind) ".$this->conn->error);
         foreach(Country::$countryList as $key => $val) {
             $country=$key;
