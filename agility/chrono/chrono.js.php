@@ -495,6 +495,8 @@ function chrono_processEvents(id,evt) {
 		return;
     case 'info':	// click on user defined tandas
         return;
+	case 'camera': // video source for live stream has changed
+		return;
 	default:
 		alert("Unknow Event type: "+event['Type']);
 		return;

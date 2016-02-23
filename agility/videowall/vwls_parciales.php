@@ -216,6 +216,7 @@ var eventHandler= {
         });
     },
     'cancelar': null, // operador pulsa cancelar
+    'camera':	null, // change video source
     'info':	null // click on user defined tandas
 };
 

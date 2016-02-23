@@ -428,6 +428,7 @@ Modelo simplificado de resultados finales
             crm.Chrono('stop', time);
             crm.Chrono('reset', time);
         },
+        'camera':	null, // change video source
         'info': null // click on user defined tandas
     };
 </script>

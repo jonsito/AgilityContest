@@ -192,6 +192,7 @@ var eventHandler= {
     'crono_dat':  null, // datos desde crono
     'aceptar':	null, // operador pulsa aceptar
     'cancelar': null, // operador pulsa cancelar
+    'camera':	null, // change video source
     'info':	null // click on user defined tandas
 };
 

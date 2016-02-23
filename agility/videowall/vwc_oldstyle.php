@@ -256,6 +256,7 @@ var eventHandler= {
             vw_updateParciales(e,d);
         });
     },
+    'camera':	null, // change video source
     'info':	null // click on user defined tandas
 };
 
