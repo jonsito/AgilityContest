@@ -72,7 +72,6 @@ class PrintCommon extends FPDF {
 	function AddPage($orientation='', $size='', $rotation=0) {
 		parent::AddPage($orientation,$size,$rotation);
 		if ( ($this->regInfo==null) || ($this->regInfo['Serial']==="00000000") ) {
-			$this->myLogger->error("no registrado");
 			$img=getIconPath(0,'unregistered.png');
 			$mx=190;$my=270;
 			if($orientation=='') $orientation = $this->DefOrientation;
