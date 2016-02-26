@@ -259,17 +259,17 @@ function vwls_showData(data) {
 			dataType: 'json',
 			success: function(res){
 				$('#vwls_Logo').attr("src","/agility/images/logos/"+res['LogoClub']);
-				$('#vwls_Dorsal').html("<?php _e('Dorsal');?>: "+dorsal );
+				$('#vwls_Dorsal').html(dorsal );
 				$('#vwls_Nombre').html(res["Nombre"]);
-				$('#vwls_NombreGuia').html("<?php _e('Handler');?>: "+res["NombreGuia"]);
-                $('#vwls_Categoria').html("<?php _e('Cat');?>: "+toLongCategoria(res["Categoria"],res['Federation']));
+				$('#vwls_NombreGuia').html(res["NombreGuia"]);
+                $('#vwls_Categoria').html(toLongCategoria(res["Categoria"],res['Federation']));
                 // hide "Grado" Information if not applicable
                 $('#vwls_Grado').html(hasGradosByJornada(workingData.datosJornada)?res["NombreGrado"]:"");
                 // on Team events, show Team info instead of Club
                 var eq=workingData.teamsByJornada[data["Equipo"]].Nombre;
                 // como en el videowall no tenemos datos de la jornada, lo que hacemos es
                 // contar el numero de equipos de esta para saber si es prueba por equipos o no
-                $('#vwls_NombreClub').html((Object.keys(workingData.teamsByJornada).length>1)?"<?php _e('Eq');?>: "+eq:"<?php _e('Club');?>: "+res["NombreClub"]);
+                $('#vwls_NombreClub').html((Object.keys(workingData.teamsByJornada).length>1)?eq:res["NombreClub"]);
 				$('#vwls_Celo').html((celo==1)?'<span class="blink">Celo</span>':'');
 			},
 			error: function(XMLHttpRequest,textStatus,errorThrown) {

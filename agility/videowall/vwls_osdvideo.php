@@ -39,7 +39,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <source id="vwls_videoogv" src="" type='video/ogg'/>
                 <source id="vwls_videowebm" src="" type='video/webm'/>
             </video>
-		<div id="vwls_common" style="font-size:1.75em;display:inline-block;width:100%">
+		<div id="vwls_common" style="display:inline-block;width:100%">
 			<!-- Recuadros de decoracion -->
 			<span class="vwls_fondo" id="vwls_Resultados">&nbsp;</span>
             <span class="vwls_fondo" id="vwls_Datos">&nbsp;</span>
@@ -111,8 +111,8 @@ $('#vwls_LiveStream-window').window({
 var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 
 doLayout(layout,"#vwls_Resultados",	700,	20,		75,	    100	);
-doLayout(layout,"#vwls_Datos",		25,		390,	750,	45	);
-doLayout(layout,"#vwls_InfoManga",	25,	    20,	    250,	20	);
+doLayout(layout,"#vwls_Datos",		15,		400,	635,	35	);
+doLayout(layout,"#vwls_InfoManga",	15,	    20,	    260,	20	);
 
 doLayout(layout,"#vwls_FaltasLbl",	715,	30,		30,		20	);
 doLayout(layout,"#vwls_Faltas",		740,	30,		25,		20	);
@@ -123,14 +123,14 @@ doLayout(layout,"#vwls_Rehuses",	740,	70,	    25,		20	);
 // doLayout(layout,"#vwls_TiempoLbl",	710,	90,     30,		20	);
 doLayout(layout,"#vwls_Tiempo",		710,	90,     55,		20	);
 
-doLayout(layout,"#vwls_Logo",		30,		360,	80,		80	);
-doLayout(layout,"#vwls_Dorsal",		120,	395,	110,	25	);
-doLayout(layout,"#vwls_Nombre",		230,	395,	270,	25	);
-doLayout(layout,"#vwls_NombreGuia",	120,	415,	380,	25	);
-doLayout(layout,"#vwls_NombreClub",	500,	415,	300,	25	);
-doLayout(layout,"#vwls_Categoria",	500,	395,	150,	25	);
-doLayout(layout,"#vwls_Grado",		650,	395,	125,	25	);
-doLayout(layout,"#vwls_Celo",		700,	415,	75,		25	);
+doLayout(layout,"#vwls_Logo",		60,		360,	80,		80	);
+doLayout(layout,"#vwls_Dorsal",		22,		405,	110,	40	);
+doLayout(layout,"#vwls_Nombre",		150,	400,	270,	25	);
+doLayout(layout,"#vwls_NombreGuia",	150,	415,	380,	25	);
+doLayout(layout,"#vwls_NombreClub",	400,	415,	300,	25	);
+doLayout(layout,"#vwls_Grado",		400,	400,	100,	25	);
+doLayout(layout,"#vwls_Categoria",	510,	400,	140,	25	);
+doLayout(layout,"#vwls_Celo",		600,	400,	50,		25	);
 
 doLayout(layout,"#vwls_Manga",		25, 	22,	    250,	15	);
 

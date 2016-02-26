@@ -26,6 +26,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 #vwls_common {
     vertical-align: middle;
     /*line-height: 25px; */
+    font-size:0.7vw;
     font-weight: bold;
     border: none;
     border-width: 0px;

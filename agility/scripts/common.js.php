@@ -61,9 +61,10 @@ function myAlert(msg) {
 function toFixedT(value,numdecs) {
 	// first approach. may fail with some numbers due to internal handling of floating point
 	// numbers in javascript: ie: toFixedT(4.27 , 2 ) return 4.26 due to js internal handling
-	return Number ( value - 5/Math.pow(10,numdecs+1)).toFixed(numdecs);
-
 	/*
+	return Number ( value - 5/Math.pow(10,numdecs+1)).toFixed(numdecs);
+	*/
+
 	// this code works fine, but doesn't always returns desired decimal numbers
 	// that is : toFixedT( 2.1 , 2) returns '2.1' instead of '2.10'
 	switch (numdecs) {
@@ -74,7 +75,6 @@ function toFixedT(value,numdecs) {
 		case 4: return Number(value.toString().match(/^\d+(?:\.\d{0,4})?/))
 		default: return toFixed(value,numdecs);
 	}
-	*/
 }
 
 /**
