@@ -159,6 +159,7 @@ var eventHandler= {
             vw_updateLlamada(e,d);
         });
     },
+    'camera':	null, // change video source
     'info':	null // click on user defined tandas
 };
 

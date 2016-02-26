@@ -235,6 +235,7 @@ var eventHandler= {
 		crm.Chrono('reset',time);
 		vwls_showOSD(0); // apaga el OSD
 	},
+	'camera':	null, // change video source
 	'info':	null // click on user defined tandas
 };
 

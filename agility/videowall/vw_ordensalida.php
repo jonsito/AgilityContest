@@ -164,6 +164,7 @@ $('#vw_ordensalida-datagrid').datagrid({
         'crono_dat':    null, // datos desde crono electronico
         'aceptar':	null, // operador pulsa aceptar
         'cancelar': null, // operador pulsa cancelar
+        'camera':	null, // change video source
         'info':	null // click on user defined tandas
     };
 
