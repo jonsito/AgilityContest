@@ -44,6 +44,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 </div> <!-- pb_inscripciones-window -->
 
 <script type="text/javascript">
+
+// fire autorefresh if configured
+var rtime=parseInt(ac_config.web_refreshtime);
+if (rtime!=0) setInterval(pb_updateInscripciones,1000*rtime);
+
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update inscription list"); ?>');
 $('#pb_inscripciones-layout').layout({fit:true});
 $('#pb_inscripciones-window').window({

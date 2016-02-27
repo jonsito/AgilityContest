@@ -47,6 +47,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 
 <script type="text/javascript">
 
+// fire autorefresh if configured
+var rtime=parseInt(ac_config.web_refreshtime);
+if (rtime!=0) setInterval(pb_updatePrograma,1000*rtime);
+
 addTooltip($('#pb_header-link').linkbutton(),'<?php _e("Update schedule info on this journey"); ?>');
 
 $('#pb_programa-layout').layout({fit:true});
