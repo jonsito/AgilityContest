@@ -40,10 +40,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
                 <source id="vwls_videowebm" src="" type='video/webm'/>
             </video>
 		<div id="vwls_common" style="display:inline-block;width:100%">
-			<!-- Recuadros de decoracion -->
+			<!-- Recuadro de decoracion resultados -->
 			<span class="vwls_fondo" id="vwls_Resultados">&nbsp;</span>
-            <span class="vwls_fondo" id="vwls_Datos">&nbsp;</span>
+			<!-- Recuadro de informacion de la manga -->
             <span class="vwls_fondo" id="vwls_InfoManga">&nbsp;</span>
+
 			<!-- datos de resultados -->
 			<span class="vwls_dlabel" id="vwls_FaltasLbl"><?php _e('F'); ?>:</span>
 			<span class="vwls_data"  id="vwls_Faltas">0</span>
@@ -57,17 +58,23 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span style="display:none" id="vwls_Eliminado">0</span>
 			<span style="display:none" id="vwls_NoPresentado">0</span>
 
-       		<span id="vwls_timestamp" style="display:none"></span>
+       		<span style="display:none" id="vwls_timestamp"></span>
+
 			<!-- Informacion del participante -->
 			<span style="display:none" id="vwls_Perro">0</span>
-			<img id="vwls_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="vwls_logo"/>
-			<span class="vwls_label" id="vwls_Dorsal"><?php _e('Dorsal'); ?></span>
-			<span class="vwls_label" id="vwls_Nombre"><?php _e('Name'); ?></span>
-			<span class="vwls_label" id="vwls_NombreGuia"><?php _e('Handler'); ?></span>
-			<span class="vwls_label" id="vwls_NombreClub"><?php _e('Club'); ?></span>
-			<span class="vwls_label" id="vwls_Categoria"><?php _e('Category'); ?></span>
-			<span class="vwls_label" id="vwls_Grado"><?php _e('Grade'); ?></span>
-            <span class="vwls_label" id="vwls_Celo"><?php _e('Heat'); ?></span>
+			<div id="vwls_competitorInfo">
+				<!-- recuadro de decoracion de datos del competidor en pist -->
+				<span class="vwls_fondo" id="vwls_Datos">&nbsp;</span>
+				<!-- logogipo -->
+				<img id="vwls_Logo" alt="Logo" src="/agility/images/logos/rsce.png" width="80" height="80" class="vwls_logo"/>
+				<span class="vwls_label" id="vwls_Dorsal"><?php _e('Dorsal'); ?></span>
+				<span class="vwls_label" id="vwls_Nombre"><?php _e('Name'); ?></span>
+				<span class="vwls_label" id="vwls_NombreGuia"><?php _e('Handler'); ?></span>
+				<span class="vwls_label" id="vwls_NombreClub"><?php _e('Club'); ?></span>
+				<span class="vwls_label" id="vwls_Categoria"><?php _e('Category'); ?></span>
+				<span class="vwls_label" id="vwls_Grado"><?php _e('Grade'); ?></span>
+				<span class="vwls_label" id="vwls_Celo"><?php _e('Heat'); ?></span>
+			</div>
             <!-- Informacion de la manga -->
             <span class="vwls_label" id="vwls_Manga" style="text-align:center;"><?php _e('Round'); ?></span>
 		</div>
@@ -110,18 +117,18 @@ $('#vwls_LiveStream-window').window({
 // layout
 var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 
-doLayout(layout,"#vwls_Resultados",	700,	20,		75,	    100	);
+doLayout(layout,"#vwls_Resultados",	720,	10,		70,	    90	);
 doLayout(layout,"#vwls_Datos",		15,		400,	635,	35	);
-doLayout(layout,"#vwls_InfoManga",	15,	    20,	    260,	20	);
+doLayout(layout,"#vwls_InfoManga",	15,	    10,	    260,	20	);
 
-doLayout(layout,"#vwls_FaltasLbl",	715,	30,		30,		20	);
-doLayout(layout,"#vwls_Faltas",		740,	30,		25,		20	);
-doLayout(layout,"#vwls_TocadosLbl",	715,	50,		30,		20	);
-doLayout(layout,"#vwls_Tocados",	740,	50,		25,		20	);
-doLayout(layout,"#vwls_RehusesLbl",	715,	70,	    30,		20	);
-doLayout(layout,"#vwls_Rehuses",	740,	70,	    25,		20	);
+doLayout(layout,"#vwls_FaltasLbl",	735,	15,		20,		20	);
+doLayout(layout,"#vwls_Faltas",		760,	15,		15,		20	);
+doLayout(layout,"#vwls_TocadosLbl",	735,	35,		20,		20	);
+doLayout(layout,"#vwls_Tocados",	760,	35,		15,		20	);
+doLayout(layout,"#vwls_RehusesLbl",	735,	55,	    20,		20	);
+doLayout(layout,"#vwls_Rehuses",	760,	55,	    15,		20	);
 // doLayout(layout,"#vwls_TiempoLbl",	710,	90,     30,		20	);
-doLayout(layout,"#vwls_Tiempo",		710,	90,     55,		20	);
+doLayout(layout,"#vwls_Tiempo",		725,	75,     55,		20	);
 
 doLayout(layout,"#vwls_Logo",		60,		360,	80,		80	);
 doLayout(layout,"#vwls_Dorsal",		22,		405,	110,	40	);
@@ -132,7 +139,7 @@ doLayout(layout,"#vwls_Grado",		400,	400,	100,	25	);
 doLayout(layout,"#vwls_Categoria",	510,	400,	140,	25	);
 doLayout(layout,"#vwls_Celo",		600,	400,	50,		25	);
 
-doLayout(layout,"#vwls_Manga",		25, 	22,	    250,	15	);
+doLayout(layout,"#vwls_Manga",		25, 	10,	    250,	15	);
 
 jQuery('#vwls_common').fitText(0.02);
 
@@ -160,6 +167,7 @@ var eventHandler= {
 		crm.Chrono('stop',time);
 		crm.Chrono('reset',time);
 		vwls_showOSD(1); 	// activa visualizacion de OSD
+		vwls_showCompetitorInfo(1) // activa visualizacion de datos del competidor
 		vwls_showData(event);
 	},
 	'salida': function(event,time){     // orden de salida
@@ -175,14 +183,17 @@ var eventHandler= {
 		crm.Chrono('stop',time);
 		crm.Chrono('reset');
 		crm.Chrono('start',time);
+		vwls_showCompetitorInfo(0) // esconde los datos del competidor
 	},
 	'stop': function(event,time){      // stop crono manual
 		$('#vwls_StartStopFlag').text("Start");
 		myCounter.stop();
 		$('#cronometro').Chrono('stop',time);
+		vwls_showCompetitorInfo(1) // muestra los datos del competidor
 	},
 	// nada que hacer aqui: el crono automatico se procesa en el tablet
 	'crono_start':  function(event,time){ // arranque crono automatico
+		vwls_showCompetitorInfo(0) // esconde los datos del competidor
 		var crm=$('#cronometro');
 		myCounter.stop();
 		$('#vwls_StartStopFlag').text('Auto');
@@ -200,6 +211,7 @@ var eventHandler= {
 	},
 	'crono_restart': function(event,time){	// paso de tiempo manual a automatico
 		$('#cronometro').Chrono('resync',event['stop'],event['start']);
+		vwls_showCompetitorInfo(0) // esconde los datos del competidor
 	},
 	'crono_int':  	function(event,time){	// tiempo intermedio crono electronico
 		var crm=$('#cronometro');
@@ -211,6 +223,7 @@ var eventHandler= {
 	'crono_stop':  function(event,time){	// parada crono electronico
 		$('#vwls_StartStopFlag').text("Start");
 		$('#cronometro').Chrono('stop',time);
+		vwls_showCompetitorInfo(1) // muestra los datos del competidor
 	},
 	'crono_reset':  function(event,time){	// puesta a cero del crono electronico
 		var crm=$('#cronometro');

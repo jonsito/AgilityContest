@@ -200,6 +200,11 @@ function vwls_showOSD(val) {
 	else $('#vwls_common').css('display','initial');
 }
 
+function vwls_showCompetitorInfo(val) {
+	if (val==0) $('#vwls_competitorInfo').css('display','none');
+	else $('#vwls_competitorInfo').css('display','initial');
+}
+
 function vwls_updateData(data) {
     // some versions of Safari and Chrome doesn't properly take care on html dom changes
     // so stupid .hide().show(0) is needed to take care on this
