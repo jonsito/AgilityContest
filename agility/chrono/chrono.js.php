@@ -227,7 +227,7 @@ function c_showData(data) {
 		$('#chrono_NoPresentado').html(n);
 		$('#chrono_NoPresentadoLbl').html((n==0)?'':'<span class="blink"><?php _e('NoPr');?>.</span>');
 	}
-	}
+}
 
 /**
  * send events from chronometer to console

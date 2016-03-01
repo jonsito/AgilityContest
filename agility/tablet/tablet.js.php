@@ -299,7 +299,6 @@ function tablet_updateChronoData(data) {
 	var t=parseInt(data['Tocados']);
 	var e=parseInt(data['Eliminado']);
 	var n=parseInt(data['NoPresentado']);
-	console.log("f:"+f+" t:"+t+" r:"+r+" e:"+e+" n:"+n);
 	if (f>=0) $('#tdialog-Faltas').val(''+f);
 	if (t>=0) $('#tdialog-Tocados').val(''+t);
 	if (r>=0) $('#tdialog-Rehuses').val(''+r);

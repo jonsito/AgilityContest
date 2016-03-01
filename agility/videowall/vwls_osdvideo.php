@@ -55,8 +55,11 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<!-- <span class="vwls_dlabel" id="vwls_TiempoLbl">Time</span> -->
 			<span class="vwls_dtime"  id="vwls_Tiempo">00.00</span>
 			<span style="display:none" id="vwls_TIntermedio">00.000</span>
+			<span class="vwls_dtime" id="vwls_EliminadoLbl"></span>
 			<span style="display:none" id="vwls_Eliminado">0</span>
+			<span class="vwls_dtime" id="vwls_NoPresentadoLbl"></span>
 			<span style="display:none" id="vwls_NoPresentado">0</span>
+			<span style="display:none" id="vwls_Puesto"></span>
 
        		<span style="display:none" id="vwls_timestamp"></span>
 
@@ -117,29 +120,31 @@ $('#vwls_LiveStream-window').window({
 // layout
 var layout= {'cols':800, 'rows':450}; // declare base datagrid as A5 sheet
 
-doLayout(layout,"#vwls_Resultados",	720,	10,		70,	    90	);
-doLayout(layout,"#vwls_Datos",		15,		400,	635,	35	);
-doLayout(layout,"#vwls_InfoManga",	15,	    10,	    260,	20	);
+doLayout(layout,"#vwls_Resultados",		720,	10,		65,	    110	);
+doLayout(layout,"#vwls_Datos",			15,		400,	635,	35	);
+doLayout(layout,"#vwls_InfoManga",		15,	    10,	    260,	20	);
 
-doLayout(layout,"#vwls_FaltasLbl",	735,	15,		20,		20	);
-doLayout(layout,"#vwls_Faltas",		760,	15,		15,		20	);
-doLayout(layout,"#vwls_TocadosLbl",	735,	35,		20,		20	);
-doLayout(layout,"#vwls_Tocados",	760,	35,		15,		20	);
-doLayout(layout,"#vwls_RehusesLbl",	735,	55,	    20,		20	);
-doLayout(layout,"#vwls_Rehuses",	760,	55,	    15,		20	);
+doLayout(layout,"#vwls_FaltasLbl",		735,	15,		20,		20	);
+doLayout(layout,"#vwls_Faltas",			760,	15,		15,		20	);
+doLayout(layout,"#vwls_TocadosLbl",		735,	35,		20,		20	);
+doLayout(layout,"#vwls_Tocados",		760,	35,		15,		20	);
+doLayout(layout,"#vwls_RehusesLbl",		735,	55,	    20,		20	);
+doLayout(layout,"#vwls_Rehuses",		760,	55,	    15,		20	);
 // doLayout(layout,"#vwls_TiempoLbl",	710,	90,     30,		20	);
-doLayout(layout,"#vwls_Tiempo",		725,	75,     55,		20	);
+doLayout(layout,"#vwls_Tiempo",			725,	75,     55,		20	);
+doLayout(layout,"#vwls_EliminadoLbl",	725,	95,     55,		20	);
+doLayout(layout,"#vwls_NoPresentadoLbl",725,	95,     55,		20	);
 
-doLayout(layout,"#vwls_Logo",		60,		360,	80,		80	);
-doLayout(layout,"#vwls_Dorsal",		22,		405,	110,	40	);
-doLayout(layout,"#vwls_Nombre",		150,	400,	270,	25	);
-doLayout(layout,"#vwls_NombreGuia",	150,	415,	380,	25	);
-doLayout(layout,"#vwls_NombreClub",	400,	415,	300,	25	);
-doLayout(layout,"#vwls_Grado",		400,	400,	100,	25	);
-doLayout(layout,"#vwls_Categoria",	510,	400,	140,	25	);
-doLayout(layout,"#vwls_Celo",		600,	400,	50,		25	);
+doLayout(layout,"#vwls_Logo",			60,		360,	80,		80	);
+doLayout(layout,"#vwls_Dorsal",			22,		405,	110,	40	);
+doLayout(layout,"#vwls_Nombre",			150,	400,	270,	25	);
+doLayout(layout,"#vwls_NombreGuia",		150,	415,	380,	25	);
+doLayout(layout,"#vwls_NombreClub",		400,	415,	300,	25	);
+doLayout(layout,"#vwls_Grado",			400,	400,	100,	25	);
+doLayout(layout,"#vwls_Categoria",		510,	400,	140,	25	);
+doLayout(layout,"#vwls_Celo",			600,	400,	50,		25	);
 
-doLayout(layout,"#vwls_Manga",		25, 	10,	    250,	15	);
+doLayout(layout,"#vwls_Manga",			25, 	10,	    250,	15	);
 
 jQuery('#vwls_common').fitText(0.02);
 
@@ -159,7 +164,7 @@ var eventHandler= {
 	},
 	'datos': function(event,time) {      // actualizar datos (si algun valor es -1 o nulo se debe ignorar)
 		vwls_updateData(event);
-        vwcp_evalPuestoIntermedio();
+        vwcp_evalPuesto();
 	},
 	'llamada': function(event,time) {    // llamada a pista
 		var crm=$('#cronometro');
@@ -217,7 +222,7 @@ var eventHandler= {
 		var crm=$('#cronometro');
 		if (!crm.Chrono('started')) return;	// si crono no esta activo, ignorar
 		crm.Chrono('pause',time);
-        vwcp_evalPuestoIntermedio();
+        vwcp_evalPuesto();
         setTimeout(function(){crm.Chrono('resume');},5000);
 	},
 	'crono_stop':  function(event,time){	// parada crono electronico
@@ -231,10 +236,11 @@ var eventHandler= {
 		$('#vwls_StartStopFlag').text("Start");
 		crm.Chrono('stop',time);
 		crm.Chrono('reset',time);
+		vwcf_evalPuesto();
 	},
 	'crono_dat': function(event,time) {      // actualizar datos -1:decrease 0:ignore 1:increase
 		vwls_updateChronoData(event);
-        vwcp_evalPuestoIntermedio();
+        vwcp_evalPuesto();
 	},
 	'crono_error':  null, // fallo en los sensores de paso
 	'aceptar':	function(event,time){ // operador pulsa aceptar

@@ -213,36 +213,20 @@ function vwls_updateData(data) {
 	if (data["Rehuses"]!=-1) 	$('#vwls_Rehuses').html(data["Rehuses"]).hide().show(0);
 	if (data["Tiempo"]!=-1) 	$('#vwls_Tiempo').html(data["Tiempo"]).hide().show(0);
 	if (data["TIntermedio"]!=-1)$("#vwls_TIntermedio").html(data['TIntermedio']);
-	if (data["Eliminado"]!=-1) 	$("#vwls_Eliminado").html(data['Eliminado']);
-	if (data["Eliminado"]==1) 	$('#vwls_Tiempo').html('<span class="blink" style="color:red">Elim.</span>').hide().show(0);
-	if (data["NoPresentado"]!=-1) $("#vwls_NoPresentado").html(data['NoPresentado']);
-	if (data["NoPresentado"]==1) $('#vwls_Tiempo').html('<span class="blink" style="color:red">N.P.</span>').hide().show(0);
+	var e=parseInt(data["Eliminado"]);
+	if (e>=0) {
+		$('#vwls_Eliminado').html(e);
+		$('#vwls_EliminadoLbl').html((e==0)?'':'<span class="blink" style="color:red"><?php _e('Elim');?>.</span>');
+	}
+	var n=parseInt(data["NoPresentado"]);
+	if (n>=0) {
+		$('#vwls_NoPresentado').html(n);
+		$('#vwls_NoPresentadoLbl').html((n==0)?'':'<span class="blink" style="color:red"><?php _e('NoPr');?>.</span>');
+	}
 }
 
 function vwls_updateChronoData(data) {
 	vwls_updateData(data);
-}
-
- // actualizar datos desde crono -1:decrease 0:ignore 1:increase
-function vwls_updateChronoData_old(data){
-	var i=$('#vwls_Faltas');
-	var res=parseInt( i.html() )+parseInt(data["Faltas"]);
-	if (res<0) res=0;
-	i.html( res.toString() ).hide().show(0);
-	i=$('#vwls_Tocados');
-	res=parseInt( i.html() )+parseInt(data["Tocados"]);
-	if (res<0) res=0;
-	i.html( res.toString() ).hide().show(0);
-	i=$('#vwls_Rehuses');
-	res=parseInt( i.html() )+parseInt(data["Rehuses"]);
-	if (res<0)res=0;
-	i.html( res.toString() ).hide().show(0);
-	$("#vwls_TIntermedio").html(data['TIntermedio']);
-	$("#vwls_Eliminado").html( (data['Eliminado']==0)?0:1);
-	$("#vwls_NoPresentado").html( (data['NoPresentado']==0)?0:1);
-	// TODO: repaint timestamp when elim/notpresent mark is removed
-	if (data["Eliminado"]==1)	$('#vwls_Tiempo').html('<span class="blink" style="color:red"><?php _e("Elim");?>.</span>').hide().show(0);
-	if (data["NoPresentado"]==1) $('#vwls_Tiempo').html('<span class="blink" style="color:red"><?php _e("NoPr");?>.</span>').hide().show(0);
 }
 
 function vwls_showData(data) {
@@ -287,11 +271,17 @@ function vwls_showData(data) {
 	$('#vwls_Tocados').html(data["Tocados"]);
 	$('#vwls_Rehuses').html(data["Rehuses"]);
 	$('#vwls_TIntermedio').html(data["TIntermedio"]);
-	$('#vwls_Eliminado').html(data["Eliminado"]);
-	$('#vwls_NoPresentado').html(data["NoPresentado"]);
+	var e=parseInt(data["Eliminado"]);
+	if (e>=0) {
+		$('#vwls_Eliminado').html(e);
+		$('#vwls_EliminadoLbl').html((e==0)?'':'<span class="blink" style="color:red"><?php _e('Elim');?>.</span>');
+	}
+	var n=parseInt(data["NoPresentado"]);
+	if (n>=0) {
+		$('#vwls_NoPresentado').html(n);
+		$('#vwls_NoPresentadoLbl').html((n==0)?'':'<span class="blink" style="color:red"><?php _e('NoPr');?>.</span>');
+	}
 	vwls_tiempo.html(data["Tiempo"]);
-	if (data["Eliminado"]==1)	 vwls_tiempo.html('<span class="blink" style="color:red">Elim.</span>');
-	if (data["NoPresentado"]==1) vwls_tiempo.html('<span class="blink" style="color:red">N.P.</span>');
 }
 
 var myCounter = new Countdown({  
@@ -327,7 +317,7 @@ function vw_updateLlamada(evt,data) {
 /**
  * each time that "datos" or "chrono_int" arrives, evaluate position of current team
  */
-function vwls_evalPuestoIntermedio(trs,trm,time) {
+function vwls_evalPuesto(trs,trm,time) {
 	// use set timeout to make sure data are already refreshed
 	setTimeout(function(){
 		// phase 1 retrieve results
@@ -342,26 +332,25 @@ function vwls_evalPuestoIntermedio(trs,trm,time) {
 		else if ((time>=trm) && (trm!=0) ) pt=100; // supera TRS
 		else pt=time-trs;
 		var pf=pt+pr;
-		if (pf>=200) pf=200; // no presentado
-		else if (pf>=100) pf=100; // eliminado
-		// phase 2
-		// console.log("trs:"+trs+" trm:"+trm+" f:"+f+" t:"+t+" r:"+r+" e:"+e+" n:"+n+" pr:"+pr+" pt:"+pt+" pf:"+pf);
-		// $('#vwls_Puesto').html(toFixedT(pf,ac_config.numdecs)); // !!don't trunc twice!!
-		$('#vwls_Puesto').html(pf.toFixed(ac_config.numdecs));
+		var str='';
+		if (pf>=200) str='<span class="blink"><?php _e('NoPr');?>.</span>'; // no presentado
+		else if (pf>=100) str='<span class="blink"><?php _e('Elim');?>.</span>'; // eliminado
+		else str= Number(pf.toFixed(ac_config.numdecs)).toString();
+		$('#vwls_Puesto').html(str);
 	},0);
 }
 
-function vwcp_evalPuestoIntermedio() {
+function vwcp_evalPuesto() {
     var time=parseFloat($('#vwls_Tiempo').text());
     var trs=parseFloat($('#vwcp_parciales-TRS').text());
     var trm=parseFloat($('#vwcp_parciales-TRM').text());
     if (isNaN(trs)) trs=0;
     if (isNaN(trm)) trm=0;
     if (isNaN(time)) time=0;
-    vwls_evalPuestoIntermedio(trs,trm,time);
+    vwls_evalPuesto(trs,trm,time);
 }
 
-function vwcf_evalPuestoIntermedio () {
+function vwcf_evalPuesto () {
 	var trs=0;
 	var trm=0;
     var time=parseFloat($('#vwls_Tiempo').text());
@@ -376,7 +365,7 @@ function vwcf_evalPuestoIntermedio () {
 	if (isNaN(trs)) trs=0;
 	if (isNaN(trm)) trm=0;
 	if (isNaN(time)) time=0;
-	vwls_evalPuestoIntermedio(trs,trm,time);
+	vwls_evalPuesto(trs,trm,time);
 }
 
 /**
@@ -468,14 +457,17 @@ function vwcp_updateLlamada(evt,data) {
 			$("#vwls_Rehuses").html(current['Rehuses']);
 			$("#vwls_Puesto").html(current['Puesto']);
 			$("#vwls_TIntermedio").html(current['TIntermedio']);
-			$("#vwls_Eliminado").html(current['Eliminado']);
-			$("#vwls_NoPresentado").html(current['NoPresentado']);
-			if (current["Eliminado"]==1)	 $("#vwls_Tiempo").html('<span class="blink" style="color:red">Elim.</span>');
-			else if (current["NoPresentado"]==1) $("#vwls_Tiempo").html('<span class="blink" style="color:red">N.P.</span>');
-			else $("#vwls_Tiempo").html(current['Tiempo']);
+			$("#vwls_Tiempo").html(current['Tiempo']);
+			var e=parseInt(current["Eliminado"]);
+			$('#vwls_Eliminado').html(e);
+			$('#vwls_EliminadoLbl').html((e==0)?'':'<span class="blink" style="color:red"><?php _e('Elim');?>.</span>');
+			var n=parseInt(current["NoPresentado"]);
+			$('#vwls_NoPresentado').html(n);
+			$('#vwls_NoPresentadoLbl').html((n==0)?'':'<span class="blink" style="color:red"><?php _e('NoPr');?>.</span>');
+
 			// evaluamos velocidad, penalización, calificacion y puesto
 			vwc_evalResultados(dat['before']);
-			vwcp_evalPuestoIntermedio(); // repaint penalization
+			vwcp_evalPuesto(); // repaint penalization
 			// rellenamos ventana de ultimos resultados
 			$('#vwcp_ultimos-datagrid').datagrid('loadData',dat['before']).datagrid('scrollTo',0);
 		}
@@ -553,13 +545,15 @@ function vwcf_updateLlamada(evt,data) {
 			$("#vwls_Rehuses").html(current['Rehuses']);
 			$("#vwls_Puesto").html(current['Puesto']);
 			$("#vwls_TIntermedio").html(current['TIntermedio']);
-			$("#vwls_Eliminado").html(current['Eliminado']);
-			$("#vwls_NoPresentado").html(current['NoPresentado']);
-			if (current["Eliminado"]==1)	 $("#vwls_Tiempo").html('<span class="blink" style="color:red">Elim.</span>');
-			else if (current["NoPresentado"]==1) $("#vwls_Tiempo").html('<span class="blink" style="color:red">N.P.</span>');
-			else $("#vwls_Tiempo").html(current['Tiempo']);
+			$("#vwls_Tiempo").html(current['Tiempo']);
+			var e=parseInt(current["Eliminado"]);
+			$('#vwls_Eliminado').html(e);
+			$('#vwls_EliminadoLbl').html((e==0)?'':'<span class="blink" style="color:red"><?php _e('Elim');?>.</span>');
+			var n=parseInt(current["NoPresentado"]);
+			$('#vwls_NoPresentado').html(n);
+			$('#vwls_NoPresentadoLbl').html((n==0)?'':'<span class="blink" style="color:red"><?php _e('NoPr');?>.</span>');
 			// rellenamos ventana de ultimos resultados
-			vwcf_evalPuestoIntermedio(); // repaint penalization
+			vwcf_evalPuesto(); // repaint penalization
 			// dado que necesitamos tener la clasificacion con los perros de la tabla "before",
 			// lo que vamos a hacer es calcular dicha tabla aquí, en lugar de desde el evento "aceptar"
 			vwcf_updateFinales(evt, data, vwcf_evalBefore);
