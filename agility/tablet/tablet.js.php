@@ -306,46 +306,23 @@ function tablet_updateChronoData(data) {
 	// if (data["Tiempo"]!=-1) $('#chrono_Tiempo').html(data["Tiempo"]);
 	if(e>=0) {
 		var str=(data['Eliminado']==0)?"":"EL";
-		$('tdialog-Eliminado').val(e);
-		$('tdialog-EliminadoStr').val(str);
-		$('tdialog-NoPresentado').val(0);
-		$('tdialog-NoPresentadoStr').val("");
-		$('#tdialog-Tiempo').val(0);
-		$('#tdialog-Tintermedio').val(0);
+		$('#tdialog-Eliminado').val(e);
+		$('#tdialog-EliminadoStr').val(str);
+		$('#tdialog-NoPresentado').val(0);
+		$('#tdialog-NoPresentadoStr').val("");
 	}
 	if (n>=0) {
 		var str=(data['NoPresentado']==0)?"":"NP";
-		$('tdialog-NoPresentado').val(n);
-		$('tdialog-NoPresentadoStr').val(str);
-		$('tdialog-Eliminado').val(0);
-		$('tdialog-EliminadoStr').val("");
+		$('#tdialog-NoPresentado').val(n);
+		$('#tdialog-NoPresentadoStr').val(str);
+		$('#tdialog-Eliminado').val(0);
+		$('#tdialog-EliminadoStr').val("");
 		$('#tdialog-Tiempo').val(0);
 		$('#tdialog-Tintermedio').val(0);
 	}
 	// call server to update results
 	tablet_updateResultados(1);
 	// DO NOT RESEND EVENT!!!
-}
-
-/*** Parse data from electronic chrono:
- * -1:decrease 0:nochange 1:increase
- * Just invoke internal functions, but _disable_ event("data") to be sent
- * @param data
- */
-function tablet_updateChronoData_old(data) {
-	var f=parseInt(data['Faltas']);
-	var r=parseInt(data['Rehuses']);
-	var t=parseInt(data['Tocados']);
-	var e=parseInt(data['Eliminado']);
-	var n=parseInt(data['NoPresentado']);
-	if (f<0) tablet_down('#tdialog-Faltas',false);
-	if (f>0) tablet_up('#tdialog-Faltas',false);
-	if (t<0) tablet_down('#tdialog-Tocados',false);
-	if (t>0) tablet_up('#tdialog-Tocados',false);
-	if (r<0) tablet_down('#tdialog-Rehuses',false);
-	if (r>0) tablet_up('#tdialog-Rehuses',false);
-	if (e!=0) tablet_elim(false);
-	if (n!=0) tablet_np(false);
 }
 
 function tablet_cronometro(oper,time) {

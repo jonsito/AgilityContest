@@ -27,7 +27,7 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
  * @param {string} type Event Type
  * @param {object} data Event data
  */
-function chrono_putEvent(type,data){
+function chrono_putEvent(type,dat){
 	// setup default elements for this event
 	var obj= {
 			'Operation':'chronoEvent',
@@ -46,7 +46,7 @@ function chrono_putEvent(type,data){
 		type:'GET',
 		url:"/agility/server/database/eventFunctions.php",
 		dataType:'json',
-		data: $.extend({},obj,data),
+		data: $.extend({},obj,dat),
 		success: function(data) {
 			if (data.errorMsg)  $.messager.show({ width:300, height:150, title: 'Error', msg: data.errorMsg });
 		}
@@ -71,7 +71,7 @@ var c_llamada = new Countdown({
 		var dta=sprintf('%d.%d', Math.floor(tsec/10),tsec%10);
 		$('#chrono_Tiempo').html(dta);
 	}, // callback for each second
-    // onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink" style="color:red">-out-</span>'); } // final action
+    // onCounterEnd: function(){  $('#tdialog_Tiempo').html('<span class="blink">-out-</span>'); } // final action
     onCounterEnd: function(){ /* empty: let the tablet do the work */    }
 });
 
@@ -117,36 +117,21 @@ function c_updateData(data) {
 	if (data["Tocados"]!=-1) $('#chrono_Tocados').html(data["Tocados"]);
 	if (data["Rehuses"]!=-1) $('#chrono_Rehuses').html(data["Rehuses"]);
 	// if (data["Tiempo"]!=-1) $('#chrono_Tiempo').html(data["Tiempo"]);
-	if (data["Eliminado"]==1)	$('#chrono_Tiempo').html('<span class="blink" style="color:red"><?php _e("Elim");?>.</span>');
-	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red"><?php _e("NoPr");?>.</span>');
+	var e=parseInt(data["Eliminado"]);
+	if (e>=0) {
+		$('#chrono_Eliminado').html(e);
+		$('#chrono_EliminadoLbl').html((e==0)?'':'<span class="blink"><?php _e('Elim');?>.</span>');
+	}
+	var n=parseInt(data["NoPresentado"]);
+	if (n>=0) {
+		$('#chrono_NoPresentado').html(n);
+		$('#chrono_NoPresentadoLbl').html((n==0)?'':'<span class="blink"><?php _e('NoPr');?>.</span>');
+	}
 }
 
 function c_updateDataFromChrono(data) {
 	// just call c_updateData()
 	c_updateData(data);
-}
-
-/**
- * Parse data from electronic chrono:
- * -1:decrease 0:nochange 1:increase
- * @param data
- */
-function c_updateDataFromChrono_old(data) {
-	var i=$('#chrono_Faltas');
-	var res=parseInt( i.html() )+parseInt(data["Faltas"]);
-	if (res<0) res=0;
-	i.html( res.toString() );
-	i=$('#chrono_Tocados');
-	res=parseInt( i.html() )+parseInt(data["Tocados"]);
-	if (res<0) res=0;
-	i.html( res.toString() );
-	i=$('#chrono_Rehuses');
-	res=parseInt( i.html() )+parseInt(data["Rehuses"]);
-	if (res<0)res=0;
-	i.html( res.toString() );
-	// TODO: repaint timestamp when elim/notpresent mark is removed
-	if (data["Eliminado"]==1)	$('#chrono_Tiempo').html('<span class="blink" style="color:red"><?php _e("Elim");?>.</span>');
-	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red"><?php _e("NoPr");?>.</span>');
 }
 
 function c_clearData(event) {
@@ -232,10 +217,17 @@ function c_showData(data) {
 	$('#chrono_Tocados').html(data["Tocados"]);
 	$('#chrono_Rehuses').html(data["Rehuses"]);
 	$('#chrono_Tiempo').html(data["Tiempo"]);
-	if (data["Eliminado"]==1)	$('#chrono_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
-	if (data["NoPresentado"]==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red">NoPr.</span>');
-	
-}
+	var e=parseInt(data["Eliminado"]);
+	if (e>=0) {
+		$('#chrono_Eliminado').html(e);
+		$('#chrono_EliminadoLbl').html((e==0)?'':'<span class="blink"><?php _e('Elim');?>.</span>');
+	}
+	var n=parseInt(data["NoPresentado"]);
+	if (n>=0) {
+		$('#chrono_NoPresentado').html(n);
+		$('#chrono_NoPresentadoLbl').html((n==0)?'':'<span class="blink"><?php _e('NoPr');?>.</span>');
+	}
+	}
 
 /**
  * send events from chronometer to console
@@ -247,8 +239,8 @@ function chrono_button(item) {
 		'Faltas': (item=="Faltas")?val:-1,
 		'Tocados':(item=="Tocados")?val:-1,
 		'Rehuses':(item=="Rehuses")?val:-1,
-		'Eliminado':(item=="Eliminado")?val:-1,
-		'NoPresentado':(item=="NoPresentado")?val:-1
+		'Eliminado':(item=="Eliminado")?val%2:-1,
+		'NoPresentado':(item=="NoPresentado")?val%2:-1
 	};
 	chrono_putEvent('crono_dat',data);
 	doBeep();
@@ -327,14 +319,14 @@ function bindKeysToChrono() {
 				val=inc + parseInt($("#chrono-Eliminado").html());
 				val=(val<=0)?0:1;
 				$("#chrono_Eliminado").html(val);
-				if (val==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red">Elim.</span>');
+				$('#chrono_EliminadoLbl').html((val==0)?'':'<span class="blink" ><?php _e('Elim');?>.</span>');
 				chrono_putEvent('crono_dat',{'Faltas':-1,'Tocados':-1,'Rehuses':-1,'NoPresentado':-1,'Eliminado':val});
 				break;
 			case 78: // 'N' -> no presentado
 				val=inc + parseInt($("#chrono-NoPresentado").html());
 				val=(val<=0)?0:1;
 				$("#chrono_NoPresentado").html(val);
-				if (val==1) $('#chrono_Tiempo').html('<span class="blink" style="color:red">NoPr.</span>');
+				$('#chrono_NoPreseentadoLbl').html((val==0)?'':'<span class="blink"><?php _e('NoPr');?>.</span>');
 				chrono_putEvent('crono_dat',{'Faltas':-1,'Tocados':-1,'Rehuses':-1,'NoPresentado':val,'Eliminado':-1});
 				break;
 			// arranque parada del crono

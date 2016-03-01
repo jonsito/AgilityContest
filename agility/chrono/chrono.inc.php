@@ -49,8 +49,10 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
 			<span class="chrono_data chrono_dataLbl" id="chrono_TocadosLbl"><?php _e('T');?>:</span>
 			<span class="chrono_data"  id="chrono_Tocados">0</span>
 			<span class="chrono_data chrono_dataLbl" id="chrono_RehusesLbl"><?php _e('R');?>:</span>
-			<span class="chrono_data"  id="chrono_Rehuses">0</span>
+			<span class="chrono_data" id="chrono_Rehuses">0</span>
+			<span class="chrono_data" id="chrono_EliminadoLbl"></span>
 			<span id="chrono_Eliminado" style="display:none">0</span>
+			<span class="chrono_data" id="chrono_NoPresentadoLbl"></span>
 			<span id="chrono_NoPresentado" style="display:none">0</span>
 			<!-- Cronometro -->
 			<span class="chrono_flags" id="chrono_Manual"></span>
@@ -88,9 +90,9 @@ if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth F
    			<a id="chrono-fltBtn" href="#" class="easyui-linkbutton"
    			   	data-options="iconCls: 'icon-hand'" onclick="chrono_button('Faltas')"><?php _e('Fault'); ?></a>
    			<a id="chrono-rehBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-fist'" onclick="chrono_button('Tocados')"><?php _e('Refusal'); ?></a>
+			   data-options="iconCls: 'icon-fist'" onclick="chrono_button('Rehuses')"><?php _e('Refusal'); ?></a>
    			<a id="chrono-elimBtn" href="#" class="easyui-linkbutton"
-   			   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('Rehuses')"><?php _e('Eliminated'); ?></a>
+   			   	data-options="iconCls: 'icon-undo'" onclick="chrono_button('Eliminado')"><?php _e('Eliminated'); ?></a>
    			<a id="chrono-errorBtn" href="#" class="easyui-linkbutton"
 			   data-options="iconCls: 'icon-alert'" onclick="chrono_markError()"><?php _e('Error'); ?></a>
    			<a id="chrono-resetBtn" href="#" class="easyui-linkbutton"
@@ -165,12 +167,15 @@ doLayout(layout,"#chrono_DatosBg",		5,		210,	790,	85	);
 doLayout(layout,"#chrono_PruebaLbl",	10,		5,		665,	17	);
 doLayout(layout,"#chrono_LogoClub",		695,	10,		95,		60	);
 
-doLayout(layout,"#chrono_FaltasLbl",	700,	100,	50,		30	);
-doLayout(layout,"#chrono_TocadosLbl",	700,	135,	50,		30	);
-doLayout(layout,"#chrono_RehusesLbl",	700,	170,	50,		30	);
-doLayout(layout,"#chrono_Faltas",		750,	100,	35,		30	);
-doLayout(layout,"#chrono_Tocados",		750,	135,	35,		30	);
-doLayout(layout,"#chrono_Rehuses",		750,	170,	35,		30	);
+doLayout(layout,"#chrono_FaltasLbl",	700,	100,	50,		25	);
+doLayout(layout,"#chrono_TocadosLbl",	700,	125,	50,		25	);
+doLayout(layout,"#chrono_RehusesLbl",	700,	150,	50,		25	);
+doLayout(layout,"#chrono_Faltas",		750,	100,	35,		25	);
+doLayout(layout,"#chrono_Tocados",		750,	125,	35,		25	);
+doLayout(layout,"#chrono_Rehuses",		750,	150,	35,		25	);
+// same location for elim and np
+doLayout(layout,"#chrono_EliminadoLbl",	700,	175,	85,		25	);
+doLayout(layout,"#chrono_NoPresentadoLbl",	700,	175,	85,		25	);
 
 doLayout(layout,"#chrono_Manual",		600,	30,	    55, 	10	);
 doLayout(layout,"#chrono_Intermedio",	580,	40,	    75, 	10	);
