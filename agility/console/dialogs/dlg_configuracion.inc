@@ -171,12 +171,15 @@ $config =Config::getInstance();
 				
 		<div title="<?php _e('System'); ?>" style="padding:10px">
 			<h3><?php _e('General configuration'); ?></h3>
-			<label for="config_lang"><?php _e('Language'); ?></label>
+			<label for="config_lang"><?php _e('Default language'); ?></label>
 			<select id="config_lang" name="lang">
 				<option value="es_ES" selected="selected"><?php _e('Spanish'); ?></option>
 				<option value="en_US"><?php _e('English'); ?></option>
 				<option value="de_DE"><?php _e('German'); ?></option>
 			</select><br />
+			<label for="accept_lang"><?php _e('Choose language from browser preferences'); ?></label>
+			<input type="hidden" name="accept_lang" value="0"/> <!-- trick for checkboxes -->
+			<input type="checkbox" name="accept_lang" id="accept_lang" value="1"/><br />
 			<label for="debug_level"><?php _e('Debug level'); ?></label>
 			<select id="debug_level" name="debug_level">
 				<!-- "PANIC","ALERT","ERROR","WARN","NOTICE","INFO","DEBUG","TRACE","ALL" -->

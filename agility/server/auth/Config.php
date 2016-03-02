@@ -22,7 +22,8 @@ define('AC_SYSTEM_FILE',__DIR__."/system.ini"); // system configuration.
 define('AC_BATCH_FILE',__DIR__."/../../../settings.bat"); // to store lang info in windoze
 
 /** Internacionalizacion. Idiomas **/
-define ('AC_LANG','es_ES');
+define('AC_LANG','es_ES');
+define('AC_ACCEPT_LANG','0');
 
 /** logging **/
 define('AC_DEBUG_LEVEL',0);
@@ -92,7 +93,13 @@ Class Config {
 	public static $locale_list= array( // stupid ms-windows :-(
 		"es_ES" => Array('es_ES','es','es_ES.UTF-8','esp','spanish','spanish.1252'),
 		"en_US" => Array('en_us','en','en_US.UTF-8','eng','english','english.1252'),
-		"de_DE" => Array('de_DE','de','de_DE.UTF-8','ger','german','german.1252')
+		"de_DE" => Array('de_DE','de','de_DE.UTF-8','ger','german','german.1252'),
+		"es" => Array('es_ES','es','es_ES.UTF-8','esp','spanish','spanish.1252'),
+		"en" => Array('en_us','en','en_US.UTF-8','eng','english','english.1252'),
+		"de" => Array('de_DE','de','de_DE.UTF-8','ger','german','german.1252'),
+		"es-ES" => Array('es_ES','es','es_ES.UTF-8','esp','spanish','spanish.1252'),
+		"en-US" => Array('en_us','en','en_US.UTF-8','eng','english','english.1252'),
+		"de-DE" => Array('de_DE','de','de_DE.UTF-8','ger','german','german.1252')
 	);
 
 	// singleton pattern
@@ -106,6 +113,39 @@ Class Config {
 		$stderr = fopen('php://stderr', 'w');
 		fwrite($stderr,$msg);
 		fclose($stderr);
+	}
+
+	function getPreferredLanguage($default) {
+		$doIt=intval($this->config['accept_lang']);
+		if ($doIt==0) return $default;
+		if (!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) return $default;
+		$al=$_SERVER['HTTP_ACCEPT_LANGUAGE'];
+
+		// regex inspired from @GabrielAnderson on http://stackoverflow.com/questions/6038236/http-accept-language
+		preg_match_all('/([a-z]{1,8}(-[a-z]{1,8})*)\s*(;\s*q\s*=\s*(1|0\.[0-9]+))?/i', $al, $lang_parse);
+		$langs = $lang_parse[1];
+		$ranks = $lang_parse[4];
+
+		// (create an associative array 'language' => 'preference')
+		$lang2pref = array();
+		for($i=0; $i<count($langs); $i++)
+			$lang2pref[$langs[$i]] = (float) (!empty($ranks[$i]) ? $ranks[$i] : 1);
+
+		// (comparison function for uksort)
+		$cmpLangs = function ($a, $b) use ($lang2pref) {
+			if ($lang2pref[$a] > $lang2pref[$b])		return -1;
+			elseif ($lang2pref[$a] < $lang2pref[$b])	return 1;
+			elseif (strlen($a) > strlen($b))			return -1;
+			elseif (strlen($a) < strlen($b))			return 1;
+			else return 0;
+		};
+
+		// sort the languages by prefered language and by the most specific region
+		uksort($lang2pref, $cmpLangs);
+
+		// return the first value's key
+		reset($lang2pref);
+		return key($lang2pref);
 	}
 
 	private function __construct() {
@@ -122,6 +162,7 @@ Class Config {
 
 		// Internacionalizacion. Idiomas
 		$this->config['lang'] =	AC_LANG;
+		$this->config['accept_lang'] =	AC_ACCEPT_LANG;
         $this->config['proximity_alert'] =	AC_PROXIMITY_ALERT;
 
 		// variables del sistema.
@@ -203,7 +244,7 @@ Class Config {
 
 		// y ahora preparamos la internacionalizacion
 		$windows=(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN')?true:false;
-		$locale=$this->config['lang'];
+		$locale=$this->getPreferredLanguage($this->config['lang']);
 
 		$locales=Config::$locale_list[$locale];
 		$sel=setlocale(LC_ALL, $locales);
@@ -358,6 +399,7 @@ Class Config {
 		$this->config['web_refreshtime'] =	AC_WEB_REFRESHTIME;
 		// Internacionalizacion. Idiomas
 		$data['lang'] =	AC_LANG;
+		$data['accept_lang'] =	AC_ACCEPT_LANG;
 		$res=array_merge($this->config,$data);
 		$result=$this->write_ini_file($res,AC_CONFIG_FILE);
 		if ($result===FALSE) {
@@ -426,6 +468,7 @@ Class Config {
 
 		// Sistema
 		$data=testAndSet($data,'lang','s',AC_LANG);
+		$data=testAndSet($data,'accept_lang','i',AC_ACCEPT_LANG);
 		$data=testAndSet($data,'debug_level','i',AC_DEBUG_LEVEL);
         $data['register_events']=http_request('register_events','s',AC_REGISTER_EVENTS);
         $data['reset_events']=http_request('reset_events','s',AC_RESET_EVENTS);
