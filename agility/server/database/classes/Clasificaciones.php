@@ -120,8 +120,35 @@ class Clasificaciones extends DBObject {
 		if ($c2!=null) { // Procesamos la segunda manga
 			foreach($c2['rows'] as $item) {
 				if (!isset($final[$item['Perro']])) {
-					$this->myLogger->error("El perro con ID:{$item['Perro']} no tiene datos en la primera manga.");
-					continue;
+					$this->myLogger->notice("El perro con ID:{$item['Perro']} no tiene datos en la primera manga.");
+					$final[$item['Perro']]= array( // generamos datos de primera manga vacios
+						// datos del participante
+						'Participantes' => count($c2['rows']),
+						'Perro' => $item['Perro'],
+						'Dorsal' => $item['Dorsal'],
+						'Nombre' => $item['Nombre'],
+						'Licencia' => $item['Licencia'],
+						'Categoria' => $item['Categoria'],
+						'Grado' => $item['Grado'],
+						'Equipo' => $item['Equipo'],
+						'NombreEquipo' => $item['NombreEquipo'],
+						'NombreGuia' => $item['NombreGuia'],
+						'NombreClub' => $item['NombreClub'],
+						'LogoClub' => $item['LogoClub'],
+						// datos manga 1
+						'F1' => 0,
+						'R1' => 0,
+						'E1' => 0,
+						'N1' => 0,
+						'T1' => 0,
+						'V1' => 0,
+						'P1' => 0,
+						'C1' => '',
+						'Puesto1' => 0, // puesto conjunto
+						'Pcat1' => 0, // puesto por categoria
+						'Puesto' => 0, // to be evaluated
+						'Pcat' => 0 // to be evaluated
+					);
 				}
 				$final[$item['Perro']]['F2'] = $item['Faltas'] + $item['Tocados'];
                 $final[$item['Perro']]['R2'] = $item['Rehuses'];

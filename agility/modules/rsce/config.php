@@ -117,7 +117,7 @@ class RSCE extends Federations {
         $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
         if (intval($m->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
         // solo puntuan los 10 primeros
-        if ( $puestocat[$perro['Categoria']]>10 )  {
+        if ( ($puestocat[$perro['Categoria']]>10) || ($puestocat[$perro['Categoria']]<=0) ) {
             parent::evalPartialCalification($p,$j,$m,$perro,$puestocat);
             return;
         }
@@ -182,20 +182,20 @@ class RSCE extends Federations {
             $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
             if (intval($m1->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
             $perro['C1']="";
-            if ( ($perro['P1']<6.0) && ($perro['Pcat1']<=10) ) {
+            if ( ($perro['P1']<6.0) && ($perro['Pcat1']<=10) && ($perro['Pcat1']>0)) {
                 $perro['C1']=$pts[$perro['Pcat1']-1];
             }
             // manga 2 - puntuan los 10 primeros en cada manga con excelente
             $pts=array("25","20","16","12","8","6","4","3","2","1"); // puntuacion manga de agility
             if (intval($m2->Tipo)==11) $pts=array("18","14","11","8","6","5","4","3","2","1"); // puntuacion manga de jumping
             $perro['C2']="";
-            if ( ($c2!=null) && ($perro['P2']<6.0) && ($perro['Pcat2']<=10) ) {
+            if ( ($c2!=null) && ($perro['P2']<6.0) && ($perro['Pcat2']<=10) && ($perro['Pcat2']>0)) {
                 $perro['C2']=$pts[$perro['Pcat2']-1];
             }
             // conjunta - puntuan los 10 primeros si tienen doble excelente
             $pts=array("10","9","8","7","6","5","4","3","2","1"); // puntuacion manga conjunta individual
             $pfin=" ";
-            if ( ($perro['P1']<6.0) && ($perro['P2']<6.0)  && ($perro['Pcat']<=10) ) {
+            if ( ($perro['P1']<6.0) && ($perro['P2']<6.0)  && ($perro['Pcat']<=10) && ($perro['Pcat']>0)) {
                 $pfin=$pts[$perro['Pcat']-1];
             }
             // finalmente componemos el string a presentar
@@ -205,7 +205,7 @@ class RSCE extends Federations {
             // solo puntua conjunta si el perro tiene doble excelente
             $ptsteam=array("20","16","12","8","7","6","4","3","2","1"); // puntuacion manga conjunta equipos
             $pteam=" ";
-            if ( ($perro['P1']<6.0) && ($perro['P2']<6.0)  && ($perro['Pcat']<=10) ) {
+            if ( ($perro['P1']<6.0) && ($perro['P2']<6.0)  && ($perro['Pcat']<=10) && ($perro['Pcat']>0) ) {
                 $pteam=$ptsteam[$perro['Pcat']-1];
             }
             // finalmente componemos el string a presentar

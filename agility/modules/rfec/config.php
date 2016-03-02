@@ -83,7 +83,7 @@ class RFEC extends Federations {
         if ($perro['Penalizacion']<6.0) $pt1++; // 1 punto por excelente
         if ($perro['Penalizacion']==0.0) $pt1++; // 2 puntos por cero
         // puntos a los 5 primeros por manga/categoria si no estan eliminados
-        if ( ($perro['Penalizacion']<100) && ($puestocat[$cat]<=5) ) $pt1+= $ptsmanga[$puestocat[$cat]-1];
+        if ( ($puestocat[$cat]>0) && ($perro['Penalizacion']<100) && ($puestocat[$cat]<=5) ) $pt1+= $ptsmanga[$puestocat[$cat]-1];
         if ($perro['Penalizacion']>=200)  {
             $perro['Penalizacion']=200.0;
             $perro['Calificacion'] = _("Not Present");
@@ -142,7 +142,7 @@ class RFEC extends Federations {
         if ($perro['P1']<6.0) $pt1++; // 1 punto por excelente
         if ($perro['P1']==0.0) $pt1++; // 2 puntos por cero
         // puntos a los 5 primeros por manga/categoria si no estan eliminados
-        if ( ($perro['P1']<100) && ($perro['Pcat1']<=5) ) $pt1+= $ptsmanga[$perro['Pcat1']-1];
+        if ( ($perro['Pcat1']>0) && ($perro['P1']<100) && ($perro['Pcat1']<=5) ) $pt1+= $ptsmanga[$perro['Pcat1']-1];
         $perro['C1']=($pt1==0)?" ":strval($pt1);
         // manga 2
         $pt2=0;
@@ -150,7 +150,7 @@ class RFEC extends Federations {
             if ($perro['P2']<6.0) $pt2++; // 1 punto por excelente
             if ($perro['P2']==0.0) $pt2++; // 2 puntos por cero
             // puntos a los 5 primeros por manga/categoria si no estan eliminados
-            if ( ($perro['P2']<100) && ($perro['Pcat2']<=5) ) $pt2+= $ptsmanga[$perro['Pcat2']-1];
+            if ( ($perro['Pcat2']>0) && ($perro['P2']<100) && ($perro['Pcat2']<=5) ) $pt2+= $ptsmanga[$perro['Pcat2']-1];
         }
         $perro['C2']=($pt2==0)?" ":strval($pt2);
         // conjunta

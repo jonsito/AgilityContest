@@ -148,7 +148,7 @@ class UCA extends Federations {
         $perro['C2']=($pt2==0)?" ":strval($pt2);
         // final
         // solo puntuan en la global los siete primeros con dobles excelentes
-        if (($pt1<4) || ($pt2<4) || ($puestocat[$cat]>7) ) {
+        if (($pt1<4) || ($pt2<4) || ($puestocat[$cat]>7) || ($puestocat[$cat]<=0) ) {
             $perro['Calificacion']="";
         } else {
             $perro['Calificacion']= $pts[ $puestocat[$cat]-1 ];
