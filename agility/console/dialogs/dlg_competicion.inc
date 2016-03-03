@@ -38,6 +38,10 @@ $config =Config::getInstance();
    	</span>
    	<span style="float:right;padding:5px">
    		<!-- estos elementos deben estar alineados a la derecha -->
+
+	   	<a id="competicion-swapBtn" href="#" class="easyui-linkbutton"
+		   data-options="iconCls:'icon-updown'" onclick="swapMangas()"><?php _e('Swap'); ?></a>
+
 	   	<a id="competicion-resetBtn" href="#" class="easyui-linkbutton"
 		   data-options="iconCls:'icon-brush'" onclick="resetCompeticion()"><?php _e('Reset'); ?></a>
    		<a id="competicion-printBtn" href="#" class="easyui-linkbutton"
@@ -220,6 +224,7 @@ function cancelrow(target){
 }
 //- botones del panel de entrada de datos
 addTooltip($('#competicion-reloadBtn').linkbutton(),'<?php _e("Reload competition data on this round"); ?>');
+addTooltip($('#competicion-swapBtn').linkbutton(),'<?php _e("Swap data and results from Agility/Jumping matching round"); ?>');
 addTooltip($('#competicion-resetBtn').linkbutton(),'<?php _e("Delete every competitors data on this round"); ?>');
 addTooltip($('#competicion-printBtn').linkbutton(),'<?php _e("Print judge assistant forms"); ?>');
 addTooltip($('#competicion-autoUpdateBtn'),'<?php _e("(de)activate periodic refresh of results for this round"); ?>');

@@ -649,9 +649,9 @@ function resetCompeticion() {
         return;
     }
     var msg='<?php _e('Youll lost <strong>EVERY</strong> inserted results'); ?>'+'<br />'+
-        '<?php _e('in every categories on this round'); ?>'+'<br />'+
+        '<?php _e('in every categories on this round'); ?>'+'<br /><br />'+
         '<?php _e('Do you really want to continue?'); ?>';
-    $.messager.confirm('<?php _e("Erase results");?>', msg, function(r){
+    var w=$.messager.confirm('<?php _e("Erase results");?>', msg, function(r){
         if (!r) return;
         $.ajax({
             type:'GET',
@@ -667,8 +667,39 @@ function resetCompeticion() {
             reloadCompeticion();
         });
     });
+    w.window('resize',{width:400}).window('center');
 }
 
+function swapMangas() {
+    if (workingData.jornada==0) return;
+    if (workingData.manga==0) return;
+    // si hay alguna celda en edicion, ignorar
+    if ($('#competicion-datagrid').datagrid('options').editIndex!=-1) {
+        $.messager.alert('<?php _e("Busy"); ?>','<?php _e("Cannot swap: a cell is being edited"); ?>',"error");
+        return;
+    }
+    var msg='<?php _e('This action will exchange <strong>EVERY</strong> inserted results'); ?> '+
+        '<?php _e('in all categories with the Agility/Jumping counterpart of this round'); ?>'+'<br /><br />'+
+        '<?php _e('Do you really want to continue?'); ?>';
+    var w=$.messager.confirm('<?php _e("Swaps results");?>', msg, function(r){
+        if (!r) return;
+        $.ajax({
+            type:'GET',
+            url:"/agility/server/database/mangaFunctions.php",
+            dataType:'json',
+            data: {
+                Prueba: workingData.prueba,
+                Jornada: workingData.jornada,
+                Manga: workingData.manga,
+                Operation: 'swap'
+            }
+        }).done( function(msg) {
+            $('#competicion-dialog').dialog('close');
+            $('#competicion-listamangas').datagrid('reload');
+        });
+    });
+    w.window('resize',{width:450}).window('center');
+}
 var autoUpdateID=null;
 
 function autoUpdateCompeticion() {
